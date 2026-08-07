@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.gui.nattable;
 
@@ -50,7 +50,7 @@ public class ConfigurationProvider implements IPropertyTableConfigurationProvide
         private INatTableViewerContext context;
 
         @objid ("981b9333-73ac-413e-9a73-3edfc88bb177")
-        public  Configuration(INatTableViewerContext context, PropertyTableDataModel dataModel) {
+        public Configuration(INatTableViewerContext context, PropertyTableDataModel dataModel) {
             this.context = context;
         }
 
@@ -58,27 +58,27 @@ public class ConfigurationProvider implements IPropertyTableConfigurationProvide
         @Override
         public void configureRegistry(IConfigRegistry configRegistry) {
             final String tag = CellTagHelper.getTypeTag(IDocumentNatValue.class);
-            
+
             // Style and painter
             Style cellStyle = new Style();
             cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.LEFT);
             cellStyle.setAttributeValue(CellStyleAttributes.VERTICAL_ALIGNMENT, VerticalAlignmentEnum.TOP);
             configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL, tag);
-            
-            
+
+
             configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_PAINTER, new DocumentPainter(this.context.getSession()),
                     DisplayMode.NORMAL, tag);
-            
+
             // Display converter
             configRegistry.registerConfigAttribute(CellConfigAttributes.DISPLAY_CONVERTER,
                     new NatValueWrappingDisplayConverter(new DocumentDisplayConverter()), DisplayMode.NORMAL, tag);
-            
+
             // Editor
             final DocumentEditor editor = new DocumentEditor(this.context);
             configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITOR, editor, DisplayMode.EDIT, tag);
-            
+
             // Validator
-            
+
         }
 
     }

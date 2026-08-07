@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.participant;
 
@@ -79,6 +79,7 @@ public class CreateBpmnParticipantCommand extends Command {
 
     /**
      * Creates a node creation command.
+     *
      * @param parentCollaboration the element that lead to this command.
      * @param parentNode The parent editPart
      * @param elementToUnmask The element to unmask. Might be <code>null</code>.
@@ -88,7 +89,7 @@ public class CreateBpmnParticipantCommand extends Command {
      * @param requestConstraint Request Constraint
      */
     @objid ("0533624f-46c4-4005-830a-15c7296bc6f0")
-    public  CreateBpmnParticipantCommand(BpmnCollaboration parentCollaboration, GmCompositeNode parentNode, MObject elementToUnmask, boolean isParticipantCreation, Stereotype participantStereotype, Map<String, Object> creationProperties, Object requestConstraint) {
+    public CreateBpmnParticipantCommand(BpmnCollaboration parentCollaboration, GmCompositeNode parentNode, MObject elementToUnmask, boolean isParticipantCreation, Stereotype participantStereotype, Map<String, Object> creationProperties, Object requestConstraint) {
         this.parentNode = parentNode;
         this.parentCollaboration = parentCollaboration;
         this.newConstraint = requestConstraint;
@@ -96,14 +97,14 @@ public class CreateBpmnParticipantCommand extends Command {
         this.isParticipantCreation = isParticipantCreation;
         this.participantStereotype = participantStereotype;
         this.creationProperties = creationProperties;
-        
+
     }
 
     @objid ("518810bc-d3d7-4639-b219-aeec44133d37")
     @Override
     public void execute() {
         final IGmDiagram diagram = this.parentNode.getDiagram();
-        
+
         BpmnParticipant participant = null;
         BpmnProcess process = null;
         ModelElement reference = null;
@@ -117,38 +118,38 @@ public class CreateBpmnParticipantCommand extends Command {
             process = (BpmnProcess) this.elementToUnmask;
             participant = getExistingParticipant(this.parentCollaboration, process);
         }
-        
+
         if (participant == null) {
             final IModelManager modelManager = diagram.getModelManager();
             final IStandardModelFactory modelFactory = modelManager.getModelFactory().getFactory(IStandardModelFactory.class);
             final IElementConfigurator elementConfigurer = modelManager.getModelServices().getElementConfigurer();
             final IElementNamer elementNamer = modelManager.getModelServices().getElementNamer();
-        
+
             // Optionally create the Process
             if (process == null && !this.isParticipantCreation) {
                 process = createBpmnProcess(modelFactory, elementNamer, getBpmnContext());
             }
-        
+
             // Create the Participant
             participant = modelFactory.createBpmnParticipant();
             participant.setContainer(this.parentCollaboration);
             participant.setProcess(process);
-        
+
             // Attach the stereotype if requested.
             if (this.participantStereotype != null) {
                 participant.getExtension().add(this.participantStereotype);
             }
-        
+
             // Configure element from properties
             elementConfigurer.configure(participant, this.creationProperties);
-        
+
             // Set default name
             if (process == null) {
                 participant.setName(elementNamer.getUniqueName(participant));
             } else {
                 participant.setName(process.getName());
             }
-        
+
             if (reference != null) {
                 MClass linkMetaclass = modelManager.getMetamodel().getMClass(MethodologicalLink.MQNAME);
                 IMdaExpert mdaExpert = modelManager.getMdaExpert();
@@ -157,7 +158,7 @@ public class CreateBpmnParticipantCommand extends Command {
                 }
             }
         }
-        
+
         if(this.newConstraint instanceof Rectangle) {
             Rectangle constraint  = (Rectangle)this.newConstraint;
             if(constraint.width < 800) {
@@ -167,9 +168,9 @@ public class CreateBpmnParticipantCommand extends Command {
                 constraint.height = 120;
             }
         }
-        
+
         diagram.unmask(this.parentNode, participant, this.newConstraint);
-        
+
     }
 
     @objid ("b55bc17d-7745-4d71-ae6d-efbdb48daaa6")
@@ -181,11 +182,11 @@ public class CreateBpmnParticipantCommand extends Command {
         if (!MTools.getAuthTool().canModify(diagram)) {
             return false;
         }
-        
+
         if (!MTools.getAuthTool().canModify(diagram.getOrigin())) {
             return false;
         }
-        
+
         // If it is an actual creation (and not a simple unmasking).
         if (this.elementToUnmask == null) {
             // The parent element must be modifiable or both must be CMS nodes.
@@ -203,6 +204,7 @@ public class CreateBpmnParticipantCommand extends Command {
     }
 
     /**
+     *
      * @return a participant already referencing the process being unmasked.
      */
     @objid ("518f1adc-f855-44f3-bffe-cccf9600448e")
@@ -232,11 +234,11 @@ public class CreateBpmnParticipantCommand extends Command {
             // Invalid context
             return null;
         }
-        
+
         if (this.elementToUnmask != null) {
             // Set default name
             newProcess.setName(this.elementToUnmask.getName());
-        
+
             final IModelManager modelManager = this.parentNode.getDiagram().getModelManager();
             MClass linkMetaclass = modelManager.getMetamodel().getMClass(MethodologicalLink.MQNAME);
             IMdaExpert mdaExpert = modelManager.getMdaExpert();
@@ -263,10 +265,10 @@ public class CreateBpmnParticipantCommand extends Command {
         BpmnProcessDesignDiagram diagram = modelFactory.createBpmnProcessDesignDiagram();
         diagram.setOrigin(process);
         diagram.setName(elementNamer.getUniqueName(diagram));
-        
+
         // Layout diagram
         new BpmnLayouter(diagram).run();
-        
+
     }
 
     @objid ("a5e12111-ecc6-408b-8afc-b7f8f1e90870")
@@ -277,7 +279,7 @@ public class CreateBpmnParticipantCommand extends Command {
         } else {
             return this.parentCollaboration.getCompositionOwner();
         }
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.patterns.properties;
 
@@ -32,7 +32,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 @objid ("51548822-22c4-40ee-935c-2240ef5fd947")
 public class PatternPropertyPage extends AbstractModulePropertyPage {
     @objid ("cc9eca8a-b143-42b6-88f8-ba18e9fea600")
-    public  PatternPropertyPage(IModule module, String name, String label, String bitmap) {
+    public PatternPropertyPage(IModule module, String name, String label, String bitmap) {
         super(module, name, label, bitmap);
     }
 
@@ -50,7 +50,7 @@ public class PatternPropertyPage extends AbstractModulePropertyPage {
             ModelElement element = (ModelElement) selectedElements.get(0);
             getContent(element).changeProperty(element, row, value);
         }
-        
+
     }
 
     /**
@@ -67,7 +67,7 @@ public class PatternPropertyPage extends AbstractModulePropertyPage {
             ModelElement element = (ModelElement) selectedElements.get(0);
             getContent(element).update(element, table);
         }
-        
+
     }
 
     @objid ("32ccb059-1e69-4241-b0d6-5940c1eaf04a")

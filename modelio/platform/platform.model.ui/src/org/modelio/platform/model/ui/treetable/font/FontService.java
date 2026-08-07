@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.treetable.font;
 
@@ -40,24 +40,23 @@ public final class FontService {
                     fontDescription = CoreUi.I18N.getString("TreeTable.NORMAL_FONTSTYLE.label");
                     break;
                 case SWT.BOLD:
-                    fontDescription = CoreUi.I18N.getString("TreeTable.BOLD_FONTSTYLE.label"); 
+                    fontDescription = CoreUi.I18N.getString("TreeTable.BOLD_FONTSTYLE.label");
                     break;
                 case SWT.ITALIC:
-                    fontDescription = CoreUi.I18N.getString("TreeTable.ITALIC_FONTSTYLE.label"); 
+                    fontDescription = CoreUi.I18N.getString("TreeTable.ITALIC_FONTSTYLE.label");
                     break;
                 case (SWT.BOLD + SWT.ITALIC):
                     fontDescription = CoreUi.I18N.getString("TreeTable.BOLDITALIC_FONTSTYLE.label");
                     break;
             }
-        
+
             return fData.getName() + ", " + fontDescription + ", " + fData.getHeight();
         } else
             return "";
-        
     }
 
     @objid ("6b39bc20-1eba-11e2-9382-bc305ba4815c")
-    private  FontService() {
+    private FontService() {
         // private constructor to forbid class instantiation
     }
 

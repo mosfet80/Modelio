@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.checker.actions;
 
@@ -42,13 +42,13 @@ public class DisableRuleHandlerAction extends Action {
     private IAuditService auditService;
 
     @objid ("f1f6d2a2-284c-4663-8b25-13d40883ae5c")
-    public  DisableRuleHandlerAction(IAuditService auditService, Tree tree) {
+    public DisableRuleHandlerAction(IAuditService auditService, Tree tree) {
         this.auditService = auditService;
         this.tree = tree;
-        
+
         setText(Audit.I18N.getString("Audit.CheckerView.Contextual.Disable"));
         setImageDescriptor(Audit.getImageDescriptor("icons/suspended.png"));
-        
+
     }
 
     @objid ("3a226a03-0c35-4f96-be56-947ec080afc5")
@@ -56,26 +56,26 @@ public class DisableRuleHandlerAction extends Action {
     public void run() {
         TreeItem[] item = this.tree.getSelection();
         Object obj = item[0].getData();
-        
+
         String ruleId = null;
         if (obj instanceof IAuditEntry) {
             ruleId = ((IAuditEntry) obj).getRuleId();
         } else if (obj instanceof AuditRuleModel) {
             ruleId = ((AuditRuleModel) obj).rule;
         }
-        
+
         if (ruleId != null) {
-        
+
             AuditConfigurationModel prefModel = this.auditService.getConfigurationModel();
             AuditRule rulePref = prefModel.get(ruleId);
-        
+
             if (rulePref != null) {
                 rulePref.setEnabled(false);
                 this.auditService.apply(prefModel);
                 this.tree.redraw();
             }
         }
-        
+
     }
 
     @objid ("51359115-7eaf-414c-872e-61d61c6ff303")

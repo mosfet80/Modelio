@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.linknode;
 
@@ -53,8 +53,8 @@ import org.modelio.diagram.elements.core.requests.CreateLinkConstants;
  * <li>the popup menu propositions as a {@link ICreationActionProvider} instance in {@link #getActionProvider()} .</li>
  * <li> {@link #isLinkSupported(ModelioLinkCreationContext)}
  * </ul>
- * 
- * 
+ *
+ *
  * The policy does not provide any control on what can be created and under which circumstances for the simple reason
  * that its effective behavior is provided by the {@link ICreationActionProvider} instances that are added to it. <br>
  * Implementors have to include the expected checks in the {@link ICreationActionProvider} implementation they provide.
@@ -75,6 +75,7 @@ public abstract class AbstractCreateLinkChooseNodeEditPolicy extends GraphicalEd
 
     /**
      * Get the action provider in charge of defining which node creation action are to be proposed to the end user.
+     *
      * @return the action provider to populate the node creation choice menu.
      */
     @objid ("717b5f30-80cf-439b-b613-727c1d5d6f4b")
@@ -82,6 +83,7 @@ public abstract class AbstractCreateLinkChooseNodeEditPolicy extends GraphicalEd
 
     /**
      * Define whether or not a kind of link is handled by this policy.
+     *
      * @param linkCtx the link creation context , may be null
      * @return true if the policy handles the type of link defined in linkCtx. false otherwise. If false the policy won't provide any target edit part nor any command.
      */
@@ -92,7 +94,8 @@ public abstract class AbstractCreateLinkChooseNodeEditPolicy extends GraphicalEd
      * Calls {@link #getConnectionCreateLinkChooseNodeCommand(CreateConnectionRequest)} for {@link CreateLinkConstants#REQ_CONNECTION_CREATE_LINK_CHOOSENODE}
      * request.
      * <p>
-     * @see  {@link #getConnectionCreateLinkChooseNodeCommand(CreateConnectionRequest)}
+     *
+     * @see {@link #getConnectionCreateLinkChooseNodeCommand(CreateConnectionRequest)}
      */
     @objid ("c70c47e6-114c-46a9-9c73-841ba4ca95f0")
     @Override
@@ -128,7 +131,7 @@ public abstract class AbstractCreateLinkChooseNodeEditPolicy extends GraphicalEd
             showTargetConnectionFeedback((DropRequest) request);
             showSourceConnectionFeedback((CreateConnectionRequest) request);
         }
-        
+
     }
 
     @objid ("34608ad9-3210-4657-a77f-e84af389e866")
@@ -139,7 +142,7 @@ public abstract class AbstractCreateLinkChooseNodeEditPolicy extends GraphicalEd
             eraseTargetConnectionFeedback();
             eraseSourceConnectionFeedback((CreateConnectionRequest) request);
         }
-        
+
     }
 
     @objid ("30143e94-eb1e-4113-89cd-2042ff0aaf89")
@@ -150,30 +153,31 @@ public abstract class AbstractCreateLinkChooseNodeEditPolicy extends GraphicalEd
             feedbackLayer.remove(this.highlight);
             this.highlight = null;
         }
-        
+
     }
 
     /**
      * Computes the command for a {@link CreateLinkConstants#REQ_CONNECTION_CREATE_LINK_CHOOSENODE} request.
+     *
      * @param req a {@link CreateLinkConstants#REQ_CONNECTION_CREATE_LINK_CHOOSENODE} request.
      * @return the command or null.
      */
     @objid ("f35727ce-a658-4f7b-af4b-71d444aaf2e6")
     protected Command getConnectionCreateLinkChooseNodeCommand(CreateConnectionRequest req) {
         final ModelioLinkCreationContext context = ModelioLinkCreationContext.lookRequest(req);
-        
+
         // Only handle link model element creation requests.
         if (context == null) {
             return null;
         }
-        
+
         if (context.getElementToUnmask() == null) {
             ICreationActionProvider effectiveProvider = getEffectiveActionProvider(getActionProvider());
-        
+
             UserChoiceCreationCommand cmd = new UserChoiceCreationCommand(getHost().getViewer(), effectiveProvider);
             cmd.update(req);
             return cmd;
-        
+
         }
         return null;
     }
@@ -191,7 +195,7 @@ public abstract class AbstractCreateLinkChooseNodeEditPolicy extends GraphicalEd
         } else {
             hightlightType = FigureUtilities2.HighlightType.WARNING;
         }
-        
+
         // create a highlight figure if it does not exist
         if (this.highlight == null) {
             // create a highlight figure
@@ -206,7 +210,7 @@ public abstract class AbstractCreateLinkChooseNodeEditPolicy extends GraphicalEd
             this.highlight.setOpaque(false);
             this.highlight.setBackgroundColor(null);
         }
-        
+
     }
 
     /**
@@ -214,6 +218,7 @@ public abstract class AbstractCreateLinkChooseNodeEditPolicy extends GraphicalEd
      * <li> filters the given one selecting only node creation actions
      * <li> and chains them with a link creation action
      * </ul>
+     *
      * @param actionProvider a creation actions provider
      * @return the final provider.
      */
@@ -226,6 +231,7 @@ public abstract class AbstractCreateLinkChooseNodeEditPolicy extends GraphicalEd
 
     /**
      * Asks the source edit part to show feedback of a normal REQ_CONNECTION_END request.
+     *
      * @param request a {@link CreateLinkConstants#REQ_CONNECTION_CREATE_LINK_CHOOSENODE} request
      */
     @objid ("1968b934-f4a4-40d1-a028-8c5d0c6c6a76")
@@ -234,11 +240,12 @@ public abstract class AbstractCreateLinkChooseNodeEditPolicy extends GraphicalEd
         request.setType(REQ_CONNECTION_END);
         request.getSourceEditPart().showSourceFeedback(request);
         request.setType(curType);
-        
+
     }
 
     /**
      * Asks the source edit part to remove feedback of a normal REQ_CONNECTION_END request.
+     *
      * @param request a {@link CreateLinkConstants#REQ_CONNECTION_CREATE_LINK_CHOOSENODE} request
      */
     @objid ("2e9438fb-b9c3-485b-a91b-c6e46c66bdcb")
@@ -247,7 +254,7 @@ public abstract class AbstractCreateLinkChooseNodeEditPolicy extends GraphicalEd
         request.setType(REQ_CONNECTION_END);
         request.getSourceEditPart().eraseSourceFeedback(request);
         request.setType(curType);
-        
+
     }
 
     /**
@@ -262,10 +269,10 @@ public abstract class AbstractCreateLinkChooseNodeEditPolicy extends GraphicalEd
         private final CreateConnectionRequest createConnReq;
 
         @objid ("08fa6fc6-70c5-460f-8342-4279e4999d1b")
-        public  NodeAndLinkCreationActionDescriptor(ICreationActionDescriptor createNodeAction, CreateConnectionRequest createConnReq) {
+        public NodeAndLinkCreationActionDescriptor(ICreationActionDescriptor createNodeAction, CreateConnectionRequest createConnReq) {
             this.createNodeAction = createNodeAction;
             this.createConnReq = createConnReq;
-            
+
         }
 
         @objid ("0cd315b8-e069-4df0-b646-acd0f856daa2")
@@ -290,7 +297,7 @@ public abstract class AbstractCreateLinkChooseNodeEditPolicy extends GraphicalEd
         @Override
         public Command getCommand() {
             IGmLinkable sourceNode = ((IGmLinkable) this.createConnReq.getSourceEditPart().getModel());
-            
+
             ModelioCreationContext nodeCtx = ModelioCreationContext.lookRequest(this.createNodeAction.getRequest());
             return new CreateLinkAndNodeCommand(nodeCtx, this.createNodeAction.getCommand(), this.createConnReq, sourceNode);
         }

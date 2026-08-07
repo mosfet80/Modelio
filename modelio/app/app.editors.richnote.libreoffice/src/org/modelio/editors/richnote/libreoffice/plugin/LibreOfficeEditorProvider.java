@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.libreoffice.plugin;
 
@@ -55,25 +55,25 @@ public class LibreOfficeEditorProvider extends AbstractRichNoteEditorProvider {
         try {
             Class<? extends IEditedDocumentViewer> cl = LibreOfficeLoader.getDocumentViewerClass();
             IEditedDocumentViewer viewer = cl.newInstance();
-        
+
             Shell sh = new Shell(Display.getCurrent());
             viewer.setFileManager(richNoteRepository);
             viewer.createPartControl(sh);
-        
+
             // Let UI handle all pending events
             while (Display.getCurrent().readAndDispatch()) {
                 /* noop */}
-        
+
             viewer.createDocument((Document) target, format);
             viewer.close();
-        
+
             sh.dispose();
         } catch (InstantiationException e) {
             throw new IOException(e);
         } catch (IllegalAccessException e) {
             throw new IOException(e);
         }
-        
+
     }
 
     @objid ("9a8e1420-0cb0-4341-bdbd-f9cb0429a361")
@@ -98,10 +98,10 @@ public class LibreOfficeEditorProvider extends AbstractRichNoteEditorProvider {
                     resetProvider();
                 }
             };
-        
+
             LibreOfficeEditors.PREFERENCES.addPropertyChangeListener(this.preflistener);
         }
-        
+
         if (this.usable == null) {
             this.usable = computeUsable();
         }
@@ -115,7 +115,7 @@ public class LibreOfficeEditorProvider extends AbstractRichNoteEditorProvider {
     void resetProvider() {
         this.usable = null;
         RichNoteFormatRegistry.getInstance().reset();
-        
+
     }
 
     @objid ("62470fd6-3e61-43e0-bc64-e65c8b6a3659")
@@ -126,16 +126,16 @@ public class LibreOfficeEditorProvider extends AbstractRichNoteEditorProvider {
             if (classLoader == null) {
                 return false;
             }
-        
+
             // Load and run static initializer that loads the native library
             Class.forName("com.sun.star.lib.connections.pipe.PipeConnection", true, classLoader);
-            
+
             return true;
-        
+
         } catch (IOException e) {
             log.error("Failed loading LibreOffice/OpenOffice classes: %s", FileUtils.getLocalizedMessage(e));
             log.error(e);
-        
+
             MessageDialog.openError(null, "Failed loading LibreOffice/OpenOffice", FileUtils.getLocalizedMessage(e));
             return false;
         } catch (ClassNotFoundException e) {
@@ -159,7 +159,7 @@ public class LibreOfficeEditorProvider extends AbstractRichNoteEditorProvider {
             log.warning(e);
             return false;
         }
-        
+
     }
 
 }

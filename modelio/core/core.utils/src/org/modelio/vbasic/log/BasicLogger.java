@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vbasic.log;
 
@@ -42,15 +42,15 @@ class BasicLogger implements IBasicLogger {
     @objid ("00259388-e3a3-1f33-b94f-001ec947cd2a")
     protected void log(final int level, final String message) {
         StringBuilder builder = new StringBuilder(256);
-        
+
         synchronized (BasicLogger.dateFormatter) {
             builder.append(BasicLogger.dateFormatter.format(new Date()));
         }
         builder.append(BasicLogger.PREFIXS[level]);
         builder.append(message);
-        
+
         print(builder.toString());
-        
+
     }
 
     /**
@@ -63,6 +63,7 @@ class BasicLogger implements IBasicLogger {
     }
 
     /**
+     *
      * @param format see {@link String#format(String, Object...)}
      * @param args format arguments
      */
@@ -73,6 +74,7 @@ class BasicLogger implements IBasicLogger {
     }
 
     /**
+     *
      * @param format see {@link String#format(String, Object...)}
      * @param args format arguments
      */
@@ -89,7 +91,7 @@ class BasicLogger implements IBasicLogger {
         final StringWriter stackTrace = new StringWriter();
         ex.printStackTrace(new PrintWriter(stackTrace));
         log(IBasicLogger.ERROR, stackTrace.toString());
-        
+
     }
 
     /**
@@ -126,10 +128,11 @@ class BasicLogger implements IBasicLogger {
         final StringWriter stackTrace = new StringWriter();
         ex.printStackTrace(new PrintWriter(stackTrace));
         log(IBasicLogger.WARNING, stackTrace.toString());
-        
+
     }
 
     /**
+     *
      * @param format see {@link String#format(String, Object...)}
      * @param args format arguments
      */

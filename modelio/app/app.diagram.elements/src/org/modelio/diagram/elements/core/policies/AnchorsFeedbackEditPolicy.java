@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.policies;
 
@@ -38,10 +38,10 @@ public class AnchorsFeedbackEditPolicy extends GraphicalEditPolicy {
     private DisplayAnchorFeedbackHelper anchorFbHelper;
 
     @objid ("7dec3524-3e27-4dc2-9810-a0f4cf5dee0f")
-    public  AnchorsFeedbackEditPolicy(IFixedNodeAnchorProvider anchorFactory) {
+    public AnchorsFeedbackEditPolicy(IFixedNodeAnchorProvider anchorFactory) {
         super();
         this.anchorProvider = anchorFactory;
-        
+
     }
 
     @objid ("ffda857b-9ec5-4764-9627-05ff880fe5fb")
@@ -63,7 +63,7 @@ public class AnchorsFeedbackEditPolicy extends GraphicalEditPolicy {
                 this.anchorFbHelper.showTargetFeedback(request);
             }
         }
-        
+
     }
 
     @objid ("7b957730-740c-4c81-9c6e-ad80706d3aa7")
@@ -76,7 +76,7 @@ public class AnchorsFeedbackEditPolicy extends GraphicalEditPolicy {
     private boolean isHandled(Request request) {
         if (! (request.getType() instanceof String))
             return false;
-        
+
         switch ((String) request.getType()) {
         case RequestConstants.REQ_CONNECTION_START:
         case RequestConstants.REQ_CONNECTION_END:
@@ -88,16 +88,16 @@ public class AnchorsFeedbackEditPolicy extends GraphicalEditPolicy {
         default:
             return false;
         }
-        
+
     }
 
     @objid ("701d03fa-6e1b-4fd2-b7a7-351ba1746af8")
     @Override
     public void deactivate() {
         removeAllFeedbacks();
-        
+
         super.deactivate();
-        
+
     }
 
     @objid ("c6674385-e8f0-462a-86aa-ebff9baaef64")
@@ -106,7 +106,7 @@ public class AnchorsFeedbackEditPolicy extends GraphicalEditPolicy {
             this.anchorFbHelper.removeAllFeedbacks();
             this.anchorFbHelper = null;
         }
-        
+
     }
 
 }

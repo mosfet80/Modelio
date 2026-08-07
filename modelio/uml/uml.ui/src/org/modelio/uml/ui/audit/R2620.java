@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -49,7 +49,7 @@ public class R2620 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -69,7 +69,7 @@ public class R2620 extends AbstractUmlRule {
         plan.registerRule(State.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(EntryPointPseudoState.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE);
         plan.registerRule(ExitPointPseudoState.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE);
-        
+
     }
 
     /**
@@ -103,14 +103,14 @@ public class R2620 extends AbstractUmlRule {
      * Default constructor for R2620
      */
     @objid ("0fb4b96b-b681-4a01-b6d1-60e7841c0682")
-    public  R2620() {
+    public R2620() {
         this.checkerInstance = new CheckR2620(this);
     }
 
     @objid ("2fd7ff98-a8dd-4c8b-8bcd-6fe0017eaead")
     private static class CheckR2620 extends AbstractControl {
         @objid ("1600cb84-430d-45a6-af25-18f4cf30bfa7")
-        public  CheckR2620(IRule rule) {
+        public CheckR2620(IRule rule) {
             super(rule);
         }
 
@@ -133,14 +133,14 @@ public class R2620 extends AbstractUmlRule {
         @objid ("32b5b4e4-5443-44ad-883d-aec9f4727377")
         private IAuditEntry checkR2620(State state) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, state, null);
-            
+
             if (state.getSubMachine() == null) {
                 return auditEntry;
             }
-            
+
             List<EntryPointPseudoState> entries = state.getEntryPoint();
             List<ExitPointPseudoState> exits = state.getExitPoint();
-            
+
             if (!entries.isEmpty() || !exits.isEmpty()) {
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();

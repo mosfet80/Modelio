@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.activities;
 
@@ -81,12 +81,12 @@ public class ReceiveTaskNode implements IProductionNode<BpmnReceiveTask, TReceiv
     @objid ("7c98fa97-33cd-451c-91da-6a1a4d74a1c8")
     @Override
     public BpmnReceiveTask createUMLElement(MObject context, TReceiveTask jaxbElement, BpmnImportFactory factory, boolean keepId) {
-        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {  
+        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {
             return factory.createWithId(BpmnReceiveTask.class, context,jaxbElement.getId());
         } else {
             return factory.create(BpmnReceiveTask.class, context);
         }
-        
+
     }
 
     @objid ("7e8180eb-4765-4b2c-add3-25aead117147")
@@ -98,7 +98,7 @@ public class ReceiveTaskNode implements IProductionNode<BpmnReceiveTask, TReceiv
         } else if (context instanceof BpmnSubProcess) {
             ((BpmnSubProcess) context).getFlowElement().add(modelioElement);
         }
-        
+
         // Group
         if (jaxbElement.getCategoryValueRef() != null) {
             for (QName jaxGroupRef : jaxbElement.getCategoryValueRef()) {
@@ -108,16 +108,16 @@ public class ReceiveTaskNode implements IProductionNode<BpmnReceiveTask, TReceiv
                 }
             }
         }
-        
+
         // Message
         if (jaxbElement.getMessageRef() != null) {
             BpmnMessage modelioMessage = (BpmnMessage) this.elementsMap.get(jaxbElement.getMessageRef().getLocalPart());
             if (modelioMessage != null) {
                 modelioElement.setMessageRef(modelioMessage);
             }
-        
+
         }
-        
+
         // Operations
         if (jaxbElement.getOperationRef() != null) {
             BpmnOperation modelioOper = (BpmnOperation) this.elementsMap.get(jaxbElement.getOperationRef().getLocalPart());
@@ -125,23 +125,23 @@ public class ReceiveTaskNode implements IProductionNode<BpmnReceiveTask, TReceiv
                 modelioElement.setOperationRef(modelioOper);
             }
         }
-        
+
         // Set properties
         if (jaxbElement.getName() != null)
             modelioElement.setName(StringConvertor.imports(jaxbElement.getName()));
-        
+
         if (jaxbElement.getCompletionQuantity() != null)
             modelioElement.setCompletionQuantity(jaxbElement.getCompletionQuantity().intValue());
-        
+
         if (jaxbElement.getStartQuantity() != null)
             modelioElement.setStartQuantity(jaxbElement.getStartQuantity().intValue());
-        
+
         modelioElement.setIsForCompensation(jaxbElement.isIsForCompensation());
-        
+
         modelioElement.setImplementation(jaxbElement.getImplementation());
-        
+
         modelioElement.setInstanciate(jaxbElement.isInstantiate());
-        
+
         // Default Flow
         if (jaxbElement.getDefault() != null && jaxbElement.getDefault() instanceof TSequenceFlow) {
             BpmnSequenceFlow flow = (BpmnSequenceFlow) this.elementsMap.get(((TSequenceFlow) jaxbElement.getDefault()).getId());
@@ -157,7 +157,7 @@ public class ReceiveTaskNode implements IProductionNode<BpmnReceiveTask, TReceiv
     public TReceiveTask createJaxbElement(Object context, BpmnReceiveTask modelioElement) {
         // Create JaxbElement
         TReceiveTask jaxTask = new TReceiveTask();
-        
+
         // Add to context
         ObjectFactory factory = new ObjectFactory();
         if (context instanceof TProcess) {
@@ -167,7 +167,7 @@ public class ReceiveTaskNode implements IProductionNode<BpmnReceiveTask, TReceiv
             List<JAXBElement<? extends TFlowElement>> jaxContent = ((TSubProcess) context).getFlowElement();
             jaxContent.add(factory.createReceiveTask(jaxTask));
         }
-        
+
         jaxTask.setId(IDUtils.formatJaxbID(modelioElement));
         return jaxTask;
     }
@@ -176,35 +176,35 @@ public class ReceiveTaskNode implements IProductionNode<BpmnReceiveTask, TReceiv
     @Override
     public TReceiveTask updateJaxbElement(Object context, TReceiveTask jaxTask, BpmnReceiveTask modelioElement) {
         jaxTask.setName(modelioElement.getName());
-        
+
         if (modelioElement.getMessageRef() != null) {
             TMessage jaxMessage = (TMessage) this.elementsMap.get(modelioElement.getMessageRef().getUuid());
             if (jaxMessage != null) {
                 jaxTask.setMessageRef(new QName(IDUtils.formatJaxbID(modelioElement.getMessageRef())));
             }
         }
-        
+
         if (modelioElement.getOperationRef() != null) {
             TOperation jaxOper = (TOperation) this.elementsMap.get(modelioElement.getOperationRef().getUuid());
             if (jaxOper != null) {
                 jaxTask.setOperationRef(new QName(IDUtils.formatJaxbID(modelioElement.getOperationRef())));
             }
         }
-        
+
         if (modelioElement.getCompletionQuantity() != 0) {
             jaxTask.setCompletionQuantity(BigInteger.valueOf(modelioElement.getCompletionQuantity()));
         }
-        
+
         if (modelioElement.getStartQuantity() != 0) {
             jaxTask.setStartQuantity(BigInteger.valueOf(modelioElement.getStartQuantity()));
         }
-        
+
         jaxTask.setImplementation(modelioElement.getImplementation());
-        
+
         jaxTask.setInstantiate(modelioElement.isInstanciate());
-        
+
         jaxTask.setIsForCompensation(modelioElement.isIsForCompensation());
-        
+
         // Default Flow
         if (modelioElement.getDefaultFlow() != null) {
             Object target = this.elementsMap.get(modelioElement.getDefaultFlow().getUuid());

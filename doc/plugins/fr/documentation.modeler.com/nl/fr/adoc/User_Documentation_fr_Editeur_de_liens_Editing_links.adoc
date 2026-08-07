@@ -1,0 +1,52 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Edition des liens
+
+
+
+== Création de liens
+
+La création de nouveaux liens dans le modèle en utilisant l'éditeur de liens est très facile. Voici la procédure générale :
+
+1.  Régler l'éditeur de liens en mode édition, en utilisant le bouton image:images/attachment/modeliocom41/User_Documentation_fr/Editeur_de_liens/Editing_links/EditionMode.png[EditionMode.png], +
+L'éditeur de liens ne sera plus mis à jour si la sélection change dans l'application. Cela autorise une navigation indépendante dans les autres vues du modèle. L'élément central est en quelque sorte figé en place.
+2.  Glisser-déposer un élément depuis une autre vue du modèle (par exemple la vue link:../../org.modelio.documentation.modeliomodeler/html/Modeler-_modeler_interface_uml_view.html[Explorateur de modèle] ) vers la vue Editeur de liens pour créer un nouveau lien entre l'élément ainsi déposé et l'élément central de l'éditeur de liens. Il est possible de déposer plusieurs éléments d'un coup, à condition qu'ils soient tous des instances de la même méta-classe (exemple: plusieurs classes, ou plusieurs packages, mais pas plusieurs classes et packages en même temps).
+3.  L'orientation du lien créé (de l'élément central vers l'élément déposé, ou l'inverse), est déterminée par le point où l'élément est déposé par rapport à l'élément central.(à gauche ou à droite en présentation horizontale, en haut ou en bas en présentation verticale).
+4.  L'éditeur de liens essaye de déterminer le type du lien à créer en se basant sur les types de lien visibles au moment du dépôt de l'élément, et sur la méta-classe de l'élément déposé ainsi que celle de l'élément central. Si plusieurs types sont possibles parmi ceux visibles, une boîte de dialogue est affichée, demandant à l'utilisateur de choisir le type à utiliser pour la création.
+5.  Libérer l'éditeur de liens (à moins que vous ayez besoin de créer d'autre liens sur le même élément).
+
+
+== Exemple d'utilisation
+
+On veut ajouter plusieurs liens de traçabilité entre des exigences et des classes d'implémentation pour identifier quelle classe répond à quelle exigence.
+
+On commence par activer la link:../../org.modelio.documentation.modeliomodeler/html/Modeler-_modeler_interface_perspectives.html#Trace-Perspective[perspective de traçabilité] qui organise les vues d'une manière optimale pour cette tâche, plaçant l'éditeur de liens au centre et l'agrandissant pour un meilleur confort d'utilisation, et positionnant les autres vues au tour. Ceci n'est pas obligatoire, et les opérations suivantes peuvent être réalisées sans changer de perspective.
+
+Ensuite, on configure l'éditeur de liens :
+
+1.  Configurer l'éditeur de liens pour que les liens de traçabilité soient affichés. Ceci peut être réalisé en sélectionnant la configuration prédéfinie adéquate (cliquer sur le bouton image:images/attachment/modeliocom41/User_Documentation_fr/Editeur_de_liens/Editing_links/traceability.png[traceability.png] est le moyen le plus simple) ou une configuration utilisateur précédemment définie pour montrer ce type de liens).
+2.  Sélectionner l'exigence vers laquelle on souhaite créer un lien de traçabilité.
+3.  Verrouiller l'éditeur de liens en cliquant sur le bouton image:images/attachment/modeliocom41/User_Documentation_fr/Editeur_de_liens/Editing_links/EditionMode.png[EditionMode.png] pour le mettre en mode édition. Désormais, l'élément central de l'éditeur de liens restera l'exigence qu'on a choisi.
+4.  Naviguer dans le modèle, par exemple dans l'explorateur de modèle, jusqu'à la classe d'implémentation que l'on souhaite lier à l'exigence choisie.
+5.  Sélectionner la classe d'implémentation, et la déposer dans l'éditeur de liens. En fonction de l'endroit où on la dépose par rapport à l'élément central, un lien de traçabilité sera créé : +
+* *depuis* l'exigence *vers* la classe déposée : déposer la classe à droite de l'élément central ne présentation horizontale.
+* *depuis* la classe déposée *vers* l'exigence : déposer la classe à gauche de l'élément central ne présentation horizontale.
+6.  Puisque la configuration prédéfinie sélectionnée supporte deux types de liens (traçabilité et raffinement), Modelio propose de choisir le type de lien à créer :
+
+image::images/attachment/modeliocom41/User_Documentation_fr/Editeur_de_liens/Editing_links/LinkEditorTracePuces.png[LinkEditorTracePuces.png]
+.Sélection d'un type de lien dans la boîte de dialogue
+image::images/attachment/modeliocom41/User_Documentation_fr/Editeur_de_liens/Editing_links/SelectLink.png[SelectLink.png]
+
+L'utilisation de cette boîte de dialogue est très simple. Il suffit de sélectionner le type de lien à créer parmi la liste proposée, et de valider.
+
+La liste est organisée en arbre qui regroupe les liens par module.
+
+
+== Suppression de liens
+
+L'éditeur de liens peut être utilisé pour supprimer des liens. Il suffit de sélectionner une lien dans l'éditeur de liens et de presser sur la touche 'Suppr.
+
+Cette action entraîne la suppression du lien dans tout le modèle, à moins que cela ne soit pas autorisé (si le modèle est en lecture seule ou verrouillé par SVN).

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.events;
 
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00882ebc-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnCancelEventDefinitionImpl extends BpmnEventDefinitionImpl implements BpmnCancelEventDefinition {
-    @objid ("4495ac5e-d3ab-4f62-9bd1-b14adaa8db12")
+    @objid ("2b0a2969-8e08-4c67-b1ab-022b26084d33")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -49,17 +48,17 @@ public class BpmnCancelEventDefinitionImpl extends BpmnEventDefinitionImpl imple
         return super.getCompositionOwner();
     }
 
-    @objid ("9d83d9f4-f62d-4f01-b2f7-cb07e73a7ed4")
+    @objid ("61263184-4cac-4bd7-b8f3-3149c83a7182")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("c1cfd68a-5aea-43e5-830f-e5f8dedb0ff5")
+    @objid ("6c95968f-3cf9-48c4-84cd-90fc56c7c1f0")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitBpmnCancelEventDefinition(this);

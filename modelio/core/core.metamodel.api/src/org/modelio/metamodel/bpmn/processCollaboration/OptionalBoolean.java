@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.bpmn.processCollaboration;
 
@@ -26,19 +26,18 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * OptionalBoolean v0.0.9054
- * 
- * 
+ *
+ *
  * null
- * 
- * 
+ *
  */
 @objid ("003a2bfe-91e1-1f74-804b-001ec947cd2a")
 public enum OptionalBoolean {
-    @objid ("c8d6a014-b89f-4eb5-8537-16c2a33af9a7")
+    @objid ("8b6b1df2-f32a-4f13-957b-f8ee09c1e029")
     OFALSE(0, "OFalse", "OFalse"),
-    @objid ("78e8267e-849d-46ca-8e0e-be693ed8b75e")
+    @objid ("d7a76227-9881-4425-8c91-0bd96c7f7b2b")
     OTRUE(1, "OTrue", "OTrue"),
-    @objid ("67eb233c-bbca-4ded-b5ca-94e874c13b72")
+    @objid ("621994f7-ac52-4388-be0f-171be931488e")
     OUNDEFINED(2, "OUndefined", "OUndefined");
 
 public static final int OFALSE_VALUE = 0;
@@ -98,5 +97,5 @@ public static final int OFALSE_VALUE = 0;
     public String toString() {
        return literal;
     }
-    
+
 }

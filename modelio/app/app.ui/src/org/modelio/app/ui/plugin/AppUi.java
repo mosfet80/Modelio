@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.ui.plugin;
 
@@ -71,6 +71,7 @@ public class AppUi implements BundleActivator {
     private static ScopedPreferenceStore PREFERENCES;
 
     /**
+     *
      * @return the bundle context.
      */
     @objid ("002e276e-d6b6-1ff2-a7f4-001ec947cd2a")
@@ -80,6 +81,7 @@ public class AppUi implements BundleActivator {
 
     /**
      * Returns an image descriptor for the image file at the given plug-in relative path
+     *
      * @param path the path
      * @return the image descriptor
      */
@@ -90,6 +92,7 @@ public class AppUi implements BundleActivator {
 
     /**
      * Access to preferences store.
+     *
      * @return the {@link AppUi#PLUGIN_ID} plugin preferences store.
      */
     @objid ("6a5ec005-b829-45f9-8879-45b31bca9a4c")
@@ -106,12 +109,12 @@ public class AppUi implements BundleActivator {
         AppUi.LOG = new PluginLogger(service.getLogger((String)null));
         AppUi.I18N = new BundledMessages(AppUi.LOG, ResourceBundle.getBundle("appui"));
         AppUi.PREFERENCES = new ScopedPreferenceStore(InstanceScope.INSTANCE, AppUi.PLUGIN_ID);
-        
+
         initializeLogLevel();
-        
+
         // Remove Eclipse 3.x URLConnection authenticator
         overrideAuthenticator(bundleContext);
-        
+
     }
 
     @objid ("002e26e2-d6b6-1ff2-a7f4-001ec947cd2a")
@@ -131,10 +134,11 @@ public class AppUi implements BundleActivator {
      * org.eclipse.ui.internal.net.auth.NetAuthenticator uses the Eclipse 3.x workbench to open an authentication dialog.
      * <p>
      * We don't need it and it does not work because we don't start the Eclipse 3 workbench.
-     * @see org.eclipse.ui.internal.net.auth.NetAuthenticator
+     *
      * @param bundleContext the bundle context.
-     * @see java.net.Authenticator 
-     * @see org.eclipse.ui.internal.net.auth.NetAuthenticator 
+     * @see org.eclipse.ui.internal.net.auth.NetAuthenticator
+     * @see java.net.Authenticator
+     * @see org.eclipse.ui.internal.net.auth.NetAuthenticator
      */
     @objid ("8f41fc06-4e70-4b23-9ee9-7ce29bef04ed")
     private void overrideAuthenticator(BundleContext bundleContext) {
@@ -143,10 +147,10 @@ public class AppUi implements BundleActivator {
         @SuppressWarnings ("unused")
         IProxyService svc = bundleContext.getService(sr);
         bundleContext.ungetService(sr);
-        
+
         // remove its ugly authenticator
         Authenticator.setDefault(null);
-        
+
     }
 
 }

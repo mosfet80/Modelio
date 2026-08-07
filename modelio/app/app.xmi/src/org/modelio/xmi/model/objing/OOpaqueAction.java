@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -97,11 +97,11 @@ public class OOpaqueAction extends OActivityNode {
             return UMLFactory.eINSTANCE.createUnmarshallAction();
         else
             return UMLFactory.eINSTANCE.createOpaqueAction();
-        
+
     }
 
     @objid ("d689dec3-c673-404b-92da-1b0629dd7bf1")
-    public  OOpaqueAction(OpaqueAction element) {
+    public OOpaqueAction(OpaqueAction element) {
         super(element);
     }
 
@@ -109,7 +109,7 @@ public class OOpaqueAction extends OActivityNode {
     @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
-        
+
         if (ecoreElt instanceof org.eclipse.uml2.uml.OpaqueAction){
             setBody((org.eclipse.uml2.uml.OpaqueAction) ecoreElt);
         }else if (ecoreElt instanceof  org.eclipse.uml2.uml.ValueSpecificationAction){
@@ -123,7 +123,7 @@ public class OOpaqueAction extends OActivityNode {
         }else if (ecoreElt instanceof org.eclipse.uml2.uml.StructuralFeatureAction){
             setFeature((org.eclipse.uml2.uml.StructuralFeatureAction) ecoreElt);
         }
-        
+
     }
 
     @objid ("5cdd4c4f-daa8-43e0-a932-e71094e9ad70")
@@ -134,13 +134,13 @@ public class OOpaqueAction extends OActivityNode {
     @objid ("07fb8d53-8f57-446b-83d8-615697e40e4c")
     private void setValue(org.eclipse.uml2.uml.ValueSpecificationAction ecoreElt) {
         if (getObjingElement().getOutput().size() > 0){
-        
+
             GeneralClass primitiveType = getObjingElement().getOutput().get(0).getType();
-        
+
             IUMLTypes umlTypes = GenerationProperties.getInstance().getModelioTypes();
             DataType  obINTEGER= umlTypes.getINTEGER();
             DataType obSTRING = umlTypes.getSTRING();
-        
+
             String tagValue = "";
             for (TaggedValue tag : getObjingElement().getTag()){
                 if (tag.getDefinition().getName().equals("Value")){
@@ -150,9 +150,9 @@ public class OOpaqueAction extends OActivityNode {
                     }
                 }
             }
-        
+
             if (!tagValue.equals("")){
-                
+
                 if ((obINTEGER != null) &&  obINTEGER.equals(primitiveType)){
                     try{
                         LiteralInteger literal = UMLFactory.eINSTANCE.createLiteralInteger();
@@ -164,8 +164,8 @@ public class OOpaqueAction extends OActivityNode {
                         literal.setValue(tagValue);
                         ecoreElt.setValue(literal);
                     }
-        
-        
+
+
                 } else if ((obSTRING != null) &&  obSTRING.equals(primitiveType)){
                     org.eclipse.uml2.uml.LiteralString literal = UMLFactory.eINSTANCE.createLiteralString();
                     literal.setValue(tagValue);
@@ -177,7 +177,7 @@ public class OOpaqueAction extends OActivityNode {
                 }
             }
         }
-        
+
     }
 
     @objid ("07817664-0145-46b3-9885-c52b383500b8")
@@ -190,7 +190,7 @@ public class OOpaqueAction extends OActivityNode {
                 }
             }
         }
-        
+
     }
 
     @objid ("11efb652-28f1-4519-b506-1705c74ca03d")
@@ -203,7 +203,7 @@ public class OOpaqueAction extends OActivityNode {
                 }
             }
         }
-        
+
     }
 
     @objid ("9310efce-052b-4a34-ad5e-726044f7f48b")
@@ -216,7 +216,7 @@ public class OOpaqueAction extends OActivityNode {
                 }
             }
         }
-        
+
     }
 
     @objid ("41c57fa9-1193-439a-9be9-a4ad13601473")
@@ -229,7 +229,7 @@ public class OOpaqueAction extends OActivityNode {
                 }
             }
         }
-        
+
     }
 
     @objid ("7d154d94-eeaa-4b1e-a7a4-f86b0eb04a71")

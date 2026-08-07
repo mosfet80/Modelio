@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.commands;
 
@@ -35,7 +35,7 @@ import org.modelio.vcore.smkernel.meta.SmMetamodel;
  * <p>
  * The actual edit part is found by calling {@link GmCompositeNode#getCompositeFor(Class)} for all involved GmModel,
  * then looking for their edit part.
- * 
+ *
  * @author cmarin
  */
 @objid ("7f3e3ef0-1dec-11e2-8cad-001ec947c8cc")
@@ -51,15 +51,16 @@ public class DeferredGroupCommand extends Command {
 
     /**
      * Create a deferred command.
+     *
      * @param req The creation request.
      * @param sender The edit part sending the request
      */
     @objid ("7f3e3efc-1dec-11e2-8cad-001ec947c8cc")
-    public  DeferredGroupCommand(GroupRequest req, EditPart sender) {
+    public DeferredGroupCommand(GroupRequest req, EditPart sender) {
         this.req = req;
         this.gmComposite = (GmCompositeNode) sender.getModel();
         this.editPartRegistry = sender.getViewer().getEditPartRegistry();
-        
+
     }
 
     @objid ("7f3e3f05-1dec-11e2-8cad-001ec947c8cc")
@@ -72,12 +73,12 @@ public class DeferredGroupCommand extends Command {
     @Override
     public void execute() {
         final GmCompositeNode gmTarget = getGmTarget();
-        
+
         boolean wasVisible = gmTarget.isVisible();
         if (!wasVisible) {
             gmTarget.setVisible(true);
         }
-        
+
         final GraphicalEditPart p = (GraphicalEditPart) this.editPartRegistry.get(gmTarget);
         if (p != null) {
             EditPart targetEditPart = p.getTargetEditPart(this.req);
@@ -86,39 +87,40 @@ public class DeferredGroupCommand extends Command {
                     // First layout figures to compute correct coordinates
                     p.getFigure().getUpdateManager().performValidation();
                 }
-        
+
                 Command cmd = targetEditPart.getCommand(this.req);
                 if (cmd != null) {
                     cmd.execute();
                 }
             }
         }
-        
+
     }
 
     /**
      * Get the node model where all the request must be handled or <tt>null</tt> if the request cannot be executed in a
      * single node (the selection is not homogeneous).
+     *
      * @return the node model where the request must be handled.
      */
     @objid ("7f3e3f0d-1dec-11e2-8cad-001ec947c8cc")
     private GmCompositeNode getGmTarget() {
         final SmMetamodel mm = this.gmComposite.getDiagram().getModelManager().getModelingSession().getMetamodel();
-        
+
         GmCompositeNode gmTarget = null;
-        
+
         for (Object o : this.req.getEditParts()) {
             final EditPart part = (EditPart) o;
             final GmModel model = (GmModel) part.getModel();
             final String metaclassName = model.getRepresentedRef().mc;
             final Class<? extends MObject> metaclass = mm.getMClass(metaclassName).getJavaInterface();
-        
+
             final GmCompositeNode cont = this.gmComposite.getCompositeFor(metaclass);
-        
+
             if (cont == null) {
                 return null;
             }
-        
+
             if (gmTarget == null) {
                 gmTarget = cont;
             } else if (gmTarget != cont) {

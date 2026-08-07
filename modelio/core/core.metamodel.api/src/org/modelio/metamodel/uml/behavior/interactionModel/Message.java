@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.uml.behavior.interactionModel;
 
 import java.util.List;
@@ -35,212 +34,193 @@ import org.modelio.metamodel.uml.statik.Operation;
 
 /**
  * Message v2.2.01
- * 
- * 
- * Messages are used in object diagrams, collaboration diagrams and sequence diagrams. 
- * 
- * If the Message has no InvokedOperation, then its description is in its name. 
- * 
+ *
+ *
+ * Messages are used in object diagrams, collaboration diagrams and sequence diagrams.
+ *
+ * If the Message has no InvokedOperation, then its description is in its name.
+ *
  * In Modelio, a Message belongs to the sending MessageEnd.
- * 
+ *
  * The message sequencing information is handled in sequence diagrams by both its MessageEnds, with  an internal feature that is not directly accessible.
  * The Joni Java API will provide methods to access the ordering of MessagesEnd as for InteractionFragments.
- * 
- * 
- * 
+ *
+ *
  */
 @objid ("00493ff4-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Message extends UmlModelElement {
     /**
      * The metaclass simple name.
      */
-    @objid ("33face65-32af-4e41-8c46-62b85289c3fc")
+    @objid ("bb699475-cb79-424e-a81e-d67338708f9a")
     public static final String MNAME = "Message";
 
     /**
      * The metaclass qualified name.
      */
-    @objid ("1d73ad54-847a-4a8c-a997-cee424d5f1bf")
+    @objid ("3b044a3c-6c88-4c43-b038-9fe3792d6864")
     public static final String MQNAME = "Standard.Message";
 
     /**
      * Getter for attribute 'Message.Argument'
-     * 
+     *
      * Metamodel description:
      * <i>Arguments passed with the message.</i>
-     * 
      */
-    @objid ("b07c14cc-cafc-4d54-a9ea-be050d0c0e80")
+    @objid ("46c7ec7f-a278-491e-af1d-0e1114ef16e4")
     String getArgument();
 
     /**
      * Setter for attribute 'Message.Argument'
-     * 
+     *
      * Metamodel description:
      * <i>Arguments passed with the message.</i>
-     * 
      */
-    @objid ("e778037b-a90c-4b78-ab3e-f1dfbd05129f")
+    @objid ("31e5f067-d73d-4242-a6e7-529747f738e9")
     void setArgument(String value);
 
     /**
      * Getter for attribute 'Message.KindOfMessage'
-     * 
+     *
      * Metamodel description:
      * <i>The derived kind of the Message (complete, lost, found, or unknown). The default value is unknown.</i>
-     * 
      */
-    @objid ("69c5e5a5-2189-4c53-9d35-4d67584928dc")
+    @objid ("fb6141e9-7ae0-4197-b19e-2b6d5c7d0dd4")
     MessageKind getKindOfMessage();
 
     /**
      * Setter for attribute 'Message.KindOfMessage'
-     * 
+     *
      * Metamodel description:
      * <i>The derived kind of the Message (complete, lost, found, or unknown). The default value is unknown.</i>
-     * 
      */
-    @objid ("8f0b9298-1892-4535-9a6e-12dcf583e5d5")
+    @objid ("563d5d5a-4466-4aa3-9813-cc58f808baef")
     void setKindOfMessage(MessageKind value);
 
     /**
      * Getter for attribute 'Message.SortOfMessage'
-     * 
+     *
      * Metamodel description:
      * <i>The sort of communication reflected by the Message. The default value is synchCall.</i>
-     * 
      */
-    @objid ("1dd151fa-6087-4f80-95d4-007bfcb8a836")
+    @objid ("af4d5d53-48e5-4dc7-8709-ee35efd49b46")
     MessageSort getSortOfMessage();
 
     /**
      * Setter for attribute 'Message.SortOfMessage'
-     * 
+     *
      * Metamodel description:
      * <i>The sort of communication reflected by the Message. The default value is synchCall.</i>
-     * 
      */
-    @objid ("b24eef98-49e1-453e-b4b2-0f1e40a72b3b")
+    @objid ("b5424030-d92a-4a88-b637-b041c0d8b3e0")
     void setSortOfMessage(MessageSort value);
 
     /**
      * Getter for attribute 'Message.Sequence'
-     * 
+     *
      * Metamodel description:
      * <i>Arguments passed with the message.</i>
-     * 
      */
-    @objid ("8ace86bf-73b7-447d-98b1-82c7bf2c51b5")
+    @objid ("fd7cc498-15c2-4365-bb68-65e80483c5c6")
     String getSequence();
 
     /**
      * Setter for attribute 'Message.Sequence'
-     * 
+     *
      * Metamodel description:
      * <i>Arguments passed with the message.</i>
-     * 
      */
-    @objid ("2afcd8ad-54f0-4067-9ee7-02f7432ac668")
+    @objid ("50258ec2-8796-4833-9187-c9eeed82a550")
     void setSequence(String value);
 
     /**
      * Getter for relation 'Message->SignalSignature'
-     * 
+     *
      * Metamodel description:
      * <i>Signal that is sent by the message.</i>
-     * 
      */
-    @objid ("71df1909-20a8-4a08-8414-b86cece376e6")
+    @objid ("220f07e3-208a-4ccf-aeab-0a9689bd702c")
     Signal getSignalSignature();
 
     /**
      * Setter for relation 'Message->SignalSignature'
-     * 
+     *
      * Metamodel description:
      * <i>Signal that is sent by the message.</i>
-     * 
      */
-    @objid ("8a321b92-431e-4b2b-9daf-acafb43fa393")
+    @objid ("fe95dabf-e75b-4466-bc1a-aeafed259dd2")
     void setSignalSignature(Signal value);
 
     /**
      * Getter for relation 'Message->ReceiveEvent'
-     * 
+     *
      * Metamodel description:
      * <i>References the reception of the message.</i>
-     * 
      */
-    @objid ("df1a3657-2d45-4783-9273-a61e4ff958c5")
+    @objid ("ab545a4b-5aae-443b-bc95-a130943e9f45")
     MessageEnd getReceiveEvent();
 
     /**
      * Setter for relation 'Message->ReceiveEvent'
-     * 
+     *
      * Metamodel description:
      * <i>References the reception of the message.</i>
-     * 
      */
-    @objid ("6d2f06bc-19c4-43f3-b1ff-4df3b0ef86ec")
+    @objid ("c419b95a-b9a9-4021-911c-faa7489e4e34")
     void setReceiveEvent(MessageEnd value);
 
     /**
      * Getter for relation 'Message->SendEvent'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("f0ebf765-985a-44d1-a735-3491d3b4faf4")
+    @objid ("073e0034-ba64-4aa0-bb76-6956c3084803")
     MessageEnd getSendEvent();
 
     /**
      * Setter for relation 'Message->SendEvent'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("140b7683-c454-4a77-8630-986a062d3d08")
+    @objid ("7a8464d1-20c4-4504-9d05-ec863655d2a6")
     void setSendEvent(MessageEnd value);
 
     /**
      * Getter for relation 'Message->Invoked'
-     * 
+     *
      * Metamodel description:
      * <i>The Operation that is invoked by the Message.</i>
-     * 
      */
-    @objid ("12cb26e2-22fb-4464-8d4c-e7cf57095395")
+    @objid ("950695d5-732d-4e99-80be-477920c76afb")
     Operation getInvoked();
 
     /**
      * Setter for relation 'Message->Invoked'
-     * 
+     *
      * Metamodel description:
      * <i>The Operation that is invoked by the Message.</i>
-     * 
      */
-    @objid ("5ee404a4-24b3-43f2-a3e6-289f700c025a")
+    @objid ("7413d3a0-6139-4071-8f15-ff69a1275259")
     void setInvoked(Operation value);
 
     /**
      * Getter for relation 'Message->RealizedInformationFlow'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("e264b8e3-6026-4d19-9cda-34a9fcfefe58")
+    @objid ("26d395d9-0e6b-45c4-87a0-ea20a3c3f945")
     EList<InformationFlow> getRealizedInformationFlow();
 
     /**
      * Filtered Getter for relation 'Message->RealizedInformationFlow'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("fca4f651-ed57-4400-93b4-fb4cfae60a90")
+    @objid ("b2c0ec13-1b1d-466c-a2dc-5f21e62ce9a0")
     <T extends InformationFlow> List<T> getRealizedInformationFlow(java.lang.Class<T> filterClass);
-}
 
+}

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.model.spi.mm;
 
@@ -49,12 +49,13 @@ import org.modelio.vcore.smkernel.meta.mof.MofSmObjectImpl;
 
 /**
  * Convenience modeling session for migration.
+ *
  * @author cma
  */
 @objid ("e8b8eb2b-6c7e-4fe6-97f2-dbb473ed8e6a")
 public class MofSession implements IMofSession {
     @objid ("fa79f16f-022a-4848-8ee7-cb5a0988542a")
-    private static final boolean TRACE = false;
+    private static final boolean TRACE = true;
 
     @objid ("731dc536-7a7d-4408-9b35-7afd6dfdffb6")
     private final ICoreSession coreSession;
@@ -72,21 +73,22 @@ public class MofSession implements IMofSession {
     private Collection<ReidentData> toReidentify = new ArrayList<>();
 
     /**
+     *
      * @param coreSession the modeling session
      * @param targetRepository the repository where to create new objects
      * @param report the migration report builder
      */
     @objid ("bb21c45d-c3b5-4701-ac9e-3d60cdc5ad1c")
-    public  MofSession(ICoreSession coreSession, IRepository targetRepository, IMigrationReporter report) {
+    public MofSession(ICoreSession coreSession, IRepository targetRepository, IMigrationReporter report) {
         this.coreSession = coreSession;
         this.targetRepository = targetRepository;
         this.report = report;
-        
+
     }
 
     /**
      * Create an object
-     * @throws MetaclassNotFoundException
+     *
      * @param cls a metaclass name, preferably qualified
      * @param name the element name
      * @return the created object
@@ -131,6 +133,7 @@ public class MofSession implements IMofSession {
 
     /**
      * Find an element from a reference.
+     *
      * @param ref an element reference
      * @return the found element or null.
      */
@@ -142,6 +145,7 @@ public class MofSession implements IMofSession {
     }
 
     /**
+     *
      * @return the modeling session
      */
     @objid ("12ccf275-ea82-4e52-ae1c-42c6288a501f")
@@ -161,6 +165,7 @@ public class MofSession implements IMofSession {
     }
 
     /**
+     *
      * @return the MOF metamodel
      */
     @objid ("441ba310-5058-4dfe-8f19-8901d354a936")
@@ -171,6 +176,7 @@ public class MofSession implements IMofSession {
 
     /**
      * Look for an object by scanning a dependency. Create the element if not found.
+     *
      * @param from the source element to scan
      * @param depName the dependency name
      * @param clsName the target metaclass name, preferably qualified
@@ -186,7 +192,7 @@ public class MofSession implements IMofSession {
                 .stream()
                 .filter(o -> o.getName().equals(name) )
                 .findFirst()
-                .orElseGet(() -> { 
+                .orElseGet(() -> {
                     MofSmObjectImpl ret = createObject(mc);
                     ret.setName(name);
                     from.getDep(depName).add(ret);
@@ -203,6 +209,7 @@ public class MofSession implements IMofSession {
     }
 
     /**
+     *
      * @return the migrated repository
      */
     @objid ("f81e0254-2668-402a-abc5-ff907761e79b")
@@ -215,41 +222,41 @@ public class MofSession implements IMofSession {
     @Override
     public void processScheduledReidentifications(Supplier<SubProgress> supplier) throws MofMigrationException {
         if (! this.toReidentify.isEmpty()) {
-            
+
             int workcount = this.toReidentify.size();
             SubProgress mon = SubProgress.convert(supplier.get(), workcount * 3);
-            getReport().getLogger().format(" Process %d scheduled reidentifications...\n", workcount);
-            
+            getReport().getLogger().printf(" Process %d scheduled reidentifications...\n", workcount);
+
             saveSession(mon.newChild(workcount/2));
-            
+
             for (ReidentData entry : this.toReidentify) {
                 MObject old = this.coreSession.getModel().findByRef(entry.tempIdent);
                 if (old != null) {
                     MRef newRef = entry.finalIdent;
-        
+
                     try {
                         replace(old, getMetaclass(newRef.mc), newRef.uuid, false);
                     } catch (MetaclassNotFoundException e) {
                         throw new MofMigrationException(String.format(
-                                "Failed reidentify %s to %s: %s", 
-                                old, 
-                                newRef, 
+                                "Failed reidentify %s to %s: %s",
+                                old,
+                                newRef,
                                 e.getLocalizedMessage()), e);
                     }
                 }
             }
-            
+
             processReidentificationsInDiagrams(mon.newChild(workcount));
-            
+
             saveSession(mon);
-            
-            getReport().getLogger().format(" %d Reidentifications done.\n", this.toReidentify.size());
-        
+
+            getReport().getLogger().printf(" %d Reidentifications done.\n", this.toReidentify.size());
+
             // Reset reidentification map
             this.toReidentify = new ArrayList<>();
-        
+
         }
-        
+
     }
 
     /**
@@ -258,6 +265,7 @@ public class MofSession implements IMofSession {
      * A new object is created.
      * The original object is detached to all references, that are attached to the new object.
      * At the end the original object is deleted.
+     *
      * @param original the original object to be replaced by another
      * @param newMetaclass the new object metaclass
      * @param newUuid the new object UUID. If <i>null</i> a new UUID will be generated. This UUID must NOT be the same as the original one.
@@ -268,19 +276,37 @@ public class MofSession implements IMofSession {
     @objid ("bcb28cbd-57ed-4dc2-91e8-6fd6c4b4fb43")
     public MofSmObjectImpl replace(MObject original, SmClass newMetaclass, String newUuid, boolean scheduleReidentify) {
         assert (! Objects.equals(newUuid, original.getUuid()));
-        
+
         IRepository repo = this.coreSession.getRepositorySupport().getRepository(original);
-        
+        MObject originalCompositionOwner = original.getCompositionOwner();
+
         if (TRACE) {
-            if ( !scheduleReidentify && original.getCompositionOwner() == null && ((SmObjectImpl) original).getRepositoryObject().getRepositoryId() == this.targetRepository.getRepositoryId()) {
-                Log.trace("  %1$s is orphan or root.", original);
+            if ( !scheduleReidentify && originalCompositionOwner == null && repo == this.targetRepository && ! original.getMClass().areOrphansAllowed()) {
+                Log.warning("  %s is orphan and not root !", original);
+                Log.trace  ("   - repository = %s", repo);
+                Log.trace  ("   - storage handle = %s", ((SmObjectImpl)original).getRepositoryObject());
             }
         }
-        
+
         MofSmObjectImpl ret = (MofSmObjectImpl) ((CoreSession) this.coreSession)
                 .getSmFactory()
                 .createObject(newMetaclass, repo, newUuid);
-        
+
+        // Log the action
+        {
+            boolean cmsChange = ret.getMClass().isCmsNode() != original.getMClass().isCmsNode();
+            String msg = String.format(
+                    (newMetaclass == original.getMClass() ? "  Replacing %s%s by %s%s%s." : "  Transmuting %s%s to %s%s%s."),
+                    original,
+                    (cmsChange ? original.getMClass().isCmsNode() ? "[CMS node]":"[not cms node]" :"") ,
+                    ret,
+                    (cmsChange ? ret.getMClass().isCmsNode() ? "[CMS node]":"[not cms node]" :"") ,
+                    scheduleReidentify ? " (and schedule reidentification)" : "");
+
+            getReport().getLogger().println(msg);
+            Log.trace(msg);
+        }
+
         for (SmAttribute att : newMetaclass.getAllAttDef()) {
             Object val = original.mGet(att);
             if (val != null) {
@@ -291,7 +317,7 @@ public class MofSession implements IMofSession {
                 }
             }
         }
-        
+
         for (MDependency origDep : original.getMClass().getDependencies(true)) {
             SmDependency newDep = newMetaclass.getDependencyDef(origDep.getName());
             if (newDep == null) {
@@ -301,9 +327,9 @@ public class MofSession implements IMofSession {
             MDependency newDepSym = newDep.getSymetric();
             if (isNavigable(newDep) || newDepSym == null) {
                 if (newDepSym == null) {
-                    getReport().getLogger().format("  Warn: %s: %s.%s has no opposite dependency", original, newMetaclass.getQualifiedName(), newDep);
+                    getReport().getLogger().printf("  Warn: %s: %s.%s has no opposite dependency", original, newMetaclass.getQualifiedName(), newDep);
                 }
-                
+
                 // Just move the content to the new object
                 List<MObject> origDepContent = original.mGet(origDep);
                 for (MObject value : new ArrayList<>(origDepContent)) {
@@ -311,16 +337,16 @@ public class MofSession implements IMofSession {
                     // where we have SmDependencies clones that point to the same opposite,
                     // which may prevent correct cleaning.
                     origDepContent.remove(value);
-                    
+
                     ret.appendDepVal(newDep, (SmObjectImpl) value);
-        
+
                     assert(! original.mGet(origDep).contains(value));
                     assert(  ret.mGet(newDep).contains(value));
                     assert (newDepSym==null || value.mGet(newDepSym).contains(ret)) : String.format("%s.%s does not contain %s", value, newDepSym, ret);
                     assert (oldDepSym==null || !value.mGet(oldDepSym).contains(original)): String.format("%s.%s still contains %s", value, oldDepSym, original);
                 }
             } else {
-                // Move the content to the new object 
+                // Move the content to the new object
                 // while ensuring order is preserved on the opposite association
                 List<MObject> origDepContent = original.mGet(origDep);
                 for (MObject value : new ArrayList<>(origDepContent)) {
@@ -328,27 +354,26 @@ public class MofSession implements IMofSession {
                 }
             }
         }
-        
+
         if (scheduleReidentify) {
             MRef finalRef = new MRef(newMetaclass.getQualifiedName(), original.getUuid(), original.getName());
             this.toReidentify.add(new ReidentData(new MRef(original), new MRef(ret),finalRef));
         }
-        
+
         // invariant: The original object should be empty
         assert (original.getCompositionChildren().isEmpty()) : original + " still owns:"+original.getCompositionChildren();
-        
+
+        // invariants about original and new owners
+        assert (original.getCompositionOwner() == null) : original + " still owned by "+original.getCompositionOwner();
+        assert (ret.getCompositionOwner() == originalCompositionOwner) : String.format("%s new object owner is %s instead of expected %s", ret, ret.getCompositionOwner(), originalCompositionOwner);
+
         // Delete the original object
         original.delete();
-        
-        // Log the action
-        String msg = String.format(
-                newMetaclass==original.getMClass() ? "  Replaced %s by %s%s." : "  Transmuted %s to %s%s.",
-                original, ret, 
-                scheduleReidentify ? " (reidentification scheduled)" : "");
-        
-        getReport().getLogger().println(msg);
-        Log.trace(msg);
-        
+
+        // invariant: ret should still have right owner after deletion
+        assert (ret.getCompositionOwner() == originalCompositionOwner) : String.format("%s new object owner is %s instead of expected %s after original %s deletion", ret, ret.getCompositionOwner(), originalCompositionOwner, original);
+        assert (originalCompositionOwner==null || originalCompositionOwner.getCompositionChildren().contains(ret)) : String.format("%s does not own %s : %s", originalCompositionOwner, ret, originalCompositionOwner.getCompositionChildren());
+
         // Return the new object
         return ret;
     }
@@ -360,6 +385,7 @@ public class MofSession implements IMofSession {
      * from the original one.
      * The original object is deleted in the process.
      * The transmuted object will be reidentified at the end of the migration.
+     *
      * @param toTransmute the object to transmute.
      * @param newMetaclass the new metaclass
      * @return the new object.
@@ -391,7 +417,7 @@ public class MofSession implements IMofSession {
             ret = coreSession2
                     .getSmFactory()
                     .createObject(newMetaclass, shellRepo, ref.uuid);
-            
+
         }
         return (MofSmObjectImpl) ret;
     }
@@ -413,7 +439,7 @@ public class MofSession implements IMofSession {
         } catch (IOException e) {
             throw new MofMigrationException(FileUtils.getLocalizedMessage(e), e);
         }
-        
+
     }
 
     @objid ("ea5d98da-bdf1-4d09-a20b-da644872a34b")
@@ -422,14 +448,15 @@ public class MofSession implements IMofSession {
         for (ReidentData entry : this.toReidentify) {
             mofDiagramMigrator.addMapping(entry.origIdent, entry.finalIdent);
         }
-        
+
         mofDiagramMigrator.run(monitor);
-        
+
     }
 
     /**
      * Move the given dependency value to the new object
      * while ensuring order is preserved on the opposite association.
+     *
      * @param dep the dependency to move
      * @param original the original object
      * @param transmuted the transmuted version of the object
@@ -449,9 +476,9 @@ public class MofSession implements IMofSession {
             // which may prevent correct cleaning.
             origDepContent.remove(value);
             origOppositeContent.remove(original);
-              
+
             origOppositeContent.add(idx, transmuted);
-              
+
             /*if( !value.mGet(transmutedDepOpposite).contains(transmuted)) {
                 origOppositeContent.add(idx, transmuted);
             }*/
@@ -459,7 +486,7 @@ public class MofSession implements IMofSession {
                 // transmutedDep is only one of the opposites of transmutedDepOpposite, fill transmutedDep on one way only
                 transmuted.getMetaOf().appendObjDepVal(transmuted, transmutedDep, (SmObjectImpl) value);
             }
-            
+
             assert(! original.mGet(origDep).contains(value));
             assert(  transmuted.mGet(transmutedDep).contains(value));
             assert(  value.mGet(origDepOpposite).contains(transmuted));
@@ -479,9 +506,9 @@ public class MofSession implements IMofSession {
                         found = true;
                         origDepContent.remove(value);
                         origOppositeContent.remove(original);
-        
+
                         newOppositeContent.add(idx, transmuted);
-                        
+
                         /*if( !value.mGet(valueDep).contains(transmuted)) {
                             origOppositeContent.add(idx, transmuted);
                         }*/
@@ -489,9 +516,9 @@ public class MofSession implements IMofSession {
                 }
             }
             if (! found) {
-                getReport().getLogger().format("  Warn: %1$s.%2$s contains %3$s but %3$s.%4$s does not contain %1$s.\n", 
+                getReport().getLogger().printf("  Warn: %1$s.%2$s contains %3$s but %3$s.%4$s does not contain %1$s.\n",
                         original, origDep.getName(), value, foundopposites);
-                Log.warning("  Warn: %1$s.%2$s contains %3$s but %3$s.%4$s does not contain %1$s.\n", 
+                Log.warning("  Warn: %1$s.%2$s contains %3$s but %3$s.%4$s does not contain %1$s.\n",
                         original, origDep.getName(), value, foundopposites);
             }
             assert(! original.mGet(origDep).contains(value)) : String.format("%s.%s still contains %s", original, origDep, value);
@@ -500,7 +527,7 @@ public class MofSession implements IMofSession {
             assert(! value.mGet(transmutedDepOpposite).contains(original)) : String.format("%s.%s still contains %s", value, transmutedDepOpposite, original);
             assert(! value.mGet(origDepOpposite).contains(original)) : String.format("%s.%s still contains %s", value, origDepOpposite, original);
         }
-        
+
     }
 
     /**
@@ -524,11 +551,11 @@ public class MofSession implements IMofSession {
         final MRef finalIdent;
 
         @objid ("2042794f-e168-4d3c-b376-472c90c51b0b")
-        public  ReidentData(MRef origIdent, MRef tempIdent, MRef finalIdent) {
+        public ReidentData(MRef origIdent, MRef tempIdent, MRef finalIdent) {
             this.origIdent = origIdent;
             this.tempIdent = tempIdent;
             this.finalIdent = finalIdent;
-            
+
         }
 
     }

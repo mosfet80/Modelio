@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.stateinvariant;
 
@@ -59,6 +59,7 @@ public class StateInvariantEditPart extends AbstractSequenceNodeEditPart impleme
 
     /**
      * Creates and returns a PlacementConstraint for the given model.
+     *
      * @param model the graphic model for which a constraint is to be created.
      * @param x the desired X coordinate in coordinates relative to the parent figure.
      * @param y the desired Y coordinates relative to the parent figure.
@@ -75,7 +76,6 @@ public class StateInvariantEditPart extends AbstractSequenceNodeEditPart impleme
                                 width,
                                 height,
                                 (GmSequenceDiagram) model.getDiagram());
-        
     }
 
     @objid ("d99c1f94-55b6-11e2-877f-002564c97630")
@@ -83,7 +83,6 @@ public class StateInvariantEditPart extends AbstractSequenceNodeEditPart impleme
     protected void addChildVisual(final EditPart childEditPart, final int index) {
         IFigure child = ((GraphicalEditPart) childEditPart).getFigure();
         getContentPane().add(child, BorderLayout.CENTER, index);
-        
     }
 
     @objid ("d99c1f9b-55b6-11e2-877f-002564c97630")
@@ -94,7 +93,6 @@ public class StateInvariantEditPart extends AbstractSequenceNodeEditPart impleme
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START,
                 new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
-        
     }
 
     @objid ("d99c1f9e-55b6-11e2-877f-002564c97630")
@@ -102,11 +100,11 @@ public class StateInvariantEditPart extends AbstractSequenceNodeEditPart impleme
     protected IFigure createFigure() {
         // Create the figure
         RoundedBoxFigure fig = new RoundedBoxFigure();
-        
+
         // Set style independent properties
         fig.setOpaque(true);
         fig.setLayoutManager(new BorderLayout());
-        
+
         // Set style dependent properties
         IStyle style = ((GmAbstractObject) this.getModel()).getDisplayedStyle();
         refreshFromStyle(fig, style);
@@ -118,7 +116,6 @@ public class StateInvariantEditPart extends AbstractSequenceNodeEditPart impleme
     protected void refreshVisuals() {
         GmAbstractObject model = getModel();
         getFigure().getParent().setConstraint(getFigure(), model.getLayoutData());
-        
     }
 
 }

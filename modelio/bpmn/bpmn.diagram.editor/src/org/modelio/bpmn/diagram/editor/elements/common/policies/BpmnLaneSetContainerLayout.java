@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.common.policies;
 
@@ -39,6 +39,7 @@ public class BpmnLaneSetContainerLayout extends ToolbarLayout {
     private final Map<IFigure, Integer> constraints = new HashMap<>();
 
     /**
+     *
      * @param child the figure whose preferred size is to be determined
      * @param wHint the width hint
      * @param hHint the height hint
@@ -50,7 +51,7 @@ public class BpmnLaneSetContainerLayout extends ToolbarLayout {
     protected Dimension getChildPreferredSize(IFigure child, final int wHint, final int hHint) {
         int width = wHint;
         int height = hHint;
-        
+
         Integer constraint = this.constraints.get(child);
         Dimension childPrefSize = child.getPreferredSize(wHint, hHint);
         if (isHorizontal()) {
@@ -70,18 +71,18 @@ public class BpmnLaneSetContainerLayout extends ToolbarLayout {
             }
             return new Dimension(width, constraint.intValue());
         }
-        
+
     }
 
     @objid ("613c1557-55b6-11e2-877f-002564c97630")
     @Override
     public void setConstraint(IFigure child, Object constraint) {
         super.setConstraint(child, constraint);
-        
+
         if (constraint instanceof Integer) {
             this.constraints.put(child, (Integer) constraint);
         }
-        
+
     }
 
     /**
@@ -96,15 +97,15 @@ public class BpmnLaneSetContainerLayout extends ToolbarLayout {
         int x = clientArea.x;
         int y = clientArea.y;
         int availableHeight = clientArea.height;
-        
+
         if (availableHeight <= 0) {
             // figure not ready, abort
             return;
         }
-        
+
         Dimension prefSizes[] = new Dimension[numChildren];
         Dimension minSizes[] = new Dimension[numChildren];
-        
+
         // Calculate the width and height hints. If it's a vertical
         // ToolBarLayout,
         // then ignore the height hint (set it to -1); otherwise, ignore the
@@ -117,7 +118,7 @@ public class BpmnLaneSetContainerLayout extends ToolbarLayout {
         } else {
             wHint = parent.getClientArea(Rectangle.SINGLETON).width;
         }
-        
+
         /*
          * Calculate sum of preferred heights of all children(totalHeight). Calculate sum of minimum heights of all children(minHeight). Cache Preferred Sizes and Minimum Sizes of all children. totalHeight is the sum of the preferred heights of all
          * children totalMinHeight is the sum of the minimum heights of all children prefMinSumHeight is the sum of the difference between all children's preferred heights and minimum heights. (This is used as a ratio to calculate how much each child will
@@ -127,23 +128,23 @@ public class BpmnLaneSetContainerLayout extends ToolbarLayout {
         int totalHeight = 0;
         int totalMinHeight = 0;
         int prefMinSumHeight = 0;
-        
+
         for (int i = 0; i < numChildren; i++) {
             child = (IFigure) children.get(i);
-        
+
             Integer constraint = (Integer) getConstraint(child);
             if (isHorizontal()) {
                 wHint = constraint == null ? -1 : constraint;
             } else {
                 hHint = constraint == null ? -1 : constraint;
             }
-        
+
             prefSizes[i] = this.transposer.t(getChildPreferredSize(child, wHint, hHint));
             minSizes[i] = this.transposer.t(getChildMinimumSize(child, wHint, hHint));
-        
+
             // Protect against minimum size > preferred size that uses constraint
             minSizes[i] = Dimension.min(prefSizes[i], minSizes[i]);
-        
+
             totalHeight += prefSizes[i].height;
             totalMinHeight += minSizes[i].height;
         }
@@ -158,7 +159,7 @@ public class BpmnLaneSetContainerLayout extends ToolbarLayout {
         int remainMinHeight = totalMinHeight;
         final int initAmntShrinkHeight = amntShrinkHeight;
         final int initprefMinSumHeight = prefMinSumHeight;
-        
+
         // If there is more available space than needed to satisfy wishes of all
         // children, make as if last child (if any) request all available space.
         if (amntShrinkHeight < 0) {
@@ -168,16 +169,16 @@ public class BpmnLaneSetContainerLayout extends ToolbarLayout {
             amntShrinkHeight = 0;
         }
         int effectiveShrink = 0;
-        
+
         for (int i = 0; i < numChildren; i++) {
             int prefHeight = prefSizes[i].height;
             int minHeight = minSizes[i].height;
             int prefWidth = prefSizes[i].width;
             int minWidth = minSizes[i].width;
             Rectangle newBounds = new Rectangle(x, y, prefWidth, prefHeight);
-        
+
             child = (IFigure) children.get(i);
-        
+
             int amntShrinkCurrentHeight;
             if (initprefMinSumHeight < initAmntShrinkHeight) {
                 // minimum size too big, dispatch shrink proportional to min size
@@ -192,14 +193,14 @@ public class BpmnLaneSetContainerLayout extends ToolbarLayout {
                 // should not occur
                 amntShrinkCurrentHeight = 0;
             }
-        
+
             int width = Math.min(prefWidth, this.transposer.t(child.getMaximumSize()).width);
             if (isStretchMinorAxis()) {
                 width = this.transposer.t(child.getMaximumSize()).width;
             }
             width = Math.max(minWidth, Math.min(clientArea.width, width));
             newBounds.width = width;
-        
+
             int adjust = clientArea.width - width;
             switch (getMinorAlignment()) {
             case ALIGN_TOPLEFT:
@@ -215,17 +216,17 @@ public class BpmnLaneSetContainerLayout extends ToolbarLayout {
             newBounds.x += adjust;
             newBounds.height -= amntShrinkCurrentHeight;
             child.setBounds(this.transposer.t(newBounds));
-        
+
             amntShrinkHeight -= amntShrinkCurrentHeight;
             prefMinSumHeight -= (prefHeight - minHeight);
             remainMinHeight -= minHeight;
             effectiveShrink += amntShrinkCurrentHeight;
             y += newBounds.height + getSpacing();
         }
-        
+
         // Post condition
         if (y - getSpacing() > clientArea.bottom()) {
-        
+
             String msg = String.format("Lanes don't fit in %s:"
                     + "\n\t-children bottom:%d, container bottom:%d"
                     + "\n\t-height: preferred=%d, min=%d, avail=%d, total shrink=%d, pref shrink=%d, effective shrink=%d"
@@ -238,7 +239,7 @@ public class BpmnLaneSetContainerLayout extends ToolbarLayout {
                     Arrays.toString(prefSizes), Arrays.toString(minSizes), clientArea);
             DiagramEditorBpmn.LOG.warning(new IllegalStateException(msg));
         }
-        
+
     }
 
     @objid ("c2bf908d-7176-482e-acb5-23c6a222c023")

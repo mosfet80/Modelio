@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.bpmnService;
 
 import java.util.ArrayList;
@@ -45,13 +44,13 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("000e1c26-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnInterfaceImpl extends BpmnSharedElementImpl implements BpmnInterface {
-    @objid ("cec07e20-6b74-4257-a88c-bf67db7ef07b")
+    @objid ("9c54f0d9-84d3-494e-a599-777e8438f48e")
     @Override
     public EList<BpmnOperation> getOperation() {
         return new SmList<>(this, ((BpmnInterfaceSmClass)getClassOf()).getOperationDep());
     }
 
-    @objid ("30c964e7-b6b9-4fc9-9a71-7427e5680e10")
+    @objid ("181bac8b-fc04-4106-873b-45ac2be3efc1")
     @Override
     public <T extends BpmnOperation> List<T> getOperation(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -64,16 +63,16 @@ public class BpmnInterfaceImpl extends BpmnSharedElementImpl implements BpmnInte
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("e5cd875e-509d-4dbb-aecc-14bba831e187")
+    @objid ("0f6c63d7-c42c-49d4-af0f-9fb97e79d4f4")
     @Override
     public EList<BpmnParticipant> getParticipantRef() {
         return new SmList<>(this, ((BpmnInterfaceSmClass)getClassOf()).getParticipantRefDep());
     }
 
-    @objid ("6cc821e9-e526-45ca-b13e-8e03c05d7702")
+    @objid ("fd3dce43-a6b5-4239-b271-e5676fbd5ecc")
     @Override
     public <T extends BpmnParticipant> List<T> getParticipantRef(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -86,10 +85,10 @@ public class BpmnInterfaceImpl extends BpmnSharedElementImpl implements BpmnInte
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("04330af4-9d35-4b71-b635-5ef7cded2b82")
+    @objid ("d6cd3a38-fff5-4644-9777-965f8c9c6bbb")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -97,17 +96,17 @@ public class BpmnInterfaceImpl extends BpmnSharedElementImpl implements BpmnInte
         return super.getCompositionOwner();
     }
 
-    @objid ("49d23dc1-45d6-4baa-8329-11117a5f99ba")
+    @objid ("33ea65b6-e225-408f-ad0d-b74597706714")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("cb84868b-a2c0-41af-a3e7-2511b39d694c")
+    @objid ("bb71b737-37f3-45bf-9e33-716de5ce5002")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitBpmnInterface(this);

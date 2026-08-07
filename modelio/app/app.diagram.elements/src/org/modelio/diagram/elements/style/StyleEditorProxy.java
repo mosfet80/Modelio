@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.style;
 
@@ -49,14 +49,15 @@ public class StyleEditorProxy implements IStyle {
 
     /**
      * Constructor
+     *
      * @param editedGraphic The graphic element whose style is to be modified.
      */
     @objid ("ac4c95fc-55b7-11e2-877f-002564c97630")
-    public  StyleEditorProxy(IGmObject editedGraphic) {
+    public StyleEditorProxy(IGmObject editedGraphic) {
         IStyle style = editedGraphic.getDisplayedStyle();
         this.edited = style;
         this.diagram = editedGraphic.getDiagram();
-        
+
     }
 
     @objid ("ac4e1c7e-55b7-11e2-877f-002564c97630")
@@ -118,7 +119,7 @@ public class StyleEditorProxy implements IStyle {
     public void normalize() {
         final Runnable r = () -> getEditedStyle().normalize();
         run("Read style from stream.", r);
-        
+
     }
 
     @objid ("ac4fa31d-55b7-11e2-877f-002564c97630")
@@ -131,39 +132,40 @@ public class StyleEditorProxy implements IStyle {
     @Override
     public void removeProperty(final StyleKey key) {
         final Runnable r = () -> getEditedStyle().removeProperty(key);
-        
+
         run("Reset '" + key.getId() + "' property.", r);
-        
+
     }
 
     @objid ("ac4fa32a-55b7-11e2-877f-002564c97630")
     @Override
     public void reset() {
         final Runnable r = () -> getEditedStyle().reset();
-        
+
         run("Reset style.", r);
-        
+
     }
 
     @objid ("ac4fa32d-55b7-11e2-877f-002564c97630")
     @Override
     public void setCascadedStyle(final IStyle style) {
         final Runnable r = () -> getEditedStyle().setCascadedStyle(style);
-        
+
         run("Set cascaded style.", r);
-        
+
     }
 
     @objid ("ac4fa334-55b7-11e2-877f-002564c97630")
     @Override
     public void setProperty(final StyleKey key, final Object value) {
         final Runnable r = () -> getEditedStyle().setProperty(key, value);
-        
+
         run(MessageFormat.format("Set ''{0}'' property to ''{1}''.", key.getId(), value), r);
-        
+
     }
 
     /**
+     *
      * @return the edited style.
      */
     @objid ("1c70bf42-58d7-11e2-8bfd-001ec947ccaf")
@@ -173,20 +175,21 @@ public class StyleEditorProxy implements IStyle {
 
     /**
      * Run the work in a Modelio transaction.
+     *
      * @param actionName A name for the transaction.
      */
     @objid ("ac4fa33d-55b7-11e2-877f-002564c97630")
     private void run(String actionName, Runnable toRun) {
         final ITransactionSupport transactionManager = this.diagram.getModelManager().getModelingSession().getTransactionSupport();
-        
+
         // DiagramStyles.LOG.debug(actionName);
-        
+
         try (ITransaction transaction = transactionManager.createTransaction(actionName)) {
             toRun.run();
             this.diagram.save(false);
             transaction.commit();
         }
-        
+
     }
 
     @objid ("7080db81-87db-40b1-b4b6-8e8239f7c2e4")
@@ -194,7 +197,7 @@ public class StyleEditorProxy implements IStyle {
     public void normalize(StyleKey skey) {
         final Runnable r = () -> getEditedStyle().normalize(skey);
         run("Read style from stream.", r);
-        
+
     }
 
     @objid ("fa7d2e6a-2d0c-4761-897d-b21b519c6267")
@@ -216,14 +219,15 @@ public class StyleEditorProxy implements IStyle {
     }
 
     /**
+     *
      * @param diagram the edited diagram
      * @param edited the style to edit
      */
     @objid ("e94d214b-feb9-47f0-b4f9-45460941edf2")
-    public  StyleEditorProxy(IGmDiagram diagram, IStyle edited) {
+    public StyleEditorProxy(IGmDiagram diagram, IStyle edited) {
         this.diagram = diagram;
         this.edited = edited;
-        
+
     }
 
     @objid ("0511243c-e0e9-4eaf-97c7-3abb9e009284")

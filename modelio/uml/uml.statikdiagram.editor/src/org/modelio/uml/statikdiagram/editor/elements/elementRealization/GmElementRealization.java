@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.elementRealization;
 
@@ -35,7 +35,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Graphic model for {@link ElementRealization}.
- * 
+ *
  * @author cma
  */
 @objid ("eb530083-57e7-420d-b3d2-3724eab3d05e")
@@ -60,18 +60,19 @@ public class GmElementRealization extends GmLink {
 
     /**
      * Initialize a control flow graphic model.
+     *
      * @param diagram The owning diagram
      * @param dependency The reference flow, may be null
      * @param ref The referenced flow reference, may not be null
      */
     @objid ("10ab6553-9427-47bd-8c9d-cdc425ad4e01")
-    public  GmElementRealization(IGmDiagram diagram, ElementRealization dependency, MRef ref) {
+    public GmElementRealization(IGmDiagram diagram, ElementRealization dependency, MRef ref) {
         super(diagram, ref);
         this.dependency = dependency;
-        
+
         final GmDefaultModelElementHeader header = new GmDefaultModelElementHeader(diagram, ref);
         addExtension(ExtensionLocation.MiddleNW, ROLE_MAIN_LABEL, header);
-        
+
     }
 
     @objid ("3c216b90-b374-4b7b-99d2-caf53c4a5ad3")
@@ -90,8 +91,8 @@ public class GmElementRealization extends GmLink {
      * For deserialization only.
      */
     @objid ("132d4c2e-9153-484d-a413-1c528986010f")
-    public  GmElementRealization() {
-        
+    public GmElementRealization() {
+
     }
 
     @objid ("f8d548e8-2d69-44a4-bae3-ccb706b45ec3")
@@ -99,7 +100,7 @@ public class GmElementRealization extends GmLink {
     protected void readLink(IDiagramReader in) {
         super.readLink(in);
         this.dependency = (ElementRealization) resolveRef(this.getRepresentedRef());
-        
+
     }
 
     @objid ("07fdaa4d-f1c6-4fee-8fa2-2537c55fcb17")
@@ -130,10 +131,10 @@ public class GmElementRealization extends GmLink {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmElementRealization.", GmElementRealization.MINOR_VERSION);
-        
+
     }
 
     @objid ("8bfcacd2-10a0-4aea-9a15-59e529b895ad")

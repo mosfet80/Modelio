@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.expert.standard.links.impl.creation;
 
@@ -46,11 +46,11 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * <li>MessageFlow.sourceRef : InteractionNode The InteractionNode that the Message Flow is connecting from. <br>
  * Of the types of InteractionNode, only Pools/Participants, Activities, and
  * Events can be the source of a Message Flow.
- * 
+ *
  * <li>MessageFlow.targetRef : InteractionNode The InteractionNode that the Message Flow is connecting to. <br>
  * Of the types of InteractionNode, only Pools/Participants, Activities, and
  * Events can be the target of a Message Flow.
- * 
+ *
  * <li>Interaction Node
  * <p>
  * The InteractionNode element is used to provide a single element as the source and target Message Flow
@@ -61,7 +61,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * InteractionNode element is also used to provide a single element for source and target of Conversation Links.
  * <p>
  * InteractionNode is parent class of ConversationNode, Task, Event, Participant:
- * 
+ *
  * <pre>
  * + InteractionNode  (abstract)
  * + ConversationNode (abstract)
@@ -82,7 +82,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 @objid ("7e974185-1eb2-11e2-8009-002564c97630")
 public class BpmnMessageFlowCreationExpert extends DefaultDelegatingLinkExpert {
     @objid ("1a14a6b3-9ccf-4513-822a-0adc28800000")
-    public  BpmnMessageFlowCreationExpert(ILinkExpert defaultExpert) {
+    public BpmnMessageFlowCreationExpert(ILinkExpert defaultExpert) {
         super(defaultExpert);
     }
 
@@ -92,11 +92,11 @@ public class BpmnMessageFlowCreationExpert extends DefaultDelegatingLinkExpert {
         if (!canSource(linkMetaclass, fromElement.getMClass())) {
             return false;
         }
-        
+
         if (fromElement.equals(toElement)) {
             return false;
         }
-        
+
         if (!isValidStart(fromElement) || !isValidEnd(toElement) || isSameContext(fromElement, toElement)) {
             return false;
         }
@@ -112,7 +112,7 @@ public class BpmnMessageFlowCreationExpert extends DefaultDelegatingLinkExpert {
     @objid ("7e99a2ab-1eb2-11e2-8009-002564c97630")
     private static MObject getContext(final MObject element) {
         MObject o = element;
-        
+
         for (int i = 0; i < 500 && o != null; i++) {
             if (o instanceof BpmnProcess) {
                 return o;
@@ -122,7 +122,7 @@ public class BpmnMessageFlowCreationExpert extends DefaultDelegatingLinkExpert {
             }
             o = o.getCompositionOwner();
         }
-        
+
         if (o != null) {
             Log.warning(new IllegalArgumentException(String.format("Cycle in composition ownership chain of %s", element)));
         }
@@ -130,6 +130,7 @@ public class BpmnMessageFlowCreationExpert extends DefaultDelegatingLinkExpert {
     }
 
     /**
+     *
      * @param from messageflow's source.
      * @param to messageflow's target.
      * @return <code>true</code> if the from and to elements have the same non-null context.

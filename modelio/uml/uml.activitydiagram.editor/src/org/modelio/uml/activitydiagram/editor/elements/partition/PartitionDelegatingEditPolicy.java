@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.partition;
 
@@ -33,7 +33,7 @@ import org.modelio.metamodel.uml.behavior.activityModel.ActivityPartition;
 
 /**
  * Specialisation of the default delegating policy to handle the Partition specific tools like "create sibling partition", "create inner partition" and "create partition container".
- * 
+ *
  * @author fpoyer
  */
 @objid ("2b179bf9-55b6-11e2-877f-002564c97630")
@@ -59,22 +59,22 @@ public class PartitionDelegatingEditPolicy extends DelegatingEditPolicy {
             // not CREATE.
             return super.getTargetEditPart(request);
         }
-        
+
         final ModelioCreationContext ctx = ModelioCreationContext.lookRequest((CreateRequest) request);
         if (ctx == null) {
             return null;
         }
-        
+
         // Only care about request for partitions, super can handle the rest.
         if (ctx.getJavaClass() != ActivityPartition.class) {
             return super.getTargetEditPart(request);
         }
-        
+
         // Get the specific property "kind" from the tool, to know exactly what
         // is requested: a partition container, a sibling partition, or an inner
         // partition.
         PartitionToolKind kind = getPartitionKind(ctx);
-        
+
         switch (kind) {
         case SIBLING: {
             // A sibling of this partition can only be created in the
@@ -111,7 +111,7 @@ public class PartitionDelegatingEditPolicy extends DelegatingEditPolicy {
         default:
             return null;
         }
-        
+
     }
 
     @objid ("b71072fd-a872-455d-87a3-60a56ebb625a")
@@ -119,7 +119,7 @@ public class PartitionDelegatingEditPolicy extends DelegatingEditPolicy {
         if (l.isEmpty()) {
             return false;
         }
-        
+
         for (Object o : l) {
             if (!(o instanceof PartitionEditPart)) {
                 return false;

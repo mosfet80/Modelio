@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.ortho.edit;
 
@@ -52,7 +52,7 @@ import org.modelio.diagram.elements.core.link.MPrecisionPoint;
  * <li><b>{@link #getTargetAnchorIndex()} - 1</b> is the last bend point,
  * <li><b>{@link #getTargetAnchorIndex()}</b> is the target anchor.
  * </ul>
- * 
+ *
  * @since 5.0.2
  */
 @objid ("0b403619-c209-4df3-83a8-6362b13b5c2a")
@@ -82,14 +82,15 @@ public class ConnectionView {
     private static final MPoint TMP2 = new MPoint();
 
     @objid ("091dc02f-7d9a-4692-890f-31e2863aaec8")
-    public  ConnectionView() {
+    public ConnectionView() {
         this.connectionState = new ConnectionState();
         this.anchorBounds = new AnchorBounds();
-        
+
     }
 
     /**
      * Initialize this instance from the given Connection.
+     *
      * @param c the input connection
      * @return this instance
      */
@@ -103,6 +104,7 @@ public class ConnectionView {
 
     /**
      * Initialize this instance from the given {@link ConnectionState} and a {@link Connection} to make coordinate translations.
+     *
      * @param c the input connection
      * @param state the connection state
      * @return this instance
@@ -119,6 +121,7 @@ public class ConnectionView {
      * Compute again cached {@link #getAnchorBounds()}.
      * <p>
      * To call after having modified anchors in {@link #getState()} .
+     *
      * @return this instance
      */
     @objid ("4ec1a790-22a8-42fa-9c6e-d4feb32e5443")
@@ -130,6 +133,7 @@ public class ConnectionView {
     }
 
     /**
+     *
      * @return the index of the point at the target anchor.
      */
     @objid ("ddbf458f-b393-4eaa-8847-58cd51dd6850")
@@ -143,6 +147,7 @@ public class ConnectionView {
      * Fills output with the  point location in relative coordinates.
      * This method minimize the number of point allocations.
      * {@link IMPoint#setFixed(boolean)} is called with true for manual bend points and anchors, false for automatic anchors.
+     *
      * @param <P> the type of the passed point
      * @param output the point that will receive the point location in relative coordinates.
      * @param index the index of the point to modify in the points list.<br>
@@ -165,13 +170,14 @@ public class ConnectionView {
             this.connection.translateToAbsolute(output);
             return output;
         }
-        
+
     }
 
     /**
      * Insert a point at the given index.
      * <p>
      * The constraint list takes ownership of the point by reference.
+     *
      * @param index the point index. anchor indexes are illegal.
      * @param newPoint the point to insert
      * @throws IndexOutOfBoundsException if index < 0 or > target anchor index.
@@ -180,41 +186,44 @@ public class ConnectionView {
     public void insertPoint(int index, MPoint newPoint) throws IndexOutOfBoundsException {
         if (index < 0 || index > getTargetAnchorIndex())
             throw new IndexOutOfBoundsException(String.format("%d index out of [0..%d] bounds.",index, getTargetAnchorIndex()));
-        
+
         getConnection().translateToRelative(newPoint);
         getState().getMPoints().add(index - 1, newPoint);
-        
+
     }
 
     /**
      * Check the index is not an anchor index.
-     * @see #getTargetAnchorIndex()
+     *
      * @param index the index to test
      * @throws IndexOutOfBoundsException if the index matches an anchor index
+     * @see #getTargetAnchorIndex()
      */
     @objid ("95b2e083-2a71-461d-b8e1-08358c54b77d")
     private void checkIndexIsNotAnchor(int index) throws IndexOutOfBoundsException {
         if (index <= 0 || index >= getTargetAnchorIndex())
             throw new IndexOutOfBoundsException(String.format("%d is an anchor index.",index));
-        
+
     }
 
     /**
      * Overwrite a constraint point at the given index.
+     *
      * @param index the point index. anchor indexes are illegal.
      * @param newPoint the point to insert. The point data is copied into the existing constraint point.
      */
     @objid ("8706f57a-2dce-49e0-9541-3f846ab22007")
     public void setPoint(int index, IMPoint<?> newPoint) {
         checkIndexIsNotAnchor(index);
-        
+
         getConnection().translateToRelative(newPoint);
         getState().getMPoints().get(index - 1).setValues(newPoint);
-        
+
     }
 
     /**
      * Get the location of the target point.
+     *
      * @param <P> the type of the point
      * @param output the point to fill
      * @param anchorIsfixed calls {@link IMPoint#setFixed(boolean)} with this value
@@ -227,6 +236,7 @@ public class ConnectionView {
 
     /**
      * Get the location of a target anchor candidate.
+     *
      * @param <P> the type of the point
      * @param output the point to fill
      * @param anchor the target anchor candidate
@@ -245,13 +255,14 @@ public class ConnectionView {
             ref.setLocation(constraint.get(constraint.size() - 1));
             this.getConnection().translateToAbsolute(ref);
         }
-        
+
         output.setLocation(anchor.getLocation(ref.asPoint()));
         output.setFixed(anchorIsfixed);
         return output;
     }
 
     /**
+     *
      * @param <P> the type of the point
      * @param output the point to fill
      * @param anchorIsfixed calls {@link IMPoint#setFixed(boolean)} with this value
@@ -265,6 +276,7 @@ public class ConnectionView {
 
     /**
      * Get the location of a source anchor candidate.
+     *
      * @param <P> the type of the point
      * @param output the point to fill
      * @param anchor the source anchor to use
@@ -283,7 +295,7 @@ public class ConnectionView {
             ref.setLocation(constraint.get(0));
             getConnection().translateToAbsolute(ref);
         }
-        
+
         output.setLocation(anchor.getLocation(ref.asPoint()));
         output.setFixed(anchorIsfixed);
         return output;
@@ -293,6 +305,7 @@ public class ConnectionView {
      * Get the orientation of the segment from index to index+1.
      * <p>
      * If index matches the target anchor returns the expected segment orientation from the target node with the current target anchor.
+     *
      * @param index the segment first point index
      * @return the orientation of the segment from the index point to index+1
      */
@@ -301,13 +314,14 @@ public class ConnectionView {
         if (index >= getTargetAnchorIndex()) {
             return getDirectionFromTarget().orientation();
         }
-        
+
         getPoint(TMP1, index, true);
         getPoint(TMP2, index + 1, true);
         return Direction.getOrtho(TMP1, TMP2).orientation();
     }
 
     /**
+     *
      * @return the Direction of the source anchor
      */
     @objid ("7e51d99e-61ed-4d4d-906f-b18db644327c")
@@ -318,6 +332,7 @@ public class ConnectionView {
 
     /**
      * The direction from the target node to the target anchor.
+     *
      * @return the Direction the target anchor is pointing to
      */
     @objid ("df84c3e0-fc5d-4108-987b-931f223e9253")
@@ -328,6 +343,7 @@ public class ConnectionView {
 
     /**
      * Test whether the path is orthogonal and does not intersect source and target nodes.
+     *
      * @return true only if the path does not need modifications.
      */
     @objid ("3df461c5-ca58-4f20-9159-b517380a7e2b")
@@ -337,6 +353,7 @@ public class ConnectionView {
 
     /**
      * Compute the connections points into a given PointList.
+     *
      * @param out the PointList to overwrite.
      * @return a PointList with absolute coordinates.
      */
@@ -345,7 +362,7 @@ public class ConnectionView {
         out.removeAllPoints();
         int nb = cardPoints();
         MPrecisionPoint pp = new MPrecisionPoint();
-        
+
         for (int i = 0; i < nb; i++) {
             getPoint(pp, i, true);
             out.addPoint(pp);
@@ -355,6 +372,7 @@ public class ConnectionView {
 
     /**
      * Compute the connection points into a new  array list.
+     *
      * @param anchorAsManual IMPoint.setFixed(boolean) is called with this value with anchors
      * @return a List with absolute coordinates.
      */
@@ -376,10 +394,11 @@ public class ConnectionView {
                 GeomUtils.toString(getAnchorBounds().source),
                 GeomUtils.toString(getAnchorBounds().target),
                 toMPointList(true));
-        
+
     }
 
     /**
+     *
      * @return the number of points of the connection
      */
     @objid ("66e4b471-6595-4260-a025-21b1f782b1bc")
@@ -391,6 +410,7 @@ public class ConnectionView {
      * Get the orientation of the segment from index-1 to index.
      * <p>
      * If index is 0 returns the expected segment orientation from the source node with the current anchor.
+     *
      * @param index the index of the segment second point
      * @return the orientation of the segment from index-1 to index
      */
@@ -399,13 +419,14 @@ public class ConnectionView {
         if (index <= 0) {
             return getDirectionFromSource().orientation();
         }
-        
+
         getPoint(TMP1, index, true);
         getPoint(TMP2, index - 1, true);
         return Direction.getOrtho(TMP1, TMP2).orientation();
     }
 
     /**
+     *
      * @return the wrapped {@link ConnectionState}.
      */
     @objid ("7a423018-8345-4723-a231-f9e74298f4e5")
@@ -414,6 +435,7 @@ public class ConnectionView {
     }
 
     /**
+     *
      * @return the connection used to translate coordinates.
      */
     @objid ("8126163f-7037-4e61-be10-8a044aa169f4")
@@ -422,6 +444,7 @@ public class ConnectionView {
     }
 
     /**
+     *
      * @return the connected node bounds, in absolute coordinates .
      */
     @objid ("261a691d-53fb-48b8-9b46-095bba9f3e75")
@@ -438,48 +461,49 @@ public class ConnectionView {
         private static final PointList allPoints = new PointList();
 
         @objid ("5ef4deb5-5f0c-4e1d-b152-ef83aefd4b05")
-        private  Validator() {
+        private Validator() {
             // no instance
         }
 
         /**
          * Test whether the path is orthogonal and does not intersect source and target nodes.
+         *
          * @param connectionFig the connection figure
          * @return true only if the path does not need modifications.
          */
         @objid ("d9b84e6d-2004-4639-9f6f-b77f5cbf1c15")
         public static boolean isValidPath(ConnectionView connectionFig) {
             final PointList pointList = connectionFig.toPointList(allPoints);
-            
+
             final MPoint p = new MPoint();
             final MPoint prev = new MPoint();
-            
+
             final int nb = pointList.size();
-            
+
             pointList.getPoint(prev, 0);
-            
+
             for (int i = 1; i < nb; i++) {
                 pointList.getPoint(p, i);
                 if (p.x() != prev.x() && p.y() != prev.y()) {
                     return false;
                 }
-            
+
                 prev.setLocation(p);
             }
-            
+
             // check for intersections with source figure
             if (firstSegIntersectSource(connectionFig)) {
                 return false;
             }
-            
+
             if (!isFirstSegmentOrthogonal(connectionFig, pointList))
                 return false;
-            
+
             // check for intersections with target figure
             if (lastSegIntersectTarget(connectionFig)) {
                 return false;
             }
-            
+
             if (!isLastSegmentOrthogonal(connectionFig, pointList))
                 return false;
             return true;
@@ -494,7 +518,7 @@ public class ConnectionView {
                     allPoints.getPoint(TMP1, 0),
                     allPoints.getPoint(TMP2, 1),
                     Rectangle.SINGLETON.setBounds(bounds).shrink(1, 1));
-            
+
         }
 
         @objid ("23655cb2-1d8d-4ef0-8291-21c1cb65adbf")
@@ -502,17 +526,18 @@ public class ConnectionView {
             final PrecisionRectangle bounds = connectionFig.getAnchorBounds().target;
             if (bounds.width() < 5 && bounds.height() < 5)
                 return false;
-            
+
             int nb = allPoints.size();
             return GeomUtils.segmentIntersects(
                     allPoints.getPoint(TMP1, nb - 2),
                     allPoints.getPoint(TMP2, nb - 1),
                     Rectangle.SINGLETON.setBounds(bounds).shrink(1, 1));
-            
+
         }
 
         /**
          * Check and report whether the path is orthogonal and does not intersect source and target nodes.
+         *
          * @param connView the connection figure
          * @return a string report or null if the path does not need modifications.
          */
@@ -524,45 +549,45 @@ public class ConnectionView {
                     .toRelative(connView.getConnection())
                     .expand(-1);
             connView.getConnection().translateToAbsolute(newAnchorBounds);
-            
+
             final PointList pointList = connView.toPointList(allPoints);
-            
-            
+
+
             final MPoint p = new MPoint();
             final MPoint prev = new MPoint();
-            
+
             final int nb = pointList.size();
-            
+
             pointList.getPoint(prev, 0);
-            
+
             for (int i = 1; i < nb; i++) {
                 pointList.getPoint(p, i);
                 if (p.x() != prev.x() && p.y() != prev.y()) {
                     s.append(String.format("- segment %d not orthogonal: %s - %s %n", i-1, prev, p));
                 }
-            
+
                 prev.setLocation(p);
             }
-            
+
             // check for intersections with source figure
             PrecisionRectangle sourceBounds = newAnchorBounds.source;
             if (firstSegIntersectSource(connView)) {
                 dumpNodeIntersections(s, sourceBounds, pointList, "source");
             }
-            
+
             if (!isFirstSegmentOrthogonal(connView, pointList))
                 s.append(String.format("- first segment not orthogonal to source node: %s%n", GeomUtils.toString(sourceBounds)));
-            
-            
+
+
             // check for intersections with target figure
             PrecisionRectangle targetBounds = newAnchorBounds.target;
             if (lastSegIntersectTarget(connView)) {
                 dumpNodeIntersections(s, targetBounds, pointList, "target");
             }
-            
+
             if (!isLastSegmentOrthogonal(connView, pointList))
                 s.append(String.format("- last segment not orthogonal to target node: %s%n", GeomUtils.toString(targetBounds)));
-            
+
             if (s.length() > 0) {
                 s.insert(0, String.format("Invalid connection path:%n"));
                 s.append("- connection state:").append(connView).append('\n');
@@ -570,17 +595,17 @@ public class ConnectionView {
             } else {
                 return null;
             }
-            
+
         }
 
         @objid ("b67c964a-497f-49b2-b118-f224a3caf591")
         private static void dumpNodeIntersections(StringBuilder s, PrecisionRectangle bounds, final PointList pointList, String name) {
             final Point p = new Point();
             final Point prev = new Point();
-            
+
             final int nb = pointList.size();
             Rectangle shrinkedBounds = bounds.getShrinked(1, 1);
-            
+
                 PointList subList = new PointList(2);
                 subList.addPoint(0, 0);
                 subList.addPoint(0, 0);
@@ -594,11 +619,12 @@ public class ConnectionView {
                             i, prev, p, name));
                     }
                 }
-            
+
         }
 
         /**
          * Tells whether the first connection segment is parallel to the figure border where the source anchor is located.
+         *
          * @param connView the connection figure
          * @return true if the first segment is parallel to the figure.
          */
@@ -612,7 +638,7 @@ public class ConnectionView {
                     pointList.getPoint(TMP1, 0);
                     pointList.getPoint(TMP2, 1);
                     boolean isHorizontal = TMP1.y() == TMP2.y();
-            
+
                     Orientation anchorOrientation = GeomUtils.getDirection(TMP1, connView.getAnchorBounds().source).orientation();
                     return (anchorOrientation == Orientation.HORIZONTAL) == isHorizontal;
                 }
@@ -622,6 +648,7 @@ public class ConnectionView {
 
         /**
          * Tells whether the last connection segment is parallel to the figure border where the target anchor is located.
+         *
          * @param connectionFig the connection figure
          * @return true if the last segment is parallel to the figure.
          */
@@ -632,12 +659,12 @@ public class ConnectionView {
                 IFigure node = anchor.getOwner();
                 if (node != null && ! (node instanceof Connection)) {
                     int nb = connectionFig.cardPoints();
-            
+
                     // check last segment is orthogonal to the figure border
                     pointList.getPoint(TMP1, nb - 2);
                     pointList.getPoint(TMP2, nb - 1);
                     boolean isHorizontal = TMP1.y() == TMP2.y();
-            
+
                     Orientation anchorOrientation = GeomUtils.getDirection(TMP2, connectionFig.getAnchorBounds().target).orientation();
                     return (anchorOrientation == Orientation.HORIZONTAL) == isHorizontal;
                 }

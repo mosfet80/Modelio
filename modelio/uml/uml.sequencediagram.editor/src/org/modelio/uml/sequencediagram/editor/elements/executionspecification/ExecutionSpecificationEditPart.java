@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.executionspecification;
 
@@ -66,6 +66,7 @@ public class ExecutionSpecificationEditPart extends AbstractSequenceNodeEditPart
 
     /**
      * Creates and returns a PlacementConstraint for the given model.
+     *
      * @param model the graphic model for which a constraint is to be created.
      * @param x the desired X coordinate in coordinates relative to the parent figure.
      * @param y the desired Y coordinates relative to the parent figure.
@@ -82,7 +83,7 @@ public class ExecutionSpecificationEditPart extends AbstractSequenceNodeEditPart
                                 width,
                                 height,
                                 (GmSequenceDiagram) model.getDiagram());
-        
+
     }
 
     @objid ("d8e5048e-55b6-11e2-877f-002564c97630")
@@ -132,7 +133,7 @@ public class ExecutionSpecificationEditPart extends AbstractSequenceNodeEditPart
         }
         IFigure child = ((GraphicalEditPart) childEditPart).getFigure();
         getContentPane().add(child, layoutData, index);
-        
+
     }
 
     @objid ("d8e504a1-55b6-11e2-877f-002564c97630")
@@ -145,7 +146,7 @@ public class ExecutionSpecificationEditPart extends AbstractSequenceNodeEditPart
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START,
                 new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
-        
+
     }
 
     @objid ("d8e504a4-55b6-11e2-877f-002564c97630")
@@ -153,11 +154,11 @@ public class ExecutionSpecificationEditPart extends AbstractSequenceNodeEditPart
     protected IFigure createFigure() {
         // Create the figure
         ExecutionSpecificationFigure executionFigure = new ExecutionSpecificationFigure();
-        
+
         // Set style independent properties
         executionFigure.setOpaque(false);
         executionFigure.setLayoutManager(new ExecutionSpecificationLayout());
-        
+
         // Set style dependent properties
         IStyle style = ((GmAbstractObject) this.getModel()).getDisplayedStyle();
         refreshFromStyle(executionFigure, style);
@@ -169,7 +170,7 @@ public class ExecutionSpecificationEditPart extends AbstractSequenceNodeEditPart
     protected void refreshVisuals() {
         GmAbstractObject model = getModel();
         getFigure().getParent().setConstraint(getFigure(), model.getLayoutData());
-        
+
     }
 
     @objid ("d8e504ac-55b6-11e2-877f-002564c97630")
@@ -181,7 +182,7 @@ public class ExecutionSpecificationEditPart extends AbstractSequenceNodeEditPart
         } else {
             return super.createAnchorModel(anchor);
         }
-        
+
     }
 
     @objid ("d8e504b2-55b6-11e2-877f-002564c97630")
@@ -194,7 +195,7 @@ public class ExecutionSpecificationEditPart extends AbstractSequenceNodeEditPart
         } else {
             return super.getSourceConnectionAnchor(connection);
         }
-        
+
     }
 
     @objid ("d8e504b8-55b6-11e2-877f-002564c97630")
@@ -207,7 +208,7 @@ public class ExecutionSpecificationEditPart extends AbstractSequenceNodeEditPart
         } else {
             return super.getSourceConnectionAnchor(connection);
         }
-        
+
     }
 
 }

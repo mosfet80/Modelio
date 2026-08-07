@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension id="archimate.browser" point="org.eclipse.e4.workbench.model">
+      <fragment uri="e4model/archimate.ui.ext_org.e4xmi"/>
+   </extension>
+
+   <extension point="org.modelio.app.model.property.propertymodelprovider">
+      <service metamodel="Archimate" implementation="org.modelio.archimate.ui.modelproperty.ArchimatePropertyModelProvider" />
+   </extension>
+   
+  <extension point="org.eclipse.core.expressions.definitions">
+    <definition id="org.modelio.archimate.activeexpertise" >
+      <count value="1" />
+    </definition>
+  </extension>
+</plugin>

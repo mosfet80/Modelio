@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.interactionuse.primarynode;
 
@@ -43,7 +43,7 @@ import org.modelio.uml.sequencediagram.editor.elements.common.node.AbstractSeque
 
 /**
  * EditPart for primary node of InteractionUse.
- * 
+ *
  * @author fpoyer
  */
 @objid ("d9282841-55b6-11e2-877f-002564c97630")
@@ -67,7 +67,7 @@ public class InteractionUsePrimaryNodeEditPart extends AbstractSequenceNodeEditP
                     int finishTime = bounds.bottom() +
                             ((ChangeBoundsRequest) request).getMoveDelta().y +
                             ((ChangeBoundsRequest) request).getSizeDelta().height;
-        
+
                     InteractionUse interactionUse = (InteractionUse) model.getRelatedElement();
                     if (startTime != interactionUse.getLineNumber()) {
                         interactionUse.setLineNumber(startTime);
@@ -75,7 +75,7 @@ public class InteractionUsePrimaryNodeEditPart extends AbstractSequenceNodeEditP
                     if (finishTime != interactionUse.getEndLineNumber()) {
                         interactionUse.setEndLineNumber(finishTime);
                     }
-        
+
                 }
             };
             command = updateModelCommand.chain(command);
@@ -98,7 +98,6 @@ public class InteractionUsePrimaryNodeEditPart extends AbstractSequenceNodeEditP
         } else {
             getContentPane().add(child, BorderLayout.CENTER, index);
         }
-        
     }
 
     @objid ("d929aeb5-55b6-11e2-877f-002564c97630")
@@ -119,7 +118,6 @@ public class InteractionUsePrimaryNodeEditPart extends AbstractSequenceNodeEditP
     protected void refreshVisuals() {
         super.refreshVisuals();
         getFigure().getParent().setConstraint(getFigure(), ((GmAbstractObject) getModel()).getLayoutData());
-        
     }
 
     @objid ("d929aebd-55b6-11e2-877f-002564c97630")
@@ -130,7 +128,6 @@ public class InteractionUsePrimaryNodeEditPart extends AbstractSequenceNodeEditP
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START,
                 new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
-        
     }
 
 }

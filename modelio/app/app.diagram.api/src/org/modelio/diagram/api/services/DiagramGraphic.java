@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.api.services;
 
@@ -48,10 +48,11 @@ public abstract class DiagramGraphic implements IDiagramGraphic {
 
     /**
      * Initializer
+     *
      * @param diagramHandle the diagram handle
      */
     @objid ("e352f549-5a98-4dc3-bdea-8e7e4193393d")
-    public  DiagramGraphic(DiagramHandle diagramHandle) {
+    public DiagramGraphic(DiagramHandle diagramHandle) {
         this.diagramHandle = diagramHandle;
     }
 
@@ -79,7 +80,7 @@ public abstract class DiagramGraphic implements IDiagramGraphic {
     @Override
     public String getProperty(final String property) {
         final StyleKey key = resolveStyleKey(property);
-        
+
         if (key != null) {
             final IStyle style = getModel().getDisplayedStyle();
             return StyleKeyTypeConverter.convertToString(key, style.getProperty(key));
@@ -98,7 +99,7 @@ public abstract class DiagramGraphic implements IDiagramGraphic {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("1ac41701-cb47-4335-bb0a-811779b69e17")
@@ -106,7 +107,7 @@ public abstract class DiagramGraphic implements IDiagramGraphic {
     public void setStyle(final IStyleHandle style) {
         final IStyle namedStyle = style != null ? DiagramStyles.getStyleManager().getStyle(style.getName()) : getModel().getDiagram().getPersistedStyle();
         getModel().getDisplayedStyle().setCascadedStyle(namedStyle);
-        
+
     }
 
     @objid ("982caea5-364d-4d4a-a6c4-a9cfc5985ca1")
@@ -140,12 +141,12 @@ public abstract class DiagramGraphic implements IDiagramGraphic {
     @Override
     public void setProperty(final String property, final String stringValue) {
         final StyleKey key = resolveStyleKey(property);
-        
+
         if (key != null) {
             getModel().getDisplayedStyle()
                     .setProperty(key, StyleKeyTypeConverter.convertFromString(key, stringValue));
         }
-        
+
     }
 
     @objid ("e77a46aa-6312-4fad-a596-23eeeecb23c1")
@@ -164,7 +165,7 @@ public abstract class DiagramGraphic implements IDiagramGraphic {
     @Override
     public MObject getHyperLink() {
         StyleKey styleKey = getModel().getStyleKey(MetaKey.HYPERREFLINK);
-        
+
         if (styleKey != null) {
             final MRef ref = getModel().getDisplayedStyle().getProperty(styleKey);
             if (ref != null) {
@@ -182,10 +183,11 @@ public abstract class DiagramGraphic implements IDiagramGraphic {
         if (styleKey != null) {
             getModel().getDisplayedStyle().setProperty(styleKey, new MRef(obj));
         }
-        
+
     }
 
     /**
+     *
      * @return the represented graphic model.
      */
     @objid ("2c5d39ba-d3d6-4c39-bd6f-e2f38b624a1c")
@@ -197,7 +199,7 @@ public abstract class DiagramGraphic implements IDiagramGraphic {
         final int prime = 31;
         int result = 1;
         final IGmObject model = getModel();
-        
+
         result = prime * result + (model == null ? 0 : model.hashCode());
         return result;
     }
@@ -214,7 +216,7 @@ public abstract class DiagramGraphic implements IDiagramGraphic {
         if (!(obj.getClass() != getClass())) {
             return false;
         }
-        
+
         final DiagramGraphic other = (DiagramGraphic) obj;
         return Objects.equals(getModel(), other.getModel());
     }

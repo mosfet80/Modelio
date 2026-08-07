@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.policies;
 
@@ -39,7 +39,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * Drag & drop edit policy for smart interactions.
  * <p>
  * Allow drag and drop of Operation, Behaviors, BehaviorParameter and more...
- * 
+ *
  * @author cmarin
  */
 @objid ("2b3efa2d-55b6-11e2-877f-002564c97630")
@@ -50,7 +50,7 @@ public class SmartDropEditPolicy extends DefaultElementDropEditPolicy {
         if (!request.isSmart()) {
             return super.getDropTargetEditPart(request);
         }
-        
+
         for (MObject droppedElement : request.getDroppedElements()) {
             if (!(droppedElement instanceof Operation) &&
                     !(droppedElement instanceof Behavior) &&
@@ -59,7 +59,7 @@ public class SmartDropEditPolicy extends DefaultElementDropEditPolicy {
                 return super.getDropTargetEditPart(request);
             }
         }
-        
+
         // All dropped elements have a smart interaction
         return this.getHost();
     }
@@ -68,9 +68,9 @@ public class SmartDropEditPolicy extends DefaultElementDropEditPolicy {
     @Override
     protected Command getSmartDropCommand(ModelElementDropRequest request) {
         CompoundCommand command = new CompoundCommand();
-        
+
         Point dropLocation = request.getDropLocation();
-        
+
         if (request.isSmart()) {
             for (MObject toUnmask : request.getDroppedElements()) {
                 if (toUnmask instanceof Operation) {
@@ -82,7 +82,7 @@ public class SmartDropEditPolicy extends DefaultElementDropEditPolicy {
                 }
             }
         }
-        
+
         if (command.isEmpty())
             return null;
         return command;

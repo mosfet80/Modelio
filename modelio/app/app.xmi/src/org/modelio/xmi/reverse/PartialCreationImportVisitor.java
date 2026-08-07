@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.reverse;
 
@@ -90,11 +90,10 @@ public class PartialCreationImportVisitor {
     private PartialImportMap partialMap;
 
     @objid ("73c92685-7d18-41ae-a80e-f615a857e706")
-    public  PartialCreationImportVisitor() {
+    public PartialCreationImportVisitor() {
         this.objingElt = null;
         this.mapper = new CreationImportMapper();
         this.partialMap = PartialImportMap.getInstance();
-        
     }
 
     @objid ("02d82373-2d55-4b5d-a2e0-03d014e09adc")
@@ -114,7 +113,7 @@ public class PartialCreationImportVisitor {
         if (ecoreElt != null) {
             this.objingElt = null;
             Object objingEltFromMap = this.partialMap.get(ecoreElt);
-        
+
             if (objingEltFromMap == null) {
                 this.mapper.accept(ecoreElt);
                 this.partialMap.put(ecoreElt, this.objingElt);
@@ -127,7 +126,6 @@ public class PartialCreationImportVisitor {
             Xmi.LOG.warning(Xmi.PLUGIN_ID, "Ecore element is null.");
             throw new RuntimeException("Ecore element is null.");
         }
-        
     }
 
     @objid ("6b8638a0-dc92-4be8-b7cd-857dd71f1829")
@@ -170,16 +168,16 @@ public class PartialCreationImportVisitor {
         public Object caseAcceptEventAction(org.eclipse.uml2.uml.AcceptEventAction ecoreElt) {
             if (EcoreModelNavigation.hasReceiveOperationEvent(ecoreElt)) {
                 PartialCreationImportVisitor.this.objingElt = this.factory.createAcceptCallEventAction();
-            
+
             } else if (EcoreModelNavigation.hasSignalEvent(ecoreElt)) {
                 PartialCreationImportVisitor.this.objingElt = this.factory.createAcceptSignalAction();
-            
+
             } else if (EcoreModelNavigation.hasChangeEvent(ecoreElt)) {
                 PartialCreationImportVisitor.this.objingElt = this.factory.createAcceptChangeEventAction();
-            
+
             } else if (EcoreModelNavigation.hasTimeEvent(ecoreElt)) {
                 PartialCreationImportVisitor.this.objingElt = this.factory.createAcceptTimeEventAction();
-            
+
             }else if (ReverseProperties.getInstance().isRoundtripEnabled()){
                 String signal = ObjingEAnnotation.getSignal(ecoreElt);
                 if ((signal != null) && (signal.equals("signal")))
@@ -200,14 +198,14 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseActionInputPin(org.eclipse.uml2.uml.ActionInputPin ecoreElt) {
             InputPin result = this.factory.createInputPin();
-            
+
             try {
                 result.getExtension().add(this.mmServices
                         .getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2ACTIONINPUTPIN, result.getMClass()));
             } catch (IllegalArgumentException | ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -251,7 +249,7 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseAddStructuralFeatureValueAction(org.eclipse.uml2.uml.AddStructuralFeatureValueAction ecoreElt) {
             OpaqueAction result = this.factory.createOpaqueAction();
-            
+
             try {
                 Stereotype stereo = ReverseProperties.getInstance().getMModelServices()
                         .getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2ADDSTRUCTURALFEATUREVALUEACTION, result.getMClass());
@@ -259,7 +257,7 @@ public class PartialCreationImportVisitor {
             } catch (ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -268,7 +266,7 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseAddVariableValueAction(org.eclipse.uml2.uml.AddVariableValueAction ecoreElt) {
             OpaqueAction result = this.factory.createOpaqueAction();
-            
+
             try {
                 Stereotype stereo = ReverseProperties.getInstance().getMModelServices()
                         .getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2ADDVARIABLEVALUEACTION, result.getMClass());
@@ -276,7 +274,7 @@ public class PartialCreationImportVisitor {
             } catch (ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -298,7 +296,7 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseAssociation(org.eclipse.uml2.uml.Association ecoreElt) {
             int endNumber = EcoreModelNavigation.getValidEndNumber(ecoreElt);
-            
+
             if (endNumber == 2){
                 PartialCreationImportVisitor.this.objingElt = this.factory.createAssociation();
             }else if (endNumber > 2){
@@ -334,14 +332,14 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseBroadcastSignalAction(org.eclipse.uml2.uml.BroadcastSignalAction ecoreElt) {
             SendSignalAction result = this.factory.createSendSignalAction();
-            
+
             try {
                 result.getExtension().add(this.mmServices
                         .getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2BROADCASTSIGNALACTION, result.getMClass()));
             } catch (IllegalArgumentException | ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -357,7 +355,7 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseCallEvent(org.eclipse.uml2.uml.CallEvent ecoreElt) {
             ecoreElt.getOwner();
-            
+
             org.modelio.metamodel.uml.behavior.commonBehaviors.Event result = this.factory.createEvent();
             result.setKind(EventType.CALLEVENT);
             PartialCreationImportVisitor.this.objingElt = result;
@@ -380,8 +378,8 @@ public class PartialCreationImportVisitor {
                     PartialCreationImportVisitor.this.objingElt =  this.factory.createInstanceNode();
                 else
                     PartialCreationImportVisitor.this.objingElt = this.factory.createCentralBufferNode();
-            }else 
-            
+            }else
+
                 PartialCreationImportVisitor.this.objingElt = this.factory.createCentralBufferNode();
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -412,13 +410,13 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseClassifierTemplateParameter(org.eclipse.uml2.uml.ClassifierTemplateParameter ecoreElt) {
             UmlModelElement result = this.factory.createTemplateParameter();
-            
+
             try {
                 result.getExtension().add(this.mmServices.getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2CLASSIFIERTEMPLATEPARAMETER, result.getMClass()));
             } catch (IllegalArgumentException | ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt =  result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -434,7 +432,7 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseClearAssociationAction(org.eclipse.uml2.uml.ClearAssociationAction ecoreElt) {
             OpaqueAction result = this.factory.createOpaqueAction();
-            
+
             try {
                 result.getExtension().add(this.mmServices.getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2CLEARASSOCIATIONACTION, result.getMClass()));
             } catch (IllegalArgumentException | ElementNotUniqueException e) {
@@ -448,7 +446,7 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseClearStructuralFeatureAction(org.eclipse.uml2.uml.ClearStructuralFeatureAction ecoreElt) {
             OpaqueAction result = this.factory.createOpaqueAction();
-            
+
             try {
                 result.getExtension().add(this.mmServices.getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2CLEARSTRUCTURALFEATUREACTION, result.getMClass()));
             } catch (IllegalArgumentException | ElementNotUniqueException e) {
@@ -462,13 +460,13 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseClearVariableAction(org.eclipse.uml2.uml.ClearVariableAction ecoreElt) {
             OpaqueAction result = this.factory.createOpaqueAction();
-            
+
             try {
                 result.getExtension().add(this.mmServices.getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2CLEARVARIABLEACTION, result.getMClass()));
             } catch (IllegalArgumentException | ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -505,20 +503,20 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseCommunicationPath(org.eclipse.uml2.uml.CommunicationPath ecoreElt) {
             int endNumber = EcoreModelNavigation.getValidEndNumber(ecoreElt);
-            
+
             if (endNumber == 2){
-                Association result = this.factory.createAssociation();     
-            
+                Association result = this.factory.createAssociation();
+
                 try {
                     result.getExtension().add(
                             this.mmServices.getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2COMMUNICATIONPATH, result.getMClass()));
                 } catch (IllegalArgumentException | ElementNotUniqueException e) {
                     Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
                 }
-            
-                PartialCreationImportVisitor.this.objingElt = result; 
-            
-            } else                  
+
+                PartialCreationImportVisitor.this.objingElt = result;
+
+            } else
                 PartialCreationImportVisitor.this.objingElt = null;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -548,7 +546,7 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseConnectableElementTemplateParameter(org.eclipse.uml2.uml.ConnectableElementTemplateParameter ecoreElt) {
             TemplateParameter result = this.factory.createTemplateParameter();
-            
+
             try {
                 result.getExtension().add(this.mmServices.getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2CONNECTABLEELEMENTTEMPLATEPARAMETER, result.getMClass()));
             } catch (IllegalArgumentException | ElementNotUniqueException e) {
@@ -589,21 +587,21 @@ public class PartialCreationImportVisitor {
         @objid ("8dc64f29-9cf5-4686-b462-20ac757cf5a7")
         @Override
         public Object caseConstraint(org.eclipse.uml2.uml.Constraint ecoreElt) {
-            if ((! EcoreModelNavigation.isCondition(ecoreElt)) 
+            if ((! EcoreModelNavigation.isCondition(ecoreElt))
                     && ((ecoreElt.getConstrainedElements().size() > 0))){
-            
+
                 EList<org.eclipse.uml2.uml.Element> ecoreConstrainedElts = ecoreElt.getConstrainedElements();
-            
+
                 for (org.eclipse.uml2.uml.Element ecoreConstrainedElt : ecoreConstrainedElts) {
-            
+
                     Object object = ReverseProperties.getInstance().getMappedElement(ecoreConstrainedElt);
-            
+
                     if (object instanceof UmlModelElement){
                         UmlModelElement objingConstrainedElt = (UmlModelElement) object;
                         Constraint result = ReverseProperties.getInstance().getMModelServices().getModelFactory().getFactory(IStandardModelFactory.class).createConstraint();
                         result.getConstrainedElement().add(objingConstrainedElt);
                         PartialCreationImportVisitor.this.objingElt = result;
-            
+
                     }else if (object instanceof List<?>){
                         List<?> list = (List<?>) object;
                         Constraint result = ReverseProperties.getInstance().getMModelServices().getModelFactory().getFactory(IStandardModelFactory.class).createConstraint();
@@ -612,7 +610,7 @@ public class PartialCreationImportVisitor {
                                 result.getConstrainedElement().add((UmlModelElement)objingConstrainedElt);
                             }
                         }
-            
+
                         PartialCreationImportVisitor.this.objingElt = result;
                     }
                 }
@@ -646,7 +644,7 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseCreateLinkAction(org.eclipse.uml2.uml.CreateLinkAction ecoreElt) {
             OpaqueAction result = this.factory.createOpaqueAction();
-            
+
             try {
                 result.getExtension().add(this.mmServices.getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2CREATELINKACTION, result.getMClass()));
             } catch (IllegalArgumentException | ElementNotUniqueException e) {
@@ -660,7 +658,7 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseCreateLinkObjectAction(org.eclipse.uml2.uml.CreateLinkObjectAction ecoreElt) {
             OpaqueAction result = this.factory.createOpaqueAction();
-            
+
             try {
                 result.getExtension().add(this.mmServices.getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2CREATELINKOBJECTACTION, result.getMClass()));
             } catch (IllegalArgumentException | ElementNotUniqueException e) {
@@ -674,7 +672,7 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseCreateObjectAction(org.eclipse.uml2.uml.CreateObjectAction ecoreElt) {
             OpaqueAction result = this.factory.createOpaqueAction();
-            
+
             try {
                 result.getExtension().add(this.mmServices.getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2CREATEOBJECTACTION, result.getMClass()));
             } catch (IllegalArgumentException | ElementNotUniqueException e) {
@@ -689,13 +687,13 @@ public class PartialCreationImportVisitor {
         public Object caseCreationEvent(org.eclipse.uml2.uml.CreationEvent ecoreElt) {
             ecoreElt.getOwner();
             org.modelio.metamodel.uml.behavior.commonBehaviors.Event result = this.factory.createEvent();
-            
+
             try {
                 result.getExtension().add(this.mmServices.getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2CREATIONEVENT, result.getMClass()));
             } catch (IllegalArgumentException | ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -712,7 +710,7 @@ public class PartialCreationImportVisitor {
         public Object caseDataType(org.eclipse.uml2.uml.DataType ecoreElt) {
             if (EcorePrimitiveTypeMapper.isPredefinedType(ecoreElt))
                 PartialCreationImportVisitor.this.objingElt =  EcorePrimitiveTypeMapper.getPredefinedType(ecoreElt);
-            else 
+            else
                 PartialCreationImportVisitor.this.objingElt = this.factory.createDataType();
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -735,13 +733,13 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseDeployment(org.eclipse.uml2.uml.Deployment ecoreElt) {
             Dependency result = this.factory.createDependency();
-            
+
             try {
                 result.getExtension().add(this.mmServices.getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2DEPLOYMENT, result.getMClass()));
             } catch (IllegalArgumentException | ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -750,13 +748,13 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseDeploymentSpecification(org.eclipse.uml2.uml.DeploymentSpecification ecoreElt) {
             Artifact result = this.factory.createArtifact();
-            
+
             try {
                 result.getExtension().add(this.mmServices.getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2DEPLOYMENTSPECIFICATION, result.getMClass()));
             } catch (IllegalArgumentException | ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -765,13 +763,13 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseDestroyLinkAction(org.eclipse.uml2.uml.DestroyLinkAction ecoreElt) {
             OpaqueAction result = this.factory.createOpaqueAction();
-            
+
             try {
                 result.getExtension().add(this.mmServices.getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2DESTROYLINKACTION, result.getMClass()));
             } catch (IllegalArgumentException | ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -780,13 +778,13 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseDestroyObjectAction(org.eclipse.uml2.uml.DestroyObjectAction ecoreElt) {
             OpaqueAction result = this.factory.createOpaqueAction();
-            
+
             try {
                 result.getExtension().add(this.mmServices.getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2DESTROYOBJECTACTION, result.getMClass()));
             } catch (IllegalArgumentException | ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -796,13 +794,13 @@ public class PartialCreationImportVisitor {
         public Object caseDestructionEvent(org.eclipse.uml2.uml.DestructionEvent ecoreElt) {
             ecoreElt.getOwner();
             org.modelio.metamodel.uml.behavior.commonBehaviors.Event result = this.factory.createEvent();
-            
+
             try {
                 result.getExtension().add(this.mmServices.getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2DESTRUCTIONEVENT, result.getMClass()));
             } catch (IllegalArgumentException | ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -811,13 +809,13 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseDevice(org.eclipse.uml2.uml.Device ecoreElt) {
             Node result = this.factory.createNode();
-            
+
             try {
                 result.getExtension().add(this.mmServices.getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2DEVICE, result.getMClass()));
             } catch (IllegalArgumentException | ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -854,16 +852,16 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseElementImport(org.eclipse.uml2.uml.ElementImport ecoreElt) {
             ReverseProperties revProp = ReverseProperties.getInstance();
-            
+
             org.eclipse.uml2.uml.PackageableElement ecoreImported = ecoreElt.getImportedElement();
             ecoreElt.getImportingNamespace();
-            
+
             // with the ecore  take de ModelioElement
             NameSpace objingImported = (NameSpace) revProp
                     .getMappedElement(ecoreImported);
             //  set to the PartialCreationImportVisitor.this.objingElt Imported Importing previousely find
             if ((objingImported != null)  && !(objingImported instanceof Profile)){
-            
+
                 PartialCreationImportVisitor.this.objingElt = this.factory.createElementImport();
             }else {
                 PartialCreationImportVisitor.this.objingElt = null;
@@ -896,14 +894,14 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseExecutionEnvironment(org.eclipse.uml2.uml.ExecutionEnvironment ecoreElt) {
             Node result = this.factory.createNode();
-            
+
             try {
                 result.getExtension().add(this.mmServices
                         .getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2EXECUTIONENVIRONMENT, result.getMClass()));
             } catch (IllegalArgumentException | ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -911,15 +909,15 @@ public class PartialCreationImportVisitor {
         @objid ("74e59700-f859-4dc6-8387-807a685ba6f7")
         @Override
         public Object caseExecutionEvent(org.eclipse.uml2.uml.ExecutionEvent ecoreElt) {
-            ecoreElt.getOwner();     
+            ecoreElt.getOwner();
             org.modelio.metamodel.uml.behavior.commonBehaviors.Event result = this.factory.createEvent();
-            
+
             try {
                 result.getExtension().add(this.mmServices.getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2EXECUTIONEVENT, result.getMClass()));
             } catch (IllegalArgumentException | ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -1026,15 +1024,15 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseGeneralization(org.eclipse.uml2.uml.Generalization ecoreElt) {
             ReverseProperties revProp = ReverseProperties.getInstance();
-            
+
             org.eclipse.uml2.uml.Classifier ecoreGeneral = ecoreElt.getGeneral();
             org.eclipse.uml2.uml.Classifier ecoreSpecific = ecoreElt.getSpecific();
-            
+
             Element objingGeneral = (Element) revProp
                     .getMappedElement(ecoreGeneral);
             Element objingSpecific = (Element) revProp
                     .getMappedElement(ecoreSpecific);
-            
+
             if (objingGeneral instanceof NameSpace
                     && objingSpecific instanceof NameSpace
                     && (!EcorePrimitiveTypeMapper.isPredefinedType(ecoreGeneral))) {
@@ -1114,12 +1112,12 @@ public class PartialCreationImportVisitor {
                         return PartialCreationImportVisitor.this.defaut;
                     }
                 }
-            
+
                 PartialCreationImportVisitor.this.objingElt =  this.factory.createInstance();
                 return PartialCreationImportVisitor.this.defaut;
-            
+
             }else{
-            
+
                 if (EcoreModelNavigation.isAssocInstance(ecoreElt)){
                     if (EcoreModelNavigation.isConnector(ecoreElt)){
                         PartialCreationImportVisitor.this.objingElt =  this.factory.createConnector();
@@ -1128,12 +1126,11 @@ public class PartialCreationImportVisitor {
                         PartialCreationImportVisitor.this.objingElt =  this.factory.createLink();
                         return PartialCreationImportVisitor.this.defaut;
                     }
-            
+
                 }
                 PartialCreationImportVisitor.this.objingElt =  this.factory.createInstance();
                 return PartialCreationImportVisitor.this.defaut;
             }
-            
         }
 
         @objid ("6fe35662-87ae-4159-b718-05877105ea7b")
@@ -1186,7 +1183,7 @@ public class PartialCreationImportVisitor {
             else if (((ecoreElt.getClients().size() > 0) && (ecoreElt.getClients().get(0) instanceof org.eclipse.uml2.uml.Interface))
                     || (ecoreElt.getContract() != null))
                 PartialCreationImportVisitor.this.objingElt =  this.factory.createInterfaceRealization();
-            else 
+            else
                 PartialCreationImportVisitor.this.objingElt =  null;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -1306,7 +1303,12 @@ public class PartialCreationImportVisitor {
         @objid ("2bfd30d5-a603-4f4e-801b-a2efea495724")
         @Override
         public Object caseMessage(org.eclipse.uml2.uml.Message ecoreElt) {
-            PartialCreationImportVisitor.this.objingElt = this.factory.createMessage();
+            org.eclipse.uml2.uml.MessageEnd receive = ecoreElt.getReceiveEvent();
+            org.eclipse.uml2.uml.MessageEnd send = ecoreElt.getSendEvent();
+            if ((receive != null) && (send != null)) {
+                 PartialCreationImportVisitor.this.objingElt = this.factory.createMessage();
+            }
+
             return PartialCreationImportVisitor.this.defaut;
         }
 
@@ -1327,7 +1329,7 @@ public class PartialCreationImportVisitor {
                     root = true;
                 }
             }
-            
+
             if (!root) {
                 PartialCreationImportVisitor.this.objingElt = this.factory.createPackage();
                 ((org.modelio.metamodel.uml.statik.Package)PartialCreationImportVisitor.this.objingElt).setName(ecoreElt.getName());
@@ -1381,10 +1383,10 @@ public class PartialCreationImportVisitor {
             org.eclipse.uml2.uml.Element ecoreOwner = ecoreElt.getOwner();
             ReverseProperties revProp = ReverseProperties.getInstance();
             Object objOwner = revProp.getMappedElement(ecoreOwner);
-            
-            if (objOwner instanceof Transition){                    
+
+            if (objOwner instanceof Transition){
                 PartialCreationImportVisitor.this.objingElt = null;
-            }else if ((objOwner instanceof State) && (ecoreOwner instanceof org.eclipse.uml2.uml.State)){                               
+            }else if ((objOwner instanceof State) && (ecoreOwner instanceof org.eclipse.uml2.uml.State)){
                 PartialCreationImportVisitor.this.objingElt = null;
             }else
                 PartialCreationImportVisitor.this.objingElt = this.factory.createOpaqueBehavior();
@@ -1409,13 +1411,13 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseOperationTemplateParameter(org.eclipse.uml2.uml.OperationTemplateParameter ecoreElt) {
             Parameter result = this.factory.createParameter();
-            
+
             try {
                 result.getExtension().add(this.mmServices.getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2OPERATIONTEMPLATEPARAMETER, result.getMClass()));
             } catch (IllegalArgumentException | ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -1435,7 +1437,7 @@ public class PartialCreationImportVisitor {
             //                    PartialCreationImportVisitor.this.objingElt = this.factory.createPackage();
             //                }
             //            }
-            //            
+            //
             //            if (ObjingEAnnotation.isRequirementContainer(ecoreElt))
             //                PartialCreationImportVisitor.this.objingElt = this.factory.createPackage();
             //            else{
@@ -1449,9 +1451,9 @@ public class PartialCreationImportVisitor {
         public Object casePackageImport(org.eclipse.uml2.uml.PackageImport ecoreElt) {
             ReverseProperties revProp = ReverseProperties.getInstance();
             org.eclipse.uml2.uml.Package ecoreImported = ecoreElt.getImportedPackage();
-            
+
             org.eclipse.uml2.uml.Package model = EcoreModelNavigation.getRoot(ecoreImported);
-            
+
             if  ((model != null)  && revProp.getEcoreModels().contains(model) ){
                 PartialCreationImportVisitor.this.objingElt = this.factory.createPackageImport();
             }
@@ -1462,18 +1464,18 @@ public class PartialCreationImportVisitor {
         @Override
         public Object casePackageMerge(org.eclipse.uml2.uml.PackageMerge ecoreElt) {
             ReverseProperties revProp = ReverseProperties.getInstance();
-            
+
             //  take the ecore Imported and Importing
             org.eclipse.uml2.uml.Package ecoreMergedPackage = ecoreElt.getMergedPackage();
             org.eclipse.uml2.uml.Package ecoreReceivingPackage = ecoreElt.getReceivingPackage();
-            
+
             org.eclipse.uml2.uml.Package objingMergedPackage = (org.eclipse.uml2.uml.Package) revProp
                     .getMappedElement(ecoreMergedPackage);
             org.eclipse.uml2.uml.Package objingReceivingPackage = (org.eclipse.uml2.uml.Package) revProp
                     .getMappedElement(ecoreReceivingPackage);
             if ((objingMergedPackage != null) && (objingReceivingPackage != null))
                 PartialCreationImportVisitor.this.objingElt = this.factory.createPackageMerge();
-            else 
+            else
                 PartialCreationImportVisitor.this.objingElt = null;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -1482,10 +1484,10 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseParameter(org.eclipse.uml2.uml.Parameter ecoreElt) {
             boolean isBehavior = !(ReverseProperties.getInstance().getMappedElement(ecoreElt.getOwner()) instanceof Operation);
-            
+
             if (isBehavior)
                 PartialCreationImportVisitor.this.objingElt = this.factory.createBehaviorParameter();
-            else 
+            else
                 PartialCreationImportVisitor.this.objingElt = this.factory.createParameter();
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -1523,7 +1525,7 @@ public class PartialCreationImportVisitor {
         public Object casePrimitiveType(org.eclipse.uml2.uml.PrimitiveType ecoreElt) {
             if (EcorePrimitiveTypeMapper.isPredefinedType(ecoreElt))
                 PartialCreationImportVisitor.this.objingElt = EcorePrimitiveTypeMapper.getPredefinedType(ecoreElt);
-            else 
+            else
                 PartialCreationImportVisitor.this.objingElt = this.factory.createDataType();
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -1547,50 +1549,50 @@ public class PartialCreationImportVisitor {
         public Object caseProperty(Property ecoreElt) {
             org.eclipse.uml2.uml.Element ecoreOwner = ecoreElt.getOwner();
             if (ecoreOwner instanceof org.eclipse.uml2.uml.Stereotype){
-            
+
                 ProfileUtils.visitProperty(ecoreElt);
                 PartialCreationImportVisitor.this.objingElt = null;
-            
+
             }else{
                 List<UmlModelElement> result = new ArrayList<>();
-            
-                if (EcoreModelNavigation.isAssocEnd(ecoreElt)) {    
-            
+
+                if (EcoreModelNavigation.isAssocEnd(ecoreElt)) {
+
                     int endNumber = EcoreModelNavigation.getValidEndNumber(ecoreElt.getAssociation());
-            
+
                     if (endNumber == 2){
                         result.add(this.factory.createAssociationEnd());
                     }  else if (endNumber > 2){
                         result.add(this.factory.createNaryAssociationEnd());
                     }
-                } 
-            
+                }
+
                 if (EcoreModelNavigation.isPart(ecoreElt) ){
                     BindableInstance inst = this.factory.createBindableInstance();
                     if (EcoreModelNavigation.isAssocEnd(ecoreElt)){
                         inst.setRepresentedFeature(result.get(0));
                     }
-                    result.add(inst);           
+                    result.add(inst);
                 } else if (EcoreModelNavigation.isPort(ecoreElt)){
                     result.add(this.factory.createPort());
                 }
-            
+
                 if (EcoreModelNavigation.isConnectorEnd(ecoreElt)){
                     result.add(this.factory.createBindableInstance());
                 }
-            
+
                 if (result.size() == 0){
-            
+
                     Element objingOwner = (Element) ReverseProperties.getInstance().getMappedElement(ecoreOwner);
-            
-                    if ((objingOwner instanceof Classifier) ||  
-                            ((ecoreOwner instanceof Property) 
+
+                    if ((objingOwner instanceof Classifier) ||
+                            ((ecoreOwner instanceof Property)
                                     && (EcoreModelNavigation.isAssocEnd((Property)ecoreOwner))))
                         result.add(this.factory.createAttribute());
-                    else 
+                    else
                         result.add(this.factory.createBindableInstance());
                 }
-            
+
                 PartialCreationImportVisitor.this.objingElt = result;
             }
             return PartialCreationImportVisitor.this.defaut;
@@ -1600,7 +1602,7 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseProtocolConformance(org.eclipse.uml2.uml.ProtocolConformance ecoreElt) {
             Dependency result = this.factory.createDependency();
-            
+
             try {
                 result.getExtension().add(this.mmServices.getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2PROTOCOLCONFORMANCE, result.getMClass()));
             } catch (IllegalArgumentException | ElementNotUniqueException e) {
@@ -1633,43 +1635,43 @@ public class PartialCreationImportVisitor {
             switch (ecoreElt.getKind().getValue()) {
             case org.eclipse.uml2.uml.PseudostateKind.INITIAL:
                 PartialCreationImportVisitor.this.objingElt = this.factory.createInitialPseudoState();
-            
+
                 break;
             case org.eclipse.uml2.uml.PseudostateKind.DEEP_HISTORY:
                 PartialCreationImportVisitor.this.objingElt = this.factory.createDeepHistoryPseudoState();
-            
+
                 break;
             case org.eclipse.uml2.uml.PseudostateKind.SHALLOW_HISTORY:
                 PartialCreationImportVisitor.this.objingElt = this.factory.createShallowHistoryPseudoState();
-            
+
                 break;
             case org.eclipse.uml2.uml.PseudostateKind.JOIN:
                 PartialCreationImportVisitor.this.objingElt = this.factory.createJoinPseudoState();
-            
+
                 break;
             case org.eclipse.uml2.uml.PseudostateKind.FORK:
                 PartialCreationImportVisitor.this.objingElt = this.factory.createForkPseudoState();
-            
+
                 break;
             case org.eclipse.uml2.uml.PseudostateKind.JUNCTION:
                 PartialCreationImportVisitor.this.objingElt = this.factory.createJunctionPseudoState();
-            
+
                 break;
             case org.eclipse.uml2.uml.PseudostateKind.CHOICE:
                 PartialCreationImportVisitor.this.objingElt = this.factory.createChoicePseudoState();
-            
+
                 break;
             case org.eclipse.uml2.uml.PseudostateKind.ENTRY_POINT:
                 PartialCreationImportVisitor.this.objingElt = this.factory.createEntryPointPseudoState();
-            
+
                 break;
             case org.eclipse.uml2.uml.PseudostateKind.EXIT_POINT:
                 PartialCreationImportVisitor.this.objingElt = this.factory.createExitPointPseudoState();
-            
+
                 break;
             case org.eclipse.uml2.uml.PseudostateKind.TERMINATE:
                 PartialCreationImportVisitor.this.objingElt = this.factory.createTerminatePseudoState();
-            
+
                 break;
             default:
                 PartialCreationImportVisitor.this.objingElt = this.factory.createInitialPseudoState();
@@ -1689,7 +1691,7 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseRaiseExceptionAction(org.eclipse.uml2.uml.RaiseExceptionAction ecoreElt) {
             OpaqueAction result = this.factory.createOpaqueAction();
-            
+
             try {
                 Stereotype stereo = ReverseProperties.getInstance().getMModelServices()
                         .getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2RAISEEXCEPTIONACTION, result.getMClass());
@@ -1697,7 +1699,7 @@ public class PartialCreationImportVisitor {
             } catch (ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -1706,7 +1708,7 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseReadExtentAction(org.eclipse.uml2.uml.ReadExtentAction ecoreElt) {
             OpaqueAction result = this.factory.createOpaqueAction();
-            
+
             try {
                 Stereotype stereo = ReverseProperties.getInstance().getMModelServices()
                         .getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2READEXTENTACTION, result.getMClass());
@@ -1714,7 +1716,7 @@ public class PartialCreationImportVisitor {
             } catch (ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -1723,7 +1725,7 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseReadIsClassifiedObjectAction(org.eclipse.uml2.uml.ReadIsClassifiedObjectAction ecoreElt) {
             OpaqueAction result = this.factory.createOpaqueAction();
-            
+
             try {
                 Stereotype stereo = ReverseProperties.getInstance().getMModelServices()
                         .getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2READISCLASSIFIEROBJECTACTION, result.getMClass());
@@ -1731,7 +1733,7 @@ public class PartialCreationImportVisitor {
             } catch (ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -1740,7 +1742,7 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseReadLinkAction(org.eclipse.uml2.uml.ReadLinkAction ecoreElt) {
             OpaqueAction result = this.factory.createOpaqueAction();
-            
+
             try {
                 Stereotype stereo = ReverseProperties.getInstance().getMModelServices()
                         .getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2READLINKACTION, result.getMClass());
@@ -1748,7 +1750,7 @@ public class PartialCreationImportVisitor {
             } catch (ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -1757,7 +1759,7 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseReadLinkObjectEndAction(org.eclipse.uml2.uml.ReadLinkObjectEndAction ecoreElt) {
             OpaqueAction result = this.factory.createOpaqueAction();
-            
+
             try {
                 Stereotype stereo = ReverseProperties.getInstance().getMModelServices()
                         .getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2READLINKOBJECTENDQUALIFIERACTION, result.getMClass());
@@ -1765,7 +1767,7 @@ public class PartialCreationImportVisitor {
             } catch (ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -1774,7 +1776,7 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseReadLinkObjectEndQualifierAction(org.eclipse.uml2.uml.ReadLinkObjectEndQualifierAction ecoreElt) {
             OpaqueAction result = this.factory.createOpaqueAction();
-            
+
             try {
                 Stereotype stereo = ReverseProperties.getInstance().getMModelServices()
                         .getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2READLINKOBJECTENDQUALIFIERACTION, result.getMClass());
@@ -1782,7 +1784,7 @@ public class PartialCreationImportVisitor {
             } catch (ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -1791,7 +1793,7 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseReadSelfAction(org.eclipse.uml2.uml.ReadSelfAction ecoreElt) {
             OpaqueAction result = this.factory.createOpaqueAction();
-            
+
             try {
                 Stereotype stereo = ReverseProperties.getInstance().getMModelServices()
                         .getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2READSELFACTION, result.getMClass());
@@ -1799,7 +1801,7 @@ public class PartialCreationImportVisitor {
             } catch (ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -1808,7 +1810,7 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseReadStructuralFeatureAction(org.eclipse.uml2.uml.ReadStructuralFeatureAction ecoreElt) {
             OpaqueAction result = this.factory.createOpaqueAction();
-            
+
             try {
                 Stereotype stereo = ReverseProperties.getInstance().getMModelServices()
                         .getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2READSTRUCTURALFEATUREACTION, result.getMClass());
@@ -1816,7 +1818,7 @@ public class PartialCreationImportVisitor {
             } catch (ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -1825,7 +1827,7 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseReadVariableAction(org.eclipse.uml2.uml.ReadVariableAction ecoreElt) {
             OpaqueAction result = this.factory.createOpaqueAction();
-            
+
             try {
                 Stereotype stereo = ReverseProperties.getInstance().getMModelServices()
                         .getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2READVARIABLEACTION, result.getMClass());
@@ -1833,7 +1835,7 @@ public class PartialCreationImportVisitor {
             } catch (ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -1863,13 +1865,13 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseReception(org.eclipse.uml2.uml.Reception ecoreElt) {
             Operation result = this.factory.createOperation();
-            
+
             try {
                 result.getExtension().add(this.mmServices.getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2RECEPTION, result.getMClass()));
             } catch (IllegalArgumentException | ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -1878,7 +1880,7 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseReclassifyObjectAction(org.eclipse.uml2.uml.ReclassifyObjectAction ecoreElt) {
             OpaqueAction result = this.factory.createOpaqueAction();
-            
+
             try {
                 Stereotype stereo = ReverseProperties.getInstance().getMModelServices()
                         .getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2RECLASSIFYOBJECTACTION, result.getMClass());
@@ -1886,7 +1888,7 @@ public class PartialCreationImportVisitor {
             } catch (ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -1897,17 +1899,17 @@ public class PartialCreationImportVisitor {
             org.eclipse.uml2.uml.Element ecoreOwner = ecoreElt.getOwner();
             Object objingOwner =  ReverseProperties.getInstance().getMappedElement(ecoreOwner);
             if ((objingOwner instanceof Classifier)  && !(objingOwner instanceof Enumeration)){
-            
+
                 Operation result = this.factory.createOperation();
-            
+
                 try {
                     result.getExtension().add(this.mmServices.getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2REDEFINABLETEMPLATESIGNATURE, result.getMClass()));
                 } catch (IllegalArgumentException | ElementNotUniqueException e) {
                     Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
                 }
-            
+
                 PartialCreationImportVisitor.this.objingElt = result;
-            }else 
+            }else
                 PartialCreationImportVisitor.this.objingElt = null;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -1916,7 +1918,7 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseReduceAction(org.eclipse.uml2.uml.ReduceAction ecoreElt) {
             OpaqueAction result = this.factory.createOpaqueAction();
-            
+
             try {
                 Stereotype stereo = ReverseProperties.getInstance().getMModelServices()
                         .getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2REDUCEACTION, result.getMClass());
@@ -1924,7 +1926,7 @@ public class PartialCreationImportVisitor {
             } catch (ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -1933,7 +1935,7 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseRegion(org.eclipse.uml2.uml.Region ecoreElt) {
             org.eclipse.uml2.uml.Element ecoreOwner = ecoreElt.getOwner();
-            
+
             if  ( ecoreOwner instanceof org.eclipse.uml2.uml.StateMachine){
                 PartialCreationImportVisitor.this.objingElt = ((StateMachine) ReverseProperties.getInstance().getMappedElement(ecoreOwner)).getTop();
             }else
@@ -1945,7 +1947,7 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseRemoveStructuralFeatureValueAction(org.eclipse.uml2.uml.RemoveStructuralFeatureValueAction ecoreElt) {
             OpaqueAction result = this.factory.createOpaqueAction();
-            
+
             try {
                 Stereotype stereo = ReverseProperties.getInstance().getMModelServices()
                         .getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2REMOVESTRUCTURALFEATUREACTION, result.getMClass());
@@ -1953,7 +1955,7 @@ public class PartialCreationImportVisitor {
             } catch (ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -1962,7 +1964,7 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseRemoveVariableValueAction(org.eclipse.uml2.uml.RemoveVariableValueAction ecoreElt) {
             OpaqueAction result = this.factory.createOpaqueAction();
-            
+
             try {
                 Stereotype stereo = ReverseProperties.getInstance().getMModelServices()
                         .getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2REMOVEVARIABLEVALUEACTION, result.getMClass());
@@ -1970,7 +1972,7 @@ public class PartialCreationImportVisitor {
             } catch (ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -1979,13 +1981,13 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseReplyAction(org.eclipse.uml2.uml.ReplyAction ecoreElt) {
             OpaqueAction result = this.factory.createOpaqueAction();
-            
+
             try {
                 result.getExtension().add(this.mmServices.getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2REPLYACTION,   result.getMClass()));
             } catch (IllegalArgumentException | ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -1994,7 +1996,7 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseSendObjectAction(org.eclipse.uml2.uml.SendObjectAction ecoreElt) {
             OpaqueAction result = this.factory.createOpaqueAction();
-            
+
             try {
                 Stereotype stereo = ReverseProperties.getInstance().getMModelServices()
                         .getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2SENDOBJECTACTION, result.getMClass());
@@ -2002,7 +2004,7 @@ public class PartialCreationImportVisitor {
             } catch (ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -2032,14 +2034,14 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseSequenceNode(org.eclipse.uml2.uml.SequenceNode ecoreElt) {
             StructuredActivityNode result =  this.factory.createStructuredActivityNode();
-            
+
             try {
                 result.getExtension().add(this.mmServices.getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2SEQUENCENODE, result.getMClass()));
             } catch (IllegalArgumentException | ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
-            
+
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -2066,7 +2068,7 @@ public class PartialCreationImportVisitor {
         public Object caseSlot(org.eclipse.uml2.uml.Slot ecoreElt) {
             InstanceSpecification ecoreOwner = ecoreElt.getOwningInstance();
             org.eclipse.uml2.uml.Element feature = ecoreElt.getDefiningFeature();
-            
+
             if (ReverseProperties.getInstance().isRoundtripEnabled()){
                 if (ObjingEAnnotation.isPort(ecoreElt)){
                     PartialCreationImportVisitor.this.objingElt = this.factory.createPort();
@@ -2081,7 +2083,7 @@ public class PartialCreationImportVisitor {
                     if (ecoreOwner.getSlots().size() == 2 ){
                         PartialCreationImportVisitor.this.objingElt = this.factory.createLinkEnd();
                         return PartialCreationImportVisitor.this.defaut;
-                    }else{ 
+                    }else{
                         PartialCreationImportVisitor.this.objingElt = this.factory.createNaryLinkEnd();
                         return PartialCreationImportVisitor.this.defaut;
                     }
@@ -2089,11 +2091,11 @@ public class PartialCreationImportVisitor {
                     PartialCreationImportVisitor.this.objingElt = this.factory.createAttributeLink();
                 }
             }
-            
+
             if (feature != null){
-            
+
                 Object objFeature = ReverseProperties.getInstance().getMappedElement(feature);
-            
+
                 if  (feature instanceof org.eclipse.uml2.uml.Port){
                     PartialCreationImportVisitor.this.objingElt = this.factory.createPort();
                 }else if (objFeature  instanceof Attribute){
@@ -2103,8 +2105,8 @@ public class PartialCreationImportVisitor {
                 }else if (EcoreModelNavigation.isAssocInstance(ecoreOwner)){
                     if (ecoreOwner.getSlots().size() == 2)
                         PartialCreationImportVisitor.this.objingElt = this.factory.createLinkEnd();
-                    else 
-                        PartialCreationImportVisitor.this.objingElt = this.factory.createNaryLinkEnd();  
+                    else
+                        PartialCreationImportVisitor.this.objingElt = this.factory.createNaryLinkEnd();
                 }else {
                     PartialCreationImportVisitor.this.objingElt = this.factory.createBindableInstance();
                 }
@@ -2118,7 +2120,7 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseStartClassifierBehaviorAction(org.eclipse.uml2.uml.StartClassifierBehaviorAction ecoreElt) {
             OpaqueAction result = this.factory.createOpaqueAction();
-            
+
             try {
                 Stereotype stereo = ReverseProperties.getInstance().getMModelServices()
                         .getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2STARTCLASSIFIERBEHAVIORACTION, result.getMClass());
@@ -2126,7 +2128,7 @@ public class PartialCreationImportVisitor {
             } catch (ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -2212,13 +2214,13 @@ public class PartialCreationImportVisitor {
                 Object objingOwner =  ReverseProperties.getInstance().getMappedElement(ecoreOwner);
                 if ((objingOwner instanceof Classifier)  && !(objingOwner instanceof Enumeration)){
                     Operation result = this.factory.createOperation();
-            
+
                     try {
                         result.getExtension().add(this.mmServices.getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2TEMPLATESIGNATURE, result.getMClass()));
                     } catch (ElementNotUniqueException e) {
                         Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
                     }
-            
+
                     PartialCreationImportVisitor.this.objingElt = result;
                 }
                 PartialCreationImportVisitor.this.objingElt = null;
@@ -2230,7 +2232,7 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseTestIdentityAction(org.eclipse.uml2.uml.TestIdentityAction ecoreElt) {
             OpaqueAction result = this.factory.createOpaqueAction();
-            
+
             try {
                 Stereotype stereo = ReverseProperties.getInstance().getMModelServices()
                         .getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2TESTIDENTITYACTION, result.getMClass());
@@ -2238,7 +2240,7 @@ public class PartialCreationImportVisitor {
             } catch (ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -2303,7 +2305,7 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseUnmarshallAction(org.eclipse.uml2.uml.UnmarshallAction ecoreElt) {
             OpaqueAction result = this.factory.createOpaqueAction();
-            
+
             try {
                 Stereotype stereo = ReverseProperties.getInstance().getMModelServices()
                         .getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2UNMARSHALLACTION, result.getMClass());
@@ -2339,7 +2341,7 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseValueSpecificationAction(org.eclipse.uml2.uml.ValueSpecificationAction ecoreElt) {
             OpaqueAction result = this.factory.createOpaqueAction();
-            
+
             try {
                 Stereotype stereo = ReverseProperties.getInstance().getMModelServices()
                         .getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2VALUESPECIFICATIONACTION, result.getMClass());
@@ -2354,27 +2356,27 @@ public class PartialCreationImportVisitor {
         @Override
         public Object caseVariable(org.eclipse.uml2.uml.Variable ecoreElt) {
             InstanceNode result = this.factory.createInstanceNode();
-            
+
             try {
                 result.getExtension().add(this.mmServices.getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2VARIABLE, result.getMClass()));
             } catch (IllegalArgumentException | ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }
 
         @objid ("e4c00aed-3704-4860-b369-5f773ab3826c")
-        public  CreationImportMapper() {
-            
+        public CreationImportMapper() {
+
         }
 
         @objid ("79bda372-ee0b-4992-8196-04aa3f2e6c99")
         @Override
         public Object caseStartObjectBehaviorAction(org.eclipse.uml2.uml.StartObjectBehaviorAction ecoreElt) {
             OpaqueAction result = this.factory.createOpaqueAction();
-            
+
             try {
                 Stereotype stereo = ReverseProperties.getInstance().getMModelServices()
                         .getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2STARTOBJECTBEHAVIORACTION, result.getMClass());
@@ -2382,7 +2384,7 @@ public class PartialCreationImportVisitor {
             } catch (ElementNotUniqueException e) {
                 Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
             }
-            
+
             PartialCreationImportVisitor.this.objingElt = result;
             return PartialCreationImportVisitor.this.defaut;
         }

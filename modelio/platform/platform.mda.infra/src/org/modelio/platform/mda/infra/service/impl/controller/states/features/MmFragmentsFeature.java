@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.service.impl.controller.states.features;
 
@@ -33,10 +33,11 @@ import org.modelio.vcore.smkernel.meta.ISmMetamodelFragment;
 @objid ("b6e8464c-a74a-460c-8a71-2a1178e411a0")
 public class MmFragmentsFeature extends AbstractFeature {
     /**
+     *
      * @param module the module
      */
     @objid ("17b410cf-040e-46e9-a6a5-da4cc7eef8fd")
-    public  MmFragmentsFeature(IRTModuleAccess module) {
+    public MmFragmentsFeature(IRTModuleAccess module) {
         super(module);
     }
 
@@ -48,10 +49,10 @@ public class MmFragmentsFeature extends AbstractFeature {
     public void enable() throws ModuleException {
         // Instantiate metamodel fragments
         ModuleLoader loader = new ModuleLoader(this.module);
-        
+
         List<ISmMetamodelFragment> mmFrags = loader.loadMetamodelFragments( this.module.getClassLoader());
         this.module.getMetamodelFragments().addAll(mmFrags);
-        
+
     }
 
     /**
@@ -64,9 +65,9 @@ public class MmFragmentsFeature extends AbstractFeature {
             IMetamodelSupport mmSupport = this.module.getGModule().getProject().getSession().getMetamodelSupport();
             mmSupport.removeMetamodelFragment(mmf);
         }
-        
+
         this.module.getMetamodelFragments().clear();
-        
+
     }
 
     @objid ("d8fbe16e-67fb-4e41-984a-5c938ef4d8a1")

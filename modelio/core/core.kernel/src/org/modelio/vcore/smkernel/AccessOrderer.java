@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel;
 
@@ -25,6 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * Last access counter used by memory manager to flag and choose objects to unload.
+ *
  * @author cmarin
  */
 @objid ("1c225f93-e0d5-4584-88a6-4e7086a77192")
@@ -43,6 +44,7 @@ public class AccessOrderer {
 
     /**
      * Increments the last access counter and update the last access stamp on the given object
+     *
      * @param obj the accessed object
      */
     @objid ("9b991b14-39f5-4b1d-897c-c6b7110c34a2")
@@ -50,13 +52,14 @@ public class AccessOrderer {
         if (++globalLastAccess == Integer.MAX_VALUE) {
             listeners.firePropertyChange(PROPERTY_COUNTER_OVERFLOW, Integer.MAX_VALUE, 0);
         }
-        
+
         obj.setLastAccess(globalLastAccess);
-        
+
     }
 
     /**
      * Add a PropertyChangeListener to the listener list.
+     *
      * @param listener a listener
      */
     @objid ("c0afd8e7-3cc7-4315-a290-55f399491eae")
@@ -70,6 +73,7 @@ public class AccessOrderer {
      * If listener was added more than once to the same event source,
      * it will be notified one less time after being removed.
      * If listener is null, or was never added, no exception is thrown and no action is taken.
+     *
      * @param listener the listener to remove.
      */
     @objid ("6a3fbf20-21be-4825-8ac1-d35f25d09078")
@@ -78,6 +82,7 @@ public class AccessOrderer {
     }
 
     /**
+     *
      * @return the last access counter value.
      */
     @objid ("9cd7971a-d8e6-445a-8b6c-5680bdece889")

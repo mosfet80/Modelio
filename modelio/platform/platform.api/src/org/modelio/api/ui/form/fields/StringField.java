@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2020 Modeliosoft
+ * Copyright 2013-2025 Docaposte
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,14 +40,17 @@ public class StringField extends AbstractField {
     @objid ("5825e8ab-8756-4161-aed2-741f33531c89")
     private static final String EMPTY_STRING = "";
 
-    @objid ("bb39e9bd-52eb-4bb0-b180-e25f9f8ded0c")
+    @objid ("44896294-cd08-40fe-8bfb-2b36ffbef34e")
+    private String oldValue = EMPTY_STRING;
+
+    @objid ("6ed735e3-9eda-4b90-ace5-a960ebac83f8")
     private Text text;
 
     @objid ("be785f1b-7675-4398-8928-7ee349efb649")
     private Function<String, String> validator = s -> null;
 
     @objid ("cffedb32-fe5a-4759-a495-657c076bad92")
-    public  StringField(FormToolkit toolkit, Composite parent, IFormFieldData model) {
+    public StringField(FormToolkit toolkit, Composite parent, IFormFieldData model) {
         super(toolkit, parent, model);
     }
 
@@ -61,7 +64,6 @@ public class StringField extends AbstractField {
         } else {
             throw new IllegalStateException(err);
         }
-
     }
 
     @objid ("dbfe9592-eabd-4f0c-8994-11471e8a14bb")
@@ -103,29 +105,31 @@ public class StringField extends AbstractField {
     @Override
     public void refresh() {
         final Object value = getModel().getValue();
-        this.text.setText(value != null ? value.toString() : EMPTY_STRING);
-
+        if(!value.toString().equals(this.oldValue) && !this.text.isFocusControl()) {
+            this.text.setText(value != null ? value.toString() : EMPTY_STRING);
+        }
+        this.oldValue = this.text.getText();
     }
 
     /**
      * Set a value validator.
+     *
      * @param validator the validator that will be called with the new value.
      * @since Valkyrie 3.8
      */
     @objid ("e8bb54bf-2261-4eac-8ba1-64bac53612d9")
     public void setValidator(Function<String, String> validator) {
-        this.validator = validator == null ? s->null : validator;
+        this.validator = validator == null ? s -> null : validator;
     }
 
     @objid ("510dc0fe-62d1-42d7-82da-c3d658b4dfe3")
     void validate() {
         final String value = this.text.getText();
-        if (getValidationError(value)==null) {
+        if (getValidationError(value) == null) {
             this.text.setForeground(null);
         } else {
             this.text.setForeground(UIColor.RED);
         }
-
     }
 
     @objid ("ed143876-7b7c-4fe6-839a-9c77922e8e73")
@@ -136,19 +140,10 @@ public class StringField extends AbstractField {
     @objid ("da532071-96cf-449d-83b1-b09421a066a9")
     protected String getValidationError(final String value) {
         if (!getModel().getType().isValidValue(value)) {
-            return Api.I18N.getMessage("StringField.invalidValueForType",
-                    getLabel().getText(),
-                    value,
-                    getModel().getName(),
-                    getModel().getType().getName());
+            return Api.I18N.getMessage("StringField.invalidValueForType", getLabel().getText(), value,
+                    getModel().getName(), getModel().getType().getName());
         }
         return this.validator.apply(value);
-    }
-
-    @Override
-    public void setEditable(boolean onoff) {
-        // TODO Auto-generated method stub
-        super.setEditable(onoff);
     }
 
 }

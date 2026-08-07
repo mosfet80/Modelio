@@ -1,0 +1,18 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Analyst user manual
+
+
+*  <<User_Documentation_en_Introduction.adoc#,Introduction>>
+*  <<User_Documentation_en_The_Analyst_model.adoc#,Analyst model>>
+*  <<User_Documentation_en_Analyst_editor.adoc#,Analyst editor>>
+*  <<User_Documentation_en_Analyst_diagrams.adoc#,Analyst diagrams>>
+*  <<User_Documentation_en_Import_and_Export.adoc#,Import and Export>>
+**  <<User_Documentation_en_Import_and_Export_ReqIF_import_and_export.adoc#,ReqIF import and export>>
+**  <<User_Documentation_en_Import_and_Export_XML_import_and_export.adoc#,XML import and export>>
+**  <<User_Documentation_en_Import_and_Export_Import_requirement_from_an_HPQC_Server.adoc#,HPQC import>>
+*  <<User_Documentation_en_MS_Word_bridge.adoc#,MS Word bridge>>
+*  <<User_Documentation_en_Archiving.adoc#,Archiving>>

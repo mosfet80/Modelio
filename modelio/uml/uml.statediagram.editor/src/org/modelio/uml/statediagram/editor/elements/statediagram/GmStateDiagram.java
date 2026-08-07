@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.statediagram;
 
@@ -64,15 +64,16 @@ public class GmStateDiagram extends GmAbstractDiagram {
 
     /**
      * Initialize the diagram.
+     *
      * @param manager The model manager
      * @param theStateDiagram the displayed diagram.
      * @param diagramRef the reference of the displayed diagram. Must reference a {@link StateMachineDiagram}.
      */
     @objid ("f58d2386-55b6-11e2-877f-002564c97630")
-    public  GmStateDiagram(IModelManager manager, StateMachineDiagram theStateDiagram, MRef diagramRef) {
+    public GmStateDiagram(IModelManager manager, StateMachineDiagram theStateDiagram, MRef diagramRef) {
         super(manager, diagramRef);
         this.obDiagram = theStateDiagram;
-        
+
     }
 
     @objid ("f58d2395-55b6-11e2-877f-002564c97630")
@@ -138,7 +139,7 @@ public class GmStateDiagram extends GmAbstractDiagram {
             break;
         }
         }
-        
+
     }
 
     @objid ("f58eaa2a-55b6-11e2-877f-002564c97630")
@@ -163,7 +164,7 @@ public class GmStateDiagram extends GmAbstractDiagram {
                 Note.class.isAssignableFrom(metaclass) ||
                 Constraint.class.isAssignableFrom(metaclass) ||
                 AbstractDiagram.class.isAssignableFrom(metaclass));
-        
+
     }
 
     @objid ("f58eaa3b-55b6-11e2-877f-002564c97630")
@@ -176,17 +177,17 @@ public class GmStateDiagram extends GmAbstractDiagram {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmStateDiagram.", GmStateDiagram.MINOR_VERSION);
-        
+
     }
 
     @objid ("f59030a1-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.obDiagram = (StateMachineDiagram) resolveRef(this.getRepresentedRef());
-        
+
     }
 
     @objid ("f59030a6-55b6-11e2-877f-002564c97630")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -59,15 +59,17 @@ public class ElementImportPropertyModel extends AbstractPropertyModel<ElementImp
     /**
      * Create a new <i>ElementImport</i> data model from an <i>ElementImport</i>
      * .
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("0cf0db65-d75d-466c-92b6-9cf7b6eb7e4f")
-    public  ElementImportPropertyModel(ElementImport theEditedElement) {
+    public ElementImportPropertyModel(ElementImport theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("1bde19d0-448f-47c9-9ee2-1e152489671f")
@@ -78,6 +80,7 @@ public class ElementImportPropertyModel extends AbstractPropertyModel<ElementImp
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("904a140d-aeaf-4cf8-8e65-79272a815f5f")
@@ -90,6 +93,7 @@ public class ElementImportPropertyModel extends AbstractPropertyModel<ElementImp
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -115,7 +119,7 @@ public class ElementImportPropertyModel extends AbstractPropertyModel<ElementImp
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -125,6 +129,7 @@ public class ElementImportPropertyModel extends AbstractPropertyModel<ElementImp
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -154,13 +159,14 @@ public class ElementImportPropertyModel extends AbstractPropertyModel<ElementImp
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -191,7 +197,7 @@ public class ElementImportPropertyModel extends AbstractPropertyModel<ElementImp
         default:
             return;
         }
-        
+
     }
 
     @objid ("d702542f-1d14-4581-b28c-57765fa5da3f")

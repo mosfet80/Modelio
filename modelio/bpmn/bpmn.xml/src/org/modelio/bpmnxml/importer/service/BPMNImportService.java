@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.importer.service;
 
@@ -66,10 +66,10 @@ public class BPMNImportService {
     private ICoreSession session;
 
     @objid ("02d23fcc-3b92-4ff8-9db7-db4fcb51ec61")
-    public  BPMNImportService(ICoreSession session, IDiagramService diagramService) {
+    public BPMNImportService(ICoreSession session, IDiagramService diagramService) {
         this.session = session;
         this.diagramService = diagramService;
-        
+
     }
 
     @objid ("34fb19db-2b04-442e-8f26-d81561e53f1b")
@@ -82,30 +82,30 @@ public class BPMNImportService {
         if (!xpdlFile.toFile().exists()) {
             throw new FileNotFoundException();
         }
-        
+
         TDefinitions jaxbRoot = readXPDLFile(xpdlFile);
         try (ITransaction tr = this.session.getTransactionSupport().createTransaction("XPDLImportService")) {
-        
+
             Map<String, Object> elementsMap = new HashMap<>();
-        
+
             // Create Modelio Element
             CreateElementProcessorImport createProcessor = new CreateElementProcessorImport(this.session, this.diagramService, elementsMap, keepId);
             JaxbWalker createWalker = new JaxbWalker(jaxbRoot, createProcessor);
             createWalker.walk(context, this.progress);
-        
+
             // Update Modelio Element properties
             UpdateElementProcessorImport updateProcessor = new UpdateElementProcessorImport(this.session, this.diagramService, elementsMap);
             JaxbWalker updateWalker = new JaxbWalker(jaxbRoot, updateProcessor);
             updateWalker.walk(context, this.progress);
-        
+
             // Show Element in diagram
             FinilizeProcessorImport showProcessor = new FinilizeProcessorImport(this.session, this.diagramService, elementsMap);
             JaxbWalker showWalker = new JaxbWalker(jaxbRoot, showProcessor);
             showWalker.walk(context, this.progress);
-        
+
             tr.commit();
         }
-        
+
     }
 
     @objid ("9bee80a7-fac9-42f0-90ac-1f1dbe99e61b")
@@ -113,37 +113,37 @@ public class BPMNImportService {
         if (!xpdlFile.toFile().exists()) {
             throw new FileNotFoundException();
         }
-        
+
         TDefinitions jaxbRoot = readXPDLFile(xpdlFile);
-        
+
         try (ITransaction tr = this.session.getTransactionSupport().createTransaction("XPDLImportService")) {
-        
+
             Map<String, Object> elementsMap = new HashMap<>();
-        
+
             // Create on find Modelio Element
             CreateElementProcessorUpdate createProcessor = new CreateElementProcessorUpdate(this.session, this.diagramService, elementsMap, keepId);
             JaxbWalker walker = new JaxbWalker(jaxbRoot, createProcessor);
             walker.walk(context, this.progress);
-        
+
             // Update Modelio Element properties
             UpdateElementProcessorUpdate updateProcessor = new UpdateElementProcessorUpdate(this.session, this.diagramService, elementsMap);
             JaxbWalker updateWalker = new JaxbWalker(jaxbRoot, updateProcessor);
             updateWalker.walk(context, this.progress);
-        
+
             // Show Element in diagram
             FinilizeProcessorUpdate showProcessor = new FinilizeProcessorUpdate(this.session, this.diagramService, elementsMap);
             JaxbWalker showWalker = new JaxbWalker(jaxbRoot, showProcessor);
             showWalker.walk(context, this.progress);
-        
+
             // Delete old elements
             // for (MObject element : collectElementToDelete(context, new
             // ArrayList<>(elementsMap.values()))) {
             // element.delete();
             // }
-        
+
             tr.commit();
         }
-        
+
     }
 
     @objid ("f0ef88c3-8076-4967-96c6-51504660392c")
@@ -151,37 +151,37 @@ public class BPMNImportService {
         if (!xpdlFile.toFile().exists()) {
             throw new FileNotFoundException();
         }
-        
+
         TDefinitions jaxbRoot = readXPDLFile(xpdlFile);
-        
+
         try (ITransaction tr = this.session.getTransactionSupport().createTransaction("XPDLImportService")) {
-        
+
             Map<String, Object> elementsMap = new HashMap<>();
-        
+
             // Create on find Modelio Element
             CreateElementProcessorUpdate createProcessor = new CreateElementProcessorUpdate(this.session, this.diagramService, elementsMap, keepId);
             JaxbWalker walker = new JaxbWalker(jaxbRoot, createProcessor);
             walker.walk(context, this.progress);
-        
+
             // Update Modelio Element properties
             UpdateElementProcessorUpdate updateProcessor = new UpdateElementProcessorUpdate(this.session, this.diagramService, elementsMap);
             JaxbWalker updateWalker = new JaxbWalker(jaxbRoot, updateProcessor);
             updateWalker.walk(context, this.progress);
-        
+
             // Show Element in diagram
             FinilizeProcessorUpdate showProcessor = new FinilizeProcessorUpdate(this.session, this.diagramService, elementsMap);
             JaxbWalker showWalker = new JaxbWalker(jaxbRoot, showProcessor);
             showWalker.walk(context, this.progress);
-        
+
             // Delete old elements
             // for (MObject element : collectElementToDelete(context, new
             // ArrayList<>(elementsMap.values()))) {
             // element.delete();
             // }
-        
+
             tr.commit();
         }
-        
+
     }
 
     @objid ("dfe4d7e7-d538-407d-b81b-91ad8521f7f5")
@@ -211,13 +211,13 @@ public class BPMNImportService {
     @objid ("661f400c-1861-44cb-a733-d0b2c364de08")
     public void importBPMN(Path filePath, IGModelFragment context, boolean keepId) throws FileNotFoundException, JAXBException {
         Package packageContext = null;
-        
+
         for (MObject root : context.getRoots()) {
             if (root instanceof Project && ((Project) root).getModel().size() > 0) {
                 packageContext = ((Project) root).getModel().get(0);
             }
         }
-        
+
         if (packageContext == null) {
             try (ITransaction tr = this.session.getTransactionSupport().createTransaction("XPDLImportService")) {
                 Project project = MTools.get(this.session).getModelFactory(IStandardModelFactory.class).createProject(context.getRepository());
@@ -227,9 +227,9 @@ public class BPMNImportService {
                 tr.commit();
             }
         }
-        
+
         importBPMN(filePath, packageContext, keepId);
-        
+
     }
 
 }

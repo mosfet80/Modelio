@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.label.modelelement;
 
@@ -43,7 +43,7 @@ public class ModelElementLabelEditPart extends ModelElementHeaderEditPart {
      * Default constructor.
      */
     @objid ("f2010d61-e9ca-4498-840d-3aae045f440d")
-    public  ModelElementLabelEditPart() {
+    public ModelElementLabelEditPart() {
         super();
     }
 
@@ -57,13 +57,13 @@ public class ModelElementLabelEditPart extends ModelElementHeaderEditPart {
         if (getViewer().getSelectedEditParts().contains(this)) {
             return true;
         }
-        
+
         // Not empty label, allow selection
         final boolean hasLabel = !getMainLabelFigure().getText().isEmpty();
         if (hasLabel) {
             return true;
         }
-        
+
         // Allow selection when the parent link is already selected
         EditPart parent = getParent();
         while (parent != null) {
@@ -86,7 +86,7 @@ public class ModelElementLabelEditPart extends ModelElementHeaderEditPart {
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals(IGmObject.PROPERTY_LABEL)) {
             refreshVisuals();
-        
+
             // TODO delete if not needed
             // // If preferred size if not the same as current size, check if it is
             // // possible to resize this figure to its preferred size.
@@ -94,18 +94,18 @@ public class ModelElementLabelEditPart extends ModelElementHeaderEditPart {
         } else {
             super.propertyChange(evt);
         }
-        
+
     }
 
     @objid ("7e9e816b-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected void refreshFromStyle(IFigure fig, IStyle style) {
         updateVisibility(fig);
-        
+
         if (fig.isVisible()) {
             super.refreshFromStyle(fig, style);
         }
-        
+
     }
 
     @objid ("520e19ab-bdcd-4da1-b9c8-fc863c351236")
@@ -116,7 +116,7 @@ public class ModelElementLabelEditPart extends ModelElementHeaderEditPart {
         } else {
             aFigure.setVisible(false);
         }
-        
+
     }
 
 }

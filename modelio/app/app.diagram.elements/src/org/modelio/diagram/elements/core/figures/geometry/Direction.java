@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures.geometry;
 
@@ -25,7 +25,7 @@ import org.eclipse.draw2d.geometry.Point;
 
 /**
  * Indicates a direction.
- * 
+ *
  * @author cmarin
  */
 @objid ("7f7e9e6a-1dec-11e2-8cad-001ec947c8cc")
@@ -69,6 +69,7 @@ public enum Direction {
     private Orientation orientation;
 
     /**
+     *
      * @return the opposite direction
      */
     @objid ("ae8a7edb-5ff5-44d5-9a8e-942316bf81b8")
@@ -77,6 +78,7 @@ public enum Direction {
     }
 
     /**
+     *
      * @return the direction at the left of this direction
      */
     @objid ("14caa42e-d5b0-4c99-b59b-ae5749709cd7")
@@ -85,6 +87,7 @@ public enum Direction {
     }
 
     /**
+     *
      * @return the direction at the right of this direction.
      */
     @objid ("ebe086e9-3ac9-4610-a7f2-0be39707862f")
@@ -93,6 +96,7 @@ public enum Direction {
     }
 
     /**
+     *
      * @return the {@link Orientation} of this direction
      */
     @objid ("ca06a5f8-5d4f-4061-a2d3-914c93fdfc6d")
@@ -102,6 +106,7 @@ public enum Direction {
 
     /**
      * Convert a {@link PositionConstants} constant to a Direction.
+     *
      * @param posConstant a {@link PositionConstants} constant.
      * @param defVal the value to return if the passed integer does not match any constant.
      * @return the matching direction
@@ -122,13 +127,14 @@ public enum Direction {
         default:
             return defVal;
         }
-        
+
     }
 
     /**
      * Get the exact direction from source to target if the segment is orthogonal.
      * <p>
      * Returns NONE if the segment is not orthogonal.
+     *
      * @param source the source point
      * @param target the target point
      * @return the direction from source to target or NONE.
@@ -157,6 +163,7 @@ public enum Direction {
      * Compute a best orthogonal direction from *source* to *target* .
      * <p>
      * Returns {@link #NONE} if the points are equals.
+     *
      * @param source a point
      * @param target a point
      * @return a direction from source to target
@@ -179,13 +186,14 @@ public enum Direction {
         } else {
             return Direction.NORTH;
         }
-        
+
     }
 
     /**
      * Compute a secondary orthogonal direction from *source* to *target* .
      * <p>
      * Returns {@link #NONE} if the segment formed by the two points is orthogonal.
+     *
      * @param source a point
      * @param target a point
      * @return a direction from source to target or NONE.
@@ -209,13 +217,14 @@ public enum Direction {
         } else {
             return Direction.NORTH;
         }
-        
+
     }
 
     /**
      * Compute a secondary orthogonal direction from *source* to *target* .
      * <p>
      * Returns {@link #NONE} if the segment formed by the two points is orthogonal.
+     *
      * @param source a point
      * @param target a point
      * @return a direction from source to target or NONE.
@@ -230,28 +239,28 @@ static {
                             NONE.left = NONE;
                             NONE.right = NONE;
                             NONE.orientation = Orientation.NONE;
-        
+
                             NORTH.opposite = SOUTH;
                             NORTH.left = WEST;
                             NORTH.right = EAST;
                             NORTH.orientation = Orientation.VERTICAL;
-        
+
                             EAST.opposite = WEST;
                             EAST.left = NORTH;
                             EAST.right = SOUTH;
                             EAST.orientation = Orientation.HORIZONTAL;
-        
+
                             SOUTH.opposite = NORTH;
                             SOUTH.left = EAST;
                             SOUTH.right = WEST;
                             SOUTH.orientation = Orientation.VERTICAL;
-        
+
                             WEST.opposite = EAST;
                             WEST.left = SOUTH;
                             WEST.right = NORTH;
                             WEST.orientation = Orientation.HORIZONTAL;
                         }
-    
+
     /**
      * Holder for both the {@link Direction#getMajor(Point, Point)} and {@link Direction#getMinor(Point, Point)}.
      * <p>
@@ -273,6 +282,7 @@ static {
 
         /**
          * Constructor to reuse same instance.
+         *
          * @param source a point
          * @param target a point
          * @return this instance to chain call
@@ -283,7 +293,7 @@ static {
             int dy = target.y() - source.y();
             Direction dirx;
             Direction diry;
-            
+
             if (dx == 0) {
                 dirx =  NONE;
             } else if (dx > 0) {
@@ -291,7 +301,7 @@ static {
             } else {
                 dirx = Direction.WEST;
             }
-            
+
             if (dy == 0) {
                 diry = Direction.NONE;
             } else if (dy > 0) {
@@ -299,7 +309,7 @@ static {
             } else {
                 diry = Direction.NORTH;
             }
-            
+
             if (Math.abs(dx) < Math.abs(dy)) {
                 this.major = diry;
                 this.minor = dirx;
@@ -312,6 +322,7 @@ static {
 
         /**
          * Return the direction perpendicular to the given orientation.
+         *
          * @param orientation an orientation
          * @return the direction perpendicular to the given orientation.
          */
@@ -319,16 +330,17 @@ static {
         public Direction perpendicularOf(Orientation orientation) {
             if (this.major==NONE)
                 return this.major;
-            
+
             if (this.major.orientation() == orientation.getPerpendicular())
                 return this.major;
             else
                 return this.minor;
-            
+
         }
 
         /**
          * Return the direction parallel to the given orientation.
+         *
          * @param orientation an orientation
          * @return the direction parallel to the given orientation.
          */
@@ -336,15 +348,16 @@ static {
         public Direction parallelOf(Orientation orientation) {
             if (this.major==NONE)
                 return this.major;
-            
+
             if (this.major.orientation() == orientation)
                 return this.major;
             else
                 return this.minor;
-            
+
         }
 
         /**
+         *
          * @return the major direction
          */
         @objid ("6620a44e-2031-465c-a9b0-ba1a437c26dd")
@@ -353,6 +366,7 @@ static {
         }
 
         /**
+         *
          * @return the minor direction
          */
         @objid ("e2f5ab3c-1795-486f-bd70-f7824d82d090")
@@ -361,6 +375,7 @@ static {
         }
 
         /**
+         *
          * @return true both points were equal.
          */
         @objid ("c87b5250-83a0-4c7d-af8f-6e7f8adc87ee")
@@ -369,6 +384,7 @@ static {
         }
 
         /**
+         *
          * @return true if the direction is orthogonal.
          */
         @objid ("3bddd6be-2477-4929-9a44-46b2e19fe819")
@@ -378,6 +394,7 @@ static {
 
         /**
          * Return the direction parallel to the given pair major orientation.
+         *
          * @param other a direction pair
          * @return the direction parallel to the given pair major orientation.
          */
@@ -388,6 +405,7 @@ static {
 
         /**
          * Return the direction perpendicular to the given pair major orientation.
+         *
          * @param other a direction pair
          * @return the direction perpendicular to the given pair major orientation.
          */

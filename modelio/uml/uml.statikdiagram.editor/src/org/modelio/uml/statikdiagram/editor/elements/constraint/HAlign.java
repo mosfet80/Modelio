@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.constraint;
 
@@ -47,11 +47,12 @@ public enum HAlign {
     private final int swtConst;
 
     @objid ("399a7944-6a56-43a1-81df-34cc4a2afc83")
-     HAlign(int swtConst) {
+    HAlign(int swtConst) {
         this.swtConst = swtConst;
     }
 
     /**
+     *
      * @return the matching SWT constant
      */
     @objid ("a4595a16-b403-42c9-9942-e7c63cd29945")

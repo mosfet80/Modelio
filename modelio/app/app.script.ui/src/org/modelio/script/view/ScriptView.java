@@ -1,29 +1,48 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.script.view;
 
 import java.io.BufferedWriter;
 import java.io.PrintWriter;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.EventTopic;
@@ -47,6 +66,7 @@ import org.modelio.platform.project.services.IProjectService;
 import org.modelio.platform.script.engine.core.engine.IScriptRunner;
 import org.modelio.platform.script.engine.core.engine.ScriptRunnerFactory;
 import org.modelio.platform.ui.UIColor;
+import org.modelio.platform.ui.UIThreadRunner;
 import org.modelio.script.IInputView;
 import org.modelio.script.options.ScriptOptions;
 import org.modelio.script.plugin.Script;
@@ -64,6 +84,19 @@ import org.modelio.script.plugin.Script;
 public class ScriptView {
     @objid ("0018836e-207a-106b-bf4f-001ec947cd2a")
     public static final String PARTID = "org.modelio.script.part";
+
+    @objid ("0fb696e4-8da1-453d-ae32-d4ff7f434d77")
+    @Inject
+    private static EPartService partService;
+
+    @objid ("bc0bd747-fe2f-4571-9747-f59d26e7f604")
+    private SashForm shform;
+
+    @objid ("b069b39d-2449-4186-9a0c-514f80bfe27c")
+    private Font font;
+
+    @objid ("ad9af449-7f5d-4c24-9508-95aa1822c1ad")
+    private Composite parent;
 
     @objid ("007f0fa8-663d-105c-84ef-001ec947cd2a")
     private InputView inputView;
@@ -86,16 +119,6 @@ public class ScriptView {
     @objid ("000cca56-cbce-1065-a2b8-001ec947cd2a")
     private IScriptRunner jythonRunner;
 
-    @objid ("005311dc-f1bd-106a-bf4f-001ec947cd2a")
-    private SashForm shform;
-
-    @objid ("00531ac4-f1bd-106a-bf4f-001ec947cd2a")
-    private Font font;
-
-    @objid ("000a5c26-2079-106b-bf4f-001ec947cd2a")
-    @Inject
-    private static EPartService partService;
-
     @objid ("007b1e0c-52bf-106c-80fa-001ec947cd2a")
     @Inject
     @Optional
@@ -111,41 +134,42 @@ public class ScriptView {
     @objid ("007f49be-663d-105c-84ef-001ec947cd2a")
     @PostConstruct
     public void createPartControl(Composite parent, MApplication application, final MPart part) {
+        this.parent = parent;
         // With Eclipse 4.18, the toolbar is messed up, force it right manually...
         part.getToolbar().setVisible(true);
-        
+
         Display display = parent.getDisplay();
-        
+
         this.shform = new SashForm(parent, SWT.VERTICAL | SWT.NO_REDRAW_RESIZE);
         this.font = new Font(display, "Courier New", 10, SWT.NORMAL);
-        
+
         this.outputView = new OutputView(this.shform, SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
         this.outputView.setFont(this.font);
         this.outputView.setBackground(UIColor.POSTIT_YELLOW);
-        
+
         this.inputView = new InputView(this.shform, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL, this);
         this.inputView.getControl().setFont(this.font);
         this.inputView.getControl().setBackground(UIColor.WHITE);
-        
+
         this.shform.setWeights(new int[] { 70, 30 });
-        
+
         this.outputWriter = new PrintWriter(new BufferedWriter(new OutputWriter(this.outputView,
                 new TextStyle(null, display.getSystemColor(SWT.COLOR_DARK_GREEN), null))));
         this.errorWriter = new PrintWriter(new BufferedWriter(new OutputWriter(this.outputView,
                 new TextStyle(null, display.getSystemColor(SWT.COLOR_RED), null), null /* onFlush */)));
         this.commandWriter = new PrintWriter(new BufferedWriter(
                 new OutputWriter(this.outputView, new TextStyle(null, display.getSystemColor(SWT.COLOR_BLACK), null))));
-        
+
         // Selection manager
         this.selectionGetter = ContextInjectionFactory.make(ScriptViewSelectionGetter.class, application.getContext());
-        
+
         //
         this.jythonRunner = ScriptRunnerFactory.getInstance().getTransactionalScriptRunner("jython");
         assert (this.jythonRunner != null);
         this.jythonRunner.setCommandStream(this.commandWriter);
         this.jythonRunner.setErrorStream(this.errorWriter);
         this.jythonRunner.setOutputStream(this.outputWriter);
-        
+
         // It may happen that the view is created while a project is already
         // opened
         // In such situation we cannot rely on Modelio events for setting up the
@@ -153,20 +177,15 @@ public class ScriptView {
         if (this.projectService != null && this.projectService.getOpenedProject() != null) {
             bindJythonRunner(this.projectService.getOpenedProject());
         }
-        
+
         // Initialize Options
         configureOptions(getProjectPreferences());
-        
+
         // Print help message
-        display.asyncExec(new Runnable() {
-            @Override
-            public void run() {
-                ScriptView.this.commandWriter.println(Script.I18N.getMessage("ConsoleHelp"));
-                ScriptView.this.commandWriter.flush();
-            }
-        
+        asyncExec(() -> {
+            this.commandWriter.println(Script.I18N.getMessage("ConsoleHelp"));
+            this.commandWriter.flush();
         });
-        
     }
 
     @objid ("007f795c-663d-105c-84ef-001ec947cd2a")
@@ -181,7 +200,6 @@ public class ScriptView {
         this.errorWriter = null;
         this.outputWriter = null;
         this.shform = null;
-        
     }
 
     @objid ("007f8f8c-663d-105c-84ef-001ec947cd2a")
@@ -200,6 +218,7 @@ public class ScriptView {
     }
 
     /**
+     *
      * @return the commandWriter
      */
     @objid ("007ffa08-663d-105c-84ef-001ec947cd2a")
@@ -214,6 +233,7 @@ public class ScriptView {
 
     /**
      * Get the script view.
+     *
      * @return The script view
      */
     @objid ("0080721c-663d-105c-84ef-001ec947cd2a")
@@ -235,7 +255,7 @@ public class ScriptView {
      */
     @objid ("0080b218-663d-105c-84ef-001ec947cd2a")
     public void clearOutputView() {
-        this.outputView.setText("");
+        asyncExec(() -> this.outputView.setText(""));
     }
 
     @objid ("00716b3c-572b-1064-a2b8-001ec947cd2a")
@@ -244,7 +264,31 @@ public class ScriptView {
     void onProjectOpened(@EventTopic(ModelioEventTopics.PROJECT_OPENED) final IGProject openedProject) {
         bindJythonRunner(openedProject);
         configureOptions(getProjectPreferences());
-        
+
+        asyncExec(() -> {
+            this.commandWriter.println(Script.I18N.getMessage("ConsoleHelp"));
+            this.commandWriter.flush();
+        });
+    }
+
+    /**
+     * Schedule the given runnable to run in the SWT thread.
+     * <p>
+     * This method returns immediately.
+     *
+     * @param r the code to run in the SWT thread.
+     */
+    @objid ("3920be6d-9b5f-4c64-adde-dd1ef3e50fa5")
+    private void asyncExec(Runnable r) {
+        if(this.parent == null || this.outputView == null || this.outputView.isDisposed())
+            return;
+
+        UIThreadRunner.asynExec(this.outputView, () -> {
+            if(this.parent == null || this.outputView == null)
+                return;
+
+            r.run();
+        });
     }
 
     @objid ("0071aae8-572b-1064-a2b8-001ec947cd2a")
@@ -254,7 +298,11 @@ public class ScriptView {
     void onProjectClose(@EventTopic(ModelioEventTopics.PROJECT_CLOSED) IGProject project) {
         unbindJythonRunner();
         configureOptions(null);
-        
+
+        asyncExec(() -> {
+            this.inputView.popInput(false);
+            this.outputView.setText("");
+        });
     }
 
     @objid ("0039caba-d886-1065-a2b8-001ec947cd2a")
@@ -268,27 +316,24 @@ public class ScriptView {
     }
 
     /**
-     * Binding the jython runner to the current project consists in: - binding
-     * the python session variables - setting a classloader that is aware of the
-     * currently started project modules classes
+     * Binding the jython runner to the current project consists in:
+     * <ul>
+     * <li> binding the python session variables
+     * <li> setting a classloader that is aware of the currently started project modules classes
+     * </ul>
      */
     @objid ("007c43ae-52bf-106c-80fa-001ec947cd2a")
     private void bindJythonRunner(IGProject project) {
-        // @SuppressWarnings("resource")
-        // TO REMOve ClassLoader classLoader = new
-        // ScriptClassLoader(this.moduleService);
-        // this.jythonRunner.setClassLoader(classLoader);
         this.jythonRunner.clearClassloader();
         this.jythonRunner.addClassLoader(this.jythonRunner.getEngine().getClass().getClassLoader());
-        
+
         for (IRTModule module : this.moduleService.getStartedModules()) {
             this.jythonRunner.addClassLoader(module.getClass().getClassLoader());
         }
-        
+
         this.jythonRunner.bind("coreSession", (project != null) ? project.getSession() : null);
         this.jythonRunner.bind("modelingSession", Modelio.getInstance().getModelingSession());
         this.jythonRunner.bind("session", Modelio.getInstance().getModelingSession());
-        
     }
 
     @objid ("007c5f1a-52bf-106c-80fa-001ec947cd2a")
@@ -298,7 +343,6 @@ public class ScriptView {
             this.jythonRunner.bind("coreSession", null);
             this.jythonRunner.bind("modelingSession", null);
         }
-        
     }
 
     @objid ("007d2d1e-52bf-106c-80fa-001ec947cd2a")
@@ -307,14 +351,12 @@ public class ScriptView {
         if (this.shform != null) {
             this.shform.setFocus();
         }
-        
     }
 
     @objid ("88d0858e-e4aa-4d65-b420-4b119a9c9e0a")
     private void configureOptions(IPreferenceStore projectPreferences) {
         // Link options with the current preference store.
         this.options = new ScriptOptions(projectPreferences);
-        
     }
 
     @objid ("5ea6bce8-51b0-497a-bd60-814d81d77fa1")

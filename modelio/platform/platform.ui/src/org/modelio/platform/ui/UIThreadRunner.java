@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.ui;
 
@@ -38,45 +38,60 @@ import org.modelio.platform.ui.plugin.UI;
  * <p>
  * When trace level is DEBUG, a message will be dropped in the log when
  * the "disposed context widget" situations occurs.
- * 
+ *
  * @since Modelio 5.0
  */
 @objid ("4fae419d-e35b-4131-9fef-57352efb13ed")
 public class UIThreadRunner {
     /**
      * UIThread safe {@link Display#asyncExec(Runnable)} asynExec()
+     *
      * @param context a valid widget to be checked at execution time of the runnable
      * @param runnable the runnable to execute
      * @throws IllegalArgumentException if context is <code>null</code> or already disposed.
      */
     @objid ("55699bbb-37e8-4984-99c0-2b0368dcbe42")
     public static void asynExec(Widget context, Runnable runnable) throws IllegalArgumentException {
-        if (context == null || context.isDisposed()) {
-            throw new IllegalArgumentException("'" + context + "' context widget is disposed, runnable ignored");
-        }
+        if (! checkWidget(context))
+            return;
+
         context.getDisplay().asyncExec(new SafeRunnable(context, runnable));
-        
     }
 
     /**
      * UIThread safe synExec()
+     *
      * @param context a valid widget to be checked at execution time of the runnable
      * @param runnable the runnable to execute
      * @throws IllegalArgumentException if context is <code>null</code> or already disposed.
      */
     @objid ("89c02d4b-1b19-45c2-8b87-aa053200e22c")
     public static void syncExec(Widget context, Runnable runnable) throws IllegalArgumentException {
-        if (context == null || context.isDisposed()) {
-            throw new IllegalArgumentException("'" + context + "' context widget is disposed, runnable ignored");
-        }
+        if (! checkWidget(context))
+            return;
         context.getDisplay().syncExec(new SafeRunnable(context, runnable));
-        
+    }
+
+    @objid ("6c861c37-6572-4e48-9467-c070deb26c53")
+    private static boolean checkWidget(Widget context) {
+        if (context == null) {
+            UI.LOG.warning( new IllegalArgumentException("Context widget is NULL, runnable ignored."));
+            return false;
+        } else if (context.isDisposed()) {
+            UI.LOG.debug( new IllegalArgumentException("'" + context + "' widget is disposed, runnable ignored"));
+            return false;
+        } else if (context.getDisplay().isDisposed()) {
+            UI.LOG.debug( new IllegalArgumentException("'" + context + "' widget display is disposed, runnable ignored"));
+            return false;
+        }
+        return true;
     }
 
     /**
      * UIThread safe {@link Display#timerExec(int, Runnable)}
      * <p>
      * Also work around {@link Display#timerExec(int, Runnable)} must be called from the UI thread.
+     *
      * @param context a valid widget to be checked at execution time of the runnable
      * @param milliseconds the delay before running the runnable
      * @param runnable the runnable to execute
@@ -85,29 +100,27 @@ public class UIThreadRunner {
      */
     @objid ("1d3f7e09-ae80-482c-ba23-e7e4db6b6dc0")
     public static void timerExec(Widget context, int milliseconds, Runnable runnable) throws IllegalArgumentException {
-        if (context == null || context.isDisposed()) {
-            throw new IllegalArgumentException("'" + context + "' context widget is disposed, runnable ignored");
-        }
-        
-        if (Display.getCurrent() ==  context.getDisplay()) {
+        if (! checkWidget(context))
+            return;
+
+        if (Display.getCurrent() == context.getDisplay()) {
             // Right thread, schedule immediately
             context.getDisplay().timerExec(milliseconds, new SafeRunnable(context, runnable));
         } else {
             // Schedule the timer asynchronously
-            asynExec(context, () ->
-            context.getDisplay().timerExec(milliseconds, new SafeRunnable(context, runnable)));
+            asynExec(context, () -> context.getDisplay().timerExec(milliseconds, new SafeRunnable(context, runnable)));
         }
-        
     }
 
     /**
      * Create an {@link Executor} that executes submitted {@link Runnable runnables} by calling {@link #syncExec(Widget, Runnable)}.
      * <p>
      * To be used for {@link java.util.concurrent.CompletableFuture#runAsync(Runnable, Executor)} by example.
-     * @see java.util.concurrent.CompletableFuture CompletableFuture methods that use the returned executor.
-     * @since Alouette 5.3
+     *
      * @param context a valid widget to be checked at execution time of the runnable
      * @return an executor.
+     * @see java.util.concurrent.CompletableFuture CompletableFuture methods that use the returned executor.
+     * @since Alouette 5.3
      */
     @objid ("4e32223f-bdaa-4e67-9afe-fa04a7087e8c")
     public static Executor syncExecutor(Widget context) {
@@ -118,10 +131,11 @@ public class UIThreadRunner {
      * Create an {@link Executor} that executes submitted {@link Runnable runnables} by calling {@link #syncExec(Widget, Runnable)}.
      * <p>
      * To be used for {@link java.util.concurrent.CompletableFuture#runAsync(Runnable, Executor)} by example.
-     * @see java.util.concurrent.CompletableFuture CompletableFuture methods that use the returned executor.
-     * @since Alouette 5.3
+     *
      * @param context a valid widget to be checked at execution time of the runnable
      * @return an executor.
+     * @see java.util.concurrent.CompletableFuture CompletableFuture methods that use the returned executor.
+     * @since Alouette 5.3
      */
     @objid ("f86a8691-1e53-43a9-a053-024a83ed9585")
     public static Executor asyncExecutor(Widget context) {
@@ -137,30 +151,29 @@ public class UIThreadRunner {
         private final Runnable runnable;
 
         @objid ("f6674228-9bc2-4308-8cea-3a6c53b8a2a7")
-         SafeRunnable(Widget contextWidget, Runnable runnable) {
+        SafeRunnable(Widget contextWidget, Runnable runnable) {
             this.widget = contextWidget;
             this.runnable = runnable;
-            
         }
 
         @objid ("320221e8-7878-42ec-b15e-44e5a8f11e1f")
         @Override
         public void run() {
-            if (!this.widget.isDisposed()) {
-                try {
-                    this.runnable.run();
-                } catch (SWTException e) {
-                    if (e.code == SWT.ERROR_DEVICE_DISPOSED) {
-                        UI.LOG.debug("UIThreadRunner: '%s' context widget is disposed, runnable ignored", this.widget);
-                    } else {
-                        UI.LOG.debug("UIThreadRunner: runnable failed.");
-                        UI.LOG.error(e);
-                    }
-                }
-            } else {
-                UI.LOG.debug("UIThreadRunner: '%s' context widget is disposed, runnable ignored", this.widget);
+            if (this.widget.isDisposed() || this.widget.getDisplay().isDisposed()) {
+                if (false) UI.LOG.debug("UIThreadRunner: '%s' context widget is disposed, runnable ignored", this.widget);
+                return;
             }
-            
+
+            try {
+                this.runnable.run();
+            } catch (SWTException e) {
+                if (e.code == SWT.ERROR_DEVICE_DISPOSED) {
+                    if (false) UI.LOG.debug("UIThreadRunner: '%s' context widget is disposed, runnable ignored", this.widget);
+                } else {
+                    UI.LOG.debug("UIThreadRunner: %s runnable failed.", this.runnable);
+                    UI.LOG.error(e);
+                }
+            }
         }
 
     }

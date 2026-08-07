@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.interactionuse.primarynode;
 
@@ -45,7 +45,7 @@ public class CreateLinkEditPolicy extends DefaultCreateLinkEditPolicy {
         ModelioLinkCreationContext context = ModelioLinkCreationContext.lookRequest(req);
         if (context != null) {
             if (Message.class == context.getJavaClass()) {
-        
+
                 CreateMessageCommand startCommand = (CreateMessageCommand) super.getConnectionCompleteCommand(req);
                 int sourceTime = startCommand.getSourceTime();
                 Point tmp = Point.SINGLETON;
@@ -70,16 +70,16 @@ public class CreateLinkEditPolicy extends DefaultCreateLinkEditPolicy {
         ModelioLinkCreationContext context = ModelioLinkCreationContext.lookRequest(req);
         if (context != null) {
             if (Message.class == context.getJavaClass()) {
-        
+
                 CreateMessageCommand cmd = new CreateMessageCommand(context);
-        
+
                 cmd.setSource((GmNodeModel) getHost().getModel());
                 req.setStartCommand(cmd);
                 Point tmp = Point.SINGLETON;
                 tmp.setLocation(req.getLocation().x, req.getLocation().y);
                 getHostFigure().translateToRelative(tmp);
                 cmd.setSourceTime(tmp.y);
-        
+
                 if (req instanceof CreateBendedConnectionRequest) {
                     cmd.setRequest((CreateBendedConnectionRequest) req);
                 }
@@ -97,7 +97,6 @@ public class CreateLinkEditPolicy extends DefaultCreateLinkEditPolicy {
         } else {
             return super.getReconnectSourceCommand(req);
         }
-        
     }
 
     @objid ("467257ef-3e6b-4015-84d4-9a9494e272c9")
@@ -108,7 +107,6 @@ public class CreateLinkEditPolicy extends DefaultCreateLinkEditPolicy {
         } else {
             return super.getReconnectTargetCommand(req);
         }
-        
     }
 
     @objid ("94d5eac9-b1ce-4a18-96ed-66dafddcd0f8")
@@ -129,7 +127,7 @@ public class CreateLinkEditPolicy extends DefaultCreateLinkEditPolicy {
             request_copy.getData().setRoutingMode(request_origin.getData().getRoutingMode());
             request_copy.getData().setSrcPoint(request_origin.getData().getSrcPoint());
             request_copy.getData().setLastPoint(request_origin.getData().getLastPoint());
-        
+
             Command startCommand = request_origin.getStartCommand();
             request_copy.setStartCommand(startCommand);
             if (startCommand instanceof CreateMessageCommand) {
@@ -143,7 +141,6 @@ public class CreateLinkEditPolicy extends DefaultCreateLinkEditPolicy {
         } else {
             super.showCreationFeedback(request);
         }
-        
     }
 
 }

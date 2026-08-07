@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.checker;
 
@@ -80,15 +80,15 @@ public class CheckerView extends ModelioDialog {
     private CheckerPanelProvider checkerPanel;
 
     @objid ("02060f87-ee74-494d-8c22-b6a55f4f1f30")
-    protected  CheckerView(Shell parentShell, Object selection, IMModelServices modelService, IModelioNavigationService navigationService, MApplication application, EModelService emService, IAuditService auditService, IProjectService projectService) {
+    protected CheckerView(Shell parentShell, Object selection, IMModelServices modelService, IModelioNavigationService navigationService, MApplication application, EModelService emService, IAuditService auditService, IProjectService projectService) {
         super(parentShell);
-        
+
         // Used as proposed path for the 'save as file' command.
         this.lastUsedPath = projectService.getOpenedProject().getPfs().getProjectPath().toString();
         this.lastUsedName = projectService.getOpenedProject().getName();
-        
+
         this.checkedElements = getSelectedElements(selection);
-        
+
         this.checkerPanel = new CheckerPanelProvider();
         this.checkerPanel.setApplication(application);
         this.checkerPanel.setAuditService(auditService);
@@ -96,16 +96,16 @@ public class CheckerView extends ModelioDialog {
         this.checkerPanel.setModelService(modelService);
         this.checkerPanel.setNavigationService(navigationService);
         this.checkerPanel.setProjectService(projectService);
-        
+
         setBlockOnOpen(false);
-        
+
     }
 
     @objid ("b484dcf7-7e02-40ee-be38-9b221a65a6aa")
     @Override
     public Control createContentArea(Composite parent) {
         parent.setLayout(new GridLayout(1, false));
-        
+
         Composite root = new Composite(parent, SWT.NONE);
         GridData gd = new GridData();
         gd.horizontalAlignment = SWT.FILL;
@@ -114,19 +114,19 @@ public class CheckerView extends ModelioDialog {
         gd.grabExcessVerticalSpace = true;
         root.setLayoutData(gd);
         root.setLayout(new GridLayout(1, false));
-        
+
         // --------------------------------
         Composite comp = new Composite(root, SWT.BORDER);
         comp.setLayout(new RowLayout());
-        
+
         Label elementLabel = new Label(comp, SWT.NONE);
         elementLabel.setText("Checked element(s): ");
-        
+
         int card = this.checkedElements.size();
         Label elementIcon;
         Label elementText;
         switch (card) {
-        
+
         case 0:
             break;
         case 1:
@@ -140,7 +140,7 @@ public class CheckerView extends ModelioDialog {
             elementIcon.setImage(MetamodelImageService.getIcon(this.checkedElements.get(0).getMClass()));
             elementText = new Label(comp, SWT.NONE);
             elementText.setText(this.checkedElements.get(0).getName() + ", ");
-        
+
             elementIcon = new Label(comp, SWT.NONE);
             elementIcon.setImage(MetamodelImageService.getIcon(this.checkedElements.get(1).getMClass()));
             elementText = new Label(comp, SWT.NONE);
@@ -151,12 +151,12 @@ public class CheckerView extends ModelioDialog {
             elementIcon.setImage(MetamodelImageService.getIcon(this.checkedElements.get(0).getMClass()));
             elementText = new Label(comp, SWT.NONE);
             elementText.setText(this.checkedElements.get(0).getName() + ", ");
-        
+
             elementIcon = new Label(comp, SWT.NONE);
             elementIcon.setImage(MetamodelImageService.getIcon(this.checkedElements.get(1).getMClass()));
             elementText = new Label(comp, SWT.NONE);
             elementText.setText(this.checkedElements.get(1).getName() + ", ");
-        
+
             elementIcon = new Label(comp, SWT.NONE);
             elementIcon.setImage(MetamodelImageService.getIcon(this.checkedElements.get(2).getMClass()));
             elementText = new Label(comp, SWT.NONE);
@@ -167,27 +167,27 @@ public class CheckerView extends ModelioDialog {
             elementIcon.setImage(MetamodelImageService.getIcon(this.checkedElements.get(0).getMClass()));
             elementText = new Label(comp, SWT.NONE);
             elementText.setText(this.checkedElements.get(0).getName() + ", ");
-        
+
             elementIcon = new Label(comp, SWT.NONE);
             elementIcon.setImage(MetamodelImageService.getIcon(this.checkedElements.get(1).getMClass()));
             elementText = new Label(comp, SWT.NONE);
             elementText.setText(this.checkedElements.get(1).getName() + ", ");
-        
+
             elementIcon = new Label(comp, SWT.NONE);
             elementIcon.setImage(MetamodelImageService.getIcon(this.checkedElements.get(2).getMClass()));
             elementText = new Label(comp, SWT.NONE);
             elementText.setText(this.checkedElements.get(2).getName());
-        
+
             elementText = new Label(comp, SWT.NONE);
             elementText.setText(", ... (" + this.checkedElements.size() + " elements)");
             break;
         }
-        
+
         gd = new GridData();
         gd.horizontalSpan = 6;
         gd.horizontalAlignment = SWT.FILL;
         comp.setLayoutData(gd);
-        
+
         this.checkerPanel.createPanel(root);
         this.checkerPanel.setInput(this.checkedElements);
         return this.checkerPanel.getAuditPanel().getPanel();
@@ -199,7 +199,7 @@ public class CheckerView extends ModelioDialog {
         createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
         createButton(parent, CheckerView.SAVE_AS_TEXT_FILE_ID, Audit.I18N.getString("Audit.CheckerView.SaveAsFile.label"), false);
         createButton(parent, CheckerView.SAVE_AS_TEXT_CLIP_ID, Audit.I18N.getString("Audit.CheckerView.CopyToClipboard.label"), false);
-        
+
     }
 
     @objid ("511c844f-45a0-4750-9d9b-63ec8abed84f")
@@ -210,7 +210,7 @@ public class CheckerView extends ModelioDialog {
         setMessage(Audit.I18N.getString("Audit.CheckerView.DialogMessage"));
         getShell().setSize(800, 400);
         getShell().setMinimumSize(300, 300);
-        
+
     }
 
     @objid ("63a3a266-4063-45a7-b816-3310e63d25b5")
@@ -225,7 +225,7 @@ public class CheckerView extends ModelioDialog {
         if (!this.refreshPending && !CheckerView.this.statusLabel.isDisposed()) {
             this.refreshPending = true;
         }
-        
+
     }
 
     @objid ("9d183d37-76f3-4dbe-b645-2291bb194daf")
@@ -237,7 +237,7 @@ public class CheckerView extends ModelioDialog {
     @objid ("08af30b1-eb5c-48d3-8951-1b073f8ae369")
     private List<MObject> getSelectedElements(Object selection) {
         ArrayList<MObject> selectedElements = new ArrayList<>();
-        
+
         if (selection instanceof MObject) {
             selectedElements.add((MObject) selection);
         } else if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() >= 1) {
@@ -276,7 +276,7 @@ public class CheckerView extends ModelioDialog {
         } else {
             super.buttonPressed(buttonId);
         }
-        
+
     }
 
     @objid ("1924bde1-ab29-4e07-91d6-7a825c813346")
@@ -284,12 +284,12 @@ public class CheckerView extends ModelioDialog {
         FileDialog fileDialog = new FileDialog(getShell(), SWT.SAVE);
         fileDialog.setFilterExtensions(new String[] { ".txt" });
         fileDialog.setOverwrite(true);
-        
+
         fileDialog.setFileName(this.lastUsedName);
         fileDialog.setFilterPath(this.lastUsedPath);
-        
+
         String file = fileDialog.open();
-        
+
         if (file != null) {
             PrintStream out;
             try {
@@ -300,11 +300,11 @@ public class CheckerView extends ModelioDialog {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-        
+
             this.lastUsedName = new File(file).getName();
             this.lastUsedPath = new File(file).getParentFile().getPath();
         }
-        
+
     }
 
     @objid ("dee3a7ed-9a71-4e24-81de-a70a01ea2419")
@@ -312,22 +312,22 @@ public class CheckerView extends ModelioDialog {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(bos);
         this.checkerPanel.getAuditPanel().printDiagnostic(out);
-        
+
         // Cannot copy an empty string in clipboard
         if (bos.size() == 0) {
             return;
         }
-        
+
         Clipboard cb = new Clipboard(getShell().getDisplay());
         TextTransfer transfer = TextTransfer.getInstance();
-        
+
         String s = bos.toString();
         out.close();
-        
+
         Object[] data = new Object[] { s };
         cb.setContents(data, new Transfer[] { transfer });
         cb.dispose();
-        
+
     }
 
 }

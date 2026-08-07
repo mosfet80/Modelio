@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel;
 
@@ -39,18 +39,21 @@ class MStatusImpl implements MStatus {
     @objid ("15f08282-7f2f-475b-b69c-bf005c627623")
     private final boolean dirty;
 
+    @objid ("43482623-b34c-4394-9adb-757f33b9b63b")
+    private final boolean statusLoaded;
+
     @objid ("aaf50c0a-d287-11e1-b069-001ec947ccaf")
-     MStatusImpl(SmObjectImpl obj) {
+    MStatusImpl(SmObjectImpl obj) {
         long lstatus = obj.getSmStatusFlags();
         int count = 0;
-        
+
         if (! SmStatus.isComplete(lstatus)) {
             SmObjectImpl owner = obj;
             while (! SmStatus.isComplete(lstatus)) {
                 if (++count > 10000) {
                     throw new IllegalStateException(String.format("Cycle in composition graph of %s.", obj.toString()));
                 }
-        
+
                 owner = owner.getCompositionOwner();
                 if (owner == null) {
                     break;
@@ -58,10 +61,12 @@ class MStatusImpl implements MStatus {
                 lstatus = SmStatus.combine(lstatus, owner.getSmStatusFlags());
             }
         }
-        
+
         this.status = lstatus;
-        this.dirty = obj.getRepositoryObject().isDirty(obj);
-        
+
+        IRepositoryObject repositoryObject = obj.getRepositoryObject();
+        this.dirty = repositoryObject.isDirty(obj);
+        this.statusLoaded = repositoryObject.isStatusFullyLoaded(obj);
     }
 
     @objid ("aaf50c0d-d287-11e1-b069-001ec947ccaf")
@@ -196,6 +201,12 @@ class MStatusImpl implements MStatus {
         return SmStatus.areAllSet(this.status, IRStatus.DELETED) == StatusState.TRUE;
     }
 
+    @objid ("ea278cd3-fd1a-43c7-a4ba-e4ab4a6e22ca")
+    @Override
+    public boolean isPersistedRemotely() {
+        return SmStatus.areAllSet(this.status, IRStatus.REMOTE) == StatusState.TRUE;
+    }
+
     @objid ("aaf76e77-d287-11e1-b069-001ec947ccaf")
     @Override
     public boolean isModifiable() {
@@ -207,7 +218,19 @@ class MStatusImpl implements MStatus {
     @objid ("2017e4d7-1e9d-11e2-90db-001ec947ccaf")
     @Override
     public String toString() {
-        return SmStatus.toString(this.status);
+        String strStatus = SmStatus.toString(this.status);
+        if (isStatusFullyLoaded() && ! isDirty())
+            return strStatus;
+
+        StringBuilder buf = new StringBuilder();
+        if (! isStatusFullyLoaded())
+            buf.append("(incomplete) ");
+        if (isDirty())
+            buf.append("(dirty) ");
+
+        buf.append(strStatus);
+
+        return buf.toString();
     }
 
     @objid ("40954dd5-0788-4470-a829-f04e01807155")
@@ -220,6 +243,12 @@ class MStatusImpl implements MStatus {
     @Override
     public boolean isDirty() {
         return this.dirty;
+    }
+
+    @objid ("a7279237-6a51-471d-93d3-5ec7057ea44e")
+    @Override
+    public boolean isStatusFullyLoaded() {
+        return this.statusLoaded;
     }
 
 }

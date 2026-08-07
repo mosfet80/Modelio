@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /*
  *
@@ -75,11 +75,12 @@ public final class GmInternalStructureZone extends GmFreeZone {
 
     /**
      * Creates the zone
+     *
      * @param diagram The diagram
      * @param relatedRef a reference to the element this GmModel is related to.
      */
     @objid ("35911407-55b7-11e2-877f-002564c97630")
-    public  GmInternalStructureZone(IGmDiagram diagram, MRef relatedRef) {
+    public GmInternalStructureZone(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -88,7 +89,7 @@ public final class GmInternalStructureZone extends GmFreeZone {
     public boolean canUnmask(MObject el) {
         if (!el.isValid() || !canCreate(el.getClass()))
             return false;
-        
+
         // Cannot unmask a instance class (not belonging to the class)
         return (el.getCompositionOwner().equals(this.getRelatedElement()));
     }
@@ -119,7 +120,7 @@ public final class GmInternalStructureZone extends GmFreeZone {
         // The visibility may have changed so fires a notification.
         fireVisibilityChanged();
         super.styleChanged(style);
-        
+
     }
 
     @objid ("35911424-55b7-11e2-877f-002564c97630")
@@ -129,7 +130,7 @@ public final class GmInternalStructureZone extends GmFreeZone {
             fireVisibilityChanged();
         else
             super.styleChanged(property, newValue);
-        
+
     }
 
     @objid ("35929a7e-55b7-11e2-877f-002564c97630")
@@ -142,7 +143,7 @@ public final class GmInternalStructureZone extends GmFreeZone {
      * For deserialization only.
      */
     @objid ("35929a86-55b7-11e2-877f-002564c97630")
-    public  GmInternalStructureZone() {
+    public GmInternalStructureZone() {
         // Nothing to do.
     }
 
@@ -154,18 +155,18 @@ public final class GmInternalStructureZone extends GmFreeZone {
             ((GmInternalStructure) getParent()).setVisible(true);
         } else
             getDisplayedStyle().setProperty(getViewModeStyleKey(), InternalsViewMode.NONE);
-        
+
     }
 
     @objid ("35929a8d-55b7-11e2-877f-002564c97630")
     @Override
     protected boolean isValidChild(GmNodeModel node) {
         final MObject el = node.getRelatedElement();
-        
+
         if (el != null && !canUnmask(el)) {
             return false;
         }
-        
+
         // Cannot unmask if the element is already displayed
         final GmNodeModel sameChild = getChild(node.getRepresentedRef());
         return sameChild == null || sameChild == node;
@@ -184,12 +185,12 @@ public final class GmInternalStructureZone extends GmFreeZone {
     public void refreshFromObModel() {
         // Do clean obsolete nodes
         super.refreshFromObModel();
-        
+
         final MObject relatedIElement = getRelatedElement();
-        
+
         if (relatedIElement == null || !relatedIElement.isValid())
             return;
-        
+
         StyleKey styleKey = getStyleKey(MetaKey.InternalGroup.INTAUTOUNMASK);
         if (styleKey == null) {
             return;
@@ -207,7 +208,7 @@ public final class GmInternalStructureZone extends GmFreeZone {
                     }
                 }
             }
-        
+
             if (relatedIElement instanceof NameSpace) {
                 final NameSpace namespace = (NameSpace) relatedIElement;
                 // Instances
@@ -217,7 +218,7 @@ public final class GmInternalStructureZone extends GmFreeZone {
                         constraint.translate(10, 10);
                     }
                 }
-        
+
                 // Collaboration uses
                 for (CollaborationUse part : namespace.getOwnedCollaborationUse()) {
                     if (getChild(new MRef(part)) == null) {
@@ -227,7 +228,7 @@ public final class GmInternalStructureZone extends GmFreeZone {
                 }
             }
         }
-        
+
     }
 
     @objid ("35929a9f-55b7-11e2-877f-002564c97630")
@@ -247,17 +248,17 @@ public final class GmInternalStructureZone extends GmFreeZone {
                 break;
             }
         }
-        
+
     }
 
     @objid ("35929aa5-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmInternalStructureZone.", GmInternalStructureZone.MINOR_VERSION);
-        
+
     }
 
     @objid ("35929aab-55b7-11e2-877f-002564c97630")

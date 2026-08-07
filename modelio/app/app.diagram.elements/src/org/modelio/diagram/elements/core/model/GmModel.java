@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.diagram.elements.core.model;
 
@@ -66,16 +85,16 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
      * <p>
      * Registers the new GmModel in the diagram if it represents an {@link MObject} (ie the {@link #getRepresentedElement()} returns a non-null element).
      * </p>
+     *
      * @param diagram The diagram owning this element.
      * @param relatedRef a reference to the element this GmModel is related to. Must be non null.
      */
     @objid ("807b57e4-1dec-11e2-8cad-001ec947c8cc")
-    protected  GmModel(IGmDiagram diagram, MRef relatedRef) {
+    protected GmModel(IGmDiagram diagram, MRef relatedRef) {
         super(diagram);
         assert relatedRef != null : "Error: a GmModel should never be instantiated with a null reference.";
         this.relatedRef = relatedRef;
         init();
-        
     }
 
     /**
@@ -84,7 +103,7 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
      * {@link #read(IDiagramReader)} <strong>must</strong> be called after so that it is correctly initialized.
      */
     @objid ("807b57e9-1dec-11e2-8cad-001ec947c8cc")
-    protected  GmModel() {
+    protected GmModel() {
         // Empty constructor needed for (de-)serialisation.
     }
 
@@ -94,6 +113,7 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
      * This method should return true only if it is consistent to display the given metaclass elements inside this graphic element.
      * <p>
      * <b>eg:</b> IAttributes can be displayed in a GmClass .
+     *
      * @param type The metaclass to unmask.
      * @return true only if it is consistent to display elements of the given metaclass inside this graphic element, false in the other cases.
      */
@@ -106,6 +126,7 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
      * This method should return true only if it is consistent to display the given element inside this graphic element.
      * <p>
      * <b>eg:</b> An IAttribute can be displayed in a GmClass only if the attribute belongs to the Class represented by this GmClass, and the attribute is not already unmasked.
+     *
      * @param el The model element to unmask.
      * @return true only if it is consistent to display the given element inside this graphic element, false in the other cases.
      */
@@ -114,6 +135,7 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
 
     /**
      * Get the interface that allows to edit the label representing the element name, signature or other property.
+     *
      * @return the edition interface.
      */
     @objid ("807b57fa-1dec-11e2-8cad-001ec947c8cc")
@@ -128,6 +150,7 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
     }
 
     /**
+     *
      * @return the main label of the element, usually its name.
      */
     @objid ("807dba0d-1dec-11e2-8cad-001ec947c8cc")
@@ -137,6 +160,7 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
     }
 
     /**
+     *
      * @return the metaclass of the element.
      */
     @objid ("807dba13-1dec-11e2-8cad-001ec947c8cc")
@@ -153,6 +177,7 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
 
     /**
      * Get the parent of the {@link GmModel}. The 'parent' concept is to be understood at the graphic model level here. The returned parent may be null, this must not be an issue.
+     *
      * @return The parent (graphic model level) or null
      */
     @objid ("807dba19-1dec-11e2-8cad-001ec947c8cc")
@@ -162,6 +187,7 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
      * Get the element this {@link GmModel} is related to.
      * <p>
      * <b>Note:</b> May return <i>null</i> if the element is not resolved.
+     *
      * @return the represented element or <i>null</i> if the element is not resolved.
      */
     @objid ("807dba1c-1dec-11e2-8cad-001ec947c8cc")
@@ -187,6 +213,7 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
      * <p>
      * <strong>Note:</strong> This method should never return <code>null</code> and is not intended to be overridden.
      * </p>
+     *
      * @return the metaclass this GmModel is in charge of relating.
      */
     @objid ("023775d9-e397-41d5-bf05-4ee7999674e3")
@@ -198,13 +225,13 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
             MRef ref = getRepresentedRef();
             return getDiagram().getModelManager().getMetamodel().getMClass(ref.mc);
         }
-        
     }
 
     /**
      * Get the element representation mode.
      * <p>
      * Must return {@link RepresentationMode#STRUCTURED} if no mode is applicable.
+     *
      * @return the element representation mode or {@link RepresentationMode#STRUCTURED} if no mode is applicable.
      */
     @objid ("807dba22-1dec-11e2-8cad-001ec947c8cc")
@@ -220,6 +247,7 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
      * <p>
      * Default implementation returns <code>null</code>. Subclasses may override this method to provide an actual MObject if they are the GmModel representing the element.
      * </p>
+     *
      * @return <i>null</i> or the represented element if this GmModel is in charge of representing an element.
      */
     @objid ("807dba25-1dec-11e2-8cad-001ec947c8cc")
@@ -236,6 +264,7 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
      * <strong>Note:</strong> This method should never return <code>null</code> and is not intended to be overridden.
      * </p>
      * TODO : this method should be named getRelatedReference().
+     *
      * @return a {@link MRef reference} to the related element.
      */
     @objid ("807dba2b-1dec-11e2-8cad-001ec947c8cc")
@@ -248,10 +277,11 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
      * This implementation is just here to avoid compilation errors until everybody has an implementation.
      * <p>
      * To be deleted before Modelio 3.7 release.
+     *
      * @since 3.7
      */
     @objid ("e1964f72-0b60-4682-81f1-45f2909a7f24")
-    @SuppressWarnings ("deprecation")
+    @SuppressWarnings("deprecation")
     @Override
     public ISymbolViewModel getSymbolViewModel() {
         AbstractStyleKeyProvider skProv = getLegacyStyleKeyProvider(getRepresentationMode());
@@ -262,7 +292,6 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
         } else {
             return ISymbolViewModel.EMPTY;
         }
-        
     }
 
     @objid ("807dba34-1dec-11e2-8cad-001ec947c8cc")
@@ -278,7 +307,6 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
                 delete();
             }
         }
-        
     }
 
     /**
@@ -294,7 +322,6 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
             this.lastKnownLabel = getRelatedElement().getName();
         }
         refreshFromObModel();
-        
     }
 
     /**
@@ -312,7 +339,6 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
             this.lastKnownLabel = getRelatedElement().getName();
         }
         refreshFromObModel();
-        
     }
 
     @objid ("807dba3f-1dec-11e2-8cad-001ec947c8cc")
@@ -332,7 +358,6 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
             break;
         }
         }
-        
     }
 
     @objid ("cabfcfa6-ff73-4ce7-85be-6c172a490902")
@@ -342,11 +367,11 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
         if (model == null) {
             model = getRepresentedRef();
         }
-        return String.format("%s [model=%s, layout=%s]",
+        return String.format("%s [%s model=%s, layout=%s]",
                 getClass().getSimpleName(),
+                isValid() ? "" : "*DISPOSED*" ,
                 model,
                 getLayoutData());
-        
     }
 
     @objid ("807dba43-1dec-11e2-8cad-001ec947c8cc")
@@ -355,10 +380,9 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
         super.write(out);
         out.writeProperty("relatedRef", this.relatedRef);
         out.writeProperty("lastKnownLabel", this.lastKnownLabel);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmModel.", GmModel.MINOR_VERSION);
-        
     }
 
     /**
@@ -378,7 +402,7 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
     protected IStyle createStyle(IGmDiagram aDiagram) {
         final MObject el = getRelatedElement();
         IStyle baseStyle;
-        if (el != null && el.getStatus().isRamc()) {
+        if (el != null && el.getStatusLazy().isRamc()) {
             // If represented element is ramc, use the ramc named style.
             baseStyle = DiagramStyles.getStyleManager().getStyle(DiagramStyles.RAMC_STYLE_NAME);
         } else {
@@ -389,6 +413,7 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
 
     /**
      * Find by introspection the style key provider for this graphic model.
+     *
      * @param mode the current representation mode.
      * @return the used style key provider
      * @deprecated for 3.6 compatibility only, {@link #getSymbolViewModel()} should be reimplemented by sub classes.
@@ -408,7 +433,6 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
         default:
             return getLegacyStyleKeyProvider("STRUCTURED_KEYS");
         }
-        
     }
 
     /**
@@ -416,6 +440,7 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
      * <p>
      * Default implementation calls {GmAbstractObject{@link #delete()} on the child.
      * </p>
+     *
      * @param child the gm being deleted.
      * @since 5.1.0
      */
@@ -434,6 +459,7 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
      * Convenience method that resolve the given reference by asking the diagram model manager.
      * <p>
      * To be called by {@link #read(IDiagramReader)}.
+     *
      * @param ref an MRef to resolve.
      * @return the found MObject or <i>null</i> if the element is not present in the project.
      */
@@ -469,7 +495,6 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
             // Register element in the diagram
             getDiagram().addGraphicModel(this);
         }
-        
     }
 
     @objid ("80801c65-1dec-11e2-8cad-001ec947c8cc")
@@ -478,7 +503,23 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
         this.relatedRef = (MRef) in.readProperty("relatedRef");
         this.lastKnownLabel = (String) in.readProperty("lastKnownLabel");
         init();
-        
+    }
+
+    /**
+     * Hidden setter for {@link #getRepresentedRef()} .
+     * <p>
+     *
+     * @param newRef the new related reference.
+     * @deprecated Should be used only in last resort when the reference must be fixed by hand.
+     * Related references are not expected to change.
+     * @since 6.0.1 27/06/2024
+     */
+    @objid ("34f30007-d924-4571-b39b-aeea05b529ac")
+    @Deprecated(forRemoval = false, since = "6.0.1")
+    public final void fixRelatedRef(MRef newRef) {
+        assert (this.relatedRef != null); // this method is not meant to initialize the field
+
+        this.relatedRef = newRef;
     }
 
 }

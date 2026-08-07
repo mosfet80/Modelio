@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.service.impl.controller.states.features;
 
@@ -40,10 +40,11 @@ public class DocFeature extends AbstractFeature {
     private final List<Bundle> docBundles = new ArrayList<>();
 
     /**
+     *
      * @param module the module
      */
     @objid ("58adaed7-4c5c-41ec-995f-cebe71bbcaa8")
-    public  DocFeature(IRTModuleAccess module) {
+    public DocFeature(IRTModuleAccess module) {
         super(module);
     }
 
@@ -65,15 +66,15 @@ public class DocFeature extends AbstractFeature {
             //MdaInfra.LOG.debug("  adding '%s' documentation.", docFile);
             try {
                 BundleContext bundleContext = MdaInfra.getContext();
-        
+
                 Bundle bundleDoc = bundleContext.installBundle("reference:file:/" + docFile);
                 bundleDoc.start(Bundle.START_TRANSIENT);
-        
+
                 this.docBundles.add(bundleDoc);
-        
+
             } catch (Exception e) {
                 MdaInfra.LOG.warning(" Failed installing '%s' documentation bundle: %s", docFile, e.toString());
-        
+
                 // Ignore DuplicateBundleException: doc already installed
                 if (! e.getClass().getSimpleName().equals("DuplicateBundleException")) {
                     // Log and continue
@@ -81,12 +82,12 @@ public class DocFeature extends AbstractFeature {
                 }
             }
         }
-        
+
         // Force the help to reload
         if (!this.docBundles.isEmpty()) {
             HelpPlugin.getTocManager().clearCache();
         }
-        
+
     }
 
     @objid ("f22df734-674d-43b6-858d-12e0d2990f78")
@@ -102,14 +103,14 @@ public class DocFeature extends AbstractFeature {
                     MdaInfra.LOG.warning("'%s' documentation uninstall failed: %s",bundleDoc.getSymbolicName(), e.toString());
                 }
             }
-        
+
             // Empty the local bundle cache
             this.docBundles.clear();
-        
+
             // Force the help to reload
             HelpPlugin.getTocManager().clearCache();
         }
-        
+
     }
 
     @objid ("ea6366a9-b7c2-4e45-b7b0-216fb0a52b14")

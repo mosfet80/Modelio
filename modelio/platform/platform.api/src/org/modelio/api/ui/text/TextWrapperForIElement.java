@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.ui.text;
 
@@ -107,24 +107,25 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
 
     /**
      * C'tor.
+     *
      * @param parent parent control.
      * @param initialElement initial value.
      * @param acceptNullValue whether the null value should be accepted or not.
      * @param allowedMetaclasses a collection of allowed metaclasses
      */
     @objid ("5bf39914-911c-11e0-9de7-002564c97630")
-    public  TextWrapperForIElement(final Composite parent, final MObject initialElement, final boolean acceptNullValue, final Collection<Class<? extends MObject>> allowedMetaclasses) {
+    public TextWrapperForIElement(final Composite parent, final MObject initialElement, final boolean acceptNullValue, final Collection<Class<? extends MObject>> allowedMetaclasses) {
         this.selectedElement = initialElement;
         this.acceptNullValue = acceptNullValue;
         this.allowedMetaclasses = new ArrayList<>();
         this.session = Modelio.getInstance().getModelingSession();
-        
+
         if (allowedMetaclasses != null) {
             this.allowedMetaclasses.addAll(allowedMetaclasses);
         }
-        
+
         createContent(parent);
-        
+
     }
 
     @objid ("5bf51fba-911c-11e0-9de7-002564c97630")
@@ -133,7 +134,7 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
         if (target.length != 1) {
             return false;
         }
-        
+
         for (Class<?> c : this.allowedMetaclasses) {
             if (c.isAssignableFrom(target[0].getClass())) {
                 return true;
@@ -154,26 +155,29 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
     }
 
     /**
+     *
      * @param allowedMetaclass a metaclass java class
      */
     @objid ("5bf2aead-911c-11e0-9de7-002564c97630")
     public void addAllowedMetaclass(final Class<? extends MObject> allowedMetaclass) {
         this.allowedMetaclasses.add(allowedMetaclass);
         updateTooltip();
-        
+
     }
 
     /**
+     *
      * @param metaclasses a collection of metaclasses to accept
      */
     @objid ("5bf2fcce-911c-11e0-9de7-002564c97630")
     public void addAllowedMetaclasses(final Collection<Class<? extends MObject>> metaclasses) {
         this.allowedMetaclasses.addAll(metaclasses);
         updateTooltip();
-        
+
     }
 
     /**
+     *
      * @param listener a field change listener
      */
     @objid ("5bf5bbfe-911c-11e0-9de7-002564c97630")
@@ -182,10 +186,11 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
             this.listeners = new HashSet<>();
         }
         this.listeners.add(listener);
-        
+
     }
 
     /**
+     *
      * @return the allowed metaclasses.
      */
     @objid ("5bf34af3-911c-11e0-9de7-002564c97630")
@@ -194,6 +199,7 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
     }
 
     /**
+     *
      * @return the selected element or <i>null</i>.
      */
     @objid ("c6826f02-0468-407e-83ca-ba80d50b9d8f")
@@ -203,6 +209,7 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
     }
 
     /**
+     *
      * @return the underlying SWT {@link Text}.
      */
     @objid ("5bf60a20-911c-11e0-9de7-002564c97630")
@@ -211,6 +218,7 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
     }
 
     /**
+     *
      * @return whether <i>null</i> is accepted.
      */
     @objid ("5bf26089-911c-11e0-9de7-002564c97630")
@@ -223,10 +231,11 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
     public void pickingAborted() {
         // end our picking session;
         endPickingSession();
-        
+
     }
 
     /**
+     *
      * @param allowedMetaclass a metaclass java class
      * @return true if the allowed metaclasses list changed
      */
@@ -238,6 +247,7 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
     }
 
     /**
+     *
      * @param metaclasses a collection of metaclasses
      * @return true if the allowed metaclasses list changed
      */
@@ -249,6 +259,7 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
     }
 
     /**
+     *
      * @param listener a field change listener
      */
     @objid ("5bf5bc01-911c-11e0-9de7-002564c97630")
@@ -256,10 +267,11 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
         if (this.listeners != null) {
             this.listeners.remove(listener);
         }
-        
+
     }
 
     /**
+     *
      * @param acceptNullValue whether this field accepts null.
      */
     @objid ("5bf2608d-911c-11e0-9de7-002564c97630")
@@ -273,22 +285,23 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
         if (acceptElement(dropedElement[0])) {
             setContent(dropedElement[0], true);
         }
-        
+
     }
 
     /**
      * Set the field value to the given element and end the picking session
      * if the given element is valid.
-     * 
+     *
      * <h1>Warning</h1>
      * Do not use this method to initialize the field value programmatically,
      * it will fire the field listeners that may modify the underlying model.
-     * @see #setSelectedElement(MObject)
+     *
      * @param target The new represented element in the field
      * @return true if the new value is valid, false in the other case.
      * @deprecated Do not use this method to initialize the field value programmatically,
      * it will fire the field listeners that may modify the underlying model.
      * Use {@link #setSelectedElement(MObject)} instead.
+     * @see #setSelectedElement(MObject)
      */
     @objid ("5bf4d198-911c-11e0-9de7-002564c97630")
     @Override
@@ -296,7 +309,7 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
     public boolean setElement(final MObject target) {
         if (acceptElement(target)) {
             setContent(target, true);
-        
+
             return true;
         }
         // else
@@ -304,6 +317,7 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
     }
 
     /**
+     *
      * @param elementFilter an element filter
      */
     @objid ("5bf594ee-911c-11e0-9de7-002564c97630")
@@ -313,15 +327,16 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
 
     /**
      * Set the field value to the given element, if the given element is valid.
-     * 
+     *
      * <h1>Warning</h1>
      * Use this method to initialize the field value programmatically,
      * it won't fire the field listeners.
-     * @see #setElement(MObject)
+     *
      * @param target The new represented element in the field
      * @return true if the new value is valid, false in the other case.
      * @throws IllegalArgumentException if the parameter value is not accepted by the field.
      * @since 4.1
+     * @see #setElement(MObject)
      */
     @objid ("705cadd6-0aa0-437c-b48b-c3a1cc6f67ca")
     public boolean setSelectedElement(final MObject target) throws IllegalArgumentException {
@@ -332,25 +347,25 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
                 // setContent(...) does not reset text field, do it here
                 this.textField.setText("");
             }
-        
-        
+
+
             return true;
         }
-        
+
         throw new IllegalArgumentException(String.format(
                 "%s is not acceptable. Accepted are: %s, null is %s.",
                 target,
                 this.allowedMetaclasses,
                 this.acceptNullValue ? "accepted" : "forbidden"));
-        
+
     }
 
     @objid ("5bf45c69-911c-11e0-9de7-002564c97630")
     protected void createContent(final Composite parent) {
         this.textField = new Text(parent, SWT.BORDER);
-        
+
         updateTooltip();
-        
+
         this.textField.addPaintListener(e -> {
             GC gc = e.gc;
             Rectangle oldClip = gc.getClipping();
@@ -360,7 +375,7 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
             textBounds.y = 0;
             textBounds.height = textBounds.height - 5;
             textBounds.width = textBounds.width - 5;
-        
+
             Display display = Display.getCurrent();
             if (this.textField.isFocusControl()) {
                 Color color = display.getSystemColor(SWT.COLOR_BLUE);
@@ -369,13 +384,13 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
                 gc.drawRectangle(textBounds);
                 gc.setClipping(oldClip);
             }
-        
+
             if (UIImages.INDICATOR != null) {
                 Rectangle imageRect = UIImages.INDICATOR.getBounds();
                 gc.drawImage(UIImages.INDICATOR, textBounds.x + textBounds.width - imageRect.width, textBounds.y);
             }
         });
-        
+
         if (this.selectedElement != null) {
             String text = this.selectedElement.getName();
             if (this.selectedElement.getCompositionOwner() != null) {
@@ -384,7 +399,7 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
             this.textField.setData(this.selectedElement);
             this.textField.setText(text);
         }
-        
+
         this.textField.addKeyListener(this.keyListener);
         this.textField.addFocusListener(this.selectionListener);
         this.textField.addDisposeListener(e -> {
@@ -392,9 +407,9 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
                 pickingAborted();
             }
         });
-        
+
         initDropTarget();
-        
+
     }
 
     @objid ("5bf63131-911c-11e0-9de7-002564c97630")
@@ -407,7 +422,7 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
         } catch (IllegalStateException e) {
             // Picking session already closed
         }
-        
+
     }
 
     @objid ("5bf43559-911c-11e0-9de7-002564c97630")
@@ -422,24 +437,24 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
         // - if no element is found, open the FinderDialog initialized by a
         // regexp (current text + .*) and start the search immediately
         // - Validate the entry when the FinderDialog returns
-        
+
         if (e.character == '\r') {
-        
+
             if (this.acceptNullValue && this.textField.getText().isEmpty()) {
                 // The user wants to remove the value, do it
                 setContent(null, true);
                 // Fast exit
                 return;
             }
-        
+
             ElementFinder finder = new ElementFinder(this.session);
             List<MObject> elements = finder.findByName(this.allowedMetaclasses, this.textField.getText(), this.elementFilter);
-        
+
             if (elements.isEmpty()) {
                 // no exact match, look for name starting with text
                 String filter = this.textField.getText() + ".*";
                 elements = finder.search(this.allowedMetaclasses, filter, this.elementFilter);
-        
+
                 if (elements.isEmpty()) {
                     // no element, retain only text content
                     setContent(null, true);
@@ -449,34 +464,34 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
                 } else {
                     // We have several found elements
                     ResultsProposalPopup rp = new ResultsProposalPopup(this.textField, elements, this.acceptNullValue);
-        
+
                     // Wait for dialog to close
                     ModelElement selected = (ModelElement) rp.getChoice();
-        
+
                     // set value to dialog choice
                     setContent(selected, true);
                 }
             } else if (elements.size() == 1) {
                 // One exact match, select it
                 setContent(elements.get(0), true);
-        
+
             } else {
                 // We have several found elements
                 ResultsProposalPopup rp = new ResultsProposalPopup(this.textField, elements, this.acceptNullValue);
                 // Wait for user choice
                 ModelElement selected = (ModelElement) rp.getChoice();
-        
+
                 setContent(selected, true);
-        
+
             }
-        
+
             return;
         } else if ((e.character == ' ') && ((e.stateMask & SWT.CTRL) != 0)) {
             // <ctrl>+<space> : display completions
             String filter = this.textField.getText() + ".*";
             ElementFinder finder = new ElementFinder(this.session);
             List<MObject> elements = finder.search(this.allowedMetaclasses, filter, this.elementFilter);
-        
+
             if (elements.isEmpty()) {
                 MessageDialog.openInformation(Display.getDefault().getActiveShell(),
                         Api.I18N.getMessage("TextWrapperForIElement.HybridNotFoundTitle"),
@@ -489,14 +504,14 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
                 // We have several found elements
                 ResultsProposalPopup rp = new ResultsProposalPopup(this.textField, elements, this.acceptNullValue);
                 ModelElement selected = (ModelElement) rp.getChoice();
-        
+
                 setContent(selected, true);
-        
+
             }
         } else if (e.character == SWT.ESC) {
             validate(false);
         }
-        
+
     }
 
     @objid ("5bf45c67-911c-11e0-9de7-002564c97630")
@@ -505,13 +520,13 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
             String initialValue = this.selectedElement.getName();
             this.textField.setText(initialValue);
         }
-        
+
         this.textField.selectAll();
-        
+
         if (this.pickinSession == null) {
             this.pickinSession = Modelio.getInstance().getPickingService().startPickingSession(this);
         }
-        
+
     }
 
     @objid ("5bf5e311-911c-11e0-9de7-002564c97630")
@@ -521,7 +536,7 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
                 listener.selectedElementChanged(oldElement, newElement);
             }
         }
-        
+
     }
 
     @objid ("5bf4f8ac-911c-11e0-9de7-002564c97630")
@@ -533,7 +548,7 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
          *
          * target.addDropListener(dropListener);
          */
-        
+
     }
 
     @objid ("5bf48377-911c-11e0-9de7-002564c97630")
@@ -561,7 +576,7 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
                 validate(false);
             }
         }
-        
+
     }
 
     @objid ("6b3f5259-9746-11e0-bb39-002564c97630")
@@ -580,29 +595,29 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
         }
         helpTooltip.append("\n");
         helpTooltip.append(Api.I18N.getMessage("TextWrapperForIElement.HybridCellEditorTootip"));
-        
+
         this.textField.setToolTipText(helpTooltip.toString());
-        
+
     }
 
     @objid ("5bf4f8a9-911c-11e0-9de7-002564c97630")
     private void validate(final boolean save) {
         // Clean up
         endPickingSession();
-        
+
         if (save) {
             // Update the data model from the content of the text field.
             MObject oldElement = this.selectedElement;
             this.selectedElement = (ModelElement) this.textField.getData();
             fireSelectedElementChanged(oldElement, this.selectedElement);
-        
+
         }
-        
+
     }
 
     /**
      * This class allow to find elements by their name.
-     * 
+     *
      * The search can be done with an exact name or with a regular expression. In the two cases a filter can be specified. If null is specified for the filter the full list of found elements is returned.
      */
     @objid ("5bf63134-911c-11e0-9de7-002564c97630")
@@ -612,15 +627,17 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
 
         /**
          * Constructor.
+         *
          * @param session the session in which to search the elements.
          */
         @objid ("5bf65842-911c-11e0-9de7-002564c97630")
-        public  ElementFinder(final IModelingSession session) {
+        public ElementFinder(final IModelingSession session) {
             this.session = session;
         }
 
         /**
          * Search model elements by their name.
+         *
          * @param metaclasses metaclasses of the searched elements
          * @param nameValue name of the searched elements
          * @param filter a filter that allow to restrict the result scope. can be null.
@@ -629,20 +646,20 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
         @objid ("5bf65846-911c-11e0-9de7-002564c97630")
         public List<MObject> findByName(final List<Class<? extends MObject>> metaclasses, final String nameValue, final IElementFilter filter) {
             List<MObject> ret = new ArrayList<>();
-            
+
             for (Class<? extends MObject> c : metaclasses) {
-                ret.addAll(this.session.findByAtt(c, "Name", nameValue));
+                ret.addAll(this.session.findByName(c, true, nameValue));
             }
-            
+
             if (filter != null) {
                 List<MObject> filteredResults = new ArrayList<>();
-            
+
                 for (MObject e : ret) {
                     if (filter.accept(e)) {
                         filteredResults.add(e);
                     }
                 }
-            
+
                 ret = filteredResults;
             }
             return ret;
@@ -650,6 +667,7 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
 
         /**
          * Search model elements by their name accordingly to a regular exception..
+         *
          * @param metaclasses metaclasses of the searched elements
          * @param regexp a regular expression that will be matched with name of the searched elements
          * @param filter a filter that allow to restrict the result scope. Can be null.
@@ -661,15 +679,15 @@ public class TextWrapperForIElement implements IPickingClient, IEditorDropClient
             for (Class<? extends MObject> c : metaclasses) {
                 rawResults.addAll(this.session.findByClass(c));
             }
-            
+
             ModelTree predefTypes = this.session.getModel().getUmlTypes().getBOOLEAN().getOwner();
             rawResults.remove(predefTypes);
             rawResults.remove(predefTypes.getOwner());
-            
+
             List<MObject> filteredResults = new ArrayList<>();
-            
+
             Pattern p = Pattern.compile(regexp);
-            
+
             for (MObject e : rawResults) {
                 if (e instanceof ModelElement) {
                     ModelElement me = (ModelElement) e;

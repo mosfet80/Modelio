@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.association;
 
@@ -33,7 +33,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  * Association role name label.
  * <p>
  * Displays the role name and visibility.
- * 
+ *
  * @author cmarin
  */
 @objid ("33eefcc4-55b7-11e2-877f-002564c97630")
@@ -54,21 +54,22 @@ public class GmRoleNameLabel extends GmDefaultModelElementHeader {
      * Constructor for deserialization only.
      */
     @objid ("33eefcd0-55b7-11e2-877f-002564c97630")
-    public  GmRoleNameLabel() {
+    public GmRoleNameLabel() {
         // Nothing to do.
     }
 
     /**
      * Creates a role name label.
+     *
      * @param diagram the owning diagram.
      * @param role The represented role, may be null.
      * @param ref the represented role reference, must not be null.
      */
     @objid ("33eefcd3-55b7-11e2-877f-002564c97630")
-    public  GmRoleNameLabel(IGmDiagram diagram, AssociationEnd role, MRef ref) {
+    public GmRoleNameLabel(IGmDiagram diagram, AssociationEnd role, MRef ref) {
         super(diagram, ref);
         this.role = role;
-        
+
     }
 
     @objid ("33f08342-55b7-11e2-877f-002564c97630")
@@ -106,7 +107,7 @@ public class GmRoleNameLabel extends GmDefaultModelElementHeader {
                 break;
             }
         }
-        
+
     }
 
     @objid ("33f0835b-55b7-11e2-877f-002564c97630")
@@ -120,12 +121,12 @@ public class GmRoleNameLabel extends GmDefaultModelElementHeader {
         if (att == null) {
             return "";
         }
-        
+
         final String name = att.getName();
         if (name.isEmpty()) {
             return "";
         }
-        
+
         StringBuilder ret = new StringBuilder();
         if (isRoleVisible()) {
             ret.append(name);
@@ -139,6 +140,7 @@ public class GmRoleNameLabel extends GmDefaultModelElementHeader {
 
     /**
      * compute the visibility symbol of the role.
+     *
      * @param att a role
      * @return the visibility symbol.
      */
@@ -171,7 +173,7 @@ public class GmRoleNameLabel extends GmDefaultModelElementHeader {
         } else {
             return false;
         }
-        
+
     }
 
     @objid ("33f08375-55b7-11e2-877f-002564c97630")
@@ -181,17 +183,17 @@ public class GmRoleNameLabel extends GmDefaultModelElementHeader {
         } else {
             return false;
         }
-        
+
     }
 
     @objid ("33f08379-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmRoleNameLabel.", GmRoleNameLabel.MINOR_VERSION);
-        
+
     }
 
     @objid ("33f209d9-55b7-11e2-877f-002564c97630")
@@ -201,7 +203,7 @@ public class GmRoleNameLabel extends GmDefaultModelElementHeader {
         if (resolveRef instanceof AssociationEnd) {
             this.role = (AssociationEnd) resolveRef;
         }
-        
+
     }
 
     @objid ("33f209de-55b7-11e2-877f-002564c97630")

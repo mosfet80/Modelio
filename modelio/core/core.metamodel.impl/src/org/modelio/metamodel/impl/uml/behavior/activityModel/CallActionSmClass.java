@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -41,66 +40,66 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("c5105486-1655-4f9c-9ff6-651e4276cbcc")
 public class CallActionSmClass extends ActivityActionSmClass {
-    @objid ("664c7e65-910d-471c-878c-892f83ade386")
+    @objid ("ceea81d6-4d18-40de-a546-26af3be503be")
     private SmAttribute isSynchronousAtt;
 
-    @objid ("7add2080-5e19-4db3-b914-29b49bdd7359")
-    public  CallActionSmClass(ISmMetamodelFragment origin) {
+    @objid ("2fe62e8c-ced6-4d81-9684-c5f6d319b879")
+    public CallActionSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("2b5d74d1-d9f1-43c0-9e77-7c8e778761f1")
+    @objid ("9e1fa4f7-e588-423a-bf94-ec5cdadc5f29")
     @Override
     public String getName() {
         return "CallAction";
-        
+
     }
 
-    @objid ("cbbda484-f6a0-4c6f-8c24-e7c80205fa20")
+    @objid ("68a94ed0-2cb9-4cdc-bc21-6ad4e6284e23")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("0d7711fb-80b8-4183-be7a-48beff65bf83")
+    @objid ("64cbd567-c2b9-4b80-9c7c-e36056ef63a8")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return CallAction.class;
-        
+
     }
 
-    @objid ("36c99aba-2249-42e5-848e-4c1ebad9ea32")
+    @objid ("82e79f12-d30f-4c82-9895-97baf084771c")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("8a4c5954-dc8a-46ff-bb20-954199792733")
+    @objid ("08bd2333-8aed-4231-959f-5f60fbda2525")
     @Override
     public boolean isAbstract() {
         return true;
-        
+
     }
 
-    @objid ("b238f22d-41dd-4abe-8db1-0cc37177a547")
+    @objid ("16cb8806-b1dd-4251-af6d-f7854394c996")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(ActivityAction.MQNAME);
         this.registerFactory(new CallActionObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
         this.isSynchronousAtt = new IsSynchronousSmAttribute();
         this.isSynchronousAtt.init("IsSynchronous", this, Boolean.class );
         registerAttribute(this.isSynchronousAtt);
-        
-        
+
+
         // Initialize and register the SmDependency
-        
+
     }
 
-    @objid ("65e6ea7e-f2b5-4781-9c5f-1b4976910b27")
+    @objid ("01a44306-4a67-438d-82fd-8057ee935678")
     public SmAttribute getIsSynchronousAtt() {
         if (this.isSynchronousAtt == null) {
         	this.isSynchronousAtt = this.getAttributeDef("IsSynchronous");
@@ -110,21 +109,21 @@ public class CallActionSmClass extends ActivityActionSmClass {
 
     @objid ("11bac29e-5b94-4385-b58e-58b327dd63a6")
     private static class CallActionObjectFactory implements ISmObjectFactory {
-        @objid ("ed5d3e34-e88b-4a34-a9fa-8613a425bfef")
+        @objid ("0c3ec145-cc35-4e47-826c-8ea458b6b1fe")
         private CallActionSmClass smClass;
 
-        @objid ("06f96a96-0d48-48a8-8ab2-927181c19080")
-        public  CallActionObjectFactory(CallActionSmClass smClass) {
+        @objid ("868ca552-08db-4377-a087-29dd455bbe77")
+        public CallActionObjectFactory(CallActionSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("63ec989c-8b8b-4ec7-93bb-c103b33263dd")
+        @objid ("68643ca1-50e4-4fc9-8485-27aaae49c4f4")
         @Override
         public ISmObjectData createData() {
             throw new UnsupportedOperationException();
         }
 
-        @objid ("7e5da912-49f1-497b-8ff7-1b1f0e7640a2")
+        @objid ("af83602e-7f9b-4cf7-869c-782b9c492514")
         @Override
         public SmObjectImpl createImpl() {
             throw new UnsupportedOperationException();
@@ -134,12 +133,12 @@ public class CallActionSmClass extends ActivityActionSmClass {
 
     @objid ("0c5c361c-572c-4100-810b-3dff13d1e7a0")
     public static class IsSynchronousSmAttribute extends SmAttribute {
-        @objid ("dcf107ff-5c2a-45de-90b5-47f6064db986")
+        @objid ("e62e396d-ab46-47bd-9958-1df798dd74f3")
         public Object getValue(ISmObjectData data) {
             return ((CallActionData) data).mIsSynchronous;
         }
 
-        @objid ("80eaa8a9-eb89-42b8-9312-9e4890812a29")
+        @objid ("611a5be1-e7a2-43d3-b499-6754cdaa552d")
         public void setValue(ISmObjectData data, Object value) {
             ((CallActionData) data).mIsSynchronous = value;
         }

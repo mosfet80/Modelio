@@ -1,29 +1,48 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.linkeditor.panel;
 
 import java.util.Objects;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -43,7 +62,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  */
 @objid ("8d1891c7-35d5-4cb1-95a9-87fa5d493166")
 public class LinkEditorPanelProvider implements ILinkEditor {
-    @objid ("93ea9df5-2fc5-413a-b175-75ebac4e2184")
+    @objid ("e8dfb9b3-251d-4ed9-aa6a-659b7e16a627")
     @Inject
     private IEclipseContext eclipseContext;
 
@@ -104,7 +123,6 @@ public class LinkEditorPanelProvider implements ILinkEditor {
         if (! Objects.equals(mObj, curInput)) {
             this.controller.setInput(mObj);
         }
-        
     }
 
     @objid ("41a856b2-381d-492b-b384-7f789f194fb2")
@@ -114,29 +132,28 @@ public class LinkEditorPanelProvider implements ILinkEditor {
             this.ui.getComposite().dispose();
         }
         preDestroy();
-        
     }
 
     /**
      * Build a controller with injected fields.
+     *
      * @param context an Eclipse 4 context
      */
     @objid ("ea3c6550-e3f9-470d-9980-90f6db6616fb")
     @PostConstruct
     void postConstruct(IEclipseContext context) {
         LinkEditorConfiguration configurationData = new LinkEditorConfiguration();
-        
+
         // Instantiate controller with E4 injector
         IEclipseContext staticContext = EclipseContextFactory.create();
         staticContext.set(ILinkEditorConfiguration.class, configurationData);
         this.controller = ContextInjectionFactory.make(LinkEditorPanelController.class, context, staticContext);
         staticContext.dispose();
-        
+
         // Instantiate configurator
         this.configurator = new LinkEditorConfigurator(configurationData);
         this.configurator.addPropertyChangeListener(
                 evt -> this.controller.onConfigurationChanged());
-        
     }
 
     /**
@@ -156,6 +173,7 @@ public class LinkEditorPanelProvider implements ILinkEditor {
 
     /**
      * Get the configurator for this link editor
+     *
      * @return the configurator for this link editor
      */
     @objid ("4c11f62e-6cab-47fc-b8ef-15a7a8c2d1a5")
@@ -191,7 +209,6 @@ public class LinkEditorPanelProvider implements ILinkEditor {
         this.configurator = null;
         this.controller = null;
         this.ui = null;
-        
     }
 
     @objid ("b37fc864-8bf0-428a-b1a5-ece8c1bb5860")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.api.impl.log;
 
@@ -55,7 +55,7 @@ public final class LogService implements ILogService {
     public void info(final Throwable t) {
         ApiImpl.LOG.info(getAuthor());
         ApiImpl.LOG.info(t);
-        
+
     }
 
     @objid ("e8a77a88-88dd-4bf1-8021-86cb18dd1ea9")
@@ -63,7 +63,7 @@ public final class LogService implements ILogService {
     public void warning(final Throwable t) {
         ApiImpl.LOG.warning(getAuthor());
         ApiImpl.LOG.warning(t);
-        
+
     }
 
     @objid ("08a48389-2eb0-4767-bb64-80fbbb578b0a")
@@ -71,7 +71,7 @@ public final class LogService implements ILogService {
     public void error(final Throwable t) {
         ApiImpl.LOG.error(getAuthor());
         ApiImpl.LOG.error(t);
-        
+
     }
 
     /**
@@ -83,6 +83,7 @@ public final class LogService implements ILogService {
      * <li>the module identifier (the module model is not available)
      * <li> {@value #API_PLUGIN_ID} (there is no module)
      * <li>
+     *
      * @return an identifier for the module
      */
     @objid ("a2f9dac6-b411-4dfb-b0ab-852bf4d22e59")
@@ -91,11 +92,11 @@ public final class LogService implements ILogService {
             return Api.PLUGIN_ID;
         else
             return this.author;
-        
+
     }
 
     @objid ("d6da1678-e824-49c1-9421-ab6a48e54829")
-    public  LogService(String author) {
+    public LogService(String author) {
         this.author = author;
     }
 

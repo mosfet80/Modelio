@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.mmextensions.standard.factory;
 
@@ -66,14 +66,15 @@ public class ElementInitializer implements IElementInitializer {
     private final ElementInitializerVisitor visitor;
 
     /**
+     *
      * @param standardFactory the model factory
      */
     @objid ("ebca2674-3a06-4781-84c0-814cb7baada6")
-    public  ElementInitializer(final IStandardModelFactory standardFactory) {
+    public ElementInitializer(final IStandardModelFactory standardFactory) {
         final Geometry geometry = new Geometry();
-        
+
         this.visitor = new ElementInitializerVisitor(standardFactory, geometry);
-        
+
     }
 
     @objid ("7561bc40-1ca4-49a0-bad9-9210a4cea736")
@@ -101,7 +102,7 @@ public class ElementInitializer implements IElementInitializer {
         default:
             // unknown key
         }
-        
+
     }
 
     @objid ("59e9e4d9-cc4f-4007-abf2-da46b28cc8a0")
@@ -116,17 +117,17 @@ public class ElementInitializer implements IElementInitializer {
         private final IStandardModelFactory standardFactory;
 
         @objid ("a340fee5-19dd-430c-9594-1a7a183e06ea")
-        public  ElementInitializerVisitor(final IStandardModelFactory modelFactory, final Geometry geometry) {
+        public ElementInitializerVisitor(final IStandardModelFactory modelFactory, final Geometry geometry) {
             this.standardFactory = modelFactory;
             this.geometry = geometry;
-            
+
         }
 
         @objid ("2e657745-1c33-4ba7-a8b0-d1b2a5b803ba")
         @Override
         public Object visitAssociationEnd(final AssociationEnd theAssociationEnd) {
             super.visitAssociationEnd(theAssociationEnd);
-            
+
             if (this.geometry.defaultAttributeVisibility != null) {
                 theAssociationEnd.setVisibility(this.geometry.defaultAttributeVisibility);
             }
@@ -138,13 +139,13 @@ public class ElementInitializer implements IElementInitializer {
         public Object visitAttribute(final Attribute theAttribute) {
             // Call inherited behavior first
             super.visitAttribute(theAttribute);
-            
+
             if (this.geometry.defaultAttributeVisibility != null) {
                 theAttribute.setVisibility(this.geometry.defaultAttributeVisibility);
             }
-            
+
             theAttribute.setType(this.geometry.defaultAttributeType);
-            
+
             // Init default multiplicity
             theAttribute.setMultiplicityMin("1");
             theAttribute.setMultiplicityMax("1");
@@ -222,7 +223,7 @@ public class ElementInitializer implements IElementInitializer {
             // Init multiplicity
             theParameter.setMultiplicityMin("1");
             theParameter.setMultiplicityMax("1");
-            
+
             if (theParameter.getReturned() != null) {
                 theParameter.setType(this.geometry.defaultReturnType);
             } else {
@@ -243,7 +244,7 @@ public class ElementInitializer implements IElementInitializer {
         public Object visitTemplateBinding(final TemplateBinding aTemplateBinding) {
             // Call inherited behavior
             super.visitTemplateBinding(aTemplateBinding);
-            
+
             List<TemplateParameter> parameters;
             final Operation op = aTemplateBinding.getInstanciatedTemplateOperation();
             final NameSpace ns = aTemplateBinding.getInstanciatedTemplate();
@@ -254,22 +255,22 @@ public class ElementInitializer implements IElementInitializer {
             } else {
                 parameters = new ArrayList<>();
             }
-            
+
             // Clear all obsolete TemplateParameterSubstitution
             for (final TemplateParameterSubstitution sub : aTemplateBinding.getParameterSubstitution()) {
                 if (!parameters.contains(sub.getFormalParameter())) {
                     sub.delete();
                 }
             }
-            
+
             // Create missing substitutions
             final List<TemplateParameterSubstitution> substitutions = aTemplateBinding.getParameterSubstitution();
             final List<TemplateParameter> substituedParameters = new ArrayList<>(substitutions.size());
-            
+
             for (final TemplateParameterSubstitution sub : substitutions) {
                 substituedParameters.add(sub.getFormalParameter());
             }
-            
+
             for (final TemplateParameter param : parameters) {
                 if (!substituedParameters.contains(param)) {
                     if (param.getDefaultType() == null && param.getDefaultValue().isEmpty()) {
@@ -291,12 +292,12 @@ public class ElementInitializer implements IElementInitializer {
         @Override
         public Object visitUseCase(final UseCase theUseCase) {
             final String content = "...";
-            
+
             if (theUseCase.getNote("ModelerModule", ModelElement.MQNAME, "description") == null) {
                 final Note note = this.standardFactory.createNote("ModelerModule", ModelElement.MQNAME, "description", theUseCase, content);
                 note.setMimeType(ElementInitializerVisitor.DEFAULT_MIMETYPE);
             }
-            
+
             final String[] noteTypes = { "constraint", "non-functional constraint", "exception", "precondition", "postcondition" };
             for (final String noteType : noteTypes) {
                 try {
@@ -318,7 +319,7 @@ public class ElementInitializer implements IElementInitializer {
             final Package newRootPackage = this.standardFactory.createPackage();
             newRootPackage.setName(theProject.getName());
             theProject.getModel().add(newRootPackage);
-            
+
             // Create diagram set root
             final DiagramSet dgRootSet = this.standardFactory.createDiagramSet();
             dgRootSet.setName(theProject.getName());
@@ -330,7 +331,7 @@ public class ElementInitializer implements IElementInitializer {
         @Override
         public Object visitNaryAssociationEnd(NaryAssociationEnd obj) {
             super.visitNaryAssociationEnd(obj);
-            
+
             if (this.geometry.defaultAttributeVisibility != null) {
                 obj.setVisibility(this.geometry.defaultAttributeVisibility);
             }
@@ -353,7 +354,7 @@ public class ElementInitializer implements IElementInitializer {
      */
     @objid ("2f6980b7-0b44-4272-96d9-2e22d5045fda")
     private static class Geometry {
-        
+
         @mdl.prop
         @objid ("3dc85bd8-12f1-4cf7-b604-cfeced71c8b6")
         public VisibilityMode defaultAttributeVisibility = null;
@@ -364,7 +365,7 @@ public class ElementInitializer implements IElementInitializer {
             this.defaultAttributeVisibility = value;
         }
 
-        
+
         @mdl.prop
         @objid ("9829d7c2-4381-430d-94cf-9cb8c79e833c")
         private GeneralClass defaultAttributeType = null;
@@ -375,7 +376,7 @@ public class ElementInitializer implements IElementInitializer {
             this.defaultAttributeType = value;
         }
 
-        
+
         @mdl.prop
         @objid ("8cddabd5-993b-47f7-879b-b93991079984")
         private GeneralClass defaultParameterType = null;
@@ -386,7 +387,7 @@ public class ElementInitializer implements IElementInitializer {
             this.defaultParameterType = value;
         }
 
-        
+
         @mdl.prop
         @objid ("95e11a9b-4828-4d62-9835-90bca017f5f6")
         private GeneralClass defaultReturnType = null;

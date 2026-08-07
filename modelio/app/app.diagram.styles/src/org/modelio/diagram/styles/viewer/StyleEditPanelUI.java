@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.styles.viewer;
 
@@ -87,6 +87,7 @@ class StyleEditPanelUI implements IStyleChangeListener {
     private StyleEditPanelSelection selectionComputations;
 
     /**
+     *
      * @return the Modelio picking service
      */
     @objid ("7d656369-8c84-412a-9605-6a47389ae59b")
@@ -104,6 +105,7 @@ class StyleEditPanelUI implements IStyleChangeListener {
     }
 
     /**
+     *
      * @return the currently edited style.
      */
     @objid ("3d3fa04a-5ce1-427a-a44f-9f8f0d533734")
@@ -112,10 +114,10 @@ class StyleEditPanelUI implements IStyleChangeListener {
     }
 
     @objid ("0b5c4210-98cf-4e1e-88f8-92d8feda2980")
-    public  StyleEditPanelUI(StyleEditPanelController controller, boolean tableMode) {
+    public StyleEditPanelUI(StyleEditPanelController controller, boolean tableMode) {
         this.controller = controller;
         this.tableMode = tableMode;
-        
+
     }
 
     /**
@@ -138,10 +140,11 @@ class StyleEditPanelUI implements IStyleChangeListener {
             column.getColumn().setMoveable(true);
             return column;
         }
-        
+
     }
 
     /**
+     *
      * @return the edited style model.
      */
     @objid ("566c47bf-5e83-487a-a040-57d015fbc8c3")
@@ -159,10 +162,10 @@ class StyleEditPanelUI implements IStyleChangeListener {
                 DiagramStyles.I18N.getString("StylesViewer.Property"),
                 DiagramStyles.I18N.getString("StylesViewer.Value") };
         final int[] columnInitialWidths = { 150, 150 };
-        
+
         // First column is for the style key name
         this.col1 = createTreeViewerColumn(ui, columnTitles[0], columnInitialWidths[0]);
-        
+
         if (this.tableMode) {
             this.col1.setLabelProvider(new KeyTableLabelProvider(
                     () -> getModel().getStyleTreeModel(),
@@ -171,9 +174,9 @@ class StyleEditPanelUI implements IStyleChangeListener {
             this.col1.setLabelProvider(new KeyTreeLabelProvider(
                     () -> getModel().getStyleTreeModel(),
                     () -> getModel().getStyleData()));
-        
+
         }
-        
+
         // Second column is for the style key type
         ViewerColumn col2 = createTreeViewerColumn(ui, columnTitles[1], columnInitialWidths[1]);
         col2.setLabelProvider(new StyleCellLabelProvider(
@@ -181,7 +184,7 @@ class StyleEditPanelUI implements IStyleChangeListener {
                 this.tableMode,
                 () -> getModel().getStyleTreeModel()));
         col2.setEditingSupport(new StylePropertyEditingSupport(this.viewer));
-        
+
     }
 
     /**
@@ -196,7 +199,7 @@ class StyleEditPanelUI implements IStyleChangeListener {
     @objid ("559a43b2-1c24-49b0-894e-eeb907284d93")
     public Control createUI(Composite parent) {
         this.sash = new SashForm(parent, SWT.VERTICAL);
-        
+
         if (this.tableMode) {
             TableViewer tableViewer = new TableViewer(this.sash,
                     SWT.HIDE_SELECTION | SWT.MULTI
@@ -216,33 +219,33 @@ class StyleEditPanelUI implements IStyleChangeListener {
             treeviewer.getTree().setLinesVisible(true);
             this.viewer.setContentProvider(new StyleDataTreeContentProvider(this.model));
         }
-        
+
         ColumnViewerToolTipSupport.enableFor(this.viewer, ToolTip.NO_RECREATE);
-        
+
         // Layout the viewer
         GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
         this.viewer.getControl().setLayoutData(gridData);
-        
+
         // Create columns
         createColumns(this);
-        
+
         // Description
         this.descriptionText = new Label(this.sash, SWT.WRAP | SWT.V_SCROLL);
         this.descriptionText.setForeground(UIColor.LABEL_TIP_FG);
-        
+
         this.sash.setWeights(new int[] { 90, 10 });
-        
+
         this.viewer.addSelectionChangedListener((SelectionChangedEvent event) -> {
             ISymbolViewItem o = SelectionHelper.getFirst(event.getSelection(), ISymbolViewItem.class);
             this.controller.onPropertySelection(o);
         });
-        
+
         // Some computations that are observed
         this.selectionComputations = new StyleEditPanelSelection(this.viewer, this::getEditedStyle);
-        
+
         this.contextualMenu = new MenuManager();
         buildContextualMenu(this.contextualMenu);
-        
+
         Menu menu = this.contextualMenu.createContextMenu(this.viewer.getControl());
         this.viewer.getControl().setMenu(menu);
         return this.sash;
@@ -250,6 +253,7 @@ class StyleEditPanelUI implements IStyleChangeListener {
 
     /**
      * Set the model for the viewer. The 'null' value means no model. The Viewer actually uses a fake empty model in this case, displaying an empty table.
+     *
      * @param model the model used by this viewer.
      */
     @objid ("257c7bd2-1239-4e57-b9d1-3e2fa3f29512")
@@ -258,7 +262,7 @@ class StyleEditPanelUI implements IStyleChangeListener {
         if (this.model != null && this.model.getStyleData() != null) {
             this.model.getStyleData().removeListener(this);
         }
-        
+
         if (!this.sash.isDisposed()) {
             // set model
             if (data == null) {
@@ -268,7 +272,7 @@ class StyleEditPanelUI implements IStyleChangeListener {
             } else {
                 this.model = data;
                 this.viewer.setInput(this.model);
-        
+
                 // register as Style listener
                 if (this.model.getStyleData() != null) {
                     this.model.getStyleData().addListener(this);
@@ -279,7 +283,7 @@ class StyleEditPanelUI implements IStyleChangeListener {
                 column.getColumn().pack();
             }
         }
-        
+
     }
 
     @objid ("992eebbc-aaa7-416e-b80c-f52f53f7d72c")
@@ -288,7 +292,7 @@ class StyleEditPanelUI implements IStyleChangeListener {
         if (this.model != null && this.model.getStyleData() != null) {
             this.model.getStyleData().removeListener(this);
         }
-        
+
     }
 
     @objid ("79c96ed3-29f6-4637-bee1-272d29f048f9")
@@ -300,13 +304,13 @@ class StyleEditPanelUI implements IStyleChangeListener {
     private void styleChanged() {
         if (!this.viewer.getControl().isDisposed()) {
             this.viewer.refresh(true);
-        
+
             this.controller.onStyleChanged();
         } else {
             // Sometimes, this listener is called when the tree viewer is already disposed. Make sure to unregister it.
             this.model.getStyleData().removeListener(this);
         }
-        
+
     }
 
     @objid ("ee861f58-552a-400e-be9d-02efd8441387")
@@ -316,12 +320,13 @@ class StyleEditPanelUI implements IStyleChangeListener {
 
     /**
      * Add entries to the contextual menu
+     *
      * @param popupMenu the contextual menu to fill.
      */
     @objid ("22d302ce-9e17-4c4b-9d66-6800061cd842")
     private void buildContextualMenu(MenuManager popupMenu) {
         final StyleEditPanelController lcontroller = this.controller;
-        
+
         // Normalize command
         SwtContributionItem normalizeAction = new SwtContributionItem();
         normalizeAction.setText(DiagramStyles.I18N.getString("EditStylesDialog.NormalizeButton.label"));
@@ -329,7 +334,7 @@ class StyleEditPanelUI implements IStyleChangeListener {
         normalizeAction.setImageDescriptor(getImage(DiagramStyles.I18N.getMessage("EditStylesDialog.NormalizeButton.image")));
         normalizeAction.setAction(() -> lcontroller.onNormalize(getSelection()));
         popupMenu.add(normalizeAction);
-        
+
         // Reset command
         SwtContributionItem resetAction = new SwtContributionItem();
         resetAction.setAction(() -> lcontroller.onReset(getSelection()));
@@ -337,26 +342,27 @@ class StyleEditPanelUI implements IStyleChangeListener {
         resetAction.setTooltipText(DiagramStyles.I18N.getString("EditStylesDialog.RestoreButton.tooltip"));
         resetAction.setImageDescriptor(getImage(DiagramStyles.I18N.getMessage("EditStylesDialog.RestoreButton.image")));
         popupMenu.add(resetAction);
-        
+
         // Update enablement on menu show
         popupMenu.addMenuListener((IMenuManager manager) -> {
             boolean enabledAndAnyModified = this.selectionComputations.containsModifiedProperties() && this.selectionComputations.containsOnlySymbolViewItems();
-        
+
             // manual updates
             resetAction.setEnabled(enabledAndAnyModified);
             normalizeAction.setEnabled(enabledAndAnyModified);
-        
+
             // force the menu to update from contribution items
             resetAction.update();
             normalizeAction.update();
         });
-        
+
     }
 
     /**
      * Get the contextual menu manager.
      * <p>
      * The caller may add entries to the menu.
+     *
      * @return the contextual menu manager.
      */
     @objid ("8cfe4e8e-bbf9-45de-8d8d-404289c46ebc")

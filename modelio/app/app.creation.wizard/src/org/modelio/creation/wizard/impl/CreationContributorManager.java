@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.creation.wizard.impl;
 
@@ -27,7 +46,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.annotation.PreDestroy;
+import jakarta.inject.Inject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IPath;
@@ -66,13 +87,37 @@ public class CreationContributorManager {
 
     @objid ("e8ab7403-98a5-410d-a2ed-15308b4ee1ae")
     @Inject
-     CreationContributorManager(final IEclipseContext context) {
+    CreationContributorManager(final IEclipseContext context) {
         this.context = context;
-        
+
         for (final IConfigurationElement element : new ExtensionPointContributionManager(CreationContributorManager.DIAGRAM_CREATION_EXTENSIONPOINT_ID).getExtensions("wizard")) {
             parseWizard(element);
         }
-        
+    }
+
+    /**
+     * E4 destructor : dispose all resources.
+     */
+    @objid ("edf91940-a622-426e-b274-d9cd36756f71")
+    @PreDestroy
+    void onPreDestroy() {
+        for (List<IWizardContributor> list : this.wizards.values()) {
+            for (IWizardContributor wizardContributor : list) {
+                try {
+                    wizardContributor.dispose();
+                } catch (RuntimeException e) {
+                    CreationWizard.LOG.warning(e);
+                }
+            }
+        }
+
+        for (ContributorCategory category : this.categories.values()) {
+            try {
+                category.getIcon().dispose();
+            } catch (RuntimeException e) {
+                CreationWizard.LOG.warning(e);
+            }
+        }
     }
 
     @objid ("091eaed9-56ca-4df1-8023-ca98e74d9b35")
@@ -81,7 +126,7 @@ public class CreationContributorManager {
             Object obj = element.createExecutableExtension("class");
             if (obj instanceof IWizardContributor) {
                 final String bundleId = element.getNamespaceIdentifier();
-        
+
                 // First, find the category
                 String categoryId = element.getAttribute("categoryId");
                 ContributorCategory category = this.categories.get(categoryId);
@@ -91,33 +136,35 @@ public class CreationContributorManager {
                     category = new ContributorCategory(categoryId, categoryLabel, makeImageDescriptor(bundleId, categoryIconPath).createImage());
                     this.categories.put(categoryId, category);
                 }
-        
+
                 List<IWizardContributor> contribs = this.wizards.get(categoryId);
                 if (contribs == null) {
                     contribs = new ArrayList<>();
                     this.wizards.put(categoryId, contribs);
                 }
-        
+
                 // Build the contribution
                 IWizardContributor contrib = (IWizardContributor) obj;
                 ContextInjectionFactory.inject(obj, this.context);
-        
+
                 contrib.setLabel(element.getAttribute("label"));
                 contrib.setDetails(element.getAttribute("details"));
                 contrib.setInformation(element.getAttribute("information"));
                 contrib.setHelpUrl(element.getAttribute("helpUrl"));
                 contrib.setModelViewTemplateId(element.getAttribute("modelViewTemplateId"));
-        
+
                 contrib.setIconDescriptor(makeImageDescriptor(bundleId, element.getAttribute("icon")));
                 contrib.setPreviewImage(makeImageDescriptor(bundleId, element.getAttribute("previewImage")));
-        
+
                 contribs.add(contrib);
             }
-        } catch (final Exception e) {
+        } catch (RuntimeException e) {
+            CreationWizard.LOG.error("Unexpected error registering wizard contribution '%s':\n\t=>%s", element.getContributor().getName(), e);
+            CreationWizard.LOG.error(e);
+        } catch (CoreException e) {
             CreationWizard.LOG.error("Unable to register wizard contribution '%s':\n\t=>'%s'", element.getContributor().getName(), e.getMessage());
             CreationWizard.LOG.debug(e);
         }
-        
     }
 
     @objid ("d99b8e29-e2ba-4fb4-a508-35d33a1ddce6")
@@ -139,18 +186,17 @@ public class CreationContributorManager {
     @objid ("193300e6-96e4-46fd-b8d2-04b641022e15")
     public void addContribution(ContributorCategory category, IWizardContributor contributor) {
         String categoryId = category.getType();
-        
+
         // Register category if necessary
         if (!this.categories.containsKey(categoryId) || !this.wizards.containsKey(categoryId)) {
             this.categories.put(categoryId, category);
             this.wizards.put(categoryId, new ArrayList<>());
         }
-        
+
         // Register contribution
         List<IWizardContributor> contribs = this.wizards.get(categoryId);
         ContextInjectionFactory.inject(contributor, this.context);
         contribs.add(contributor);
-        
     }
 
     @objid ("4ab570c6-cdc0-46ad-bcb5-e793dcf969d6")
@@ -166,7 +212,6 @@ public class CreationContributorManager {
                 ContextInjectionFactory.uninject(contributor, this.context);
             }
         }
-        
     }
 
 }

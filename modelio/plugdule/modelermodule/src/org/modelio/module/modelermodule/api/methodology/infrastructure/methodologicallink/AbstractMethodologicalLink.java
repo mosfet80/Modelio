@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -63,7 +63,7 @@ public abstract class AbstractMethodologicalLink {
                 .filter(elt -> elt != null)
                 .findFirst()
                 .orElse(null);
-        
+
     }
 
     /**
@@ -76,7 +76,7 @@ public abstract class AbstractMethodologicalLink {
                 .map(dep -> dep.getDependsOn())
                 .filter(elt -> elt != null)
                 .collect(Collectors.toList());
-        
+
     }
 
     /**
@@ -95,14 +95,14 @@ public abstract class AbstractMethodologicalLink {
                 }
             }
         }
-        
+
         if (!found && target != null) {
             MethodologicalLink newLink = MTools.get(target).getModelFactories().createElement(MethodologicalLink.class);
             newLink.getExtension().add(ste);
             newLink.setImpacted(source);
             newLink.setDependsOn(target);
         }
-        
+
     }
 
     /**
@@ -112,18 +112,18 @@ public abstract class AbstractMethodologicalLink {
     public static void setTargets(ModelElement source, Stereotype ste, Collection<ModelElement> targets) {
         // remove obsolete deps
         List<Dependency> depsAccess = source.getDependsOnDependency();
-        
+
         List<Dependency> oldDeps = new ArrayList<>(depsAccess)
                 .stream()
                 .filter(d -> d instanceof MethodologicalLink && d.getExtension().contains(ste))
                 .collect(Collectors.toList());
-        
+
         for (Dependency d : oldDeps) {
             if (!targets.contains(d.getDependsOn())) {
                 d.delete();
             }
         }
-        
+
         // Add new ones
         for (ModelElement target : targets) {
             if (oldDeps.stream().noneMatch(d -> d.getDependsOn().equals(target))) {
@@ -133,7 +133,7 @@ public abstract class AbstractMethodologicalLink {
                 newLink.getExtension().add(ste);
             }
         }
-        
+
     }
 
     @objid ("32cde6b4-0a32-41eb-ab00-457cf2e4cb44")
@@ -154,6 +154,7 @@ public abstract class AbstractMethodologicalLink {
 
     /**
      * Get the underlying {@link MethodologicalLink}.
+     *
      * @return the MethodologicalLink represented by this proxy, never null.
      */
     @objid ("7503c73b-f345-43b7-9aea-7cda02a36f64")
@@ -168,7 +169,7 @@ public abstract class AbstractMethodologicalLink {
     }
 
     @objid ("f4b63b89-a8a4-4195-ae14-3a15f3b07688")
-    protected  AbstractMethodologicalLink(MethodologicalLink elt) {
+    protected AbstractMethodologicalLink(MethodologicalLink elt) {
         this.elt = elt;
     }
 
@@ -188,7 +189,7 @@ public abstract class AbstractMethodologicalLink {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "216c1c7f-0ffc-453c-9559-41aeff7e3510");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 static {
@@ -196,7 +197,7 @@ static {
                             init(ModelerModuleModule.getInstance().getModuleContext());
                         }
                     }
-        
+
     }
 
 }

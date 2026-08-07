@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.data.module.jaxbv2;
 
@@ -32,10 +32,10 @@ import jakarta.xml.bind.annotation.XmlType;
 /**
  * <p>
  * Java class for _Literal complex type.
- * 
+ *
  * <p>
  * The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="_Literal">
  * &lt;complexContent>
@@ -89,6 +89,7 @@ public class Jxbv2Literal {
 
     /**
      * Gets the value of the value property.
+     *
      * @return possible object is {@link String }
      */
     @objid ("780b1425-d12d-4e27-93b2-4a8f116dc764")
@@ -98,6 +99,7 @@ public class Jxbv2Literal {
 
     /**
      * Sets the value of the value property.
+     *
      * @param value allowed object is {@link String }
      */
     @objid ("7ebcccd3-8324-4eaf-b9a7-2e25ef17d32f")
@@ -107,6 +109,7 @@ public class Jxbv2Literal {
 
     /**
      * Gets the value of the label property.
+     *
      * @return possible object is {@link String }
      */
     @objid ("f753b2e2-2388-46f5-9532-4ea86726ad33")
@@ -116,6 +119,7 @@ public class Jxbv2Literal {
 
     /**
      * Sets the value of the label property.
+     *
      * @param value allowed object is {@link String }
      */
     @objid ("e4419d10-16c1-4eb6-960f-259006463265")
@@ -125,6 +129,7 @@ public class Jxbv2Literal {
 
     /**
      * Gets the value of the description property.
+     *
      * @return possible object is {@link String }
      */
     @objid ("cc43df48-3303-44fd-aaa8-ea32c15e423f")
@@ -134,6 +139,7 @@ public class Jxbv2Literal {
 
     /**
      * Sets the value of the description property.
+     *
      * @param value allowed object is {@link String }
      */
     @objid ("212132f6-87ba-4efb-a1c9-7a23912d1806")
@@ -143,6 +149,7 @@ public class Jxbv2Literal {
 
     /**
      * Gets the value of the extensions property.
+     *
      * @return possible object is {@link Jxbv2Literal.Jxbv2Extensions }
      */
     @objid ("6aabd36b-b204-4735-8bbe-bb0fc3d93600")
@@ -152,6 +159,7 @@ public class Jxbv2Literal {
 
     /**
      * Sets the value of the extensions property.
+     *
      * @param value allowed object is {@link Jxbv2Literal.Jxbv2Extensions }
      */
     @objid ("0065d35d-a7cb-44fc-b4ec-e8cdcc6c72d2")
@@ -162,10 +170,10 @@ public class Jxbv2Literal {
     /**
      * <p>
      * Java class for anonymous complex type.
-     * 
+     *
      * <p>
      * The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType>
      * &lt;complexContent>
@@ -190,19 +198,19 @@ public class Jxbv2Literal {
 
         /**
          * Gets the value of the stereotypeRef property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the stereotypeRef
          * property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
-         * 
+         *
          * <pre>
          * getStereotypeRef().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list {@link Jxbv2StereotypeRef }
          */

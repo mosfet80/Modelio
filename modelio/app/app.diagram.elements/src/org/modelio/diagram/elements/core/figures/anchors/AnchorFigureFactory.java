@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures.anchors;
 
@@ -40,6 +40,7 @@ public class AnchorFigureFactory {
      * If the anchor implements {@link IAnchorHandleProvider} its {@link IAnchorHandleProvider#createAnchorHandleFigure(ConnectionAnchor)}
      * is called with itself as parameter.
      * In the other case {@link #createDefaultHandleFigure(IFigure)} is used.
+     *
      * @param anchor the anchor to display
      * @return the created figure.
      */
@@ -55,13 +56,14 @@ public class AnchorFigureFactory {
      * <p>
      * It is a circle figure using same colors as the node figure.
      * The figure has a defined size but has to be moved on the right location.
+     *
      * @param ownerFigure the source/target node figure
      * @return the created figure.
      */
     @objid ("aa8bd610-8f3d-4b97-8a4d-e138cc083c7a")
     public static Ellipse createDefaultHandleFigure(IFigure ownerFigure) {
         final int diameter = FixedAnchor.ANCHOR_RADIUS * 2 + 1;
-        
+
         Ellipse child = new Ellipse();
         child.setSize(diameter, diameter);
         child.setOpaque(true);
@@ -69,7 +71,7 @@ public class AnchorFigureFactory {
         child.setLineWidth(3);
         child.setAntialias(1);
         child.setBorder(new MarginBorder(3) );
-        
+
         // Use same colors as the node figure
         copyForeground(ownerFigure, child);
         copyBackground(ownerFigure, child);
@@ -83,7 +85,7 @@ public class AnchorFigureFactory {
         } else {
             targetFigure.setBackgroundColor(srcFigure.getBackgroundColor());
         }
-        
+
     }
 
     @objid ("2f8d874c-a07d-4536-9ef2-72637cdc94df")
@@ -93,7 +95,7 @@ public class AnchorFigureFactory {
         } else {
             targetFigure.setForegroundColor(srcFigure.getForegroundColor());
         }
-        
+
     }
 
 }

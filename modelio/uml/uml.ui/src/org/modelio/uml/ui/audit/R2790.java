@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -50,7 +50,7 @@ public class R2790 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -101,14 +101,14 @@ public class R2790 extends AbstractUmlRule {
      * Default constructor for R2790
      */
     @objid ("74bab438-7417-4c2a-b4fc-1739df41ad2b")
-    public  R2790() {
+    public R2790() {
         this.checkerInstance = new CheckR2790(this);
     }
 
     @objid ("7e4b8a52-f452-4305-92ea-71b9ee26c900")
     private static class CheckR2790 extends AbstractControl {
         @objid ("14ee2b1f-1360-4052-99f1-feb732718004")
-        public  CheckR2790(IRule rule) {
+        public CheckR2790(IRule rule) {
             super(rule);
         }
 
@@ -126,16 +126,16 @@ public class R2790 extends AbstractUmlRule {
         @objid ("141da8d3-6700-4684-9785-c98cf802d65e")
         private IAuditEntry checkR2790(Transition transition) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, transition, null);
-            
+
             StateVertex source = transition.getSource();
             StateVertex target = transition.getTarget();
             Region sourceRegion = source.getParent();
             Region targetRegion = target.getParent();
-            
+
             if (sourceRegion != null && targetRegion != null && !sourceRegion.equals(targetRegion)) {
                 State sourceState = sourceRegion.getParent();
                 State targetState = targetRegion.getParent();
-            
+
                 if (sourceState != null && sourceState.equals(targetState)) {
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();

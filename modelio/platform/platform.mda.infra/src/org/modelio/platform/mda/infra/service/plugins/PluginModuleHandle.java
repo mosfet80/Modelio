@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.service.plugins;
 
@@ -53,11 +53,11 @@ public class PluginModuleHandle implements IModuleHandle, Comparable<Object> {
 
     @objid ("2b1ec1e5-d03a-4357-a261-b892a3bcbc26")
     @Deprecated
-    public  PluginModuleHandle(Bundle plugin, IModuleHandle fileHandle, boolean isMandatory) throws IOException {
+    public PluginModuleHandle(Bundle plugin, IModuleHandle fileHandle, boolean isMandatory) throws IOException {
         this.plugin = plugin;
         this.fileHandle = fileHandle;
-        
-        
+
+
         try {
             URL pluginURL = plugin.getEntry("/");
             URL entryURL = FileLocator.toFileURL(pluginURL);
@@ -69,15 +69,15 @@ public class PluginModuleHandle implements IModuleHandle, Comparable<Object> {
         } catch (URISyntaxException e) {
             throw (MalformedURLException) new MalformedURLException(e.getMessage()).initCause(e);
         }
-        
+
     }
 
     @objid ("149592c8-67cd-4b63-a6bb-b4e9f27fdb59")
-    public  PluginModuleHandle(Bundle plugin, IModuleHandle fileHandle) throws IOException {
+    public PluginModuleHandle(Bundle plugin, IModuleHandle fileHandle) throws IOException {
         this.plugin = plugin;
         this.fileHandle = fileHandle;
-        
-        
+
+
         try {
             URL pluginURL = plugin.getEntry("/");
             URL entryURL = FileLocator.toFileURL(pluginURL);
@@ -89,7 +89,7 @@ public class PluginModuleHandle implements IModuleHandle, Comparable<Object> {
         } catch (URISyntaxException e) {
             throw (MalformedURLException) new MalformedURLException(e.getMessage()).initCause(e);
         }
-        
+
     }
 
     @objid ("cac33caa-b40d-4bce-ba91-a95141cbe924")
@@ -205,7 +205,7 @@ public class PluginModuleHandle implements IModuleHandle, Comparable<Object> {
         final int prime = 31;
         int result = 1;
         result = prime * result + (this.fileHandle == null ? 0 : this.fileHandle.hashCode());
-        
+
         result = prime * result + (this.plugin == null ? 0 : this.plugin.hashCode());
         result = prime * result + (this.resourcesPath == null ? 0 : this.resourcesPath.hashCode());
         return result;
@@ -231,7 +231,7 @@ public class PluginModuleHandle implements IModuleHandle, Comparable<Object> {
         } else if (!this.fileHandle.equals(other.fileHandle)) {
             return false;
         }
-        
+
         if (this.plugin == null) {
             if (other.plugin != null) {
                 return false;
@@ -254,7 +254,7 @@ public class PluginModuleHandle implements IModuleHandle, Comparable<Object> {
     public int compareTo(Object obj) {
         if (obj instanceof String){
             return getName().compareTo((String)obj);
-        
+
         } else if (obj instanceof PluginModuleHandle){
             return getVersion().compareTo(((PluginModuleHandle)obj).getVersion());
         }

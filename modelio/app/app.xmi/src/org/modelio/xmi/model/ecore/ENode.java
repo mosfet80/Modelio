@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -37,7 +37,7 @@ public class ENode extends ENamedElement {
     }
 
     @objid ("7183726e-68d8-4d7c-abf9-fc9cd393029d")
-    public  ENode(org.eclipse.uml2.uml.Node element) {
+    public ENode(org.eclipse.uml2.uml.Node element) {
         super(element);
     }
 
@@ -45,13 +45,13 @@ public class ENode extends ENamedElement {
     @Override
     public void attach(Element objingElt) {
         ReverseProperties revProp = ReverseProperties.getInstance();
-        
+
         org.eclipse.uml2.uml.Element ecoreOwner = getEcoreElement().getOwner();
-        
+
         ModelElement objingOwner = (ModelElement) revProp
         .getMappedElement(ecoreOwner);
         Node objingCollab = (Node) objingElt;
-        
+
         if (objingOwner instanceof Profile) {
             objingCollab.setOwner(revProp.getExternalPackage());
         } else if (objingOwner instanceof ModelTree) {
@@ -59,7 +59,7 @@ public class ENode extends ENamedElement {
         } else {
             objingCollab.setOwner(revProp.getExternalPackage());
         }
-        
+
     }
 
 }

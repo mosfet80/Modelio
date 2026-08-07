@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.activities;
 
@@ -78,12 +78,12 @@ public class ScriptTaskNode implements IProductionNode<BpmnScriptTask, TScriptTa
     @objid ("76d93666-381b-4cb3-ae52-2227396a8067")
     @Override
     public BpmnScriptTask createUMLElement(MObject context, TScriptTask jaxbElement, BpmnImportFactory factory, boolean keepId) {
-        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {  
+        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {
             return factory.createWithId(BpmnScriptTask.class,context,jaxbElement.getId());
         }else{
             return factory.create(BpmnScriptTask.class,context);
         }
-        
+
     }
 
     @objid ("eda6bace-29a5-4d55-b413-02232d6801b8")
@@ -95,7 +95,7 @@ public class ScriptTaskNode implements IProductionNode<BpmnScriptTask, TScriptTa
         }else if(context instanceof BpmnSubProcess){
             ((BpmnSubProcess) context).getFlowElement().add(modelioElement);
         }
-        
+
         // Group
         if(jaxbElement.getCategoryValueRef() != null){
             for(QName jaxGroupRef : jaxbElement.getCategoryValueRef()){
@@ -105,34 +105,34 @@ public class ScriptTaskNode implements IProductionNode<BpmnScriptTask, TScriptTa
                 }
             }
         }
-        
-        
+
+
         // Set properties
         if(jaxbElement.getName()!=null)
             modelioElement.setName(StringConvertor.imports(jaxbElement.getName()));
-        
+
         if(jaxbElement.getCompletionQuantity() != null)
             modelioElement.setCompletionQuantity(jaxbElement.getCompletionQuantity().intValue());
-        
+
         if(jaxbElement.getStartQuantity() != null)
             modelioElement.setStartQuantity(jaxbElement.getStartQuantity().intValue());
-        
-        
+
+
         modelioElement.setIsForCompensation(jaxbElement.isIsForCompensation());
-        
+
         if(jaxbElement.getScriptFormat() != null){
             modelioElement.setScriptLanguage(jaxbElement.getScriptFormat());
         }
-        
+
         if(jaxbElement.getScript() != null){
             String content = "";
-        
+
             for(Object ct :jaxbElement.getScript().getContent()){
                 content = content + ct.toString() + " ";
             }
             modelioElement.setScript(content);
         }
-        
+
         // Default Flow
         if(jaxbElement.getDefault() != null && jaxbElement.getDefault() instanceof TSequenceFlow){
             BpmnSequenceFlow  flow = (BpmnSequenceFlow) this.elementsMap.get( ((TSequenceFlow)jaxbElement.getDefault()).getId());
@@ -148,7 +148,7 @@ public class ScriptTaskNode implements IProductionNode<BpmnScriptTask, TScriptTa
     public TScriptTask createJaxbElement(Object context, BpmnScriptTask modelioElement) {
         // Create JaxbElement
         TScriptTask jaxTask = new TScriptTask();
-        
+
         // Add to context
         ObjectFactory factory = new ObjectFactory();
         if(context instanceof TProcess){
@@ -158,7 +158,7 @@ public class ScriptTaskNode implements IProductionNode<BpmnScriptTask, TScriptTa
             List<JAXBElement<? extends TFlowElement>> jaxContent = ((TSubProcess)context).getFlowElement();
             jaxContent.add(factory.createScriptTask(jaxTask));
         }
-        
+
         jaxTask.setId(IDUtils.formatJaxbID(modelioElement));
         return jaxTask;
     }
@@ -167,27 +167,27 @@ public class ScriptTaskNode implements IProductionNode<BpmnScriptTask, TScriptTa
     @Override
     public TScriptTask updateJaxbElement(Object context, TScriptTask jaxTask, BpmnScriptTask modelioElement) {
         jaxTask.setName(modelioElement.getName());
-        
+
         if(modelioElement.getCompletionQuantity() != 0){
             jaxTask.setCompletionQuantity(BigInteger.valueOf(modelioElement.getCompletionQuantity()));
         }
-        
+
         if(modelioElement.getStartQuantity() != 0){
             jaxTask.setStartQuantity(BigInteger.valueOf(modelioElement.getStartQuantity()));
         }
-        
+
         jaxTask.setIsForCompensation(modelioElement.isIsForCompensation());
-        
+
         if(!"".equals(modelioElement.getScriptLanguage())){
             jaxTask.setScriptFormat(modelioElement.getScriptLanguage());
         }
-        
+
         if(!"".equals(modelioElement.getScript())){
             TScript jaxScript = new TScript();
             jaxScript.getContent().add(modelioElement.getScript());
             jaxTask.setScript(jaxScript);
         }
-        
+
         // Default Flow
         if(modelioElement.getDefaultFlow() != null){
             Object target = this.elementsMap.get(modelioElement.getDefaultFlow().getUuid());

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.callbehavior;
 
@@ -29,7 +29,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * A label representing the called behavior.
- * 
+ *
  * @author fpoyer
  */
 @objid ("29b4fee3-55b6-11e2-877f-002564c97630")
@@ -45,11 +45,12 @@ public class GmBehaviorFlatLabel extends GmDefaultModelElementLabel {
 
     /**
      * C'tor.
+     *
      * @param diagram the diagram.
      * @param relatedRef ref to the related CallBehaviorAction
      */
     @objid ("29b4feec-55b6-11e2-877f-002564c97630")
-    public  GmBehaviorFlatLabel(IGmDiagram diagram, MRef relatedRef) {
+    public GmBehaviorFlatLabel(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -57,7 +58,7 @@ public class GmBehaviorFlatLabel extends GmDefaultModelElementLabel {
      * Empty c'tor for deserialization.
      */
     @objid ("29b6855a-55b6-11e2-877f-002564c97630")
-    public  GmBehaviorFlatLabel() {
+    public GmBehaviorFlatLabel() {
         // Nothing to do.
     }
 
@@ -67,13 +68,13 @@ public class GmBehaviorFlatLabel extends GmDefaultModelElementLabel {
         CallBehaviorAction callBehavior = (CallBehaviorAction) getRelatedElement();
         String calledName = getCalledBehaviorName(callBehavior);
         String elName = callBehavior.getName();
-        
+
         if (elName.isEmpty() || elName.equals(calledName)) {
             return calledName;
         } else {
             return elName + ": call " + calledName;
         }
-        
+
     }
 
     @objid ("29b68561-55b6-11e2-877f-002564c97630")
@@ -105,17 +106,17 @@ public class GmBehaviorFlatLabel extends GmDefaultModelElementLabel {
             break;
         }
         }
-        
+
     }
 
     @objid ("29b6856f-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmBehaviorFlatLabel.", GmBehaviorFlatLabel.MINOR_VERSION);
-        
+
     }
 
     @objid ("29b68575-55b6-11e2-877f-002564c97630")

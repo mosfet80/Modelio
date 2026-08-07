@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -55,7 +55,7 @@ public class R1370 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -75,12 +75,12 @@ public class R1370 extends AbstractUmlRule {
         plan.registerRule(OutputPin.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE);
-        
+
         // ActivityEdge
         plan.registerRule(ObjectFlow.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE);
         plan.registerRule(ControlFlow.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE);
         plan.registerRule(MessageFlow.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE);
-        
+
     }
 
     /**
@@ -114,14 +114,14 @@ public class R1370 extends AbstractUmlRule {
      * Default constructor for R1370
      */
     @objid ("d2709791-48a1-4300-b7a1-0d977fcdc1f0")
-    public  R1370() {
+    public R1370() {
         this.checkerInstance = new CheckR1370(this);
     }
 
     @objid ("eb29d670-1d02-4af5-9102-a3c60c5333c0")
     private static class CheckR1370 extends AbstractControl {
         @objid ("5ce6de13-3ca6-419f-88b3-4d37dc8b1324")
-        public  CheckR1370(IRule rule) {
+        public CheckR1370(IRule rule) {
             super(rule);
         }
 
@@ -141,7 +141,7 @@ public class R1370 extends AbstractUmlRule {
         @objid ("be303110-fb97-4d3b-a22e-9adf9403494c")
         private List<IAuditEntry> checkR1370(OutputPin outputPin) {
             List<IAuditEntry> auditEntries = new ArrayList<>();
-            
+
             for (ActivityEdge outgoingEdge : outputPin.getIncoming()) {
                 auditEntries.add(checkR1370(outgoingEdge));
             }
@@ -154,19 +154,19 @@ public class R1370 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     activityEdge,
                     null);
-            
+
             ActivityNode source = activityEdge.getSource();
             ActivityNode target = activityEdge.getTarget();
-            
+
             StructuredActivityNode sourceStructuredOwner = getOwningStructuredActivityNode(source);
-            
+
             if (target instanceof OutputPin) {
                 MObject owner = target.getCompositionOwner();
                 if (!(owner instanceof StructuredActivityNode) ||
                         !((StructuredActivityNode) owner).equals(sourceStructuredOwner)) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(activityEdge);
@@ -184,23 +184,23 @@ public class R1370 extends AbstractUmlRule {
             if (node == null) {
                 return null;
             }
-            
+
             // 'node' is an input pin
             if (node instanceof InputPin) {
                 return getOwningStructuredActivityNode(((InputPin) node).getInputing());
             }
-            
+
             // 'node' is an output pin
             if (node instanceof OutputPin) {
                 return getOwningStructuredActivityNode(((OutputPin) node).getOutputing());
             }
-            
+
             // 'node' is a clause
             if (node instanceof Clause) {
                 Clause clause = (Clause) node;
                 return clause.getOwner();
             }
-            
+
             // other cases
             if (node.getOwnerClause() != null && node.getOwnerClause().getOwner() != null) {
                 return node.getOwnerClause().getOwner();
@@ -209,7 +209,7 @@ public class R1370 extends AbstractUmlRule {
             } else {
                 return null;
             }
-            
+
         }
 
     }

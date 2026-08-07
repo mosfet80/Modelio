@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.tools.multipoint;
 
@@ -37,7 +37,7 @@ import org.eclipse.swt.graphics.Cursor;
 /**
  * A tool that works like a Connection creation tool, only it can accept more than 2 extremities and then 1
  * "central point"
- * 
+ *
  * @author fpoyer
  */
 @objid ("80f28d5a-1dec-11e2-8cad-001ec947c8cc")
@@ -87,21 +87,22 @@ public class MultiPointCreationTool extends TargetingTool {
      * The default constructor
      */
     @objid ("80f4efa0-1dec-11e2-8cad-001ec947c8cc")
-    public  MultiPointCreationTool() {
+    public MultiPointCreationTool() {
         setDefaultCursor(SharedCursors.CURSOR_PLUG);
         setDisabledCursor(SharedCursors.CURSOR_PLUG_NOT);
-        
+
     }
 
     /**
      * Constructs a new MultiPointCreationTool with the given creation factory.
+     *
      * @param factory the creation factory
      */
     @objid ("80f751f5-1dec-11e2-8cad-001ec947c8cc")
-    public  MultiPointCreationTool(final CreationFactory factory) {
+    public MultiPointCreationTool(final CreationFactory factory) {
         this();
         setFactory(factory);
-        
+
     }
 
     @objid ("80f751fc-1dec-11e2-8cad-001ec947c8cc")
@@ -112,11 +113,12 @@ public class MultiPointCreationTool extends TargetingTool {
         super.deactivate();
         setState(STATE_TERMINAL);
         this.viewer = null;
-        
+
     }
 
     /**
      * Sets the creation factory used in the request.
+     *
      * @param factory the factory
      */
     @objid ("80f751ff-1dec-11e2-8cad-001ec947c8cc")
@@ -126,6 +128,7 @@ public class MultiPointCreationTool extends TargetingTool {
 
     /**
      * Add to the list of the source editparts for the creation
+     *
      * @param source the additionnal source editpart node
      */
     @objid ("80f75206-1dec-11e2-8cad-001ec947c8cc")
@@ -134,7 +137,7 @@ public class MultiPointCreationTool extends TargetingTool {
             source.addEditPartListener(this.deactivationListener);
             this.connectionSources.add(source);
         }
-        
+
     }
 
     @objid ("80f7520d-1dec-11e2-8cad-001ec947c8cc")
@@ -155,7 +158,7 @@ public class MultiPointCreationTool extends TargetingTool {
             connectionSource.removeEditPartListener(this.deactivationListener);
         }
         this.connectionSources.clear();
-        
+
     }
 
     @objid ("80f75214-1dec-11e2-8cad-001ec947c8cc")
@@ -175,7 +178,7 @@ public class MultiPointCreationTool extends TargetingTool {
         for (EditPart connectionSource : this.connectionSources) {
             connectionSource.eraseSourceFeedback(getSourceRequest());
         }
-        
+
     }
 
     @objid ("80f7521d-1dec-11e2-8cad-001ec947c8cc")
@@ -204,6 +207,7 @@ public class MultiPointCreationTool extends TargetingTool {
 
     /**
      * Returns the creation factory that will be used with the create connection request.
+     *
      * @return the creation factory
      */
     @objid ("80f7522e-1dec-11e2-8cad-001ec947c8cc")
@@ -214,6 +218,7 @@ public class MultiPointCreationTool extends TargetingTool {
     /**
      * Returns the request sent to the each source node. Each source node receives the same request, the only difference
      * is that at that time the request will be typed as {@link RequestConstants#REQ_CONNECTION_START}.
+     *
      * @return the request used with the source node editpart
      */
     @objid ("80f75235-1dec-11e2-8cad-001ec947c8cc")
@@ -230,9 +235,10 @@ public class MultiPointCreationTool extends TargetingTool {
     /**
      * When the button is first pressed, the source node and its command contribution are determined and locked in.
      * After that time, the tool will be looking for additional sources or the target node to complete the connection
-     * @see org.eclipse.gef.tools.AbstractTool#handleButtonDown(int)
+     *
      * @param button which button is pressed
      * @return <code>true</code> if the button down was processed
+     * @see org.eclipse.gef.tools.AbstractTool#handleButtonDown(int)
      */
     @objid ("80f9b450-1dec-11e2-8cad-001ec947c8cc")
     @Override
@@ -244,7 +250,7 @@ public class MultiPointCreationTool extends TargetingTool {
             setState(STATE_TERMINAL);
             return handleCreation();
         }
-        
+
         if (isInState(STATE_INITIAL | STATE_MULTIPOINT_STARTED) && button == 1) {
             // Update location and set type to either REQ_MULTIPOINT_FIRST or REQ_MULTIPOINT_ADDITIONAL
             updateTargetRequest();
@@ -259,7 +265,7 @@ public class MultiPointCreationTool extends TargetingTool {
                         addConnectionSource(getTargetEditPart());
                         getTargetRequest().addSourceEditPart(getTargetEditPart());
                     }
-        
+
                     getTargetRequest().addStartCommand(command);
                     setState(STATE_MULTIPOINT_STARTED);
                     setCurrentCommand(command);
@@ -267,7 +273,7 @@ public class MultiPointCreationTool extends TargetingTool {
                 }
             }
         }
-        
+
         if (isInState(STATE_INITIAL) && button != 1) {
             setState(STATE_INVALID);
             handleInvalidInput();
@@ -310,6 +316,7 @@ public class MultiPointCreationTool extends TargetingTool {
      * Method that is called when the gesture to create the connection has been received. Subclasses may extend or
      * override this method to do additional creation setup, such as prompting the user to choose an option about the
      * connection being created. Returns <code>true</code> to indicate that the connection creation succeeded.
+     *
      * @return <code>true</code> if the connection creation was performed
      */
     @objid ("80f9b465-1dec-11e2-8cad-001ec947c8cc")
@@ -401,11 +408,12 @@ public class MultiPointCreationTool extends TargetingTool {
         setState(STATE_INVALID);
         handleInvalidInput();
         handleFinished();
-        
+
     }
 
     /**
      * Returns <code>true</code> if feedback is being shown.
+     *
      * @return <code>true</code> if showing source feedback
      */
     @objid ("80f9b490-1dec-11e2-8cad-001ec947c8cc")
@@ -422,7 +430,7 @@ public class MultiPointCreationTool extends TargetingTool {
             connectionSource.showSourceFeedback(getSourceRequest());
         }
         setFlag(FLAG_SOURCE_FEEDBACK, true);
-        
+
     }
 
     @objid ("80f9b498-1dec-11e2-8cad-001ec947c8cc")
@@ -435,7 +443,7 @@ public class MultiPointCreationTool extends TargetingTool {
             request.setType(CreateMultiPointRequest.REQ_MULTIPOINT_ADDITIONAL);
         }
         request.setLocation(getLocation());
-        
+
     }
 
     /**
@@ -466,7 +474,7 @@ public class MultiPointCreationTool extends TargetingTool {
         } else {
             return false;
         }
-        
+
     }
 
 }

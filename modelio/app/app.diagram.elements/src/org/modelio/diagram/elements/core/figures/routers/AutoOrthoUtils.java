@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures.routers;
 
@@ -31,6 +31,7 @@ class AutoOrthoUtils {
     /**
      * Convert a route to a constraint.
      * <p>
+     *
      * @param route a route computed by {@link #computeMPointRoute(Connection, List)}, {@link #computePointList(Connection)} ...
      * @return the same list striped from extremities, suitable as constraint.
      */
@@ -40,7 +41,7 @@ class AutoOrthoUtils {
         if (!route.isEmpty()) {
             route.remove(0);
         }
-        
+
         if (!route.isEmpty()) {
             route.remove(route.size() - 1);
         }
@@ -59,6 +60,7 @@ class AutoOrthoUtils {
 
     /**
      * Compare a list of points with a PointList.
+     *
      * @param l1 a list of points
      * @param l2 a PointList
      * @return true only if both lists containe the same points in order.
@@ -67,7 +69,7 @@ class AutoOrthoUtils {
     public static boolean areSame(final List<? extends Point> l1, PointList l2) {
         if (l1.size() != l2.size())
             return false;
-        
+
         Point p = Point.SINGLETON;
         for (int i = 0; i < l2.size(); i++) {
             Point bp = l2.getPoint(p, i);
@@ -79,6 +81,7 @@ class AutoOrthoUtils {
 
     /**
      * Finish by removing unnecessary points.
+     *
      * @param allPoints point list to clean unnecessary bend points from.
      * @param cleanFixed if true, manual points may be removed
      */
@@ -86,13 +89,13 @@ class AutoOrthoUtils {
     public static void cleanup(final List<MPoint> allPoints, boolean cleanFixed) {
         boolean pointsRemoved = false;
         // Removing unnecessary points:
-        
+
         // 1: overlapping points.
         pointsRemoved = removeIf(allPoints, i -> {
             MPoint current = allPoints.get(i);
             MPoint next = allPoints.get(i + 1);
             if (current.getDistance(next) < 1) {
-        
+
                 // Here points are overlapping
                 if (!current.isFixed()) {
                     // System.err.format("Deleting overlapping point [*%s*; %s] \n", current, next);
@@ -109,13 +112,13 @@ class AutoOrthoUtils {
                     // System.err.format("Deleting overlapping point [*%s*; %s] (both manual)\n", current, next);
                 }
                 return cleanFixed;
-        
+
             }
-        
+
             return false;
-        
+
         }) || pointsRemoved;
-        
+
         // 2: allPoints not bending :
         // 1 --- 2 --- 3 => remove 2
         // 1 --- 3 --- 2 (conn goes from 1 to 2 then back to 3) ==> remove 2
@@ -132,12 +135,12 @@ class AutoOrthoUtils {
             }
             return toRemove;
         }) || pointsRemoved;
-        
+
         if (pointsRemoved) {
             // Some points were removed, try cleaning the new point list again
             cleanup(allPoints, cleanFixed);
         }
-        
+
     }
 
     @objid ("0d91f67a-729c-4c79-96ac-2f352f1f3ac9")

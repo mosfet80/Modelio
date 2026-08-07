@@ -1,0 +1,24 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+// Hightlight code source and add the line number
+:source-highlighter: coderay
+:coderay-linenums-mode: table
+
+= Generate workflow documentation
+
+Note : this command requires that the Document Publisher module is deployed in the project.
+
+It is used to generate Docx, ODT or HTML documents. The content of these documents is entirely configurable. It is also possible to use a custom style sheet.
+
+To generate a workflow document, select a workflow, then run the *image:images/workflowicon.png[workflowicon.png] Workflow > Workflow Designer > Generate workflow documentation...* command.
+
+image::images/GenerateDoc.png[GenerateDoc.png]
+
+1.  Select a document format : MS Word (.docx), Libre Office (.odt) or HTML (.html)
+2.  Select a style sheet. It is also possible to use a custom style sheet.
+3.  Select a generation directory.
+4.  Enter the document's properties.
+5.  Click on "OK" to launch the generation.

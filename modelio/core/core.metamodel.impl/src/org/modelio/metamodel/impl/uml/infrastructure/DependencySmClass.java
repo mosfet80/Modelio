@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -49,7 +48,7 @@ public class DependencySmClass extends ModelElementSmClass {
     private SmDependency dependsOnDep;
 
     @objid ("ff6a0fd5-dc3a-48f5-968a-273d25ca3ce1")
-    public  DependencySmClass(ISmMetamodelFragment origin) {
+    public DependencySmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
@@ -57,7 +56,7 @@ public class DependencySmClass extends ModelElementSmClass {
     @Override
     public String getName() {
         return "Dependency";
-        
+
     }
 
     @objid ("17643e4f-c796-4ba1-8b1c-159098c57d21")
@@ -70,21 +69,21 @@ public class DependencySmClass extends ModelElementSmClass {
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return Dependency.class;
-        
+
     }
 
     @objid ("44466485-8f56-4cb9-9b26-1ffe036c8f04")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
     @objid ("a8d665cf-05b9-452e-a75d-bb6c19130774")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
     @objid ("f0a1e88a-2d6f-490c-947a-c647f838fe9c")
@@ -92,20 +91,19 @@ public class DependencySmClass extends ModelElementSmClass {
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(ModelElement.MQNAME);
         this.registerFactory(new DependencyObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
         this.impactedDep = new ImpactedSmDependency();
         this.impactedDep.init("Impacted", this, metamodel.getMClass(ModelElement.MQNAME), 1, 1 , SmDirective.SMCDLINKSOURCE);
         registerDependency(this.impactedDep);
-        
+
         this.dependsOnDep = new DependsOnSmDependency();
         this.dependsOnDep.init("DependsOn", this, metamodel.getMClass(ModelElement.MQNAME), 0, 1 , SmDirective.SMCDLINKTARGET, SmDirective.SMCDPARTOF);
         registerDependency(this.dependsOnDep);
-        
-        
+
     }
 
     @objid ("719ea7a8-0b4d-4867-bf0c-ca45fb8e85bb")
@@ -128,7 +126,7 @@ public class DependencySmClass extends ModelElementSmClass {
     @Override
     public boolean isLinkMetaclass() {
         return true;
-        
+
     }
 
     @objid ("c16fdd68-3545-4462-a32f-ae7657f7c6d5")
@@ -137,7 +135,7 @@ public class DependencySmClass extends ModelElementSmClass {
         private DependencySmClass smClass;
 
         @objid ("72cd115d-ed65-49cb-9367-16c3d2effa82")
-        public  DependencyObjectFactory(DependencySmClass smClass) {
+        public DependencyObjectFactory(DependencySmClass smClass) {
             this.smClass = smClass;
         }
 
@@ -179,7 +177,7 @@ public class DependencySmClass extends ModelElementSmClass {
             	this.symetricDep = ((ModelElementSmClass)this.getTarget()).getImpactedDependencyDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -208,7 +206,7 @@ public class DependencySmClass extends ModelElementSmClass {
             	this.symetricDep = ((ModelElementSmClass)this.getTarget()).getDependsOnDependencyDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

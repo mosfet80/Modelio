@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.data.module.migration;
 
@@ -161,7 +161,7 @@ class V1Utils {
     @objid ("23f3f137-35df-4fe6-b00f-29dc43f26161")
     public static List<Optional> getOptionalDependencies(JxbModule module) {
         List<Optional> deps = new ArrayList<>();
-        
+
         for (Object obj : module.getParameterOrProfileOrGui()) {
             if (obj instanceof JxbModule.Dependencies) {
                 for (Object pobj : ((Dependencies) obj).getRequiredOrOptionalOrRamc()) {
@@ -178,13 +178,13 @@ class V1Utils {
     @objid ("2a6c405d-b5c5-4708-a573-ae853fab0cd2")
     public static List<Required> getRequiredDependencies(JxbModule module) {
         List<Required> deps = new ArrayList<>();
-        
+
         for (Object obj : module.getParameterOrProfileOrGui()) {
             if (obj instanceof JxbModule.Dependencies) {
                 for (Object pobj : ((Dependencies) obj).getRequiredOrOptionalOrRamc()) {
                     if (pobj instanceof Required) {
                         deps.add((Required) pobj);
-        
+
                     }
                 }
                 break;
@@ -229,7 +229,7 @@ class V1Utils {
     @objid ("d873ef95-33aa-4643-b5ac-b0b234006567")
     public static List<CustomizedDiagram> getCustomizedDiagrams(Gui gui) {
         List<CustomizedDiagram> diagrams = new ArrayList<>();
-        
+
         for (Object obj : gui.getPropertyPageOrCommandOrElementCreationCommand()) {
             if (obj instanceof CustomizedDiagram) {
                 diagrams.add((CustomizedDiagram) obj);
@@ -244,7 +244,7 @@ class V1Utils {
             if (obj instanceof Palette) {
                 return (Palette) obj;
             }
-        
+
         }
         return null;
     }
@@ -255,7 +255,7 @@ class V1Utils {
             if (obj instanceof Style) {
                 return (Style) obj;
             }
-        
+
         }
         return null;
     }

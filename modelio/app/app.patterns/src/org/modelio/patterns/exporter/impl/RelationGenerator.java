@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.patterns.exporter.impl;
 
@@ -61,11 +61,11 @@ class RelationGenerator {
     private PatternModelAnalysis report;
 
     @objid ("c5daf89e-dba1-4347-91b4-ca708c32363c")
-    public  RelationGenerator(PatternModelAnalysis report, ParameterManager paramManager) {
+    public RelationGenerator(PatternModelAnalysis report, ParameterManager paramManager) {
         this.report = report;
         this.paramManager = paramManager;
         this.relations = new ArrayList<>();
-        
+
     }
 
     @objid ("daac3d35-682a-415b-95a5-3d07cf1e711c")
@@ -73,7 +73,7 @@ class RelationGenerator {
         for (MObject destination : source.mGet(dependency)) {
             this.relations.add(new Relation(source, destination, dependency));
         }
-        
+
     }
 
     @objid ("dea57eb1-66c0-4779-aa98-eb374eeb39e4")
@@ -83,12 +83,12 @@ class RelationGenerator {
         for (ModelElement root : this.report.getRootParameters()) {
             this.rootParents.add(root.getCompositionOwner());
         }
-        
+
         for (Relation relation : this.relations) {
             if (relation.source != null && relation.destination != null) {
                 String sourceElement = getMDepResolutionCode(relation.source, relation.relationType);
                 String destElement = getElementResolutionCode(relation.destination);
-        
+
                 if (sourceElement != null && destElement != null) {
                     filewriter.countWrite(sourceElement + ".add(" + destElement + ");");
                 } else {
@@ -96,10 +96,11 @@ class RelationGenerator {
                 }
             }
         }
-        
+
     }
 
     /**
+     *
      * @return the resolution code for the an MDep on an element.
      */
     @objid ("674b43ba-4269-4045-952e-6ad49e26c4a4")
@@ -119,6 +120,7 @@ class RelationGenerator {
     }
 
     /**
+     *
      * @return the resolution code for the given element in a model, usually some kind of <code>findElementById</code> code.
      */
     @objid ("77572641-40ec-46d4-9363-c13da6caec31")
@@ -136,52 +138,52 @@ class RelationGenerator {
                 return "umltypes.get" + type.getName().toUpperCase() + "()";
             }
         }
-        
+
         // Root
         for (MObject exportRoot : this.rootParents) {
             if (element.equals(exportRoot)) {
                 return this.paramManager.parameterFormater((ModelElement) element);
             }
         }
-        
+
         // Stereotypes
         Class<? extends MObject> type = element.getMClass().getJavaInterface();
         String uuid = element.getUuid().toString();
         if (element instanceof Stereotype) {
             Stereotype stereotype = (Stereotype) element;
-        
+
             this.report.addModuleDependency(stereotype.getModule());
             return getElementResolutionCode(type, uuid);
         }
-        
+
         // TagType
         if (element instanceof TagType) {
             TagType tagtype = (TagType) element;
-        
+
             this.report.addModuleDependency(tagtype.getModule());
             return getElementResolutionCode(type, uuid);
         }
-        
+
         // NoteType
         if (element instanceof NoteType) {
             NoteType notetype = (NoteType) element;
-        
+
             this.report.addModuleDependency(notetype.getModule());
             return getElementResolutionCode(type, uuid);
         }
-        
+
         // ExternDocumentType
         if (element instanceof ResourceType) {
             ResourceType resourceType = (ResourceType) element;
-        
+
             this.report.addModuleDependency(resourceType.getModule());
             return getElementResolutionCode(type, uuid);
         }
-        
+
         // PropertyTableDefinition
         if (element instanceof PropertyTableDefinition) {
             PropertyTableDefinition propertytabledef = (PropertyTableDefinition) element;
-        
+
             Stereotype stereotype = propertytabledef.getOwnerStereotype();
             if (stereotype != null) {
                 ModuleComponent module = stereotype.getModule();
@@ -189,13 +191,13 @@ class RelationGenerator {
                 return getElementResolutionCode(type, uuid);
             }
         }
-        
+
         // RAMC Element
         if (element.getStatus().isRamc()) {
             this.report.addRamcDependency((ModelElement) element);
             return getElementResolutionCode(type, uuid);
         }
-        
+
         // Others Elements
         if (IdGenerator.getInstance().exists(element)) {
             return "elements.get(" + IdGenerator.getInstance().getId(element) + ")";
@@ -236,11 +238,11 @@ class RelationGenerator {
         public MObject destination;
 
         @objid ("678ebde6-cc57-4f14-a85a-9a76e3467e4f")
-        public  Relation(MObject source, MObject destination, MDependency relationType) {
+        public Relation(MObject source, MObject destination, MDependency relationType) {
             this.source = source;
             this.relationType = relationType;
             this.destination = destination;
-            
+
         }
 
     }

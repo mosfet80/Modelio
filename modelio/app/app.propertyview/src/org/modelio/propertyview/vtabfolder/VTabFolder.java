@@ -1,25 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.propertyview.vtabfolder;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import jakarta.inject.Inject;
+import org.eclipse.e4.ui.services.IStylingEngine;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
 import org.eclipse.swt.accessibility.ACC;
@@ -51,6 +53,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.TypedListener;
+import org.modelio.platform.ui.UIColor;
 
 /**
  * Instances of this class implement the notebook user interface metaphor. It
@@ -78,16 +81,16 @@ import org.eclipse.swt.widgets.TypedListener;
  * <p>
  * IMPORTANT: This class is <em>not</em> intended to be subclassed.
  * </p>
- * 
- * 
+ *
  * @noextend This class is not intended to be subclassed by clients.
  */
 @objid ("732a7d30-0917-4d4c-8413-8dd5ebe42fee")
 public class VTabFolder extends Composite {
+    //private IStylingEngine styler;
     /**
      * marginWidth specifies the number of pixels of horizontal margin that will
      * be placed along the left and right edges of the form.
-     * 
+     *
      * The default value is 0.
      */
     @objid ("78657261-fb63-4098-a124-e497e13197f1")
@@ -96,13 +99,13 @@ public class VTabFolder extends Composite {
     /**
      * marginHeight specifies the number of pixels of vertical margin that will
      * be placed along the top and bottom edges of the form.
-     * 
+     *
      * The default value is 0.
      */
     @objid ("7d5104d8-7788-46f6-873f-1c4b3e066a50")
     public int marginHeight = 0;
 
-     // /* sizing, positioning */
+    /* sizing, positioning */
     @objid ("ab7b3cc7-2979-4fc9-8f9d-56d805366946")
     private boolean onRight = false;
 
@@ -170,7 +173,7 @@ public class VTabFolder extends Composite {
      * first visible (2) to last available (5), and the rest sorted descending
      * (1,0). 4 and 5 are the hidden tabs on the right side, 0 and 1 are the
      * hidden tabs on the left side from the visible tabs 2 and 3.
-     * 
+     *
      * @see #updateItems(int)
      * @see #setItemLocation(GC)
      */
@@ -186,7 +189,7 @@ public class VTabFolder extends Composite {
     @objid ("06d16813-1ab9-4953-ae22-20c8c1e38f0d")
     boolean useDefaultRenderer;
 
-     // /* Unselected item appearance */
+    /* Unselected item appearance */
     @objid ("4ddbb8eb-6699-41d5-99c6-f3ff6d6b4656")
     boolean showUnselectedImage = true;
 
@@ -229,14 +232,12 @@ public class VTabFolder extends Composite {
     @objid ("8a080990-16a4-404e-bdc9-370718f3887e")
     static final int UPDATE_TAB_HEIGHT = 1 << 3;
 
-    /*
-     * // when disposing VTabFolder, don't try to layout the items or
-     * // change the selection as each child is destroyed.
-     */
+    // when disposing VTabFolder, don't try to layout the items or
+    // change the selection as each child is destroyed.
     @objid ("e382807b-6027-4c06-b9d4-495bf0bd7d9d")
     boolean inDispose = false;
 
-     // // internal constants
+    // internal constants
     @objid ("454651ea-0ca7-454c-9c62-4cec3108d2b9")
     static final int DEFAULT_WIDTH = 64;
 
@@ -255,12 +256,60 @@ public class VTabFolder extends Composite {
     @objid ("a8dceaed-c6ca-4889-964d-9b613d4b7b52")
     static final int BACKGROUND = SWT.COLOR_WIDGET_BACKGROUND;
 
-     // // TODO: add setter for spacing?
+    // TODO: add setter for spacing?
     @objid ("02f45d02-8303-441f-b0e3-6f1a1f897d22")
     static final int SPACING = 3;
 
     @objid ("44929478-c559-4909-93d5-da6b083d6ce7")
     static final boolean IS_GTK;
+
+    @objid ("ba1c5852-3eed-4364-8e2b-dacb13e992fb")
+    Listener listener;
+
+    /* Selected item appearance */
+    @objid ("da0bfe1b-27ce-4c8c-942c-d915b2995075")
+    Image selectionBgImage;
+
+    @objid ("67bf58e7-5fa7-4f10-add2-300471cf6196")
+    Color selectionForeground;
+
+    @objid ("a2ec0bf0-fbb1-4df8-b39c-5b52bee7abdc")
+    Color selectionBackground;
+
+    @objid ("0fcc98f5-8848-4864-be7e-4139fa710868")
+    Rectangle hoverRect = new Rectangle(0, 0, 0, 0);
+
+    @objid ("78ed0e11-c27f-4bf5-b037-a3dedf3bb86f")
+    Menu showMenu;
+
+    @objid ("c7082861-264f-426e-9817-4d2ff87c5a61")
+    ToolBar chevronTb;
+
+    @objid ("fe07d5b0-6d5b-4428-b023-96f1370cc254")
+    ToolItem chevronItem;
+
+    @objid ("4d159047-e91a-486e-aa99-51bdf0573bd2")
+    Image chevronImage;
+
+    @objid ("fe79b76b-eb25-4054-b8f5-793558a4338a")
+    Control topRight;
+
+    @objid ("3500a967-e913-4d28-8d05-2b4a4fb10281")
+    Control[] controls;
+
+    @objid ("88291ed0-25ec-42e0-b9bb-4b422a4f4281")
+    Rectangle[] controlRects;
+
+    @objid ("d1778ee9-7e86-44a1-ae98-45187f6589db")
+    Image[] controlBkImages;
+
+    // keep track of size changes in order to redraw only affected area
+    // on Resize
+    @objid ("aac459bf-7e00-4097-af74-02b0454b5d2a")
+    Point oldSize;
+
+    @objid ("2dd1ed20-0706-442d-8cec-2228927809b7")
+    Font oldFont;
 
     /* item management */
     @objid ("ac2194b1-5015-4ea6-8b25-216c26368220")
@@ -269,60 +318,12 @@ public class VTabFolder extends Composite {
     @objid ("c5d57a6a-b976-4935-8a3b-681dd57a85c4")
     private VTabItem[] items = new VTabItem[0];
 
-    @objid ("f764b2ae-ffab-4833-b085-31f6e8090d2f")
-    Listener listener;
-
     /* External Listener management */
     @objid ("adafb746-554f-416e-bafe-86229ceff2ee")
     VTabFolder2Listener[] folderListeners = new VTabFolder2Listener[0];
 
-    /* Selected item appearance */
-    @objid ("aa5eaee8-a8e2-402b-975d-73c4b5f342ed")
-    Image selectionBgImage;
-
-    @objid ("d9021783-3bd4-4bb6-a072-9ea22f731dc6")
-    Color selectionForeground;
-
-    @objid ("0261c77e-6476-4088-a058-af9bc99b2fb8")
-    Color selectionBackground;
-
-    @objid ("26e03545-f034-42b6-9939-47dd5b693e07")
-    Rectangle hoverRect = new Rectangle(0, 0, 0, 0);
-
-    @objid ("9169584e-1ee5-457d-8a55-45d11aff0a0d")
-    Menu showMenu;
-
-    @objid ("5345a29e-e834-46d1-be57-b5fb92a602b9")
-    ToolBar chevronTb;
-
-    @objid ("2ff81925-7566-48c9-8647-26c93f0e55db")
-    ToolItem chevronItem;
-
-    @objid ("1bdb0237-f68f-4915-97a2-5180685281a7")
-    Image chevronImage;
-
-    @objid ("723f735c-567f-490c-bb72-0a38ddde374d")
-    Control topRight;
-
-    @objid ("a9e2f793-2a9b-4397-a177-c5c2201b5769")
-    Control[] controls;
-
-    @objid ("d695f566-c95e-4784-a322-b85f1ebddf45")
-    Rectangle[] controlRects;
-
-    @objid ("2c047133-cf46-4653-a1c1-80315c0abef8")
-    Image[] controlBkImages;
-
     @objid ("63a9b64f-f5ee-4d2e-82ed-e58f47418d02")
     Runnable updateRun;
-
-    // keep track of size changes in order to redraw only affected area
-    // on Resize
-    @objid ("169db865-4de1-48a3-9f33-fc3a01409c93")
-    Point oldSize;
-
-    @objid ("c49761c9-d0b6-44ac-abbb-32a763a293a2")
-    Font oldFont;
 
     /**
      * Constructs a new instance of this class given its parent and a style
@@ -335,17 +336,11 @@ public class VTabFolder extends Composite {
      * style constants. The class description lists the style constants that are
      * applicable to the class. Style bits are also inherited from superclasses.
      * </p>
-     * @see SWT#LEFT
-     * @see SWT#RIGHT
-     * @see SWT#FLAT
-     * @see SWT#BORDER
-     * @see SWT#SINGLE
-     * @see SWT#MULTI
-     * @see #getStyle()
+     *
      * @param parent a widget which will be the parent of the new instance (cannot
      * be null)
      * @param style the style of widget to construct
-     * 
+     *
      * @exception IllegalArgumentException
      * <ul>
      * <li>ERROR_NULL_ARGUMENT - if the parent is null</li>
@@ -355,12 +350,19 @@ public class VTabFolder extends Composite {
      * <li>ERROR_THREAD_INVALID_ACCESS - if not called from the
      * thread that created the parent</li>
      * </ul>
+     * @see SWT#LEFT
+     * @see SWT#RIGHT
+     * @see SWT#FLAT
+     * @see SWT#BORDER
+     * @see SWT#SINGLE
+     * @see SWT#MULTI
+     * @see #getStyle()
      */
     @objid ("da3f83c9-67c5-4763-8a6d-b2a5b5592a43")
-    public  VTabFolder(Composite parent, int style) {
+    public VTabFolder(Composite parent, int style) {
         super(parent, checkStyle(parent, style));
+        //  this.styler = styler;
         init(style);
-        
     }
 
     @objid ("f8a8f0ab-ffaf-4442-be4b-26ceff7ce497")
@@ -369,7 +371,7 @@ public class VTabFolder extends Composite {
         int style2 = super.getStyle();
         this.oldFont = getFont();
         this.setOnRight((style2 & SWT.RIGHT) != 0);
-        
+
         // showMin = (style2 & SWT.MIN) != 0; - conflicts with SWT.TOP
         // showMax = (style2 & SWT.MAX) != 0; - conflicts with SWT.BOTTOM
         this.setSingle((style2 & SWT.SINGLE) != 0);
@@ -377,7 +379,9 @@ public class VTabFolder extends Composite {
         // set up default colors
         Display display = getDisplay();
         this.selectionForeground = display.getSystemColor(SELECTION_FOREGROUND);
-        this.selectionBackground = display.getSystemColor(SELECTION_BACKGROUND);
+        this.selectionBackground = display.getSystemColor(BACKGROUND);//UIColor.BLUE; //display.getSystemColor();
+
+        // this.styler.setClassname(this, "alternateBackground");
         this.renderer = new VTabFolderRenderer(this);
         this.useDefaultRenderer = true;
         this.controls = new Control[0];
@@ -385,7 +389,7 @@ public class VTabFolder extends Composite {
         this.controlRects = new Rectangle[0];
         this.controlBkImages = new Image[0];
         updateTabWidth(false);
-        
+
         // Add all listeners
         this.listener = new Listener() {
             @Override
@@ -445,16 +449,15 @@ public class VTabFolder extends Composite {
                 }
             }
         };
-        
+
         int[] folderEvents = new int[] { SWT.Dispose, SWT.DragDetect, SWT.FocusIn, SWT.FocusOut, SWT.KeyDown,
                 SWT.MenuDetect, SWT.MouseDoubleClick, SWT.MouseDown, SWT.MouseEnter, SWT.MouseExit, SWT.MouseHover,
                 SWT.MouseMove, SWT.MouseUp, SWT.Paint, SWT.Resize, SWT.Traverse, };
         for (int i = 0; i < folderEvents.length; i++) {
             addListener(folderEvents[i], this.listener);
         }
-        
+
         initAccessible();
-        
     }
 
     @objid ("ae0d7be3-b961-4a41-a23c-9680e49bc6a6")
@@ -472,7 +475,7 @@ public class VTabFolder extends Composite {
             style = style & ~SWT.SINGLE;
         // reduce the flash by not redrawing the entire area on a Resize event
         style |= SWT.NO_REDRAW_RESIZE;
-        
+
         // TEMPORARY CODE
         /*
          * In Right To Left orientation on Windows, all GC calls that use a
@@ -492,17 +495,14 @@ public class VTabFolder extends Composite {
      * Adds the listener to the collection of listeners who will be notified
      * when a tab item is closed, minimized, maximized, restored, or to show the
      * list of items that are not currently visible.
-     * @see VTabFolder2Listener
-     * @see #removeVTabFolder2Listener(VTabFolder2Listener)
-     * 
-     * @since 3.0
+     *
      * @param listener the listener which should be notified
-     * 
+     *
      * @exception IllegalArgumentException
      * <ul>
      * <li>ERROR_NULL_ARGUMENT - if the listener is null</li>
      * </ul>
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_THREAD_INVALID_ACCESS when called from the wrong
@@ -510,6 +510,8 @@ public class VTabFolder extends Composite {
      * <li>ERROR_WIDGET_DISPOSED when the widget has been
      * disposed</li>
      * </ul>
+     * @see #removeVTabFolder2Listener(VTabFolder2Listener)
+     * @since 3.0
      */
     @objid ("7b7352ed-1be6-40eb-adf8-b1e1f696efaf")
     public void addVTabFolder2Listener(VTabFolder2Listener listener) {
@@ -521,7 +523,6 @@ public class VTabFolder extends Composite {
         System.arraycopy(this.folderListeners, 0, newListeners, 0, this.folderListeners.length);
         this.folderListeners = newListeners;
         this.folderListeners[this.folderListeners.length - 1] = listener;
-        
     }
 
     /**
@@ -532,12 +533,10 @@ public class VTabFolder extends Composite {
      * <code>widgetSelected</code> is called when the user changes the selected
      * tab. <code>widgetDefaultSelected</code> is not called.
      * </p>
-     * @see SelectionListener
-     * @see #removeSelectionListener
-     * @see SelectionEvent
+     *
      * @param listener the listener which should be notified when the user changes
      * the receiver's selection
-     * 
+     *
      * @exception IllegalArgumentException
      * <ul>
      * <li>ERROR_NULL_ARGUMENT - if the listener is null</li>
@@ -549,6 +548,7 @@ public class VTabFolder extends Composite {
      * <li>ERROR_THREAD_INVALID_ACCESS - if not called from the
      * thread that created the receiver</li>
      * </ul>
+     * @see #removeSelectionListener
      */
     @objid ("2b031802-2798-4db8-a22a-5547f54846ce")
     public void addSelectionListener(SelectionListener listener) {
@@ -559,7 +559,6 @@ public class VTabFolder extends Composite {
         TypedListener typedListener = new TypedListener(listener);
         addListener(SWT.Selection, typedListener);
         addListener(SWT.DefaultSelection, typedListener);
-        
     }
 
     @objid ("4739242d-bc52-404f-aefe-d1096f8815ac")
@@ -575,9 +574,9 @@ public class VTabFolder extends Composite {
         int borderLeft = -trim.x;
         int borderBottom = trim.height + trim.y;
         int borderTop = -trim.y;
-        
+
         Point[] tabControlSizes = new Point[this.controls.length];
-        
+
         boolean[] overflow = new boolean[this.controls.length];
         // Left Control
         int topHeight = 0;
@@ -605,13 +604,13 @@ public class VTabFolder extends Composite {
         }
         if (topHeight > 0)
             topHeight += SPACING * 2;
-        
+
         int allItemsHeight = 0;
         for (int i = 0; i < this.items.length; i++) {
             if (this.items[i].showing)
                 allItemsHeight += this.items[i].height;
         }
-        
+
         int maxHeight = size.y - borderTop - topHeight - borderBottom;
         int availableHeight = Math.max(0, maxHeight - allItemsHeight - bottomHeight);
         if (bottomHeight > 0)
@@ -662,7 +661,7 @@ public class VTabFolder extends Composite {
                 }
             }
         }
-        
+
         // Any space, distribute amongst FILL
         if (availableHeight > 0) {
             int fillCount = 0;
@@ -689,19 +688,19 @@ public class VTabFolder extends Composite {
                 }
             }
         }
-        
+
         // Go through overflow laying out all wrapped controls
         Rectangle bodyTrim = this.renderer.computeTrim(VTabFolderRenderer.PART_BODY, SWT.NONE, 0, 0, 0, 0);
-        
+
         int bodyBottom = bodyTrim.height + bodyTrim.y;
         int bodyTop = -bodyTrim.y;
         int bodyHeight = size.y - bodyTop - bodyBottom;
-        
+
         int x = this.isOnRight() ? this.getSize().x - getTabWidth() + 2 * bodyTrim.x : -bodyTrim.x;
         y = size.y - bodyBottom;
-        
+
         availableHeight = bodyHeight;
-        
+
         for (int i = 0; i < this.controls.length; i++) {
             Point ctrlSize = tabControlSizes[i];
             if (overflow[i]) {
@@ -732,9 +731,9 @@ public class VTabFolder extends Composite {
                     }
                 }
             }
-        
+
         }
-        
+
         if (this.showChevron) {
             int i = 0, lastIndex = -1;
             while (i < this.priority.length && this.items[this.priority[i]].showing) {
@@ -745,11 +744,11 @@ public class VTabFolder extends Composite {
             if (lastIndex != -1) {
                 VTabItem lastItem = this.items[lastIndex];
                 int w = lastItem.x + lastItem.width + SPACING;
-        
+
                 rects[this.controls.length - 1].x = w;
             }
         }
-        
+
         if (position != null)
             position[0] = overflow;
         return rects;
@@ -836,13 +835,12 @@ public class VTabFolder extends Composite {
         }
         newPriority[priorityIndex] = index;
         this.priority = newPriority;
-        
+
         if (this.items.length == 1) {
             updateFolder(UPDATE_TAB_HEIGHT | REDRAW);
         } else {
             updateFolder(REDRAW_TABS);
         }
-        
     }
 
     @objid ("e66d74ab-ddd1-4143-a094-fcf3b9661ec3")
@@ -852,13 +850,13 @@ public class VTabFolder extends Composite {
         int index = indexOf(item);
         if (index == -1)
             return;
-        
+
         if (this.items.length == 1) {
             this.items = new VTabItem[0];
             this.priority = new int[0];
             this.setFirstIndex(-1);
             this.setSelectedIndex(-1);
-        
+
             Control control = item.control;
             if (control != null && !control.isDisposed()) {
                 control.setVisible(false);
@@ -870,12 +868,12 @@ public class VTabFolder extends Composite {
             redraw();
             return;
         }
-        
+
         VTabItem[] newItems = new VTabItem[this.items.length - 1];
         System.arraycopy(this.items, 0, newItems, 0, index);
         System.arraycopy(this.items, index + 1, newItems, index, this.items.length - index - 1);
         this.items = newItems;
-        
+
         int[] newPriority = new int[this.priority.length - 1];
         int next = 0;
         for (int i = 0; i < this.priority.length; i++) {
@@ -884,7 +882,7 @@ public class VTabFolder extends Composite {
             newPriority[next++] = this.priority[i] > index ? this.priority[i] - 1 : this.priority[i];
         }
         this.priority = newPriority;
-        
+
         // move the selection if this item is selected
         if (this.getSelectedIndex() == index) {
             Control control = item.getControl();
@@ -897,15 +895,15 @@ public class VTabFolder extends Composite {
         } else if (this.getSelectedIndex() > index) {
             this.setSelectedIndex(this.getSelectedIndex() - 1);
         }
-        
+
         updateFolder(UPDATE_TAB_HEIGHT | REDRAW_TABS);
-        
     }
 
     /**
      * Returns <code>true</code> if the receiver's border is visible.
+     *
      * @return the receiver's border visibility state
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has been
@@ -913,7 +911,7 @@ public class VTabFolder extends Composite {
      * <li>ERROR_THREAD_INVALID_ACCESS - if not called from the
      * thread that created the receiver</li>
      * </ul>
-     * 
+     *
      * @since 3.0
      */
     @objid ("cbb36b34-90b6-499d-aee6-10eb6e53c4a9")
@@ -941,8 +939,9 @@ public class VTabFolder extends Composite {
     /**
      * Returns <code>true</code> if the chevron button is visible when
      * necessary.
+     *
      * @return the visibility of the chevron button
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has
@@ -971,7 +970,7 @@ public class VTabFolder extends Composite {
             trim.y -= wrapHeight;
             trim.height += wrapHeight;
         }
-        
+
         int width = size.x - trim.width;
         int height = size.y - trim.height;
         return new Rectangle(-trim.x, -trim.y, width, height);
@@ -979,9 +978,10 @@ public class VTabFolder extends Composite {
 
     /**
      * Return the tab that is located at the specified index.
+     *
      * @param index the index of the tab item
      * @return the item at the specified index
-     * 
+     *
      * @exception IllegalArgumentException
      * <ul>
      * <li>ERROR_INVALID_RANGE - if the index is out of range
@@ -1005,9 +1005,10 @@ public class VTabFolder extends Composite {
 
     /**
      * Gets the item at a point in the widget.
+     *
      * @param pt the point in coordinates relative to the VTabFolder
      * @return the item at a point or null
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_THREAD_INVALID_ACCESS when called from the wrong
@@ -1037,8 +1038,9 @@ public class VTabFolder extends Composite {
 
     /**
      * Return the number of tabs in the folder.
+     *
      * @return the number of tabs in the folder
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_THREAD_INVALID_ACCESS when called from the wrong
@@ -1055,8 +1057,9 @@ public class VTabFolder extends Composite {
 
     /**
      * Return the tab items.
+     *
      * @return the tab items
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_THREAD_INVALID_ACCESS when called from the wrong
@@ -1133,8 +1136,9 @@ public class VTabFolder extends Composite {
     /**
      * Returns the number of characters that will appear in a fully compressed
      * tab.
+     *
      * @return number of characters that will appear in a fully compressed tab
-     * 
+     *
      * @since 3.0
      */
     @objid ("ed99d373-8f0b-4ad1-bca5-4abb7c612c69")
@@ -1162,8 +1166,9 @@ public class VTabFolder extends Composite {
      * index order). If MRU visibility is enabled, the two visible tabs will be
      * "Tab 1" and "Tab 3" (in that order from left to right).
      * </p>
+     *
      * @return the receiver's header's visibility state
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has been
@@ -1171,7 +1176,7 @@ public class VTabFolder extends Composite {
      * <li>ERROR_THREAD_INVALID_ACCESS - if not called from the
      * thread that created the receiver</li>
      * </ul>
-     * 
+     *
      * @since 3.1
      */
     @objid ("4f7479d5-35ca-472d-9204-f18ac78f4348")
@@ -1182,12 +1187,9 @@ public class VTabFolder extends Composite {
 
     /**
      * Returns the receiver's renderer.
-     * @see #setRenderer(VTabFolderRenderer)
-     * @see VTabFolderRenderer
-     * 
-     * @since 3.6
+     *
      * @return the receiver's renderer
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_THREAD_INVALID_ACCESS when called from the wrong
@@ -1195,6 +1197,8 @@ public class VTabFolder extends Composite {
      * <li>ERROR_WIDGET_DISPOSED when the widget has been
      * disposed</li>
      * </ul>
+     * @see #setRenderer(VTabFolderRenderer)
+     * @since 3.6
      */
     @objid ("ac55fd24-c473-4240-8d9c-0fc0baa3a4a9")
     public VTabFolderRenderer getRenderer() {
@@ -1223,8 +1227,9 @@ public class VTabFolder extends Composite {
 
     /**
      * Return the selected tab item, or null if there is no selection.
+     *
      * @return the selected tab item, or null if none has been selected
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_THREAD_INVALID_ACCESS when called from the wrong
@@ -1243,8 +1248,9 @@ public class VTabFolder extends Composite {
 
     /**
      * Returns the receiver's selection background color.
+     *
      * @return the selection background color of the receiver
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has been
@@ -1252,7 +1258,7 @@ public class VTabFolder extends Composite {
      * <li>ERROR_THREAD_INVALID_ACCESS - if not called from the
      * thread that created the receiver</li>
      * </ul>
-     * 
+     *
      * @since 3.0
      */
     @objid ("2d487f2d-7ca3-4cce-a92a-603a468d5ccb")
@@ -1263,8 +1269,9 @@ public class VTabFolder extends Composite {
 
     /**
      * Returns the receiver's selection foreground color.
+     *
      * @return the selection foreground color of the receiver
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has been
@@ -1272,7 +1279,7 @@ public class VTabFolder extends Composite {
      * <li>ERROR_THREAD_INVALID_ACCESS - if not called from the
      * thread that created the receiver</li>
      * </ul>
-     * 
+     *
      * @since 3.0
      */
     @objid ("c7dd54fa-7535-44b0-a13d-9c25d24cfc89")
@@ -1284,8 +1291,9 @@ public class VTabFolder extends Composite {
     /**
      * Return the index of the selected tab item, or -1 if there is no
      * selection.
+     *
      * @return the index of the selected tab item or -1
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_THREAD_INVALID_ACCESS when called from the wrong
@@ -1303,9 +1311,10 @@ public class VTabFolder extends Composite {
     /**
      * Returns <code>true</code> if the VTabFolder is rendered with a simple,
      * traditional shape.
+     *
      * @return <code>true</code> if the VTabFolder is rendered with a simple
      * shape
-     * 
+     *
      * @since 3.0
      */
     @objid ("ec9a88dc-23dd-4f3e-977b-37dabb8efbc5")
@@ -1317,10 +1326,11 @@ public class VTabFolder extends Composite {
     /**
      * Returns <code>true</code> if the VTabFolder only displays the selected
      * tab and <code>false</code> if the VTabFolder displays multiple tabs.
+     *
      * @return <code>true</code> if the VTabFolder only displays the selected
      * tab and <code>false</code> if the VTabFolder displays multiple
      * tabs
-     * 
+     *
      * @since 3.0
      */
     @objid ("3811a69c-4cf2-4188-b173-f60f36376eb8")
@@ -1345,8 +1355,9 @@ public class VTabFolder extends Composite {
 
     /**
      * Returns the height of the tab
+     *
      * @return the height of the tab
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_THREAD_INVALID_ACCESS when called from the wrong
@@ -1368,8 +1379,9 @@ public class VTabFolder extends Composite {
     /**
      * Returns the position of the tab. Possible values are SWT.LEFT or
      * SWT.RIGHT.
+     *
      * @return the position of the tab
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_THREAD_INVALID_ACCESS when called from the wrong
@@ -1387,8 +1399,9 @@ public class VTabFolder extends Composite {
     /**
      * Returns the control in the top right corner of the tab folder. Typically
      * this is a close button or a composite with a menu and close button.
+     *
      * @return the control in the top right corner of the tab folder or null
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_THREAD_INVALID_ACCESS when called from the wrong
@@ -1396,7 +1409,7 @@ public class VTabFolder extends Composite {
      * <li>ERROR_WIDGET_DISPOSED when the widget has been
      * disposed</li>
      * </ul>
-     * 
+     *
      * @since 2.1
      */
     @objid ("d8c1c0f0-82cd-4b81-bbb0-c170ec8eafea")
@@ -1407,9 +1420,10 @@ public class VTabFolder extends Composite {
 
     /**
      * Returns the alignment of the top right control.
+     *
      * @return the alignment of the top right control which is either
      * <code>SWT.RIGHT</code> or <code>SWT.FILL</code>
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_THREAD_INVALID_ACCESS when called from the wrong
@@ -1417,7 +1431,7 @@ public class VTabFolder extends Composite {
      * <li>ERROR_WIDGET_DISPOSED when the widget has been
      * disposed</li>
      * </ul>
-     * 
+     *
      * @since 3.6
      */
     @objid ("11dbd87a-a313-4f79-bbd4-6ee78c7ef011")
@@ -1428,8 +1442,9 @@ public class VTabFolder extends Composite {
 
     /**
      * Returns <code>true</code> if an image appears in unselected tabs.
+     *
      * @return <code>true</code> if an image appears in unselected tabs
-     * 
+     *
      * @since 3.0
      */
     @objid ("b26c9f0c-c7d1-4f71-9a43-caffb7a6df90")
@@ -1441,14 +1456,15 @@ public class VTabFolder extends Composite {
     /**
      * Return the index of the specified tab or -1 if the tab is not in the
      * receiver.
+     *
      * @param item the tab item for which the index is required
      * @return the index of the specified tab item or -1
-     * 
+     *
      * @exception IllegalArgumentException
      * <ul>
      * <li>ERROR_NULL_ARGUMENT - if the listener is null</li>
      * </ul>
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_THREAD_INVALID_ACCESS when called from the wrong
@@ -1487,7 +1503,7 @@ public class VTabFolder extends Composite {
                 }
                 e.result = item == null ? null : stripMnemonic(item.getText());
             }
-        
+
             @Override
             public void getHelp(AccessibleEvent e) {
                 String help = null;
@@ -1499,7 +1515,7 @@ public class VTabFolder extends Composite {
                 }
                 e.result = help;
             }
-        
+
             @Override
             public void getKeyboardShortcut(AccessibleEvent e) {
                 String shortcut = null;
@@ -1519,7 +1535,7 @@ public class VTabFolder extends Composite {
                 e.result = shortcut;
             }
         });
-        
+
         accessible.addAccessibleControlListener(new AccessibleControlAdapter() {
             @Override
             public void getChildAtPoint(AccessibleControlEvent e) {
@@ -1541,7 +1557,7 @@ public class VTabFolder extends Composite {
                 }
                 e.childID = childID;
             }
-        
+
             @Override
             public void getLocation(AccessibleControlEvent e) {
                 Rectangle location = null;
@@ -1566,12 +1582,12 @@ public class VTabFolder extends Composite {
                     e.height = location.height;
                 }
             }
-        
+
             @Override
             public void getChildCount(AccessibleControlEvent e) {
                 e.detail = VTabFolder.this.items.length;
             }
-        
+
             @Override
             public void getDefaultAction(AccessibleControlEvent e) {
                 String action = null;
@@ -1581,7 +1597,7 @@ public class VTabFolder extends Composite {
                 }
                 e.result = action;
             }
-        
+
             @Override
             public void getFocus(AccessibleControlEvent e) {
                 int childID = ACC.CHILDID_NONE;
@@ -1594,7 +1610,7 @@ public class VTabFolder extends Composite {
                 }
                 e.childID = childID;
             }
-        
+
             @Override
             public void getRole(AccessibleControlEvent e) {
                 int role = 0;
@@ -1606,12 +1622,12 @@ public class VTabFolder extends Composite {
                 }
                 e.detail = role;
             }
-        
+
             @Override
             public void getSelection(AccessibleControlEvent e) {
                 e.childID = (VTabFolder.this.getSelectedIndex() == -1) ? ACC.CHILDID_NONE : VTabFolder.this.getSelectedIndex();
             }
-        
+
             @Override
             public void getState(AccessibleControlEvent e) {
                 int state = 0;
@@ -1632,7 +1648,7 @@ public class VTabFolder extends Composite {
                 }
                 e.detail = state;
             }
-        
+
             @Override
             public void getChildren(AccessibleControlEvent e) {
                 int childIdCount = VTabFolder.this.items.length;
@@ -1643,7 +1659,7 @@ public class VTabFolder extends Composite {
                 e.children = children;
             }
         });
-        
+
         addListener(SWT.Selection, new Listener() {
             @Override
             public void handleEvent(Event event) {
@@ -1656,7 +1672,7 @@ public class VTabFolder extends Composite {
                 }
             }
         });
-        
+
         addListener(SWT.FocusIn, new Listener() {
             @Override
             public void handleEvent(Event event) {
@@ -1667,7 +1683,6 @@ public class VTabFolder extends Composite {
                 }
             }
         });
-        
     }
 
     @objid ("553d24fe-8ce1-47a0-ba9f-9c2a53d3050c")
@@ -1683,7 +1698,6 @@ public class VTabFolder extends Composite {
                 }
             }
         });
-        
     }
 
     @objid ("642e3dca-b7b5-46ed-aad0-9167c44acfab")
@@ -1742,7 +1756,6 @@ public class VTabFolder extends Composite {
             setSelection(index, true);
             forceFocus();
         }
-        
     }
 
     @objid ("1c6c51b6-470a-46ee-8d69-553f6ffe9796")
@@ -1758,7 +1771,7 @@ public class VTabFolder extends Composite {
          * to skip over this part of the item dispose.
          */
         this.inDispose = true;
-        
+
         if (this.showMenu != null && !this.showMenu.isDisposed()) {
             this.showMenu.dispose();
             this.showMenu = null;
@@ -1772,7 +1785,7 @@ public class VTabFolder extends Composite {
         this.selectionBgImage = null;
         this.selectionBackground = null;
         this.selectionForeground = null;
-        
+
         if (this.controlBkImages != null) {
             for (int i = 0; i < this.controlBkImages.length; i++) {
                 if (this.controlBkImages[i] != null) {
@@ -1785,23 +1798,22 @@ public class VTabFolder extends Composite {
         this.controls = null;
         this.controlAlignments = null;
         this.controlRects = null;
-        
-        
+
+
         if (this.chevronImage != null)
             this.chevronImage.dispose();
         this.chevronImage = null;
-        
+
         if (this.renderer != null)
             this.renderer.dispose();
         this.renderer = null;
-        
-        
+
+
         this.chevronItem = null;
         this.chevronTb = null;
-        
+
         if (this.folderListeners.length != 0)
             this.folderListeners = new VTabFolder2Listener[0];
-        
     }
 
     @objid ("77e6a705-2a35-4d6e-86db-6eb925a57e77")
@@ -1816,7 +1828,6 @@ public class VTabFolder extends Composite {
         if (consume) {
             event.type = SWT.None;
         }
-        
     }
 
     @objid ("114a7739-76fe-4314-98ef-b6001c446429")
@@ -1827,7 +1838,6 @@ public class VTabFolder extends Composite {
         } else {
             setSelection(0, true);
         }
-        
     }
 
     @objid ("6376febe-3a1b-4dfb-983d-0ed7eeb601d3")
@@ -1870,7 +1880,6 @@ public class VTabFolder extends Composite {
                 }
             }
         }
-        
     }
 
     @objid ("e410eedf-3e0a-407e-aab1-0cd7f148d5bc")
@@ -1882,7 +1891,6 @@ public class VTabFolder extends Composite {
         if (e.item != null) {
             notifyListeners(SWT.DefaultSelection, e);
         }
-        
     }
 
     @objid ("3daaf80b-9134-4e59-b8c9-380a5ec33531")
@@ -1897,7 +1905,7 @@ public class VTabFolder extends Composite {
             break;
         }
         case SWT.MouseExit: {
-        
+
             for (int i = 0; i < this.items.length; i++) {
                 VTabItem item = this.items[i];
                 if (i != this.getSelectedIndex() && item.closeImageState != SWT.BACKGROUND) {
@@ -1917,7 +1925,7 @@ public class VTabFolder extends Composite {
         }
         case SWT.MouseHover:
         case SWT.MouseDown: {
-        
+
             if (this.hoverTb && this.hoverRect.contains(x, y) && !this.hovering) {
                 this.hovering = true;
                 updateItems();
@@ -2075,7 +2083,7 @@ public class VTabFolder extends Composite {
                         VTabFolder2Listener listener = this.folderListeners[j];
                         listener.close(e);
                     }
-        
+
                     if (e.doit)
                         item.dispose();
                     if (!isDisposed() && item.isDisposed()) {
@@ -2104,7 +2112,6 @@ public class VTabFolder extends Composite {
             }
         }
         }
-        
     }
 
     @objid ("2d8912eb-a3a7-4d93-a798-c0de1ace0779")
@@ -2155,7 +2162,6 @@ public class VTabFolder extends Composite {
             }
         }
         setSelection(index, true);
-        
     }
 
     @objid ("4da9cf9e-4aa0-4684-a412-b2421434192c")
@@ -2172,32 +2178,32 @@ public class VTabFolder extends Composite {
                 return;
             }
         }
-        
+
         GC gc = event.gc;
         Font gcFont = gc.getFont();
         Color gcBackground = gc.getBackground();
         Color gcForeground = gc.getForeground();
-        
+
         // Useful for debugging paint problems
         //        {
         //            Point size = getSize();
         //            gc.setBackground(getDisplay().getSystemColor(SWT.COLOR_GREEN));
         //            gc.fillRectangle(-10, -10, size.x + 20, size.y + 20);
         //        }
-        
+
         Point size = getSize();
         Rectangle bodyRect = new Rectangle(0, 0, size.x, size.y);
         this.renderer.draw(VTabFolderRenderer.PART_BODY, SWT.BACKGROUND | SWT.FOREGROUND, bodyRect, gc);
-        
+
         gc.setFont(gcFont);
         gc.setForeground(gcForeground);
         gc.setBackground(gcBackground);
-        
+
         this.renderer.draw(VTabFolderRenderer.PART_HEADER, SWT.BACKGROUND | SWT.FOREGROUND, bodyRect, gc);
-        
+
         gc.setFont(gcFont);
         gc.setBackground(gcBackground);
-        
+
         if (!this.isSingle()) {
             for (int i = 0; i < this.items.length; i++) {
                 Rectangle itemBounds = this.items[i].getBounds();
@@ -2206,21 +2212,21 @@ public class VTabFolder extends Composite {
                 }
             }
         }
-        
+
         gc.setFont(gcFont);
         gc.setForeground(gcForeground);
         gc.setBackground(gcBackground);
-        
+
         if (this.getSelectedIndex() != -1) {
             this.renderer.draw(this.getSelectedIndex(),
                     this.items[this.getSelectedIndex()].state | SWT.BACKGROUND | SWT.FOREGROUND,
                     this.items[this.getSelectedIndex()].getBounds(), gc);
         }
-        
+
         gc.setFont(gcFont);
         gc.setForeground(gcForeground);
         gc.setBackground(gcBackground);
-        
+
         if (this.hoverTb) {
             // Rectangle trim =
             // this.renderer.computeTrim(VTabFolderRenderer.PART_BORDER,
@@ -2242,7 +2248,6 @@ public class VTabFolder extends Composite {
         gc.setFont(gcFont);
         gc.setForeground(gcForeground);
         gc.setBackground(gcBackground);
-        
     }
 
     @objid ("defb65e4-e84c-4e3d-93c1-a89adc7b23c3")
@@ -2280,7 +2285,6 @@ public class VTabFolder extends Composite {
             }
         }
         this.oldSize = size;
-        
     }
 
     @objid ("d2262cca-bb6d-46c1-9647-125707b66970")
@@ -2307,7 +2311,6 @@ public class VTabFolder extends Composite {
                 showList(chevronRect);
             }
         }
-        
     }
 
     @objid ("fdf9ed58-617d-463b-b316-888ea2c1cca1")
@@ -2351,7 +2354,6 @@ public class VTabFolder extends Composite {
             event.detail = SWT.TRAVERSE_NONE;
             break;
         }
-        
     }
 
     @objid ("36719e10-9aba-49b6-a468-5e3fcd715702")
@@ -2364,21 +2366,18 @@ public class VTabFolder extends Composite {
         } else {
             redraw(0, 0, size.x, -trim.y - this.marginHeight + 1, false);
         }
-        
     }
 
     /**
      * Removes the listener.
-     * @see #addVTabFolder2Listener(VTabFolder2Listener)
-     * 
-     * @since 3.0
+     *
      * @param listener the listener which should no longer be notified
-     * 
+     *
      * @exception IllegalArgumentException
      * <ul>
      * <li>ERROR_NULL_ARGUMENT - if the listener is null</li>
      * </ul>
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_THREAD_INVALID_ACCESS when called from the wrong
@@ -2386,6 +2385,8 @@ public class VTabFolder extends Composite {
      * <li>ERROR_WIDGET_DISPOSED when the widget has been
      * disposed</li>
      * </ul>
+     * @see #addVTabFolder2Listener(VTabFolder2Listener)
+     * @since 3.0
      */
     @objid ("c98153d8-3aec-4c0e-8984-84fa8bb5228e")
     public void removeVTabFolder2Listener(VTabFolder2Listener listener) {
@@ -2412,16 +2413,14 @@ public class VTabFolder extends Composite {
         System.arraycopy(this.folderListeners, index + 1, newTabListeners, index,
                 this.folderListeners.length - index - 1);
         this.folderListeners = newTabListeners;
-        
     }
 
     /**
      * Removes the listener from the collection of listeners who will be
      * notified when the user changes the receiver's selection.
-     * @see SelectionListener
-     * @see #addSelectionListener
+     *
      * @param listener the listener which should no longer be notified
-     * 
+     *
      * @exception IllegalArgumentException
      * <ul>
      * <li>ERROR_NULL_ARGUMENT - if the listener is null</li>
@@ -2433,6 +2432,7 @@ public class VTabFolder extends Composite {
      * <li>ERROR_THREAD_INVALID_ACCESS - if not called from the
      * thread that created the receiver</li>
      * </ul>
+     * @see #addSelectionListener
      */
     @objid ("096edb46-b45d-48e0-9cbf-684153d2bea0")
     public void removeSelectionListener(SelectionListener listener) {
@@ -2442,7 +2442,6 @@ public class VTabFolder extends Composite {
         }
         removeListener(SWT.Selection, listener);
         removeListener(SWT.DefaultSelection, listener);
-        
     }
 
     @objid ("fdb3b019-743a-4cf5-b378-e6545ea9ce1e")
@@ -2452,17 +2451,15 @@ public class VTabFolder extends Composite {
         for (int i = 0; i < this.items.length; i++) {
             this.items[i].reskin(flags);
         }
-        
     }
 
     @objid ("57dbb6cc-2054-4f37-ac02-b589c65a5d03")
     @Override
     public void setBackground(Color color) {
         super.setBackground(color);
-        
+
         updateBkImages();
         redraw();
-        
     }
 
     @objid ("4f37db9b-e35f-4e90-9e92-08005dced355")
@@ -2470,13 +2467,13 @@ public class VTabFolder extends Composite {
     public void setBackgroundImage(Image image) {
         super.setBackgroundImage(image);
         redraw();
-        
     }
 
     /**
      * Toggle the visibility of the border
+     *
      * @param show true if the border should be displayed
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has been
@@ -2492,7 +2489,6 @@ public class VTabFolder extends Composite {
             return;
         this.borderVisible = show;
         updateFolder(REDRAW);
-        
     }
 
     @objid ("17d190b1-44d7-4d36-9bcc-7a103e5b2145")
@@ -2500,7 +2496,7 @@ public class VTabFolder extends Composite {
         Point size = getSize();
         // max button
         Display display = getDisplay();
-        
+
         if (this.showChevron) {
             int itemCount = this.items.length;
             int count;
@@ -2521,7 +2517,7 @@ public class VTabFolder extends Composite {
                 this.chevronItem.setImage(this.chevronImage);
             }
         }
-        
+
         boolean[][] overflow = new boolean[1][0];
         Rectangle[] rects = computeControlBounds(size, overflow);
         if (this.getFixedTabWidth() != SWT.DEFAULT) {
@@ -2571,14 +2567,13 @@ public class VTabFolder extends Composite {
         this.controlRects = rects;
         if (changed || this.hovering)
             updateBkImages();
-        
     }
 
     @objid ("c3a877e2-fdb8-410f-9592-ea6d5182ee0d")
     @Override
     public boolean setFocus() {
         checkWidget();
-        
+
         /*
          * Feature in SWT. When a new tab item is selected and the previous tab
          * item had focus, removing focus from the previous tab item causes
@@ -2616,7 +2611,6 @@ public class VTabFolder extends Composite {
         super.setFont(font);
         this.oldFont = getFont();
         updateFolder(REDRAW);
-        
     }
 
     @objid ("198d8742-9e5e-4ffa-b475-57bcdd6de37e")
@@ -2624,16 +2618,16 @@ public class VTabFolder extends Composite {
     public void setForeground(Color color) {
         super.setForeground(color);
         redraw();
-        
     }
 
     /**
      * Display an insert marker before or after the specified tab item.
-     * 
+     *
      * A value of null will clear the mark.
+     *
      * @param item the item with which the mark is associated or null
      * @param after true if the mark should be displayed after the specified item
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has been
@@ -2649,16 +2643,17 @@ public class VTabFolder extends Composite {
 
     /**
      * Display an insert marker before or after the specified tab item.
-     * 
+     *
      * A value of -1 will clear the mark.
+     *
      * @param index the index of the item with which the mark is associated or -1
      * @param after true if the mark should be displayed after the specified item
-     * 
+     *
      * @exception IllegalArgumentException
      * <ul>
      * <li>ERROR_INVALID_ARGUMENT when the index is invalid</li>
      * </ul>
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has been
@@ -2673,7 +2668,6 @@ public class VTabFolder extends Composite {
         if (index < -1 || index >= getItemCount()) {
             SWT.error(SWT.ERROR_INVALID_ARGUMENT);
         }
-        
     }
 
     @objid ("08a9c9bf-bbd4-4fb1-98b3-5fec5d338e2d")
@@ -2686,8 +2680,8 @@ public class VTabFolder extends Composite {
         int borderLeft = -trim.x;
         Point size = getSize();
         int x = this.isOnRight() ? Math.max(borderRight, size.x - borderRight - this.tabWidth) : borderLeft;
-        
-        
+
+
         int topItemEdge = getTopItemEdge(gc, VTabFolderRenderer.PART_BORDER);
         if (this.isSingle()) {
             int defaultX = getDisplay().getBounds().width + 10; // off screen
@@ -2699,7 +2693,7 @@ public class VTabFolder extends Composite {
                     item.x = x;
                     item.y = topItemEdge;
                     item.showing = true;
-        
+
                     if (item.x != oldX || item.y != oldY)
                         changed = true;
                 } else {
@@ -2735,10 +2729,10 @@ public class VTabFolder extends Composite {
                     if (i == this.getSelectedIndex())
                         state |= SWT.SELECTED;
                     Rectangle edgeTrim = this.renderer.computeTrim(i, state, 0, 0, 0, 0);
-        
+
                     y = y + item.height;
-        
-        
+
+
                 }
             }
         }
@@ -2748,8 +2742,9 @@ public class VTabFolder extends Composite {
     /* public */
     /**
      * Reorder the items of the receiver.
+     *
      * @param indices an array containing the new indices for all items
-     * 
+     *
      * @exception IllegalArgumentException
      * <ul>
      * <li>ERROR_NULL_ARGUMENT - if the indices array is
@@ -2759,7 +2754,7 @@ public class VTabFolder extends Composite {
      * there are duplicate indices or an index is out of
      * range.</li>
      * </ul>
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has
@@ -2795,7 +2790,6 @@ public class VTabFolder extends Composite {
         this.items = temp;
         this.setSelectedIndex(newSelectedIndex);
         updateFolder(REDRAW);
-        
     }
 
     @objid ("1c02bfe2-1eea-4d08-8cda-c0ceaa126900")
@@ -2828,12 +2822,12 @@ public class VTabFolder extends Composite {
                     tab.height = height;
                     tab.width = this.tabWidth;
                     tab.closeRect.width = tab.closeRect.height = 0;
-        
+
                 }
             }
             return changed;
         }
-        
+
         if (this.items.length == 0)
             return changed;
         int[] widths;
@@ -2903,7 +2897,7 @@ public class VTabFolder extends Composite {
                 }
             }
         }
-        
+
         for (int i = 0; i < this.items.length; i++) {
             VTabItem tab = this.items[i];
             int width = widths[i];
@@ -2914,7 +2908,7 @@ public class VTabFolder extends Composite {
                 tab.width = this.tabWidth;
                 tab.height = width;
                 tab.closeRect.width = tab.closeRect.height = 0;
-        
+
             }
         }
         return changed;
@@ -2927,8 +2921,9 @@ public class VTabFolder extends Composite {
      * Note: No Layout can be set on this Control because it already manages the
      * size and position of its children.
      * </p>
+     *
      * @param layout the receiver's new layout or null
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has been
@@ -2947,9 +2942,10 @@ public class VTabFolder extends Composite {
     /**
      * Sets the minimum number of characters that will be displayed in a fully
      * compressed tab.
+     *
      * @param count the minimum number of characters that will be displayed in a
      * fully compressed tab
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has been
@@ -2959,7 +2955,7 @@ public class VTabFolder extends Composite {
      * <li>ERROR_INVALID_RANGE - if the count is less than zero
      * </li>
      * </ul>
-     * 
+     *
      * @since 3.0
      */
     @objid ("a11fd44a-618c-4590-91a9-958cf20a8a40")
@@ -2971,7 +2967,6 @@ public class VTabFolder extends Composite {
             return;
         this.setMinChars(count);
         updateFolder(REDRAW_TABS);
-        
     }
 
     /**
@@ -2990,8 +2985,9 @@ public class VTabFolder extends Composite {
      * index order). If MRU visibility is enabled, the two visible tabs will be
      * "Tab 1" and "Tab 3" (in that order from left to right).
      * </p>
+     *
      * @param show the new visibility state
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has been
@@ -2999,7 +2995,7 @@ public class VTabFolder extends Composite {
      * <li>ERROR_THREAD_INVALID_ACCESS - if not called from the
      * thread that created the receiver</li>
      * </ul>
-     * 
+     *
      * @since 3.1
      */
     @objid ("be055935-17dd-4eb6-914e-73dbca9f9f4c")
@@ -3021,18 +3017,15 @@ public class VTabFolder extends Composite {
             }
             updateFolder(REDRAW_TABS);
         }
-        
     }
 
     /**
      * Sets the renderer which is associated with the receiver to be the
      * argument which may be null. In the case of null, the default renderer is
      * used.
-     * @see VTabFolderRenderer
-     * 
-     * @since 3.6
+     *
      * @param renderer a new renderer
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_THREAD_INVALID_ACCESS when called from the wrong
@@ -3040,6 +3033,7 @@ public class VTabFolder extends Composite {
      * <li>ERROR_WIDGET_DISPOSED when the widget has been
      * disposed</li>
      * </ul>
+     * @since 3.6
      */
     @objid ("7536fdbd-2eaf-4b47-812c-37b9467d4f7b")
     public void setRenderer(VTabFolderRenderer renderer) {
@@ -3053,18 +3047,18 @@ public class VTabFolder extends Composite {
             renderer = new VTabFolderRenderer(this);
         this.renderer = renderer;
         updateFolder(REDRAW);
-        
     }
 
     /**
      * Set the selection to the tab at the specified item.
+     *
      * @param item the tab item to be selected
-     * 
+     *
      * @exception IllegalArgumentException
      * <ul>
      * <li>ERROR_NULL_ARGUMENT - if the item is null</li>
      * </ul>
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_THREAD_INVALID_ACCESS when called from the wrong
@@ -3080,13 +3074,13 @@ public class VTabFolder extends Composite {
             SWT.error(SWT.ERROR_NULL_ARGUMENT);
         int index = indexOf(item);
         setSelection(index);
-        
     }
 
     /**
      * Set the selection to the tab at the specified index.
+     *
      * @param index the index of the tab item to be selected
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has been
@@ -3105,7 +3099,7 @@ public class VTabFolder extends Composite {
             showItem(selection);
             return;
         }
-        
+
         int oldIndex = this.getSelectedIndex();
         this.setSelectedIndex(index);
         if (oldIndex != -1) {
@@ -3115,13 +3109,13 @@ public class VTabFolder extends Composite {
         selection.closeImageState = SWT.NONE;
         selection.showing = false;
         selection.state |= SWT.SELECTED;
-        
+
         Control newControl = selection.control;
         Control oldControl = null;
         if (oldIndex != -1) {
             oldControl = this.items[oldIndex].control;
         }
-        
+
         if (newControl != oldControl) {
             if (newControl != null && !newControl.isDisposed()) {
                 newControl.setBounds(getClientArea());
@@ -3133,7 +3127,6 @@ public class VTabFolder extends Composite {
         }
         showItem(selection);
         redraw();
-        
     }
 
     @objid ("bfa559f0-be96-438f-ad11-f8a439e0ebd2")
@@ -3145,15 +3138,15 @@ public class VTabFolder extends Composite {
             event.item = getItem(this.getSelectedIndex());
             notifyListeners(SWT.Selection, event);
         }
-        
     }
 
     /**
      * Sets the receiver's selection background color to the color specified by
      * the argument, or to the default system color for the control if the
      * argument is null.
+     *
      * @param color the new color (or null)
-     * 
+     *
      * @exception IllegalArgumentException
      * <ul>
      * <li>ERROR_INVALID_ARGUMENT - if the argument has been
@@ -3166,7 +3159,7 @@ public class VTabFolder extends Composite {
      * <li>ERROR_THREAD_INVALID_ACCESS - if not called from the
      * thread that created the receiver</li>
      * </ul>
-     * 
+     *
      * @since 3.0
      */
     @objid ("42553089-01bc-44c2-94a1-9c942254875b")
@@ -3174,23 +3167,23 @@ public class VTabFolder extends Composite {
         if (this.inDispose)
             return;
         checkWidget();
-        
+
         if (this.selectionBackground == color)
             return;
         if (color == null)
             color = getDisplay().getSystemColor(SELECTION_BACKGROUND);
         this.selectionBackground = color;
-        
+
         if (this.getSelectedIndex() > -1)
             redraw();
-        
     }
 
     /**
      * Set the image to be drawn in the background of the selected tab. Image is
      * stretched or compressed to cover entire selection tab area.
+     *
      * @param image the image to be drawn in the background
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has been
@@ -3202,21 +3195,21 @@ public class VTabFolder extends Composite {
     @objid ("ac2b2d8e-d931-4fef-9e3e-cd38f80b4c92")
     public void setSelectionBackground(Image image) {
         checkWidget();
-        
+
         if (image == this.selectionBgImage)
             return;
         this.selectionBgImage = image;
-        
+
         // strategy
         if (this.getSelectedIndex() > -1)
             redraw();
-        
     }
 
     /**
      * Set the foreground color of the selected tab.
+     *
      * @param color the color of the text displayed in the selected tab
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has been
@@ -3235,14 +3228,14 @@ public class VTabFolder extends Composite {
         this.selectionForeground = color;
         if (this.getSelectedIndex() > -1)
             redraw();
-        
     }
 
     /**
      * Sets the shape that the VTabFolder will use to render itself.
+     *
      * @param simple <code>true</code> if the VTabFolder should render itself in a
      * simple, traditional style
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has been
@@ -3250,7 +3243,7 @@ public class VTabFolder extends Composite {
      * <li>ERROR_THREAD_INVALID_ACCESS - if not called from the
      * thread that created the receiver</li>
      * </ul>
-     * 
+     *
      * @since 3.0
      */
     @objid ("74da1209-bc1d-422e-9987-7e08337ac521")
@@ -3260,14 +3253,14 @@ public class VTabFolder extends Composite {
             this.simple = simple;
             updateFolder(UPDATE_TAB_HEIGHT | REDRAW);
         }
-        
     }
 
     /**
      * Sets the number of tabs that the VTabFolder should display
+     *
      * @param single <code>true</code> if only the selected tab should be displayed
      * otherwise, multiple tabs will be shown.
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has been
@@ -3275,7 +3268,7 @@ public class VTabFolder extends Composite {
      * <li>ERROR_THREAD_INVALID_ACCESS - if not called from the
      * thread that created the receiver</li>
      * </ul>
-     * 
+     *
      * @since 3.0
      */
     @objid ("d9bd84e8-00d7-40eb-bb85-bf0afd22a55a")
@@ -3292,7 +3285,6 @@ public class VTabFolder extends Composite {
             }
             updateFolder(REDRAW);
         }
-        
     }
 
     @objid ("a92d7b07-ee22-4706-98ce-0f5ede3b77a0")
@@ -3305,11 +3297,9 @@ public class VTabFolder extends Composite {
      * Specify a fixed height for the tab items. If no height is specified, the
      * default height is the height of the text or the image, whichever is
      * greater. Specifying a height of -1 will revert to the default height.
-     * @param height
-     * the pixel value of the height or -1
-     * 
-     * @exception SWTException
-     * <ul>
+     *
+     * @param height the pixel value of the height or -1
+     * @exception SWTException <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has been
      * disposed</li>
      * <li>ERROR_THREAD_INVALID_ACCESS - if not called from the
@@ -3326,15 +3316,15 @@ public class VTabFolder extends Composite {
         }
         this.setFixedTabWidth(width);
         updateFolder(UPDATE_TAB_HEIGHT);
-        
     }
 
     /**
      * Specify whether the tabs should appear along the top of the folder or
      * along the bottom of the folder.
+     *
      * @param position <code>SWT.TOP</code> for tabs along the top or
      * <code>SWT.BOTTOM</code> for tabs along the bottom
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has been
@@ -3344,7 +3334,7 @@ public class VTabFolder extends Composite {
      * <li>ERROR_INVALID_ARGUMENT - if the position value is not
      * either SWT.TOP or SWT.BOTTOM</li>
      * </ul>
-     * 
+     *
      * @since 3.0
      */
     @objid ("edbb35ea-85ad-459d-b748-5305a7870415")
@@ -3357,7 +3347,6 @@ public class VTabFolder extends Composite {
             this.setOnRight(position == SWT.BOTTOM);
             updateFolder(REDRAW);
         }
-        
     }
 
     /**
@@ -3365,8 +3354,9 @@ public class VTabFolder extends Composite {
      * Typically this is a close button or a composite with a Menu and close
      * button. The topRight control is optional. Setting the top right control
      * to null will remove it from the tab folder.
+     *
      * @param control the control to be displayed in the top right corner or null
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has been
@@ -3376,7 +3366,7 @@ public class VTabFolder extends Composite {
      * <li>ERROR_INVALID_ARGUMENT - if the control is disposed,
      * or not a child of this VTabFolder</li>
      * </ul>
-     * 
+     *
      * @since 2.1
      */
     @objid ("e5ee04b5-ca67-4d4a-a6da-cc6b2255ee7f")
@@ -3399,10 +3389,11 @@ public class VTabFolder extends Composite {
      * the control to wrap below the tabs if there is not enough available space
      * to the right of the last tab.
      * </p>
+     *
      * @param control the control to be displayed in the top right corner or null
      * @param alignment <code>SWT.RIGHT</code> or <code>SWT.FILL</code> or
      * <code>SWT.RIGHT | SWT.WRAP</code>
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has been
@@ -3412,7 +3403,7 @@ public class VTabFolder extends Composite {
      * <li>ERROR_INVALID_ARGUMENT - if the control is disposed,
      * or not a child of this VTabFolder</li>
      * </ul>
-     * 
+     *
      * @since 3.0
      */
     @objid ("d4f997a4-d732-4c0a-9a13-c5f7897b6970")
@@ -3434,13 +3425,13 @@ public class VTabFolder extends Composite {
         if (control != null)
             addTabControl(control, SWT.TRAIL | alignment, -1, false);
         updateFolder(UPDATE_TAB_HEIGHT | REDRAW);
-        
     }
 
     /**
      * Specify whether the image appears on unselected tabs.
+     *
      * @param visible <code>true</code> makes the image appear
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has been
@@ -3448,7 +3439,7 @@ public class VTabFolder extends Composite {
      * <li>ERROR_THREAD_INVALID_ACCESS - if not called from the
      * thread that created the receiver</li>
      * </ul>
-     * 
+     *
      * @since 3.0
      */
     @objid ("3ec4a988-a7db-4c0a-a1bd-9f04da03cd68")
@@ -3459,18 +3450,15 @@ public class VTabFolder extends Composite {
         // display image on unselected items
         this.showUnselectedImage = visible;
         updateFolder(REDRAW);
-        
     }
 
     /**
      * Shows the item. If the item is already showing in the receiver, this
      * method simply returns. Otherwise, the items are scrolled until the item
      * is visible.
-     * @see VTabFolder#showSelection()
-     * 
-     * @since 2.0
+     *
      * @param item the item to be shown
-     * 
+     *
      * @exception IllegalArgumentException
      * <ul>
      * <li>ERROR_NULL_ARGUMENT - if the item is null</li>
@@ -3484,6 +3472,8 @@ public class VTabFolder extends Composite {
      * <li>ERROR_THREAD_INVALID_ACCESS - if not called from the
      * thread that created the receiver</li>
      * </ul>
+     * @see VTabFolder#showSelection()
+     * @since 2.0
      */
     @objid ("10a5cac8-f5dd-40ff-bd58-c7d484dc3980")
     public void showItem(VTabItem item) {
@@ -3516,7 +3506,6 @@ public class VTabFolder extends Composite {
         if (item.showing)
             return;
         updateFolder(REDRAW_TABS);
-        
     }
 
     @objid ("1df6f717-383b-4167-bf5f-3aeee3759aa5")
@@ -3554,22 +3543,20 @@ public class VTabFolder extends Composite {
         Point location = getDisplay().map(this, null, x, y);
         this.showMenu.setLocation(location.x, location.y);
         this.showMenu.setVisible(true);
-        
     }
 
     /**
      * Shows the selection. If the selection is already showing in the receiver,
      * this method simply returns. Otherwise, the items are scrolled until the
      * selection is visible.
-     * @exception SWTException
-     * <ul>
+     *
+     * @exception SWTException <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has been
      * disposed</li>
      * <li>ERROR_THREAD_INVALID_ACCESS - if not called from the
      * thread that created the receiver</li>
      * </ul>
      * @see VTabFolder#showItem(VTabItem)
-     * 
      * @since 2.0
      */
     @objid ("17614f58-49c9-4ada-a919-44790a15b6ea")
@@ -3578,7 +3565,6 @@ public class VTabFolder extends Composite {
         if (this.getSelectedIndex() != -1) {
             showItem(getSelection());
         }
-        
     }
 
     @objid ("99baef77-eac7-4737-9ee0-c8fde73c0c41")
@@ -3588,7 +3574,6 @@ public class VTabFolder extends Composite {
         if (newTip == null || !newTip.equals(oldTip)) {
             setToolTipText(newTip);
         }
-        
     }
 
     @objid ("e0c6f6e3-2c6e-4732-8464-84171c4ba52f")
@@ -3653,7 +3638,7 @@ public class VTabFolder extends Composite {
                         }
                     }
                 }
-        
+
             }
             if (firstIndex != this.priority[0]) {
                 int index = 0;
@@ -3671,7 +3656,7 @@ public class VTabFolder extends Composite {
                 }
             }
         }
-        
+
         boolean oldShowChevron = this.showChevron;
         boolean changed = setItemSize(gc);
         changed |= setItemLocation(gc);
@@ -3725,7 +3710,6 @@ public class VTabFolder extends Composite {
             }
         };
         getDisplay().asyncExec(this.updateRun);
-        
     }
 
     @objid ("8ede5e75-6557-427b-b7a9-8531b4f6954a")
@@ -3750,7 +3734,6 @@ public class VTabFolder extends Composite {
             notifyListeners(SWT.Resize, new Event());
             layout();
         }
-        
     }
 
     @objid ("8715cd3d-7501-4cd6-a22d-adecbf96b083")
@@ -3799,9 +3782,8 @@ public class VTabFolder extends Composite {
             // }
             // }
             // }
-        
+
         }
-        
     }
 
     @objid ("e28b9d1b-0bdb-4fba-821f-9bdbe794ac75")
@@ -3832,6 +3814,7 @@ public class VTabFolder extends Composite {
      * to wrap if there is not enough space to display it in its
      * entirety.
      * </p>
+     *
      * @param control the control to be displayed in the top right corner or
      * null
      * @param flags valid combinations are:
@@ -3853,7 +3836,6 @@ public class VTabFolder extends Composite {
     void addTabControl(Control control, int flags) {
         checkWidget();
         addTabControl(control, flags, -1, true);
-        
     }
 
     @objid ("772592f5-79b5-4b0a-8531-da2bc6a50655")
@@ -3881,11 +3863,11 @@ public class VTabFolder extends Composite {
             }
         }
         int length = this.controls.length;
-        
+
         if (control != null) {
             control.addListener(SWT.Resize, this.listener);
         }
-        
+
         // Grow all 4 arrays
         Control[] newControls = new Control[length + 1];
         System.arraycopy(this.controls, 0, newControls, 0, length);
@@ -3914,14 +3896,14 @@ public class VTabFolder extends Composite {
         if (update) {
             updateFolder(UPDATE_TAB_HEIGHT | REDRAW);
         }
-        
     }
 
     /* public */
     /**
      * Removes the control from the list of tab controls.
+     *
      * @param control the control to be removed
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has
@@ -3936,7 +3918,6 @@ public class VTabFolder extends Composite {
     void removeTabControl(Control control) {
         checkWidget();
         removeTabControl(control, true);
-        
     }
 
     @objid ("4faa08c3-77cf-4dbc-a19c-066904116fde")
@@ -3953,7 +3934,7 @@ public class VTabFolder extends Composite {
         }
         if (index == -1)
             return;
-        
+
         if (control != null && !control.isDisposed()) {
             control.removeListener(SWT.Resize, this.listener);
             control.setBackground(null);
@@ -3961,7 +3942,7 @@ public class VTabFolder extends Composite {
             if (control instanceof Composite)
                 ((Composite) control).setBackgroundMode(SWT.INHERIT_NONE);
         }
-        
+
         if (this.controlBkImages[index] != null && !this.controlBkImages[index].isDisposed())
             this.controlBkImages[index].dispose();
         if (this.controls.length == 1) {
@@ -3974,17 +3955,17 @@ public class VTabFolder extends Composite {
             System.arraycopy(this.controls, 0, newControls, 0, index);
             System.arraycopy(this.controls, index + 1, newControls, index, this.controls.length - index - 1);
             this.controls = newControls;
-        
+
             int[] newAlignments = new int[this.controls.length];
             System.arraycopy(this.controlAlignments, 0, newAlignments, 0, index);
             System.arraycopy(this.controlAlignments, index + 1, newAlignments, index, this.controls.length - index);
             this.controlAlignments = newAlignments;
-        
+
             Rectangle[] newRects = new Rectangle[this.controls.length];
             System.arraycopy(this.controlRects, 0, newRects, 0, index);
             System.arraycopy(this.controlRects, index + 1, newRects, index, this.controls.length - index);
             this.controlRects = newRects;
-        
+
             Image[] newBkImages = new Image[this.controls.length];
             System.arraycopy(this.controlBkImages, 0, newBkImages, 0, index);
             System.arraycopy(this.controlBkImages, index + 1, newBkImages, index, this.controls.length - index);
@@ -3993,7 +3974,6 @@ public class VTabFolder extends Composite {
         if (update) {
             updateFolder(UPDATE_TAB_HEIGHT | REDRAW);
         }
-        
     }
 
     @objid ("45d90f5d-c633-49cc-91df-70e74bffd22c")
@@ -4015,13 +3995,12 @@ public class VTabFolder extends Composite {
     /**
      * Sets whether a chevron is shown when there are more items to be
      * displayed.
-     * @exception IllegalArgumentException
-     * <ul>
+     *
+     * @exception IllegalArgumentException <ul>
      * <li>ERROR_INVALID_RANGE - if the index is out of range
      * </li>
      * </ul>
-     * @exception SWTException
-     * <ul>
+     * @exception SWTException <ul>
      * <li>ERROR_THREAD_INVALID_ACCESS when called from the wrong
      * thread</li>
      * <li>ERROR_WIDGET_DISPOSED when the widget has been
@@ -4035,7 +4014,6 @@ public class VTabFolder extends Composite {
             return;
         this.chevronVisible = visible;
         updateFolder(UPDATE_TAB_HEIGHT | REDRAW);
-        
     }
 
     @objid ("b2c98743-fdce-48e6-b143-8f8ffb95649a")
@@ -4104,8 +4082,8 @@ public class VTabFolder extends Composite {
     }
 
 static {
-            String platform = SWT.getPlatform();
-            IS_GTK = "gtk".equals(platform);
-        }
-    
+                String platform = SWT.getPlatform();
+                IS_GTK = "gtk".equals(platform);
+            }
+
 }

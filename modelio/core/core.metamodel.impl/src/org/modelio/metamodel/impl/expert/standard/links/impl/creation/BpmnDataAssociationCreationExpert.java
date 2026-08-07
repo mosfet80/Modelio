@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.expert.standard.links.impl.creation;
 
@@ -39,7 +39,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 @objid ("7e974158-1eb2-11e2-8009-002564c97630")
 public class BpmnDataAssociationCreationExpert extends DefaultDelegatingLinkExpert {
     @objid ("c019359c-883f-40eb-85ac-8406b8ac17f4")
-    public  BpmnDataAssociationCreationExpert(ILinkExpert defaultExpert) {
+    public BpmnDataAssociationCreationExpert(ILinkExpert defaultExpert) {
         super(defaultExpert);
     }
 
@@ -50,7 +50,7 @@ public class BpmnDataAssociationCreationExpert extends DefaultDelegatingLinkExpe
                 && canTarget(linkMetaclass, toMetaclass)
                 // Either the source or the target must be a BpmnItemAwareElement, but not both
                 && (BpmnItemAwareElement.class.isAssignableFrom(fromMetaclass.getJavaInterface()) ^ BpmnItemAwareElement.class.isAssignableFrom(toMetaclass.getJavaInterface()));
-        
+
     }
 
     @objid ("97d3a7a1-0bb7-4312-98c3-2c6c2a11133c")
@@ -103,6 +103,7 @@ public class BpmnDataAssociationCreationExpert extends DefaultDelegatingLinkExpe
     }
 
     /**
+     *
      * @return <code>true</code> if the source and destination elements belong to the same {@link BpmnLane} or the same {@link BpmnProcess}.
      */
     @objid ("7e974171-1eb2-11e2-8009-002564c97630")

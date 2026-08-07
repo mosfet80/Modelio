@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.resources;
 
 import java.util.ArrayList;
@@ -46,51 +45,51 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("000a1464-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnResourceParameterImpl extends BpmnBaseElementImpl implements BpmnResourceParameter {
-    @objid ("cf8369ff-175a-4b30-be5f-0e882e012005")
+    @objid ("85d1213c-70e1-4fa8-95ca-d0e7a88bada9")
     @Override
     public boolean isIsRequired() {
         return (Boolean) getAttVal(((BpmnResourceParameterSmClass)getClassOf()).getIsRequiredAtt());
     }
 
-    @objid ("81bbaf84-9627-4903-b3e5-72674b34f15c")
+    @objid ("d92bd40f-a6d1-487b-b2fa-1f42fc0f0df7")
     @Override
     public void setIsRequired(boolean value) {
         setAttVal(((BpmnResourceParameterSmClass)getClassOf()).getIsRequiredAtt(), value);
     }
 
-    @objid ("6ab6127a-9331-4d4c-804b-33b1b3d7d40c")
+    @objid ("9fecd3b7-7d1a-4281-a9e6-15f2d92e7c22")
     @Override
     public BpmnResource getResource() {
         Object obj = getDepVal(((BpmnResourceParameterSmClass)getClassOf()).getResourceDep());
         return (obj instanceof BpmnResource)? (BpmnResource)obj : null;
     }
 
-    @objid ("99e4452b-2aa2-47e3-a384-338e2be8b7dd")
+    @objid ("a6268889-d9ea-4144-aba6-3b60dc0f7344")
     @Override
     public void setResource(BpmnResource value) {
         appendDepVal(((BpmnResourceParameterSmClass)getClassOf()).getResourceDep(), (SmObjectImpl)value);
     }
 
-    @objid ("d40e045e-585b-4ea1-a770-4fdb24f23fd0")
+    @objid ("54f4b7a9-66d0-4f94-9dad-d964fd88702c")
     @Override
     public BpmnItemDefinition getType() {
         Object obj = getDepVal(((BpmnResourceParameterSmClass)getClassOf()).getTypeDep());
         return (obj instanceof BpmnItemDefinition)? (BpmnItemDefinition)obj : null;
     }
 
-    @objid ("5eb213af-cf68-4e58-9013-a86c155748f9")
+    @objid ("91bc9711-0388-4830-8143-b01ebc1e84c6")
     @Override
     public void setType(BpmnItemDefinition value) {
         appendDepVal(((BpmnResourceParameterSmClass)getClassOf()).getTypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("1d83ae29-e109-4246-857f-ba5f9e771ebc")
+    @objid ("17cee731-104b-4e06-8588-e5498a96f1e8")
     @Override
     public EList<BpmnResourceParameterBinding> getParameterBindingRefs() {
         return new SmList<>(this, ((BpmnResourceParameterSmClass)getClassOf()).getParameterBindingRefsDep());
     }
 
-    @objid ("55c3beab-c161-4bfd-a5f0-59c1539bd2d5")
+    @objid ("3ec3f2f1-4b42-4941-9cfc-7e818159d97d")
     @Override
     public <T extends BpmnResourceParameterBinding> List<T> getParameterBindingRefs(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -103,10 +102,10 @@ public class BpmnResourceParameterImpl extends BpmnBaseElementImpl implements Bp
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("f6285e82-0866-4b04-ad65-b7bb03a66c6f")
+    @objid ("75ec01e6-cabe-44e2-80b3-e40938e42dc2")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -118,22 +117,22 @@ public class BpmnResourceParameterImpl extends BpmnBaseElementImpl implements Bp
         return super.getCompositionOwner();
     }
 
-    @objid ("abfb44cb-d77e-4094-93b7-8c11ae693e94")
+    @objid ("4d562a45-cdba-4206-bb34-351bc640f6e4")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // Resource
         dep = ((BpmnResourceParameterSmClass)getClassOf()).getResourceDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("4487589d-689b-4289-984e-7456fc525a7e")
+    @objid ("822201a8-f51c-4566-b189-43b31d4b8c2a")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitBpmnResourceParameter(this);

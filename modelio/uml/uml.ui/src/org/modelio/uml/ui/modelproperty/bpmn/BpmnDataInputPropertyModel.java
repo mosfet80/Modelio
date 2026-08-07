@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.bpmn;
 
@@ -69,14 +69,15 @@ public class BpmnDataInputPropertyModel extends AbstractPropertyModel<BpmnDataIn
 
     /**
      * Create a new <i>BpmnDataInput</i> data model from an <i>BpmnDataInput</i> .
+     *
      * @param theEditedElement the model to edit.
      * @param mdaExpert the MDA expert to handle Methodological links.
      */
     @objid ("5f3c52e0-1d87-49d0-a8bc-54bdada5e378")
-    public  BpmnDataInputPropertyModel(BpmnDataInput theEditedElement, IMdaExpert mdaExpert) {
+    public BpmnDataInputPropertyModel(BpmnDataInput theEditedElement, IMdaExpert mdaExpert) {
         super(theEditedElement);
         this.mdaExpert = mdaExpert;
-        
+
     }
 
     /**
@@ -85,16 +86,16 @@ public class BpmnDataInputPropertyModel extends AbstractPropertyModel<BpmnDataIn
     @objid ("1f424d74-aefe-42f7-9f40-73bf862d0287")
     private List<ModelElement> getAvailableStates(ModelElement representedElement) {
         List<ModelElement> states = new ArrayList<>();
-        
+
         if (representedElement instanceof Classifier) {
             Classifier type = (Classifier) representedElement;
-        
+
             // Add states from owned state machines
             for (StateMachine sm : type.getOwnedBehavior(StateMachine.class)) {
                 final Region topRegion = sm.getTop();
                 states.addAll(getAvailableStates(topRegion));
             }
-        
+
             // Add states from owned operations
             for (Operation op : type.getOwnedOperation()) {
                 for (StateMachine sm : op.getOwnedBehavior(StateMachine.class)) {
@@ -102,7 +103,7 @@ public class BpmnDataInputPropertyModel extends AbstractPropertyModel<BpmnDataIn
                     states.addAll(getAvailableStates(topRegion));
                 }
             }
-        
+
             // Add states from owned classes
             for (GeneralClass sub : type.getOwnedElement(GeneralClass.class)) {
                 states.addAll(getAvailableStates(sub));
@@ -119,7 +120,7 @@ public class BpmnDataInputPropertyModel extends AbstractPropertyModel<BpmnDataIn
         List<ModelElement> states = new ArrayList<>();
         for (org.modelio.metamodel.uml.behavior.stateMachineModel.State s : region.getSub(org.modelio.metamodel.uml.behavior.stateMachineModel.State.class)) {
             states.add(s);
-        
+
             for (Region subRegion : s.getOwnedRegion()) {
                 states.addAll(getAvailableStates(subRegion));
             }
@@ -129,6 +130,7 @@ public class BpmnDataInputPropertyModel extends AbstractPropertyModel<BpmnDataIn
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("d7be4e87-a35f-458d-b673-6fcc2843ae56")
@@ -145,11 +147,12 @@ public class BpmnDataInputPropertyModel extends AbstractPropertyModel<BpmnDataIn
         } else {
             return new DefaultElementChoiceNatValue(value, true, Collections.singletonList(org.modelio.metamodel.uml.behavior.stateMachineModel.State.class), availableStates);
         }
-        
+
     }
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("2d0f25e4-8ab7-46ca-9db6-2795b1b32f77")
@@ -162,6 +165,7 @@ public class BpmnDataInputPropertyModel extends AbstractPropertyModel<BpmnDataIn
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -187,7 +191,7 @@ public class BpmnDataInputPropertyModel extends AbstractPropertyModel<BpmnDataIn
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -196,6 +200,7 @@ public class BpmnDataInputPropertyModel extends AbstractPropertyModel<BpmnDataIn
      * This type will be used to choose an editor and a renderer for each cell of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -217,7 +222,7 @@ public class BpmnDataInputPropertyModel extends AbstractPropertyModel<BpmnDataIn
                         .map(mc -> mc.getJavaInterface())
                         .collect(Collectors.toList());
                 DefaultElementNatValue elementNatValue = new DefaultElementNatValue((MObject) getValue(row, col), true, allowedTargets);
-        
+
                 MClass linkMetaclass = this.theEditedElement.getMClass().getMetamodel().getMClass(MethodologicalLink.class);
                 elementNatValue.setElementFilter(new IMObjectFilter() {
                     @Override
@@ -234,13 +239,14 @@ public class BpmnDataInputPropertyModel extends AbstractPropertyModel<BpmnDataIn
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -278,7 +284,7 @@ public class BpmnDataInputPropertyModel extends AbstractPropertyModel<BpmnDataIn
         default:
             return;
         }
-        
+
     }
 
 }

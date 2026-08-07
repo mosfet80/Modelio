@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.vcore.session.impl.permission;
 
@@ -50,7 +69,6 @@ public class BasicAccessManager implements IAccessManager {
             modelLoader.setRStatus(obj, this.cmsNodeStatus.on, this.cmsNodeStatus.off, this.cmsNodeStatus.undef);
         else
             modelLoader.setRStatus(obj, this.regularStatus.on, this.regularStatus.off, this.regularStatus.undef | IRStatus.MASK_CMS);
-        
     }
 
     /**
@@ -59,14 +77,14 @@ public class BasicAccessManager implements IAccessManager {
      * The manager is configured to be writable, non versioned and non RAMC.
      */
     @objid ("f638648c-3948-11e2-920a-001ec947ccaf")
-    public  BasicAccessManager() {
+    public BasicAccessManager() {
         setWriteable(true);
         setRamc(false);
-        
     }
 
     /**
      * Set elements as model component.
+     *
      * @param ramc <code>true</code> to set loaded elements as model component.
      */
     @objid ("f638648f-3948-11e2-920a-001ec947ccaf")
@@ -78,11 +96,11 @@ public class BasicAccessManager implements IAccessManager {
             this.cmsNodeStatus.set(IRStatus.RAMC, StatusState.FALSE);
             this.regularStatus.set(IRStatus.RAMC, StatusState.FALSE);
         }
-        
     }
 
     /**
      * Tells whether the access manager allow writing.
+     *
      * @return <code>true</code> if writing is allowed else <code>false</code>.
      */
     @objid ("f63ac6e0-3948-11e2-920a-001ec947ccaf")
@@ -92,6 +110,7 @@ public class BasicAccessManager implements IAccessManager {
 
     /**
      * Allow write.
+     *
      * @param val <code>true</code> to allow writing, <code>false</code> to deny it.
      */
     @objid ("f63ac6e5-3948-11e2-920a-001ec947ccaf")
@@ -104,7 +123,25 @@ public class BasicAccessManager implements IAccessManager {
             this.cmsNodeStatus.set(IRStatus.USERWRITE, StatusState.FALSE);
             this.regularStatus.set(IRStatus.USERWRITE, StatusState.FALSE);
         }
-        
+    }
+
+    /**
+     * Set a custom runtime flag .
+     *
+     * @param flag the status flag
+     */
+    @objid ("85d978ba-c169-4818-8a98-2ff2f652b80c")
+    public void setStatusflags(long flag, boolean val) {
+        // Only some of the runtime flags should be used
+        assert  0 == (flag & ~(IRStatus.MASK_CMS | IRStatus.MASK_DOMAIN | IRStatus.MASK_RACCESS | IRStatus.MASK_USER | IRStatus.REMOTE)) : SmStatus.flagsToString(flag);
+
+        if (val) {
+            this.cmsNodeStatus.set(flag, StatusState.TRUE);
+            this.regularStatus.set(flag, StatusState.TRUE);
+        } else {
+            this.cmsNodeStatus.set(flag, StatusState.FALSE);
+            this.regularStatus.set(flag, StatusState.FALSE);
+        }
     }
 
     @objid ("4e42cfb9-7725-4073-be66-5e2cc6d441fe")
@@ -119,7 +156,7 @@ public class BasicAccessManager implements IAccessManager {
         public long undef;
 
         @objid ("ee2a8261-c081-4d84-9ae8-d0ab4c0c2aa7")
-        public  StatusConf() {
+        public StatusConf() {
             // noop
         }
 
@@ -144,7 +181,6 @@ public class BasicAccessManager implements IAccessManager {
             default:
                 assert false : state;
             }
-            
         }
 
         @objid ("88c3489b-2421-4c21-ab79-c603ce54a475")
@@ -152,15 +188,14 @@ public class BasicAccessManager implements IAccessManager {
             this.on &= ~bitdef;
             this.off &= ~bitdef;
             this.undef &= ~bitdef;
-            
         }
 
         @objid ("13805952-35fe-4d1d-8708-bad40173ff6c")
         @Override
         public String toString() {
             return "StatusConf( on="+SmStatus.flagsToString(this.on)
-                                                                    +",\n   off="+SmStatus.flagsToString(this.off)
-                                                                    +",\n   undefine="+SmStatus.flagsToString(this.undef)+")";
+            +",\n   off="+SmStatus.flagsToString(this.off)
+            +",\n   undefine="+SmStatus.flagsToString(this.undef)+")";
         }
 
     }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnexclusivegateway;
 
@@ -70,24 +70,25 @@ public class GmBpmnExclusiveGateway extends GmPortContainer {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram in which the timeEvent is unmasked.
      * @param el the unmasked timeEvent.
      * @param ref a reference to the unmasked timeEvent.
      */
     @objid ("60f150a0-55b6-11e2-877f-002564c97630")
-    public  GmBpmnExclusiveGateway(IGmDiagram diagram, BpmnExclusiveGateway el, MRef ref) {
+    public GmBpmnExclusiveGateway(IGmDiagram diagram, BpmnExclusiveGateway el, MRef ref) {
         super(diagram, ref);
-        
+
         GmBpmnExclusiveGatewayPrimaryNode mainNode = new GmBpmnExclusiveGatewayPrimaryNode(diagram, ref);
         mainNode.setRoleInComposition(MAIN_NODE_ROLE);
         this.addChild(mainNode);
-        
+
         this.element = el;
         GmNameLabel label = new GmNameLabel(diagram, ref);
         label.setRoleInComposition(GmPortContainer.SATELLITE_ROLE);
         label.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
         this.addChild(label);
-        
+
     }
 
     @objid ("60f150ac-55b6-11e2-877f-002564c97630")
@@ -117,7 +118,7 @@ public class GmBpmnExclusiveGateway extends GmPortContainer {
         default:
             return null;
         }
-        
+
     }
 
     @objid ("60f150c5-55b6-11e2-877f-002564c97630")
@@ -135,14 +136,14 @@ public class GmBpmnExclusiveGateway extends GmPortContainer {
         default:
             return Collections.emptyList();
         }
-        
+
     }
 
     /**
      * Empty constructor needed for deserialisation.
      */
     @objid ("60f150cd-55b6-11e2-877f-002564c97630")
-    public  GmBpmnExclusiveGateway() {
+    public GmBpmnExclusiveGateway() {
         // Nothing specific to do.
     }
 
@@ -163,7 +164,7 @@ public class GmBpmnExclusiveGateway extends GmPortContainer {
             break;
         }
         }
-        
+
     }
 
     @objid ("60f150d6-55b6-11e2-877f-002564c97630")
@@ -182,17 +183,17 @@ public class GmBpmnExclusiveGateway extends GmPortContainer {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmBpmnExclusiveGateway.", MINOR_VERSION);
-        
+
     }
 
     @objid ("60f2d754-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (BpmnExclusiveGateway) resolveRef(this.getRepresentedRef());
-        
+
     }
 
     @objid ("60f2d759-55b6-11e2-877f-002564c97630")
@@ -203,6 +204,7 @@ public class GmBpmnExclusiveGateway extends GmPortContainer {
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */
@@ -214,6 +216,7 @@ public class GmBpmnExclusiveGateway extends GmPortContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */

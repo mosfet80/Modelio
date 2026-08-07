@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.preferences.plugin;
 
@@ -33,8 +33,7 @@ import org.osgi.service.log.LogLevel;
  * The 'app.preference' preference node is used and initialized by many plugins.
  * This defeats 'org.eclipse.core.runtime.preferences' design that allows
  * each plugin to initialize its own preference node.
- * 
- * 
+ *
  * @author cma
  */
 @objid ("6c08e380-1b36-4b7b-b595-22a5b95a31ab")
@@ -59,28 +58,28 @@ public class PreferencesInitializer extends AbstractPreferenceInitializer {
     public void initializeDefaultPreferences() {
         LogLevel oldLevel = PluginLogger.ensureLogLevel(LogLevel.DEBUG);
         try {
-        
+
             IPersistentPreferenceStore preferences = Preferences.getPreferences();
-        
+
             Preferences.LOG.debug("Initializing '%s' plugin preferences ...",Preferences.PLUGIN_ID);
-        
+
             for (final IConfigurationElement elmt : new ExtensionPointContributionManager(PREFS_XP)
                     .getExtensions(ELMT_INIT)) {
                 Preferences.LOG.debug(" - Initializing default values from '%s'...",elmt.getContributor().getName());
-        
+
                 for (IConfigurationElement prefEl : elmt.getChildren(ELMT_PREF)) {
                     final String key = prefEl.getAttribute(ATT_KEY);
                     final String val = prefEl.getAttribute(ATT_VAL);
-        
+
                     Preferences.LOG.debug("   - default pref value '%s'='%s'", key, val);
-        
+
                     preferences.setDefault(key, val);
                 }
             }
         } finally {
             PluginLogger.setLogLevel(oldLevel);
         }
-        
+
     }
 
 }

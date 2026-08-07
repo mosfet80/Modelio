@@ -1,27 +1,28 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.policies;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -41,7 +42,7 @@ import org.modelio.diagram.elements.core.model.IGmObject;
 
 /**
  * Helper for layout edit policies to ask on their children recursively to layout their connections.
- * 
+ *
  * <h2>History</h2>
  * This class is part of orthogonal links layout, a very fragile feature.
  * <p>
@@ -51,6 +52,7 @@ import org.modelio.diagram.elements.core.model.IGmObject;
  * Used only for (BPMN) lane containers where moving a lane actually moves all of them.
  * Also enabled 5.0 behavior in GmNodeDragTracer.
  * </ul>
+ *
  * @author cma
  * @since 5.1.0
  */
@@ -70,6 +72,7 @@ public class LayoutChildrenNodeConnectionsHelper {
 
     /**
      * Add the given edit part to the edited nodes set.
+     *
      * @param anEditPart an edit part.
      * @return this instance
      */
@@ -77,13 +80,14 @@ public class LayoutChildrenNodeConnectionsHelper {
     public LayoutChildrenNodeConnectionsHelper addEditPart(GraphicalEditPart anEditPart) {
         if (DISABLED)
             return this;
-        
+
         this.editParts2.add(anEditPart);
         return this;
     }
 
     /**
      * Add {@link GroupRequest#getEditParts()} to the edited nodes set.
+     *
      * @param req the move/resize/... request.
      * @return this instance
      */
@@ -91,13 +95,14 @@ public class LayoutChildrenNodeConnectionsHelper {
     public LayoutChildrenNodeConnectionsHelper addEditParts(GroupRequest req) {
         if (DISABLED)
             return this;
-        
-        this.editParts2.addAll(req.getEditParts());
+
+        this.editParts2.addAll((Collection<? extends GraphicalEditPart>) req.getEditParts());
         return this;
     }
 
     /**
      * Add the given edit parts to the edited nodes set.
+     *
      * @param nodes some edit parts.
      * @return this instance
      */
@@ -105,8 +110,17 @@ public class LayoutChildrenNodeConnectionsHelper {
     public LayoutChildrenNodeConnectionsHelper addEditParts(Collection<GraphicalEditPart> nodes) {
         if (DISABLED)
             return this;
-        
+
         this.editParts2.addAll(nodes);
+        return this;
+    }
+
+    @objid ("43099e68-f4f7-445b-8164-367d2d5547db")
+    public LayoutChildrenNodeConnectionsHelper addEditParts(List<? extends EditPart> nodes) {
+        if (DISABLED)
+            return this;
+
+        this.editParts2.addAll((Collection<? extends GraphicalEditPart>) nodes);
         return this;
     }
 
@@ -114,6 +128,7 @@ public class LayoutChildrenNodeConnectionsHelper {
      * Create the connection layout commands and chain them with the passed command.
      * <p>
      * If <code>initialCommand</code> is null, does nothing and return <i>null</i>;
+     *
      * @param initialCommand the initial command, to be executed first. May be <i>null</i>.
      * @return a command that executes the main command then connection layout commands, or <i>null</i>.
      */
@@ -121,11 +136,11 @@ public class LayoutChildrenNodeConnectionsHelper {
     public Command createChainedCommand(Command initialCommand) {
         if (DISABLED)
             return initialCommand;
-        
+
         if (initialCommand == null) {
             return null;
         }
-        
+
         CompoundCommand command;
         if (initialCommand instanceof CompoundCommand) {
             command = (CompoundCommand) initialCommand;
@@ -134,7 +149,7 @@ public class LayoutChildrenNodeConnectionsHelper {
             command.setLabel(initialCommand.getLabel());
             command.add(initialCommand);
         }
-        
+
         // Add the layout connections commands
         createCommands(command);
         return command.unwrap();
@@ -142,6 +157,7 @@ public class LayoutChildrenNodeConnectionsHelper {
 
     /**
      * Create the connection layout commands and add them to the passed compound command
+     *
      * @param command the compound command to fill.
      * @return The passed <code>command</code> .
      */
@@ -155,6 +171,7 @@ public class LayoutChildrenNodeConnectionsHelper {
      * Get and initialize a shared instance.
      * <p>
      * The returned object must be used then forgot, don't keep a reference.
+     *
      * @param parentRequest the parent request. May be null if no request.
      * @return a shared instance.
      */
@@ -165,6 +182,7 @@ public class LayoutChildrenNodeConnectionsHelper {
 
     /**
      * Reset this instance
+     *
      * @param newParentRequest the parent request. May be null if no request.
      * @return this instance
      */
@@ -172,7 +190,7 @@ public class LayoutChildrenNodeConnectionsHelper {
     public LayoutChildrenNodeConnectionsHelper init(Request newParentRequest) {
         if (DISABLED)
             return this;
-        
+
         this.editParts2.clear();
         this.parentRequest = newParentRequest;
         return this;
@@ -180,6 +198,7 @@ public class LayoutChildrenNodeConnectionsHelper {
 
     /**
      * Remove the given edit parts from the edited nodes set.
+     *
      * @param deleted some edit parts.
      * @return this instance
      */
@@ -187,13 +206,14 @@ public class LayoutChildrenNodeConnectionsHelper {
     public LayoutChildrenNodeConnectionsHelper removeEditParts(Collection<GraphicalEditPart> deleted) {
         if (DISABLED)
             return this;
-        
+
         this.editParts2.removeAll(deleted);
         return this;
     }
 
     /**
      * Remove {@link GroupRequest#getEditParts()} from the edited nodes set.
+     *
      * @param req the move/resize/... request.
      * @return this instance
      */
@@ -201,18 +221,19 @@ public class LayoutChildrenNodeConnectionsHelper {
     public LayoutChildrenNodeConnectionsHelper removeEditParts(GroupRequest req) {
         if (DISABLED)
             return this;
-        
+
         this.editParts2.removeAll(req.getEditParts());
         return this;
     }
 
     /**
      * Private constructor
+     *
      * @see #forRequest(Request)
      */
     @objid ("021fde1e-60f0-40b5-977f-40cb8c4b45a1")
-    private  LayoutChildrenNodeConnectionsHelper() {
-        
+    private LayoutChildrenNodeConnectionsHelper() {
+
     }
 
     @objid ("e6640f23-2d66-4df9-86ab-f5e1ca0a2f0f")
@@ -220,16 +241,16 @@ public class LayoutChildrenNodeConnectionsHelper {
         // Completely disable policy
         if (DISABLED)
             return;
-        
+
         ChangeBoundsRequest req = getAdaptedRequest(parentRequest);
-        
+
         ToolSelectionUtils.addAllLinksFor(nodes, req, false);
         req.setEditParts(new ArrayList<>(nodes));
-        
+
         if (parentRequest instanceof GroupRequest) {
             RequestHelper.addSharedEditParts(req, (GroupRequest) parentRequest);
         }
-        
+
         for (EditPart editPart : nodes) {
             if (editPart instanceof ConnectionEditPart) {
                 Command subCommand = editPart.getCommand(req);
@@ -238,7 +259,6 @@ public class LayoutChildrenNodeConnectionsHelper {
                 }
             }
         }
-        
     }
 
     @objid ("420e9657-ead7-46ad-b781-7f91d81db7af")
@@ -246,20 +266,20 @@ public class LayoutChildrenNodeConnectionsHelper {
         // Completely disable policy
         if (DISABLED)
             return;
-        
+
         if (nodes.isEmpty()) {
             return;
         }
-        
+
         ChangeBoundsRequest req = getAdaptedRequest(parentRequest);
         req.setEditParts(new ArrayList<>(nodes));
-        
+
         if (parentRequest instanceof GroupRequest) {
             RequestHelper.addSharedEditParts(req, (GroupRequest) parentRequest);
         }
-        
+
         Map<Object, EditPart> editPartRegistry = nodes.iterator().next().getViewer().getEditPartRegistry();
-        
+
         nodes.stream()
                 .map(ep -> ((IGmObject) ep.getModel()).getDiagram())
                 .distinct()
@@ -271,7 +291,6 @@ public class LayoutChildrenNodeConnectionsHelper {
                         }
                     }
                 });
-        
     }
 
     @objid ("86e21fd5-d6ab-4e88-8151-2065c55b1a1d")
@@ -279,7 +298,6 @@ public class LayoutChildrenNodeConnectionsHelper {
         if (req instanceof GroupRequest) {
             to.addAll(RequestHelper.getSharedEditParts((GroupRequest) req));
         }
-        
     }
 
     @objid ("6af80b08-8f7e-4990-9093-7ab54c30ae2c")

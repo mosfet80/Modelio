@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.creation.wizard.dialog;
 
@@ -34,6 +34,7 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
 import org.modelio.creation.wizard.plugin.CreationWizard;
 import org.modelio.platform.ui.dialog.ModelioDialog;
+import org.modelio.platform.ui.swt.BrowserConfigurator;
 
 /**
  * This class implements the dialog box that display the audit entry details
@@ -43,25 +44,27 @@ public class BrowserDialog extends ModelioDialog {
     @objid ("8d99e0fc-0928-4c09-9829-3401f7920c54")
     protected String docUrl;
 
-    @objid ("d1c3e750-e8cd-4fb4-9e75-69a115ab26c4")
+    @objid ("91a5625a-dac6-4a56-90d4-a31c487d003f")
     protected Browser browser;
 
     /**
      * Create an BrowserDialog instance.
+     *
      * @param parentShell The parent shell.
      * @param docUrl The documentation url to display.
      */
     @objid ("5c20e64a-2420-4554-abdc-b74e317b1261")
-    public  BrowserDialog(final Shell parentShell, final String docUrl) {
+    public BrowserDialog(final Shell parentShell, final String docUrl) {
         super(parentShell);
         this.docUrl = docUrl;
-        
+
     }
 
     /**
      * Add buttons to the buttons bar in the bottom of the dialog.
      * <p>
      * Here we just need to have a "close" button.
+     *
      * @param parent the parent composite of the dialog.
      */
     @objid ("8a3c199d-ad1a-4b61-b914-33e8be406f29")
@@ -72,21 +75,22 @@ public class BrowserDialog extends ModelioDialog {
 
     /**
      * This is the main method that is called to construct the GUI content of the box.
+     *
      * @param parent the parent composite of the dialog.
      */
     @objid ("c96c1ee7-4725-430e-91c7-ddae5aeba1c5")
     @Override
     public Control createContentArea(final Composite parent) {
-        this.browser = new Browser(parent, SWT.BORDER);
+        this.browser = BrowserConfigurator.newBrowser(parent, SWT.BORDER);
         this.browser.setLayoutData(new GridData(GridData.FILL_BOTH));
         this.browser.setMenu(new Menu(this.browser));
         this.browser.setJavascriptEnabled(false);
-        
+
         this.browser.addLocationListener(new LocationAdapter() {
             @Override
             public void changing(LocationEvent event)
             {
-        
+
                 String newLocation = event.location;
                 try {
                     URL url = new URL(newLocation);
@@ -95,10 +99,10 @@ public class BrowserDialog extends ModelioDialog {
                 } catch (MalformedURLException e) {
                     CreationWizard.LOG.error(e);
                 }
-        
+
             }
         });
-        
+
         this.browser.setUrl(this.docUrl);
         return this.browser;
     }
@@ -115,7 +119,7 @@ public class BrowserDialog extends ModelioDialog {
         setTitle(CreationWizard.I18N.getString("BrowserDialog.DialogTitle"));
         this.getShell().setSize(600, 550);
         this.getShell().setMinimumSize(600, 550);
-        
+
     }
 
 }

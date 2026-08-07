@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.drawings.note;
 
@@ -34,7 +34,7 @@ class NoteDrawingDirectEditPolicy extends DirectEditPolicy {
     protected Command getDirectEditCommand(DirectEditRequest request) {
         String text = (String) request.getCellEditor().getValue();
         GmNoteDrawing gm = (GmNoteDrawing) getHost().getModel();
-        
+
         if (text!=null && gm!=null)
             return new EditCommand(gm, text);
         return null;
@@ -55,10 +55,10 @@ class NoteDrawingDirectEditPolicy extends DirectEditPolicy {
         private GmNoteDrawing gm;
 
         @objid ("20c727a3-880a-4040-ab5b-4a4b00e2b604")
-        public  EditCommand(GmNoteDrawing gm, String text) {
+        public EditCommand(GmNoteDrawing gm, String text) {
             this.gm = gm;
             this.text = text;
-            
+
         }
 
         @objid ("3e881e28-e7af-4e71-a42a-dbb43389c2aa")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -69,13 +69,13 @@ public class EAssociationClass extends ENamedElement {
     private void attachClass() {
         if (!this.isDeleted) {
             ReverseProperties revProp = ReverseProperties.getInstance();
-        
+
             org.eclipse.uml2.uml.Element ecoreOwner = getEcoreElement().getOwner();
-        
+
             if (ecoreOwner != null) {
-        
+
                 Object objingOwner =  revProp.getMappedElement(ecoreOwner);
-        
+
                 if (objingOwner instanceof Profile) {
                     this.objingClass.setOwner(revProp.getExternalPackage());
                 }else if (objingOwner instanceof ModelTree) {
@@ -91,7 +91,7 @@ public class EAssociationClass extends ENamedElement {
                 this.objingClass.setOwner(revProp.getExternalPackage());
             }
         }
-        
+
     }
 
     @objid ("9bce2204-e396-494c-9cb5-23982ab3bf99")
@@ -99,17 +99,17 @@ public class EAssociationClass extends ENamedElement {
         if (!this.isDeleted) {
             ReverseProperties revProp = ReverseProperties.getInstance();
             setClassName();
-        
+
             setClassAbstract();
             setClassLeaf();
             setClassActive();
-        
+
             if (revProp.isRoundtripEnabled()) {
                 setClassPrimitiveEAnnotation();
                 setClassMainEAnnotation();
             }
         }
-        
+
     }
 
     @objid ("a4ca60dd-af83-4770-a6e0-51cb812ea041")
@@ -117,9 +117,9 @@ public class EAssociationClass extends ENamedElement {
         String name = ((org.eclipse.uml2.uml.AssociationClass)getEcoreElement()).getName();
         if (EcoreModelNavigation.isNotNull(name))
             this.objingClass.setName(name);
-        else 
+        else
             this.objingClass.setName("");
-        
+
     }
 
     @objid ("2838e343-7e02-451f-a071-8443368b14d3")
@@ -159,26 +159,26 @@ public class EAssociationClass extends ENamedElement {
             this.objingAssociation.setName(name);
         else
             this.objingAssociation.setName("");
-        
+
     }
 
     @objid ("c77d95a2-dfa8-45f6-b599-2c71e77960ff")
     private void deleteElements() {
         if (this.objingClass != null)
             this.objingClass.delete();
-        
+
         if (this.objingAssociation != null)
             this.objingAssociation.delete();
-        
+
         if (this.objingClassAssociation != null)
             this.objingClassAssociation.delete();
-        
+
         this.isDeleted = true;
-        
+
     }
 
     @objid ("b13a9082-7acf-4a98-86e6-b66541c4bd84")
-    public  EAssociationClass(org.eclipse.uml2.uml.AssociationClass element) {
+    public EAssociationClass(org.eclipse.uml2.uml.AssociationClass element) {
         super(element);
     }
 
@@ -188,7 +188,7 @@ public class EAssociationClass extends ENamedElement {
         initialize((Class) objingElt);
         attachClass();
         attachAssociation();
-        
+
     }
 
     @objid ("ffdcf409-5e05-4eeb-aa8f-3830c2e0f567")
@@ -198,7 +198,7 @@ public class EAssociationClass extends ENamedElement {
         setClassProperties();
         if (this.objingAssociation != null)
             setAssociationProperties();
-        
+
     }
 
     @objid ("c0829aa6-298b-4b3d-87fb-e4a5343a21dc")
@@ -211,7 +211,7 @@ public class EAssociationClass extends ENamedElement {
             Xmi.LOG.error(e);
             deleteElements();
         }
-        
+
     }
 
     @objid ("9d290d53-5888-4f3c-ab7a-6ea6bb88e3b2")
@@ -220,10 +220,10 @@ public class EAssociationClass extends ENamedElement {
             ReverseProperties revProp = ReverseProperties.getInstance();
             int nbEnds = 0;
             for (Object memberEnd : ((org.eclipse.uml2.uml.AssociationClass)getEcoreElement()).getMemberEnds()) {
-        
+
                 Object ends = revProp.getMappedElement((org.eclipse.uml2.uml.Element) memberEnd);
                 if (ends instanceof List<?>) {
-         
+
                     List<?> alist = (List<?>) ends;
                     AssociationEnd objingAssocEnd = null;
                     for (Object end : alist ){
@@ -232,7 +232,7 @@ public class EAssociationClass extends ENamedElement {
                             break;
                         }
                     }
-        
+
                     if (objingAssocEnd != null) {
                         // Links the AssociationEnd to the org.eclipse.uml2.uml.Association:
                         objingAssocEnd.setAssociation(this.objingAssociation);
@@ -240,14 +240,14 @@ public class EAssociationClass extends ENamedElement {
                     }
                 }
             }
-        
+
             if (nbEnds != 2) {
                 this.objingAssociation.delete();
                 this.objingAssociation = null;
             }
-        
+
         }
-        
+
     }
 
 }

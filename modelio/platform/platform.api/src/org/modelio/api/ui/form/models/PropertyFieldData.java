@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.ui.form.models;
 
@@ -45,10 +45,10 @@ public class PropertyFieldData implements IFormFieldData {
     private final PropertyFieldType type;
 
     @objid ("0f57de98-b88d-4f92-b903-617215291072")
-    public  PropertyFieldData(IModelingSession session, ModelElement elt, PropertyDefinition pdef) {
+    public PropertyFieldData(IModelingSession session, ModelElement elt, PropertyDefinition pdef) {
         this.elt = elt;
         this.type = new PropertyFieldType(session, pdef);
-        
+
     }
 
     @objid ("327b271c-f793-4533-9345-2a8f2530c973")
@@ -93,10 +93,10 @@ public class PropertyFieldData implements IFormFieldData {
         private IModelingSession session;
 
         @objid ("dee93dea-0239-4386-8e7e-befbee7e1563")
-        public  PropertyFieldType(IModelingSession session, PropertyDefinition pdef) {
+        public PropertyFieldType(IModelingSession session, PropertyDefinition pdef) {
             this.session = session;
             this.pdef = pdef;
-            
+
         }
 
         @objid ("bf16d227-3672-47b0-b65f-3321fc0da15c")
@@ -107,6 +107,7 @@ public class PropertyFieldData implements IFormFieldData {
 
         /**
          * Get the value of the current {@link PropertyDefinition} on an element.
+         *
          * @param elt the element to look for a value in.
          * @return the value of the property. Might be <code>null</code>.
          */
@@ -123,6 +124,7 @@ public class PropertyFieldData implements IFormFieldData {
          * Set the value of the {@link PropertyDefinition} on an element.
          * <p/>
          * If no {@link TypedPropertyTable} exists for that property, a new one is created.
+         *
          * @param elt the element to set a value in.
          * @param value the value to set in the element's properties.
          */
@@ -144,7 +146,7 @@ public class PropertyFieldData implements IFormFieldData {
                     Api.LOG.error(e);
                 }
             }
-            
+
         }
 
         @objid ("d7e0e292-ee04-41b4-8974-c1af1228de62")
@@ -162,15 +164,15 @@ public class PropertyFieldData implements IFormFieldData {
             if (value == null) {
                 return false;
             }
-            
+
             switch (this.pdef.getType().getBaseType()) {
             case STRING:
             case TEXT:
                 return true;
-            
+
             case ENUMERATE:
                 return ((EnumeratedPropertyType) this.pdef.getType()).getLitteral(value) != null;
-            
+
             case BOOLEAN:
                 return true;
             case INTEGER:
@@ -193,7 +195,7 @@ public class PropertyFieldData implements IFormFieldData {
                 } catch (@SuppressWarnings ("unused") NumberFormatException | NullPointerException e) {
                     return false;
                 }
-            
+
             case DATE:
                 try {
                     PropertyFieldType.dateFormat.parse(value);
@@ -208,7 +210,7 @@ public class PropertyFieldData implements IFormFieldData {
                 } catch (@SuppressWarnings ("unused") final ParseException e) {
                     return false;
                 }
-            
+
             case ELEMENT:
                 return true;
             case RICHTEXT:
@@ -216,11 +218,12 @@ public class PropertyFieldData implements IFormFieldData {
             default:
                 return false;
             }
-            
+
         }
 
         /**
          * Get the {@link TypedPropertyTable} typed by {@link #pdef}'s owner {@link PropertyTableDefinition}.
+         *
          * @param elt the element to look for a {@link TypedPropertyTable} in.
          * @return a {@link TypedPropertyTable} or <code>null</code>.
          */
@@ -253,8 +256,8 @@ public class PropertyFieldData implements IFormFieldData {
         /**
          * Answer to the question: is 'stereotype' a child of the stereotype named by 'stereotypeName' Companion method of the
          * public isStereoyped() method
-         * @param stereotypeName
-         * the name of another stereotype.
+         *
+         * @param stereotypeName the name of another stereotype.
          * @param stereotype a stereotype
          * @return <code>true</code> if 'stereotype' a child of the stereotype named by 'stereotypeName' else <code>false</code>.
          */
@@ -263,7 +266,7 @@ public class PropertyFieldData implements IFormFieldData {
             if (stereotype.equals(baseStereotype)) {
                 return true;
             }
-            
+
             if (stereotype.getParent() != null) {
                 if (PropertyFieldType.inheritsFrom(stereotype.getParent(), baseStereotype)) {
                     return true;

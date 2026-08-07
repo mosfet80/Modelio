@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.popup.handlers;
 
@@ -27,7 +27,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 /**
  * This specific handler creates an element of the requested metaclass and attaches it to its composition owner using
  * the requested dependency. If provided, the stereotype is applied to the created element.
- * 
+ *
  * @author fpoyer
  * @see com.modeliosoft.modelio.diagram.editor.createpopup.contribs.CreationContributionItem
  */
@@ -38,11 +38,11 @@ public class CreateElementHandler extends AbstractDiagramCreateHandler {
     public boolean isToFilter(final Map<String, String> context) {
         if (!super.isToFilter(context))
             return false;
-        
+
         // Forbid class-association creation on an association
         // that already has one class-association.
         String metaclassFromContext = context.get("metaclass");
-        
+
         if ("ClassAssociation".equals(metaclassFromContext)) {
             String dependencyFromContext = context.get("dependency");
             if ("LinkToClass".equals(dependencyFromContext)) {

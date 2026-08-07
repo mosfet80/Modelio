@@ -1,25 +1,26 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.freezone;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.Connection;
@@ -41,7 +42,7 @@ import org.modelio.diagram.elements.core.helpers.ToolSelectionUtils;
 
 /**
  * Edit policy that catches {@link PostLayoutCommand#REQ_TYPE} requests to translate children if the request tells this edit part was resized toward left and/or top.
- * 
+ *
  * @author cmarin
  * @since 3.4
  */
@@ -69,7 +70,6 @@ public class TranslateChildrenOnResizeEditPolicy extends GraphicalEditPolicy {
         } else {
             return new TranslateChildrenOnResizeCommand((GraphicalEditPart) getHost());
         }
-        
     }
 
     @objid ("f0edc3a0-5d78-4dbf-8f3f-74f30c70abbb")
@@ -81,11 +81,10 @@ public class TranslateChildrenOnResizeEditPolicy extends GraphicalEditPolicy {
         private GraphicalEditPart editPart;
 
         @objid ("a1da07dd-d906-4e6a-a29a-ef383ad61891")
-        public  TranslateChildrenOnResizeCommand(GraphicalEditPart host) {
+        public TranslateChildrenOnResizeCommand(GraphicalEditPart host) {
             IFigure hostFigure = host.getFigure();
             this.editPart = host;
             this.oldBounds = hostFigure.getBounds().getCopy();
-            
         }
 
         @objid ("34f80763-f162-43ae-b83d-50f7c7406e60")
@@ -94,28 +93,28 @@ public class TranslateChildrenOnResizeEditPolicy extends GraphicalEditPolicy {
             IFigure hostFigure = this.editPart.getFigure();
             hostFigure.getUpdateManager().performValidation();
             Rectangle newBounds = hostFigure.getBounds();
-            
+
             if (this.oldBounds.equals(newBounds)) {
                 return;
             }
-            
+
             PrecisionRectangle absOldBounds = new PrecisionRectangle(this.oldBounds);
             PrecisionRectangle absNewBounds = new PrecisionRectangle(newBounds);
-            
+
             hostFigure.translateToAbsolute(absNewBounds);
             hostFigure.translateToAbsolute(absOldBounds);
-            
+
             Dimension absMinSize = hostFigure.getMinimumSize().getCopy();
             hostFigure.translateToAbsolute(absMinSize);
-            
+
             int dx = absNewBounds.x - absOldBounds.x;
             int dy = absNewBounds.y - absOldBounds.y;
             int dw = absNewBounds.width - absOldBounds.width;
             int dh = absNewBounds.height - absOldBounds.height;
-            
+
             int tx = 0;
             int ty = 0;
-            
+
             if (dx < 0 && dw > 0) {
                 // expanded left border toward left
                 tx = Math.min(-dx, dw);
@@ -124,7 +123,7 @@ public class TranslateChildrenOnResizeEditPolicy extends GraphicalEditPolicy {
                 int curW = absNewBounds.width();
                 tx = -Math.min(dx, curW - absMinSize.width());
             }
-            
+
             if (dy < 0 && dh > 0) {
                 // expanded top border toward top
                 ty = Math.min(-dy, dh);
@@ -133,37 +132,37 @@ public class TranslateChildrenOnResizeEditPolicy extends GraphicalEditPolicy {
                 int curW = absNewBounds.height();
                 ty = -Math.min(dy, curW - absMinSize.height());
             }
-            
+
             // 18/08/2022 : add fast exit if nothing to do
             if (tx==0 && ty == 0 && true)
                 return;
-            
+
             ChangeBoundsRequest r = new ChangeBoundsRequest(REQ_MOVE_CHILDREN);
-            List<GraphicalEditPart> containerChildren = this.editPart.getChildren();
+            List<? extends GraphicalEditPart> containerChildren = this.editPart.getChildren();
             r.setEditParts(new ArrayList<>(containerChildren));
             r.getMoveDelta().setLocation(tx, ty);
             r.getExtendedData().put("noautoexpand", Boolean.TRUE); // to avoid some infinite loops from auto expand edit policies
-            
+
             Command cmd = this.editPart.getCommand(r);
-            
+
             if (cmd == null)
                 return;
-            
+
             CompoundCommand cmds = new CompoundCommand();
             cmds.add(cmd);
-            
+
             // Move all inner connections the difference of container move and children move.
             addMoveConnectionsCommands(cmds, dx, dy, tx, ty);
-            
+
             cmd = cmds.unwrap();
             if (cmd != null && cmd.canExecute()) {
                 cmd.execute();
             }
-            
         }
 
         /**
          * Compute commands that Move all inner connections the difference of container move and children move.
+         *
          * @param cmds the compound command to fill
          * @param containerDx container delta x
          * @param containerDy container delta y
@@ -174,25 +173,25 @@ public class TranslateChildrenOnResizeEditPolicy extends GraphicalEditPolicy {
         protected void addMoveConnectionsCommands(CompoundCommand cmds, int containerDx, int containerDy, int childrenDx, int childrenDy) {
             int connDx = containerDx+childrenDx;
             int connDy = containerDy+childrenDy;
-            
+
             if (connDx==0 && connDy == 0)
                 return;
-            
-            List<GraphicalEditPart> containerChildren = this.editPart.getChildren();
-            
+
+            List<? extends GraphicalEditPart> containerChildren = this.editPart.getChildren();
+
             // Move all inner connections the difference of container move and children move.
             ChangeBoundsRequest r = new ChangeBoundsRequest(REQ_MOVE);
             r.setEditParts(new ArrayList<>(containerChildren));
             r.getMoveDelta().setLocation(connDx, connDy);
-            
-            ToolSelectionUtils.addAllLinksFor(r.getEditParts(), r, true);
+
+            ToolSelectionUtils.addAllLinksFor((Collection<GraphicalEditPart>) r.getEditParts(), r, true);
             //Some bendpoint policies check source and target are part of the request.
             //r.getEditParts().removeAll(containerChildren);
             for (Object objEp : r.getEditParts()) {
                 GraphicalEditPart linkEp = (GraphicalEditPart) objEp;
                 if ( containerChildren.contains(linkEp))
                     continue;
-            
+
                 // Auto orthogonal policies mess the link layout, filter them out
                 if (true) {
                     if (! (linkEp.getFigure() instanceof Connection))
@@ -201,12 +200,11 @@ public class TranslateChildrenOnResizeEditPolicy extends GraphicalEditPolicy {
                     if ( connectionRouter instanceof AutoOrthogonalRouter || connectionRouter instanceof OrthogonalRectifierRouter)
                         continue;
                 }
-            
+
                 Command cmd = linkEp.getCommand(r);
                 if (cmd != null)
                     cmds.add(cmd);
             }
-            
         }
 
         @objid ("07aed917-97bb-4734-9e21-1bffdb8c6350")

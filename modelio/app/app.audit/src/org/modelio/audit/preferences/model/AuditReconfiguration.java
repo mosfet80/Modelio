@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.preferences.model;
 
@@ -50,6 +50,7 @@ public class AuditReconfiguration {
      * <li>if 'enabled' is <code>null</code>, no change is applied to the rule current enable state</li>
      * <li>the enable state is set to MAX(current state, 'enabled') where enabled is > disabled</li>
      * </ul>
+     *
      * @param ruleId - the rule identifier, mandatory, not null
      * @param enabled - the enabled/disabled state to set. If null the parameter is ignored (state not modified)
      * @param severity - the severity to set - if null the parameter is ignored (severity not modified)
@@ -61,17 +62,18 @@ public class AuditReconfiguration {
             if (o == null || severity.compareTo(o) > 0)
                 this.severities.put(ruleId, severity);
         }
-        
+
         if (enabled != null) {
             Boolean o = this.states.get(ruleId);
             if (o == null || enabled)
                 this.states.put(ruleId, enabled);
         }
-        
+
     }
 
     /**
      * Add a new rule.
+     *
      * @param rule the rule to add. The new rule id must not already exist.
      */
     @objid ("c5a4aad1-c813-47df-8431-699a76f08585")

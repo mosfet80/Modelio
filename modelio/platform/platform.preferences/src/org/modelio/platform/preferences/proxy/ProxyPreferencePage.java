@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.preferences.proxy;
 
@@ -57,11 +57,11 @@ public class ProxyPreferencePage extends PreferencePage implements IWorkbenchPre
         layout.marginWidth = 0;
         layout.marginHeight = 0;
         composite.setLayout(layout);
-        
+
         createProviderComposite(composite);
         createProxyEntriesComposite(composite);
         createNonProxiedHostsComposite(composite);
-        
+
         applyDialogFont(composite);
         initializeValues();
         return composite;
@@ -72,7 +72,7 @@ public class ProxyPreferencePage extends PreferencePage implements IWorkbenchPre
         Composite composite = new Composite(parent, SWT.NONE);
         composite.setLayout(new GridLayout(2, false));
         composite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        
+
         this.providerLabel = new Label(composite, SWT.NONE);
         this.providerLabel.setText(NetUIMessages.ProxyPreferencePage_0);
         this.providerCombo = new Combo(composite, SWT.READ_ONLY | SWT.DROP_DOWN);
@@ -82,7 +82,7 @@ public class ProxyPreferencePage extends PreferencePage implements IWorkbenchPre
                 setProvider(ProxySelector.unlocalizeProvider(ProxyPreferencePage.this.providerCombo.getText()));
             }
         });
-        
+
     }
 
     @objid ("5709218f-98af-4c81-962f-45fddfad5274")
@@ -90,7 +90,7 @@ public class ProxyPreferencePage extends PreferencePage implements IWorkbenchPre
         this.proxyEntriesComposite = new ProxyEntriesComposite(parent, SWT.NONE);
         this.proxyEntriesComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL,
                 true, true));
-        
+
     }
 
     @objid ("f27b6e4e-2235-4d9d-ba8b-991c06e7ab25")
@@ -98,7 +98,7 @@ public class ProxyPreferencePage extends PreferencePage implements IWorkbenchPre
         this.nonProxyHostsComposite = new NonProxyHostsComposite(parent, SWT.NONE);
         this.nonProxyHostsComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL,
                 true, true));
-        
+
     }
 
     @objid ("f3865ce2-5669-4fea-bf2a-03a17321c7f1")
@@ -118,7 +118,7 @@ public class ProxyPreferencePage extends PreferencePage implements IWorkbenchPre
             ProxySelector.setActiveProvider(ProxySelector
                     .unlocalizeProvider(this.providerCombo.getItem(sel)));
         }
-        
+
     }
 
     @objid ("09f65310-5fd6-4555-8079-d1b33652c996")
@@ -130,7 +130,7 @@ public class ProxyPreferencePage extends PreferencePage implements IWorkbenchPre
         }
         this.providerCombo.select(index);
         setProvider(ProxySelector.unlocalizeProvider(this.providerCombo.getItem(index)));
-        
+
     }
 
     @objid ("11a6fe2d-dce4-410b-8001-c225dfd98139")
@@ -150,7 +150,7 @@ public class ProxyPreferencePage extends PreferencePage implements IWorkbenchPre
         this.providerCombo.setItems(localizedProviders);
         this.providerCombo.select(this.providerCombo.indexOf(ProxySelector
                 .localizeProvider(ProxySelector.getDefaultProvider())));
-        
+
     }
 
     @objid ("ac4a419f-75de-449e-937d-2b0651c1270d")
@@ -158,14 +158,14 @@ public class ProxyPreferencePage extends PreferencePage implements IWorkbenchPre
         this.proxyEntriesComposite.setProvider(name);
         this.nonProxyHostsComposite.setProvider(name);
         refresh();
-        
+
     }
 
     @objid ("bde6ad9a-c778-443c-8b76-133387101c2c")
     private void refresh() {
         this.proxyEntriesComposite.refresh();
         this.nonProxyHostsComposite.refresh();
-        
+
     }
 
 }

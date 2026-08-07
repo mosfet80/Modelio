@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -53,31 +53,31 @@ public class EDependency extends ENamedElement {
     @Override
     public List<Element> createObjingElt() {
         Boolean roundtrip = ReverseProperties.getInstance().isRoundtripEnabled();
-        
-        if (roundtrip && ObjingEAnnotation.isProvidedInterface(this.ecoreElement)){ 
+
+        if (roundtrip && ObjingEAnnotation.isProvidedInterface(this.ecoreElement)){
             return createProvidedInterface();
         }else if (roundtrip && ObjingEAnnotation.isRequiredInterface(this.ecoreElement)){
-            return createRequiredInterface();    
+            return createRequiredInterface();
         }
         return createDependency();
     }
 
     @objid ("3733e05b-5b41-4ebd-8d38-193ab250cdff")
-    public  EDependency(org.eclipse.uml2.uml.Dependency element) {
+    public EDependency(org.eclipse.uml2.uml.Dependency element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("c1cf2f1a-0d0e-4baa-a5fb-83b022565c80")
     @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
-        
+
         if (ObjingEAnnotation.isDeleted(this.ecoreElement)){
             objingElt.delete();
         }
-        
+
     }
 
     @objid ("794e01cb-6a2c-42c5-93c0-dd54613499ab")
@@ -91,30 +91,30 @@ public class EDependency extends ENamedElement {
         List<Element> objingElts =  new ArrayList<>();
         EList<?> clientList = this.ecoreElement.getClients();
         EList<?> supplierList = this.ecoreElement.getSuppliers();
-        
+
         for (Object eClient : clientList) {
             if (eClient instanceof org.eclipse.uml2.uml.NamedElement) {
-                
+
                 org.eclipse.uml2.uml.NamedElement ecoreClient = (org.eclipse.uml2.uml.NamedElement) eClient;
-        
+
                 UmlModelElement objingClient = getObjingEltFromMap(ecoreClient);
-        
+
                 if (objingClient != null) {
                     for (Object eSupplier : supplierList) {
                         if (eSupplier instanceof org.eclipse.uml2.uml.NamedElement) {
-                            
-                            org.eclipse.uml2.uml.NamedElement ecoreSupplier = (org.eclipse.uml2.uml.NamedElement) eSupplier;       
+
+                            org.eclipse.uml2.uml.NamedElement ecoreSupplier = (org.eclipse.uml2.uml.NamedElement) eSupplier;
                             UmlModelElement objingSupplier = getObjingEltFromMap(ecoreSupplier);
-        
+
                             if (objingSupplier != null) {
                                 // Warning : unlike in UML2, in Modelio,
                                 // org.eclipse.uml2.uml.Manifestation does no inherit from org.eclipse.uml2.uml.Dependency
                                 Element objingTypeOfDependency = createTypeOfDependency(
                                         objingClient, objingSupplier);
-        
+
                                 if (objingTypeOfDependency != null
                                         && !objingElts.contains(objingTypeOfDependency))
-        
+
                                     objingElts.add(objingTypeOfDependency);
                             }
                         }
@@ -130,30 +130,30 @@ public class EDependency extends ENamedElement {
         List<Element> objingElts =  new ArrayList<>();
         EList<?> clientList = this.ecoreElement.getClients();
         EList<?> supplierList = this.ecoreElement.getSuppliers();
-        
+
         for (Object eClient : clientList) {
             if (eClient instanceof org.eclipse.uml2.uml.NamedElement) {
                 org.eclipse.uml2.uml.NamedElement ecoreClient = (org.eclipse.uml2.uml.NamedElement) eClient;
-        
+
                 UmlModelElement objingClient = getObjingEltFromMap(ecoreClient);
-        
+
                 if (objingClient != null) {
-        
+
                     List<UmlModelElement> objingSuppliers = new ArrayList<>();
                     for (Object eSupplier : supplierList) {
-        
+
                         if (eSupplier instanceof org.eclipse.uml2.uml.NamedElement) {
                             org.eclipse.uml2.uml.NamedElement ecoreSupplier = (org.eclipse.uml2.uml.NamedElement) eSupplier;
-        
+
                             UmlModelElement objingSupplier = getObjingEltFromMap(ecoreSupplier);
-        
+
                             if (objingSupplier != null) {
                                 objingSuppliers.add(objingSupplier);
                             }
                         }
                     }
-        
-                    ProvidedInterface provided = createProvidedInterface(objingClient, objingSuppliers);    
+
+                    ProvidedInterface provided = createProvidedInterface(objingClient, objingSuppliers);
                     objingElts.add(provided);
                 }
             }
@@ -166,31 +166,31 @@ public class EDependency extends ENamedElement {
         List<Element> objingElts =  new ArrayList<>();
         EList<?> clientList = this.ecoreElement.getClients();
         EList<?> supplierList = this.ecoreElement.getSuppliers();
-        
+
         for (Object eSupplier : supplierList) {
             if (eSupplier instanceof org.eclipse.uml2.uml.NamedElement) {
                 org.eclipse.uml2.uml.NamedElement ecoreSupplier = (org.eclipse.uml2.uml.NamedElement) eSupplier;
-        
+
                 UmlModelElement objingSupplier = getObjingEltFromMap(ecoreSupplier);
-        
+
                 if (objingSupplier != null) {
-        
+
                     List<UmlModelElement> objingClients = new ArrayList<>();
                     for (Object eClient : clientList) {
-        
+
                         if (eClient instanceof org.eclipse.uml2.uml.NamedElement) {
                             org.eclipse.uml2.uml.NamedElement ecoreClient = (org.eclipse.uml2.uml.NamedElement) eClient;
-        
+
                             UmlModelElement objingClient = getObjingEltFromMap(ecoreClient);
-        
+
                             if (objingClient != null) {
                                 objingClients.add(objingClient);
                             }
                         }
                     }
-        
+
                     RequiredInterface required = createRequiredInterface(objingClients, objingSupplier);
-        
+
                     objingElts.add(required);
                 }
             }
@@ -204,12 +204,12 @@ public class EDependency extends ENamedElement {
          if (this.ecoreElement instanceof org.eclipse.uml2.uml.Manifestation) {
             objingTypeOfDependency = createManifestation(objingClient,
                     objingSupplier);
-        }else if ((this.ecoreElement.getOwner() instanceof  org.eclipse.uml2.uml.CollaborationUse) 
+        }else if ((this.ecoreElement.getOwner() instanceof  org.eclipse.uml2.uml.CollaborationUse)
                 && (( (org.eclipse.uml2.uml.CollaborationUse)this.ecoreElement.getOwner()).getRoleBindings().contains(this.ecoreElement) )){
-        
+
             objingTypeOfDependency = createBinding(objingSupplier,  (org.eclipse.uml2.uml.CollaborationUse) this.ecoreElement.getOwner());
         }else{
-        
+
             objingTypeOfDependency = createDependency(objingClient,
                     objingSupplier);
         }
@@ -219,18 +219,18 @@ public class EDependency extends ENamedElement {
     @objid ("bb64fd8a-0608-48b2-90b8-8944e681c880")
     private Binding createBinding(UmlModelElement objingSupplier, org.eclipse.uml2.uml.CollaborationUse ecoreOwner) {
         Binding objElement = ReverseProperties.getInstance().getMModelServices().getModelFactory().getFactory(IStandardModelFactory.class).createBinding();
-        
+
         CollaborationUse objOwner = (CollaborationUse) ReverseProperties.getInstance().getMappedElement(ecoreOwner);
-        
+
         objElement.setOwner(objOwner);
-        
+
         for (Object client : this.ecoreElement.getClients()){
             Object objClient = ReverseProperties.getInstance().getMappedElement((org.eclipse.uml2.uml.Element)client);
-        
+
             if ((objClient instanceof List<?>) && ((List<?>) objClient).size() > 0){
                 objClient = ((List<?>)objClient).get(0);
             }
-        
+
             if (objClient instanceof ConnectorEnd){
                 objElement.setConnectorEndRole((ConnectorEnd) objClient);
             }else if (objClient instanceof NaryConnector){
@@ -239,14 +239,14 @@ public class EDependency extends ENamedElement {
                 objElement.setRole((BindableInstance) objClient);
             }
         }
-        
+
         for(Object supplier : this.ecoreElement.getSuppliers()){
             Object objSupplier =  ReverseProperties.getInstance().getMappedElement((org.eclipse.uml2.uml.Element)supplier);
-        
+
             if ((objSupplier instanceof List<?>) && ((List<?>) objSupplier).size() >0){
                 objSupplier = ((List<?>)objSupplier).get(0);
             }
-        
+
             if (objSupplier instanceof UmlModelElement) {
                 objElement.setRepresentedFeature(objingSupplier);
             }
@@ -258,13 +258,13 @@ public class EDependency extends ENamedElement {
     private Manifestation createManifestation(UmlModelElement objingClient, UmlModelElement objingSupplier) {
         if (objingClient instanceof Artifact) {
             Manifestation manif = ReverseProperties.getInstance().getMModelServices().getModelFactory().getFactory(IStandardModelFactory.class).createManifestation();
-        
+
             String name = this.ecoreElement.getName();
             if (EcoreModelNavigation.isNotNull(name))
                 manif.setName(name);
-            else 
+            else
                 manif.setName("");
-        
+
             manif.setOwner((Artifact) objingClient);
             manif.setUtilizedElement(objingSupplier);
             return manif;
@@ -275,7 +275,7 @@ public class EDependency extends ENamedElement {
     @objid ("08a7905e-af58-4551-a71b-0a6a565d0b55")
     private RequiredInterface createRequiredInterface(List<UmlModelElement> objingClients, UmlModelElement objingSupplier) {
         RequiredInterface required = ReverseProperties.getInstance().getMModelServices().getModelFactory().getFactory(IStandardModelFactory.class).createRequiredInterface();
-        
+
         required.setRequiring((Port)objingSupplier);
         for (UmlModelElement objingClient :  objingClients)
             required.getRequiredElement().add((Interface)objingClient);
@@ -285,7 +285,7 @@ public class EDependency extends ENamedElement {
     @objid ("b4020e92-99ad-471f-a5a6-8a23193ccae1")
     private ProvidedInterface createProvidedInterface(UmlModelElement objingClient, List<UmlModelElement> objingSuppliers) {
         ProvidedInterface provided = ReverseProperties.getInstance().getMModelServices().getModelFactory().getFactory(IStandardModelFactory.class).createProvidedInterface();
-        
+
         provided.setProviding((Port)objingClient);
         for (UmlModelElement objingSupplier :  objingSuppliers)
             provided.getProvidedElement().add((Interface) objingSupplier);
@@ -295,8 +295,8 @@ public class EDependency extends ENamedElement {
     @objid ("08988dc5-207d-4eb3-9075-131de65d5f4c")
     private Dependency createDependency(UmlModelElement objingClient, UmlModelElement objingSupplier) {
         Dependency objingDependency = null;
-        
-        
+
+
         IStandardModelFactory factory = ReverseProperties.getInstance().getMModelServices().getModelFactory().getFactory(IStandardModelFactory.class);
         if (this.ecoreElement instanceof org.eclipse.uml2.uml.Realization) {
             objingDependency = factory.createElementRealization();
@@ -307,12 +307,12 @@ public class EDependency extends ENamedElement {
         } else {
             objingDependency = factory.createDependency();
         }
-        
+
         if (objingDependency != null){
             String name = this.ecoreElement.getName();
             if (EcoreModelNavigation.isNotNull(name))
                 objingDependency.setName(name);
-            else 
+            else
                 objingDependency.setName("");
             objingDependency.setImpacted(objingClient);
             objingDependency.setDependsOn(objingSupplier);
@@ -323,17 +323,17 @@ public class EDependency extends ENamedElement {
     @objid ("cdc13f9a-8dc7-48ec-9fa4-fb1ef4f80c42")
     private UmlModelElement getObjingEltFromMap(final org.eclipse.uml2.uml.NamedElement ecoreClient) {
         ReverseProperties revProp = ReverseProperties.getInstance();
-        
+
         UmlModelElement objingClient = null;
-        
+
         Object objClient = revProp.getMappedElement(ecoreClient);
-        
+
         // Case of the client is itself a dependency => list of objing elts
         if (objClient instanceof List
                 && ((List<?>) objClient).size() > 0) {
             objClient = ((List<?>) objClient).get(0);
         }
-        
+
         // not else -> objClient may have changed
         if (objClient instanceof UmlModelElement) {
             objingClient = (UmlModelElement) objClient;
@@ -344,15 +344,15 @@ public class EDependency extends ENamedElement {
     @objid ("986f7593-6d83-450b-82d4-05e0167f20af")
     private Substitution createSubstitution(UmlModelElement objingClient, UmlModelElement objingSupplier) {
         if ((objingClient instanceof Classifier) && (objingSupplier instanceof Classifier)) {
-        
+
             Substitution manif = ReverseProperties.getInstance().getMModelServices().getModelFactory().getFactory(IStandardModelFactory.class).createSubstitution();
-        
+
             String name = this.ecoreElement.getName();
             if (EcoreModelNavigation.isNotNull(name))
                 manif.setName(name);
-            else 
+            else
                 manif.setName("");
-        
+
             manif.setSubstitutingClassifier((Classifier) objingClient);
             manif.setContract((Classifier) objingSupplier);
             return manif;

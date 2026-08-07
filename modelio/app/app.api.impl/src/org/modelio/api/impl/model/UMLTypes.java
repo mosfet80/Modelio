@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.api.impl.model;
 
@@ -27,16 +27,16 @@ import org.modelio.vcore.session.api.model.IModel;
 
 /**
  * This class give access to UML types managed by Modelio.
- * 
+ *
  * <p>
  * The accessible types are boolean, char, integer, real, string, undefined.
  * </p>
- * 
+ *
  * <p>
  * undefined type is used to set a type to property when the real type of the property is not known. (A property should not be left
  * without type)
  * </p>
- * 
+ *
  * <p>
  * Exemple:
  * </p>
@@ -51,7 +51,7 @@ public class UMLTypes implements IUMLTypes {
     private IModel model;
 
     @objid ("5db2e093-c984-4026-b33a-2bf1597065b0")
-     UMLTypes(final IModel model) {
+    UMLTypes(final IModel model) {
         this.model = model;
     }
 

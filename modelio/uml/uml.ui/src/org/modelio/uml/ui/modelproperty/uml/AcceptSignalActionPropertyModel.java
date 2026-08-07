@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -57,15 +57,17 @@ public class AcceptSignalActionPropertyModel extends AbstractPropertyModel<Accep
     /**
      * Create a new <i>AcceptSignalAction</i> data model from an
      * <i>AcceptSignalAction</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("88437356-0d9a-43e0-b615-1fe6697ee9ab")
-    public  AcceptSignalActionPropertyModel(AcceptSignalAction theEditedElement) {
+    public AcceptSignalActionPropertyModel(AcceptSignalAction theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("296b076c-5a7c-4d07-be2e-87a62d8fbe3a")
@@ -76,6 +78,7 @@ public class AcceptSignalActionPropertyModel extends AbstractPropertyModel<Accep
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("9e466e1d-fffb-4442-9d45-5008f9e85cd0")
@@ -88,6 +91,7 @@ public class AcceptSignalActionPropertyModel extends AbstractPropertyModel<Accep
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -111,7 +115,7 @@ public class AcceptSignalActionPropertyModel extends AbstractPropertyModel<Accep
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -121,6 +125,7 @@ public class AcceptSignalActionPropertyModel extends AbstractPropertyModel<Accep
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -147,13 +152,14 @@ public class AcceptSignalActionPropertyModel extends AbstractPropertyModel<Accep
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -176,12 +182,12 @@ public class AcceptSignalActionPropertyModel extends AbstractPropertyModel<Accep
                 for (Signal s : new ArrayList<>(this.theEditedElement.getAccepted())) {
                     this.theEditedElement.getAccepted().remove(s);
                 }
-        
+
                 List<Signal> newcontent = (List<Signal>) value;
                 for (Signal s : newcontent) {
                     this.theEditedElement.getAccepted().add(s);
                 }
-        
+
                 break;
             default:
                 return;
@@ -190,7 +196,7 @@ public class AcceptSignalActionPropertyModel extends AbstractPropertyModel<Accep
         default:
             return;
         }
-        
+
     }
 
 }

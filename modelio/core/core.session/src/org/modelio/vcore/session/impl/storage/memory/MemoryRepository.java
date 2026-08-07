@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.impl.storage.memory;
 
@@ -28,12 +28,14 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Stream;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vcore.model.MObjectCache;
 import org.modelio.vcore.session.api.blob.IBlobInfo;
 import org.modelio.vcore.session.api.repository.IRepository;
+import org.modelio.vcore.session.api.repository.IRepositoryQueryRunner;
 import org.modelio.vcore.session.api.repository.StorageErrorSupport;
 import org.modelio.vcore.session.impl.storage.IModelLoaderProvider;
 import org.modelio.vcore.smkernel.IRepositoryObject;
@@ -60,22 +62,22 @@ public class MemoryRepository implements IRepository, IRepositoryObject {
     private MObjectCache cache;
 
     @objid ("0d225411-d66d-11e1-adbb-001ec947ccaf")
-    private StorageErrorSupport errorSupport = new StorageErrorSupport(this);
+    private final StorageErrorSupport errorSupport = new StorageErrorSupport(this);
 
     @objid ("f5345c85-08b1-11e2-b33c-001ec947ccaf")
     private IModelLoaderProvider modelLoaderProvider;
 
     @objid ("c0c04c0e-2d9b-11e2-8aaa-001ec947ccaf")
-    private MemoryEmfResource emfResource;
+    private final MemoryEmfResource emfResource;
 
     @objid ("43ebaaf5-d778-4990-a01c-7171007fee70")
-    private Map<String, BlobEntry> blobs = new HashMap<>();
+    private final Map<String, BlobEntry> blobs = new HashMap<>();
 
     /**
      * Create a new memory repository.
      */
     @objid ("c0c04c0f-2d9b-11e2-8aaa-001ec947ccaf")
-    public  MemoryRepository() {
+    public MemoryRepository() {
         this.emfResource = new MemoryEmfResource(this);
     }
 
@@ -84,12 +86,11 @@ public class MemoryRepository implements IRepository, IRepositoryObject {
     public void addObject(final SmObjectImpl newObject) {
         this.cache.putToCache(newObject);
         newObject.setRepositoryObject(this);
-        
     }
 
     @objid ("bd813876-92d7-11e1-81e9-001ec947ccaf")
     @Override
-    public void attModified(final SmObjectImpl obj, final SmAttribute att) {
+    public void attModified(SmObjectImpl obj, SmAttribute att, Object oldVal) {
         // nothing to do
     }
 
@@ -98,7 +99,6 @@ public class MemoryRepository implements IRepository, IRepositoryObject {
     public void attach(final SmObjectImpl obj) {
         this.cache.putToCache(obj);
         obj.setRepositoryObject(this);
-        
     }
 
     @objid ("bd85fd39-92d7-11e1-81e9-001ec947ccaf")
@@ -133,10 +133,14 @@ public class MemoryRepository implements IRepository, IRepositoryObject {
 
     @objid ("bd839b17-92d7-11e1-81e9-001ec947ccaf")
     @Override
-    public Collection<MObject> findByAtt(final SmClass cls, boolean withSubClasses, final String att, final Object val) {
-        Collection<MObject> results = new ArrayList<>();
-        this.cache.findByAtt(cls, withSubClasses, att, val, results);
-        return results;
+    public Stream<? extends MObject> streamByAtt(SmClass cls, boolean withSubClasses, String att, Object val) {
+        return this.cache.streamByAtt(cls, withSubClasses, att, val);
+    }
+
+    @objid ("d2f14736-8685-4867-817c-b4b9e25de2c6")
+    @Override
+    public Stream<? extends MObject> streamByName(SmClass cls, boolean withSubClasses, String name) {
+        return this.cache.streamByAtt(cls, withSubClasses, "Name", name);
     }
 
     @objid ("bd839b20-92d7-11e1-81e9-001ec947ccaf")
@@ -151,6 +155,25 @@ public class MemoryRepository implements IRepository, IRepositoryObject {
     @Override
     public SmObjectImpl findById(final SmClass cls, final String siteIdentifier) {
         return this.cache.findById(cls, siteIdentifier);
+    }
+
+    @objid ("b9d4ab15-93b3-4d72-b22a-759c5eaddbec")
+    @Override
+    public IRepositoryQueryRunner query() {
+        return new IRepositoryQueryRunner() {
+
+
+            @Override
+            public void loadAllReferencesTo(Collection<SmObjectImpl> objs) {
+                // Nothing to do, everything already on memory
+            }
+
+            @Override
+            public void close() {
+                // Nothing to do, everything already on memory
+            }
+
+        };
     }
 
     @objid ("f5392131-08b1-11e2-b33c-001ec947ccaf")
@@ -178,6 +201,7 @@ public class MemoryRepository implements IRepository, IRepositoryObject {
     }
 
     /**
+     *
      * @return the model loader provider.
      */
     @objid ("22a411f2-2d7d-11e2-8aaa-001ec947ccaf")
@@ -246,6 +270,12 @@ public class MemoryRepository implements IRepository, IRepositoryObject {
         // nothing to do
     }
 
+    @objid ("54d8e635-ef31-4180-8b73-7db2a81f0e4f")
+    @Override
+    public void loadStatus(SmObjectImpl obj) {
+        // nothing to do
+    }
+
     @objid ("bd85fd32-92d7-11e1-81e9-001ec947ccaf")
     @Override
     public ISmObjectData loadObjectData(SmObjectImpl obj) {
@@ -257,7 +287,6 @@ public class MemoryRepository implements IRepository, IRepositoryObject {
     public void open(final IModelLoaderProvider aModelLoader, IModelioProgress monitor) {
         this.modelLoaderProvider = aModelLoader;
         this.cache = new MObjectCache(this.modelLoaderProvider.getMetamodel());
-        
     }
 
     @objid ("bd839b0a-92d7-11e1-81e9-001ec947ccaf")
@@ -275,7 +304,7 @@ public class MemoryRepository implements IRepository, IRepositoryObject {
     @objid ("db616826-4868-11e2-91c9-001ec947ccaf")
     @Override
     public boolean isDirty(SmObjectImpl obj) {
-        return true;
+        return false;
     }
 
     /**
@@ -291,20 +320,19 @@ public class MemoryRepository implements IRepository, IRepositoryObject {
     @Override
     public InputStream readBlob(String key) throws IOException {
         BlobEntry entry = this.blobs.get(key);
-        
+
         if (entry==null) {
             return null;
         } else {
             return new ByteArrayInputStream(entry.content);
         }
-        
     }
 
     @objid ("9c1bc37b-ea33-45c8-8eac-3e171e55475b")
     @Override
     public java.io.OutputStream writeBlob(final IBlobInfo info) throws IOException {
         final Map<String, BlobEntry> theBlobs = this.blobs;
-        
+
         ByteArrayOutputStream out = new ByteArrayOutputStream() {
             @Override
             public void close() throws IOException {
@@ -312,7 +340,7 @@ public class MemoryRepository implements IRepository, IRepositoryObject {
                 entry.info = info;
                 entry.content = toByteArray();
                 theBlobs.put(info.getKey(), entry);
-        
+
                 super.close();
             }
         };
@@ -329,17 +357,17 @@ public class MemoryRepository implements IRepository, IRepositoryObject {
     @Override
     public IBlobInfo readBlobInfo(String key) throws IOException {
         BlobEntry entry = this.blobs.get(key);
-        
+
         if (entry==null) {
             return null;
         } else {
             return entry.info;
         }
-        
     }
 
     /**
      * Get a metaclass from its name.
+     *
      * @param name a metaclass name.
      * @return the metaclass.
      */
@@ -363,7 +391,7 @@ public class MemoryRepository implements IRepository, IRepositoryObject {
     @objid ("6ea72e6c-fa2f-4c37-aeef-af1f37339547")
     @Override
     public void setToReload(SmObjectImpl obj) {
-        // TODO Auto-generated method stub
+        // do nothing
     }
 
     @objid ("666a4379-8c7c-411c-8598-1a9db6cbdefa")
@@ -379,11 +407,6 @@ public class MemoryRepository implements IRepository, IRepositoryObject {
 
         @objid ("e1ea0ac7-0253-4af6-a3ab-ddceefc33146")
         IBlobInfo info;
-
-        @objid ("df6d6b7f-02d2-436f-87d7-4c7c5a09465a")
-        public  BlobEntry() {
-            // TODO Auto-generated constructor stub
-        }
 
     }
 

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.exml.resource;
 
@@ -81,22 +81,22 @@ public class UriExmlResourceProvider extends AbstractExmlResourceProvider {
 
     /**
      * Initialize the resource provider.
+     *
      * @param url the URL of the repository.
      * @param localDir a local directory to store the index.
      * @param auth user/password (optional)
      */
     @objid ("31fd234d-229a-49d5-ac69-0a785a9c433d")
-    public  UriExmlResourceProvider(URI url, Path localDir, IAuthData auth) {
+    public UriExmlResourceProvider(URI url, Path localDir, IAuthData auth) {
         this.url = UriUtils.asDirectoryUri(url);
         this.auth = auth;
-        
+
         this.modelUri = this.url.resolve(IExmlRepositoryGeometry.MODEL_DIRNAME+"/");
         this.stampUrl = this.url.resolve(IStampGeometry.STAMP_DIR_NAME+"/"+IStampGeometry.STAMP_FILE_NAME);
         this.versionUri = this.url.resolve(IExmlRepositoryGeometry.FORMAT_VERSION_PATH);
-        
+
         this.localIndexDir = localDir.resolve(IExmlRepositoryGeometry.INDEX_DIRNAME);
         this.localIndexStampPath = localDir.resolve(IStampGeometry.LOCAL_INDEX_STAMP_FILE);
-        
     }
 
     @objid ("8aed1788-219d-4a0e-b816-82e4a52e8766")
@@ -106,27 +106,27 @@ public class UriExmlResourceProvider extends AbstractExmlResourceProvider {
             checkLocalIndex();
         } catch (IndexOutdatedException e) {
             Log.trace(e);
-        
+
             String msg = "Retrieving '"+getName()+"' indexes from '"+this.url+"' ...";
-        
+
             Log.trace(msg);
             monitor.subTask(msg);
-        
+
             boolean isLocalDir = Files.isDirectory(this.localIndexDir);
             if (isLocalDir) {
                 FileUtils.delete(this.localIndexDir);
             }
-        
+
             Files.createDirectories(this.localIndexDir);
-        
+
             // Hard coded list of all files of a JDBM index
             final String[] files = new String[]{
                     "index.dbf.0", "index.dbf.t","index.dbr.0","index.dbr.t","index.idf.0","index.idf.t",
                     "index.idr.0", "index.idr.t"
             };
-        
+
             Files.createDirectories(this.localIndexDir);
-        
+
             for (String f : files) {
                 // Assume the indexes are stored in the repository directory.
                 URI indexUrl = this.url.resolve(IExmlRepositoryGeometry.INDEX_DIRNAME+"/"+f);
@@ -135,10 +135,9 @@ public class UriExmlResourceProvider extends AbstractExmlResourceProvider {
                     Files.copy(is, target, StandardCopyOption.REPLACE_EXISTING );
                 }
             }
-        
+
             Files.write(this.localIndexStampPath, getStamp().getBytes(StandardCharsets.UTF_8));
         }
-        
     }
 
     @objid ("5d9550bb-9137-4d35-b3bd-7d1ed2a92004")
@@ -163,12 +162,16 @@ public class UriExmlResourceProvider extends AbstractExmlResourceProvider {
         } catch (AccessDeniedException e) {
             return true;
         }
-        
     }
 
     @objid ("c03ff62f-4459-4335-9d66-cdac805738a9")
     @Override
     public Collection<ExmlResource> getAllResources(IModelioProgress aMonitor) throws IOException {
+        throw new AccessDeniedException(this.modelUri.toString(),null, "Impossible to browse a distant repository.");
+    }
+
+    @objid ("01188cc7-a27d-4f2d-9e88-38708d77659d")
+    public Collection<ExmlResource> getAllBlobs(IModelioProgress aMonitor) throws IOException {
         throw new AccessDeniedException(this.modelUri.toString(),null, "Impossible to browse a distant repository.");
     }
 
@@ -198,7 +201,6 @@ public class UriExmlResourceProvider extends AbstractExmlResourceProvider {
         } catch (FileNotFoundException | NoSuchFileException e) {
             return "";
         }
-        
     }
 
     @objid ("a5c90c28-c723-4f4e-a506-8ae4246249a3")
@@ -223,6 +225,7 @@ public class UriExmlResourceProvider extends AbstractExmlResourceProvider {
      * Set the repository name.
      * <p>
      * This name will be used in error messages to tell the user the error location.
+     *
      * @param name the repository name.
      */
     @objid ("044a315e-5be8-466d-92e9-996b2d3b42aa")
@@ -248,10 +251,10 @@ public class UriExmlResourceProvider extends AbstractExmlResourceProvider {
         if (! islocalDir) {
             throw new IndexOutdatedException(getName()+" indexes not yet copied in '"+this.localIndexDir+"'.");
         }
-        
+
         final String remoteStamp = getStamp();
         //Log.trace("Checking '"+this.getName()+"' repo indexes, remote stamp="+remoteStamp+" ("+this.stampUrl+")");
-        
+
         try {
             String localStamp = readLocalStamp();
             //Log.trace("Checking '"+this.getName()+"' repo indexes, local stamp ="+localStamp+" ("+this.localIndexStampPath+")");
@@ -265,13 +268,12 @@ public class UriExmlResourceProvider extends AbstractExmlResourceProvider {
         } catch (IOException e) {
             throw new IndexOutdatedException("Failed reading '"+this.localIndexStampPath+"': "+FileUtils.getLocalizedMessage(e), e);
         }
-        
     }
 
     @objid ("d1c951d9-400a-432b-be5d-16b72e4bd7ed")
     private UriConnection openURL(URI anUrl) throws IOException {
         UriConnection connection = UriConnections.createConnection(anUrl);
-        
+
         if (this.auth != null) {
             connection.setAuthenticationData(this.auth);
         }
@@ -295,10 +297,9 @@ public class UriExmlResourceProvider extends AbstractExmlResourceProvider {
         private IAuthData auth;
 
         @objid ("6135b20a-047a-4909-84e5-1a94c2064d09")
-        public  UriResource(URI url, IAuthData auth) {
+        public UriResource(URI url, IAuthData auth) {
             this.url = url;
             this.auth = auth;
-            
         }
 
         @objid ("13562a62-0b81-48a9-af5b-e1bf9ef20f54")
@@ -310,11 +311,11 @@ public class UriExmlResourceProvider extends AbstractExmlResourceProvider {
                 Log.warning(e.toString());
                 return null;
             }
-            
         }
 
         /**
          * Returns an output stream that writes to this resource.
+         *
          * @return an output stream that writes to this resource.
          * @exception  IOException              if an I/O error occurs while
          * creating the output stream.

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.diagrams;
 
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("006d4be2-c4bf-1fd8-97fe-001ec947cd2a")
 public class DeploymentDiagramImpl extends StaticDiagramImpl implements DeploymentDiagram {
-    @objid ("b831972c-3bf1-4be5-a14a-9941eba75c1d")
+    @objid ("aced3ee8-fb76-4b9b-8295-ed7578486ce7")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -49,17 +48,17 @@ public class DeploymentDiagramImpl extends StaticDiagramImpl implements Deployme
         return super.getCompositionOwner();
     }
 
-    @objid ("84b28a6c-dd76-4773-a5c2-f71fc7cf3614")
+    @objid ("84657cac-6f68-46bc-9873-ce8a696a0d0a")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("1f1f2770-6e1c-42db-a8f0-0785ab1db36f")
+    @objid ("57d1afbb-92db-4ad8-9b99-a02499f245ad")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitDeploymentDiagram(this);

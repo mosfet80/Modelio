@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -47,72 +46,72 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("000191ae-c4bf-1fd8-97fe-001ec947cd2a")
 public class BindingImpl extends UmlModelElementImpl implements Binding {
-    @objid ("d9b96462-c01e-4300-aee7-c0269d396dc5")
+    @objid ("5f51bcd2-ce92-46c9-bf37-42154d3a5e21")
     @Override
     public ConnectorEnd getConnectorEndRole() {
         Object obj = getDepVal(((BindingSmClass)getClassOf()).getConnectorEndRoleDep());
         return (obj instanceof ConnectorEnd)? (ConnectorEnd)obj : null;
     }
 
-    @objid ("1a84a73b-f871-45ea-a957-02002cabb9fc")
+    @objid ("31c725a7-f372-42e2-93d5-4bbca7588637")
     @Override
     public void setConnectorEndRole(ConnectorEnd value) {
         appendDepVal(((BindingSmClass)getClassOf()).getConnectorEndRoleDep(), (SmObjectImpl)value);
     }
 
-    @objid ("86800852-03eb-4fe7-af55-75135d24ae4d")
+    @objid ("37851516-56ec-4b72-8e2d-2aa01c2ede90")
     @Override
     public NaryConnector getConnectorRole() {
         Object obj = getDepVal(((BindingSmClass)getClassOf()).getConnectorRoleDep());
         return (obj instanceof NaryConnector)? (NaryConnector)obj : null;
     }
 
-    @objid ("15160b19-30a6-4728-beff-36c8b2fd1fc7")
+    @objid ("133871e7-509f-4c3b-9011-25990708094e")
     @Override
     public void setConnectorRole(NaryConnector value) {
         appendDepVal(((BindingSmClass)getClassOf()).getConnectorRoleDep(), (SmObjectImpl)value);
     }
 
-    @objid ("c449a69a-90aa-4c2b-867e-3b2037ab44de")
+    @objid ("90151bcd-42c8-47e6-9623-ad968cb236ea")
     @Override
     public BindableInstance getRole() {
         Object obj = getDepVal(((BindingSmClass)getClassOf()).getRoleDep());
         return (obj instanceof BindableInstance)? (BindableInstance)obj : null;
     }
 
-    @objid ("c77df155-9b56-490c-9910-05785a239a25")
+    @objid ("319c4a3e-a0bd-432c-9225-f9f22f0268ca")
     @Override
     public void setRole(BindableInstance value) {
         appendDepVal(((BindingSmClass)getClassOf()).getRoleDep(), (SmObjectImpl)value);
     }
 
-    @objid ("1aaee7ae-54b0-451b-bef6-944394d709da")
+    @objid ("b83f474d-77a1-4ae1-95df-b35eb5b4ab75")
     @Override
     public UmlModelElement getRepresentedFeature() {
         Object obj = getDepVal(((BindingSmClass)getClassOf()).getRepresentedFeatureDep());
         return (obj instanceof UmlModelElement)? (UmlModelElement)obj : null;
     }
 
-    @objid ("807f5dfe-044b-4a09-81a6-84a443869eb3")
+    @objid ("47efdf84-5c3e-4b26-a210-ce6605df7178")
     @Override
     public void setRepresentedFeature(UmlModelElement value) {
         appendDepVal(((BindingSmClass)getClassOf()).getRepresentedFeatureDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a8e298c3-5508-4e17-8325-d1cce36e137f")
+    @objid ("5f9395b6-ecc7-46d6-81db-982713276448")
     @Override
     public CollaborationUse getOwner() {
         Object obj = getDepVal(((BindingSmClass)getClassOf()).getOwnerDep());
         return (obj instanceof CollaborationUse)? (CollaborationUse)obj : null;
     }
 
-    @objid ("0794b865-f99b-4be4-9807-b933fec330f8")
+    @objid ("37dd2167-e57d-4214-9268-478ff526ab75")
     @Override
     public void setOwner(CollaborationUse value) {
         appendDepVal(((BindingSmClass)getClassOf()).getOwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("713e76f9-2411-4d3b-ad29-f034b9b7c1ce")
+    @objid ("df9122f8-7ceb-47ef-bd6b-6f7b5808cd2b")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -124,22 +123,22 @@ public class BindingImpl extends UmlModelElementImpl implements Binding {
         return super.getCompositionOwner();
     }
 
-    @objid ("9c6f1e0a-47cc-40e5-8c26-ef849b9493b7")
+    @objid ("13f5abf5-4672-4bb6-840f-3d11193d974f")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // Owner
         dep = ((BindingSmClass)getClassOf()).getOwnerDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("5b687d2b-6e5f-44a0-8dc7-0d60ec04401b")
+    @objid ("abe26e78-f44a-49ec-824e-740f5da081e3")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitBinding(this);

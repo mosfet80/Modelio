@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.anchors.fixed2.algorithms.snaptogrid;
 
@@ -39,10 +39,10 @@ public class SnapToGridAnchorLocator extends WrappedFixedAnchorLocator {
     private final SnapToGrid snapToGrid;
 
     @objid ("dc1f66a9-7666-4937-9918-bbeb8d28f91d")
-    public  SnapToGridAnchorLocator(IFixedAnchorLocator inner, SnapToGrid snapToGrid) {
+    public SnapToGridAnchorLocator(IFixedAnchorLocator inner, SnapToGrid snapToGrid) {
         super(inner);
         this.snapToGrid = snapToGrid;
-        
+
     }
 
     @objid ("d4df9848-98cc-4edd-9031-9c29cb113f91")
@@ -50,7 +50,7 @@ public class SnapToGridAnchorLocator extends WrappedFixedAnchorLocator {
     public Point getReferencePoint(final FixedAnchor anchor) {
         // Call inner anchor
         Point delegateLoc = super.getReferencePoint(anchor);
-        
+
         // Snap to grid
         PrecisionPoint ret = snapPoint(anchor, delegateLoc);
         return ret;
@@ -61,7 +61,7 @@ public class SnapToGridAnchorLocator extends WrappedFixedAnchorLocator {
     public Point getLocation(FixedAnchor anchor, Point reference) {
         // Call inner anchor
         Point delegateLoc = super.getLocation(anchor, reference);
-        
+
         // Snap to grid
         PrecisionPoint ret = snapPoint(anchor, delegateLoc);
         return ret;
@@ -70,10 +70,10 @@ public class SnapToGridAnchorLocator extends WrappedFixedAnchorLocator {
     @objid ("f7388416-c679-4425-af09-4f20e59dc2e6")
     private PrecisionPoint snapPoint(final FixedAnchor anchor, Point delegateLoc) {
         PrecisionPoint referencePoint = new PrecisionPoint(delegateLoc);
-        
+
         // Snap point to grid
         PrecisionPoint ret = new PrecisionPoint(referencePoint);
-        
+
         int snapDirections;
         switch (anchor.getFace()) {
         case FacesConstants.FACE_EAST:
@@ -85,7 +85,7 @@ public class SnapToGridAnchorLocator extends WrappedFixedAnchorLocator {
         default:
             snapDirections = PositionConstants.WEST ;
         }
-        
+
         this.snapToGrid.snapPoint(null, snapDirections, referencePoint, ret);
         return ret;
     }

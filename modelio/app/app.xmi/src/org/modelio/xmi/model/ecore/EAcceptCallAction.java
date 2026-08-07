@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -35,7 +35,7 @@ public class EAcceptCallAction extends EAcceptEventAction {
     }
 
     @objid ("599fb3ae-685c-4ffc-9e6a-d516860a197e")
-    public  EAcceptCallAction(org.eclipse.uml2.uml.AcceptCallAction element) {
+    public EAcceptCallAction(org.eclipse.uml2.uml.AcceptCallAction element) {
         super(element);
     }
 
@@ -44,7 +44,7 @@ public class EAcceptCallAction extends EAcceptEventAction {
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setCalled((AcceptCallEventAction) objingElt);
-        
+
     }
 
     @objid ("e30fb12a-a5ea-4a25-9d22-5d8d5f0b5aa4")
@@ -64,7 +64,7 @@ public class EAcceptCallAction extends EAcceptEventAction {
                 }
             }
         }
-        
+
     }
 
 }

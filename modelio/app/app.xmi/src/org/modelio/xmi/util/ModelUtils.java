@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.util;
 
@@ -44,6 +44,7 @@ import org.modelio.xmi.reverse.ReverseProperties;
 @objid ("03547336-46c0-4583-9a17-10731be18c69")
 public class ModelUtils {
     /**
+     *
      * @param assocEnd : the tested associationEnd
      * @return true if the association is tagged as "Owned by the classifier"
      */
@@ -60,6 +61,7 @@ public class ModelUtils {
     }
 
     /**
+     *
      * @param elt : the tested Modelio element
      * @return false is tagged as "NotExported"
      */
@@ -87,14 +89,14 @@ public class ModelUtils {
     @objid ("1c69e1e2-eddd-4802-91b0-349ba003a30a")
     public static void transitionMapping(org.eclipse.uml2.uml.OpaqueBehavior opaqueBehavior, Transition transOwner) {
         ReverseProperties revProp = ReverseProperties.getInstance();
-        
+
         StringBuffer content = new StringBuffer();
         for (String temp : opaqueBehavior.getBodies()){
             content.append(temp);
         }
-        
+
         transOwner.setEffect(content.toString());
-        
+
         for (org.eclipse.uml2.uml.Behavior beh : opaqueBehavior.getRedefinedBehaviors()){
             Object objBeh = revProp.getMappedElement(beh);
             if (objBeh instanceof Behavior){
@@ -102,7 +104,7 @@ public class ModelUtils {
                 break;
             }
         }
-        
+
         org.eclipse.uml2.uml. BehavioralFeature feature = opaqueBehavior.getSpecification();
         if (feature != null){
             Object objFeature = revProp.getMappedElement(feature);
@@ -110,7 +112,6 @@ public class ModelUtils {
                 transOwner.setProcessed((Operation)objFeature);
             }
         }
-        
     }
 
     @objid ("5ea56988-9496-4690-bdd7-d030089f185c")
@@ -118,7 +119,7 @@ public class ModelUtils {
         ReverseProperties revProp = ReverseProperties.getInstance();
         InternalTransition intTrans = ReverseProperties.getInstance().getMModelServices().getModelFactory().getFactory(IStandardModelFactory.class).createInternalTransition();
         intTrans.setSComposed(state);
-        
+
         if ((ecoreState.getExit() != null)
                 && (ecoreState.getExit().equals(opaqueBehavior))){
             intTrans.setReceivedEvents("Exit");
@@ -129,14 +130,14 @@ public class ModelUtils {
                 && (ecoreState.getDoActivity().equals(opaqueBehavior))){
             intTrans.setReceivedEvents("Do");
         }
-        
+
         StringBuffer content = new StringBuffer();
         for (String temp : opaqueBehavior.getBodies()){
             content.append(temp);
         }
-        
+
         intTrans.setEffect(content.toString());
-        
+
         for (org.eclipse.uml2.uml.Behavior beh : opaqueBehavior.getRedefinedBehaviors()){
             Object objBeh = revProp.getMappedElement(beh);
             if (objBeh instanceof Behavior){
@@ -144,7 +145,7 @@ public class ModelUtils {
                 break;
             }
         }
-        
+
         org.eclipse.uml2.uml. BehavioralFeature feature = opaqueBehavior.getSpecification();
         if (feature != null){
             Object objFeature = revProp.getMappedElement(feature);
@@ -171,34 +172,33 @@ public class ModelUtils {
     public static void setLineNumber(org.eclipse.uml2.uml.Element ecoreGate) {
         ReverseProperties revProp = ReverseProperties.getInstance();
         Object objGate = revProp.getMappedElement(ecoreGate);
-        
+
         if (objGate instanceof InteractionFragment) {
             int lineNumber = 0;
-        
+
             if (revProp.isRoundtripEnabled()) {
                 lineNumber = ObjingEAnnotation.getLineNumber(ecoreGate);
             }else {
                 lineNumber = revProp.getCurrentLineNumber();
             }
-        
+
             ((InteractionFragment) objGate).setLineNumber(lineNumber);
         }
-        
     }
 
     @objid ("5cd1dd13-0abe-4072-9cee-9033476189c5")
     public static void setEndLineNumber(org.eclipse.uml2.uml.Element ecoreGate) {
         ReverseProperties revProp = ReverseProperties.getInstance();
         Object objGate = revProp.getMappedElement(ecoreGate);
-        
+
         int lineNumber = 0;
-        
+
         if (revProp.isRoundtripEnabled()) {
             lineNumber = ObjingEAnnotation.getEndLineNumber(ecoreGate);
         }else {
             lineNumber = revProp.getCurrentLineNumber();
         }
-        
+
         if (objGate instanceof InteractionOperand) {
             ((InteractionOperand) objGate).setEndLineNumber(lineNumber);
         }else if (objGate instanceof InteractionUse) {
@@ -206,7 +206,6 @@ public class ModelUtils {
         }else if (objGate instanceof StateInvariant) {
             ((StateInvariant) objGate).setEndLineNumber(lineNumber);
         }
-        
     }
 
     @objid ("1705c8f0-35a1-480e-a4b0-18f237659499")

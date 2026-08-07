@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.transition;
 
@@ -30,7 +30,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * PostCondition label for Transition
- * 
+ *
  * @author fpoyer
  */
 @objid ("f5aeb533-55b6-11e2-877f-002564c97630")
@@ -46,11 +46,12 @@ public class GmTransitionPostConditionLabel extends GmElementLabel {
 
     /**
      * C'tor.
+     *
      * @param diagram the diagram.
      * @param relatedRef related element reference, must not be null.
      */
     @objid ("f5aeb53c-55b6-11e2-877f-002564c97630")
-    public  GmTransitionPostConditionLabel(IGmDiagram diagram, MRef relatedRef) {
+    public GmTransitionPostConditionLabel(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -58,12 +59,12 @@ public class GmTransitionPostConditionLabel extends GmElementLabel {
     @Override
     protected String computeLabel() {
         final Transition theTransition = (Transition) getRelatedElement();
-        
+
         if (theTransition == null)
             return "{}";
-        
+
         final StringBuilder symbol = new StringBuilder();
-        
+
         // postGard
         final String postCondition = theTransition.getPostCondition();
         if (postCondition != null && !postCondition.equals("")) {
@@ -78,7 +79,7 @@ public class GmTransitionPostConditionLabel extends GmElementLabel {
      * Empty c'tor for deserialization.
      */
     @objid ("f5aeb54a-55b6-11e2-877f-002564c97630")
-    public  GmTransitionPostConditionLabel() {
+    public GmTransitionPostConditionLabel() {
         // Nothing to do.
     }
 
@@ -92,20 +93,20 @@ public class GmTransitionPostConditionLabel extends GmElementLabel {
     @Override
     public IEditableText getEditableText() {
         return new IEditableText() {
-                                                                        
+
                                                                             @Override
                                                                             public void setText(String text) {
                                                                                 final Transition theTransition = (Transition) getRelatedElement();
                                                                                 theTransition.setPostCondition(text);
                                                                             }
-                                                                        
+
                                                                             @Override
                                                                             public String getText() {
                                                                                 final Transition theTransition = (Transition) getRelatedElement();
                                                                         return theTransition.getPostCondition();
                                                                                     }
                                                                                 };
-        
+
     }
 
     @objid ("f5aeb559-55b6-11e2-877f-002564c97630")
@@ -125,17 +126,17 @@ public class GmTransitionPostConditionLabel extends GmElementLabel {
             break;
         }
         }
-        
+
     }
 
     @objid ("f5aeb55f-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmTransitionPostConditionLabel.", GmTransitionPostConditionLabel.MINOR_VERSION);
-        
+
     }
 
     @objid ("f5b03bbc-55b6-11e2-877f-002564c97630")

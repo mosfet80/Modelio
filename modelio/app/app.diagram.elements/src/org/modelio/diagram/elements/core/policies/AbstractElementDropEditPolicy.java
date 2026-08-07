@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.policies;
 
@@ -89,11 +89,11 @@ public abstract class AbstractElementDropEditPolicy extends GraphicalEditPolicy 
             } else {
                 newHighlightType = FigureUtilities2.HighlightType.WARNING;
             }
-        
+
             if (newHighlightType != this.highlightType) {
                 // configure the highlight figure
                 this.highlightType = newHighlightType;
-        
+
                 // create a highlight figure if it does not exist
                 if (this.highlight == null) {
                     // create a highlight figure
@@ -104,10 +104,10 @@ public abstract class AbstractElementDropEditPolicy extends GraphicalEditPolicy 
                 }
                 FigureUtilities2.updateHighlightType(this.highlight, this.highlightType);
             }
-        
+
         }
         super.showTargetFeedback(request);
-        
+
     }
 
     @objid ("8e320550-5798-4440-beb6-85130024e1cb")
@@ -116,9 +116,9 @@ public abstract class AbstractElementDropEditPolicy extends GraphicalEditPolicy 
         if (request.getType().equals(ModelElementDropRequest.TYPE)) {
             removeFeedback();
         }
-        
+
         super.eraseTargetFeedback(request);
-        
+
     }
 
     /**
@@ -128,6 +128,7 @@ public abstract class AbstractElementDropEditPolicy extends GraphicalEditPolicy 
      * <p>
      * Subclasses should redefine this method to provide "smart interactions".
      * </p>
+     *
      * @param request the drop request
      * @return the host if all dropped elements can be unmasked by the Gm,
      * <code>null</code> otherwise.
@@ -137,6 +138,7 @@ public abstract class AbstractElementDropEditPolicy extends GraphicalEditPolicy 
 
     /**
      * Creates the Command to handle a ModelElementDropRequest.
+     *
      * @param request The drop request.
      * @return the created command.
      */
@@ -148,6 +150,7 @@ public abstract class AbstractElementDropEditPolicy extends GraphicalEditPolicy 
      * <p>
      * Subclasses must redefine this method to provide "smart interactions".
      * </p>
+     *
      * @param request The drop request.
      * @return the created command, or <code>null</code> when there is no smart interaction for this request.
      */
@@ -159,9 +162,9 @@ public abstract class AbstractElementDropEditPolicy extends GraphicalEditPolicy 
     public void deactivate() {
         // Remove all remaining feedback
         removeFeedback();
-        
+
         super.deactivate();
-        
+
     }
 
     @objid ("47fcee01-86f8-4f00-b1ff-25cbb7e7e0bf")
@@ -171,7 +174,7 @@ public abstract class AbstractElementDropEditPolicy extends GraphicalEditPolicy 
             this.highlight = null;
             this.highlightType = null;
         }
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vbasic.net;
 
@@ -34,7 +34,7 @@ import org.modelio.vbasic.auth.UserPasswordAuthData;
 
 /**
  * Handles https URIs.
- * 
+ *
  * @deprecated Does not handle HTTP DIGEST authentication, use {@link ApacheUriConnection} instead.
  */
 @objid ("3fef9ba4-224e-4fb5-8a1f-8736fc344df4")
@@ -50,14 +50,15 @@ class HttpsUriConnection extends UriConnection {
      * Creates an https URI connection.
      * <p>
      * The URI must be a https URI.
+     *
      * @param uri the URI to connect to.
      * @throws IOException in case of failure.
      */
     @objid ("a6bd91ec-b360-4308-aac7-1b07f6157923")
-    public  HttpsUriConnection(URI uri) throws IOException {
+    public HttpsUriConnection(URI uri) throws IOException {
         this.uri = uri;
         initConnection();
-        
+
     }
 
     @objid ("880bdc5b-f0cb-45c2-975b-669682bcbbc7")
@@ -73,7 +74,7 @@ class HttpsUriConnection extends UriConnection {
                 throw e;
             }
         }
-        
+
     }
 
     @objid ("9885623f-0fbe-42cb-9ea7-414d4d5a7852")
@@ -88,7 +89,7 @@ class HttpsUriConnection extends UriConnection {
                 throw e;
             }
         }
-        
+
     }
 
     @objid ("07b3ebb8-1637-440c-b081-f00136c7ac64")
@@ -145,12 +146,12 @@ class HttpsUriConnection extends UriConnection {
                 break;
             case NoneAuthData.AUTH_NONE_SCHEME_ID:
                 break;
-        
+
             default:
                 throw new UnsupportedOperationException(auth+ " not supported for "+this.conn);
             }
         }
-        
+
     }
 
     /**
@@ -158,6 +159,7 @@ class HttpsUriConnection extends UriConnection {
      * <p>
      * Look for user and password in the 'user' and 'pass' parameters.
      * If they are not filled, look at the URL itself.
+     *
      * @param url the URL to open
      * @param user the user login, may be null
      * @param pass the password, may be null
@@ -173,7 +175,7 @@ class HttpsUriConnection extends UriConnection {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("1a8124d8-79e8-4ecc-994b-5b8463575489")
@@ -181,7 +183,7 @@ class HttpsUriConnection extends UriConnection {
         URL url = this.uri.toURL();
         this.conn = (HttpsURLConnection) url.openConnection();
         this.conn.setSSLSocketFactory(SslManager.getInstance().getSslContext().getSocketFactory());
-        
+
     }
 
     @objid ("7d53db93-d99c-4240-91a9-8879db7a91a8")
@@ -198,7 +200,7 @@ class HttpsUriConnection extends UriConnection {
                 throw e;
             }
         }
-        
+
     }
 
     /**

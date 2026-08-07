@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.mmextensions.standard.namer.helpers;
 
@@ -102,7 +102,7 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
     private Set<String> results;
 
     @objid ("00690578-030f-1035-9f91-001ec947cd2a")
-    public  GetSiblingsVisitor() {
+    public GetSiblingsVisitor() {
         this(new GetSiblingsInfraVisitor());
     }
 
@@ -124,7 +124,7 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
             }
             return null;
         }
-        
+
         Clause clause = theActivityNode.getOwnerClause();
         if (clause != null) {
             for (Element e : clause.getBody()) {
@@ -132,7 +132,7 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
             }
             return null;
         }
-        
+
         StructuredActivityNode node = theActivityNode.getOwnerNode();
         if (node != null) {
             for (Element e : node.getBody()) {
@@ -140,7 +140,7 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
             }
             return null;
         }
-        
+
         ActivityPartition partition = theActivityNode.getOwnerPartition();
         if (partition != null) {
             for (Element e : partition.getContainedNode()) {
@@ -220,7 +220,7 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
     public Object visitBehavior(Behavior theBehavior) {
         NameSpace nsOwner = theBehavior.getOwner();
         Operation opOwner = theBehavior.getOwnerOperation();
-        
+
         if (nsOwner != null) {
             for (Element e : nsOwner.getOwnedBehavior()) {
                 this.results.add(e.getName());
@@ -238,7 +238,7 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
     public Object visitBindableInstance(BindableInstance theElement) {
         Classifier classifierOwner = theElement.getInternalOwner();
         Instance cluster = theElement.getCluster();
-        
+
         if (classifierOwner != null) {
             for (Element e : classifierOwner.getInternalStructure()) {
                 this.results.add(e.getName());
@@ -262,14 +262,14 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
                 this.results.add(e.getName());
             }
         }
-        
+
         BpmnProcess process = theElement.getProcess();
         if (process != null) {
             for (Element e : process.getArtifact()) {
                 this.results.add(e.getName());
             }
         }
-        
+
         BpmnCollaboration collaboration = theElement.getCollaboration();
         if (collaboration != null) {
             for (Element e : collaboration.getArtifact()) {
@@ -289,7 +289,7 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
                 this.results.add(e.getName());
             }
         }
-        
+
         if (owner_pr != null) {
             for (Element e : owner_pr.getFlowElement()) {
                 this.results.add(e.getName());
@@ -302,7 +302,7 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
     @Override
     public Object visitBpmnLane(final BpmnLane theBpmnLane) {
         BpmnLaneSet owner = theBpmnLane.getLaneSet();
-        
+
         if (owner != null) {
             if (owner.getProcess() != null) {
                 BpmnLaneSet laneset = owner.getProcess().getLaneSet();
@@ -316,7 +316,7 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
                     this.results.add(e.getName());
                 }
             }
-        
+
         }
         return null;
     }
@@ -390,7 +390,7 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
                 this.results.add(e.getName());
             }
         }
-        
+
         BpmnProcess ownerprocess = theElement.getProcess();
         if (ownerprocess != null) {
             for (Element e : ownerprocess.getResource()) {
@@ -420,7 +420,7 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
             for (Element e : owner.getFlowElement()) {
                 this.results.add(e.getName());
             }
-        
+
         } else if (theBpmnSequenceFlow.getSubProcess() != null) {
             BpmnSubProcess owner = theBpmnSequenceFlow.getSubProcess();
             for (Element e : owner.getFlowElement()) {
@@ -447,7 +447,7 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
     public Object visitCollaborationUse(CollaborationUse theCollaborationUse) {
         Operation opOwner = theCollaborationUse.getORepresented();
         NameSpace nOwner = theCollaborationUse.getNRepresented();
-        
+
         if (opOwner != null) {
             for (Element e : opOwner.getOwnedCollaborationUse()) {
                 this.results.add(e.getName());
@@ -469,13 +469,13 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
                 this.results.add(e.getName());
             }
         }
-        
+
         channel = theCommunicationMessage.getInvertedChannel();
         if (channel != null) {
             for (Element e : channel.getEndToStartMessage()) {
                 this.results.add(e.getName());
             }
-        
+
         }
         return null;
     }
@@ -484,7 +484,7 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
     @Override
     public Object visitCommunicationNode(CommunicationNode theCommunicationNode) {
         CommunicationInteraction owner = theCommunicationNode.getOwner();
-        
+
         if (owner != null) {
             for (Element e : owner.getOwned()) {
                 this.results.add(e.getName());
@@ -497,7 +497,7 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
     @Override
     public Object visitConnectionPointReference(ConnectionPointReference theConnectionPointReference) {
         State connectionPointReferenceOwner = theConnectionPointReference.getOwnerState();
-        
+
         if (connectionPointReferenceOwner != null) {
             for (Element e : connectionPointReferenceOwner.getConnection()) {
                 this.results.add(e.getName());
@@ -522,7 +522,7 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
     @Override
     public Object visitEvent(Event theEvent) {
         StateMachine eventOwner = (StateMachine) theEvent.getComposed();
-        
+
         if (eventOwner != null) {
             for (Element e : eventOwner.getEComponent()) {
                 this.results.add(e.getName());
@@ -538,7 +538,7 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
         if (region == null) {
             region = theExpansionNode.getRegionAsOutput();
         }
-        
+
         if (region != null) {
             for (Element e : region.getInputElement()) {
                 this.results.add(e.getName());
@@ -566,7 +566,7 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
     @Override
     public Object visitInputPin(InputPin theInputPin) {
         ActivityAction owner = theInputPin.getInputing();
-        
+
         if (owner != null) {
             for (Element e : owner.getInput()) {
                 this.results.add(e.getName());
@@ -647,7 +647,7 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
     @Override
     public Object visitOutputPin(OutputPin theOutputPin) {
         ActivityAction owner = theOutputPin.getOutputing();
-        
+
         if (owner != null) {
             for (Element e : owner.getOutput()) {
                 this.results.add(e.getName());
@@ -673,7 +673,7 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
     @Override
     public Object visitRegion(Region theRegion) {
         State regionOwner = theRegion.getParent();
-        
+
         if (regionOwner != null) {
             for (Element e : regionOwner.getOwnedRegion()) {
                 this.results.add(e.getName());
@@ -686,7 +686,7 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
     @Override
     public Object visitState(State theState) {
         Region stateOwner = theState.getParent();
-        
+
         if (stateOwner != null) {
             for (Element e : stateOwner.getSub()) {
                 this.results.add(e.getName());
@@ -704,7 +704,7 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
                 this.results.add(e.getName());
             }
         }
-        
+
         final Operation oowner = theTemplateParameter.getParameterizedOperation();
         if (oowner != null) {
             for (Element e : oowner.getTemplate()) {
@@ -718,20 +718,20 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
     @Override
     public Object visitTransition(Transition theTransition) {
         StateVertex owner = theTransition.getSource();
-        
+
         if (owner != null) {
             // Add all transitions in the owning state
             for (Element e : owner.getOutGoing()) {
                 this.results.add(e.getName());
             }
-        
+
             for (MObject e : owner.getCompositionChildren()) {
                 if (e instanceof StateVertex) {
                     for (Element e2 : ((StateVertex) e).getOutGoing()) {
                         this.results.add(e2.getName());
                     }
                 }
-        
+
             }
         }
         return null;
@@ -741,7 +741,7 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
     @Override
     public Object visitAbstractPseudoState(AbstractPseudoState theUML2PseudoState) {
         Region uml2PseudoStateOwner = theUML2PseudoState.getParent();
-        
+
         if (uml2PseudoStateOwner != null) {
             for (Element e : uml2PseudoStateOwner.getSub()) {
                 this.results.add(e.getName());
@@ -758,7 +758,7 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
             for (Element e : owner.getRootElement(BpmnItemDefinition.class)) {
                 this.results.add(e.getName());
             }
-        
+
         }
         return null;
     }
@@ -788,11 +788,11 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
     }
 
     @objid ("c9e982cd-1dcf-4560-bc90-465cb0e161bc")
-    private  GetSiblingsVisitor(GetSiblingsInfraVisitor infraVisitor) {
+    private GetSiblingsVisitor(GetSiblingsInfraVisitor infraVisitor) {
         super(infraVisitor);
         infraVisitor.gsv = this;
         this.results = null;
-        
+
     }
 
     @objid ("a899ebec-f107-4ba3-bfb8-4c94baa1ab78")

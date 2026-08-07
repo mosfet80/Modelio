@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.innerclass;
 
@@ -56,11 +56,12 @@ public class GmInnerClassGroup extends GmGroup {
 
     /**
      * Creates an inner classes group.
+     *
      * @param diagram The diagram.
      * @param relatedRef a reference to the element this GmModel is related to, must not be null.
      */
     @objid ("3527cae6-55b7-11e2-877f-002564c97630")
-    public  GmInnerClassGroup(IGmDiagram diagram, MRef relatedRef) {
+    public GmInnerClassGroup(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -68,8 +69,8 @@ public class GmInnerClassGroup extends GmGroup {
      * Constructor for deserialization only.
      */
     @objid ("3527caef-55b7-11e2-877f-002564c97630")
-    public  GmInnerClassGroup() {
-        
+    public GmInnerClassGroup() {
+
     }
 
     /**
@@ -112,7 +113,7 @@ public class GmInnerClassGroup extends GmGroup {
     public void refreshFromObModel() {
         // Do clean obsolete nodes
         super.refreshFromObModel();
-        
+
         final NameSpace classifier = (NameSpace) getRelatedElement();
         if (classifier != null && classifier.isValid()) {
             // Auto unmask
@@ -130,7 +131,7 @@ public class GmInnerClassGroup extends GmGroup {
                         }
                     }
                     break;
-        
+
                 case ALL_PUBLIC:
                     for (ModelTree part : classifier.getOwnedElement(NameSpace.class)) {
                         if (((NameSpace) part).getVisibility() == VisibilityMode.PUBLIC) {
@@ -143,7 +144,7 @@ public class GmInnerClassGroup extends GmGroup {
                         }
                     }
                     break;
-        
+
                 case ALL_NON_PRIVATE:
                     for (ModelTree part : classifier.getOwnedElement(NameSpace.class)) {
                         if (((NameSpace) part).getVisibility() != VisibilityMode.PRIVATE) {
@@ -162,7 +163,7 @@ public class GmInnerClassGroup extends GmGroup {
                 }
             }
         }
-        
+
     }
 
     @objid ("35295166-55b7-11e2-877f-002564c97630")
@@ -171,7 +172,7 @@ public class GmInnerClassGroup extends GmGroup {
         // The visibility may have changed so fires a notification.
         fireVisibilityChanged();
         super.styleChanged(style);
-        
+
     }
 
     @objid ("3529516c-55b7-11e2-877f-002564c97630")
@@ -182,7 +183,7 @@ public class GmInnerClassGroup extends GmGroup {
         } else {
             super.styleChanged(property, newValue);
         }
-        
+
     }
 
     @objid ("35295173-55b7-11e2-877f-002564c97630")
@@ -194,7 +195,7 @@ public class GmInnerClassGroup extends GmGroup {
         } else {
             getDisplayedStyle().setProperty(getViewModeStyleKey(), InternalsViewMode.NONE);
         }
-        
+
     }
 
     @objid ("35295177-55b7-11e2-877f-002564c97630")
@@ -204,14 +205,14 @@ public class GmInnerClassGroup extends GmGroup {
         if (!(el instanceof NameSpace) || !(el.isValid())) {
             return false;
         }
-        
+
         // Cannot unmask a foreign namespace (not belonging to the class)
         if (el.getCompositionOwner() != null && !el.getCompositionOwner().equals(getRelatedElement())) {
             return false;
         }
-        
+
         final NameSpace att = (NameSpace) el;
-        
+
         // Cannot unmask an namespace whose visibility does not match the current visualization options.
         final StyleKey.UmaskByVisibilityStragegy unmaskmode = getDisplayedStyle().getProperty(getUnmaskFilterStyleKey());
         switch (unmaskmode) {
@@ -238,11 +239,11 @@ public class GmInnerClassGroup extends GmGroup {
         final NameSpace classifier = (NameSpace) getRelatedElement();
         if (classifier != null && classifier.isValid()) {
             boolean hasHiddenFeature = false;
-        
+
             switch (mode) {
             case ALL:
                 break;
-        
+
             case ALL_PUBLIC:
                 for (ModelTree part : classifier.getOwnedElement(NameSpace.class)) {
                     if (((NameSpace) part).getVisibility() != VisibilityMode.PUBLIC) {
@@ -250,7 +251,7 @@ public class GmInnerClassGroup extends GmGroup {
                     }
                 }
                 break;
-        
+
             case ALL_NON_PRIVATE:
                 for (ModelTree part : classifier.getOwnedElement(NameSpace.class)) {
                     if (((NameSpace) part).getVisibility() == VisibilityMode.PRIVATE) {
@@ -262,11 +263,11 @@ public class GmInnerClassGroup extends GmGroup {
                 hasHiddenFeature = classifier.getOwnedElement(NameSpace.class).size() != getChildren().size();
                 break;
             }
-        
+
             setHiddenFeature(hasHiddenFeature);
-        
+
         }
-        
+
     }
 
     /**
@@ -302,17 +303,17 @@ public class GmInnerClassGroup extends GmGroup {
             break;
         }
         }
-        
+
     }
 
     @objid ("35295196-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0.
         GmAbstractObject.writeMinorVersion(out, "GmInnerClassGroup.", Integer.valueOf(GmInnerClassGroup.MINOR_VERSION));
-        
+
     }
 
     @objid ("352ad7fd-55b7-11e2-877f-002564c97630")

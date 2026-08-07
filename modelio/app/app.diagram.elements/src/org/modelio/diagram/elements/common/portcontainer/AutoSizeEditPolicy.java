@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.portcontainer;
 
@@ -35,7 +35,7 @@ import org.modelio.diagram.elements.core.policies.DefaultNodeResizableEditPolicy
  * {@link PortContainerEditPart} preferred drag policy.
  * <p>
  * Specialisation that will actually resize the main node while making sure that the container bounds still contains all children (and no more).
- * 
+ *
  * @author fpoyer
  */
 @objid ("7ee607ea-1dec-11e2-8cad-001ec947c8cc")
@@ -45,7 +45,7 @@ public class AutoSizeEditPolicy extends DefaultNodeResizableEditPolicy {
     protected Command getMoveCommand(ChangeBoundsRequest request) {
         ChangeBoundsRequest req = new ChangeBoundsRequest(REQ_MOVE_CHILDREN);
         req.setEditParts(getHost());
-        
+
         req.setMoveDelta(request.getMoveDelta());
         req.setSizeDelta(request.getSizeDelta());
         req.setLocation(request.getLocation());
@@ -63,7 +63,7 @@ public class AutoSizeEditPolicy extends DefaultNodeResizableEditPolicy {
         containerFigure.translateToAbsolute(newHandleBounds);
         newHandleBounds = request.getTransformedRectangle(newHandleBounds);
         // containerFigure.translateToRelative(newHandleBounds);
-        
+
         req.getExtendedData().put(PortResizeHelper.REQPROP_MAIN_NODE_BOUNDS, newHandleBounds);
         RequestHelper.addSharedEditParts(req, request);
         return getHost().getParent().getCommand(req);
@@ -85,7 +85,7 @@ public class AutoSizeEditPolicy extends DefaultNodeResizableEditPolicy {
         containerFigure.translateToAbsolute(newHandleBounds);
         newHandleBounds = request.getTransformedRectangle(newHandleBounds);
         // containerFigure.translateToRelative(newHandleBounds);
-        
+
         request.getExtendedData().put(PortResizeHelper.REQPROP_MAIN_NODE_BOUNDS, newHandleBounds);
         return super.getOrphanCommand(request);
     }
@@ -122,7 +122,7 @@ public class AutoSizeEditPolicy extends DefaultNodeResizableEditPolicy {
                 mainNodeEditPart.installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE,
                         new DefaultNodeResizableEditPolicy());
             }
-        
+
             // Apply the bounds change to the main node. The container should
             // adapt itself if needed.
             ChangeBoundsRequest changeMainNodeBoundsRequest = new ChangeBoundsRequest(REQ_RESIZE);
@@ -137,11 +137,11 @@ public class AutoSizeEditPolicy extends DefaultNodeResizableEditPolicy {
             changeMainNodeBoundsRequest.setSizeDelta(request.getSizeDelta());
             RequestHelper.addSharedEditParts(changeMainNodeBoundsRequest, request);
             Command resizeMainNodeCommand = mainNodeEditPart.getCommand(changeMainNodeBoundsRequest);
-        
+
             // Remove the install resize policy: remember that main node is NOT
             // directly selectable nor moveable nor resizeable.
             mainNodeEditPart.installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, null);
-        
+
             return resizeMainNodeCommand;
         }
         // else

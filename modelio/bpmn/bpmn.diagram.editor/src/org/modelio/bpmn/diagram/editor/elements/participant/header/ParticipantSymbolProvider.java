@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.participant.header;
 
@@ -34,8 +34,8 @@ public class ParticipantSymbolProvider {
      * This class is not instanciable.
      */
     @objid ("a8136cea-092a-4e64-b716-8e86537fe432")
-    private  ParticipantSymbolProvider() {
-        
+    private ParticipantSymbolProvider() {
+
     }
 
     /**
@@ -46,19 +46,20 @@ public class ParticipantSymbolProvider {
      * <li>simply its name.</li>
      * <li>an empty string for a <code>null</code> participant.</li>
      * </ul>
+     *
      * @param participant the participant
      * @return the computed label.
      */
     @objid ("60e8bd9e-4a06-4cc3-94de-b1ecb24dd138")
     public static String computeLabel(BpmnParticipant participant) {
         StringBuilder ret = new StringBuilder();
-        
+
         if (participant == null) {
             ret.append(" ");
         } else {
             BpmnProcess process = participant.getProcess();
             ModelElement type = Represents.getTarget(participant);
-        
+
             if (process != null) {
                 ret.append(process.getName());
             } else if (type != null) {
@@ -67,7 +68,7 @@ public class ParticipantSymbolProvider {
                 ret.append(participant.getName());
             }
         }
-        
+
         if (ret.length() == 0) {
             ret.append(" ");
         }

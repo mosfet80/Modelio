@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.api.dg.drawings.common;
 
@@ -65,11 +65,11 @@ public class DiagramDrawingLinkDG extends DiagramAbstractLink implements IDiagra
     @Override
     public IDiagramGraphic getFrom() {
         final IGmDrawingLinkable from = this.gmLink.getFrom();
-        
+
         if (from instanceof IGmDrawingLayer) {
             return null;
         }
-        
+
         IDiagramGraphic ret = DGFactory.getInstance().getDiagramGraphic(this.diagramHandle, from);
         return ret;
     }
@@ -78,11 +78,11 @@ public class DiagramDrawingLinkDG extends DiagramAbstractLink implements IDiagra
     @Override
     public IDiagramGraphic getTo() {
         final IGmDrawingLinkable to = this.gmLink.getTo();
-        
+
         if (to instanceof IGmDrawingLayer) {
             return null;
         }
-        
+
         IDiagramGraphic ret = DGFactory.getInstance().getDiagramGraphic(this.diagramHandle, to);
         return ret;
     }
@@ -119,14 +119,15 @@ public class DiagramDrawingLinkDG extends DiagramAbstractLink implements IDiagra
 
     /**
      * Creates a drawing link.
+     *
      * @param diagramHandle the diagram handle
      * @param gmLink the drawing link model
      */
     @objid ("f7f7aefc-a5f9-4c39-afbb-11c92b342bec")
-    public  DiagramDrawingLinkDG(DiagramHandle diagramHandle, IGmDrawingLink gmLink) {
+    public DiagramDrawingLinkDG(DiagramHandle diagramHandle, IGmDrawingLink gmLink) {
         super(diagramHandle);
         this.gmLink = gmLink;
-        
+
     }
 
     @objid ("28699ac5-2d6d-4d61-8d22-47bcfcecf30e")
@@ -153,7 +154,7 @@ public class DiagramDrawingLinkDG extends DiagramAbstractLink implements IDiagra
         IGmObject newNode = ((DiagramGraphic) source).getModel();
         String type = RequestConstants.REQ_RECONNECT_SOURCE;
         reconnect(newNode, type);
-        
+
     }
 
     @objid ("a4cb47e8-0506-4c96-b2ca-1ff2cdc48e12")
@@ -162,7 +163,7 @@ public class DiagramDrawingLinkDG extends DiagramAbstractLink implements IDiagra
         IGmObject newNode = ((DiagramGraphic) target).getModel();
         String type = RequestConstants.REQ_RECONNECT_TARGET;
         reconnect(newNode, type);
-        
+
     }
 
     @objid ("e0beae80-01c0-4ba3-9cae-c6ce8adf3a58")
@@ -172,10 +173,10 @@ public class DiagramDrawingLinkDG extends DiagramAbstractLink implements IDiagra
             ReconnectRequest recoReq = new ReconnectRequest(type);
             recoReq.setConnectionEditPart((ConnectionEditPart) this.diagramHandle.getEditPart(this.gmLink));
             recoReq.setLocation(new Point(0, 0));
-        
+
             EditPart newMainNode = DiagramDrawingLinkDG.findChildEditPartFor(this.diagramHandle.getEditPart(newNode), recoReq);
             recoReq.setTargetEditPart(newMainNode);
-        
+
             Command recoCommand = newMainNode.getCommand(recoReq);
             if (recoCommand == null || !recoCommand.canExecute()) {
                 throw new IllegalArgumentException("Reconnection is not supported");
@@ -183,7 +184,7 @@ public class DiagramDrawingLinkDG extends DiagramAbstractLink implements IDiagra
                 recoCommand.execute();
             }
         }
-        
+
     }
 
     @objid ("dbe143a1-129a-4636-a8f8-63fc255aa937")
@@ -192,16 +193,16 @@ public class DiagramDrawingLinkDG extends DiagramAbstractLink implements IDiagra
         if (targetEditPart != null) {
             return targetEditPart;
         }
-        
+
         for (EditPart e : (List<EditPart>) from.getChildren()) {
             targetEditPart = e.getTargetEditPart(req);
             if (targetEditPart != null) {
                 return targetEditPart;
             }
         }
-        
+
         throw new IllegalArgumentException("Reconnection is not supported");
-        
+
     }
 
 }

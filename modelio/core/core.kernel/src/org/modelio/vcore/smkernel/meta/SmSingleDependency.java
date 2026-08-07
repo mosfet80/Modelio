@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel.meta;
 
@@ -34,6 +34,7 @@ public abstract class SmSingleDependency extends SmDependency {
      * Get the dependency value.
      * <p>
      * This getter accessor is redefined by specialized classes to access the proper data field.
+     *
      * @param object the model object data.
      * @return the dependency content.
      */
@@ -45,6 +46,7 @@ public abstract class SmSingleDependency extends SmDependency {
      * Set the dependency value.
      * <p>
      * This setter accessor is redefined by specialized classes to modify the proper data field.
+     *
      * @param object the model object data.
      * @param value the dependency content.
      */
@@ -53,6 +55,7 @@ public abstract class SmSingleDependency extends SmDependency {
 
     /**
      * Clear the value if the given one was the current one.
+     *
      * @param data The object to modify
      * @param value the value to remove
      */
@@ -65,7 +68,7 @@ public abstract class SmSingleDependency extends SmDependency {
         } else {
             return false;
         }
-        
+
     }
 
     /**
@@ -74,6 +77,7 @@ public abstract class SmSingleDependency extends SmDependency {
      * <li>set the dependency value to the given value
      * <li>ignore the index parameter
      * </ul>
+     *
      * @param data The object to modify
      * @param value the value to add/set
      */
@@ -85,6 +89,7 @@ public abstract class SmSingleDependency extends SmDependency {
 
     /**
      * Set the value to the given value
+     *
      * @param data The object to modify
      * @param value the value to add/set
      * @return <code>true</code> if a change was done, <code>false</code> if no change was needed (the value was already present).
@@ -105,20 +110,20 @@ public abstract class SmSingleDependency extends SmDependency {
         if (value != null) {
             this.checker.assertType(smObjectImpl, value);
         }
-        
+
     }
 
     @objid ("fc885460-36fe-4785-bb31-4b9796f82500")
     @Override
     public Collection<SmObjectImpl> getValueAsCollection(ISmObjectData object) {
         SmObjectImpl val = getValue(object);
-        
+
         if (val == null) {
             return Collections.emptyList();
         } else {
             return Collections.singletonList(val);
         }
-        
+
     }
 
     @objid ("73a896ca-8209-4d2b-9bfd-fe1dd001a0f0")
@@ -128,9 +133,9 @@ public abstract class SmSingleDependency extends SmDependency {
             // No move needed
             return;
         }
-        
+
         throw new UnsupportedOperationException("Move is not possible for a single dependency.");
-        
+
     }
 
 }

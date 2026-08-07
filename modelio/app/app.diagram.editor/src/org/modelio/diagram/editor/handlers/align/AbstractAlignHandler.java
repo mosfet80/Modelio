@@ -1,28 +1,28 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.handlers.align;
 
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -39,7 +39,7 @@ import org.modelio.platform.model.ui.swt.SelectionHelper;
 
 /**
  * Base abstract class for all alignment command handlers.
- * 
+ *
  * @author pvlaemynck
  */
 @objid ("65ad536b-33f7-11e2-95fe-001ec947c8cc")
@@ -49,7 +49,7 @@ public abstract class AbstractAlignHandler {
     public Object execute(@Named(IServiceConstants.ACTIVE_SELECTION) ISelection selection) {
         List<GraphicalEditPart> otherSelections = new ArrayList<>();
         GraphicalEditPart primarySelection = parseAndFilterSelection(selection, otherSelections);
-        
+
         // Align the elements
         if (primarySelection != null && ! otherSelections.isEmpty()) {
             align(primarySelection, otherSelections);
@@ -62,6 +62,7 @@ public abstract class AbstractAlignHandler {
 
     /**
      * This method returns the effective bounds (those seen by the end user) of a figure
+     *
      * @param figure the figure which bounds are to be returned.
      * @return a copy of the effective bounds of the figure
      */
@@ -70,7 +71,7 @@ public abstract class AbstractAlignHandler {
         Rectangle handleBounds = (figure instanceof HandleBounds) ? ((HandleBounds) figure).getHandleBounds()
                                                                         : figure.getBounds();
         PrecisionRectangle preciseBounds = new PrecisionRectangle(handleBounds);
-        
+
         if (true) {
             // Align rectangle center location with SnapGeometry algorithm to avoid differences in midpoint locations.
             GeomUtils.alignRectangleWithSnapToGeometry(preciseBounds);
@@ -82,6 +83,7 @@ public abstract class AbstractAlignHandler {
      * Filter the selection: when an ancestor is also in selection, remove the child.
      * That is done because any translation/resizing applied to the ancestor will already have an
      * impact on the child.
+     *
      * @param primarySelection the primary selection
      * @param otherSelections the secondary selection that will be filtered
      */
@@ -91,13 +93,13 @@ public abstract class AbstractAlignHandler {
         if (primarySelection != null) {
             otherSelectionsCopy.add(primarySelection);
         }
-        
+
         for (EditPart editPart : otherSelectionsCopy) {
             boolean isToRemove = ! isUserEditable(editPart);
             if (isToRemove) {
                 otherSelections.remove(editPart);
             }
-        
+
             while (editPart != null && !isToRemove) {
                 if (otherSelectionsCopy.contains(editPart.getParent())) {
                     otherSelections.remove(editPart);
@@ -106,17 +108,18 @@ public abstract class AbstractAlignHandler {
                 editPart = editPart.getParent();
             }
         }
-        
+
         if (primarySelection != null && isUserEditable(primarySelection)) {
             return primarySelection;
         } else {
             return null;
         }
-        
+
     }
 
     /**
      * Extract and filter the GEF selection from the Eclipse selection
+     *
      * @param selection the Eclipse selection
      * @param otherSelections a container for the secondary selection
      * @return the primary selected edit part, or null
@@ -131,7 +134,7 @@ public abstract class AbstractAlignHandler {
                 otherSelections.add(editPart);
             }
         }
-        
+
         primarySelection = filterSelection(primarySelection, otherSelections);
         return primarySelection;
     }

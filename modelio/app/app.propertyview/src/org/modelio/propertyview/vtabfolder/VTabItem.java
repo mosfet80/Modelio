@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.propertyview.vtabfolder;
 
@@ -32,7 +32,7 @@ import org.eclipse.swt.widgets.Widget;
 /**
  * Instances of this class represent a selectable user interface object that
  * represent a page in a notebook widget.
- * 
+ *
  * <dl>
  * <dt><b>Styles:</b></dt>
  * <dd>SWT.CLOSE</dd>
@@ -42,7 +42,7 @@ import org.eclipse.swt.widgets.Widget;
  * <p>
  * IMPORTANT: This class is <em>not</em> intended to be subclassed.
  * </p>
- * 
+ *
  * @see <a href="http://www.eclipse.org/swt/snippets/#VTabFolder">VTabFolder,
  * VTabItem snippets</a>
  * @see <a href="http://www.eclipse.org/swt/">Sample code and further
@@ -89,7 +89,7 @@ public class VTabItem extends Item {
 
     @objid ("79615129-f717-45c2-a694-aa867d1b8c20")
     Control control; // the tab page
-    
+
 
     // Appearance
     @objid ("193cbcac-489e-48c9-a594-61942bf9ef13")
@@ -111,12 +111,11 @@ public class VTabItem extends Item {
      * style constants. The class description lists the style constants that are
      * applicable to the class. Style bits are also inherited from superclasses.
      * </p>
-     * @see SWT
-     * @see Widget#getStyle()
+     *
      * @param parent a VTabFolder which will be the parent of the new instance
      * (cannot be null)
      * @param style the style of control to construct
-     * 
+     *
      * @exception IllegalArgumentException
      * <ul>
      * <li>ERROR_NULL_ARGUMENT - if the parent is null</li>
@@ -126,9 +125,11 @@ public class VTabItem extends Item {
      * <li>ERROR_THREAD_INVALID_ACCESS - if not called from the
      * thread that created the parent</li>
      * </ul>
+     * @see SWT
+     * @see Widget#getStyle()
      */
     @objid ("7c8fea7e-6909-48de-ad0d-f16de3563884")
-    public  VTabItem(VTabFolder parent, int style) {
+    public VTabItem(VTabFolder parent, int style) {
         this(parent, style, parent.getItemCount());
     }
 
@@ -145,13 +146,12 @@ public class VTabItem extends Item {
      * style constants. The class description lists the style constants that are
      * applicable to the class. Style bits are also inherited from superclasses.
      * </p>
-     * @see SWT
-     * @see Widget#getStyle()
+     *
      * @param parent a VTabFolder which will be the parent of the new instance
      * (cannot be null)
      * @param style the style of control to construct
      * @param index the zero-relative index to store the receiver in its parent
-     * 
+     *
      * @exception IllegalArgumentException
      * <ul>
      * <li>ERROR_NULL_ARGUMENT - if the parent is null</li>
@@ -163,13 +163,15 @@ public class VTabItem extends Item {
      * <li>ERROR_THREAD_INVALID_ACCESS - if not called from the
      * thread that created the parent</li>
      * </ul>
+     * @see SWT
+     * @see Widget#getStyle()
      */
     @objid ("38180ce1-2a67-415b-a975-a3e0466bc551")
-    public  VTabItem(VTabFolder parent, int style, int index) {
+    public VTabItem(VTabFolder parent, int style, int index) {
         super(parent, style);
         this.showClose = (style & SWT.CLOSE) != 0;
         parent.createItem(this, index);
-        
+
     }
 
     @objid ("2d7ceaa8-33e6-49b8-90de-d9961c7f6973")
@@ -185,14 +187,15 @@ public class VTabItem extends Item {
         this.toolTipText = null;
         this.shortenedText = null;
         this.font = null;
-        
+
     }
 
     /**
      * Returns a rectangle describing the receiver's size and location relative
      * to its parent.
+     *
      * @return the receiver's bounding column rectangle
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has been
@@ -210,8 +213,9 @@ public class VTabItem extends Item {
 
     /**
      * Gets the control that is displayed in the content area of the tab item.
+     *
      * @return the control
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has been
@@ -228,8 +232,9 @@ public class VTabItem extends Item {
 
     /**
      * Returns the font that the receiver will use to paint textual information.
+     *
      * @return the receiver's font
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has been
@@ -237,7 +242,7 @@ public class VTabItem extends Item {
      * <li>ERROR_THREAD_INVALID_ACCESS - if not called from the
      * thread that created the receiver</li>
      * </ul>
-     * 
+     *
      * @since 3.0
      */
     @objid ("606491dc-bec9-4cc5-a1d2-4b19f16f0022")
@@ -250,8 +255,9 @@ public class VTabItem extends Item {
 
     /**
      * Returns the receiver's parent, which must be a <code>VTabFolder</code>.
+     *
      * @return the receiver's parent
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has been
@@ -270,8 +276,9 @@ public class VTabItem extends Item {
      * Returns <code>true</code> to indicate that the receiver's close button
      * should be shown. Otherwise return <code>false</code>. The initial value
      * is defined by the style (SWT.CLOSE) that was used to create the receiver.
+     *
      * @return <code>true</code> if the close button should be shown
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has been
@@ -279,7 +286,7 @@ public class VTabItem extends Item {
      * <li>ERROR_THREAD_INVALID_ACCESS - if not called from the
      * thread that created the receiver</li>
      * </ul>
-     * 
+     *
      * @since 3.4
      */
     @objid ("b66f80c2-6adb-408c-bb4b-67b2f745da02")
@@ -290,8 +297,9 @@ public class VTabItem extends Item {
 
     /**
      * Returns the receiver's tool tip text, or null if it has not been set.
+     *
      * @return the receiver's tool tip text
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has been
@@ -314,9 +322,10 @@ public class VTabItem extends Item {
     /**
      * Returns <code>true</code> if the item will be rendered in the visible
      * area of the VTabFolder. Returns false otherwise.
+     *
      * @return <code>true</code> if the item will be rendered in the visible
      * area of the VTabFolder. Returns false otherwise.
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has been
@@ -324,7 +333,7 @@ public class VTabItem extends Item {
      * <li>ERROR_THREAD_INVALID_ACCESS - if not called from the
      * thread that created the receiver</li>
      * </ul>
-     * 
+     *
      * @since 3.0
      */
     @objid ("5cb18b97-8e56-4e4b-b225-5b636ab64280")
@@ -336,8 +345,9 @@ public class VTabItem extends Item {
     /**
      * Sets the control that is used to fill the client area of the tab folder
      * when the user selects the tab item.
+     *
      * @param control the new control (or null)
-     * 
+     *
      * @exception IllegalArgumentException
      * <ul>
      * <li>ERROR_INVALID_ARGUMENT - if the control has been
@@ -382,7 +392,7 @@ public class VTabItem extends Item {
                 }
             }
         }
-        
+
     }
 
     @objid ("554f3a5c-e8ce-40d3-a20f-23fbe822ae99")
@@ -394,8 +404,9 @@ public class VTabItem extends Item {
      * Sets the font that the receiver will use to paint textual information for
      * this item to the font specified by the argument, or to the default font
      * for that kind of control if the argument is null.
+     *
      * @param font the new font (or null)
-     * 
+     *
      * @exception IllegalArgumentException
      * <ul>
      * <li>ERROR_INVALID_ARGUMENT - if the argument has been
@@ -408,7 +419,7 @@ public class VTabItem extends Item {
      * <li>ERROR_THREAD_INVALID_ACCESS - if not called from the
      * thread that created the receiver</li>
      * </ul>
-     * 
+     *
      * @since 3.0
      */
     @objid ("1ab8e94c-5724-4e98-93fd-5cbc99c5036d")
@@ -423,7 +434,7 @@ public class VTabItem extends Item {
             return;
         this.font = font;
         this.parent.updateFolder(VTabFolder.UPDATE_TAB_HEIGHT | VTabFolder.REDRAW_TABS);
-        
+
     }
 
     @objid ("bd45eb2b-d2a7-4da1-8732-c91f155c2e80")
@@ -440,15 +451,16 @@ public class VTabItem extends Item {
             return;
         super.setImage(image);
         this.parent.updateFolder(VTabFolder.UPDATE_TAB_HEIGHT | VTabFolder.REDRAW_TABS);
-        
+
     }
 
     /**
      * Sets to <code>true</code> to indicate that the receiver's close button
      * should be shown. If the parent (VTabFolder) was created with SWT.CLOSE
      * style, changing this value has no effect.
+     *
      * @param close the new state of the close button
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has been
@@ -456,7 +468,7 @@ public class VTabItem extends Item {
      * <li>ERROR_THREAD_INVALID_ACCESS - if not called from the
      * thread that created the receiver</li>
      * </ul>
-     * 
+     *
      * @since 3.4
      */
     @objid ("02e4d5a8-7038-469e-a2c3-1bd37e93739a")
@@ -466,7 +478,7 @@ public class VTabItem extends Item {
             return;
         this.showClose = close;
         this.parent.updateFolder(VTabFolder.REDRAW_TABS);
-        
+
     }
 
     @objid ("500e29cc-08da-4722-8cf8-57c1271b9e0f")
@@ -484,7 +496,7 @@ public class VTabItem extends Item {
         this.shortenedText = null;
         this.shortenedTextWidth = 0;
         this.parent.updateFolder(VTabFolder.UPDATE_TAB_HEIGHT | VTabFolder.REDRAW_TABS);
-        
+
     }
 
     /**
@@ -498,8 +510,9 @@ public class VTabItem extends Item {
      * tip. To display a single '&amp;' in the tool tip, the character '&amp;'
      * can be escaped by doubling it in the string.
      * </p>
+     *
      * @param string the new tool tip text (or null)
-     * 
+     *
      * @exception SWTException
      * <ul>
      * <li>ERROR_WIDGET_DISPOSED - if the receiver has been
@@ -512,7 +525,7 @@ public class VTabItem extends Item {
     public void setToolTipText(String string) {
         checkWidget();
         this.toolTipText = string;
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -51,7 +51,7 @@ public class R2720 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -102,14 +102,14 @@ public class R2720 extends AbstractUmlRule {
      * Default constructor for R2720
      */
     @objid ("3841cd37-f455-42cf-aa7b-90c9f5c18a12")
-    public  R2720() {
+    public R2720() {
         this.checkerInstance = new CheckR2720(this);
     }
 
     @objid ("5df1b1c3-0ba5-4f24-988a-971466b59e3f")
     private static class CheckR2720 extends AbstractControl {
         @objid ("dfa153fa-c702-46f2-8a32-2b81885d12ea")
-        public  CheckR2720(IRule rule) {
+        public CheckR2720(IRule rule) {
             super(rule);
         }
 
@@ -127,23 +127,23 @@ public class R2720 extends AbstractUmlRule {
         @objid ("60a34aed-e67a-40a3-81ec-411a3576931e")
         private IAuditEntry checkR2720(final TemplateBinding tBinding) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, tBinding, null);
-            
+
             NameSpace nsOrigin = tBinding.getBoundElement();
             Operation opOrigin = tBinding.getBoundOperation();
-            
+
             NameSpace nsTarget = tBinding.getInstanciatedTemplate();
             Operation opTarget = tBinding.getInstanciatedTemplateOperation();
-            
+
             if (opOrigin != null && opTarget != null) {
                 return auditEntry;
             }
-            
+
             if (nsOrigin != null && nsTarget != null && (nsOrigin.getMClass().equals(nsTarget.getMClass())
                     || nsOrigin.getMClass().getQualifiedName().equals(DataType.MQNAME) && nsTarget.getMClass().getQualifiedName().equals(Class.MQNAME)
                     || nsTarget.getMClass().getQualifiedName().equals(DataType.MQNAME) && nsOrigin.getMClass().getQualifiedName().equals(Class.MQNAME))) {
                 return auditEntry;
             }
-            
+
             // At this point the rule failed miserably
             auditEntry.setSeverity(this.rule.getSeverity());
             List<Object> linkedObjects = new ArrayList<>();

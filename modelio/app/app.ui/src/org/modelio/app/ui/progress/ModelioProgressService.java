@@ -1,28 +1,28 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.ui.progress;
 
 import java.lang.reflect.InvocationTargetException;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.e4.ui.services.IServiceConstants;
@@ -33,6 +33,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Shell;
 import org.modelio.platform.ui.progress.IModelioProgressService;
+import org.modelio.platform.ui.swt.DefaultShellProvider;
 
 @objid ("6ff6d015-cef6-46ff-95c9-43757b3e5021")
 public class ModelioProgressService implements IModelioProgressService {
@@ -42,8 +43,8 @@ public class ModelioProgressService implements IModelioProgressService {
     public Shell activeShell;
 
     @objid ("9e9dd821-6b03-4a88-990a-659f61ab4f52")
-    public  ModelioProgressService() {
-        
+    public ModelioProgressService() {
+
     }
 
     @objid ("c1a2d77c-0c86-4be2-877c-2a39ddc892ee")
@@ -73,13 +74,13 @@ public class ModelioProgressService implements IModelioProgressService {
     @objid ("f287cf0c-5221-497f-b85e-aa20dd4cde08")
     @Override
     public void busyCursorWhile(IRunnableWithProgress runnable) throws InvocationTargetException, InterruptedException {
-        new ProgressMonitorDialog(this.activeShell).run(true, false, runnable);
+        new ProgressMonitorDialog(getShell()).run(true, false, runnable);
     }
 
     @objid ("1692c6ed-bf2e-4e12-b0d7-1fd8e588d5a7")
     @Override
     public void run(boolean fork, boolean cancelable, IRunnableWithProgress runnable) throws InvocationTargetException, InterruptedException {
-        new ProgressMonitorDialog(this.activeShell).run(fork, cancelable, runnable);
+        new ProgressMonitorDialog(getShell()).run(fork, cancelable, runnable);
     }
 
     @objid ("79cd239f-9b72-416e-afb1-7a638a33f8f0")
@@ -91,14 +92,22 @@ public class ModelioProgressService implements IModelioProgressService {
     @objid ("25c8601f-8b6e-4742-9d25-9c5693106b17")
     @Override
     public void run(final String title, boolean fork, boolean cancelable, IRunnableWithProgress runnable) throws InvocationTargetException, InterruptedException {
-        new ProgressMonitorDialog(this.activeShell) {
+        new ProgressMonitorDialog(getShell()) {
             @Override
             protected void configureShell(Shell shell) {
                 super.configureShell(shell);
                 shell.setText(title);
             }
         }.run(fork, cancelable, runnable);
-        
+    }
+
+    @objid ("5a4a62a1-ac1a-4baf-b018-cae992110f5f")
+    private Shell getShell() {
+        Shell currentActiveShell = this.activeShell;
+        if (currentActiveShell == null || currentActiveShell.isDisposed()) {
+            return DefaultShellProvider.getBestParentShell();
+        }
+        return currentActiveShell;
     }
 
 }

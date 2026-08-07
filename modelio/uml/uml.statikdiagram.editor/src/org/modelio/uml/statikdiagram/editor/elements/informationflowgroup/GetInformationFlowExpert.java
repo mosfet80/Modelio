@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.informationflowgroup;
 
@@ -41,7 +41,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * Gets the information flows realized by a given link element.
- * 
+ *
  * @author cmarin
  */
 @objid ("81629be1-1dec-11e2-8cad-001ec947c8cc")
@@ -52,6 +52,7 @@ public class GetInformationFlowExpert {
     /**
      * Get the information flows realized by the given element.
      * <p>
+     *
      * @param el a model link or a link end model.
      * @return The realized information flows.
      * @throws IllegalArgumentException if the given element cannot realize information flows.
@@ -60,7 +61,7 @@ public class GetInformationFlowExpert {
     @SuppressWarnings("unchecked")
     public static Collection<InformationFlow> getRealizedFlows(final MObject el) throws IllegalArgumentException {
         final Object ret = el.accept(impl);
-        
+
         if (ret == null)
             throw new IllegalArgumentException(el + " cannot realize information flows.");
         return (Collection<InformationFlow>) ret;
@@ -70,25 +71,25 @@ public class GetInformationFlowExpert {
      * Forbid instance creation.
      */
     @objid ("81629bee-1dec-11e2-8cad-001ec947c8cc")
-    private  GetInformationFlowExpert() {
-        
+    private GetInformationFlowExpert() {
+
     }
 
     @objid ("81629bf1-1dec-11e2-8cad-001ec947c8cc")
     private static class V extends DefaultModelVisitor {
         @objid ("81629bf3-1dec-11e2-8cad-001ec947c8cc")
-         V() {
-            
+        V() {
+
         }
 
         @objid ("81629bf5-1dec-11e2-8cad-001ec947c8cc")
         @Override
         public Object visitAssociationEnd(final AssociationEnd role) {
             final Classifier src = role.getSource();
-            
+
             final List<InformationFlow> flows = role.getRealizedInformationFlow();
             final List<InformationFlow> ret = new ArrayList<>(flows.size());
-            
+
             // Binary association
             for (InformationFlow f : flows) {
                 if (f.getInformationSource().contains(src))
@@ -101,10 +102,10 @@ public class GetInformationFlowExpert {
         @Override
         public Object visitLinkEnd(final LinkEnd role) {
             final Instance src = role.getSource();
-            
+
             final List<InformationFlow> flows = role.getRealizedInformationFlow();
             final List<InformationFlow> ret = new ArrayList<>(flows.size());
-            
+
             // Binary association
             for (InformationFlow f : flows) {
                 if (f.getInformationSource().contains(src))
@@ -153,10 +154,10 @@ public class GetInformationFlowExpert {
         @Override
         public Object visitNaryAssociationEnd(final NaryAssociationEnd role) {
             final Classifier src = role.getOwner();
-            
+
             final List<InformationFlow> flows = role.getRealizedInformationFlow();
             final List<InformationFlow> ret = new ArrayList<>(flows.size());
-            
+
             // Binary association
             for (InformationFlow f : flows) {
                 if (f.getInformationSource().contains(src))
@@ -169,10 +170,10 @@ public class GetInformationFlowExpert {
         @Override
         public Object visitNaryLinkEnd(final NaryLinkEnd role) {
             final Instance src = role.getSource();
-            
+
             final List<InformationFlow> flows = role.getNaryLink().getRealizedInformationFlow();
             final List<InformationFlow> ret = new ArrayList<>(flows.size());
-            
+
             // Binary association
             for (InformationFlow f : flows) {
                 if (f.getInformationSource().contains(src))

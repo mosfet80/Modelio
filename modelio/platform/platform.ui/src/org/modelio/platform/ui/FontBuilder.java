@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.ui;
 
@@ -46,7 +46,7 @@ import org.eclipse.swt.graphics.FontData;
  * .scale(scaleFactor)
  * .build;
  * </code></pre>
- * 
+ *
  * @author cma
  * @since 3.8.1
  */
@@ -65,24 +65,26 @@ public class FontBuilder {
      * if you intend to call {@link #build()}.
      */
     @objid ("fe80cf73-b936-40a9-92ab-47c019b67dc2")
-    public  FontBuilder() {
-        
+    public FontBuilder() {
+
     }
 
     /**
      * Copy constructor.
+     *
      * @param other the font builder to copy.
      * @since 5.2.1 Alouette
      */
     @objid ("a39cebf6-130a-4f8f-a4b1-1cf96e68be2b")
-    public  FontBuilder(FontBuilder other) {
+    public FontBuilder(FontBuilder other) {
         this.fontdatas = FontDescriptor.copy(other.fontdatas);
         this.rm = other.rm;
-        
+
     }
 
     /**
      * Add style bits to the font.
+     *
      * @param styleToAdd the given style flags added (use SWT.NONE for no flags change)
      * @return this builder to chain calls.
      */
@@ -98,6 +100,7 @@ public class FontBuilder {
      * Build the font.
      * <p>
      * {@link #withAllocator(ResourceManager)} must have been called in order to work.
+     *
      * @return the built font.
      * @throws IllegalStateException if {@link #withAllocator(ResourceManager)} has not been called.
      */
@@ -110,6 +113,7 @@ public class FontBuilder {
 
     /**
      * Build and return a {@link FontDescriptor}.
+     *
      * @return a JFace font descriptor.
      */
     @objid ("d46cce48-7eb0-4be8-85af-7946c61ca8b1")
@@ -119,6 +123,7 @@ public class FontBuilder {
 
     /**
      * Initialize the font builder given a font.
+     *
      * @param font describes the desired font (must not be null)
      * @return this instance
      */
@@ -132,6 +137,7 @@ public class FontBuilder {
      * Initialize the font builder given a font data which describes the desired font's appearance.
      * <p>
      * {@link #from(FontData[])} should better be used to be fully compatible on Unix.
+     *
      * @param f describes the desired font (must not be null)
      * @return this instance
      */
@@ -145,6 +151,7 @@ public class FontBuilder {
      * Initialize the font builder given a font data which describes the desired font's appearance.
      * <p>
      * Use this method to be fully compatible on Unix.
+     *
      * @param initFontDatas describes the desired font (must not be null)
      * @return this instance
      */
@@ -158,6 +165,7 @@ public class FontBuilder {
      * Increase the font height by the given delta.
      * <p>
      * a negative delta will decrease font height.
+     *
      * @param delta the delta to apply .
      * @return this builder to chain calls.
      */
@@ -171,6 +179,7 @@ public class FontBuilder {
 
     /**
      * Apply a custom modification on the stored font datas.
+     *
      * @param modifier the modifier to apply to each FontData .
      * @return this builder to chain calls.
      */
@@ -182,6 +191,7 @@ public class FontBuilder {
 
     /**
      * remove style bits from the font.
+     *
      * @param styleToRemove the given style flags added (use SWT.NONE for no flags change)
      * @return this builder to chain calls.
      */
@@ -197,6 +207,7 @@ public class FontBuilder {
      * Scale the font by the given factor.
      * <p>
      * Use {@link UIFont} constants and {@link UIFont#NORMAL_SIZE} for no size change)
+     *
      * @param scaleFactor the font height scale factor.
      * @return this builder to chain calls.
      */
@@ -210,6 +221,7 @@ public class FontBuilder {
 
     /**
      * Make and return a copy this instance.
+     *
      * @return a copy of the builder.
      * @since 5.2.1 Alouette
      */
@@ -221,9 +233,10 @@ public class FontBuilder {
 
     /**
      * Set the ResourceManager used to allocate the font.
-     * @see org.eclipse.jface.resource.JFaceResources
+     *
      * @param arm a resources manager
      * @return this instance.
+     * @see org.eclipse.jface.resource.JFaceResources
      */
     @objid ("f9506ff0-3b95-4a1d-bbce-f846dd48b105")
     public FontBuilder withAllocator(ResourceManager arm) {

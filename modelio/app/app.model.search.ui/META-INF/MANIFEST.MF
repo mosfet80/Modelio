@@ -2,9 +2,9 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Model Search
 Bundle-SymbolicName: org.modelio.app.model.search.ui;singleton:=true
-Bundle-Version: 5.4.1.qualifier 
+Bundle-Version: 6.2.0.qualifier
 Bundle-Vendor: modelio.org
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.e4.core.di,
@@ -23,7 +23,11 @@ Require-Bundle: org.eclipse.core.runtime,
  org.modelio.platform.model.ui,
  org.eclipse.e4.core.commands,
  org.eclipse.ui.workbench,
- org.modelio.platform.rcp
+ org.modelio.platform.rcp,
+ org.eclipse.e4.ui.workbench,
+ org.eclipse.e4.core.services,
+ org.modelio.app.ui,
+ org.eclipse.e4.ui.model.workbench
 Bundle-ClassPath: res/,
  .
 Bundle-Activator: org.modelio.model.search.plugin.ModelSearch
@@ -32,5 +36,13 @@ Export-Package: org.modelio.model.search,
  org.modelio.model.search.dialog,
  org.modelio.model.search.handlers,
  org.modelio.model.search.plugin
-Import-Package: javax.annotation;version="1.1.0",
- javax.inject;version="1.0.0"
+Import-Package: jakarta.annotation;version="1.1.0",
+ jakarta.inject;version="1.0.0",
+ org.eclipse.draw2d,
+ org.eclipse.draw2d.geometry,
+ org.eclipse.gef,
+ org.eclipse.gef.commands,
+ org.eclipse.gef.editparts,
+ org.eclipse.gef.editpolicies,
+ org.eclipse.gef.tools,
+ org.eclipse.gef.ui.parts

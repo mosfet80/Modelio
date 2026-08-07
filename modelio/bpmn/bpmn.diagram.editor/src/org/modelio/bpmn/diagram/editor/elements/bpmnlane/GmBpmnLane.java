@@ -1,31 +1,42 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnlane;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.modelio.bpmn.diagram.editor.elements.bpmnlane.header.GmBpmnLaneHeader;
 import org.modelio.bpmn.diagram.editor.elements.bpmnlane.hibridcontainer.GmBodyHybridContainer;
 import org.modelio.bpmn.diagram.editor.elements.bpmnlane.v0.GmBpmnLaneV0;
+import org.modelio.bpmn.diagram.editor.elements.bpmnlanesetcontainer.GmBpmnLaneSetContainer;
+import org.modelio.diagram.elements.core.link.MPoint;
+import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.model.IGmDiagram;
+import org.modelio.diagram.elements.core.model.IGmLink;
+import org.modelio.diagram.elements.core.model.IGmLinkObject;
+import org.modelio.diagram.elements.core.model.IGmLinkable;
+import org.modelio.diagram.elements.core.model.IGmObject;
+import org.modelio.diagram.elements.core.model.IGmPath;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.persistence.IDiagramReader;
@@ -64,8 +75,20 @@ public class GmBpmnLane extends GmCompositeNode {
     private BpmnLane element;/*
      * // BpmnLane or BpmnParticipant
      */
-    
 
+
+    /*
+    * // BpmnLane or BpmnParticipant
+    */
+    /*
+    * // BpmnLane or BpmnParticipant
+    */
+    /*
+    * // BpmnLane or BpmnParticipant
+    */
+    /*
+     * // BpmnLane or BpmnParticipant
+     */
     @objid ("c471472d-59a6-11e2-ae45-002564c97630")
     private static GmBpmnLaneStructuredStyleKeys STRUCTKEYS = new GmBpmnLaneStructuredStyleKeys();
 
@@ -83,26 +106,26 @@ public class GmBpmnLane extends GmCompositeNode {
 
     /**
      * Default constructor.
+     *
      * @param diagram the diagram in which this partition will be unmasked.
      * @param theLane the unmasked partition (can be null).
      * @param ref a reference to the unmasked partition (cannot be null).
      */
     @objid ("611a837a-55b6-11e2-877f-002564c97630")
-    public  GmBpmnLane(IGmDiagram diagram, BpmnLane theLane, MRef ref) {
+    public GmBpmnLane(IGmDiagram diagram, BpmnLane theLane, MRef ref) {
         super(diagram, ref);
         this.element = theLane;
         this.header = new GmBpmnLaneHeader(diagram, ref);
         this.body = new GmBodyHybridContainer(diagram, ref);
         super.addChild(this.header);
         super.addChild(this.body);
-        
     }
 
     /**
      * Empty constructor needed for serialisation.
      */
     @objid ("611a83ba-55b6-11e2-877f-002564c97630")
-    public  GmBpmnLane() {
+    public GmBpmnLane() {
         // Nothing to do.
     }
 
@@ -141,6 +164,7 @@ public class GmBpmnLane extends GmCompositeNode {
     }
 
     /**
+     *
      * @return The partition content area.
      */
     @objid ("611c0a1c-55b6-11e2-877f-002564c97630")
@@ -201,7 +225,6 @@ public class GmBpmnLane extends GmCompositeNode {
             break;
         }
         }
-        
     }
 
     @objid ("611c0a2b-55b6-11e2-877f-002564c97630")
@@ -210,7 +233,6 @@ public class GmBpmnLane extends GmCompositeNode {
         super.write(out);
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmBpmnLane.", GmBpmnLane.MINOR_VERSION);
-        
     }
 
     /**
@@ -219,6 +241,7 @@ public class GmBpmnLane extends GmCompositeNode {
      * This method should return true only if it is consistent to display the given metaclass elements inside this graphic element.
      * <p>
      * <b>eg:</b> IAttributes can be displayed in a GmClass .
+     *
      * @param type The metaclass to unmask.
      * @return true only if it is consistent to display elements of the given metaclass inside this graphic element, false in the other cases.
      */
@@ -230,7 +253,7 @@ public class GmBpmnLane extends GmCompositeNode {
         if (this.body.getChildren(GmBodyHybridContainer.SUB_LANE).isEmpty()) {
             accept = BpmnFlowElement.class.isAssignableFrom(type);
         }
-        
+
         // We can always accept sub partitions: if things come to the worst, all
         // inner nodes and edges will be transfered to the first subpartition.
         accept = accept || BpmnLaneSet.class.isAssignableFrom(type);
@@ -244,23 +267,21 @@ public class GmBpmnLane extends GmCompositeNode {
         this.header = (GmBpmnLaneHeader) this.getChildren().get(0);
         this.body = (GmBodyHybridContainer) this.getChildren().get(1);
         this.element = (BpmnLane) resolveRef(getRepresentedRef());
-        
     }
 
     @objid ("4906081c-b4b0-4292-85e3-a9950913bda5")
-     GmBpmnLane(final GmBpmnLaneV0 oldVersionGm) {
+    GmBpmnLane(final GmBpmnLaneV0 oldVersionGm) {
         super(oldVersionGm.getDiagram(), oldVersionGm.getRepresentedRef());
         this.element = (BpmnLane) oldVersionGm.getRepresentedElement();
-        
+
         this.header = oldVersionGm.getHeader();
-        
+
         this.body = oldVersionGm.getBody();
-        
+
         oldVersionGm.removeChild(this.header);
         super.addChild(this.header);
         oldVersionGm.removeChild(this.body);
         super.addChild(this.body);
-        
     }
 
     @objid ("71c08734-6644-4aa7-b083-ef8eb9fd0a46")
@@ -270,6 +291,7 @@ public class GmBpmnLane extends GmCompositeNode {
     }
 
     /**
+     *
      * @return the lane body container.
      */
     @objid ("21a9490f-1755-47ee-a543-d9a1badf935e")
@@ -287,7 +309,143 @@ public class GmBpmnLane extends GmCompositeNode {
         } else {
             return findParentCollaboration(owner);
         }
-        
+    }
+
+    @objid ("8719cc40-4f09-4f57-8ab0-96c735af6231")
+    @Override
+    protected void obChildDeleted(GmModel child) {
+        firePropertyChange(IGmObject.PROPERTY_CHILDREN, null, null);
+        super.obChildDeleted(child);
+    }
+
+    /**
+     * Get the parent lane of this container casted as GmBpmnLane.
+     *
+     * @return the parent lane or null if none
+     */
+    @objid ("f743d2e5-82a1-43bb-84f7-a78ebac10152")
+    public GmBpmnLane getParentLane() {
+        GmModel parent = getParent();
+        if (parent == null) {
+            return null;
+        }
+        if (parent instanceof GmBpmnLaneSetContainer) {
+            GmBpmnLaneSetContainer laneSet = (GmBpmnLaneSetContainer) parent;
+            return laneSet.getParentLane();
+        }
+        return null;
+    }
+
+    @objid ("cf290e0d-2a19-492a-bd54-deaafb15676c")
+    @Override
+    public void delete() {
+        GmCompositeNode firstParent = getNewParent();
+
+        List<GmNodeModel> childs = new ArrayList<GmNodeModel>();
+        List<MObject> childObjects = new ArrayList<MObject>();
+        childs.addAll(this.body.getChildren());
+
+        //Get LaneSetDataPoint
+        Rectangle laneSetData = getParentLayoutData();
+        Point laneSetDataPoint = laneSetData.getTopLeft();
+
+        if (firstParent != null) {
+            for (GmNodeModel child : childs) {
+                MObject relatedElement = child.getRelatedElement();
+
+                if (relatedElement != null) {
+                    childObjects.add(relatedElement);
+                    if (!(relatedElement.isDeleted())) {
+                        this.body.removeChild(child);
+                        firstParent.addChild(child);
+
+                        if (child.getLayoutData() instanceof Rectangle) {
+                            // Transpose the center of bounds and apply the translation to initial bounds.
+                            Rectangle before = (Rectangle) child.getLayoutData();
+                            Rectangle after = before.getTranslated(laneSetDataPoint.x, laneSetDataPoint.y);
+                            child.setLayoutData(after);
+                        }
+                    }
+                }
+            }
+        }
+
+        for (IGmLinkObject link : getDiagram().getAllLinks()) {
+            if (link instanceof IGmLink flow) {
+                IGmLinkable from = flow.getFrom();
+                IGmLinkable to = flow.getTo();
+                if (from != null && to != null
+                        && childObjects.contains(from.getRelatedElement())
+                        && childObjects.contains(to.getRelatedElement())){
+                    IGmPath path = flow.getPath();
+                    if (path != null && path.getPathData() instanceof List) {
+                        List<MPoint> pathData = (List<MPoint>) path.getPathData();
+                        for (MPoint p : pathData) {
+                            p.translate(laneSetDataPoint);
+                        }
+                        path.setPathData(pathData);
+                    }
+                }
+            }
+
+        }
+
+        //  if (firstParent instanceof GmBpmnLane) {
+        //   this.fireVisibilityChanged();
+        //  }
+
+        super.delete();
+    }
+
+    @objid ("a0b474d0-f6d9-4e3d-8f8f-11b1dd951650")
+    private Rectangle getParentLayoutData() {
+        GmCompositeNode parent = getParentNode();
+        while ((parent != null) && (!(parent.getLayoutData() instanceof Rectangle))) {
+            parent = parent.getParentNode();
+        }
+
+        if (parent == null)
+            return new Rectangle();
+
+        return (Rectangle) parent.getLayoutData();
+    }
+
+    /**
+     * Returns a new parent for child nodes of this lane.
+     * <p>
+     * The new parent is the first lane in the lane set, or the first parent that is not deleted.
+     * <p>
+     * If no such parent exists, returns null.
+     *
+     * @return the new parent of this lane.
+     */
+    @objid ("97fc867f-be6f-46a8-a432-cbc7f3a34824")
+    private GmCompositeNode getNewParent() {
+        GmCompositeNode parent = getParentNode();
+
+        if (parent != null) {
+            // If the parent is a lane set, return the first lane that is not deleted.
+            if (parent instanceof GmBpmnLaneSetContainer) {
+                for (GmNodeModel lane : parent.getChildren()) {
+                    MObject relatedElement = lane.getRelatedElement();
+                    if ((lane instanceof GmBpmnLane) && relatedElement != null && !relatedElement.isDeleted())
+                        return (GmBpmnLane) lane;
+                }
+            }
+
+            while (parent.getRelatedElement() != null && parent.getRelatedElement().isDeleted()) {
+                parent = parent.getParentNode();
+                if (parent == null) {
+                    return parent;
+                }
+                if (parent instanceof GmBodyHybridContainer) {
+                    parent = parent.getParentNode();
+                }
+            }
+
+            return parent;
+        }
+        return null;
     }
 
 }

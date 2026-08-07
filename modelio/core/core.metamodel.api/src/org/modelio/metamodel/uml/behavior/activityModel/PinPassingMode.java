@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
@@ -26,17 +26,16 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * PinPassingMode v0.0.9054
- * 
- * 
+ *
+ *
  * null
- * 
- * 
+ *
  */
 @objid ("007f7718-91e0-1f74-804b-001ec947cd2a")
 public enum PinPassingMode {
-    @objid ("61f3dbb3-0079-4eb0-8672-fa6d0d0d8a8d")
+    @objid ("6fc2961c-84a6-4a26-a3b5-dcc216ff76b4")
     INPIN(0, "InPin", "InPin"),
-    @objid ("d221b14e-051b-4d05-b72f-5ab2db6bea45")
+    @objid ("151e2aab-8ed4-4953-9096-6c2d1f024d81")
     OUTPIN(1, "OutPin", "OutPin");
 
 public static final int INPIN_VALUE = 0;
@@ -93,5 +92,5 @@ public static final int INPIN_VALUE = 0;
     public String toString() {
        return literal;
     }
-    
+
 }

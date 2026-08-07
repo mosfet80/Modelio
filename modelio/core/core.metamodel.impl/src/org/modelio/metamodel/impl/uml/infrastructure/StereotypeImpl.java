@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -66,7 +65,7 @@ public class StereotypeImpl extends ModelElementImpl implements Stereotype {
         } else {
             return Objects.equals(actualParent, parent) || actualParent.hasBase(parent);
         }
-        
+
     }
 
     @objid ("b5fbcb21-fa60-45cc-bee7-f5e8c724edb3")
@@ -173,7 +172,7 @@ public class StereotypeImpl extends ModelElementImpl implements Stereotype {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
     @objid ("1685699d-69b8-4af8-b83e-afbff65dc6c2")
@@ -221,7 +220,7 @@ public class StereotypeImpl extends ModelElementImpl implements Stereotype {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
     @objid ("fed24107-ae24-4a38-b3d7-5a6a7427ffdd")
@@ -243,7 +242,7 @@ public class StereotypeImpl extends ModelElementImpl implements Stereotype {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
     @objid ("52fa4494-c820-4ff4-a4b5-5e6218e7f360")
@@ -265,7 +264,7 @@ public class StereotypeImpl extends ModelElementImpl implements Stereotype {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
     @objid ("741745a1-c013-46bb-92db-b17533374bd1")
@@ -287,7 +286,7 @@ public class StereotypeImpl extends ModelElementImpl implements Stereotype {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
     @objid ("f4aa21d8-db65-49ea-bd5e-744bef9c587f")
@@ -308,12 +307,12 @@ public class StereotypeImpl extends ModelElementImpl implements Stereotype {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // Owner
         dep = ((StereotypeSmClass)getClassOf()).getOwnerDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 

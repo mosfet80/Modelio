@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.namespacinglink.redraw;
 
@@ -58,7 +58,7 @@ public class RedrawCompositionLinkEditPolicy extends GraphicalNodeEditPolicy {
      * C'tor.
      */
     @objid ("35b42c3b-55b7-11e2-877f-002564c97630")
-    public  RedrawCompositionLinkEditPolicy() {
+    public RedrawCompositionLinkEditPolicy() {
         super();
     }
 
@@ -70,7 +70,7 @@ public class RedrawCompositionLinkEditPolicy extends GraphicalNodeEditPolicy {
         } else {
             super.eraseSourceFeedback(request);
         }
-        
+
     }
 
     @objid ("35b42c42-55b7-11e2-877f-002564c97630")
@@ -81,7 +81,7 @@ public class RedrawCompositionLinkEditPolicy extends GraphicalNodeEditPolicy {
         } else {
             super.eraseTargetFeedback(request);
         }
-        
+
     }
 
     @objid ("35b42c46-55b7-11e2-877f-002564c97630")
@@ -93,11 +93,11 @@ public class RedrawCompositionLinkEditPolicy extends GraphicalNodeEditPolicy {
         } else if (REQ_CONNECTION_END.equals(request.getType())) {
             return getTargetEditPartConnectionEnd((CreateConnectionRequest) request);
         }
-        
+
         if (REQ_RECONNECT_SOURCE.equals(request.getType())
                 || REQ_RECONNECT_TARGET.equals(request.getType())) {
             ReconnectRequest req = (ReconnectRequest) request;
-        
+
             // Handle reconnecting only for composition links
             if (req.getConnectionEditPart().getModel() instanceof GmCompositionLink) {
                 return getHost();
@@ -114,7 +114,7 @@ public class RedrawCompositionLinkEditPolicy extends GraphicalNodeEditPolicy {
         } else {
             super.showSourceFeedback(request);
         }
-        
+
     }
 
     @objid ("35b42c50-55b7-11e2-877f-002564c97630")
@@ -129,7 +129,7 @@ public class RedrawCompositionLinkEditPolicy extends GraphicalNodeEditPolicy {
     protected Connection createDummyConnection(Request req) {
         final PolylineConnection ret = new PolylineConnection();
         ret.removeAllPoints();
-        
+
         CircleDeco dec = new CircleDeco();
         dec.setOpaque(true);
         ret.setSourceDecoration(dec);
@@ -138,6 +138,7 @@ public class RedrawCompositionLinkEditPolicy extends GraphicalNodeEditPolicy {
 
     /**
      * Create a serializable path model from the given connection creation request.
+     *
      * @param req a connection creation request.
      * @return A serializable path model.
      */
@@ -145,9 +146,9 @@ public class RedrawCompositionLinkEditPolicy extends GraphicalNodeEditPolicy {
     protected final IGmPath createPathModel(final CreateConnectionRequest req) {
         // Create a temporary connection to be able to compute the path data
         final Connection tmpConnection = createDummyConnection(req);
-        
+
         IGmPath ret = ConnectionPolicyUtils.createPathModel(req, tmpConnection);
-        
+
         if (tmpConnection.getParent() != null) {
             tmpConnection.getParent().remove(tmpConnection);
         }
@@ -162,7 +163,7 @@ public class RedrawCompositionLinkEditPolicy extends GraphicalNodeEditPolicy {
             return null;
         }
         final RedrawCompositionLinkFactory context = (RedrawCompositionLinkFactory) request.getNewObject();
-        
+
         // Check consistency of elements involved
         final MObject hostElement = ((GmModel) getHost().getModel()).getRelatedElement();
         if (hostElement == null ||
@@ -171,10 +172,10 @@ public class RedrawCompositionLinkEditPolicy extends GraphicalNodeEditPolicy {
                 !context.getTargetElement().equals(hostElement)) {
             return null;
         }
-        
+
         // Extract start command from request (see getConnectionCreateCommand).
         final RedrawCompositionLinkCommand startCommand = (RedrawCompositionLinkCommand) request.getStartCommand();
-        
+
         startCommand.setTarget((IGmLinkable) getHost().getModel());
         // Additional step: add the optional bend points.
         startCommand.setPath(createPathModel(request));
@@ -190,7 +191,7 @@ public class RedrawCompositionLinkEditPolicy extends GraphicalNodeEditPolicy {
         }
         RedrawCompositionLinkFactory context = (RedrawCompositionLinkFactory) req.getNewObject();
         RedrawCompositionLinkCommand command = new RedrawCompositionLinkCommand(context);
-        
+
         command.setSource((IGmLinkable) getHost().getModel());
         // Store command in the request so that it can be used (and in most cases completed) later by the target node.
         req.setStartCommand(command);
@@ -224,19 +225,19 @@ public class RedrawCompositionLinkEditPolicy extends GraphicalNodeEditPolicy {
         }
         if (request instanceof CreateBendedConnectionRequest) {
             final CreateBendedConnectionRequest req = (CreateBendedConnectionRequest) request;
-        
+
             // Call the method to force creation of the connection feedback
             getFeedbackHelper(request);
-        
+
             // Set/update the router
             final ConnectionRoutingServices routingServices = ConnectionPolicyUtils.getRoutingServices(getHost());
             final ConnectionRouter router = routingServices.getCreationRouter(req.getData().getRoutingMode());
             this.connectionFeedback.setConnectionRouter(router);
-        
+
             // Set/update the anchors
             final ConnectionAnchor srcAnchor = getSourceConnectionAnchor(req);
             this.connectionFeedback.setSourceAnchor(srcAnchor);
-        
+
             ConnectionAnchor targetAnchor = getTargetConnectionAnchor(req);
             if (targetAnchor == null) {
                 // No target yet to provide an anchor, use a dummy positioned at the mouse tip.
@@ -244,19 +245,20 @@ public class RedrawCompositionLinkEditPolicy extends GraphicalNodeEditPolicy {
                 targetAnchor = this.dummyAnchor;
             }
             this.connectionFeedback.setTargetAnchor(targetAnchor);
-        
+
             // Set/update the routing constraint.
             IConnectionHelper connHelper = routingServices.getConnectionHelperFactory().getUpdatedConnectionHelper(req, this.connectionFeedback);
             this.connectionFeedback.setRoutingConstraint(connHelper.getRoutingConstraint());
-        
+
         } else {
             super.showCreationFeedback(request);
         }
-        
+
     }
 
     /**
      * Returns the host if the given request can be handled, <code>null</code> otherwise.
+     *
      * @param request a complete Connection creation request.
      * @return the host edit part or <code>null</code>.
      */
@@ -268,11 +270,12 @@ public class RedrawCompositionLinkEditPolicy extends GraphicalNodeEditPolicy {
         } else {
             return getHost();
         }
-        
+
     }
 
     /**
      * Returns the host if the given request can be handled, <code>null</code> otherwise.
+     *
      * @param request a starting Connection creation request.
      * @return the host edit part or <code>null</code>.
      */
@@ -284,7 +287,7 @@ public class RedrawCompositionLinkEditPolicy extends GraphicalNodeEditPolicy {
         } else {
             return getHost();
         }
-        
+
     }
 
 }

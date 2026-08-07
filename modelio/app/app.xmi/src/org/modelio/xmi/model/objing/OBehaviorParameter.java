@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -36,7 +36,7 @@ import org.modelio.xmi.util.StringConverter;
 
 /**
  * This class manages the export of BehaviorParameter elements
- * 
+ *
  * @author ebrosse
  */
 @objid ("a668b0c1-ab70-4c10-b8d0-7e50a7f787cb")
@@ -49,10 +49,11 @@ public class OBehaviorParameter extends OElement implements IOElement {
 
     /**
      * OBehaviorParameter constructor
+     *
      * @param element : the exported Modelio BehaviorParameter
      */
     @objid ("ead147ad-15d4-4f7b-aa27-910f34ebaa1b")
-    public  OBehaviorParameter(final BehaviorParameter element) {
+    public OBehaviorParameter(final BehaviorParameter element) {
         super(element);
     }
 
@@ -61,11 +62,11 @@ public class OBehaviorParameter extends OElement implements IOElement {
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         MObject objingParent = getObjingElement().getCompositionOwner();
         org.eclipse.uml2.uml.Element ecoreParent = GenerationProperties.getInstance().getMappedElement(objingParent);
-        
+
         if ((ecoreParent != null) && (ecoreParent instanceof org.eclipse.uml2.uml.Behavior)) {
             ((org.eclipse.uml2.uml.Behavior) ecoreParent).getOwnedParameters().add((org.eclipse.uml2.uml.Parameter) ecoreElt);
         }
-        
+
     }
 
     @objid ("c64e42a7-4d22-48cc-a37f-5fb3e5edfa23")
@@ -77,7 +78,7 @@ public class OBehaviorParameter extends OElement implements IOElement {
         setMax((org.eclipse.uml2.uml.Parameter) ecoreElt);
         setMin((org.eclipse.uml2.uml.Parameter) ecoreElt);
         setClass((org.eclipse.uml2.uml.Parameter) ecoreElt);
-        
+
     }
 
     @objid ("1c18dd74-49f6-4318-b09f-90f1d6c87724")
@@ -98,7 +99,7 @@ public class OBehaviorParameter extends OElement implements IOElement {
         default:
             ecoreElt.setEffect(org.eclipse.uml2.uml.ParameterEffectKind.CREATE_LITERAL);
         }
-        
+
     }
 
     @objid ("dd0b3c7c-4d5e-47bc-aef6-fcbaf9a0a997")
@@ -114,7 +115,7 @@ public class OBehaviorParameter extends OElement implements IOElement {
     @objid ("c793c47f-e4c5-471d-9533-f74e7153b441")
     private void setMin(org.eclipse.uml2.uml.Parameter ecoreElt) {
         String objingMultMin = getObjingElement().getMultiplicityMin();
-        
+
         // If objingMultMin is "" then we don't set a lower multiplicity for the
         // UML2 element.
         if (!"".equals(objingMultMin)) {
@@ -133,13 +134,13 @@ public class OBehaviorParameter extends OElement implements IOElement {
                 }
             }
         }
-        
+
     }
 
     @objid ("c3dad748-2c43-4553-b0cf-c108a0ac25d8")
     private void setMax(org.eclipse.uml2.uml.Parameter ecoreElt) {
         String objingMultMax = getObjingElement().getMultiplicityMax();
-        
+
         // If objingMultMax is "" then we don't set an upper multiplicity for
         // the UML2 element.
         if (!"".equals(objingMultMax)) {
@@ -158,26 +159,26 @@ public class OBehaviorParameter extends OElement implements IOElement {
                 }
             }
         }
-        
+
     }
 
     @objid ("b801ac4c-4ec3-4033-8044-f509654445d3")
     private void setClass(org.eclipse.uml2.uml.Parameter ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
-        
+
         // Getting type of the org.eclipse.uml2.uml.Parameter:
         GeneralClass objingType = getObjingElement().getType();
         if (objingType != null) {
             if (ModelioPrimitiveTypeMapper.isPredefinedType(objingType)) {
                 ModelioPrimitiveTypeMapper.setEcorePredefinedType(ecoreElt, (DataType) objingType);
             } else {
-        
+
                 if (objingType instanceof TemplateParameter) {
                     return;
-        
+
                 } else {
                     org.eclipse.uml2.uml.Element ecoreEltType = genProp.getMappedElement(objingType);
-        
+
                     if (ecoreEltType instanceof org.eclipse.uml2.uml.Type) {
                         setType(ecoreElt, (org.eclipse.uml2.uml.Type) ecoreEltType);
                     }
@@ -186,7 +187,7 @@ public class OBehaviorParameter extends OElement implements IOElement {
         } else {
             ObjingEAnnotation.setIsNoType(ecoreElt);
         }
-        
+
     }
 
     @objid ("bcb46fac-b71f-48fb-83b1-1165afb33c5c")

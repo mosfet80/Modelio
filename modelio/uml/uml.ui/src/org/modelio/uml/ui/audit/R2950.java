@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -53,7 +53,7 @@ public class R2950 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -68,7 +68,7 @@ public class R2950 extends AbstractUmlRule {
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE);
         plan.registerRule(State.MQNAME, this, AuditTrigger.MOVE);
-        
+
     }
 
     @objid ("95e78ff5-e5e8-4e0d-950b-68c0f09263df")
@@ -108,14 +108,14 @@ public class R2950 extends AbstractUmlRule {
      * Default constructor for R2950
      */
     @objid ("6430d1af-1cc6-45d8-b1e4-58ce070e0c3b")
-    public  R2950() {
+    public R2950() {
         this.checkerInstance = new CheckR2950(this);
     }
 
     @objid ("9c244664-1575-4b58-be8e-17b9aa2ca030")
     private static class CheckR2950 extends AbstractControl {
         @objid ("7eca7052-ce79-4419-8789-61eaf61e5950")
-        public  CheckR2950(IRule rule) {
+        public CheckR2950(IRule rule) {
             super(rule);
         }
 
@@ -123,26 +123,26 @@ public class R2950 extends AbstractUmlRule {
         @Override
         public IDiagnosticCollector doRun(IDiagnosticCollector diagnostic, MObject element) {
             if (element instanceof Transition) {
-            
+
                 // A transition was either created or moved
                 // We need to check if its source is a fork state
-            
+
                 StateVertex source = ((Transition) element).getSource();
                 if (source instanceof ForkPseudoState) {
                     diagnostic.addEntry(checkR2950((ForkPseudoState) source));
                 }
-            
+
             } else if (element instanceof State) {
-            
+
                 // A state was moved
                 // We need to check if the source of one of its incoming transitions if a fork state
-            
+
                 for (Transition transition : ((State) element).getIncoming()) {
                     StateVertex source = transition.getSource();
                     if (source instanceof ForkPseudoState) {
                         diagnostic.addEntry(checkR2950((ForkPseudoState) source));
                     }
-            
+
                 }
             } else {
                 UmlUi.LOG.warning("R2950: unsupported element type '%s'", element.getMClass().getName());
@@ -152,6 +152,7 @@ public class R2950 extends AbstractUmlRule {
 
         /**
          * This rules check that all targeted state of a ForkPseudoState are all contained in the same State and are in different regions.
+         *
          * @param fork The ForkPseudoState to check.
          * @return The audit entry.
          */
@@ -161,54 +162,54 @@ public class R2950 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     fork,
                     null);
-            
+
             // Fetching all targeted states
             List<State> targetedStates = fetchTargetStates(fork);
-            
+
             // Fetching all ancestors for each target state
             Map<State, List<State>> ancestorsMap = fetchAncestors(targetedStates);
-            
+
             // Checking there is at least one common ancestor (intersection of ancestors)
             List<State> ancestorIntersection = fetchCommonAncestors(ancestorsMap);
-            
+
             if (ancestorIntersection.isEmpty()) {
-            
+
                 // There was no common ancestors between two states
                 // Rule failed
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(fork);
                 auditEntry.setLinkedInfos(linkedObjects);
-            
+
                 return auditEntry;
             }
-            
+
             State commonAncestor = ancestorIntersection.get(0);
-            
+
             List<Region> targetedRegions = new ArrayList<>();
-            
+
             // Checking that all targeted states are in different regions
             for (State state : targetedStates) {
-            
+
                 Region region = state.getParent();
                 State parent = region.getParent();
-            
+
                 while (!parent.equals(commonAncestor)) {
                     region = parent.getParent();
                     parent = region.getParent();
                 }
-            
+
                 if (targetedRegions.contains(region)) {
-            
+
                     // Two of the targeted states are in the same region
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(fork);
                     auditEntry.setLinkedInfos(linkedObjects);
-            
+
                 } else {
                     targetedRegions.add(region);
                 }
@@ -218,13 +219,14 @@ public class R2950 extends AbstractUmlRule {
 
         /**
          * Fetches all the target states of a ForkPseudoState
+         *
          * @param fork The ForkPseudoState.
          * @return The list of target State.
          */
         @objid ("0e747cf1-7b19-4d1b-85b4-851f165d7ee5")
         private List<State> fetchTargetStates(final ForkPseudoState fork) {
             List<State> targetedStates = new ArrayList<>();
-            
+
             for (Transition transition : fork.getOutGoing()) {
                 StateVertex vertex = transition.getTarget();
                 if (vertex instanceof State) {
@@ -236,13 +238,14 @@ public class R2950 extends AbstractUmlRule {
 
         /**
          * Fetches all the ancestors for each state.
+         *
          * @param sourceStates The states from which to get the ancestors.
          * @return A map containing all the ancestors of each state.
          */
         @objid ("57687cdb-dd09-441b-bd48-68a895f3081a")
         private Map<State, List<State>> fetchAncestors(final List<State> targetedStates) {
             Map<State, List<State>> ancestorsMap = new HashMap<>();
-            
+
             for (State state : targetedStates) {
                 List<State> ancestors = new ArrayList<>();
                 Region region = state.getParent();
@@ -262,19 +265,20 @@ public class R2950 extends AbstractUmlRule {
 
         /**
          * Tries to fetch the common ancestors to all the states. If none exists, it returns an empty list.
+         *
          * @param ancestorsMap The map of the state and their ancestors.
          * @return The list of common ancestors.
          */
         @objid ("da514789-3620-437a-b31c-ad5fc743df8c")
         private List<State> fetchCommonAncestors(final Map<State, List<State>> ancestorsMap) {
             List<State> ancestorIntersection = new ArrayList<>();
-            
+
             for (State state : ancestorsMap.keySet()) {
                 if (ancestorIntersection.isEmpty()) {
                     ancestorIntersection.addAll(ancestorsMap.get(state));
                 } else {
                     List<State> compatibleAncestors = new ArrayList<>();
-            
+
                     for (State ancestor : ancestorsMap.get(state)) {
                         if (ancestorIntersection.contains(ancestor)) {
                             compatibleAncestors.add(ancestor);

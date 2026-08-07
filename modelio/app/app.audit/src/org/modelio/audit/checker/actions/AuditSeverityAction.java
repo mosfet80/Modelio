@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.checker.actions;
 
@@ -43,11 +43,11 @@ public class AuditSeverityAction extends Action {
     private IAuditService auditService;
 
     @objid ("785f6054-079e-4545-b551-68b2cffb173c")
-    public  AuditSeverityAction(String mode, IAuditService auditService, Tree tree) {
+    public AuditSeverityAction(String mode, IAuditService auditService, Tree tree) {
         this.mode = mode;
         this.auditService = auditService;
         this.tree = tree;
-        
+
         if ("AuditAdvice".equals(mode)) {
             setText(Audit.I18N.getString("Audit.CheckerView.Contextual.AuditAdvice"));
             setImageDescriptor(Audit.getImageDescriptor("icons/advice.png"));
@@ -58,7 +58,7 @@ public class AuditSeverityAction extends Action {
             setText(Audit.I18N.getString("Audit.CheckerView.Contextual.AuditError"));
             setImageDescriptor(Audit.getImageDescriptor("icons/error.png"));
         }
-        
+
     }
 
     @objid ("73b16764-0ffe-4827-b952-315baf6ccbfb")
@@ -66,14 +66,14 @@ public class AuditSeverityAction extends Action {
     public void run() {
         TreeItem[] item = this.tree.getSelection();
         Object obj = item[0].getData();
-        
+
         String ruleId = null;
         if (obj instanceof IAuditEntry) {
             ruleId = ((IAuditEntry) obj).getRuleId();
         } else if (obj instanceof AuditRuleModel) {
             ruleId = ((AuditRuleModel) obj).rule;
         }
-        
+
         if (ruleId != null && this.mode != null) {
             AuditConfigurationModel prefModel = this.auditService.getConfigurationModel();
             AuditRule rulePref = prefModel.get(ruleId);
@@ -89,7 +89,7 @@ public class AuditSeverityAction extends Action {
                 this.tree.redraw();
             }
         }
-        
+
     }
 
     @objid ("a05f7a47-4e4b-4436-83ab-d2b8fe83cf31")
@@ -103,7 +103,7 @@ public class AuditSeverityAction extends Action {
         } else if (obj instanceof AuditRuleModel) {
             severity = ((AuditRuleModel) obj).severity;
         }
-        
+
         if (severity != null && this.mode != null) {
             if (!severity.name().equals(this.mode)) {
                 return true;

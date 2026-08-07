@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -36,7 +36,7 @@ public class EActivityPartition extends ENamedElement {
     }
 
     @objid ("844d836c-2035-45a3-b275-ba7525d05e11")
-    public  EActivityPartition(org.eclipse.uml2.uml.ActivityPartition element) {
+    public EActivityPartition(org.eclipse.uml2.uml.ActivityPartition element) {
         super(element);
     }
 
@@ -44,28 +44,28 @@ public class EActivityPartition extends ENamedElement {
     @Override
     public void attach(Element objingElt) {
         ReverseProperties revProp = ReverseProperties.getInstance();
-                
+
         org.eclipse.uml2.uml.Element ecoreOwner = getEcoreElement().getOwner();
         ActivityPartition objingPartition = (ActivityPartition) objingElt;
-                
+
         if (ecoreOwner != null) {
             if (ecoreOwner instanceof  org.eclipse.uml2.uml.ActivityPartition) {
                 ActivityPartition objingOwner = (ActivityPartition) revProp
                         .getMappedElement(ecoreOwner);
-                
+
                 if (objingOwner != null)
                     objingPartition.setSuperPartition(objingOwner);
             } else if (ecoreOwner instanceof  org.eclipse.uml2.uml.Activity) {
                 Activity objingOwner = (Activity) revProp
                         .getMappedElement(ecoreOwner);
-                
+
                 if (objingOwner != null)
                     objingPartition.setInActivity(objingOwner);
             } else {
                 objingElt.delete();
             }
         }
-        
+
     }
 
     @objid ("8f05f320-a599-42a4-8f30-ecde2caa2abe")
@@ -75,7 +75,7 @@ public class EActivityPartition extends ENamedElement {
         setDimension((ActivityPartition) objingElt);
         setExternal((ActivityPartition) objingElt);
         setRepresented((ActivityPartition) objingElt);
-        
+
     }
 
     @objid ("f79d40e3-3d7b-4159-b471-d2b11d75465b")
@@ -97,7 +97,7 @@ public class EActivityPartition extends ENamedElement {
                 partition.setRepresented((UmlModelElement) representation);
             }
         }
-        
+
     }
 
 }

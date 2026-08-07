@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -44,7 +44,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * Checks that an ActivityParameterNode doesn't have both incoming and outgoing edges at the same time.
- * 
+ *
  * @author fpoyer
  */
 @objid ("46d33409-bc25-4bce-a38c-914ad7a76fe6")
@@ -54,7 +54,7 @@ public class R1050 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -76,7 +76,7 @@ public class R1050 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         plan.registerRule(ActivityParameterNode.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.UPDATE);
-        
+
         plan.registerRule(ControlFlow.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE |
@@ -85,7 +85,7 @@ public class R1050 extends AbstractUmlRule {
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE |
                 AuditTrigger.DELETE);
-        
+
     }
 
     /**
@@ -119,10 +119,10 @@ public class R1050 extends AbstractUmlRule {
      * Default constructor for R1050
      */
     @objid ("57bb4221-2db4-4290-bc91-f55fabb75d6f")
-    public  R1050() {
+    public R1050() {
         this.checkerInstance = new CheckR1050(this);
         this.deleteCheckerInstance = new CheckFlowDeleteR1050(this);
-        
+
     }
 
     @objid ("af3ff378-6804-4f76-a88f-aeb5fa7654ef")
@@ -138,10 +138,11 @@ public class R1050 extends AbstractUmlRule {
     private static class CheckR1050 extends AbstractControl {
         /**
          * C'tor.
+         *
          * @param rule the rule to check.
          */
         @objid ("d35fd839-fc2d-4c31-a39d-e42220302090")
-        public  CheckR1050(IRule rule) {
+        public CheckR1050(IRule rule) {
             super(rule);
         }
 
@@ -164,7 +165,7 @@ public class R1050 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     node,
                     null);
-            
+
             if (!node.getIncoming().isEmpty() && !node.getOutgoing().isEmpty()) {
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
@@ -183,14 +184,14 @@ public class R1050 extends AbstractUmlRule {
         @objid ("4040a3e1-3410-4baa-a944-dbd9f812fed2")
         private List<IAuditEntry> checkR1050(ActivityEdge edge) {
             List<IAuditEntry> auditentries = new ArrayList<>();
-            
+
             ActivityNode source = edge.getSource();
             ActivityNode target = edge.getTarget();
-            
+
             if (source instanceof ActivityParameterNode) {
                 auditentries.add(checkR1050((ActivityParameterNode) source));
             }
-            
+
             if (target instanceof ActivityParameterNode) {
                 auditentries.add(checkR1050((ActivityParameterNode) target));
             }
@@ -202,7 +203,7 @@ public class R1050 extends AbstractUmlRule {
     @objid ("d788afe1-71b7-49a4-9a51-c103f474f3d8")
     private static class CheckFlowDeleteR1050 extends CheckR1050 {
         @objid ("a6bb89dc-65f5-4e1c-94a7-f3bedb7e86f7")
-        public  CheckFlowDeleteR1050(final IRule rule) {
+        public CheckFlowDeleteR1050(final IRule rule) {
             super(rule);
         }
 
@@ -223,7 +224,7 @@ public class R1050 extends AbstractUmlRule {
         @objid ("169b5a5c-45a1-479c-8758-c1528b548b93")
         private List<IAuditEntry> checkR1050(final Activity activity) {
             List<IAuditEntry> auditEntries = new ArrayList<>();
-            
+
             for (ActivityParameterNode apn : activity.getOwnedNode(ActivityParameterNode.class)) {
                 auditEntries.add(checkR1050(apn));
             }

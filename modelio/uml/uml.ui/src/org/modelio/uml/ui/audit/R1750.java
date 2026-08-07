@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -48,7 +48,7 @@ public class R1750 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -67,7 +67,7 @@ public class R1750 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         plan.registerRule(Instance.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(AttributeLink.MQNAME, this, AuditTrigger.UPDATE | AuditTrigger.MOVE);
-        
+
     }
 
     /**
@@ -101,14 +101,14 @@ public class R1750 extends AbstractUmlRule {
      * Default constructor for R1750
      */
     @objid ("df7d652e-672f-4786-81e7-b8c52aa9fb74")
-    public  R1750() {
+    public R1750() {
         this.checkerInstance = new CheckR1750(this);
     }
 
     @objid ("386c8db1-4f09-4744-b066-247821a97ba3")
     private static class CheckR1750 extends AbstractControl {
         @objid ("193998b4-4298-4aa7-b5ec-66dc919897a9")
-        public  CheckR1750(IRule rule) {
+        public CheckR1750(IRule rule) {
             super(rule);
         }
 
@@ -128,21 +128,21 @@ public class R1750 extends AbstractUmlRule {
         @objid ("aac67dfb-729c-4eb4-b6a7-0ce084bbcdae")
         private IAuditEntry checkR1750(final Instance instance) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, instance, null);
-            
+
             List<String> attLinkNames = new ArrayList<>();
-            
+
             for (AttributeLink attLink : instance.getSlot()) {
                 String attLinkName = attLink.getName();
                 if (attLinkNames.contains(attLinkName)) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(instance);
                     linkedObjects.add(attLinkName);
                     auditEntry.setLinkedInfos(linkedObjects);
-            
+
                 } else {
                     attLinkNames.add(attLinkName);
                 }

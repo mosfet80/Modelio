@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -37,20 +37,20 @@ public class EJoinNode extends EActivityNode {
     }
 
     @objid ("0c805ee0-f75c-46d2-af17-80750ef4fd7b")
-    public  EJoinNode(org.eclipse.uml2.uml.JoinNode element) {
+    public EJoinNode(org.eclipse.uml2.uml.JoinNode element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("2d8511d6-5ae5-4758-ad9a-d86ac966e2bf")
     @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
-        
+
         setJoinSpec((ForkJoinNode) objingElt);
         setCombineDuplicate((ForkJoinNode) objingElt);
-        
+
     }
 
     @objid ("235160bb-c28a-41bb-87e3-8e574fbcaeb4")
@@ -61,7 +61,7 @@ public class EJoinNode extends EActivityNode {
             if (value != null)
                 node.setJoinSpec(value);
         }
-        
+
     }
 
     @objid ("336e46a3-3665-4846-94b7-26b317c97dc2")

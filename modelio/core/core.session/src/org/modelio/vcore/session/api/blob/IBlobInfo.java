@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.api.blob;
 
@@ -33,6 +33,7 @@ public interface IBlobInfo {
      * Get the blob key.
      * <p>
      * The key is the unique identifier for a blob in a repository.
+     *
      * @return the blob key.
      */
     @objid ("b98b44c8-cc81-40db-927b-edea8497687c")
@@ -43,6 +44,7 @@ public interface IBlobInfo {
      * <p>
      * This label is meant to be displayed to the user.
      * Must not return <code>null</code>.
+     *
      * @return the blob label.
      * @deprecated since 3.7, not used anymore
      */
@@ -54,6 +56,7 @@ public interface IBlobInfo {
      * Get the model object this blob is related to.
      * <p>
      * The blob is expected to be deleted with its model object on save.
+     *
      * @return the related model object.
      * @since 3.7
      */
@@ -64,10 +67,11 @@ public interface IBlobInfo {
      * Get the name of the blob, identify it among the blobs related to a same model object.
      * <p>
      * Returns the key if the blob is not related to a model object.
+     *
      * @return the local name.
      * @since 3.7
      */
     @objid ("f2f4e6a7-a6ae-4bee-b584-457a181c5c15")
     String getLocalName();
-}
 
+}

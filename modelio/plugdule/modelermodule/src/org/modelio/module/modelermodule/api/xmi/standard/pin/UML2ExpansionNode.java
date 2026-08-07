@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class UML2ExpansionNode {
      * Tells whether a {@link UML2ExpansionNode proxy} can be instantiated from a {@link MObject} checking it is a {@link Pin} stereotyped << UML2ExpansionNode >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,7 +73,7 @@ public class UML2ExpansionNode {
 
     /**
      * Create a new {@link Pin} stereotyped << UML2ExpansionNode >> then instantiate a {@link UML2ExpansionNode} proxy.
-     * 
+     *
      * @return a {@link UML2ExpansionNode} proxy on the created {@link Pin}.
      */
     @objid ("562d4579-29c0-47a1-9e70-095fcd89c51c")
@@ -83,9 +84,10 @@ public class UML2ExpansionNode {
     }
 
     /**
-     * Tries to instantiate a {@link UML2ExpansionNode} proxy from a {@link Pin} stereotyped << UML2ExpansionNode >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2ExpansionNode} proxy from a {@link Pin} stereotyped << UML2ExpansionNode >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a Pin
      * @return a {@link UML2ExpansionNode} proxy or <i>null</i>.
      */
@@ -95,9 +97,10 @@ public class UML2ExpansionNode {
     }
 
     /**
-     * Tries to instantiate a {@link UML2ExpansionNode} proxy from a {@link Pin} stereotyped << UML2ExpansionNode >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2ExpansionNode} proxy from a {@link Pin} stereotyped << UML2ExpansionNode >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link Pin}
      * @return a {@link UML2ExpansionNode} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -127,7 +130,8 @@ public class UML2ExpansionNode {
     }
 
     /**
-     * Get the underlying {@link Pin}. 
+     * Get the underlying {@link Pin}.
+     *
      * @return the Pin represented by this proxy, never null.
      */
     @objid ("e805f36a-6594-4c62-8477-5011cf3acda8")
@@ -139,11 +143,11 @@ public class UML2ExpansionNode {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("711b9c07-4e3b-4930-b8f8-12c5a703db14")
-    protected  UML2ExpansionNode(Pin elt) {
+    protected UML2ExpansionNode(Pin elt) {
         this.elt = elt;
     }
 
@@ -163,7 +167,7 @@ public class UML2ExpansionNode {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "1b1ba62d-205e-11df-948e-001302895b2b");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -171,7 +175,7 @@ public class UML2ExpansionNode {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

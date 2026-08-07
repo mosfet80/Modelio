@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.ramcs.handlers;
 
@@ -27,7 +27,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
@@ -65,17 +65,17 @@ public class PackageRamcHandler {
     @Execute
     public void execute(@Named (IServiceConstants.ACTIVE_SHELL) final Shell shell, @Named (IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection, IProjectService projectService, IModuleService moduleService, IProgressService progressService) {
         if (selection.size() == 1 && selection.getFirstElement() instanceof Artifact) {
-        
+
             Artifact ramc = (Artifact) selection.getFirstElement();
             if (!ramc.isStereotyped(ModelComponentArchive.MdaTypes.STEREOTYPE_ELT)) {
                 return;
             }
-        
+
             ICoreSession session = projectService.getSession();
             if (session == null) {
                 return;
             }
-        
+
             RamcModel model = new RamcModel(projectService.getOpenedProject().getPfs().getProjectPath(), ramc);
             List<IModule> contributorCandidates = new ArrayList<>();
             for (IRTModule m : moduleService.getStartedModules()) {
@@ -84,10 +84,10 @@ public class PackageRamcHandler {
                 }
             }
             model.setContributorCandidates(contributorCandidates);
-        
+
             if (ramc.isModifiable() || ramc.getStatus().isCmsManaged()) {
                 EditRamcDialog dialog = new EditRamcDialog(shell, model);
-        
+
                 switch (dialog.open()) {
                 case IDialogConstants.FINISH_ID: // Package
                     // Contributors to RAMC packaging
@@ -105,12 +105,12 @@ public class PackageRamcHandler {
                 default:// Cancel
                     break;
                 }
-        
+
             } else {
                 new ViewRamcDialog(shell, model).open();
             }
         }
-        
+
     }
 
     @objid ("b56ca33d-98d1-4c99-b7cd-5d55495d62bb")
@@ -121,25 +121,25 @@ public class PackageRamcHandler {
         } else {
             return false;
         }
-        
+
     }
 
     @objid ("28c6061b-073e-4337-86d8-178f3550b2d7")
     private void doPackageRamc(final IGProject gproject, final RamcModel model, Shell shell, final List<IModelComponentContributor> contributors, IProgressService progressService) {
         final Path archivePath = promptUser(gproject, model, shell);
-        
+
         if (archivePath == null) {
             return; // the user cancelled the operation
         }
-        
+
         final boolean fork = true; // run the task in a separate thread
         final boolean cancelable = true; // the task can be cancelled, the
         // button
         // cancel is available
-        
+
         try {
             progressService.run(fork, cancelable, new IRunnableWithProgress() {
-        
+
                 @Override
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                     try {
@@ -150,13 +150,13 @@ public class PackageRamcHandler {
                         AppRamcs.LOG.warning(e);
                     }
                 }
-        
+
             });
         } catch (InvocationTargetException | InterruptedException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
-        
+
     }
 
     @objid ("951b1841-6663-4273-a472-78aeb274c344")
@@ -174,14 +174,14 @@ public class PackageRamcHandler {
         final FileDialog fileChooser = new FileDialog(shell, SWT.SAVE | SWT.SINGLE);
         fileChooser.setFilterPath(gproject.getPfs().getProjectPath().toString());
         fileChooser.setFileName(defaultName);
-        
+
         while (true) {
             String filename = fileChooser.open();
             if (filename == null) {
                 // User cancelled operation
                 return null;
             }
-        
+
             Path choosenPath = Paths.get(filename);
             if (Files.exists(choosenPath)) {
                 boolean overwrite = MessageDialog.openQuestion(shell,
@@ -200,7 +200,7 @@ public class PackageRamcHandler {
                 return choosenPath;
             }
         }
-        
+
     }
 
 }

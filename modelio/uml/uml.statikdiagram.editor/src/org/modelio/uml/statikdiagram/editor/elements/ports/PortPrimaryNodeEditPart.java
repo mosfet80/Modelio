@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.ports;
 
@@ -43,7 +43,7 @@ import org.modelio.uml.statikdiagram.editor.elements.naryconnector.AcceptNConnec
 
 /**
  * EditPart for {@link GmPortPrimaryNode}.
- * 
+ *
  * @author cmarin
  */
 @objid ("364cc2f4-55b7-11e2-877f-002564c97630")
@@ -52,7 +52,7 @@ public class PortPrimaryNodeEditPart extends AbstractNodeEditPart {
      * Constructor.
      */
     @objid ("364cc2f8-55b7-11e2-877f-002564c97630")
-    public  PortPrimaryNodeEditPart() {
+    public PortPrimaryNodeEditPart() {
         // Nothing specific to do.
     }
 
@@ -60,15 +60,15 @@ public class PortPrimaryNodeEditPart extends AbstractNodeEditPart {
     @Override
     protected IFigure createFigure() {
         PortFigure fig = new PortFigure();
-        
+
         // set style independent properties
         fig.setOpaque(true);
         fig.setSize(13, 13);
         fig.setMinimumSize(new Dimension(13, 13));
-        
+
         // set style dependent properties
         refreshFromStyle(fig, getModelStyle());
-        
+
         // return the figure
         return fig;
     }
@@ -95,24 +95,24 @@ public class PortPrimaryNodeEditPart extends AbstractNodeEditPart {
         }
         // read model to set border figure is sticking to.
         fig.setPosition(model.getPosition());
-        
+
     }
 
     @objid ("364e4967-55b7-11e2-877f-002564c97630")
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         // Do not show the smart link creation handle in ports which are too small to display them properly.
         installEditPolicy(UserChoiceCreateLinkEditPolicy.class, new UserChoiceCreateLinkEditPolicy(new PaletteActionProvider(this, PaletteActionProvider.IS_LINK_TOOL), false));
-        
+
         installEditPolicy(EditPolicy.NODE_ROLE, new DefaultCreateLinkEditPolicy());
-        
+
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START, new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(LinkToVoidConstants.REQ_LINKTOVOID_START, new LinkToVoidStartCreationEditPolicy());
         installEditPolicy("constraint", new ConstraintLinkEditPolicy(false));
         installEditPolicy("nary-connector", new AcceptNConnectorEditPolicy(true));
-        
+
     }
 
     @objid ("364e496a-55b7-11e2-877f-002564c97630")
@@ -121,7 +121,7 @@ public class PortPrimaryNodeEditPart extends AbstractNodeEditPart {
         if (!switchRepresentationMode()) {
             super.refreshFromStyle(aFigure, style);
         }
-        
+
     }
 
     @objid ("364e4973-55b7-11e2-877f-002564c97630")

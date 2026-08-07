@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.model;
 
@@ -54,9 +54,9 @@ import org.modelio.vcore.smkernel.mapi.MVisitor;
  * .from(ns)
  * .getTraversed();
  * </code></pre>
- * @param <A> the type of walked elements
- * 
+ *
  * @author cma
+ * @param <A> the type of walked elements
  * @since 3.7.1
  * @deprecated Experimental, API under progress, may change without notice.
  */
@@ -79,16 +79,17 @@ public class ModelWalker<A extends MObject> {
      * Initialize a new model walker.
      */
     @objid ("b7218d80-efd0-4cc5-88e0-d82ea092efb0")
-    public  ModelWalker() {
+    public ModelWalker() {
         this.from = Collections.emptyList();
         this.transitions= Collections.emptyList();
         this.filter = null ;
         this.addSources = false;
-        
+
     }
 
     /**
      * Add a model element to walk from.
+     *
      * @param el a model element
      * @return another instance
      */
@@ -103,6 +104,7 @@ public class ModelWalker<A extends MObject> {
      * Applies the transition transitively and return all found elements.
      * <p>
      * The elements are returned in breadth first order.
+     *
      * @return all found elements.
      */
     @objid ("9c0f5fc5-3500-41a5-a609-e8c92eb7a104")
@@ -122,6 +124,7 @@ public class ModelWalker<A extends MObject> {
      * Add a composite transition to walk.
      * <p>
      * The function is applied to each transition result and gives the real next element.
+     *
      * @param t1 a transition
      * @param t2 a function applied to each transition result.
      * @return the new walker to use.
@@ -133,7 +136,7 @@ public class ModelWalker<A extends MObject> {
             if (t1Res.isEmpty()) {
                 return Collections.emptyList();
             }
-            
+
             Collection<A> ret = new ArrayList<>(t1Res.size());
             for (B b : t1Res) {
                 A c = t2.apply(b);
@@ -141,7 +144,7 @@ public class ModelWalker<A extends MObject> {
                     ret.add(c);
                 }
             }
-            
+
             return ret;
         };
         return withTransition(compositeTransition) ;
@@ -151,6 +154,7 @@ public class ModelWalker<A extends MObject> {
      * Add a composite transition to walk.
      * <p>
      * The second transition is applied to each transition result and gives the real next elements.
+     *
      * @param t1 a transition
      * @param t2 a second transition applied to each transition result.
      * @return the new walker to use.
@@ -162,7 +166,7 @@ public class ModelWalker<A extends MObject> {
             if (t1Res.isEmpty()) {
                 return Collections.emptyList();
             }
-            
+
             Collection<A> ret = new ArrayList<>(t1Res.size() * 2);
             for (B b : t1Res) {
                 Collection<A> c = t2.walk(b);
@@ -170,7 +174,7 @@ public class ModelWalker<A extends MObject> {
                     ret.addAll(c);
                 }
             }
-            
+
             return ret;
         };
         return withTransition(compositeTransition) ;
@@ -180,6 +184,7 @@ public class ModelWalker<A extends MObject> {
      * Set a filter on the returned result.
      * <p>
      * The filter does not stop iteration on transition.
+     *
      * @param aFilter a filter on results
      * @return a new instance
      */
@@ -190,6 +195,7 @@ public class ModelWalker<A extends MObject> {
 
     /**
      * Set whether initial model elements added with {@link #from(MObject)} will be included in results.
+     *
      * @param includesources true to include initial nodes
      * @return the new walker to use.
      */
@@ -200,6 +206,7 @@ public class ModelWalker<A extends MObject> {
 
     /**
      * Add a transition to walk.
+     *
      * @param transition the transition to walk.
      * @return this instance
      */
@@ -214,6 +221,7 @@ public class ModelWalker<A extends MObject> {
      * Add a {@link MVisitor} as transition.
      * <p>
      * The visitor is expected to return a Collection of A or <i>null</i>.
+     *
      * @param transitionVisitor a visitor that returns a collection.
      * @return the new walker to use.
      */
@@ -225,24 +233,26 @@ public class ModelWalker<A extends MObject> {
 
     /**
      * Immutable design pattern constructor.
+     *
      * @param from initial elements
      * @param transitions transitions
      * @param filter result filter
      */
     @objid ("74f76f93-7987-4f0b-9e4e-570d240a28c4")
-    protected  ModelWalker(List<A> from, Collection<Transition<A, A>> transitions, Predicate<A> filter, boolean withSources) {
+    protected ModelWalker(List<A> from, Collection<Transition<A, A>> transitions, Predicate<A> filter, boolean withSources) {
         super();
         this.from = from;
         this.transitions = transitions;
         this.filter = filter;
         this.addSources = withSources;
-        
+
     }
 
     /**
      * Applies t to each element of <i>from</i> and return the result in a new collection.
      * <p>
      * Equivalent to <code>from.stream().map(t).collect(Collectors.toList())</code> without using streams.
+     *
      * @param from a source collection
      * @param t the function to apply to each element.
      * @return the result.
@@ -267,6 +277,7 @@ public class ModelWalker<A extends MObject> {
      * Equivalent to:
      * <pre>
      * <code>from.stream().flatMap(a -> t.apply(a).stream()).collect(Collectors.toList())</code></pre> without using streams.
+     *
      * @param from a source collection
      * @param t the function to apply to each element.
      * @return the result.
@@ -288,6 +299,7 @@ public class ModelWalker<A extends MObject> {
      * Get all elements found by walking the transition from the given objects transitively.
      * <p>
      * The elements are returned in breadth first order.
+     *
      * @param filter a filter that can stop the iteration.
      * @param roots the model objects to iterate.
      * @param traversed a set where all walked elements will be added.
@@ -299,7 +311,7 @@ public class ModelWalker<A extends MObject> {
         // initialize a current roots list from the passed root elements
         Collection<A> currentRoots = new ArrayList<>(roots);
         Collection<A> directChildren = new ArrayList<>();
-        
+
         // Loop until there is no root nodes
         while (!currentRoots.isEmpty()) {
             // Get direct childs of current roots into 'directChildren'
@@ -311,34 +323,34 @@ public class ModelWalker<A extends MObject> {
                     }
                 }
             }
-        
+
             // Clear the current roots list
             // in order to rebuild it for next iteration
             currentRoots.clear();
-        
+
             // Add each new child to the result set and to the next roots list
             for (A child : directChildren) {
                 if (! traversed.contains(child)) {
                     // Add the child to the set
                     traversed.add(child);
-        
+
                     // Add the child to the next roots list
                     currentRoots.add(child);
                 }
             }
-        
+
             // Drop direct children list and create new one
             directChildren = new ArrayList<>();
-        
+
         }
-        
+
     }
 
     @objid ("a8a93216-2fe5-4fc0-91ab-daee74f1c65d")
     private void getTraversed(final Collection<? extends A> roots, final Set<A> traversed) {
         // initialize a current roots list from the passed root elements
         Deque<A> queue = new ArrayDeque<>(roots);
-        
+
         // Loop until there is no root nodes
         while (!queue.isEmpty()) {
             A o = queue.poll();
@@ -353,22 +365,22 @@ public class ModelWalker<A extends MObject> {
                 }
             }
         }
-        
+
     }
 
     /**
      * The function applied to an element to give the next ones.
+     *
      * @author cma
-     * @since 3.7.1
-     * 
      * @param <A> the type of walked elements
+     * @since 3.7.1
      */
     @objid ("08a76746-ae34-4a52-9665-2f1e28eb5da2")
     @FunctionalInterface
     public interface Transition<A, B> {
         @objid ("d461e2e4-ab59-4c49-afc2-2ec3f3a61f52")
         Collection<B> walk(A a);
-}
-    
+
+    }
 
 }

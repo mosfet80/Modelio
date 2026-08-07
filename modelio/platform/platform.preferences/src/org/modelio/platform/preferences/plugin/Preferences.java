@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.preferences.plugin;
 
@@ -57,7 +57,7 @@ public class Preferences implements BundleActivator {
         LOG = new PluginLogger(service.getLogger((String)null));
         I18N = new BundledMessages(LOG, ResourceBundle.getBundle("apppreferences"));
         PREFERENCES = new ScopedPreferenceStore(InstanceScope.INSTANCE, Preferences.PLUGIN_ID);
-        
+
     }
 
     @objid ("7a24619f-7a86-455d-9eda-11dc6d38d17e")
@@ -66,9 +66,9 @@ public class Preferences implements BundleActivator {
         if (PREFERENCES.needsSaving()) {
             PREFERENCES.save();
         }
-        
+
         context = null;
-        
+
     }
 
     @objid ("f3f93b2d-1cef-4665-8018-d25211104fe0")

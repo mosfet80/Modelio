@@ -1,27 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.handlers;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.services.IServiceConstants;
@@ -40,7 +40,7 @@ import org.modelio.xmi.reverse.ReverseProperties;
 
 /**
  * Handler of the XMI "ImportProfile" command.
- * 
+ *
  * @author ebrosse
  */
 @objid ("ff19aba2-a24e-4ab2-9508-aeeedfc36d4c")
@@ -52,15 +52,15 @@ public class ImportProfile {
     @Execute
     public void execute(@Named (IServiceConstants.ACTIVE_SHELL) final Shell activeShell, IProgressService progressService, IProjectService projectService, IMModelServices mmService, final IModelioNavigationService navigationService) {
         ReverseProperties revprop = ReverseProperties.getInstance();
-        
+
         revprop.initialize(mmService, projectService.getSession().getMetamodel(), navigationService);
         revprop.setProfileRoot(this.selectedModule);
         revprop.setRootElement(this.selectedModule);
         revprop.setCoreSession(AbstractGProject.getProject(this.selectedModule).getSession());
-        
+
         final SwtWizardImportProfile dialog = new SwtWizardImportProfile(activeShell, progressService, projectService);
         dialog.open();
-        
+
     }
 
     @objid ("125143f3-0d73-4016-a5b4-20967d8f90a6")
@@ -69,7 +69,7 @@ public class ImportProfile {
         if (selection.size() == 1) {
             if (selection.getFirstElement() instanceof ModuleComponent) {
                 this.selectedModule = (ModuleComponent) selection.getFirstElement();
-                final MStatus status = this.selectedModule.getStatus();
+                final MStatus status = this.selectedModule.getStatusLazy();
                 return status.isModifiable();
             }
         }
@@ -81,7 +81,7 @@ public class ImportProfile {
         return !selectedElements.isEmpty()
                 && selectedElements.size() == 1
                 && selectedElements.get(0) instanceof ModuleComponent;
-        
+
     }
 
 }

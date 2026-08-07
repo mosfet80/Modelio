@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.ui.form.models;
 
@@ -42,12 +42,12 @@ public class DependencyListFieldData implements IFormFieldData {
     private final Stereotype stereotype;
 
     @objid ("e9118787-5411-430c-9f9c-a5abd42150e3")
-    public  DependencyListFieldData(IModelingSession session, ModelElement e, Stereotype s, ICandidateProvider candidateProvider) {
+    public DependencyListFieldData(IModelingSession session, ModelElement e, Stereotype s, ICandidateProvider candidateProvider) {
         this.session = session;
         this.element = e;
         this.stereotype = s;
         this.candidateProvider = candidateProvider;
-        
+
     }
 
     @objid ("ea13bf40-ee68-4358-987d-710507421075")
@@ -60,17 +60,17 @@ public class DependencyListFieldData implements IFormFieldData {
     @Override
     public IFormFieldType getType() {
         return new IFormFieldType() {
-        
+
                     @Override
                     public boolean isValidValue(String value) {
                         return false;
                     }
-        
+
                     @Override
                     public String getName() {
                         return "Dependency stereotyped <<" + DependencyListFieldData.this.stereotype.getName() + ">>";
                     }
-        
+
                     @Override
                     public Object[] getEnumeratedValues() {
                         return DependencyListFieldData.this.candidateProvider.getElements(DependencyListFieldData.this.element).toArray();
@@ -82,7 +82,7 @@ public class DependencyListFieldData implements IFormFieldData {
     @Override
     public Object getValue() {
         List<MObject> result = new ArrayList<>();
-        
+
         for (Dependency dep : this.element.getDependsOnDependency()) {
             if (dep.getExtension().contains(this.stereotype)) {
                 ModelElement target = dep.getDependsOn();
@@ -100,7 +100,7 @@ public class DependencyListFieldData implements IFormFieldData {
         try (ITransaction t = this.session.createTransaction("Modify owner dependencies")) {
             @SuppressWarnings ("unchecked")
             List<MObject> values = (List<MObject>) value;
-        
+
             // Remove unwanted links
             for (Dependency dep : this.element.getDependsOnDependency().toArray(new Dependency[0])) {
                 if (dep.getExtension().contains(this.stereotype)) {
@@ -110,10 +110,10 @@ public class DependencyListFieldData implements IFormFieldData {
                     }
                 }
             }
-        
+
             for (MObject newTarget : values) {
                 boolean found = false;
-        
+
                 // Match existing links
                 for (Dependency dep : this.element.getDependsOnDependency().toArray(new Dependency[0])) {
                     if (dep.getExtension().contains(this.stereotype)) {
@@ -124,7 +124,7 @@ public class DependencyListFieldData implements IFormFieldData {
                         }
                     }
                 }
-        
+
                 if (!found) {
                     // Create missing link
                     this.session.getModel().createDependency(this.element, (ModelElement) newTarget, this.stereotype);
@@ -134,7 +134,7 @@ public class DependencyListFieldData implements IFormFieldData {
         } catch (final RuntimeException e) {
             Api.LOG.error(e);
         }
-        
+
     }
 
 }

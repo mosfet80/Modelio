@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("002c4b6a-c4bf-1fd8-97fe-001ec947cd2a")
 public class CentralBufferNodeImpl extends ObjectNodeImpl implements CentralBufferNode {
-    @objid ("bf94ddf9-eafb-4a5a-a0fd-beeb854e96e9")
+    @objid ("a6b2a303-c9dc-4df3-a20a-555a4c5ad3e2")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -49,17 +48,17 @@ public class CentralBufferNodeImpl extends ObjectNodeImpl implements CentralBuff
         return super.getCompositionOwner();
     }
 
-    @objid ("83595a5c-4ce4-441f-a7fb-fe0cc16679e1")
+    @objid ("ee899e59-6166-4b57-8eaa-31bf2c174671")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("42443c52-7005-486c-b2a5-c513d387fbe6")
+    @objid ("5a7c6872-7ae4-4988-b3bc-8a28bafe18b5")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitCentralBufferNode(this);

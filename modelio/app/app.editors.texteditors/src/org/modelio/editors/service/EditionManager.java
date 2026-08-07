@@ -1,27 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.service;
 
 import java.io.File;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
@@ -48,7 +48,7 @@ public class EditionManager {
     public static final String DEFAULT_CHARSET_NAME = "UTF-8";/*
      * // $NON-NLS-1$
      */
-    
+
 
     @objid ("ab475603-2a77-11e2-9fb9-bc305ba4815c")
     private static final String PARENT_PART_ID = "org.modelio.app.center.parts";
@@ -68,11 +68,11 @@ public class EditionManager {
     public void activateEditor(final IMDATextEditor editor) {
         if (editor instanceof MDATextEditor) {
             MDATextEditor mdaEditor = (MDATextEditor) editor;
-        
+
             MPart mPart = mdaEditor.getEditor();
             this.inputservice.showInputPart(mPart.getElementId(), mdaEditor.getFile().getAbsolutePath(), PartState.ACTIVATE);
         }
-        
+
     }
 
     @objid ("7b48856b-2a77-11e2-9fb9-bc305ba4815c")
@@ -81,11 +81,12 @@ public class EditionManager {
             MDATextEditor mdaEditor = (MDATextEditor) editor;
             mdaEditor.getEditor().setParent(null);
         }
-        
+
     }
 
     /**
      * Open an editor for the given parameters.
+     *
      * @param modelElement the represented model element
      * @param file the file to open
      * @param editorTypeID the editor type
@@ -98,9 +99,9 @@ public class EditionManager {
     @objid ("e1f5a79a-6ceb-40da-a7a6-98bc8b77b234")
     public IMDATextEditor openEditor(final ModelElement modelElement, final File file, final EditorType editorTypeID, final boolean readonly, String charsetName, String askedTitle, String askedTooltip) {
         MPart inputPart = null;
-        
+
         String partid = null;
-        
+
         switch (editorTypeID) {
         case MDDEditor:
             partid = MDDEditor.EDITOR_ID;
@@ -114,9 +115,9 @@ public class EditionManager {
         default:
             break;
         }
-        
+
         MPart shownPart = this.inputservice.showInputPart(partid, file.getAbsolutePath(), PartState.ACTIVATE);
-        
+
         String title = askedTitle;
         String tooltip = askedTooltip;
         if (title == null && modelElement != null) {
@@ -125,22 +126,22 @@ public class EditionManager {
         if (tooltip == null) {
             tooltip = file.getAbsolutePath();
         }
-        
+
         shownPart.setLabel(title);
         shownPart.setTooltip(tooltip);
-        
+
         if (shownPart instanceof MPlaceholder) {
             inputPart = (MPart) ((MPlaceholder) shownPart).getRef();
         } else {
             inputPart = shownPart;
         }
-        
+
         if (inputPart != null && inputPart.getObject() != null) {
             IDocumentEditor editor = (IDocumentEditor) inputPart.getObject();
             IDocumentInput input = editor.getDocumentInput();
             editor.setReadonlyMode(readonly);
             input.setCharsetName(charsetName);
-        
+
             MDATextEditor proxy = new MDATextEditor(input, inputPart, editorTypeID);
             proxy.setElement(modelElement);
             return proxy;
@@ -157,7 +158,7 @@ public class EditionManager {
      * Singleton c'tor.
      */
     @objid ("7b46fed2-2a77-11e2-9fb9-bc305ba4815c")
-    private  EditionManager() {
+    private EditionManager() {
         super();
     }
 

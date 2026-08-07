@@ -34,14 +34,14 @@ CKEDITOR.editorConfig = function( config ) {
 
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
-	
+
 	// Customize for Modelio
 	config.skin = "office2013";
 	config.removePlugins = 'a11yhelp,scayt,spellchecker,about,wsc';
 	config.fontSize_sizes = '8/8px;9/9px;10/10px;11/11px;12/12px;14/14px;16/16px;18/18px;22/22px;24/24px;36/36px;48/48px;';
 	config.resize_enabled = false;
 	config.toolbarLocation = 'top';
-	config.toolbarCanCollapse = false; 
+	config.toolbarCanCollapse = false;
 	config.toolbarStartupExpanded = true;
 	config.scayt_autoStartup = false;
 	config.startupFocus = true;

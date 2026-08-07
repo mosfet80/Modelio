@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnsripttask;
 
@@ -76,25 +76,26 @@ public class GmBpmnScriptTask extends GmPortContainer {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram in which the BpmnScriptTask is unmasked.
      * @param element the unmasked BpmnScriptTask.
      * @param ref a reference to the unmasked callOperation.
      */
     @objid ("61ae8657-55b6-11e2-877f-002564c97630")
-    public  GmBpmnScriptTask(IGmDiagram diagram, BpmnScriptTask element, MRef ref) {
+    public GmBpmnScriptTask(IGmDiagram diagram, BpmnScriptTask element, MRef ref) {
         super(diagram, ref);
         this.element = element;
-        
+
         GmBpmnScriptTaskPrimaryNode mainNode = new GmBpmnScriptTaskPrimaryNode(diagram, ref);
         mainNode.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
-        
+
         GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(diagram, ref);
         imageModeHeader.setRoleInComposition(GmBpmnScriptTask.IMAGE_LABEL_ROLE);
         imageModeHeader.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
-        
+
         super.addChild(mainNode);
         super.addChild(imageModeHeader);
-        
+
     }
 
     @objid ("61b00cbf-55b6-11e2-877f-002564c97630")
@@ -133,7 +134,7 @@ public class GmBpmnScriptTask extends GmPortContainer {
         default:
             return null;
         }
-        
+
     }
 
     @objid ("61b00cd8-55b6-11e2-877f-002564c97630")
@@ -151,14 +152,14 @@ public class GmBpmnScriptTask extends GmPortContainer {
         default:
             return Collections.emptyList();
         }
-        
+
     }
 
     /**
      * Empty constructor needed for deserialisation.
      */
     @objid ("61b00ce0-55b6-11e2-877f-002564c97630")
-    public  GmBpmnScriptTask() {
+    public GmBpmnScriptTask() {
         // Nothing specific to do.
     }
 
@@ -183,7 +184,7 @@ public class GmBpmnScriptTask extends GmPortContainer {
             break;
         }
         }
-        
+
     }
 
     @objid ("61b00ce9-55b6-11e2-877f-002564c97630")
@@ -202,23 +203,23 @@ public class GmBpmnScriptTask extends GmPortContainer {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmBpmnScriptTask.", GmBpmnScriptTask.MINOR_VERSION);
-        
+
     }
 
     @objid ("61b1935a-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (BpmnScriptTask) resolveRef(getRepresentedRef());
-        
+
         GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(getDiagram(), getRepresentedRef());
         imageModeHeader.setRoleInComposition(GmBpmnScriptTask.IMAGE_LABEL_ROLE);
         imageModeHeader.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
-        
+
         super.addChild(imageModeHeader, 1);
-        
+
     }
 
     @objid ("61b1935f-55b6-11e2-877f-002564c97630")
@@ -231,7 +232,7 @@ public class GmBpmnScriptTask extends GmPortContainer {
     private void read_1(final IDiagramReader in) {
         super.read(in);
         this.element = (BpmnScriptTask) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("61b1936a-55b6-11e2-877f-002564c97630")
@@ -252,7 +253,7 @@ public class GmBpmnScriptTask extends GmPortContainer {
             default: {
                 break;
             }
-        
+
             }
         }
         return ret;
@@ -260,6 +261,7 @@ public class GmBpmnScriptTask extends GmPortContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */
@@ -269,11 +271,12 @@ public class GmBpmnScriptTask extends GmPortContainer {
         String role = childNode.getRoleInComposition();
         return GmPortContainer.SATELLITE_ROLE.equals(role)
                         || GmBpmnScriptTask.IMAGE_LABEL_ROLE.equals(role);
-        
+
     }
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */

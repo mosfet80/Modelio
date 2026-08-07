@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.exml.local.save;
 
@@ -35,11 +35,11 @@ class DependencyAnalyzer {
     @objid ("fd21f734-5986-11e1-991a-001ec947ccaf")
     public ElementDependencies getDependentObjects(final SmObjectImpl object) {
         ElementDependencies deps = new ElementDependencies();
-        
+
         deps.parentNode = ExmlUtils.getParentCmsNode (object);
-        
+
         doGetDependentObjects(object, deps, new HashSet<SmObjectImpl>());
-        
+
         // Remove itself from dependencies
         deps.compNodes.remove(object);
         deps.refNodes.remove(object);
@@ -53,17 +53,17 @@ class DependencyAnalyzer {
         if (recursionContext.contains(object)) {
             return;
         }
-        
+
         recursionContext.add(object);
-        
+
         //    cout << " _getDependentObjects for " << object << ", " << const_cast<SmObjectImpl>(object).name()<< std::endl;
-        
+
         // Loop on externalisable non-empty dependencies
         List<SmDependency> dependencies = ExmlUtils.getExternalisableDeps(object);
-        
+
         for (SmDependency dep : dependencies) {
             List<SmObjectImpl> depTargets = object.getDepValList(dep);
-        
+
             if (dep.isComposition()) {
                 // When the dependency is a composition:
                 //   - if the object is a CMS node, add it as a compDep
@@ -84,7 +84,7 @@ class DependencyAnalyzer {
                         processReference(object, deps, target);
                     }
                 }
-        
+
             } else {
                 // The dep is not a composition.
                 //   - if the 'depended on' object is an 'ext', add it
@@ -94,10 +94,10 @@ class DependencyAnalyzer {
                 }
             }
         }
-        
+
         // remove 'object' from recursion context
         recursionContext.remove(object);
-        
+
     }
 
     @objid ("a826c267-5afd-44aa-aeb0-42aad8eca103")
@@ -111,7 +111,7 @@ class DependencyAnalyzer {
         } else {
             doGetDependentObjects(target, deps, recursionContext);    // !!! recursive call !!!
         }
-        
+
     }
 
     @objid ("b894cf68-11c2-4ad5-8894-e5420f3a22ad")
@@ -124,7 +124,7 @@ class DependencyAnalyzer {
         } else {
             deps.refDeps.add(target);
         }
-        
+
     }
 
 }

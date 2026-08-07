@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.resizablegroup;
 
@@ -38,7 +38,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  * <p>
  * This class must be subclassed , {@link #canUnmask(MObject)} and {@link #canCreate(Class)} must be defined.
  * </p>
- * 
+ *
  * @author fpoyer
  */
 @objid ("7f09cb45-1dec-11e2-8cad-001ec947c8cc")
@@ -59,11 +59,12 @@ public abstract class GmResizableGroup extends GmNoStyleCompositeNode {
     private boolean vertical;
 
     /**
+     *
      * @param diagram the diagram in which this partition container is used.
      * @param relatedRef a reference to the reprensented element.
      */
     @objid ("7f09cb55-1dec-11e2-8cad-001ec947c8cc")
-    public  GmResizableGroup(IGmDiagram diagram, MRef relatedRef) {
+    public GmResizableGroup(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -71,14 +72,15 @@ public abstract class GmResizableGroup extends GmNoStyleCompositeNode {
      * Empty constructor needed for serialisation.
      */
     @objid ("7f09cb5a-1dec-11e2-8cad-001ec947c8cc")
-    public  GmResizableGroup() {
+    public GmResizableGroup() {
         // Nothing to do.
     }
 
     /**
      * Returns whether this group allows movement of its children, like reordering them or moving them in and out of this group.
-     * 
+     *
      * Default implementation returns <code>true</code>.
+     *
      * @return <code>true</code> if movements are allowed.
      */
     @objid ("7f09cb7d-1dec-11e2-8cad-001ec947c8cc")
@@ -88,8 +90,9 @@ public abstract class GmResizableGroup extends GmNoStyleCompositeNode {
 
     /**
      * Returns whether this group allows resizing of its children.
-     * 
+     *
      * Default implementation returns <code>true</code>.
+     *
      * @return <code>true</code> if resize of children is allowed.
      */
     @objid ("7f09cb82-1dec-11e2-8cad-001ec947c8cc")
@@ -105,7 +108,7 @@ public abstract class GmResizableGroup extends GmNoStyleCompositeNode {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("7f09cb78-1dec-11e2-8cad-001ec947c8cc")
@@ -116,6 +119,7 @@ public abstract class GmResizableGroup extends GmNoStyleCompositeNode {
 
     /**
      * Returns whether this container is horizontal.
+     *
      * @return true if this container is horizontal, false otherwise.
      */
     @objid ("7f09cb65-1dec-11e2-8cad-001ec947c8cc")
@@ -140,7 +144,7 @@ public abstract class GmResizableGroup extends GmNoStyleCompositeNode {
             break;
         }
         }
-        
+
     }
 
     @objid ("04fbaff2-5a65-4725-b810-33c91d87fd8c")
@@ -148,11 +152,12 @@ public abstract class GmResizableGroup extends GmNoStyleCompositeNode {
     public void refreshFromObModel() {
         // TODO : move this in parent class
         firePropertyChange(PROP_REFRESH_FROM_OBMODEL, null, this);
-        
+
     }
 
     /**
      * Sets the orientation of this container.
+     *
      * @param value true if this container must be vertical, false otherwise.
      */
     @objid ("7f09cb6a-1dec-11e2-8cad-001ec947c8cc")
@@ -161,7 +166,7 @@ public abstract class GmResizableGroup extends GmNoStyleCompositeNode {
             this.vertical = value;
             firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, null, getLayoutData());
         }
-        
+
     }
 
     @objid ("7f09cb61-1dec-11e2-8cad-001ec947c8cc")
@@ -169,10 +174,10 @@ public abstract class GmResizableGroup extends GmNoStyleCompositeNode {
     public void write(IDiagramWriter out) {
         super.write(out);
         out.writeProperty("isVertical", Boolean.valueOf(this.vertical));
-        
+
         // Write version of this Gm if different of 0.
         writeMinorVersion(out, "GmResizableGroup.", Integer.valueOf(MINOR_VERSION));
-        
+
     }
 
     @objid ("7f09cb6e-1dec-11e2-8cad-001ec947c8cc")
@@ -187,14 +192,14 @@ public abstract class GmResizableGroup extends GmNoStyleCompositeNode {
     protected void obChildDeleted(GmModel child) {
         // Fire the refresh property
         refreshFromObModel();
-        
+
     }
 
     @objid ("7f09cb75-1dec-11e2-8cad-001ec947c8cc")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.vertical = ((Boolean) in.readProperty("isVertical")).booleanValue();
-        
+
     }
 
 }

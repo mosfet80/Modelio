@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.handlers;
 
@@ -24,7 +24,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.services.IServiceConstants;
@@ -45,6 +45,7 @@ import org.modelio.diagram.elements.umlcommon.diagramview.GmDiagramView;
 import org.modelio.metamodel.uml.behavior.interactionModel.InteractionFragment;
 import org.modelio.metamodel.uml.behavior.interactionModel.Lifeline;
 import org.modelio.platform.model.ui.swt.SelectionHelper;
+import org.modelio.uml.sequencediagram.editor.elements.sequencediagram.GmSequenceDiagram;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -59,64 +60,66 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 @objid ("e6a64118-0c34-415a-9ea3-00c7afbbc608")
 public class SequenceDeleteInModelHandler {
     /**
+     *
      * @return <code>false</code> if the command is to be greyed, <code>true</code> otherwise.
      */
     @objid ("3d0bf0df-898d-45e9-ae50-a08ea3c1cc16")
     @CanExecute
-    public boolean canExecute(@Named (IServiceConstants.ACTIVE_SELECTION) ISelection selection, @Named (IServiceConstants.ACTIVE_SHELL) final Shell shell) {
+    public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) ISelection selection, @Named(IServiceConstants.ACTIVE_SHELL) final Shell shell) {
         List<GraphicalEditPart> selected = getSelectedEditParts(selection);
-        
+        if (selected.isEmpty())
+            return false;
+
         Command cmd = buildCommand(selected);
-        return !selected.isEmpty() && cmd.canExecute();
+        return cmd != null && cmd.canExecute();
     }
 
     @objid ("c2b07f0e-c026-4c45-8f53-4cb62f7b962c")
     @Execute
-    public void execute(@Named (IServiceConstants.ACTIVE_SELECTION) ISelection selection, @Named (IServiceConstants.ACTIVE_SHELL) final Shell shell) {
+    public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) ISelection selection, @Named(IServiceConstants.ACTIVE_SHELL) final Shell shell) {
         List<GraphicalEditPart> selected = getSelectedEditParts(selection);
         Command cmd = buildCommand(selected);
-        
+
         // Execute the delete and mask commands
         if (cmd != null && cmd.canExecute()) {
             EditDomain editDomain = selected.get(0).getViewer().getEditDomain();
             editDomain.getCommandStack().execute(cmd);
         }
-        
     }
 
     @objid ("b05db157-b4a5-43c6-a93f-af21849b24f9")
     private List<GraphicalEditPart> getSelectedEditParts(ISelection selection) {
-        return SelectionHelper.toList(selection, GraphicalEditPart.class);
+        // Exclude the sequence diagram itself, we don't want to delete it by typing 'suppr' in the background
+        return SelectionHelper.toList(selection, GraphicalEditPart.class, ep -> ! (ep.getModel() instanceof GmSequenceDiagram));
     }
 
     @objid ("1439c316-e737-40a7-8f8a-f9bcca5a26a2")
     private Command buildCommand(List<GraphicalEditPart> selected) {
-        CompoundCommand compound = new CompoundCommand("Delete");
-        
         // Get the model elements to delete or to mask
-        
+
         // Collect elements and edit parts to masking or delete
         final Collection<MObject> toDelete = new HashSet<>();
         final Collection<GraphicalEditPart> toMask = new HashSet<>();
-        
+
         if (!collectElementsToDelete(selected, toDelete, toMask)) {
             return UnexecutableCommand.INSTANCE;
         }
-        
-        
+
+
         collectEditpartsToMask(selected);
-        
+
+        CompoundCommand compound = new CompoundCommand("Delete");
         DeleteInModelCommand deleteCommand = deleteInModel(toDelete);
         if (deleteCommand != null && deleteCommand.canExecute()) {
             // Store the command in the compound
             compound.add(deleteCommand);
         }
-        
+
         // Mask all edit parts without an element
         if (!toMask.isEmpty()) {
             GroupRequest deleteReq = new GroupRequest(RequestConstants.REQ_DELETE);
             deleteReq.setEditParts(new ArrayList<>(toMask));
-        
+
             for (EditPart editPart : toMask) {
                 Command cmd = editPart.getCommand(deleteReq);
                 if (cmd != null && cmd.canExecute()) {
@@ -132,7 +135,7 @@ public class SequenceDeleteInModelHandler {
     private DeleteInModelCommand deleteInModel(final Collection<MObject> toDelete) {
         // Build the delete command
         final DeleteInModelCommand cmd = new DeleteInModelCommand();
-        
+
         for (MObject flow : toDelete) {
             cmd.addElementToDelete(flow);
         }
@@ -141,12 +144,13 @@ public class SequenceDeleteInModelHandler {
 
     /**
      * Collect the edit parts to mask by analyzing the selected edit parts.
+     *
      * @param selected the selected edit parts to analyze
      */
     @objid ("86b35685-00c6-4711-96cb-01d173617870")
     private List<GraphicalEditPart> collectEditpartsToMask(List<GraphicalEditPart> selected) {
         List<GraphicalEditPart> toMask = new ArrayList<>();
-        
+
         for (final GraphicalEditPart editPart : selected) {
             final Object model = editPart.getModel();
             if (model instanceof GmModel) {
@@ -164,6 +168,7 @@ public class SequenceDeleteInModelHandler {
 
     /**
      * Collect the element to delete by analyzing the selected edit parts.
+     *
      * @param selected the selected edit parts to analyze
      * @param toDelete model elements to delete
      * @param toMask graphic elements to mask
@@ -179,7 +184,7 @@ public class SequenceDeleteInModelHandler {
                     // Abort, at least one element cannot be deleted
                     return false;
                 }
-        
+
                 if (gmModel instanceof GmDiagramView) {
                     // Mask diagram views, don't delete them
                     toMask.add(editPart);
@@ -191,9 +196,9 @@ public class SequenceDeleteInModelHandler {
                 }
             }
         }
-        
+
         for (MObject eltToDelete : new ArrayList<>(toDelete)) {
-        
+
             if (eltToDelete instanceof Lifeline) {
                 Lifeline lifeline = (Lifeline) eltToDelete;
                 for (InteractionFragment f : lifeline.getCoveredBy()) {

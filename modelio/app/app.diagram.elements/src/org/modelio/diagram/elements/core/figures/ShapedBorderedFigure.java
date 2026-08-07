@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures;
 
@@ -30,7 +30,7 @@ import org.modelio.diagram.styles.core.StyleKey.LinePattern;
  * Shaped figure with a border and a margin.
  * <p>
  * The border is drawn with the line color.
- * 
+ *
  * @author cmarin
  */
 @objid ("7fcae9f3-1dec-11e2-8cad-001ec947c8cc")
@@ -43,16 +43,17 @@ public class ShapedBorderedFigure extends ShapedFigure {
 
     /**
      * Creates the figure.
+     *
      * @param aShaper The shape of the figure
      */
     @objid ("7fcae9f8-1dec-11e2-8cad-001ec947c8cc")
-    public  ShapedBorderedFigure(final IShaper aShaper) {
+    public ShapedBorderedFigure(final IShaper aShaper) {
         super(aShaper);
         setSize(30, 40);
         setOpaque(true);
-        
+
         setShaper(aShaper);
-        
+
     }
 
     @objid ("7fcae9fd-1dec-11e2-8cad-001ec947c8cc")
@@ -62,7 +63,7 @@ public class ShapedBorderedFigure extends ShapedFigure {
             super.setLineColor(lineColor);
             this.shapedBorder.setColor(lineColor);
         }
-        
+
     }
 
     @objid ("7fcaea01-1dec-11e2-8cad-001ec947c8cc")
@@ -72,16 +73,16 @@ public class ShapedBorderedFigure extends ShapedFigure {
             super.setLineWidth(lineWidth);
             this.shapedBorder.setWidth(lineWidth);
         }
-        
+
     }
 
     @objid ("7fcaea05-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void setShaper(final IShaper value) {
         super.setShaper(value);
-        
+
         updateBorder();
-        
+
     }
 
     /**
@@ -94,7 +95,7 @@ public class ShapedBorderedFigure extends ShapedFigure {
                                              this.shaper);
         this.shapedBorder.setStyle(getLinePattern().toSWTConstant());
         setBorder(new CompoundBorder(this.shapedBorder, new MarginBorder(MARGIN)));
-        
+
     }
 
     @objid ("7fcd4c08-1dec-11e2-8cad-001ec947c8cc")
@@ -104,21 +105,22 @@ public class ShapedBorderedFigure extends ShapedFigure {
             super.setLinePattern(lineStyle);
             this.shapedBorder.setStyle(lineStyle.toSWTConstant());
         }
-        
+
     }
 
     /**
      * Copy constructor.
      * <p>
      * Copy the border.
+     *
      * @param orig the original
      */
     @objid ("8c2d393d-a181-479c-a5f8-ec4e489ac438")
-    public  ShapedBorderedFigure(ShapedBorderedFigure orig) {
+    public ShapedBorderedFigure(ShapedBorderedFigure orig) {
         super(orig);
-        
+
         updateBorder();
-        
+
     }
 
     @objid ("1beb0cf5-321b-4242-af94-4a543ea6d45d")

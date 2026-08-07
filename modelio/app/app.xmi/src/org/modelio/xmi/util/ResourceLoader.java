@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.util;
 
@@ -46,8 +46,8 @@ public class ResourceLoader {
     private static ResourceLoader INSTANCE = null;
 
     @objid ("43ca3ec8-cd96-4f31-94ec-72ee3a1fcd1f")
-    private  ResourceLoader() {
-        
+    private ResourceLoader() {
+
     }
 
     @objid ("27a2b802-6499-4a7b-86ed-50c8099ee2ba")
@@ -60,15 +60,15 @@ public class ResourceLoader {
     @objid ("95e8a094-f1c1-43f7-ab94-4fb0f7ef9813")
     public Image getImage(String resourceName) {
         final Bundle bundle = Platform.getBundle(Xmi.PLUGIN_ID);
-        
+
         final URL url = FileLocator.find(bundle, new Path(this.imagesCommonPath + resourceName ), null);
-        
+
         File file = null;
         try {
             file = new File(FileLocator.toFileURL(url).getPath());
             return new Image(Display.getDefault(), file.getAbsolutePath());
         } catch (IOException e) {
-            Xmi.LOG.error(Xmi.PLUGIN_ID, e);       
+            Xmi.LOG.error(Xmi.PLUGIN_ID, e);
         }
         return null;
     }
@@ -76,14 +76,14 @@ public class ResourceLoader {
     @objid ("d483f4bb-b2bf-42b4-82cf-ae1bb1655cea")
     public File getResource(final String resourceName) {
         final Bundle bundle = Platform.getBundle(Xmi.PLUGIN_ID);
-        
+
         final URL url = FileLocator.find(bundle, new Path("res"+ java.io.File.separator + resourceName ), null);
-        
+
         File file = null;
         try {
             file = new File(FileLocator.toFileURL(url).getPath());
         } catch (IOException e) {
-            Xmi.LOG.error(Xmi.PLUGIN_ID, e);       
+            Xmi.LOG.error(Xmi.PLUGIN_ID, e);
         }
         return file;
     }
@@ -91,15 +91,15 @@ public class ResourceLoader {
     @objid ("1ea8febf-fa54-491a-a78e-d15cfd8b71a4")
     public Image getIcon(String resourceName) {
         final Bundle bundle = Platform.getBundle(Xmi.PLUGIN_ID);
-        
+
         final URL url = FileLocator.find(bundle, new Path(this.iconCommonPath + resourceName ), null);
-        
+
         File file = null;
         try {
             file = new File(FileLocator.toFileURL(url).getPath());
             return new Image(Display.getDefault(), file.getAbsolutePath());
         } catch (IOException e) {
-            Xmi.LOG.error(Xmi.PLUGIN_ID, e);       
+            Xmi.LOG.error(Xmi.PLUGIN_ID, e);
         }
         return null;
     }

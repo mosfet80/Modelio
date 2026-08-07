@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.ui;
 
@@ -48,10 +48,10 @@ public class ElementToUnmaskFinder {
     private MObject contextFilter;
 
     @objid ("7ae8bf4e-8ea7-47ab-b7a5-5d32d13ad5ca")
-    public  ElementToUnmaskFinder(MClass metaclass, ICoreSession session) {
+    public ElementToUnmaskFinder(MClass metaclass, ICoreSession session) {
         this.metaclass = metaclass;
         this.session = session;
-        
+
     }
 
     @objid ("fc2a1ebc-4b80-4ac1-9d19-9d443311ed55")
@@ -67,21 +67,21 @@ public class ElementToUnmaskFinder {
     @objid ("4db6eda9-1387-4e32-9cf2-868211f7956e")
     public void findElements() {
         this.elementsCandidates = new ArrayList<>();
-        
+
         for (MObject elem : this.session.getModel().findByClass(this.metaclass)) {
             if (applyFilter(elem)) {
                 this.elementsCandidates.add(elem);
             }
-        
+
         }
-        
+
         Collections.sort(this.elementsCandidates, new Comparator<MObject>() {
             @Override
             public int compare(MObject o1, MObject o2) {
                 return o1.getName().compareTo(o2.getName());
             }
         });
-        
+
     }
 
     @objid ("04469616-3719-44d1-a840-a3d53591519d")
@@ -105,7 +105,7 @@ public class ElementToUnmaskFinder {
             }
         });
         thread.start();
-        
+
     }
 
 }

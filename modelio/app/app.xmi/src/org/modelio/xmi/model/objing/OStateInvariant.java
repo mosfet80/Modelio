@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -37,7 +37,7 @@ public class OStateInvariant extends OOccurrenceSpecification {
     }
 
     @objid ("f2477bcd-4e06-40a7-9dab-e0b254edddef")
-    public  OStateInvariant(StateInvariant param) {
+    public OStateInvariant(StateInvariant param) {
         super(param);
     }
 
@@ -53,7 +53,7 @@ public class OStateInvariant extends OOccurrenceSpecification {
         super.setProperties(ecoreElt);
         setInvariant((org.eclipse.uml2.uml.StateInvariant) ecoreElt);
         setEndLineNumber(ecoreElt);
-        
+
     }
 
     @objid ("8f49a960-4300-41e8-b0bf-19628a1d0d78")
@@ -61,7 +61,7 @@ public class OStateInvariant extends OOccurrenceSpecification {
         StateInvariant objingStateInvariant = (StateInvariant) getObjingElement();
         String stringConstraint = objingStateInvariant.getBody();
         if ((stringConstraint != null ) && (!stringConstraint.equals(""))){
-        
+
             // org.eclipse.uml2.uml.Constraint creation
             org.eclipse.uml2.uml.Constraint constraint = UMLFactory.eINSTANCE.createConstraint();
             // new org.eclipse.uml2.uml.LiteralString for constraint value
@@ -69,17 +69,17 @@ public class OStateInvariant extends OOccurrenceSpecification {
                     .createLiteralString();
             valueSpecification.setValue(stringConstraint);
             constraint.setSpecification(valueSpecification);
-        
+
             // Gets the org.eclipse.uml2.uml.Lifeline:
             List<Lifeline> lifelineList = objingStateInvariant.getCovered();
             Lifeline objingLL = null;
             if (lifelineList != null && lifelineList.size() > 0)
                 objingLL = lifelineList.get(0);
-        
+
             if (objingLL != null) {
                 org.eclipse.uml2.uml.Lifeline ecoreLifeline = (org.eclipse.uml2.uml.Lifeline) GenerationProperties.getInstance()
                         .getMappedElement(objingLL);
-        
+
                 if (ecoreLifeline != null) {
                     try {
                         constraint.getConstrainedElements().add(ecoreLifeline);
@@ -92,11 +92,11 @@ public class OStateInvariant extends OOccurrenceSpecification {
                     }
                 }
             }
-        
+
             // set the constraint
             ecoreElt.setInvariant(constraint);
         }
-        
+
     }
 
     @objid ("6f9a43fb-9009-4b60-badb-1c58042366fc")
@@ -104,7 +104,7 @@ public class OStateInvariant extends OOccurrenceSpecification {
         if (GenerationProperties.getInstance().isRoundtripEnabled()){
             ObjingEAnnotation.setEndLineNumber(ecoreElt, ((StateInvariant) getObjingElement()).getEndLineNumber());
         }
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.copy;
 
@@ -67,6 +67,7 @@ public class CopyMachine extends DefaultImporter {
      * E.g : when copying a reflexive association to another class, it will stay reflexive in the target.
      * When copying from C1 an operation doxxx(C1 c) to C2, the operation will become doxxx(C2 c).
      * This may be useful for copying clone() methods or static creation methods.
+     *
      * @param replace true to replace source composition owners by the target.
      */
     @objid ("681ceb56-6b98-426c-bffb-ee1e0ad8ae01")
@@ -93,14 +94,14 @@ public class CopyMachine extends DefaultImporter {
     protected void fixElement(SmObjectImpl localObject, SmObjectImpl refObject, ICoreSession localSession, ICoreSession refSession) {
         // Call inherited behavior
         super.fixElement(localObject, refObject, localSession, refSession);
-        
+
         // Fix the diagrams
         DiagramsCopier diagramCopier = new DiagramsCopier();
-        
+
         if (localObject instanceof AbstractDiagram) {
             diagramCopier.fixDiagram((AbstractDiagram) localObject, this.result.getCreations());
         }
-        
+
     }
 
     /**
@@ -113,18 +114,18 @@ public class CopyMachine extends DefaultImporter {
         Map<SmObjectImpl, SmDependency> toReparent = new HashMap<>();
         for (SmObjectImpl refRoot : refRoots) {
             SmObjectImpl localObject = this.result.getObjectCreatedFrom(refRoot);
-        
+
             if (localObject == null) {
                 localObject = this.result.getObjectUpdatedFrom(refRoot);
             }
-        
+
             if (localObject != null) {
                 toReparent.put(localObject, refRoot.getCompositionRelation().dep.getSymetric());
             }
         }
-        
+
         reparentElements(toReparent, localSession, localRoot);
-        
+
     }
 
     @objid ("000cc10a-5247-1091-8d81-001ec947cd2a")
@@ -133,13 +134,13 @@ public class CopyMachine extends DefaultImporter {
         // Create all 'nodes' and update meta-attributes
         for (SmObjectImpl refToImport : getCompositionGetter().getAllChildren(refRoots)) {
             SmObjectImpl localObject = (SmObjectImpl) localSession.getModel().getGenericFactory().create(refToImport.getClassOf().getJavaInterface(), localSession.getRepositorySupport().getRepository(localRoot != null ? localRoot : refToImport));
-        
+
             // Import attributes
             getAttributesImporter().importAttributes(refToImport, localObject);
-        
+
             this.result.addCreatedObject(localObject, refToImport);
         }
-        
+
     }
 
     @objid ("1fda4a17-fe2a-4f22-941f-ce88d50c4977")
@@ -155,23 +156,23 @@ public class CopyMachine extends DefaultImporter {
                 }
             }
         }
-        
+
     }
 
     @objid ("000c41da-5247-1091-8d81-001ec947cd2a")
     @Override
     protected void prepare(ICoreSession localSession, SmObjectImpl localRoot, ICoreSession refSession, List<SmObjectImpl> refRoots) {
         this.monoSession = localSession == refSession;
-        
+
         CopierObjectFinder objectFinder = new CopierObjectFinder(this, localSession.getModel(), localSession.getMetamodel());
         setObjectFinder(objectFinder);
-        
+
         this.sources = refRoots;
-        
+
         ReferenceDependencyCopier depUpdater = new ReferenceDependencyCopier(localSession, objectFinder);
         setCompositionDepUpdater(depUpdater);
         setReferenceDepUpdater(depUpdater);
-        
+
         // Filter children of elements already copied
         // e.g.: remove an operation from the source if its owner class is in the sources too.
         List<SmObjectImpl> reducedRefRoots = new ArrayList<>();
@@ -183,12 +184,12 @@ public class CopyMachine extends DefaultImporter {
                     break;
                 }
             }
-        
+
             if (!found) {
                 reducedRefRoots.add(obj1);
             }
         }
-        
+
         if (this.replaceSourceOwnerByTarget) {
             this.sourceOwnersReplacement = localRoot;
             this.sourceOwners = new HashSet<>(reducedRefRoots.size());
@@ -199,9 +200,9 @@ public class CopyMachine extends DefaultImporter {
                 }
             }
         }
-        
+
         super.prepare(localSession, localRoot, refSession, reducedRefRoots);
-        
+
     }
 
     @objid ("000cfcc4-5247-1091-8d81-001ec947cd2a")
@@ -210,7 +211,7 @@ public class CopyMachine extends DefaultImporter {
         if (newLocalParent == null && isMonoSession()) {
             for (Entry<SmObjectImpl, SmDependency> elemEntry : toReparent.entrySet()) {
                 SmObjectImpl orphan = elemEntry.getKey();
-        
+
                 for (Entry<SmObjectImpl, SmObjectImpl> entry : this.result.getCreations().entrySet()) {
                     SmObjectImpl localObject = entry.getValue();
                     if (orphan.equals(localObject)) {
@@ -224,7 +225,7 @@ public class CopyMachine extends DefaultImporter {
         } else {
             super.reparentElements(toReparent, localSession, newLocalParent);
         }
-        
+
     }
 
 }

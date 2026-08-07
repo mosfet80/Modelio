@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures.anchors;
 
@@ -31,10 +31,10 @@ public class DirectionalAnchor extends XYAnchor {
     private final Direction direction;
 
     @objid ("5f88adbb-1ded-4743-b3c7-5f2e88d3d1ef")
-    public  DirectionalAnchor(Point p, Direction d) {
+    public DirectionalAnchor(Point p, Direction d) {
         super(p);
         this.direction = d;
-        
+
     }
 
     @objid ("d231532a-7401-4104-ab4a-a4eae72c50a3")
@@ -64,7 +64,7 @@ public class DirectionalAnchor extends XYAnchor {
         return this.direction == other.direction
                 && Objects.equals(getReferencePoint(), other.getReferencePoint())
                 && Objects.equals(getOwner(), other.getOwner());
-        
+
     }
 
 }

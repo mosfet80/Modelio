@@ -1,25 +1,45 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.vcore.session.api.model;
 
 import java.util.Collection;
+import java.util.stream.Stream;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.session.UnknownMetaclassException;
 import org.modelio.vcore.session.impl.GenericFactory;
@@ -36,93 +56,169 @@ public interface IModel {
      * Filter that accepts only {@link MObject#isValid() valid} objects.
      */
     @objid ("158ef48a-aed6-4746-a113-8d9f740481b4")
-    public static final IMObjectFilter ISVALID = new IMObjectFilter() {
-    		@Override
-    		public boolean accept(MObject obj) {
-    			return obj != null && obj.isValid();
-    		}
-    	};
+    public static final IMObjectFilter ISVALID = obj -> obj != null && obj.isValid();
 
     /**
      * Filter that accepts only not deleted objects.
      */
     @objid ("f85615e6-6ad2-4a7a-9784-cf8d466faa65")
-    public static final IMObjectFilter NODELETED = new IMObjectFilter() {
-    		@Override
-    		public boolean accept(MObject obj) {
-    			return obj != null && ! obj.isDeleted();
-    		}
-    	};
+    public static final IMObjectFilter NODELETED = obj -> obj != null && ! obj.isDeleted();
 
     /**
      * Filter that accepts only non shell objects.
      */
     @objid ("899f8ec3-25d4-4441-b499-c889c4e125a7")
-    public static final IMObjectFilter NOSHELL = new IMObjectFilter() {
-    		@Override
-    		public boolean accept(MObject obj) {
-    			return obj != null && ! obj.isShell();
-    		}
-    	};
+    public static final IMObjectFilter NOSHELL = obj -> obj != null && ! obj.isShell();
 
     /**
      * Find elements by a metaclass an an attribute value.
+     *
      * @param cls the metaclass.
      * @param att the attribute to search
      * @param val the attribute value
      * @param filter a filter to apply to the result
      * @return the found elements.
+     * @deprecated Implementations usually load all the objects in memory, it may take hours in the worst case !
+     * To look for element by name use {@link #findByName(MClass, boolean, String)} that is usually optimized.
      */
     @objid ("17c23aa0-9083-11e1-81e9-001ec947ccaf")
+    @Deprecated(forRemoval = true, since = "6.0.1")
     Collection<? extends MObject> findByAtt(MClass cls, final String att, Object val, IMObjectFilter filter);
 
     /**
-     * Find elements by a metaclass an an attribute value.
+     * Find elements by a metaclass and an attribute value.
+     *
      * @param cls the metaclass.
      * @param att the attribute to search
      * @param val the attribute value
      * @return the found elements.
      * @deprecated since 3.6 use {@link #findByAtt(MClass, boolean, String, Object)}
+     * Implementations usually load all the objects in memory, it may take hours in the worst case !
+     * To look for element by name use {@link #findByName(MClass, boolean, String)} that is usually optimized.
      */
     @objid ("0096d304-61a5-10c8-842f-001ec947cd2a")
-    @Deprecated
+    @Deprecated(forRemoval = true, since = "3.6")
     Collection<? extends MObject> findByAtt(MClass cls, final String att, Object val);
 
     /**
-     * Find elements by a metaclass an an attribute value.
+     * Find elements by a metaclass and an attribute value.
+     *
      * @param metaclass the metaclass.
      * @param att the attribute to search
      * @param val the attribute value
      * @param filter a filter to apply to the result
      * @return the found elements.
+     * @deprecated Implementations usually load all the objects in memory, it may take hours in the worst case !
+     * To look for element by name use {@link #findByName(MClass, boolean, String)} that is usually optimized.
      */
     @objid ("e46abe41-187e-4d12-b565-c9e92df02519")
+    @Deprecated(forRemoval = true, since = "6.0.1")
     <T extends MObject> Collection<T> findByAtt(Class<T> metaclass, final String att, Object val, IMObjectFilter filter);
 
     /**
      * Find elements by a metaclass an an attribute value.
+     *
      * @param metaclass the metaclass.
-     * @param att the attribute to search
-     * @param val the attribute value
+     * @param att the name to search
      * @return the found elements.
+     * @deprecated Implementations usually load all the objects in memory, it may take hours in the worst case !
+     * To look for element by name use {@link #findByName(MClass, boolean, String)} that is usually optimized.
      */
     @objid ("1540131b-bdd6-466c-a417-9e0efd220dda")
+    @Deprecated(forRemoval = true, since = "6.0.1")
     <T extends MObject> Collection<T> findByAtt(Class<T> metaclass, final String att, Object val);
 
     /**
      * Find elements by a metaclass an an attribute value.
+     *
      * @param cls the metaclass.
      * @param withSubClasses if true look into subclasses hierarchy too.
      * @param att the attribute to search
      * @param val the attribute value
      * @return the found elements.
      * @since 3.6
+     * @deprecated Implementations usually load all the objects in memory, it may take hours in the worst case !
+     * To look for element by name use {@link #findByName(MClass, boolean, String)} that is usually optimized.
      */
     @objid ("caeb24ab-4045-4e44-a4bc-dcb43163cd1c")
+    @Deprecated(forRemoval = true, since = "6.0.1")
     Collection<? extends MObject> findByAtt(MClass cls, boolean withSubClasses, final String att, Object val);
 
     /**
+     * Find elements by a metaclass an an attribute value.
+     *
+     * @param cls the metaclass.
+     * @param withSubClasses if true look into subclasses hierarchy too.
+     * @param att the attribute to search
+     * @param val the attribute value
+     * @return the found elements.
+     * @since 6.0.1
+     * @deprecated Implementations usually load all the objects in memory, it may take hours in the worst case !
+     * To look for element by name use {@link #findByName(MClass, boolean, String)} that is usually optimized.
+     */
+    @objid ("7828bce4-9aaa-4d2c-8fac-2039aeb3095b")
+    @Deprecated(forRemoval = true, since = "6.0.1")
+    Stream<? extends MObject> streamByAtt(MClass cls, boolean withSubClasses, String att, Object val);
+
+    /**
+     * Find elements by a metaclass and a name.
+     *
+     * @param <T> the elements type
+     * @param metaclass the metaclass.
+     * @param withSubClasses whether to look into child metaclass hierarchy too.
+     * @param name the name to search
+     * @return the found elements.
+     * @since 6.0.1 02/07/2024
+     */
+    @objid ("1bfe7471-f9c2-4367-abe0-cc27a0a6f4a8")
+    <T extends MObject> Stream<T> streamByName(Class<T> metaclass, boolean withSubClasses, final String name);
+
+    /**
+     * Find elements by a metaclass and a name.
+     *
+     * @param metaclass the metaclass.
+     * @param withSubClasses whether to look into child metaclass hierarchy too.
+     * @param name the name to search
+     * @return the found elements.
+     * @since 6.0.1 02/07/2024
+     */
+    @objid ("0de9ee24-4951-43ca-9299-c196412ba84f")
+    Stream<? extends MObject> streamByName(MClass metaclass, boolean withSubClasses, final String name);
+
+    /**
+     * Find elements by a metaclass and a name.
+     * <p>
+     * To be used when the expected number of matching elements is small.
+     * In the other case you may use {@link #streamByName(Class, boolean, String)}.
+     *
+     * @param <T> the elements type
+     * @param metaclass the metaclass.
+     * @param withSubClasses whether to look into child metaclass hierarchy too.
+     * @param name the name to search
+     * @return the found elements.
+     * @since 6.0.1 02/07/2024
+     */
+    @objid ("e3a0d755-98a7-4dfc-b8b7-4e55f6038238")
+    <T extends MObject> Collection<T> findByName(Class<T> metaclass, boolean withSubClasses, final String name);
+
+    /**
+     * Find elements by a metaclass and a name.
+     * <p>
+     * To be used when the expected number of matching elements is small.
+     * In the other case you may use {@link #streamByName(MClass, boolean, String)}.
+     *
+     * @param metaclass the metaclass.
+     * @param withSubClasses whether to look into child metaclass hierarchy too.
+     * @param name the name to search
+     * @return the found elements.
+     * @since 6.0.1 02/07/2024
+     */
+    @objid ("7133a58c-b0f1-4360-84df-4f1aaa362193")
+    Collection<? extends MObject> findByName(MClass metaclass, boolean withSubClasses, final String name);
+
+    /**
      * Get all elements of a given class and the class descendants.
+     *
      * @param cls a metaclass.
      * @param filter a filter
      * @return all elements of this class.
@@ -132,6 +228,7 @@ public interface IModel {
 
     /**
      * Get all elements of a given class and the class descendants.
+     *
      * @param cls a metaclass
      * @return all elements typed by this metaclass
      */
@@ -140,6 +237,7 @@ public interface IModel {
 
     /**
      * Get all elements of a given class and the class descendants.
+     *
      * @param metaclass a metaclass
      * @param filter a filter to apply to the result
      * @return all elements typed by this metaclass
@@ -149,6 +247,7 @@ public interface IModel {
 
     /**
      * Get all elements of a given class and the class descendants.
+     *
      * @param metaclass a metaclass
      * @return all elements typed by this metaclass
      */
@@ -157,6 +256,7 @@ public interface IModel {
 
     /**
      * Get all elements of a given class and optionally the class descendants.
+     *
      * @param cls a metaclass
      * @param withSubClasses true to look into subclasses hierarchy
      * @return all elements typed by this metaclass
@@ -166,6 +266,7 @@ public interface IModel {
 
     /**
      * Get all elements of a given class and optionally the class descendants.
+     *
      * @param metaclass a metaclass
      * @param withSubClasses true to look into subclasses hierarchy
      * @return all elements typed by this metaclass
@@ -175,6 +276,7 @@ public interface IModel {
 
     /**
      * Find an element from its MClass and its identifier.
+     *
      * @param cls a metaclass
      * @param siteIdentifier an String
      * @param filter a filter
@@ -185,6 +287,7 @@ public interface IModel {
 
     /**
      * Find an element from its MClass and its identifier.
+     *
      * @param cls a metaclass
      * @param siteIdentifier an String
      * @return the found element or <code>null</code>.
@@ -194,6 +297,7 @@ public interface IModel {
 
     /**
      * Find an element from its metaclass interface and its identifier.
+     *
      * @param metaclass a metaclass
      * @param siteIdentifier an String
      * @param filter a filter
@@ -204,6 +308,7 @@ public interface IModel {
 
     /**
      * Find an element from its MClass and its identifier.
+     *
      * @param metaclass a metaclass
      * @param siteIdentifier an String
      * @return the found element or <code>null</code>.
@@ -213,6 +318,7 @@ public interface IModel {
 
     /**
      * Find an element from a reference.
+     *
      * @param ref an element reference
      * @param filter a filter
      * @return the found element or <code>null</code>.
@@ -223,6 +329,7 @@ public interface IModel {
 
     /**
      * Find an element from a reference.
+     *
      * @param ref an element reference
      * @return the found element or <code>null</code>.
      * @throws UnknownMetaclassException if the referenced metaclass does not exist.
@@ -232,9 +339,10 @@ public interface IModel {
 
     /**
      * Get the generic factory.
+     *
      * @return the generic factory.
      */
     @objid ("0078ca26-5a20-10c8-842f-001ec947cd2a")
     GenericFactory getGenericFactory();
-}
 
+}

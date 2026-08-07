@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.parts.data.element.choice;
 
@@ -35,30 +35,30 @@ public class DefaultElementChoiceNatValue extends DefaultElementNatValue impleme
 
     /**
      * Creates a new instance.
+     *
      * @param value the wrapped value.
      * @param acceptNullValue whether or not <code>null</code> is a valid value for this field.
      * @param allowedClasses list of the accepted metaclasses for the value.
      * @param valueChoices list of values to choose from.
      */
     @objid ("3cd12dc5-d738-4754-8607-52d015745120")
-    public  DefaultElementChoiceNatValue(MObject value, boolean acceptNullValue, List<Class<? extends MObject>> allowedClasses, List<? extends MObject> valueChoices) {
+    public DefaultElementChoiceNatValue(MObject value, boolean acceptNullValue, List<Class<? extends MObject>> allowedClasses, List<? extends MObject> valueChoices) {
         super(value, acceptNullValue, allowedClasses);
         if (acceptNullValue) {
             valueChoices.add(0, null);
         }
         this.valueChoices = valueChoices;
-        
     }
 
     /**
      * Copy constructor, creating a new instance with the same configuration as the other.
+     *
      * @param anotherInstance the instance to copy.
      */
     @objid ("595b3952-a7fe-4bf0-9af9-337b79d9ffa5")
-    public  DefaultElementChoiceNatValue(DefaultElementChoiceNatValue anotherInstance) {
+    public DefaultElementChoiceNatValue(DefaultElementChoiceNatValue anotherInstance) {
         super(anotherInstance);
         this.valueChoices = anotherInstance.valueChoices;
-        
     }
 
     @objid ("83dc44e6-a6da-4bcf-8f84-b0bafa1ddaeb")
@@ -80,7 +80,6 @@ public class DefaultElementChoiceNatValue extends DefaultElementNatValue impleme
             throw new InvalidParameterException("Value must be a MObject.");
         }
         super.setValue(value);
-        
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.flows;
 
@@ -76,22 +76,22 @@ public class DataAssociationNode implements IProductionNode<BpmnDataAssociation,
         } else {
             return factory.create(BpmnDataAssociation.class, context);
         }
-        
+
     }
 
     @objid ("9bb674c5-3021-4227-8ee3-e42980ccf29b")
     @Override
     public BpmnDataAssociation updateUMLElement(MObject context, BpmnDataAssociation modelioElement, TDataAssociation jaxbElement) {
         Object from = null;
-        
+
         if (jaxbElement.getSourceRef() != null && jaxbElement.getTargetRef() != null) {
             for (JAXBElement<Object> jaxInputs : jaxbElement.getSourceRef()) {
                 from = this.elementsMap.get(((TBaseElement) jaxInputs.getValue()).getId());
                 break;
             }
-        
+
             Object to = this.elementsMap.get(((TBaseElement) jaxbElement.getTargetRef()).getId());
-        
+
             if (from != null && to != null) {
                 if (jaxbElement instanceof TDataInputAssociation) {
                     if (((BpmnDataInput) to).getOwnerActivity() != null) {
@@ -100,7 +100,7 @@ public class DataAssociationNode implements IProductionNode<BpmnDataAssociation,
                         modelioElement.setEndingActivity(toActivity);
                         modelioElement.getSourceRef().clear();
                         modelioElement.getSourceRef().add(fromIt);
-        
+
                         fromIt.getLane().clear();
                         for (BpmnLane lane : toActivity.getLane()) {
                             fromIt.getLane().add(lane);
@@ -111,20 +111,20 @@ public class DataAssociationNode implements IProductionNode<BpmnDataAssociation,
                         modelioElement.setStartingEvent(fromEvent);
                         modelioElement.getSourceRef().clear();
                         modelioElement.getSourceRef().add(toIt);
-        
+
                         toIt.getLane().clear();
                         for (BpmnLane lane : fromEvent.getLane()) {
                             toIt.getLane().add(lane);
                         }
                     }
-        
+
                 } else if (jaxbElement instanceof TDataOutputAssociation) {
                     if (((BpmnDataOutput) from).getOwnerActivity() != null) {
                         BpmnActivity fromActivity = ((BpmnDataOutput) from).getOwnerActivity();
                         BpmnItemAwareElement toIt = (BpmnItemAwareElement) to;
                         modelioElement.setStartingActivity(fromActivity);
                         modelioElement.setTargetRef(toIt);
-        
+
                         toIt.getLane().clear();
                         for (BpmnLane lane : fromActivity.getLane()) {
                             toIt.getLane().add(lane);
@@ -134,7 +134,7 @@ public class DataAssociationNode implements IProductionNode<BpmnDataAssociation,
                         BpmnItemAwareElement fromIt = (BpmnItemAwareElement) to;
                         modelioElement.setEndingEvent(toEvent);
                         modelioElement.setTargetRef(fromIt);
-        
+
                         fromIt.getLane().clear();
                         for (BpmnLane lane : toEvent.getLane()) {
                             fromIt.getLane().add(lane);
@@ -168,7 +168,7 @@ public class DataAssociationNode implements IProductionNode<BpmnDataAssociation,
             // Create DataInputAssociation
             TDataOutputAssociation jaxAssoc = new TDataOutputAssociation();
             jaxAssoc.setId(IDUtils.formatJaxbID(modelioElement));
-        
+
             return jaxAssoc;
         } else if (modelioElement.getStartingEvent() != null && modelioElement.getSourceRef().size() > 0) {
             TDataInputAssociation jaxAssoc = new TDataInputAssociation();
@@ -182,28 +182,28 @@ public class DataAssociationNode implements IProductionNode<BpmnDataAssociation,
     @Override
     public TDataAssociation updateJaxbElement(Object context, TDataAssociation jaxAssociation, BpmnDataAssociation modelioElement) {
         ObjectFactory factory = new ObjectFactory();
-        
+
         if (jaxAssociation instanceof TDataOutputAssociation) {
             // Data Input Association to Activity
             if (modelioElement.getStartingActivity() != null) {
                 TActivity activity = (TActivity) this.elementsMap.get(modelioElement.getStartingActivity().getUuid());
                 TFlowElement source = (TFlowElement) this.elementsMap.get(modelioElement.getTargetRef().getUuid());
-        
+
                 // Create Io Specification
                 TInputOutputSpecification jaxIoSpec = activity.getIoSpecification();
-        
+
                 if (jaxIoSpec == null) {
                     jaxIoSpec = new TInputOutputSpecification();
                     activity.setIoSpecification(jaxIoSpec);
                 }
-        
+
                 List<TInputSet> inputSets = jaxIoSpec.getInputSet();
                 if (inputSets.isEmpty()) {
                     TInputSet inputSet = new TInputSet();
                     inputSet.setId("InputSet_" + activity.getId());
                     jaxIoSpec.getInputSet().add(inputSet);
                 }
-        
+
                 List<TOutputSet> outputSets = jaxIoSpec.getOutputSet();
                 if (outputSets.isEmpty()) {
                     TOutputSet outputSet = new TOutputSet();
@@ -218,18 +218,18 @@ public class DataAssociationNode implements IProductionNode<BpmnDataAssociation,
         //                if (outputSets.get(0).getInputSetRefs() == null || outputSets.get(0).getInputSetRefs().isEmpty()) {
         //                    outputSets.get(0).getInputSetRefs().add(factory.createTOutputSetInputSetRefs(inputSets.get(0)));
         //                }
-        
+
                 // Create Data Input
                 TDataOutput jaxDataOutput = new TDataOutput();
                 jaxIoSpec.getDataOutput().add(jaxDataOutput);
                 jaxDataOutput.setId(IDUtils.formatJaxbID(modelioElement.getStartingActivity()) + "-" + IDUtils.formatJaxbID(modelioElement.getTargetRef()));
                 outputSets.get(0).getDataOutputRefs().add(factory.createTOutputSetDataOutputRefs(jaxDataOutput));
-        
+
                 // Create DataInputAssociation
                 jaxAssociation.getSourceRef().add(factory.createTDataAssociationSourceRef(jaxDataOutput));
                 jaxAssociation.setTargetRef(source);
                 activity.getDataOutputAssociation().add((TDataOutputAssociation) jaxAssociation);
-        
+
                 // if(inputSets.get(0).getOutputSetRefs() == null || inputSets.get(0).getOutputSetRefs().isEmpty()){
                 // inputSets.get(0).getOutputSetRefs().add(factory.createTInputSetOutputSetRefs(outputSets.get(0)));
                 // }
@@ -251,54 +251,54 @@ public class DataAssociationNode implements IProductionNode<BpmnDataAssociation,
                 // activity.getDataInputAssociation().add((TDataInputAssociation) jaxAssociation);
             }else if (modelioElement.getEndingEvent() != null) {
                 TCatchEvent event = (TCatchEvent) this.elementsMap.get(modelioElement.getEndingEvent().getUuid());
-        
+
                 TFlowElement source = (TFlowElement) this.elementsMap.get(modelioElement.getTargetRef().getUuid());
-        
+
                 // Create Data Input
                 TDataOutput jaxDataOutput = new TDataOutput();
                 event.getDataOutput().add(jaxDataOutput);
                 jaxDataOutput.setId(IDUtils.formatJaxbID(modelioElement.getEndingEvent()) + "-" + IDUtils.formatJaxbID(modelioElement.getTargetRef()));
-        
+
                 // Create InputSet and DataInputRef
                 TOutputSet outputSet = new TOutputSet();
                 event.setOutputSet(outputSet);
                 outputSet.getDataOutputRefs().add(factory.createTOutputSetDataOutputRefs(jaxDataOutput));
-        
+
                 // Create DataInputAssociation
                 jaxAssociation.getSourceRef().add(factory.createTDataAssociationSourceRef(jaxDataOutput));
                 jaxAssociation.setTargetRef(source);
                 event.getDataOutputAssociation().add((TDataOutputAssociation) jaxAssociation);
             }
-        
+
         } else if (jaxAssociation instanceof TDataInputAssociation) {
             //
             if (modelioElement.getEndingActivity() != null) {
                 // Data Input Association to Activity
                 TActivity activity = (TActivity) this.elementsMap.get(modelioElement.getEndingActivity().getUuid());
                 TFlowElement source = (TFlowElement) this.elementsMap.get(modelioElement.getSourceRef().get(0).getUuid());
-        
+
                 // Create Io Specification
                 TInputOutputSpecification jaxIoSpec = activity.getIoSpecification();
-        
+
                 if (jaxIoSpec == null) {
                     jaxIoSpec = new TInputOutputSpecification();
                     activity.setIoSpecification(jaxIoSpec);
                 }
-        
+
                 List<TInputSet> inputSets = jaxIoSpec.getInputSet();
                 if (inputSets.isEmpty()) {
                     TInputSet inputSet = new TInputSet();
                     inputSet.setId("InputSet_" + activity.getId());
                     jaxIoSpec.getInputSet().add(inputSet);
                 }
-        
+
                 List<TOutputSet> outputSets = jaxIoSpec.getOutputSet();
                 if (outputSets.isEmpty()) {
                     TOutputSet outputSet = new TOutputSet();
                     outputSet.setId("OutputSet" + activity.getId());
                     jaxIoSpec.getOutputSet().add(outputSet);
                 }
-        
+
         //                if (inputSets.get(0).getOutputSetRefs() == null || inputSets.get(0).getOutputSetRefs().isEmpty()) {
         //                    inputSets.get(0).getOutputSetRefs().add(factory.createTInputSetOutputSetRefs(outputSets.get(0)));
         //                }
@@ -306,18 +306,18 @@ public class DataAssociationNode implements IProductionNode<BpmnDataAssociation,
         //                if (outputSets.get(0).getInputSetRefs() == null || outputSets.get(0).getInputSetRefs().isEmpty()) {
         //                    outputSets.get(0).getInputSetRefs().add(factory.createTOutputSetInputSetRefs(inputSets.get(0)));
         //                }
-        
+
                 // Create Data Input
                 TDataInput jaxDataInput = new TDataInput();
                 jaxIoSpec.getDataInput().add(jaxDataInput);
                 jaxDataInput.setId(IDUtils.formatJaxbID(modelioElement.getEndingActivity()) + "-" + IDUtils.formatJaxbID(modelioElement.getSourceRef().get(0)));
                 inputSets.get(0).getDataInputRefs().add(factory.createTInputSetDataInputRefs(jaxDataInput));
-        
+
                 // Create DataInputAssociation
                 jaxAssociation.getSourceRef().add(factory.createTDataAssociationSourceRef(source));
                 jaxAssociation.setTargetRef(jaxDataInput);
                 activity.getDataInputAssociation().add((TDataInputAssociation) jaxAssociation);
-        
+
                 // if(inputSets.get(0).getOutputSetRefs() == null || inputSets.get(0).getOutputSetRefs().isEmpty()){
                 // inputSets.get(0).getOutputSetRefs().add(factory.createTInputSetOutputSetRefs(outputSets.get(0)));
                 // }
@@ -339,25 +339,25 @@ public class DataAssociationNode implements IProductionNode<BpmnDataAssociation,
             } else if (modelioElement.getStartingEvent() != null) {
                 TThrowEvent event = (TThrowEvent) this.elementsMap.get(modelioElement.getStartingEvent().getUuid());
                 TFlowElement source = (TFlowElement) this.elementsMap.get(modelioElement.getSourceRef().get(0).getUuid());
-        
+
                 // Create Data Input
                 TDataInput jaxDataInput = new TDataInput();
                 event.getDataInput().add(jaxDataInput);
                 jaxDataInput.setId(IDUtils.formatJaxbID(modelioElement.getStartingEvent()) + "-" + IDUtils.formatJaxbID(modelioElement.getSourceRef().get(0)));
-        
+
                 // Create InputSet and DataInputRef
                 TInputSet inputSet = new TInputSet();
                 event.setInputSet(inputSet);
                 inputSet.getDataInputRefs().add(factory.createTInputSetDataInputRefs(jaxDataInput));
-        
+
                 // Create DataInputAssociation
                 jaxAssociation.getSourceRef().add(factory.createTDataAssociationSourceRef(source));
                 jaxAssociation.setTargetRef(jaxDataInput);
                 event.getDataInputAssociation().add((TDataInputAssociation) jaxAssociation);
-            }      
-        
-              
-        
+            }
+
+
+
         }
         return jaxAssociation;
     }

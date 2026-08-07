@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.uml.behavior.interactionModel;
 
@@ -26,25 +26,24 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * MessageSort v0.0.9054
- * 
- * 
+ *
+ *
  * null
- * 
- * 
+ *
  */
 @objid ("009676e8-91e0-1f74-804b-001ec947cd2a")
 public enum MessageSort {
-    @objid ("ff78fca2-4afd-44eb-bd0d-b041d3a8b47d")
+    @objid ("07138fd8-2651-47d7-b56b-68dde3f30dd2")
     SYNCCALL(0, "SyncCall", "SyncCall"),
-    @objid ("8faa53fe-e8ed-4c65-9f52-65c95c6b6996")
+    @objid ("5d95c5ba-6216-423d-a6be-463df0fcdaba")
     ASYNCCALL(1, "ASyncCall", "ASyncCall"),
-    @objid ("61b5d9a8-1402-4506-8786-988df1d31bb6")
+    @objid ("c95de934-83c8-4203-abd3-f3a276c1c6ae")
     ASYNCSIGNAL(2, "ASyncSignal", "ASyncSignal"),
-    @objid ("7048acd7-ee2d-47a4-a791-67b959781b26")
+    @objid ("8c5fb178-c0fc-405c-8fe4-7a32a24bcbfb")
     DESTROYMESSAGE(3, "DestroyMessage", "DestroyMessage"),
-    @objid ("c29cc6ac-f29a-41b0-9bbf-67edec6710fb")
+    @objid ("8cb14dc8-24a2-4393-b0dd-7eaee511df07")
     CREATEMESSAGE(4, "CreateMessage", "CreateMessage"),
-    @objid ("f81acb23-94af-4304-8004-0fb61cc24524")
+    @objid ("51ea3479-390d-4b61-9baa-6eb083257a7d")
     RETURNMESSAGE(5, "ReturnMessage", "ReturnMessage");
 
 public static final int SYNCCALL_VALUE = 0;
@@ -113,5 +112,5 @@ public static final int SYNCCALL_VALUE = 0;
     public String toString() {
        return literal;
     }
-    
+
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.policies;
 
@@ -37,6 +37,7 @@ import org.eclipse.gef.requests.GroupRequest;
  * Pass to the constructor the real {@link ConstrainedLayoutEditPolicy layout policy}
  * <p>
  * With this policy there is no need to use {@link LayoutNodeConnectionsEditPolicy} on the child edit parts.
+ *
  * @author cma
  * @see ConstrainedLayoutEditPolicy
  * @see LayoutConnectionsOrderedLayoutEditPolicyDecorator to decorate ordered layout policies
@@ -45,10 +46,11 @@ import org.eclipse.gef.requests.GroupRequest;
 @objid ("60b9135d-aeec-4787-a6c0-b520a9d1928f")
 public class LayoutConnectionsConstrainedLayoutEditPolicyDecorator extends LayoutConnectionsAbstractLayoutEditPolicyDecorator {
     /**
+     *
      * @param decorated the initial layout edit policy.
      */
     @objid ("24e76c53-b04f-4da4-994d-9e3baf442048")
-    public  LayoutConnectionsConstrainedLayoutEditPolicyDecorator(ConstrainedLayoutEditPolicy decorated) {
+    public LayoutConnectionsConstrainedLayoutEditPolicyDecorator(ConstrainedLayoutEditPolicy decorated) {
         super(decorated);
     }
 
@@ -82,13 +84,13 @@ public class LayoutConnectionsConstrainedLayoutEditPolicyDecorator extends Layou
         LayoutChildrenNodeConnectionsHelper.forRequest(request)
         .addEditParts(request)
         .createCommands(command);
-        
+
     }
 
     @objid ("2975e948-4378-4129-8870-bde40db0cab0")
     @Override
     protected void addOrphanChildrenCommand(CompoundCommand command, GroupRequest request) {
-        
+
     }
 
 }

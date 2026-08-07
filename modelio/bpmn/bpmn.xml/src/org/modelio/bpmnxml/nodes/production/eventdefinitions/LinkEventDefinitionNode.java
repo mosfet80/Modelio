@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.eventdefinitions;
 
@@ -72,7 +72,7 @@ public class LinkEventDefinitionNode implements IProductionNode<BpmnLinkEventDef
         } else {
             return factory.create(BpmnLinkEventDefinition.class, context, "EventDefinitions");
         }
-        
+
     }
 
     @objid ("4c0ac2b5-ad80-424e-9edc-6273d599b525")
@@ -86,7 +86,7 @@ public class LinkEventDefinitionNode implements IProductionNode<BpmnLinkEventDef
                 }
             }
         }
-        
+
         if (jaxbElement.getTarget() != null) {
             BpmnLinkEventDefinition modeliTargete = (BpmnLinkEventDefinition) this.elementsMap.get(jaxbElement.getTarget().getLocalPart());
             if (modeliTargete != null) {
@@ -100,11 +100,11 @@ public class LinkEventDefinitionNode implements IProductionNode<BpmnLinkEventDef
     @Override
     public TLinkEventDefinition createJaxbElement(Object context, BpmnLinkEventDefinition modelioElement) {
         TEvent jaxEvent = (TEvent) context;
-        
+
         // Create JaxbElement
         TLinkEventDefinition jaxEventDefinition = new TLinkEventDefinition();
         this.elementsMap.put(modelioElement.getUuid(), jaxEventDefinition);
-        
+
         // Add to context
         List<JAXBElement<? extends TEventDefinition>> jaxContext = null;
         if (jaxEvent instanceof TThrowEvent) {
@@ -130,7 +130,7 @@ public class LinkEventDefinitionNode implements IProductionNode<BpmnLinkEventDef
                 jaxEventDefinition.getSource().add(new QName(jaxSource.getId()));
             }
         }
-        
+
         BpmnLinkEventDefinition modelioTarget = modelioElement.getTarget();
         if (modelioTarget != null) {
             TLinkEventDefinition jaxTarget = (TLinkEventDefinition) this.elementsMap.get(modelioTarget.getUuid());

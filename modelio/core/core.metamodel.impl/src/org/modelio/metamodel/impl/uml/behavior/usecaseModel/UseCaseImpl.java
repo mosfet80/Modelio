@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.usecaseModel;
 
 import java.util.ArrayList;
@@ -45,13 +44,13 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0058abf6-c4bf-1fd8-97fe-001ec947cd2a")
 public class UseCaseImpl extends GeneralClassImpl implements UseCase {
-    @objid ("4f615806-efda-4674-a7b2-3e9ff14e1b7e")
+    @objid ("47f3b5ca-3b6d-4d00-a92b-de57fff777c5")
     @Override
     public EList<UseCaseDependency> getUsed() {
         return new SmList<>(this, ((UseCaseSmClass)getClassOf()).getUsedDep());
     }
 
-    @objid ("276777da-764c-4572-9a23-48e3e2aa963c")
+    @objid ("5ede7f11-e077-4872-a164-358d08ab29e4")
     @Override
     public <T extends UseCaseDependency> List<T> getUsed(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -64,16 +63,16 @@ public class UseCaseImpl extends GeneralClassImpl implements UseCase {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("42e154f2-22b6-450f-9c2f-70b8327740da")
+    @objid ("217cd94c-dfc8-48ea-ab38-2381db909ed6")
     @Override
     public EList<ExtensionPoint> getOwnedExtension() {
         return new SmList<>(this, ((UseCaseSmClass)getClassOf()).getOwnedExtensionDep());
     }
 
-    @objid ("a75d58df-c1fd-44b3-bbb8-c4c25c02c540")
+    @objid ("448659af-8ba5-4da1-baba-50c35cf4cd37")
     @Override
     public <T extends ExtensionPoint> List<T> getOwnedExtension(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -86,16 +85,16 @@ public class UseCaseImpl extends GeneralClassImpl implements UseCase {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("989f9399-573d-4eb8-ac71-b8a5b3f6a356")
+    @objid ("4ce9f7c4-743d-402f-b734-11a5b81e6dad")
     @Override
     public EList<UseCaseDependency> getUser() {
         return new SmList<>(this, ((UseCaseSmClass)getClassOf()).getUserDep());
     }
 
-    @objid ("bfe09e9f-1e37-4dd3-b810-c122df309d3b")
+    @objid ("f98c6bdd-9559-46cd-8380-f085f31b4bf0")
     @Override
     public <T extends UseCaseDependency> List<T> getUser(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -108,10 +107,10 @@ public class UseCaseImpl extends GeneralClassImpl implements UseCase {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("03b2f665-65a1-4107-87d3-799d62037b70")
+    @objid ("6ad65f30-73cb-49eb-9368-861d248f4569")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -119,17 +118,17 @@ public class UseCaseImpl extends GeneralClassImpl implements UseCase {
         return super.getCompositionOwner();
     }
 
-    @objid ("75876715-4dba-412c-9925-ba3b687cfc1c")
+    @objid ("2e8f4291-7b64-4c83-9087-c0044bd9fc80")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("3683363e-8a19-4774-928d-259ecac67b55")
+    @objid ("c262b39c-0230-45a1-abcf-ca986efcbbe3")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitUseCase(this);

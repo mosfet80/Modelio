@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures;
 
@@ -35,6 +35,7 @@ import org.eclipse.draw2d.geometry.PointList;
 
 /**
  * utility class to dump Figure composition hierarchy to a string.
+ *
  * @author cma
  */
 @objid ("d8970f8e-3733-4f76-bcae-594dde861ec6")
@@ -72,23 +73,23 @@ public class FigureDumper {
         this.out.append("source = ");
         dumpConnectionAnchor(fig.getSourceAnchor(), indent);
         this.out.append("\n");
-        
+
         this.out.append(indent);
         this.out.append("target = ");
         dumpConnectionAnchor(fig.getTargetAnchor(), indent);
         this.out.append("\n");
-        
+
         this.out.append(indent);
         this.out.append("routing constraint = ");
         this.out.append(fig.getRoutingConstraint());
         //dumpRoutingConstraint(fig.getRoutingConstraint(), out, indent);
         this.out.append("\n");
-        
-        
+
+
         this.out.append(indent);
         this.out.append("points = (");
         PointList points = fig.getPoints();
-        
+
         for (int i=0; i< points.size(); i++) {
             if (i != 0) {
                 this.out.append(", ");
@@ -97,7 +98,7 @@ public class FigureDumper {
             this.out.append(p);
         }
         this.out.append(")\n");
-        
+
     }
 
     @objid ("164cb1d8-ef62-4629-b90e-bd2c10b74ff4")
@@ -111,7 +112,7 @@ public class FigureDumper {
                     sourceAnchor.getReferencePoint(),
                     getFigureResume(sourceAnchor.getOwner())));
         }
-        
+
     }
 
     @objid ("222b1cda-da25-4afc-a643-80f9504b8748")
@@ -119,34 +120,34 @@ public class FigureDumper {
         this.out.append(indent);
         this.out.append("+ ");
         this.out.append(getFigureResume(fig));
-        
+
         dumpLayoutConstraint(fig, indent);
-        
+
         this.out.append("\n");
-        
+
         String subIndent = indent+ INDENT_INC+ INDENT_INC;
         if (fig instanceof Connection) {
             dumpConnection((Connection) fig, subIndent);
         }
-        
+
         if (fig instanceof ScalableFigure) {
             this.out.append(subIndent);
             this.out.append("scale=");
             this.out.append(((ScalableFigure)fig).getScale());
             this.out.append("\n");
         }
-        
+
         if (fig instanceof Viewport) {
             Viewport vp = (Viewport) fig;
             this.out.append(subIndent).append("location").append("=").append(vp.getViewLocation()).append("\n");
             this.out.append(subIndent).append("hscroll").append("=").append(vp.getHorizontalRangeModel()).append("\n");
             this.out.append(subIndent).append("vscroll").append("=").append(vp.getVerticalRangeModel()).append("\n");
             //out.append(subIndent).append().append("=").append();
-            
+
         }
-        
+
         dumpLayoutManager(fig, subIndent);
-        
+
         String childindent = indent + INDENT_INC;
         for (Object o : fig.getChildren()) {
             IFigure c = (IFigure) o;
@@ -154,7 +155,7 @@ public class FigureDumper {
                 dump(c, childindent);
             }
         }
-        
+
     }
 
     @objid ("911d2966-2ca8-4f26-aade-bf5660867e8f")
@@ -168,7 +169,7 @@ public class FigureDumper {
                 this.out.append(constraint);
             }
         }
-        
+
     }
 
     @objid ("b19bb3fb-1672-4807-ae15-49ef388449e0")
@@ -178,7 +179,7 @@ public class FigureDumper {
         }
         return String.format(
                                         "%s [%sbounds = %s, id=%h]",
-                                        fig.getClass().getSimpleName() , 
+                                        fig.getClass().getSimpleName() ,
                                         fig.isVisible() ? "" :"invisible " ,
                                                 fig.getBounds(),
                                                 java.lang.System.identityHashCode(fig));
@@ -216,12 +217,12 @@ public class FigureDumper {
         } else {
             lm = layoutManager.getClass().getSimpleName();
         }
-        
+
         this.out.append(subIndent);
         this.out.append("layout=");
         this.out.append(lm);
         this.out.append("\n");
-        
+
     }
 
     @objid ("f0651cba-785e-4e9f-baba-912dff33dd66")
@@ -230,7 +231,7 @@ public class FigureDumper {
         private Method m;
 
         @objid ("4507f45b-1eb7-4dc2-a20b-e7c3a5bbca36")
-        public  IsValidatedFigSelector() {
+        public IsValidatedFigSelector() {
             try {
                 this.m = Figure.class.getDeclaredMethod("isValid");
                 this.m.setAccessible(true);
@@ -238,7 +239,7 @@ public class FigureDumper {
             } catch (NoSuchMethodException | SecurityException e) {
                 throw new ExceptionInInitializerError(e);
             }
-            
+
         }
 
         @objid ("fc8906d3-015e-4f9a-9b28-66731f112cc8")
@@ -249,7 +250,7 @@ public class FigureDumper {
             } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
                 throw new LinkageError(e.toString(), e);
             }
-            
+
         }
 
     }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.bpmn;
 
@@ -75,17 +75,18 @@ public class BpmnStartEventPropertyModel extends AbstractPropertyModel<BpmnStart
 
     /**
      * Create a new <i>BpmnStartEvent</i> data model from an <i>BpmnStartEvent</i>.
+     *
      * @param theEditedElement the model to edit.
      * @param modelService the model service needed to find elements.
      * @param umlPropertyModelVisitor the property model visitor, needed for the event definition.
      */
     @objid ("f143090b-ee22-411f-be18-7cddd111f7be")
-    public  BpmnStartEventPropertyModel(BpmnStartEvent theEditedElement, IMModelServices modelService, UmlPropertyModelVisitor umlPropertyModelVisitor) {
+    public BpmnStartEventPropertyModel(BpmnStartEvent theEditedElement, IMModelServices modelService, UmlPropertyModelVisitor umlPropertyModelVisitor) {
         super(theEditedElement);
         this.modelService = modelService;
         this.umlPropertyModelVisitor = umlPropertyModelVisitor;
         updateFieldsLists();
-        
+
     }
 
     @objid ("82e6a1d0-dddc-4663-978d-886a7c98a9d8")
@@ -109,7 +110,7 @@ public class BpmnStartEventPropertyModel extends AbstractPropertyModel<BpmnStart
         } else {
             return this.fieldList.get(row);
         }
-        
+
     }
 
     @objid ("d99b629a-075a-4417-aee1-b06a03912ac3")
@@ -150,11 +151,11 @@ public class BpmnStartEventPropertyModel extends AbstractPropertyModel<BpmnStart
                     }
                 }
             }
-        
+
             // Row not found in event types, update ParallelMultiple
             this.theEditedElement.setParallelMultiple(Boolean.parseBoolean(Objects.toString(value)));
         }
-        
+
     }
 
     @objid ("0337b611-208e-4984-a1a3-c10dbd1de8d3")
@@ -164,19 +165,19 @@ public class BpmnStartEventPropertyModel extends AbstractPropertyModel<BpmnStart
         for (BpmnEventDefinition definition : this.theEditedElement.getEventDefinitions()) {
             this.delegatedPropertyModel.add((AbstractPropertyModel<BpmnEventDefinition>) definition.accept(this.umlPropertyModelVisitor));
         }
-        
+
         this.labelList = new ArrayList<>();
         this.fieldList = new ArrayList<>();
-        
+
         this.labelList.add(new DefaultStringNatValue(getPropertyI18n(AbstractPropertyModel.PROPERTY_ID), false)); // Header
         this.fieldList.add(new DefaultStringNatValue(getPropertyI18n(AbstractPropertyModel.VALUE_ID), false)); // Header
-        
+
         this.labelList.add(new DefaultStringNatValue(getPropertyI18n("Name"), false)); // Name
         this.fieldList.add(new DefaultStringNatValue(this.theEditedElement.getName(), false));
-        
+
         this.labelList.add(new DefaultStringNatValue(getPropertyI18n("Interrupting"), false)); // Interrupting
         this.fieldList.add(new DefaultBooleanNatValue(this.theEditedElement.isIsInterrupting()));
-        
+
         for (EventType evt : EventType.getValues(this.theEditedElement)) {
             AbstractPropertyModel<BpmnEventDefinition> tdef = null;
             for (AbstractPropertyModel<BpmnEventDefinition> def : this.delegatedPropertyModel) {
@@ -196,12 +197,12 @@ public class BpmnStartEventPropertyModel extends AbstractPropertyModel<BpmnStart
                 }
             }
         }
-        
+
         if (this.delegatedPropertyModel.size() >= 2) {
             this.labelList.add(new DefaultStringNatValue(getPropertyI18n("ParallelMultiple"), false)); // ParallelMultiple
             this.fieldList.add(new DefaultBooleanNatValue(this.theEditedElement.isParallelMultiple()));
         }
-        
+
     }
 
     @objid ("5ec4b475-cdaf-44f6-9322-b8dd4b07ae5e")
@@ -210,7 +211,7 @@ public class BpmnStartEventPropertyModel extends AbstractPropertyModel<BpmnStart
         BpmnEventDefinition event_definition = (BpmnEventDefinition) modelFactory.createElement(EventType.getMetaclass(evt));
         event_definition.setName(this.modelService.getElementNamer().getBaseName(event_definition.getMClass()));
         event_definition.setDefined(this.theEditedElement);
-        
+
     }
 
     @objid ("c5f0279c-c4ef-48fd-923a-ea0a9bf36843")

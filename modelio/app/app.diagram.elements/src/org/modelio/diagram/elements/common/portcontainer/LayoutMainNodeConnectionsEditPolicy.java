@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.portcontainer;
 
@@ -34,10 +34,10 @@ import org.modelio.diagram.elements.core.policies.LayoutNodeConnectionsEditPolic
  * <p>
  * Port container policy that delegates requests to instantiated a
  * {@link LayoutNodeConnectionsEditPolicy} plugged on the main node.
- * 
+ *
  * @author cma
- * @since 5.0.2
  * @see LayoutNodeConnectionsEditPolicy
+ * @since 5.0.2
  */
 @objid ("32cc4ddc-503e-4619-a8c5-297009203a40")
 public class LayoutMainNodeConnectionsEditPolicy extends GraphicalEditPolicy {
@@ -61,11 +61,11 @@ public class LayoutMainNodeConnectionsEditPolicy extends GraphicalEditPolicy {
             if (this.delegate != null) {
                 this.delegate.deactivate();
             }
-        
+
             AbstractNodeEditPart mainNodeEditPart = getMainNodeEditPart();
             if (mainNodeEditPart == null)
                 return null;
-        
+
             this.delegate = new LayoutNodeConnectionsEditPolicy(mainNodeEditPart);
             this.delegate.setHost(mainNodeEditPart);
             this.delegate.activate();
@@ -92,9 +92,9 @@ public class LayoutMainNodeConnectionsEditPolicy extends GraphicalEditPolicy {
             this.delegate.deactivate();
             this.delegate = null;
         }
-        
+
         super.deactivate();
-        
+
     }
 
     @objid ("817ee49f-4af5-4d9f-a7ed-1de2c3f625ba")
@@ -102,11 +102,11 @@ public class LayoutMainNodeConnectionsEditPolicy extends GraphicalEditPolicy {
     public void showSourceFeedback(Request request) {
         if (! isHandled(request))
             return;
-        
+
         GraphicalEditPolicy d = getDelegate();
         if (d != null)
             d.showSourceFeedback(request);
-        
+
     }
 
     @objid ("3593be2d-e1a2-4b10-a2e6-a9363e880c11")
@@ -114,11 +114,11 @@ public class LayoutMainNodeConnectionsEditPolicy extends GraphicalEditPolicy {
     public void eraseSourceFeedback(Request request) {
         if (! isHandled(request))
             return;
-        
+
         GraphicalEditPolicy d = getDelegate();
         if (d != null)
             d.eraseSourceFeedback(request);
-        
+
     }
 
     @objid ("6489ca2a-bf87-49cf-bef4-c221b2d291a2")
@@ -126,7 +126,7 @@ public class LayoutMainNodeConnectionsEditPolicy extends GraphicalEditPolicy {
     public Command getCommand(Request request) {
         if (! isHandled(request))
             return null;
-        
+
         GraphicalEditPolicy d = getDelegate();
         if (d == null)
             return null;
@@ -156,13 +156,13 @@ public class LayoutMainNodeConnectionsEditPolicy extends GraphicalEditPolicy {
                 }
             }
         }
-        
+
         if (mainNodeEditPart instanceof AbstractNodeEditPart) {
             return (AbstractNodeEditPart) mainNodeEditPart;
         } else {
             return null;
         }
-        
+
     }
 
 }

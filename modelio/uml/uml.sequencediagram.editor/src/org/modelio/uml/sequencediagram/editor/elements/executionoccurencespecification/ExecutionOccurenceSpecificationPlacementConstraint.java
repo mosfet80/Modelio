@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.executionoccurencespecification;
 
@@ -35,7 +35,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Placement constraint for the ExecutionOccurenceSpecification.
- * 
+ *
  * @author fpoyer
  */
 @objid ("d8da564c-55b6-11e2-877f-002564c97630")
@@ -54,6 +54,7 @@ public class ExecutionOccurenceSpecificationPlacementConstraint extends Placemen
 
     /**
      * Constructor.
+     *
      * @param executionOccurenceSpecification the represented execution
      * @param x the desired X coordinate in absolute coordinates.
      * @param y the desired Y coordinate in absolute coordinates.
@@ -62,13 +63,13 @@ public class ExecutionOccurenceSpecificationPlacementConstraint extends Placemen
      * @param diagram the diagram in which this constraint is used.
      */
     @objid ("d8dbdcb9-55b6-11e2-877f-002564c97630")
-    public  ExecutionOccurenceSpecificationPlacementConstraint(final ExecutionOccurenceSpecification executionOccurenceSpecification, final int x, final int y, final int width, final int height, final GmSequenceDiagram diagram) {
+    public ExecutionOccurenceSpecificationPlacementConstraint(final ExecutionOccurenceSpecification executionOccurenceSpecification, final int x, final int y, final int width, final int height, final GmSequenceDiagram diagram) {
         super(x, y, width, height, diagram);
-        
+
         this.executionOccurenceSpecification = executionOccurenceSpecification;
         if (this.executionOccurenceSpecification != null && this.executionOccurenceSpecification.isValid()) {
             setY(this.executionOccurenceSpecification.getLineNumber());
-        
+
             Message m = getValidReceivedMessage();
             if (m != null && m.getSortOfMessage() == MessageSort.DESTROYMESSAGE) {
                 setHeight(ExecutionOccurenceSpecificationPlacementConstraint.DESTRUCTION_SIZE);
@@ -76,14 +77,13 @@ public class ExecutionOccurenceSpecificationPlacementConstraint extends Placemen
                 setHeight(ExecutionOccurenceSpecificationPlacementConstraint.DEFAULT_SIZE);
             }
         }
-        
     }
 
     /**
      * Empty constructor for deserialisation. Do not use!
      */
     @objid ("d8dbdcca-55b6-11e2-877f-002564c97630")
-    public  ExecutionOccurenceSpecificationPlacementConstraint() {
+    public ExecutionOccurenceSpecificationPlacementConstraint() {
         super();
     }
 
@@ -108,10 +108,10 @@ public class ExecutionOccurenceSpecificationPlacementConstraint extends Placemen
         super.read(reader);
         MRef ref = (MRef) reader.readProperty("executionOccurenceSpecification");
         this.executionOccurenceSpecification = ref != null ? resolveRef(ref) : null;
-        
+
         if (this.executionOccurenceSpecification != null && this.executionOccurenceSpecification.isValid()) {
             setY(this.executionOccurenceSpecification.getLineNumber());
-        
+
             Message receivedMessage = this.executionOccurenceSpecification.getReceivedMessage();
             if (receivedMessage != null &&
                     receivedMessage.isValid() &&
@@ -121,7 +121,6 @@ public class ExecutionOccurenceSpecificationPlacementConstraint extends Placemen
                 setHeight(ExecutionOccurenceSpecificationPlacementConstraint.DEFAULT_SIZE);
             }
         }
-        
     }
 
     @objid ("d8dbdcdb-55b6-11e2-877f-002564c97630")
@@ -131,7 +130,6 @@ public class ExecutionOccurenceSpecificationPlacementConstraint extends Placemen
         if (this.executionOccurenceSpecification != null) {
             writer.writeProperty("executionOccurenceSpecification", new MRef(this.executionOccurenceSpecification));
         }
-        
     }
 
     @objid ("d8dbdce2-55b6-11e2-877f-002564c97630")
@@ -143,7 +141,6 @@ public class ExecutionOccurenceSpecificationPlacementConstraint extends Placemen
         } else {
             return ExecutionOccurenceSpecificationPlacementConstraint.DEFAULT_SIZE;
         }
-        
     }
 
     @objid ("d8dbdce6-55b6-11e2-877f-002564c97630")
@@ -155,7 +152,6 @@ public class ExecutionOccurenceSpecificationPlacementConstraint extends Placemen
         } else {
             return ExecutionOccurenceSpecificationPlacementConstraint.DEFAULT_SIZE;
         }
-        
     }
 
     @objid ("d8dbdcea-55b6-11e2-877f-002564c97630")
@@ -166,7 +162,6 @@ public class ExecutionOccurenceSpecificationPlacementConstraint extends Placemen
         } else {
             return super.getY();
         }
-        
     }
 
     @objid ("d8dbdcee-55b6-11e2-877f-002564c97630")

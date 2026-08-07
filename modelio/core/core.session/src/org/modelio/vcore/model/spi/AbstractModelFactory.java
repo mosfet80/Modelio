@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.model.spi;
 
@@ -32,7 +32,7 @@ public abstract class AbstractModelFactory implements IModelFactory {
     protected final MMetamodel metamodel;
 
     @objid ("90bd2681-5b8c-4911-9d58-2b1bf4618827")
-    public  AbstractModelFactory(MMetamodel metamodel) {
+    public AbstractModelFactory(MMetamodel metamodel) {
         this.metamodel = metamodel;
     }
 
@@ -69,6 +69,7 @@ public abstract class AbstractModelFactory implements IModelFactory {
     }
 
     /**
+     *
      * @return a new model object builder.
      */
     @objid ("f6f43a35-9457-46f1-83c4-439d7b4f8708")
@@ -78,10 +79,10 @@ public abstract class AbstractModelFactory implements IModelFactory {
 
     /**
      * Builder design pattern.
+     *
      * @author cmarin
-     * @since 3.6
-     * 
      * @param <T> the final type of the created element.
+     * @since 3.6
      */
     @objid ("aefb0cff-8bd1-478d-a06d-e75d14439746")
     public class Builder<T extends MObject> {
@@ -123,7 +124,7 @@ public abstract class AbstractModelFactory implements IModelFactory {
         public Builder<T> withDep(String dependencyName) {
             if (this.mc == null)
                 throw new IllegalStateException("No metaclass defined");
-            
+
             this.dep = this.mc.getDependency(dependencyName);
             if (this.dep == null)
                 throw new IllegalArgumentException(String.format("%s metaclass does not have a '%s' dependency", this.mc.getQualifiedName(), dependencyName));
@@ -135,12 +136,12 @@ public abstract class AbstractModelFactory implements IModelFactory {
         public T create() {
             if (this.mc == null)
                 throw new IllegalStateException("No metaclass defined.");
-            
+
             if (this.owner == null)
                 return (T) createElement(this.mc);
             else
                 return (T) createElement(this.mc, this.owner, this.dep);
-            
+
         }
 
     }

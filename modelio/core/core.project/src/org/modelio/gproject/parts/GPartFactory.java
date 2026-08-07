@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.parts;
 
@@ -77,7 +77,7 @@ public class GPartFactory implements IGPartFactory {
                     return null;
                 }
             }
-    
+
             @Override
             public boolean supports(GProjectPartDescriptor d) {
                 switch (d.getType()) {
@@ -96,8 +96,8 @@ public class GPartFactory implements IGPartFactory {
         };
 
     @objid ("b1295044-41f0-49ed-9d82-b5cbace781a3")
-    private  GPartFactory() {
-        
+    private GPartFactory() {
+
     }
 
     @objid ("6e84f07f-17e2-4a6d-acbc-bc6e78ac929e")
@@ -113,7 +113,7 @@ public class GPartFactory implements IGPartFactory {
                 return f.instantiate(d);
             }
         }
-        
+
         // Last resort, instantiate ghost part
         return new GUnknownFragment(d);
     }
@@ -131,7 +131,8 @@ public class GPartFactory implements IGPartFactory {
 
     @objid ("667f447b-448a-4ce5-9792-1d771a8ab880")
     public static void registerFactory(IGPartFactory factory) {
-        GPartFactory.FACTORIES.add(factory);
+        // Add the factory to the list at first position
+        GPartFactory.FACTORIES.add(0, factory);
     }
 
     @objid ("e70a5415-99ae-49d2-b79c-3c672d34cf4e")
@@ -142,5 +143,5 @@ public class GPartFactory implements IGPartFactory {
 static {
             FACTORIES.add(DEFAULT_FACTORY);
         }
-    
+
 }

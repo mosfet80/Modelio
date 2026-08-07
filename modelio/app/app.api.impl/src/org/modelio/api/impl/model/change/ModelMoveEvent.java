@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.api.impl.model.change;
 
@@ -43,7 +43,7 @@ public class ModelMoveEvent implements IElementMovedEvent {
      * @exclude
      */
     @objid ("c610b986-cb0a-48cb-9cb7-52556329abae")
-    public  ModelMoveEvent(org.modelio.vcore.session.api.model.change.IElementMovedEvent coreElementMovedEvent) {
+    public ModelMoveEvent(org.modelio.vcore.session.api.model.change.IElementMovedEvent coreElementMovedEvent) {
         this.coreElementMovedEvent = coreElementMovedEvent;
     }
 
@@ -58,6 +58,7 @@ public class ModelMoveEvent implements IElementMovedEvent {
 
     /**
      * Used to get the moved element.
+     *
      * @return Returns the moved element
      */
     @objid ("885f46c6-27ee-40a7-ad75-e2eaf872da63")
@@ -71,6 +72,7 @@ public class ModelMoveEvent implements IElementMovedEvent {
      * <p><p>
      * The parent corresponds to the element accessed through the use of the
      * {@link MObject#getCompositionOwner()} method.
+     *
      * @return Returns the new parent of the moved element
      */
     @objid ("aedd91e6-4131-4840-aa86-72d9611842cd")
@@ -84,6 +86,7 @@ public class ModelMoveEvent implements IElementMovedEvent {
      * <p><p>
      * The parent corresponds to the element accessed through the use of the
      * {@link MObject#getCompositionOwner()} method.
+     *
      * @return Returns the old parent of the moved element
      */
     @objid ("e1f5b700-99a1-4b92-9281-6c0b20d2669a")

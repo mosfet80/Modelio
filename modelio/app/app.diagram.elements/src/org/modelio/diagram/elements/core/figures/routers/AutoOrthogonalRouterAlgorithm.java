@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures.routers;
 
@@ -49,12 +49,12 @@ public class AutoOrthogonalRouterAlgorithm {
     private static final PrecisionPoint A_POINT = new PrecisionPoint();
 
     @objid ("42b5d20e-4894-43f7-9670-67297ad0dd98")
-    public  AutoOrthogonalRouterAlgorithm() {
+    public AutoOrthogonalRouterAlgorithm() {
         this(DEFAULT_MARGIN);
     }
 
     @objid ("a331c363-f18d-4fd7-b494-fe16a3380d90")
-    public  AutoOrthogonalRouterAlgorithm(int workaroundMargin) {
+    public AutoOrthogonalRouterAlgorithm(int workaroundMargin) {
         this.workaroundMargin = workaroundMargin;
     }
 
@@ -62,16 +62,16 @@ public class AutoOrthogonalRouterAlgorithm {
     public List<MPoint> computeOrthogonalPath(Point sourceLocation, Direction sourceAnchorOrientation, Rectangle sourceBounds, Point targetLocation, Direction targetAnchorOrientation, Rectangle targetBounds) {
         // System.err.println(MessageFormat.format("\t\tSOURCE - anchor={0} bounds={1} orientation={2}", sourceLocation, sourceBounds, sourceAnchorOrientation));
         // System.err.println(MessageFormat.format("\t\tTARGET - anchor={0} bounds={1} orientation={2}", targetLocation, targetBounds, targetAnchorOrientation));
-        
+
         if (sourceAnchorOrientation == Direction.NONE) {
             sourceAnchorOrientation = getDirection(sourceLocation, targetLocation);
         }
         if (targetAnchorOrientation == Direction.NONE) {
             targetAnchorOrientation = getDirection(targetLocation, sourceLocation);
         }
-        
+
         List<MPoint> allPoints = new ArrayList<>();
-        
+
         switch (sourceAnchorOrientation) {
         case NORTH: {
             switch (targetAnchorOrientation) {
@@ -168,7 +168,7 @@ public class AutoOrthogonalRouterAlgorithm {
         default:
             break;
         }
-        
+
         // allPoints.add(0, new MPoint(sourceLocation));
         // allPoints.add(new MPoint(targetLocation));
         return allPoints;
@@ -182,7 +182,7 @@ public class AutoOrthogonalRouterAlgorithm {
                 int xWorkaround1 = sourceBounds.x - (sourceBounds.x - targetBounds.right()) / 2;
                 int xWorkaround2 = Math.min(targetBounds.x - this.workaroundMargin, sourceBounds.x - (sourceBounds.x - targetBounds.x) / 2);
                 int yWorkaround1 = Math.max(sourceLocation.y, targetBounds.bottom() + this.workaroundMargin);
-        
+
                 allPoints.add(new MPoint(xWorkaround1, sourceLocation.y, false));
                 allPoints.add(new MPoint(xWorkaround1, yWorkaround1, false));
                 allPoints.add(new MPoint(xWorkaround2, yWorkaround1, false));
@@ -197,7 +197,7 @@ public class AutoOrthogonalRouterAlgorithm {
                 int xWorkaround1 = sourceBounds.x - this.workaroundMargin;
                 int xWorkaround2 = sourceBounds.right() + Math.max((targetBounds.x - sourceBounds.right()) / 2, this.workaroundMargin);
                 int yWorkaround1 = Math.max(targetLocation.y, sourceBounds.bottom() + this.workaroundMargin);
-        
+
                 allPoints.add(new MPoint(xWorkaround1, sourceLocation.y, false));
                 allPoints.add(new MPoint(xWorkaround1, yWorkaround1, false));
                 allPoints.add(new MPoint(xWorkaround2, yWorkaround1, false));
@@ -209,7 +209,7 @@ public class AutoOrthogonalRouterAlgorithm {
             allPoints.add(new MPoint(xWorkaround1, sourceLocation.y, false));
             allPoints.add(new MPoint(xWorkaround1, targetLocation.y, false));
         }
-        
+
     }
 
     @objid ("b80dc8db-f041-4415-9739-5e1ba8af9da0")
@@ -217,14 +217,14 @@ public class AutoOrthogonalRouterAlgorithm {
         if (sourceBounds.x > targetBounds.right() + this.workaroundMargin) {
             // 8 - Target is SW, W or NW, go W -> S or N -> W
             int xWorkaround1 = sourceBounds.x - (sourceBounds.x - targetBounds.right()) / 2;
-        
+
             allPoints.add(new MPoint(xWorkaround1, sourceLocation.y, false));
             allPoints.add(new MPoint(xWorkaround1, targetLocation.y, false));
         } else if (sourceBounds.y >= targetBounds.bottom() + this.workaroundMargin || sourceBounds.bottom() <= targetBounds.y - this.workaroundMargin) {
             int xWorkaround1 = sourceBounds.x - this.workaroundMargin;
             int xWorkaround2 = targetBounds.right() + this.workaroundMargin;
             int yWorkaround1;
-        
+
             if (sourceBounds.y > targetBounds.bottom()) {
                 // 9 - Target is S or SE
                 yWorkaround1 = sourceBounds.y - (sourceBounds.y - targetBounds.bottom()) / 2;
@@ -232,7 +232,7 @@ public class AutoOrthogonalRouterAlgorithm {
                 // 9 - Target is N or NE
                 yWorkaround1 = sourceBounds.bottom() + (targetBounds.y - sourceBounds.bottom()) / 2;
             }
-        
+
             allPoints.add(new MPoint(xWorkaround1, sourceLocation.y, false));
             allPoints.add(new MPoint(xWorkaround1, yWorkaround1, false));
             allPoints.add(new MPoint(xWorkaround2, yWorkaround1, false));
@@ -247,13 +247,13 @@ public class AutoOrthogonalRouterAlgorithm {
             }
             int xWorkaround2 = Math.max(targetBounds.right(), sourceBounds.right()) + this.workaroundMargin;
             int yWorkaround1 = Math.max(sourceBounds.bottom(), targetBounds.bottom()) + this.workaroundMargin;
-        
+
             allPoints.add(new MPoint(xWorkaround1, sourceLocation.y, false));
             allPoints.add(new MPoint(xWorkaround1, yWorkaround1, false));
             allPoints.add(new MPoint(xWorkaround2, yWorkaround1, false));
             allPoints.add(new MPoint(xWorkaround2, targetLocation.y, false));
         }
-        
+
     }
 
     @objid ("7d533145-b809-4c0d-a009-1435bbad578d")
@@ -265,7 +265,7 @@ public class AutoOrthogonalRouterAlgorithm {
             // 2 - Target is W or NW, go W -> N -> W -> S
             A_POINT.x = sourceBounds.x - (sourceBounds.x - targetBounds.right()) / 2;
             A_POINT.y = targetBounds.bottom() + this.workaroundMargin;
-        
+
             allPoints.add(new MPoint(A_POINT.x, sourceLocation.y, false));
             allPoints.add(new MPoint(A_POINT.x, A_POINT.y, false));
             allPoints.add(new MPoint(targetLocation.x, A_POINT.y, false));
@@ -273,7 +273,7 @@ public class AutoOrthogonalRouterAlgorithm {
             // 3 - Target is N, NE or E, go W -> N -> E -> S
             A_POINT.x = Math.min(targetBounds.x, sourceBounds.x) - this.workaroundMargin;
             A_POINT.y = Math.max(sourceBounds.bottom(), targetBounds.bottom()) + this.workaroundMargin;
-        
+
             allPoints.add(new MPoint(A_POINT.x, sourceLocation.y, false));
             allPoints.add(new MPoint(A_POINT.x, A_POINT.y, false));
             allPoints.add(new MPoint(targetLocation.x, A_POINT.y, false));
@@ -281,12 +281,12 @@ public class AutoOrthogonalRouterAlgorithm {
             // 4 - Target is SE or S, go W -> S -> E -> S
             A_POINT.x = sourceBounds.x - this.workaroundMargin;
             A_POINT.y = sourceBounds.y() - (sourceBounds.y() - targetBounds.bottom()) / 2;
-        
+
             allPoints.add(new MPoint(A_POINT.x, sourceLocation.y, false));
             allPoints.add(new MPoint(A_POINT.x, A_POINT.y, false));
             allPoints.add(new MPoint(targetLocation.x, A_POINT.y, false));
         }
-        
+
     }
 
     @objid ("471badb5-0efd-4df5-8584-9b25ac16591a")
@@ -298,7 +298,7 @@ public class AutoOrthogonalRouterAlgorithm {
             // 2 - Target is W or NW, go W -> N -> W -> S
             A_POINT.x = sourceBounds.x - (sourceBounds.x - targetBounds.right()) / 2;
             A_POINT.y = targetBounds.y - this.workaroundMargin;
-        
+
             allPoints.add(new MPoint(A_POINT.x, sourceLocation.y, false));
             allPoints.add(new MPoint(A_POINT.x, A_POINT.y, false));
             allPoints.add(new MPoint(targetLocation.x, A_POINT.y, false));
@@ -306,7 +306,7 @@ public class AutoOrthogonalRouterAlgorithm {
             // 3 - Target is N, NE or E, go W -> N -> E -> S
             A_POINT.x = Math.min(targetBounds.x, sourceBounds.x) - this.workaroundMargin;
             A_POINT.y = Math.min(sourceBounds.y, targetBounds.y) - this.workaroundMargin;
-        
+
             allPoints.add(new MPoint(A_POINT.x, sourceLocation.y, false));
             allPoints.add(new MPoint(A_POINT.x, A_POINT.y, false));
             allPoints.add(new MPoint(targetLocation.x, A_POINT.y, false));
@@ -314,12 +314,12 @@ public class AutoOrthogonalRouterAlgorithm {
             // 4 - Target is SE or S, go W -> S -> E -> S
             A_POINT.x = sourceBounds.x - this.workaroundMargin;
             A_POINT.y = sourceBounds.bottom() + (targetBounds.y - sourceBounds.bottom()) / 2;
-        
+
             allPoints.add(new MPoint(A_POINT.x, sourceLocation.y, false));
             allPoints.add(new MPoint(A_POINT.x, A_POINT.y, false));
             allPoints.add(new MPoint(targetLocation.x, A_POINT.y, false));
         }
-        
+
     }
 
     @objid ("cd6691b4-09c4-4f75-8dda-6b1c4d443f47")
@@ -327,7 +327,7 @@ public class AutoOrthogonalRouterAlgorithm {
         if (sourceBounds.right() < targetBounds.x - this.workaroundMargin) {
             // 8 - Target is SE, E or NE, go E -> S or N -> E
             int xWorkaround1 = sourceBounds.right() + (targetBounds.x - sourceBounds.right()) / 2;
-        
+
             allPoints.add(new MPoint(xWorkaround1, sourceLocation.y, false));
             if (targetLocation.y != sourceLocation.y) {
                 allPoints.add(new MPoint(xWorkaround1, targetLocation.y, false));
@@ -343,7 +343,7 @@ public class AutoOrthogonalRouterAlgorithm {
                 // 9 - Target is N or NW
                 yWorkaround1 = sourceBounds.bottom() + (targetBounds.y - sourceBounds.bottom()) / 2;
             }
-        
+
             allPoints.add(new MPoint(xWorkaround1, sourceLocation.y, false));
             allPoints.add(new MPoint(xWorkaround1, yWorkaround1, false));
             allPoints.add(new MPoint(xWorkaround2, yWorkaround1, false));
@@ -358,13 +358,13 @@ public class AutoOrthogonalRouterAlgorithm {
             }
             int xWorkaround2 = Math.min(targetBounds.x, sourceBounds.x) - this.workaroundMargin;
             int yWorkaround1 = Math.max(sourceBounds.bottom(), targetBounds.bottom()) + this.workaroundMargin;
-        
+
             allPoints.add(new MPoint(xWorkaround1, sourceLocation.y, false));
             allPoints.add(new MPoint(xWorkaround1, yWorkaround1, false));
             allPoints.add(new MPoint(xWorkaround2, yWorkaround1, false));
             allPoints.add(new MPoint(xWorkaround2, targetLocation.y, false));
         }
-        
+
     }
 
     @objid ("9c8d534b-30fa-4115-88cd-a6e9ce1e7135")
@@ -375,7 +375,7 @@ public class AutoOrthogonalRouterAlgorithm {
                 int xWorkaround1 = sourceBounds.right() + Math.max(this.workaroundMargin, (targetBounds.x - sourceBounds.right()) / 2);
                 int xWorkaround2 = targetBounds.right() + this.workaroundMargin;
                 int yWorkaround1 = Math.max(sourceLocation.y, targetBounds.bottom() + this.workaroundMargin);
-        
+
                 allPoints.add(new MPoint(xWorkaround1, sourceLocation.y, false));
                 allPoints.add(new MPoint(xWorkaround1, yWorkaround1, false));
                 allPoints.add(new MPoint(xWorkaround2, yWorkaround1, false));
@@ -390,7 +390,7 @@ public class AutoOrthogonalRouterAlgorithm {
                 int xWorkaround1 = Math.max(sourceBounds.right(), targetBounds.right()) + this.workaroundMargin;
                 int xWorkaround2 = sourceBounds.x - Math.max(this.workaroundMargin, (sourceBounds.x - targetBounds.right()) / 2);
                 int yWorkaround1 = Math.max(targetLocation.y, sourceBounds.bottom() + this.workaroundMargin);
-        
+
                 allPoints.add(new MPoint(xWorkaround1, sourceLocation.y, false));
                 allPoints.add(new MPoint(xWorkaround1, yWorkaround1, false));
                 allPoints.add(new MPoint(xWorkaround2, yWorkaround1, false));
@@ -402,7 +402,7 @@ public class AutoOrthogonalRouterAlgorithm {
             allPoints.add(new MPoint(xWorkaround1, sourceLocation.y, false));
             allPoints.add(new MPoint(xWorkaround1, targetLocation.y, false));
         }
-        
+
     }
 
     @objid ("25e660c5-f9d7-4734-98ed-5cbefe73aa4a")
@@ -414,7 +414,7 @@ public class AutoOrthogonalRouterAlgorithm {
             // 2 - Target is E or SE, go E -> S -> E -> N
             A_POINT.x = sourceBounds.right() + (targetBounds.x - sourceBounds.right()) / 2;
             A_POINT.y = targetBounds.bottom() + this.workaroundMargin;
-        
+
             allPoints.add(new MPoint(A_POINT.x, sourceLocation.y, false));
             allPoints.add(new MPoint(A_POINT.x, A_POINT.y, false));
             allPoints.add(new MPoint(targetLocation.x, A_POINT.y, false));
@@ -422,7 +422,7 @@ public class AutoOrthogonalRouterAlgorithm {
             // 3 - Target is S, SW or W, go E -> S -> W -> N
             A_POINT.x = Math.max(targetBounds.right(), sourceBounds.right()) + this.workaroundMargin;
             A_POINT.y = Math.max(sourceBounds.bottom(), targetBounds.bottom()) + this.workaroundMargin;
-        
+
             allPoints.add(new MPoint(A_POINT.x, sourceLocation.y, false));
             allPoints.add(new MPoint(A_POINT.x, A_POINT.y, false));
             allPoints.add(new MPoint(targetLocation.x, A_POINT.y, false));
@@ -431,16 +431,17 @@ public class AutoOrthogonalRouterAlgorithm {
             A_POINT.x = sourceBounds.right() + this.workaroundMargin;
             //this makes E->S->W->N : A_POINT.y = sourceBounds.bottom() + (targetBounds.y - sourceBounds.bottom()) / 2;
             A_POINT.y = middle(targetBounds.bottom(), sourceBounds.y());
-        
+
             allPoints.add(new MPoint(A_POINT.x, sourceLocation.y, false));
             allPoints.add(new MPoint(A_POINT.x, A_POINT.y, false));
             allPoints.add(new MPoint(targetLocation.x, A_POINT.y, false));
         }
-        
+
     }
 
     /**
      * Compute the integer at mid distance between a and b.
+     *
      * @param a an integer
      * @param b an integer
      * @return the integer at mid distance between a and b.
@@ -452,7 +453,7 @@ public class AutoOrthogonalRouterAlgorithm {
         } else {
             return b + (a - b) / 2;
         }
-        
+
     }
 
     @objid ("bb1c3b5f-c9d9-4ce7-9be3-6474ec535869")
@@ -464,7 +465,7 @@ public class AutoOrthogonalRouterAlgorithm {
             // 2 - Target is E or NE, go E -> N -> E -> S
             A_POINT.x = sourceBounds.right() + (targetBounds.x - sourceBounds.right()) / 2;
             A_POINT.y = targetBounds.y - this.workaroundMargin;
-        
+
             allPoints.add(new MPoint(A_POINT.x, sourceLocation.y, false));
             allPoints.add(new MPoint(A_POINT.x, A_POINT.y, false));
             allPoints.add(new MPoint(targetLocation.x, A_POINT.y, false));
@@ -472,7 +473,7 @@ public class AutoOrthogonalRouterAlgorithm {
             // 3 - Target is N, NW or W, go E -> N -> W -> S
             A_POINT.x = Math.max(targetBounds.right(), sourceBounds.right()) + this.workaroundMargin;
             A_POINT.y = Math.min(sourceBounds.y, targetBounds.y) - this.workaroundMargin;
-        
+
             allPoints.add(new MPoint(A_POINT.x, sourceLocation.y, false));
             allPoints.add(new MPoint(A_POINT.x, A_POINT.y, false));
             allPoints.add(new MPoint(targetLocation.x, A_POINT.y, false));
@@ -480,12 +481,12 @@ public class AutoOrthogonalRouterAlgorithm {
             // 4 - Target is SW or S, go E -> S -> W -> S
             A_POINT.x = sourceBounds.right() + this.workaroundMargin;
             A_POINT.y = sourceBounds.bottom() + (targetBounds.y - sourceBounds.bottom()) / 2;
-        
+
             allPoints.add(new MPoint(A_POINT.x, sourceLocation.y, false));
             allPoints.add(new MPoint(A_POINT.x, A_POINT.y, false));
             allPoints.add(new MPoint(targetLocation.x, A_POINT.y, false));
         }
-        
+
     }
 
     @objid ("b2bc53c8-5955-4738-8bc2-451d7e4e518d")
@@ -497,7 +498,7 @@ public class AutoOrthogonalRouterAlgorithm {
             // 2 - Target is S or SW, go S -> W -> S -> E
             A_POINT.x = targetBounds.x - this.workaroundMargin;
             A_POINT.y = sourceBounds.bottom() - (sourceBounds.bottom() - targetBounds.y) / 2;
-        
+
             allPoints.add(new MPoint(sourceLocation.x, A_POINT.y, false));
             allPoints.add(new MPoint(A_POINT.x, A_POINT.y, false));
             allPoints.add(new MPoint(A_POINT.x, targetLocation.y, false));
@@ -505,7 +506,7 @@ public class AutoOrthogonalRouterAlgorithm {
             // 3 - Target is W, NW or N, go S -> W -> N -> E
             A_POINT.x = Math.min(sourceBounds.x, targetBounds.x()) - this.workaroundMargin;
             A_POINT.y = Math.max(targetBounds.bottom(), sourceBounds.bottom()) + this.workaroundMargin;
-        
+
             allPoints.add(new MPoint(sourceLocation.x, A_POINT.y, false));
             allPoints.add(new MPoint(A_POINT.x, A_POINT.y, false));
             allPoints.add(new MPoint(A_POINT.x, targetLocation.y, false));
@@ -513,12 +514,12 @@ public class AutoOrthogonalRouterAlgorithm {
             // 4 - Target is NE or E, go S -> E -> N -> E
             A_POINT.x = sourceBounds.right() + (targetBounds.x - sourceBounds.right()) / 2;
             A_POINT.y = sourceBounds.bottom() + this.workaroundMargin;
-        
+
             allPoints.add(new MPoint(sourceLocation.x, A_POINT.y, false));
             allPoints.add(new MPoint(A_POINT.x, A_POINT.y, false));
             allPoints.add(new MPoint(A_POINT.x, targetLocation.y, false));
         }
-        
+
     }
 
     @objid ("4229bea2-17d3-473e-8405-9d05727e8f75")
@@ -530,7 +531,7 @@ public class AutoOrthogonalRouterAlgorithm {
             // 2 - Target is N or NE, go S -> E -> S -> W
             A_POINT.x = targetBounds.right() + this.workaroundMargin;
             A_POINT.y = sourceBounds.bottom() - (sourceBounds.bottom() - targetBounds.y) / 2;
-        
+
             allPoints.add(new MPoint(sourceLocation.x, A_POINT.y, false));
             allPoints.add(new MPoint(A_POINT.x, A_POINT.y, false));
             allPoints.add(new MPoint(A_POINT.x, targetLocation.y, false));
@@ -538,7 +539,7 @@ public class AutoOrthogonalRouterAlgorithm {
             // 3 - Target is E, SE or S, go S -> E -> N -> W
             A_POINT.x = Math.max(sourceBounds.right(), targetBounds.right()) + this.workaroundMargin;
             A_POINT.y = Math.max(targetBounds.bottom(), sourceBounds.bottom()) + this.workaroundMargin;
-        
+
             allPoints.add(new MPoint(sourceLocation.x, A_POINT.y, false));
             allPoints.add(new MPoint(A_POINT.x, A_POINT.y, false));
             allPoints.add(new MPoint(A_POINT.x, targetLocation.y, false));
@@ -546,12 +547,12 @@ public class AutoOrthogonalRouterAlgorithm {
             // 4 - Target is SW or W, go S -> W -> N -> W
             A_POINT.x = sourceBounds.x - (sourceBounds.x - targetBounds.right()) / 2;
             A_POINT.y = sourceBounds.bottom() + this.workaroundMargin;
-        
+
             allPoints.add(new MPoint(sourceLocation.x, A_POINT.y, false));
             allPoints.add(new MPoint(A_POINT.x, A_POINT.y, false));
             allPoints.add(new MPoint(A_POINT.x, targetLocation.y, false));
         }
-        
+
     }
 
     @objid ("32b7664b-dca8-4da1-af14-5df7bd5ae3fd")
@@ -562,7 +563,7 @@ public class AutoOrthogonalRouterAlgorithm {
                 int xWorkaround1 = sourceBounds.x - this.workaroundMargin;
                 int yWorkaround1 = Math.max(sourceBounds.bottom(), targetBounds.bottom()) + this.workaroundMargin;
                 int yWorkaround2 = sourceBounds.y - Math.max(this.workaroundMargin, (sourceBounds.y - targetBounds.bottom()) / 2);
-        
+
                 allPoints.add(new MPoint(sourceLocation.x, yWorkaround1, false));
                 allPoints.add(new MPoint(xWorkaround1, yWorkaround1, false));
                 allPoints.add(new MPoint(xWorkaround1, yWorkaround2, false));
@@ -572,7 +573,7 @@ public class AutoOrthogonalRouterAlgorithm {
                 int xWorkaround1 = Math.min(sourceLocation.x, targetBounds.x - this.workaroundMargin);
                 int yWorkaround1 = sourceBounds.bottom() + Math.max(this.workaroundMargin, (targetBounds.y - sourceBounds.bottom()) / 2);
                 int yWorkaround2 = targetBounds.bottom() + this.workaroundMargin;
-        
+
                 allPoints.add(new MPoint(sourceLocation.x, yWorkaround1, false));
                 allPoints.add(new MPoint(xWorkaround1, yWorkaround1, false));
                 allPoints.add(new MPoint(xWorkaround1, yWorkaround2, false));
@@ -584,7 +585,7 @@ public class AutoOrthogonalRouterAlgorithm {
             allPoints.add(new MPoint(sourceLocation.x, yWorkaround1, false));
             allPoints.add(new MPoint(targetLocation.x, yWorkaround1, false));
         }
-        
+
     }
 
     @objid ("7733b13c-a0fe-4c22-aec4-c41b9d8ddaba")
@@ -592,7 +593,7 @@ public class AutoOrthogonalRouterAlgorithm {
         if (targetBounds.y > sourceBounds.bottom()) {
             // 8 - Target is SW, S or SE, go S -> W or E -> S
             int yWorkaround1 = sourceBounds.bottom() + (targetBounds.y - sourceBounds.bottom()) / 2;
-        
+
             allPoints.add(new MPoint(sourceLocation.x, yWorkaround1, false));
             allPoints.add(new MPoint(targetLocation.x, yWorkaround1, false));
         } else if (sourceBounds.x > targetBounds.right() || sourceBounds.right() < targetBounds.x) {
@@ -606,7 +607,7 @@ public class AutoOrthogonalRouterAlgorithm {
             }
             int yWorkaround1 = sourceBounds.bottom() + this.workaroundMargin;
             int yWorkaround2 = targetBounds.y - this.workaroundMargin;
-        
+
             allPoints.add(new MPoint(sourceLocation.x, yWorkaround1, false));
             allPoints.add(new MPoint(xWorkaround1, yWorkaround1, false));
             allPoints.add(new MPoint(xWorkaround1, yWorkaround2, false));
@@ -621,13 +622,13 @@ public class AutoOrthogonalRouterAlgorithm {
                 yWorkaround1 = sourceBounds.bottom() + this.workaroundMargin;
             }
             int yWorkaround2 = Math.min(targetBounds.y, sourceBounds.y) - this.workaroundMargin;
-        
+
             allPoints.add(new MPoint(sourceLocation.x, yWorkaround1, false));
             allPoints.add(new MPoint(xWorkaround1, yWorkaround1, false));
             allPoints.add(new MPoint(xWorkaround1, yWorkaround2, false));
             allPoints.add(new MPoint(targetLocation.x, yWorkaround2, false));
         }
-        
+
     }
 
     @objid ("4fb07e7c-87c7-4b23-aab3-89b8af3ef263")
@@ -639,7 +640,7 @@ public class AutoOrthogonalRouterAlgorithm {
             // 2 - Target is N or NW, go N -> W -> N -> E
             A_POINT.x = targetBounds.x - this.workaroundMargin;
             A_POINT.y = sourceBounds.y - (sourceBounds.y - targetBounds.bottom()) / 2;
-        
+
             allPoints.add(new MPoint(sourceLocation.x, A_POINT.y, false));
             allPoints.add(new MPoint(A_POINT.x, A_POINT.y, false));
             allPoints.add(new MPoint(A_POINT.x, targetLocation.y, false));
@@ -647,7 +648,7 @@ public class AutoOrthogonalRouterAlgorithm {
             // 3 - Target is W, SW or S, go N -> W -> S -> E
             A_POINT.x = Math.min(sourceBounds.x, targetBounds.x) - this.workaroundMargin;
             A_POINT.y = Math.min(targetBounds.y, sourceBounds.y) - this.workaroundMargin;
-        
+
             allPoints.add(new MPoint(sourceLocation.x, A_POINT.y, false));
             allPoints.add(new MPoint(A_POINT.x, A_POINT.y, false));
             allPoints.add(new MPoint(A_POINT.x, targetLocation.y, false));
@@ -655,12 +656,12 @@ public class AutoOrthogonalRouterAlgorithm {
             // 4 - Target is SE or E, go N -> E -> S -> E
             A_POINT.x = sourceBounds.right() + (targetBounds.x - sourceBounds.right()) / 2;
             A_POINT.y = sourceBounds.y - this.workaroundMargin;
-        
+
             allPoints.add(new MPoint(sourceLocation.x, A_POINT.y, false));
             allPoints.add(new MPoint(A_POINT.x, A_POINT.y, false));
             allPoints.add(new MPoint(A_POINT.x, targetLocation.y, false));
         }
-        
+
     }
 
     @objid ("875df9d5-91d8-47c9-8de7-a8c7d8798203")
@@ -672,7 +673,7 @@ public class AutoOrthogonalRouterAlgorithm {
             // 2 - Target is N or NE, go N -> E -> N -> W
             A_POINT.x = targetBounds.right() + this.workaroundMargin;
             A_POINT.y = sourceBounds.y - (sourceBounds.y - targetBounds.bottom()) / 2;
-        
+
             allPoints.add(new MPoint(sourceLocation.x, A_POINT.y, false));
             allPoints.add(new MPoint(A_POINT.x, A_POINT.y, false));
             allPoints.add(new MPoint(A_POINT.x, targetLocation.y, false));
@@ -680,7 +681,7 @@ public class AutoOrthogonalRouterAlgorithm {
             // 3 - Target is E, SE or S, go N -> E -> S -> W
             A_POINT.x = Math.max(sourceBounds.right(), targetBounds.right()) + this.workaroundMargin;
             A_POINT.y = Math.min(targetBounds.y, sourceBounds.y) - this.workaroundMargin;
-        
+
             allPoints.add(new MPoint(sourceLocation.x, A_POINT.y, false));
             allPoints.add(new MPoint(A_POINT.x, A_POINT.y, false));
             allPoints.add(new MPoint(A_POINT.x, targetLocation.y, false));
@@ -688,12 +689,12 @@ public class AutoOrthogonalRouterAlgorithm {
             // 4 - Target is SW or W, go N -> W -> S -> W
             A_POINT.x = sourceBounds.x - (sourceBounds.x - targetBounds.right()) / 2;
             A_POINT.y = sourceBounds.y - this.workaroundMargin;
-        
+
             allPoints.add(new MPoint(sourceLocation.x, A_POINT.y, false));
             allPoints.add(new MPoint(A_POINT.x, A_POINT.y, false));
             allPoints.add(new MPoint(A_POINT.x, targetLocation.y, false));
         }
-        
+
     }
 
     @objid ("f7549d1e-734a-4220-9b75-8d5a7f6c040a")
@@ -701,7 +702,7 @@ public class AutoOrthogonalRouterAlgorithm {
         if (sourceBounds.y > targetBounds.bottom()) {
             // 8 - Target is NW, N or NE, go N -> W or E -> N
             int yWorkaround1 = sourceBounds.y - (sourceBounds.y - targetBounds.bottom()) / 2;
-        
+
             allPoints.add(new MPoint(sourceLocation.x, yWorkaround1, false));
             allPoints.add(new MPoint(targetLocation.x, yWorkaround1, false));
         } else if (sourceBounds.x > targetBounds.right() || sourceBounds.right() < targetBounds.x) {
@@ -715,7 +716,7 @@ public class AutoOrthogonalRouterAlgorithm {
             }
             int yWorkaround1 = sourceBounds.y - this.workaroundMargin;
             int yWorkaround2 = targetBounds.bottom() + this.workaroundMargin;
-        
+
             allPoints.add(new MPoint(sourceLocation.x, yWorkaround1, false));
             allPoints.add(new MPoint(xWorkaround1, yWorkaround1, false));
             allPoints.add(new MPoint(xWorkaround1, yWorkaround2, false));
@@ -730,13 +731,13 @@ public class AutoOrthogonalRouterAlgorithm {
                 yWorkaround1 = sourceBounds.y - this.workaroundMargin;
             }
             int yWorkaround2 = Math.max(targetBounds.bottom(), sourceBounds.bottom()) + this.workaroundMargin;
-        
+
             allPoints.add(new MPoint(sourceLocation.x, yWorkaround1, false));
             allPoints.add(new MPoint(xWorkaround1, yWorkaround1, false));
             allPoints.add(new MPoint(xWorkaround1, yWorkaround2, false));
             allPoints.add(new MPoint(targetLocation.x, yWorkaround2, false));
         }
-        
+
     }
 
     @objid ("1bb04a38-e07f-444f-872a-65fb0774ffeb")
@@ -747,7 +748,7 @@ public class AutoOrthogonalRouterAlgorithm {
                 int xWorkaround1 = targetBounds.x - this.workaroundMargin;
                 int yWorkaround1 = sourceBounds.y - Math.max(this.workaroundMargin, (sourceBounds.y - targetBounds.bottom()) / 2);
                 int yWorkaround2 = targetBounds.y - this.workaroundMargin;
-        
+
                 allPoints.add(new MPoint(sourceLocation.x, yWorkaround1, false));
                 allPoints.add(new MPoint(xWorkaround1, yWorkaround1, false));
                 allPoints.add(new MPoint(xWorkaround1, yWorkaround2, false));
@@ -757,7 +758,7 @@ public class AutoOrthogonalRouterAlgorithm {
                 int xWorkaround1 = Math.min(targetLocation.x, sourceBounds.x - this.workaroundMargin);
                 int yWorkaround1 = sourceBounds.y - this.workaroundMargin;
                 int yWorkaround2 = sourceBounds.bottom() + Math.max(this.workaroundMargin, (targetBounds.y - sourceBounds.bottom()) / 2);
-        
+
                 allPoints.add(new MPoint(sourceLocation.x, yWorkaround1, false));
                 allPoints.add(new MPoint(xWorkaround1, yWorkaround1, false));
                 allPoints.add(new MPoint(xWorkaround1, yWorkaround2, false));
@@ -769,7 +770,7 @@ public class AutoOrthogonalRouterAlgorithm {
             allPoints.add(new MPoint(sourceLocation.x, yWorkaround1, false));
             allPoints.add(new MPoint(targetLocation.x, yWorkaround1, false));
         }
-        
+
     }
 
     @objid ("98184f0f-8cdd-47bb-948f-4c0ff84107a7")

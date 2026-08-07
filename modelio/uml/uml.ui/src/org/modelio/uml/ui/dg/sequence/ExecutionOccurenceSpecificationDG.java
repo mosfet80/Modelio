@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.dg.sequence;
 
@@ -35,11 +35,12 @@ import org.modelio.diagram.elements.core.node.GmNodeModel;
 @objid ("c1341eda-b8e5-4a6f-85f7-80f363345eb5")
 public class ExecutionOccurenceSpecificationDG extends DiagramNode {
     /**
+     *
      * @param diagramHandle The diagram manipulation class.
      * @param node The gm node represented by this class.
      */
     @objid ("102f84fd-872e-41f7-a3c0-cc4bb5884b19")
-    public  ExecutionOccurenceSpecificationDG(DiagramHandle diagramHandle, GmNodeModel node) {
+    public ExecutionOccurenceSpecificationDG(DiagramHandle diagramHandle, GmNodeModel node) {
         super(diagramHandle, node);
     }
 

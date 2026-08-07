@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.drawings.core;
 
@@ -76,35 +76,36 @@ public class GmDrawingReference<T extends IGmDrawing> implements IGmReference<T>
      * For deserialization only
      */
     @objid ("f3d0603a-46cc-423c-a622-fc75a1adbd48")
-    public  GmDrawingReference() {
+    public GmDrawingReference() {
         // so that delegate is never null
         this.delegate = new WeakReference<>(null);
-        
+
     }
 
     /**
      * Constructor
+     *
      * @param ownerDiagram the diagram owning this reference, the diagram who needs a reference toward <i>delegate</i>.
      * @param target the target graphic model
      */
     @objid ("52e88803-fd0e-4780-84bf-a3ce9d9a592f")
-    public  GmDrawingReference(IGmDiagram ownerDiagram, T target) {
+    public GmDrawingReference(IGmDiagram ownerDiagram, T target) {
         this.ownerDiagram = ownerDiagram;
         this.targetDiagram = target.getDiagram();
-        
+
         this.delegate = new WeakReference<>(target);
         this.targetElementRef = target.getIdentifier();
         this.targetDiagramRef = this.targetDiagram.getRepresentedRef();
         this.targetGraphicClass = target.getClass().getName();
-        
+
         if (this.ownerDiagram != null) {
             this.ownerDiagram.addGraphicReference(this);
         }
-        
+
     }
 
     @objid ("14a7ccc8-899e-4879-9c12-c4cf3232dce4")
-    public  GmDrawingReference(IGmObject owner, T target) {
+    public GmDrawingReference(IGmObject owner, T target) {
         this(owner.getDiagram(), target);
     }
 
@@ -144,10 +145,10 @@ public class GmDrawingReference<T extends IGmDrawing> implements IGmReference<T>
             // reference valid, return it
             return m;
         }
-        
+
         // Reference invalid, re-resolve it
         final T resolved = doResolveReference();
-        
+
         // Cache resolved reference
         if (resolved != null) {
             this.delegate = new WeakReference<>(resolved);
@@ -182,15 +183,15 @@ public class GmDrawingReference<T extends IGmDrawing> implements IGmReference<T>
         case 0:
             read_0(in);
             break;
-        
+
         default:
             assert (false) : readVersion + " version number not covered!";
             // reading as last handled version: 0
             read_0(in);
             break;
-        
+
         }
-        
+
     }
 
     @objid ("ebdc1e25-e2f7-42f7-a836-3ce0aa5db04b")
@@ -215,7 +216,7 @@ public class GmDrawingReference<T extends IGmDrawing> implements IGmReference<T>
             // try to resolve the reference
             getReferencedModel();
         }
-        
+
     }
 
     /**
@@ -229,6 +230,7 @@ public class GmDrawingReference<T extends IGmDrawing> implements IGmReference<T>
 
     /**
      * Remove the element from a collection of GmReferences.
+     *
      * @param coll the collection to modify
      * @param toRemove the element to remove.
      */
@@ -239,13 +241,13 @@ public class GmDrawingReference<T extends IGmDrawing> implements IGmReference<T>
             final IGmDrawing directTarget = ref.delegate.get();
             if (directTarget == toRemove) {
                 it.remove();
-            } else if (directTarget == null && 
+            } else if (directTarget == null &&
                     ref.targetElementRef.equals(toRemove.getIdentifier()) &&
                     ref.targetGraphicClass.equals(toRemove.getClass().getName())) {
                 it.remove();
             }
         }
-        
+
     }
 
     @objid ("f8b8aada-e416-4865-a8be-805b58d42ea5")
@@ -254,7 +256,7 @@ public class GmDrawingReference<T extends IGmDrawing> implements IGmReference<T>
         if (this.listeners != null) {
             this.listeners.removePropertyChangeListener(listener);
         }
-        
+
     }
 
     @objid ("12af4b74-08b4-4eb6-9960-36ac02d7d333")
@@ -264,7 +266,7 @@ public class GmDrawingReference<T extends IGmDrawing> implements IGmReference<T>
             this.ownerDiagram = newOwnerDiagram;
             this.ownerDiagram.addGraphicReference(this);
         }
-        
+
     }
 
     @objid ("d2da0d9c-ba40-4bae-b35e-69cb723d4d5a")
@@ -278,7 +280,7 @@ public class GmDrawingReference<T extends IGmDrawing> implements IGmReference<T>
             // resolved
             return String.format("GmReference [%s]", target);
         }
-        
+
     }
 
     @objid ("5a990b5d-ebb5-4dad-9b15-4823ab61f301")
@@ -288,7 +290,7 @@ public class GmDrawingReference<T extends IGmDrawing> implements IGmReference<T>
         out.writeProperty("targetDiagram", this.targetDiagramRef);
         out.writeProperty("targetElement", this.targetElementRef);
         out.writeProperty("targetGraphicClass", this.targetGraphicClass);
-        
+
     }
 
     @objid ("a7521e5d-7b66-43cf-bb7d-e9c636dfd5a0")
@@ -308,10 +310,10 @@ public class GmDrawingReference<T extends IGmDrawing> implements IGmReference<T>
                 return null;
             }
         }
-        
+
         IGmDrawing candidate = this.targetDiagram.getDrawing(this.targetElementRef);
         if (candidate != null && candidate.getClass().getName().equals(this.targetGraphicClass)) {
-            
+
             return (T) candidate;
         }
         return null;
@@ -319,6 +321,7 @@ public class GmDrawingReference<T extends IGmDrawing> implements IGmReference<T>
 
     /**
      * Helper to read the graphic model minor version from the {@value #MINOR_VERSION_PROPERTY} property.
+     *
      * @param in a reader to read the version from.
      * @param prefix the prefix : usually the simple name of java class calling this method + ".".
      * @return the read version, defaults to 0 if not found
@@ -333,6 +336,7 @@ public class GmDrawingReference<T extends IGmDrawing> implements IGmReference<T>
 
     /**
      * Helper method to write the graphic model minor version.
+     *
      * @param out the writer to use
      * @param prefix the prefix to use. Usually the java simple name of the class calling this method. Use the same as the matching {@link #readMinorVersion(String, IDiagramReader)}.
      * @param theMinorVersion the minor version to write
@@ -343,7 +347,7 @@ public class GmDrawingReference<T extends IGmDrawing> implements IGmReference<T>
         if (theMinorVersion != 0) {
             out.writeProperty(prefix + GmDrawingReference.MINOR_VERSION_PROPERTY, Integer.valueOf(theMinorVersion));
         }
-        
+
     }
 
     @objid ("7717e440-7616-4ceb-bf50-2d1e07a2777f")
@@ -351,7 +355,7 @@ public class GmDrawingReference<T extends IGmDrawing> implements IGmReference<T>
         if (into.getRepresentedRef().equals(this.targetDiagramRef)) {
             return into;
         }
-        
+
         for (IGmDiagram subGmDiagram : into.getEmbeddedDiagrams()) {
             final IGmDiagram targetDiag = findTargetDiagram(subGmDiagram);
             if (targetDiag != null) {
@@ -378,7 +382,7 @@ public class GmDrawingReference<T extends IGmDrawing> implements IGmReference<T>
         if (this.ownerDiagram != null) {
             this.ownerDiagram.addGraphicReference(this);
         }
-        
+
     }
 
 }

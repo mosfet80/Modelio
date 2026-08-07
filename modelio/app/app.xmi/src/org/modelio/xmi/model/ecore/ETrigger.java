@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -41,16 +41,16 @@ public class ETrigger extends ENamedElement {
     }
 
     @objid ("cbcd22d8-faaa-47a6-b56e-5d23a19188df")
-    public  ETrigger(org.eclipse.uml2.uml.Trigger element) {
+    public ETrigger(org.eclipse.uml2.uml.Trigger element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("0a304634-9465-401a-b1d9-db5c3aff0646")
     private void createAndAttachEvent() {
         ReverseProperties revProp = ReverseProperties.getInstance();
-        
+
         org.eclipse.uml2.uml.Element ecoreEvent = this.ecoreElement.getEvent();
         if (this.ecoreElement.getEvent() != null){
             Element objEvent = (Element) revProp.getMappedElement(ecoreEvent);
@@ -69,13 +69,13 @@ public class ETrigger extends ENamedElement {
                 }
             }
         }
-        
+
     }
 
     @objid ("0a69fd70-c069-4949-8c6f-20e84c8cadc4")
     private void setEventProperties(Event objingElt) {
         org.eclipse.uml2.uml.Event event = this.ecoreElement.getEvent();
-        
+
         if (event != null){
             setName(objingElt, event);
             if (event instanceof  org.eclipse.uml2.uml.SignalEvent){
@@ -88,7 +88,7 @@ public class ETrigger extends ENamedElement {
                 setExpression(objingElt,  (org.eclipse.uml2.uml.TimeEvent) event);
             }
         }
-        
+
     }
 
     @objid ("cbf24bef-4a86-4f5a-884e-9354807abe42")
@@ -97,7 +97,7 @@ public class ETrigger extends ENamedElement {
         if (name != null){
             ((Event) objingElt).setName(name);
         }
-        
+
     }
 
     @objid ("7b845b58-e618-43f4-b110-cadcd87ab4e5")
@@ -109,7 +109,7 @@ public class ETrigger extends ENamedElement {
                 ((Event) objingElt).setModel((Signal) objSignal);
             }
         }
-        
+
     }
 
     @objid ("fdbf5ff6-18d8-46bd-900a-82888b68efbb")
@@ -121,15 +121,15 @@ public class ETrigger extends ENamedElement {
                 ((Event) objingElt).setCalled((Operation) objOperation);
             }
         }
-        
+
     }
 
     @objid ("f1a8f259-ff0a-4c09-942f-d9db99052692")
     private void setExpression(Event objingElt, org.eclipse.uml2.uml.ChangeEvent event) {
         org.eclipse.uml2.uml.ValueSpecification value = event.getChangeExpression();
-        
+
         if (value != null){
-        
+
             String typeString = value.stringValue();
             if (typeString != null)
                 objingElt.setExpression(typeString);
@@ -143,20 +143,20 @@ public class ETrigger extends ENamedElement {
                 }
             }
         }
-        
+
     }
 
     @objid ("5cc0e464-2ac4-4105-b88d-e8d9106685fe")
     private void setExpression(Event objingElt, org.eclipse.uml2.uml.TimeEvent event) {
         org.eclipse.uml2.uml.ValueSpecification value =    event.getWhen();
-        
+
         if (value != null){
             String expr = value.stringValue();
             if (expr != null){
                 objingElt.setExpression(expr);
             }
         }
-        
+
     }
 
 }

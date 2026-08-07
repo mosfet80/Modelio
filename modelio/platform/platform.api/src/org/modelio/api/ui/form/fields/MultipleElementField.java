@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.ui.form.fields;
 
@@ -88,12 +88,12 @@ public class MultipleElementField extends AbstractField {
     private IModelingSession session;
 
     @objid ("8c057806-e91e-4b1d-a227-2ba7d3dcdd8e")
-    public  MultipleElementField(IModuleContext moduleContext, FormToolkit toolkit, Composite parent, IFormFieldData model) {
+    public MultipleElementField(IModuleContext moduleContext, FormToolkit toolkit, Composite parent, IFormFieldData model) {
         super(toolkit, parent, model);
         this.editable = true;
         this.navigationService = moduleContext.getModelioServices().getNavigationService();
         this.session = moduleContext.getModelingSession();
-        
+
     }
 
     @objid ("6cf0a95b-ea2c-4f32-9064-724f6266d184")
@@ -106,20 +106,20 @@ public class MultipleElementField extends AbstractField {
     @Override
     public Control createControl(FormToolkit tk, Composite p) {
         this.text = tk.createText(p, "", SWT.NONE);
-        
+
         // Initialize values
         getLabel().setText(getModel().getName());
         refresh();
-        
+
         // Install Listeners
         // Switch into edition on a simple click
-        
+
         this.text.addListener(SWT.MouseDown, e -> {
             if (this.editable) {
                 enterEdition();
             }
         });
-        
+
         this.text.setEditable(false);
         return this.text;
     }
@@ -132,7 +132,7 @@ public class MultipleElementField extends AbstractField {
         if (this.text != null) {
             this.text.setText(computeStringRepresentation());
         }
-        
+
     }
 
     @objid ("5048f559-bd8f-4b5c-9914-936d55a22399")
@@ -140,7 +140,7 @@ public class MultipleElementField extends AbstractField {
     public void setEditable(boolean onoff) {
         super.setEditable(onoff);
         this.editable = onoff;
-        
+
     }
 
     /**
@@ -157,29 +157,29 @@ public class MultipleElementField extends AbstractField {
         for (Class<? extends MObject> metaclass : this.allowedMetaclasses) {
             candidates.addAll(this.session.findByClass(metaclass));
         }
-        
+
         SelectElementsPanel panel = new SelectElementsPanel(candidates, this.labelProvider, this.navigationService);
         panel.setInput(this.values);
-        
+
         ThinDialog td = new ThinDialog(getControl(), panel) {
             @SuppressWarnings ("unchecked")
             @Override
             public void onOk() {
                 List<ModelElement> oldValue = MultipleElementField.this.values;
                 MultipleElementField.this.values = (List<ModelElement>) getPanelProvider().getInput();
-        
+
                 fireValueChanged(oldValue, MultipleElementField.this.values);
-        
+
                 // Close the dialog
                 super.onOk();
-        
+
                 MultipleElementField.this.text.setText(computeStringRepresentation());
             }
-        
+
         };
-        
+
         td.open();
-        
+
     }
 
     @objid ("97ec09d2-3491-4fa4-b160-26e6da33ab69")
@@ -190,10 +190,10 @@ public class MultipleElementField extends AbstractField {
     }
 
     @objid ("6d82905e-69ef-4074-beb1-10f725702343")
-    public  MultipleElementField(IModuleContext moduleContext, FormToolkit toolkit, Composite parent, IFormFieldData model, List<Class<? extends MObject>> allowedMetaclasses) {
+    public MultipleElementField(IModuleContext moduleContext, FormToolkit toolkit, Composite parent, IFormFieldData model, List<Class<? extends MObject>> allowedMetaclasses) {
         this(moduleContext, toolkit, parent, model);
         this.allowedMetaclasses.addAll(allowedMetaclasses);
-        
+
     }
 
     /**
@@ -222,22 +222,23 @@ public class MultipleElementField extends AbstractField {
 
         /**
          * C'tor
+         *
          * @param candidates the candidates
          * @param labelProvider the label provider for candidates
          * @param navigationService the Modelio navigation service.
          */
         @objid ("62be9c23-2e0a-41e8-be57-3e4120d8bc41")
-        public  SelectElementsPanel(Collection<MObject> candidates, ILabelProvider labelProvider, INavigationService navigationService) {
+        public SelectElementsPanel(Collection<MObject> candidates, ILabelProvider labelProvider, INavigationService navigationService) {
             this.controler = new Controller(navigationService, candidates);
             this.labelProvider = labelProvider != null ? labelProvider : new LabelProvider();
-            
+
         }
 
         /**
          * C'tor
          */
         @objid ("4c4ba4b2-9656-4883-837d-67bba0c9ee8e")
-        public  SelectElementsPanel(Collection<MObject> candidates, INavigationService navigationService) {
+        public SelectElementsPanel(Collection<MObject> candidates, INavigationService navigationService) {
             this(candidates, null, navigationService);
         }
 
@@ -327,11 +328,11 @@ public class MultipleElementField extends AbstractField {
             private final Controller controler;
 
             @objid ("30b4e4f1-b182-4352-ba89-8c9864dbd3b5")
-            public  View(Composite parent, ILabelProvider labelProvider, Controller controler) {
+            public View(Composite parent, ILabelProvider labelProvider, Controller controler) {
                 this.controler = controler;
                 this.labelProvider = labelProvider;
                 this.container = createGui(parent);
-                
+
             }
 
             @objid ("686ef68d-93e0-46be-bc63-1d712bf3fe6a")
@@ -339,14 +340,14 @@ public class MultipleElementField extends AbstractField {
                 final Composite composite = new Composite(parent, SWT.NONE);
                 composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
                 composite.setLayout(new FormLayout());
-                
+
                 // Candidates group
                 Group candidatesGroup = createCandidatesGroup(composite);
                 // Command buttons group
                 Composite commandsGroup = createCommandsGroup(composite);
                 // Selected Elements group
                 Group selectionGroup = createSelectionGroup(composite);
-                
+
                 // candidatesGroup attachments
                 FormData formData = new FormData();
                 formData.top = new FormAttachment(0, 2);
@@ -354,7 +355,7 @@ public class MultipleElementField extends AbstractField {
                 formData.right = new FormAttachment(commandsGroup, 0, SWT.LEFT);
                 formData.bottom = new FormAttachment(100, -2);
                 candidatesGroup.setLayoutData(formData);
-                
+
                 // selectionGroup attachments
                 formData = new FormData();
                 formData.top = new FormAttachment(0, 2);
@@ -362,7 +363,7 @@ public class MultipleElementField extends AbstractField {
                 formData.left = new FormAttachment(commandsGroup, 0, SWT.RIGHT);
                 formData.bottom = new FormAttachment(100, -2);
                 selectionGroup.setLayoutData(formData);
-                
+
                 // commandsGroup attachments
                 formData = new FormData();
                 formData.top = new FormAttachment(candidatesGroup, 0, SWT.CENTER);
@@ -378,29 +379,29 @@ public class MultipleElementField extends AbstractField {
                 final Group candidateGroup = new Group(composite, SWT.NONE);
                 candidateGroup.setLayout(new GridLayout(1, false));
                 candidateGroup.setText(Api.I18N.getString("MultipleElementsField.CandidateElements"));
-                
+
                 // Candidates list
                 this.candidates = new TableViewer(candidateGroup, SWT.BORDER | SWT.MULTI);
                 this.candidates.getTable().setLayoutData(GridDataFactory.fillDefaults().grab(true, true).create());
-                
+
                 this.candidates.setContentProvider(new ArrayContentProvider());
                 this.candidates.setLabelProvider(this.labelProvider);
-                
+
                 this.candidates.setComparator(new ViewerComparator());
-                
+
                 // Status label
                 this.candidatesStatusLabel = new Label(candidateGroup, SWT.NONE);
                 this.candidatesStatusLabel.setText("...");
                 this.candidatesStatusLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-                
+
                 this.candidatesStatusLabel.setFont(UIFont.SMALLI);
-                
+
                 // Listeners and behavior
-                
+
                 // Double click listener: add element
                 this.candidates.addDoubleClickListener(
                         event -> this.controler.onAdd(toObjectsList(event.getSelection())));
-                
+
                 // Selection change
                 // - fire controler
                 // - update status label
@@ -408,7 +409,7 @@ public class MultipleElementField extends AbstractField {
                     this.controler.onSelectCandidate(toObjectsList(event.getSelection()));
                     updateStatusLabel(View.this.candidatesStatusLabel, (TableViewer) event.getSource());
                 });
-                
+
                 // <CTRL> + <ALT> + right-click navigates to the selected element
                 this.candidates.getTable().addListener(SWT.MouseUp, e -> {
                     // <CTRL><ALT> click
@@ -423,29 +424,29 @@ public class MultipleElementField extends AbstractField {
             private Group createSelectionGroup(Composite composite) {
                 final Group resultsGroup = new Group(composite, SWT.SHADOW_NONE);
                 resultsGroup.setLayout(new GridLayout(1, true));
-                
+
                 resultsGroup.setText(Api.I18N.getString("MultipleElementsField.ChoosenElements"));
-                
+
                 // New content table
                 this.results = new TableViewer(resultsGroup, SWT.BORDER | SWT.MULTI);
                 GridData fd_contentTree = new GridData(SWT.FILL, SWT.FILL, true, true);
                 this.results.getTable().setLayoutData(fd_contentTree);
-                
+
                 this.results.setContentProvider(new ArrayContentProvider());
                 this.results.setLabelProvider(this.labelProvider);
-                
+
                 // Status label
                 this.resultsStatusLabel = new Label(resultsGroup, SWT.NONE);
                 this.resultsStatusLabel.setText("...");
                 this.resultsStatusLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
                 this.resultsStatusLabel.setFont(UIFont.SMALLI);
-                
+
                 // Double click removes the element
                 this.results.addDoubleClickListener(
                         event -> this.controler.onRemove(toObjectsList(event.getSelection())));
-                
+
                 // Listeners and behavior
-                
+
                 // Selection change
                 // - fire controller
                 // - update status label
@@ -453,7 +454,7 @@ public class MultipleElementField extends AbstractField {
                     this.controler.onSelectResult(toObjectsList(event.getSelection()));
                     updateStatusLabel(View.this.resultsStatusLabel, (TableViewer) event.getSource());
                 });
-                
+
                 // <ctrl> <alt>+ right click navigates to the selected element
                 this.results.getTable().addListener(SWT.MouseUp, e -> {
                     // <CTRL><ALT>Right click
@@ -468,35 +469,35 @@ public class MultipleElementField extends AbstractField {
             private Composite createCommandsGroup(Composite parent) {
                 final Composite buttonsGroup = new Composite(parent, SWT.NONE);
                 buttonsGroup.setLayout(new GridLayout(1, true));
-                
+
                 // Add button
                 this.addButton = new Button(buttonsGroup, SWT.ARROW | SWT.PUSH);
                 GridData gd = new GridData(SWT.FILL, SWT.FILL, true, false);
                 this.addButton.setLayoutData(gd);
                 this.addButton.setImage(UIImages.ADD);
                 this.addButton.setToolTipText(Api.I18N.getString("MultipleElementsField.addButton.tooltip"));
-                
+
                 // Remove button
                 this.removeButton = new Button(buttonsGroup, SWT.PUSH);
                 gd = new GridData(SWT.FILL, SWT.FILL, true, false);
                 this.removeButton.setLayoutData(gd);
                 this.removeButton.setImage(UIImages.DELETE);
                 this.removeButton.setToolTipText(Api.I18N.getString("MultipleElementsField.removeButton.tooltip"));
-                
+
                 // Up button
                 this.upButton = new Button(buttonsGroup, SWT.PUSH);
                 gd = new GridData(SWT.FILL, SWT.FILL, true, false);
                 this.upButton.setLayoutData(gd);
                 this.upButton.setImage(UIImages.UPARROW);
                 this.upButton.setToolTipText(Api.I18N.getString("MultipleElementsField.upButton.tooltip"));
-                
+
                 // Down button
                 this.downButton = new Button(buttonsGroup, SWT.PUSH);
                 gd = new GridData(SWT.FILL, SWT.FILL, true, false);
                 this.downButton.setLayoutData(gd);
                 this.downButton.setImage(UIImages.DOWNARROW);
                 this.downButton.setToolTipText(Api.I18N.getString("MultipleElementsField.downButton.tooltip"));
-                
+
                 // Branch listeners
                 this.addButton.addSelectionListener(new SelectionAdapter() {
                     @Override
@@ -532,7 +533,7 @@ public class MultipleElementField extends AbstractField {
             public void setCandidates(final Collection<MObject> candidates, final List<MObject> selection) {
                 this.container.getDisplay().asyncExec(
                         () -> doSetCandidates(candidates, selection));
-                
+
             }
 
             /**
@@ -551,7 +552,7 @@ public class MultipleElementField extends AbstractField {
                         this.candidates.setSelection(new StructuredSelection(selection));
                     }
                 }
-                
+
             }
 
             /**
@@ -565,7 +566,7 @@ public class MultipleElementField extends AbstractField {
                         this.results.setSelection(new StructuredSelection(selection));
                     }
                 });
-                
+
             }
 
             @objid ("a0493ef1-d71a-43b0-8f22-a945c7b146c5")
@@ -578,7 +579,7 @@ public class MultipleElementField extends AbstractField {
                 this.removeButton.setEnabled(onOff);
                 this.upButton.setEnabled(onOff);
                 this.downButton.setEnabled(onOff);
-                
+
             }
 
             @objid ("37fd941c-4834-46f2-82c1-979f167e9bf2")
@@ -597,6 +598,7 @@ public class MultipleElementField extends AbstractField {
             }
 
             /**
+             *
              * @return the top level container of the view.
              */
             @objid ("7173cb61-2262-403c-884e-5cff650805ac")
@@ -617,7 +619,7 @@ public class MultipleElementField extends AbstractField {
                 final int nSelected = v.getTable().getSelectionCount();
                 final int nTotal = v.getTable().getItemCount();
                 label.setText(Api.I18N.getMessage("MultipleElementsField.ElementsStatus", nSelected, nTotal));
-                
+
             }
 
         }
@@ -637,10 +639,10 @@ public class MultipleElementField extends AbstractField {
             private final INavigationService navigationService;
 
             @objid ("94fe19e3-f4d0-416a-9721-74bd85d4b2e9")
-            public  Controller(INavigationService navigationService, Collection<MObject> candidates) {
+            public Controller(INavigationService navigationService, Collection<MObject> candidates) {
                 this.navigationService = navigationService;
                 this.candidates = candidates;
-                
+
             }
 
             @objid ("503753e7-5f72-4772-bab0-9cebf61a1de3")
@@ -680,7 +682,7 @@ public class MultipleElementField extends AbstractField {
                     }
                 }
                 this.view.setResults(this.selected, selectedCandidates);
-                
+
             }
 
             @objid ("5fda4d54-ae2e-4cd8-955f-8c12f86512f5")
@@ -694,7 +696,7 @@ public class MultipleElementField extends AbstractField {
                     this.selected.remove(obj);
                 }
                 this.view.setResults(this.selected, null);
-                
+
             }
 
             @objid ("b1089e27-4e20-4421-9ce0-f67296bb4233")
@@ -707,7 +709,7 @@ public class MultipleElementField extends AbstractField {
                 if (!selectedElements.isEmpty()) {
                     this.navigationService.fireNavigate(selectedElements);
                 }
-                
+
             }
 
             /**
@@ -717,15 +719,15 @@ public class MultipleElementField extends AbstractField {
             @objid ("9b769564-d24f-4e16-803c-b2b6da231e6f")
             public void setView(View view) {
                 this.view = view;
-                
+
                 view.setCandidates(null, Collections.emptyList());
                 setInitialResults(this.selected);
-                
+
                 // run a thread to search the candidates
                 Thread t = new Thread(() -> initCandidates(this.candidates));
-                
+
                 t.start();
-                
+
             }
 
             @objid ("71feb306-8deb-4f40-af96-90c6103622c8")
@@ -734,7 +736,7 @@ public class MultipleElementField extends AbstractField {
                 if (this.view != null) {
                     this.view.setResults(this.selected, Collections.emptyList());
                 }
-                
+
             }
 
             @objid ("54599fd2-6616-4f9c-b4b3-4751e3ece2a0")
@@ -750,7 +752,7 @@ public class MultipleElementField extends AbstractField {
             @objid ("8ad3a0b2-0fb3-46dd-8c60-8f6aad21b5a4")
             private void onDown(List<MObject> selectedResults) {
                 for (MObject o : selectedResults) {
-                
+
                     int i = this.selected.indexOf(o);
                     if (i < 0 || i >= this.selected.size() - 1) {
                         // cannot move
@@ -759,7 +761,7 @@ public class MultipleElementField extends AbstractField {
                     }
                 }
                 this.view.setResults(this.selected, selectedResults);
-                
+
             }
 
             @objid ("4cb5641d-2e96-4dd1-bb31-a81fe8f02bb5")
@@ -778,7 +780,7 @@ public class MultipleElementField extends AbstractField {
                     }
                 }
                 this.view.setResults(this.selected, selectedResults);
-                
+
             }
 
             @objid ("91c1443d-2740-418b-bfe4-99a205300a38")
@@ -802,10 +804,10 @@ public class MultipleElementField extends AbstractField {
         private final IPanelProvider panelProvider;
 
         @objid ("658d49ff-0a0d-4c62-a86a-e95d27ecfe0a")
-        public  ThinDialog(Control masterControl, IPanelProvider panelProvider) {
+        public ThinDialog(Control masterControl, IPanelProvider panelProvider) {
             this.masterControl = masterControl;
             this.panelProvider = panelProvider;
-            
+
         }
 
         @objid ("edd1cd28-2d60-4013-b111-807c304b7c6f")
@@ -819,7 +821,7 @@ public class MultipleElementField extends AbstractField {
                 this.slaveShell.close();
                 this.slaveShell.dispose();
             }
-            
+
         }
 
         @objid ("33f7c299-1443-4bd5-acdb-5c32c4cbaa0b")
@@ -828,37 +830,37 @@ public class MultipleElementField extends AbstractField {
                 this.slaveShell.close();
                 this.slaveShell.dispose();
             }
-            
+
         }
 
         @objid ("66744620-32ab-4dea-a1e1-3cf0621ce721")
         public boolean open() {
             final Shell masterShell = this.masterControl.getShell();
-            
+
             this.slaveShell = new Shell(masterShell, SWT.ON_TOP | SWT.TOOL | SWT.PRIMARY_MODAL);
             // this.slaveShell.setBackground(display.getSystemColor(SWT.COLOR_INFO_BACKGROUND));
-            
+
             FormLayout layout = new FormLayout();
             layout.marginWidth = 2;
             this.slaveShell.setLayout(layout);
-            
+
             Composite panel = (Composite) this.panelProvider.createPanel(this.slaveShell);
-            
+
             Button ok = new Button(this.slaveShell, SWT.NONE);
             ok.setImage(UIImages.ACCEPT);
             ok.setToolTipText(Api.I18N.getString("ThinDialog.okButton.tooltip"));
             ok.addListener(SWT.Selection,
                     e -> onOk());
-            
+
             Button cancel = new Button(this.slaveShell, SWT.NONE);
             cancel.setImage(UIImages.CANCEL);
             cancel.setToolTipText(Api.I18N.getString("ThinDialog.cancelButton.tooltip"));
             cancel.addListener(SWT.Selection,
                     e -> onCancel());
-            
+
             // Form attachments
             FormData fd = new FormData();
-            
+
             // Panel
             fd = new FormData();
             fd.top = new FormAttachment(0);
@@ -866,7 +868,7 @@ public class MultipleElementField extends AbstractField {
             fd.right = new FormAttachment(100);
             fd.bottom = new FormAttachment(ok, 0, SWT.TOP);
             panel.setLayoutData(fd);
-            
+
             // Button cancel
             fd = new FormData();
             // fd.top = new FormAttachment(0);
@@ -874,7 +876,7 @@ public class MultipleElementField extends AbstractField {
             fd.right = new FormAttachment(100, -2);
             fd.bottom = new FormAttachment(100, -2);
             cancel.setLayoutData(fd);
-            
+
             // Button ok
             fd = new FormData();
             // fd.top = new FormAttachment(0);
@@ -882,13 +884,13 @@ public class MultipleElementField extends AbstractField {
             fd.right = new FormAttachment(cancel, -2, SWT.LEFT);
             fd.bottom = new FormAttachment(100, -2);
             ok.setLayoutData(fd);
-            
+
             // label.addListener(SWT.MouseExit, labelListener);
             // label.addListener(SWT.MouseDown, labelListener);
-            
+
             syncSlaveBoundsToMaster();
             this.slaveShell.setVisible(true);
-            
+
             masterShell.addControlListener(new ControlAdapter() {
                 @Override
                 public void controlMoved(ControlEvent e) {
@@ -896,14 +898,14 @@ public class MultipleElementField extends AbstractField {
                         masterShell.removeControlListener(this);
                     }
                 }
-            
+
                 @Override
                 public void controlResized(ControlEvent e) {
                     if (! syncSlaveBoundsToMaster()) {
                         masterShell.removeControlListener(this);
                     }
                 }
-            
+
             });
             return true;
         }
@@ -913,26 +915,26 @@ public class MultipleElementField extends AbstractField {
             if (this.slaveShell.isDisposed()) {
                 return false;
             }
-            
+
             // Get and compute coordinates
             Rectangle r = this.masterControl.getBounds();
             Rectangle newBounds = new Rectangle(r.x, r.y + r.height, r.width, 300);
-            
+
             // Convert to absolute bounds
             r = this.masterControl.getDisplay().map(this.masterControl.getParent(), null, r);
             newBounds = this.masterControl.getDisplay().map(this.masterControl.getParent(), null, newBounds);
-            
+
             // Ensure bounds fit in the screen, by moving the rectangle
             Rectangle monitorArea = this.masterControl.getMonitor().getClientArea();
             newBounds.x = Math.min(newBounds.x, monitorArea.x + monitorArea.width - r.width);
             newBounds.x = Math.max(newBounds.x, monitorArea.x);
-            
+
             if (newBounds.y + newBounds.height > monitorArea.y + monitorArea.height) {
                 newBounds.y = r.y - newBounds.height;
             }
             newBounds.y = Math.min(newBounds.y, monitorArea.y + monitorArea.height - r.height);
             newBounds.y = Math.max(newBounds.y, monitorArea.y);
-            
+
             // Apply
             this.slaveShell.setBounds(newBounds);
             return true;

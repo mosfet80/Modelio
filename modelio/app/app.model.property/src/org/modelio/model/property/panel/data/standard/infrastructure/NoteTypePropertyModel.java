@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.panel.data.standard.infrastructure;
 
@@ -42,15 +42,17 @@ public class NoteTypePropertyModel extends AbstractPropertyModel<NoteType> {
 
     /**
      * Instantiate the note type properties view.
+     *
      * @param theEditedElement the current note type.
      */
     @objid ("265e2693-abcc-4d5d-ba7a-31663dcc3eac")
-    public  NoteTypePropertyModel(NoteType theEditedElement) {
+    public NoteTypePropertyModel(NoteType theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * (non-Javadoc)
+     *
      * @see IPropertyModel#getColumnNumber()
      */
     @objid ("95150ae2-bccb-4590-aaaa-5422a50c7578")
@@ -61,6 +63,7 @@ public class NoteTypePropertyModel extends AbstractPropertyModel<NoteType> {
 
     /**
      * (non-Javadoc)
+     *
      * @see IPropertyModel#getRowsNumber()
      */
     @objid ("265c2ff8-b50d-4dcd-967a-74deebdf66a3")
@@ -71,8 +74,8 @@ public class NoteTypePropertyModel extends AbstractPropertyModel<NoteType> {
 
     /**
      * (non-Javadoc)
-     * @see IPropertyModel#getValueAt(int,
-     * int)
+     *
+     * @see IPropertyModel#getValueAt(int, int)
      */
     @objid ("aa0d1532-364c-49dc-bb46-1bb4ed84a929")
     private Object getValue(int row, int col) {
@@ -97,13 +100,13 @@ public class NoteTypePropertyModel extends AbstractPropertyModel<NoteType> {
         default:
             return null;
         }
-        
+
     }
 
     /**
      * (non-Javadoc)
-     * @see IPropertyModel#getValueAt(int,
-     * int)
+     *
+     * @see IPropertyModel#getValueAt(int, int)
      */
     @objid ("aa58e323-7f5e-4b04-bbed-f11e08c12b80")
     @Override
@@ -130,13 +133,13 @@ public class NoteTypePropertyModel extends AbstractPropertyModel<NoteType> {
         default:
             return null;
         }
-        
+
     }
 
     /**
      * (non-Javadoc)
-     * @see IPropertyModel#setValueAt(int,
-     * int, java.lang.Object)
+     *
+     * @see IPropertyModel#setValueAt(int, int, java.lang.Object)
      */
     @objid ("c3584881-bcc9-4cdb-9d1e-229a8bb3e909")
     @Override
@@ -166,7 +169,7 @@ public class NoteTypePropertyModel extends AbstractPropertyModel<NoteType> {
         default:
             return;
         }
-        
+
     }
 
 }

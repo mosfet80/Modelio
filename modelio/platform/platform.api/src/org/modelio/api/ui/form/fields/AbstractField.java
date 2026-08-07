@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.ui.form.fields;
 
@@ -58,7 +58,7 @@ public abstract class AbstractField implements IField {
     @objid ("53f29cd5-2e6c-450b-83dc-0edb7d60d4ee")
     private static final String EMPTY_STRING = "";
 
-    
+
     @mdl.prop
     @objid ("c36e7061-71b8-498a-881e-840b1c22fbb4")
     public boolean vertical = false;
@@ -103,19 +103,19 @@ public abstract class AbstractField implements IField {
     private final FormToolkit toolkit;
 
     @objid ("77c1c8a1-7453-40e6-93b9-5606dfbcce42")
-    public  AbstractField(FormToolkit toolkit, Composite parent, IFormFieldData model) {
+    public AbstractField(FormToolkit toolkit, Composite parent, IFormFieldData model) {
         this.toolkit = toolkit;
         this.parent = parent;
         this.model = model;
-        
+
     }
 
     @objid ("3e47891d-fabf-4e1d-b552-3ed3116273f1")
-    public  AbstractField(FormToolkit toolkit, Composite parent) {
+    public AbstractField(FormToolkit toolkit, Composite parent) {
         this.toolkit = toolkit;
         this.parent = parent;
         this.model = null;
-        
+
     }
 
     @objid ("57a9510b-3acb-495a-ae0b-5e3f4ac97c91")
@@ -130,11 +130,12 @@ public abstract class AbstractField implements IField {
         // If we reach here it means the field implementation does not anymore.
         // The field implementation has not been updated for Modelio Valkyrie 3.8 .
         throw new UnsupportedOperationException(getClass().getName()+".apply() Not implemented, ask the module developer for an update.");
-        
+
     }
 
     /**
      * Create the edition control.
+     *
      * @param tk the {@link FormToolkit}
      * @param p the parent composite
      * @return the created control.
@@ -187,6 +188,7 @@ public abstract class AbstractField implements IField {
      * Default implementation that always return <i>null</i>.
      * <p>
      * Should be redefined if the implementation widget may contain invalid values.
+     *
      * @since Valkyrie 3.8
      */
     @objid ("1e0f1db4-c3ec-488b-a518-f7b91af86337")
@@ -199,19 +201,19 @@ public abstract class AbstractField implements IField {
     @Override
     public void layout(Label lbl, Control ctrl, ImageHyperlink button) {
         if (this.vertical) {
-        
+
             // The label
             FormData formData = new FormData();
             formData.top = new FormAttachment(0, 6);
             formData.left = new FormAttachment(0);
             lbl.setLayoutData(formData);
-        
+
             // The Help button
             formData = new FormData();
             formData.top = new FormAttachment(0, 3);
             formData.right = new FormAttachment(100, 0);
             button.setLayoutData(formData);
-        
+
             // The Control
             formData = new FormData();
             formData.top = new FormAttachment(lbl, 0, SWT.BOTTOM);
@@ -219,7 +221,7 @@ public abstract class AbstractField implements IField {
             formData.left = new FormAttachment(0, 0);
             formData.right = new FormAttachment(100, 0);
             ctrl.setLayoutData(formData);
-        
+
         } else {
             // The label
             FormData formData = new FormData();
@@ -228,14 +230,14 @@ public abstract class AbstractField implements IField {
             formData.left = new FormAttachment(0);
             formData.right = new FormAttachment(20);
             lbl.setLayoutData(formData);
-        
+
             // The Help button
             formData = new FormData();
             formData.top = new FormAttachment(this.control, 0, SWT.TOP);
             // formData.bottom = new FormAttachment(this.control, 0, SWT.BOTTOM);
             formData.right = new FormAttachment(100, 0);
             button.setLayoutData(formData);
-        
+
             // The Control
             formData = new FormData();
             formData.top = new FormAttachment(0, 0);
@@ -244,7 +246,7 @@ public abstract class AbstractField implements IField {
             formData.right = new FormAttachment(this.helpButton, -2);
             ctrl.setLayoutData(formData);
         }
-        
+
     }
 
     @objid ("d9ef5ce1-056a-4c7e-949b-47c80022276a")
@@ -262,7 +264,7 @@ public abstract class AbstractField implements IField {
                 refresh();
             }
         }
-        
+
     }
 
     @objid ("e7e7a4f5-d3b5-4020-9812-4e7a5639c937")
@@ -270,10 +272,10 @@ public abstract class AbstractField implements IField {
     public final void setHelpText(String s) {
         // Ensure widgets exist.
         getComposite();
-        
+
         this.helpText.setText(s);
         this.helpButton.setVisible(!s.isEmpty());
-        
+
     }
 
     @objid ("e0268ef8-2ae7-49ed-95b1-ca1181db44a2")
@@ -299,11 +301,11 @@ public abstract class AbstractField implements IField {
         this.fieldComposite.setBackground(this.parent.getBackground());
         final FormLayout l = new FormLayout();
         this.fieldComposite.setLayout(l);
-        
+
         // Create the composite field controls
         this.label = this.toolkit.createLabel(this.fieldComposite, AbstractField.EMPTY_STRING);
         this.label.setBackground(this.parent.getBackground());
-        
+
         this.helpButton = this.toolkit.createImageHyperlink(this.fieldComposite, SWT.FLAT);
         this.helpButton.setImage(UIImages.HELP);
         this.helpButton.setBackground(this.parent.getBackground());
@@ -311,34 +313,34 @@ public abstract class AbstractField implements IField {
         this.helpButton.setVisible(false);
         this.helpText = this.toolkit.createLabel(this.fieldComposite, "", SWT.WRAP);
         this.helpText.setBackground(UIColor.POSTIT_YELLOW);
-        
+
         // Create the control
         this.control = createControl(this.toolkit, this.fieldComposite);
         if (this.control == null) {
             throw new NullPointerException(String.format("%s.createControl(...) returned null", this));
         }
-        
+
         // Layout the composite field controls
         layout(this.label, this.control, this.helpButton);
-        
+
         assert (this.label.getLayoutData() instanceof FormData);
         assert (this.control.getLayoutData() instanceof FormData);
         assert (this.helpButton.getLayoutData() instanceof FormData);
-        
+
         // The Help text is layouted so that it folds/unfolds just under the control (same width and X position)
         final FormData formData = new FormData(0, 0);
         formData.bottom = new FormAttachment(100);
         this.helpText.setLayoutData(formData);
         this.helpText.setVisible(false);
-        
+
         final boolean DEFERLAYOUT = false;
-        
+
         this.helpButton.addHyperlinkListener(new HyperlinkAdapter() {
             @Override
             public void linkActivated(HyperlinkEvent e) {
                 Composite composite = getComposite();
                 Label lHelpText = getHelpText();
-        
+
                 if (lHelpText.isVisible()) {
                     // Make it invisible
                     final FormData fd = new FormData(0, 0);
@@ -370,7 +372,7 @@ public abstract class AbstractField implements IField {
                 }
             }
         });
-        
+
         if (DEFERLAYOUT) {
             this.fieldComposite.requestLayout();
         } else {
@@ -378,7 +380,7 @@ public abstract class AbstractField implements IField {
             this.fieldComposite.pack();
             this.fieldComposite.getParent().layout(true, true);
         }
-        
+
     }
 
 }

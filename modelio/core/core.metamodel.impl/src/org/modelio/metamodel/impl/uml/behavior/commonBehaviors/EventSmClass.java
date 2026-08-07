@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.commonBehaviors;
 
 import java.util.ArrayList;
@@ -55,108 +54,107 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("05712d4f-4cfb-40cc-af04-edb94f0e9624")
 public class EventSmClass extends UmlModelElementSmClass {
-    @objid ("b1eca0a8-73e9-40a4-bb1c-44facb0b83a3")
+    @objid ("97526a01-f005-4d39-9efd-d4c39e38e5c6")
     private SmAttribute expressionAtt;
 
-    @objid ("33179fc7-0c58-4d4c-9f6a-1d4abba39d1a")
+    @objid ("4973ca61-13d6-4c03-9eed-fe9f287c47fb")
     private SmAttribute kindAtt;
 
-    @objid ("0ac7147b-70b5-43dc-83a0-a97e0551b77c")
+    @objid ("b81e2dbb-899f-40e7-9815-9831234599ef")
     private SmDependency triggeredDep;
 
-    @objid ("5d210712-37c3-44ad-a82d-870c0a0a851c")
+    @objid ("3fb525d9-088e-4070-8867-17404da872aa")
     private SmDependency modelDep;
 
-    @objid ("30e2f8d7-53bf-4339-b965-3ba29949bead")
+    @objid ("bb18a2d6-0cd5-414d-9d0f-9d242dc80530")
     private SmDependency originDep;
 
-    @objid ("e03ad9e9-70c0-477b-8518-58a202f04938")
+    @objid ("e8afc3bd-ed04-4fcf-ad47-9d3bec414cd8")
     private SmDependency calledDep;
 
-    @objid ("a75db21a-14e6-4a36-875b-d13ef7cd030c")
+    @objid ("4699e348-ffd4-46cb-9839-18cea6509484")
     private SmDependency composedDep;
 
-    @objid ("0325166e-3741-4c6c-a6e3-7d10d7486391")
-    public  EventSmClass(ISmMetamodelFragment origin) {
+    @objid ("646d8e29-af0e-4d83-91e7-1f62bfd500f0")
+    public EventSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("7e7614bb-f510-47e6-8299-787ee4a3324a")
+    @objid ("dbc7c60f-a825-4816-9773-321267e2fa1c")
     @Override
     public String getName() {
         return "Event";
-        
+
     }
 
-    @objid ("74a77ccd-ccf9-466c-9a73-b24c9df5eddd")
+    @objid ("e4b15fab-d2f9-45c1-a91e-f35753cdc0f8")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("ddc118de-59ba-4618-a2aa-f72faab6c423")
+    @objid ("61c18df5-0d2c-4942-906a-c05c4396f8f2")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return Event.class;
-        
+
     }
 
-    @objid ("96a58a24-dd4c-4122-83b1-d7622b099405")
+    @objid ("6d9538d2-71a2-4d24-a4c2-8432705fd906")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("f71d308b-c1e8-4b1f-b362-d65f7f9bc34d")
+    @objid ("3ccc59d0-d099-4777-9cdc-63f29b7d3df2")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("55465732-0d7f-4dfc-adad-9d6c1599b57d")
+    @objid ("12148a70-9858-4078-923e-24a803cba154")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(UmlModelElement.MQNAME);
         this.registerFactory(new EventObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
         this.expressionAtt = new ExpressionSmAttribute();
         this.expressionAtt.init("Expression", this, String.class );
         registerAttribute(this.expressionAtt);
-        
+
         this.kindAtt = new KindSmAttribute();
         this.kindAtt.init("Kind", this, EventType.class );
         registerAttribute(this.kindAtt);
-        
-        
+
+
         // Initialize and register the SmDependency
         this.triggeredDep = new TriggeredSmDependency();
         this.triggeredDep.init("Triggered", this, metamodel.getMClass(Transition.MQNAME), 0, -1 );
         registerDependency(this.triggeredDep);
-        
+
         this.modelDep = new ModelSmDependency();
         this.modelDep.init("Model", this, metamodel.getMClass(Signal.MQNAME), 0, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.modelDep);
-        
+
         this.originDep = new OriginSmDependency();
         this.originDep.init("Origin", this, metamodel.getMClass(State.MQNAME), 0, -1 );
         registerDependency(this.originDep);
-        
+
         this.calledDep = new CalledSmDependency();
         this.calledDep.init("Called", this, metamodel.getMClass(Operation.MQNAME), 0, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.calledDep);
-        
+
         this.composedDep = new ComposedSmDependency();
         this.composedDep.init("Composed", this, metamodel.getMClass(Behavior.MQNAME), 1, 1 );
         registerDependency(this.composedDep);
-        
-        
+
     }
 
-    @objid ("48540c3c-79e5-49f4-a880-ebc9069051f6")
+    @objid ("524851ee-fa0d-4ce4-bf6f-1341c6de27f1")
     public SmAttribute getExpressionAtt() {
         if (this.expressionAtt == null) {
         	this.expressionAtt = this.getAttributeDef("Expression");
@@ -164,7 +162,7 @@ public class EventSmClass extends UmlModelElementSmClass {
         return this.expressionAtt;
     }
 
-    @objid ("6fe23377-35ba-4210-8950-bc23613460cf")
+    @objid ("3d84aa9b-4e67-43e0-81c6-756cb246c120")
     public SmAttribute getKindAtt() {
         if (this.kindAtt == null) {
         	this.kindAtt = this.getAttributeDef("Kind");
@@ -172,7 +170,7 @@ public class EventSmClass extends UmlModelElementSmClass {
         return this.kindAtt;
     }
 
-    @objid ("d5776880-00ef-4ad0-a321-e35338214657")
+    @objid ("255ae74f-cbb8-4660-a5d5-005d29c4fd67")
     public SmDependency getTriggeredDep() {
         if (this.triggeredDep == null) {
         	this.triggeredDep = this.getDependencyDef("Triggered");
@@ -180,7 +178,7 @@ public class EventSmClass extends UmlModelElementSmClass {
         return this.triggeredDep;
     }
 
-    @objid ("3be67d27-8dc2-4989-bbd9-526ff49a85f0")
+    @objid ("6e23a08f-1558-411d-9724-52046eb8b89d")
     public SmDependency getModelDep() {
         if (this.modelDep == null) {
         	this.modelDep = this.getDependencyDef("Model");
@@ -188,7 +186,7 @@ public class EventSmClass extends UmlModelElementSmClass {
         return this.modelDep;
     }
 
-    @objid ("8936294a-f47a-44bb-a42c-988e3359062a")
+    @objid ("be8a29b3-9bf9-4a89-bd21-d7110df55706")
     public SmDependency getOriginDep() {
         if (this.originDep == null) {
         	this.originDep = this.getDependencyDef("Origin");
@@ -196,7 +194,7 @@ public class EventSmClass extends UmlModelElementSmClass {
         return this.originDep;
     }
 
-    @objid ("7b6a6917-d51d-46ef-bb57-d46af8db2030")
+    @objid ("16c15f5f-f312-401a-8575-c1879ea6af06")
     public SmDependency getCalledDep() {
         if (this.calledDep == null) {
         	this.calledDep = this.getDependencyDef("Called");
@@ -204,7 +202,7 @@ public class EventSmClass extends UmlModelElementSmClass {
         return this.calledDep;
     }
 
-    @objid ("74c2175a-ec52-4192-b121-2503cefc61e6")
+    @objid ("bcdb1c42-391b-4a7c-9be2-075f5952261a")
     public SmDependency getComposedDep() {
         if (this.composedDep == null) {
         	this.composedDep = this.getDependencyDef("Composed");
@@ -214,21 +212,21 @@ public class EventSmClass extends UmlModelElementSmClass {
 
     @objid ("dda9f412-ae8b-4425-ba67-9674f8a6c336")
     private static class EventObjectFactory implements ISmObjectFactory {
-        @objid ("c5cbd79b-07f0-4a57-9644-d5363157c12d")
+        @objid ("22811a44-2053-4004-a0bc-4ac50c9428d1")
         private EventSmClass smClass;
 
-        @objid ("01703612-2e15-4928-8a66-7af78771332d")
-        public  EventObjectFactory(EventSmClass smClass) {
+        @objid ("0a0ad1ec-7a2d-47e0-b2df-f2089fa857d2")
+        public EventObjectFactory(EventSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("61027f5f-e7dd-4ab2-8e84-23bb1a2b9be4")
+        @objid ("60cd31a6-239e-416d-aa96-da2cd2014b8b")
         @Override
         public ISmObjectData createData() {
             return new EventData(this.smClass);
         }
 
-        @objid ("ad9b2c04-771c-4123-9f93-03a2458464c4")
+        @objid ("a9c78000-43a8-49a9-86a5-ae2fc7a9592c")
         @Override
         public SmObjectImpl createImpl() {
             return new EventImpl();
@@ -238,12 +236,12 @@ public class EventSmClass extends UmlModelElementSmClass {
 
     @objid ("287514de-0c70-44f6-b824-44b62b0d0438")
     public static class ExpressionSmAttribute extends SmAttribute {
-        @objid ("06aadde8-54e7-4fa7-b203-4c51f02ef531")
+        @objid ("78fad1b8-0c5d-4f2d-a327-1fd57f87e622")
         public Object getValue(ISmObjectData data) {
             return ((EventData) data).mExpression;
         }
 
-        @objid ("46882c55-247f-4adb-a132-8b7fb20ea621")
+        @objid ("df4ff713-50af-4e15-a812-576d379602d2")
         public void setValue(ISmObjectData data, Object value) {
             ((EventData) data).mExpression = value;
         }
@@ -252,12 +250,12 @@ public class EventSmClass extends UmlModelElementSmClass {
 
     @objid ("533272f3-678c-47bd-bda5-045c626400e8")
     public static class KindSmAttribute extends SmAttribute {
-        @objid ("587ff30f-0348-4b25-aaab-727e831837d4")
+        @objid ("9712efaf-ec6a-453d-a604-142f3e14e248")
         public Object getValue(ISmObjectData data) {
             return ((EventData) data).mKind;
         }
 
-        @objid ("6e3699b2-489a-4fcc-8c4d-ec69bc3a3f03")
+        @objid ("ebe321bc-5db9-47fa-a859-c643b3cdeb81")
         public void setValue(ISmObjectData data, Object value) {
             ((EventData) data).mKind = value;
         }
@@ -266,147 +264,147 @@ public class EventSmClass extends UmlModelElementSmClass {
 
     @objid ("dcc9b19e-208e-4d79-8b20-f9bb65eb12af")
     public static class TriggeredSmDependency extends SmMultipleDependency {
-        @objid ("0201bf00-1861-410e-bf30-42cddc0c3a62")
+        @objid ("30455a08-e747-43cf-a113-649341379974")
         private SmDependency symetricDep;
 
-        @objid ("6a17647b-4dd0-4f95-84a3-3541061cfb50")
+        @objid ("96b63692-86d5-4372-94eb-e036fcf5e104")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((EventData)data).mTriggered != null)? ((EventData)data).mTriggered:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("ecede0f9-529d-449d-baf4-127f73e2aafb")
+        @objid ("7dde7662-5ff7-45f2-bb27-179e4e93116b")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((EventData) data).mTriggered = values;
-            
+
         }
 
-        @objid ("5e8f09f2-5c82-4db2-8986-19ac5b0cf830")
+        @objid ("12658d33-49bc-4973-abfa-0c65ba5e4cfc")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((TransitionSmClass)this.getTarget()).getTriggerDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("992e1da2-27ab-414b-98ab-13571789fb18")
     public static class ModelSmDependency extends SmSingleDependency {
-        @objid ("f463224a-e7dc-4e76-a14e-b41ad77bc23f")
+        @objid ("7daaa387-dfd5-4019-abc9-09255d1e3995")
         private SmDependency symetricDep;
 
-        @objid ("3b365a01-c7a6-48cc-84e9-33c7777caf26")
+        @objid ("ab8d5f73-76ca-4298-b6b6-010b76edb5aa")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((EventData) data).mModel;
         }
 
-        @objid ("ae5dc9e3-0610-4afa-ae97-f39d45dba22a")
+        @objid ("3419fda3-c48f-4642-938d-a9a2c3eba0c6")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((EventData) data).mModel = value;
         }
 
-        @objid ("c364d74a-1144-48ee-a139-0e04598a3810")
+        @objid ("95f7f7c9-696e-43c2-b2f7-ff9b6ee15a67")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((SignalSmClass)this.getTarget()).getEOccurenceDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("719bcb22-ea5d-46db-907b-9feb247b606c")
     public static class OriginSmDependency extends SmMultipleDependency {
-        @objid ("f775c0e2-2123-4fe9-9fe1-ff46b9f405e1")
+        @objid ("10be4cb1-0a28-4f9b-9e22-9791d3cf77d0")
         private SmDependency symetricDep;
 
-        @objid ("c91d9981-9dd5-4e3f-93bb-c0c9cf8f176f")
+        @objid ("cf7d6dbc-964e-46e2-b565-45ba29793ac0")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((EventData)data).mOrigin != null)? ((EventData)data).mOrigin:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("54477a7f-b24f-41ed-b49e-a5b33fe860df")
+        @objid ("fcacbf45-eabb-4074-8aff-39d170ae5102")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((EventData) data).mOrigin = values;
-            
+
         }
 
-        @objid ("cfa8ef0c-dbc6-4835-8fa5-e6ac789a8630")
+        @objid ("aab91549-3b1b-4a5e-a5bc-c7f657383b00")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((StateSmClass)this.getTarget()).getDefferedDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("6b6ff990-e161-4fb8-b0fe-a67f54645d53")
     public static class CalledSmDependency extends SmSingleDependency {
-        @objid ("0c762912-1702-4dcc-99ec-7d204e043c21")
+        @objid ("d8faf3b3-85d0-4931-8169-f3d7877a4f36")
         private SmDependency symetricDep;
 
-        @objid ("9a894eb7-48cb-451a-9a59-ed97aa68735b")
+        @objid ("9421f74a-0906-4f82-9dff-581f10e85218")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((EventData) data).mCalled;
         }
 
-        @objid ("ef2a4405-cb29-4ec4-a1ce-ad2e43a7366d")
+        @objid ("717ebb31-684e-4086-b523-7e03dd8b11c8")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((EventData) data).mCalled = value;
         }
 
-        @objid ("9ee5b279-043b-43f6-9624-d92c7167419d")
+        @objid ("0dbe120c-7c5c-49eb-abba-8b5e02cb6270")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((OperationSmClass)this.getTarget()).getOccurenceDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("b3780d04-a999-4e3d-b12b-ef19555757d4")
     public static class ComposedSmDependency extends SmSingleDependency {
-        @objid ("daa08bd2-37bc-4139-8492-87771a338ff5")
+        @objid ("3c1bd95c-2aef-4a56-adee-f81a40a6490e")
         private SmDependency symetricDep;
 
-        @objid ("6e11a979-1e8d-4630-baea-6bb4a93d74af")
+        @objid ("47e17119-9a4c-4650-9ce2-673396260b92")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((EventData) data).mComposed;
         }
 
-        @objid ("028b6f9e-03a9-4db1-8a0b-811199895610")
+        @objid ("716871ac-ed92-4e39-87be-9b61aaf360a4")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((EventData) data).mComposed = value;
         }
 
-        @objid ("05bc90fa-1be2-46b2-8dae-14f161b354d7")
+        @objid ("e6d8b0ed-a843-4512-bfb1-f6cc1afdc980")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((BehaviorSmClass)this.getTarget()).getEComponentDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

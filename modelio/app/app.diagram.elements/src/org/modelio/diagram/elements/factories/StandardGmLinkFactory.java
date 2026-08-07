@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.factories;
 
@@ -56,16 +56,17 @@ public final class StandardGmLinkFactory implements IGmLinkFactory {
 
     /**
      * Instantiate the factory.
+     *
      * @param factoryId identifier of the main factory.
      * @param useGenericFactory whether or not the generic factory should be used as fallback.
      */
     @objid ("aa475681-82d9-44a8-ace2-154dc4d23e60")
-    public  StandardGmLinkFactory(String factoryId, boolean useGenericFactory) {
+    public StandardGmLinkFactory(String factoryId, boolean useGenericFactory) {
         this.mainFactory = DiagramFactoryRegistry.getInstance().getLinkFactory(factoryId);
         this.secondaryFactories = new DelegatingGmLinkFactory(DiagramFactoryRegistry.getInstance().getExtensions(factoryId));
         this.diagramElementsFactory = new DiagramElementsGmLinkFactory();
         this.genericFactory = useGenericFactory ? new GenericGmFactory() : null;
-        
+
     }
 
     @objid ("5c2e682f-3982-4f24-9894-7218f52dbe05")
@@ -76,25 +77,25 @@ public final class StandardGmLinkFactory implements IGmLinkFactory {
         if (linkModel != null) {
             return linkModel;
         }
-        
+
         // 2 - Secondary factories
         linkModel = this.secondaryFactories.create(diagram, linkElement);
         if (linkModel != null) {
             return linkModel;
         }
-        
+
         // 3 - Common elements
         linkModel = this.diagramElementsFactory.create(diagram, linkElement);
         if (linkModel != null) {
             return linkModel;
         }
-        
+
         if (this.genericFactory != null) {
             return this.genericFactory.create(diagram, linkElement);
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("6477dbf7-22fa-4ee3-9680-2e5953c975bb")
@@ -104,23 +105,23 @@ public final class StandardGmLinkFactory implements IGmLinkFactory {
         if (ret != null) {
             return ret;
         }
-        
+
         ret = this.secondaryFactories.resolveClass(namespace);
         if (ret != null) {
             return ret;
         }
-        
+
         ret = this.diagramElementsFactory.resolveClass(namespace);
         if (ret != null) {
             return ret;
         }
-        
+
         if (this.genericFactory != null) {
             return this.genericFactory.resolveClass(namespace);
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("8e922d3d-9000-4741-aa37-7d2d95207bad")
@@ -134,18 +135,18 @@ public final class StandardGmLinkFactory implements IGmLinkFactory {
         if (ret != null) {
             return ret;
         }
-        
+
         ret = this.diagramElementsFactory.resolveEnumClass(namespace);
         if (ret != null) {
             return ret;
         }
-        
+
         if (this.genericFactory != null) {
             return this.genericFactory.resolveEnumClass(namespace);
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("a96bb8b7-96ba-427c-9d45-a213884dfeff")
@@ -159,18 +160,18 @@ public final class StandardGmLinkFactory implements IGmLinkFactory {
         if (ret != null) {
             return ret;
         }
-        
+
         ret = this.diagramElementsFactory.resolveMigratorClass(namespace);
         if (ret != null) {
             return ret;
         }
-        
+
         if (this.genericFactory != null) {
             return this.genericFactory.resolveMigratorClass(namespace);
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("227bbfa2-fd17-4610-83c0-9955b4bc3f3f")

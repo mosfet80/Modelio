@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.finaliser;
 
@@ -63,7 +63,7 @@ public class ProcessFinaliser implements IFinaliseNode<BpmnProcess, TProcess> {
             session.getModel().getGenericFactory().create(BpmnProcessDesignDiagram.class, modelioElement, "Product");
         }
         createSubProcessDiagram(session, modelioElement);
-        
+
     }
 
     @objid ("b893603f-b985-4521-abc6-1488114ca6ce")
@@ -83,7 +83,7 @@ public class ProcessFinaliser implements IFinaliseNode<BpmnProcess, TProcess> {
                 }
             }
         }
-        
+
     }
 
     @objid ("778b1faa-e853-496f-a887-86033c1523a6")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.factories;
 
@@ -119,22 +119,22 @@ public class StaticGmNodeFactory implements IGmNodeFactory {
     @Override
     public GmNodeModel create(IGmDiagram diagram, GmCompositeNode parent, MObject newElement, Object initialLayoutData) {
         GmNodeModel child = null;
-        
+
         if (parent instanceof GmConveyedClassifiersGroup) {
             // Conveyed classifier group factory
             child = createInformationItemGroupNode(diagram, newElement, initialLayoutData);
         } else if (parent instanceof GmGroup) {
             // Use the group element factory visitor
             final GroupElementFactoryVisitor v = new GroupElementFactoryVisitor(diagram, initialLayoutData);
-        
+
             child = (GmNodeModel) newElement.accept(v);
         } else {
             // Use the node factory visitor
             final NodeFactoryVisitor v = new NodeFactoryVisitor(diagram, initialLayoutData);
-        
+
             child = (GmNodeModel) newElement.accept(v);
         }
-        
+
         if (child != null) {
             parent.addChild(child);
         }
@@ -145,9 +145,9 @@ public class StaticGmNodeFactory implements IGmNodeFactory {
     @Override
     public Class<? extends IPersistent> resolveClass(String namespace) {
         try {
-        
+
             String fixedNamespace = migrateNamespace(namespace);
-        
+
             if (fixedNamespace.startsWith("org.modelio.diagram.elements")) {
                 // Deal with a few GMs from diagram.elements that were moved into diagram.static
                 switch (fixedNamespace) {
@@ -169,7 +169,7 @@ public class StaticGmNodeFactory implements IGmNodeFactory {
                     return null;
                 }
             } else if (fixedNamespace.startsWith("org.modelio.uml.statikdiagram.editor")) {
-        
+
                 Class<?> clazz = Class.forName(fixedNamespace);
                 if (clazz != null) {
                     return clazz.asSubclass(IPersistent.class);
@@ -237,7 +237,7 @@ public class StaticGmNodeFactory implements IGmNodeFactory {
 
     /**
      * Factory visitor that creates instances to put into {@link GmGroup}.
-     * 
+     *
      * @author cmarin
      */
     @objid ("36c54e1a-55b7-11e2-877f-002564c97630")
@@ -249,10 +249,10 @@ public class StaticGmNodeFactory implements IGmNodeFactory {
         private Object initialLayoutData;
 
         @objid ("36c54e22-55b7-11e2-877f-002564c97630")
-        public  GroupElementFactoryVisitor(IGmDiagram diagram, Object initialLayoutData) {
+        public GroupElementFactoryVisitor(IGmDiagram diagram, Object initialLayoutData) {
             this.diagram = diagram;
             this.initialLayoutData = initialLayoutData;
-            
+
         }
 
         @objid ("36c6d4e5-55b7-11e2-877f-002564c97630")
@@ -410,10 +410,10 @@ public class StaticGmNodeFactory implements IGmNodeFactory {
         private Object initialLayoutData;
 
         @objid ("36bf33d8-55b7-11e2-877f-002564c97630")
-        public  NodeFactoryVisitor(IGmDiagram diagram, Object initialLayoutData) {
+        public NodeFactoryVisitor(IGmDiagram diagram, Object initialLayoutData) {
             this.diagram = diagram;
             this.initialLayoutData = initialLayoutData;
-            
+
         }
 
         /*
@@ -579,7 +579,7 @@ public class StaticGmNodeFactory implements IGmNodeFactory {
                 node.setLayoutData(this.initialLayoutData);
                 return node;
             }
-            
+
         }
 
         @objid ("52f4b320-7cff-4509-9ae7-d7e0db9b3fb6")

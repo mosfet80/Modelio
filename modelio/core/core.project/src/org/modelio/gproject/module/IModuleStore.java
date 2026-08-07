@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.module;
 
@@ -38,6 +38,7 @@ import org.modelio.vbasic.progress.IModelioProgress;
 public interface IModuleStore {
     /**
      * Install a module archive (.jmdac) in the store.
+     *
      * @param archive the archive path to install the module from.
      * @param monitor the progress monitor to use for reporting progress to the
      * user. It is the caller's responsibility to call
@@ -52,6 +53,7 @@ public interface IModuleStore {
 
     /**
      * Remove the module from the store.
+     *
      * @param mh the module to remove.
      * @throws IOException in case of failure.
      * @throws FileSystemException in case of file system error. Use
@@ -63,6 +65,7 @@ public interface IModuleStore {
 
     /**
      * Get all module handles available in the store.
+     *
      * @param monitor the progress monitor to use for reporting progress to the
      * user. It is the caller's responsibility to call
      * <code>done()</code> on the given monitor. Accepts
@@ -81,6 +84,7 @@ public interface IModuleStore {
      * Get a module handle from the store given a module archive.
      * The archive is looked up from module  name and version. The name and version are then used to search for the mdoule in the store.
      * WARNING: this method DOES NOT install the archive in the store.
+     *
      * @param archivePath the archive path to find the module from.
      * @param monitor the progress monitor to use for reporting progress to the
      * user. It is the caller's responsibility to call
@@ -98,6 +102,7 @@ public interface IModuleStore {
 
     /**
      * Get a module handle from the store by name and version
+     *
      * @param moduleName the module to find.
      * @param moduleVersion the version of the module to find. Might be <code>null</code>
      * to indicate the latest available version.
@@ -117,6 +122,7 @@ public interface IModuleStore {
 
     /**
      * Get all available versions of a module from the cache by name.
+     *
      * @param moduleName the module to find.
      * @param monitor the progress monitor to use for reporting progress to the
      * user. It is the caller's responsibility to call
@@ -131,5 +137,5 @@ public interface IModuleStore {
      */
     @objid ("d3548e16-28cd-4014-9f89-3ebefb142706")
     List<IModuleHandle> findModule(String moduleName, IModelioProgress monitor) throws FileSystemException, IOException;
-}
 
+}

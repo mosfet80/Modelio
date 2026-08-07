@@ -1,0 +1,6 @@
+This folder contains official material given by the Open Group for ArchiMate 3.1 support.
+
+A CSV file with '\t' as separator has been manually extracted from the relationship table and inserted
+as a note in the Archimate metamodel root component.
+
+This note is used by SemGen to fill the ArchimateCSVGeneratedMetamodelExpert, aka the actual java expert.

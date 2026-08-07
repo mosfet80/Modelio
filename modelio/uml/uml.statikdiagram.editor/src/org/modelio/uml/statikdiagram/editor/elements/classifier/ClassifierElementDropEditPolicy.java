@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.classifier;
 
@@ -49,7 +49,7 @@ public class ClassifierElementDropEditPolicy extends DefaultElementDropEditPolic
     @Override
     protected EditPart getDropTargetEditPart(final ModelElementDropRequest request) {
         final GmCompositeNode gmModel = (GmCompositeNode) getHost().getModel();
-        
+
         // If either of the dropped elements cannot be unmasked, return null.
         for (final MObject droppedElement : request.getDroppedElements()) {
             if (!gmModel.canUnmask(droppedElement)) {
@@ -65,7 +65,7 @@ public class ClassifierElementDropEditPolicy extends DefaultElementDropEditPolic
                 }
             }
         }
-        
+
         // All dropped elements understood: return host!
         return getHost();
     }
@@ -74,9 +74,9 @@ public class ClassifierElementDropEditPolicy extends DefaultElementDropEditPolic
     @Override
     protected Command getSmartDropCommand(final ModelElementDropRequest request) {
         final CompoundCommand command = new CompoundCommand();
-        
+
         Point dropLocation = request.getDropLocation();
-        
+
         for (final MObject toUnmask : request.getDroppedElements()) {
             if (isSmartPartNodeTarget(toUnmask, request)) {
                 command.add(getSmartObjectNodeDropCommand(dropLocation, toUnmask));
@@ -105,12 +105,12 @@ public class ClassifierElementDropEditPolicy extends DefaultElementDropEditPolic
         if (!request.isSmart()) {
             return false;
         }
-        
+
         // Exception for ports
         if (element instanceof Port) {
             return false;
         }
-        
+
         final GmModel gmModel = (GmModel) getHost().getModel();
         final Classifier owner = (Classifier) gmModel.getRelatedElement();
         return !owner.equals(element.getCompositionOwner()) &&
@@ -120,7 +120,7 @@ public class ClassifierElementDropEditPolicy extends DefaultElementDropEditPolic
                         element instanceof Instance ||
                         element instanceof NameSpace ||
                         element instanceof Parameter);
-        
+
     }
 
     @objid ("3432205c-55b7-11e2-877f-002564c97630")
@@ -135,7 +135,7 @@ public class ClassifierElementDropEditPolicy extends DefaultElementDropEditPolic
         if (!request.isSmart()) {
             return false;
         }
-        
+
         final GmModel gmModel = (GmModel) getHost().getModel();
         final Classifier owner = (Classifier) gmModel.getRelatedElement();
         return !owner.equals(element.getCompositionOwner()) && element instanceof Collaboration;

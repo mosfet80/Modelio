@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension point="org.modelio.core.metamodelprovider">
+      <metamodel class="org.modelio.archimate.metamodel.impl.mmextensions.ArchimateMetamodelExtension"/>
+   </extension>
+
+   <extension point="org.modelio.platform.script.engine.classloaders">
+      <jython-api-provider classloaderprovider="org.modelio.archimate.extensions.plugin.ArchimateClassLoaderProvider"/>
+   </extension> 
+</plugin>

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.stateMachineModel;
 
 import java.util.ArrayList;
@@ -53,136 +52,135 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("c656dbc6-a3e5-494e-a3e2-69a0638466d7")
 public class TransitionSmClass extends UmlModelElementSmClass {
-    @objid ("546cdc92-1e85-4ac1-b902-40ece3882426")
+    @objid ("5fdf178e-9c93-4fb2-9736-281792c8af53")
     private SmAttribute effectAtt;
 
-    @objid ("61c0d989-754d-4bb7-8179-fd5fed7bb87f")
+    @objid ("ed3b9038-5fc6-48d2-a318-c3260e3ab96f")
     private SmAttribute receivedEventsAtt;
 
-    @objid ("ae3c6ef9-1bf9-4ff7-a389-e3862b9390a3")
+    @objid ("8f810dff-8ed3-4e1b-90db-bd6e673bb28b")
     private SmAttribute sentEventsAtt;
 
-    @objid ("a1104d1c-b2b0-4fb4-a69e-2c4691cfd9ca")
+    @objid ("3d5b7e83-d199-4948-844e-78ffa6b94a66")
     private SmAttribute guardAtt;
 
-    @objid ("967ccd3f-2a8c-40c0-9542-26466b811565")
+    @objid ("9923ef6d-bb38-4960-8aad-4a91e753aed5")
     private SmAttribute postConditionAtt;
 
-    @objid ("db3cdabd-2f72-4eb2-8803-7788aeb8c550")
+    @objid ("8c845c33-eda1-4290-abf0-6a2edda72e91")
     private SmDependency processedDep;
 
-    @objid ("43b84ef2-d7d0-4fb0-b439-3d779d9d7583")
+    @objid ("75c77db9-2a4b-47f2-84ad-1e479bd8eac3")
     private SmDependency triggerDep;
 
-    @objid ("237f4622-9061-4f39-b880-06732944d321")
+    @objid ("24116c0c-92b9-4dff-8b47-a10a51d1968b")
     private SmDependency behaviorEffectDep;
 
-    @objid ("ea491e61-1dca-4a31-8d60-013636e4f9c4")
+    @objid ("44c675a6-b527-45bb-9f17-4325e441f9f1")
     private SmDependency targetDep;
 
-    @objid ("4bc1d7da-9e28-432f-b28b-675cf4c458e7")
+    @objid ("6061b60b-d7a0-4350-9910-4c55bc34a2d6")
     private SmDependency sourceDep;
 
-    @objid ("35c6ad38-1c31-4ae3-a7bb-0b8532695799")
+    @objid ("e99d855b-d309-4711-a73a-33b3acf56633")
     private SmDependency effectsDep;
 
-    @objid ("1318d641-6a49-41a6-bd58-195e351741f9")
-    public  TransitionSmClass(ISmMetamodelFragment origin) {
+    @objid ("60cffa80-80d3-417c-ac4c-4af2a2fe267d")
+    public TransitionSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("8cb1f696-12c6-46ea-a542-0db23012716a")
+    @objid ("fd011718-6030-40bc-841a-1bb04a0a6171")
     @Override
     public String getName() {
         return "Transition";
-        
+
     }
 
-    @objid ("64195aab-560f-4997-b852-7022056388c6")
+    @objid ("e517b996-bdb0-4830-a407-355fcbbeafb8")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("8b46fab2-2f16-40b0-8f78-716f7f024ced")
+    @objid ("1bf75202-c15f-4021-b270-5eefb93d0d03")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return Transition.class;
-        
+
     }
 
-    @objid ("61448ec2-5d65-4824-aac3-10463d7ae0fd")
+    @objid ("ee5d3cfd-7209-44a3-acec-bf883731136e")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("85950f88-48eb-42cf-a808-12f5e2ab761e")
+    @objid ("343d0a7c-9101-462b-a9d8-b7c10dc9cb91")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("20807e3c-6715-43fd-845d-716d38a1ba9d")
+    @objid ("9ae13977-4674-4eb0-b33a-2ecefbc0b740")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(UmlModelElement.MQNAME);
         this.registerFactory(new TransitionObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
         this.effectAtt = new EffectSmAttribute();
         this.effectAtt.init("Effect", this, String.class );
         registerAttribute(this.effectAtt);
-        
+
         this.receivedEventsAtt = new ReceivedEventsSmAttribute();
         this.receivedEventsAtt.init("ReceivedEvents", this, String.class );
         registerAttribute(this.receivedEventsAtt);
-        
+
         this.sentEventsAtt = new SentEventsSmAttribute();
         this.sentEventsAtt.init("SentEvents", this, String.class );
         registerAttribute(this.sentEventsAtt);
-        
+
         this.guardAtt = new GuardSmAttribute();
         this.guardAtt.init("Guard", this, String.class );
         registerAttribute(this.guardAtt);
-        
+
         this.postConditionAtt = new PostConditionSmAttribute();
         this.postConditionAtt.init("PostCondition", this, String.class );
         registerAttribute(this.postConditionAtt);
-        
-        
+
+
         // Initialize and register the SmDependency
         this.processedDep = new ProcessedSmDependency();
         this.processedDep.init("Processed", this, metamodel.getMClass(Operation.MQNAME), 0, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.processedDep);
-        
+
         this.triggerDep = new TriggerSmDependency();
         this.triggerDep.init("Trigger", this, metamodel.getMClass(Event.MQNAME), 0, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.triggerDep);
-        
+
         this.behaviorEffectDep = new BehaviorEffectSmDependency();
         this.behaviorEffectDep.init("BehaviorEffect", this, metamodel.getMClass(Behavior.MQNAME), 0, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.behaviorEffectDep);
-        
+
         this.targetDep = new TargetSmDependency();
         this.targetDep.init("Target", this, metamodel.getMClass(StateVertex.MQNAME), 0, 1 , SmDirective.SMCDLINKTARGET, SmDirective.SMCDPARTOF);
         registerDependency(this.targetDep);
-        
+
         this.sourceDep = new SourceSmDependency();
         this.sourceDep.init("Source", this, metamodel.getMClass(StateVertex.MQNAME), 0, 1 , SmDirective.SMCDLINKSOURCE);
         registerDependency(this.sourceDep);
-        
+
         this.effectsDep = new EffectsSmDependency();
         this.effectsDep.init("Effects", this, metamodel.getMClass(Signal.MQNAME), 0, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.effectsDep);
-        
-        
+
     }
 
-    @objid ("adee4fea-6443-406c-9f36-957d8c656363")
+    @objid ("7ecc039e-a011-42f7-8225-56f62e3160d7")
     public SmAttribute getEffectAtt() {
         if (this.effectAtt == null) {
         	this.effectAtt = this.getAttributeDef("Effect");
@@ -190,7 +188,7 @@ public class TransitionSmClass extends UmlModelElementSmClass {
         return this.effectAtt;
     }
 
-    @objid ("96b9cdbd-c51a-4146-b193-ceefca4be235")
+    @objid ("f53353be-ebfc-40de-a248-b85eec103dc8")
     public SmAttribute getReceivedEventsAtt() {
         if (this.receivedEventsAtt == null) {
         	this.receivedEventsAtt = this.getAttributeDef("ReceivedEvents");
@@ -198,7 +196,7 @@ public class TransitionSmClass extends UmlModelElementSmClass {
         return this.receivedEventsAtt;
     }
 
-    @objid ("73e469a1-401d-4ba9-ba07-2905681e511e")
+    @objid ("c3d06670-86e4-4681-bca7-76888c1b1046")
     public SmAttribute getSentEventsAtt() {
         if (this.sentEventsAtt == null) {
         	this.sentEventsAtt = this.getAttributeDef("SentEvents");
@@ -206,7 +204,7 @@ public class TransitionSmClass extends UmlModelElementSmClass {
         return this.sentEventsAtt;
     }
 
-    @objid ("f03db814-fa99-4e6d-8cb9-596c2790a39c")
+    @objid ("e925c8cb-e2bb-4ed4-aae8-dc1ed8cc823a")
     public SmAttribute getGuardAtt() {
         if (this.guardAtt == null) {
         	this.guardAtt = this.getAttributeDef("Guard");
@@ -214,7 +212,7 @@ public class TransitionSmClass extends UmlModelElementSmClass {
         return this.guardAtt;
     }
 
-    @objid ("b9350527-a2ef-48aa-9560-b337f286e155")
+    @objid ("280ff967-f65c-41e2-8ca6-298327000783")
     public SmAttribute getPostConditionAtt() {
         if (this.postConditionAtt == null) {
         	this.postConditionAtt = this.getAttributeDef("PostCondition");
@@ -222,7 +220,7 @@ public class TransitionSmClass extends UmlModelElementSmClass {
         return this.postConditionAtt;
     }
 
-    @objid ("c6dbba85-3bab-43ed-b5d9-1a4aa567b250")
+    @objid ("3d3ab4dc-1aaf-4e76-ae6c-637d477a34e0")
     public SmDependency getProcessedDep() {
         if (this.processedDep == null) {
         	this.processedDep = this.getDependencyDef("Processed");
@@ -230,7 +228,7 @@ public class TransitionSmClass extends UmlModelElementSmClass {
         return this.processedDep;
     }
 
-    @objid ("8877bbe2-3076-4018-b7d2-e72b03071be2")
+    @objid ("5534a15f-0d51-4b2c-9f06-cb8bb91b2e65")
     public SmDependency getTriggerDep() {
         if (this.triggerDep == null) {
         	this.triggerDep = this.getDependencyDef("Trigger");
@@ -238,7 +236,7 @@ public class TransitionSmClass extends UmlModelElementSmClass {
         return this.triggerDep;
     }
 
-    @objid ("fc5917d2-d700-4c03-9651-b7ddfdcab240")
+    @objid ("31bfe3fa-a623-4eb7-9da2-9e1fa34d0dc2")
     public SmDependency getBehaviorEffectDep() {
         if (this.behaviorEffectDep == null) {
         	this.behaviorEffectDep = this.getDependencyDef("BehaviorEffect");
@@ -246,7 +244,7 @@ public class TransitionSmClass extends UmlModelElementSmClass {
         return this.behaviorEffectDep;
     }
 
-    @objid ("31de37e8-7fb3-4e97-b770-4343886fbed8")
+    @objid ("69cbd712-10e0-413a-ad7d-312c6d051df4")
     public SmDependency getTargetDep() {
         if (this.targetDep == null) {
         	this.targetDep = this.getDependencyDef("Target");
@@ -254,7 +252,7 @@ public class TransitionSmClass extends UmlModelElementSmClass {
         return this.targetDep;
     }
 
-    @objid ("ee979b17-5315-4928-b568-b244a486083f")
+    @objid ("c1ea5492-8a04-487a-b7be-b81aa86adbb5")
     public SmDependency getSourceDep() {
         if (this.sourceDep == null) {
         	this.sourceDep = this.getDependencyDef("Source");
@@ -262,7 +260,7 @@ public class TransitionSmClass extends UmlModelElementSmClass {
         return this.sourceDep;
     }
 
-    @objid ("9ea52ecd-c72e-4ad3-a8fc-d0eafb6adedd")
+    @objid ("9a4c7ce8-09ed-44ac-884c-2c7e51780edf")
     public SmDependency getEffectsDep() {
         if (this.effectsDep == null) {
         	this.effectsDep = this.getDependencyDef("Effects");
@@ -270,30 +268,30 @@ public class TransitionSmClass extends UmlModelElementSmClass {
         return this.effectsDep;
     }
 
-    @objid ("f825991b-5960-4042-99ea-27845e84929e")
+    @objid ("88da520c-aea7-4bcc-b139-f636eb7ace8c")
     @Override
     public boolean isLinkMetaclass() {
         return true;
-        
+
     }
 
     @objid ("dad83e8a-7d34-4663-9de2-371993220e25")
     private static class TransitionObjectFactory implements ISmObjectFactory {
-        @objid ("0b3c5983-80d4-44d0-825c-f4bbe8b8f9e6")
+        @objid ("6a8d0de6-3181-467c-befb-c838b2eceb0b")
         private TransitionSmClass smClass;
 
-        @objid ("be1500f9-228c-43e1-a585-1560248fce49")
-        public  TransitionObjectFactory(TransitionSmClass smClass) {
+        @objid ("42fb6ee7-3176-467c-8106-666ab8ce733b")
+        public TransitionObjectFactory(TransitionSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("d672c55a-a85d-4fcf-9f8e-7efaec53b225")
+        @objid ("7bdeb886-f428-41e1-8341-44c7bbcdaf96")
         @Override
         public ISmObjectData createData() {
             return new TransitionData(this.smClass);
         }
 
-        @objid ("e393ebd0-6be5-4419-b050-769ccc75ef22")
+        @objid ("0ed02e19-9f53-4cbc-808a-f7fd046aa5de")
         @Override
         public SmObjectImpl createImpl() {
             return new TransitionImpl();
@@ -303,12 +301,12 @@ public class TransitionSmClass extends UmlModelElementSmClass {
 
     @objid ("74d944b7-be71-4b13-89f6-4b6e8051d99c")
     public static class EffectSmAttribute extends SmAttribute {
-        @objid ("4c6e91a2-e44d-4b2a-9c05-38d0020d77ab")
+        @objid ("8c2b49d9-a385-4adf-aab0-6e7ddef4d248")
         public Object getValue(ISmObjectData data) {
             return ((TransitionData) data).mEffect;
         }
 
-        @objid ("6fda9f76-5eea-4f48-a671-bc44082334f9")
+        @objid ("cd23eb77-88d0-483a-bd9f-9a2f49bdfafd")
         public void setValue(ISmObjectData data, Object value) {
             ((TransitionData) data).mEffect = value;
         }
@@ -317,12 +315,12 @@ public class TransitionSmClass extends UmlModelElementSmClass {
 
     @objid ("fcda15cf-e212-4cf5-a618-c7c47ef10072")
     public static class ReceivedEventsSmAttribute extends SmAttribute {
-        @objid ("cb8a3f34-3bec-4de4-a89b-010a23626b16")
+        @objid ("85586835-f68e-40d9-b37a-d8b85b2d224a")
         public Object getValue(ISmObjectData data) {
             return ((TransitionData) data).mReceivedEvents;
         }
 
-        @objid ("1ed044c7-bc3b-46ee-9668-cfe390a826e0")
+        @objid ("3b9dab17-308d-454c-ac5c-a54803b1c135")
         public void setValue(ISmObjectData data, Object value) {
             ((TransitionData) data).mReceivedEvents = value;
         }
@@ -331,12 +329,12 @@ public class TransitionSmClass extends UmlModelElementSmClass {
 
     @objid ("016eb7d6-021f-49c5-a614-90263fb4782f")
     public static class SentEventsSmAttribute extends SmAttribute {
-        @objid ("80b81c33-11d0-492d-bef7-9b833dda85df")
+        @objid ("ba62c169-b3f3-48d6-ab65-eb30769ddc2c")
         public Object getValue(ISmObjectData data) {
             return ((TransitionData) data).mSentEvents;
         }
 
-        @objid ("e8a0f618-7443-454d-bfb7-454bb84c6910")
+        @objid ("ffe46a78-350f-4bac-96e8-fdcc896f3919")
         public void setValue(ISmObjectData data, Object value) {
             ((TransitionData) data).mSentEvents = value;
         }
@@ -345,12 +343,12 @@ public class TransitionSmClass extends UmlModelElementSmClass {
 
     @objid ("0d089469-cf77-4af9-8c90-5130e3418ebe")
     public static class GuardSmAttribute extends SmAttribute {
-        @objid ("26418340-c8f9-4fc0-9312-ef1827f90133")
+        @objid ("9956ed32-bcf5-42a7-a346-23c2a7d89056")
         public Object getValue(ISmObjectData data) {
             return ((TransitionData) data).mGuard;
         }
 
-        @objid ("ea997495-c74c-4cd0-9d50-b3c76dd81a06")
+        @objid ("1ae74439-aef7-464e-8879-c8c4d087800d")
         public void setValue(ISmObjectData data, Object value) {
             ((TransitionData) data).mGuard = value;
         }
@@ -359,12 +357,12 @@ public class TransitionSmClass extends UmlModelElementSmClass {
 
     @objid ("717dbbb7-4391-436b-8f41-e20009c33821")
     public static class PostConditionSmAttribute extends SmAttribute {
-        @objid ("1fb18adf-46af-4f73-bc08-b60f0804a21e")
+        @objid ("5babe33b-737b-4523-a97d-378da33f8525")
         public Object getValue(ISmObjectData data) {
             return ((TransitionData) data).mPostCondition;
         }
 
-        @objid ("48af3354-a08e-4c7f-8907-42d963ce85ce")
+        @objid ("40c72e20-5d5b-49ad-a7d5-8244b693585e")
         public void setValue(ISmObjectData data, Object value) {
             ((TransitionData) data).mPostCondition = value;
         }
@@ -373,174 +371,174 @@ public class TransitionSmClass extends UmlModelElementSmClass {
 
     @objid ("45626cae-eaa7-4bcc-bbc8-2aedde223c34")
     public static class ProcessedSmDependency extends SmSingleDependency {
-        @objid ("4a9973c1-475d-4127-80af-3e0963f89967")
+        @objid ("db7c610d-c12c-4387-85ff-96f47917486d")
         private SmDependency symetricDep;
 
-        @objid ("7aee2f3f-2281-47d4-9e53-4ae1e448f599")
+        @objid ("371b184b-c751-4f75-b488-2ba004c89f49")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((TransitionData) data).mProcessed;
         }
 
-        @objid ("301615ab-ee10-4259-8b18-391aef6b8501")
+        @objid ("f42c6089-7656-457a-8e26-2337ac4556e1")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((TransitionData) data).mProcessed = value;
         }
 
-        @objid ("7d0e1fff-cb49-431c-a1f7-360a012f1fa9")
+        @objid ("3588a5a4-5ba9-4c26-b067-2ef8035fa30b")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((OperationSmClass)this.getTarget()).getInvokerDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("536c33f2-aff9-4c5c-a3b4-c319cc6ac058")
     public static class TriggerSmDependency extends SmSingleDependency {
-        @objid ("73d9b066-911f-4cce-adf3-c7f7da266a36")
+        @objid ("27e2c40c-942d-4680-bfc5-566694731ff0")
         private SmDependency symetricDep;
 
-        @objid ("cef206bb-7c04-4944-8529-47ce4c1ed36d")
+        @objid ("de29007e-cf42-4499-8244-c83bd6e1ce04")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((TransitionData) data).mTrigger;
         }
 
-        @objid ("32a25fdc-870d-4348-928d-fd63ff4db5b0")
+        @objid ("82e44c3d-b202-4ec9-bcfd-4d34a4f42faa")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((TransitionData) data).mTrigger = value;
         }
 
-        @objid ("57f4fa1f-ccf3-4716-904a-3aba943c51c4")
+        @objid ("47a6460f-e49e-4288-8f17-2efd903e8571")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((EventSmClass)this.getTarget()).getTriggeredDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("8a8b114a-7b85-4d7c-b991-e88620616ac1")
     public static class BehaviorEffectSmDependency extends SmSingleDependency {
-        @objid ("c70b9b2d-7b60-4dfc-8b4e-45cbc2bb88e3")
+        @objid ("b5c1d425-d553-4a73-8556-45c822e713ea")
         private SmDependency symetricDep;
 
-        @objid ("cfa608d3-474e-4090-b8e4-be8cf2674f9b")
+        @objid ("3981f24b-8bae-4561-8154-4f6a95399ae0")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((TransitionData) data).mBehaviorEffect;
         }
 
-        @objid ("edf02f5b-3143-48e1-b6fd-a8df0bb08ad9")
+        @objid ("1fc147a9-4716-4a5e-866e-ca55c4133ce4")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((TransitionData) data).mBehaviorEffect = value;
         }
 
-        @objid ("ff32b318-621c-4484-8f1f-1ab98ed5cd68")
+        @objid ("80e9349f-94e4-4de4-8f6a-c0f2a8d57974")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((BehaviorSmClass)this.getTarget()).getEffectOfDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("3cbe8256-6d5c-494e-ab29-52426677408c")
     public static class TargetSmDependency extends SmSingleDependency {
-        @objid ("157f1938-e4c4-4758-a6f6-bb268c92d99b")
+        @objid ("d0fe6082-5b74-421c-b305-77728de6ea9c")
         private SmDependency symetricDep;
 
-        @objid ("3bda4842-ca59-44a4-aefb-6f6e5011ca4f")
+        @objid ("76340202-8622-4b7f-9b98-e1b1b836697c")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((TransitionData) data).mTarget;
         }
 
-        @objid ("fefb7513-256f-4d76-91a0-24f3634e8566")
+        @objid ("c63d3a98-8d01-4111-ab6f-ed9f01ac96d5")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((TransitionData) data).mTarget = value;
         }
 
-        @objid ("d5ecc1fe-f5c9-48f0-83a0-c94848c94ea1")
+        @objid ("ecfb2ac4-d4e0-4dc1-89bd-e52cd91022a7")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((StateVertexSmClass)this.getTarget()).getIncomingDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("96508fd6-a30f-4c56-844c-bda949199949")
     public static class SourceSmDependency extends SmSingleDependency {
-        @objid ("d29d1cae-4239-4a94-9171-00cba85702be")
+        @objid ("51f57eaf-d001-4d7c-ba61-d5d4237f8b87")
         private SmDependency symetricDep;
 
-        @objid ("0ca481b3-bf71-44b4-b9a1-ac8ecdca5d25")
+        @objid ("00668643-434b-4240-89a6-9ad5509cb1c6")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((TransitionData) data).mSource;
         }
 
-        @objid ("0055c468-a8ac-4a5b-b360-1825e30adaa4")
+        @objid ("ad7a7faf-67f9-4644-8cec-57a37912759b")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((TransitionData) data).mSource = value;
         }
 
-        @objid ("6f78e61e-261b-433b-8e3c-c654c573b8f7")
+        @objid ("505f884d-b111-43bf-a0c4-8a8850b48256")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((StateVertexSmClass)this.getTarget()).getOutGoingDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("a5aaa978-27bc-4509-963d-a9b13ec9fbf9")
     public static class EffectsSmDependency extends SmSingleDependency {
-        @objid ("8c99e0a1-a6e7-4b99-842f-3cfebdf4f66a")
+        @objid ("989905b4-8e8b-4e36-b7de-a97508c100ea")
         private SmDependency symetricDep;
 
-        @objid ("621a8ff5-51ee-470f-925e-666b704ebfb9")
+        @objid ("cbd2fb42-bae0-4b2c-aafe-ce276ffb3a25")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((TransitionData) data).mEffects;
         }
 
-        @objid ("6b4d5812-69c4-4034-aed8-333b4e780495")
+        @objid ("7d79d943-ca38-4af0-891e-2b3a195bb6f7")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((TransitionData) data).mEffects = value;
         }
 
-        @objid ("ae9110ba-ff42-49d9-98a7-5d19c0e06760")
+        @objid ("9fbf6625-c5b1-4a12-8648-26e2cd6a7512")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((SignalSmClass)this.getTarget()).getSendsDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

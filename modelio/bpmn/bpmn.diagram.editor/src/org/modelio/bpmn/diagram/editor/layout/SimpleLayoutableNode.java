@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.layout;
 
@@ -61,18 +61,18 @@ public class SimpleLayoutableNode implements ILayoutableNode {
     private Map<org.modelio.bpmn.diagram.editor.layout.ILayoutableLink.AnchorDirection, List<ILayoutableLink>> outLinks = new HashMap<>();
 
     @objid ("66fd47b9-05e4-4c7a-ac55-29d193474705")
-    public  SimpleLayoutableNode(IDiagramNode nodeDG) {
+    public SimpleLayoutableNode(IDiagramNode nodeDG) {
         this.nodeDG = nodeDG;
         this.predecessors = new ArrayList<>();
         this.successors = new ArrayList<>();
         this.col = 0;
         this.row = 0;
-        
+
         for (AnchorDirection ad : AnchorDirection.values()) {
             this.inLinks.put(ad, new ArrayList<>(0));
             this.outLinks.put(ad, new ArrayList<>(0));
         }
-        
+
     }
 
     @objid ("41527c50-1380-4c0b-8344-9f1c81525a6c")
@@ -140,21 +140,21 @@ public class SimpleLayoutableNode implements ILayoutableNode {
         } else {
             this.nodeDG.setLocation(x, y);
         }
-        
+
         // Fix label coordinates
         if (this.nodeDG instanceof PortContainerDG) {
             PortContainerDG portContainer = (PortContainerDG) this.nodeDG;
             Rectangle containerBounds = portContainer.getBounds();
             Point containerCenter = containerBounds.getCenter();
-        
+
             for (IDiagramNode label : portContainer.getNodes(Role.LABEL)) {
                 Rectangle labelBounds = label.getBounds();
-        
+
                 // Make sure the label is not on the node
                 if (labelBounds.y < containerBounds.height) {
                     labelBounds.y = containerBounds.height;
                 }
-        
+
                 // Center label and node
                 Point labelCenter = labelBounds.getCenter();
                 if (labelCenter.x != containerCenter.x) {
@@ -163,7 +163,7 @@ public class SimpleLayoutableNode implements ILayoutableNode {
                 label.setLocation(labelBounds.x, labelBounds.y);
             }
         }
-        
+
     }
 
     @objid ("19ce9a07-690c-4198-9006-117341079768")

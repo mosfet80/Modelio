@@ -1,0 +1,45 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= Eléments documentaires
+
+
+L'une des qualités essentielles d'un modèle est sa lisibilité, et cela reste vrai après l'élaboration du modèle, lors des phases de maintenance et d'évolutions, alors que les partie-prenantes ont presque tout oublié de la raison d'être du modèle.
+
+Parmi les informations qui aident à la compréhension d'un modèle, on trouve évidemment les diagrammes dont la présentation normalisée permet leur lecture par tous les intervenants entrainés. A cela s'ajoutent des notes de description ou des annotations similaires, qui aident à clarifier le modèle.
+
+Appelons ces éléments des éléments documentaires pour les distinguer des documents qui sont soit de vrais documents (fichiers word, fichiers excel, fichiers d'image, etc.), soit, dans le contexte de Document Publisher, des configurations de génération de documentation (contenu, plan-types, feuilles de style, etc.).
+
+Les éléments documentaires sont dits relatifs à un élément de modèle, c'est à dire qu'un élément documentaire aide à la compréhension d'un élément de modèle.
+
+Les éléments documentaires comme les diagrammes et les notes de description sont eux-même des éléments de modèle et sont stockés dans le modèle. Ce sont des éléments documentaires internes. Une de leurs propriétés importantes est que leur cycle de vie est aligné sur celui de l'élément de modèle qu'ils documentent, et le lien qui les lie à cet élément ne peut être perdu.
+
+Cependant, ces éléments documentaires internes ne sont pas toujours suffisants.
+
+Au cours de l'élaboration du modèle, des décisions sont prises concernant la conception. Celles-ci sont parfois exprimées en langage naturel et ne sont pas toujours modélisées. Dans le pire des cas, elles ne sont même pas écrites ou stockées quelque part, et finissent par disparaître. Quand elles sont documentées, elles sont souvent archivées en dehors du modèle et sont, de fait, déconnectées de son cycle de vie. On peut ainsi parfois oublier jusqu'à leur existence, ce qui peut rendre difficiles les phases de maintenance.
+
+*Exemples d'éléments documentaires pour un Package:*
+
+* Notes de description notes _(interne)_
+* Diagrammes _(interne)_
+* Notes de conception, notes de réunions _(externe. ex: documents word, e-mail, etc.)_
+* Croquis de prototype d'interface _(externe)_
+* Page HTML, Page Wiki _(externe)_
+
+Modelio peut afficher et gérer les liens entre les éléments de modèle et les documents externes qui sont appelés éléments documentaire externes. +
+La vue Document est la vue de Modelio qui permet de gérer tous les éléments documentaires liés à un élément de modèle donné.
+
+La vue Document est synchronisée avec la sélection courante dans l'outil. Cela signifie que la vue est automatiquement rafraîchie lorsque la sélection change, ce qui fait d'elle une vue dynamique qui montre immédiatement les éléments documentaires disponibles pour l'élément de modèle sélectionné.
+
+La vue Document supporte les fonctionnalités suivantes :
+
+* affichage de la liste des éléments documentaires liés à l'élément de modèle sélectionné
+* affichage d'un aperçu du contenu de l'élément documentaire sélectionné lorsque c'est possible (l'aperçu n'est qu'une approximation dans le cas de certains formats)
+* création de nouveaux éléments documentaires
+* édition des éléments documentaires (lorsque c'est possible)
+
+A l'instar de la plupart de vues de Modelio, elle peut être affichée ou masquée à tout moment.

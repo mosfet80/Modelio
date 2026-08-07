@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.rootElements;
 
 import java.util.List;
@@ -32,23 +31,23 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 
 @objid ("00783e94-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class BpmnBaseElementData extends ModelElementData {
-    @objid ("663b17b3-1e53-4620-a7bd-1e6776912889")
+    @objid ("57c15ef0-23f5-43c8-a5e3-b9716c29e479")
     List<SmObjectImpl> mOutgoingAssoc = null;
 
-    @objid ("8ba84ea7-cd4c-4dc8-9e22-e375b3f3f16e")
+    @objid ("66730a68-5bae-49fa-a22f-b918f2791ee1")
     List<SmObjectImpl> mIncomingAssoc = null;
 
-    @objid ("498f09f6-3cb1-493e-8491-9a230c6d46f0")
+    @objid ("3399aecd-aec4-4542-8b4a-4c93f0a2ee78")
     List<SmObjectImpl> mIncomingFlow = null;
 
-    @objid ("d2a80303-c0ed-4251-ac5a-9c7d1f0c8e68")
+    @objid ("88d4ab97-55e6-4746-aaaf-a234077b76f4")
     List<SmObjectImpl> mOutgoingFlow = null;
 
-    @objid ("d9c5c3c4-28a2-4bd2-bcbf-7599d663d50d")
+    @objid ("23cb182f-6268-47c7-a22e-38028eb0bc1e")
     List<SmObjectImpl> mPartitionedLaneRefs = null;
 
-    @objid ("1364e239-5011-4d3d-8b16-40412c6278e3")
-    public  BpmnBaseElementData(BpmnBaseElementSmClass smClass) {
+    @objid ("6ba4eba0-053b-44eb-b273-57c6a371400e")
+    public BpmnBaseElementData(BpmnBaseElementSmClass smClass) {
         super(smClass);
     }
 

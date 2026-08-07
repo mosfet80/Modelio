@@ -1,26 +1,46 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.model.property.stereotype.creator;
 
 import java.nio.file.Path;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 
 @objid ("81efb0e0-c64f-41dd-925d-84f74ce8b57c")
@@ -52,8 +72,12 @@ class StereotypeEditionDataModel {
     @objid ("f313f9ec-a377-4d70-a02d-47b6fdb401dc")
     private Path localPath;
 
+    @objid ("a445926c-44a2-4ad3-8ee8-7222d46ac353")
+    private Profile profile;
+
     /**
      * Set the stereotype name.
+     *
      * @param stereotypeName the stereotype name to set
      */
     @objid ("33efaed3-492f-42f2-905c-865cbf657dc7")
@@ -63,6 +87,7 @@ class StereotypeEditionDataModel {
 
     /**
      * Get the stereotype name.
+     *
      * @return the stereotype name
      */
     @objid ("668a1b70-ed00-473b-81b1-0b6d13cb8a26")
@@ -72,12 +97,13 @@ class StereotypeEditionDataModel {
 
     /**
      * Default constructor.
+     *
      * @param metaclassName the metaclass the stereotype should apply to.
      * @param editedStereotype <code>true</code> if this model is used to create a new stereotype, <code>false</code> to edit an existing stereotype.
      * @param runtimePath the path in the project to create the stereotype in.
      */
     @objid ("ffef2852-2f3e-4736-9031-ad10221d467c")
-    public  StereotypeEditionDataModel(String metaclassName, Stereotype editedStereotype, Path runtimePath) {
+    public StereotypeEditionDataModel(String metaclassName, Stereotype editedStereotype, Path runtimePath) {
         super();
         this.metaclassName = metaclassName;
         this.editedStereotype = editedStereotype;
@@ -86,11 +112,11 @@ class StereotypeEditionDataModel {
             this.iconName = editedStereotype.getIcon();
             this.imageName = editedStereotype.getImage();
         }
-        
     }
 
     /**
      * Set the metaclass name.
+     *
      * @param metaclassName the metaclassName to set
      */
     @objid ("d3fc0d4f-4f69-4759-975a-40abb6ba8b96")
@@ -100,6 +126,7 @@ class StereotypeEditionDataModel {
 
     /**
      * Get the metaclass name.
+     *
      * @return the metaclassName
      */
     @objid ("a6b2927a-4451-40da-94e9-a7eb28e989a2")
@@ -107,7 +134,18 @@ class StereotypeEditionDataModel {
         return this.metaclassName;
     }
 
+    @objid ("3a618ee9-4927-4635-8c8d-6fbf4b50ec16")
+    public Profile getProfile() {
+        return this.profile;
+    }
+
+    @objid ("b3115593-c540-49f9-87c1-14a2ced9ad43")
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
+
     /**
+     *
      * @param diagramImage the diagramImage to set
      */
     @objid ("481e1060-5934-454e-b4bf-d9739cc61a90")
@@ -116,6 +154,7 @@ class StereotypeEditionDataModel {
     }
 
     /**
+     *
      * @return the diagramImage
      */
     @objid ("42798417-8942-47d8-93d3-eb6d1c78ec52")
@@ -124,6 +163,7 @@ class StereotypeEditionDataModel {
     }
 
     /**
+     *
      * @param explorerIcon the explorerIcon to set
      */
     @objid ("b3aa51f8-7114-4f6e-90fe-968921691722")
@@ -132,6 +172,7 @@ class StereotypeEditionDataModel {
     }
 
     /**
+     *
      * @return the explorerIcon
      */
     @objid ("e5854afd-e50b-4af1-810f-1137b168ddb6")
@@ -140,6 +181,7 @@ class StereotypeEditionDataModel {
     }
 
     /**
+     *
      * @return the applyStereotype
      */
     @objid ("3b565b69-94f7-4e0e-b971-9328b3dc8a2a")
@@ -148,6 +190,7 @@ class StereotypeEditionDataModel {
     }
 
     /**
+     *
      * @param applyStereotype the applyStereotype to set
      */
     @objid ("8cf78a27-2bd9-4365-8a7b-b4e8629d58a9")
@@ -176,7 +219,6 @@ class StereotypeEditionDataModel {
             setDiagramImage("");
         }
         this.imageName = imagePath;
-        
     }
 
     @objid ("4b832a20-94b2-47f9-81d4-0c8a74c228c8")
@@ -190,7 +232,6 @@ class StereotypeEditionDataModel {
             setExplorerIcon("");
         }
         this.iconName = iconPath;
-        
     }
 
     @objid ("6993b557-9f7d-426a-91dd-9f114a69586a")

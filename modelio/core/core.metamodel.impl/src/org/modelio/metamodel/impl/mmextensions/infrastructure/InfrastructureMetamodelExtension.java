@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.mmextensions.infrastructure;
 
@@ -41,7 +41,7 @@ import org.modelio.vcore.session.api.ICoreSession;
  * Infrastructure Modelio metamodel extension.
  * <p>
  * This should be added to any session.
- * 
+ *
  * @author cmarin
  * @since 3.6
  */
@@ -51,7 +51,7 @@ public class InfrastructureMetamodelExtension extends AbstractGMetamodelExtensio
      * Initialize the metamodel extension.
      */
     @objid ("1d90a5da-c3c3-4849-bcc7-2249dd529dbc")
-    public  InfrastructureMetamodelExtension() {
+    public InfrastructureMetamodelExtension() {
         super(InfrastructureMetamodelFragment.getInstance());
     }
 
@@ -89,9 +89,9 @@ public class InfrastructureMetamodelExtension extends AbstractGMetamodelExtensio
     @Override
     public void register(ICoreSession session) {
         super.register(session);
-        
+
         session.getBlobSupport().addBlobProvider(new InfrastructureMmBlobProvider());
-        
+
     }
 
     @objid ("48f1942e-ae29-44e7-bafa-01b5be2c23db")
@@ -103,7 +103,7 @@ public class InfrastructureMetamodelExtension extends AbstractGMetamodelExtensio
         } else {
             return super.createExtension(service, session);
         }
-        
+
     }
 
 }

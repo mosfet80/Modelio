@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.usecasediagram.editor.elements.usecase;
 
@@ -46,24 +46,24 @@ public class GmExtensionPointGroup extends GmGroup {
     private static final int MAJOR_VERSION = 0;
 
     @objid ("5e57eba4-55b7-11e2-877f-002564c97630")
-    public  GmExtensionPointGroup() {
+    public GmExtensionPointGroup() {
         super();
     }
 
     @objid ("5e57eba7-55b7-11e2-877f-002564c97630")
-    public  GmExtensionPointGroup(IGmDiagram diagram, MRef relatedRef) {
+    public GmExtensionPointGroup(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
         refreshFromObModel();
-        
+
     }
 
     @objid ("5e57ebb0-55b7-11e2-877f-002564c97630")
     @Override
     public void addChild(GmNodeModel toAdd) {
         super.addChild(toAdd);
-        
+
         fireVisibilityChanged();
-        
+
     }
 
     @objid ("5e57ebb6-55b7-11e2-877f-002564c97630")
@@ -95,12 +95,12 @@ public class GmExtensionPointGroup extends GmGroup {
     @Override
     public void refreshFromObModel() {
         super.refreshFromObModel();
-        
+
         final UseCase useCase = getRelatedElement();
         if (useCase == null || !useCase.isValid()) {
             return;
         }
-        
+
         final StyleKey.UmaskByVisibilityStragegy mode = this.getDisplayedStyle().getProperty(GmUseCaseStructuredStyleKeys.FEATURES);
         switch (mode) {
             case ALL:
@@ -110,7 +110,7 @@ public class GmExtensionPointGroup extends GmGroup {
                     }
                 }
                 break;
-        
+
             case ALL_PUBLIC:
                 for (ExtensionPoint part : useCase.getOwnedExtension(ExtensionPoint.class)) {
                     if ((part.getVisibility() == VisibilityMode.PUBLIC) &&
@@ -119,7 +119,7 @@ public class GmExtensionPointGroup extends GmGroup {
                     }
                 }
                 break;
-        
+
             case ALL_NON_PRIVATE:
                 for (ExtensionPoint part : useCase.getOwnedExtension(ExtensionPoint.class)) {
                     if ((part.getVisibility() != VisibilityMode.PRIVATE) &&
@@ -133,21 +133,21 @@ public class GmExtensionPointGroup extends GmGroup {
                 // unmask or hide nothing.
                 break;
         }
-        
+
     }
 
     @objid ("5e597243-55b7-11e2-877f-002564c97630")
     @Override
     public void removeChild(GmNodeModel child) {
         super.removeChild(child);
-        
+
         // Hide the group when the last child is removed
         if (!hasChildren()) {
             this.isVisible = false;
         }
-        
+
         fireVisibilityChanged();
-        
+
     }
 
     @objid ("5e597249-55b7-11e2-877f-002564c97630")
@@ -160,7 +160,7 @@ public class GmExtensionPointGroup extends GmGroup {
         } else {
             super.styleChanged(property, newValue);
         }
-        
+
     }
 
     @objid ("5e597250-55b7-11e2-877f-002564c97630")
@@ -169,7 +169,7 @@ public class GmExtensionPointGroup extends GmGroup {
         refreshFromObModel();
         fireVisibilityChanged();
         super.styleChanged(style);
-        
+
     }
 
     @objid ("5e597256-55b7-11e2-877f-002564c97630")
@@ -177,7 +177,7 @@ public class GmExtensionPointGroup extends GmGroup {
     protected void doSetVisible(boolean visible) {
         getDisplayedStyle().setProperty(GmUseCaseStructuredStyleKeys.EXTENSIONPOINTGROUPVISIBLE, visible);
         this.isVisible = visible;
-        
+
     }
 
     @objid ("5e59725a-55b7-11e2-877f-002564c97630")
@@ -187,14 +187,14 @@ public class GmExtensionPointGroup extends GmGroup {
         if (!(el instanceof ExtensionPoint) || !el.isValid()) {
             return false;
         }
-        
+
         // Cannot unmask a foreign extension point (not belonging to the use case)
         if (!el.getCompositionOwner().equals(this.getRelatedElement())) {
             return false;
         }
-        
+
         final ExtensionPoint ext = (ExtensionPoint) el;
-        
+
         // Cannot unmask an attribute whose visibility does not match the current visualisation options.
         StyleKey.UmaskByVisibilityStragegy unmaskmode = getDisplayedStyle().getProperty(GmUseCaseStructuredStyleKeys.FEATURES);
         switch (unmaskmode) {
@@ -209,7 +209,7 @@ public class GmExtensionPointGroup extends GmGroup {
             default:
                 return false;
         }
-        
+
     }
 
     @objid ("5e597263-55b7-11e2-877f-002564c97630")
@@ -221,7 +221,7 @@ public class GmExtensionPointGroup extends GmGroup {
             return;
         }
         boolean hasHiddenFeature = false;
-        
+
         switch (mode) {
             case ALL:
                 break;
@@ -245,9 +245,9 @@ public class GmExtensionPointGroup extends GmGroup {
             default:
                 break;
         }
-        
+
         setHiddenFeature(hasHiddenFeature);
-        
+
     }
 
     @objid ("5e597266-55b7-11e2-877f-002564c97630")
@@ -267,17 +267,17 @@ public class GmExtensionPointGroup extends GmGroup {
                 break;
             }
         }
-        
+
     }
 
     @objid ("5e59726c-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmExtensionPointGroup.", GmExtensionPointGroup.MINOR_VERSION);
-        
+
     }
 
     @objid ("5e597272-55b7-11e2-877f-002564c97630")

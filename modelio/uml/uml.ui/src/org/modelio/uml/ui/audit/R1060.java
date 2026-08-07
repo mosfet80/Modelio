@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -45,7 +45,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * Checks that an ActivityParameterNode with outgoing edges represents a BehaviourParameter that has either 'in' or 'inout' as passing mode.
- * 
+ *
  * @author fpoyer
  */
 @objid ("5a8469eb-cecf-4531-aa40-b0383b3e65aa")
@@ -55,7 +55,7 @@ public class R1060 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -79,15 +79,15 @@ public class R1060 extends AbstractUmlRule {
         // - the represented behaviour parameter changes
         // (RepresentedRealParameter dependency).
         plan.registerRule(ActivityParameterNode.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
-        
+
         // Needed for:
         // - the behaviour parameter's passing mode changes (ParameterPassing
         // attribute)
         plan.registerRule(BehaviorParameter.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         plan.registerRule(ControlFlow.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE | AuditTrigger.UPDATE);
         plan.registerRule(ObjectFlow.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE | AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -121,7 +121,7 @@ public class R1060 extends AbstractUmlRule {
      * Default constructor for R1060
      */
     @objid ("fe8b16be-2126-40df-a181-d43885fec3f5")
-    public  R1060() {
+    public R1060() {
         this.checkerInstance = new CheckR1060(this);
     }
 
@@ -132,10 +132,11 @@ public class R1060 extends AbstractUmlRule {
     private static class CheckR1060 extends AbstractControl {
         /**
          * C'tor.
+         *
          * @param rule the rule to check.
          */
         @objid ("8bf48a47-8e0e-4d78-831e-755f1f0b066e")
-        public  CheckR1060(IRule rule) {
+        public CheckR1060(IRule rule) {
             super(rule);
         }
 
@@ -161,7 +162,7 @@ public class R1060 extends AbstractUmlRule {
         @objid ("74cabc09-2932-4b46-be37-71c08191e8e6")
         private IAuditEntry checkR1060(ActivityParameterNode node) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, node, null);
-            
+
             // If the activity parameter node has outgoing edges, then it must
             // represent a behaviour parameter which passing mode must be either
             // IN or INOUT.
@@ -185,14 +186,14 @@ public class R1060 extends AbstractUmlRule {
         @objid ("f8ed8395-8fb3-4708-a27a-c3002e38d473")
         private List<IAuditEntry> checkR1060(ActivityEdge edge) {
             List<IAuditEntry> auditentries = new ArrayList<>();
-            
+
             ActivityNode source = edge.getSource();
             ActivityNode target = edge.getTarget();
-            
+
             if (source instanceof ActivityParameterNode) {
                 auditentries.add(checkR1060((ActivityParameterNode) source));
             }
-            
+
             if (target instanceof ActivityParameterNode) {
                 auditentries.add(checkR1060((ActivityParameterNode) target));
             }

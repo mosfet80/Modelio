@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.project.services;
 
@@ -31,7 +31,7 @@ import org.modelio.vcore.smkernel.mapi.MetamodelVersionDescriptor;
 
 /**
  * Contributor to metamodel migration of model fragments.
- * 
+ *
  * @author cma
  * @since 3.7
  */
@@ -42,6 +42,7 @@ public interface IFragmentMigrationContributor {
      * <p>
      * The fragment is mount, and you need to open a transaction if you need to modify the model.
      * the project is accessible with IGModelFragment#get
+     *
      * @param monitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility
      * to call done() on the given monitor. Accepts <i>null</i>, indicating that no progress should be
      * reported and that the operation cannot be cancelled.
@@ -59,10 +60,11 @@ public interface IFragmentMigrationContributor {
      * Get the target Modelio version this migrator is made for.
      * <p>
      * It will be used as key to sort migration contributors.
+     *
      * @return the target Modelio version this migrator is made for.
      * @since 5.4.1 26/10/2023
      */
     @objid ("cd431ed9-c1d1-45c5-a43c-7dace27550cd")
     Version getTargetModelioVersion();
-}
 
+}

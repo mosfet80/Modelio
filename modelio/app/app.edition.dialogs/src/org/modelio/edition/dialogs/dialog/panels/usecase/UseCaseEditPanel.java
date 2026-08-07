@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.edition.dialogs.dialog.panels.usecase;
 
@@ -23,7 +23,7 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import org.eclipse.e4.core.di.annotations.Creatable;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.viewers.ISelection;
@@ -105,7 +105,7 @@ public class UseCaseEditPanel implements IPanelProvider {
         this.toolkit = new FormToolkit(parent.getDisplay());
         this.toolkit.setBorderStyle(SWT.BORDER);
         this.form = this.toolkit.createScrolledForm(parent);
-        
+
         // The top level scrolled form layout
         final GridLayout layout = new GridLayout(1, true);
         layout.horizontalSpacing = 0;
@@ -150,7 +150,7 @@ public class UseCaseEditPanel implements IPanelProvider {
         } else {
             return obj instanceof UseCase;
         }
-        
+
     }
 
     @objid ("2891b980-cddb-420c-8674-7f9d7e0add5f")
@@ -164,7 +164,7 @@ public class UseCaseEditPanel implements IPanelProvider {
         } else {
             newInput = null;
         }
-        
+
         // Bad input, clear all
         if (newInput == null) {
             this.uc = null;
@@ -174,20 +174,20 @@ public class UseCaseEditPanel implements IPanelProvider {
             this.uc = null;
             return;
         }
-        
+
         // Input is a valid UseCase
         // Create fields only if first time, or fields are already disposed
         final boolean firstTime = (this.uc == null);
         final boolean isDisposed = (this.name != null && this.name.getControl().isDisposed());
         this.uc = newInput;
-        
+
         if (firstTime || isDisposed) {
             createFormFields(this.form.getBody());
             // this.form.getShell().pack(true);
             PropertyChangeListener listener = (ev) -> {
                 IField f = (IField) ev.getSource();
                 String err = f.getValidationError() ;
-            
+
                 // Save the field value in the model if it is valid.
                 // If invalid, reset the field to the value in model.
                 if (err == null) {
@@ -195,30 +195,30 @@ public class UseCaseEditPanel implements IPanelProvider {
                 } else {
                     f.refresh();
                 }
-                
+
                 if (err == null) {
                     this.form.getMessageManager().removeMessages(f.getControl());
                 } else {
                     this.form.getMessageManager().addMessage(f, err, null, IMessageProvider.ERROR, f.getControl());
                 }
             };
-            
+
             for (IField f : this.fields) {
                 f.addPropertyChangeListener(listener);
             }
         }
-        
+
         this.form.setText(this.uc.getName());
-        
+
         // update();
-        
+
     }
 
     @objid ("5e03ab04-4672-4d24-a76d-0ea6de3478a8")
     void createFormFields(Composite comp) {
         // The fields
         this.fields.clear();
-        
+
         // Name
         IFormFieldData data = new UseCaseFieldData(this.uc, UseCaseFieldData.FieldID.NAME);
         this.name = new StringField(this.toolkit, comp, data);
@@ -226,33 +226,33 @@ public class UseCaseEditPanel implements IPanelProvider {
         this.name.setHelpText(EditionDialogs.I18N.getString("UseCaseEditPanel.ucName.help"));
         this.name.setVertical(false);
         this.fields.add(this.name);
-        
+
         final CTabFolder folder = new CTabFolder(comp, SWT.BORDER | SWT.TOP);
         folder.setTabHeight(-1);
         final GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
         gd.verticalIndent = 8;
         folder.setLayoutData(gd);
-        
+
         // Description
         final CTabItem tab1 = new CTabItem(folder, SWT.NONE);
         tab1.setText(EditionDialogs.I18N.getString("UseCaseEditPanel.UseCase.tab"));
-        
-        this.description = new NoteField(this.toolkit, folder, 
+
+        this.description = new NoteField(this.toolkit, folder,
                 new NoteFieldData(this.genericModuleContext.getModelingSession(), this.uc, "ModelerModule", "description"));
-        
+
         final GridData ld_description = new GridData(SWT.FILL, SWT.FILL, true, true);
         ld_description.widthHint = 600;
         this.description.getComposite().setLayoutData(ld_description);
         this.description.setHelpText(EditionDialogs.I18N.getString("UseCaseEditPanel.ucDescription.help"));
         this.description.setVertical(true);
         this.fields.add(this.description);
-        
+
         tab1.setControl(this.description.getComposite());
-        
+
         // Exceptions
         final CTabItem tab2 = new CTabItem(folder, SWT.NONE);
         tab2.setText(EditionDialogs.I18N.getString("UseCaseEditPanel.Exceptions.tab"));
-        
+
         // Intermediate composites are needed to avoid layout issues when one or several fields have a lot of text...
         final Composite exceptionGroup = new Composite(folder, SWT.NONE);
         GridLayout gl = new GridLayout();
@@ -261,11 +261,11 @@ public class UseCaseEditPanel implements IPanelProvider {
         gl.marginWidth = 0;
         gl.verticalSpacing = 0;
         exceptionGroup.setLayout(gl);
-        
+
         final GridData ld_exceptionGroup = new GridData(SWT.FILL, SWT.FILL, true, true);
         ld_exceptionGroup.widthHint = 600;
         exceptionGroup.setLayoutData(ld_exceptionGroup);
-        
+
         // exceptions field
         data = new UseCaseFieldData(this.uc, UseCaseFieldData.FieldID.EXCEPTIONS);
         this.exceptions = new TextField(this.toolkit, exceptionGroup, data);
@@ -275,13 +275,13 @@ public class UseCaseEditPanel implements IPanelProvider {
         this.exceptions.setHelpText(EditionDialogs.I18N.getString("UseCaseEditPanel.ucExceptions.help"));
         this.exceptions.setVertical(true);
         this.fields.add(this.exceptions);
-        
+
         tab2.setControl(exceptionGroup);
-        
+
         // Conditions
         final CTabItem tab3 = new CTabItem(folder, SWT.NONE);
         tab3.setText(EditionDialogs.I18N.getString("UseCaseEditPanel.Conditions.tab"));
-        
+
         final Composite conditionsGroup = new Composite(folder, SWT.NONE);
         GridLayout gl2 = new GridLayout();
         gl2.horizontalSpacing = 0;
@@ -289,11 +289,11 @@ public class UseCaseEditPanel implements IPanelProvider {
         gl2.marginWidth = 0;
         gl2.verticalSpacing = 0;
         conditionsGroup.setLayout(gl2);
-        
+
         final GridData ld_conditionsGroup = new GridData(SWT.FILL, SWT.FILL, true, true);
         ld_conditionsGroup.widthHint = 600;
         conditionsGroup.setLayoutData(ld_conditionsGroup);
-        
+
         // pre-conditions field
         data = new UseCaseFieldData(this.uc, UseCaseFieldData.FieldID.PRECOND);
         this.preConditions = new TextField(this.toolkit, conditionsGroup, data);
@@ -303,7 +303,7 @@ public class UseCaseEditPanel implements IPanelProvider {
         this.preConditions.setVertical(true);
         this.preConditions.setHelpText(EditionDialogs.I18N.getString("UseCaseEditPanel.ucPreConditions.help"));
         this.fields.add(this.preConditions);
-        
+
         // post-conditions field
         data = new UseCaseFieldData(this.uc, UseCaseFieldData.FieldID.POSTCOND);
         this.postConditions = new TextField(this.toolkit, conditionsGroup, data);
@@ -313,13 +313,13 @@ public class UseCaseEditPanel implements IPanelProvider {
         this.postConditions.setHelpText(EditionDialogs.I18N.getString("UseCaseEditPanel.ucPostConditions.help"));
         this.postConditions.setVertical(true);
         this.fields.add(this.postConditions);
-        
+
         tab3.setControl(conditionsGroup);
-        
+
         // Constraints
         final CTabItem tab4 = new CTabItem(folder, SWT.NONE);
         tab4.setText(EditionDialogs.I18N.getString("UseCaseEditPanel.Constraints.tab"));
-        
+
         final Composite constraintsGroup = new Composite(folder, SWT.NONE);
         gl2 = new GridLayout();
         gl2.horizontalSpacing = 0;
@@ -327,11 +327,11 @@ public class UseCaseEditPanel implements IPanelProvider {
         gl2.marginWidth = 0;
         gl2.verticalSpacing = 0;
         constraintsGroup.setLayout(gl2);
-        
+
         final GridData ld_constraintsGroup = new GridData(SWT.FILL, SWT.FILL, true, true);
         ld_constraintsGroup.widthHint = 600;
         constraintsGroup.setLayoutData(ld_constraintsGroup);
-        
+
         // functional constraints field
         data = new UseCaseFieldData(this.uc, UseCaseFieldData.FieldID.CONSTRAINTS);
         this.constraints = new TextField(this.toolkit, constraintsGroup, data);
@@ -341,7 +341,7 @@ public class UseCaseEditPanel implements IPanelProvider {
         this.constraints.setHelpText(EditionDialogs.I18N.getString("UseCaseEditPanel.ucConstraints.help"));
         this.constraints.setVertical(true);
         this.fields.add(this.constraints);
-        
+
         // non-functional constraints field
         data = new UseCaseFieldData(this.uc, UseCaseFieldData.FieldID.NFCONSTRAINTS);
         this.nonFuncConstraints = new TextField(this.toolkit, constraintsGroup, data);
@@ -352,12 +352,12 @@ public class UseCaseEditPanel implements IPanelProvider {
         this.nonFuncConstraints.setVertical(true);
         this.fields.add(this.nonFuncConstraints);
         tab4.setControl(constraintsGroup);
-        
+
         folder.setSelection(tab1);
-        
+
         this.form.reflow(true);
         // this.form.layout(true, true);
-        
+
     }
 
     @objid ("70457223-567d-483e-baea-09645de35596")
@@ -380,7 +380,7 @@ public class UseCaseEditPanel implements IPanelProvider {
             this.nonFuncConstraints.getModel().setValue("");
         }
         setReadOnly();
-        
+
     }
 
     @objid ("5d7cc02e-9cd2-4fba-8b52-daeb04394873")
@@ -393,11 +393,12 @@ public class UseCaseEditPanel implements IPanelProvider {
         this.exceptions.setEditable(editable);
         this.constraints.setEditable(editable);
         this.nonFuncConstraints.setEditable(editable);
-        
+
     }
 
     /**
      * E4 Constructor.
+     *
      * @param genericModulecontext a generic module context
      * @param projectService the project service
      */
@@ -406,7 +407,7 @@ public class UseCaseEditPanel implements IPanelProvider {
     void postConstruct(ICurrentProjectService projectService, IModuleContext genericModuleContext) {
         this.projectService = projectService;
         this.genericModuleContext = genericModuleContext;
-        
+
     }
 
     @objid ("7f68bbb7-2451-4d96-9ddd-4c6ff66e06e1")
@@ -418,10 +419,10 @@ public class UseCaseEditPanel implements IPanelProvider {
         private final UseCase uc;
 
         @objid ("6541a1cf-f92d-4dcf-ab16-316e6a714e5f")
-        public  UseCaseFieldData(UseCase uc, FieldID fid) {
+        public UseCaseFieldData(UseCase uc, FieldID fid) {
             this.uc = uc;
             this.fid = fid;
-            
+
         }
 
         @objid ("10c16a17-f479-4e2f-96a0-199dfcf43bc0")
@@ -430,7 +431,7 @@ public class UseCaseEditPanel implements IPanelProvider {
             if (this.uc == null || this.uc.isModifiable() == false) {
                 return;
             }
-            
+
             try (ITransaction t = CoreSession.getSession(this.uc).getTransactionSupport().createTransaction("")) {
                 switch (this.fid) {
                 case NAME:
@@ -456,13 +457,13 @@ public class UseCaseEditPanel implements IPanelProvider {
                     break;
                 default:
                     break;
-            
+
                 }
                 t.commit();
             } catch (final ExtensionNotFoundException e) {
                 EditionDialogs.LOG.error(e);
             }
-            
+
         }
 
         @objid ("f6b0a2c3-20ae-4fe9-9147-4bf791dac8af")
@@ -486,7 +487,7 @@ public class UseCaseEditPanel implements IPanelProvider {
             default:
                 return this.fid.toString();
             }
-            
+
         }
 
         @objid ("86f6a895-cf77-4f11-aca8-ac3d15e91239")
@@ -509,9 +510,9 @@ public class UseCaseEditPanel implements IPanelProvider {
                 return EditionDialogs.I18N.getString("UseCaseEditPanel.ucPreConditions");
             default:
                 return this.fid.toString();
-            
+
             }
-            
+
         }
 
         @objid ("7df9713a-7ae9-4f6d-8c1f-9508cca4e825")
@@ -522,18 +523,18 @@ public class UseCaseEditPanel implements IPanelProvider {
                                         public String getName() {
                                             return UseCaseFieldData.this.fid.toString();
                                         }
-                        
+
                                         @Override
                                         public Object[] getEnumeratedValues() {
                                             return null;
                                         }
-                        
+
                                         @Override
                                         public boolean isValidValue(String value) {
                                             return value != null;
                                         }
                                     };
-            
+
         }
 
         //

@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.vstore.exml.resource;
 
@@ -41,6 +60,7 @@ public class ExmlRepositoryGeometry1 implements IExmlRepositoryGeometry {
 
     /**
      * Get the EXML file local path of an element reference relative to the project space.
+     *
      * @param ref an element reference.
      * @return the EXML file path relative to the project space directory.
      */
@@ -51,6 +71,7 @@ public class ExmlRepositoryGeometry1 implements IExmlRepositoryGeometry {
 
     /**
      * Get the element reference representing the given file.
+     *
      * @param exmlFile an EXML file
      * @return the represented element reference.
      */
@@ -59,7 +80,7 @@ public class ExmlRepositoryGeometry1 implements IExmlRepositoryGeometry {
     public MRef getObRef(final String exmlFile) {
         // Guess with errors in the metaclass
         String extName = GeometryUtils.getFileName(exmlFile);
-        return new MRef(GeometryUtils.getParentFileName(exmlFile), 
+        return new MRef(GeometryUtils.getParentFileName(exmlFile),
                                                         extName.substring(0, extName.lastIndexOf(EXT_EXML)));
     }
 
@@ -68,6 +89,7 @@ public class ExmlRepositoryGeometry1 implements IExmlRepositoryGeometry {
      * <p>
      * The answer is based on the file extension.
      * Returns <i>false</i> if it is a {@link IExmlRepositoryGeometry#EXT_LOCAL_EXML ".local.exml"} file.
+     *
      * @param relativePath a file
      * @return <i>true</i> if it is an EXML file, else <i>false</i>.
      */
@@ -119,6 +141,7 @@ public class ExmlRepositoryGeometry1 implements IExmlRepositoryGeometry {
     }
 
     /**
+     *
      * @param qname a metaclass name, qualified or not
      * @return the simple name of the qualified metaclass name.
      */
@@ -130,11 +153,11 @@ public class ExmlRepositoryGeometry1 implements IExmlRepositoryGeometry {
         } else {
             return qname.substring(i+1);
         }
-        
     }
 
     /**
      * Get the directory name where the metaclass instances are stored.
+     *
      * @param cls a metaclass
      * @return its directory name.
      */
@@ -159,13 +182,13 @@ public class ExmlRepositoryGeometry1 implements IExmlRepositoryGeometry {
     @Override
     public Collection<String> getInitialDirectories(MMetamodel metamodel) {
         Collection<String> ret = new ArrayList<>(600);
-        
+
         // Administration directory
         ret.add(ADMIN_DIRNAME);
-        
+
         // Add "model" directory
         ret.add(MODEL_DIRNAME);
-        
+
         // Add directory for each CMS node metaclass
         for (final MClass cmsNodeClass : metamodel.getRegisteredMClasses())
         {
@@ -173,10 +196,10 @@ public class ExmlRepositoryGeometry1 implements IExmlRepositoryGeometry {
                 ret.add(MODEL_DIRNAME+"/"+getMetaclassDirectoryName(cmsNodeClass));
             }
         }
-        
+
         // Add "blobs/*" directories
         ret.add(IExmlRepositoryGeometry.BLOBS_DIRNAME);
-        
+
         for (int i=0; i<256; i++) {
             ret.add((String.format("%s/%02x",IExmlRepositoryGeometry.BLOBS_DIRNAME, i)));
         }
@@ -187,6 +210,12 @@ public class ExmlRepositoryGeometry1 implements IExmlRepositoryGeometry {
     @Override
     public String getMetamodelDescriptorPath() {
         return MM_DESCRIPTOR_PATH;
+    }
+
+    @objid ("f9b737b8-d711-4c53-8872-337c3505a1dd")
+    @Override
+    public int getModelDirectoryLevels() {
+        return 1;
     }
 
 }

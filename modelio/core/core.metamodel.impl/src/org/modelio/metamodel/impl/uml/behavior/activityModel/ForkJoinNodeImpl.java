@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -41,31 +40,31 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0033e794-c4bf-1fd8-97fe-001ec947cd2a")
 public class ForkJoinNodeImpl extends ControlNodeImpl implements ForkJoinNode {
-    @objid ("795d5abe-e9a0-4e7b-a807-fc3f76211062")
+    @objid ("98580f5d-e946-4148-a4cb-b40723d9d579")
     @Override
     public boolean isIsCombineDuplicate() {
         return (Boolean) getAttVal(((ForkJoinNodeSmClass)getClassOf()).getIsCombineDuplicateAtt());
     }
 
-    @objid ("4ba26ae2-650b-4e29-83f8-8f531fdb3948")
+    @objid ("bcc21416-c8ea-4fd9-8c9c-143d0ff8e99b")
     @Override
     public void setIsCombineDuplicate(boolean value) {
         setAttVal(((ForkJoinNodeSmClass)getClassOf()).getIsCombineDuplicateAtt(), value);
     }
 
-    @objid ("23a2f397-f9f3-4957-911d-2fb2c85a139b")
+    @objid ("f5f1a71c-b255-498a-a8c7-7ee2439c81f3")
     @Override
     public String getJoinSpec() {
         return (String) getAttVal(((ForkJoinNodeSmClass)getClassOf()).getJoinSpecAtt());
     }
 
-    @objid ("77ad92ac-a2c0-4d0d-ae8f-857e78870028")
+    @objid ("52be9f5f-0daf-40ef-af39-fe34bbb0d2dc")
     @Override
     public void setJoinSpec(String value) {
         setAttVal(((ForkJoinNodeSmClass)getClassOf()).getJoinSpecAtt(), value);
     }
 
-    @objid ("146732a4-130d-41b0-9783-f823d44760dc")
+    @objid ("2db73cd1-ef88-48d2-a592-3b232d2b3e41")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -73,17 +72,17 @@ public class ForkJoinNodeImpl extends ControlNodeImpl implements ForkJoinNode {
         return super.getCompositionOwner();
     }
 
-    @objid ("859b3c44-cc67-4b25-ae97-47ca8f8ae967")
+    @objid ("bdd47d8a-0083-4963-b79d-5a05f4d381e8")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("7957efeb-a132-4c1f-ae04-fff1fc25315c")
+    @objid ("866cf0a9-ceb3-4b9c-8b71-6673bad30f6d")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitForkJoinNode(this);

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -40,10 +40,10 @@ public class EClearStructuralFeatureAction extends EActivityNode {
     }
 
     @objid ("db7ce6cc-7550-458f-9241-7d27c8acb875")
-    public  EClearStructuralFeatureAction(org.eclipse.uml2.uml.ClearStructuralFeatureAction element) {
+    public EClearStructuralFeatureAction(org.eclipse.uml2.uml.ClearStructuralFeatureAction element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("b4a16c13-4014-4360-b3a2-a57de2da1246")
@@ -51,24 +51,24 @@ public class EClearStructuralFeatureAction extends EActivityNode {
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setFeature((OpaqueAction) objingElt);
-        
+
     }
 
     @objid ("c3d18153-4016-4f8e-b618-b49e41c4d201")
     private void setFeature(OpaqueAction objingElt) {
         org.eclipse.uml2.uml.StructuralFeature feature = this.ecoreElement.getStructuralFeature();
-        
+
         if (feature != null) {
-        
+
             Object obBehavior = ReverseProperties.getInstance().getMappedElement(feature);
-        
+
             if ((obBehavior != null) && (obBehavior instanceof ModelElement)) {
-                Dependency dependency =  UML2StructuralFeatureReference.create().getElement();        
+                Dependency dependency =  UML2StructuralFeatureReference.create().getElement();
                 dependency.setDependsOn((ModelElement) obBehavior);
                 dependency.setImpacted(objingElt);
             }
         }
-        
+
     }
 
 }

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.modelio.lp.nl_fr"
+      label="LP fr - Open Source"
+      version="4.0.0"
+      provider-name="Modeliosoft">
+
+      <copyright>
+      Copyright 2019 Modeliosoft
+All information contained herein is, and remains the property of Modeliosoft.
+The intellectual and technical concepts contained herein are proprietary
+to Modeliosoft and may be covered by French and Foreign Patents, patents
+in process, and are protected by trade secret or copyright law.
+Dissemination of this information or reproduction of this material
+is strictly forbidden unless prior written permission is obtained
+from Modeliosoft.
+       </copyright>
+
+       <license url="">
+         Commercial
+       </license>
+
+       <url>
+          <discovery label="Modeliosoft" url="http://www.modeliosoft.com/"/>
+       </url>
+
+       <plugin id="org.eclipse.jface.nl_fr"               download-size="6" install-size="8" version="4.10.0.v20190126060001" unpack="false"/>
+       <plugin id="org.eclipse.ui.net.nl_fr"              download-size="2" install-size="3" version="4.10.0.v20190126060001" unpack="false"/>
+       <plugin id="org.eclipse.core.net.nl_fr"            download-size="2" install-size="1" version="4.10.0.v20190126060001" unpack="false"/>
+       <plugin id="org.eclipse.ui.nl_fr"                  download-size="6" install-size="22" version="4.10.0.v20190126060001" unpack="false"/>
+       <plugin id="org.eclipse.ui.ide.nl_fr"              download-size="39" install-size="132" version="4.10.0.v20190126060001" unpack="false"/>
+       <plugin id="org.eclipse.ui.ide.application.nl_fr"  download-size="1" install-size="2" version="4.10.0.v20190126060001" unpack="false"/>
+       <plugin id="org.eclipse.ui.forms.nl_fr"            download-size="2" install-size="2" version="4.10.0.v20190126060001" unpack="false"/>
+       <plugin id="org.eclipse.ui.intro.nl_fr"            download-size="3" install-size="5" version="4.10.0.v20190126060001" unpack="false"/>
+       <plugin id="org.eclipse.ui.intro.quicklinks.nl_fr" download-size="1" install-size="1" version="4.10.0.v20190126060001" unpack="false"/>
+       <plugin id="org.eclipse.ui.browser.nl_fr"          download-size="3" install-size="5" version="4.10.0.v20190126060001" unpack="false"/>
+       <plugin id="org.eclipse.ui.editors.nl_fr"          download-size="14" install-size="34" version="4.10.0.v20190126060001" unpack="false"/>
+       <plugin id="org.eclipse.ui.workbench.nl_fr"        download-size="29" install-size="71" version="4.10.0.v20190126060001" unpack="false"/>
+
+       <includes id="org.modelio.application.core.nl_fr" version="4.0.0" />
+       <includes id="org.modelio.application.perspective.nl_fr" version="4.0.0" />
+       <includes id="org.modelio.application.plugdule.nl_fr" version="4.0.0" />
+       <includes id="org.modelio.application.preferences.nl_fr" version="4.0.0" />
+       <includes id="org.modelio.application.project.nl_fr" version="4.0.0" />
+       <includes id="org.modelio.application.services.nl_fr" version="4.0.0" />
+       <includes id="org.modelio.application.ui.nl_fr" version="4.0.0" />
+       <includes id="org.modelio.application.welcome.nl_fr" version="4.0.0" />
+       <includes id="org.modelio.bundlefiles.nl_fr" version="4.0.0" />
+       <includes id="org.modelio.diagrams.auto.nl_fr" version="4.0.0" />
+       <includes id="org.modelio.diagrams.core.nl_fr" version="4.0.0" />
+       <includes id="org.modelio.documentation.modeler.nl_fr" version="4.0.0" />
+       <includes id="org.modelio.formalism.archimate.nl_fr" version="4.0.0" />
+       <includes id="org.modelio.formalism.bpmn.nl_fr" version="4.0.0" />
+       <includes id="org.modelio.formalism.uml.nl_fr" version="4.0.0" />
+       <includes id="org.modelio.functions.admintool.nl_fr" version="4.0.0" />
+       <includes id="org.modelio.functions.audit.nl_fr" version="4.0.0" />
+       <includes id="org.modelio.functions.editors.nl_fr" version="4.0.0" />
+       <includes id="org.modelio.functions.elementedition.nl_fr" version="4.0.0" />
+       <includes id="org.modelio.functions.fle.nl_fr" version="4.0.0" />
+       <includes id="org.modelio.functions.modelbrowser.nl_fr" version="4.0.0" />
+       <includes id="org.modelio.functions.modelimport.nl_fr" version="4.0.0" />
+       <includes id="org.modelio.functions.modules.nl_fr" version="4.0.0" />
+       <includes id="org.modelio.functions.patterns.nl_fr" version="4.0.0" />
+       <includes id="org.modelio.functions.script.nl_fr" version="4.0.0" />
+       <includes id="org.modelio.functions.search.nl_fr" version="4.0.0" />
+       <includes id="org.modelio.functions.update.nl_fr" version="4.0.0" />
+       <includes id="org.modelio.functions.xmi.nl_fr" version="4.0.0" />
+       <includes id="org.modelio.platform.libraries.nl_fr" version="4.0.0" />
+       <includes id="org.modelio.platform.nl_fr.feature" version="4.0.0" />
+</feature>

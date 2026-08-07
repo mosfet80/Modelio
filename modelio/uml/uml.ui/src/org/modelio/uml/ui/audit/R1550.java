@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -51,7 +51,7 @@ public class R1550 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(IElement)
      * @see AbstractRule#getUpdateControl(IElement)
      * @see AbstractRule#getMoveControl(IElementMovedEvent)
@@ -70,12 +70,12 @@ public class R1550 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         // Update the Base or the RepresentedFeature
         plan.registerRule(BindableInstance.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         // Update of the type of a possible RepresentedFeatures
         plan.registerRule(Attribute.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(AssociationEnd.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Port.MQNAME, this, AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -109,14 +109,14 @@ public class R1550 extends AbstractUmlRule {
      * Default constructor for R1550
      */
     @objid ("1637b6fa-20bf-4335-8498-fd5bcf4b9478")
-    public  R1550() {
+    public R1550() {
         this.checkerInstance = new CheckR1550(this);
     }
 
     @objid ("9d86bc47-e5b7-4da0-b9db-39edc7e79bdd")
     private static class CheckR1550 extends AbstractControl {
         @objid ("2a9a3a65-297a-4db5-8211-e36694b7ef77")
-        public  CheckR1550(IRule rule) {
+        public CheckR1550(IRule rule) {
             super(rule);
         }
 
@@ -141,11 +141,11 @@ public class R1550 extends AbstractUmlRule {
                     null);
             UmlModelElement modelElement = instance.getRepresentedFeature();
             NameSpace type = instance.getBase();
-            
+
             if (modelElement != null && type != null) {
-            
+
                 List<NameSpace> bindTypes = new ArrayList<>();
-            
+
                 if (modelElement instanceof Attribute) {
                     bindTypes.add(((Attribute) modelElement).getType());
                 } else if (modelElement instanceof AssociationEnd) {
@@ -154,12 +154,12 @@ public class R1550 extends AbstractUmlRule {
                 } else if (modelElement instanceof Port) {
                     bindTypes.add(((Port) modelElement).getBase());
                 }
-            
+
                 for (NameSpace ns : bindTypes) {
                     if (!type.equals(ns)) {
-            
+
                         // Rule failed
-            
+
                         auditEntry.setSeverity(this.rule.getSeverity());
                         List<Object> linkedObjects = new ArrayList<>();
                         linkedObjects.add(instance);
@@ -174,7 +174,7 @@ public class R1550 extends AbstractUmlRule {
         @objid ("b3c57f86-6b10-483d-aac1-466c73b698ef")
         private List<IAuditEntry> checkR1550(final UmlModelElement element) {
             List<IAuditEntry> auditEntries = new ArrayList<>();
-            
+
             for (BindableInstance bi : element.getRepresentingInstance()) {
                 auditEntries.add(checkR1550(bi));
             }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmntransaction;
 
@@ -54,19 +54,19 @@ public class BpmnTransactionEditPart extends AbstractBpmnNodeEditPart {
         // create the figure
         RoundedBoxFigure fig = new RoundedBoxFigure();
         fig.setLayoutManager(new BorderLayout());
-        
+
         // set style independent properties
         MinimumSizeLayout.apply(fig, 100, 50);
         fig.setRadius(5);
-        
+
         // Required for CallActivity reprsentation
         fig.setLineWidth(1);
-        
+
         fig.setLinePattern(LinePattern.LINE_SOLID);
-        
+
         // set style dependent properties
         refreshFromStyle(fig, getModelStyle());
-        
+
         fig.setBorder(new DoubleRoundedRectangleBorder(null, 1));
         // return the figure
         return fig;
@@ -81,7 +81,6 @@ public class BpmnTransactionEditPart extends AbstractBpmnNodeEditPart {
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START,
                 new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
-        
     }
 
     @objid ("61d7b906-55b6-11e2-877f-002564c97630")
@@ -89,13 +88,12 @@ public class BpmnTransactionEditPart extends AbstractBpmnNodeEditPart {
     protected void refreshVisuals() {
         GmBpmnTransactionPrimaryNode calloperationModel = (GmBpmnTransactionPrimaryNode) getModel();
         getFigure().getParent().setConstraint(getFigure(), calloperationModel.getLayoutData());
-        
+
         if (calloperationModel.getRelatedElement().isTriggeredByEvent()) {
             ((RoundedBoxFigure) getFigure()).setLinePattern(LinePattern.LINE_DOT);
         } else {
             ((RoundedBoxFigure) getFigure()).setLinePattern(LinePattern.LINE_SOLID);
         }
-        
     }
 
     @objid ("61d93f9a-55b6-11e2-877f-002564c97630")
@@ -111,7 +109,6 @@ public class BpmnTransactionEditPart extends AbstractBpmnNodeEditPart {
         if (((GmNodeModel) childEditPart.getModel()).getRoleInComposition().equals(GmBpmnSubProcessPrimaryNode.ROLE_FOOTER)) {
             getFigure().add(child, BorderLayout.BOTTOM, index);
         }
-        
     }
 
     @objid ("61d93f9f-55b6-11e2-877f-002564c97630")
@@ -128,7 +125,7 @@ public class BpmnTransactionEditPart extends AbstractBpmnNodeEditPart {
                 super.refreshFromStyle(aFigure, style);
             }
         }
-        
+
         GmBpmnTransactionPrimaryNode model = (GmBpmnTransactionPrimaryNode) getModel();
         Boolean showcontent = getModelStyle().getProperty(GmBpmnSubProcessStructuredStyleKeys.SHOWCONTENT);
         GmBpmnNodeFooter gmBpmnNodeFooter = (GmBpmnNodeFooter) model.getFirstChild(GmBpmnSubProcessPrimaryNode.ROLE_FOOTER);
@@ -141,18 +138,16 @@ public class BpmnTransactionEditPart extends AbstractBpmnNodeEditPart {
                 gmBpmnNodeFooter.setNonEmptySubProcess(false);
             }
         }
-        
     }
 
     @objid ("61d93fab-55b6-11e2-877f-002564c97630")
     @Override
     protected void reorderChild(final EditPart child, final int index) {
         removeChildVisual(child);
-        List<EditPart> c = getChildren();
+        List<EditPart> c = (List<EditPart>) getChildren();
         c.remove(child);
         c.add(index, child);
         addChildVisual(child, index);
-        
     }
 
 }

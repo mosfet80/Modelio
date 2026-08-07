@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -52,7 +52,7 @@ public class R2660 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -72,7 +72,7 @@ public class R2660 extends AbstractUmlRule {
         plan.registerRule(StateMachine.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(State.MQNAME, this, AuditTrigger.UPDATE | AuditTrigger.MOVE);
         plan.registerRule(InternalTransition.MQNAME, this, AuditTrigger.CREATE);
-        
+
     }
 
     /**
@@ -106,14 +106,14 @@ public class R2660 extends AbstractUmlRule {
      * Default constructor for R2660
      */
     @objid ("116499f7-141d-4b77-83fb-00a485bc47ff")
-    public  R2660() {
+    public R2660() {
         this.checkerInstance = new CheckR2660(this);
     }
 
     @objid ("04ffc580-d351-4ee2-b1f7-bd1b57a7a8b1")
     private static class CheckR2660 extends AbstractControl {
         @objid ("372171bf-06f7-4f87-8ddd-5d6581568cdb")
-        public  CheckR2660(IRule rule) {
+        public CheckR2660(IRule rule) {
             super(rule);
         }
 
@@ -143,9 +143,9 @@ public class R2660 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     state,
                     null);
-            
+
             StateMachine sm = getStateMachine(state);
-            
+
             if (sm.getKind().equals(KindOfStateMachine.PROTOCOL)) {
                 if (!state.getInternal().isEmpty()) {
                     auditEntry.setSeverity(this.rule.getSeverity());
@@ -159,6 +159,7 @@ public class R2660 extends AbstractUmlRule {
 
         /**
          * This methods recursively fetches the StateMachine containing the state.
+         *
          * @param state The state.
          * @return The StateMachine.
          */
@@ -171,13 +172,13 @@ public class R2660 extends AbstractUmlRule {
             } else {
                 return getStateMachine(region.getParent());
             }
-            
+
         }
 
         @objid ("376329af-9a7f-4448-ae2e-3aa36b65e523")
         private List<State> fetchAllStates(final StateMachine sm) {
             List<State> states = new ArrayList<>();
-            
+
             for (StateVertex vertex : sm.getTop().getSub()) {
                 if (vertex instanceof State) {
                     State state = (State) vertex;
@@ -191,7 +192,7 @@ public class R2660 extends AbstractUmlRule {
         @objid ("3023e74c-e32e-412c-b230-86506cfec7fe")
         private List<State> fetchAllStates(final State state) {
             List<State> states = new ArrayList<>();
-            
+
             for (Region region : state.getOwnedRegion()) {
                 for (StateVertex vertex : region.getSub()) {
                     if (vertex instanceof State) {

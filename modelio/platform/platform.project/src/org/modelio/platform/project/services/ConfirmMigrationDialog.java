@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.project.services;
 
@@ -53,7 +53,7 @@ import org.modelio.vcore.smkernel.mapi.MetamodelVersionDescriptor.Difference;
 
 /**
  * Dialog box that asks for migration of a model fragment.
- * 
+ *
  * @author cmarin
  */
 @objid ("6f434a7c-2449-4e33-802b-e14b8e646f26")
@@ -62,14 +62,15 @@ class ConfirmMigrationDialog extends ModelioDialog {
     private final Data data;
 
     /**
+     *
      * @param toMigrate the migration informations
      * @param parentShell a parent SWT shell
      */
     @objid ("2da6a151-9a2f-4645-b3e2-747e533a77e2")
-    public  ConfirmMigrationDialog(Shell parentShell, Data data) {
+    public ConfirmMigrationDialog(Shell parentShell, Data data) {
         super(parentShell);
         this.data = Objects.requireNonNull(data);
-        
+
     }
 
     @objid ("45f4f366-ee8e-40f8-a605-838a1345f0b4")
@@ -79,7 +80,7 @@ class ConfirmMigrationDialog extends ModelioDialog {
         setTitle(AppProjectCore.I18N.getMessage("ConfirmMigrationDialog.header",
                 this.data.fragmentId,
                 this.data.summary));
-        
+
     }
 
     @objid ("922537cd-c58d-4649-84c7-00e8838ded10")
@@ -87,39 +88,39 @@ class ConfirmMigrationDialog extends ModelioDialog {
     public Control createContentArea(Composite parent) {
         final FormToolkit tk = new FormToolkit(parent.getDisplay());
         parent.addDisposeListener(ev -> tk.dispose());
-        
+
         GridDataFactory fillGrabGridData = GridDataFactory.fillDefaults().grab(true, false);
         GridDataFactory labelGrabGridData = GridDataFactory.fillDefaults().grab(true, false).align(SWT.FILL, SWT.BOTTOM);
-        
+
         ScrolledForm scrolledForm = tk.createScrolledForm(parent);
         GridDataFactory.defaultsFor(scrolledForm).align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(scrolledForm);
-        
+
         final Composite body = scrolledForm.getBody();
         GridLayout bodyLayout = new GridLayout();
         bodyLayout.verticalSpacing = 10;
         body.setLayout(bodyLayout);
         body.setBackground(tk.getColors().getBackground());
-        
+
         // Question
         String conclusion = this.data.summary + "\n\n" + AppProjectCore.I18N.getMessage("ConfirmMigrationDialog.conclusion.msg",
                 this.data.getFragmentId());
-        
+
         {
             Text label = tk.createText(body, conclusion, SWT.MULTI | SWT.WRAP);
             label.setEditable(false);
             labelGrabGridData.applyTo(label);
         }
-        
+
         // Important user infos area
         if (!this.data.requiredUserActions.isEmpty()) {
             Section area = tk.createSection(body, ExpandableComposite.TITLE_BAR | ExpandableComposite.EXPANDED);
             // ExpandableComposite.TWISTIE
             area.setText(AppProjectCore.I18N.getMessage("ConfirmMigrationDialog.required.title", this.data.getFragmentId()));
             fillGrabGridData.applyTo(area);
-        
+
             Composite areaBody = tk.createComposite(area, SWT.WRAP);
             areaBody.setLayout(new GridLayout());
-        
+
             boolean isXml = this.data.requiredUserActions.contains("<form>");
             if (isXml) {
                 FormText formText = tk.createFormText(areaBody, false);
@@ -134,10 +135,10 @@ class ConfirmMigrationDialog extends ModelioDialog {
                 label.setEditable(false);
                 labelGrabGridData.applyTo(label);
             }
-        
+
             area.setClient(areaBody);
         }
-        
+
         // Details area
         if (!this.data.steps.isEmpty()) {
             Section area = tk.createSection(body, ExpandableComposite.TITLE_BAR | ExpandableComposite.TWISTIE | ExpandableComposite.COMPACT);
@@ -145,14 +146,14 @@ class ConfirmMigrationDialog extends ModelioDialog {
             area.setText(AppProjectCore.I18N.getMessage("ConfirmMigrationDialog.detailarea.title",
                     this.data.getFragmentId()));
             fillGrabGridData.applyTo(area);
-        
+
             Composite areaBody = tk.createComposite(area, SWT.WRAP);
             areaBody.setLayout(new GridLayout());
-        
+
             Text label = tk.createText(areaBody, this.data.getDetails(), SWT.MULTI | SWT.WRAP);
             label.setEditable(false);
             labelGrabGridData.applyTo(label);
-        
+
             area.setClient(areaBody);
         }
         return scrolledForm;
@@ -162,14 +163,14 @@ class ConfirmMigrationDialog extends ModelioDialog {
     @Override
     public void addButtonsInButtonBar(Composite parent) {
         BundledMessages i18n = AppProjectCore.I18N;
-        
+
         createButton(parent, IDialogConstants.YES_ID, i18n.getMessage("ConfirmMigrationDialog.button.yes"), false);
         createButton(parent, IDialogConstants.YES_TO_ALL_ID, i18n.getMessage("ConfirmMigrationDialog.button.yes_all"), false);
         // createButton(parent, IDialogConstants.NO_ID, i18n.getMessage("ConfirmMigrationDialog.button.no"), false);
         // createButton(parent, IDialogConstants.NO_TO_ALL_ID, i18n.getMessage("ConfirmMigrationDialog.button.no_all"), false);
         createButton(parent, IDialogConstants.CANCEL_ID, i18n.getMessage("ConfirmMigrationDialog.button.abort"), true)
                 .setToolTipText(i18n.getMessage("ConfirmMigrationDialog.button.abort.tooltip"));
-        
+
     }
 
     @objid ("d75f59bf-a160-42c9-ab4c-796d4625acd2")
@@ -177,11 +178,11 @@ class ConfirmMigrationDialog extends ModelioDialog {
     protected void buttonPressed(int buttonId) {
         setReturnCode(buttonId);
         close();
-        
+
     }
 
     @objid ("9e086005-699b-410b-b1f8-e17702e58b73")
-    public  ConfirmMigrationDialog(Shell parentShell, IGModelFragment toMigrate, MetamodelVersionDescriptor targetMetamodel) throws IOException {
+    public ConfirmMigrationDialog(Shell parentShell, IGModelFragment toMigrate, MetamodelVersionDescriptor targetMetamodel) throws IOException {
         this(parentShell, new Data(toMigrate, targetMetamodel));
     }
 
@@ -209,16 +210,16 @@ class ConfirmMigrationDialog extends ModelioDialog {
         private final List<IMigrationStepDescription> steps;
 
         @objid ("f9ad6f2a-39b4-4613-827d-e036acd3894b")
-        public  Data(IGModelFragment toMigrate, MetamodelVersionDescriptor targetMmVersion) throws IOException {
+        public Data(IGModelFragment toMigrate, MetamodelVersionDescriptor targetMmVersion) throws IOException {
             FragmentMigrationNeededException ex = (FragmentMigrationNeededException) toMigrate.getState().getDownError();
             IGModelFragmentMigrator migrator = toMigrate.getMigrator(targetMmVersion);
-            
+
             this.fragmentId = toMigrate.getId();
             this.requiredUserActions = migrator.getRequiredUserActions();
             this.steps = migrator.getStepsDescription();
             this.summary = computeSummary(ex);
             this.details = computeDetails(ex.getFragmentVersion(), targetMmVersion);
-            
+
         }
 
         @objid ("3aa962f7-3a7d-4554-a81f-16367b724af0")
@@ -237,18 +238,18 @@ class ConfirmMigrationDialog extends ModelioDialog {
                     .withSource(fromMmVersion)
                     .withTarget(toVersion)
                     .withCommonRemoved();
-            
+
             StringBuilder s = new StringBuilder();
-            
+
             Collection<Difference> diffs = toVersion.getIncompatibilities(fromMmVersion, false);
-            
+
             s.append(AppProjectCore.I18N.getMessage(
                     "ConfirmMigrationDialog.details",
                     this.fragmentId,
                     comp.getSource(),
                     comp.getTarget(),
                     compileDiffs(diffs, toVersion)));
-            
+
             for (IMigrationStepDescription step : this.steps) {
                 s.append("\n - ");
                 s.append(step.getStepDescription());
@@ -275,12 +276,12 @@ class ConfirmMigrationDialog extends ModelioDialog {
                         case olderCompatibleBuild:
                             return AppProjectCore.I18N.getMessage("ConfirmMigrationDialog.diff.older.compat",
                                     fragName, fragVersion, currentMm.getVersion(fragName));
-            
+
                         case same:
                         default:
                             return null;
                         }
-            
+
                     })
                     .filter(s -> s != null)
                     .collect(Collectors.joining("\n  - ", "  - ", ""));

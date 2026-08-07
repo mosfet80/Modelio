@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -45,7 +44,7 @@ public class DocumentSmClass extends AbstractResourceSmClass {
     private SmAttribute abstractAtt;
 
     @objid ("b8734317-cd72-4519-85c6-a1650086f682")
-    public  DocumentSmClass(ISmMetamodelFragment origin) {
+    public DocumentSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
@@ -53,7 +52,7 @@ public class DocumentSmClass extends AbstractResourceSmClass {
     @Override
     public String getName() {
         return "Document";
-        
+
     }
 
     @objid ("5ef11957-6cd9-4704-96f2-6d686d2dbc5a")
@@ -66,21 +65,21 @@ public class DocumentSmClass extends AbstractResourceSmClass {
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return Document.class;
-        
+
     }
 
     @objid ("f733418d-2cd2-4604-b875-4c0c9664dd7c")
     @Override
     public boolean isCmsNode() {
         return true;
-        
+
     }
 
     @objid ("7af5d5dc-39cc-4a8f-a88c-57e45962e4d5")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
     @objid ("7814a8a0-7295-4ed6-89e1-637181614e75")
@@ -88,16 +87,16 @@ public class DocumentSmClass extends AbstractResourceSmClass {
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(AbstractResource.MQNAME);
         this.registerFactory(new DocumentObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
         this.abstractAtt = new AbstractSmAttribute();
         this.abstractAtt.init("Abstract", this, String.class );
         registerAttribute(this.abstractAtt);
-        
-        
+
+
         // Initialize and register the SmDependency
-        
+
     }
 
     @objid ("eee10a86-66f5-41ac-8ee2-dbc342ca6633")
@@ -128,7 +127,7 @@ public class DocumentSmClass extends AbstractResourceSmClass {
         private DocumentSmClass smClass;
 
         @objid ("495e3c2d-9247-4840-99ba-c86ccc7ba290")
-        public  DocumentObjectFactory(DocumentSmClass smClass) {
+        public DocumentObjectFactory(DocumentSmClass smClass) {
             this.smClass = smClass;
         }
 

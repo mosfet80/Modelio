@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.core.metamodel;
 
@@ -37,7 +37,7 @@ import org.modelio.vcore.smkernel.meta.MMFragmentTopologicalSorter;
 
 /**
  * Helper class to load metamodel fragments provided by plugins.
- * 
+ *
  * @author cmarin
  * @since 3.6
  */
@@ -48,12 +48,13 @@ public class MetamodelExtensionLoader {
 
     /**
      * Load all metamodel fragments declared by plugin extensions, topologically sorted to avoid dependency problems.
+     *
      * @return all metamodel fragments.
      */
     @objid ("9c66e6d1-ccd3-497c-8591-f1fbdc8824fd")
     public static Collection<IGMetamodelExtension> loadAllMetamodelExtensions() {
         final Map<MMetamodelFragment, IGMetamodelExtension> map = new HashMap<>();
-        
+
         for (final IConfigurationElement node : RegistryFactory.getRegistry().getConfigurationElementsFor(MMFRAGMENT_EXTENSION_POINT_ID)) {
             if (node.getName().equals("metamodel")) {
                 try {
@@ -65,22 +66,22 @@ public class MetamodelExtensionLoader {
                 }
             }
         }
-        
+
         if (map.isEmpty()) {
             throw new IllegalStateException("No metamodel fragment provided by any plugin. Check Modelio packaging.");
         }
-        
+
         final MMFragmentTopologicalSorter<MMetamodelFragment> sorter = new MMFragmentTopologicalSorter<>(map.keySet());
-        
+
         List<MMetamodelFragment> sortedmm;
         try {
             sortedmm = sorter.sort();
         } catch (final CyclicDependencyException e) {
             throw new IllegalStateException(e.getLocalizedMessage(), e);
         }
-        
+
         final Collection<IGMetamodelExtension> ret  = new ArrayList<>(sortedmm.size());
-        
+
         for (final MMetamodelFragment mmf : sortedmm) {
             ret.add(map.get(mmf));
         }
@@ -89,12 +90,13 @@ public class MetamodelExtensionLoader {
 
     /**
      * Get names of all "active" metamodel fragments declared by plugin extensions.
+     *
      * @return names of the active metamodel fragments.
      */
     @objid ("b464f17d-b354-4747-8030-62a0eaa5e2c4")
     public static Collection<String> getActiveMetamodelExtensions() {
         final Collection<String> ret = new ArrayList<>();
-        
+
         for (final IConfigurationElement node : new ExtensionPointContributionManager(MMFRAGMENT_EXTENSION_POINT_ID).getExtensions("metamodel")) {
             try {
                 final IGMetamodelExtension mmf = (IGMetamodelExtension) node.createExecutableExtension("class");

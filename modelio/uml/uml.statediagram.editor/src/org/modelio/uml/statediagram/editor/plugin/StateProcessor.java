@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.plugin;
 
@@ -68,16 +68,16 @@ public class StateProcessor extends AbstractDiagramInitializationProcessor {
     @Override
     protected void declareFactories(DiagramFactoryRegistry factoryRegistry) {
         factoryRegistry.registerDiagramFactories(StateMachineDiagram.MNAME, new StateGmNodeFactory(), new StateGmLinkFactory(), new StateEditPartFactory());
-        
+
         factoryRegistry.registerExtensions(StaticDiagram.MNAME, StateMachineDiagram.MNAME);
-        
+
     }
 
     @objid ("ca1f656f-0421-48bf-bb03-d12780242178")
     @Override
     protected void declareStyleProviders(FactoryStyle factoryStyle) {
         factoryStyle.declareProvider(GmStateDiagramStyleKeys.class);
-        
+
         factoryStyle.declareProvider(GmStateStructuredStyleKeys.class);
         // region
         factoryStyle.declareProvider(GmRegionStructuredStyleKeys.class);
@@ -109,7 +109,7 @@ public class StateProcessor extends AbstractDiagramInitializationProcessor {
         factoryStyle.declareProvider(GmJoinStructuredStyleKeys.class);
         // transition
         factoryStyle.declareProvider(GmTransitionStyleKeys.class);
-        
+
     }
 
     @objid ("1ae9e4b8-fe5f-4182-886d-e2d0437c833f")
@@ -119,11 +119,11 @@ public class StateProcessor extends AbstractDiagramInitializationProcessor {
         StyleLoader loader = new StyleLoader();
         BundleContext bundle = DiagramEditorState.getContext();
         URL url = FileLocator.find(bundle.getBundle(), new Path("res/factory.settings"), null);
-        
+
         loader.load(url);
-        
+
         factoryStyle.injectDefaultValues(loader.getStyleProperties());
-        
+
     }
 
 }

@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.diagrams.processdesign;
 
@@ -46,10 +65,10 @@ class BpmnProcessDiagramElementDropEditPolicy extends BpmnDiagramElementDropEdit
         } else {
             return null;
         }
-        
     }
 
     /**
+     *
      * @return <code>true</code> if the element belongs to the current workflow.
      */
     @objid ("f0712f44-05f3-4324-82fe-8b99d5cbc28f")
@@ -61,7 +80,6 @@ class BpmnProcessDiagramElementDropEditPolicy extends BpmnDiagramElementDropEdit
         } else {
             return isInWorkflow(diagram, elt.getCompositionOwner());
         }
-        
     }
 
     @objid ("f48894d7-3b6a-4dcc-bfd1-d024cce12361")
@@ -69,7 +87,7 @@ class BpmnProcessDiagramElementDropEditPolicy extends BpmnDiagramElementDropEdit
     protected EditPart getDropTargetEditPart(ModelElementDropRequest request) {
         EditPart ret = super.getDropTargetEditPart(request);
         IGmDiagram diagram = (IGmDiagram) getHost().getModel();
-        if (ret != null) {
+        if (ret != null && !diagram.isDisposed() ) {
             MExpert mExpert = diagram.getModelManager().getMetamodel().getMExpert();
             for (final MObject toUnmask : request.getDroppedElements()) {
                 if (toUnmask.getMClass().isLinkMetaclass() || toUnmask instanceof BpmnDataAssociation || toUnmask instanceof BpmnSequenceFlowDataAssociation) {
@@ -78,7 +96,7 @@ class BpmnProcessDiagramElementDropEditPolicy extends BpmnDiagramElementDropEdit
                         continue;
                     }
                 }
-        
+
                 if (isInWorkflow(diagram, toUnmask)) {
                     // The element must be handled by the WorkflowEditPart or nobody.
                     // Fixes 0013736: [BPMN] Context menu - unmask notes and constraint doesnt work
@@ -95,13 +113,14 @@ class BpmnProcessDiagramElementDropEditPolicy extends BpmnDiagramElementDropEdit
 
     /**
      * Asks the owned WorkflowEditPart whether it accepts the drop request.
+     *
      * @param request a drop request
      * @return whatever {@link WorkflowEditPart#getTargetEditPart(org.eclipse.gef.Request)} answered or null.
      */
     @objid ("9f300823-8936-4939-bedc-c2ab233e0a4b")
     private EditPart getDropInWorkflowTargetEditPart(ModelElementDropRequest request) {
         IGmDiagram diagram = (IGmDiagram) getHost().getModel();
-        
+
         // Look for our WorkflowEditPart
         WorkflowEditPart wep = null;
         for (Object childEp : getHost().getChildren()) {
@@ -109,17 +128,17 @@ class BpmnProcessDiagramElementDropEditPolicy extends BpmnDiagramElementDropEdit
                 wep = (WorkflowEditPart) childEp;
             }
         }
-        
+
         // Abort if no WorkflowEditPart
         if (wep == null)
             return null;
-        
+
         // Abort if any element is not in the workflow
         for (final MObject toUnmask : request.getDroppedElements()) {
             if (! isInWorkflow(diagram, toUnmask))
                 return null;
         }
-        
+
         // Asks the WorkflowEditPart
         return wep.getTargetEditPart(request);
     }

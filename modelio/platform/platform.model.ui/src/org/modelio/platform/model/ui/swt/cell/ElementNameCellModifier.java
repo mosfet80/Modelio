@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.swt.cell;
 
@@ -66,7 +66,7 @@ public class ElementNameCellModifier implements ICellModifier {
         Object edited = getEditedObject(object);
         if (edited instanceof ModelElement) {
             ModelElement modelElement = (ModelElement) edited;
-        
+
             // Special case for ObjectNode
             if (edited instanceof ObjectNode) {
                 final ObjectNode theInstanceNode = (ObjectNode) edited;
@@ -80,7 +80,7 @@ public class ElementNameCellModifier implements ICellModifier {
                     return theInstanceNode.getRepresentedRealParameter().getName();
                 }
             }
-        
+
             return modelElement.getName();
         }
         return "";
@@ -96,9 +96,9 @@ public class ElementNameCellModifier implements ICellModifier {
             if (!modelElement.isValid()) {
                 return;
             }
-        
+
             ICoreSession session = CoreSession.getSession(modelElement);
-        
+
             // Special case for ObjectNode
             if (modelElement instanceof ObjectNode) {
                 final ObjectNode theInstanceNode = (ObjectNode) modelElement;
@@ -112,19 +112,19 @@ public class ElementNameCellModifier implements ICellModifier {
                 } else if (theInstanceNode.getRepresentedRealParameter() != null) {
                     auxiliary = theInstanceNode.getRepresentedRealParameter();
                 }
-        
+
                 if (auxiliary != null) {
                     if (!auxiliary.getName().equals(value)) {
-        
+
                         try (ITransaction transaction = session.getTransactionSupport().createTransaction("Rename a " + modelElement.getMClass().getName())) {
                             auxiliary.setName((String) value);
                             transaction.commit();
                         }
-        
+
                     }
                 }
             }
-        
+
             // Special case for CommunicationNode
             if (modelElement instanceof CommunicationNode) {
                 final CommunicationNode theInstanceNode = (CommunicationNode) modelElement;
@@ -132,30 +132,29 @@ public class ElementNameCellModifier implements ICellModifier {
                 if (theInstanceNode.getRepresented() != null) {
                     auxiliary = theInstanceNode.getRepresented();
                 }
-        
+
                 if (auxiliary != null) {
                     if (!auxiliary.getName().equals(value)) {
-        
+
                         try (ITransaction transaction = session.getTransactionSupport().createTransaction("Rename a " + modelElement.getMClass().getName())) {
                             auxiliary.setName((String) value);
                             transaction.commit();
                         }
-        
+
                     }
                 }
             }
-        
+
             if (!modelElement.getName().equals(value)) {
-        
+
                 try (ITransaction transaction = session.getTransactionSupport().createTransaction("Rename a " + modelElement.getMClass().getName())) {
                     modelElement.setName((String) value);
                     transaction.commit();
                     // view.selectElement(modelElement);
                 }
-        
+
             }
         }
-        
     }
 
     @objid ("95859cb2-85bb-490f-b654-84b5d3121fe4")
@@ -186,9 +185,8 @@ public class ElementNameCellModifier implements ICellModifier {
                 element instanceof UseCaseDependency) {
             return false;
         } else {
-            return element.getStatus().isModifiable();
+            return element.getStatusLazy().isModifiable();
         }
-        
     }
 
     /**

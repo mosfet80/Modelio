@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("002f5058-c4bf-1fd8-97fe-001ec947cd2a")
 public class DataStoreNodeImpl extends CentralBufferNodeImpl implements DataStoreNode {
-    @objid ("d127c53d-ff12-4c66-a203-73e62336a06e")
+    @objid ("4b98e371-80f1-4477-8f9e-fb2fbe4110f1")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -49,17 +48,17 @@ public class DataStoreNodeImpl extends CentralBufferNodeImpl implements DataStor
         return super.getCompositionOwner();
     }
 
-    @objid ("06decfab-17b0-4a06-8f60-96c8999b0345")
+    @objid ("0a5734b6-0f70-4432-9762-050a165f2995")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("48b886ec-b24f-4955-a0ed-594c863ff1f6")
+    @objid ("17d4f32c-ef35-4344-a363-fae43704ac02")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitDataStoreNode(this);

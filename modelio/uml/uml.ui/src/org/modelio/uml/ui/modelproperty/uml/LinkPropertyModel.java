@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -48,15 +48,17 @@ public class LinkPropertyModel extends AbstractPropertyModel<Link> {
 
     /**
      * Create a new <i>Link</i> data model from an <i>Link</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("a8bcd74b-d622-4bf5-9257-4757e61a90bd")
-    public  LinkPropertyModel(Link theEditedElement) {
+    public LinkPropertyModel(Link theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("0b5226d1-e063-425d-8435-e40fc28bd8a8")
@@ -67,6 +69,7 @@ public class LinkPropertyModel extends AbstractPropertyModel<Link> {
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("9dc78648-21d4-4b93-b0b9-95ff1a1fc6e0")
@@ -79,6 +82,7 @@ public class LinkPropertyModel extends AbstractPropertyModel<Link> {
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -100,7 +104,7 @@ public class LinkPropertyModel extends AbstractPropertyModel<Link> {
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -110,6 +114,7 @@ public class LinkPropertyModel extends AbstractPropertyModel<Link> {
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -132,13 +137,14 @@ public class LinkPropertyModel extends AbstractPropertyModel<Link> {
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -163,7 +169,7 @@ public class LinkPropertyModel extends AbstractPropertyModel<Link> {
         default:
             return;
         }
-        
+
     }
 
 }

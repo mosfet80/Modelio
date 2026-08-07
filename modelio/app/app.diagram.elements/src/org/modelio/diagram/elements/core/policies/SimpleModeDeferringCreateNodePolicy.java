@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.policies;
 
@@ -46,10 +46,10 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * If the child node model not displayed at the time the request is send, the corresponding edit part does not exist. So the policy
  * builds a command that when executed will first switch the representation mode to STRUCTURED, then make the node as visible and
  * then forward the request to the corresponding child edit part.
- * 
+ *
+ * @author cmarin
  * @see SimpleModeDeferredCreateCommand
  * @see SimpleModeDeferredGroupCommand
- * @author cmarin
  */
 @objid ("80d5f137-1dec-11e2-8cad-001ec947c8cc")
 public class SimpleModeDeferringCreateNodePolicy extends DefaultCreateNodeEditPolicy {
@@ -100,13 +100,13 @@ public class SimpleModeDeferringCreateNodePolicy extends DefaultCreateNodeEditPo
     @Override
     protected EditPart getCreateTargetEditPart(CreateRequest createRequest) {
         ModelioCreationContext ctx = ModelioCreationContext.lookRequest(createRequest);
-        
+
         if (ctx != null) {
             return getEditPartFor(ctx.getMetaclass().getJavaInterface());
         } else {
             return null;
         }
-        
+
     }
 
     /**
@@ -117,6 +117,7 @@ public class SimpleModeDeferringCreateNodePolicy extends DefaultCreateNodeEditPo
      * If no child model is found, return <tt>null</tt>.<br>
      * If the found model has no edit part, return the host edit part.
      * <p>
+     *
      * @param metaclass The metaclass to create or drop.
      * @return <ul>
      * <li><tt>null</tt> if no suitable child model could be found <li>{@link #getHost()} if the child model is not
@@ -130,20 +131,20 @@ public class SimpleModeDeferringCreateNodePolicy extends DefaultCreateNodeEditPo
             return null;
         }
         final GmCompositeNode gmNode = (GmCompositeNode) model;
-        
+
         final GmCompositeNode gmTargetChild = gmNode.getCompositeFor(metaclass);
-        
+
         if (gmTargetChild == null || !gmTargetChild.canCreate(metaclass)) {
             return null;
         }
-        
+
         final EditPart p = (EditPart) getHost().getRoot().getViewer().getEditPartRegistry().get(gmTargetChild);
         if (p != null) {
             return p;
         } else {
             return getHost();
         }
-        
+
     }
 
 }

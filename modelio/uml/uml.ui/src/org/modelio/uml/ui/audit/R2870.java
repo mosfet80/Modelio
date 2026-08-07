@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -51,7 +51,7 @@ public class R2870 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -70,7 +70,7 @@ public class R2870 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         plan.registerRule(UseCase.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(UseCaseDependency.MQNAME + R2870.UseCaseDependencyExtendKind, this, AuditTrigger.CREATE | AuditTrigger.MOVE | AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -104,14 +104,14 @@ public class R2870 extends AbstractUmlRule {
      * Default constructor for R2870
      */
     @objid ("4c152130-01c4-4f0b-aba6-49cbf39b6573")
-    public  R2870() {
+    public R2870() {
         this.checkerInstance = new CheckR2870(this);
     }
 
     @objid ("dbe8bb9d-d4a2-4647-b674-335394ee40e1")
     private static class CheckR2870 extends AbstractControl {
         @objid ("1b7f6cc6-e5d7-4173-828a-092f381ba0f7")
-        public  CheckR2870(IRule rule) {
+        public CheckR2870(IRule rule) {
             super(rule);
         }
 
@@ -134,11 +134,11 @@ public class R2870 extends AbstractUmlRule {
         @objid ("ecac86fe-6473-41cb-b8d3-c737ec37a2fd")
         private IAuditEntry checkR2870(UseCase useCase) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, useCase, null);
-            
+
             if (!checkCycle(useCase, new ArrayList<UseCase>())) {
-            
+
                 // Rule failed
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(useCase);
@@ -154,7 +154,7 @@ public class R2870 extends AbstractUmlRule {
             } else {
                 foundUseCases.add(useCase);
             }
-            
+
             for (UseCaseDependency dep : useCase.getUsed()) {
                 if (dep.isStereotyped("ModelerModule", R2870.UseCaseDependencyExtendKind)) {
                     if (!checkCycle(dep.getTarget(), foundUseCases)) {

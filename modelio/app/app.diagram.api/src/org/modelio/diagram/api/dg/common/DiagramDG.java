@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.api.dg.common;
 
@@ -59,11 +59,12 @@ import org.modelio.diagram.elements.drawings.core.IGmDrawingLayer;
 @objid ("808dcc97-0d69-4b50-ac39-bb4b6966e2af")
 public abstract class DiagramDG extends DiagramNode implements IDiagramDG, IDiagramElementsLayer, IDiagramDrawingsLayer {
     /**
+     *
      * @param diagramHandle The diagram manipulation class.
      * @param node The gm node represented by this class.
      */
     @objid ("6c1cee84-f492-41ad-acac-2d898e724a37")
-    public  DiagramDG(DiagramHandle diagramHandle, GmNodeModel node) {
+    public DiagramDG(DiagramHandle diagramHandle, GmNodeModel node) {
         super(diagramHandle, node);
     }
 
@@ -83,7 +84,7 @@ public abstract class DiagramDG extends DiagramNode implements IDiagramDG, IDiag
     @Override
     public final Rectangle getBounds() {
         GraphicalEditPart p = this.diagramHandle.getEditPart(this.gmNode);
-        
+
         final LayerManager lm = (LayerManager) p.getRoot();
         final IFigure drawingLayers = lm.getLayer(AbstractDiagramEditPart.DRAWING_LAYER);
         final ConnectionLayer connectionLayer = (ConnectionLayer) lm.getLayer(LayerConstants.CONNECTION_LAYER);
@@ -109,13 +110,14 @@ public abstract class DiagramDG extends DiagramNode implements IDiagramDG, IDiag
     }
 
     /**
+     *
      * @return the list of all the links present in the diagram
      */
     @objid ("d15b1396-c5cf-4b1a-9d7e-b1c866f51081")
     @Override
     public List<IDiagramLink> getLinks() {
         List<IDiagramLink> links = new ArrayList<>();
-        
+
         for (GmModel gm : this.gmNode.getDiagram().getAllModels()) {
             if (gm instanceof IGmLink) {
                 IDiagramLink diagramLink = DGFactory.getInstance().getDiagramLink(this.diagramHandle, (IGmLink) gm);
@@ -136,24 +138,24 @@ public abstract class DiagramDG extends DiagramNode implements IDiagramDG, IDiag
         int xMax = Integer.MIN_VALUE;
         int yMin = Integer.MAX_VALUE;
         int yMax = Integer.MIN_VALUE;
-        
+
         for (final Object o : connectionLayer.getChildren()) {
             final Rectangle b = ((Figure) o).getBounds();
-        
+
             if (b.x < xMin) {
                 xMin = b.x;
             }
             if (b.x + b.width > xMax) {
                 xMax = b.x + b.width;
             }
-        
+
             if (b.y < yMin) {
                 yMin = b.y;
             }
             if (b.y + b.height > yMax) {
                 yMax = b.y + b.height;
             }
-        
+
         }
         return new Rectangle(xMin, yMin, xMax - xMin, yMax - yMin);
     }
@@ -174,7 +176,7 @@ public abstract class DiagramDG extends DiagramNode implements IDiagramDG, IDiag
     @Override
     public IDiagramDrawingsLayer getDrawingsLayer(String layerIdentifier) {
         IGmDiagram dg = getDiagramModel();
-        
+
         switch (layerIdentifier) {
         case IDiagramDrawingsLayer.BACKGROUND:
             return (IDiagramDrawingsLayer) DGFactory.getInstance().getDiagramLayer(this.diagramHandle, dg.getBackgroundDrawingLayer());
@@ -183,7 +185,7 @@ public abstract class DiagramDG extends DiagramNode implements IDiagramDG, IDiag
         default:
             return null;
         }
-        
+
     }
 
     @objid ("ba0c65bf-730e-4c13-b355-47309f27946d")
@@ -208,7 +210,7 @@ public abstract class DiagramDG extends DiagramNode implements IDiagramDG, IDiag
     @Override
     public IDiagramLayer getLayer(String layerIdentifier) {
         Objects.requireNonNull(layerIdentifier, "layer identifier is null.");
-        
+
         switch (layerIdentifier) {
         case IDiagramElementsLayer.MAIN:
             return new DiagramElementLayerDG(this.diagramHandle, getDiagramModel());
@@ -223,7 +225,7 @@ public abstract class DiagramDG extends DiagramNode implements IDiagramDG, IDiag
                     return l;
                 }
             }
-        
+
         }
         return null;
     }
@@ -234,6 +236,7 @@ public abstract class DiagramDG extends DiagramNode implements IDiagramDG, IDiag
     }
 
     /**
+     *
      * @return the element nodes.
      */
     @objid ("97fd67e9-d334-4bc7-a60d-4cdecf6f4b59")
@@ -243,6 +246,7 @@ public abstract class DiagramDG extends DiagramNode implements IDiagramDG, IDiag
     }
 
     /**
+     *
      * @return the element links.
      */
     @objid ("84f7047c-dd60-4b6a-9d00-6fd5ee7e80c1")
@@ -255,7 +259,7 @@ public abstract class DiagramDG extends DiagramNode implements IDiagramDG, IDiag
     @Override
     public List<IDiagramNode> getDrawingNodes() {
         List<IDiagramNode> ret = new ArrayList<>();
-        
+
         for (IDiagramLayer l : getLayers()) {
             if (l instanceof IDiagramDrawingsLayer) {
                 IDiagramDrawingsLayer dl = (IDiagramDrawingsLayer) l;
@@ -269,7 +273,7 @@ public abstract class DiagramDG extends DiagramNode implements IDiagramDG, IDiag
     @Override
     public List<IDiagramLink> getDrawingLinks() {
         List<IDiagramLink> ret = new ArrayList<>();
-        
+
         for (IDiagramLayer l : getLayers()) {
             if (l instanceof IDiagramDrawingsLayer) {
                 IDiagramDrawingsLayer dl = (IDiagramDrawingsLayer) l;
@@ -288,18 +292,19 @@ public abstract class DiagramDG extends DiagramNode implements IDiagramDG, IDiag
         default:
             return Collections.emptyList();
         }
-        
+
     }
 
     /**
      * Computes the minimum bounds of a diagram figure. The returned rectangle is the smallest rectangle enclosing all the diagram nodes (note: the computation take links into account which are laid in the Connection layer)
+     *
      * @param figure
      * @return the enclosing rectangle. Never returns null but an empty rectangle instead..
      */
     @objid ("87ff319d-0b0d-46a0-b61f-57c0f65cd82b")
     private Rectangle computeMinimumBounds(IFigure figure) {
         Rectangle ret = null;
-        
+
         for (Object fig : figure.getChildren()) {
             Rectangle b;
             if (fig instanceof FreeformFigure) {
@@ -310,7 +315,7 @@ public abstract class DiagramDG extends DiagramNode implements IDiagramDG, IDiag
             } else {
                 b = ((Figure) fig).getBounds().getCopy();
             }
-        
+
             if (ret == null) {
                 ret = b;
             } else {
@@ -322,8 +327,8 @@ public abstract class DiagramDG extends DiagramNode implements IDiagramDG, IDiag
 
     /**
      * Compute the minimum contents size of the diagram. This size is defined as the union of the smallest bounding rectangle that encloses both all the nodes and all the links
-     * @param layer
-     * the diagram figure layer
+     *
+     * @param layer the diagram figure layer
      * @param connectionLayer the connection layer
      * @param drawingLayers the drawing layers pane
      * @return the bounds to export
@@ -336,13 +341,13 @@ public abstract class DiagramDG extends DiagramNode implements IDiagramDG, IDiag
         if (results == null) {
             results = new Rectangle();
         }
-        
+
         // Compute for drawing layers
         final Rectangle drawingsBounds = ((FreeformFigure) drawingLayers).getFreeformExtent();
         if (drawingsBounds != null) {
             results.union(drawingsBounds);
         }
-        
+
         // Compute for links
         Rectangle bounds = this.computeMinimumBounds(connectionLayer);
         if (bounds != null) {

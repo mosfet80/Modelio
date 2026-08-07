@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -41,19 +40,19 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("002a9180-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class CallActionImpl extends ActivityActionImpl implements CallAction {
-    @objid ("5699bf6f-d3ca-490a-a9ac-9abae29a350c")
+    @objid ("a8fcb3dc-5b3d-445f-a726-61c01d7c5afb")
     @Override
     public boolean isIsSynchronous() {
         return (Boolean) getAttVal(((CallActionSmClass)getClassOf()).getIsSynchronousAtt());
     }
 
-    @objid ("f98a63a1-ad86-425e-bc33-54d47f48aa5a")
+    @objid ("9a40912a-c941-4adc-8a12-c877e58cf81e")
     @Override
     public void setIsSynchronous(boolean value) {
         setAttVal(((CallActionSmClass)getClassOf()).getIsSynchronousAtt(), value);
     }
 
-    @objid ("b1a1815f-b65a-46d3-8bd5-a21dd055a3c9")
+    @objid ("979e9d9b-0c27-4af3-850b-edef547bdedc")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -61,17 +60,17 @@ public abstract class CallActionImpl extends ActivityActionImpl implements CallA
         return super.getCompositionOwner();
     }
 
-    @objid ("472eb14b-9deb-4df5-add3-091965816907")
+    @objid ("db4885ff-190b-402d-a307-9af6b366711c")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("cefb31e8-4e0c-4621-b1a6-9e6355b2f2cb")
+    @objid ("140894d9-6617-4ff9-9c68-ccc6b975614e")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitCallAction(this);

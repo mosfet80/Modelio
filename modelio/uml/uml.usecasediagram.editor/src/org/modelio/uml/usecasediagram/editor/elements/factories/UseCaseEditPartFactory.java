@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.usecasediagram.editor.elements.factories;
 
@@ -58,7 +58,7 @@ public final class UseCaseEditPartFactory implements EditPartFactory {
     @Override
     public EditPart createEditPart(EditPart context, Object model) {
         EditPart editPart;
-        
+
         if (model instanceof GmNodeModel) {
             // For node models, delegates according the representation model.
             GmNodeModel node = (GmNodeModel) model;
@@ -73,16 +73,16 @@ public final class UseCaseEditPartFactory implements EditPartFactory {
             default:
                 editPart = null;
             }
-        
+
             if (editPart != null) {
                 return editPart;
             }
-        
+
             return null;
         }
         // Link models are always in structured mode.
         editPart = this.structuredModeEditPartFactory.createEditPart(context, model);
-        
+
         if (editPart != null) {
             return editPart;
         }
@@ -95,67 +95,67 @@ public final class UseCaseEditPartFactory implements EditPartFactory {
         @Override
         public EditPart createEditPart(EditPart context, Object model) {
             EditPart editPart = null;
-            
+
             if (model.getClass() == GmUseCaseDiagram.class) {
                 editPart = new UseCaseDiagramEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmActor.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmActorPrimaryNode.class) {
                 editPart = new ActorEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmUseCase.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmUseCasePrimaryNode.class) {
                 editPart = new UseCaseEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmExtensionPoint.class) {
                 editPart = new GroupItemEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmExtensionPointLabel.class) {
                 editPart = new ElementLabelEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmUseCaseDependency.class) {
                 editPart = new UseCaseDependencyEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmCommunicationLink.class) {
                 editPart = new AssociationEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmSystem.class) {
                 editPart = new SystemEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmSystemFreeZone.class) {
                 editPart = new SystemFreeZoneEditPart();
                 editPart.setModel(model);
@@ -172,7 +172,7 @@ public final class UseCaseEditPartFactory implements EditPartFactory {
         @Override
         public EditPart createEditPart(EditPart context, Object model) {
             EditPart editPart = null;
-            
+
             if (model.getClass() == GmActorPrimaryNode.class) {
                 editPart = new SimpleActorEditPart();
                 editPart.setModel(model);

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.infrastructure;
 
@@ -52,7 +52,7 @@ public class R2140 extends AbstractInfrastructureRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -74,7 +74,7 @@ public class R2140 extends AbstractInfrastructureRule {
         plan.registerRule(PropertyType.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -108,14 +108,14 @@ public class R2140 extends AbstractInfrastructureRule {
      * Default constructor for R2140
      */
     @objid ("828cfa60-8cfa-449e-8f49-72ae1350cadf")
-    public  R2140() {
+    public R2140() {
         this.checkerInstance = new CheckR2140(this);
     }
 
     @objid ("61381293-9c7a-4201-921f-5f9127255942")
     private static class CheckR2140 extends AbstractControl {
         @objid ("4b197f74-05b7-433d-bb3d-040a00cf27ce")
-        public  CheckR2140(IRule rule) {
+        public CheckR2140(IRule rule) {
             super(rule);
         }
 
@@ -143,9 +143,9 @@ public class R2140 extends AbstractInfrastructureRule {
                     AuditSeverity.AuditSuccess,
                     propertyContainer,
                     null);
-            
+
             Map<String, List<PropertyType>> duplicates = new HashMap<>();
-            
+
             for (PropertyType pt : propertyContainer.getDefinedPropertyType(PropertyType.class)) {
                 String name = pt.getName();
                 if (!duplicates.containsKey(name)) {
@@ -153,12 +153,12 @@ public class R2140 extends AbstractInfrastructureRule {
                 }
                 duplicates.get(pt.getName()).add(pt);
             }
-            
+
             for (Entry<String, List<PropertyType>> entry : duplicates.entrySet()) {
                 if (entry.getValue().size() > 1) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(propertyContainer);
@@ -175,9 +175,9 @@ public class R2140 extends AbstractInfrastructureRule {
                     AuditSeverity.AuditSuccess,
                     propertyContainer,
                     null);
-            
+
             Map<String, List<PropertyType>> duplicates = new HashMap<>();
-            
+
             for (PropertyType pt : propertyContainer.getDefinedType(PropertyType.class)) {
                 String name = pt.getName();
                 if (!duplicates.containsKey(name)) {
@@ -185,12 +185,12 @@ public class R2140 extends AbstractInfrastructureRule {
                 }
                 duplicates.get(pt.getName()).add(pt);
             }
-            
+
             for (Entry<String, List<PropertyType>> entry : duplicates.entrySet()) {
                 if (entry.getValue().size() > 1) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(propertyContainer);

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.gateways;
 
 import java.util.ArrayList;
@@ -43,19 +42,19 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00012282-c4c0-1fd8-97fe-001ec947cd2a")
 public abstract class BpmnGatewayImpl extends BpmnFlowNodeImpl implements BpmnGateway {
-    @objid ("e53232a3-c977-4ffe-bb05-61a0d42d74fb")
+    @objid ("e2dd6189-4c71-406c-8155-a5c7991357b1")
     @Override
     public BpmnGatewayDirection getGatewayDirection() {
         return (BpmnGatewayDirection) getAttVal(((BpmnGatewaySmClass)getClassOf()).getGatewayDirectionAtt());
     }
 
-    @objid ("7d25734d-3af9-4158-ba17-5913ef00d173")
+    @objid ("27e1a330-f9d2-4152-bee3-769ca37ef4ff")
     @Override
     public void setGatewayDirection(BpmnGatewayDirection value) {
         setAttVal(((BpmnGatewaySmClass)getClassOf()).getGatewayDirectionAtt(), value);
     }
 
-    @objid ("673b4c99-a351-4e13-abed-d302d5e37fcf")
+    @objid ("292edd7d-b4c6-4c68-9775-ef21a0be94c8")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -63,17 +62,17 @@ public abstract class BpmnGatewayImpl extends BpmnFlowNodeImpl implements BpmnGa
         return super.getCompositionOwner();
     }
 
-    @objid ("d7d93a3b-645b-4d58-9f69-cc59706a0164")
+    @objid ("388922d8-0e15-4bae-8552-52a0fb1f2e31")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("0fb3d5b1-ec1b-4f1f-a0f9-5bbba856ffa6")
+    @objid ("7ab7c108-9baf-446a-9dbb-777c755f9636")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitBpmnGateway(this);

@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.modelio.model.scope;
 
@@ -32,7 +32,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  */
 @objid ("38fa7d52-b2f9-489f-b714-1150b96d4529")
 public final class ElementScope {
-    
+
     @mdl.prop
     @objid ("b73303fb-79ff-4798-8092-207c860b4833")
     public final boolean withSubClasses;
@@ -43,7 +43,7 @@ public final class ElementScope {
         return this.withSubClasses;
     }
 
-    
+
     @mdl.prop
     @objid ("6c0da0ee-66d6-4b70-8834-8bf427feab93")
     public final boolean withSubStereotypes;
@@ -54,7 +54,7 @@ public final class ElementScope {
         return this.withSubStereotypes;
     }
 
-    
+
     @mdl.prop
     @objid ("88786c3b-fe6a-4603-a892-3cf93abf11df")
     public final MClass metaclass;
@@ -65,7 +65,7 @@ public final class ElementScope {
         return this.metaclass;
     }
 
-    
+
     @mdl.prop
     @objid ("e7569083-4548-4904-bac0-501d771c1c8f")
     public final Stereotype stereotype;
@@ -81,6 +81,7 @@ public final class ElementScope {
      * <p>
      * Both values are optional but at least one of these two fields must be provided.
      * </p>
+     *
      * @param metaclass a metaclass. Might be <code>null</code>
      * @param withSubClasses whether or not metaclass inheritance should be considered for the check
      * @param stereotype a stereotype. Might be <code>null</code>
@@ -88,13 +89,13 @@ public final class ElementScope {
      * @since 3.8
      */
     @objid ("85750b6d-c45c-4ddc-89a0-24725435c9a5")
-    public  ElementScope(MClass metaclass, boolean withSubClasses, Stereotype stereotype, boolean withSubStereotypes) {
+    public ElementScope(MClass metaclass, boolean withSubClasses, Stereotype stereotype, boolean withSubStereotypes) {
         assert metaclass != null || stereotype != null;
         this.metaclass = metaclass;
         this.stereotype = stereotype;
         this.withSubClasses = withSubClasses;
         this.withSubStereotypes = withSubStereotypes;
-        
+
     }
 
     @objid ("e7de823a-5181-4c86-94aa-f935f3b17db5")
@@ -125,6 +126,7 @@ public final class ElementScope {
 
     /**
      * Check that the given element matches the scope's metaclass/stereotype.
+     *
      * @param e the element to check.
      * @return <code>true</code> if the element matches the scope's metaclass/stereotype.
      * @since 3.8
@@ -145,7 +147,7 @@ public final class ElementScope {
         } else {
             return e.getMClass().equals(this.metaclass);
         }
-        
+
     }
 
     @objid ("ad0d9887-38a7-46ff-89d0-304aee334503")
@@ -154,7 +156,7 @@ public final class ElementScope {
         if (this.stereotype == null) {
             return true;
         }
-        
+
         // Check stereotypes
         if (e instanceof ModelElement) {
             for (Stereotype st : ((ModelElement) e).getExtension()) {

@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.gproject.ramc.core.packaging;
 
@@ -24,6 +43,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -94,16 +114,15 @@ class ModelExporter {
     private final MClass MODELELEMENT_MCLASS;
 
     @objid ("c2e03fe8-a5b8-11e1-aa98-001ec947ccaf")
-    public  ModelExporter(final ICoreSession srcSession, final ICoreSession targetSession, final IRepository targetRepository) {
+    public ModelExporter(final ICoreSession srcSession, final ICoreSession targetSession, final IRepository targetRepository) {
         assert srcSession != null;
         assert targetSession != null;
         assert targetRepository != null;
-        
+
         this.srcSession = (CoreSession) srcSession;
         this.targetSession = (CoreSession) targetSession;
         this.targetRepository = targetRepository;
         this.MODELELEMENT_MCLASS = this.srcSession.getMetamodel().getMClass(ModelElement.class);
-        
     }
 
     @objid ("ac6e882e-a419-11e1-aa98-001ec947ccaf")
@@ -117,14 +136,14 @@ class ModelExporter {
         if (exportArtifact) {
             addObject(ramc.getArtifact());
         }
-        
+
         // Elements directly manifested by the RAMC
         for (Element e : ramc.getExportedElements()) {
             addObject(e);
         }
-        
+
         RamcFilterBuilder builder = new RamcFilterBuilder(this.srcSession.getMetamodel(), ramc.getArtifact());
-        
+
         for (IModelComponentContributor contributor : contributors) {
             // Additional elements by contributor
             for (MObject o : contributor.getElements()) {
@@ -149,41 +168,40 @@ class ModelExporter {
                 }
             }
         }
-        
+
         // Filter configured by contributors
         setModelFilter(builder.getModelFilter());
-        
     }
 
     @objid ("ac70ea45-a419-11e1-aa98-001ec947ccaf")
     public void run(Metadatas metadatas) {
         assert this.modelFilter != null;
-        
+
         createEmptyObjects();
-        
+
         // Export the manifested objects
         for (MObject anObject : this.objectsToExternalize) {
             externalizeObject(anObject);
         }
-        
+
         // Export the stub objects, this will also compute root elements
         Set<MObject> stubs = computeStubObjectsToExport(metadatas);
         externalizeStubObject(stubs);
-        
-        // Remap roots: as some root elements might have been exported as
-        // aliases...
-        for (MRef root : metadatas.getRoots()) {
-            if (this.aliases.containsKey(root.uuid)) {
+
+        // Remap roots: as some root elements might have been exported as aliases...
+        for (ListIterator<MRef> it = metadatas.getRoots().listIterator(); it.hasNext();) {
+            MRef root = it.next();
+            MObject alias = this.aliases.get(root.uuid);
+            if (alias != null) {
                 // remap it
-                root.uuid = this.aliases.get(root.uuid).getUuid();
+                it.set(new MRef(alias));
             }
         }
-        
+
         this.done.clear();
-        
+
         // Save used metamodel fragments in metadatas
         metadatas.setUsedMetamodelFragments(this.mmFragments);
-        
     }
 
     @objid ("e61232c9-d02c-11e1-a8eb-001ec947ccaf")
@@ -197,10 +215,10 @@ class ModelExporter {
     @objid ("c2e03fee-a5b8-11e1-aa98-001ec947ccaf")
     private Set<MObject> computeStubObjectsToExport(Metadatas metadatas) {
         Set<MObject> stubObjectsToExport = new HashSet<>();
-        
+
         for (MObject obj : this.objectsToExternalize) {
             MObject composed = obj.getCompositionOwner();
-        
+
             // Add all parents that have not been serialized until the root
             // package, RequirementContainer, Dictionary or a MDA Modeler
             // Component.
@@ -211,7 +229,7 @@ class ModelExporter {
                     // Reached a root
                     metadatas.addRoot(new MRef(current));
                     more = false;
-        
+
                 } else if (stubObjectsToExport.contains(composed)) {
                     // Already in the set
                     more = false;
@@ -226,7 +244,7 @@ class ModelExporter {
                         more = false;
                     }
                 }
-        
+
             } while (more);
         }
         return stubObjectsToExport;
@@ -241,19 +259,19 @@ class ModelExporter {
         IModel modelService = this.targetSession.getModel();
         for (MObject obj : this.objectsToExternalize) {
             SmClass mClass = (SmClass) obj.getMClass();
-        
+
             this.mmFragments.add(mClass.getOrigin());
             smFactory.createObject(mClass, this.targetRepository, obj.getUuid());
         }
-        
+
         Collection<MObject> roots = new ArrayList<>();
         for (MObject o : this.objectsToExternalize) {
             roots.add(o);
         }
-        
+
         final IObjectFilter theModelfilter = this.modelFilter;
         final IStopFilter filter = new IStopFilter() {
-        
+
             @Override
             public boolean accept(MObject val) {
                 return theModelfilter.accept(val);
@@ -269,36 +287,35 @@ class ModelExporter {
                 smFactory.createObject(metaclass, this.targetRepository, uuid);
             }
         }
-        
     }
 
     @objid ("ac70ea4a-a419-11e1-aa98-001ec947ccaf")
     private MObject externalizeObject(final MObject obj) {
         // System.out.println("ModelExporter.externalizeObject() " + obj);
-        
+
         // Look for 'obj' equivalent in the target session
         MObject targetObj = this.targetSession.getModel().findById(obj.getMClass(), obj.getUuid());
-        
+
         // If 'obj' is known to have been already processed, return the target
         // equivalent object found above.
         if (this.done.contains(obj)) {
             return targetObj;
         }
-        
+
         // As we are about to process it, add 'obj' to done objects.
         // We have to mark it here because of the natural recursive behavior of
         // externalizeObject
         this.done.add(obj);
-        
+
         if (targetObj == null || targetObj.isShell()) {
             throw new IllegalStateException(obj + " not found or shell in the target session.");
         }
-        
+
         // Copy meta-attribute values
         for (SmAttribute att : ((SmClass) obj.getMClass()).getAllAttDef()) {
             targetObj.mSet(att, obj.mGet(att));
         }
-        
+
         // Export composition dependencies
         for (MDependency desc : this.depWalker.getCompositionDeps(obj)) {
             SmDependency smDep = (SmDependency) desc;
@@ -309,7 +326,7 @@ class ModelExporter {
                 }
             }
         }
-        
+
         // Export non-composition dependencies
         for (MDependency desc : this.depWalker.getReferenceDeps(obj)) {
             byte objRepoId = ((SmObjectImpl) obj).getRepositoryObject().getRepositoryId();
@@ -335,34 +352,34 @@ class ModelExporter {
         if (stubObjects.isEmpty()) {
             return;
         }
-        
+
         MModelServices modelServices = new MModelServices(this.srcSession);
-        
+
         Stereotype aliasStereotype = null;
         List<Stereotype> stereotypes = modelServices.findStereotypes("ModelerModule", "ModelComponentElementAlias", this.MODELELEMENT_MCLASS);
         if (!stereotypes.isEmpty()) {
             // Get the stereotype from the target session!
             aliasStereotype = (Stereotype) getTargetObject(stereotypes.get(0));
-        
+
             // record used metamodel fragment
             this.mmFragments.add(stereotypes.get(0).getMClass().getOrigin());
         }
-        
+
         TagType uuidTagType = null;
         List<TagType> tagTypes = modelServices.findTagTypes("ModelerModule", "ModelComponentElementAlias", "uuid", this.MODELELEMENT_MCLASS);
         if (!tagTypes.isEmpty()) {
             // Get the tag type from the target session!
             uuidTagType = (TagType) getTargetObject(tagTypes.get(0));
-        
+
             // record used metamodel fragment
             this.mmFragments.add(tagTypes.get(0).getMClass().getOrigin());
         }
-        
+
         // First step: create all the objects
         for (MObject o : stubObjects) {
             // record used metamodel fragment
             this.mmFragments.add(o.getMClass().getOrigin());
-        
+
             // Look for 'obj' equivalent in the target session
             MObject alias = this.targetSession.getModel().findById(o.getMClass(), o.getUuid());
             // If 'obj' is known to have been already processed, return the
@@ -370,7 +387,7 @@ class ModelExporter {
             if (this.aliases.containsKey(o.getUuid())) {
                 continue;
             }
-        
+
             // Create target object if necessary,the created object is an alias
             if (alias == null) {
                 alias = getSmFactory().createObject((SmClass) o.getMClass(), this.targetRepository);
@@ -382,22 +399,22 @@ class ModelExporter {
                         targetFactory.createTagParameter(o.getUuid().toString(), tag);
                     }
                 }
-        
+
                 this.aliases.put(o.getUuid(), alias);
-        
+
             }
         }
-        
+
         // Second step branch the composition dependencies that are applicable.
         for (MObject o : stubObjects) {
-        
+
             MObject alias = this.aliases.get(o.getUuid());
-        
+
             // Copy meta-attribute values
             for (SmAttribute att : ((SmClass) o.getMClass()).getAllAttDef()) {
                 alias.mSet(att, o.mGet(att));
             }
-        
+
             // DO NOT export composition dependencies, unless to already
             // exported
             // objects or to other alias objects
@@ -414,12 +431,12 @@ class ModelExporter {
                             alias.mGet(smDep).add(this.aliases.get(val.getUuid()));
                         } else {
                             // ignore
-        
+
                         }
                     }
                 }
             }
-        
+
             // DO NOT Export non-composition dependencies
             // for (MDependency desc : this.modelFilter.getReferenceDeps(obj)) {
             // SmDependency smDep = (SmDependency) desc;
@@ -428,9 +445,8 @@ class ModelExporter {
             // targetObj.mGet(smDep).add(targetVal);
             // }
             // }
-        
+
         }
-        
     }
 
     @objid ("ac70ea4f-a419-11e1-aa98-001ec947ccaf")
@@ -453,6 +469,7 @@ class ModelExporter {
 
         /**
          * Get the metamodel relation to use as composition for a given object.
+         *
          * @param srcObject an object
          * @return the relations to use as composition.
          */
@@ -462,20 +479,21 @@ class ModelExporter {
             if (ret != null) {
                 return ret;
             }
-            
+
             ret = new ArrayList<>();
             for (MDependency dep : srcObject.getMClass().getDependencies(true)) {
                 if (dep.isComposition() || ((SmDependency) dep).isSharedComposition()) {
                     ret.add(dep);
                 }
             }
-            
+
             this.compositionDeps.put(srcObject.getMClass(), ret);
             return ret;
         }
 
         /**
          * Get the metamodel relation to use as reference for a given object.
+         *
          * @param srcObject an object
          * @return the relations to use as reference.
          */
@@ -485,20 +503,20 @@ class ModelExporter {
             if (ret != null) {
                 return ret;
             }
-            
+
             ret = new ArrayList<>();
             for (MDependency dep : srcObject.getMClass().getDependencies(true)) {
                 if (!dep.isComposition() && !dep.isSharedComposition() && ((SmDependency) dep).isPartOf()) {
                     ret.add(dep);
                 }
             }
-            
+
             this.referenceDeps.put(srcObject.getMClass(), ret);
             return ret;
         }
 
         @objid ("e1f6f405-b0d4-4881-ae46-b324d8436371")
-        public  DepWalker() {
+        public DepWalker() {
             super();
         }
 

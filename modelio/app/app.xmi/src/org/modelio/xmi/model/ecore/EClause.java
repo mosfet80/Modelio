@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -41,35 +41,35 @@ public class EClause extends EElement {
     }
 
     @objid ("91c20ce3-1463-47b8-be92-ed9b046244fd")
-    public  EClause(org.eclipse.uml2.uml.Clause element) {
+    public EClause(org.eclipse.uml2.uml.Clause element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("6a1fc42b-21a1-4f60-b0c4-1b12ba003e9b")
     @Override
     public void attach(Element objingElt) {
         org.eclipse.uml2.uml.Element ecoreOwner = this.ecoreElement.getOwner();
-                
+
         if (ecoreOwner != null) {
             Object objingOwner =  ReverseProperties.getInstance().getMappedElement(ecoreOwner);
             if (objingOwner instanceof ConditionalNode)
                 ((Clause) objingElt)
                         .setOwner((ConditionalNode) objingOwner);
         }
-        
+
     }
 
     @objid ("d7afe647-7ccf-48e4-9bb7-92cd3876e6f0")
     @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
-               
+
         setBody((Clause) objingElt);
         setTest((Clause) objingElt);
         setName((Clause) objingElt);
-        
+
     }
 
     @objid ("973ce1fc-7640-4643-b578-c806dc8e305b")
@@ -80,7 +80,7 @@ public class EClause extends EElement {
             if (objingBody instanceof ActivityNode)
                 ((ActivityNode) objingBody).setOwnerClause(clause);
         }
-        
+
     }
 
     @objid ("994781c5-b0ca-462e-881c-ed45dbf806cc")
@@ -104,14 +104,14 @@ public class EClause extends EElement {
             }
         }
         clause.setTest(objingTest);
-        
+
     }
 
     @objid ("f70cb271-6812-4f2f-a694-28a96797e3e8")
     private void setName(Clause clause) {
         if ( ReverseProperties.getInstance().isRoundtripEnabled())
             clause.setName(ObjingEAnnotation.getName(this.ecoreElement));
-        
+
     }
 
 }

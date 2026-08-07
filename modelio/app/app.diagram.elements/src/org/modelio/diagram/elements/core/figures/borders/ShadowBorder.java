@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures.borders;
 
@@ -38,7 +38,7 @@ public class ShadowBorder extends AbstractBorder {
     @objid ("7f5f9fe7-1dec-11e2-8cad-001ec947c8cc")
     private int shadowWidth = 1;
 
-    @objid ("ece6bb93-0433-467a-a69e-7397b5cba420")
+    @objid ("5a6e4513-862c-43f6-8877-d6c1d366997d")
     private Color shadowColor = null;
 
     @objid ("a0d77c3f-390a-42dc-88e2-6ed950d457ee")
@@ -46,15 +46,15 @@ public class ShadowBorder extends AbstractBorder {
 
     /**
      * Create a shadow border.
+     *
      * @param shadowColor Shadow color
      * @param shadowWidth Shadow width
      */
     @objid ("7f620231-1dec-11e2-8cad-001ec947c8cc")
-    public  ShadowBorder(Color shadowColor, int shadowWidth) {
+    public ShadowBorder(Color shadowColor, int shadowWidth) {
         this.shadowColor = shadowColor;
         this.shadowWidth = shadowWidth;
         this.myInsets = new Insets(0, 0, shadowWidth, shadowWidth);
-        
     }
 
     @objid ("7f620236-1dec-11e2-8cad-001ec947c8cc")
@@ -62,31 +62,29 @@ public class ShadowBorder extends AbstractBorder {
     public void paint(IFigure figure, Graphics graphics, Insets insets) {
         // Get border dimensions
         AbstractBorder.tempRect = getPaintRectangle(figure, insets);
-        
-        if (this.shadowWidth % 2 != 0) {
-            AbstractBorder.tempRect.width--;
-            AbstractBorder.tempRect.height--;
-        }
-        AbstractBorder.tempRect.shrink(this.shadowWidth / 2, this.shadowWidth / 2);
-        
+
+        // Same as AbstractBorder.tempRect.shrink(this.shadowWidth / 2, this.shadowWidth / 2),
+        // but works better with odd shadowWidth and scaled graphics.
+        AbstractBorder.tempRect.resize(-shadowWidth , -shadowWidth);
+        graphics.translate(+shadowWidth / 2.0f, +shadowWidth / 2.0f);
+
         // Set shadow color and alpha
         graphics.setAlpha(100);
         ZoomDrawer.setLineWidth(graphics, this.shadowWidth);
-        
+
         if (this.shadowColor != null) {
             graphics.setForegroundColor(this.shadowColor);
         }
-        
+
         // Draw the shadow
         PointList points = new PointList();
         points.addPoint(AbstractBorder.tempRect.getTopRight().translate(0, 3));
         points.addPoint(AbstractBorder.tempRect.getBottomRight());
         points.addPoint(AbstractBorder.tempRect.getBottomLeft().translate(3, 0));
         graphics.drawPolyline(points);
-        
+
         // graphics.drawLine(tempRect.getTopRight().translate(0, 3), tempRect.getBottomRight());
         // graphics.drawLine(tempRect.getBottomLeft().translate(3, 0), tempRect.getBottomRight());
-        
     }
 
     @objid ("7f620242-1dec-11e2-8cad-001ec947c8cc")

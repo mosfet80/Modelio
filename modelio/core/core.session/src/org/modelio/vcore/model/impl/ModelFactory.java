@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.model.impl;
 
@@ -35,7 +35,7 @@ import org.modelio.vcore.smkernel.mapi.services.MetamodelExtensionPoint;
 
 /**
  * Modelio model factory entry point.
- * 
+ *
  * @author cmarin
  * @since 3.6
  */
@@ -48,6 +48,7 @@ public class ModelFactory extends AbstractModelFactory implements IModelFactoryS
      * Get the metamodel extension point.
      * <p>
      * Use it to register metamodel extensions.
+     *
      * @return the metamodel extension point.
      */
     @objid ("134143b7-6fb7-48af-a4d8-b0a4322f30b5")
@@ -69,12 +70,12 @@ public class ModelFactory extends AbstractModelFactory implements IModelFactoryS
     }
 
     @objid ("8dbe6281-dc9f-44ec-88b3-c04255a3f0da")
-    public  ModelFactory(ICoreSession session) {
+    public ModelFactory(ICoreSession session) {
         super(session.getMetamodel());
-        
+
         this.session = session;
         this.metamodelExtensionPoint = new MetamodelExtensionPoint<>();
-        
+
     }
 
     @objid ("b361d1d8-7bd6-4227-8633-77d99625edf3")
@@ -89,15 +90,15 @@ public class ModelFactory extends AbstractModelFactory implements IModelFactoryS
     public IModelFactory getFactory(MMetamodelFragment mmf) {
         IModelFactory ret = this.dispatcher.get(mmf);
         if (ret == null) {
-            // Note : this is not thread safe but currently only one transaction may run at a time 
+            // Note : this is not thread safe but currently only one transaction may run at a time
             IModelFactoryProvider svc = this.metamodelExtensionPoint.getService(mmf);
             if (svc == null)
                 throw new IllegalStateException(String.format("No IModelFactoryProvider for '%s' metamodel.", mmf.getName()));
-            
+
             ret = svc.getFactory(this.session);
             if (ret == null)
                 throw new NullPointerException(String.format("IModelFactoryProvider for '%s' metamodel does not produce IModelFactoryMmService.", mmf.getName()));
-            
+
             this.dispatcher.put(mmf, ret);
         }
         return ret;
@@ -105,6 +106,7 @@ public class ModelFactory extends AbstractModelFactory implements IModelFactoryS
 
     /**
      * Get the specific model factory implementing the given java class/interface.
+     *
      * @param factoryCls the model factory java interface/
      * @return the found model factory
      * @throws IllegalArgumentException if there is no model factory implementing the class or interface.
@@ -117,28 +119,28 @@ public class ModelFactory extends AbstractModelFactory implements IModelFactoryS
             if (factoryCls.isInstance(service))
                 return (T) service;
         }
-        
+
         for (MMetamodelFragment metamodelFragment : this.metamodel.getFragments()) {
             IModelFactory s = findFactory(metamodelFragment);
             if (s != null && factoryCls.isInstance(s))
                 return (T) s;
         }
-        
+
         throw new IllegalArgumentException("No model factory typed "+factoryCls.getName());
-        
+
     }
 
     @objid ("23a14d4b-7207-4ad7-8daa-1aa74fec0e01")
     private IModelFactory findFactory(MMetamodelFragment mmf) {
         IModelFactory ret = this.dispatcher.get(mmf);
         if (ret == null) {
-            // Note : this is not thread safe but currently only one transaction may run at a time 
+            // Note : this is not thread safe but currently only one transaction may run at a time
             IModelFactoryProvider svc = this.metamodelExtensionPoint.getService(mmf);
             if (svc != null) {
                 ret = svc.getFactory(this.session);
                 if (ret == null)
                     throw new NullPointerException(String.format("IModelFactoryProvider for '%s' metamodel does not produce IModelFactoryMmService.", mmf.getName()));
-        
+
                 this.dispatcher.put(mmf, ret);
             }
         }

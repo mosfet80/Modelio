@@ -1,32 +1,34 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.ui.htmleditor;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
@@ -65,6 +67,7 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Shell;
+import org.modelio.platform.ui.UIThreadRunner;
 import org.modelio.platform.ui.htmleditor.commands.Command;
 import org.modelio.platform.ui.htmleditor.commands.GetHtmlCommand;
 import org.modelio.platform.ui.htmleditor.commands.SetHtmlCommand;
@@ -72,11 +75,27 @@ import org.modelio.platform.ui.htmleditor.events.NodeSelectionEvent;
 import org.modelio.platform.ui.htmleditor.listener.NodeSelectionChangeListener;
 import org.modelio.platform.ui.htmleditor.util.ColorConverter;
 import org.modelio.platform.ui.plugin.UI;
+import org.modelio.platform.ui.swt.BrowserConfigurator;
+import org.modelio.vbasic.files.FileUtils;
 
 /**
- * HTML editor component that uses CKEditor embedded in a {@link Browser} .
+ * HTML editor component that uses CKEditor embedded in a SWT {@link Browser} .
  * <p>
+ * Since 6.1.2 (23/09/2025) this class behavior can be tuned with the following system properties:
+ * <ul>
+ * <li><b>modelio.editor.html.variant</b> (default is "1") that controls how the {@link Browser} is created on Windows:
+ * <ul>
+ * <li>"0": use old browser creation method (IE on windows)</li>
+ * <li>"1": try to use Edge on windows (default)</li>
+ * </ul>
+ * </li>
+ * <li><b>modelio.editor.html.debug</b> (default is "false") that controls if debug information are logged to the console.
+ * If set to "true" the Eruda console is injected in the HTML page to allow inspecting JS errors.</li>
+ * </ul>
+ * <p>
+ *
  * <h2>Internal implementation notes</h2>
+ *
  * At least on Linux the browser is implemented with Webkit 2 that
  * runs javascript asynchronously and waits for the result.
  * <p>
@@ -87,12 +106,11 @@ import org.modelio.platform.ui.plugin.UI;
  * <p>
  * <b>Conclusion : Avoid {@link BrowserFunction} that calls {@link Browser#evaluate(String)}
  * or {@link Browser#execute(String)} </b>until SWT makes better bindings.
- * 
- * 
+ *
  * @see https://ckeditor.com/
  */
 @objid ("f1ee600e-4b64-4254-a8b3-6733b8684fbb")
-@SuppressWarnings ("javadoc")
+@SuppressWarnings("javadoc")
 public class HtmlComposer {
     /**
      * Flag if the ckeditor finishes its initialization and is ready for receiving commands.
@@ -106,28 +124,31 @@ public class HtmlComposer {
     @objid ("440b60c1-8649-4feb-8afb-786515556739")
     private String lastHtmlContent;
 
-    /**
-     * The wrapped browser widget.
-     */
-    @objid ("389a9b04-158a-4745-8a72-ef5d02b6e8c3")
-    private final Browser browser;
+    @objid ("16ddc57a-1555-42b7-b65c-725095fd5f10")
+    private boolean debugMode;
 
-    @objid ("921f99b9-2c3a-4b4b-89d9-048c148375eb")
+    @objid ("673ad468-e62f-4fad-8193-50099ba21fd0")
     private final List<FocusListener> focusListeners = new ArrayList<>();
 
-    @objid ("45b2042a-c759-4c09-a6af-69f56a358007")
+    @objid ("e9e10a3f-08a8-488e-b024-87f3ef2e0a85")
     private final List<ModifyListener> modifyListenerList = new ArrayList<>();
 
     /**
      * A temporary queue of actions that were requested before the CKEditor was initialized.
      * <p>
      * When the CKEditor finishes its initialization all commands are executed in order.
-     * 
+     *
      * @see HtmlComposer#initialize()
      * @see #initialized
      */
-    @objid ("1880377f-6b4f-43f6-b22c-fd855578fa46")
-    private final List<Runnable> pendingActions = Collections.synchronizedList(new ArrayList<Runnable>());
+    @objid ("e3c57d01-f425-4292-b476-0c8d740179bd")
+    private List<Runnable> pendingActions = Collections.synchronizedList(new ArrayList<Runnable>());
+
+    /**
+     * The wrapped browser widget.
+     */
+    @objid ("9be313fa-2f44-41e1-b8a6-ae3ce8ad738d")
+    private final Browser browser;
 
     /**
      * A list of listeners which fire if the selected node within the html is changed.
@@ -141,69 +162,161 @@ public class HtmlComposer {
     @objid ("5e376d36-1b9a-4377-a98c-6070cdeb4a08")
     private final Map<String, Command> trackedCommands = new HashMap<>();
 
-    /**
-     * Constructs a new instance of a {@link Browser} and includes a ckeditor instance.
-     * @see Browser#Browser(Composite, int)
-     * @since 0.8
-     * @param parent a composite control which will be the parent of the new instance (cannot be null)
-     * @param style the style of control to construct
-     */
-    @objid ("81087760-15f7-41aa-909e-eeabdb073191")
-    public  HtmlComposer(final Composite parent, final int style) {
-        this.browser = new Browser(parent, style);
-        this.browser.setMenu(new Menu(this.browser));
-        
-        registerBrowserFunctions();
-        
-        URL baseUrl;
-        try {
-            baseUrl = FileLocator.resolve(FileLocator.find(UI.getContext().getBundle(), new Path("rte/js/base.html"),
-                    Collections.EMPTY_MAP));
-        } catch (final IOException e) {
-            throw new RuntimeException(e);
+    @objid ("b78a714f-dcff-4340-8a0d-f0aaf80015bc")
+    private boolean isAsyncRegistration() {
+        // browser.getBrowserType() may return:
+        // - "ie" for Internet Explorer
+        // - "edge" for Microsoft Edge
+        // - "webkit" for WebKit
+        // - ... ?
+        switch (this.browser.getBrowserType()) {
+        case "edge":
+            // M$ Edge must register BrowserFunction after page load
+            return true;
+        case "ie":
+            // IE seems to not support registerBrowserFunctions() in completion listener
+            return false;
+        case "webkit":
+            // Webkit seems to need async registration
+            return true;
+        default:
+            // Unknown browser, try async
+            return true;
         }
-        
-        this.browser.addProgressListener(new ProgressAdapter() {
-            @Override
-            public void completed(ProgressEvent event) {
-                // Warning: 'integration' might not be defined yet, we have to check it first
-                HtmlComposer.this.browser.removeProgressListener(this);
-            }
-        });
-        
-        this.browser.setUrl(baseUrl.toString());
-        
+    }
+
+    @objid ("355f2249-2721-4614-972a-85e76456a660")
+    private void debugLog(String format, Object... args) {
+        if (this.debugMode) {
+            UI.LOG.debug(String.format(format, args));
+        }
+    }
+
+    @objid ("44b8bf75-518c-4f7d-81f1-b8e4b5007ab8")
+    private void debugLog(String format) {
+        if (this.debugMode) {
+            UI.LOG.debug(format);
+        }
     }
 
     /**
-     * @see org.eclipse.swt.widgets.Control#addControlListener(org.eclipse.swt.events.ControlListener)
+     * Constructs a new instance of a {@link Browser} and includes a ckeditor instance.
+     *
+     * @param parent a composite control which will be the parent of the new instance (cannot be null)
+     * @param style the style of control to construct
+     * @see Browser#Browser(Composite, int)
+     * @since 0.8
      */
+    @objid ("81087760-15f7-41aa-909e-eeabdb073191")
+    public HtmlComposer(final Composite parent, final int style) {
+        this.debugMode = System.getProperty("modelio.editor.html.debug", "false").equalsIgnoreCase("true");
+
+        // modelio.editor.html.variant system property:
+        // 0: use old browser creation method (IE on windows)
+        // 1: try to use Edge on windows (default)
+        if (System.getProperty("modelio.editor.html.variant", "1").equals("1")) {
+            //try to use Edge on windows
+            this.browser = BrowserConfigurator.newBrowser(parent, style);
+        } else {
+            this.browser = BrowserConfigurator.oldBrowser(parent, style);
+        }
+        this.browser.setMenu(new Menu(this.browser));
+
+        boolean needAsyncRegistration = isAsyncRegistration();
+        if (! needAsyncRegistration) {
+            registerBrowserFunctions();
+        }
+
+        URL baseUrl;
+        try {
+            baseUrl = FileLocator.resolve(FileLocator.find(UI.getContext().getBundle(), new Path("rte/js/base.html"), Map.of()));
+        } catch (final IOException e) {
+            // should never happen
+            throw new LinkageError(FileUtils.getLocalizedMessage(e), e);
+        }
+
+        this.browser.addProgressListener(new ProgressAdapter() {
+            @Override
+            public void completed(ProgressEvent event) {
+                UIThreadRunner.asynExec(HtmlComposer.this.browser, () -> onPageLoaded(needAsyncRegistration));
+
+                HtmlComposer.this.browser.removeProgressListener(this);
+            }
+        });
+
+        this.browser.setUrl(baseUrl.toString());
+    }
+
+    @objid ("aab00eb0-2e4c-4867-be19-65a9306c9f45")
+    private void onPageLoaded(boolean isAsyncRegister) {
+        if (this.debugMode) {
+            debugLog("HtmlComposer: Injecting Eruda console for debug...");
+            injectErudaConsole();
+        }
+
+        if (isAsyncRegister) {
+            // register browser function now to avoid M$ Edge bug
+            // see https://github.com/eclipse-platform/eclipse.platform.swt/discussions/1274
+            registerBrowserFunctions();
+        }
+    }
+
+    /**
+     * Inject Eruda Script After Page Load
+     * <p>
+     * Eruda is a developer console for any browser.
+     * See https://eruda.liriliri.io
+     */
+    @objid ("ca716383-4f10-4279-89ac-4f34bd9a21f6")
+    private void injectErudaConsole() {
+        String erudaScript ="""
+            var script = document.createElement('script');
+            script.src = 'eruda.js';
+            document.body.appendChild(script);
+            script.onload = function () {
+                eruda.init();
+                eruda.show('console');
+            };
+                """;
+        if (true) {
+            executeNow(erudaScript);
+        } else {
+            if (! this.browser.execute(erudaScript)) {
+                // I don't know why, it always return false but it works.
+                // Only eruda.show('console') seems not to work.
+                UI.LOG.debug( new RuntimeException("Eruda script injection reported failure, but may have worked anyway."));
+            }
+        }
+    }
+
     @objid ("2b3a8b01-411e-423c-bd3b-d9e4dc4331ce")
     public void addControlListener(final ControlListener listener) {
         this.browser.addControlListener(listener);
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Widget#addDisposeListener(org.eclipse.swt.events.DisposeListener)
-     */
     @objid ("f357268e-a41c-46e0-a846-4fad6032e089")
     public void addDisposeListener(final DisposeListener listener) {
         this.browser.addDisposeListener(listener);
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Control#addFocusListener(org.eclipse.swt.events.FocusListener)
-     */
     @objid ("de0b6a6a-18e3-4a85-bd3f-4cab565d3567")
     public void addFocusListener(final FocusListener listener) {
         // this.browser.addFocusListener(listener);
-        this.focusListeners.add(listener);
-        
+        //  this.focusListeners.add(listener);
+
+        if (this.initialized) {
+            this.focusListeners.add(listener);
+        } else {
+            // Defer until CKEditor is initialized
+            this.pendingActions.add(() -> addFocusListener(listener));
+        }
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Control#addHelpListener(org.eclipse.swt.events.HelpListener)
-     */
+    @objid ("e8f2a4b3-02a3-4d4a-9640-3a14738bee9b")
+    public boolean hasFocus() {
+        return this.browser.isFocusControl();
+    }
+
     @objid ("46252512-c7fe-40ea-bd00-911d3925a074")
     public void addHelpListener(final HelpListener listener) {
         this.browser.addHelpListener(listener);
@@ -214,6 +327,7 @@ public class HtmlComposer {
      * <p>
      * The listener addition is deferred in a queue when this method is called
      * before CKEditor is initialized.
+     *
      * @param listener a listener
      */
     @objid ("280ed00e-3361-472f-adbd-e314392efea5")
@@ -224,7 +338,6 @@ public class HtmlComposer {
             // Defer until CKEditor is initialized
             this.pendingActions.add(() -> addModifyListener(listener));
         }
-        
     }
 
     @objid ("bd0e2816-f30e-4c07-9744-b43338ee985d")
@@ -232,23 +345,18 @@ public class HtmlComposer {
         this.selectionListenerList.add(listener);
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Control#addPaintListener(org.eclipse.swt.events.PaintListener)
-     */
     @objid ("3ab27ead-1c33-48f7-a4e8-088b1f4c88b8")
     public void addPaintListener(final PaintListener listener) {
         this.browser.addPaintListener(listener);
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Control#addTraverseListener(org.eclipse.swt.events.TraverseListener)
-     */
     @objid ("80abdb6d-733d-48fb-9c9a-e13244032720")
     public void addTraverseListener(final TraverseListener listener) {
         this.browser.addTraverseListener(listener);
     }
 
     /**
+     *
      * @see org.eclipse.swt.widgets.Control#computeSize(int, int)
      */
     @objid ("64b101e8-5319-4e13-82d2-1335bee96ba9")
@@ -257,6 +365,7 @@ public class HtmlComposer {
     }
 
     /**
+     *
      * @see org.eclipse.swt.widgets.Composite#computeSize(int, int, boolean)
      */
     @objid ("f9ec6fc9-9c60-4538-a8c5-e55e9ca98c7f")
@@ -265,6 +374,7 @@ public class HtmlComposer {
     }
 
     /**
+     *
      * @see org.eclipse.swt.widgets.Scrollable#computeTrim(int, int, int, int)
      */
     @objid ("fd8c617a-a5ca-4a16-93d3-c62f989d3f69")
@@ -272,9 +382,6 @@ public class HtmlComposer {
         return this.browser.computeTrim(x, y, width, height);
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Widget#dispose()
-     */
     @objid ("4e73bf7c-f95e-4ec4-be71-b6dc6ee365db")
     public void dispose() {
         // Empty the focus listeners before dispose to avoid asynchronous problems
@@ -282,22 +389,26 @@ public class HtmlComposer {
             this.focusListeners.clear();
         }
         this.browser.dispose();
-        
     }
 
-    /**
-     * @see org.eclipse.swt.browser.Browser#evaluate(java.lang.String)
-     */
     @objid ("5912e6ae-2746-4730-bbf4-0c7ccf24cffc")
     public Object evaluate(String script) throws SWTException {
+        if (this.browser.isDisposed()) {
+            // Sometimes evaluate is called after the window has been closed, catch it to avoid an ugly eclipse error box.
+            return null;
+        }
+
+
+        debugLog("Evaluating script: " + script);
+
+
+
         try {
             return this.browser.evaluate(script);
         } catch (Exception e) {
-            // Sometimes evaluate is called after the window has been closed, catch it to avoid an ugly eclipse error box.
             UI.LOG.debug(e);
             return null;
         }
-        
     }
 
     /**
@@ -307,26 +418,25 @@ public class HtmlComposer {
      * If document-defined functions or properties are accessed by the script then
      * this method should not be invoked until the document has finished loading
      * (ProgressListener.completed() gives notification of this).
-     * @see org.eclipse.swt.browser.Browser#execute(java.lang.String)
-     * @see org.eclipse.swt.browser.Browser#evaluate(java.lang.String)
+     *
      * @param script the script with javascript commands
      * @return true if the operation was successful and false otherwise
      */
     @objid ("21c17b88-11e6-4be8-928b-802ddf664e73")
     private boolean executeNow(String script) {
         try {
-            // we don't need the return value but this version throws exception when JS fails.
-            this.browser.evaluate(script);
+            debugLog("Executing script: " + script);
+            this.browser.execute(script);
             return true;
         } catch (RuntimeException e) {
             UI.LOG.warning(e);
             return false;
         }
-        
     }
 
     /**
      * Executes a given command
+     *
      * @param command the command to execute
      */
     @objid ("6480584c-dfe5-46a0-94d0-7784f4c265f9")
@@ -336,13 +446,13 @@ public class HtmlComposer {
         } else {
             this.pendingActions.add(() -> execute(command));
         }
-        
     }
 
     /**
      * Execute a command that returns a result.
      * <p>
      * Ignore the command and returns null if CKEditor is not yet initialized.
+     *
      * @param command the command to execute
      * @return the result of the execution.
      */
@@ -354,17 +464,11 @@ public class HtmlComposer {
         return null;
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Control#forceFocus()
-     */
     @objid ("ffb118a7-32e4-4e32-948f-a7ea6c0c9334")
     public boolean forceFocus() {
         return this.browser.forceFocus();
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Control#getAccessible()
-     */
     @objid ("36b40f68-cfbb-4962-8cd9-2b97cf140f5e")
     public Accessible getAccessible() {
         return this.browser.getAccessible();
@@ -372,7 +476,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Control#getBackground()
      */
     @objid ("94c10311-3e76-47b7-b7d8-0a5ba785921f")
     public Color getBackground() {
@@ -381,7 +484,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Control#getBackgroundImage()
      */
     @objid ("a0086d39-b898-43f4-8f5f-3c77657292e0")
     public Image getBackgroundImage() {
@@ -390,7 +492,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Composite#getBackgroundMode()
      */
     @objid ("74e69c4e-b05e-4e00-b33e-4159fd8b5afc")
     public int getBackgroundMode() {
@@ -399,7 +500,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Control#getBorderWidth()
      */
     @objid ("ff947aae-7f03-4570-8da3-db79fbcdff07")
     public int getBorderWidth() {
@@ -408,7 +508,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Control#getBounds()
      */
     @objid ("5cf90c84-4a4f-4371-aeb9-8729be352df1")
     public Rectangle getBounds() {
@@ -422,7 +521,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Composite#getChildren()
      */
     @objid ("32f72af0-11bb-41a8-8a6a-be5b4c41180f")
     public Control[] getChildren() {
@@ -431,7 +529,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Scrollable#getClientArea()
      */
     @objid ("4fe8d849-0a70-4daf-bbf5-8570c8def77a")
     public Rectangle getClientArea() {
@@ -440,7 +537,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Control#getCursor()
      */
     @objid ("5e29d444-e848-4999-9589-7b1413fc4318")
     public Cursor getCursor() {
@@ -449,7 +545,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Widget#getData()
      */
     @objid ("5391ab5c-a60f-4675-ba10-30eebd4c4cd7")
     public Object getData() {
@@ -457,8 +552,6 @@ public class HtmlComposer {
     }
 
     /**
-     * @see org.eclipse.swt.widgets.Widget#getData(java.lang.String)
-     * 
      * @return
      */
     @objid ("a6bf5b56-e9b4-4c24-ad5a-e92262010b44")
@@ -468,7 +561,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Widget#getDisplay()
      */
     @objid ("d309251e-4e28-4193-8fa0-1309a6e6e5ab")
     public Display getDisplay() {
@@ -477,7 +569,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Control#getEnabled()
      */
     @objid ("15ce9d6f-6d2a-4e53-b7d1-010ed685209f")
     public boolean getEnabled() {
@@ -486,7 +577,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Control#getFont()
      */
     @objid ("6e965885-d87f-4923-911d-d35d6269325a")
     public Font getFont() {
@@ -495,7 +585,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Control#getForeground()
      */
     @objid ("c2089e63-6802-4bb5-a2b3-7ff285350127")
     public Color getForeground() {
@@ -504,7 +593,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Scrollable#getHorizontalBar()
      */
     @objid ("4052668a-0346-4f2c-8ca1-07f8d2194a12")
     public ScrollBar getHorizontalBar() {
@@ -515,6 +603,7 @@ public class HtmlComposer {
      * Returns the current HTML content of the widget.
      * <p>
      * Returns null if CKEditor is not yet initialized.
+     *
      * @return the html
      */
     @objid ("557dd26b-2197-4b36-89b5-5ddd04852ac7")
@@ -523,14 +612,14 @@ public class HtmlComposer {
         final Object executeWithReturn = executeWithReturn(getHtmlCommand);
         if (executeWithReturn != null) {
             // CkEditor adds many newlines between paragraphs, remove them.
-            String ret = String.valueOf(executeWithReturn)
-                    .replace("</p>\n\n<p", "</p><p")
+           String ret = String.valueOf(executeWithReturn);
+                   /* .replace("</p>\n\n<p", "</p><p")
                     .replace("</p>\n\n<table", "</p><table")
-                    .replace("</table>\n\n<p", "</table><p");
-        
+                    .replace("</table>\n\n<p", "</table><p");*/
+
             // to avoid useless refresh if calling #setHtml() with same content
             this.lastHtmlContent = ret;
-        
+
             return ret;
         }
         return null;
@@ -538,7 +627,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Composite#getLayout()
      */
     @objid ("836900f9-cc29-4189-bb40-831c179071f4")
     public Layout getLayout() {
@@ -547,7 +635,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Control#getLayoutData()
      */
     @objid ("e6c8ca32-d251-4a0a-a48b-371880c5cf66")
     public Object getLayoutData() {
@@ -556,7 +643,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Composite#getLayoutDeferred()
      */
     @objid ("b15998fd-4b2c-4fe8-aec8-50b5e40650a1")
     public boolean getLayoutDeferred() {
@@ -564,8 +650,6 @@ public class HtmlComposer {
     }
 
     /**
-     * @see org.eclipse.swt.widgets.Widget#getListeners(int)
-     * 
      * @return
      */
     @objid ("768a687d-78e0-40ae-a2af-6777ad247f95")
@@ -575,7 +659,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Control#getLocation()
      */
     @objid ("cd3ee9e7-c627-4e55-805f-480ba04b8770")
     public Point getLocation() {
@@ -584,7 +667,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Control#getMenu()
      */
     @objid ("8a92c8fc-f864-498f-8ef6-5803c54fe504")
     public Menu getMenu() {
@@ -593,7 +675,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Control#getMonitor()
      */
     @objid ("a34f0717-cb31-4e7a-87e4-db9cfde3880a")
     public Monitor getMonitor() {
@@ -602,7 +683,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Control#getParent()
      */
     @objid ("83e47525-4314-4c21-9276-be3e2d69b4e0")
     public Composite getParent() {
@@ -611,7 +691,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Control#getRegion()
      */
     @objid ("b85f2d37-d4b0-4cbf-9332-c4391255cafa")
     public Region getRegion() {
@@ -620,7 +699,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Control#getShell()
      */
     @objid ("a3436179-d321-4db3-aa51-305ff0491c71")
     public Shell getShell() {
@@ -629,7 +707,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Control#getSize()
      */
     @objid ("54ff373c-9994-4f58-8222-d87b33eaf466")
     public Point getSize() {
@@ -638,7 +715,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.browser.Browser#getStyle()
      */
     @objid ("61a9941e-65a2-4ff0-9972-bb1f83105e1a")
     public int getStyle() {
@@ -647,7 +723,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Composite#getTabList()
      */
     @objid ("2faa0c49-609d-4eb0-8a7b-94f61760a76b")
     public Control[] getTabList() {
@@ -656,7 +731,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Scrollable#getVerticalBar()
      */
     @objid ("616814b2-1295-456b-89f1-f4e7727bdb4b")
     public ScrollBar getVerticalBar() {
@@ -665,7 +739,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Control#getVisible()
      */
     @objid ("5a70c500-5698-4033-b84d-5134364f89fa")
     public boolean getVisible() {
@@ -674,7 +747,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Widget#isDisposed()
      */
     @objid ("a9295bc2-9294-424c-b63e-ffa3b9aafe5d")
     public boolean isDisposed() {
@@ -683,7 +755,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Control#isEnabled()
      */
     @objid ("880c2137-516a-416a-9047-f0ea05ff3bbc")
     public boolean isEnabled() {
@@ -692,7 +763,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.browser.Browser#isFocusControl()
      */
     @objid ("b5d05ff9-d143-4a0f-ad0f-16159b928b2c")
     public boolean isFocusControl() {
@@ -701,7 +771,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Composite#isLayoutDeferred()
      */
     @objid ("9e2b1568-cfcf-4c30-8cc2-b885e0d4037d")
     public boolean isLayoutDeferred() {
@@ -709,8 +778,6 @@ public class HtmlComposer {
     }
 
     /**
-     * @see org.eclipse.swt.widgets.Widget#isListening(int)
-     * 
      * @return
      */
     @objid ("9718c202-0358-4853-bed1-89b4de17fc09")
@@ -720,7 +787,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Control#isReparentable()
      */
     @objid ("1ea59a2f-b392-426a-8bb3-03e86fef8b47")
     public boolean isReparentable() {
@@ -729,30 +795,24 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Control#isVisible()
      */
     @objid ("39f6e7c1-ed6f-4a79-b0cb-7b21e474f66c")
     public boolean isVisible() {
         return this.browser.isVisible();
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Composite#layout()
-     */
     @objid ("6e87a262-a4b1-44ca-bc1b-7a62aade4789")
     public void layout() {
         this.browser.layout();
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Composite#layout(boolean)
-     */
     @objid ("19d893b4-b992-4bf8-bb1d-6d0fc6fd87d3")
     public void layout(final boolean changed) {
         this.browser.layout(changed);
     }
 
     /**
+     *
      * @see org.eclipse.swt.widgets.Composite#layout(boolean, boolean)
      */
     @objid ("2e95123a-4a1a-404e-8020-0b659a62944b")
@@ -760,31 +820,23 @@ public class HtmlComposer {
         this.browser.layout(changed, all);
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Composite#layout(org.eclipse.swt.widgets.Control[])
-     */
     @objid ("4a9cfffb-3437-49be-9cf3-afc7f74ed73b")
     public void layout(final Control[] changed) {
         this.browser.layout(changed);
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Control#moveAbove(org.eclipse.swt.widgets.Control)
-     */
     @objid ("61813912-771d-44c8-afd9-dc6ecb9adf0b")
     public void moveAbove(final Control control) {
         this.browser.moveAbove(control);
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Control#moveBelow(org.eclipse.swt.widgets.Control)
-     */
     @objid ("1abdedc3-7e9d-45af-8c06-400d51b1a8c9")
     public void moveBelow(final Control control) {
         this.browser.moveBelow(control);
     }
 
     /**
+     *
      * @see org.eclipse.swt.widgets.Widget#notifyListeners(int, org.eclipse.swt.widgets.Event)
      */
     @objid ("2371e5e1-336e-4fd4-af3b-d6d4315c9a25")
@@ -792,25 +844,17 @@ public class HtmlComposer {
         this.browser.notifyListeners(eventType, event);
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Control#pack()
-     */
     @objid ("c63d4e8e-53e8-4505-aa98-47b4de1dba5c")
     public void pack() {
         this.browser.pack();
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Control#pack(boolean)
-     */
     @objid ("6fdf96d5-c6ad-4e24-b387-2ca33e14f62f")
     public void pack(final boolean changed) {
         this.browser.pack(changed);
     }
 
     /**
-     * @see org.eclipse.swt.widgets.Control#print(org.eclipse.swt.graphics.GC)
-     * 
      * @return
      */
     @objid ("c2f12c49-fa99-4d4d-b259-de7f78eb6268")
@@ -818,15 +862,13 @@ public class HtmlComposer {
         return this.browser.print(gc);
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Control#redraw()
-     */
     @objid ("fcb3709f-b1fb-49ea-90de-efdf4b898a9d")
     public void redraw() {
         this.browser.redraw();
     }
 
     /**
+     *
      * @see org.eclipse.swt.widgets.Control#redraw(int, int, int, int, boolean)
      */
     @objid ("af6ccadf-a4d7-4f6c-8a5a-df480d5e9bbb")
@@ -834,35 +876,22 @@ public class HtmlComposer {
         this.browser.redraw(x, y, width, height, all);
     }
 
-    /**
-     * @see org.eclipse.swt.browser.Browser#refresh()
-     */
     @objid ("c10a1145-61e5-4c69-b40e-dfd8ebff5d0c")
     public void refresh() {
         this.browser.refresh();
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Widget#removeDisposeListener(org.eclipse.swt.events.DisposeListener)
-     */
     @objid ("1270d050-d052-4949-82d3-da38153233f1")
     public void removeDisposeListener(final DisposeListener listener) {
         this.browser.removeDisposeListener(listener);
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Control#removeFocusListener(org.eclipse.swt.events.FocusListener)
-     */
     @objid ("ed27d86e-7577-4f81-9c27-8423aadfde87")
     public void removeFocusListener(final FocusListener listener) {
         // this.browser.removeFocusListener(listener);
         this.focusListeners.remove(listener);
-        
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Control#removeHelpListener(org.eclipse.swt.events.HelpListener)
-     */
     @objid ("f63d73b2-59a5-445d-86b8-f80f3ef7f9b7")
     public void removeHelpListener(final HelpListener listener) {
         this.browser.removeHelpListener(listener);
@@ -872,12 +901,11 @@ public class HtmlComposer {
     public void removeModifyListener(ModifyListener listener) {
         // Remove immediately in all cases
         boolean removed = this.modifyListenerList.remove(listener);
-        
+
         if (!this.initialized) {
             // also queue removal
             this.pendingActions.add(() -> removeModifyListener(listener));
         }
-        
     }
 
     @objid ("4e39954f-a05f-4493-8be0-b8d73139cbc0")
@@ -885,33 +913,21 @@ public class HtmlComposer {
         this.selectionListenerList.remove(listener);
     }
 
-    /**
-     * @see org.eclipse.swt.browser.Browser#removeOpenWindowListener(org.eclipse.swt.browser.OpenWindowListener)
-     */
     @objid ("a5f6d330-d3d5-4440-b240-3e97b6d6f35e")
     public void removeOpenWindowListener(final OpenWindowListener listener) {
         this.browser.removeOpenWindowListener(listener);
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Control#removePaintListener(org.eclipse.swt.events.PaintListener)
-     */
     @objid ("863d5dbe-2946-4c45-be01-6305a6316275")
     public void removePaintListener(final PaintListener listener) {
         this.browser.removePaintListener(listener);
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Control#removeTraverseListener(org.eclipse.swt.events.TraverseListener)
-     */
     @objid ("cab7030f-c871-4c8b-82e8-fcb9de7a8714")
     public void removeTraverseListener(final TraverseListener listener) {
         this.browser.removeTraverseListener(listener);
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Control#setBackground(org.eclipse.swt.graphics.Color)
-     */
     @objid ("b33e4326-f56e-4a11-af7c-5c9edc466292")
     public void setBackground(final Color color) {
         this.browser.setBackground(color);
@@ -922,26 +938,20 @@ public class HtmlComposer {
                 return "document.getElementById(\'cke_editor1_arialbl\').nextSibling.style.backgroundColor = \'" + hexValue + "\';";
             }
         });
-        
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Control#setBackgroundImage(org.eclipse.swt.graphics.Image)
-     */
     @objid ("12633317-680f-46fb-91fc-473c4e993b69")
     public void setBackgroundImage(final Image image) {
         this.browser.setBackgroundImage(image);
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Composite#setBackgroundMode(int)
-     */
     @objid ("de241d20-6a90-474b-8981-d73dcbf60b55")
     public void setBackgroundMode(final int mode) {
         this.browser.setBackgroundMode(mode);
     }
 
     /**
+     *
      * @see org.eclipse.swt.widgets.Control#setBounds(int, int, int, int)
      */
     @objid ("f75868dc-7a57-449e-b67f-8e5b5b66acd5")
@@ -949,39 +959,28 @@ public class HtmlComposer {
         this.browser.setBounds(x, y, width, height);
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Control#setBounds(org.eclipse.swt.graphics.Rectangle)
-     */
     @objid ("3e28a842-2fcd-4945-a623-91675d67f6f0")
     public void setBounds(final Rectangle rect) {
         this.browser.setBounds(rect);
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Control#setCapture(boolean)
-     */
     @objid ("1199c6f5-4f62-487d-aa7d-9150bddfdd47")
     public void setCapture(final boolean capture) {
         this.browser.setCapture(capture);
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Control#setCursor(org.eclipse.swt.graphics.Cursor)
-     */
     @objid ("c0c1e0e5-6a7d-40bc-acae-81967848e7dd")
     public void setCursor(final Cursor cursor) {
         this.browser.setCursor(cursor);
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Widget#setData(java.lang.Object)
-     */
     @objid ("81fd14fe-151c-49e2-8276-fe522eeecd16")
     public void setData(final Object data) {
         this.browser.setData(data);
     }
 
     /**
+     *
      * @see org.eclipse.swt.widgets.Widget#setData(java.lang.String, java.lang.Object)
      */
     @objid ("b566d469-51be-42f9-8e72-c8e5b548ff3b")
@@ -1001,19 +1000,15 @@ public class HtmlComposer {
             // Defer until initialized
             this.pendingActions.add(() -> setEditable(onOff));
         }
-        
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Control#setEnabled(boolean)
-     */
     @objid ("ae7bdc94-3f28-4996-9305-f51ba4cfaa86")
     public void setEnabled(final boolean enabled) {
         this.browser.setEnabled(enabled);
     }
 
     /**
-     * @see org.eclipse.swt.widgets.Composite#setFocus()
+     *
      * @return if the control got focus, and false if it was unable to.
      */
     @objid ("2684ed25-d978-458b-9989-fb408ff72c16")
@@ -1029,17 +1024,11 @@ public class HtmlComposer {
         return setFocus;
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Control#setFont(org.eclipse.swt.graphics.Font)
-     */
     @objid ("12600e81-8c5f-42f3-9563-0e3fee8d5a4e")
     public void setFont(final Font font) {
         this.browser.setFont(font);
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Control#setForeground(org.eclipse.swt.graphics.Color)
-     */
     @objid ("b81e09a2-bbc2-4cd8-81eb-597929141f10")
     public void setForeground(final Color color) {
         this.browser.setForeground(color);
@@ -1047,50 +1036,47 @@ public class HtmlComposer {
 
     /**
      * Replaces the current content of the widget with the given html. For inserting html at the current selection use:
-     * 
+     *
      * <pre>
      * HtmlComposer.execute(&quot;integration.editor.insertHtml('myHtmlToInsert');&quot;);
      * </pre>
      */
     @objid ("d2d42059-a4a6-42df-8ff0-317169ca3133")
-    public void setHtml(String html) {
-        if (Objects.equals(html,  this.lastHtmlContent)) {
+    public void setHtml(String html, boolean force) {
+        if (Objects.equals(html, this.lastHtmlContent) && ! force) {
             // CK Editor refresh is expensive, asynchronous and badly handled.
-            // don't call it for nothing
+            // don't call it for nothing.
             return;
         }
-        
+        this.pendingActions = this.pendingActions.stream().filter(action -> ! (action instanceof SetHtmlCommand)).collect(Collectors.toList());
+
         final SetHtmlCommand setHtmlCommand = new SetHtmlCommand(html);
         execute(setHtmlCommand);
         this.lastHtmlContent = html;
-        
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Composite#setLayout(org.eclipse.swt.widgets.Layout)
-     */
+    @objid ("906f1f2c-c09f-4806-b401-989e7e18cdf9")
+    public void setHtml(String html) {
+        setHtml(html,true);
+    }
+
     @objid ("312efc2f-d114-40fd-91a5-904ebda2cdb1")
     public void setLayout(final Layout layout) {
         this.browser.setLayout(layout);
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Control#setLayoutData(java.lang.Object)
-     */
     @objid ("d38f1e4c-84da-4d9f-beeb-04cb89a6ed7d")
     public void setLayoutData(final Object layoutData) {
         this.browser.setLayoutData(layoutData);
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Composite#setLayoutDeferred(boolean)
-     */
     @objid ("dd5b62fe-b265-46ae-a0c9-4fb73141878e")
     public void setLayoutDeferred(final boolean defer) {
         this.browser.setLayoutDeferred(defer);
     }
 
     /**
+     *
      * @see org.eclipse.swt.widgets.Control#setLocation(int, int)
      */
     @objid ("d1e3e0c7-ead0-48e8-9f71-21bd9d14b920")
@@ -1098,25 +1084,17 @@ public class HtmlComposer {
         this.browser.setLocation(x, y);
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Control#setLocation(org.eclipse.swt.graphics.Point)
-     */
     @objid ("c09c669b-6d4a-40ba-b524-0d30b60bdea1")
     public void setLocation(final Point location) {
         this.browser.setLocation(location);
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Control#setMenu(org.eclipse.swt.widgets.Menu)
-     */
     @objid ("0486d50b-41f7-4968-81fb-821b5771f1e0")
     public void setMenu(final Menu menu) {
         this.browser.setMenu(menu);
     }
 
     /**
-     * @see org.eclipse.swt.widgets.Control#setParent(org.eclipse.swt.widgets.Composite)
-     * 
      * @return
      */
     @objid ("343f5308-868e-4469-9945-59615ba4306f")
@@ -1124,23 +1102,18 @@ public class HtmlComposer {
         return this.browser.setParent(parent);
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Control#setRedraw(boolean)
-     */
     @objid ("43893fd3-772e-4b3f-98ab-7eb3cb82f7b0")
     public void setRedraw(final boolean redraw) {
         this.browser.setRedraw(redraw);
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Control#setRegion(org.eclipse.swt.graphics.Region)
-     */
     @objid ("869acc8e-ec5d-47d2-9a4a-287549710f24")
     public void setRegion(final Region region) {
         this.browser.setRegion(region);
     }
 
     /**
+     *
      * @see org.eclipse.swt.widgets.Control#setSize(int, int)
      */
     @objid ("5104e192-bae7-476a-a789-425afdb4b8f2")
@@ -1148,33 +1121,25 @@ public class HtmlComposer {
         this.browser.setSize(width, height);
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Control#setSize(org.eclipse.swt.graphics.Point)
-     */
     @objid ("872058aa-c63d-474e-a427-f3dd4ccd485c")
     public void setSize(final Point size) {
         this.browser.setSize(size);
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Composite#setTabList(org.eclipse.swt.widgets.Control[])
-     */
     @objid ("95606699-1585-4c3b-af84-523e9bfa09ec")
     public void setTabList(final Control[] tabList) {
         this.browser.setTabList(tabList);
     }
 
-    /**
-     * @see org.eclipse.swt.widgets.Control#setVisible(boolean)
-     */
     @objid ("1f716634-a16c-4390-bcbf-5d8d345eea84")
     public void setVisible(final boolean visible) {
         this.browser.setVisible(visible);
     }
 
     /**
+     *
      * @see org.eclipse.swt.widgets.Control#toControl(int, int)
-     * 
+     *
      * @return
      */
     @objid ("1267c78e-5312-4c2e-9700-5798ca0e966a")
@@ -1183,8 +1148,6 @@ public class HtmlComposer {
     }
 
     /**
-     * @see org.eclipse.swt.widgets.Control#toControl(org.eclipse.swt.graphics.Point)
-     * 
      * @return
      */
     @objid ("0f27310c-8323-4c5d-aa2c-f8c0bc7011be")
@@ -1193,8 +1156,9 @@ public class HtmlComposer {
     }
 
     /**
+     *
      * @see org.eclipse.swt.widgets.Control#toDisplay(int, int)
-     * 
+     *
      * @return
      */
     @objid ("f6c05c07-0cef-4926-871f-c87c78a6fbb0")
@@ -1203,8 +1167,6 @@ public class HtmlComposer {
     }
 
     /**
-     * @see org.eclipse.swt.widgets.Control#toDisplay(org.eclipse.swt.graphics.Point)
-     * 
      * @return
      */
     @objid ("86c8b4af-de24-419f-956b-a1172c8d3273")
@@ -1214,7 +1176,6 @@ public class HtmlComposer {
 
     /**
      * @return
-     * @see org.eclipse.swt.widgets.Widget#toString()
      */
     @objid ("b5872d2f-db0c-4d9e-ba45-f3dd2a381d95")
     @Override
@@ -1229,8 +1190,6 @@ public class HtmlComposer {
     }
 
     /**
-     * @see org.eclipse.swt.widgets.Control#traverse(int)
-     * 
      * @return
      */
     @objid ("4b779e45-93cd-4135-8890-be947c4097ee")
@@ -1253,16 +1212,17 @@ public class HtmlComposer {
     void onCkEditorInitialized() {
         /*
          * Workaround for FocusLost. The event was not always sent
-         * which is apparently an Eclipse bug ( https://bugs.eclipse.org/bugs/show_bug.cgi?id=84532)
+         * which is apparently an Eclipse bug ( https://bugs.eclipse.org/bugs/show_bug.cgi?id=84532, CLOSED WONTFIX)
          */
         this.browser.addListener(SWT.Deactivate, event -> {
+            FocusEvent focusEvent = new FocusEvent(event);
             for (final FocusListener l : this.focusListeners) {
-                l.focusLost(new FocusEvent(event));
+                l.focusLost(focusEvent);
             }
         });
-        
+
         this.initialized = true;
-        
+
         // Run all deferred actions now
         for (final Runnable command : this.pendingActions) {
             try {
@@ -1272,7 +1232,6 @@ public class HtmlComposer {
             }
         }
         this.pendingActions.clear();
-        
     }
 
     @objid ("53037090-f4e1-423b-952e-27ff52134d7b")
@@ -1281,8 +1240,10 @@ public class HtmlComposer {
     }
 
     @objid ("364d3095-cf4b-4456-b61a-41cbd7044ca6")
-    @SuppressWarnings ("unused")
+    @SuppressWarnings("unused")
     private void registerBrowserFunctions() {
+        debugLog("registerBrowserFunctions() called");
+
         new InitFunction(this.browser);
         new SelectionChangedFunction(this.browser);
         new ModifiedFunction(this.browser);
@@ -1292,7 +1253,8 @@ public class HtmlComposer {
             @Override
             public Object function(Object[] arguments) {
                 if (arguments.length > 0 )
-                    arguments[0] = "JS log:"+String.valueOf(arguments[0]);
+                    arguments[0] = "HtmlComposer JS log:"+String.valueOf(arguments[0]);
+                UI.LOG.debug(Arrays.toString(arguments));
                 return null;
             }
         };
@@ -1302,13 +1264,12 @@ public class HtmlComposer {
                 return Boolean.TRUE;
             }
         };
-        
     }
 
     @objid ("501fc4b9-18b0-4b03-939e-74a24fc56ce8")
     private class FocusGainedFunction extends BrowserFunction {
         @objid ("58ab466c-5f48-4b43-8845-b482ddec595d")
-        public  FocusGainedFunction(Browser browser) {
+        public FocusGainedFunction(Browser browser) {
             super(browser, "_delegate_focusGained");
         }
 
@@ -1317,7 +1278,7 @@ public class HtmlComposer {
         public Object function(Object[] args) {
             // System.out.println("_delegate_focusGained()");
             // Async exec to avoid reentrant Javascript calls
-            getBrowser().getDisplay().asyncExec(()-> {
+            UIThreadRunner.asynExec(getBrowser(), ()-> {
                 for (final FocusListener l : HtmlComposer.this.focusListeners) {
                     l.focusGained(null);
                 }
@@ -1330,7 +1291,7 @@ public class HtmlComposer {
     @objid ("635f142d-c0e6-4b2f-8b4d-8066f1980d4d")
     private class FocusLostFunction extends BrowserFunction {
         @objid ("0c519ab8-0115-4aca-a17e-73296ca1fe31")
-        public  FocusLostFunction(Browser browser) {
+        public FocusLostFunction(Browser browser) {
             super(browser, "_delegate_focusLost");
         }
 
@@ -1339,13 +1300,13 @@ public class HtmlComposer {
         public Object function(Object[] args) {
             // System.out.println("_delegate_focusLost()");
             // Async exec to avoid reentrant Javascript calls
-            getBrowser().getDisplay().asyncExec(()-> {
+            UIThreadRunner.asynExec(getBrowser(), ()-> {
                 try {
                     for (final FocusListener l : HtmlComposer.this.focusListeners) {
                         l.focusLost(null);
                     }
                 } catch (RuntimeException e) {
-                    UI.LOG.debug(e);
+                    UI.LOG.warning(e);
                 }
             });
             return null;
@@ -1361,7 +1322,7 @@ public class HtmlComposer {
     @objid ("efe568c6-53f4-4bf1-835e-32e47ea6f138")
     private class InitFunction extends BrowserFunction {
         @objid ("b388be37-7a59-4f9e-acee-986642a7e203")
-        public  InitFunction(Browser browser) {
+        public InitFunction(Browser browser) {
             super(browser, "_delegate_init");
         }
 
@@ -1369,7 +1330,7 @@ public class HtmlComposer {
         @Override
         public Object function(Object[] arguments) {
             // Async exec to avoid reentrant Javascript calls
-            getDisplay().asyncExec(() -> onCkEditorInitialized());
+            UIThreadRunner.asynExec(getBrowser(), () -> onCkEditorInitialized());
             return null;
         }
 
@@ -1381,13 +1342,13 @@ public class HtmlComposer {
      * Unfortunately the underlying ckeditor cannot guarantee that every modification will be notified to the appended listeners.
      * There is an additional polling mechanisms which tracks modifications.
      * </p>
-     * 
+     *
      * @author Tom Seidel <tom.seidel@remus-software.org>
      */
     @objid ("10f0ff83-0216-49a5-835e-0aa46b69601a")
     private class ModifiedFunction extends BrowserFunction {
         @objid ("7a6af4a7-db60-4c2c-bf7f-957bbe4f6689")
-        public  ModifiedFunction(Browser browser) {
+        public ModifiedFunction(Browser browser) {
             super(browser, "_delegate_modified");
         }
 
@@ -1397,7 +1358,7 @@ public class HtmlComposer {
             final List<ModifyListener> listeners = HtmlComposer.this.modifyListenerList;
             if (! listeners.isEmpty()) {
                 // Async exec to avoid reentrant Javascript calls
-                getBrowser().getDisplay().asyncExec(()-> {
+                UIThreadRunner.asynExec(getBrowser(), ()-> {
                     final Event event = new Event();
                     event.widget = getBrowser();
                     event.data = this;
@@ -1418,7 +1379,7 @@ public class HtmlComposer {
     @objid ("7bc4dbe5-e9d6-4e80-9ee9-7582d3d413ad")
     private class SelectionChangedFunction extends BrowserFunction {
         @objid ("01dca000-9b44-4a51-a618-f9bdf8243700")
-        public  SelectionChangedFunction(Browser browser) {
+        public SelectionChangedFunction(Browser browser) {
             super(browser, "_delegate_selectionChanged");
         }
 
@@ -1430,13 +1391,35 @@ public class HtmlComposer {
             // like at the moment.
             if (! HtmlComposer.this.selectionListenerList.isEmpty()) {
                 // Async exec to avoid reentrant Javascript calls
-                getBrowser().getDisplay().asyncExec(()-> {
+                UIThreadRunner.asynExec(getBrowser(), ()-> {
                     final NodeSelectionEvent nodeSelectionEvent = new NodeSelectionEvent(null);
                     for (final NodeSelectionChangeListener listener : HtmlComposer.this.selectionListenerList) {
                         listener.selectedNodeChanged(nodeSelectionEvent);
                     }
                 });
             }
+            return null;
+        }
+
+    }
+
+    @objid ("7a6871a0-83a3-4b15-9c69-c5a043fa63e8")
+    private class GetContentFuction extends BrowserFunction {
+        @objid ("6db94836-6567-47a3-b570-29dde44a34d1")
+        public GetContentFuction(Browser browser) {
+            super(browser, "_delegate_getContent");
+        }
+
+        @objid ("37b5912e-9329-40ae-bbed-6c951ea1e0cd")
+        @Override
+        public Object function(Object[] args) {
+            UIThreadRunner.asynExec(getBrowser(), ()-> {
+                try {
+                   System.out.println("GetContent");
+                } catch (RuntimeException e) {
+                    UI.LOG.warning(e);
+                }
+            });
             return null;
         }
 

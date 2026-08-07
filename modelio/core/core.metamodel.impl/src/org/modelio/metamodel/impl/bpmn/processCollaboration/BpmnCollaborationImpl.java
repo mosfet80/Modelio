@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.processCollaboration;
 
 import java.util.ArrayList;
@@ -48,25 +47,25 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0073fd98-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnCollaborationImpl extends BehaviorImpl implements BpmnCollaboration {
-    @objid ("26a6a9fe-be1a-4d30-8477-83d1de41c49c")
+    @objid ("6f346535-ecaa-4ff2-86f6-9ad9a785b471")
     @Override
     public boolean isIsClosed() {
         return (Boolean) getAttVal(((BpmnCollaborationSmClass)getClassOf()).getIsClosedAtt());
     }
 
-    @objid ("d7e5f25b-8542-4137-a26c-489dbfbe50e2")
+    @objid ("539cca49-8da2-4137-bb22-3a4f235c8c0e")
     @Override
     public void setIsClosed(boolean value) {
         setAttVal(((BpmnCollaborationSmClass)getClassOf()).getIsClosedAtt(), value);
     }
 
-    @objid ("ceec8acf-79ae-4436-a1ff-f3acd3862120")
+    @objid ("14dd50cd-9867-4ae5-952a-4b7ab7d96be6")
     @Override
     public EList<BpmnArtifact> getArtifact() {
         return new SmList<>(this, ((BpmnCollaborationSmClass)getClassOf()).getArtifactDep());
     }
 
-    @objid ("489f7644-8d88-4c22-97ea-54a8e1fd32e3")
+    @objid ("416a2a6c-e37f-4845-afeb-2ad1bf4c6ac1")
     @Override
     public <T extends BpmnArtifact> List<T> getArtifact(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -79,16 +78,16 @@ public class BpmnCollaborationImpl extends BehaviorImpl implements BpmnCollabora
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("7f950d96-8249-41cd-99c2-b4701be36d5d")
+    @objid ("f2e610bf-5b95-4d3d-8681-64c96f26b106")
     @Override
     public EList<BpmnMessageFlow> getMessageFlow() {
         return new SmList<>(this, ((BpmnCollaborationSmClass)getClassOf()).getMessageFlowDep());
     }
 
-    @objid ("4e94484b-b60c-4fd3-9f60-096243018ec7")
+    @objid ("37f7b50c-4aa3-4a34-a16e-c0e82a7ab553")
     @Override
     public <T extends BpmnMessageFlow> List<T> getMessageFlow(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -101,16 +100,16 @@ public class BpmnCollaborationImpl extends BehaviorImpl implements BpmnCollabora
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("d4cab63b-053a-4959-b3ee-c0dcaefe5cba")
+    @objid ("9fe87641-06ac-4f44-8da8-004935a86f35")
     @Override
     public EList<BpmnParticipant> getParticipants() {
         return new SmList<>(this, ((BpmnCollaborationSmClass)getClassOf()).getParticipantsDep());
     }
 
-    @objid ("ba1830c7-3e33-439c-a69f-68b14e95dbd3")
+    @objid ("95b6e8df-995a-479a-aaa4-aeee445ee6a6")
     @Override
     public <T extends BpmnParticipant> List<T> getParticipants(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -123,16 +122,16 @@ public class BpmnCollaborationImpl extends BehaviorImpl implements BpmnCollabora
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("0cf0b556-92ca-4051-8981-a9b64e72911a")
+    @objid ("0cbfc5cc-6cc3-48da-b851-ac70bae1e4c5")
     @Override
     public EList<BpmnMessage> getMessages() {
         return new SmList<>(this, ((BpmnCollaborationSmClass)getClassOf()).getMessagesDep());
     }
 
-    @objid ("0e750677-2734-468b-9e4d-d9574bdba1db")
+    @objid ("5f469bbd-e18b-48da-be91-2b5efb5fbe93")
     @Override
     public <T extends BpmnMessage> List<T> getMessages(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -145,23 +144,23 @@ public class BpmnCollaborationImpl extends BehaviorImpl implements BpmnCollabora
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("ff7ced11-607d-4ecf-b901-bb1b77850f10")
+    @objid ("2b1b116a-8e6a-4574-ae8f-065031ba7f90")
     @Override
     public BpmnProcess getDefinedProcess() {
         Object obj = getDepVal(((BpmnCollaborationSmClass)getClassOf()).getDefinedProcessDep());
         return (obj instanceof BpmnProcess)? (BpmnProcess)obj : null;
     }
 
-    @objid ("a35f5d05-c609-49ff-bb12-c862110c757d")
+    @objid ("15f02133-280f-4990-b1b6-1ec8cd9824c4")
     @Override
     public void setDefinedProcess(BpmnProcess value) {
         appendDepVal(((BpmnCollaborationSmClass)getClassOf()).getDefinedProcessDep(), (SmObjectImpl)value);
     }
 
-    @objid ("adfa2462-30ee-4a2f-ba97-b9e9bae1d7f2")
+    @objid ("f9684111-3a79-4a01-ae4e-f15ad65001f2")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -173,22 +172,22 @@ public class BpmnCollaborationImpl extends BehaviorImpl implements BpmnCollabora
         return super.getCompositionOwner();
     }
 
-    @objid ("6aca0158-a168-40ef-b4b0-dfa2b75cc9d6")
+    @objid ("69073f88-7b6a-4488-a093-c797d777f3b7")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // DefinedProcess
         dep = ((BpmnCollaborationSmClass)getClassOf()).getDefinedProcessDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("4429d7aa-a7fb-44ac-8fd4-27bd68e1f9e9")
+    @objid ("b3ea3ff8-9adf-4f8b-82b1-0bde18340915")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitBpmnCollaboration(this);

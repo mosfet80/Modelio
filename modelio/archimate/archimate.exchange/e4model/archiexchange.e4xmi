@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ASCII"?>
+<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:commands="http://www.eclipse.org/ui/2010/UIModel/application/commands" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmlns:ui="http://www.eclipse.org/ui/2010/UIModel/application/ui" xmi:id="_osPrELoPEeGR05fGaOD0Vw">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_z6xioInnEeW0p7B16jMKFA" featurename="commands" parentElementId="org.modelio.app.application">
+    <elements xsi:type="commands:Command" xmi:id="_sg2oMC1NEeaEf8zv8-Z1Cw" elementId="org.modelio.archimate.exchange.command.import" commandName="%ArchiImport.label" description="%ArchiImport.tooltip"/>
+    <elements xsi:type="commands:Command" xmi:id="_ZNQOcC7rEeaEf8zv8-Z1Cw" elementId="org.modelio.archimate.exchange.command.export" commandName="%ArchiExport.label" description="%ArchiExport.tooltip"/>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_urG_0InnEeW0p7B16jMKFA" featurename="handlers" parentElementId="org.modelio.app.application">
+    <elements xsi:type="commands:Handler" xmi:id="_wn4H8C1NEeaEf8zv8-Z1Cw" elementId="org.modelio.archimate.exchange.handler.import" contributionURI="bundleclass://org.modelio.archimate.exchange/org.modelio.archimate.exchange.ui.imports.ArchiImportHandler" command="_sg2oMC1NEeaEf8zv8-Z1Cw"/>
+    <elements xsi:type="commands:Handler" xmi:id="_fpc10C7rEeaEf8zv8-Z1Cw" elementId="org.modelio.archimate.exchange.handler.export" contributionURI="bundleclass://org.modelio.archimate.exchange/org.modelio.archimate.exchange.ui.exports.ArchiExportHandler" command="_ZNQOcC7rEeaEf8zv8-Z1Cw"/>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_n2zacInnEeW0p7B16jMKFA" featurename="children" parentElementId="org.modelio.model.browser.view.popupmenu.interop.import" positionInList="">
+    <elements xsi:type="menu:HandledMenuItem" xmi:id="_FUQ3cC1OEeaEf8zv8-Z1Cw" elementId="org.modelio.archimate.exchange.handeledmenuitem.import" label="%ArchiImport.label" iconURI="platform:/plugin/org.modelio.archimate.exchange/icons/import.png" tooltip="%ArchiImport.tooltip" command="_sg2oMC1NEeaEf8zv8-Z1Cw">
+      <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_q4l5APg0Eea797eSXqkKiw" coreExpressionId="org.modelio.archimate.activeexpertise"/>
+    </elements>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_zZFxwACfEeaDgIFl5pnvCw" featurename="children" parentElementId="org.modelio.model.browser.view.popupmenu.interop.export">
+    <elements xsi:type="menu:HandledMenuItem" xmi:id="_oqHlEC7rEeaEf8zv8-Z1Cw" elementId="org.modelio.archimate.exchange.handeledmenuitem.export" label="%ArchiExport.label" iconURI="platform:/plugin/org.modelio.archimate.exchange/icons/export.png" tooltip="%ArchiExport.tooltip" command="_ZNQOcC7rEeaEf8zv8-Z1Cw">
+      <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_tlZdgPg0Eea797eSXqkKiw" coreExpressionId="org.modelio.archimate.activeexpertise"/>
+    </elements>
+  </fragments>
+</fragment:ModelFragments>

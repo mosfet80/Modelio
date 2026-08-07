@@ -1,28 +1,28 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.browser.handlers;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -49,7 +49,7 @@ public class CreateDiagramSetHandler extends AbstractBrwModelHandler {
     @Override
     protected void doExecute(DiagramBrowserView browserView, List<Object> selectedObjects, ICoreSession session) {
         final Object object = (selectedObjects.isEmpty()) ? null : selectedObjects.get(0);
-        
+
         if (object instanceof DiagramSet) {
             DiagramSet parentSet = (DiagramSet) object;
             DiagramSet newSet = this.modelService.getModelFactory().getFactory(IInfrastructureModelFactory.class).createDiagramSet();
@@ -58,14 +58,14 @@ public class CreateDiagramSetHandler extends AbstractBrwModelHandler {
             newSet.setName(namer.getUniqueName(newSet));
             postExpandAndSelect(browserView, newSet, parentSet);
         }
-        
+
     }
 
     @objid ("0019b446-0d4f-10c6-842f-001ec947cd2a")
     @CanExecute
     public boolean isEnabled(@Named(IServiceConstants.ACTIVE_SELECTION) IStructuredSelection selection) {
         List<Object> selectedObject = getSelected(selection);
-        
+
         if (selectedObject.size() != 1 ) {
             return false;
         }
@@ -84,11 +84,11 @@ public class CreateDiagramSetHandler extends AbstractBrwModelHandler {
                 browserView.edit(diagramSet);
             }
         });
-        
+
     }
 
     @objid ("ca3eb80c-4b58-11e2-a4d3-002564c97630")
-    public  CreateDiagramSetHandler() {
+    public CreateDiagramSetHandler() {
         super();
     }
 

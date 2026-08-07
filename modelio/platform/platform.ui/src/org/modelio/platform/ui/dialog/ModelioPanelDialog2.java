@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.ui.dialog;
 
@@ -52,7 +52,7 @@ import org.modelio.platform.ui.panel.IPanelProvider;
  * <li>The dialog will have only a "Close" button unless you call one of {@link Builder#withButton(int, String, boolean)}, {@link Builder#withCancelButton(boolean)} or {@link Builder#withOkButton(boolean)}
  * <li>Finish with {@link Builder#build()} to create your dialog.
  * </ul>
- * 
+ *
  * @since 5.2
  */
 @objid ("2ce625df-46b9-4026-b977-ff4ba52da92b")
@@ -71,8 +71,9 @@ public final class ModelioPanelDialog2 extends ModelioDialog2 {
     /**
      * This getter is use to retrieve a dialog button by its id.<br/>
      * Return only the buttons defined by {@link Builder.withButton()} methods.<br/>
-     * 
+     *
      * Typical use: enabling/disabling depending on the dialog contents status.
+     *
      * @param id the id of the button to look for
      * @return the button for the ID or <code>null</code>
      */
@@ -86,14 +87,15 @@ public final class ModelioPanelDialog2 extends ModelioDialog2 {
      * Private constructor.
      * <p>
      * Use {@link #create(IPanelProvider)} to create an edition dialog.
+     *
      * @param descriptor the descriptor.
      */
     @objid ("3167a430-4e00-46ea-99a1-c08cdb024d60")
-    private  ModelioPanelDialog2(Shell parentShell, Builder descriptor) {
+    private ModelioPanelDialog2(Shell parentShell, Builder descriptor) {
         super(parentShell);
         this.descriptor = descriptor;
         setBlockOnOpen(this.descriptor.blockOnOpen);
-        
+
     }
 
     @objid ("36f94a9a-e611-450f-a08e-d8217d47fec5")
@@ -109,7 +111,7 @@ public final class ModelioPanelDialog2 extends ModelioDialog2 {
                 }
             }
         }
-        
+
     }
 
     @objid ("6a6ed79e-1d27-4ace-a72a-8748a3d92998")
@@ -142,15 +144,15 @@ public final class ModelioPanelDialog2 extends ModelioDialog2 {
     @Override
     protected void init() {
         setTitle(this.descriptor.headerTitle);
-        
-        
+
+
         if (this.descriptor.panelInput != null) {
             this.descriptor.panel.setInput(this.descriptor.panelInput);
         }
         if (this.descriptor.onOpenAction != null) {
             this.descriptor.onOpenAction.accept(this);
         }
-        
+
     }
 
     @objid ("83cfbb83-6035-4ca9-a0b1-f80c25de39f2")
@@ -164,7 +166,7 @@ public final class ModelioPanelDialog2 extends ModelioDialog2 {
             }
         }
         super.buttonPressed(buttonId);
-        
+
     }
 
     @objid ("09ee8cea-a2d5-4148-88a4-14dd61724676")
@@ -212,7 +214,7 @@ public final class ModelioPanelDialog2 extends ModelioDialog2 {
         private Object panelInput;
 
         @objid ("8a3778a7-b794-4fc3-ad9f-aa529a3f2a0a")
-        public  Builder(IPanelProvider panel) {
+        public Builder(IPanelProvider panel) {
             this.panel = Objects.requireNonNull(panel);
         }
 
@@ -220,12 +222,13 @@ public final class ModelioPanelDialog2 extends ModelioDialog2 {
          * Build the dialog.
          * <p>
          * The dialog is not yet opened, its SWT widget don't exist until you call {@link ModelioPanelDialog#open()}.
+         *
          * @return the built dialog.
          */
         @objid ("9c0e6ad4-d0b5-42fb-bc65-a3145e721d6a")
         public ModelioPanelDialog2 build(Shell parentShell) {
             Objects.requireNonNull(this.panel, "panel not specified");
-            
+
             if (parentShell == null) {
                 Display display = Display.getCurrent();
                 if (display == null) {
@@ -236,11 +239,12 @@ public final class ModelioPanelDialog2 extends ModelioDialog2 {
             } else {
                 return new ModelioPanelDialog2(parentShell, this);
             }
-            
+
         }
 
         /**
          * Define the header title of the dialog.
+         *
          * @return this builder for chaining calls
          */
         @objid ("efd396e3-1b4a-4afd-beab-971862ec7ee0")
@@ -251,12 +255,13 @@ public final class ModelioPanelDialog2 extends ModelioDialog2 {
 
         /**
          * Add a button the the dialog bottom buttons.
-         * @see IDialogConstants IDialogConstants constants for button labels and ids.
+         *
          * @param id the button id from {@link IDialogConstants}.
          * @param label the button label.
          * @param action an optional action run when clicking the button. If the action returns false, normal button processing is stopped which may prevent the dialog from being closed.
          * @param isDefault whether it is a the default button
          * @return this builder for chaining calls
+         * @see IDialogConstants IDialogConstants constants for button labels and ids.
          */
         @objid ("8038628a-6207-4f25-8238-d3ed9cc480a9")
         public Builder withButton(int id, String label, ButtonAction action, boolean isDefault) {
@@ -266,6 +271,7 @@ public final class ModelioPanelDialog2 extends ModelioDialog2 {
 
         /**
          * Add the OK button with an action to run on click.
+         *
          * @param action an optional action run when clicking the button. If the action returns false, normal button processing is stopped which may prevent the dialog from being closed.
          * @param isDefault whether it is the default button
          * @return this builder for chaining calls
@@ -277,6 +283,7 @@ public final class ModelioPanelDialog2 extends ModelioDialog2 {
 
         /**
          * Add the cancel button.
+         *
          * @param isDefault whether it is the default button
          * @return this builder for chaining calls
          */
@@ -288,6 +295,7 @@ public final class ModelioPanelDialog2 extends ModelioDialog2 {
         /**
          * Add a hooked Consumer to be called when the dialog is opened.<br/>
          * Several open actions may be added, however do not rely on their addition ordering.
+         *
          * @param action the code to call
          * @return this builder for chaining calls
          */
@@ -299,10 +307,11 @@ public final class ModelioPanelDialog2 extends ModelioDialog2 {
 
         /**
          * Set the dialog as modal or not and whether open() should block until dialog closes.
-         * @see {@link ModelioDialog#setBlockOnOpen(boolean)}
-         * @param modal       whether the dialog is modal (true) or modeless (false)
+         *
+         * @param modal whether the dialog is modal (true) or modeless (false)
          * @param blockOnOpen whether open() should block until the dialog is closed.
          * @return this builder for chaining calls
+         * @see {@link ModelioDialog#setBlockOnOpen(boolean)}
          */
         @objid ("19a92856-f23a-407a-92bd-46ea23bfd755")
         public Builder withBlockOnOpen(boolean blockOnOpen) {
@@ -311,6 +320,7 @@ public final class ModelioPanelDialog2 extends ModelioDialog2 {
         }
 
         /**
+         *
          * @return this builder for chaining calls
          */
         @objid ("d12f863c-a1d8-4f13-ad4b-c3dec52680df")
@@ -320,6 +330,7 @@ public final class ModelioPanelDialog2 extends ModelioDialog2 {
         }
 
         /**
+         *
          * @return this builder for chaining calls
          */
         @objid ("4107c9a9-c142-4aa2-9a04-78dc552ccd97")
@@ -351,12 +362,12 @@ public final class ModelioPanelDialog2 extends ModelioDialog2 {
         public ButtonAction action;
 
         @objid ("676eb35c-b14b-4957-9544-c63504fc4f86")
-        public  ButtonData(int id, String label, ButtonAction action, boolean isDefault) {
+        public ButtonData(int id, String label, ButtonAction action, boolean isDefault) {
             this.id = id;
             this.label = label;
             this.action = action;
             this.isDefault = isDefault;
-            
+
         }
 
     }
@@ -367,7 +378,7 @@ public final class ModelioPanelDialog2 extends ModelioDialog2 {
      * If the function returns false, normal button processing is stopped which may prevent the dialog from being closed.
      */
     @objid ("e515ff6a-640e-4caf-818e-d9a103287293")
-    public interface ButtonAction extends Function<ModelioPanelDialog2, Boolean> {}
-    
+    public interface ButtonAction extends Function<ModelioPanelDialog2, Boolean> {
+    }
 
 }

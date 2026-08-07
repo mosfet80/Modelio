@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure.properties;
 
 import java.util.ArrayList;
@@ -48,7 +47,7 @@ public class LocalPropertyTableSmClass extends PropertyTableSmClass {
     private SmDependency localAnnotedDep;
 
     @objid ("210eef03-4aef-4d95-b99a-3a58133a0477")
-    public  LocalPropertyTableSmClass(ISmMetamodelFragment origin) {
+    public LocalPropertyTableSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
@@ -56,7 +55,7 @@ public class LocalPropertyTableSmClass extends PropertyTableSmClass {
     @Override
     public String getName() {
         return "LocalPropertyTable";
-        
+
     }
 
     @objid ("09655d5a-1364-4c92-8108-c69613778a37")
@@ -69,21 +68,21 @@ public class LocalPropertyTableSmClass extends PropertyTableSmClass {
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return LocalPropertyTable.class;
-        
+
     }
 
     @objid ("54aaf3b7-33bb-4ec8-b9b6-e81064d24605")
     @Override
     public boolean isCmsNode() {
         return true;
-        
+
     }
 
     @objid ("8271b46c-227f-432e-8e3b-53622031c623")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
     @objid ("138ad095-f999-47fd-8ee1-518cf40ce21e")
@@ -91,16 +90,15 @@ public class LocalPropertyTableSmClass extends PropertyTableSmClass {
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(PropertyTable.MQNAME);
         this.registerFactory(new LocalPropertyTableObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
         this.localAnnotedDep = new LocalAnnotedSmDependency();
         this.localAnnotedDep.init("LocalAnnoted", this, metamodel.getMClass(ModelElement.MQNAME), 0, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.localAnnotedDep);
-        
-        
+
     }
 
     @objid ("c19f7e2d-8915-402f-8fdb-c3d1bc204071")
@@ -115,7 +113,7 @@ public class LocalPropertyTableSmClass extends PropertyTableSmClass {
     @Override
     public boolean areOrphansAllowed() {
         return true;
-        
+
     }
 
     @objid ("bd28cc78-75ed-47ad-87c8-8daa92ad49ee")
@@ -124,7 +122,7 @@ public class LocalPropertyTableSmClass extends PropertyTableSmClass {
         private LocalPropertyTableSmClass smClass;
 
         @objid ("810158f8-9834-494b-ad27-4256cf3207e7")
-        public  LocalPropertyTableObjectFactory(LocalPropertyTableSmClass smClass) {
+        public LocalPropertyTableObjectFactory(LocalPropertyTableSmClass smClass) {
             this.smClass = smClass;
         }
 
@@ -166,7 +164,7 @@ public class LocalPropertyTableSmClass extends PropertyTableSmClass {
             	this.symetricDep = ((ModelElementSmClass)this.getTarget()).getLocalPropertiesDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

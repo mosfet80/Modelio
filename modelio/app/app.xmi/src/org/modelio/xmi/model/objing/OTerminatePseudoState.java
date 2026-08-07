@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -32,7 +32,7 @@ public class OTerminatePseudoState extends OAbstractPseudoState {
     }
 
     @objid ("eac418f0-1ed5-468a-9999-dbba4615489c")
-    public  OTerminatePseudoState(TerminatePseudoState param) {
+    public OTerminatePseudoState(TerminatePseudoState param) {
         super(param);
     }
 
@@ -47,7 +47,7 @@ public class OTerminatePseudoState extends OAbstractPseudoState {
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
                 setKind( (org.eclipse.uml2.uml.Pseudostate)ecoreElt);
-        
+
     }
 
     @objid ("e849755e-c6bc-472a-887d-6d8336cbc17c")

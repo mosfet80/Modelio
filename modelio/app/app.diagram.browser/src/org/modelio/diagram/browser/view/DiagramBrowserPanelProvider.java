@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.browser.view;
 
@@ -95,35 +95,35 @@ public class DiagramBrowserPanelProvider implements IPanelProvider {
     private RelatedModel relatedModel;
 
     @objid ("85b73aaf-54b9-11e2-85c1-002564c97630")
-    public  DiagramBrowserPanelProvider(IGProject project, IModelioNavigationService navigationService) {
+    public DiagramBrowserPanelProvider(IGProject project, IModelioNavigationService navigationService) {
         this.project = project;
         this.navigationService = navigationService;
-        
+
         this.flatModel = new FlatModel(project);
         this.bySetModel = new BySetModel(project);
         this.byTypeModel = new ByTypeModel(project);
         this.byCtxModel = new ByCtxModel(project);
         this.relatedModel = new RelatedModel();
-        
+
     }
 
     @objid ("85b73ab2-54b9-11e2-85c1-002564c97630")
     @Override
     public Object createPanel(Composite parent) {
         this.treeViewer = new TreeViewer(parent, SWT.MULTI);
-        
+
         Transfer[] transferTypes = new Transfer[] { LocalSelectionTransfer.getTransfer() };
         this.treeViewer.addDragSupport(DND.DROP_MOVE | DND.DROP_COPY, transferTypes, new DiagramBrowserDragListener(this.treeViewer));
         this.treeViewer.addDropSupport(DND.DROP_MOVE, transferTypes,
                 new DiagramBrowserDropListener(this.treeViewer, this.project.getSession()));
-        
+
         this.treeViewer.getTree().addMouseListener(new MouseListener() {
-        
+
             @Override
             public void mouseUp(MouseEvent e) {
                 // Nothing to do
             }
-        
+
             @Override
             public void mouseDown(MouseEvent e) {
                 if (e.stateMask == (SWT.CTRL + SWT.ALT)) {
@@ -133,9 +133,9 @@ public class DiagramBrowserPanelProvider implements IPanelProvider {
                         DiagramBrowserPanelProvider.this.navigationService.fireNavigate((MObject) selectedElement);
                     }
                 }
-        
+
             }
-        
+
             @Override
             public void mouseDoubleClick(MouseEvent e) {
                 // Nothing to do
@@ -159,7 +159,7 @@ public class DiagramBrowserPanelProvider implements IPanelProvider {
                 this.treeViewer.setInput(input);
             }
         }
-        
+
     }
 
     @objid ("85b73ac1-54b9-11e2-85c1-002564c97630")
@@ -169,6 +169,7 @@ public class DiagramBrowserPanelProvider implements IPanelProvider {
     }
 
     /**
+     *
      * @return the browser data model.
      */
     @objid ("000d0264-0d4f-10c6-842f-001ec947cd2a")
@@ -178,8 +179,8 @@ public class DiagramBrowserPanelProvider implements IPanelProvider {
 
     /**
      * Changes the browser model.
-     * @param newModel
-     * The new browser data model.
+     *
+     * @param newModel The new browser data model.
      */
     @objid ("000de454-0d4f-10c6-842f-001ec947cd2a")
     public void switchBrowserModel(String modelKey) {
@@ -201,26 +202,26 @@ public class DiagramBrowserPanelProvider implements IPanelProvider {
             doSwitchBrowserModel(this.byTypeModel);
             break;
         }
-        
+
     }
 
     @objid ("000e7f72-0d4f-10c6-842f-001ec947cd2a")
     private void configureBrowser(IBrowserModel newModel) {
         this.currentModel = newModel;
-        
+
         // install content provider
         this.treeViewer.setContentProvider(this.currentModel.getContentProvider());
-        
+
         // install label provider
         this.treeViewer.setLabelProvider(this.currentModel.getLabelProvider(this.treeViewer));
-        
+
         // install sorter
         this.treeViewer.setSorter(this.currentModel.getSorter());
-        
+
         // install label edition
         initEditor();
         // this.treeViewer.setCellModifier(this.model.getLabelEditor(this.treeViewer));
-        
+
     }
 
     @objid ("000ee9bc-0d4f-10c6-842f-001ec947cd2a")
@@ -229,7 +230,7 @@ public class DiagramBrowserPanelProvider implements IPanelProvider {
         final TextCellEditor[] cellEditors = new TextCellEditor[1];
         final TextCellEditor editor = new TextCellEditor(this.treeViewer.getTree(), SWT.NONE) {
             private Collection<String> activeContexts;
-        
+
             @Override
             public void activate() {
                 // We must deactivate the active contexts during the edition, to
@@ -237,15 +238,15 @@ public class DiagramBrowserPanelProvider implements IPanelProvider {
                 // element's name...
                 // Store those contexts for further reactivation
                 Collection<String> activeContextIds = DiagramBrowserView.contextService.getActiveContextIds();
-        
+
                 this.activeContexts = new ArrayList<>(activeContextIds != null ? activeContextIds : Collections.emptyList());
                 for (String contextId : this.activeContexts) {
                     DiagramBrowserView.contextService.deactivateContext(contextId);
                 }
-        
+
                 super.activate();
             }
-        
+
             @Override
             public void deactivate() {
                 if (this.activeContexts != null) {
@@ -255,17 +256,17 @@ public class DiagramBrowserPanelProvider implements IPanelProvider {
                     }
                     this.activeContexts = null;
                 }
-        
+
                 super.deactivate();
             }
         };
-        
+
         editor.getControl().addKeyListener(new KeyListener() {
             @Override
             public void keyPressed(KeyEvent event) {
                 // Nothing to do
             }
-        
+
             @Override
             public void keyReleased(KeyEvent event) {
                 if (((event.stateMask &= SWT.MOD1) != 0) && (event.keyCode == 'a')) {
@@ -277,22 +278,22 @@ public class DiagramBrowserPanelProvider implements IPanelProvider {
                 }
             }
         });
-        
+
         cellEditors[0] = editor;
         this.treeViewer.setCellEditors(cellEditors);
-        
+
         // Define ICellModifier:
         final String[] properties = new String[1];
         properties[0] = "name";
         this.treeViewer.setColumnProperties(properties);
         this.treeViewer.setCellModifier(this.currentModel.getLabelEditor(this.treeViewer, this.project.getSession()));
-        
+
         // Define editor activation strategy:
         this.actSupport = new DiagramBrowserActivationStrategy(this.treeViewer);
         TreeViewerEditor.create(this.treeViewer, null, this.actSupport, ColumnViewerEditor.TABBING_HORIZONTAL
                 | ColumnViewerEditor.TABBING_MOVE_TO_ROW_NEIGHBOR | ColumnViewerEditor.TABBING_VERTICAL
                 | ColumnViewerEditor.KEYBOARD_ACTIVATION);
-        
+
     }
 
     @objid ("3ad87aea-1000-42b1-9d2f-68020cbae703")
@@ -321,7 +322,7 @@ public class DiagramBrowserPanelProvider implements IPanelProvider {
             this.treeViewer.refresh();
             this.treeViewer.expandToLevel(2);
         }
-        
+
     }
 
     @objid ("cd4213f2-54c7-11e2-ae63-002564c97630")
@@ -335,7 +336,7 @@ public class DiagramBrowserPanelProvider implements IPanelProvider {
                     event.getTreeViewer().update(event.getElement(), null);
                 }
             });
-            
+
         }
 
         @objid ("cd4213f8-54c7-11e2-ae63-002564c97630")
@@ -347,7 +348,7 @@ public class DiagramBrowserPanelProvider implements IPanelProvider {
                     event.getTreeViewer().update(event.getElement(), null);
                 }
             });
-            
+
         }
 
     }

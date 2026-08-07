@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.drawings.core.node;
 
@@ -77,10 +77,10 @@ public abstract class NodeDrawingEditPart extends AbstractGraphicalEditPart impl
      * Constructor.
      */
     @objid ("d454239c-f2cf-47a6-a654-326ceb099010")
-    public  NodeDrawingEditPart() {
+    public NodeDrawingEditPart() {
         super();
         this.dragTrackerProvider = new DefaultDragTrackerProvider(this);
-        
+
     }
 
     @objid ("5c381a89-6342-4d4d-94dc-6bbf484d4b53")
@@ -88,11 +88,12 @@ public abstract class NodeDrawingEditPart extends AbstractGraphicalEditPart impl
     public void activate() {
         super.activate();
         getModel().addPropertyChangeListener(this);
-        
+
     }
 
     /**
      * Create a serializable anchor model from the given anchor.
+     *
      * @param anchor a figure anchor
      * @return an anchor model.
      */
@@ -107,7 +108,7 @@ public abstract class NodeDrawingEditPart extends AbstractGraphicalEditPart impl
     public void deactivate() {
         super.deactivate();
         getModel().removePropertyChangeListener(this);
-        
+
     }
 
     /**
@@ -116,31 +117,32 @@ public abstract class NodeDrawingEditPart extends AbstractGraphicalEditPart impl
      * <p>
      * Extends {@link AbstractGraphicalEditPart#getAdapter(Class)} to support {@link IGmObject},
      * {@link GmDrawing} and their subclasses.
-     * @see IAdaptable#getAdapter(Class)
+     *
      * @param adapter the adapter class to look up
      * @return a object castable to the given class, or <code>null</code> if this object does not have an adapter for
      * the given class
+     * @see IAdaptable#getAdapter(Class)
      */
     @objid ("05ccdb19-32a2-4209-9a52-ecdc90aea8ec")
     @Override
     public Object getAdapter(Class adapter) {
         final GmNodeDrawing model = getModel();
-        
+
         // Support IGmObject, GmModel and its subclasses
         if (adapter.isInstance(model)) {
             return model;
         }
-        
+
         // Supports MRef and MObject
         if (MRef.class.isAssignableFrom(adapter) ||
                 MObject.class.isAssignableFrom(adapter)) {
-            
+
             MRef ref = model.getHyperLink();
             if (ref != null) {
                 if (adapter.isInstance(ref)) {
                     return ref;
                 }
-                
+
                 MObject obj = model.getDiagram().getModelManager().getModelServices().findByRef(ref);
                 if (obj != null && adapter.isInstance(obj)) {
                     return obj;
@@ -182,6 +184,7 @@ public abstract class NodeDrawingEditPart extends AbstractGraphicalEditPart impl
 
     /**
      * To be redefined if the node should not be resizeable.
+     *
      * @return <code>true</code> if the figure should be resizeable else <code>false</code>.
      */
     @objid ("0f435f58-46af-4b9c-b75a-4437e2c3b03e")
@@ -204,15 +207,15 @@ public abstract class NodeDrawingEditPart extends AbstractGraphicalEditPart impl
             if (req instanceof LocationRequest) {
                 // Give the request to the child where the request is located
                 final Point reqLocation = ((LocationRequest) req).getLocation();
-        
+
                 for (Object childEditPartObj : getChildren()) {
-        
+
                     final GraphicalEditPart childEditPart = (GraphicalEditPart) childEditPartObj;
                     if (childEditPart.understandsRequest(req) &&
                         containsAbsolutePoint(childEditPart, reqLocation)) {
                         childEditPart.performRequest(req);
                     }
-        
+
                 }
             } else {
                 // Give the request to the first child that understand it
@@ -222,7 +225,7 @@ public abstract class NodeDrawingEditPart extends AbstractGraphicalEditPart impl
                         childEditPart.performRequest(req);
                         return;
                     }
-        
+
                 }
             }
         } else if (NavigationRequest.TYPE == req.getType()) {
@@ -230,17 +233,17 @@ public abstract class NodeDrawingEditPart extends AbstractGraphicalEditPart impl
             final MRef ref = gm.getHyperLink();
             if (ref != null) {
                 final MObject relatedEl = gm.getDiagram().getModelManager().resolveRef(ref);
-        
+
                 if (relatedEl != null) {
                     IModelioNavigationService service = gm.getDiagram().getModelManager().getNavigationService();
                     service.fireNavigate(relatedEl);
-        
+
                     getViewer().setSelection(new StructuredSelection(this));
                 }
             }
         }
         super.performRequest(req);
-        
+
     }
 
     @objid ("bdbdd1c5-02bb-4afc-b369-82bfcdc3e736")
@@ -266,7 +269,7 @@ public abstract class NodeDrawingEditPart extends AbstractGraphicalEditPart impl
         default:
             break;
         }
-        
+
     }
 
     @objid ("9b32af8c-ec82-4ad8-91de-9b38ef662395")
@@ -285,11 +288,12 @@ public abstract class NodeDrawingEditPart extends AbstractGraphicalEditPart impl
             }
         }*/
         super.removeNotify();
-        
+
     }
 
     /**
      * Changes the current {@link IDragTrackerProvider} used by this edit part.
+     *
      * @param value the new {@link IDragTrackerProvider} to be used by this edit part.
      */
     @objid ("63e477d3-574c-417e-b3e2-16a2fdbb4bb0")
@@ -297,7 +301,7 @@ public abstract class NodeDrawingEditPart extends AbstractGraphicalEditPart impl
         // Automatically generated method. Please delete this comment before
         // entering specific code.
         this.dragTrackerProvider = value;
-        
+
     }
 
     @objid ("98a9df6e-bef2-409e-b737-dd858193bd4c")
@@ -307,7 +311,7 @@ public abstract class NodeDrawingEditPart extends AbstractGraphicalEditPart impl
         installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new DelegatingDirectEditionEditPolicy());
         installEditPolicy(EditPolicy.COMPONENT_ROLE, new DefaultDeleteNodeEditPolicy());
         installEditPolicy(ModelElementDropRequest.TYPE, new DefaultElementDropEditPolicy());
-        
+
     }
 
     @objid ("9b362757-b131-44c8-8aa9-ba8cb83d06a7")
@@ -330,6 +334,7 @@ public abstract class NodeDrawingEditPart extends AbstractGraphicalEditPart impl
 
     /**
      * Convenience method to retrieve the model style.
+     *
      * @return the model style.
      */
     @objid ("3b360802-5569-4c7c-8557-885271bec8e8")
@@ -348,13 +353,14 @@ public abstract class NodeDrawingEditPart extends AbstractGraphicalEditPart impl
      * StyleKey are looked up by MetaKey.
      * <p>
      * Often called in {@link #createFigure()} and after a style change.
+     *
      * @param aFigure The figure to update, should be {@link #getFigure()}.
      * @param style The style to update from, usually {@link #getModelStyle()}
      */
     @objid ("f0345440-5dc4-43ec-ba89-8f9245311313")
     protected void refreshFromStyle(IFigure aFigure, IStyle style) {
         final GmDrawing gmModel = getModel();
-        
+
         // Set pen properties where applicable
         if (aFigure instanceof IPenOptionsSupport) {
             final IPenOptionsSupport pen = (IPenOptionsSupport) aFigure;
@@ -375,15 +381,15 @@ public abstract class NodeDrawingEditPart extends AbstractGraphicalEditPart impl
                 pen.setLinePattern(linePattern);
             }
         }
-        
+
         // Set brush properties where applicable
         if (aFigure instanceof IBrushOptionsSupport) {
             final IBrushOptionsSupport brush = (IBrushOptionsSupport) aFigure;
-        
+
             if (gmModel.getStyleKey(MetaKey.FILLCOLOR) != null) {
                 brush.setFillColor(style.getColor(gmModel.getStyleKey(MetaKey.FILLCOLOR)));
             }
-        
+
             if (gmModel.getStyleKey(MetaKey.FILLMODE) != null) {
                 final FillMode fillMode = (FillMode) style.getProperty(gmModel.getStyleKey(MetaKey.FILLMODE));
                 switch (fillMode) {
@@ -401,25 +407,25 @@ public abstract class NodeDrawingEditPart extends AbstractGraphicalEditPart impl
                     break;
                 }
             }
-            
+
             if (gmModel.getStyleKey(MetaKey.FILLALPHA) != null) {
                 brush.setFillAlpha(style.getInteger(gmModel.getStyleKey(MetaKey.FILLALPHA)));
             }
-            
+
         }
-        
+
     }
 
     @objid ("cf5cf4e7-d23d-4d46-9ce7-0e1a33d45c33")
     @Override
     protected void refreshVisuals() {
         super.refreshVisuals();
-        
+
         final IFigure fig = getFigure();
         final GmNodeDrawing model = getModel();
-        
+
         fig.getParent().setConstraint(fig, model.getLayoutData());
-        
+
     }
 
     @objid ("21a39b32-0d85-4f96-9873-ec12624b9d51")
@@ -428,29 +434,30 @@ public abstract class NodeDrawingEditPart extends AbstractGraphicalEditPart impl
         final ChangeBoundsRequest req = new ChangeBoundsRequest(REQ_RESIZE);
         req.setEditParts(newEditPart);
         req.setSizeDelta(new Dimension(-1, -1));
-        
+
         EditPart editPart = newEditPart;
         while (editPart != null && !editPart.understandsRequest(req)) {
             editPart = editPart.getParent();
             req.setEditParts(newEditPart);
         }
-        
+
         if (editPart != null) {
             final GraphicalEditPart graphicEditPart = (GraphicalEditPart) editPart;
-        
-            // Force layout so that child figures on Port container have valid bounds needed by 
+
+            // Force layout so that child figures on Port container have valid bounds needed by
             // XYLayoutEditPolicy.getConstraintFor(ChangeBoundsRequest , GraphicalEditPart ) .
             graphicEditPart.refresh();
             graphicEditPart.getFigure().getUpdateManager().performValidation();
-        
+
             // Run fit to content to the found edit part.
             new FitToMinSizeCommand(graphicEditPart).execute();
         }
-        
+
     }
 
     /**
      * Tells whether the figure of the given edit part contains the given point.
+     *
      * @param editPart A graphic edit part
      * @param aPoint a point in absolute coordinates
      * @return <i>true</i> if the edit part figure contains the point, else <i>false</i>

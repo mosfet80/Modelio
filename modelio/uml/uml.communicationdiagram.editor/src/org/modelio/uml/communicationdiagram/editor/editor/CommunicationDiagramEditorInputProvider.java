@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.communicationdiagram.editor.editor;
 
@@ -24,6 +24,7 @@ import org.modelio.diagram.editor.DiagramEditorInput;
 import org.modelio.diagram.editor.IDiagramEditorInputProvider;
 import org.modelio.diagram.editor.IDiagramEditorInputProvider.GmDiagramCreator;
 import org.modelio.diagram.elements.core.model.IGmDiagram.IModelManager;
+import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.diagrams.CommunicationDiagram;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
@@ -33,7 +34,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 @objid ("333d94ba-598e-11e2-ae45-002564c97630")
 public class CommunicationDiagramEditorInputProvider implements IDiagramEditorInputProvider {
     @objid ("057c2929-599a-11e2-ae45-002564c97630")
-    public  CommunicationDiagramEditorInputProvider() {
+    public CommunicationDiagramEditorInputProvider() {
         super();
     }
 
@@ -42,6 +43,12 @@ public class CommunicationDiagramEditorInputProvider implements IDiagramEditorIn
     public DiagramEditorInput compute(String diagramUID, IModelManager modelManager) {
         CommunicationDiagram diagram = (CommunicationDiagram) modelManager.getModelServices().findByRef(new MRef(CommunicationDiagram.MQNAME, diagramUID));
         return diagram != null ? new CommunicationDiagramEditorInput(modelManager, diagram, getDiagramCreator()) : null;
+    }
+
+    @objid ("40de7e52-9a59-4f07-b60c-d937cf3f7b41")
+    @Override
+    public DiagramEditorInput compute(AbstractDiagram diagram, IModelManager modelManager) {
+        return diagram instanceof CommunicationDiagram ? new CommunicationDiagramEditorInput(modelManager, diagram, getDiagramCreator()) : null;
     }
 
     @objid ("21a2360f-3abd-4b90-a66c-706771ed84d0")

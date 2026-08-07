@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -70,7 +69,7 @@ public class ResourceTypeSmClass extends ModelElementSmClass {
     private SmDependency typedResourceDep;
 
     @objid ("52329694-6691-4363-ae58-f848f0c1cd4c")
-    public  ResourceTypeSmClass(ISmMetamodelFragment origin) {
+    public ResourceTypeSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
@@ -78,7 +77,7 @@ public class ResourceTypeSmClass extends ModelElementSmClass {
     @Override
     public String getName() {
         return "ResourceType";
-        
+
     }
 
     @objid ("d7a9e46f-7faa-4fc3-a8d8-1d6b569dcedb")
@@ -91,21 +90,21 @@ public class ResourceTypeSmClass extends ModelElementSmClass {
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return ResourceType.class;
-        
+
     }
 
     @objid ("6ab0b8e9-fc25-4a3d-bad8-9fa249d2b057")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
     @objid ("8aa0a7d3-3943-40fc-ab64-4ab38811d645")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
     @objid ("1cf464e5-bf7a-4687-b48b-3cde60e8b780")
@@ -113,40 +112,39 @@ public class ResourceTypeSmClass extends ModelElementSmClass {
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(ModelElement.MQNAME);
         this.registerFactory(new ResourceTypeObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
         this.isHiddenAtt = new IsHiddenSmAttribute();
         this.isHiddenAtt.init("IsHidden", this, Boolean.class );
         registerAttribute(this.isHiddenAtt);
-        
+
         this.labelKeyAtt = new LabelKeySmAttribute();
         this.labelKeyAtt.init("LabelKey", this, String.class );
         registerAttribute(this.labelKeyAtt);
-        
+
         this.iconAtt = new IconSmAttribute();
         this.iconAtt.init("Icon", this, String.class );
         registerAttribute(this.iconAtt);
-        
+
         this.imageAtt = new ImageSmAttribute();
         this.imageAtt.init("Image", this, String.class );
         registerAttribute(this.imageAtt);
-        
-        
+
+
         // Initialize and register the SmDependency
         this.ownerStereotypeDep = new OwnerStereotypeSmDependency();
         this.ownerStereotypeDep.init("OwnerStereotype", this, metamodel.getMClass(Stereotype.MQNAME), 0, 1 );
         registerDependency(this.ownerStereotypeDep);
-        
+
         this.ownerReferenceDep = new OwnerReferenceSmDependency();
         this.ownerReferenceDep.init("OwnerReference", this, metamodel.getMClass(MetaclassReference.MQNAME), 0, 1 );
         registerDependency(this.ownerReferenceDep);
-        
+
         this.typedResourceDep = new TypedResourceSmDependency();
         this.typedResourceDep.init("TypedResource", this, metamodel.getMClass(AbstractResource.MQNAME), 0, -1 , SmDirective.SMCDDYNAMIC, SmDirective.SMCDTODELETE);
         registerDependency(this.typedResourceDep);
-        
-        
+
     }
 
     @objid ("a6d87bb0-86ee-4429-a4e1-497fc0d32bd4")
@@ -285,7 +283,7 @@ public class ResourceTypeSmClass extends ModelElementSmClass {
             	this.symetricDep = ((StereotypeSmClass)this.getTarget()).getDefinedResourceTypeDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -314,7 +312,7 @@ public class ResourceTypeSmClass extends ModelElementSmClass {
             	this.symetricDep = ((MetaclassReferenceSmClass)this.getTarget()).getDefinedResourceTypeDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -325,7 +323,7 @@ public class ResourceTypeSmClass extends ModelElementSmClass {
         private ResourceTypeSmClass smClass;
 
         @objid ("734885c3-2520-4f28-bbea-a6d198d96a69")
-        public  ResourceTypeObjectFactory(ResourceTypeSmClass smClass) {
+        public ResourceTypeObjectFactory(ResourceTypeSmClass smClass) {
             this.smClass = smClass;
         }
 
@@ -358,7 +356,7 @@ public class ResourceTypeSmClass extends ModelElementSmClass {
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((ResourceTypeData) data).mTypedResource = values;
-            
+
         }
 
         @objid ("13dfcebe-5b0a-4bba-96c8-b223a1b6c42b")
@@ -368,7 +366,7 @@ public class ResourceTypeSmClass extends ModelElementSmClass {
             	this.symetricDep = ((AbstractResourceSmClass)this.getTarget()).getTypeDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

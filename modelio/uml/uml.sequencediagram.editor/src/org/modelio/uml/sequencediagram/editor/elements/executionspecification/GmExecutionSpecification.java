@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.executionspecification;
 
@@ -58,22 +58,23 @@ public class GmExecutionSpecification extends GmCompositeNode {
 
     /**
      * Create an execution rectangle
+     *
      * @param diagram The owning diagram
      * @param element the represented execution, may be null
      * @param ref the represented execution reference, may not be null
      */
     @objid ("d8eca59d-55b6-11e2-877f-002564c97630")
-    public  GmExecutionSpecification(IGmDiagram diagram, ExecutionSpecification element, MRef ref) {
+    public GmExecutionSpecification(IGmDiagram diagram, ExecutionSpecification element, MRef ref) {
         super(diagram, ref);
         this.element = element;
-        
+
     }
 
     /**
      * For deserialization only
      */
     @objid ("d8eca5a9-55b6-11e2-877f-002564c97630")
-    public  GmExecutionSpecification() {
+    public GmExecutionSpecification() {
         // Nothing to do
     }
 
@@ -102,7 +103,7 @@ public class GmExecutionSpecification extends GmCompositeNode {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("d8eca5c5-55b6-11e2-877f-002564c97630")
@@ -152,7 +153,7 @@ public class GmExecutionSpecification extends GmCompositeNode {
             break;
         }
         }
-        
+
     }
 
     @objid ("d8ee2c4e-55b6-11e2-877f-002564c97630")
@@ -162,24 +163,24 @@ public class GmExecutionSpecification extends GmCompositeNode {
         if (this.element != null) {
             firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, this.getLayoutData(), null);
         }
-        
+
     }
 
     @objid ("d8ee2c51-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmExecutionSpecification.", GmExecutionSpecification.MINOR_VERSION);
-        
+
     }
 
     @objid ("d8ee2c57-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (ExecutionSpecification) resolveRef(this.getRepresentedRef());
-        
+
     }
 
     @objid ("d8ee2c5c-55b6-11e2-877f-002564c97630")

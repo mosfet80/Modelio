@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.stereotype.creator;
 
@@ -44,7 +44,7 @@ import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.infrastructure.TagType;
 import org.modelio.model.property.plugin.ModelProperty;
-import org.modelio.platform.project.services.IProjectService;
+import org.modelio.platform.core.project.ICurrentProjectService;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.blob.BlobChangeEvent;
 import org.modelio.vcore.session.api.blob.BlobInfo;
@@ -78,36 +78,38 @@ public class StereotypeEditor {
     private Collection<IBlobInfo> deletedBlobs;
 
     @objid ("83839b9e-aaed-447f-a6d1-3352013586a3")
-    private IProjectService projectService;
+    private ICurrentProjectService projectService;
 
     @objid ("1919aab2-a9cb-4335-8508-be14e61cd0b1")
     private IMModelServices mmServices;
 
     /**
+     *
      * @param projectService the project services
      * @param mmServices the model services for the project
      */
     @objid ("b525246b-ef2c-4850-9b81-6b96606f1232")
-    public  StereotypeEditor(IProjectService projectService, IMModelServices mmServices) {
+    public StereotypeEditor(ICurrentProjectService projectService, IMModelServices mmServices) {
         super();
         this.projectService = projectService;
         this.mmServices = mmServices;
         this.createdBlobs = new ArrayList<>();
         this.deletedBlobs = new ArrayList<>();
         this.updatedBlobs = new ArrayList<>();
-        
     }
 
     /**
+     *
      * @param selectedElements the selection
      * @return the created stereotype.
      */
     @objid ("6c877053-f95d-4575-9418-5c3a5fc37495")
     public Stereotype create(Profile profile, List<ModelElement> selectedElements, IGModelFragment fragment, boolean showApplyStereotype) {
         // Prompt the user for the new note type data
-        StereotypeEditionDataModel dataModel = promptUserBeforeCreate(selectedElements, showApplyStereotype);
+        StereotypeEditionDataModel dataModel = promptUserBeforeCreate(selectedElements, showApplyStereotype,profile);
         Stereotype stereotype = null;
-        
+
+
         if (dataModel != null) {
             stereotype = createStereotype(profile, selectedElements, fragment, dataModel);
         }
@@ -118,29 +120,28 @@ public class StereotypeEditor {
     public void edit(Stereotype editedStereotype) {
         // Prompt the user for the new note type data
         StereotypeEditionDataModel dataModel = promptUserBeforeEdit(editedStereotype);
-        
+
         if (dataModel != null) {
             editStereotype(editedStereotype, dataModel);
         }
-        
     }
 
     /**
      * @return
      */
     @objid ("3c8af456-467f-45d3-bd09-99a8124ea874")
-    private StereotypeEditionDataModel promptUserBeforeCreate(List<ModelElement> elements, boolean showApplyStereotype) {
+    private StereotypeEditionDataModel promptUserBeforeCreate(List<ModelElement> elements, boolean showApplyStereotype, Profile profile) {
         boolean show = showApplyStereotype;
         ModelElement element = null;
-        
+
         if (elements.size() == 1) {
             element = elements.get(0);
         }
-        
+
         String metaclassName = null;
-        
+
         ICoreSession session = this.projectService.getSession();
-        
+
         if (element == null ||
                 element instanceof ModuleComponent ||
                 element instanceof Profile ||
@@ -150,7 +151,7 @@ public class StereotypeEditor {
                 element instanceof Stereotype ||
                 element instanceof ModuleParameter) {
             metaclassName = ModelElement.MQNAME;
-        
+
             if (session != null && element != null) {
                 MStatus status = element.getStatus();
                 if (show) {
@@ -159,7 +160,7 @@ public class StereotypeEditor {
             }
         } else {
             metaclassName = element.getMClass().getQualifiedName();
-        
+
             if (session != null) {
                 MStatus status = element.getStatus();
                 if (show) {
@@ -167,16 +168,17 @@ public class StereotypeEditor {
                 }
             }
         }
-        
+
         StereotypeEditionDataModel dataModel = new StereotypeEditionDataModel(metaclassName, null, this.projectService.getOpenedProject().getPfs().getProjectRuntimePath());
         dataModel.setApplyStereotype(show);
+        dataModel.setProfile(profile);
         StereotypeEditionDialog dialog = new StereotypeEditionDialog(null, dataModel, this.projectService, this.mmServices, elements);
-        
+
         // Open the main window
         // Don't return from open() until dialog window closes
         dialog.setBlockOnOpen(true);
         int code = dialog.open();
-        
+
         if (code == IDialogConstants.OK_ID) {
             return dataModel;
         }
@@ -191,32 +193,38 @@ public class StereotypeEditor {
         ICoreSession session = this.projectService.getSession();
         // Local module path
         IGProject openedProject = this.projectService.getOpenedProject();
-        
+
         StereotypeEditionDataModel dataModel = new StereotypeEditionDataModel(editedStereotype.getBaseClassName(), editedStereotype, openedProject.getPfs().getProjectRuntimePath());
         dataModel.setStereotypeName(editedStereotype.getName());
         IRepository repository = session.getRepositorySupport().getRepository(editedStereotype);
-        
+
         if (!editedStereotype.getIcon().isEmpty()) {
             Path iconPath = dataModel.getLocalPath().resolve("tempIcon.png");
+            if(iconPath.toFile().exists()) {
+             iconPath.toFile().delete();
+            }
             if (readStereotypeBlob(repository, editedStereotype.getUuid() + StereotypeEditor.ICON, iconPath)) {
                 dataModel.setExplorerIcon(iconPath.toString());
             }
         }
-        
+
         if (!editedStereotype.getImage().isEmpty()) {
             Path imagePath = dataModel.getLocalPath().resolve("tempImage.png");
+            if(imagePath.toFile().exists()) {
+             imagePath.toFile().delete();
+            }
             if (readStereotypeBlob(repository, editedStereotype.getUuid() + StereotypeEditor.IMAGE, imagePath)) {
                 dataModel.setDiagramImage(imagePath.toString());
             }
         }
-        
+
         StereotypeEditionDialog dialog = new StereotypeEditionDialog(null, dataModel, this.projectService, this.mmServices, new ArrayList<ModelElement>());
-        
+
         // Open the main window
         // Don't return from open() until dialog window closes
         dialog.setBlockOnOpen(true);
         int code = dialog.open();
-        
+
         if (code == IDialogConstants.OK_ID) {
             return dataModel;
         }
@@ -226,17 +234,16 @@ public class StereotypeEditor {
     @objid ("ea52d560-a260-4de5-aa9a-f836e88d224d")
     private void addStereotypeOnSelectedElements(Stereotype stereotype, List<ModelElement> selectedElements, StereotypeEditionDataModel dataModel) {
         Class<? extends MObject> metaclass = stereotype.getMClass().getMetamodel().getMClass(dataModel.getMetaclassName()).getJavaInterface();
-        
+
         if (metaclass == null) {
             return;
         }
-        
+
         for (ModelElement element : selectedElements) {
             if (!(element instanceof Profile) && metaclass.isAssignableFrom(element.getClass())) {
                 element.getExtension().add(stereotype);
             }
         }
-        
     }
 
     /**
@@ -248,7 +255,7 @@ public class StereotypeEditor {
         IInfrastructureModelFactory factory = this.mmServices.getModelFactory().getFactory(IInfrastructureModelFactory.class);
         Profile ownerProfile = profile;
         Stereotype stereotype = null;
-        
+
         try (ITransaction transaction = session.getTransactionSupport().createTransaction("Create Stereotype")) {
             if (ownerProfile == null) {
                 LocalProfileCreator localModuleCreator = new LocalProfileCreator(this.projectService);
@@ -258,11 +265,11 @@ public class StereotypeEditor {
                 stereotype = factory.createStereotype();
                 ownerProfile.getDefinedStereotype().add(stereotype);
                 setStereotypeValues(session, stereotype, dataModel);
-        
+
                 if (dataModel.isApplyStereotype()) {
                     addStereotypeOnSelectedElements(stereotype, selectedElements, dataModel);
                 }
-        
+
                 transaction.commit();
             }
         }
@@ -281,7 +288,6 @@ public class StereotypeEditor {
         } catch (Exception e) {
             ModelProperty.LOG.error(e);
         }
-        
     }
 
     /**
@@ -294,14 +300,13 @@ public class StereotypeEditor {
         stereotype.setBaseClassName(dataModel.getMetaclassName());
         stereotype.setIcon(dataModel.getIconName());
         stereotype.setImage(dataModel.getImageName());
-        
+
         IRepository repository = session.getRepositorySupport().getRepository(stereotype);
         processStereotypeIconBlob(stereotype, dataModel, repository);
         processStereotypeImageBlob(stereotype, dataModel, repository);
-        
+
         BlobChangeEvent blobEvent = new BlobChangeEvent(this.createdBlobs, this.deletedBlobs, this.updatedBlobs);
         session.getBlobSupport().fireBlobsChanged(blobEvent);
-        
     }
 
     /**
@@ -328,7 +333,6 @@ public class StereotypeEditor {
         } catch (IOException e) {
             ModelProperty.LOG.error(e);
         }
-        
     }
 
     /**
@@ -355,7 +359,6 @@ public class StereotypeEditor {
         } catch (IOException e) {
             ModelProperty.LOG.error(e);
         }
-        
     }
 
     /**
@@ -400,7 +403,6 @@ public class StereotypeEditor {
             this.createdBlobs.add(blob);
             ModelProperty.LOG.debug("Blob created: " + blob.getKey());
         }
-        
     }
 
     /**
@@ -412,7 +414,6 @@ public class StereotypeEditor {
             this.updatedBlobs.add(blob);
             ModelProperty.LOG.debug("Blob updated: " + blob.getKey());
         }
-        
     }
 
     /**
@@ -426,7 +427,6 @@ public class StereotypeEditor {
         } catch (IOException e) {
             ModelProperty.LOG.error(e);
         }
-        
     }
 
 }

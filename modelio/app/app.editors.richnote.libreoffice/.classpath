@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-21">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry excluding=".svn/" kind="src" path="src"/>
 	<classpathentry kind="src" output="runtime/bin" path="runtime/src"/>
-	<classpathentry kind="lib" path="/compilation-env/libreoffice3.6/juh.jar"/>
-	<classpathentry kind="lib" path="/compilation-env/libreoffice3.6/jurt.jar"/>
-	<classpathentry kind="lib" path="/compilation-env/libreoffice3.6/ridl.jar"/>
-	<classpathentry kind="lib" path="/compilation-env/libreoffice3.6/unoil.jar"/>
 	<classpathentry kind="lib" path="/compilation-env/javadesigner.jar"/>
+	<classpathentry exported="true" kind="lib" path="res" sourcepath="res"/>
+	<classpathentry kind="lib" path="/compilation-env/libreoffice7.6.7/libreoffice-7.6.7.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

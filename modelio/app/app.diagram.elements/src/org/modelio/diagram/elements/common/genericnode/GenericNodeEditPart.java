@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.genericnode;
 
@@ -47,19 +47,19 @@ public class GenericNodeEditPart extends AbstractNodeEditPart {
     protected IFigure createFigure() {
         // create the figure
         RoundedBoxFigure fig = new RoundedBoxFigure();
-        
+
         // Add layout
         final ToolbarLayoutWithGrab layout = new ToolbarLayoutWithGrab();
         layout.setHorizontal(false);
         layout.setStretchMinorAxis(true);
         fig.setLayoutManager(layout);
-        
+
         // set style independent properties
         MinimumSizeLayout.apply(fig, 90, 60);
-        
+
         // set style dependent properties
         refreshFromStyle(fig, getModelStyle());
-        
+
         // return the figure
         return fig;
     }
@@ -68,12 +68,12 @@ public class GenericNodeEditPart extends AbstractNodeEditPart {
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         // Do not show the smart link creation handle
         installEditPolicy(UserChoiceCreateLinkEditPolicy.class, new UserChoiceCreateLinkEditPolicy(new PaletteActionProvider(this, PaletteActionProvider.IS_LINK_TOOL), false));
         installEditPolicy(EditPolicy.NODE_ROLE, new DefaultCreateLinkEditPolicy());
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START, new LinkedNodeStartCreationEditPolicy());
-        
+
     }
 
     @objid ("156ef199-a45c-4a09-b92c-e544ce597fb0")
@@ -85,7 +85,7 @@ public class GenericNodeEditPart extends AbstractNodeEditPart {
         } else {
             getFigure().add(child, BorderLayout.CENTER, index);
         }
-        
+
     }
 
     @objid ("19f3b383-bada-4573-9efb-dce5a9cf386a")
@@ -94,7 +94,7 @@ public class GenericNodeEditPart extends AbstractNodeEditPart {
         super.refreshVisuals();
         GmAbstractObject model = getModel();
         getFigure().getParent().setConstraint(getFigure(), model.getLayoutData());
-        
+
     }
 
     @objid ("f240719d-c6ad-4e13-9504-527818e4fb32")
@@ -105,7 +105,7 @@ public class GenericNodeEditPart extends AbstractNodeEditPart {
                 super.refreshFromStyle(aFigure, style);
             }
         }
-        
+
     }
 
 }

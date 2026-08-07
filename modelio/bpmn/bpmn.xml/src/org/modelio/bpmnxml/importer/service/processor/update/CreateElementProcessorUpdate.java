@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.importer.service.processor.update;
 
@@ -59,13 +59,13 @@ public class CreateElementProcessorUpdate implements IBPMNImportProcessor {
     }
 
     @objid ("55f5cbe2-3cc4-4fcd-a4c6-92ee61dfda31")
-    public  CreateElementProcessorUpdate(ICoreSession session, IDiagramService diagramService, Map<String, Object> elementsMap, boolean keepId) {
+    public CreateElementProcessorUpdate(ICoreSession session, IDiagramService diagramService, Map<String, Object> elementsMap, boolean keepId) {
         this.session = session;
         this.diagramService = diagramService;
         this.elementsMap = elementsMap;
         this.factory = new ProductionFactory();
         this.keepId = keepId;
-        
+
     }
 
     /**
@@ -77,12 +77,12 @@ public class CreateElementProcessorUpdate implements IBPMNImportProcessor {
         IProduction node = this.factory.getImportProductionNode(jaxbElement);
         if (node instanceof IProductionNode) {
             node.setElements(this.elementsMap);
-        
+
             MObject modelioElement = null;
             if (jaxbElement instanceof TDefinitions) {
                 modelioElement = context;
             } else {
-        
+
                 if (this.keepId) {
                     modelioElement = ((IProductionNode) node).findUMLElementById(jaxbElement, this.session);
                     if (modelioElement != null && modelioElement.isDeleted()) {
@@ -94,9 +94,9 @@ public class CreateElementProcessorUpdate implements IBPMNImportProcessor {
                     modelioElement = ((IProductionNode) node).createUMLElement(context, jaxbElement, elementFactory, this.keepId);
                 }
             }
-        
+
             this.elementsMap.put(IDUtils.getJaxbId(context, jaxbElement), modelioElement);
-        
+
             return modelioElement;
         }
         return null;

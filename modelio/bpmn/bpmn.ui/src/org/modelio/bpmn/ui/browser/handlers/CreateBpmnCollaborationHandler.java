@@ -1,26 +1,26 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.ui.browser.handlers;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.swt.widgets.Display;
 import org.modelio.api.modelio.Modelio;
@@ -52,13 +52,13 @@ public class CreateBpmnCollaborationHandler extends CreateCmsElementHandler {
     @Override
     protected void postCreationStep(MObject createdElement, IMModelServices mmServices) {
         IStandardModelFactory mmFactory = mmServices.getModelFactory().getFactory(IStandardModelFactory.class);
-        
+
         BpmnCollaboration collab = (BpmnCollaboration) createdElement;
-        
+
         BpmnCollaborationDiagram diagram = mmFactory.createBpmnCollaborationDiagram();
         collab.getProduct().add(diagram);
         diagram.setName(mmServices.getElementNamer().getUniqueName(diagram));
-        
+
         BpmnProcess process = collab.getDefinedProcess();
         if (process != null) {
             // Create a participant
@@ -66,14 +66,14 @@ public class CreateBpmnCollaborationHandler extends CreateCmsElementHandler {
             participant.setName(process.getName());
             participant.setProcess(process);
             participant.setContainer(collab);
-        
+
             // Unamsk it
             try (IDiagramHandle dh = Modelio.getInstance().getDiagramService().getDiagramHandle(diagram)) {
                 dh.unmask(participant, 0, 0);
                 dh.save();
             }
         }
-        
+
     }
 
     /**
@@ -88,7 +88,7 @@ public class CreateBpmnCollaborationHandler extends CreateCmsElementHandler {
                         () -> "CreateBpmnCollaborationHandler.postCommit()",
                         ModelioEvent.EDIT_ELEMENT,
                         param));
-        
+
     }
 
 }

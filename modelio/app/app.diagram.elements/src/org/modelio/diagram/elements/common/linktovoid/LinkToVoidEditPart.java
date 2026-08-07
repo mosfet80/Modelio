@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.linktovoid;
 
@@ -49,11 +49,11 @@ public class LinkToVoidEditPart extends LinkEditPart {
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         installEditPolicy(EditPolicy.CONNECTION_ENDPOINTS_ROLE, new LinkToVoidEndPointEditPolicy());
         installEditPolicy(LayoutConnectionConnectionsEditPolicy.ROLE, null);
         installEditPolicy(LayoutNodeConnectionsEditPolicy.ROLE, null);
-        
+
     }
 
     @objid ("7ece3080-1dec-11e2-8cad-001ec947c8cc")
@@ -66,11 +66,11 @@ public class LinkToVoidEditPart extends LinkEditPart {
             final Connection fig = getConnectionFigure();
             final Point loc = fig.getPoints().getFirstPoint();
             fig.translateToAbsolute(loc);
-        
+
             final ReconnectRequest request = new ReconnectRequest(LinkToVoidConstants.REQ_LINKTOVOID_RECONNECT_SOURCE);
             request.setConnectionEditPart(this);
             request.setLocation(loc);
-        
+
             swapEnd((MObject) evt.getNewValue(), request);
         } else if (evt.getPropertyName().equals(GmLink.PROP_TARGET_EL)) {
             // If notified that the target changed.
@@ -79,17 +79,17 @@ public class LinkToVoidEditPart extends LinkEditPart {
             final Connection fig = getConnectionFigure();
             final Point loc = fig.getPoints().getLastPoint();
             fig.translateToAbsolute(loc);
-        
+
             final ReconnectRequest request = new ReconnectRequest(LinkToVoidConstants.REQ_LINKTOVOID_RECONNECT_TARGET);
             request.setConnectionEditPart(this);
             request.setLocation(loc);
-        
+
             swapEnd((MObject) evt.getNewValue(), request);
-        
+
         } else {
             super.propertyChange(evt);
         }
-        
+
     }
 
     @objid ("4dd8eb69-0f10-4e24-836c-44fdf61e6af1")

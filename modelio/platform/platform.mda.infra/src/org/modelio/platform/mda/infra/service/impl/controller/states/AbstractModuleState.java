@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.service.impl.controller.states;
 
@@ -46,18 +46,20 @@ public class AbstractModuleState {
     private Map<Object, Transition> transitions = new HashMap<>();
 
     /**
+     *
      * @param rtModule the module
      * @param name the state name
      */
     @objid ("abff2224-c0a3-4536-98f0-b35cf0edf994")
-    public  AbstractModuleState(IRTModule rtModule, String name) {
+    public AbstractModuleState(IRTModule rtModule, String name) {
         this.name = name;
         this.rtModule = rtModule;
-        
+
     }
 
     /**
      * Add features that must be active in this state
+     *
      * @param pfeatures the features to be active
      */
     @objid ("b8eb8ed2-ed2b-4cde-b19f-5a8fa1e7bc92")
@@ -72,6 +74,7 @@ public class AbstractModuleState {
 
     /**
      * Called when entering state, just before current state is set.
+     *
      * @param oldState the old state.
      * @throws ModuleException if state change is refused and the previous state must be restored.
      */
@@ -82,6 +85,7 @@ public class AbstractModuleState {
 
     /**
      * Called before exiting state.
+     *
      * @param newState the new state
      */
     @objid ("b6683ac5-c762-40a3-9a46-241cf28bc352")
@@ -90,6 +94,7 @@ public class AbstractModuleState {
     }
 
     /**
+     *
      * @param message a message
      * @return the matching transition
      * @throws IllegalStateException if there is no such transition
@@ -105,6 +110,7 @@ public class AbstractModuleState {
 
     /**
      * Register a transition
+     *
      * @param t a transition
      */
     @objid ("182185a1-41c8-49e6-b6db-bd01779f05db")
@@ -119,6 +125,7 @@ public class AbstractModuleState {
     }
 
     /**
+     *
      * @return the state features.
      */
     @objid ("b9438325-b4bd-434a-bfe0-062410de2b74")

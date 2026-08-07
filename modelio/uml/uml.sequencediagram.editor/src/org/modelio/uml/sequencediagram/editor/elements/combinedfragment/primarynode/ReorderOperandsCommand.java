@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.combinedfragment.primarynode;
 
@@ -31,7 +31,7 @@ import org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperand;
 
 /**
  * Much like the {@link ReorderChildrenCommand}, but handling the ObModel parts specific to sequence diagram.
- * 
+ *
  * @author fpoyer
  */
 @objid ("d8d43bca-55b6-11e2-877f-002564c97630")
@@ -51,7 +51,7 @@ public class ReorderOperandsCommand extends Command {
         // TODO: use a service method that will also move the content of the operand
         CombinedFragment fragment = (CombinedFragment) this.container.getRelatedElement();
         List<InteractionOperand> allOperands = fragment.getOperand();
-        
+
         InteractionOperand operandToMove = (InteractionOperand) this.childToMove.getRelatedElement();
         int indexOfMoved = allOperands.indexOf(operandToMove);
         InteractionOperand referenceOperand = null;
@@ -60,12 +60,12 @@ public class ReorderOperandsCommand extends Command {
         }
         int indexOfReference = referenceOperand == null ? allOperands.size()
                 : allOperands.indexOf(referenceOperand);
-        
+
         if (indexOfMoved + 1 == indexOfReference) {
             // No real movement, just return.
             return;
         }
-        
+
         // Handle line numbers.
         int shift = operandToMove.getEndLineNumber() - operandToMove.getLineNumber() + 1;
         if (indexOfMoved < indexOfReference) {
@@ -91,7 +91,7 @@ public class ReorderOperandsCommand extends Command {
             operandToMove.setLineNumber(operandToMove.getLineNumber() - shift);
             operandToMove.setEndLineNumber(operandToMove.getEndLineNumber() - shift);
         }
-        
+
         // Re-order ObModel.
         List<InteractionOperand> reorderedOperands = new ArrayList<>(fragment.getOperand().size());
         for (int i = 0; i < indexOfReference; ++i) {
@@ -105,24 +105,23 @@ public class ReorderOperandsCommand extends Command {
         }
         allOperands.clear();
         allOperands.addAll(reorderedOperands);
-        
+
         // Re-order gm model.
         this.container.moveChild(this.childToMove, this.container.getChildren().indexOf(this.reference));
-        
     }
 
     /**
      * C'tor.
+     *
      * @param container the container in which children will be moved.
      * @param childToMove the child to move.
      * @param reference the reference: moved child will be moved just before this reference. If it is null, child will be moved at the end of the container.
      */
     @objid ("d8d5c23a-55b6-11e2-877f-002564c97630")
-    public  ReorderOperandsCommand(final GmCompositeNode container, final GmNodeModel childToMove, final GmNodeModel reference) {
+    public ReorderOperandsCommand(final GmCompositeNode container, final GmNodeModel childToMove, final GmNodeModel reference) {
         this.container = container;
         this.childToMove = childToMove;
         this.reference = reference;
-        
     }
 
 }

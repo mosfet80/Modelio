@@ -1,0 +1,19 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Impact Analysis
+
+== Overview
+
+Modelio provides powerful impact analysis tools that provides you with critical information on the impact that any change to any element might have on the rest of the model.
+
+Different impact models can be computed for a given user model in order to represent specific aspects of the model and in order to carry out specific analysis of the model.
+
+Once an impact model has been established, its contents can be displayed using diagrams or matrices.
+
+*  <<User_Documentation_en_Impact_Analysis_ImpactAnalysisConcepts.adoc#,Impact Analysis concepts>> is a 'must read first' chapter that explains how the Modelio Impact Analysis system works.
+*  <<User_Documentation_en_Impact_Analysis_Impact_models.adoc#,Impact Models>> is a user's guide about Impact Diagrams, how to create and configure them.
+*  <<User_Documentation_en_Impact_Analysis_Impact_diagrams.adoc#,Impact Diagrams>> is a user's guide about Impact Diagrams, how to configure them and how they can be used.
+*  <<User_Documentation_en_Impact_Analysis_Impact_matrix.adoc#,Impact Matrices>> is a user's guide about Impact Matrices, how to configure them and how they can be used.

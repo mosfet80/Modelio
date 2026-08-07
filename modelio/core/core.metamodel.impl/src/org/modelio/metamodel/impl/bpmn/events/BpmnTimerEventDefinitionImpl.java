@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.events;
 
 import java.util.ArrayList;
@@ -41,43 +40,43 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00969aa6-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnTimerEventDefinitionImpl extends BpmnEventDefinitionImpl implements BpmnTimerEventDefinition {
-    @objid ("fb971430-0d81-4dd3-af74-810c9653f4fe")
+    @objid ("612ad10a-48aa-46d1-9b11-a9ac68279f56")
     @Override
     public String getTimeCycle() {
         return (String) getAttVal(((BpmnTimerEventDefinitionSmClass)getClassOf()).getTimeCycleAtt());
     }
 
-    @objid ("f79a4f07-a816-425d-91de-9a0f2113c726")
+    @objid ("920a95d3-c765-4661-8f6f-910be400348d")
     @Override
     public void setTimeCycle(String value) {
         setAttVal(((BpmnTimerEventDefinitionSmClass)getClassOf()).getTimeCycleAtt(), value);
     }
 
-    @objid ("b4363966-96b6-4f54-8b9f-7bc7b95f11e4")
+    @objid ("94a0a3a5-4a73-44c1-8f5d-2d9e6ac99bfe")
     @Override
     public String getTimeDate() {
         return (String) getAttVal(((BpmnTimerEventDefinitionSmClass)getClassOf()).getTimeDateAtt());
     }
 
-    @objid ("31ba62ec-54dc-4604-bbc0-e8ff146e207f")
+    @objid ("b5d0288b-beea-479a-b017-d5d345277dab")
     @Override
     public void setTimeDate(String value) {
         setAttVal(((BpmnTimerEventDefinitionSmClass)getClassOf()).getTimeDateAtt(), value);
     }
 
-    @objid ("9f103ae2-9386-4860-bd75-31571fec7d17")
+    @objid ("f5f11685-72da-4bea-a4bf-6abb08c99ef5")
     @Override
     public String getTimeDuration() {
         return (String) getAttVal(((BpmnTimerEventDefinitionSmClass)getClassOf()).getTimeDurationAtt());
     }
 
-    @objid ("7da74d96-168f-4d51-bb4e-2c7c2175f26f")
+    @objid ("dcff3985-933a-42ed-8214-7abfeeb67df5")
     @Override
     public void setTimeDuration(String value) {
         setAttVal(((BpmnTimerEventDefinitionSmClass)getClassOf()).getTimeDurationAtt(), value);
     }
 
-    @objid ("d702a85b-2b6c-4499-9681-1897bea4ee5b")
+    @objid ("d7fecc07-54f7-4924-96c0-1da82eedd113")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -85,17 +84,17 @@ public class BpmnTimerEventDefinitionImpl extends BpmnEventDefinitionImpl implem
         return super.getCompositionOwner();
     }
 
-    @objid ("bc887141-ea83-4824-869d-98d19c6e7e81")
+    @objid ("2b536e04-9f7a-4372-bf4f-1c6dcbffff0d")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("465b8294-7b6f-4432-b583-dd89e9bd941c")
+    @objid ("d292b960-6b39-491d-a247-efebc9fae56d")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitBpmnTimerEventDefinition(this);

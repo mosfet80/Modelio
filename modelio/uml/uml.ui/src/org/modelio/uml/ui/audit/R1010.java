@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -47,7 +47,7 @@ public class R1010 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -66,7 +66,7 @@ public class R1010 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         plan.registerRule(ActivityPartition.MQNAME, this,
                 AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -100,14 +100,14 @@ public class R1010 extends AbstractUmlRule {
      * Default constructor for R1010
      */
     @objid ("e4cb0193-e104-4548-b0ff-e8964f656993")
-    public  R1010() {
+    public R1010() {
         this.checkerInstance = new CheckR1010(this);
     }
 
     @objid ("fd398140-22e5-4c67-b829-d11bbeb35758")
     private static class CheckR1010 extends AbstractControl {
         @objid ("7f347b3f-8ca0-4c42-858a-3cd80c9712f0")
-        public  CheckR1010(IRule rule) {
+        public CheckR1010(IRule rule) {
             super(rule);
         }
 
@@ -127,7 +127,7 @@ public class R1010 extends AbstractUmlRule {
         private IAuditEntry checkR1010(ActivityPartition partition) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(),
                     AuditSeverity.AuditSuccess, partition, null);
-            
+
             if (partition.getInActivity() != null
                     && partition.getSuperPartition() != null) {
                 // test failed

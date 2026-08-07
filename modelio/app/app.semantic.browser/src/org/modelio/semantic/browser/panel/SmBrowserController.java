@@ -1,28 +1,28 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.semantic.browser.panel;
 
 import java.util.List;
 import java.util.Objects;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.services.EMenuService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
@@ -64,7 +64,7 @@ public class SmBrowserController {
             this.ui.setSelection(new StructuredSelection());
             this.ui.setInput(null);
         }
-        
+
     }
 
     @objid ("1f6b77ad-5297-4a6e-8429-94987ddb95d0")
@@ -73,7 +73,7 @@ public class SmBrowserController {
         if (!Objects.equals(this.ui.getSelection(), selection)) {
             this.ui.setSelection(selection);
         }
-        
+
     }
 
     /**
@@ -84,7 +84,7 @@ public class SmBrowserController {
         if (this.selectionService != null) {
             this.selectionService.setSelection(selection);
         }
-        
+
     }
 
 }

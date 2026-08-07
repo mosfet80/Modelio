@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.module.modelermodule.engine;
 
@@ -42,7 +42,7 @@ public class StateMachineCreator {
     private State selectedState;
 
     @objid ("ff5a8f2b-b15f-470d-9613-c4d9ab983310")
-    public  StateMachineCreator(final State selectedElement) {
+    public StateMachineCreator(final State selectedElement) {
         this.selectedState = selectedElement;
     }
 
@@ -55,17 +55,17 @@ public class StateMachineCreator {
         NameSpace creationDestination = stateMachineParent.getOwner();
         StateMachine stateMachine = null;
         IModelingSession session = ModelerModuleModule.getInstance().getModuleContext().getModelingSession();
-        
+
         // create the state machine
         stateMachine = session.getModel().createStateMachine();
         creationDestination.getOwnedBehavior().add(stateMachine);
         stateMachine.setName(this.selectedState.getName());
         this.selectedState.setSubMachine(stateMachine);
-        
+
         Region topRegionSM = stateMachine.getTop();
         List<ConnectionPointReference> points = this.selectedState.getConnection();
         for (ConnectionPointReference connectionPointReference : points) {
-        
+
             List<Transition> incomingTransition = connectionPointReference.getIncoming();
             if (incomingTransition.size() != 0) {
                 EntryPointPseudoState entry = session.getModel().createEntryPointPseudoState();
@@ -82,31 +82,31 @@ public class StateMachineCreator {
                 }
             }
         }
-        
+
         createDiagram(session, stateMachine, exits, entries);
-        
+
     }
 
     @objid ("c407eaa1-ec28-41f3-984a-20cee47a5ef9")
     public void createDiagram(final IModelingSession session, final StateMachine stateMachine, final List<ExitPointPseudoState> exits, final List<EntryPointPseudoState> entries) {
         StateMachineDiagram diagram = session.getModel().createStateMachineDiagram(stateMachine.getName(), stateMachine, null);
-        
+
         try (IDiagramHandle rep = ModelerModuleModule.getInstance().getModuleContext().getModelioServices().getDiagramService().getDiagramHandle(diagram)) {
-        
+
             unmaskInLine(entries, 50, rep);
             unmaskInLine(exits, 600, rep);
-        
+
             rep.save();
             rep.close();
         }
-        
+
     }
 
     @objid ("cfd98a38-4f23-4eb4-a76a-b4b6faa7342e")
     public void unmaskInLine(final List<? extends StateVertex> vertexes, final int x, final IDiagramHandle rep) {
         int currentX = x;
         int currentY = 50;
-        
+
         for (StateVertex vertex : vertexes) {
             List<IDiagramGraphic> graphics = rep.unmask(vertex, currentX, currentY);
             for (IDiagramGraphic graphic : graphics){
@@ -115,10 +115,10 @@ public class StateMachineCreator {
                     break;
                 }
             }
-                        
-            currentY += 100;                        
+
+            currentY += 100;
         }
-        
+
     }
 
 }

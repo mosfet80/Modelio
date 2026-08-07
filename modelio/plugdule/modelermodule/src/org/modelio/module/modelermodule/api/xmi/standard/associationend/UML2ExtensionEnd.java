@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class UML2ExtensionEnd {
      * Tells whether a {@link UML2ExtensionEnd proxy} can be instantiated from a {@link MObject} checking it is a {@link AssociationEnd} stereotyped << UML2ExtensionEnd >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,7 +73,7 @@ public class UML2ExtensionEnd {
 
     /**
      * Create a new {@link AssociationEnd} stereotyped << UML2ExtensionEnd >> then instantiate a {@link UML2ExtensionEnd} proxy.
-     * 
+     *
      * @return a {@link UML2ExtensionEnd} proxy on the created {@link AssociationEnd}.
      */
     @objid ("fafc52e1-2f28-4116-8524-91ad42ff4608")
@@ -83,9 +84,10 @@ public class UML2ExtensionEnd {
     }
 
     /**
-     * Tries to instantiate a {@link UML2ExtensionEnd} proxy from a {@link AssociationEnd} stereotyped << UML2ExtensionEnd >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2ExtensionEnd} proxy from a {@link AssociationEnd} stereotyped << UML2ExtensionEnd >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a AssociationEnd
      * @return a {@link UML2ExtensionEnd} proxy or <i>null</i>.
      */
@@ -95,9 +97,10 @@ public class UML2ExtensionEnd {
     }
 
     /**
-     * Tries to instantiate a {@link UML2ExtensionEnd} proxy from a {@link AssociationEnd} stereotyped << UML2ExtensionEnd >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2ExtensionEnd} proxy from a {@link AssociationEnd} stereotyped << UML2ExtensionEnd >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link AssociationEnd}
      * @return a {@link UML2ExtensionEnd} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -127,7 +130,8 @@ public class UML2ExtensionEnd {
     }
 
     /**
-     * Get the underlying {@link AssociationEnd}. 
+     * Get the underlying {@link AssociationEnd}.
+     *
      * @return the AssociationEnd represented by this proxy, never null.
      */
     @objid ("3af6c50c-d721-4f7d-a57e-cbf6c357b7ae")
@@ -139,11 +143,11 @@ public class UML2ExtensionEnd {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("0904d59c-36db-4d71-964e-9b406d367100")
-    protected  UML2ExtensionEnd(AssociationEnd elt) {
+    protected UML2ExtensionEnd(AssociationEnd elt) {
         this.elt = elt;
     }
 
@@ -163,7 +167,7 @@ public class UML2ExtensionEnd {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "770df309-5d0c-11df-a996-001302895b2b");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -171,7 +175,7 @@ public class UML2ExtensionEnd {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.module.modelermodule.engine;
 
@@ -43,6 +43,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class StateUpdater {
     /**
      * Create a sub state machine from a composite state having entry/exit points.
+     *
      * @param session The modeling session
      * @param state The source state
      * @return : The created StateMachine
@@ -53,82 +54,82 @@ public class StateUpdater {
                 && ((state.getOwnedRegion().size() == 0)
                         || ((state.getOwnedRegion().size() ==1 )
                                 &&  (state.getOwnedRegion().get(0).getSub().size() == 0)))){
-        
+
             // Choose a name for the new state machine
             String newName = InputDialog.showInputDialog(ShellHelper.findActiveShell(),
                     I18nMessageService.getString("module.gui.process.stateMachineName"),
                     I18nMessageService.getString("module.gui.process.chooseName"),
                     state.getName());
-        
+
             if (newName == null || newName.equals("")) {
                 return null;
             }
-        
-        
+
+
             Region region = state.getParent();
             MObject element = region.getCompositionOwner();
-        
+
             while (!(element instanceof StateMachine)) {
                 element = element.getCompositionOwner().getCompositionOwner();
             }
-        
+
             NameSpace creationDestination = ((StateMachine) element).getOwner();
-        
+
             StateMachine subMachine = session.getModel().createStateMachine();
             creationDestination.getOwnedBehavior().add(subMachine);
             subMachine.setName(newName);
             state.setSubMachine(subMachine);
-        
+
             // delete owned region if exits
             if (state.getOwnedRegion().size() ==1)
                 state.getOwnedRegion().get(0).delete();
-        
+
             Region topRegion = subMachine.getTop();
             if (topRegion == null){
                 topRegion = session.getModel().createRegion();
                 subMachine.setTop(topRegion);
             }
-        
+
             for (ConnectionPointReference connect : new ArrayList<>(state.getConnection())){
                 connect.delete();
             }
-        
+
             for (EntryPointPseudoState entry : state.getEntryPoint()) {
-        
+
                 EntryPointPseudoState newEntry = createEntryPoint(session, entry, topRegion);
-        
+
                 ConnectionPointReference connectionPoint = createConnectionPoint(session, state, newEntry);
-        
+
                 for (Transition transition : entry.getIncoming()){
                     transition.setTarget(connectionPoint);
                 }
-        
+
                 for (Transition transition : new ArrayList<>(entry.getOutGoing())){
                     transition.delete();
                 }
-        
+
                 entry.delete();
-        
+
             }
-        
+
             for (ExitPointPseudoState exit : new ArrayList<>(state.getExitPoint())) {
-        
+
                 ExitPointPseudoState newExit = createExitPoint(session, exit, topRegion);
-        
+
                 ConnectionPointReference connectionPoint = createConnectionPoint(session, state, newExit);
-        
+
                 for (Transition transition : new ArrayList<>(exit.getIncoming())){
                     transition.delete();
                 }
-        
+
                 for (Transition transition : exit.getOutGoing()){
                     transition.setSource(connectionPoint);
                 }
-        
+
                 exit.delete();
             }
-        
-        
+
+
             return subMachine;
         }
         return null;
@@ -152,6 +153,7 @@ public class StateUpdater {
 
     /**
      * Updates a sub state machine(entry, exit points)
+     *
      * @param session the Modelio modeling session
      * @param state the state to update.
      */
@@ -166,7 +168,7 @@ public class StateUpdater {
                     I18nMessageService.getString("module.gui.process.stateMachineName"),
                     I18nMessageService.getString("module.gui.process.chooseExistingName"),
                     state.getName());
-        
+
             if (smName != null && !(smName.equals(""))) {
                 // Get the package container
                 Package container = getContainerPackage(state);
@@ -174,7 +176,7 @@ public class StateUpdater {
                     throw new ModelerModuleException(
                             I18nMessageService.getString("module.error.updateStateFromSM.rolePackage", state.getName()));
                 }
-        
+
                 List<Behavior> cl = new ArrayList<>();
                 for (Behavior behavior : container.getOwnedBehavior()) {
                     if (smName.equals(behavior.getName())) {
@@ -184,7 +186,7 @@ public class StateUpdater {
                 if (cl.size() > 0 && cl.get(0) instanceof StateMachine) {
                     StateMachine newStateMachine = (StateMachine) cl.get(0);
                     state.setSubMachine(newStateMachine);
-        
+
                     // Do the update
                     updateSubState(session, state, newStateMachine);
                 } else {
@@ -192,10 +194,10 @@ public class StateUpdater {
                             I18nMessageService.getString("module.error.updatePartFromInstanciedClass.find", smName));
                 }
             }
-        
-        
+
+
         }
-        
+
     }
 
     @objid ("c5913403-e5a8-414f-a4a3-8f99f75ce430")
@@ -211,7 +213,7 @@ public class StateUpdater {
     private void updateSubState(final IModelingSession session, final State state, final StateMachine stateMachine) {
         ArrayList<EntryPointPseudoState> existingEntries = new ArrayList<>(stateMachine.getEntryPoint());
         ArrayList<ExitPointPseudoState> existingExits = new ArrayList<>(stateMachine.getExitPoint());
-        
+
         //searching existing match
         for (ConnectionPointReference pointReference : new ArrayList<>(state.getConnection())) {
             //entry point case
@@ -231,7 +233,7 @@ public class StateUpdater {
                     }
                 }
             }
-        
+
             //exit point case
             ExitPointPseudoState exit = pointReference.getExit();
             if (exit != null) {
@@ -248,23 +250,23 @@ public class StateUpdater {
                         }
                     }
                 }
-        
+
             }
-        
+
             pointReference.delete();
-        
+
         }
-        
+
         //create missing connection point
         for (EntryPointPseudoState existingEntry : existingEntries) {
             createConnectionPoint(session, state, existingEntry);
         }
-        
+
         for (ExitPointPseudoState existingExit : existingExits) {
             createConnectionPoint(session, state, existingExit);
         }
-        
-        
+
+
         //delete
         for (EntryPointPseudoState existingEntry : stateMachine.getEntryPoint()) {
             boolean exist = false;
@@ -277,7 +279,7 @@ public class StateUpdater {
                 }
             }
         }
-        
+
         for (ExitPointPseudoState existingExit : stateMachine.getExitPoint()) {
             boolean exist = false;
             for(ConnectionPointReference connectPoint: existingExit.getConnection()){
@@ -290,7 +292,7 @@ public class StateUpdater {
                 }
             }
         }
-        
+
     }
 
     @objid ("36de419c-95dc-4628-b9db-401499599520")

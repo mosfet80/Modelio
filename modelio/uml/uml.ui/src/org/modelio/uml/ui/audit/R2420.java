@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -49,7 +49,7 @@ public class R2420 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -73,7 +73,7 @@ public class R2420 extends AbstractUmlRule {
         plan.registerRule(TemplateParameter.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -107,14 +107,14 @@ public class R2420 extends AbstractUmlRule {
      * Default constructor for R2420
      */
     @objid ("1bbd5897-8fa1-4c1a-8fb2-7b5408b2ac4e")
-    public  R2420() {
+    public R2420() {
         this.checkerInstance = new CheckR2420(this);
     }
 
     @objid ("e7ccb52f-7f25-419c-8e12-92ac168b290e")
     private static class CheckR2420 extends AbstractControl {
         @objid ("33dce41a-dd24-4b31-aa8e-90ba93907b13")
-        public  CheckR2420(IRule rule) {
+        public CheckR2420(IRule rule) {
             super(rule);
         }
 
@@ -164,13 +164,13 @@ public class R2420 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     operation,
                     null);
-            
+
             Operation redfined = operation.getRedefines();
-            
+
             if (redfined != null && !makeSignature(operation).equals(makeSignature(redfined))) {
-            
+
                 // Rule failed
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(operation);
@@ -182,7 +182,7 @@ public class R2420 extends AbstractUmlRule {
         @objid ("76dd6d94-1f7d-486c-a1fa-358ef4163a5a")
         private String makeSignature(final Operation op) {
             StringBuilder signature = new StringBuilder();
-            
+
             signature.append(op.getName());
             signature.append(op.getPassing());
             // Parameters
@@ -203,13 +203,13 @@ public class R2420 extends AbstractUmlRule {
             } else {
                 return tp.getMClass().getName();
             }
-            
+
         }
 
         @objid ("ef45f4a6-2cb2-4473-832f-d8e2ceef93e0")
         private String makeSignature(final Parameter p) {
             StringBuilder buffer = new StringBuilder();
-            
+
             // type name
             if (p.getType() != null) {
                 buffer.append(p.getType().getUuid().toString());
@@ -218,7 +218,7 @@ public class R2420 extends AbstractUmlRule {
             }
             // passing mode
             buffer.append(p.getParameterPassing());
-            
+
             // cardinality
             buffer.append(p.getMultiplicityMin());
             buffer.append(p.getMultiplicityMax());

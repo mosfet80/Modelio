@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -47,10 +47,10 @@ public class EChangeEvent extends ENamedElement {
     }
 
     @objid ("cd37a170-f5b1-41df-8e77-d12dd5269b59")
-    public  EChangeEvent(org.eclipse.uml2.uml.ChangeEvent element) {
+    public EChangeEvent(org.eclipse.uml2.uml.ChangeEvent element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("7b707694-5d5e-46e3-92ea-d82f07843a38")
@@ -63,10 +63,10 @@ public class EChangeEvent extends ENamedElement {
                 sm.getEComponent().add((Event)objingElt);
             }else{
                 objingElt.delete();
-        
+
             }
         }
-        
+
     }
 
     @objid ("5ca84467-2f95-44f9-8f05-8d2d0fa50fb6")
@@ -74,15 +74,15 @@ public class EChangeEvent extends ENamedElement {
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setExpression((Event) objingElt);
-        
+
     }
 
     @objid ("9d798cca-c993-4447-8488-6ed3f8b20cdd")
     private void setExpression(Event objingElt) {
         org.eclipse.uml2.uml.ValueSpecification value = this.ecoreElement.getChangeExpression();
-        
+
         if (value != null){
-        
+
             String typeString = value.stringValue();
             if (typeString != null)
                 objingElt.setExpression(typeString);
@@ -95,7 +95,7 @@ public class EChangeEvent extends ENamedElement {
                 }
             }
         }
-        
+
     }
 
 }

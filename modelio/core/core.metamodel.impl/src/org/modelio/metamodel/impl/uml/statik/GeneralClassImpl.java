@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -47,25 +46,25 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("000bf81a-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class GeneralClassImpl extends ClassifierImpl implements GeneralClass {
-    @objid ("b1b3e596-5072-4fff-8523-2e5761c78694")
+    @objid ("7eabc4c5-b607-4efe-bf2b-174813194d2b")
     @Override
     public boolean isIsElementary() {
         return (Boolean) getAttVal(((GeneralClassSmClass)getClassOf()).getIsElementaryAtt());
     }
 
-    @objid ("fa3d0a21-64d2-4e38-84cb-a4f01477804a")
+    @objid ("da71f2a1-8abd-4764-b0ff-c72c705d1b9c")
     @Override
     public void setIsElementary(boolean value) {
         setAttVal(((GeneralClassSmClass)getClassOf()).getIsElementaryAtt(), value);
     }
 
-    @objid ("3bd787a9-a69a-48a8-897a-73b42b0db3df")
+    @objid ("da951a54-b041-4161-bb56-e1ba78859bb8")
     @Override
     public EList<Parameter> getOccurence() {
         return new SmList<>(this, ((GeneralClassSmClass)getClassOf()).getOccurenceDep());
     }
 
-    @objid ("c00788d3-bf48-4b33-8597-0d24f53460f2")
+    @objid ("bc338e39-3e2b-4601-a312-4fba8dc03b23")
     @Override
     public <T extends Parameter> List<T> getOccurence(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -78,29 +77,29 @@ public abstract class GeneralClassImpl extends ClassifierImpl implements General
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("46714c72-c8d5-4efb-9116-e2cf9e0bb45e")
+    @objid ("c50fd806-2073-4233-a954-0dac831316c1")
     @Override
     public ExceptionHandler getExceptionInput() {
         Object obj = getDepVal(((GeneralClassSmClass)getClassOf()).getExceptionInputDep());
         return (obj instanceof ExceptionHandler)? (ExceptionHandler)obj : null;
     }
 
-    @objid ("532f0b68-5f87-408b-b925-9d4d212f4c0d")
+    @objid ("16f27f49-cf7b-4df4-8bc4-870f4b5d9df2")
     @Override
     public void setExceptionInput(ExceptionHandler value) {
         appendDepVal(((GeneralClassSmClass)getClassOf()).getExceptionInputDep(), (SmObjectImpl)value);
     }
 
-    @objid ("3d86d4e0-1eb1-404b-84c1-015438797cd5")
+    @objid ("fa3c5d38-c273-4c0b-a572-19b93eda6e55")
     @Override
     public EList<Attribute> getObject() {
         return new SmList<>(this, ((GeneralClassSmClass)getClassOf()).getObjectDep());
     }
 
-    @objid ("4ec3195b-1081-4232-bf52-9f757e758e6f")
+    @objid ("fad81ba9-a4de-4eea-b523-7333c2183712")
     @Override
     public <T extends Attribute> List<T> getObject(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -113,16 +112,16 @@ public abstract class GeneralClassImpl extends ClassifierImpl implements General
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("523e571f-466b-43e8-892e-8dc3a95f77a2")
+    @objid ("a2501da0-9ee9-481f-b2ba-e1ba646b46d9")
     @Override
     public EList<Signal> getSRepresentation() {
         return new SmList<>(this, ((GeneralClassSmClass)getClassOf()).getSRepresentationDep());
     }
 
-    @objid ("59c5e359-f774-4983-9afd-2da8527a130d")
+    @objid ("4068c4de-ed9a-473a-aed6-cf825505b329")
     @Override
     public <T extends Signal> List<T> getSRepresentation(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -135,16 +134,16 @@ public abstract class GeneralClassImpl extends ClassifierImpl implements General
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("0ec03e2b-1304-4d43-aecd-488c7b10bf99")
+    @objid ("6d752d8f-964b-4053-9b59-5bb2b3970410")
     @Override
     public EList<ObjectNode> getOccurenceObjectNode() {
         return new SmList<>(this, ((GeneralClassSmClass)getClassOf()).getOccurenceObjectNodeDep());
     }
 
-    @objid ("9c6de69c-b4bb-4749-b96c-f5db9e2e21b3")
+    @objid ("f6b60e94-cdff-4fb1-8fcf-6d7b93b5b8fa")
     @Override
     public <T extends ObjectNode> List<T> getOccurenceObjectNode(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -157,10 +156,10 @@ public abstract class GeneralClassImpl extends ClassifierImpl implements General
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("cc770e6b-80df-4c7d-93d2-c05b4ab44350")
+    @objid ("150fdcd9-d79c-4e43-a904-de392a47c219")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -168,17 +167,17 @@ public abstract class GeneralClassImpl extends ClassifierImpl implements General
         return super.getCompositionOwner();
     }
 
-    @objid ("fd557632-2f41-4d1d-9554-4c7d2c4a49c2")
+    @objid ("22b34c9c-bc85-4fab-ab84-d872a7cd4a47")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("8d325840-af83-49a6-921a-d21bb6c0b152")
+    @objid ("b4c1dfbf-27d5-4ce3-8a6a-1d40f1ba6a40")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitGeneralClass(this);

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.ghostnode;
 
@@ -26,7 +26,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPolicy;
 import org.modelio.diagram.elements.core.link.DefaultCreateLinkEditPolicy;
-import org.modelio.diagram.elements.core.model.GmAbstractObject;
+import org.modelio.diagram.elements.core.model.IGmDiagram;
 import org.modelio.diagram.elements.core.model.IGmLink;
 import org.modelio.diagram.elements.core.model.IGmModelRelated;
 import org.modelio.diagram.elements.core.node.AbstractNodeEditPart;
@@ -39,7 +39,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * Universal edit part for "ghost" mode of any ModelElement It provides a ghost rectangle figure with a centered label
- * 
+ *
  * @author fpoyer
  */
 @objid ("7e48acb6-1dec-11e2-8cad-001ec947c8cc")
@@ -49,13 +49,13 @@ public class GhostNodeEditPart extends AbstractNodeEditPart {
     protected IFigure createFigure() {
         // create the figure
         final GhostNodeFigure aFigure = new GhostNodeFigure();
-        
+
         // set style independent properties
         aFigure.setSize(100, 50);
-        
+
         // set style dependent properties
         // this.refreshFromStyle(aFigure, this.getModelStyle());
-        
+
         // return the figure
         return aFigure;
     }
@@ -71,42 +71,46 @@ public class GhostNodeEditPart extends AbstractNodeEditPart {
     protected void createEditPolicies() {
         installEditPolicy(EditPolicy.COMPONENT_ROLE, new DefaultDeleteNodeEditPolicy());
         installEditPolicy(EditPolicy.NODE_ROLE, new DefaultCreateLinkEditPolicy());
-        
     }
 
     @objid ("7e48acc9-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected void refreshVisuals() {
         final IGmModelRelated model = getModel();
+        IGmDiagram gmDiagram = model.getDiagram();
         final GhostNodeFigure aFigure = (GhostNodeFigure) getFigure();
-        
+
         String cause = "";
         MObject el;
-        try {
-            el = model.getDiagram().getModelManager().getModelingSession().getModel().findByRef(model.getRepresentedRef());
-        } catch (UnknownMetaclassException e) {
+        if (gmDiagram == null) {
+            cause = "disposed gm of ";
             el = null;
-        }
-        if (el == null) {
-            cause = "missing ";
-        } else if (el.isDeleted()) {
-            // note : isShell() and isDeleted() return true for dead objects.
-            cause = "deleted ";
-        } else if (el.isShell()) {
-            cause = "shell ";
         } else {
-            cause = "broken ";
+            try {
+                el = gmDiagram.getModelManager().getModelingSession().getModel().findByRef(model.getRepresentedRef());
+            } catch (UnknownMetaclassException e) {
+                el = null;
+            }
+            if (el == null) {
+                cause = "missing ";
+            } else if (el.isDeleted()) {
+                // note : isShell() and isDeleted() return true for dead objects.
+                cause = "deleted ";
+            } else if (el.isShell()) {
+                cause = "shell ";
+            } else {
+                cause = "broken ";
+            }
         }
-        
+
         IFigure parent = aFigure.getParent();
         if (parent != null) {
-            parent.setConstraint(aFigure, ((GmAbstractObject) model).getLayoutData());
+            parent.setConstraint(aFigure,  model.getLayoutData());
         }
-        
+
         aFigure.setMetaclassName("<<" + cause + model.getGhostMetaclass() + ">>");
         aFigure.setName(model.getGhostLabel());
         aFigure.setId(model.getGhostId());
-        
     }
 
     @objid ("7e4b0f0f-1dec-11e2-8cad-001ec947c8cc")
@@ -167,7 +171,6 @@ public class GhostNodeEditPart extends AbstractNodeEditPart {
                 registerAsPropertyChangeListenerOf(child);
             }
         }
-        
     }
 
     @objid ("7e4b0f3c-1dec-11e2-8cad-001ec947c8cc")
@@ -178,7 +181,6 @@ public class GhostNodeEditPart extends AbstractNodeEditPart {
                 registerAsPropertyChangeListenerOf(child);
             }
         }
-        
     }
 
     @objid ("7e4b0f3f-1dec-11e2-8cad-001ec947c8cc")
@@ -190,7 +192,6 @@ public class GhostNodeEditPart extends AbstractNodeEditPart {
                 unregisterAsPropertyChangeListenerOf(child);
             }
         }
-        
     }
 
     @objid ("7e4b0f42-1dec-11e2-8cad-001ec947c8cc")
@@ -201,7 +202,6 @@ public class GhostNodeEditPart extends AbstractNodeEditPart {
                 unregisterAsPropertyChangeListenerOf(child);
             }
         }
-        
     }
 
     /**

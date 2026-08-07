@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -49,7 +49,7 @@ public class R2740 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -69,7 +69,7 @@ public class R2740 extends AbstractUmlRule {
         plan.registerRule(TemplateBinding.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(TemplateParameterSubstitution.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -103,14 +103,14 @@ public class R2740 extends AbstractUmlRule {
      * Default constructor for R2740
      */
     @objid ("d686dfb3-01d6-4d6d-8619-208ea8b3977d")
-    public  R2740() {
+    public R2740() {
         this.checkerInstance = new CheckR2740(this);
     }
 
     @objid ("199dd876-714e-48e8-b3c9-ad26361d58ad")
     private static class CheckR2740 extends AbstractControl {
         @objid ("1d43e001-04a4-40b0-9b81-339836c8a17b")
-        public  CheckR2740(IRule rule) {
+        public CheckR2740(IRule rule) {
             super(rule);
         }
 
@@ -134,15 +134,15 @@ public class R2740 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     tBinding,
                     null);
-            
+
             NameSpace instanciated = tBinding.getInstanciatedTemplate();
-            
+
             for (TemplateParameterSubstitution tps : tBinding.getTemplateSubstitution()) {
                 ModelElement owner = tps.getOwnerTemplateParameter();
                 if (owner != null && !owner.equals(instanciated)) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(tBinding);

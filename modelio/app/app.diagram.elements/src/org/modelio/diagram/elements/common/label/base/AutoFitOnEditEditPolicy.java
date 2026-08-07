@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.label.base;
 
@@ -34,7 +34,7 @@ import org.modelio.diagram.elements.core.model.GmModel;
 
 /**
  * Fit to new content on text edition.
- * 
+ *
  * @author cmarin
  * @since 3.4
  */
@@ -57,7 +57,7 @@ public class AutoFitOnEditEditPolicy extends GraphicalEditPolicy {
 
     /**
      * Fit label figure to content according to the Ob model.
-     * 
+     *
      * @author cmarin
      * @since 3.4
      */
@@ -74,37 +74,37 @@ public class AutoFitOnEditEditPolicy extends GraphicalEditPolicy {
         public void execute() {
             GmModel gmModel = (GmModel) this.editPart.getModel();
             IFigure fig = this.editPart.getFigure();
-            
+
             Dimension oldSize = fig.getSize();
             Dimension oldPrefSize = fig.getPreferredSize(-1, -1);
-            
+
             // need to refresh gm model (and view) now because it will be triggered only after transaction commit.
             gmModel.obElementsUpdated();
-            
+
             int wHint = -1;
             if (!oldSize.equals(oldPrefSize)) {
                 // Keep same width
                 wHint = oldSize.width;
             }
-            
+
             Dimension prefSize = fig.getPreferredSize(wHint, -1);
-            
+
             if (!oldSize.equals(prefSize)) {
                 ChangeBoundsRequest req = new ChangeBoundsRequest(RequestConstants.REQ_RESIZE);
                 req.setEditParts(this.editPart);
                 Rectangle requestedBounds = fig.getBounds().getCopy().setSize(prefSize);
                 RequestHelper.setDeltas(req, fig, requestedBounds);
-            
+
                 Command cmd = this.editPart.getCommand(req);
                 if (cmd != null && cmd.canExecute()) {
                     cmd.execute();
                 }
             }
-            
+
         }
 
         @objid ("110d35a3-61bb-42a4-80ef-9b79fd843eb9")
-        public  AutoFitCommand(GraphicalEditPart editPart) {
+        public AutoFitCommand(GraphicalEditPart editPart) {
             this.editPart = editPart;
         }
 

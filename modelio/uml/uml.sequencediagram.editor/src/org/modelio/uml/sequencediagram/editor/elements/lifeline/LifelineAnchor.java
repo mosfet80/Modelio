@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.lifeline;
 
@@ -27,7 +27,7 @@ import org.modelio.metamodel.uml.behavior.interactionModel.ExecutionOccurenceSpe
 
 /**
  * Specific anchor that is always on the "dashed line" part of a lifeline (that's the x coordinate) and at the y given by the source time of the corresponding {@link ExecutionOccurenceSpecification}.
- * 
+ *
  * @author fpoyer
  */
 @objid ("d94b405f-55b6-11e2-877f-002564c97630")
@@ -37,14 +37,14 @@ public class LifelineAnchor extends AbstractConnectionAnchor {
 
     /**
      * c'tor.
+     *
      * @param owner Owner of this anchor
      * @param timeCoordinate the time coordinate of that anchor.
      */
     @objid ("d94b4062-55b6-11e2-877f-002564c97630")
-    public  LifelineAnchor(final IFigure owner, final int timeCoordinate) {
+    public LifelineAnchor(final IFigure owner, final int timeCoordinate) {
         super(owner);
         this.timeCoordinate = timeCoordinate;
-        
     }
 
     @objid ("d94b4069-55b6-11e2-877f-002564c97630")

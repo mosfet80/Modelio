@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.parts.data.hybrid;
 
@@ -41,6 +41,9 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  */
 @objid ("13c0039e-0520-4a1c-8d0b-bc284a3c78ca")
 public class HybridNatValueEditor extends AbstractCellEditor {
+    @objid ("6bf8398f-b415-4b1d-a30d-be436ef438ac")
+    private Text text;
+
     @objid ("cc4e6500-c435-4e28-8bcb-20d3812191d1")
     private IHybridNatValue elementData;
 
@@ -50,14 +53,12 @@ public class HybridNatValueEditor extends AbstractCellEditor {
     @objid ("cd0cce8c-77fe-4087-b9a5-3e5a1ae9bbd9")
     private final ICoreSession session;
 
-    @objid ("8a492c64-d238-4af8-8a3c-a6a126d00c11")
-    private Text text;
-
     @objid ("d08d3ca5-98cd-4706-83ac-40dec333f5b6")
     private HybridTextElement textElement;
 
     /**
      * Build a new editor.
+     *
      * @param session a model session, needed to look for elements. CAN BE
      * <code>null</code> in which case no completion will occur in
      * the editor.
@@ -66,10 +67,9 @@ public class HybridNatValueEditor extends AbstractCellEditor {
      * no picking will occur in the editor.
      */
     @objid ("04da068d-8374-49ef-923a-796c8b4a5470")
-    public  HybridNatValueEditor(ICoreSession session, IModelioPickingService pickingService) {
+    public HybridNatValueEditor(ICoreSession session, IModelioPickingService pickingService) {
         this.session = session;
         this.pickingService = pickingService;
-        
     }
 
     /**
@@ -84,7 +84,7 @@ public class HybridNatValueEditor extends AbstractCellEditor {
             // only add the focus and traverse listeners for inline mode
             // editorControl.addFocusListener(this.focusListener);
             // editorControl.addTraverseListener(this.traverseListener);
-            
+
             editorControl.addKeyListener(new KeyListener() {
                 @Override
                 public void keyReleased(KeyEvent e) {
@@ -92,7 +92,7 @@ public class HybridNatValueEditor extends AbstractCellEditor {
                         close();
                     }
                 }
-        
+
                 @Override
                 public void keyPressed(KeyEvent e) {
                     if (e.keyCode == SWT.ESC) {
@@ -101,7 +101,6 @@ public class HybridNatValueEditor extends AbstractCellEditor {
                 }
             });
         }
-        
     }
 
     @objid ("f9c81574-6284-4420-8d81-4fa36038ed61")
@@ -110,7 +109,6 @@ public class HybridNatValueEditor extends AbstractCellEditor {
         // Clean up
         this.textElement = null;
         super.close();
-        
     }
 
     @objid ("73befe93-af16-4d3f-a301-6b10a393cd0f")
@@ -149,7 +147,6 @@ public class HybridNatValueEditor extends AbstractCellEditor {
             // editorControl.removeFocusListener(this.focusListener);
             // editorControl.removeTraverseListener(this.traverseListener);
         }
-        
     }
 
     /**
@@ -164,7 +161,7 @@ public class HybridNatValueEditor extends AbstractCellEditor {
             if (value instanceof IHybridNatValue) {
                 this.elementData = (IHybridNatValue)value;
                 obj = this.elementData.getValue();
-                
+
                 this.textElement.getAcceptedMetaclasses().clear();
                 for (Class<? extends MObject> allowedClass : this.elementData.getAllowedClasses()) {
                     this.textElement.getAcceptedMetaclasses().add(this.session.getMetamodel().getMClass(allowedClass));
@@ -179,23 +176,22 @@ public class HybridNatValueEditor extends AbstractCellEditor {
         } else {
             this.textElement.setValue(null);
         }
-        
     }
 
     @objid ("1bc743d1-1993-4562-9aef-48209dc6a67d")
     @Override
     protected Control activateCell(Composite parentComposite, Object originalCanonicalValue) {
         this.text = createEditorControl(parentComposite);
-        
+
         this.textElement.addListener(new IHybridTextElementSelectionListener() {
             @Override
             public void selectedElementChanged(Object oldElement, Object newElement) {
                 commit(MoveDirectionEnum.NONE, true);
             }
         });
-        
+
         setEditorValue(originalCanonicalValue);
-        
+
         this.textElement.getTextControl().selectAll();
         this.textElement.getTextControl().setFocus();
         return this.text;

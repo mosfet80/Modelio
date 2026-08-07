@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -50,7 +50,7 @@ public class R1170 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -72,7 +72,7 @@ public class R1170 extends AbstractUmlRule {
         plan.registerRule(InputPin.MQNAME, this, AuditTrigger.UPDATE
                 | AuditTrigger.MOVE);
         plan.registerRule(Operation.MQNAME, this, AuditTrigger.MOVE);
-        
+
     }
 
     /**
@@ -106,14 +106,14 @@ public class R1170 extends AbstractUmlRule {
      * Default constructor for R1170
      */
     @objid ("c95e672c-20fa-4b3a-b04d-fac148ac89cb")
-    public  R1170() {
+    public R1170() {
         this.checkerInstance = new CheckR1170(this);
     }
 
     @objid ("f9c739b6-2ebe-4688-a739-f6654b31d3af")
     private static class CheckR1170 extends AbstractControl {
         @objid ("7d1fee88-661e-4a2d-89bd-3daae147923d")
-        public  CheckR1170(IRule rule) {
+        public CheckR1170(IRule rule) {
             super(rule);
         }
 
@@ -140,37 +140,37 @@ public class R1170 extends AbstractUmlRule {
         private IAuditEntry checkR1170(CallOperationAction callOperation) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(),
                     AuditSeverity.AuditSuccess, callOperation, null);
-            
+
             Operation operation = callOperation.getCalled();
-            
+
             // The CallOperationAction does not call any Operation, the rule
             // does not apply.
             if (operation == null) {
                 return auditEntry;
             }
-            
+
             InputPin targetPin = null;
-            
+
             for (InputPin pin : callOperation.getInput()) {
                 if (pin.isIsSelf()) {
                     targetPin = pin;
                 }
             }
-            
+
             // The CallOperationAction does not have a target pin, the rule does
             // not apply.
             if (targetPin == null) {
                 return auditEntry;
             }
-            
+
             Classifier owningType = operation.getOwner();
-            
+
             if (owningType.equals(targetPin.getType())) {
                 return auditEntry;
             }
-            
+
             // At this point the rule failed
-            
+
             List<Object> linkedObjects = new ArrayList<>();
             auditEntry.setSeverity(this.rule.getSeverity());
             linkedObjects.add(callOperation);
@@ -181,6 +181,7 @@ public class R1170 extends AbstractUmlRule {
 
         /**
          * If an InputPin is updated and is on a CallOperationAction, its self attribute potentially change so we need to check the rule on this CallOperationAction.
+         *
          * @param inputPin @return
          */
         @objid ("a37e7eaf-557e-4bdd-80e9-a356bc2f29f3")
@@ -194,6 +195,7 @@ public class R1170 extends AbstractUmlRule {
 
         /**
          * If an operation is moved, its owner's classifier potentially changes so we need to check the rule on every CallOperationAction that calls this operation.
+         *
          * @param operation The moved operation.
          * @return A list of audit entry for each concerned CallOperationAction.
          */

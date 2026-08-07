@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.activities;
 
@@ -77,12 +77,12 @@ public class ManualTaskNode implements IProductionNode<BpmnManualTask, TManualTa
     @objid ("43c059cd-c6af-44d3-bcdb-671197c0418a")
     @Override
     public BpmnManualTask createUMLElement(MObject context, TManualTask jaxbElement, BpmnImportFactory factory, boolean keepId) {
-        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {  
+        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {
             return factory.createWithId(BpmnManualTask.class,context,jaxbElement.getId());
         }else{
             return factory.create(BpmnManualTask.class,context);
         }
-        
+
     }
 
     @objid ("53181324-90a0-4056-92b4-74830883f913")
@@ -94,7 +94,7 @@ public class ManualTaskNode implements IProductionNode<BpmnManualTask, TManualTa
         }else if(context instanceof BpmnSubProcess){
             ((BpmnSubProcess) context).getFlowElement().add(modelioElement);
         }
-        
+
         // Group
         if(jaxbElement.getCategoryValueRef() != null){
             for(QName jaxGroupRef : jaxbElement.getCategoryValueRef()){
@@ -104,21 +104,21 @@ public class ManualTaskNode implements IProductionNode<BpmnManualTask, TManualTa
                 }
             }
         }
-        
-        
+
+
         // Set properties
         if(jaxbElement.getName()!=null)
             modelioElement.setName(StringConvertor.imports(jaxbElement.getName()));
-        
+
         if(jaxbElement.getCompletionQuantity() != null)
             modelioElement.setCompletionQuantity(jaxbElement.getCompletionQuantity().intValue());
-        
+
         if(jaxbElement.getStartQuantity() != null)
             modelioElement.setStartQuantity(jaxbElement.getStartQuantity().intValue());
-        
-        
+
+
         modelioElement.setIsForCompensation(jaxbElement.isIsForCompensation());
-        
+
         // Default Flow
         if(jaxbElement.getDefault() != null && jaxbElement.getDefault() instanceof TSequenceFlow){
             BpmnSequenceFlow  flow = (BpmnSequenceFlow) this.elementsMap.get( ((TSequenceFlow)jaxbElement.getDefault()).getId());
@@ -134,7 +134,7 @@ public class ManualTaskNode implements IProductionNode<BpmnManualTask, TManualTa
     public TManualTask createJaxbElement(Object context, BpmnManualTask modelioElement) {
         // Create JaxbElement
         TManualTask jaxTask = new TManualTask();
-        
+
         // Add to context
         ObjectFactory factory = new ObjectFactory();
         if(context instanceof TProcess){
@@ -144,7 +144,7 @@ public class ManualTaskNode implements IProductionNode<BpmnManualTask, TManualTa
             List<JAXBElement<? extends TFlowElement>> jaxContent = ((TSubProcess)context).getFlowElement();
             jaxContent.add(factory.createManualTask(jaxTask));
         }
-        
+
         jaxTask.setId(IDUtils.formatJaxbID(modelioElement));
         return jaxTask;
     }
@@ -153,23 +153,23 @@ public class ManualTaskNode implements IProductionNode<BpmnManualTask, TManualTa
     @Override
     public TManualTask updateJaxbElement(Object context, TManualTask jaxTask, BpmnManualTask modelioElement) {
         jaxTask.setName(modelioElement.getName());
-        
+
         if(modelioElement.getCompletionQuantity() != 0){
             jaxTask.setCompletionQuantity(BigInteger.valueOf(modelioElement.getCompletionQuantity()));
         }
-        
+
         if(modelioElement.getStartQuantity() != 0){
             jaxTask.setStartQuantity(BigInteger.valueOf(modelioElement.getStartQuantity()));
         }
-        
-        
+
+
         // Default Flow
         if(modelioElement.getDefaultFlow() != null){
             Object target = this.elementsMap.get(modelioElement.getDefaultFlow().getUuid());
             if(target != null)
                 jaxTask.setDefault(target);
         }
-        
+
         jaxTask.setIsForCompensation(modelioElement.isIsForCompensation());
         return jaxTask;
     }

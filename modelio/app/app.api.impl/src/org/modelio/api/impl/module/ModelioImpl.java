@@ -1,26 +1,26 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.api.impl.module;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
@@ -134,6 +134,7 @@ public class ModelioImpl extends Modelio {
      * <p>
      * The navigation service allow to force selection in all the view/dialog
      * that are registered has NavigationListener.
+     *
      * @return the navigation service.
      */
     @objid ("ee682731-1eaf-4ed3-9a1f-25cc0c15f615")
@@ -201,6 +202,7 @@ public class ModelioImpl extends Modelio {
 
     /**
      * Called by E4 injection to initialize the instance
+     *
      * @param context the eclipse context.
      */
     @objid ("42b90af5-1701-49d6-bb27-315df2f68a70")
@@ -208,7 +210,7 @@ public class ModelioImpl extends Modelio {
     void initialize(final IEclipseContext context) {
         this.eclipseContext = context;
         Modelio.instance = this;
-        
+
     }
 
     @objid ("64d34c74-89d2-4563-999e-2889f7f3e111")
@@ -222,8 +224,8 @@ public class ModelioImpl extends Modelio {
      * Package private constructor.
      */
     @objid ("e290b87e-70bd-4f42-9e3d-2466409ecdbb")
-     ModelioImpl() {
-        
+    ModelioImpl() {
+
     }
 
     @objid ("2b27227a-0b07-4d78-a8aa-d7d70e871539")
@@ -237,7 +239,7 @@ public class ModelioImpl extends Modelio {
                 provider.enterPickingMode(new PickingSessionProxy(session));
             }
         });
-        
+
     }
 
     @objid ("9cd03e62-28d2-462c-ae55-ead92df7ab6a")
@@ -248,15 +250,15 @@ public class ModelioImpl extends Modelio {
         // Check there is still a modeling session
         if (this.openedProject == null || !this.openedProject.isOpen())
             return;
-        
+
         PickingService pickingService = (PickingService) getPickingService();
-        
+
         Display.getDefault().asyncExec(() -> {
             for (IPickingProvider provider : pickingService.getPickingProvider()) {
                 provider.leavePickingMode(new PickingSessionProxy(session));
             }
         });
-        
+
     }
 
 }

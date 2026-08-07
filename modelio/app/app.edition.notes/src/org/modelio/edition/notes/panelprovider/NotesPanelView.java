@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.edition.notes.panelprovider;
 
@@ -43,6 +43,7 @@ import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -67,7 +68,12 @@ import org.modelio.metamodel.uml.infrastructure.Note;
 import org.modelio.platform.model.ui.swt.SelectionHelper;
 import org.modelio.platform.model.ui.swt.dnd.MObjectViewerDragProvider;
 import org.modelio.platform.model.ui.swt.images.ElementDecoratedStyledLabelProvider;
+import org.modelio.platform.ui.panel.IPanelListener;
 import org.modelio.platform.ui.panel.IPanelProvider;
+import org.modelio.vcore.session.api.model.change.IModelChangeEvent;
+import org.modelio.vcore.session.api.model.change.IModelChangeListener;
+import org.modelio.vcore.session.api.model.change.IStatusChangeEvent;
+import org.modelio.vcore.session.api.model.change.IStatusChangeListener;
 
 /**
  * The notes panel composite features:
@@ -78,11 +84,11 @@ import org.modelio.platform.ui.panel.IPanelProvider;
  * <li>an edition area where notes and constraints text can be edited</li>
  * </ul>
  * This class implements only a view managed by the NotesPanelController
- * 
+ *
  * @author phv
  */
 @objid ("e6590e8f-03d3-4d35-bed4-320ca6af581c")
-public class NotesPanelView {
+public class NotesPanelView implements IModelChangeListener, IStatusChangeListener {
     /**
      * Minimum and maxim H/W ratio
      */
@@ -95,51 +101,53 @@ public class NotesPanelView {
     @objid ("0b4f05cd-df52-4624-8f04-3df159fc14e5")
     private String lastSelectedItemKey;
 
+    @objid ("573e4389-ac62-4f3b-b411-d0832de9a362")
+    private Composite parentComposite;
+
+    @objid ("2b7d4ffe-ab8f-4e7f-81ef-e75288db586c")
+    private SashForm shform;
+
+    @objid ("125b864f-2f75-48b6-b939-689806eec263")
+    private TreeViewer tree;
+
+    @objid ("322fbd0a-2cf1-49c0-99bb-37a794fc88eb")
+    private Composite top;
+
+    @objid ("9c3b86aa-dd75-487f-bede-b9b2c8b79ccb")
+    private ControlListener layoutChangeListener;
+
+    @objid ("1bdc5a0a-846f-46e3-8942-521162c1b451")
+    private DragSourceListener dragListener;
+
     @objid ("bea7a20e-3d98-45a1-992e-ad88afa0c52e")
     private final NotesPanelController controller;
 
     @objid ("e9ff8c42-2eda-4cfa-8ced-6fa01e9c7f3c")
     private IPanelProvider data;
 
-    @objid ("988f4387-1e54-480f-b6d6-4f326a9f61b8")
-    private Composite parentComposite;
-
-    @objid ("e78db39a-39f9-46ba-aba7-ebc001bb42e5")
-    private SashForm shform;
-
-    @objid ("3e9a94a5-df52-400e-a0c5-80a7d4bb271d")
-    private TreeViewer tree;
-
-    @objid ("01771f47-3073-4525-a5eb-ccf470a38359")
-    private Composite top;
-
-    @objid ("f2e44a9f-76dc-4c14-b9bb-cb0e45697781")
-    private ControlListener layoutChangeListener;
-
-    @objid ("5817cf85-23ea-4f8e-90a7-16aaa3abc6e6")
-    private DragSourceListener dragListener;
-
     @objid ("dc02aab4-f6c0-4685-ac33-85307c70bd56")
     private NotesPanelToolbar toolBar;
 
     /**
      * C'tor
+     *
      * @param controller the controller
      */
     @objid ("066e8175-289d-4376-9f2b-b91b7d07c642")
-    public  NotesPanelView(NotesPanelController controller) {
+    public NotesPanelView(NotesPanelController controller) {
         this.controller = controller;
     }
 
     /**
      * Build the view GUI.
+     *
      * @param parent the parent SWt Composite
      * @return the created GUI
      */
     @objid ("a9ce8eff-250a-43d0-99a8-54397d22c5df")
     public Composite createContents(Composite parent) {
         this.parentComposite = parent;
-        
+
         // Top level container: a Composite
         this.top = new Composite(parent, SWT.NONE);
         final GridLayout gl = new GridLayout(1, true);
@@ -147,25 +155,32 @@ public class NotesPanelView {
         gl.marginLeft = gl.marginRight = gl.marginWidth = 0;
         gl.horizontalSpacing = gl.verticalSpacing = 0;
         this.top.setLayout(gl);
-        
+
         // The tool bar
         this.toolBar = new NotesPanelToolbar(this.controller);
         this.toolBar.createPanel(this.top);
         ((Composite) this.toolBar.getPanel()).setLayoutData(new GridData(SWT.RIGHT, SWT.TOP, true, false));
-        
+        //        this.toolBar.addListener(new IPanelListener() {
+        //            @Override
+        //            public void dataChanged(Object changedData, boolean isValidate) {
+        //                // TODO Auto-generated method stub
+        //
+        //            }
+        //        });
+
         // The Shash form and its two areas
         this.shform = new SashForm(this.top, SWT.HORIZONTAL);
         this.shform.setLayout(new FillLayout());
         this.shform.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         this.tree = createNotesTree(this.shform);
         this.data = createNoteEditArea(this.shform);
-        
+
         this.shform.setWeights(new int[] { 30, 70 });
-        
+
         this.dragListener = new MObjectViewerDragProvider(getTreeViewer());
         this.tree.addDragSupport(DND.DROP_MOVE | DND.DROP_COPY, new Transfer[] { ModelElementTransfer.getInstance() },
                 this.dragListener);
-        
+
         // the tree popup menu
         initPopupMenu(this.tree);
         return this.top;
@@ -173,6 +188,7 @@ public class NotesPanelView {
 
     /**
      * Get the top level container of the view.
+     *
      * @return the top level container of the view.
      */
     @objid ("c4b5e473-444d-49c1-a826-5be9028ba4c4")
@@ -197,20 +213,17 @@ public class NotesPanelView {
     }
 
     /**
-     * Enable automatic horizontal/vertical layout change when resizing the
-     * view.
+     * Enable automatic horizontal/vertical layout change when resizing the view.
      */
     @objid ("b2c44b06-0f61-4508-9092-198009fd1e25")
     public void enableAutoLayout() {
         this.layoutChangeListener = new LayoutChangeListener(this);
         this.parentComposite.addControlListener(this.layoutChangeListener);
         autoLayout();
-        
     }
 
     /**
-     * Disable automatic horizontal/vertical layout change when resizing the
-     * view.
+     * Disable automatic horizontal/vertical layout change when resizing the view.
      */
     @objid ("d83d3274-6a25-4521-8c8b-25d3519a4391")
     public void disableAutoLayout() {
@@ -218,7 +231,6 @@ public class NotesPanelView {
             this.parentComposite.removeControlListener(this.layoutChangeListener);
             this.layoutChangeListener = null;
         }
-        
     }
 
     /**
@@ -233,40 +245,47 @@ public class NotesPanelView {
         } else if (ratio > NotesPanelView.HWMAX) {
             setVerticalLayout();
         }
-        
     }
 
     /**
      * Set the edited model element.
+     *
      * @param e the element to edit.
      */
     @objid ("e5f119eb-12e4-4719-a6f6-4f6f573b240a")
     public void setInput(ModelElement e) {
         this.tree.setInput(e);
         this.toolBar.setInput(e);
-        
+        this.data.setInput(e);
     }
 
     /**
      * Set the selected annotation on the edited element.
+     *
      * @param select the annotation to select
      */
     @objid ("cc0bdef9-1f59-4609-bce7-0470e047471a")
     public void setSelected(ModelElement select) {
         if (select == null) {
             final ModelElement smartSelect = getSelectHint();
-            this.data.setInput(smartSelect);
             this.toolBar.setInput(smartSelect);
-            if (smartSelect != null) {
-                this.tree.setSelection(new StructuredSelection(smartSelect), true);
+
+            if (smartSelect != null && this.data.getInput() != smartSelect) {
+                this.data.setInput(smartSelect);
+                if (smartSelect != null) {
+                    this.tree.setSelection(new StructuredSelection(smartSelect), true);
+                }
+            } else {
+                this.data.setInput(null);
             }
-        } else {
+        } else if (select != this.data.getInput()) {
             this.data.setInput(select);
             this.toolBar.setInput(select);
-            this.tree.setSelection(new StructuredSelection(select), true);
+            this.tree.getControl().getDisplay().asyncExec(() -> {
+                this.tree.setSelection(new StructuredSelection(select), true);
+            });
             this.lastSelectedItemKey = getItemName(select);
         }
-        
     }
 
     @objid ("6e6f92b9-da2c-47a8-bcc4-7bbdc6c4fa63")
@@ -279,23 +298,24 @@ public class NotesPanelView {
 
     /**
      * Create the notes tree
-     * @param parent @return
+     * @return
      */
     @objid ("eab700c2-7e45-4eea-a9ec-153e1a20b85b")
     private TreeViewer createNotesTree(Composite parent) {
         final TreeViewer viewer = new TreeViewer(parent, SWT.MULTI | SWT.BORDER | SWT.V_SCROLL);
-        viewer.setLabelProvider(new ElementDecoratedStyledLabelProvider(new NoteViewTreeLabelProvider(viewer), true, false));
+        viewer.setLabelProvider(
+                new ElementDecoratedStyledLabelProvider(new NoteViewTreeLabelProvider(viewer), true, false));
         viewer.setContentProvider(new NoteViewTreeContentProvider());
         viewer.setAutoExpandLevel(3);
-        
+
         viewer.addDoubleClickListener(event -> this.controller.onItemDoubleClick(event.getSelection()));
-        
+
         viewer.addSelectionChangedListener(event -> {
             if (!event.getSelection().isEmpty()) {
                 this.controller.onItemSelectionChange(event.getSelection());
             }
         });
-        
+
         // Enable name edition
         viewer.setColumnProperties(new String[] { "name" });
         viewer.setCellEditors(new CellEditor[] { new TextCellEditor((Composite) viewer.getControl()) });
@@ -304,15 +324,15 @@ public class NotesPanelView {
             public void modify(Object element, String property, Object value) {
                 if (element != null && element instanceof TableItem) {
                     final TableItem item = (TableItem) element;
-        
+
                     NotesPanelView.this.controller.onNameChanged(item.getData(), (String) value);
                 } else if (element != null && element instanceof TreeItem) {
                     final TreeItem item = (TreeItem) element;
-        
+
                     NotesPanelView.this.controller.onNameChanged(item.getData(), (String) value);
                 }
             }
-        
+
             @Override
             public Object getValue(Object element, String property) {
                 if (element instanceof ModelElement) {
@@ -321,7 +341,7 @@ public class NotesPanelView {
                     return "";
                 }
             }
-        
+
             @Override
             public boolean canModify(Object element, String property) {
                 if (element instanceof ModelElement) {
@@ -331,9 +351,9 @@ public class NotesPanelView {
                 }
             }
         });
-        
+
         viewer.getTree().addKeyListener(new KeyAdapter() {
-        
+
             @Override
             public void keyReleased(KeyEvent e) {
                 // CTRL-C, CTRL-V, CTRL-X
@@ -359,7 +379,8 @@ public class NotesPanelView {
                     // F2, DEL
                     switch (e.keyCode) {
                     case SWT.F2:
-                        ModelElement editedDocument = SelectionHelper.getFirst(viewer.getSelection(), ModelElement.class);
+                        ModelElement editedDocument = SelectionHelper.getFirst(viewer.getSelection(),
+                                ModelElement.class);
                         if (editedDocument != null) {
                             // Edit selected element
                             viewer.editElement(editedDocument, 0);
@@ -374,14 +395,15 @@ public class NotesPanelView {
                         break;
                     }
                 }
-        
+
             }
-        
+
         });
         return viewer;
     }
 
     /**
+     *
      * @return the selected annotations
      */
     @objid ("e2498705-db94-4cdc-9d15-f935b9057933")
@@ -394,6 +416,7 @@ public class NotesPanelView {
     }
 
     /**
+     *
      * @return the annotations tree viewer.
      */
     @objid ("a1402d66-a56c-4e52-9b79-a9380a969afe")
@@ -404,13 +427,14 @@ public class NotesPanelView {
     /**
      * This method tries to guess the smartest possible item selection for the
      * current element.
+     *
      * @return the annotation to select.
      */
     @objid ("7667946d-9895-4a54-8074-2fa80a8365f9")
     private ModelElement getSelectHint() {
         final Object[] items = ((ITreeContentProvider) this.tree.getContentProvider())
                 .getElements(this.tree.getInput());
-        
+
         for (Object item : items) {
             final ModelElement me = (ModelElement) item;
             if (getItemName(me).equals(this.lastSelectedItemKey)) {
@@ -432,7 +456,6 @@ public class NotesPanelView {
         } else {
             return mc;
         }
-        
     }
 
     /**
@@ -442,7 +465,6 @@ public class NotesPanelView {
     public void dispose() {
         this.toolBar.dispose();
         this.data.dispose();
-        
     }
 
     @objid ("8faaa82a-4516-4f03-9870-8eb93bc1bc4a")
@@ -470,7 +492,20 @@ public class NotesPanelView {
         });
         Menu menu = menuMgr.createContextMenu(treeViewer.getTree());
         treeViewer.getTree().setMenu(menu);
-        
+    }
+
+    @objid ("3d07409d-b85d-4bd5-9bbe-f3b6e45312d4")
+    @Override
+    public void statusChanged(IStatusChangeEvent event) {
+        // TODO Auto-generated method stub
+        System.out.println("Model changed event received in NotesPanelView");
+    }
+
+    @objid ("e9de8203-a105-4ac3-b470-f442b7d27ff2")
+    @Override
+    public void modelChanged(IModelChangeEvent event) {
+        // TODO Auto-generated method stub
+        System.out.println("Model changed event received in NotesPanelView");
     }
 
     @objid ("f949d79a-2c0d-4a73-bf12-b7ac9a2ee006")
@@ -492,13 +527,13 @@ public class NotesPanelView {
 
         /**
          * C'tor
+         *
          * @param view the notes panel view
          */
         @objid ("7fe32178-a8d0-44c6-9b82-6ff8fbcd88e0")
-        public  LayoutChangeListener(final NotesPanelView view) {
+        public LayoutChangeListener(final NotesPanelView view) {
             super();
             this.view = view;
-            
         }
 
         @objid ("c242c610-ada3-48ea-a47a-64e6ebb45a07")
@@ -506,7 +541,6 @@ public class NotesPanelView {
             final Composite comp = (Composite) theEvent.widget;
             comp.layout();
             this.view.autoLayout();
-            
         }
 
     }

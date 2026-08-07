@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.module.modelermodule.impl;
 
@@ -42,7 +42,7 @@ public class ModelerModuleLifeCycleHandler extends DefaultModuleLifeCycleHandler
      * Constructor.
      */
     @objid ("fc86ffb4-5c1c-4812-b07f-11d2c091daf4")
-    public  ModelerModuleLifeCycleHandler(final ModelerModuleModule module) {
+    public ModelerModuleLifeCycleHandler(final ModelerModuleModule module) {
         super(module);
     }
 
@@ -52,16 +52,16 @@ public class ModelerModuleLifeCycleHandler extends DefaultModuleLifeCycleHandler
         // Remove the metamodelVersion
         final Version version = this.module.getVersion();
         final String fullVersion = version.toString();
-        final String message = "Modelio/" + this.module.getName() + " " + fullVersion + " - Copyright 2008-2022 Softeam";
-        
+        final String message = "Modelio/" + this.module.getName() + " " + fullVersion + " - Copyright 2008-2024 Docaposte";
+
         reinitializeProxies();
-        
+
         // Get the Modelio log service
         final ILogService logService = this.module.getModuleContext().getLogService();
-        
+
         // Print copyright
         logService.info(message);
-        
+
         // Deploy predefined types
         checkPredefinedTypes();
         return super.start();
@@ -70,18 +70,18 @@ public class ModelerModuleLifeCycleHandler extends DefaultModuleLifeCycleHandler
     @objid ("33098d1a-a41b-4008-bd00-ec2c71a8a231")
     private void checkPredefinedTypes() {
         final IModelComponentService modelComponentService = this.module.getModuleContext().getModelioServices().getModelComponentService();
-        
+
         // Check if the predefined type project exists...
         // FIXME hack, use modelComponentService to identify predefined types and handle the upgrade case...
         Artifact ramc = this.module.getModuleContext().getModelingSession().findElementById(Artifact.class, "4bb461ab-1cb8-4e47-ab98-5ab266bd55cb");
         if (ramc != null && !ramc.isStereotyped("ModelerModule", "ModelComponentArchive")) {
             modelComponentService.removeModelComponent(new IModelComponentDescriptor() {
-        
+
                 @Override
                 public String getVersion() {
                     return null;
                 }
-        
+
                 @Override
                 public String getName() {
                     return "PredefinedTypes";
@@ -90,19 +90,19 @@ public class ModelerModuleLifeCycleHandler extends DefaultModuleLifeCycleHandler
             ramc = null;
         }
         // end hack
-        
+
         if (ramc == null) {
             deployModelComponent(modelComponentService);
             return;
         }
-        
+
         // Upgrade 3.0.00 -> 3.0.01
         final PropertyType floatType = this.module.getModuleContext().getModelingSession().findElementById(PropertyType.class, "bc36b99e-8470-4aee-ba2a-5012c0a17525");
         if (floatType == null) {
             deployModelComponent(modelComponentService);
             return;
         }
-        
+
         // Upgrade < Latest PredefinedTypes version
         for (final IModelComponentDescriptor mc : modelComponentService.getModelComponents()) {
             if (mc.getName().equals("PredefinedTypes") && new Version(mc.getVersion()).isOlderThan(new Version(ModelerModuleLifeCycleHandler.LATEST_PREDEFINED_TYPES_VERSION))) {
@@ -110,7 +110,6 @@ public class ModelerModuleLifeCycleHandler extends DefaultModuleLifeCycleHandler
             }
             return;
         }
-        
     }
 
     @objid ("7adbc176-d89d-40dc-a8d5-792e88faf73f")
@@ -119,7 +118,6 @@ public class ModelerModuleLifeCycleHandler extends DefaultModuleLifeCycleHandler
         if (predefinedTypesRamc.exists()) {
             modelComponentService.deployModelComponent(predefinedTypesRamc, null);
         }
-        
     }
 
     @objid ("f840a3f0-4c7d-4413-a514-e678bf24cd77")
@@ -159,7 +157,7 @@ public class ModelerModuleLifeCycleHandler extends DefaultModuleLifeCycleHandler
     @objid ("2ff807c0-6442-4e79-9d5e-64f4ba6cc178")
     private void reinitializeProxies() {
         // Code generated automatically from a Jenkins Job
-        
+
         final IModuleContext moduleContext = this.module.getModuleContext();
         org.modelio.module.modelermodule.api.analyst.analyst.analystelement.MMAnalystAnalystElement.MdaTypes.init(moduleContext);
         org.modelio.module.modelermodule.api.analyst.infrastructure.dependency.Antonym.MdaTypes.init(moduleContext);
@@ -399,7 +397,6 @@ public class ModelerModuleLifeCycleHandler extends DefaultModuleLifeCycleHandler
         org.modelio.module.modelermodule.api.xmi.standard.structuredactivitynode.UML2SequenceNode.MdaTypes.init(moduleContext);
         org.modelio.module.modelermodule.api.xmi.standard.templateparameter.UML2ClassifierTemplateParameter.MdaTypes.init(moduleContext);
         org.modelio.module.modelermodule.api.xmi.standard.templateparameter.UML2ConnectableElementTemplateParameter.MdaTypes.init(moduleContext);
-        
     }
 
 }

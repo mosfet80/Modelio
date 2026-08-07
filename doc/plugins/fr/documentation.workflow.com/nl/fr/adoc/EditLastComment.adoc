@@ -1,0 +1,23 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+// Hightlight code source and add the line number
+:source-highlighter: coderay
+:coderay-linenums-mode: table
+
+= Editer le dernier commentaire
+
+Cette commande n'est applicable que sur les éléments inscrits dans un workflow.
+Elle est utilisée pour modifier le dernier commentaire saisi pour l'état actuel de l'élément, par exemple pour modifier des fautes de frappe ou pour ajouter des informations.
+
+=== Depuis la <<WorkflowUserPropertyView.adoc#,vue Workflow>>
+
+Sélectionnez un élément éligible puis cliquez sur le bouton *image:images/editcommenticon.png[]Editer le dernier commentaire...* :
+
+image::images/EditLastCommentButton.png[EditLastCommentButton.png]
+
+1.  Sélectionnez une instance de workflow (seulement si l'élément est inscrit dans plusieurs instances, sinon l'instance unique est automatiquement préselectionnée)
+2.  Editez le commentaire. Par exemple ajouter des précisions ou corriger des coquilles.
+3.  Cliquez sur "OK".

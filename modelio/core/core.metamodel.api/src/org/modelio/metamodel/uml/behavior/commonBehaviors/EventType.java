@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.uml.behavior.commonBehaviors;
 
@@ -26,21 +26,20 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * EventType v0.0.9054
- * 
- * 
+ *
+ *
  * null
- * 
- * 
+ *
  */
 @objid ("0086d06c-91e0-1f74-804b-001ec947cd2a")
 public enum EventType {
-    @objid ("61d67b15-2c87-4f29-87ae-18af60504972")
+    @objid ("5ef6bc9d-85c5-4876-a069-1a5d7a6d7ce5")
     SIGNALEVENT(0, "SignalEvent", "SignalEvent"),
-    @objid ("07658ab4-d325-4456-888d-9708875cf4f3")
+    @objid ("eb40fa92-a719-4330-8d5e-cffd1410e355")
     CALLEVENT(1, "CallEvent", "CallEvent"),
-    @objid ("130e6ec8-4814-45c4-bd5b-cfc7646e1531")
+    @objid ("4dafd6e4-f4e8-46cc-96c7-f67107d4d901")
     TIMEEVENT(2, "TimeEvent", "TimeEvent"),
-    @objid ("c6304a4b-6dd7-422d-864f-02a9cd5d0847")
+    @objid ("71e38409-5635-40a7-b48f-b31f6f351d47")
     CHANGEEVENT(3, "ChangeEvent", "ChangeEvent");
 
 public static final int SIGNALEVENT_VALUE = 0;
@@ -103,5 +102,5 @@ public static final int SIGNALEVENT_VALUE = 0;
     public String toString() {
        return literal;
     }
-    
+
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.linktovoid;
 
@@ -38,7 +38,7 @@ import org.modelio.diagram.elements.core.node.GmNodeModel;
 
 /**
  * Edit policy that allow to create a node linked to this node.
- * 
+ *
  * @author cmarin
  */
 @objid ("7ed7b9dd-1dec-11e2-8cad-001ec947c8cc")
@@ -60,7 +60,7 @@ public class LinkToVoidStartCreationEditPolicy extends AbstractLinkToVoidCreatio
                 ((Request) request).getExtendedData().remove(HIGHLIGHTKEY);
             }
         }
-        
+
     }
 
     @objid ("7ed7b9e7-1dec-11e2-8cad-001ec947c8cc")
@@ -74,16 +74,16 @@ public class LinkToVoidStartCreationEditPolicy extends AbstractLinkToVoidCreatio
     protected Command getConnectionCreateCommand(CreateConnectionRequest request) {
         final ModelioCreationContext context = (ModelioCreationContext) request.getNewObject();
         final AbstractNodeEditPart nodeEditPart = (AbstractNodeEditPart) getHost();
-        
+
         final CreateLinkToVoidCommand cmd = new CreateLinkToVoidCommand(context);
-        
+
         final IFigure nodeFigure = nodeEditPart.getFigure();
         final Point location = request.getLocation().getCopy();
         nodeFigure.translateToRelative(location);
-        
+
         cmd.setSourceNode((GmNodeModel) getHost().getModel());
         cmd.setSourceAnchor(getSourceAnchorModel(request));
-        
+
         request.setStartCommand(cmd);
         return cmd;
     }
@@ -92,12 +92,12 @@ public class LinkToVoidStartCreationEditPolicy extends AbstractLinkToVoidCreatio
     @Override
     protected void showTargetConnectionFeedback(DropRequest request) {
         super.showTargetConnectionFeedback(request);
-        
+
         // Additional feedback: highlight the node.
         if (((Request) request).getType() != REQ_LINKTOVOID_START) {
             return;
         }
-        
+
         // compute highlight type
         final Command c = getCommand((Request) request);
         FigureUtilities2.HighlightType hightlightType = FigureUtilities2.HighlightType.INFO;
@@ -108,10 +108,10 @@ public class LinkToVoidStartCreationEditPolicy extends AbstractLinkToVoidCreatio
         } else {
             hightlightType = FigureUtilities2.HighlightType.WARNING;
         }
-        
+
         // create a highlight figure if it does not exist
         IFigure highlight = (IFigure) ((Request) request).getExtendedData().get(HIGHLIGHTKEY);
-        
+
         if (highlight == null) {
             // create a hightlight figure
             highlight = FigureUtilities2.createHighlightFigure(getFeedbackLayer(),
@@ -119,16 +119,17 @@ public class LinkToVoidStartCreationEditPolicy extends AbstractLinkToVoidCreatio
                                                                hightlightType);
             // add the highlight figure to the feedback layer
             getFeedbackLayer().add(highlight);
-            // register this additional feedback into the 
+            // register this additional feedback into the
             ((Request) request).getExtendedData().put(HIGHLIGHTKEY, highlight);
         }
         // configure the highlight figure
         FigureUtilities2.updateHighlightType(highlight, hightlightType);
-        
+
     }
 
     /**
      * Returns the <i>host</i> for the appropriate <code>Requests</code>. Returns <code>null</code> otherwise.
+     *
      * @see org.eclipse.gef.EditPolicy#getTargetEditPart(Request)
      */
     @objid ("7ed7ba01-1dec-11e2-8cad-001ec947c8cc")
@@ -150,7 +151,7 @@ public class LinkToVoidStartCreationEditPolicy extends AbstractLinkToVoidCreatio
         } else {
             return null; // TODO handle non IAnchorModelProvider
         }
-        
+
     }
 
 }

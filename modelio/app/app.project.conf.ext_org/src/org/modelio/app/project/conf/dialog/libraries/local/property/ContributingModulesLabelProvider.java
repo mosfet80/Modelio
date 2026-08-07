@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /**
  *
@@ -36,6 +36,7 @@ import org.modelio.vbasic.version.Version;
 import org.modelio.vbasic.version.VersionedItem;
 
 /**
+ *
  * @author xzhang
  */
 @objid ("ab6de3b0-9cb4-42f3-91fa-17329026240c")
@@ -55,10 +56,10 @@ public class ContributingModulesLabelProvider extends StyledCellLabelProvider {
     private final List<GModule> modules;
 
     @objid ("9fdb810d-f710-45a1-8e5c-cd504a81466d")
-    public  ContributingModulesLabelProvider(final List<GModule> modules) {
+    public ContributingModulesLabelProvider(final List<GModule> modules) {
         super();
         this.modules = modules;
-        
+
     }
 
     @objid ("955d98bd-77d7-46c5-af31-ee1d75d89f93")
@@ -72,7 +73,7 @@ public class ContributingModulesLabelProvider extends StyledCellLabelProvider {
         cell.setText(text.getString());
         cell.setStyleRanges(text.getStyleRanges());
         super.update(cell);
-        
+
     }
 
     @objid ("02882f5c-7169-4844-ae13-f966a48a310f")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.informationitem;
 
@@ -63,26 +63,27 @@ public class GmInformationItemPrimaryNode extends GmNoStyleCompositeNode impleme
      * Constructor for deserialization only.
      */
     @objid ("351888b4-55b7-11e2-877f-002564c97630")
-    public  GmInformationItemPrimaryNode() {
+    public GmInformationItemPrimaryNode() {
         // Nothing to do.
     }
 
     /**
      * Creates a GmClass.
+     *
      * @param diagram The owner diagram.
      * @param relatedRef a reference to the element this GmModel is related to, must not be null.
      */
     @objid ("351888b7-55b7-11e2-877f-002564c97630")
-    public  GmInformationItemPrimaryNode(IGmDiagram diagram, MRef relatedRef) {
+    public GmInformationItemPrimaryNode(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
-        
+
         this.header = new GmInformationItemHeader(diagram, relatedRef);
         this.header.setShowMetaclassIcon(true);
-        
+
         super.addChild(this.header);
-        
+
         styleChanged(getDisplayedStyle());
-        
+
     }
 
     @objid ("351888c0-55b7-11e2-877f-002564c97630")
@@ -155,44 +156,44 @@ public class GmInformationItemPrimaryNode extends GmNoStyleCompositeNode impleme
             break;
         }
         }
-        
+
     }
 
     @objid ("351a0f47-55b7-11e2-877f-002564c97630")
     @Override
     public void refreshFromObModel() {
         super.refreshFromObModel();
-        
+
         final String oldLabel = this.header.getMainLabel();
         this.header.refreshFromObModel();
-        
+
         firePropertyChange(PROPERTY_LABEL, oldLabel, this.header.getMainLabel());
         // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("351a0f4a-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmInformationItemPrimaryNode.", GmInformationItemPrimaryNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("351a0f50-55b7-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
-        
+
         final List<GmNodeModel> children = getChildren();
-        
+
         this.header = (GmInformationItemHeader) children.get(0);
-        
+
         GmNodeModel imageModeHeader = this.getChildren().get(1);
         imageModeHeader.delete();
-        
+
     }
 
     @objid ("351a0f55-55b7-11e2-877f-002564c97630")
@@ -204,11 +205,11 @@ public class GmInformationItemPrimaryNode extends GmNoStyleCompositeNode impleme
     @objid ("351a0f5a-55b7-11e2-877f-002564c97630")
     private void read_1(final IDiagramReader in) {
         super.read(in);
-        
+
         final List<GmNodeModel> children = getChildren();
-        
+
         this.header = (GmInformationItemHeader) children.get(0);
-        
+
     }
 
 }

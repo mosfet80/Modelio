@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -44,13 +43,13 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0006c57a-c4bf-1fd8-97fe-001ec947cd2a")
 public class ConnectorEndImpl extends LinkEndImpl implements ConnectorEnd {
-    @objid ("b9dac776-7f38-4f54-820f-7added203356")
+    @objid ("3d028e16-1ba4-45b9-a263-70e32c642679")
     @Override
     public EList<Binding> getRepresentation() {
         return new SmList<>(this, ((ConnectorEndSmClass)getClassOf()).getRepresentationDep());
     }
 
-    @objid ("b81dca89-4903-47a4-9e20-62ac5e8e5a53")
+    @objid ("39494634-21c8-483a-affe-09e248f16bac")
     @Override
     public <T extends Binding> List<T> getRepresentation(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -63,23 +62,23 @@ public class ConnectorEndImpl extends LinkEndImpl implements ConnectorEnd {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("4ed0162e-49ee-4db1-9521-e5fc2cf2ec2e")
+    @objid ("6dfac6c3-0ebf-4836-9939-ef9cb26f17f5")
     @Override
     public UmlModelElement getRepresentedFeature() {
         Object obj = getDepVal(((ConnectorEndSmClass)getClassOf()).getRepresentedFeatureDep());
         return (obj instanceof UmlModelElement)? (UmlModelElement)obj : null;
     }
 
-    @objid ("3424233a-8d83-4928-8cd6-f6a62d7fa88b")
+    @objid ("c3778ac2-054e-4dd5-b86c-57df464c6cfd")
     @Override
     public void setRepresentedFeature(UmlModelElement value) {
         appendDepVal(((ConnectorEndSmClass)getClassOf()).getRepresentedFeatureDep(), (SmObjectImpl)value);
     }
 
-    @objid ("ea2e37df-e3a5-4f0c-9626-b47bb4e7f571")
+    @objid ("4715cb8c-efe0-40e1-9736-404af2816d6a")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -87,17 +86,17 @@ public class ConnectorEndImpl extends LinkEndImpl implements ConnectorEnd {
         return super.getCompositionOwner();
     }
 
-    @objid ("2f56c09f-e6cb-49c5-b363-cf75983f5fef")
+    @objid ("c47a422d-0627-4d8b-91af-c67d23b716e6")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("ea533143-335b-457f-a350-1ff21270c1ed")
+    @objid ("1d81c0bf-bb4e-4165-b35f-1a3943e2b89e")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitConnectorEnd(this);

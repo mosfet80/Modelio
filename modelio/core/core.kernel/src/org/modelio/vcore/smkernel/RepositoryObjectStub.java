@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel;
 
@@ -33,20 +33,20 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 public abstract class RepositoryObjectStub implements IRepositoryObject {
     @objid ("de78fe63-bbf5-4a04-91db-e5591f9c30fe")
     @Override
-    public void attModified(SmObjectImpl obj, SmAttribute att) {
+    public void attModified(SmObjectImpl obj, SmAttribute att, Object oldVal) {
         writeObjectCalled(obj);
     }
 
     @objid ("2a677cae-f5d9-4fa5-a3fa-0e0b3f766bca")
     @Override
     public void attach(SmObjectImpl obj) {
-        
+        obj.setRepositoryObject(this);
     }
 
     @objid ("22ce87dd-a170-4423-936b-a461b4ce6a9e")
     @Override
     public void attachCreatedObj(SmObjectImpl obj) {
-        
+        obj.setRepositoryObject(this);
     }
 
     @objid ("be35afd5-c614-41e0-ae5c-4608521bc5f8")
@@ -111,7 +111,6 @@ public abstract class RepositoryObjectStub implements IRepositoryObject {
     public void loadAtt(SmObjectImpl obj, SmAttribute att) {
         // do nothing
         loadCalled(obj);
-        
     }
 
     @objid ("2186bb09-c1fc-4499-80dd-0237a4c79eac")
@@ -119,7 +118,13 @@ public abstract class RepositoryObjectStub implements IRepositoryObject {
     public void loadDep(SmObjectImpl obj, SmDependency dep) {
         // do nothing
         loadCalled(obj);
-        
+    }
+
+    @objid ("6caddff4-3ce1-479a-a232-4f768473e95c")
+    @Override
+    public void loadStatus(SmObjectImpl obj) {
+        // do nothing
+        loadCalled(obj);
     }
 
     @objid ("5f3dcd40-768b-447d-84f1-c2e2709cb3f8")
@@ -138,6 +143,7 @@ public abstract class RepositoryObjectStub implements IRepositoryObject {
      * Called by each loadXxxx(...) method.
      * <p>
      * Does nothing by default. May be redefined to do anything including throwing a runtime exception.
+     *
      * @param obj the loaded object
      */
     @objid ("de7d5747-9da3-44b1-a74c-30f58ad74973")
@@ -149,6 +155,7 @@ public abstract class RepositoryObjectStub implements IRepositoryObject {
      * Called by each isXxxLoaded(...) method.
      * <p>
      * Does nothing by default. May be redefined to do anything including throwing a runtime exception.
+     *
      * @param obj the loaded object
      */
     @objid ("f40d1eac-b67f-4f55-815c-ec8ad595b4db")

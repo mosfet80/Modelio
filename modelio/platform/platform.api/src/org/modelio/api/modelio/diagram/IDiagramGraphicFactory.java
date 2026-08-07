@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.modelio.diagram;
 
@@ -23,13 +23,14 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * Factory to create or unmask graphic objects.
- * 
+ *
  * @since 3.1
  */
 @objid ("6506003a-5b51-420c-b9d4-d9b8efa15686")
 public interface IDiagramGraphicFactory {
     /**
      * Creates a drawing rectangle.
+     *
      * @param layer the layer to use
      * @param drawingIdentifier An identifier unique in the diagram, to be able to look for the graphic later.
      * If <i>null</i>, an identifier will be automatically generated.
@@ -44,6 +45,7 @@ public interface IDiagramGraphicFactory {
 
     /**
      * Creates a drawing ellipse.
+     *
      * @param layer the layer to use
      * @param drawingIdentifier An identifier unique in the diagram, to be able to look for the graphic later.
      * If <i>null</i>, an identifier will be automatically generated.
@@ -58,6 +60,7 @@ public interface IDiagramGraphicFactory {
 
     /**
      * Creates a drawing rectangle.
+     *
      * @param layer the layer to use
      * @param drawingIdentifier An identifier unique in the diagram, to be able to look for the graphic later.
      * If <i>null</i>, an identifier will be automatically generated.
@@ -73,6 +76,7 @@ public interface IDiagramGraphicFactory {
 
     /**
      * Creates a drawing note
+     *
      * @param x2 the x coordinates of the second point.
      * @param y2 the y coordinates of the second point.
      * @param layer the layer to use
@@ -89,6 +93,7 @@ public interface IDiagramGraphicFactory {
      * Creates a drawing image
      * <p>
      * The model element is unmasked at the given position.
+     *
      * @param element the model element to unmask.
      * @param x the x coordinates of the unmasking position.
      * @param y the y coordinates of the unmasking position.
@@ -99,6 +104,7 @@ public interface IDiagramGraphicFactory {
 
     /**
      * Creates a drawing line
+     *
      * @param layer the layer to use
      * @param drawingIdentifier An identifier unique in the diagram, to be able to look for the graphic later.
      * If <i>null</i>, an identifier will be automatically generated.
@@ -115,6 +121,7 @@ public interface IDiagramGraphicFactory {
      * Unmask a model element in a diagram.
      * <p>
      * The model element is unmasked at the given position.
+     *
      * @param element the model element to unmask.
      * @param x the x coordinates of the unmasking position.
      * @param y the y coordinates of the unmasking position.
@@ -122,5 +129,5 @@ public interface IDiagramGraphicFactory {
      */
     @objid ("642b7cbc-3602-4210-8ffd-e2af9f6099c4")
     List<IDiagramGraphic> unmask(MObject element, int x, int y);
-}
 
+}

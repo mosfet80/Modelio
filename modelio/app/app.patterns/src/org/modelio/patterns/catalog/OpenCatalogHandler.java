@@ -1,27 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.patterns.catalog;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.services.IServiceConstants;
@@ -53,6 +53,7 @@ public class OpenCatalogHandler {
 
     /**
      * Apply a pattern chosen in the pattern catalog.
+     *
      * @param selection the current modelio selection.
      * @param patternService the pattern service.
      */
@@ -60,7 +61,7 @@ public class OpenCatalogHandler {
     @Execute
     public final void execute(@Named(IServiceConstants.ACTIVE_SHELL) final Shell activeShell, IPatternService patternService, IModelioPickingService pickingService, IProjectService projectService) {
         PatternCatalogData catalogData = new PatternCatalogData(patternService.getCatalog());
-        
+
         // Select a pattern in the catalog and run it
         PatternCatalogDialog view = new PatternCatalogDialog(activeShell, catalogData);
         if (view.open() == IDialogConstants.OK_ID) {
@@ -69,7 +70,7 @@ public class OpenCatalogHandler {
                 applyPattern(selectedPattern, activeShell, pickingService, projectService);
             }
         }
-        
+
     }
 
     @objid ("1269db7c-59b8-4500-bad8-936bd6f92d48")
@@ -88,7 +89,7 @@ public class OpenCatalogHandler {
             Patterns.LOG.debug(e);
             MessageDialog.openError(activeShell, Patterns.I18N.getString("Gui.ErrorTitle"), e.getMessage());
         }
-        
+
     }
 
     @objid ("b28e7ccd-4760-465e-9adc-9882debbae5e")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.packaze;
 
@@ -49,7 +49,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Primary Node for package.
- * 
+ *
  * @author fpoyer
  */
 @objid ("3622093f-55b7-11e2-877f-002564c97630")
@@ -71,30 +71,31 @@ public class GmPackagePrimaryNode extends GmNoStyleCompositeNode implements IIma
 
     /**
      * Creates a GmPackagePrimaryNode.
+     *
      * @param diagram The diagram.
      * @param ref The represented package reference, may not be <tt>null</tt>.
      */
     @objid ("3622094e-55b7-11e2-877f-002564c97630")
-    public  GmPackagePrimaryNode(IGmDiagram diagram, MRef ref) {
+    public GmPackagePrimaryNode(IGmDiagram diagram, MRef ref) {
         super(diagram, ref);
-        
+
         this.header = new GmNamespaceHeader(diagram, ref);
         this.header.setRoleInComposition("header");
-        
+
         this.body = new GmPackageBody(diagram, ref);
         this.body.setRoleInComposition("body");
-        
+
         super.addChild(this.header);
         super.addChild(this.body);
-        
+
     }
 
     /**
      * For deserialization only.
      */
     @objid ("36220957-55b7-11e2-877f-002564c97630")
-    public  GmPackagePrimaryNode() {
-        
+    public GmPackagePrimaryNode() {
+
     }
 
     @objid ("3622095a-55b7-11e2-877f-002564c97630")
@@ -106,7 +107,7 @@ public class GmPackagePrimaryNode extends GmNoStyleCompositeNode implements IIma
         } else {
             super.addChild(child);
         }
-        
+
     }
 
     @objid ("36220960-55b7-11e2-877f-002564c97630")
@@ -128,10 +129,10 @@ public class GmPackagePrimaryNode extends GmNoStyleCompositeNode implements IIma
         if (!Objects.equals(el.getCompositionOwner(), this.getRelatedElement())) {
             return false;
         }
-        
+
         if (el instanceof NameSpace) {
             final NameSpace packaze = (NameSpace) el;
-        
+
             StyleKey.UmaskByVisibilityStragegy unmaskmode = getDisplayedStyle().getProperty(GmPackageStructuredStyleKeys.UNMASKINGSTRATEGY);
             switch (unmaskmode) {
             case ALL:
@@ -151,7 +152,7 @@ public class GmPackagePrimaryNode extends GmNoStyleCompositeNode implements IIma
         } else {
             return false;
         }
-        
+
     }
 
     /**
@@ -186,11 +187,12 @@ public class GmPackagePrimaryNode extends GmNoStyleCompositeNode implements IIma
             break;
         }
         }
-        
+
     }
 
     /**
      * Get the stereotype image to display.
+     *
      * @return the stereotype image to display. Must not be <i>null</i>.
      */
     @objid ("36238fea-55b7-11e2-877f-002564c97630")
@@ -222,26 +224,26 @@ public class GmPackagePrimaryNode extends GmNoStyleCompositeNode implements IIma
         super.refreshFromObModel();
         // forcing visual refresh in case Image changed
         firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("36238ffc-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0.
         writeMinorVersion(out, "GmPackagePrimaryNode.", Integer.valueOf(GmPackagePrimaryNode.MINOR_VERSION));
-        
+
     }
 
     @objid ("36239002-55b7-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
-        
+
         this.header = (GmModelElementHeader) getFirstChild("header");
         this.body = (GmPackageBody) getFirstChild("body");
-        
+
     }
 
     @objid ("36239007-55b7-11e2-877f-002564c97630")
@@ -252,6 +254,7 @@ public class GmPackagePrimaryNode extends GmNoStyleCompositeNode implements IIma
 
     /**
      * Returns the body of this package.
+     *
      * @return the GmCompositeNode instance that is the body of this package.
      */
     @objid ("3623900c-55b7-11e2-877f-002564c97630")
@@ -261,23 +264,24 @@ public class GmPackagePrimaryNode extends GmNoStyleCompositeNode implements IIma
 
     /**
      * Migration constructor.
+     *
      * @param oldVersionGm the instance to migrate from.
      */
     @objid ("36251679-55b7-11e2-877f-002564c97630")
-     GmPackagePrimaryNode(final _GmPackage oldVersionGm) {
+    GmPackagePrimaryNode(final _GmPackage oldVersionGm) {
         super(oldVersionGm.getDiagram(), oldVersionGm.getRepresentedRef());
-        
+
         this.header = oldVersionGm.getHeader();
         this.header.setRoleInComposition("header");
-        
+
         this.body = oldVersionGm.getBody();
         this.body.setRoleInComposition("body");
-        
+
         oldVersionGm.removeChild(this.header);
         super.addChild(this.header);
         oldVersionGm.removeChild(this.body);
         super.addChild(this.body);
-        
+
     }
 
 }

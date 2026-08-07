@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.project.modelshield;
 
@@ -36,19 +36,20 @@ import org.modelio.vcore.smkernel.mapi.modelshield.api.IErrorReport;
 public class ModelShieldController {
     /**
      * This method is called during a project opening.
+     *
      * @param openedProject the opened project
      */
     @objid ("82488fee-1dd5-11e2-82de-002564c97630")
     public static void onProjectOpening(final IGProject openedProject) {
         ICoreSession coreSession = openedProject.getSession();
-        
+
         // Create the core agent
         ModelShield shield = new ModelShield();
         shield.addAgent(new CoreProtectionAgent(coreSession));
-        
+
         // Register the transaction validator
         coreSession.getTransactionSupport().setTransactionValidator(shield.createTransationValidator());
-        
+
         // Create a default diagnostic listener
         shield.addDiagnosticListener(new IErrorReportListener() {
             @Override
@@ -56,12 +57,13 @@ public class ModelShieldController {
                 ErrorReportDialog.open(AppProjectCore.I18N.getString("CoreAudit.report.title"), AppProjectCore.I18N.getString("CoreAudit.report.message"), errors);
             }
         });
-        
+
     }
 
     /**
      * Called when a project is closed.
      * On session close un-reference the modeling session.
+     *
      * @param closedProject the closed project
      */
     @objid ("82488ff4-1dd5-11e2-82de-002564c97630")
@@ -70,7 +72,7 @@ public class ModelShieldController {
         if (session != null) {
             session.getTransactionSupport().setTransactionValidator(null);
         }
-        
+
     }
 
 }

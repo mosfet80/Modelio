@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.rootElements;
 
 import java.util.ArrayList;
@@ -42,20 +41,20 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("108579fe-cb43-4b9b-a43a-e968798023a6")
 public class BpmnSharedElementImpl extends BpmnBaseElementImpl implements BpmnSharedElement {
-    @objid ("06321ad2-0f68-456c-a7dd-50a9d552c7c1")
+    @objid ("e83f34a7-5ef9-4906-8fdf-aa7656d56c58")
     @Override
     public BpmnSharedDefinitions getOwner() {
         Object obj = getDepVal(((BpmnSharedElementSmClass)getClassOf()).getOwnerDep());
         return (obj instanceof BpmnSharedDefinitions)? (BpmnSharedDefinitions)obj : null;
     }
 
-    @objid ("0c052371-d16f-4b7f-a587-5b73bcf02867")
+    @objid ("9cda5968-e473-41df-9ce4-138e2905f85c")
     @Override
     public void setOwner(BpmnSharedDefinitions value) {
         appendDepVal(((BpmnSharedElementSmClass)getClassOf()).getOwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("02093528-256f-4748-9c78-4c111764e307")
+    @objid ("55342e67-13b8-4b6a-b82f-bf43d26131be")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -67,22 +66,22 @@ public class BpmnSharedElementImpl extends BpmnBaseElementImpl implements BpmnSh
         return super.getCompositionOwner();
     }
 
-    @objid ("8612085c-9c3b-4425-8469-9432ab012837")
+    @objid ("e1a86be0-b680-4078-b624-33ae9ac87a27")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // Owner
         dep = ((BpmnSharedElementSmClass)getClassOf()).getOwnerDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("f90e4594-5ba9-4c72-88c1-4ec99c1d6048")
+    @objid ("4cf01b20-6d8f-493b-a48b-5c819aa628b3")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitBpmnSharedElement(this);

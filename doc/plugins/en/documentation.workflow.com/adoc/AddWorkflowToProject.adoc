@@ -1,0 +1,28 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+// Hightlight code source and add the line number
+:source-highlighter: coderay
+:coderay-linenums-mode: table
+
+= Add a workflow to a Modelio Server project
+
+A workflow can be added to a Modelio Server project via the project's configuration pages.
+
+To add a workflow, proceed as follows:
+
+* Connect to Modelio Server as project administrator then, in the Administered projects Portfolio, click on the relevant 'Configure' button:
+
+image::images/ConfigureProject.png[ConfigureProject.png]
+
+* Go to the *Project contents > Workflows* section then click on the *Add workflows* button:
+
+image::images/AddWorkflows.png[AddWorkflows.png]
+
+* Select *From an archive file*, load your <<PackageWorkflow.adoc#,package for Modelio Server>> (*.workflows file), or select *From Modelio Server catalog*, choose a workflow in the list, then click on *Add*:
+
+image::images/AddFromFile.png[AddFromFile.png]
+
+Once the workflow has been successfully added to the project, you can complete its <<NotificationsAndRightsConfiguration.adoc#,notification and rights configuration>>.

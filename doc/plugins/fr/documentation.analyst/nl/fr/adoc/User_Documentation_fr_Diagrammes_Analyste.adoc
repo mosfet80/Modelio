@@ -1,0 +1,12 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Les diagrammes Analyste
+
+.Exemple d'un diagramme d'exigence
+image::images/attachment/analyst41/User_Documentation_fr/Diagrammes_Analyste/Analyst-Diagrams_analystdiagram.png[Analyst-Diagrams_analystdiagram.png]
+
+
+

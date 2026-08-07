@@ -1,26 +1,26 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.patterns.engine;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.di.annotations.Creatable;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.EventTopic;
@@ -52,6 +52,7 @@ class PatternService implements IPatternService {
 
     /**
      * Called by injection when the current project is closed, to dereference its pattern catalog.
+     *
      * @param project the current project.
      */
     @objid ("cd77fe80-0796-44ac-bea1-9c0708119dc0")
@@ -61,11 +62,12 @@ class PatternService implements IPatternService {
         if (project != null) {
             this.patternCatalog = null;
         }
-        
+
     }
 
     /**
      * Called by injection when a project is opened, to load its pattern catalog.
+     *
      * @param project the current project.
      */
     @objid ("5a58cde4-dd24-495b-ad96-c7457c85970a")
@@ -78,7 +80,7 @@ class PatternService implements IPatternService {
                     Patterns.getProjectPatternsDirectory(project),
                     false);
         }
-        
+
     }
 
 }

@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.audit.infrastructure;
 
@@ -46,7 +65,7 @@ public class R3260 extends AbstractInfrastructureRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -97,7 +116,7 @@ public class R3260 extends AbstractInfrastructureRule {
      * Default constructor for R3250
      */
     @objid ("ec11c911-9386-4229-8ff4-961afdc68a84")
-    public  R3260() {
+    public R3260() {
         this.checkerInstance = new CheckR3260(this);
     }
 
@@ -108,11 +127,22 @@ public class R3260 extends AbstractInfrastructureRule {
     private static class CheckR3260 extends AbstractControl {
         /**
          * C'tor.
+         *
          * @param rule the rule to check.
          */
         @objid ("d73162ec-61a7-4325-bbcf-14256db7a5fd")
-        public  CheckR3260(final IRule rule) {
+        public CheckR3260(final IRule rule) {
             super(rule);
+        }
+
+        @objid ("91c5ea59-abe4-40ba-a43d-5ce7355dd94e")
+        @Override
+        public IDiagnosticCollector run(IDiagnosticCollector diagnostic, MObject element) {
+            if (!element.isDeleted()) {
+                doRun(diagnostic, element);
+                return diagnostic;
+            }
+            return diagnostic;
         }
 
         @objid ("98670904-cf05-4dc2-b397-d1a1383a2cbb")
@@ -128,12 +158,12 @@ public class R3260 extends AbstractInfrastructureRule {
                     AuditSeverity.AuditSuccess,
                     element,
                     null);
-            
+
             if (element.isShell() == true) {
                 auditEntry.setSeverity(this.rule.getSeverity());
                 ArrayList<Object> linkedObjects = new ArrayList<>(3);
                 linkedObjects.add(element);
-            
+
                 // Add all elements referencing this shell one.
                 for (MDependency dep : element.getMClass().getDependencies(true)) {
                     SmDependency d = (SmDependency) dep;
@@ -142,7 +172,7 @@ public class R3260 extends AbstractInfrastructureRule {
                         linkedObjects.addAll(d.getValueAsCollection(((SmObjectImpl) element).getData()));
                     }
                 }
-            
+
                 auditEntry.setLinkedInfos(linkedObjects);
             }
             return auditEntry;

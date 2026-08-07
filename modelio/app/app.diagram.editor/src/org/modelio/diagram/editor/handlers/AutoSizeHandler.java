@@ -1,28 +1,28 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.handlers;
 
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.PrecisionDimension;
@@ -47,12 +47,13 @@ import org.modelio.platform.model.ui.swt.SelectionHelper;
 
 /**
  * Handler for the autosize command that will reduce a selection of node edit parts to their minimum size.
- * 
+ *
  * @author phv
  */
 @objid ("65ad5386-33f7-11e2-95fe-001ec947c8cc")
 public class AutoSizeHandler {
     /**
+     *
      * @param selection the Eclipse selection
      */
     @objid ("65ad5399-33f7-11e2-95fe-001ec947c8cc")
@@ -60,7 +61,7 @@ public class AutoSizeHandler {
     public void execute(@Named (IServiceConstants.ACTIVE_SELECTION) ISelection selection) {
         // Resize the elements
         execute(parseAndFilterSelection(selection));
-        
+
     }
 
     @objid ("65ad538e-33f7-11e2-95fe-001ec947c8cc")
@@ -69,20 +70,20 @@ public class AutoSizeHandler {
         if (editPart instanceof AbstractDiagramEditPart) {
             return null;
         }
-        
+
         final IFigure fig = editPart.getFigure();
-        
+
         final Dimension oldSize = getEffectiveBounds(fig).getSize();
         final Dimension newSize = getMinimumSize(editPart);
-        
+
         if (oldSize.equals(newSize)) {
             return null;
         }
-        
+
         // request coords must be in absolute coordinates.
         Dimension sizeDelta = new PrecisionDimension(newSize).shrink(oldSize);
         fig.translateToAbsolute(sizeDelta);
-        
+
         final ChangeBoundsRequest req = new ChangeBoundsRequest(RequestConstants.REQ_RESIZE);
         req.setEditParts(editPart);
         req.setSizeDelta(sizeDelta);
@@ -93,6 +94,7 @@ public class AutoSizeHandler {
      * Filter the selection: when an ancestor is also in selection, remove the child.
      * That is done because any translation/resizing applied to the ancestor will already have an
      * impact on the child.
+     *
      * @param primarySelection the primary selection
      * @param otherSelections the secondary selection that will be filtered
      * @return the selected edit parts, or an empty list
@@ -103,13 +105,13 @@ public class AutoSizeHandler {
         if (primarySelection != null && isUserEditable(primarySelection)) {
             selectedEditParts.add(primarySelection);
         }
-        
+
         for (EditPart editPart : selectedEditParts) {
             boolean isToRemove = !isUserEditable(editPart);
             if (isToRemove) {
                 otherSelections.remove(editPart);
             }
-        
+
             while (editPart != null && !isToRemove) {
                 if (selectedEditParts.contains(editPart.getParent())) {
                     otherSelections.remove(editPart);
@@ -127,12 +129,12 @@ public class AutoSizeHandler {
         if (editPart.getModel() instanceof GmPortContainer) {
             GmPortContainer gpc = (GmPortContainer) editPart.getModel();
             GmNodeModel mainNode = gpc.getMainNode();
-        
+
             if (mainNode != null) {
                 GraphicalEditPart mainNodeEditPart = (GraphicalEditPart) editPart.getViewer()
                         .getEditPartRegistry()
                         .get(mainNode);
-        
+
                 if (mainNodeEditPart != null) {
                     IFigure mainFig = mainNodeEditPart.getFigure();
                     return mainFig.getMinimumSize();
@@ -144,6 +146,7 @@ public class AutoSizeHandler {
 
     /**
      * This method returns the effective bounds (those seen by the end user) of a figure.
+     *
      * @param figure the figure which bounds are to be returned.
      * @return the effective bounds of the figure. This object must NOT be modified.
      */
@@ -157,28 +160,29 @@ public class AutoSizeHandler {
     protected void execute(List<GraphicalEditPart> selectedEditParts) {
         CompoundCommand compound = new CompoundCommand("Auto size");
         EditPartViewer viewer = null;
-        
+
         for (GraphicalEditPart editPart : selectedEditParts) {
             final ChangeBoundsRequest req = buildAutoSizeRequest(editPart);
             if (req != null) {
                 compound.add(editPart.getCommand(req));
             }
-        
+
             if (viewer == null) {
                 viewer = editPart.getViewer();
             }
         }
-        
+
         if (viewer != null && compound.canExecute()) {
             viewer.getEditDomain().getCommandStack().execute(compound);
         } else if (viewer == null) {
             DiagramEditor.LOG.warning("AutosizeHandler#align : could not reach a valid EditPartViewer");
         }
-        
+
     }
 
     /**
      * Extract and filter the GEF selection from the Eclipse selection
+     *
      * @param selection the Eclipse selection
      * @return the selected edit parts, or an empty list
      */

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.ui.views.infos;
 
@@ -47,11 +47,11 @@ class ProjectAdapter {
     private final GProjectDescriptor projectDescriptor;
 
     @objid ("07bcf207-9996-470a-b8f3-4992701c52b0")
-    public  ProjectAdapter(GProjectDescriptor projectDescriptor) {
+    public ProjectAdapter(GProjectDescriptor projectDescriptor) {
         this.projectDescriptor = projectDescriptor;
-        
+
         this.propertiesUrlAdapter = new PropertiesUrlAdapter(projectDescriptor.getProperties());
-        
+
     }
 
     @objid ("97aeecbd-8d55-408e-93b4-2abba9274347")
@@ -83,6 +83,7 @@ class ProjectAdapter {
     }
 
     /**
+     *
      * @return the project properties.
      */
     @objid ("00c649de-18f5-4a74-91a7-6082ff7a6280")

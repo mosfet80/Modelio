@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.lifeline;
 
@@ -90,12 +90,13 @@ public class GmLifeline extends GmCompositeNode {
 
     /**
      * C'tor.
+     *
      * @param diagram the diagram in which this gm is created.
      * @param obLifeline the represented lifeline
      * @param ref a reference to the represented lifeline.
      */
     @objid ("d93bfe1f-55b6-11e2-877f-002564c97630")
-    public  GmLifeline(IGmDiagram diagram, Lifeline obLifeline, MRef ref) {
+    public GmLifeline(IGmDiagram diagram, Lifeline obLifeline, MRef ref) {
         super(diagram, ref);
         this.element = obLifeline;
         GmLifelineHeaderContainer header = new GmLifelineHeaderContainer(diagram, ref);
@@ -104,14 +105,13 @@ public class GmLifeline extends GmCompositeNode {
         this.body = new GmLifelineBody(diagram, ref);
         this.body.setRoleInComposition(GmLifeline.BODY_ROLE);
         addChild(this.body);
-        
     }
 
     /**
      * For deserialization only.
      */
     @objid ("d93bfe2b-55b6-11e2-877f-002564c97630")
-    public  GmLifeline() {
+    public GmLifeline() {
         // Empty c'tor for deserialization.
     }
 
@@ -124,7 +124,6 @@ public class GmLifeline extends GmCompositeNode {
         } else {
             return false;
         }
-        
     }
 
     @objid ("d93bfe35-55b6-11e2-877f-002564c97630")
@@ -145,7 +144,6 @@ public class GmLifeline extends GmCompositeNode {
         } else {
             return null;
         }
-        
     }
 
     @objid ("d93bfe46-55b6-11e2-877f-002564c97630")
@@ -181,7 +179,6 @@ public class GmLifeline extends GmCompositeNode {
         default:
             return null;
         }
-        
     }
 
     @objid ("d93d84bf-55b6-11e2-877f-002564c97630")
@@ -199,7 +196,6 @@ public class GmLifeline extends GmCompositeNode {
         default:
             return Collections.emptyList();
         }
-        
     }
 
     @objid ("d93d84c7-55b6-11e2-877f-002564c97630")
@@ -219,7 +215,6 @@ public class GmLifeline extends GmCompositeNode {
             break;
         }
         }
-        
     }
 
     @objid ("d93d84cd-55b6-11e2-877f-002564c97630")
@@ -229,26 +224,23 @@ public class GmLifeline extends GmCompositeNode {
         if (this.element != null && this.element.isValid()) {
             firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, this.getLayoutData(), null);
         }
-        
     }
 
     @objid ("d93d84d0-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmLifeline.", GmLifeline.MINOR_VERSION);
-        
     }
 
     @objid ("d93d84d6-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
-        
+
         this.element = (Lifeline) resolveRef(this.getRepresentedRef());
         this.body = (GmLifelineBody) getFirstChild(GmLifeline.BODY_ROLE);
-        
     }
 
     @objid ("d93d84db-55b6-11e2-877f-002564c97630")

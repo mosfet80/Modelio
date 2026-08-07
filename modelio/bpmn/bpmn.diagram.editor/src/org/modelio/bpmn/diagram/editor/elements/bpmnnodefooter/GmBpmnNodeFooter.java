@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnnodefooter;
 
@@ -80,11 +80,12 @@ public class GmBpmnNodeFooter extends GmCompositeNode {
 
     /**
      * Creates a classifier header
+     *
      * @param diagram the owning diagram.
      * @param relatedRef reference
      */
     @objid ("61761104-55b6-11e2-877f-002564c97630")
-    public  GmBpmnNodeFooter(IGmDiagram diagram, MRef relatedRef) {
+    public GmBpmnNodeFooter(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
         this.isEmptySubProcess = false;
         this.isNonEmptySubProcess = false;
@@ -93,7 +94,7 @@ public class GmBpmnNodeFooter extends GmCompositeNode {
         this.isSequential = false;
         this.isAdHoc = false;
         this.isCompensation = false;
-        
+
     }
 
     /**
@@ -105,9 +106,9 @@ public class GmBpmnNodeFooter extends GmCompositeNode {
         if (parent != null && getParent() != parent) {
             getPersistedStyle().setCascadedStyle(parent.getPersistedStyle());
         }
-        
+
         super.setParent(parent);
-        
+
     }
 
     /**
@@ -165,7 +166,7 @@ public class GmBpmnNodeFooter extends GmCompositeNode {
      * Empty c'tor for deserialisation.
      */
     @objid ("617797a2-55b6-11e2-877f-002564c97630")
-    public  GmBpmnNodeFooter() {
+    public GmBpmnNodeFooter() {
         // empty constructor for the serialization
     }
 
@@ -196,7 +197,7 @@ public class GmBpmnNodeFooter extends GmCompositeNode {
             break;
         }
         }
-        
+
     }
 
     @objid ("617797b5-55b6-11e2-877f-002564c97630")
@@ -210,10 +211,10 @@ public class GmBpmnNodeFooter extends GmCompositeNode {
         out.writeProperty("Sequential", isSequential());
         out.writeProperty("AdHoc", isAdHoc());
         out.writeProperty("Compensation", isCompensation());
-        
+
         // Write version of this Gm
         writeMinorVersion(out, "GmBpmnNodeFooter.", GmBpmnNodeFooter.MINOR_VERSION);
-        
+
     }
 
     @objid ("617797bb-55b6-11e2-877f-002564c97630")
@@ -225,7 +226,7 @@ public class GmBpmnNodeFooter extends GmCompositeNode {
     public void setEmptySubProcess(boolean isSubProcess) {
         this.isEmptySubProcess = isSubProcess;
         firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, null, isSubProcess);
-        
+
     }
 
     @objid ("617797c4-55b6-11e2-877f-002564c97630")
@@ -237,7 +238,7 @@ public class GmBpmnNodeFooter extends GmCompositeNode {
     public void setLoop(boolean isLoop) {
         this.isLoop = isLoop;
         firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, null, isLoop);
-        
+
     }
 
     @objid ("617797cd-55b6-11e2-877f-002564c97630")
@@ -249,7 +250,7 @@ public class GmBpmnNodeFooter extends GmCompositeNode {
     public void setParallel(boolean isParallel) {
         this.isParallel = isParallel;
         firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, null, isParallel);
-        
+
     }
 
     @objid ("61791e39-55b6-11e2-877f-002564c97630")
@@ -261,7 +262,7 @@ public class GmBpmnNodeFooter extends GmCompositeNode {
     public void setSequential(boolean isSequential) {
         this.isSequential = isSequential;
         firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, null, isSequential);
-        
+
     }
 
     @objid ("61791e42-55b6-11e2-877f-002564c97630")
@@ -273,7 +274,7 @@ public class GmBpmnNodeFooter extends GmCompositeNode {
     public void setAdHoc(boolean isAdHoc) {
         this.isAdHoc = isAdHoc;
         firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, null, isAdHoc);
-        
+
     }
 
     @objid ("61791e4b-55b6-11e2-877f-002564c97630")
@@ -285,7 +286,7 @@ public class GmBpmnNodeFooter extends GmCompositeNode {
     public void setCompensation(boolean isCompensation) {
         this.isCompensation = isCompensation;
         firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, null, isCompensation);
-        
+
     }
 
     @objid ("61791e54-55b6-11e2-877f-002564c97630")
@@ -297,7 +298,7 @@ public class GmBpmnNodeFooter extends GmCompositeNode {
     public void setNonEmptySubProcess(final boolean isSubProcess) {
         this.isNonEmptySubProcess = isSubProcess;
         firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, null, isSubProcess);
-        
+
     }
 
     @objid ("61791e5e-55b6-11e2-877f-002564c97630")
@@ -311,7 +312,7 @@ public class GmBpmnNodeFooter extends GmCompositeNode {
         setAdHoc((boolean) in.readProperty("AdHoc"));
         setCompensation((boolean) in.readProperty("Compensation"));
         setHorizontal(false);
-        
+
     }
 
     @objid ("61791e63-55b6-11e2-877f-002564c97630")
@@ -340,7 +341,7 @@ public class GmBpmnNodeFooter extends GmCompositeNode {
         setSequential((boolean) in.readProperty("Sequential"));
         setAdHoc((boolean) in.readProperty("AdHoc"));
         setCompensation((boolean) in.readProperty("Compensation"));
-        
+
     }
 
 }

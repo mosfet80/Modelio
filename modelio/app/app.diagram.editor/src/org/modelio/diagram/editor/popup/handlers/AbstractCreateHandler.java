@@ -1,26 +1,26 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.popup.handlers;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.e4.core.di.annotations.CanExecute;
@@ -42,7 +42,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * <li>dependency of type String</li>
  * <li>stereotype of type String</li>
  * </ul>
- * 
+ *
  * @author fpoyer
  */
 @objid ("6683e70f-33f7-11e2-95fe-001ec947c8cc")
@@ -78,16 +78,16 @@ public abstract class AbstractCreateHandler {
         this.dependency = dependency;
         this.stereotype = stereotype;
         this.selection = selection;
-        
+
         // Get the modelling session and open a transaction
         ICoreSession modelingSession = projectService.getSession();
         try (ITransaction transaction = modelingSession.getTransactionSupport().createTransaction("Create a " + this.metaclass)) {
             // Delegate the main creation task.
             MObject element = create(getSelectedElement());
-        
+
             // Commit the transaction.
             transaction.commit();
-        
+
             // Delegate the post creation tasks (like opening diagrams and so).
             postCommit(element);
         } catch (Exception e) {
@@ -123,6 +123,7 @@ public abstract class AbstractCreateHandler {
      * <p>
      * Note that although the modelling session is passed as parameter, a transaction has already been opened and will be committed after this method returns.
      * </p>
+     *
      * @param modelingSession the session this handler must be executed in.
      * @param selectedElement the element currently selected in the UML explorer view.
      * @return the created element (the main one if several are created at once) or <code>null</code> if nothing was created. This returned element will be passed to the postCommitExecute method.
@@ -133,6 +134,7 @@ public abstract class AbstractCreateHandler {
 
     /**
      * Get the first currently selected element .
+     *
      * @return the currently selected element .
      */
     @objid ("66864986-33f7-11e2-95fe-001ec947c8cc")
@@ -148,6 +150,7 @@ public abstract class AbstractCreateHandler {
 
     /**
      * Subclasses should override this method to provide additional behaviours that should be only executed once the whole creation transaction has been safely committed. For example, they can ask for the opening of a diagram editor.
+     *
      * @param element the main created element.
      */
     @objid ("6686498b-33f7-11e2-95fe-001ec947c8cc")

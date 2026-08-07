@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.bpmn.activities;
 
@@ -26,19 +26,18 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * TransactionMethod v0.0.9054
- * 
- * 
+ *
+ *
  * null
- * 
- * 
+ *
  */
 @objid ("00558606-91e1-1f74-804b-001ec947cd2a")
 public enum TransactionMethod {
-    @objid ("de35dbcd-1266-49de-b35d-1fff499cd47d")
+    @objid ("f96d912f-368d-4461-8bd7-097a60c66cb3")
     COMPENSATETRANSACTION(0, "compensateTransaction", "compensateTransaction"),
-    @objid ("40accce2-365c-4552-805a-bea4625edd18")
+    @objid ("4535fa54-852c-44cd-990e-4b0bee261d67")
     STORETRANSACTION(1, "storeTransaction", "storeTransaction"),
-    @objid ("c7e5d6ca-5384-4241-ba28-1ee89760f75c")
+    @objid ("f29c393d-a3d7-4f9c-92ac-ef59f4430924")
     IMAGETRANSACTION(2, "imageTransaction", "imageTransaction");
 
 public static final int COMPENSATETRANSACTION_VALUE = 0;
@@ -98,5 +97,5 @@ public static final int COMPENSATETRANSACTION_VALUE = 0;
     public String toString() {
        return literal;
     }
-    
+
 }

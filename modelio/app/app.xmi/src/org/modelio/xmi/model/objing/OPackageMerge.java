@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -37,10 +37,10 @@ public class OPackageMerge extends OElement implements IOElement {
     }
 
     @objid ("895906fa-ac90-4b32-a6a8-d26cf35d77c2")
-    public  OPackageMerge(PackageMerge element) {
+    public OPackageMerge(PackageMerge element) {
         super(element);
         this.objingElement = element;
-        
+
     }
 
     @objid ("94749249-9679-4613-8b11-8ba2c96e297d")
@@ -48,26 +48,26 @@ public class OPackageMerge extends OElement implements IOElement {
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
         org.eclipse.uml2.uml.PackageMerge ecorePkgMerge = (org.eclipse.uml2.uml.PackageMerge) ecoreElt;
-                
+
         org.modelio.metamodel.uml.statik.Package objingMergedPackage = this.objingElement.getMergedPackage();
         org.modelio.metamodel.uml.statik.Package objingReceivingPackage = this.objingElement.getReceivingPackage();
-                
+
         if (objingMergedPackage != null && objingReceivingPackage != null) {
             // Gets or creates the ecore merged Package:
             Package ecoreMergedPackage = (Package) genProp
                     .getMappedElement(objingMergedPackage);
-                
+
             // Gets or creates the ecore receiving Package:
             Package ecoreReceivingPackage = (Package) genProp
                     .getMappedElement(objingReceivingPackage);
-                
+
             if (ecoreMergedPackage != null && ecoreReceivingPackage != null) {
                 ecorePkgMerge.setMergedPackage(ecoreMergedPackage);
                 ecorePkgMerge.setReceivingPackage(ecoreReceivingPackage);
                 ecoreReceivingPackage.getPackageMerges().add((org.eclipse.uml2.uml.PackageMerge)ecoreElt);
             }
         }
-        
+
     }
 
     @objid ("68bc1620-950a-4360-bdaf-59f10fb0651f")
@@ -75,7 +75,7 @@ public class OPackageMerge extends OElement implements IOElement {
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         // setMergedPackage((org.eclipse.uml2.uml.PackageMerge)ecoreElt); -> DONE IN linkEcoreElt()
         // OPERATION
-        
+
     }
 
 }

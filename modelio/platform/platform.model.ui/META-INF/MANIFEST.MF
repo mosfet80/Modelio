@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Model ui components
 Bundle-SymbolicName: org.modelio.platform.model.ui;singleton:=true
-Bundle-Version: 5.4.1.qualifier 
+Bundle-Version: 6.2.0.qualifier
 Bundle-Activator: org.modelio.platform.model.ui.plugin.CoreUi
 Bundle-Vendor: modelio.org
 Require-Bundle: org.eclipse.core.runtime,
@@ -19,7 +19,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jface,
  org.eclipse.ui.workbench,
  org.modelio.core.project.data,
- org.eclipse.nebula.widgets.nattable.core,
  org.eclipse.nebula.widgets.cdatetime,
  org.eclipse.core.expressions,
  org.modelio.platform.mda.infra,
@@ -31,13 +30,18 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.e4.ui.di,
  org.eclipse.e4.ui.services,
  org.eclipse.nebula.widgets.pgroup,
- org.modelio.platform.ui
+ org.modelio.platform.ui,
+ org.eclipse.nebula.widgets.nattable.core;bundle-version="2.5.0",
+ org.eclipse.e4.ui.workbench;bundle-version="1.15.300",
+ org.eclipse.draw2d;bundle-version="3.18.0",
+ org.eclipse.gef;bundle-version="3.20.0"
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
  res/
 Export-Package: org.modelio.platform.model.ui,
  org.modelio.platform.model.ui.cert,
  org.modelio.platform.model.ui.dialogs.auth,
+ org.modelio.platform.model.ui.dialogs.auth.ui,
  org.modelio.platform.model.ui.dialogs.elementChooser,
  org.modelio.platform.model.ui.nattable.parts.corner,
  org.modelio.platform.model.ui.nattable.parts.data,
@@ -67,8 +71,13 @@ Export-Package: org.modelio.platform.model.ui,
  org.modelio.platform.model.ui.nattable.viewer.model,
  org.modelio.platform.model.ui.panels.scope,
  org.modelio.platform.model.ui.panels.search,
+ org.modelio.platform.model.ui.panels.search.advanced,
  org.modelio.platform.model.ui.panels.search.model,
  org.modelio.platform.model.ui.panels.search.note,
+ org.modelio.platform.model.ui.panels.search.query,
+ org.modelio.platform.model.ui.panels.search.query.elements.core,
+ org.modelio.platform.model.ui.panels.search.query.summary,
+ org.modelio.platform.model.ui.panels.search.query.ui,
  org.modelio.platform.model.ui.panels.selectelements,
  org.modelio.platform.model.ui.panels.thindialog,
  org.modelio.platform.model.ui.plugin,
@@ -97,6 +106,6 @@ Export-Package: org.modelio.platform.model.ui,
  org.modelio.platform.model.ui.treetable.linepattern,
  org.modelio.platform.model.ui.treetable.number,
  org.modelio.platform.model.ui.treetable.percentscale
-Bundle-RequiredExecutionEnvironment: JavaSE-11
-Import-Package: javax.annotation;version="1.1.0",
- javax.inject;version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Import-Package: jakarta.annotation;version="1.1.0",
+ jakarta.inject;version="1.0.0"

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.gui.report;
 
@@ -26,6 +26,7 @@ import org.modelio.metamodel.uml.infrastructure.Element;
 
 /**
  * This class represents the report model of XMI exportq
+ *
  * @author ebrosse
  */
 @objid ("ad47b435-0cf4-44f1-b559-1cedf8396a26")
@@ -43,11 +44,11 @@ public class ReportModel implements IReportWriter {
      * This default constructor initializes the lists of message (errors, warning and infos)
      */
     @objid ("88cd91ed-15ab-4f3e-a447-df41307f2a0c")
-    public  ReportModel() {
+    public ReportModel() {
         this.errors = new TreeSet <> ();
         this.warnings = new TreeSet <> ();
         this.infos = new TreeSet <> ();
-        
+
     }
 
     @objid ("422c95e4-6db4-4453-8832-464ac5a50b00")
@@ -57,9 +58,9 @@ public class ReportModel implements IReportWriter {
         if (message == null) {
             message = "";
         }
-        
+
         this.warnings.add (new ElementMessage (message, element, description));
-        
+
     }
 
     @objid ("998e946d-037d-43d5-a605-11d8b04ff00b")
@@ -69,13 +70,14 @@ public class ReportModel implements IReportWriter {
         if (message == null) {
             message = "";
         }
-        
+
         this.errors.add (new ElementMessage (message, element, description));
-        
+
     }
 
     /**
      * This method returns the list of error message
+     *
      * @return set of error message
      */
     @objid ("44585a10-dfe9-43e4-ab22-505d5f6a5e4e")
@@ -85,6 +87,7 @@ public class ReportModel implements IReportWriter {
 
     /**
      * This method returns the list of warning message
+     *
      * @return set of warning message
      */
     @objid ("faaa4657-d9f2-4d5c-9f1d-5b4584289edf")
@@ -133,6 +136,7 @@ public class ReportModel implements IReportWriter {
     //    }
     /**
      * This method returns the list of info message
+     *
      * @return set of info message
      */
     @objid ("b4d67140-a469-433f-b63b-9ba90004e017")
@@ -170,11 +174,11 @@ public class ReportModel implements IReportWriter {
         public Element element;
 
         @objid ("93377ec9-113b-4a7d-ab8b-1888918a781a")
-         ElementMessage(final String message, final Element element, final String description) {
+        ElementMessage(final String message, final Element element, final String description) {
             this.message = message;
             this.element = element;
             this.description = description;
-            
+
         }
 
         @objid ("124ac74c-3ab1-4ad1-9409-ae4e660b6225")
@@ -214,7 +218,7 @@ public class ReportModel implements IReportWriter {
                 return this.message.compareTo(anotherMessage.message) ;
             else
                 return 1;
-            
+
         }
 
         @objid ("11ea5b98-18ec-45df-8137-eade26f3799a")

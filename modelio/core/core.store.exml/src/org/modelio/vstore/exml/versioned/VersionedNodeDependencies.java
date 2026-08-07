@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.exml.versioned;
 
@@ -39,13 +39,13 @@ import org.modelio.vstore.exml.common.utils.ExmlUtils;
 @objid ("3de290fd-121a-11e2-816a-001ec947ccaf")
 public class VersionedNodeDependencies {
     @objid ("3de29126-121a-11e2-816a-001ec947ccaf")
-    private final Set<MObject> compManagedNodes = new TreeSet<>(MObjectComparator.instance);
+    private final Set<MObject> compManagedNodes;
 
     @objid ("3de29127-121a-11e2-816a-001ec947ccaf")
-    private final Set<MObject> refNodes = new TreeSet<>(MObjectComparator.instance);
+    private final Set<MObject> refNodes;
 
     @objid ("3de29128-121a-11e2-816a-001ec947ccaf")
-    private final Set<MObject> refDeps = new TreeSet<>(MObjectComparator.instance);
+    private final Set<MObject> refDeps;
 
     @objid ("3de29129-121a-11e2-816a-001ec947ccaf")
     private final MObject parentNode;
@@ -56,30 +56,38 @@ public class VersionedNodeDependencies {
      * References to elements outside the repository.
      */
     @objid ("3de2912a-121a-11e2-816a-001ec947ccaf")
-    private final Set<MObject> extDeps = new TreeSet<>(MObjectComparator.instance);
+    private final Set<MObject> extDeps;
 
     @objid ("4c07a284-1224-11e2-816a-001ec947ccaf")
-    private final Set<MObject> compLocalNodes = new TreeSet<>(MObjectComparator.instance);
+    private final Set<MObject> compLocalNodes;
 
     /**
      * Computes the CMS dependencies of a given CMS node element.
+     *
      * @param el a CMS node
      */
     @objid ("3de2911e-121a-11e2-816a-001ec947ccaf")
-    public  VersionedNodeDependencies(final SmObjectImpl el) {
+    public VersionedNodeDependencies(final SmObjectImpl el) {
+        Comparator<? super MObject> comparator = VersionedNodeDependencies::compareByNameOrUuid;
+        this.compLocalNodes = new TreeSet<>(comparator);
+        this.compManagedNodes = new TreeSet<>(comparator);
+        this.refNodes = new TreeSet<>(comparator);
+        this.refDeps = new TreeSet<>(comparator);
+        this.extDeps = new TreeSet<>(comparator);
+
         this.parentNode = ExmlUtils.getParentCmsNode (el);
-        
+
         computeDependentObjects(el, new HashSet<MObject>());
-        
+
         // Remove itself from dependencies
         this.compManagedNodes.remove(el);
         this.compLocalNodes.remove(el);
         this.refNodes.remove(el);
         this.refDeps.remove(el);
-        
     }
 
     /**
+     *
      * @return the owned non versioned CMS nodes
      */
     @objid ("ad6ff082-1778-11e2-ac36-001ec947ccaf")
@@ -88,6 +96,7 @@ public class VersionedNodeDependencies {
     }
 
     /**
+     *
      * @return the owned versioned CMS nodes
      */
     @objid ("ad6ff061-1778-11e2-ac36-001ec947ccaf")
@@ -97,6 +106,7 @@ public class VersionedNodeDependencies {
 
     /**
      * Get the model objects outside of the repository.
+     *
      * @return the model objects outside of the repository
      */
     @objid ("ad6ff07b-1778-11e2-ac36-001ec947ccaf")
@@ -105,6 +115,7 @@ public class VersionedNodeDependencies {
     }
 
     /**
+     *
      * @return the parent CMS node
      */
     @objid ("ad6ff076-1778-11e2-ac36-001ec947ccaf")
@@ -116,6 +127,7 @@ public class VersionedNodeDependencies {
      * Get the objects referenced outside this node.
      * <p>
      * The CMS node owning these objects can be got with {@link #getUsedNodes()}.
+     *
      * @return the used objects .
      */
     @objid ("ad6ff06f-1778-11e2-ac36-001ec947ccaf")
@@ -125,6 +137,7 @@ public class VersionedNodeDependencies {
 
     /**
      * Get the CMS nodes used by this CMS node.
+     *
      * @return the used CMS nodes
      */
     @objid ("ad6ff068-1778-11e2-ac36-001ec947ccaf")
@@ -138,19 +151,19 @@ public class VersionedNodeDependencies {
         if (recursionContext.contains(object)) {
             return;
         }
-        
+
         recursionContext.add(object);
-        
+
         // Loop on all dependencies
         List<SmDependency> dependencies = object.getClassOf().getAllDepDef();
-        
+
         for (SmDependency dep : dependencies) {
-            List<SmObjectImpl> depTargets = object.getDepValList(dep);
-        
+
             if (ExmlUtils.isDepComponent(dep)) {
                 // When the dependency is a composition:
                 //   - if the object is a CMS node, add it as a compDep
                 //     - if the object is not a CMS node, process its  dependencies
+                List<SmObjectImpl> depTargets = object.getDepValList(dep);
                 for ( SmObjectImpl target : depTargets) {
                     if (!ExmlUtils.sameRepository(object, target)) {
                         // Element outside the repository
@@ -167,14 +180,15 @@ public class VersionedNodeDependencies {
                         computeDependentObjects(target, recursionContext);    // !!! recursive call !!!
                     }
                 }
-        
+
             } else if (dep.isPartOf() && ! dep.hasDirective(SmDirective.SMCD_KEEP_DELETED_ON_READONLY)) {
                 // The dep is a {partOf}.
                 //   - if the 'depended on' object is an 'ext', add it
                 //   - if the object is not an 'ext', add it as a link and add its parent CMS Node (if one can be found) as an extRef.
                 //
-                // ignore SmDirective.SMCD_KEEP_DELETED_ON_READONLY : 
+                // ignore SmDirective.SMCD_KEEP_DELETED_ON_READONLY :
                 //  - the dependency may contain references to objects that don't exist (eg: Diagram -> Element).
+                List<SmObjectImpl> depTargets = object.getDepValList(dep);
                 for ( SmObjectImpl target : depTargets) {
                     if (!ExmlUtils.sameRepository(object, target)) {
                         // Element outside the repository
@@ -187,44 +201,40 @@ public class VersionedNodeDependencies {
                         if (parentCmsNode!= null) {
                             this.refNodes.add(parentCmsNode);
                         }
-        
+
                     }
                 }
             }
         }
-        
+
         // remove 'object' from recursion context
         recursionContext.remove(object);
-        
     }
 
     /**
      * MObject comparator that sorts object by name then by UUID.
+     * To be used as a method reference for Comparator<MObject>.
      */
-    @objid ("ab9963d4-8c2e-4b14-ab8a-2c1f11a13870")
-    private static class MObjectComparator implements Comparator<MObject> {
-        @objid ("f51d83cc-ce0f-4339-b69f-3c58525d55bf")
-        public static final Comparator<MObject> instance = new MObjectComparator();
-
-        @objid ("c67520c3-f661-45b8-8077-84d2ddab6653")
-        public  MObjectComparator() {
-            // nothing
+    @objid ("892092be-8985-4459-8f12-0f6ead42ebfc")
+    private static int compareByNameOrUuid(MObject o1, MObject o2) {
+        if (o1 == o2) {
+            return 0;
         }
 
-        @objid ("0d4cc79f-6ad4-4234-bdba-44f12fe49b76")
-        @Override
-        public int compare(MObject o1, MObject o2) {
-            if (o1 == o2) {
-                return 0;
-            }
-            
-            int comp = o1.getName().compareTo(o2.getName());
-            if (comp != 0) {
-                return comp;
-            }
-            return o1.getUuid().compareTo(o2.getUuid());
+        String name1 = o1.getName();
+        String name2 = o2.getName();
+        if (name1 == null) {
+            name1 = "";
+        }
+        if (name2 == null) {
+            name2 = "";
         }
 
+        int comp = name1.compareTo(name2);
+        if (comp != 0) {
+            return comp;
+        }
+        return o1.getUuid().compareTo(o2.getUuid());
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.region;
 
@@ -65,21 +65,22 @@ public class GmRegion extends GmFreeZone {
      * Empty constructor, needed for serialization.
      */
     @objid ("f5688467-55b6-11e2-877f-002564c97630")
-    public  GmRegion() {
+    public GmRegion() {
         // constructor empty for the serialization
     }
 
     /**
      * Default constructor.
+     *
      * @param diagram the diagram in which this gm is unmasked.
      * @param theRegion the represented region, may be null.
      * @param ref a reference to the represented clause.
      */
     @objid ("f568846a-55b6-11e2-877f-002564c97630")
-    public  GmRegion(IGmDiagram diagram, final Region theRegion, MRef ref) {
+    public GmRegion(IGmDiagram diagram, final Region theRegion, MRef ref) {
         super(diagram, ref);
         this.element = theRegion;
-        
+
     }
 
     @objid ("f5688477-55b6-11e2-877f-002564c97630")
@@ -134,7 +135,7 @@ public class GmRegion extends GmFreeZone {
             break;
         }
         }
-        
+
     }
 
     @objid ("f56a0b12-55b6-11e2-877f-002564c97630")
@@ -146,7 +147,7 @@ public class GmRegion extends GmFreeZone {
                 getParent().getDisplayedStyle().setProperty(key, RepresentationMode.STRUCTURED);
             }
         }
-        
+
     }
 
     @objid ("f56a0b16-55b6-11e2-877f-002564c97630")
@@ -156,7 +157,7 @@ public class GmRegion extends GmFreeZone {
         return (childEl == null
                 || (!childEl.isValid() && canCreate(node.getRelatedMClass().getJavaInterface()))
                 || canUnmask(childEl));
-        
+
     }
 
     @objid ("f56a0b1e-55b6-11e2-877f-002564c97630")
@@ -182,17 +183,17 @@ public class GmRegion extends GmFreeZone {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmRegion.", GmRegion.MINOR_VERSION);
-        
+
     }
 
     @objid ("f56b919d-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (Region) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("f56b91a2-55b6-11e2-877f-002564c97630")
@@ -209,7 +210,7 @@ public class GmRegion extends GmFreeZone {
                 .add(b.createStyleItem(GmRegionStructuredStyleKeys.FILLMODE))
                 .add(b.createStyleItem(GmRegionStructuredStyleKeys.FILLCOLOR)
                         .filter(GmRegionStructuredStyleKeys.FILLMODE, v -> v != StyleKey.FillMode.TRANSPARENT))
-        
+
                 );
         return b.build(getPersistedStyle(), this);
     }

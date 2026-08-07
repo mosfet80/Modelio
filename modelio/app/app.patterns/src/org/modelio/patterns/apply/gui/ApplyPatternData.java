@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.patterns.apply.gui;
 
@@ -49,25 +49,26 @@ public class ApplyPatternData {
     private IModelioPickingService pickingService;
 
     @objid ("97c45619-1005-42e8-9c3f-6ae9e1502595")
-    public  ApplyPatternData(RuntimePattern pattern, ModelElement selectedElement, ICoreSession session, IModelioPickingService pickingService) {
+    public ApplyPatternData(RuntimePattern pattern, ModelElement selectedElement, ICoreSession session, IModelioPickingService pickingService) {
         this.pattern = pattern;
         this.session = session;
         this.pickingService = pickingService;
-        
+
         this.parameterValues = getInitialParameterValues(pattern, selectedElement);
-        
+
     }
 
     /**
      * Get initial parameter values from a pattern.
+     *
      * @param selectedElement currently selected element, used as first root.
      */
     @objid ("39d63261-68dd-42c0-b6f5-03a85ef51549")
     private Map<String, Object> getInitialParameterValues(RuntimePattern pattern, ModelElement selectedElement) {
         MMetamodel metamodel = this.session.getMetamodel();
-        
+
         HashMap<String, Object> values = new HashMap<>();
-        
+
         List<Parameter> ownerList = pattern.getPatternOwner();
         if (ownerList.size() == 1) {
             MObject owner = selectedElement;
@@ -75,7 +76,7 @@ public class ApplyPatternData {
                 values.put(ownerList.get(0).getName(), owner);
             }
         }
-        
+
         List<Parameter> parameters = pattern.getParameters();
         for (Parameter param : parameters) {
             if (param instanceof StringParameter) {

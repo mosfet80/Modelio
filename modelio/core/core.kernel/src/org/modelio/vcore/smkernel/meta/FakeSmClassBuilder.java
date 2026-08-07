@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel.meta;
 
@@ -23,7 +23,6 @@ import java.util.Objects;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.smkernel.mapi.MetaclassAlreadyExistException;
 import org.modelio.vcore.smkernel.meta.descriptor.MClassRef;
-import org.modelio.vcore.smkernel.meta.fake.FakeSmClass;
 
 /**
  * Builder design patter for building fake metaclasses.
@@ -47,15 +46,19 @@ public class FakeSmClassBuilder {
     @objid ("eb54944e-1457-4267-a359-56bcf4bb6a48")
     private String fragmentName;
 
+    @objid ("c7de95c5-d0fd-4d53-b608-6c43d3454b78")
+    private String qualifiedName;
+
     @objid ("e751cc0a-bbdf-4766-91bf-5bdc632d368e")
-    private SmMetamodel mm;
+    private final SmMetamodel mm;
 
     @objid ("42205f37-32ed-4794-8b0a-2291682e12dd")
-    protected  FakeSmClassBuilder(SmMetamodel mm) {
-        this.mm = mm;
+    protected FakeSmClassBuilder(SmMetamodel mm) {
+        this.mm = Objects.requireNonNull(mm);
     }
 
     /**
+     *
      * @param name the metaclass name
      * @return the receiver for further invocations
      */
@@ -70,12 +73,14 @@ public class FakeSmClassBuilder {
      * <p>
      * The qualified name must have be formated like "mm.fragment.metaclass name"
      * with the dot as separator.
+     *
      * @param qualifiedName the metaclass qualified name
      * @return the receiver for further invocations
      */
     @objid ("1f9fb9c8-8dec-40cf-a0bd-7fa09c410931")
     public FakeSmClassBuilder setQualifiedName(String qualifiedName) {
         MClassRef ref = MClassRef.fromQualifiedName(qualifiedName);
+        this.qualifiedName = qualifiedName;
         this.name = ref.getClassName();
         this.fragmentName = ref.getFragmentName();
         return this;
@@ -85,6 +90,7 @@ public class FakeSmClassBuilder {
      * Set whether the metaclass is a CMS node.
      * <p>
      * By default it is not a CMS node.
+     *
      * @param val whether the metaclass is a CMS node.
      * @return the receiver for further invocations
      */
@@ -94,8 +100,15 @@ public class FakeSmClassBuilder {
         return this;
     }
 
+    @objid ("9803f0db-207d-4acc-9945-2fecab86211b")
+    public FakeSmClassBuilder setFragmentName(String fragmentName) {
+        this.fragmentName = fragmentName;
+        return this;
+    }
+
     /**
      * Create and register the metaclass in the metamodel.
+     *
      * @return the built fake metaclass.
      * @throws MetaclassAlreadyExistException if the metaclass already exists.
      */
@@ -103,22 +116,28 @@ public class FakeSmClassBuilder {
     public SmClass build() throws MetaclassAlreadyExistException {
         Objects.requireNonNull(this.fragmentName);
         Objects.requireNonNull(this.name);
-        
-        ISmMetamodelFragment fakeFragment = this.mm.getFakeFragment(this.fragmentName, null);
-        FakeSmClass cls = new FakeSmClass(fakeFragment, this.name, this.cmsNode);
-        this.mm.addFakeMetaclass(cls);
-        return cls;
+
+        return this.mm.addFakeMetaclass(this);
     }
 
-    @objid ("9803f0db-207d-4acc-9945-2fecab86211b")
-    public FakeSmClassBuilder setFragmentName(String fragmentName) {
-        this.fragmentName = fragmentName;
-        return this;
+    @objid ("a3d166ef-8edc-4e29-9231-a8f2a5f01037")
+    public String getQualifiedName() {
+        return this.qualifiedName;
     }
 
     @objid ("67b02b09-062b-400d-806f-1ab844e3d43d")
-    protected final String getFragmentName() {
+    public final String getFragmentName() {
         return this.fragmentName;
+    }
+
+    @objid ("66a4abb1-0953-4019-8974-737921d4c8ae")
+    public final String getName() {
+        return this.name;
+    }
+
+    @objid ("7c9dd0e8-51b7-4ddf-976c-cdf158bcf506")
+    public final boolean isCmsNode() {
+        return this.cmsNode;
     }
 
     @objid ("4cb21c63-92ff-43f8-aa72-0828a8ce0552")
@@ -126,14 +145,21 @@ public class FakeSmClassBuilder {
         return this.mm;
     }
 
-    @objid ("66a4abb1-0953-4019-8974-737921d4c8ae")
-    protected final String getName() {
-        return this.name;
-    }
-
-    @objid ("7c9dd0e8-51b7-4ddf-976c-cdf158bcf506")
-    protected final boolean isCmsNode() {
-        return this.cmsNode;
+    @objid ("d8360dbe-a43c-4f4c-9ec0-bd1da4fa466a")
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(getClass().getSimpleName());
+        builder.append(" [name=");
+        builder.append(name);
+        builder.append(", fragmentName=");
+        builder.append(fragmentName);
+        builder.append(", qualifiedName=");
+        builder.append(qualifiedName);
+        builder.append(", cmsNode=");
+        builder.append(cmsNode);
+        builder.append("]");
+        return builder.toString();
     }
 
 }

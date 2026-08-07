@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.drawings.line;
 
@@ -79,7 +79,7 @@ public class GmLineStyleKeys extends ElementsAbstractStyleKeyProvider {
 
     /**
      * Source side decoration
-     * 
+     *
      * static final StyleKey LINEWIDTH = createStyleKey("DRAWLINEDECO_SOURCE_LINEWIDTH", MetaKey.LINEWIDTH);
      */
     @objid ("5def1fd9-debc-47ee-9d74-b55383a1e0f0")
@@ -110,7 +110,7 @@ public class GmLineStyleKeys extends ElementsAbstractStyleKeyProvider {
 
     /**
      * Target side decoration
-     * 
+     *
      * static final StyleKey LINEWIDTH = createStyleKey("DRAWLINEDECO_TARGET_LINEWIDTH", MetaKey.LINEWIDTH);
      */
     @objid ("f081c49a-fa2d-4e79-8c39-1896f28ba14d")

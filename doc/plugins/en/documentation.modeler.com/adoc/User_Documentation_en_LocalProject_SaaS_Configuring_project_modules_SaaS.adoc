@@ -1,0 +1,28 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Configuring project modules
+
+
+Modelio modules are complementary components, each of which providing specific services tailored for a particular modeling need.
+
+Modelio provides a number of modules, all of which exploit a model for a specialized need (for example, documentation or Java code generation).
+
+When a module is installed, it provides specific menus, icons and specialized annotations. +
+Some modules also add their own property view, designed to make it even easier to enter module-specific elements, such as dedicated notes and tagged values.
+
+To get details regarding the modules of the project, open the *Modules* tab of the *Project configurator* window:
+
+image::images/attachment/modeliocom41/User_Documentation_en/Project_SaaS/Configuring_project_modules_SaaS/ConsultingProjectModules_001.png[ConsultingProjectModules_001.png]
+
+*Keys:*
+
+. Click on the image:images/attachment/modeliocom41/User_Documentation_en/Project_SaaS/Configuring_project_modules_SaaS/ConsultingProjectInformation_002.png[ConsultingProjectInformation_002.png] ('Project configurator') button in the toobar
+. Open the 'Modules' tab
+. List of the modules deployed in the project
+. Parameters of the module selected in the list
+. Add a module from a local jmdac
+. Add a module available in the server
+. Remove the selected module from the project

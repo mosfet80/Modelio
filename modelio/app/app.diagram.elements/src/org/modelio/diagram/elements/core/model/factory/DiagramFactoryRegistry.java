@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.model.factory;
 
@@ -52,6 +52,7 @@ public class DiagramFactoryRegistry {
 
     /**
      * Register factory extensions.
+     *
      * @param factoryId the identifier for the factory extensions.
      * @param nodeFactory the node factory extension.
      * @param linkFactory the link factory extension.
@@ -62,11 +63,12 @@ public class DiagramFactoryRegistry {
         this.gmNodeFactories.put(factoryId, nodeFactory);
         this.gmLinkFactories.put(factoryId, linkFactory);
         this.editPartFactories.put(factoryId, editPartFactory);
-        
+
     }
 
     /**
      * Get the node factory for this identifier.
+     *
      * @param factoryId the identifier for the factory extension.
      * @return the node factory extension.
      */
@@ -77,6 +79,7 @@ public class DiagramFactoryRegistry {
 
     /**
      * Get the link factory for this identifier.
+     *
      * @param factoryId the identifier for the factory extension.
      * @return the link factory extension.
      */
@@ -87,6 +90,7 @@ public class DiagramFactoryRegistry {
 
     /**
      * Get the edit part factory for this identifier.
+     *
      * @param factoryId the identifier for the factory extension.
      * @return the edit part factory extension.
      */
@@ -97,6 +101,7 @@ public class DiagramFactoryRegistry {
 
     /**
      * Register a factory extension.
+     *
      * @param extensionId the identifier for the factory extension.
      * @param extendedFactoryIds identifiers of all extended factories.
      */
@@ -104,17 +109,18 @@ public class DiagramFactoryRegistry {
     public void registerExtensions(String extensionId, String... extendedFactoryIds) {
         for (String extendedFactoryId : extendedFactoryIds) {
             List<String> extensions = this.factoryExtensions.computeIfAbsent(extendedFactoryId, k-> new ArrayList<>());
-        
+
             if (!extensions.contains(extensionId)) {
                 extensions.add(extensionId);
             } else {
                 DiagramElements.LOG.debug("'%s' Factory extension already registered for '%s'" , extensionId, extendedFactoryId);
             }
         }
-        
+
     }
 
     /**
+     *
      * @param factoryId a factory id
      * @return the factory extensions
      */

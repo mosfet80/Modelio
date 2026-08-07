@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -73,10 +73,10 @@ public class R1080 extends AbstractUmlRule {
         plan.registerRule(ActivityPartition.MQNAME, this,
                 AuditTrigger.UPDATE | AuditTrigger.MOVE);
         plan.registerRule(Activity.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         // BindableInstance
         plan.registerRule(Port.MQNAME, this, AuditTrigger.MOVE);
-        
+
     }
 
     /**
@@ -110,10 +110,10 @@ public class R1080 extends AbstractUmlRule {
      * Default constructor for R1080
      */
     @objid ("fec8b4c8-95f5-413d-b513-bfdea44c06ff")
-    public  R1080() {
+    public R1080() {
         this.moveCheckerInstance = new CheckR1080Move(this);
         this.updateCheckerInstance = new CheckR1080Update(this);
-        
+
     }
 
     /**
@@ -122,7 +122,7 @@ public class R1080 extends AbstractUmlRule {
     @objid ("3617f70a-9876-4e32-8642-c786018216c3")
     private static class CheckR1080Move extends AbstractControl {
         @objid ("f0409146-ef7f-4ba0-ae9b-cf4b1fb8b723")
-        public  CheckR1080Move(IRule rule) {
+        public CheckR1080Move(IRule rule) {
             super(rule);
         }
 
@@ -143,7 +143,7 @@ public class R1080 extends AbstractUmlRule {
         @objid ("3de4e97c-d205-44f8-8fc2-b6eeaa9f8e7e")
         private IAuditEntry checkR1080(ActivityPartition partition) {
             AuditEntry auditEntry;
-            
+
             if (partition.getSuperPartition() != null) {
                 auditEntry = new AuditEntry(this.rule.getRuleId(),
                         AuditSeverity.AuditSuccess, partition
@@ -154,15 +154,15 @@ public class R1080 extends AbstractUmlRule {
                         AuditSeverity.AuditSuccess, partition.getInActivity(),
                         null);
             }
-            
+
             if (!needsCheck(partition)) {
                 return auditEntry;
             }
-            
+
             if (!checkSiblings(partition)) {
-            
+
                 // Rule failed on siblings
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 if (partition.getSuperPartition() != null) {
@@ -177,6 +177,7 @@ public class R1080 extends AbstractUmlRule {
 
         /**
          * Check the homogeneity of the siblings of a partition.
+         *
          * @param partition The partition to check
          * @return True is the partition's siblings partitions are homogeneous, false otherwise
          */
@@ -187,11 +188,12 @@ public class R1080 extends AbstractUmlRule {
             } else {
                 return checkChildren(partition.getInActivity());
             }
-            
+
         }
 
         /**
          * Check the homogeneity of the children partitions of a partition
+         *
          * @param partition The partition to check
          * @return True is the activity's children are homogeneous or if there are no children, false otherwise
          */
@@ -203,11 +205,12 @@ public class R1080 extends AbstractUmlRule {
             } else {
                 return true;
             }
-            
+
         }
 
         /**
          * Check the homogeneity of the children partitions of an activity
+         *
          * @param activity The activity to check
          * @return True is the activity's children are homogeneous or if there are no children, false otherwise
          */
@@ -223,24 +226,25 @@ public class R1080 extends AbstractUmlRule {
             } else {
                 return true;
             }
-            
+
         }
 
         /**
          * Check if a list of partitions are homogeneous (that they represent parts of the same Classifier)
+         *
          * @param partitions partitions of the same level
          * @return true if partitions are homogeneous , false otherwise
          */
         @objid ("08d6c179-524b-4bcd-88b1-6b3eb051b5d8")
         private boolean checkPartitionsHomogeneity(List<ActivityPartition> partitions) {
             Classifier homogeneousClassifier = null;
-            
+
             for (ActivityPartition partition : partitions) {
                 if (needsCheck(partition)) {
-            
+
                     Classifier classifier = ((BindableInstance) partition
                             .getRepresented()).getInternalOwner();
-            
+
                     if (homogeneousClassifier == null) {
                         homogeneousClassifier = classifier;
                     } else if (!homogeneousClassifier.equals(classifier)) {
@@ -253,6 +257,7 @@ public class R1080 extends AbstractUmlRule {
 
         /**
          * Check if a partition needs to be checked by the rule (if it's not external and if it's represented by a part.
+         *
          * @param partition The partition to check.
          * @return True if the partition needs to be checked, else otherwise.
          */
@@ -266,19 +271,20 @@ public class R1080 extends AbstractUmlRule {
 
         /**
          * Checks is the Classifier is represented in any partition, and check the rule on these partitions.
+         *
          * @param classifier The classifier to check
          * @return A list of audit entries for each partition that was checked
          */
         @objid ("c3f22d64-0274-48dc-95e2-b5f54c3a8fb3")
         private List<IAuditEntry> checkR1080(Port port) {
             ArrayList<IAuditEntry> auditEntries = new ArrayList<>();
-            
+
             if (((UmlModelElement) port).getRepresentingPartition() != null) {
                 for (ActivityPartition partition : ((UmlModelElement) port)
                         .getRepresentingPartition()) {
-            
+
                     AuditEntry auditEntry;
-            
+
                     if (partition.getSuperPartition() != null) {
                         auditEntry = new AuditEntry(this.rule.getRuleId(),
                                 AuditSeverity.AuditSuccess, partition
@@ -290,11 +296,11 @@ public class R1080 extends AbstractUmlRule {
                                         .getInActivity(),
                                 null);
                     }
-            
+
                     if (!checkSiblings(partition)) {
-            
+
                         // Rule failed on siblings
-            
+
                         auditEntry.setSeverity(this.rule.getSeverity());
                         List<Object> linkedObjects = new ArrayList<>();
                         if (partition.getSuperPartition() != null) {
@@ -304,7 +310,7 @@ public class R1080 extends AbstractUmlRule {
                         }
                         auditEntry.setLinkedInfos(linkedObjects);
                     }
-            
+
                     auditEntries.add(auditEntry);
                 }
             }
@@ -319,7 +325,7 @@ public class R1080 extends AbstractUmlRule {
     @objid ("f3983126-97f1-4de9-8895-cee253c61b2f")
     private static class CheckR1080Update extends CheckR1080Move {
         @objid ("9874ace5-fcc5-41a8-bcee-463429d9d198")
-        public  CheckR1080Update(IRule rule) {
+        public CheckR1080Update(IRule rule) {
             super(rule);
         }
 
@@ -342,11 +348,11 @@ public class R1080 extends AbstractUmlRule {
         private IAuditEntry checkR1080(Activity activity) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(),
                     AuditSeverity.AuditSuccess, activity, null);
-            
+
             if (!super.checkChildren(activity)) {
-            
+
                 // Rule failed on children
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(activity);
@@ -357,17 +363,18 @@ public class R1080 extends AbstractUmlRule {
 
         /**
          * In this case we need to check the siblings partition of our updated partition, and the children partitions in case the partition was updated after a moved partition event.
+         *
          * @param partition The partition to check
          * @return The result of the audit
          */
         @objid ("9a132dc0-3b83-4942-b9f8-2cc05455281a")
         private List<IAuditEntry> checkR1080(ActivityPartition partition) {
             ArrayList<IAuditEntry> auditEntries = new ArrayList<>();
-            
+
             AuditEntry auditEntry;
-            
+
             // Applying rule on super partition or activity
-            
+
             if (partition.getSuperPartition() != null) {
                 auditEntry = new AuditEntry(this.rule.getRuleId(),
                         AuditSeverity.AuditSuccess, partition
@@ -378,11 +385,11 @@ public class R1080 extends AbstractUmlRule {
                         AuditSeverity.AuditSuccess, partition.getInActivity(),
                         null);
             }
-            
+
             if (!super.checkSiblings(partition)) {
-            
+
                 // Rule failed on siblings
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 if (partition.getSuperPartition() != null) {
@@ -392,24 +399,24 @@ public class R1080 extends AbstractUmlRule {
                 }
                 auditEntry.setLinkedInfos(linkedObjects);
             }
-            
+
             auditEntries.add(auditEntry);
-            
+
             // Applying rule on self
-            
+
             auditEntry = new AuditEntry(this.rule.getRuleId(),
                     AuditSeverity.AuditSuccess, partition, null);
-            
+
             if (!super.checkChildren(partition)) {
-            
+
                 // Rule failed on children
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(partition);
                 auditEntry.setLinkedInfos(linkedObjects);
             }
-            
+
             auditEntries.add(auditEntry);
             return auditEntries;
         }

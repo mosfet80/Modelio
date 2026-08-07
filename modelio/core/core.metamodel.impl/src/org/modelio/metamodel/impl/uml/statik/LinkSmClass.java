@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -49,80 +48,79 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("d2454b12-e12b-41af-b5aa-cc2f011ab2ab")
 public class LinkSmClass extends UmlModelElementSmClass {
-    @objid ("e842ee1f-42d4-4a36-b365-293eec1a8290")
+    @objid ("2bb9ca21-25cf-41d1-bc74-cefb97702aa9")
     private SmDependency modelDep;
 
-    @objid ("9ba49cd8-01d4-45d8-ac73-ec6c28d6de0e")
+    @objid ("f0ea3d91-f385-48c4-9820-51688b3f7e2e")
     private SmDependency linkEndDep;
 
-    @objid ("38d83125-888b-4553-a277-8f07407d9b74")
+    @objid ("df009595-bdff-4e83-937b-0506b4f64b02")
     private SmDependency sentDep;
 
-    @objid ("2d03b41e-42a9-4647-91d6-5cb6f170226d")
-    public  LinkSmClass(ISmMetamodelFragment origin) {
+    @objid ("f34c30ff-e589-4594-b330-2d4e4cbb1241")
+    public LinkSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("9817c5c5-f1a1-45f3-a32c-63a60ecd8532")
+    @objid ("43289594-feed-4632-88e6-80bdb5cbb388")
     @Override
     public String getName() {
         return "Link";
-        
+
     }
 
-    @objid ("776ce48e-ccbc-46e2-9dc5-ab8509794d74")
+    @objid ("5f6d8ba0-9dbf-4dec-9951-99fd022977dd")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("35668fb4-bbc7-4262-aec1-883ec475f364")
+    @objid ("d5e5c321-1a99-4e0e-8438-c4eea202823a")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return Link.class;
-        
+
     }
 
-    @objid ("47875c7c-7618-446b-9471-f6bcfc715c9e")
+    @objid ("9d87dae3-0074-47fe-a6c7-6edfa8fd3cdd")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("26a937c1-72ac-4abf-a18c-81cf29bce594")
+    @objid ("89071b58-4f99-4611-bece-76f57ace7559")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("34119191-94d3-4231-8f17-c71f556c29f0")
+    @objid ("1e55aa31-a19e-42bd-8dd7-621bdf8a0778")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(UmlModelElement.MQNAME);
         this.registerFactory(new LinkObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
         this.modelDep = new ModelSmDependency();
         this.modelDep.init("Model", this, metamodel.getMClass(Association.MQNAME), 0, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.modelDep);
-        
+
         this.linkEndDep = new LinkEndSmDependency();
         this.linkEndDep.init("LinkEnd", this, metamodel.getMClass(LinkEnd.MQNAME), 2, 2 );
         registerDependency(this.linkEndDep);
-        
+
         this.sentDep = new SentSmDependency();
         this.sentDep.init("Sent", this, metamodel.getMClass(CommunicationChannel.MQNAME), 0, 1 );
         registerDependency(this.sentDep);
-        
-        
+
     }
 
-    @objid ("09a82bb4-4f56-4971-91a6-8719c0e56bb6")
+    @objid ("1280096e-b855-46b6-bfa6-b74078d595c6")
     public SmDependency getModelDep() {
         if (this.modelDep == null) {
         	this.modelDep = this.getDependencyDef("Model");
@@ -130,7 +128,7 @@ public class LinkSmClass extends UmlModelElementSmClass {
         return this.modelDep;
     }
 
-    @objid ("6df78675-af2d-4e79-854d-08929065888e")
+    @objid ("d5c8d2c7-f240-48f7-916d-705a63d85428")
     public SmDependency getLinkEndDep() {
         if (this.linkEndDep == null) {
         	this.linkEndDep = this.getDependencyDef("LinkEnd");
@@ -138,7 +136,7 @@ public class LinkSmClass extends UmlModelElementSmClass {
         return this.linkEndDep;
     }
 
-    @objid ("acc18df2-00df-434c-a8a4-e44c44436043")
+    @objid ("add6d366-75c2-4c77-ab87-60fc23855411")
     public SmDependency getSentDep() {
         if (this.sentDep == null) {
         	this.sentDep = this.getDependencyDef("Sent");
@@ -146,30 +144,30 @@ public class LinkSmClass extends UmlModelElementSmClass {
         return this.sentDep;
     }
 
-    @objid ("feff8428-fd7b-43a8-b01a-71e394898a18")
+    @objid ("a2b2c62c-fbf9-4bd1-a112-0aeda472b084")
     @Override
     public boolean isLinkMetaclass() {
         return true;
-        
+
     }
 
     @objid ("1833ca8a-f3f5-4b15-8f0b-2734bb6afd57")
     private static class LinkObjectFactory implements ISmObjectFactory {
-        @objid ("bc4e2ed6-9fd6-4f50-ab5e-2bbb8ad9e1c9")
+        @objid ("3d73b5cd-c02e-42d1-8990-ba9d38c3e6ee")
         private LinkSmClass smClass;
 
-        @objid ("40ac2aeb-4469-42cc-97f9-60785d5132c1")
-        public  LinkObjectFactory(LinkSmClass smClass) {
+        @objid ("7a228ee1-d496-44bc-9737-42fe2b5c5ec3")
+        public LinkObjectFactory(LinkSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("e70afab1-3c3e-4c97-a32a-9e831abc7570")
+        @objid ("bc743a9c-4ee6-4c8b-8e7a-e73eb1b9f817")
         @Override
         public ISmObjectData createData() {
             return new LinkData(this.smClass);
         }
 
-        @objid ("0aa0acad-51f0-4eb3-9b96-d8d3236df3a4")
+        @objid ("5db3e6fc-16ca-4b41-a600-61e9c369d324")
         @Override
         public SmObjectImpl createImpl() {
             return new LinkImpl();
@@ -179,88 +177,88 @@ public class LinkSmClass extends UmlModelElementSmClass {
 
     @objid ("ec54e2b2-6109-4168-91a0-5eefd848bcd5")
     public static class ModelSmDependency extends SmSingleDependency {
-        @objid ("356df993-b77f-4c7d-90e8-cfb6d3229a91")
+        @objid ("0c98052b-100c-4e74-916e-df9f87974d6f")
         private SmDependency symetricDep;
 
-        @objid ("e8046dce-5cc5-471a-a473-75d0d9268232")
+        @objid ("d20d28a1-53be-404c-9db4-6f756113354e")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((LinkData) data).mModel;
         }
 
-        @objid ("83a1ad5c-8536-401a-ad30-0d312c8ca798")
+        @objid ("ed1c7f02-5d01-47a9-b183-4fba3ce93572")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((LinkData) data).mModel = value;
         }
 
-        @objid ("7f8131c9-fe7c-45c7-96c6-09b4117db26c")
+        @objid ("d4fc40df-3f52-4e8d-b6ab-86e0fb8bd5b1")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((AssociationSmClass)this.getTarget()).getOccurenceDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("5403eb98-43c7-459d-9dbe-56dcf6991d37")
     public static class LinkEndSmDependency extends SmMultipleDependency {
-        @objid ("f9769621-6e62-4b90-b470-53f7ac517738")
+        @objid ("ab734319-d53a-440d-9152-fbac5b2581fd")
         private SmDependency symetricDep;
 
-        @objid ("738ea748-e42d-415e-994d-26867e193226")
+        @objid ("f665bff4-57be-4c85-956d-dd35a59d99d6")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((LinkData)data).mLinkEnd != null)? ((LinkData)data).mLinkEnd:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("7fda4724-e99e-4783-8982-2e3f06b36c2e")
+        @objid ("3d3a388a-5876-4907-a81c-2e3dde661170")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((LinkData) data).mLinkEnd = values;
-            
+
         }
 
-        @objid ("986681e1-95ee-4a8c-86d1-6d3ce95f8ed4")
+        @objid ("7e31fbcb-a77d-4116-841d-c3906c1c50f4")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((LinkEndSmClass)this.getTarget()).getLinkDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("c74a8f11-fb0e-48ed-a6d6-af99d808d2a5")
     public static class SentSmDependency extends SmSingleDependency {
-        @objid ("3c3dae30-e823-4a38-8af1-7217e9d16b59")
+        @objid ("49b52518-a07d-4a96-959b-0c8dc4896976")
         private SmDependency symetricDep;
 
-        @objid ("d1729932-81c2-4ced-a686-955e0f7c15b7")
+        @objid ("00e96b31-5e42-44c1-9d14-6af0a0d84575")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((LinkData) data).mSent;
         }
 
-        @objid ("af6a1b5e-c53f-4ba4-b5f2-5589f69e3d85")
+        @objid ("16542497-78ed-4baf-8409-25ba817a3f56")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((LinkData) data).mSent = value;
         }
 
-        @objid ("8c54c0ac-e1c3-4612-9a87-ba88104a512c")
+        @objid ("803c43bb-30a2-4465-a235-62a93a37b190")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((CommunicationChannelSmClass)this.getTarget()).getChannelDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

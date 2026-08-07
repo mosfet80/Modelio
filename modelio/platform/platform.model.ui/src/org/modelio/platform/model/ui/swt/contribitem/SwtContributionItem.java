@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.swt.contribitem;
 
@@ -54,13 +54,14 @@ import org.eclipse.swt.widgets.Widget;
  * <li>No need to provide an action, all setters are on SwtContributionItem</li>
  * <li>Fixed no tooltip on menu items.</li>
  * </ul>
- * 
+ *
  * A contribution item which runs an action set with {@link #setAction(Runnable)}.
  * <p>
  * This class may be instantiated; it is not intended to be subclassed.
  * </p>
- * @since Modelio 3.7
+ *
  * @author cma
+ * @since Modelio 3.7
  */
 @objid ("a559f7f7-aee6-450c-a09d-8a727311b351")
 public class SwtContributionItem extends ContributionItem {
@@ -93,9 +94,9 @@ public class SwtContributionItem extends ContributionItem {
      * a string inserted in the middle of text that has been shortened
      */
     @objid ("c5853e8b-ef2d-42e1-8754-1b0d9f769034")
-    private static final String ellipsis = "..."; // $NON-NLS-1$
-    
+    private static final String ellipsis = "...";
 
+    // $NON-NLS-1$
     @objid ("8c404366-d013-493d-a5d7-74c44019dd74")
     private boolean enabled = true;
 
@@ -105,6 +106,7 @@ public class SwtContributionItem extends ContributionItem {
     /**
      * The presentation mode, which is the bitwise-or of the
      * <code>MODE_*</code> constants.
+     *
      * @see #MODE_FORCE_TEXT
      */
     @objid ("344cfcc8-2e70-4ac3-82d9-3cf5096328c0")
@@ -120,84 +122,84 @@ public class SwtContributionItem extends ContributionItem {
     private String tooltipText;
 
     /**
-     * The action.
-     */
-    @objid ("8bfea282-1f0e-49d8-828b-bb0d1347314f")
-    private Runnable action;
-
-    /**
      * Listener for SWT button widget events.
      */
-    @objid ("c799ad59-b1d9-44f2-b68a-d69536369b01")
+    @objid ("0a8c5369-2807-4c49-82da-2f93a6aa45fa")
     private Listener buttonListener;
 
-    @objid ("124e86e5-237b-4fc1-a37b-5b7792676c3d")
+    @objid ("a64ec074-3b27-4134-8dbd-aa964622e06b")
     private ImageDescriptor disabledImageDescriptor;
 
-    @objid ("bd529461-f2ee-4b7f-8490-5f00933fb95b")
+    @objid ("98f27cb2-4390-42ad-9749-0e6124781392")
     private HelpListener helpListener;
 
     /**
      * This is the easiest way to hold the menu until we can swap it in to the
      * proxy.
      */
-    @objid ("a6275da3-e48a-4c10-9046-8c5021e8c53a")
+    @objid ("965b1375-c852-45c5-af23-2e0be7c86384")
     private Menu holdMenu;
 
-    @objid ("c74bd7b4-390d-4bad-b17a-141965b90f86")
+    @objid ("6165c311-a38b-4996-a45b-6b49e3b3fd26")
     private ImageDescriptor hoverImageDescriptor;
 
-    @objid ("375b3bb1-58f9-4cd2-8c31-d668afd64897")
+    @objid ("aef27b9e-90fe-42a0-881b-1618d491081e")
     private ImageDescriptor imageDescriptor;
 
     /**
      * Remembers all images in use by this contribution item
      */
-    @objid ("256ef0b6-c043-495a-bb05-8362f696ae8a")
+    @objid ("39ea0aa4-ff4a-43b1-9149-b47e90d8f3ae")
     private LocalResourceManager imageManager;
 
-    @objid ("61080993-25ed-4c03-b217-9af45f84ba30")
+    @objid ("00992634-bd98-4d99-8492-7b855a53af6b")
     private IMenuCreator menuCreator;
 
-    @objid ("fc279058-4bc7-4b80-8f3c-a645a753c5c1")
+    @objid ("cf0465c2-32d7-44c4-a23f-e61d912aebc3")
     private Listener menuCreatorListener;
 
     /**
      * Listener for SWT menu item widget events.
      */
-    @objid ("c5588b4a-fae5-49c4-99e3-6dfe6bf265d7")
+    @objid ("e346bee1-033a-4c2f-8c6b-751a8e3efa8f")
     private Listener menuItemListener;
 
     /**
      * Listener for SWT tool item widget events.
      */
-    @objid ("238e25bd-2acc-449c-a93f-5e27811c91e7")
+    @objid ("0dde0f77-5f33-4a69-a9e2-3775301e17ce")
     private Listener toolItemListener;
 
     /**
      * The widget created for this item; <code>null</code> before creation and
      * after disposal.
      */
-    @objid ("cde0f268-8861-4415-8611-f2671e4d8b84")
+    @objid ("8e03e89b-bba5-4c1f-854e-dbc1414cb2b1")
     private Widget widget;
+
+    /**
+     * The action.
+     */
+    @objid ("8bfea282-1f0e-49d8-828b-bb0d1347314f")
+    private Runnable action;
 
     /**
      * Creates a new contribution item from the given action. The id of the
      * action is used as the id of the item.
+     *
      * @param style the action
      */
     @objid ("9c223825-f21c-4778-afdd-1622ec494241")
-    public  SwtContributionItem(Style style) {
+    public SwtContributionItem(Style style) {
         super();
         this.style = style;
-        
     }
 
     /**
      * Creates a new contribution item from the {@link Style#AS_PUSH_BUTTON} action.
      */
     @objid ("918a1ae8-fa83-4ef1-8eee-534f07bc9523")
-    public  SwtContributionItem() {
+    public SwtContributionItem() {
         this(Style.AS_PUSH_BUTTON);
     }
 
@@ -209,7 +211,6 @@ public class SwtContributionItem extends ContributionItem {
             this.widget = null;
         }
         this.holdMenu = null;
-        
     }
 
     /**
@@ -245,7 +246,7 @@ public class SwtContributionItem extends ContributionItem {
                     flags = SWT.RADIO;
                 }
             }
-        
+
             Button b = new Button(parent, flags);
             b.setData(this);
             b.addListener(SWT.Dispose, getButtonListener());
@@ -255,10 +256,9 @@ public class SwtContributionItem extends ContributionItem {
                 b.addHelpListener(getHelpListener());
             }
             this.widget = b;
-        
+
             update(null);
         }
-        
     }
 
     /**
@@ -284,7 +284,7 @@ public class SwtContributionItem extends ContributionItem {
                     flags = SWT.CASCADE;
                 }
             }
-        
+
             MenuItem mi = null;
             if (index >= 0) {
                 mi = new MenuItem(parent, flags, index);
@@ -292,14 +292,14 @@ public class SwtContributionItem extends ContributionItem {
                 mi = new MenuItem(parent, flags);
             }
             this.widget = mi;
-        
+
             mi.setData(this);
             mi.addListener(SWT.Dispose, getMenuItemListener());
             mi.addListener(SWT.Selection, getMenuItemListener());
             if (getHelpListener() != null) {
                 mi.addHelpListener(getHelpListener());
             }
-        
+
             if (flags == SWT.CASCADE) {
                 // just create a proxy for now, if the user shows it then
                 // fill it in
@@ -308,10 +308,9 @@ public class SwtContributionItem extends ContributionItem {
                 subMenu.addListener(SWT.Hide, getMenuCreatorListener());
                 mi.setMenu(subMenu);
             }
-        
+
             update(null);
         }
-        
     }
 
     /**
@@ -337,7 +336,7 @@ public class SwtContributionItem extends ContributionItem {
                     flags = SWT.DROP_DOWN;
                 }
             }
-        
+
             ToolItem ti = null;
             if (index >= 0) {
                 ti = new ToolItem(parent, flags, index);
@@ -347,13 +346,12 @@ public class SwtContributionItem extends ContributionItem {
             ti.setData(this);
             ti.addListener(SWT.Selection, getToolItemListener());
             ti.addListener(SWT.Dispose, getToolItemListener());
-        
+
             this.widget = ti;
-        
+
             update(null);
-        
+
         }
-        
     }
 
     @objid ("2050489d-6a81-4ab5-be73-adcea121b2cc")
@@ -363,6 +361,7 @@ public class SwtContributionItem extends ContributionItem {
 
     /**
      * Returns the action associated with this contribution item.
+     *
      * @return the action
      */
     @objid ("61ab63dc-52d3-4c87-b554-5373efc42db5")
@@ -375,6 +374,7 @@ public class SwtContributionItem extends ContributionItem {
      * <code>MODE_*</code> constants. The default mode setting is 0, meaning
      * that for menu items, both text and image are shown (if present), but for
      * tool items, the text is shown only if there is no image.
+     *
      * @return the presentation mode settings
      */
     @objid ("433ba94b-bce9-4e11-bc7f-342415b56772")
@@ -395,6 +395,7 @@ public class SwtContributionItem extends ContributionItem {
      * When the user presses a key sequence that matches the mnemonic, a selection event occurs.
      * On most platforms, the mnemonic appears underlined but may be emphasised in a platform specific manner.
      * The mnemonic indicator character '&' can be escaped by doubling it in the string, causing a single '&' to be displayed.
+     *
      * @return the item text.
      */
     @objid ("eb588b1b-7820-4705-abc0-cbcb366dd8d2")
@@ -409,6 +410,7 @@ public class SwtContributionItem extends ContributionItem {
 
     /**
      * Returns whether color icons should be used in toolbars.
+     *
      * @return <code>true</code> if color icons should be used in toolbars,
      * <code>false</code> otherwise
      */
@@ -426,6 +428,7 @@ public class SwtContributionItem extends ContributionItem {
      * actual type of the widget can be any valid control for this
      * ContributionItem's current ContributionManager.
      * </p>
+     *
      * @return the widget, or <code>null</code> depending on the lifecycle.
      */
     @objid ("57948fff-83a1-4567-b4ac-25a1e86c4dfd")
@@ -537,14 +540,13 @@ public class SwtContributionItem extends ContributionItem {
     /**
      * Sets the presentation mode, which is the bitwise-or of the
      * <code>MODE_*</code> constants.
-     * @see #MODE_FORCE_TEXT
+     *
      * @param mode the presentation mode settings
      */
     @objid ("b8159e7d-1714-46c6-88e4-2f920aa870e1")
     public void setMode(int mode) {
         this.mode = mode;
         update();
-        
     }
 
     /**
@@ -555,6 +557,7 @@ public class SwtContributionItem extends ContributionItem {
      * When the user presses a key sequence that matches the mnemonic, a selection event occurs.
      * On most platforms, the mnemonic appears underlined but may be emphasised in a platform specific manner.
      * The mnemonic indicator character '&' can be escaped by doubling it in the string, causing a single '&' to be displayed.
+     *
      * @param text the item text.
      */
     @objid ("ab5c6720-2cc9-4edf-88d4-1458c5541105")
@@ -571,11 +574,9 @@ public class SwtContributionItem extends ContributionItem {
      * Set the tooltip text.
      * <p>
      * Automatically escape mnemonics.
-     * @see MenuItem#setToolTipText(String)
-     * @see ToolItem#setToolTipText(String)
-     * @see Button#setToolTipText(String)
-     * @see #setTooltipText(String, boolean)
+     *
      * @param tooltipText the tooltip text.
+     * @see #setTooltipText(String, boolean)
      */
     @objid ("77b70109-7fe0-4877-a571-4687d7801c4c")
     public void setTooltipText(String tooltipText) {
@@ -586,9 +587,7 @@ public class SwtContributionItem extends ContributionItem {
      * Set the tooltip text.
      * <p>
      * Escape mnemonics if escapeMnemonics is true .
-     * @see MenuItem#setToolTipText(String)
-     * @see ToolItem#setToolTipText(String)
-     * @see Button#setToolTipText(String)
+     *
      * @param tooltipText the tooltip text.
      * @param escapeMnemonics whether to escape '&' mnemonic character.
      */
@@ -599,11 +598,11 @@ public class SwtContributionItem extends ContributionItem {
         } else {
             this.tooltipText = tooltipText;
         }
-        
     }
 
     /**
      * Sets whether color icons should be used in toolbars.
+     *
      * @param useColorIcons <code>true</code> if color icons should be used in toolbars,
      * <code>false</code> otherwise
      */
@@ -624,6 +623,7 @@ public class SwtContributionItem extends ContributionItem {
 
     /**
      * Synchronizes the UI with the given property.
+     *
      * @param propertyName the name of the property, or <code>null</code> meaning all
      * applicable properties
      */
@@ -631,34 +631,34 @@ public class SwtContributionItem extends ContributionItem {
     @Override
     public void update(String propertyName) {
         if (this.widget != null) {
-        
+
             if (this.widget instanceof ToolItem) {
                 ToolItem ti = (ToolItem) this.widget;
                 updateToolItem(ti);
                 return;
             }
-        
+
             if (this.widget instanceof MenuItem) {
                 MenuItem mi = (MenuItem) this.widget;
-        
+
                 updateMenuItem(mi);
-        
+
                 return;
             }
-        
+
             if (this.widget instanceof Button) {
                 Button button = (Button) this.widget;
-        
+
                 updateButton(button);
                 return;
             }
         }
-        
     }
 
     /**
      * Returns <code>true</code> if this item is allowed to enable,
      * <code>false</code> otherwise.
+     *
      * @return if this item is allowed to be enabled
      */
     @objid ("91e06e50-9dc5-4779-a39b-e8c273e2dbb6")
@@ -675,6 +675,7 @@ public class SwtContributionItem extends ContributionItem {
      * the width of the given ToolItem.The default implementation replaces
      * characters in the center of the original string with an ellipsis ("...").
      * Override if you need a different strategy.
+     *
      * @param textValue the text to shorten
      * @param item the tool item the text belongs to
      * @return the shortened string
@@ -684,23 +685,23 @@ public class SwtContributionItem extends ContributionItem {
         if (textValue == null) {
             return null;
         }
-        
+
         GC gc = new GC(item.getParent());
         try {
             Image image = item.getImage();
             int maxWidth = image != null ? image.getBounds().width * 4 : 32;
-        
+
             if (gc.textExtent(textValue).x < maxWidth) {
                 return textValue;
             }
-        
+
             for (int i = textValue.length(); i > 0; i--) {
                 String test = textValue.substring(0, i);
                 test = test + SwtContributionItem.ellipsis;
                 if (gc.textExtent(test).x < maxWidth) {
                     return test;
                 }
-        
+
             }
         } finally {
             gc.dispose();
@@ -712,25 +713,24 @@ public class SwtContributionItem extends ContributionItem {
     @objid ("55a6733f-fc2f-49bf-a5aa-a56fc2ed29c5")
     protected void updateButton(Button button) {
         updateImages(false);
-        
+
         String myText = getText();
         boolean showText = myText != null && ((getMode() & SwtContributionItem.MODE_FORCE_TEXT) != 0 || !hasImages());
         String textToSet = showText ? myText : ""; //$NON-NLS-1$
         button.setText(textToSet);
         button.setToolTipText(getToolTipText());
-        
+
         boolean shouldBeEnabled = isEnabled()
                 && isEnabledAllowed();
-        
+
         if (button.getEnabled() != shouldBeEnabled) {
             button.setEnabled(shouldBeEnabled);
         }
-        
+
         boolean bv = isChecked();
         if (button.getSelection() != bv) {
             button.setSelection(bv);
         }
-        
     }
 
     @objid ("b206b84b-1f9b-47aa-8d11-66ed2b3537b3")
@@ -739,14 +739,14 @@ public class SwtContributionItem extends ContributionItem {
         String myText = null;
         IContributionManagerOverrides overrides = null;
         String acceleratorText = null;
-        
+
         if (getParent() != null) {
             overrides = getParent().getOverrides();
             if (overrides != null) {
                 myText = overrides.getText(this);
             }
         }
-        
+
         if (myText == null) {
             myText = getText();
         }
@@ -754,7 +754,7 @@ public class SwtContributionItem extends ContributionItem {
             myAccelerator = getAccelerator();
         }
         mi.setAccelerator(myAccelerator);
-        
+
         if (myText != null) {
             // use extracted accelerator text in case accelerator
             // cannot be fully represented in one int (e.g.
@@ -764,41 +764,40 @@ public class SwtContributionItem extends ContributionItem {
                 acceleratorText = Action.convertAccelerator(myAccelerator);
             }
         }
-        
+
         if (myText == null) {
             myText = ""; //$NON-NLS-1$
         } else {
             myText = Action.removeAcceleratorText(myText);
         }
-        
+
         if (acceleratorText == null) {
             mi.setText(myText);
         } else {
             mi.setText(myText + '\t' + acceleratorText);
         }
-        
+
         String toolTip = getToolTipText();
         if (toolTip != null && Util.isWindows()) {
             // Infamous bug under windows, escaped mnemonic indicators are not properly taken into account
             toolTip = toolTip.replace("&&", "&");
         }
         mi.setToolTipText(toolTip);
-        
+
         updateImages(false);
-        
+
         boolean shouldBeEnabled = isEnabled()
                 && isEnabledAllowed();
-        
+
         if (mi.getEnabled() != shouldBeEnabled) {
             mi.setEnabled(shouldBeEnabled);
         }
-        
+
         boolean bv = isChecked();
-        
+
         if (mi.getSelection() != bv) {
             mi.setSelection(bv);
         }
-        
     }
 
     @objid ("c222c2b8-7b38-479b-9c79-a99235bc4428")
@@ -808,28 +807,28 @@ public class SwtContributionItem extends ContributionItem {
         // by MODE_FORCE_TEXT
         boolean showText = myText != null
                 && ((getMode() & SwtContributionItem.MODE_FORCE_TEXT) != 0 || !hasImages());
-        
+
         // only do the trimming if the text will be used
         if (showText && myText != null) {
             myText = LegacyActionTools.removeAcceleratorText(myText);
         }
-        
+
         String textToSet = showText ? shortenText(myText, ti) : ""; //$NON-NLS-1$
         ti.setText(textToSet);
-        
+
         // only substitute a missing image if it has no text
         updateImages(!showText);
-        
+
         String toolTip = getToolTipText();
         if (toolTip == null || toolTip.isEmpty()) {
             toolTip = myText;
         }
-        
+
         if (toolTip != null && Util.isWindows()) {
             // Infamous bug under windows, escaped mnemonic indicators are not properly taken into account
             toolTip = toolTip.replace("&&", "&&&&&&");
         }
-        
+
         // if the text is showing, then only set the tooltip if
         // different
         if (!showText || toolTip != null && !toolTip.equals(myText)) {
@@ -837,25 +836,25 @@ public class SwtContributionItem extends ContributionItem {
         } else {
             ti.setToolTipText(null);
         }
-        
+
         boolean shouldBeEnabled = isEnabled()
                 && isEnabledAllowed();
-        
+
         if (ti.getEnabled() != shouldBeEnabled) {
             ti.setEnabled(shouldBeEnabled);
         }
-        
+
         boolean bv = isChecked();
-        
+
         if (ti.getSelection() != bv) {
             ti.setSelection(bv);
         }
-        
     }
 
     /**
      * Create MenuItems in the proxy menu that can execute the real menu items
      * if selected. Create proxy menus for any real item submenus.
+     *
      * @param realMenu the real menu to copy from
      * @param proxy the proxy menu to populate
      */
@@ -864,11 +863,11 @@ public class SwtContributionItem extends ContributionItem {
         if (realMenu.isDisposed() || proxy.isDisposed()) {
             return;
         }
-        
+
         // we notify the real menu so it can populate itself if it was
         // listening for SWT.Show
         realMenu.notifyListeners(SWT.Show, null);
-        
+
         final Listener passThrough = event -> {
             if (!event.widget.isDisposed()) {
                 Widget realItem = (Widget) event.widget.getData();
@@ -886,7 +885,7 @@ public class SwtContributionItem extends ContributionItem {
                 }
             }
         };
-        
+
         MenuItem[] items = realMenu.getItems();
         for (int i = 0; i < items.length; i++) {
             final MenuItem realItem = items[i];
@@ -897,12 +896,12 @@ public class SwtContributionItem extends ContributionItem {
             proxyItem.setImage(realItem.getImage());
             proxyItem.setSelection(realItem.getSelection());
             proxyItem.setText(realItem.getText());
-        
+
             // pass through any events
             proxyItem.addListener(SWT.Selection, passThrough);
             proxyItem.addListener(SWT.Arm, passThrough);
             proxyItem.addListener(SWT.Help, passThrough);
-        
+
             final Menu itemMenu = realItem.getMenu();
             if (itemMenu != null) {
                 // create a proxy for any sub menu items
@@ -922,7 +921,6 @@ public class SwtContributionItem extends ContributionItem {
                 subMenu.addListener(SWT.Hide, passThrough);
             }
         }
-        
     }
 
     /**
@@ -934,11 +932,11 @@ public class SwtContributionItem extends ContributionItem {
             this.imageManager.dispose();
             this.imageManager = null;
         }
-        
     }
 
     /**
      * Returns the listener for SWT button widget events.
+     *
      * @return a listener for button events
      */
     @objid ("b9bc0099-5120-4624-bf4a-c26a67b93958")
@@ -990,6 +988,7 @@ public class SwtContributionItem extends ContributionItem {
     /**
      * Handle show and hide on the proxy menu for IAction.AS_DROP_DOWN_MENU
      * actions.
+     *
      * @return the appropriate listener
      */
     @objid ("6cf14fc0-78e8-45e6-a9ae-1db9d0fa0dab")
@@ -1011,6 +1010,7 @@ public class SwtContributionItem extends ContributionItem {
 
     /**
      * Returns the listener for SWT menu item widget events.
+     *
      * @return a listener for menu item events
      */
     @objid ("934938fa-5122-4345-ac59-e5f466509450")
@@ -1036,6 +1036,7 @@ public class SwtContributionItem extends ContributionItem {
 
     /**
      * Returns the listener for SWT tool item widget events.
+     *
      * @return a listener for tool item events
      */
     @objid ("157b6c2d-6664-4496-a084-326af40da730")
@@ -1062,6 +1063,7 @@ public class SwtContributionItem extends ContributionItem {
 
     /**
      * The proxy menu is being hidden, so we need to make it go away.
+     *
      * @param proxy the proxy menu
      */
     @objid ("d931473f-9b60-4ad8-8d2a-30e4d084d5d1")
@@ -1078,11 +1080,11 @@ public class SwtContributionItem extends ContributionItem {
             }
             this.holdMenu = null;
         });
-        
     }
 
     /**
      * The proxy menu is being shown, we better get the real menu.
+     *
      * @param proxy the proxy menu
      */
     @objid ("d1d2ee64-2c77-4de7-bd63-c49fb0116dd4")
@@ -1098,7 +1100,6 @@ public class SwtContributionItem extends ContributionItem {
             return;
         }
         copyMenu(this.holdMenu, proxy);
-        
     }
 
     /**
@@ -1116,13 +1117,12 @@ public class SwtContributionItem extends ContributionItem {
                     mc.dispose();
                 }
             }
-        
+
             // Clear the widget field.
             this.widget = null;
-        
+
             disposeOldImages();
         }
-        
     }
 
     /**
@@ -1133,7 +1133,7 @@ public class SwtContributionItem extends ContributionItem {
         Widget item = e.widget;
         if (item != null) {
             int itemStyle = item.getStyle();
-        
+
             if ((itemStyle & (SWT.TOGGLE | SWT.CHECK)) != 0) {
                 if (getStyle() == Style.AS_CHECK_BOX) {
                     setChecked(selection);
@@ -1169,32 +1169,31 @@ public class SwtContributionItem extends ContributionItem {
                     }
                 }
             }
-        
+
             // Ensure action is enabled first.
             if (isEnabled()) {
                 boolean trace = Policy.TRACE_ACTIONS;
-        
+
                 long ms = 0L;
                 if (trace) {
                     ms = System.currentTimeMillis();
                     System.out.println("Running action: " + getText()); //$NON-NLS-1$
                 }
-        
+
                 this.action.run();
-        
+
                 if (trace) {
                     System.out.println((System.currentTimeMillis() - ms)
                             + " ms to run action: " + getText()); //$NON-NLS-1$
                 }
             }
         }
-        
     }
 
     /**
      * Returns whether the given action has any images.
-     * @param actionToCheck
-     * the action
+     *
+     * @param actionToCheck the action
      * @return <code>true</code> if the action has any images,
      * <code>false</code> if not
      */
@@ -1207,6 +1206,7 @@ public class SwtContributionItem extends ContributionItem {
 
     /**
      * Updates the images for this action.
+     *
      * @param forceImage <code>true</code> if some form of image is compulsory, and
      * <code>false</code> if it is acceptable for this item to have
      * no image
@@ -1216,7 +1216,7 @@ public class SwtContributionItem extends ContributionItem {
     @objid ("524ed4dc-595c-4c0a-b9df-14f8b3d62a8f")
     private boolean updateImages(boolean forceImage) {
         ResourceManager parentResourceManager = JFaceResources.getResources();
-        
+
         if (this.widget instanceof ToolItem) {
             if (SwtContributionItem.USE_COLOR_ICONS) {
                 ImageDescriptor image = getHoverImageDescriptor();
@@ -1224,15 +1224,15 @@ public class SwtContributionItem extends ContributionItem {
                     image = getImageDescriptor();
                 }
                 ImageDescriptor disabledImage = getDisabledImageDescriptor();
-        
+
                 // Make sure there is a valid image.
                 if (image == null && forceImage) {
                     image = ImageDescriptor.getMissingImageDescriptor();
                 }
-        
+
                 LocalResourceManager localManager = new LocalResourceManager(
                         parentResourceManager);
-        
+
                 // performance: more efficient in SWT to set disabled and hot
                 // image before regular image
                 ((ToolItem) this.widget)
@@ -1241,16 +1241,16 @@ public class SwtContributionItem extends ContributionItem {
                                         .createImageWithDefault(disabledImage));
                 ((ToolItem) this.widget).setImage(image == null ? null
                         : localManager.createImageWithDefault(image));
-        
+
                 disposeOldImages();
                 this.imageManager = localManager;
-        
+
                 return image != null;
             }
             ImageDescriptor image = getImageDescriptor();
             ImageDescriptor hoverImage = getHoverImageDescriptor();
             ImageDescriptor disabledImage = getDisabledImageDescriptor();
-        
+
             // If there is no regular image, but there is a hover image,
             // convert the hover image to gray and use it as the regular image.
             if (image == null && hoverImage != null) {
@@ -1264,17 +1264,17 @@ public class SwtContributionItem extends ContributionItem {
                     image = ImageDescriptor.createWithFlags(getImageDescriptor(), SWT.IMAGE_GRAY);
                 }
             }
-        
+
             // Make sure there is a valid image.
             if (hoverImage == null && image == null && forceImage) {
                 image = ImageDescriptor.getMissingImageDescriptor();
             }
-        
+
             // Create a local resource manager to remember the images we've
             // allocated for this tool item
             LocalResourceManager localManager = new LocalResourceManager(
                     parentResourceManager);
-        
+
             // performance: more efficient in SWT to set disabled and hot image
             // before regular image
             ((ToolItem) this.widget).setDisabledImage(disabledImage == null ? null
@@ -1283,15 +1283,15 @@ public class SwtContributionItem extends ContributionItem {
                     : localManager.createImageWithDefault(hoverImage));
             ((ToolItem) this.widget).setImage(image == null ? null : localManager
                     .createImageWithDefault(image));
-        
+
             // Now that we're no longer referencing the old images, clear them
             // out.
             disposeOldImages();
             this.imageManager = localManager;
-        
+
             return image != null;
         } else if (this.widget instanceof Item || this.widget instanceof Button) {
-        
+
             // Use hover image if there is one, otherwise use regular image.
             ImageDescriptor image = getHoverImageDescriptor();
             if (image == null) {
@@ -1301,12 +1301,12 @@ public class SwtContributionItem extends ContributionItem {
             if (image == null && forceImage) {
                 image = ImageDescriptor.getMissingImageDescriptor();
             }
-        
+
             // Create a local resource manager to remember the images we've
             // allocated for this widget
             LocalResourceManager localManager = new LocalResourceManager(
                     parentResourceManager);
-        
+
             if (this.widget instanceof Item) {
                 ((Item) this.widget).setImage(image == null ? null : localManager
                         .createImageWithDefault(image));
@@ -1314,12 +1314,12 @@ public class SwtContributionItem extends ContributionItem {
                 ((Button) this.widget).setImage(image == null ? null : localManager
                         .createImageWithDefault(image));
             }
-        
+
             // Now that we're no longer referencing the old images, clear them
             // out.
             disposeOldImages();
             this.imageManager = localManager;
-        
+
             return image != null;
         }
         return false;
@@ -1330,12 +1330,11 @@ public class SwtContributionItem extends ContributionItem {
     public void setVisible(boolean visible) {
         if (visible != isVisible()) {
             super.setVisible(visible);
-        
+
             if (getParent() != null) {
                 getParent().markDirty();
             }
         }
-        
     }
 
     @objid ("489ace3b-c1c6-4ac2-9e5e-c9975e15a0dd")

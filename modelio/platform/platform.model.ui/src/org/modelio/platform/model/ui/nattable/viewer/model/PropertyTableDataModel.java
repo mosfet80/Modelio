@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.viewer.model;
 
@@ -64,16 +64,15 @@ public class PropertyTableDataModel {
     }
 
     @objid ("a0d0db31-5f05-4730-9e8d-a2845a5958d0")
-    public  PropertyTableDataModel(IPropertyModel<?> propertyModel) {
+    public PropertyTableDataModel(IPropertyModel<?> propertyModel) {
         this.propertyModel = propertyModel;
-        
+
         this.bodyDataProvider = new BodyDataProvider(this);
         this.columnHeaderDataProvider = new ColumnHeaderDataProvider(this);
         this.rowHeaderDataProvider = new RowHeaderDataProvider(this);
-        
+
         // set data
         rebuildData();
-        
     }
 
     @objid ("fe641d0e-2df1-4f53-904d-a9d134aaca80")
@@ -82,6 +81,7 @@ public class PropertyTableDataModel {
     }
 
     /**
+     *
      * @return the table main data
      */
     @objid ("6d906a41-75f7-4219-ad7d-25d9a4003a14")
@@ -90,6 +90,7 @@ public class PropertyTableDataModel {
     }
 
     /**
+     *
      * @return the table row headers data
      */
     @objid ("65676f3e-931d-4ebf-9c84-cff866538413")
@@ -98,6 +99,7 @@ public class PropertyTableDataModel {
     }
 
     /**
+     *
      * @return the table column headers data
      */
     @objid ("c0c4e43a-d2ae-4a92-9338-fa914849659d")
@@ -112,13 +114,12 @@ public class PropertyTableDataModel {
         for (int i = 0; i < this.propertyModel.getRowsNumber() ; i++) {
             this.rows.add(i);
         }
-        
+
         // Columns
         this.columns.clear();
         for (final Integer elt : getColumns()) {
             this.columns.add(elt);
         }
-        
     }
 
     @objid ("f64a89b8-4b2b-4be9-9eec-6af620de4d34")
@@ -157,7 +158,7 @@ public class PropertyTableDataModel {
         private final PropertyTableDataModel base;
 
         @objid ("c5b33121-ea4f-4338-a2f5-774d25cebb0e")
-        public  BodyDataProvider(PropertyTableDataModel base) {
+        public BodyDataProvider(PropertyTableDataModel base) {
             this.base = base;
         }
 
@@ -189,7 +190,7 @@ public class PropertyTableDataModel {
             try (ITransaction t = session.getTransactionSupport().createTransaction(String.format("Update %s '%s' to : %s", editedElement, pname, value))) {
                 // code
                 this.base.setValueAt(1 + row, col, value);
-            
+
                 // Commit transaction
                 t.commit();
             } catch (RuntimeException | LinkageError e) {
@@ -197,12 +198,12 @@ public class PropertyTableDataModel {
                 CoreUi.LOG.error(e);
                 throw e;
             }
-            
         }
 
     }
 
     /**
+     *
      * @author phv
      */
     @objid ("d2e92d1d-4851-446b-8a88-111d0cef0bab")
@@ -211,7 +212,7 @@ public class PropertyTableDataModel {
         private final PropertyTableDataModel base;
 
         @objid ("e35f7928-85ef-4afb-b7b8-f04214f84410")
-        public  ColumnHeaderDataProvider(PropertyTableDataModel base) {
+        public ColumnHeaderDataProvider(PropertyTableDataModel base) {
             this.base = base;
         }
 
@@ -248,7 +249,7 @@ public class PropertyTableDataModel {
         private final PropertyTableDataModel base;
 
         @objid ("e22304ca-75a6-41e6-99e2-ba12a7dbb338")
-        public  RowHeaderDataProvider(PropertyTableDataModel base) {
+        public RowHeaderDataProvider(PropertyTableDataModel base) {
             this.base = base;
         }
 

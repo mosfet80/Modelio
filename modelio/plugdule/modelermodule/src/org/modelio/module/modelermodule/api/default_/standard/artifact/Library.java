@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class Library {
      * Tells whether a {@link Library proxy} can be instantiated from a {@link MObject} checking it is a {@link Artifact} stereotyped << library >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,7 +73,7 @@ public class Library {
 
     /**
      * Create a new {@link Artifact} stereotyped << library >> then instantiate a {@link Library} proxy.
-     * 
+     *
      * @return a {@link Library} proxy on the created {@link Artifact}.
      */
     @objid ("96851944-e82d-4884-bc88-bc05c156d9d0")
@@ -83,9 +84,10 @@ public class Library {
     }
 
     /**
-     * Tries to instantiate a {@link Library} proxy from a {@link Artifact} stereotyped << library >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link Library} proxy from a {@link Artifact} stereotyped << library >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a Artifact
      * @return a {@link Library} proxy or <i>null</i>.
      */
@@ -95,9 +97,10 @@ public class Library {
     }
 
     /**
-     * Tries to instantiate a {@link Library} proxy from a {@link Artifact} stereotyped << library >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link Library} proxy from a {@link Artifact} stereotyped << library >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link Artifact}
      * @return a {@link Library} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -127,7 +130,8 @@ public class Library {
     }
 
     /**
-     * Get the underlying {@link Artifact}. 
+     * Get the underlying {@link Artifact}.
+     *
      * @return the Artifact represented by this proxy, never null.
      */
     @objid ("064cce45-5e1f-4211-8251-b6fb4e3ec96c")
@@ -139,11 +143,11 @@ public class Library {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("74b3d794-f148-4d85-9763-561dee3641d1")
-    protected  Library(Artifact elt) {
+    protected Library(Artifact elt) {
         this.elt = elt;
     }
 
@@ -163,7 +167,7 @@ public class Library {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "00700680-0000-01c5-0000-000000000000");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -171,7 +175,7 @@ public class Library {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

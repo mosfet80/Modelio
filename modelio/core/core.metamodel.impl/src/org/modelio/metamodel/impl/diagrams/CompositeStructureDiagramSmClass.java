@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.diagrams;
 
 import java.util.ArrayList;
@@ -40,75 +39,75 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("96f7f998-24f2-4040-be32-3fdb756e6161")
 public class CompositeStructureDiagramSmClass extends StaticDiagramSmClass {
-    @objid ("0cfab617-41fa-4571-93b3-dbec5726c874")
-    public  CompositeStructureDiagramSmClass(ISmMetamodelFragment origin) {
+    @objid ("70e4a975-c18a-44a5-b5a3-6ee361adb950")
+    public CompositeStructureDiagramSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("dd1ea90d-409f-438d-bded-809c8e547dc9")
+    @objid ("6fe0641a-00d8-41a5-8ce9-edee0727e09c")
     @Override
     public String getName() {
         return "CompositeStructureDiagram";
-        
+
     }
 
-    @objid ("0bb1a4a7-b5da-4f2a-ab1d-f6cd6f2a18f6")
+    @objid ("35f70c54-9ef1-45f3-9050-bde3509ed69c")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("d3ca381c-e270-4e76-a735-656d6f9eb981")
+    @objid ("07b9822e-cb9e-49b1-8bb5-dd3bcd78c731")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return CompositeStructureDiagram.class;
-        
+
     }
 
-    @objid ("af8e124d-023f-4f97-bea2-e093d4ed6b1d")
+    @objid ("16289206-76ff-4b50-b4cd-435210e68468")
     @Override
     public boolean isCmsNode() {
         return true;
-        
+
     }
 
-    @objid ("8b8ee3cf-395c-46cf-99ea-56aefd5ee859")
+    @objid ("808d8521-b888-4e0a-88b5-dd250e6d6b24")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("0913cc07-8cd1-46f8-962d-2e19c4781ffd")
+    @objid ("a6b410d3-7471-412a-a8bf-a20ee8e678c6")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(StaticDiagram.MQNAME);
         this.registerFactory(new CompositeStructureDiagramObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
-        
+
     }
 
     @objid ("065f73d9-72bb-46f3-89f0-776ee02e152a")
     private static class CompositeStructureDiagramObjectFactory implements ISmObjectFactory {
-        @objid ("3e13c319-33ac-4d82-9077-c6d1079c64f2")
+        @objid ("42edbac6-d3f8-4a12-9a25-2b679645b6c6")
         private CompositeStructureDiagramSmClass smClass;
 
-        @objid ("5816a8f5-1e01-4e17-8d1f-7c3c74d1738b")
-        public  CompositeStructureDiagramObjectFactory(CompositeStructureDiagramSmClass smClass) {
+        @objid ("ecd5f8e0-95f6-43a3-962a-47af1e9348b6")
+        public CompositeStructureDiagramObjectFactory(CompositeStructureDiagramSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("e1354df0-2cf5-4929-a7a6-e6a507317629")
+        @objid ("85347ce9-c892-48f8-996f-51e28d653dac")
         @Override
         public ISmObjectData createData() {
             return new CompositeStructureDiagramData(this.smClass);
         }
 
-        @objid ("d767cad2-e980-46a3-ab73-a194b3885865")
+        @objid ("91ce6703-d1c5-4ea0-96bb-e11454053cf2")
         @Override
         public SmObjectImpl createImpl() {
             return new CompositeStructureDiagramImpl();

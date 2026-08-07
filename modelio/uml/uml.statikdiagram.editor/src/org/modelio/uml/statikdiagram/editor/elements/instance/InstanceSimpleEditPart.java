@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.instance;
 
@@ -56,14 +56,14 @@ public class InstanceSimpleEditPart extends AbstractNodeEditPart {
                 new LinkedNodeStartCreationEditPolicy());
         installEditPolicy("constraint", new ConstraintLinkEditPolicy(false));
         installEditPolicy("nary-link", new AcceptNLinkEditPolicy(true));
-        
+
         GmInstancePrimaryNode model = (GmInstancePrimaryNode) getModel();
         if (model.getRelatedElement() instanceof BindableInstance) {
             installEditPolicy("nary-connector", new AcceptNConnectorEditPolicy(true));
         }
-        
+
         installEditPolicy(ModelElementDropRequest.TYPE, new InstanceElementDropEditPolicy());
-        
+
     }
 
     @objid ("35434218-55b7-11e2-877f-002564c97630")
@@ -77,18 +77,18 @@ public class InstanceSimpleEditPart extends AbstractNodeEditPart {
     protected IFigure createFigure() {
         // Create the figure
         final GradientFigure fig = new GradientFigure();
-        
+
         // Set style independent properties
         fig.setOpaque(true);
-        
+
         final ToolbarLayoutWithGrab layout = new ToolbarLayoutWithGrab();
         layout.setHorizontal(false);
         layout.setStretchMinorAxis(true);
-        
+
         fig.setLayoutManager(layout);
-        
+
         MinimumSizeLayout.apply(fig, 100, 50);
-        
+
         // Set style dependent properties
         refreshFromStyle(fig, getModelStyle());
         return fig;
@@ -99,9 +99,9 @@ public class InstanceSimpleEditPart extends AbstractNodeEditPart {
         final Border inner = new ZoomableLineBorder(aFigure.getLineColor(), aFigure.getLineWidth());
         final Border outer = new ShadowBorder(aFigure.getLineColor(), aFigure.getLineWidth());
         final CompoundBorder b = new CompoundBorder(outer, inner);
-        
+
         aFigure.setBorder(b);
-        
+
     }
 
     @objid ("35434225-55b7-11e2-877f-002564c97630")
@@ -111,7 +111,7 @@ public class InstanceSimpleEditPart extends AbstractNodeEditPart {
             super.refreshFromStyle(aFigure, style);
             updateFigureBorder((GradientFigure) aFigure);
         }
-        
+
     }
 
     @objid ("3543422c-55b7-11e2-877f-002564c97630")
@@ -119,9 +119,9 @@ public class InstanceSimpleEditPart extends AbstractNodeEditPart {
     protected void refreshVisuals() {
         final GradientFigure fig = getFigure();
         final GmNodeModel gm = getModel();
-        
+
         fig.getParent().setConstraint(fig, gm.getLayoutData());
-        
+
     }
 
     @objid ("72b82d94-52fc-410d-b518-b5fb1d064182")

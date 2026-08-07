@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -49,7 +49,7 @@ public class R2450 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -68,7 +68,7 @@ public class R2450 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         plan.registerRule(Package.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
         plan.registerRule(Generalization.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE);
-        
+
     }
 
     /**
@@ -102,14 +102,14 @@ public class R2450 extends AbstractUmlRule {
      * Default constructor for R2450
      */
     @objid ("e0220d91-d806-4e8d-8fc8-c1fa7ecd3184")
-    public  R2450() {
+    public R2450() {
         this.checkerInstance = new CheckR2450(this);
     }
 
     @objid ("7231739c-4beb-4c00-a86a-01593ee41da5")
     private static class CheckR2450 extends AbstractControl {
         @objid ("b8f15fd2-fe90-4a22-89c1-f61dd4d35c1c")
-        public  CheckR2450(IRule rule) {
+        public CheckR2450(IRule rule) {
             super(rule);
         }
 
@@ -137,7 +137,7 @@ public class R2450 extends AbstractUmlRule {
         @objid ("304c17fd-76fc-480d-b651-928a197310cb")
         private IAuditEntry checkR2450(final Package pkg) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, pkg, null);
-            
+
             if (!pkg.getParent().isEmpty() || !pkg.getSpecialization().isEmpty()) {
                 // Rule failed
                 auditEntry.setSeverity(this.rule.getSeverity());

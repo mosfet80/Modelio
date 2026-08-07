@@ -1,0 +1,16 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Copyright
+
+Les informations fournies dans cette aide en ligne sont sujettes à modification sans préavis, et n'engagent pas la responsabilité de Docaposte. Le logiciel décrit dans cette aide en ligne est soumis à licence. Le logiciel ne peut être utilisé ou copié en dehors des termes du contrat de licence. Il est strictement interdit de faire des copies du logiciel sur quelque support que ce soit, en dehors de ce qui est spécifiquement autorisé dans le contrat de licence. Le propriétaire de la licence est autorisé à faire une seule copie du logiciel uniquement dans le but d'une sauvegarde. Il est strictement interdit de reproduire ou transmettre tout ou partie de cette aide en ligne sous quelque forme que ce soit, par des moyens électroniques ou mécaniques, incluant la photocopie, l'enregistrement ou les systèmes de stockage et de récupération d'informations, dans tout autre but que celui d'une utilisation personnelle par le propriétaire de la licence, sans l'accord écrit explicite de Docaposte.
+
+Modelio est une marque déposée de Docaposte.
+
+Ce produit inclus un logiciel développé par Apache Software Foundation http://www.apache.org/.
+
+UML et OMG sont des marques déposées de Object Management Group. Tous les autres noms de produits ou de sociétés mentionnés sont des marques déposées appartenant à leurs propriétaires respectifs.
+
+

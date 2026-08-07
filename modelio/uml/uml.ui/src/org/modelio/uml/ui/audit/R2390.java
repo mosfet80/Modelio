@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -48,7 +48,7 @@ public class R2390 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -67,13 +67,13 @@ public class R2390 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         // This cover the case of moving or deleting a Parameter, which triggers an UPDATE on the old parent.
         plan.registerRule(Operation.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         // This cover the case of [creating|moving] a Parameter [under|to] a new parent.
         // It also covers the case of renaming a Parameter.
         plan.registerRule(Parameter.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -107,14 +107,14 @@ public class R2390 extends AbstractUmlRule {
      * Default constructor for R2390
      */
     @objid ("3aef88a6-81b9-4ba2-bd78-de6fbae2d7ca")
-    public  R2390() {
+    public R2390() {
         this.checkerInstance = new CheckR2390(this);
     }
 
     @objid ("5244c8c0-d91b-417d-ac17-5d198c8fd6d4")
     private static class CheckR2390 extends AbstractControl {
         @objid ("04ebfa05-9199-4d8b-94d3-a387bb8b7afb")
-        public  CheckR2390(IRule rule) {
+        public CheckR2390(IRule rule) {
             super(rule);
         }
 
@@ -141,13 +141,13 @@ public class R2390 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     operation,
                     null);
-            
+
             boolean failed = false;
             if (operation.isStereotyped("ModelerModule", "create") && operation.getReturn() != null) {
                 // Rule failed
                 failed = true;
             }
-            
+
             if (failed) {
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();

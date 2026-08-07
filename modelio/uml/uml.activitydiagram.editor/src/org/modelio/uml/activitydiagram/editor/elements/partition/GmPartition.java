@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.partition;
 
@@ -82,19 +82,20 @@ public class GmPartition extends GmCompositeNode {
 
     /**
      * Default constructor.
+     *
      * @param diagram the diagram in which this partition will be unmasked.
      * @param thePartition the unmasked partition (can be null).
      * @param ref a reference to the unmasked partition (cannot be null).
      */
     @objid ("2afdf97d-55b6-11e2-877f-002564c97630")
-    public  GmPartition(IGmDiagram diagram, ActivityPartition thePartition, MRef ref) {
+    public GmPartition(IGmDiagram diagram, ActivityPartition thePartition, MRef ref) {
         super(diagram, ref);
         this.element = thePartition;
         this.header = new GmPartitionHeader(diagram, ref);
         this.body = new GmBodyHybridContainer(diagram, ref);
         super.addChild(this.header);
         super.addChild(this.body);
-        
+
     }
 
     @objid ("2afe479c-55b6-11e2-877f-002564c97630")
@@ -141,7 +142,7 @@ public class GmPartition extends GmCompositeNode {
      * Empty constructor needed for serialisation.
      */
     @objid ("2aff8019-55b6-11e2-877f-002564c97630")
-    public  GmPartition() {
+    public GmPartition() {
         // Nothing to do.
     }
 
@@ -162,10 +163,11 @@ public class GmPartition extends GmCompositeNode {
             break;
         }
         }
-        
+
     }
 
     /**
+     *
      * @return The partition content area.
      */
     @objid ("2affa72f-55b6-11e2-877f-002564c97630")
@@ -179,6 +181,7 @@ public class GmPartition extends GmCompositeNode {
      * This method should return true only if it is consistent to display the given metaclass elements inside this graphic element.
      * <p>
      * <b>eg:</b> IAttributes can be displayed in a GmClass .
+     *
      * @param type The metaclass to unmask.
      * @return true only if it is consistent to display elements of the given metaclass inside this graphic element, false in the other cases.
      */
@@ -191,7 +194,7 @@ public class GmPartition extends GmCompositeNode {
             accept = (ActivityNode.class.isAssignableFrom(type) && !Pin.class.isAssignableFrom(type)) ||
                     ActivityEdge.class.isAssignableFrom(type);
         }
-        
+
         // We can always accept sub partitions: if things come to the worst, all
         // inner nodes and edges will be transfered to the first subpartition.
         accept = accept || ActivityPartition.class.isAssignableFrom(type);
@@ -203,14 +206,15 @@ public class GmPartition extends GmCompositeNode {
     public void write(IDiagramWriter out) {
         super.write(out);
         out.writeProperty("isVertical", this.vertical ? Boolean.TRUE : Boolean.FALSE);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmPartition.", GmPartition.MINOR_VERSION);
-        
+
     }
 
     /**
      * Return whether this partition is vertical (header above body) or horizontal (header left of body).
+     *
      * @return whether this partition is vertical (header above body) or horizontal (header left of body).
      */
     @objid ("2b00dfae-55b6-11e2-877f-002564c97630")
@@ -220,6 +224,7 @@ public class GmPartition extends GmCompositeNode {
 
     /**
      * Sets whether this partition is vertical (header above body) or horizontal (header left of body).
+     *
      * @param vertical true if this partition must be vertical (header above body), false if it must be horizontal (header left of body).
      */
     @objid ("2b0106bc-55b6-11e2-877f-002564c97630")
@@ -232,7 +237,7 @@ public class GmPartition extends GmCompositeNode {
         super.removeChild(this.body);
         super.addChild(this.header);
         super.addChild(this.body);
-        
+
     }
 
     @objid ("2b012dca-55b6-11e2-877f-002564c97630")
@@ -254,7 +259,7 @@ public class GmPartition extends GmCompositeNode {
         this.body = (GmPartitionContainer) this.getChildren().get(1);
         this.element = (ActivityPartition) resolveRef(this.getRepresentedRef());
         this.vertical = ((Boolean) in.readProperty("isVertical")).booleanValue();
-        
+
     }
 
     @objid ("2b01a2fb-55b6-11e2-877f-002564c97630")

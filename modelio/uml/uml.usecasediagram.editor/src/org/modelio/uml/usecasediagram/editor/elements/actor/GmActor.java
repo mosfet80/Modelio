@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.usecasediagram.editor.elements.actor;
 
@@ -63,26 +63,25 @@ public class GmActor extends GmPortContainer {
     private static final GmActorUserImageStyleKeys USERIMAGE_KEYS = new GmActorUserImageStyleKeys();
 
     @objid ("5e3659e6-55b7-11e2-877f-002564c97630")
-    public  GmActor() {
+    public GmActor() {
         // Nothing specific to do.
     }
 
     @objid ("5e3659e9-55b7-11e2-877f-002564c97630")
-    public  GmActor(IGmDiagram diagram, Actor el, MRef ref) {
+    public GmActor(IGmDiagram diagram, Actor el, MRef ref) {
         super(diagram, ref);
-        
+
         GmActorPrimaryNode mainNode = new GmActorPrimaryNode(diagram, ref);
         mainNode.setRoleInComposition(MAIN_NODE_ROLE);
         addChild(mainNode);
-        
+
         this.element = el;
-        
+
         final GmDefaultModelElementLabel actorLabel = new GmDefaultModelElementLabel(diagram, ref);
         actorLabel.setRoleInComposition(SATELLITE_ROLE);
         actorLabel.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
-        
+
         addChild(actorLabel);
-        
     }
 
     @objid ("5e3659f5-55b7-11e2-877f-002564c97630")
@@ -110,12 +109,12 @@ public class GmActor extends GmPortContainer {
         if (ret != null) {
             return ret;
         }
-        
+
         ret = SIMPLE_KEYS.getStyleKey(metakey);
         if (ret != null) {
             return ret;
         }
-        
+
         ret = IMAGE_KEYS.getStyleKey(metakey);
         return ret;
     }
@@ -135,7 +134,6 @@ public class GmActor extends GmPortContainer {
             default:
                 return Collections.emptyList();
         }
-        
     }
 
     @objid ("5e365a1e-55b7-11e2-877f-002564c97630")
@@ -155,7 +153,6 @@ public class GmActor extends GmPortContainer {
                 break;
             }
         }
-        
     }
 
     @objid ("5e37e07e-55b7-11e2-877f-002564c97630")
@@ -181,17 +178,15 @@ public class GmActor extends GmPortContainer {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmActor.", GmActor.MINOR_VERSION);
-        
     }
 
     @objid ("5e37e094-55b7-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (Actor) resolveRef(this.getRepresentedRef());
-        
     }
 
     @objid ("5e37e099-55b7-11e2-877f-002564c97630")
@@ -220,7 +215,6 @@ public class GmActor extends GmPortContainer {
         } else {
             super.addStartingLink(link);
         }
-        
     }
 
     @objid ("5e396720-55b7-11e2-877f-002564c97630")
@@ -231,7 +225,6 @@ public class GmActor extends GmPortContainer {
         } else {
             super.addEndingLink(link);
         }
-        
     }
 
     @objid ("7ef0a52b-13ba-44ba-a5e4-c8d067c83039")

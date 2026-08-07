@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnlane;
 
@@ -67,7 +67,7 @@ public class GmBpmnLaneMigrator implements IPersistentMigrator {
             return null;
         }
         }
-        
+
     }
 
     @objid ("c91ee51d-b89d-4f17-917e-faf25007da3f")
@@ -85,6 +85,7 @@ public class GmBpmnLaneMigrator implements IPersistentMigrator {
      * <li>{@link GmBpmnLaneV0} representing a {@link BpmnLane} are handled by {@link #migrateLaneToLane(GmBpmnLaneV0)}</li>
      * <li>{@link GmBpmnLaneV0} representing a {@link BpmnParticipant} or {@link NullPointerException} are handled by {@link #migrateLaneToParticipant(GmBpmnLaneV0)}</li>
      * </ul>
+     *
      * @param oldGmLane the gm being migrated.
      * @return the migrated gm, replacing the given one.
      * @throws PersistenceException if the lane do not represents a {@link BpmnLane} nor a {@link BpmnParticipant}.
@@ -103,7 +104,7 @@ public class GmBpmnLaneMigrator implements IPersistentMigrator {
             // Should never happen, maybe
             throw new PersistenceException("Unable to migrate " + oldGmLane);
         }
-        
+
     }
 
     /**
@@ -112,14 +113,14 @@ public class GmBpmnLaneMigrator implements IPersistentMigrator {
     @objid ("261366ff-20b8-4204-93f8-f9d67f0662c2")
     private GmBpmnParticipantPortContainer migrateLaneToParticipant(GmBpmnLaneV0 oldGmLane) {
         IGmDiagram diagram = oldGmLane.getDiagram();
-        
+
         if (BpmnProcessDesignDiagram.class.isAssignableFrom(diagram.getRelatedMClass().getJavaInterface())) {
             DiagramEditorBpmn.LOG.debug("GmBpmnLaneMigrator-01: Pruning %s from %s because it is for collaboration diagrams.", oldGmLane, diagram);
             return null;
         }
-        
+
         BpmnParticipant participant = (BpmnParticipant) oldGmLane.getRepresentedElement();
-        
+
         Object oldLayoutData = oldGmLane.getLayoutData();
         if (oldLayoutData instanceof Rectangle) {
             Rectangle oldRectangle = (Rectangle) oldLayoutData;
@@ -131,28 +132,28 @@ public class GmBpmnLaneMigrator implements IPersistentMigrator {
                 oldRectangle.height = 200;
             }
         }
-        
+
         GmBpmnParticipantPortContainer newGmParticipant = new GmBpmnParticipantPortContainer(diagram, participant, oldGmLane.getRepresentedRef());
         newGmParticipant.setLayoutData(oldLayoutData);
         GmBpmnParticipantPrimaryNode newGmParticipantPrimary = newGmParticipant.getMainNode();
-        
+
         // Restore contents
         GmBodyHybridContainer oldBody = oldGmLane.getBody();
         migrateOwnedNodes(oldBody, newGmParticipantPrimary);
-        
+
         Rectangle layoutData = (oldLayoutData instanceof Rectangle ? ((Rectangle) oldLayoutData).getCopy() : new Rectangle()).setLocation(0, 0);
         migrateOwnedLanes(oldBody, newGmParticipantPrimary, layoutData);
-        
+
         // Keep cascaded style
         newGmParticipant.getPersistedStyle().setCascadedStyle(oldGmLane.getPersistedStyle().getCascadedStyle());
-        
+
         // Keep local style changes, converting style keys
         for (StyleKey oldKey : oldGmLane.getPersistedStyle().getLocalKeys()) {
             Object oldValue = oldGmLane.getPersistedStyle().getProperty(oldKey);
             StyleKey newKey = newGmParticipant.getStyleKey(oldKey.getMetakey());
             newGmParticipant.getPersistedStyle().setProperty(newKey, oldValue);
         }
-        
+
         // Migration is done, delete old gm
         oldGmLane.delete();
         fixMissingLanes(newGmParticipantPrimary, layoutData);
@@ -165,34 +166,34 @@ public class GmBpmnLaneMigrator implements IPersistentMigrator {
     @objid ("cff375ca-c2ff-4bf9-9e9e-95826d133d80")
     private GmBpmnLane migrateLaneToLane(final GmBpmnLaneV0 oldGmLane) {
         GmBpmnLane newGmLane = new GmBpmnLane(oldGmLane);
-        
+
         // Old layout contraint was kind of the width instead of the height, reset it !
         // Keep it for the moment, it will be fixed by the container migration;
         newGmLane.setLayoutData(oldGmLane.getLayoutData());
-        
+
         // Keep role
         newGmLane.setRoleInComposition(oldGmLane.getRoleInComposition());
-        
+
         // Keep starting links
         for (IGmLink link : oldGmLane.getStartingLinks()) {
             oldGmLane.removeStartingLink(link);
             newGmLane.addStartingLink(link);
         }
-        
+
         // Keep ending links
         for (IGmLink link : oldGmLane.getEndingLinks()) {
             oldGmLane.removeEndingLink(link);
             newGmLane.addEndingLink(link);
         }
-        
+
         // Keep cascaded style
         newGmLane.getPersistedStyle().setCascadedStyle(oldGmLane.getPersistedStyle().getCascadedStyle());
-        
+
         // Keep local style changes
         for (StyleKey key : oldGmLane.getPersistedStyle().getLocalKeys()) {
             newGmLane.getPersistedStyle().setProperty(key, oldGmLane.getPersistedStyle().getProperty(key));
         }
-        
+
         // Migration is done, delete old gm
         oldGmLane.delete();
         return newGmLane;
@@ -205,21 +206,21 @@ public class GmBpmnLaneMigrator implements IPersistentMigrator {
             GmCompositeNode compositeFor = newGm.getCompositeFor(getRepresentedMetaclass(ownedNode));
             if (compositeFor != null) {
                 oldBody.removeChild(ownedNode);
-        
+
                 // Avoid duplicated GMs when a process is referenced by several participants
                 for (GmModel existingGm : compositeFor.getDiagram().getAllGMRepresenting(ownedNode.getRepresentedRef())) {
                     if (!Objects.equals(ownedNode, existingGm)) {
                         existingGm.delete();
                     }
                 }
-        
+
                 compositeFor.addChild(ownedNode);
             } else {
                 // There is probably no diagram for this process, delete the gm
                 ownedNode.delete();
             }
         }
-        
+
     }
 
     @objid ("6f4b4023-6355-4db8-9f3d-9c17790faca6")
@@ -233,7 +234,7 @@ public class GmBpmnLaneMigrator implements IPersistentMigrator {
                 for (GmNodeModel node : compositeFor.getChildren(GmWorkflow.OWNED_LANE)) {
                     node.delete();
                 }
-        
+
                 if (representedElement instanceof BpmnLaneSet && representedElement.isShell()) {
                     // LaneSet is shell, move its contents into the workflow itself
                     List<GmBpmnLane> toDelete = new ArrayList<>();
@@ -243,7 +244,7 @@ public class GmBpmnLaneMigrator implements IPersistentMigrator {
                             toDelete.add(lane);
                         }
                     }
-        
+
                     if (toDelete.size() == lanes.size()) {
                         for (GmBpmnLane lane : toDelete) {
                             for (GmNodeModel child : lane.getBody().getChildren()) {
@@ -257,19 +258,19 @@ public class GmBpmnLaneMigrator implements IPersistentMigrator {
                 } else {
                     // Old layout data was an Integer, replace it with a proper Rectangle
                     ownedNode.setLayoutData(newProcessLayout.getCopy());
-        
+
                     // Add migrated container
                     oldBody.removeChild(ownedNode);
-        
+
                     // Avoid duplicated GMs when a process is referenced by several participants
                     for (GmModel existingGm : compositeFor.getDiagram().getAllGMRepresenting(ownedNode.getRepresentedRef())) {
                         if (!Objects.equals(ownedNode, existingGm)) {
                             existingGm.delete();
                         }
                     }
-        
+
                     compositeFor.addChild(ownedNode);
-        
+
                     // Old GmBpmnLane layout data was the width instead of the eight, and was interpreted as a weight.
                     // translate all of this to height.
                     fixLaneLayoutData((GmBpmnLaneSetContainer) ownedNode, newProcessLayout.getCopy().setLocation(0, 0));
@@ -279,12 +280,13 @@ public class GmBpmnLaneMigrator implements IPersistentMigrator {
                 ownedNode.delete();
             }
         }
-        
+
     }
 
     /**
      * Old GmBpmnLane layout data was buggily the width instead of the height, and was interpreted as a weight.
      * Interpret all of them as a weight and translate to height.
+     *
      * @param gmLaneContainer the laneset container
      * @param containerBounds the bounds of the container
      */
@@ -301,7 +303,7 @@ public class GmBpmnLaneMigrator implements IPersistentMigrator {
                 }
             }
         }
-        
+
         for (GmBpmnLane gmBpmnLane : gmLaneContainer.getLanes()) {
             final Object layoutData = gmBpmnLane.getLayoutData();
             if (layoutData instanceof Integer) {
@@ -316,7 +318,7 @@ public class GmBpmnLaneMigrator implements IPersistentMigrator {
                 gmBpmnLane.setLayoutData(-1);
             }
         }
-        
+
     }
 
     @objid ("a948f0c7-6578-4fc0-9e97-8b06cfc535ec")
@@ -330,33 +332,33 @@ public class GmBpmnLaneMigrator implements IPersistentMigrator {
         if (laneSet == null) {
             return;
         }
-        
+
         if (laneSet.getLane().isEmpty()) {
             // No lanes in container
             return;
         }
-        
+
         IGmDiagram diagram = newGmParticipantPrimary.getDiagram();
         if (!diagram.getAllGMRepresenting(new MRef(laneSet)).isEmpty()) {
             // Container already unmasked
             return;
         }
-        
+
         GmCompositeNode workflow = newGmParticipantPrimary.getCompositeFor(laneSet.getClass());
-        
+
         if (workflow == null) {
             DiagramEditorBpmn.LOG.warning("GmBpmnLaneMigrator-03: %s in %s has no workflow.", newGmParticipantPrimary, newGmParticipantPrimary.getDiagram());
             DiagramEditorBpmn.LOG.debug  ("GmBpmnLaneMigrator-04:   %s.getBody() = %s .", newGmParticipantPrimary, newGmParticipantPrimary.getBody());
             return ;
         }
-        
+
         GmBpmnLaneSetContainer newContainer = new GmBpmnLaneSetContainer(diagram, laneSet, new MRef(laneSet));
-        
+
         // Unmask first lane
         BpmnLane firstLane = laneSet.getLane().get(0);
         GmBpmnLane firstLaneGm = new GmBpmnLane(diagram, firstLane, new MRef(firstLane));
         newContainer.addChild(firstLaneGm);
-        
+
         GmNodeModel wrongLaneSet = workflow.getFirstChild(GmWorkflow.OWNED_LANE);
         if (wrongLaneSet != null) {
             // Set new container's layout data
@@ -364,30 +366,30 @@ public class GmBpmnLaneMigrator implements IPersistentMigrator {
             oldLayoutData.x -= 20;
             oldLayoutData.width += 20;
             newContainer.setLayoutData(oldLayoutData.getCopy());
-        
+
             firstLaneGm.setLayoutData(oldLayoutData.height);
-        
+
             // Make the wrong lane set a child of the first lane
             workflow.removeChild(wrongLaneSet);
             firstLaneGm.getBody().addChild(wrongLaneSet);
         } else {
             newContainer.setLayoutData(layoutData);
-        
+
             firstLaneGm.setLayoutData(layoutData.height);
-        
+
             // Process simple nodes in the old Gm
             for (GmNodeModel ownedNode : workflow.getChildren(GmBodyHybridContainer.OWNED_NODE)) {
                 GmCompositeNode compositeFor = firstLaneGm.getCompositeFor(getRepresentedMetaclass(ownedNode));
                 if (compositeFor != null) {
                     workflow.removeChild(ownedNode);
-        
+
                     // Avoid duplicated GMs when a process is referenced by several participants
                     for (GmModel existingGm : compositeFor.getDiagram().getAllGMRepresenting(ownedNode.getRepresentedRef())) {
                         if (!Objects.equals(ownedNode, existingGm)) {
                             existingGm.delete();
                         }
                     }
-        
+
                     compositeFor.addChild(ownedNode);
                 } else {
                     // There is probably no diagram for this process, delete the gm
@@ -395,9 +397,9 @@ public class GmBpmnLaneMigrator implements IPersistentMigrator {
                 }
             }
         }
-        
+
         workflow.addChild(newContainer);
-        
+
     }
 
     @objid ("2c35565f-aa83-4c87-a397-a43cc7d0a074")

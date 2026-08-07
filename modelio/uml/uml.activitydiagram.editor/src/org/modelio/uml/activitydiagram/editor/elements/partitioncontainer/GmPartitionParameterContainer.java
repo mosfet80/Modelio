@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.partitioncontainer;
 
@@ -36,7 +36,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Specialization of the GmPortContainer class for Partition (will hold the activity parameters).
- * 
+ *
  * @author fpoyer
  */
 @objid ("2b269019-55b6-11e2-877f-002564c97630")
@@ -52,16 +52,17 @@ public class GmPartitionParameterContainer extends GmPortContainer {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram in which this ActivityParameter container is unmasked.
      * @param relatedRef represented element reference, must not be null.
      */
     @objid ("2b26de3a-55b6-11e2-877f-002564c97630")
-    public  GmPartitionParameterContainer(IGmDiagram diagram, MRef relatedRef) {
+    public GmPartitionParameterContainer(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
         GmDiagramPartitionContainer mainNode = new GmDiagramPartitionContainer(diagram, relatedRef);
         mainNode.setRoleInComposition(MAIN_NODE_ROLE);
         this.addChild(mainNode);
-        
+
     }
 
     @objid ("2b27054c-55b6-11e2-877f-002564c97630")
@@ -76,7 +77,7 @@ public class GmPartitionParameterContainer extends GmPortContainer {
         return (ActivityParameterNode.class.isAssignableFrom(el.getClass()) && el.getCompositionOwner()
                         .equals(this.getRelatedElement()
                                 .getOrigin()));
-        
+
     }
 
     @objid ("2b2ad5da-55b6-11e2-877f-002564c97630")
@@ -101,7 +102,7 @@ public class GmPartitionParameterContainer extends GmPortContainer {
      * Empty constructor needed for deserialisation.
      */
     @objid ("2b2b9929-55b6-11e2-877f-002564c97630")
-    public  GmPartitionParameterContainer() {
+    public GmPartitionParameterContainer() {
         // Nothing specific to do.
     }
 
@@ -113,7 +114,7 @@ public class GmPartitionParameterContainer extends GmPortContainer {
         if (GmPortContainer.MAIN_NODE_ROLE.equals(child.getRoleInComposition())) {
             delete();
         }
-        
+
     }
 
     @objid ("2b2be74c-55b6-11e2-877f-002564c97630")
@@ -133,17 +134,17 @@ public class GmPartitionParameterContainer extends GmPortContainer {
             break;
         }
         }
-        
+
     }
 
     @objid ("2b2c0e5c-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmPartitionParameterContainer.", GmPartitionParameterContainer.MINOR_VERSION);
-        
+
     }
 
     @objid ("2b2c356a-55b6-11e2-877f-002564c97630")
@@ -159,6 +160,7 @@ public class GmPartitionParameterContainer extends GmPortContainer {
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */
@@ -170,6 +172,7 @@ public class GmPartitionParameterContainer extends GmPortContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */

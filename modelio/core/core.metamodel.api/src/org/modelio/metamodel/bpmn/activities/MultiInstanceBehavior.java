@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.bpmn.activities;
 
@@ -26,27 +26,26 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * MultiInstanceBehavior v0.0.9054
- * 
- * 
+ *
+ *
  * Acts as a shortcut for specifying when events SHALL be thrown from an Activity instance that is about to complete. It can assume values of None, One, All, and Complex, resulting in the following behavior:
  * - None: the EventDefinition which is associated through the noneEvent association will be thrown for each instance completing;
  * - One: the EventDefinition referenced through the oneEvent association will be thrown upon the first instance completing;
  * - All: no Event is ever thrown; a token is produced after completion of all instances
  * - Complex: the complexBehaviorDefinitions are consulted to determine if and which Events to throw.
- * 
+ *
  * For the behaviors of none and one, a default SignalEventDefinition will be thrown which automatically carries the current runtime attributes of the MI Activity.
- * 
- * 
+ *
  */
 @objid ("00556e64-91e1-1f74-804b-001ec947cd2a")
 public enum MultiInstanceBehavior {
-    @objid ("454315bc-9f09-4898-b7aa-a5b575d0fbed")
+    @objid ("8b32d677-24af-4b32-b51c-2f5705ad9e93")
     NONEBEHAVIOR(0, "NoneBehavior", "NoneBehavior"),
-    @objid ("19fb862b-968a-4736-b9b1-dff9d7cfb0f5")
+    @objid ("bc718c8b-dd10-4ade-bb0d-9da6fe0e920e")
     ONEBEHAVIOR(1, "OneBehavior", "OneBehavior"),
-    @objid ("9f0801b4-e7e0-44fb-a7c6-dced01ea17b1")
+    @objid ("735f1bed-99d7-474e-930d-62a1b9f9ca6c")
     ALLBEHAVIOR(2, "AllBehavior", "AllBehavior"),
-    @objid ("548defe1-732f-44b8-aef0-c261e5b6e50a")
+    @objid ("36ca71de-1295-4beb-ab4e-c723a4a51fc1")
     COMPLEXBEHAVIOR(3, "ComplexBehavior", "ComplexBehavior");
 
 public static final int NONEBEHAVIOR_VALUE = 0;
@@ -109,5 +108,5 @@ public static final int NONEBEHAVIOR_VALUE = 0;
     public String toString() {
        return literal;
     }
-    
+
 }

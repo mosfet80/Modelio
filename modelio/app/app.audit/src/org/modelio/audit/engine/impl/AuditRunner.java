@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.engine.impl;
 
@@ -89,10 +89,10 @@ public class AuditRunner implements Runnable {
                             additionnalDiagnosticToPost = false;
                         }
                         changeStatus(AuditRunnerStatus.IDLE);
-        
+
                         // force a fire status to update the controls counter
                         fireStatusAlways();
-        
+
                         Thread.sleep(500);
                     }
                     break;
@@ -103,7 +103,7 @@ public class AuditRunner implements Runnable {
                     fireStatusAlways();
                     Thread.sleep(1000);
                     break;
-        
+
                 default:
                     break;
                 }
@@ -111,15 +111,15 @@ public class AuditRunner implements Runnable {
                 Audit.LOG.debug(e);
             }
         }
-        
+
     }
 
     @objid ("b676d93b-94a6-45e3-859d-1a1f1ceb63d5")
-    public  AuditRunner(CheckProgram checkProgram, AuditDiagnostic auditDiagnostic) {
+    public AuditRunner(CheckProgram checkProgram, AuditDiagnostic auditDiagnostic) {
         this.checkProgram = checkProgram;
         this.auditDiagnostic = auditDiagnostic;
         this.loopControl = LoopControlCommand.SUSPEND; // paused loop
-        
+
     }
 
     @objid ("bfa118d1-b0b0-4952-ba2f-2f853654e7f4")
@@ -133,7 +133,7 @@ public class AuditRunner implements Runnable {
             }
         }
         postDiagnostic(diagnostic);
-        
+
     }
 
     @objid ("04ae3093-b587-4307-927f-6f732ac47e6d")
@@ -155,7 +155,7 @@ public class AuditRunner implements Runnable {
     public void start(ICoreSession session) {
         this.session = session;
         this.loopControl = LoopControlCommand.RUN;
-        
+
     }
 
     @objid ("3c5ce431-58bd-44e8-a638-50f23d559eb6")
@@ -174,15 +174,15 @@ public class AuditRunner implements Runnable {
             this.status = newStatus;
             fireStatusAlways();
         }
-        
+
     }
 
     @objid ("39fa48f1-af06-4d9a-8eff-cdcf7aaff673")
     protected void fireStatusSometime() {
         int nbRules = this.checkProgram.size();
-        
+
         boolean notify = false;
-        
+
         if (nbRules > 100_000) {
             if (nbRules % 100 == 0) {
                 notify = true;
@@ -194,11 +194,11 @@ public class AuditRunner implements Runnable {
         } else {
             notify = true;
         }
-        
+
         if (notify) {
             fireStatusAlways();
         }
-        
+
     }
 
     @objid ("fa078289-7bb9-44a7-8c50-e5a240f8274d")
@@ -206,7 +206,7 @@ public class AuditRunner implements Runnable {
         for (IAuditMonitor monitor : this.auditMonitors) {
             monitor.status(this.status, this.checkProgram.size());
         }
-        
+
     }
 
     @objid ("f1708dbb-a22a-48c3-a924-6b7096b9eae5")

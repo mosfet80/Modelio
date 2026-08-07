@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.bpmn.processCollaboration;
 
@@ -26,19 +26,18 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * BpmnProcessType v0.0.9054
- * 
- * 
+ *
+ *
  * null
- * 
- * 
+ *
  */
 @objid ("003a17f4-91e1-1f74-804b-001ec947cd2a")
 public enum BpmnProcessType {
-    @objid ("d980125a-6cf1-4780-83c2-c9ac19f09f1d")
+    @objid ("85a174fa-018e-464d-803d-67a979d02550")
     NONEPROCESS(0, "NoneProcess", "NoneProcess"),
-    @objid ("8379b669-28b7-4ae6-b480-4f1f026a7b2c")
+    @objid ("a5f2be2e-1e7f-4719-81b0-48edd223a123")
     PUBLICPROCESS(1, "PublicProcess", "PublicProcess"),
-    @objid ("e4da0601-caa7-4b7d-aad2-37d70aa36061")
+    @objid ("c99cd60d-81cb-4043-97f4-67791dbb4a6c")
     PRIVATEPROCESS(2, "PrivateProcess", "PrivateProcess");
 
 public static final int NONEPROCESS_VALUE = 0;
@@ -98,5 +97,5 @@ public static final int NONEPROCESS_VALUE = 0;
     public String toString() {
        return literal;
     }
-    
+
 }

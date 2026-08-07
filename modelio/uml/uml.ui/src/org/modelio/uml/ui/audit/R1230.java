@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -52,7 +52,7 @@ public class R1230 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -72,14 +72,14 @@ public class R1230 extends AbstractUmlRule {
         plan
                 .registerRule(InitialNode.MQNAME, this,
                         AuditTrigger.UPDATE);
-        
+
         plan.registerRule(ObjectFlow.MQNAME, this, AuditTrigger.CREATE
                 | AuditTrigger.MOVE);
         plan.registerRule(ControlFlow.MQNAME, this, AuditTrigger.CREATE
                 | AuditTrigger.MOVE);
         plan.registerRule(MessageFlow.MQNAME, this, AuditTrigger.CREATE
                 | AuditTrigger.MOVE);
-        
+
     }
 
     /**
@@ -113,14 +113,14 @@ public class R1230 extends AbstractUmlRule {
      * Default constructor for R1230
      */
     @objid ("cbe69896-1d77-4a95-93a5-328dd68312fe")
-    public  R1230() {
+    public R1230() {
         this.checkerInstance = new CheckR1230(this);
     }
 
     @objid ("30ed3ca6-281e-4a9a-9623-d9c427f625ea")
     private static class CheckR1230 extends AbstractControl {
         @objid ("5d05dbd5-1afc-4769-a1bf-9c03c79c0d12")
-        public  CheckR1230(IRule rule) {
+        public CheckR1230(IRule rule) {
             super(rule);
         }
 
@@ -145,17 +145,17 @@ public class R1230 extends AbstractUmlRule {
         private IAuditEntry checkR1230(InitialNode initialNode) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(),
                     AuditSeverity.AuditSuccess, initialNode, null);
-            
+
             for (ActivityEdge edge : initialNode.getOutgoing()) {
                 if (!(edge instanceof ControlFlow)) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(initialNode);
                     auditEntry.setLinkedInfos(linkedObjects);
-            
+
                     break;
                 }
             }
@@ -165,21 +165,21 @@ public class R1230 extends AbstractUmlRule {
         @objid ("c5915829-e58e-4c0d-bc0d-2c471a539368")
         private IAuditEntry checkR1230(ActivityEdge activityEdge) {
             ActivityNode activityNode = activityEdge.getSource();
-            
+
             if (activityNode instanceof InitialNode) {
                 AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(),
                         AuditSeverity.AuditSuccess, activityNode, null);
                 if (activityEdge instanceof ControlFlow) {
                     return auditEntry;
                 } else {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(activityNode);
                     auditEntry.setLinkedInfos(linkedObjects);
-            
+
                     return auditEntry;
                 }
             }

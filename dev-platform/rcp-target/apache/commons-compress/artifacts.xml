@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <?artifactRepository version='1.1.0'?>
-<repository name='commons-compress/ - artifacts' type='org.eclipse.equinox.p2.artifact.repository.simpleRepository' version='1'>
+<repository name='file:/H:/mtools/alouette/work/eclipse/dev-platform/rcp-target/apache/commons-compress/ - artifacts' type='org.eclipse.equinox.p2.artifact.repository.simpleRepository' version='1'>
   <properties size='2'>
-    <property name='p2.timestamp' value='1561028327088'/>
+    <property name='p2.timestamp' value='1709291881403'/>
     <property name='p2.compressed' value='false'/>
   </properties>
   <mappings size='3'>

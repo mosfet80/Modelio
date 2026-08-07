@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.model.imp.handler.properties;
 
@@ -24,7 +24,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.expressions.PropertyTester;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.modelio.gproject.core.IGModelFragment;
-import org.modelio.platform.model.ui.swt.SelectionHelper;
+import org.modelio.platform.model.ui.swt.InputHelper;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MStatus;
 
@@ -37,7 +37,7 @@ public class CommandVisiblePropertyTester extends PropertyTester {
      * Default constructor.
      */
     @objid ("22f03899-1ce7-4615-9055-3f3b414286dd")
-    public  CommandVisiblePropertyTester() {
+    public CommandVisiblePropertyTester() {
         // nothing
     }
 
@@ -47,34 +47,34 @@ public class CommandVisiblePropertyTester extends PropertyTester {
         if (!(receiver instanceof IStructuredSelection)) {
             return false;
         }
-        
-        final IStructuredSelection selection = (IStructuredSelection) receiver;
+
         switch (property) {
             case "modelimport":
-                List<MObject> selObjs = SelectionHelper.toList(selection, MObject.class);
-                List<IGModelFragment> selFrags = SelectionHelper.toList(selection, IGModelFragment.class);
-        
+                List<MObject> selObjs = InputHelper.toList(receiver, MObject.class);
+                List<IGModelFragment> selFrags = InputHelper.toList(receiver, IGModelFragment.class);
+
                 for (IGModelFragment object : selFrags) {
                     for (MObject r : object.getRoots()) {
-                        MStatus status = r.getStatus();
+                        MStatus status = r.getStatusLazy();
+                        if (! status.isStatusFullyLoaded())
+                            return false;
                         if (! (status.isModifiable() || status.isCmsManaged())) {
                             return false;
                         }
                     }
                 }
-        
+
                 for (MObject r : selObjs) {
-                    MStatus status = r.getStatus();
+                    MStatus status = r.getStatusLazy();
                     if (! (status.isModifiable() || status.isCmsManaged())) {
                         return false;
                     }
                 }
-        
+
                 return !selObjs.isEmpty() || ! selFrags.isEmpty();
             default:
                 throw new IllegalArgumentException(property + " property not supported by " + getClass().getSimpleName());
         }
-        
     }
 
 }

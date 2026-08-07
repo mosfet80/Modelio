@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.control;
 
@@ -59,7 +59,7 @@ public class ParameterTypeChecker extends AbstractDependencyTypeChecker {
      * C'tor
      */
     @objid ("a00951d8-de17-4895-8e46-040ac267c901")
-    public  ParameterTypeChecker(SmMetamodel mm) {
+    public ParameterTypeChecker(SmMetamodel mm) {
         // Cached SmClass
         this.classID = mm.getMClass(Class.class);
         this.componentID = mm.getMClass(Component.class);
@@ -67,14 +67,14 @@ public class ParameterTypeChecker extends AbstractDependencyTypeChecker {
         this.enumerationID = mm.getMClass(Enumeration.class);
         this.interfaceID = mm.getMClass(Interface.class);
         this.templateParameterID = mm.getMClass(TemplateParameter.class);
-        
+
         // Direct checker
         register(mm.getMClass(Parameter.class), "Type");
-        
+
         // Symetric checker
         GeneralClassOccurenceChecker symetricChecker = new GeneralClassOccurenceChecker(this);
         symetricChecker.register(mm.getMClass(GeneralClass.class), "Occurence");
-        
+
     }
 
     @objid ("cd955be1-ec4a-11e1-91c5-002564c97630")
@@ -82,7 +82,7 @@ public class ParameterTypeChecker extends AbstractDependencyTypeChecker {
     public int doCheck(final SmObjectImpl obj, final SmObjectImpl value) {
         if (value != null) {
             SmClass valueTypeID = value.getClassOf();
-        
+
             // A Parameter type must be to a Class, a Component, an Interface, a
             // DataType, a TemplateParameter or an Enumeration.
             return (valueTypeID.extEquals(this.classID) || valueTypeID.extEquals(this.componentID)
@@ -102,7 +102,7 @@ public class ParameterTypeChecker extends AbstractDependencyTypeChecker {
         ParameterTypeChecker symetricChecker;
 
         @objid ("cd955bf0-ec4a-11e1-91c5-002564c97630")
-        public  GeneralClassOccurenceChecker(ParameterTypeChecker symetricChecker) {
+        public GeneralClassOccurenceChecker(ParameterTypeChecker symetricChecker) {
             this.symetricChecker = symetricChecker;
         }
 

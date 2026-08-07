@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.styles.editingsupport.color;
 
@@ -33,7 +33,7 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * Editor that opens immediately a {@link ColorDialog}.
- * 
+ *
  * @author cma
  * @since 3.7
  */
@@ -56,9 +56,9 @@ public class ColorCellEditor3 extends CellEditor {
         final Display display = cellEditorWindow.getDisplay();
         final Shell centerShell = new Shell(cellEditorWindow.getShell(), SWT.NO_TRIM);
         centerShell.setLocation(display.getCursorLocation());
-        
+
         ColorDialog dialog = new ColorDialog(centerShell, SWT.NONE);
-        
+
         Object val = getValue();
         if (val != null) {
             dialog.setRGB((RGB) val);
@@ -70,35 +70,37 @@ public class ColorCellEditor3 extends CellEditor {
     @Override
     public void activate() {
         RGB res = openDialogBox(this.composite);
-        
+
         if (res != null && !Objects.equals(res, doGetValue())) {
             doSetValue(res);
             fireApplyEditorValue();
         }
         deactivate();
-        
+
     }
 
     /**
      * Creates a new color cell editor parented under the given control. The cell editor value is black ( <code>RGB(0,0,0)</code>) initially, and has no validator.
+     *
      * @param parent the parent control
      */
     @objid ("71673ab3-1aec-4cec-97e3-5d8894845c93")
-    public  ColorCellEditor3(final Composite parent) {
+    public ColorCellEditor3(final Composite parent) {
         this(parent, SWT.NONE);
     }
 
     /**
      * Creates a new color cell editor parented under the given control. The cell editor value is black ( <code>RGB(0,0,0)</code>) initially, and has no validator.
+     *
      * @param parent the parent control
      * @param style the style bits
      * @since 2.1
      */
     @objid ("5ad3fa83-612a-4ab9-bc78-3430a2833a9c")
-    public  ColorCellEditor3(final Composite parent, final int style) {
+    public ColorCellEditor3(final Composite parent, final int style) {
         super(parent, style);
         doSetValue(new RGB(0, 0, 0));
-        
+
     }
 
     @objid ("9d50cfef-b888-46a4-b262-41a8f027c258")
@@ -132,7 +134,7 @@ public class ColorCellEditor3 extends CellEditor {
         if (activationEvent.eventType != ColumnViewerEditorActivationEvent.TRAVERSAL) {
             super.activate(activationEvent);
         }
-        
+
     }
 
 }

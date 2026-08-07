@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.layout;
 
@@ -53,11 +53,11 @@ class LayoutableLink implements ILayoutableLink {
     private Point targetPoint;
 
     @objid ("66cb4f21-268b-4e5f-82d5-d92b34156a2e")
-    public  LayoutableLink(IDiagramLink linkDG, ILayoutableNode from, ILayoutableNode to) {
+    public LayoutableLink(IDiagramLink linkDG, ILayoutableNode from, ILayoutableNode to) {
         this.linkDG = linkDG;
         this.from = from;
         this.to = to;
-        
+
     }
 
     @objid ("64c901fe-f1e8-4936-85c0-78f838e09983")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.browser.view;
 
@@ -42,11 +42,11 @@ public class DiagramBrowserActivationStrategy extends ColumnViewerEditorActivati
     private ColumnViewer viewer;
 
     @objid ("0010fe00-0d4f-10c6-842f-001ec947cd2a")
-    public  DiagramBrowserActivationStrategy(ColumnViewer viewer) {
+    public DiagramBrowserActivationStrategy(ColumnViewer viewer) {
         super(viewer);
         this.viewer = viewer;
         viewer.getControl().addMouseListener(this);
-        
+
     }
 
     @objid ("00111138-0d4f-10c6-842f-001ec947cd2a")
@@ -62,6 +62,7 @@ public class DiagramBrowserActivationStrategy extends ColumnViewerEditorActivati
 
     /**
      * (non-Javadoc)
+     *
      * @see org.eclipse.swt.events.MouseListener#mouseDoubleClick(org.eclipse.swt.events.MouseEvent)
      */
     @objid ("00113a00-0d4f-10c6-842f-001ec947cd2a")
@@ -72,6 +73,7 @@ public class DiagramBrowserActivationStrategy extends ColumnViewerEditorActivati
 
     /**
      * (non-Javadoc)
+     *
      * @see org.eclipse.swt.events.MouseListener#mouseDown(org.eclipse.swt.events.MouseEvent)
      */
     @objid ("0011608e-0d4f-10c6-842f-001ec947cd2a")
@@ -82,6 +84,7 @@ public class DiagramBrowserActivationStrategy extends ColumnViewerEditorActivati
 
     /**
      * (non-Javadoc)
+     *
      * @see org.eclipse.swt.events.MouseListener#mouseUp(org.eclipse.swt.events.MouseEvent)
      */
     @objid ("00118762-0d4f-10c6-842f-001ec947cd2a")
@@ -89,14 +92,14 @@ public class DiagramBrowserActivationStrategy extends ColumnViewerEditorActivati
     public void mouseUp(MouseEvent e) {
         // Retrieve selected element:
         Object sourceObject = null;
-        
+
         Object eventSource = e.getSource();
-        
+
         if (eventSource instanceof Tree) {
             Tree tree = (Tree) eventSource;
-        
+
             TreeItem clickedItem = tree.getItem(new Point(e.x, e.y));
-        
+
             TreeItem[] items = tree.getSelection();
             if (items.length == 1) {
                 if (clickedItem != null) {
@@ -104,28 +107,28 @@ public class DiagramBrowserActivationStrategy extends ColumnViewerEditorActivati
                 }
             }
         }
-        
+
         if (sourceObject == null) {
             return;
         }
-        
+
         boolean leftButtonClicked = false;
-        
+
         // Report from Eclipse doc:
         // Note: The button field is an integer that represents the mouse button number. This is not the same as the SWT mask constants BUTTONx.
-        // the button that was pressed or released; 1 for the first button, 2 for the second button, and 3 for the third button, etc. 
+        // the button that was pressed or released; 1 for the first button, 2 for the second button, and 3 for the third button, etc.
         if (e.button == 1) {
             leftButtonClicked = true;
         }
-        
-        // We enter edition only when left button is pressed 
+
+        // We enter edition only when left button is pressed
         if (this.time == 0 && leftButtonClicked) {
             this.time = e.time;
             this.selectedObject = sourceObject;
             return;
         } else if (leftButtonClicked) {
             int delta = e.time - this.time;
-        
+
             if (delta > 300 && delta < 1000 && this.selectedObject == sourceObject) {
                 this.time = 0;
                 this.selectedObject = sourceObject;
@@ -137,7 +140,7 @@ public class DiagramBrowserActivationStrategy extends ColumnViewerEditorActivati
                 return;
             }
         }
-        
+
     }
 
 }

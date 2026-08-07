@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.parts.data;
 
@@ -29,20 +29,20 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * Styled label provider for {@link INatValue} wrapping another label provider for the value.
- * 
+ *
  * @author cma
  * @since Valkyrie 3.8
  */
 @objid ("20726e9b-0de9-497e-a0e1-d724044d00d0")
 public class NatValueWrappingLabelProvider extends LabelProvider implements IStyledLabelProvider {
-    @objid ("4b7516e6-9086-49da-9943-e02ecfbdb9d3")
+    @objid ("e2f6c6dc-096d-4cba-877b-14c61c1e3365")
     private final ILabelProvider labelProvider;
 
-    @objid ("64b4a482-106a-4680-8396-ce7a006fec07")
+    @objid ("06f2d07e-924d-4af2-86b7-4419353a0e45")
     private final IStyledLabelProvider styledLabelProvider;
 
     @objid ("5930f286-8199-4291-bc39-e893d91d022a")
-    public  NatValueWrappingLabelProvider(ILabelProvider labelProvider) {
+    public NatValueWrappingLabelProvider(ILabelProvider labelProvider) {
         super();
         this.labelProvider = Objects.requireNonNull(labelProvider);
         if (labelProvider instanceof IStyledLabelProvider) {
@@ -50,7 +50,6 @@ public class NatValueWrappingLabelProvider extends LabelProvider implements ISty
         } else {
             this.styledLabelProvider = null;
         }
-        
     }
 
     @objid ("4a95c936-23d0-4bdc-9b1e-d2afe3be704d")
@@ -73,7 +72,7 @@ public class NatValueWrappingLabelProvider extends LabelProvider implements ISty
         if (this.styledLabelProvider==null) {
             return new StyledString(getText(initialElement));
         }
-        
+
         Object element = INatValue.getValue(initialElement);
         return this.styledLabelProvider.getStyledText(element);
     }

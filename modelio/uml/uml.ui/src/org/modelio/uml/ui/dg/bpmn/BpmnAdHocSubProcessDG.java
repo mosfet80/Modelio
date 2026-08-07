@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.dg.bpmn;
 
@@ -37,11 +37,12 @@ import org.modelio.diagram.elements.core.node.GmNodeModel;
 @objid ("1a986952-efc6-429a-bda3-6c9bee99e68d")
 public class BpmnAdHocSubProcessDG extends PortContainerDG {
     /**
+     *
      * @param diagramHandle The diagram manipulation class.
      * @param node The gm node represented by this class.
      */
     @objid ("3362837d-1b48-48e1-a674-2558547b80d3")
-    public  BpmnAdHocSubProcessDG(DiagramHandle diagramHandle, GmNodeModel node) {
+    public BpmnAdHocSubProcessDG(DiagramHandle diagramHandle, GmNodeModel node) {
         super(diagramHandle, node);
     }
 

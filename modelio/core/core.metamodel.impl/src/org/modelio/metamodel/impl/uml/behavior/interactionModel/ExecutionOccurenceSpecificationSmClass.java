@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
 import java.util.ArrayList;
@@ -43,73 +42,72 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("06fe4006-f9b7-4e49-920f-8f0fd75a1fdd")
 public class ExecutionOccurenceSpecificationSmClass extends MessageEndSmClass {
-    @objid ("9a2a8f91-3a45-4ba7-b0a8-2ae8532b268f")
+    @objid ("940569ff-a25d-4d0d-b152-5dc223d7260b")
     private SmDependency finishedDep;
 
-    @objid ("3611f823-3965-4e0d-a9f4-7494234df3b3")
+    @objid ("8e3a0ef8-cdb0-4ae3-9e25-703f023d2df8")
     private SmDependency startedDep;
 
-    @objid ("8a472bb6-0bc1-41f1-8964-4bfb5e563da3")
-    public  ExecutionOccurenceSpecificationSmClass(ISmMetamodelFragment origin) {
+    @objid ("e04eb179-6760-4b10-a64f-8526b0e45c5f")
+    public ExecutionOccurenceSpecificationSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("d527f2e8-3a77-465c-bf89-c97cdbe5c688")
+    @objid ("de7ead6a-060d-4bc7-b3ca-79536f958fc1")
     @Override
     public String getName() {
         return "ExecutionOccurenceSpecification";
-        
+
     }
 
-    @objid ("8a29416e-fe57-4770-a1fc-43a83fe9ee04")
+    @objid ("d9e6dc65-6a93-44cd-b299-0c286dc68ce9")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("03537d1a-110b-4c84-9309-46e392876251")
+    @objid ("293727e3-af08-457f-aa7a-2fef3dce7646")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return ExecutionOccurenceSpecification.class;
-        
+
     }
 
-    @objid ("ee62e7cf-8421-4b35-9f44-3f9fd37d2eb2")
+    @objid ("f751cbb6-36dc-4caa-928f-41f063aaa949")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("70f67d9f-6ee6-42ab-bf72-85206191378a")
+    @objid ("696ba339-5f81-4a74-87a4-7b683246dac1")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("523d9952-e6f9-4657-90ab-bcbf195c8b4a")
+    @objid ("e1c431c6-db23-4378-b2dd-e2f1e9346415")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(MessageEnd.MQNAME);
         this.registerFactory(new ExecutionOccurenceSpecificationObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
         this.finishedDep = new FinishedSmDependency();
         this.finishedDep.init("Finished", this, metamodel.getMClass(ExecutionSpecification.MQNAME), 0, 1 , SmDirective.SMCDTODELETE);
         registerDependency(this.finishedDep);
-        
+
         this.startedDep = new StartedSmDependency();
         this.startedDep.init("Started", this, metamodel.getMClass(ExecutionSpecification.MQNAME), 0, 1 , SmDirective.SMCDPARTOF, SmDirective.SMCDTODELETE);
         registerDependency(this.startedDep);
-        
-        
+
     }
 
-    @objid ("e28e2242-f862-4486-93f9-a441e5f6124d")
+    @objid ("e970ab38-1b3e-4c0a-9a0e-67df9ec94981")
     public SmDependency getFinishedDep() {
         if (this.finishedDep == null) {
         	this.finishedDep = this.getDependencyDef("Finished");
@@ -117,7 +115,7 @@ public class ExecutionOccurenceSpecificationSmClass extends MessageEndSmClass {
         return this.finishedDep;
     }
 
-    @objid ("1b0c8729-8564-4111-8f1e-fd00da54cf25")
+    @objid ("9f5a5abc-96f1-4270-afb5-45ffed9cb89d")
     public SmDependency getStartedDep() {
         if (this.startedDep == null) {
         	this.startedDep = this.getDependencyDef("Started");
@@ -127,21 +125,21 @@ public class ExecutionOccurenceSpecificationSmClass extends MessageEndSmClass {
 
     @objid ("bd19f5ca-bbfa-49cd-88b0-47e4637f0e64")
     private static class ExecutionOccurenceSpecificationObjectFactory implements ISmObjectFactory {
-        @objid ("bcabd319-ca1b-442e-82d8-a2b128222ece")
+        @objid ("9f2c6f45-dcb5-4b7c-a06f-674f3f8895b8")
         private ExecutionOccurenceSpecificationSmClass smClass;
 
-        @objid ("861968e7-4f95-42ac-8c65-5f56007941b2")
-        public  ExecutionOccurenceSpecificationObjectFactory(ExecutionOccurenceSpecificationSmClass smClass) {
+        @objid ("b5f8fdee-983f-4020-a998-919e06352d69")
+        public ExecutionOccurenceSpecificationObjectFactory(ExecutionOccurenceSpecificationSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("4988532a-f2ba-4940-b470-0d8003e71908")
+        @objid ("b6be7f67-0b2b-4298-9484-b5997cbb254a")
         @Override
         public ISmObjectData createData() {
             return new ExecutionOccurenceSpecificationData(this.smClass);
         }
 
-        @objid ("8aa59e5c-bcc4-495a-b4d0-fc5da2c70e69")
+        @objid ("086185ca-abfb-438e-8b42-dd42caf63c6a")
         @Override
         public SmObjectImpl createImpl() {
             return new ExecutionOccurenceSpecificationImpl();
@@ -151,58 +149,58 @@ public class ExecutionOccurenceSpecificationSmClass extends MessageEndSmClass {
 
     @objid ("450a7ac6-3101-4492-a4ad-1ba8f5b1aed8")
     public static class FinishedSmDependency extends SmSingleDependency {
-        @objid ("d0506dc4-0072-437f-b902-380ee3784fc6")
+        @objid ("c04b85db-0cfa-4fdd-a037-2678f73aba70")
         private SmDependency symetricDep;
 
-        @objid ("51847251-2f94-48bd-a6a6-631e7b3301ca")
+        @objid ("be3753c3-67f0-40e6-aa81-88960a20ade2")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((ExecutionOccurenceSpecificationData) data).mFinished;
         }
 
-        @objid ("60c6cca6-efd7-4c77-a5e7-3d152c2efc36")
+        @objid ("9ef86747-13f4-458a-9861-443e932b038a")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((ExecutionOccurenceSpecificationData) data).mFinished = value;
         }
 
-        @objid ("25a271cf-a45c-4fa1-9f5b-7c12a5a1d01f")
+        @objid ("eb88fbb0-356d-4ea6-a0d5-783b84822061")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((ExecutionSpecificationSmClass)this.getTarget()).getFinishDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("7cd06869-bc74-4774-86a3-b92aa8908a95")
     public static class StartedSmDependency extends SmSingleDependency {
-        @objid ("41cf1fd6-1c6e-471e-9ced-7c559325ba8c")
+        @objid ("5d2b05b4-d3e9-4006-83f8-17b050b7fb33")
         private SmDependency symetricDep;
 
-        @objid ("cf0b0413-01f0-4337-afc9-9eab7c8d3624")
+        @objid ("3e970ea6-34be-4d3e-9dea-be20f87197d6")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((ExecutionOccurenceSpecificationData) data).mStarted;
         }
 
-        @objid ("f09c4911-676f-448b-826d-be1e841bfd33")
+        @objid ("96b22abb-951c-47a1-a92b-e5e4920d2374")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((ExecutionOccurenceSpecificationData) data).mStarted = value;
         }
 
-        @objid ("5587230b-ce79-48d5-b8ab-f198c3522883")
+        @objid ("d414a34a-9f03-4495-bf15-90c1b05da353")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((ExecutionSpecificationSmClass)this.getTarget()).getStartDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

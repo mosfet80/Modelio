@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
 import java.util.ArrayList;
@@ -44,25 +43,25 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00485742-c4bf-1fd8-97fe-001ec947cd2a")
 public class InteractionUseImpl extends InteractionFragmentImpl implements InteractionUse {
-    @objid ("b1240c9a-468b-45d8-9624-3fbf982dac5f")
+    @objid ("ebf20aa5-35f6-4fd9-8871-526de83f16e7")
     @Override
     public int getEndLineNumber() {
         return (Integer) getAttVal(((InteractionUseSmClass)getClassOf()).getEndLineNumberAtt());
     }
 
-    @objid ("c37acfc7-4c33-49ba-afe6-2905591cf106")
+    @objid ("654d55c4-6a13-4d3c-85bf-12664897817a")
     @Override
     public void setEndLineNumber(int value) {
         setAttVal(((InteractionUseSmClass)getClassOf()).getEndLineNumberAtt(), value);
     }
 
-    @objid ("50c76bb4-6bde-4f69-9394-d90effb61a86")
+    @objid ("271130ce-576c-4f7a-82f9-c6070dc63d76")
     @Override
     public EList<Gate> getActualGate() {
         return new SmList<>(this, ((InteractionUseSmClass)getClassOf()).getActualGateDep());
     }
 
-    @objid ("a43117ed-6bf3-49bb-ba28-84739b7ba15b")
+    @objid ("069bc342-53e9-4be5-bf0e-27e5c8d64f53")
     @Override
     public <T extends Gate> List<T> getActualGate(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -75,23 +74,23 @@ public class InteractionUseImpl extends InteractionFragmentImpl implements Inter
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("4f0f20f3-dd5e-4c7c-b11a-6614da6bd387")
+    @objid ("0c042231-7f67-47e9-b438-972034c450c8")
     @Override
     public Interaction getRefersTo() {
         Object obj = getDepVal(((InteractionUseSmClass)getClassOf()).getRefersToDep());
         return (obj instanceof Interaction)? (Interaction)obj : null;
     }
 
-    @objid ("65dc28d9-9d06-4db0-b4d4-5493e55a597d")
+    @objid ("9fb9d2ff-5122-4f5f-b6f7-8f97d86fb83a")
     @Override
     public void setRefersTo(Interaction value) {
         appendDepVal(((InteractionUseSmClass)getClassOf()).getRefersToDep(), (SmObjectImpl)value);
     }
 
-    @objid ("9868a0db-1b19-46b1-a5bb-8c6ab11cee5c")
+    @objid ("fd96d0c5-4412-4648-ba2d-cc4df1db5b7c")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -99,17 +98,17 @@ public class InteractionUseImpl extends InteractionFragmentImpl implements Inter
         return super.getCompositionOwner();
     }
 
-    @objid ("9106e80c-8106-406c-8e4b-f3232a2a3327")
+    @objid ("54ccd3d3-8ffd-416f-8002-e5b89bc29d37")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("edbf76c0-9b42-48e5-ab6e-fd13cbe5903b")
+    @objid ("615e7aed-d984-4598-a3d9-9e8d59067d0e")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitInteractionUse(this);

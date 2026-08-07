@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.view.statusbar;
 
@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * ProgressBar2 This SWT implementation of a ProgressBar displays a text showing the current value of the progress bar. It also correctly resizes according to its layout data constraints.
- * 
+ *
  * By default the displayed text value is a percentage computed as selection/(maximum-minimum) * 100. To display another value, redefine the {@link ProgressBar2#getSelectionLabel()} method.
  */
 @objid ("aff5d12f-08c1-4207-9fe6-fb07b60adcee")
@@ -47,45 +47,45 @@ public class ProgressBar2 extends Composite {
     private Color textColor;
 
     @objid ("ee231947-41c9-4716-b17e-fc930ea6ad15")
-    public  ProgressBar2(Composite parent, int style) {
+    public ProgressBar2(Composite parent, int style) {
         super(parent, style);
-        
+
         // Set a default size
         setSize(100, getFont().getFontData()[0].getHeight() + 8);
-        
+
         addDisposeListener((e) -> {
             if (ProgressBar2.this.textColor != null) {
                 ProgressBar2.this.textColor.dispose();
             }
         });
-        
+
         addPaintListener(new PaintListener() {
             @Override
             public void paintControl(PaintEvent e) {
                 ProgressBar2 pb = (ProgressBar2) e.widget;
                 Color fgColor = pb.getForeground();
                 Color txtColor = pb.getTextColor(pb.getBackground(), fgColor);
-        
+
                 // Draw whole background
                 e.gc.fillRectangle(e.x, e.y, e.width, e.height);
-        
+
                 // Draw scale indicator
                 int normalizedSelection = Math.max(pb.minimum, Math.min(pb.maximum, pb.selection));
                 float ratio = (float) normalizedSelection / pb.maximum;
                 e.gc.setBackground(fgColor);
                 e.gc.fillRectangle(e.x, e.y, (int) (e.width * ratio), e.height);
-        
+
                 e.gc.setForeground(txtColor);
-        
+
                 String s = getSelectionLabel();
                 FontMetrics fontMetrics = e.gc.getFontMetrics();
                 int sWidth = (int) (fontMetrics.getAverageCharacterWidth() * s.length());
                 int sHeight = fontMetrics.getHeight();
                 e.gc.drawText(s, e.x + e.width / 2 - sWidth / 2, e.y + 1+ e.height / 2 - sHeight / 2, true);
-        
+
             }
         });
-        
+
     }
 
     /**
@@ -101,7 +101,7 @@ public class ProgressBar2 extends Composite {
     public void setSelection(int value) {
         this.selection = value;
         this.redraw();
-        
+
     }
 
     @objid ("1cbaf69d-a844-4d88-a3b7-952db8e47a10")
@@ -143,7 +143,7 @@ public class ProgressBar2 extends Composite {
                     (fg.getRed() + bg.getRed()) / 2,
                     (fg.getGreen() + bg.getGreen()) / 2,
                     (fg.getBlue() + bg.getBlue()) / 2 ));
-        
+
         }
         return this.textColor;
     }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.panels.scope;
 
@@ -54,6 +54,12 @@ import org.modelio.platform.ui.UIImages;
  */
 @objid ("f5171418-97c3-44df-a7fa-53450cf96c3c")
 public class StereotypeSelector {
+    /**
+     * The wrapped Text widget
+     */
+    @objid ("5a6ed6d8-3dd9-4528-9037-386005c13723")
+    private final Text text;
+
     @objid ("ec382cf2-eee0-4b15-9237-4ad9dd73be2a")
     private SelectStereotypeContentProposalProvider contentProvider;
 
@@ -67,26 +73,19 @@ public class StereotypeSelector {
     @objid ("9eb4c008-7593-48f9-9054-73678651a06c")
     private final Map<String, Stereotype> stereotypesMap;
 
-    /**
-     * The wrapped Text widget
-     */
-    @objid ("2bb0b8a6-d20c-44b7-83ea-343a813d9cb3")
-    private final Text text;
-
     // protected final IMetamodelExtensions i18nsupport;
     @objid ("8bf0a344-8852-4b25-915e-b7c4e3803f05")
-    public  StereotypeSelector(Composite parent, int style, int decoPos) {
+    public StereotypeSelector(Composite parent, int style, int decoPos) {
         this(parent, style, decoPos, null);
     }
 
     @objid ("07c6c647-175d-4d89-93d3-c32a63458eef")
-    public  StereotypeSelector(Composite parent, int style, int decoPos, Predicate<Stereotype> filter) {
+    public StereotypeSelector(Composite parent, int style, int decoPos, Predicate<Stereotype> filter) {
         //        this.imageSvc = context.getModelioServices().getImageService();
         //        this.i18nsupport = context.getModelingSession().getMetamodelExtensions();
                 this.text = createControl(parent, style, decoPos);
                 this.stereotypeFilter = filter;
                 this.stereotypesMap = new HashMap<>();
-        
     }
 
     @objid ("bedf234c-20cf-4f5c-bcd5-9947af4b5960")
@@ -98,6 +97,7 @@ public class StereotypeSelector {
      * Returns the internal text control.
      * <p>
      * Should be used only for setting layout data.
+     *
      * @return the internal text control.
      */
     @objid ("0df560ca-de4b-4dfb-b651-22a1f2b494d0")
@@ -122,23 +122,21 @@ public class StereotypeSelector {
         } else {
             this.text.setText("");
         }
-        
     }
 
     @objid ("4b1e374e-3227-424f-8c85-8de5d07ceede")
     public void setStereotypes(Collection<Stereotype> avStereotypes) {
         final Predicate<Stereotype> filter = getStereotypeFilter();
-        
+
         for (Stereotype ster : avStereotypes) {
             if (!this.stereotypesMap.containsKey(ster.getName())
                     && (filter == null || filter.test(ster))) {
                 this.stereotypesMap.put(ster.getName(), ster);
             }
         }
-        
+
         this.contentProvider.setStereotypes(avStereotypes);
         showStereotypeValidity();
-        
     }
 
     @objid ("f5a29c65-c6cb-4d1b-96ac-a6c40977247f")
@@ -149,39 +147,39 @@ public class StereotypeSelector {
     @objid ("2bf33bb7-f779-4fd5-9c2a-b57b612fc809")
     private Text createControl(Composite parent, int style, int decoPos) {
         final Text wrappedText = new Text(parent, style);
-        
+
         // create the decoration for the text component
         final ControlDecoration deco = new ControlDecoration(wrappedText, decoPos);
-        
+
         // set description and image
         deco.setDescriptionText(CoreUi.I18N.getString("StereotypeSelector.assist.tooltip"));
         deco.setImage(UIImages.ASSIST);
-        
+
         // always show decoration
         deco.setShowOnlyOnFocus(true);
-        
+
         this.contentProvider = new SelectStereotypeContentProposalProvider(this);
-        
+
         ContentProposalAdapter adapter = new ContentProposalAdapter(
                 wrappedText,
                 new TextContentAdapter(),
                 this.contentProvider,
                 KeyStroke.getInstance(SWT.MOD1, SWT.SPACE),
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray());
-        
+
         adapter.setProposalAcceptanceStyle(ContentProposalAdapter.PROPOSAL_REPLACE);
-        
+
         adapter.setLabelProvider(new LabelProvider() {
             @Override
             public String getText(Object element) {
                 Stereotype p = ((StereotypeProposal) element).getStereotypeData();
                 return p.getName();
             }
-        
+
             @Override
             public Image getImage(Object element) {
                 Stereotype ster = ((StereotypeProposal) element).getStereotypeData();
-        
+
                 // FIXME get the icon from the module owning the stereotype
                 Image icon = MdaResources.getIcon(ster);
                 if (icon == null) {
@@ -190,12 +188,12 @@ public class StereotypeSelector {
                 return icon;
             }
         });
-        
+
         adapter.addContentProposalListener(proposal -> {
             fireSelection();
             StereotypeSelector.this.text.traverse(SWT.TRAVERSE_TAB_NEXT);
         });
-        
+
         wrappedText.addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {
@@ -204,7 +202,7 @@ public class StereotypeSelector {
                     fireSelection();
                 }
             }
-        
+
         });
         wrappedText.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -214,7 +212,7 @@ public class StereotypeSelector {
                 fireSelection();
             }
         });
-        
+
         wrappedText.addModifyListener(e -> showStereotypeValidity());
         return wrappedText;
     }
@@ -225,7 +223,6 @@ public class StereotypeSelector {
         for (final IStereotypeSelectorListener listener : this.listeners) {
             listener.selectStereotype(stereotype);
         }
-        
     }
 
     @objid ("b6ecb935-f643-4769-b6d5-8f93716c3b2f")
@@ -236,7 +233,6 @@ public class StereotypeSelector {
         } else {
             this.text.setForeground(this.text.getDisplay().getSystemColor(SWT.COLOR_RED));
         }
-        
     }
 
     @objid ("04d182ca-2acb-4e12-b6cf-bd2ce165a42f")
@@ -248,8 +244,8 @@ public class StereotypeSelector {
     public interface IStereotypeSelectorListener {
         @objid ("a61cb64d-cb98-42d3-b10e-9a97b055052e")
         void selectStereotype(Stereotype stereotype);
-}
-    
+
+    }
 
     @objid ("e1194612-8dc2-4484-bd29-d3bfe5348ec2")
     private static class SelectStereotypeContentProposalProvider implements IContentProposalProvider {
@@ -273,10 +269,9 @@ public class StereotypeSelector {
         }
 
         @objid ("699aa1f7-6484-4643-8a14-f712eaf4a3d1")
-        public  SelectStereotypeContentProposalProvider(StereotypeSelector stereotypeSelector) {
+        public SelectStereotypeContentProposalProvider(StereotypeSelector stereotypeSelector) {
             this.stereotypeSelector = stereotypeSelector;
             this.stereotypes = Collections.emptyList();
-            
         }
 
         @objid ("9360dcca-877c-4ade-9c3d-9b1bf3b7c7f1")
@@ -292,7 +287,7 @@ public class StereotypeSelector {
         private final Stereotype stereotype;
 
         @objid ("fed7e1e2-841a-42ce-bddd-a4f4ae212244")
-        public  StereotypeProposal(Stereotype stereotype) {
+        public StereotypeProposal(Stereotype stereotype) {
             this.stereotype = stereotype;
         }
 
@@ -337,7 +332,6 @@ public class StereotypeSelector {
                     this.stereotype.getBaseClassName(),
                     this.stereotype.getModule().getName(),
                     d);
-            
         }
 
         @objid ("c90747a5-1d41-4331-89fd-d65d46364566")

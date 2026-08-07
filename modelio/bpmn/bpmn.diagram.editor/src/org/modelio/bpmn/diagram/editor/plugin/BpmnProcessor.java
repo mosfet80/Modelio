@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.plugin;
 
@@ -79,6 +79,7 @@ import org.modelio.diagram.styles.core.StyleLoader;
 import org.modelio.metamodel.bpmn.bpmnDiagrams.BpmnCollaborationDiagram;
 import org.modelio.metamodel.bpmn.bpmnDiagrams.BpmnProcessDesignDiagram;
 import org.modelio.metamodel.bpmn.bpmnDiagrams.BpmnSubProcessDiagram;
+import org.modelio.metamodel.diagrams.StaticDiagram;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -92,18 +93,23 @@ public class BpmnProcessor extends AbstractDiagramInitializationProcessor {
         configurerRegistry.registerDiagramConfigurer(BpmnCollaborationDiagram.MNAME, null, new BpmnCollaborationDiagramConfigurer());
         configurerRegistry.registerDiagramConfigurer(BpmnProcessDesignDiagram.MNAME, null, new BpmnProcessDesignDiagramConfigurer());
         configurerRegistry.registerDiagramConfigurer(BpmnSubProcessDiagram.MNAME, null, new BpmnSubProcessDiagramConfigurer());
-        
+
     }
 
     @objid ("c618fbf3-59a6-11e2-ae45-002564c97630")
     @Override
     protected void declareFactories(DiagramFactoryRegistry factoryRegistry) {
         factoryRegistry.registerDiagramFactories(BpmnCollaborationDiagram.MNAME, new BpmnGmNodeFactory(), new BpmnGmLinkFactory(), new BpmnEditPartFactory());
-        
+
         factoryRegistry.registerDiagramFactories(BpmnProcessDesignDiagram.MNAME, new BpmnGmNodeFactory(), new BpmnGmLinkFactory(), new BpmnEditPartFactory());
-        
+
         factoryRegistry.registerDiagramFactories(BpmnSubProcessDiagram.MNAME, new BpmnGmNodeFactory(), new BpmnGmLinkFactory(), new BpmnEditPartFactory());
-        
+
+        // Some UML common elements are unmasked in old BPMN diagrams such as Constraints
+        // and their namespace changed since 3.6.
+        factoryRegistry.registerExtensions(StaticDiagram.MNAME,
+                BpmnCollaborationDiagram.MNAME, BpmnProcessDesignDiagram.MNAME, BpmnSubProcessDiagram.MNAME);
+
     }
 
     @objid ("c618fbf5-59a6-11e2-ae45-002564c97630")
@@ -112,60 +118,60 @@ public class BpmnProcessor extends AbstractDiagramInitializationProcessor {
         factoryStyle.declareProvider(GmBpmnSequenceFlowStyleKeys.class);
         factoryStyle.declareProvider(GmBpmnSequenceFlowDataAssociationStyleKeys.class);
         factoryStyle.declareProvider(GmBpmnMessageFlowStyleKeys.class);
-        
+
         factoryStyle.declareProvider(GmBpmnMessageStructuredStyleKeys.class);
         factoryStyle.declareProvider(GmBpmnMessageImageStyleKeys.class);
         factoryStyle.declareProvider(GmBpmnMessageSimpleStyleKeys.class);
         factoryStyle.declareProvider(GmBpmnMessageUserImageStyleKeys.class);
-        
+
         factoryStyle.declareProvider(GmBpmnTaskStructuredStyleKeys.class);
         factoryStyle.declareProvider(GmBpmnTaskImageStyleKeys.class);
         factoryStyle.declareProvider(GmBpmnTaskSimpleStyleKeys.class);
-        
+
         factoryStyle.declareProvider(GmBpmnSubProcessStructuredStyleKeys.class);
         factoryStyle.declareProvider(GmBpmnSubProcessImageStyleKeys.class);
         factoryStyle.declareProvider(GmBpmnSubProcessSimpleStyleKeys.class);
-        
+
         factoryStyle.declareProvider(GmBpmnDiagramStyleKeys.class);
         factoryStyle.declareProvider(GmBpmnGatewayImageStyleKeys.class);
         factoryStyle.declareProvider(GmBpmnGatewaySimpleStyleKeys.class);
         factoryStyle.declareProvider(GmBpmnGatewayStructuredStyleKeys.class);
-        
+
         factoryStyle.declareProvider(GmBpmnBoundaryEventStructuredStyleKeys.class);
         factoryStyle.declareProvider(GmBpmnBoundaryEventSimpleStyleKeys.class);
         factoryStyle.declareProvider(GmBpmnBoundaryEventImageStyleKeys.class);
-        
+
         factoryStyle.declareProvider(GmBpmnEndEventImageStyleKeys.class);
         factoryStyle.declareProvider(GmBpmnEndEventSimpleStyleKeys.class);
         factoryStyle.declareProvider(GmBpmnEndEventStructuredStyleKeys.class);
-        
+
         factoryStyle.declareProvider(GmBpmnStartEventImageStyleKeys.class);
         factoryStyle.declareProvider(GmBpmnStartEventSimpleStyleKeys.class);
         factoryStyle.declareProvider(GmBpmnStartEventStructuredStyleKeys.class);
-        
+
         factoryStyle.declareProvider(GmBpmnIntermediateCatchEventImageStyleKeys.class);
         factoryStyle.declareProvider(GmBpmnIntermediateCatchEventSimpleStyleKeys.class);
         factoryStyle.declareProvider(GmBpmnIntermediateCatchEventStructuredStyleKeys.class);
-        
+
         factoryStyle.declareProvider(GmBpmnIntermediateThrowEventImageStyleKeys.class);
         factoryStyle.declareProvider(GmBpmnIntermediateThrowEventSimpleStyleKeys.class);
         factoryStyle.declareProvider(GmBpmnIntermediateThrowEventStructuredStyleKeys.class);
-        
+
         factoryStyle.declareProvider(GmBpmnDataObjectStyleKeys.class);
         factoryStyle.declareProvider(GmBpmnDataSimpleStyleKeys.class);
         factoryStyle.declareProvider(GmBpmnDataImageStyleKeys.class);
         factoryStyle.declareProvider(GmBpmnDataAssociationStyleKeys.class);
-        
+
         factoryStyle.declareProvider(GmBpmnLaneStructuredStyleKeys.class);
-        
+
         factoryStyle.declareProvider(ParticipantStyleKeys.INSTANCE);
-        
+
         factoryStyle.declareProvider(GmBpmnCallActivityStructuredStyleKeys.class);
-        
+
         factoryStyle.declareProvider(GmBpmnSendTaskStructuredStyleKeys.class);
         factoryStyle.declareProvider(GmBpmnServiceTaskStructuredStyleKeys.class);
         factoryStyle.declareProvider(GmBpmnReceiveTaskStructuredStyleKeys.class);
-        
+
     }
 
     @objid ("c618fbf7-59a6-11e2-ae45-002564c97630")
@@ -174,11 +180,11 @@ public class BpmnProcessor extends AbstractDiagramInitializationProcessor {
         StyleLoader loader = new StyleLoader();
         BundleContext bundle = DiagramEditorBpmn.getContext();
         URL url = FileLocator.find(bundle.getBundle(), new Path("res/factory.settings"), null);
-        
+
         loader.load(url);
-        
+
         factoryStyle.injectDefaultValues(loader.getStyleProperties());
-        
+
     }
 
 }

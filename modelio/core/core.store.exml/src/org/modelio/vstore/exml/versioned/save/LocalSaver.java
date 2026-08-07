@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.exml.versioned.save;
 
@@ -57,7 +57,7 @@ class LocalSaver implements AutoCloseable, ExmlTags {
     private OutputStream localOs;
 
     @objid ("4c07a269-1224-11e2-816a-001ec947ccaf")
-    public  LocalSaver(ExmlResource localResource) {
+    public LocalSaver(ExmlResource localResource) {
         this.localResource = localResource;
     }
 
@@ -69,42 +69,42 @@ class LocalSaver implements AutoCloseable, ExmlTags {
                 if (this.currentObj != null) {
                     this.out.writeEndElement();
                 }
-        
+
                 this.out.writeEndDocument();
-            } 
+            }
         } else {
             // Delete any existing local file
             this.localResource.delete();
         }
-        
+
     }
 
     @objid ("4c07a270-1224-11e2-816a-001ec947ccaf")
     public void dumpCompId(SmObjectImpl object, SmDependency dep, List<SmObjectImpl> targets) throws XMLStreamException {
         writeProlog();
-        
+
         if (this.currentObj == null) {
             this.out.writeStartElement(TAG_OBJECT);
             dumpID(TAG_ID, object);
-        
+
             this.currentObj = object;
         } else if (this.currentObj != object) {
             this.out.writeEndElement();
             this.out.writeStartElement(TAG_OBJECT);
             dumpID(TAG_ID, object);
-        
+
             this.currentObj = object;
         }
-        
+
         this.out.writeStartElement(TAG_COMP);
         this.out.writeAttribute(ATT_RELATION, dep.getName());
-        
+
         for (SmObjectImpl t : targets) {
             dumpID(TAG_COMPID, t);
         }
-        
+
         this.out.writeEndElement();
-        
+
     }
 
     @objid ("4c07a277-1224-11e2-816a-001ec947ccaf")
@@ -113,18 +113,19 @@ class LocalSaver implements AutoCloseable, ExmlTags {
         this.out.writeAttribute(ATT_ID_NAME, object.getName());
         this.out.writeAttribute(ATT_ID_MC, object.getMClass().getQualifiedName());
         this.out.writeAttribute(ATT_ID_UID, object.getUuid());
-        
+
     }
 
     @objid ("4c07a27d-1224-11e2-816a-001ec947ccaf")
     public void begin(final SmObjectImpl theCmsNode) {
         this.cmsNode = theCmsNode;
         this.currentObj = null;
-        
+
     }
 
     /**
      * Open the file and write the document begin if not already done.
+     *
      * @throws XMLStreamException on I/O failure
      */
     @objid ("9385803c-310f-46ce-802c-c6f5a2457a5b")
@@ -137,15 +138,15 @@ class LocalSaver implements AutoCloseable, ExmlTags {
             } catch (IOException e) {
                 throw new XMLStreamException(FileUtils.getLocalizedMessage(e), e);
             }
-            
+
             this.out.writeStartDocument();
             this.out.writeComment("GENERATED FILE, PLEASE DO NOT EDIT!!!");
-            
+
             this.out.writeStartElement(TAG_EXT);
             this.out.writeAttribute(ATT_EXT_OBJECT, this.cmsNode.getName());
             this.out.writeAttribute(ATT_EXT_VERSION, Integer.toString(FORMAT_VERSION));
         }
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel.meta.descriptor;
 
@@ -29,13 +29,13 @@ import org.modelio.vbasic.version.VersionedItem;
 
 /**
  * Metamodel fragment descriptor.
- * 
+ *
  * @author cma
  * @since 3.6
  */
 @objid ("fa0000bd-2e3c-4a87-bca7-6700e496ccaf")
 public class MetamodelFragmentDescriptor implements Serializable {
-    
+
     @mdl.prop
     @objid ("84c22663-4d2a-4b12-a559-0acd68d19592")
     public String name;
@@ -52,7 +52,7 @@ public class MetamodelFragmentDescriptor implements Serializable {
         this.name = value;
     }
 
-    
+
     @mdl.prop
     @objid ("e6d61adc-4dd5-478d-a85d-03d4bb70b6c4")
     public String provider;
@@ -69,7 +69,7 @@ public class MetamodelFragmentDescriptor implements Serializable {
         this.provider = value;
     }
 
-    
+
     @mdl.prop
     @objid ("c5d20a52-c016-44ae-861f-38ee802f0609")
     public String providerVersion;
@@ -86,7 +86,7 @@ public class MetamodelFragmentDescriptor implements Serializable {
         this.providerVersion = value;
     }
 
-    
+
     @mdl.prop
     @objid ("90c126ad-6759-4b3f-8cb0-dafb8e7cddfc")
     public boolean fake;
@@ -106,7 +106,7 @@ public class MetamodelFragmentDescriptor implements Serializable {
     @objid ("80965e44-a6ac-442e-965e-90bd7e4b3284")
     private static final long serialVersionUID = 1L;
 
-    
+
     @mdl.prop
     @objid ("e41f8995-14d5-44ff-a322-089e399f5571")
     public Version version;
@@ -123,7 +123,7 @@ public class MetamodelFragmentDescriptor implements Serializable {
         this.version = value;
     }
 
-    
+
     @mdl.prop
     @objid ("8cdb08de-df5b-41dc-94e5-f7c5adf9fc5c")
     public final List<MClassDescriptor> metaclasses = new ArrayList<> ();
@@ -134,7 +134,7 @@ public class MetamodelFragmentDescriptor implements Serializable {
         return this.metaclasses;
     }
 
-    
+
     @mdl.prop
     @objid ("87f350bb-707c-4056-9abd-fb20cd81157c")
     public final List<VersionedItem> dependencies = new ArrayList<> ();
@@ -145,7 +145,7 @@ public class MetamodelFragmentDescriptor implements Serializable {
         return this.dependencies;
     }
 
-    
+
     @mdl.prop
     @objid ("6c982c46-4fd0-4b19-990f-fc7aaee5bfeb")
     public final List<MEnumDescriptor> enumerations = new ArrayList<> ();

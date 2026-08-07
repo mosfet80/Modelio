@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.swt.images;
 
@@ -31,9 +31,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * Provides the element name as label optionally completed by a '(from namespace)' clause, the metaclass icon as image and apply
  * text standard decoration (static, abstract).<br>
  * This provider can typically be used as a base provider for a {@link ElementDecoratedStyledLabelProvider}.
- * 
- * 
- * 
+ *
  * @author phv
  */
 @objid ("39807b29-9409-41a9-a853-8482f2952d74")
@@ -49,22 +47,23 @@ public class BasicModelElementLabelProvider extends AbstractModelioElementLabelP
 
     /**
      * C'tor
-     * 
+     *
      * <p>
      * The label provider does not add a '(from namespace)' clause to the element name.<br/>
      * </p>
      */
     @objid ("e78018ef-762d-4be3-aff3-a6449ca76c56")
-    public  BasicModelElementLabelProvider() {
+    public BasicModelElementLabelProvider() {
         this(false);
     }
 
     /**
      * C'tor
+     *
      * @param withFromClause if <code>true</code>,  the label provider adds a '(from namespace)' clause to the element name.
      */
     @objid ("73f4d743-12ab-4e8d-ae04-6d91d6e13b58")
-    public  BasicModelElementLabelProvider(boolean withFromClause) {
+    public BasicModelElementLabelProvider(boolean withFromClause) {
         this.withFromClause = withFromClause;
     }
 
@@ -74,7 +73,6 @@ public class BasicModelElementLabelProvider extends AbstractModelioElementLabelP
         final MObject element = (MObject) obj;
         return this.baseLabelProvider.getImage(element);
         //return ElementImageService.getIcon(element);
-        
     }
 
     @objid ("85f45c86-cba0-482f-a733-f1a25aedfe50")
@@ -84,7 +82,7 @@ public class BasicModelElementLabelProvider extends AbstractModelioElementLabelP
         if (!this.withFromClause) {
             return mainLabel;
         }
-        
+
         MObject parentEl = (((MObject) element).getCompositionOwner());
         if (parentEl != null) {
             mainLabel.append("  (from ");

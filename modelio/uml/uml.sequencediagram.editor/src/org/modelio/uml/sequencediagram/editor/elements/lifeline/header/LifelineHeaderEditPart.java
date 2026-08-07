@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.lifeline.header;
 
@@ -31,7 +31,7 @@ import org.modelio.diagram.elements.umlcommon.constraint.ConstraintLinkEditPolic
 
 /**
  * Specialisation of the default edit part for a header wrapping the header figure inside a {@link RectangularFigure} and adding the handling of Image representation mode.
- * 
+ *
  * @author fpoyer
  */
 @objid ("d9483333-55b6-11e2-877f-002564c97630")
@@ -40,10 +40,10 @@ public class LifelineHeaderEditPart extends ModelElementHeaderEditPart {
     @Override
     protected IFigure createFigure() {
         LifelineHeaderFigure lifelineHeaderFigure = new LifelineHeaderFigure();
-        
+
         // Set style independent properties.
         lifelineHeaderFigure.setOpaque(true);
-        
+
         // Set style dependenty properties.
         refreshFromStyle(lifelineHeaderFigure, ((GmAbstractObject) getModel()).getDisplayedStyle());
         return lifelineHeaderFigure;
@@ -56,7 +56,6 @@ public class LifelineHeaderEditPart extends ModelElementHeaderEditPart {
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START,
                 new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
-        
     }
 
     @objid ("d948333f-55b6-11e2-877f-002564c97630")
@@ -65,10 +64,9 @@ public class LifelineHeaderEditPart extends ModelElementHeaderEditPart {
         super.refreshVisuals();
         final LifelineHeaderFigure headerFigure = (LifelineHeaderFigure) getFigure();
         final GmLifelineHeader headerModel = (GmLifelineHeader) getModel();
-        
+
         // Main label
         refreshMetaclassKeyword(headerFigure, headerModel);
-        
     }
 
     @objid ("d9483342-55b6-11e2-877f-002564c97630")
@@ -78,7 +76,6 @@ public class LifelineHeaderEditPart extends ModelElementHeaderEditPart {
         } else {
             headerFigure.setKeywordLabel(headerModel.computeSecondaryLabel());
         }
-        
     }
 
 }

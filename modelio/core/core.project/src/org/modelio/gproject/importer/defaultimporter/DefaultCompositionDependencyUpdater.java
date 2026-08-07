@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.importer.defaultimporter;
 
@@ -47,17 +47,18 @@ public class DefaultCompositionDependencyUpdater implements IDependencyUpdater {
     private final IObjectFinder objectFinder;
 
     /**
+     *
      * @param brokenDependencyHandler the broken dependencies handler
      * @param objectFinder the object finder
      * @param localSession the local session
      */
     @objid ("00927778-e7d6-1090-8d81-001ec947cd2a")
-    public  DefaultCompositionDependencyUpdater(IBrokenDependencyHandler brokenDependencyHandler, IObjectFinder objectFinder, ICoreSession localSession) {
+    public DefaultCompositionDependencyUpdater(IBrokenDependencyHandler brokenDependencyHandler, IObjectFinder objectFinder, ICoreSession localSession) {
         super();
         this.brokenDependencyHandler = brokenDependencyHandler;
         this.objectFinder = objectFinder;
         this.localSession = localSession;
-        
+
     }
 
     @objid ("0081dc4c-d3aa-108f-8d81-001ec947cd2a")
@@ -67,29 +68,29 @@ public class DefaultCompositionDependencyUpdater implements IDependencyUpdater {
         if (localDep != null) {
             // Get the dep values in the reference model
             List<MObject> refValues = refObject.mGet(smDep);
-        
+
             // Find the equivalent values in the local model
             List<SmObjectImpl> equivalentLocalValues = getEquivalentLocalValues(refValues);
-        
+
             // If some values could not be found locally, the dependency will be 'broken' after the import and will require some
             // repairing...
             if (equivalentLocalValues.size() != refValues.size()) {
                 // Publish the broken dep values
                 fireBrokenDepValues(refObject, refValues, smDep, localObject, equivalentLocalValues);
             }
-        
+
             // Update the local dep values according to the reference values
             return updateDependency(localObject, smDep, localDep, equivalentLocalValues, refValues);
         } else {
             return Collections.emptyList();
         }
-        
+
     }
 
     @objid ("00822756-d3aa-108f-8d81-001ec947cd2a")
     protected List<SmObjectImpl> getEquivalentLocalValues(List<MObject> refValues) {
         List<SmObjectImpl> equivalentLocalValues = new ArrayList<>(refValues.size());
-        
+
         // Get new dependencies values and find them in the destination model
         for (MObject refDepVal : refValues) {
             if (refDepVal != null) {
@@ -106,6 +107,7 @@ public class DefaultCompositionDependencyUpdater implements IDependencyUpdater {
 
     /**
      * Update a dependency
+     *
      * @param localObject the local object to modify
      * @param refDep the dependency in the reference model
      * @param localDep the dependency in the local model
@@ -123,18 +125,18 @@ public class DefaultCompositionDependencyUpdater implements IDependencyUpdater {
         if (!isSetEqual(refValues, localValues, refDep.isOrdered())) {
             // Remove all values that should be kept in the dep
             localValues.removeAll(equivalentLocalValues);
-        
+
             // Collect values that are going to become orphan...
             List<SmObjectImpl> orphans = new ArrayList(localValues);
-        
+
             // Clear all remaining values
             localValues.clear();
-        
+
             // Put back values from the reference model
             for (SmObjectImpl obj : equivalentLocalValues) {
                 localObject.appendDepVal(localDep, obj);
             }
-        
+
             return orphans;
         }
         return Collections.emptyList();
@@ -146,10 +148,10 @@ public class DefaultCompositionDependencyUpdater implements IDependencyUpdater {
             if (!equivalentLocalValues.contains(refVal)) {
                 this.brokenDependencyHandler.handleBrokenDep(new BrokenDepReport(refObject, localObject, smDep,
                         (SmObjectImpl) refVal));
-        
+
             }
         }
-        
+
     }
 
     @objid ("00818828-d3aa-108f-8d81-001ec947cd2a")
@@ -157,7 +159,7 @@ public class DefaultCompositionDependencyUpdater implements IDependencyUpdater {
         if (a.size() != b.size()) {
             return false;
         }
-        
+
         if (!ordered) {
             // Ordering does not matter
             for (Object object : a) {

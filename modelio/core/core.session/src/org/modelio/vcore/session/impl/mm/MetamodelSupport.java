@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.impl.mm;
 
@@ -49,38 +49,41 @@ public class MetamodelSupport implements IMetamodelSupport {
 
     /**
      * Initialize the service.
+     *
      * @param cacheManager the cache of all loaded objects
      * @param metamodel the metamodel
      */
     @objid ("08e8d00a-7e1a-4694-a1e3-77424f6e28e5")
-    public  MetamodelSupport(CacheManager cacheManager, SmMetamodel metamodel) {
+    public MetamodelSupport(CacheManager cacheManager, SmMetamodel metamodel) {
         this.cacheManager = cacheManager;
         this.metamodel = metamodel;
-        
+
     }
 
     /**
      * Add a new metamodel fragment.
+     *
      * @param mmFragment the metamodel fragment to add.
      */
     @objid ("6c407264-83b5-4d15-ab26-b76127434bad")
     @Override
     public void addMetamodelFragment(ISmMetamodelFragment mmFragment) {
         Collection<SmClass> removedFakes = this.metamodel.addMetamodelFragment(mmFragment);
-        
+
         // Unload all instances of the removed metaclasses.
         unloadMetaclassInstances(removedFakes);
-        
+
         // fire listeners
         for (IMetamodelListener l : this.listeners) {
             l.metamodelFragmentAdded(this.metamodel, mmFragment);
         }
-        
+
     }
 
     /**
      * Remove a metamodel fragment and unload all model objects
      * typed by a metaclass defined by the fragment.
+     *
      * @param removedMm the metamodel fragment to remove
      */
     @objid ("6ab1ff1b-8e22-4331-bf96-5c2dc39e144e")
@@ -90,25 +93,26 @@ public class MetamodelSupport implements IMetamodelSupport {
         for (IMetamodelListener l : this.listeners) {
             l.removingMetamodelFragment(this.metamodel, removedMm);
         }
-        
+
         Collection<SmClass> mclassesToUnload = this.metamodel.getRegisteredMClasses(removedMm);
-        
+
         // Unload all instances of the given metaclasses.
         unloadMetaclassInstances(mclassesToUnload);
-        
+
         // Unregister the metamodel fragment
         this.metamodel.removeFragment(removedMm);
-        
-        
+
+
         // fire listeners
         for (IMetamodelListener l : this.listeners) {
             l.metamodelFragmentRemoved(this.metamodel, removedMm);
         }
-        
+
     }
 
     /**
      * Unload all instances of the given metaclasses.
+     *
      * @param mclassesToUnload the metaclasses to unload
      */
     @objid ("7e645dd2-94ec-411a-b5df-5fe316d5117f")
@@ -118,14 +122,15 @@ public class MetamodelSupport implements IMetamodelSupport {
         for (SmClass smClass : mclassesToUnload) {
             this.cacheManager.findByClass(smClass, false, toUnload);
         }
-        
+
         // Unload the objects
         new ModelUnloader(this.cacheManager).unload(toUnload);
-        
+
     }
 
     /**
      * <p>Add a listener that will be triggered when a metamodel fragment is added or removed.</p>
+     *
      * @param listener the metamodel fragment to add.
      */
     @objid ("5d02017f-aff0-4f9e-9562-42c1e8c6900e")
@@ -135,6 +140,7 @@ public class MetamodelSupport implements IMetamodelSupport {
     }
 
     /**
+     *
      * @param listener the metamodel fragment to add.
      */
     @objid ("0a40f505-c2da-4271-8c81-15fb599fae67")

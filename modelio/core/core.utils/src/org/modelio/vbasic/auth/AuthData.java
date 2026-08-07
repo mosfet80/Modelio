@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vbasic.auth;
 
@@ -41,12 +41,13 @@ public abstract class AuthData implements IAuthData {
      * Initialize the data.
      */
     @objid ("4aca559a-67a1-45fd-adb0-74528a577462")
-    public  AuthData() {
+    public AuthData() {
         this.data = new HashMap<>(3);
     }
 
     /**
      * Get all authentication data fields
+     *
      * @return all authentication data fields.
      */
     @objid ("748d888f-84d1-4ed8-b53d-63640d19dfd8")
@@ -58,6 +59,7 @@ public abstract class AuthData implements IAuthData {
     /**
      * Convenience method to get a property value and return a default value if
      * the property is not defined.
+     *
      * @param prop a property key
      * @param defaultValue the default value
      * @return the property value or the default value.
@@ -65,12 +67,12 @@ public abstract class AuthData implements IAuthData {
     @objid ("470482f0-453f-44e6-bc37-c007b2ac8bd9")
     protected String getProperty(String prop, String defaultValue) {
         String ret = getData().get(prop);
-        
+
         if (ret == null)
             return defaultValue;
         else
             return ret;
-        
+
     }
 
     /**
@@ -101,12 +103,12 @@ public abstract class AuthData implements IAuthData {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        
+
         AuthData other = (AuthData) obj;
-        
+
         if (! getSchemeId().equals(other.getSchemeId()))
             return false;
-        
+
         if (getData() == null) {
             if (other.getData() != null) {
                 return false;

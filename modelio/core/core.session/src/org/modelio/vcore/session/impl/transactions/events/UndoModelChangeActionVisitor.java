@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.impl.transactions.events;
 
@@ -42,10 +42,10 @@ class UndoModelChangeActionVisitor implements IActionVisitor {
     private StatusChangeEvent statusEvent;
 
     @objid ("01f42120-0000-014a-0000-000000000000")
-    public  UndoModelChangeActionVisitor(ModelChangeEvent event, StatusChangeEvent statusEvent) {
+    public UndoModelChangeActionVisitor(ModelChangeEvent event, StatusChangeEvent statusEvent) {
         this.event = event;
         this.statusEvent = statusEvent;
-        
+
     }
 
     @objid ("01f42120-0000-0154-0000-000000000000")
@@ -55,7 +55,7 @@ class UndoModelChangeActionVisitor implements IActionVisitor {
         for (IAction a : tr.getActions()) {
             a.accept(this);
         }
-        
+
     }
 
     @objid ("01f42120-0000-015d-0000-000000000000")
@@ -65,7 +65,7 @@ class UndoModelChangeActionVisitor implements IActionVisitor {
         // previously deleted object
         // therefore let's call the refered object 'deleted'
         SmObjectImpl deleted = action.getRefered();
-        
+
         // Get the old parent that can be found in the erase list
         MObject oldParent = this.event.erasedElements.get(deleted);
         if (oldParent != null) {
@@ -82,7 +82,7 @@ class UndoModelChangeActionVisitor implements IActionVisitor {
         // // Remove the now useless erase event
         // event.erasedElements.erase(found);
         // }
-        
+
     }
 
     @objid ("01f42120-0000-0166-0000-000000000000")
@@ -92,35 +92,35 @@ class UndoModelChangeActionVisitor implements IActionVisitor {
         // previously created object
         // therefore let's call the refered object 'created'
         SmObjectImpl created = action.getRefered();
-        
+
         // A created element cannot have already been created, thereby
         // permitting the new object
         // to be stored without test
         this.event.createdElements.add(created);
-        
+
     }
 
     @objid ("01f42120-0000-016f-0000-000000000000")
     @Override
     public void visitSetAttributeAction(final SetAttributeAction action) {
         SmObjectImpl refered = action.getRefered();
-        
+
         // Forget created then deleted elements
         if (refered.isDeleted())
             return;
-        
+
         // If the element is already in the list of created elements, it has not
         // to be added
         if (this.event.createdElements.contains(refered))
             return;
-        
+
         if (action.getAtt() == refered.getClassOf().statusAtt()) {
             // populate the status change event
             long oldStatus = (long) action.getOldValue();
             long newStatus = refered.getData().getStatus();
-        
+
             this.statusEvent.add(refered, oldStatus, newStatus);
-        
+
         } else {
             // If the element is already in the list of updated elements, it has
             // not to be added
@@ -131,7 +131,7 @@ class UndoModelChangeActionVisitor implements IActionVisitor {
                     this.event.updatedElements.add(refered);
             }
         }
-        
+
     }
 
     @objid ("01f42120-0000-0178-0000-000000000000")
@@ -140,22 +140,22 @@ class UndoModelChangeActionVisitor implements IActionVisitor {
         SmObjectImpl ref = theEraseDependencyAction.getRef();
         SmObjectImpl refered = theEraseDependencyAction.getRefered();
         SmDependency dep = theEraseDependencyAction.getDep();
-        
+
         // Forget operations on deleted elements
         if (refered == null || ref.isDeleted() || refered.isDeleted())
             return;
-        
+
         if (dep.isPartOf() ) {
             // If the element is already in the list of created elements, it has
             // not to be added
             if (this.event.createdElements.contains(refered))
                 return;
-        
+
             if (this.event.updatedElements.contains(refered) == false) {
                 this.event.updatedElements.add(refered);
             }
         }
-        
+
     }
 
     @objid ("01f42120-0000-0181-0000-000000000000")
@@ -164,19 +164,19 @@ class UndoModelChangeActionVisitor implements IActionVisitor {
         SmObjectImpl target = theAppendDependencyAction.getRef();
         SmObjectImpl src = theAppendDependencyAction.getRefered();
         SmDependency dep = theAppendDependencyAction.getDep();
-        
+
         if (target == null || src == null)
             return;
-        
+
         // Only composition dependencies are managed
         if (isComponentDependency(dep)) {
-        
+
             // If the element is in the created element list, that means it has
             // not to be declared as moved
             // because it is already declared as created.
             if (this.event.createdElements.contains(target))
                 return;
-        
+
             // If the element already is in the erase relation, that means the
             // element has been moved
             // under another element (in the same transaction)..., which has not
@@ -186,12 +186,12 @@ class UndoModelChangeActionVisitor implements IActionVisitor {
             // first erase dependency
             if (this.event.erasedElements.containsKey(target))
                 return;
-        
+
             // If the element has been removed then readded to the same owner,
             // it is a false move.
             if (target.isValid() && target.getCompositionOwner() == src)
                 return;
-        
+
             if ( target.isDeleted()) {
                 this.event.deletedElements.put(target, src);
             } else {
@@ -201,7 +201,7 @@ class UndoModelChangeActionVisitor implements IActionVisitor {
                 // to the old/current owner
                 // of this element
                 this.event.erasedElements.put(target, src);
-        
+
                 // It can be a move, so the movedElements list is filled with
                 // the old owner.
                 this.event.movedElements.put(target, src);
@@ -211,23 +211,23 @@ class UndoModelChangeActionVisitor implements IActionVisitor {
                 this.event.updatedElements.add(src);
             }
         }
-        
+
     }
 
     @objid ("01f42120-0000-018a-0000-000000000000")
     @Override
     public void visitMoveDependencyAction(final MoveDependencyAction theMoveDependencyAction) {
         SmObjectImpl refered = theMoveDependencyAction.getRefered();
-        
+
         // Forget operations on deleted elements
         if (refered.isDeleted())
             return;
-        
+
         // If the element is already in the list of created elements, it has not
         // to be added
         if (this.event.createdElements.contains(refered))
             return;
-        
+
         // If the element already is in the list of updated elements, it has not
         // to be added
         if (this.event.updatedElements.contains(refered) == false) {
@@ -236,7 +236,7 @@ class UndoModelChangeActionVisitor implements IActionVisitor {
             if (this.event.createdElements.contains(refered) == false)
                 this.event.updatedElements.add(refered);
         }
-        
+
     }
 
     @objid ("01f42120-0000-2182-0000-000000000000")

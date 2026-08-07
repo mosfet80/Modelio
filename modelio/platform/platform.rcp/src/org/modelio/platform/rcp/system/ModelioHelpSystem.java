@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.rcp.system;
 
@@ -37,12 +37,13 @@ public class ModelioHelpSystem implements IWorkbenchHelpSystem {
     private ModelioHelpUi ui = null;
 
     @objid ("12ac8dc1-77f3-4ecb-9971-7bf904450124")
-    private  ModelioHelpSystem() {
-        
+    private ModelioHelpSystem() {
+
     }
 
     /**
      * Return the singleton instance of this class.
+     *
      * @return the singleton instance
      */
     @objid ("22b609c9-a02c-4d7d-a0fe-3f32d4678232")
@@ -72,6 +73,7 @@ public class ModelioHelpSystem implements IWorkbenchHelpSystem {
      * <p>
      * Ignored if no help UI is available.
      * </p>
+     *
      * @see org.eclipse.ui.help.IWorkbenchHelpSystem#displayHelp()
      */
     @objid ("035b1a76-45e8-4562-8216-bb966572f3c6")
@@ -80,7 +82,7 @@ public class ModelioHelpSystem implements IWorkbenchHelpSystem {
         if (getUi() != null) {
             this.ui.displayHelp();
         }
-        
+
     }
 
     @objid ("1ca488c7-d1dc-44e5-8e28-c89137a5323d")
@@ -117,7 +119,7 @@ public class ModelioHelpSystem implements IWorkbenchHelpSystem {
         if (helpUi != null) {
             helpUi.displayHelpResource(href);
         }
-        
+
     }
 
     @objid ("a84cad00-00ef-4e7e-91b7-3d5f5394c68d")

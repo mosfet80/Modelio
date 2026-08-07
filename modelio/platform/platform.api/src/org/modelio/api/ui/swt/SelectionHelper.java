@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.ui.swt;
 
@@ -30,15 +30,15 @@ import org.eclipse.jface.viewers.IStructuredSelection;
  * <p>
  * All the methods check the selection is a {@link IStructuredSelection}.
  * Selection objects not matching this criteria are treated as empty selections.
- * 
- * @since 3.7.1
+ *
  * @see ISelection
  * @see IStructuredSelection
+ * @since 3.7.1
  */
 @objid ("acea6a4e-ea5d-46fc-9690-d8500c0a2116")
 public final class SelectionHelper {
     @objid ("5ffe3602-d87b-4cc7-851b-e5b604e1594a")
-    private  SelectionHelper() {
+    private SelectionHelper() {
         // no instance
     }
 
@@ -46,6 +46,7 @@ public final class SelectionHelper {
      * Tells whether the selection contains <b>at least</b> one element of the given type.
      * <p>
      * Returns false if the selection is empty.
+     *
      * @param selection a selection object
      * @param cls the required type
      * @return true if the selection contains at least one such element.
@@ -66,6 +67,7 @@ public final class SelectionHelper {
      * Tells whether the selection contains <b>only</b> elements of the given type.
      * <p>
      * Returns false if the selection is empty.
+     *
      * @param selection a selection object
      * @param cls the required type
      * @return true if the selection is not empty and contains only such elements.
@@ -74,12 +76,12 @@ public final class SelectionHelper {
     public static boolean containsOnly(final ISelection selection, Class<?> cls) {
         if (selection instanceof IStructuredSelection) {
             final IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-        
+
             // Forbid empty selection
             if (structuredSelection.size() == 0) {
                 return false;
             }
-        
+
             for (Object element : structuredSelection.toArray()) {
                 if (adapt(element, cls) == null) {
                     return false;
@@ -91,6 +93,7 @@ public final class SelectionHelper {
 
     /**
      * Count in the selection the elements matching the given type.
+     *
      * @param selection a selection object
      * @param cls the required type
      * @return true the matching elements count.
@@ -112,6 +115,7 @@ public final class SelectionHelper {
      * Convert the selection object to a list of the given type.
      * <p>
      * All selection elements not matching the type are filtered out.
+     *
      * @param <T> the wanted type
      * @param selection the selection object
      * @param cls the wanted type
@@ -120,14 +124,14 @@ public final class SelectionHelper {
     @objid ("ef2028d5-faeb-47a4-897c-6507a2e60b4d")
     public static <T> List<T> toList(final ISelection selection, Class<T> cls) {
         List<T> selectedElements = new ArrayList<>();
-        
+
         if (selection instanceof IStructuredSelection) {
             for (Object element : ((IStructuredSelection) selection).toArray()) {
                 final T adapter = adapt(element, cls);
                 if (adapter != null) {
                     selectedElements.add(adapter);
                 }
-        
+
             }
         }
         return selectedElements;
@@ -137,6 +141,7 @@ public final class SelectionHelper {
      * Convert the selection object to a {@link Stream} of the given type.
      * <p>
      * All selection elements not matching the type are filtered out.
+     *
      * @param <T> the wanted type
      * @param selection the selection object
      * @param cls the wanted type
@@ -146,7 +151,7 @@ public final class SelectionHelper {
     public static <T> Stream<T> toStream(final ISelection selection, Class<T> cls) {
         if (selection instanceof IStructuredSelection) {
             Stream<?> stream = ((IStructuredSelection) selection).toList().stream();
-        
+
             return stream
                     .map(element -> adapt(element, cls))
                     .filter(Objects::nonNull);
@@ -156,6 +161,7 @@ public final class SelectionHelper {
 
     /**
      * Get the first element in the selection that matches the given type
+     *
      * @param <T> the required type
      * @param selection the selection object
      * @param cls the required type class

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.dg.statik;
 
@@ -38,11 +38,12 @@ import org.modelio.uml.statikdiagram.editor.elements.instance.GmInstancePrimaryN
 @objid ("6ca1994d-3971-41b1-9b2c-7d037f58e008")
 public class InstanceDG extends PortContainerDG {
     /**
+     *
      * @param diagramHandle The diagram manipulation class.
      * @param node The gm node represented by this class.
      */
     @objid ("a66e177e-625e-489f-9283-79b0ca0d4854")
-    public  InstanceDG(DiagramHandle diagramHandle, GmNodeModel node) {
+    public InstanceDG(DiagramHandle diagramHandle, GmNodeModel node) {
         super(diagramHandle, node);
     }
 
@@ -50,16 +51,16 @@ public class InstanceDG extends PortContainerDG {
     @Override
     protected List<IDiagramNode> getPrimaryChildrenNodes() {
         List<IDiagramNode> nodes = new ArrayList<>();
-        
+
         // Inner nodes
         GmInstancePrimaryNode mainNode = (GmInstancePrimaryNode) getPrimaryNode();
-        
+
         // AttributeLink
         GmCompositeNode attributeLinkZone = mainNode.getCompositeFor(AttributeLink.class);
         if (attributeLinkZone != null) {
             nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle, attributeLinkZone.getVisibleChildren()));
         }
-        
+
         // BindableInstance
         GmCompositeNode bindableInstanceZone = mainNode.getCompositeFor(BindableInstance.class);
         if (bindableInstanceZone != null) {

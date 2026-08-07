@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.modelio.application.project.nl_fr"
+      label="%featureName"
+      version="4.0.0"
+      provider-name="Modeliosoft">
+
+   <copyright>
+      Copyright 2016 Modeliosoft
+All information contained herein is, and remains the property of Modeliosoft.
+The intellectual and technical concepts contained herein are proprietary
+to Modeliosoft and may be covered by French and Foreign Patents, patents
+in process, and are protected by trade secret or copyright law.
+Dissemination of this information or reproduction of this material
+is strictly forbidden unless prior written permission is obtained
+from Modeliosoft.
+   </copyright>
+
+   <license url="">
+      Copyright 2016 Modeliosoft
+All information contained herein is, and remains the property of Modeliosoft.
+The intellectual and technical concepts contained herein are proprietary
+to Modeliosoft and may be covered by French and Foreign Patents, patents
+in process, and are protected by trade secret or copyright law.
+Dissemination of this information or reproduction of this material
+is strictly forbidden unless prior written permission is obtained
+from Modeliosoft.
+   </license>
+
+   <url>
+      <discovery label="Modeliosoft" url="http://www.modeliosoft.com/"/>
+   </url>
+
+   <plugin
+         id="org.modelio.app.project.conf.ext_org.nl_fr"
+         download-size="4"
+         install-size="14"
+         version="4.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.app.project.conf.nl_fr"
+         download-size="3"
+         install-size="8"
+         version="4.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.platform.project.ext_org.nl_fr"
+         download-size="0"
+         install-size="0"
+         version="4.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.platform.project.nl_fr"
+         download-size="9"
+         install-size="51"
+         version="4.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.app.project.ui.ext_org.nl_fr"
+         download-size="2"
+         install-size="7"
+         version="4.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.app.project.ui.nl_fr"
+         download-size="1"
+         install-size="2"
+         version="4.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.core.project.data.nl_fr"
+         download-size="1"
+         install-size="1"
+         version="4.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.core.project.nl_fr"
+         download-size="2"
+         install-size="7"
+         version="4.0.0"
+         unpack="false"/>
+
+</feature>

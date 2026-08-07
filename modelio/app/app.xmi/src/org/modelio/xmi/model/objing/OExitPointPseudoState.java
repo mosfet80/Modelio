@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -36,7 +36,7 @@ public class OExitPointPseudoState extends OAbstractPseudoState {
     }
 
     @objid ("4026c571-8576-493b-b61f-b530d614d314")
-    public  OExitPointPseudoState(ExitPointPseudoState param) {
+    public OExitPointPseudoState(ExitPointPseudoState param) {
         super(param);
     }
 
@@ -44,10 +44,10 @@ public class OExitPointPseudoState extends OAbstractPseudoState {
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         MObject objingOwner = this.getObjingElement().getCompositionOwner();
-        
+
         if (objingOwner != null) {
             org.eclipse.uml2.uml.Element ecoreOwner = GenerationProperties.getInstance().getMappedElement(objingOwner);
-                
+
             if (ecoreOwner != null) {
                 if (ecoreOwner instanceof  org.eclipse.uml2.uml.State) {
                     ( (org.eclipse.uml2.uml.State) ecoreOwner).getConnectionPoints().add((Pseudostate)ecoreElt);
@@ -70,7 +70,7 @@ public class OExitPointPseudoState extends OAbstractPseudoState {
             ecoreElt.destroy();
             throw new NotFoundException("Owner Class of "+ this.getObjingElement().getClass().getSimpleName() + " Not Found");
         }
-        
+
     }
 
     @objid ("da8e8e27-fab9-4b2b-8ef9-16e452eb4425")
@@ -78,7 +78,7 @@ public class OExitPointPseudoState extends OAbstractPseudoState {
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
         setKind( (Pseudostate)ecoreElt);
-        
+
     }
 
     @objid ("ae9d7c49-ecdc-4fb2-9d89-913715a7e4c6")

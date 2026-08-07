@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.exporter.service.processor.export;
 
@@ -40,11 +40,11 @@ public class UpdateExportProcessor implements IBPMNProcessor {
     private IDiagramService diagramService;
 
     @objid ("b3821243-fdb0-46c5-ad7e-efc43c84598b")
-    public  UpdateExportProcessor(IDiagramService diagramService, Map<String, Object> elementsMap) {
+    public UpdateExportProcessor(IDiagramService diagramService, Map<String, Object> elementsMap) {
         this.factory = new ProductionFactory();
         this.elementsMap = elementsMap;
         this.diagramService = diagramService;
-        
+
     }
 
     @objid ("c68837d5-a9b6-4038-bf1e-0d7ca6b18e01")
@@ -53,11 +53,11 @@ public class UpdateExportProcessor implements IBPMNProcessor {
         IProduction node = this.factory.getExportProductionNode(modelioElement);
         if(node != null){
             node.setElements(this.elementsMap);
-        
-        
+
+
             if(node instanceof IProductionNode){
                 Object jaxbElement = this.elementsMap.get(((MObject) modelioElement).getUuid());
-                return  ((IProductionNode)node).updateJaxbElement(context,jaxbElement,(MObject) modelioElement);     
+                return  ((IProductionNode)node).updateJaxbElement(context,jaxbElement,(MObject) modelioElement);
             }
         }
         return null;

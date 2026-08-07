@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.genericlink;
 
@@ -60,24 +60,25 @@ public class GmGenericLink extends GmLink {
 
     /**
      * Initialize a link graphic model.
+     *
      * @param diagram The owning diagram
      * @param link The reference link, may be <code>null</code>.
      * @param ref The reference link, may not be <code>null</code>
      */
     @objid ("6001de5f-3a7d-49e9-ba0c-d7a169b44eff")
-    public  GmGenericLink(IGmDiagram diagram, ModelElement link, MRef ref) {
+    public GmGenericLink(IGmDiagram diagram, ModelElement link, MRef ref) {
         super(diagram, ref);
         this.link = link;
-        
+
         addExtension(ExtensionLocation.MiddleNW, IGmLink.ROLE_MAIN_LABEL, new GmDefaultModelElementLabel(diagram, ref));
-        
+
     }
 
     /**
      * For deserialization only.
      */
     @objid ("5b156941-8041-43db-b6c3-86643f52eff4")
-    public  GmGenericLink() {
+    public GmGenericLink() {
         super();
     }
 
@@ -97,7 +98,7 @@ public class GmGenericLink extends GmLink {
     @Override
     protected void readLink(IDiagramReader in) {
         super.readLink(in);
-        
+
         int readVersion = readMinorVersion(in, "GmGenericLink.");
         switch (readVersion) {
         case 0: {
@@ -111,7 +112,7 @@ public class GmGenericLink extends GmLink {
         break;
         }
         }
-        
+
     }
 
     @objid ("457f7ad7-404c-4d6d-bb2f-32558fd93e12")
@@ -138,9 +139,9 @@ public class GmGenericLink extends GmLink {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         writeMinorVersion(out, "GmGenericLink.", GmGenericLink.MINOR_VERSION);
-        
+
     }
 
     @objid ("5273b8d1-209d-47d7-8f87-d9609a14b4fc")

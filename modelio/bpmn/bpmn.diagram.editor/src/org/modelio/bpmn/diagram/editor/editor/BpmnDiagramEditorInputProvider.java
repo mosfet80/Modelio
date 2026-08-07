@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.editor;
 
@@ -42,6 +42,15 @@ public class BpmnDiagramEditorInputProvider implements IDiagramEditorInputProvid
             diagram = (AbstractDiagram) modelManager.getModelServices().findByRef(new MRef(BpmnSubProcessDiagram.MQNAME, diagramUID));
         }
         return diagram != null ? new BpmnDiagramEditorInput(modelManager, diagram, getDiagramCreator()) : null;
+    }
+
+    @objid ("586f0643-b265-448e-a3e9-5372b82410da")
+    @Override
+    public DiagramEditorInput compute(AbstractDiagram diagram, IModelManager modelManager) {
+        if (diagram instanceof BpmnProcessCollaborationDiagram || diagram instanceof BpmnSubProcessDiagram)
+            return new BpmnDiagramEditorInput(modelManager, diagram, getDiagramCreator());
+
+        return null;
     }
 
     @objid ("e06c5ac9-4c2d-4730-8755-343223a34815")

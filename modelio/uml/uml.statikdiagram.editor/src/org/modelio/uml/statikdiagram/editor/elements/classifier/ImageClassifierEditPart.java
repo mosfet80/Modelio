@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.classifier;
 
@@ -49,7 +49,7 @@ import org.modelio.uml.statikdiagram.editor.elements.policies.SmartGeneralizatio
  * EditPart for classifiers in image mode.
  * <p>
  * Accepts n-ary associations.
- * 
+ *
  * @author cmarin
  */
 @objid ("3436b406-55b7-11e2-877f-002564c97630")
@@ -67,26 +67,26 @@ public class ImageClassifierEditPart extends NonSelectableLabelledImageEditPart 
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         installEditPolicy(EditPolicy.NODE_ROLE, new SmartGeneralizationEditPolicy());
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START,
                           new LinkedNodeStartCreationEditPolicy());
         installEditPolicy("constraint", new ConstraintLinkEditPolicy(false));
-        
+
         GmNodeModel model = getModel();
         if (model.getRelatedElement() instanceof Classifier) {
             installEditPolicy("N-ary assoc", new AcceptNAssocEditPolicy(true));
             installEditPolicy(EditPolicy.LAYOUT_ROLE, new SimpleModeDeferringCreateNodePolicy());
             installEditPolicy(ModelElementDropRequest.TYPE, new ClassifierElementDropEditPolicy());
         } else {
-        
+
             installEditPolicy(ModelElementDropRequest.TYPE, new DefaultElementDropEditPolicy());
         }
-        
+
         // Add specific policy to handle requests to redraw composition links.
         installEditPolicy("RedrawCompositionLinkEditPolicy", new RedrawCompositionLinkEditPolicy());
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new SimpleModeOwnedElementCreationEditPolicy());
-        
+
     }
 
     @objid ("3436b413-55b7-11e2-877f-002564c97630")
@@ -124,13 +124,13 @@ public class ImageClassifierEditPart extends NonSelectableLabelledImageEditPart 
                     }
                 }
             }
-            
+
         }
-        
+
         if (!switchRepresentationMode()) {
             super.refreshFromStyle(aFigure, style);
         }
-        
+
     }
 
 }

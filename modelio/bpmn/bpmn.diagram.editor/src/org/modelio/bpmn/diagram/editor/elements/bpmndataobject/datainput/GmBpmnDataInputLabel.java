@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmndataobject.datainput;
 
@@ -38,7 +38,7 @@ public class GmBpmnDataInputLabel extends GmBpmnDataLabel {
     private static final int MAJOR_VERSION = 0;
 
     @objid ("60b5ce3e-55b6-11e2-877f-002564c97630")
-    public  GmBpmnDataInputLabel(final IGmDiagram diagram, final MRef ref) {
+    public GmBpmnDataInputLabel(final IGmDiagram diagram, final MRef ref) {
         super(diagram, ref);
     }
 
@@ -46,7 +46,7 @@ public class GmBpmnDataInputLabel extends GmBpmnDataLabel {
      * Empty c'tor for deserialisation.
      */
     @objid ("60b5ce4d-55b6-11e2-877f-002564c97630")
-    public  GmBpmnDataInputLabel() {
+    public GmBpmnDataInputLabel() {
         // empty constructor for the serialization
     }
 
@@ -67,17 +67,17 @@ public class GmBpmnDataInputLabel extends GmBpmnDataLabel {
             break;
         }
         }
-        
+
     }
 
     @objid ("60b5ce56-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmBpmnDataInputLabel.", MINOR_VERSION);
-        
+
     }
 
     @objid ("60b5ce5c-55b6-11e2-877f-002564c97630")

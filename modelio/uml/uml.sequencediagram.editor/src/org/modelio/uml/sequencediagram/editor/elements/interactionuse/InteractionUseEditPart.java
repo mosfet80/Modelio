@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.interactionuse;
 
@@ -41,13 +41,14 @@ import org.modelio.uml.sequencediagram.editor.elements.sequencediagram.Placement
 
 /**
  * EditPart for the InteractionUse. Specialisation of the PortContainerEditPart to add the IPlacementConstraintProvider role.
- * 
+ *
  * @author fpoyer
  */
 @objid ("d92086fc-55b6-11e2-877f-002564c97630")
 public class InteractionUseEditPart extends PortContainerEditPart implements IPlacementConstraintProvider {
     /**
      * Creates and returns a PlacementConstraint for the given model.
+     *
      * @param model the graphic model for which a constraint is to be created.
      * @param x the desired X coordinate in coordinates relative to the parent figure.
      * @param y the desired Y coordinate in coordinates relative to the parent figure.
@@ -63,7 +64,6 @@ public class InteractionUseEditPart extends PortContainerEditPart implements IPl
                         width,
                         height,
                         (GmSequenceDiagram) model.getDiagram());
-        
     }
 
     @objid ("d9208712-55b6-11e2-877f-002564c97630")
@@ -81,11 +81,11 @@ public class InteractionUseEditPart extends PortContainerEditPart implements IPl
                             ((ChangeBoundsRequest) request).getMoveDelta().y;
                     int finishTime = interactionUse.getEndLineNumber() +
                             ((ChangeBoundsRequest) request).getMoveDelta().y;
-        
+
                     interactionUse.setLineNumber(startTime);
                     interactionUse.setEndLineNumber(finishTime);
                     // FIXME: also move the gates.
-        
+
                 }
             };
             command = updateModelCommand.chain(command);
@@ -99,9 +99,8 @@ public class InteractionUseEditPart extends PortContainerEditPart implements IPl
         super.createEditPolicies();
         // Specifying the layout policy to handle creation of Gates.
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new InteractionUseEditPolicy());
-        
+
         removeEditPolicy(LayoutMainNodeConnectionsEditPolicy.ROLE);
-        
     }
 
     @objid ("9b988ead-615c-4943-aacf-80514f16c9dd")
@@ -111,12 +110,11 @@ public class InteractionUseEditPart extends PortContainerEditPart implements IPl
             @Override
             public void activate() {
                 super.activate();
-        
+
                 EditPart host = getHost();
                 host.removeEditPolicy(LayoutNodeConnectionsEditPolicy.ROLE);
             }
         };
-        
     }
 
     @objid ("d01454df-8798-4d4d-8588-8d51e5698088")

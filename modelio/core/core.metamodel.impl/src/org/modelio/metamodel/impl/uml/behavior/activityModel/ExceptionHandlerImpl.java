@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -46,63 +45,63 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0030ab7e-c4bf-1fd8-97fe-001ec947cd2a")
 public class ExceptionHandlerImpl extends UmlModelElementImpl implements ExceptionHandler {
-    @objid ("f1b7126c-2f60-42bb-819c-69cf40babaae")
+    @objid ("c00aea4f-cd1b-47ea-9370-ab57c7160a67")
     @Override
     public String getGuard() {
         return (String) getAttVal(((ExceptionHandlerSmClass)getClassOf()).getGuardAtt());
     }
 
-    @objid ("24fa05e3-2b87-4b81-99ef-1b6247c595cc")
+    @objid ("77019a0f-8f76-4909-8d4d-ae0ed2ca3e0f")
     @Override
     public void setGuard(String value) {
         setAttVal(((ExceptionHandlerSmClass)getClassOf()).getGuardAtt(), value);
     }
 
-    @objid ("5e8f8a88-8135-4a11-aea3-12d6783bebb6")
+    @objid ("06f32468-ad1e-4a91-bd99-16fcb9e03a52")
     @Override
     public String getWeight() {
         return (String) getAttVal(((ExceptionHandlerSmClass)getClassOf()).getWeightAtt());
     }
 
-    @objid ("a0f0efa6-413c-4718-8295-ecda9c2cb13e")
+    @objid ("2dc7cb7a-4f9e-4264-9a49-bc65798efd8e")
     @Override
     public void setWeight(String value) {
         setAttVal(((ExceptionHandlerSmClass)getClassOf()).getWeightAtt(), value);
     }
 
-    @objid ("20e873fd-2fba-48f5-a99b-98662ba7a174")
+    @objid ("0752fb9c-f223-4cf4-a86c-7ad848c42ccc")
     @Override
     public ActivityAction getProtectedNode() {
         Object obj = getDepVal(((ExceptionHandlerSmClass)getClassOf()).getProtectedNodeDep());
         return (obj instanceof ActivityAction)? (ActivityAction)obj : null;
     }
 
-    @objid ("b49ffe82-b567-43db-a80b-3fb7c7199572")
+    @objid ("66964d47-2aa4-4a27-848e-017075dbc65f")
     @Override
     public void setProtectedNode(ActivityAction value) {
         appendDepVal(((ExceptionHandlerSmClass)getClassOf()).getProtectedNodeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("79c09bc1-0f82-4c64-a545-9969c1c22611")
+    @objid ("2cd71dab-9a75-463b-a448-12427de1f6fc")
     @Override
     public InputPin getExceptionInput() {
         Object obj = getDepVal(((ExceptionHandlerSmClass)getClassOf()).getExceptionInputDep());
         return (obj instanceof InputPin)? (InputPin)obj : null;
     }
 
-    @objid ("0917b117-e40a-403f-879b-8c5a4cda1bca")
+    @objid ("92d90212-ac10-49d1-ac14-6304be4eb289")
     @Override
     public void setExceptionInput(InputPin value) {
         appendDepVal(((ExceptionHandlerSmClass)getClassOf()).getExceptionInputDep(), (SmObjectImpl)value);
     }
 
-    @objid ("530fbc39-44b3-4e25-9a05-45acda66a378")
+    @objid ("710a9efe-0982-4742-accb-fc739f31a164")
     @Override
     public EList<GeneralClass> getExceptionType() {
         return new SmList<>(this, ((ExceptionHandlerSmClass)getClassOf()).getExceptionTypeDep());
     }
 
-    @objid ("ff0c6cb6-a3a9-44fd-a4e6-5e11a4ada6b0")
+    @objid ("b3d68954-c822-49da-8559-e17efb8fdc3a")
     @Override
     public <T extends GeneralClass> List<T> getExceptionType(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -115,10 +114,10 @@ public class ExceptionHandlerImpl extends UmlModelElementImpl implements Excepti
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("63bb5a4e-9e3e-412a-b600-b2eb796c4b1d")
+    @objid ("203e7c37-bd26-4f04-a83f-501270fc3be4")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -130,22 +129,22 @@ public class ExceptionHandlerImpl extends UmlModelElementImpl implements Excepti
         return super.getCompositionOwner();
     }
 
-    @objid ("ad18c14d-0ece-4849-8566-f5929af00ee6")
+    @objid ("8bc5d705-eb03-4125-be7e-5f5c4dc264ae")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // ProtectedNode
         dep = ((ExceptionHandlerSmClass)getClassOf()).getProtectedNodeDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("fac2d58c-94e8-42e4-a2d9-e09802e660d5")
+    @objid ("87407e44-9900-4af6-8515-3878b019fd6e")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitExceptionHandler(this);

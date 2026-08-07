@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vbasic.oidc.flows;
 
@@ -55,6 +55,7 @@ public class NimbusDumper {
 
     /**
      * Poors man slf4j
+     *
      * @param from the caller object, to print its class name
      * @param format a {@link String#format(String, Object...)} format
      * @param args the format arguments
@@ -68,28 +69,28 @@ public class NimbusDumper {
     public static String prettyPrint(JWT js, Boolean areYouSure) {
         if (areYouSure != Boolean.TRUE)
             throw new SecurityException("Sensitive values dumping denied.");
-        
+
         if (js == null)
             return "<null>";
-        
+
         try {
             String str = new JSONObject()
                     .appendField("Header", js.getHeader().toJSONObject())
                     .appendField("JWTClaimsSet", js.getJWTClaimsSet().toJSONObject())
                     .toString(new PrettyJsonStyle());
-        
+
             return js.getClass().getSimpleName()+ " " +str;
         } catch (ParseException e) {
             return e.toString();
         }
-        
+
     }
 
     @objid ("29dbea32-0a48-4933-a08b-66ddb84649b8")
     public static String dump(HTTPResponse r) {
         if (r==null)
             return "<null>";
-        
+
         StringBuilder s = new StringBuilder();
         s.append("HTTP ").append(r.getStatusCode()).append(" ").append(r.getStatusMessage()).append(" [\n");
         for (Entry<String, List<String>> he : r.getHeaderMap().entrySet()) {
@@ -111,8 +112,8 @@ public class NimbusDumper {
     static void debugDumpTokens(OIDCTokens tokens, Boolean areYouSure) {
         if (areYouSure != Boolean.TRUE)
             throw new SecurityException("Sensitive values dumping denied.");
-        
-        
+
+
         Log.trace("Dumping OIDC tokens...");
         String idTokenDump;
         try {
@@ -121,27 +122,27 @@ public class NimbusDumper {
             idTokenDump = e.toString();
         }
         Log.trace("id tokens = "+((tokens.getIDToken()==null) ? "none" : idTokenDump));
-        
+
         AccessToken accessToken = tokens.getAccessToken();
         Log.trace("access token type = "+accessToken.getType());
         Log.trace("access token type = "+accessToken.getLifetime());
         //Log.trace("access token = "+ NimbusDumper.prettyPrint(accessToken));
         //Log.trace("bearer token = "+ NimbusDumper.prettyPrint(tokens.getBearerAccessToken()));
-        
+
         try {
             JWT jwt = JWTParser.parse(accessToken.getValue());
-        
+
             JWTClaimsSet claimset = jwt.getJWTClaimsSet();
             Log.trace("claimset = "+NimbusDumper.prettyPrint(claimset.toJSONObject()));
             Log.trace("claimset expires: "+claimset.getExpirationTime());
             Log.trace("claimset subject: "+claimset.getSubject());
             Log.trace("claimset issue time: "+claimset.getIssueTime());
-        
+
         } catch (java.text.ParseException e) {
             Log.trace("Access token is not JWTClaimset");
             e.printStackTrace();
         }
-        
+
     }
 
     @objid ("11022f16-1ac1-4375-8e05-9b4cba14efc6")
@@ -153,7 +154,7 @@ public class NimbusDumper {
         private String indent = "";
 
         @objid ("28aba1fc-c829-4ce9-b350-0b9b8762f760")
-        public  PrettyJsonStyle() {
+        public PrettyJsonStyle() {
             super(FLAG_PROTECT_4WEB);
         }
 
@@ -161,7 +162,7 @@ public class NimbusDumper {
         private void breakLine(Appendable out) throws IOException {
             out.append("\n");
             out.append(this.indent);
-            
+
         }
 
         @objid ("3d920cb6-8f00-408e-9ae7-d44a5cafc085")
@@ -169,7 +170,7 @@ public class NimbusDumper {
         public void arrayStart(Appendable out) throws IOException {
             super.arrayStart(out);
             indent();
-            
+
         }
 
         @objid ("b4556635-ae9b-4523-b7b0-ee2f93187388")
@@ -184,7 +185,7 @@ public class NimbusDumper {
         public void arrayStop(Appendable out) throws IOException {
             super.arrayStop(out);
             unindent();
-            
+
         }
 
         @objid ("e2b43a89-704d-494d-87af-a9e8eb1603a8")
@@ -197,7 +198,7 @@ public class NimbusDumper {
         public void arrayfirstObject(Appendable out) throws IOException {
             breakLine(out);
             super.arrayfirstObject(out);
-            
+
         }
 
         @objid ("fd8ff2b3-177b-4b83-acb7-ee74b17312a7")
@@ -205,7 +206,7 @@ public class NimbusDumper {
         public void arrayNextElm(Appendable out) throws IOException {
             super.arrayNextElm(out);
             breakLine(out);
-            
+
         }
 
         @objid ("23a65644-9e02-4d2c-910c-0af747a309aa")
@@ -225,7 +226,7 @@ public class NimbusDumper {
         public void objectNext(Appendable out) throws IOException {
             super.objectNext(out);
             breakLine(out);
-            
+
         }
 
         @objid ("908824e1-0aac-44f9-940c-3e1fd0c5476e")
@@ -233,7 +234,7 @@ public class NimbusDumper {
         public void objectStart(Appendable out) throws IOException {
             super.objectStart(out);
             indent();
-            
+
         }
 
         @objid ("367aa2fa-0e74-4f98-bffb-4086edbb9239")
@@ -241,7 +242,7 @@ public class NimbusDumper {
         public void objectStop(Appendable out) throws IOException {
             super.objectStop(out);
             unindent();
-            
+
         }
 
     }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -54,15 +54,17 @@ public class CollaborationPropertyModel extends AbstractPropertyModel<Collaborat
     /**
      * Create a new <i>Collaboration</i> data model from an <i>Collaboration</i>
      * .
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("69f243e4-0ae6-45b5-90ba-12a68dcef0e9")
-    public  CollaborationPropertyModel(Collaboration theEditedElement) {
+    public CollaborationPropertyModel(Collaboration theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("3f10c68f-79de-42cf-9cfd-d03e3b96304c")
@@ -73,6 +75,7 @@ public class CollaborationPropertyModel extends AbstractPropertyModel<Collaborat
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("a784010f-af42-4d7f-a99f-a92668b72e82")
@@ -85,6 +88,7 @@ public class CollaborationPropertyModel extends AbstractPropertyModel<Collaborat
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -118,7 +122,7 @@ public class CollaborationPropertyModel extends AbstractPropertyModel<Collaborat
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -128,6 +132,7 @@ public class CollaborationPropertyModel extends AbstractPropertyModel<Collaborat
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -160,13 +165,14 @@ public class CollaborationPropertyModel extends AbstractPropertyModel<Collaborat
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -214,7 +220,7 @@ public class CollaborationPropertyModel extends AbstractPropertyModel<Collaborat
         default:
             return;
         }
-        
+
     }
 
 }

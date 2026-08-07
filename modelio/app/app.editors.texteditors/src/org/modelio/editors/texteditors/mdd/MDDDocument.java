@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.texteditors.mdd;
 
@@ -32,7 +32,7 @@ import org.modelio.editors.texteditors.mdd.partitions.MDDPartitionTypes;
 
 /**
  * Default implementation for a Model-Driven Document.
- * 
+ *
  * @author pvlaemynck
  */
 @objid ("7b57c7d2-2a77-11e2-9fb9-bc305ba4815c")
@@ -50,11 +50,11 @@ public class MDDDocument extends Document {
      * C'tor.
      */
     @objid ("7b57c7d7-2a77-11e2-9fb9-bc305ba4815c")
-    public  MDDDocument(IDocumentPartitioner stdPartitionner, IDocumentPartitioner replacePartitionner) {
+    public MDDDocument(IDocumentPartitioner stdPartitionner, IDocumentPartitioner replacePartitionner) {
         defineStdPartitioner(stdPartitionner);
         defineReplacePartitioner(replacePartitionner);
         setCurrentPartionner(stdPartitionner);
-        
+
     }
 
     @objid ("7b57c7dc-2a77-11e2-9fb9-bc305ba4815c")
@@ -73,7 +73,7 @@ public class MDDDocument extends Document {
         } else {
             Display.getDefault().beep();
         }
-        
+
     }
 
     @objid ("7b57c7e2-2a77-11e2-9fb9-bc305ba4815c")
@@ -91,7 +91,7 @@ public class MDDDocument extends Document {
                 }
             }
         }
-        
+
         if (isWritablePosition(offset) && isWritablePosition(offset + 1)) {
             setCurrentPartionner(this.replacePartitionner);
             super.replace(offset, length, text, timestamp);
@@ -99,11 +99,12 @@ public class MDDDocument extends Document {
         } else {
             Display.getDefault().beep();
         }
-        
+
     }
 
     /**
      * Sets the standard partitioner for this document.
+     *
      * @param partitionner the standard partitioner for this document.
      */
     @objid ("7b57c7e9-2a77-11e2-9fb9-bc305ba4815c")
@@ -113,6 +114,7 @@ public class MDDDocument extends Document {
 
     /**
      * Sets the replace partitioner for this document.
+     *
      * @param partitionner the replace partitioner for this document.
      */
     @objid ("7b57c7ed-2a77-11e2-9fb9-bc305ba4815c")
@@ -124,6 +126,7 @@ public class MDDDocument extends Document {
      * Sets the partitioner to use for this document.
      * <p>
      * If any previous partitioner was used, it is disconnected first.
+     *
      * @param partitionner the partitioner to use for this document.
      */
     @objid ("7b57c7f1-2a77-11e2-9fb9-bc305ba4815c")
@@ -134,7 +137,7 @@ public class MDDDocument extends Document {
         this.currentPartitionner = partitionner;
         this.currentPartitionner.connect(this);
         this.setDocumentPartitioner(partitionner);
-        
+
     }
 
     @objid ("7b594e58-2a77-11e2-9fb9-bc305ba4815c")
@@ -145,7 +148,7 @@ public class MDDDocument extends Document {
             TextEditors.LOG.warning(e);
             return false;
         }
-        
+
     }
 
     @objid ("7b594e5c-2a77-11e2-9fb9-bc305ba4815c")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.operationgroup;
 
@@ -55,7 +55,7 @@ public class OperationGroupEditPart extends GroupEditPart {
         if (model.getLayoutData() != null) {
             getFigure().getParent().setConstraint(getFigure(), model.getLayoutData());
         }
-        
+
     }
 
     @objid ("3601fe20-55b7-11e2-877f-002564c97630")
@@ -77,27 +77,27 @@ public class OperationGroupEditPart extends GroupEditPart {
             border.setWidth(style.getInteger(gmModel.getStyleKey(MetaKey.LINEWIDTH)));
         }
         aFigure.setBorder(border);
-        
+
     }
 
     @objid ("fd37bcc2-f2e9-43c5-a8bd-5b13ac959558")
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         installEditPolicy(GmGroup.PROP_REFRESH_FROM_OBMODEL, new GroupRefreshFromModelEditPolicy(this::getExpectedChildren));
-        
+
     }
 
     @objid ("572ee6c5-49b5-45dd-aab8-c2599e450c48")
     private List<? extends MObject> getExpectedChildren(MObject t) {
         Classifier classifier = (Classifier) t;
         List<Operation> classOperations = classifier.getOwnedOperation();
-        
+
         // Unmask missing children
         GmOperationGroup gmGroup = (GmOperationGroup) getModel();
         final StyleKey.UmaskByVisibilityStragegy mode = gmGroup.getVisibilityFilter(UmaskByVisibilityStragegy.ALL);
-        
+
         switch (mode) {
         case ALL:
             return classOperations;
@@ -106,7 +106,7 @@ public class OperationGroupEditPart extends GroupEditPart {
                     .stream()
                     .filter(att -> att.getVisibility() == VisibilityMode.PUBLIC)
                     .collect(Collectors.toList());
-        
+
         case ALL_NON_PRIVATE:
             return classOperations
                     .stream()
@@ -123,7 +123,7 @@ public class OperationGroupEditPart extends GroupEditPart {
             // do nothing.
             return null;
         }
-        
+
     }
 
 }

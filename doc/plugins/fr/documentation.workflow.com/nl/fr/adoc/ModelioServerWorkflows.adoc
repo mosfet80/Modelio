@@ -1,0 +1,18 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+// Hightlight code source and add the line number
+:source-highlighter: coderay
+:coderay-linenums-mode: table
+
+= Déploiement et gestion des permissions via Modelio Server
+
+Afin de bénéficier de la gestion des permissions et des notifications, un projet doit être géré par un serveur *Modelio Server*.
+Depuis le serveur Modelio Server, l'administrateur du projet peut ajouter des workflows et ensuite configurer les permissions et les notifications sur les transitions.
+
+* <<ActivateWorkflowFeature.adoc#,Activation des fonctionnalités Workflow sur un projet Modelio Server>>
+* <<AddWorkflowToProject.adoc#,Ajout d'un workflow dans un projet Modelio Server>>
+* <<NotificationsAndRightsConfiguration.adoc#,Configuration des permissions et des notifications>>
+

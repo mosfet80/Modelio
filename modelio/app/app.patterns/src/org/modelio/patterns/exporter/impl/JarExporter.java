@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.patterns.exporter.impl;
 
@@ -82,8 +101,8 @@ import org.osgi.framework.Bundle;
 @objid ("c4642b85-bc62-4047-bb08-86ede73aa57a")
 public class JarExporter {
     @objid ("05222809-1ee2-4266-a4b6-03420d1ee670")
-    public  JarExporter() {
-        
+    public JarExporter() {
+
     }
 
     @objid ("f7e4f245-ab22-469a-9bcd-c60f52e3dcb7")
@@ -94,6 +113,7 @@ public class JarExporter {
 
     /**
      * Generate a Pattern.java file from a <<Pattern>> Package.
+     *
      * @return the generated file.
      */
     @objid ("28c273e9-0968-4c34-82a5-d7a7da0892e3")
@@ -102,10 +122,10 @@ public class JarExporter {
         try (FileWriterUtil filewriter = new FileWriterUtil(exportDir != null ? exportDir.resolve("Pattern.java") : null)) {
             // Init generators
             MetaGenerator metaGenerator = new MetaGenerator();
-        
+
             // Generate pattern code
             filewriter.write("package org.modelio.patterns.importer;");
-        
+
             filewriter.write("import " + Modelio.class.getCanonicalName() + ";");
             filewriter.write("import " + IModelingSession.class.getCanonicalName() + ";");
             filewriter.write("import " + IMetamodelExtensions.class.getCanonicalName() + ";");
@@ -118,7 +138,7 @@ public class JarExporter {
             filewriter.write("import " + MObject.class.getCanonicalName() + ";");
             filewriter.write("import " + ICoreSession.class.getCanonicalName() + ";");
             filewriter.write("import " + ITransaction.class.getCanonicalName() + ";");
-        
+
             filewriter.write("import org.modelio.metamodel.uml.behavior.activityModel.*;");
             filewriter.write("import org.modelio.metamodel.uml.behavior.commonBehaviors.*;");
             filewriter.write("import org.modelio.metamodel.uml.behavior.communicationModel.*;");
@@ -134,7 +154,7 @@ public class JarExporter {
             filewriter.write("import " + Interface.class.getCanonicalName() + ";");
             filewriter.write("import " + Metamodel.class.getCanonicalName() + ";");
             filewriter.write("import " + AbstractDiagram.class.getCanonicalName() + ";");
-        
+
             filewriter.write("import " + IDiagramHandle.class.getCanonicalName() + ";");
             filewriter.write("import " + LinkRouterKind.class.getCanonicalName() + ";");
             filewriter.write("import " + IDiagramLink.class.getCanonicalName() + ";");
@@ -142,16 +162,16 @@ public class JarExporter {
             filewriter.write("import " + IDiagramGraphic.class.getCanonicalName() + ";");
             filewriter.write("import " + IStyleHandle.class.getCanonicalName() + ";");
             filewriter.write("import " + IDiagramService.class.getCanonicalName() + ";");
-        
+
             filewriter.write("import " + Point.class.getCanonicalName() + ";");
             filewriter.write("import " + Rectangle.class.getCanonicalName() + ";");
-        
+
             filewriter.write("import " + Map.class.getCanonicalName() + ";");
             filewriter.write("import " + HashMap.class.getCanonicalName() + ";");
             filewriter.write("import " + ArrayList.class.getCanonicalName() + ";");
             filewriter.write("import " + Collection.class.getCanonicalName() + ";");
             filewriter.write("import " + List.class.getCanonicalName() + ";");
-        
+
             filewriter.write("");
             filewriter.write("public class Pattern implements IPattern{");
             filewriter.write("");
@@ -167,21 +187,21 @@ public class JarExporter {
             filewriter.write("private org.eclipse.draw2d.geometry.Rectangle rec = null;");
             filewriter.write("private org.eclipse.draw2d.geometry.Point point = null;");
             filewriter.write("private IDiagramHandle rep = null;");
-        
+
             IdGenerator.getInstance().reset();
             metaGenerator.generate(filewriter, modelPattern);
-        
+
             metaGenerator.getRelationGenerator().generate(filewriter);
-        
+
             if (filewriter.getCounter() <= 1000) {
                 filewriter.write("}");
             }
             filewriter.write("");
-        
+
             metaGenerator.getDiagramGenerator().generate(filewriter);
-        
+
             filewriter.write("");
-        
+
             // createModel
             filewriter
                     .write("public void createModel(MObject root, ICoreSession coreSession, Map<String, Object> patternParameters) throws PatternException {");
@@ -197,11 +217,11 @@ public class JarExporter {
             for (int i = 1; (i <= filewriter.getMethodIndex()); i++) {
                 filewriter.write("        createModel" + i + "();");
             }
-        
+
             for (int i = 1; (i <= metaGenerator.getDiagramGenerator().getMethodIndex()); i++) {
                 filewriter.write("        createDiagram" + i + "();");
             }
-        
+
             filewriter.write("");
             filewriter.write("        tr.commit();");
             filewriter.write("    } catch (Exception e) {");
@@ -209,7 +229,7 @@ public class JarExporter {
             filewriter.write("    }");
             filewriter.write("}");
             filewriter.write("");
-        
+
             // calculate
             filewriter.write("public void calculate(IDiagramLink node){");
             filewriter.write("    int i = 0;");
@@ -246,7 +266,7 @@ public class JarExporter {
             filewriter.write("    }");
             filewriter.write("}");
             filewriter.write("");
-        
+
             // getIStyleHandleByName
             filewriter.write("public IStyleHandle getIStyleHandleByName (String nameOfStyle){");
             filewriter.write("    IDiagramService service = Modelio.getInstance().getDiagramService();");
@@ -258,11 +278,10 @@ public class JarExporter {
             filewriter.write("    return getIStyleHandleByName(\"" + "default" + "\");");
             filewriter.write("}");
             filewriter.write("}");
-        
+
             filewriter.close();
             return metaGenerator.getReport();
         }
-        
     }
 
     @objid ("bdff2a6a-003d-4f1a-b504-ae44e3b56e69")
@@ -281,35 +300,35 @@ public class JarExporter {
                 if (jc == null) {
                     String msg = Patterns.I18N.getString("Gui.SystemJavaCompiler.Missing");
                     Patterns.LOG.error(msg);
-                    MessageDialog.openError(Display.getDefault().getActiveShell(), Patterns.I18N.getString("Gui.ErrorTitle"), msg);
+                    Display.getDefault().asyncExec(() -> MessageDialog.openError(Display.getDefault().getActiveShell(), Patterns.I18N.getString("Gui.ErrorTitle"), msg));
                     return false;
                 }
-            
+
                 try (StandardJavaFileManager sjfm = jc.getStandardFileManager(null, null, null)) {
                     // Add all libraries
                     StringBuilder classPath = new StringBuilder();
                     for (File file : JarPackagingHelper.getCompilationLibraries()) {
                         classPath.append(file.getAbsolutePath());
                         classPath.append(File.pathSeparatorChar);
-            
+
                         // Needed for debug mode
                         classPath.append(file.getAbsolutePath());
                         classPath.append("/bin");
                         classPath.append(File.pathSeparatorChar);
                     }
-            
+
                     // Get sources to compile
                     List<File> sourceFiles = JarPackagingHelper.getJavaFiles(sourceFolder);
                     File[] sourceFilesArray = sourceFiles.toArray(new File[sourceFiles.size()]);
                     Iterable<? extends JavaFileObject> fileObjects = sjfm.getJavaFileObjects(sourceFilesArray);
-            
+
                     try {
                         // Compile
                         String[] options = new String[] { "-d", tempDirectory.toString(), "-cp", classPath.toString() }; //$NON-NLS-1$ //$NON-NLS-2$
                         StringWriter compilOut = new StringWriter();
                         Boolean errorCode = jc.getTask(compilOut, sjfm, null, Arrays.asList(options), null, fileObjects).call();
                         sjfm.close();
-            
+
                         boolean ret = errorCode.booleanValue();
                         if (ret) {
                             Files.createDirectories(targetJarPath.getParent());
@@ -320,7 +339,7 @@ public class JarExporter {
                                     Files.copy(tempDirectory.resolve(classfile), out);
                                     out.closeEntry();
                                 }
-            
+
                                 out.close();
                             }
                             return true;
@@ -334,14 +353,16 @@ public class JarExporter {
                                                 compilOut.toString()),
                                         IStatus.ERROR).open();
                             });
-            
+
                             return false;
                         }
                     } catch (IOException e) {
                         Patterns.LOG.error("Pattern packaging failed:");
                         Patterns.LOG.error(e);
-                        MessageDialog.openError(Display.getDefault().getActiveShell(), Patterns.I18N.getString("Gui.ErrorTitle"),
-                                FileUtils.getLocalizedMessage(e));
+                        Display.getDefault().asyncExec(() -> {
+                            MessageDialog.openError(Display.getDefault().getActiveShell(), Patterns.I18N.getString("Gui.ErrorTitle"),
+                                    FileUtils.getLocalizedMessage(e));
+                        });
                         return false;
                     }
                 }
@@ -351,7 +372,6 @@ public class JarExporter {
                     FileUtils.delete(tempDirectory);
                 }
             }
-            
         }
 
         @objid ("c7523b11-9cc9-4695-bb92-60f480ec4d17")
@@ -396,7 +416,7 @@ public class JarExporter {
         @objid ("5a317307-440d-41cd-a05e-2c8f6ac17c82")
         private static List<File> getCompilationLibraries() {
             List<File> libraries = new ArrayList<>();
-            
+
             // For now, all libraries are plugins available in the execution environment
             for (String pluginId : Arrays.asList("com.modeliosoft.modelio.analyst.metamodel.api",
                     "org.modelio.core.metamodel.api",
@@ -439,7 +459,6 @@ public class JarExporter {
             } else {
                 return null;
             }
-            
         }
 
     }

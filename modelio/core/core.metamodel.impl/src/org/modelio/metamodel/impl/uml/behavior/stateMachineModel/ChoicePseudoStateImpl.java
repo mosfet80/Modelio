@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.stateMachineModel;
 
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("004de7e8-c4bf-1fd8-97fe-001ec947cd2a")
 public class ChoicePseudoStateImpl extends AbstractPseudoStateImpl implements ChoicePseudoState {
-    @objid ("0e58b11e-d01d-41b7-b94c-8433871fb822")
+    @objid ("f7a3e4eb-73e2-4e36-bf24-a32c90036c95")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -49,17 +48,17 @@ public class ChoicePseudoStateImpl extends AbstractPseudoStateImpl implements Ch
         return super.getCompositionOwner();
     }
 
-    @objid ("47e774a7-00fd-4ae7-a75f-c2f9f392676b")
+    @objid ("89de159b-924c-42c2-b0d6-5a8fe993c8c4")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("ae58b59b-b389-4b58-8da1-b7c2d50a2674")
+    @objid ("1da08eae-bf3d-46f6-b649-2dda5c021208")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitChoicePseudoState(this);

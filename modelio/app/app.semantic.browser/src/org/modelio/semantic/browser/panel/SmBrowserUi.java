@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.semantic.browser.panel;
 
@@ -57,24 +57,24 @@ class SmBrowserUi {
     private SmBrowserContentProvider contentProvider;
 
     @objid ("faaca18d-66bf-4e07-a104-55508323c961")
-     SmBrowserUi(Composite parent, SmBrowserController controller, EMenuService menuService) {
+    SmBrowserUi(Composite parent, SmBrowserController controller, EMenuService menuService) {
         this.controller = controller;
         this.composite = new Composite(parent, SWT.NONE);
         this.composite.setLayout(new FillLayout(SWT.VERTICAL));
         this.treeViewer = new TreeViewer(this.composite, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
         this.treeViewer.setUseHashlookup(true);
-        
+
         // Set up a label provider
         this.labelProvider = new ElementDecoratedStyledLabelProvider(new SmBrowserLabelProvider(), false, false);
         // Set up a content provider
         this.contentProvider = new SmBrowserContentProvider();
-        
+
         this.treeViewer.setContentProvider(this.contentProvider);
         this.treeViewer.setLabelProvider(this.labelProvider);
-        
+
         MObjectViewerDragProvider dragListener = new MObjectViewerDragProvider(this.treeViewer);
         this.treeViewer.addDragSupport(DND.DROP_MOVE | DND.DROP_COPY, new Transfer[] { ModelElementTransfer.getInstance() }, dragListener);
-        
+
         // Add the selection provider
         this.treeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
             @Override
@@ -82,13 +82,14 @@ class SmBrowserUi {
                 SmBrowserUi.this.controller.onSelectionChanged(event.getSelection());
             }
         });
-        
+
         menuService.registerContextMenu(this.treeViewer.getTree(), SmBrowserUi.SEMANTICBROWSER_POPUP_ID);
-        
+
     }
 
     /**
      * When changing the project being displayed by the view, new ContenProvider and LabelProvider are created and configured
+     *
      * @param project might be null
      */
     @objid ("96905266-2901-4323-bafa-16d7a7fe9a78")
@@ -111,7 +112,7 @@ class SmBrowserUi {
         if (this.treeViewer != null && !this.treeViewer.getTree().isDisposed()) {
             this.treeViewer.addSelectionChangedListener(l);
         }
-        
+
     }
 
     @objid ("d96d180b-bda7-44a4-88f9-c5cfd8d1549f")
@@ -127,7 +128,7 @@ class SmBrowserUi {
         if (this.treeViewer != null && !this.treeViewer.getTree().isDisposed()) {
             this.treeViewer.removeSelectionChangedListener(l);
         }
-        
+
     }
 
 }

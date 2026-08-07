@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.service.impl;
 
@@ -60,28 +60,29 @@ public class ModuleServiceInitializer {
         final ModuleManagementService moduleService = ContextInjectionFactory.make(ModuleManagementService.class, context);
         context.set(IModuleManagementService.class, moduleService);
         context.set(IModuleService.class, moduleService);
-        
+
         ModuleServiceInitializer.initModuleCache(context);
         // MdaResources.init(moduleService);
-        
+
         MdaResources.initialize(moduleService, moduleService.getMdaResourceProvider());
         context.set(IMdaResourceProvider.class, moduleService.getMdaResourceProvider());
         context.set(IMdaResourceProviderRegistry.class, (IMdaResourceProviderRegistry) moduleService.getMdaResourceProvider());
-        
+
     }
 
     /**
      * initialize the module cache and register it in the context as
      * {@link IModuleStore}.
+     *
      * @param context the context to initialize.
      */
     @objid ("85f146e7-5f64-4268-a140-9cef33804584")
     private static void initModuleCache(final IEclipseContext context) {
         final ModelioEnv env = context.get(ModelioEnv.class);
-        
+
         // Instantiate and register the module catalog
         final IModuleStore stdModuleCatalog = context.get(IModuleStore.class);
-        
+
         // Get the mda.infra preference node, as the module catalog is managed by this plugin
         // Add a preference change listener to update module catalog path.
         if (stdModuleCatalog instanceof FileModuleStore) {
@@ -94,20 +95,20 @@ public class ModuleServiceInitializer {
                 }
             });
         }
-        
+
         // Instantiate the module catalog cache
         final Path cachePath = MdaInfra.getContext().getBundle().getDataFile("modules_cache").toPath();
         final IModuleRTCache moduleCache = new ModuleRTCache(stdModuleCatalog, env.getAllMetamodelExtensions(), cachePath);
-        
+
         MdaInfra.LOG.debug("Module cache created in: " + cachePath);
-        
+
         // Plugdules : plugin modules "cache"
         final PluginModulesCache pluginCache = new PluginModulesCache(env.getAllMetamodelExtensions());
-        
+
         // Register the module catalog cache as the module catalog
         final CompositeModuleCache aggregateCache = new CompositeModuleCache(pluginCache, moduleCache);
         context.set(IModuleRTCache.class, aggregateCache);
-        
+
     }
 
     @objid ("f2bf5c46-4be2-4a53-b009-3493ab650efd")
@@ -119,11 +120,11 @@ public class ModuleServiceInitializer {
         private final IModuleRTCache modulesCache;
 
         @objid ("d7b69173-4d3c-4abe-a828-209150fc492f")
-        public  CompositeModuleCache(final IModuleRTCache pluginCache, final IModuleRTCache modulesCache) {
+        public CompositeModuleCache(final IModuleRTCache pluginCache, final IModuleRTCache modulesCache) {
             super();
             this.pluginCache = pluginCache;
             this.modulesCache = modulesCache;
-            
+
         }
 
         @objid ("53bc41f1-d436-4ad2-b192-c2d9ae2ad13e")
@@ -136,7 +137,7 @@ public class ModuleServiceInitializer {
         @Override
         public IModuleHandle findModule(final String moduleName, final String moduleVersion, final IModelioProgress monitor) throws IOException {
             IModuleHandle h = this.pluginCache.findModule(moduleName, moduleVersion, monitor);
-            
+
             if (h == null) {
                 h = this.modulesCache.findModule(moduleName, moduleVersion, monitor);
             }

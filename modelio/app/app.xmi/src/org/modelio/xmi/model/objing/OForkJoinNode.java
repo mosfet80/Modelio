@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -55,7 +55,7 @@ public class OForkJoinNode extends OActivityNode {
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         this.partialCreation= false;
-        
+
         // If the ForkJoin is not only Fork or Join, we create a special
         // structure:
         // a Join connected to a Fork by a flow.
@@ -65,15 +65,15 @@ public class OForkJoinNode extends OActivityNode {
             return UMLFactory.eINSTANCE.createForkNode();
         else
             return UMLFactory.eINSTANCE.createJoinNode();
-        
+
     }
 
     @objid ("eaefdaa8-32b5-4530-a5e5-ffac099480dc")
-    public  OForkJoinNode(ForkJoinNode element) {
+    public OForkJoinNode(ForkJoinNode element) {
         super(element);
         this.isJoinNode = (AbstractObjingModelNavigation.isJoinNode(element));
         this.isForkNode = (AbstractObjingModelNavigation.isForkNode(element));
-        
+
     }
 
     @objid ("61ccf939-9d03-4dc9-84a5-ab9d5d90976d")
@@ -89,10 +89,10 @@ public class OForkJoinNode extends OActivityNode {
                 this.forkNode = getForkNode((org.eclipse.uml2.uml.JoinNode) ecoreElt);
             }
         }
-        
+
         MObject objingOwner = getObjingElement().getCompositionOwner();
         org.eclipse.uml2.uml.Element ecoreOwner = GenerationProperties.getInstance().getMappedElement(objingOwner);
-        
+
         if (ecoreOwner != null) {
             if (objingOwner instanceof StructuredActivityNode) {
                 attachToStructuredActivityNode(ecoreElt, ecoreOwner);
@@ -112,14 +112,14 @@ public class OForkJoinNode extends OActivityNode {
                     attachToClause(this.forkNode, ecoreOwner, (Clause) objingOwner);
             }
         }
-        
+
     }
 
     @objid ("82f06cbb-b7fa-4d25-90ca-a02cbf78cae6")
     @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
-        
+
         if (this.isJoinNode) {
             setJoinSpec((org.eclipse.uml2.uml.JoinNode) ecoreElt);
             setCombineDuplicate((org.eclipse.uml2.uml.JoinNode) ecoreElt);
@@ -127,36 +127,36 @@ public class OForkJoinNode extends OActivityNode {
             ObjingEAnnotation.setJoinSpec(ecoreElt, getObjingElement().getJoinSpec());
             ObjingEAnnotation.setIsCombineDuplicate(ecoreElt, getObjingElement().isIsCombineDuplicate());
         }
-               
+
         if (!this.isJoinNode && !this.isForkNode) {
             setName(this.forkNode);
         }
-        
+
     }
 
     @objid ("4dffc681-6df4-49d2-976e-1fe0d5d3cc30")
     private void createStructure(org.eclipse.uml2.uml.JoinNode joinNode) {
         this.forkNode = UMLFactory.eINSTANCE.createForkNode();
-        
+
         ActivityEdge typeOfEdge = null;
         List<ActivityEdge> objingInc = getObjingElement().getIncoming();
         List<ActivityEdge> objingOut = getObjingElement().getOutgoing();
-        
+
         if (objingInc.size() > 0) {
             typeOfEdge = objingInc.get(0);
         } else if (objingOut.size() > 0) {
             typeOfEdge = objingOut.get(0);
         }
-        
+
          org.eclipse.uml2.uml.ActivityEdge ecoreFlow = null;
         if (typeOfEdge instanceof ControlFlow)
             ecoreFlow = UMLFactory.eINSTANCE.createControlFlow();
         else
             ecoreFlow = UMLFactory.eINSTANCE.createObjectFlow();
-        
+
         Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
                 .getEnclosingElement(getObjingElement(), getObjingElement().getMClass().getMetamodel().getMClass(Activity.class));
-        
+
         if (enclosingActivity != null) {
             org.eclipse.uml2.uml.Element ecoreActivity = GenerationProperties.getInstance()
                     .getMappedElement(enclosingActivity);
@@ -165,10 +165,10 @@ public class OForkJoinNode extends OActivityNode {
                 owner.getEdges().add(ecoreFlow);
             }
         }
-        
+
         ecoreFlow.setSource(joinNode);
         ecoreFlow.setTarget(this.forkNode);
-        
+
     }
 
     @objid ("93b9ddb4-8b2e-48b1-89cc-f25c9c12a7f4")
@@ -193,7 +193,7 @@ public class OForkJoinNode extends OActivityNode {
             throw new NotFoundException("Owner Class ("
                     + ecoreOwner.getClass().getSimpleName() + ") Not Found");
         }
-        
+
     }
 
     @objid ("e4dbb38f-1fbe-4814-97f1-bb304cd7c674")
@@ -201,7 +201,7 @@ public class OForkJoinNode extends OActivityNode {
         if (ecoreOwner instanceof  org.eclipse.uml2.uml.ActivityPartition) {
              org.eclipse.uml2.uml.ActivityPartition owner = (org.eclipse.uml2.uml.ActivityPartition) ecoreOwner;
             owner.getNodes().add((org.eclipse.uml2.uml.ActivityNode)ecoreElt);
-        
+
             // Setting composition relation
             Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
                     .getEnclosingElement(getObjingElement(), getObjingElement().getMClass().getMetamodel().getMClass(Activity.class));
@@ -220,7 +220,7 @@ public class OForkJoinNode extends OActivityNode {
             throw new NotFoundException("Owner Class ("
                     + ecoreOwner.getClass().getSimpleName() + ") Not Found");
         }
-        
+
     }
 
     @objid ("2fc67986-6cb1-46af-af20-bdd936162799")
@@ -233,7 +233,7 @@ public class OForkJoinNode extends OActivityNode {
             throw new NotFoundException("Owner Class ("
                     + ecoreOwner.getClass().getSimpleName() + ") Not Found");
         }
-        
+
     }
 
     @objid ("ce794c6b-5782-4922-830b-440c91ac93f3")
@@ -241,15 +241,15 @@ public class OForkJoinNode extends OActivityNode {
         boolean isAttached = false;
         if (ecoreOwner instanceof org.eclipse.uml2.uml.Clause) {
             org.eclipse.uml2.uml.Clause owner =  (org.eclipse.uml2.uml.Clause) ecoreOwner;
-        
+
             // A ForkJoinNode can't have any org.eclipse.uml2.uml.Pin in Modelio => use of the
             // "body" role:
             if (ecoreElt instanceof org.eclipse.uml2.uml.ExecutableNode)
                 owner.getBodies().add( (org.eclipse.uml2.uml.ExecutableNode) ecoreElt);
-        
+
             // Setting composition relation (in org.eclipse.uml2.uml.ConditionalNode):
             ConditionalNode objingConditional = objingOwnerClause.getOwner();
-        
+
             if (objingConditional != null) {
                 org.eclipse.uml2.uml.Element ecoreConditional = GenerationProperties.getInstance()
                         .getMappedElement(objingConditional);
@@ -260,7 +260,7 @@ public class OForkJoinNode extends OActivityNode {
                 }
             }
         }
-        
+
         if (!isAttached) {
             // Setting composition relation (in  org.eclipse.uml2.uml.Activity):
             Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
@@ -276,14 +276,14 @@ public class OForkJoinNode extends OActivityNode {
                 }
             }
         }
-        
+
     }
 
     @objid ("c9538739-e0d4-4949-9173-56983457980a")
     private void setName(org.eclipse.uml2.uml.ControlNode node) {
         if (AbstractObjingModelNavigation.isNotNullOrEmpty(getObjingElement().getName()))
             node.setName(getObjingElement().getName());
-        
+
     }
 
     @objid ("7921b9c4-ae5d-4270-b9cb-b161af49dcad")
@@ -294,7 +294,7 @@ public class OForkJoinNode extends OActivityNode {
             joinSpec.setValue(value);
             node.setJoinSpec(joinSpec);
         }
-        
+
     }
 
     @objid ("33d23768-b0ab-4a29-a8bf-b3ec14b9fa10")

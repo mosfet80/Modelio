@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -60,7 +60,7 @@ public class R2250 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -87,17 +87,17 @@ public class R2250 extends AbstractUmlRule {
                 | AuditTrigger.MOVE);
         plan.registerRule(InterfaceRealization.MQNAME, this, AuditTrigger.CREATE
                 | AuditTrigger.UPDATE | AuditTrigger.MOVE);
-        
+
         // Classifier
-        
+
         // Classifier.GeneralClass
         plan.registerRule(Interface.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Class.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Signal.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         // Classifier.GeneralClass.Class
         plan.registerRule(Component.MQNAME, this, AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -131,14 +131,14 @@ public class R2250 extends AbstractUmlRule {
      * Default constructor for R2250
      */
     @objid ("088abd77-b193-4604-9793-82b2149dd31e")
-    public  R2250() {
+    public R2250() {
         this.checkerInstance = new CheckR2250(this);
     }
 
     @objid ("283534fa-b35c-4e38-9fd8-af1794ed02c5")
     private static class CheckR2250 extends AbstractControl {
         @objid ("aecc4cee-35df-45ff-8d20-51564c5f2bb3")
-        public  CheckR2250(IRule rule) {
+        public CheckR2250(IRule rule) {
             super(rule);
         }
 
@@ -193,37 +193,37 @@ public class R2250 extends AbstractUmlRule {
         @objid ("449ce037-2eb7-45b1-b620-8efc0180506c")
         private IAuditEntry checkR2250(final Classifier classifier) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, classifier, null);
-            
+
             // Should never happen...
             if (classifier == null || !classifier.isValid()) {
                 return auditEntry;
             }
-            
+
             Map<String, Operation> accessibleOpSignatures = new HashMap<>();
             fetchAllOpSignatures(classifier, accessibleOpSignatures, new ArrayList<Classifier>());
-            
+
             for (Operation op : classifier.getOwnedOperation()) {
                 // The Operation is a constructor
                 if (op.isStereotyped("ModelerModule", "create")) {
                     continue;
                 }
-            
+
                 // The Operation is a destructor
                 if (op.isStereotyped("ModelerModule", "destroy")) {
                     continue;
                 }
-            
+
                 // The Operation Overrides another Operation
                 if (op.getRedefines() != null) {
                     continue;
                 }
-            
+
                 String opSignature = makeSignature(op);
-            
+
                 if (accessibleOpSignatures.containsKey(opSignature)) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(classifier);
@@ -239,6 +239,7 @@ public class R2250 extends AbstractUmlRule {
 
         /**
          * This methods checks if the given classifier is an .Interface, in which case the appropriate method is called.
+         *
          * @param classifier The Classifier.
          * @return A list of AuditEntries.
          */
@@ -249,31 +250,32 @@ public class R2250 extends AbstractUmlRule {
             } else {
                 return checkAllClassifier(classifier, new ArrayList<Classifier>());
             }
-            
+
         }
 
         /**
          * This method recursively navigates the .Interface realizations until it find Classifiers and then call the appropriate method that check Classifiers.
+         *
          * @param interfaze The .Interface to check.
          * @return A list of AuditEntries.
          */
         @objid ("bb8c2003-3b32-4a8f-b39d-f4224ee55c2d")
         private List<IAuditEntry> checkAllInterfaces(final Interface interfaze, final List<Interface> interfaces) {
             List<IAuditEntry> auditEntries = new ArrayList<>();
-            
+
             if (interfaces.contains(interfaze)) {
                 return auditEntries;
             } else {
                 interfaces.add(interfaze);
             }
-            
+
             for (Generalization gen : interfaze.getSpecialization()) {
                 NameSpace ns = gen.getSubType();
                 if (ns instanceof Interface) {
                     auditEntries.addAll(checkAllInterfaces((Interface) ns, interfaces));
                 }
             }
-            
+
             for (InterfaceRealization ir : interfaze.getImplementedLink()) {
                 NameSpace ns = ir.getImplementer();
                 if (ns instanceof Classifier) {
@@ -285,22 +287,23 @@ public class R2250 extends AbstractUmlRule {
 
         /**
          * This method recursively checks the given Classifier as well as all Classifier that inherits from it.
+         *
          * @param classifier The given Classifier.
          * @return A list of AuditEntries.
          */
         @objid ("303b84a8-aa9a-4d29-bf61-06de8c1d689a")
         private List<IAuditEntry> checkAllClassifier(final Classifier classifier, final List<Classifier> classifiers) {
             List<IAuditEntry> auditEntries = new ArrayList<>();
-            
+
             if (classifiers.contains(classifier)) {
                 return auditEntries;
             } else {
                 classifiers.add(classifier);
             }
-            
+
             // Checking the Classifier itself
             auditEntries.add(checkR2250(classifier));
-            
+
             // Checking all Classifier that inherit from this Classifier
             for (Generalization gen : classifier.getSpecialization()) {
                 NameSpace ns = gen.getSubType();
@@ -318,7 +321,7 @@ public class R2250 extends AbstractUmlRule {
             } else {
                 classifiers.add(classifier);
             }
-            
+
             // Adds all operations from .Interface realization
             for (InterfaceRealization ir : classifier.getRealized()) {
                 Interface interfaze = ir.getImplemented();
@@ -330,7 +333,7 @@ public class R2250 extends AbstractUmlRule {
                         accessibleOpSignatures.put(makeSignature(op), op);
                     }
                 }
-            
+
                 fetchAllOpSignatures(interfaze, accessibleOpSignatures, classifiers);
             }
             // Adds all operations from super classifiers and run recursively on
@@ -349,13 +352,13 @@ public class R2250 extends AbstractUmlRule {
                     fetchAllOpSignatures((Classifier) ns, accessibleOpSignatures, classifiers);
                 }
             }
-            
+
         }
 
         @objid ("4cee6843-8b3f-4353-9f80-f650904f8d80")
         private String makeSignature(final Operation op) {
             StringBuilder signature = new StringBuilder();
-            
+
             signature.append(op.getName());
             signature.append(op.getPassing());
             // Parameters
@@ -376,13 +379,13 @@ public class R2250 extends AbstractUmlRule {
             } else {
                 return tp.getMClass().getName();
             }
-            
+
         }
 
         @objid ("2ceb1f7e-448d-4271-b34c-94b52df24008")
         private String makeSignature(final Parameter p) {
             StringBuilder buffer = new StringBuilder();
-            
+
             // type name
             if (p.getType() != null) {
                 buffer.append(p.getType().getUuid().toString());
@@ -391,7 +394,7 @@ public class R2250 extends AbstractUmlRule {
             }
             // passing mode
             buffer.append(p.getParameterPassing());
-            
+
             // cardinality
             buffer.append(p.getMultiplicityMin());
             buffer.append(p.getMultiplicityMax());

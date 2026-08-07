@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.state;
 
@@ -44,7 +44,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Specialization of the {@link GmPortContainer} class for {@link State}.
- * 
+ *
  * @author fpoyer
  */
 @objid ("f57c5a99-55b6-11e2-877f-002564c97630")
@@ -78,25 +78,26 @@ public class GmState extends GmPortContainer {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram in which the element is unmasked.
      * @param el the unmasked element, can be <i>null</i>.
      * @param ref the unmasked element reference, must not be <i>null</i>..
      */
     @objid ("f57c5ab3-55b6-11e2-877f-002564c97630")
-    public  GmState(IGmDiagram diagram, State el, MRef ref) {
+    public GmState(IGmDiagram diagram, State el, MRef ref) {
         super(diagram, ref);
         this.element = el;
-        
+
         GmStatePrimaryNode mainNode = new GmStatePrimaryNode(diagram, ref);
         mainNode.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
-        
+
         GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(diagram, ref);
         imageModeHeader.setRoleInComposition(GmState.IMAGE_LABEL_ROLE);
         imageModeHeader.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
-        
+
         super.addChild(mainNode);
         super.addChild(imageModeHeader);
-        
+
     }
 
     /**
@@ -112,11 +113,11 @@ public class GmState extends GmPortContainer {
         if (this.element == null) {
             return false;
         }
-        
+
         if (ConnectionPointReference.class.isAssignableFrom(type)) {
             return this.element.getSubMachine() != null;
         }
-        
+
         if (EntryPointPseudoState.class.isAssignableFrom(type) ||
                 ExitPointPseudoState.class.isAssignableFrom(type)) {
             return this.element.getSubMachine() == null;
@@ -130,12 +131,12 @@ public class GmState extends GmPortContainer {
         if (!el.isValid() || !el.getCompositionOwner().equals(this.element)) {
             return false;
         }
-        
+
         Class<? extends MObject> type = el.getClass();
         return ConnectionPointReference.class.isAssignableFrom(type) ||
                                         EntryPointPseudoState.class.isAssignableFrom(type) ||
                                         ExitPointPseudoState.class.isAssignableFrom(type);
-        
+
     }
 
     @objid ("f57de128-55b6-11e2-877f-002564c97630")
@@ -145,12 +146,12 @@ public class GmState extends GmPortContainer {
         if (ret != null) {
             return ret;
         }
-        
+
         ret = GmState.SIMPLE_KEYS.getStyleKey(metakey);
         if (ret != null) {
             return ret;
         }
-        
+
         ret = GmState.IMAGE_KEYS.getStyleKey(metakey);
         return ret;
     }
@@ -170,14 +171,14 @@ public class GmState extends GmPortContainer {
         default:
             return Collections.emptyList();
         }
-        
+
     }
 
     /**
      * Empty constructor needed for deserialisation.
      */
     @objid ("f57de13a-55b6-11e2-877f-002564c97630")
-    public  GmState() {
+    public GmState() {
         // Nothing specific to do.
     }
 
@@ -202,7 +203,7 @@ public class GmState extends GmPortContainer {
             break;
         }
         }
-        
+
     }
 
     @objid ("f57de143-55b6-11e2-877f-002564c97630")
@@ -221,35 +222,35 @@ public class GmState extends GmPortContainer {
     @Override
     public void refreshFromObModel() {
         super.refreshFromObModel();
-        
+
         if (getRelatedElement() != null && getRelatedElement().isValid()) {
             refreshPointsFromObModel();
         }
-        
+
     }
 
     @objid ("f57de154-55b6-11e2-877f-002564c97630")
     @Override
     public void styleChanged(final IStyle changedStyle) {
         super.styleChanged(changedStyle);
-        
+
         if (getRelatedElement() != null && getRelatedElement().isValid()) {
             refreshPointsFromObModel();
         }
-        
+
     }
 
     @objid ("f57f67ba-55b6-11e2-877f-002564c97630")
     @Override
     public void styleChanged(final StyleKey property, final Object newValue) {
         super.styleChanged(property, newValue);
-        
+
         if (property.equals(GmStateStructuredStyleKeys.AUTOSHOWPOINTS)) {
             if (getRelatedElement() != null && getRelatedElement().isValid()) {
                 refreshPointsFromObModel();
             }
         }
-        
+
     }
 
     /**
@@ -259,7 +260,7 @@ public class GmState extends GmPortContainer {
     private void refreshPointsFromObModel() {
         if (arePointsAutoDisplayed()) {
             final State node = getRepresentedElement();
-        
+
             // Unmask entry points on the WEST border
             for (EntryPointPseudoState point : node.getEntryPoint()) {
                 if (getChild(new MRef(point)) == null) {
@@ -267,7 +268,7 @@ public class GmState extends GmPortContainer {
                     gmPoint.setRoleInComposition(GmPortContainer.PORT_ROLE);
                 }
             }
-        
+
             // Unmask exit points on the EAST border
             for (ExitPointPseudoState point : node.getExitPoint()) {
                 if (getChild(new MRef(point)) == null) {
@@ -275,7 +276,7 @@ public class GmState extends GmPortContainer {
                     gmPoint.setRoleInComposition(GmPortContainer.PORT_ROLE);
                 }
             }
-        
+
             // Unmask connection point references on the SOUTH border
             for (ConnectionPointReference point : node.getConnection()) {
                 if (getChild(new MRef(point)) == null) {
@@ -284,7 +285,7 @@ public class GmState extends GmPortContainer {
                 }
             }
         }
-        
+
     }
 
     @objid ("f57f67c6-55b6-11e2-877f-002564c97630")
@@ -296,23 +297,23 @@ public class GmState extends GmPortContainer {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmState.", GmState.MINOR_VERSION);
-        
+
     }
 
     @objid ("f57f67d0-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (State) resolveRef(getRepresentedRef());
-        
+
         GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(getDiagram(), getRepresentedRef());
         imageModeHeader.setRoleInComposition(GmState.IMAGE_LABEL_ROLE);
         imageModeHeader.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
-        
+
         super.addChild(imageModeHeader, 1);
-        
+
     }
 
     @objid ("f57f67d5-55b6-11e2-877f-002564c97630")
@@ -325,7 +326,7 @@ public class GmState extends GmPortContainer {
     private void read_1(final IDiagramReader in) {
         super.read(in);
         this.element = (State) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("f57f67e0-55b6-11e2-877f-002564c97630")
@@ -346,7 +347,7 @@ public class GmState extends GmPortContainer {
             default: {
                 break;
             }
-        
+
             }
         }
         return ret;
@@ -354,6 +355,7 @@ public class GmState extends GmPortContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */
@@ -363,11 +365,12 @@ public class GmState extends GmPortContainer {
         String role = childNode.getRoleInComposition();
         return GmPortContainer.SATELLITE_ROLE.equals(role)
                                         || GmState.IMAGE_LABEL_ROLE.equals(role);
-        
+
     }
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */

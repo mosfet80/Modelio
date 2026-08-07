@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.abstractdiagram;
 
@@ -31,8 +31,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * Extends {@link FreeformLayout} to modify incomplete constraints (have -1 in size).
  * <p>
  * The constraint must be modified so that the layout is reproducible with auto resize edit policies when the preferred size changes.
- * 
- * 
+ *
  * @author cmarin
  * @since 3.4.1
  */
@@ -59,10 +58,10 @@ public class AbstractDiagramLayout extends FreeformLayout {
                 }
             }
         }
-        
+
         // Call original behavior
         super.layout(parent);
-        
+
     }
 
     @objid ("7973b886-7964-4fc8-bbde-39e754caaa0e")
@@ -75,7 +74,7 @@ public class AbstractDiagramLayout extends FreeformLayout {
             // In an abstract diagram layout, constraints should always be Rectangle, ignoring invalid constraint
             return null;
         }
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.lifeline.body;
 
@@ -39,7 +39,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * The body zone of the lifeline (== the dashed line).
- * 
+ *
  * @author fpoyer
  */
 @objid ("d92cbbda-55b6-11e2-877f-002564c97630")
@@ -57,20 +57,20 @@ public class GmLifelineBody extends GmNoStyleCompositeNode {
      * Empty c'tor for deserialisation.
      */
     @objid ("d92cbbe3-55b6-11e2-877f-002564c97630")
-    public  GmLifelineBody() {
+    public GmLifelineBody() {
         super();
     }
 
     /**
      * Default c'tor.
+     *
      * @param diagram the diagram into which this gm is created.
      * @param relatedRef a reference to the element this gm is related to.
      */
     @objid ("d92cbbe6-55b6-11e2-877f-002564c97630")
-    public  GmLifelineBody(final IGmDiagram diagram, final MRef relatedRef) {
+    public GmLifelineBody(final IGmDiagram diagram, final MRef relatedRef) {
         super(diagram, relatedRef);
         // refreshFromObModel();
-        
     }
 
     @objid ("d92cbbf1-55b6-11e2-877f-002564c97630")
@@ -95,7 +95,6 @@ public class GmLifelineBody extends GmNoStyleCompositeNode {
         } else {
             return null;
         }
-        
     }
 
     @objid ("d92cbc0d-55b6-11e2-877f-002564c97630")
@@ -103,57 +102,56 @@ public class GmLifelineBody extends GmNoStyleCompositeNode {
     public void refreshFromObModel() {
         // Eliminate children that no longer belong here.
         super.refreshFromObModel();
-        
+
         // Unmask whatever should be unmasked.
         MObject relatedMObject = getRelatedElement();
         if (relatedMObject != null && relatedMObject.isValid()) {
             boolean forceUpdate = false;
             int index = 0;
-        
+
             // Unmask and order all the ExecutionSpecification (nesting is only a graphical effect ;))
             // Get all execution specification on given lifeline and sort them by start line number.
             List<ExecutionSpecification> executionSpecifications = new ArrayList<>();
             executionSpecifications.addAll(((Lifeline) this.getRelatedElement()).getCoveredBy(ExecutionSpecification.class));
             Collections.sort(executionSpecifications,
                     (o1, o2) -> Integer.compare(o1.getLineNumber(), o2.getLineNumber()));
-        
+
             // Now unmask if needed and check order.
             for (ExecutionSpecification execution : executionSpecifications) {
                 forceUpdate = forceUpdate || unmaskAndOrderChild(execution, index);
                 ++index;
             }
-        
+
             // Unmask and order all the StateInvariant
             // Get all state invariants on given lifeline and sort them by start line number.
             List<StateInvariant> stateInvariants = new ArrayList<>();
             stateInvariants.addAll(((Lifeline) this.getRelatedElement()).getCoveredBy(StateInvariant.class));
             Collections.sort(stateInvariants,
                     (o1, o2) -> Integer.compare(o1.getLineNumber(), o2.getLineNumber()));
-        
+
             // Now unmask if needed and check order.
             for (StateInvariant stateInvariant : stateInvariants) {
                 forceUpdate = forceUpdate || unmaskAndOrderChild(stateInvariant, index);
                 ++index;
             }
-        
+
             // Unmask and order all the ExecutionOccurenceSpecification
             // Get all execution occurence specifications on given lifeline and sort them by start line number.
             List<ExecutionOccurenceSpecification> executionOccurenceSpecifications = new ArrayList<>();
             executionOccurenceSpecifications.addAll(((Lifeline) this.getRelatedElement()).getCoveredBy(ExecutionOccurenceSpecification.class));
             Collections.sort(executionOccurenceSpecifications,
                     (o1, o2) -> Integer.compare(o1.getLineNumber(), o2.getLineNumber()));
-        
+
             // Now unmask if needed and check order.
             for (ExecutionOccurenceSpecification executionOccurenceSpecification : executionOccurenceSpecifications) {
                 forceUpdate = forceUpdate || unmaskAndOrderChild(executionOccurenceSpecification, index);
                 ++index;
             }
-        
+
             if (forceUpdate) {
                 getDiagram().refreshAllFromObModel();
             }
         }
-        
     }
 
     @objid ("d92e4279-55b6-11e2-877f-002564c97630")
@@ -164,7 +162,7 @@ public class GmLifelineBody extends GmNoStyleCompositeNode {
             child = getDiagram().unmask(this, fragment, null);
             updateNeeded = true;
         }
-        
+
         if (child != null && getChildren().indexOf(child) != index) {
             this.moveChild(child, index);
             updateNeeded = true;
@@ -196,17 +194,15 @@ public class GmLifelineBody extends GmNoStyleCompositeNode {
             break;
         }
         }
-        
     }
 
     @objid ("d92e4292-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmLifelineBody.", GmLifelineBody.MINOR_VERSION);
-        
     }
 
     @objid ("d92e4298-55b6-11e2-877f-002564c97630")

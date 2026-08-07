@@ -40,6 +40,7 @@
   <imports xsi:type="commands:Command" xmi:id="_lUE_QGP3EeOKPIEepcCqnQ" elementId="org.modelio.diagram.editor.command.ZoomFitCommand"/>
   <imports xsi:type="commands:Command" xmi:id="_80_AwO6qEeapbqVwhM5HSA" elementId="org.modelio.app.ui.command.openproperties"/>
   <imports xsi:type="commands:Command" xmi:id="_83RfwO6qEeapbqVwhM5HSA" elementId="org.modelio.app.ui.command.opendiagram"/>
+  <imports xsi:type="commands:Command" xmi:id="_BPrjwCYVEeiv9M6_54rFvA" elementId="diagram.editor.command.opengmdebugger"/>
   <imports xsi:type="commands:Command" xmi:id="_ThE9EPaEEeqaga_r_8J0-Q" elementId="org.modelio.diagram.editor.command.ChangeCustomImageCommand"/>
   <imports xsi:type="commands:Command" xmi:id="_cK6vEMqbEeu67MNW4rjdAw" elementId="org.modelio.diagram.editor.resetlink"/>
   <imports xsi:type="commands:Command" xmi:id="_dFIUkMqbEeu67MNW4rjdAw" elementId="org.modelio.diagram.editor.fullresetlink"/>
@@ -47,6 +48,7 @@
   <imports xsi:type="commands:Command" xmi:id="_0_v7IKCOEe27IZpVA6VVHQ" elementId="org.modelio.diagram.editor.command.SelectSameElementCommand"/>
   <imports xsi:type="commands:Command" xmi:id="_V0CaQA9hEe6mQLnhcsPn2g" elementId="org.modelio.diagram.editor.command.UnmaskOutLinks"/>
   <imports xsi:type="commands:Command" xmi:id="_8H8OgA9rEe6mQLnhcsPn2g" elementId="org.modelio.diagram.editor.command.UnmaskInLinks"/>
+  <imports xsi:type="commands:Command" xmi:id="_X5VdsKDUEe-Y8rsz5_ZFkA" elementId="org.modelio.diagram.editor.command.AutomaticLayoutCommand"/>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_cYqrcF5kEeK_Lq0bAxjAow" featurename="descriptors" parentElementId="org.modelio.app.application">
     <elements xsi:type="basic:PartDescriptor" xmi:id="_wAAecF5kEeK_Lq0bAxjAow" elementId="org.modelio.uml.usecasediagram.editor.UseCaseDiagramEditorID" label="%UseCaseEditor.label" tooltip="%UseCaseEditor.tooltip" bindingContexts="_DQR-cIyKEeKbH-WHrunjdQ" allowMultiple="true" category="TEST_EDITOR" closeable="true" dirtyable="true" contributionURI="bundleclass://org.modelio.uml.usecasediagram.editor/org.modelio.uml.usecasediagram.editor.editor.UseCaseDiagramEditor">
       <handlers xmi:id="_pCcz0ID9EeKKLZZAYaz6Sg" elementId="diagram.editor.usecase.handler.createelement" contributionURI="bundleclass://org.modelio.app.diagram.editor/org.modelio.diagram.editor.popup.handlers.CreateElementHandler" command="_npCJ0ID9EeKKLZZAYaz6Sg"/>
@@ -113,7 +115,10 @@
         <children xsi:type="menu:HandledToolItem" xmi:id="_AIPmcGR9EeKpoNjm4nPb8Q" elementId="org.modelio.diagram.usecase.handledtoolitem.Print" label="%Print" iconURI="platform:/plugin/org.modelio.app.diagram.editor/icons/print.png" tooltip="%Print" command="_LWiOEIkaEeWbO4MnNK7ogg"/>
         <children xsi:type="menu:HandledToolItem" xmi:id="_ATIAwGR9EeKpoNjm4nPb8Q" elementId="org.modelio.diagram.usecase.handledtoolitem.SaveImage" label="%SaveImage" iconURI="platform:/plugin/org.modelio.app.diagram.editor/icons/save_image.png" tooltip="%SaveImage" command="_bq3YMIkaEeWbO4MnNK7ogg"/>
         <children xsi:type="menu:HandledToolItem" xmi:id="_AgiKoGR9EeKpoNjm4nPb8Q" elementId="org.modelio.diagram.usecase.handledtoolitem.CopyImage" label="%CopyImage" iconURI="platform:/plugin/org.modelio.app.diagram.editor/icons/copy_image.png" tooltip="%CopyImage" command="_v70I4IkaEeWbO4MnNK7ogg"/>
+        <children xsi:type="menu:ToolBarSeparator" xmi:id="_AAH9sCBIEfCDhuhnG4LmLQ" elementId="uml.usecasediagram.editor.toolbarseparator.1"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_lZNjIKGYEe-UqbsZgWEpWw" elementId="org.modelio.archimate.handledtoolitem.LayoutTool" label="%LayoutCommand" iconURI="platform:/plugin/org.modelio.app.diagram.editor/icons/layout.png" tooltip="%LayoutCommand" command="_X5VdsKDUEe-Y8rsz5_ZFkA"/>
         <children xsi:type="menu:HandledToolItem" xmi:id="_Azm3oGR9EeKpoNjm4nPb8Q" elementId="org.modelio.diagram.usecase.handledtoolitem.AutoSize" label="%AutoSize" iconURI="platform:/plugin/org.modelio.app.diagram.editor/icons/auto_size.png" tooltip="%AutoSize" command="_z1BZoIkbEeWbO4MnNK7ogg"/>
+        <children xsi:type="menu:ToolBarSeparator" xmi:id="_BEx4oCBIEfCDhuhnG4LmLQ" elementId="uml.usecasediagram.editor.toolbarseparator.2"/>
         <children xsi:type="menu:HandledToolItem" xmi:id="_BDZnIGR9EeKpoNjm4nPb8Q" elementId="org.modelio.diagram.usecase.handledtoolitem.TopAlign" label="%TopAlign" iconURI="platform:/plugin/org.modelio.app.diagram.editor/icons/align_top.png" tooltip="%TopAlign" command="_2CMw8IkdEeWbO4MnNK7ogg"/>
         <children xsi:type="menu:HandledToolItem" xmi:id="_BP7AMGR9EeKpoNjm4nPb8Q" elementId="org.modelio.diagram.usecase.handledtoolitem.LeftAlign" label="%LeftAlign" iconURI="platform:/plugin/org.modelio.app.diagram.editor/icons/align_left.png" tooltip="%LeftAlign" command="_d1njEIkbEeWbO4MnNK7ogg"/>
         <children xsi:type="menu:HandledToolItem" xmi:id="_BvDzQGR9EeKpoNjm4nPb8Q" elementId="org.modelio.diagram.usecase.handledtoolitem.BottomAlign" label="%BottomAlign" iconURI="platform:/plugin/org.modelio.app.diagram.editor/icons/align_bottom.png" tooltip="%BottomAlign" command="__pzrwIkaEeWbO4MnNK7ogg"/>

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.gate;
 
@@ -38,7 +38,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Gm for a gate that is on an interaction use (not on the diagram background)
- * 
+ *
  * @author fpoyer
  */
 @objid ("d8f75420-55b6-11e2-877f-002564c97630")
@@ -71,31 +71,31 @@ public class GmGate extends GmPortContainer {
      * Empty c'tor for deserialisation.
      */
     @objid ("d8f75432-55b6-11e2-877f-002564c97630")
-    public  GmGate() {
+    public GmGate() {
         super();
     }
 
     /**
      * C'tor.
+     *
      * @param diagram the diagram in which this Gm is created.
      * @param gate the gate to represent.
      * @param relatedRef a ref to the gate.
      */
     @objid ("d8f75435-55b6-11e2-877f-002564c97630")
-    public  GmGate(final IGmDiagram diagram, final Gate gate, final MRef relatedRef) {
+    public GmGate(final IGmDiagram diagram, final Gate gate, final MRef relatedRef) {
         super(diagram, relatedRef);
-        
+
         GmGatePrimaryNode mainNode = new GmGatePrimaryNode(diagram, relatedRef);
         mainNode.setRoleInComposition(MAIN_NODE_ROLE);
         addChild(mainNode);
-        
+
         this.gate = gate;
-        
+
         GmDefaultModelElementLabel header = new GmDefaultModelElementLabel(diagram, relatedRef);
         header.setRoleInComposition(GmPortContainer.SATELLITE_ROLE);
         header.setLayoutData(PositionConstants.SOUTH);
         addChild(header);
-        
     }
 
     @objid ("d8f8daa5-55b6-11e2-877f-002564c97630")
@@ -173,24 +173,21 @@ public class GmGate extends GmPortContainer {
             break;
         }
         }
-        
     }
 
     @objid ("d8f8dad7-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmGate.", GmGate.MINOR_VERSION);
-        
     }
 
     @objid ("d8f8dadd-55b6-11e2-877f-002564c97630")
     private void read_0(final IDiagramReader in) {
         super.read(in);
         this.gate = (Gate) resolveRef(getRepresentedRef());
-        
     }
 
     @objid ("d8fa613e-55b6-11e2-877f-002564c97630")
@@ -201,6 +198,7 @@ public class GmGate extends GmPortContainer {
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */
@@ -212,6 +210,7 @@ public class GmGate extends GmPortContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */

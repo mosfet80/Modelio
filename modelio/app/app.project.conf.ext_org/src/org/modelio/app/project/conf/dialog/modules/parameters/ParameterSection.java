@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.conf.dialog.modules.parameters;
 
@@ -54,10 +54,10 @@ public class ParameterSection {
     private Composite composite;
 
     @objid ("668b5388-d5c2-4c13-8041-47614a520aad")
-    public  ParameterSection(IEclipseContext applicationContext) {
+    public ParameterSection(IEclipseContext applicationContext) {
         this.moduleService = applicationContext.get(IModuleManagementService.class);
         this.parameterViewer = null;
-        
+
     }
 
     @objid ("d932f097-3519-427d-918b-888f3cc4e5be")
@@ -66,27 +66,27 @@ public class ParameterSection {
             this.parameterViewer.dispose();
             this.parameterViewer = null;
         }
-        
+
         // Get the runtime module from the static one
         if (module != null && module.getModuleElement() != null) {
             IRTModule irtModule = this.moduleService.getIRTModule(module);
             if (irtModule != null && irtModule.getState() == ModuleRuntimeState.Started) {
                 IModule iModule = irtModule.getIModule();
-        
+
                 final IPanelProvider customPanel = iModule.getParametersEditionPanel();
                 this.parameterViewer = customPanel != null ? customPanel : new DefaultParameterPanelProvider();
                 Control control = (Control) this.parameterViewer.createPanel(this.composite);
-        
+
                 GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
                 gd.minimumHeight = 200;
                 control.setLayoutData(gd);
-        
+
                 this.parameterViewer.setInput(Arrays.asList(iModule));
             }
         }
-        
+
         this.composite.layout(true, true);
-        
+
     }
 
     @objid ("a3f59ff8-1fb7-4d6b-950a-938cdfff9bf2")
@@ -95,12 +95,12 @@ public class ParameterSection {
         section.setText(AppProjectConfExt.I18N.getString("ParameterSection.SectionText")); //$NON-NLS-1$
         section.setDescription(AppProjectConfExt.I18N.getString("ParameterSection.SectionDescription")); //$NON-NLS-1$
         section.setExpanded(true);
-        
+
         this.composite = toolkit.createComposite(section, SWT.WRAP);
         GridLayout layout = new GridLayout();
         layout.numColumns = 1;
         this.composite.setLayout(layout);
-        
+
         toolkit.paintBordersFor(this.composite);
         section.setClient(this.composite);
         return section;

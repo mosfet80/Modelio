@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -40,10 +40,10 @@ public class EConnectionPointReference extends ENamedElement {
     }
 
     @objid ("1d2d240e-5ca1-4e29-a9fc-be9131ec5d1f")
-    public  EConnectionPointReference(org.eclipse.uml2.uml.ConnectionPointReference element) {
+    public EConnectionPointReference(org.eclipse.uml2.uml.ConnectionPointReference element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("ad08e104-4f07-4b4c-995c-38475e76215b")
@@ -55,9 +55,9 @@ public class EConnectionPointReference extends ENamedElement {
             if( temp instanceof State){
                 ((ConnectionPointReference) objingElt).setOwnerState((State) temp);
             }
-            
+
         }
-        
+
     }
 
     @objid ("cb8f5a30-651b-46f5-86b6-b18a60bbcc23")
@@ -66,7 +66,7 @@ public class EConnectionPointReference extends ENamedElement {
         super.setProperties(objingElt);
         setExit((ConnectionPointReference) objingElt);
         setEntry((ConnectionPointReference) objingElt);
-        
+
     }
 
     @objid ("a5e35647-cf01-4595-83b7-a8914a54f348")
@@ -77,7 +77,7 @@ public class EConnectionPointReference extends ENamedElement {
                 objingElt.setEntry((EntryPointPseudoState) temp);
             }
         }
-        
+
     }
 
     @objid ("41f27dd3-6a7a-4ff0-b056-0cf70ac76963")
@@ -88,7 +88,7 @@ public class EConnectionPointReference extends ENamedElement {
                 objingElt.setExit((ExitPointPseudoState) temp);
             }
         }
-        
+
     }
 
 }

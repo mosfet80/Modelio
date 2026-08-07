@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.diagramauto.diagram.creator;
 
@@ -48,11 +48,11 @@ public class CompositionNavigationDiagramTemplate extends AbstractDiagramTemplat
      * Mandatory default c'tor needed by eclipse when loading the extension point.
      */
     @objid ("cdcde0aa-53a2-4028-8709-57745d8c23a1")
-    public  CompositionNavigationDiagramTemplate() {
+    public CompositionNavigationDiagramTemplate() {
         super();
         this.contentDgs = new ArrayList<>();
         this._unmasker = new NodeRollingUnmasker();
-        
+
     }
 
     @objid ("d1feaaa2-7e6c-47f1-a810-80644a9ad7be")
@@ -72,11 +72,11 @@ public class CompositionNavigationDiagramTemplate extends AbstractDiagramTemplat
     protected void generateNodesContent(final IDiagramHandle dh, final ModelElement elt) {
         if (!(elt instanceof org.modelio.metamodel.uml.statik.Package))
             return;
-        
+
         org.modelio.metamodel.uml.statik.Package main = (org.modelio.metamodel.uml.statik.Package) elt;
-        
-        
-        
+
+
+
         // Unmask content
         for (ModelTree child : main.getOwnedElement()) {
             IDiagramNode node = this._unmasker.unmask(dh, child);
@@ -87,13 +87,13 @@ public class CompositionNavigationDiagramTemplate extends AbstractDiagramTemplat
                 this.contentDgs.add(node);
             }
         }
-        
+
     }
 
     @objid ("2fc96964-568d-44fd-8b9b-cbf0b9681f3d")
     @Override
     protected void generateLinksContent(final IDiagramHandle dh, final ModelElement elt) {
-        
+
     }
 
     @objid ("93f3987c-2be7-47df-b8cf-d763f33aea9c")
@@ -106,7 +106,7 @@ public class CompositionNavigationDiagramTemplate extends AbstractDiagramTemplat
     protected void layoutNodes(final IDiagramHandle dh) {
         MatrixLayout layout = new MatrixLayout(10, 10);
         layout.layout(dh, this.contentDgs);
-        
+
     }
 
     @objid ("6ebd1453-8be6-4c02-9766-8081b6624d93")
@@ -136,7 +136,7 @@ public class CompositionNavigationDiagramTemplate extends AbstractDiagramTemplat
     protected void reset() {
         this.contentDgs.clear();
         this._unmasker = new NodeRollingUnmasker();
-        
+
     }
 
 }

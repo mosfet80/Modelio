@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -59,7 +58,7 @@ public class ElementSmClass extends SmObjectSmClass {
     private SmDependency causedImpactDep;
 
     @objid ("832a8f94-1dac-47cf-96ed-e9afb008dbf2")
-    public  ElementSmClass(ISmMetamodelFragment origin) {
+    public ElementSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
@@ -67,7 +66,7 @@ public class ElementSmClass extends SmObjectSmClass {
     @Override
     public String getName() {
         return "Element";
-        
+
     }
 
     @objid ("b56705a3-9e68-4685-bd17-1fed14fc436f")
@@ -80,21 +79,21 @@ public class ElementSmClass extends SmObjectSmClass {
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return Element.class;
-        
+
     }
 
     @objid ("70929ebc-ede0-4c95-ac99-cb9651625187")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
     @objid ("c03734cc-7ca1-4f9f-af77-c51070feadab")
     @Override
     public boolean isAbstract() {
         return true;
-        
+
     }
 
     @objid ("46b37b92-ca7c-4b6c-b909-bea0d407e243")
@@ -102,24 +101,23 @@ public class ElementSmClass extends SmObjectSmClass {
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass("SmObject");
         this.registerFactory(new ElementObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
         this.diagramElementDep = new DiagramElementSmDependency();
         this.diagramElementDep.init("DiagramElement", this, metamodel.getMClass(AbstractDiagram.MQNAME), 0, -1 );
         registerDependency(this.diagramElementDep);
-        
+
         this.addedToQueryDep = new AddedToQuerySmDependency();
         this.addedToQueryDep.init("AddedToQuery", this, metamodel.getMClass(QueryDefinition.MQNAME), 0, -1 , SmDirective.SMCDDYNAMIC);
         registerDependency(this.addedToQueryDep);
-        
+
         this.causedImpactDep = new CausedImpactSmDependency();
         this.causedImpactDep.init("causedImpact", this, metamodel.getMClass(ImpactLink.MQNAME), 0, -1 , SmDirective.SMCDDYNAMIC);
         registerDependency(this.causedImpactDep);
-        
-        
+
     }
 
     @objid ("e14c8ff3-2092-49be-8cf3-4deee9432e76")
@@ -152,7 +150,7 @@ public class ElementSmClass extends SmObjectSmClass {
         private ElementSmClass smClass;
 
         @objid ("dc717e7b-d16b-49bf-9d4d-b614e527e203")
-        public  ElementObjectFactory(ElementSmClass smClass) {
+        public ElementObjectFactory(ElementSmClass smClass) {
             this.smClass = smClass;
         }
 
@@ -185,7 +183,7 @@ public class ElementSmClass extends SmObjectSmClass {
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((ElementData) data).mDiagramElement = values;
-            
+
         }
 
         @objid ("749d64c9-1c5a-443a-864c-38665dec0a0e")
@@ -195,7 +193,7 @@ public class ElementSmClass extends SmObjectSmClass {
             	this.symetricDep = ((AbstractDiagramSmClass)this.getTarget()).getRepresentedDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -215,7 +213,7 @@ public class ElementSmClass extends SmObjectSmClass {
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((ElementData) data).mAddedToQuery = values;
-            
+
         }
 
         @objid ("ee715647-55fc-4e20-ae04-df5d634f72ff")
@@ -225,7 +223,7 @@ public class ElementSmClass extends SmObjectSmClass {
             	this.symetricDep = ((QueryDefinitionSmClass)this.getTarget()).getAddedDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -245,7 +243,7 @@ public class ElementSmClass extends SmObjectSmClass {
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((ElementData) data).mCausedImpact = values;
-            
+
         }
 
         @objid ("396e1a7c-0a24-440b-8421-4743bdf258d5")
@@ -255,7 +253,7 @@ public class ElementSmClass extends SmObjectSmClass {
             	this.symetricDep = ((ImpactLinkSmClass)this.getTarget()).getCausesDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.service.impl.controller.load;
 
@@ -76,18 +76,20 @@ public class ModuleLoader {
     private final IModuleHandle moduleHandle;
 
     /**
+     *
      * @param rtModule the module
      */
     @objid ("36d66263-ae93-4f00-8eb3-993dcb071285")
-    public  ModuleLoader(final IRTModuleAccess rtModule) {
+    public ModuleLoader(final IRTModuleAccess rtModule) {
         this.rtModule = rtModule;
         this.gProject = rtModule.getGModule().getProject();
         this.gModule = rtModule.getGModule();
         this.moduleHandle = this.gModule.getModuleHandle();
-        
+
     }
 
     /**
+     *
      * @return the loaded module implementation
      * @throws ModuleException on failure, if sanity checks fail
      */
@@ -95,7 +97,7 @@ public class ModuleLoader {
     public IModule loadModule() throws ModuleException {
         // Sanity checks
         checkModule();
-        
+
         // 2) Get and load the module main class
         String mainClassName = this.moduleHandle.getMainClassName();
         if (ModuleLoader.FAKE_MODULE_CLASS_NAME.equals(mainClassName)) {
@@ -107,26 +109,27 @@ public class ModuleLoader {
         } else if (!ModuleLoader.isCompatibleWithModelio(this.moduleHandle)) {
             String msg = MdaInfra.I18N.getMessage("ModuleLoader.IncompatibleModelioVersion", this.rtModule.getName(), this.rtModule.getVersion(), ModelioVersion.VERSION, this.moduleHandle.getBinaryVersion());
             throw new ModuleException(msg);
-        
+
         } else {
             // Setup the module class loader:
             ClassLoader classLoader = ModuleClassLoaderFactory
                     .setupClassLoader(this.rtModule);
-        
+
             this.rtModule.setClassLoader(classLoader);
-        
+
             // Instantiate the user defined module class
             IModule iModule = instantiateModuleMainClass(classLoader,
                     mainClassName, this.rtModule.getConfiguration(),
                     this.rtModule.getModuleApiConfiguration());
-        
+
             return iModule;
         }
-        
+
     }
 
     /**
      * Perform sanity checks on the module before loading it
+     *
      * @throws ModuleException if the module cannot be loaded.
      */
     @objid ("9aa1c953-f84d-40b5-97e0-0a3a110c5815")
@@ -136,18 +139,19 @@ public class ModuleLoader {
             // Should not happen...
             throw new ModuleException("No module handle found.");
         }
-        
+
         // Make sure the Module's MDA model is here
         final ModuleComponent module = this.gModule.getModuleElement();
         if (module == null) {
             throw new ModuleException(String.format("The '%s' module has no RAMC model element with {%s} UUID.",
                     this.gModule.getId(), this.gModule.getModuleHandle().getUid()));
         }
-        
+
     }
 
     /**
      * Load all metamodel fragments and register them in the modeling session.
+     *
      * @param classLoader the class loader to use
      * @return the loaded metamodel fragments
      * @throws ModuleException in case of error loading a fragment
@@ -155,32 +159,32 @@ public class ModuleLoader {
     @objid ("fa24dd00-47ae-4ca1-abaf-2684ea31e88a")
     public List<ISmMetamodelFragment> loadMetamodelFragments(ClassLoader classLoader) throws ModuleException {
         List<ISmMetamodelFragment> mmFrags = new ArrayList<>();
-        
+
         for (IMetamodelFragmentHandle mmfHandle : this.moduleHandle
                 .getMetamodelFragments()) {
             String mmfClassName = mmfHandle.getClassName();
             String mmfName = mmfHandle.getName() + " " + mmfHandle.getVersion();
-        
+
             try {
                 // Look for the fragment class
                 Class<?> cls = classLoader.loadClass(mmfClassName);
-        
+
                 // Check the class
                 if (!ISmMetamodelFragment.class.isAssignableFrom(cls)) {
                     String msg = MdaInfra.I18N.getMessage("ModuleLoader.mmf.BadClass", mmfName, mmfClassName, ISmMetamodelFragment.class.getName());
                     throw new ModuleException(msg);
                 }
-        
+
                 // Instantiate fragment
                 ISmMetamodelFragment mmf = (ISmMetamodelFragment) cls
                         .newInstance();
-        
+
                 // Load the fragment
                 this.gProject.getSession().getMetamodelSupport()
                         .addMetamodelFragment(mmf);
-        
+
                 mmFrags.add(mmf);
-        
+
             } catch (ClassNotFoundException e) {
                 String msg = MdaInfra.I18N.getMessage("ModuleLoader.mmf.ClassNotFoundException", mmfName, mmfClassName, e.getLocalizedMessage());
                 throw new ModuleException(msg, e);
@@ -220,6 +224,7 @@ public class ModuleLoader {
 
     /**
      * Fetch by reflexion the main class of this module and instantiate it.
+     *
      * @param classLoader the module class loader
      * @param mainClassName the module main class name
      * @param moduleUserConfiguration module user configuration
@@ -231,15 +236,15 @@ public class ModuleLoader {
     public IModule instantiateModuleMainClass(ClassLoader classLoader, String mainClassName, IModuleUserConfiguration moduleUserConfiguration, IModuleAPIConfiguration moduleApiConfiguration) throws ModuleException {
         assert moduleUserConfiguration != null;
         assert moduleApiConfiguration != null;
-        
+
         // Clear the ResourceBundles cache for the module class loader,
         // otherwise the module resources bundle are not
         // found when upgrading a module and non understandable
         // MissingResourceException are thrown.
         ResourceBundle.clearCache(classLoader);
-        
+
         Class<?> mainClass = null;
-        
+
         // Try to get the module main class
         try {
             mainClass = classLoader.loadClass(mainClassName);
@@ -248,7 +253,7 @@ public class ModuleLoader {
                         + " main class does not implement "
                         + IModule.class.getName() + " .");
             }
-        
+
         } catch (ClassNotFoundException e) {
             final ModuleException e2 = new ModuleException(String.format(
                     "The '%1$s' module main class has not been found: %2$s",
@@ -260,7 +265,7 @@ public class ModuleLoader {
                     this.moduleHandle.getName(), e.getMessage()), e);
             throw e2;
         }
-        
+
         // Try to instantiate a module for V35, if fail try the V34 option
         try {
             return callConstructorV35(moduleUserConfiguration,
@@ -268,13 +273,14 @@ public class ModuleLoader {
         } catch (NoSuchMethodException e) {
             return callConstructorV34(moduleUserConfiguration,
                     moduleApiConfiguration, mainClass);
-        
+
         }
-        
+
     }
 
     /**
      * Check the module version is compatible with the current Modelio
+     *
      * @param rtModuleHandle the module to check.
      * @return <code>true</code> if this module is not compatible with the current Modelio.
      */
@@ -283,11 +289,12 @@ public class ModuleLoader {
         return CompatibilityHelper.isCompatible(CompatibilityHelper
                 .getCompatibilityLevel(ModelioVersion.VERSION,
                         rtModuleHandle.getBinaryVersion()));
-        
+
     }
 
     /**
      * Convert any exception to a {@link ModuleException} by wrapping it if needed.
+     *
      * @param cause an exception
      * @return a ModuleException.
      */
@@ -306,11 +313,12 @@ public class ModuleLoader {
         } else {
             return new ModuleException(cause.getLocalizedMessage(), cause);
         }
-        
+
     }
 
     /**
      * Instantiate a fake module.
+     *
      * @return a fake module
      */
     @objid ("0b61c1c7-8587-4149-8407-0d81b2a10937")
@@ -320,6 +328,7 @@ public class ModuleLoader {
 
     /**
      * Instantiate a fake module.
+     *
      * @return a fake module
      */
     @objid ("2c872102-3024-45d6-b0c4-2d87928c45b6")
@@ -329,6 +338,7 @@ public class ModuleLoader {
 
     /**
      * Call the static install(String projectPath, String moduleResourcesPath) method on the module main class using a temporary class loader.
+     *
      * @throws ModuleException on failure
      */
     @objid ("1abed92c-5371-41c4-9d85-9f38627e4d9b")
@@ -337,13 +347,13 @@ public class ModuleLoader {
         // NOTE: the call to #install may actually bring in something that will
         // complete the class loader created in ModuleLoader#loadModule
         final ClassLoader moduleClassLoader = ModuleClassLoaderFactory.setupClassLoader(this.rtModule);
-        
+
         if (moduleClassLoader instanceof URLClassLoader) {
             callModuleStaticMethodInstall((URLClassLoader) moduleClassLoader);
         } else {
             callPluginStaticMethodInstall(moduleClassLoader);
         }
-        
+
     }
 
     /**
@@ -353,32 +363,32 @@ public class ModuleLoader {
     private IModule callConstructorV34(IModuleUserConfiguration moduleUserConfiguration, IModuleAPIConfiguration moduleApiConfiguration, Class<?> mainClass) throws ModuleException {
         try {
             // Instantiate the module:
-        
+
             // Constructor parameters types
             Class<?>[] classParamArray = { IModelingSession.class,
                     ModuleComponent.class, IModuleUserConfiguration.class,
                     IModuleAPIConfiguration.class };
-        
+
             // Get the constructor
             Constructor<?> constructor = mainClass
                     .getConstructor(classParamArray);
-        
+
             // Prepare a moduleContext. Setting a Mdoulecontext on the V34 module ensures compatibility
             IModuleContext moduleContext = ModuleContextFactory.getInstance()
                     .createModuleContext(this.gModule.getModuleElement(),
                             moduleUserConfiguration, moduleApiConfiguration);
-        
+
             // Create the new instance by calling the constructor.
             Object[] initParamArray = { moduleContext.getModelingSession(),
                     this.gModule.getModuleElement(), moduleUserConfiguration,
                     moduleApiConfiguration };
             IModule iModule = (IModule) constructor.newInstance(initParamArray);
-        
+
             iModule.initModulecontext(moduleContext);
             moduleContext.setModule(iModule);
-        
+
             return iModule;
-        
+
         } catch (SecurityException e) {
             final ModuleException e2 = new ModuleException(
                     String.format(
@@ -446,33 +456,33 @@ public class ModuleLoader {
             e2.initCause(cause);
             throw e2;
         }
-        
+
     }
 
     @objid ("d6d9254f-efa7-4906-b679-03a408796b61")
     private IModule callConstructorV35(IModuleUserConfiguration moduleUserConfiguration, IModuleAPIConfiguration moduleApiConfiguration, Class<?> mainClass) throws ModuleException, NoSuchMethodException {
         try {
             // Instantiate the module:
-        
+
             // Constructor parameters types
             Class<?>[] classParamArray = { IModuleContext.class };
-        
+
             // Get the constructor
             Constructor<?> constructor = mainClass
                     .getConstructor(classParamArray);
-        
+
             // Create the new instance by calling the constructor.
             IModuleContext moduleContext = ModuleContextFactory.getInstance()
                     .createModuleContext(this.gModule.getModuleElement(),
                             moduleUserConfiguration, moduleApiConfiguration);
-        
+
             Object[] initParamArray = { moduleContext };
-        
+
             IModule iModule = (IModule) constructor.newInstance(initParamArray);
             moduleContext.setModule(iModule);
-        
+
             return iModule;
-        
+
         } catch (SecurityException e) {
             final ModuleException e2 = new ModuleException(
                     String.format(
@@ -480,7 +490,7 @@ public class ModuleLoader {
                             this.moduleHandle.getName(), e.getMessage()));
             e2.initCause(e);
             throw e2;
-        
+
         } catch (IllegalArgumentException e) {
             final ModuleException e2 = new ModuleException(
                     String.format(
@@ -534,7 +544,7 @@ public class ModuleLoader {
             e2.initCause(cause);
             throw e2;
         }
-        
+
     }
 
     @objid ("30162673-a2d7-4d04-b4ec-22c503b2be18")
@@ -551,7 +561,7 @@ public class ModuleLoader {
             throw e2;
         } catch (NoClassDefFoundError e) {
             MdaInfra.LOG.error(e);
-        
+
             ModuleException e2 = new ModuleException(String.format(
                     "The '%1$s' module class couldn't find the '%2$s' class .",
                     this.moduleHandle.getMainClassName(),
@@ -559,18 +569,18 @@ public class ModuleLoader {
             e2.initCause(e);
             throw e2;
         }
-        
+
         // Invoke install(String projectPath, String moduleResourcesPath) method
         try {
             // Declare the parameters of the install method.
             Class<?>[] classParamArray = { String.class, String.class };
             Object[] initParamArray = { this.gProject.getPfs().getProjectPath(), this.moduleHandle.getResourcePath() };
-        
+
             Method installMethod = mainClass.getMethod("install", classParamArray);
-        
+
             // Invoke install(...) method .
             installMethod.invoke(null, initParamArray);
-        
+
         } catch (NullPointerException npe) {
             MdaInfra.LOG.error(npe);
             ModuleException e2 = new ModuleException(MdaInfra.I18N.getMessage("ModuleExceptionMessage.InstallIsNotStatic", this.moduleHandle.getName())); //$NON-NLS-1$
@@ -583,7 +593,7 @@ public class ModuleLoader {
             throw e2;
         } catch (NoClassDefFoundError e) {
             MdaInfra.LOG.error(e);
-        
+
             ModuleException e2 = new ModuleException(String.format(
                     "The '%1$s' module class couldn't find the '%2$s' class .",
                     this.moduleHandle.getMainClassName(),
@@ -613,7 +623,7 @@ public class ModuleLoader {
             e2.initCause(cause);
             throw e2;
         }
-        
+
     }
 
     @objid ("25468569-3f74-446d-928a-0acfb475c103")
@@ -640,7 +650,7 @@ public class ModuleLoader {
                     sUrls.append(url.toString());
                     sUrls.append("\n");
                 }
-        
+
                 ModuleException e2 = new ModuleException(
                         String.format(
                                 "The '%1$s' module class couldn't find the '%2$s' class in the following classpath:\n (%3$s)",
@@ -649,20 +659,20 @@ public class ModuleLoader {
                 e2.initCause(e);
                 throw e2;
             }
-        
+
             // Invoke install(String projectPath, String moduleResourcesPath)
             // method
             try {
-        
+
                 // Declare the parameters of the install method.
                 Class<?>[] classParamArray = { String.class, String.class };
                 Object[] initParamArray = { this.gProject.getPfs().getProjectPath(), this.moduleHandle.getResourcePath() };
-        
+
                 Method installMethod = mainClass.getMethod("install", classParamArray);
-        
+
                 // Invoke install(...) method .
                 installMethod.invoke(null, initParamArray);
-        
+
             } catch (NullPointerException npe) {
                 MdaInfra.LOG.error(npe);
                 ModuleException e2 = new ModuleException(MdaInfra.I18N.getMessage("ModuleExceptionMessage.InstallIsNotStatic", this.moduleHandle.getName())); //$NON-NLS-1$
@@ -683,7 +693,7 @@ public class ModuleLoader {
                     sUrls.append(url.toString());
                     sUrls.append("\n");
                 }
-        
+
                 ModuleException e2 = new ModuleException(
                         String.format(
                                 "The '%1$s' module class couldn't find the '%2$s' class in the following classpath:\n (%3$s)",
@@ -717,7 +727,7 @@ public class ModuleLoader {
         } catch (IOException e) {
             MdaInfra.LOG.error(e);
         }
-        
+
     }
 
 }

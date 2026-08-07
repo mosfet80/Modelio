@@ -1,0 +1,32 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Projects, work models and sub-projects
+
+
+
+===== Modelio project
+
+In Modelio, a project is similar to a document in Word: you open it, modify its contents and save the changes (or not) before closing it. From the end user point of view, the project is the unit of work and persistence of his/her contributions. Once opened, the project appears to the end user as a unique model, composed of many model elements, usually organized into packages and other high level containers. The "Save" operation also appears to be applied to the unique model proposed by the opened project. However, behind the scenes, the manipulated model elements may be provided by several work models and their physical repositories, and Modelio is in charge of managing these repositories transparently as a unique model. [[Work-models]]
+
+
+=====  Work models image:images/attachment/modeliocom41/User_Documentation_en/Project_SaaS/Projects__work_models_and_sub-projects_SaaS/svnfragment.png[2]
+
+Work models are groups of higher level model elements. Model designers attribute logical consistency to work models, but their primary function is to autonomously store a part of a model. A model element from a given work model can be linked to model elements from another work model, but this link must be a simple reference, and not a containment or composition link.
+
+A model element really belongs to a work model, but its ownership is not definitive. It can be moved to another work model, according to the organizational needs of the designers. Work models are tightly coupled with repositories. Modelio supports several repository technologies (Local, SVN, Model Components...). Each technology has specific characteristics that must be understood when choosing one of them for a particular repository. [[Sub-projects]]
+
+
+===== Sub-projects
+
+Modelio supports several kind of sub-projects (UML, MDA, ArchiMate...). These sub-projects can coexist within the same work model.
+
+Modelio Open Source supports the following kinds of sub-projects:
+
+* image:images/attachment/modeliocom41/User_Documentation_en/Project_SaaS/Projects__work_models_and_sub-projects_SaaS/uml.png[4] UML: UML and BPMN modeling
+* image:images/attachment/modeliocom41/User_Documentation_en/Project_SaaS/Projects__work_models_and_sub-projects_SaaS/localmodule.png[5] Local Module: MDA extensions
+* image:images/attachment/modeliocom41/User_Documentation_en/Project_SaaS/Projects__work_models_and_sub-projects_SaaS/analyst.analystproject.png[analyst.analystproject.png] Analyst: Analyst Modeling (Requirements, Dictionaries, Business rules...)
+* image:images/attachment/modeliocom41/User_Documentation_en/Project_SaaS/Projects__work_models_and_sub-projects_SaaS/impactproject.png[impactproject.png] Impact: Impact analysis
+* image:images/attachment/modeliocom41/User_Documentation_en/Project_SaaS/Projects__work_models_and_sub-projects_SaaS/archimate.png[6] ArchiMate: ArchiMate modeling

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.data.module.jaxbv2;
 
@@ -31,9 +31,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for _PropertyType complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="_PropertyType">
  * &lt;complexContent>
@@ -118,8 +118,8 @@ public class Jxbv2PropertyType {
 
     /**
      * Gets the value of the enumeration property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link Enumeration }
      */
     @objid ("0756ae75-3396-4206-b37c-3964afbadefd")
@@ -129,6 +129,7 @@ public class Jxbv2PropertyType {
 
     /**
      * Sets the value of the enumeration property.
+     *
      * @param value allowed object is
      * {@link Enumeration }
      */
@@ -139,8 +140,8 @@ public class Jxbv2PropertyType {
 
     /**
      * Gets the value of the description property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("23b15038-255e-4024-a028-3935743ad918")
@@ -150,6 +151,7 @@ public class Jxbv2PropertyType {
 
     /**
      * Sets the value of the description property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -160,8 +162,8 @@ public class Jxbv2PropertyType {
 
     /**
      * Gets the value of the id property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("0dbdf70a-94f6-48b2-aabe-0e1422acd418")
@@ -171,6 +173,7 @@ public class Jxbv2PropertyType {
 
     /**
      * Sets the value of the id property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -181,8 +184,8 @@ public class Jxbv2PropertyType {
 
     /**
      * Gets the value of the type property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("b68707a5-6fda-4cbd-8045-cc6521351380")
@@ -192,6 +195,7 @@ public class Jxbv2PropertyType {
 
     /**
      * Sets the value of the type property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -202,8 +206,8 @@ public class Jxbv2PropertyType {
 
     /**
      * Gets the value of the uid property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("1bd4a777-6ee2-4cfd-8d03-2810a15ef13d")
@@ -213,6 +217,7 @@ public class Jxbv2PropertyType {
 
     /**
      * Sets the value of the uid property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -223,8 +228,8 @@ public class Jxbv2PropertyType {
 
     /**
      * Gets the value of the ishidden property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("09216e16-bec1-4078-8c47-6ae0cb8fec0f")
@@ -234,6 +239,7 @@ public class Jxbv2PropertyType {
 
     /**
      * Sets the value of the ishidden property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -244,8 +250,8 @@ public class Jxbv2PropertyType {
 
     /**
      * Gets the value of the extensions property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link PropertyType.Extensions }
      */
     @objid ("e3175619-9f35-4de0-a8a5-961c70666f61")
@@ -255,6 +261,7 @@ public class Jxbv2PropertyType {
 
     /**
      * Sets the value of the extensions property.
+     *
      * @param value allowed object is
      * {@link PropertyType.Extensions }
      */
@@ -265,9 +272,9 @@ public class Jxbv2PropertyType {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType>
      * &lt;complexContent>
@@ -292,20 +299,20 @@ public class Jxbv2PropertyType {
 
         /**
          * Gets the value of the stereotypeRef property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the stereotypeRef property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          * getStereotypeRef().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link StereotypeRef }

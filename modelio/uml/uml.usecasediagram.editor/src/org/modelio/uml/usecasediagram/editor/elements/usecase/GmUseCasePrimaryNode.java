@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.usecasediagram.editor.elements.usecase;
 
@@ -107,37 +107,37 @@ public class GmUseCasePrimaryNode extends GmNoStyleCompositeNode implements IIma
     private GmInnerClass innerElements;
 
     @objid ("5e611378-55b7-11e2-877f-002564c97630")
-    public  GmUseCasePrimaryNode(IGmDiagram diagram, MRef ref) {
+    public GmUseCasePrimaryNode(IGmDiagram diagram, MRef ref) {
         super(diagram, ref);
         this.header = new GmNamespaceHeader(diagram, ref);
         this.header.setRoleInComposition(GmUseCasePrimaryNode.HEADER);
-        
+
         this.attributeGroup = new GmAttributeGroup(diagram, ref);
         this.attributeGroup.setRoleInComposition(GmUseCasePrimaryNode.ATTRIBUTE_GROUP);
-        
+
         this.methodGroup = new GmOperationGroup(diagram, ref);
         this.methodGroup.setRoleInComposition(GmUseCasePrimaryNode.METHOD_GROUP);
-        
+
         this.extensionPointGroup = new GmExtensionPointGroup(diagram, ref);
         this.extensionPointGroup.setRoleInComposition(GmUseCasePrimaryNode.EXTENSIONS);
-        
+
         this.internalStructure = new GmInternalStructure(diagram, ref);
         this.internalStructure.setRoleInComposition(GmUseCasePrimaryNode.INTERNAL);
-        
+
         this.innerElements = new GmInnerClass(diagram, ref);
         this.innerElements.setRoleInComposition(GmUseCasePrimaryNode.INNER);
-        
+
         super.addChild(this.header);
         super.addChild(this.attributeGroup);
         super.addChild(this.methodGroup);
         super.addChild(this.extensionPointGroup);
         super.addChild(this.internalStructure);
         super.addChild(this.innerElements);
-        
+
     }
 
     @objid ("5e611381-55b7-11e2-877f-002564c97630")
-    public  GmUseCasePrimaryNode() {
+    public GmUseCasePrimaryNode() {
         // empty constructor for the serialization
     }
 
@@ -147,19 +147,19 @@ public class GmUseCasePrimaryNode extends GmNoStyleCompositeNode implements IIma
         if (Attribute.class.isAssignableFrom(type)) {
             return this.attributeGroup.canCreate(type);
         }
-        
+
         if (Operation.class.isAssignableFrom(type)) {
             return this.methodGroup.canCreate(type);
         }
-        
+
         if (ExtensionPoint.class.isAssignableFrom(type)) {
             return this.extensionPointGroup.canCreate(type);
         }
-        
+
         if (Instance.class.isAssignableFrom(type) && !(Port.class.isAssignableFrom(type))) {
             return this.internalStructure.canCreate(type);
         }
-        
+
         if (CollaborationUse.class.isAssignableFrom(type)) {
             return this.internalStructure.canCreate(type);
         }
@@ -172,23 +172,23 @@ public class GmUseCasePrimaryNode extends GmNoStyleCompositeNode implements IIma
         if (el instanceof Attribute) {
             return this.attributeGroup.canUnmask(el);
         }
-        
+
         if (el instanceof Operation) {
             return this.methodGroup.canUnmask(el);
         }
-        
+
         if (el instanceof ExtensionPoint) {
             return this.extensionPointGroup.canUnmask(el);
         }
-        
+
         if (el instanceof Instance && !(el instanceof Port)) {
             return this.internalStructure.canUnmask(el);
         }
-        
+
         if (el instanceof CollaborationUse) {
             return this.internalStructure.canUnmask(el);
         }
-        
+
         if (el instanceof NameSpace) {
             return this.innerElements.canUnmask(el);
         }
@@ -199,7 +199,7 @@ public class GmUseCasePrimaryNode extends GmNoStyleCompositeNode implements IIma
     @Override
     public GmCompositeNode getCompositeFor(Class<? extends MObject> metaclass) {
         GmCompositeNode ret = null;
-        
+
         if (Attribute.class.isAssignableFrom(metaclass)) {
             // Attributes are unmasked in the attributes group
             ret = this.attributeGroup;
@@ -255,7 +255,7 @@ public class GmUseCasePrimaryNode extends GmNoStyleCompositeNode implements IIma
             break;
         }
         }
-        
+
     }
 
     @objid ("5e629a10-55b7-11e2-877f-002564c97630")
@@ -264,7 +264,7 @@ public class GmUseCasePrimaryNode extends GmNoStyleCompositeNode implements IIma
         super.refreshFromObModel();
         // forcing visual refresh in case Image changed
         firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("5e629a13-55b7-11e2-877f-002564c97630")
@@ -290,10 +290,10 @@ public class GmUseCasePrimaryNode extends GmNoStyleCompositeNode implements IIma
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0.
         writeMinorVersion(out, "GmUseCasePrimaryNode.", Integer.valueOf(GmUseCasePrimaryNode.MINOR_VERSION));
-        
+
     }
 
     @objid ("5e629a22-55b7-11e2-877f-002564c97630")
@@ -305,7 +305,7 @@ public class GmUseCasePrimaryNode extends GmNoStyleCompositeNode implements IIma
     @objid ("5e629a27-55b7-11e2-877f-002564c97630")
     private void read_0(final IDiagramReader in) {
         super.read(in);
-        
+
         this.header = (GmModelElementHeader) getFirstChild(GmUseCasePrimaryNode.HEADER);
         this.attributeGroup = (GmGroup) getFirstChild(GmUseCasePrimaryNode.ATTRIBUTE_GROUP);
         this.methodGroup = (GmGroup) getFirstChild(GmUseCasePrimaryNode.METHOD_GROUP);
@@ -313,15 +313,15 @@ public class GmUseCasePrimaryNode extends GmNoStyleCompositeNode implements IIma
         GmFreeZone internalStructureZone = (GmFreeZone) getFirstChild(GmUseCasePrimaryNode.INTERNAL_ZONE);
         this.innerElements = (GmInnerClass) getFirstChild(GmUseCasePrimaryNode.INNER);
         this.extensionPointGroup = (GmGroup) getFirstChild(GmUseCasePrimaryNode.EXTENSIONS);
-        
+
         // Migrate internal structure group/zone
         removeChild(internalStructureGroup);
         removeChild(internalStructureZone);
-        
+
         this.internalStructure = new GmInternalStructure(getDiagram(), getRepresentedRef(), internalStructureZone, internalStructureGroup);
         this.internalStructure.setRoleInComposition(GmUseCasePrimaryNode.INTERNAL);
         addChild(this.internalStructure);
-        
+
     }
 
     @objid ("5e629a2d-55b7-11e2-877f-002564c97630")
@@ -330,36 +330,36 @@ public class GmUseCasePrimaryNode extends GmNoStyleCompositeNode implements IIma
     }
 
     @objid ("5e629a31-55b7-11e2-877f-002564c97630")
-     GmUseCasePrimaryNode(final _GmUseCase oldVersionGm) {
+    GmUseCasePrimaryNode(final _GmUseCase oldVersionGm) {
         super(oldVersionGm.getDiagram(), oldVersionGm.getRepresentedRef());
         this.header = oldVersionGm.getHeader();
         this.header.setRoleInComposition(GmUseCasePrimaryNode.HEADER);
-        
+
         this.attributeGroup = oldVersionGm.getAttributeGroup();
         this.attributeGroup.setRoleInComposition(GmUseCasePrimaryNode.ATTRIBUTE_GROUP);
-        
+
         this.methodGroup = oldVersionGm.getMethodGroup();
         this.methodGroup.setRoleInComposition(GmUseCasePrimaryNode.METHOD_GROUP);
-        
+
         this.extensionPointGroup = oldVersionGm.getExtensionPointGroup();
         this.extensionPointGroup.setRoleInComposition(GmUseCasePrimaryNode.EXTENSIONS);
-        
+
         GmGroup internalStructureGroup = oldVersionGm.getInternalStructureGroup();
         internalStructureGroup.setRoleInComposition(GmUseCasePrimaryNode.INTERNAL_GROUP);
-        
+
         GmFreeZone internalStructureZone = oldVersionGm.getInternalStructureZone();
         internalStructureZone.setRoleInComposition(GmUseCasePrimaryNode.INTERNAL_ZONE);
-        
+
         // Migrate internal structure group/zone
         oldVersionGm.removeChild(internalStructureGroup);
         oldVersionGm.removeChild(internalStructureZone);
-        
+
         this.internalStructure = new GmInternalStructure(getDiagram(), getRepresentedRef(), internalStructureZone, internalStructureGroup);
         this.internalStructure.setRoleInComposition(GmUseCasePrimaryNode.INTERNAL);
-        
+
         this.innerElements = oldVersionGm.getInnerElements();
         this.innerElements.setRoleInComposition(GmUseCasePrimaryNode.INNER);
-        
+
         oldVersionGm.removeChild(this.header);
         super.addChild(this.header);
         oldVersionGm.removeChild(this.attributeGroup);
@@ -371,20 +371,20 @@ public class GmUseCasePrimaryNode extends GmNoStyleCompositeNode implements IIma
         super.addChild(this.internalStructure);
         oldVersionGm.removeChild(this.innerElements);
         super.addChild(this.innerElements);
-        
+
     }
 
     @objid ("5e629a36-55b7-11e2-877f-002564c97630")
     private void read_1(final IDiagramReader in) {
         super.read(in);
-        
+
         this.header = (GmModelElementHeader) getFirstChild(GmUseCasePrimaryNode.HEADER);
         this.attributeGroup = (GmGroup) getFirstChild(GmUseCasePrimaryNode.ATTRIBUTE_GROUP);
         this.methodGroup = (GmGroup) getFirstChild(GmUseCasePrimaryNode.METHOD_GROUP);
         this.innerElements = (GmInnerClass) getFirstChild(GmUseCasePrimaryNode.INNER);
         this.extensionPointGroup = (GmGroup) getFirstChild(GmUseCasePrimaryNode.EXTENSIONS);
         this.internalStructure = (GmInternalStructure) getFirstChild(GmUseCasePrimaryNode.INTERNAL);
-        
+
     }
 
 }

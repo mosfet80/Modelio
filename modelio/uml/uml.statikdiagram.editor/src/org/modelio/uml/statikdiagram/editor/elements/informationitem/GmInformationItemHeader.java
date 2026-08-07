@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.informationitem;
 
@@ -61,20 +61,21 @@ public class GmInformationItemHeader extends GmDefaultModelElementHeader {
      * Constructor for deserialization only.
      */
     @objid ("35126dfb-55b7-11e2-877f-002564c97630")
-    public  GmInformationItemHeader() {
+    public GmInformationItemHeader() {
         init();
     }
 
     /**
      * Initialize a classifier header
+     *
      * @param diagram the owning diagram.
      * @param relatedRef a reference to the element this GmModel is related to, must not be null.
      */
     @objid ("35126dfe-55b7-11e2-877f-002564c97630")
-    public  GmInformationItemHeader(IGmDiagram diagram, MRef relatedRef) {
+    public GmInformationItemHeader(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
         init();
-        
+
     }
 
     @objid ("35126e23-55b7-11e2-877f-002564c97630")
@@ -89,9 +90,9 @@ public class GmInformationItemHeader extends GmDefaultModelElementHeader {
         if (property == InformationItemStructuredStyleKeys.SHOWNAME)
             if (updateMainLabelFromObModel())
                 firePropertyChange(IGmObject.PROPERTY_LABEL, this, null);
-        
+
         super.styleChanged(property, newValue);
-        
+
     }
 
     @objid ("3513f4a9-55b7-11e2-877f-002564c97630")
@@ -99,9 +100,9 @@ public class GmInformationItemHeader extends GmDefaultModelElementHeader {
     public void styleChanged(IStyle changedStyle) {
         if (updateMainLabelFromObModel())
             firePropertyChange(IGmObject.PROPERTY_LABEL, this, null);
-        
+
         super.styleChanged(changedStyle);
-        
+
     }
 
     @objid ("3513f4af-55b7-11e2-877f-002564c97630")
@@ -118,24 +119,24 @@ public class GmInformationItemHeader extends GmDefaultModelElementHeader {
             case SIMPLE:
             default:
                 return computeSimpleLabel();
-        
+
         }
-        
+
     }
 
     @objid ("3513f4ba-55b7-11e2-877f-002564c97630")
     private String computeFullQualifiedLabel() {
         final StringBuilder s = new StringBuilder(100);
         final InformationItem c = this.getRelatedElement();
-        
+
         ModelTree parent = c.getOwner();
         while (parent != null && !isRoot(parent)) {
             s.insert(0, '.');
             s.insert(0, parent.getName());
-        
+
             parent = parent.getOwner();
         }
-        
+
         s.append(c.getName());
         return s.toString() + computeType(c);
     }
@@ -148,7 +149,7 @@ public class GmInformationItemHeader extends GmDefaultModelElementHeader {
             return c.getName();
         else
             return parent.getName() + "." + c.getName() + computeType(c);
-        
+
     }
 
     @objid ("3513f4c1-55b7-11e2-877f-002564c97630")
@@ -158,6 +159,7 @@ public class GmInformationItemHeader extends GmDefaultModelElementHeader {
 
     /**
      * Tells whether the given element is the root package a the project.
+     *
      * @param el the element to test
      * @return true if the given element is the root package a the project, else false.
      */
@@ -166,7 +168,7 @@ public class GmInformationItemHeader extends GmDefaultModelElementHeader {
         // Project is a root
         if (el instanceof Project)
             return true;
-        
+
         // Root package is a root
         final MObject parent = el.getCompositionOwner();
         if (parent == null || parent instanceof Project)
@@ -183,7 +185,7 @@ public class GmInformationItemHeader extends GmDefaultModelElementHeader {
     @objid ("3513f4cf-55b7-11e2-877f-002564c97630")
     private String computeType(final InformationItem item) {
         StringBuilder s = new StringBuilder(100);
-        
+
         final List<Classifier> types = item.getRepresented();
         boolean first = true;
         for (Classifier c : types) {
@@ -215,17 +217,17 @@ public class GmInformationItemHeader extends GmDefaultModelElementHeader {
                 break;
             }
         }
-        
+
     }
 
     @objid ("35157b3c-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmInformationItemHeader.", GmInformationItemHeader.MINOR_VERSION);
-        
+
     }
 
     @objid ("35157b42-55b7-11e2-877f-002564c97630")

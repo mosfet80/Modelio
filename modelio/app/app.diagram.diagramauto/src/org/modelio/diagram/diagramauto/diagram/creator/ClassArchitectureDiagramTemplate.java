@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.diagramauto.diagram.creator;
 
@@ -40,7 +40,7 @@ public class ClassArchitectureDiagramTemplate extends ClassStructureDiagramTempl
      * Mandatory default c'tor needed by eclipse when loading the extension point.
      */
     @objid ("bca0d640-874f-4546-bf24-8122867469b3")
-    public  ClassArchitectureDiagramTemplate() {
+    public ClassArchitectureDiagramTemplate() {
         super();
     }
 
@@ -54,11 +54,11 @@ public class ClassArchitectureDiagramTemplate extends ClassStructureDiagramTempl
     @Override
     protected void generateNodesContent(final IDiagramHandle dh, final ModelElement main) {
         super.generateNodesContent(dh, main);
-        
+
         // Get rid of dumb case
         if (!(main instanceof Classifier))
             return;
-        
+
         Classifier classifier = (Classifier) main;
         // Unmask incoming associations
         for (AssociationEnd a : classifier.getTargetingEnd()) {
@@ -76,7 +76,7 @@ public class ClassArchitectureDiagramTemplate extends ClassStructureDiagramTempl
                 }
             }
         }
-        
+
         // unmask generalizations
         for (Generalization g : classifier.getSpecialization()) {
             // Unmask parent node
@@ -88,7 +88,7 @@ public class ClassArchitectureDiagramTemplate extends ClassStructureDiagramTempl
                 this._bottomDgs.add(node);
             }
         }
-        
+
         // unmask realizations
         if (classifier instanceof Interface) {
             for (InterfaceRealization ir : ((Interface) classifier).getImplementedLink()) {
@@ -102,20 +102,20 @@ public class ClassArchitectureDiagramTemplate extends ClassStructureDiagramTempl
                 }
             }
         }
-        
+
     }
 
     @objid ("d00b35f2-7c11-40a4-b307-3f066abd880c")
     @Override
     protected void generateLinksContent(final IDiagramHandle dh, final ModelElement main) {
         super.generateLinksContent(dh, main);
-        
+
         // Get rid of dumb case
         if (!(main instanceof Classifier))
             return;
-        
+
         Classifier classifier = (Classifier) main;
-        
+
         // Unmask incoming associations
         for (AssociationEnd a : classifier.getTargetingEnd()) {
             if (a.getAggregation() == AggregationKind.KINDISASSOCIATION) {
@@ -126,7 +126,7 @@ public class ClassArchitectureDiagramTemplate extends ClassStructureDiagramTempl
                     List<IDiagramGraphic> links = dh.unmask(a.getAssociation(), 0, 0);
                     if (!links.isEmpty()) {
                         IDiagramLink link = (IDiagramLink) links.get(0);
-        
+
                         if (link.getFrom().equals(link.getTo())) {
                             this._reflexiveLinksDgs.add(link);
                         }
@@ -134,7 +134,7 @@ public class ClassArchitectureDiagramTemplate extends ClassStructureDiagramTempl
                 }
             }
         }
-        
+
         // unmask generalizations
         for (Generalization g : classifier.getSpecialization()) {
             // Unmask parent node
@@ -148,21 +148,21 @@ public class ClassArchitectureDiagramTemplate extends ClassStructureDiagramTempl
             //
             // this._bottomDgs.add(node);
             // }
-        
+
             // Unmask link
             List<IDiagramGraphic> links = dh.unmask(g, 0, 0);
             if (!links.isEmpty()) {
                 IDiagramLink link = (IDiagramLink) links.get(0);
-        
+
                 if (link.getFrom().equals(link.getTo())) {
                     this._reflexiveLinksDgs.add(link);
                 }
             }
         }
-        
+
         // unmask realizations
         if (classifier instanceof Interface)
-        
+
         {
             for (InterfaceRealization ir : ((Interface) classifier).getImplementedLink()) {
                 // Unmask parent node
@@ -174,19 +174,19 @@ public class ClassArchitectureDiagramTemplate extends ClassStructureDiagramTempl
                 // initStyle(classifier, child, node);
                 // this._bottomDgs.add(node);
                 // }
-        
+
                 // Unmask link
                 List<IDiagramGraphic> links = dh.unmask(ir, 0, 0);
                 if (!links.isEmpty()) {
                     IDiagramLink link = (IDiagramLink) links.get(0);
-        
+
                     if (link.getFrom().equals(link.getTo())) {
                         this._reflexiveLinksDgs.add(link);
                     }
                 }
             }
         }
-        
+
     }
 
 }

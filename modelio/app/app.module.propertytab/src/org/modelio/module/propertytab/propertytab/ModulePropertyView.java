@@ -1,32 +1,30 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.module.propertytab.propertytab;
 
-import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.inject.Inject;
-import javax.inject.Named;
-import org.eclipse.core.runtime.IAdaptable;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
@@ -43,6 +41,7 @@ import org.modelio.module.propertytab.plugin.ModulePropertyTab;
 import org.modelio.platform.core.picking.IModelioPickingService;
 import org.modelio.platform.mda.infra.service.IModuleService;
 import org.modelio.platform.mda.infra.service.IRTModule;
+import org.modelio.platform.model.ui.swt.SelectionHelper;
 import org.modelio.platform.project.services.IProjectService;
 import org.modelio.platform.ui.panel.IPanelProvider;
 import org.modelio.vcore.smkernel.mapi.MObject;
@@ -62,6 +61,7 @@ public class ModulePropertyView {
      * <p>
      * Initializes the module panel.
      * </p>
+     *
      * @param part the part itself.
      * @param parentComposite the main composite of the view.
      * @param eclipseContext the eclipse context.
@@ -78,26 +78,26 @@ public class ModulePropertyView {
         // Two cases: either the module provided
         // - a table-based page as an IModulePropertyPage instance
         // - a custom page as an IModulePropertyCustomPanel instance
-        
+
         IModulePropertyPanel page = getModulePropertyPanel(modules, part);
-        
+
         if (page instanceof IModulePropertyPage) {
             ModulePanelProvider panel = new ModulePanelProvider((IModulePropertyPage) page);
             panel.createPanel(parentComposite);
             panel.activateEdition(project, pickingService);
-        
+
             this.modulePanel = panel;
-        
+
         } else if (page instanceof IModulePropertyCustomPanel) {
             this.modulePanel = (IModulePropertyCustomPanel) page;
             ContextInjectionFactory.inject(this.modulePanel, eclipseContext);
             this.modulePanel.createPanel(parentComposite);
         }
-        
+
         if (selection != null) {
             update(selection);
         }
-        
+
     }
 
     @objid ("c8853fd3-1eba-11e2-9382-bc305ba4815c")
@@ -106,12 +106,13 @@ public class ModulePropertyView {
         if (this.modulePanel != null) {
             ((Control) this.modulePanel.getPanel()).setFocus();
         }
-        
+
     }
 
     /**
      * This listener is activated when the selection changes in the workbench.<br>
      * Its responsibility is to set the NotesView's current element.
+     *
      * @param selection the current modelio selection.
      */
     @objid ("c88566e1-1eba-11e2-9382-bc305ba4815c")
@@ -120,30 +121,24 @@ public class ModulePropertyView {
     public void update(@Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
         try {
             // This method listen to the selection changes in the workbench.
-            if (selection != null && this.modulePanel != null) {
-                List<MObject> selectedElements = new ArrayList<>();
-                for (Object object : selection.toList()) {
-                    if (object instanceof MObject) {
-                        selectedElements.add((MObject) object);
-                    } else if (object instanceof IAdaptable) {
-                        final MObject adapter = ((IAdaptable) object).getAdapter(MObject.class);
-                        if (adapter != null) {
-                            selectedElements.add(adapter);
-                        }
-                    }
-                }
+            List<MObject> selectedElements = SelectionHelper.toList(selection, MObject.class);
+            if (! selectedElements.isEmpty() && this.modulePanel != null ) {
                 this.modulePanel.setInput(selectedElements);
             }
         } catch (RuntimeException | LinkageError | AssertionError e) {
             // avoid runtime exceptions to go propagate, preventing other tabs to refresh
             ModulePropertyTab.LOG.error(e);
         }
-        
+
     }
 
     /**
-     * Find IModulePropertyPage from Module and PropertyPage name MPart tags contains the Name of Module an index 1 and Name of
-     * PropertyPage at index 2
+     * Find {@link IModulePropertyPanel} from Module and PropertyPage name.
+     * <p>
+     * MPart tags contains: <ul>
+     * <li>the Name of Module an index 1
+     * <li>and Name of PropertyPage at index 2
+     * </ul>
      */
     @objid ("c8858df4-1eba-11e2-9382-bc305ba4815c")
     private IModulePropertyPanel getModulePropertyPanel(IModuleService modules, MPart part) {
@@ -172,7 +167,7 @@ public class ModulePropertyView {
             this.modulePanel.dispose();
             this.modulePanel = null;
         }
-        
+
     }
 
 }

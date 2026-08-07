@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.handlers.align;
 
@@ -39,30 +39,30 @@ public class BottomAlignHandler extends AbstractAlignHandler {
         IFigure primaryFigure = primarySelection.getFigure();
         Rectangle primaryBounds = getEffectiveBounds(primaryFigure);
         primaryFigure.translateToAbsolute(primaryBounds);
-        
+
         ChangeBoundsRequest parentRequest = new ChangeBoundsRequest(RequestConstants.REQ_MOVE);
         parentRequest.setEditParts(otherSelections);
-        
+
         CompoundCommand compound = new CompoundCommand("Align bottom");
         for (GraphicalEditPart editPart : otherSelections) {
             IFigure figure = editPart.getFigure();
             Rectangle bounds = getEffectiveBounds(figure);
             figure.translateToAbsolute(bounds);
-        
+
             Point moveDelta = new Point(0, primaryBounds.y + primaryBounds.height - (bounds.y + bounds.height));
-        
+
             ChangeBoundsRequest req = new ChangeBoundsRequest(RequestConstants.REQ_MOVE);
             req.setEditParts(editPart);
             req.setMoveDelta(moveDelta);
             req.setSizeDelta(new Dimension(0, 0));
             RequestHelper.addSharedEditParts(req, parentRequest);
-        
+
             compound.add(editPart.getCommand(req));
         }
         if (compound.canExecute()) {
             primarySelection.getViewer().getEditDomain().getCommandStack().execute(compound);
         }
-        
+
     }
 
 }

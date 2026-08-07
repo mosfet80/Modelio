@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.engine.impl;
 
@@ -40,19 +40,19 @@ public class DiagnosticCollector implements IDiagnosticCollector {
     }
 
     @objid ("90f84c48-4417-4ed5-a5a2-0fae08f90ffd")
-    public  DiagnosticCollector(String jobId) {
+    public DiagnosticCollector(String jobId) {
         this.entries = new ArrayList<>();
         this.jobId = jobId;
-        
+
     }
 
     @objid ("1800e34a-add2-4fa1-9c58-b1466df2dd3f")
     @Override
     public void addEntry(IAuditEntry entry) {
         entry.setJobId(this.jobId);
-        
+
         this.entries.add(entry);
-        
+
     }
 
     @objid ("16ed671b-1524-430e-b083-de1354beb1f3")
@@ -61,9 +61,9 @@ public class DiagnosticCollector implements IDiagnosticCollector {
         for (IAuditEntry entry : entries) {
             entry.setJobId(this.jobId);
         }
-        
+
         this.entries.addAll(entries);
-        
+
     }
 
 }

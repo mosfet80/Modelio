@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0035f444-c4bf-1fd8-97fe-001ec947cd2a")
 public class InstanceNodeImpl extends ObjectNodeImpl implements InstanceNode {
-    @objid ("07099517-bf48-43fa-b91c-19c81e23b4eb")
+    @objid ("a1c59c0a-98c5-4190-bf6f-bba3c8d5687e")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -49,17 +48,17 @@ public class InstanceNodeImpl extends ObjectNodeImpl implements InstanceNode {
         return super.getCompositionOwner();
     }
 
-    @objid ("1f26b3c7-a5a4-4c7f-bf3e-102214aacc78")
+    @objid ("c390dc56-721d-4f1b-bb26-16decaaa0be3")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("39763778-ed8c-406a-9665-0bcd9760da8c")
+    @objid ("a702ae80-508b-4b6a-8477-271c5a64bb20")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitInstanceNode(this);

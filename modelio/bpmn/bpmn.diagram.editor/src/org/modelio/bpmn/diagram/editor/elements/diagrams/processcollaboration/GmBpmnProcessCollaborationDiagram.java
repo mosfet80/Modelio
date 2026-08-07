@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.diagrams.processcollaboration;
 
@@ -43,6 +43,7 @@ import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.persistence.IDiagramReader;
 import org.modelio.diagram.persistence.IDiagramWriter;
+import org.modelio.diagram.styles.core.IStyle;
 import org.modelio.diagram.styles.core.MetaKey;
 import org.modelio.diagram.styles.core.StyleKey;
 import org.modelio.diagram.styles.core.StyleKey.RepresentationMode;
@@ -77,7 +78,7 @@ public class GmBpmnProcessCollaborationDiagram extends GmAbstractDiagram {
      * Current version of this Gm. Defaults to 0.
      */
     @objid ("61f4b6e3-55b6-11e2-877f-002564c97630")
-    private static final int MINOR_VERSION = 1;
+    private static final int MINOR_VERSION = 2;
 
     @objid ("61f4b6e6-55b6-11e2-877f-002564c97630")
     private static final int MAJOR_VERSION = 0;
@@ -90,15 +91,15 @@ public class GmBpmnProcessCollaborationDiagram extends GmAbstractDiagram {
 
     /**
      * Default constructor.
+     *
      * @param manager the manager needed make the link between the Ob and Gm models.
      * @param diagram the diagram itself.
      * @param diagramRef a reference to the diagram.
      */
     @objid ("61f4b6e8-55b6-11e2-877f-002564c97630")
-    public  GmBpmnProcessCollaborationDiagram(IModelManager manager, BpmnCollaborationDiagram diagram, MRef diagramRef) {
+    public GmBpmnProcessCollaborationDiagram(IModelManager manager, BpmnCollaborationDiagram diagram, MRef diagramRef) {
         super(manager, diagramRef);
         this.obDiagram = diagram;
-        
     }
 
     @objid ("61f4b6f7-55b6-11e2-877f-002564c97630")
@@ -112,7 +113,6 @@ public class GmBpmnProcessCollaborationDiagram extends GmAbstractDiagram {
         } else {
             return (BpmnParticipant.class.isAssignableFrom(metaclass) || BpmnProcess.class.isAssignableFrom(metaclass));
         }
-        
     }
 
     @objid ("61f4b6ff-55b6-11e2-877f-002564c97630")
@@ -130,7 +130,6 @@ public class GmBpmnProcessCollaborationDiagram extends GmAbstractDiagram {
             MMetamodel metamodel = getModelManager().getMetamodel();
             return mdaExpert.canLink(Process.MdaTypes.STEREOTYPE_ELT, metamodel.getMClass(MethodologicalLink.class), metamodel.getMClass(BpmnProcess.class), el.getMClass());
         }
-        
     }
 
     @objid ("61f4b707-55b6-11e2-877f-002564c97630")
@@ -172,14 +171,16 @@ public class GmBpmnProcessCollaborationDiagram extends GmAbstractDiagram {
         case 1:
             read_1(in);
             break;
+        case 2:
+            read_2(in);
+            break;
         default: {
             assert (false) : "version number not covered!";
             // reading as last handled version: 1
-            read_1(in);
+            read_2(in);
             break;
         }
         }
-        
     }
 
     @objid ("61f63d97-55b6-11e2-877f-002564c97630")
@@ -198,17 +199,16 @@ public class GmBpmnProcessCollaborationDiagram extends GmAbstractDiagram {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmBpmnProcessCollaborationDiagram.", GmBpmnProcessCollaborationDiagram.MINOR_VERSION);
-        
     }
 
     @objid ("61f63dab-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.obDiagram = (BpmnCollaborationDiagram) resolveRef(getRepresentedRef());
-        
+
         GmCollaborationDiagramMigratorFrom36 migrator = new GmCollaborationDiagramMigratorFrom36(this);
         for (GmNodeModel child : getChildren()) {
             if (child instanceof GmBpmnParticipantPortContainer
@@ -217,25 +217,41 @@ public class GmBpmnProcessCollaborationDiagram extends GmAbstractDiagram {
                 continue;
             } else {
                 migrator.add(child);
-        
+
                 // Mask elements directly in the diagram, their process should be unmasked but we can't create a new participant right here
                 DiagramEditorBpmn.LOG.debug("GmBpmnProcessCollaborationDiagram.read_0(): Masking %s from %s, it should be in a participant", child, this);
-        
+
                 child.delete();
             }
         }
-        
+
         if (false) {
             migrator.run();
         }
-        
+    }
+
+    @objid ("a04b5569-aa3b-4bde-bd7b-cd8194478ffe")
+    private void read_1(final IDiagramReader in) {
+        read_2(in);
+        initStyleKeys(getPersistedStyle());
+    }
+
+    @objid ("54ca4515-cd0a-4b24-ad05-bdc78c1c5256")
+    private void initStyleKeys(IStyle style) {
+        Integer gridSpace = style.getProperty(GmBpmnDiagramStyleKeys.GRIDSPACING);
+        while (gridSpace < 15) {
+            gridSpace = gridSpace * 2;
+        }
+        while (gridSpace >= 40) {
+            gridSpace = gridSpace / 2;
+        }
+        style.setProperty(GmBpmnDiagramStyleKeys.ANCHORSPACING, gridSpace);
     }
 
     @objid ("d61f28f9-63c9-4d5e-aec4-063340937a56")
-    private void read_1(IDiagramReader in) {
+    private void read_2(IDiagramReader in) {
         super.read(in);
         this.obDiagram = (BpmnCollaborationDiagram) resolveRef(getRepresentedRef());
-        
     }
 
     @objid ("61f63db0-55b6-11e2-877f-002564c97630")
@@ -263,7 +279,6 @@ public class GmBpmnProcessCollaborationDiagram extends GmAbstractDiagram {
         } else {
             return super.isValidChild(node);
         }
-        
     }
 
     @objid ("97596a36-f2ff-4acb-911e-68ac450aed3d")
@@ -279,38 +294,38 @@ public class GmBpmnProcessCollaborationDiagram extends GmAbstractDiagram {
     }
 
     /**
-     * @deprecated Disabled try to migrate CAFAT diagrams. Might be usefull later.
+     *
      * @author cmarin
      * @since 5.4.1 26/10/2023
+     * @deprecated Disabled try to migrate CAFAT diagrams. Might be usefull later.
      */
     @objid ("66c3204e-3f33-4db2-ac49-c6369e927a23")
     @Deprecated
     private static class GmCollaborationDiagramMigratorFrom36 {
-        @objid ("926ed3e4-cb2a-430c-8f68-b950d7f9b33d")
+        @objid ("9b3ebf6e-171a-4f98-a9a6-f5a57bce87c7")
         private Map<BpmnProcess, Rectangle> procToUnmask;
 
-        @objid ("1171b835-2095-42dc-a7ba-a34d424dbb7b")
+        @objid ("439da9ad-b7d4-4db1-a0d7-d270582b294c")
         private Map<MObject, Rectangle> toUnmask;
 
         @objid ("d3497936-e544-4c66-bf9b-373af691f8ab")
         private GmBpmnProcessCollaborationDiagram gmDiagram;
 
         @objid ("2e5f435c-51b5-4779-8521-1f4434a246d2")
-        public  GmCollaborationDiagramMigratorFrom36(GmBpmnProcessCollaborationDiagram diagram) {
+        public GmCollaborationDiagramMigratorFrom36(GmBpmnProcessCollaborationDiagram diagram) {
             this.gmDiagram = diagram;
             if (false) {
                 procToUnmask = new HashMap<>();
                 toUnmask = new HashMap<>();
             }
-            
         }
 
         @objid ("5e930b41-e7f6-4612-b394-9ee037ab8159")
         public void add(GmNodeModel child) {
             if (false) {
-            
+
                 Rectangle childConstraint = ((Rectangle) child.getLayoutData()).getCopy();
-            
+
                 BpmnProcess process = getOwnerProcess(child.getRepresentedElement());
                 Rectangle processConstraint = this.toUnmask.get(process);
                 if (processConstraint != null) {
@@ -318,18 +333,17 @@ public class GmBpmnProcessCollaborationDiagram extends GmAbstractDiagram {
                 } else {
                     processConstraint = childConstraint;
                 }
-            
+
                 this.procToUnmask.put(process, processConstraint);
                 this.toUnmask.put(child.getRepresentedElement(), childConstraint);
             }
-            
         }
 
         @objid ("4e094c9a-20a5-4f05-9b4c-5d09403ed59e")
         public void run() {
             if (false) {
                 ModelElement collab = this.gmDiagram.getRelatedElement().getOrigin();
-            
+
                 for (Entry<BpmnProcess, Rectangle> en : this.procToUnmask.entrySet()) {
                     BpmnParticipant participant = en.getKey().getParticipant()
                             .stream()
@@ -344,13 +358,12 @@ public class GmBpmnProcessCollaborationDiagram extends GmAbstractDiagram {
                         this.gmDiagram.addPostLoadAction((EditPartViewer viewer) -> UnmaskHelper.unmask(viewer, en.getKey(), en.getValue().getTopLeft()));
                     }
                 }
-            
+
                 for (Entry<MObject, Rectangle> en : this.toUnmask.entrySet()) {
                     DiagramEditorBpmn.LOG.debug("GmCollaborationDiagramMigratorFrom36.run(): Schedule unmask of %s in %s at %s.", en.getKey(), this, en.getValue().getTopLeft());
                     this.gmDiagram.addPostLoadAction((EditPartViewer viewer) -> UnmaskHelper.unmask(viewer, en.getKey(), en.getValue().getTopLeft()));
                 }
             }
-            
         }
 
         @objid ("d797d896-a449-4031-b148-f85575bcaec0")

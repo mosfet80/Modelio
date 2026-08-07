@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -38,10 +38,10 @@ public class ESubstitution extends ENamedElement {
     }
 
     @objid ("d91e6b6e-d32e-4644-ba0d-2d1c031a0cfe")
-    public  ESubstitution(org.eclipse.uml2.uml.Substitution element) {
+    public ESubstitution(org.eclipse.uml2.uml.Substitution element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("c3943c80-b94e-401b-88d4-01bbe4d40f2b")
@@ -49,24 +49,24 @@ public class ESubstitution extends ENamedElement {
     public void attach(Element objingElt) {
         //  take the model map
         ReverseProperties revProp = ReverseProperties.getInstance();
-                
+
         //  take the ecore Imported and Importing
         org.eclipse.uml2.uml.Classifier ecoreContract = this.ecoreElement.getContract();
         org.eclipse.uml2.uml.Classifier ecoreClassifier =  (org.eclipse.uml2.uml.Classifier) this.ecoreElement.getClients()
                 .get(0);
-                
+
         Classifier objingContract = (Classifier) revProp
                 .getMappedElement(ecoreContract);
         Classifier objingClassifier = (Classifier) revProp
                 .getMappedElement(ecoreClassifier);
-                
+
         //  set to the objingElt Imported Importing previousely find
         if (objingContract != null && objingClassifier != null) {
             Substitution objingRImport = (Substitution) objingElt;
             objingRImport.setContract(objingContract);
             objingRImport.setSubstitutingClassifier(objingClassifier);
         }
-        
+
     }
 
 }

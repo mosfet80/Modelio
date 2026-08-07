@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.search.engine.searchers.inherit;
 
@@ -30,32 +30,33 @@ import org.modelio.metamodel.uml.statik.Generalization;
 import org.modelio.metamodel.uml.statik.Interface;
 import org.modelio.metamodel.uml.statik.InterfaceRealization;
 import org.modelio.metamodel.uml.statik.NameSpace;
-import org.modelio.platform.search.engine.ISearchCriteria;
-import org.modelio.platform.search.engine.ISearchEngine;
+import org.modelio.platform.search.engine.api.ISearchCriteria;
+import org.modelio.platform.search.engine.api.ISearchEngine;
+import org.modelio.platform.search.engine.api.ModelSearchResult;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.model.IMObjectFilter;
 
 /**
  * The InheritSearchEngine can be used to find the classes/interfaces specializing a given class/interface.<br/>
  * The InheritSearchEngine criteria are defined in {@link InheritSearchCriteria}
- * 
+ *
  * @author phv
  */
 @objid ("c3299bb4-d695-4b13-95df-e614f4ba4b68")
 public class InheritSearchEngine implements ISearchEngine {
     @objid ("190abfbd-ddaf-4c11-af72-369f3ad3a5f0")
-    public  InheritSearchEngine() {
-        
+    public InheritSearchEngine() {
+
     }
 
     @objid ("af51fbe2-b137-4815-bbf4-5d255b0eff3a")
     @Override
-    public List<Element> search(ICoreSession session, ISearchCriteria params) {
+    public ModelSearchResult search(ICoreSession session, ISearchCriteria params) {
         assert (params instanceof InheritSearchCriteria);
         final InheritSearchCriteria criteria = (InheritSearchCriteria) params;
-        
+
         Set<NameSpace> rawResults = new HashSet<>();
-        
+
         if (criteria.getRoot() instanceof Interface) {
             if (criteria.isFindSpecializers()) {
                 rawResults.addAll(getDerivedInterfaces((Interface) criteria.getRoot(), criteria.isRecursive()));
@@ -63,15 +64,16 @@ public class InheritSearchEngine implements ISearchEngine {
             if (criteria.isFindImplementers()) {
                 rawResults.addAll(getImplementers((Interface) criteria.getRoot(), criteria.isRecursive()));
             }
-        
+
         }
-        
+
         if (criteria.getRoot() instanceof org.modelio.metamodel.uml.statik.Class) {
             if (criteria.isFindSpecializers()) {
                 rawResults.addAll(getDerivedClasses((Class) criteria.getRoot(), criteria.isRecursive()));
             }
         }
-        return filterResults(rawResults, criteria.getFilter());
+
+        return new ModelSearchResult( filterResults(rawResults, criteria.getFilter()),new ArrayList<>());
     }
 
     @objid ("e79fcabc-eb77-41c5-97d8-c36608a048fd")
@@ -96,7 +98,6 @@ public class InheritSearchEngine implements ISearchEngine {
                 }
             }
         }
-        
     }
 
     @objid ("093a148d-b708-4d9a-8d10-51b5c12a7830")
@@ -119,13 +120,11 @@ public class InheritSearchEngine implements ISearchEngine {
                 collectDerivedClasses(derived, results, processed, recurse);
             }
         }
-        
     }
 
     /**
      * Get the implementers of an interface
-     * @param root
-     * @param recurse @return
+     * @return
      */
     @objid ("5db35c95-392c-4cba-a12b-82121c4f40d8")
     private Set<NameSpace> getImplementers(Interface root, boolean recurse) {
@@ -140,7 +139,7 @@ public class InheritSearchEngine implements ISearchEngine {
             return;
         }
         processed.add(root);
-        
+
         for (InterfaceRealization g : root.getImplementedLink()) {
             final NameSpace implementer = g.getImplementer();
             results.add(implementer);
@@ -148,7 +147,7 @@ public class InheritSearchEngine implements ISearchEngine {
                 collectDerivedClasses(implementer, results, new HashSet<NameSpace>(), recurse);
             }
         }
-        
+
         if (recurse) {
             for (Generalization g : root.getSpecialization()) {
                 NameSpace derived = g.getSubType();
@@ -159,7 +158,6 @@ public class InheritSearchEngine implements ISearchEngine {
                 }
             }
         }
-        
     }
 
     @objid ("05eade32-b6da-42a0-8c7b-75a53221a36b")

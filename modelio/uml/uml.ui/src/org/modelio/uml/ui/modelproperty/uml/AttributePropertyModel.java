@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -62,15 +62,17 @@ public class AttributePropertyModel extends AbstractPropertyModel<Attribute> {
 
     /**
      * Create a new <i>Attribute</i> data model from an <i>Attribute</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("0b8d45d7-ccd5-4ddb-85d5-b1ed82b8a8aa")
-    public  AttributePropertyModel(Attribute theEditedElement) {
+    public AttributePropertyModel(Attribute theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("36e250fa-f792-4214-a32d-e232ad3774b4")
@@ -81,6 +83,7 @@ public class AttributePropertyModel extends AbstractPropertyModel<Attribute> {
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("273a391b-0d99-47d5-8ce7-64d44d3cf85d")
@@ -93,6 +96,7 @@ public class AttributePropertyModel extends AbstractPropertyModel<Attribute> {
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -140,7 +144,7 @@ public class AttributePropertyModel extends AbstractPropertyModel<Attribute> {
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -150,6 +154,7 @@ public class AttributePropertyModel extends AbstractPropertyModel<Attribute> {
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -205,13 +210,14 @@ public class AttributePropertyModel extends AbstractPropertyModel<Attribute> {
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -275,7 +281,7 @@ public class AttributePropertyModel extends AbstractPropertyModel<Attribute> {
         default:
             return;
         }
-        
+
     }
 
 }

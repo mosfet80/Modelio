@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.parts.data.texticon;
 
@@ -30,22 +30,23 @@ public class TextIcon {
     @objid ("7b9b3927-b8ea-4ec0-a41a-94c00566db45")
     private String text;
 
-    @objid ("d3a10fdf-4a1d-45a7-9e2e-fa554cfd20e5")
+    @objid ("2ddfe955-ec6e-4c38-9818-7165bd032b7d")
     private Image icon;
 
     /**
      * Create a new TextIcon instance.
+     *
      * @param text a text.
      * @param icon an optional icon. Might be <code>null</code>.
      */
     @objid ("72810016-7d1d-4a2e-ac38-6f3b513bf686")
-    public  TextIcon(String text, Image icon) {
+    public TextIcon(String text, Image icon) {
         this.text = text;
         this.icon = icon;
-        
     }
 
     /**
+     *
      * @return the current icon. Might be <code>null</code>.
      */
     @objid ("6d20a146-edb4-41d5-845b-64b7b0f90fa5")
@@ -54,6 +55,7 @@ public class TextIcon {
     }
 
     /**
+     *
      * @return the current text.
      */
     @objid ("90ac1c6c-0080-4df5-af5e-eccbc1acbb8f")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.anchors.fixed;
 
@@ -28,9 +28,9 @@ import org.modelio.diagram.elements.core.figures.anchors.FixedAnchor;
 
 /**
  * {@link #getLocation(Point)} snap anchor location to the given reference point if within tolerance.
- * 
- * @deprecated not used, to be deleted if still not used after 5.0.2 release.
+ *
  * @since 5.0.2
+ * @deprecated not used, to be deleted if still not used after 5.0.2 release.
  */
 @objid ("1ee843f3-42e5-407f-bbc0-84469be0d8af")
 @Deprecated
@@ -39,7 +39,7 @@ class TolerantFixedAnchor extends DelegateAnchor {
     private static final int TOLERANCE = 2;
 
     @objid ("e7a70856-2b49-4d10-8c03-769ecbbda437")
-    public  TolerantFixedAnchor(FixedAnchor wrapped) {
+    public TolerantFixedAnchor(FixedAnchor wrapped) {
         super(wrapped);
     }
 
@@ -47,10 +47,10 @@ class TolerantFixedAnchor extends DelegateAnchor {
     @Override
     public Point getLocation(Point reference) {
         Point location = getDelegate().getLocation(reference);
-        
+
         Dimension tolerance = new Dimension(TOLERANCE, TOLERANCE);
         getOwner().translateToAbsolute(tolerance);
-        
+
         // snap anchor location to the given reference point if within tolerance.
         int d;
         switch (((FixedAnchor) getDelegate()).getFace()) {
@@ -70,7 +70,7 @@ class TolerantFixedAnchor extends DelegateAnchor {
             break;
         default:
         }
-        
+
         // Return anchor location by default
         return location;
     }

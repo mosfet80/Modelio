@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.informationflowgroup;
 
@@ -38,7 +38,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Label representing an {@link InformationFlow}.
- * 
+ *
  * @author cmarin
  */
 @objid ("816c2534-1dec-11e2-8cad-001ec947c8cc")
@@ -59,22 +59,23 @@ public class GmInformationFlowLabel extends GmDefaultModelElementLabel {
      * Constructor for deserialization only.
      */
     @objid ("816c253c-1dec-11e2-8cad-001ec947c8cc")
-    public  GmInformationFlowLabel() {
-        
+    public GmInformationFlowLabel() {
+
     }
 
     /**
      * Constructor.
+     *
      * @param diagram The diagram
      * @param el The represented element, may be null.
      * @param ref The represented element reference, may not be null.
      */
     @objid ("816c253f-1dec-11e2-8cad-001ec947c8cc")
-    public  GmInformationFlowLabel(IGmDiagram diagram, InformationFlow el, MRef ref) {
+    public GmInformationFlowLabel(IGmDiagram diagram, InformationFlow el, MRef ref) {
         super(diagram, ref);
         this.element = el;
         init();
-        
+
     }
 
     @objid ("816c255e-1dec-11e2-8cad-001ec947c8cc")
@@ -86,7 +87,7 @@ public class GmInformationFlowLabel extends GmDefaultModelElementLabel {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("816c2563-1dec-11e2-8cad-001ec947c8cc")
@@ -133,7 +134,7 @@ public class GmInformationFlowLabel extends GmDefaultModelElementLabel {
             break;
         }
         }
-        
+
     }
 
     @objid ("816e8796-1dec-11e2-8cad-001ec947c8cc")
@@ -147,18 +148,18 @@ public class GmInformationFlowLabel extends GmDefaultModelElementLabel {
     protected void setParent(GmCompositeNode parent) {
         if (getParent() != parent) {
             super.setParent(parent);
-        
+
             if (parent != null) {
                 getPersistedStyle().setCascadedStyle(parent.getPersistedStyle());
             }
         }
-        
+
     }
 
     @objid ("816e879f-1dec-11e2-8cad-001ec947c8cc")
     private static String computeSignature(InformationFlow att) {
         final EList<Classifier> types = att.getConveyed();
-        
+
         String typename = "<no item>";
         if (!types.isEmpty()) {
             StringBuilder s = new StringBuilder();
@@ -177,24 +178,24 @@ public class GmInformationFlowLabel extends GmDefaultModelElementLabel {
     private void init() {
         setShowMetaclassKeyword(false);
         setShowMetaclassIcon(false);
-        
+
     }
 
     @objid ("816e87a6-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmInformationFlowLabel.", GmInformationFlowLabel.MINOR_VERSION);
-        
+
     }
 
     @objid ("816e87aa-1dec-11e2-8cad-001ec947c8cc")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (InformationFlow) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("816e87ad-1dec-11e2-8cad-001ec947c8cc")

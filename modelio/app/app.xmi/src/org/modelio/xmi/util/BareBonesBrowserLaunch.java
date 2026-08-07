@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.util;
 
@@ -53,7 +53,7 @@ public class BareBonesBrowserLaunch {
                         browser = browsers[count];
                     }
                 }
-        
+
                 if (browser == null)
                     throw new Exception(
                             Xmi.I18N.getString("warning.helpDocNotFound.browserNotFound"));
@@ -63,22 +63,22 @@ public class BareBonesBrowserLaunch {
         } catch (Exception e) {
             displayErrorMessage(e, shell);
         }
-        
+
     }
 
     @objid ("b9e8333e-8c3c-4c8e-bc35-dc5cdccd3017")
     private static void displayErrorMessage(final Exception e, final Shell shell) {
         MessageBox messageBox = new MessageBox(shell, SWT.OK | SWT.ICON_WARNING);
-        
+
         String errorMsg = e.getLocalizedMessage();
         if (errorMsg == null || "".compareTo(errorMsg) == 0) {
             errorMsg = Xmi.I18N.getString("warning.helpDocNotFound.browserLaunchingError");
         }
-        
+
         messageBox.setText(Xmi.I18N.getString("warning.helpDocNotFound.title"));
         messageBox.setMessage(errorMsg);
         messageBox.open();
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.service.impl.controller.states;
 
@@ -46,16 +46,17 @@ public class Transition {
     private final List<IModuleStateAction> actions;
 
     @objid ("14b27081-ae42-479c-974d-26a6f6c963a1")
-    protected  Transition(AbstractModuleState srcState, AbstractModuleState targetState, Object message, Object postTransitionMessage, List<IModuleStateAction> actions) {
+    protected Transition(AbstractModuleState srcState, AbstractModuleState targetState, Object message, Object postTransitionMessage, List<IModuleStateAction> actions) {
         this.srcState = srcState;
         this.targetState = targetState;
         this.message = message;
         this.postTransitionMessage = postTransitionMessage;
         this.actions = actions;
-        
+
     }
 
     /**
+     *
      * @return the source state
      */
     @objid ("ecb1620c-58c6-45af-89d3-bc957b4596e0")
@@ -64,6 +65,7 @@ public class Transition {
     }
 
     /**
+     *
      * @return the target state
      */
     @objid ("58d08674-cfca-47bc-a056-89fb18221e65")
@@ -72,6 +74,7 @@ public class Transition {
     }
 
     /**
+     *
      * @return the message that triggers the transition
      */
     @objid ("f2233f3e-e545-4d93-929b-4d7753646cb8")
@@ -80,6 +83,7 @@ public class Transition {
     }
 
     /**
+     *
      * @return the message to send once the transition is complete
      */
     @objid ("9164695b-bf72-4617-b824-aaab39ac3851")
@@ -89,6 +93,7 @@ public class Transition {
 
     /**
      * Get a transition builder object.
+     *
      * @return a transition builder.
      */
     @objid ("caad743f-aa19-44e7-a042-22c9daf561ab")
@@ -98,6 +103,7 @@ public class Transition {
 
     /**
      * Get actions to execute before switching to the target state.
+     *
      * @return the transition actions
      */
     @objid ("5fd46033-08ef-447c-9aa2-586137792355")
@@ -130,6 +136,7 @@ public class Transition {
 
         /**
          * Set the origin state.
+         *
          * @param srcState the origin state
          * @return this
          */
@@ -141,6 +148,7 @@ public class Transition {
 
         /**
          * Set the target state.
+         *
          * @param targetState the target state
          * @return this
          */
@@ -154,6 +162,7 @@ public class Transition {
          * Create the transition.
          * <p>
          * The builder can still be used with the configuration already set.
+         *
          * @return the created transition.
          */
         @objid ("f215ccae-927f-4857-985c-85812ab9d464")
@@ -165,6 +174,7 @@ public class Transition {
 
         /**
          * Set the message that triggers the transition.
+         *
          * @param message the trigger message.
          * @return this
          */
@@ -176,6 +186,7 @@ public class Transition {
 
         /**
          * Set a new message to send once the transition is complete.
+         *
          * @param postTransitionMessage the post transition message to send
          * @return this
          */
@@ -187,6 +198,7 @@ public class Transition {
 
         /**
          * Add an action to execute before switching to the target state.
+         *
          * @param action an action to execute.
          * @return this builder for convenience.
          */

@@ -1,27 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.wizard;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
@@ -76,6 +76,7 @@ public class MessageFlowTransformer implements IModelTransformer {
 
     /**
      * Criteria: - process collaboration diagrams - selection contains only message flows.
+     *
      * @see IModelTransformer#isAvailable(AbstractDiagram, ISelection)
      */
     @objid ("ce5e1c4e-54c8-4b72-92d1-90120518056e")
@@ -84,7 +85,7 @@ public class MessageFlowTransformer implements IModelTransformer {
         if (!canExecute(diagram, selection)) {
             return false;
         }
-        
+
         // In a BPMN diagram
         if (!(diagram instanceof BpmnCollaborationDiagram)) {
             return false;
@@ -94,29 +95,30 @@ public class MessageFlowTransformer implements IModelTransformer {
 
     /**
      * Criteria: - process collaboration diagrams - selection contains only message flows.
+     *
      * @see IModelTransformer#isAvailable(AbstractDiagram, ISelection)
      */
     @objid ("7b7fcda5-873a-4152-9885-1081675cc0a2")
     @Override
     public boolean canExecute(AbstractDiagram diagram, ISelection selection) {
         List<MObject> elements = SelectionHelper.toList(selection, MObject.class);
-        
+
         if (elements.size() != 1) {
             return false;
         }
-        
+
         for (MObject elt : elements) {
             if (!(elt instanceof BpmnMessageFlow)) {
                 return false;
             }
-        
+
             BpmnMessageFlow messageFlow = (BpmnMessageFlow) elt;
             BpmnBaseElement source = messageFlow.getSourceRef();
             BpmnBaseElement target = messageFlow.getTargetRef();
-        
+
             boolean isFromExternalParticipant = source instanceof BpmnParticipant && ((BpmnParticipant) source).getProcess() == null;
             boolean isToExternalParticipant = target instanceof BpmnParticipant && ((BpmnParticipant) target).getProcess() == null;
-        
+
             boolean isOk;
             if (isFromExternalParticipant) {
                 isOk = target instanceof BpmnIntermediateCatchEvent || target instanceof BpmnReceiveTask || isToExternalParticipant;
@@ -137,23 +139,23 @@ public class MessageFlowTransformer implements IModelTransformer {
     public List<MObject> transform(AbstractDiagram diagram, ISelection selection) {
         IModelingSession session = this.moduleContext.getModelingSession();
         IUmlModel model = session.getModel();
-        
+
         for (BpmnMessageFlowEditPart linkEditPart : SelectionHelper.toList(selection, BpmnMessageFlowEditPart.class)) {
             EditPartViewer viewer = linkEditPart.getViewer();
-        
+
             GmBpmnMessageFlow gmLink = linkEditPart.getModel();
             BpmnBaseElement source = gmLink.getFromElement();
             BpmnBaseElement target = gmLink.getToElement();
-        
+
             boolean isFromExternalParticipant = source instanceof BpmnParticipant && ((BpmnParticipant) source).getProcess() == null;
             boolean isToExternalParticipant = target instanceof BpmnParticipant && ((BpmnParticipant) target).getProcess() == null;
-        
+
             if (isFromExternalParticipant) {
                 if (!(target instanceof BpmnIntermediateCatchEvent) && (target instanceof BpmnReceiveTask) && !isToExternalParticipant) {
                     // Create a receive task
                     BpmnReceiveTask task = model.createBpmnReceiveTask();
                     task.setContainer((((BpmnFlowElement) target).getContainer()));
-        
+
                     replaceTarget(linkEditPart, (BpmnIntermediateCatchEvent) target, task, viewer);
                 }
             } else if (source instanceof BpmnSendTask) {
@@ -161,7 +163,7 @@ public class MessageFlowTransformer implements IModelTransformer {
                     // Create a receive task
                     BpmnReceiveTask task = model.createBpmnReceiveTask();
                     task.setContainer((((BpmnFlowElement) target).getContainer()));
-        
+
                     replaceTarget(linkEditPart, (BpmnReceiveTask) target, task, viewer);
                 }
             } else if (source instanceof BpmnIntermediateThrowEvent) {
@@ -169,7 +171,7 @@ public class MessageFlowTransformer implements IModelTransformer {
                     // Create a catch event
                     BpmnIntermediateCatchEvent event = model.createBpmnIntermediateCatchEvent();
                     event.setContainer((((BpmnIntermediateCatchEvent) target).getContainer()));
-        
+
                     replaceTarget(linkEditPart, (BpmnFlowNode) target, event, viewer);
                 }
             } else {
@@ -177,31 +179,31 @@ public class MessageFlowTransformer implements IModelTransformer {
                     // Create a send task
                     BpmnSendTask task = model.createBpmnSendTask();
                     task.setContainer((((BpmnFlowElement) source).getContainer()));
-        
+
                     replaceSource(linkEditPart, (BpmnFlowNode) source, task, viewer);
                 } else if (target instanceof BpmnIntermediateCatchEvent) {
                     // Create a throw event
                     BpmnIntermediateThrowEvent event = model.createBpmnIntermediateThrowEvent();
                     event.setContainer((((BpmnFlowElement) source).getContainer()));
-        
+
                     replaceSource(linkEditPart, (BpmnIntermediateCatchEvent) source, event, viewer);
                 } else if (target instanceof BpmnReceiveTask) {
                     // Create a send task
                     BpmnSendTask task = model.createBpmnSendTask();
                     task.setContainer((((BpmnFlowElement) source).getContainer()));
-        
+
                     replaceSource(linkEditPart, (BpmnReceiveTask) source, task, viewer);
                 } else {
                     // Create a send task
                     BpmnSendTask task1 = model.createBpmnSendTask();
                     task1.setContainer((((BpmnFlowElement) source).getContainer()));
-        
+
                     replaceSource(linkEditPart, (BpmnFlowNode) source, task1, viewer);
-        
+
                     // Create a receive task
                     BpmnReceiveTask task2 = model.createBpmnReceiveTask();
                     task2.setContainer((((BpmnFlowElement) target).getContainer()));
-        
+
                     replaceTarget(linkEditPart, (BpmnFlowNode) target, task2, viewer);
                 }
             }
@@ -213,39 +215,37 @@ public class MessageFlowTransformer implements IModelTransformer {
     private void replaceTarget(BpmnMessageFlowEditPart linkEditPart, BpmnFlowNode oldTarget, BpmnFlowNode newTarget, EditPartViewer viewer) {
         BpmnMessageFlow messageFlow = linkEditPart.getModel().getRepresentedElement();
         // messageFlow.setTargetRef(newTarget);
-        
+
         Point dropLocation = ((GraphicalEditPart) linkEditPart.getTarget()).getFigure().getBounds().getLocation();
         GraphicalEditPart parentEditPart = (GraphicalEditPart) linkEditPart.getTarget().getParent().getParent();
         IGmLinkable newTargetGm = unmask(newTarget, dropLocation, parentEditPart, viewer);
-        
+
         BpmnSequenceFlow sequenceFlow = createSequenceFlow(oldTarget, newTarget);
         unmask(sequenceFlow, dropLocation, parentEditPart, viewer);
-        
+
         createGmSequenceFlow(messageFlow, (NodeEditPart) linkEditPart.getSource(), findNode(newTargetGm, viewer), linkEditPart);
-        
     }
 
     @objid ("1841c108-cb22-4249-8112-e33389ba82af")
     private void replaceSource(BpmnMessageFlowEditPart linkEditPart, BpmnFlowNode oldSource, BpmnFlowNode newSource, EditPartViewer viewer) {
         BpmnMessageFlow messageFlow = linkEditPart.getModel().getRepresentedElement();
         // messageFlow.setSourceRef(newSource);
-        
+
         Point dropLocation = ((GraphicalEditPart) linkEditPart.getSource()).getFigure().getBounds().getLocation();
         GraphicalEditPart parentEditPart = (GraphicalEditPart) linkEditPart.getSource().getParent().getParent();
         IGmLinkable newSourceGm = unmask(newSource, dropLocation, parentEditPart, viewer);
-        
+
         BpmnSequenceFlow sequenceFlow = createSequenceFlow(newSource, oldSource);
         unmask(sequenceFlow, dropLocation, parentEditPart, viewer);
-        
+
         createGmSequenceFlow(messageFlow, findNode(newSourceGm, viewer), (NodeEditPart) linkEditPart.getTarget(), linkEditPart);
-        
     }
 
     @objid ("9101f136-657d-4715-bbdc-7f222b9d3870")
     private BpmnSequenceFlow createSequenceFlow(BpmnFlowNode source, BpmnFlowNode target) {
         IModelingSession session = this.moduleContext.getModelingSession();
         IUmlModel model = session.getModel();
-        
+
         BpmnSequenceFlow sequenceFlow = model.createBpmnSequenceFlow();
         sequenceFlow.setSourceRef(target);
         sequenceFlow.setTargetRef(source);
@@ -259,7 +259,7 @@ public class MessageFlowTransformer implements IModelTransformer {
         req.setLocation(dropLocation);
         req.setSize(new Dimension(-1, -1));
         req.setFactory(new ModelioCreationContext(elementToUnmask));
-        
+
         Command command = parentEditPart.getCommand(req);
         if (command != null && command.canExecute()) {
             command.execute();
@@ -275,31 +275,31 @@ public class MessageFlowTransformer implements IModelTransformer {
         CreateBendedConnectionRequest creq = new CreateBendedConnectionRequest();
         ModelioLinkCreationContext ctx = new ModelioLinkCreationContext(messageFlow);
         creq.setFactory(ctx);
-        
+
         creq.setType(RequestConstants.REQ_CONNECTION_START);
-        
+
         creq.setSourceEditPart(sourceNode);
         creq.setTargetEditPart(null);
         creq.setLocation(sourceNode.getFigure().getBounds().getCenter());
         sourceNode.getFigure().translateToAbsolute(creq.getLocation());
         creq.getData().setRoutingMode(ConnectionRouterId.ORTHOGONAL);
         creq.getData().setSrcPoint(new Point(creq.getLocation()));
-        
+
         EditPart newMainNode = MessageFlowTransformer.findChildEditPartFor(sourceNode, creq);
         creq.setStartCommand(newMainNode.getCommand(creq));
         creq.setSourceEditPart(newMainNode);
-        
+
         checkCommand(creq, creq.getStartCommand());
-        
+
         creq.setType(RequestConstants.REQ_CONNECTION_END);
         creq.setTargetEditPart(targetNode);
         creq.setLocation(targetNode.getTargetConnectionAnchor(linkEditPart).getReferencePoint());
         creq.getData().setLastPoint(new Point(creq.getLocation()));
-        
+
         Command finishCmd = targetNode.getCommand(creq);
-        
+
         checkCommand(creq, finishCmd);
-        
+
         finishCmd.execute();
         return ((ICreationCommand<IGmLink>) finishCmd).getCreatedGraphicModel();
     }
@@ -311,15 +311,14 @@ public class MessageFlowTransformer implements IModelTransformer {
 
     @objid ("e127ec7d-385f-4d40-aacd-935a91f8d8c7")
     private static EditPart findChildEditPartFor(EditPart from, Request req) {
-        for (EditPart e : (List<EditPart>) from.getChildren()) {
+        for (EditPart e : from.getChildren()) {
             EditPart targetEditPart = e.getTargetEditPart(req);
             if (targetEditPart != null) {
                 return targetEditPart;
             }
         }
-        
+
         throw new IllegalArgumentException(String.format("No child edit part in '%s' that supports %s", from, RequestHelper.toString(req)));
-        
     }
 
     @objid ("0671ff9f-9287-4b29-9813-87cda8a1704d")
@@ -328,7 +327,6 @@ public class MessageFlowTransformer implements IModelTransformer {
             String msg = String.format("%s is not excutable for %s", command, RequestHelper.toString(recoReq));
             throw new IllegalStateException(msg);
         }
-        
     }
 
 }

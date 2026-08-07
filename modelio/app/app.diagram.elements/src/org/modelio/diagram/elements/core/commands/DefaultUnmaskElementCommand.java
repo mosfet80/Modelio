@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.commands;
 
@@ -48,31 +48,32 @@ public class DefaultUnmaskElementCommand extends Command {
 
     /**
      * Constructor.
+     *
      * @param parentNode The parent node
      * @param toUnmask the element to unmask
      * @param location the location of the element to unmask.
      * @param size the size of the unmasked element.
      */
     @objid ("7f3bdcac-1dec-11e2-8cad-001ec947c8cc")
-    public  DefaultUnmaskElementCommand(GmCompositeNode parentNode, MObject toUnmask, Point location, Dimension size) {
+    public DefaultUnmaskElementCommand(GmCompositeNode parentNode, MObject toUnmask, Point location, Dimension size) {
         this.parentNode = parentNode;
         this.location = location;
         this.size = size;
         this.toUnmask = toUnmask;
-        
+
     }
 
     @objid ("7f3bdcb7-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void execute() {
         IGmDiagram diagram = this.parentNode.getDiagram();
-        
+
         // Show the new element in the diagram (ie create its Gm )
         Rectangle rect = this.size != null ? new Rectangle(this.location, this.size)
                 : new Rectangle(this.location, new Dimension(-1, -1));
-        
+
         diagram.unmask(this.parentNode, this.toUnmask, rect);
-        
+
     }
 
     @objid ("7f3bdcba-1dec-11e2-8cad-001ec947c8cc")

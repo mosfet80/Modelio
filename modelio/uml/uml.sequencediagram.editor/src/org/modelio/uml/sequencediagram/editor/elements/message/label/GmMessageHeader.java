@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.message.label;
 
@@ -45,17 +45,18 @@ public class GmMessageHeader extends GmDefaultModelElementLabel {
      * Empty c'tor for deserialisation.
      */
     @objid ("d958fc02-55b6-11e2-877f-002564c97630")
-    public  GmMessageHeader() {
+    public GmMessageHeader() {
         super();
     }
 
     /**
      * Default c'tor.
+     *
      * @param diagram the diagram in which this Gm is created.
      * @param ref a reference to the related element.
      */
     @objid ("d958fc05-55b6-11e2-877f-002564c97630")
-    public  GmMessageHeader(final IGmDiagram diagram, final MRef ref) {
+    public GmMessageHeader(final IGmDiagram diagram, final MRef ref) {
         super(diagram, ref);
     }
 
@@ -75,9 +76,8 @@ public class GmMessageHeader extends GmDefaultModelElementLabel {
         } else {
             setShowMetaclassIcon(false);
         }
-        
+
         super.refreshFromObModel();
-        
     }
 
     /**
@@ -112,17 +112,15 @@ public class GmMessageHeader extends GmDefaultModelElementLabel {
             break;
         }
         }
-        
     }
 
     @objid ("d95a82b2-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmMessageHeader.", GmMessageHeader.MINOR_VERSION);
-        
     }
 
     @objid ("d95a82b8-55b6-11e2-877f-002564c97630")

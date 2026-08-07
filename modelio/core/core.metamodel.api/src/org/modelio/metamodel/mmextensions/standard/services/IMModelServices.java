@@ -1,25 +1,43 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.metamodel.mmextensions.standard.services;
 
-import java.util.Collection;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.mmextensions.infrastructure.ElementNotUniqueException;
@@ -45,58 +63,56 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 @objid ("00833f7e-030f-1035-9f91-001ec947cd2a")
 public interface IMModelServices {
     /**
-     * Get elements in the model from a metaclass, a meta attribute name and its value.
-     * <p>
-     * If <code>Element</code> is given, every elements in the model will be checked.
-     * </p>
-     * @param metaclass the metaclass to look for.
-     * @param att the name of the meta attribute to check the value in.
-     * @param value the value to look for in the attribute.
-     * @return A collection of elements matching the parameters. Might be empty but never <code>null</code>.
-     */
-    @objid ("1126bf84-1772-11e2-aa0d-002564c97630")
-    Collection<? extends MObject> findByAtt(MClass metaclass, final String att, Object value);
-
-    /**
-     * Get all elements in the model from their metaclass.
-     * @param metaclass the metaclass to look for.
-     * @return A list of all model elements, or null if no match is found.
-     */
-    @objid ("112d284e-1772-11e2-aa0d-002564c97630")
-    Collection<? extends MObject> findByClass(MClass metaclass);
-
-    /**
      * Get an element in the model from its id and metaclass.
+     *
      * @param metaclass the java interface of the metaclass to look for.
      * @param id the id to look for.
      * @return A model element, or null if no match is found.
+     * @deprecated Since 6.0.1 15/07/2024 : Use {@link org.modelio.vcore.session.api.model.IModel#findById(MClass, String)} directly.
      */
     @objid ("112d4f62-1772-11e2-aa0d-002564c97630")
+    @Deprecated(since = "6.0.1", forRemoval = true)
     MObject findById(MClass metaclass, final String id);
 
     /**
      * Get an element in the model from an {@link org.modelio.vcore.smkernel.mapi.MRef}.<br>
+     *
      * @param ref a model object reference.
      * @return A model element, or null if no match is found.
      * @throws UnknownMetaclassException when the reference's metaclass can't be resolved as a {@link MClass}
+     * @deprecated Since 6.0.1 15/07/2024 : Use {@link org.modelio.vcore.session.api.model.IModel#findByRef(MRef)} directly.
      */
     @objid ("112d9d82-1772-11e2-aa0d-002564c97630")
+    @Deprecated(since = "6.0.1", forRemoval = true)
     MObject findByRef(MRef ref) throws UnknownMetaclassException;
 
     @objid ("00885fe0-030f-1035-9f91-001ec947cd2a")
     String getCompositionPath(MObject mObject);
 
+    /**
+     *
+     * @return A service to configure newly created model elements depending on their initialized state and configuration properties.
+     */
     @objid ("10019844-0a1f-42a1-8bdc-7d83bbaf6271")
     IElementConfigurator getElementConfigurer();
 
+    /**
+     *
+     * @return a service that gives a default name to a model element.
+     */
     @objid ("008361e8-030f-1035-9f91-001ec947cd2a")
     IElementNamer getElementNamer();
 
+    /**
+     *
+     * @return the project metamodel.
+     */
     @objid ("95074bff-6e8a-46e8-bbc8-ab967fd380b3")
     MMetamodel getMetamodel();
 
     /**
      * Get the model object creation factory.
+     *
      * @return the model factory.
      */
     @objid ("0083559a-030f-1035-9f91-001ec947cd2a")
@@ -104,6 +120,7 @@ public interface IMModelServices {
 
     /**
      * Find a note type by name and metaclass.
+     *
      * @param moduleName the name of the module owing the note type, or a regular expression for module name matching. <code>null</code> or <code>""</code> are interpreted as <code>".*"</code>, i.e. any module.
      * @param ownerName the name of the {@link Stereotype} or {@link MetaclassReference} owning the type. Cannot be <code>null</code>.
      * @param noteTypeName the note type name, or a regular expression. <code>null</code> or <code>""</code> are interpreted as <code>".*"</code>, i.e. any note type.
@@ -116,6 +133,7 @@ public interface IMModelServices {
 
     /**
      * Find note types by name and metaclass
+     *
      * @param moduleName the name of the module owing the note type, or a regular expression for module name matching. <code>null</code> or <code>""</code> are interpreted as <code>".*"</code>, i.e. any module.
      * @param ownerName the name of the {@link Stereotype} or {@link MetaclassReference} owning the type. Cannot be <code>null</code>.
      * @param noteTypeName the note type name, or a regular expression. <code>null</code> or <code>""</code> are interpreted as <code>".*"</code>, i.e. any note type.
@@ -127,6 +145,7 @@ public interface IMModelServices {
 
     /**
      * Find a resource type by name and metaclass.
+     *
      * @param moduleName the name of the module owing the resource type, or a regular expression for module name matching. <code>null</code> or <code>""</code> are interpreted as <code>".*"</code>, i.e. any module.
      * @param ownerName the name of the {@link Stereotype} or {@link MetaclassReference} owning the type. Cannot be <code>null</code>.
      * @param resourceTypeName the resource type name, or a regular expression. <code>null</code> or <code>""</code> are interpreted as <code>".*"</code>, i.e. any resource type.
@@ -139,6 +158,7 @@ public interface IMModelServices {
 
     /**
      * Find resource types by name and metaclass
+     *
      * @param moduleName the name of the module owing the resource type, or a regular expression for module name matching. <code>null</code> or <code>""</code> are interpreted as <code>".*"</code>, i.e. any module.
      * @param ownerName the name of the {@link Stereotype} or {@link MetaclassReference} owning the type. Cannot be <code>null</code>.
      * @param externDocumentTypeName the resource type name, or a regular expression. <code>null</code> or <code>""</code> are interpreted as <code>".*"</code>, i.e. any resource type.
@@ -150,6 +170,7 @@ public interface IMModelServices {
 
     /**
      * Find a stereotype by name and metaclass.
+     *
      * @param moduleName the name of the module owing the stereotype, or a regular expression for module name matching. <code>null</code> or <code>""</code> are interpreted as <code>".*"</code>, i.e. any module.
      * @param stereotypeName the stereotype name, or a regular expression. <code>null</code> or <code>""</code> are interpreted as <code>".*"</code>, i.e. any stereotype.
      * @param metaclass a metaclass the stereotype must be applicable to.
@@ -161,6 +182,7 @@ public interface IMModelServices {
 
     /**
      * Find a stereotype by name and metaclass.
+     *
      * @param moduleName the name of the module owing the stereotype, or a regular expression for module name matching. <code>null</code> or <code>""</code> are interpreted as <code>".*"</code>, i.e. any module.
      * @param stereotypeName the stereotype name, or a regular expression. <code>null</code> or <code>""</code> are interpreted as <code>".*"</code>, i.e. any stereotype.
      * @param metaclass a metaclass the stereotype must be applicable to.
@@ -174,6 +196,7 @@ public interface IMModelServices {
 
     /**
      * Find stereotypes by name and metaclass
+     *
      * @param moduleName the name of the module owing the stereotype, or a regular expression for module name matching. <code>null</code> or <code>""</code> are interpreted as <code>".*"</code>, i.e. any module.
      * @param stereotypeName the stereotype name, or a regular expression. <code>null</code> or <code>""</code> are interpreted as <code>".*"</code>, i.e. any stereotype.
      * @param metaclass the metaclass .
@@ -184,6 +207,7 @@ public interface IMModelServices {
 
     /**
      * Find stereotypes by name and metaclass
+     *
      * @param moduleName the name of the module owing the stereotype, or a regular expression for module name matching. <code>null</code> or <code>""</code> are interpreted as <code>".*"</code>, i.e. any module.
      * @param stereotypeName the stereotype name, or a regular expression. <code>null</code> or <code>""</code> are interpreted as <code>".*"</code>, i.e. any stereotype.
      * @param metaclass the metaclass name. Using a qualified name is strongly recommended.
@@ -196,6 +220,7 @@ public interface IMModelServices {
 
     /**
      * Find a tag type by name and metaclass.
+     *
      * @param moduleName the name of the module owing the tag type, or a regular expression for module name matching. <code>null</code> or <code>""</code> are interpreted as <code>".*"</code>, i.e. any module.
      * @param ownerName the name of the {@link Stereotype} or {@link MetaclassReference} owning the type. Cannot be <code>null</code>.
      * @param tagTypeName the tag type name, or a regular expression. <code>null</code> or <code>""</code> are interpreted as <code>".*"</code>, i.e. any tag type.
@@ -208,6 +233,7 @@ public interface IMModelServices {
 
     /**
      * Find tag types by name and metaclass
+     *
      * @param moduleName the name of the module owing the tag type, or a regular expression for module name matching. <code>null</code> or <code>""</code> are interpreted as <code>".*"</code>, i.e. any module.
      * @param ownerName the name of the {@link Stereotype} or {@link MetaclassReference} owning the type. Cannot be <code>null</code>.
      * @param tagTypeName the tag type name, or a regular expression. <code>null</code> or <code>""</code> are interpreted as <code>".*"</code>, i.e. any tag type.
@@ -216,5 +242,5 @@ public interface IMModelServices {
      */
     @objid ("0087b040-030f-1035-9f91-001ec947cd2a")
     List<TagType> findTagTypes(String moduleName, String ownerName, String tagTypeName, MClass metaclass);
-}
 
+}

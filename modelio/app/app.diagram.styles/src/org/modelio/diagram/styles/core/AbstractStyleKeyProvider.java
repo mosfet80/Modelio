@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.styles.core;
 
@@ -40,7 +40,7 @@ import org.modelio.diagram.styles.plugin.DiagramStyles;
  * and {@link IStyleProvider#getStyleKey(MetaKey)} methods in the
  * GmXXX by delegating the call to the GmXXXStyleKeyProvider instance</li>
  * </ul>
- * 
+ *
  * @author pvlaemyn
  */
 @objid ("85479ad6-1926-11e2-92d2-001ec947c8cc")
@@ -62,6 +62,7 @@ public abstract class AbstractStyleKeyProvider {
 
     /**
      * Get the {@link StyleKey} corresponding to the given {@link MetaKey}.
+     *
      * @param metakey The meta key, must not be null.
      * @return the found style key, or null if none found.
      */
@@ -77,13 +78,14 @@ public abstract class AbstractStyleKeyProvider {
 
     /**
      * Get all declared style keys.
+     *
      * @return all declared style keys.
      */
     @objid ("85479adb-1926-11e2-92d2-001ec947c8cc")
     public final List<StyleKey> getStyleKeys() {
         if (this.allKeys == null) {
             this.allKeys = new ArrayList<>();
-        
+
             scanForStyleKeys(this);
         }
         return this.allKeys;
@@ -91,6 +93,7 @@ public abstract class AbstractStyleKeyProvider {
 
     /**
      * Build a symbol view model for this style key provider to edit a named/shared style.
+     *
      * @param style the edited style
      * @return the built symbol view model.
      */
@@ -101,16 +104,17 @@ public abstract class AbstractStyleKeyProvider {
 
     /**
      * Find the declared style keys in the class and its inner classes, and add them to the {@link #allKeys} list.
+     *
      * @param obj The AbstractStyleKeyProvider object or class to scan
      */
     @objid ("85479ae8-1926-11e2-92d2-001ec947c8cc")
     private void scanForStyleKeys(Object obj) {
         Class<?> aClass = obj instanceof Class ? (Class<?>) obj : obj.getClass();
         final Field[] declaredFields = aClass.getDeclaredFields();
-        
+
         // Allow access to private fields.
         AccessibleObject.setAccessible(declaredFields, true);
-        
+
         // Scan all fields for style keys
         for (final Field field : declaredFields) {
             if (field.getType() == StyleKey.class) {
@@ -139,11 +143,11 @@ public abstract class AbstractStyleKeyProvider {
                 }
             }
         }
-        
+
         for (final Class<?> innerClass : aClass.getClasses()) {
             scanForStyleKeys(innerClass);
         }
-        
+
     }
 
 }

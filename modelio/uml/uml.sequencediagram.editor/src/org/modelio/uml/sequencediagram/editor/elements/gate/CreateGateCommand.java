@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.gate;
 
@@ -61,6 +61,7 @@ public class CreateGateCommand extends Command {
 
     /**
      * Creates a node creation command.
+     *
      * @param parentElement The parent Interaction of the Gate to create
      * @param parentNode The parent node
      * @param context Details on the MObject and/or the node to create
@@ -68,22 +69,21 @@ public class CreateGateCommand extends Command {
      * @param time the time of the gate.
      */
     @objid ("d8f2c027-55b6-11e2-877f-002564c97630")
-    public  CreateGateCommand(Interaction parentElement, GmCompositeNode parentNode, ModelioCreationContext context, Object constraint, final int time) {
+    public CreateGateCommand(Interaction parentElement, GmCompositeNode parentNode, ModelioCreationContext context, Object constraint, final int time) {
         this.parentNode = parentNode;
         this.parentElement = parentElement;
         this.context = context;
         this.constraint = constraint;
         this.time = time;
-        
     }
 
     @objid ("d8f2c036-55b6-11e2-877f-002564c97630")
     @Override
     public void execute() {
         final IGmDiagram diagram = this.parentNode.getDiagram();
-        
+
         Gate newElement = (Gate) this.context.getElementToUnmask();
-        
+
         if (newElement == null) {
             IModelManager modelManager = diagram.getModelManager();
             // Create the Element...
@@ -93,7 +93,7 @@ public class CreateGateCommand extends Command {
             // TODO: check String effectiveDependency = "FormalGate";
             final MDependency effectiveDependency = newElement.getMClass().getMetamodel().getMExpert()
                     .getDefaultCompositionDep(this.parentElement, newElement);
-        
+
             if (effectiveDependency == null) {
                 StringBuilder msg = new StringBuilder();
                 msg.append("Cannot find a composition dependency to attach ");
@@ -102,31 +102,31 @@ public class CreateGateCommand extends Command {
                 msg.append(this.parentElement.toString());
                 throw new IllegalStateException(msg.toString());
             }
-        
+
             this.parentElement.mGet(effectiveDependency).add(newElement);
-        
+
             // Attach the stereotype if needed.
             if (this.context.getStereotype() != null) {
                 ((ModelElement) newElement).getExtension().add(this.context.getStereotype());
             }
-        
+
             // Configure element from properties
             final IElementConfigurator elementConfigurer = modelManager.getModelServices().getElementConfigurer();
             elementConfigurer.configure(newElement, getContext().getProperties());
-        
+
             // Specific steps:
             newElement.setEnclosingInteraction(this.parentElement);
             newElement.setLineNumber(this.time);
-        
+
         }
-        
+
         // Show the new element in the diagram (ie create its Gm )
         diagram.unmask(this.parentNode, newElement, this.constraint);
-        
     }
 
     /**
      * Get the initial layout constraint.
+     *
      * @return the initial layout constraint.
      */
     @objid ("d8f2c039-55b6-11e2-877f-002564c97630")
@@ -136,6 +136,7 @@ public class CreateGateCommand extends Command {
 
     /**
      * Get the creation context (parent element, parent dependency, stereotype).
+     *
      * @return the creation context.
      */
     @objid ("d8f2c03e-55b6-11e2-877f-002564c97630")
@@ -145,6 +146,7 @@ public class CreateGateCommand extends Command {
 
     /**
      * Get the parent model element.
+     *
      * @return the parent model element.
      */
     @objid ("d8f2c045-55b6-11e2-877f-002564c97630")
@@ -154,6 +156,7 @@ public class CreateGateCommand extends Command {
 
     /**
      * Get the parent graphic node.
+     *
      * @return the parent graphic node.
      */
     @objid ("d8f446bf-55b6-11e2-877f-002564c97630")

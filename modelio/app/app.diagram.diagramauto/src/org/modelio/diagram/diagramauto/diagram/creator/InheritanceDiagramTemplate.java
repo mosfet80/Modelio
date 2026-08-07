@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.diagramauto.diagram.creator;
 
@@ -66,13 +66,13 @@ public class InheritanceDiagramTemplate extends AbstractDiagramTemplate {
      * Mandatory default c'tor needed by eclipse when loading the extension point.
      */
     @objid ("a436b93d-adab-4107-9730-74415cfc432b")
-    public  InheritanceDiagramTemplate() {
+    public InheritanceDiagramTemplate() {
         super();
-        
+
         this._topDgs = new ArrayList<>();
         this._bottomDgs = new ArrayList<>();
         this._unmasker = new NodeRollingUnmasker();
-        
+
     }
 
     @objid ("6db9a607-04db-4a04-9c49-c3065dee1193")
@@ -89,7 +89,7 @@ public class InheritanceDiagramTemplate extends AbstractDiagramTemplate {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("70d93d5b-448a-4b53-9c99-6588a98c9228")
@@ -98,59 +98,59 @@ public class InheritanceDiagramTemplate extends AbstractDiagramTemplate {
         if (!(elt instanceof Classifier))
             return;
         NameSpace main = (NameSpace) elt;
-        
+
         // the main element
         this._mainDG = (IDiagramNode) dh.unmask(main, 400, 400).get(0);
         this._mainDG.setSize(100, 100);
         this._mainDG.setRepresentationMode(1);
         initStyle(main, main, this._mainDG);
-        
+
         // unmask parent generalizations
         for (Generalization g : main.getParent()) {
             // Unmask parent node
             NameSpace parent = g.getSuperType();
-        
+
             IDiagramNode node = this._unmasker.unmask(dh, parent);
             if (node != null) {
                 // Add intern/extern style
                 initStyle(main, parent, node);
-        
+
                 this._topDgs.add(node);
-        
+
             }
-        
+
         }
-        
+
         // unmask realized realizations
         for (InterfaceRealization ir : main.getRealized()) {
             // Unmask parent node
             Interface parent = ir.getImplemented();
-        
+
             IDiagramNode node = this._unmasker.unmask(dh, parent);
             if (node != null) {
                 // Add intern/extern style
                 initStyle(main, parent, node);
                 this._topDgs.add(node);
             }
-        
-        
+
+
         }
-        
+
         // unmask specialized generalizations
         for (Generalization g : main.getSpecialization()) {
             // Unmask child node
             NameSpace child = g.getSubType();
-        
+
             IDiagramNode node = this._unmasker.unmask(dh, child);
             if (node != null) {
                 // Add intern/extern style
                 initStyle(main, child, node);
                 this._bottomDgs.add(node);
             }
-        
-        
+
+
         }
-        
+
         // unmask realized realizations
         if (main instanceof Interface) {
             for (InterfaceRealization ir : ((Interface) main).getImplementedLink()) {
@@ -162,18 +162,18 @@ public class InheritanceDiagramTemplate extends AbstractDiagramTemplate {
                     initStyle(main, child, node);
                     this._bottomDgs.add(node);
                 }
-        
-        
+
+
             }
         }
-        
+
         // remove all inner elements from the diagram
         for (IDiagramNode innerNode : this._mainDG.getNodes()) {
             this._topDgs.remove(innerNode);
             this._bottomDgs.remove(innerNode);
             innerNode.mask();
         }
-        
+
     }
 
     @objid ("d016eb9b-7e71-4661-9ea2-3660bd1c3ecb")
@@ -182,46 +182,46 @@ public class InheritanceDiagramTemplate extends AbstractDiagramTemplate {
         if (!(elt instanceof Classifier))
             return;
         NameSpace main = (NameSpace) elt;
-        
+
         // unmask parent generalizations
         for (Generalization g : main.getParent()) {
             // Unmask link
             List<IDiagramGraphic> links = dh.unmask(g, 0, 0);
             if ((links != null) && (links.size() > 0)) {
                 IDiagramLink link = (IDiagramLink) links.get(0);
-        
+
                 if (link.getFrom().equals(link.getTo())) {
                     link.mask();
                 }
             }
         }
-        
+
         // unmask realized realizations
         for (InterfaceRealization ir : main.getRealized()) {
             // Unmask link
             List<IDiagramGraphic> links = dh.unmask(ir, 0, 0);
             if ((links != null) && (links.size() > 0)) {
                 IDiagramLink link = (IDiagramLink) links.get(0);
-        
+
                 if (link.getFrom().equals(link.getTo())) {
                     link.mask();
                 }
             }
         }
-        
+
         // unmask specialized generalizations
         for (Generalization g : main.getSpecialization()) {
             // Unmask link
             List<IDiagramGraphic> links = dh.unmask(g, 0, 0);
             if ((links != null) && (links.size() > 0)) {
                 IDiagramLink link = (IDiagramLink) links.get(0);
-        
+
                 if (link.getFrom().equals(link.getTo())) {
                     link.mask();
                 }
             }
         }
-        
+
         // unmask realized realizations
         if (main instanceof Interface) {
             for (InterfaceRealization ir : ((Interface) main).getImplementedLink()) {
@@ -229,26 +229,26 @@ public class InheritanceDiagramTemplate extends AbstractDiagramTemplate {
                 List<IDiagramGraphic> links = dh.unmask(ir, 0, 0);
                 if ((links != null) && (links.size() > 0)) {
                     IDiagramLink link = (IDiagramLink) links.get(0);
-        
+
                     if (link.getFrom().equals(link.getTo())) {
                         link.mask();
                     }
                 }
             }
         }
-        
+
         // remove all inner elements from the diagram
         for (IDiagramNode innerNode : this._mainDG.getNodes()) {
             this._topDgs.remove(innerNode);
             this._bottomDgs.remove(innerNode);
             innerNode.mask();
         }
-        
+
     }
 
     @objid ("d8e4ab56-fb39-45f5-a0ea-c52a2dff52f0")
     private void initialUnmasking(final IDiagramHandle dh, final NameSpace main) {
-        
+
     }
 
     @objid ("1a7d63b1-2635-4cd1-bea2-1dcf028cdecf")
@@ -262,7 +262,7 @@ public class InheritanceDiagramTemplate extends AbstractDiagramTemplate {
         } else {
             node.setStyle(new DiagramStyleHandle(DiagramStyles.getStyleManager().getStyle(DiagramStyles.EXTERN_STYLE_NAME)));
         }
-        
+
     }
 
     @objid ("0fefc119-863e-4c34-a0bd-199a07f05f46")
@@ -275,7 +275,7 @@ public class InheritanceDiagramTemplate extends AbstractDiagramTemplate {
     @objid ("85a9d9d5-59f6-4a1a-ad2c-d1b75fd7a851")
     private ModelTree getOwnerPackage(final ModelTree elt) {
         ModelTree parent = elt.getOwner();
-        
+
         // Take parents for Inner elements
         while ((parent != null)) {
             if (parent instanceof Package) {
@@ -305,7 +305,7 @@ public class InheritanceDiagramTemplate extends AbstractDiagramTemplate {
                 DiagramAuto.LOG.debug(e);
             }
         }
-        
+
     }
 
     @objid ("3f65618b-c449-46c3-b9c0-02baaa300225")
@@ -331,7 +331,7 @@ public class InheritanceDiagramTemplate extends AbstractDiagramTemplate {
         this._bottomDgs.clear();
         this._mainDG = null;
         this._unmasker = new NodeRollingUnmasker();
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.libreoffice.editor;
 
@@ -33,9 +33,9 @@ import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.inject.Inject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.e4.ui.di.Persist;
@@ -76,7 +76,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * <p>
  * LibreOffice is the power-packed free, libre and open source personal productivity suite for Windows, Macintosh and GNU/Linux, that gives you six feature-rich applications for all your document production and data processing needs: Writer, Calc, Impress,
  * Draw, Math and Base. Support
- * 
+ *
  * @author cmarin
  * @see <a href="http://www.libreoffice.org">LibreOffice main site</a>
  */
@@ -120,11 +120,12 @@ public class LibreOfficeEditor implements IRichNoteEditor {
         } else {
             return this.richNoteInput.getEditedElement();
         }
-        
+
     }
 
     /**
      * Load the element text into the editor.
+     *
      * @param element the element to load.
      */
     @objid ("cb95487e-ee2f-4373-a854-eac1c29df69d")
@@ -132,7 +133,7 @@ public class LibreOfficeEditor implements IRichNoteEditor {
         if (element instanceof Artifact) {
             Artifact art = (Artifact) element;
             this.editedFile = this.richNoteInput.getFileManager().getArtifactFile(art);
-        
+
             if (this.editedFile != null && Files.exists(this.editedFile)) {
                 try (BufferedInputStream fs = new BufferedInputStream(Files.newInputStream(this.editedFile));) {
                     this.viewer.openDocument(fs, art.getStatus().isModifiable());
@@ -140,14 +141,14 @@ public class LibreOfficeEditor implements IRichNoteEditor {
             } else {
                 throw new NoSuchFileException(this.editedFile.toString());
             }
-        
+
         } else if (element instanceof Note) {
             Note n = (Note) element;
             this.viewer.openDocument(new ByteArrayInputStream(n.getContent().getBytes("UTF-8")), element.getStatus().isModifiable());
         } else if (element instanceof Document) {
             Document doc = (Document) element;
             this.editedFile = this.richNoteInput.getFileManager().openRichNote(doc, this);
-        
+
             if (this.editedFile != null) {
                 this.viewer.openDocument(this.editedFile, doc.getStatus().isModifiable());
             } else {
@@ -156,14 +157,14 @@ public class LibreOfficeEditor implements IRichNoteEditor {
                 this.editedFile = this.richNoteInput.getFileManager().getNewRichNotePath(doc, format);
             }
         }
-        
+
         // initialize dirty state
         if (this.viewer.isDisposed()) {
             this.mpart.setDirty(false);
         } else {
             this.mpart.setDirty(this.viewer.isDirty());
         }
-        
+
     }
 
     /**
@@ -183,7 +184,7 @@ public class LibreOfficeEditor implements IRichNoteEditor {
                         this.viewer.saveDocument(fs);
                     }
                 }
-        
+
             } else if (element instanceof Note) {
                 Note n = (Note) element;
                 try (ByteArrayOutputStream stream = new ByteArrayOutputStream();) {
@@ -198,11 +199,12 @@ public class LibreOfficeEditor implements IRichNoteEditor {
             LibreOfficeEditors.LOG.error(e);
             MessageDialog.openError(null, "Cannot save " + element, e.getLocalizedMessage());
         }
-        
+
     }
 
     /**
      * E4 Constructor.
+     *
      * @param parent a parent shell
      * @param input the rich note to edit
      * @param part the E4 part
@@ -216,25 +218,25 @@ public class LibreOfficeEditor implements IRichNoteEditor {
         this.progressService = aProgressService;
         this.partService = aPartService;
         this.richNoteInput = input;
-        
+
         createPartControl(parent);
         registerlistener(input);
         initTitle();
-        
+
     }
 
     @objid ("db29745b-6b12-4a45-a168-d888fb206574")
     private void createPartControl(final Composite parent) {
         try {
             parent.setLayout(new FillLayout());
-        
+
             // Instantiate viewer
             this.viewer = LibreOfficeLoader.getDocumentViewerClass().newInstance();
-        
+
             // Initialize GUI
             this.viewer.setFileManager(this.richNoteInput.getFileManager());
             this.viewer.createPartControl(parent);
-        
+
             // Load the document later, when the controls are visible.
             final IRunnableWithProgress runnable = new IRunnableWithProgress() {
                 @Override
@@ -250,13 +252,13 @@ public class LibreOfficeEditor implements IRichNoteEditor {
                         }
                     }
                     monitor.done();
-        
+
                     // Updates the dirty state each 3 seconds (wait 5s the 1st time)
                     Runnable modifyListener = new DirtyStateProber(parent.getDisplay(), LibreOfficeEditor.this.viewer);
                     parent.getDisplay().timerExec(5000, modifyListener);
                 }
             };
-        
+
             parent.getDisplay().asyncExec(new Runnable() {
                 @Override
                 public void run() {
@@ -267,10 +269,10 @@ public class LibreOfficeEditor implements IRichNoteEditor {
                     } catch (InterruptedException e) {
                         createErrorPartControl(parent, e);
                     }
-        
+
                 }
             });
-        
+
         } catch (IllegalAccessException e) {
             createErrorPartControl(parent, e);
         } catch (IOException e) {
@@ -278,7 +280,7 @@ public class LibreOfficeEditor implements IRichNoteEditor {
         } catch (InstantiationException e) {
             createErrorPartControl(parent, e);
         }
-        
+
     }
 
     /**
@@ -293,20 +295,20 @@ public class LibreOfficeEditor implements IRichNoteEditor {
     @objid ("9f16cdaf-6881-46a0-bd97-a94f8cfb3332")
     void createErrorPartControl(final Composite parent, final Throwable e) {
         LibreOfficeEditors.LOG.error(e);
-        
+
         for (Control c : parent.getChildren()) {
             c.dispose();
         }
-        
+
         Text t = new Text(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
         StringWriter s = new StringWriter();
         s.append(e.getLocalizedMessage());
         s.append("\n\nDetail:\n-------\n");
         e.printStackTrace(new PrintWriter(s));
         t.setText(s.toString());
-        
+
         parent.layout();
-        
+
     }
 
     /**
@@ -316,14 +318,14 @@ public class LibreOfficeEditor implements IRichNoteEditor {
     @PreDestroy
     public void dispose() {
         unregisterListener();
-        
+
         if (this.viewer != null) {
             this.viewer.close();
             this.viewer = null;
         }
-        
+
         this.richNoteInput.getFileManager().removeEditor(this);
-        
+
     }
 
     @objid ("bcf91e5a-b353-4413-bc17-2c878d16d76b")
@@ -343,7 +345,7 @@ public class LibreOfficeEditor implements IRichNoteEditor {
             this.mpart.setLabel(el.getName());
             // this.mpart.setIconURI("");
         }
-        
+
     }
 
     @objid ("ad3a8c6e-9c71-4511-8af3-d4eec8ef38f1")
@@ -352,7 +354,7 @@ public class LibreOfficeEditor implements IRichNoteEditor {
             this.modelListener.dispose();
             this.modelListener = null;
         }
-        
+
     }
 
     @objid ("d6ccc13c-cc20-4e46-9240-e59ba391822f")
@@ -363,7 +365,7 @@ public class LibreOfficeEditor implements IRichNoteEditor {
         this.modelListener = new ModelListener(input);
         input.getSession().getModelChangeSupport().addModelChangeListener(this.modelListener);
         input.getSession().getModelChangeSupport().addStatusChangeListener(this.modelListener);
-        
+
     }
 
     @objid ("8530c73f-1747-43f2-bccd-12f91a755219")
@@ -376,6 +378,7 @@ public class LibreOfficeEditor implements IRichNoteEditor {
      * <p>
      * If modal, the method waits for the dialog to be closed before returning.
      * If modeless the method returns immediately.
+     *
      * @param kind {@link MessageDialog#ERROR}, {@link MessageDialog#WARNING}, {@link MessageDialog#INFORMATION}
      * @param title The dialog title
      * @param message The message.
@@ -393,13 +396,13 @@ public class LibreOfficeEditor implements IRichNoteEditor {
                 MessageDialog.open(kind, shell, title, message, kind);
             }
         };
-        
+
         if (modal) {
             Display.getDefault().syncExec(runnable);
         } else {
             Display.getDefault().asyncExec(runnable);
         }
-        
+
     }
 
     @objid ("0aabd1af-4fbf-4c3d-8212-e819b625e01b")
@@ -425,17 +428,17 @@ public class LibreOfficeEditor implements IRichNoteEditor {
     public void onOriginalModified(MObject model) {
         String message = LibreOfficeEditors.I18N.getMessage("LibreOfficeEditor.onOriginalmodified.message", model.getName());
         String title = LibreOfficeEditors.I18N.getMessage("LibreOfficeEditor.onOriginalmodified.title", model.getName());
-        
+
         displayDialog(MessageDialog.INFORMATION, title, message, true);
         closeEditor();
-        
+
     }
 
     @objid ("60660a96-7d97-4e71-8e2b-5d0563e14b27")
     void doSaveToRepository() throws IOException {
         Document element = (Document) this.richNoteInput.getEditedElement();
         this.richNoteInput.getFileManager().saveRichNote(element, this.editedFile);
-        
+
     }
 
     /**
@@ -456,10 +459,10 @@ public class LibreOfficeEditor implements IRichNoteEditor {
         private IRichNoteInput input;
 
         @objid ("0b319eda-0d84-456e-8da1-2b7e9720263f")
-        public  ModelListener(final IRichNoteInput input) {
+        public ModelListener(final IRichNoteInput input) {
             this.input = input;
             this.wasReadOnly = getEditedElement().getStatus().isModifiable();
-            
+
         }
 
         @objid ("d457c685-0f35-448e-acf5-2a0c1168ac60")
@@ -472,7 +475,7 @@ public class LibreOfficeEditor implements IRichNoteEditor {
         @Override
         public void statusChanged(final IStatusChangeEvent event) {
             final boolean newModifiable = getEditedElement().getStatus().isModifiable();
-            
+
             if (this.wasReadOnly != newModifiable) {
                 if (Display.getCurrent() == null) {
                     // Recursive call in the SWT thread
@@ -490,12 +493,12 @@ public class LibreOfficeEditor implements IRichNoteEditor {
                     } catch (IOException e) {
                         LibreOfficeEditors.LOG.error(e);
                         displayDialog(MessageDialog.ERROR, "Cannot reload " + getEditedElement(), FileUtils.getLocalizedMessage(e), false);
-            
+
                         closeEditor();
                     }
                 }
             }
-            
+
         }
 
         /**
@@ -505,6 +508,7 @@ public class LibreOfficeEditor implements IRichNoteEditor {
          * <li>Set the view read only if the model becomes read only (to be done)
          * <li>Close the diagram if deleted from the model.
          * <p>
+         *
          * @param changeEvent the model change event
          */
         @objid ("bc4a23a8-9f94-4e25-9dc6-37def96729cf")
@@ -522,13 +526,13 @@ public class LibreOfficeEditor implements IRichNoteEditor {
                         closeEditor();
                     }
                 }
-            
+
                 // At this point, we know that editedEl is still valid, update the editor's title and icon.
                 if (editedEl != null) {
                     initTitle();
                 }
             }
-            
+
         }
 
         /**
@@ -542,7 +546,7 @@ public class LibreOfficeEditor implements IRichNoteEditor {
                 imodel.removeModelChangeListener(this);
                 imodel.removeStatusChangeListener(this);
             }
-            
+
         }
 
     }
@@ -566,10 +570,10 @@ public class LibreOfficeEditor implements IRichNoteEditor {
         private IEditedDocumentViewer docViewer;
 
         @objid ("e10a56db-884b-4798-9fd9-882f3c423517")
-        public  DirtyStateProber(Display display, IEditedDocumentViewer viewer) {
+        public DirtyStateProber(Display display, IEditedDocumentViewer viewer) {
             this.display = display;
             this.docViewer = viewer;
-            
+
         }
 
         @objid ("f55ab8c3-89b4-4229-9f1b-81c9f3068593")
@@ -593,11 +597,11 @@ public class LibreOfficeEditor implements IRichNoteEditor {
                         }
                     }
                 }
-            
+
                 // run again
                 this.display.timerExec(DirtyStateProber.RATE, this);
             }
-            
+
         }
 
     }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.infrastructure;
 
@@ -47,7 +47,7 @@ public class R2680 extends AbstractInfrastructureRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -66,7 +66,7 @@ public class R2680 extends AbstractInfrastructureRule {
     public void autoRegister(InfrastructureAuditPlan plan) {
         plan.registerRule(TaggedValue.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
         plan.registerRule(TagParameter.MQNAME, this, AuditTrigger.CREATE);
-        
+
     }
 
     /**
@@ -100,14 +100,14 @@ public class R2680 extends AbstractInfrastructureRule {
      * Default constructor for R2680
      */
     @objid ("1d7706bb-6c61-4fe7-86e8-77158e9af014")
-    public  R2680() {
+    public R2680() {
         this.checkerInstance = new CheckR2680(this);
     }
 
     @objid ("7b6dadd5-1813-4174-8796-ca4ca9c02f3e")
     private static class CheckR2680 extends AbstractControl {
         @objid ("315880b7-da21-45cf-9b8c-3aeb28222953")
-        public  CheckR2680(IRule rule) {
+        public CheckR2680(IRule rule) {
             super(rule);
         }
 
@@ -131,16 +131,16 @@ public class R2680 extends AbstractInfrastructureRule {
                     AuditSeverity.AuditSuccess,
                     taggedValue,
                     null);
-            
+
             TagType tt = taggedValue.getDefinition();
-            
+
             try {
                 int paramNumber = Integer.parseInt(tt.getParamNumber());
-            
+
                 if (taggedValue.getActual().size() != paramNumber) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     auditEntry.setLinkedInfos(Arrays.asList(
                             taggedValue,

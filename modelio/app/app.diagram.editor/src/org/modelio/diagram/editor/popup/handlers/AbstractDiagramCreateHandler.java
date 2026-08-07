@@ -1,27 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.popup.handlers;
 
 import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.draw2d.IFigure;
@@ -48,7 +48,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * Specialization of the base abstract class for all creation handlers provided by diagram editors.
- * 
+ *
  * @author fpoyer
  */
 @objid ("6688abc7-33f7-11e2-95fe-001ec947c8cc")
@@ -63,6 +63,7 @@ public abstract class AbstractDiagramCreateHandler extends AbstractCreateHandler
     /**
      * Called by {@link com.modeliosoft.modelio.diagram.editor.createpopup.contribs.CreationContributionItem} on the handler of a
      * creation command to filter displayed items.
+     *
      * @param context an evaluation context with the command creation parameters.
      * @return true to display the item, false to hide it.
      */
@@ -82,16 +83,16 @@ public abstract class AbstractDiagramCreateHandler extends AbstractCreateHandler
         // CommandStack.
         EditPart selectedEditPart = getSelectedEditPart();
         if (selectedEditPart != null) {
-        
+
             try {
                 updateTargetRequest();
             } catch (IllegalArgumentException | ElementNotUniqueException e) {
                 throw new ExecutionException("Cannot create element.", e);
             }
-        
+
             CreateRequest createRequest = getTargetRequest();
             EditPart targetEditPart = findTargetEditPart(selectedEditPart);
-        
+
             if (targetEditPart != null) {
                 Command command = targetEditPart.getCommand(createRequest);
                 if (command != null && command.canExecute()) {
@@ -99,7 +100,7 @@ public abstract class AbstractDiagramCreateHandler extends AbstractCreateHandler
                 }
             }
         }
-        
+
         this.targetRequest = null;
         return null;
     }
@@ -115,6 +116,7 @@ public abstract class AbstractDiagramCreateHandler extends AbstractCreateHandler
      * Find the edit part that will accept the {@link #getTargetRequest()} and that relates the {@link #getSelectedElement()}.
      * <p>
      * Will parse child edit parts of the given edit part.
+     *
      * @param fromEditPart The edit part to start the lookup from.
      * @return the found edit part or <code>null</code>.
      */
@@ -128,7 +130,7 @@ public abstract class AbstractDiagramCreateHandler extends AbstractCreateHandler
                 return null;
             }
         }
-        
+
         for (Object child : fromEditPart.getChildren()) {
             target = findTargetEditPart((EditPart) child);
             if (target != null && relateSelectedElement(target)) {
@@ -140,6 +142,7 @@ public abstract class AbstractDiagramCreateHandler extends AbstractCreateHandler
 
     /**
      * Get the currently selected EditPart.
+     *
      * @return the currently selected EditPart.
      */
     @objid ("668d707c-33f7-11e2-95fe-001ec947c8cc")
@@ -156,6 +159,7 @@ public abstract class AbstractDiagramCreateHandler extends AbstractCreateHandler
 
     /**
      * Lazily creates and returns the request used when communicating with the target editpart.
+     *
      * @return the target request
      */
     @objid ("668d7081-33f7-11e2-95fe-001ec947c8cc")
@@ -173,6 +177,7 @@ public abstract class AbstractDiagramCreateHandler extends AbstractCreateHandler
     }
 
     /**
+     *
      * @throws ElementNotUniqueException
      * @throws IllegalArgumentException if the requested metaclass cannot be found.
      */
@@ -206,21 +211,21 @@ public abstract class AbstractDiagramCreateHandler extends AbstractCreateHandler
                 creationLocation = root.getCreationLocationTip();
             }
             createRequest.setLocation(creationLocation);
-        
+
             Stereotype iStereotype = null;
             if (this.stereotype != null) {
                 iStereotype = this.modelService.getStereotype(".*", this.stereotype, this.metaclass);
             }
-        
+
             MMetamodel mm = this.modelService.getMetamodel();
             MClass mClass = mm.getMClass(this.metaclass);
             MDependency dep = ((GmModel) selectedEditPart.getModel()).getRelatedElement().getMClass().getDependency(this.dependency);
-        
+
             createRequest.setFactory(new ModelioCreationContext(mClass, dep, iStereotype));
         } else {
             this.targetRequest = null;
         }
-        
+
     }
 
     @objid ("668d708f-33f7-11e2-95fe-001ec947c8cc")
@@ -243,7 +248,7 @@ public abstract class AbstractDiagramCreateHandler extends AbstractCreateHandler
             try {
                 updateTargetRequest();
                 CreateRequest r = getTargetRequest();
-        
+
                 EditPart targetEditPart = findTargetEditPart(selectedEditPart);
                 if (targetEditPart != null) {
                     Command command = targetEditPart.getCommand(r);

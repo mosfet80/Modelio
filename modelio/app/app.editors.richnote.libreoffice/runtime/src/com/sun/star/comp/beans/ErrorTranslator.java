@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package com.sun.star.comp.beans;
 
@@ -36,12 +36,11 @@ import org.modelio.editors.richnote.libreoffice.plugin.LibreOfficeEditors;
  * <p>
  * Taken from <i>libreoffice/core/plain/tools/inc/tools/errcode.hxx</i> source file.
  * <p>
+ *
+ * @author cmarin
  * @see <a href="http://cgit.freedesktop.org/libreoffice/core/plain/tools/inc/tools/errcode.hxx">errcode.hxx</a>
  * @see <a href="http://cgit.freedesktop.org/libreoffice/core/tree/svtools/inc/svtools/sfxecode.hxx">sfxecode.hxx</a>
  * @see <a href="http://cgit.freedesktop.org/libreoffice/core/tree/svtools/inc/svtools/soerr.hxx">soerr.hxx</a>
- * 
- * 
- * @author cmarin
  */
 @objid ("c301dd9f-221c-4ace-948b-493e6ab88f1b")
 public class ErrorTranslator {
@@ -579,7 +578,7 @@ public class ErrorTranslator {
     @objid ("dfcbc2a6-3657-4f52-a6a7-b231d361a2df")
     private static Map<Long, String> errCodeTable;
 
-     // // ------------- ERRCODE_SFX_ : http://cgit.freedesktop.org/libreoffice/core/tree/svtools/inc/svtools/sfxecode.hxx
+    // ------------- ERRCODE_SFX_ : http://cgit.freedesktop.org/libreoffice/core/tree/svtools/inc/svtools/sfxecode.hxx
     @objid ("1a1a4274-5b78-445a-a46b-8e8834e4606f")
     static final long ERRCODE_SFX_NOSTDTEMPLATE = (ErrorTranslator.ERRCODE_AREA_SFX | ErrorTranslator.ERRCODE_CLASS_PATH | 1);
 
@@ -742,7 +741,7 @@ public class ErrorTranslator {
     @objid ("abf02c73-ed66-4e16-b602-92b628b66c78")
     static final long ERRCODE_SFX_DOCUMENT_MACRO_DISABLED_MAC = (ErrorTranslator.ERRCODE_WARNING_MASK | ErrorTranslator.ERRCODE_AREA_SFX | ErrorTranslator.ERRCODE_CLASS_NONE | 56);
 
-     // // -----------
+    // -----------
     @objid ("81479bae-d796-48ef-8050-858b97ffa4d7")
     static final long SO_ERR = (ErrorTranslator.ERRCODE_AREA_SO | ErrorTranslator.ERRCODE_CLASS_SO);
 
@@ -857,14 +856,14 @@ public class ErrorTranslator {
     @objid ("f5a5ece6-1f27-4fa9-bd3a-14ef4c62c312")
     private static void initErrorCodeTable() {
         ErrorTranslator.errCodeTable = new HashMap<>();
-        
+
         final ResourceBundle msgFile = ResourceBundle.getBundle("richnotes_libreoffice");
         final String errTemplate = msgFile.getString("ErrorCodeIOException.msg");
-        
+
         for (Field f : ErrorTranslator.class.getDeclaredFields()) {
             Long key = 0L;
             String name = f.getName();
-        
+
             if (f.getType() == long.class && name.startsWith("ERRCODE_")) {
                 try {
                     key = (Long) f.get(null);
@@ -872,7 +871,7 @@ public class ErrorTranslator {
                     if (msg == null) {
                         msg = name;
                     }
-        
+
                     ErrorTranslator.errCodeTable.put(key, MessageFormat.format(errTemplate, key, msg));
                 } catch (IllegalArgumentException e) {
                     LibreOfficeEditors.LOG.warning(e);
@@ -884,11 +883,12 @@ public class ErrorTranslator {
                 }
             }
         }
-        
+
     }
 
     /**
      * Get the error code label for the given ErrorCodeIOException.
+     *
      * @param exc The error
      * @return The error label.
      */
@@ -897,7 +897,7 @@ public class ErrorTranslator {
         if (ErrorTranslator.errCodeTable == null) {
             initErrorCodeTable();
         }
-        
+
         String ret = ErrorTranslator.errCodeTable.get(Long.valueOf(exc.ErrCode));
         if (ret != null) {
             return ret;
@@ -907,7 +907,7 @@ public class ErrorTranslator {
             return MessageFormat.format(errnomsgTemplate, exc.ErrCode);
             // return String.valueOf(exc.ErrCode);
         }
-        
+
     }
 
 }

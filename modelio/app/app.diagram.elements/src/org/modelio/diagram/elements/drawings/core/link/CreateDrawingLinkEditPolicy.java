@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.drawings.core.link;
 
@@ -81,10 +81,11 @@ public class CreateDrawingLinkEditPolicy extends GraphicalNodeEditPolicy {
 
     /**
      * No Parameter c'tor: creates an opaque instance of this policy.
+     *
      * @see #CreateDrawingLinkEditPolicy(boolean)
      */
     @objid ("f8035320-96b3-46c9-97d4-a5b58018dc7a")
-    public  CreateDrawingLinkEditPolicy() {
+    public CreateDrawingLinkEditPolicy() {
         this(true);
     }
 
@@ -103,13 +104,14 @@ public class CreateDrawingLinkEditPolicy extends GraphicalNodeEditPolicy {
      * <li>When <code>false</code> on the other hand, the getTargetEditPart method will return <code>null</code>, giving a chance to the tool to propose the request to the host's parent edit part, meaning the host is "transparent".</li>
      * </ul>
      * </p>
+     *
      * @param isOpaque determines the behavior of this policy on request where the creation expert doesn't allow. See Note.
      */
     @objid ("07670c82-1127-4184-b55f-baf4a5e8667d")
-    public  CreateDrawingLinkEditPolicy(final boolean isOpaque) {
+    public CreateDrawingLinkEditPolicy(final boolean isOpaque) {
         super();
         this.isOpaque = isOpaque;
-        
+
     }
 
     @objid ("a7c83a97-fdd7-4aff-abae-f93cc6775b68")
@@ -120,7 +122,7 @@ public class CreateDrawingLinkEditPolicy extends GraphicalNodeEditPolicy {
         } else {
             super.eraseSourceFeedback(request);
         }
-        
+
     }
 
     @objid ("6a45c223-ac00-446c-a25e-1ce88ba0c77f")
@@ -131,7 +133,7 @@ public class CreateDrawingLinkEditPolicy extends GraphicalNodeEditPolicy {
         } else {
             super.eraseTargetFeedback(request);
         }
-        
+
     }
 
     @objid ("5034db51-7e92-43af-bb04-8421ea9941a0")
@@ -158,7 +160,7 @@ public class CreateDrawingLinkEditPolicy extends GraphicalNodeEditPolicy {
         } else {
             super.showSourceFeedback(request);
         }
-        
+
     }
 
     @objid ("e2980085-0a68-494c-ad10-ace32edf1a1b")
@@ -169,7 +171,7 @@ public class CreateDrawingLinkEditPolicy extends GraphicalNodeEditPolicy {
         } else {
             super.showTargetFeedback(request);
         }
-        
+
     }
 
     @objid ("64b18ff3-83ff-4a8a-b0c2-609c40e61252")
@@ -177,7 +179,7 @@ public class CreateDrawingLinkEditPolicy extends GraphicalNodeEditPolicy {
     protected Connection createDummyConnection(Request req) {
         final PolylineConnection ret = new PolylineConnection();
         ret.removeAllPoints();
-        
+
         // Add an arrow
         final PolylineDecoration arrow = new PolylineDecoration();
         arrow.setTemplate(PolylineDecoration.TRIANGLE_TIP);
@@ -185,13 +187,14 @@ public class CreateDrawingLinkEditPolicy extends GraphicalNodeEditPolicy {
         arrow.setOpaque(false);
         arrow.setBackgroundColor(null);
         arrow.setFill(false);
-        
+
         ret.setTargetDecoration(arrow);
         return ret;
     }
 
     /**
      * Create a serializable path model from the given connection creation request.
+     *
      * @param req a connection creation request.
      * @return A serializable path model.
      */
@@ -210,14 +213,14 @@ public class CreateDrawingLinkEditPolicy extends GraphicalNodeEditPolicy {
     @Override
     protected void eraseTargetConnectionFeedback(DropRequest request) {
         super.eraseTargetConnectionFeedback(request);
-        
+
         // Additional feedback: outline the Node.
         if (this.highlight != null) {
             final IFigure feedbackLayer = getFeedbackLayer();
             feedbackLayer.remove(this.highlight);
             this.highlight = null;
         }
-        
+
     }
 
     @objid ("5e1a1492-d03b-447f-aa97-1e04650a40b2")
@@ -227,10 +230,10 @@ public class CreateDrawingLinkEditPolicy extends GraphicalNodeEditPolicy {
         if (!isLineCreationRequest(req)) {
             return null;
         }
-        
+
         // Extract start command from request (see getConnectionCreateCommand).
         final CreateDrawingLinkCommand startCommand = (CreateDrawingLinkCommand) req.getStartCommand();
-        
+
         startCommand.setTarget((IGmDrawingLinkable) getHost().getModel());
         // Additional step: add the optional bend points.
         startCommand.setPath(createPathModel(req));
@@ -245,21 +248,21 @@ public class CreateDrawingLinkEditPolicy extends GraphicalNodeEditPolicy {
         if (!isLineCreationRequest(req)) {
             return null;
         }
-        
+
         // Getting a hold on the source anchor
         NodeEditPart sourceEditPart = (NodeEditPart) getHost();
         req.getExtendedData().remove("srcAnchor");
         ConnectionAnchor srcAnchor = sourceEditPart.getSourceConnectionAnchor(req);
         req.getExtendedData().put("srcAnchor", srcAnchor);
-        
+
         // Create the create connection command
         final Class<? extends IGmDrawingLink> context = (Class<? extends IGmDrawingLink>) req.getNewObjectType();
         final String drawingIdent = (String) req.getNewObject();
-        
+
         final CreateDrawingLinkCommand command = new CreateDrawingLinkCommand(context, drawingIdent);
-        
+
         command.setSource((IGmDrawingLinkable) getHost().getModel());
-        
+
         // Store command in the request so that it can be used (and in most cases completed) later by the target node.
         req.setStartCommand(command);
         return command;
@@ -276,20 +279,20 @@ public class CreateDrawingLinkEditPolicy extends GraphicalNodeEditPolicy {
     protected Command getReconnectSourceCommand(ReconnectRequest req) {
         final NodeEditPart newSourceNodeEditPart = (NodeEditPart) req.getTarget();
         final ConnectionEditPart connectionEditPart = req.getConnectionEditPart();
-        
+
         if (!(connectionEditPart.getModel() instanceof IGmDrawingLink)) {
             return null;
         }
-        
+
         final IGmDrawingLink linkModel = (IGmDrawingLink) connectionEditPart.getModel();
         final IGmDrawingLinkable newSourceNode = (IGmDrawingLinkable) newSourceNodeEditPart.getModel();
-        
+
         if (linkModel.getDiagram() != newSourceNode.getDiagram()) {
             return null;
         }
-        
+
         final ReconnectDrawingSourceCommand cmd = new ReconnectDrawingSourceCommand(linkModel, newSourceNode);
-        
+
         final ConnectionAnchor srcAnchor = newSourceNodeEditPart.getSourceConnectionAnchor(req);
         cmd.setAnchorModel(ConnectionPolicyUtils.getAnchorModel(newSourceNodeEditPart, srcAnchor));
         return cmd;
@@ -302,15 +305,15 @@ public class CreateDrawingLinkEditPolicy extends GraphicalNodeEditPolicy {
         if (!(connectionEditPart.getModel() instanceof IGmDrawingLink)) {
             return null;
         }
-        
+
         final NodeEditPart destEditPart = (NodeEditPart) req.getTarget();
         final IGmDrawingLinkable newTargetNode = (IGmDrawingLinkable) destEditPart.getModel();
         final IGmDrawingLink gmLink = (IGmDrawingLink) connectionEditPart.getModel();
-        
+
         if (gmLink.getDiagram() != newTargetNode.getDiagram()) {
             return null;
         }
-        
+
         // build the command
         ReconnectDrawingTargetCommand cmd = new ReconnectDrawingTargetCommand(gmLink, newTargetNode);
         ConnectionAnchor targetAnchor = destEditPart.getTargetConnectionAnchor(req);
@@ -327,18 +330,18 @@ public class CreateDrawingLinkEditPolicy extends GraphicalNodeEditPolicy {
         }
         if (request instanceof CreateBendedConnectionRequest) {
             final CreateBendedConnectionRequest req = (CreateBendedConnectionRequest) request;
-        
+
             // Call the method to force creation of the connection feedback
             getFeedbackHelper(request);
-        
+
             // Set/update the router
             final ConnectionRouter router = ConnectionPolicyUtils.getRoutingServices(getHost()).getRouter(req.getData().getRoutingMode());
             this.connectionFeedback.setConnectionRouter(router);
-        
+
             // Set/update the source anchor
             final ConnectionAnchor srcAnchor = getSourceConnectionAnchor(req);
             this.connectionFeedback.setSourceAnchor(srcAnchor);
-        
+
             // Set/update the target anchor
             ConnectionAnchor targetAnchor = getTargetConnectionAnchor(req);
             if (targetAnchor == null) {
@@ -347,22 +350,22 @@ public class CreateDrawingLinkEditPolicy extends GraphicalNodeEditPolicy {
                 targetAnchor = this.dummyAnchor;
             }
             this.connectionFeedback.setTargetAnchor(targetAnchor);
-        
+
             // Set/update the routing constraint.
             IConnectionHelper connHelper = ConnectionPolicyUtils.getRoutingServices(getHost()).getConnectionHelperFactory().getUpdatedConnectionHelper(req, this.connectionFeedback);
             this.connectionFeedback.setRoutingConstraint(connHelper.getRoutingConstraint());
-        
+
         } else {
             super.showCreationFeedback(request);
         }
-        
+
     }
 
     @objid ("f7bb2384-3588-41b9-b2d2-d1efd3dc3528")
     @Override
     protected void showTargetConnectionFeedback(DropRequest request) {
         final IFigure hostFigure = getHostFigure();
-        
+
         // Additional feedback: highlight the node.
         // compute highlight type
         final Command c = getHost().getCommand((Request) request);
@@ -371,7 +374,7 @@ public class CreateDrawingLinkEditPolicy extends GraphicalNodeEditPolicy {
             hightlightType = FigureUtilities2.HighlightType.ERROR;
         } else if (c.canExecute()) {
             hightlightType = FigureUtilities2.HighlightType.SUCCESS;
-        
+
             // No feedback if the node is a layer or the background
             if (hostFigure instanceof FreeformFigure) {
                 return;
@@ -379,7 +382,7 @@ public class CreateDrawingLinkEditPolicy extends GraphicalNodeEditPolicy {
         } else {
             hightlightType = FigureUtilities2.HighlightType.WARNING;
         }
-        
+
         // create a highlight figure if it does not exist
         if (this.highlight == null) {
             // create a highlight figure
@@ -390,46 +393,48 @@ public class CreateDrawingLinkEditPolicy extends GraphicalNodeEditPolicy {
             // configure the highlight figure
             FigureUtilities2.updateHighlightType(this.highlight, hightlightType);
         }
-        
+
     }
 
     /**
      * Returns the host if the given request can be handled, <code>null</code> otherwise.
+     *
      * @param request a Source Reconnect request.
      * @return the host edit part or <code>null</code>.
      */
     @objid ("df046104-4b28-411e-976d-436a50e7d1fe")
     private EditPart getReconnectSourceTargetEditPart(final ReconnectRequest request) {
         ConnectionEditPart reconnectedConnectionEP = request.getConnectionEditPart();
-        
+
         if (!(reconnectedConnectionEP.getModel() instanceof IGmDrawingLink)) {
             return null;
         }
-        
+
         final IGmDrawingLink gmLink = (IGmDrawingLink) reconnectedConnectionEP.getModel();
         final IGmDrawingLinkable newSrcNode = (IGmDrawingLinkable) getHost().getModel();
         final IGmDrawingLinkable oldSrcNode = gmLink.getFrom();
-        
+
         // No check needed if the source node is unchanged
         if (oldSrcNode == newSrcNode) {
             return getHost();
         }
-        
+
         // Avoid creating links cycles
         if (isLinkCycle(getHost(), reconnectedConnectionEP)) {
             return null;
         }
-        
+
         if (this.isOpaque) {
             return getHost();
         } else {
             return null;
         }
-        
+
     }
 
     /**
      * Returns the host if the given request can be handled, <code>null</code> otherwise.
+     *
      * @param request a Target Reconnect request.
      * @return the host edit part or <code>null</code>.
      */
@@ -439,21 +444,21 @@ public class CreateDrawingLinkEditPolicy extends GraphicalNodeEditPolicy {
         if (!(reconnectedConnectionEP.getModel() instanceof IGmDrawingLink)) {
             return null;
         }
-        
+
         final IGmDrawingLink gmLink = (IGmDrawingLink) reconnectedConnectionEP.getModel();
         final IGmDrawingLinkable newTargetNode = (IGmDrawingLinkable) getHost().getModel();
         final IGmDrawingLinkable oldTargetNode = gmLink.getTo();
-        
+
         // No check needed if the source node is unchanged
         if (oldTargetNode == newTargetNode) {
             return getHost();
         }
-        
+
         // Avoid creating links cycles
         if (isLinkCycle(getHost(), reconnectedConnectionEP)) {
             return null;
         }
-        
+
         // If creation experts allows OR this instance is "opaque" (see javadoc on private attribute isOpaque for details), return
         // host.
         if (this.isOpaque) {
@@ -461,18 +466,19 @@ public class CreateDrawingLinkEditPolicy extends GraphicalNodeEditPolicy {
         } else {
             return null;
         }
-        
+
     }
 
     /**
      * Returns the host if the given request can be handled, <code>null</code> otherwise.
+     *
      * @param request a complete Connection creation request.
      * @return the host edit part or <code>null</code>.
      */
     @objid ("cb86814a-bf27-4cb6-a422-55d217670249")
     protected EditPart getTargetEditPartConnectionEnd(final CreateConnectionRequest request) {
         // Only handle model element creation requests.
-        
+
         if (!isLineCreationRequest(request)) {
             return null;
         }
@@ -484,6 +490,7 @@ public class CreateDrawingLinkEditPolicy extends GraphicalNodeEditPolicy {
 
     /**
      * Returns the host if the given request can be handled, <code>null</code> otherwise.
+     *
      * @param request a starting Connection creation request.
      * @return the host edit part or <code>null</code>.
      */
@@ -493,7 +500,7 @@ public class CreateDrawingLinkEditPolicy extends GraphicalNodeEditPolicy {
         if (!isLineCreationRequest(request)) {
             return null;
         }
-        
+
         if (!this.isOpaque) {
             return null;
         }
@@ -511,7 +518,7 @@ public class CreateDrawingLinkEditPolicy extends GraphicalNodeEditPolicy {
         } else {
             return false;
         }
-        
+
     }
 
     @objid ("cc7ebfac-35ba-48f3-87b4-19a82e031294")

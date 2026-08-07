@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.script.engine.core.engine;
 
@@ -61,13 +61,13 @@ public class PythonRunner implements IScriptRunner {
     private PrintWriter commandWriter;
 
     @objid ("00763f36-cbcd-1065-a2b8-001ec947cd2a")
-     PythonRunner(ScriptEngine scriptEngine) {
+    PythonRunner(ScriptEngine scriptEngine) {
         this.engine = new ClassLoaderScriptEngine(scriptEngine);
-        
+
         this.outputWriter = new PrintWriter(System.out);
         this.commandWriter = this.outputWriter;
         this.errorWriter = this.outputWriter;
-        
+
     }
 
     @objid ("0076521e-cbcd-1065-a2b8-001ec947cd2a")
@@ -75,12 +75,12 @@ public class PythonRunner implements IScriptRunner {
     public void runFile(Path file, ISelection selection, Collection<Element> selectedElements) throws ScriptException {
         final String fileName = file.getFileName().toString();
         final String extension = fileName.substring(fileName.lastIndexOf('.') + 1);
-        
+
         assert extension.equals("py");
         assert this.engine != null;
-        
+
         this.engine.bindStandardVariables(selection, selectedElements, Modelio.getInstance().getModelingSession());
-        
+
         try {
             try (FileReader reader = new FileReader(file.toFile())) {
                 this.engine.eval(reader);
@@ -92,7 +92,7 @@ public class PythonRunner implements IScriptRunner {
                 ScriptEnginePlugin.LOG.error(ScriptEnginePlugin.PLUGIN_ID, e);
                 e.printStackTrace(this.errorWriter);
             }
-        
+
         } catch (ScriptException e) {
             this.errorWriter.println(e.getLocalizedMessage());
             this.errorWriter.println(e.getCause());
@@ -109,16 +109,16 @@ public class PythonRunner implements IScriptRunner {
             this.errorWriter.flush();
             this.commandWriter.flush();
         }
-        
+
     }
 
     @objid ("00767370-cbcd-1065-a2b8-001ec947cd2a")
     @Override
     public void runScript(String script, ISelection selection, Collection<Element> selectedElements) throws ScriptException {
         assert this.engine != null;
-        
+
         this.engine.bindStandardVariables(selection, selectedElements, Modelio.getInstance().getModelingSession());
-        
+
         try {
             evalScript(script);
         } catch (ScriptException e) {
@@ -137,7 +137,7 @@ public class PythonRunner implements IScriptRunner {
             this.outputWriter.flush();
             this.errorWriter.flush();
         }
-        
+
     }
 
     @objid ("007694f4-cbcd-1065-a2b8-001ec947cd2a")
@@ -151,7 +151,7 @@ public class PythonRunner implements IScriptRunner {
     public void setOutputStream(PrintWriter writer) {
         this.outputWriter = writer;
         this.engine.getContext().setWriter(this.outputWriter);
-        
+
     }
 
     @objid ("0076ceec-cbcd-1065-a2b8-001ec947cd2a")
@@ -159,7 +159,7 @@ public class PythonRunner implements IScriptRunner {
     public void setErrorStream(PrintWriter writer) {
         this.errorWriter = writer;
         this.engine.getContext().setErrorWriter(this.errorWriter);
-        
+
     }
 
     @objid ("00770c72-cbcd-1065-a2b8-001ec947cd2a")
@@ -186,11 +186,11 @@ public class PythonRunner implements IScriptRunner {
         this.commandWriter.println(script.trim());
         this.commandWriter.println();
         this.commandWriter.flush();
-        
+
         // Run the script
         Object ret = this.engine.eval(script);
         this.commandWriter.println();
-        
+
         // Print the returned value to the console
         if (ret != null) {
             final String retvar = "value_returned_by_script";
@@ -198,7 +198,7 @@ public class PythonRunner implements IScriptRunner {
             this.engine.eval(this.engine.getFactory().getOutputStatement(retvar));
             this.engine.getContext().removeAttribute(retvar, ScriptContext.ENGINE_SCOPE);
         }
-        
+
     }
 
     @objid ("0007df82-99ab-10ed-8812-001ec947cd2a")
@@ -269,9 +269,9 @@ public class PythonRunner implements IScriptRunner {
         private ScriptClassLoader classLoader;
 
         @objid ("ef0961fd-3c4d-4143-b397-5d0af5e4c64d")
-        private  ClassLoaderScriptEngine(ScriptEngine scriptEngine) {
+        private ClassLoaderScriptEngine(ScriptEngine scriptEngine) {
             this.engine = scriptEngine;
-            
+
             try {
                 this.engine.eval(ClassLoaderScriptEngine.INIT_SCRIPT);
             } catch (ScriptException e) {
@@ -279,7 +279,7 @@ public class PythonRunner implements IScriptRunner {
                 ScriptEnginePlugin.LOG.debug(ClassLoaderScriptEngine.INIT_SCRIPT);
                 ScriptEnginePlugin.LOG.error(e);
             }
-            
+
         }
 
         @objid ("53fcc78d-6096-4da6-9ce1-8f1eef2ff56c")
@@ -376,14 +376,14 @@ public class PythonRunner implements IScriptRunner {
         private void initClassLoader() {
             this.classLoader = new ScriptClassLoader();
             this.engine.put(ClassLoaderScriptEngine.CLASSLOADER_VARIABLE, this.classLoader);
-            
+
             try {
                 this.engine.eval(ClassLoaderScriptEngine.SETCLASSLOADER_SCRIPT);
             } catch (ScriptException e) {
                 ScriptEnginePlugin.LOG.debug("Initialization of the script engine failed");
                 ScriptEnginePlugin.LOG.error(e);
             }
-            
+
             final String initScript = getInitScriptPath();
             if (initScript != null) {
                 try (FileReader r = new FileReader(initScript)) {
@@ -396,7 +396,7 @@ public class PythonRunner implements IScriptRunner {
                     ScriptEnginePlugin.LOG.error(e);
                 }
             }
-            
+
         }
 
         @objid ("b52975bd-4af2-4121-b059-b67018bf2946")
@@ -405,30 +405,31 @@ public class PythonRunner implements IScriptRunner {
                 initClassLoader();
             }
             this.classLoader.add(base);
-            
+
         }
 
         /**
+         *
          * @return a full path for the engine's initialization script, pre-loading classes from the Module API and Metamodel.
          */
         @objid ("7c16d9bf-6525-4f82-95c3-f9fa5ed94df1")
         private String getInitScriptPath() {
             Bundle bundle = ScriptEnginePlugin.getContext().getBundle();
-            
+
             try {
                 org.eclipse.core.runtime.Path ipath = new org.eclipse.core.runtime.Path(ClassLoaderScriptEngine.INITENGINE_SCRIPT_PATH);
                 URL url = FileLocator.find(bundle, ipath, null);
                 if (url == null) {
                     throw new FileNotFoundException(ipath.toString());
                 }
-            
+
                 return FileLocator.toFileURL(url).getPath();
             } catch (IOException e) {
                 ScriptEnginePlugin.LOG.error("'%s' plugin file not found: %s", ClassLoaderScriptEngine.INITENGINE_SCRIPT_PATH, FileUtils.getLocalizedMessage(e));
                 ScriptEnginePlugin.LOG.error(e);
                 return null;
             }
-            
+
         }
 
         /**
@@ -439,21 +440,21 @@ public class PythonRunner implements IScriptRunner {
             if (this.classLoader != null && Py.defaultSystemState.getClassLoader() != this.classLoader) {
                 Py.defaultSystemState.setClassLoader(this.classLoader);
             }
-            
+
         }
 
         @objid ("268b8821-dda6-4917-92e6-1bc729c5f379")
         public void clearClassloader() {
             this.classLoader = null;
             this.engine.put(ClassLoaderScriptEngine.CLASSLOADER_VARIABLE, this.classLoader);
-            
+
             try {
                 this.engine.eval(ClassLoaderScriptEngine.SETCLASSLOADER_SCRIPT);
             } catch (ScriptException e) {
                 ScriptEnginePlugin.LOG.debug("Initialization of the script engine failed");
                 ScriptEnginePlugin.LOG.error(e);
             }
-            
+
         }
 
         @objid ("0096ff5a-9860-1069-96f6-001ec947cd2a")
@@ -462,7 +463,7 @@ public class PythonRunner implements IScriptRunner {
             this.engine.put("selectedElements", selectedElements);
             this.engine.put("selection", selection);
             this.engine.put("modelingSession", modelingSession);
-            
+
             this.engine.put("elements", selectedElements);
             if (selectedElements == null || selectedElements.isEmpty()) {
                 this.engine.put("elt", null);
@@ -471,7 +472,7 @@ public class PythonRunner implements IScriptRunner {
             }
             this.engine.put("selection", selection);
             this.engine.put("session", modelingSession);
-            
+
         }
 
     }

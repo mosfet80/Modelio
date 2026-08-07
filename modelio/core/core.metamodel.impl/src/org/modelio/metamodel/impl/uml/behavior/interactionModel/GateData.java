@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
 import java.util.List;
@@ -31,23 +30,23 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 
 @objid ("00459ffc-c4bf-1fd8-97fe-001ec947cd2a")
 public class GateData extends MessageEndData {
-    @objid ("fe479af8-d99a-4c18-9258-bf5158da688c")
+    @objid ("c02562c3-fb2d-48c4-b3e2-089aa9c699e4")
     SmObjectImpl mOwnerUse;
 
-    @objid ("f5b1356f-73fe-4990-a8cc-37697c7bf97b")
+    @objid ("1d888676-7b36-4e5d-b491-a244f846f42f")
     List<SmObjectImpl> mActual = null;
 
-    @objid ("3373912d-1525-4bf5-bdb8-36d946e1030c")
+    @objid ("65f55d07-9178-4d41-bcc6-72e5e799266d")
     SmObjectImpl mOwnerInteraction;
 
-    @objid ("a1cc9247-b3bb-40c7-87bb-92010b0ad325")
+    @objid ("eac735e1-f3a9-433e-a044-5a2a41228704")
     SmObjectImpl mOwnerFragment;
 
-    @objid ("aa8cf1f7-1ee2-4254-9669-a0603546a61a")
+    @objid ("5727c5a9-b1fa-4d82-9933-c6cfa9da1ad4")
     SmObjectImpl mFormal;
 
-    @objid ("ef39b1d3-2913-42d2-835c-e3903c4ea687")
-    public  GateData(GateSmClass smClass) {
+    @objid ("fd385839-aa15-4fd2-9ce1-60b37dc9e3be")
+    public GateData(GateSmClass smClass) {
         super(smClass);
     }
 

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.anchors.fixed;
 
@@ -32,6 +32,7 @@ import org.modelio.diagram.styles.core.StyleKey.ConnectionRouterId;
 
 /**
  * Aggregates many {@link IFixedConnectionAnchorFactory factories} to use many anchor position algorithms.
+ *
  * @author cmarin
  * @since 5.3.1
  */
@@ -42,10 +43,11 @@ class CompositeAnchorProvider implements IFixedConnectionAnchorFactory {
     private final List<IFixedConnectionAnchorFactory> providers;
 
     /**
+     *
      * @param initProviders the aggregated factories
      */
     @objid ("aceba736-4499-42af-883c-4b86416f95d3")
-    public  CompositeAnchorProvider(IFixedConnectionAnchorFactory... initProviders) {
+    public CompositeAnchorProvider(IFixedConnectionAnchorFactory... initProviders) {
         this.providers = new ArrayList<>(Arrays.asList(initProviders));
     }
 
@@ -81,15 +83,15 @@ class CompositeAnchorProvider implements IFixedConnectionAnchorFactory {
         Collection<ConnectionAnchor> allAnchors = getAllAnchors(nodeFig, routerId, face);
         if (allAnchors.isEmpty())
             return null;
-        
+
         double nearestDist = Double.MAX_VALUE;
         ConnectionAnchor nearest = null;
-        
+
         for (IFixedConnectionAnchorFactory factory : this.providers) {
             ConnectionAnchor a = factory.getNearest(nodeFig, absPoint, routerId, face, isSourceAnchor);
             if (a == null)
                 continue;
-        
+
             double dist = a.getLocation(absPoint).getDistance(absPoint);
             if (dist < nearestDist) {
                 nearestDist = dist;

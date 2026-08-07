@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+
+<toc label="ArchiMate Architect" topic="html/User_Documentation_fr.html">
+	<topic comment="entry" href="html/User_Documentation_fr_Introduction.html" label="Introduction"></topic>
+	<topic comment="entry" href="html/User_Documentation_fr_Modele_ArchiMate.html" label="Modèle ArchiMate"></topic>
+	<topic comment="entry" href="html/User_Documentation_fr_Diagrammes_ArchiMate.html" label="Diagrammes ArchiMate"></topic>
+	<topic comment="entry" href="html/User_Documentation_fr_Matrices_ArchiMate.html" label="Matrices ArchiMate"></topic>
+	<topic comment="entry" href="html/User_Documentation_fr_Import_et_export.html" label="Import et export"></topic>
+	<topic comment="entry" href="html/User_Documentation_fr_Generation_de_la_documentation.html" label="Génération de documentation"></topic>
+</toc>

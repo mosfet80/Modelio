@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -61,6 +61,7 @@ public class Homonym {
      * Tells whether a {@link Homonym proxy} can be instantiated from a {@link MObject} checking it is a {@link Dependency} stereotyped << homonym >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -71,7 +72,7 @@ public class Homonym {
 
     /**
      * Create a new {@link Dependency} stereotyped << homonym >> then instantiate a {@link Homonym} proxy.
-     * 
+     *
      * @return a {@link Homonym} proxy on the created {@link Dependency}.
      */
     @objid ("b8235531-6f31-4f20-a50c-5dee3047819c")
@@ -82,9 +83,10 @@ public class Homonym {
     }
 
     /**
-     * Tries to instantiate a {@link Homonym} proxy from a {@link Dependency} stereotyped << homonym >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link Homonym} proxy from a {@link Dependency} stereotyped << homonym >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a Dependency
      * @return a {@link Homonym} proxy or <i>null</i>.
      */
@@ -94,9 +96,10 @@ public class Homonym {
     }
 
     /**
-     * Tries to instantiate a {@link Homonym} proxy from a {@link Dependency} stereotyped << homonym >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link Homonym} proxy from a {@link Dependency} stereotyped << homonym >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link Dependency}
      * @return a {@link Homonym} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -126,7 +129,8 @@ public class Homonym {
     }
 
     /**
-     * Get the underlying {@link Dependency}. 
+     * Get the underlying {@link Dependency}.
+     *
      * @return the Dependency represented by this proxy, never null.
      */
     @objid ("d205e01e-bfa0-4fa9-acdf-2118eafb517b")
@@ -138,11 +142,11 @@ public class Homonym {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("e34a1c07-1cc0-4817-8e4a-99aa661fb2c3")
-    protected  Homonym(Dependency elt) {
+    protected Homonym(Dependency elt) {
         this.elt = elt;
     }
 
@@ -162,7 +166,7 @@ public class Homonym {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "01ec12fc-0000-0238-0000-000000000000");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -170,7 +174,7 @@ public class Homonym {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.callevent;
 
@@ -61,25 +61,26 @@ public class GmCallEventPrimaryNode extends GmNoStyleCompositeNode implements II
 
     /**
      * Default constructor.
+     *
      * @param diagram the diagram in which this gm is unmasked.
      * @param relatedRef a reference to the represented element.
      */
     @objid ("29cbe232-55b6-11e2-877f-002564c97630")
-    public  GmCallEventPrimaryNode(IGmDiagram diagram, MRef relatedRef) {
+    public GmCallEventPrimaryNode(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
-        
+
         this.header = new GmCallEventHeader(diagram, relatedRef);
-        
+
         super.addChild(this.header);
         addChild(new GmCalledOperationLabel(diagram, relatedRef));
-        
+
     }
 
     /**
      * Empty constructor for the serialization.
      */
     @objid ("29cbe23b-55b6-11e2-877f-002564c97630")
-    public  GmCallEventPrimaryNode() {
+    public GmCallEventPrimaryNode() {
         // empty constructor for the serialization
     }
 
@@ -138,7 +139,7 @@ public class GmCallEventPrimaryNode extends GmNoStyleCompositeNode implements II
             break;
         }
         }
-        
+
     }
 
     @objid ("29cd68cd-55b6-11e2-877f-002564c97630")
@@ -150,7 +151,7 @@ public class GmCallEventPrimaryNode extends GmNoStyleCompositeNode implements II
         firePropertyChange(PROPERTY_LABEL, oldLabel, this.header.getMainLabel());
         // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("29cd68d0-55b6-11e2-877f-002564c97630")
@@ -176,20 +177,20 @@ public class GmCallEventPrimaryNode extends GmNoStyleCompositeNode implements II
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmCallEventPrimaryNode.", GmCallEventPrimaryNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("29cd68df-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.header = (GmActivityNodeHeader) this.getChildren().get(0);
-        
+
         GmDefaultModelElementLabel imageModeHeader = (GmDefaultModelElementLabel) this.getChildren().get(2);
         imageModeHeader.delete();
-        
+
     }
 
     @objid ("29cd68e4-55b6-11e2-877f-002564c97630")
@@ -202,7 +203,7 @@ public class GmCallEventPrimaryNode extends GmNoStyleCompositeNode implements II
     private void read_1(final IDiagramReader in) {
         super.read(in);
         this.header = (GmActivityNodeHeader) this.getChildren().get(0);
-        
+
     }
 
 }

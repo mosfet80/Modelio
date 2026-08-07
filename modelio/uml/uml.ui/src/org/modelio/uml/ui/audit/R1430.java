@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -46,7 +46,7 @@ public class R1430 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(IElement)
      * @see AbstractRule#getUpdateControl(IElement)
      * @see AbstractRule#getMoveControl(IElementMovedEvent)
@@ -97,14 +97,14 @@ public class R1430 extends AbstractUmlRule {
      * Default constructor for R1430
      */
     @objid ("835f1a71-ea6b-48f1-92c3-c788753e9605")
-    public  R1430() {
+    public R1430() {
         this.checkerInstance = new CheckR1430(this);
     }
 
     @objid ("e8f3d0e7-f849-4927-a8d1-03646a59333b")
     private static class CheckR1430 extends AbstractControl {
         @objid ("868758ba-9cc6-4fb7-b77b-c92de26619c3")
-        public  CheckR1430(IRule rule) {
+        public CheckR1430(IRule rule) {
             super(rule);
         }
 
@@ -125,20 +125,20 @@ public class R1430 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     assocEnd,
                     null);
-            
+
             String min = assocEnd.getMultiplicityMin();
             String max = assocEnd.getMultiplicityMax();
-            
+
             if (min.isEmpty() || max.isEmpty()) {
                 return auditEntry;
             }
-            
+
             // Guard in case the min or max multiplicity is a text
             try {
                 if (min.equals("*") || (!max.equals("*") && !(Integer.parseInt(min) <= Integer.parseInt(max)))) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(assocEnd);

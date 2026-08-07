@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.symbol.panel;
 
@@ -37,7 +37,7 @@ class UpdateStyleFromSelectedPropsCommand {
     private final ISymbolPanelModel model;
 
     @objid ("57cc7a28-a1e6-4131-97e2-4e957dfa010c")
-    public  UpdateStyleFromSelectedPropsCommand(ISymbolPanelModel model) {
+    public UpdateStyleFromSelectedPropsCommand(ISymbolPanelModel model) {
         this.model = model;
     }
 
@@ -46,7 +46,7 @@ class UpdateStyleFromSelectedPropsCommand {
         final IStyle editedStyle = this.model.getStyleInput();
         final NamedStyle parentStyle = ISymbolPanelModel.getNamedStyle(editedStyle);
         final ISelection sel = this.model.getPanelSelection().getSelection();
-        
+
         SelectionHelper
                 .toStream(sel, ISymbolViewItem.class)
                 .filter(item -> item.getStyleKey() != null && editedStyle.isLocal(item.getStyleKey()))
@@ -55,9 +55,9 @@ class UpdateStyleFromSelectedPropsCommand {
                     parentStyle.setProperty(styleKey, editedStyle.getProperty(styleKey));
                     editedStyle.normalize(styleKey);
                 });
-        
+
         DiagramStyles.getStyleManager().save(parentStyle);
-        
+
     }
 
 }

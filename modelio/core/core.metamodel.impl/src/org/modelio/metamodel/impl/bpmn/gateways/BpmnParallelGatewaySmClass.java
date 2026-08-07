@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.gateways;
 
 import java.util.ArrayList;
@@ -40,75 +39,75 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("231f222a-7f41-42fd-bde0-c4ecba43f073")
 public class BpmnParallelGatewaySmClass extends BpmnGatewaySmClass {
-    @objid ("5c7e39e6-8a15-4936-a2cc-6962c6fb65a3")
-    public  BpmnParallelGatewaySmClass(ISmMetamodelFragment origin) {
+    @objid ("a5e7a95d-ba4d-47e7-8103-c6e72b95ff73")
+    public BpmnParallelGatewaySmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("3445da46-f5ed-489b-a42a-a55b318c46b6")
+    @objid ("080c3ca2-ea8e-496c-aef5-1ff0f24d0a9f")
     @Override
     public String getName() {
         return "BpmnParallelGateway";
-        
+
     }
 
-    @objid ("43e9b2b0-10ec-4456-ad6f-0733c1c5b98f")
+    @objid ("411aa9db-332d-4616-a168-fdbcd0b4464c")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("73c3c461-ba14-4265-aefa-aa3b539e3f8b")
+    @objid ("d98ac5e6-438c-4027-81cd-346731a57fdc")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return BpmnParallelGateway.class;
-        
+
     }
 
-    @objid ("56633657-4a10-4da6-8629-b3e28e54ae7e")
+    @objid ("3d45753d-ea1d-457f-8309-9a9139989cd7")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("85f2beac-1c26-4dbc-a515-abba4858d82e")
+    @objid ("72b90bde-b65f-48c4-a913-338d77da37e5")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("aa9bfe44-ae88-4ba8-98d2-315d845020fa")
+    @objid ("d670fe12-1793-4440-b070-a84c7568c259")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(BpmnGateway.MQNAME);
         this.registerFactory(new BpmnParallelGatewayObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
-        
+
     }
 
     @objid ("f8a4ef36-b9a1-4885-9e29-58a6d04439e8")
     private static class BpmnParallelGatewayObjectFactory implements ISmObjectFactory {
-        @objid ("33ba1f94-6712-4d8d-b4e2-11916a95b53a")
+        @objid ("2be79b4d-af9c-4f9f-9d77-752047c06977")
         private BpmnParallelGatewaySmClass smClass;
 
-        @objid ("0a8ded2c-764d-44e1-bb88-cd59ce556974")
-        public  BpmnParallelGatewayObjectFactory(BpmnParallelGatewaySmClass smClass) {
+        @objid ("68c5b2b5-6e16-4629-95ee-9a9953610294")
+        public BpmnParallelGatewayObjectFactory(BpmnParallelGatewaySmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("129aea89-7f4f-4da0-95ba-0f6be0cd5153")
+        @objid ("2706257f-5d26-4e1a-98cb-89d7802ac758")
         @Override
         public ISmObjectData createData() {
             return new BpmnParallelGatewayData(this.smClass);
         }
 
-        @objid ("175f1009-597e-4985-8f70-ec9586449308")
+        @objid ("cc995bde-2e06-4728-ba97-c03fe74ed471")
         @Override
         public SmObjectImpl createImpl() {
             return new BpmnParallelGatewayImpl();

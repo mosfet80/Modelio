@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.events;
 
 import java.util.ArrayList;
@@ -42,20 +41,20 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("008e2808-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnImplicitThrowEventImpl extends BpmnThrowEventImpl implements BpmnImplicitThrowEvent {
-    @objid ("31f75202-f07d-48a3-8d85-89dfe86a9d4c")
+    @objid ("7ca13a62-d857-451f-9cf8-b3545e5ae727")
     @Override
     public BpmnComplexBehaviorDefinition getOwner() {
         Object obj = getDepVal(((BpmnImplicitThrowEventSmClass)getClassOf()).getOwnerDep());
         return (obj instanceof BpmnComplexBehaviorDefinition)? (BpmnComplexBehaviorDefinition)obj : null;
     }
 
-    @objid ("1665203e-f208-4a3b-84fc-4c992f7caffe")
+    @objid ("1d2da5c8-a21d-40b0-a13a-413838981432")
     @Override
     public void setOwner(BpmnComplexBehaviorDefinition value) {
         appendDepVal(((BpmnImplicitThrowEventSmClass)getClassOf()).getOwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("21662c5f-bb7a-4a20-9d7c-598773927761")
+    @objid ("9203c8ab-e57b-4457-a871-43f989418007")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -67,22 +66,22 @@ public class BpmnImplicitThrowEventImpl extends BpmnThrowEventImpl implements Bp
         return super.getCompositionOwner();
     }
 
-    @objid ("5d99ee0f-7627-4e1e-9515-efdeaed98bb2")
+    @objid ("2bec7d18-b8b2-42a6-a0a7-9e1bf971d89d")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // Owner
         dep = ((BpmnImplicitThrowEventSmClass)getClassOf()).getOwnerDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("38ca963a-a0c8-4fcf-939f-93adb02d50fc")
+    @objid ("f4738efc-b055-49a5-8031-6a82f55d90f8")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitBpmnImplicitThrowEvent(this);

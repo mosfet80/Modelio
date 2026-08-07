@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.view.dialog.auditEntry;
 
@@ -50,6 +50,7 @@ import org.modelio.platform.model.ui.swt.labelprovider.UniversalLabelProvider;
 import org.modelio.platform.rcp.system.ModelioHelpSystem;
 import org.modelio.platform.ui.UIImages;
 import org.modelio.platform.ui.dialog.ModelioDialog;
+import org.modelio.platform.ui.swt.BrowserConfigurator;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
@@ -64,11 +65,14 @@ public class AuditEntryDialog extends ModelioDialog {
     /**
      * The main composite of the dialog box
      */
-    @objid ("ca33695d-6e4d-492f-94aa-e5cd4410023d")
+    @objid ("2dc74a1d-f63b-420f-b297-867e124753b3")
     private Composite area = null;
 
-    @objid ("f77bd829-afe2-4ea0-99ae-a85f8129f9c9")
+    @objid ("995e3dc1-8836-41dd-98f0-e6013b50f7e2")
     private Browser browser;
+
+    @objid ("a7fe810f-3728-40fe-99e9-20b07192d108")
+    private URL ruleUrl;
 
     /**
      * The audit entry that is displayed.
@@ -79,32 +83,31 @@ public class AuditEntryDialog extends ModelioDialog {
     @objid ("a0895edb-2968-451c-8e03-9051f74b7c32")
     private IModelioNavigationService navigationService;
 
-    @objid ("715a1820-8493-49c9-9508-1d024135563f")
-    private URL ruleUrl;
-
     @objid ("76bf7442-cb69-4d57-b227-5b9c23c96c21")
     private IAuditConfigurationPlan auditConfigurationPlan;
 
     /**
      * Create an AuditEntryDialog instance.
+     *
      * @param parentShell The parent shell.
      * @param entry The audit entry that must be displayed.
      * @param modelingSession The modeling session.
      * @param navigationService the navigation service, to select elements in the model.
      */
     @objid ("ee8bda1c-0bd0-4a3d-ad46-1d04dbf089c2")
-    public  AuditEntryDialog(Shell parentShell, IAuditEntry entry, ICoreSession modelingSession, IModelioNavigationService navigationService, IAuditConfigurationPlan auditConfigurationPlan) {
+    public AuditEntryDialog(Shell parentShell, IAuditEntry entry, ICoreSession modelingSession, IModelioNavigationService navigationService, IAuditConfigurationPlan auditConfigurationPlan) {
         super(parentShell);
         this.entry = entry;
         this.navigationService = navigationService;
         this.auditConfigurationPlan = auditConfigurationPlan;
-        
+
     }
 
     /**
      * Add buttons to the buttons bar in the bottom of the dialog.
      * <p>
      * Here we just need to have a "close" button.
+     *
      * @param parent the parent composite of the dialog.
      */
     @objid ("9e74a8b4-c643-493e-87c5-2e4dd72bfc17")
@@ -115,6 +118,7 @@ public class AuditEntryDialog extends ModelioDialog {
 
     /**
      * This is the main method that is called to construct the GUI content of the box.
+     *
      * @param parent the parent composite of the dialog.
      */
     @objid ("41cec314-ccf4-4b15-9587-3ad91fcec70f")
@@ -122,18 +126,18 @@ public class AuditEntryDialog extends ModelioDialog {
     public Control createContentArea(Composite parent) {
         this.area = new Composite(parent, SWT.NONE);
         this.area.setLayoutData(new GridData(GridData.FILL_BOTH));
-        
+
         GridLayout layout = new GridLayout(1, false);
         this.area.setLayout(layout);
-        
+
         Group descriptionGroup = createEntryDescription(this.entry);
         GridData layoutData = new GridData(SWT.FILL, SWT.FILL, true, false);
         descriptionGroup.setLayoutData(layoutData);
-        
+
         Group linkedElementsGroup = createLinkedElementsList();
         layoutData = new GridData(SWT.FILL, SWT.FILL, true, false);
         linkedElementsGroup.setLayoutData(layoutData);
-        
+
         Group ruleDocumentationGroup = createRuleDocumentation(this.entry.getRuleId());
         layoutData = new GridData(SWT.FILL, SWT.FILL, true, true);
         ruleDocumentationGroup.setLayoutData(layoutData);
@@ -152,7 +156,7 @@ public class AuditEntryDialog extends ModelioDialog {
         setTitle(Audit.I18N.getString("AuditEntryDialog.DialogTitle"));
         getShell().setSize(600, 700);
         getShell().setMinimumSize(600, 550);
-        
+
     }
 
     /**
@@ -167,13 +171,12 @@ public class AuditEntryDialog extends ModelioDialog {
         GridLayout gl = new GridLayout(1, false);
         gl.verticalSpacing = 0;
         group.setLayout(gl);
-        
-        this.browser = new Browser(group, SWT.BORDER);
+        this.browser = BrowserConfigurator.newBrowser(group, SWT.BORDER);
         GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
         this.browser.setLayoutData(gd);
         this.browser.setMenu(new Menu(this.browser));
         this.browser.setJavascriptEnabled(false);
-        
+
         String href = AuditEntryDialog.HREF_BASE + ruleId + ".html";
         IWorkbenchHelpSystem hs = ModelioHelpSystem.getInstance();
         this.ruleUrl = hs.resolve(href, false);
@@ -196,27 +199,27 @@ public class AuditEntryDialog extends ModelioDialog {
     private Group createEntryDescription(final IAuditEntry entryToDescribe) {
         Group descriptionGroup = new Group(this.area, SWT.NONE);
         descriptionGroup.setText(Audit.I18N.getString("AuditEntryDialog.DescriptionGroup.Label"));
-        
+
         GridLayout layout = new GridLayout(2, false);
         descriptionGroup.setLayout(layout);
-        
+
         // Audit message
         Label auditMessage = new Label(descriptionGroup, SWT.WRAP | SWT.READ_ONLY);
         String message = DiagnosticFormatter.getMessage(entryToDescribe, new UniversalLabelProvider(), this.auditConfigurationPlan);
         auditMessage.setText(message);
         auditMessage.setCapture(false);
-        
+
         // Navigation button
         Button navigationButton = new Button(descriptionGroup, SWT.NONE);
         navigationButton.setImage(UIImages.SELECTINBROWSER);
-        
+
         navigationButton.setToolTipText(Audit.I18N.getString("AuditEntryDialog.ElementLabel.ClickToNavigate"));
         navigationButton.addSelectionListener(new SelectionListener() {
             @Override
             public void widgetDefaultSelected(SelectionEvent e) {
                 AuditEntryDialog.this.navigationService.fireNavigate(entryToDescribe.getElement());
             }
-        
+
             @Override
             public void widgetSelected(SelectionEvent e) {
                 AuditEntryDialog.this.navigationService.fireNavigate(entryToDescribe.getElement());
@@ -225,7 +228,7 @@ public class AuditEntryDialog extends ModelioDialog {
         // set attachments
         GridData layoutData = new GridData(SWT.FILL, SWT.FILL, true, true);
         auditMessage.setLayoutData(layoutData);
-        
+
         layoutData = new GridData(SWT.FILL, SWT.FILL, false, true);
         navigationButton.setLayoutData(layoutData);
         return descriptionGroup;
@@ -240,19 +243,19 @@ public class AuditEntryDialog extends ModelioDialog {
     private Group createLinkedElementsList() {
         Group group = new Group(this.area, SWT.NONE);
         group.setText(Audit.I18N.getString("AuditEntryDialog.LinkedElements.Label"));
-        
+
         group.setLayout(new GridLayout(1, false));
-        
+
         TableViewer linkedElementsList = new TableViewer(group, SWT.BORDER);
         linkedElementsList.setContentProvider(new LinkedElementContentProvider());
         linkedElementsList.setLabelProvider(new LinkedElementLabelProvider());
         linkedElementsList.setInput(this.entry);
         linkedElementsList.getControl().setToolTipText(Audit.I18N.getString("AuditEntryDialog.LinkedElements.Tooltip"));
-        
+
         GridData gd_linkedElementsList = new GridData(SWT.FILL, SWT.FILL, true, true);
         linkedElementsList.getTable().setLayoutData(gd_linkedElementsList);
         linkedElementsList.addSelectionChangedListener(new ISelectionChangedListener() {
-        
+
             @Override
             public void selectionChanged(SelectionChangedEvent event) {
                 ISelection selection = event.getSelection();
@@ -266,7 +269,7 @@ public class AuditEntryDialog extends ModelioDialog {
                         }
                     }
                 }
-        
+
             }
         });
         return group;

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.mmextensions.standard.configurator;
 
@@ -96,9 +96,9 @@ public class StandardElementConfigurator implements IElementConfigurator {
         ElementConfiguratorVisitor visitor = new ElementConfiguratorVisitor(
                 MTools.get(session).getModelFactory(IStandardModelFactory.class),
                 properties);
-        
+
         element.accept(visitor);
-        
+
     }
 
     @objid ("c745700e-ddc0-4084-bc51-3a266176de0c")
@@ -110,10 +110,10 @@ public class StandardElementConfigurator implements IElementConfigurator {
         private Map<String, Object> properties;
 
         @objid ("79aec992-f3d8-4e18-8563-f55286b8601b")
-        public  ElementConfiguratorVisitor(IStandardModelFactory modelFactory, Map<String, Object> properties) {
+        public ElementConfiguratorVisitor(IStandardModelFactory modelFactory, Map<String, Object> properties) {
             this.modelFactory = modelFactory;
             this.properties = properties;
-            
+
         }
 
         @objid ("ba64da7f-0cf7-4000-b81d-b77c589b47e1")
@@ -122,15 +122,15 @@ public class StandardElementConfigurator implements IElementConfigurator {
             if (this.properties.containsKey(StandardElementConfigurator.COMPLETE)) {
                 // Create the behavior parameter
                 final BehaviorParameter param = this.modelFactory.createBehaviorParameter();
-            
+
                 final Activity activity = theActivityParameterNode.getOwner();
                 activity.getParameter().add(param);
-            
+
                 // Associate the behavior parameter to the activity parameter
                 // node.
                 theActivityParameterNode.setRepresentedRealParameter(param);
                 theActivityParameterNode.setName(param.getName());
-            
+
             }
             return theActivityParameterNode;
         }
@@ -145,7 +145,7 @@ public class StandardElementConfigurator implements IElementConfigurator {
             }
             if (v != null) {
                 theAssociationEnd.setAggregation(v);
-            
+
                 if (v == AggregationKind.KINDISCOMPOSITION) {
                     AssociationEnd opposite = theAssociationEnd.getOpposite();
                     opposite.setMultiplicityMin("1");
@@ -158,7 +158,7 @@ public class StandardElementConfigurator implements IElementConfigurator {
                     theAssociationEnd.setMultiplicityMin("0");
                     theAssociationEnd.setMultiplicityMax("1");
                 }
-            
+
             }
             return super.visitAssociationEnd(theAssociationEnd);
         }
@@ -171,16 +171,16 @@ public class StandardElementConfigurator implements IElementConfigurator {
                 final Activity activity = ElementConfiguratorVisitor.getActivity(theObjectNode);
                 final Collaboration locals = getLocalCollaboration(activity);
                 final BindableInstance var = this.modelFactory.createBindableInstance();
-            
+
                 var.setOwner(locals);
                 ICoreSession session = CoreSession.getSession(var);
                 //var.setName(MTools.get(session).getNamer().getUniqueName(var));
                 var.setName(theObjectNode.getName());
-            
+
                 // Let the node reference the variable
                 theObjectNode.setRepresented(var);
                 //theObjectNode.setName(var.getName());
-            
+
             }
             return theObjectNode;
         }
@@ -188,7 +188,7 @@ public class StandardElementConfigurator implements IElementConfigurator {
         @objid ("6b2f0859-155f-43e7-9c00-5a883a926b47")
         private static Activity getActivity(ActivityNode aNode) {
             MObject o = aNode;
-            
+
             while (o != null && !(o instanceof Activity)) {
                 o = o.getCompositionOwner();
             }
@@ -204,12 +204,12 @@ public class StandardElementConfigurator implements IElementConfigurator {
                     return c;
                 }
             }
-            
+
             // Return the first collaboration
             if (!collabs.isEmpty()) {
                 return collabs.get(0);
             }
-            
+
             // Create a "locals" collaboration and return it.
             final Collaboration created = this.modelFactory.createCollaboration();
             created.setName("locals");
@@ -276,12 +276,12 @@ public class StandardElementConfigurator implements IElementConfigurator {
                 default:
                     eventType = null;
                 }
-            
+
                 deleteEventType(theEvent);
                 if (eventType != null) {
                     createEventType(theEvent, eventType);
                 }
-            
+
                 // Set default name
                 theEvent.setName(MTools.get(theEvent).getNamer().getUniqueName(theEvent));
             }
@@ -292,7 +292,7 @@ public class StandardElementConfigurator implements IElementConfigurator {
         private void createEventType(BpmnEvent event, Class<? extends BpmnEventDefinition> eventType) {
             BpmnEventDefinition event_definition = this.modelFactory.createElement(eventType);
             event_definition.setDefined(event);
-            
+
         }
 
         @objid ("158e0a17-6309-4044-9fab-13a1adc3f8cf")
@@ -300,7 +300,7 @@ public class StandardElementConfigurator implements IElementConfigurator {
             for (BpmnEventDefinition definition : new ArrayList<>(event.getEventDefinitions())) {
                 definition.delete();
             }
-            
+
         }
 
         /**

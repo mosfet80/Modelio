@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -63,6 +63,7 @@ public class MMStandardOperation {
      * Tells whether a {@link MMStandardOperation proxy} can be instantiated from a {@link MObject} checking it is a {@link Operation}.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,9 +73,10 @@ public class MMStandardOperation {
     }
 
     /**
-     * Tries to instantiate a {@link MMStandardOperation} proxy from a {@link Operation} checking its metaclass. 
+     * Tries to instantiate a {@link MMStandardOperation} proxy from a {@link Operation} checking its metaclass.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a Operation
      * @return a {@link MMStandardOperation} proxy or <i>null</i>.
      */
@@ -100,7 +102,8 @@ public class MMStandardOperation {
     }
 
     /**
-     * Get the underlying {@link Operation}. 
+     * Get the underlying {@link Operation}.
+     *
      * @return the Operation represented by this proxy, never null.
      */
     @objid ("ccc01915-9949-4c14-84aa-1ca34a2bf6ab")
@@ -122,7 +125,7 @@ public class MMStandardOperation {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     /**
@@ -136,7 +139,7 @@ public class MMStandardOperation {
     }
 
     @objid ("d7cc2ff5-0917-48c1-93a8-f4d084b9aaa7")
-    protected  MMStandardOperation(Operation elt) {
+    protected MMStandardOperation(Operation elt) {
         this.elt = elt;
     }
 
@@ -156,7 +159,7 @@ public class MMStandardOperation {
             SUMMARY_NOTETYPE_ELT = ctx.getModelingSession().findElementById(NoteType.class, "00540400-0000-011f-0000-000000000000");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -164,7 +167,7 @@ public class MMStandardOperation {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -51,7 +51,7 @@ public class R2700 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -71,7 +71,7 @@ public class R2700 extends AbstractUmlRule {
         plan.registerRule(TemplateBinding.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.UPDATE |
                 AuditTrigger.MOVE);
-        
+
     }
 
     /**
@@ -105,14 +105,14 @@ public class R2700 extends AbstractUmlRule {
      * Default constructor for R2700
      */
     @objid ("34aa1ba6-7eb7-4424-bc33-142af6a7d3e3")
-    public  R2700() {
+    public R2700() {
         this.checkerInstance = new CheckR2700(this);
     }
 
     @objid ("ad5e3853-96dc-42ca-ac2d-b8e9eb351849")
     private static class CheckR2700 extends AbstractControl {
         @objid ("1934b72a-ba39-4288-8e68-646c35291b05")
-        public  CheckR2700(IRule rule) {
+        public CheckR2700(IRule rule) {
             super(rule);
         }
 
@@ -133,27 +133,27 @@ public class R2700 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     tBinding,
                     null);
-            
+
             NameSpace instanciatedNs = tBinding.getInstanciatedTemplate();
             Operation instanciatedOp = tBinding.getInstanciatedTemplateOperation();
-            
+
             List<TemplateParameter> params = new ArrayList<>();
-            
+
             if (instanciatedNs != null) {
                 params.addAll(instanciatedNs.getTemplate());
             } else if (instanciatedOp != null) {
                 params.addAll(instanciatedOp.getTemplate());
             }
-            
+
             List<TemplateParameter> matchedParams = new ArrayList<>();
-            
+
             for (TemplateParameterSubstitution tps : tBinding.getParameterSubstitution()) {
                 TemplateParameter param = tps.getFormalParameter();
                 if (param != null && params.contains(param)) {
                     if (matchedParams.contains(param)) {
-            
+
                         // Rule failed
-            
+
                         auditEntry.setSeverity(this.rule.getSeverity());
                         List<Object> linkedObjects = new ArrayList<>();
                         linkedObjects.add(tBinding);

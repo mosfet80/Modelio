@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.drawings.image;
 
@@ -63,11 +63,12 @@ public class ImageDrawingEditPart extends NodeDrawingEditPart {
         } else {
             super.performRequest(req);
         }
-        
+
     }
 
     /**
      * this method draw the image in the figure
+     *
      * @param figure instance of ImageDrawingFigure
      * @param val name of the image
      */
@@ -75,7 +76,7 @@ public class ImageDrawingEditPart extends NodeDrawingEditPart {
     public void setImage(ImageDrawingFigure figure, String val) {
         if (val != null && !"".equals(val)) {
             ImageData data = ImageSerialiser.deserialise(val);
-        
+
             if (data != null) {
                 if (SWT.TRANSPARENCY_NONE == data.getTransparencyType()) {
                     data.setAlpha(0, 0, this.alpha);
@@ -90,7 +91,7 @@ public class ImageDrawingEditPart extends NodeDrawingEditPart {
                 figure.setSize(data.width, data.height);
             }
         }
-        
+
     }
 
     @objid ("38fc04bc-54c2-44f8-ba1f-872af49d3edf")
@@ -100,9 +101,9 @@ public class ImageDrawingEditPart extends NodeDrawingEditPart {
            this.alpha = style.getInteger(getModel().getStyleKey(MetaKey.FILLALPHA));
            refreshVisuals();
         }
-        
+
         super.refreshFromStyle(aFigure, style);
-        
+
     }
 
     @objid ("eaaaef82-9946-4ac2-b0ac-43d831bf32cb")
@@ -115,11 +116,12 @@ public class ImageDrawingEditPart extends NodeDrawingEditPart {
         } else {
             super.propertyChange(evt);
         }
-        
+
     }
 
     /**
      * Get the image figure.
+     *
      * @return The image figure.
      */
     @objid ("7ebe5418-adbf-4e4b-91e5-d4aa788b4e25")
@@ -141,16 +143,16 @@ public class ImageDrawingEditPart extends NodeDrawingEditPart {
         imageFigure.getParent().setConstraint(imageFigure, model.getLayoutData());
         setImage(imageFigure, model.getLabel());
         super.refreshVisuals();
-        
+
     }
 
     @objid ("044648c3-8990-4456-a290-76ba54e1e9cd")
     public static final class ImageDrawingFigure extends ImageFigure {
         @objid ("cff3b2ad-2211-475d-9113-3ef4288d4063")
-        public  ImageDrawingFigure() {
+        public ImageDrawingFigure() {
             super();
             setImage(AbstractUIPlugin.imageDescriptorFromPlugin(DiagramElements.PLUGIN_ID, "images/no_image48x48.png").createImage());
-            
+
         }
 
     }

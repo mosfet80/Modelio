@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.executionspecification;
 
@@ -33,7 +33,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * {@link PlacementConstraint} implementation for an execution.
- * 
+ *
  * @author fpoyer
  */
 @objid ("d8e9988f-55b6-11e2-877f-002564c97630")
@@ -46,26 +46,27 @@ public class ExecutionSpecificationPlacementConstraint extends PlacementConstrai
 
     /**
      * Constructor.
+     *
      * @param execution the represented execution
      * @param x the desired X coordinate in absolute coordinates.
      * @param diagram the diagram in which this constraint is used.
      */
     @objid ("d8e99896-55b6-11e2-877f-002564c97630")
-    public  ExecutionSpecificationPlacementConstraint(final ExecutionSpecification execution, final int x, final int y, final int width, final int height, final GmSequenceDiagram diagram) {
+    public ExecutionSpecificationPlacementConstraint(final ExecutionSpecification execution, final int x, final int y, final int width, final int height, final GmSequenceDiagram diagram) {
         super(x, y, width, height, diagram);
         this.execution = execution;
         if (this.execution.isValid()) {
             setY(this.execution.getStart().getLineNumber());
             setHeight(this.execution.getFinish().getLineNumber() - getY());
         }
-        
+
     }
 
     /**
      * Empty constructor for deserialisation. Do not use!
      */
     @objid ("d8eb1f06-55b6-11e2-877f-002564c97630")
-    public  ExecutionSpecificationPlacementConstraint() {
+    public ExecutionSpecificationPlacementConstraint() {
         super();
     }
 
@@ -88,7 +89,7 @@ public class ExecutionSpecificationPlacementConstraint extends PlacementConstrai
             setY(this.execution.getStart().getLineNumber());
             setHeight(this.execution.getFinish().getLineNumber() - getY());
         }
-        
+
     }
 
     @objid ("d8eb1f17-55b6-11e2-877f-002564c97630")
@@ -96,7 +97,7 @@ public class ExecutionSpecificationPlacementConstraint extends PlacementConstrai
     public void write(final IDiagramWriter writer) {
         super.write(writer);
         writer.writeProperty("execution", new MRef(this.execution));
-        
+
     }
 
     @objid ("d8eb1f1e-55b6-11e2-877f-002564c97630")

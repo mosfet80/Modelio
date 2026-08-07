@@ -1,28 +1,28 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.admtool.handlers;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
@@ -55,7 +55,7 @@ public class DefragLocalModelHandler implements IRunnableWithProgress {
     @Named(IServiceConstants.ACTIVE_SELECTION) IStructuredSelection sel, IModelioProgressService progressSvc, StatusReporter reporter) {
         IGModelFragment frag = (IGModelFragment) sel.iterator().next();
         this.project = AbstractGProject.getProject(frag.getRoots().iterator().next());
-        
+
         try {
             String title = AdmTool.I18N.getString("DefragLocalModelHandler.title");
             progressSvc.run(title, true, true, this);
@@ -65,7 +65,7 @@ public class DefragLocalModelHandler implements IRunnableWithProgress {
         } catch (InterruptedException e) {
             AdmTool.LOG.error(e);
         }
-        
+
     }
 
     @objid ("b0ffee2e-0057-48d1-8f65-ed0bd7ba77e6")
@@ -78,7 +78,7 @@ public class DefragLocalModelHandler implements IRunnableWithProgress {
         } catch (IOException e) {
             throw new InvocationTargetException(e, e.getLocalizedMessage());
         }
-        
+
     }
 
     @objid ("c9cd2290-497b-4e46-a89b-316cf0e198dd")
@@ -87,7 +87,7 @@ public class DefragLocalModelHandler implements IRunnableWithProgress {
         for (Object o : sel.toList()) {
             if (!(o instanceof IGModelFragment))
                 return false;
-        
+
             IGModelFragment fragment = (IGModelFragment) o;
             if (!((fragment.getRepository() instanceof AbstractExmlRepository) && (fragment.getState().getValue() == GPartStateEnum.MOUNTED)))
                 return false;

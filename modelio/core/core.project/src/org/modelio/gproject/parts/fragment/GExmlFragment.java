@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.gproject.parts.fragment;
 
@@ -34,7 +53,6 @@ import java.util.Properties;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.gproject.FragmentAuthenticationException;
 import org.modelio.gproject.FragmentMigrationNeededException;
-import org.modelio.gproject.core.IGPart.GPartException;
 import org.modelio.gproject.core.IGProject;
 import org.modelio.gproject.data.project.GProjectPartDescriptor;
 import org.modelio.gproject.data.project.IFragmentInfos;
@@ -69,10 +87,11 @@ public class GExmlFragment extends AbstractGModelFragment {
 
     /**
      * Initialize the RAMC fragment.
+     *
      * @param desc the part descriptor
      */
     @objid ("c62cd13d-8038-441a-8d5c-aa22e8597c06")
-    public  GExmlFragment(GProjectPartDescriptor desc) {
+    public GExmlFragment(GProjectPartDescriptor desc) {
         super(desc);
     }
 
@@ -92,24 +111,25 @@ public class GExmlFragment extends AbstractGModelFragment {
     @Override
     protected IRepository doMountInitRepository(IGProject project, IModelioProgress aMonitor) throws IOException, FragmentAuthenticationException {
         final Path location = getDataDirectory();
-        
+
         final LocalExmlResourceProvider resProvider = createResourceProvider();
-        
+
         this.repository = new ExmlBase(resProvider);
-        
+
         // Create the project structure if new fragment
         if (!Files.isDirectory(location)) {
             this.repository.create(project.getSession().getMetamodel());
-        
+
             // Add metamodel version file
             saveMmVersion(getCurrentMmDescriptor());
-        
+
         }
         return this.repository;
     }
 
     /**
      * Instantiate a configured {@link IRepository}.
+     *
      * @param session unused.
      * @return a ready repository.
      * @throws IOException on I/O failure
@@ -118,9 +138,9 @@ public class GExmlFragment extends AbstractGModelFragment {
     @objid ("3f731dc9-f75a-4dad-a008-86de08771986")
     public IRepository instantiateRepository(ICoreSession session) throws IOException, FragmentAuthenticationException {
         final LocalExmlResourceProvider resProvider = createResourceProvider();
-        
+
         final ExmlBase ret = new ExmlBase(resProvider);
-        
+
         final Path location = getDataDirectory();
         if (! Files.isDirectory(location)) {
             throw new NoSuchFileException(location.toString());
@@ -132,14 +152,14 @@ public class GExmlFragment extends AbstractGModelFragment {
     private void saveMmVersion(final MetamodelVersionDescriptor mmVersion) throws IOException {
         final Path mmVersionPath = getMmVersionPath();
         Files.createDirectories(mmVersionPath.getParent());
-        
+
         try (Writer out = Files.newBufferedWriter(mmVersionPath, StandardCharsets.UTF_8)) {
             mmVersion.write(out);
         }
-        
     }
 
     /**
+     *
      * @return the file containing the repository's metamodel version.
      */
     @objid ("bfa6a2cb-ecb1-4c93-b9ac-dbbe628cafff")
@@ -149,6 +169,7 @@ public class GExmlFragment extends AbstractGModelFragment {
 
     /**
      * Instantiate an EXML resources provider for this fragment.
+     *
      * @return a new EXML resources provider for this fragment.
      */
     @objid ("ba15ed42-1c9d-4beb-bb82-0624a8a8a867")
@@ -198,14 +219,13 @@ public class GExmlFragment extends AbstractGModelFragment {
             Log.warning("No '" + infosuri + "' infos version file, use default values.");
             return new ExmlFragmentInfos(getId(), "", new Version("0.0.0"), ModelioVersion.VERSION);
         }
-        
     }
 
     @objid ("52b718a7-9558-4751-bde2-69fcfaf1538a")
     @Override
     public MetamodelVersionDescriptor getRequiredMetamodelDescriptor() throws IOException {
         final Path p = getMmVersionPath();
-        
+
         try (BufferedReader in = Files.newBufferedReader(p, StandardCharsets.UTF_8);) {
             return VersionHelper.convert(new MetamodelVersionDescriptor(in));
         } catch (FileNotFoundException | NoSuchFileException e) {
@@ -214,7 +234,6 @@ public class GExmlFragment extends AbstractGModelFragment {
             final MetamodelVersionDescriptor guessed = VersionHelper.getDescriptors(9020);
             return guessed;
         }
-        
     }
 
     @objid ("84de4c95-ac3d-41f8-9346-935892291b53")
@@ -233,49 +252,47 @@ public class GExmlFragment extends AbstractGModelFragment {
     @Override
     protected void checkVersions() throws FragmentMigrationNeededException, IOException {
         super.checkVersions();
-        
+
         final RepositoryVersions repoVersion = this.repository.getResourceProvider().readRepositoryVersion();
-        if (repoVersion.getRepositoryFormat() < 2) {
+        if (repoVersion.getRepositoryFormat() < RepositoryVersions.LATEST_STABLE_FORMAT) {
             throw new FragmentMigrationNeededException(
                     this,
                     getRequiredMetamodelDescriptor(),
                     CoreProject.I18N.getMessage("ExmlFragment.RepositoryFormatNeedMigration",
                             getId(),
                             repoVersion.getRepositoryFormat(),
-                            RepositoryVersions.CURRENT_FORMAT));
+                            RepositoryVersions.LATEST_STABLE_FORMAT));
         }
-        
+
         // If we reach this line no exception is thrown and no migration is needed.
         if (!isReadOnly()) {
             final MetamodelVersionDescriptor neededMm = getRequiredMetamodelDescriptor();
             final MetamodelVersionDescriptor currentMm = getCurrentMmDescriptor();
-        
+
             if (! neededMm.isSame(currentMm)) {
                 // save the metamodel version
                 saveMmVersion(currentMm);
             }
         }
-        
     }
 
     @objid ("f5578c8c-d67a-4904-81ab-8d5480df25ee")
     @Override
     public IGModelFragmentMigrator getMigrator(final MetamodelVersionDescriptor targetMetamodel) throws IOException {
         final LocalExmlResourceProvider resProvider = createResourceProvider();
-        
+
         final ChainedExmlFragmentMigrator chainedMigrator = new ChainedExmlFragmentMigrator(
                 getProject(),
                 this,
                 getMmVersionPath(),
                 targetMetamodel,
                 resProvider);
-        
+
         if (chainedMigrator.getMigrationChain().isSuccessful()) {
             return new FragmentMigratorWithBackup(this, chainedMigrator);
         } else {
             return null;
         }
-        
     }
 
     /**
@@ -296,13 +313,12 @@ public class GExmlFragment extends AbstractGModelFragment {
         private final Version modelioVersion;
 
         @objid ("271cae31-b816-4f66-83c2-fb8e9ecf93d3")
-        public  ExmlFragmentInfos(final String name, final String description, final Version version, final Version modelioVersion) {
+        public ExmlFragmentInfos(final String name, final String description, final Version version, final Version modelioVersion) {
             super();
             this.description = description;
             this.name = name;
             this.version = version;
             this.modelioVersion = modelioVersion;
-            
         }
 
         @objid ("37315087-3cfd-46bd-aca2-0beefeb8aaad")

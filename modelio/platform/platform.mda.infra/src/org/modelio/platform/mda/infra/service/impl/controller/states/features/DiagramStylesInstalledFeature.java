@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.service.impl.controller.states.features;
 
@@ -44,10 +44,11 @@ public class DiagramStylesInstalledFeature extends AbstractFeature {
     private static final String BASESTYLE = "basestyle";
 
     /**
+     *
      * @param module the module
      */
     @objid ("e651ef4d-74dd-446f-a1df-28d090ba8b6c")
-    public  DiagramStylesInstalledFeature(IRTModuleAccess module) {
+    public DiagramStylesInstalledFeature(IRTModuleAccess module) {
         super(module);
     }
 
@@ -57,7 +58,7 @@ public class DiagramStylesInstalledFeature extends AbstractFeature {
         if (this.module.getConfiguration().getStylePath().size() > 0) {
             Display.getDefault().syncExec(new DiagramToolsAdder(this.module));
         }
-        
+
     }
 
     @objid ("c8ee223f-55b7-481f-b475-d9eb45b1444d")
@@ -78,7 +79,7 @@ public class DiagramStylesInstalledFeature extends AbstractFeature {
         private final IRTModule rtModule;
 
         @objid ("8cffe1c3-a497-4500-9f60-3d24f6b60ca6")
-        public  DiagramToolsAdder(final IRTModule rtModule) {
+        public DiagramToolsAdder(final IRTModule rtModule) {
             this.rtModule = rtModule;
         }
 
@@ -88,9 +89,9 @@ public class DiagramStylesInstalledFeature extends AbstractFeature {
             for (Entry<String, Path> style : this.rtModule.getConfiguration().getStylePath().entrySet()) {
                 Path stylePath = style.getValue();
                 String styleName = style.getKey();
-            
-            
-            
+
+
+
                 try {
                     if (Files.exists(stylePath)) {
                         this.rtModule.getIModule().getModuleContext().getModelioServices().getDiagramService().registerStyle(styleName,  getBaseStyle(stylePath), stylePath.toFile());
@@ -103,10 +104,11 @@ public class DiagramStylesInstalledFeature extends AbstractFeature {
                     MdaInfra.LOG.warning(e);
                 }
             }
-            
+
         }
 
         /**
+         *
          * @param stylePath the path
          * @return the basestyle using in diagrams
          */

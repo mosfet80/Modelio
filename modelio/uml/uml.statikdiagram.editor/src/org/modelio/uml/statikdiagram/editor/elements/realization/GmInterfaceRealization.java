@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.realization;
 
@@ -33,7 +33,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Represents a {@link InterfaceRealization} link.
- * 
+ *
  * @author fpoyer
  */
 @objid ("3666b35a-55b7-11e2-877f-002564c97630")
@@ -55,15 +55,16 @@ public class GmInterfaceRealization extends GmLink {
 
     /**
      * Create a interface realization link model.
+     *
      * @param diagram The diagram
      * @param generalization The represented link, may be null
      * @param ref The represented link reference, may not be null
      */
     @objid ("3666b368-55b7-11e2-877f-002564c97630")
-    public  GmInterfaceRealization(IGmDiagram diagram, InterfaceRealization generalization, MRef ref) {
+    public GmInterfaceRealization(IGmDiagram diagram, InterfaceRealization generalization, MRef ref) {
         super(diagram, ref);
         this.element = generalization;
-        
+
     }
 
     @objid ("3666b374-55b7-11e2-877f-002564c97630")
@@ -82,7 +83,7 @@ public class GmInterfaceRealization extends GmLink {
      * Constructor for deserialization only.
      */
     @objid ("366839fd-55b7-11e2-877f-002564c97630")
-    public  GmInterfaceRealization() {
+    public GmInterfaceRealization() {
         // Nothing to do.
     }
 
@@ -91,7 +92,7 @@ public class GmInterfaceRealization extends GmLink {
     protected void readLink(IDiagramReader in) {
         super.readLink(in);
         this.element = (InterfaceRealization) resolveRef(this.getRepresentedRef());
-        
+
     }
 
     @objid ("36683a06-55b7-11e2-877f-002564c97630")
@@ -126,10 +127,10 @@ public class GmInterfaceRealization extends GmLink {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmInterfaceRealization.", GmInterfaceRealization.MINOR_VERSION);
-        
+
     }
 
     @objid ("36683a28-55b7-11e2-877f-002564c97630")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.diagrams.processcollaboration;
 
@@ -37,6 +37,7 @@ import org.modelio.metamodel.bpmn.bpmnDiagrams.BpmnCollaborationDiagram;
 @objid ("0811933f-01da-41f1-b5bc-c7664ae7dade")
 class BpmnLinkedNodeFinishCreationEditPolicy extends LinkedNodeFinishCreationEditPolicy {
     /**
+     *
      * @return the first workflow upwards the source edit part composition tree, or the host.
      */
     @objid ("6d588a82-f722-4eac-b82e-9f30a0255882")
@@ -56,7 +57,7 @@ class BpmnLinkedNodeFinishCreationEditPolicy extends LinkedNodeFinishCreationEdi
     protected Command getConnectionCompleteCommand(CreateConnectionRequest request) {
         EditPart nodeEditPart = getDestinationEditPart(request);
         CreateLinkedNodeCommand startCommand = (CreateLinkedNodeCommand) request.getStartCommand();
-        
+
         startCommand.setDestinationNode((GmCompositeNode) nodeEditPart.getModel());
         Point p = new Point(request.getLocation());
         getHostFigure().translateToRelative(p);

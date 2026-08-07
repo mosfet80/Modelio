@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.fork;
 
@@ -50,11 +50,12 @@ public class GmForkStatePrimaryNode extends GmNoStyleSimpleNode implements IImag
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram in which the sendSignal is unmasked.
      * @param relatedRef related element reference, must not be <code>null</code>.
      */
     @objid ("f534a33d-55b6-11e2-877f-002564c97630")
-    public  GmForkStatePrimaryNode(IGmDiagram diagram, MRef relatedRef) {
+    public GmForkStatePrimaryNode(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -70,9 +71,9 @@ public class GmForkStatePrimaryNode extends GmNoStyleSimpleNode implements IImag
         if (getRelatedElement() != null) {
             firePropertyChange(PROPERTY_LABEL, null, this.getRelatedElement());
         }
-        // forcing visual refresh in case Image changed 
+        // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("f534a350-55b6-11e2-877f-002564c97630")
@@ -103,26 +104,26 @@ public class GmForkStatePrimaryNode extends GmNoStyleSimpleNode implements IImag
     @Override
     public IEditableText getEditableText() {
         return new IEditableText() {
-                                                                                
+
                                                                                     @Override
                                                                                     public String getText() {
                                                                                 return getRelatedElement().getName();
                                                                                             }
-                                                                                
+
                                                                                             @Override
                                                                                             public void setText(String text) {
                                                                                 getRelatedElement().setName(text);
                                                                                             }
-                                                                                
+
                                                                                         };
-        
+
     }
 
     /**
      * Constructor for deserialization only.
      */
     @objid ("f53629d2-55b6-11e2-877f-002564c97630")
-    public  GmForkStatePrimaryNode() {
+    public GmForkStatePrimaryNode() {
         // empty for the serialization
     }
 
@@ -143,17 +144,17 @@ public class GmForkStatePrimaryNode extends GmNoStyleSimpleNode implements IImag
             break;
         }
         }
-        
+
     }
 
     @objid ("f53629db-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmForkStatePrimaryNode.", GmForkStatePrimaryNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("f53629e1-55b6-11e2-877f-002564c97630")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel.mapi;
 
@@ -26,6 +26,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 public interface MExpert {
     /**
      * Tells whether the owner can own the given composed element using the given dependency name.
+     *
      * @param owner The owner node, must not be null.
      * @param composed The composed element, must not be null
      * @param dep optional: The name of the dependency on the owner used to add the composed.
@@ -36,6 +37,7 @@ public interface MExpert {
 
     /**
      * Tells whether the owner can own an instance of the given metaclass using the given dependency name.
+     *
      * @param owner The owner node, must not be null.
      * @param composed The metaclass of the composed element, must not be null
      * @param dep optional: The name of the dependency on the owner used to add the composed.
@@ -46,6 +48,7 @@ public interface MExpert {
 
     /**
      * Tells whether the owner can own the given composed element using the given dependency name.
+     *
      * @param owner The owner node, must not be null.
      * @param composed The composed element, must not be null
      * @param dep optional: The name of the dependency on the owner used to add the composed.
@@ -57,6 +60,7 @@ public interface MExpert {
     /**
      * Whether or not a dependency 'dep' can be established between the 'source' object and an instance of 'target' metaclass based
      * on their metaclass and stereotypes.
+     *
      * @param dep the name of the dependency on the owner used to add the target.
      */
     @objid ("03b6b173-90db-4ea8-9b48-344b0ed315d3")
@@ -64,6 +68,7 @@ public interface MExpert {
 
     /**
      * Whether or not a dependency 'dep' exists between 'source' and 'target' metaclass.
+     *
      * @param dep the name of the dependency on the owner used to add the target.
      */
     @objid ("41c981c8-c910-43f7-ac16-e29dcbf88e97")
@@ -72,6 +77,7 @@ public interface MExpert {
     /**
      * Whether or not a dependency 'dep' can be established between the 'source' and 'target' objects based on their metaclass and
      * stereotypes.
+     *
      * @param dep the name of the dependency on the owner used to add the target.
      */
     @objid ("283901bc-e112-462a-8bf0-dcee2114f64a")
@@ -109,6 +115,7 @@ public interface MExpert {
 
     /**
      * Get a model link source
+     *
      * @param aLink a model link.
      * @return the link source
      */
@@ -117,6 +124,7 @@ public interface MExpert {
 
     /**
      * Get a model link target.
+     *
      * @param aLink a model link.
      * @return the link target.
      */
@@ -128,6 +136,7 @@ public interface MExpert {
 
     /**
      * Change a model link source.
+     *
      * @param link a model link.
      * @param oldSource the old source.
      * @param newSource the new source.
@@ -138,6 +147,7 @@ public interface MExpert {
 
     /**
      * Change a model link target.
+     *
      * @param link a model link.
      * @param oldTarget the old target.
      * @param newTarget the new target.
@@ -145,5 +155,5 @@ public interface MExpert {
      */
     @objid ("c607b1e6-3847-4d51-96e9-1553291109e5")
     void setTarget(MObject link, MObject oldTarget, MObject newTarget) throws IllegalArgumentException;
-}
 
+}

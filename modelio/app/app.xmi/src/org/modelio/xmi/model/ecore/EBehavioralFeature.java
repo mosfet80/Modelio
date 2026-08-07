@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -42,7 +42,7 @@ public class EBehavioralFeature extends EFeature {
     }
 
     @objid ("ca7dcf1e-3b9b-4578-8530-af0eb3183640")
-    public  EBehavioralFeature(org.eclipse.uml2.uml.BehavioralFeature element) {
+    public EBehavioralFeature(org.eclipse.uml2.uml.BehavioralFeature element) {
         super(element);
     }
 
@@ -50,7 +50,7 @@ public class EBehavioralFeature extends EFeature {
     @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
-        if (objingElt instanceof Operation){            
+        if (objingElt instanceof Operation){
             setMethod((Operation) objingElt);
             setAbstract((Operation) objingElt);
             setFinal((Operation) objingElt);
@@ -58,20 +58,20 @@ public class EBehavioralFeature extends EFeature {
             setConcurrency((Operation) objingElt);
             setRaisedException((Operation) objingElt);
         }
-        
+
     }
 
     @objid ("4dbe1760-f743-42f9-88f8-3a4b04140b15")
     private void setRaisedException(Operation objingElt) {
         ReverseProperties revProp = ReverseProperties.getInstance();
-        
+
         // Test if the number of raised exceptions in the Ecore model is the
         // same in the Modelio model:
         EList<?> ecoreRaisedExceptions = ((org.eclipse.uml2.uml.BehavioralFeature)getEcoreElement()).getRaisedExceptions();
         List<RaisedException> objingRaisedExceptions = objingElt
                 .getThrown();
         int objingExcepNumber = objingRaisedExceptions.size();
-        
+
         // Warning : no update in case of same number of thrown exceptions.
         if (ecoreRaisedExceptions.size() != objingExcepNumber) {
             boolean isNewExeptionLink;
@@ -80,13 +80,13 @@ public class EBehavioralFeature extends EFeature {
                 org.eclipse.uml2.uml.Type ecoreThrownType =  (org.eclipse.uml2.uml.Type) raisedException;
                 Element objingThrownType = (Element) revProp
                         .getMappedElement(ecoreThrownType);
-        
+
                 if (objingThrownType instanceof Classifier) {
                     if (isNewExeptionLink
                             || !isExceptionAlreadyThrown(objingElt,
                                     objingThrownType)) {
                         RaisedException objingExceptionLink = ReverseProperties.getInstance().getMModelServices().getModelFactory().getFactory(IStandardModelFactory.class).createRaisedException();
-        
+
                         objingExceptionLink.setThrower(objingElt);
                         objingExceptionLink
                         .setThrownType((Classifier) objingThrownType);
@@ -94,7 +94,7 @@ public class EBehavioralFeature extends EFeature {
                 }
             }
         }
-        
+
     }
 
     @objid ("7ce41ee6-22fc-4b9f-8288-0e77a8ddb5a3")
@@ -135,34 +135,34 @@ public class EBehavioralFeature extends EFeature {
         default:
             objingElt.setConcurrency(false);
         }
-        
+
     }
 
     @objid ("3292b3f6-f0e1-45c7-b450-b93f12b40c01")
     private void setMethod(Operation objingElt) {
         org.eclipse.uml2.uml. BehavioralFeature ecoreElement = (org.eclipse.uml2.uml.BehavioralFeature) getEcoreElement();
-        
+
         for (org.eclipse.uml2.uml.Behavior behavior : ecoreElement.getMethods()){
-            
+
             ReverseProperties revProp = ReverseProperties.getInstance();
-            
+
             if (behavior.getOwner() instanceof  org.eclipse.uml2.uml.Transition){
-                
+
                 Object temp = revProp.getMappedElement(behavior.getOwner());
                 if (temp instanceof Transition){
                     ((Transition) temp).setProcessed(objingElt);
                 }
             }else{
-                
-                Object obBehavior =  revProp.getMappedElement(behavior);                
-                if ((obBehavior != null) && (obBehavior instanceof ModelElement)) {                    
-                    Dependency dependency = UML2MethodReference.create().getElement();                    
+
+                Object obBehavior =  revProp.getMappedElement(behavior);
+                if ((obBehavior != null) && (obBehavior instanceof ModelElement)) {
+                    Dependency dependency = UML2MethodReference.create().getElement();
                     dependency.setDependsOn((ModelElement)obBehavior);
                     dependency.setImpacted(objingElt);
                 }
             }
         }
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -48,7 +48,7 @@ public class R2500 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -99,14 +99,14 @@ public class R2500 extends AbstractUmlRule {
      * Default constructor for R2500
      */
     @objid ("5c0f6402-8066-4fc5-966d-529b211b8a27")
-    public  R2500() {
+    public R2500() {
         this.checkerInstance = new CheckR2500(this);
     }
 
     @objid ("6affc494-ad64-44b6-a9db-f6f5a97f86d4")
     private static class CheckR2500 extends AbstractControl {
         @objid ("84aede48-9475-467c-ab38-d44df310b9bf")
-        public  CheckR2500(IRule rule) {
+        public CheckR2500(IRule rule) {
             super(rule);
         }
 
@@ -127,11 +127,11 @@ public class R2500 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     parameter,
                     null);
-            
+
             if (parameter.getParameterPassing().equals(PassingMode.OUT) && !parameter.getDefaultValue().isEmpty()) {
-            
+
                 // Rule failed
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(parameter);

@@ -1,0 +1,76 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= ArchiMate Model and ViewPoints
+
+
+
+= Projects, work models and sub-projects
+
+
+==  Modelio project image:images/attachment/archimate41/User_Documentation_en/ArchimateModel/modelioproject.png[modelioproject.png]
+
+In Modelio, a project is similar to a document in Word: you open it, modify its contents and save the changes (or not) before closing it. From the end user point of view, the project is the unit of work and persistence of his/her contributions. Once opened, the project appears to the end user as a unique model, composed of many model elements, usually organized into packages and other high level containers. The "Save" operation also appears to be applied to the unique model proposed by the opened project. However, behind the scenes, the manipulated model elements may be provided by several work models and their physical repositories, and Modelio is in charge of managing these repositories transparently as a unique model.
+
+
+==  Work models image:images/attachment/archimate41/User_Documentation_en/ArchimateModel/workmodel.png[workmodel.png]
+
+Work models are groups of higher level model elements. Model designers attribute logical consistency to work models, but their primary function is to autonomously store a part of a model. A model element from a given work model can be linked to model elements from another work model, but this link must be a simple reference, and not a containment or composition link.
+
+A model element really belongs to a work model, but its ownership is not definitive. It can be moved to another work model, according to the organizational needs of the designers. Work models are tightly coupled with repositories. Modelio supports several repository technologies (Local, SVN, Model Components...). Each technology has specific characteristics that must be understood when choosing one of them for a particular repository.
+
+
+==  ArchiMate sub-project image:images/attachment/archimate41/User_Documentation_en/ArchimateModel/archimate.png[archimate.png]
+
+Since version 3.6, Modelio supports several kind of sub-projects (UML, MDA, ArchiMate, Analyst...). These sub-projects can coexist within the same work model. An ArchiMate sub-project therefore organizes all ArchiMate elements created under a work model.
+
+image::images/attachment/archimate41/User_Documentation_en/ArchimateModel/ArchiMateSubProject.png[ArchiMateSubProject.png]
+
+An image:images/attachment/archimate41/User_Documentation_en/ArchimateModel/archimate.png[archimate.png] ArchiMate sub-project is organized into two distinct parts: the image:images/attachment/archimate41/User_Documentation_en/ArchimateModel/archimate.model.png[archimate.model.png] *model* that contains all the ArchiMate concepts and links, and the image:images/attachment/archimate41/User_Documentation_en/ArchimateModel/archimate.viewpoint.png[archimate.viewpoint.png] *view points* containing a partial representation of the model grouped for specific purposes.
+
+
+=  ArchiMate Model image:images/attachment/archimate41/User_Documentation_en/ArchimateModel/archimate.model.png[archimate.model.png]
+
+The ArchiMate Model hosts all ArchiMate elements defined in the sub-project.
+
+These element are not structured hierarchically by the Model. As we will see later in this documentation,an ArchiMate model is structured using viewpoints and views. In order to ensure good readability of the model, Modelio organizes ArchiMate elements by grouping them according to their Layer. When an ArchiMate element is created in a view, it is automatically attached to its corresponding layer.
+
+image::images/attachment/archimate41/User_Documentation_en/ArchimateModel/ArchiMateModel.png[ArchiMateModel.png]
+
+*Business Layer:* The Business Layer is typically used (often in conjunction with the strategy layer) to model the business architecture of an enterprise, defined as a description of the structure and interaction between the business strategy, organization, functions, business processes, and information needs.
+
+*Strategy Layer:* The strategy elements are used to model the capability on an organisation, and how they are to be changed in order to achive business outcomes.
+
+*Motivation Layer:* Motivation elements are used to model the motivation, or reasons, that guide the design of change of an Entreprise Architecture.
+
+*Application Layer:* The Application Layer is typically used to model the information systems architectures of the enterprise, including the application architecture that describes the structure and interaction of the applications.
+
+*Technology Layer:* The Technology Layer is typically used to model the technology architecture of the enterprise, defined as the structure and interaction of the platform services, and logical and physical technology components.
+
+*Physical Layer:* The physical elements are added as an extention to the Technological Layer for modeling the physical world.
+
+*Implementation and Migration Layer:* The implementations and migration elements support implementation and migration of architectures. This include concepts for modeling implementation, and a plateau concept to support migration planning.
+
+Modelio support alose the manual creation of sub layer allowing you to reorganize the Model as your convenience, to store ArchiMates elements by type or following business requirements.
+
+.Example of folders by type
+image::images/attachment/archimate41/User_Documentation_en/ArchimateModel/ArchiMateFolders.png[ArchiMateFolders.png]
+
+
+= ViewPoints and Views
+
+An ArchiMate model can adress a big variety of problematics supporting concerns of various stakeholders like Architects, Operational Manager, Project Manager or Developers. ArchiMate advocates a flexible approach in which, architects and other stakeholders can define their own visualisation on the enterprise architecture. This specific organisation is realized using Views image:images/attachment/archimate41/User_Documentation_en/ArchimateModel/archimateview.png[archimateview.png] and View Points image:images/attachment/archimate41/User_Documentation_en/ArchimateModel/archimate.viewpoint.png[archimate.viewpoint.png],
+
+image:images/attachment/archimate41/User_Documentation_en/ArchimateModel/ArchiMateViewPoints.png[ArchiMateViewPoints.png]
+
+*An ArchiMate View* is a partial representation of the model. It's a photo of a set of model element displayed in the same diagram and selected according to business, user profile or interests criteria.
+
+.An ArchiMate view image:images/attachment/archimate41/User_Documentation_en/ArchimateModel/archimateview.png[archimateview.png]
+image::images/attachment/archimate41/User_Documentation_en/ArchimateModel/ArchiMateViewExample.png[ArchiMateViewExample.png]
+
+*ArchiMate View Points * define abstractions on the set of models elements representing the enterprise architecture, each aimed at a particular type of stakeholder and addressing a particular set of concerns. View Points can be used to visualize certain aspects in isolation, and to relate two or more aspects. Consequently, a View Point is a set of views grouped by particular interests: business, user profile or intention. The set of model elements composing a View Point results of the aggregation of elements displayed in views.
+
+.An ArchiMate ViewPoint diagram image:images/attachment/archimate41/User_Documentation_en/ArchimateModel/archimate.viewpointdiagram.png[archimate.viewpointdiagram.png]
+image::images/attachment/archimate41/User_Documentation_en/ArchimateModel/ArchiMateViewPointsDiagram.png[ArchiMateViewPointsDiagram.png]

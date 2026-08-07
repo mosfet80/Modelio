@@ -1,35 +1,32 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.edition.dialogs.dialog.panels.element;
 
-import java.security.InvalidParameterException;
 import java.util.Collection;
+import java.util.Objects;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StackLayout;
+import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.events.KeyAdapter;
-import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -48,8 +45,6 @@ import org.modelio.platform.ui.htmleditor.HtmlComposer;
 import org.modelio.platform.ui.panel.IPanelProvider;
 import org.modelio.vcore.model.api.MTools;
 import org.modelio.vcore.session.api.ICoreSession;
-import org.modelio.vcore.session.api.model.IMObjectFilter;
-import org.modelio.vcore.session.api.model.IModel;
 import org.modelio.vcore.session.api.transactions.ITransaction;
 import org.modelio.vcore.session.impl.CoreSession;
 import org.modelio.vcore.smkernel.mapi.MClass;
@@ -74,11 +69,12 @@ public class TypedNotePanel implements IPanelProvider {
 
     /**
      * C'tor.
+     *
      * @param moduleName name of the module providing the note type. Might be <code>null</code>.
      * @param noteTypeName a note type name. Might be <code>null</code>.
      */
     @objid ("1c3c0099-444d-4efb-a61a-bc67eaab6dc6")
-    public  TypedNotePanel(String moduleName, String noteTypeName) {
+    public TypedNotePanel(String moduleName, String noteTypeName) {
         this.controller = new NoteEditController(moduleName, noteTypeName);
     }
 
@@ -96,7 +92,6 @@ public class TypedNotePanel implements IPanelProvider {
         this.view.dispose();
         this.view = null;
         this.controller = null;
-        
     }
 
     @objid ("55cc0187-a18f-4eae-a39e-bbe89417ea60")
@@ -139,10 +134,9 @@ public class TypedNotePanel implements IPanelProvider {
             this.controller.setModelElement(null);
             return;
         }
-        
+
         // Input is a valid Note
         this.controller.setModelElement((ModelElement) input);
-        
     }
 
     @objid ("61b8e22b-cd0d-467e-8e46-b9e7afbb9b05")
@@ -151,39 +145,43 @@ public class TypedNotePanel implements IPanelProvider {
         @objid ("50f18740-67f7-4e8c-b86c-ffc01590bff6")
         private MimeType mimeMode;
 
+        @objid ("290161cc-82bb-47ae-88e0-286147de832f")
+        private String buferredContent;
+
+        @objid ("4e728bcf-c85a-4608-aaaa-173227b37bf6")
+        private final Composite container;
+
+        @objid ("d9ee5f09-f8c3-4d45-9ef6-0a16dc05a8f8")
+        private final Composite stack;
+
+        @objid ("f57ed738-f183-4f48-97a4-efebffcf42e0")
+        private final Button htmlCheckBox;
+
+        @objid ("a591e097-2754-48e3-8700-326eb111a2cf")
+        private final StackLayout stackLayout;
+
+        @objid ("081748dc-466b-4426-9195-799554f2da60")
+        private final Label nameLabel;
+
+        @objid ("67f924f0-6655-48a0-b110-8e1f2b602c07")
+        private final Text text;
+
         @objid ("e00d9446-2971-4f6f-a04d-b54eac58eb2d")
         private final HtmlComposer htmlText;
 
         @objid ("77c46e73-124d-4de3-b6b6-cfd5e821786a")
         private final NoteEditController controller;
 
-        @objid ("22cc38c5-8cdd-4820-8764-937589312aab")
-        private final Composite container;
-
-        @objid ("c47fe658-5ae3-4bf9-bbee-bb4a16fdc642")
-        private final Composite stack;
-
-        @objid ("cfb98c55-54b2-4c41-83c0-0fca3165dd8c")
-        private final Button htmlCheckBox;
-
-        @objid ("e5a006eb-980b-42d7-b9a7-acb29879cd4a")
-        private final StackLayout stackLayout;
-
-        @objid ("8c6636ef-125d-46db-a630-c0c0356198a7")
-        private final Label nameLabel;
-
-        @objid ("ee01b89c-f767-47bb-b904-93872cb6060e")
-        private final Text text;
-
         /**
          * Widget structure: container=[label, mime mode selector, stack=[plain text,html text]]
+         *
          * @param parent the parent SWT composite
          * @param controller the view controller
          */
         @objid ("1b906def-0ba0-4ff2-8bb9-92e092caf353")
-        public  NoteEditView(Composite parent, NoteEditController controller) {
+        public NoteEditView(Composite parent, NoteEditController controller) {
             this.controller = controller;
-            
+
             // The top level container
             this.container = new Composite(parent, SWT.BORDER);
             final GridLayout gl = new GridLayout(2, true);
@@ -192,59 +190,57 @@ public class TypedNotePanel implements IPanelProvider {
             gl.verticalSpacing = 0;
             gl.marginHeight = 0;
             this.container.setLayout(gl);
-            
+
             // The label
             this.nameLabel = new Label(this.container, SWT.NO_REDRAW_RESIZE);
-            
+
             GridData gd = new GridData(SWT.LEFT, SWT.CENTER, false, false);
             this.nameLabel.setLayoutData(gd);
-            
+
             // The mime type selector
             this.htmlCheckBox = new Button(this.container, SWT.CHECK);
             this.htmlCheckBox.setText("HTML");
             this.htmlCheckBox.setVisible(false);
-            this.htmlCheckBox.addSelectionListener(new SelectionAdapter() {
-                @Override
-                public void widgetSelected(SelectionEvent e) {
-                    if (NoteEditView.this.htmlCheckBox.getSelection()) {
-                        NoteEditView.this.controller.onSetNoteMimeType(MimeType.HTML);
-                    } else {
-                        NoteEditView.this.controller.onSetNoteMimeType(MimeType.PLAIN);
-                    }
+
+            this.htmlCheckBox.addListener(SWT.Selection, e -> {
+                if (this.htmlCheckBox.getSelection()) {
+                    this.controller.onSetNoteMimeType(MimeType.HTML);
+                } else {
+                    this.controller.onSetNoteMimeType(MimeType.PLAIN);
                 }
             });
-            
+
             // The stack composite
             this.stack = new Composite(this.container, SWT.NONE);
             this.stackLayout = new StackLayout();
             this.stack.setLayout(this.stackLayout);
             gd = new GridData(SWT.FILL, SWT.FILL, true, true);
             gd.horizontalSpan = 2;
-            
+
             this.stack.setLayoutData(gd);
-            
+
             // The Plain text editor
             this.text = new Text(this.stack, SWT.MULTI | SWT.WRAP);
-            this.text.addFocusListener(new FocusAdapter() {
-                @Override
-                public void focusLost(FocusEvent e) {
-                    if (NoteEditView.this.mimeMode != MimeType.HTML) {
-                        NoteEditView.this.controller.onSetNoteContent(((Text) e.getSource()).getText());
-                    }
-                }
-            
-            });
-            this.text.addKeyListener(new KeyAdapter() {
-                @Override
-                public void keyReleased(KeyEvent e) {
-                    final Text atext = (Text) e.getSource();
-                    if ((e.stateMask &= SWT.MOD1) != 0 && e.keyCode == 'a') {
-                        // CTRL A
-                        atext.selectAll();
-                    }
+
+            this.text.addListener(SWT.FocusOut, event -> {
+                if (this.mimeMode != MimeType.HTML) {
+                    this.controller.onSetNoteContent(((Text) event.widget).getText());
                 }
             });
-            
+
+            this.text.addListener(SWT.KeyUp, event -> {
+                if ((event.stateMask &= SWT.MOD1) != 0 && event.keyCode == 'a') {
+                    // <CTRL>+A
+                    this.text.selectAll();
+                }
+            });
+
+            this.text.addDisposeListener((DisposeEvent e) -> {
+                if (this.mimeMode != MimeType.HTML) {
+                    this.controller.onSetNoteContent(((Text) e.getSource()).getText());
+                }
+            });
+
             // The HTML text editor
             this.htmlText = new HtmlComposer(this.stack, SWT.NONE);
             this.htmlText.addFocusListener(new FocusAdapter() {
@@ -254,9 +250,33 @@ public class TypedNotePanel implements IPanelProvider {
                         NoteEditView.this.controller.onSetNoteContent(NoteEditView.this.htmlText.getHtml());
                     }
                 }
-            
             });
-            
+
+            this.htmlText.addDisposeListener(event -> {
+                if (this.mimeMode == MimeType.HTML) {
+                    String lastContent = null;
+                    try {
+                        lastContent = this.htmlText.getHtml();
+                    }catch (RuntimeException e) {
+                        EditionDialogs.LOG.debug("TypedNotePanel: HTML browser process has been killed asynchronously" +e);
+                    }finally {
+                        if (lastContent != null ) {
+                            this.controller.onSetNoteContent(lastContent);
+                        } else if (this.buferredContent != null) {
+                            this.controller.onSetNoteContent(this.buferredContent);
+                        }else {
+                            EditionDialogs.LOG.error("TypedNotePanel: Error during HTML note content retrieval");
+                        }
+                    }
+
+                }
+            });
+
+            this.htmlText.addModifyListener(event -> {
+                if (this.mimeMode == MimeType.HTML) {
+                    this.buferredContent = this.htmlText.getHtml();
+                }
+            });
         }
 
         @objid ("aa6060ac-be66-4185-819a-1ab94b7219f7")
@@ -280,7 +300,6 @@ public class TypedNotePanel implements IPanelProvider {
                 this.text.setText(s);
                 break;
             }
-            
         }
 
         @objid ("15306d32-ddd9-4f7a-aad0-fd7bc29dfe2b")
@@ -309,10 +328,9 @@ public class TypedNotePanel implements IPanelProvider {
                     this.stackLayout.topControl = this.text;
                     this.stack.layout(true);
                     break;
-            
+
                 }
             }
-            
         }
 
         @objid ("196b4503-48a6-49b9-abf6-9522db903012")
@@ -321,12 +339,12 @@ public class TypedNotePanel implements IPanelProvider {
             this.text.setBackground(modifiable ? UIColor.TEXT_WRITABLE_BG : UIColor.TEXT_READONLY_BG);
             this.htmlText.setEditable(modifiable);
             // this.htmlText.setBackground(modifiable ? UIColor.TEXT_WRITABLE_BG : UIColor.TEXT_READONLY_BG);
-            
         }
 
     }
 
     /**
+     *
      * @author phv
      */
     @objid ("57c763ad-39a0-418c-b8d3-e363b4092a74")
@@ -359,14 +377,14 @@ public class TypedNotePanel implements IPanelProvider {
         private NoteEditModel noteModel;
 
         @objid ("332db36d-aeb6-4493-9e9c-9599b0f322eb")
-        public  NoteEditController(String moduleName, String noteTypeName) {
+        public NoteEditController(String moduleName, String noteTypeName) {
             this.moduleName = moduleName;
             this.noteTypeName = noteTypeName;
-            
         }
 
         /**
          * Get the ModelElement whose note is being edited
+         *
          * @return the edited element
          */
         @objid ("7de0a6f7-d232-4874-b36b-91bfd40feee8")
@@ -376,6 +394,7 @@ public class TypedNotePanel implements IPanelProvider {
 
         /**
          * Set the view controlled by this controller
+         *
          * @param view the view
          */
         @objid ("69a29631-e94b-44af-9e46-8484834bc204")
@@ -387,13 +406,14 @@ public class TypedNotePanel implements IPanelProvider {
          * Set the ModelElemen whose note is being edited.
          * <p>
          * This method also refreshes the view contents.
+         *
          * @param aModelElement the edited element
          */
         @objid ("e4df6d61-dccb-4c12-87bc-026ba7306348")
         @SuppressWarnings("synthetic-access")
         public void setModelElement(ModelElement aModelElement) {
             this.me = aModelElement;
-            
+
             if (this.me == null || !this.me.isValid()) {
                 // Do not want to fail here because of an unexpected null or invalid ModelElement however nothing can be done with
                 // the panel!
@@ -407,7 +427,7 @@ public class TypedNotePanel implements IPanelProvider {
             } else {
                 // Compute the effective NoteInstance for the given element
                 this.noteModel = new NoteEditModel(this.me, this.moduleName, this.noteTypeName);
-            
+
                 if (this.noteModel.hasType() == false) {
                     // No note model, won't even be able to create a new note
                     this.view.setTitle("undefined");
@@ -415,16 +435,20 @@ public class TypedNotePanel implements IPanelProvider {
                     this.view.setMimeType(MimeType.PLAIN);
                     this.view.setText("");
                     this.view.enableModeSwitcher(false);
-            
+
                 } else if (this.noteModel.noteExists() == false) {
                     // Got a note model but no existing note, creating a note must be possible
                     this.view.setTitle(MdaResources.getLabel(this.noteModel.noteType));
                     this.view.setReadOnly(this.me.isModifiable());
                     this.view.setMimeType(MimeType.PLAIN);
-                    this.view.setText(EditionDialogs.I18N.getString("TypedNotePanel.EnterText"));
-            
+
+                    // Disabled completely prompt : it makes creating '<enter description here>' notes
+                    // even if the user does not enter into the field
+                    this.view.setText("");
+                    //  PromptSupport.setPrompt(EditionDialogs.I18N.getString("TypedNotePanel.EnterText"), this.text);
+
                     this.view.enableModeSwitcher(this.noteModel.getModelMimeType() == MimeType.HTML);
-            
+
                 } else {
                     // Got a note model and an existing note
                     this.view.setTitle(MdaResources.getLabel(this.noteModel.noteType));
@@ -434,11 +458,11 @@ public class TypedNotePanel implements IPanelProvider {
                     this.view.enableModeSwitcher(this.noteModel.getModelMimeType() == MimeType.HTML);
                 }
             }
-            
         }
 
         /**
          * Called by the GUI to change the effective mime type of the note
+         *
          * @param mode the edition mode to use for the note. Can be either {@link MimeType#HTML} or {@link MimeType#PLAIN}.
          */
         @objid ("24db9c6d-ab16-41f9-b3dd-8b62755895a2")
@@ -447,13 +471,13 @@ public class TypedNotePanel implements IPanelProvider {
                 // Nothing useful can be done
                 return;
             }
-            
+
             // The user might switch the mode prior to the note creation
             if (this.noteModel.hasType() && !this.noteModel.noteExists()) {
                 // got a note type but no note, consider a create note
                 this.noteModel.createNote("");
             }
-            
+
             if (mode != this.noteModel.getNoteMimeType()) {
                 switch (mode) {
                 case HTML:
@@ -468,23 +492,17 @@ public class TypedNotePanel implements IPanelProvider {
                     this.noteModel.setNoteMimeType(MimeType.PLAIN);
                     break;
                 }
-            
+
                 // Refresh the view
                 setModelElement(this.me);
             }
-            
         }
 
         @objid ("21a734c5-51d3-45b4-ba5c-361fbd507bd3")
         public void onSetNoteContent(String value) {
             if (this.noteModel != null) {
-                if (this.noteModel.noteExists()) {
-                    this.noteModel.setNoteContent(value);
-                } else {
-                    this.noteModel.createNote(value);
-                }
+                this.noteModel.setNoteContent(value);
             }
-            
         }
 
     }
@@ -502,19 +520,15 @@ public class TypedNotePanel implements IPanelProvider {
 
         /**
          * C'tor
+         *
          * @param owner MUST not be null
          * @param moduleName name of the module providing the note type. Might be <code>null</code>.
          * @param noteTypeName a note type name. Might be <code>null</code>.
          */
         @objid ("5b2931bd-1ed4-4e19-8731-c6911f493113")
-        public  NoteEditModel(ModelElement owner, String moduleName, String noteTypeName) {
-            if (owner == null) {
-                throw new InvalidParameterException();
-            }
-            
-            this.owner = owner;
+        public NoteEditModel(ModelElement owner, String moduleName, String noteTypeName) {
+            this.owner = Objects.requireNonNull(owner, "owner parameter");
             init(moduleName, noteTypeName);
-            
         }
 
         @objid ("32ac76fe-4d1d-4b3c-8d57-a1e41b0e529a")
@@ -539,7 +553,6 @@ public class TypedNotePanel implements IPanelProvider {
                     EditionDialogs.LOG.error(e);
                 }
             }
-            
         }
 
         @objid ("be2925b7-b34c-4ad1-843a-961e13051c98")
@@ -567,11 +580,11 @@ public class TypedNotePanel implements IPanelProvider {
             } catch (final Exception e) {
                 EditionDialogs.LOG.error(e);
             }
-            
         }
 
         /**
          * Change a Note content in the model within a Transaction. Called by the view.
+         *
          * @param value the new content for the edited note.
          */
         @objid ("877f171b-ad60-4e2e-8cbd-80d21efba5cc")
@@ -580,27 +593,39 @@ public class TypedNotePanel implements IPanelProvider {
             if (this.noteType == null) {
                 return;
             }
-            
-            if (noteExists() == false && !value.isEmpty()) {
-                createNote(value);
-            } else {
-                if (!value.equals(this.note.getContent())) {
-                    try (ITransaction t = CoreSession.getSession(this.owner).getTransactionSupport()
-                            .createTransaction("Set note content")) {
-                        if (value.isEmpty()) {
-                            // Treat empty content as 'remove' note
-                            this.note.delete();
-                            this.note = null;
-                        } else {
-                            this.note.setContent(value);
-                        }
-                        t.commit();
-                    } catch (final Exception e) {
-                        EditionDialogs.LOG.error(e);
-                    }
-                }
+            if (value == null) {
+                EditionDialogs.LOG.warning(new IllegalArgumentException("Editor note content cannot be null"));
+                return;
             }
-            
+
+            boolean isDelete = value.isEmpty();
+            if (!noteExists()) {
+                if (isDelete) {
+                    // nothing to do
+                } else {
+                    createNote(value);
+                }
+            } else if (!value.equals(this.note.getContent())) {
+                // compute a nice transaction name
+                final String tName = EditionDialogs.I18N.getMessage(
+                        isDelete ? "TypedNotePanel.transaction.delete": "TypedNotePanel.transaction.edit",
+                                MdaResources.getLabel(this.noteType),
+                                this.owner.getName());
+                try (ITransaction t = CoreSession.getSession(this.owner).getTransactionSupport()
+                        .createTransaction(tName)) {
+                    if (isDelete) {
+                        // Treat empty content as 'remove' note
+                        this.note.delete();
+                        this.note = null;
+                    } else {
+                        this.note.setContent(value);
+                    }
+                    t.commit();
+                } catch (final RuntimeException e) {
+                    EditionDialogs.LOG.error(e);
+                }
+
+            }
         }
 
         @objid ("a87c9da7-462f-4089-85f5-54274050fff0")
@@ -609,11 +634,11 @@ public class TypedNotePanel implements IPanelProvider {
             if (this.noteType != null) {
                 this.note = getNote(this.owner, this.noteType);
             }
-            
         }
 
         /**
          * Find the note of given type on modelElement.
+         *
          * @param type a note type.
          * @return null if no note could be found
          */
@@ -633,16 +658,20 @@ public class TypedNotePanel implements IPanelProvider {
 
         /**
          * Find the NoteType matching the current element metaclass, the module provider and the note type name
+         *
          * @return null if no matching NoteType could be found
          */
         @objid ("53596f0d-cf36-4586-abb6-df75e8156ba7")
         private NoteType resolveNoteModel(final ModelElement me, final String moduleName, final String noteTypeName) {
             final CoreSession session = CoreSession.getSession(me);
             final SmMetamodel mm = session.getMetamodel();
-            final IModel m = session.getModel();
-            final Collection<NoteType> candidates = m.findByAtt(NoteType.class, "Name", noteTypeName,
-                    (IMObjectFilter) o -> ((NoteType) o).getModule() != null && moduleName.equals(((NoteType) o).getModule().getName()));
-            
+
+            final Collection<NoteType> candidates = session.getModel()
+                    .findByName(NoteType.class, true, noteTypeName)
+                    .stream()
+                    .filter( o -> o.getModule() != null && moduleName.equals(o.getModule().getName()))
+                    .toList();
+
             // First loop: check strict metaclass equality
             for (final NoteType nType : candidates) {
                 if (nType.getOwnerReference() != null) {
@@ -655,11 +684,9 @@ public class TypedNotePanel implements IPanelProvider {
                     if (me.getMClass() == steClass) {
                         return nType;
                     }
-                } else {
-                    continue;
                 }
             }
-            
+
             // Second loop: if first one did not give any result, check metaclass compatibility
             for (final NoteType nType : candidates) {
                 if (nType.getOwnerReference() != null) {
@@ -672,8 +699,6 @@ public class TypedNotePanel implements IPanelProvider {
                     if (me.getMClass().hasBase(steClass)) {
                         return nType;
                     }
-                } else {
-                    continue;
                 }
             }
             return candidates.isEmpty() ? null : candidates.iterator().next();

@@ -1,0 +1,40 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= La commande "Historique"
+
+
+
+===== Description
+
+La commande "Historique" permet d'afficher l'historique des révisions de l'élément sur lequel elle est lancée. Cette historique des révisions fournit les informations suivantes pour toutes les opérations de travail de groupe exécutées sur l'élément en question :
+
+* le numéro de révision,
+* l'auteur de la révision,
+* la date de la révision,
+* le message d'explication associé à la révision. [[Conditions-et-restrictions]]
+
+
+===== Conditions et restrictions
+
+La commande "Historique" peut être lancée sur n'importe quel <<User_Documentation_fr_Introduction_aux_modeles_de_travail_SVN_Grains_SVN.adoc#,grain>>. [[Interface-utilisateur]]
+
+
+===== Interface utilisateur
+
+La commande "Historique" ouvre la fenêtre suivante :
+
+.La fenêtre "Historique"
+image::images/attachment/modeliocom41/User_Documentation_fr/Presentation_des_commandes_Subversion/Historique/TW_010_revert.png[TW_010_revert.png]
+
+
+
+===== Comportement
+
+La commande "Historique" affiche l'historique des révisions pour l'élément sur lequel elle est exécutée. Si la commande est exécutée sur le package racine du projet, alors toutes les révisions de tous les éléments du projet s'affichent. En revanche, si la commande est exécutée sur un grain particulier, alors seules les révisions de cet élément s'affichent.
+
+Si vous cliquez-droit sur une ligne de révision dans la fenêtre "Historique", un menu contextuel apparaît, vous permettant de lancer une opération de "Diff/Merge" sur l'élément concerné.

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.importer.defaultimporter;
 
@@ -36,6 +36,7 @@ import org.modelio.gproject.importer.core.IObjectFinder;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.repository.IRepository;
 import org.modelio.vcore.session.impl.CoreSession;
+import org.modelio.vcore.smkernel.SmDepVal;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MExpert;
 import org.modelio.vcore.smkernel.mapi.MObject;
@@ -49,7 +50,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
  */
 @objid ("006b567a-d3aa-108f-8d81-001ec947cd2a")
 public class DefaultImporter extends AbstractImporter {
-    
+
     @mdl.prop
     @objid ("006c15e2-d3aa-108f-8d81-001ec947cd2a")
     private IAttributesImporter attributesImporter;
@@ -66,7 +67,7 @@ public class DefaultImporter extends AbstractImporter {
         this.attributesImporter = value;
     }
 
-    
+
     @mdl.prop
     @objid ("006bf4c2-d3aa-108f-8d81-001ec947cd2a")
     private IBrokenDependencyHandler brokenDependencyHandler;
@@ -83,7 +84,7 @@ public class DefaultImporter extends AbstractImporter {
         this.brokenDependencyHandler = value;
     }
 
-    
+
     @mdl.prop
     @objid ("006c7d34-d3aa-108f-8d81-001ec947cd2a")
     private IDependencyUpdater compositionDepUpdater;
@@ -100,7 +101,7 @@ public class DefaultImporter extends AbstractImporter {
         this.compositionDepUpdater = value;
     }
 
-    
+
     @mdl.prop
     @objid ("006bfd50-d3aa-108f-8d81-001ec947cd2a")
     private ICompositionGetter compositionGetter;
@@ -117,7 +118,7 @@ public class DefaultImporter extends AbstractImporter {
         this.compositionGetter = value;
     }
 
-    
+
     @mdl.prop
     @objid ("006c0548-d3aa-108f-8d81-001ec947cd2a")
     private IDependencyGetter dependencyGetter;
@@ -134,7 +135,7 @@ public class DefaultImporter extends AbstractImporter {
         this.dependencyGetter = value;
     }
 
-    
+
     @mdl.prop
     @objid ("006c912a-d3aa-108f-8d81-001ec947cd2a")
     private IImportFilter importFilter;
@@ -151,7 +152,7 @@ public class DefaultImporter extends AbstractImporter {
         this.importFilter = value;
     }
 
-    
+
     @mdl.prop
     @objid ("006c0d68-d3aa-108f-8d81-001ec947cd2a")
     private IObjectFinder objectFinder;
@@ -168,7 +169,7 @@ public class DefaultImporter extends AbstractImporter {
         this.objectFinder = value;
     }
 
-    
+
     @mdl.prop
     @objid ("006c8766-d3aa-108f-8d81-001ec947cd2a")
     private IDependencyUpdater referenceDepUpdater;
@@ -190,7 +191,6 @@ public class DefaultImporter extends AbstractImporter {
     protected void fixElement(SmObjectImpl localObject, SmObjectImpl refObject, ICoreSession localSession, ICoreSession refSession) {
         // Copy related blobs
         localSession.getBlobSupport().fireObjectCopied(refObject, localObject);
-        
     }
 
     @objid ("006df060-d3aa-108f-8d81-001ec947cd2a")
@@ -202,51 +202,56 @@ public class DefaultImporter extends AbstractImporter {
                 this.result.addObjectToGarbage(orphan);
             }
         }
-        
     }
 
     @objid ("0003ef8a-5247-1091-8d81-001ec947cd2a")
     @Override
     protected void importElements(ICoreSession localSession, SmObjectImpl localRoot, ICoreSession refSession, List<SmObjectImpl> refRoots) {
         IRepository localRepository = localSession.getRepositorySupport().getRepository(localRoot);
-        
+
         for (SmObjectImpl refToImport : this.compositionGetter.getAllChildren(refRoots)) {
-        
+
             // If 'toImport' is a shell object the import will not be viable
             // BrokenDependencyHandler will be called as soon as an imported element needs the missing element.
             if (refToImport.isShell() || this.importFilter.select(refToImport) == false) {
                 continue;
             }
-        
+
             SmObjectImpl localObject = this.objectFinder.getSameObject(refToImport);
             if (localObject == null || localObject.isShell()) {
                 // there is no local object equivalent to 'toImport' => create a new object
                 SmClass localMClass = (SmClass) this.objectFinder.getSameMetaclass(refToImport.getClassOf());
                 if (localMClass != null) {
                     localObject = ((CoreSession) localSession).getSmFactory().createObject(localMClass, localRepository, refToImport.getUuid());
-        
+
                     // import its attributes
                     this.attributesImporter.importAttributes(refToImport, localObject);
-        
+
                     // store the created object in the results
                     this.result.addCreatedObject(localObject, refToImport);
                 }
             } else {
                 assert (refToImport.equals(localObject) == false);
-        
+
                 if (localObject.isDeleted()) {
                     // restore before import
                     localObject.getMetaOf().objUndeleted(localObject);
+                    // The composition relation from a deleted object to its owner is always cut.
+                    // Cut it from both sides to let the import restore it.
+                    // Otherwise fixRoots(...) will see nothing and do nothing.
+                    SmDepVal ownerRel = localObject.getCompositionRelation();
+                    if (ownerRel != null) {
+                        localObject.eraseDepVal(ownerRel.dep, (SmObjectImpl) ownerRel.value);
+                    }
                 }
-        
+
                 // import its attributes
                 this.attributesImporter.importAttributes(refToImport, localObject);
-        
+
                 // store the updated object in the results
                 this.result.addUpdatedObject(localObject, refToImport);
             }
         }
-        
     }
 
     @objid ("00045e3e-5247-1091-8d81-001ec947cd2a")
@@ -258,7 +263,6 @@ public class DefaultImporter extends AbstractImporter {
                 this.result.addObjectToGarbage(orphan);
             }
         }
-        
     }
 
     @objid ("006cc262-d3aa-108f-8d81-001ec947cd2a")
@@ -270,31 +274,30 @@ public class DefaultImporter extends AbstractImporter {
         if (this.objectFinder == null) {
             this.objectFinder = new DefaultObjectFinder(localSession.getModel(), localSession.getMetamodel());
         }
-        
+
         if (this.brokenDependencyHandler == null) {
             this.brokenDependencyHandler = new DefaultBrokenDependencyHandler();
         }
-        
+
         if (this.referenceDepUpdater == null) {
             this.referenceDepUpdater = new DefaultReferenceDependencyUpdater(this.brokenDependencyHandler, this.objectFinder, localSession);
         }
-        
+
         if (this.compositionDepUpdater == null) {
             this.compositionDepUpdater = new DefaultCompositionDependencyUpdater(this.brokenDependencyHandler, this.objectFinder, localSession);
         }
-        
+
         if (this.dependencyGetter == null) {
             this.dependencyGetter = new DefaultDependencyGetter();
         }
-        
+
         if (this.compositionGetter == null) {
             this.compositionGetter = new DefaultCompositionGetter();
         }
-        
+
         if (this.attributesImporter == null) {
             this.attributesImporter = new DefaultAttributesImporter(this.objectFinder);
         }
-        
     }
 
     @objid ("0003a58e-5247-1091-8d81-001ec947cd2a")
@@ -302,7 +305,7 @@ public class DefaultImporter extends AbstractImporter {
     protected void reparentElements(Map<SmObjectImpl, SmDependency> orphans, ICoreSession localSession, SmObjectImpl localRoot) {
         // Process broken links by delegation to the customized IBrokenDependencyHandler
         this.brokenDependencyHandler.postProcess();
-        
+
         // Re-attach orphan roots
         if (localRoot != null) {
             AddToRootProcessor addProc = new AddToRootProcessor();
@@ -311,22 +314,21 @@ public class DefaultImporter extends AbstractImporter {
                 this.result.addObjectToDelete(stillOrphan);
             }
         }
-        
     }
 
     @objid ("0086434a-e548-108f-8d81-001ec947cd2a")
     private static final class AddToRootProcessor {
         @objid ("00865c9a-e548-108f-8d81-001ec947cd2a")
-        protected  AddToRootProcessor() {
+        protected AddToRootProcessor() {
             // Nothing to do
         }
 
         @objid ("008669b0-e548-108f-8d81-001ec947cd2a")
         public List<SmObjectImpl> reparentOrphans(final Map<SmObjectImpl, SmDependency> orphans, SmObjectImpl fallbackParent, ICoreSession localSession) {
             ImportCompositionInitializer initializer = new ImportCompositionInitializer(fallbackParent);
-            
+
             List<SmObjectImpl> stillOrphans = new ArrayList<>();
-            
+
             for (Entry<SmObjectImpl, SmDependency> orphan : orphans.entrySet()) {
                 if (orphan != null && !orphan.getKey().isDeleted()) {
                     if (!attach(orphan.getKey(), orphan.getValue(), initializer, localSession)) {
@@ -353,10 +355,9 @@ public class DefaultImporter extends AbstractImporter {
             private MExpert mExpert;
 
             @objid ("008700be-e548-108f-8d81-001ec947cd2a")
-            protected  ImportCompositionInitializer(final SmObjectImpl aParent) {
+            protected ImportCompositionInitializer(final SmObjectImpl aParent) {
                 this.parent = aParent;
                 this.mExpert = this.parent.getMClass().getMetamodel().getMExpert();
-                
             }
 
             @objid ("da522b09-f2a5-422a-a760-6cb9f071afc0")
@@ -364,18 +365,18 @@ public class DefaultImporter extends AbstractImporter {
                 if (this.parent == null) {
                     return false;
                 }
-                
+
                 SmDependency dep = adep;
-                
+
                 if (dep == null || !this.parent.getMClass().hasBase(adep.getSource())) {
                     dep = (SmDependency) this.mExpert.getDefaultCompositionDep(this.parent, obj);
                 }
-                
+
                 if (dep != null &&
                         obj.getMClass().hasBase(dep.getTarget()) &&
                         this.mExpert.canCompose(this.parent, obj, dep.getName())) {
                     // Try a generic approach
-                
+
                     List<MObject> mGet = this.parent.mGet(dep);
                     if (mGet != null) {
                         mGet.add(obj);

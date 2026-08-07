@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.gproject.parts.fragment;
 
@@ -31,7 +50,6 @@ import java.util.Collection;
 import java.util.Properties;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.gproject.FragmentAuthenticationException;
-import org.modelio.gproject.core.IGPart.GPartException;
 import org.modelio.gproject.core.IGProject;
 import org.modelio.gproject.data.project.GProjectPartDescriptor;
 import org.modelio.gproject.parts.fragment.GExmlFragment.ExmlFragmentInfos;
@@ -46,6 +64,7 @@ import org.modelio.vbasic.version.VersionedItem;
 import org.modelio.vcore.session.api.IAccessManager;
 import org.modelio.vcore.session.api.repository.IRepository;
 import org.modelio.vcore.session.impl.permission.BasicAccessManager;
+import org.modelio.vcore.smkernel.IRStatus;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MetamodelVersionDescriptor;
 import org.modelio.vcore.smkernel.meta.SmMetamodel;
@@ -55,7 +74,7 @@ import org.modelio.vstore.exml.resource.UriExmlResourceProvider;
 
 /**
  * Remote EXML repository fragment.
- * 
+ *
  * Its location is specified as an URL.
  */
 @objid ("e77decda-03f8-11e2-9ef9-001ec947ccaf")
@@ -65,10 +84,11 @@ public class GHttpFragment extends AbstractGModelFragment {
 
     /**
      * Initialize an URL based EXML fragment.
+     *
      * @param desc the part descriptor
      */
     @objid ("e77dec8d-03f8-11e2-9ef9-001ec947ccaf")
-    public  GHttpFragment(GProjectPartDescriptor desc) {
+    public GHttpFragment(GProjectPartDescriptor desc) {
         super(desc);
     }
 
@@ -77,11 +97,11 @@ public class GHttpFragment extends AbstractGModelFragment {
     protected IRepository doMountInitRepository(IGProject project, IModelioProgress aMonitor) throws IOException, FragmentAuthenticationException {
         // Compute a local path to copy the index to.
         final Path localPath = getRuntimeDirectory();
-        
+
         // instantiate the repository from the URL
         final UriExmlResourceProvider resProvider = new UriExmlResourceProvider(getDescriptor().getLocation(), localPath, resolveAuthData());
         resProvider.setName(getId());
-        
+
         this.repository = new ExmlBase(resProvider);
         return this.repository;
     }
@@ -111,7 +131,6 @@ public class GHttpFragment extends AbstractGModelFragment {
         if (this.repository == null) {
             throw new IllegalStateException("The '" + getId() + "' fragment is not mount.");
         }
-        
     }
 
     @objid ("dd53a49c-395a-11e2-a6db-001ec947ccaf")
@@ -119,6 +138,7 @@ public class GHttpFragment extends AbstractGModelFragment {
     protected IAccessManager doInitAccessManager() {
         final BasicAccessManager ret = new BasicAccessManager();
         ret.setWriteable(false);
+        ret.setStatusflags(IRStatus.REMOTE, true);
         return ret;
     }
 
@@ -126,16 +146,15 @@ public class GHttpFragment extends AbstractGModelFragment {
     @Override
     public MetamodelVersionDescriptor getRequiredMetamodelDescriptor() throws IOException {
         final URI mmuri = UriUtils.asDirectoryUri(getDescriptor().getLocation()).resolve("admin/").resolve(MMVERSION_FILE_NAME);
-        
+
         try (InputStream is = UriConnections.openInputStream(mmuri, resolveAuthData());
                 InputStreamReader in = new InputStreamReader(is, StandardCharsets.UTF_8)) {
             return VersionHelper.convert(new MetamodelVersionDescriptor(in));
-        
+
         } catch (FileNotFoundException | NoSuchFileException e) {
             Log.warning("No '" + mmuri + "' metamodel version file. Assume Modelio 3.1 (9020) metamodel version.");
-            return new MetamodelVersionDescriptor(new VersionedItem<Void>(StandardMetamodel.NAME, VersionHelper.convert(9020)));
+            return new MetamodelVersionDescriptor(new VersionedItem<>(StandardMetamodel.NAME, VersionHelper.convert(9020)));
         }
-        
     }
 
     @objid ("6eb6c578-bbb3-4189-8e0a-06071d706b7b")
@@ -149,11 +168,14 @@ public class GHttpFragment extends AbstractGModelFragment {
     public UrlFragmentInfos getInformations() throws IOException {
         Properties p = getPropertyFile();
         if (p != null) {
-            return new UrlFragmentInfos(p.getProperty("name"), p.getProperty("description"), new Version(p.getProperty("version")), new Version(p.getProperty("modelioversion")));
+            return new UrlFragmentInfos(
+                    p.getProperty("name"),
+                    p.getProperty("description"),
+                    new Version(p.getProperty("version")),
+                    new Version(p.getProperty("modelioversion")));
         } else {
-            return new UrlFragmentInfos(getId(), "", new Version("0.0.0"), ModelioVersion.VERSION);
+            return new UrlFragmentInfos(getId(), "", new Version(0,0,0), ModelioVersion.VERSION);
         }
-        
     }
 
     @objid ("fe570c78-5d20-4d1b-a966-01d7426d394c")
@@ -168,7 +190,6 @@ public class GHttpFragment extends AbstractGModelFragment {
             Log.warning("No '" + infosUri + "' infos version file, use default values.");
             return null;
         }
-        
     }
 
     @objid ("943bb602-d6bf-4d5a-9855-ce420b355603")
@@ -189,7 +210,7 @@ public class GHttpFragment extends AbstractGModelFragment {
     @objid ("3efd75da-0c7f-446e-a640-516dd04167a0")
     public class UrlFragmentInfos extends ExmlFragmentInfos {
         @objid ("b060b084-1473-423d-af5d-6cecc82ff8e8")
-        public  UrlFragmentInfos(final String name, final String description, final Version version, final Version modelioVersion) {
+        public UrlFragmentInfos(final String name, final String description, final Version version, final Version modelioVersion) {
             super(name, description, version, modelioVersion);
         }
 
@@ -201,7 +222,6 @@ public class GHttpFragment extends AbstractGModelFragment {
             } else {
                 return "";
             }
-            
         }
 
         @objid ("9efe9b09-a21f-45f2-af9c-8e3b5b4ec893")
@@ -212,7 +232,6 @@ public class GHttpFragment extends AbstractGModelFragment {
             } else {
                 return "";
             }
-            
         }
 
     }

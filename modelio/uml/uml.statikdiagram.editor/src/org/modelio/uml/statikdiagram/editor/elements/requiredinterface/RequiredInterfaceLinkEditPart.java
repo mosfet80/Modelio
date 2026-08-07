@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.requiredinterface;
 
@@ -63,7 +63,7 @@ public class RequiredInterfaceLinkEditPart extends LinkToVoidEditPart {
     @Override
     protected IFigure createFigure() {
         final RoundedLinkFigure conn = new RequiredInterfaceFigure();
-        
+
         // Set style dependent properties
         refreshFromStyle(conn, getModelStyle());
         return conn;
@@ -73,7 +73,7 @@ public class RequiredInterfaceLinkEditPart extends LinkToVoidEditPart {
     @Override
     public ConnectionAnchor getSourceConnectionAnchor(final Request request) {
         if (request instanceof CreateConnectionRequest) {
-        
+
             ModelioCreationContext ctx = (ModelioCreationContext) ((CreateConnectionRequest) request).getNewObject();
             if (ctx.getJavaClass() == ProvidedInterface.class) {
                 final LinkFigure fig = (LinkFigure) getFigure();
@@ -118,17 +118,17 @@ public class RequiredInterfaceLinkEditPart extends LinkToVoidEditPart {
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         // Allow connection of provided interfaces to this required interface.
         installEditPolicy(EditPolicy.NODE_ROLE, new ConnectProvToReqEditPolicy());
-        
+
     }
 
     /**
      * Required interface decoration.
      * <p>
      * Draws an half circle open on the target side.
-     * 
+     *
      * @author cmarin
      */
     @objid ("3680a3fe-55b7-11e2-877f-002564c97630")
@@ -140,8 +140,8 @@ public class RequiredInterfaceLinkEditPart extends LinkToVoidEditPart {
         private Point location = new Point();
 
         @objid ("3680a405-55b7-11e2-877f-002564c97630")
-        public  RequiredInterfaceDeco() {
-            
+        public RequiredInterfaceDeco() {
+
         }
 
         @objid ("3680a407-55b7-11e2-877f-002564c97630")
@@ -149,11 +149,11 @@ public class RequiredInterfaceLinkEditPart extends LinkToVoidEditPart {
         public void setReferencePoint(final Point ref) {
             final Point pt = new Point(ref);
             pt.negate().translate(this.location);
-            
+
             this.rotation = Math.atan2(pt.y, pt.x);
-            
+
             updateBounds();
-            
+
         }
 
         @objid ("3680a40c-55b7-11e2-877f-002564c97630")
@@ -161,7 +161,7 @@ public class RequiredInterfaceLinkEditPart extends LinkToVoidEditPart {
         public void setLocation(final Point p) {
             this.location.setLocation(p);
             updateBounds();
-            
+
         }
 
         /**
@@ -172,7 +172,7 @@ public class RequiredInterfaceLinkEditPart extends LinkToVoidEditPart {
         private void updateBounds() {
             final Dimension halfSize = getBounds().getSize().scale(0.5);
             super.setLocation(new Point(this.location.x - halfSize.width, this.location.y - halfSize.height));
-            
+
         }
 
         @objid ("3680a414-55b7-11e2-877f-002564c97630")
@@ -183,7 +183,7 @@ public class RequiredInterfaceLinkEditPart extends LinkToVoidEditPart {
             r.setBounds(getBounds());
             r.resize(-1, -1);
             g.drawArc(r, angle - 90, 180);
-            
+
         }
 
         @objid ("8e640f6e-e7db-4fc5-a15d-ba7c60f96216")
@@ -197,7 +197,7 @@ public class RequiredInterfaceLinkEditPart extends LinkToVoidEditPart {
      * Required interface connection figure.
      * <p>
      * Same as {@link RoundedLinkFigure} but the connection is shorten at the end for the required lollipop.
-     * 
+     *
      * @author cmarin
      */
     @objid ("3680a419-55b7-11e2-877f-002564c97630")
@@ -206,17 +206,17 @@ public class RequiredInterfaceLinkEditPart extends LinkToVoidEditPart {
          * Creates the figure.
          */
         @objid ("3680a41e-55b7-11e2-877f-002564c97630")
-        public  RequiredInterfaceFigure() {
+        public RequiredInterfaceFigure() {
             super();
-            
+
             final RequiredInterfaceDeco dec = new RequiredInterfaceDeco();
-            
+
             setTargetDecoration(dec);
-            
+
             // Set style independent properties
             dec.setOpaque(true);
             dec.setSize(REQUIRED_DIAM, REQUIRED_DIAM);
-            
+
         }
 
         @objid ("3680a421-55b7-11e2-877f-002564c97630")
@@ -224,27 +224,27 @@ public class RequiredInterfaceLinkEditPart extends LinkToVoidEditPart {
         public void layout() {
             // Call normal connection routing
             super.layout();
-            
+
             // Move back the last point so that it doesn't cross the target decotration
             PointList points = getPoints();
             final int nbPoints = points.size();
             if (nbPoints >= 2) {
                 Point p1 = points.getPoint(nbPoints - 2);
                 Point p2 = points.getPoint(nbPoints - 1);
-            
+
                 double rotation = Math.atan2(p2.y - p1.y, p2.x - p1.x);
-            
+
                 final Dimension halfSize = getTargetDecoration().getBounds().getSize().scale(0.5);
                 Point delta = new Point(-halfSize.width, 0);
                 final Transform t = new Transform();
                 t.setRotation(rotation);
                 delta = t.getTransformed(delta);
-            
+
                 p2.translate(delta);
-            
+
                 points.setPoint(p2, nbPoints - 1);
             }
-            
+
         }
 
         @objid ("3680a424-55b7-11e2-877f-002564c97630")
@@ -271,10 +271,10 @@ public class RequiredInterfaceLinkEditPart extends LinkToVoidEditPart {
         private Connection fig;
 
         @objid ("3680a431-55b7-11e2-877f-002564c97630")
-        public  LastConnectionPointAnchor(final Connection fig) {
+        public LastConnectionPointAnchor(final Connection fig) {
             super(fig);
             this.fig = fig;
-            
+
         }
 
         @objid ("3680a435-55b7-11e2-877f-002564c97630")

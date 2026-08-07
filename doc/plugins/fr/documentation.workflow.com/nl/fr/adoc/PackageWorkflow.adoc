@@ -1,0 +1,26 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+// Hightlight code source and add the line number
+:source-highlighter: coderay
+:coderay-linenums-mode: table
+
+= Créer une archive de workflow
+
+Une archive de workflow permet de déployer des workflows sur un serveur Modelio Server. +
+Elle peut contenir plusieurs Workflows.
+
+Pour créer une archive de workflow, sélectionnez un workflow (ou une archive de workflow) et exécutez la commande *image:images/workflowicon.png[]Workflow > image:images/workflowicon.png[]Workflow Designer > image:images/archiveicon.png[]Packager le workflow...*.
+
+image::images/PackageWorkflow.png[PackageWorkflow.png]
+
+1. Saisissez le nom de l'archive. Caractères autorisés : 'a' à 'z', 'A' à 'Z', '0' à '9', '.', '_' et ' '.
+2. Saisissez la version de l'archive au format V.R.C.
+3. Saisissez le nom du fournisseur de l'archive.
+4. Sélectionnez le ou les workflows qui seront embarqués dans l'archive.
+5. Saisissez la description de l'archive de workflow.
+6. Saisissez l'historique des versions de l'archive.
+7. Sélectionnez un répertoire de génération.
+8. Cliquez sur 'OK'.

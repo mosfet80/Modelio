@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vbasic.xml;
 
@@ -38,21 +38,22 @@ public class CloseableXMLStreamWriter implements AutoCloseable {
 
     /**
      * Create a {@link XMLStreamWriter}.
+     *
      * @param os an output stream.
      * @param indent <code>true</code> to instantiate an indenting writer.
      * @throws XMLStreamException in case of failure
      * @throws FactoryConfigurationError in case of failure
      */
     @objid ("78520859-3010-11e2-8359-001ec947ccaf")
-    public  CloseableXMLStreamWriter(OutputStream os, boolean indent) throws XMLStreamException, FactoryConfigurationError {
+    public CloseableXMLStreamWriter(OutputStream os, boolean indent) throws XMLStreamException, FactoryConfigurationError {
         final XMLOutputFactory f = XMLOutputFactory.newFactory();
-        
+
         XMLStreamWriter first = f.createXMLStreamWriter(os, StandardCharsets.UTF_8.toString());
         if (indent)
             this.w = new IndentingXMLStreamWriter(first);
         else
             this.w = first;
-        
+
     }
 
     @objid ("7852085e-3010-11e2-8359-001ec947ccaf")
@@ -62,6 +63,7 @@ public class CloseableXMLStreamWriter implements AutoCloseable {
     }
 
     /**
+     *
      * @return the underlying {@link XMLStreamWriter}.
      */
     @objid ("78520861-3010-11e2-8359-001ec947ccaf")

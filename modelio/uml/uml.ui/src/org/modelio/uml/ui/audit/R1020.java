@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -76,7 +76,7 @@ public class R1020 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -109,7 +109,7 @@ public class R1020 extends AbstractUmlRule {
         plan.registerRule(ExceptionHandler.MQNAME, this, AuditTrigger.UPDATE |
                 AuditTrigger.CREATE |
                 AuditTrigger.MOVE);
-        
+
         // Activity nodes
         plan.registerRule(AcceptCallEventAction.MQNAME, this, AuditTrigger.MOVE);
         plan.registerRule(AcceptChangeEventAction.MQNAME, this, AuditTrigger.MOVE);
@@ -122,7 +122,7 @@ public class R1020 extends AbstractUmlRule {
         plan.registerRule(StructuredActivityNode.MQNAME, this, AuditTrigger.MOVE);
         plan.registerRule(ConditionalNode.MQNAME, this, AuditTrigger.MOVE);
         plan.registerRule(LoopNode.MQNAME, this, AuditTrigger.MOVE);
-        
+
         plan.registerRule(DecisionMergeNode.MQNAME, this, AuditTrigger.MOVE);
         plan.registerRule(ActivityFinalNode.MQNAME, this, AuditTrigger.MOVE);
         plan.registerRule(FlowFinalNode.MQNAME, this, AuditTrigger.MOVE);
@@ -134,7 +134,7 @@ public class R1020 extends AbstractUmlRule {
         plan.registerRule(InstanceNode.MQNAME, this, AuditTrigger.MOVE);
         plan.registerRule(InputPin.MQNAME, this, AuditTrigger.MOVE);
         plan.registerRule(OutputPin.MQNAME, this, AuditTrigger.MOVE);
-        
+
     }
 
     /**
@@ -168,14 +168,14 @@ public class R1020 extends AbstractUmlRule {
      * Default constructor for R1020
      */
     @objid ("5d3fa42e-e63a-4703-bf6e-bc25083a4d25")
-    public  R1020() {
+    public R1020() {
         this.checkerInstance = new CheckR1020(this);
     }
 
     @objid ("702e9870-8118-461b-8749-2d91af159705")
     private static class CheckR1020 extends AbstractControl {
         @objid ("4bf8c35d-9a38-44f0-b892-ad8d32f5cc16")
-        public  CheckR1020(IRule rule) {
+        public CheckR1020(IRule rule) {
             super(rule);
         }
 
@@ -197,12 +197,12 @@ public class R1020 extends AbstractUmlRule {
         @objid ("87a49be3-2336-4b2d-a8fc-4f3b7b651fc1")
         private List<IAuditEntry> checkR1020(ActivityNode node) {
             ArrayList<IAuditEntry> auditEntries = new ArrayList<>();
-            
+
             // Incoming edges
             for (ActivityEdge edge : node.getIncoming()) {
                 auditEntries.add(checkR1020(edge));
             }
-            
+
             // Outgoing edges
             for (ActivityEdge edge : node.getOutgoing()) {
                 auditEntries.add(checkR1020(edge));
@@ -223,28 +223,28 @@ public class R1020 extends AbstractUmlRule {
             if (node == null) {
                 return null;
             }
-            
+
             // 'node' is an input pin
             if (node instanceof InputPin) {
                 return getOwningStructuredActivityNode(((InputPin) node).getInputing());
             }
-            
+
             // 'node' is an output pin
             if (node instanceof OutputPin) {
                 return getOwningStructuredActivityNode(((OutputPin) node).getOutputing());
             }
-            
+
             // 'node' is an expansion node
             if (node instanceof ExpansionNode) {
                 return getOwningStructuredActivityNode(((ExpansionNode) node).getOwnerNode());
             }
-            
+
             // 'node' is a clause
             if (node instanceof Clause) {
                 Clause clause = (Clause) node;
                 return clause.getOwner();
             }
-            
+
             // other cases
             if (node.getOwnerClause() != null && node.getOwnerClause().getOwner() != null) {
                 return node.getOwnerClause().getOwner();
@@ -253,7 +253,7 @@ public class R1020 extends AbstractUmlRule {
             } else {
                 return null;
             }
-            
+
         }
 
         @objid ("0b82f1ed-9f9c-49fc-9f81-70f080ac3533")
@@ -269,11 +269,11 @@ public class R1020 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     element,
                     null);
-            
+
             if (source != null && target != null) {
                 StructuredActivityNode sourceOwner = getOwningStructuredActivityNode(source);
                 StructuredActivityNode targetOwner = getOwningStructuredActivityNode(target);
-            
+
                 // valid case 1
                 // the owner nodes are the same (either both NULL either both
                 // the same StructuredActivityNode
@@ -286,7 +286,7 @@ public class R1020 extends AbstractUmlRule {
                         return auditEntry; // both are equals
                     }
                 }
-            
+
                 // valid case 2
                 // activity edge from InputPin inputing a
                 // StructuredActivityNode, to an object inside the same
@@ -299,7 +299,7 @@ public class R1020 extends AbstractUmlRule {
                         }
                     }
                 }
-            
+
                 // valid case 3
                 // activity edge from an object inside a StructuredActivityNode,
                 // to an OutputPin outputing the same StructuredActivityNode
@@ -311,7 +311,7 @@ public class R1020 extends AbstractUmlRule {
                         }
                     }
                 }
-            
+
                 // valid case 4
                 // activity edge from (or to) from an object inside a
                 // StructuredActivityNode, to (or from) an expansion node
@@ -329,7 +329,7 @@ public class R1020 extends AbstractUmlRule {
                         return auditEntry;
                     }
                 }
-            
+
                 // if this point is reached, the check failed
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();

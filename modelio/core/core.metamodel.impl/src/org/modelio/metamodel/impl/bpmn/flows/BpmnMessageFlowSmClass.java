@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.flows;
 
 import java.util.ArrayList;
@@ -46,87 +45,86 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("3eea7bbe-61b6-445e-80b8-5f370b8b7e4b")
 public class BpmnMessageFlowSmClass extends BpmnBaseElementSmClass {
-    @objid ("c9bfc900-db65-484f-8ee1-e10f5f46de2e")
+    @objid ("3e78c53a-d205-441e-af3a-eb9e3c23f2aa")
     private SmDependency messageRefDep;
 
-    @objid ("9b716166-6e40-416e-b167-35d5379d53c5")
+    @objid ("0dd0ed09-710c-4e38-b8ee-5dfcfd9724eb")
     private SmDependency sourceRefDep;
 
-    @objid ("58336c3a-cd8a-466b-a114-12a066d03195")
+    @objid ("d4dbde3b-670d-44e7-856c-322cf07db6c2")
     private SmDependency targetRefDep;
 
-    @objid ("6c939eb3-ef61-43e5-ad82-fe35c999f23e")
+    @objid ("20873f3b-8f67-4b7e-8588-256f9c813c4c")
     private SmDependency collaborationDep;
 
-    @objid ("6335467d-4257-4e5e-aaf6-2cc8a2e99822")
-    public  BpmnMessageFlowSmClass(ISmMetamodelFragment origin) {
+    @objid ("1bf43931-6c11-4c50-851c-a91bd7b3d92f")
+    public BpmnMessageFlowSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("a5d6a2a8-2b77-4761-96a0-7415a4818ac4")
+    @objid ("9fce60c7-7952-4ad8-8648-c6764111d942")
     @Override
     public String getName() {
         return "BpmnMessageFlow";
-        
+
     }
 
-    @objid ("8c99c34e-f57c-4e1d-9604-77b408f5a486")
+    @objid ("1b9a0929-c369-433c-a586-830b7b09edf0")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("ffb7441c-428a-48b9-b8f6-a6996e30aa33")
+    @objid ("1350b079-dbe7-4a02-896c-ce944a0d6006")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return BpmnMessageFlow.class;
-        
+
     }
 
-    @objid ("af56adfb-eaf4-4507-bb55-17112d8c0af4")
+    @objid ("a897149c-2ab0-4365-b2da-efb644a79520")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("dc555f4f-04d3-46ec-829e-e127bd78c6aa")
+    @objid ("7bee689d-9746-40f0-a4f4-56e751b84d3a")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("c28a2dad-7203-484a-a62d-8d9e5c78783f")
+    @objid ("19b4eff4-e4f6-425d-9236-9371fd0f77b7")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(BpmnBaseElement.MQNAME);
         this.registerFactory(new BpmnMessageFlowObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
         this.messageRefDep = new MessageRefSmDependency();
         this.messageRefDep.init("MessageRef", this, metamodel.getMClass(BpmnMessage.MQNAME), 0, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.messageRefDep);
-        
+
         this.sourceRefDep = new SourceRefSmDependency();
         this.sourceRefDep.init("SourceRef", this, metamodel.getMClass(BpmnBaseElement.MQNAME), 1, 1 , SmDirective.SMCDLINKSOURCE, SmDirective.SMCDPARTOF);
         registerDependency(this.sourceRefDep);
-        
+
         this.targetRefDep = new TargetRefSmDependency();
         this.targetRefDep.init("TargetRef", this, metamodel.getMClass(BpmnBaseElement.MQNAME), 1, 1 , SmDirective.SMCDLINKTARGET, SmDirective.SMCDPARTOF);
         registerDependency(this.targetRefDep);
-        
+
         this.collaborationDep = new CollaborationSmDependency();
         this.collaborationDep.init("Collaboration", this, metamodel.getMClass(BpmnCollaboration.MQNAME), 1, 1 );
         registerDependency(this.collaborationDep);
-        
-        
+
     }
 
-    @objid ("0886fa10-1713-4340-891d-ed7c5f1ddc42")
+    @objid ("84e7848e-a855-4a21-9f80-183fbdbba357")
     public SmDependency getMessageRefDep() {
         if (this.messageRefDep == null) {
         	this.messageRefDep = this.getDependencyDef("MessageRef");
@@ -134,7 +132,7 @@ public class BpmnMessageFlowSmClass extends BpmnBaseElementSmClass {
         return this.messageRefDep;
     }
 
-    @objid ("cc673652-865d-4bed-a7eb-f36a7a15a140")
+    @objid ("bce3ad4c-34a7-4dd6-a76c-26ca48f55db0")
     public SmDependency getSourceRefDep() {
         if (this.sourceRefDep == null) {
         	this.sourceRefDep = this.getDependencyDef("SourceRef");
@@ -142,7 +140,7 @@ public class BpmnMessageFlowSmClass extends BpmnBaseElementSmClass {
         return this.sourceRefDep;
     }
 
-    @objid ("bb417048-3a21-42fc-9d93-c563940aca84")
+    @objid ("bdb59efa-3921-4f54-818a-dc791490980f")
     public SmDependency getTargetRefDep() {
         if (this.targetRefDep == null) {
         	this.targetRefDep = this.getDependencyDef("TargetRef");
@@ -150,7 +148,7 @@ public class BpmnMessageFlowSmClass extends BpmnBaseElementSmClass {
         return this.targetRefDep;
     }
 
-    @objid ("64a76f4c-12b3-4475-a3cd-0ab1b5941d1a")
+    @objid ("039a43b3-16d3-4f4f-bee3-b708eebeb59a")
     public SmDependency getCollaborationDep() {
         if (this.collaborationDep == null) {
         	this.collaborationDep = this.getDependencyDef("Collaboration");
@@ -158,30 +156,30 @@ public class BpmnMessageFlowSmClass extends BpmnBaseElementSmClass {
         return this.collaborationDep;
     }
 
-    @objid ("644df1f4-5a10-445f-b02f-6a6c9a4cd77f")
+    @objid ("5f643568-44a5-4879-8975-f862b492f98f")
     @Override
     public boolean isLinkMetaclass() {
         return true;
-        
+
     }
 
     @objid ("414d75db-cf8b-42ed-9657-949369e0a56d")
     private static class BpmnMessageFlowObjectFactory implements ISmObjectFactory {
-        @objid ("c11a9e54-f43f-4086-8f57-392f328a61bf")
+        @objid ("244c81f2-f89f-4867-8d75-cfd7493872af")
         private BpmnMessageFlowSmClass smClass;
 
-        @objid ("2b14f323-fd2a-4dcc-a494-8b30d8d94f26")
-        public  BpmnMessageFlowObjectFactory(BpmnMessageFlowSmClass smClass) {
+        @objid ("bfc08af9-1a5d-4f04-b929-de783caee317")
+        public BpmnMessageFlowObjectFactory(BpmnMessageFlowSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("619f8219-641f-462a-90b9-fb184e16af3a")
+        @objid ("bb553ca6-d280-4cf5-bf35-8fe7015654b9")
         @Override
         public ISmObjectData createData() {
             return new BpmnMessageFlowData(this.smClass);
         }
 
-        @objid ("29da3ff5-d4a8-4054-a7ce-c511e1b922cd")
+        @objid ("fbe96601-0a49-4212-a2da-d6122aa4bd9e")
         @Override
         public SmObjectImpl createImpl() {
             return new BpmnMessageFlowImpl();
@@ -191,116 +189,116 @@ public class BpmnMessageFlowSmClass extends BpmnBaseElementSmClass {
 
     @objid ("900390f2-a6e9-44fe-b6eb-838b12b7c937")
     public static class MessageRefSmDependency extends SmSingleDependency {
-        @objid ("a3b78c9c-b177-4a4c-84cf-5874dd5ba949")
+        @objid ("3f307027-d75d-49ea-948c-882fc6bbdd20")
         private SmDependency symetricDep;
 
-        @objid ("a3ad1320-e83f-4920-aa0b-cbebc2d4614f")
+        @objid ("54cac3f5-26cf-4b81-9c69-d9321dbe8c2d")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((BpmnMessageFlowData) data).mMessageRef;
         }
 
-        @objid ("5c86420a-245b-4c53-82c0-7bb3f5570867")
+        @objid ("1a4b8d3f-2c9b-4501-a711-11f3890911fd")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((BpmnMessageFlowData) data).mMessageRef = value;
         }
 
-        @objid ("d7aff88f-e848-4e9f-951e-78a263795d12")
+        @objid ("dae5dfe8-c124-4e9d-80ad-8fcd34f9a221")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((BpmnMessageSmClass)this.getTarget()).getMessageFlowDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("93b0e5c8-6e14-463a-968e-0fe7248b0e0a")
     public static class SourceRefSmDependency extends SmSingleDependency {
-        @objid ("61500e27-bfe5-455c-bad3-6a53e0457abd")
+        @objid ("9c1b86c3-19bf-4690-81cc-266b6b3ef0a4")
         private SmDependency symetricDep;
 
-        @objid ("b0bb4845-ea20-4eeb-b693-5ffe228f3b34")
+        @objid ("341ef073-bdfa-4090-9768-eda34abb24e6")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((BpmnMessageFlowData) data).mSourceRef;
         }
 
-        @objid ("34c3d3eb-385c-4606-8826-dd11de6fb7ce")
+        @objid ("bd623a77-e0c0-4144-aa04-d1ac5c8d178e")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((BpmnMessageFlowData) data).mSourceRef = value;
         }
 
-        @objid ("8e8c95b3-57ee-4398-8db7-48a4056183e2")
+        @objid ("337e0686-98bf-49ca-b2da-afc35675cd6f")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((BpmnBaseElementSmClass)this.getTarget()).getOutgoingFlowDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("5857f741-4236-464f-9934-c041ac239a11")
     public static class TargetRefSmDependency extends SmSingleDependency {
-        @objid ("5d140886-1fd0-452b-a020-3b66e790a42a")
+        @objid ("8df38b8e-7c8f-4cce-87a9-3771b0b618c4")
         private SmDependency symetricDep;
 
-        @objid ("f3be28ed-7ac9-4408-9692-c5f7a2ced0bf")
+        @objid ("675ae189-0e35-4d81-89d6-c740633efc9e")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((BpmnMessageFlowData) data).mTargetRef;
         }
 
-        @objid ("3e74919a-f9b7-4054-bd77-4974cfad5419")
+        @objid ("1cd71f5a-e993-4ffa-823f-a366f6ef084a")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((BpmnMessageFlowData) data).mTargetRef = value;
         }
 
-        @objid ("0f3ba64c-d93e-4c32-a4fc-b83f20e57673")
+        @objid ("1a1feb8c-4c08-4cb6-81b8-a035d31ac90f")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((BpmnBaseElementSmClass)this.getTarget()).getIncomingFlowDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("0ae70ba2-93c1-4f8c-bf30-d2b7259107af")
     public static class CollaborationSmDependency extends SmSingleDependency {
-        @objid ("4b0e045e-365f-40e1-96ea-ef61e8b527a8")
+        @objid ("0a856d92-5f9d-4bf6-9ad4-3cac025a3cb2")
         private SmDependency symetricDep;
 
-        @objid ("65179e4a-6fef-47b1-afee-6702beaa5b85")
+        @objid ("030fe25d-bbe3-4f24-863d-ec6f7e33a9a4")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((BpmnMessageFlowData) data).mCollaboration;
         }
 
-        @objid ("eba2211c-4742-4aa0-a610-917ada4887cc")
+        @objid ("42ca8456-09e1-43a7-b60a-c947fe4ce90b")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((BpmnMessageFlowData) data).mCollaboration = value;
         }
 
-        @objid ("96e7cedc-2907-40e9-a16b-8c27555e3f3f")
+        @objid ("d8376255-84a4-4683-94e6-0c8704acac30")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((BpmnCollaborationSmClass)this.getTarget()).getMessageFlowDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

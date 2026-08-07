@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.interactionoperand;
 
@@ -56,34 +56,33 @@ public class CreateInteractionOperandCommand extends Command {
 
     /**
      * Creates a node creation command.
+     *
      * @param parentEditPart The parent editPart
      * @param context Details on the MObject and/or the node to create
      * @param insertAfter The editPart used as reference for insertion at the correct place.
      * @param newConstraint the constraint with which to create the child.
      */
     @objid ("d9020268-55b6-11e2-877f-002564c97630")
-    public  CreateInteractionOperandCommand(final EditPart parentEditPart, final ModelioCreationContext context, final GmNodeModel insertAfter, final int newConstraint) {
+    public CreateInteractionOperandCommand(final EditPart parentEditPart, final ModelioCreationContext context, final GmNodeModel insertAfter, final int newConstraint) {
         this.parentNode = (GmCompositeNode) parentEditPart.getModel();
         this.parentElement = (CombinedFragment) this.parentNode.getRelatedElement();
         this.context = context;
         this.insertAfter = insertAfter;
         this.newConstraint = newConstraint;
-        
     }
 
     @objid ("d9020277-55b6-11e2-877f-002564c97630")
     @Override
     public void execute() {
         final IGmDiagram diagram = this.parentNode.getDiagram();
-        
+
         MObject newElement = this.context.getElementToUnmask();
-        
+
         if (newElement != null) {
             unmaskAdditionalChild(diagram, newElement);
         } else {
             executeCreation(diagram);
         }
-        
     }
 
     @objid ("d902027a-55b6-11e2-877f-002564c97630")
@@ -92,21 +91,21 @@ public class CreateInteractionOperandCommand extends Command {
         final IStandardModelFactory modelFactory = modelManager.getModelFactory().getFactory(IStandardModelFactory.class);
         // Create the Element...
         InteractionOperand newElement = (InteractionOperand) modelFactory.createElement(this.context.getMetaclass());
-        
+
         // Attach the stereotype if needed.
         if (this.context.getStereotype() != null) {
             ((ModelElement) newElement).getExtension().add(this.context.getStereotype());
         }
-        
+
         // Configure element from properties
         final IElementConfigurator elementConfigurer = modelManager.getModelServices().getElementConfigurer();
         elementConfigurer.configure(newElement, this.context.getProperties());
-        
+
         // Set default name
         newElement.setName(modelManager.getModelServices().getElementNamer().getUniqueName(newElement));
-        
+
         newElement.setEnclosingInteraction(this.parentElement.getEnclosingInteraction());
-        
+
         // line numbers handling
         EList<InteractionOperand> allOperand = this.parentElement.getOperand();
         if (this.insertAfter == null) {
@@ -119,7 +118,7 @@ public class CreateInteractionOperandCommand extends Command {
             }
             this.parentElement.getOperand().add(newElement);
             newElement.setLineNumber(endLine + 1);
-        
+
             newElement.setEndLineNumber(endLine + this.newConstraint);
         } else {
             // insert before the reference: get the previous (to use as line number) and move reference and all below down to make space.
@@ -147,9 +146,8 @@ public class CreateInteractionOperandCommand extends Command {
             allOperand.clear();
             allOperand.addAll(reorderedOperands);
         }
-        
+
         unmaskAdditionalChild(diagram, newElement);
-        
     }
 
     @objid ("d9020280-55b6-11e2-877f-002564c97630")

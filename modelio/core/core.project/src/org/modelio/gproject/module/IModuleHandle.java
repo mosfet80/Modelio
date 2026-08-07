@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.module;
 
@@ -32,12 +32,14 @@ import org.modelio.vbasic.version.VersionedItem;
 @objid ("b0b56179-f2b7-11e1-90ff-002564c97630")
 public interface IModuleHandle {
     /**
+     *
      * @return the required Modelio version.
      */
     @objid ("f07195e0-f2bb-11e1-90ff-002564c97630")
     Version getBinaryVersion();
 
     /**
+     *
      * @return the needed modules.
      */
     @objid ("f071bcea-f2bb-11e1-90ff-002564c97630")
@@ -50,18 +52,21 @@ public interface IModuleHandle {
     Path getDynamicModelPath();
 
     /**
+     *
      * @return the module .jar files.
      */
     @objid ("b47fd700-f2b7-11e1-90ff-002564c97630")
     List<Path> getJarPaths();
 
     /**
+     *
      * @return the module main java class name.
      */
     @objid ("f07195dc-f2bb-11e1-90ff-002564c97630")
     String getMainClassName();
 
     /**
+     *
      * @return the path to the module .ramc file.
      */
     @objid ("b47fd6fa-f2b7-11e1-90ff-002564c97630")
@@ -71,36 +76,42 @@ public interface IModuleHandle {
     Path getModuleInfosPath();
 
     /**
+     *
      * @return the module name.
      */
     @objid ("b47f88d9-f2b7-11e1-90ff-002564c97630")
     String getName();
 
     /**
+     *
      * @return the module resources path.
      */
     @objid ("b47fd6fe-f2b7-11e1-90ff-002564c97630")
     Path getResourcePath();
 
     /**
+     *
      * @return the UUID of the module component.
      */
     @objid ("f07195da-f2bb-11e1-90ff-002564c97630")
     String getUid();
 
     /**
+     *
      * @return the module version.
      */
     @objid ("b47fafea-f2b7-11e1-90ff-002564c97630")
     Version getVersion();
 
     /**
+     *
      * @return the module weak dependencies.
      */
     @objid ("f071bcee-f2bb-11e1-90ff-002564c97630")
     List<VersionedItem<?>> getWeakDependencies();
 
     /**
+     *
      * @return the module archive path.
      */
     @objid ("d95f3e31-37da-11e2-8ba4-002564c97630")
@@ -111,6 +122,7 @@ public interface IModuleHandle {
 
     /**
      * Get the provided metamodel fragments.
+     *
      * @return the metamodel fragment descriptors.
      */
     @objid ("263eb14e-5138-4e21-946a-9f854c8b0913")
@@ -118,6 +130,7 @@ public interface IModuleHandle {
 
     /**
      * Plugin modules provide their own class loader. This method return it.
+     *
      * @return a class loader for plugin modules, null for others.
      * @since 3.8
      */
@@ -125,5 +138,5 @@ public interface IModuleHandle {
     default ClassLoader getProvidedClassLoader() {
         return null;
     }
-}
 
+}

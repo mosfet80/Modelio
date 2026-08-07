@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.exit;
 
@@ -30,7 +30,7 @@ import org.modelio.diagram.elements.core.figures.EllipseFigure;
  * Figure for a {@link GmExitPointPrimaryNode}.
  * <p>
  * It is a filled circle with an X splitting it.
- * 
+ *
  * @author sbe
  */
 @objid ("f5192bfc-55b6-11e2-877f-002564c97630")
@@ -49,19 +49,19 @@ public class ExitPointFigure extends EllipseFigure {
     protected void paintFigure(Graphics graphics) {
         // super method will draw the shapedFigure
         super.paintFigure(graphics);
-        
+
         graphics.setAdvanced(true);
         graphics.setAntialias(SWT.ON);
-        
+
         // Reclip with path and draw crossed lines
         final Rectangle r = getBounds().getCopy();
-        
+
         Path shapePath = createShapePath(r);
         try {
             if (shapePath != null) {
                 graphics.setClip(shapePath);
             }
-        
+
             graphics.setForegroundColor(this.penOptions.lineColor);
             graphics.setLineWidth(this.penOptions.lineWidth);
             graphics.drawLine(r.getTopLeft(), r.getBottomRight());
@@ -72,7 +72,7 @@ public class ExitPointFigure extends EllipseFigure {
             }
         }
         graphics.restoreState();
-        
+
     }
 
 }

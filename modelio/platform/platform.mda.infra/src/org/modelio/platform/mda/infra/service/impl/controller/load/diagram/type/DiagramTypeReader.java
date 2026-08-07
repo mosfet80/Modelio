@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.service.impl.controller.load.diagram.type;
 
@@ -44,6 +44,7 @@ import org.modelio.vcore.smkernel.mapi.MMetamodel;
 public class DiagramTypeReader {
     /**
      * Registers diagram customizations from module.xml .
+     *
      * @param diagramDef the module.xml part
      * @param module the module to fill
      */
@@ -52,11 +53,11 @@ public class DiagramTypeReader {
         IDiagramCustomizer customizer = null;
         try {
             ContributionReader helper = new ContributionReader(module);
-        
+
             customizer = helper.createHandler(ContributionReader.CONTRIB_DIAGRAMCUSTOMIZER,
                     diagramDef.getHandler().getClazz(),
                     IDiagramCustomizer.class);
-        
+
             // Collect palette tool contributions
             List<PaletteEntry> tools = new ArrayList<>();
             boolean keepBasePalette = true;
@@ -69,15 +70,15 @@ public class DiagramTypeReader {
                     tools.add(new PaletteEntry(toolref.getRefid(), group));
                 }
             }
-        
+
             // Collect hParameters
             Map<String, String> hParameters = helper.readParameters(diagramDef.getHandler().getHParameter());
-        
+
             // Initialize the customizer
             customizer.initialize(module.getIModule(), tools, hParameters, keepBasePalette);
-        
+
             MMetamodel metamodel = module.getModel().getMClass().getMetamodel();
-        
+
             // Read base class and stereotype
             MClass baseDiagramClass = null;
             if (diagramDef.getBaseDiagram() != null) {
@@ -85,17 +86,17 @@ public class DiagramTypeReader {
             } else {
                 baseDiagramClass = metamodel.getMClass(AbstractDiagram.class);
             }
-        
+
             Stereotype stereotype = null;
             if (diagramDef.getStereotype() != null) {
                 stereotype = helper.readStereotypeSpec(baseDiagramClass, diagramDef.getStereotype());
             }
-        
+
             // stereotype CANNOT be null
             if (stereotype == null) {
                 throw new IOException(String.format("Invalid or unknown stereotype: <<%s>> on '%s' diagram metaclass.", diagramDef.getStereotype(), baseDiagramClass.getName()));
             }
-        
+
             // Register the diagram type
             @SuppressWarnings("unchecked")
             Class<? extends AbstractDiagram> diagramJavaInterface = (Class<? extends AbstractDiagram>) baseDiagramClass.getJavaInterface();
@@ -104,7 +105,7 @@ public class DiagramTypeReader {
             MdaInfra.LOG.error(e);
             return;
         }
-        
+
     }
 
 }

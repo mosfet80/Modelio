@@ -1,0 +1,41 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= ArchiMate Documentation Generation
+
+
+Modelio offers a feature to generate documentation from an ArchiMate model.
+
+It relies on the Document Publisher module for the generation, with specific documentation templates.
+
+*Note:* Both the ArchiMate Architect and Document Publisher modules are needed in order to generate the ArchiMate documentation.
+
+
+== Defining the generation scope
+
+When launching the generation command, the selected element indicates which part of the model will be included in the documentation:
+
+* On an image:images/attachment/archimate41/User_Documentation_en/DocumentationGeneration/archimate.archimateview.png[archimate.archimateview.png] ArchiMate <<User_Documentation_en_ArchimateDiagram.adoc#,view>> , every element that is part of the view will be documented.
+* On an image:images/attachment/archimate41/User_Documentation_en/DocumentationGeneration/archimate.viewpoint.png[archimate.viewpoint.png] ArchiMate <<User_Documentation_en_ArchimateModel.adoc#,view point>> , every view that is part of the view point will be documented.
+* On an image:images/attachment/archimate41/User_Documentation_en/DocumentationGeneration/archimatenomenclature.png[archimatenomenclature.png] ArchiMate <<User_Documentation_en_ArchiMateMatrices.adoc#HNomenclatures,nomenclatures>> , every element that is part of the nomenclature will be documented.
+
+
+==  Generating the documentation
+
+image::images/attachment/archimate41/User_Documentation_en/DocumentationGeneration/ArchiMateDocumentationCommand.png[ArchiMateDocumentationCommand.png]
+
+*Steps:*
+
+1. Right-click on a View point, a view or a nomenclature. +
+2. Run the "Generate documentation..." command.
+
+image::images/attachment/archimate41/User_Documentation_en/DocumentationGeneration/DocArchiMate.png[DocArchiMate.png]
+
+*Steps:*
+
+1. Select the path to export the documentation to. +
+2. Select the generation format. +
+3. Whether or not to include the properties in the documentation. +
+4. Launch generation.

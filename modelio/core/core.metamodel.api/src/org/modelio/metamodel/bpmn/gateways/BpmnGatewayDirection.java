@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.bpmn.gateways;
 
@@ -26,21 +26,20 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * BpmnGatewayDirection v0.0.9054
- * 
- * 
+ *
+ *
  * null
- * 
- * 
+ *
  */
 @objid ("00654c58-91e1-1f74-804b-001ec947cd2a")
 public enum BpmnGatewayDirection {
-    @objid ("4b5f815c-244e-47e3-a428-748c5da4e129")
+    @objid ("0fa7b04d-683e-4c3c-8688-e3798224bc8a")
     UNSPECIFIEDDIRECTION(0, "UnspecifiedDirection", "UnspecifiedDirection"),
-    @objid ("541e894b-c329-4542-82e8-f3568f914744")
+    @objid ("5946677c-12cf-4237-b035-721b2628fac0")
     CONVERGINGDIRECTION(1, "ConvergingDirection", "ConvergingDirection"),
-    @objid ("664345b4-cb5f-4f81-97eb-fa354776eb05")
+    @objid ("3df7792d-8526-464e-a2f4-bbf3cba91979")
     DIVERGINGDIRECTION(2, "DivergingDirection", "DivergingDirection"),
-    @objid ("8e27738b-aace-4bb0-ade5-699bfcbce94b")
+    @objid ("25f3548a-ed1c-48da-9272-1da84866ca8a")
     MIXEDDIRECTION(3, "MixedDirection", "MixedDirection");
 
 public static final int UNSPECIFIEDDIRECTION_VALUE = 0;
@@ -103,5 +102,5 @@ public static final int UNSPECIFIEDDIRECTION_VALUE = 0;
     public String toString() {
        return literal;
     }
-    
+
 }

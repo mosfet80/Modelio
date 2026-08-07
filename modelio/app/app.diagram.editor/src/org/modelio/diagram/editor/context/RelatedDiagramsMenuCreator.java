@@ -1,29 +1,50 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.diagram.editor.context;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.ui.di.AboutToShow;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.commands.MCommand;
@@ -53,7 +74,7 @@ public class RelatedDiagramsMenuCreator {
     @objid ("6966de7e-c201-4519-b39c-0480dd088831")
     private static final String CONTRIBUTOR_ID = "platform:/plugin/" + DiagramEditor.PLUGIN_ID;
 
-    @objid ("1e4df3dd-6b6a-4407-a61c-b233f2e20f40")
+    @objid ("1495f085-6245-4e05-a447-191918c1f70a")
     @Inject
     protected MApplication application;
 
@@ -66,26 +87,25 @@ public class RelatedDiagramsMenuCreator {
             // Get diagrams to display
             final Collection<AbstractDiagram> related = RelatedDiagramHelper.getRelatedDiagrams(selectedElement);
             final Collection<AbstractDiagram> displaying = new ArrayList<>(selectedElement.getDiagramElement());
-        
+
             // Remove the current diagram from the lists
             final AbstractDiagram currentDiagram = getCurrentDiagram();
             related.remove(currentDiagram);
             displaying.remove(currentDiagram);
-        
+
             if (related.isEmpty() && displaying.isEmpty()) {
                 // No diagrams to relate to
                 return;
             }
-        
+
             // Remove duplicates
             displaying.removeAll(related);
-        
+
             items.add(createSeparator(CONTRIBUTOR_ID));
-        
+
             // Add the related diagrams menu
             items.add(createMenu(related, displaying));
         }
-        
     }
 
     @objid ("fb7d1e18-ca47-4080-ba87-7bbd74288700")
@@ -94,27 +114,27 @@ public class RelatedDiagramsMenuCreator {
         final MMenu elementCreationMenu = MMenuFactory.INSTANCE.createMenu();
         elementCreationMenu.setLabel(DiagramEditor.I18N.getString("RelatedDiagramsMenu.label"));
         elementCreationMenu.setIconURI(CONTRIBUTOR_ID + "/icons/relateddiagram.png");
-        
+
         // make the menu visible
         elementCreationMenu.setEnabled(true);
         elementCreationMenu.setToBeRendered(true);
         elementCreationMenu.setVisible(true);
-        
+
         // bound the menu to the contributing plugin
         elementCreationMenu.setContributorURI(CONTRIBUTOR_ID);
-        
+
         final List<MMenuElement> menuChildren = elementCreationMenu.getChildren();
-        
+
         // add related diagram items
         if (!relatedDiagrams.isEmpty()) {
             createDiagramItems(menuChildren, relatedDiagrams);
         }
-        
+
         // add diagrams displaying element
         if (!displaying.isEmpty()) {
             // add separator
             menuChildren.add(createSeparator(CONTRIBUTOR_ID));
-        
+
             // add displaying diagrams
             createDiagramItems(menuChildren, displaying);
         }
@@ -123,10 +143,18 @@ public class RelatedDiagramsMenuCreator {
 
     @objid ("c97151d6-21b1-41f1-b067-10a84eb289fe")
     private void createDiagramItems(final Collection<MMenuElement> menuChildren, final Collection<AbstractDiagram> relatedDiagrams) {
-        for (final AbstractDiagram diagram : relatedDiagrams) {
+        List<AbstractDiagram> sortedDiagram = new ArrayList<>(relatedDiagrams);
+
+        Collections.sort(sortedDiagram, new Comparator<AbstractDiagram>() {
+            @Override
+            public int compare(AbstractDiagram o1, AbstractDiagram o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
+
+        for (final AbstractDiagram diagram : sortedDiagram) {
             menuChildren.add(createDiagramItems(diagram));
         }
-        
     }
 
     @objid ("ced07e16-3c49-427e-a131-7ff7707c5674")
@@ -135,19 +163,19 @@ public class RelatedDiagramsMenuCreator {
         final MHandledMenuItem relatedDiagramItem = MMenuFactory.INSTANCE.createHandledMenuItem();
         relatedDiagramItem.setLabel(diagram.getName());
         relatedDiagramItem.setIconURI(MetamodelImageService.getIconCompletePath(diagram.getMClass()));
-        
+
         // make the menu visible
         relatedDiagramItem.setEnabled(true);
         relatedDiagramItem.setToBeRendered(true);
         relatedDiagramItem.setVisible(true);
-        
+
         // bound the menu to the contributing plugin
         relatedDiagramItem.setContributorURI(CONTRIBUTOR_ID);
-        
+
         // set the command
         final MCommand command = getCommand("org.modelio.app.ui.command.openrelateddiagram");
         relatedDiagramItem.setCommand(command);
-        
+
         // add the opened diagram as parameter
         final MParameter p = MCommandsFactory.INSTANCE.createParameter();
         p.setContributorURI(CONTRIBUTOR_ID);
@@ -169,6 +197,7 @@ public class RelatedDiagramsMenuCreator {
 
     /**
      * Get the currently selected element, or <code>null</code> if the selection size is not equal to one.
+     *
      * @return the selected element.
      */
     @objid ("3c32cacb-f1eb-4709-acea-c4959a571faf")
@@ -189,13 +218,14 @@ public class RelatedDiagramsMenuCreator {
 
     /**
      * Get the edited diagram from the selection if the selection is in the diagram.
+     *
      * @return the edited diagram or null.
      */
     @objid ("164d12f7-40a7-48e5-ba83-218466c41c59")
     private AbstractDiagram getCurrentDiagram() {
         final IStructuredSelection sel = getSelection();
         final Object obj = sel != null ? sel.getFirstElement() : null;
-        
+
         if (obj instanceof EditPart) {
             final EditPart ep = (EditPart) obj;
             final Object m = ep.getModel();

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -50,7 +50,7 @@ public class R2760 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -101,14 +101,14 @@ public class R2760 extends AbstractUmlRule {
      * Default constructor for R2760
      */
     @objid ("988205f2-381b-455b-bbd9-1763d51ae8a7")
-    public  R2760() {
+    public R2760() {
         this.checkerInstance = new CheckR2760(this);
     }
 
     @objid ("e2725fc8-f044-41a4-811d-5388b583189c")
     private static class CheckR2760 extends AbstractControl {
         @objid ("a6bdbe1a-ae94-4ebd-af71-ebe7f5bf5de4")
-        public  CheckR2760(IRule rule) {
+        public CheckR2760(IRule rule) {
             super(rule);
         }
 
@@ -126,9 +126,9 @@ public class R2760 extends AbstractUmlRule {
         @objid ("becc8a39-5687-498e-b675-be1d8a8e6972")
         private IAuditEntry checkR2760(Transition transition) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, transition, null);
-            
+
             StateVertex source = transition.getSource();
-            
+
             if (source instanceof ForkPseudoState) {
                 StateVertex target = transition.getTarget();
                 if (!(target instanceof State)) {

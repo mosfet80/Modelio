@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure.properties;
 
 import java.util.ArrayList;
@@ -73,14 +72,14 @@ public class PropertyTableDefinitionImpl extends ModelElementImpl implements Pro
     public ModuleComponent getModule() {
         MetaclassReference ref = getOwnerReference();
         Stereotype st = getOwnerStereotype();
-        
+
         if (ref != null && ref.getOwnerProfile() != null) {
             return ref.getOwnerProfile().getOwnerModule();
         } else if (st != null && st.getOwner() != null) {
             return st.getOwner().getOwnerModule();
         } else
             return null;
-        
+
     }
 
     @objid ("de95edb4-3810-4a33-a05a-5fa6d81e1f82")
@@ -102,7 +101,7 @@ public class PropertyTableDefinitionImpl extends ModelElementImpl implements Pro
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
     @objid ("0b930b94-0e18-4f79-bce9-6e8345f8c864")
@@ -150,7 +149,7 @@ public class PropertyTableDefinitionImpl extends ModelElementImpl implements Pro
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
     @objid ("9065c2ba-5257-4a67-9715-3602dd2fc2bd")
@@ -175,17 +174,17 @@ public class PropertyTableDefinitionImpl extends ModelElementImpl implements Pro
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // OwnerReference
         dep = ((PropertyTableDefinitionSmClass)getClassOf()).getOwnerReferenceDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         // OwnerStereotype
         dep = ((PropertyTableDefinitionSmClass)getClassOf()).getOwnerStereotypeDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 

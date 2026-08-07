@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.patterns.apply.gui;
 
@@ -104,7 +104,7 @@ public class ApplyPatternPanel implements IPanelProvider {
         } else {
             this.controller.setData(null);
         }
-        
+
     }
 
     @objid ("fbeae370-f26c-4d6e-b9f8-3b0bb27decf1")
@@ -126,7 +126,7 @@ public class ApplyPatternPanel implements IPanelProvider {
     }
 
     @objid ("d6941e40-aa7d-4c78-b1ab-1083bf84ceb9")
-    public  ApplyPatternPanel() {
+    public ApplyPatternPanel() {
         this.controller = new ApplyPatternController();
     }
 
@@ -145,7 +145,7 @@ public class ApplyPatternPanel implements IPanelProvider {
         private TableViewer constantParameters;
 
         @objid ("e84bf18b-ce86-46c4-b615-ce889c62f913")
-        public  ApplyPatternPanelUI(ApplyPatternController controller) {
+        public ApplyPatternPanelUI(ApplyPatternController controller) {
             this.controller = controller;
         }
 
@@ -153,20 +153,20 @@ public class ApplyPatternPanel implements IPanelProvider {
         public Control createUI(Composite parent) {
             this.composite = new Composite(parent, SWT.NONE);
             this.composite.setLayoutData(new GridData(GridData.FILL_BOTH));
-            
+
             this.composite.setLayout(new GridLayout(1, false));
-            
+
             Label parametersLabel = new Label(this.composite, SWT.NONE);
             parametersLabel.setText(Patterns.I18N.getString("ApplyPatternPanel.Parameters.label"));
-            
+
             Composite parametersTable = createEditableParametersTable(this.composite);
             GridData parametersGD = new GridData(SWT.FILL, SWT.FILL, true, true);
             parametersGD.minimumHeight = 150;
             parametersTable.setLayoutData(parametersGD);
-            
+
             Label constantsLabel = new Label(this.composite, SWT.NONE);
             constantsLabel.setText(Patterns.I18N.getString("ApplyPatternPanel.Constants.label"));
-            
+
             Composite constantsTable = createConstantParametersTable(this.composite);
             GridData constantsGD = new GridData(SWT.FILL, SWT.FILL, true, false);
             constantsGD.minimumHeight = 150;
@@ -187,14 +187,14 @@ public class ApplyPatternPanel implements IPanelProvider {
                         ep.add(param);
                     }
                 }
-            
+
                 this.editableParameters.setInput(ep);
                 this.constantParameters.setInput(cp);
             } else {
                 this.editableParameters.setInput(Collections.emptyList());
                 this.constantParameters.setInput(Collections.emptyList());
             }
-            
+
         }
 
         @objid ("b6a844be-0083-40ae-b207-65064587e6d1")
@@ -205,21 +205,21 @@ public class ApplyPatternPanel implements IPanelProvider {
         @objid ("311a1138-cec7-4f80-9df4-08bb6c6bd68f")
         private Composite createEditableParametersTable(Composite parent) {
             Composite contents = new Composite(parent, SWT.NONE);
-            
+
             TableColumnLayout tableColumnLayout = new TableColumnLayout();
             contents.setLayout(tableColumnLayout);
-            
+
             this.editableParameters = new TableViewer(contents, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
             // this.parameters.getTable().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
             this.editableParameters.setContentProvider(new ArrayContentProvider());
-            
+
             // Get the SWT Table that's inside the TableViewer
             Table table = this.editableParameters.getTable();
-            
+
             // Show the column headers
             table.setHeaderVisible(true);
             table.setLinesVisible(false);
-            
+
             // Parameter label
             TableViewerColumn labelColumn = new TableViewerColumn(this.editableParameters, SWT.NONE);
             labelColumn.getColumn().setWidth(200);
@@ -227,19 +227,19 @@ public class ApplyPatternPanel implements IPanelProvider {
             labelColumn.getColumn().setToolTipText(Patterns.I18N.getString("ApplyPatternPanel.parameter.label.column.tooltip"));
             labelColumn.getColumn().setAlignment(SWT.CENTER);
             labelColumn.setLabelProvider(new ColumnLabelProvider() {
-            
+
                 @Override
                 public Color getForeground(Object element) {
                     return UIColor.NONMODIFIABLE_ELEMENT_FG;
                 }
-            
+
                 @Override
                 public String getText(Object element) {
                     Parameter p = (Parameter) element;
                     return p.getLabel();
                 }
             });
-            
+
             // Parameter type
             TableViewerColumn typeColumn = new TableViewerColumn(this.editableParameters, SWT.NONE);
             typeColumn.getColumn().setWidth(200);
@@ -247,12 +247,12 @@ public class ApplyPatternPanel implements IPanelProvider {
             typeColumn.getColumn().setToolTipText(Patterns.I18N.getString("ApplyPatternPanel.parameter.type.column.tooltip"));
             typeColumn.getColumn().setAlignment(SWT.CENTER);
             typeColumn.setLabelProvider(new ColumnLabelProvider() {
-            
+
                 @Override
                 public Color getForeground(Object element) {
                     return UIColor.NONMODIFIABLE_ELEMENT_FG;
                 }
-            
+
                 @Override
                 public String getText(Object element) {
                     Parameter p = (Parameter) element;
@@ -269,7 +269,7 @@ public class ApplyPatternPanel implements IPanelProvider {
                     }
                 }
             });
-            
+
             // Parameter value
             TableViewerColumn valueColumn = new TableViewerColumn(this.editableParameters, SWT.NONE);
             valueColumn.getColumn().setWidth(200);
@@ -277,47 +277,47 @@ public class ApplyPatternPanel implements IPanelProvider {
             valueColumn.getColumn().setToolTipText(Patterns.I18N.getString("ApplyPatternPanel.parameter.value.column.tooltip"));
             valueColumn.getColumn().setAlignment(SWT.LEFT);
             valueColumn.setLabelProvider(new ColumnLabelProvider() {
-            
+
                 @Override
                 public Color getForeground(Object element) {
                     return (element instanceof ConstantParameter) ? UIColor.NONMODIFIABLE_ELEMENT_FG : UIColor.MODIFIABLE_ELEMENT_FG;
                 }
-            
+
                 @Override
                 public String getText(Object element) {
                     Parameter p = (Parameter) element;
                     Object value = ApplyPatternPanelUI.this.controller.data.getParameterValues().get(p.getName());
-            
+
                     if (value instanceof MObject) {
                         return ((MObject) value).getName();
                     } else {
                         return Objects.toString(value);
                     }
                 }
-            
+
                 @Override
                 public Image getImage(Object element) {
                     Parameter p = (Parameter) element;
                     Object value = ApplyPatternPanelUI.this.controller.data.getParameterValues().get(p.getName());
-            
+
                     if (value instanceof MObject) {
                         return ElementImageService.getIcon((MObject) value);
                     } else {
                         return null;
                     }
                 }
-            
+
                 @Override
                 public String getToolTipText(Object element) {
                     Parameter p = (Parameter) element;
                     return p.getDescription();
                 }
             });
-            
+
             valueColumn.setEditingSupport(new ParameterValueEditingSupport(this.editableParameters, this.controller));
-            
+
             ColumnViewerToolTipSupport.enableFor(this.editableParameters, ToolTip.NO_RECREATE);
-            
+
             tableColumnLayout.setColumnData(labelColumn.getColumn(), new ColumnWeightData(50, 200, true));
             tableColumnLayout.setColumnData(typeColumn.getColumn(), new ColumnWeightData(10, 90, true));
             tableColumnLayout.setColumnData(valueColumn.getColumn(), new ColumnWeightData(50, 200, true));
@@ -327,21 +327,21 @@ public class ApplyPatternPanel implements IPanelProvider {
         @objid ("0dd1152b-787a-4fdd-ba6d-78b2167845cd")
         private Composite createConstantParametersTable(Composite parent) {
             Composite contents = new Composite(parent, SWT.NONE);
-            
+
             TableColumnLayout tableColumnLayout = new TableColumnLayout();
             contents.setLayout(tableColumnLayout);
-            
+
             this.constantParameters = new TableViewer(contents, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
             // this.constantParameters.getTable().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
             this.constantParameters.setContentProvider(new ArrayContentProvider());
-            
+
             // Get the SWT Table that's inside the TableViewer
             Table table = this.constantParameters.getTable();
-            
+
             // Show the column headers
             table.setHeaderVisible(true);
             table.setLinesVisible(false);
-            
+
             // Label label
             TableViewerColumn labelColumn = new TableViewerColumn(this.constantParameters, SWT.NONE);
             labelColumn.getColumn().setWidth(200);
@@ -349,19 +349,19 @@ public class ApplyPatternPanel implements IPanelProvider {
             labelColumn.getColumn().setToolTipText(Patterns.I18N.getString("ApplyPatternPanel.constant.label.column.tooltip"));
             labelColumn.getColumn().setAlignment(SWT.CENTER);
             labelColumn.setLabelProvider(new ColumnLabelProvider() {
-            
+
                 @Override
                 public Color getForeground(Object element) {
                     return UIColor.NONMODIFIABLE_ELEMENT_FG;
                 }
-            
+
                 @Override
                 public String getText(Object element) {
                     Parameter p = (Parameter) element;
                     return p.getLabel();
                 }
             });
-            
+
             // Parameter type
             TableViewerColumn typeColumn = new TableViewerColumn(this.constantParameters, SWT.NONE);
             typeColumn.getColumn().setWidth(200);
@@ -369,12 +369,12 @@ public class ApplyPatternPanel implements IPanelProvider {
             typeColumn.getColumn().setToolTipText(Patterns.I18N.getString("ApplyPatternPanel.constant.type.column.tooltip"));
             typeColumn.getColumn().setAlignment(SWT.CENTER);
             typeColumn.setLabelProvider(new ColumnLabelProvider() {
-            
+
                 @Override
                 public Color getForeground(Object element) {
                     return UIColor.NONMODIFIABLE_ELEMENT_FG;
                 }
-            
+
                 @Override
                 public String getText(Object element) {
                     Parameter p = (Parameter) element;
@@ -391,7 +391,7 @@ public class ApplyPatternPanel implements IPanelProvider {
                     }
                 }
             });
-            
+
             // Parameter value
             TableViewerColumn valueColumn = new TableViewerColumn(this.constantParameters, SWT.NONE);
             valueColumn.getColumn().setWidth(200);
@@ -399,45 +399,45 @@ public class ApplyPatternPanel implements IPanelProvider {
             valueColumn.getColumn().setToolTipText(Patterns.I18N.getString("ApplyPatternPanel.constant.value.column.tooltip"));
             valueColumn.getColumn().setAlignment(SWT.LEFT);
             valueColumn.setLabelProvider(new ColumnLabelProvider() {
-            
+
                 @Override
                 public Color getForeground(Object element) {
                     return (element instanceof ConstantParameter) ? UIColor.NONMODIFIABLE_ELEMENT_FG : UIColor.MODIFIABLE_ELEMENT_FG;
                 }
-            
+
                 @Override
                 public String getText(Object element) {
                     Parameter p = (Parameter) element;
                     Object value = ApplyPatternPanelUI.this.controller.data.getParameterValues().get(p.getName());
-            
+
                     if (value instanceof MObject) {
                         return ((MObject) value).getName();
                     } else {
                         return value.toString();
                     }
                 }
-            
+
                 @Override
                 public Image getImage(Object element) {
                     Parameter p = (Parameter) element;
                     Object value = ApplyPatternPanelUI.this.controller.data.getParameterValues().get(p.getName());
-            
+
                     if (value instanceof MObject) {
                         return ElementImageService.getIcon((MObject) value);
                     } else {
                         return null;
                     }
                 }
-            
+
                 @Override
                 public String getToolTipText(Object element) {
                     Parameter p = (Parameter) element;
                     return p.getDescription();
                 }
             });
-            
+
             ColumnViewerToolTipSupport.enableFor(this.constantParameters, ToolTip.NO_RECREATE);
-            
+
             tableColumnLayout.setColumnData(labelColumn.getColumn(), new ColumnWeightData(50, 200, true));
             tableColumnLayout.setColumnData(typeColumn.getColumn(), new ColumnWeightData(10, 90, true));
             tableColumnLayout.setColumnData(valueColumn.getColumn(), new ColumnWeightData(50, 200, true));
@@ -468,7 +468,7 @@ public class ApplyPatternPanel implements IPanelProvider {
             if (this.ui != null) {
                 this.ui.update(this.data);
             }
-            
+
         }
 
         @objid ("d96cb856-3d28-4018-8284-17d497a659a3")
@@ -488,7 +488,7 @@ public class ApplyPatternPanel implements IPanelProvider {
         public void dispose() {
             this.ui.dispose();
             this.ui = null;
-            
+
         }
 
         @objid ("2dbf76e9-dd50-4b65-8465-2dd404e77073")
@@ -507,7 +507,7 @@ public class ApplyPatternPanel implements IPanelProvider {
                 throw new InvalidParameterException("Listener already registered");
             }
             this.listeners.add(l);
-            
+
         }
 
         @objid ("e6af107a-e56c-4254-bc1f-d42f8e758ea1")
@@ -518,7 +518,7 @@ public class ApplyPatternPanel implements IPanelProvider {
                 this.ui.update(this.data);
                 fireListeners(this.data, true);
             }
-            
+
         }
 
     }
@@ -529,10 +529,10 @@ public class ApplyPatternPanel implements IPanelProvider {
         private final ApplyPatternController controller;
 
         @objid ("b70bb663-0c3a-4c3a-ab25-50268c93ae99")
-        public  ParameterValueEditingSupport(TableViewer viewer, ApplyPatternController controller) {
+        public ParameterValueEditingSupport(TableViewer viewer, ApplyPatternController controller) {
             super(viewer);
             this.controller = controller;
-            
+
         }
 
         @objid ("672f2a7d-f09e-4a96-a403-cbba7054645a")
@@ -544,23 +544,23 @@ public class ApplyPatternPanel implements IPanelProvider {
             } else {
                 return new TextCellEditor(table) {
                     private TextElement textElement;
-            
+
                     @Override
                     protected Control createControl(Composite parent) {
                         ICoreSession session = ParameterValueEditingSupport.this.controller.data.getSession();
-            
+
                         this.textElement = new TextElement(parent, SWT.NONE, false);
                         this.textElement.activateCompletion(session);
                         this.textElement.activatePicking(ParameterValueEditingSupport.this.controller.data.getPickingService());
-            
+
                         this.textElement.getAcceptedMetaclasses().add(session.getMetamodel().getMClass(((Parameter) element).getMetaclass()));
                         return this.textElement.getTextControl();
                     }
-            
+
                     @Override
                     public void activate() {
                         super.activate();
-            
+
                         this.textElement.addListener(new ITextElementSelectionListener() {
                             @Override
                             public void selectedElementChanged(MObject oldElement, MObject newElement) {
@@ -570,31 +570,31 @@ public class ApplyPatternPanel implements IPanelProvider {
                             }
                         });
                     }
-            
+
                     @Override
                     protected void doSetFocus() {
                         super.doSetFocus();
                         this.textElement.getTextControl().selectAll();
                         this.textElement.getTextControl().setFocus();
                     }
-            
+
                     @Override
                     protected void doSetValue(Object value) {
                         this.textElement.setValue((MObject) value);
                     }
-            
+
                     @Override
                     protected Object doGetValue() {
                         return this.textElement.getValue();
                     }
-            
+
                     @Override
                     protected boolean dependsOnExternalFocusListener() {
                         return false;
                     }
                 };
             }
-            
+
         }
 
         @objid ("d175240d-c331-45f3-9a4b-28608f73e560")

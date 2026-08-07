@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.gui.creation.file;
 
@@ -48,7 +48,7 @@ class FilePanelController {
             throw new InvalidParameterException("Listener already registered");
         }
         this.listeners.add(l);
-        
+
     }
 
     @objid ("a28e3da1-018e-4b59-81d0-ef7134eb8ccc")
@@ -63,7 +63,7 @@ class FilePanelController {
     public void dispose() {
         this.ui.dispose();
         this.ui = null;
-        
+
     }
 
     @objid ("5cf14a9c-da9f-4e45-9f8f-54fa89697931")
@@ -82,13 +82,13 @@ class FilePanelController {
         if (Objects.equals(this.data.getPath(), value)) {
             return;
         }
-        
+
         this.data.setPath(value);
         if (isValidate) {
             this.ui.update(this.data);
         }
         fireListeners(this.data, isValidate);
-        
+
     }
 
     @objid ("ce312b3a-72c2-4100-ad63-875c0afcff65")
@@ -102,12 +102,12 @@ class FilePanelController {
         if (Objects.equals(this.data.getChosenMimeType(), value)) {
             return;
         }
-        
+
         this.data.setMimeType(value);
-        
+
         this.ui.update(this.data);
         fireListeners(this.data, true);
-        
+
     }
 
     @objid ("71135f3b-cf3a-40b2-91cf-603da8e1a4be")
@@ -116,12 +116,12 @@ class FilePanelController {
         if (Objects.equals(this.data.getCreationMode(), value)) {
             return;
         }
-        
+
         this.data.setCreationMode(value);
-        
+
         this.ui.update(this.data);
         fireListeners(this.data, true);
-        
+
     }
 
     @objid ("00d625de-865f-434f-bd62-253037a280ec")
@@ -135,7 +135,7 @@ class FilePanelController {
         if (this.ui != null) {
             this.ui.update(this.data);
         }
-        
+
     }
 
     @objid ("29bd7a93-d132-4910-9a82-5d991a0b7098")

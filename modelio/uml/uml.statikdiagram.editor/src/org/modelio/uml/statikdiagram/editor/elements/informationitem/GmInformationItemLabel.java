@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.informationitem;
 
@@ -57,24 +57,25 @@ public class GmInformationItemLabel extends GmDefaultModelElementLabel {
      * Constructor for deserialization only.
      */
     @objid ("35157b6c-55b7-11e2-877f-002564c97630")
-    public  GmInformationItemLabel() {
-        
+    public GmInformationItemLabel() {
+
     }
 
     /**
      * Create an attribute representation.
+     *
      * @param diagram The diagram
      * @param el The represented InformationItem, may be null.
      * @param ref The represented InformationItem reference, may not be null.
      */
     @objid ("35157b6f-55b7-11e2-877f-002564c97630")
-    public  GmInformationItemLabel(IGmDiagram diagram, InformationItem el, MRef ref) {
+    public GmInformationItemLabel(IGmDiagram diagram, InformationItem el, MRef ref) {
         super(diagram, ref);
         this.element = el;
-        
+
         setShowMetaclassKeyword(false);
         setShowMetaclassIcon(true);
-        
+
     }
 
     @objid ("351701e7-55b7-11e2-877f-002564c97630")
@@ -129,7 +130,7 @@ public class GmInformationItemLabel extends GmDefaultModelElementLabel {
                 break;
             }
         }
-        
+
     }
 
     @objid ("35170216-55b7-11e2-877f-002564c97630")
@@ -150,7 +151,7 @@ public class GmInformationItemLabel extends GmDefaultModelElementLabel {
             case FULLQUALIFIED:
                 StringBuilder s = new StringBuilder(100);
                 s.append(att.getName());
-        
+
                 final List<Classifier> types = att.getRepresented();
                 boolean first = true;
                 for (Classifier c : types) {
@@ -164,35 +165,35 @@ public class GmInformationItemLabel extends GmDefaultModelElementLabel {
                 }
                 return s.toString();
         }
-        
+
     }
 
     @objid ("35188883-55b7-11e2-877f-002564c97630")
     private ShowNameMode getNameMode() {
         final StyleKey nameKey = getStyleKey(MetaKey.SHOWNAME);
-        
+
         if (nameKey == null)
             return ShowNameMode.QUALIFIED;
         else
             return getDisplayedStyle().getProperty(nameKey);
-        
+
     }
 
     @objid ("35188888-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmInformationItemLabel.", GmInformationItemLabel.MINOR_VERSION);
-        
+
     }
 
     @objid ("3518888e-55b7-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (InformationItem) resolveRef(this.getRepresentedRef());
-        
+
     }
 
     @objid ("35188893-55b7-11e2-877f-002564c97630")

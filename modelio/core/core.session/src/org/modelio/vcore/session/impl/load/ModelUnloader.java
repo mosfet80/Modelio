@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.impl.load;
 
@@ -38,15 +38,17 @@ public class ModelUnloader {
 
     /**
      * Initialize the unloader.
+     *
      * @param cacheManager the session cache manager
      */
     @objid ("58853ff2-8723-43ec-a7b9-b1cb1c94bb71")
-    public  ModelUnloader(CacheManager cacheManager) {
+    public ModelUnloader(CacheManager cacheManager) {
         this.cacheManager = cacheManager;
     }
 
     /**
      * Delete the given model object
+     *
      * @param objToUnload the object to delete.
      */
     @objid ("6d085ec5-f2a7-4a26-8916-338742e9529b")
@@ -54,16 +56,16 @@ public class ModelUnloader {
         // Compute all objects to unload
         Collection<SmObjectImpl> toUnload = new HashSet<>();
         Collection<SmObjectImpl> toReload = new HashSet<>();
-        
+
         for (SmObjectImpl obj : objToUnload) {
             getAllLoadedComponents(obj, toUnload);
         }
-        
+
         // Set all objects as being deleted
         for (SmObjectImpl obj : toUnload) {
             obj.getData().setRFlags(IRStatus.BEINGDELETED, 0, 0);
         }
-        
+
         // Look for all loaded objects having pointer on
         // objects to unload, they must be reloaded.
         for (SmObjectImpl obj : toUnload) {
@@ -84,7 +86,7 @@ public class ModelUnloader {
                 }
             }
         }
-        
+
         // Unload and forget all objects to unload
         for (SmObjectImpl obj : toUnload) {
             //Log.trace("ModelUnloader: unloading %s.", obj);
@@ -92,13 +94,13 @@ public class ModelUnloader {
             obj.getData().setRFlags(IRStatus.DELETED, IRStatus.BEINGDELETED, 0);
             this.cacheManager.removeFromCache(obj);
         }
-        
+
     }
 
     @objid ("6d27ca74-bc0c-406c-9388-8a7d9834d1ef")
     private void getAllLoadedComponents(SmObjectImpl obj, Collection<SmObjectImpl> toUnload) {
         toUnload.add(obj);
-        
+
         final SmClass cls = obj.getClassOf();
         for (final SmDependency dep : cls.getAllDepDef()) {
             if (dep.isToDelete()) {
@@ -109,7 +111,7 @@ public class ModelUnloader {
                 }
             }
         }
-        
+
     }
 
 }

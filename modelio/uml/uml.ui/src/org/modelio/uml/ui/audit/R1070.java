@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -45,7 +45,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * Checks that an ActivityParameterNode with incoming edges represents a BehaviourParameter that has either 'out' or 'inout' as passing mode or is a return parameter.
- * 
+ *
  * @author fpoyer
  */
 @objid ("9972e128-9bfa-40d0-a692-5d11e71d1adb")
@@ -55,7 +55,7 @@ public class R1070 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -80,10 +80,10 @@ public class R1070 extends AbstractUmlRule {
         // Needed for:
         // - the behaviour parameter's passing mode changes (ParameterPassing attribute or Returned dependency)
         plan.registerRule(BehaviorParameter.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         plan.registerRule(ControlFlow.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE | AuditTrigger.UPDATE);
         plan.registerRule(ObjectFlow.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE | AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -117,7 +117,7 @@ public class R1070 extends AbstractUmlRule {
      * Default constructor for R1070
      */
     @objid ("9f8e16ba-3fec-4caf-8b04-f16ce5a532e3")
-    public  R1070() {
+    public R1070() {
         this.checkerInstance = new CheckR1070(this);
     }
 
@@ -128,10 +128,11 @@ public class R1070 extends AbstractUmlRule {
     private static class CheckR1070 extends AbstractControl {
         /**
          * C'tor.
+         *
          * @param rule the rule to check.
          */
         @objid ("e694128b-654f-4d8d-9652-d5c50f87999f")
-        public  CheckR1070(IRule rule) {
+        public CheckR1070(IRule rule) {
             super(rule);
         }
 
@@ -157,7 +158,7 @@ public class R1070 extends AbstractUmlRule {
         @objid ("9e699fc0-b573-47d9-bf45-08972f53c567")
         private IAuditEntry checkR1070(ActivityParameterNode node) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, node, null);
-            
+
             // If the activity parameter node has incoming edges, then it must
             // represent a behaviour parameter which passing mode must be either
             // OUT or INOUT or must be a return parameter.
@@ -182,14 +183,14 @@ public class R1070 extends AbstractUmlRule {
         @objid ("841f92cc-8ff9-4474-8536-ddb6eb05ef3f")
         private List<IAuditEntry> checkR1070(ActivityEdge edge) {
             List<IAuditEntry> auditentries = new ArrayList<>();
-            
+
             ActivityNode source = edge.getSource();
             ActivityNode target = edge.getTarget();
-            
+
             if (source instanceof ActivityParameterNode) {
                 auditentries.add(checkR1070((ActivityParameterNode) source));
             }
-            
+
             if (target instanceof ActivityParameterNode) {
                 auditentries.add(checkR1070((ActivityParameterNode) target));
             }

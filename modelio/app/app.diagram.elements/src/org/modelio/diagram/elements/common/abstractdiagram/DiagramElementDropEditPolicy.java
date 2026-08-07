@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.abstractdiagram;
 
@@ -78,7 +78,7 @@ public class DiagramElementDropEditPolicy extends DefaultElementDropEditPolicy {
                 super.showTargetFeedback(request);
             }
         }
-        
+
     }
 
     @objid ("7e11d6be-1dec-11e2-8cad-001ec947c8cc")
@@ -102,6 +102,7 @@ public class DiagramElementDropEditPolicy extends DefaultElementDropEditPolicy {
 
     /**
      * Creates a drop command for an element that will be unmasked as a link.
+     *
      * @param dropLocation the point where the drop happened.
      * @param link the link.
      * @return the created command.
@@ -122,20 +123,20 @@ public class DiagramElementDropEditPolicy extends DefaultElementDropEditPolicy {
         while (element != null // < In case we went up too high!
                 && (isMultipleUnmaskAllowed() || gmDiagram.getExistingModelFor(element) == null) // the element should not be already unmasked, or multiple unmask should be allowed
                 && (gmDiagram.canUnmask(element) || gmDiagram.canUnmaskGenericElements())) { // the element must be unmaskable in this diagram
-        
+
             // is the hierarchy complete
             final IDiagramElementDropEditPolicyExtension extension = getUnmaskingExtension(gmDiagram, hierarchy, element);
             if (extension == null) {
                 break;
             }
-        
+
             // add the element to the hierarchy
             hierarchy.push(element);
-        
+
             // get next element in hierarchy from the extension
             element = extension.getParentInGraphicalHierarchy(gmDiagram, element);
         }
-        
+
         // add the first excluded element to the hierarchy
         if (element != null) {
             hierarchy.push(element);
@@ -155,6 +156,7 @@ public class DiagramElementDropEditPolicy extends DefaultElementDropEditPolicy {
 
     /**
      * Creates a drop command for an element that will be unmasked as a node.
+     *
      * @param dropLocation the point where the drop happened.
      * @param toUnmask the element to unmask.
      * @return the created command.
@@ -163,10 +165,10 @@ public class DiagramElementDropEditPolicy extends DefaultElementDropEditPolicy {
     public Command createDropCommandForNodeHierarchy(Point dropLocation, MObject toUnmask) {
         final AbstractDiagramEditPart host = (AbstractDiagramEditPart) getHost();
         final GmAbstractDiagram gmDiagram = (GmAbstractDiagram) host.getModel();
-        
+
         // Compute the graphical hierarchy
         Deque<MObject> elementsHierarchy = getGraphicalHierarchy(gmDiagram, toUnmask);
-        
+
         // and unmask it
         return createUnmaskHierarchyCommand(host, dropLocation, elementsHierarchy);
     }
@@ -174,12 +176,12 @@ public class DiagramElementDropEditPolicy extends DefaultElementDropEditPolicy {
     @objid ("28108045-8e85-490e-91a2-7693c656f15f")
     private Command createUnmaskHierarchyCommand(final AbstractDiagramEditPart host, Point initialDropLocation, final Deque<MObject> elementsHierarchy) {
         IGmDiagram gmDiagram = (IGmDiagram) host.getModel();
-        
+
         // Take the first element out of the hierarchy as the first parent.
         MObject parent = elementsHierarchy.size() > 1 ? elementsHierarchy.pop() : null;
-        
+
         CompoundCommand hierarchyUnmaskCommand = new CompoundCommand();
-        
+
         Point dropLocation = initialDropLocation.getCopy();
         MObject child;
         if (parent != null && !isMultipleUnmaskAllowed() && gmDiagram.getExistingModelFor(parent) != null) {
@@ -191,24 +193,24 @@ public class DiagramElementDropEditPolicy extends DefaultElementDropEditPolicy {
             // Make it so that the first element of the hierarchy is unmasked
             // directly in the diagram.
             child = elementsHierarchy.pop();
-        
+
             Command cmd = super.createDropCommandForElement(dropLocation, child);
             if (cmd != null) {
                 hierarchyUnmaskCommand.add(cmd);
             }
-        
+
             dropLocation = dropLocation.getCopy().setLocation(0, 0);
             // It will then be used as "root" of the hierarchy to unmask
         } else {
             // Hierarchy is inconsistent
             return null;
         }
-        
+
         while (!elementsHierarchy.isEmpty()) {
             MObject previous = child;
             child = elementsHierarchy.pop();
             hierarchyUnmaskCommand.add(new DeferredUnmaskCommand(previous, child, dropLocation, host));
-        
+
             dropLocation = dropLocation.getCopy().setLocation(0, 0);
         }
         return hierarchyUnmaskCommand.unwrap();
@@ -220,7 +222,7 @@ public class DiagramElementDropEditPolicy extends DefaultElementDropEditPolicy {
         if (canUnmaskAsNode) {
             return true;
         }
-        
+
         IGmDiagram model = (IGmDiagram) getHost().getModel();
         IGmLink gmLink = model.unmaskLink(droppedElement);
         boolean canUnmaskAsLink = (gmLink != null);
@@ -244,16 +246,17 @@ public class DiagramElementDropEditPolicy extends DefaultElementDropEditPolicy {
      * C'tor forbidding multiple unmask.
      */
     @objid ("74f91ad7-bd45-4593-85d7-979d5fe595b9")
-    public  DiagramElementDropEditPolicy() {
+    public DiagramElementDropEditPolicy() {
         super(false);
     }
 
     /**
      * C'tor.
+     *
      * @param multipleUnmaskAllowed allow or forbid multiple unmask for model elements.
      */
     @objid ("45449ee2-30e0-41b9-a420-5f67660dea1f")
-    public  DiagramElementDropEditPolicy(boolean multipleUnmaskAllowed) {
+    public DiagramElementDropEditPolicy(boolean multipleUnmaskAllowed) {
         super(multipleUnmaskAllowed);
     }
 

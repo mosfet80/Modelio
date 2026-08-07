@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.elementRealization;
 
@@ -32,7 +32,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * MObject import header displayed on the node link.
- * 
+ *
  * @author cmarin
  */
 @objid ("b32f9733-4171-4873-ada9-98f03f2f8168")
@@ -48,11 +48,12 @@ public class GmElementRealizationHeader extends GmDefaultModelElementHeader {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram
      * @param relatedRef a reference to the element this GmModel is related to, must not be null.
      */
     @objid ("698c39d6-1d08-4466-a3ac-01fdd7ace723")
-    public  GmElementRealizationHeader(IGmDiagram diagram, MRef relatedRef) {
+    public GmElementRealizationHeader(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -60,8 +61,8 @@ public class GmElementRealizationHeader extends GmDefaultModelElementHeader {
      * For deserialization only.
      */
     @objid ("b1efe566-a898-4085-88ac-ce51565c3d25")
-    public  GmElementRealizationHeader() {
-        
+    public GmElementRealizationHeader() {
+
     }
 
     @objid ("34f9ca58-43c2-4f5d-9194-128007f98493")
@@ -83,7 +84,7 @@ public class GmElementRealizationHeader extends GmDefaultModelElementHeader {
             return "<<use>> " + (getRelatedElement().getName());
         else
             return "<<use>>";
-        
+
     }
 
     @objid ("a7f51762-b44f-4ae1-a977-c7036afb1ade")
@@ -103,17 +104,17 @@ public class GmElementRealizationHeader extends GmDefaultModelElementHeader {
                 break;
             }
         }
-        
+
     }
 
     @objid ("c0959b6c-3668-4218-b009-85599a2d864b")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0.
         writeMinorVersion(out, "GmUsageHeader.", Integer.valueOf(GmElementRealizationHeader.MINOR_VERSION));
-        
+
     }
 
     @objid ("e226f778-81cf-4887-abf1-19d6e48f31e9")

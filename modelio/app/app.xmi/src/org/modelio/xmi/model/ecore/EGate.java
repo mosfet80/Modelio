@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -39,7 +39,7 @@ public class EGate extends ENamedElement {
     }
 
     @objid ("c38ff673-ae95-474e-a64a-0326ebb2a337")
-    public  EGate(org.eclipse.uml2.uml.Gate element) {
+    public EGate(org.eclipse.uml2.uml.Gate element) {
         super(element);
     }
 
@@ -47,9 +47,9 @@ public class EGate extends ENamedElement {
     @Override
     public void attach(Element objingElt) {
         if (objingElt instanceof Gate){
-        
+
             Object owner = ReverseProperties.getInstance().getMappedElement(getEcoreElement().getOwner());
-        
+
             if (owner instanceof Interaction){
                 ((Interaction) owner).getFormalGate().add((Gate) objingElt);
             }else if (owner instanceof InteractionUse){
@@ -58,7 +58,7 @@ public class EGate extends ENamedElement {
                 ((CombinedFragment) owner).getFragmentGate().add((Gate) objingElt);
             }
         }
-        
+
     }
 
     @objid ("6d3311c8-8a5e-4723-a268-8fd5e4e89e7c")
@@ -66,7 +66,7 @@ public class EGate extends ENamedElement {
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setStartOrEnd(objingElt);
-        
+
     }
 
     @objid ("0fad6aee-a860-41db-a588-128d700eb752")
@@ -74,20 +74,20 @@ public class EGate extends ENamedElement {
         org.eclipse.uml2.uml.Gate ecoreGate = (org.eclipse.uml2.uml.Gate) getEcoreElement();
         org.eclipse.uml2.uml.Message ecoreMessage = ecoreGate.getMessage();
         Object objMessage = ReverseProperties.getInstance().getMappedElement(ecoreMessage);
-        
+
         if ((ecoreMessage != null)
                 && (objMessage != null)
                 && (objMessage instanceof Message)
                 && (objingElt instanceof MessageEnd)){
-        
+
             if (ecoreMessage.getSendEvent().equals(ecoreGate)){
                 ((Message) objMessage).setSendEvent((MessageEnd) objingElt);
             }else{
                 ((Message) objMessage).setReceiveEvent((MessageEnd) objingElt);
             }
-        
+
         }
-        
+
     }
 
 }

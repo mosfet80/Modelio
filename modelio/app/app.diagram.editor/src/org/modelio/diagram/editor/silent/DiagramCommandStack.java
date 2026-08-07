@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.silent;
 
@@ -34,10 +34,11 @@ class DiagramCommandStack extends CommandStack {
 
     /**
      * Initialise the command stack.
+     *
      * @param session a modelling session
      */
     @objid ("6694978a-33f7-11e2-95fe-001ec947c8cc")
-    public  DiagramCommandStack(ITransactionSupport session) {
+    public DiagramCommandStack(ITransactionSupport session) {
         this.session = session;
     }
 
@@ -58,7 +59,7 @@ class DiagramCommandStack extends CommandStack {
     @Override
     public void undo() {
         Command command = null;
-        
+
         notifyListeners(command, PRE_UNDO);
         try {
             this.session.undo();
@@ -66,7 +67,7 @@ class DiagramCommandStack extends CommandStack {
         } finally {
             notifyListeners(command, POST_UNDO);
         }
-        
+
     }
 
     @objid ("6694979d-33f7-11e2-95fe-001ec947c8cc")
@@ -83,7 +84,7 @@ class DiagramCommandStack extends CommandStack {
         } finally {
             notifyListeners(command, POST_REDO);
         }
-        
+
     }
 
     @objid ("669497a0-33f7-11e2-95fe-001ec947c8cc")
@@ -110,9 +111,9 @@ class DiagramCommandStack extends CommandStack {
     public void execute(Command command) {
         if (command == null || !command.canExecute())
             return;
-        
+
         notifyListeners(command, PRE_EXECUTE);
-        
+
         try {
             try {
                 command.execute();
@@ -124,7 +125,7 @@ class DiagramCommandStack extends CommandStack {
         } finally {
             notifyListeners(command, POST_EXECUTE);
         }
-        
+
     }
 
     @objid ("6696f9ec-33f7-11e2-95fe-001ec947c8cc")

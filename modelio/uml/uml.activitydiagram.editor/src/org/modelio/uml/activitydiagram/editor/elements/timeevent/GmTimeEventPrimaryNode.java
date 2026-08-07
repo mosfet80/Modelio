@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.timeevent;
 
@@ -51,11 +51,12 @@ public class GmTimeEventPrimaryNode extends GmNoStyleSimpleNode implements IImag
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram in which the timeEvent is unmasked.
      * @param relatedRef related element reference, must not be null.
      */
     @objid ("2b62127f-55b6-11e2-877f-002564c97630")
-    public  GmTimeEventPrimaryNode(IGmDiagram diagram, MRef relatedRef) {
+    public GmTimeEventPrimaryNode(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -73,7 +74,7 @@ public class GmTimeEventPrimaryNode extends GmNoStyleSimpleNode implements IImag
         }
         // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("2b621292-55b6-11e2-877f-002564c97630")
@@ -105,26 +106,26 @@ public class GmTimeEventPrimaryNode extends GmNoStyleSimpleNode implements IImag
     @Override
     public IEditableText getEditableText() {
         return new IEditableText() {
-        
+
                     @Override
                     public String getText() {
                         return getRelatedElement().getName();
                     }
-        
+
                     @Override
                     public void setText(String text) {
                         getRelatedElement().setName(text);
                     }
-        
+
                 };
-        
+
     }
 
     /**
      * For deserialization only.
      */
     @objid ("2b639919-55b6-11e2-877f-002564c97630")
-    public  GmTimeEventPrimaryNode() {
+    public GmTimeEventPrimaryNode() {
         // for the serialization
     }
 
@@ -145,17 +146,17 @@ public class GmTimeEventPrimaryNode extends GmNoStyleSimpleNode implements IImag
             break;
         }
         }
-        
+
     }
 
     @objid ("2b639922-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmTimeEventPrimaryNode.", GmTimeEventPrimaryNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("2b639928-55b6-11e2-877f-002564c97630")

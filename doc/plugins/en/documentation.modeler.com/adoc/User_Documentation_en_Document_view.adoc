@@ -1,0 +1,14 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= Document view
+
+
+*  <<User_Documentation_en_Document_view_Documentation_items.adoc#,Documentation items>>
+*  <<User_Documentation_en_Document_view_Model_documentation_guidelines.adoc#,Model documentation guidelines>>
+*  <<User_Documentation_en_Document_view_Document_View.adoc#,Document View>>
+*  <<User_Documentation_en_Document_view_Using_the_Document_View.adoc#,Using the Document View>>

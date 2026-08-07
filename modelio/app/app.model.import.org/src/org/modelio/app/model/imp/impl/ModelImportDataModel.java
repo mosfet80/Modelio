@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.model.imp.impl;
 
@@ -46,6 +46,7 @@ public class ModelImportDataModel implements AutoCloseable {
 
     /**
      * Get the actual list of all elements to import.
+     *
      * @return all elements to import.
      */
     @objid ("c1c50a4f-91f2-46a8-aa75-0905b4176ecc")
@@ -55,6 +56,7 @@ public class ModelImportDataModel implements AutoCloseable {
 
     /**
      * Get the current imported project.
+     *
      * @return the imported project. Might be <code>null</code> if {@link #setImportedProject(Path)} has not been called.
      */
     @objid ("329e3d58-6ebc-4bdb-9060-2ee164eeba87")
@@ -72,9 +74,9 @@ public class ModelImportDataModel implements AutoCloseable {
     public void setImportedProject(IGProject importedProject) {
         // Clean up the imported element list, as their project is closed...
         this.elementsToImport.clear();
-        
+
         this.importedProject = importedProject;
-        
+
     }
 
     @objid ("2eab097b-13d6-4dfd-a427-2ebd9acb0532")
@@ -84,7 +86,7 @@ public class ModelImportDataModel implements AutoCloseable {
             this.importedProject.close();
             this.importedProject = null;
         }
-        
+
     }
 
 }

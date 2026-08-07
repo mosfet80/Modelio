@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -51,6 +51,7 @@ public class MMAnalystAnalystItem {
      * Tells whether a {@link MMAnalystAnalystItem proxy} can be instantiated from a {@link MObject} checking it is a Analyst.AnalystItem.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -67,6 +68,7 @@ public class MMAnalystAnalystItem {
      * Tries to instantiate a {@link MMAnalystAnalystItem} proxy from a Analyst.AnalystItem checking its metaclass.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a AnalystItem
      * @return a {@link MMAnalystAnalystItem} proxy or <i>null</i>.
      */
@@ -93,6 +95,7 @@ public class MMAnalystAnalystItem {
 
     /**
      * Get the underlying Analyst.AnalystItem.
+     *
      * @return the AnalystItem represented by this proxy, never null.
      */
     @objid ("d76f7a38-106a-4ed3-8957-b567ffa9c2ca")
@@ -104,7 +107,7 @@ public class MMAnalystAnalystItem {
      * Getter for string property 'userDiagramImage'
      * <p>Property description:
      * <br/><i>Image file path to use in diagrams when unmasked in custom image mode.
-     * 
+     *
      * The file path must be either absolute or relative to the project path.</i></p>
      */
     @objid ("9d399fbd-c9b7-4e3f-9397-4ff30ff53dce")
@@ -122,7 +125,7 @@ public class MMAnalystAnalystItem {
      * Setter for string property 'userDiagramImage'
      * <p>Property description:
      * <br/><i>Image file path to use in diagrams when unmasked in custom image mode.
-     * 
+     *
      * The file path must be either absolute or relative to the project path.</i></p>
      */
     @objid ("c9c5429c-00b8-489d-b220-acd371dff1ff")
@@ -131,7 +134,7 @@ public class MMAnalystAnalystItem {
     }
 
     @objid ("f9a20316-cc58-420d-a00e-1a3e95b9a00c")
-    protected  MMAnalystAnalystItem(ModelElement elt) {
+    protected MMAnalystAnalystItem(ModelElement elt) {
         this.elt = elt;
     }
 
@@ -151,7 +154,7 @@ public class MMAnalystAnalystItem {
             USERDIAGRAMIMAGE_TAGTYPE_ELT = ctx.getModelingSession().findElementById(TagType.class, "3139ea84-fdb9-45ef-9b08-ea65d7408105");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 static {
@@ -159,7 +162,7 @@ static {
                     init(ModelerModuleModule.getInstance().getModuleContext());
                 }
             }
-        
+
     }
 
 }

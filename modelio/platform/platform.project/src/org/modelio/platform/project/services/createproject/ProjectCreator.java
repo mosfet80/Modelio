@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.project.services.createproject;
 
@@ -47,7 +47,7 @@ public class ProjectCreator implements IProjectCreator {
     private IProjectServiceAccess projectServiceAccess;
 
     @objid ("267289b1-6d1a-4059-bb11-5121861c787a")
-    public  ProjectCreator(IProjectCreatorFactory projectCreatorFactory) {
+    public ProjectCreator(IProjectCreatorFactory projectCreatorFactory) {
         this.projectCreatorFactory = projectCreatorFactory;
     }
 
@@ -66,7 +66,7 @@ public class ProjectCreator implements IProjectCreator {
         } else {
             doCreateProject(projectCreator, data, monitor);
         }
-        
+
     }
 
     @objid ("d1563f4d-8dea-4e0b-968a-da2e964f6770")
@@ -74,13 +74,13 @@ public class ProjectCreator implements IProjectCreator {
     public void createProject(final IProjectCreationData data, final IProgressMonitor monitor) throws IOException {
         Objects.requireNonNull(data);
         doCreateProject(this.projectCreatorFactory.getProjectCreator(data), data, monitor);
-        
+
     }
 
     @objid ("8f8c398f-4b25-43c5-8005-76b0eba53c85")
     private void doCreateProject(final IProjectCreatorDelegate projectCreator, final IProjectCreationData data, final IProgressMonitor monitor) throws IOException {
         Objects.requireNonNull(projectCreator);
-        
+
         projectCreator.initialize(this.projectServiceAccess.getEclipseContext());
         try {
             final IModelioProgress progress = monitor == null ? null : new ModelioProgressAdapter(monitor);
@@ -90,9 +90,9 @@ public class ProjectCreator implements IProjectCreator {
         } finally {
             projectCreator.terminate(this.projectServiceAccess.getEclipseContext());
         }
-        
+
         this.projectServiceAccess.postAsyncEvent(ModelioEvent.WORKSPACE_CONTENTS, this.projectServiceAccess.getWorkspace());
-        
+
     }
 
     @objid ("806d8c19-00fa-4de0-8d44-08c18843bbc9")
@@ -101,7 +101,7 @@ public class ProjectCreator implements IProjectCreator {
         return new GProjectEnvironment().addMetamodelExtensions(env.getActiveMetamodelExtensions())
                 .setModulesCache(this.projectServiceAccess.getEclipseContext().get(IModuleRTCache.class))
                 .setRamcCache(env.getRamcCachePath());
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.browser.model.flat;
 
@@ -29,7 +29,7 @@ import org.modelio.metamodel.diagrams.AbstractDiagram;
 /**
  * Content provider for the FlatModel of the diagram browser tree.<br>
  * Flat means that all the diagrams are presented as a single 'flat' list.
- * 
+ *
  * The root is an "all diagrams" virtual folder node
  */
 @objid ("00273666-0d4f-10c6-842f-001ec947cd2a")
@@ -83,10 +83,10 @@ public class FlatContentProvider implements ITreeContentProvider {
     }
 
     @objid ("002856cc-0d4f-10c6-842f-001ec947cd2a")
-    public  FlatContentProvider(IGProject project) {
+    public FlatContentProvider(IGProject project) {
         this.project = project;
         this.rootNode = new AllDiagramsNode(project, null);
-        
+
     }
 
     @objid ("0026aa98-43b1-10c7-842f-001ec947cd2a")

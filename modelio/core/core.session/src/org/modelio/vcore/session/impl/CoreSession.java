@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.impl;
 
@@ -64,6 +64,7 @@ import org.modelio.vcore.session.impl.load.ModelLoaderConfiguration;
 import org.modelio.vcore.session.impl.load.ModelLoaderMetaObject;
 import org.modelio.vcore.session.impl.load.ModelLoaderProvider;
 import org.modelio.vcore.session.impl.load.RefreshEventService;
+import org.modelio.vcore.session.impl.load.RepositoryMoveHandle;
 import org.modelio.vcore.session.impl.load.StorageHandle;
 import org.modelio.vcore.session.impl.load.UnloadedRepositoryHandle;
 import org.modelio.vcore.session.impl.mm.MetamodelSupport;
@@ -71,6 +72,7 @@ import org.modelio.vcore.session.impl.permission.BasicAccessManager;
 import org.modelio.vcore.session.impl.permission.DefaultAccessHandle;
 import org.modelio.vcore.session.impl.storage.IModelLoader;
 import org.modelio.vcore.session.impl.storage.memory.MemoryRepository;
+import org.modelio.vcore.session.impl.transactions.Transaction;
 import org.modelio.vcore.session.impl.transactions.TransactionManager;
 import org.modelio.vcore.session.impl.transactions.events.ModelChangeSupport;
 import org.modelio.vcore.session.impl.transactions.events.StatusChangeManager;
@@ -151,6 +153,7 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
 
     /**
      * Session life cycle listeners
+     *
      * @since 5.4.0
      */
     @objid ("66eaa0ba-cf33-43f5-a1f0-3cbbff5eb377")
@@ -171,6 +174,14 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
     @objid ("f042466c-bcc9-4859-ad2c-bc2d3f48e955")
     private IRepository shellRepository;
 
+    /**
+     * The repository where object references are initially put into.
+     *
+     * @see LazyLoadingRepository
+     */
+    @objid ("c9d23a4f-baa6-4b83-82be-bc621ab07852")
+    private IRepository lazyLoadingRepository;
+
     @objid ("5271df69-43fd-46e4-905b-d523bbba4898")
     private SmFactory ssFactory;
 
@@ -187,38 +198,48 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
     private TransactionManager transactionManager;
 
     /**
+     * Repositories where objects may be stored when they are in a special state: deleted, not yet loaded, missing ...
+     * <p>
+     * Repositories where object must be looked for first when loading them.
+     */
+    @objid ("902ffded-4410-4f74-a94d-af8da0be1476")
+    private List<IRepository> serviceRepositories;
+
+    /**
      * Initialize the core session.
+     *
      * @throws IOException if the swap failed to initialize.
      */
     @objid ("0005fa6e-6ebe-1f22-8c06-001ec947cd2a")
-    public  CoreSession() throws IOException {
+    public CoreSession() throws IOException {
         CoreSessionBuilder builder = new CoreSessionBuilder().createSwapSpace();
         this.metamodel = builder.getMetamodel();
         init(builder);
-        
     }
 
     /**
      * Initialize the core session.
+     *
      * @param aMetamodel the metamodel to use. It is stored by reference, no copy is done.
      * @throws IOException if the swap failed to initialize.
      * @deprecated since 3.6 use {@link CoreSessionBuilder}
      */
     @objid ("c295ebe8-91ba-45c2-93a8-ecafee94dd10")
     @Deprecated
-    public  CoreSession(SmMetamodel aMetamodel) throws IOException {
+    public CoreSession(SmMetamodel aMetamodel) throws IOException {
         this(new CoreSessionBuilder().createSwapSpace().withMetamodel(aMetamodel));
     }
 
     /**
      * Initialize the core session.
+     *
      * @param swapPath An empty directory where the swap can be stored.
      * @throws IOException if the swap failed to initialize.
      * @deprecated since 3.6 use {@link CoreSessionBuilder}
      */
     @objid ("ec98a3c0-9a00-4428-96c9-4c3d2933934c")
     @Deprecated
-    public  CoreSession(File swapPath) throws IOException {
+    public CoreSession(File swapPath) throws IOException {
         this(new CoreSessionBuilder().withSwapDirectory(swapPath));
     }
 
@@ -236,45 +257,46 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
             this.schedulerService.shutdownNow();
             this.schedulerService = null;
         }
-        
+
         // Remove and delete the cache
         if (this.cacheManager != null) {
             this.cacheManager.dispose();
             this.cacheManager = null;
         }
-        
+
         // Remove and delete kernel provider service
         // Also delete the swap.
         if (this.ksp != null) {
             this.ksp.dispose();
             this.ksp = null;
         }
-        
+
         this.repositoriesLock.lock();
         try {
             // Release repositories
             for (IRepository base : this.repositories) {
                 base.close();
             }
-        
+
             // Empty repository list
             this.repositories.clear();
             this.repoRegistry.clear();
         } finally {
             this.repositoriesLock.unlock();
         }
-        
+
         // Dispose the JMX monitor bean
         if (this.jmxBean != null) {
             this.jmxBean.unregister();
             this.jmxBean = null;
         }
-        
+
         // Set all pointer as null to free all used memory,
         // leaks of CoreSession references would prevent Gigs of memory to be freed.
         this.deletedMetaObject = null;
         this.model = null;
         this.modelChangeSupport = null;
+        this.lazyLoadingRepository = null;
         this.shellRepository = null;
         this.ssFactory = null;
         this.stdMetaObject = null;
@@ -282,7 +304,7 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
         this.transactionManager = null;
         this.refreshEventService = null;
         this.repositoryChangeListeners = null;
-        
+
         for (ICoreSessionListener listener : this.sessionListeners) {
             try {
                 listener.sessionClosed(this);
@@ -290,7 +312,6 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
                 Log.warning(t);
             }
         }
-        
     }
 
     @objid ("006d6c80-6ebd-1f22-8c06-001ec947cd2a")
@@ -301,6 +322,7 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
 
     /**
      * Connect a repository to this modeling session.
+     *
      * @param aBase the repository to add.
      * @param accessManager the access rights manager that will set access rights on loaded objects.
      * @throws IOException in case of failure.
@@ -309,39 +331,48 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
     @Override
     public void connectRepository(IRepository aBase, String key, final IAccessManager accessManager, IModelioProgress progress) throws IOException {
         assertOpen();
-        
+
         this.repositoriesLock.lock();
         try {
-        
+
             if (key != null && this.repoRegistry.get(key) != null) {
                 throw new IllegalArgumentException(this.repoRegistry.get(key) + " already registered with '" + key + "' key");
             }
-        
+
             // Open the database
             byte rid = this.repoCounter++;
             if (this.repoCounter == 0) {
                 throw new IllegalStateException("Too much repositories added/removed.");
             }
-        
+
             short kid = this.ksp.getId();
             aBase.init(rid);
-        
+
             if (!aBase.isOpen()) {
                 IAccessManager repoManager = new CompositeAccessManager(accessManager);
-                ModelLoaderConfiguration config = new ModelLoaderConfiguration(this, kid, rid, this.shellRepository,
-                        this.cacheManager, repoManager, this.refreshEventService, new UnloadedRepositoryHandle(aBase));
+                ModelLoaderConfiguration config = new ModelLoaderConfiguration(this,
+                        kid, rid,
+                        this.shellRepository,
+                        this.lazyLoadingRepository,
+                        this.serviceRepositories,
+                        this.cacheManager,
+                        repoManager,
+                        this.refreshEventService,
+                        this.deletedMetaObject,
+                        new UnloadedRepositoryHandle(aBase));
                 ModelLoaderProvider modelLoaderProvider = new ModelLoaderProvider(config);
-        
+
                 aBase.open(modelLoaderProvider, progress);
             }
-        
+
             this.repositories.add(aBase);
             this.repoRegistry.put(key, aBase);
-        
+
             // If a metamodel descriptor exists, merge it into the metamodel
             aBase.getMetamodelDescriptor().ifPresent(d -> getMetamodel().merge(d));
-        
+
             // Try to connect unresolved references
+            // TODO add them to lazyLoadingRepository instead
             if (this.shellRepository != null && aBase != this.shellRepository) {
                 for (SmObjectImpl obj : new ArrayList<>(this.shellRepository.getAllLoadedObjects())) {
                     aBase.findById(obj.getClassOf(), obj.getUuid());
@@ -350,11 +381,11 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
         } finally {
             this.repositoriesLock.unlock();
         }
-        
     }
 
     /**
      * Close and remove the given model repository from the connected repositories.
+     *
      * @param toRemove the repository to disconnect.
      * @throws IllegalArgumentException if the repository is not connected to this session
      */
@@ -367,10 +398,10 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
             if (!this.repositories.contains(toRemove)) {
                 throw new IllegalArgumentException(toRemove + " repository is not connected to this session.");
             }
-        
+
             this.repositories.remove(toRemove);
             this.repoRegistry.values().remove(toRemove);
-        
+
             if (toRemove.isOpen()) {
                 try {
                     // Close the repository.
@@ -378,7 +409,7 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
                 } catch (RuntimeException e) {
                     Log.error(e); // log and continue
                 }
-        
+
                 // Move all loaded objects to the shell repository.
                 if (! fastRemove) {
                     try {
@@ -392,26 +423,26 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
         } finally {
             this.repositoriesLock.unlock();
         }
-        
     }
 
     /**
      * Move all objects loaded by the given repository to the shell repository.
      * <p>
      * This method is heavily shielded to ignore {@link DeadObjectException}.
+     *
      * @param toRemove the repository to unload
      */
     @objid ("2a7aaade-3110-4384-87c6-269101be9621")
     private void moveContentToShellRepository(IRepository toRemove) {
         final Collection<SmObjectImpl> all = new ArrayList<>(toRemove.getAllLoadedObjects());
-        
+
         // 30/08/2023 : hack: use a ModelLoaderMetaObject to prevent concurrent reloading of the unloaded objects
-        final ModelLoaderMetaObject tmpMeta = new ModelLoaderMetaObject();
-        final StdMetaObject theStdMetaObject = CoreSession.this.stdMetaObject;
-        
+        final StdMetaObject theStdMetaObject = this.stdMetaObject;
+        final ModelLoaderMetaObject tmpMeta = new ModelLoaderMetaObject(theStdMetaObject);
+
         /**
-         *  AutoCloseable used to restore the meta object and report unexpected exceptions as suppressed exceptions
-         */
+                 *  AutoCloseable used to restore the meta object and report unexpected exceptions as suppressed exceptions
+                 */
         class MetaObjectRestorer implements AutoCloseable {
             @Override
             public void close()  {
@@ -423,7 +454,7 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
                 }
             }
         }
-        
+
         try (MetaObjectRestorer restorer = new MetaObjectRestorer()){
             tmpMeta.beginLoading();
             for (Iterator<SmObjectImpl> it = all.iterator(); it.hasNext();) {
@@ -435,7 +466,7 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
                     it.remove();
                 }
             }
-        
+
             for (SmObjectImpl o : all) {
                 try {
                     o.getRepositoryObject().unload(o);
@@ -446,7 +477,6 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
         } finally {
             tmpMeta.endLoading();
         }
-        
     }
 
     @objid ("9a5a7e82-d7d2-42fc-a2dd-df7b8e5729b0")
@@ -455,7 +485,6 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
         for (IRepositoryChangeListener listener : this.repositoryChangeListeners) {
             listener.repositoryChanged(event);
         }
-        
     }
 
     @objid ("8d51e75a-cff0-4e0b-bcd6-6f403dc28c4a")
@@ -476,6 +505,7 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
 
     /**
      * Get the default meta object to attach to model objects.
+     *
      * @return the meta object.
      */
     @objid ("0061abc0-fd1a-1f27-a7da-001ec947cd2a")
@@ -485,6 +515,7 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
 
     /**
      * Get the session metamodel.
+     *
      * @return the session metamodel.
      */
     @objid ("26dd1014-d9f6-466e-90a0-7ad7093939b6")
@@ -512,6 +543,7 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
      * Get the model changes events listeners support.
      * <p>
      * This object manages model and status change listeners. It is used to add and remove listeners and to fire model change events.
+     *
      * @return the model change support.
      */
     @objid ("7dc92792-1c43-11e2-8eb9-001ec947ccaf")
@@ -519,6 +551,15 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
     public final ModelChangeSupport getModelChangeSupport() {
         assertOpen();
         return this.modelChangeSupport;
+    }
+
+    /**
+     * Wait until repository refresh processing is fully quiescent.
+     */
+    @objid ("9aad543f-9da7-4aae-bf52-351239e1bf83")
+    public void awaitRefreshProcessingQuiescence() {
+        assertOpen();
+        this.refreshEventService.awaitQuiescence();
     }
 
     @objid ("695241b8-4b8b-11e2-91c9-001ec947ccaf")
@@ -531,6 +572,7 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
      * Get the repository where the given object is stored.
      * <p>
      * Returns <code>null</code> if the object is not assigned to a repository or the repository does not belong to this session.
+     *
      * @param anObject an object
      * @return its repository, or <code>null</code>.
      */
@@ -538,12 +580,29 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
     @Override
     public IRepository getRepository(MObject anObject) {
         assertOpen();
-        
-        final SmObjectImpl smObj = (SmObjectImpl) anObject;
-        final byte rid = SmLiveId.getRid(smObj.getLiveId());
-        
+
+        SmObjectImpl smObj = (SmObjectImpl) anObject;
+        byte rid = SmLiveId.getRid(smObj.getLiveId());
+
+        if (rid == this.lazyLoadingRepository.getRepositoryId()) {
+            // LazyLoadingRepository is a temporary repository, callers do not expect this one.
+            // Trigger loading now to get the real repository.
+            smObj.getSmStatusFlags();
+
+            byte newRid = SmLiveId.getRid(smObj.getLiveId());
+            assert (newRid != rid) : String.format("old and new repo id still %d ! new repo object = %s, its rid=%d", newRid, smObj.getRepositoryObject(), smObj.getRepositoryObject().getRepositoryId());
+            rid = newRid;
+        }
+
+        return getRepository(rid);
+    }
+
+    @objid ("0379e2eb-03c7-4089-ad24-d99edb2ad7a6")
+    @Override
+    public IRepository getRepository(byte rid) {
         for (IRepository r : this.repositories) {
             if (r.getRepositoryId() == rid) {
+                assert (! (r instanceof LazyLoadingRepository));
                 return r;
             }
         }
@@ -559,7 +618,6 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
         } finally {
             this.repositoriesLock.unlock();
         }
-        
     }
 
     @objid ("008c201c-5f00-10c8-842f-001ec947cd2a")
@@ -576,6 +634,7 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
 
     /**
      * Get the core session owning the given model object.
+     *
      * @param obj a model object.
      * @return its core session.
      */
@@ -588,6 +647,7 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
 
     /**
      * Get the repository where unresolved references are located until they are resolved.
+     *
      * @return the shell objects repository.
      */
     @objid ("bda036e0-92d7-11e1-81e9-001ec947ccaf")
@@ -597,6 +657,7 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
 
     /**
      * Get the low level model object factory.
+     *
      * @return the model object factory.
      */
     @objid ("006d6884-6ebd-1f22-8c06-001ec947cd2a")
@@ -618,7 +679,7 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
             // A closed session is not dirty
             return false;
         }
-        
+
         for (IRepository r : this.repositories) {
             if (r.isOpen() && r.isDirty()) {
                 return true;
@@ -633,56 +694,98 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
         if (isValid()) {
             this.repositoryChangeListeners.remove(listener);
         }
-        
     }
 
     /**
      * Save the model.
+     *
      * @throws IOException if a repository failed to save.
      */
     @objid ("006d69b0-6ebd-1f22-8c06-001ec947cd2a")
     @Override
     public void save(IModelioProgress aProgress) throws IOException {
         assertOpen();
-        
+
         SubProgress progress = SubProgress.convert(aProgress, 10 + this.repositories.size() * 10);
-        
-        Iterable<SmObjectImpl> deletedObjects = this.cacheManager.getDeletedObjects();
-        for (SmObjectImpl obj : deletedObjects) {
-            // Clear blobs
-            Collection<String> blobs = this.blobSupport.getRelatedBlobs(obj);
-            if (!blobs.isEmpty()) {
-                IRepository repo = getRepository(obj);
-                if (repo != null) {
-                    for (String blob : blobs) {
-                        repo.removeBlob(blob);
+
+        this.refreshEventService.pauseProcessing();
+        try {
+            Collection<SmObjectImpl> deletedObjects = this.cacheManager.copyDeletedObjects();
+
+            // Create a transaction just to prevent other transactions to be created while we are saving, which would break the save process.
+            try ( var t = this.transactionManager.createTransaction("Save the project")) {
+
+                IOException error = null;
+                for (SmObjectImpl obj : deletedObjects) {
+                    // Clear blobs
+                    Collection<String> blobs = this.blobSupport.getRelatedBlobs(obj);
+                    if (!blobs.isEmpty()) {
+                        IRepository repo = getRepository(obj);
+                        if (repo != null) {
+                            for (String blob : blobs) {
+                                try {
+                                    repo.removeBlob(blob);
+                                } catch (IOException e) {
+                                    error = e;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    if (error != null) {
+                        break;
+                    }
+
+                    // Definitively remove from base and delete deleted objects
+                    try {
+                        obj.getRepositoryObject().detach(obj);
+                    } catch (DeadObjectException e) {
+                        // Should not happen but don't break for this.
+                        Log.trace(e);
                     }
                 }
+
+                if (error != null) {
+                    throw error;// report to user: Session not stable anymore
+                }
+
+                progress.worked(10);
+
+                // Save changes in the database
+                for (IRepository base : getRepositories()) {
+                    base.save(progress.newChild(10));
+                }
+
+                // sanity check, save should not make any action
+                @SuppressWarnings ("resource")
+                Transaction currentTransaction = this.transactionManager.getCurrentTransaction();
+                if (! currentTransaction.getActions().isEmpty()) {
+                    // dump all actions in the log
+                    IllegalStateException ex = new IllegalStateException("Save should not create any transaction action, but " + currentTransaction.getActions().size() + " found: " );
+                    Log.error(ex);
+                    currentTransaction.getActions().forEach(a -> Log.error("  - %s", a));
+                    assert (false) : ex; // crash automatic tests
+                }
+
+                t.commit();
             }
-        
-            // Definitively remove from base and delete deleted objects
-            obj.getRepositoryObject().detach(obj);
+
+            // Clear the transactions
+            this.transactionManager.reset();
+
+            // Clear the cache
+            this.cacheManager.clearDeletedObjects();
+
+            progress.done();
+        } finally {
+            this.refreshEventService.resumeProcessing();
         }
-        
-        progress.worked(10);
-        
-        // Save changes in the database
-        for (IRepository base : getRepositories()) {
-            base.save(progress.newChild(10));
-        }
-        
-        // Clear the transactions
-        this.transactionManager.reset();
-        
-        // Clear the cache
-        this.cacheManager.clearDeletedObjects();
-        
-        progress.done();
-        
     }
 
     /**
      * Set the session access manager.
+     *
      * @param sessionAccessManager Set the session access manager.
      */
     @objid ("273d99d3-ac46-49b4-86d8-b0503b0d7785")
@@ -690,18 +793,18 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
         if (isDirty()) {
             throw new IllegalStateException("Cannot change access manager on a dirty session.");
         }
-        
+
         this.sessionAccessManager = sessionAccessManager;
-        
+
         // Need to reload all.
         for (SmObjectImpl o : this.cacheManager.getIterable()) {
             o.getRepositoryObject().setToReload(o);
         }
-        
     }
 
     /**
      * Get the session access manager if one defined.
+     *
      * @return the session access manager or <code>null</code>.
      */
     @objid ("648db53a-49f3-4125-89e1-e730894ca936")
@@ -714,80 +817,87 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
     protected void finalize() throws Throwable {
         close();
         super.finalize();
-        
     }
 
     /**
      * Initialize the session.
+     *
      * @throws IOException if the swap failed to initialize.
      */
     @objid ("006188c0-fd1a-1f27-a7da-001ec947cd2a")
     protected void init(CoreSessionBuilder builder) throws IOException {
         // Set up the cache
         this.cacheManager = new CacheManager(this.metamodel);
-        
+
         // Setup swap
         final JdbmSwap jdbmSwap = new JdbmSwap(this.metamodel, builder.getSwapDirectory());
-        
+
         this.jmxBean = new CoreSessionMXBeanImpl(this, jdbmSwap, this.cacheManager);
-        
+
         // Setup kernel service provider
         this.ksp = new KernelServiceProvider(this, this.jmxBean.getSwapImpl(), this.cacheManager);
         this.jmxBean.setKernelServiceProvider(this.ksp);
-        
+
         this.blobSupport = new BlobSupport();
-        
+
         this.modelChangeSupport = new ModelChangeSupport();
-        
+
         this.repositoryChangeListeners = new CopyOnWriteArrayList<>();
-        
+
         this.sessionListeners = new CopyOnWriteArrayList<>();
-        
+
         // Set up a TransactionManager
         this.transactionManager = new TransactionManager(this.modelChangeSupport);
-        
+
         // Set up a DeletedMetaObject
         this.deletedMetaObject = new DeletedMetaObject();
-        
+
         // Set up a StdMetaObject
         CacheHandle cacheHandle = new CacheHandle(this.cacheManager);
-        
+
         // Set up a storage handle
-        this.storageHandle = new StorageHandle(this, this.blobSupport);
-        
+        RepositoryMoveHandle repoMoveHandle = new RepositoryMoveHandle(getRepositorySupport(), this.blobSupport, this.transactionManager);
+        this.storageHandle = new StorageHandle(this, this.blobSupport, repoMoveHandle);
+
         // Setup scheduler service
         this.schedulerService = initSchedulerService();
-        
+
         // Set up element status change manager
         StatusChangeManager statusManager = new StatusChangeManager();
         statusManager.init(this.schedulerService, this.transactionManager, this.modelChangeSupport);
-        
-        this.stdMetaObject = new StdMetaObject(this.storageHandle, new DefaultAccessHandle(),
-                this.transactionManager.getActionHandle(), cacheHandle, this.deletedMetaObject, statusManager);
-        
+
+        this.stdMetaObject = new StdMetaObject(
+                this.storageHandle,
+                new DefaultAccessHandle(),
+                this.transactionManager.getActionHandle(),
+                cacheHandle,
+                this.deletedMetaObject,
+                statusManager);
+
         // Set the metaobject on the cache manager and the deleted metaobject
         this.deletedMetaObject.setMetaObject(this.stdMetaObject);
-        
+
         // Initialize the model refresh event service
         this.refreshEventService = new RefreshEventService(this.modelChangeSupport, this.transactionManager, this.schedulerService);
-        
+
         // initialize the metamodel changes service
         this.metamodelSupport = new MetamodelSupport(this.cacheManager, this.metamodel);
-        
-        // Initialize shell objects repository
+
+        // Initialize builtin repositories (shell, scratch, local, ...)
         initBuiltinRepositories(builder);
-        
+
+        this.stdMetaObject.postInit(getRepositorySupport());
+
         // Initialize IModel implementation
         this.model = new Model(this.cacheManager, getRepositorySupport(), this.metamodel);
-        
+
         // Setup a SsFactory
         this.ssFactory = new SmFactory(this.ksp.getId(), this.stdMetaObject, this.model, this.cacheManager, this.shellRepository);
-        
+
         // Setup a Generic factory
         this.model.setGenericFactory(new GenericFactory(this.ssFactory, getRepositorySupport(), this.metamodel));
-        
+
         this.jmxBean.register();
-        
     }
 
     @objid ("67063b47-07e5-11e2-b33c-001ec947ccaf")
@@ -795,13 +905,13 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
         if (!isValid()) {
             throw new IllegalStateException(String.format("%s is closed.", this));
         }
-        
     }
 
     /**
      * Create and empties the swap directory.
-     * @throws java.io.IOError in case of failure
+     *
      * @return the swap directory path
+     * @throws java.io.IOError in case of failure
      */
     @objid ("3f1d5b36-7e46-11e1-bee3-001ec947ccaf")
     private static File createSwapSpace() throws IOException {
@@ -817,19 +927,27 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
      * <li>scratch repository that may be used to create objects
      * <li>shell repository : stores unresolved references.
      * </ul>
+     *
      * @throws IOException in case of failure.
      */
     @objid ("bda036dd-92d7-11e1-81e9-001ec947ccaf")
     private void initBuiltinRepositories(CoreSessionBuilder builder) throws IOException {
         this.shellRepository = builder.getShellRepository();
-        
-        BasicAccessManager accessManager = new BasicAccessManager();
-        connectRepository(this.shellRepository, REPOSITORY_KEY_SHELL, accessManager, new NullProgress());
-        
+        this.lazyLoadingRepository = new LazyLoadingRepository(this, this.shellRepository);
         this.scratchRepository = new ScratchRepository();
+
+        this.serviceRepositories = List.of(this.shellRepository, this.lazyLoadingRepository);
+
+        BasicAccessManager accessManager = new BasicAccessManager();
+        NullProgress dummyProgress = new NullProgress();
+
+        connectRepository(this.shellRepository, REPOSITORY_KEY_SHELL, accessManager, dummyProgress);
+
         accessManager = new BasicAccessManager();
-        connectRepository(this.scratchRepository, REPOSITORY_KEY_SCRATCH, accessManager, new NullProgress());
-        
+        connectRepository(this.lazyLoadingRepository, "repo.key.lazy", accessManager, dummyProgress);
+
+        accessManager = new BasicAccessManager();
+        connectRepository(this.scratchRepository, REPOSITORY_KEY_SCRATCH, accessManager, dummyProgress);
     }
 
     @objid ("941381a7-f975-47ae-a882-7030eb0b534a")
@@ -848,18 +966,18 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
                 // don't delete the model in case of locking problems
                 throw e;
             }
-        
+
             // Try to recover by deleting the local repository and create a new empty one.
             try {
                 // Close and delete the repository
                 nsUseRepo.close();
                 FileUtils.delete(nsUseRepoPath);
-        
+
                 // Create a new one
                 nsUseRepo = new JdbmRepository(nsUseRepoPath.toFile());
                 repositorySupport.connectRepository(nsUseRepo, IRepositorySupport.REPOSITORY_KEY_LOCAL, new BasicAccessManager(),
                         progress.newChild(5));
-        
+
                 // Report the problem
                 Log.warning(VCoreSession.I18N.getMessage("GProject.localRepositoryRecreated", FileUtils.getLocalizedMessage(e)));
             } catch (IOException | RuntimeException e2) {
@@ -868,17 +986,17 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
                 throw e;
             }
         }
-        
     }
 
     /**
      * Initialize the scheduled executor service.
+     *
      * @return the scheduled executor service.
      */
     @objid ("8e065238-1de9-4a5f-a00a-7288ed0a787b")
     private ScheduledExecutorService initSchedulerService() {
         int corePoolSize = 2;
-        
+
         /*
          * Creates an Executor that uses a 2 worker threads operating off an unbounded queue, and uses the provided ThreadFactory to create a new thread when needed.
          *
@@ -886,16 +1004,16 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
          */
         ThreadFactory threadFactory = new ThreadFactory() {
             private int count = 0;
-        
+
             @Override
             public Thread newThread(Runnable r) {
                 @SuppressWarnings ("synthetic-access")
                 final String name = String.format("CoreSession %d Scheduler thead %d", CoreSession.this.ksp.getId(), ++this.count);
-        
+
                 Thread t = new Thread(r, name);
                 t.setDaemon(true);
                 t.setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
-        
+
                     @Override
                     public void uncaughtException(Thread dead, Throwable e) {
                         Log.error("'" + dead + "' thread died unexpectedly:");
@@ -905,7 +1023,7 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
                 return t;
             }
         };
-        
+
         ScheduledThreadPoolExecutor ss = new ScheduledThreadPoolExecutor(corePoolSize, threadFactory);
         this.schedulerService = ss;
         return this.schedulerService;
@@ -915,15 +1033,15 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
      * Create a CoreSession from a builder.
      * <p>
      * To be called only internally of from {@link CoreSessionBuilder#build()}.
+     *
      * @param builder the session descriptor.
      * @throws IOException on failure.
      * @since 3.6
      */
     @objid ("46d905d6-ebcb-4659-8090-128934bcb851")
-    protected  CoreSession(CoreSessionBuilder builder) throws IOException {
+    protected CoreSession(CoreSessionBuilder builder) throws IOException {
         this.metamodel = builder.getMetamodel();
         init(builder);
-        
     }
 
     @objid ("708c7d06-89dc-4a82-b0b9-34956bb9b185")
@@ -937,7 +1055,6 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
     public void addSessionListener(ICoreSessionListener listener) {
         assertOpen();
         this.sessionListeners.add(listener);
-        
     }
 
     @objid ("11f20f48-241e-45c7-b0f6-6f860544ef43")
@@ -945,19 +1062,18 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
     public void removeSessionListener(ICoreSessionListener listener) {
         if (this.sessionListeners != null)
             this.sessionListeners.remove(listener);
-        
     }
 
     /**
-     * Access manager that first call the session manager before calling the provided one.
+     * Access manager that first call the {@link #getSessionAccessManager() session manager} before calling the one provided to the constructor.
      */
     @objid ("1340906c-9f27-4d3b-9e0a-c118177bbd3a")
     private class CompositeAccessManager implements IAccessManager {
         @objid ("9bccc7c3-0611-4699-9a9b-a50f0edd0819")
-        private IAccessManager accessManager;
+        private final IAccessManager accessManager;
 
         @objid ("d6b1f973-8f04-4b81-945f-e0e1811a2443")
-        public  CompositeAccessManager(IAccessManager accessManager) {
+        public CompositeAccessManager(IAccessManager accessManager) {
             this.accessManager = accessManager;
         }
 
@@ -968,24 +1084,21 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
             if (sessionManager != null) {
                 sessionManager.initStatus(obj, loader);
             }
-            
+
             this.accessManager.initStatus(obj, loader);
-            
         }
 
     }
 
+    /**
+     * This is the repository where all new elements are added until they are attached to their composition owner.
+     */
     @objid ("2037383f-8296-478e-a7f0-8cbd8f9675a0")
     private static class ScratchRepository extends MemoryRepository {
-        @objid ("3a9d1b1b-d111-4dac-80d0-777f51a6114d")
-         ScratchRepository() {
-            super();
-        }
-
         @objid ("ad16535d-09a7-46d5-a246-f5a217778204")
         @Override
         public void attach(SmObjectImpl obj) {
-            throw new UnsupportedOperationException(obj + ": Can only add newly added objects.");
+            throw new UnsupportedOperationException(obj + ": Can only add newly added objects to the "+getClass().getSimpleName()+" .");
         }
 
         @objid ("f5a5c8f0-6dca-4b5a-ace4-a9e305d4c559")

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="com.modeliosoft.modelio.saas.diagrams.core.nl_fr"
+      label="%featureName"
+      version="4.0.0"
+      provider-name="Modeliosoft">
+
+   <copyright>
+      Copyright 2016 Modeliosoft
+All information contained herein is, and remains the property of Modeliosoft.
+The intellectual and technical concepts contained herein are proprietary 
+to Modeliosoft and may be covered by French and Foreign Patents, patents
+in process, and are protected by trade secret or copyright law.
+Dissemination of this information or reproduction of this material
+is strictly forbidden unless prior written permission is obtained
+from Modeliosoft.
+   </copyright>
+
+   <license url="">
+      Copyright 2016 Modeliosoft
+All information contained herein is, and remains the property of Modeliosoft.
+The intellectual and technical concepts contained herein are proprietary 
+to Modeliosoft and may be covered by French and Foreign Patents, patents
+in process, and are protected by trade secret or copyright law.
+Dissemination of this information or reproduction of this material
+is strictly forbidden unless prior written permission is obtained
+from Modeliosoft.
+   </license>
+
+   <url>
+      <discovery label="Modeliosoft" url="http://www.modeliosoft.com/"/>
+   </url>
+
+   <plugin
+         id="com.modeliosoft.modelio.app.diagram.editor.ext_com.nl_fr"
+         download-size="0"
+         install-size="0"
+         version="4.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.modeliosoft.modelio.app.diagram.styles.ext_com.nl_fr"
+         download-size="0"
+         install-size="0"
+         version="4.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.app.creation.wizard.nl_fr"
+         download-size="1"
+         install-size="2"
+         version="4.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.app.diagram.api.nl_fr"
+         download-size="0"
+         install-size="0"
+         version="4.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.app.diagram.browser.nl_fr"
+         download-size="1"
+         install-size="3"
+         version="4.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.app.diagram.editor.nl_fr"
+         download-size="2"
+         install-size="4"
+         version="4.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.app.diagram.elements.nl_fr"
+         download-size="3"
+         install-size="24"
+         version="4.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.app.diagram.outline.nl_fr"
+         download-size="0"
+         install-size="0"
+         version="4.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.app.diagram.persistence.nl_fr"
+         download-size="0"
+         install-size="0"
+         version="4.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.app.diagram.styles.nl_fr"
+         download-size="5"
+         install-size="23"
+         version="4.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.app.diagram.symbol.nl_fr"
+         download-size="1"
+         install-size="4"
+         version="4.0.0"
+         unpack="false"/>
+
+</feature>

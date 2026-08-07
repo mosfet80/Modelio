@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures.anchors;
 
@@ -41,7 +41,7 @@ public class FixedAnchor extends AbstractConnectionAnchor implements IOrientedAn
     @objid ("01ffb530-d794-41f0-8574-c038704789bd")
     public static final int ANCHOR_RADIUS = 5;
 
-    
+
     @mdl.prop
     @objid ("932b78fd-d298-4902-85d4-8b6822dd34b0")
     private int face;
@@ -52,7 +52,7 @@ public class FixedAnchor extends AbstractConnectionAnchor implements IOrientedAn
         return this.face;
     }
 
-    
+
     @mdl.prop
     @objid ("1da0255f-c2fa-444d-82b5-2019fb62ecea")
     private int rank;
@@ -63,7 +63,7 @@ public class FixedAnchor extends AbstractConnectionAnchor implements IOrientedAn
         return this.rank;
     }
 
-    
+
     @mdl.prop
     @objid ("717ade79-c362-4076-9258-fc965c3877b6")
     private int totalOnFace;
@@ -79,6 +79,7 @@ public class FixedAnchor extends AbstractConnectionAnchor implements IOrientedAn
 
     /**
      * Constructor
+     *
      * @param owner a rectangular figure
      * @param face the face number
      * @param rank the anchor number on the face
@@ -86,24 +87,25 @@ public class FixedAnchor extends AbstractConnectionAnchor implements IOrientedAn
      * @param locator the algorithm to position the anchor
      */
     @objid ("1c8216e7-b5ec-4133-a4a3-01ecdb9ee5a7")
-    public  FixedAnchor(final IFigure owner, final int face, final int rank, final int count, IFixedAnchorLocator locator) {
+    public FixedAnchor(final IFigure owner, final int face, final int rank, final int count, IFixedAnchorLocator locator) {
         super(Objects.requireNonNull(owner));
         assert rank >= 0 && rank <= count;
-        
+
         this.locator = locator;
-        
+
         this.face = face;
         this.rank = rank;
         this.totalOnFace = count;
-        
+
     }
 
     /**
      * Copy constructor
+     *
      * @param other the anchor to copy
      */
     @objid ("08156730-2227-42d7-bc5a-9b9d4b975657")
-    public  FixedAnchor(FixedAnchor other) {
+    public FixedAnchor(FixedAnchor other) {
         this(other.getOwner(), other.getFace(), other.getRank(), other.getTotalOnFace(), other.getLocator());
     }
 
@@ -112,7 +114,7 @@ public class FixedAnchor extends AbstractConnectionAnchor implements IOrientedAn
     public void ancestorMoved(IFigure figure) {
         super.ancestorMoved(figure);
         this.locator.onFigureMoved(figure);
-        
+
     }
 
     @objid ("0050068a-9e18-4c19-9fe3-8229ac549af6")
@@ -129,6 +131,7 @@ public class FixedAnchor extends AbstractConnectionAnchor implements IOrientedAn
     }
 
     /**
+     *
      * @return a debug friendly face name for {@link #getFace()}.
      */
     @objid ("cc9d34dd-2b66-42d8-9620-cefbbbfcf847")
@@ -146,6 +149,7 @@ public class FixedAnchor extends AbstractConnectionAnchor implements IOrientedAn
     }
 
     /**
+     *
      * @return Algorithm the anchor delegates to to compute its position.
      */
     @objid ("162ad2f4-0319-443f-a620-fcc47e9c2458")
@@ -177,7 +181,7 @@ public class FixedAnchor extends AbstractConnectionAnchor implements IOrientedAn
                 other.getRank()==getRank() &&
                 other.getTotalOnFace()==getTotalOnFace() &&
                 other.getOwner()==getOwner();
-        
+
     }
 
     @objid ("97d5b33c-e28f-4c5d-aacc-96335d334d8c")
@@ -209,6 +213,7 @@ public class FixedAnchor extends AbstractConnectionAnchor implements IOrientedAn
      * <p>
      * <h2>Warning</h2>
      * To be used only for temporary anchors involved in small computations.
+     *
      * @param owner a rectangular figure
      * @param newFace the face number
      * @param newRank the anchor number on the face
@@ -219,13 +224,13 @@ public class FixedAnchor extends AbstractConnectionAnchor implements IOrientedAn
     public void overwrite(final IFigure owner, final int newFace, final int newRank, final int count, IFixedAnchorLocator newLocator) {
         assert newRank >= 0 && newRank <= count;
         setOwner(owner);
-        
+
         this.locator = newLocator;
-        
+
         this.face = newFace;
         this.rank = newRank;
         this.totalOnFace = count;
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.entry;
 
@@ -38,7 +38,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Specialization of the {@link GmPortContainer} class for {@link EntryPointPseudoState}.
- * 
+ *
  * @author fpoyer
  */
 @objid ("f50e7d9e-55b6-11e2-877f-002564c97630")
@@ -69,25 +69,26 @@ public class GmEntry extends GmPortContainer {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram in which the element is unmasked.
      * @param el the unmasked element, can be <i>null</i>.
      * @param ref the unmasked element reference, must not be <i>null</i>..
      */
     @objid ("f50e7db0-55b6-11e2-877f-002564c97630")
-    public  GmEntry(IGmDiagram diagram, EntryPointPseudoState el, MRef ref) {
+    public GmEntry(IGmDiagram diagram, EntryPointPseudoState el, MRef ref) {
         super(diagram,ref);
-        
+
         GmEntryPrimaryNode mainNode = new GmEntryPrimaryNode(diagram, ref);
         mainNode.setRoleInComposition(MAIN_NODE_ROLE);
-        
+
         this.element = el;
         GmNameLabel label = new GmNameLabel(diagram, ref);
         label.setRoleInComposition(GmPortContainer.SATELLITE_ROLE);
         label.setLayoutData(Integer.valueOf(PositionConstants.EAST));
-            
+
         this.addChild(mainNode);
         this.addChild(label);
-        
+
     }
 
     @objid ("f50e7dbc-55b6-11e2-877f-002564c97630")
@@ -146,7 +147,7 @@ public class GmEntry extends GmPortContainer {
      * Empty constructor needed for deserialization.
      */
     @objid ("f5100434-55b6-11e2-877f-002564c97630")
-    public  GmEntry() {
+    public GmEntry() {
         // Nothing specific to do.
     }
 
@@ -167,7 +168,7 @@ public class GmEntry extends GmPortContainer {
             break;
         }
         }
-        
+
     }
 
     @objid ("f510043d-55b6-11e2-877f-002564c97630")
@@ -186,17 +187,17 @@ public class GmEntry extends GmPortContainer {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmEntry.", GmEntry.MINOR_VERSION);
-        
+
     }
 
     @objid ("f5100451-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (EntryPointPseudoState) resolveRef(this.getRepresentedRef());
-        
+
     }
 
     @objid ("f5100456-55b6-11e2-877f-002564c97630")
@@ -207,6 +208,7 @@ public class GmEntry extends GmPortContainer {
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */
@@ -218,6 +220,7 @@ public class GmEntry extends GmPortContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */

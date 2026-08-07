@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.instancelink;
 
@@ -37,7 +37,7 @@ import org.modelio.metamodel.uml.statik.AggregationKind;
 
 /**
  * Edit part for {@link GmInstanceLink}.
- * 
+ *
  * @author cmarin
  */
 @objid ("35604002-55b7-11e2-877f-002564c97630")
@@ -68,7 +68,7 @@ public class InstanceLinkEditPart extends LinkEditPart {
      * Default constructor.
      */
     @objid ("3560400d-55b7-11e2-877f-002564c97630")
-    public  InstanceLinkEditPart() {
+    public InstanceLinkEditPart() {
         super();
     }
 
@@ -76,62 +76,64 @@ public class InstanceLinkEditPart extends LinkEditPart {
     @Override
     protected void refreshFromStyle(IFigure aFigure, IStyle style) {
         super.refreshFromStyle(aFigure, style);
-        
+
         // recreate arrows if the display navigability changes.
         GmInstanceLink gmModel = (GmInstanceLink) getModel();
-        
+
         boolean showArrows = gmModel.getDisplayedStyle().getProperty(InstanceLinkStructuredStyleKeys.SHOWNAVIGABILITY);
         if (showArrows != this.showNavigability) {
             this.showNavigability = showArrows;
             createDecorations((PolylineConnection) aFigure, gmModel);
         }
-        
+
         refreshDecorationsFromStyle((LinkFigure) aFigure,
                                     style,
                                     AggregationKind.KINDISASSOCIATION,
                                     AggregationKind.KINDISASSOCIATION);
-        
+
     }
 
     @objid ("35604017-55b7-11e2-877f-002564c97630")
     @Override
     protected void refreshVisuals() {
         super.refreshVisuals();
-        
+
         LinkFigure connection = (LinkFigure) getFigure();
         GmInstanceLink model = (GmInstanceLink) getModel();
-        
+
         // Target side navigability & aggregation
         createDecorations(connection, model);
-        
+
         refreshDecorationsFromStyle(connection,
                                     getModelStyle(),
                                     AggregationKind.KINDISASSOCIATION,
                                     AggregationKind.KINDISASSOCIATION);
-        
+
     }
 
     /**
      * Recreate the source and target decoration arrows and/or diamonds.
+     *
      * @param connection The connection figure
      * @param model The GmAssociation
      */
     @objid ("3560401a-55b7-11e2-877f-002564c97630")
     private void createDecorations(PolylineConnection connection, GmInstanceLink model) {
         RotatableDecoration deco;
-        
+
         deco = createDecoration(AggregationKind.KINDISASSOCIATION,
                                 this.showNavigability && model.isToNavigable());
         connection.setTargetDecoration(deco);
-        
+
         deco = createDecoration(AggregationKind.KINDISASSOCIATION,
                                 this.showNavigability && model.isFromNavigable());
         connection.setSourceDecoration(deco);
-        
+
     }
 
     /**
      * Create the connection decoration from the given parameters.
+     *
      * @param toAggregation The aggregation mode
      * @param withArrow Whether a navigability arrow must be displayed.
      * @return
@@ -169,25 +171,26 @@ public class InstanceLinkEditPart extends LinkEditPart {
 
     /**
      * Refresh decorations from the style.
+     *
      * @param connection The connection figure.
      * @param style The style to use.
      */
     @objid ("3561c684-55b7-11e2-877f-002564c97630")
     protected void refreshDecorationsFromStyle(LinkFigure connection, IStyle style, AggregationKind fromAggregation, AggregationKind toAggregation) {
         GmInstanceLink model = (GmInstanceLink) getModel();
-        
+
         // Get style values
         Color fillColor = null;
         int lineWidth = 1;
         LinePattern lineStyle = LinePattern.LINE_SOLID;
-        
+
         if (model.getStyleKey(MetaKey.FILLCOLOR) != null)
             fillColor = (style.getColor(model.getStyleKey(MetaKey.FILLCOLOR)));
         if (model.getStyleKey(MetaKey.LINEWIDTH) != null)
             lineWidth = (style.getInteger(model.getStyleKey(MetaKey.LINEWIDTH)));
         if (model.getStyleKey(MetaKey.LINEPATTERN) != null)
             lineStyle = (style.getProperty(model.getStyleKey(MetaKey.LINEPATTERN)));
-        
+
         // Source decoration
         RotatableDecoration decoration = connection.getSourceDecoration();
         if (decoration != null) {
@@ -196,12 +199,12 @@ public class InstanceLinkEditPart extends LinkEditPart {
             } else {
                 decoration.setBackgroundColor(fillColor);
             }
-        
+
             final IPenOptionsSupport pennable = (IPenOptionsSupport) decoration;
             pennable.setLinePattern(lineStyle);
             pennable.setLineWidth(lineWidth);
         }
-        
+
         // Target decoration
         decoration = connection.getTargetDecoration();
         if (decoration != null) {
@@ -210,12 +213,12 @@ public class InstanceLinkEditPart extends LinkEditPart {
             } else {
                 decoration.setBackgroundColor(fillColor);
             }
-        
+
             final IPenOptionsSupport pennable = (IPenOptionsSupport) decoration;
             pennable.setLinePattern(lineStyle);
             pennable.setLineWidth(lineWidth);
         }
-        
+
     }
 
     @objid ("3561c693-55b7-11e2-877f-002564c97630")
@@ -223,9 +226,9 @@ public class InstanceLinkEditPart extends LinkEditPart {
     protected void createEditPolicies() {
         // Allow creation of information flows on the link
         installEditPolicy("CreateInfoFlow", new CreateInfoFlowEditPolicy());
-        
+
         super.createEditPolicies();
-        
+
     }
 
 }

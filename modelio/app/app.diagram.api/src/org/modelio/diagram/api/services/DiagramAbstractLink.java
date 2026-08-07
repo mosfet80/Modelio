@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.api.services;
 
@@ -77,6 +77,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public abstract class DiagramAbstractLink extends DiagramGraphic implements IDiagramLink {
     /**
      * Return the path of the current link.
+     *
      * @return The LinkPath that represent the path of the current link.
      */
     @objid ("4a911be1-494e-40f2-a488-dc184896c2c3")
@@ -108,9 +109,10 @@ public abstract class DiagramAbstractLink extends DiagramGraphic implements IDia
 
     /**
      * Route the path of a link.
-     * 
+     *
      * This method computes a path so that the link goes through the whole list of points. If the router referenced by the current Link is an orthogonal router the path will have orthogonal angles. If the router referenced by the current Link is a direct
      * router this method is equivalent to the setPath method.
+     *
      * @param points A collection of points that must be on the link path.
      */
     @objid ("ae930fec-2b07-434c-b2c3-839f120b09c6")
@@ -123,13 +125,14 @@ public abstract class DiagramAbstractLink extends DiagramGraphic implements IDia
         } catch (InvalidPointsPathException | InvalidSourcePointException | InvalidDestinationPointException e) {
             throw new IllegalArgumentException(e.getLocalizedMessage(), e);
         }
-        
+
     }
 
     /**
      * Set the path of a link.
-     * 
+     *
      * This method tries to set the current link path.
+     *
      * @throws InvalidSourcePointException If the source point is invalid.
      * @throws InvalidPointsPathException If the given path is invalid with the router type associated with the current link.
      * @throws InvalidDestinationPointException If the destination point is invalid.
@@ -142,22 +145,23 @@ public abstract class DiagramAbstractLink extends DiagramGraphic implements IDia
         if (npoints < 2) {
             throw new InvalidPointsPathException("You must have at least a source and a destination point");
         }
-        
+
         ILinkRoute route = new LinkRoute(getConnectionEditPart())
                 .clearBendPoints()
                 .setSourceAnchor(points.get(0), true)
                 .setTargetAnchor(points.get(npoints - 1), true);
-        
+
         for (int i = 1; i < npoints - 1; i++) {
             route.addBendPoint(points.get(i));
         }
-        
+
         setRoute(route);
-        
+
     }
 
     /**
      * Compute a new target anchor
+     *
      * @param connectionEditPart the connection
      * @param reqLoc a location in absolute coordinates
      * @return a new target anchor
@@ -165,7 +169,7 @@ public abstract class DiagramAbstractLink extends DiagramGraphic implements IDia
     @objid ("2cfc2e7d-8027-4295-b975-49a7010db917")
     protected ConnectionAnchor requestTargetAnchor(ConnectionEditPart connectionEditPart, Point reqLoc, boolean exact) {
         NodeEditPart targetEditPart = (NodeEditPart) connectionEditPart.getTarget();
-        
+
         ReconnectRequest reconnectRequest = new ReconnectRequest(RequestConstants.REQ_RECONNECT_TARGET);
         reconnectRequest.setConnectionEditPart(connectionEditPart);
         reconnectRequest.setTargetEditPart(targetEditPart);
@@ -175,13 +179,14 @@ public abstract class DiagramAbstractLink extends DiagramGraphic implements IDia
             reconnectRequest.getExtendedData().put(CreateLinkConstants.PROP_RECONNECT_ON_SAME_FACE,
                     new RaySlidableAnchor(targetFigure, reqLoc.getDifference(targetFigure.getBounds().getLocation())));
         }
-        
+
         ConnectionAnchor newAnchor = targetEditPart.getTargetConnectionAnchor(reconnectRequest);
         return newAnchor;
     }
 
     /**
      * Compute a new source anchor
+     *
      * @param connectionEditPart the connection
      * @param reqLoc a location in absolute coordinates
      * @return a new target anchor
@@ -198,7 +203,7 @@ public abstract class DiagramAbstractLink extends DiagramGraphic implements IDia
             reconnectRequest.getExtendedData().put(CreateLinkConstants.PROP_RECONNECT_ON_SAME_FACE,
                     new RaySlidableAnchor(srcFigure, reqLoc.getDifference(srcFigure.getBounds().getLocation())));
         }
-        
+
         ConnectionAnchor newConnectionAnchor = sourceEditPart.getSourceConnectionAnchor(reconnectRequest);
         return newConnectionAnchor;
     }
@@ -210,7 +215,7 @@ public abstract class DiagramAbstractLink extends DiagramGraphic implements IDia
     @Override
     public void setRouterKind(LinkRouterKind routerKind) {
         ConnectionRouterId routerId;
-        
+
         // Convert LinkRouterKind to ConnectionRouterId
         switch (routerKind) {
         case BENDPOINT:
@@ -222,26 +227,27 @@ public abstract class DiagramAbstractLink extends DiagramGraphic implements IDia
         case ORTHOGONAL:
             routerId = ConnectionRouterId.ORTHOGONAL;
             break;
-        
+
         default:
             routerId = ConnectionRouterId.DIRECT;
         }
-        
+
         // Set the router property
         final StyleKey styleKey = getModel().getStyleKey(MetaKey.CONNECTIONROUTER);
         if (styleKey != null) {
-        
+
             getModel().getDisplayedStyle().setProperty(styleKey, routerId);
         }
-        
+
     }
 
     /**
      * Creates a diagram link.
+     *
      * @param diagramHandle The diagram manipulation class.
      */
     @objid ("97fe33c6-52b9-404c-92e0-6fb1718d4678")
-    protected  DiagramAbstractLink(DiagramHandle diagramHandle) {
+    protected DiagramAbstractLink(DiagramHandle diagramHandle) {
         super(diagramHandle);
     }
 
@@ -249,12 +255,12 @@ public abstract class DiagramAbstractLink extends DiagramGraphic implements IDia
     @Override
     public void mask() {
         final ConnectionEditPart editPart = getConnectionEditPart();
-        
+
         final GroupRequest deleteReq = new GroupRequest(RequestConstants.REQ_DELETE);
         deleteReq.setEditParts(editPart);
-        
+
         execRequest(editPart, deleteReq);
-        
+
     }
 
     @objid ("defd5bff-8069-44b1-91d6-296f633251e8")
@@ -274,33 +280,33 @@ public abstract class DiagramAbstractLink extends DiagramGraphic implements IDia
     @objid ("b2d2d523-2f4e-432d-821d-90f690df8209")
     private void setTargetLocation(final Point targetPoint) {
         final ConnectionEditPart connEditPart = getConnectionEditPart();
-        
+
         final Point absTargetPoint = targetPoint.getCopy();
         connEditPart.getFigure().translateToAbsolute(absTargetPoint);
-        
+
         final ReconnectRequest req = new ReconnectRequest(RequestConstants.REQ_RECONNECT_TARGET);
         req.setConnectionEditPart(connEditPart);
         req.setTargetEditPart(connEditPart.getTarget());
         req.setLocation(absTargetPoint);
-        
+
         execRequest(connEditPart.getTarget(), req);
-        
+
     }
 
     @objid ("3ef0bec5-c380-4c93-9e37-177f7bafa61c")
     private void setSourceLocation(final Point sourcePoint) {
         final ConnectionEditPart connEditPart = getConnectionEditPart();
-        
+
         final Point absTargetPoint = sourcePoint.getCopy();
         connEditPart.getFigure().translateToAbsolute(absTargetPoint);
-        
+
         final ReconnectRequest req = new ReconnectRequest(RequestConstants.REQ_RECONNECT_SOURCE);
         req.setConnectionEditPart(connEditPart);
         req.setTargetEditPart(connEditPart.getSource());
         req.setLocation(absTargetPoint);
-        
+
         execRequest(connEditPart.getSource(), req);
-        
+
     }
 
     /**
@@ -314,20 +320,20 @@ public abstract class DiagramAbstractLink extends DiagramGraphic implements IDia
             return LinkRouterKind.BENDPOINT;
         case DIRECT:
             return LinkRouterKind.DIRECT;
-        
+
         case ORTHOGONAL:
             return LinkRouterKind.ORTHOGONAL;
         default:
             return LinkRouterKind.DIRECT;
         }
-        
+
     }
 
     @objid ("30fc150a-8c01-4ab9-a299-ab530433c7b3")
     @Override
     public String getProperty(final String property) {
         final StyleKey key = resolveStyleKey(property);
-        
+
         if (key != null) {
             return StyleKeyTypeConverter.convertToString(key, getModel().getDisplayedStyle().getProperty(key));
         }
@@ -364,7 +370,7 @@ public abstract class DiagramAbstractLink extends DiagramGraphic implements IDia
             return 0;
         }
         final LinePattern pattern = getModel().getDisplayedStyle().getProperty(styleKey);
-        
+
         switch (pattern) {
         case LINE_SOLID:
             return 0;
@@ -379,7 +385,7 @@ public abstract class DiagramAbstractLink extends DiagramGraphic implements IDia
         default:
             return 0;
         }
-        
+
     }
 
     @objid ("a812bbc9-cba6-4046-a69b-3d0940a0c481")
@@ -431,7 +437,7 @@ public abstract class DiagramAbstractLink extends DiagramGraphic implements IDia
             return;
         }
         getModel().getDisplayedStyle().setProperty(styleKey, value);
-        
+
     }
 
     @objid ("969be64f-b098-439f-aa31-86ed02f357a5")
@@ -443,7 +449,7 @@ public abstract class DiagramAbstractLink extends DiagramGraphic implements IDia
         }
         getModel().getDisplayedStyle()
                 .setProperty(styleKey, StyleKeyTypeConverter.convertFromString(styleKey, value));
-        
+
     }
 
     @objid ("1936eaf1-a489-4e04-93cb-e4221e2632c3")
@@ -453,9 +459,9 @@ public abstract class DiagramAbstractLink extends DiagramGraphic implements IDia
         if (styleKey == null) {
             return;
         }
-        
+
         getModel().getDisplayedStyle().setProperty(styleKey, StyleKeyTypeConverter.convertFromString(styleKey, value));
-        
+
     }
 
     @objid ("b50b1962-c105-470a-82aa-6bf8ac4a8b96")
@@ -466,7 +472,7 @@ public abstract class DiagramAbstractLink extends DiagramGraphic implements IDia
             return;
         }
         LinePattern pattern;
-        
+
         switch (value) {
         case 0:
             pattern = LinePattern.LINE_SOLID;
@@ -486,9 +492,9 @@ public abstract class DiagramAbstractLink extends DiagramGraphic implements IDia
         default:
             pattern = LinePattern.LINE_SOLID;
         }
-        
+
         getModel().getDisplayedStyle().setProperty(styleKey, pattern);
-        
+
     }
 
     @objid ("46eb0249-7c68-4f95-a56e-176ad4318109")
@@ -498,9 +504,9 @@ public abstract class DiagramAbstractLink extends DiagramGraphic implements IDia
         if (styleKey == null) {
             return;
         }
-        
+
         getModel().getDisplayedStyle().setProperty(styleKey, value);
-        
+
     }
 
     @objid ("bd397417-551a-4bbe-bc21-ac7d423cc2df")
@@ -510,9 +516,9 @@ public abstract class DiagramAbstractLink extends DiagramGraphic implements IDia
         if (styleKey == null) {
             return;
         }
-        
+
         getModel().getDisplayedStyle().setProperty(styleKey, value);
-        
+
     }
 
     @objid ("9bad231e-ac85-4da7-8fbe-a940a07346ce")
@@ -522,9 +528,9 @@ public abstract class DiagramAbstractLink extends DiagramGraphic implements IDia
         if (styleKey == null) {
             return;
         }
-        
+
         getModel().getDisplayedStyle().setProperty(styleKey, StyleKeyTypeConverter.convertFromString(styleKey, value));
-        
+
     }
 
     @objid ("336d0253-12cf-4493-ac7b-c8afa543f0fa")
@@ -540,7 +546,7 @@ public abstract class DiagramAbstractLink extends DiagramGraphic implements IDia
     public void setStyle(final IStyleHandle style) {
         final NamedStyle namedStyle = DiagramStyles.getStyleManager().getStyle(style.getName());
         getModel().getDisplayedStyle().setCascadedStyle(namedStyle);
-        
+
     }
 
     @objid ("886b1100-8461-4569-bd2f-10e72daad11e")
@@ -574,16 +580,17 @@ public abstract class DiagramAbstractLink extends DiagramGraphic implements IDia
     @Override
     public void setProperty(final String property, final String stringValue) {
         final StyleKey key = resolveStyleKey(property);
-        
+
         if (key != null) {
             getModel().getDisplayedStyle()
                     .setProperty(key, StyleKeyTypeConverter.convertFromString(key, stringValue));
         }
-        
+
     }
 
     /**
      * Get the edited connection edit part.
+     *
      * @return the edit connection edit part.
      */
     @objid ("c5ac5668-0654-4f75-a76a-b5ee5d5aa2bd")
@@ -593,6 +600,7 @@ public abstract class DiagramAbstractLink extends DiagramGraphic implements IDia
 
     /**
      * Get and execute if possible the command produced by the given request on the given edit part.
+     *
      * @param editPart an edit part.
      * @param req a request to execute.
      */
@@ -605,7 +613,7 @@ public abstract class DiagramAbstractLink extends DiagramGraphic implements IDia
                 ((GraphicalEditPart) editPart).getFigure().getUpdateManager().performValidation();
             }
         }
-        
+
     }
 
     @objid ("002e02c9-e137-417b-9938-25fdcd9a48cd")
@@ -647,7 +655,7 @@ public abstract class DiagramAbstractLink extends DiagramGraphic implements IDia
         } else {
             return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, n);
         }
-        
+
     }
 
     @objid ("844de005-a991-4f3a-a10e-4c4d75032977")
@@ -659,7 +667,7 @@ public abstract class DiagramAbstractLink extends DiagramGraphic implements IDia
         } else {
             return DGFactory.getInstance().getDiagramNode(this.diagramHandle, (GmNodeModel) n.iterator().next());
         }
-        
+
     }
 
     @objid ("88685879-8962-4011-a1ec-fcd5c4d1d0bb")
@@ -673,7 +681,7 @@ public abstract class DiagramAbstractLink extends DiagramGraphic implements IDia
         } else {
             return null;
         }
-        
+
     }
 
 }

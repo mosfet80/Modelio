@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.message;
 
@@ -53,7 +53,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * <li>InteractionUse</li>
  * <li>Lifeline</li>
  * </ul>
- * 
+ *
  * @author fpoyer
  */
 @objid ("d9515afd-55b6-11e2-877f-002564c97630")
@@ -81,18 +81,20 @@ public class CreateMessageHelper {
 
     /**
      * C'tor.
+     *
      * @param modelFactory model factory that will be used to create all the necessary model org.modelio.uml.sequencediagram.editor.elements.
      */
     @objid ("d9515b07-55b6-11e2-877f-002564c97630")
-    public  CreateMessageHelper(GmSequenceDiagram gmDiagram) {
+    public CreateMessageHelper(GmSequenceDiagram gmDiagram) {
         this.interaction = gmDiagram.getRelatedInteraction();
         this.modelFactory = gmDiagram.getModelManager().getModelFactory().getFactory(IStandardModelFactory.class);
         this.interactionSvc = new SequenceModelManipulationServices(this.interaction);
-        
+
     }
 
     /**
      * Main method. Handles the model creation and the unmaskings.
+     *
      * @param sourceModel the model that is the source of the link creation interaction
      * @param sourceTime the "time" of the source event
      * @param targetModel the model that is the target of the link creation interaction
@@ -105,7 +107,7 @@ public class CreateMessageHelper {
         if (sourceTime != targetTime) {
             this.interactionSvc.ensureMinDelta(targetTime, DELTA_MIN);
         }
-        
+
         // Manage source
         SourceStructure source = null;
         MObject sourceEl = sourceModel.getRelatedElement();
@@ -121,7 +123,7 @@ public class CreateMessageHelper {
             // Case not covered yet!
             throw new IllegalArgumentException("Message creation case not covered from:" + sourceEl.getMClass().getName());
         }
-        
+
         // Manage target
         MObject targetElement = targetModel.getRelatedElement();
         if (targetElement instanceof Lifeline) {
@@ -135,12 +137,12 @@ public class CreateMessageHelper {
         } else {
             // Case not covered yet!
             throw new IllegalArgumentException(MessageFormat.format(
-                    "Message creation case not covered from:{0} to {1}", 
-                    sourceEl.getMClass().getName(), 
+                    "Message creation case not covered from:{0} to {1}",
+                    sourceEl.getMClass().getName(),
                     targetElement.getMClass().getName()));
-        
+
         }
-        
+
     }
 
     @objid ("d9515b19-55b6-11e2-877f-002564c97630")
@@ -150,7 +152,7 @@ public class CreateMessageHelper {
         boolean createInnerExecution = (type == MessageType.InnerExecutionAsynchronous) ||
                 (type == MessageType.InnerExecutionSynchronous) ||
                 (type == MessageType.InnerExecutionToSelf);
-        
+
         // Create the objects, binding them together
         // The message is created from meA to meB where meA and meB are
         // MessageEnd instances
@@ -159,7 +161,7 @@ public class CreateMessageHelper {
         meB.setEnclosingInteraction(this.interaction);
         Lifeline lifeline = targetExecution.getCovered().get(0);
         meB.getCovered().add(lifeline);
-        
+
         // If InnerExecution was requested, create it
         ExecutionOccurenceSpecification exB = null;
         ExecutionSpecification innerExecution = null;
@@ -173,13 +175,13 @@ public class CreateMessageHelper {
             innerExecution.setStart(meB);
             innerExecution.setFinish(exB);
         }
-        
+
         // create the message itself
         Message theMessage = this.modelFactory.createMessage();
         source.inOb.setSentMessage(theMessage);
         meB.setReceivedMessage(theMessage);
         setMessageSortAndKind(type, theMessage);
-        
+
         // Unmask objects
         final IGmDiagram gmDiagram = targetModel.getDiagram();
         if (createInnerExecution) {
@@ -196,14 +198,14 @@ public class CreateMessageHelper {
         if (this.request != null && unmaskedLink != null) {
             this.request.getCreatedObjectsToSelect().add(unmaskedLink);
         }
-        
+
         // Set timing data
         meB.setLineNumber(targetTime);
         if (createInnerExecution && innerExecution != null && exB != null) {
             innerExecution.setLineNumber(targetTime);
             exB.setLineNumber(targetTime + CreateMessageHelper.DEFAULT_EXECUTION_DURATION);
         }
-        
+
         if (source.inOb instanceof ExecutionOccurenceSpecification &&
                 (type == MessageType.InnerExecutionSynchronous) &&
                 exB != null) {
@@ -216,15 +218,15 @@ public class CreateMessageHelper {
                 replyEnd.getCovered().add(((ExecutionOccurenceSpecification) source.inOb).getCovered().get(0));
                 replyEnd.setEnclosingInteraction(this.interaction);
             }
-        
+
             Message theReplyMessage = this.modelFactory.createMessage();
             exB.setSentMessage(theReplyMessage);
             replyEnd.setReceivedMessage(theReplyMessage);
             setMessageSortAndKind(MessageType.Reply, theReplyMessage);
-        
+
             replyEnd.setLineNumber(targetTime + CreateMessageHelper.DEFAULT_EXECUTION_DURATION);
         }
-        
+
     }
 
     @objid ("d952e17d-55b6-11e2-877f-002564c97630")
@@ -236,20 +238,20 @@ public class CreateMessageHelper {
         source.inOb.setSentMessage(theMessage);
         messageEnd.setReceivedMessage(theMessage);
         setMessageSortAndKind(type, theMessage);
-        
+
         // Unmask objects
         final IGmDiagram gmDiagram = targetModel.getDiagram();
         IGmLink unmaskedLink = gmDiagram.unmaskLink(theMessage, source.inGm, targetModel, new GmPath());
         if (this.request != null && unmaskedLink != null) {
             this.request.getCreatedObjectsToSelect().add(unmaskedLink);
         }
-        
+
     }
 
     @objid ("d952e187-55b6-11e2-877f-002564c97630")
     private void endOnLifeline(final SourceStructure source, final GmCompositeNode targetModel, final int targetTime, final MessageType type) {
         Lifeline targetLifeline = (Lifeline) targetModel.getRelatedElement();
-        
+
         // targetExecutionStart and targetExecutionEnd are the start and end of
         // the Execution on the target lifeline.
         // targetExecutionStart is also the end of the Message on the target
@@ -257,12 +259,12 @@ public class CreateMessageHelper {
         ExecutionOccurenceSpecification targetExecutionStart = this.modelFactory.createExecutionOccurenceSpecification();
         targetExecutionStart.getCovered().add(targetLifeline);
         targetExecutionStart.setEnclosingInteraction(this.interaction);
-        
+
         Message theMessage = this.modelFactory.createMessage();
         source.inOb.setSentMessage(theMessage);
         targetExecutionStart.setReceivedMessage(theMessage);
         setMessageSortAndKind(type, theMessage);
-        
+
         // Unmask all this stuff
         final IGmDiagram gmDiagram = targetModel.getDiagram();
         GmNodeModel targetNode = gmDiagram.unmask(targetModel, targetExecutionStart, new Rectangle(0,
@@ -281,23 +283,23 @@ public class CreateMessageHelper {
         } else {
             final int endTime = targetTime + CreateMessageHelper.DEFAULT_EXECUTION_DURATION;
             this.interactionSvc.ensureMinDelta(targetTime, CreateMessageHelper.DEFAULT_EXECUTION_DURATION + DELTA_MIN);
-        
+
             ExecutionOccurenceSpecification targetExecutionEnd = this.modelFactory.createExecutionOccurenceSpecification();
             targetExecutionEnd.getCovered().add(targetLifeline);
             targetExecutionEnd.setEnclosingInteraction(this.interaction);
-        
+
             ExecutionSpecification targetExecution = this.modelFactory.createExecutionSpecification();
             targetExecution.getCovered().add(targetLifeline);
             targetExecution.setEnclosingInteraction(this.interaction);
             targetExecution.setStart(targetExecutionStart);
             targetExecution.setFinish(targetExecutionEnd);
-        
+
             gmDiagram.unmask(targetModel, targetExecution, new Rectangle(0, 0, -1, -1));
             gmDiagram.unmask(targetModel, targetExecutionEnd, new Rectangle(0, 0, -1, -1));
-        
+
             targetExecution.setLineNumber(targetTime);
             targetExecutionEnd.setLineNumber(endTime);
-        
+
             if (source.inOb instanceof ExecutionOccurenceSpecification &&
                     (type == MessageType.InnerExecutionSynchronous || type == MessageType.SimpleSynchronous)) {
                 // Synchronous message starting on an Execution start: automagically create the reply message.
@@ -310,16 +312,16 @@ public class CreateMessageHelper {
                     replyEnd.getCovered().add(((ExecutionOccurenceSpecification) source.inOb).getCovered().get(0));
                     replyEnd.setEnclosingInteraction(this.interaction);
                 }
-        
+
                 Message theReplyMessage = this.modelFactory.createMessage();
                 targetExecutionEnd.setSentMessage(theReplyMessage);
                 replyEnd.setReceivedMessage(theReplyMessage);
                 setMessageSortAndKind(MessageType.Reply, theReplyMessage);
-        
+
                 replyEnd.setLineNumber(endTime);
             }
         }
-        
+
     }
 
     @objid ("d952e193-55b6-11e2-877f-002564c97630")
@@ -361,16 +363,16 @@ public class CreateMessageHelper {
         default:
             messageSort = MessageSort.SYNCCALL;
             break;
-        
+
         }
         theMessage.setSortOfMessage(messageSort);
-        
+
     }
 
     @objid ("d952e199-55b6-11e2-877f-002564c97630")
     private SourceStructure startOnEx(final GmNodeModel sourceModel, final int sourceTime) {
         ExecutionSpecification sourceExecution = (ExecutionSpecification) sourceModel.getRelatedElement();
-        
+
         // Create the objects, binding them together
         // The message is created from meA to meB where meA and meB are
         // MessageEnd instances
@@ -378,7 +380,7 @@ public class CreateMessageHelper {
         ExecutionOccurenceSpecification meA = this.modelFactory.createExecutionOccurenceSpecification();
         meA.setEnclosingInteraction(this.interaction);
         meA.getCovered().add(sourceExecution.getCovered().get(0));
-        
+
         // Unmask it
         final IGmDiagram gmDiagram = sourceModel.getDiagram();
         GmCompositeNode sourceLifelineBody = sourceModel.getParentNode();
@@ -386,7 +388,7 @@ public class CreateMessageHelper {
                 0,
                 -1,
                 -1));
-        
+
         // Set timing data
         meA.setLineNumber(sourceTime);
         return new SourceStructure(meA, sourceMessageEndModel);
@@ -401,12 +403,12 @@ public class CreateMessageHelper {
     @objid ("d952e1ab-55b6-11e2-877f-002564c97630")
     private SourceStructure startOnLifeline(final GmCompositeNode sourceModel, final int sourceTime) {
         Lifeline sourceLifeline = (Lifeline) sourceModel.getRelatedElement();
-        
+
         // messageStart is the start of the message
         ExecutionOccurenceSpecification messageStart = this.modelFactory.createExecutionOccurenceSpecification();
         messageStart.getCovered().add(sourceLifeline);
         messageStart.setEnclosingInteraction(this.interaction);
-        
+
         // Unmask all this stuff
         final IGmDiagram gmDiagram = sourceModel.getDiagram();
         GmNodeModel sourceNode = gmDiagram.unmask(sourceModel, messageStart, new Rectangle(0, 0, -1, -1));
@@ -418,6 +420,7 @@ public class CreateMessageHelper {
      * Set the request that will be completed by this helper.
      * <p>
      * This helper will call {@link CreateBendedConnectionRequest#getCreatedObjectsToSelect()} to add objects to the list.
+     *
      * @param request the request to complete.
      */
     @objid ("d952e1b5-55b6-11e2-877f-002564c97630")
@@ -428,32 +431,32 @@ public class CreateMessageHelper {
     @objid ("f0bce288-e7f3-456f-ab29-0a0f75393194")
     private void endOnInteractionUse(final SourceStructure source, final GmCompositeNode targetModel, final int targetTime, final MessageType type) {
         InteractionUse targetInteractionUse = (InteractionUse) targetModel.getRelatedElement();
-        
+
         // create gate
         Gate targetGate = this.modelFactory.createGate();
         targetGate.setOwnerUse(targetInteractionUse);
         targetGate.setEnclosingInteraction(this.interaction);
         targetGate.setLineNumber(targetTime);
-        
+
         // create the message itself
         Message theMessage = this.modelFactory.createMessage();
         source.inOb.setSentMessage(theMessage);
         targetGate.setReceivedMessage(theMessage);
         setMessageSortAndKind(type, theMessage);
-        
+
         // Unmask objects
         final IGmDiagram gmDiagram = targetModel.getDiagram();
         IGmLink unmaskedLink = gmDiagram.unmaskLink(theMessage, source.inGm, targetModel, new GmPath());
         if (this.request != null && unmaskedLink != null) {
             this.request.getCreatedObjectsToSelect().add(unmaskedLink);
         }
-        
+
     }
 
     @objid ("b8cdb540-c718-48f2-99fb-5c2d6a678b4c")
     private SourceStructure startOnInteractionUse(final GmCompositeNode sourceModel, final int sourceTime) {
         InteractionUse sourceInteractionUse = (InteractionUse) sourceModel.getRelatedElement();
-        
+
         // create gate
         Gate sourceGate = this.modelFactory.createGate();
         sourceGate.setOwnerUse(sourceInteractionUse);
@@ -468,7 +471,7 @@ public class CreateMessageHelper {
      * and a GmNodeModel (that is the source of the GmMessage to create in the Gm model).
      * <p>
      * This structure is used to pass the minimal required information from one half of the command (source) to the other half (target).
-     * 
+     *
      * @author fpoyer
      */
     @objid ("d952e1ba-55b6-11e2-877f-002564c97630")
@@ -480,10 +483,10 @@ public class CreateMessageHelper {
         public final MessageEnd inOb;
 
         @objid ("d954681e-55b6-11e2-877f-002564c97630")
-         SourceStructure(final MessageEnd inOb, final IGmLinkable inGm) {
+        SourceStructure(final MessageEnd inOb, final IGmLinkable inGm) {
             this.inOb = inOb;
             this.inGm = inGm;
-            
+
         }
 
     }

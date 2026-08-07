@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
@@ -26,21 +26,20 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * DecisionNodeKind v0.0.9054
- * 
- * 
+ *
+ *
  * null
- * 
- * 
+ *
  */
 @objid ("007ee2a8-91e0-1f74-804b-001ec947cd2a")
 public enum DecisionNodeKind {
-    @objid ("4dc5e574-5dc4-4f34-aae1-6951872099f2")
+    @objid ("40baeb20-a6cf-421f-a3f0-a547d7491ab6")
     COMPLEXDECISION(0, "ComplexDecision", "ComplexDecision"),
-    @objid ("93369872-3f48-4583-a70a-9b480a791a4e")
+    @objid ("16e10c2f-80d9-4e7c-a997-1ca92745ebd0")
     EXCLUSIVEDECISION(1, "ExclusiveDecision", "ExclusiveDecision"),
-    @objid ("1446e8d3-bf5a-4c42-ad0e-d84cb2ed4430")
+    @objid ("3898a9fa-acf1-45d9-8aff-a52894895e94")
     INCLUSIVEDECISION(2, "InclusiveDecision", "InclusiveDecision"),
-    @objid ("276aabc4-d5ce-4350-aea1-718d936678ec")
+    @objid ("597bf996-026e-4f04-9033-82f36a420c3e")
     EVENTBASEDDECISION(3, "EventBasedDecision", "EventBasedDecision");
 
 public static final int COMPLEXDECISION_VALUE = 0;
@@ -103,5 +102,5 @@ public static final int COMPLEXDECISION_VALUE = 0;
     public String toString() {
        return literal;
     }
-    
+
 }

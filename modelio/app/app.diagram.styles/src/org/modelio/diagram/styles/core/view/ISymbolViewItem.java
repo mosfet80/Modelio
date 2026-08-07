@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.styles.core.view;
 
@@ -26,6 +26,7 @@ import org.modelio.diagram.styles.core.StyleKey;
 
 /**
  * Item in the symbol view model.
+ *
  * @author cma
  * @since 3.7
  */
@@ -40,12 +41,14 @@ public interface ISymbolViewItem {
 
     /**
      * Get a more detailed description to display in a tooltip or a wider widget.
+     *
      * @return a detailed description.
      */
     @objid ("72077239-e08c-428e-b056-7c18a80580bc")
     String getDescription();
 
     /**
+     *
      * @return the label to display
      */
     @objid ("99a46820-926b-4b68-90bd-bb89cd05c532")
@@ -55,6 +58,7 @@ public interface ISymbolViewItem {
      * Get the possible values for an enumerated property.
      * <p>
      * Returns an empty collection if the property is not enumerated.
+     *
      * @return the possible values.
      */
     @objid ("4be457ba-d77e-44e2-bf6c-32803e3bd5ce")
@@ -64,6 +68,7 @@ public interface ISymbolViewItem {
      * Get the edited {@link StyleKey}.
      * <p>
      * If null it means it represents just a label.
+     *
      * @return the represented field.
      */
     @objid ("75288660-b218-4a98-bb5a-56c52c69bed4")
@@ -73,6 +78,7 @@ public interface ISymbolViewItem {
      * Get the type of the editable field.
      * <p>
      * If null it means it represents just a label.
+     *
      * @return The type of the editable field.
      */
     @objid ("b2d389a6-e8cf-4f44-940e-34c026997ad3")
@@ -80,6 +86,7 @@ public interface ISymbolViewItem {
 
     /**
      * Get the value of this field from the given style.
+     *
      * @param input a style
      * @return the filed value.
      */
@@ -88,6 +95,7 @@ public interface ISymbolViewItem {
 
     /**
      * Tells whether this item is modifiable in the given style.
+     *
      * @param style the edited style
      * @return true only if the item is modifiable.
      */
@@ -95,6 +103,7 @@ public interface ISymbolViewItem {
     boolean isEditable(IStyle style);
 
     /**
+     *
      * @param input a style
      * @return true if the value is different than the default value.
      */
@@ -103,6 +112,7 @@ public interface ISymbolViewItem {
 
     /**
      * Save the new value in the given style.
+     *
      * @param input the edited style
      * @param newValue the new value.
      */
@@ -111,6 +121,7 @@ public interface ISymbolViewItem {
 
     /**
      * Possible choice in an enumerated symbol view item.
+     *
      * @author cma
      * @since 3.7
      */
@@ -123,10 +134,10 @@ public interface ISymbolViewItem {
         public final Object value;
 
         @objid ("5df9ce76-0d3b-45ef-9291-35a0d182ff78")
-        public  Choice(Object value, String label) {
+        public Choice(Object value, String label) {
             this.value = value;
             this.label = label;
-            
+
         }
 
         @objid ("464b0bb0-f32e-4bf1-af80-4d2ba5cc9c2c")
@@ -136,5 +147,5 @@ public interface ISymbolViewItem {
         }
 
     }
-}
 
+}

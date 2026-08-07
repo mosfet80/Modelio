@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.patterns.apply.gui;
 
@@ -41,7 +41,7 @@ public class ApplyPatternDialog extends ModelioDialog {
     public void init() {
         setTitle(Patterns.I18N.getMessage("ApplyPatternDialog.title"));
         setMessage(Patterns.I18N.getMessage("ApplyPatternDialog.message"));
-        
+
     }
 
     @objid ("47fab9da-4e13-4e7f-ac76-e37d7d62214a")
@@ -54,10 +54,10 @@ public class ApplyPatternDialog extends ModelioDialog {
     @Override
     public void addButtonsInButtonBar(Composite parent) {
         addDefaultButtons(parent);
-        
+
         // Init ok button status
         ApplyPatternData data = (ApplyPatternData) this.panel.getInput();
-        
+
         boolean parametersFilled = true;
         for (Parameter param : data.getPattern().getParameters()) {
             Object value = data.getParameterValues().get(param.getName());
@@ -67,7 +67,7 @@ public class ApplyPatternDialog extends ModelioDialog {
             }
         }
         getButton(IDialogConstants.OK_ID).setEnabled(parametersFilled);
-        
+
     }
 
     @objid ("4e76483e-a1c2-41eb-84e5-de4a7851129c")
@@ -83,17 +83,17 @@ public class ApplyPatternDialog extends ModelioDialog {
     }
 
     @objid ("4bcad5f1-2b53-4f9a-bb60-40c6bd913f95")
-    public  ApplyPatternDialog(Shell parentShell, ApplyPatternData data) {
+    public ApplyPatternDialog(Shell parentShell, ApplyPatternData data) {
         super(parentShell);
         this.setShellStyle(SWT.MODELESS | SWT.DIALOG_TRIM | SWT.RESIZE | SWT.MAX);
-        
+
         this.panel = new ApplyPatternPanel();
         this.panel.setInput(data);
         this.panel.addListener(new IPanelListener() {
             @Override
             public void dataChanged(Object o, boolean isValidate) {
                 ApplyPatternData data = (ApplyPatternData) o;
-        
+
                 boolean parametersFilled = true;
                 for (Parameter param : data.getPattern().getParameters()) {
                     Object value = data.getParameterValues().get(param.getName());
@@ -105,7 +105,7 @@ public class ApplyPatternDialog extends ModelioDialog {
                 getButton(IDialogConstants.OK_ID).setEnabled(parametersFilled);
             }
         });
-        
+
     }
 
     @objid ("22eb43b4-6776-487e-acc4-bddd9865ac76")
@@ -113,7 +113,7 @@ public class ApplyPatternDialog extends ModelioDialog {
     protected void configureShell(Shell newShell) {
         super.configureShell(newShell);
         newShell.setText(Patterns.I18N.getMessage("ApplyPatternDialog.title"));
-        
+
     }
 
 }

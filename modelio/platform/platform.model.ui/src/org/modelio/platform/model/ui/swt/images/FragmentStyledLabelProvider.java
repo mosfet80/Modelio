@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.swt.images;
 
@@ -35,6 +35,7 @@ import org.modelio.platform.ui.UIColor;
 @objid ("3022cc50-1ae7-4263-a6c4-55bc862fd794")
 public class FragmentStyledLabelProvider {
     /**
+     *
      * @param fragment a project fragment
      * @return its styled text.
      */
@@ -61,7 +62,6 @@ public class FragmentStyledLabelProvider {
             }
             textStyle.foreground = getForeground(this.fragment);
             textStyle.background = getBackground(this.fragment);
-            
         }
 
         /**
@@ -72,6 +72,7 @@ public class FragmentStyledLabelProvider {
          * <li>Incomplete model elements font color is light red #FF8080.</li>
          * <li>Ramc model elements font color is modified yellow #A0A000.</li>
          * </ul>
+         *
          * @return a Color.
          */
         @objid ("8d26a3b5-12e7-4d5b-92a5-0ab3dd8dbcd4")
@@ -79,7 +80,7 @@ public class FragmentStyledLabelProvider {
             if (aFragment.getState().getValue() == GPartStateEnum.DOWN) {
                 return UIColor.RED;
             }
-            
+
             switch (aFragment.getType()) {
             case EXMLFRAGMENT:
             case SVNFRAGMENT:
@@ -102,6 +103,7 @@ public class FragmentStyledLabelProvider {
 
         /**
          * Get the background color for the given element
+         *
          * @param aFragment a Fragment
          * @return its background color
          */
@@ -111,7 +113,7 @@ public class FragmentStyledLabelProvider {
         }
 
         @objid ("a2ae9eff-bb4f-47db-8ac6-02e8b076d66a")
-        public  FragmentStyler(IGModelFragment fragment) {
+        public FragmentStyler(IGModelFragment fragment) {
             this.fragment = fragment;
         }
 

@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.module.modelermodule.gui;
 
@@ -49,17 +49,18 @@ public class InputDialog {
 
     /**
      * Private constructor, initializing the dialog's content.
+     *
      * @param parent the parent to attach the dialog to.
      * @param label the label to display in the dialog.
      * @param title the title for the dialog.
      * @param value the default value for the asked text.
      */
     @objid ("5a36d3aa-d711-42d6-a861-f874dfca685f")
-    private  InputDialog(final Shell parent, final String label, final String title, final String value) {
+    private InputDialog(final Shell parent, final String label, final String title, final String value) {
         this.name = "";
-        
+
         createContents(parent, label, title, value);
-        
+
     }
 
     /**
@@ -68,10 +69,10 @@ public class InputDialog {
     @objid ("c8811028-b3ff-4c68-b3be-14510bd49936")
     private void createContents(final Shell parent, final String label, final String title, final String value) {
         this.shell = new Shell(parent, SWT.DIALOG_TRIM);
-        
+
         this.shell.setLayout(new FormLayout());
         this.shell.setText(title);
-        
+
         final Label nameLabel = new Label(this.shell, SWT.NONE);
         nameLabel.setAlignment(SWT.CENTER);
         final FormData fd_nameLabel = new FormData();
@@ -81,9 +82,9 @@ public class InputDialog {
         fd_nameLabel.bottom = new FormAttachment(0, 25);
         nameLabel.setLayoutData(fd_nameLabel);
         nameLabel.setText(label);
-        
+
         Composite buttons = createButtons();
-        
+
         this.text = new Text(this.shell, SWT.BORDER);
         final FormData fd_text = new FormData();
         fd_text.bottom = new FormAttachment(buttons, 0);
@@ -92,10 +93,10 @@ public class InputDialog {
         fd_text.left = new FormAttachment(nameLabel, 0, SWT.LEFT);
         this.text.setText(value);
         this.text.setLayoutData(fd_text);
-        
+
         this.shell.pack();
         this.shell.setSize(this.shell.getSize().x + 20, this.shell.getSize().y);
-        
+
     }
 
     @objid ("f66fe310-2259-4e4a-a7a3-ebdb877f4895")
@@ -109,10 +110,10 @@ public class InputDialog {
         fd_composite_1.bottom = new FormAttachment(100, 0);
         fd_composite_1.right = new FormAttachment(100, -5);
         composite.setLayoutData(fd_composite_1);
-        
+
         final Composite composite_2 = new Composite(composite, SWT.NONE);
         composite_2.setLayout(new FillLayout());
-        
+
         final Button okButton = new Button(composite_2, SWT.NONE);
         okButton.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -126,7 +127,7 @@ public class InputDialog {
             }
         });
         okButton.setText(I18nMessageService.getString("module.gui.ok"));
-        
+
         final Button cancelButton;
         cancelButton = new Button(composite_2, SWT.NONE);
         cancelButton.addSelectionListener(new SelectionAdapter() {
@@ -142,6 +143,7 @@ public class InputDialog {
 
     /**
      * Opens a dialog and returns the chosen text.
+     *
      * @param parent the parent to attach the dialog to.
      * @param label the label to display in the dialog.
      * @param title the title for the dialog.
@@ -157,10 +159,10 @@ public class InputDialog {
     @objid ("d0020e3e-5370-4f0c-9642-d78ca40db336")
     private String choose() {
         ShellHelper.centerShell(this.shell);
-        
+
         this.shell.open();
         this.shell.layout();
-        
+
         final Display display = this.shell.getDisplay();
         while (!this.shell.isDisposed()) {
             if (!display.readAndDispatch())

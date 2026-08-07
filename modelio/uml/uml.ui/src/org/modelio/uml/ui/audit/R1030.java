@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -76,7 +76,7 @@ public class R1030 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -108,7 +108,7 @@ public class R1030 extends AbstractUmlRule {
         plan.registerRule(StructuredActivityNode.MQNAME, this, AuditTrigger.MOVE);
         plan.registerRule(ConditionalNode.MQNAME, this, AuditTrigger.MOVE);
         plan.registerRule(LoopNode.MQNAME, this, AuditTrigger.MOVE);
-        
+
         plan.registerRule(DecisionMergeNode.MQNAME, this, AuditTrigger.MOVE);
         plan.registerRule(ActivityFinalNode.MQNAME, this, AuditTrigger.MOVE);
         plan.registerRule(FlowFinalNode.MQNAME, this, AuditTrigger.MOVE);
@@ -120,7 +120,7 @@ public class R1030 extends AbstractUmlRule {
         plan.registerRule(InstanceNode.MQNAME, this, AuditTrigger.MOVE);
         plan.registerRule(InputPin.MQNAME, this, AuditTrigger.MOVE);
         plan.registerRule(OutputPin.MQNAME, this, AuditTrigger.MOVE);
-        
+
         // ActivityEdge
         plan.registerRule(ControlFlow.MQNAME, this, AuditTrigger.UPDATE |
                 AuditTrigger.CREATE |
@@ -134,7 +134,7 @@ public class R1030 extends AbstractUmlRule {
         plan.registerRule(ExceptionHandler.MQNAME, this, AuditTrigger.UPDATE |
                 AuditTrigger.CREATE |
                 AuditTrigger.MOVE);
-        
+
     }
 
     /**
@@ -168,14 +168,14 @@ public class R1030 extends AbstractUmlRule {
      * Default constructor for R1030
      */
     @objid ("a1c8f314-b2f2-4cbb-8d65-4172726a7cb2")
-    public  R1030() {
+    public R1030() {
         this.checkerInstance = new CheckR1030(this);
     }
 
     @objid ("489c6581-50ab-4e17-a54c-df86dafe9f86")
     private static class CheckR1030 extends AbstractControl {
         @objid ("27de5381-76be-4820-a462-6fc6f3f08490")
-        public  CheckR1030(IRule rule) {
+        public CheckR1030(IRule rule) {
             super(rule);
         }
 
@@ -184,7 +184,7 @@ public class R1030 extends AbstractUmlRule {
         public IDiagnosticCollector doRun(IDiagnosticCollector diagnostic, MObject element) {
             if (element instanceof ActivityNode) {
                 diagnostic.addEntries(checkR1030((ActivityNode) element));
-            
+
             } else if (element instanceof ActivityEdge) {
                 diagnostic.addEntry(checkR1030((ActivityEdge) element));
             } else if (element instanceof ExceptionHandler) {
@@ -199,23 +199,23 @@ public class R1030 extends AbstractUmlRule {
         private List<IAuditEntry> checkR1030(ActivityNode node) {
             // R61014 The source and target of an edge must be in the same activity
             ArrayList<IAuditEntry> auditEntries = new ArrayList<>();
-            
+
             // Incoming edges
             for (ActivityEdge edge : node.getIncoming()) {
                 auditEntries.add(checkR1030(edge));
             }
-            
+
             // Outgoing edges
             for (ActivityEdge edge : node.getOutgoing()) {
                 auditEntries.add(checkR1030(edge));
             }
-            
+
             if (node instanceof ActivityAction) {
                 // outgoing pins
                 for (OutputPin pin : ((ActivityAction) node).getOutput()) {
                     auditEntries.addAll(checkR1030(pin));
                 }
-            
+
                 // incoming pins
                 for (InputPin pin : ((ActivityAction) node).getInput()) {
                     auditEntries.addAll(checkR1030(pin));
@@ -230,22 +230,22 @@ public class R1030 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     edge,
                     null);
-            
+
             // R61014 The source and target of an edge must be in the same activity
             if (edge.getSource() == null) {
                 return auditEntry;
             }
-            
+
             if (edge.getTarget() == null) {
                 return auditEntry;
             }
-            
+
             ActivityNode source = edge.getSource();
             ActivityNode target = edge.getTarget();
-            
+
             Activity sourceOwner = getOwningActivity(source);
             Activity targetOwner = getOwningActivity(target);
-            
+
             if (sourceOwner.equals(targetOwner) == false) {
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
@@ -272,23 +272,23 @@ public class R1030 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     exceptionHandler,
                     null);
-            
+
             // R61014 The source and target of an edge must be in the same activity
-            
+
             ActivityNode source = exceptionHandler.getProtectedNode();
             ActivityNode target = exceptionHandler.getExceptionInput();
-            
+
             if (source == null) {
                 return auditEntry;
             }
-            
+
             if (target == null) {
                 return auditEntry;
             }
-            
+
             Activity sourceOwner = getOwningActivity(source);
             Activity targetOwner = getOwningActivity(target);
-            
+
             if (sourceOwner.equals(targetOwner) == false) {
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();

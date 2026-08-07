@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure.properties;
 
 import java.util.ArrayList;
@@ -73,7 +72,7 @@ public class EnumeratedPropertyTypeImpl extends PropertyTypeImpl implements Enum
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
     @objid ("a6615ec0-7e65-4c59-b778-31330105b80d")
@@ -95,7 +94,7 @@ public class EnumeratedPropertyTypeImpl extends PropertyTypeImpl implements Enum
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
     @objid ("60070b57-fa50-4d06-bba4-970418ba8642")
@@ -112,7 +111,7 @@ public class EnumeratedPropertyTypeImpl extends PropertyTypeImpl implements Enum
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 

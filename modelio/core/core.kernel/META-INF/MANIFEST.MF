@@ -2,7 +2,8 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Kernel
 Bundle-SymbolicName: org.modelio.core.kernel;singleton:=true
-Bundle-Version: 5.4.1.qualifier 
+Bundle-Version: 6.2.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.modelio.vcore.model,
  org.modelio.vcore.model.filter,
  org.modelio.vcore.smkernel,
@@ -15,6 +16,7 @@ Export-Package: org.modelio.vcore.model,
  org.modelio.vcore.smkernel.meta.descriptor,
  org.modelio.vcore.smkernel.meta.mof,
  org.modelio.vcore.smkernel.meta.smannotations,
+ org.modelio.vcore.smkernel.transaction,
  org.modelio.vcore.swap,
  org.modelio.vcore.swap.jmx,
  org.modelio.vcore.utils,
@@ -25,5 +27,4 @@ Export-Package: org.modelio.vcore.model,
 Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
  org.modelio.core.utils,
  jdbm;visibility:=reexport
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Vendor: modelio.org

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.dg.activity;
 
@@ -35,11 +35,12 @@ import org.modelio.uml.activitydiagram.editor.elements.objectflow.GmObjectFlow;
 @objid ("491bafb1-e5d3-4543-90b9-3dbd3eca8076")
 public class ObjectFlowDG extends DiagramLink {
     /**
+     *
      * @param diagramHandle The diagram manipulation class.
      * @param link The gm link represented by this class.
      */
     @objid ("f776708c-77c4-48e2-9772-0f38df93f19c")
-    public  ObjectFlowDG(DiagramHandle diagramHandle, IGmLink link) {
+    public ObjectFlowDG(DiagramHandle diagramHandle, IGmLink link) {
         super(diagramHandle, link);
     }
 
@@ -57,13 +58,13 @@ public class ObjectFlowDG extends DiagramLink {
             return getGmLink().getExtensions(GmObjectFlow.ROLE_INFOFLOW_ARROW);
         case TO_INFOFLOW_GROUP:
             return getGmLink().getExtensions(GmObjectFlow.ROLE_INFOFLOW_GROUP);
-            
+
             //$CASES-OMITTED$
         default:
             return Collections.emptyList();
-        
+
         }
-        
+
     }
 
 }

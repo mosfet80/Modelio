@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -56,15 +56,17 @@ public class TransitionPropertyModel extends AbstractPropertyModel<Transition> {
 
     /**
      * Create a new <i>Transition</i> data model from an <i>Transition</i>.
+     *
      * @param theEditedElement the transition to build a model for.
      */
     @objid ("a8c9363e-40a1-474d-b716-3e1dba2e850d")
-    public  TransitionPropertyModel(Transition theEditedElement) {
+    public TransitionPropertyModel(Transition theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("90ea10fe-26e4-415a-84dc-d8f3e05a6c0d")
@@ -75,6 +77,7 @@ public class TransitionPropertyModel extends AbstractPropertyModel<Transition> {
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("6db1275e-ae78-448c-8255-111013d10b0d")
@@ -87,6 +90,7 @@ public class TransitionPropertyModel extends AbstractPropertyModel<Transition> {
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -118,7 +122,7 @@ public class TransitionPropertyModel extends AbstractPropertyModel<Transition> {
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -128,6 +132,7 @@ public class TransitionPropertyModel extends AbstractPropertyModel<Transition> {
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -167,13 +172,14 @@ public class TransitionPropertyModel extends AbstractPropertyModel<Transition> {
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -213,21 +219,22 @@ public class TransitionPropertyModel extends AbstractPropertyModel<Transition> {
         default:
             return;
         }
-        
+
     }
 
     /**
      * Represents the Transition effects.
-     * 
+     *
      * Merges the following Transition features: - Effect : string - Processed :
      * Operation - BehaviorEffect : Behavior
-     * 
+     *
      * @author cmarin
      */
     @objid ("7f2a35ef-0d7c-4260-b50c-121d9e72edc4")
     protected static class TransitionEffectType {
         /**
          * Get the effect of a transition
+         *
          * @param t a Transition
          * @return a String, an Operation or a Behavior
          */
@@ -237,18 +244,19 @@ public class TransitionPropertyModel extends AbstractPropertyModel<Transition> {
             if (sEffect != null && !sEffect.isEmpty()) {
                 return sEffect;
             }
-            
+
             Operation op = t.getProcessed();
             if (op != null) {
                 return op;
             }
-            
+
             Behavior b = t.getBehaviorEffect();
             return b;
         }
 
         /**
          * Set the effect of a Transition
+         *
          * @param t a Transition
          * @param value a String, an Operation or a Behavior
          */
@@ -278,7 +286,7 @@ public class TransitionPropertyModel extends AbstractPropertyModel<Transition> {
                     }
                 }
             }
-            
+
             if (value != null) {
                 // Set new value
                 if (String.class.isAssignableFrom(value.getClass())) {
@@ -292,23 +300,24 @@ public class TransitionPropertyModel extends AbstractPropertyModel<Transition> {
                             + value.getClass().getCanonicalName());
                 }
             }
-            
+
         }
 
     }
 
     /**
      * Represents the Transition received events.
-     * 
+     *
      * Merges the following Transition features: - Received : string - Trigger :
      * Event
-     * 
+     *
      * @author cmarin
      */
     @objid ("f59ff762-425d-41c8-9305-0b2dcda45b25")
     protected static class TransitionReceivedType {
         /**
          * Get the trigger of a transition
+         *
          * @param t a Transition
          * @return a String, or an Event
          */
@@ -318,13 +327,14 @@ public class TransitionPropertyModel extends AbstractPropertyModel<Transition> {
             if (sEffect != null && !sEffect.isEmpty()) {
                 return sEffect;
             }
-            
+
             Event op = t.getTrigger();
             return op;
         }
 
         /**
          * Set the trigger of a Transition
+         *
          * @param t a Transition
          * @param value a String, or an Event
          */
@@ -346,7 +356,7 @@ public class TransitionPropertyModel extends AbstractPropertyModel<Transition> {
                     t.setTrigger(null);
                 }
             }
-            
+
             if (value != null) {
                 // Set new value
                 if (String.class.isAssignableFrom(value.getClass())) {
@@ -358,23 +368,24 @@ public class TransitionPropertyModel extends AbstractPropertyModel<Transition> {
                             "value must be a String or a Event but not a " + value.getClass().getCanonicalName());
                 }
             }
-            
+
         }
 
     }
 
     /**
      * Represents the Transition sent signals.
-     * 
+     *
      * Merges the following Transition features: - SentEvents : string - Effects
      * : Signal
-     * 
+     *
      * @author cmarin
      */
     @objid ("3bedfe2a-0299-40b6-b694-983da1f0e856")
     protected static class TransitionSentType {
         /**
          * Get the sent signal of a transition
+         *
          * @param t a Transition
          * @return a String, or a Signal
          */
@@ -384,13 +395,14 @@ public class TransitionPropertyModel extends AbstractPropertyModel<Transition> {
             if (sEffect != null && !sEffect.isEmpty()) {
                 return sEffect;
             }
-            
+
             Signal op = t.getEffects();
             return op;
         }
 
         /**
          * Set the signal sent from a Transition
+         *
          * @param t a Transition
          * @param value a String or a Signal
          */
@@ -412,7 +424,7 @@ public class TransitionPropertyModel extends AbstractPropertyModel<Transition> {
                     t.setEffects(null);
                 }
             }
-            
+
             if (value != null) {
                 // Set new value
                 if (String.class.isAssignableFrom(value.getClass())) {
@@ -424,7 +436,7 @@ public class TransitionPropertyModel extends AbstractPropertyModel<Transition> {
                             "value must be a String or a Signal but not a " + value.getClass().getCanonicalName());
                 }
             }
-            
+
         }
 
     }

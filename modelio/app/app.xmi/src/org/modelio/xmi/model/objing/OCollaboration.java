@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -41,7 +41,7 @@ public class OCollaboration extends ONameSpace {
     }
 
     @objid ("75ac470c-1106-4ea9-8b36-d5d9fb43d48d")
-    public  OCollaboration(Collaboration param) {
+    public OCollaboration(Collaboration param) {
         super(param);
     }
 
@@ -49,12 +49,12 @@ public class OCollaboration extends ONameSpace {
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         MObject objingOwner = getObjingElement().getCompositionOwner();
-        
+
         // Possible owner of an objing  org.eclipse.uml2.uml.Collaboration:
         // org.eclipse.uml2.uml. Behavior ;  org.eclipse.uml2.uml.Operation ; ModelTree ; org.eclipse.uml2.uml.TemplateParameter
-        
+
         org.eclipse.uml2.uml.Element ecoreOwner = GenerationProperties.getInstance().getMappedElement(objingOwner);
-        
+
         if (ecoreOwner != null) {
             if (objingOwner instanceof Behavior) {
                 setOwnerBehavior( (org.eclipse.uml2.uml.Collaboration) ecoreElt, ecoreOwner);
@@ -70,33 +70,33 @@ public class OCollaboration extends ONameSpace {
                 String errorMsg = "Owner Class ("
                             + ecoreOwner.getClass().getSimpleName()
                             + ") Not Found";
-        
+
                 throw new NotFoundException(errorMsg);
             }
         } else{
-        
+
             AbstractObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(
                     objingOwner, getObjingElement(),ecoreElt);
             String errorMsg = "Owner Class Not Found";
             throw new NotFoundException(errorMsg);
         }
-        
+
     }
 
     @objid ("43b49293-5abb-4942-b5ab-8d344b6571c4")
     @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
-        
+
         //UML Properties
         setLeaf( (org.eclipse.uml2.uml.Collaboration) ecoreElt);
-        
+
         //Modelio Properties
         if (GenerationProperties.getInstance().isRoundtripEnabled()){
             setConcurrentEAnnotation( (org.eclipse.uml2.uml.Collaboration) ecoreElt);
             setRootEAnnotation( (org.eclipse.uml2.uml.Collaboration)ecoreElt);
         }
-        
+
     }
 
     @objid ("502cb179-7623-4efc-b4f9-8a5914784434")
@@ -120,7 +120,7 @@ public class OCollaboration extends ONameSpace {
             org.eclipse.uml2.uml. Behavior ownerIsBehavior = (org.eclipse.uml2.uml.Behavior) ecoreOwner;
             ownerIsBehavior.getNestedClassifiers().add(ecoreCollab);
         }
-        
+
     }
 
     @objid ("8b85ccd5-4524-4f6b-a998-666a86e557e7")
@@ -129,9 +129,9 @@ public class OCollaboration extends ONameSpace {
         // collaboration to
         // the owner of the operation
         MObject ownerOp = objingOperation.getCompositionOwner();
-        
+
         org.eclipse.uml2.uml.Element ecoreOwnerOp = GenerationProperties.getInstance().getMappedElement(ownerOp);
-        
+
         if (ecoreOwnerOp != null) {
             if (ownerOp instanceof Classifier) {
                 setOwnerModelTree(ecoreCollab, (Classifier) ownerOp,
@@ -141,7 +141,7 @@ public class OCollaboration extends ONameSpace {
             ecoreCollab.destroy();
             throw new NotFoundException("Owner Class not found.");
         }
-        
+
     }
 
     @objid ("012a1f88-c5f1-49b6-b402-5067cb2e3125")
@@ -162,7 +162,7 @@ public class OCollaboration extends ONameSpace {
             AbstractObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(objingMdlTree,
                     getObjingElement(),ecoreCollab);
         }
-        
+
     }
 
     @objid ("c7758aa3-c457-4288-b79d-d555ef2747ab")

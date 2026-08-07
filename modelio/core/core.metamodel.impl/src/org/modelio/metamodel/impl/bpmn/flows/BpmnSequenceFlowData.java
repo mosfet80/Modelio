@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.flows;
 
 import java.util.List;
@@ -32,35 +31,35 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 
 @objid ("007d254e-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnSequenceFlowData extends BpmnFlowElementData {
-    @objid ("53137239-0896-4b4b-9c7c-319bfcd8c0c9")
+    @objid ("f7e89ece-1550-4060-ae08-54979aeb0fd8")
     Object mIsImmediate = false;
 
-    @objid ("f38a6ff7-e45b-4597-acf9-4d849dae7ae9")
+    @objid ("62fa7919-f336-4f98-8d6a-bbaac90d1bdb")
     Object mConditionExpression = "";
 
-    @objid ("957d3d7d-3779-4a09-a3d1-ab311b591eb9")
+    @objid ("55b116c9-25ec-4706-8ee1-84e24cfc54b9")
     SmObjectImpl mSourceRef;
 
-    @objid ("b572e59e-f661-449d-891c-372f51371f40")
+    @objid ("5d5b0b30-12b7-4d36-9fde-d3fe8a522567")
     SmObjectImpl mTargetRef;
 
-    @objid ("ea830527-0061-4e9f-be90-0066748b8fe5")
+    @objid ("71bc4d70-c029-42a8-b83f-e6727636715e")
     SmObjectImpl mDefaultOfInclusive;
 
-    @objid ("0dbefb73-0983-4c8e-8904-66906e271a3b")
+    @objid ("c8dc11bb-5440-4926-81d1-461187c46587")
     SmObjectImpl mDefaultFrom;
 
-    @objid ("d2cfbded-e441-4cca-97bc-a1bc3767e3f3")
+    @objid ("b60a8207-1853-4b88-8741-badcb136e29b")
     SmObjectImpl mDefaultOfExclusive;
 
-    @objid ("e57f3a75-7492-4fc5-b76a-556dbb27bf50")
+    @objid ("7ea30239-a2df-46be-b6ca-5d535122685e")
     List<SmObjectImpl> mConnector = null;
 
-    @objid ("6f9c4aeb-fd44-41e0-ac33-bb150d556d91")
+    @objid ("21684b95-30e2-4901-8daf-778e252e0c98")
     SmObjectImpl mDefaultOfComplex;
 
-    @objid ("11b7de06-cbfc-4dfb-9219-77d8b5955045")
-    public  BpmnSequenceFlowData(BpmnSequenceFlowSmClass smClass) {
+    @objid ("5b2e64d6-20df-43f4-87b1-81a9ddd8ff5e")
+    public BpmnSequenceFlowData(BpmnSequenceFlowSmClass smClass) {
         super(smClass);
     }
 

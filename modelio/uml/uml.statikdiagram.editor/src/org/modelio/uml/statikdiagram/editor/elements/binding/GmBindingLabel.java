@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.binding;
 
@@ -55,22 +55,23 @@ public class GmBindingLabel extends GmDefaultModelElementLabel {
      * Constructor for deserialization only.
      */
     @objid ("3408ed46-55b7-11e2-877f-002564c97630")
-    public  GmBindingLabel() {
-        
+    public GmBindingLabel() {
+
     }
 
     /**
      * Create an attribute representation.
+     *
      * @param diagram The diagram
      * @param el The represented attribute, may be null.
      * @param ref The represented attribute reference, may not be null.
      */
     @objid ("3408ed49-55b7-11e2-877f-002564c97630")
-    public  GmBindingLabel(IGmDiagram diagram, Binding el, MRef ref) {
+    public GmBindingLabel(IGmDiagram diagram, Binding el, MRef ref) {
         super(diagram, ref);
         this.element = el;
         init();
-        
+
     }
 
     @objid ("3408ed71-55b7-11e2-877f-002564c97630")
@@ -123,7 +124,7 @@ public class GmBindingLabel extends GmDefaultModelElementLabel {
                 break;
             }
         }
-        
+
     }
 
     @objid ("340a73fb-55b7-11e2-877f-002564c97630")
@@ -136,12 +137,12 @@ public class GmBindingLabel extends GmDefaultModelElementLabel {
     private String computeSignature(Binding att) {
         final ModelElement feature = att.getRepresentedFeature();
         final ModelElement collabRole = getBindingRole(att);
-        
+
         String featureName = "<not bound>";
         if (feature != null) {
             featureName = feature.getName();
         }
-        
+
         String roleName = "<none>";
         if (collabRole != null) {
             roleName = collabRole.getName();
@@ -151,6 +152,7 @@ public class GmBindingLabel extends GmDefaultModelElementLabel {
 
     /**
      * Get the collaboration role the given binding binds.
+     *
      * @param el a collaboration use binding
      * @return The bound collaboration role.
      */
@@ -170,24 +172,24 @@ public class GmBindingLabel extends GmDefaultModelElementLabel {
     private void init() {
         setShowMetaclassKeyword(false);
         setShowMetaclassIcon(false);
-        
+
     }
 
     @objid ("340a741a-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmBindingLabel.", GmBindingLabel.MINOR_VERSION);
-        
+
     }
 
     @objid ("340bfa7e-55b7-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (Binding) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("340bfa83-55b7-11e2-877f-002564c97630")

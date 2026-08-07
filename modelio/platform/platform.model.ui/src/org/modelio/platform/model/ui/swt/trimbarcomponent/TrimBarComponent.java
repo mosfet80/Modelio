@@ -1,27 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.swt.trimbarcomponent;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
@@ -52,13 +52,13 @@ public abstract class TrimBarComponent {
     @objid ("4f1cdaa9-07c0-4144-8ae2-186a10ca8e3b")
     private final String title;
 
-    @objid ("d4829c1b-b177-42fd-a35c-e220abeb5bf8")
+    @objid ("b8cc296c-4eda-4a15-ad06-b379d5bb042c")
     private Control control;
 
-    @objid ("1c91cf32-4548-4387-a56c-0bdd81f78a1a")
+    @objid ("2d4f841c-3c4b-4b61-9ca3-f6b644d7cb96")
     private Composite controlZone;
 
-    @objid ("874466b7-97b3-4144-8018-18eb43471da4")
+    @objid ("0a43db17-80db-481f-a02c-98d8375955c4")
     private Label titleLabel;
 
     @objid ("2a33a458-d383-4b20-87f8-e0447c28dc8b")
@@ -75,16 +75,16 @@ public abstract class TrimBarComponent {
             this.isVisible = isVisible;
             refreshLayout();
         }
-        
     }
 
     @objid ("60e241e3-cc38-4b5f-ab9b-9a9b2663c592")
-    protected  TrimBarComponent(String title) {
+    protected TrimBarComponent(String title) {
         this.title = title;
     }
 
     /**
      * Defines the actual content of the TrimBar component.
+     *
      * @param parent a composite control which will be the parent of the new instance (cannot be null).
      * @return the created SWT control. Must not be <code>null</code>.
      */
@@ -95,12 +95,11 @@ public abstract class TrimBarComponent {
     @PreDestroy
     protected final void dispose() {
         preDispose();
-        
+
         this.controlZone.dispose();
         this.controlZone = null;
         this.control = null;
         this.titleLabel = null;
-        
     }
 
     @objid ("89922cc6-22ce-4fdc-be4b-3c9134d77ff3")
@@ -146,19 +145,18 @@ public abstract class TrimBarComponent {
         if (this.controlZone == null) {
             return;
         }
-        
+
         boolean isHidden = !this.isVisible;
         for (Control c : this.controlZone.getChildren()) {
             GridData layoutData = (GridData) c.getLayoutData();
             layoutData.exclude = isHidden;
         }
         this.controlZone.setVisible(!isHidden);
-        
+
         if (!isHidden) {
             this.control.pack();
         }
         this.control.getShell().layout(new Control[] { this.controlZone }, SWT.DEFER);
-        
     }
 
     @objid ("dc105066-4c14-404d-b3e3-2b2bdb5b25e0")
@@ -168,34 +166,34 @@ public abstract class TrimBarComponent {
         label.setText(this.title);
         // label.setBackground(UIColor.TABLE_HEADER_BG);
         // label.setForeground(UIColor.TABLE_HEADER_FG);
-        
+
         label.setBackground(UIColor.SWT_WIDGET_BACKGROUND);
         label.setForeground(UIColor.SWT_WIDGET_FOREGROUND); //UIColor.SWT_WIDGET_NORMAL_SHADOW
         label.setFont(CoreFontRegistry.getModifiedFont(label.getFont(), SWT.NONE, UIFont.XSMALL_SIZE));
-        
+
         label.addPaintListener(new PaintListener() {
-        
+
             @Override
             public void paintControl(PaintEvent e) {
                 Label l = (Label) e.getSource();
-        
+
                 Rectangle r = l.getParent().getClientArea();
-        
+
         //                e.gc.setBackgroundPattern(
         //                        new Pattern(e.gc.getDevice(),
         //                                r.x, r.y, r.x, r.y + r.height, UIColor.SWT_WIDGET_BACKGROUND, UIColor.SWT_WIDGET_NORMAL_SHADOW));
         //                e.gc.fillRectangle(r);
-        
+
         //                e.gc.setForeground(UIColor.SWT_WIDGET_NORMAL_SHADOW);
         //                e.gc.setLineDash(new int[] { 1, 1 });
         //                e.gc.drawLine(r.x + 2, r.y, r.x + r.width - 2, r.y);
-        
+
         //                e.gc.setForeground(UIColor.SWT_WIDGET_NORMAL_SHADOW);
-        //        
+        //
         //                Point ts = e.gc.textExtent(l.getText());
-        
+
                 //e.gc.drawText(l.getText(), r.x + r.width / 2 - ts.x / 2, r.y, true);
-        
+
             }
         });
         return label;
@@ -203,13 +201,14 @@ public abstract class TrimBarComponent {
 
     /**
      * Initialize the SWT toolbar.
+     *
      * @param parent a widget which will be the parent of the new SWT components.
      */
     @objid ("18b624ec-9978-4af3-b378-8c1823088cf4")
     @PostConstruct
     private final void createWidget(final Composite parent) {
         this.controlZone = new Composite(parent, SWT.NONE);
-        
+
         GridLayout zoneLayout = new GridLayout(1, false);
         zoneLayout.marginHeight = 1;
         zoneLayout.marginWidth = 2;
@@ -220,41 +219,40 @@ public abstract class TrimBarComponent {
         zoneLayout.marginRight = 0;
         zoneLayout.marginTop = 0;
         this.controlZone.setLayout(zoneLayout);
-        
+
         // Create a toolbar.
         this.control = createControl(this.controlZone);
         this.control.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-        
+
         this.controlZone.addPaintListener(new PaintListener() {
-        
+
             @Override
             public void paintControl(PaintEvent e) {
                 Rectangle r = ((Composite) e.getSource()).getClientArea();
-                
+
                 e.gc.setForeground(UIColor.SWT_WIDGET_NORMAL_SHADOW);
                 e.gc.setLineDash(new int[] { 1, 1 });
-                
+
                 // Top
                 //e.gc.drawLine(r.x, r.y, r.x+r.width-1 , r.y );
-                
+
                 // Left side
                 e.gc.drawLine(r.x, r.y+2, r.x, r.y + r.height - 2);
-                
+
                 // Right side
                 e.gc.drawLine(r.x+r.width-1, r.y+2, r.x + r.width-1, r.y + r.height - 2);
-                
+
                 //Bottom
                 //e.gc.drawLine(r.x, r.y+r.height-1, r.x+r.width-1 , r.y + r.height-1);
             }
         });
-        
+
         this.titleLabel = createTitleLabel(this.controlZone);
         this.titleLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-        
+
         postCreate();
-        
+
         refreshLayout();
-        
     }
 
 }

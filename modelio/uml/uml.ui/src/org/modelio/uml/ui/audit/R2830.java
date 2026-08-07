@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -49,7 +49,7 @@ public class R2830 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -68,7 +68,7 @@ public class R2830 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         plan.registerRule(Transition.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE | AuditTrigger.MOVE);
         plan.registerRule(FinalState.MQNAME, this, AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -102,14 +102,14 @@ public class R2830 extends AbstractUmlRule {
      * Default constructor for R2830
      */
     @objid ("008d71cd-231e-4f3b-b8d2-973c809c6fdb")
-    public  R2830() {
+    public R2830() {
         this.checkerInstance = new CheckR2830(this);
     }
 
     @objid ("205a15ce-e81c-4a52-b43c-f978e674b13f")
     private static class CheckR2830 extends AbstractControl {
         @objid ("c6c90ada-35d6-430c-ba91-87b0b8ac385b")
-        public  CheckR2830(IRule rule) {
+        public CheckR2830(IRule rule) {
             super(rule);
         }
 
@@ -129,9 +129,9 @@ public class R2830 extends AbstractUmlRule {
         @objid ("c125e333-c5ca-45c3-83f3-2799a49aa491")
         private IAuditEntry checkR2830(Transition transition) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, transition, null);
-            
+
             StateVertex source = transition.getSource();
-            
+
             if (source instanceof FinalState) {
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
@@ -145,7 +145,7 @@ public class R2830 extends AbstractUmlRule {
         @objid ("1ccca7bd-f9a4-47d2-b565-071427485155")
         private List<IAuditEntry> checkR2830(final FinalState state) {
             List<IAuditEntry> auditEntries = new ArrayList<>();
-            
+
             for (Transition transition : state.getOutGoing()) {
                 auditEntries.add(checkR2830(transition));
             }

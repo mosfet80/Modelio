@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -53,7 +53,7 @@ public class R2860 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -73,7 +73,7 @@ public class R2860 extends AbstractUmlRule {
         plan.registerRule(UseCase.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(UseCaseDependency.MQNAME + R2860.UseCaseDependencyIncludeKind, this, AuditTrigger.CREATE | AuditTrigger.MOVE | AuditTrigger.UPDATE);
         plan.registerRule(UseCaseDependency.MQNAME + R2860.UseCaseDependencyExtendKind, this, AuditTrigger.CREATE | AuditTrigger.MOVE | AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -107,14 +107,14 @@ public class R2860 extends AbstractUmlRule {
      * Default constructor for R2860
      */
     @objid ("181f7f74-14b5-4445-b11b-cb55eba3c301")
-    public  R2860() {
+    public R2860() {
         this.checkerInstance = new CheckR2860(this);
     }
 
     @objid ("840e604b-7c35-4b3b-b291-0342c74d84be")
     private static class CheckR2860 extends AbstractControl {
         @objid ("870c05eb-dd4e-4c9d-a5ae-94cc149dd7e9")
-        public  CheckR2860(IRule rule) {
+        public CheckR2860(IRule rule) {
             super(rule);
         }
 
@@ -132,12 +132,12 @@ public class R2860 extends AbstractUmlRule {
         @objid ("9a97d8a5-f56d-4449-9591-89808500b95a")
         private IAuditEntry checkR2860(UseCase useCase) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, useCase, null);
-            
+
             List<UseCaseDependency> targets = useCase.getUsed();
-            
+
             List<UseCase> useCases = new ArrayList<>();
             List<UseCase> duplicateUseCases = new ArrayList<>();
-            
+
             for (UseCaseDependency dependency : targets) {
                 UseCase uc = dependency.getTarget();
                 if (useCases.contains(uc)) {
@@ -146,11 +146,11 @@ public class R2860 extends AbstractUmlRule {
                     useCases.add(uc);
                 }
             }
-            
+
             if (!duplicateUseCases.isEmpty()) {
-            
+
                 // Rule failed
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(useCase);
@@ -163,7 +163,7 @@ public class R2860 extends AbstractUmlRule {
         @objid ("4ab24526-a310-4958-a49e-a47656212067")
         private List<IAuditEntry> checkR2860(UseCaseDependency dependency) {
             List<IAuditEntry> auditEntries = new ArrayList<>();
-            
+
             auditEntries.add(checkR2860(dependency.getOrigin()));
             return auditEntries;
         }

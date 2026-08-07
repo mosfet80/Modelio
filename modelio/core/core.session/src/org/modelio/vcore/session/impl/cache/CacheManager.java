@@ -1,28 +1,32 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.impl.cache;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vbasic.log.Log;
 import org.modelio.vcore.model.DuplicateObjectException;
@@ -33,6 +37,7 @@ import org.modelio.vcore.smkernel.ISmObjectDataCache;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.SmStatus;
 import org.modelio.vcore.smkernel.mapi.MClass;
+import org.modelio.vcore.smkernel.mapi.MRef;
 import org.modelio.vcore.smkernel.meta.SmMetamodel;
 
 /**
@@ -49,21 +54,29 @@ public class CacheManager extends MObjectCache implements ISmObjectDataCache {
     private final Map<String, ISmObjectData> dataCache;
 
     /**
+     * Cache of elements that were not found in any repository.
+     * <p>
+     * Improve perfs when remote repositories are connected.
+     */
+    @objid ("cd3f7c9b-49ce-4c2f-8199-bb85df8b8b5c")
+    private final Set<NotFoundData> notFoundCache;
+
+    /**
      * Creates a new cache.
-     * @param metamodel
      */
     @objid ("9c73fcee-354d-11e2-985b-001ec947ccaf")
-    public  CacheManager(SmMetamodel metamodel) {
+    public CacheManager(SmMetamodel metamodel) {
         super(metamodel);
         this.deletedObjects = new HashSet<>();
         this.dataCache = new ConcurrentHashMap<>(1000, 0.85f, 1);
-        
+        this.notFoundCache = new HashSet<>();
+
         MemoryManager.get().addManagedCache(this.dataCache);
-        
     }
 
     /**
      * Add an object to the cache.
+     *
      * @param obj the object to add
      * @throws DuplicateObjectException if another object with the same identifier is already in the cache.
      */
@@ -73,14 +86,15 @@ public class CacheManager extends MObjectCache implements ISmObjectDataCache {
         // Look for a duplicate object whatever its MClass is.
         final String oid = obj.getUuid();
         final ISmObjectData oldData = getCachedData(oid);
-        if (oldData!= null && oldData != obj.getData()) {
+        final ISmObjectData newData = obj.getData();
+        if (oldData!= null && oldData != newData) {
             SmObjectImpl oldObj = findById(oldData.getClassOf(), oid);
             if (oldObj == null) {
                 // No SmObject for the duplicate SmData !
                 // Create one for the occasion.
                 Log.error("CacheManager: Orphan duplicate %s found in cache: {%s} %s, status=(%s), repo handle=%s.",
-                        oldData.getClass().getSimpleName(), 
-                        oldData.getUuid(), 
+                        oldData.getClass().getSimpleName(),
+                        oldData.getUuid(),
                         oldData.getClassOf(),
                         SmStatus.toString(oldData.getStatus()),
                         oldData.getRepositoryObject());
@@ -88,17 +102,19 @@ public class CacheManager extends MObjectCache implements ISmObjectDataCache {
                 oldObj.init(oid, oldData.getLiveId());
                 oldObj.initData(oldData);
             }
-        
+
             throw new DuplicateObjectException(oid, oldObj, obj);
         }
-        
+
         // Add to cache
         super.addToCache(obj);
-        
+
+        this.notFoundCache.remove(new NotFoundData(newData.getClassOf(), oid));
     }
 
     /**
      * Register a deleted object.
+     *
      * @param obj a deleted object
      */
     @objid ("9c73fcf0-354d-11e2-985b-001ec947ccaf")
@@ -106,7 +122,6 @@ public class CacheManager extends MObjectCache implements ISmObjectDataCache {
         synchronized(this.deletedObjects) {
             this.deletedObjects.add(obj);
         }
-        
     }
 
     /**
@@ -118,19 +133,50 @@ public class CacheManager extends MObjectCache implements ISmObjectDataCache {
             for (SmObjectImpl  deleted: this.deletedObjects) {
                 removeFromCache(deleted);
             }
-        
+
             this.deletedObjects.clear();
         }
-        
     }
 
     /**
      * Get the deleted objects.
+     *
      * @return the deleted objects.
+     * @deprecated This method is not thread safe! Use {@link #withDeletedObjects(Consumer)} instead to avoid concurrent access issues.
      */
     @objid ("9c73fcf5-354d-11e2-985b-001ec947ccaf")
+    @Deprecated(since = "10/03/2026")
     public Collection<SmObjectImpl> getDeletedObjects() {
         return this.deletedObjects;
+    }
+
+    /**
+     * Perform an action with the deleted objects.
+     * <p>
+     * This method is thread safe, but the action performed on the deleted objects should not modify the deleted objects collection.
+     *
+     * @param <R> the type of the value returned by the action performed on the deleted objects
+     * @param function the action to perform with the deleted objects
+     * @return a value returned by the action performed on the deleted objects
+     * @since 6.2 10/03/2026
+     */
+    @objid ("33fb6877-1861-4bc0-99ec-9c8024403bce")
+    public <R> R withDeletedObjects(Function<Collection<SmObjectImpl>, R> function) {
+        synchronized(this.deletedObjects) {
+            return function.apply(this.deletedObjects);
+        }
+    }
+
+    /**
+     * Take a stable snapshot of deleted objects.
+     *
+     * @return a copy of the deleted objects collection.
+     */
+    @objid ("30ae0d67-7877-4aab-ab19-e6159d8d7239")
+    public Collection<SmObjectImpl> copyDeletedObjects() {
+        synchronized (this.deletedObjects) {
+            return new ArrayList<>(this.deletedObjects);
+        }
     }
 
     /**
@@ -144,11 +190,11 @@ public class CacheManager extends MObjectCache implements ISmObjectDataCache {
     public synchronized void removeFromCache(SmObjectImpl obj) {
         super.removeFromCache(obj);
         this.dataCache.remove(obj.getUuid());
-        
     }
 
     /**
      * Remove an object from the deleted objects list.
+     *
      * @param obj a not deleted anymore object.
      */
     @objid ("9c73fcf7-354d-11e2-985b-001ec947ccaf")
@@ -156,7 +202,6 @@ public class CacheManager extends MObjectCache implements ISmObjectDataCache {
         synchronized (this.deletedObjects) {
             this.deletedObjects.remove(obj);
         }
-        
     }
 
     @objid ("9c73fcfb-354d-11e2-985b-001ec947ccaf")
@@ -171,24 +216,23 @@ public class CacheManager extends MObjectCache implements ISmObjectDataCache {
         if (data.getRepositoryObject() instanceof UnloadedRepositoryHandle) {
             throw new AssertionError(
                     String.format("Trying to add deleted %s data to cache: {%s} %s, status=(%s), repo handle=%s, metaof=%s.",
-                            data.getClass().getSimpleName(), 
-                            data.getUuid(), 
+                            data.getClass().getSimpleName(),
+                            data.getUuid(),
                             data.getClassOf(),
                             SmStatus.toString(data.getStatus()),
                             data.getRepositoryObject(),
                             data.getMetaOf()));
         }
-            
+
         this.dataCache.put(data.getUuid(), data);
-        
-        
+
+
         /*if (findById(data.getClassOf(), data.getUuid()) == null) {
-            // no impl object in cache, create one
-            SmObjectImpl impl = data.getClassOf().getObjectFactory().createImpl();
-            impl.init(data.getUuid(), data.getLiveId());
-            impl.initData(data);
-        }*/
-        
+                            // no impl object in cache, create one
+                            SmObjectImpl impl = data.getClassOf().getObjectFactory().createImpl();
+                            impl.init(data.getUuid(), data.getLiveId());
+                            impl.initData(data);
+                        }*/
     }
 
     /**
@@ -205,9 +249,8 @@ public class CacheManager extends MObjectCache implements ISmObjectDataCache {
     @Override
     protected void finalize() throws Throwable {
         dispose();
-        
+
         super.finalize();
-        
     }
 
     /**
@@ -215,6 +258,7 @@ public class CacheManager extends MObjectCache implements ISmObjectDataCache {
      * <p>
      * <b>Note:</b> The Modelio memory model will make this call result in the object {@link ISmObjectData data} being
      * inaccessible (because referenced by weak references) then garbaged definitively from the VM.
+     *
      * @since 3.6
      */
     @objid ("6b7d8625-0126-47d0-a5f6-9c1d0c103fca")
@@ -222,7 +266,97 @@ public class CacheManager extends MObjectCache implements ISmObjectDataCache {
     public void removeFromCache(MClass cls, String uuid) {
         super.removeFromCache(cls, uuid);
         this.dataCache.remove(uuid);
-        
+    }
+
+    /**
+     * Tells whether the element reference has been registered as "not found".
+     *
+     * @param cls the metaclass
+     * @param siteIdentifier the identifier
+     * @return true if the reference was already "not found"
+     * @since 6.0.0
+     */
+    @objid ("3316fa72-bd4d-49df-a362-fe371e2173b0")
+    public boolean hasNotFound(MClass cls, String siteIdentifier) {
+        return this.notFoundCache.contains(new NotFoundData(cls, siteIdentifier));
+    }
+
+    /**
+     * Register the given object reference as "not found".
+     *
+     * @param cls the metaclass
+     * @param siteIdentifier the identifier
+     * @since 6.0.0
+     */
+    @objid ("86c9e01c-4c04-4bed-861f-bc31131a452e")
+    public synchronized void addNotFound(MClass cls, String siteIdentifier) {
+        // It's an error to add an existing object here, but too costly to check in production
+        assert findById(cls, siteIdentifier, false) == null : findById(cls, siteIdentifier, false);
+
+        this.notFoundCache.add(new NotFoundData(cls, siteIdentifier));
+    }
+
+    /**
+     * Just a tuple MClass + ID
+     * <p>
+     * Used instead of {@link MRef} to ensure maximal perfs.
+     */
+    @objid ("dcc65939-7622-423e-8d04-4d1700c432d2")
+    private static final class NotFoundData {
+        @objid ("df79efd4-457d-4121-b7c5-59bae1ce19c6")
+        final String id;
+
+        @objid ("4249a8ee-7776-49b8-9250-529c27ce038d")
+        final MClass cls;
+
+        @objid ("a0a8d2cf-03b9-4284-b49d-983746789ad9")
+        public NotFoundData(MClass cls, String id) {
+            assert (cls != null);
+            assert (id != null);
+            this.cls = cls;
+            this.id = id;
+        }
+
+        @objid ("f23accb7-c88c-46a0-ab28-4be9bba4fbec")
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((this.cls == null) ? 0 : this.cls.hashCode());
+            result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+            return result;
+        }
+
+        @objid ("be5c166c-5802-4d9d-a348-9bdba97b20d1")
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            NotFoundData other = (NotFoundData) obj;
+            if (this.cls == null) {
+                if (other.cls != null) {
+                    return false;
+                }
+            } else if (!this.cls.equals(other.cls)) {
+                return false;
+            }
+            if (this.id == null) {
+                if (other.id != null) {
+                    return false;
+                }
+            } else if (!this.id.equals(other.id)) {
+                return false;
+            }
+            return true;
+        }
+
     }
 
 }

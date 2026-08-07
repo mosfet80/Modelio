@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.List;
@@ -31,32 +30,32 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 
 @objid ("002a3320-c4bf-1fd8-97fe-001ec947cd2a")
 public class ActivityPartitionData extends ActivityGroupData {
-    @objid ("bc358383-46a9-4ffe-8266-a8c6a68ceccd")
+    @objid ("49137368-c2fa-4870-b9ce-5410dd31b743")
     Object mIsDimension = false;
 
-    @objid ("e785a4d8-6063-4818-bdb2-dcfac7aed885")
+    @objid ("1c8be7f3-3534-4463-ada2-15b77b149033")
     Object mIsExternal = false;
 
-    @objid ("391cb274-7ca4-410a-8b4b-0d3ddcb0cad7")
+    @objid ("33d3df27-f9db-4f69-9b44-50042bef56e3")
     SmObjectImpl mRepresented;
 
-    @objid ("686227a5-1eeb-440b-9788-22b0d2d49f0b")
+    @objid ("1075b44e-018a-44eb-8575-5b5f9b272ab4")
     List<SmObjectImpl> mContainedNode = null;
 
-    @objid ("1f2ced54-336e-4bc4-9fa8-96ab55c9ddf7")
+    @objid ("2f01ce77-d888-410d-a10e-300ece6ba476")
     List<SmObjectImpl> mOutgoing = null;
 
-    @objid ("6a376f90-6103-4c53-bdaa-e3e20cf1e217")
+    @objid ("dc3d9099-e64a-4cd3-822c-c5e90ec3d3bd")
     SmObjectImpl mSuperPartition;
 
-    @objid ("2cb9f294-990d-461d-9f02-1b9afaea06a4")
+    @objid ("25bf1c1d-059b-4e74-93f3-417050044e63")
     List<SmObjectImpl> mSubPartition = null;
 
-    @objid ("2cc1dd4a-690e-41f9-985e-c8bf14f4f44e")
+    @objid ("131cfb45-29fb-4d22-8b74-c8848dac90b8")
     List<SmObjectImpl> mIncoming = null;
 
-    @objid ("12565840-155a-4fc7-91fe-33805eba8cfa")
-    public  ActivityPartitionData(ActivityPartitionSmClass smClass) {
+    @objid ("203e885c-b9a0-4473-af78-2126f5923b14")
+    public ActivityPartitionData(ActivityPartitionSmClass smClass) {
         super(smClass);
     }
 

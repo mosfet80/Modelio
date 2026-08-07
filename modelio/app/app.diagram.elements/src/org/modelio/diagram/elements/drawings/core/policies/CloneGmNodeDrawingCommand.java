@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.drawings.core.policies;
 
@@ -46,16 +46,17 @@ public class CloneGmNodeDrawingCommand extends Command {
 
     /**
      * Creates a node creation command.
+     *
      * @param layer The parent layer
      * @param newNodeType the node to create
      * @param constraint The initial constraint of the created node.
      */
     @objid ("ddbcdd4f-ba78-4317-a345-40ff6ba80a0b")
-    public  CloneGmNodeDrawingCommand(IGmDrawingLayer layer, IGmNodeDrawing newNodeType, Object constraint) {
+    public CloneGmNodeDrawingCommand(IGmDrawingLayer layer, IGmNodeDrawing newNodeType, Object constraint) {
         this.layer = layer;
         this.toCopy = newNodeType;
         this.constraint = constraint;
-        
+
     }
 
     @objid ("41b411f8-e0e5-49a4-a7fc-7eed29779401")
@@ -70,6 +71,7 @@ public class CloneGmNodeDrawingCommand extends Command {
 
     /**
      * Get the initial layout constraint.
+     *
      * @return the initial layout constraint.
      */
     @objid ("db7f3c97-1871-4855-958d-3659b2211f8a")
@@ -86,7 +88,7 @@ public class CloneGmNodeDrawingCommand extends Command {
             newNode.setLayoutData(this.constraint);
             newNode.setLabel(this.toCopy.getLabel());
             // TODO : handle future composite nodes
-        
+
             // Copy graphic options
             IStyle origStyle = this.toCopy.getPersistedStyle();
             IStyle newStyle = newNode.getPersistedStyle();
@@ -94,14 +96,14 @@ public class CloneGmNodeDrawingCommand extends Command {
             for (StyleKey k : origStyle.getLocalKeys()) {
                 newStyle.setProperty(k, origStyle.getProperty(k));
             }
-        
+
             this.layer.addChild(newNode);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException
                 | NoSuchMethodException | SecurityException e) {
             // TODO : report in another way ?
             throw new RuntimeException(e.toString(), e);
         }
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.panels.selectelements;
 
@@ -52,8 +52,8 @@ import org.modelio.platform.model.ui.plugin.CoreUi;
 import org.modelio.platform.model.ui.swt.SelectionHelper;
 import org.modelio.platform.model.ui.swt.images.BasicModelElementLabelProvider;
 import org.modelio.platform.model.ui.swt.images.ElementDecoratedStyledLabelProvider;
-import org.modelio.platform.search.engine.ISearchCriteria;
-import org.modelio.platform.search.engine.ISearchEngine;
+import org.modelio.platform.search.engine.api.ISearchCriteria;
+import org.modelio.platform.search.engine.api.ISearchEngine;
 import org.modelio.platform.ui.LocalFontRegistry;
 import org.modelio.platform.ui.UIImages;
 import org.modelio.platform.ui.panel.IPanelProvider;
@@ -90,13 +90,14 @@ public class SelectElementsPanel implements IPanelProvider {
 
     /**
      * C'tor
+     *
      * @param session the core modeling session
      * @param searchEngine a search engine
      * @param searchCriteria some search criteria
      * @param searchMode if AUTO, the search is launched automatically ?
      */
     @objid ("0936c38a-e76f-4ab1-889a-56ee03400659")
-    public  SelectElementsPanel(ICoreSession session, ISearchEngine searchEngine, ISearchCriteria searchCriteria, SearchMode searchMode) {
+    public SelectElementsPanel(ICoreSession session, ISearchEngine searchEngine, ISearchCriteria searchCriteria, SearchMode searchMode) {
         this.controler = new PanelControler(session, searchEngine, searchCriteria, searchMode);
     }
 
@@ -133,7 +134,7 @@ public class SelectElementsPanel implements IPanelProvider {
     }
 
     @objid ("9aad13a0-e00a-4ed5-8d78-63f86967ca21")
-    @SuppressWarnings ("unchecked")
+    @SuppressWarnings("unchecked")
     @Override
     public void setInput(Object input) {
         this.controler.setInitialResults((List<MObject>) input);
@@ -144,37 +145,36 @@ public class SelectElementsPanel implements IPanelProvider {
     public void dispose() {
         this.view.dispose();
         this.controler.dispose();
-        
     }
 
     @objid ("19a44d5f-8adc-4000-a396-e34dff7fc867")
     private static class PanelView {
-        @objid ("91311591-dd47-4a20-a03b-361b1393b221")
-        private final PanelControler controler;
-
-        @objid ("e1c45f70-75fe-432e-9bd9-afecf2235c91")
+        @objid ("3e09eea4-ef2a-45eb-8299-bff220033182")
         private final Composite container;
 
-        @objid ("01bd1005-6afc-4def-ad8c-a6ff5e4664f5")
+        @objid ("ab475816-37fd-4ba8-abf7-1eb01e362ab5")
         private TableViewer candidates;
 
-        @objid ("91f4e2d0-6548-4815-a6af-8eeb0591a293")
+        @objid ("21f6e7fd-a8f5-49b8-b97e-00b30e7cb977")
         private TableViewer results;
 
-        @objid ("6a8ac9d0-6d3f-48e7-9c1d-953c12e3b66f")
+        @objid ("b115e6cb-6234-4a6f-af50-0ab502a5d265")
         private Button addButton;
 
-        @objid ("c2d7f476-bf44-4fe0-a554-5bdf7d239e82")
+        @objid ("044b00f9-a63b-43a6-b2ab-368a0844ca9e")
         private Button removeButton;
 
-        @objid ("bdabff94-ed6f-4a44-8f25-666fe86106f5")
+        @objid ("a5601037-09e8-4552-b6b4-08b3e90a44b8")
         private Label candidatesStatusLabel;
 
-        @objid ("f586d381-3bce-4c7f-995d-8880e693ecc2")
+        @objid ("30588821-0d52-40c3-aafd-24cf8dd26a10")
         private Label resultsStatusLabel;
 
-        @objid ("43073dc4-285d-411a-bf1b-90838ccc4a0f")
+        @objid ("9054554d-fdd9-4abb-ba5d-d53e8313a8a9")
         private Button searchButton;
+
+        @objid ("91311591-dd47-4a20-a03b-361b1393b221")
+        private final PanelControler controler;
 
         @objid ("7e9d3d3b-85af-4b15-ab93-e82f03c53dbe")
         private ModelSearchPanel searchConfigurationPanel;
@@ -183,11 +183,10 @@ public class SelectElementsPanel implements IPanelProvider {
         private final LocalFontRegistry fontRegistry;
 
         @objid ("f443391c-fa0c-41c8-bb5c-5e53ce226f9e")
-        public  PanelView(Composite parent, PanelControler controler, SearchMode searchMode) {
+        public PanelView(Composite parent, PanelControler controler, SearchMode searchMode) {
             this.controler = controler;
             this.fontRegistry = LocalFontRegistry.create(parent);
             this.container = createGui(parent, searchMode);
-            
         }
 
         @objid ("1b7dc169-ea0e-4947-aa5d-7de8e2e50844")
@@ -195,30 +194,30 @@ public class SelectElementsPanel implements IPanelProvider {
             final Composite composite = new Composite(parent, SWT.NONE);
             composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
             composite.setLayout(new FormLayout());
-            
+
             // Search criteria group
             Group candidatesGroup = createCandidatesGroup(composite);
-            
+
             // Command buttons group (add / remove)
             Composite commandsGroup = createCommandsGroup(composite);
-            
+
             // Selected Elements group
             Group selectionGroup = createSelectionGroup(composite);
-            
+
             // Search group
             Composite searchGroup;
             if (searchMode == SearchMode.USER) {
                 searchGroup = createManualSearchGroup(composite);
-            
+
                 // Add search button
                 this.searchButton = new Button(composite, SWT.ARROW | SWT.PUSH);
                 this.searchButton.setImage(UIImages.SEARCH);
-            
+
                 FormData formData1 = new FormData();
                 formData1.right = new FormAttachment(100, -2);
                 formData1.bottom = new FormAttachment(searchGroup, 0, SWT.BOTTOM);
                 this.searchButton.setLayoutData(formData1);
-            
+
                 FormData formData = new FormData();
                 formData.top = new FormAttachment(0, 5);
                 formData.left = new FormAttachment(0, 2);
@@ -226,13 +225,13 @@ public class SelectElementsPanel implements IPanelProvider {
                 //formData.right = new FormAttachment(80, -2);
                 formData.bottom = new FormAttachment(30, -2);
                 searchGroup.setLayoutData(formData);
-            
+
                 this.searchButton.addListener(SWT.Selection, ev -> this.controler.onRunSearch());
-            
+
             } else {
                 searchGroup = null;
             }
-            
+
             // candidatesGroup attachments
             FormData formData = new FormData();
             if (searchGroup != null) {
@@ -247,7 +246,7 @@ public class SelectElementsPanel implements IPanelProvider {
             formData.width = 200;
             formData.height = 250;
             candidatesGroup.setLayoutData(formData);
-            
+
             // selectionGroup attachments
             formData = new FormData();
             if (searchGroup != null) {
@@ -260,7 +259,7 @@ public class SelectElementsPanel implements IPanelProvider {
             formData.left = new FormAttachment(commandsGroup, 0, SWT.RIGHT);
             formData.bottom = new FormAttachment(100, -2);
             selectionGroup.setLayoutData(formData);
-            
+
             // commandsGroup attachments
             formData = new FormData();
             if (searchGroup != null) {
@@ -279,13 +278,13 @@ public class SelectElementsPanel implements IPanelProvider {
         @objid ("38d4c3b3-96ef-4aaa-8397-725a7747d086")
         private Group createCandidatesGroup(Composite composite) {
             final Group candidateGroup = new Group(composite, SWT.NONE);
-            
+
             GridLayout layout = new GridLayout(1, false);
             layout.marginWidth = 2;
             layout.marginHeight = 2;
             candidateGroup.setLayout(layout);
             candidateGroup.setText(CoreUi.I18N.getString("SelectElementsPanel.CandidatesElements"));
-            
+
             // Candidates list
             this.candidates = new TableViewer(candidateGroup, SWT.BORDER | SWT.MULTI);
             GridData gd = new GridData();
@@ -294,28 +293,28 @@ public class SelectElementsPanel implements IPanelProvider {
             gd.horizontalAlignment = SWT.FILL;
             gd.verticalAlignment = SWT.FILL;
             this.candidates.getTable().setLayoutData(gd);
-            
+
             TableViewerColumn column = new TableViewerColumn(this.candidates, SWT.NONE);
             column.getColumn().setResizable(false);
-            
+
             this.candidates.setComparator(new ViewerComparator());
             this.candidates.setContentProvider(new ArrayContentProvider());
             this.candidates.setLabelProvider(createLabelProvider());
-            
-            
+
+
             // Status label
             this.candidatesStatusLabel = new Label(candidateGroup, SWT.NONE);
             this.candidatesStatusLabel.setText("...");
             this.candidatesStatusLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-            
+
             this.candidatesStatusLabel.setFont(this.fontRegistry
                     .builder(this.candidatesStatusLabel.getFont())
                     .addStyle(SWT.ITALIC)
                     .scale(0.9f)
                     .build());
-            
+
             // Listeners and behavior
-            
+
             // Double click listener: add element
             this.candidates.addDoubleClickListener(new IDoubleClickListener() {
                 @Override
@@ -323,7 +322,7 @@ public class SelectElementsPanel implements IPanelProvider {
                     PanelView.this.controler.onAdd(SelectionHelper.toList(event.getSelection(), MObject.class));
                 }
             });
-            
+
             // Selection change
             // - fire controler
             // - update status label
@@ -336,7 +335,7 @@ public class SelectElementsPanel implements IPanelProvider {
                             (TableViewer) event.getSource());
                 }
             });
-            
+
             // <ctrl>+<alt> + right-click navigates to the selected element
             this.candidates.getTable().addListener(SWT.MouseUp, e -> {
                 // <CTRL><ALT> click
@@ -355,17 +354,17 @@ public class SelectElementsPanel implements IPanelProvider {
             layout.marginHeight = 2;
             layout.marginWidth = 2;
             resultsGroup.setLayout(layout);
-            
+
             resultsGroup.setText(CoreUi.I18N.getString("SelectElementsPanel.ChoosenElements"));
-            
+
             // New content table
             this.results = new TableViewer(resultsGroup, SWT.BORDER | SWT.MULTI);
             GridData fd_contentTree = new GridData(SWT.FILL, SWT.FILL, true, true);
             this.results.getTable().setLayoutData(fd_contentTree);
-            
+
             this.results.setContentProvider(new ArrayContentProvider());
             this.results.setLabelProvider(createLabelProvider());
-            
+
             // Status label
             this.resultsStatusLabel = new Label(resultsGroup, SWT.NONE);
             this.resultsStatusLabel.setText("...");
@@ -376,7 +375,7 @@ public class SelectElementsPanel implements IPanelProvider {
                             .addStyle(SWT.ITALIC)
                             .scale(0.9f)
                             .build());
-            
+
             // Double click removes the element
             this.results.addDoubleClickListener(new IDoubleClickListener() {
                 @Override
@@ -384,9 +383,9 @@ public class SelectElementsPanel implements IPanelProvider {
                     PanelView.this.controler.onRemove(SelectionHelper.toList(event.getSelection(), MObject.class));
                 }
             });
-            
+
             // Listeners and behavior
-            
+
             // Selection change
             // - fire controller
             // - update status label
@@ -394,7 +393,7 @@ public class SelectElementsPanel implements IPanelProvider {
                 this.controler.onSelectResult(SelectionHelper.toList(event.getSelection(), MObject.class));
                 this.updateStatusLabel(this.resultsStatusLabel, (TableViewer) event.getSource());
             });
-            
+
             // <ctrl> <alt>+ right click navigates to the selected element
             this.results.getTable().addListener(SWT.MouseUp,(Event e) -> {
                 // <CTRL><ALT>Right click
@@ -410,26 +409,26 @@ public class SelectElementsPanel implements IPanelProvider {
         private Composite createCommandsGroup(Composite parent) {
             final Composite buttonsGroup = new Composite(parent, SWT.NONE);
             buttonsGroup.setLayout(new GridLayout(1, true));
-            
+
             // Add button
             this.addButton = new Button(buttonsGroup, SWT.ARROW | SWT.RIGHT);
             GridData gd = new GridData(SWT.FILL, SWT.FILL, true, false);
             this.addButton.setLayoutData(gd);
             this.addButton.setText(CoreUi.I18N.getString("SelectElementsPanel.AddButton"));
             this.addButton.setToolTipText(CoreUi.I18N.getString("SelectElementsPanel.AddButton.tooltip"));
-            
-            
+
+
             // Remove button
             this.removeButton = new Button(buttonsGroup, SWT.ARROW | SWT.LEFT);
             gd = new GridData(SWT.FILL, SWT.FILL, true, false);
             this.removeButton.setLayoutData(gd);
             this.removeButton.setText(CoreUi.I18N.getString("SelectElementsPanel.RemoveButton"));
             this.removeButton.setToolTipText(CoreUi.I18N.getString("SelectElementsPanel.RemoveButton.tooltip"));
-            
+
             this.removeButton.addListener(SWT.Selection, (Event e) -> {
                     this.controler.onRemove();
             });
-            
+
             this.addButton.addListener(SWT.Selection, (Event e) -> {
                     this.controler.onAdd();
             });
@@ -438,6 +437,7 @@ public class SelectElementsPanel implements IPanelProvider {
 
         /**
          * Ensure that setting the candidates is run in the display thread
+         *
          * @param candidatesList the candidate elements
          * @param message a message if no candidates
          */
@@ -445,7 +445,7 @@ public class SelectElementsPanel implements IPanelProvider {
         public void setCandidates(final List<Element> candidatesList, String message) {
             if (this.container.isDisposed())
                 return;
-            
+
             this.container.getDisplay().asyncExec( () -> {
                 if (candidatesList == null) {
                     this.candidates.setLabelProvider(new LabelProvider());
@@ -460,11 +460,11 @@ public class SelectElementsPanel implements IPanelProvider {
                     column.pack();
                 }
             });
-            
         }
 
         /**
          * Ensure that setting the results is run in the display thread
+         *
          * @param selected the results table input
          * @param selection the results table selected elements
          */
@@ -476,7 +476,6 @@ public class SelectElementsPanel implements IPanelProvider {
                     this.results.setSelection(new StructuredSelection(selection));
                 }
             });
-            
         }
 
         @objid ("5d9e3d86-7f9c-4da4-9227-3597e37c080e")
@@ -500,6 +499,7 @@ public class SelectElementsPanel implements IPanelProvider {
         }
 
         /**
+         *
          * @return the top level container of the view.
          */
         @objid ("82ac2c23-64db-4764-b0ea-433122e7180a")
@@ -520,7 +520,6 @@ public class SelectElementsPanel implements IPanelProvider {
             final int nSelected = v.getTable().getSelectionCount();
             final int nTotal = v.getTable().getItemCount();
             label.setText(CoreUi.I18N.getMessage("SelectElementsPanel.ElementsStatus", nSelected, nTotal));
-            
         }
 
         @objid ("691018f0-edb5-47cc-9c6c-29de9245c6f3")
@@ -531,16 +530,16 @@ public class SelectElementsPanel implements IPanelProvider {
             l.marginTop = 10;
             l.marginWidth = 0;
             searchGroup.setLayout(l);
-            
+
             this.searchConfigurationPanel = new ModelSearchPanel();
             this.searchConfigurationPanel.initialize(searchGroup, this.controler.session, new ISearchController() {
                 @Override
                 public void runSearch() {
                     PanelView.this.controler.onRunSearch();
                 }
-            });
-            
-            
+            },null,null);
+
+
             GridData gd = new GridData();
             gd.grabExcessHorizontalSpace = true;
             gd.grabExcessVerticalSpace = true;
@@ -582,12 +581,11 @@ public class SelectElementsPanel implements IPanelProvider {
         private Thread searchThread;
 
         @objid ("1ea84e3c-741a-463a-ab47-32ce2ba4d937")
-        public  PanelControler(ICoreSession session, ISearchEngine searcher, ISearchCriteria searchCriteria, SearchMode searchMode) {
+        public PanelControler(ICoreSession session, ISearchEngine searcher, ISearchCriteria searchCriteria, SearchMode searchMode) {
             this.session = session;
             this.searcher = searcher;
             this.searchCriteria = searchCriteria;
             this.searchMode = searchMode;
-            
         }
 
         @objid ("10945079-5c11-4ba1-b5b2-87e47f801be3")
@@ -597,7 +595,6 @@ public class SelectElementsPanel implements IPanelProvider {
             } else {
                 this.view.setCandidates(candidates, CoreUi.I18N.getString("SelectElementsPanel.ClickForSearching"));
             }
-            
         }
 
         /**
@@ -610,6 +607,7 @@ public class SelectElementsPanel implements IPanelProvider {
 
         /**
          * Called by the dialog when selection changes in the candidates list.
+         *
          * @param selectedCandidates the selected candidates
          */
         @objid ("25b50ea5-d8cc-4884-95c1-305b73ce61ea")
@@ -617,11 +615,11 @@ public class SelectElementsPanel implements IPanelProvider {
             // TODO could improve by checking that at least one of the selected
             // candidates is not already in the results
             this.view.enableAddCommand(!selectedCandidates.isEmpty());
-            
         }
 
         /**
          * Called when selection changes in the results list
+         *
          * @param selectedResults the selected elements in the result list
          */
         @objid ("8c82c2d1-a6fc-4dd0-ad0e-394e317779d1")
@@ -641,7 +639,6 @@ public class SelectElementsPanel implements IPanelProvider {
                 }
             }
             this.view.setResults(this.selected, selectedCandidates);
-            
         }
 
         /**
@@ -663,7 +660,6 @@ public class SelectElementsPanel implements IPanelProvider {
                 this.selected.remove(obj);
             }
             this.view.setResults(this.selected, null);
-            
         }
 
         /**
@@ -681,12 +677,12 @@ public class SelectElementsPanel implements IPanelProvider {
                 // IModelioNavigationService s = ??? ;
                 // s.fireNavigate(selectedElements.get(0));
             }
-            
         }
 
         /**
          * Called by the panel once the view has been instantiated. Launch the
          * search thread to populate the candidates list in the view
+         *
          * @param view the panel view
          */
         @objid ("0dd08c93-1089-4d36-9293-3c1e70917a3a")
@@ -699,18 +695,16 @@ public class SelectElementsPanel implements IPanelProvider {
                 this.view.searchConfigurationPanel.setCriteria(this.searchCriteria);
                 this.view.setCandidates(null, CoreUi.I18N.getString("SelectElementsPanel.ClickForSearching"));
             }
-            
         }
 
         @objid ("ece4c6a0-d910-4e2f-9022-fcf74526bdd9")
         private List<Element> searchCandidates() {
             if (this.searcher != null) {
-                return this.searcher.search(this.session, this.searchCriteria);
+                return this.searcher.search(this.session, this.searchCriteria).getResults();
             } else {
                 CoreUi.LOG.debug("SelectElementsPanel.searchCandidates() : searcher is <null> !");
                 return Collections.emptyList();
             }
-            
         }
 
         @objid ("aca7bd7a-a718-46c8-bdad-34ad779b00b9")
@@ -719,7 +713,6 @@ public class SelectElementsPanel implements IPanelProvider {
             if (this.view != null) {
                 this.view.setResults(elements, Collections.emptyList());
             }
-            
         }
 
         @objid ("ac3abca0-f7d6-4fdd-9df0-031bd01ffcce")
@@ -743,7 +736,6 @@ public class SelectElementsPanel implements IPanelProvider {
                 this.searchCriteria = this.view.searchConfigurationPanel.getCriteria();
             }
             launchSearchThread();
-            
         }
 
         @objid ("4611e6c2-0031-4b94-8f1c-bff080eb3160")
@@ -758,7 +750,6 @@ public class SelectElementsPanel implements IPanelProvider {
             }, label);
             this.searchThread.setDaemon(true);
             this.searchThread.start();
-            
         }
 
         @objid ("e2a460a9-4042-4ab1-8e79-e2b15bdcae2b")
@@ -768,7 +759,6 @@ public class SelectElementsPanel implements IPanelProvider {
                 this.searchThread.stop();
                 this.searchThread = null;
             }
-            
         }
 
     }

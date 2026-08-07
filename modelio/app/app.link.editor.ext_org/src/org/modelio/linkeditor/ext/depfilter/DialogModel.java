@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.linkeditor.ext.depfilter;
 
@@ -65,16 +65,16 @@ class DialogModel {
     }
 
     @objid ("1b61a624-5e33-11e2-b81d-002564c97630")
-    public  DialogModel(final List<Stereotype> enabledStereotypes, IMModelServices modelServices) {
+    public DialogModel(final List<Stereotype> enabledStereotypes, IMModelServices modelServices) {
         this.modelServices = modelServices;
-        
+
         // Build the list of all stereotypes brought by mdacs for Dependency.
         List<Stereotype> stereotypes = this.modelServices.findStereotypes(".*", ".*", Dependency.MQNAME);
-        
+
         for (Stereotype stereo : stereotypes) {
             if (!stereo.isIsHidden() && !"trace".equals(stereo.getName())) {
                 ModuleComponent owningModule = stereo.getOwner().getOwnerModule();
-        
+
                 Map<ModuleComponent, Set<Stereotype>> mapToUse;
                 if (enabledStereotypes.contains(stereo)) {
                     mapToUse = this.filterStereotypes;
@@ -89,11 +89,12 @@ class DialogModel {
                 set.add(stereo);
             }
         }
-        
+
     }
 
     /**
      * Adds a specific stereotype to the filter.
+     *
      * @param stereotype the stereotype to add to the filter.
      */
     @objid ("1b61a62a-5e33-11e2-b81d-002564c97630")
@@ -101,7 +102,7 @@ class DialogModel {
         // Find the module bringing this stereotype.
         ModuleComponent module = stereotype.getOwner().getOwnerModule();
         assert (module != null) : "Could not find module that brought the stereotype: " + stereotype.getName();
-        
+
         this.notFilterStereotypes.get(module).remove(stereotype);
         if (this.notFilterStereotypes.get(module).isEmpty()) {
             this.notFilterStereotypes.remove(module);
@@ -113,11 +114,12 @@ class DialogModel {
         }
         set.add(stereotype);
         this.listeners.firePropertyChange(FILTER, null, stereotype);
-        
+
     }
 
     /**
      * Removes a specific stereotype from the filter.
+     *
      * @param stereotype the stereotype to remove from the filter.
      */
     @objid ("1b61a62f-5e33-11e2-b81d-002564c97630")
@@ -125,7 +127,7 @@ class DialogModel {
         // Find the module bringing this stereotype.
         ModuleComponent module = stereotype.getOwner().getOwnerModule();
         assert (module != null) : "Could not find module that brought the stereotype: " + MdaResources.getLabel(stereotype);
-        
+
         this.filterStereotypes.get(module).remove(stereotype);
         if (this.filterStereotypes.get(module).isEmpty()) {
             this.filterStereotypes.remove(module);
@@ -137,11 +139,12 @@ class DialogModel {
         }
         set.add(stereotype);
         this.listeners.firePropertyChange(FILTER, null, stereotype);
-        
+
     }
 
     /**
      * Adds all stereotypes of a module to the filter.
+     *
      * @param module the module which stereotypes are to be added to the filter.
      */
     @objid ("1b61a634-5e33-11e2-b81d-002564c97630")
@@ -153,17 +156,18 @@ class DialogModel {
                 this.filterStereotypes.put(module, new HashSet<Stereotype>());
                 toSet = this.filterStereotypes.get(module);
             }
-        
+
             toSet.addAll(fromSet);
             fromSet.clear();
             this.notFilterStereotypes.remove(module);
             this.listeners.firePropertyChange(FILTER, null, module);
         }
-        
+
     }
 
     /**
      * Removes all stereotypes of a module from the filter.
+     *
      * @param module the module which stereotypes are to be removed from the filter.
      */
     @objid ("1b61a639-5e33-11e2-b81d-002564c97630")
@@ -175,13 +179,13 @@ class DialogModel {
                 this.notFilterStereotypes.put(module, new HashSet<Stereotype>());
                 toSet = this.notFilterStereotypes.get(module);
             }
-        
+
             toSet.addAll(fromSet);
             fromSet.clear();
             this.filterStereotypes.remove(module);
             this.listeners.firePropertyChange(FILTER, null, module);
         }
-        
+
     }
 
     @objid ("1b61a63e-5e33-11e2-b81d-002564c97630")
@@ -198,7 +202,7 @@ class DialogModel {
     public void addPropertyChangeListener(final PropertyChangeListener listener) {
         this.listeners.removePropertyChangeListener(listener);
         this.listeners.addPropertyChangeListener(listener);
-        
+
     }
 
     @objid ("1b61a654-5e33-11e2-b81d-002564c97630")

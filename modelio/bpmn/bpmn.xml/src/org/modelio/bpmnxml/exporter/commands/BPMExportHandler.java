@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.exporter.commands;
 
@@ -24,9 +24,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.xml.bind.JAXBException;
-import javax.inject.Inject;
-import javax.inject.Named;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
@@ -66,8 +66,8 @@ public class BPMExportHandler {
     @Execute
     public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection, @Named(IServiceConstants.ACTIVE_SHELL) final Shell activeShell) {
         ModelElement selectedOwner = SelectionHelper.getFirst(selection, ModelElement.class);
-        
-        
+
+
         FileDialog dialog = new FileDialog(activeShell, SWT.SAVE);
         dialog.setFilterExtensions(new String[] { "*.bpmn" });
         dialog.setFilterNames(new String[] { "*.bpmn" });
@@ -75,25 +75,25 @@ public class BPMExportHandler {
         if (directory != null) {
             dialog.setFilterPath(directory);
         }
-        
+
         dialog.setFileName(selectedOwner.getName() + ".bpmn");
-        
+
         String path = dialog.open();
-        
+
         if (path != null) {
             File bpmnFile = new File(path);
             directory = bpmnFile.getParent();
-        
+
             exportBpmn(selectedOwner, bpmnFile);
         }
-        
+
     }
 
     @objid ("ea6cbadc-f54a-4305-9746-b59b09e3b531")
     private void exportBpmn(ModelElement selectedOwner, File bpmnFile) {
         IDiagramService diagramService = this.eclipseContext.get(IModuleContext.class).getModelioServices().getDiagramService();
         BPMNExportService exportService = new BPMNExportService(diagramService, this.projectService.getSession());
-        
+
         try {
             Map<String,Object> tmpConf = new HashMap<>();
             tmpConf.put(IExportConfiguration.COMPATIBILITY_MODE, true);
@@ -101,7 +101,7 @@ public class BPMExportHandler {
         } catch (JAXBException e) {
             e.printStackTrace();
         }
-        
+
     }
 
     @objid ("b13b7afe-1fec-4070-abcf-de7b80b17812")

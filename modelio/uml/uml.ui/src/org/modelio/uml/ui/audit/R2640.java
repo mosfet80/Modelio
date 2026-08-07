@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -49,7 +49,7 @@ public class R2640 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -100,14 +100,14 @@ public class R2640 extends AbstractUmlRule {
      * Default constructor for R2640
      */
     @objid ("b5b901bb-1d67-4217-b843-599561b8dbb2")
-    public  R2640() {
+    public R2640() {
         this.checkerInstance = new CheckR2640(this);
     }
 
     @objid ("1a6a7b77-8977-47bf-adb6-595d6347f599")
     private static class CheckR2640 extends AbstractControl {
         @objid ("2b3052d0-f947-47a3-851b-fe0009683136")
-        public  CheckR2640(IRule rule) {
+        public CheckR2640(IRule rule) {
             super(rule);
         }
 
@@ -125,9 +125,9 @@ public class R2640 extends AbstractUmlRule {
         @objid ("449dc951-8bff-4ceb-aaf3-3002a23958c6")
         private IAuditEntry checkR2640(StateMachine stateMachine) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, stateMachine, null);
-            
+
             MObject owner = stateMachine.getCompositionOwner();
-            
+
             if (owner instanceof Interface && stateMachine.getKind() != KindOfStateMachine.PROTOCOL) {
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();

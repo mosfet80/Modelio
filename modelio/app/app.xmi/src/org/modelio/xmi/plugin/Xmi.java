@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.plugin;
 
@@ -33,7 +33,7 @@ import org.osgi.framework.ServiceReference;
  */
 @objid ("66331fcd-41ae-4dcb-94a9-e95ee23e8ec0")
 public class Xmi extends AbstractUIPlugin {
-     // // The plug-in ID
+    // The plug-in ID
     @objid ("394f68e1-7139-4387-85b6-f41108391653")
     public static final String PLUGIN_ID = "org.modelio.app.xmi";
 
@@ -50,8 +50,8 @@ public class Xmi extends AbstractUIPlugin {
      * The constructor
      */
     @objid ("d7274482-54e0-47d0-b97f-85c852f93c7a")
-    public  Xmi() {
-        
+    public Xmi() {
+
     }
 
     /*
@@ -66,7 +66,7 @@ public class Xmi extends AbstractUIPlugin {
         ExtendedLogService service = bundleContext.getService(ref);
         LOG = new PluginLogger(service.getLogger(bundleContext.getBundle(), PLUGIN_ID));
         I18N = new BundledMessages(LOG, ResourceBundle.getBundle("xmi"));
-        
+
     }
 
     /*
@@ -81,6 +81,7 @@ public class Xmi extends AbstractUIPlugin {
 
     /**
      * Returns the shared instance
+     *
      * @return the shared instance
      */
     @objid ("addbe9a5-6b4c-459b-9204-55778cf90708")

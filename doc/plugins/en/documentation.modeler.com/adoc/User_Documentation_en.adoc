@@ -1,0 +1,75 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= Modelio by Docaposte user manual
+
+
+
+== Managing your Modelio projects
+
+* <<User_Documentation_en_Creating_a_project.adoc#,Creating a project>>
+* <<User_Documentation_en_Managing_projects_workspace.adoc#,Managing projects workspace>>
+
+
+== Handy tools
+
+* <<User_Documentation_en_Command_line_options.adoc#,Command line options>>
+* <<User_Documentation_en_Document_view.adoc#,Document view>>
+** <<User_Documentation_en_Document_view_Documentation_items.adoc#,Documentation items>>
+** <<User_Documentation_en_Document_view_Model_documentation_guidelines.adoc#,Model documentation guidelines>>
+** <<User_Documentation_en_Document_view_Document_View.adoc#,Document View>>
+** <<User_Documentation_en_Document_view_Using_the_Document_View.adoc#,Using the Document View>>
+* <<User_Documentation_en_Element_creation_wizard.adoc#,Elements refinement>>
+** <<User_Documentation_en_Element_creation_wizard_Refinement_concept.adoc#,Refinement concept>>
+** <<User_Documentation_en_Element_creation_wizard_Refine_element.adoc#,Refine element>>
+** <<User_Documentation_en_Element_creation_wizard_Populate_by_refinement.adoc#,Populate by refinement>>
+* <<User_Documentation_en_Impact_Analysis.adoc#,Impact Analysis>>
+** <<User_Documentation_en_Impact_Analysis_ImpactAnalysisConcepts.adoc#,Impact analysis concepts>>
+** <<User_Documentation_en_Impact_Analysis_Impact_models.adoc#,Impact models>>
+** <<User_Documentation_en_Impact_Analysis_Impact_diagrams.adoc#,Impact diagrams>>
+** <<User_Documentation_en_Impact_Analysis_Impact_matrix.adoc#,Impact matrix>>
+* <<User_Documentation_en_Importing_elements_from_existing_projects.adoc#,Importing elements from existing projects>>
+* <<User_Documentation_en_Link_Editor.adoc#,Links Editor>>
+** <<User_Documentation_en_Link_Editor_Concepts.adoc#,Concepts>>
+** <<User_Documentation_en_Link_Editor_The_Link_Editor_view.adoc#,Links Editor view>>
+** <<User_Documentation_en_Link_Editor_Link_Editor_configuration.adoc#,Links Editor configuration>>
+** <<User_Documentation_en_Link_Editor_Editing_links.adoc#,Editing links>>
+* <<User_Documentation_en_Matrices.adoc#,Matrices>>
+* <<User_Documentation_en_Methodology.adoc#,Methodology>>
+* <<User_Documentation_en_Workbenches.adoc#,Workbenches>>
+
+
+== Teamwork with shared work models
+
+* <<User_Documentation_en_Introducing_SVN_work_models.adoc#,Introducing shared work models>>
+** <<User_Documentation_en_Introducing_SVN_work_models_Atomic_units.adoc#,Atomic units>>
+** <<User_Documentation_en_Introducing_SVN_work_models_Lock_modes.adoc#,Lock modes>>
+* <<User_Documentation_en_Setting_up_SVN_work_model.adoc#,Setting up shared work model>>
+* <<User_Documentation_en_Overview_of_Subversion_commands.adoc#,Overview of Teamwork commands>>
+** <<User_Documentation_en_Overview_of_Subversion_commands_Add_to_version.adoc#,Add to version>>
+** <<User_Documentation_en_Overview_of_Subversion_commands_Cancel_add_to_version.adoc#,Cancel add to version>>
+** <<User_Documentation_en_Overview_of_Subversion_commands_Commit.adoc#,Commit>>
+** <<User_Documentation_en_Overview_of_Subversion_commands_Diff_Merge.adoc#,Diff/Merge>>
+** <<User_Documentation_en_Overview_of_Subversion_commands_Get_lock.adoc#,Get lock>>
+** <<User_Documentation_en_Overview_of_Subversion_commands_Get_informations.adoc#,Information>>
+** <<User_Documentation_en_Overview_of_Subversion_commands_Revert.adoc#,Revert>>
+** <<User_Documentation_en_Overview_of_Subversion_commands_Update.adoc#,Update>>
+** <<User_Documentation_en_Overview_of_Subversion_commands_Set_conflicts_as_resolved.adoc#,Set conflicts as resolved>>
+** <<User_Documentation_en_Overview_of_Subversion_commands_Show_log.adoc#,Show log>>
+** <<User_Documentation_en_Overview_of_Subversion_commands_Solve_conflicts.adoc#,Solve conflicts>>
+* <<User_Documentation_en_SVN_view.adoc#,Teamwork view>>
+* <<User_Documentation_en_Administration_commands.adoc#,Administration commands>>
+** <<User_Documentation_en_Administration_commands_Check_repository.adoc#,Check repository>>
+** <<User_Documentation_en_Administration_commands_Check_tag.adoc#,Create a tag>>
+** <<User_Documentation_en_Administration_commands_Cleanup_working_copy.adoc#,Cleanup working copy>>
+* <<User_Documentation_en_Migrating_earlier_Modelio_Subversion_projects.adoc#,Migrating earlier Modelio Teamwork projects>>
+
+
+== Teamwork with 'Modelio Server'
+
+* <<User_Documentation_en_Introduction_to_Constellation.adoc#,Introduction to Modelio Server>>
+* <<User_Documentation_en_Join_a_Constellation_project.adoc#,Join a Modelio Server project>>

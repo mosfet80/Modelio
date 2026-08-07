@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.catalog;
 
@@ -58,6 +58,7 @@ import org.modelio.vcore.model.spi.IGMetamodelExtension;
  * <li> moduleInfos.xml
  * </ul>
  * The files are created only when missing because these operations are expensive.
+ *
  * @author cma
  * @since 3.8
  */
@@ -76,16 +77,17 @@ public class ModuleXmlExtractor {
     private final Collection<IGMetamodelExtension> metamodelExtensions;
 
     /**
+     *
      * @param moduleXmlPath the module path : the directory containing module.xml
      * @param targetPath the path where to extract the files
      * @param metamodelFragments the metamodel fragments
      */
     @objid ("839ddfdb-fe54-4c46-b1d9-0e97ff465367")
-    public  ModuleXmlExtractor(Path moduleXmlPath, Path targetPath, Collection<IGMetamodelExtension> metamodelFragments) {
+    public ModuleXmlExtractor(Path moduleXmlPath, Path targetPath, Collection<IGMetamodelExtension> metamodelFragments) {
         this.moduleXmlPath = moduleXmlPath;
         this.targetPath = targetPath;
         this.metamodelExtensions = metamodelFragments;
-        
+
     }
 
     @objid ("89d27df9-7e59-4afd-bcb5-be273838a107")
@@ -100,13 +102,13 @@ public class ModuleXmlExtractor {
                             FileUtils.getLocalizedMessage(e)),
                     e);
         }
-        
+
     }
 
     @objid ("fe467c75-d4a3-41dc-b368-23b4b56bd1c5")
     private void extractModuleInfos(Jxbv2Module loadedModule, Path infosPath) throws IOException {
         Jxbv2Module infosModel = new Jxbv2Module();
-        
+
         // Preserved values
         infosModel.setAuthor(loadedModule.getAuthor());
         infosModel.setBinaryversion(loadedModule.getBinaryversion());
@@ -114,7 +116,7 @@ public class ModuleXmlExtractor {
         infosModel.setDependencies(loadedModule.getDependencies());
         infosModel.setClassPath(loadedModule.getClassPath());
         infosModel.setMetamodelFragments(loadedModule.getMetamodelFragments());
-        
+
         infosModel.setResources(new Jxbv2Resources());
         // Keep resource files
         final Jxbv2Resources moduleResources = loadedModule.getResources();
@@ -126,28 +128,28 @@ public class ModuleXmlExtractor {
             infoModelResources.setMacros(moduleResources.getMacros());
             infoModelResources.setPatterns(moduleResources.getPatterns());
         }
-        
+
         infosModel.setId(loadedModule.getId());
         infosModel.setImage(loadedModule.getImage());
         infosModel.setSchemaLevel(loadedModule.getSchemaLevel());
         infosModel.setUid(loadedModule.getUid());
         infosModel.setVersion(loadedModule.getVersion());
-        
+
         // Cleaned values
         infosModel.setParameters(null);
         infosModel.setPropertyTypes(null);
         infosModel.setProfiles(null);
-        
+
         // Save simplified xml file
         JaxbModelPersistence.saveJaxbModel(infosModel, infosPath);
-        
+
     }
 
     @objid ("f6681ffa-2eba-4f98-bc53-8a15e485e75e")
     public void extractMdaRamc(InputStream moduleXmlInput, Path ramcPath) throws IOException {
         Jxbv2Module loadedModule = JaxbModelPersistence.loadJaxbModel(moduleXmlInput);
         extractStaticModel(ramcPath, loadedModule, null);
-        
+
     }
 
     /**
@@ -155,6 +157,7 @@ public class ModuleXmlExtractor {
      * <p>
      * The <code>normalizeEntryContents</code> method is designed to parse the module.xml file and to create the module RAMC file only when required because
      * these operations are expensive.
+     *
      * @param monitor the progress monitor to use for reporting progress to the user.
      * It is the caller's responsibility to call <code>done()</code> on the given monitor.
      * Accepts <code>null</code>, indicating that no progress should be reported and that
@@ -168,9 +171,9 @@ public class ModuleXmlExtractor {
                 throw new IOException(
                         CoreProject.I18N.getMessage("ModuleCacheManager.NoModuleFound", this.moduleXmlPath)); //$NON-NLS-1$
             }
-        
+
             SubProgress mon = SubProgress.convert(monitor, 3);
-        
+
             Jxbv2Module loadedModule = null;
             // Ensure the static model ramc file exists
             Path staticModelPath = getStaticModelRamcPath();
@@ -181,7 +184,7 @@ public class ModuleXmlExtractor {
                 extractStaticModel(staticModelPath, loadedModule, mon.newChild(1));
             }
             mon.setWorkRemaining(2);
-        
+
             // Ensure the dynamic model xml file exists
             Path dynamicModelPath = getDynamicModelPath();
             if (isToRewrite(dynamicModelPath)) {
@@ -193,7 +196,7 @@ public class ModuleXmlExtractor {
                 extractDynamicModel(dynamicModelPath, loadedModule, mon.newChild(1));
             }
             mon.setWorkRemaining(1);
-        
+
             // Ensure the module infos xml file exists
             Path infosPath = getModuleInfosPath();
             if (isToRewrite(infosPath)) {
@@ -201,7 +204,7 @@ public class ModuleXmlExtractor {
                 if (loadedModule == null) {
                     loadedModule = JaxbModelPersistence.loadJaxbModel(this.moduleXmlPath);
                 }
-        
+
                 // Create the module info file
                 extractModuleInfos(loadedModule, infosPath);
             }
@@ -211,11 +214,12 @@ public class ModuleXmlExtractor {
             e2.initCause(e);
             throw e2;
         }
-        
+
     }
 
     /**
      * Extract the dynamic part of the module model in another file ?
+     *
      * @param moduleDynamicModelPath path of the file to write
      * @param loadedModule the JAXB module model
      * @param monitor a progress monitor
@@ -224,7 +228,7 @@ public class ModuleXmlExtractor {
     @objid ("d2a6a04b-1e3b-4732-98f9-d5fe779faaa1")
     private void extractDynamicModel(Path moduleDynamicModelPath, Jxbv2Module loadedModule, IModelioProgress monitor) throws IOException {
         Jxbv2Module dynamicModel = new Jxbv2Module();
-        
+
         // Preserved values
         dynamicModel.setAuthor(loadedModule.getAuthor());
         dynamicModel.setBinaryversion(loadedModule.getBinaryversion());
@@ -238,22 +242,23 @@ public class ModuleXmlExtractor {
         dynamicModel.setSchemaLevel(loadedModule.getSchemaLevel());
         dynamicModel.setUid(loadedModule.getUid());
         dynamicModel.setVersion(loadedModule.getVersion());
-        
+
         // Ignored values
         dynamicModel.setResources(new Jxbv2Resources());
         dynamicModel.setProfiles(null);
         dynamicModel.setPropertyTypes(null);
         dynamicModel.setMetamodelFragments(null);
-        
+
         // Save simplified xml file
         JaxbModelPersistence.saveJaxbModel(dynamicModel, moduleDynamicModelPath);
-        
+
         monitor.done();
-        
+
     }
 
     /**
      * Get a module handle for a module cache directory containing "moduleInfos.xml".
+     *
      * @param monitor the progress monitor to use for reporting progress to the user.
      * It is the caller's responsibility to call <code>done()</code> on the given monitor.
      * Accepts <code>null</code>, indicating that no progress should be reported and that
@@ -264,15 +269,16 @@ public class ModuleXmlExtractor {
     @objid ("aac13b45-ced4-4242-9bb3-f54dea2087ba")
     public IModuleHandle getModuleHandle(IModelioProgress monitor) throws IOException {
         SubProgress mon = SubProgress.convert(monitor, 2);
-        
+
         // ensures that the computed files (ramc, xml) are properly installed in the entry
         extractModuleXmlContent(mon.newChild(1));
-        
+
         mon.setWorkRemaining(1);
         return new HandleFactory().getModuleHandle(mon.newChild(1), this.targetPath);
     }
 
     /**
+     *
      * @return the extracted moduleInfos.xml file
      */
     @objid ("5be3f166-18ac-4e62-b2ec-581321fc6f68")
@@ -281,6 +287,7 @@ public class ModuleXmlExtractor {
     }
 
     /**
+     *
      * @return the extracted dynamicModel.xml file path
      */
     @objid ("c1028f07-821d-4c4a-8752-c2d26c91a0f8")
@@ -289,6 +296,7 @@ public class ModuleXmlExtractor {
     }
 
     /**
+     *
      * @return the extracted staticModel.ramc file path
      */
     @objid ("319f8e23-a05f-49bd-98c1-3402e2d41798")
@@ -310,6 +318,7 @@ public class ModuleXmlExtractor {
     private static class HandleFactory {
         /**
          * Get the module handle for a module cache directory containing "moduleInfos.xml"
+         *
          * @param monitor the progress monitor to use for reporting progress to the user.
          * It is the caller's responsibility to call <code>done()</code> on the given monitor.
          * Accepts <code>null</code>, indicating that no progress should be reported and that
@@ -333,7 +342,7 @@ public class ModuleXmlExtractor {
                         e);
                 throw e2;
             }
-            
+
         }
 
         @objid ("2c95c277-f37d-11e1-a3c7-002564c97630")
@@ -342,7 +351,7 @@ public class ModuleXmlExtractor {
             String name = loadedModule.getId();
             String mainClassName = loadedModule.getClazz();
             String moduleVersionString = loadedModule.getVersion();
-            
+
             Version moduleVersion;
             if (moduleVersionString != null) {
                 moduleVersion = new Version(moduleVersionString);
@@ -350,7 +359,7 @@ public class ModuleXmlExtractor {
                 // Set a default version...
                 moduleVersion = new Version(0, 0, 0);
             }
-            
+
             String binaryVersionString = loadedModule.getBinaryversion();
             Version binaryVersion;
             if (binaryVersionString != null) {
@@ -359,14 +368,14 @@ public class ModuleXmlExtractor {
                 // Set a default version...
                 binaryVersion = new Version(0, 0, 0);
             }
-            
+
             List<VersionedItem<?>> dependencies = new ArrayList<>();
             List<VersionedItem<?>> weakDependencies = new ArrayList<>();
             List<Path> jarPaths = new ArrayList<>();
             List<Path> docPaths = new ArrayList<>();
             Map<String, Path> stylePaths = new HashMap<>();
             List<IMetamodelFragmentHandle> metamodelFragments = new ArrayList<>();
-            
+
             if (loadedModule.getDependencies() != null) {
                 for (Jxbv2Required dep : loadedModule.getDependencies().getRequired()) {
                     dependencies.add(new VersionedItem<Void>(dep.getName(), new Version(dep.getVersion())));
@@ -375,40 +384,40 @@ public class ModuleXmlExtractor {
                     weakDependencies.add(new VersionedItem<Void>(dep.getName(), new Version(dep.getVersion())));
                 }
             }
-            
+
             final Jxbv2MultiPathes classPath = loadedModule.getClassPath();
             if (classPath != null) {
                 for (Jxbv2PathEntry pathEntry : classPath.getPathEntry()) {
                     jarPaths.add(Paths.get(pathEntry.getPath()));
                 }
             }
-            
+
             if (loadedModule.getResources() != null && loadedModule.getResources().getDocFiles() != null) {
                 for (Jxbv2PathEntry pathEntry : loadedModule.getResources().getDocFiles().getPathEntry()) {
                     docPaths.add(Paths.get(pathEntry.getPath()));
                 }
             }
-            
+
             if (loadedModule.getResources() != null && loadedModule.getResources().getStyles() != null) {
                 for (Jxbv2Style pathEntry : loadedModule.getResources().getStyles().getStyle()) {
                     stylePaths.put(pathEntry.getId(), Paths.get(pathEntry.getPath()));
                 }
             }
-            
+
             if (loadedModule.getMetamodelFragments() != null) {
                 for (Jxbv2MetamodelFragment fragEntry : loadedModule.getMetamodelFragments().getMetamodelFragment()) {
                     MetamodelFragmentHandle f = new MetamodelFragmentHandle(fragEntry.getId(), readVersion(fragEntry),
                             fragEntry.getVendor(), fragEntry.getVendorVersion(), fragEntry.getClazz());
-            
+
                     metamodelFragments.add(f);
                 }
-            
+
             }
-            
+
             monitor.done();
             return new FileModuleStoreHandle(moduleCachePath, name, moduleVersion, uid, mainClassName, binaryVersion,
                                 dependencies, weakDependencies, docPaths, jarPaths, stylePaths, metamodelFragments);
-            
+
         }
 
         @objid ("90f5289c-e966-471d-b494-68f9e12ba9e6")
@@ -422,10 +431,10 @@ public class ModuleXmlExtractor {
                         fragEntry.getId(),
                         fragEntry.getVersion(),
                         e.getLocalizedMessage());
-            
+
                 throw new IOException(msg, e);
             }
-            
+
         }
 
     }

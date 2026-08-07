@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.modelio.editor;
 
@@ -38,7 +38,7 @@ import org.modelio.metamodel.uml.statik.Artifact;
  * <li>"com.modeliosoft.modelio.edition.RTEditorID" - Round Trip editor, only annotations bounds to Modelio can't be edited.</li>
  * <p>
  * Each editor can be set to read-only mode.
- * 
+ *
  * @see IMDAEditorListener
  */
 @objid ("71f2e307-6c24-11e0-b589-002564c97630")
@@ -46,6 +46,7 @@ public interface IEditionService {
     /**
      * Open the edit element dialog (if available) for mObj.
      * (Send an applicative ModelioEvent.EDIT_ELEMENT event)
+     *
      * @param me the element to edit
      */
     @objid ("ff57baa2-1af4-47ec-9286-4cf5074fc335")
@@ -53,6 +54,7 @@ public interface IEditionService {
 
     /**
      * Set the focus on a specific editor.
+     *
      * @param editor the editor to focus.
      */
     @objid ("ab3f9e59-6c24-11e0-b589-002564c97630")
@@ -60,6 +62,7 @@ public interface IEditionService {
 
     /**
      * Close the given text editor.
+     *
      * @param editor The text editor to close.
      */
     @objid ("ab3f7747-6c24-11e0-b589-002564c97630")
@@ -80,6 +83,7 @@ public interface IEditionService {
      * are replaced by '_' when looked for the file.
      * <li>If everything failed then an empty content valid for the MIME type is created.
      * </ol>
+     *
      * @param doc The document to initialize
      * @return <code>true</code> if the file was created, false if no default content could be found.
      * @throws IOException in case of error trying to create the file.
@@ -90,6 +94,7 @@ public interface IEditionService {
 
     /**
      * Get a copy of the file for a given external document.
+     *
      * @param doc an external document.
      * @param listener A listener fired if the original note is modified externally, by SVN for example. <code>null</code> means no edition.
      * @return its file.
@@ -101,6 +106,7 @@ public interface IEditionService {
 
     /**
      * Indicates which mime type are supported in the current instance of Modelio.
+     *
      * @return the supported mime type list.
      * @since 2.1
      */
@@ -113,6 +119,7 @@ public interface IEditionService {
     /**
      * Open a new text editor, making the correspondence between a model element and a file.
      * Use default UTF-8 charset.
+     *
      * @param modelElement the model element to edit.
      * @param file the file to display in the editor.
      * @param editorTypeID the type of the editor to open.
@@ -126,6 +133,7 @@ public interface IEditionService {
 
     /**
      * Open a new text editor, making the correspondence between a model element and a file.
+     *
      * @param modelElement the model element to edit.
      * @param file the file to display in the editor.
      * @param editorTypeID the type of the editor to open.
@@ -141,6 +149,7 @@ public interface IEditionService {
 
     /**
      * Open a diagram editor from an {@link AbstractDiagram}.
+     *
      * @param diagram the diagram to edit.
      * @since 2.1
      */
@@ -151,6 +160,7 @@ public interface IEditionService {
      * Open an editor from an artifact.
      * <p>
      * The file declared by the artifact must be part of the supported mime type list.
+     *
      * @param artifact the artifact to edit.
      * @since 2.1
      */
@@ -161,6 +171,7 @@ public interface IEditionService {
      * Open an editor from an extern document.
      * <p>
      * The type of the document's file must be part of the supported mime type list.
+     *
      * @param document the extern document to edit.
      * @since 2.1
      */
@@ -169,6 +180,7 @@ public interface IEditionService {
 
     /**
      * Open a new text editor, making the correspondence between a model element and a file.
+     *
      * @param modelElement the model element to edit.
      * @param file the file to display in the editor.
      * @param editorTypeID the type of the editor to open.
@@ -186,6 +198,7 @@ public interface IEditionService {
      * Open an editor from a matrix.
      * <p>
      * The type of the document's file must be part of the supported mime type list.
+     *
      * @param document the matrix to edit.
      * @since 3.8.0 Valkyrie
      */
@@ -194,6 +207,7 @@ public interface IEditionService {
 
     /**
      * Register creation wizard contributor
+     *
      * @param category of the diagram contributor
      * @since 3.4
      * @param contributor the diagram contributor
@@ -203,6 +217,7 @@ public interface IEditionService {
 
     /**
      * Save the external document.
+     *
      * @param doc the external document model object.
      * @param fileToSave the external document content
      * @throws IOException in case of failure.
@@ -213,6 +228,7 @@ public interface IEditionService {
 
     /**
      * Set a document content for the given document.
+     *
      * @param doc The document to update.
      * @param content the content to set.
      * @throws IOException in case of error trying to set the file.
@@ -223,6 +239,7 @@ public interface IEditionService {
 
     /**
      * Unregister creation wizard contributor
+     *
      * @param category of the diagram contributor
      * @since 3.4
      * @param contributor the diagram contributor
@@ -232,10 +249,11 @@ public interface IEditionService {
 
     /**
      * To call when an listener is not used anymore.
+     *
      * @param editor the listener to unregister.
      * @since 3.1
      */
     @objid ("97d3bf10-fafd-4ea6-9c37-7787852c9daf")
     void unregisterListener(IExternDocumentChangeListener editor);
-}
 
+}

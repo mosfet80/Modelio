@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.figures;
 
@@ -31,7 +31,7 @@ import org.modelio.uml.activitydiagram.editor.elements.activityfinal.GmActivityF
 
 /**
  * {@link GmActivityFinalPrimaryNode Activity final node} figure.
- * 
+ *
  * @author cmarin
  */
 @objid ("2a6da05c-55b6-11e2-877f-002564c97630")
@@ -46,14 +46,14 @@ public class FinalNodeFigure extends ShapedFigure {
      * Creates the figure.
      */
     @objid ("2a6da065-55b6-11e2-877f-002564c97630")
-    public  FinalNodeFigure() {
+    public FinalNodeFigure() {
         super(new EllipseShaper());
         setOpaque(true);
         this.shapedBorder = new ShapedBorder(this.penOptions.lineColor,
                 this.penOptions.lineWidth,
                 this.shaper);
         setBorder(this.shapedBorder);
-        
+
     }
 
     @objid ("2a6da068-55b6-11e2-877f-002564c97630")
@@ -63,7 +63,7 @@ public class FinalNodeFigure extends ShapedFigure {
             this.shapedBorder.setColor(lineColor);
             super.setLineColor(lineColor);
         }
-        
+
     }
 
     @objid ("2a6da06c-55b6-11e2-877f-002564c97630")
@@ -73,7 +73,7 @@ public class FinalNodeFigure extends ShapedFigure {
             this.shapedBorder.setWidth(lineWidth);
             super.setLineWidth(lineWidth);
         }
-        
+
     }
 
     @objid ("2a6da070-55b6-11e2-877f-002564c97630")
@@ -84,16 +84,16 @@ public class FinalNodeFigure extends ShapedFigure {
         Path shapePath = this.shaper.createShapePath(innerRect);
         try {
             graphics.setClip(shapePath);
-        
+
             // Draw the (gradient) background
             // do not call the super method as it would restore a full sized shaped clip
             if (isOpaque() && this.brushOptions.fillColor != null) {
                 final Color base = this.brushOptions.fillColor;
                 final Color gradientColor = this.brushOptions.useGradient ? computeGradientColor(base) : base;
-        
+
                 graphics.setBackgroundColor(gradientColor);
                 graphics.setForegroundColor(base);
-        
+
                 if (this.brushOptions.useGradient) {
                     graphics.fillGradient(innerRect, false);
                     gradientColor.dispose();
@@ -101,12 +101,12 @@ public class FinalNodeFigure extends ShapedFigure {
                     graphics.fillRectangle(innerRect);
                 }
             }
-        
+
             graphics.restoreState();
         } finally {
             shapePath.dispose();
         }
-        
+
     }
 
 }

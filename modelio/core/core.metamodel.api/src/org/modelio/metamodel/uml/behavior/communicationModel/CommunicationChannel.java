@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.uml.behavior.communicationModel;
 
 import java.util.List;
@@ -34,146 +33,133 @@ import org.modelio.metamodel.uml.statik.NaryLink;
 
 /**
  * CommunicationChannel v0.0.9054
- * 
- * 
+ *
+ *
  * A CommunicationChannel is a link between two CommunicationNodes.
- * 
+ *
  * A CommunicationChannel can represent a Link. It owns messages that follow the channel from its start to the end, and inverted messages that go from the end to the start.
- * 
- * 
+ *
  */
 @objid ("5451d474-f72f-46a9-b8b5-35997413d584")
 public interface CommunicationChannel extends UmlModelElement {
     /**
      * The metaclass simple name.
      */
-    @objid ("6e808325-1178-4f5a-9ca8-269f71745b8d")
+    @objid ("db480b7a-702e-4faf-9d73-9bcaec166352")
     public static final String MNAME = "CommunicationChannel";
 
     /**
      * The metaclass qualified name.
      */
-    @objid ("20f1621a-db2d-4fb3-8e34-8502c8d522e0")
+    @objid ("9138317e-9822-4150-9e8b-9ecbabcb263d")
     public static final String MQNAME = "Standard.CommunicationChannel";
 
     /**
      * Getter for relation 'CommunicationChannel->StartToEndMessage'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("d089f797-963a-472b-9102-e08e9087b6cd")
+    @objid ("6cdf1d6b-cd83-4f97-87b7-d9c6e3966088")
     EList<CommunicationMessage> getStartToEndMessage();
 
     /**
      * Filtered Getter for relation 'CommunicationChannel->StartToEndMessage'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("066dba33-47f2-4d51-911f-d869593b015d")
+    @objid ("96a0ca22-06df-4600-8903-fe65d93e4143")
     <T extends CommunicationMessage> List<T> getStartToEndMessage(java.lang.Class<T> filterClass);
 
     /**
      * Getter for relation 'CommunicationChannel->Channel'
-     * 
+     *
      * Metamodel description:
      * <i>References the Link the communication channel represents.</i>
-     * 
      */
-    @objid ("1bb2731c-131f-497d-9749-1f4f1e705acb")
+    @objid ("dec3e5b3-2101-4fee-946a-91e62d11b968")
     Link getChannel();
 
     /**
      * Setter for relation 'CommunicationChannel->Channel'
-     * 
+     *
      * Metamodel description:
      * <i>References the Link the communication channel represents.</i>
-     * 
      */
-    @objid ("590a2bf3-2953-41dc-8b02-1f07ac23249c")
+    @objid ("c2f7f9c0-7cd0-4624-8830-a75c05a4d966")
     void setChannel(Link value);
 
     /**
      * Getter for relation 'CommunicationChannel->Start'
-     * 
+     *
      * Metamodel description:
      * <i>Node starting the channel.</i>
-     * 
      */
-    @objid ("afa7354b-88c4-40d5-b8dd-215055f8955c")
+    @objid ("34f6447e-82fe-4724-815a-fe2811e0bbd2")
     CommunicationNode getStart();
 
     /**
      * Setter for relation 'CommunicationChannel->Start'
-     * 
+     *
      * Metamodel description:
      * <i>Node starting the channel.</i>
-     * 
      */
-    @objid ("c3f1412d-ca73-479b-8bf7-561601b3f34c")
+    @objid ("164af0b8-5ac7-4a1e-805f-255e08918599")
     void setStart(CommunicationNode value);
 
     /**
      * Getter for relation 'CommunicationChannel->NaryChannel'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("42f8450d-1aca-4f83-a91e-9f7e7fc3c5c7")
+    @objid ("3f798c97-fa58-4b82-b5c7-0c7d0dbe89dd")
     NaryLink getNaryChannel();
 
     /**
      * Setter for relation 'CommunicationChannel->NaryChannel'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("92b2c0f0-fd35-4625-a34a-228b33b2cc4d")
+    @objid ("899fa67f-0cc5-43eb-8b91-a34ca8313988")
     void setNaryChannel(NaryLink value);
 
     /**
      * Getter for relation 'CommunicationChannel->EndToStartMessage'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("20dbaa0c-b05b-4a47-a12e-306a021a47aa")
+    @objid ("58cb80f1-4d05-426d-b8ed-3a17521afaf2")
     EList<CommunicationMessage> getEndToStartMessage();
 
     /**
      * Filtered Getter for relation 'CommunicationChannel->EndToStartMessage'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("1842961e-730c-46db-8ef2-47e5d4f8ba30")
+    @objid ("7d9c31bd-4fe0-4908-be39-184029956874")
     <T extends CommunicationMessage> List<T> getEndToStartMessage(java.lang.Class<T> filterClass);
 
     /**
      * Getter for relation 'CommunicationChannel->End'
-     * 
+     *
      * Metamodel description:
      * <i>Node at the end of the channel.</i>
-     * 
      */
-    @objid ("a401b5aa-a324-4104-b9f3-8aa6e8adc133")
+    @objid ("23df4645-423c-4939-93c6-deb10329b50e")
     CommunicationNode getEnd();
 
     /**
      * Setter for relation 'CommunicationChannel->End'
-     * 
+     *
      * Metamodel description:
      * <i>Node at the end of the channel.</i>
-     * 
      */
-    @objid ("cfed1cf5-bd4d-45f7-9acf-65e9e11fac88")
+    @objid ("b546eab0-56a4-47b0-a306-02f593648ed0")
     void setEnd(CommunicationNode value);
-}
 
+}

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -35,7 +35,7 @@ public class OPartDecomposition extends OInteractionUse {
     }
 
     @objid ("f68f6d80-9874-4b23-a95b-4806e6aecca6")
-    public  OPartDecomposition(PartDecomposition param) {
+    public OPartDecomposition(PartDecomposition param) {
         super(param);
     }
 
@@ -45,15 +45,15 @@ public class OPartDecomposition extends OInteractionUse {
         Lifeline objingLifeLine = ((PartDecomposition) getObjingElement())
                 .getDecomposed();
         Interaction objInteraction = objingLifeLine.getOwner();
-        
+
         GenerationProperties genProp = GenerationProperties.getInstance();
         org.eclipse.uml2.uml.Interaction ecoreInteraction = (org.eclipse.uml2.uml.Interaction) genProp
                 .getMappedElement(objInteraction);
-        
+
         if (ecoreInteraction != null) {
             ecoreInteraction.getFragments().add((org.eclipse.uml2.uml.PartDecomposition)ecoreElt);
         }
-        
+
     }
 
     @objid ("387ede1d-4d02-4028-a6b4-60dafe9bb2c3")
@@ -62,7 +62,7 @@ public class OPartDecomposition extends OInteractionUse {
         super.setProperties(ecoreElt);
         setDecomposedAs((org.eclipse.uml2.uml.PartDecomposition) ecoreElt);
         setCovered((org.eclipse.uml2.uml.PartDecomposition) ecoreElt);
-        
+
     }
 
     @objid ("c24a61ac-c7e1-4beb-94e9-17b4298ccbf3")
@@ -75,7 +75,7 @@ public class OPartDecomposition extends OInteractionUse {
         if (ecoreLifeline != null) {
             ecorePartDec.getCovereds().add(ecoreLifeline);
         }
-        
+
     }
 
     @objid ("43a419a5-71db-4c36-b932-956e793a9163")
@@ -88,7 +88,7 @@ public class OPartDecomposition extends OInteractionUse {
         if (ecoreLifeline != null) {
             ecoreLifeline.setDecomposedAs(ecorePartDec);
         }
-        
+
     }
 
 }

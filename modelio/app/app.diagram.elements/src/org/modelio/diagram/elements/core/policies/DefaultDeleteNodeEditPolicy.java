@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.policies;
 
@@ -53,7 +53,7 @@ import org.modelio.diagram.elements.drawings.core.IGmDrawing;
  * <P>
  * This EditPolicy should not be used with {@link org.eclipse.gef.ConnectionEditPart}. Connections do not really have a
  * parent; use {@link ConnectionEditPolicy}.
- * 
+ *
  * @author cmarin
  * @see org.eclipse.gef.editpolicies.ComponentEditPolicy
  */
@@ -61,6 +61,7 @@ import org.modelio.diagram.elements.drawings.core.IGmDrawing;
 public class DefaultDeleteNodeEditPolicy extends AbstractEditPolicy {
     /**
      * Factors the incoming Request into ORPHANs and DELETEs.
+     *
      * @see org.eclipse.gef.EditPolicy#getCommand(Request)
      */
     @objid ("80bbb749-1dec-11e2-8cad-001ec947c8cc")
@@ -76,6 +77,7 @@ public class DefaultDeleteNodeEditPolicy extends AbstractEditPolicy {
      * Create a DeleteInDiagramCommand if the edit part is selectable.
      * <p>
      * Forwards the request to its parent if the edit part is not selectable.
+     *
      * @param request the DeleteRequest
      * @return a delete command
      */
@@ -86,19 +88,19 @@ public class DefaultDeleteNodeEditPolicy extends AbstractEditPolicy {
             final Object model = host.getModel();
             if (model instanceof GmModel) {
                 final GmModel gmModel = (GmModel) model;
-        
+
                 // Allow deletion only if the graphic is a main node/link
                 if (((gmModel.getRepresentedElement() != null)
                         || host instanceof GhostNodeEditPart
                         || host instanceof GhostLinkEditPart)) {
                     DeleteInDiagramCommand ret = new DeleteInDiagramCommand();
                     ret.setNodetoDelete((IGmObject) model);
-        
+
                     // Since 3.7 : "notify" the parent about removal so that it can
                     // auto resize itself.
                     final Command removeFromParentCommand = getRemoveFromParentCommand(request);
                     return ret.chain(removeFromParentCommand);
-        
+
                 }
             } else if (model instanceof IGmDrawing) {
                 DeleteInDiagramCommand ret = new DeleteInDiagramCommand();
@@ -114,12 +116,12 @@ public class DefaultDeleteNodeEditPolicy extends AbstractEditPolicy {
         EditPart parent = getHost().getParent();
         if (parent == null)
             return null;
-        
+
         // REQ_ORPHAN_CHILDREN is not meant to be used to "notify destruction", we use
         // another request type in a place accessible from everywhere.
         GroupRequest req2 = new GroupRequest(RequestTypes.REQ_DELETING_CHILDREN);
         req2.setEditParts(request.getEditParts());
-        
+
         Command command = parent.getCommand(req2);
         return command ;
     }

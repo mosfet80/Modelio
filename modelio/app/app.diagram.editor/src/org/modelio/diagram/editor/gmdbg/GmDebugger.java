@@ -1,27 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.gmdbg;
 
 import java.util.Objects;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.e4.ui.workbench.modeling.ISelectionListener;
@@ -83,6 +83,7 @@ public class GmDebugger extends Dialog {
     private GmAbstractObject gmModel;
 
     /**
+     *
      * @return the only instance of of {@link GmDebugger}.
      */
     @objid ("1ec4910b-7f9a-4db2-b2fe-f2b4c2d431ca")
@@ -99,38 +100,38 @@ public class GmDebugger extends Dialog {
     protected Control createDialogArea(Composite parent) {
         SashForm sash = new SashForm(parent, SWT.BORDER | SWT.VERTICAL);
         sash.setLayoutData(new GridData(GridData.FILL_BOTH));
-        
-        
-        
+
+
+
         /*
          * The Gm tree
          */
         this.gmTreeView = new GmTreeView(sash);
         this.gmTreeView.getTreeViewer().getControl().setLayoutData(new GridData(SWT.CENTER, SWT.TOP, true, true));
-        
-        
-        
+
+
+
         SashForm sash3 = new SashForm(sash, SWT.BORDER | SWT.HORIZONTAL);
         sash3.setLayoutData(new GridData(GridData.FILL_BOTH));
-        
+
         /*
          * The Gm properties
          */
         this.gmPropView = new GmPropView(sash3);
         this.gmPropView.getTableViewer().getTable().setLayoutData(new GridData(GridData.FILL_BOTH));
-        
+
         /*
          * The editpart properties
          */
         this.editPartView = new EditPartView(sash3);
         this.editPartView.getTableViewer().getTable().setLayoutData(new GridData(GridData.FILL_BOTH));
-        
+
         /*
          * The figure properties
          */
         this.figPropView = new FigureView(sash3);
         this.figPropView.getTableViewer().getTable().setLayoutData(new GridData(GridData.FILL_BOTH));
-        
+
         /*
          * Branch gm tree selection listener
          */
@@ -140,13 +141,13 @@ public class GmDebugger extends Dialog {
 
     /**
      * Set the tree's input.
+     *
      * @param gmDiagram a diagram.
      */
     @objid ("cc3469d5-9d30-468d-b761-1a3254d175ba")
-    private  GmDebugger(Shell parent) {
+    private GmDebugger(Shell parent) {
         super(parent);
         setBlockOnOpen(false);
-        
     }
 
     @objid ("99981d52-2105-4a72-81f2-89e54a9f2f8c")
@@ -166,7 +167,6 @@ public class GmDebugger extends Dialog {
     protected void configureShell(Shell shell) {
         super.configureShell(shell);
         shell.setText("GmViewer");
-        
     }
 
     @objid ("06eb0f7c-c7e1-467b-80aa-3f5c87543378")
@@ -194,57 +194,58 @@ public class GmDebugger extends Dialog {
     @objid ("fe89bb42-0133-401f-8864-4c9e4a8cd246")
     private void onTreeSelect(IStructuredSelection selection) {
         if ((selection != null) && !selection.isEmpty()) {
-            if (!Objects.equals(SelectionHelper.getFirst(selection, GmAbstractObject.class), this.gmModel)) {
-                setInput2(this.diagramEditPart, SelectionHelper.getFirst(selection, GmAbstractObject.class));
+            GmAbstractObject selectedGm = SelectionHelper.getFirst(selection, GmAbstractObject.class);
+            if (!Objects.equals(selectedGm, this.gmModel)) {
+                setInput2(this.diagramEditPart, selectedGm);
             }
         }
-        
     }
 
     @objid ("0d7d4a49-4c85-4fa5-84bf-dd2f6c12c4cb")
     private void onAppSelect(ISelection selection) {
         Object o = SelectionHelper.getFirst(selection, Object.class);
-        
+
         if (o instanceof AbstractDiagramEditPart) {
             AbstractDiagramEditPart diagramEditpart = (AbstractDiagramEditPart) o;
             setInput2(diagramEditpart, ((AbstractDiagramEditPart) o).getModel());
             return;
         } else if (o instanceof AbstractNodeEditPart) {
             AbstractNodeEditPart nodeEditPart = (AbstractNodeEditPart) o;
-        
+
             RootEditPart root = nodeEditPart.getRoot();
-        
+
             setInput2((AbstractDiagramEditPart) root.getContents(), nodeEditPart.getModel());
         } else if (o instanceof LinkEditPart) {
-        
+
             LinkEditPart linkEditPart = (LinkEditPart) o;
             RootEditPart root = linkEditPart.getRoot();
-        
+
             setInput2((AbstractDiagramEditPart) root.getContents(), linkEditPart.getModel());
         } else {
             // got a non-supported selection
             return;
         }
-        
     }
 
     /**
+     *
      * @param diagramEditPart - the diagram we are working in
      * @param selection - the Gm to select in the tree
      */
     @objid ("443d936c-f24e-4d4a-ab84-8da2e174753b")
     public void setInput2(AbstractDiagramEditPart diagramEditPart, GmAbstractObject selection) {
-        this.diagramEditPart = diagramEditPart;
-        
-        this.gmTreeView.setInput((IGmDiagram) diagramEditPart.getModel());
-        
+        if (this.diagramEditPart != diagramEditPart) {
+            this.diagramEditPart = diagramEditPart;
+            this.gmTreeView.setInput((IGmDiagram) diagramEditPart.getModel());
+        }
+
         this.gmModel = selection;
-        
+
         if (selection != null) {
             this.gmTreeView.setSelection(new StructuredSelection(selection), true);
-        
+
             this.gmPropView.setInput(this.gmModel);
-        
+
             GraphicalEditPart selectionEditPart = (GraphicalEditPart) diagramEditPart.getViewer().getEditPartRegistry().getOrDefault(selection, null);
             this.editPartView.setInput(selectionEditPart);
             this.figPropView.setInput(selectionEditPart);
@@ -254,24 +255,21 @@ public class GmDebugger extends Dialog {
             this.editPartView.setInput(null);
             this.figPropView.setInput(null);
         }
-        
+
         // Branch a application-level selection listener to catch application-level selection changes
-        if (this.selectionListener == null)
-        
-        {
+        if (this.selectionListener == null) {
             this.selectionListener = new ISelectionListener() {
                 @Override
-                public void selectionChanged(MPart part, Object selection) {
+                public void selectionChanged(MPart part, Object selection1) {
                     if (GmDebugger.this.gmTreeView == null) {
                         GmDebugger.this.selectionService.removeSelectionListener(this);
                         return;
                     }
-                    onAppSelect((ISelection) selection);
+                    onAppSelect((ISelection) selection1);
                 }
             };
             this.selectionService.addSelectionListener(this.selectionListener);
         }
-        
     }
 
 }

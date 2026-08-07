@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.ramc.core.model;
 
@@ -98,21 +98,22 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
 
     /**
      * Initialize a <code>ModelComponent</code> from an {@link Artifact} .
+     *
      * @param ramc the model component artifact.
      */
     @objid ("c738cb04-0d54-4fa4-a865-fe0e5be87c05")
-    public  ModelComponent(final Artifact ramc) {
+    public ModelComponent(final Artifact ramc) {
         this.artifact = ramc;
         this.name = Loader.getName(ramc);
         this.version = Loader.getVersion(ramc);
         this.provider = Loader.getProvider(ramc);
         this.description = Loader.getDescription(ramc);
-        
+
         this.exportedElements = Loader.getManifested(ramc);
         this.requiredModelComponents = Loader.getDependencies(ramc);
         this.exportedFiles = Loader.getExportedFiles(ramc);
         this.contributors = Loader.getContributors(ramc);
-        
+
     }
 
     @objid ("40e79687-d525-400a-9127-c7abacea4c8d")
@@ -194,7 +195,7 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
         // Automatically generated method. Please delete this comment before
         // entering specific code.
         this.description = value;
-        
+
     }
 
     @objid ("eb824121-49b2-41fa-9719-a7ec5a81b6ff")
@@ -207,7 +208,7 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
         // Automatically generated method. Please delete this comment before
         // entering specific code.
         this.version = value;
-        
+
     }
 
     @objid ("5f3438ee-6674-43fb-a147-5985a328ece8")
@@ -220,7 +221,7 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
         Writer.setManifestedElements(this.artifact, this.exportedElements);
         Writer.setExportedFiles(this.artifact, this.exportedFiles);
         Writer.setContributors(this.artifact, this.contributors);
-        
+
     }
 
     @objid ("4609ff8a-f11c-4525-a20e-cfc6415e85b8")
@@ -288,7 +289,7 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
         @objid ("6a38272c-c7c4-4924-8255-5ae6450f71b8")
         public static TreeSet<ExportedFileEntry> getExportedFiles(final Artifact ramc) {
             final TreeSet<ExportedFileEntry> exportedFiles = new TreeSet<>();
-            
+
             // RAMCs migrated from Modelio 2 might have several tags, read them all
             // In Modelio 3 a unique tag is used with several parameters (one per file)
             final String TAG_TYPE = "ModelComponentFiles";
@@ -297,7 +298,7 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
                 if (type != null && type.getName().equals(TAG_TYPE)) {
                     int nParameters = taggedvalue.getActual().size();
                     final TagParameter[] parameters = taggedvalue.getActual().toArray(new TagParameter[nParameters]);
-            
+
                     if (nParameters > 0 && (nParameters & 1) == 1) {
                         // one param missing
                         final String message = CoreProject.I18N.getMessage("ModelComponent.BadModelComponentFiles",
@@ -307,7 +308,7 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
                         Log.warning(message);
                         nParameters--; // recover from error
                     }
-            
+
                     for (int i = 0; i < nParameters; i += 2) {
                         exportedFiles.add(new ExportedFileEntry(
                                 Paths.get(parameters[i].getValue().replace("\\", File.separator)),
@@ -321,21 +322,21 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
         @objid ("f7f5c288-aa70-44de-aaef-b5723b64738e")
         public static TreeSet<Element> getManifested(final Artifact ramc) {
             final TreeSet<Element> elements = new TreeSet<>(new Comparator<Element>() {
-            
+
                 @Override
                 public int compare(final Element o1, final Element o2) {
                     return o1.getUuid().compareTo(o2.getUuid());
                 }
-            
+
             });
-            
+
             for (final Manifestation manifestation : ramc.getUtilized()) {
                 final ModelElement me = manifestation.getUtilizedElement();
                 if (ModelComponent.isValidManifestedElement(me)) {
                     elements.add(me);
                 }
             }
-            
+
             final CoreSession session = CoreSession.getSession(ramc);
             final Stereotype manifStereotype = (Stereotype) session.getSmFactory().getObjectReference(session.getMetamodel().getMClass(Stereotype.class), "d5bccf8e-79b3-48df-8c79-09200aa52d19", "manifestation");
             for (final Dependency dep : ramc.getDependsOnDependency()) {
@@ -357,7 +358,7 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
         @objid ("b01fd8a0-00d5-440c-bad2-a9a541ccce44")
         public static Version getVersion(final Artifact ramc) {
             final List<TaggedValue> taggedValues = ramc.getTag();
-            
+
             for (final TaggedValue taggedValue : taggedValues) {
                 final TagType type = taggedValue.getDefinition();
                 if (type != null && type.getName().equals("ModelComponentVersion")) {
@@ -373,7 +374,7 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
         @objid ("09e9f15e-b0ee-41c6-b5c5-f088de43c139")
         public static String getProvider(final Artifact ramc) {
             final List<TaggedValue> taggedValues = ramc.getTag();
-            
+
             for (final TaggedValue taggedValue : taggedValues) {
                 final TagType type = taggedValue.getDefinition();
                 if (type != null && type.getName().equals("ModelComponentProvider")) {
@@ -398,7 +399,7 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
                     tag.delete();
                 }
             }
-            
+
             // Add new ones
             // Add a unique tag
             final IInfrastructureModelFactory modelFactory = Writer.getInfrastructureModelFactory(ramc);
@@ -409,12 +410,12 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
                 // Log.error("Tag type 'ModelerModule#ModelComponentContributors' not found or not unique.");
                 return;
             }
-            
+
             // Add one parameter per contributor
             for (final Entry<String, String> entry : contributors.entrySet()) {
                 modelFactory.createTagParameter(entry.getKey() + '#' + entry.getValue(), contributorsTag);
             }
-            
+
         }
 
         @objid ("d70f5e47-ca5e-4af0-9372-b101accf3ab4")
@@ -425,7 +426,7 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
                     ei.delete();
                 }
             }
-            
+
             // Add new ones
             final IStandardModelFactory standardFactory = Writer.getStandardModelFactory(ramc);
             for (final ModelComponent m : parentRamcs) {
@@ -433,7 +434,7 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
                     standardFactory.createElementImport(ramc, m.getArtifact());
                 }
             }
-            
+
         }
 
         @objid ("145c5d6e-89c8-43cf-81e5-73799d802b11")
@@ -450,7 +451,7 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
             } catch (@SuppressWarnings ("unused") final ExtensionNotFoundException e) {
                 // Log.error("Note type 'ModelerModule#description' not found or not unique");
             }
-            
+
         }
 
         @objid ("420b993c-1ea6-45cf-8b6b-6858601ad4b0")
@@ -463,7 +464,7 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
                     tag.delete();
                 }
             }
-            
+
             // Add new ones
             // Add a unique tag
             final IInfrastructureModelFactory modelFactory = Writer.getInfrastructureModelFactory(ramc);
@@ -474,20 +475,20 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
                 // Log.error("Tag type 'ModelerModule#ModelComponentFiles' not found or not unique.");
                 return;
             }
-            
+
             // Add two parameters per file. The first one is the exported file
             // path, the second is the deployment relative path
             for (final ExportedFileEntry file : exportedFiles) {
                 modelFactory.createTagParameter(file.getFileToExport().toString().replace(File.separator, "/"), filesTag);
                 modelFactory.createTagParameter(file.getExportPath().replace(File.separator, "/"), filesTag);
             }
-            
+
         }
 
         @objid ("c96eeb6f-10d1-4986-ac88-7fb5ed3ccb8f")
         public static void setManifestedElements(final Artifact ramc, final Set<Element> manifestedElements) {
             final Set<Element> toManifest = new HashSet<>(manifestedElements);
-            
+
             // Remove existing manifestations
             for (final Manifestation manifestation : new ArrayList<>(ramc.getUtilized())) {
                 final UmlModelElement me = manifestation.getUtilizedElement();
@@ -497,7 +498,7 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
                     manifestation.delete();
                 }
             }
-            
+
             // Remove existing <<manifestation>> dependencies
             final CoreSession session = CoreSession.getSession(ramc);
             final Stereotype manifStereotype = (Stereotype) session.getSmFactory().getObjectReference(session.getMetamodel().getMClass(Stereotype.class), "d5bccf8e-79b3-48df-8c79-09200aa52d19", "manifestation");
@@ -511,11 +512,11 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
                     }
                 }
             }
-            
+
             // Add new ones
             final IStandardModelFactory standardFactory = Writer.getStandardModelFactory(ramc);
             final IInfrastructureModelFactory modelFactory = Writer.getInfrastructureModelFactory(ramc);
-            
+
             for (final Element e : toManifest) {
                 if (ModelComponent.isValidManifestedElement(e)) {
                     if (e instanceof UmlModelElement) {
@@ -527,7 +528,7 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
                     }
                 }
             }
-            
+
         }
 
         @objid ("a9e17425-13bc-4f69-9934-8274f44ea64e")
@@ -538,7 +539,7 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
         @objid ("cbaff0fc-a306-4773-a34a-759dc93e1f26")
         public static void setVersion(final Artifact ramc, final Version version) {
             final String v = String.format("%d.%d.%02d", version.getMajorVersion(), version.getMinorVersion(), version.getBuildVersion());
-            
+
             try {
                 TaggedValue taggedValue = ramc.getTag(ModelComponent.MODELER_MODULE, "ModelComponentArchive", "ModelComponentVersion");
                 if (taggedValue == null) {
@@ -546,7 +547,7 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
                     taggedValue = factory.createTaggedValue(ModelComponent.MODELER_MODULE, "ModelComponentArchive", "ModelComponentVersion", ramc);
                     factory.createTagParameter("", taggedValue);
                 }
-            
+
                 final List<TagParameter> parameters = taggedValue.getActual();
                 if (parameters.size() > 0) {
                     parameters.get(0).setValue(v);
@@ -554,7 +555,7 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
             } catch (@SuppressWarnings ("unused") final ExtensionNotFoundException e) {
                 // Log.error("Tag type 'ModelerModule#ModelComponentVersion not found or not unique.");
             }
-            
+
         }
 
         @objid ("bd9cc712-0053-4a71-aa13-1af0b63c5923")
@@ -576,7 +577,7 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
                     taggedValue = factory.createTaggedValue(ModelComponent.MODELER_MODULE, "ModelComponentArchive", "ModelComponentProvider", ramc);
                     factory.createTagParameter("", taggedValue);
                 }
-            
+
                 final List<TagParameter> parameters = taggedValue.getActual();
                 if (parameters.size() > 0) {
                     parameters.get(0).setValue(provider);
@@ -584,7 +585,7 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
             } catch (@SuppressWarnings ("unused") final ExtensionNotFoundException e) {
                 // Log.error("Tag type 'ModelerModule#ModelComponentVersion not found or not unique.");
             }
-            
+
         }
 
     }

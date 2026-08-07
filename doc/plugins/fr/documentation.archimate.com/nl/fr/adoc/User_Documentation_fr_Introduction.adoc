@@ -1,0 +1,23 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Introduction
+
+
+Modelio ArchiMate Entreprise Architect est un outil de modélisation basé sur Modelio.
+
+* support natif des standards *ArchiMate 3.2 ^1^*, UML et BPMN et de leurs formats d'échange respectifs.
+* mécanismes de "raffinement" d'éléments ArchiMate en éléments UML et/ou BPMN, ainsi que des matrices de synthése de ces raffinements.
+* support de l'analyse des besoins, l'analyse des risques, l'analyse des objectifs, la définition du dictionnaire, et des règles commerciales
+* prise en charge de la gestion de la traçabilité sur l'ensemble de la portée de l'entreprise et de l'analyse d'impact
+* génération de documents personnalisables de haute qualité
+* entièrement compatible avec les fonctionnalités de Modelio Server
+** prise en charge de référentiels d'entreprise fédérés
+** dépôts distribués sur le WEB
+** configuration de projets dédiés selon le profil du participant.
+
+Modelio ArchiMate est soumis à licence. Vous pouvez demander un fichier de licence en envoyant un courriel au service commercial de Modelio : sales-modelio@softeam.com.
+
+^1^ ArchiMate® est un langage de modélisation ouvert et indépendant destiné à l'architecture d'entreprise. ArchiMate permet aux architectes d'entreprise de décrire, d'analyser et de visualiser les relations entre les domaines d'affaires ou d'activités de l'entreprise, de manière formelle et non ambiguë.

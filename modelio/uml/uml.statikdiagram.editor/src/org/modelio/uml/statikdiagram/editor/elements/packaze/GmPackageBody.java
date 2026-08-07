@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.packaze;
 
@@ -37,7 +37,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 /**
  * Represents the content of the package. Specialisation of the default {@link GmBodyFreeZone} that handles the specific
  * auto-unmask strategies.
- * 
+ *
  * @author phv
  */
 @objid ("361d7586-55b7-11e2-877f-002564c97630")
@@ -55,17 +55,18 @@ public class GmPackageBody extends GmBodyFreeZone {
      * Constructor for deserialization only.
      */
     @objid ("361d758f-55b7-11e2-877f-002564c97630")
-    public  GmPackageBody() {
-        
+    public GmPackageBody() {
+
     }
 
     /**
      * Creates the package body.
+     *
      * @param diagram The diagram
      * @param relatedRef a reference to the element this GmModel is related to, must not be null.
      */
     @objid ("361efbf9-55b7-11e2-877f-002564c97630")
-    public  GmPackageBody(IGmDiagram diagram, MRef relatedRef) {
+    public GmPackageBody(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -73,17 +74,17 @@ public class GmPackageBody extends GmBodyFreeZone {
     @Override
     public void refreshFromObModel() {
         super.refreshFromObModel();
-        
+
         final Package packaze = (Package) getRelatedElement();
         if (packaze == null || !packaze.isValid())
             return;
-        
+
         final StyleKey.UmaskByVisibilityStragegy mode = this.getDisplayedStyle().getProperty(GmPackageStructuredStyleKeys.UNMASKINGSTRATEGY);
-        
+
         // TODO get a better layout
         int size = getChildren().size();
         final Rectangle constraint = new Rectangle(10 * size + 5, 10 * size + 5, -1, -1);
-        
+
         // Unmask all missing children
         switch (mode) {
         case ALL:
@@ -94,7 +95,7 @@ public class GmPackageBody extends GmBodyFreeZone {
                 }
             }
             break;
-        
+
         case ALL_PUBLIC:
             for (ModelTree e : packaze.getOwnedElement(NameSpace.class)) {
                 NameSpace ns = (NameSpace) e;
@@ -106,7 +107,7 @@ public class GmPackageBody extends GmBodyFreeZone {
                 }
             }
             break;
-        
+
         case ALL_NON_PRIVATE:
             for (ModelTree e : packaze.getOwnedElement(NameSpace.class)) {
                 NameSpace ns = (NameSpace) e;
@@ -116,16 +117,16 @@ public class GmPackageBody extends GmBodyFreeZone {
                         constraint.translate(10, 10);
                     }
                 }
-        
+
             }
             break;
         case MANUAL:
             // unmask or hide nothing.
             break;
         }
-        
+
         final Boolean unmaskInstances = this.getDisplayedStyle().getProperty(GmPackageStructuredStyleKeys.INSTANCEUNMASKING);
-        
+
         // Unmask all missing children
         if (unmaskInstances) {
             for (Instance e : packaze.getDeclared()) {
@@ -135,7 +136,7 @@ public class GmPackageBody extends GmBodyFreeZone {
                 }
             }
         }
-        
+
     }
 
     @objid ("361efc0b-55b7-11e2-877f-002564c97630")
@@ -146,7 +147,7 @@ public class GmPackageBody extends GmBodyFreeZone {
         } else {
             super.styleChanged(property, newValue);
         }
-        
+
     }
 
     @objid ("361efc12-55b7-11e2-877f-002564c97630")
@@ -155,7 +156,7 @@ public class GmPackageBody extends GmBodyFreeZone {
         refreshFromObModel();
         fireVisibilityChanged();
         super.styleChanged(style);
-        
+
     }
 
     @objid ("361efc18-55b7-11e2-877f-002564c97630")
@@ -175,17 +176,17 @@ public class GmPackageBody extends GmBodyFreeZone {
             break;
         }
         }
-        
+
     }
 
     @objid ("361efc1e-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmPackageBody.", GmPackageBody.MINOR_VERSION);
-        
+
     }
 
     @objid ("361efc24-55b7-11e2-877f-002564c97630")

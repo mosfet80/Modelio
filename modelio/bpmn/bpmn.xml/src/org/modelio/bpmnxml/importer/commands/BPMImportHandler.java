@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.importer.commands;
 
@@ -23,8 +23,8 @@ import java.io.File;
 import java.nio.file.Path;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
@@ -66,19 +66,19 @@ public class BPMImportHandler {
         if(context == null){
             context = SelectionHelper.getFirst(selection, Element.class);
         }
-        
+
         BPMImportModel model = new BPMImportModel();
-        
+
         if(context instanceof BpmnProcess || context instanceof BpmnCollaboration){
             model.setUpdate(true);
         }
-        
+
         BPMImportDialog dialog = new BPMImportDialog(activeShell, model);
         if(dialog.open() == 0){
             File bpmnFile =    new File(model.getFilePath());
             importBpmn(bpmnFile.toPath(), context,model.isKeeyId());
         }
-        
+
     }
 
     @objid ("164220ba-9edc-4f97-8eb6-365dbdbfac1e")
@@ -86,7 +86,7 @@ public class BPMImportHandler {
         try {
             IDiagramService diagramService = this.eclipseContext.get(IModuleContext.class).getModelioServices().getDiagramService();
             BPMNImportService importService = new BPMNImportService(this.projectService.getSession(), diagramService);
-        
+
             if (context instanceof IGModelFragment) {
                 importService.importBPMN(filePath, (IGModelFragment) context, keepId);
             }if (context instanceof Package) {
@@ -96,12 +96,12 @@ public class BPMImportHandler {
             }else if (context instanceof BpmnProcess) {
                 importService.updateBPMN(filePath, (BpmnProcess) context, keepId);
             }
-        
-        
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }
 
     @objid ("57edff91-22d8-4610-8740-58d188cf143f")

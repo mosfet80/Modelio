@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.swt.textelement;
 
@@ -37,11 +37,11 @@ class ElementHtmlTooltip {
         final Color background = Display.getCurrent().getSystemColor(SWT.COLOR_INFO_BACKGROUND);
         final String bgColor = "#" + Integer.toHexString(background.getRed()) + Integer.toHexString(background.getGreen())
                 + Integer.toHexString(background.getBlue());
-        
+
         final Color foreground = Display.getCurrent().getSystemColor(SWT.COLOR_INFO_FOREGROUND);
         final String fgColor = "#" + Integer.toHexString(foreground.getRed()) + Integer.toHexString(foreground.getGreen())
                 + Integer.toHexString(foreground.getBlue());
-        
+
         final StringBuilder builder = new StringBuilder();
         builder.append("<html>");
         builder.append("<header>");
@@ -57,21 +57,21 @@ class ElementHtmlTooltip {
         builder.append("h1 {font-size: " + (fontData.height + 1) + "pt;} ");
         builder.append("</style>");
         builder.append("</header>");
-        
+
         builder.append("<body>");
         if (element != null) {
             builder.append("<h1>" + getCompositionPath(element) + "</h1>");
-        
+
             builder.append("<table border=0>");
-        
+
             if (element instanceof NameSpace) {
                 builder.append("<tr><td><strong>Visibility:</strong></td>");
                 builder.append("<td>" + ((NameSpace)element).getVisibility().toString() + "</td></tr>");
             }
-        
+
             builder.append("<tr><td><strong>Metaclass:</strong></td>");
             builder.append("<td>" + element.getMClass().getName() + "</td></tr>");
-        
+
             if (element instanceof ModelElement) {
                 if ((((ModelElement)element).getExtension()).size() != 0) {
                     builder.append("<tr><td><strong>Stereotype:</strong></td><td>");
@@ -81,15 +81,15 @@ class ElementHtmlTooltip {
                     builder.append("</td></tr>");
                 }
             }
-        
+
             builder.append("<tr><td><strong>Identifier:</strong></td>");
             builder.append("<td>" + element.getUuid().toString() + "</td></tr>");
-        
+
             if (element instanceof ModelElement) {
                 String desc = ((ModelElement) element).getNoteContent("ModelerModule", "description");
                 if (desc != null) {
                     String descHtml = desc.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\"", "&quot;").replaceAll("\\n" ,"<br/>");
-        
+
                     builder.append("<tr><td><strong>Description:</strong></td>");
                     builder.append("<td><em>");
                     builder.append(descHtml);
@@ -105,7 +105,7 @@ class ElementHtmlTooltip {
     @objid ("970cee64-218a-4952-82de-8424f66039c8")
     private static String getCompositionPath(MObject o) {
         final String name = o.getName();
-        
+
         final MObject owner = o.getCompositionOwner();
         if (owner != null) {
             return getCompositionPath(owner) + "." + name;

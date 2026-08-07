@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.informationFlow;
 
 import java.util.ArrayList;
@@ -44,13 +43,13 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00640c76-c4bf-1fd8-97fe-001ec947cd2a")
 public class InformationItemImpl extends ClassifierImpl implements InformationItem {
-    @objid ("33b49c1e-5016-49d8-afc7-5103b9d40316")
+    @objid ("4eec4d79-b527-445f-b723-a9c07a252e6b")
     @Override
     public EList<Classifier> getRepresented() {
         return new SmList<>(this, ((InformationItemSmClass)getClassOf()).getRepresentedDep());
     }
 
-    @objid ("e8c5ebf0-c32d-47fd-998c-03c7ac4233b2")
+    @objid ("7d66d539-d6e1-4d41-88c0-c272f2803b2e")
     @Override
     public <T extends Classifier> List<T> getRepresented(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -63,10 +62,10 @@ public class InformationItemImpl extends ClassifierImpl implements InformationIt
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("981610c8-8dbe-46ef-af6b-e3458db77df2")
+    @objid ("f2d1f37b-f038-43f9-a2d8-89e00dac0355")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -74,17 +73,17 @@ public class InformationItemImpl extends ClassifierImpl implements InformationIt
         return super.getCompositionOwner();
     }
 
-    @objid ("35d47664-281b-42b0-b87d-81baea0f3dc5")
+    @objid ("83bd75c0-ebdb-438f-b063-be0c9475f805")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("9bafb12f-9db8-47c2-b762-fc4f508ef209")
+    @objid ("413f4904-228a-43cc-9574-59b07be55145")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitInformationItem(this);

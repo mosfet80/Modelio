@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.cert;
 
@@ -23,8 +23,8 @@ import java.net.URI;
 import java.security.KeyStoreException;
 import java.security.cert.X509Certificate;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Inject;
 import javax.net.ssl.SSLHandshakeException;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.model.application.MApplication;
@@ -83,11 +83,10 @@ public class ServerTrustErrorHandler implements ISslUntrustedServerFixer {
         private X509Certificate[] chain;
 
         @objid ("c7baa7bb-122d-44f9-8dc9-9e6015d2d41d")
-         Runner(Throwable cause, URI uri, X509Certificate[] chain) {
+        Runner(Throwable cause, URI uri, X509Certificate[] chain) {
             this.cause = cause;
             this.uri = uri;
             this.chain = chain;
-            
         }
 
         @objid ("524266d1-0742-45a1-8595-e0a6547df8b0")
@@ -105,10 +104,10 @@ public class ServerTrustErrorHandler implements ISslUntrustedServerFixer {
         private boolean handleInvalidCertificateException() {
             Shell parentShell = ServerTrustErrorHandler.this.getTopShell();
             UntrustedServerDialog dlg = new UntrustedServerDialog(parentShell, this.uri, this.chain, this.cause);
-            
+
             int res = dlg.open();
             X509Certificate cert = this.chain[0];
-            
+
             try {
                 switch (res) {
                 case UntrustedServerDialog.TRUST_ONCE_ID:
@@ -124,11 +123,10 @@ public class ServerTrustErrorHandler implements ISslUntrustedServerFixer {
             } catch (KeyStoreException e) {
                 this.cause.addSuppressed(e);
                 CoreUi.LOG.error(this.cause);
-            
-                MessageDialog.openError(parentShell, "Error", e.getLocalizedMessage());
+
+                MessageDialog.openError(parentShell, CoreUi.I18N.getString("ServerTrustErrorHandler.error.title"), e.getLocalizedMessage());
                 return false;
             }
-            
         }
 
     }

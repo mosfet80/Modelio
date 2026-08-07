@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -46,58 +45,58 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00164f7c-c4bf-1fd8-97fe-001ec947cd2a")
 public class PackageImportImpl extends UmlModelElementImpl implements PackageImport {
-    @objid ("093c21a8-8a68-4291-aac7-cc7e89def05c")
+    @objid ("ccd0267e-9df7-44c0-a5bf-3b21bc94cca5")
     @Override
     public VisibilityMode getVisibility() {
         return (VisibilityMode) getAttVal(((PackageImportSmClass)getClassOf()).getVisibilityAtt());
     }
 
-    @objid ("6653b561-5e22-4dc4-9e4c-ebcf23d3cc4a")
+    @objid ("6778157b-5277-430f-8d2a-ad64d007881f")
     @Override
     public void setVisibility(VisibilityMode value) {
         setAttVal(((PackageImportSmClass)getClassOf()).getVisibilityAtt(), value);
     }
 
-    @objid ("dc44e78a-9bd2-4d05-8e8a-77673b04143e")
+    @objid ("1350b3da-9219-4b17-a564-2efdeadcea39")
     @Override
     public Operation getImportingOperation() {
         Object obj = getDepVal(((PackageImportSmClass)getClassOf()).getImportingOperationDep());
         return (obj instanceof Operation)? (Operation)obj : null;
     }
 
-    @objid ("5052f38d-a972-45f5-b593-c1070184b1e4")
+    @objid ("f34640b7-1973-4ccf-b83f-8563d3ac37de")
     @Override
     public void setImportingOperation(Operation value) {
         appendDepVal(((PackageImportSmClass)getClassOf()).getImportingOperationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("8dd35b58-6ba3-42db-be90-7542e15e37d8")
+    @objid ("636a06f5-dcc9-4e24-a6ec-1f205cba6bda")
     @Override
     public NameSpace getImportingNameSpace() {
         Object obj = getDepVal(((PackageImportSmClass)getClassOf()).getImportingNameSpaceDep());
         return (obj instanceof NameSpace)? (NameSpace)obj : null;
     }
 
-    @objid ("766b3395-b9cb-466a-91a8-2b2c02aadee9")
+    @objid ("880fd164-8117-4ddf-a226-1d8e1734e375")
     @Override
     public void setImportingNameSpace(NameSpace value) {
         appendDepVal(((PackageImportSmClass)getClassOf()).getImportingNameSpaceDep(), (SmObjectImpl)value);
     }
 
-    @objid ("d996e3a3-171d-4f98-8cbb-3a5bd77bbada")
+    @objid ("d7b7ebff-870c-456c-8da4-dd8d7699ffc4")
     @Override
     public Package getImportedPackage() {
         Object obj = getDepVal(((PackageImportSmClass)getClassOf()).getImportedPackageDep());
         return (obj instanceof Package)? (Package)obj : null;
     }
 
-    @objid ("42eb7a5e-5564-4d45-9059-e808e5ee5746")
+    @objid ("3e53e590-1d49-4223-ad02-4b041eb718f4")
     @Override
     public void setImportedPackage(Package value) {
         appendDepVal(((PackageImportSmClass)getClassOf()).getImportedPackageDep(), (SmObjectImpl)value);
     }
 
-    @objid ("95e34993-720f-4de8-a64a-47eb3e8f155a")
+    @objid ("3c9a80d4-ad95-4972-a00b-98328da68dd9")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -113,27 +112,27 @@ public class PackageImportImpl extends UmlModelElementImpl implements PackageImp
         return super.getCompositionOwner();
     }
 
-    @objid ("541cff18-cc67-4600-8df9-09b97396309c")
+    @objid ("81fb27ed-2666-49ea-9dd5-e558d37f56d2")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // ImportingOperation
         dep = ((PackageImportSmClass)getClassOf()).getImportingOperationDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         // ImportingNameSpace
         dep = ((PackageImportSmClass)getClassOf()).getImportingNameSpaceDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("f0576842-ed4c-47ca-afc2-6e8d350e57eb")
+    @objid ("5ad4896a-3e90-48b8-b58b-965d4ca37c6e")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitPackageImport(this);

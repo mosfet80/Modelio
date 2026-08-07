@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.styles.editingsupport.key;
 
@@ -43,7 +43,7 @@ import org.modelio.platform.ui.UIFont;
 
 /**
  * Key column label provider for a {@link TreeViewer}.
- * 
+ *
  * @author cma
  * @since Forked KeyLabelProvider on 3.7
  */
@@ -71,10 +71,10 @@ public class KeyTreeLabelProvider extends StyledCellLabelProvider {
     private final Supplier<ISymbolViewModel> modelSupplier;
 
     @objid ("ce285b96-845c-4d96-9e3e-b24f90915575")
-    public  KeyTreeLabelProvider(Supplier<ISymbolViewModel> modelSupplier, Supplier<IStyle> inputSupplier) {
+    public KeyTreeLabelProvider(Supplier<ISymbolViewModel> modelSupplier, Supplier<IStyle> inputSupplier) {
         this.modelSupplier = modelSupplier;
         this.inputSupplier = inputSupplier;
-        
+
     }
 
     @objid ("d2da10c6-627c-4d64-9600-dfa8cea4c38e")
@@ -82,7 +82,7 @@ public class KeyTreeLabelProvider extends StyledCellLabelProvider {
     public void dispose() {
         this.localFont = null;
         super.dispose();
-        
+
     }
 
     @objid ("4cf0f300-c7ad-43dc-a7aa-e274649b3292")
@@ -90,7 +90,7 @@ public class KeyTreeLabelProvider extends StyledCellLabelProvider {
     public String getToolTipText(Object obj) {
         ISymbolViewItem element = (ISymbolViewItem) obj;
         String cellText = element.getLabel();
-        
+
         if (element.getStyleKey() != null && getEditedStyle().isDynamicValue(element.getStyleKey())) {
             return DiagramStyles.I18N.getMessage("editingsupport.key.dynamic.tooltip", cellText);
         } else if (element.isLocallyModified(getEditedStyle())) {
@@ -101,7 +101,7 @@ public class KeyTreeLabelProvider extends StyledCellLabelProvider {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("7a990fd7-7eb4-40fa-a04f-1aef62fb6353")
@@ -110,13 +110,13 @@ public class KeyTreeLabelProvider extends StyledCellLabelProvider {
         ISymbolViewItem element = (ISymbolViewItem) cell.getElement();
         ISymbolViewModel viewModel = this.modelSupplier.get();
         List<? extends ISymbolViewItem> children = viewModel.getChildren(element);
-        
+
         String cellText = element.getLabel();
         if (cellText == null) {
             cellText = "";
         }
         cell.setText(cellText);
-        
+
         StyleRange styleRange = new StyleRange();
         if (!children.isEmpty()) {
             // Item with children, set bold if any child is locally modified
@@ -124,7 +124,7 @@ public class KeyTreeLabelProvider extends StyledCellLabelProvider {
             styleRange.length = cellText.length();
             styleRange.foreground = KeyTreeLabelProvider.heritedColor;
             styleRange.font = null;
-        
+
             for (ISymbolViewItem item : children) {
                 if (item.isLocallyModified(getEditedStyle())) {
                     styleRange.foreground = KeyTreeLabelProvider.localColor;
@@ -134,10 +134,10 @@ public class KeyTreeLabelProvider extends StyledCellLabelProvider {
             }
         } else {
             StyleKey skey = element.getStyleKey();
-        
+
             styleRange.start = 0;
             styleRange.length = cellText.length();
-        
+
             if (skey != null && getEditedStyle().isDynamicValue(skey)) {
                 styleRange.font = getLocalDynamicFont(cell.getFont());
                 styleRange.foreground = KeyTreeLabelProvider.heritedColor;
@@ -149,7 +149,7 @@ public class KeyTreeLabelProvider extends StyledCellLabelProvider {
                 styleRange.font = null;
             }
         }
-        
+
         int index = cellText.indexOf("(");
         if (index != -1) {
             // Item with children, set bold if any child is locally modified
@@ -158,7 +158,7 @@ public class KeyTreeLabelProvider extends StyledCellLabelProvider {
             fromRange.length = cellText.length() - index;
             fromRange.font = getFromFont(cell.getFont());
             fromRange.foreground = fromRange.foreground = UIColor.LIGHTGRAY;
-        
+
             cell.setStyleRanges(new StyleRange[] { styleRange, fromRange });
         } else {
             cell.setStyleRanges(new StyleRange[] { styleRange });
@@ -208,7 +208,7 @@ public class KeyTreeLabelProvider extends StyledCellLabelProvider {
         } finally {
             gc.dispose();
         }
-        
+
     }
 
     @objid ("14a64028-8935-4bc7-8043-47df9ee10b42")
@@ -218,7 +218,7 @@ public class KeyTreeLabelProvider extends StyledCellLabelProvider {
         if (event.height < 24) {
             event.height = 24;
         }
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vbasic.auth;
 
@@ -27,6 +27,7 @@ import org.modelio.vbasic.net.HttpUriException;
 
 /**
  * OpenID Connect authentication data, based on an access token.
+ *
  * @author cmarin
  * @since 5.2
  */
@@ -46,18 +47,20 @@ public class OidcAuthData extends AuthData {
 
     /**
      * C'tor
+     *
      * @param tokenProvider a way to get an access token
      * @param kuid uid of the current user
      */
     @objid ("c73e1ef5-2646-421e-8811-ca11de815330")
-    public  OidcAuthData(OAuthTokenProvider tokenProvider, String kuid) {
+    public OidcAuthData(OAuthTokenProvider tokenProvider, String kuid) {
         super();
         this.tokenProvider = tokenProvider;
         getData().put(KUID, kuid);
-        
+
     }
 
     /**
+     *
      * @return the user ID or <code>null</code>
      */
     @objid ("46dcb7e4-ee8b-4f17-bf2d-630d43df520e")
@@ -73,7 +76,7 @@ public class OidcAuthData extends AuthData {
         } catch (IOException e) {
             return false;
         }
-        
+
     }
 
     @objid ("e1527c6b-3c07-4513-994b-9b9415cc5e6c")
@@ -83,6 +86,7 @@ public class OidcAuthData extends AuthData {
     }
 
     /**
+     *
      * @return the access token or <code>null</code>
      * @throws IOException on I/O or HTTP error
      */
@@ -107,13 +111,14 @@ public class OidcAuthData extends AuthData {
     @FunctionalInterface
     public interface OAuthTokenProvider {
         /**
+         *
          * @return the OAuth/OIDC token.
          * @throws HttpUriException on HTTP error
          * @throws IOException on I/O error
          */
         @objid ("06532f25-5010-4a3d-b4ad-0c7ac8322b22")
         String getToken() throws HttpUriException, IOException;
-}
-    
+
+    }
 
 }

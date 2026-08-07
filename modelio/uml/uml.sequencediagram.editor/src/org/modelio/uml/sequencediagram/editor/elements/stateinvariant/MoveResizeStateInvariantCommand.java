@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.stateinvariant;
 
@@ -48,11 +48,11 @@ public class MoveResizeStateInvariantCommand extends Command {
         stateInvariant.setLineNumber(this.startTime);
         stateInvariant.setEndLineNumber(this.finishTime);
         this.gmStateInvariant.setLayoutData(this.newLayoutData);
-        
     }
 
     /**
      * Sets the new "end time" of the StateInvariant.
+     *
      * @param value the new "end time" of the StateInvariant.
      */
     @objid ("d99a98e1-55b6-11e2-877f-002564c97630")
@@ -62,6 +62,7 @@ public class MoveResizeStateInvariantCommand extends Command {
 
     /**
      * Sets the modified StateInvariant.
+     *
      * @param value the modified StateInvariant.
      */
     @objid ("d99a98e5-55b6-11e2-877f-002564c97630")
@@ -71,6 +72,7 @@ public class MoveResizeStateInvariantCommand extends Command {
 
     /**
      * Sets the new "time" of the StateInvariant.
+     *
      * @param value the new "time" of the StateInvariant.
      */
     @objid ("d99a98e9-55b6-11e2-877f-002564c97630")

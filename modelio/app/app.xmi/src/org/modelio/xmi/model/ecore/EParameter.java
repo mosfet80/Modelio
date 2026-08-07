@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -42,6 +42,7 @@ import org.modelio.xmi.util.ObjingEAnnotation;
 
 /**
  * This class manages the import of Ecore org.eclipse.uml2.uml.Parameter
+ *
  * @author ebrosse
  */
 @objid ("7b318699-6419-4992-adf0-4688a549b63f")
@@ -57,23 +58,24 @@ public class EParameter extends ENamedElement {
         }else{
             return ReverseProperties.getInstance().getMModelServices().getModelFactory().getFactory(IStandardModelFactory.class).createParameter();
         }
-        
+
     }
 
     /**
      * Constructor of EParameter.
      * It takes the imported Ecore org.eclipse.uml2.uml.Parameter as parameter
+     *
      * @param element : the imported Ecore org.eclipse.uml2.uml.Parameter
      */
     @objid ("7317f0af-0d1c-4839-9c21-3867c7da209e")
-    public  EParameter(final org.eclipse.uml2.uml.Parameter element) {
+    public EParameter(final org.eclipse.uml2.uml.Parameter element) {
         super(element);
-        
+
         org.eclipse.uml2.uml.Element owner = element.getOwner();
         if (owner != null){
             this.isBehavior = !(ReverseProperties.getInstance().getMappedElement(owner) instanceof Operation);
         }
-        
+
     }
 
     @objid ("9141f934-8c71-4a7c-9970-65e94bed4595")
@@ -88,9 +90,9 @@ public class EParameter extends ENamedElement {
                 else{
                     objingElt.delete();
                 }
-        
+
             }else{
-        
+
                 org.eclipse.uml2.uml.Element ecoreOwner = ecoreElement.getOwner();
                 Element objingOperation = null;
                 try{
@@ -99,10 +101,10 @@ public class EParameter extends ENamedElement {
                 }catch (RuntimeException e){
                     Xmi.LOG.error(e);
                 }
-        
+
                 if ((objingOperation instanceof Operation)){
                     org.eclipse.uml2.uml.ParameterDirectionKind direction = ecoreElement.getDirection();
-        
+
                     // The same processing is applied for In, Out and InOut
                     // parameters. Only the return
                     // value is a specific case:
@@ -129,7 +131,7 @@ public class EParameter extends ENamedElement {
                             String message = Xmi.I18N.getMessage("logFile.warning.multipleReturnParameter", ((org.eclipse.uml2.uml.BehavioralFeature) ecoreOwner).getName());
                             ReverseProperties.getInstance().addError(message);
                         }
-        
+
                         ((Operation) objingOperation)
                         .setReturn((Parameter) objingElt);
                         break;
@@ -144,7 +146,7 @@ public class EParameter extends ENamedElement {
                 }
             }
         }
-        
+
     }
 
     @objid ("7187731d-1eb7-4d67-87e5-9abb5d357094")
@@ -153,25 +155,25 @@ public class EParameter extends ENamedElement {
         super.setProperties(objingElt);
         if (objingElt != null) {
             ReverseProperties revProp = ReverseProperties.getInstance();
-        
+
             setType((Parameter) objingElt);
             setDefaultValue((Parameter) objingElt);
             setDirection((Parameter) objingElt);
             setMultiplicity((Parameter) objingElt);
             setUnique((Parameter) objingElt);
             setOrdered((Parameter) objingElt);
-        
+
             if (revProp.isRoundtripEnabled()) {
                 setTypeConstraint((Parameter) objingElt);
             }
-        
+
             if (this.isBehavior){
                 setEffect((BehaviorParameter) objingElt);
                 setIsException((BehaviorParameter) objingElt);
                 setIsStream((BehaviorParameter) objingElt);
             }
         }
-        
+
     }
 
     @objid ("d2fe5d26-f243-4086-812c-cd865a0d60f1")
@@ -184,7 +186,7 @@ public class EParameter extends ENamedElement {
                 if (spec != null){
                     Object instance  = ReverseProperties.getInstance().getMappedElement(spec);
                     if ((instance != null) && (instance instanceof Instance)) {
-        
+
                         try {
                             ReverseProperties.getInstance().getMModelServices().getModelFactory().getFactory(IStandardModelFactory.class).createDependency(objingElt, (Instance) instance, IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2INSTANCEVALUE);
                         } catch (ExtensionNotFoundException e) {
@@ -198,19 +200,19 @@ public class EParameter extends ENamedElement {
                     objingElt.setDefaultValue(defaultValueStr);
             }
         }else{
-        
+
             String value = ecoreElement.getDefault();
             if (value != null)
                 objingElt.setDefaultValue(value);
         }
-        
+
     }
 
     @objid ("1af1b0c6-3072-4d79-9799-7bda02e9a92f")
     private void setDirection(Parameter objingElt) {
         org.eclipse.uml2.uml.Parameter ecoreElement = ((org.eclipse.uml2.uml.Parameter)getEcoreElement());
         org.eclipse.uml2.uml.ParameterDirectionKind direction = ecoreElement.getDirection();
-        
+
         switch (direction.getValue()) {
         case org.eclipse.uml2.uml.ParameterDirectionKind.IN:
             objingElt.setParameterPassing(PassingMode.IN);
@@ -227,30 +229,30 @@ public class EParameter extends ENamedElement {
             objingElt.setParameterPassing(PassingMode.INOUT);
             break;
         }
-        
+
     }
 
     @objid ("8df8b299-3de2-439c-8372-b6ef97e16ae2")
     private void setMultiplicity(Parameter objingElt) {
         objingElt.setMultiplicityMin(EcoreModelNavigation.getMultiplicityMin((org.eclipse.uml2.uml.Parameter) this.getEcoreElement()));
-        
-        
+
+
         objingElt.setMultiplicityMax(EcoreModelNavigation.getMultiplicityMax((org.eclipse.uml2.uml.Parameter)this.getEcoreElement()));
-        
+
     }
 
     @objid ("4e3ab1fc-c488-48a7-b90a-b9f4409282a3")
     private void setType(Parameter objingElt) {
         ReverseProperties revProp = ReverseProperties.getInstance();
-        
+
         org.eclipse.uml2.uml.Parameter ecoreElement = ((org.eclipse.uml2.uml.Parameter)getEcoreElement());
-        
+
         org.eclipse.uml2.uml.Type ecoreType = ecoreElement.getType();
-        
+
         if (ecoreType != null) {
             Element objingType = (Element) revProp
                     .getMappedElement(ecoreType);
-        
+
             if (objingType != null) {
                 if (objingType instanceof GeneralClass) {
                     objingElt.setType((GeneralClass) objingType);
@@ -268,7 +270,7 @@ public class EParameter extends ENamedElement {
             else
                 objingElt.setType(null);
         }
-        
+
     }
 
     @objid ("14641a50-f708-47e6-adc2-1c29c8620fe8")
@@ -277,7 +279,7 @@ public class EParameter extends ENamedElement {
                 .getTypeConstraint((getEcoreElement()));
         if (typeConstraint != null)
             objingElt.setTypeConstraint(typeConstraint);
-        
+
     }
 
     @objid ("570edac3-0145-4e79-86eb-8fdaaef7e8dd")
@@ -308,9 +310,9 @@ public class EParameter extends ENamedElement {
             break;
         default:
             break;
-        
+
         }
-        
+
     }
 
     @objid ("4e01aaae-cdc6-4da4-8e33-324f17084b86")

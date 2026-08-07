@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.stateMachineModel;
 
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("004d701a-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class AbstractPseudoStateImpl extends StateVertexImpl implements AbstractPseudoState {
-    @objid ("cbf44d38-0a2b-4297-985f-100ea3a3eb64")
+    @objid ("84612354-fd94-4e39-bb8a-fa5db4cea2da")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -49,17 +48,17 @@ public abstract class AbstractPseudoStateImpl extends StateVertexImpl implements
         return super.getCompositionOwner();
     }
 
-    @objid ("38482145-4146-4bad-98dd-8d84e240e17a")
+    @objid ("b5b25430-9263-4f3d-8461-04d8ac79f398")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("d4120eba-7369-4b04-9015-2cbb9f099da8")
+    @objid ("8dd298ac-518e-4451-bfb0-be6cbc73fe39")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitAbstractPseudoState(this);

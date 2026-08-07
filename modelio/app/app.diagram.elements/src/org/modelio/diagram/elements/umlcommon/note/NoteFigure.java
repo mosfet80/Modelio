@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.umlcommon.note;
 
@@ -94,7 +94,7 @@ public class NoteFigure extends ShapedFigure {
         this.anchoringBorderPosition = direction;
         this.lightNoteBorderShaper.setAnchoringSide(direction);
         setGradientDirection(direction);
-        
+
     }
 
     @objid ("ad6525b7-46dd-4b45-95c4-705035408e2c")
@@ -106,22 +106,22 @@ public class NoteFigure extends ShapedFigure {
      * Creates a note figure.
      */
     @objid ("818d8652-1dec-11e2-8cad-001ec947c8cc")
-    public  NoteFigure(boolean lightRepresentation) {
+    public NoteFigure(boolean lightRepresentation) {
         super();
-        
+
         this.lightRepresentation = lightRepresentation;
-        
+
         ToolbarLayout layout = new NoteLayout();
         layout.setStretchMinorAxis(true);
         setLayoutManager(layout);
-        
+
         // First child: the title area
         this.title = new Label();
         TLBRBorder tlbrBorder = new TLBRBorder(getLineColor(), 1, false, false, true, false);
         tlbrBorder.setStyle(Graphics.LINE_DOT);
         this.title.setBorder(new CompoundBorder(tlbrBorder, new MarginBorder(1)));
         this.add(this.title);
-        
+
         // The note text figure list is placed in a TRANSPARENT scroll pane
         this.scrollPane = new TransparentScrollPane();
         this.scrollPane.getViewport().setContentsTracksWidth(true);
@@ -130,16 +130,16 @@ public class NoteFigure extends ShapedFigure {
         this.scrollPane.setVerticalScrollBarVisibility(ScrollPane.AUTOMATIC);
         this.scrollPane.setHorizontalScrollBarVisibility(ScrollPane.AUTOMATIC);
         this.scrollPane.setBorder(new MarginBorder(1));
-        
+
         FlowPage page = createPlainTextFigure("");
         this.contentFigure = page;
-        
+
         this.scrollPane.setContents(this.contentFigure);
-        
+
         this.add(this.scrollPane);
-        
+
         configure(this.lightRepresentation);
-        
+
     }
 
     @objid ("ca168ab4-a279-4985-aa4e-39bbbbe6da1e")
@@ -155,7 +155,7 @@ public class NoteFigure extends ShapedFigure {
             this.title.setVisible(true);
             this.add(this.title, 0);
         }
-        
+
     }
 
     @objid ("685d8437-b1e4-4681-9605-3fd27b78beff")
@@ -166,7 +166,7 @@ public class NoteFigure extends ShapedFigure {
         if (!this.lightRepresentation) {
             ((TLBRBorder) ((CompoundBorder) this.title.getBorder()).getOuterBorder()).setColor(lineColor);
         }
-        
+
     }
 
     @objid ("4ee668cd-6e08-47d7-95f8-77fa10f7d9b2")
@@ -174,11 +174,12 @@ public class NoteFigure extends ShapedFigure {
     public void setLineWidth(int lineWidth) {
         super.setLineWidth(lineWidth);
         ((ShapedBorder) getBorder()).setWidth(lineWidth);
-        
+
     }
 
     /**
      * Get the note content figure.
+     *
      * @return The figure where the note content is displayed.
      */
     @objid ("818d8655-1dec-11e2-8cad-001ec947c8cc")
@@ -188,6 +189,7 @@ public class NoteFigure extends ShapedFigure {
 
     /**
      * Set note content and mode.
+     *
      * @param content the content, as HTML or plain text
      * @param htmlMode true to activate the HTML mode
      */
@@ -198,12 +200,12 @@ public class NoteFigure extends ShapedFigure {
             if (this.contentsText != null) {
                 // previous mode is plain text, switch to HTML
                 Figure childFig = createHtmlFigure(content);
-        
+
                 this.scrollPane.setContents(childFig);
                 this.contentFigure = childFig;
                 this.contentFigure.setFont(getTextFont());
                 this.contentFigure.setForegroundColor(getTextColor());
-        
+
                 this.fsHtmlFigure.setHtmlText(content);
                 this.contentsText = null;
             } else {
@@ -216,20 +218,20 @@ public class NoteFigure extends ShapedFigure {
                 // Previous mode is HTML, switch to plain text
                 // Create PageFlow for plain text mode
                 FlowPage page = createPlainTextFigure(content);
-        
+
                 this.contentFigure = page;
                 this.contentFigure.setFont(getTextFont());
                 this.contentFigure.setForegroundColor(getTextColor());
-        
+
                 this.scrollPane.setContents(this.contentFigure);
-        
+
                 // Reset HTML figure pointers
                 this.fsHtmlFigure = null;
             } else {
                 this.contentsText.setText(content);
             }
         }
-        
+
     }
 
     @objid ("818d8660-1dec-11e2-8cad-001ec947c8cc")
@@ -238,7 +240,7 @@ public class NoteFigure extends ShapedFigure {
         this.title.setForegroundColor(textColor);
         this.contentFigure.setForegroundColor(textColor);
         super.setTextColor(textColor);
-        
+
     }
 
     @objid ("818d8664-1dec-11e2-8cad-001ec947c8cc")
@@ -248,24 +250,26 @@ public class NoteFigure extends ShapedFigure {
         this.title.setMinimumSize(this.title.getPreferredSize(-1, -1));
         this.contentFigure.setFont(textFont);
         super.setTextFont(textFont);
-        
+
     }
 
     /**
      * Set the displayed note type.
+     *
      * @param type the note type.
      */
     @objid ("818d8668-1dec-11e2-8cad-001ec947c8cc")
     public void setType(String type) {
         this.title.setText(type);
         this.title.setMinimumSize(this.title.getPreferredSize(-1, -1));
-        
+
     }
 
     /**
      * Convert a HTML text to plain text.
      * <p>
      * In the case where the conversion fails, the HTMl text is returned.
+     *
      * @param htmlText HTML text
      * @return plain text.
      */
@@ -276,6 +280,7 @@ public class NoteFigure extends ShapedFigure {
 
     /**
      * Creates HTMl representation .
+     *
      * @param htmlText the HTML text
      * @return the created figure
      */
@@ -287,6 +292,7 @@ public class NoteFigure extends ShapedFigure {
 
     /**
      * Creates the plain text mode figure: a FlowPage + a TextFlow
+     *
      * @param content the plain text
      * @return the plain text mode figure
      */
@@ -305,7 +311,7 @@ public class NoteFigure extends ShapedFigure {
     public void setLightRepresentation(boolean b) {
         this.lightRepresentation = b;
         configure(b);
-        
+
     }
 
     /**
@@ -317,7 +323,7 @@ public class NoteFigure extends ShapedFigure {
     @objid ("818d8672-1dec-11e2-8cad-001ec947c8cc")
     private static final class NoteLayout extends ToolbarLayoutWithGrab {
         @objid ("818fe875-1dec-11e2-8cad-001ec947c8cc")
-         NoteLayout() {
+        NoteLayout() {
             super(false);
         }
 
@@ -354,6 +360,7 @@ public class NoteFigure extends ShapedFigure {
 
         /**
          * Calculate the minimum size a note should be.
+         *
          * @param container the note figure
          * @param wHint the width hint (the desired width of the container)
          * @param hHint the height hint (the desired height of the container)
@@ -362,22 +369,22 @@ public class NoteFigure extends ShapedFigure {
         @objid ("818fe897-1dec-11e2-8cad-001ec947c8cc")
         private Dimension calculateMinSize(final NoteFigure container, final int wHint, final int hHint) {
             @SuppressWarnings ("synthetic-access")
-            
+
             Dimension ret = new Dimension(0, 0);
             if (!container.isLightRepresentation()) {
                 ret = container.title.getPreferredSize(wHint, -1).getCopy();
                 ret.width += UMLNoteShaper.FOLDSIZE * 2;
             }
             ret.union(super.calculateMinimumSize(container, wHint, hHint));
-            
+
             if (ret.width < 120) {
                 ret.width = 120;
             }
-            
+
             if (ret.height < 100) {
                 ret.height = 100;
             }
-            
+
             if (ret.width / ret.height > 4) {
                 ret = super.calculateMinimumSize(container, ret.height * 4, hHint);
             }
@@ -386,6 +393,7 @@ public class NoteFigure extends ShapedFigure {
 
         /**
          * Compute the ideal size of the note.
+         *
          * @param container the note figure
          * @param wHint the width hint (the desired width of the container)
          * @param hHint the height hint (the desired height of the container)
@@ -416,7 +424,7 @@ public class NoteFigure extends ShapedFigure {
     @objid ("81924ad9-1dec-11e2-8cad-001ec947c8cc")
     public static final class TransparentScrollPane extends ScrollPane {
         @objid ("81924ade-1dec-11e2-8cad-001ec947c8cc")
-        public  TransparentScrollPane() {
+        public TransparentScrollPane() {
             super();
         }
 
@@ -442,16 +450,16 @@ public class NoteFigure extends ShapedFigure {
         @Override
         public Path createShapePath(Rectangle rect) {
             Path path = new Path(Display.getCurrent());
-            
+
             Point[] points = computeShape(rect);
-            
+
             path.moveTo(points[0].x, points[0].y);
             path.lineTo(points[1].x, points[1].y);
             path.lineTo(points[3].x, points[3].y);
             path.lineTo(points[4].x, points[4].y);
             path.lineTo(points[5].x, points[5].y);
             path.lineTo(points[0].x, points[0].y);
-            
+
             path.moveTo(points[1].x, points[1].y);
             path.lineTo(points[2].x, points[2].y);
             path.lineTo(points[3].x, points[3].y);
@@ -460,7 +468,7 @@ public class NoteFigure extends ShapedFigure {
 
         /**
          * Compute the shape of the note figure in an array of Points.
-         * 
+         *
          * <pre>
          * 0--------1
          * |        |\
@@ -470,16 +478,17 @@ public class NoteFigure extends ShapedFigure {
          * |          |
          * 5----------4
          * </pre>
+         *
          * @param r the bounding box rectangle
          * @return the passed array or a new one
          */
         @objid ("7e78fa9d-3872-4c69-8392-f67dde7e8ad3")
         private Point[] computeShape(Rectangle r) {
             Point[] ret = new Point[6];
-            
+
             int right = r.right();
             int bottom = r.bottom();
-            
+
             ret[0] = new Point(r.x, r.y);
             ret[1] = new Point(right - UMLNoteShaper.FOLDSIZE, r.y);
             ret[2] = new Point(right - UMLNoteShaper.FOLDSIZE, r.y + UMLNoteShaper.FOLDSIZE);
@@ -516,21 +525,22 @@ public class NoteFigure extends ShapedFigure {
 
         /**
          * Compute the shape of the note figure in an array of Points.
-         * 
+         *
          * <pre>
          * NORTH
          * 0--------1
          * |        |
          * 3--------2
-         * 
+         *
          * </pre>
+         *
          * @param r the bounding box rectangle
          * @return the points array or a new one
          */
         @objid ("4dd58967-eff8-463c-8af0-07d822c93843")
         private Point[] computeShape(Rectangle r) {
             Point[] ret = new Point[4];
-            
+
             ret[0] = new Point(r.x, r.y);
             ret[1] = new Point(r.right(), r.y);
             ret[2] = new Point(r.right(), r.bottom());
@@ -576,37 +586,38 @@ public class NoteFigure extends ShapedFigure {
 
         /**
          * Compute the shape of the note figure in an array of Points.
-         * 
+         *
          * <pre>
          * NORTH
          * 1--------2
          * |        |
          * 0        3
-         * 
+         *
          * EAST
          * 0--1
          * |
          * |
          * 3--2
-         * 
+         *
          * WEST
          * 1--0
          * |
          * |
          * 2--3
-         * 
+         *
          * SOUTH
          * 0        3
          * |        |
          * 1 ------ 2
          * </pre>
+         *
          * @param r the bounding box rectangle
          * @return the passed array or a new one
          */
         @objid ("93384c33-a2af-4fc2-8804-1e6d30521e7e")
         private Point[] computeShape(Rectangle r) {
             Point[] ret = new Point[4];
-            
+
             switch (this.anchoringSide) {
             case WEST:
                 ret[0] = new Point(r.x() + BRACKETSIZE, r.y);
@@ -633,7 +644,7 @@ public class NoteFigure extends ShapedFigure {
                 ret[2] = new Point(r.right(), r.y);
                 ret[3] = new Point(r.right(), r.y + BRACKETSIZE);
                 break;
-            
+
             }
             return ret;
         }

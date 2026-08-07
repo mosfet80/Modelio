@@ -1,0 +1,20 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= Raffinement d'élément
+
+
+
+= Vue d'ensemble
+
+Modelio fourni une fonction de transformation de modèle appelée *raffinement*. Le raffinement permet de créer des éléments de modèle appartenant à un formalisme particulier à partir d'éléments de modèles appartenant à un autre formalisme. Le raffinement maintient également un lien entre les éléments de modèles transformés pour des raisons de traçabilité.
+
+Un exemple typique consiste à raffiner un modèle d'analyse haut niveau ArchiMate en un modèle UML destiné à la conception ou à l'implémentation des concepts du modèle ArchiMate initial.
+
+*  <<User_Documentation_fr_Raffinement_d_element_Concept_de_raffinement.adoc#,Concepts de raffinement>> explique comment le système de raffinement de Modelio fonctionne.
+*  <<User_Documentation_fr_Raffinement_d_element_Raffiner_les_elements.adoc#,Raffiner les éléments>> est un guide d'utilisation du raffinement simple.
+*  <<User_Documentation_fr_Raffinement_d_element_Remplir_par_raffinement.adoc#,Remplir par raffinement>> est un guide sur les utilisations plus complexe du raffinement.

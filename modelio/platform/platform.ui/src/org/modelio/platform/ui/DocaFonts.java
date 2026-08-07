@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.ui;
 
@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.Display;
  * The DocaFonts fonts are pre-allocated resources for Modelio that can be used without having to deal with their lifecycle (they are available once Modelio starts and only freed when Modelio stops).<br/>
  * These fonts follow the DocaPoste 'Pollux' UI recommendation.</br>
  * They can be used for documents-like UI but they are not intended to be used for UI controls for which  'system' like fonts are recommended  see  {@link UiFont}.
- * 
+ *
  * <p>Note that the used Barlow and Montserrat fonts might not be installed on the system in which case fallback fonts will be determined by the system itself with unpredictable results.</p>
  */
 @objid ("27034bae-28b2-4ee8-ae16-faa262bb4e9f")

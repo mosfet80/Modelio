@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -47,75 +46,75 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00981c78-c4be-1fd8-97fe-001ec947cd2a")
 public class AttributeImpl extends StructuralFeatureImpl implements Attribute {
-    @objid ("a936e847-e8e5-48dd-a58a-ddfe7c94c813")
+    @objid ("92fb3fb4-839e-45d7-8b5d-e040615f5830")
     @Override
     public String getTypeConstraint() {
         return (String) getAttVal(((AttributeSmClass)getClassOf()).getTypeConstraintAtt());
     }
 
-    @objid ("261986ff-1824-4eec-825c-1d8bbca9990d")
+    @objid ("05961097-a720-4e2d-a185-da303b1c6f84")
     @Override
     public void setTypeConstraint(String value) {
         setAttVal(((AttributeSmClass)getClassOf()).getTypeConstraintAtt(), value);
     }
 
-    @objid ("1bd1b529-c8f2-4be7-9b9b-a85ab71f34aa")
+    @objid ("087ebfa4-3594-44b9-8e36-d152550d1a1e")
     @Override
     public String getValue() {
         return (String) getAttVal(((AttributeSmClass)getClassOf()).getValueAtt());
     }
 
-    @objid ("8cc88999-f220-48af-b7dc-72ca5204eb81")
+    @objid ("8f79ada9-f0c7-485a-83f7-02b256b1b244")
     @Override
     public void setValue(String value) {
         setAttVal(((AttributeSmClass)getClassOf()).getValueAtt(), value);
     }
 
-    @objid ("dd95e2ee-f666-47f0-86b8-5875d75458fb")
+    @objid ("32979a7b-819a-4361-82bd-f515a38253c4")
     @Override
     public boolean isTargetIsClass() {
         return (Boolean) getAttVal(((AttributeSmClass)getClassOf()).getTargetIsClassAtt());
     }
 
-    @objid ("bfd6200d-20b9-4c6d-8322-6358b88c81cd")
+    @objid ("b7f6f2c4-8880-4677-960d-953222db2dfd")
     @Override
     public void setTargetIsClass(boolean value) {
         setAttVal(((AttributeSmClass)getClassOf()).getTargetIsClassAtt(), value);
     }
 
-    @objid ("51c91037-8c19-400d-a893-e126bf0d152b")
+    @objid ("02707ac0-7531-4808-aa92-46515a639e17")
     @Override
     public GeneralClass getType() {
         Object obj = getDepVal(((AttributeSmClass)getClassOf()).getTypeDep());
         return (obj instanceof GeneralClass)? (GeneralClass)obj : null;
     }
 
-    @objid ("003ea147-7f99-4d0b-b073-9c8d98b676fe")
+    @objid ("06227003-b783-4a27-9687-317e9210c555")
     @Override
     public void setType(GeneralClass value) {
         appendDepVal(((AttributeSmClass)getClassOf()).getTypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("901e178a-e72d-4083-accc-9e0295e996c6")
+    @objid ("993fd249-1021-4284-af97-19b961a37016")
     @Override
     public Classifier getOwner() {
         Object obj = getDepVal(((AttributeSmClass)getClassOf()).getOwnerDep());
         return (obj instanceof Classifier)? (Classifier)obj : null;
     }
 
-    @objid ("97c52e85-4d3c-4662-b30a-cf100beb5d6a")
+    @objid ("8f3c0f6c-fbad-4d2f-950c-6c472a8d1a44")
     @Override
     public void setOwner(Classifier value) {
         appendDepVal(((AttributeSmClass)getClassOf()).getOwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("54f475ab-a19e-4793-86a4-721283afe7f4")
+    @objid ("7b40ebbd-d7e1-4a6a-be9d-21e0bb08324b")
     @Override
     public EList<AttributeLink> getOccurence() {
         return new SmList<>(this, ((AttributeSmClass)getClassOf()).getOccurenceDep());
     }
 
-    @objid ("29c91af4-c996-4142-b1c9-93ab6b375e02")
+    @objid ("ac5d4d65-3b0c-48ec-8148-0330ca61d3c7")
     @Override
     public <T extends AttributeLink> List<T> getOccurence(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -128,16 +127,16 @@ public class AttributeImpl extends StructuralFeatureImpl implements Attribute {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("468331ec-9bd6-4b58-91bb-d251b4e1c39f")
+    @objid ("87fc4976-d249-4ae1-a57a-fb6d0a1fd4fb")
     @Override
     public EList<ObjectNode> getRepresentingObjectNode() {
         return new SmList<>(this, ((AttributeSmClass)getClassOf()).getRepresentingObjectNodeDep());
     }
 
-    @objid ("1845722f-800d-4d51-ba8f-6f74065ece15")
+    @objid ("5de2696e-60b2-4960-977b-071eb34f7d7e")
     @Override
     public <T extends ObjectNode> List<T> getRepresentingObjectNode(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -150,23 +149,23 @@ public class AttributeImpl extends StructuralFeatureImpl implements Attribute {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("da04b36e-4fac-4117-9648-cdafa65f9473")
+    @objid ("cd6fe227-2d3c-4d42-b706-9e18f3c404ca")
     @Override
     public AssociationEnd getQualified() {
         Object obj = getDepVal(((AttributeSmClass)getClassOf()).getQualifiedDep());
         return (obj instanceof AssociationEnd)? (AssociationEnd)obj : null;
     }
 
-    @objid ("3133190a-8828-4d40-a675-26747647469b")
+    @objid ("2a2922a1-b4e7-402b-8e26-d5ddfe64b7c0")
     @Override
     public void setQualified(AssociationEnd value) {
         appendDepVal(((AttributeSmClass)getClassOf()).getQualifiedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a98438b5-aeaa-4f6d-a688-9c75dcb3f222")
+    @objid ("ae40a300-bc2b-428c-9f63-20b46a8e2986")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -182,27 +181,27 @@ public class AttributeImpl extends StructuralFeatureImpl implements Attribute {
         return super.getCompositionOwner();
     }
 
-    @objid ("6ebcf563-b31b-4606-a02d-2bcb1ae55e8b")
+    @objid ("24dc036a-a4c1-4397-ad31-9f627fbe83d7")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // Owner
         dep = ((AttributeSmClass)getClassOf()).getOwnerDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         // Qualified
         dep = ((AttributeSmClass)getClassOf()).getQualifiedDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("a734fdee-4485-4fb3-a95c-6785cb69c620")
+    @objid ("09b2fbd5-8880-43bb-8a8e-bda58b74b67c")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitAttribute(this);

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.stateMachineModel;
 
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0052027e-c4bf-1fd8-97fe-001ec947cd2a")
 public class JoinPseudoStateImpl extends AbstractPseudoStateImpl implements JoinPseudoState {
-    @objid ("47c0d96f-0beb-471e-b7a3-44de49c7f536")
+    @objid ("8161a4ad-44b0-43d3-8269-3e66034a82c7")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -49,17 +48,17 @@ public class JoinPseudoStateImpl extends AbstractPseudoStateImpl implements Join
         return super.getCompositionOwner();
     }
 
-    @objid ("4cea6b6f-bf04-42c3-a748-2b255190b14b")
+    @objid ("459183ef-8da7-4795-bf25-4795793611d8")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("990ba9c2-ad56-4620-9892-dd7c20443713")
+    @objid ("d305a770-c8ba-4ea4-9496-244adf5fce23")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitJoinPseudoState(this);

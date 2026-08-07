@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.image;
 
@@ -66,6 +66,7 @@ public class UmlElementImageProvider implements IElementImageProvider, IMetamode
 
     /**
      * Get the icon for a metaclass and a flavor
+     *
      * @param metaclass a metaclass
      * @param flavor a flavor to concatenate to the lookup key.
      * @return the found icon or a default unknown icon.
@@ -85,6 +86,7 @@ public class UmlElementImageProvider implements IElementImageProvider, IMetamode
 
     /**
      * Get the diagram big image for a metaclass and a flavor.
+     *
      * @param metaclass a metaclass
      * @param flavor a flavor to concatenate to the lookup key.
      * @return the found image or null.
@@ -97,6 +99,7 @@ public class UmlElementImageProvider implements IElementImageProvider, IMetamode
     }
 
     /**
+     *
      * @return a flavor to concatenate to the lookup key. Might be <code>null</code>.
      */
     @objid ("e2a879bd-93b6-414a-9be8-9f7759531ec3")
@@ -121,7 +124,7 @@ public class UmlElementImageProvider implements IElementImageProvider, IMetamode
             keyBuffer.append(flavor);
             return keyBuffer.toString();
         }
-        
+
     }
 
     @objid ("2b705211-be00-433d-98c1-07060a3a67c5")
@@ -137,6 +140,7 @@ public class UmlElementImageProvider implements IElementImageProvider, IMetamode
 
     /**
      * Get the icon for a metaclass.
+     *
      * @param metaclassName a metaclass name.
      * @return the metaclass icon.
      */
@@ -155,7 +159,7 @@ public class UmlElementImageProvider implements IElementImageProvider, IMetamode
     @objid ("e8ad69b4-cd30-4060-b0ca-fffb42ff1721")
     private QualifiedImage getImageFromKey(final String key) {
         Image image = UmlElementImageProvider.REGISTRY.get(key);
-        
+
         if (image == null) {
             image = loadImage(key);
             if (image != null) {
@@ -195,7 +199,7 @@ public class UmlElementImageProvider implements IElementImageProvider, IMetamode
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("6f641c17-7a12-4566-bd06-cbe9a092581b")
@@ -220,7 +224,7 @@ public class UmlElementImageProvider implements IElementImageProvider, IMetamode
             } else {
                 return null;
             }
-            
+
         }
 
         @objid ("8c011f86-1770-11e2-aa0d-002564c97630")
@@ -231,7 +235,7 @@ public class UmlElementImageProvider implements IElementImageProvider, IMetamode
             } else {
                 return visitBehavior(theStateMachine);
             }
-            
+
         }
 
         @objid ("8c011f8b-1770-11e2-aa0d-002564c97630")
@@ -245,9 +249,9 @@ public class UmlElementImageProvider implements IElementImageProvider, IMetamode
             case KINDISASSOCIATION:
             default:
                 return null;
-            
+
             }
-            
+
         }
 
         @objid ("8c01469a-1770-11e2-aa0d-002564c97630")
@@ -260,7 +264,7 @@ public class UmlElementImageProvider implements IElementImageProvider, IMetamode
                 // Output expansion node
                 return "outputelement";
             }
-            
+
         }
 
         @objid ("8c016da8-1770-11e2-aa0d-002564c97630")
@@ -274,7 +278,7 @@ public class UmlElementImageProvider implements IElementImageProvider, IMetamode
                 // Output expansion node
                 return null;
             }
-            
+
         }
 
         @objid ("8c016dad-1770-11e2-aa0d-002564c97630")
@@ -301,7 +305,7 @@ public class UmlElementImageProvider implements IElementImageProvider, IMetamode
                 // or 'referenced'
                 return "referenced";
             }
-            
+
         }
 
     }

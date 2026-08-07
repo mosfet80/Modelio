@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.factories;
 
@@ -195,7 +195,7 @@ public class BpmnEditPartFactory implements EditPartFactory {
     @Override
     public EditPart createEditPart(EditPart context, Object model) {
         EditPart editPart = null;
-        
+
         if (model instanceof GmNodeModel) {
             // For node models, delegates according the representation model.
             GmNodeModel node = (GmNodeModel) model;
@@ -215,11 +215,11 @@ public class BpmnEditPartFactory implements EditPartFactory {
             default:
                 break;
             }
-        
+
             if (editPart != null) {
                 return editPart;
             }
-        
+
             return null;
         } else {
             // Link models are always in structured mode.
@@ -240,69 +240,69 @@ public class BpmnEditPartFactory implements EditPartFactory {
         @Override
         public EditPart createEditPart(EditPart context, Object model) {
             EditPart editPart = null;
-            
+
             Class<? extends Object> modelClass = model.getClass();
-            
+
             if (modelClass == GmBpmnProcessCollaborationDiagram.class) {
                 editPart = new BpmnProcessCollaborationDiagramEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model instanceof GmBpmnProcessDesignDiagram) {
                 editPart = new BpmnProcessDesignDiagramEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model instanceof GmBpmnSubProcessDiagram) {
                 editPart = new BpmnSubProcessDiagramEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnBusinessRuleTaskPrimaryNode.class) {
                 editPart = new BpmnBusinessRuleTaskEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnBusinessRuleTask.class) {
                 editPart = new BpmnPortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnTaskPrimaryNode.class) {
                 editPart = new BpmnTaskEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnTask.class) {
                 editPart = new BpmnPortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnSendTaskPrimaryNode.class) {
                 editPart = new BpmnSendTaskEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnSendTask.class) {
                 editPart = new BpmnPortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnReceiveTaskPrimaryNode.class) {
                 editPart = new BpmnReceiveTaskEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnReceiveTask.class) {
                 editPart = new BpmnPortContainerEditPart();
                 editPart.setModel(model);
@@ -313,13 +313,13 @@ public class BpmnEditPartFactory implements EditPartFactory {
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnServiceTaskTypeLabel.class) {
                 editPart = new ModelElementHeaderEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnServiceTask.class) {
                 editPart = new BpmnPortContainerEditPart();
                 editPart.setModel(model);
@@ -330,7 +330,7 @@ public class BpmnEditPartFactory implements EditPartFactory {
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnUserTask.class) {
                 editPart = new BpmnPortContainerEditPart();
                 editPart.setModel(model);
@@ -341,7 +341,7 @@ public class BpmnEditPartFactory implements EditPartFactory {
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnManualTask.class) {
                 editPart = new BpmnPortContainerEditPart();
                 editPart.setModel(model);
@@ -352,127 +352,127 @@ public class BpmnEditPartFactory implements EditPartFactory {
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnScriptTask.class) {
                 editPart = new BpmnPortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnNodeHeader.class) {
                 editPart = new BpmnNodeHeaderEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnNodeFooter.class) {
                 editPart = new BpmnNodeFooterEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnSequenceFlow.class) {
                 editPart = new BpmnSequenceFlowEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnSequenceFlowDataAssociation.class) {
                 editPart = new BpmnSequenceFlowDataAssociationEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnStartEvent.class) {
                 editPart = new BpmnPortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnBoundaryEvent.class) {
                 editPart = new BpmnPortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnIntermediateCatchEvent.class) {
                 editPart = new BpmnIntermediateCatchEventEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnEndEvent.class) {
                 editPart = new BpmnPortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnIntermediateThrowEvent.class) {
                 editPart = new BpmnIntermediateThrowEventEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnExclusiveGateway.class) {
                 editPart = new BpmnPortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnInclusiveGateway.class) {
                 editPart = new BpmnPortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnComplexGateway.class) {
                 editPart = new BpmnPortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnParallelGateway.class) {
                 editPart = new BpmnPortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnEventBasedGateway.class) {
                 editPart = new BpmnPortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnStartEventPrimaryNode.class) {
                 editPart = new BpmnStartEventPrimaryNodeEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnBoundaryEventPrimaryNode.class) {
                 editPart = new BpmnBoundaryEventPrimaryNodeEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnIntermediateCatchEventPrimaryNode.class) {
                 editPart = new BpmnIntermediateCatchEventPrimaryNodeEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnEndEventPrimaryNode.class) {
                 editPart = new BpmnEndEventPrimaryNodeEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnIntermediateThrowEventPrimaryNode.class) {
                 editPart = new BpmnIntermediateThrowEventPrimaryNodeEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnExclusiveGatewayPrimaryNode.class) {
                 editPart = new BpmnExclusiveGatewayEditPart();
                 editPart.setModel(model);
@@ -483,241 +483,241 @@ public class BpmnEditPartFactory implements EditPartFactory {
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnComplexGatewayPrimaryNode.class) {
                 editPart = new BpmnComplexGatewayEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnParallelGatewayPrimaryNode.class) {
                 editPart = new BpmnParallelGatewayEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnEventBasedGatewayPrimaryNode.class) {
                 editPart = new BpmnEventBasedGatewayEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnCallActivityPrimaryNode.class) {
                 editPart = new BpmnCallActivityEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnCallActivity.class) {
                 editPart = new BpmnPortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnAdHocSubProcess.class) {
                 editPart = new BpmnPortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnAdHocSubProcessPrimaryNode.class) {
                 editPart = new BpmnAdHocSubProcessEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnSubProcessContent.class) {
                 editPart = new SubProcessContentRootEditPart(context, model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnSubProcessPrimaryNode.class) {
                 editPart = new BpmnSubProcessEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnSubProcess.class) {
                 editPart = new BpmnPortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnTransactionPrimaryNode.class) {
                 editPart = new BpmnTransactionEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnTransaction.class) {
                 editPart = new BpmnPortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnAdHocSubProcessPrimaryNode.class) {
                 editPart = new BpmnAdHocSubProcessEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBodyFreeZone.class) {
                 editPart = new FreeZoneEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnLaneSetContainer.class) {
                 editPart = new BpmnLaneSetContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnLane.class) {
                 editPart = new BpmnLaneEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnLaneHeader.class) {
                 editPart = new BpmnLaneHeaderEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBodyHybridContainer.class) {
                 editPart = new BodyHybridContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnEdgeGuard.class) {
                 editPart = new ElementLabelEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnMessageFlow.class) {
                 editPart = new BpmnMessageFlowEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnMessagePrimaryNode.class) {
                 editPart = new BpmnMessageEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnMessage.class) {
                 editPart = new BpmnPortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnMessageLink.class) {
                 editPart = new BpmnMessageLinkEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnDataInputPrimaryNode.class) {
                 editPart = new BpmnDataInputEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnDataOutputPrimaryNode.class) {
                 editPart = new BpmnDataOutputEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnDataStorePrimaryNode.class) {
                 editPart = new BpmnDataStoreEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnDataObject.class) {
                 editPart = new BpmnPortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnDataInput.class) {
                 editPart = new BpmnPortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnDataOutput.class) {
                 editPart = new BpmnPortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnDataStore.class) {
                 editPart = new BpmnPortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnDataObjectPrimaryNode.class) {
                 editPart = new BpmnDataObjectEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnDataAssociation.class) {
                 editPart = new BpmnDataAssociationEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnDataLabel.class) {
                 editPart = new ModelElementLabelEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnMessageLabel.class) {
                 editPart = new ModelElementLabelEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnDataInputLabel.class) {
                 editPart = new ModelElementLabelEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnDataOutputLabel.class) {
                 editPart = new ModelElementLabelEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnCallActivityHeader.class) {
                 editPart = new BpmnCallActivityHeaderEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmWorkflow.class) {
                 editPart = new WorkflowEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Participant
             if (modelClass == GmBpmnParticipantHeader.class) {
                 editPart = new ParticipantHeaderEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnParticipantPrimaryNode.class) {
                 if (((GmBpmnParticipantPrimaryNode) model).getRepresentationMode() == RepresentationMode.STRUCTURED) {
                     editPart = new ParticipantPrimaryExpandedEditPart();
@@ -729,17 +729,17 @@ public class BpmnEditPartFactory implements EditPartFactory {
                     return editPart;
                 }
             }
-            
+
             if (modelClass == GmBpmnParticipantContent.class) {
                 editPart = new ParticipantContentRootEditPart(context, model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnParticipantPortContainer.class) {
                 editPart = new BpmnPortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
-            
+
             }
             return null;
         }
@@ -758,21 +758,21 @@ public class BpmnEditPartFactory implements EditPartFactory {
         @Override
         public EditPart createEditPart(EditPart context, Object model) {
             EditPart editPart = null;
-            
+
             Class<? extends Object> modelClass = model.getClass();
-            
+
             if (modelClass == GmBpmnMessagePrimaryNode.class) {
                 editPart = new BpmnMessageSimpleEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (modelClass == GmBpmnDataStorePrimaryNode.class) {
                 editPart = new BpmnDataStoreSimpleEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // No "simple" edit part found, fallback to structured edit part.
             return super.createEditPart(context, model);
         }
@@ -790,7 +790,7 @@ public class BpmnEditPartFactory implements EditPartFactory {
             // Port containers stay a port container in image mode
             if (model instanceof GmPortContainer) {
                 new IllegalStateException("Ports containers should never be in image mode.").printStackTrace();
-            
+
                 final EditPart editPart = new BpmnPortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;

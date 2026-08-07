@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.gmdbg;
 
@@ -49,11 +49,11 @@ public class GmTreeView {
     private TreeViewer treeViewer;
 
     @objid ("0cce793b-db6b-47be-bbe3-88a8608d149a")
-    public  GmTreeView(Composite parent) {
+    public GmTreeView(Composite parent) {
         this.treeViewer = new TreeViewer(parent, SWT.V_SCROLL | SWT.H_SCROLL);
         this.treeViewer.setLabelProvider(new GmTreeLabelProvider());
         this.treeViewer.setContentProvider(new GmTreecontentProvider());
-        
+
     }
 
     @objid ("197af0dd-3b5d-4269-8ec3-8b9c5301c435")
@@ -111,7 +111,7 @@ public class GmTreeView {
         @Override
         public Object[] getChildren(Object parent) {
             List<Object> results = new ArrayList<>();
-            
+
             if (parent instanceof GmEmbeddedDiagram) {
                 for (GmNodeModel child : ((GmEmbeddedDiagram) parent).getVisibleChildren()) {
                     results.add(child.getDiagram());
@@ -124,17 +124,17 @@ public class GmTreeView {
                 results.addAll(layer.getNodes());
                 results.addAll(layer.getStartingDrawingLinks());
             }
-            
+
             if (parent instanceof IGmLink) {
                 GmLink l = (GmLink) parent;
                 results.addAll(l.getExtensions());
             }
-            
+
             if (parent instanceof IGmLinkable) {
                 results.addAll(((IGmLinkable) parent).getStartingLinks());
                 results.addAll(((IGmLinkable) parent).getEndingLinks());
             }
-            
+
             if (parent instanceof GmAbstractDiagram) {
                 // results.addAll(((GmAbstractDiagram) parent).getAllDrawings());
                 results.addAll(((IGmDiagram) parent).getDrawingLayers());
@@ -152,7 +152,7 @@ public class GmTreeView {
             } else {
                 return null;
             }
-            
+
         }
 
         @objid ("7e1e8aeb-14cd-44a8-abaa-b67d045a6243")
@@ -160,22 +160,22 @@ public class GmTreeView {
         public boolean hasChildren(Object element) {
             if (element instanceof GmEmbeddedDiagram) {
                 return !((GmEmbeddedDiagram) element).getVisibleChildren().isEmpty();
-            
+
             } else if (element instanceof IGmDrawingLayer) {
                 IGmDrawingLayer layer = (IGmDrawingLayer) element;
                 return !layer.getNodes().isEmpty();
             }
-            
+
             if (element instanceof GmCompositeNode) {
                 if (!((GmCompositeNode) element).getChildren().isEmpty())
                     return true;
             }
-            
+
             if (element instanceof GmLink) {
                 if (! ((GmLink) element).getExtensions().isEmpty())
                     return true;
             }
-            
+
             if (element instanceof IGmLinkable) {
                 final IGmLinkable gmNode = (IGmLinkable) element;
                 return !(gmNode.getStartingLinks().isEmpty() && gmNode.getEndingLinks().isEmpty());

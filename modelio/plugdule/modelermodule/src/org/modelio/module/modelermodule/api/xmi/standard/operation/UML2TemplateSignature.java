@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class UML2TemplateSignature {
      * Tells whether a {@link UML2TemplateSignature proxy} can be instantiated from a {@link MObject} checking it is a {@link Operation} stereotyped << UML2TemplateSignature >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,7 +73,7 @@ public class UML2TemplateSignature {
 
     /**
      * Create a new {@link Operation} stereotyped << UML2TemplateSignature >> then instantiate a {@link UML2TemplateSignature} proxy.
-     * 
+     *
      * @return a {@link UML2TemplateSignature} proxy on the created {@link Operation}.
      */
     @objid ("1585fd55-35b7-4d21-9c52-197a1aea715d")
@@ -83,9 +84,10 @@ public class UML2TemplateSignature {
     }
 
     /**
-     * Tries to instantiate a {@link UML2TemplateSignature} proxy from a {@link Operation} stereotyped << UML2TemplateSignature >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2TemplateSignature} proxy from a {@link Operation} stereotyped << UML2TemplateSignature >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a Operation
      * @return a {@link UML2TemplateSignature} proxy or <i>null</i>.
      */
@@ -95,9 +97,10 @@ public class UML2TemplateSignature {
     }
 
     /**
-     * Tries to instantiate a {@link UML2TemplateSignature} proxy from a {@link Operation} stereotyped << UML2TemplateSignature >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2TemplateSignature} proxy from a {@link Operation} stereotyped << UML2TemplateSignature >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link Operation}
      * @return a {@link UML2TemplateSignature} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -127,7 +130,8 @@ public class UML2TemplateSignature {
     }
 
     /**
-     * Get the underlying {@link Operation}. 
+     * Get the underlying {@link Operation}.
+     *
      * @return the Operation represented by this proxy, never null.
      */
     @objid ("1d32cb47-4e9a-4675-8d29-6f12808bf425")
@@ -139,11 +143,11 @@ public class UML2TemplateSignature {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("463acf63-1422-4fb4-82a1-457c0c3d25a9")
-    protected  UML2TemplateSignature(Operation elt) {
+    protected UML2TemplateSignature(Operation elt) {
         this.elt = elt;
     }
 
@@ -163,7 +167,7 @@ public class UML2TemplateSignature {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "554cb8bb-5d0e-11df-a996-001302895b2b");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -171,7 +175,7 @@ public class UML2TemplateSignature {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

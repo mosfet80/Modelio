@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -64,26 +63,26 @@ public class LinkImpl extends UmlModelElementImpl implements Link {
         return super.getCompositionRelation();
     }
 
-    @objid ("744787b7-3df1-4322-9aca-063a47159cc1")
+    @objid ("6cbc1f79-5110-4b7d-84fa-4a4317a2bf2b")
     @Override
     public Association getModel() {
         Object obj = getDepVal(((LinkSmClass)getClassOf()).getModelDep());
         return (obj instanceof Association)? (Association)obj : null;
     }
 
-    @objid ("7349998f-f24c-470e-9f7f-2d962eb081fc")
+    @objid ("2ead42eb-8ff8-4317-aca3-b067e01a8efc")
     @Override
     public void setModel(Association value) {
         appendDepVal(((LinkSmClass)getClassOf()).getModelDep(), (SmObjectImpl)value);
     }
 
-    @objid ("c309ad30-b85d-4f80-bf9d-046f548807f8")
+    @objid ("dc40936b-a976-4c4c-8f85-51626c17b031")
     @Override
     public EList<LinkEnd> getLinkEnd() {
         return new SmList<>(this, ((LinkSmClass)getClassOf()).getLinkEndDep());
     }
 
-    @objid ("41881f3c-e0eb-48aa-b3fe-0324a6544a9a")
+    @objid ("5501b091-96f1-4584-8545-b56ae9a9fd6b")
     @Override
     public <T extends LinkEnd> List<T> getLinkEnd(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -96,23 +95,23 @@ public class LinkImpl extends UmlModelElementImpl implements Link {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("4b65e64d-c085-4876-b969-74be081aac9f")
+    @objid ("21658dbb-b5a7-43fb-8d25-723e441b7b91")
     @Override
     public CommunicationChannel getSent() {
         Object obj = getDepVal(((LinkSmClass)getClassOf()).getSentDep());
         return (obj instanceof CommunicationChannel)? (CommunicationChannel)obj : null;
     }
 
-    @objid ("2ea64ce7-3c7d-4079-8882-191c5dd12170")
+    @objid ("87241b83-564e-4d4c-95ed-1092b902f1a2")
     @Override
     public void setSent(CommunicationChannel value) {
         appendDepVal(((LinkSmClass)getClassOf()).getSentDep(), (SmObjectImpl)value);
     }
 
-    @objid ("6dabec80-bb68-46cd-bc34-6ce483a2086b")
+    @objid ("1f3798d2-ac88-4c7c-aa09-187581e0cb97")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitLink(this);

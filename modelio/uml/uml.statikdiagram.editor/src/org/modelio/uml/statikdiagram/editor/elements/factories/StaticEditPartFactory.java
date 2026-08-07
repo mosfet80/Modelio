@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.factories;
 
@@ -256,14 +256,14 @@ public class StaticEditPartFactory implements EditPartFactory {
             default:
                 editPart = null; // generically supported by standard factory
             }
-        
+
             return editPart;
         } else {
             // Link models are always in structured mode.
             editPart = this.structuredModeEditPartFactory.createEditPart(context, model);
             return editPart;
         }
-        
+
     }
 
     /**
@@ -275,96 +275,96 @@ public class StaticEditPartFactory implements EditPartFactory {
         @Override
         public EditPart createEditPart(EditPart context, Object model) {
             EditPart editPart = null;
-            
+
             if (model.getClass() == GmStaticDiagram.class) {
                 editPart = new StaticDiagramEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Information flow
             if (model.getClass() == GmInformationFlowLabel.class) {
                 editPart = new GroupItemEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmInfoFlowsGroup.class) {
                 editPart = new InfoFlowsGroupEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmInformationFlowArrow.class) {
                 editPart = new InformationArrowEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Abstraction
             if (model.getClass() == GmAbstraction.class) {
                 editPart = new DependencyEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // ElementRealization
             if (model.getClass() == GmElementRealization.class) {
                 editPart = new ElementRealizationEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Constraint
             if (model instanceof GmConstraintBody) {
                 editPart = new ConstraintBodyEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model instanceof GmConstraintBodyLabel) {
                 editPart = new ConstraintBodyLabelEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model instanceof GmConstraintLink) {
                 editPart = new ConstraintLinkEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Class & co
             if (model.getClass() == GmNamespaceHeader.class) {
                 editPart = new NamespaceHeaderEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmInnerClass.class) {
                 editPart = new InnerClassEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmClass.class) {
                 editPart = new TemplateContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmClassPrimaryNode.class) {
                 editPart = new ClassifierEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmClassifierResizableGroup.class) {
                 editPart = new ResizableGroupEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmNameSpaceLabel.class) {
                 editPart = new GroupItemEditPart();
                 editPart.setModel(model);
@@ -375,130 +375,130 @@ public class StaticEditPartFactory implements EditPartFactory {
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Class association
             if (model.getClass() == GmClassAssociationLink.class) {
                 editPart = new ClassAssociationLinkEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Component
             if (model.getClass() == GmComponent.class) {
                 editPart = new TemplateContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmComponentPrimaryNode.class) {
                 editPart = new ClassifierEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Signal
             if (model.getClass() == GmSignal.class) {
                 editPart = new TemplateContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmSignalPrimaryNode.class) {
                 editPart = new ClassifierEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Operation
             if (model.getClass() == GmOperationGroup.class) {
                 editPart = new OperationGroupEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmOperation.class) {
                 editPart = new OperationEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Attribute
             if (model.getClass() == GmAttributeGroup.class) {
                 editPart = new AttributeGroupEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmAttribute.class) {
                 editPart = new AttributeEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Port
             if (model.getClass() == GmPort.class) {
                 editPart = new PortEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmPortPrimaryNode.class) {
                 editPart = new PortPrimaryNodeEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Association
             if (model.getClass() == GmAssociation.class) {
                 editPart = new AssociationEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmRoleNameLabel.class) {
                 editPart = new RoleNameEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmLinkRoleNameLabel.class) {
                 editPart = new ModelElementLabelEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmNaryRoleNameLabel.class) {
                 editPart = new NaryRoleNameEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmRoleCardinalityLabel.class) {
                 editPart = new ElementLabelEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmNaryRoleCardinalityLabel.class) {
                 editPart = new ElementLabelEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Qualifier
             if (model.getClass() == GmQualifierGroup.class) {
                 editPart = new QualifierGroupEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // N-ary association
             if (model.getClass() == GmNAssocEndLink.class) {
                 editPart = new NAssocEndLinkEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmNAssocNode.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
@@ -509,14 +509,14 @@ public class StaticEditPartFactory implements EditPartFactory {
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // N-ary link
             if (model.getClass() == GmNLinkEndLink.class) {
                 editPart = new NLinkEndLinkEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmNLinkNode.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
@@ -527,14 +527,14 @@ public class StaticEditPartFactory implements EditPartFactory {
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // N-ary connector
             if (model.getClass() == GmNConnectorEndLink.class) {
                 editPart = new NLinkEndLinkEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmNConnectorNode.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
@@ -545,174 +545,174 @@ public class StaticEditPartFactory implements EditPartFactory {
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // MObject import
             if (model.getClass() == GmElementImport.class) {
                 editPart = new ElementImportEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Collaboration & co
             if (model.getClass() == GmCollaboration.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmCollaborationPrimaryNode.class) {
                 editPart = new CollaborationEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmCollaborationUse.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmCollaborationUsePrimaryNode.class) {
                 editPart = new CollaborationUseEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Instance
             if (model.getClass() == GmInstance.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmInstancePrimaryNode.class) {
                 editPart = new InstanceEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmInstanceHeader.class) {
                 editPart = new InstanceHeaderEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmInstanceInternalStructureGroup.class) {
                 editPart = new InstanceInternalStructureGroupEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmInstanceInternalStructureZone.class) {
                 editPart = new InstanceInternalStructureZoneEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmInternalStructure.class) {
                 editPart = new InternalStructureEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmInstanceInternalStructure.class) {
                 editPart = new InternalStructureEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmInternalStructureGroup.class) {
                 editPart = new InternalStructureGroupEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmInternalStructureZone.class) {
                 editPart = new InternalStructureZoneEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmInstanceLabel.class) {
                 editPart = new GroupItemEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Link
             if (model.getClass() == GmInstanceLink.class) {
                 editPart = new InstanceLinkEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmLinkRoleCardinalityLabel.class) {
                 editPart = new ElementLabelEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmNaryLinkRoleCardinalityLabel.class) {
                 editPart = new ElementLabelEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Connector
             if (model.getClass() == GmConnectorLink.class) {
                 editPart = new InstanceLinkEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Interface
             if (model.getClass() == GmInterface.class) {
                 editPart = new TemplateContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmInterfacePrimaryNode.class) {
                 editPart = new InterfaceEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Slot : AttributeLink
             if (model.getClass() == GmSlot.class) {
                 editPart = new GroupItemEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Generalization
             if (model.getClass() == GmGeneralization.class) {
                 editPart = new GeneralizationEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Interface realization
             if (model.getClass() == GmInterfaceRealization.class) {
                 editPart = new InterfaceRealizationEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Component Realization
             if (model.getClass() == GmComponentRealization.class) {
                 editPart = new InterfaceRealizationEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Substitution
             if (model.getClass() == GmSubstitution.class) {
                 editPart = new DependencyEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Package
             if (model.getClass() == GmPackage.class) {
                 RepresentationMode realMode = ((GmPackage) model).getMainNodeRepresentationMode();
@@ -728,84 +728,84 @@ public class StaticEditPartFactory implements EditPartFactory {
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmPackagePrimaryNode.class) {
                 editPart = new PackageEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmPackageBody.class) {
                 editPart = new PackageBodyEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmCompositionLink.class) {
                 editPart = new CompositionLinkEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Enumeration
             if (model.getClass() == GmEnum.class) {
                 editPart = new TemplateContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmEnumPrimaryNode.class) {
                 editPart = new ClassifierEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmEnumLitteral.class) {
                 editPart = new GroupItemEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmEnumLitteralGroup.class) {
                 editPart = new EnumLitteralGroupEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Datatype
             if (model.getClass() == GmDataType.class) {
                 editPart = new TemplateContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmDataTypePrimaryNode.class) {
                 editPart = new ClassifierEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Binding (collaboration use)
             if (model.getClass() == GmBindingLink.class) {
                 editPart = new BindingLinkEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Collaboration use
             if (model.getClass() == GmCollabUseLink.class) {
                 editPart = new CollabUseLinkEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Package import
             if (model.getClass() == GmPackageImport.class) {
                 editPart = new PackageImportEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Package merge
             if (model.getClass() == GmPackageMerge.class) {
                 editPart = new PackageMergeEditPart();
@@ -818,171 +818,171 @@ public class StaticEditPartFactory implements EditPartFactory {
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Information flow
             if (model.getClass() == GmInformationFlowLink.class) {
                 editPart = new InformationFlowLinkEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmConveyedClassifiersGroup.class) {
                 editPart = new ConveyedClassifiersGroupEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmConveyedClassifierLabel.class) {
                 editPart = new GroupItemEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Information item
             if (model.getClass() == GmInformationItem.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmInformationItemPrimaryNode.class) {
                 editPart = new ClassifierEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Provided interface
             if (model.getClass() == GmProvidedInterfaceLink.class) {
                 editPart = new ProvidedInterfaceLinkEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Required interface
             if (model.getClass() == GmRequiredInterfaceLink.class) {
                 editPart = new RequiredInterfaceLinkEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Template parameters
             if (model.getClass() == GmTemplateSignature.class) {
                 editPart = new TemplateSignatureEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Template binding
             if (model.getClass() == GmTemplateBinding.class) {
                 editPart = new TemplateBindingEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Activity
             if (model.getClass() == GmActivity.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmActivityPrimaryNode.class) {
                 editPart = new ActivityEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // BpmnProcess
             if (model.getClass() == GmBpmnProcess.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmBpmnProcessPrimaryNode.class) {
                 editPart = new BpmnProcessEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // BpmnCollaboration
             if (model.getClass() == GmBpmnCollaboration.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmBpmnCollaborationPrimaryNode.class) {
                 editPart = new BpmnCollaborationEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // BpmnSharedDefinitions
             if (model.getClass() == GmBpmnSharedDefinitions.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmBpmnSharedDefinitionsPrimaryNode.class) {
                 editPart = new BpmnSharedDefinitionsEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Interaction
             if (model.getClass() == GmInteraction.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmInteractionPrimaryNode.class) {
                 editPart = new InteractionEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // BpmnBehavior
             if (model.getClass() == GmBpmnBehavior.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmBpmnBehaviorPrimaryNode.class) {
                 editPart = new BpmnBehaviorEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Interaction
             if (model.getClass() == GmCommunicationInteraction.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmCommunicationInteractionPrimaryNode.class) {
                 editPart = new CommunicationInteractionEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // StateMachine
             if (model.getClass() == GmStateMachine.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmStateMachinePrimaryNode.class) {
                 editPart = new StateMachineEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // not found
             return null;
         }
@@ -998,89 +998,89 @@ public class StaticEditPartFactory implements EditPartFactory {
         @Override
         public EditPart createEditPart(EditPart context, Object model) {
             EditPart editPart;
-            
+
             // Class & co
             if (model.getClass() == GmNamespaceHeader.class) {
                 editPart = new NamespaceHeaderEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Class
             if (model.getClass() == GmClassPrimaryNode.class) {
                 editPart = new ClassifierSimpleEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Enum
             if (model.getClass() == GmEnumPrimaryNode.class) {
                 editPart = new ClassifierSimpleEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Signal
             if (model.getClass() == GmSignalPrimaryNode.class) {
                 editPart = new ClassifierSimpleEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Interface
             if (model.getClass() == GmInterface.class) {
                 editPart = new TemplateContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmInterfacePrimaryNode.class) {
                 editPart = new SimpleInterfaceEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Instance
             if (model.getClass() == GmInstancePrimaryNode.class) {
                 editPart = new InstanceSimpleEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Provided interface
             if (model.getClass() == GmProvidedInterfaceLink.class) {
                 editPart = new ProvidedInterfaceLinkEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Required interface
             if (model.getClass() == GmRequiredInterfaceLink.class) {
                 editPart = new RequiredInterfaceLinkEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Required/provided lollipop connection.
             if (model.getClass() == GmLollipopConnection.class) {
                 editPart = new LollipopConnectionEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Component
             if (model.getClass() == GmComponent.class) {
                 editPart = new TemplateContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmComponentPrimaryNode.class) {
                 editPart = new ClassifierSimpleEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // N-ary association
             if (model.getClass() == GmNAssocNode.class) {
                 editPart = new PortContainerEditPart();
@@ -1092,7 +1092,7 @@ public class StaticEditPartFactory implements EditPartFactory {
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // N-ary link
             if (model.getClass() == GmNLinkNode.class) {
                 editPart = new PortContainerEditPart();
@@ -1104,7 +1104,7 @@ public class StaticEditPartFactory implements EditPartFactory {
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // N-ary connector
             if (model.getClass() == GmNConnectorNode.class) {
                 editPart = new PortContainerEditPart();
@@ -1116,27 +1116,27 @@ public class StaticEditPartFactory implements EditPartFactory {
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Port
             if (model.getClass() == GmPort.class) {
                 editPart = new PortEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmPortPrimaryNode.class) {
                 editPart = new PortPrimaryNodeEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Package
             if (model.getClass() == GmPackagePrimaryNode.class) {
                 editPart = new PackageSimpleEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Not handled
             return null;
         }
@@ -1152,7 +1152,7 @@ public class StaticEditPartFactory implements EditPartFactory {
         @Override
         public EditPart createEditPart(EditPart context, Object model) {
             EditPart editPart;
-            
+
             // Port
             if (model.getClass() == GmPort.class) {
                 editPart = new PortEditPart();
@@ -1164,7 +1164,7 @@ public class StaticEditPartFactory implements EditPartFactory {
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Classifier
             if (model.getClass() == GmClassPrimaryNode.class ||
                     model.getClass() == GmDataTypePrimaryNode.class ||
@@ -1176,14 +1176,14 @@ public class StaticEditPartFactory implements EditPartFactory {
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Instance
             if (model.getClass() == GmInstancePrimaryNode.class) {
                 editPart = new ImageInstanceEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Package
             if (model.getClass() == GmPackagePrimaryNode.class) {
                 // specific edit part for primary node that reparent content of body if switched to simple mode.
@@ -1191,7 +1191,7 @@ public class StaticEditPartFactory implements EditPartFactory {
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Not handled
             return null;
         }

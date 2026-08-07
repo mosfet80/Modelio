@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.collab;
 
@@ -41,7 +41,7 @@ public class CollaborationElementDropEditPolicy extends DefaultElementDropEditPo
     @Override
     protected EditPart getDropTargetEditPart(final ModelElementDropRequest request) {
         final GmCompositeNode gmModel = (GmCompositeNode) this.getHost().getModel();
-        
+
         // If either of the dropped elements cannot be unmasked, return null.
         for (MObject droppedElement : request.getDroppedElements()) {
             if (!gmModel.canUnmask(droppedElement)) {
@@ -56,7 +56,7 @@ public class CollaborationElementDropEditPolicy extends DefaultElementDropEditPo
                 }
             }
         }
-        
+
         // All dropped elements understood: return host!
         return this.getHost();
     }
@@ -65,18 +65,18 @@ public class CollaborationElementDropEditPolicy extends DefaultElementDropEditPo
     @Override
     protected Command getSmartDropCommand(final ModelElementDropRequest request) {
         CompoundCommand command = new CompoundCommand();
-        
+
         Point dropLocation = request.getDropLocation();
-        
+
         for (MObject toUnmask : request.getDroppedElements()) {
-        
+
             if (isSmartCollabUseNodeTarget(toUnmask, request)) {
                 command.add(getSmartCreateCollabUseCommand(dropLocation, toUnmask));
             } else if (toUnmask != null) {
                 // Deal with 'non-smart' drops
                 command.add(createSubCommand(request, dropLocation, toUnmask));
             }
-        
+
             // Introduce some offset, so that all elements are not totally
             // on top of each other.
             dropLocation = dropLocation.getTranslated(20, 20);

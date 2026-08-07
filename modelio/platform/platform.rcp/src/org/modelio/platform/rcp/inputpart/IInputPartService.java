@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.rcp.inputpart;
 
@@ -38,6 +38,7 @@ public interface IInputPartService {
      * <p>
      * Equivalent to <code>hideInputPart(part, false)</code>.
      * </p>
+     *
      * @param part the part to hide.
      */
     @objid ("59810458-c0d1-41f0-b514-a45cb0f5ecd3")
@@ -51,10 +52,11 @@ public interface IInputPartService {
 
     /**
      * Hide an eclipse MPart.
+     *
      * @param part the part to hide.
      * @param forceVisible if <code>true</code>, force to show the part before hiding it (the part cannot be hidden if it is not visible in the current perspective)
      */
     @objid ("db6223fd-e739-45fb-8feb-07841843e0e1")
     void hideInputPart(MPart part, boolean forceVisible);
-}
 
+}

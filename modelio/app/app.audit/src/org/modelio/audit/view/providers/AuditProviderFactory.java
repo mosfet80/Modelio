@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.view.providers;
 
@@ -48,10 +48,10 @@ public class AuditProviderFactory {
     private Map<AuditViewMode, ViewModeImpl> modeMap;
 
     @objid ("485a6140-5f6b-412c-94b4-6b0b541ae580")
-    public  AuditProviderFactory(String jobId, IAuditConfigurationPlan auditConfigurationPlan) {
+    public AuditProviderFactory(String jobId, IAuditConfigurationPlan auditConfigurationPlan) {
         this.viewMode = AuditViewMode.BYTYPE;
         this.modeMap = new HashMap<>();
-        
+
         ViewModeImpl flatImpl = new ViewModeImpl();
         flatImpl.defaultColumnSize = new int[] { 80, 40, 50, 120, 400};
         flatImpl.columnName = new String[] { Audit.I18N.getString("AuditView.TableTitle.Time"),
@@ -66,7 +66,7 @@ public class AuditProviderFactory {
                                                              new ElementLabelProvider(),
                                                              new MessageLabelProvider(auditConfigurationPlan)};
         this.modeMap.put(AuditViewMode.FLAT, flatImpl);
-        
+
         ViewModeImpl bytypeImpl = new ViewModeImpl();
         bytypeImpl.defaultColumnSize = new int[] { 160, 50, 400};
         bytypeImpl.columnName = new String[] { Audit.I18N.getString("AuditView.TableTitle.FullType"),
@@ -77,7 +77,7 @@ public class AuditProviderFactory {
                                                                new RuleLabelProvider(),
                                                                new MessageLabelProvider(auditConfigurationPlan) };
         this.modeMap.put(AuditViewMode.BYTYPE, bytypeImpl);
-        
+
         ViewModeImpl byelementImpl = new ViewModeImpl();
         byelementImpl.defaultColumnSize = new int[] { 200, 40, 50, 400};
         byelementImpl.columnName = new String[] { Audit.I18N.getString("AuditView.TableTitle.Element"),
@@ -90,7 +90,7 @@ public class AuditProviderFactory {
                                                                   new RuleLabelProvider(),
                                                                   new MessageLabelProvider(auditConfigurationPlan) };
         this.modeMap.put(AuditViewMode.BYELEMENT, byelementImpl);
-        
+
         ViewModeImpl byrule = new ViewModeImpl();
         byrule.defaultColumnSize = new int[] { 120, 120, 400};
         byrule.columnName = new String[] { Audit.I18N.getString("AuditView.TableTitle.Rule"),
@@ -101,9 +101,9 @@ public class AuditProviderFactory {
                                                            new ElementLabelProvider(),
                                                            new MessageLabelProvider(auditConfigurationPlan) };
         this.modeMap.put(AuditViewMode.BYRULE, byrule);
-        
+
         setJobId(jobId);
-        
+
     }
 
     @objid ("f280c61d-3fdf-48fa-904b-a5dbc69f2b3b")
@@ -143,6 +143,7 @@ public class AuditProviderFactory {
 
     /**
      * Reconfigure the content providers to filter contents by 'jobId'
+     *
      * @param jobId if null all audit contents are returned by providers otherwise filtered contents is returned.
      */
     @objid ("d378cee1-7672-44fa-b9cc-ac2f1c19ecfc")
@@ -151,7 +152,7 @@ public class AuditProviderFactory {
         this.modeMap.get(AuditViewMode.BYTYPE).contentProvider = new ByTypeContentProvider(jobId!=null ? jobId : "");
         this.modeMap.get(AuditViewMode.BYELEMENT).contentProvider = new ByElementContentProvider(jobId!=null ? jobId : "");
         this.modeMap.get(AuditViewMode.BYRULE).contentProvider = new ByRuleContentProvider(jobId!=null ? jobId : "");
-        
+
     }
 
     @objid ("61a16928-906a-4cf2-b5a3-c3795689d9c9")

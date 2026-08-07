@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -55,61 +54,61 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0011931a-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
-    @objid ("2129840a-d6e4-483c-8fa6-d0d60b5f5f31")
+    @objid ("48709a24-24f3-4d53-8559-1a8a9ef7d58d")
     @Override
     public boolean isIsAbstract() {
         return (Boolean) getAttVal(((NameSpaceSmClass)getClassOf()).getIsAbstractAtt());
     }
 
-    @objid ("37b7c63e-fe93-4930-b7ea-364b29a24563")
+    @objid ("cd48929a-14bc-48d0-a6b3-618a6fb4eea3")
     @Override
     public void setIsAbstract(boolean value) {
         setAttVal(((NameSpaceSmClass)getClassOf()).getIsAbstractAtt(), value);
     }
 
-    @objid ("7af301d3-08c9-4089-b596-5931af6e9eb6")
+    @objid ("14acac48-9176-43e5-a532-1c943cf77443")
     @Override
     public boolean isIsLeaf() {
         return (Boolean) getAttVal(((NameSpaceSmClass)getClassOf()).getIsLeafAtt());
     }
 
-    @objid ("73c161b4-2bd1-4eb7-aa2c-14af0d328c97")
+    @objid ("e1342d4d-5d9c-4cf7-8727-c41fc75ade00")
     @Override
     public void setIsLeaf(boolean value) {
         setAttVal(((NameSpaceSmClass)getClassOf()).getIsLeafAtt(), value);
     }
 
-    @objid ("570e900e-2890-4c69-9f12-da259293da12")
+    @objid ("b993bdb0-eca2-450b-843d-04af4b99296f")
     @Override
     public boolean isIsRoot() {
         return (Boolean) getAttVal(((NameSpaceSmClass)getClassOf()).getIsRootAtt());
     }
 
-    @objid ("f9d5b4d7-98c0-46ee-9834-33f03a90da20")
+    @objid ("05a7407e-184d-43f5-826b-619c24a5607b")
     @Override
     public void setIsRoot(boolean value) {
         setAttVal(((NameSpaceSmClass)getClassOf()).getIsRootAtt(), value);
     }
 
-    @objid ("cc948152-cccd-4e99-925d-43521f366a0b")
+    @objid ("abd52eba-1b24-4693-bb89-2180bcccd3e1")
     @Override
     public VisibilityMode getVisibility() {
         return (VisibilityMode) getAttVal(((NameSpaceSmClass)getClassOf()).getVisibilityAtt());
     }
 
-    @objid ("7572c353-29d6-4324-b56e-7419d4c776ba")
+    @objid ("b897bdce-eccb-4359-8cba-9a134931760d")
     @Override
     public void setVisibility(VisibilityMode value) {
         setAttVal(((NameSpaceSmClass)getClassOf()).getVisibilityAtt(), value);
     }
 
-    @objid ("30c99c9f-db41-414e-9ca6-9f0079f49bbb")
+    @objid ("2042013d-be4d-487a-a89f-58add3df3152")
     @Override
     public EList<Generalization> getParent() {
         return new SmList<>(this, ((NameSpaceSmClass)getClassOf()).getParentDep());
     }
 
-    @objid ("e5b3d03c-1d2b-4eed-85d5-b5423673db05")
+    @objid ("51fde509-7144-4799-8864-464048ab45a9")
     @Override
     public <T extends Generalization> List<T> getParent(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -122,16 +121,16 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("08074add-44cc-4c52-ac1c-33b980ce133c")
+    @objid ("ea8c5674-754b-47d9-bddf-bee8695a84bf")
     @Override
     public EList<TemplateBinding> getTemplateInstanciation() {
         return new SmList<>(this, ((NameSpaceSmClass)getClassOf()).getTemplateInstanciationDep());
     }
 
-    @objid ("53e2b730-2ebd-4aa8-891e-c400a9d71a15")
+    @objid ("b8aed9d4-1bba-4055-8170-99882647d5a2")
     @Override
     public <T extends TemplateBinding> List<T> getTemplateInstanciation(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -144,16 +143,16 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("f14a9c77-7414-433f-b198-6d65bc6a7959")
+    @objid ("33b74f24-8b91-4931-9886-0c3cd038b508")
     @Override
     public EList<Instance> getRepresenting() {
         return new SmList<>(this, ((NameSpaceSmClass)getClassOf()).getRepresentingDep());
     }
 
-    @objid ("46866b6f-e530-4f67-8cfd-4c79123abbc0")
+    @objid ("e9a47603-2195-4473-be47-67c7a316b149")
     @Override
     public <T extends Instance> List<T> getRepresenting(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -166,16 +165,16 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("de2f2062-f6a0-4aee-9201-3d865efba4f7")
+    @objid ("bcbeddcc-80e6-4d0e-b2d7-f0936d2e763b")
     @Override
     public EList<Behavior> getOwnedBehavior() {
         return new SmList<>(this, ((NameSpaceSmClass)getClassOf()).getOwnedBehaviorDep());
     }
 
-    @objid ("a5502dff-8793-4c70-a930-cd6441a20b24")
+    @objid ("e4e5dfe2-fad5-4f94-a24b-a77579267355")
     @Override
     public <T extends Behavior> List<T> getOwnedBehavior(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -188,16 +187,16 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("51a4840d-0c5e-49a9-bbed-4b783cee8f1d")
+    @objid ("337de5dd-7bca-4b8b-bf90-52f749b2f271")
     @Override
     public EList<DataFlow> getReceived() {
         return new SmList<>(this, ((NameSpaceSmClass)getClassOf()).getReceivedDep());
     }
 
-    @objid ("aed0dca5-73a3-4759-9c99-cedc3ad843bf")
+    @objid ("f4c70a69-8f9c-47fc-9f5f-6f8e5605bb24")
     @Override
     public <T extends DataFlow> List<T> getReceived(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -210,16 +209,16 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("2f482dbe-1386-4bde-9329-c00951527d62")
+    @objid ("6b0e195d-73ba-400e-973e-40b09df28afc")
     @Override
     public EList<InformationFlow> getOwnedInformationFlow() {
         return new SmList<>(this, ((NameSpaceSmClass)getClassOf()).getOwnedInformationFlowDep());
     }
 
-    @objid ("81204df6-48e5-4a5a-a752-ebc5be6a7f05")
+    @objid ("b9d27ca2-193d-4f3c-852f-dc3de9219b27")
     @Override
     public <T extends InformationFlow> List<T> getOwnedInformationFlow(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -232,16 +231,16 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("700d6130-f7b0-4ca6-8868-870f9be1172b")
+    @objid ("bc9c804f-c32d-4b37-ae8e-d7c738e90893")
     @Override
     public EList<ElementImport> getImporting() {
         return new SmList<>(this, ((NameSpaceSmClass)getClassOf()).getImportingDep());
     }
 
-    @objid ("b5205e82-3716-4a11-b8de-144b1a8d662f")
+    @objid ("33180952-a3c9-4ec8-90cd-0b8662aa39e5")
     @Override
     public <T extends ElementImport> List<T> getImporting(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -254,16 +253,16 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("3f70fc13-fdcb-40fd-a9d8-8a96f2ac0602")
+    @objid ("1cf5c0f6-1d6d-4019-a26f-3c6445a28ceb")
     @Override
     public EList<DataFlow> getSent() {
         return new SmList<>(this, ((NameSpaceSmClass)getClassOf()).getSentDep());
     }
 
-    @objid ("a74f9e16-fe4b-4370-bce6-03e0c0e7f67a")
+    @objid ("c2727f55-95fb-47df-86cf-aa6a442d697d")
     @Override
     public <T extends DataFlow> List<T> getSent(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -276,16 +275,16 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("67a2d9a8-2620-4ebc-904f-5f1bfb4d282b")
+    @objid ("a76e76e8-1618-4bb5-89b8-9366d25c1063")
     @Override
     public EList<DataFlow> getOwnedDataFlow() {
         return new SmList<>(this, ((NameSpaceSmClass)getClassOf()).getOwnedDataFlowDep());
     }
 
-    @objid ("3b7d1d8a-7433-4c6c-8cff-acb98e17febf")
+    @objid ("d9341667-3edf-4760-ac4d-7260bec3f4a8")
     @Override
     public <T extends DataFlow> List<T> getOwnedDataFlow(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -298,16 +297,16 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("90c6b09d-eca8-456b-b791-341c0fe37a8b")
+    @objid ("58e90fda-49f4-4b5e-babe-1ea0fc662fda")
     @Override
     public EList<CollaborationUse> getOwnedCollaborationUse() {
         return new SmList<>(this, ((NameSpaceSmClass)getClassOf()).getOwnedCollaborationUseDep());
     }
 
-    @objid ("c178b57a-ebd1-4d27-a1da-1498c5d4a7ea")
+    @objid ("5b81f82e-3bc7-4d82-a051-649452ec0a03")
     @Override
     public <T extends CollaborationUse> List<T> getOwnedCollaborationUse(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -320,16 +319,16 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("85e15bca-8ea6-40ee-9e99-16bc37c0b0da")
+    @objid ("a61461a8-a805-44db-b85a-19a31b352cf5")
     @Override
     public EList<PackageImport> getOwnedPackageImport() {
         return new SmList<>(this, ((NameSpaceSmClass)getClassOf()).getOwnedPackageImportDep());
     }
 
-    @objid ("a3515f5e-c4fa-441e-adbc-fa47e492a2a5")
+    @objid ("92458b62-7f43-4475-9d91-c1c74f62dc42")
     @Override
     public <T extends PackageImport> List<T> getOwnedPackageImport(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -342,16 +341,16 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("426eff8b-8805-4a3c-b2cf-131956f6f500")
+    @objid ("894b9dbf-5ad2-4b24-8fa9-b66412c6b82c")
     @Override
     public EList<TemplateParameter> getTemplate() {
         return new SmList<>(this, ((NameSpaceSmClass)getClassOf()).getTemplateDep());
     }
 
-    @objid ("02fc2aaf-dc9f-4a28-a878-a6dc3191c64e")
+    @objid ("13087403-8509-4c70-8e91-c7c6f7e6e228")
     @Override
     public <T extends TemplateParameter> List<T> getTemplate(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -364,16 +363,16 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("91f6263d-37c0-494d-88e3-f0f27b5a15a7")
+    @objid ("9d6e5cfd-0837-4d4d-b3ea-b1c15687c7aa")
     @Override
     public EList<Generalization> getSpecialization() {
         return new SmList<>(this, ((NameSpaceSmClass)getClassOf()).getSpecializationDep());
     }
 
-    @objid ("b0aa279d-365f-493b-87f0-d9cc04ed5d0c")
+    @objid ("0dacf9e0-e0b9-4bfb-877a-a90279bf26b0")
     @Override
     public <T extends Generalization> List<T> getSpecialization(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -386,16 +385,16 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("2c92e1de-3b23-4cfe-8549-fc0e3fbb53c4")
+    @objid ("24309938-9d1d-4a78-b663-35d2b190419e")
     @Override
     public EList<InterfaceRealization> getRealized() {
         return new SmList<>(this, ((NameSpaceSmClass)getClassOf()).getRealizedDep());
     }
 
-    @objid ("94a659fe-9b0f-44b0-bcd7-01f2cf12c78f")
+    @objid ("1cd2119d-a35c-4130-97d7-15eb8e3e1379")
     @Override
     public <T extends InterfaceRealization> List<T> getRealized(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -408,16 +407,16 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("11cb622d-9684-4c7b-b7a5-46a262ce39fd")
+    @objid ("cfc892bd-12a8-4133-9eb4-536ddbf12633")
     @Override
     public EList<Instance> getDeclared() {
         return new SmList<>(this, ((NameSpaceSmClass)getClassOf()).getDeclaredDep());
     }
 
-    @objid ("1413cacf-0b71-4bff-86bd-4bf67dc244f3")
+    @objid ("d6090bc0-32a1-4602-918a-dc874822f863")
     @Override
     public <T extends Instance> List<T> getDeclared(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -430,16 +429,16 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("81f043f1-6c66-49d3-a0ca-4df8671dbe47")
+    @objid ("aef0a6fb-8044-4c9e-8d6a-7a64de12cde4")
     @Override
     public EList<TemplateBinding> getInstanciatingBinding() {
         return new SmList<>(this, ((NameSpaceSmClass)getClassOf()).getInstanciatingBindingDep());
     }
 
-    @objid ("33675134-9724-4c2c-b5b6-dd78f498f7d9")
+    @objid ("819a0cf3-88b6-4e9b-81ff-a2ab50b314d6")
     @Override
     public <T extends TemplateBinding> List<T> getInstanciatingBinding(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -452,16 +451,16 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("0c40485b-b067-4a0a-a234-de3b5b0b52d9")
+    @objid ("c17de57f-a1a5-4c51-910d-993725044764")
     @Override
     public EList<ElementImport> getOwnedImport() {
         return new SmList<>(this, ((NameSpaceSmClass)getClassOf()).getOwnedImportDep());
     }
 
-    @objid ("b4de5097-9989-462d-a05b-a837e7118760")
+    @objid ("72669987-8b9b-487e-897d-87d0f40b7a5e")
     @Override
     public <T extends ElementImport> List<T> getOwnedImport(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -474,10 +473,10 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("b9cad71e-a2be-4dc3-b333-3ed94aa31308")
+    @objid ("5e758cae-24f6-460f-be53-35760c6a875a")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -485,17 +484,17 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         return super.getCompositionOwner();
     }
 
-    @objid ("cbe815e0-8823-4047-977a-809fe7b2da95")
+    @objid ("8658afe6-68cb-400a-af08-4931d733838d")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("2db77123-e885-4253-9f2b-822f87639787")
+    @objid ("d9390b09-d913-4ef8-bf3d-4952c55cf60c")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitNameSpace(this);

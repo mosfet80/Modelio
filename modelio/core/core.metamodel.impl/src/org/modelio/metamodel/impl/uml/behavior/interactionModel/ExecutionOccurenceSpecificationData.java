@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -30,14 +29,14 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 
 @objid ("00449c74-c4bf-1fd8-97fe-001ec947cd2a")
 public class ExecutionOccurenceSpecificationData extends MessageEndData {
-    @objid ("75a2c081-742f-459f-beda-2c14236002d8")
+    @objid ("2570b5ae-7664-41c7-b7f3-bb70b73d9a84")
     SmObjectImpl mFinished;
 
-    @objid ("3d3b72f7-5bdc-4ea1-badb-3b9d870c3f16")
+    @objid ("5b796adc-9cb2-469f-8fff-fd815d622eb3")
     SmObjectImpl mStarted;
 
-    @objid ("86facf59-abe5-4b7d-b55d-8de4613127de")
-    public  ExecutionOccurenceSpecificationData(ExecutionOccurenceSpecificationSmClass smClass) {
+    @objid ("9fb501fb-d27c-4854-a077-a58e781da30e")
+    public ExecutionOccurenceSpecificationData(ExecutionOccurenceSpecificationSmClass smClass) {
         super(smClass);
     }
 

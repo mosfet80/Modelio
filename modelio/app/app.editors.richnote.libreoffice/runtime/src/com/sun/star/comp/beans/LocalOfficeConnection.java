@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package com.sun.star.comp.beans;
 
@@ -45,7 +45,7 @@ import com.sun.star.uno.XComponentContext;
 
 /**
  * This class represents a connection to the local office application.
- * 
+ *
  * @since OOo 2.0.0
  */
 @objid ("be62c23e-b4a4-4e86-9ef0-5977a7e7908d")
@@ -113,30 +113,31 @@ public class LocalOfficeConnection implements OfficeConnection {
      * "com.sun.star.beans.libpath" - native libraries directory.
      */
     @objid ("5d22d4a0-af5f-46ee-8d29-6f721f227824")
-    public  LocalOfficeConnection() {
+    public LocalOfficeConnection() {
         // init member vars
         try {
             setUnoUrl("uno:pipe,name=" + getPipeName() + ";urp;StarOffice.ServiceManager");
         } catch (java.net.MalformedURLException e) {
             throw new IllegalStateException(e.getMessage(), e);
         }
-        
+
     }
 
     /**
      * protected Constructor
      * Initialize a LocalOfficeConnection with an already running office.
      * This C'Tor is only used in complex tests at the moment.
+     *
      * @param xContext a XComponentContext
      */
     @objid ("1b84ffce-4d7b-4dcb-ad14-aced630656ee")
-    protected  LocalOfficeConnection(final com.sun.star.uno.XComponentContext xContext) {
+    protected LocalOfficeConnection(final com.sun.star.uno.XComponentContext xContext) {
         this.mContext = xContext;
     }
 
     /**
      * Sets a connection URL. This implementation accepts a UNO URL with following format:<br />
-     * 
+     *
      * <pre>
      * url    := uno:localoffice[,&lt;params&gt;];urp;StarOffice.ServiceManager
      * params := &lt;path&gt;[,&lt;pipe&gt;]
@@ -145,6 +146,7 @@ public class LocalOfficeConnection implements OfficeConnection {
      * pathv  := platform_specific_path_to_the_local_office_distribution
      * pipev  := local_office_connection_pipe_name
      * </pre>
+     *
      * @param url This is UNO URL which describes the type of a connection.
      * @throws MalformedURLException if the URL is invalid.
      */
@@ -152,7 +154,7 @@ public class LocalOfficeConnection implements OfficeConnection {
     @Override
     public void setUnoUrl(final String url) throws MalformedURLException {
         this.mURL = null;
-        
+
         String prefix = "uno:localoffice";
         if (url.startsWith(prefix)) {
             parseUnoUrlWithOfficePath(url, prefix);
@@ -173,7 +175,7 @@ public class LocalOfficeConnection implements OfficeConnection {
             }
         }
         this.mURL = url;
-        
+
     }
 
     /**
@@ -183,6 +185,7 @@ public class LocalOfficeConnection implements OfficeConnection {
      * UNO service manager if it has not already been initialized.
      * This method can return <code>null</code> if it fails to connect
      * to the office application.
+     *
      * @return The office UNO component context.
      * @deprecated May establishes a new connection if disconnected.
      */
@@ -215,7 +218,7 @@ public class LocalOfficeConnection implements OfficeConnection {
             }
         }
         this.mComponents.clear();
-        
+
         // Terminate the bridge. It turned out that this is necessary for the bean
         // to work properly when displayed in an applet within Internet Explorer.
         // When navigating off the page which is showing the applet and then going
@@ -229,16 +232,17 @@ public class LocalOfficeConnection implements OfficeConnection {
             } else {
                 System.err.println("LocalOfficeConnection: could not dispose bridge!");
             }
-        
+
             this.mBridge = null;
         }
-        
+
         this.mContext = null;
-        
+
     }
 
     /**
      * Adds an event listener to the object.
+     *
      * @param listener is a listener object.
      */
     @objid ("3c316219-6095-4216-a551-d25c74160d84")
@@ -249,6 +253,7 @@ public class LocalOfficeConnection implements OfficeConnection {
 
     /**
      * Removes an event listener from the listener list.
+     *
      * @param listener is a listener object.
      */
     @objid ("c1fce687-8cef-4263-aef3-bbe2c6c9bc62")
@@ -259,6 +264,7 @@ public class LocalOfficeConnection implements OfficeConnection {
 
     /**
      * Establishes the connection to the office.
+     *
      * @throws IOException in case of failure.
      */
     @objid ("501347f2-0f98-4e67-806d-ebc9af8d0afc")
@@ -275,11 +281,11 @@ public class LocalOfficeConnection implements OfficeConnection {
             } catch (Exception e1) {
                 throw new IOException(e1);
             }
-        
+
             // initial serviceManager
             @SuppressWarnings ("unused")
             XMultiComponentFactory xLocalServiceManager = xLocalContext.getServiceManager();
-        
+
             // try to connect to soffice
             Object aInitialObject = null;
             try {
@@ -289,11 +295,11 @@ public class LocalOfficeConnection implements OfficeConnection {
                 if (LocalOfficeConnection.mProcess != null) {
                     LocalOfficeConnection.mProcess.destroy();
                 }
-        
+
                 // launch soffice
                 OfficeService aSOffice = new OfficeService();
                 aSOffice.startupService();
-        
+
                 // wait until soffice is started
                 long nMaxMillis = System.currentTimeMillis() + 1000 * aSOffice.getStartupTime();
                 while (aInitialObject == null) {
@@ -306,18 +312,18 @@ public class LocalOfficeConnection implements OfficeConnection {
                         if (System.currentTimeMillis() > nMaxMillis) {
                             throw aEx;
                         }
-        
+
                     }
                 }
             }
-        
+
             // XComponentContext
             XPropertySet xPropertySet = UnoRuntime.queryInterface(XPropertySet.class, aInitialObject);
             Object xContext = xPropertySet.getPropertyValue("DefaultContext");
             XComponentContext xComponentContext = UnoRuntime.queryInterface(XComponentContext.class, xContext);
-        
+
             return xComponentContext;
-        
+
         } catch (com.sun.star.connection.NoConnectException e) {
             throw new IOException("Couldn't connect to remote server:\n" + e.getMessage(), e);
         } catch (com.sun.star.connection.ConnectionSetupException e) {
@@ -335,7 +341,7 @@ public class LocalOfficeConnection implements OfficeConnection {
         } catch (InterruptedException e) {
             throw new IOException(e);
         }
-        
+
     }
 
     /**
@@ -348,7 +354,7 @@ public class LocalOfficeConnection implements OfficeConnection {
         String conDcp = null;
         String protDcp = null;
         String rootOid = null;
-        
+
         if (dcp.indexOf(';') == -1) {// use old style
             conDcp = dcp;
             protDcp = "iiop";
@@ -358,21 +364,21 @@ public class LocalOfficeConnection implements OfficeConnection {
             int index = s.indexOf(':');
             // String url = dcp.substring(0, index).trim();
             s = s.substring(index + 1).trim();
-        
+
             index = s.indexOf(';');
             conDcp = s.substring(0, index).trim();
             s = s.substring(index + 1).trim();
-        
+
             index = s.indexOf(';');
             protDcp = s.substring(0, index).trim();
             s = s.substring(index + 1).trim();
-        
+
             rootOid = s.trim().trim();
         }
-        
+
         Object rootObject = null;
         XBridgeFactory xBridgeFactory = null;
-        
+
         XMultiComponentFactory xLocalServiceManager = xLocalContext.getServiceManager();
         try {
             xBridgeFactory = UnoRuntime.queryInterface(XBridgeFactory.class,
@@ -380,7 +386,7 @@ public class LocalOfficeConnection implements OfficeConnection {
         } catch (com.sun.star.uno.Exception e) {
             throw new com.sun.star.uno.RuntimeException(e.getMessage(), e);
         }
-        
+
         synchronized (this) {
             CallWatchThread watcher = new CallWatchThread(3000, "LocalOfficeConnection.resolve()");
             try {
@@ -405,9 +411,9 @@ public class LocalOfficeConnection implements OfficeConnection {
                         throw new com.sun.star.uno.RuntimeException(e.getMessage());
                     }
                 }
-        
+
                 rootObject = this.mBridge.getInstance(rootOid);
-        
+
                 return rootObject;
             } catch (com.sun.star.uno.RuntimeException e) {
                 com.sun.star.connection.NoConnectException e2 = new com.sun.star.connection.NoConnectException(e.getMessage());
@@ -417,11 +423,12 @@ public class LocalOfficeConnection implements OfficeConnection {
                 watcher.cancel();
             }
         }
-        
+
     }
 
     /**
      * Retrieves a path to the office program folder.
+     *
      * @return The path to the office program folder.
      */
     @objid ("1a1b9711-75c3-4188-8574-239429e18aa8")
@@ -429,14 +436,14 @@ public class LocalOfficeConnection implements OfficeConnection {
         if (LocalOfficeConnection.mProgramPath == null) {
             // determine name of executable soffice
             String aExec = getProgramName();
-        
+
             // find soffice executable relative to this class's class loader:
             File path = NativeLibraryLoader.getResource(
                     LocalOfficeConnection.class.getClassLoader(), aExec);
             if (path != null) {
                 LocalOfficeConnection.mProgramPath = path.getParent();
             }
-        
+
             // default is ""
             if (LocalOfficeConnection.mProgramPath == null) {
                 LocalOfficeConnection.mProgramPath = "";
@@ -447,18 +454,19 @@ public class LocalOfficeConnection implements OfficeConnection {
 
     /**
      * Get the system dependent office program name.
+     *
      * @return the office program name.
      */
     @objid ("127239ee-e3ea-4ff3-889c-b4eb1bdfe9b9")
     private static String getProgramName() {
         String aExec = LocalOfficeConnection.OFFICE_APP_NAME; // default for UNIX
         String aOS = System.getProperty("os.name");
-        
+
         // running on Windows?
         if (aOS.startsWith("Windows")) {
             aExec = LocalOfficeConnection.OFFICE_APP_NAME + ".exe";
         }
-        
+
         // add other non-UNIX operating systems here
         // ...
         return aExec;
@@ -467,7 +475,7 @@ public class LocalOfficeConnection implements OfficeConnection {
     /**
      * Parses a connection URL.
      * This method accepts a UNO URL with following format:<br />
-     * 
+     *
      * <pre>
      * url    := uno:localoffice[,&lt;params&gt;];urp;StarOffice.NamingService
      * params := &lt;path&gt;[,&lt;pipe&gt;]
@@ -476,12 +484,13 @@ public class LocalOfficeConnection implements OfficeConnection {
      * pathv  := platform_specific_path_to_the_local_office_distribution
      * pipev  := local_office_connection_pipe_name
      * </pre>
-     * 
+     *
      * <h4>Examples</h4>
      * <ul>
      * <li>"uno:localoffice,pipe=xyz_Office,path=/opt/openoffice11/program;urp;StarOffice.ServiceManager";
      * <li>"uno:socket,host=localhost,port=8100;urp;StarOffice.ServiceManager";
      * </ul>
+     *
      * @param url This is UNO URL which describes the type of a connection.
      * @exception java.net.MalformedURLException when inappropreate URL was
      * provided.
@@ -495,7 +504,7 @@ public class LocalOfficeConnection implements OfficeConnection {
                     "Invalid UNO connection URL.");
         }
         String params = url.substring(prefix.length(), idx + 1);
-        
+
         // Parse parameters.
         String name = null;
         String path = null;
@@ -512,11 +521,11 @@ public class LocalOfficeConnection implements OfficeConnection {
                     buffer.delete(0, buffer.length());
                     state = 1;
                     break;
-        
+
                 case ';':
                     state = 7;
                     break;
-        
+
                 default:
                     buffer.delete(0, buffer.length());
                     buffer.append(ch);
@@ -524,7 +533,7 @@ public class LocalOfficeConnection implements OfficeConnection {
                     break;
                 }
                 break;
-        
+
             case 1: // parameter name
                 switch (ch) {
                 case ' ':
@@ -532,38 +541,38 @@ public class LocalOfficeConnection implements OfficeConnection {
                     name = buffer.toString();
                     state = (ch == ' ') ? 2 : 3;
                     break;
-        
+
                 case ',':
                 case ';':
                     state = -6; // error: invalid name
                     break;
-        
+
                 default:
                     buffer.append(ch);
                     break;
                 }
                 break;
-        
+
             case 2: // equal between the name and the value
                 switch (ch) {
                 case '=':
                     state = 3;
                     break;
-        
+
                 case ' ':
                     break;
-        
+
                 default:
                     state = -1; // error: missing '='
                     break;
                 }
                 break;
-        
+
             case 3: // value leading spaces
                 switch (ch) {
                 case ' ':
                     break;
-        
+
                 default:
                     buffer.delete(0, buffer.length());
                     buffer.append(ch);
@@ -571,7 +580,7 @@ public class LocalOfficeConnection implements OfficeConnection {
                     break;
                 }
                 break;
-        
+
             case 4: // value
                 switch (ch) {
                 case ' ':
@@ -596,37 +605,37 @@ public class LocalOfficeConnection implements OfficeConnection {
                     }
                     buffer.delete(0, buffer.length());
                     break;
-        
+
                 default:
                     buffer.append(ch);
                     break;
                 }
                 break;
-        
+
             case 5: // a delimeter after the value
                 switch (ch) {
                 case ' ':
                     break;
-        
+
                 case ',':
                     state = 6;
                     break;
-        
+
                 case ';':
                     state = 7;
                     break;
-        
+
                 default:
                     state = -5; // error: ' ' inside the value
                     break;
                 }
                 break;
-        
+
             case 6: // leading spaces before next parameter name
                 switch (ch) {
                 case ' ':
                     break;
-        
+
                 default:
                     buffer.delete(0, buffer.length());
                     buffer.append(ch);
@@ -634,7 +643,7 @@ public class LocalOfficeConnection implements OfficeConnection {
                     break;
                 }
                 break;
-        
+
             default:
                 throw new java.net.MalformedURLException(
                         "Invalid UNO connection URL.");
@@ -644,7 +653,7 @@ public class LocalOfficeConnection implements OfficeConnection {
             throw new java.net.MalformedURLException(
                     "Invalid UNO connection URL.");
         }
-        
+
         // Set up the connection parameters.
         if (path != null) {
             LocalOfficeConnection.mProgramPath = path;
@@ -652,16 +661,16 @@ public class LocalOfficeConnection implements OfficeConnection {
         if (pipe != null) {
             this.mPipe = pipe;
         }
-        
+
     }
 
     @objid ("5cdd8ee2-f8f1-43c4-a3e2-5c62a51a6f3d")
     private static String replaceAll(final String aString, final String aSearch, final String aReplace) {
         StringBuffer aBuffer = new StringBuffer(aString);
-        
+
         int nPos = aString.length();
         int nOfs = aSearch.length();
-        
+
         while ((nPos = aString.lastIndexOf(aSearch, nPos - 1)) > -1) {
             aBuffer.replace(nPos, nPos + nOfs, aReplace);
         }
@@ -682,7 +691,7 @@ public class LocalOfficeConnection implements OfficeConnection {
 
     /**
      * -------------------------------------------------------------------------
-     * 
+     *
      * This is an implementation of the native office service.
      */
     @objid ("d314cf85-8980-4999-af98-5658c81c8185")
@@ -691,12 +700,13 @@ public class LocalOfficeConnection implements OfficeConnection {
          * Default constructor.
          */
         @objid ("992e046a-8945-4dee-9ae9-8b4127ed9f90")
-        public  OfficeService() {
-            
+        public OfficeService() {
+
         }
 
         /**
          * Retrieve the office service identifier.
+         *
          * @return The identifier of the office service.
          */
         @objid ("f456ffc4-5aef-4f91-b78a-3a34451112dc")
@@ -708,7 +718,7 @@ public class LocalOfficeConnection implements OfficeConnection {
             } else {
                 return LocalOfficeConnection.this.mPipe;
             }
-            
+
         }
 
         /**
@@ -736,13 +746,13 @@ public class LocalOfficeConnection implements OfficeConnection {
             }
             // create call with arguments
             List<String> cmdArray = new ArrayList<>(nSizeCmdArray);
-            
+
             // read UNO_PATH environment variable to get path to soffice binary
             String unoPath = System.getProperty("UNO_PATH");
             if (unoPath == null) {
                 throw new java.io.IOException("UNO_PATH system property is not set (required system path to the office program directory)");
             }
-            
+
             // cmdArray[i++] = (new File(getProgramPath(), OFFICE_APP_NAME)).getPath();
             cmdArray.add((new File(unoPath, getProgramName())).getPath());
             cmdArray.add("--nologo");
@@ -756,24 +766,25 @@ public class LocalOfficeConnection implements OfficeConnection {
             } else {
                 throw new java.io.IOException("no connection type specified");
             }
-            
+
             if (sOption != null) {
                 cmdArray.add(sOption);
             }
-            
+
             // start process
             LocalOfficeConnection.mProcess = Runtime.getRuntime().exec(cmdArray.toArray(new String[cmdArray.size()]));
             if (LocalOfficeConnection.mProcess == null) {
                 throw new RuntimeException("cannot start soffice: " + cmdArray);
             }
-            
+
             new StreamProcessor(LocalOfficeConnection.mProcess.getInputStream(), System.out, "OfficeService.out redirector");
             new StreamProcessor(LocalOfficeConnection.mProcess.getErrorStream(), System.err, "OfficeService.err redirector");
-            
+
         }
 
         /**
          * Retrieves the amount of time to wait for the startup.
+         *
          * @return The amount of time to wait in seconds(?).
          */
         @objid ("9a7e5340-3842-4efd-920a-cc8f8b39ae06")
@@ -793,12 +804,12 @@ public class LocalOfficeConnection implements OfficeConnection {
         final java.io.PrintStream m_print;
 
         @objid ("cdcf67ae-e714-46ab-a4cc-a9b00d167f99")
-        public  StreamProcessor(final java.io.InputStream in, final java.io.PrintStream out, final String name) {
+        public StreamProcessor(final java.io.InputStream in, final java.io.PrintStream out, final String name) {
             super(name);
             this.m_in = in;
             this.m_print = out;
             start();
-            
+
         }
 
         @objid ("de96d5d1-1651-4e9b-9529-beb3bfc57466")
@@ -817,7 +828,7 @@ public class LocalOfficeConnection implements OfficeConnection {
             } catch (java.io.IOException e) {
                 e.printStackTrace(System.err);
             }
-            
+
         }
 
     }

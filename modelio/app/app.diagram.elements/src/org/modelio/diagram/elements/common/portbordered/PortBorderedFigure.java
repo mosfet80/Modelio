@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.portbordered;
 
@@ -38,25 +38,25 @@ public class PortBorderedFigure extends GradientFigure {
     private Rectangle overallBounds = null;
 
     @objid ("7edc7eb8-1dec-11e2-8cad-001ec947c8cc")
-    public  PortBorderedFigure(IFigure primaryFigure) {
+    public PortBorderedFigure(IFigure primaryFigure) {
         super();
         this.primaryFigure = primaryFigure;
-        
+
         // debug
         // setOpaque(true);
         // setBackgroundColor(ColorConstants.lightGreen);
         // setLayoutManager(new FlowLayout());
         //
-        
+
         // Create the port container
         this.portContainer = new PortContainerFigure();
-        
+
         // Add children
         add(this.primaryFigure);
         add(this.portContainer);
-        
+
         setBounds(primaryFigure.getBounds().getCopy());
-        
+
     }
 
     @objid ("7edc7ebd-1dec-11e2-8cad-001ec947c8cc")
@@ -67,7 +67,7 @@ public class PortBorderedFigure extends GradientFigure {
             this.portContainer.invalidateTree();
             erase();
         }
-        
+
     }
 
     @objid ("7edc7ec0-1dec-11e2-8cad-001ec947c8cc")
@@ -92,7 +92,7 @@ public class PortBorderedFigure extends GradientFigure {
     public void repaint() {
         super.repaint();
         this.portContainer.repaint();
-        
+
     }
 
     @objid ("7edee0f0-1dec-11e2-8cad-001ec947c8cc")
@@ -117,7 +117,7 @@ public class PortBorderedFigure extends GradientFigure {
             return this.primaryFigure.getClientArea(rect);
         } else
             return super.getClientArea(rect);
-        
+
     }
 
     @objid ("7edee109-1dec-11e2-8cad-001ec947c8cc")
@@ -127,7 +127,7 @@ public class PortBorderedFigure extends GradientFigure {
             return true;
         } else
             return super.containsPoint(x, y);
-        
+
     }
 
     @objid ("7edee10f-1dec-11e2-8cad-001ec947c8cc")
@@ -135,7 +135,7 @@ public class PortBorderedFigure extends GradientFigure {
     protected void primTranslate(int dx, int dy) {
         super.primTranslate(dx, dy);
         erase();
-        
+
     }
 
     @objid ("7edee114-1dec-11e2-8cad-001ec947c8cc")
@@ -143,7 +143,7 @@ public class PortBorderedFigure extends GradientFigure {
     public void erase() {
         super.erase();
         this.portContainer.erase();
-        
+
     }
 
     @objid ("7edee117-1dec-11e2-8cad-001ec947c8cc")
@@ -192,7 +192,7 @@ public class PortBorderedFigure extends GradientFigure {
     public void invalidate() {
         this.overallBounds = null;
         super.invalidate();
-        
+
     }
 
     @objid ("7ee1433e-1dec-11e2-8cad-001ec947c8cc")
@@ -200,7 +200,7 @@ public class PortBorderedFigure extends GradientFigure {
     public void validate() {
         this.overallBounds = null;
         super.validate();
-        
+
     }
 
     @objid ("7ee14341-1dec-11e2-8cad-001ec947c8cc")
@@ -208,7 +208,7 @@ public class PortBorderedFigure extends GradientFigure {
     protected void fireFigureMoved() {
         super.fireFigureMoved();
         this.overallBounds = null;
-        
+
     }
 
     @objid ("7ee14344-1dec-11e2-8cad-001ec947c8cc")

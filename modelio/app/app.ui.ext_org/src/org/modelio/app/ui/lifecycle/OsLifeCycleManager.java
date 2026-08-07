@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.ui.lifecycle;
 
@@ -26,7 +26,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.MessageFormat;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.core.internal.preferences.PreferencesOSGiUtils;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
@@ -106,21 +106,21 @@ public class OsLifeCycleManager {
         // Modelio start sequence is logged at INFO level
         LogLevel prevLevel = PluginLogger.ensureLogLevel(LogLevel.INFO);
         AppUi.LOG.info("Modelio by modelio.org");
-        
+
         // Set up the ModelioEnv instance, this also create the modelio runtime
         // directories if needed
         final ModelioEnv modelioEnv = ContextInjectionFactory.make(ModelioEnv.class, context);
         context.set(ModelioEnv.class, modelioEnv);
         context.set(ModelioEnv.EDITION_VARIABLE, "OpenSource");
-        
+
         AppUi.LOG.info("Modelio version            : '%s'", modelioEnv.getVersion());
         AppUi.LOG.info("Modelio runtime data path  : '%s'", modelioEnv.getRuntimeDataPath());
         AppUi.LOG.info("Modelio module catalog path: '%s'", modelioEnv.getModuleCatalogPath());
         AppUi.LOG.info("Modelio macro  catalog path: '%s'", modelioEnv.getMacroCatalogPath());
-        
+
         Location s = PreferencesOSGiUtils.getDefault().getInstanceLocation();
         AppUi.LOG.info("Instance location: %s", s.getURL());
-        
+
         // Get the command line arguments
         final IApplicationContext appContext = context.get(IApplicationContext.class);
         final String args[] = (String[]) appContext.getArguments().get(IApplicationContext.APPLICATION_ARGS);
@@ -131,7 +131,7 @@ public class OsLifeCycleManager {
         }
         AppUi.LOG.info("Command line arguments = '%s'", cmdline);
         this.cmdLineData = new CommandLineData(args);
-        
+
         // -mdebug on command line forces log level to help development and debugging
         if (this.cmdLineData.isDebug()) {
             PluginLogger.setLogLevel(LogLevel.DEBUG);
@@ -139,14 +139,14 @@ public class OsLifeCycleManager {
             // Restore initial level
             PluginLogger.setLogLevel(prevLevel);
         }
-        
+
         // Depending on command line options, pop up a splash
         if (!this.cmdLineData.isBatch()) {
             // No batch mode, show the splash
             this.splash = new Splash();
             this.splash.open();
         }
-        
+
         // Initialize SSL certificates manager
         final Path serverCertsDb = modelioEnv.getRuntimeDataPath().resolve("servercerts.db");
         try {
@@ -161,17 +161,17 @@ public class OsLifeCycleManager {
             context.get(StatusReporter.class).show(StatusReporter.ERROR, message, e1);
         }
         ContextInjectionFactory.make(ServerTrustErrorHandler.class, context);
-        
+
         // Create and Register the ModelioEventService instance
         final ModelioEventService modelioEventService = new ModelioEventService(context);
         context.set(IModelioEventService.class, modelioEventService);
-        
+
         // Initialize catalog from module store if the local catalog directory does not contain any entry
         context.set(IModuleStore.class, initModulesCatalog(modelioEnv));
-        
+
         if (this.splash != null) {
             this.splash.showMessage(AppUi.I18N.getString("Splash.services"));
-        
+
             // Create and Register the ModelioProgressService instance
             // The service is registered both as a standard IProgressService and as
             // an extended IModelioProgressService
@@ -179,21 +179,22 @@ public class OsLifeCycleManager {
             context.set(IModelioProgressService.class, modelioProgressService);
             context.set(IProgressService.class, modelioProgressService);
         }
-        
+
     }
 
     /**
      * This method is be called once the application model is loaded.
+     *
      * @param application the application model
      */
     @objid ("ab606429-1892-408d-9739-071039297c1c")
     @ProcessAdditions
     void onProcessAdditions(final MApplication application) {
         final IEclipseContext context = application.getContext();
-        
+
         final PerspectiveManager pm = ContextInjectionFactory.make(PerspectiveManager.class, context);
         context.set(IModelioUiService.class, pm);
-        
+
         // Perspectives initialization, force the Welcome part if first launch
         WelcomeView.setWelcomeHref(OsLifeCycleManager.WELCOME_HREF);
         final IEclipsePreferences prefs = InstanceScope.INSTANCE.getNode(AppUi.PLUGIN_ID);
@@ -209,26 +210,26 @@ public class OsLifeCycleManager {
         } else {
             pm.switchToPerspective(null); // 'null' sets a default perspective
         }
-        
+
         // Create and Register the picking service instance
         final IModelioPickingService pickingService = ContextInjectionFactory.make(ModelioPickingService.class, context);
         context.set(IModelioPickingService.class, pickingService);
-        
+
         // Create and Register the navigate service instance
         final IModelioNavigationService navigateService = ContextInjectionFactory.make(ModelioNavigationService.class, context);
         context.set(IModelioNavigationService.class, navigateService);
-        
+
         // Create and Register the activation service instance
         final IActivationService activationService = ContextInjectionFactory.make(ActivationService.class, context);
         context.set(IActivationService.class, activationService);
-        
+
         // Create and Register the InputPart Service instance
         final IInputPartService inputPartService = ContextInjectionFactory.make(InputPartService.class, context);
         context.set(IInputPartService.class, inputPartService);
-        
+
         // Create the title updater
         final ApplicationTitleUpdater titleUpdater = ContextInjectionFactory.make(ApplicationTitleUpdater.class, context);
-        
+
         // Swap monitoring:
         // - the title updater for a simplified swap activity report to the end user
         // - a LOG report in debug mode
@@ -239,16 +240,16 @@ public class OsLifeCycleManager {
                 MemoryManager.get().addMemoryListener(new SwapLogMonitor());
             }
         }
-        
+
         // Configuring HELP
         context.set(IWorkbenchHelpSystem.class, ModelioHelpSystem.getInstance());
-        
+
         // Switch off the splash screen if needed.
         if (this.splash != null) {
             this.splash.close();
             this.splash = null;
         }
-        
+
         // Things to do once the workbench has started
         // MANDATORY: keep this code sequence the last one of the method
         final CommandLineData cmdData = OsLifeCycleManager.this.cmdLineData;
@@ -262,7 +263,7 @@ public class OsLifeCycleManager {
                     if (instanceLocation != null) {
                         instanceLocation.release();
                     }
-        
+
                     // Batch mode
                     // MANDATORY: keep this code sequence the last one of the method
                     // note : "BATCH" handler also initializes the workspace so call
@@ -270,10 +271,10 @@ public class OsLifeCycleManager {
                     eventBroker.post("BATCH", cmdData);
                 }
             };
-        
+
             eventBroker.subscribe(UIEvents.UILifeCycle.APP_STARTUP_COMPLETE, eventHandler);
         }
-        
+
     }
 
     @objid ("68684452-09b9-43cc-8187-12587debedd4")
@@ -281,7 +282,7 @@ public class OsLifeCycleManager {
     void onProcessRemovals() {
         // Called after @ProcessAdditions but for removals.
         // final MApplication application
-        
+
     }
 
     @objid ("4021a0d4-a0af-4d87-b82d-eac07a7f0ef6")
@@ -289,7 +290,7 @@ public class OsLifeCycleManager {
     void onPreSave() {
         // Is called before the application model is saved. You can modify the
         // model before it is persisted.
-        
+
     }
 
     @objid ("61c57b6e-4aac-477f-b313-244e7115779a")
@@ -306,7 +307,7 @@ public class OsLifeCycleManager {
         } catch (final IOException e) {
             AppUi.LOG.debug(e);
         }
-        
+
     }
 
     /**
@@ -315,7 +316,7 @@ public class OsLifeCycleManager {
     @objid ("c0a5f790-80f7-43f3-b7cf-3954aa99e9ff")
     private IModuleStore initModulesCatalog(final ModelioEnv modelioEnv) {
         final IModuleStore catalog = new FileModuleStore(modelioEnv.getAllMetamodelExtensions(), modelioEnv.getModuleCatalogPath());
-        
+
         boolean emptyCatalog;
         try (DirectoryStream<Path> ds = Files.newDirectoryStream(modelioEnv.getModuleCatalogPath(),
                 entry -> !entry.endsWith("version.dat"))) {
@@ -324,14 +325,14 @@ public class OsLifeCycleManager {
             AppUi.LOG.warning(e);
             emptyCatalog = false;
         }
-        
+
         if (emptyCatalog) {
             if (this.splash != null) {
                 this.splash.showMessage(AppUi.I18N.getString("Splash.modules"));
             }
             deliverMdaStoreModules(catalog);
         }
-        
+
         final PluginModulesCache pluginsStore = new PluginModulesCache(modelioEnv.getAllMetamodelExtensions());
         final AggregatedModuleStore aggregatedStore = new AggregatedModuleStore(pluginsStore, catalog);
         return aggregatedStore;

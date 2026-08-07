@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.helpers;
 
@@ -31,6 +31,7 @@ import org.eclipse.draw2d.geometry.PrecisionDimension;
 import org.eclipse.draw2d.geometry.PrecisionPoint;
 import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
@@ -38,7 +39,7 @@ import org.eclipse.gef.requests.GroupRequest;
 
 /**
  * Utilities related to request building.
- * 
+ *
  * @author cmarin
  * @since 3.4
  */
@@ -54,6 +55,7 @@ public class RequestHelper {
      * Create a shallow copy of the given request.
      * <p>
      * The copy and the original requests share the same extended data map. Move delta and resize delta are not shared.
+     *
      * @param orig the original request
      * @return the request copy.
      */
@@ -76,6 +78,7 @@ public class RequestHelper {
      * Create a deep copy of the given request.
      * <p>
      * The copy has a copy of the original extended data map, move delta and size delta.
+     *
      * @param orig the original request
      * @return the request copy.
      */
@@ -98,6 +101,7 @@ public class RequestHelper {
      * Get a copy of the figure bounds after applying the given request.
      * <p>
      * The returned rectangle is in the figure coordinates.
+     *
      * @param fig a figure
      * @param request a move/resize request
      * @return the transformed figure bounds.
@@ -113,6 +117,7 @@ public class RequestHelper {
 
     /**
      * Set the request move and size delta to ask the given figure to move/resize to the given bounds.
+     *
      * @param req the request to modify
      * @param fig the figure to move/resize
      * @param requestedBounds the requested figure bounds in the figure coordinates.
@@ -121,20 +126,22 @@ public class RequestHelper {
     public static void setDeltas(ChangeBoundsRequest req, IFigure fig, Rectangle requestedBounds) {
         Rectangle curAbsBounds = new PrecisionRectangle(fig.getBounds());
         fig.translateToAbsolute(curAbsBounds);
-        
+
         Rectangle reqAbsBounds = new PrecisionRectangle(requestedBounds);
         fig.translateToAbsolute(reqAbsBounds);
-        
+
+        // Set the deltas to move and resize the figure.
+        // The deltas are in PrecisionPoint and PrecisionDimension to avoid precision losses
+        // when transforming from absolute to relative coordinates back and forth.
         req.setMoveDelta(reqAbsBounds.getTopLeft().translate(-curAbsBounds.preciseX(), -curAbsBounds.preciseY()));
-        req.setSizeDelta(reqAbsBounds.getSize().shrink(curAbsBounds.preciseWidth(), curAbsBounds.preciseHeight()));
-        
-        // req.getMoveDelta().setLocation(reqAbsBounds.x() - curAbsBounds.x(), reqAbsBounds.y() - curAbsBounds.y());
-        // req.getSizeDelta().setSize(reqAbsBounds.width() - curAbsBounds.width(), reqAbsBounds.height() - curAbsBounds.height());
-        
+        req.setSizeDelta(new PrecisionDimension(
+                reqAbsBounds.preciseWidth() - curAbsBounds.preciseWidth(),
+                reqAbsBounds.preciseHeight() - curAbsBounds.preciseHeight()));
     }
 
     /**
      * Dump the request to a string for debugging.
+     *
      * @param req a request
      * @return a string representation
      */
@@ -148,11 +155,11 @@ public class RequestHelper {
         } else {
             return req.getClass().getSimpleName() + " { type=" + req.getType() + "}";
         }
-        
     }
 
     /**
      * Dump the request to a string for debugging.
+     *
      * @param req a request
      * @return a string representation
      */
@@ -165,6 +172,7 @@ public class RequestHelper {
      * Add the value to the request extended data entry.
      * <p>
      * The data entry is handled as a Collection.
+     *
      * @param req the request
      * @param key the extended data entry key
      * @param value the value to add to the data entry
@@ -177,11 +185,10 @@ public class RequestHelper {
             vals = new ArrayList<>(1);
             req.getExtendedData().put(key, vals);
         }
-        
+
         if (!vals.contains(value)) {
             vals.add(value);
         }
-        
     }
 
     @objid ("56475dbe-40c1-4572-b135-36084878632a")
@@ -196,6 +203,7 @@ public class RequestHelper {
 
     /**
      * Get the edit parts handled by the parent requests hierarchy.
+     *
      * @param req a Request.
      * @return a bunch of edit parts.
      */
@@ -206,21 +214,21 @@ public class RequestHelper {
 
     /**
      * Add the edit parts handled by the parent request to the shared edit parts.
+     *
      * @param req a Request.
      * @param parentRequest req's parent request.
      */
     @objid ("b5f66a38-a6f9-47ec-9ad1-0b5f39f63a38")
     public static void addSharedEditParts(GroupRequest req, GroupRequest parentRequest) {
-        List<GraphicalEditPart> editParts = parentRequest.getEditParts();
-        
-        Set<GraphicalEditPart> vals = (Set<GraphicalEditPart>) req.getExtendedData().get(SHARED_EDIT_PARTS);
+        List<? extends EditPart> editParts = parentRequest.getEditParts();
+
+        Set<EditPart> vals = (Set<EditPart>) req.getExtendedData().get(SHARED_EDIT_PARTS);
         if (vals == null) {
             vals = new HashSet<>(editParts.size());
             req.getExtendedData().put(SHARED_EDIT_PARTS, vals);
         }
-        
+
         vals.addAll(editParts);
-        
     }
 
 }

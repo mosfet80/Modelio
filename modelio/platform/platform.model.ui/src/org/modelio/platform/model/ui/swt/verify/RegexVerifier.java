@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.swt.verify;
 
@@ -40,10 +40,11 @@ public class RegexVerifier implements ITextVerifier {
 
     /**
      * Build a new instance of RegexValidator.
+     *
      * @param regex the regular expression to be matched during validation.
      */
     @objid ("d7eead28-9a1c-4037-9797-4868268b54d4")
-    public  RegexVerifier(String regex) {
+    public RegexVerifier(String regex) {
         this.regex = regex;
     }
 

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.participant.header;
 
@@ -40,7 +40,7 @@ import org.modelio.diagram.elements.drawings.core.HAlign;
 
 /**
  * Specialization of the {@link ModelElementHeaderEditPart} that allows selection while delegating the actual selection feedback to the PartitionEditPart that contains it.
- * 
+ *
  * @author fpoyer
  */
 @objid ("0f193ce3-7541-46ba-be0e-122363f262dd")
@@ -71,29 +71,29 @@ public class ParticipantHeaderEditPart extends ModelElementHeaderEditPart {
             if (editableText == null || this.getViewer().getControl() == null) {
                 return;
             }
-        
+
             final CellEditorLocator cellEditorLocator = new CellEditorLocator() {
                 @Override
                 public void relocate(CellEditor cellEditor) {
-        
+
                     Rectangle relRect = label.getBounds().getCopy();
-        
+
                     Rectangle absRect = relRect.getCopy();
                     label.translateToAbsolute(absRect);
-        
+
                     Point controlPrefSize = cellEditor.getControl().computeSize(-1, -1);
                     int controlW = Math.max(relRect.width, Math.max(absRect.width, controlPrefSize.x));
                     int controlH = relRect.height;
-        
+
                     cellEditor.getControl().setFont(label.getTextFont());
                     cellEditor.getControl().setBounds(absRect.x,
                             absRect.y + (absRect.height / 2) - controlH / 2,
                             controlW,
                             controlH);
                 }
-        
+
             };
-        
+
             new TextDirectEditManager(
                     this,
                     cellEditorLocator,
@@ -103,7 +103,7 @@ public class ParticipantHeaderEditPart extends ModelElementHeaderEditPart {
         } else {
             super.performRequest(req);
         }
-        
+
     }
 
     @objid ("e89d3d60-702a-49c6-9924-2dca1f7b4a0b")
@@ -113,7 +113,7 @@ public class ParticipantHeaderEditPart extends ModelElementHeaderEditPart {
         if (getParent() != null) {
             getParent().setFocus(value);
         }
-        
+
     }
 
     @objid ("215bd57a-47fa-4928-9726-2962843c64e8")
@@ -124,7 +124,7 @@ public class ParticipantHeaderEditPart extends ModelElementHeaderEditPart {
         } else {
             return new RotatedFigureContainer(super.createFigure(), 90);
         }
-        
+
     }
 
     @objid ("46aee48f-072c-4799-b28f-01236c596cf6")
@@ -137,7 +137,7 @@ public class ParticipantHeaderEditPart extends ModelElementHeaderEditPart {
         } else {
             return getHeaderFigure((IFigure) aFigure.getChildren().get(0));
         }
-        
+
     }
 
     @objid ("89a7df3c-864c-46ff-bb0e-47d3da80b9a4")
@@ -151,7 +151,7 @@ public class ParticipantHeaderEditPart extends ModelElementHeaderEditPart {
     protected void createEditPolicies() {
         super.createEditPolicies();
         installEditPolicy(ModelElementDropRequest.TYPE, new BpmnParticipantElementDropEditPolicy());
-        
+
     }
 
 }

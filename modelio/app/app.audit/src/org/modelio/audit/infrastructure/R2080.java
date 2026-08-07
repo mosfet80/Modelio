@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.infrastructure;
 
@@ -51,7 +51,7 @@ public class R2080 extends AbstractInfrastructureRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -72,7 +72,7 @@ public class R2080 extends AbstractInfrastructureRule {
         plan.registerRule(PropertyDefinition.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -109,14 +109,14 @@ public class R2080 extends AbstractInfrastructureRule {
      * Default constructor for R2080
      */
     @objid ("d45ee96f-25d1-4669-a617-abdb5ff37b5c")
-    public  R2080() {
+    public R2080() {
         this.checkerInstance = new CheckR2080(this);
     }
 
     @objid ("23119e39-d8ff-4850-bbff-8cc37b040d26")
     private static class CheckR2080 extends AbstractControl {
         @objid ("74d01a87-715f-4ae2-9a41-649915bed157")
-        public  CheckR2080(IRule rule) {
+        public CheckR2080(IRule rule) {
             super(rule);
         }
 
@@ -142,9 +142,9 @@ public class R2080 extends AbstractInfrastructureRule {
                     AuditSeverity.AuditSuccess,
                     PropertyTable,
                     null);
-            
+
             Map<String, List<PropertyDefinition>> duplicates = new HashMap<>();
-            
+
             for (PropertyDefinition p : PropertyTable.getOwned()) {
                 String name = p.getName();
                 if (!duplicates.containsKey(name)) {
@@ -152,12 +152,12 @@ public class R2080 extends AbstractInfrastructureRule {
                 }
                 duplicates.get(p.getName()).add(p);
             }
-            
+
             for (Entry<String, List<PropertyDefinition>> entry : duplicates.entrySet()) {
                 if (entry.getValue().size() > 1) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(PropertyTable);

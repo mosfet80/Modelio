@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -46,7 +46,7 @@ public class R2570 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -97,14 +97,14 @@ public class R2570 extends AbstractUmlRule {
      * Default constructor for R2570
      */
     @objid ("026096b6-e1ec-414f-9f17-7cbc9882153c")
-    public  R2570() {
+    public R2570() {
         this.checkerInstance = new CheckR2570(this);
     }
 
     @objid ("48436a58-863e-49a6-9591-05bcbdd181f4")
     private static class CheckR2570 extends AbstractControl {
         @objid ("f02e1778-1c50-45b1-9b0b-6fd003014a05")
-        public  CheckR2570(IRule rule) {
+        public CheckR2570(IRule rule) {
             super(rule);
         }
 
@@ -120,12 +120,12 @@ public class R2570 extends AbstractUmlRule {
         @objid ("8bb885fb-7721-40e5-8a5e-2c3ac3fe3b50")
         private IAuditEntry checkR2570(final Port port) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, port, null);
-            
+
             if (port.isIsBehavior()) {
                 if (!(port.getBase() == null || port.getBase().equals(port.getInternalOwner()))) {
-            
+
                     // Rule Failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(port);

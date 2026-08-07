@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.script.view;
 
@@ -40,7 +40,7 @@ import org.modelio.script.plugin.Script;
 @objid ("007ce2e6-663d-105c-84ef-001ec947cd2a")
 class StyledTextMenuProvider {
     @objid ("007cf43e-663d-105c-84ef-001ec947cd2a")
-     StyledTextMenuProvider(StyledText text) {
+    StyledTextMenuProvider(StyledText text) {
         createMenu(text);
     }
 
@@ -48,21 +48,21 @@ class StyledTextMenuProvider {
     private void createMenu(final StyledText text) {
         final Menu popupMenu = new Menu(text);
         text.setMenu(popupMenu);
-        
+
         popupMenu.addListener(SWT.Show, new Listener() {
-        
+
             @Override
             public void handleEvent(Event event0) {
                 // Remove all items
                 for (MenuItem i : popupMenu.getItems()) {
                     i.dispose();
                 }
-        
+
                 populateMenu(text, popupMenu);
-        
+
             }
         });
-        
+
     }
 
     @objid ("007d38a4-663d-105c-84ef-001ec947cd2a")
@@ -78,7 +78,7 @@ class StyledTextMenuProvider {
         final boolean isSelection = !text.getSelectionText().isEmpty();
         final boolean isClipBoard = isClipBoard(text);
         final boolean enabled = text.isEnabled() && text.getEditable();
-        
+
         final MenuItem cutItem = new MenuItem(popupMenu, SWT.PUSH);
         cutItem.setText(Script.I18N.getString("Menus.Edit.Cut"));
         cutItem.setImage(null);
@@ -90,7 +90,7 @@ class StyledTextMenuProvider {
                 text.cut();
             }
         });
-        
+
         final MenuItem copyItem = new MenuItem(popupMenu, SWT.PUSH);
         copyItem.setText(Script.I18N.getString("Menus.Edit.Copy"));
         copyItem.setImage(null);
@@ -102,7 +102,7 @@ class StyledTextMenuProvider {
                 text.copy();
             }
         });
-        
+
         final MenuItem pasteItem = new MenuItem(popupMenu, SWT.PUSH);
         pasteItem.setText(Script.I18N.getString("Menus.Edit.Paste"));
         pasteItem.setImage(null);
@@ -114,7 +114,7 @@ class StyledTextMenuProvider {
                 text.paste();
             }
         });
-        
+
         final MenuItem deleteItem = new MenuItem(popupMenu, SWT.PUSH);
         deleteItem.setText(Script.I18N.getString("Menus.Edit.Delete"));
         deleteItem.setImage(null);
@@ -126,9 +126,9 @@ class StyledTextMenuProvider {
                 text.invokeAction(ST.DELETE_NEXT);
             }
         });
-        
+
         new MenuItem(popupMenu, SWT.SEPARATOR);
-        
+
         final MenuItem selectAllItem = new MenuItem(popupMenu, SWT.PUSH);
         selectAllItem.setText(Script.I18N.getString("Menus.Edit.SelectAll"));
         selectAllItem.setImage(null);
@@ -140,7 +140,7 @@ class StyledTextMenuProvider {
                 text.selectAll();
             }
         });
-        
+
     }
 
 }

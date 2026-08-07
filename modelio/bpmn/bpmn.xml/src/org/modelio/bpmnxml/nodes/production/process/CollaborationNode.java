@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.process;
 
@@ -68,7 +68,7 @@ public class CollaborationNode implements IProductionNode<BpmnCollaboration, TCo
         } else {
             return factory.create(BpmnCollaboration.class, context);
         }
-        
+
     }
 
     @objid ("ef59f647-3523-4719-b215-213318cd0be3")
@@ -95,7 +95,7 @@ public class CollaborationNode implements IProductionNode<BpmnCollaboration, TCo
             }
             modelioElement.setName(partname);
         }
-        
+
         modelioElement.setIsClosed(jaxbElement.isIsClosed());
         return modelioElement;
     }
@@ -105,7 +105,7 @@ public class CollaborationNode implements IProductionNode<BpmnCollaboration, TCo
     public TCollaboration createJaxbElement(Object context, BpmnCollaboration modelioElement) {
         // Create JaxbElement
         TCollaboration process = new TCollaboration();
-        
+
         // Add to context
         TDefinitions jaxDefinition = (TDefinitions) context;
         List<JAXBElement<? extends TRootElement>> jaxContent = jaxDefinition.getRootElement();
@@ -114,7 +114,7 @@ public class CollaborationNode implements IProductionNode<BpmnCollaboration, TCo
         }
         ObjectFactory factory = new ObjectFactory();
         jaxContent.add(factory.createCollaboration(process));
-        
+
         process.setId(IDUtils.formatJaxbID(modelioElement));
         return process;
     }
@@ -123,7 +123,7 @@ public class CollaborationNode implements IProductionNode<BpmnCollaboration, TCo
     @Override
     public TCollaboration updateJaxbElement(Object context, TCollaboration collaboration, BpmnCollaboration modelioElement) {
         collaboration.setName(modelioElement.getName());
-        
+
         collaboration.setIsClosed(modelioElement.isIsClosed());
         return collaboration;
     }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.reverse;
 
@@ -24,253 +24,8 @@ import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.uml2.uml.*;
-import org.eclipse.uml2.uml.Abstraction;
-import org.eclipse.uml2.uml.AcceptCallAction;
-import org.eclipse.uml2.uml.AcceptEventAction;
-import org.eclipse.uml2.uml.Action;
-import org.eclipse.uml2.uml.ActionExecutionSpecification;
-import org.eclipse.uml2.uml.ActionInputPin;
-import org.eclipse.uml2.uml.Activity;
-import org.eclipse.uml2.uml.ActivityEdge;
-import org.eclipse.uml2.uml.ActivityFinalNode;
-import org.eclipse.uml2.uml.ActivityGroup;
-import org.eclipse.uml2.uml.ActivityNode;
-import org.eclipse.uml2.uml.ActivityParameterNode;
-import org.eclipse.uml2.uml.ActivityPartition;
-import org.eclipse.uml2.uml.Actor;
-import org.eclipse.uml2.uml.AddStructuralFeatureValueAction;
-import org.eclipse.uml2.uml.AddVariableValueAction;
-import org.eclipse.uml2.uml.AnyReceiveEvent;
-import org.eclipse.uml2.uml.Artifact;
-import org.eclipse.uml2.uml.Association;
-import org.eclipse.uml2.uml.AssociationClass;
-import org.eclipse.uml2.uml.Behavior;
-import org.eclipse.uml2.uml.BehaviorExecutionSpecification;
-import org.eclipse.uml2.uml.BehavioralFeature;
-import org.eclipse.uml2.uml.BehavioredClassifier;
-import org.eclipse.uml2.uml.BroadcastSignalAction;
-import org.eclipse.uml2.uml.CallAction;
-import org.eclipse.uml2.uml.CallBehaviorAction;
-import org.eclipse.uml2.uml.CallEvent;
-import org.eclipse.uml2.uml.CallOperationAction;
-import org.eclipse.uml2.uml.CentralBufferNode;
-import org.eclipse.uml2.uml.ChangeEvent;
 import org.eclipse.uml2.uml.Class;
-import org.eclipse.uml2.uml.Classifier;
-import org.eclipse.uml2.uml.ClassifierTemplateParameter;
-import org.eclipse.uml2.uml.Clause;
-import org.eclipse.uml2.uml.ClearAssociationAction;
-import org.eclipse.uml2.uml.ClearStructuralFeatureAction;
-import org.eclipse.uml2.uml.ClearVariableAction;
-import org.eclipse.uml2.uml.Collaboration;
-import org.eclipse.uml2.uml.CollaborationUse;
-import org.eclipse.uml2.uml.CombinedFragment;
-import org.eclipse.uml2.uml.Comment;
-import org.eclipse.uml2.uml.CommunicationPath;
-import org.eclipse.uml2.uml.Component;
-import org.eclipse.uml2.uml.ComponentRealization;
-import org.eclipse.uml2.uml.ConditionalNode;
-import org.eclipse.uml2.uml.ConnectableElement;
-import org.eclipse.uml2.uml.ConnectableElementTemplateParameter;
-import org.eclipse.uml2.uml.ConnectionPointReference;
-import org.eclipse.uml2.uml.Connector;
-import org.eclipse.uml2.uml.ConnectorEnd;
-import org.eclipse.uml2.uml.ConsiderIgnoreFragment;
-import org.eclipse.uml2.uml.Constraint;
-import org.eclipse.uml2.uml.Continuation;
-import org.eclipse.uml2.uml.ControlFlow;
-import org.eclipse.uml2.uml.ControlNode;
-import org.eclipse.uml2.uml.CreateLinkAction;
-import org.eclipse.uml2.uml.CreateLinkObjectAction;
-import org.eclipse.uml2.uml.CreateObjectAction;
-import org.eclipse.uml2.uml.CreationEvent;
-import org.eclipse.uml2.uml.DataStoreNode;
-import org.eclipse.uml2.uml.DataType;
-import org.eclipse.uml2.uml.DecisionNode;
-import org.eclipse.uml2.uml.Dependency;
-import org.eclipse.uml2.uml.DeployedArtifact;
-import org.eclipse.uml2.uml.Deployment;
-import org.eclipse.uml2.uml.DeploymentSpecification;
-import org.eclipse.uml2.uml.DeploymentTarget;
-import org.eclipse.uml2.uml.DestroyLinkAction;
-import org.eclipse.uml2.uml.DestroyObjectAction;
-import org.eclipse.uml2.uml.DestructionEvent;
-import org.eclipse.uml2.uml.Device;
-import org.eclipse.uml2.uml.DirectedRelationship;
-import org.eclipse.uml2.uml.Duration;
-import org.eclipse.uml2.uml.DurationConstraint;
-import org.eclipse.uml2.uml.DurationInterval;
-import org.eclipse.uml2.uml.DurationObservation;
-import org.eclipse.uml2.uml.Element;
-import org.eclipse.uml2.uml.ElementImport;
-import org.eclipse.uml2.uml.EncapsulatedClassifier;
-import org.eclipse.uml2.uml.Enumeration;
-import org.eclipse.uml2.uml.EnumerationLiteral;
-import org.eclipse.uml2.uml.Event;
-import org.eclipse.uml2.uml.ExceptionHandler;
-import org.eclipse.uml2.uml.ExecutableNode;
-import org.eclipse.uml2.uml.ExecutionEnvironment;
-import org.eclipse.uml2.uml.ExecutionEvent;
-import org.eclipse.uml2.uml.ExecutionOccurrenceSpecification;
-import org.eclipse.uml2.uml.ExecutionSpecification;
-import org.eclipse.uml2.uml.ExpansionNode;
-import org.eclipse.uml2.uml.ExpansionRegion;
-import org.eclipse.uml2.uml.Expression;
-import org.eclipse.uml2.uml.Extend;
-import org.eclipse.uml2.uml.Extension;
-import org.eclipse.uml2.uml.ExtensionEnd;
-import org.eclipse.uml2.uml.ExtensionPoint;
-import org.eclipse.uml2.uml.Feature;
-import org.eclipse.uml2.uml.FinalNode;
-import org.eclipse.uml2.uml.FinalState;
-import org.eclipse.uml2.uml.FlowFinalNode;
-import org.eclipse.uml2.uml.ForkNode;
-import org.eclipse.uml2.uml.FunctionBehavior;
-import org.eclipse.uml2.uml.Gate;
-import org.eclipse.uml2.uml.GeneralOrdering;
-import org.eclipse.uml2.uml.Generalization;
-import org.eclipse.uml2.uml.GeneralizationSet;
-import org.eclipse.uml2.uml.Image;
-import org.eclipse.uml2.uml.Include;
-import org.eclipse.uml2.uml.InformationFlow;
-import org.eclipse.uml2.uml.InformationItem;
-import org.eclipse.uml2.uml.InitialNode;
-import org.eclipse.uml2.uml.InputPin;
-import org.eclipse.uml2.uml.InstanceSpecification;
-import org.eclipse.uml2.uml.InstanceValue;
-import org.eclipse.uml2.uml.Interaction;
-import org.eclipse.uml2.uml.InteractionConstraint;
-import org.eclipse.uml2.uml.InteractionFragment;
-import org.eclipse.uml2.uml.InteractionOperand;
-import org.eclipse.uml2.uml.InteractionUse;
-import org.eclipse.uml2.uml.Interface;
-import org.eclipse.uml2.uml.InterfaceRealization;
-import org.eclipse.uml2.uml.InterruptibleActivityRegion;
-import org.eclipse.uml2.uml.Interval;
-import org.eclipse.uml2.uml.IntervalConstraint;
-import org.eclipse.uml2.uml.InvocationAction;
-import org.eclipse.uml2.uml.JoinNode;
-import org.eclipse.uml2.uml.Lifeline;
-import org.eclipse.uml2.uml.LinkAction;
-import org.eclipse.uml2.uml.LinkEndCreationData;
-import org.eclipse.uml2.uml.LinkEndData;
-import org.eclipse.uml2.uml.LinkEndDestructionData;
-import org.eclipse.uml2.uml.LiteralBoolean;
-import org.eclipse.uml2.uml.LiteralInteger;
-import org.eclipse.uml2.uml.LiteralNull;
-import org.eclipse.uml2.uml.LiteralSpecification;
-import org.eclipse.uml2.uml.LiteralString;
-import org.eclipse.uml2.uml.LiteralUnlimitedNatural;
-import org.eclipse.uml2.uml.LoopNode;
-import org.eclipse.uml2.uml.Manifestation;
-import org.eclipse.uml2.uml.MergeNode;
-import org.eclipse.uml2.uml.Message;
-import org.eclipse.uml2.uml.MessageEnd;
-import org.eclipse.uml2.uml.MessageEvent;
-import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
-import org.eclipse.uml2.uml.Model;
-import org.eclipse.uml2.uml.MultiplicityElement;
-import org.eclipse.uml2.uml.NamedElement;
-import org.eclipse.uml2.uml.Namespace;
-import org.eclipse.uml2.uml.Node;
-import org.eclipse.uml2.uml.ObjectFlow;
-import org.eclipse.uml2.uml.ObjectNode;
-import org.eclipse.uml2.uml.Observation;
-import org.eclipse.uml2.uml.OccurrenceSpecification;
-import org.eclipse.uml2.uml.OpaqueAction;
-import org.eclipse.uml2.uml.OpaqueBehavior;
-import org.eclipse.uml2.uml.OpaqueExpression;
-import org.eclipse.uml2.uml.Operation;
-import org.eclipse.uml2.uml.OperationTemplateParameter;
-import org.eclipse.uml2.uml.OutputPin;
 import org.eclipse.uml2.uml.Package;
-import org.eclipse.uml2.uml.PackageImport;
-import org.eclipse.uml2.uml.PackageMerge;
-import org.eclipse.uml2.uml.PackageableElement;
-import org.eclipse.uml2.uml.Parameter;
-import org.eclipse.uml2.uml.ParameterSet;
-import org.eclipse.uml2.uml.ParameterableElement;
-import org.eclipse.uml2.uml.PartDecomposition;
-import org.eclipse.uml2.uml.Pin;
-import org.eclipse.uml2.uml.Port;
-import org.eclipse.uml2.uml.PrimitiveType;
-import org.eclipse.uml2.uml.Profile;
-import org.eclipse.uml2.uml.ProfileApplication;
-import org.eclipse.uml2.uml.Property;
-import org.eclipse.uml2.uml.ProtocolConformance;
-import org.eclipse.uml2.uml.ProtocolStateMachine;
-import org.eclipse.uml2.uml.ProtocolTransition;
-import org.eclipse.uml2.uml.Pseudostate;
-import org.eclipse.uml2.uml.QualifierValue;
-import org.eclipse.uml2.uml.RaiseExceptionAction;
-import org.eclipse.uml2.uml.ReadExtentAction;
-import org.eclipse.uml2.uml.ReadIsClassifiedObjectAction;
-import org.eclipse.uml2.uml.ReadLinkAction;
-import org.eclipse.uml2.uml.ReadLinkObjectEndAction;
-import org.eclipse.uml2.uml.ReadLinkObjectEndQualifierAction;
-import org.eclipse.uml2.uml.ReadSelfAction;
-import org.eclipse.uml2.uml.ReadStructuralFeatureAction;
-import org.eclipse.uml2.uml.ReadVariableAction;
-import org.eclipse.uml2.uml.Realization;
-import org.eclipse.uml2.uml.ReceiveOperationEvent;
-import org.eclipse.uml2.uml.ReceiveSignalEvent;
-import org.eclipse.uml2.uml.Reception;
-import org.eclipse.uml2.uml.ReclassifyObjectAction;
-import org.eclipse.uml2.uml.RedefinableElement;
-import org.eclipse.uml2.uml.RedefinableTemplateSignature;
-import org.eclipse.uml2.uml.ReduceAction;
-import org.eclipse.uml2.uml.Region;
-import org.eclipse.uml2.uml.Relationship;
-import org.eclipse.uml2.uml.RemoveStructuralFeatureValueAction;
-import org.eclipse.uml2.uml.RemoveVariableValueAction;
-import org.eclipse.uml2.uml.ReplyAction;
-import org.eclipse.uml2.uml.SendObjectAction;
-import org.eclipse.uml2.uml.SendOperationEvent;
-import org.eclipse.uml2.uml.SendSignalAction;
-import org.eclipse.uml2.uml.SendSignalEvent;
-import org.eclipse.uml2.uml.SequenceNode;
-import org.eclipse.uml2.uml.Signal;
-import org.eclipse.uml2.uml.SignalEvent;
-import org.eclipse.uml2.uml.Slot;
-import org.eclipse.uml2.uml.StartClassifierBehaviorAction;
-import org.eclipse.uml2.uml.StartObjectBehaviorAction;
-import org.eclipse.uml2.uml.State;
-import org.eclipse.uml2.uml.StateInvariant;
-import org.eclipse.uml2.uml.StateMachine;
-import org.eclipse.uml2.uml.Stereotype;
-import org.eclipse.uml2.uml.StringExpression;
-import org.eclipse.uml2.uml.StructuralFeature;
-import org.eclipse.uml2.uml.StructuralFeatureAction;
-import org.eclipse.uml2.uml.StructuredActivityNode;
-import org.eclipse.uml2.uml.StructuredClassifier;
-import org.eclipse.uml2.uml.Substitution;
-import org.eclipse.uml2.uml.TemplateBinding;
-import org.eclipse.uml2.uml.TemplateParameter;
-import org.eclipse.uml2.uml.TemplateParameterSubstitution;
-import org.eclipse.uml2.uml.TemplateSignature;
-import org.eclipse.uml2.uml.TemplateableElement;
-import org.eclipse.uml2.uml.TestIdentityAction;
-import org.eclipse.uml2.uml.TimeConstraint;
-import org.eclipse.uml2.uml.TimeEvent;
-import org.eclipse.uml2.uml.TimeExpression;
-import org.eclipse.uml2.uml.TimeInterval;
-import org.eclipse.uml2.uml.TimeObservation;
-import org.eclipse.uml2.uml.Transition;
-import org.eclipse.uml2.uml.Trigger;
-import org.eclipse.uml2.uml.Type;
-import org.eclipse.uml2.uml.TypedElement;
-import org.eclipse.uml2.uml.UnmarshallAction;
-import org.eclipse.uml2.uml.Usage;
-import org.eclipse.uml2.uml.UseCase;
-import org.eclipse.uml2.uml.ValuePin;
-import org.eclipse.uml2.uml.ValueSpecification;
-import org.eclipse.uml2.uml.ValueSpecificationAction;
-import org.eclipse.uml2.uml.Variable;
-import org.eclipse.uml2.uml.VariableAction;
-import org.eclipse.uml2.uml.Vertex;
-import org.eclipse.uml2.uml.WriteLinkAction;
-import org.eclipse.uml2.uml.WriteStructuralFeatureAction;
-import org.eclipse.uml2.uml.WriteVariableAction;
 import org.eclipse.uml2.uml.util.UMLSwitch;
 import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.ModelUtils;
@@ -284,13 +39,12 @@ public class OwnedCompositionUml2Visitor extends UMLSwitch<Object> {
     private Map<Object, Object> visitorMap;
 
     @objid ("02368aee-ed5a-4398-a1ca-305c479ec841")
-    public  OwnedCompositionUml2Visitor(XMIImportBehavior behavior, Package ecoreRootModel) {
+    public OwnedCompositionUml2Visitor(XMIImportBehavior behavior, Package ecoreRootModel) {
         this.behavior = behavior;
         this.visitorMap = new HashMap<>();
-        
+
         if (ecoreRootModel instanceof Model)
             this.visitorMap.put(ecoreRootModel, ecoreRootModel);
-        
     }
 
     @objid ("16405fe1-7b42-40af-a39d-663498d2e4f0")
@@ -300,7 +54,6 @@ public class OwnedCompositionUml2Visitor extends UMLSwitch<Object> {
             return super.doSwitch(inputElement);
         else
             return null;
-        
     }
 
     @objid ("27e81b36-5445-4c1f-9841-a12b2fc68070")
@@ -624,17 +377,17 @@ public class OwnedCompositionUml2Visitor extends UMLSwitch<Object> {
         // If this concrete element is inherited by another concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
-        
+
         if (theResult == null
                 || !("AssociationImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-        
+
             this.visitorMap.put(inputAssociation, inputAssociation);
             this.behavior.visitAssociation(inputAssociation);
             for (EObject ownedEnd : inputAssociation.getMemberEnds()) {
                 this.doSwitch(ownedEnd);
             }
-        
+
         }
         return null;
     }
@@ -1011,12 +764,12 @@ public class OwnedCompositionUml2Visitor extends UMLSwitch<Object> {
                         .getSimpleName()))) {
             this.visitorMap.put(inputCombinedFragment, inputCombinedFragment);
             this.behavior.visitCombinedFragment(inputCombinedFragment);
-        
+
             for (org.eclipse.uml2.uml.InteractionOperand operand : inputCombinedFragment.getOperands()) {
                 ModelUtils.setLineNumber(operand);
                 this.doSwitch(operand);
                 ModelUtils.setEndLineNumber(operand);
-        
+
                 for (Gate cfragmentGate : inputCombinedFragment.getCfragmentGates()) {
                     this.doSwitch(cfragmentGate);
                     ModelUtils.setLineNumber(cfragmentGate);
@@ -1069,7 +822,7 @@ public class OwnedCompositionUml2Visitor extends UMLSwitch<Object> {
                         .getSimpleName()))) {
             this.visitorMap.put(inputComponent, inputComponent);
             this.behavior.visitComponent(inputComponent);
-        
+
             for (EObject realization : inputComponent.getRealizations()) {
                 this.doSwitch(realization);
             }
@@ -2155,39 +1908,42 @@ public class OwnedCompositionUml2Visitor extends UMLSwitch<Object> {
         // If this concrete element is inherited by another concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
-        
+
         if (theResult == null
                 || !("InteractionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-        
+
             this.visitorMap.put(inputInteraction, inputInteraction);
             this.behavior.visitInteraction(inputInteraction);
             for (EObject lifeline : inputInteraction.getLifelines()) {
                 this.doSwitch(lifeline);
             }
-        
+
             //Gates
             for (Gate formalGate : inputInteraction.getFormalGates()) {
                 ModelUtils.setLineNumber(formalGate);
                 this.doSwitch(formalGate);
             }
-        
+
             //Interaction fragment
             for (InteractionFragment fragment : inputInteraction.getFragments()) {
                 ModelUtils.setLineNumber(fragment);
                 this.doSwitch(fragment);
                 ModelUtils.setEndLineNumber(fragment);
             }
-        
+
             //Messages
             for (Message message : inputInteraction.getMessages()) {
                 this.doSwitch(message);
             }
-        
+
             for (EObject action : inputInteraction.getActions()) {
                 this.doSwitch(action);
             }
-        
+
+            //reset initial line number for next interaction
+            ReverseProperties.getInstance().resetLineNumber();
+
         }
         return null;
     }
@@ -2231,12 +1987,12 @@ public class OwnedCompositionUml2Visitor extends UMLSwitch<Object> {
         if (theResult == null
                 || !("InteractionOperandImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-        
+
             this.visitorMap.put(inputInteractionOperand, inputInteractionOperand);
             this.behavior.visitInteractionOperand(inputInteractionOperand);
-        
+
             this.doSwitch(inputInteractionOperand.getGuard());
-        
+
             for (InteractionFragment fragment : inputInteractionOperand.getFragments()) {
                 ModelUtils.setLineNumber(fragment);
                 this.doSwitch(fragment);
@@ -2258,12 +2014,12 @@ public class OwnedCompositionUml2Visitor extends UMLSwitch<Object> {
                         .getSimpleName()))) {
             this.visitorMap.put(inputInteractionUse, inputInteractionUse);
             this.behavior.visitInteractionUse(inputInteractionUse);
-        
+
             for (Gate actualGate : inputInteractionUse.getActualGates()) {
                 ModelUtils.setLineNumber(actualGate);
                 this.doSwitch(actualGate);
             }
-        
+
             for (EObject argument : inputInteractionUse.getArguments()) {
                 this.doSwitch(argument);
             }
@@ -2790,7 +2546,7 @@ public class OwnedCompositionUml2Visitor extends UMLSwitch<Object> {
                         .getSimpleName()))) {
             this.visitorMap.put(inputOpaqueAction, inputOpaqueAction);
             this.behavior.visitOpaqueAction(inputOpaqueAction);
-        
+
             for (EObject inputValue : inputOpaqueAction.getInputValues()) {
                 this.doSwitch(inputValue);
             }
@@ -2907,7 +2663,7 @@ public class OwnedCompositionUml2Visitor extends UMLSwitch<Object> {
             // an element of type "Model"
             if (inputPackage instanceof Model)
                 return null;
-        
+
             this.behavior.visitPackage(inputPackage);
             for (EObject packageMerge : inputPackage.getPackageMerges()) {
                 this.doSwitch(packageMerge);
@@ -2947,7 +2703,7 @@ public class OwnedCompositionUml2Visitor extends UMLSwitch<Object> {
                         .getSimpleName()))) {
             this.visitorMap.put(inputPackageImport, inputPackageImport);
             this.behavior.visitPackageImport(inputPackageImport);
-        
+
             //            Package importedPack = inputPackageImport.getImportedPackage();
             //            if (!TotalImportMap.getInstance().containsKey(importedPack))
             //                this.doSwitch(importedPack);
@@ -3071,7 +2827,7 @@ public class OwnedCompositionUml2Visitor extends UMLSwitch<Object> {
                         .getSimpleName()))) {
             this.visitorMap.put(inputPrimitiveType, inputPrimitiveType);
             this.behavior.visitPrimitiveType(inputPrimitiveType);
-        
+
             for (EObject ownedTemplateBinding : inputPrimitiveType.getTemplateBindings()) {
                 this.doSwitch(ownedTemplateBinding);
             }
@@ -3093,7 +2849,7 @@ public class OwnedCompositionUml2Visitor extends UMLSwitch<Object> {
             for (EObject ownedStereotype : inputProfile.getOwnedStereotypes()) {
                 this.doSwitch(ownedStereotype);
             }
-        
+
         }
         return null;
     }
@@ -3115,7 +2871,7 @@ public class OwnedCompositionUml2Visitor extends UMLSwitch<Object> {
             }catch(Exception e ){
                 Xmi.LOG.error(Xmi.PLUGIN_ID, e);
             }
-        
+
         }
         return null;
     }
@@ -3779,21 +3535,21 @@ public class OwnedCompositionUml2Visitor extends UMLSwitch<Object> {
                 || !("StateImpl".equals(theResult.getClass().getSimpleName()))) {
             this.visitorMap.put(inputState, inputState);
             this.behavior.visitState(inputState);
-        
+
             for (EObject connection : inputState.getConnections()) {
                 this.doSwitch(connection);
             }
-        
+
             for (EObject region : inputState.getRegions()) {
                 this.doSwitch(region);
             }
-        
+
             this.doSwitch(inputState.getStateInvariant());
-        
+
             this.doSwitch(inputState.getEntry());
             this.doSwitch(inputState.getExit());
             this.doSwitch(inputState.getDoActivity());
-        
+
             for (EObject connectionPoint : inputState.getConnectionPoints()) {
                 this.doSwitch(connectionPoint);
             }
@@ -4017,9 +3773,9 @@ public class OwnedCompositionUml2Visitor extends UMLSwitch<Object> {
                     inputTemplateParameterSubstitution);
             this.behavior
             .visitTemplateParameterSubstitution(inputTemplateParameterSubstitution);
-        
+
             this.doSwitch(inputTemplateParameterSubstitution.getOwnedActual());
-        
+
         }
         return null;
     }

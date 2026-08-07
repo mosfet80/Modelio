@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel.meta;
 
@@ -59,13 +59,13 @@ public class DefaultMetaExpert implements MExpert {
         if (smDep == null) {
             smDep = getDefaultCompositionDep(ownerSmClass, composedSmClass);
         }
-        
+
         if (smDep != null) {
-            return (smDep.isComposition() || smDep.isSharedComposition()) && ((SmClass) smDep.getTarget()).hasBase(composed);
+            return (smDep.isComposition() || smDep.isSharedComposition()) && composed.hasBase(smDep.getTarget());
         } else {
             return false;
         }
-        
+
     }
 
     @objid ("39b4da69-61e7-43a4-8c6b-b831cc8d1137")
@@ -136,12 +136,12 @@ public class DefaultMetaExpert implements MExpert {
     @Override
     public List<MDependency> getDeps(MObject source, MObject target) {
         List<MDependency> results = new ArrayList<>();
-        
+
         SmClass classDest = ((SmObjectImpl) target).getClassOf();
-        
+
         // Get all the 'non-component' dependencies supported by the metaclass of the 'from' object
         List<SmDependency> allDependency = ((SmObjectImpl) source).getClassOf().getAllReferenceDepDef();
-        
+
         // Loop through the dependencies to find the first one whose supported target type matches the metaclass of the 'to' object.
         for (SmDependency dep : allDependency) {
             if (classDest.hasBase(dep.getTarget())) {
@@ -196,7 +196,7 @@ public class DefaultMetaExpert implements MExpert {
     public SmDependency getDefaultCompositionDep(MClass depSource, MClass depTarget) {
         // Get all the 'component' dependencies supported by the metaclass of the 'from' object
         List<SmDependency> allCompoDeps = ((SmClass) depSource).getAllComponentDepDef();
-        
+
         // Loop through the dependencies to find the first one whose supported target type matches
         // the metaclass of the 'to' object.
         for (SmDependency compoDep : allCompoDeps) {
@@ -204,7 +204,7 @@ public class DefaultMetaExpert implements MExpert {
                 // This dependency is a good candidate but it has to be checked against some exceptions
                 // whether or not there are potential exceptions is indicated by the presence of the "dependOnClass" directive
                 // on the SmDependency
-        
+
                 // standard case, got it!
                 return compoDep;
             }

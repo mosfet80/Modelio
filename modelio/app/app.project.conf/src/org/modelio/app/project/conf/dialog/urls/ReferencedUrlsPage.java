@@ -1,26 +1,26 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.conf.dialog.urls;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -52,6 +52,7 @@ public class ReferencedUrlsPage implements IProjectConfPage {
      * Creates the SWT controls.
      * <p>
      * Called by E4 injection.
+     *
      * @param parent the parent composite.
      */
     @objid ("67cf1ddf-1c78-4861-ab43-c1734be31e3f")
@@ -61,17 +62,17 @@ public class ReferencedUrlsPage implements IProjectConfPage {
         // The form
         this.form = toolkit.createScrolledForm(parent);
         this.form.getBody().setLayout(new TableWrapLayout());
-        
+
         // Documentation Section
         this.documentationSection = new DocumentationSection(this);
         Section dSection = this.documentationSection.createControls(toolkit, this.form.getBody());
         dSection.setLayoutData(new TableWrapData(TableWrapData.FILL));
-        
+
         // Browser Section
         this.browserSection = new BrowserSection();
         final Section bSection = this.browserSection.createControls(toolkit, this.form.getBody());
         bSection.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
-        
+
         // Browser updater
         this.documentationSection.addSelectionChangedListener(new ISelectionChangedListener() {
             @Override
@@ -81,11 +82,11 @@ public class ReferencedUrlsPage implements IProjectConfPage {
                     IStructuredSelection structuredSelection = (IStructuredSelection) selection;
                     if (structuredSelection.size() == 1) {
                         Object obj = structuredSelection.getFirstElement();
-        
+
                         if (obj instanceof UrlEntry) {
                             UrlEntry selectedUrl = (UrlEntry) obj;
                             ReferencedUrlsPage.this.browserSection.setInput(selectedUrl);
-        
+
                             // force layout of the new zone
                             boolean expanded = bSection.isExpanded();
                             bSection.setExpanded(!expanded);

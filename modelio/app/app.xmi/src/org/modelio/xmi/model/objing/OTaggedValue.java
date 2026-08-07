@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -60,10 +60,10 @@ public class OTaggedValue extends OElement implements IOElement {
     }
 
     @objid ("b23c089b-1dbd-4e9c-9770-42d570d3deec")
-    public  OTaggedValue(TaggedValue element) {
+    public OTaggedValue(TaggedValue element) {
         super(element);
         this.objingElement = element;
-        
+
     }
 
     @objid ("9f1684ea-5320-4e84-90de-cb49b802acba")
@@ -85,22 +85,22 @@ public class OTaggedValue extends OElement implements IOElement {
         }else{
             return createValue();
         }
-        
+
     }
 
     @objid ("d439fa99-1d1e-426f-bf26-1a99f1b1e759")
     private Property createValueEAnnotation() {
         ModelElement element = this.objingElement.getAnnoted();
-                
-        TagType tagType = this.objingElement.getDefinition(); 
-                
+
+        TagType tagType = this.objingElement.getDefinition();
+
         // r?cuperation du stereotype
-                
+
         Stereotype obStereotype = tagType.getOwnerStereotype();
         org.eclipse.uml2.uml.Stereotype stereotype = null;
-                
+
         if (obStereotype != null){
-                
+
             Stereotype appliedSterotype = null;
             for (Stereotype extension : element.getExtension()){
                 Stereotype temp = extension;
@@ -110,27 +110,27 @@ public class OTaggedValue extends OElement implements IOElement {
                         TotalExportMap totalCreationMap = TotalExportMap.getInstance();
                         stereotype = (org.eclipse.uml2.uml.Stereotype) totalCreationMap.get(appliedSterotype.getUuid().toString());
                     }
-                
+
                     temp = temp.getParent();
-                
+
                 }
             }
-                
+
         }else{
-            MetaclassReference obReference = tagType.getOwnerReference();    
+            MetaclassReference obReference = tagType.getOwnerReference();
             TotalExportMap totalCreationMap = TotalExportMap.getInstance();
             stereotype = (org.eclipse.uml2.uml.Stereotype) totalCreationMap.get(obReference.getUuid().toString());
         }
-                
+
         if (stereotype != null){
-                
+
             String name = tagType.getName();
             if (tagType.getParamNumber().equals("0")){
-                return stereotype.getOwnedAttribute(name, this.booleanType); 
+                return stereotype.getOwnedAttribute(name, this.booleanType);
             }else {
-                return stereotype.getOwnedAttribute(name, this.stringType); 
+                return stereotype.getOwnedAttribute(name, this.stringType);
             }
-                
+
         }
         return null;
     }
@@ -138,16 +138,16 @@ public class OTaggedValue extends OElement implements IOElement {
     @objid ("11b90ed4-d2ab-4a8c-8193-cc8ad1556533")
     private Property createValue() {
         ModelElement element = this.objingElement.getAnnoted();
-                
-        TagType tagType = this.objingElement.getDefinition(); 
-                
+
+        TagType tagType = this.objingElement.getDefinition();
+
         // r?cuperation du stereotype
-                
+
         Stereotype obStereotype = tagType.getOwnerStereotype();
         org.eclipse.uml2.uml.Stereotype stereotype = null;
-                
+
         if (obStereotype != null){
-                
+
             Stereotype appliedSterotype = null;
             for (Stereotype extension : element.getExtension()){
                 Stereotype temp = extension;
@@ -157,26 +157,26 @@ public class OTaggedValue extends OElement implements IOElement {
                         TotalExportMap totalCreationMap = TotalExportMap.getInstance();
                         stereotype = (org.eclipse.uml2.uml.Stereotype) totalCreationMap.get(appliedSterotype.getUuid().toString());
                     }
-                
+
                     temp = temp.getParent();
-                
+
                 }
             }
-                
+
         }else{
-            MetaclassReference obReference = tagType.getOwnerReference();    
+            MetaclassReference obReference = tagType.getOwnerReference();
             TotalExportMap totalCreationMap = TotalExportMap.getInstance();
             stereotype = (org.eclipse.uml2.uml.Stereotype) totalCreationMap.get(obReference.getUuid().toString());
         }
-                
+
         if (stereotype != null){
-                
-            String name = tagType.getName(); 
-            
+
+            String name = tagType.getName();
+
             if (tagType.getParamNumber().equals("0")){
-                return stereotype.getOwnedAttribute(name, this.booleanType); 
+                return stereotype.getOwnedAttribute(name, this.booleanType);
             }else {
-                return stereotype.getOwnedAttribute(name, this.stringType); 
+                return stereotype.getOwnedAttribute(name, this.stringType);
             }
         }
         return null;

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.styles.core;
 
@@ -59,16 +59,17 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
 
     /**
      * Creates a style associated to an element.
+     *
      * @param cascadedStyle The parent style.
      */
     @objid ("8579ac32-1926-11e2-92d2-001ec947c8cc")
-    public  Style(IStyle cascadedStyle) {
+    public Style(IStyle cascadedStyle) {
         assert cascadedStyle != null;
         this.cascadedStyle = cascadedStyle;
         if (this.cascadedStyle != null) {
             this.cascadedStyle.addListener(this);
         }
-        
+
     }
 
     /**
@@ -76,6 +77,7 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
      * <p>
      * The listener will be fired each time a property is changed or removed.<br>
      * Registering 2 times a listener will make it fired 2 times.
+     *
      * @param l The style change listener.
      */
     @objid ("8579ac36-1926-11e2-92d2-001ec947c8cc")
@@ -92,6 +94,7 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
 
     /**
      * Convenience method to get a boolean property.
+     *
      * @param propertyKey The property key
      * @return The boolean value.
      */
@@ -104,7 +107,7 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
             // return false;
             throw new IllegalArgumentException("Style property key " + propertyKey + " does not match a boolean value");
         }
-        
+
     }
 
     @objid ("8579ac41-1926-11e2-92d2-001ec947c8cc")
@@ -115,6 +118,7 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
 
     /**
      * Convenience method to get a Color property.
+     *
      * @param propertyKey The property key
      * @return The Color value.
      */
@@ -127,11 +131,12 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
         } else {
             throw new IllegalArgumentException("Style property key " + propertyKey + " does not match a color");
         }
-        
+
     }
 
     /**
      * Convenience method to get a Font property.
+     *
      * @param propertyKey The property key
      * @return The Font value.
      */
@@ -144,11 +149,12 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
         } else {
             throw new IllegalArgumentException(propertyKey + "Style property key value '" + value + "' does not match a font");
         }
-        
+
     }
 
     /**
      * Convenience method to get an integer property.
+     *
      * @param propertyKey The property key
      * @return The integer value.
      */
@@ -161,7 +167,7 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
         } else {
             throw new IllegalArgumentException("Style property key " + propertyKey + " does not match an integer value");
         }
-        
+
     }
 
     @objid ("8579ac58-1926-11e2-92d2-001ec947c8cc")
@@ -178,6 +184,7 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
 
     /**
      * Get a style property .
+     *
      * @param <T> The wanted property value type .
      * @param key The property key
      * @return The property value
@@ -191,7 +198,7 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
         } else {
             return this.cascadedStyle.getProperty(key);
         }
-        
+
     }
 
     /**
@@ -205,6 +212,7 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
 
     /**
      * Tells whether the given property is set locally.
+     *
      * @param propertyKey a style key
      * @return true if a local value is defined for the key, false in the other case.
      */
@@ -223,7 +231,7 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
         for (StyleKey skey : new ArrayList<>(getLocalKeys())) {
             normalize(skey);
         }
-        
+
     }
 
     @objid ("ae4220bb-1413-4353-85ad-ac4a50e99e6f")
@@ -231,21 +239,21 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
     public void normalize(StyleKey skey) {
         Object localValue = this.getProperty(skey);
         Object cascadedValue = getCascadedStyle().getProperty(skey);
-        
+
         if (localValue instanceof Font) {
             FontData fd1 = ((Font) localValue).getFontData()[0];
             FontData fd2 = ((Font) cascadedValue).getFontData()[0];
-        
+
             if (fd1.getHeight() == fd2.getHeight() && fd1.getStyle() == fd2.getStyle() && fd1.getName().equals(fd2.getName())) {
                 removeProperty(skey);
             }
-        
+
         } else {
             if (localValue.equals(cascadedValue)) {
                 removeProperty(skey);
             }
         }
-        
+
     }
 
     @objid ("8579ac74-1926-11e2-92d2-001ec947c8cc")
@@ -256,12 +264,12 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
         if (this.cascadedStyle != null) {
             this.cascadedStyle.addListener(this);
         }
-        
+
         // Read the local properties
         final Map<String, Object> allAtts = in.readAllProperties();
-        
+
         this.properties = new HashMap<>(allAtts.size());
-        
+
         for (Entry<String, Object> e : allAtts.entrySet()) {
             final StyleKey stylekey = StyleKey.getInstance(e.getKey());
             if (stylekey != null) {
@@ -272,13 +280,14 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
                 }
                 this.obsoleteProps.put(e.getKey(), e.getValue());
             }
-        
+
         }
-        
+
     }
 
     /**
      * Remove a style change listener.
+     *
      * @param l a style change listener to remove.
      */
     @objid ("8579ac78-1926-11e2-92d2-001ec947c8cc")
@@ -289,6 +298,7 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
 
     /**
      * Remove a property value and fires style changes listeners.
+     *
      * @param key The property to remove
      */
     @objid ("8579ac7d-1926-11e2-92d2-001ec947c8cc")
@@ -297,7 +307,7 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
         if (this.properties.remove(key) != null) {
             this.fireListeners(key, null);
         }
-        
+
     }
 
     /**
@@ -308,7 +318,7 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
     public void reset() {
         this.properties.clear();
         this.fireListeners();
-        
+
     }
 
     @objid ("16426da8-b39b-47c5-90f8-0cbead63497e")
@@ -319,6 +329,7 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
 
     /**
      * Set the parent style used to get a property value when it is not defined on this style.
+     *
      * @param style The new parent style.
      */
     @objid ("857c0e91-1926-11e2-92d2-001ec947c8cc")
@@ -328,25 +339,26 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
         if (style == this) {
             return;
         }
-        
+
         // Remove listener from parent
         if (this.cascadedStyle != null) {
             this.cascadedStyle.removeListener(this);
         }
-        
+
         this.cascadedStyle = style;
-        
+
         // Add listener to new parent
         if (this.cascadedStyle != null) {
             this.cascadedStyle.addListener(this);
         }
-        
+
         this.fireListeners();
-        
+
     }
 
     /**
      * Change a style property and fires the style listeners.
+     *
      * @param key The property key.
      * @param value The new value.
      */
@@ -354,16 +366,16 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
     @Override
     public void setProperty(StyleKey key, Object value) {
         key.validate(value);
-        
+
         if (Objects.equals(value, this.properties.get(key))) {
             // no op, return.
             return;
         }
-        
+
         // Set the property & fire the listeners
         this.properties.put(key, value);
         this.fireListeners(key, value);
-        
+
     }
 
     /**
@@ -387,7 +399,7 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
     public void styleChanged(IStyle style) {
         // Fire listeners
         this.fireListeners();
-        
+
     }
 
     @objid ("857c0ea7-1926-11e2-92d2-001ec947c8cc")
@@ -396,13 +408,13 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
         if (this.cascadedStyle != null) {
             out.writeProperty("CascadedStyle", this.cascadedStyle);
         }
-        
+
         // Write the local properties
         for (Entry<StyleKey, Object> e : this.properties.entrySet()) {
             // StyleKey is not persistent, we write only its name
             out.writeProperty(e.getKey().getId(), e.getValue());
         }
-        
+
     }
 
     @objid ("857c0eab-1926-11e2-92d2-001ec947c8cc")
@@ -411,7 +423,7 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
         for (IStyleChangeListener l : new ArrayList<>(this.listeners)) {
             l.styleChanged(key, value);
         }
-        
+
     }
 
     @objid ("857c0eaf-1926-11e2-92d2-001ec947c8cc")
@@ -419,13 +431,14 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
         for (IStyleChangeListener l : new ArrayList<>(this.listeners)) {
             l.styleChanged(this);
         }
-        
+
     }
 
     /**
      * Get the properties for which no style key was found.
      * <p>
      * The content of this map will be definitively lost on next diagram save. To be used when migrating graphic objects whose style key changed.
+     *
      * @return the obsolete properties, never null.
      */
     @objid ("9bedddb8-f785-40c5-a3ab-5daf5d04d62e")
@@ -441,7 +454,7 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
             this.cascadedStyle = null;
         }
         this.listeners.clear();
-        
+
     }
 
 }

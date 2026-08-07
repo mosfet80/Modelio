@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel.meta.fake;
 
@@ -58,7 +58,7 @@ public class FakeSmObjectImpl extends SmObjectImpl implements FakeMObject {
         } else {
             return null;
         }
-        
+
     }
 
     /**
@@ -72,13 +72,13 @@ public class FakeSmObjectImpl extends SmObjectImpl implements FakeMObject {
             return (T) this;
         } else {
             InvocationHandler handler = new ProxyObj(this, getMClass().getMetamodel().getMClass(cls));
-        
+
             return (T) Proxy.newProxyInstance(
                     cls.getClassLoader(),
                     new Class[]{cls, MObject.class, ISmMeta.class, ISmStorable.class},
                     handler);
         }
-        
+
     }
 
     @objid ("7e969d41-76a2-4940-8cef-a418ea19c14b")
@@ -110,7 +110,7 @@ public class FakeSmObjectImpl extends SmObjectImpl implements FakeMObject {
      * <p>
      * All attribute/dependency accessor interface methods are proxied.
      * Calls to {@link #directClasses} methods are forwarded to the fake object.
-     * 
+     *
      * @author cmarin
      * @since not yet official on 3.4
      * @deprecated not yet official on 3.4
@@ -137,10 +137,10 @@ public class FakeSmObjectImpl extends SmObjectImpl implements FakeMObject {
         static final List<Class<? extends Object>> directClasses = Arrays.asList(Object.class, MObject.class, ISmMeta.class, ISmStorable.class);
 
         @objid ("3a1db8d5-870e-463c-92ec-478c54b0d8ba")
-        public  ProxyObj(FakeSmObjectImpl obj, MClass targetClass) {
+        public ProxyObj(FakeSmObjectImpl obj, MClass targetClass) {
             this.obj = obj;
             this.targetClass = targetClass;
-            
+
         }
 
         @objid ("feeb3016-849a-4f6e-ad1d-6ca8f929c18e")
@@ -157,11 +157,11 @@ public class FakeSmObjectImpl extends SmObjectImpl implements FakeMObject {
                     throw new UnsupportedOperationException(method.toString()+" on "+args[0]+": no "+visitMethodName+" on "+args[0]);
                 }
             }
-            
+
             if (directClasses.contains(method.getDeclaringClass()) || stdMet.contains(metName)) {
                 return method.invoke(this.obj, args);
             }
-            
+
             FakeSmClass fakeSmClass = (FakeSmClass) this.obj.getClassOf();
             String featureName = metName.substring(3);
             if (metName.startsWith("get")) {
@@ -177,7 +177,7 @@ public class FakeSmObjectImpl extends SmObjectImpl implements FakeMObject {
                         return new SmList<>(this.obj,dep);
                     }
                 }
-            
+
                 // Look for attribute
                 MAttribute targetAtt = this.targetClass.getAttribute(featureName);
                 if (targetAtt != null) {
@@ -202,7 +202,7 @@ public class FakeSmObjectImpl extends SmObjectImpl implements FakeMObject {
                         return null;
                     }
                 }
-            
+
                 // Look for SmAttribute
                 MAttribute targetAtt = this.targetClass.getAttribute(featureName);
                 if (targetAtt != null) {
@@ -211,9 +211,9 @@ public class FakeSmObjectImpl extends SmObjectImpl implements FakeMObject {
                     return null;
                 }
             }
-            
+
             throw new UnsupportedOperationException(method.toString()+" on "+this.obj.toString());
-            
+
         }
 
         @objid ("88c458a8-85bf-4532-92e3-7d3019ec3b46")

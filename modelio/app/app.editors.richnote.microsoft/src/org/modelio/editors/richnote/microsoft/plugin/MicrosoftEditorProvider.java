@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.microsoft.plugin;
 
@@ -42,13 +42,13 @@ public class MicrosoftEditorProvider extends AbstractRichNoteEditorProvider {
     @Override
     public final void createEmptyFile(MObject target, RichNoteFormat format, IRichNoteFileRepository richRepository) throws IOException {
         assert (isUsable()) : this;
-        
+
         final Document richNote = (Document) target;
         final Path notePath = richRepository.getNewRichNotePath(richNote, format);
-        
+
         MicrosoftEditor.createEmptyFile(notePath.toFile(), format);
         richRepository.saveRichNote(richNote, notePath);
-        
+
     }
 
     @objid ("8ca256af-8d53-4674-a5c1-059f3538d229")
@@ -73,7 +73,7 @@ public class MicrosoftEditorProvider extends AbstractRichNoteEditorProvider {
         } catch (ClassNotFoundException e1) {
             return false;
         }
-        
+
         String wordProgId = OLE.findProgramID("doc");
         return wordProgId != null && !wordProgId.isEmpty();
     }

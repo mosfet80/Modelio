@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.instance;
 
@@ -45,7 +45,7 @@ public class InstanceElementDropEditPolicy extends DefaultElementDropEditPolicy 
     @Override
     protected EditPart getDropTargetEditPart(ModelElementDropRequest request) {
         final GmCompositeNode gmModel = (GmCompositeNode) this.getHost().getModel();
-        
+
         // If either of the dropped elements cannot be unmasked, return null.
         for (MObject droppedElement : request.getDroppedElements()) {
             if (!gmModel.canUnmask(droppedElement)) {
@@ -60,7 +60,7 @@ public class InstanceElementDropEditPolicy extends DefaultElementDropEditPolicy 
                 }
             }
         }
-        
+
         // All dropped elements understood: return host!
         return this.getHost();
     }
@@ -69,9 +69,9 @@ public class InstanceElementDropEditPolicy extends DefaultElementDropEditPolicy 
     @Override
     protected Command getSmartDropCommand(ModelElementDropRequest request) {
         CompoundCommand command = new CompoundCommand();
-        
+
         Point dropLocation = request.getDropLocation();
-        
+
         for (MObject toUnmask : request.getDroppedElements()) {
             if (isSmartPartNodeTarget(toUnmask, request)) {
                 command.add(getSmartObjectNodeDropCommand(dropLocation, toUnmask));
@@ -98,19 +98,19 @@ public class InstanceElementDropEditPolicy extends DefaultElementDropEditPolicy 
         if (!request.isSmart()) {
             return false;
         }
-        
+
         // Exception for ports
         if (element instanceof Port) {
             return false;
         }
-        
+
         final GmModel gmModel = (GmModel) getHost().getModel();
         final Instance owner = (Instance) gmModel.getRelatedElement();
         return (!owner.equals(element.getCompositionOwner()) && (element instanceof AssociationEnd ||
                 element instanceof Attribute ||
                 element instanceof Instance ||
                 element instanceof NameSpace || element instanceof Parameter));
-        
+
     }
 
     @objid ("8470488a-43a4-4aa8-bbdf-c1099ef59479")

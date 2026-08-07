@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnadhocsubprocess;
 
@@ -79,36 +79,37 @@ public class GmBpmnAdHocSubProcessPrimaryNode extends GmNoStyleCompositeNode imp
 
     /**
      * Default constructor.
+     *
      * @param diagram the diagram in which this gm is unmasked.
      * @param relatedRef ref
      */
     @objid ("607edff0-55b6-11e2-877f-002564c97630")
-    public  GmBpmnAdHocSubProcessPrimaryNode(IGmDiagram diagram, MRef relatedRef) {
+    public GmBpmnAdHocSubProcessPrimaryNode(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
         this.header = new GmBpmnNodeHeader(diagram, relatedRef, false);
         this.footer = new GmBpmnNodeFooter(diagram, relatedRef);
-        
+
         this.header.setRoleInComposition(GmBpmnSubProcessPrimaryNode.ROLE_HEADER);
         this.footer.setRoleInComposition(GmBpmnSubProcessPrimaryNode.ROLE_FOOTER);
-        
+
         super.addChild(this.header);
-        
+
         this.body = createBody();
         if (this.body != null) {
             super.addChild(this.body);
         }
-        
+
         super.addChild(this.footer);
-        
+
         this.footer.setAdHoc(true);
-        
+
     }
 
     /**
      * Empty constructor, needed for serialisation.
      */
     @objid ("607edfff-55b6-11e2-877f-002564c97630")
-    public  GmBpmnAdHocSubProcessPrimaryNode() {
+    public GmBpmnAdHocSubProcessPrimaryNode() {
         // empty constructor for the serialization
     }
 
@@ -120,7 +121,7 @@ public class GmBpmnAdHocSubProcessPrimaryNode extends GmNoStyleCompositeNode imp
         } else {
             super.addChild(child);
         }
-        
+
     }
 
     @objid ("607ee002-55b6-11e2-877f-002564c97630")
@@ -151,6 +152,7 @@ public class GmBpmnAdHocSubProcessPrimaryNode extends GmNoStyleCompositeNode imp
     }
 
     /**
+     *
      * @return the structured inner zone.
      */
     @objid ("60806697-55b6-11e2-877f-002564c97630")
@@ -188,7 +190,7 @@ public class GmBpmnAdHocSubProcessPrimaryNode extends GmNoStyleCompositeNode imp
         default:
             return super.getVisibleChildren();
         }
-        
+
     }
 
     @objid ("60806685-55b6-11e2-877f-002564c97630")
@@ -212,39 +214,39 @@ public class GmBpmnAdHocSubProcessPrimaryNode extends GmNoStyleCompositeNode imp
             break;
         }
         }
-        
+
     }
 
     @objid ("6080668b-55b6-11e2-877f-002564c97630")
     @Override
     public void refreshFromObModel() {
         super.refreshFromObModel();
-        
+
         if (this.body == null) {
             this.body = createBody();
             if (this.body != null) {
                 super.addChild(this.body);
             }
         }
-        
+
         String oldLabel = this.header.getMainLabel();
         this.header.refreshFromObModel();
         if (getRelatedElement() != null && getRelatedElement().isValid()) {
             firePropertyChange(IGmObject.PROPERTY_LABEL, oldLabel, this.header.getMainLabel());
             firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, null, getRelatedElement().isTriggeredByEvent());
-        
+
             if (getRelatedElement().isIsForCompensation()) {
                 this.footer.setCompensation(true);
             } else {
                 this.footer.setCompensation(false);
             }
-        
+
             if (getRelatedElement().getLoopCharacteristics() instanceof BpmnStandardLoopCharacteristics) {
                 this.footer.setLoop(true);
             } else {
                 this.footer.setLoop(false);
             }
-        
+
             if (getRelatedElement().getLoopCharacteristics() instanceof BpmnMultiInstanceLoopCharacteristics) {
                 BpmnMultiInstanceLoopCharacteristics loop = (BpmnMultiInstanceLoopCharacteristics) getRelatedElement().getLoopCharacteristics();
                 if (loop.isIsSequencial()) {
@@ -262,28 +264,28 @@ public class GmBpmnAdHocSubProcessPrimaryNode extends GmNoStyleCompositeNode imp
         this.footer.refreshFromObModel();
         // forcing visual refresh in case Image changed
         firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("b8fbb5cf-908d-44a5-a395-0f07a7c6aeee")
     @Override
     public void styleChanged(StyleKey property, Object newValue) {
         super.styleChanged(property, newValue);
-        
+
         if (GmBpmnSubProcessStructuredStyleKeys.SHOWCONTENT.equals(property)) {
             fireChildVisibilityChanged(getFirstChild(GmBpmnSubProcessPrimaryNode.ROLE_BODY));
         }
-        
+
     }
 
     @objid ("6081ed02-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmBpmnAdHocSubProcessPrimaryNode.", GmBpmnAdHocSubProcessPrimaryNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("0013816c-caf8-4fd9-8f0d-85dd8dae017e")
@@ -306,12 +308,12 @@ public class GmBpmnAdHocSubProcessPrimaryNode extends GmNoStyleCompositeNode imp
         super.read(in);
         this.header = (GmBpmnNodeHeader) getFirstChild(GmBpmnSubProcessPrimaryNode.ROLE_HEADER);
         this.footer = (GmBpmnNodeFooter) getFirstChild(GmBpmnSubProcessPrimaryNode.ROLE_FOOTER);
-        
+
         GmDefaultModelElementLabel imageModeHeader = (GmDefaultModelElementLabel) this.getChildren().get(3);
         imageModeHeader.delete();
-        
+
         this.body = (GmBpmnSubProcessContent) getFirstChild(GmBpmnSubProcessPrimaryNode.ROLE_BODY);
-        
+
     }
 
     @objid ("6081ed12-55b6-11e2-877f-002564c97630")
@@ -320,7 +322,7 @@ public class GmBpmnAdHocSubProcessPrimaryNode extends GmNoStyleCompositeNode imp
         this.header = (GmBpmnNodeHeader) getFirstChild(GmBpmnSubProcessPrimaryNode.ROLE_HEADER);
         this.footer = (GmBpmnNodeFooter) getFirstChild(GmBpmnSubProcessPrimaryNode.ROLE_FOOTER);
         this.body = (GmBpmnSubProcessContent) getFirstChild(GmBpmnSubProcessPrimaryNode.ROLE_BODY);
-        
+
     }
 
 }

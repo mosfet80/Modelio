@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.instancelink;
 
@@ -49,20 +49,21 @@ public class GmLinkLabel extends GmDefaultModelElementLabel {
      * Constructor for deserialization only.
      */
     @objid ("96ea4ca9-eca8-4656-8d89-8042de900172")
-    public  GmLinkLabel() {
+    public GmLinkLabel() {
         // Nothing to do.
     }
 
     /**
      * Creates an association name label.
+     *
      * @param diagram the owning diagram.
      * @param linkRef the represented link reference, must not be null.
      */
     @objid ("a1a3efe5-7fe3-40f6-bbe2-73d5ce36e7de")
-    public  GmLinkLabel(IGmDiagram diagram, MRef linkRef) {
+    public GmLinkLabel(IGmDiagram diagram, MRef linkRef) {
         super(diagram, linkRef);
         this.link = (Link) resolveRef(linkRef);
-        
+
     }
 
     @objid ("fecb5c2b-3819-4dcb-8e33-3b7bae1149e5")
@@ -94,7 +95,7 @@ public class GmLinkLabel extends GmDefaultModelElementLabel {
                 break;
             }
         }
-        
+
     }
 
     @objid ("be0ee1a1-7a57-4d4b-9f3b-34471cb9e381")
@@ -107,17 +108,17 @@ public class GmLinkLabel extends GmDefaultModelElementLabel {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmLinkLabel.", GmLinkLabel.MINOR_VERSION);
-        
+
     }
 
     @objid ("adb8183d-3379-4f26-8766-36b3919b027c")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.link = (Link) resolveRef(this.getRepresentedRef());
-        
+
     }
 
     @objid ("5960d84a-25d9-43c5-bd67-9586e396a325")

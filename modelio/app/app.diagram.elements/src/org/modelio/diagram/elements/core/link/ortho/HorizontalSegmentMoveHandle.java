@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.ortho;
 
@@ -29,7 +29,7 @@ import org.modelio.diagram.elements.core.figures.geometry.Orientation;
 
 /**
  * Handle for move/translating a segment of a polyline connection.
- * 
+ *
  * @author fpoyer
  */
 @objid ("80363399-1dec-11e2-8cad-001ec947c8cc")
@@ -38,15 +38,16 @@ public class HorizontalSegmentMoveHandle extends ConnectionHandle {
     private int index;
 
     /**
+     *
      * @param owner the editpart of the connection
      * @param index the index.
      */
     @objid ("8036339e-1dec-11e2-8cad-001ec947c8cc")
-    public  HorizontalSegmentMoveHandle(final ConnectionEditPart owner, final int index) {
+    public HorizontalSegmentMoveHandle(final ConnectionEditPart owner, final int index) {
         super();
         setOwner(owner);
         setIndex(index);
-        
+
     }
 
     @objid ("803633a7-1dec-11e2-8cad-001ec947c8cc")
@@ -67,6 +68,7 @@ public class HorizontalSegmentMoveHandle extends ConnectionHandle {
 
     /**
      * Revalidates this handle when the connection's points change.
+     *
      * @param event the event that caused the points change
      */
     @objid ("803633b2-1dec-11e2-8cad-001ec947c8cc")
@@ -80,7 +82,7 @@ public class HorizontalSegmentMoveHandle extends ConnectionHandle {
         this.index = index;
         setLocator(new SegmentLocator(getConnection(), index));
         ((ConnectionSegmentTracker) getDragTracker()).setIndex(index);
-        
+
     }
 
     @objid ("803633bc-1dec-11e2-8cad-001ec947c8cc")
@@ -90,11 +92,11 @@ public class HorizontalSegmentMoveHandle extends ConnectionHandle {
             return;
         }
         super.validate();
-        
+
     }
 
 {
             setCursor(Cursors.SIZENS);
         }
-    
+
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.widgets.gef;
 
@@ -54,11 +54,10 @@ public class OutlinePage extends org.eclipse.gef.ui.parts.ContentOutlinePage {
     private GraphicalViewer graphicalViewer;
 
     @objid ("61b300a5-b7b9-4158-8d9e-29a0f1d49cc9")
-    public  OutlinePage(GraphicalViewer graphicalViewer, SelectionSynchronizer synchronizer) {
+    public OutlinePage(GraphicalViewer graphicalViewer, SelectionSynchronizer synchronizer) {
         super(new ScrollingGraphicalViewer());
         this.synchronizer = synchronizer;
         this.graphicalViewer = graphicalViewer;
-        
     }
 
     @objid ("8c6c1bfe-d97e-4115-a208-4c757bc267ff")
@@ -71,9 +70,9 @@ public class OutlinePage extends org.eclipse.gef.ui.parts.ContentOutlinePage {
         gl.marginHeight = 0;
         gl.marginWidth = 0;
         this.panel.setLayout(gl);
-        
+
         this.synchronizer.addViewer(this.getViewer());
-        
+
         // Create the thumbnail view
         Canvas canvas = new Canvas(this.panel, SWT.BORDER);
         GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
@@ -81,26 +80,29 @@ public class OutlinePage extends org.eclipse.gef.ui.parts.ContentOutlinePage {
         LightweightSystem lws = new LightweightSystem(canvas);
         final GraphicalViewer viewer = this.graphicalViewer;
         if (viewer != null) {
-            this.thumbnail = new ScrollableThumbnail(
-                    (Viewport) ((ScalableFreeformRootEditPart) viewer.getRootEditPart()).getFigure());
-        
-            this.thumbnail.setSource(((ScalableFreeformRootEditPart) viewer.getRootEditPart())
-                    .getLayer(LayerConstants.PRINTABLE_LAYERS));
+            ScalableFreeformRootEditPart scalableFreeformRootEditPart = (ScalableFreeformRootEditPart) viewer.getRootEditPart();
+            this.thumbnail = new ScrollableThumbnail((Viewport) scalableFreeformRootEditPart.getFigure());
+            this.thumbnail.setSource(scalableFreeformRootEditPart.getLayer(LayerConstants.PRINTABLE_LAYERS));
             lws.setContents(this.thumbnail);
-        
-            // add a dispose listener for cleaning
+
+            // add a dispose listener for cleaning the thumbnail when closing the diagram
             this.disposeListener = e -> {
-                if (OutlinePage.this.thumbnail != null) {
-                    OutlinePage.this.thumbnail.deactivate();
-                    OutlinePage.this.thumbnail = null;
+                if (this.thumbnail != null) {
+                    this.thumbnail.deactivate();
+                    this.thumbnail = null;
                 }
-                OutlinePage.this.dispose(); // dispose the outline page to
-                // avoid a graphical refresh
-                // problem
+                // dispose the outline page to
+                // avoid a graphical refresh problem
+                this.dispose();
+
             };
+
             viewer.getControl().addDisposeListener(this.disposeListener);
+
+            // The thumbnail does not disposes its Image automatically,
+            // we need to call ScrollableThumbnail.deactivate() ourselve.
+            canvas.addDisposeListener(this.disposeListener);
         }
-        
     }
 
     @objid ("1f2b0b41-d4fe-4d45-b3ee-18e8f5d2c58b")
@@ -111,7 +113,6 @@ public class OutlinePage extends org.eclipse.gef.ui.parts.ContentOutlinePage {
             this.graphicalViewer.getControl().removeDisposeListener(this.disposeListener);
         }
         super.dispose();
-        
     }
 
     @objid ("87653ec5-1358-4403-83d9-ea3050ec366a")

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.commonBehaviors;
 
 import java.util.List;
@@ -33,29 +32,29 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 
 @objid ("0042dd58-c4bf-1fd8-97fe-001ec947cd2a")
 public class EventData extends UmlModelElementData {
-    @objid ("8b97fead-4b36-4c29-81d5-e467a283e35e")
+    @objid ("f76ca674-d992-438f-bb4d-f170c9d2a82a")
     Object mExpression = "";
 
-    @objid ("445f16eb-d87d-477f-be8a-51cd14fec7ae")
+    @objid ("60b3d4c6-a80f-49ab-986c-dc881f5932e6")
     Object mKind = EventType.SIGNALEVENT;
 
-    @objid ("679fc2bd-89fc-4659-8c75-301c09b57357")
+    @objid ("7f156055-54f0-40ca-86d0-ea9a39b364af")
     List<SmObjectImpl> mTriggered = null;
 
-    @objid ("24b4a6e8-26e8-4f1d-b667-9d39f6fa9130")
+    @objid ("8840adb8-b474-48a0-9850-de47cc94c93d")
     SmObjectImpl mModel;
 
-    @objid ("1bfaf8e5-f52b-402e-b63b-3ab8cd6443f4")
+    @objid ("7ed5dbaa-be99-4862-afe9-2701972d4b28")
     List<SmObjectImpl> mOrigin = null;
 
-    @objid ("0ed71705-6814-4a23-a0fd-eb59102996c9")
+    @objid ("b0f5a72c-d5e0-45fb-abac-b1325098dd55")
     SmObjectImpl mCalled;
 
-    @objid ("f94a55a2-dd57-4452-91b5-ab2f4acc1a64")
+    @objid ("3444bec0-c99c-4c2c-8180-5bef3c84ff1c")
     SmObjectImpl mComposed;
 
-    @objid ("2aa5c8eb-c5f3-49c9-9a7b-aca77516c87a")
-    public  EventData(EventSmClass smClass) {
+    @objid ("e6061904-41f4-4a4a-bca6-befde63d3fc7")
+    public EventData(EventSmClass smClass) {
         super(smClass);
     }
 

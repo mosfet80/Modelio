@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure.matrix;
 
 import java.util.ArrayList;
@@ -73,7 +72,7 @@ public class QueryDefinitionSmClass extends ElementSmClass {
     private SmDependency ownerAsDepthDep;
 
     @objid ("18cec89f-9ef1-4e7a-9ca1-ae5a1460c78f")
-    public  QueryDefinitionSmClass(ISmMetamodelFragment origin) {
+    public QueryDefinitionSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
@@ -81,7 +80,7 @@ public class QueryDefinitionSmClass extends ElementSmClass {
     @Override
     public String getName() {
         return "QueryDefinition";
-        
+
     }
 
     @objid ("ff7a552a-beb8-4a9a-bb1a-120f1e10251a")
@@ -94,21 +93,21 @@ public class QueryDefinitionSmClass extends ElementSmClass {
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return QueryDefinition.class;
-        
+
     }
 
     @objid ("4f792b10-c715-42c6-b0af-97eede3f2687")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
     @objid ("0c70c1e7-93a2-420d-bbba-a1bdf34eb7bd")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
     @objid ("f40a1617-1abb-420a-87e6-f5735d37393c")
@@ -116,40 +115,39 @@ public class QueryDefinitionSmClass extends ElementSmClass {
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(Element.MQNAME);
         this.registerFactory(new QueryDefinitionObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
         this.usingAdditionsAtt = new UsingAdditionsSmAttribute();
         this.usingAdditionsAtt.init("UsingAdditions", this, Boolean.class );
         registerAttribute(this.usingAdditionsAtt);
-        
-        
+
+
         // Initialize and register the SmDependency
         this.addedDep = new AddedSmDependency();
         this.addedDep.init("Added", this, metamodel.getMClass(Element.MQNAME), 0, -1 , SmDirective.SMCDPARTOF);
         registerDependency(this.addedDep);
-        
+
         this.processorDep = new ProcessorSmDependency();
         this.processorDep.init("Processor", this, metamodel.getMClass(ExternProcessor.MQNAME), 1, 1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.processorDep);
-        
+
         this.parametersDep = new ParametersSmDependency();
         this.parametersDep.init("Parameters", this, metamodel.getMClass(PropertyTable.MQNAME), 1, 1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.parametersDep);
-        
+
         this.ownerAsLineDep = new OwnerAsLineSmDependency();
         this.ownerAsLineDep.init("OwnerAsLine", this, metamodel.getMClass(MatrixDefinition.MQNAME), 0, 1 );
         registerDependency(this.ownerAsLineDep);
-        
+
         this.ownerAsColDep = new OwnerAsColSmDependency();
         this.ownerAsColDep.init("OwnerAsCol", this, metamodel.getMClass(MatrixDefinition.MQNAME), 0, 1 );
         registerDependency(this.ownerAsColDep);
-        
+
         this.ownerAsDepthDep = new OwnerAsDepthSmDependency();
         this.ownerAsDepthDep.init("OwnerAsDepth", this, metamodel.getMClass(MatrixDefinition.MQNAME), 0, 1 );
         registerDependency(this.ownerAsDepthDep);
-        
-        
+
     }
 
     @objid ("e972bea3-3118-4dba-968b-40e1f935be5b")
@@ -214,7 +212,7 @@ public class QueryDefinitionSmClass extends ElementSmClass {
         private QueryDefinitionSmClass smClass;
 
         @objid ("bbf2d78b-03fd-4078-9b61-6c67a6f0757f")
-        public  QueryDefinitionObjectFactory(QueryDefinitionSmClass smClass) {
+        public QueryDefinitionObjectFactory(QueryDefinitionSmClass smClass) {
             this.smClass = smClass;
         }
 
@@ -261,7 +259,7 @@ public class QueryDefinitionSmClass extends ElementSmClass {
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((QueryDefinitionData) data).mAdded = values;
-            
+
         }
 
         @objid ("c42cf496-3a58-474e-a269-b4764e5e4c63")
@@ -271,7 +269,7 @@ public class QueryDefinitionSmClass extends ElementSmClass {
             	this.symetricDep = ((ElementSmClass)this.getTarget()).getAddedToQueryDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -300,7 +298,7 @@ public class QueryDefinitionSmClass extends ElementSmClass {
             	this.symetricDep = ((ExternProcessorSmClass)this.getTarget()).getOwnerQueryDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -329,7 +327,7 @@ public class QueryDefinitionSmClass extends ElementSmClass {
             	this.symetricDep = ((PropertyTableSmClass)this.getTarget()).getOwnerQueryDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -358,7 +356,7 @@ public class QueryDefinitionSmClass extends ElementSmClass {
             	this.symetricDep = ((MatrixDefinitionSmClass)this.getTarget()).getLinesDefinitionDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -387,7 +385,7 @@ public class QueryDefinitionSmClass extends ElementSmClass {
             	this.symetricDep = ((MatrixDefinitionSmClass)this.getTarget()).getColumnsDefinitionDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -416,7 +414,7 @@ public class QueryDefinitionSmClass extends ElementSmClass {
             	this.symetricDep = ((MatrixDefinitionSmClass)this.getTarget()).getDepthDefinitionDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

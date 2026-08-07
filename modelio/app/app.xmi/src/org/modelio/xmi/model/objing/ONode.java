@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -42,24 +42,24 @@ public class ONode extends ONameSpace {
             return UMLFactory.eINSTANCE.createExecutionEnvironment();
         else
             return UMLFactory.eINSTANCE.createNode();
-        
+
     }
 
     @objid ("aa73f205-92b7-44c1-8b78-138d5107feeb")
-    public  ONode(Node param) {
+    public ONode(Node param) {
         super(param);
         this.objingElement = param;
-        
+
     }
 
     @objid ("fc9f98bf-cce2-4261-a841-04c940c93735")
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
-        
+
         ModelTree objingOwner = this.objingElement.getOwner();
         org.eclipse.uml2.uml.Element ecoreOwner = genProp.getMappedElement(objingOwner);
-        
+
         if (ecoreOwner != null) {
             if (ecoreOwner instanceof org.eclipse.uml2.uml.Package) {
                 org.eclipse.uml2.uml.Package ownerIsPkg = (org.eclipse.uml2.uml.Package) ecoreOwner;
@@ -79,7 +79,7 @@ public class ONode extends ONameSpace {
                         + ecoreOwner.getClass().getSimpleName() + ") Not Found");
             }
         }
-        
+
     }
 
     @objid ("1dd5831d-f140-4418-8bb9-ded9d7580118")

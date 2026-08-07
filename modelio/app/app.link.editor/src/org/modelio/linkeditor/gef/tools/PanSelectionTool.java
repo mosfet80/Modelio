@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.linkeditor.gef.tools;
 
@@ -71,13 +90,14 @@ public class PanSelectionTool extends SelectionTool {
     @objid ("1bb75774-5e33-11e2-b81d-002564c97630")
     protected static final int WORKAREA_RESIZE_INCREMENT = 40;
 
-    @objid ("a980f84d-66f3-4e88-a7ed-eca6c7c85bbb")
+    @objid ("582e0247-e14f-416e-9faf-03df3e1ca905")
     private Point viewLocation;
 
     @objid ("c726ed4e-d28a-409b-a0d3-1366fd4de15a")
     private IModelioNavigationService navigationService;
 
     /**
+     *
      * @see org.eclipse.gef.tools.AbstractTool#getDebugName()
      */
     @objid ("1bb75779-5e33-11e2-b81d-002564c97630")
@@ -87,6 +107,7 @@ public class PanSelectionTool extends SelectionTool {
     }
 
     /**
+     *
      * @see org.eclipse.gef.tools.AbstractTool#getDebugNameForState(int)
      */
     @objid ("1bb7577f-5e33-11e2-b81d-002564c97630")
@@ -101,8 +122,9 @@ public class PanSelectionTool extends SelectionTool {
 
     /**
      * Returns the cursor used under normal conditions.
-     * @see #setDefaultCursor(Cursor)
+     *
      * @return the default cursor
+     * @see #setDefaultCursor(Cursor)
      */
     @objid ("1bb75786-5e33-11e2-b81d-002564c97630")
     @Override
@@ -113,6 +135,7 @@ public class PanSelectionTool extends SelectionTool {
     }
 
     /**
+     *
      * @see org.eclipse.gef.tools.SelectionTool#handleButtonDown(int)
      */
     @objid ("1bb7578c-5e33-11e2-b81d-002564c97630")
@@ -126,10 +149,10 @@ public class PanSelectionTool extends SelectionTool {
         } else if (this.getCurrentInput().isControlKeyDown()) {
             EditPartViewer viewer = this.getCurrentViewer();
             Point p = this.getLocation();
-        
+
             if (this.getDragTracker() != null)
                 this.getDragTracker().deactivate();
-        
+
             if (viewer instanceof GraphicalViewer) {
                 Handle handle = ((GraphicalViewer) viewer).findHandleAt(p);
                 if (handle != null) {
@@ -153,10 +176,10 @@ public class PanSelectionTool extends SelectionTool {
             return false;
         } else
             return super.handleButtonDown(which);
-        
     }
 
     /**
+     *
      * @see org.eclipse.gef.tools.SelectionTool#handleButtonUp(int)
      */
     @objid ("1bb75792-5e33-11e2-b81d-002564c97630")
@@ -168,10 +191,10 @@ public class PanSelectionTool extends SelectionTool {
         } else {
             return super.handleButtonUp(which);
         }
-        
     }
 
     /**
+     *
      * @see org.eclipse.gef.tools.AbstractTool#handleDrag()
      */
     @objid ("1bb9b8c3-5e33-11e2-b81d-002564c97630")
@@ -180,7 +203,7 @@ public class PanSelectionTool extends SelectionTool {
         // State PAN = rightbutton hold down, no signitificative drag yet
         // (DRAG_THRESHOLD)
         if (this.isInState(PanSelectionTool.PAN) && this.getCurrentViewer().getControl() instanceof FigureCanvas) {
-        
+
             if (Math.abs(this.getDragMoveDelta().width) > PanSelectionTool.DRAG_THRESHOLD
                     || Math.abs(this.getDragMoveDelta().height) > PanSelectionTool.DRAG_THRESHOLD) {
                 if (this.stateTransition(PanSelectionTool.PAN, PanSelectionTool.PAN_IN_PROGRESS)) {
@@ -189,36 +212,36 @@ public class PanSelectionTool extends SelectionTool {
                 }
             }
             return super.handleDrag();
-        
+
         }
-        
+
         // State PAN_IN_PROGRESS = rightbutton hold down, already dragged of a
         // significative amount (DRAG_THRESHOLD)
         // dragging is in progress
         if (this.isInState(PanSelectionTool.PAN_IN_PROGRESS) && this.getCurrentViewer().getControl() instanceof FigureCanvas) {
-        
+
             GraphicalViewer v = (GraphicalViewer) this.getCurrentViewer();
-        
+
             ScalableFreeformRootEditPart rootEditPart = (ScalableFreeformRootEditPart) v.getRootEditPart();
             FreeformLayer diagramFigure = (FreeformLayer) ((GraphicalEditPart) rootEditPart.getContents()).getFigure();
-        
+
             FigureCanvas canvas = (FigureCanvas) this.getCurrentViewer().getControl();
-        
+
             canvas.scrollTo(this.viewLocation.x - this.getDragMoveDelta().width,
                     this.viewLocation.y - this.getDragMoveDelta().height);
-        
+
             this.viewLocation = canvas.getViewport().getViewLocation();
-        
+
             this.setStartLocation(this.getLocation());
-        
+
             return true;
         } else {
             return super.handleDrag();
         }
-        
     }
 
     /**
+     *
      * @see org.eclipse.gef.tools.SelectionTool#handleFocusLost()
      */
     @objid ("1bb9b8c8-5e33-11e2-b81d-002564c97630")
@@ -234,7 +257,7 @@ public class PanSelectionTool extends SelectionTool {
     }
 
     @objid ("cfd08ae1-1be6-4bdd-b882-5ca78c02a142")
-    public  PanSelectionTool(IModelioNavigationService navigationService) {
+    public PanSelectionTool(IModelioNavigationService navigationService) {
         this.navigationService = navigationService;
     }
 

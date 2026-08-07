@@ -1,28 +1,31 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.impl.load;
 
+import java.util.List;
+import com.modeliosoft.modelio.javadesigner.annotations.mdl;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.session.api.IAccessManager;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.repository.IRepository;
+import org.modelio.vcore.session.api.transactions.ITransactionSupport;
 import org.modelio.vcore.session.impl.CoreSession;
 import org.modelio.vcore.session.impl.cache.CacheManager;
 import org.modelio.vcore.smkernel.IMetaOf;
@@ -46,6 +49,9 @@ public final class ModelLoaderConfiguration {
     @objid ("97389eb9-e3af-4aa6-9fea-23fc60442567")
     private final IRepository shellRepository;
 
+    @objid ("509fae7c-acd7-412d-be0e-97c3c3d8d3c9")
+    private final IRepository lazyLoadRepository;
+
     @objid ("575b6e1e-7624-4b61-b6e4-be99a2404e0a")
     private final CacheManager cacheManager;
 
@@ -61,33 +67,64 @@ public final class ModelLoaderConfiguration {
     @objid ("e6da6fc1-87b1-4433-836b-a57a53dcf7a1")
     private final IRepositoryObject unloadedRepositoryHandle;
 
+
+    @mdl.prop
+    @objid ("b14c78f7-7a84-4f4a-8336-d7b70abb3ff6")
+    private final ITransactionSupport transactionSupport;
+
+    @mdl.propgetter
+    public ITransactionSupport getTransactionSupport() {
+        // Automatically generated method. Please delete this comment before entering specific code.
+        return this.transactionSupport;
+    }
+
+    @objid ("27eb72e5-b7b3-4f8e-89b9-dcf720e18caf")
+    private final List<IRepository> serviceRepositories;
+
+    @objid ("62725c63-c828-4484-8a7a-469c6a0d7181")
+    private final IMetaOf deletedMetaObject;
+
     /**
-     * @param unloadedRepositoryHandle
+     *
+     * @param deletedRepository the deleted objects repository
      * @param session the core session
      * @param kid the kernel id
      * @param rid the repository id
      * @param shellRepository the unresolved references repository
+     * @param lazyLoadRepository the not yet loaded objects repository
      * @param cacheManager the cache manager
      * @param accessManager the access manager
      * @param refreshEventService the model refresh event service
+     * @param unloadedRepositoryHandle the unloaded objects repository handle
      */
     @objid ("1c44100c-b515-42ac-aa4a-bb6f2728a65b")
-    public  ModelLoaderConfiguration(CoreSession session, short kid, byte rid, IRepository shellRepository, CacheManager cacheManager, IAccessManager accessManager, RefreshEventService refreshEventService, IRepositoryObject unloadedRepositoryHandle) {
+    public ModelLoaderConfiguration(CoreSession session, short kid, byte rid, IRepository shellRepository, IRepository lazyLoadRepository, List<IRepository> serviceRepositories, CacheManager cacheManager, IAccessManager accessManager, RefreshEventService refreshEventService, IMetaOf deletedMetaObject, IRepositoryObject unloadedRepositoryHandle) {
         this.session = session;
         this.accessManager = accessManager;
         this.cacheManager = cacheManager;
         this.kid =  kid;
         this.rid = rid;
+
+        this.lazyLoadRepository = lazyLoadRepository;
         this.shellRepository = shellRepository;
+        this.serviceRepositories = serviceRepositories;
+
         this.refreshEventService = refreshEventService;
+        this.deletedMetaObject = deletedMetaObject;
         this.unloadedRepositoryHandle = unloadedRepositoryHandle;
         this.metamodel = session.getMetamodel();
-        
+        this.transactionSupport = session.getTransactionSupport();
+
         assert (this.refreshEventService != null);
-        
+    }
+
+    @objid ("84e17034-f9dd-4f52-b8e5-77bd61aaa6dc")
+    public IMetaOf getDeletedMetaObject() {
+        return this.deletedMetaObject;
     }
 
     /**
+     *
      * @return the core session
      */
     @objid ("700f8e7c-706d-42e2-851a-46da1e29236d")
@@ -96,6 +133,7 @@ public final class ModelLoaderConfiguration {
     }
 
     /**
+     *
      * @return the kernel id
      */
     @objid ("e2a0581d-c63c-4838-8b6b-35b735c82a98")
@@ -104,6 +142,7 @@ public final class ModelLoaderConfiguration {
     }
 
     /**
+     *
      * @return the repository id
      */
     @objid ("c403a5b2-5010-4bd3-a7ec-6ad64db66a72")
@@ -112,6 +151,7 @@ public final class ModelLoaderConfiguration {
     }
 
     /**
+     *
      * @return the unresolved references repository
      */
     @objid ("caf7819d-69ce-4ffc-92f4-c25e49650a9b")
@@ -120,6 +160,25 @@ public final class ModelLoaderConfiguration {
     }
 
     /**
+     *
+     * @return the repository where lazy loading objects are created.
+     */
+    @objid ("f8cd5324-3a6d-47bf-b282-1be4475c79f3")
+    public IRepository getLazyLoadRepository() {
+        return this.lazyLoadRepository;
+    }
+
+    /**
+     *
+     * @return the service repositories where objects being loaded must be searched first.
+     */
+    @objid ("06ec2eed-95c2-49e6-853f-3a117ddfe10e")
+    public List<IRepository> getServiceRepositories() {
+        return this.serviceRepositories;
+    }
+
+    /**
+     *
      * @return the cache manager
      */
     @objid ("a7b394ab-75b8-4d98-9a40-55be9c6508fd")
@@ -128,6 +187,7 @@ public final class ModelLoaderConfiguration {
     }
 
     /**
+     *
      * @return the access manager
      */
     @objid ("8bc57b52-4ac9-49e4-93f7-9e3ef3667f07")
@@ -136,6 +196,7 @@ public final class ModelLoaderConfiguration {
     }
 
     /**
+     *
      * @return the refresh event service.
      */
     @objid ("790cd109-0f8a-40ce-bc7b-50362e05edeb")
@@ -144,6 +205,7 @@ public final class ModelLoaderConfiguration {
     }
 
     /**
+     *
      * @return the metamodel to use.
      */
     @objid ("bb66cf63-4e09-4b0d-bd21-ec36eedbc05a")
@@ -152,6 +214,7 @@ public final class ModelLoaderConfiguration {
     }
 
     /**
+     *
      * @return the session metaobject.
      */
     @objid ("5ec3b973-90f0-4402-8a7b-bb20add8e2ba")
@@ -160,6 +223,7 @@ public final class ModelLoaderConfiguration {
     }
 
     /**
+     *
      * @return the unloaded objects repository handle.
      */
     @objid ("b9fe55ea-557b-4c74-bcc6-754e16362016")

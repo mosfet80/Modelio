@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.ghostnode;
 
@@ -30,7 +30,7 @@ import org.eclipse.draw2d.MarginBorder;
 
 /**
  * Very simple "ghost" figure.
- * 
+ *
  * @author fpoyer
  */
 @objid ("7e4b0f48-1dec-11e2-8cad-001ec947c8cc")
@@ -48,35 +48,35 @@ public class GhostNodeFigure extends Figure {
      * Constructor
      */
     @objid ("7e4b0f55-1dec-11e2-8cad-001ec947c8cc")
-    public  GhostNodeFigure() {
+    public GhostNodeFigure() {
         this.setOpaque(true);
         this.setForegroundColor(ColorConstants.gray);
         this.setBackgroundColor(ColorConstants.lightGray);
-        
+
         // Setup the layout manager
         this.setLayoutManager(new BorderLayout());
-        
+
         // metaclass label
         this.metaclassLabel = new Label();
         this.metaclassLabel.setOpaque(false);
         this.metaclassLabel.setBorder(new MarginBorder(4));
-        
+
         this.add(this.metaclassLabel, BorderLayout.TOP);
-        
+
         // name label
         this.nameLabel = new Label();
         this.nameLabel.setOpaque(false);
         this.nameLabel.setBorder(new MarginBorder(4));
         this.add(this.nameLabel, BorderLayout.CENTER);
-        
+
         // id label
         this.idLabel = new Label();
         this.idLabel.setOpaque(false);
         this.idLabel.setBorder(new MarginBorder(4));
         this.add(this.idLabel, BorderLayout.BOTTOM);
-        
+
         this.setBorder(new LineBorder(ColorConstants.lightGray));
-        
+
     }
 
     @objid ("7e4b0f58-1dec-11e2-8cad-001ec947c8cc")
@@ -85,11 +85,12 @@ public class GhostNodeFigure extends Figure {
         graphics.setAlpha(64);
         super.paintFigure(graphics);
         //graphics.restoreState();
-        
+
     }
 
     /**
      * Sets the metaclass label of the figure.
+     *
      * @param label the new label.
      */
     @objid ("7e4b0f5f-1dec-11e2-8cad-001ec947c8cc")
@@ -99,6 +100,7 @@ public class GhostNodeFigure extends Figure {
 
     /**
      * Sets the name label of the figure.
+     *
      * @param label the new label.
      */
     @objid ("7e4d716b-1dec-11e2-8cad-001ec947c8cc")
@@ -108,6 +110,7 @@ public class GhostNodeFigure extends Figure {
 
     /**
      * Sets the id label of the figure.
+     *
      * @param label the new label.
      */
     @objid ("7e4d7170-1dec-11e2-8cad-001ec947c8cc")

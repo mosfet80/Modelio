@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.module.command.standard;
 
@@ -38,7 +38,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * The jython script must be in the {@value #SCRIPT_PARAM} command parameter.
  * <p>
  * The scripts are run with the bindings configured by {@link #configure(ScriptEngine, List, IModule)}.
- * 
+ *
  * @since 3.4
  */
 @objid ("25280dde-eba9-4511-b609-28e4c8f37449")
@@ -53,14 +53,14 @@ public class RunJythonScriptBasicHandler extends DefaultModuleCommandHandler {
     @Override
     public void actionPerformed(List<MObject> selectedElements, IModule module) {
         Shell parent = Display.getCurrent().getActiveShell();
-        
+
         IModuleContext context = module.getModuleContext();
         ScriptEngine engine = context.getJythonEngine();
-        
+
         Bindings bindings = configure(engine, selectedElements, module);
-        
+
         String script = getParameter(SCRIPT_PARAM);
-        
+
         // Resolve script path in module resources
         Path scriptPath = context.getConfiguration().getModuleResourcesPath().resolve(script);
         try (FileReader reader = new FileReader(scriptPath.toFile())) {
@@ -68,10 +68,10 @@ public class RunJythonScriptBasicHandler extends DefaultModuleCommandHandler {
             engine.eval(reader, bindings);
         } catch (ScriptException | IOException e) {
             context.getLogService().error(e);
-        
+
             MessageDialog.openError(parent, module.getLabel(), e.getLocalizedMessage());
         }
-        
+
     }
 
     /**
@@ -83,6 +83,7 @@ public class RunJythonScriptBasicHandler extends DefaultModuleCommandHandler {
      * <li> modelingSession : the modeling session.
      * <li> and all command parameters.
      * </ul>
+     *
      * @param engine the script engine that will be used.
      * @param selectedElements the Modelio selection.
      * @param module the module owning the command
@@ -91,7 +92,7 @@ public class RunJythonScriptBasicHandler extends DefaultModuleCommandHandler {
     @objid ("649be871-3ba6-4884-ac4e-05e8ca3d7f5b")
     protected Bindings configure(ScriptEngine engine, List<MObject> selectedElements, IModule module) {
         Bindings bindings = engine.createBindings();
-        
+
         bindings.putAll(getParameters());
         bindings.put("selectedElements", selectedElements);
         bindings.put("module", module);
@@ -106,6 +107,7 @@ public class RunJythonScriptBasicHandler extends DefaultModuleCommandHandler {
      * Returns false if the script does not return a boolean or fails.
      * <p>
      * Does nothing and returns true if no script is present for the given command parameter.
+     *
      * @param scriptParamName the command parameter where the script is stored.
      * @param selectedElements the current Modelio selection
      * @param module the module owing the command
@@ -114,11 +116,11 @@ public class RunJythonScriptBasicHandler extends DefaultModuleCommandHandler {
     @objid ("2c3010c7-482c-4722-8c86-50f0b9c63f0f")
     protected boolean runBooleanScript(String scriptParamName, List<MObject> selectedElements, IModule module) {
         String script = getParameter(scriptParamName);
-        
+
         if (script != null && ! script.isEmpty()) {
             ScriptEngine engine = module.getModuleContext().getJythonEngine();
             Bindings bindings = configure(engine, selectedElements, module);
-        
+
             try {
                 Object ret = engine.eval(script, bindings);
                 if (ret instanceof Boolean) {
@@ -133,7 +135,7 @@ public class RunJythonScriptBasicHandler extends DefaultModuleCommandHandler {
         } else {
             return true;
         }
-        
+
     }
 
 }

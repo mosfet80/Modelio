@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.uml.behavior.commonBehaviors;
 
@@ -26,21 +26,20 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * ParameterEffectKind v0.0.9054
- * 
- * 
+ *
+ *
  * Describe the usage made of an operation parameter
- * 
- * 
+ *
  */
 @objid ("0086ba28-91e0-1f74-804b-001ec947cd2a")
 public enum ParameterEffectKind {
-    @objid ("e0263467-ebd1-49ca-aa7f-d7feb18e2374")
+    @objid ("8d1fd813-30fa-4daf-84b9-0d68d22ef6fc")
     CREATEEFFECT(0, "CreateEffect", "CreateEffect"),
-    @objid ("0266b738-e52e-4eaa-b3f0-fb5b7bee32dd")
+    @objid ("8a34e174-f8a6-49a4-8b58-1cbafc811359")
     READEFFECT(1, "ReadEffect", "ReadEffect"),
-    @objid ("320bec4c-eac2-4b1a-9bef-73151c562176")
+    @objid ("9ca180a2-27aa-49dc-b78d-16f2f2b5beac")
     UPDATEEFFECT(2, "UpdateEffect", "UpdateEffect"),
-    @objid ("d6757f2c-3b60-40f3-9888-24cfda94b1ac")
+    @objid ("588ab266-e5d1-473d-9b8d-61584800a933")
     DELETEEFFECT(3, "DeleteEffect", "DeleteEffect");
 
 public static final int CREATEEFFECT_VALUE = 0;
@@ -103,5 +102,5 @@ public static final int CREATEEFFECT_VALUE = 0;
     public String toString() {
        return literal;
     }
-    
+
 }

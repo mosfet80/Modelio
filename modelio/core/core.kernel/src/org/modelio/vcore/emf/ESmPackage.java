@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.emf;
 
@@ -61,15 +61,15 @@ public class ESmPackage extends EPackageImpl {
 
     /**
      * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-     * 
+     *
      * <p>This method is used to initialize {@link EcorePackage#eINSTANCE} when that field is accessed.
      * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     *
      * @see #eNS_URI
      * @see #createPackageContents()
-     * @see #initializePackageContents()
-     * @generated
+     * @see #initializePackageContents() @generated
      */
     @objid ("bbceddbb-bc87-11e1-b576-001ec947ccaf")
     public static ESmPackage init(SmMetamodel metamodel, ISmMetamodelFragment mmFragment) {
@@ -77,18 +77,18 @@ public class ESmPackage extends EPackageImpl {
         if (isInited) {
             return (ESmPackage)EPackage.Registry.INSTANCE.getEPackage(fragUri);
         }
-        
+
         // Obtain or create and register package
         ESmPackage thePackage = (ESmPackage)(EPackage.Registry.INSTANCE.get(fragUri) instanceof ESmPackage ? EPackage.Registry.INSTANCE.get(fragUri) : new ESmPackage(metamodel, mmFragment));
-        
+
         isInited = true;
-        
+
         // Create package meta-data objects
         thePackage.createPackageContents();
-        
+
         // Initialize created meta-data
         thePackage.initializePackageContents();
-        
+
         // Register package validator
         EValidator.Registry.INSTANCE.put(thePackage,
                 new EValidator.Descriptor()
@@ -99,9 +99,9 @@ public class ESmPackage extends EPackageImpl {
                 return EcoreValidator.INSTANCE;
             }
         });
-        
+
         thePackage.freeze();
-        
+
         // Update the registry and return the package
         EPackage.Registry.INSTANCE.put(fragUri, thePackage);
         return thePackage;
@@ -122,7 +122,7 @@ public class ESmPackage extends EPackageImpl {
         EAttributeImpl a = (EAttributeImpl)this.ecoreFactory.createEAttribute();
         a.setFeatureID(id);
         owner.getEStructuralFeatures().add(a);
-        
+
     }
 
     @objid ("bbd14004-bc87-11e1-b576-001ec947ccaf")
@@ -131,16 +131,16 @@ public class ESmPackage extends EPackageImpl {
             return;
         }
         this.isCreated  = true;
-        
+
         for (SmClass smClass : this.metamodel.getRegisteredMClasses(this.mmFragment)) {
             EClass ec = createEClass(smClass.getId());
             ec.setName(smClass.getName());
             ec.setInstanceClass(smClass.getJavaInterface());
             ec.setInterface(true);
             ec.setAbstract(smClass.isAbstract());
-        
+
             smClass.setEmfAdapter(ec);
-        
+
             EList<EStructuralFeature> eStructuralFeatures = ec.getEStructuralFeatures();
             int i=0;
             for (SmAttribute smAtt : smClass.getSelfAttDef()) {
@@ -163,18 +163,18 @@ public class ESmPackage extends EPackageImpl {
                 eatt.setUnique(true);
                 eatt.setTransient(smAtt.hasDirective(SmDirective.SMCDTRANSIENT));
                 eatt.setUnsettable(false);
-        
+
                 smAtt.setEmfAdapter(eatt);
                 eStructuralFeatures.add(eatt);
-        
+
             }
-        
+
             for (SmDependency smdep : smClass.getSelfDepDef()) {
                 ++i;
                 ESmDependency edep = new ESmDependency(smdep);
                 edep.setFeatureID(i);
                 eStructuralFeatures.add(edep);
-        
+
                 edep.setChangeable(true);
                 edep.setContainerClass(smClass.getJavaInterface());
                 edep.setContainment(smdep.isComponent());
@@ -189,9 +189,9 @@ public class ESmPackage extends EPackageImpl {
                 edep.setUpperBound(smdep.getMax());
                 edep.setVolatile(false);
             }
-        
+
         }
-        
+
     }
 
     @objid ("bbd14006-bc87-11e1-b576-001ec947ccaf")
@@ -199,13 +199,13 @@ public class ESmPackage extends EPackageImpl {
     private void initializePackageContents() {
         for (SmClass smClass : this.metamodel.getRegisteredMClasses(this.mmFragment)) {
             EClass eclass = smClass.getEmfAdapter();
-        
+
             // initialize inheritance
             SmClass smParent = smClass.getParent();
             if (smParent != null) {
                 eclass.getESuperTypes().add(smParent.getEmfAdapter());
             }
-        
+
             // Finish dependency initialization
             for (SmDependency smdep : smClass.getSelfDepDef()) {
                 ESmDependency edep = (ESmDependency) smdep.getEmfAdapter();
@@ -216,7 +216,7 @@ public class ESmPackage extends EPackageImpl {
                 }
             }
         }
-        
+
     }
 
     @objid ("bbd14008-bc87-11e1-b576-001ec947ccaf")
@@ -238,7 +238,7 @@ public class ESmPackage extends EPackageImpl {
         } else {
             throw new UnsupportedOperationException(type+" is not yet handled.");
         }
-        
+
     }
 
     @objid ("bbd1400f-bc87-11e1-b576-001ec947ccaf")
@@ -252,14 +252,15 @@ public class ESmPackage extends EPackageImpl {
     }
 
     /**
+     *
      * @param metamodel The metamodel
      * @param mmFragment The metamodel fragment
      */
     @objid ("8eb735f9-df6a-4531-85ae-f3b0121a1565")
-    public  ESmPackage(SmMetamodel metamodel, ISmMetamodelFragment mmFragment) {
+    public ESmPackage(SmMetamodel metamodel, ISmMetamodelFragment mmFragment) {
         this.metamodel = metamodel;
         this.mmFragment = mmFragment;
-        
+
     }
 
 }

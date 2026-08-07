@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.exml.common.index.builder;
 
@@ -28,7 +28,7 @@ import org.xml.sax.SAXException;
 /**
  * Parses the first found ID tag to record a contained object
  * Parses the first PID tag, to record the parent CMS node.
- * 
+ *
  * All ID tags are added to CMS node content.
  * Parses all object references and foreign references.
  */
@@ -42,7 +42,7 @@ class OBJECTState extends AbstractState {
             String cuid = attrs.getValue (ExmlTags.ATT_ID_UID);
             String cclassof = attrs.getValue (ExmlTags.ATT_ID_MC);
             String cname = attrs.getValue (ExmlTags.ATT_ID_NAME);
-        
+
             try {
                 // If first ID it is the CMS node ID.
                 if (this.stateHandler.getCmsNode() == null) {
@@ -60,7 +60,7 @@ class OBJECTState extends AbstractState {
             String cuid = attrs.getValue (ExmlTags.ATT_ID_UID);
             String cclassof = attrs.getValue (ExmlTags.ATT_ID_MC);
             String cname = attrs.getValue (ExmlTags.ATT_ID_NAME);
-        
+
             try {
                 // Called for all PID found but the handler will remember
                 // only the first call.
@@ -73,7 +73,7 @@ class OBJECTState extends AbstractState {
                 localName.equals(ExmlTags.TAG_COMP)) {
             this.stateHandler.enterLINKState(attrs.getValue (ExmlTags.ATT_RELATION));
         }
-        
+
     }
 
     @objid ("fd21f6b7-5986-11e1-991a-001ec947ccaf")
@@ -84,12 +84,12 @@ class OBJECTState extends AbstractState {
             // This may also be end of file but don't mind it
             this.stateHandler.enterLINKState(null);
         }
-        
+
     }
 
     @objid ("fd21f6b4-5986-11e1-991a-001ec947ccaf")
-    public  OBJECTState() {
-        
+    public OBJECTState() {
+
     }
 
 }

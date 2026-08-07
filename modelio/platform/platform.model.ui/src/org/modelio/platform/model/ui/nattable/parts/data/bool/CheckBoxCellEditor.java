@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.parts.data.bool;
 
@@ -48,7 +48,7 @@ public class CheckBoxCellEditor extends AbstractCellEditor {
     /**
      * The editor control which is a Canvas that paints the corresponding checkbox images. To adjust the look & feel for checkbox editors you need to look at {@link CheckBoxPainter}
      */
-    @objid ("22644e2b-5a03-4aa6-9b76-6cc12719ae16")
+    @objid ("b3180622-21ec-4775-b589-f26b748780fa")
     private Canvas canvas;
 
     /**
@@ -62,15 +62,15 @@ public class CheckBoxCellEditor extends AbstractCellEditor {
         if (originalCanonicalValue instanceof Character) {
             return null;
         }
-        
+
         setCanonicalValue(originalCanonicalValue);
-        
+
         this.checked = !this.checked;
-        
+
         this.canvas = createEditorControl(parent);
-        
+
         commit(MoveDirectionEnum.DOWN, false);
-        
+
         if (this.editMode == EditModeEnum.INLINE) {
             // Close editor so it will react to subsequent clicks on the cell
             if (this.canvas != null && !this.canvas.isDisposed()) {
@@ -89,6 +89,7 @@ public class CheckBoxCellEditor extends AbstractCellEditor {
     /**
      * Sets the given value to editor control. As this method is called by {@link AbstractCellEditor#setCanonicalValue(Object)} the given value should be already a converted Boolean value. The only other values accepted in here are <code>null</code> which
      * is interpreted as <code>false</code> and Strings than can be converted to Boolean directly. Every other object will result in setting the editor value to <code>false</code>.
+     *
      * @param value The display value to set to the wrapped editor control.
      */
     @objid ("938596e1-1ae5-42a2-976d-23078901ba2e")
@@ -105,7 +106,6 @@ public class CheckBoxCellEditor extends AbstractCellEditor {
                 this.checked = false;
             }
         }
-        
     }
 
     @objid ("6046188d-2cd6-4655-98f0-0b01ac3743d8")
@@ -118,7 +118,7 @@ public class CheckBoxCellEditor extends AbstractCellEditor {
     @Override
     public Canvas createEditorControl(Composite parent) {
         final Canvas canvas = new Canvas(parent, SWT.NONE);
-        
+
         canvas.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseUp(MouseEvent e) {

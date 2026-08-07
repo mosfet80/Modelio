@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.stateMachineModel;
 
 import java.util.ArrayList;
@@ -40,75 +39,75 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("33cd240c-7179-433e-8497-c01cf1563bf1")
 public class FinalStateSmClass extends StateSmClass {
-    @objid ("93a3bd1f-7c79-4a35-8560-883a9de8c343")
-    public  FinalStateSmClass(ISmMetamodelFragment origin) {
+    @objid ("f113e2f3-86c8-4c56-8df5-ccd3d40e42a6")
+    public FinalStateSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("2ca6d38a-716b-4db3-85cd-3526bc8269f8")
+    @objid ("fcdbecf8-97c1-4e27-8b21-b85db0a3e7a0")
     @Override
     public String getName() {
         return "FinalState";
-        
+
     }
 
-    @objid ("5de3547e-b17d-467d-8dc9-179c7adcad0d")
+    @objid ("a359a869-4f5c-4ef3-92e0-1c98f234b661")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("cca0a0c6-eebd-4f2a-aa45-6a4afa64bb3d")
+    @objid ("78afe608-aec2-4417-bf07-331f243ff0e0")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return FinalState.class;
-        
+
     }
 
-    @objid ("1d5e2fdc-183e-44d8-ad8d-2af095c0c4d7")
+    @objid ("0fd303b1-c3da-40ff-9b0a-cf23e6a36f43")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("d5366351-95ca-4b72-b193-fb32973ab01d")
+    @objid ("f4d73422-f08f-4931-8ccb-0b50bafc9b57")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("cd7aef75-6976-43c1-95be-3a884342cbd6")
+    @objid ("49d7f8b5-4f17-4eb2-a456-13a4ddd54de4")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(State.MQNAME);
         this.registerFactory(new FinalStateObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
-        
+
     }
 
     @objid ("437f4304-39aa-43ce-ba1b-70ef405e4e46")
     private static class FinalStateObjectFactory implements ISmObjectFactory {
-        @objid ("9ba2ba8d-8a82-4817-aa96-336d90f32bf5")
+        @objid ("137a8d58-2ac1-4686-93f3-b027cf149174")
         private FinalStateSmClass smClass;
 
-        @objid ("3a7d9889-eff4-434b-a644-3b595afe1a3a")
-        public  FinalStateObjectFactory(FinalStateSmClass smClass) {
+        @objid ("14c742bd-d63a-45ca-b453-52ea52fe7b11")
+        public FinalStateObjectFactory(FinalStateSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("d39ea408-206f-4f58-a8d6-dfd3d5781fa3")
+        @objid ("21d0776d-db0e-4d21-9db6-08bd1c6b7bed")
         @Override
         public ISmObjectData createData() {
             return new FinalStateData(this.smClass);
         }
 
-        @objid ("42ee3a53-b9b1-4218-b309-b5b66efa28a9")
+        @objid ("753c44bc-2dcc-4d10-8ec1-b1ef40a0748c")
         @Override
         public SmObjectImpl createImpl() {
             return new FinalStateImpl();

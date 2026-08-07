@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.data.module.jaxbv2;
 
@@ -28,9 +28,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for _CommandRef complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="_CommandRef">
  * &lt;complexContent>
@@ -65,8 +65,8 @@ public class Jxbv2CommandRef {
 
     /**
      * Gets the value of the refid property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("83b930fb-9d5d-4df4-97c5-f5adaa66a2b3")
@@ -76,6 +76,7 @@ public class Jxbv2CommandRef {
 
     /**
      * Sets the value of the refid property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -86,8 +87,8 @@ public class Jxbv2CommandRef {
 
     /**
      * Gets the value of the group property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("bbe8d25e-5bed-482c-a3a4-daf41c192684")
@@ -97,6 +98,7 @@ public class Jxbv2CommandRef {
 
     /**
      * Sets the value of the group property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -107,8 +109,8 @@ public class Jxbv2CommandRef {
 
     /**
      * Gets the value of the groupImage property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("36ef7b37-c37c-4a64-b795-8cf056d04c53")
@@ -118,6 +120,7 @@ public class Jxbv2CommandRef {
 
     /**
      * Sets the value of the groupImage property.
+     *
      * @param value allowed object is
      * {@link String }
      */

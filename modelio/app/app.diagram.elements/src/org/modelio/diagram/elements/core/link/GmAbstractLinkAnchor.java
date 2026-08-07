@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link;
 
@@ -31,7 +31,7 @@ import org.modelio.diagram.persistence.IPersistent;
 
 /**
  * Represents the link anchor on the source and destination node.
- * 
+ *
  * @author cmarin
  * @see org.modelio.diagram.elements.core.figures.anchors.NodeAnchor
  */
@@ -54,10 +54,11 @@ public abstract class GmAbstractLinkAnchor implements IPersistent {
 
     /**
      * Creates a link anchor.
+     *
      * @param location The anchor reference point location relative to the anchored node location.
      */
     @objid ("800dabbf-1dec-11e2-8cad-001ec947c8cc")
-    protected  GmAbstractLinkAnchor(Dimension location) {
+    protected GmAbstractLinkAnchor(Dimension location) {
         this.location = location;
     }
 
@@ -65,12 +66,13 @@ public abstract class GmAbstractLinkAnchor implements IPersistent {
      * Constructor for deserialization.
      */
     @objid ("800dabc5-1dec-11e2-8cad-001ec947c8cc")
-    protected  GmAbstractLinkAnchor() {
-        
+    protected GmAbstractLinkAnchor() {
+
     }
 
     /**
      * Get the anchor reference point location.
+     *
      * @return the anchor reference point location.
      */
     @objid ("800dabc8-1dec-11e2-8cad-001ec947c8cc")
@@ -95,21 +97,22 @@ public abstract class GmAbstractLinkAnchor implements IPersistent {
         } else {
             this.location = (Dimension) o;
         }
-        
+
     }
 
     /**
      * Set the anchor reference point location relative to the node.
+     *
      * @param location the anchor reference point location.
      */
     @objid ("80100de9-1dec-11e2-8cad-001ec947c8cc")
     public void setLocation(Dimension location) {
         this.location = location;
-        
+
         for (IGmAnchorListener l : this.links) {
             l.fireAnchorMoved(this);
         }
-        
+
     }
 
     @objid ("80100def-1dec-11e2-8cad-001ec947c8cc")
@@ -120,6 +123,7 @@ public abstract class GmAbstractLinkAnchor implements IPersistent {
 
     /**
      * Called by the link on deserialization
+     *
      * @param l a link
      */
     @objid ("80100df3-1dec-11e2-8cad-001ec947c8cc")
@@ -128,6 +132,7 @@ public abstract class GmAbstractLinkAnchor implements IPersistent {
     }
 
     /**
+     *
      * @param l the listener (link) to remove
      */
     @objid ("80100df6-1dec-11e2-8cad-001ec947c8cc")

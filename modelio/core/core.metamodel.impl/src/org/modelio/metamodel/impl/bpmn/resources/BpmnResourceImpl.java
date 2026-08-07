@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.resources;
 
 import java.util.ArrayList;
@@ -45,13 +44,13 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00097356-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnResourceImpl extends BpmnSharedElementImpl implements BpmnResource {
-    @objid ("bbb09bb1-c2d3-4968-94af-e7fd004d706a")
+    @objid ("5e78a4ee-97a9-4cd3-b1b9-15597826dfc1")
     @Override
     public EList<BpmnResourceRole> getResourceroleRefs() {
         return new SmList<>(this, ((BpmnResourceSmClass)getClassOf()).getResourceroleRefsDep());
     }
 
-    @objid ("cf37eca3-f0da-48c6-9427-5647d48cc7fa")
+    @objid ("48801541-a0ee-45ad-9bd7-2352f8798b21")
     @Override
     public <T extends BpmnResourceRole> List<T> getResourceroleRefs(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -64,16 +63,16 @@ public class BpmnResourceImpl extends BpmnSharedElementImpl implements BpmnResou
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("0097f5a8-ab7f-4d48-aa86-795d70ad86ce")
+    @objid ("39f18cb9-4665-44cf-9332-123343556742")
     @Override
     public EList<BpmnResourceParameter> getParameter() {
         return new SmList<>(this, ((BpmnResourceSmClass)getClassOf()).getParameterDep());
     }
 
-    @objid ("a3ca9241-511b-49be-bc7d-86a6e21d3503")
+    @objid ("c2490912-3911-420a-b9a7-46e605749a8d")
     @Override
     public <T extends BpmnResourceParameter> List<T> getParameter(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -86,10 +85,10 @@ public class BpmnResourceImpl extends BpmnSharedElementImpl implements BpmnResou
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("d57cc4aa-8b9e-4b98-975a-489cdf10cc93")
+    @objid ("0962be20-9930-4250-a5e8-ce18509b0309")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -97,17 +96,17 @@ public class BpmnResourceImpl extends BpmnSharedElementImpl implements BpmnResou
         return super.getCompositionOwner();
     }
 
-    @objid ("b541d51b-dc5f-4020-a26c-5c2dfcc9f093")
+    @objid ("c8802d12-2aa2-4b54-8d5b-074c7c96c5f4")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("4f6a3d0e-9488-4705-8f08-029913b84481")
+    @objid ("50b62fcd-a262-42c7-9586-6cea5c184058")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitBpmnResource(this);

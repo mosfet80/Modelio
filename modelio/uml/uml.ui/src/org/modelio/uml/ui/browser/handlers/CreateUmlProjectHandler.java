@@ -1,26 +1,26 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.browser.handlers;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.services.IServiceConstants;
@@ -47,6 +47,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class CreateUmlProjectHandler {
     /**
      * Creates a UML project in the selected editable fragment.
+     *
      * @param selection the current platform selection.
      * @param projectService the project service, to get session and metamodel from.
      * @param selectionService the selection service, to update the platform selection with.
@@ -55,34 +56,35 @@ public class CreateUmlProjectHandler {
     @Execute
     public final void execute(@Named (IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection, IProjectService projectService, IModelioNavigationService selectionService) {
         IGModelFragment fragment = SelectionHelper.getFirst(selection, IGModelFragment.class);
-        
+
         final ICoreSession session = projectService.getSession();
         try (ITransaction t = session.getTransactionSupport().createTransaction("Create UML Project")) {
             MTools mTools = MTools.get(session);
             IElementNamerService namer = mTools.getNamer();
             IStandardModelFactory modelFactory = mTools.getModelFactory(IStandardModelFactory.class);
-        
+
             Project newProject = modelFactory.createProject(fragment.getRepository());
             newProject.setName(namer.getUniqueName(namer.getBaseName(newProject), newProject));
-        
+
             for (Package root : newProject.getModel()) {
                 root.setName(namer.getUniqueName(namer.getBaseName(root), root));
             }
-        
+
             DiagramSet diagramRoot = newProject.getDiagramRoot();
             diagramRoot.setName(namer.getBaseName(diagramRoot));
-        
+
             t.commit();
-        
+
             selectionService.fireNavigate(newProject);
         } catch (Exception e) {
             UmlUi.LOG.error("CreateUmlProjectHandler: \n\tCannot create an UML Project");
             UmlUi.LOG.error(e);
         }
-        
+
     }
 
     /**
+     *
      * @param selection the current platform selection.
      * @param projectService the project service, to get session and metamodel from.
      * @return <code>true</code> if the project can be created, <code>false</code> otherwise.
@@ -93,17 +95,17 @@ public class CreateUmlProjectHandler {
         if (projectService.getSession() == null) {
             return false;
         }
-        
+
         if (selection.size() != 1) {
             return false;
         }
-        
+
         // Fragment checks
         IGModelFragment fragment = SelectionHelper.getFirst(selection, IGModelFragment.class);
         if (isReadonly(fragment)) {
             return false;
         }
-        
+
         for (MObject umlProject : fragment.getRepository().findByClass(projectService.getSession().getMetamodel().getMClass(Project.class), true)) {
             if (umlProject.isValid()) {
                 return false;
@@ -113,6 +115,7 @@ public class CreateUmlProjectHandler {
     }
 
     /**
+     *
      * @return true if the fragment is read only.
      */
     @objid ("0c090460-494d-4641-8241-d9b00d7cd143")

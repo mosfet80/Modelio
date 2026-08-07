@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.umlcommon.namespaceuse;
 
@@ -44,11 +44,12 @@ public class GmNamespaceUseLabel extends GmElementLabel {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram
      * @param relatedRef a reference to the element this GmModel is related to, must not be null.
      */
     @objid ("817cd5ad-1dec-11e2-8cad-001ec947c8cc")
-    public  GmNamespaceUseLabel(final IGmDiagram diagram, final MRef relatedRef) {
+    public GmNamespaceUseLabel(final IGmDiagram diagram, final MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -56,8 +57,8 @@ public class GmNamespaceUseLabel extends GmElementLabel {
      * For deserialization only.
      */
     @objid ("817cd5b4-1dec-11e2-8cad-001ec947c8cc")
-    public  GmNamespaceUseLabel() {
-        
+    public GmNamespaceUseLabel() {
+
     }
 
     @objid ("817cd5b7-1dec-11e2-8cad-001ec947c8cc")
@@ -66,7 +67,7 @@ public class GmNamespaceUseLabel extends GmElementLabel {
         MObject relatedElement = getRelatedElement();
         if (relatedElement != null) {
             ImpactLink node = (ImpactLink) relatedElement;
-        
+
             // Name should be "CommunicationNodeName"
             return ("use(" + node.getCauses().size() + " cause(s))");
         }
@@ -91,17 +92,17 @@ public class GmNamespaceUseLabel extends GmElementLabel {
             break;
         }
         }
-        
+
     }
 
     @objid ("817cd5c0-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmNamespaceUseLabel.", GmNamespaceUseLabel.MINOR_VERSION);
-        
+
     }
 
     @objid ("817cd5c4-1dec-11e2-8cad-001ec947c8cc")

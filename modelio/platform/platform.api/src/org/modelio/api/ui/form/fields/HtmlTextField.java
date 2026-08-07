@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.ui.form.fields;
 
@@ -32,7 +32,7 @@ import org.modelio.platform.ui.htmleditor.HtmlComposer;
 
 /**
  * display/edit the content of a html text.
- * 
+ *
  * Uses a HtmlComposer
  */
 @objid ("06d5a8e0-ec8d-44ee-a060-2768282df6e8")
@@ -47,15 +47,15 @@ public class HtmlTextField extends AbstractField {
     private HtmlComposer text;
 
     @objid ("3b2b2253-0c38-4e52-a24d-e6f3ec833129")
-    public  HtmlTextField(FormToolkit toolkit, Composite parent, IFormFieldData model) {
+    public HtmlTextField(FormToolkit toolkit, Composite parent, IFormFieldData model) {
         this(toolkit, parent, model, -1);
     }
 
     @objid ("cf91f222-8298-4a7e-a5cf-17c8bdbb0da8")
-    public  HtmlTextField(FormToolkit toolkit, Composite parent, IFormFieldData model, int heightHint) {
+    public HtmlTextField(FormToolkit toolkit, Composite parent, IFormFieldData model, int heightHint) {
         super(toolkit, parent, model);
         this.heightHint = heightHint;
-        
+
     }
 
     @objid ("f170dc0a-8865-4619-a24d-74a74d69e70d")
@@ -72,16 +72,16 @@ public class HtmlTextField extends AbstractField {
     public Control createControl(FormToolkit toolkit, Composite parent) {
         Composite border = toolkit.createComposite(parent, SWT.BORDER);
         border.setLayout(new FillLayout());
-        
+
         this.text = new HtmlComposer(border, SWT.NONE);
         toolkit.adapt(this.text.getBrowser(), false, false);
-        
+
         // Initialize values
         getLabel().setText(getModel().getName());
-        
+
         final Object value = getModel().getValue();
         this.text.setHtml(value != null ? value.toString() : EMPTY_STRING);
-        
+
         // Install Listeners
         this.text.addFocusListener(new FocusAdapter() {
             @Override
@@ -94,7 +94,7 @@ public class HtmlTextField extends AbstractField {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * Specializes the initial layout so that several lines of the text can be displayed.
      */
     @objid ("4593fdd3-d0f3-4199-8f91-877710f30b57")
@@ -104,7 +104,7 @@ public class HtmlTextField extends AbstractField {
         if (this.heightHint > 0) {
             ((FormData) control.getLayoutData()).height = this.heightHint;
         }
-        
+
     }
 
     /**
@@ -115,7 +115,7 @@ public class HtmlTextField extends AbstractField {
     public void refresh() {
         final Object value = getModel().getValue();
         this.text.setHtml(value != null ? value.toString() : EMPTY_STRING);
-        
+
     }
 
 }

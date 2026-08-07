@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.exceptionhandler;
 
@@ -32,7 +32,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * exception handler header displayed on the node link.
- * 
+ *
  * @author sbe
  */
 @objid ("2a4c0ec8-55b6-11e2-877f-002564c97630")
@@ -48,11 +48,12 @@ public class GmExceptionHandlerHeader extends GmDefaultModelElementLabel {
 
     /**
      * Constructor
+     *
      * @param diagram the diagram
      * @param relatedRef related element reference, must not be <code>null</code>.
      */
     @objid ("2a4c0ed1-55b6-11e2-877f-002564c97630")
-    public  GmExceptionHandlerHeader(IGmDiagram diagram, MRef relatedRef) {
+    public GmExceptionHandlerHeader(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -60,7 +61,7 @@ public class GmExceptionHandlerHeader extends GmDefaultModelElementLabel {
      * For deserialization only.
      */
     @objid ("2a4c0eda-55b6-11e2-877f-002564c97630")
-    public  GmExceptionHandlerHeader() {
+    public GmExceptionHandlerHeader() {
         // serialization
     }
 
@@ -84,12 +85,12 @@ public class GmExceptionHandlerHeader extends GmDefaultModelElementLabel {
         // The label is the handled exception names.
         final ExceptionHandler edge = (ExceptionHandler) getRelatedElement();
         final StringBuilder s = new StringBuilder();
-        
+
         for (GeneralClass c : edge.getExceptionType()) {
             if (s.length() > 0) {
                 s.append(", ");
             }
-        
+
             s.append(c.getName());
         }
         return s.toString();
@@ -103,7 +104,7 @@ public class GmExceptionHandlerHeader extends GmDefaultModelElementLabel {
         } else {
             super.styleChanged(property, newValue);
         }
-        
+
     }
 
     @objid ("2a4d9571-55b6-11e2-877f-002564c97630")
@@ -123,17 +124,17 @@ public class GmExceptionHandlerHeader extends GmDefaultModelElementLabel {
             break;
         }
         }
-        
+
     }
 
     @objid ("2a4d9577-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmExceptionHandlerHeader.", GmExceptionHandlerHeader.MINOR_VERSION);
-        
+
     }
 
     @objid ("2a4f1bd9-55b6-11e2-877f-002564c97630")

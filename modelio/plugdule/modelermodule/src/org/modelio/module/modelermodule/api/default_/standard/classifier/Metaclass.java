@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class Metaclass {
      * Tells whether a {@link Metaclass proxy} can be instantiated from a {@link MObject} checking it is a {@link Classifier} stereotyped << metaclass >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,7 +73,7 @@ public class Metaclass {
 
     /**
      * Create a new {@link Classifier} stereotyped << metaclass >> then instantiate a {@link Metaclass} proxy.
-     * 
+     *
      * @return a {@link Metaclass} proxy on the created {@link Classifier}.
      */
     @objid ("d79751d2-1fa0-4d46-9f8a-e5089d34581e")
@@ -83,9 +84,10 @@ public class Metaclass {
     }
 
     /**
-     * Tries to instantiate a {@link Metaclass} proxy from a {@link Classifier} stereotyped << metaclass >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link Metaclass} proxy from a {@link Classifier} stereotyped << metaclass >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a Classifier
      * @return a {@link Metaclass} proxy or <i>null</i>.
      */
@@ -95,9 +97,10 @@ public class Metaclass {
     }
 
     /**
-     * Tries to instantiate a {@link Metaclass} proxy from a {@link Classifier} stereotyped << metaclass >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link Metaclass} proxy from a {@link Classifier} stereotyped << metaclass >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link Classifier}
      * @return a {@link Metaclass} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -127,7 +130,8 @@ public class Metaclass {
     }
 
     /**
-     * Get the underlying {@link Classifier}. 
+     * Get the underlying {@link Classifier}.
+     *
      * @return the Classifier represented by this proxy, never null.
      */
     @objid ("b9a526a5-8802-4b24-aada-5c53d82bcb04")
@@ -139,11 +143,11 @@ public class Metaclass {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("bcb2dfb0-4e30-4adf-b51f-a6bbc79a3f82")
-    protected  Metaclass(Classifier elt) {
+    protected Metaclass(Classifier elt) {
         this.elt = elt;
     }
 
@@ -163,7 +167,7 @@ public class Metaclass {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "00700680-0000-01bd-0000-000000000000");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -171,7 +175,7 @@ public class Metaclass {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

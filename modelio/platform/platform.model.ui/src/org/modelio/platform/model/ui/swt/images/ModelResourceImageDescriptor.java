@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.swt.images;
 
@@ -29,6 +29,7 @@ import org.modelio.metamodel.uml.infrastructure.IResourceHandle;
 
 /**
  * Image descriptor for images stored or referenced by {@link AbstractResource} model objects.
+ *
  * @author cma
  * @since 3.7
  */
@@ -38,10 +39,9 @@ public class ModelResourceImageDescriptor extends ImageDescriptor {
     private final AbstractResource resource;
 
     @objid ("8e025016-7afb-495c-92e3-c3a5235beb58")
-    public  ModelResourceImageDescriptor(AbstractResource resource) {
+    public ModelResourceImageDescriptor(AbstractResource resource) {
         super();
         this.resource = Objects.requireNonNull(resource);
-        
     }
 
     @objid ("1652fec5-70be-493d-96bc-d286ab8a29d1")
@@ -74,13 +74,12 @@ public class ModelResourceImageDescriptor extends ImageDescriptor {
         if (handle == null) {
             return null;
         }
-        
+
         try {
             return new ImageData(handle.read());
         } catch (IOException e) {
             return null;
         }
-        
     }
 
     @objid ("953732a0-43a2-4834-9b8a-3c970995e706")

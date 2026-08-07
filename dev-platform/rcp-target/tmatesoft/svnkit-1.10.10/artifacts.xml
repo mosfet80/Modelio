@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?artifactRepository version='1.1.0'?>
+<repository name='file:////home/fferran/mtools/alouette/work/eclipse/dev-platform/rcp-target/tmatesoft/svnkit - artifacts' type='org.eclipse.equinox.p2.artifact.repository.simpleRepository' version='1'>
+  <properties size='2'>
+    <property name='p2.timestamp' value='1714394303424'/>
+    <property name='p2.compressed' value='false'/>
+  </properties>
+  <mappings size='3'>
+    <rule filter='(&amp; (classifier=osgi.bundle))' output='${repoUrl}/plugins/${id}_${version}.jar'/>
+    <rule filter='(&amp; (classifier=binary))' output='${repoUrl}/binary/${id}_${version}'/>
+    <rule filter='(&amp; (classifier=org.eclipse.update.feature))' output='${repoUrl}/features/${id}_${version}.jar'/>
+  </mappings>
+  <artifacts size='6'>
+    <artifact classifier='osgi.bundle' id='org.tmatesoft.sqljet' version='1.1.14.r1345'>
+      <properties size='6'>
+        <property name='artifact.size' value='923483'/>
+        <property name='download.size' value='923483'/>
+        <property name='download.md5' value='f004c889c3741ef32f5156d3136b977c'/>
+        <property name='download.checksum.sha-512' value='be55c2be328df928d5e7bfaaba42009ec8ad6f1d3829eb7d2ae2325cd15f3858d1bbb7c2e504edf5d252efae0ae8ba6612cc7f215d1a312b7f89cc1adf654359'/>
+        <property name='download.checksum.md5' value='f004c889c3741ef32f5156d3136b977c'/>
+        <property name='download.checksum.sha-256' value='571af841362e323aa35bb4e8abd705e05497729d727c89d8731a969cca65e619'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.tmatesoft.svnkit' version='1.10.10.r10859'>
+      <properties size='6'>
+        <property name='artifact.size' value='8592904'/>
+        <property name='download.size' value='8592904'/>
+        <property name='download.md5' value='8a0eb1809388586ce37d02d712d47495'/>
+        <property name='download.checksum.sha-512' value='740bcf6664a20d36290a9fbb9467af8e167adccd42bd1fc1ffa5730663bb7f35ad4cd81c562d0a01adc520b7d45d8deb7bbd468875a6ab765817bfcfc4b8d10d'/>
+        <property name='download.checksum.md5' value='8a0eb1809388586ce37d02d712d47495'/>
+        <property name='download.checksum.sha-256' value='18041f5a2b999db9eb4769a82d9a4e2e6337b18367c8036eb69a2e8649fbba01'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='net.java.dev.jna' version='4.1.0.v06022015_1911'>
+      <properties size='2'>
+        <property name='download.contentType' value='application/zip'/>
+        <property name='download.size' value='1552'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='com.trilead.ssh2' version='1.0.0.build222_185'>
+      <properties size='6'>
+        <property name='artifact.size' value='248676'/>
+        <property name='download.size' value='248676'/>
+        <property name='download.md5' value='9e8acca663e1d29706b0f1b6c40b8eb1'/>
+        <property name='download.checksum.sha-512' value='6003abfa2f1fa90a4b4269c640d60ae6f67fbdd236421ab49dda511b5ddc455f307d233130579da280c696afcbd274434cb1d6b0e1d410f8eb409390b73efe31'/>
+        <property name='download.checksum.md5' value='9e8acca663e1d29706b0f1b6c40b8eb1'/>
+        <property name='download.checksum.sha-256' value='fd379da9c43207fbdad777b11c45b2428de3c3b0b161a2a46d63be617b0a830f'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='net.java.dev.jna' version='4.1.0.v06022015_1911'>
+      <properties size='6'>
+        <property name='artifact.size' value='914884'/>
+        <property name='download.size' value='914884'/>
+        <property name='download.md5' value='54d2e7a2b8016c4a6a55cff137d7b1b6'/>
+        <property name='download.checksum.sha-512' value='9711e4098c0cefe4a3f387247b2b4b0057b4c0d5dcda837269b84c536afb086735befc8043227218c3f1eff0c5b4ea498bf7e5af323ed6e6dc532404c9968157'/>
+        <property name='download.checksum.md5' value='54d2e7a2b8016c4a6a55cff137d7b1b6'/>
+        <property name='download.checksum.sha-256' value='6e067141ad7b8beddec5da68a506a08c515bf2ffc30a2c55ff240853205430b8'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='org.tmatesoft.svnkit' version='1.10.10.r10859'>
+      <properties size='2'>
+        <property name='download.contentType' value='application/zip'/>
+        <property name='download.size' value='2358'/>
+      </properties>
+    </artifact>
+  </artifacts>
+</repository>

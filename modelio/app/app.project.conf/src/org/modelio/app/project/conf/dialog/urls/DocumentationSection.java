@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.conf.dialog.urls;
 
@@ -75,18 +75,19 @@ public class DocumentationSection {
     private Button removeBtn;
 
     @objid ("85072c3c-b724-4904-85bc-fba209aacc4b")
-    public  DocumentationSection(ReferencedUrlsPage referencedUrlPage) {
+    public DocumentationSection(ReferencedUrlsPage referencedUrlPage) {
         this.referencedUrlPage = referencedUrlPage;
     }
 
     /**
      * Update() is called by the referenced url view when the project to be displayed changes or need contents refresh
+     *
      * @param selectedProject the project selected in the workspace tree view
      */
     @objid ("d4464549-baf6-4f7e-8bce-318139ba1226")
     public void setInput(ProjectModel selectedProject) {
         this.projectAdapter = selectedProject;
-        
+
         if (selectedProject != null) {
             List<UrlEntry> urls = selectedProject.getUrls();
             this.viewer.setInput(urls);
@@ -105,7 +106,7 @@ public class DocumentationSection {
             this.editBtn.setEnabled(false);
             this.removeBtn.setEnabled(false);
         }
-        
+
     }
 
     @objid ("88cc4543-d4ce-403d-86bf-078d35fc81bf")
@@ -115,68 +116,68 @@ public class DocumentationSection {
         section.setText(AppProjectConf.I18N.getString("DocumentationSection.SectionText"));
         section.setDescription(AppProjectConf.I18N.getString("DocumentationSection.SectionDescription"));
         section.setExpanded(true);
-        
+
         Composite composite = toolkit.createComposite(section, SWT.WRAP);
         GridLayout layout = new GridLayout();
         layout.numColumns = 2;
         layout.marginWidth = 2;
         layout.marginHeight = 2;
         composite.setLayout(layout);
-        
+
         Table table = toolkit.createTable(composite, SWT.BORDER | SWT.FULL_SELECTION);
         this.viewer = new TableViewer(table);
-        
+
         GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
         table.setLayoutData(gd);
-        
+
         this.viewer.setContentProvider(new ArrayContentProvider());
-        
+
         // first column the name
         TableViewerColumn nameColumn = new TableViewerColumn(this.viewer, SWT.NONE);
         nameColumn.getColumn().setWidth(100);
         nameColumn.setLabelProvider(new ColumnLabelProvider() {
-        
+
             @Override
             public String getText(Object element) {
                 return UrlLabelProvider.getName(element);
             }
-        
+
             @Override
             public Image getImage(Object element) {
                 return null;
             }
         });
         nameColumn.setEditingSupport(new NameEditingSupport(this.viewer));
-        
+
         // second column the url
         TableViewerColumn urlColumn = new TableViewerColumn(this.viewer, SWT.NONE);
         urlColumn.getColumn().setWidth(100);
         urlColumn.setLabelProvider(new ColumnLabelProvider() {
-        
+
             @Override
             public String getText(Object element) {
                 return UrlLabelProvider.getUrl(element);
             }
-        
+
             @Override
             public Image getImage(Object element) {
                 return null;
             }
         });
         urlColumn.setEditingSupport(new UrlEditingSupport(this.viewer));
-        
+
         this.viewer.addSelectionChangedListener(new ISelectionChangedListener() {
             @Override
             public void selectionChanged(SelectionChangedEvent event) {
                 updateButtons();
             }
         });
-        
+
         // The buttons composite
         Composite panel = new Composite(composite, SWT.NONE);
         GridData gd2 = new GridData(SWT.FILL, SWT.FILL, false, false);
         panel.setLayoutData(gd2);
-        
+
         RowLayout rowLayout = new RowLayout();
         rowLayout.wrap = false;
         rowLayout.pack = false;
@@ -187,14 +188,14 @@ public class DocumentationSection {
         rowLayout.marginRight = 2;
         rowLayout.marginBottom = 2;
         rowLayout.spacing = 1;
-        
+
         panel.setLayout(rowLayout);
-        
+
         // The add button
         this.addBtn = new Button(panel, SWT.PUSH);
         this.addBtn.setText(AppProjectConf.I18N.getString("DocumentationSection.AddUrl"));
         this.addBtn.addSelectionListener(new SelectionListener() {
-        
+
             @SuppressWarnings ("synthetic-access")
             @Override
             public void widgetSelected(SelectionEvent e) {
@@ -208,18 +209,18 @@ public class DocumentationSection {
                     }
                 }
             }
-        
+
             @Override
             public void widgetDefaultSelected(SelectionEvent e) {
                 // do nothing
             }
         });
-        
+
         // The edit button
         this.editBtn = new Button(panel, SWT.PUSH);
         this.editBtn.setText(AppProjectConf.I18N.getString("DocumentationSection.Edit"));
         this.editBtn.addSelectionListener(new SelectionListener() {
-        
+
             @SuppressWarnings ("synthetic-access")
             @Override
             public void widgetSelected(SelectionEvent e) {
@@ -244,18 +245,18 @@ public class DocumentationSection {
                     }
                 }
             }
-        
+
             @Override
             public void widgetDefaultSelected(SelectionEvent e) {
                 // do nothing
             }
         });
-        
+
         // The delete button
         this.removeBtn = new Button(panel, SWT.PUSH);
         this.removeBtn.setText(AppProjectConf.I18N.getString("DocumentationSection.Delete"));
         this.removeBtn.addSelectionListener(new SelectionListener() {
-        
+
             @SuppressWarnings ("synthetic-access")
             @Override
             public void widgetSelected(SelectionEvent e) {
@@ -270,13 +271,13 @@ public class DocumentationSection {
                 }
                 selectUrl(null);
             }
-        
+
             @Override
             public void widgetDefaultSelected(SelectionEvent e) {
                 // do nothing
             }
         });
-        
+
         // Do it at last
         toolkit.paintBordersFor(composite);
         section.setClient(composite);
@@ -286,11 +287,11 @@ public class DocumentationSection {
     @objid ("b5c1bd12-ef7e-4e80-9e5b-71a05cec040c")
     protected void updateButtons() {
         boolean hasSelectedUrl = !this.viewer.getSelection().isEmpty();
-        
+
         // Button addUrl is always enabled
         this.editBtn.setEnabled(hasSelectedUrl);
         this.removeBtn.setEnabled(hasSelectedUrl && getProjectAdapter().isLocalProject());
-        
+
     }
 
     @objid ("8d5296ea-4a5a-4acf-b667-9db64bf42f38")
@@ -300,23 +301,24 @@ public class DocumentationSection {
 
     /**
      * Internally called when url list has changed and view needs refresh
+     *
      * @param selectedUrlEntry
      */
     @objid ("186f4f3d-207c-40ea-baf3-eb495e1b88c4")
     private void selectUrl(UrlEntry selectedUrlEntry) {
         this.viewer.refresh();
-        
+
         // Pack all columns, to avoid them being too small
         for (TableColumn col : this.viewer.getTable().getColumns()) {
             col.pack();
         }
-        
+
         if (selectedUrlEntry != null) {
             this.viewer.setSelection(new StructuredSelection(selectedUrlEntry));
         } else {
             this.viewer.setSelection(new StructuredSelection());
         }
-        
+
     }
 
     @objid ("efc86e70-3ad0-4478-a11a-5d8615ee6026")
@@ -330,10 +332,10 @@ public class DocumentationSection {
         private final TableViewer tViewer;
 
         @objid ("9160a4cc-31df-4fb5-a9fa-ecf888762ef2")
-        public  NameEditingSupport(TableViewer viewer) {
+        public NameEditingSupport(TableViewer viewer) {
             super(viewer);
             this.tViewer = viewer;
-            
+
         }
 
         @objid ("6646cecd-06b5-4c88-b5b9-50860b388e7f")
@@ -360,7 +362,7 @@ public class DocumentationSection {
         protected void setValue(Object element, Object value) {
             ((UrlEntry) element).name = (String.valueOf(value));
             this.tViewer.refresh();
-            
+
         }
 
     }
@@ -371,10 +373,10 @@ public class DocumentationSection {
         private final TableViewer tViewer;
 
         @objid ("93377337-3a67-4867-91ec-1cf50811118a")
-        public  UrlEditingSupport(TableViewer viewer) {
+        public UrlEditingSupport(TableViewer viewer) {
             super(viewer);
             this.tViewer = viewer;
-            
+
         }
 
         @objid ("3048d4e4-ba39-4c1c-9caa-7fad3032e432")
@@ -401,7 +403,7 @@ public class DocumentationSection {
         protected void setValue(Object element, Object value) {
             ((UrlEntry) element).url = (String.valueOf(value));
             this.tViewer.refresh();
-            
+
         }
 
     }
@@ -416,7 +418,7 @@ public class DocumentationSection {
             } else {
                 return element.toString();
             }
-            
+
         }
 
         @objid ("b2b7c5bb-2a44-4d25-8651-3b3927db78cc")
@@ -427,7 +429,7 @@ public class DocumentationSection {
             } else {
                 return element.toString();
             }
-            
+
         }
 
     }

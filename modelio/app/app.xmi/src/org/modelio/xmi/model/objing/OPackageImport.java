@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -41,10 +41,10 @@ public class OPackageImport extends OElement implements IOElement {
     }
 
     @objid ("8f0fd497-7b9e-4036-9df5-cccc72ec6b30")
-    public  OPackageImport(PackageImport element) {
+    public OPackageImport(PackageImport element) {
         super(element);
         this.objingElement = element;
-        
+
     }
 
     @objid ("47305cbc-383d-4ed9-bd42-d5085f145ebe")
@@ -52,26 +52,26 @@ public class OPackageImport extends OElement implements IOElement {
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
         org.eclipse.uml2.uml.PackageImport ecorePkgImport = (org.eclipse.uml2.uml.PackageImport) ecoreElt;
-                
+
         ModelElement objingImportingElt = AbstractObjingModelNavigation
                 .getImportingElement(this.objingElement);
         org.modelio.metamodel.uml.statik.Package objingImportedPkg = this.objingElement.getImportedPackage();
-                
+
         if (objingImportingElt != null && objingImportedPkg != null) {
-                
+
             // Gets or creates the ecore importing element (the "owner"):
             org.eclipse.uml2.uml.Element ecoreImportingElt = genProp
                     .getMappedElement(objingImportingElt);
-                
+
             // Gets or creates the ecore imported Package (the Package to
             // import):
             Package ecoreImportedPkg = (Package) genProp
                     .getMappedElement(objingImportedPkg);
-                
+
             if (ecoreImportingElt != null && ecoreImportedPkg != null) {
                 ((org.eclipse.uml2.uml.Namespace) ecoreImportingElt).getPackageImports().add(
                         (org.eclipse.uml2.uml.PackageImport)ecoreElt);
-                
+
                 // In UML2, a Package import is defined as a directed
                 // relationship between an
                 // importing namespace and a Package.
@@ -82,7 +82,7 @@ public class OPackageImport extends OElement implements IOElement {
                 }
             }
         }
-        
+
     }
 
     @objid ("6aaf2418-0da6-40e2-b6f6-8c3ba7c6d417")
@@ -90,7 +90,7 @@ public class OPackageImport extends OElement implements IOElement {
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         setNameEAnnotation((org.eclipse.uml2.uml.PackageImport) ecoreElt);
         setVisibility((org.eclipse.uml2.uml.PackageImport) ecoreElt);
-        
+
     }
 
     @objid ("d1ba2792-2132-49f6-ba0a-9516ca4982f0")
@@ -121,7 +121,7 @@ public class OPackageImport extends OElement implements IOElement {
             // a visibility not setted corresponds to a PUBLIC visibility.
             break;
         }
-        
+
     }
 
 }

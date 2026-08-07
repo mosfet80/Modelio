@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnsequenceflow;
 
@@ -63,14 +63,15 @@ class DataObjectCreationFeedback {
     private ZoomManager zoomManager;
 
     @objid ("5a354aea-8bcb-48a7-9b03-7d67e67b7ae0")
-    public  DataObjectCreationFeedback(IFigure feedbackLayer, ZoomManager zoomManager) {
+    public DataObjectCreationFeedback(IFigure feedbackLayer, ZoomManager zoomManager) {
         this.feedbackLayer = feedbackLayer;
         this.zoomManager = zoomManager;
-        
+
     }
 
     /**
      * Shows the creation feedback.
+     *
      * @param flowFigure the sequence flow to create the data object on.
      * @param mouseLocation the current mouse location.
      */
@@ -80,25 +81,25 @@ class DataObjectCreationFeedback {
         if (this.nodeFeedback != null) {
             hide();
         }
-        
+
         // Make sure the figure is a proper link
         if (!(flowFigure instanceof AbstractPointListShape)) {
             return;
         }
-        
+
         if (this.nodeFeedback == null) {
             // Get the flow's center point
             Point flowCenter = LineCoordinatesHelper.getCenterPoint((AbstractPointListShape) flowFigure);
             flowFigure.translateToAbsolute(flowCenter);
             this.feedbackLayer.translateToRelative(flowCenter);
-        
+
             // Node feedback size is 40 * 55, with the zoom taken into account
             Dimension nodeSize = new Dimension(DataObjectCreationFeedback.FEEDBACK_NODE_WIDTH, DataObjectCreationFeedback.FEEDBACK_NODE_HEIGHT);
             nodeSize.scale(this.zoomManager.getZoom());
-        
+
             // Node feedback is horizontally centered with the link, and vertically offset 24 px downwards, with the zoom taken into account
             Point nodePosition = new Point(flowCenter.x - nodeSize.width / 2, flowCenter.y + ((int) (Math.floor(DataObjectCreationFeedback.FEEDBACK_LINK_LENGHT * this.zoomManager.getZoom()))));
-        
+
             // Draw the node feedback
             Rectangle nodeBounds = new Rectangle(nodePosition, nodeSize);
             this.nodeFeedback = new BpmnDataFigure();
@@ -110,7 +111,7 @@ class DataObjectCreationFeedback {
             this.nodeFeedback.setBounds(nodeBounds);
             this.nodeFeedback.setVisible(true);
             this.nodeFeedback.setOpaque(true);
-        
+
             // Link feedback goes from the flow's center to the node's upper side.
             Point flowInStartPoint = flowCenter.getCopy();
             Point flowInEndPoint = GeomUtils.getLineIntersection(nodeBounds.getCenter(), flowInStartPoint, nodeBounds);
@@ -118,7 +119,7 @@ class DataObjectCreationFeedback {
                 // Fallback, just in case GeomUtils fails
                 flowInEndPoint = flowInStartPoint.getCopy();
             }
-        
+
             // Draw the link feedback
             this.linkFeedback = new Polyline();
             this.linkFeedback.setForegroundColor(ColorConstants.blue);
@@ -128,10 +129,10 @@ class DataObjectCreationFeedback {
             this.linkFeedback.setStart(flowInStartPoint);
             this.linkFeedback.setEnd(flowInEndPoint);
         }
-        
+
         this.feedbackLayer.add(this.nodeFeedback);
         this.feedbackLayer.add(this.linkFeedback);
-        
+
     }
 
     /**
@@ -147,7 +148,7 @@ class DataObjectCreationFeedback {
             this.feedbackLayer.remove(this.nodeFeedback);
             this.nodeFeedback = null;
         }
-        
+
     }
 
     @objid ("34a4820b-483a-4af8-8d1d-e43c88e3aa56")
@@ -166,6 +167,7 @@ class DataObjectCreationFeedback {
 
         /**
          * Compute the center point of a line figure.
+         *
          * @param flowFigure a flow figure.
          * @return a point.
          */
@@ -174,16 +176,16 @@ class DataObjectCreationFeedback {
             final PointList points = flowFigure.getPoints();
             final Point center = new Point();
             final long theLength = length(points);
-            
+
             long remainingLength = Math.round(0.5 * theLength);
-            
+
             final int n = points.size() - 1;
             for (int i = 0; i < n; i++) {
                 points.getPoint(LineCoordinatesHelper.P1, i);
                 points.getPoint(LineCoordinatesHelper.P2, i + 1);
-            
+
                 final long nextLength = Math.round(LineCoordinatesHelper.P2.getDistance(LineCoordinatesHelper.P1));
-            
+
                 if (nextLength >= remainingLength) {
                     pointOn(remainingLength, LineCoordinatesHelper.P1, LineCoordinatesHelper.P2, center);
                     return center;
@@ -191,13 +193,14 @@ class DataObjectCreationFeedback {
                     remainingLength -= nextLength;
                 }
             }
-            
+
             throw new IllegalStateException("Failed to compute location");
-            
+
         }
 
         /**
          * Gets the point on the line segment at the given distance away from the key point.
+         *
          * @param theDistance <code>long</code> distance along the line
          * @param start start of the segment
          * @param end end of the segment
@@ -208,18 +211,18 @@ class DataObjectCreationFeedback {
         private static boolean pointOn(final long theDistance, final Point start, final Point end, final Point ptResult) {
             float m, dx_float;
             int dx, dy, startX = 0, startY = 0, otherX = 0, otherY = 0;
-            
+
             // Set the point to offset from and the other point used to determine
             // which direction dx and dy should be applied to get a point on the
             // line.
-            
+
             startX = start.x;
             startY = start.y;
             otherX = end.x;
             otherY = end.y;
-            
+
             m = slope(start, end); // get the slope of this line
-            
+
             // Find dx and dy - the delta x and y to get from the endpoint to the
             // point on the line at the specified distance away.
             // The following is based on solving 2 equations with 2 unknowns:
@@ -228,18 +231,18 @@ class DataObjectCreationFeedback {
             //
             final double d_squared = (float) theDistance * (float) theDistance;
             final double m_squared = m * m;
-            
+
             // Add .5 so result is rounded to nearest integer when cast
             dx_float = (float) Math.sqrt(d_squared / (m_squared + 1.0));
             dx = (int) (dx_float + 0.5);
             dy = (int) (Math.sqrt(d_squared * m_squared / (m_squared + 1.0)) + 0.5);
-            
+
             /* negative distance means we want point off the line */
             if (theDistance < 0) {
                 dx = -dx;
                 dy = -dy;
             }
-            
+
             ptResult.x = ((startX > otherX) ? startX - dx : startX + dx);
             ptResult.y = ((startY > otherY) ? startY - dy : startY + dy);
             boolean in_line;
@@ -260,6 +263,7 @@ class DataObjectCreationFeedback {
 
         /**
          * Calculates the slope of the line segment (y=ax+b)
+         *
          * @param start start of segment
          * @param end end of segment
          * @return <code>float</code> the slope of the segment. If the slope is not defined such as when the line segment is
@@ -275,6 +279,7 @@ class DataObjectCreationFeedback {
 
         /**
          * Get the length of the given point list.
+         *
          * @param points The point list
          * @return the length
          */
@@ -285,7 +290,7 @@ class DataObjectCreationFeedback {
             for (int i = 0; i < n; i++) {
                 points.getPoint(LineCoordinatesHelper.P1, i);
                 points.getPoint(LineCoordinatesHelper.P2, i + 1);
-            
+
                 ret += Math.round(LineCoordinatesHelper.P2.getDistance(LineCoordinatesHelper.P1));
             }
             return ret;

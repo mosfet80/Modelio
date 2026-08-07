@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.objects;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -31,11 +30,11 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 
 @objid ("0008b3d0-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnDataStateData extends BpmnBaseElementData {
-    @objid ("8deaf12a-ec6f-4000-9290-8b6f125740ba")
+    @objid ("8cc636e9-6966-465f-a985-d6cb024ecdc2")
     SmObjectImpl mItem;
 
-    @objid ("0fc2d94a-72fe-48b5-b729-e82ed7aeeb12")
-    public  BpmnDataStateData(BpmnDataStateSmClass smClass) {
+    @objid ("db6aecc8-5233-4186-a3f9-cd9331702da7")
+    public BpmnDataStateData(BpmnDataStateSmClass smClass) {
         super(smClass);
     }
 

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.edition.notes.panelprovider.helpers;
 
@@ -40,10 +40,10 @@ public class AddNoteHelper extends AbstractHelper {
     private IMModelServices modelServices;
 
     @objid ("c1bebdb1-aa25-4fea-a178-188bce23f211")
-    public  AddNoteHelper(ICoreSession session, IMModelServices modelServices) {
+    public AddNoteHelper(ICoreSession session, IMModelServices modelServices) {
         this.session = session;
         this.modelServices = modelServices;
-        
+
     }
 
     @objid ("4f71f6b8-9659-4643-80cb-671da420d540")
@@ -71,7 +71,7 @@ public class AddNoteHelper extends AbstractHelper {
             EditionNotes.LOG.warning(e);
             return null;
         }
-        
+
     }
 
     @objid ("4ee48b5a-c60f-4c43-976a-026a4820f783")
@@ -81,7 +81,7 @@ public class AddNoteHelper extends AbstractHelper {
         } else {
             return createNoteFromType(element, moduleName, ownerName, noteTypeName);
         }
-        
+
     }
 
 }

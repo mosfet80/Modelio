@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.ui.views.workspace;
 
@@ -31,9 +31,9 @@ import java.nio.file.WatchService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.inject.Inject;
 import org.eclipse.core.commands.ParameterizedCommand;
 import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
@@ -121,8 +121,8 @@ public class WorkspaceTreeView {
      * Constructor
      */
     @objid ("d62e4ef8-68a5-4a73-b3e7-d87820268fa0")
-    public  WorkspaceTreeView() {
-        
+    public WorkspaceTreeView() {
+
     }
 
     @objid ("af66ff8b-a586-4edf-b112-165865aca1c4")
@@ -133,9 +133,9 @@ public class WorkspaceTreeView {
         this.viewer.setLabelProvider(new WksLabelProvider(this.projectService, this.viewer.getTree().getFont()));
         this.viewer.setComparator(new WksNameSorter());
         this.viewer.setUseHashlookup(true);
-        
+
         ColumnViewerToolTipSupport.enableFor(this.viewer);
-        
+
         this.viewer.addSelectionChangedListener(new ISelectionChangedListener() {
             @SuppressWarnings ("synthetic-access")
             @Override
@@ -145,7 +145,7 @@ public class WorkspaceTreeView {
                 }
             }
         });
-        
+
         this.viewer.addDoubleClickListener(new IDoubleClickListener() {
             @SuppressWarnings ("synthetic-access")
             @Override
@@ -154,18 +154,19 @@ public class WorkspaceTreeView {
                         new HashMap<String, Object>());
                 WorkspaceTreeView.this.handlerService.executeHandler(openCommand);
             }
-        
+
         });
-        
+
         Path path = this.projectService.getWorkspace();
         setWorkspacePath(path);
-        
+
         this.service.registerContextMenu(this.viewer.getTree(), WorkspaceTreeView.POPUP_MENU_ID);
-        
+
     }
 
     /**
      * Modify the workspace path.
+     *
      * @param path the workspace path.
      */
     @objid ("79544b5e-3ba2-4dec-babe-ddbfe62695a2")
@@ -176,7 +177,7 @@ public class WorkspaceTreeView {
         if ((file != null) && file.exists() && file.isDirectory()) {
             if (Files.isWritable(path)) {
                 this.cache.load(path);
-        
+
                 final ProjectCache aCache = this.cache;
                 this.viewer.getTree().getDisplay().asyncExec(new Runnable() {
                     @Override
@@ -184,21 +185,22 @@ public class WorkspaceTreeView {
                         getViewer().setInput(aCache);
                     }
                 });
-        
+
                 watchDirectory(path);
             } else {
                 MessageDialog.openError(this.viewer.getTree().getDisplay().getActiveShell(),
                         AppProjectUiExt.I18N.getString("AccessWorkspaceWrite.failed.title"),
                         AppProjectUiExt.I18N.getMessage("AccessWorkspaceWrite.failed.message", path.toString()));
             }
-        
+
         } else {
             AppProjectUi.LOG.error("Invalid workspace path: %s", path.toString());
         }
-        
+
     }
 
     /**
+     *
      * @return the workspace path
      */
     @objid ("70137841-c589-42d5-8c7f-0cd422bf69a9")
@@ -213,7 +215,7 @@ public class WorkspaceTreeView {
     private void refreshContents() {
         this.cache.refresh();
         asyncRefreshTree();
-        
+
     }
 
     @objid ("30d503ec-3a46-4020-ab41-17856bc11fda")
@@ -226,11 +228,12 @@ public class WorkspaceTreeView {
                 }
             }
         });
-        
+
     }
 
     /**
      * Select the project with the given name.
+     *
      * @param projectName the project to select
      */
     @objid ("40dec47b-3078-44bf-85ed-29e312c815d2")
@@ -245,7 +248,7 @@ public class WorkspaceTreeView {
                 }
             }
         });
-        
+
     }
 
     @objid ("fc130275-e00f-40a3-84d1-8cd997329b93")
@@ -256,6 +259,7 @@ public class WorkspaceTreeView {
 
     /**
      * Called when the contents of the workspace are known to have changed (add/removing project).
+     *
      * @param wkspace the changed workspace
      */
     @objid ("922aa40f-b39e-434a-b243-86f5cce232ef")
@@ -266,7 +270,7 @@ public class WorkspaceTreeView {
         if (isValid()) {
             refreshContents();
         }
-        
+
     }
 
     @objid ("f32e571b-0a36-4e5d-99ba-9959aed05cd2")
@@ -279,6 +283,7 @@ public class WorkspaceTreeView {
 
     /**
      * Called when the current opened project has been closed
+     *
      * @param project the closed project
      */
     @objid ("12a4a585-6877-4f9f-8ffd-a2e2225d5cc9")
@@ -291,11 +296,12 @@ public class WorkspaceTreeView {
         if (isValid()) {
             refreshContents();
         }
-        
+
     }
 
     /**
      * Called when the currently opened project has been saved.
+     *
      * @param project the saved project
      */
     @objid ("2812c2d1-fd94-448c-b8fe-47f4d64de83a")
@@ -306,11 +312,12 @@ public class WorkspaceTreeView {
             refreshContents();
             selectProject(project.getName());
         }
-        
+
     }
 
     /**
      * Called when current workspace has been changed (another workspace was chosen)
+     *
      * @param wkspace the new workspace
      */
     @objid ("1205faf1-03d1-4c56-92d2-b9a96474f31b")
@@ -319,7 +326,7 @@ public class WorkspaceTreeView {
     void onWorkspaceSwitch(@EventTopic (ModelioEventTopics.WORKSPACE_SWITCH) final Path wkspace) {
         AppProjectUi.LOG.debug("onWorkspaceSwitch() ", wkspace.toString());
         setWorkspacePath(wkspace);
-        
+
     }
 
     @objid ("adb3ef1a-05ca-4894-a0c1-44aef5f664a9")
@@ -329,6 +336,7 @@ public class WorkspaceTreeView {
 
     /**
      * Tells whether the tree view is initialized and not disposed.
+     *
      * @return <code>true</code> if the viewer is usable else <code>false</code> .
      */
     @objid ("b5bd7783-1bd7-4bc8-89b4-2689d96b18e8")
@@ -338,6 +346,7 @@ public class WorkspaceTreeView {
 
     /**
      * Watch the given workspace directory for modifications and refresh the tree viewer in this case.
+     *
      * @param path the workspace directory to watch
      */
     @objid ("181a93a1-e02f-4abf-a686-81b259b36176")
@@ -346,17 +355,17 @@ public class WorkspaceTreeView {
             if (this.watchSvc != null) {
                 this.watchSvc.close();
             }
-        
+
             final int POLL_TIME = 1000; // wait time in milliseconds between 2
             // polls
-        
+
             final WatchService newWatchSvc = path.getFileSystem().newWatchService();
             this.watchSvc = newWatchSvc;
-        
+
             path.register(newWatchSvc, StandardWatchEventKinds.ENTRY_CREATE,
                     StandardWatchEventKinds.ENTRY_DELETE,
                     StandardWatchEventKinds.ENTRY_MODIFY);
-        
+
             Display display = getViewer().getControl().getDisplay();
             display.asyncExec(new Runnable() {
                 @Override
@@ -368,7 +377,7 @@ public class WorkspaceTreeView {
                             onWorkspaceContentChange(path);
                             wk.reset();
                         }
-        
+
                         // schedule next poll
                         display.timerExec(POLL_TIME, this);
                     } catch (@SuppressWarnings ("unused") ClosedWatchServiceException e) {
@@ -376,11 +385,11 @@ public class WorkspaceTreeView {
                     }
                 }
             });
-        
+
         } catch (IOException e) {
             AppProjectUi.LOG.error(e);
         }
-        
+
     }
 
     /**
@@ -396,7 +405,7 @@ public class WorkspaceTreeView {
                 AppProjectUi.LOG.debug(e);
             }
         }
-        
+
     }
 
     @objid ("8209e2b8-e792-419f-8168-b95776058425")
@@ -407,7 +416,7 @@ public class WorkspaceTreeView {
         if (isValid()) {
             selectProject(projectName);
         }
-        
+
     }
 
     /**
@@ -422,8 +431,8 @@ public class WorkspaceTreeView {
         ArrayList<GProjectDescriptor> cachedProjects = new ArrayList<>();
 
         @objid ("8fcfc271-9cd7-41ac-a846-a9b65247e1df")
-        public  ProjectCache() {
-            
+        public ProjectCache() {
+
         }
 
         @objid ("da4708e5-6cd8-4954-8428-d1eb3c5d3c3e")
@@ -435,7 +444,7 @@ public class WorkspaceTreeView {
         public void load(final Path aWorkspacePath) {
             this.cachePath = aWorkspacePath;
             rescan(this.cachePath);
-            
+
         }
 
         @objid ("7be5fe49-88ed-4e8d-9b6e-14c92ec6bad8")
@@ -456,7 +465,7 @@ public class WorkspaceTreeView {
         @objid ("594ef091-309d-4145-aa74-85e916c68722")
         private void rescan(final Path aWorkspacePath) {
             this.cachedProjects.clear();
-            
+
             // scan workspace
             if (Files.isDirectory(aWorkspacePath)) {
                 try (DirectoryStream<Path> dirList = Files.newDirectoryStream(aWorkspacePath);) {
@@ -475,7 +484,7 @@ public class WorkspaceTreeView {
                     AppProjectUi.LOG.error(e);
                 }
             }
-            
+
         }
 
     }

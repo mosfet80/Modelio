@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel.meta.mof;
 
@@ -37,10 +37,10 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
  */
 @objid ("4cc4a437-d55e-4d4f-8f81-2a1bbb6cdc72")
 public class MofSmDependency extends SmMultipleDependency {
-    
+
     @mdl.prop
     @objid ("fdc9dfd0-de79-432a-94c9-cbd0cf663027")
-    public boolean temporary;
+    private boolean temporary;
 
     @mdl.propgetter
     public boolean isTemporary() {
@@ -59,34 +59,36 @@ public class MofSmDependency extends SmMultipleDependency {
 
     /**
      * Create a {noPartOf} 0..* dependency.
+     *
      * @param srcClass the source metaclass
      * @param dep_name the name
      * @param targetClass the target metaclass
      */
     @objid ("b4e57658-33cf-4a80-a416-b28f999c6e6c")
-    public  MofSmDependency(SmClass srcClass, String dep_name, SmClass targetClass) {
+    public MofSmDependency(SmClass srcClass, String dep_name, SmClass targetClass) {
         init(dep_name, srcClass,
                 targetClass,
                 0, -1);
-        
+
         setChecker(MOFDepTypeChecker.instance );
-        
+
     }
 
     /**
      * Get or create a MOF dependency from another dependency .
      * <p>
      * The original and this dependency will share the same opposite.
+     *
      * @param srcClass the source fake metaclass
      * @param orig a dependency that existed on the metaclass before it becomes fake.
      */
     @objid ("128e391e-7ec2-4f60-8cfa-d59a602346b3")
-    public  MofSmDependency(MofSmClass srcClass, SmDependency orig) {
+    public MofSmDependency(MofSmClass srcClass, SmDependency orig) {
         init(orig.getName(), srcClass, orig.getType(), orig.getMinCardinality(), orig.getMaxCardinality());
         initSmFlags(orig.getDirectives());
         setSymetric(orig.getSymetric());
         setChecker(MOFDepTypeChecker.instance);
-        
+
     }
 
     @objid ("9563006f-7398-4350-b31e-46e30f913ef9")
@@ -109,7 +111,7 @@ public class MofSmDependency extends SmMultipleDependency {
             // Should not happen
             return l;
         }
-        
+
     }
 
     @objid ("4ae2d030-099c-47e4-8011-75ac248c7c0b")
@@ -122,18 +124,19 @@ public class MofSmDependency extends SmMultipleDependency {
         } else {
             return SmMultipleDependency.EMPTY;
         }
-        
+
     }
 
     /**
      * Set the dependency opposite
+     *
      * @param symetric the dependency opposite
      */
     @objid ("186024c7-4bdc-490c-a469-c8a061585ea9")
     public final void setSymetric(SmDependency symetric) {
         this.symetric = symetric;
         reinitialize();
-        
+
     }
 
     @objid ("8d9fa869-1a2d-4eae-b4fe-14fa2281f3dd")
@@ -149,6 +152,7 @@ public class MofSmDependency extends SmMultipleDependency {
 
     /**
      * Put or remove a flag.
+     *
      * @param flag the flag to modify
      * @param val true to add the flag, false to remove it.
      */
@@ -160,11 +164,12 @@ public class MofSmDependency extends SmMultipleDependency {
             this.smFlags.remove(flag);
         }
         reinitialize();
-        
+
     }
 
     /**
      * Get the key  used to look for the dependency content in the SmObject.
+     *
      * @return the lookup key
      */
     @objid ("4ee0d1bb-6901-49d1-bde6-909a4c1fdd8b")
@@ -178,6 +183,7 @@ public class MofSmDependency extends SmMultipleDependency {
      * <p>
      * Warn : The target should be set at construction time,
      * call only if you know what you are doing !
+     *
      * @param target the target metaclass.
      */
     @objid ("b0b488dc-c41c-4784-91e9-8a5fbff33d83")
@@ -187,17 +193,19 @@ public class MofSmDependency extends SmMultipleDependency {
 
     /**
      * Add flags to the dependency
+     *
      * @param flags the flags to add.
      */
     @objid ("b4512f99-4239-4846-b031-c93a207df611")
     public void addFlags(Collection<SmDirective> flags) {
         this.smFlags.addAll(flags);
         reinitialize();
-        
+
     }
 
     /**
      * Set the cardinality.
+     *
      * @param minCardinality the minimum cardinality
      * @param maxCardinality the maximum cardinality, -1 for infinite.
      */
@@ -205,18 +213,18 @@ public class MofSmDependency extends SmMultipleDependency {
     public void setCardinality(int minCardinality, int maxCardinality) {
         setMin(minCardinality);
         setMax(maxCardinality);
-        
+
     }
 
     @objid ("ede56f3c-d95a-459f-9716-2332e134aa5f")
     protected void reinitialize() {
         postInit();
-        
+
         SmDependency opp = getSymetric();
         if (opp instanceof MofSmDependency) {
             ((MofSmDependency) opp).postInit();
         }
-        
+
     }
 
     /**
@@ -227,6 +235,7 @@ public class MofSmDependency extends SmMultipleDependency {
      * <p>
      * WARNING: This method should be used only with non persisted dependencies, in the other case anything
      * may happen when saving the project.
+     *
      * @param newName the new dependency name.
      */
     @objid ("1338c5e2-3e43-4800-a801-9abcabf4604c")
@@ -234,7 +243,7 @@ public class MofSmDependency extends SmMultipleDependency {
         // Allow rename only {noPartOf} opposite dependencies
         assert(! isComposition() && ! isSharedComposition() && !isPartOf()) : String.format("Trying to rename %s to '%s'", this, newName);
         setName(newName);
-        
+
     }
 
     /**

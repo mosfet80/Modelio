@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.gui.creation.file;
 
@@ -48,7 +48,7 @@ public class FileWizardPage extends WizardPage {
     private AtomicReference<CompletableFuture<?>> work = new AtomicReference<>();
 
     @objid ("4352751f-57e5-45c2-b36b-a7e87d69796d")
-    public  FileWizardPage(RichNoteDescriptor data) {
+    public FileWizardPage(RichNoteDescriptor data) {
         super(EditorsRichNote.I18N.getString("FileWizardPage.page"), EditorsRichNote.I18N.getString("FileWizardPage.title"), null);
         this.panel = new FilePanel();
         this.panel.setInput(data);
@@ -59,9 +59,9 @@ public class FileWizardPage extends WizardPage {
                 setPageComplete(isPageComplete(changedData));
             }
         });
-        
+
         setPageComplete(isPageComplete(data));
-        
+
     }
 
     @objid ("c7a66281-292f-4ff3-8d6e-162468388669")
@@ -69,7 +69,7 @@ public class FileWizardPage extends WizardPage {
     public void createControl(Composite parent) {
         Control aPanel = this.panel.createPanel(parent);
         setControl(aPanel);
-        
+
     }
 
     @objid ("e5a95e9b-48a7-4417-acfb-d9c91b563c76")
@@ -77,7 +77,7 @@ public class FileWizardPage extends WizardPage {
     public void dispose() {
         super.dispose();
         this.panel.dispose();
-        
+
     }
 
     @objid ("73c497ea-f804-423e-a2e4-709e70787570")
@@ -96,7 +96,7 @@ public class FileWizardPage extends WizardPage {
         if (data == null) {
             return false;
         }
-        
+
         switch (data.getCreationMode()) {
         case EMBEDDED:
             // Embedded docs must have a mime type
@@ -117,7 +117,7 @@ public class FileWizardPage extends WizardPage {
         default:
             return false;
         }
-        
+
     }
 
     @objid ("fbe9e024-9333-4bff-a1e4-d406cea3abdc")
@@ -126,7 +126,7 @@ public class FileWizardPage extends WizardPage {
         if (reference == null || reference.isEmpty()) {
             return "";
         }
-        
+
         URI uri;
         try {
             uri = new URI(reference);
@@ -142,13 +142,13 @@ public class FileWizardPage extends WizardPage {
                             throw new java.util.concurrent.CompletionException(e);
                         }
                     });
-        
+
                     // Cancel current preview if any
                     CompletableFuture<?> oldWorker = this.work.getAndSet(newWorker);
                     if (oldWorker != null) {
                         oldWorker.cancel(true);
                     }
-        
+
                     // Launch asynchronous execution
                     newWorker.whenCompleteAsync((result, ex) -> {
                         if (ex == null) {
@@ -163,7 +163,7 @@ public class FileWizardPage extends WizardPage {
                             this.panel.setErrorIndication(ex.toString());
                             setPageComplete(false);
                         }
-        
+
                     }, runnable -> this.panel.getPanel().getDisplay().asyncExec(runnable));
                     return EditorsRichNote.I18N.getString("FileWizardPage.CheckInProgress");
                 } else {
@@ -173,11 +173,11 @@ public class FileWizardPage extends WizardPage {
         } catch (URISyntaxException e) {
             // Invalid URI, assume it's a local file...
         }
-        
+
         try {
             Path path = Paths.get(reference);
             RichNoteFormat mimeType = data.getChosenMimeType();
-        
+
             // The uri has no scheme, assume it's a local file...
             if (!Files.isRegularFile(path)) {
                 if (Files.isDirectory(path)) {
@@ -202,7 +202,7 @@ public class FileWizardPage extends WizardPage {
             // Invalid path too
             return EditorsRichNote.I18N.getString("FileWizardPage.NotARegularFile");
         }
-        
+
     }
 
     @objid ("900e73ea-9653-40aa-a982-d8aab803a83b")
@@ -219,7 +219,7 @@ public class FileWizardPage extends WizardPage {
         } catch (Exception e) {
             return EditorsRichNote.I18N.getString("FileWizardPage.UnreachableURI");
         }
-        
+
     }
 
 }

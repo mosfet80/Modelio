@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.root;
 
@@ -70,9 +70,9 @@ public class ScalableFreeformRootEditPart2 extends ScalableFreeformRootEditPart 
     private final PropertyChangeListener gridAndBackgroundListener;
 
     @objid ("6692352c-33f7-11e2-95fe-001ec947c8cc")
-    public  ScalableFreeformRootEditPart2() {
+    public ScalableFreeformRootEditPart2() {
         this.gridAndBackgroundListener = evt -> {
-        
+
             String property = evt.getPropertyName();
             if (property.equals(AbstractDiagramEditPart.PROPERTY_GRID_ALPHA) ||
                 property.equals(AbstractDiagramEditPart.PROPERTY_GRID_COLOR)) {
@@ -85,7 +85,7 @@ public class ScalableFreeformRootEditPart2 extends ScalableFreeformRootEditPart 
                 refreshBackground();
             }
         };
-        
+
     }
 
     @objid ("66923548-33f7-11e2-95fe-001ec947c8cc")
@@ -101,11 +101,12 @@ public class ScalableFreeformRootEditPart2 extends ScalableFreeformRootEditPart 
         } else {
             this.creationLocationTip = ORIGIN;
         }
-        
+
     }
 
     /**
      * Creates the background layer.
+     *
      * @return the background layer
      */
     @objid ("66923541-33f7-11e2-95fe-001ec947c8cc")
@@ -124,6 +125,7 @@ public class ScalableFreeformRootEditPart2 extends ScalableFreeformRootEditPart 
 
     /**
      * Creates a layered pane and the layers that should be scaled.
+     *
      * @return a new freeform layered pane containing the scalable layers
      */
     @objid ("6692353b-33f7-11e2-95fe-001ec947c8cc")
@@ -131,12 +133,12 @@ public class ScalableFreeformRootEditPart2 extends ScalableFreeformRootEditPart 
     protected ScalableFreeformLayeredPane createScaledLayers() {
         // instantiate our better layer pane
         ScalableFreeformLayeredPane2 layers = new ScalableFreeformLayeredPane2();
-        
+
         // create children the same way as super()
         layers.add(createGridLayer(), GRID_LAYER);
         layers.add(getPrintableLayers(), PRINTABLE_LAYERS);
         layers.add(new FeedbackLayer(), SCALED_FEEDBACK_LAYER);
-        
+
         // Add our background layer at bottom
         Layer l = createBackgroundLayer();
         if (l != null) {
@@ -151,19 +153,19 @@ public class ScalableFreeformRootEditPart2 extends ScalableFreeformRootEditPart 
         if (bgLayer != null) {
             BackgroundLayer backgroundLayer = (BackgroundLayer) bgLayer;
             final EditPartViewer v = getViewer();
-        
+
             // fill color
             Object fillColor = v.getProperty(AbstractDiagramEditPart.PROPERTY_FILL_COLOR);
             if (fillColor != null) {
                 backgroundLayer.setBackgroundColor((Color) fillColor);
             }
-        
+
             // fill alpha
             Integer fillAlpha = (Integer) v.getProperty(AbstractDiagramEditPart.PROPERTY_FILL_ALPHA);
             if (fillAlpha != null) {
                 backgroundLayer.setAlpha(fillAlpha);
             }
-        
+
             // fill image
             String fillImage = (String) v.getProperty(AbstractDiagramEditPart.PROPERTY_FILL_IMAGE);
             if (fillImage != null) {
@@ -173,20 +175,20 @@ public class ScalableFreeformRootEditPart2 extends ScalableFreeformRootEditPart 
                     backgroundLayer.setImage(id);
                 } catch (MalformedURLException e) {
                     // Handle as file path
-        
+
                     ImageDescriptor id = ImageDescriptor.createFromFile(null, fillImage);
                     backgroundLayer.setImage(id);
                 }
             } else {
                 backgroundLayer.setImage(null);
             }
-        
+
             // page boundaries size (in pixels)
             Dimension tileSize = (Dimension) v.getProperty(AbstractDiagramEditPart.PROPERTY_FILL_TILE_SIZE);
             backgroundLayer.setTileSize(tileSize);
-        
+
         }
-        
+
     }
 
     @objid ("6692352e-33f7-11e2-95fe-001ec947c8cc")
@@ -194,26 +196,27 @@ public class ScalableFreeformRootEditPart2 extends ScalableFreeformRootEditPart 
     protected void refreshGridLayer() {
         // super method processes: grid visible, grid spacing, grid origin
         super.refreshGridLayer();
-        
+
         // process additionnal properties
         GridLayer2 grid = (GridLayer2) getLayer(GRID_LAYER);
-        
+
         // grid color
         Object gridColor = getViewer().getProperty(AbstractDiagramEditPart.PROPERTY_GRID_COLOR);
         if (gridColor != null) {
             grid.setGridColor((Color) gridColor);
         }
-        
+
         // grid alpha
         Integer gridAlpha = (Integer) getViewer()
                                           .getProperty(AbstractDiagramEditPart.PROPERTY_GRID_ALPHA);
         if (gridAlpha != null) {
             grid.setGridAlpha(gridAlpha);
         }
-        
+
     }
 
     /**
+     *
      * @see org.eclipse.gef.editparts.AbstractEditPart#register()
      */
     @objid ("66923533-33f7-11e2-95fe-001ec947c8cc")
@@ -225,10 +228,11 @@ public class ScalableFreeformRootEditPart2 extends ScalableFreeformRootEditPart 
             refreshBackground();
             refreshGridLayer();
         }
-        
+
     }
 
     /**
+     *
      * @see AbstractEditPart#unregister()
      */
     @objid ("66923537-33f7-11e2-95fe-001ec947c8cc")
@@ -236,7 +240,7 @@ public class ScalableFreeformRootEditPart2 extends ScalableFreeformRootEditPart 
     protected void unregister() {
         getViewer().removePropertyChangeListener(this.gridAndBackgroundListener);
         super.unregister();
-        
+
     }
 
     /**
@@ -248,7 +252,7 @@ public class ScalableFreeformRootEditPart2 extends ScalableFreeformRootEditPart 
         // redefined to create a FreeformLayeredPane2
         FreeformViewport viewport = createViewport();
         FreeformLayeredPane2 innerLayers = new FreeformLayeredPane2();
-        
+
         // Fill inherited private 'innerLayers' field
         try {
             Field f = FreeformGraphicalRootEditPart.class.getDeclaredField("innerLayers");
@@ -258,7 +262,7 @@ public class ScalableFreeformRootEditPart2 extends ScalableFreeformRootEditPart 
         } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
             throw new ExceptionInInitializerError(e);
         }
-        
+
         // same as super.createFigure()
         createLayers(innerLayers);
         viewport.setContents(innerLayers);
@@ -282,7 +286,7 @@ public class ScalableFreeformRootEditPart2 extends ScalableFreeformRootEditPart 
     @objid ("630d79cb-659e-445f-91d4-0b080a08acc2")
     public static class FeedbackLayer extends FreeformLayer2 {
         @objid ("c944089e-ca8a-4eec-bc14-d158801741ca")
-         FeedbackLayer() {
+        FeedbackLayer() {
             setEnabled(false);
         }
 

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -48,7 +48,7 @@ public class R2360 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -99,14 +99,14 @@ public class R2360 extends AbstractUmlRule {
      * Default constructor for R2360
      */
     @objid ("5ffb3bf8-c3cc-41f5-9258-9001efa7d064")
-    public  R2360() {
+    public R2360() {
         this.checkerInstance = new CheckR2360(this);
     }
 
     @objid ("573fbf60-a375-48a1-9d0a-f1b679aa5660")
     private static class CheckR2360 extends AbstractControl {
         @objid ("e66f3bd8-e2b0-455d-ab58-7c178a9e9e65")
-        public  CheckR2360(IRule rule) {
+        public CheckR2360(IRule rule) {
             super(rule);
         }
 
@@ -133,20 +133,20 @@ public class R2360 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     operation,
                     null);
-            
+
             Operation redefined = operation.getRedefines();
-            
+
             if (redefined != null) {
-            
+
                 int operationVisibility = getVisibilityNumber(operation.getVisibility());
                 int redefinedVisibility = getVisibilityNumber(redefined.getVisibility());
-            
+
                 if (operationVisibility != 0 &&
                         redefinedVisibility != 0 &&
                         redefinedVisibility < operationVisibility) {
-            
+
                     // Rule failed: cannot reduce visibility by redefinition
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(operation);
@@ -170,7 +170,7 @@ public class R2360 extends AbstractUmlRule {
             default:
                 return 0;
             }
-            
+
         }
 
     }

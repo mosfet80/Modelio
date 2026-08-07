@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures;
 
@@ -27,35 +27,42 @@ import org.eclipse.swt.graphics.Path;
 
 /**
  * A shaped figure filled with a gradient.
- * 
+ * This figure is defined by a shaper that creates the shape path and a gradient fill.
+ * This figure is clonable.
+ * <p>
+ * The shaper is used to create the shape path that will be filled with the gradient.
+ * The shaper can be set to null, in which case the figure will behave like a regular {@link GradientFigure}.
+ *
  * @author phv
  */
 @objid ("7fcd4c10-1dec-11e2-8cad-001ec947c8cc")
 public class ShapedFigure extends GradientFigure implements IClonableFigure {
     @objid ("7fcd4c12-1dec-11e2-8cad-001ec947c8cc")
-    protected IShaper shaper = null;
+    protected IShaper shaper;
 
     /**
      * Default constructor.
      */
     @objid ("7fcd4c13-1dec-11e2-8cad-001ec947c8cc")
-    public  ShapedFigure() {
+    public ShapedFigure() {
         super();
+        this.shaper = null;
     }
 
     /**
      * Builds a ShapedFigure with a specific Shaper.
+     *
      * @param shaper A shaper.
      */
     @objid ("7fcd4c16-1dec-11e2-8cad-001ec947c8cc")
-    public  ShapedFigure(IShaper shaper) {
+    public ShapedFigure(IShaper shaper) {
         super();
         this.shaper = shaper;
-        
     }
 
     /**
      * Get the current shaper.
+     *
      * @return A shaper.
      */
     @objid ("7fcd4c1a-1dec-11e2-8cad-001ec947c8cc")
@@ -66,46 +73,48 @@ public class ShapedFigure extends GradientFigure implements IClonableFigure {
 
     /**
      * Set the current shaper.
+     *
      * @param value The new shaper.
      */
     @objid ("7fcd4c1f-1dec-11e2-8cad-001ec947c8cc")
     public void setShaper(IShaper value) {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.shaper = value;
-        
     }
 
     @objid ("7fcd4c23-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected void paintFigure(Graphics graphics) {
         Path shapePath;
-        
+
         if (this.shaper != null) {
             graphics.setAdvanced(true);
             graphics.setAntialias(SWT.ON);
-            shapePath = this.shaper.createShapePath(getBounds());
+            Rectangle paintRectangle = getPaintRectangle();
+            paintRectangle.resize(-1, -1); // Shrink the bounds because bounds bottom right corner is not included in the drawing area.
+            ZoomDrawer.setLineWidth(graphics, getLineWidth(), paintRectangle);
+            shapePath = this.shaper.createShapePath(paintRectangle);
             try {
-                graphics.clipPath(shapePath);
-        
-                super.paintFigure(graphics);
+                withGradientFill(graphics, () -> {
+                    graphics.fillPath(shapePath);
+                });
             } finally {
                 shapePath.dispose();
             }
         } else {
             super.paintFigure(graphics);
         }
-        
     }
 
     /**
      * Copy constructor.
+     *
      * @param orig the original figure
      */
     @objid ("3c379a6e-6344-4ea1-a8c8-c954fa4e5654")
-    public  ShapedFigure(ShapedFigure orig) {
+    public ShapedFigure(ShapedFigure orig) {
         super(orig);
         this.shaper = orig.getShaper();
-        
     }
 
     @objid ("b39b45b9-d868-4aa0-ac34-ef09367cef85")
@@ -116,7 +125,7 @@ public class ShapedFigure extends GradientFigure implements IClonableFigure {
 
     /**
      * Needs a re-definition to paint the gradient all over the figure bounds.
-     * 
+     *
      * The shaper clippath and border will deal with the required cropping.
      */
     @objid ("130ff3c8-9d02-412b-9984-939c770acaab")

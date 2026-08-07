@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.sequencediagram;
 
@@ -55,6 +55,7 @@ public abstract class PlacementConstraint implements IPersistent, Locator {
 
     /**
      * C'tor.
+     *
      * @param x the x reference in coordinates relative to its parent.
      * @param y the Y reference in coordinates relative to its parent.
      * @param width the desired width in pixels.
@@ -62,26 +63,26 @@ public abstract class PlacementConstraint implements IPersistent, Locator {
      * @param diagram the diagram in which this constraint is used.
      */
     @objid ("d9790736-55b6-11e2-877f-002564c97630")
-    public  PlacementConstraint(final int x, final int y, final int width, final int height, final GmSequenceDiagram diagram) {
+    public PlacementConstraint(final int x, final int y, final int width, final int height, final GmSequenceDiagram diagram) {
         super();
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.diagram = diagram;
-        
     }
 
     /**
      * Empty constructor for deserialisation. Do not use!
      */
     @objid ("d9790743-55b6-11e2-877f-002564c97630")
-    public  PlacementConstraint() {
-        
+    public PlacementConstraint() {
+
     }
 
     /**
      * Computes and return the bounds that would be used if the relocate method was called.
+     *
      * @param target the figure to relocate.
      * @return the bounds that would be given to the figure.
      */
@@ -107,6 +108,7 @@ public abstract class PlacementConstraint implements IPersistent, Locator {
      * This method can use {@link IDiagramWriter#getRoot()} if needed to know whether it is internal or external.
      * <p>
      * If this is the case, {@link #write(IDiagramWriter)} will be called, which will have to call {@link IDiagramWriter#writeExtRef(IPersistent, String, String)} only.
+     *
      * @param out the writer where the model is saved.
      * @return true if this element is external, false if the element is to be saved in this writer.
      */
@@ -118,6 +120,7 @@ public abstract class PlacementConstraint implements IPersistent, Locator {
 
     /**
      * Read the element properties from a serialized form.
+     *
      * @param in a reader to build the graphic model from.
      */
     @objid ("d97a8dc0-55b6-11e2-877f-002564c97630")
@@ -128,7 +131,6 @@ public abstract class PlacementConstraint implements IPersistent, Locator {
         this.width = ((Integer) in.readProperty("width")).intValue();
         this.height = ((Integer) in.readProperty("height")).intValue();
         this.diagram = (GmSequenceDiagram) in.getRoot();
-        
     }
 
     @objid ("d97a8dc7-55b6-11e2-877f-002564c97630")
@@ -139,6 +141,7 @@ public abstract class PlacementConstraint implements IPersistent, Locator {
 
     /**
      * Sets the desired height for this placement constraint.
+     *
      * @param height the desired height.
      */
     @objid ("d97a8dcc-55b6-11e2-877f-002564c97630")
@@ -148,6 +151,7 @@ public abstract class PlacementConstraint implements IPersistent, Locator {
 
     /**
      * Sets the desired width for this placement constraint.
+     *
      * @param width the desired width.
      */
     @objid ("d97a8dd1-55b6-11e2-877f-002564c97630")
@@ -157,6 +161,7 @@ public abstract class PlacementConstraint implements IPersistent, Locator {
 
     /**
      * Sets the X reference.
+     *
      * @param x the new reference.
      */
     @objid ("d97a8dd6-55b6-11e2-877f-002564c97630")
@@ -166,6 +171,7 @@ public abstract class PlacementConstraint implements IPersistent, Locator {
 
     /**
      * Sets the Y reference.
+     *
      * @param y the new reference.
      */
     @objid ("d97a8ddb-55b6-11e2-877f-002564c97630")
@@ -179,6 +185,7 @@ public abstract class PlacementConstraint implements IPersistent, Locator {
      * If the element is external to the writer, this method must only call {@link IDiagramWriter#writeExtRef(IPersistent, String, String)}.
      * <p>
      * In the other case it can call any {@link IDiagramWriter IDiagramWriter.writeXxxx(...)} method except <tt>writeExtRef(...)</tt>.
+     *
      * @param out a writer to save the model to.
      */
     @objid ("d97a8de0-55b6-11e2-877f-002564c97630")
@@ -188,7 +195,6 @@ public abstract class PlacementConstraint implements IPersistent, Locator {
         out.writeProperty("y", Integer.valueOf(this.y));
         out.writeProperty("width", Integer.valueOf(this.width));
         out.writeProperty("height", Integer.valueOf(this.height));
-        
     }
 
     @objid ("d97a8de7-55b6-11e2-877f-002564c97630")
@@ -213,6 +219,7 @@ public abstract class PlacementConstraint implements IPersistent, Locator {
 
     /**
      * This method is meant to be used in read methods implementation to resolve the MRef.
+     *
      * @param <E> the type of element to return.
      * @param ref the reference to resolve.
      * @return the found MObject or <code>null</code> if the element is not present in the project.

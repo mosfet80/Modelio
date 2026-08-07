@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -37,10 +37,10 @@ public class OAcceptChangeEventAction extends OActivityNode {
     }
 
     @objid ("f57ff107-c263-4f70-a698-74e6d84495fd")
-    public  OAcceptChangeEventAction(AcceptChangeEventAction element) {
+    public OAcceptChangeEventAction(AcceptChangeEventAction element) {
         super(element);
         this.objingElement = element;
-        
+
     }
 
     @objid ("a6e0d360-0329-407f-95f1-b473dc9f1cfa")
@@ -55,30 +55,30 @@ public class OAcceptChangeEventAction extends OActivityNode {
         super.setProperties(ecoreElt);
         setChangeExpression( (org.eclipse.uml2.uml.AcceptEventAction) ecoreElt);
         setChange( (org.eclipse.uml2.uml.AcceptEventAction) ecoreElt);
-        
+
     }
 
     @objid ("b1536b4e-c1ec-4f3b-8a09-25153cf062de")
     private void setChangeExpression(org.eclipse.uml2.uml.AcceptEventAction action) {
         String changeExpression = this.objingElement.getChangeExpresion();
-        
+
         if ((changeExpression != null) && (!changeExpression.equals(""))){
-        
+
              org.eclipse.uml2.uml.Trigger trigger = UMLFactory.eINSTANCE.createTrigger();
             action.getTriggers().add(trigger);
-        
+
              org.eclipse.uml2.uml.ChangeEvent changeEvent = UMLFactory.eINSTANCE.createChangeEvent();
             trigger.setEvent(changeEvent);
-        
+
             org.eclipse.uml2.uml.LiteralString literal = UMLFactory.eINSTANCE.createLiteralString();
             changeEvent.setChangeExpression(literal);
             literal.setValue(changeExpression);
-        
+
             // Attach the  org.eclipse.uml2.uml.Event to the model via composition relation:
             org.eclipse.uml2.uml.Package nearestPkg = action.getNearestPackage();
             nearestPkg.getPackagedElements().add(changeEvent);
         }
-        
+
     }
 
     @objid ("506aa8a4-4ff7-4dad-afb6-832dbb39a1de")
@@ -86,7 +86,7 @@ public class OAcceptChangeEventAction extends OActivityNode {
         if (GenerationProperties.getInstance().isRoundtripEnabled()){
             ObjingEAnnotation.setSignal(ecoreElt, "change");
         }
-        
+
     }
 
 }

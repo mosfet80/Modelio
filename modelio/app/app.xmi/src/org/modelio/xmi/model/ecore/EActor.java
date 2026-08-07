@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -36,7 +36,7 @@ public class EActor extends ENamedElement {
     }
 
     @objid ("b762512f-5638-482b-a895-30045906c52d")
-    public  EActor(org.eclipse.uml2.uml.Actor element) {
+    public EActor(org.eclipse.uml2.uml.Actor element) {
         super(element);
     }
 
@@ -44,19 +44,19 @@ public class EActor extends ENamedElement {
     @Override
     public void attach(Element objingElt) {
         ReverseProperties revProp = ReverseProperties.getInstance();
-        
+
         org.eclipse.uml2.uml.Element ecoreOwner = getEcoreElement().getOwner();
-        
+
         Object objingOwner =  revProp.getMappedElement(ecoreOwner);
-        
-        if ((objingOwner != null)  
+
+        if ((objingOwner != null)
                 && (objingOwner instanceof ModelTree)
                 && !(objingOwner instanceof Profile)) {
              ((Actor) objingElt).setOwner((ModelTree)objingOwner);
         }else{
              ((Actor) objingElt).setOwner(revProp.getExternalPackage());
         }
-        
+
     }
 
 }

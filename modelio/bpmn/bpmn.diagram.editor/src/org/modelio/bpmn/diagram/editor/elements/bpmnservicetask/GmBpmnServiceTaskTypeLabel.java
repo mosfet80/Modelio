@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnservicetask;
 
@@ -49,7 +49,7 @@ public class GmBpmnServiceTaskTypeLabel extends GmDefaultModelElementHeader {
     private static final int MAJOR_VERSION = 0;
 
     @objid ("c49ebb40-cfbe-42cc-8fca-a8d3b2f5e17f")
-    public  GmBpmnServiceTaskTypeLabel(IGmDiagram diagram, MRef relatedRef) {
+    public GmBpmnServiceTaskTypeLabel(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -57,7 +57,7 @@ public class GmBpmnServiceTaskTypeLabel extends GmDefaultModelElementHeader {
      * Empty c'tor for deserialisation.
      */
     @objid ("ec977607-bf5f-4040-a5b6-f5e69ce6e6ba")
-    public  GmBpmnServiceTaskTypeLabel() {
+    public GmBpmnServiceTaskTypeLabel() {
         // empty constructor for the serialization
     }
 
@@ -78,17 +78,17 @@ public class GmBpmnServiceTaskTypeLabel extends GmDefaultModelElementHeader {
             break;
         }
         }
-        
+
     }
 
     @objid ("04bc61eb-7903-4644-bea2-bf0282e46ade")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmBpmnTaskTypeLabel.", GmBpmnServiceTaskTypeLabel.MINOR_VERSION);
-        
+
     }
 
     @objid ("007c9569-9210-4c0b-b798-d7549cf9c035")
@@ -142,9 +142,9 @@ public class GmBpmnServiceTaskTypeLabel extends GmDefaultModelElementHeader {
                 firePropertyChange(IGmObject.PROPERTY_LABEL, this, null);
             }
         }
-        
+
         super.styleChanged(property, newValue);
-        
+
     }
 
     @objid ("7efc3a3c-c48f-4457-a951-567acfe5ae74")
@@ -153,9 +153,9 @@ public class GmBpmnServiceTaskTypeLabel extends GmDefaultModelElementHeader {
         if (updateMainLabelFromObModel()) {
             firePropertyChange(IGmObject.PROPERTY_LABEL, this, null);
         }
-        
+
         super.styleChanged(changedStyle);
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -54,15 +54,17 @@ public class InteractionUsePropertyModel extends AbstractPropertyModel<Interacti
     /**
      * Create a new <i>InteractionUse</i> data model from an
      * <i>InteractionUse</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("22acf0cd-6a81-4e4a-a8ca-03503bc4fcc2")
-    public  InteractionUsePropertyModel(InteractionUse theEditedElement) {
+    public InteractionUsePropertyModel(InteractionUse theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("d2a69c75-979a-45ed-91fe-d9263411af3f")
@@ -73,6 +75,7 @@ public class InteractionUsePropertyModel extends AbstractPropertyModel<Interacti
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("37f8b930-a244-416c-b3cf-bd2789cfd838")
@@ -88,6 +91,7 @@ public class InteractionUsePropertyModel extends AbstractPropertyModel<Interacti
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -113,13 +117,14 @@ public class InteractionUsePropertyModel extends AbstractPropertyModel<Interacti
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -147,13 +152,14 @@ public class InteractionUsePropertyModel extends AbstractPropertyModel<Interacti
         default:
             return;
         }
-        
+
     }
 
     /**
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -177,7 +183,7 @@ public class InteractionUsePropertyModel extends AbstractPropertyModel<Interacti
         default:
             return null;
         }
-        
+
     }
 
 }

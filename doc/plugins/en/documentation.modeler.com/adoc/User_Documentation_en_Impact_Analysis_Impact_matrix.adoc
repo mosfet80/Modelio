@@ -1,0 +1,48 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Impact matrices
+
+Impact matrix provides critical information on the impact that any change to any element will have on the rest of the model.
+
+===== Create an Impact matrix
+
+Impact matrices can be created on image:images/attachment/modeliocom41/User_Documentation_en/Impact_Analysis/Impact_matrix/impactmodel.png[impactmodel.png] Impact models only.
+
+.Creating an impact matrix using the creation wizard
+image::images/attachment/modeliocom41/User_Documentation_en/Impact_Analysis/Impact_matrix/CreateImpactMatrixPuces.png[CreateImpactMatrixPuces.png]
+
+*Keys:*
+
+1. Select the Impact model on which you want to create a matrix.
+2. Click on the " image:images/attachment/modeliocom41/User_Documentation_en/Impact_Analysis/Impact_matrix/creatematrix.png[creatematrix.png] Create matrix..." button in the tool bar or use the one of the selected Impact model contextual menu.
+3. Select the Impact matrix.
+4. Enter a name for the new matrix or leave the default name.
+5. If the matrix owner is different from the selected model element, indicate the matrix owner.
+6. Click on "OK" to complete the new matrix creation.
+
+===== Populate the Impact Matrix
+
+In the Impact matrix, you may drag & drop the model elements you want to analyse the impact between. They can be added freely as line or column, to display exactly what you need.
+
+.Drag'n'drop elements in an impact matrix
+image::images/attachment/modeliocom41/User_Documentation_en/Impact_Analysis/Impact_matrix/ImpactMatrixElements.png[ImpactMatrixElements.png]
+
+*Steps:*
+
+1. Select some elements in the "Model" tab.
+2. Drag the elements into the image:images/attachment/modeliocom41/User_Documentation_en/Impact_Analysis/Impact_matrix/droparea.png[droparea.png] symbol of the column or line and release the mouse button.
+
+===== Impact Matrix
+
+On each cell, an arrow indicates the direction of the impact links and a number indicates the number of impact causes.
+
+Further modifications of the model will make the matrix refresh automatically as the Impact model is updated.
+
+.Impact matrix
+image::images/attachment/modeliocom41/User_Documentation_en/Impact_Analysis/Impact_matrix/ManualImpactMatrix.png[ManualImpactMatrix.png]
+
+
+

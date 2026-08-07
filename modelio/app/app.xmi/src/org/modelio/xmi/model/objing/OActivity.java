@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -30,6 +30,7 @@ import org.modelio.xmi.util.ObjingEAnnotation;
 
 /**
  * This class manages the export of IActivty
+ *
  * @author ebrosse
  */
 @objid ("d210b9e8-7a7f-4156-b669-76619c8f81a7")
@@ -43,10 +44,11 @@ public class OActivity extends OModelElement {
     /**
      * Contructor of the OActivity.
      * It takes the exported Modelio  org.eclipse.uml2.uml.Activity as parameter
+     *
      * @param element : the exported Modelio  org.eclipse.uml2.uml.Activity
      */
     @objid ("8f3595a6-644b-4b59-932c-1abdae6386d4")
-    public  OActivity(final Activity element) {
+    public OActivity(final Activity element) {
         super(element);
     }
 
@@ -54,14 +56,14 @@ public class OActivity extends OModelElement {
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         org.eclipse.uml2.uml.Element ecoreOwner =  GenerationProperties.getInstance().getMappedElement(getObjingElement().getCompositionOwner());
-        
+
         if (ecoreOwner != null) {
             if ( ecoreOwner instanceof org.eclipse.uml2.uml.Namespace)
                  attachToNameSpace(ecoreElt, (org.eclipse.uml2.uml.Namespace) ecoreOwner);
             else if (ecoreOwner instanceof  org.eclipse.uml2.uml.Operation)
                 attachToOperation(ecoreElt,  (org.eclipse.uml2.uml.Operation) ecoreOwner);
         }
-        
+
     }
 
     @objid ("a48744af-5412-41a7-9d3b-758e1bdbca52")
@@ -71,14 +73,14 @@ public class OActivity extends OModelElement {
         setReadOnly((org.eclipse.uml2.uml.Activity) ecoreElt);
         setSingleExecution((org.eclipse.uml2.uml.Activity) ecoreElt);
         setReentrant((org.eclipse.uml2.uml.Activity) ecoreElt);
-        
+
     }
 
     @objid ("3c6d8d6f-a40c-443b-9f61-846494db1c58")
     private void attachToNameSpace(org.eclipse.uml2.uml.Element ecoreElt, org.eclipse.uml2.uml.Namespace ecoreOwner) {
         String ownerId = ObjingEAnnotation.getOwner(ecoreElt);
         if ((ownerId == null) || (ownerId.equals(""))){
-        
+
         if (ecoreOwner instanceof org.eclipse.uml2.uml.Package) {
             org.eclipse.uml2.uml.Package ownerIsPkg = (org.eclipse.uml2.uml.Package) ecoreOwner;
             ownerIsPkg.getPackagedElements().add((org.eclipse.uml2.uml.PackageableElement)ecoreElt);
@@ -102,7 +104,7 @@ public class OActivity extends OModelElement {
         }else{
             ObjingEAnnotation.deleteOwner(ecoreElt);
         }
-        
+
     }
 
     @objid ("a2fb1a8f-42c8-4702-bcb3-1a68aeda9228")
@@ -113,9 +115,9 @@ public class OActivity extends OModelElement {
                                                     objingOpOwner.getName());
         GenerationProperties genProp = GenerationProperties.getInstance();
         genProp.addWarning(message, getObjingElement());
-        
+
         org.eclipse.uml2.uml.Element ecoreOpOwner = genProp.getMappedElement(objingOpOwner);
-        
+
         if (ecoreOpOwner instanceof org.eclipse.uml2.uml.Namespace) {
             attachToNameSpace(ecoreElt, (org.eclipse.uml2.uml.Namespace) ecoreOpOwner);
         } else {
@@ -123,7 +125,7 @@ public class OActivity extends OModelElement {
             throw new NotFoundException("Owner Class ("
                     + ecoreOpOwner.getClass().getSimpleName() + ") Not Found");
         }
-        
+
     }
 
     @objid ("cc473345-326c-44db-9ec7-ad96d559a915")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vbasic.oidc;
 
@@ -63,8 +63,7 @@ import org.modelio.vbasic.oidc.flows.OidcRefreshTokenFlow;
  * </ul>
  * <li> Call {@link IOidcAuthenticationFlow#createAuthData()} to get a usable {@link org.modelio.vbasic.auth.IAuthData IAuthData}.
  * </ol>
- * 
- * 
+ *
  * @author cmarin
  * @since 5.2
  */
@@ -83,6 +82,7 @@ public class OidcAuthentications {
     private URI modelioServerUrl;
 
     /**
+     *
      * @param modelioServerUrl the Modelio server URI
      * @return an OidcAuthentications
      */
@@ -92,15 +92,17 @@ public class OidcAuthentications {
     }
 
     /**
+     *
      * @param modelioServerUrl the Modelio server URI
      */
     @objid ("039d3b6d-734a-47a6-b6a2-4e54544ef596")
-    public  OidcAuthentications(URI modelioServerUrl) {
+    public OidcAuthentications(URI modelioServerUrl) {
         this.modelioServerUrl = modelioServerUrl;
     }
 
     /**
      * Get or load OIDC provider metadatas from "$server/.well-known/openid-configuration" standard URL.
+     *
      * @return Modelio server OIDC provider metadatas
      * @throws HttpUriException on HTTP failure
      * @throws IOException on failure
@@ -115,6 +117,7 @@ public class OidcAuthentications {
 
     /**
      * Load OIDC provider metadatas from "$server/.well-known/openid-configuration" standard URL.
+     *
      * @return Modelio server OIDC provider metadatas
      * @throws HttpUriException on HTTP failure
      * @throws IOException on failure
@@ -123,8 +126,8 @@ public class OidcAuthentications {
     private OIDCProviderMetadata reloadOIDCProviderMetadata() throws HttpUriException, IOException {
         // This need to be run once, could be moved to a static initializer
         HTTPRequest.setDefaultSSLSocketFactory(SslManager.getInstance().getSslContext().getSocketFactory());
-        
-        
+
+
         HTTPRequest httpRequest = new OIDCProviderConfigurationRequest(new Issuer(this.modelioServerUrl)).toHTTPRequest();
         HTTPResponse response;
         try {
@@ -137,25 +140,26 @@ public class OidcAuthentications {
             // Try again
             response = httpRequest.send();
         }
-        
+
         if (! response.indicatesSuccess()) {
             throw HttpErrorMapper.create(response.getStatusCode(), httpRequest.getURL().toString(), response.getContent(), null);
         }
-        
+
         try {
             JSONObject js = response.getContentAsJSONObject();
             OIDCProviderMetadata providerMetadata = OIDCProviderMetadata.parse(js);
-        
+
             return providerMetadata;
         } catch (ParseException e) {
             throw HttpErrorMapper.create(response.getStatusCode(), httpRequest.getURL().toString(), "Response parsing failed: "+e.getLocalizedMessage(), e);
         }
-        
+
     }
 
     /**
      * Build a browser based authentication flow.
      * <p>
+     *
      * @param webBrowser the web browser implementation
      * @return a browser flow builder.
      * @throws HttpUriException on HTTP error calling the authentication server
@@ -164,13 +168,14 @@ public class OidcAuthentications {
     @objid ("fd43e930-3c57-480b-bd56-f3b50382f837")
     public OidcBrowserFlowBuilder browserFlow(IOidcWebBrowser webBrowser) throws HttpUriException, IOException {
         Objects.requireNonNull(webBrowser, "Browser not specified");
-        
+
         OIDCProviderMetadata providerMetadata = getOIDCProviderMetadata();
         return new OidcBrowserFlowBuilder(providerMetadata, webBrowser);
     }
 
     /**
      * Create a client/secret based authentication flow
+     *
      * @param clientId the OIDC client id
      * @param clientSecret the client secret, may not be null.
      * @return the built authentication flow
@@ -180,7 +185,7 @@ public class OidcAuthentications {
     public IOidcAuthenticationFlow clientCredentialsFlow(String clientId, String clientSecret) throws IOException {
         Objects.requireNonNull(clientId, "Client ID not specified");
         Objects.requireNonNull(clientSecret, "Client secret not specified");
-        
+
         OIDCProviderMetadata providerMetadata = getOIDCProviderMetadata();
         ClientID nimbusClientId = new ClientID(clientId);
         Secret nimbusSecret = makeSecret(clientSecret);
@@ -189,6 +194,7 @@ public class OidcAuthentications {
 
     /**
      * Create an access token, a refresh token or offline token authentication flow
+     *
      * @param clientId the OIDC client id
      * @param clientSecretStr the client secret, may be null.
      * @param token the refresh or offline token, must not be null
@@ -198,11 +204,11 @@ public class OidcAuthentications {
     @objid ("4c9db470-bbbe-4bbc-9e35-415d6d6edac1")
     public IOidcAuthenticationFlow tokenFlow(String clientId, String clientSecretStr, String token) throws IOException {
         Objects.requireNonNull(token, "token not specified");
-        
+
         OIDCProviderMetadata providerMetadata = getOIDCProviderMetadata();
         ClientID nimbusClientId = new ClientID(clientId);
         Secret clientSecret = makeSecret(clientSecretStr);
-        
+
         IOidcAuthenticationFlow accessFlow = createAccessTokenFlow(token);
         if (accessFlow != null) {
             return accessFlow;
@@ -210,7 +216,7 @@ public class OidcAuthentications {
             OIDCTokens oidctokens = new OIDCTokens(new BearerAccessToken(), new RefreshToken(token));
             return new OidcRefreshTokenFlow(nimbusClientId, clientSecret, providerMetadata, null, new AuthResponse(oidctokens, Instant.MIN));
         }
-        
+
     }
 
     @objid ("05db7574-9958-443c-8303-7f96421d4408")
@@ -220,16 +226,17 @@ public class OidcAuthentications {
             Object tokenType = jwt.getJWTClaimsSet().getClaim("typ");
             if (! "Bearer".equals(tokenType))
                 return null;
-        
+
             String sub = jwt.getJWTClaimsSet().getSubject();
             return new AccessTokenFlow(token, sub);
         } catch (java.text.ParseException e) {
             return null;
         }
-        
+
     }
 
     /**
+     *
      * @param clientId the OIDC client id
      * @param clientSecret the client secret, may not be null.
      * @param user the user login
@@ -252,7 +259,7 @@ public class OidcAuthentications {
                         nimbusSecret,
                         user,
                         makeSecret(password)));
-        
+
     }
 
     @objid ("06661052-8d42-4db3-a557-7b316794f122")
@@ -279,11 +286,11 @@ public class OidcAuthentications {
         private OidcAuthData oidcAuthData;
 
         @objid ("91360003-1bd0-472b-9c44-ac5161fcc972")
-        public  AccessTokenFlow(String token, String subject) {
+        public AccessTokenFlow(String token, String subject) {
             OIDCTokens oidcTokens = new OIDCTokens(new BearerAccessToken(token), null);
             this.resp = new AuthResponse(oidcTokens, Instant.MAX);
             this.oidcAuthData = new OidcAuthData(() -> token, subject);
-            
+
         }
 
         @objid ("89e76129-5799-4b9a-8034-e225887c1c2e")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.stateinvariant;
 
@@ -31,7 +31,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * {@link PlacementConstraint} implementation for a StateInvariant.
- * 
+ *
  * @author fpoyer
  */
 @objid ("d99c1fb2-55b6-11e2-877f-002564c97630")
@@ -47,26 +47,26 @@ public class StateInvariantPlacementConstraint extends PlacementConstraint {
 
     /**
      * Constructor.
+     *
      * @param stateInvariant the represented StateInvariant
      * @param x the desired X coordinate in absolute coordinates.
      * @param diagram the diagram in which this constraint is used.
      */
     @objid ("d99c1fbb-55b6-11e2-877f-002564c97630")
-    public  StateInvariantPlacementConstraint(final StateInvariant stateInvariant, final int x, final int y, final int width, final int height, final GmSequenceDiagram diagram) {
+    public StateInvariantPlacementConstraint(final StateInvariant stateInvariant, final int x, final int y, final int width, final int height, final GmSequenceDiagram diagram) {
         super(x, y, width, height, diagram);
         this.stateInvariant = stateInvariant;
         if (this.stateInvariant.isValid()) {
             setY(this.stateInvariant.getLineNumber());
             setHeight(this.stateInvariant.getEndLineNumber() - getY());
         }
-        
     }
 
     /**
      * Empty constructor for deserialisation. Do not use!
      */
     @objid ("d99da629-55b6-11e2-877f-002564c97630")
-    public  StateInvariantPlacementConstraint() {
+    public StateInvariantPlacementConstraint() {
         super();
     }
 
@@ -92,7 +92,6 @@ public class StateInvariantPlacementConstraint extends PlacementConstraint {
             setY(this.stateInvariant.getLineNumber());
             setHeight(this.stateInvariant.getEndLineNumber() - getY());
         }
-        
     }
 
     @objid ("d99da63a-55b6-11e2-877f-002564c97630")
@@ -100,7 +99,6 @@ public class StateInvariantPlacementConstraint extends PlacementConstraint {
     public void write(final IDiagramWriter writer) {
         super.write(writer);
         writer.writeProperty("StateInvariant", new MRef(this.stateInvariant));
-        
     }
 
     @objid ("d99da641-55b6-11e2-877f-002564c97630")

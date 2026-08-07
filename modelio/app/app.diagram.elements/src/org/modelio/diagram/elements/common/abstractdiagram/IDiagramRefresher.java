@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.abstractdiagram;
 
@@ -54,15 +54,4 @@ public interface IDiagramRefresher extends IModelChangeListener, IPersistentView
     @objid ("2d557b3f-2108-4b81-89bf-d57f3aa74be7")
     void visibilityChanged(boolean visible);
 
-    @objid ("053f215e-9527-4cc7-b9aa-75f59b33498e")
-    @Override
-    default void statusChanged(IStatusChangeEvent ev) {
-        if (ev.getCause() == ChangeCause.REPOSITORY ) {
-            // module may have been added/removed : all icons must be reloaded
-            // don't filter on ev.getShellStateChanged().isEmpty(), it is often empty because elements are unloaded then reloaded to same state
-            Display.getDefault().asyncExec(() -> visibilityChanged(true));
-        }
-        
-    }
 }
-

@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.vcore.session.impl.storage.serialized;
 
@@ -38,6 +57,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.modelio.vbasic.files.CloseOnFail;
@@ -45,6 +65,7 @@ import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vcore.model.DuplicateObjectException;
 import org.modelio.vcore.session.api.blob.IBlobInfo;
 import org.modelio.vcore.session.api.repository.IRepository;
+import org.modelio.vcore.session.api.repository.IRepositoryQueryRunner;
 import org.modelio.vcore.session.api.repository.StorageErrorSupport;
 import org.modelio.vcore.session.impl.storage.IModelLoader;
 import org.modelio.vcore.session.impl.storage.IModelLoaderProvider;
@@ -67,10 +88,12 @@ import org.modelio.vcore.smkernel.meta.descriptor.MetamodelDescriptorWriter;
 
 /**
  * Repository implementation where each object is saved in one file using java serialization.
- * 
+ *
  * @author cmarin
+ * @deprecated Not used, it is only an example {@link IRepository} implementation.
  */
 @objid ("006dd576-fd1a-1f27-a7da-001ec947cd2a")
+@Deprecated(since = "5.4")
 public class SerializedRepository implements IRepository {
     @objid ("006e4434-fd1a-1f27-a7da-001ec947cd2a")
     byte rid;
@@ -110,17 +133,17 @@ public class SerializedRepository implements IRepository {
 
     /**
      * Initialize the repository.
+     *
      * @param dir the repository directory path.
      */
     @objid ("006e57d0-fd1a-1f27-a7da-001ec947cd2a")
-    public  SerializedRepository(final Path dir) {
+    public SerializedRepository(final Path dir) {
         this.dir = dir;
         this.blobsDir = dir.resolve("blobs");
-        
+
         this.toSave = new HashSet<>();
         this.handle = new SerializedRepositoryObject(this);
         this.emfResouce = new EmfResource(this);
-        
     }
 
     @objid ("006e731e-fd1a-1f27-a7da-001ec947cd2a")
@@ -128,7 +151,6 @@ public class SerializedRepository implements IRepository {
     public void addObject(final SmObjectImpl newObject) {
         this.toSave.add(newObject);
         newObject.setRepositoryObject(this.handle);
-        
     }
 
     @objid ("0071c50a-fd1a-1f27-a7da-001ec947cd2a")
@@ -140,16 +162,15 @@ public class SerializedRepository implements IRepository {
         // cacheManager = null;
         this.handle = null;
         this.modelLoaderProvider = null;
-        
     }
 
     @objid ("006f0554-fd1a-1f27-a7da-001ec947cd2a")
     @Override
-    public Collection<MObject> findByAtt(SmClass cls, boolean withSubClasses, String att, Object val) {
+    public Stream<? extends MObject> streamByAtt(SmClass cls, boolean withSubClasses, String att, Object val) {
         Collection<MObject> results = new ArrayList<>();
-        
+
         try (final IModelLoader loader = this.modelLoaderProvider.beginLoadSession()) {
-        
+
             // The search is first done for the metaclass itself
             findByAtt0(loader, cls, att, val, results);
             // and then it must be carried out for all the metaclass derived
@@ -160,18 +181,22 @@ public class SerializedRepository implements IRepository {
                 }
             }
         }
-        return results;
+        return results.stream();
+    }
+
+    @objid ("6911fa6d-8ece-41d6-8bdc-3949d5f4c482")
+    @Override
+    public Stream<? extends MObject> streamByName(SmClass cls, boolean withSubClasses, String name) {
+        return streamByAtt(cls, withSubClasses, cls.getNameAttribute().getName(), name);
     }
 
     @objid ("006f76ce-fd1a-1f27-a7da-001ec947cd2a")
     @Override
     public Collection<MObject> findByClass(SmClass cls, boolean withSubClasses) {
         Collection<MObject> results = new ArrayList<>();
-        
+
         try (final IModelLoader loader = this.modelLoaderProvider.beginLoadSession()) {
             findByClass(loader, cls, withSubClasses, results);
-        } catch (IOException e) {
-            getErrorSupport().fireError(e);
         }
         return results;
     }
@@ -183,7 +208,7 @@ public class SerializedRepository implements IRepository {
         if (!Files.isRegularFile(f)) {
             return null;
         }
-        
+
         try (final IModelLoader loader = this.modelLoaderProvider.beginLoadSession()) {
             return getImpl(loader, cls, f);
         } catch (DuplicateObjectException e) {
@@ -213,6 +238,7 @@ public class SerializedRepository implements IRepository {
     }
 
     /**
+     *
      * @return the repository path
      */
     @objid ("aaf605a0-c063-11e1-b511-001ec947ccaf")
@@ -249,17 +275,14 @@ public class SerializedRepository implements IRepository {
     @Override
     public void loadDynamicDep(final SmObjectImpl obj, final SmDependency dep) {
         Set<SmObjectImpl> s = new HashSet<>();
-        
+
         try (final IModelLoader loader = this.modelLoaderProvider.beginLoadSession()) {
             findByClass(loader, dep.getType(), true, s);
-        } catch (IOException e) {
-            getErrorSupport().fireError(e);
         }
-        
+
         for (SmObjectImpl v : s) {
             v.getRepositoryObject().loadDep(v, dep.getSymetric());
         }
-        
     }
 
     @objid ("00718fa4-fd1a-1f27-a7da-001ec947cd2a")
@@ -269,7 +292,7 @@ public class SerializedRepository implements IRepository {
         if (!Files.isRegularFile(f)) {
             return null;
         }
-        
+
         try (final IModelLoader loader = this.modelLoaderProvider.beginLoadSession()) {
             return load(f);
         } catch (IOException e) {
@@ -283,9 +306,8 @@ public class SerializedRepository implements IRepository {
     public void open(final IModelLoaderProvider aModelLoader, IModelioProgress monitor) throws IOException {
         this.modelLoaderProvider = aModelLoader;
         this.kid = this.modelLoaderProvider.getKid();
-        
+
         Files.createDirectories(this.blobsDir);
-        
     }
 
     @objid ("006e9f88-fd1a-1f27-a7da-001ec947cd2a")
@@ -293,19 +315,19 @@ public class SerializedRepository implements IRepository {
     public void save(IModelioProgress monitor) {
         try {
             saveMetamodelDescriptor();
-        
+
             for (SmObjectImpl i : this.toSave) {
                 save(i.getData());
             }
             this.toSave.clear();
-            
+
         } catch (IOException e) {
             getErrorSupport().fireError(e);
         }
-        
     }
 
     /**
+     *
      * @return the EMF adapter.
      */
     @objid ("aaf6059c-c063-11e1-b511-001ec947ccaf")
@@ -314,6 +336,7 @@ public class SerializedRepository implements IRepository {
     }
 
     /**
+     *
      * @return <code>true</code> if some objects need to be saved.
      */
     @objid ("aaf60593-c063-11e1-b511-001ec947ccaf")
@@ -333,11 +356,10 @@ public class SerializedRepository implements IRepository {
         if (!Files.isRegularFile(f)) {
             return;
         }
-        
+
         try (final IModelLoader loader = this.modelLoaderProvider.beginLoadSession()) {
             getImpl(loader, obj.getClassOf(), f);
         }
-        
     }
 
     @objid ("0071280c-fd1a-1f27-a7da-001ec947cd2a")
@@ -346,7 +368,6 @@ public class SerializedRepository implements IRepository {
         if (Files.isRegularFile(f)) {
             Files.delete(f);
         }
-        
     }
 
     @objid ("0070d352-fd1a-1f27-a7da-001ec947cd2a")
@@ -356,6 +377,7 @@ public class SerializedRepository implements IRepository {
 
     /**
      * Unload the given object.
+     *
      * @param obj the object to unload.
      */
     @objid ("f4b600ee-08b1-11e2-b33c-001ec947ccaf")
@@ -363,7 +385,6 @@ public class SerializedRepository implements IRepository {
         Path f = getFile(obj.getClassOf(), obj.getUuid());
         this.loaded.remove(f);
         this.loaded2.remove(obj);
-        
     }
 
     @objid ("006f4456-fd1a-1f27-a7da-001ec947cd2a")
@@ -372,13 +393,13 @@ public class SerializedRepository implements IRepository {
         if (att == null) {
             throw new IllegalArgumentException("No '" + attName + "' attribute on '" + cls.getName() + "'");
         }
-        
+
         try (DirectoryStream<Path> dirStream = listFiles(cls);) {
             for (Path f : dirStream) {
                 SmObjectImpl impl = getImpl(loader, cls, f);
                 if (impl != null && impl.getAttVal(att).equals(val)) {
-                    assert (SmLiveId.getKid(impl.getLiveId()) == this.kid);
                     if ((SmLiveId.getKid(impl.getLiveId()) != this.kid)) {
+                        assert false;
                         throw getErrorSupport().fireError(new StorageException(this, "bad kernel id"));
                     }
                     results.add(impl);
@@ -387,29 +408,27 @@ public class SerializedRepository implements IRepository {
         } catch (Exception e) {
             getErrorSupport().fireError(e);
         }
-        
     }
 
     @objid ("006fa9aa-fd1a-1f27-a7da-001ec947cd2a")
-    private void findByClass0(IModelLoader loader, final SmClass cls, final Collection<? super SmObjectImpl> results) throws IOException {
+    private void findByClass0(IModelLoader loader, final SmClass cls, final Collection<? super SmObjectImpl> results) {
         try (DirectoryStream<Path> dirStream = listFiles(cls)) {
             for (Path f : dirStream) {
-                try {
-                    SmObjectImpl impl = getImpl(loader, cls, f);
-                    if (impl != null) {
-                        assert ((SmLiveId.getKid(impl.getLiveId()) == this.kid));
-                        results.add(impl);
-                    }
-                } catch (DuplicateObjectException e) {
-                    getErrorSupport().fireError(e);
+                SmObjectImpl impl = getImpl(loader, cls, f);
+                if (impl != null) {
+                    assert ((SmLiveId.getKid(impl.getLiveId()) == this.kid));
+                    results.add(impl);
                 }
             }
+        } catch (DuplicateObjectException e) {
+            getErrorSupport().fireError(e);
+        } catch (IOException e) {
+            getErrorSupport().fireError(e);
         }
-        
     }
 
     @objid ("0f9b1945-c1f0-11e1-92d5-001ec947ccaf")
-    private void findByClass(IModelLoader loader, final SmClass cls, boolean withSubClasses, final Collection<? super SmObjectImpl> results) throws IOException {
+    private void findByClass(IModelLoader loader, final SmClass cls, boolean withSubClasses, final Collection<? super SmObjectImpl> results) {
         // The search is first done for the metaclass itself
         findByClass0(loader, cls, results);
         // and then it must be carried out for all the metaclass derived from
@@ -419,7 +438,6 @@ public class SerializedRepository implements IRepository {
                 findByClass0(loader, c, results);
             }
         }
-        
     }
 
     @objid ("00702c54-fd1a-1f27-a7da-001ec947cd2a")
@@ -434,22 +452,21 @@ public class SerializedRepository implements IRepository {
             if (isToReload(impl)) {
                 reload(loader, impl, f);
             }
-        
+
             return impl;
         } else {
-        
+
             SmObjectData d = load(f);
-        
+
             impl = loader.createLoadedObject(cls, d.getUuid(), d);
-        
+
             this.loaded.put(f, impl);
             this.loaded2.add(impl);
-        
+
             d.setRFlags(IRStatus.REPO_LOADED,0 , 0);
-        
+
             return impl;
         }
-        
     }
 
     @objid ("aaf3a33d-c063-11e1-b511-001ec947ccaf")
@@ -460,26 +477,24 @@ public class SerializedRepository implements IRepository {
     @objid ("0070bade-fd1a-1f27-a7da-001ec947cd2a")
     private SmObjectData load(final Path f) throws IOException {
         try (ObjectInputStream s = new MyObjectInputStream(Files.newInputStream(f))) {
-        
+
             SmObjectData data = (SmObjectData) s.readObject();
             data.setRepositoryObject(this.handle);
-        
+
             return data;
         } catch (ClassNotFoundException e) {
             throw new IOException(e);
         }
-        
     }
 
     @objid ("0070594a-fd1a-1f27-a7da-001ec947cd2a")
     private void save(final ISmObjectData data) throws IOException {
         Path file = getFile(data.getClassOf(), data.getUuid());
         Files.createDirectories(file.getParent());
-        
+
         try (OutputStream os = Files.newOutputStream(file); ObjectOutputStream s = new ObjectOutputStream(os)) {
             s.writeObject(data);
         }
-        
     }
 
     @objid ("dbc589ed-4868-11e2-91c9-001ec947ccaf")
@@ -491,9 +506,9 @@ public class SerializedRepository implements IRepository {
     @Override
     public OutputStream writeBlob(IBlobInfo key) throws IOException {
         OutputStream os = Files.newOutputStream(this.blobsDir.resolve(key.getKey()+".blob"));
-        
+
         ObjectOutputStream oos = new ObjectOutputStream(os);
-        
+
         try (CloseOnFail shield = new CloseOnFail(oos)){
             oos.writeObject(key);
             shield.success();
@@ -519,7 +534,6 @@ public class SerializedRepository implements IRepository {
         } else {
             return null;
         }
-        
     }
 
     @objid ("089bbed9-366a-48a2-91c9-fcd7ee797c72")
@@ -533,7 +547,6 @@ public class SerializedRepository implements IRepository {
     public void removeBlob(String key) throws IOException {
         Path blobPath = getBlobPath(key);
         Files.deleteIfExists(blobPath);
-        
     }
 
     @objid ("104a5416-a2bf-4fe1-bf9a-d6eb1ba3b775")
@@ -541,7 +554,7 @@ public class SerializedRepository implements IRepository {
     public IBlobInfo readBlobInfo(String key) throws IOException {
         Path blobPath = getBlobPath(key);
         if (Files.isRegularFile(blobPath)) {
-        
+
             try (ObjectInputStream iis = new ObjectInputStream(Files.newInputStream(blobPath));) {
                 // Read & return blob info
                 return (IBlobInfo) iis.readObject();
@@ -551,7 +564,6 @@ public class SerializedRepository implements IRepository {
         } else {
             return null;
         }
-        
     }
 
     @objid ("eaea7315-0f93-43d6-a90b-7360ce38d737")
@@ -569,42 +581,40 @@ public class SerializedRepository implements IRepository {
     void setToReload(SmObjectImpl obj) {
         // remove loaded flag
         obj.getData().setRFlags(0, IRStatus.REPO_LOADED, 0);
-        
     }
 
     @objid ("ca57dd33-9bf6-4db3-819f-d46ef616f9b7")
     private void reload(IModelLoader loader, SmObjectImpl impl, Path f) throws IOException {
         SmObjectData srcData = load(f);
         SmObjectSmClass cls = srcData.getClassOf();
-        
+
         for (SmAttribute smAttribute : cls.getAllAttDef()) {
             loader.loadAttribute(impl, smAttribute, smAttribute.getValue(srcData));
         }
-        
+
         for (SmDependency dep : cls.getAllDepDef()) {
             if (dep.isComponent() || dep.isPartOf() ||dep.isSharedComposition()) {
                 if (! dep.isMultiple()) {
                     SmObjectImpl readValue = (SmObjectImpl) dep.getValue(srcData);
                     SmObjectImpl realo = loader.loadForeignObject(readValue.getClassOf(), readValue.getUuid(), readValue.getName());
-        
+
                     loader.loadDependency(impl, dep, Collections.singletonList(realo));
                 } else {
                     Collection<SmObjectImpl> readcontent = dep.getValueAsCollection(srcData);
-        
+
                     // as the read objects may be a copy of real data, look for the real objects
                     List<SmObjectImpl> newcontent = new ArrayList<>(readcontent.size());
                     for (SmObjectImpl ro : readcontent) {
                         SmObjectImpl realo = loader.loadForeignObject(ro.getClassOf(), ro.getUuid(), ro.getName());
                         newcontent.add(realo);
                     }
-        
+
                     loader.loadDependency(impl, dep, newcontent);
                 }
             }
         }
-        
+
         impl.getData().setRFlags(IRStatus.REPO_LOADED, 0, 0);
-        
     }
 
     @objid ("526911cb-4f09-4554-b78b-19a48dcea2a1")
@@ -614,6 +624,7 @@ public class SerializedRepository implements IRepository {
 
     /**
      * Save a descriptor of the current metamodel.
+     *
      * @throws IOException on failure
      */
     @objid ("ba3a638b-f344-482b-8298-dae0f63ca993")
@@ -623,7 +634,6 @@ public class SerializedRepository implements IRepository {
             new MetamodelDescriptorWriter().write(desc, out);
             this.storedMetamodelDescriptor = desc;
         }
-        
     }
 
     @objid ("57bebe9e-0def-46b5-a1f8-c25fda382e42")
@@ -638,7 +648,6 @@ public class SerializedRepository implements IRepository {
             getErrorSupport().fireWarning(e);
             return null;
         }
-        
     }
 
     @objid ("99e11d1f-5081-4689-8c56-ccb124b36a5d")
@@ -650,13 +659,41 @@ public class SerializedRepository implements IRepository {
         return Optional.ofNullable(this.storedMetamodelDescriptor);
     }
 
+    @objid ("d701144f-dac6-4ded-9477-3251c4a35dec")
+    @Override
+    public IRepositoryQueryRunner query() {
+        return new IRepositoryQueryRunner() {
+
+            @Override
+            public void loadAllReferencesTo(Collection<SmObjectImpl> objs) {
+                Set<SmObjectImpl> s = new HashSet<>();
+
+                try (final IModelLoader loader = SerializedRepository.this.modelLoaderProvider.beginLoadSession()) {
+                    // We have no index in this impementation.
+                    // The best we can do here is to load all instances of dependencies target metaclasses.
+                    // This will probably load everything...
+                    objs.stream().map(o->o.getMClass())
+                    .distinct()
+                    .flatMap(c->c.getDependencies(true).stream())
+                    .map(d->d.getTarget())
+                    .distinct()
+                    .forEach(cls -> findByClass(loader, (SmClass) cls, true, s));
+                }
+
+            }
+
+            @Override
+            public void close() {
+            }
+        };
+    }
+
     @objid ("00706c14-fd1a-1f27-a7da-001ec947cd2a")
     private class MyObjectInputStream extends ObjectInputStream {
         @objid ("007073ee-fd1a-1f27-a7da-001ec947cd2a")
-        public  MyObjectInputStream(final InputStream inputStream) throws IOException {
+        public MyObjectInputStream(final InputStream inputStream) throws IOException {
             super(inputStream);
             enableResolveObject(true);
-            
         }
 
         @objid ("00708bcc-fd1a-1f27-a7da-001ec947cd2a")

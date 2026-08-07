@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.bpmn;
 
@@ -67,21 +67,23 @@ public class BpmnBoundaryEventPropertyModel extends AbstractPropertyModel<BpmnBo
 
     /**
      * Create a new <i>BpmnBoundaryEvent</i> data model from an <i>BpmnBoundaryEvent</i>.
+     *
      * @param theEditedElement the model to edit.
      * @param modelService the model service needed to find elements.
      * @param umlPropertyModelVisitor the property model visitor, needed for the event definition.
      */
     @objid ("f0db519b-a9a8-47d5-8bb2-1ce7a7665ba8")
-    public  BpmnBoundaryEventPropertyModel(BpmnBoundaryEvent theEditedElement, IMModelServices modelService, UmlPropertyModelVisitor umlPropertyModelVisitor) {
+    public BpmnBoundaryEventPropertyModel(BpmnBoundaryEvent theEditedElement, IMModelServices modelService, UmlPropertyModelVisitor umlPropertyModelVisitor) {
         super(theEditedElement);
         this.modelService = modelService;
         this.umlPropertyModelVisitor = umlPropertyModelVisitor;
         updateFieldsLists();
-        
+
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("5691678d-a6eb-481c-869f-71068892598b")
@@ -92,6 +94,7 @@ public class BpmnBoundaryEventPropertyModel extends AbstractPropertyModel<BpmnBo
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("de839e95-9a2d-471f-96b0-655d7d133770")
@@ -107,6 +110,7 @@ public class BpmnBoundaryEventPropertyModel extends AbstractPropertyModel<BpmnBo
      * This type will be used to choose an editor and a renderer for each cell of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -119,13 +123,14 @@ public class BpmnBoundaryEventPropertyModel extends AbstractPropertyModel<BpmnBo
         } else {
             return this.fieldList.get(row);
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -168,11 +173,11 @@ public class BpmnBoundaryEventPropertyModel extends AbstractPropertyModel<BpmnBo
                     }
                 }
             }
-        
+
             // Row not found in event types, update ParallelMultiple
             this.theEditedElement.setParallelMultiple(Boolean.parseBoolean(Objects.toString(value)));
         }
-        
+
     }
 
     @objid ("9dbfe90d-55ad-4c10-bf26-4e575804df3a")
@@ -182,19 +187,19 @@ public class BpmnBoundaryEventPropertyModel extends AbstractPropertyModel<BpmnBo
         for (BpmnEventDefinition definition : this.theEditedElement.getEventDefinitions()) {
             this.delegatedPropertyModel.add((AbstractPropertyModel<BpmnEventDefinition>) definition.accept(this.umlPropertyModelVisitor));
         }
-        
+
         this.labelList = new ArrayList<>();
         this.fieldList = new ArrayList<>();
-        
+
         this.labelList.add(new DefaultStringNatValue(getPropertyI18n(AbstractPropertyModel.PROPERTY_ID), false)); // Header
         this.fieldList.add(new DefaultStringNatValue(getPropertyI18n(AbstractPropertyModel.VALUE_ID), false)); // Header
-        
+
         this.labelList.add(new DefaultStringNatValue(getPropertyI18n("Name"), false)); // Name
         this.fieldList.add(new DefaultStringNatValue(this.theEditedElement.getName(), false));
-        
+
         this.labelList.add(new DefaultStringNatValue(getPropertyI18n("Interrupting"), false)); // CancelActivity
         this.fieldList.add(new DefaultBooleanNatValue(this.theEditedElement.isCancelActivity()));
-        
+
         for (EventType evt : EventType.getValues(this.theEditedElement)) {
             AbstractPropertyModel<BpmnEventDefinition> tdef = null;
             for (AbstractPropertyModel<BpmnEventDefinition> def : this.delegatedPropertyModel) {
@@ -214,12 +219,12 @@ public class BpmnBoundaryEventPropertyModel extends AbstractPropertyModel<BpmnBo
                 }
             }
         }
-        
+
         if (this.delegatedPropertyModel.size() >= 2) {
             this.labelList.add(new DefaultStringNatValue(getPropertyI18n("ParallelMultiple"), false)); // ParallelMultiple
             this.fieldList.add(new DefaultBooleanNatValue(this.theEditedElement.isParallelMultiple()));
         }
-        
+
     }
 
     @objid ("9b7d9099-4b7e-4e2c-a896-742be6448838")
@@ -228,7 +233,7 @@ public class BpmnBoundaryEventPropertyModel extends AbstractPropertyModel<BpmnBo
         BpmnEventDefinition event_definition = (BpmnEventDefinition) modelFactory.createElement(EventType.getMetaclass(evt));
         event_definition.setName(this.modelService.getElementNamer().getBaseName(event_definition.getMClass()));
         event_definition.setDefined(this.theEditedElement);
-        
+
     }
 
     @objid ("510d3298-c4e2-492d-9225-a7b84b4bd297")

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -42,31 +41,31 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("002ff30a-c4bf-1fd8-97fe-001ec947cd2a")
 public class DecisionMergeNodeImpl extends ControlNodeImpl implements DecisionMergeNode {
-    @objid ("fc766a14-4667-4bb3-a4a4-3c34f331babe")
+    @objid ("745801b9-6a60-44a8-9ef2-a041335d90ad")
     @Override
     public DecisionNodeKind getDecisionKind() {
         return (DecisionNodeKind) getAttVal(((DecisionMergeNodeSmClass)getClassOf()).getDecisionKindAtt());
     }
 
-    @objid ("7b9a63c3-0bf6-4216-856b-60876310fe93")
+    @objid ("a099a00c-21a7-4380-99df-8cf8d2870587")
     @Override
     public void setDecisionKind(DecisionNodeKind value) {
         setAttVal(((DecisionMergeNodeSmClass)getClassOf()).getDecisionKindAtt(), value);
     }
 
-    @objid ("ff9cd877-2d52-43f1-83b1-284c8cab1033")
+    @objid ("d0296389-01db-46ff-8545-5f16a110404f")
     @Override
     public String getDecisionInputBehavior() {
         return (String) getAttVal(((DecisionMergeNodeSmClass)getClassOf()).getDecisionInputBehaviorAtt());
     }
 
-    @objid ("05528ef2-1ae7-4ed5-8e55-80b235245801")
+    @objid ("c97919cc-5bef-4d57-82b9-478171572851")
     @Override
     public void setDecisionInputBehavior(String value) {
         setAttVal(((DecisionMergeNodeSmClass)getClassOf()).getDecisionInputBehaviorAtt(), value);
     }
 
-    @objid ("d7d45e3f-f45f-408b-9be5-389251a02342")
+    @objid ("335ad8b5-6ad0-43be-9a20-d58a591c3f18")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -74,17 +73,17 @@ public class DecisionMergeNodeImpl extends ControlNodeImpl implements DecisionMe
         return super.getCompositionOwner();
     }
 
-    @objid ("4e763dbf-3f89-489f-b8f1-d9c481776fe1")
+    @objid ("ac44dfd1-eda2-4385-a887-50ac42066659")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("3d001163-2dad-411a-8b3b-a027cfec5465")
+    @objid ("cf6eb9bf-b841-47f9-a113-bf6bec238f4b")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitDecisionMergeNode(this);

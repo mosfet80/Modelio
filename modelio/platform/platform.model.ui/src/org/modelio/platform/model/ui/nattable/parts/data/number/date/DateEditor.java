@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.parts.data.number.date;
 
@@ -43,7 +43,7 @@ import org.eclipse.swt.widgets.Listener;
  */
 @objid ("375f6520-2909-4c82-a6b1-586e13c777bb")
 public class DateEditor extends AbstractCellEditor {
-    @objid ("f98196fd-201e-41b2-b2de-f4a2e72bacec")
+    @objid ("bfac20c0-8bae-4499-9c8b-e31427310c02")
     private CDateTime cdt;
 
     @objid ("fe0c54a2-4d9b-431f-a128-e7b4b2984f13")
@@ -51,7 +51,6 @@ public class DateEditor extends AbstractCellEditor {
     public void close() {
         super.close();
         this.cdt = null;
-        
     }
 
     @objid ("49205602-eade-41d5-b126-2b6d2f7dcecd")
@@ -106,7 +105,7 @@ public class DateEditor extends AbstractCellEditor {
     }
 
     @objid ("258285ef-c056-4930-8914-dcaf4667102f")
-    public  DateEditor() {
+    public DateEditor() {
         super();
         this.focusListener = new FocusAdapter() {
             @Override
@@ -124,7 +123,6 @@ public class DateEditor extends AbstractCellEditor {
                 }
             }
         };
-        
     }
 
     @objid ("f9247120-3897-45e8-86bc-c3da4deeb717")

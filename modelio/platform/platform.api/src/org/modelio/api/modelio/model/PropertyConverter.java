@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.modelio.model;
 
@@ -87,12 +87,13 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  * <td>the string itself</td>
  * </tr>
  * </table>
- * 
+ *
  * @since 3.4
  */
 @objid ("f883ec22-6bd8-45d0-9c06-88fbfc64a101")
 public class PropertyConverter {
     /**
+     *
      * @param pType the PropertyType, cannot be null
      * @param value the value to be converted.
      */
@@ -102,7 +103,7 @@ public class PropertyConverter {
         if (pType.getBaseType() == null) {
             return value;
         }
-        
+
         // Conversion based on the base type of the property definition
         switch (pType.getBaseType()) {
         case BOOLEAN:
@@ -172,9 +173,9 @@ public class PropertyConverter {
         case TEXT:
         default:
             return value;
-        
+
         }
-        
+
     }
 
     @objid ("498cc454-6b6b-48e4-8cf4-64a1cedd1c80")
@@ -182,7 +183,7 @@ public class PropertyConverter {
         if (value == null) {
             return "";
         }
-        
+
         switch (pType.getBaseType()) {
         case BOOLEAN:
             return Boolean.toString((Boolean) value);
@@ -209,7 +210,7 @@ public class PropertyConverter {
         default:
             return "?" + value.getClass().getSimpleName() + "?";
         }
-        
+
     }
 
     @objid ("f75fcdca-81ea-4e9c-a5da-0e872e42d139")

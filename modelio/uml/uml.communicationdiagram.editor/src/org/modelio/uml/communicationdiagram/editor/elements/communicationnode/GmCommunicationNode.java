@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.communicationdiagram.editor.elements.communicationnode;
 
@@ -73,15 +73,16 @@ public class GmCommunicationNode extends GmPortContainer {
 
     /**
      * Default constructor.
+     *
      * @param diagram the diagram in which this gm is unmasked.
      * @param theCommunicationNode the represented object node, may be null.
      * @param ref a reference to the represented object node.
      */
     @objid ("7a52d031-55b6-11e2-877f-002564c97630")
-    public  GmCommunicationNode(IGmDiagram diagram, CommunicationNode theCommunicationNode, MRef ref) {
+    public GmCommunicationNode(IGmDiagram diagram, CommunicationNode theCommunicationNode, MRef ref) {
         super(diagram, ref);
         this.communicationNode = theCommunicationNode;
-        
+
         GmCommunicationNodePrimaryNode primary = new GmCommunicationNodePrimaryNode(diagram, ref);
         primary.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
         addChild(primary);
@@ -89,14 +90,14 @@ public class GmCommunicationNode extends GmPortContainer {
         imageModeHeader.setRoleInComposition(GmCommunicationNode.IMAGE_MODE_HEADER);
         imageModeHeader.setLayoutData(PositionConstants.SOUTH);
         addChild(imageModeHeader);
-        
+
     }
 
     /**
      * Empty constructor, needed for serialization.
      */
     @objid ("7a54569c-55b6-11e2-877f-002564c97630")
-    public  GmCommunicationNode() {
+    public GmCommunicationNode() {
         // empty constructor for the serialization
     }
 
@@ -119,17 +120,17 @@ public class GmCommunicationNode extends GmPortContainer {
         if (ret != null) {
             return ret;
         }
-        
+
         ret = GmCommunicationNode.SIMPLEKEYS.getStyleKey(metakey);
         if (ret != null) {
             return ret;
         }
-        
+
         ret = GmCommunicationNode.IMAGEKEYS.getStyleKey(metakey);
         if (ret != null) {
             return ret;
         }
-        
+
         ret = GmCommunicationNode.USERIMAGE_KEYS.getStyleKey(metakey);
         return ret;
     }
@@ -153,7 +154,7 @@ public class GmCommunicationNode extends GmPortContainer {
         } else {
             return Collections.emptyList();
         }
-        
+
     }
 
     @objid ("7a5456c0-55b6-11e2-877f-002564c97630")
@@ -173,7 +174,7 @@ public class GmCommunicationNode extends GmPortContainer {
             break;
         }
         }
-        
+
     }
 
     @objid ("7a5456c6-55b6-11e2-877f-002564c97630")
@@ -192,7 +193,7 @@ public class GmCommunicationNode extends GmPortContainer {
             case IMAGE:
             default:
                 break;
-        
+
             }
         }
         return ret;
@@ -208,17 +209,17 @@ public class GmCommunicationNode extends GmPortContainer {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0.
         GmAbstractObject.writeMinorVersion(out, "GmCommunicationNode.", Integer.valueOf(GmCommunicationNode.MINOR_VERSION));
-        
+
     }
 
     @objid ("7a55dd39-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.communicationNode = (CommunicationNode) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("7a55dd3e-55b6-11e2-877f-002564c97630")
@@ -229,6 +230,7 @@ public class GmCommunicationNode extends GmPortContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */
@@ -240,6 +242,7 @@ public class GmCommunicationNode extends GmPortContainer {
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */
@@ -257,7 +260,7 @@ public class GmCommunicationNode extends GmPortContainer {
         } else {
             super.addStartingLink(link);
         }
-        
+
     }
 
     @objid ("7a55dd64-55b6-11e2-877f-002564c97630")
@@ -268,18 +271,19 @@ public class GmCommunicationNode extends GmPortContainer {
         } else {
             super.addEndingLink(link);
         }
-        
+
     }
 
     /**
      * Migration constructor from major version 0, should only be called by migrator.
+     *
      * @param oldVersionGm the instance to migrate from.
      */
     @objid ("7a55dd6b-55b6-11e2-877f-002564c97630")
-     GmCommunicationNode(final _GmCommunicationNode oldVersionGm) {
+    GmCommunicationNode(final _GmCommunicationNode oldVersionGm) {
         super(oldVersionGm.getDiagram(), oldVersionGm.getRepresentedRef());
         this.communicationNode = (CommunicationNode) oldVersionGm.getRepresentedElement();
-        
+
         GmCommunicationNodePrimaryNode primary = new GmCommunicationNodePrimaryNode(oldVersionGm);
         primary.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
         addChild(primary);
@@ -287,7 +291,7 @@ public class GmCommunicationNode extends GmPortContainer {
         imageModeHeader.setRoleInComposition(GmCommunicationNode.IMAGE_MODE_HEADER);
         imageModeHeader.setLayoutData(PositionConstants.SOUTH);
         addChild(imageModeHeader);
-        
+
     }
 
     @objid ("b47a1a78-70c8-4f97-b44b-c18710c39b09")

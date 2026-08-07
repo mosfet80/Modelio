@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -56,7 +56,7 @@ public class R2550 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -77,7 +77,7 @@ public class R2550 extends AbstractUmlRule {
         plan.registerRule(ProvidedInterface.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE | AuditTrigger.UPDATE);
         plan.registerRule(InterfaceRealization.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE | AuditTrigger.UPDATE);
         plan.registerRule(Class.MQNAME, this, AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -111,7 +111,7 @@ public class R2550 extends AbstractUmlRule {
      * Default constructor for R2550
      */
     @objid ("eef20406-1989-4625-8a29-fae595476e2f")
-    public  R2550() {
+    public R2550() {
         this.checkerInstance = new CheckR2550(this);
     }
 
@@ -124,19 +124,19 @@ public class R2550 extends AbstractUmlRule {
         private final ModelWalker<NameSpace> implementedInterfacesGetter;
 
         @objid ("0e705ad2-8d17-472f-a432-3c7b02d27b62")
-        public  CheckR2550(IRule rule) {
+        public CheckR2550(IRule rule) {
             super(rule);
-            
+
             this.implementedInterfacesGetter = new ModelWalker<NameSpace>()
                     .withCompositeTransition(NameSpace::getRealized, InterfaceRealization::getImplemented)
                     .withCompositeTransition(NameSpace::getParent, Generalization::getSuperType)
                     .withFilter(Interface.class::isInstance);
-            
+
             this.classAndSubClassesGetter = new ModelWalker<NameSpace>()
                     .withCompositeTransition(NameSpace::getSpecialization, Generalization::getSubType)
                     .withSourcesIncluded(true)
                     ;
-            
+
         }
 
         @objid ("f304859d-1e22-43e7-8e6f-3dd0d818afbc")
@@ -177,28 +177,28 @@ public class R2550 extends AbstractUmlRule {
         @objid ("406ff970-d849-45a7-86b7-b06541d0aa50")
         private IAuditEntry checkR2550(final Port port) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, port, null);
-            
+
             if (port.isIsBehavior()) {
-            
+
                 Classifier clazz = port.getInternalOwner();
-            
+
                 Collection<Interface> interfaces = new ArrayList<>();
-                
+
                 // Fetches all .Interfaces provided by the port
                 for (ProvidedInterface pi : port.getProvided()) {
                     interfaces.addAll(pi.getProvidedElement());
                 }
-                
+
                 // Remove all Interfaces implemented by the classifier
                 interfaces.removeAll(this.implementedInterfacesGetter
                         .from(clazz)
                         .getTraversed());
-            
+
                 if (!interfaces.isEmpty()) {
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
-                    
+
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(port);
                     linkedObjects.add(clazz);

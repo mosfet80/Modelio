@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.diagrams;
 
 import java.util.ArrayList;
@@ -61,7 +60,7 @@ public class DiagramSetSmClass extends ModelElementSmClass {
     private SmDependency ownerDep;
 
     @objid ("19422675-a016-4e6b-b70d-f000139afa40")
-    public  DiagramSetSmClass(ISmMetamodelFragment origin) {
+    public DiagramSetSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
@@ -69,7 +68,7 @@ public class DiagramSetSmClass extends ModelElementSmClass {
     @Override
     public String getName() {
         return "DiagramSet";
-        
+
     }
 
     @objid ("290cbe5f-ea95-4d8d-a7a6-1201580b098c")
@@ -82,21 +81,21 @@ public class DiagramSetSmClass extends ModelElementSmClass {
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return DiagramSet.class;
-        
+
     }
 
     @objid ("2517b197-c023-4f5c-be7b-526026e0428c")
     @Override
     public boolean isCmsNode() {
         return true;
-        
+
     }
 
     @objid ("f98c2c0f-09de-4332-811d-b8990be2435b")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
     @objid ("43961ae3-32db-4131-bbf4-ff210b8a8cbd")
@@ -104,28 +103,27 @@ public class DiagramSetSmClass extends ModelElementSmClass {
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(ModelElement.MQNAME);
         this.registerFactory(new DiagramSetObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
         this.subDep = new SubSmDependency();
         this.subDep.init("Sub", this, metamodel.getMClass(DiagramSet.MQNAME), 0, -1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.subDep);
-        
+
         this.parentDep = new ParentSmDependency();
         this.parentDep.init("Parent", this, metamodel.getMClass(DiagramSet.MQNAME), 0, 1 );
         registerDependency(this.parentDep);
-        
+
         this.referencedDiagramDep = new ReferencedDiagramSmDependency();
         this.referencedDiagramDep.init("ReferencedDiagram", this, metamodel.getMClass(AbstractDiagram.MQNAME), 0, -1 , SmDirective.SMCDPARTOF);
         registerDependency(this.referencedDiagramDep);
-        
+
         this.ownerDep = new OwnerSmDependency();
         this.ownerDep.init("Owner", this, metamodel.getMClass(AbstractProject.MQNAME), 0, 1 );
         registerDependency(this.ownerDep);
-        
-        
+
     }
 
     @objid ("ecb4341a-6746-4083-a440-2b77bad6fecb")
@@ -166,7 +164,7 @@ public class DiagramSetSmClass extends ModelElementSmClass {
         private DiagramSetSmClass smClass;
 
         @objid ("b5995054-200a-4d41-bce8-b5e2a9721350")
-        public  DiagramSetObjectFactory(DiagramSetSmClass smClass) {
+        public DiagramSetObjectFactory(DiagramSetSmClass smClass) {
             this.smClass = smClass;
         }
 
@@ -199,7 +197,7 @@ public class DiagramSetSmClass extends ModelElementSmClass {
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((DiagramSetData) data).mSub = values;
-            
+
         }
 
         @objid ("2ba7778a-baf8-48fe-9357-0ffc7368e6ad")
@@ -209,7 +207,7 @@ public class DiagramSetSmClass extends ModelElementSmClass {
             	this.symetricDep = ((DiagramSetSmClass)this.getTarget()).getParentDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -238,7 +236,7 @@ public class DiagramSetSmClass extends ModelElementSmClass {
             	this.symetricDep = ((DiagramSetSmClass)this.getTarget()).getSubDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -258,7 +256,7 @@ public class DiagramSetSmClass extends ModelElementSmClass {
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((DiagramSetData) data).mReferencedDiagram = values;
-            
+
         }
 
         @objid ("bab01fc0-799b-4e95-b6e1-119ac644cdb4")
@@ -268,7 +266,7 @@ public class DiagramSetSmClass extends ModelElementSmClass {
             	this.symetricDep = ((AbstractDiagramSmClass)this.getTarget()).getReferencingSetDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -297,7 +295,7 @@ public class DiagramSetSmClass extends ModelElementSmClass {
             	this.symetricDep = ((AbstractProjectSmClass)this.getTarget()).getDiagramRootDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.mmextensions.standard.facilities.interaction;
 
@@ -44,6 +44,7 @@ import org.modelio.metamodel.uml.behavior.interactionModel.MessageEnd;
  * <li> When 2 messages have same vertical position they are sorted by name.
  * <li> In last resort they are sorted by identifier.
  * </ol>
+ *
  * @author cma
  * @since 3.7.1
  */
@@ -56,14 +57,15 @@ public class MessageSequencer {
     private final Interaction interaction;
 
     @objid ("c1b77b94-3d89-465d-901b-9fb081561f2e")
-    public  MessageSequencer(Interaction interaction) {
+    public MessageSequencer(Interaction interaction) {
         this.interaction = interaction;
         this.sequences = compute();
-        
+
     }
 
     /**
      * Get the sequence number for a message
+     *
      * @param m a message
      * @return its sequence number.
      * @throws IllegalArgumentException if the message is not part of the interaction.
@@ -71,7 +73,7 @@ public class MessageSequencer {
     @objid ("d2b5c9a3-8a02-411f-8159-3acd3ace34dc")
     public String getSequence(Message m) throws IllegalArgumentException {
         String seq = this.sequences.get(m);
-        
+
         if (seq == null) {
             throw new IllegalArgumentException(String.format("%s not in %s", m, this.interaction));
         }
@@ -84,7 +86,7 @@ public class MessageSequencer {
     @objid ("381fc833-463b-420f-9b8a-ca784e768148")
     public void updateModel() {
         //Log.trace(toString());
-        
+
         for (Entry<Message, String> entry : this.sequences.entrySet()) {
             Message msg = entry.getKey();
             String newSeq = entry.getValue();
@@ -92,7 +94,7 @@ public class MessageSequencer {
                 msg.setSequence(newSeq);
             }
         }
-        
+
     }
 
     @objid ("d8e46003-a8e9-4984-a2bd-bcf96f24f2bf")
@@ -105,14 +107,14 @@ public class MessageSequencer {
         if (bs==null) {
             bs = b.getReceiveEvent();
         }
-        
+
         int al = as == null ? Integer.MAX_VALUE : as.getLineNumber();
         int bl = bs == null ? Integer.MAX_VALUE : bs.getLineNumber();
         int d = al - bl;
         if (d == 0) {
             d = a.getName().compareTo(b.getName());
         }
-        
+
         if (d == 0) {
             return a.getUuid().compareTo(b.getUuid());
         }
@@ -121,6 +123,7 @@ public class MessageSequencer {
 
     /**
      * Compute the messages sequence number.
+     *
      * @return the sequence map
      */
     @objid ("0152a228-5771-46cb-a8f4-3f4f59edca86")
@@ -130,9 +133,9 @@ public class MessageSequencer {
         .flatMap(MessageSequencer::getMessages)
         .collect(Collectors.toCollection(() -> new TreeSet<>(MessageSequencer::compareMessages)))
         ;
-        
+
         Map<Message, String> ret = new HashMap<>(sortedSet.size());
-        
+
         for(Message m : sortedSet) {
             ret.put(m, String.valueOf(i));
             i++;
@@ -155,7 +158,7 @@ public class MessageSequencer {
         } else {
             return Stream.empty();
         }
-        
+
     }
 
     @objid ("b7abf7c0-2043-4cbb-a34e-2ccbbc5bdd1c")

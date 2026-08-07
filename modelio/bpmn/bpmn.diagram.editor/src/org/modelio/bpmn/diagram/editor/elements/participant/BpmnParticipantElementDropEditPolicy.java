@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.participant;
 
@@ -63,7 +63,7 @@ public class BpmnParticipantElementDropEditPolicy extends DefaultElementDropEdit
         if (!(model instanceof GmModel)) {
             return null;
         }
-        
+
         if (request.isSmart() && request.getDroppedElements().length == 1) {
             GmModel gmModel = (GmModel) getHost().getModel();
             IGmDiagram gmDiagram = gmModel.getDiagram();
@@ -82,7 +82,7 @@ public class BpmnParticipantElementDropEditPolicy extends DefaultElementDropEdit
         if (!request.isSmart()) {
             return null;
         }
-        
+
         GmModel gmModel = (GmModel) getHost().getModel();
         IGmDiagram gmDiagram = gmModel.getDiagram();
         BpmnParticipant element = (BpmnParticipant) gmModel.getRelatedElement();
@@ -101,11 +101,11 @@ public class BpmnParticipantElementDropEditPolicy extends DefaultElementDropEdit
         if (droppedElement instanceof BpmnProcess) {
             return true;
         }
-        
+
         IModelManager modelManager = gmDiagram.getModelManager();
         return BpmnParticipantElementDropEditPolicy.isMethodologicalLinkTarget(droppedElement, Represents.MdaTypes.STEREOTYPE_ELT, modelManager)
                 || BpmnParticipantElementDropEditPolicy.isMethodologicalLinkTarget(droppedElement, Reference.MdaTypes.STEREOTYPE_ELT, modelManager);
-        
+
     }
 
     @objid ("9cfd9def-b0e0-416d-8201-8ea9b2a81d0b")
@@ -134,15 +134,16 @@ public class BpmnParticipantElementDropEditPolicy extends DefaultElementDropEdit
 
         /**
          * Constructor to type the element.
+         *
          * @param elementToType the element to type.
          * @param newType the type to use.
          */
         @objid ("2bf7965e-4f87-41db-bc0e-9dced6f3b49b")
-        public  SmartTypeBpmnParticipantCommand(final BpmnParticipant elementToType, final ModelElement newType, final IModelManager modelManager) {
+        public SmartTypeBpmnParticipantCommand(final BpmnParticipant elementToType, final ModelElement newType, final IModelManager modelManager) {
             this.elementToType = elementToType;
             this.newType = newType;
             this.modelManager = modelManager;
-            
+
         }
 
         @objid ("76d06edb-cae3-472c-8c99-5dd558b09d28")
@@ -158,14 +159,14 @@ public class BpmnParticipantElementDropEditPolicy extends DefaultElementDropEdit
             if (isChangeConfirmed()) {
                 changeType();
             }
-            
+
         }
 
         @objid ("80168013-f8da-4f35-a481-d825609b2e7c")
         private boolean isChangeConfirmed() {
             // Warning message before replacing existing values
             StringBuilder warning = new StringBuilder();
-            
+
             MObject oldType = this.elementToType.getProcess();
             if (oldType == null) {
                 oldType = Represents.getTarget(this.elementToType);
@@ -173,11 +174,11 @@ public class BpmnParticipantElementDropEditPolicy extends DefaultElementDropEdit
             if (oldType == null) {
                 oldType = Reference.getTarget(this.elementToType);
             }
-            
+
             if (oldType != null && !oldType.equals(this.newType)) {
                 warning.append(DiagramEditorBpmn.I18N.getMessage("BpmnParticipantElementDropEditPolicy.confirmdialog.type", oldType.getName(), this.newType.getName()));
             }
-            
+
             if (warning.length() > 0 && !MessageDialog.openQuestion(
                     Display.getDefault().getActiveShell(),
                     DiagramEditorBpmn.I18N.getString("BpmnParticipantElementDropEditPolicy.confirmdialog.title"),
@@ -188,6 +189,7 @@ public class BpmnParticipantElementDropEditPolicy extends DefaultElementDropEdit
         }
 
         /**
+         *
          * @return a participant already referencing the type being unmasked.
          */
         @objid ("f4f27af7-49f0-410a-906d-0f28b5e717d3")
@@ -216,7 +218,7 @@ public class BpmnParticipantElementDropEditPolicy extends DefaultElementDropEdit
             if (oldProcess == null || this.elementToType.getName().equals(oldProcess.getName())) {
                 this.elementToType.setName(this.newType.getName());
             }
-            
+
             // Update type
             if (this.newType instanceof BpmnProcess) {
                 this.elementToType.setProcess((BpmnProcess) this.newType);
@@ -231,7 +233,7 @@ public class BpmnParticipantElementDropEditPolicy extends DefaultElementDropEdit
                 Reference.setTarget(this.elementToType, this.newType);
                 this.elementToType.setProcess(null);
             }
-            
+
         }
 
         @objid ("8dcc293a-fc71-43c3-bf13-57c96346c910")

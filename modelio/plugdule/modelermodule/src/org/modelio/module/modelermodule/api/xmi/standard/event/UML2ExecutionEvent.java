@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class UML2ExecutionEvent {
      * Tells whether a {@link UML2ExecutionEvent proxy} can be instantiated from a {@link MObject} checking it is a {@link Event} stereotyped << UML2ExecutionEvent >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,7 +73,7 @@ public class UML2ExecutionEvent {
 
     /**
      * Create a new {@link Event} stereotyped << UML2ExecutionEvent >> then instantiate a {@link UML2ExecutionEvent} proxy.
-     * 
+     *
      * @return a {@link UML2ExecutionEvent} proxy on the created {@link Event}.
      */
     @objid ("d4a29ea4-821a-4647-99c6-3f7da63fae62")
@@ -83,9 +84,10 @@ public class UML2ExecutionEvent {
     }
 
     /**
-     * Tries to instantiate a {@link UML2ExecutionEvent} proxy from a {@link Event} stereotyped << UML2ExecutionEvent >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2ExecutionEvent} proxy from a {@link Event} stereotyped << UML2ExecutionEvent >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a Event
      * @return a {@link UML2ExecutionEvent} proxy or <i>null</i>.
      */
@@ -95,9 +97,10 @@ public class UML2ExecutionEvent {
     }
 
     /**
-     * Tries to instantiate a {@link UML2ExecutionEvent} proxy from a {@link Event} stereotyped << UML2ExecutionEvent >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2ExecutionEvent} proxy from a {@link Event} stereotyped << UML2ExecutionEvent >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link Event}
      * @return a {@link UML2ExecutionEvent} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -127,7 +130,8 @@ public class UML2ExecutionEvent {
     }
 
     /**
-     * Get the underlying {@link Event}. 
+     * Get the underlying {@link Event}.
+     *
      * @return the Event represented by this proxy, never null.
      */
     @objid ("d3f080e4-36df-41ad-af62-682456417475")
@@ -139,11 +143,11 @@ public class UML2ExecutionEvent {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("daa9417b-33a0-47d9-b41c-74d7cc48f2bd")
-    protected  UML2ExecutionEvent(Event elt) {
+    protected UML2ExecutionEvent(Event elt) {
         this.elt = elt;
     }
 
@@ -163,7 +167,7 @@ public class UML2ExecutionEvent {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "15d2108f-5d0c-11df-a996-001302895b2b");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -171,7 +175,7 @@ public class UML2ExecutionEvent {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

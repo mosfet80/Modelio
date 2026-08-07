@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.stateMachineModel;
 
 import java.util.ArrayList;
@@ -44,46 +43,46 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("004e6c5e-c4bf-1fd8-97fe-001ec947cd2a")
 public class ConnectionPointReferenceImpl extends StateVertexImpl implements ConnectionPointReference {
-    @objid ("bda1e522-95f3-41bd-b5fd-ed4de912571c")
+    @objid ("b0fbe6cc-5e14-44f2-a36c-12fb294699d9")
     @Override
     public ExitPointPseudoState getExit() {
         Object obj = getDepVal(((ConnectionPointReferenceSmClass)getClassOf()).getExitDep());
         return (obj instanceof ExitPointPseudoState)? (ExitPointPseudoState)obj : null;
     }
 
-    @objid ("afbea99e-70c7-40c2-aff1-7f5bd9c17546")
+    @objid ("f9cbdaee-3073-45e7-acdf-c0616da6a6dd")
     @Override
     public void setExit(ExitPointPseudoState value) {
         appendDepVal(((ConnectionPointReferenceSmClass)getClassOf()).getExitDep(), (SmObjectImpl)value);
     }
 
-    @objid ("41b8821a-58cd-43a8-be12-df2479878b92")
+    @objid ("7af23c35-fe52-4ed4-89ae-a69bc16e50c6")
     @Override
     public EntryPointPseudoState getEntry() {
         Object obj = getDepVal(((ConnectionPointReferenceSmClass)getClassOf()).getEntryDep());
         return (obj instanceof EntryPointPseudoState)? (EntryPointPseudoState)obj : null;
     }
 
-    @objid ("54b0d907-f1c0-4fc9-9d15-61de459bda7a")
+    @objid ("d0cd7d8e-8e1b-4829-a8d5-ebda80591464")
     @Override
     public void setEntry(EntryPointPseudoState value) {
         appendDepVal(((ConnectionPointReferenceSmClass)getClassOf()).getEntryDep(), (SmObjectImpl)value);
     }
 
-    @objid ("b7c19cff-e48d-47c0-ae87-e07180c4008e")
+    @objid ("373381e9-bbbc-4cda-89ab-45a5c4ca2f04")
     @Override
     public State getOwnerState() {
         Object obj = getDepVal(((ConnectionPointReferenceSmClass)getClassOf()).getOwnerStateDep());
         return (obj instanceof State)? (State)obj : null;
     }
 
-    @objid ("5c582fb4-ed6d-413c-8220-cc57e1c2f035")
+    @objid ("5901a5b7-2c80-4feb-9d04-95211876e008")
     @Override
     public void setOwnerState(State value) {
         appendDepVal(((ConnectionPointReferenceSmClass)getClassOf()).getOwnerStateDep(), (SmObjectImpl)value);
     }
 
-    @objid ("1dee4ce2-1aa3-49ef-9bad-163a6e923ef5")
+    @objid ("84ee0803-cbd6-4358-a0de-a6a6fc2124bd")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -95,22 +94,22 @@ public class ConnectionPointReferenceImpl extends StateVertexImpl implements Con
         return super.getCompositionOwner();
     }
 
-    @objid ("dcd3bd3e-63a2-4795-82eb-e84fdfcd0b87")
+    @objid ("c986b4ae-1ad3-43b8-bd76-9a8ed9e80d09")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // OwnerState
         dep = ((ConnectionPointReferenceSmClass)getClassOf()).getOwnerStateDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("a0c5ade8-e50f-4795-9781-f9ebde1d2c69")
+    @objid ("6c07fa41-ee9d-4d55-b6b0-d052da3d0a54")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitConnectionPointReference(this);

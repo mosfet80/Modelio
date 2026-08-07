@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.plugin;
 
@@ -28,6 +28,7 @@ import org.modelio.diagram.elements.common.abstractdiagram.IDynamicStyler;
 @objid ("6670d454-33f7-11e2-95fe-001ec947c8cc")
 public interface IDiagramConfigurer {
     /**
+     *
      * @return the ID of the contribution.
      */
     @objid ("6670d45b-33f7-11e2-95fe-001ec947c8cc")
@@ -35,6 +36,7 @@ public interface IDiagramConfigurer {
 
     /**
      * Fills the diagram palette
+     *
      * @param diagram the diagram editor
      * @param toolRegistry the tool registry where you can look for a tool from its identifier.
      * @return the created diagram palette.
@@ -43,6 +45,7 @@ public interface IDiagramConfigurer {
     PaletteRoot initPalette(final AbstractDiagramEditor diagram, final ToolRegistry toolRegistry);
 
     /**
+     *
      * @return a decorator for graphical models in the diagram. Might be <code>null</code>.
      */
     @objid ("638bc50f-6473-4e1d-9e49-097faf6566d1")
@@ -51,6 +54,7 @@ public interface IDiagramConfigurer {
     }
 
     /**
+     *
      * @return the module diagram customized this palette is based on. Might be <code>null</code>.
      * @since 4.2
      */
@@ -58,5 +62,5 @@ public interface IDiagramConfigurer {
     default IDiagramCustomizer getModuleCustomizer() {
         return null;
     }
-}
 
+}

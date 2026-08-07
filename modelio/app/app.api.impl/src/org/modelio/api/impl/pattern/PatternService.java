@@ -1,54 +1,70 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.api.impl.pattern;
 
 import java.nio.file.Path;
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.modelio.api.modelio.pattern.IPatternService;
-import org.modelio.api.modelio.pattern.IPatternService.PatternException;
 import org.modelio.gproject.core.IGModelFragment;
 import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.patterns.model.ProfileUtils;
 import org.modelio.patterns.model.ProfileUtils.PatternDesignerStereotypes;
 import org.modelio.patterns.model.RuntimePattern;
-import org.modelio.platform.project.services.IProjectService;
+import org.modelio.platform.core.project.ICurrentProjectService;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("f853e772-63e5-4dba-b9bd-1110bd230d61")
 public class PatternService implements IPatternService {
     @objid ("ca3f961e-438b-4023-bec6-d8414926bb75")
-    private org.modelio.patterns.api.IPatternService patternService;
+    private final org.modelio.patterns.api.IPatternService patternService;
 
     @objid ("7b43fab9-c756-4cb1-aa8e-d9940040d90b")
-    private IProjectService projectService;
+    private final ICurrentProjectService projectService;
 
     @objid ("272dd984-11d7-4315-a451-ae8c44da8c3f")
-    public  PatternService(final IEclipseContext eclipseContext) {
+    public PatternService(final IEclipseContext eclipseContext) {
         this.patternService = eclipseContext.get(org.modelio.patterns.api.IPatternService.class);
-        this.projectService = eclipseContext.get(IProjectService.class);
-        
+        this.projectService = eclipseContext.get(ICurrentProjectService.class);
     }
 
     @objid ("7a484490-62c1-4bcc-85e8-c47109b7541f")
@@ -59,9 +75,8 @@ public class PatternService implements IPatternService {
             pattern.setPatternPath(patternPath.resolve(pattern.getName() + ".umlt"));
             this.patternService.exportPattern(pattern);
         } else {
-            throw new InvalidParameterException("Invalid pattern");
+            throw new IllegalArgumentException(modelPattern+" is not a <<"+PatternDesignerStereotypes.PATTERN+">> stereotyped element.");
         }
-        
     }
 
     @objid ("6ccc33ca-ef6e-4064-a9c4-66456806499f")
@@ -95,10 +110,9 @@ public class PatternService implements IPatternService {
     public void removePattern(final String patternName) throws PatternException {
         RuntimePattern pattern = this.patternService.getCatalog().getPattern(patternName);
         if (pattern == null) {
-            throw new PatternException("Invalid pattern " + patternName);
+            throw new PatternException("Pattern not found in catalog: " + patternName);
         }
         this.patternService.getCatalog().removePattern(pattern);
-        
     }
 
     @objid ("eb279c38-1f10-488d-9609-677aa746ace7")
@@ -106,7 +120,7 @@ public class PatternService implements IPatternService {
     public boolean canApplyPattern(final String patternName) throws PatternException {
         RuntimePattern pattern = this.patternService.getCatalog().getPattern(patternName);
         if (pattern == null) {
-            throw new PatternException("Invalid pattern " + patternName);
+            throw new PatternException("Pattern not found in catalog: " + patternName);
         }
         return pattern.isValid(this.patternService.getCatalog().getAvailableLibraries(), this.patternService.getCatalog().getAvailableModules());
     }
@@ -119,7 +133,6 @@ public class PatternService implements IPatternService {
             throw new PatternException("Invalid pattern " + patternName);
         }
         pattern.applyPattern(parameters, this.projectService.getSession(), getModelRoot());
-        
     }
 
     @objid ("ba0855f4-91e0-4d41-8cce-1383100d6265")
@@ -127,24 +140,23 @@ public class PatternService implements IPatternService {
     public void applyPattern(final Path patternPath, final Map<String, Object> parameters) throws PatternException {
         RuntimePattern pattern = new RuntimePattern(patternPath);
         pattern.applyPattern(parameters, this.projectService.getSession(), getModelRoot());
-        
     }
 
     @objid ("80745b6d-debe-469b-a17b-01ce2d96fa1b")
-    private MObject getModelRoot() {
+    private MObject getModelRoot() throws PatternException {
         for (IGModelFragment fragment : this.projectService.getOpenedProject().getParts(IGModelFragment.class)) {
-            switch (fragment.getType()) {
-            case EXMLFRAGMENT:
-            case SVNFRAGMENT:
-                if (fragment.getRoots().size() > 0) {
-                    return fragment.getRoots().iterator().next();
-                }
-                break;
-            default:
-                break;
-            }
+            if (!fragment.getAccessRights().isEditable())
+                continue;
+
+            Collection<MObject> roots = fragment.getRoots();
+            if (roots.isEmpty())
+                continue;
+
+            return roots.iterator().next();
+
         }
-        return null;
+
+        throw new PatternException("No editable root element was found in the project.");
     }
 
 }

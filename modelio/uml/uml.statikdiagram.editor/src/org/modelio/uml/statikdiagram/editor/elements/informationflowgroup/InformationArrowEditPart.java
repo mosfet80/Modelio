@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.informationflowgroup;
 
@@ -32,7 +32,7 @@ import org.modelio.diagram.styles.core.MetaKey;
  * Edit part for {@link GmInformationFlowArrow}.
  * <p>
  * Creates a filled arrow on the connection owning it. The arrow is filled with the line color.
- * 
+ *
  * @author cmarin
  */
 @objid ("81734c4a-1dec-11e2-8cad-001ec947c8cc")
@@ -57,7 +57,7 @@ public class InformationArrowEditPart extends AbstractNodeEditPart {
         deco.setScale(12, 10);
         deco.setOpaque(true);
         deco.setFill(true);
-        
+
         refreshFromStyle(deco, getModelStyle());
         return deco;
     }
@@ -66,14 +66,14 @@ public class InformationArrowEditPart extends AbstractNodeEditPart {
     @Override
     protected void refreshFromStyle(final IFigure aFigure, final IStyle style) {
         super.refreshFromStyle(aFigure, style);
-        
+
         final DefaultPolygonDecoration pen = (DefaultPolygonDecoration) aFigure;
-        
+
         IGmObject gmModel = getModel();
-        
+
         if (gmModel.getStyleKey(MetaKey.LINECOLOR) != null)
             pen.setFillColor(style.getColor(gmModel.getStyleKey(MetaKey.LINECOLOR)));
-        
+
     }
 
 }

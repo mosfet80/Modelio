@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra;
 
@@ -41,105 +41,104 @@ import org.modelio.platform.mda.infra.service.impl.common.FallbackModuleI18n;
  * </p>
  * <p>
  * The returned icons (or images) only represents the raw images (no additional decorations).
- * 
- * 
+ *
  * @since 5.2
  */
 @objid ("9153e358-2b5b-4ba8-80cd-e238396ebac7")
 public class MdaResourceService implements IMdaResourceProvider, IMdaResourceProviderRegistry {
     @objid ("db29e8d3-d579-43d1-ac18-eef4dc31d119")
     private static final IMdaResourceProvider FALLBACK = new IMdaResourceProvider() {
-    
+
             @Override
             public String getDescription(PropertyDefinition element) {
                 return FallbackModuleI18n.instance.getDescription(element);
             }
-    
+
             @Override
             public String getDescription(Profile element) {
                 return FallbackModuleI18n.instance.getDescription(element);
             }
-    
+
             @Override
             public String getDescription(Stereotype element) {
                 return FallbackModuleI18n.instance.getDescription(element);
             }
-    
+
             @Override
             public String getDescription(NoteType element) {
                 return FallbackModuleI18n.instance.getDescription(element);
             }
-    
+
             @Override
             public String getDescription(TagType element) {
                 return FallbackModuleI18n.instance.getDescription(element);
             }
-    
+
             @Override
             public String getDescription(ResourceType element) {
                 return FallbackModuleI18n.instance.getDescription(element);
             }
-    
+
             @Override
             public Image getIcon(Stereotype stereotype) {
                 return null;
             }
-    
+
             @Override
             public Image getImage(Stereotype stereotype) {
                 return null;
             }
-    
+
             @Override
             public String getLabel(Stereotype stereotype) {
                 return FallbackModuleI18n.instance.getLabel(stereotype);
             }
-    
+
             @Override
             public String getLabel(TagType tagType) {
                 return FallbackModuleI18n.instance.getLabel(tagType);
             }
-    
+
             @Override
             public String getLabel(NoteType noteType) {
                 return FallbackModuleI18n.instance.getLabel(noteType);
             }
-    
+
             @Override
             public String getLabel(ResourceType resourceType) {
                 return FallbackModuleI18n.instance.getLabel(resourceType);
             }
-    
+
             @Override
             public String getLabel(ModuleComponent module) {
                 return module.getName();
             }
-    
+
             @Override
             public String getLabel(PropertyDefinition pdef) {
                 return FallbackModuleI18n.instance.getLabel(pdef);
             }
-    
+
             @Override
             public String getLabel(Profile profile) {
                 return FallbackModuleI18n.instance.getLabel(profile);
             }
-    
+
             @Override
             public Image getModuleImage(ModuleComponent moduleComponent) {
                 return null;
             }
-    
+
             @Override
             public Image getIcon(Profile profile) {
                 return null;
             }
-    
+
             @Override
             public Image getImage(Profile profile) {
                 return null;
             }
-    
+
             @Override
             public Image getModuleIcon(ModuleComponent moduleComponent) {
                 return null;
@@ -187,6 +186,7 @@ public class MdaResourceService implements IMdaResourceProvider, IMdaResourcePro
 
     /**
      * Get the icon provided by the module for a given stereotype. The life cycle of the returned image is handled by the module and the image should not be disposed.
+     *
      * @param stereotype a stereotype
      * @return the stereotype image, or <code>null</code> if the module provides none.
      */
@@ -198,6 +198,7 @@ public class MdaResourceService implements IMdaResourceProvider, IMdaResourcePro
 
     /**
      * Get the image provided by the module for a given stereotype.The life cycle of the returned image is handled by the module and the image should not be disposed.
+     *
      * @param stereotype a stereotype
      * @return the stereotype image, or <code>null</code> if the module provides none.
      */
@@ -251,6 +252,7 @@ public class MdaResourceService implements IMdaResourceProvider, IMdaResourcePro
 
     /**
      * Returns an Image for a module. The image life cycle is handled by the module.
+     *
      * @param module the module to get the image from.
      * @return an Image for a module. Might be <code>null</code>.
      */
@@ -262,6 +264,7 @@ public class MdaResourceService implements IMdaResourceProvider, IMdaResourcePro
 
     /**
      * Get the icon provided by the module for a given profile. The life cycle of the returned image is handled by the module and the image should not be disposed.
+     *
      * @param profile a profile
      * @return the profile image, or <code>null</code> if the module provides none.
      */
@@ -296,7 +299,7 @@ public class MdaResourceService implements IMdaResourceProvider, IMdaResourcePro
             }
             return provider;
         }
-        
+
     }
 
     @objid ("9a4f2396-093d-4185-b368-492bdbdfa482")
@@ -307,10 +310,10 @@ public class MdaResourceService implements IMdaResourceProvider, IMdaResourcePro
                 ((LocalModuleMdaResourceProvider) value).dispose();
             }
         });
-        
+
         // Clear all providers
         this.mdaResourceProviders.clear();
-        
+
     }
 
     @objid ("6a7ec843-b8b5-4249-91d1-074b69267114")

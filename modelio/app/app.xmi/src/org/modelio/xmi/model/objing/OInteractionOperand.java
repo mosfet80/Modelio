@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -28,6 +28,7 @@ import org.modelio.xmi.util.ObjingEAnnotation;
 
 /**
  * This class handles the export of org.eclipse.uml2.uml.InteractionFragment
+ *
  * @author ebrosse
  */
 @objid ("aaf9d8b4-c9d2-43d3-b8eb-04f4ef964ddc")
@@ -39,7 +40,7 @@ public class OInteractionOperand extends OInteractionFragment {
     }
 
     @objid ("a400db1c-46c1-4671-86fe-91959f46333f")
-    public  OInteractionOperand(InteractionOperand param) {
+    public OInteractionOperand(InteractionOperand param) {
         super(param);
     }
 
@@ -50,10 +51,10 @@ public class OInteractionOperand extends OInteractionFragment {
                 .getOwnerFragment();
         org.eclipse.uml2.uml.CombinedFragment fragment =  (org.eclipse.uml2.uml.CombinedFragment) GenerationProperties.getInstance()
                 .getMappedElement(objCombin);
-        
+
         if (fragment != null)
             fragment.getOperands().add((org.eclipse.uml2.uml.InteractionOperand)ecoreElt);
-        
+
     }
 
     @objid ("aed0b7bb-96e2-4340-9a0a-ed93f1412a2b")
@@ -61,11 +62,11 @@ public class OInteractionOperand extends OInteractionFragment {
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
         setGuard((org.eclipse.uml2.uml.InteractionOperand) ecoreElt);
-        
+
         if (GenerationProperties.getInstance().isRoundtripEnabled()){
             setEndLineNumber(ecoreElt);
         }
-        
+
     }
 
     @objid ("bf9a1003-a8e9-4377-a7d7-dc09b231cdaa")
@@ -82,7 +83,7 @@ public class OInteractionOperand extends OInteractionFragment {
             constraint.setSpecification(valueSpecification);
             ecoreElt.setGuard(constraint);
         }
-        
+
     }
 
     @objid ("f95a7098-1b09-42bc-9151-84f0eed26a3f")

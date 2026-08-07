@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -34,6 +34,7 @@ import org.modelio.xmi.util.ObjingEAnnotation;
 
 /**
  * This class manages the export of Modelio IDatatype
+ *
  * @author ebrosse
  */
 @objid ("e3c65e84-ec06-4d0a-898e-a951ad2f3ad2")
@@ -45,7 +46,7 @@ public class ODataType extends ONameSpace {
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         MObject objingOwner = this.objingElement.getCompositionOwner();
-        
+
         if ( objingOwner instanceof Signal) {
             String eltName = this.objingElement.getName();
             String eltClassName = this.objingElement.getMClass().getName();
@@ -55,35 +56,36 @@ public class ODataType extends ONameSpace {
             GenerationProperties.getInstance().addError(message, this.objingElement);
             return null;
         }
-        
+
         if (ModelioPrimitiveTypeMapper.isPredefinedType(this.objingElement)){
             return  ModelioPrimitiveTypeMapper.getEcoreType(this.objingElement);
         }else if (this.objingElement.isIsElementary())
             return UMLFactory.eINSTANCE.createPrimitiveType();
         else
             return UMLFactory.eINSTANCE.createDataType();
-        
+
     }
 
     /**
      * Constructor with an the exported DataType
+     *
      * @param element : the exported DataType
      */
     @objid ("74af972b-798c-429f-8449-242386243434")
-    public  ODataType(DataType element) {
+    public ODataType(DataType element) {
         super(element);
         this.objingElement = element;
-        
+
     }
 
     @objid ("809e828a-b8dd-4629-a358-501b40444a7a")
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
-        
+
         ModelTree objingOwner = this.objingElement.getOwner();
         org.eclipse.uml2.uml.Element ecoreOwner = genProp.getMappedElement(objingOwner);
-        
+
         if (ecoreOwner != null) {
             if (ecoreOwner instanceof org.eclipse.uml2.uml.Package) {
                 org.eclipse.uml2.uml.Package ownerIsPkg = (org.eclipse.uml2.uml.Package) ecoreOwner;
@@ -116,7 +118,7 @@ public class ODataType extends ONameSpace {
                         + ecoreOwner.getClass().getSimpleName() + ") Not Found");
             }
         }
-        
+
     }
 
     @objid ("de7ef657-9769-47cb-a0f8-6ca975163441")
@@ -127,13 +129,13 @@ public class ODataType extends ONameSpace {
         // -> else => export as a org.eclipse.uml2.uml.DataType element.
         //UML Properties
         setLeaf((org.eclipse.uml2.uml.DataType) ecoreElt);
-        
+
         //Modelio Properties
         if (GenerationProperties.getInstance().isRoundtripEnabled()){
             setRootEAnnotation( ecoreElt);
             setPrimitiveEAnnotation(ecoreElt, this.objingElement.isIsElementary());
         }
-        
+
     }
 
     @objid ("4df192dc-fb7b-4077-8b74-b6f2dea6428f")

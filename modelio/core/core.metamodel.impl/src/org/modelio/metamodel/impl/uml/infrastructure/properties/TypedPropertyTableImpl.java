@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure.properties;
 
 import java.util.ArrayList;
@@ -67,7 +66,7 @@ public class TypedPropertyTableImpl extends PropertyTableImpl implements TypedPr
         // assert the property definition belongs to the table type
         assert (getType() != null && pdef.getOwner().equals(getType())) : pdef+" does not belong to "+getType();
         setProperty(pdef.getName(), value);
-        
+
     }
 
     @objid ("dcabea63-bd75-41ac-a24e-b9a053e89a0d")
@@ -76,7 +75,7 @@ public class TypedPropertyTableImpl extends PropertyTableImpl implements TypedPr
         // Delegate conversion to the PropertyDefinition
         String storedValue = pdef.convertToString(value, (ModelElement) getCompositionOwner());
         setProperty(pdef, storedValue);
-        
+
     }
 
     @objid ("a97851f1-66a1-4ab1-b1d5-62c6b9a76e3b")
@@ -106,7 +105,7 @@ public class TypedPropertyTableImpl extends PropertyTableImpl implements TypedPr
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 

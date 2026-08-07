@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.commands;
 
@@ -32,7 +32,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * Command that deletes a model element from the model.
- * 
+ *
  * @author cmarin
  */
 @objid ("7f3e3f2b-1dec-11e2-8cad-001ec947c8cc")
@@ -44,16 +44,17 @@ public class DeleteInModelCommand extends Command {
      * Create a delete command.
      */
     @objid ("7f3e3f32-1dec-11e2-8cad-001ec947c8cc")
-    public  DeleteInModelCommand() {
-        
+    public DeleteInModelCommand() {
+
     }
 
     /**
      * Create a delete command.
+     *
      * @param toDelete The element to delete.
      */
     @objid ("7f3e3f35-1dec-11e2-8cad-001ec947c8cc")
-    public  DeleteInModelCommand(MObject toDelete) {
+    public DeleteInModelCommand(MObject toDelete) {
         addElementToDelete(toDelete);
     }
 
@@ -65,11 +66,12 @@ public class DeleteInModelCommand extends Command {
                 el.delete();
             }
         }
-        
+
     }
 
     /**
      * Add an element to delete.
+     *
      * @param el an element to delete.
      * @return this instance to chain calls
      */
@@ -87,7 +89,7 @@ public class DeleteInModelCommand extends Command {
         if (label != null && !label.isEmpty()) {
             return label;
         }
-        
+
         // Compute and cache with setLabel() the command label.
         if (this.toDelete.size()==1) {
             MObject obj = this.toDelete.iterator().next();
@@ -108,7 +110,7 @@ public class DeleteInModelCommand extends Command {
     public boolean canExecute() {
         for (MObject el : this.toDelete) {
             final MObject owner = el.getCompositionOwner();
-        
+
             // Standard rules: The element must be modifiable and either its owner is modifiable OR the element is a CMS node that is not a RAMC and
             // not CMS Managed. If any of these condition is not met, return false!
             if (!MTools.getAuthTool().canRemoveFrom(el, owner)) {

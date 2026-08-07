@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.gui.creation.model;
 
@@ -58,7 +58,7 @@ class ModelPanelUI {
     Composite top = null;
 
     @objid ("c2253e98-3cd1-4e5f-94b6-f6350861ea70")
-    public  ModelPanelUI(ModelPanelController controller) {
+    public ModelPanelUI(ModelPanelController controller) {
         this.controller = controller;
     }
 
@@ -66,12 +66,12 @@ class ModelPanelUI {
     public Control createUI(Composite parent) {
         this.top = new Composite(parent, SWT.NONE);
         this.top.setLayout(new GridLayout(2, false));
-        
+
         // Name field
         Label nameLabel = new Label(this.top, SWT.NONE);
         nameLabel.setText(EditorsRichNote.I18N.getString("ModelWizardPage.Name.label"));
         nameLabel.setLayoutData(GridDataFactory.fillDefaults().grab(false, false).align(SWT.LEFT, SWT.CENTER).create());
-        
+
         this.nameText = new Text(this.top, SWT.SINGLE | SWT.BORDER);
         this.nameText.setLayoutData(GridDataFactory.fillDefaults().grab(true, false).create());
         this.nameText.setToolTipText(EditorsRichNote.I18N.getString("ModelWizardPage.Name.tooltip"));
@@ -81,19 +81,19 @@ class ModelPanelUI {
                 ModelPanelUI.this.controller.onNameChanged(ModelPanelUI.this.nameText.getText(), true);
             }
         });
-        
+
         this.nameText.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
                 ModelPanelUI.this.controller.onNameChanged(ModelPanelUI.this.nameText.getText(), false);
             }
         });
-        
+
         // Document type
         Label docTypeLabel = new Label(this.top, SWT.NONE);
         docTypeLabel.setText(EditorsRichNote.I18N.getString("ModelWizardPage.DocType.label"));
         docTypeLabel.setLayoutData(GridDataFactory.fillDefaults().grab(false, false).create());
-        
+
         this.docTypeDriver = new DocTypeChooserDriver();
         this.docTypeViewer = this.docTypeDriver.createViewer(this.top);
         this.docTypeViewer.getControl().setToolTipText(EditorsRichNote.I18N.getString("ModelWizardPage.DocType.tooltip"));
@@ -101,12 +101,12 @@ class ModelPanelUI {
         this.docTypeViewer.addSelectionChangedListener(e -> {
             ModelPanelUI.this.controller.onDocTypeChanged(ModelPanelUI.this.docTypeDriver.getSelection());
         });
-        
+
         // Abstract field
         Label abstractLabel = new Label(this.top, 0);
         abstractLabel.setText(EditorsRichNote.I18N.getString("ModelWizardPage.Abstract.label"));
         abstractLabel.setLayoutData(GridDataFactory.fillDefaults().grab(false, false).create());
-        
+
         this.abstractText = new Text(this.top, SWT.MULTI | SWT.BORDER);
         this.abstractText.setToolTipText(EditorsRichNote.I18N.getString("ModelWizardPage.Abstract.tooltip"));
         this.abstractText.setLayoutData(GridDataFactory.fillDefaults().grab(true, true).create());
@@ -116,7 +116,7 @@ class ModelPanelUI {
                 ModelPanelUI.this.controller.onAbstractChanged(ModelPanelUI.this.abstractText.getText(), true);
             }
         });
-        
+
         this.abstractText.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
@@ -136,16 +136,16 @@ class ModelPanelUI {
         if (data != null) {
             this.nameText.setText(data.getName());
             this.docTypeDriver.init(data.getTargetElement());
-        
+
             // Really ugly hack to ensure a default type
             ResourceType defaultType = this.docTypeDriver.getDefaultDocumentType();
             if (data.getDocumentType() == null)
                 controller.onDocTypeChanged(defaultType);
-        
+
             this.docTypeDriver.selectInViewer(data.getDocumentType());
             this.abstractText.setText(data.getAbstract());
         }
-        
+
     }
 
 }

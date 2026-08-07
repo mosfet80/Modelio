@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package com.sun.star.comp.beans;
 
@@ -27,6 +27,7 @@ import org.eclipse.swt.widgets.Control;
 
 /**
  * OS Detection service class.
+ *
  * @author cmarin
  */
 @objid ("b9b53cb5-da43-4d8e-a527-b095fe6cd612")
@@ -39,6 +40,7 @@ public class OSDetect {
 
     /**
      * Tells whether the OS is a Linux
+     *
      * @return <code>true</code> if the OS is Linux.
      */
     @objid ("7cac20e4-5fd6-42c1-b298-60bc3143b11b")
@@ -50,12 +52,13 @@ public class OSDetect {
      * Don't instantiate.
      */
     @objid ("2f9d665f-fef9-43ba-b7cd-c1952b3d58c5")
-    private  OSDetect() {
-        
+    private OSDetect() {
+
     }
 
     /**
      * Test whether the runtime operating system is a Windows variant.
+     *
      * @return true if the runtime OS is Windows
      */
     @objid ("f147a91d-b9c8-4095-920b-b9cdca218fe3")
@@ -65,6 +68,7 @@ public class OSDetect {
 
     /**
      * Test whether the runtime operating system is "unix-like".
+     *
      * @return true if the runtime OS is unix-like, Linux, Unix, FreeBSD etc
      */
     @objid ("385174d0-7535-46d6-a608-5b7ce6958fa1")
@@ -74,6 +78,7 @@ public class OSDetect {
 
     /**
      * Test whether the runtime operating system is a Mac variant.
+     *
      * @return true if the runtime OS is Mac
      */
     @objid ("cf60fdea-5d98-42b0-ae89-1529321f478c")
@@ -83,6 +88,7 @@ public class OSDetect {
 
     /**
      * Retrieves a platform dependent system window identifier.
+     *
      * @return The system window identifier.
      */
     @objid ("1826119c-ba98-41be-8989-55e3361dfa2a")
@@ -96,7 +102,7 @@ public class OSDetect {
                 Class<?> idClass = Class.forName("org.eclipse.swt.internal.cocoa.id");
                 _idField = idClass.getDeclaredField("id");
                 return _idField.getLong(view);
-        
+
             } else if (OSDetect.isNix()) {
                 _idField = Composite.class.getDeclaredField("embeddedHandle");
                 return _idField.getLong(c);
@@ -111,11 +117,12 @@ public class OSDetect {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-        
+
     }
 
     /**
      * Retrieves a platform dependent system window type.
+     *
      * @return The system window type.
      */
     @objid ("92ef48cd-3906-4910-b2a0-c23b87fd3c24")
@@ -127,7 +134,7 @@ public class OSDetect {
         } else {
             return SystemDependent.SYSTEM_XWINDOW;
         }
-        
+
     }
 
 }

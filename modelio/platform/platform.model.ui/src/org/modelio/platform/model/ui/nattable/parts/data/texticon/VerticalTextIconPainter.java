@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.parts.data.texticon;
 
@@ -59,16 +59,17 @@ public class VerticalTextIconPainter extends AbstractCellPainter {
      * Create a new painter that doesn't underline the cell's contents.
      */
     @objid ("5d745960-a64e-427f-b3b0-361be347c8df")
-    public  VerticalTextIconPainter() {
+    public VerticalTextIconPainter() {
         this(false);
     }
 
     /**
      * Create a new painter.
+     *
      * @param underline whether the painter should underline the cell's contents or not.
      */
     @objid ("eca61429-b4cc-45cb-904c-7266f4c0dd68")
-    public  VerticalTextIconPainter(boolean underline) {
+    public VerticalTextIconPainter(boolean underline) {
         this.underline = underline;
     }
 
@@ -78,6 +79,7 @@ public class VerticalTextIconPainter extends AbstractCellPainter {
      * <dt><b>Styles: </b></dt>
      * <dd>UP, DOWN</dd>
      * </dl>
+     *
      * @param image the image to draw
      * @param x the x coordinate of the top left corner of the drawing rectangle
      * @param y the y coordinate of the top left corner of the drawing rectangle
@@ -92,14 +94,14 @@ public class VerticalTextIconPainter extends AbstractCellPainter {
         // Get the current display
         Display display = Display.getCurrent();
         if (display == null) SWT.error(SWT.ERROR_THREAD_INVALID_ACCESS);
-        
+
         // Use the image's data to create a rotated image's data
         ImageData sd = image.getImageData();
         ImageData dd = new ImageData(sd.height, sd.width, sd.depth, sd.palette);
-        
+
         // Determine which way to rotate, depending on up or down
         boolean up = (style & SWT.UP) == SWT.UP;
-        
+
         // Run through the horizontal pixels
         for (int sx = 0; sx < sd.width; sx++) {
           // Run through the vertical pixels
@@ -107,22 +109,21 @@ public class VerticalTextIconPainter extends AbstractCellPainter {
             // Determine where to move pixel to in destination image data
             int dx = up ? sy : sd.height - sy - 1;
             int dy = up ? sd.width - sx - 1 : sx;
-        
+
             // Swap the x, y source data to y, x in the destination
             dd.setPixel(dx, dy, sd.getPixel(sx, sy));
             dd.setAlpha(dx, dy, sd.getAlpha(sx, sy));
           }
         }
-        
+
         // Create the vertical image
         Image vertical = new Image(display, dd);
-        
+
         // Draw the vertical image onto the original GC
         gc.drawImage(vertical, x, y);
-        
+
         // Dispose the vertical image
         vertical.dispose();
-        
     }
 
     @objid ("70851a8e-29ea-4e16-8fb2-1591c32c1b1d")
@@ -130,7 +131,7 @@ public class VerticalTextIconPainter extends AbstractCellPainter {
     public int getPreferredHeight(ILayerCell cell, GC gc, IConfigRegistry configRegistry) {
         final Image image = getImage(cell, configRegistry);
         final int imageHeight = (image != null) ? image.getBounds().height : 0;
-        
+
         setupGCFromConfig(gc, CellStyleUtil.getCellStyle(cell, configRegistry));
         int textHeight = gc.textExtent(convertDataType(cell, configRegistry).getText()).y;
         if (this.underline) {
@@ -144,12 +145,12 @@ public class VerticalTextIconPainter extends AbstractCellPainter {
     public int getPreferredWidth(ILayerCell cell, GC gc, IConfigRegistry configRegistry) {
         final IStyle cellStyle = CellStyleUtil.getCellStyle(cell, configRegistry);
         setupGCFromConfig(gc, cellStyle);
-        
+
         final Image image = getImage(cell, configRegistry);
         final int imageWidth = (image != null) ? image.getBounds().height : 0;
-        
+
         final int textWidth = gc.textExtent(convertDataType(cell, configRegistry).getText()).y;
-        
+
         int spacing = 16;
         HorizontalAlignmentEnum horizontalAlignment = cellStyle.getAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT);
         if (horizontalAlignment == HorizontalAlignmentEnum.CENTER) {
@@ -162,48 +163,47 @@ public class VerticalTextIconPainter extends AbstractCellPainter {
     @Override
     public void paintCell(ILayerCell cell, GC gc, Rectangle bounds, IConfigRegistry configRegistry) {
         final IStyle cellStyle = CellStyleUtil.getCellStyle(cell, configRegistry);
-        
-        
-        
+
+
+
         final TextIcon textIcon = convertDataType(cell, configRegistry);
         final String text = textIcon.getText();
         final Image icon = textIcon.getIcon();
         final Rectangle imageBounds = icon != null ? icon.getBounds() : new Rectangle(0, 0, 0, 0);
-        
+
         // Compute x padding
         String displayedText = text;
         setupGCFromConfig(gc, cellStyle);
-        
+
         int fontHeight = gc.getFontMetrics().getHeight();
         int contentHeight = fontHeight * 1 /* one line */;
-        
+
         if (gc.textExtent(displayedText).x > bounds.height - imageBounds.height - 3) {
             displayedText = truncateText(text, gc, bounds.height - imageBounds.height - 3);
         }
-        
+
         int x = bounds.x + CellStyleUtil.getHorizontalAlignmentPadding(cellStyle, bounds, imageBounds.width);
         int y = bounds.y + bounds.height - imageBounds.height - 3 - CellStyleUtil.getVerticalAlignmentPadding(cellStyle, bounds, imageBounds.height + gc.textExtent(displayedText).x);
-        
+
         // Paint Icon
         if (icon != null) {
             drawVerticalImage(icon, x, y, gc, SWT.UP);
         }
-        
+
         // Paint Text
         x = bounds.x + CellStyleUtil.getHorizontalAlignmentPadding(cellStyle, bounds, contentHeight);
         y = y - gc.textExtent(displayedText).x - 3;
         bounds.width -= imageBounds.width + 1;
-        
+
         GraphicsUtils.drawVerticalText(
-                displayedText, 
+                displayedText,
                 x,
                 y,
                 this.underline,
                 false,
                 true,
-                gc, 
+                gc,
                 SWT.UP | SWT.DRAW_TRANSPARENT | SWT.DRAW_DELIMITER);
-        
     }
 
     /**
@@ -214,24 +214,23 @@ public class VerticalTextIconPainter extends AbstractCellPainter {
     protected TextIcon convertDataType(ILayerCell cell, IConfigRegistry configRegistry) {
         Object canonicalValue = cell.getDataValue();
         Object displayValue;
-        
+
         IDisplayConverter displayConverter = configRegistry.getConfigAttribute(
                 CellConfigAttributes.DISPLAY_CONVERTER,
                 cell.getDisplayMode(),
                 cell.getConfigLabels().getLabels());
-        
+
         if (displayConverter != null) {
             displayValue = displayConverter.canonicalToDisplayValue(cell, configRegistry, canonicalValue);
         } else {
             displayValue = canonicalValue;
         }
-        
+
         if (displayValue instanceof TextIcon) {
             return (TextIcon) displayValue;
         } else {
             return new TextIcon(String.valueOf(displayValue), null); //$NON-NLS-1$
         }
-        
     }
 
     @objid ("b33cc79a-46d9-4b89-909f-a777246aeecc")
@@ -248,13 +247,12 @@ public class VerticalTextIconPainter extends AbstractCellPainter {
         final Color fg = cellStyle.getAttributeValue(CellStyleAttributes.FOREGROUND_COLOR);
         final Color bg = cellStyle.getAttributeValue(CellStyleAttributes.BACKGROUND_COLOR);
         final Font font = cellStyle.getAttributeValue(CellStyleAttributes.FONT);
-        
+
         gc.setAntialias(GUIHelper.DEFAULT_ANTIALIAS);
         gc.setTextAntialias(GUIHelper.DEFAULT_TEXT_ANTIALIAS);
         gc.setFont(font);
         gc.setForeground(fg != null ? fg : GUIHelper.COLOR_LIST_FOREGROUND);
         gc.setBackground(bg != null ? bg : GUIHelper.COLOR_LIST_BACKGROUND);
-        
     }
 
     /**
@@ -262,6 +260,7 @@ public class VerticalTextIconPainter extends AbstractCellPainter {
      * given text is simply returned without modification. If the text does not
      * fit into the available space, it will be modified by cutting and adding
      * three dots.
+     *
      * @param text the text to compute
      * @param gc the current GC
      * @param availableLength the available space
@@ -272,13 +271,13 @@ public class VerticalTextIconPainter extends AbstractCellPainter {
     private String truncateText(String text, GC gc, int availableLength) {
         String trialText = text;
         int textWidth = gc.textExtent(trialText).x;
-        
+
         while (textWidth > availableLength) {
             // try an optimization: estimate average char width and adjust
             // accordingly
             final double avgCharWidth = textWidth / trialText.length();
             final int nbExtraChars = 1 + (int) ((textWidth - availableLength) / avgCharWidth);
-        
+
             final int newLength = trialText.length() - nbExtraChars;
             if (newLength > 0) {
                 trialText = trialText.substring(0, newLength);

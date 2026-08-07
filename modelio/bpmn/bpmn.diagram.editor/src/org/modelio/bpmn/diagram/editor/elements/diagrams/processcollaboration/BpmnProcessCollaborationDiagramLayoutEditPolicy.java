@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.diagrams.processcollaboration;
 
@@ -59,14 +59,14 @@ class BpmnProcessCollaborationDiagramLayoutEditPolicy extends DiagramEditLayoutP
             BpmnCollaboration hostElement = getHostElement();
             MObject elementToUnmask = ctx.getElementToUnmask();
             GmCompositeNode hostGmNode = getHostCompositeNode();
-        
+
             IGmDiagram gmDiagram = getHostCompositeNode().getDiagram();
             boolean isParticipantCreation = cls != BpmnProcess.class && (elementToUnmask == null || !isSmartProcess(elementToUnmask, gmDiagram) && isSmartParticipant(elementToUnmask, gmDiagram));
             if (isParticipantCreation || cls == BpmnProcess.class || isSmartProcess(elementToUnmask, gmDiagram)) {
                 if (elementToUnmask != null && !hostGmNode.canUnmask(elementToUnmask)) {
                     return null;
                 }
-        
+
                 Object requestConstraint = getConstraintFor(request);
                 return new CreateBpmnParticipantCommand(hostElement, hostGmNode, elementToUnmask, isParticipantCreation, ctx.getStereotype(), ctx.getProperties(), requestConstraint);
             }
@@ -99,12 +99,12 @@ class BpmnProcessCollaborationDiagramLayoutEditPolicy extends DiagramEditLayoutP
         // if child is a 'node' it usually can be resized and/or moved
         if (movedEditPart instanceof AbstractNodeEditPart || movedEditPart.getModel() instanceof GmDrawing) {
             final CompoundCommand command = new CompoundCommand();
-        
+
             final NodeChangeLayoutCommand layoutCommand = new NodeChangeLayoutCommand();
             layoutCommand.setModel(movedEditPart.getModel());
             layoutCommand.setConstraint(constraint);
             command.add(layoutCommand);
-        
+
             return command;
         }
         return null;

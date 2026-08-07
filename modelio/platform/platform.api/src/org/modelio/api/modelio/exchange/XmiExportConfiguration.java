@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.modelio.exchange;
 
@@ -23,7 +23,7 @@ import org.modelio.metamodel.uml.statik.Package;
 
 /**
  * Configuration class for the XMI export service in {@link IExchangeService}.
- * 
+ *
  * @since 2.2
  */
 @objid ("1478fa0e-9516-11e1-a83f-002564c97630")
@@ -57,15 +57,16 @@ public class XmiExportConfiguration {
      * - annotations are not exported.
      * - file is "$ProjectSpace/XMI/rootPackageName.xmi"
      * - version is EMF 3.0.0
+     *
      * @param packageToExport the export root.
      */
     @objid ("1479211b-9516-11e1-a83f-002564c97630")
-    public  XmiExportConfiguration(Package packageToExport) {
+    public XmiExportConfiguration(Package packageToExport) {
         this.entryPoint = packageToExport;
         this.exportAnnotations = false;
         this.versionExport = VersionExport.EMF300;
         this.xmiFile = AbstractGProject.getProject(packageToExport).getPfs().getProjectPath().resolve("XMI").resolve(this.entryPoint.getName() + ".xmi").toFile();
-        
+
     }
 
     @objid ("1479bd61-9516-11e1-a83f-002564c97630")
@@ -114,7 +115,7 @@ public class XmiExportConfiguration {
         if (file.exists()) {
             this.xmiFile = file;
         }
-        
+
     }
 
     /**

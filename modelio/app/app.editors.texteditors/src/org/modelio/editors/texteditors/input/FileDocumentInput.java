@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.texteditors.input;
 
@@ -51,7 +51,7 @@ public class FileDocumentInput extends AbstractInput implements IDocumentInput {
 
     @objid ("ab520472-2a77-11e2-9fb9-bc305ba4815c")
     private static final String DEFAULT_CHARSET_NAME = "UTF-8"; // $NON-NLS-1$
-    
+
 
     @objid ("cfa4aa8b-6b95-42e6-a023-c9d0b517dd6c")
     private String charsetName;
@@ -69,13 +69,14 @@ public class FileDocumentInput extends AbstractInput implements IDocumentInput {
     private DocumentListener docListener;
 
     /**
+     *
      * @param file the file to edit.
      */
     @objid ("7b5333eb-2a77-11e2-9fb9-bc305ba4815c")
-    public  FileDocumentInput(File file) {
+    public FileDocumentInput(File file) {
         this.file = file;
         this.charsetName = DEFAULT_CHARSET_NAME;
-        
+
     }
 
     @objid ("7b5333ee-2a77-11e2-9fb9-bc305ba4815c")
@@ -111,7 +112,7 @@ public class FileDocumentInput extends AbstractInput implements IDocumentInput {
                 return null;
             }
         }
-        
+
         doSave();
         return null;
     }
@@ -125,7 +126,7 @@ public class FileDocumentInput extends AbstractInput implements IDocumentInput {
             } else {
                 this.document = inputDocument;
             }
-        
+
             doLoad();
         }
         return this.document;
@@ -138,7 +139,7 @@ public class FileDocumentInput extends AbstractInput implements IDocumentInput {
             byte[] utf8Bytes = this.document.get().getBytes(this.charsetName);
             this.file.createNewFile();
             try (OutputStream out = new FileOutputStream(this.file)){
-        
+
                 out.write(utf8Bytes);
                 out.close();
                 setDirty(false);
@@ -147,11 +148,11 @@ public class FileDocumentInput extends AbstractInput implements IDocumentInput {
         } catch (IOException e) {
             TextEditors.LOG.error(e);
         }
-        
+
         if(this.saveListener != null){
             this.saveListener.documentSaved(this.file);
         }
-        
+
     }
 
     @objid ("7b53340c-2a77-11e2-9fb9-bc305ba4815c")
@@ -167,26 +168,26 @@ public class FileDocumentInput extends AbstractInput implements IDocumentInput {
                 buffer.append(readBuffer, 0, n);
                 n = in.read(readBuffer);
             }
-        
+
             // Avoid set dirty on reload.
             if (this.docListener != null) {
                 this.document.removeDocumentListener(this.docListener);
             }
-        
+
             this.document.set(buffer.toString());
             this.cachedModificationStamp = this.file.lastModified();
-        
+
             if (this.docListener == null) {
                 this.docListener = new DocumentListener();
             }
-        
+
             this.document.addDocumentListener(this.docListener);
-        
+
             setDirty(false);
         } catch (IOException x) {
             TextEditors.LOG.error(x);
         }
-        
+
     }
 
     @objid ("c1ea9a83-2e5d-11e2-a8ff-bc305ba4815c")
@@ -201,7 +202,7 @@ public class FileDocumentInput extends AbstractInput implements IDocumentInput {
         if(this.saveListener != null){
             this.saveListener.editorClosed();
         }
-        
+
     }
 
     @objid ("43af09fc-98e9-4d24-8c4d-969499cf9bd3")
@@ -218,13 +219,13 @@ public class FileDocumentInput extends AbstractInput implements IDocumentInput {
     public void setCharsetName(String charsetName) {
         this.charsetName = charsetName;
         doLoad();
-        
+
     }
 
     @objid ("108d1992-f6be-4702-b2e2-5bc167f3eaf3")
     private final class DocumentListener implements IDocumentListener {
         @objid ("f48b5239-68fa-4ca0-a3d7-59a99691f1bb")
-        public  DocumentListener() {
+        public DocumentListener() {
             // none
         }
 

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.style;
 
@@ -57,19 +57,18 @@ import org.modelio.diagram.styles.plugin.DiagramStyles;
  * You have some default filters with {@link #filterEquals(StyleKey, Object)}, {@link #filterRepresentationMode(RepresentationMode...)}
  * <li>At the end call {@link Builder#build(IStyleProvider)} to get your {@link ISymbolViewModel}.
  * </ul>
- * 
+ *
  * @author cma
  * @since 3.7 Builder helper for {@link ISymbolViewModel}.
- * 
+ *
  * Usage:
- * 
+ *
  * <ul>
  * <li>Instantiate a builder</li>
  * <li>Call {@link Builder#add(ItemBuilder)} on the builder to add items.</li>
  * <li>standard {@link Builder#add(ItemBuilder)} instances can be build from 'create' methods</li>
  * <li>At the end call {@link Builder#build(IStyleProvider)} to get a {@link ISymbolViewModel}.
  * </ul>
- * 
  * @since 3.7
  */
 @objid ("2f16161e-e9b2-415b-ba24-e2ccd54cf268")
@@ -96,12 +95,13 @@ public class SymbolViewContentBuilder {
     public final IEntryFilter structuredModeFilter = filterRepresentationMode(RepresentationMode.STRUCTURED);
 
     @objid ("3ee01fc4-4a3a-47c2-99f2-4d9cfb4572af")
-    public  SymbolViewContentBuilder(String label) {
+    public SymbolViewContentBuilder(String label) {
         this.label = label;
     }
 
     /**
      * Add a symbol view entry at the root level.
+     *
      * @param item a symbol view entry.
      * @return this instance.
      */
@@ -112,6 +112,7 @@ public class SymbolViewContentBuilder {
     }
 
     /**
+     *
      * @param style the edited style
      * @param context the edited element
      * @return the built content provider.
@@ -127,6 +128,7 @@ public class SymbolViewContentBuilder {
 
     /**
      * Change the label
+     *
      * @param label the label
      * @return this instance.
      */
@@ -138,6 +140,7 @@ public class SymbolViewContentBuilder {
 
     /**
      * Create a filter that test a style key value against the given {@link Predicate}.
+     *
      * @param key the style key
      * @param valueTest the value test function
      * @return the created filter
@@ -149,6 +152,7 @@ public class SymbolViewContentBuilder {
     }
 
     /**
+     *
      * @param requiredMode the required representation mode.
      * @return a filter that checks the graphic model is in the required mode.
      */
@@ -169,6 +173,7 @@ public class SymbolViewContentBuilder {
 
     /**
      * Create a non configured symbol view entry from a {@link StyleKey}.
+     *
      * @param key a {@link StyleKey}.
      * @return the created symbol view entry.
      */
@@ -178,6 +183,7 @@ public class SymbolViewContentBuilder {
     }
 
     /**
+     *
      * @return the combo to change the cascaded theme.
      */
     @objid ("ef06619e-97b7-48b1-9376-f0c434336004")
@@ -187,6 +193,7 @@ public class SymbolViewContentBuilder {
 
     /**
      * Build a pre configured "Pen & brush" section from all the given style keys.
+     *
      * @param lineWidth line width style key. Cannot be <i>null</i>.
      * @param lineColor line color style key. Cannot be <i>null</i>.
      * @param fillMode fill mode style key. Cannot be <i>null</i>.
@@ -219,6 +226,7 @@ public class SymbolViewContentBuilder {
 
     /**
      * Create a symbol view entry from a {@link StyleKey}.
+     *
      * @param key a {@link StyleKey}.
      * @return the created symbol view entry.
      */
@@ -228,6 +236,7 @@ public class SymbolViewContentBuilder {
     }
 
     /**
+     *
      * @return the combo to change the cascaded style.
      */
     @objid ("738e01af-75b1-4bf1-a732-9dd6366942a1")
@@ -237,6 +246,7 @@ public class SymbolViewContentBuilder {
 
     /**
      * Create a filter that test a style key value against the given value.
+     *
      * @param key the style key
      * @param requiredValue the accepted value.
      * @return the created filter
@@ -250,6 +260,7 @@ public class SymbolViewContentBuilder {
     }
 
     /**
+     *
      * @param allowedModes the allowed representation modes.
      * @return a filter that checks the graphic model is one of the allowed mode.
      */
@@ -298,12 +309,12 @@ public class SymbolViewContentBuilder {
         private final AbstractEntry parent;
 
         @objid ("4120c2e4-8598-4faf-9445-da56c03ac077")
-        public  AbstractEntry(AbstractEntry parent, List<IEntryFilter> filters) {
+        public AbstractEntry(AbstractEntry parent, List<IEntryFilter> filters) {
             super();
             this.children = new ArrayList<>();
             this.parent = parent;
             this.filters = filters;
-            
+
         }
 
         @objid ("784650b2-4192-4d80-82a2-e08c51303bae")
@@ -312,6 +323,7 @@ public class SymbolViewContentBuilder {
         }
 
         /**
+         *
          * @param input the edited element, may be null for global style edition.
          * @return whether this item should be displayed.
          */
@@ -338,22 +350,22 @@ public class SymbolViewContentBuilder {
         private final IStyle diagramStyle;
 
         @objid ("ec638ff6-94fa-4fd4-bc4e-af3941896258")
-        public  ChooseStyleEntry(IStyle diagramStyle, AbstractEntry parent, List<IEntryFilter> filters) {
+        public ChooseStyleEntry(IStyle diagramStyle, AbstractEntry parent, List<IEntryFilter> filters) {
             super(parent, filters);
             this.diagramStyle = diagramStyle;
-            
+
         }
 
         @objid ("7e83a3d7-d2ed-414e-9c94-c20bbd06f17f")
         @Override
         public List<Choice> getPossibleValues() {
             StyleManager styleManager = DiagramStyles.getStyleManager();
-            
+
             List<Choice> ret = styleManager.elementStyles()
                     .sorted(Comparator.comparing(NamedStyle::getName))
                     .map(style -> new Choice(style, style.getName()))
                     .collect(Collectors.toCollection(ArrayList::new));
-            
+
             if (this.diagramStyle != null) {
                 ret.add(0, new Choice(this.diagramStyle, DiagramElements.I18N.getString("ChooseStyleEntry.diagramStyle")));
             }
@@ -426,7 +438,7 @@ public class SymbolViewContentBuilder {
             if (getClass() != obj.getClass()) {
                 return false;
             }
-            
+
             ChooseStyleEntry other = (ChooseStyleEntry) obj;
             return Objects.equals(getParent(), other.getParent());
         }
@@ -442,7 +454,7 @@ public class SymbolViewContentBuilder {
     @objid ("132521e8-5e96-451e-96fb-0b45bffc05c9")
     protected static class ChooseThemeEntry extends AbstractEntry {
         @objid ("69142901-515c-4e08-901e-2d517d0572b3")
-        public  ChooseThemeEntry(AbstractEntry parent, List<IEntryFilter> filters) {
+        public ChooseThemeEntry(AbstractEntry parent, List<IEntryFilter> filters) {
             super(parent, filters);
         }
 
@@ -450,7 +462,7 @@ public class SymbolViewContentBuilder {
         @Override
         public List<Choice> getPossibleValues() {
             StyleManager styleManager = DiagramStyles.getStyleManager();
-            
+
             List<Choice> ret = styleManager.themes()
                     .sorted(Comparator.comparing(NamedStyle::getName))
                     .map(style -> new Choice(style, style.getName()))
@@ -524,7 +536,7 @@ public class SymbolViewContentBuilder {
             if (getClass() != obj.getClass()) {
                 return false;
             }
-            
+
             ChooseThemeEntry other = (ChooseThemeEntry) obj;
             return Objects.equals(getParent(), other.getParent());
         }
@@ -546,11 +558,11 @@ public class SymbolViewContentBuilder {
         private final String description;
 
         @objid ("fb32aa70-4935-4157-8cfa-6d5c2b8040ba")
-        public  LabelEntry(String label, String description, AbstractEntry parent, List<IEntryFilter> filters) {
+        public LabelEntry(String label, String description, AbstractEntry parent, List<IEntryFilter> filters) {
             super(parent, filters);
             this.label = Objects.requireNonNull(label);
             this.description = Objects.requireNonNull(label);
-            
+
         }
 
         @objid ("cbc6c0db-910c-4f7d-bcf6-405fbd3fa6d4")
@@ -623,7 +635,7 @@ public class SymbolViewContentBuilder {
             if (getClass() != obj.getClass()) {
                 return false;
             }
-            
+
             LabelEntry other = (LabelEntry) obj;
             return Objects.equals(this.label, other.label) &&
                                 Objects.equals(getParent(), other.getParent());
@@ -652,13 +664,13 @@ public class SymbolViewContentBuilder {
         private final List<Choice> possibleValues;
 
         @objid ("1d8a3005-0d1e-4c27-b206-c40e9cd99870")
-        public  StyleEntry(StyleKey key, String label, String description, AbstractEntry parent, List<Choice> possibleValues, List<IEntryFilter> filters) {
+        public StyleEntry(StyleKey key, String label, String description, AbstractEntry parent, List<Choice> possibleValues, List<IEntryFilter> filters) {
             super(parent, filters);
             this.key = Objects.requireNonNull(key);
             this.label = Objects.requireNonNull(label);
             this.description = Objects.requireNonNull(description);
             this.possibleValues = Objects.requireNonNull(possibleValues);
-            
+
         }
 
         @objid ("552f2e15-9f95-482a-9523-427261e31844")
@@ -747,14 +759,15 @@ public class SymbolViewContentBuilder {
     @objid ("30d1d50d-5fee-4751-ae8e-8e8bbbf17859")
     public interface IEntryFilter {
         /**
+         *
          * @param style the edited style
          * @param context the style owner, may be null if the style is a named style.
          * @return true if the entry is to be displayed.
          */
         @objid ("0b9191b7-00c8-4102-8345-504ecf6daacc")
         boolean accept(IStyle style, IStyleProvider context);
-}
-    
+
+    }
 
     @objid ("3404107f-55a0-4b00-ab57-cf8e8c6f9a69")
     @SuppressWarnings ("unchecked")
@@ -795,6 +808,7 @@ public class SymbolViewContentBuilder {
          * Add an item builder to this item children.
          * <p>
          * If {@link #setNextChildrenFilter(IEntryFilter)} has been called before, the given filter will be put on this child.
+         *
          * @param item the child item to add
          * @return this instance to chain calls.
          */
@@ -827,6 +841,7 @@ public class SymbolViewContentBuilder {
 
         /**
          * Set a filter that will be applied to next elements added with {@link #add(ItemBuilder)}.
+         *
          * @param filter a filter to put on next children.
          * @return this instance.
          */
@@ -899,7 +914,7 @@ public class SymbolViewContentBuilder {
      * You have some default filters with {@link #filterEquals(StyleKey, Object)}, {@link #filterRepresentationMode(RepresentationMode...)}, {@link StyleItemBuilder#filterChildren(IEntryFilter)}, {@link StyleItemBuilder#filterChildren(IEntryFilter)},
      * {@link StyleItemBuilder#filter(StyleKey, Predicate)}.
      * </ul>
-     * 
+     *
      * @author cma
      * @since 3.7
      */
@@ -953,6 +968,7 @@ public class SymbolViewContentBuilder {
 
         /**
          * Convert this {@link ItemBuilder} and all its children to a {@link StyleEntry}.
+         *
          * @param parent the parent {@link StyleEntry} or null.
          * @return the created {@link StyleEntry}.
          */
@@ -962,11 +978,11 @@ public class SymbolViewContentBuilder {
             if (this.label == null) {
                 this.label = this.key.getLabel();
             }
-            
+
             if (this.description == null) {
                 this.description = this.key.getTooltip();
             }
-            
+
             if (this.possibleValues == null) {
                 if (this.key != null && this.key.getType().isEnum()) {
                     Object[] enumConstants = this.key.getType().getEnumConstants();
@@ -980,7 +996,7 @@ public class SymbolViewContentBuilder {
                     this.possibleValues = Collections.emptyList();
                 }
             }
-            
+
             StyleEntry ret = new StyleEntry(
                     this.key,
                     this.label,
@@ -988,7 +1004,7 @@ public class SymbolViewContentBuilder {
                     parent,
                     this.possibleValues,
                     getFilters().isEmpty() ? Collections.emptyList() : getFilters());
-            
+
             ret.getChildren().addAll(buildChildren(ret, input));
             return ret;
         }
@@ -1013,7 +1029,7 @@ public class SymbolViewContentBuilder {
 
     /**
      * The {@link ISymbolViewModel} generated from the builder.
-     * 
+     *
      * @author cma
      */
     @objid ("71a86666-6bd3-4482-ba97-4672d8899cfb")
@@ -1031,12 +1047,12 @@ public class SymbolViewContentBuilder {
         private final IStyle style;
 
         @objid ("dbc1f110-504b-4542-9a1c-b143b2979b37")
-        protected  BuiltSymbolModel(IStyle style, String label, IStyleProvider context, List<AbstractEntry> items) {
+        protected BuiltSymbolModel(IStyle style, String label, IStyleProvider context, List<AbstractEntry> items) {
             this.style = style;
             this.items = items;
             this.context = context;
             this.label = label;
-            
+
         }
 
         @objid ("174ca4ba-b794-412f-a970-eab8bb91ace6")
@@ -1064,7 +1080,7 @@ public class SymbolViewContentBuilder {
             } else {
                 return Collections.emptyList();
             }
-            
+
         }
 
         @objid ("5f249fbc-a48c-49e6-8db2-97bd0ef78284")
@@ -1075,7 +1091,7 @@ public class SymbolViewContentBuilder {
             } else {
                 return null;
             }
-            
+
         }
 
         @objid ("cc6a4c30-cbd1-4798-b247-418ef7534548")
@@ -1092,7 +1108,7 @@ public class SymbolViewContentBuilder {
             } else {
                 return Collections.emptyList();
             }
-            
+
         }
 
     }

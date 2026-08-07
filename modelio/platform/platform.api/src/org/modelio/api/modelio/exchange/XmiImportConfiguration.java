@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.modelio.exchange;
 
@@ -23,6 +23,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * Configuration class for the XMI import service in {@link IExchangeService}.
+ *
  * @since 2.2
  */
 @objid ("147a80ae-9516-11e1-a83f-002564c97630")
@@ -42,14 +43,15 @@ public class XmiImportConfiguration {
 
     /**
      * Default constructor.
+     *
      * @param xmiFile File in XMI format containing the model to import.
      * @param packageToImport the default owner for the import.
      */
     @objid ("147aa7bb-9516-11e1-a83f-002564c97630")
-    public  XmiImportConfiguration(final File xmiFile, Package packageToImport) {
+    public XmiImportConfiguration(final File xmiFile, Package packageToImport) {
         this.owner = packageToImport;
         this.xmiFile = xmiFile;
-        
+
     }
 
     @objid ("147af5dc-9516-11e1-a83f-002564c97630")
@@ -78,7 +80,7 @@ public class XmiImportConfiguration {
         if (file.exists()){
             this.xmiFile = file;
         }
-        
+
     }
 
 }

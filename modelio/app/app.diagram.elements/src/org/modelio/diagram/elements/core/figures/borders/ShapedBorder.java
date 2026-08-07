@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures.borders;
 
@@ -29,6 +29,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Path;
 import org.modelio.diagram.elements.core.figures.IShaper;
+import org.modelio.diagram.elements.core.figures.ZoomDrawer;
 
 /**
  * Line border based on a {@link IShaper}.
@@ -40,49 +41,49 @@ public class ShapedBorder extends LineBorder {
 
     /**
      * Constructs a ShapedBorder with the specified color and of the specified line width and shaped by the shaper
+     *
      * @param color The color of the border.
      * @param width The width of the border in pixels.
      * @param shaper the border shape
      * @since 2.0
      */
     @objid ("7f620256-1dec-11e2-8cad-001ec947c8cc")
-    public  ShapedBorder(Color color, int width, IShaper shaper) {
+    public ShapedBorder(Color color, int width, IShaper shaper) {
         super(color, width);
         this.shaper = shaper;
-        
     }
 
     @objid ("7f62025c-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void paint(IFigure figure, Graphics graphics, Insets insets) {
+        tempRect.setBounds(getPaintRectangle(figure, insets));
+        tempRect.resize(-1, -1);
+        // Same as tempRect.shrink(getWidth() / 2, getWidth() / 2),
+        // but works better with odd widths and scaled graphics.
+        ZoomDrawer.setLineWidth(graphics, getWidth(), tempRect);
+
         graphics.setAdvanced(true);
         graphics.setAntialias(SWT.ON);
-        
-        AbstractBorder.tempRect.setBounds(getPaintRectangle(figure, insets));
-        if (getWidth() % 2 != 0) {
-            AbstractBorder.tempRect.width--;
-            AbstractBorder.tempRect.height--;
-        }
-        AbstractBorder.tempRect.shrink(getWidth() / 2, getWidth() / 2);
-        graphics.setLineWidth(getWidth());
-        
+        graphics.setLineJoin(this.shaper.getShapeLineJoin());
+        graphics.setLineCap(this.shaper.getShapeLineCap());
+
         if (getColor() != null) {
             graphics.setForegroundColor(getColor());
         }
-        
+
         graphics.setLineStyle(getStyle());
-        
+
         Path shapePath = this.shaper.createShapePath(AbstractBorder.tempRect);
         try {
             graphics.drawPath(shapePath);
         } finally {
             shapePath.dispose();
         }
-        
     }
 
     /**
      * Returns the space used by the border for the figure provided as input. In this border all sides always have equal width.
+     *
      * @param figure The figure this border belongs to
      * @return This border's insets
      */
@@ -111,6 +112,7 @@ public class ShapedBorder extends LineBorder {
     }
 
     /**
+     *
      * @return the shape factory.
      */
     @objid ("d2f223d6-df9c-47ad-b089-1c72a70e0252")

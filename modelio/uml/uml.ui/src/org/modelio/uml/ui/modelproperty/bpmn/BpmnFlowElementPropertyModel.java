@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.bpmn;
 
@@ -50,15 +50,17 @@ public class BpmnFlowElementPropertyModel extends AbstractPropertyModel<BpmnFlow
     /**
      * Create a new <i>BpmnFlowElement</i> data model from an
      * <i>BpmnFlowElement</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("8e318861-22a0-4821-b2db-9625c11a6dbf")
-    public  BpmnFlowElementPropertyModel(BpmnFlowElement theEditedElement) {
+    public BpmnFlowElementPropertyModel(BpmnFlowElement theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("031226af-b29d-444e-b7d9-d32a6c036aba")
@@ -69,6 +71,7 @@ public class BpmnFlowElementPropertyModel extends AbstractPropertyModel<BpmnFlow
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("fd5d6a3c-e12c-4d48-8a76-37e99f812b3d")
@@ -81,6 +84,7 @@ public class BpmnFlowElementPropertyModel extends AbstractPropertyModel<BpmnFlow
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -102,7 +106,7 @@ public class BpmnFlowElementPropertyModel extends AbstractPropertyModel<BpmnFlow
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -112,6 +116,7 @@ public class BpmnFlowElementPropertyModel extends AbstractPropertyModel<BpmnFlow
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -134,13 +139,14 @@ public class BpmnFlowElementPropertyModel extends AbstractPropertyModel<BpmnFlow
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -165,7 +171,7 @@ public class BpmnFlowElementPropertyModel extends AbstractPropertyModel<BpmnFlow
         default:
             return;
         }
-        
+
     }
 
 }

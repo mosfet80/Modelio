@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.common.policies;
 
@@ -58,13 +58,13 @@ public class BpmnBoundaryEventReparentElementCommand extends Command {
     private GmNodeModel reparentedChild;
 
     @objid ("621955e0-55b6-11e2-877f-002564c97630")
-    public  BpmnBoundaryEventReparentElementCommand(final MObject newParentElement, final GmCompositeNode newParent, final GmNodeModel reparentedChild, final Object newLayoutData) {
+    public BpmnBoundaryEventReparentElementCommand(final MObject newParentElement, final GmCompositeNode newParent, final GmNodeModel reparentedChild, final Object newLayoutData) {
         super();
         this.newParentElement = newParentElement;
         this.newParent = newParent;
         this.reparentedChild = reparentedChild;
         this.newLayoutData = newLayoutData;
-        
+
     }
 
     @objid ("621955f0-55b6-11e2-877f-002564c97630")
@@ -84,46 +84,46 @@ public class BpmnBoundaryEventReparentElementCommand extends Command {
     public void execute() {
         BpmnBoundaryEvent childElement = (BpmnBoundaryEvent) this.reparentedChild.getRelatedElement();
         MObject newParentElem = this.newParentElement;
-        
+
         // orphan the underlying {@link MObject element} from its previous
         // {@link MObject#getCompositionOwner() composition owner},
         assert (childElement != null) : "cannot reparent: child element is null";
-        
+
         BpmnActivity activity = childElement.getAttachedToRef();
         if (activity != null) {
             activity.getBoundaryEventRef().remove(childElement);
         }
-        
+
         BpmnSubProcess subprocess = childElement.getSubProcess();
         if (subprocess != null) {
             subprocess.getFlowElement().remove(childElement);
         }
-        
+
         BpmnProcess process = childElement.getContainer();
         if (process != null) {
             process.getFlowElement().remove(childElement);
         }
-        
+
         // orphan the {@link GmNodeModel node} from its previous {@link
         // GmCompositeNode container},
         final GmModel oldParentModel = this.reparentedChild.getParent();
         assert (oldParentModel instanceof GmCompositeNode) : "This command should only be used if both old parent and new parent are instances of GmCompositeNode!";
         final GmCompositeNode oldParent = (GmCompositeNode) oldParentModel;
         oldParent.removeChild(this.reparentedChild);
-        
+
         childElement.setAttachedToRef((BpmnActivity) newParentElem);
         newParentElem = getOwnerProcess(newParentElem);
-        
+
         if (newParentElem instanceof BpmnProcess) {
             childElement.setContainer((BpmnProcess) newParentElem);
         }
-        
+
         if (newParentElem instanceof BpmnSubProcess) {
             childElement.setSubProcess((BpmnSubProcess) newParentElem);
         }
-        
+
         this.reparentedChild.setLayoutData(this.newLayoutData);
-        
+
         if (this.newParent.canContain(this.reparentedChild.getClass())) {
             // and finally attach the {@link GmNodeModel node} to its new {@link
             // GmCompositeNode container}.
@@ -136,17 +136,17 @@ public class BpmnBoundaryEventReparentElementCommand extends Command {
                 final Rectangle r = (Rectangle) this.newLayoutData;
                 this.newLayoutData = new Rectangle(r.x, r.y, -1, -1);
             }
-        
+
             this.newParent.getDiagram().unmask(this.newParent,
                     this.reparentedChild.getRelatedElement(),
                     this.newLayoutData);
-        
+
             // Delete the now unused child
             this.reparentedChild.delete();
         }
-        
+
         super.execute();
-        
+
     }
 
     @objid ("621955f8-55b6-11e2-877f-002564c97630")

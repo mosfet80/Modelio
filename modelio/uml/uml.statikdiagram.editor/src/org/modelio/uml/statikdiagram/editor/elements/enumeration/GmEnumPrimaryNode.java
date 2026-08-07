@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.enumeration;
 
@@ -122,46 +122,47 @@ public class GmEnumPrimaryNode extends GmNoStyleCompositeNode implements IImagea
      * Constructor for deserialization only.
      */
     @objid ("34dd062b-55b7-11e2-877f-002564c97630")
-    public  GmEnumPrimaryNode() {
+    public GmEnumPrimaryNode() {
         // Nothing to do.
     }
 
     /**
      * Creates a GmClass.
+     *
      * @param diagram The owner diagram.
      * @param relatedRef a reference to the element this GmModel is related to, must not be null.
      */
     @objid ("34dd062e-55b7-11e2-877f-002564c97630")
-    public  GmEnumPrimaryNode(IGmDiagram diagram, MRef relatedRef) {
+    public GmEnumPrimaryNode(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
-        
+
         this.header = new GmNamespaceHeader(diagram, relatedRef);
         this.header.setShowMetaclassIcon(true);
         this.header.setRoleInComposition(HEADER);
-        
+
         GmClassifierResizableGroup group = new GmClassifierResizableGroup(diagram, relatedRef);
-        
+
         this.enumGroup = new GmEnumLitteralGroup(diagram, relatedRef);
         this.enumGroup.setRoleInComposition(LITTERAL_GROUP);
-        
+
         this.attributeGroup = new GmAttributeGroup(diagram, relatedRef);
         this.attributeGroup.setRoleInComposition(ATTRIBUTE_GROUP);
-        
+
         this.methodGroup = new GmOperationGroup(diagram, relatedRef);
         this.methodGroup.setRoleInComposition(METHOD_GROUP);
-        
+
         this.innerElements = new GmInnerClass(diagram, relatedRef);
         this.innerElements.setRoleInComposition(INNER);
-        
+
         super.addChild(this.header);
         super.addChild(group);
         group.addChild(this.enumGroup);
         group.addChild(this.attributeGroup);
         group.addChild(this.methodGroup);
         group.addChild(this.innerElements);
-        
+
         styleChanged(getDisplayedStyle());
-        
+
     }
 
     @objid ("34dd0637-55b7-11e2-877f-002564c97630")
@@ -181,6 +182,7 @@ public class GmEnumPrimaryNode extends GmNoStyleCompositeNode implements IImagea
 
     /**
      * Get the group where <tt>GmEnumLiterals</tt> are unmasked.
+     *
      * @return the enum group.
      */
     @objid ("34dd0647-55b7-11e2-877f-002564c97630")
@@ -218,6 +220,7 @@ public class GmEnumPrimaryNode extends GmNoStyleCompositeNode implements IImagea
 
     /**
      * Get the group where {@link Operation} are unmasked.
+     *
      * @return the operations group.
      */
     @objid ("34de8cc3-55b7-11e2-877f-002564c97630")
@@ -266,7 +269,7 @@ public class GmEnumPrimaryNode extends GmNoStyleCompositeNode implements IImagea
             break;
         }
         }
-        
+
     }
 
     @objid ("34de8cde-55b7-11e2-877f-002564c97630")
@@ -278,7 +281,7 @@ public class GmEnumPrimaryNode extends GmNoStyleCompositeNode implements IImagea
         firePropertyChange(PROPERTY_LABEL, oldLabel, this.header.getMainLabel());
         // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("34de8ce1-55b7-11e2-877f-002564c97630")
@@ -291,12 +294,12 @@ public class GmEnumPrimaryNode extends GmNoStyleCompositeNode implements IImagea
         case IMAGE:
             ret = Collections.emptyList();
             break;
-        
+
         case SIMPLE:
             ret = new ArrayList<>(1);
             ret.add(this.header);
             break;
-        
+
         default:
             ret = super.getVisibleChildren();
             break;
@@ -308,20 +311,20 @@ public class GmEnumPrimaryNode extends GmNoStyleCompositeNode implements IImagea
     @Override
     public void styleChanged(final IStyle changedStyle) {
         super.styleChanged(changedStyle);
-        
+
         refreshHeaderFromStyle(changedStyle);
-        
+
     }
 
     @objid ("34de8cf1-55b7-11e2-877f-002564c97630")
     @Override
     public void styleChanged(final StyleKey property, final Object newValue) {
         super.styleChanged(property, newValue);
-        
+
         if (property.equals(EnumStructuredStyleKeys.SHOWSTEREOTYPES)) {
             refreshHeaderFromStyle(getDisplayedStyle());
         }
-        
+
     }
 
     /**
@@ -347,33 +350,33 @@ public class GmEnumPrimaryNode extends GmNoStyleCompositeNode implements IImagea
             this.header.setShowMetaclassKeyword(true);
             this.header.setShowMetaclassIcon(true);
         }
-        
+
     }
 
     @objid ("34e01366-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0.
         writeMinorVersion(out, "GmEnumPrimaryNode.", Integer.valueOf(GmEnumPrimaryNode.MINOR_VERSION));
-        
+
     }
 
     @objid ("34e0136c-55b7-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
-        
+
         final List<GmNodeModel> children = getChildren();
-        
+
         this.header = (GmModelElementHeader) children.get(0);
         this.enumGroup = (GmEnumLitteralGroup) children.get(1);
         this.methodGroup = (GmGroup) children.get(2);
-        
+
         // Add the new attribute & inner groups
         this.attributeGroup = new GmAttributeGroup(getDiagram(), getRepresentedRef());
         this.innerElements = new GmInnerClass(getDiagram(), getRepresentedRef());
-        
+
         // Set roles
         this.header.setRoleInComposition(HEADER);
         this.enumGroup.setRoleInComposition(LITTERAL_GROUP);
@@ -381,10 +384,10 @@ public class GmEnumPrimaryNode extends GmNoStyleCompositeNode implements IImagea
         this.attributeGroup.setRoleInComposition(ATTRIBUTE_GROUP);
         this.methodGroup.setRoleInComposition(METHOD_GROUP);
         this.innerElements.setRoleInComposition(INNER);
-        
+
         GmDefaultModelElementLabel imageModeHeader = (GmDefaultModelElementLabel) this.getChildren().get(3);
         imageModeHeader.delete();
-        
+
         GmClassifierResizableGroup group = new GmClassifierResizableGroup(getDiagram(), getRepresentedRef());
         removeChild(this.enumGroup);
         group.addChild(this.enumGroup);
@@ -393,7 +396,7 @@ public class GmEnumPrimaryNode extends GmNoStyleCompositeNode implements IImagea
         group.addChild(this.methodGroup);
         group.addChild(this.innerElements);
         super.addChild(group, 1);
-        
+
     }
 
     @objid ("34e01371-55b7-11e2-877f-002564c97630")
@@ -405,17 +408,17 @@ public class GmEnumPrimaryNode extends GmNoStyleCompositeNode implements IImagea
     @objid ("34e01376-55b7-11e2-877f-002564c97630")
     private void read_1(final IDiagramReader in) {
         super.read(in);
-        
+
         final List<GmNodeModel> children = getChildren();
-        
+
         this.header = (GmModelElementHeader) children.get(0);
         this.enumGroup = (GmEnumLitteralGroup) children.get(1);
         this.methodGroup = (GmGroup) children.get(2);
-        
+
         // Add the new attribute & inner groups
         this.attributeGroup = new GmAttributeGroup(getDiagram(), getRepresentedRef());
         this.innerElements = new GmInnerClass(getDiagram(), getRepresentedRef());
-        
+
         // Set roles
         this.header.setRoleInComposition(HEADER);
         this.enumGroup.setRoleInComposition(LITTERAL_GROUP);
@@ -423,7 +426,7 @@ public class GmEnumPrimaryNode extends GmNoStyleCompositeNode implements IImagea
         this.attributeGroup.setRoleInComposition(ATTRIBUTE_GROUP);
         this.methodGroup.setRoleInComposition(METHOD_GROUP);
         this.innerElements.setRoleInComposition(INNER);
-        
+
         GmClassifierResizableGroup group = new GmClassifierResizableGroup(getDiagram(), getRepresentedRef());
         removeChild(this.enumGroup);
         group.addChild(this.enumGroup);
@@ -432,22 +435,22 @@ public class GmEnumPrimaryNode extends GmNoStyleCompositeNode implements IImagea
         group.addChild(this.methodGroup);
         group.addChild(this.innerElements);
         super.addChild(group, 1);
-        
+
     }
 
     @objid ("34e0137c-55b7-11e2-877f-002564c97630")
     private void read_2(final IDiagramReader in) {
         super.read(in);
-        
+
         this.header = (GmModelElementHeader) getChildren().get(0);
         GmClassifierResizableGroup group = (GmClassifierResizableGroup) getChildren().get(1);
         this.enumGroup = (GmEnumLitteralGroup) group.getChildren().get(0);
         this.methodGroup = (GmGroup) group.getChildren().get(1);
-        
+
         // Add the new attribute & inner groups
         this.attributeGroup = new GmAttributeGroup(getDiagram(), getRepresentedRef());
         this.innerElements = new GmInnerClass(getDiagram(), getRepresentedRef());
-        
+
         // Set roles
         this.header.setRoleInComposition(HEADER);
         this.enumGroup.setRoleInComposition(LITTERAL_GROUP);
@@ -455,12 +458,12 @@ public class GmEnumPrimaryNode extends GmNoStyleCompositeNode implements IImagea
         this.attributeGroup.setRoleInComposition(ATTRIBUTE_GROUP);
         this.methodGroup.setRoleInComposition(METHOD_GROUP);
         this.innerElements.setRoleInComposition(INNER);
-        
+
         group.addChild(this.attributeGroup);
         removeChild(this.methodGroup);
         group.addChild(this.methodGroup);
         group.addChild(this.innerElements);
-        
+
     }
 
     @objid ("34e01382-55b7-11e2-877f-002564c97630")
@@ -470,6 +473,7 @@ public class GmEnumPrimaryNode extends GmNoStyleCompositeNode implements IImagea
 
     /**
      * Get the group where <tt>GmAttributes</tt> are unmasked.
+     *
      * @return the attributes group.
      */
     @objid ("34e01386-55b7-11e2-877f-002564c97630")
@@ -480,14 +484,14 @@ public class GmEnumPrimaryNode extends GmNoStyleCompositeNode implements IImagea
     @objid ("34e0138d-55b7-11e2-877f-002564c97630")
     private void read_3(final IDiagramReader in) {
         super.read(in);
-        
+
         this.header = (GmModelElementHeader) getFirstChild(HEADER);
         GmClassifierResizableGroup group = (GmClassifierResizableGroup) getChildren().get(1);
         this.enumGroup = (GmEnumLitteralGroup) group.getFirstChild(LITTERAL_GROUP);
         this.attributeGroup = (GmGroup) group.getFirstChild(ATTRIBUTE_GROUP);
         this.methodGroup = (GmGroup) group.getFirstChild(METHOD_GROUP);
         this.innerElements = (GmInnerClass) group.getFirstChild(INNER);
-        
+
     }
 
 }

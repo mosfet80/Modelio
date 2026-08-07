@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.astyle;
 
@@ -26,6 +26,7 @@ import org.modelio.api.plugin.Api;
 class AStyleInterface {
     /**
      * Call the AStyleMain function in Artistic Style.
+     *
      * @param textIn A string containing the source code to be formatted.
      * @param options A string of options to Artistic Style.
      * @return A String containing the formatted source from Artistic Style, or an empty string on error.
@@ -46,6 +47,7 @@ class AStyleInterface {
 
     /**
      * Call the AStyleGetVersion function in Artistic Style.
+     *
      * @return A String containing the formatted source from Artistic Style, or an empty string on error.
      */
     @objid ("005e8012-13d7-1f63-9ca6-001e4fea2d8b")
@@ -62,6 +64,7 @@ class AStyleInterface {
 
     /**
      * Calls the AStyleMain function in Artistic Style.
+     *
      * @param textIn A string containing the source code to be formatted.
      * @param options A string of options to Artistic Style.
      * @return A String containing the formatted source from Artistic Style.
@@ -71,6 +74,7 @@ class AStyleInterface {
 
     /**
      * Calls the AStyleGetVersion function in Artistic Style.
+     *
      * @return A String containing the version number of Artistic Style.
      */
     @objid ("005ec068-13d7-1f63-9ca6-001e4fea2d8b")
@@ -78,6 +82,7 @@ class AStyleInterface {
 
     /**
      * Default error handler used by Artistic Style.
+     *
      * @param id The error id.
      * @param str The error message.
      */
@@ -98,5 +103,5 @@ static {
                 Api.LOG.warning("  - loading 'AStylej' failed, reason is " + x.getMessage());
             }
         }
-    
+
 }

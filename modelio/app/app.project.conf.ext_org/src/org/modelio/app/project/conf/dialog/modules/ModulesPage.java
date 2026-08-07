@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.conf.dialog.modules;
 
@@ -61,6 +61,7 @@ public class ModulesPage implements IProjectConfPage {
     private Composite mainComposite;
 
     /**
+     *
      * @param toolkit the form toolkit
      * @param application the application model
      * @param parent the parent composite
@@ -72,24 +73,24 @@ public class ModulesPage implements IProjectConfPage {
         IEclipseContext applicationContext = application.getContext();
         this.mainComposite = toolkit.createComposite(parent, SWT.NONE);
         this.mainComposite.setLayout(new GridLayout());
-        
+
         // The form
         ScrolledForm form = toolkit.createScrolledForm(this.mainComposite);
         form.getBody().setLayout(new TableWrapLayout());
         form.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-        
+
         // Modules Section
         this.modulesSection = new ModulesSection(applicationContext);
         Section s1 = this.modulesSection.createControls(toolkit, form.getBody());
         s1.setLayoutData(new TableWrapData(TableWrapData.FILL));
-        
+
         // Parameters Section
         this.parameterSection = new ParameterSection(applicationContext);
         final Section s3 = this.parameterSection.createControls(toolkit, form.getBody());
         s3.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
-        
+
         // Parameter updater
-        
+
         this.modulesSection.addSelectionChangedListener(new ISelectionChangedListener() {
             @Override
             public void selectionChanged(SelectionChangedEvent event) {
@@ -121,6 +122,7 @@ public class ModulesPage implements IProjectConfPage {
 
     /**
      * Set the data model.
+     *
      * @param projectAdapter the project data model.
      */
     @objid ("c453de73-acd7-4147-b72f-bf91ce833a18")
@@ -129,7 +131,7 @@ public class ModulesPage implements IProjectConfPage {
         this.projectAdapter = projectAdapter;
         // update the different sections
         this.modulesSection.setInput(projectAdapter);
-        
+
     }
 
     @objid ("cefcbeca-7b38-4b76-a7d7-38bee254fd1f")

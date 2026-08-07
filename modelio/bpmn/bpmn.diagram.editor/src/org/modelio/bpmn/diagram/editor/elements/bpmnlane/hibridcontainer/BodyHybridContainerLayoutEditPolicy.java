@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnlane.hibridcontainer;
 
@@ -99,7 +99,7 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
      * C'tor.
      */
     @objid ("61316701-55b6-11e2-877f-002564c97630")
-    public  BodyHybridContainerLayoutEditPolicy() {
+    public BodyHybridContainerLayoutEditPolicy() {
         super();
         // Create an instance of both free zone and lane set policies.
         if (false) {
@@ -109,7 +109,7 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
             this.freeZonePolicy = new BpmnFreeZoneLayoutPolicy();
             this.laneSetPolicy = new BpmnLaneSetEditPolicy();
         }
-        
+
     }
 
     @objid ("61316704-55b6-11e2-877f-002564c97630")
@@ -137,7 +137,7 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
         default:
             break;
         }
-        
+
     }
 
     @objid ("61316707-55b6-11e2-877f-002564c97630")
@@ -162,7 +162,7 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
         }
         removeLinkAndNodePolicy();
         super.deactivate();
-        
+
     }
 
     @objid ("6131670a-55b6-11e2-877f-002564c97630")
@@ -188,7 +188,7 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
         default:
             break;
         }
-        
+
     }
 
     @objid ("6131670e-55b6-11e2-877f-002564c97630")
@@ -214,7 +214,7 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
         default:
             break;
         }
-        
+
     }
 
     @objid ("61316712-55b6-11e2-877f-002564c97630")
@@ -266,7 +266,7 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
         default:
             break;
         }
-        
+
         // Make sure the current model is editable
         GmNodeModel model = (GmNodeModel) getHost().getModel();
         if (model.isUserEditable()) {
@@ -274,7 +274,7 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("6132ed7d-55b6-11e2-877f-002564c97630")
@@ -283,7 +283,7 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
         super.setHost(editpart);
         this.freeZonePolicy.setHost(editpart);
         this.laneSetPolicy.setHost(editpart);
-        
+
     }
 
     @objid ("6132ed81-55b6-11e2-877f-002564c97630")
@@ -308,7 +308,7 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
         default:
             break;
         }
-        
+
     }
 
     @objid ("6132ed85-55b6-11e2-877f-002564c97630")
@@ -333,7 +333,7 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
         default:
             break;
         }
-        
+
     }
 
     @objid ("6132ed89-55b6-11e2-877f-002564c97630")
@@ -362,6 +362,7 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
 
     /**
      * Sets the behaviour to adopt.
+     *
      * @param value the new behaviour.
      */
     @objid ("6132ed8f-55b6-11e2-877f-002564c97630")
@@ -385,7 +386,7 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
                 if (previousBehaviour == Behaviour.LANE_CONTAINER) {
                     this.laneSetPolicy.deactivate();
                     this.freeZonePolicy.activate();
-        
+
                     installLinkAndNodePolicy();
                 }
                 if (previousBehaviour == Behaviour.HYBRID) {
@@ -401,7 +402,7 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
                 if (previousBehaviour == Behaviour.HYBRID) {
                     this.freeZonePolicy.deactivate();
                 }
-        
+
                 removeLinkAndNodePolicy();
                 break;
             }
@@ -409,7 +410,7 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
                 break;
             }
         }
-        
+
     }
 
     /**
@@ -430,7 +431,7 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
                 // The request may include all connections inside the model lane, ignore them
                 continue;
             }
-        
+
             boolean isLane = editPartObj instanceof BpmnLaneEditPart;
             if (allLanes == null) {
                 allLanes = Boolean.valueOf(isLane);
@@ -439,7 +440,7 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
                 return null;
             }
         }
-        
+
         if (allLanes == null) {
             // no node edit part in the request
             return null;
@@ -447,7 +448,7 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
             // Everything of the same type, return corresponding policy.
             return allLanes ? this.laneSetPolicy : this.freeZonePolicy;
         }
-        
+
     }
 
     /**
@@ -469,7 +470,7 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
         } else {
             return this.freeZonePolicy;
         }
-        
+
     }
 
     @objid ("6132ed9d-55b6-11e2-877f-002564c97630")
@@ -492,6 +493,7 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
 
     /**
      * Returns the current behaviour.
+     *
      * @return the current behaviour.
      */
     @objid ("6132eda3-55b6-11e2-877f-002564c97630")
@@ -508,7 +510,7 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
     private void installLinkAndNodePolicy() {
         // Policy to create Link+Node for sequence flow and data association (allow to create a node as target of a new link, user can choose the kind of node)
         getHost().installEditPolicy(AbstractCreateLinkChooseNodeEditPolicy.ROLE, new BpmnCreateLinkChooseNodeEditPolicy());
-        
+
     }
 
     @objid ("53e2fcae-28c3-4227-b4b0-e720a6f2051e")
@@ -534,7 +536,7 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
         @Override
         protected Command getCreateCommand(CreateRequest request) {
             ModelioCreationContext ctx = ModelioCreationContext.lookRequest(request);
-            
+
             if (ctx == null) {
                 return null;
             } else {
@@ -542,20 +544,20 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
                 MObject hostElement = getHostElement();
                 MObject elementToUnmask = ctx.getElementToUnmask();
                 GmCompositeNode gmParentNode = getHostCompositeNode();
-            
+
                 if (cls == BpmnLane.class) {
                     if (elementToUnmask != null) {
                         return null;
                     }
-            
+
                     Object requestConstraint = getConstraintFor(request);
                     return new CreateBpmnLaneSetContainerCommand(hostElement, gmParentNode, ctx, requestConstraint, null);
                 }
-            
+
                 while (hostElement instanceof BpmnLane) {
                     hostElement = hostElement.getCompositionOwner().getCompositionOwner();
                 }
-            
+
                 if (elementToUnmask != null) {
                     if (gmParentNode.canUnmask(elementToUnmask)) {
                         Object requestConstraint = getConstraintFor(request);
@@ -564,13 +566,13 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
                         return null;
                     }
                 }
-            
+
                 MClass metaclassToCreate = ctx.getMetaclass();
                 String depName = ctx.getDependencyName();
-            
+
                 MExpert expert = hostElement.getMClass().getMetamodel().getMExpert();
                 boolean returnCommand = expert.canCompose(hostElement.getMClass(), metaclassToCreate, depName);
-            
+
                 if (returnCommand) {
                     Object requestConstraint = getConstraintFor(request);
                     if (BpmnSubProcess.class.isAssignableFrom(ctx.getJavaClass())) {
@@ -604,7 +606,7 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
                         (GmNodeModel) child.getModel(),
                         constraint);
             }
-            
+
         }
 
         @objid ("61347439-55b6-11e2-877f-002564c97630")
@@ -652,7 +654,7 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
             if (!isLaneSet(child)) {
                 super.decorateChild(child);
             }
-            
+
         }
 
         @objid ("12b12153-1fef-4c90-97d9-98080f921a32")
@@ -661,18 +663,18 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
             if (!isLaneSet(child)) {
                 super.undecorateChild(child);
             }
-            
+
         }
 
         @objid ("dc45f2fc-f788-46b0-aa0b-11e0990804cb")
         @Override
         protected Object getConstraintFor(ChangeBoundsRequest request, GraphicalEditPart child) {
             IFigure childFig = child.getFigure();
-            
+
             // Use the constraint instead of the figure bounds
             // because the layouter constraints the bounds to be inside the container.
             Rectangle currentConstraint = getCurrentConstraintFor(child);
-            
+
             Rectangle original;
             if (currentConstraint != null) {
                 original = new PrecisionRectangle(currentConstraint);
@@ -687,12 +689,12 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
                 original = new PrecisionRectangle(childFig.getBounds());
                 currentConstraint = original.getCopy();
             }
-            
+
             Rectangle rect = original.getCopy();
             childFig.translateToAbsolute(rect);
             rect = request.getTransformedRectangle(rect);
             translateFromAbsoluteToLayoutRelative(rect);
-            
+
             if (request.getSizeDelta().equals(0, 0)) {
                 Rectangle cons = currentConstraint;
                 if (cons != null) {
@@ -708,7 +710,7 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
         @objid ("621c6360-55b6-11e2-877f-002564c97630")
         private static class CreateBpmnFlowElementCommand extends DefaultCreateElementCommand {
             @objid ("621de9c4-55b6-11e2-877f-002564c97630")
-            public  CreateBpmnFlowElementCommand(MObject parentNode, GmCompositeNode parentElement, ModelioCreationContext context, Object constraint) {
+            public CreateBpmnFlowElementCommand(MObject parentNode, GmCompositeNode parentElement, ModelioCreationContext context, Object constraint) {
                 super(parentNode, parentElement, context, constraint);
             }
 
@@ -716,17 +718,17 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
             @Override
             public void execute() {
                 final IGmDiagram diagram = getParentNode().getDiagram();
-                
+
                 MObject newElement = getContext().getElementToUnmask();
-                
+
                 if (newElement == null) {
                     IModelManager modelManager = diagram.getModelManager();
-                
+
                     // Create the Element...
                     final IStandardModelFactory modelFactory = modelManager.getModelFactory().getFactory(IStandardModelFactory.class);
                     MClass mc = getContext().getMetaclass();
                     newElement = modelFactory.createElement(mc);
-                
+
                     // The new element must be attached to its parent using the composition dependency
                     // provided by the context.
                     // If the context provides a null dependency, use the default dependency recommended by the metamodel
@@ -740,14 +742,14 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
                                 Objects.toString(getParentElement()));
                         // ... and attach it to its parent.
                     }
-                
+
                     getParentElement().mGet(effectiveDependency).add(newElement);
-                
+
                     // Attach the stereotype if needed.
                     if (getContext().getStereotype() != null && newElement instanceof ModelElement) {
                         ((ModelElement) newElement).getExtension().add(getContext().getStereotype());
                     }
-                
+
                     if (newElement instanceof BpmnFlowElement &&
                             getParentNode().getRelatedElement() instanceof BpmnLane) {
                         BpmnLane lane = (BpmnLane) getParentNode().getRelatedElement();
@@ -755,24 +757,24 @@ class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
                         // flowElement.addBpmnLaneRefs(lane);
                         lane.getFlowElementRef().add(flowElement);
                     }
-                
+
                     // Configure element from properties
                     final IElementConfigurator elementConfigurer = modelManager.getModelServices().getElementConfigurer();
                     elementConfigurer.configure(newElement, getContext().getProperties());
-                
+
                     // Set default name
                     IElementNamer elementNamer = modelManager.getModelServices().getElementNamer();
                     newElement.setName(elementNamer.getUniqueName(newElement));
-                
+
                 }
-                
+
                 // Show the new element in the diagram (ie create its Gm )
                 GmNodeModel gm = diagram.unmask(getParentNode(), newElement, getConstraint());
-                
+
                 this.mainLinkable = gm;
-                
+
                 afterUnmask(newElement, gm);
-                
+
             }
 
         }

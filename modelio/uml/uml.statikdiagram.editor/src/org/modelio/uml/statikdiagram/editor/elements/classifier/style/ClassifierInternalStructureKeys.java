@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.classifier.style;
 
@@ -28,7 +28,7 @@ import org.modelio.uml.statikdiagram.editor.style.StaticAbstractStyleKeyProvider
  * Style keys for all internal structure group members.
  * <p>
  * INTERNALSVIEWMODE and INTERNALS are used for internal structure zone too.
- * 
+ *
  * @author cmarin
  */
 @objid ("4b8e5227-6967-4fa8-9f56-2c7b811922f3")
@@ -71,11 +71,12 @@ public class ClassifierInternalStructureKeys extends StaticAbstractStyleKeyProvi
 
     /**
      * Instantiates a Classifier attributes group style key provider.
+     *
      * @param prefix a prefix for style key names.
      * It is advised to use the upper case metaclass name as prefix.
      */
     @objid ("bb785cf7-8956-4ad0-8b1c-daa9d7b414e4")
-    public  ClassifierInternalStructureKeys(String prefix) {
+    public ClassifierInternalStructureKeys(String prefix) {
         this.INTERNALSVIEWMODE = createStyleKey(prefix+"_INTERNALSVIEWMODE", MetaKey.InternalGroup.INTVIEWMODE);
         this.TEXTCOLOR = createStyleKey(prefix+"_INTERNAL_TEXTCOLOR", MetaKey.InternalGroup.INTTEXTCOLOR);
         this.FONT = createStyleKey(prefix+"_INTERNAL_FONT", MetaKey.InternalGroup.INTFONT);
@@ -83,7 +84,7 @@ public class ClassifierInternalStructureKeys extends StaticAbstractStyleKeyProvi
                     MetaKey.InternalGroup.INTSHOWSTEREOTYPES);
         this.SHOWTAGS = createStyleKey(prefix+"_INTERNAL_SHOWTAGS", MetaKey.InternalGroup.INTSHOWTAGS);
         this.AUTOUNMASK = createStyleKey(prefix+"_INTERNAL_AUTOUNMASK", MetaKey.InternalGroup.INTAUTOUNMASK);
-        
+
     }
 
 }

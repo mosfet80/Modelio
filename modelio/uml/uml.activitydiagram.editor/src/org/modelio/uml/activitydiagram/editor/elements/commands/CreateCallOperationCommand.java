@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.commands;
 
@@ -41,7 +41,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * Create a {@link ICallOperationAction} linked to the given {@link Operation} and unmask it in the diagram.
- * 
+ *
  * @author cmarin
  */
 @objid ("2a0d7f0b-55b6-11e2-877f-002564c97630")
@@ -60,18 +60,19 @@ public class CreateCallOperationCommand extends Command {
 
     /**
      * Initialize the command.
+     *
      * @param dropLocation The location of the element in the diagram
      * @param toUnmask The operation to unmask
      * @param editPart The destination edit part that will own the call operation.
      * @param parentElement The element that will own the call operation action.
      */
     @objid ("2a0d7f15-55b6-11e2-877f-002564c97630")
-    public  CreateCallOperationCommand(Point dropLocation, Operation toUnmask, EditPart editPart, MObject parentElement) {
+    public CreateCallOperationCommand(Point dropLocation, Operation toUnmask, EditPart editPart, MObject parentElement) {
         this.operation = toUnmask;
         this.dropLocation = dropLocation;
         this.editPart = editPart;
         this.parentElement = parentElement;
-        
+
     }
 
     @objid ("2a0d7f20-55b6-11e2-877f-002564c97630")
@@ -80,14 +81,14 @@ public class CreateCallOperationCommand extends Command {
         final GmModel gmModel = (GmModel) this.editPart.getModel();
         final IGmDiagram gmDiagram = gmModel.getDiagram();
         IStandardModelFactory modelFactory = gmDiagram.getModelManager().getModelFactory().getFactory(IStandardModelFactory.class);
-        
+
         // Create the smart node
         final CallOperationAction el = modelFactory.createCallOperationAction();
-        
+
         // Attach to parent
         MExpert mExpert = this.parentElement.getMClass().getMetamodel().getMExpert();
         final MDependency effectiveDependency = mExpert.getDefaultCompositionDep(this.parentElement, el);
-        
+
         if (effectiveDependency == null) {
             StringBuilder msg = new StringBuilder();
             msg.append("Cannot find a composition dependency to attach ");
@@ -96,13 +97,13 @@ public class CreateCallOperationCommand extends Command {
             msg.append(this.parentElement.toString());
             throw new IllegalStateException(msg.toString());
         }
-        
+
         this.parentElement.mGet(effectiveDependency).add(el);
-        
+
         // Attach to dropped element
         el.setName(this.operation.getName());
         el.setCalled(this.operation);
-        
+
         for (Parameter p : this.operation.getIO()) {
             Pin pin;
             switch (p.getParameterPassing()) {
@@ -117,7 +118,7 @@ public class CreateCallOperationCommand extends Command {
                 pin = modelFactory.createOutputPin();
                 initPin(p, pin);
                 el.getOutput().add((OutputPin) pin);
-        
+
                 pin = modelFactory.createInputPin();
                 initPin(p, pin);
                 el.getInput().add((InputPin) pin);
@@ -132,7 +133,7 @@ public class CreateCallOperationCommand extends Command {
                 break;
             }
         }
-        
+
         final Parameter p = this.operation.getReturn();
         if (p != null) {
             // Create an output pin
@@ -140,29 +141,30 @@ public class CreateCallOperationCommand extends Command {
             initPin(p, pin);
             el.getOutput().add(pin);
         }
-        
+
         unmaskElement(el);
-        
+
     }
 
     /**
      * Unmask the given element in the destination edit part.
+     *
      * @param el The element to unmask
      */
     @objid ("2a0d7f23-55b6-11e2-877f-002564c97630")
     private void unmaskElement(MObject el) {
         final ModelioCreationContext gmCreationContext = new ModelioCreationContext(el);
-        
+
         final CreateRequest creationRequest = new CreateRequest();
         creationRequest.setLocation(this.dropLocation);
         creationRequest.setSize(new Dimension(-1, -1));
         creationRequest.setFactory(gmCreationContext);
-        
+
         final Command cmd = this.editPart.getTargetEditPart(creationRequest).getCommand(creationRequest);
         if (cmd != null && cmd.canExecute()) {
             cmd.execute();
         }
-        
+
     }
 
     @objid ("2a0d7f29-55b6-11e2-877f-002564c97630")
@@ -177,7 +179,7 @@ public class CreateCallOperationCommand extends Command {
         pin.setName(p.getName());
         pin.setType(p.getType());
         pin.setUpperBound(p.getMultiplicityMax());
-        
+
     }
 
 }

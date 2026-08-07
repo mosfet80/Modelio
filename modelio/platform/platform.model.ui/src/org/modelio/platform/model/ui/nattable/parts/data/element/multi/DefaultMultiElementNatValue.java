@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.parts.data.element.multi;
 
@@ -39,23 +39,24 @@ public class DefaultMultiElementNatValue extends DefaultNatValue implements IMul
 
     /**
      * Creates a new instance.
+     *
      * @param value the wrapped value.
      * @param acceptNullValue whether or not <code>null</code> is a valid value for this field.
      * @param allowedClasses list of the accepted metaclasses for the value.
      */
     @objid ("a693409e-98ed-4d56-8925-d170a4e1ad9b")
-    public  DefaultMultiElementNatValue(Collection<MObject> value, boolean acceptNullValue, Collection<Class<? extends MObject>> allowedClasses) {
+    public DefaultMultiElementNatValue(Collection<MObject> value, boolean acceptNullValue, Collection<Class<? extends MObject>> allowedClasses) {
         super(new ArrayList<>(value), acceptNullValue);
         this.allowedClasses = allowedClasses;
-        
     }
 
     /**
      * Copy constructor, creating a new instance with the same configuration as the other.
+     *
      * @param anotherInstance the instance to copy.
      */
     @objid ("e9fde442-d4b8-4a48-8b75-7e5dfd4a2566")
-    public  DefaultMultiElementNatValue(DefaultMultiElementNatValue anotherInstance) {
+    public DefaultMultiElementNatValue(DefaultMultiElementNatValue anotherInstance) {
         super(anotherInstance);
     }
 
@@ -91,7 +92,6 @@ public class DefaultMultiElementNatValue extends DefaultNatValue implements IMul
             throw new IllegalArgumentException("Value must be a MObject Collection.");
         }
         super.setValue(value);
-        
     }
 
 }

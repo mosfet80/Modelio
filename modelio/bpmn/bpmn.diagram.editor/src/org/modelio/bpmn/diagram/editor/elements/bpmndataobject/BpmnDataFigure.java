@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmndataobject;
 
@@ -51,19 +51,19 @@ public class BpmnDataFigure extends ShapedFigure {
     private ImageFigure centerIcon = null;
 
     @objid ("60ae2d23-55b6-11e2-877f-002564c97630")
-    public  BpmnDataFigure() {
+    public BpmnDataFigure() {
         super();
         setShaper(new NoteFigure.UMLNoteShaper());
         this.setLayoutManager(new BorderLayout());
-        
+
         this.topContainer = new Figure();
         this.topContainer.setLayoutManager(new FlowLayout());
         this.topContainer.setOpaque(false);
-        
+
         this.add(this.topContainer, BorderLayout.TOP);
         this.shapedBorder = new ShapedBorder(this.getLineColor(), this.getLineWidth(),  new NoteFigure.UMLNoteShaper());
         this.setBorder(this.shapedBorder);
-        
+
     }
 
     @objid ("60ae2d25-55b6-11e2-877f-002564c97630")
@@ -72,13 +72,13 @@ public class BpmnDataFigure extends ShapedFigure {
             this.remove(this.centerIcon);
             this.centerIcon  = null;
         }
-        
+
         // add new image figure
         if (icon != null) {
             this.centerIcon = new ImageFigure(icon);
             this.add(this.centerIcon, BorderLayout.CENTER);
         }
-        
+
     }
 
     @objid ("60ae2d2b-55b6-11e2-877f-002564c97630")
@@ -91,7 +91,7 @@ public class BpmnDataFigure extends ShapedFigure {
             imgFigure.setBorder(new MarginBorder(5, 5, 0, 0));
             this.topContainer.add(imgFigure, BorderLayout.LEFT);
         }
-        
+
     }
 
     @objid ("b3026e0f-853e-4425-8cc6-d8235c19e2bf")
@@ -99,7 +99,7 @@ public class BpmnDataFigure extends ShapedFigure {
     public void setLineColor(Color lineColor) {
         this.shapedBorder.setColor(lineColor);
         super.setLineColor(lineColor);
-        
+
     }
 
     @objid ("c454782a-233c-4e7a-ba7e-0f882677b537")
@@ -107,7 +107,7 @@ public class BpmnDataFigure extends ShapedFigure {
     public void setLineWidth(int lineWidth) {
         this.shapedBorder.setWidth(lineWidth);
         super.setLineWidth(lineWidth);
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.bpmn.delegated;
 
@@ -51,15 +51,17 @@ public class BpmnTerminateEventDefinitionPropertyModel extends AbstractPropertyM
     /**
      * Create a new <i>BpmnTerminateEventDefinition</i> data model from an
      * <i>BpmnTerminateEventDefinition</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("16aa60a9-cbef-49c2-a6a1-c5ed2c8931b2")
-    public  BpmnTerminateEventDefinitionPropertyModel(BpmnTerminateEventDefinition theEditedElement) {
+    public BpmnTerminateEventDefinitionPropertyModel(BpmnTerminateEventDefinition theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("91706c4e-d26c-42f8-bd39-3b48b0d3ff6c")
@@ -70,6 +72,7 @@ public class BpmnTerminateEventDefinitionPropertyModel extends AbstractPropertyM
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("9d686036-efae-4298-9651-b8d104ec7c56")
@@ -82,6 +85,7 @@ public class BpmnTerminateEventDefinitionPropertyModel extends AbstractPropertyM
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -99,7 +103,7 @@ public class BpmnTerminateEventDefinitionPropertyModel extends AbstractPropertyM
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -109,6 +113,7 @@ public class BpmnTerminateEventDefinitionPropertyModel extends AbstractPropertyM
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -127,13 +132,14 @@ public class BpmnTerminateEventDefinitionPropertyModel extends AbstractPropertyM
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -152,7 +158,7 @@ public class BpmnTerminateEventDefinitionPropertyModel extends AbstractPropertyM
         default:
             return;
         }
-        
+
     }
 
 }

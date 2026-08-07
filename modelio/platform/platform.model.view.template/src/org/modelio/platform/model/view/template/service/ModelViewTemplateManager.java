@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.view.template.service;
 
@@ -24,7 +24,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -56,13 +56,13 @@ public class ModelViewTemplateManager {
 
     @objid ("b95d97d4-51a1-48ad-8ea3-e64c6e13d8e8")
     @Inject
-     ModelViewTemplateManager(final IEclipseContext context) {
+    ModelViewTemplateManager(final IEclipseContext context) {
         this.context = context;
-        
+
         for (final IConfigurationElement element : new ExtensionPointContributionManager(ModelViewTemplateManager.VIEWTEMPLATE_EXTENSIONPOINT_ID).getExtensions("viewtemplate")) {
             parseTemplate(element);
         }
-        
+
     }
 
     @objid ("73ebd479-bc8f-4405-a8ec-a70ad1e302cc")
@@ -77,7 +77,7 @@ public class ModelViewTemplateManager {
             ModelViewTemplate.LOG.error("Unable to register model view template declared %s: %s", element.getContributor().getName(), e.getMessage());
             ModelViewTemplate.LOG.debug(e);
         }
-        
+
     }
 
     @objid ("779886a9-4de0-4e92-b461-2758f9f1121b")

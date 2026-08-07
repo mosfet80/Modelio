@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.mmextensions.infrastructure.factory;
 
@@ -49,11 +49,11 @@ class InfrastructureElementInitializer implements IInfrastructureElementInitiali
     private ElementInitializerVisitor visitor;
 
     @objid ("a2f36b18-9d4e-408c-9177-da0b1ed37995")
-    public  InfrastructureElementInitializer(IInfrastructureModelFactory modelFactory) {
+    public InfrastructureElementInitializer(IInfrastructureModelFactory modelFactory) {
         Geometry geometry = new Geometry();
-        
+
         this.visitor = new ElementInitializerVisitor(modelFactory, geometry);
-        
+
     }
 
     @objid ("0c244183-e94e-47e8-a925-c87cad9a0024")
@@ -72,7 +72,7 @@ class InfrastructureElementInitializer implements IInfrastructureElementInitiali
         default:
             // unknown key
         }
-        
+
     }
 
     @objid ("ac1bad52-817e-47ba-b9de-1847830aac58")
@@ -87,17 +87,17 @@ class InfrastructureElementInitializer implements IInfrastructureElementInitiali
         private IInfrastructureModelFactory modelFactory;
 
         @objid ("8c2cbc73-3cc7-4e59-9542-d2dea6cbea74")
-        public  ElementInitializerVisitor(final IInfrastructureModelFactory modelFactory, Geometry geometry) {
+        public ElementInitializerVisitor(final IInfrastructureModelFactory modelFactory, Geometry geometry) {
             this.modelFactory = modelFactory;
             this.geometry = geometry;
-            
+
         }
 
         @objid ("bf0571c4-7225-480c-b6f8-6142191d1bd8")
         @Override
         public Object visitDynamicPropertyDefinition(DynamicPropertyDefinition theDynamicPropertyDefinition) {
             CoreSession session = CoreSession.getSession(theDynamicPropertyDefinition);
-            
+
             // Take the MultiElement type...
             for (PropertyType type : session.getModel().findByClass(PropertyType.class)) {
                 if (type.getName().equals("MultiElement")) {
@@ -105,7 +105,7 @@ class InfrastructureElementInitializer implements IInfrastructureElementInitiali
                     break;
                 }
             }
-            
+
             // Set 'trace' as the default stereotype
             theDynamicPropertyDefinition.setProperty("Constraints", "DependencyStereotype", "'trace'{01280500-0000-0b37-0000-000000000000} Stereotype");
             return super.visitDynamicPropertyDefinition(theDynamicPropertyDefinition);
@@ -156,7 +156,7 @@ class InfrastructureElementInitializer implements IInfrastructureElementInitiali
         @Override
         public Object visitPropertyDefinition(PropertyDefinition thePropertyDefinition) {
             CoreSession session = CoreSession.getSession(thePropertyDefinition);
-            
+
             if (thePropertyDefinition.getType() == null) {
                 // Take the first available type...
                 for (PropertyType type : session.getModel().findByClass(PropertyType.class)) {
@@ -195,9 +195,9 @@ class InfrastructureElementInitializer implements IInfrastructureElementInitiali
         @objid ("0fea1a4e-4d43-4f7d-9e94-7a55c64d5f6f")
         public NoteType getDescriptionNoteType(ICoreSession coreSession) {
             if ((this.descriptionNoteType == null) || !this.descriptionNoteType.isValid()) {
-            
+
                 List<NoteType> noteTypes = new MModelServices(coreSession).findNoteTypes("ModelerModule", ModelElement.MQNAME, "description", coreSession.getMetamodel().getMClass(ModelElement.class));
-            
+
                 if (noteTypes.size() > 0) {
                     this.descriptionNoteType = noteTypes.get(0);
                 }

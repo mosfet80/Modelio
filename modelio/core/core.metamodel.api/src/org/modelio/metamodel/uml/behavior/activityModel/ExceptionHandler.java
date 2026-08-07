@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.uml.behavior.activityModel;
 
 import java.util.List;
@@ -33,124 +32,113 @@ import org.modelio.metamodel.uml.statik.GeneralClass;
 
 /**
  * ExceptionHandler v0.0.9054
- * 
- * 
+ *
+ *
  * null
- * 
- * 
+ *
  */
 @objid ("00307956-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ExceptionHandler extends UmlModelElement {
     /**
      * The metaclass simple name.
      */
-    @objid ("474b3ca5-8bf7-4041-a204-0d82dd32953e")
+    @objid ("94750920-0334-4f7e-a983-cc323bc4848c")
     public static final String MNAME = "ExceptionHandler";
 
     /**
      * The metaclass qualified name.
      */
-    @objid ("a7e520ca-2c3b-4a1d-a40b-786b844e0f12")
+    @objid ("80e4242d-b886-4111-8faa-eca8b3a4e29d")
     public static final String MQNAME = "Standard.ExceptionHandler";
 
     /**
      * Getter for attribute 'ExceptionHandler.Guard'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("bfadd88c-4a66-4834-a1c7-ef7460e247a6")
+    @objid ("c652812b-d665-4a0c-99f8-5ae0b9bc3365")
     String getGuard();
 
     /**
      * Setter for attribute 'ExceptionHandler.Guard'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("eb11c270-6c03-41ed-ae99-f13b3b6dd7e0")
+    @objid ("e0fa1eeb-0bc9-45f6-9b94-bfbcc3ecd66d")
     void setGuard(String value);
 
     /**
      * Getter for attribute 'ExceptionHandler.Weight'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("99348e15-1557-4298-8597-a91f17db0d00")
+    @objid ("e9eb3718-4c78-41d2-a98d-e3800660e5e1")
     String getWeight();
 
     /**
      * Setter for attribute 'ExceptionHandler.Weight'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("8565fde7-ca51-43d4-b3a9-ee88678b0101")
+    @objid ("9276a943-913d-442c-84ca-acaca45f9f0c")
     void setWeight(String value);
 
     /**
      * Getter for relation 'ExceptionHandler->ProtectedNode'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("bd7e1bd0-fc5a-4c5f-a521-d7799b9f487f")
+    @objid ("e11bce4e-803d-4204-9296-660ef34c3148")
     ActivityAction getProtectedNode();
 
     /**
      * Setter for relation 'ExceptionHandler->ProtectedNode'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("adf993e1-e157-4fda-bbbe-e4131e55c1f6")
+    @objid ("70ec40c0-6247-40ca-8bd7-756eaab10fdb")
     void setProtectedNode(ActivityAction value);
 
     /**
      * Getter for relation 'ExceptionHandler->ExceptionInput'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("502863e6-47f4-41b3-8d5d-ba9d41ab40db")
+    @objid ("3f44c344-4d1e-4a12-a24b-417a026ef5c9")
     InputPin getExceptionInput();
 
     /**
      * Setter for relation 'ExceptionHandler->ExceptionInput'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("0e368cae-b68f-41cb-be47-6aed62a0ea88")
+    @objid ("1fcdb3c2-672b-49e2-a922-2dda0b1eda82")
     void setExceptionInput(InputPin value);
 
     /**
      * Getter for relation 'ExceptionHandler->ExceptionType'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("09bd6b9a-4f95-48a6-8fb3-4ced4e0fcb18")
+    @objid ("aaa3fe1e-1027-43ba-8797-e50e3b687327")
     EList<GeneralClass> getExceptionType();
 
     /**
      * Filtered Getter for relation 'ExceptionHandler->ExceptionType'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("6a21c859-e35e-4841-b814-2300b85f596c")
+    @objid ("ff99b79c-377f-4a22-8ae4-70eb2b381602")
     <T extends GeneralClass> List<T> getExceptionType(java.lang.Class<T> filterClass);
-}
 
+}

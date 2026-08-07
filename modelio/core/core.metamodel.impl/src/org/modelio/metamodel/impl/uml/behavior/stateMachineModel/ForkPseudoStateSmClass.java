@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.stateMachineModel;
 
 import java.util.ArrayList;
@@ -40,75 +39,75 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("51ce5a8b-d368-44e6-9660-4fa2d173b067")
 public class ForkPseudoStateSmClass extends AbstractPseudoStateSmClass {
-    @objid ("7d2ed97d-04e5-43d3-a1d5-61330e4a331c")
-    public  ForkPseudoStateSmClass(ISmMetamodelFragment origin) {
+    @objid ("e7475f5f-4b2e-48d6-81e1-788636012612")
+    public ForkPseudoStateSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("dd4637e5-e4f7-42ed-913d-3695dd585096")
+    @objid ("7570d68a-3e39-409a-a801-0cfccbcdc14b")
     @Override
     public String getName() {
         return "ForkPseudoState";
-        
+
     }
 
-    @objid ("1c169033-73a8-41f8-9c29-921fde97a9df")
+    @objid ("3c5d7565-10b8-42fb-beac-932c72c9c53c")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("a07b90a1-a3f9-4c35-9770-ae752e17aa98")
+    @objid ("6333c5cb-14d3-4e5f-9b27-f79fae73de27")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return ForkPseudoState.class;
-        
+
     }
 
-    @objid ("0cfdfa13-a2fe-4d0f-94e4-e53bb151d053")
+    @objid ("4769c265-9d1a-4155-8bd4-5792010332a0")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("fdab6fa7-2d6e-45df-95d1-e92b1a783247")
+    @objid ("e01b74d3-94fb-45cc-b578-309a0e169c1d")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("7b0f11bd-b8a2-4fdc-919d-118a8cc0b500")
+    @objid ("8804e60e-dafe-4320-8c85-96de99550822")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(AbstractPseudoState.MQNAME);
         this.registerFactory(new ForkPseudoStateObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
-        
+
     }
 
     @objid ("b8eec8d2-7d8f-4091-89a4-ebf89f675fc3")
     private static class ForkPseudoStateObjectFactory implements ISmObjectFactory {
-        @objid ("30cbe19b-4397-4938-b25b-4a1b7c0b5111")
+        @objid ("738ef73b-2dae-4961-9135-a080172bb1cb")
         private ForkPseudoStateSmClass smClass;
 
-        @objid ("7be20556-3390-4ccc-831c-39955936f1b5")
-        public  ForkPseudoStateObjectFactory(ForkPseudoStateSmClass smClass) {
+        @objid ("a7169317-55a4-421a-81ab-01e1dc8ec9a2")
+        public ForkPseudoStateObjectFactory(ForkPseudoStateSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("dcc6f288-1f1b-4f1d-b436-ca02126c2a3f")
+        @objid ("92fd302c-0739-4b7e-86eb-87a36ae97182")
         @Override
         public ISmObjectData createData() {
             return new ForkPseudoStateData(this.smClass);
         }
 
-        @objid ("757055cb-d588-407d-a587-682393a63431")
+        @objid ("a72da784-d575-4127-8c15-3d2f412d59d1")
         @Override
         public SmObjectImpl createImpl() {
             return new ForkPseudoStateImpl();

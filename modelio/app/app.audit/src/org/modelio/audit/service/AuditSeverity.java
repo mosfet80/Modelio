@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.service;
 
@@ -59,14 +59,15 @@ public enum AuditSeverity {
     private Image image;
 
     @objid ("ad9fdb86-b7ec-4df0-823b-f154bec40c13")
-    private  AuditSeverity(String label, String image, String identifier) {
+    private AuditSeverity(String label, String image, String identifier) {
         this.image = Audit.getImageDescriptor(image).createImage();
         this.label = label;
         this.identifier = identifier;
-        
+
     }
 
     /**
+     *
      * @return the icon image
      */
     @objid ("45ae6e86-ccc1-48c5-bfbc-f83669bb47e9")
@@ -75,6 +76,7 @@ public enum AuditSeverity {
     }
 
     /**
+     *
      * @return the user GUI label.
      */
     @objid ("a3e9ee2c-3a61-47ed-9ea3-7e930a6cb531")
@@ -84,6 +86,7 @@ public enum AuditSeverity {
 
     /**
      * Get all severities GUI labels.
+     *
      * @return severities GUI labels.
      */
     @objid ("7f116674-7e37-4ec9-ba9a-f53d71d66d81")
@@ -93,6 +96,7 @@ public enum AuditSeverity {
 
     /**
      * Get all severity icons.
+     *
      * @return all severity icons.
      */
     @objid ("ac48ee03-e231-4779-9586-ef1179093bc6")
@@ -102,6 +106,7 @@ public enum AuditSeverity {
 
     /**
      * Find an AuditSeverity from its GUI label.
+     *
      * @param value a translated GUI label.
      * @return the matching severity or <code>null</code>.
      */
@@ -121,6 +126,7 @@ public enum AuditSeverity {
 
     /**
      * Find an AuditSeverity from the identifier used in configuration files.
+     *
      * @param v the audit identifier.
      * @return the found severity
      * @throws IllegalArgumentException if the identifier does not match a severity.
@@ -133,11 +139,12 @@ public enum AuditSeverity {
             }
         }
         throw new IllegalArgumentException("Invalid severity:" + v);
-        
+
     }
 
     /**
      * Get the identifier to use for persistence.
+     *
      * @return the enum identifier.
      */
     @objid ("5106b839-a2c8-40a7-a7d2-9560de63b2a7")

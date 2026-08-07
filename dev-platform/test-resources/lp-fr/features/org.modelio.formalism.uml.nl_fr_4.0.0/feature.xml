@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.modelio.formalism.uml.nl_fr"
+      label="%featureName"
+      version="4.0.0"
+      provider-name="Modeliosoft">
+
+   <copyright>
+      Copyright 2016 Modeliosoft
+All information contained herein is, and remains the property of Modeliosoft.
+The intellectual and technical concepts contained herein are proprietary 
+to Modeliosoft and may be covered by French and Foreign Patents, patents
+in process, and are protected by trade secret or copyright law.
+Dissemination of this information or reproduction of this material
+is strictly forbidden unless prior written permission is obtained
+from Modeliosoft.
+   </copyright>
+
+   <license url="">
+      Copyright 2016 Modeliosoft
+All information contained herein is, and remains the property of Modeliosoft.
+The intellectual and technical concepts contained herein are proprietary 
+to Modeliosoft and may be covered by French and Foreign Patents, patents
+in process, and are protected by trade secret or copyright law.
+Dissemination of this information or reproduction of this material
+is strictly forbidden unless prior written permission is obtained
+from Modeliosoft.
+   </license>
+
+   <url>
+      <discovery label="Modeliosoft" url="http://www.modeliosoft.com/"/>
+   </url>
+
+   <plugin
+         id="org.modelio.uml.activitydiagram.editor.nl_fr"
+         download-size="7"
+         install-size="61"
+         version="4.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.uml.communicationdiagram.editor.nl_fr"
+         download-size="2"
+         install-size="8"
+         version="4.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.uml.compositediagram.editor.nl_fr"
+         download-size="2"
+         install-size="9"
+         version="4.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.uml.deploymentdiagram.editor.nl_fr"
+         download-size="3"
+         install-size="20"
+         version="4.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.uml.objectdiagram.editor.nl_fr"
+         download-size="2"
+         install-size="8"
+         version="4.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.uml.sequencediagram.editor.nl_fr"
+         download-size="3"
+         install-size="13"
+         version="4.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.uml.statediagram.editor.nl_fr"
+         download-size="4"
+         install-size="23"
+         version="4.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.uml.statikdiagram.editor.nl_fr"
+         download-size="10"
+         install-size="105"
+         version="4.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.uml.usecasediagram.editor.nl_fr"
+         download-size="4"
+         install-size="18"
+         version="4.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.uml.metamodel.contribution.nl_fr"
+         download-size="0"
+         install-size="0"
+         version="4.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.uml.metamodel.api.nl_fr"
+         download-size="0"
+         install-size="0"
+         version="4.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.uml.metamodel.implementation.nl_fr"
+         download-size="0"
+         install-size="0"
+         version="4.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.uml.ui.ext.org.nl_fr"
+         download-size="0"
+         install-size="0"
+         version="4.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.uml.ui.nl_fr"
+         download-size="8"
+         install-size="40"
+         version="4.0.0"
+         unpack="false"/>
+
+</feature>

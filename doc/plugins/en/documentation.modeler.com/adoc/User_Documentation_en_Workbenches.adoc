@@ -1,0 +1,21 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= Workbenches
+
+
+
+== Introduction
+
+Modelio is a multipurpose tool which supports several metamodels (UML, ArchiMate, etc.) and specifications. Modelio offers many features and therefore suits many projects in various business contexts.
+
+Thanks to a powerful configuration mechanism, Modelio allows its users to get only the commands and features that suit their business and context. This mechanism is based on the concepts of *expertise* and *workbenches*.
+
+*  <<User_Documentation_en_Workbenches_Concepts.adoc#,*Expertise* and *workbench* concepts>>
+*  <<User_Documentation_en_Workbenches_Predefined_expertises.adoc#,Modelio's predefined *expertises*>>
+*  <<User_Documentation_en_Workbenches_Use_of_expertises.adoc#,Usage of *expertises*>>
+*  <<User_Documentation_en_Workbenches_Manage_of_expertises.adoc#,Management of *expertises*>>

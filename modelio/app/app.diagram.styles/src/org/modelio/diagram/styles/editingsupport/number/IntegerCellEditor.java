@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.styles.editingsupport.number;
 
@@ -37,13 +37,14 @@ public class IntegerCellEditor extends TextCellEditor {
     /**
      * Creates a new integer string cell editor parented under the given control. The cell editor value is the string
      * itself, which is initially the empty string. Initially, the cell editor has no cell validator.
+     *
      * @param parent the parent control
      */
     @objid ("85ae1ff0-1926-11e2-92d2-001ec947c8cc")
-    public  IntegerCellEditor(Composite parent, int style) {
+    public IntegerCellEditor(Composite parent, int style) {
         super(parent, style);
         this.setValidator(new IntegerValidator(this));
-        
+
     }
 
     @objid ("85ae1ff5-1926-11e2-92d2-001ec947c8cc")
@@ -54,7 +55,7 @@ public class IntegerCellEditor extends TextCellEditor {
             stringValue = ((Integer) value).toString();
         }
         super.doSetValue(stringValue);
-        
+
     }
 
     @objid ("85ae1ff9-1926-11e2-92d2-001ec947c8cc")
@@ -82,7 +83,7 @@ public class IntegerCellEditor extends TextCellEditor {
                 this.editor.getControl().setForeground(this.defaultColor);
                 return null;
             }
-            
+
             String stringValue = null;
             try {
                 stringValue = (String) value;
@@ -100,14 +101,14 @@ public class IntegerCellEditor extends TextCellEditor {
                                                                   .getSystemColor(SWT.COLOR_RED));
                 return e.toString();
             }
-            
+
         }
 
         @objid ("85ae2008-1926-11e2-92d2-001ec947c8cc")
-        public  IntegerValidator(final IntegerCellEditor integerCellEditor) {
+        public IntegerValidator(final IntegerCellEditor integerCellEditor) {
             this.editor = integerCellEditor;
             this.defaultColor = this.editor.getControl().getForeground();
-            
+
         }
 
     }

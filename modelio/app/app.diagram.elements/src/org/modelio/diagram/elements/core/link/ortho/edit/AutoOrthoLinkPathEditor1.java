@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.ortho.edit;
 
@@ -56,7 +56,7 @@ import org.modelio.diagram.elements.core.requests.ChangeBoundsFeedbackMap;
 
 /**
  * "Auto orthogonal" connections editor that uses {@link ConnectionEditor}.
- * 
+ *
  * @since 5.0.2
  */
 @objid ("691d83a6-5cf8-4878-818e-9a4ae3a9416e")
@@ -107,7 +107,7 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
         } else {
             return adaptToNewNodeBounds();
         }
-        
+
     }
 
     /**
@@ -120,6 +120,7 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
      * <li>Call {@link #adaptToNewNodeBounds()} .
      * <li>then {@link #applyStateToConnection()}
      * </ol>
+     *
      * @return this instance
      */
     @objid ("65e7e4d6-999a-4543-a380-29b20fec91de")
@@ -140,6 +141,7 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
      * <li> the connection
      * </ul>
      * Assumes the source and target nodes are still at their initial location.
+     *
      * @param request the move/resize request
      * @return this instance to chain calls.
      */
@@ -188,39 +190,39 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
         MPrecisionPoint previousPoint = connView.getPoint(TMP1, pointIndex - 1, true);
         MPrecisionPoint curPoint = connView.getPoint(TMP2, pointIndex, true);
         MPrecisionPoint nextPoint = connView.getPoint(TMP3, pointIndex + 1, true);
-        
+
         Direction previousDir = Direction.getMajor(curPoint, previousPoint);
         Direction nextDir = Direction.getMajor(curPoint, nextPoint);
-        
+
         OrientedAccessors access = AxisAccessor.forSegment(previousPoint, curPoint);
-        
+
         curPoint.setLocation(newLocation);
-        
+
         if (true) {
             // Try to align previous and next point to newLocation
-        
+
             // Previous point
             if (!previousPoint.isFixed()) {
                 TMP4.setLocation(previousPoint);
                 access.across.setCoord(previousPoint, newLocation);
                 fixLocation(connView, previousPoint, TMP4, pointIndex - 2, access.across);
                 this.editor.setPoint(pointIndex - 1, previousPoint, false, null);
-        
+
                 access.across.setCoord(curPoint, previousPoint);
             }
-        
+
             // Next point
             if (!nextPoint.isFixed()) {
                 TMP4.setLocation(nextPoint);
                 access.along.setCoord(nextPoint, newLocation);
                 fixLocation(connView, nextPoint, TMP4, pointIndex + 2, access.along);
                 this.editor.setPoint(pointIndex + 1, nextPoint, false, null);
-        
+
                 access.along.setCoord(curPoint, nextPoint);
             }
         }
-        
-        
+
+
         // Moved point.
         if (false) {
             // Align moved point to moved previous and next point
@@ -231,7 +233,7 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
             curPoint.setLocation(newLocation);
             snapToPoint(curPoint, previousPoint);
             snapToPoint(curPoint, nextPoint);
-        
+
             if (false) {
             MPrecisionPoint p6 = new MPrecisionPoint();
             for (int i=0, stop = connView.getTargetAnchorIndex(); i<=stop; i++) {
@@ -241,9 +243,9 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
             }
             }
         }
-        
+
         this.editor.setPoint(pointIndex, curPoint, false, true);
-        
+
         if (false) {
             // Insert one segment if previous and next point not aligned.
             //  => Does not give good results.
@@ -256,15 +258,15 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
                 this.editor.getView().insertPoint(pointIndex + 1, newNext2);
                 this.editor.getView().insertPoint(pointIndex + 1, newNext1);
             }
-        
+
             if (! access.across.coordEquals(previousPoint, curPoint)) {
                 MPoint newPrev1 = new MPoint(curPoint, false);
                 MPoint newPrev2 = new MPoint(previousPoint, false);
                 GeomUtils.translate(newPrev1, previousDir, 20);
-        
+
                 access.across.setCoord(newPrev2, previousPoint);
                 access.along.setCoord(newPrev2, newPrev1);
-        
+
                 this.editor.getView().insertPoint(pointIndex , newPrev1);
                 this.editor.getView().insertPoint(pointIndex , newPrev2);
             }
@@ -276,16 +278,16 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
                 GeomUtils.translate(newNext1, nextDir, 20);
                 this.editor.getView().insertPoint(pointIndex + 1, newNext1);
             }
-        
+
             if (! access.across.coordEquals(previousPoint, curPoint)) {
                 MPoint newPrev1 = new MPoint(curPoint, false);
                 GeomUtils.translate(newPrev1, previousDir, 20);
-        
+
                 this.editor.getView().insertPoint(pointIndex , newPrev1);
             }
         }
-        
-        
+
+
         this.editor.fixWithRouter(false);
         return this;
     }
@@ -303,6 +305,7 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
 
     /**
      * Insert a bend point in the routing constraint so that the link stays orthogonal.
+     *
      * @param i the index of the point in the connection points. Must be 1 <= i <= routing.size()
      * @param access axis accessors
      */
@@ -318,7 +321,7 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
         }
         this.editor.getView().getConnection().translateToRelative(newLoc);
         this.editor.getView().getState().getMPoints().add(i - 1, new MPoint(newLoc, false));
-        
+
     }
 
     @objid ("54d4aff0-c3e7-48c2-abcd-aa7545762595")
@@ -332,7 +335,7 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
     @Override
     public ILinkPathEditor setSourceAnchor(ConnectionAnchor newAnchor) {
         doSetSourceAnchor(this.editor, newAnchor);
-        
+
         this.editor.fixWithRouter(false);
         return this;
     }
@@ -341,7 +344,7 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
     @Override
     public ILinkPathEditor setTargetAnchor(ConnectionAnchor newAnchor) {
         doSetTargetAnchor(this.editor, newAnchor);
-        
+
         this.editor.fixWithRouter(false);
         return this;
     }
@@ -350,6 +353,7 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
      * Fix the location of the given point against the connection point at given index.
      * <p>
      * Fix is done by bouncing the point back from manual point, or snap to the point if automatic.
+     *
      * @param editedAbsLocation the point in absolute coordinates
      * @param startAbsLocation the initial point location, to bounce it back if needed
      * @param pointIndex the reference point index
@@ -361,11 +365,11 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
             // invalid index, should not happen, ignore
             return false;
         }
-        
+
         // load reference point given by pointIndex
         MPrecisionPoint refPoint = TMP5;
         connView.getPoint(refPoint, pointIndex, true);
-        
+
         if (pointIndex == 0 ) {
             return access.bounceFromRect(editedAbsLocation, connView.getAnchorBounds().source);
         } else if (pointIndex == connView.getTargetAnchorIndex()) {
@@ -376,11 +380,12 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
             }
             return access.snapToPoint(editedAbsLocation, refPoint);
         }
-        
+
     }
 
     /**
      * Create a test connection to test the path with the given constraint and anchors is good and not too nearest from mouse cursor than the initial connection.
+     *
      * @param mouseAbsLoc the mouse position for comparison
      * @param initView the connection to test than modify
      * @param testState the new source anchor, target anchor, routing constrinat
@@ -389,19 +394,19 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
     @objid ("b27bda06-9520-433c-8ec7-9a2a9da5990b")
     protected static boolean applyIfConnectionBetter(Point mouseAbsLoc, ConnectionView initView, ConnectionState testState) {
         ConnectionView testView = new ConnectionView().init(initView.getConnection(), testState);
-        
+
         if (!testView.isValidPath()) {
             return false;
         }
-        
+
         PointList testPoints = testView.toPointList(new PointList(testView.cardPoints()));
-        
+
         Point initMidPoint = initView.toPointList(new PointList()).getMidpoint();
         Point testMidPoint = testPoints.getMidpoint();
-        
+
         double d1 = initMidPoint.getDistance(mouseAbsLoc);
         double d2 = testMidPoint.getDistance(mouseAbsLoc);
-        
+
         // System.out.printf("d1=%f, straight dist=%f, newLocation=%s, middleP=%s, new mid point=%s %n", d1, d2, newRelLocation, middlePoint, midpoint);
         if (isPointNearConnection(mouseAbsLoc, testPoints) || d2 < d1) {
             // Path is good , validate changes
@@ -416,42 +421,42 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
         ConnectionView connView = editor.getView();
         MPrecisionPoint startPoint = connView.getPoint(TMP2, 0, true);
         MPrecisionPoint endPoint = connView.getPoint(TMP1, 1, true);
-        
+
         // Move end point
         AxisAccessor.forSegment(startPoint, endPoint).across.setCoord(endPoint, newAnchor.getReferencePoint());
-        
+
         if (connView.cardPoints() > 2) {
             connView.setPoint(1, endPoint);
         } else {
             // straight line connection
             connView.getState().setTargetAnchor(editor.requestTargetAnchor(endPoint, true));
         }
-        
+
         connView.getState().setSourceAnchor(newAnchor);
-        
+
     }
 
     @objid ("bb6d710c-ca35-4d51-94de-53db3afed8ae")
     protected static void doSetTargetAnchor(ConnectionEditor editor, ConnectionAnchor newAnchor) {
         ConnectionView view = editor.getView();
-        
+
         int constraintSize = view.cardPoints();
         int lastIndex = view.getTargetAnchorIndex();
         MPrecisionPoint startPoint = view.getPoint(TMP2, lastIndex, true);
         MPrecisionPoint endPoint = view.getPoint(TMP1, lastIndex - 1, true);
-        
+
         // Move end point
         AxisAccessor.forSegment(startPoint, endPoint).across.setCoord(endPoint, newAnchor.getReferencePoint());
-        
+
         if (constraintSize > 2) {
             view.setPoint(lastIndex - 1, endPoint);
         } else {
             // straight line connection
             view.getState().setSourceAnchor(editor.requestSourceAnchor(endPoint, true));
         }
-        
+
         view.getState().setTargetAnchor(newAnchor);
-        
+
     }
 
     @objid ("87abc01d-311b-4fa3-b493-0cebd01edef6")
@@ -462,6 +467,7 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
 
     /**
      * Tells whether the given point is near the connection polyline, with some margin.
+     *
      * @param relLocation a location coordinates relative to the connection
      * @param connection a connection
      * @return true if the point touches or is near the connection.
@@ -472,7 +478,7 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
                 relLocation.x(),
                 relLocation.y(),
                 AutoOrthogonalRouterAlgorithm.DEFAULT_MARGIN);
-        
+
     }
 
     @objid ("a06454b4-3b74-4252-a513-dc29ba466911")
@@ -517,9 +523,9 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
         @objid ("0587ef83-06ff-4683-b08e-06971d96adb2")
         public void moveSegment(ConnectionEditor aeditor, int pointIndex, Point newLocation) {
             init(aeditor, pointIndex, newLocation);
-            
+
             int nbConstraints = this.editor.getView().cardPoints() - 2;
-            
+
             if (nbConstraints == 0) {
                 moveStraightLine(newLocation);
             } else if (pointIndex == 0) {
@@ -539,17 +545,18 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
             } else {
                 moveIntermediateSegment(pointIndex, newLocation);
             }
-            
+
         }
 
         /**
+         *
          * @param pointIndex the point index
          * @param newLocation the mouse location
          */
         @objid ("96111c3a-ef7e-4274-ba61-447857a4fa29")
         private void moveLastSegment(int pointIndex, Point newLocation) {
             AnchorBounds anchorBounds = this.editor.getView().getAnchorBounds();
-            
+
             this.newEndPoint.setValues(this.origEndPoint);
             this.axis.across.setCoord(this.newEndPoint, newLocation);
             if (this.axis.across.isCoordContained(newLocation, anchorBounds.target)) {
@@ -561,27 +568,28 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
                 if (this.axis.along.isCoordContained(newLocation, anchorBounds.source)) {
                     this.axis.across.bounceFromRect(newLocation, anchorBounds.source);
                 }
-            
+
                 this.axis.across.bounceFromRect(newLocation, anchorBounds.target);
-            
+
                 // Move bend point N
                 this.newStartPoint.setValues(this.origStartPoint);
                 this.axis.across.setCoord(this.newStartPoint, newLocation);
                 this.editor.setPoint(pointIndex, this.newStartPoint, false, null);
-            
+
                 // Request a new anchor on perpendicular face
                 this.axis.along.setCoord(this.newEndPoint, anchorBounds.target.getCenter());
                 ConnectionAnchor anchor = this.editor.requestTargetAnchor(this.newEndPoint, false);
                 this.editor.getView().getState().setTargetAnchor(anchor);
-            
+
                 // Insert an orthogonal bend point
                 insertOrthoBendPointBefore(pointIndex + 1, this.axis, true);
-            
+
             }
-            
+
         }
 
         /**
+         *
          * @param newLocation the mouse location
          */
         @objid ("0b06ad7b-c8f8-4bec-b614-08c6704b44e8")
@@ -589,44 +597,45 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
             this.newStartPoint.setValues(this.origStartPoint);
             this.axis.across.setCoord(this.newStartPoint, newLocation);
             AnchorBounds anchorBounds = this.editor.getView().getAnchorBounds();
-            
+
             if (this.axis.across.isCoordContained(newLocation, anchorBounds.source)) {
                 // Mouse xcoord inside node bounds
                 // first segment : call move source anchor
-            
+
                 ConnectionAnchor anchor = this.editor.requestSourceAnchor(this.newStartPoint, true);
                 changeSourceAnchor(anchor);
             } else {
                 // if newLocation outside node bounds, add a segment
-            
+
                 // Bounce mouse back from nodes
                 newLocation = newLocation.getCopy();
                 if (this.axis.along.isCoordContained(newLocation, anchorBounds.target)) {
                     this.axis.across.bounceFromRect(newLocation, anchorBounds.target);
                 }
-            
+
                 this.axis.across.bounceFromRect(newLocation, anchorBounds.source);
-            
+
                 // Request a new anchor on perpendicular face
                 this.axis.along.setCoord(this.newStartPoint, anchorBounds.source.getCenter());
                 ConnectionAnchor anchor = this.editor.requestSourceAnchor(this.newStartPoint, false);
                 this.editor.getView().getState().setSourceAnchor(anchor);
-            
+
                 // Move bend point 1
                 this.newEndPoint.setValues(this.origEndPoint);
                 this.axis.across.setCoord(this.newEndPoint, newLocation);
-            
+
                 this.editor.setPoint(1, this.newEndPoint, false, null);
-            
+
                 // Insert an orthogonal bend point
                 insertOrthoBendPointBefore(1, this.axis, false);
-            
+
             }
-            
+
         }
 
         /**
          * Insert a bend point in the routing constraint so that the link stays orthogonal.
+         *
          * @param i the index of the point in the connection points. Must be 1 <= i <= routing.size()
          * @param access must match the segment [i-1, i] orientation
          */
@@ -635,11 +644,12 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
             this.editor.getView().getPoint(TMP1, i - 1, true);
             this.editor.getView().getPoint(TMP2, i, true);
             insertOrthoBendPointBefore(i, TMP1, TMP2, access, reversed);
-            
+
         }
 
         /**
          * Insert a bend point in the routing constraint so that the link stays orthogonal.
+         *
          * @param i the index of the point in the connection points. Must be 1 <= i <= routing.size()
          * @param access axis accessors
          */
@@ -654,11 +664,12 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
             }
             this.editor.getView().getConnection().translateToRelative(TMP3);
             this.editor.getView().getState().getMPoints().add(i - 1, new MPoint(TMP3, false));
-            
+
         }
 
         /**
          * A U connection has two bend points and looks like a U.
+         *
          * @return true if the connection looks like a U.
          */
         @objid ("a0b84f10-2b6e-4c61-a6f5-1f8f3810ba02")
@@ -668,7 +679,7 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
             if (nbPoints != 4) {
                 return false;
             }
-            
+
             if (false) {
                 return view.getDirectionFromSource()==view.getDirectionFromTarget();
             } else {
@@ -676,58 +687,59 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
                 MPrecisionPoint p2 = view.getTargetLocation(TMP_NEXT, true);
                 return p1.x() == p2.x() || p1.y() == p2.y() ;
             }
-            
+
         }
 
         /**
          * General case : move intermediate segment
+         *
          * @param pointIndex the segment first point index
          * @param newLocation the mouse location
          */
         @objid ("a2e12194-dc50-4e3b-b4ec-9aafa66a506c")
         private void moveIntermediateSegment(int pointIndex, Point newLocation) {
             AxisAccessor acrossAccess = this.axis.across;
-            
+
             this.newStartPoint.setValues(this.origStartPoint);
             this.newEndPoint.setValues(this.origEndPoint);
-            
+
             // Move both points
             acrossAccess.setCoord(this.newStartPoint, newLocation);
             acrossAccess.setCoord(this.newEndPoint, newLocation);
-            
+
             ConnectionView view = editor.getView();
             boolean snapPrevious = fixLocation(view, this.newStartPoint, this.origStartPoint, pointIndex - 1, acrossAccess);
             boolean snapNext = fixLocation(view, this.newEndPoint, this.origEndPoint, pointIndex + 2, acrossAccess);
             boolean conflict = snapPrevious && snapNext ;
-            
+
             if (snapPrevious) {
                 acrossAccess.setCoord(this.newEndPoint, this.newStartPoint);
             } else if (snapNext) {
                 acrossAccess.setCoord(this.newStartPoint, this.newEndPoint);
             }
-            
+
             this.editor.setPoint(pointIndex, this.newStartPoint, true, true);
             this.editor.setPoint(pointIndex + 1, this.newEndPoint, true, null);
-            
+
             if (conflict) {
                 // May be a bounce conflict because of intersection with both nodes
                 this.editor.fixWithRouter(true);
             }
-            
+
         }
 
         @objid ("46a8b2e5-0aa1-4511-8ecd-3e242aae494a")
         private void moveStraightLine(Point newLocation) {
             ConnectionState connState = this.editor.getView().getState();
             AnchorBounds anchorBounds = this.editor.getView().getAnchorBounds();
-            
+
             // Straight line from source to target, move both anchors
             this.newStartPoint.setValues(this.origStartPoint);
             this.newEndPoint.setValues(this.origEndPoint);
-            
+
             boolean locInSource = this.axis.across.isCoordContained(newLocation, anchorBounds.source);
             boolean locInTarget = this.axis.across.isCoordContained(newLocation, anchorBounds.target);
-            
+
             this.axis.across.setCoord(this.newStartPoint, newLocation);
             this.axis.across.setCoord(this.newEndPoint, newLocation);
             if (!locInSource) {
@@ -736,19 +748,19 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
             if (!locInTarget) {
                 this.axis.along.setCoord(this.newEndPoint, anchorBounds.target.getCenter());
             }
-            
+
             ConnectionAnchor srcAnchor = this.editor.requestSourceAnchor(this.newStartPoint, locInSource);
             ConnectionAnchor targetAnchor = this.editor.requestTargetAnchor(this.newEndPoint, locInTarget);
-            
+
             connState.setSourceAnchor(srcAnchor);
             connState.setTargetAnchor(targetAnchor);
-            
+
             this.newStartPoint.setLocation(srcAnchor.getLocation(targetAnchor.getReferencePoint()));
             this.newEndPoint.setLocation(targetAnchor.getLocation(srcAnchor.getReferencePoint()));
-            
+
             Connection connection = this.editor.getView().getConnection();
             List<MPoint> routingConstraint = connState.getMPoints();
-            
+
             if (locInSource && locInTarget) {
                 boolean makeStep = !this.axis.across.coordEquals(this.newStartPoint, this.newEndPoint);
                 if (makeStep) {
@@ -757,10 +769,10 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
                     this.axis.across.setCoord(TMP2, this.newEndPoint);
                     this.axis.along.setCoord(TMP1, newLocation);
                     this.axis.along.setCoord(TMP2, newLocation);
-            
+
                     connection.translateToRelative(TMP1);
                     connection.translateToRelative(TMP2);
-            
+
                     routingConstraint.add(new MPoint(TMP1, false));
                     routingConstraint.add(new MPoint(TMP2, false));
                 }
@@ -769,12 +781,12 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
                 TMP1.setLocation(this.newStartPoint);
                 this.axis.across.setCoord(TMP1, this.newEndPoint);
                 this.axis.across.bounceFromRect(TMP1, anchorBounds.source);
-            
+
                 targetAnchor = this.editor.requestTargetAnchor(TMP1, false);
                 connState.setTargetAnchor(targetAnchor);
                 this.newEndPoint.setLocation(targetAnchor.getLocation(srcAnchor.getReferencePoint()));
                 this.axis.across.setCoord(TMP1, this.newEndPoint);
-            
+
                 this.newStartPoint.setLocation(TMP1);
                 connection.translateToRelative(TMP1);
                 routingConstraint.add(new MPoint(TMP1, false));
@@ -782,12 +794,12 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
                 TMP1.setLocation(this.newEndPoint);
                 this.axis.across.setCoord(TMP1, this.newStartPoint);
                 this.axis.across.bounceFromRect(TMP1, anchorBounds.target);
-            
+
                 srcAnchor = this.editor.requestSourceAnchor(TMP1, false);
                 connState.setSourceAnchor(srcAnchor);
                 this.newStartPoint.setLocation(srcAnchor.getLocation(targetAnchor.getReferencePoint()));
                 this.axis.across.setCoord(TMP1, this.newStartPoint);
-            
+
                 this.newEndPoint.setLocation(TMP1);
                 connection.translateToRelative(TMP1);
                 routingConstraint.add(new MPoint(TMP1, false));
@@ -796,51 +808,51 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
                 TMP1.setLocation(this.newStartPoint);
                 TMP2.setLocation(this.newEndPoint);
                 TMP3.setLocation(newLocation);
-            
+
                 this.axis.across.bounceFromRect(TMP3, anchorBounds.source);
                 this.axis.across.bounceFromRect(TMP3, anchorBounds.target);
                 this.axis.across.setCoord(TMP1, TMP3);
                 this.axis.across.setCoord(TMP2, TMP3);
-            
+
                 connection.translateToRelative(TMP1);
                 connection.translateToRelative(TMP2);
-            
+
                 routingConstraint.add(new MPoint(TMP1, false));
                 routingConstraint.add(new MPoint(TMP2, false));
             }
-            
+
         }
 
         @objid ("259a80ab-b38a-4fbf-9c3c-c6917e493260")
         private void moveUCentralSegment(Point newAbsLocation) {
             final int pointIndex = 1;
-            
+
             // assert (routingConstraint.size()==2);
-            
+
             ConnectionAnchor srcAnchor;
             ConnectionAnchor targetAnchor;
-            
+
             this.newStartPoint.setValues(this.origStartPoint);
             this.newEndPoint.setValues(this.origEndPoint);
-            
+
             this.axis.across.setCoord(this.newStartPoint, newAbsLocation);
             this.axis.across.setCoord(this.newEndPoint, newAbsLocation);
-            
+
             srcAnchor = this.editor.requestSourceAnchor(this.newStartPoint, false);
             targetAnchor = this.editor.requestTargetAnchor(this.newEndPoint, false);
-            
+
             ConnectionView view = this.editor.getView();
             ConnectionState connState = view.getState();
-            
+
             connState.setSourceAnchor(srcAnchor);
             connState.setTargetAnchor(targetAnchor);
-            
+
             fixLocation(view, this.newStartPoint, this.origStartPoint, pointIndex - 1, this.axis.across);
             fixLocation(view, this.newEndPoint, this.origEndPoint, pointIndex + 2, this.axis.across);
-            
+
             this.editor.setPoint(pointIndex, this.newStartPoint, true, true);
             this.editor.setPoint(pointIndex + 1, this.newEndPoint, true, null);
-            
+
         }
 
         @objid ("4bb144eb-3315-4444-acd8-b7a810570ac4")
@@ -851,79 +863,81 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
         @objid ("59d912f9-7724-438d-814f-fd86f3a6c203")
         private void changeSourceAnchor(ConnectionAnchor newAnchor) {
             doSetSourceAnchor(editor, newAnchor);
-            
+
             this.editor.fixWithRouter(false);
-            
+
         }
 
         @objid ("46670d8f-dda9-44fc-9865-e1f7aed95832")
         private void changeTargetAnchor(ConnectionAnchor newAnchor) {
             doSetTargetAnchor(editor, newAnchor);
-            
+
             this.editor.fixWithRouter(false);
-            
+
         }
 
         @objid ("1df61a17-2bdc-49c3-9c5a-ac6c0ddfc515")
         protected void init(ConnectionEditor editor, int pointIndex, Point newLocation) {
             this.editor = editor;
             this.moveBlocked = false;
-            
+
             editor.getView().getPoint(this.origStartPoint, pointIndex, true);
             editor.getView().getPoint(this.origEndPoint, pointIndex + 1, true);
             this.axis = AxisAccessor.forSegment(this.origStartPoint, this.origEndPoint);
-            
+
         }
 
         /**
          * Transform a straight line connection to a U form connection that pass by newLocation.
+         *
          * @param newAbsLocation the point the segment should traverse, in absolute coordinates
          */
         @objid ("069a3ab6-c60e-4b02-b078-9ac68160e9c5")
         private void makeUConnectionIfBetter(Point newAbsLocation) {
             // if ( !isFirstSegmentParallel(this.connection) || !isLastSegmentParallel(this.connection))
             // return ;
-            
+
             ConnectionView view = editor.getView();
             MPoint p1 = view.getPoint(new MPoint(), 0, false);
             MPoint p2 = view.getPoint(new MPoint(), 1, false);
             AxisAccessor access = AxisAccessor.forSegment(p1, p2).across;
-            
+
             access.setCoord(p1, newAbsLocation);
             access.setCoord(p2, newAbsLocation);
-            
+
             Connection connection = view.getConnection();
             connection.translateToRelative(p1);
             connection.translateToRelative(p2);
-            
+
             List<MPoint> constraint = view.getState().getMPoints();
             constraint.add(p1);
             constraint.add(p2);
-            
+
         }
 
         /**
          * change a U connection to a straight one if better
+         *
          * @param newAbsLocation the point the connection should traverse, in absolute coordinates
          */
         @objid ("0c3db854-25d7-4a9a-860d-ec5188db7c97")
         private boolean makeStraightConnectionIfBetter(Point newAbsLocation) {
             ConnectionAnchor srcAnchor;
             ConnectionAnchor targetAnchor;
-            
+
             srcAnchor = editor.requestSourceAnchor(newAbsLocation, false);
             targetAnchor = editor.requestTargetAnchor(newAbsLocation, false);
-            
+
             ConnectionState currentState = editor.getView().getState();
             if (srcAnchor.equals(currentState.getSourceAnchor()) && targetAnchor.equals(currentState.getTargetAnchor())) {
                 return false;
             }
-            
+
             ConnectionState testState = new ConnectionState();
             testState.setSourceAnchor(srcAnchor);
             testState.setTargetAnchor(targetAnchor);
             testState.setConstraint(new ArrayList<MPoint>(0));
-            
+
             // Create a test connection to test its path is good and not too far from mouse cursor
             boolean isBetter = applyIfConnectionBetter(newAbsLocation, this.editor.getView(), testState);
             return isBetter;
@@ -955,6 +969,7 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
          * <li>Call {@link #adaptToNewNodeBounds()} .
          * <li>then {@link #applyStateToConnection()}
          * </ol>
+         *
          * @return this instance
          */
         @objid ("59408514-50e2-4a97-9ba9-42103e28b16c")
@@ -965,9 +980,9 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
             if (linkSource == null || linkTarget == null) {
                 return ;
             }
-            
+
             Connection connection = this.editor.getView().getConnection();
-            
+
             AnchorBounds origNodeBounds = this.editor.getView().getAnchorBounds();
             AnchorBounds newNodesBounds = new AnchorBounds().fromConnectionAbs(connection);
             Point srcMoveDelta = newNodesBounds.source.getLocation().translate(origNodeBounds.source.getLocation().negate());
@@ -975,15 +990,15 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
             Point bendpointsMoveDelta = srcMoveDelta.equals(targetMoveDelta) ? srcMoveDelta : new Point(0,0);
             Dimension srcDelta = newNodesBounds.source.getSize().shrink(origNodeBounds.source.getSize());
             Dimension targetDelta = newNodesBounds.target.getSize().shrink(origNodeBounds.target.getSize());
-            
+
             boolean sourceMoved   = !srcMoveDelta.equals(0, 0);
             boolean targetMoved   = !targetMoveDelta.equals(0, 0);
             boolean sourceResized = !srcDelta.equals(0, 0);
             boolean targetResized = !targetDelta.equals(0, 0);
-            
-            
+
+
             ConnectionState state = this.editor.getView().getState();
-            
+
             // Deal with the source
             if (sourceMoved || sourceResized) {
                 ConnectionAnchor previousAnchor = state.getSourceAnchor();
@@ -992,7 +1007,7 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
             } else {
                 state.setSourceAnchor(connection.getSourceAnchor());
             }
-            
+
             // Deal with the target
             if (targetMoved || targetResized) {
                 ConnectionAnchor previousAnchor = state.getTargetAnchor();
@@ -1001,9 +1016,9 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
             } else {
                 state.setTargetAnchor(connection.getTargetAnchor());
             }
-            
+
             rerouteAfterNodeBoundschange(bendpointsMoveDelta, sourceMoved, targetMoved, sourceResized || targetResized);
-            
+
         }
 
         /**
@@ -1018,6 +1033,7 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
          * <li> the connection
          * </ul>
          * Assumes the source and target nodes are still at their initial location.
+         *
          * @param request the move/resize request
          */
         @objid ("0f85ee79-f909-4d7e-8ace-95d010de0215")
@@ -1028,31 +1044,31 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
             if (linkSource == null || linkTarget == null) {
                 return ;
             }
-            
+
             Point srcMoveDelta = request.getMoveDelta();
             Point absMoveDelta = srcMoveDelta;
             Dimension absSizeDelta = request.getSizeDelta();
             boolean sourceInSet = ToolSelectionUtils.sourceInRequest(linkEditPart, request);
             boolean targetInSet = ToolSelectionUtils.targetInRequest(linkEditPart, request);
-            
+
             ConnectionState state = this.editor.getView().getState();
-            
+
             // Deal with the source
             if (sourceInSet) {
                 ConnectionAnchor previousAnchor = state.getSourceAnchor();
                 ConnectionAnchor newAnchor = getSimulatedAnchor(linkSource, linkTarget, request, previousAnchor, true);
                 state.setSourceAnchor(newAnchor);
             }
-            
+
             // Deal with the target
             if (targetInSet) {
                 ConnectionAnchor previousAnchor = state.getTargetAnchor();
                 ConnectionAnchor newAnchor = getSimulatedAnchor(linkSource, linkTarget, request, previousAnchor, false);
                 state.setTargetAnchor(newAnchor);
             }
-            
+
             rerouteAfterNodeBoundschange(absMoveDelta, sourceInSet, targetInSet, absSizeDelta.equals(0, 0));
-            
+
         }
 
         @objid ("9dfb9f15-a253-4522-b723-1970a5406ee9")
@@ -1060,7 +1076,7 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
             ConnectionState origState = this.editor.getView().getState();
             ConnectionState state = new ConnectionState().init(origState) ; // copy state to allow replay the method in the debugger
             Connection connection = this.editor.getView().getConnection();
-            
+
             if (sourceMoved && targetMoved && ! bendpointsDelta.equals(0, 0) && ! sourceOrTargetResized) {
                 // Both source and target are being moved the same vector, move the link's points too.
                 // Use a precision point to not loose precision during conversions.
@@ -1074,27 +1090,27 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
                 }
             } else {
                 // All other cases: mainly only the source or target are being moved, or it is a resize.
-            
+
                 // 1) Delete first or last automatic points
                 if (sourceMoved ) {
                     deleteFirstAutomaticBendPoints(state);
                 }
-            
+
                 if (targetMoved)  {
                     deleteLastAutomaticBendPoints(state);
                 }
-            
+
                 // 2) call the router again
                 AutoOrthogonalRouter router = new AutoOrthogonalRouter()
                         .setCleanupManualPoints(false);
                 List<MPoint> newConstraint = router.computeMPointRoute(connection, state);
-            
+
                 state.setConstraint(AutoOrthogonalRouter.routeToConstraint(newConstraint));
-            
+
             }
-            
+
             state.applyTo(origState);
-            
+
         }
 
         @objid ("5f631896-ca05-4fa3-9b00-52e4dac910dc")
@@ -1105,7 +1121,7 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
                     break;
                 it.remove();
             }
-            
+
         }
 
         @objid ("37b0f5d7-bfb5-4b48-bab6-fa54ebe2d8ee")
@@ -1116,11 +1132,12 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
                     break;
                 it.remove();
             }
-            
+
         }
 
         /**
          * Request an anchor at the same fraction of node size, after the node has been resized or moved.
+         *
          * @param nodeFigure the node figure that have been resized
          * @param previousAnchor the previous anchor
          * @param source whether a source or target anchor is requested
@@ -1130,14 +1147,14 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
         private ConnectionAnchor getAnchorAfterBoundsChanged(IFigure nodeFigure, ConnectionAnchor previousAnchor, boolean source) {
             if (nodeFigure instanceof Connection)
                 return getAnchorAfterConnectionChanged((Connection) nodeFigure, previousAnchor, source);
-            
+
             final ConnectionView view = this.editor.getView();
             final AnchorBounds anchorBounds = view.getAnchorBounds();
             final PrecisionRectangle oldBounds ;
-            
+
             final Rectangle newBounds = R1.setBounds(getHandleBounds(nodeFigure));
             nodeFigure.translateToAbsolute(newBounds);
-            
+
             final Point prevRelLoc;
             if (source) {
                 oldBounds = anchorBounds.source;
@@ -1146,14 +1163,14 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
                 oldBounds = anchorBounds.target;
                 prevRelLoc = view.getTargetLocation(TMP1, previousAnchor, true);
             }
-            
+
             Point newRelLoc = TMP2.setLocation(prevRelLoc)
                     .translate(-oldBounds.x(), -oldBounds.y())
                     .scale(
                             newBounds.preciseWidth() / oldBounds.preciseWidth(),
                             newBounds.preciseHeight() / oldBounds.preciseHeight())
                     .translate(newBounds.x(), newBounds.y());
-            
+
             if (source) {
                 return this.editor.requestSourceAnchor()
                         .withLocation(newRelLoc)
@@ -1169,7 +1186,7 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
                         .withNodeFigure(nodeFigure)
                         .requestAnchor();
             }
-            
+
         }
 
         @objid ("7a0724b6-eca6-4337-8361-94546d696383")
@@ -1179,13 +1196,14 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
             } else {
                 return nodeFigure.getBounds();
             }
-            
+
         }
 
         /**
          * Request an anchor at the same fraction of node size, after the Connection node has been changed.
          * <p>
          * Uses {@link ConnectionView#getConnection()} anchors to guess new location.
+         *
          * @param connectionNode the Connection node figure that have been edited
          * @param previousAnchor the previous anchor
          * @param source whether a source or target anchor is requested
@@ -1194,7 +1212,7 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
         @objid ("0415eea5-5a47-462d-abba-1f2adf377d32")
         private ConnectionAnchor getAnchorAfterConnectionChanged(Connection connectionNode, ConnectionAnchor previousAnchor, boolean source) {
             final ConnectionView view = this.editor.getView();
-            
+
             final Point prevRelLoc;
             final Point newRelLoc;
             if (source) {
@@ -1216,10 +1234,11 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
                         .withNodeFigure(connectionNode)
                         .requestAnchor();
             }
-            
+
         }
 
         /**
+         *
          * @param sourceEp the source node edit part
          * @param targetEp the target node edit part
          * @param request the move/resize request
@@ -1232,7 +1251,7 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
             Point absMoveDelta = request.getMoveDelta();
             Point oldAnchorLoc = previousAnchor.getReferencePoint();
             Point newAnchorLoc = oldAnchorLoc.getTranslated(absMoveDelta);
-            
+
             GraphicalEditPart nodeEditpart = isSource ? sourceEp : targetEp;
             ChangeBoundsFeedbackMap feedbacks = ChangeBoundsFeedbackMap.getOrDummy(request);
             IFigure feedbackFigure = feedbacks.getOrDefault(nodeEditpart, null);
@@ -1255,7 +1274,7 @@ public class AutoOrthoLinkPathEditor1 extends AbstractLinkPathEditor implements 
                 DirectionalAnchor newAnchor = new DirectionalAnchor(newAnchorLoc, sourceDirection);
                 return newAnchor;
             }
-            
+
         }
 
     }

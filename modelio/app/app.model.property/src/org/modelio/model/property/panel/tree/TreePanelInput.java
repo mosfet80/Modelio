@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.panel.tree;
 
@@ -43,30 +43,32 @@ public class TreePanelInput {
     private Element annotedElement;
 
     /**
+     *
      * @param annotedElement the element whose annotations are edited
      * @param annotationProvider the initial group of annotations
      * @param displayHiddenAnnotations true to display annotations whose type is set to hidden.
      */
     @objid ("d5268733-74a2-4c9a-acb5-5210e66edf62")
-    public  TreePanelInput(Element annotedElement, Element annotationProvider, boolean displayHiddenAnnotations) {
+    public TreePanelInput(Element annotedElement, Element annotationProvider, boolean displayHiddenAnnotations) {
         super();
         this.annotedElement = annotedElement;
         this.annotationProvider = annotationProvider;
         this.displayHiddenAnnotations = displayHiddenAnnotations;
-        
+
     }
 
     /**
      * Copy constructor.
+     *
      * @param other the copied input.
      */
     @objid ("31d89695-1ec8-4c7e-947e-746d7e45e913")
-    public  TreePanelInput(TreePanelInput other) {
+    public TreePanelInput(TreePanelInput other) {
         super();
         this.annotedElement = other.annotedElement;
         this.annotationProvider = other.annotationProvider;
         this.displayHiddenAnnotations = other.displayHiddenAnnotations;
-        
+
     }
 
     @objid ("3e9b1b6d-1ea2-4b98-b870-36971ff7e070")
@@ -114,6 +116,7 @@ public class TreePanelInput {
     }
 
     /**
+     *
      * @return the typedElement
      */
     @objid ("6b84e04b-f5fd-4f1c-8fe5-dfc57aeb0419")
@@ -122,6 +125,7 @@ public class TreePanelInput {
     }
 
     /**
+     *
      * @param typedElement the typedElement to set
      */
     @objid ("40459d2b-85e6-4beb-ad79-a73e067786df")
@@ -130,6 +134,7 @@ public class TreePanelInput {
     }
 
     /**
+     *
      * @return the preselectedTypingElement
      */
     @objid ("da22bde6-5a17-47e7-be98-c9b487df5925")
@@ -138,6 +143,7 @@ public class TreePanelInput {
     }
 
     /**
+     *
      * @param preselectedTypingElement the preselectedTypingElement to set
      */
     @objid ("f256e76a-e686-420d-8df4-ed3d5f456c8a")
@@ -146,6 +152,7 @@ public class TreePanelInput {
     }
 
     /**
+     *
      * @return the displayHiddenAnnotations
      */
     @objid ("ca83fbb4-a2d3-4654-b540-94b6a1ab622b")
@@ -154,6 +161,7 @@ public class TreePanelInput {
     }
 
     /**
+     *
      * @param displayHiddenAnnotations the displayHiddenAnnotations to set
      */
     @objid ("dc41dc7d-888e-4ae6-87ff-e5505d30c073")

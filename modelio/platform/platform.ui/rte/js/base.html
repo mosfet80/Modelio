@@ -12,29 +12,67 @@ http://www.eclipse.org/legal/epl-v10.html
 <html>
 <head>
 	<meta content="text/html; charset=utf-8" http-equiv="content-type" />
+	<style type="text/css">
+		html, body {
+		    height: 100%;
+		    width: 100%;
+		    margin: 0;
+		    padding: 0;
+		    border: none;
+		}
+		.cke {
+		    position: absolute !important;
+		    top: 0 !important;
+		    left: 0 !important;
+		    right: 0 !important;
+		    bottom: 0 !important;
+		    border: none !important;
+		}
+		.cke_inner {
+		    height: 100% !important;
+		}
+		.cke_contents {
+		    height: 100% !important;
+		}
+	</style>
 	<script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
 	<script type="text/javascript" src="integration.js"></script>
 	<script type="text/javascript" src="externalconfiguration.js"></script>
 	<script type="text/javascript" src="format.js"></script>
 	<script type="text/javascript">
-	//<![CDATA[
+
+// Flags to indicate whether the CKEditor and the Eclipse integration are ready
+var readiness = {
+    editorReady: false,
+    integrationReady: false
+};
+
+
+var integration = new EclipseIntegration();
 
 // The instanceReady event is fired when an instance of CKEditor has finished
 // its initialization.
-var integration = new EclipseIntegration();
 CKEDITOR.on( 'instanceReady', function( ev )
 {
-	integration.init(CKEDITOR.instances.editor1);
-	
-	//registerListeners();
+    console.debug( 'CKEditor instance ' + ev.editor.name + ' is ready 4' );
+
+	// Mark the editor as ready
+	readiness.editorReady = true;
+
+	// Start polling to check if the Eclipse integration is ready
+	waitForIntegrationReady();
+
+	tryInitIntegration();
 });
 
 CKEDITOR.editorConfig = function( config )
 {
-	// Define changes to default configuration here. For example:
+	console.debug( 'Configuring CKEditor instance ...' );
+
+		// Define changes to default configuration here. For example:
 	// config.language = 'fr';
 	// config.uiColor = '#AADC6E';
-	config.skin = 'office2003';
+	config.skin = 'office2013';
 	config.resize_enabled = false;
 	config.toolbar =[[]];
 	config.toolbarLocation = 'bottom';
@@ -42,7 +80,7 @@ CKEDITOR.editorConfig = function( config )
 	config.toolbarStartupExpanded = false;
 	config.scayt_autoStartup = false;
 	config.startupFocus = false;
-	
+
 	// phv removed : doExternalConfiguration(config);
 };
 
@@ -53,6 +91,35 @@ var fireOuter = function(selection)
 	var state = editor.getCommand('bold').state
 	selectionChanged("test",selection);
 };
+
+/**
+ * Polling function to check if the Eclipse integration is ready.
+ *
+ * This function checks if the global function _delegate_init is defined,
+ * which indicates that the SWT Browser functions have been loaded and are ready.
+ */
+function waitForIntegrationReady() {
+    if (typeof _delegate_init === 'function') {
+		console.info("waitForIntegrationReady: Eclipse Integration is ready");
+
+		readiness.integrationReady = true;
+		tryInitIntegration();
+    } else {
+		console.debug("waitForIntegrationReady: Integration not ready, checking again in 50ms");
+        setTimeout(waitForIntegrationReady, 50);
+    }
+}
+
+// Try to initialize the integration if both CKEditor and the integration are ready
+function tryInitIntegration() {
+	console.debug("tryInitIntegration: editorReady=" + readiness.editorReady + ", integrationReady=" + readiness.integrationReady);
+
+	// Only initialize if both the editor and the integration are ready
+    if (readiness.editorReady && readiness.integrationReady) {
+		console.debug("tryInitIntegration: Initializing Eclipse Integration");
+        integration.init(CKEDITOR.instances.editor1);
+    }
+}
 
 
 function registerListeners()
@@ -68,7 +135,7 @@ function registerListeners()
 				editor = ev.editor,
 				elementsList = editor._.elementsPath.list = [],
 				filters = editor._.elementsPath.filters;
-			
+
 			while ( element )
 			{
 				var ignore = 0;
@@ -104,15 +171,12 @@ function registerListeners()
 					// will remain in the focus state.
 					if ( env.gecko )
 						extra += ' onblur="this.style.cssText = this.style.cssText;"';
-
-					
-
 				}
-				
+
 				if ( name == 'body' )
 					break;
 
-				element = element.getParent();	
+				element = element.getParent();
 			}
 			fireOuter(elementsList);
 		});
@@ -131,7 +195,7 @@ function SetContents()
 	oEditor.setData( value );
 }
 
-function registerStyleStateChange() 
+function registerStyleStateChange()
 {
 	var oEditor = CKEDITOR.instances.editor1;
 	editor.attachStyleStateChange( style, function( state )
@@ -165,20 +229,15 @@ function ResetDirty()
 	alert( 'The "IsDirty" status has been reset' );
 }
 
-	//]]>
 	</script>
 
 </head>
-<body>  
-       
-		
-		<textarea style="width:100%;height:100%;" cols="10" id="editor1" name="editor1" rows="10"></textarea>
-		
+<body>
+		<textarea style="width:100%;height:100%;margin:0;padding:0;border:none;box-sizing:border-box;" cols="10" id="editor1" name="editor1" rows="10"></textarea>
+
 		<script type="text/javascript">
-		//<![CDATA[
 			// Replace the <textarea id="editor1"> with an CKEditor instance.
 			var editor = CKEDITOR.replace( 'editor1' );
-		//]]>
 		</script>
 </body>
 </html>

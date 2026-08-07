@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.parts.fragment;
 
@@ -41,7 +41,7 @@ import org.modelio.vcore.smkernel.mapi.MetamodelVersionDescriptor;
 
 /**
  * Non supported part type.
- * 
+ *
  * @author cmarin
  * @since > 5.4.0 , 25/08/2023
  */
@@ -49,10 +49,11 @@ import org.modelio.vcore.smkernel.mapi.MetamodelVersionDescriptor;
 public class GUnknownFragment extends AbstractGModelFragment {
     /**
      * Initialize the feature.
+     *
      * @param desc the part descriptor
      */
     @objid ("5e9753a1-5590-4554-894f-0fc6948d1db5")
-    public  GUnknownFragment(GProjectPartDescriptor desc) {
+    public GUnknownFragment(GProjectPartDescriptor desc) {
         super(desc);
     }
 
@@ -66,12 +67,12 @@ public class GUnknownFragment extends AbstractGModelFragment {
     @Override
     public IFragmentInfos getInformations() throws IOException {
         return new IFragmentInfos() {
-        
+
             @Override
             public Version getVersion() {
                 return getDescriptor().getVersion();
             }
-        
+
             @Override
             public String getName() {
                 final String label = getDescriptor().getLabel();
@@ -79,18 +80,18 @@ public class GUnknownFragment extends AbstractGModelFragment {
                     return label;
                 return getDescriptor().getId();
             }
-        
+
             @Override
             public Version getModelioVersion() {
                 return new Version(9999,0,0);
             }
-        
+
             @Override
             public String getDescription() {
                 return "Non supported model fragment";
             }
         };
-        
+
     }
 
     @objid ("8b01f406-9b93-4f9a-ad91-d6306c1b5eb7")
@@ -102,13 +103,13 @@ public class GUnknownFragment extends AbstractGModelFragment {
     @objid ("ffd54d54-3a7e-4e8c-9588-14754853a4bb")
     @Override
     protected void doInstall(IGProject aProject, IModelioProgress monitor) throws GPartException {
-        
+
     }
 
     @objid ("20896b67-22b3-4465-a4b4-58d2b15c61c6")
     @Override
     protected void doUninstall(IGProject project, IModelioProgress monitor) throws GPartException {
-        
+
     }
 
     @objid ("1c9577b6-c3bb-42cf-a517-ca7a1de9bf6b")

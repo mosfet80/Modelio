@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.label.name;
 
@@ -44,11 +44,12 @@ public final class GmNameSimpleLabel extends GmElementLabel implements IEditable
 
     /**
      * Creates a name label.
+     *
      * @param diagram The diagram
      * @param relatedRef The reference to the related elements.
      */
     @objid ("7ea80ae9-1dec-11e2-8cad-001ec947c8cc")
-    public  GmNameSimpleLabel(IGmDiagram diagram, MRef relatedRef) {
+    public GmNameSimpleLabel(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -56,7 +57,7 @@ public final class GmNameSimpleLabel extends GmElementLabel implements IEditable
      * Constructor for deserialization only.
      */
     @objid ("7ea80aee-1dec-11e2-8cad-001ec947c8cc")
-    public  GmNameSimpleLabel() {
+    public GmNameSimpleLabel() {
         // Empty c'tor.
     }
 
@@ -89,7 +90,7 @@ public final class GmNameSimpleLabel extends GmElementLabel implements IEditable
                 break;
             }
         }
-        
+
     }
 
     @objid ("7ea80aff-1dec-11e2-8cad-001ec947c8cc")
@@ -108,10 +109,10 @@ public final class GmNameSimpleLabel extends GmElementLabel implements IEditable
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmNameSimpleLabel.", MINOR_VERSION);
-        
+
     }
 
     @objid ("7ea80b0c-1dec-11e2-8cad-001ec947c8cc")

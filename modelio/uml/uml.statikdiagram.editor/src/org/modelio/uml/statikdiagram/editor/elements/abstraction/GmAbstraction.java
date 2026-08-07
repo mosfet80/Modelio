@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.abstraction;
 
@@ -38,7 +38,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Graphic model for {@link Abstraction}.
- * 
+ *
  * @author cma
  */
 @objid ("1c16a4ee-d543-4be4-bf2f-adec81b59ebd")
@@ -63,19 +63,20 @@ public class GmAbstraction extends GmLink {
 
     /**
      * Initialize a control flow graphic model.
+     *
      * @param diagram The owning diagram
      * @param dependency The reference flow, may be null
      * @param ref The referenced flow reference, may not be null
      */
     @objid ("169d9afc-fa98-475c-ab7a-cb1647bd09b2")
-    public  GmAbstraction(IGmDiagram diagram, Abstraction dependency, MRef ref) {
+    public GmAbstraction(IGmDiagram diagram, Abstraction dependency, MRef ref) {
         super(diagram, ref);
         this.dependency = dependency;
-        
+
         final GmAbstractionHeader header = new GmAbstractionHeader(diagram, ref);
         header.setShowMetaclassKeyword(true);
         addExtension(ExtensionLocation.MiddleNW, IGmLink.ROLE_MAIN_LABEL, header);
-        
+
     }
 
     @objid ("672c0909-e819-47c7-a0f8-fa24b3f46afd")
@@ -94,15 +95,15 @@ public class GmAbstraction extends GmLink {
      * For deserialization only.
      */
     @objid ("fcbeaf67-d70a-480f-bd3f-1895aa7c8f2b")
-    public  GmAbstraction() {
-        
+    public GmAbstraction() {
+
     }
 
     @objid ("8c1a2593-53ae-476c-807e-9cd954141961")
     @Override
     protected void readLink(IDiagramReader in) {
         super.readLink(in);
-        
+
         int readVersion = readMinorVersion(in, "GmAbstraction.");
         switch (readVersion) {
         case 0: {
@@ -120,7 +121,7 @@ public class GmAbstraction extends GmLink {
             break;
         }
         }
-        
+
     }
 
     @objid ("bc2ea3a6-b4ec-43bb-8854-796df1db5b4e")
@@ -151,9 +152,9 @@ public class GmAbstraction extends GmLink {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         writeMinorVersion(out, "GmAbstraction.", GmAbstraction.MINOR_VERSION);
-        
+
     }
 
     @objid ("218c3ca0-65ed-469d-b3c6-2030a97e0b9c")
@@ -175,14 +176,14 @@ public class GmAbstraction extends GmLink {
     @objid ("92470867-7187-48b9-8642-49b3c1b0d636")
     private void read_0(IDiagramReader in) {
         read_1(in);
-        
+
         IStyle style = getPersistedStyle();
         StyleKey styleKey = GmAbstraction.styleKeyProvider.getStyleKey(MetaKey.CONNECTIONROUTER);
         if (styleKey != null && !style.isLocal(styleKey)) {
             // Before 3.7.1, default value was "orthogonal router"
             style.setProperty(styleKey, ConnectionRouterId.ORTHOGONAL);
         }
-        
+
     }
 
     /**

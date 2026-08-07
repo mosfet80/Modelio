@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vbasic.log;
 
@@ -23,7 +23,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * Modelio kernel logging interface.
- * 
+ *
  * @author cmarin
  * @since 3.4
  */
@@ -40,6 +40,7 @@ public interface IBasicLogger {
 
     /**
      * Log a trace message
+     *
      * @param message the message
      */
     @objid ("059b4666-134c-46fb-8b1d-d5b9bf90444d")
@@ -47,12 +48,14 @@ public interface IBasicLogger {
 
     /**
      * Log an error
+     *
      * @param message the message
      */
     @objid ("523fb65e-89d7-4ef2-859f-b4a2bbefe713")
     void error(final String message);
 
     /**
+     *
      * @param format see {@link String#format(String, Object...)}
      * @param args format arguments
      */
@@ -61,18 +64,21 @@ public interface IBasicLogger {
 
     /**
      * Log an exception with its stack trace as warning.
+     *
      * @param ex the exception
      */
     @objid ("785fe325-c699-4c64-a8ee-e6fa3d02e786")
     void warning(final Throwable ex);
 
     /**
+     *
      * @param message the message
      */
     @objid ("430bef73-6e77-4a48-9772-209b7c783b4e")
     void warning(final String message);
 
     /**
+     *
      * @param format see {@link String#format(String, Object...)}
      * @param args format arguments
      */
@@ -81,12 +87,14 @@ public interface IBasicLogger {
 
     /**
      * Log an exception with its stack trace as trace.
+     *
      * @param ex the exception
      */
     @objid ("35d11840-e0e8-4279-9d98-9af6900d98ad")
     void trace(final Throwable ex);
 
     /**
+     *
      * @param format see {@link String#format(String, Object...)}
      * @param args format arguments
      */
@@ -95,12 +103,14 @@ public interface IBasicLogger {
 
     /**
      * Log an exception with its stack trace as error.
+     *
      * @param ex the exception
      */
     @objid ("d4a96221-1974-44a6-bfb4-3bc6bc738077")
     void error(final Throwable ex);
 
     /**
+     *
      * @return the current log level to use.
      */
     @objid ("543894af-f251-4d62-839b-549a1db67330")
@@ -108,9 +118,10 @@ public interface IBasicLogger {
 
     /**
      * Set the current log level to use.
+     *
      * @param level a log level equal to {@link #TRACE}, {@link #WARNING} or {@link #ERROR}.
      */
     @objid ("e72d8ed3-1dc5-4240-928e-fdda390dbc80")
     void setLevel(int level);
-}
 
+}

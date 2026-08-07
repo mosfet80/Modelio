@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.stateinvariant;
 
@@ -44,14 +44,14 @@ public class CreateStateInvariantCommand extends Command {
 
     /**
      * C'tor.
+     *
      * @param parentNode the node into which the created execution should be unmasked.
      * @param initialLayoutData the initial layout data to use. X coordinate will be ignored, since it will be updated in the container's layout.
      */
     @objid ("d9947e60-55b6-11e2-877f-002564c97630")
-    public  CreateStateInvariantCommand(final GmCompositeNode parentNode, final Rectangle initialLayoutData) {
+    public CreateStateInvariantCommand(final GmCompositeNode parentNode, final Rectangle initialLayoutData) {
         this.initialLayoutData = initialLayoutData;
         this.parentNode = parentNode;
-        
     }
 
     @objid ("d9947e69-55b6-11e2-877f-002564c97630")
@@ -62,15 +62,15 @@ public class CreateStateInvariantCommand extends Command {
         final IGmDiagram diagram = this.parentNode.getDiagram();
         IModelManager modelManager = diagram.getModelManager();
         final IStandardModelFactory modelFactory = modelManager.getModelFactory().getFactory(IStandardModelFactory.class);
-        
+
         Interaction interaction = null;
         Lifeline lifeline = null;
-        
+
         if (parentElement instanceof Lifeline) {
             lifeline = ((Lifeline) parentElement);
             interaction = lifeline.getOwner();
         }
-        
+
         // Use the collected elements to create and initialise the execution.
         StateInvariant newStateInvariant = modelFactory.createStateInvariant();
         newStateInvariant.setEnclosingInteraction(interaction);
@@ -78,10 +78,9 @@ public class CreateStateInvariantCommand extends Command {
         newStateInvariant.setLineNumber(this.initialLayoutData.y);
         newStateInvariant.setEndLineNumber(this.initialLayoutData.bottom());
         newStateInvariant.setName(modelManager.getModelServices().getElementNamer().getUniqueName(newStateInvariant));
-        
+
         // Show the new element in the diagram (ie create its Gm )
         diagram.unmask(this.parentNode, newStateInvariant, this.initialLayoutData);
-        
     }
 
 }

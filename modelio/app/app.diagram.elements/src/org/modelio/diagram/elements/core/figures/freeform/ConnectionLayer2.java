@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures.freeform;
 
@@ -43,7 +43,7 @@ public class ConnectionLayer2 extends ConnectionLayer implements IFreeformFigure
     public void remove(IFigure child) {
         this.helper.unhookChild(child);
         super.remove(child);
-        
+
     }
 
     @objid ("74888230-207b-48ac-b1d4-35b151821029")
@@ -57,13 +57,14 @@ public class ConnectionLayer2 extends ConnectionLayer implements IFreeformFigure
     public void add(IFigure child, Object constraint, int index) {
         super.add(child, constraint, index);
         this.helper.hookChild(child);
-        
+
     }
 
     /**
      * Set a filter to use when computing {@link #getFreeformExtent()}.
      * <p>
      * Filtered out figures won't be used to compute the extent, that may result to the figures being cropped.
+     *
      * @param f an extent filter.
      */
     @objid ("62fc0720-7ddb-4e4c-971d-e01773514098")
@@ -76,6 +77,7 @@ public class ConnectionLayer2 extends ConnectionLayer implements IFreeformFigure
      * Get the filter used when computing {@link #getFreeformExtent()}.
      * <p>
      * Filtered out figures won't be used to compute the extent, that may result to the figures being cropped.
+     *
      * @return an extent filter.
      */
     @objid ("1692dec0-0030-4449-aed8-2d0113cb3e33")

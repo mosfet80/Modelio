@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -56,7 +56,7 @@ public class R2260 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -79,7 +79,7 @@ public class R2260 extends AbstractUmlRule {
         plan.registerRule(Component.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Signal.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Signal.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         plan.registerRule(Operation.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.UPDATE |
                 AuditTrigger.MOVE);
@@ -89,7 +89,7 @@ public class R2260 extends AbstractUmlRule {
         plan.registerRule(Parameter.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.UPDATE |
                 AuditTrigger.MOVE);
-        
+
     }
 
     /**
@@ -123,14 +123,14 @@ public class R2260 extends AbstractUmlRule {
      * Default constructor for R2260
      */
     @objid ("1aa1a4f8-bfaa-4bf1-9308-734e0dee3ba2")
-    public  R2260() {
+    public R2260() {
         this.checkerInstance = new CheckR2260(this);
     }
 
     @objid ("7bb250ce-5149-4de6-9a0f-cc3941e62f47")
     private static class CheckR2260 extends AbstractControl {
         @objid ("996cae04-0bac-4b6f-a4d1-bc31f47bebb7")
-        public  CheckR2260(IRule rule) {
+        public CheckR2260(IRule rule) {
             super(rule);
         }
 
@@ -168,14 +168,14 @@ public class R2260 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     classifier,
                     null);
-            
+
             // Should never happen...
             if (classifier == null || !classifier.isValid()) {
                 return auditEntry;
             }
-            
+
             HashMap<String, List<Operation>> duplicates = new HashMap<>();
-            
+
             // analyze the class operations
             boolean failed = false;
             for (Operation op : classifier.getOwnedOperation(Operation.class)) {
@@ -189,7 +189,7 @@ public class R2260 extends AbstractUmlRule {
                     duplicates.put(signature, operations);
                 }
             }
-            
+
             // produce the resulting audit entry
             if (failed) {
                 auditEntry.setSeverity(this.rule.getSeverity());
@@ -215,7 +215,7 @@ public class R2260 extends AbstractUmlRule {
         @objid ("f11b4c63-5fa5-4549-b8b3-36edf14287e7")
         private String makeSignature(Operation op) {
             StringBuilder signature = new StringBuilder();
-            
+
             signature.append(op.getName());
             signature.append(op.getPassing());
             // Parameters
@@ -236,13 +236,13 @@ public class R2260 extends AbstractUmlRule {
             } else {
                 return tp.getMClass().getName();
             }
-            
+
         }
 
         @objid ("d5b340c2-12f3-4427-99b6-d80afae7c74f")
         private String makeSignature(Parameter p) {
             StringBuilder buffer = new StringBuilder();
-            
+
             // type name
             if (p.getType() != null) {
                 buffer.append(p.getType().getUuid().toString());
@@ -251,7 +251,7 @@ public class R2260 extends AbstractUmlRule {
             }
             // passing mode
             buffer.append(p.getParameterPassing());
-            
+
             // cardinality
             buffer.append(p.getMultiplicityMin());
             buffer.append(p.getMultiplicityMax());

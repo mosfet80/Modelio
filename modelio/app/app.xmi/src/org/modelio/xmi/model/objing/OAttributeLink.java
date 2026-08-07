@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -45,7 +45,7 @@ public class OAttributeLink extends OElement implements IOElement {
     }
 
     @objid ("2ef10730-2330-4592-8ed0-008257942105")
-    public  OAttributeLink(AttributeLink element) {
+    public OAttributeLink(AttributeLink element) {
         super(element);
     }
 
@@ -54,12 +54,12 @@ public class OAttributeLink extends OElement implements IOElement {
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         Instance objOwner = getObjingElement().getAttributed();
         org.eclipse.uml2.uml.Element temp = GenerationProperties.getInstance().getMappedElement(objOwner);
-        
+
         if (temp instanceof InstanceSpecification) {
             InstanceSpecification ecoreOwner = (InstanceSpecification) temp;
             ecoreOwner.getSlots().add((org.eclipse.uml2.uml.Slot) ecoreElt);
         }
-        
+
     }
 
     @objid ("09de2635-81d4-4651-993a-c72a787819f3")
@@ -67,29 +67,29 @@ public class OAttributeLink extends OElement implements IOElement {
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         setDefiningFeature((org.eclipse.uml2.uml.Slot) ecoreElt);
         setExpressionOfValue((org.eclipse.uml2.uml.Slot) ecoreElt);
-        
+
         if (GenerationProperties.getInstance().isRoundtripEnabled()) {
             ObjingEAnnotation.setValue(ecoreElt, getObjingElement().getValue());
             ObjingEAnnotation.setIsAttributeLink(ecoreElt);
             ObjingEAnnotation.setName(ecoreElt, getObjingElement().getName());
             setOwnerAnnotation(ecoreElt);
         }
-        
+
     }
 
     @objid ("84a7d5b4-a55c-4d4e-bf42-a4c1bc213d4b")
     private void setDefiningFeature(org.eclipse.uml2.uml.Slot slot) {
         Attribute objingFeature = getObjingElement().getBase();
-        
+
         if (objingFeature != null) {
-        
+
             org.eclipse.uml2.uml.Element ecoreFeature = GenerationProperties.getInstance().getMappedElement(objingFeature);
-        
+
             if (ecoreFeature instanceof org.eclipse.uml2.uml.StructuralFeature) {
                 slot.setDefiningFeature((org.eclipse.uml2.uml.StructuralFeature) ecoreFeature);
             }
         }
-        
+
     }
 
     @objid ("dccf83aa-511f-4eea-81cc-42dd0e04f69c")
@@ -97,7 +97,7 @@ public class OAttributeLink extends OElement implements IOElement {
         org.eclipse.uml2.uml.Expression expr = UMLFactory.eINSTANCE.createExpression();
         org.eclipse.uml2.uml.ValueSpecification result = slot.createValue(null, null, expr.eClass());
         ((org.eclipse.uml2.uml.Expression) result).setSymbol(value);
-        
+
     }
 
     @objid ("99cf5c4d-2030-44aa-88ba-7c68de1191de")
@@ -114,16 +114,16 @@ public class OAttributeLink extends OElement implements IOElement {
                 GeneralClass type = attribut.getType();
                 String value = getObjingElement().getValue();
                 GeneralClass objingType = attribut.getType();
-        
+
                 // If objingValue is "" then we don't set a default value for the UML2
                 if (!"".equals(value)) {
-        
+
                     if (objingType != null) {
                         IUMLTypes umlTypes = GenerationProperties.getInstance().getModelioTypes();
                         if ((AbstractObjingModelNavigation.OBJING_NULL_VALUE != null)
                                 && (AbstractObjingModelNavigation.OBJING_NULL_VALUE.equals(value.toLowerCase())
                                         && (type instanceof DataType))) {
-        
+
                             org.eclipse.uml2.uml.LiteralNull literalNull = UMLFactory.eINSTANCE.createLiteralNull();
                             org.eclipse.uml2.uml.ValueSpecification result = slot.createValue(null, null, literalNull.eClass());
                             try {
@@ -146,7 +146,7 @@ public class OAttributeLink extends OElement implements IOElement {
                                 String contextualMsg = Xmi.I18N.getMessage("logFile.exception.stringConverter.defaultValue", getObjingElement().getName(), "AttributeLink");
                                 String message = Xmi.I18N.getMessage("logFile.exception.stringConverter.defaultMsg", "String", "\"" + value + "\"", "Boolean");
                                 GenerationProperties.getInstance().addInfo(contextualMsg, getObjingElement(), message);
-        
+
                             }
                         } else if ((umlTypes.getINTEGER() != null) && (umlTypes.getINTEGER().equals(objingType))) { // INTEGER case
                             // If the attribute is a Dynamic org.eclipse.uml2.uml.Dependency, we don't enable
@@ -162,55 +162,55 @@ public class OAttributeLink extends OElement implements IOElement {
                                     org.eclipse.uml2.uml.ValueSpecification result = slot.createValue(null, null, literalInteger.eClass());
                                     ((org.eclipse.uml2.uml.LiteralInteger) result).setValue(intValue);
                                 }
-        
+
                             } catch (NumberFormatException e) {
                                 Xmi.LOG.warning(e);
                                 setExpression(slot, value);
                                 String contextualMsg = Xmi.I18N.getMessage("logFile.exception.stringConverter.defaultValue", getObjingElement().getName(), "AttributeLink");
-        
+
                                 String message = Xmi.I18N.getMessage("logFile.exception.stringConverter.defaultMsg", "String", "\"" + value + "\"", "Integer");
                                 GenerationProperties.getInstance().addInfo(contextualMsg, getObjingElement(), message);
                             }
                         } else if (((umlTypes.getCHAR() != null) && (umlTypes.getCHAR().equals(objingType)))
                                 || ((umlTypes.getSTRING() != null) && (umlTypes.getSTRING().equals(objingType)))) {// CHAR and STRING case
-        
+
                             org.eclipse.uml2.uml.LiteralString literalstring = UMLFactory.eINSTANCE.createLiteralString();
                             org.eclipse.uml2.uml.ValueSpecification result = slot.createValue(null, null, literalstring.eClass());
                             ((org.eclipse.uml2.uml.LiteralString) result).setValue(value);
-        
+
                         } else if (objingType instanceof Enumeration) { // Enumeration case
-        
+
                             if (AbstractObjingModelNavigation.isEnumerationliteral((Enumeration) objingType, value)) {
-        
+
                                 InstanceValue instValue = UMLFactory.eINSTANCE.createInstanceValue();
-        
+
                                 InstanceValue result = (InstanceValue) slot.createValue(null, null, instValue.eClass());
-        
+
                                 Object ecoreType = GenerationProperties.getInstance().getMappedElement(objingType);
                                 if (ecoreType instanceof org.eclipse.uml2.uml.Type) {
                                     result.setType((org.eclipse.uml2.uml.Type) ecoreType);
                                 }
-        
+
                                 Object ecoreInstance = GenerationProperties.getInstance().getMappedElement(AbstractObjingModelNavigation.getEnumerationliteral((Enumeration) objingType, value));
                                 if (ecoreInstance instanceof InstanceSpecification) {
                                     result.setInstance((InstanceSpecification) ecoreInstance);
                                 }
-        
+
                             } else {
                                 String contextualMsg = Xmi.I18N.getMessage("logFile.warning.wrongLiteral", value, objingType.getName());
                                 GenerationProperties.getInstance().addInfo(contextualMsg, getObjingElement());
-        
+
                                 org.eclipse.uml2.uml.OpaqueExpression opaqueExpr = UMLFactory.eINSTANCE.createOpaqueExpression();
                                 org.eclipse.uml2.uml.ValueSpecification result = slot.createValue(null, null, opaqueExpr.eClass());
                                 ((org.eclipse.uml2.uml.OpaqueExpression) result).getBodies().add(value);
                             }
-        
+
                         } else { // No possible mapping.
                             setExpression(slot, value);
                         }
-        
+
                     } else { // No type
-        
+
                         org.eclipse.uml2.uml.OpaqueExpression opaqueExpr = UMLFactory.eINSTANCE.createOpaqueExpression();
                         org.eclipse.uml2.uml.ValueSpecification result = slot.createValue(null, null, opaqueExpr.eClass());
                         ((org.eclipse.uml2.uml.OpaqueExpression) result).getBodies().add(value);
@@ -218,7 +218,7 @@ public class OAttributeLink extends OElement implements IOElement {
                 }
             }
         }
-        
+
     }
 
     @objid ("aa5495b8-249c-4852-9a56-eee3edd45ad7")
@@ -229,9 +229,9 @@ public class OAttributeLink extends OElement implements IOElement {
 
     @objid ("f89b8c6b-6d22-4fc8-8e49-ca640f97d355")
     private void setOwnerAnnotation(org.eclipse.uml2.uml.Element ecoreElt) {
-        Instance objOwner = getObjingElement().getAttributed();       
+        Instance objOwner = getObjingElement().getAttributed();
         ObjingEAnnotation.setOwner(ecoreElt, objOwner.getUuid().toString());
-        
+
     }
 
 }

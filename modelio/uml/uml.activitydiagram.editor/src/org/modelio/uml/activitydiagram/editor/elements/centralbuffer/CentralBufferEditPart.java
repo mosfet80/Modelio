@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.centralbuffer;
 
@@ -38,7 +38,7 @@ import org.modelio.uml.activitydiagram.editor.elements.policies.CreateFlowEditPo
 
 /**
  * EditPart for an CentralBuffer Node.
- * 
+ *
  * @author fpoyer
  */
 @objid ("29e13eda-55b6-11e2-877f-002564c97630")
@@ -48,15 +48,15 @@ public class CentralBufferEditPart extends AbstractNodeEditPart {
     protected void addChildVisual(EditPart childEditPart, int index) {
         IFigure child = ((GraphicalEditPart) childEditPart).getFigure();
         final GmAbstractObject gmAbstractObject = (GmAbstractObject) childEditPart.getModel();
-        
+
         if (index == 0 && gmAbstractObject.getLayoutData() == null) {
             gmAbstractObject.setLayoutData(BorderLayout.TOP);
         } else if (index == 1 && gmAbstractObject.getLayoutData() == null) {
             gmAbstractObject.setLayoutData(BorderLayout.CENTER);
         }
-        
+
         getFigure().add(child, gmAbstractObject.getLayoutData(), index);
-        
+
     }
 
     @objid ("29e13ee3-55b6-11e2-877f-002564c97630")
@@ -67,7 +67,7 @@ public class CentralBufferEditPart extends AbstractNodeEditPart {
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START,
                 new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
-        
+
     }
 
     @objid ("29e13ee6-55b6-11e2-877f-002564c97630")
@@ -76,14 +76,14 @@ public class CentralBufferEditPart extends AbstractNodeEditPart {
         // create the figure
         RectangularFigure fig = new RectangularFigure();
         fig.setLayoutManager(new BorderLayout());
-        
+
         // set style independent properties
         MinimumSizeLayout.apply(fig, 80, 45);
         fig.setOpaque(true);
-        
+
         // set style dependent properties
         refreshFromStyle(fig, getModelStyle());
-        
+
         // return the figure
         return fig;
     }
@@ -92,6 +92,7 @@ public class CentralBufferEditPart extends AbstractNodeEditPart {
      * Refresh the figure from the given style.
      * <p>
      * Often called in {@link #createFigure()} and after a style change.
+     *
      * @param aFigure The figure to update, should be {@link #getFigure()}.
      * @param style The style to update from, usually {@link #getModelStyle()}
      */
@@ -101,11 +102,12 @@ public class CentralBufferEditPart extends AbstractNodeEditPart {
         if (!switchRepresentationMode()) {
             super.refreshFromStyle(aFigure, style);
         }
-        
+
     }
 
     /**
      * Refresh this EditPart's visuals.
+     *
      * @see org.eclipse.gef.editparts.AbstractEditPart#refreshVisuals()
      */
     @objid ("29e13ef3-55b6-11e2-877f-002564c97630")
@@ -114,7 +116,7 @@ public class CentralBufferEditPart extends AbstractNodeEditPart {
         IFigure fig = getFigure();
         GmAbstractObject centralBufferModel = getModel();
         fig.getParent().setConstraint(fig, centralBufferModel.getLayoutData());
-        
+
     }
 
     @objid ("29e13ef7-55b6-11e2-877f-002564c97630")

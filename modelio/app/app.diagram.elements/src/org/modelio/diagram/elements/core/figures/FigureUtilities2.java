@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures;
 
@@ -44,7 +44,7 @@ import org.modelio.platform.ui.CoreFontRegistry;
  * <li>ghost shapes.
  * <li>highlight figures for link or box
  * </ul>
- * 
+ *
  * @author phv
  */
 @objid ("7f79d9d6-1dec-11e2-8cad-001ec947c8cc")
@@ -55,13 +55,13 @@ public class FigureUtilities2 extends FigureUtilities {
     @objid ("7f79d9e9-1dec-11e2-8cad-001ec947c8cc")
     public static IFigure createHighlightFigure(final IFigure feedbackLayer, final IFigure refFigure, final HighlightType type) {
         IFigure highLightFigure = null;
-        
+
         if (refFigure instanceof PolylineConnection) {
             highLightFigure = createHighlightLink(feedbackLayer, (PolylineConnection) refFigure, type);
         } else {
             highLightFigure = createHighlightBox(feedbackLayer, refFigure, type);
         }
-        
+
         // decorate depending on type
         updateHighlightType(highLightFigure, type);
         return highLightFigure;
@@ -69,6 +69,7 @@ public class FigureUtilities2 extends FigureUtilities {
 
     /**
      * Get the same font as the given one but smaller.
+     *
      * @param baseFont the base font
      * @return the smaller font
      */
@@ -83,6 +84,7 @@ public class FigureUtilities2 extends FigureUtilities {
 
     /**
      * Produces a ghosting effect on the shape <i>s</i>.
+     *
      * @param s the shape
      * @param refFigure unused
      * @return the ghosted shape
@@ -94,12 +96,12 @@ public class FigureUtilities2 extends FigureUtilities {
             // penColor = ((IPenOptionsSupport) refFigure).getLineColor();
         }
         s.setForegroundColor(penColor);
-        
+
         // s.setBackgroundColor(ghostFillColor);
-        
+
         // s.setFillXOR(true);
         s.setFill(false);
-        
+
         s.setOutlineXOR(false);
         s.setLineStyle(SWT.LINE_DOT);
         s.setLineWidth(2);
@@ -110,7 +112,7 @@ public class FigureUtilities2 extends FigureUtilities {
     private static void updatePenOptions(final IPenOptionsSupport highlightFigure, Color color) {
         highlightFigure.setLineColor(color);
         highlightFigure.setLineWidth(2);
-        
+
     }
 
     @objid ("362f7db9-1db0-4c3b-ba70-c79056ba7cfd")
@@ -120,7 +122,7 @@ public class FigureUtilities2 extends FigureUtilities {
             b.setFillAlpha(alpha);
             b.setFillColor(color);
         }
-        
+
     }
 
     @objid ("7f7c3c1b-1dec-11e2-8cad-001ec947c8cc")
@@ -165,7 +167,7 @@ public class FigureUtilities2 extends FigureUtilities {
                 shapeFigure.setForegroundColor(ColorConstants.blue);
                 break;
             }
-        
+
         } else if (highlightFigure instanceof IPenOptionsSupport) {
             IPenOptionsSupport f = (IPenOptionsSupport)highlightFigure;
             switch (type) {
@@ -190,7 +192,7 @@ public class FigureUtilities2 extends FigureUtilities {
             DiagramElements.LOG.warning("updateHighlightType() ignoring unsupported highlight figure type " +
                     highlightFigure.getClass().getSimpleName());
         }
-        
+
     }
 
     @objid ("7f7c3c23-1dec-11e2-8cad-001ec947c8cc")
@@ -212,7 +214,7 @@ public class FigureUtilities2 extends FigureUtilities {
         highlightFigure.setSourceAnchor(refConnection.getSourceAnchor());
         highlightFigure.setTargetAnchor(refConnection.getTargetAnchor());
         highlightFigure.setConnectionRouter(refConnection.getConnectionRouter());
-        
+
         if (refConnection.getRoutingConstraint() instanceof ArrayList<?>) {
             ArrayList<AbsoluteBendpoint> newRoutingConstraint = new ArrayList<>();
             for (Object o : (ArrayList<?>) refConnection.getRoutingConstraint()) {
@@ -224,11 +226,11 @@ public class FigureUtilities2 extends FigureUtilities {
                 }
             }
             highlightFigure.setRoutingConstraint(newRoutingConstraint);
-        
+
         } else {
             highlightFigure.setRoutingConstraint(refConnection.getRoutingConstraint());
         }
-        
+
         highlightFigure.setLineWidth(refConnection.getLineWidth() + 2);
         highlightFigure.setLineStyle(refConnection.getLineStyle());
         return highlightFigure;
@@ -239,25 +241,25 @@ public class FigureUtilities2 extends FigureUtilities {
         switch (height) {
         case 8:
             return 7;
-        
+
         case 9:
             return 7;
-        
+
         case 10:
             return 8;
-        
+
         case 11:
             return 8;
-        
+
         case 12:
             return 9;
-        
+
         case 13:
             return 10;
-        
+
         case 14:
             return 10;
-        
+
         default:
             if (height < 8) {
                 return height;
@@ -265,7 +267,7 @@ public class FigureUtilities2 extends FigureUtilities {
                 return height * 10 / 14;
             }
         }
-        
+
     }
 
     @objid ("7f7c3c33-1dec-11e2-8cad-001ec947c8cc")

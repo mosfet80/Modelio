@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.panels.scope;
 
@@ -43,15 +43,15 @@ public class MetaclassCellEditor extends CellEditor {
 
     /**
      * Creates a new cell editor under the given parent control. The cell editor has no cell validator.
+     *
      * @param parent the parent control
      * @param metamodel the metamodel whose metaclass are proposed by the cell editor
      */
     @objid ("a1a5cac0-0f2f-4bef-bf7b-18df46b3b8c5")
-    public  MetaclassCellEditor(Composite parent, MMetamodel metamodel) {
+    public MetaclassCellEditor(Composite parent, MMetamodel metamodel) {
         super();
         this.metamodel= metamodel;
         create(parent);
-        
     }
 
     @objid ("e599fd5b-e676-46c9-abe7-47c940e499cf")

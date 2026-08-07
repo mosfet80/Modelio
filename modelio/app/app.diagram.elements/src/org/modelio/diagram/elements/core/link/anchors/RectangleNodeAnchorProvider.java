@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.anchors;
 
@@ -61,7 +61,7 @@ import org.modelio.diagram.styles.core.StyleKey.ConnectionRouterId;
  * </code>
  * <p>
  * The returned provider should be used then discarded. It is not intended to be cached.
- * 
+ *
  * @author cmarin
  */
 @objid ("80a17d88-1dec-11e2-8cad-001ec947c8cc")
@@ -82,6 +82,7 @@ public class RectangleNodeAnchorProvider extends AbstractNodeAnchorProvider {
      * Factory to get a anchor provider .
      * <p>
      * This is the only way to get an anchor provider. The returned provider should be used then discarded. It is not intended to be cached.
+     *
      * @return an anchor provider.
      * @deprecated use {@link #getSlidable()} instead.
      */
@@ -95,6 +96,7 @@ public class RectangleNodeAnchorProvider extends AbstractNodeAnchorProvider {
      * Factory to get a anchor provider using slidable anchors.
      * <p>
      * This is the only way to get an anchor provider. The returned provider should be used then discarded. It is not intended to be cached.
+     *
      * @return an anchor provider.
      */
     @objid ("3003a4c1-a010-4052-980b-e0975a9dc26c")
@@ -106,6 +108,7 @@ public class RectangleNodeAnchorProvider extends AbstractNodeAnchorProvider {
      * Factory to get a anchor provider <b>not</b> using slidable anchors.
      * <p>
      * This is the only way to get an anchor provider. The returned provider should be used then discarded. It is not intended to be cached.
+     *
      * @return an anchor provider.
      */
     @objid ("0cf4e86a-6561-435b-b1fe-f97cc7a4f955")
@@ -117,6 +120,7 @@ public class RectangleNodeAnchorProvider extends AbstractNodeAnchorProvider {
      * Returns the <code>ConnectionAnchor</code> for the specified <i>isSourceAnchor</i> rectangular node. The NodeEditPart is the {@link ConnectionEditPart#getSource() isSourceAnchor} EditPart for the provider connection.
      * <P>
      * The anchor may be a function of the connection's model, the node's model, a combination of both, or it may not depend on anything all.
+     *
      * @param nodeEditPart The rectangular node to anchor from
      * @param connEditpart The connection to anchor from.
      * @return the ConnectionAnchor for the given rectangular EditPart
@@ -131,13 +135,14 @@ public class RectangleNodeAnchorProvider extends AbstractNodeAnchorProvider {
             ConnectionAnchor ret = updateConnectionAnchor(state, state.gmSourceAnchor, nodeEditPart, true);
             return ret;
         }
-        
+
     }
 
     /**
      * Returns the <code>ConnectionAnchor</code> for the specified <i>target</i> rectangular node. The NodeEditPart is the {@link ConnectionEditPart#getTarget() isSourceAnchor} EditPart for the provider connection.
      * <P>
      * The anchor may be a function of the connection's model, the node's model, a combination of both, or it may not depend on anything all.
+     *
      * @param nodeEditPart The rectangular node to anchor to
      * @param connEditpart The connection to anchor to.
      * @return the ConnectionAnchor for the given rectangular EditPart
@@ -146,20 +151,21 @@ public class RectangleNodeAnchorProvider extends AbstractNodeAnchorProvider {
     @Override
     public ConnectionAnchor getTargetConnectionAnchor(final GraphicalEditPart nodeEditPart, final ConnectionEditPart connEditpart) {
         State state = new State(connEditpart);
-        
+
         if (state.gmTargetAnchor == null) {
             return new ChopboxAnchor(nodeEditPart.getFigure());
         } else {
             ConnectionAnchor ret = updateConnectionAnchor(state, state.gmTargetAnchor, nodeEditPart, false);
             return ret;
         }
-        
+
     }
 
     /**
      * Update an existing connection anchor from a given anchor model and a connection routing mode.
      * <p>
      * May return the same connection anchor or another one. In the last case the returned anchor must be used and the other should be discarded.
+     *
      * @param gmLinkAnchor The anchor model.
      * @param nodeEditPart The rectangular node to anchor to
      * @param isSourceAnchor <code>true</code> if the anchor is a source anchor, <code>false</code> if it is a target anchor
@@ -216,7 +222,7 @@ public class RectangleNodeAnchorProvider extends AbstractNodeAnchorProvider {
         } else {
             throw new UnsupportedOperationException(gmLinkAnchor.toString());
         }
-        
+
     }
 
     @objid ("5103b12d-39f5-4094-aa5f-d22bcd3ccdea")
@@ -228,7 +234,7 @@ public class RectangleNodeAnchorProvider extends AbstractNodeAnchorProvider {
         } else {
             return super.createAnchorModel(anchor);
         }
-        
+
     }
 
     @objid ("9192eb84-7e11-41f3-87cb-71016fe438eb")
@@ -238,7 +244,7 @@ public class RectangleNodeAnchorProvider extends AbstractNodeAnchorProvider {
         Rectangle figBounds = fig.getBounds().getCopy();
         fig.translateToAbsolute(figBounds);
         final Point figLocation = figBounds.getTopLeft();
-        
+
         final Dimension offset;
         boolean raked = false;
         Point requestLocation = request.getLocation();
@@ -247,23 +253,24 @@ public class RectangleNodeAnchorProvider extends AbstractNodeAnchorProvider {
         } else {
             // Flag put by CreateRakeLinkEditPolicy.createPathModel(...)
             raked = request.getExtendedData().get("rake") == Boolean.TRUE;
-        
+
             offset = requestLocation.getDifference(figLocation);
         }
-        
+
         fig.translateToRelative(offset);
-        
+
         if (needSlidableAnchor(request, request.getData().getRoutingMode(), raked)) {
             // For Orthogonal and Rake routers, return "sliding" anchors.
             return new RaySlidableAnchor(fig, offset);
         } else {
             return createBorderAnchor(fig, offset, isSourceAnchor);
         }
-        
+
     }
 
     /**
      * Returns the <code>ConnectionAnchor</code> for the specified Request. The returned ConnectionAnchor is used only when displaying <i>feedback</i>.
+     *
      * @param request a Request describing the current interaction
      * @param isSourceAnchor Whether an anchor is needed for a isSourceAnchor or a target side.
      * @return the ConnectionAnchor to use during feedback
@@ -276,26 +283,26 @@ public class RectangleNodeAnchorProvider extends AbstractNodeAnchorProvider {
         Rectangle figBounds = fig.getBounds().getCopy();
         fig.translateToAbsolute(figBounds);
         final Point figLocation = figBounds.getTopLeft();
-        
+
         Point requestLocation = request.getLocation();
         final Dimension offset = requestLocation.getDifference(figLocation);
         fig.translateToRelative(offset);
-        
+
         if (isSourceAnchor) {
             return new RaySlidableAnchor(fig, offset);
         } else {
             return createBorderAnchor(fig, offset, isSourceAnchor);
         }
-        
+
     }
 
     @objid ("6d307040-b659-40aa-8049-4af802bb3513")
     private ConnectionAnchor createBorderAnchor(IFigure fig, Dimension offset, boolean isSourceAnchor) {
         Rectangle figBounds = fig.getBounds();
-        
+
         Point p = figBounds.getTopLeft();
         p.translate(offset);
-        
+
         switch (GeomUtils.getDirection(p, figBounds)) {
         case EAST:
             return new BorderAnchor(fig, PositionConstants.EAST, offset.height);
@@ -312,12 +319,13 @@ public class RectangleNodeAnchorProvider extends AbstractNodeAnchorProvider {
                 return new BorderAnchor(fig, PositionConstants.WEST, offset.height);
             }
         }
-        
+
     }
 
     /**
      * Returns the <code>ConnectionAnchor</code> for the specified Request. The returned ConnectionAnchor is used only when displaying <i>feedback</i>. The Request is usually a {@link org.eclipse.gef.requests.LocationRequest} , which provides the current
      * mouse location.
+     *
      * @param request a Request describing the current interaction
      * @param isSourceAnchor Whether an anchor is needed for a isSourceAnchor or a target side.
      * @return the ConnectionAnchor to use during feedback
@@ -330,20 +338,20 @@ public class RectangleNodeAnchorProvider extends AbstractNodeAnchorProvider {
         if (fig == null) {
             fig = nodeEditPart.getFigure();
         }
-        
+
         final Point figLocation = fig.getBounds().getTopLeft();
         fig.translateToAbsolute(figLocation);
-        
+
         final Point requestLocation = request.getLocation();
         if (requestLocation == null) {
             throw new IllegalArgumentException(request + " has no location.");
         }
-        
+
         State state = new State(request.getConnectionEditPart());
-        
+
         final Dimension offset = requestLocation.getDifference(figLocation);
         fig.translateToRelative(offset);
-        
+
         // Return a new anchor
         if (needSlidableAnchor(request, state.getFigureRoutingMode(), state.raked)) {
             RaySlidableAnchor ret = new RaySlidableAnchor(fig, offset);
@@ -351,7 +359,7 @@ public class RectangleNodeAnchorProvider extends AbstractNodeAnchorProvider {
         } else {
             return createBorderAnchor(fig, offset, isSourceAnchor);
         }
-        
+
     }
 
     @objid ("7bb8fee1-5924-4c46-951c-d5c9e656a01f")
@@ -363,7 +371,7 @@ public class RectangleNodeAnchorProvider extends AbstractNodeAnchorProvider {
      * Private only constructor.
      */
     @objid ("80a3dfaf-1dec-11e2-8cad-001ec947c8cc")
-    private  RectangleNodeAnchorProvider(boolean useSlidable) {
+    private RectangleNodeAnchorProvider(boolean useSlidable) {
         this.useSlidable = useSlidable;
     }
 
@@ -372,6 +380,7 @@ public class RectangleNodeAnchorProvider extends AbstractNodeAnchorProvider {
      * <p>
      * A slidable anchor is needed for orthogonal mode, except for rake mode. Tells whether a slidable anchor is needed.
      * </p>
+     *
      * @param router the router id.
      * @return <code>true</code> if a slidable anchor is needed, else <code>false</code>.
      */
@@ -403,15 +412,15 @@ public class RectangleNodeAnchorProvider extends AbstractNodeAnchorProvider {
         final Object gmTargetAnchor;
 
         @objid ("80a6424a-1dec-11e2-8cad-001ec947c8cc")
-        public  State(final ConnectionEditPart aConnectionEditPart) {
+        public State(final ConnectionEditPart aConnectionEditPart) {
             this.connectionEditPart = aConnectionEditPart;
             this.gmLink = (IGmLinkObject) aConnectionEditPart.getModel();
-            
+
             final IGmPath path = this.gmLink.getPath();
             this.gmSourceAnchor = path.getSourceAnchor();
             this.gmTargetAnchor = path.getTargetAnchor();
             this.raked = isRaked(path);
-            
+
         }
 
         @objid ("eec94b0e-51be-46ad-811d-775ba95ad4aa")
@@ -421,6 +430,7 @@ public class RectangleNodeAnchorProvider extends AbstractNodeAnchorProvider {
 
         /**
          * Get the routing mode from the connection figure.
+         *
          * @return the connection routing mode
          */
         @objid ("e7a1bcae-1d47-47d6-85af-ddcc683dbce2")
@@ -437,7 +447,7 @@ public class RectangleNodeAnchorProvider extends AbstractNodeAnchorProvider {
         public ConnectionRouterId getNeededRouter() {
             return this.raked ? ConnectionRouterId.BENDPOINT
                     : this.gmLink.getPath().getRouterKind();
-            
+
         }
 
     }

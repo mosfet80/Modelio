@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.modelio.diagram;
 
@@ -37,12 +37,12 @@ public class ContributorCategory {
     private Image icon;
 
     @objid ("7ace8cbf-b587-4db3-9dbf-e5b9962c0b91")
-    public  ContributorCategory(String type, String label, Image icon) {
+    public ContributorCategory(String type, String label, Image icon) {
         super();
         this.type = type;
         this.label = label;
         this.icon =icon;
-        
+
     }
 
     @objid ("cf9c55f1-8472-40eb-a417-393f6ab8e6e9")

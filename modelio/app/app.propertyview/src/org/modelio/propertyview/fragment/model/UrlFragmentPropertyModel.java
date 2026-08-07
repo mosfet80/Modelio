@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.propertyview.fragment.model;
 
@@ -41,10 +41,11 @@ public class UrlFragmentPropertyModel extends AbstractFragmentPropertyModel {
 
     /**
      * Create a new <i>UrlFragment</i> data model from an <i>UrlFragment</i>.
+     *
      * @param fragment the fragment of which properties will be display
      */
     @objid ("67b929ad-d68e-470b-8f43-b4cf87783625")
-    public  UrlFragmentPropertyModel(IGModelFragment fragment) {
+    public UrlFragmentPropertyModel(IGModelFragment fragment) {
         super(fragment);
         UrlFragmentInfos infos;
         try {
@@ -55,7 +56,7 @@ public class UrlFragmentPropertyModel extends AbstractFragmentPropertyModel {
         } catch (IOException e) {
             PropertyViewPlugin.LOG.error(e);
         }
-        
+
     }
 
     @objid ("5d6a82f9-b276-4590-8884-fa143b2008ce")

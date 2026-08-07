@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class MMStandardRequiredInterface {
      * Tells whether a {@link MMStandardRequiredInterface proxy} can be instantiated from a {@link MObject} checking it is a {@link RequiredInterface}.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -71,9 +72,10 @@ public class MMStandardRequiredInterface {
     }
 
     /**
-     * Tries to instantiate a {@link MMStandardRequiredInterface} proxy from a {@link RequiredInterface} checking its metaclass. 
+     * Tries to instantiate a {@link MMStandardRequiredInterface} proxy from a {@link RequiredInterface} checking its metaclass.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a RequiredInterface
      * @return a {@link MMStandardRequiredInterface} proxy or <i>null</i>.
      */
@@ -99,7 +101,8 @@ public class MMStandardRequiredInterface {
     }
 
     /**
-     * Get the underlying {@link RequiredInterface}. 
+     * Get the underlying {@link RequiredInterface}.
+     *
      * @return the RequiredInterface represented by this proxy, never null.
      */
     @objid ("7f5453a6-0485-48c8-b6c8-a9db73e070c9")
@@ -111,7 +114,7 @@ public class MMStandardRequiredInterface {
      * Getter for string property 'userDiagramImage'
      * <p>Property description:
      * <br/><i>Image file path to use in diagrams when unmasked in custom image mode.
-     * 
+     *
      * The file path must be either absolute or relative to the project path.</i></p>
      */
     @objid ("8a3d47bb-a2f2-421c-985a-a4efe1b9cf85")
@@ -123,14 +126,14 @@ public class MMStandardRequiredInterface {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     /**
      * Setter for string property 'userDiagramImage'
      * <p>Property description:
      * <br/><i>Image file path to use in diagrams when unmasked in custom image mode.
-     * 
+     *
      * The file path must be either absolute or relative to the project path.</i></p>
      */
     @objid ("e86325ce-250b-4637-8824-a87f2bea33bb")
@@ -139,7 +142,7 @@ public class MMStandardRequiredInterface {
     }
 
     @objid ("94b8354b-a637-4eb9-a46f-2a5424428438")
-    protected  MMStandardRequiredInterface(RequiredInterface elt) {
+    protected MMStandardRequiredInterface(RequiredInterface elt) {
         this.elt = elt;
     }
 
@@ -159,7 +162,7 @@ public class MMStandardRequiredInterface {
             USERDIAGRAMIMAGE_TAGTYPE_ELT = ctx.getModelingSession().findElementById(TagType.class, "d7dfcad5-d8a0-4dfd-aa6e-a691909dc3f4");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -167,7 +170,7 @@ public class MMStandardRequiredInterface {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

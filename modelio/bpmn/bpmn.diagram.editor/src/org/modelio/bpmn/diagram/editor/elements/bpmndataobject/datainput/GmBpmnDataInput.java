@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmndataobject.datainput;
 
@@ -73,30 +73,31 @@ public class GmBpmnDataInput extends GmPortContainer {
      * Constructor to use only for deserialization.
      */
     @objid ("60b13a96-55b6-11e2-877f-002564c97630")
-    public  GmBpmnDataInput() {
-        
+    public GmBpmnDataInput() {
+
     }
 
     /**
      * Creates a GmNote.
+     *
      * @param relatedRef The represented note reference
      * @param diagram The diagram owning the node
      * @param theElement The represented note element
      */
     @objid ("60b13a99-55b6-11e2-877f-002564c97630")
-    public  GmBpmnDataInput(IGmDiagram diagram, BpmnDataInput theElement, final MRef ref) {
+    public GmBpmnDataInput(IGmDiagram diagram, BpmnDataInput theElement, final MRef ref) {
         super(diagram, ref);
-        
+
         GmBpmnDataInputPrimaryNode mainNode = new GmBpmnDataInputPrimaryNode(diagram, ref);
         mainNode.setRoleInComposition(MAIN_NODE_ROLE);
         this.addChild(mainNode);
-        
+
         this.theElement = theElement;
         GmBpmnDataInputLabel label = new GmBpmnDataInputLabel(diagram, ref);
         label.setRoleInComposition(GmPortContainer.SATELLITE_ROLE);
         label.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
         this.addChild(label);
-        
+
     }
 
     @objid ("60b2c100-55b6-11e2-877f-002564c97630")
@@ -120,7 +121,7 @@ public class GmBpmnDataInput extends GmPortContainer {
         default:
             return null;
         }
-        
+
     }
 
     @objid ("60b2c10f-55b6-11e2-877f-002564c97630")
@@ -138,7 +139,7 @@ public class GmBpmnDataInput extends GmPortContainer {
         default:
             return Collections.emptyList();
         }
-        
+
     }
 
     @objid ("61ae983e-f764-4ab9-80a1-c3b79b950af7")
@@ -164,7 +165,7 @@ public class GmBpmnDataInput extends GmPortContainer {
             break;
         }
         }
-        
+
     }
 
     @objid ("60b2c11d-55b6-11e2-877f-002564c97630")
@@ -173,7 +174,7 @@ public class GmBpmnDataInput extends GmPortContainer {
         if (this.theElement != null) {
             firePropertyChange(PROPERTY_LABEL, null, this.theElement.getName());
         }
-        
+
     }
 
     @objid ("60b2c120-55b6-11e2-877f-002564c97630")
@@ -204,17 +205,17 @@ public class GmBpmnDataInput extends GmPortContainer {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmBpmnDataInput.", MINOR_VERSION);
-        
+
     }
 
     @objid ("60b447ad-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.theElement = (BpmnDataInput) resolveRef(this.getRepresentedRef());
-        
+
     }
 
     @objid ("60b447b2-55b6-11e2-877f-002564c97630")
@@ -225,6 +226,7 @@ public class GmBpmnDataInput extends GmPortContainer {
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */
@@ -236,6 +238,7 @@ public class GmBpmnDataInput extends GmPortContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */

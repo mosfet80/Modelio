@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.common.figure;
 
@@ -31,12 +31,13 @@ import org.modelio.diagram.elements.core.figures.RoundedBoxFigure;
 public class DoubleRoundedRectangleBorder extends LineBorder {
     /**
      * Constructs a DoubleRoundedRectangleBorder with the specified color and of the specified width.
+     *
      * @param color The color of the border.
      * @param width The width of the border in pixels.
      * @since 2.0
      */
     @objid ("62088cfb-55b6-11e2-877f-002564c97630")
-    public  DoubleRoundedRectangleBorder(Color color, int width) {
+    public DoubleRoundedRectangleBorder(Color color, int width) {
         super(color, width);
     }
 
@@ -52,21 +53,22 @@ public class DoubleRoundedRectangleBorder extends LineBorder {
         graphics.setLineWidth(this.getWidth());
         if (this.getColor() != null)
             graphics.setForegroundColor(this.getColor());
-        
+
         int borderRadius = ((RoundedBoxFigure) figure).getAdjustedRadius(tempRect);
         graphics.drawRoundRectangle(tempRect, borderRadius * 2, borderRadius * 2);
-        
+
         tempRect.height -= 6;
         tempRect.width -= 6;
         tempRect.x += 3;
         tempRect.y += 3;
         borderRadius = ((RoundedBoxFigure) figure).getAdjustedRadius(tempRect);
         graphics.drawRoundRectangle(tempRect, borderRadius * 2, borderRadius * 2);
-        
+
     }
 
     /**
      * Returns the space used by the border for the figure provided as input. In this border all sides always have equal width.
+     *
      * @param figure The figure this border belongs to
      * @return This border's insets
      */

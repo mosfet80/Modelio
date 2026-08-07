@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.module;
 
@@ -39,6 +39,7 @@ public class HTopoSorter extends TopologicalSorter<IModuleHandle> {
 
     /**
      * Sort handles by dependencies, the first ones having no dependencies.
+     *
      * @param modules module handles to sort. This collection is not modified.
      * @return the sorted list.
      * @throws CyclicDependencyException in case of cyclic dependency.
@@ -49,7 +50,7 @@ public class HTopoSorter extends TopologicalSorter<IModuleHandle> {
     }
 
     @objid ("a772f0b0-e48a-4731-ad86-50226ac0935d")
-    private  HTopoSorter(Collection<IModuleHandle> modules) {
+    private HTopoSorter(Collection<IModuleHandle> modules) {
         this.modules = modules;
     }
 
@@ -63,7 +64,7 @@ public class HTopoSorter extends TopologicalSorter<IModuleHandle> {
     @Override
     public Collection<IModuleHandle> getAdjacent(IModuleHandle node) {
         Collection<IModuleHandle> ret = new ArrayList<>();
-        
+
         for (IModuleHandle m : this.modules) {
             if (dependsOn(node, m)) {
                 ret.add(m);
@@ -77,13 +78,13 @@ public class HTopoSorter extends TopologicalSorter<IModuleHandle> {
         if (module2 == null) {
             return false;
         }
-        
+
         for (VersionedItem<?> requiredRef : module1.getDependencies()) {
             if (module2.getName().equals(requiredRef.getName()) && !module2.getVersion().isOlderThan(requiredRef.getVersion())) {
                 return true;
             }
         }
-        
+
         for (VersionedItem<?> weakRef : module1.getWeakDependencies()) {
             if (module2.getName().equals(weakRef.getName()) && !module2.getVersion().isOlderThan(weakRef.getVersion())) {
                 return true;

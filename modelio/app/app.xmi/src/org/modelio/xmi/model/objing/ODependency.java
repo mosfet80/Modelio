@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -38,7 +38,7 @@ public class ODependency extends OModelElement {
     @objid ("2a0938ea-9aef-4787-8753-46fc67ded246")
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
-        if (this.objingElement.isStereotyped(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2ASSOCIATIONREFERENCE) 
+        if (this.objingElement.isStereotyped(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2ASSOCIATIONREFERENCE)
                 || this.objingElement.isStereotyped(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2METHODREFERENCE)
                 || this.objingElement.isStereotyped(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2STRUCTURALFEATUREREFERENCE)
                 || this.objingElement.isStereotyped(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2CLASSIFIERREFERENCE)
@@ -66,14 +66,14 @@ public class ODependency extends OModelElement {
             ecoreDependency.setName(this.objingElement.getName());
             return ecoreDependency;
         }
-        
+
     }
 
     @objid ("a07add4b-7d54-404b-8c7e-b69ee5fed1cc")
-    public  ODependency(Dependency element) {
+    public ODependency(Dependency element) {
         super(element);
         this.objingElement = element;
-        
+
     }
 
     @objid ("8094065c-4c49-406f-bae2-96cad2be47e1")
@@ -82,28 +82,28 @@ public class ODependency extends OModelElement {
         if (!(ecoreElt instanceof org.eclipse.uml2.uml.InterfaceRealization)) {
             // This method is also called when linking a org.eclipse.uml2.uml.Usage, as org.eclipse.uml2.uml.Usage inherits
             // from org.eclipse.uml2.uml.Dependency.
-           
-                
+
+
             ModelElement objingClient = this.objingElement.getImpacted();
             ModelElement objingSupplier = this.objingElement.getDependsOn();
-                
+
             if (objingClient != null && objingSupplier != null) {
                 // Gets or creates the ecore "Client" element:
                 org.eclipse.uml2.uml.Element ecoreClient = this.genProp
                 .getMappedElement(objingClient);
-                
+
                 // Gets or creates the ecore "Supplier" element:
                 org.eclipse.uml2.uml.Element ecoreSupplier = this.genProp
                 .getMappedElement(objingSupplier);
-                
+
                 if (ecoreClient != null && ecoreSupplier != null ) {
-                
+
                     if ((ecoreClient instanceof org.eclipse.uml2.uml.NamedElement) && (ecoreSupplier instanceof org.eclipse.uml2.uml.NamedElement)){
                         org.eclipse.uml2.uml.Dependency ecoreDependency = (org.eclipse.uml2.uml.Dependency) ecoreElt;
-                
+
                         ecoreDependency.getClients().add((org.eclipse.uml2.uml.NamedElement)ecoreClient);
                         ecoreDependency.getSuppliers().add((org.eclipse.uml2.uml.NamedElement)ecoreSupplier);
-                
+
                         org.eclipse.uml2.uml.Package ecorePkg = ecoreClient.getNearestPackage();
                         if (ecorePkg == null) {
                             this.genProp.getEcoreModel().getPackagedElements().add(
@@ -117,10 +117,10 @@ public class ODependency extends OModelElement {
                 }else{
                     ecoreElt.destroy();
                 }
-            }else 
+            }else
                 ecoreElt.destroy();
         }
-        
+
     }
 
     @objid ("2b625889-4ddd-4a7a-b84e-00f856024712")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.diagramauto.tools.layout;
 
@@ -63,10 +63,10 @@ public class DiagonalLayout {
             public int compare(IDiagramNode o1, IDiagramNode o2) {
                 int o1from = o1.getFromLinks().size();
                 int o1to = o1.getToLinks().size();
-        
+
                 int o2from = o2.getFromLinks().size();
                 int o2to = o2.getToLinks().size();
-        
+
                 if (o1from < o2from) {
                     return 1;
                 } else if (o1from > o2from) {
@@ -81,14 +81,14 @@ public class DiagonalLayout {
                 return 0;
             }
         });
-        
+
     }
 
     @objid ("06d97901-c70e-42a6-8428-287359858c55")
     public void layoutNodes(final IDiagramHandle dh, final List<IDiagramNode> contentDgs) throws InvalidSourcePointException, InvalidPointsPathException, InvalidDestinationPointException {
         // sort nodes
         sortNodes(contentDgs);
-        
+
         // compute content group size, diagonal group
         for (IDiagramNode content : contentDgs) {
             content.fitToContent();
@@ -97,22 +97,22 @@ public class DiagonalLayout {
             Rectangle r = content.getOverallBounds();
             content.setSize(Math.max(r.width, (toLinks > 0 ? toLinks - 1 : toLinks) * ANCHORSPACING), Math.max(r.height, (fromLinks > 0 ? fromLinks - 1 : fromLinks) * ANCHORSPACING));
         }
-        
+
         Dimension size = computeDiagonalSize(contentDgs);
         this._contentgW = size.width;
         this._contentgH = size.height;
         // System.out.println("content " + size);
-        
+
         // position content group
         int _contentgX = HSPACING;
         int _contentgY = VSPACING;
         // System.out.println("left Dimension(" + _leftgX + ", " + _leftgY + ")");
-        
+
         // move content elements
         moveDiagonalElements(contentDgs, _contentgX, _contentgY);
-        
+
         dh.save();
-        
+
         // move links on content nodes
         // for (IDiagramNode source : contentDgs) {
         // // System.out.println("source=" + source);
@@ -153,15 +153,15 @@ public class DiagonalLayout {
         // }
         // }
         // System.out.println("");
-        
+
     }
 
     @objid ("d50c0a8b-840c-4327-91b1-b1f02895d207")
     public void layoutLinks(final IDiagramHandle dh, final List<IDiagramNode> contentDgs) throws InvalidSourcePointException, InvalidPointsPathException, InvalidDestinationPointException {
         // sort nodes
         sortNodes(contentDgs);
-        
-        
+
+
         // move links on content nodes
         for (IDiagramNode source : contentDgs) {
             // System.out.println("source=" + source);
@@ -169,7 +169,7 @@ public class DiagonalLayout {
             int sourceN = source.getFromLinks().size();
             int sourceH = sourceR.height;
             int sourceYoffset = (sourceH - (sourceN - 1) * ANCHORSPACING) / 2;
-        
+
             // Links to the content
             for (IDiagramLink link : source.getFromLinks()) {
                 if (link.getTo() instanceof IDiagramNode) {
@@ -179,9 +179,9 @@ public class DiagonalLayout {
                     int targetN = target.getToLinks().size();
                     int targetW = targetR.width;
                     int targetXoffset = (targetW - (targetN - 1) * ANCHORSPACING) / 2 + target.getToLinks().indexOf(link) * ANCHORSPACING;
-        
+
                     ILinkPath path = link.getPath();
-        
+
                     List<Point> points = new ArrayList<>();
                     if (sourceR.x < targetR.x) {
                         points.add(new Point(sourceR.x + sourceR.width, sourceR.y + sourceYoffset));
@@ -192,18 +192,18 @@ public class DiagonalLayout {
                         points.add(new Point(targetR.x + targetXoffset, sourceR.y + sourceYoffset));
                         points.add(new Point(targetR.x + targetXoffset, targetR.y + targetR.height));
                     }
-        
+
                     path.setPoints(points);
                     link.setPath(path);
-        
+
                     // System.out.println(points);
-        
+
                     sourceYoffset = sourceYoffset + ANCHORSPACING;
                 }
             }
             // System.out.println("");
         }
-        
+
     }
 
     /**
@@ -213,19 +213,19 @@ public class DiagonalLayout {
     private Dimension computeDiagonalSize(final List<IDiagramNode> dgs) {
         int width = 0;
         int height = 0;
-        
+
         for (IDiagramNode node : dgs) {
             node.fitToContent();
-        
+
             Rectangle r = node.getOverallBounds();
             width = width + r.height + HSPACING;
             height = height + r.height + VSPACING;
         }
-        
+
         if (width > 0) {
             width = height - HSPACING;
         }
-        
+
         if (height > 0) {
             height = height - VSPACING;
         }
@@ -240,11 +240,11 @@ public class DiagonalLayout {
             DgUtils.setLocation(node, x, y);
             int w = node.getOverallBounds().width;
             int h = node.getOverallBounds().height;
-        
+
             x = x + w + HSPACING;
             y = y + h + VSPACING;
         }
-        
+
     }
 
 }

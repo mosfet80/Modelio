@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.data.module.jaxbv1;
 
@@ -36,9 +36,9 @@ import jakarta.xml.bind.annotation.XmlValue;
 
 /**
  * <p>Java class for anonymous complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType>
  * &lt;complexContent>
@@ -365,8 +365,8 @@ public class JxbModule {
 
     /**
      * Gets the value of the uid property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("cae9b0d4-d6ff-11e1-9f03-001ec947ccaf")
@@ -376,6 +376,7 @@ public class JxbModule {
 
     /**
      * Sets the value of the uid property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -386,8 +387,8 @@ public class JxbModule {
 
     /**
      * Gets the value of the name property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("cae9b0d6-d6ff-11e1-9f03-001ec947ccaf")
@@ -397,6 +398,7 @@ public class JxbModule {
 
     /**
      * Sets the value of the name property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -407,8 +409,8 @@ public class JxbModule {
 
     /**
      * Gets the value of the image property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("cae9b0d8-d6ff-11e1-9f03-001ec947ccaf")
@@ -418,6 +420,7 @@ public class JxbModule {
 
     /**
      * Sets the value of the image property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -428,8 +431,8 @@ public class JxbModule {
 
     /**
      * Gets the value of the author property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("cae9b1ac-d6ff-11e1-9f03-001ec947ccaf")
@@ -439,6 +442,7 @@ public class JxbModule {
 
     /**
      * Sets the value of the author property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -449,8 +453,8 @@ public class JxbModule {
 
     /**
      * Gets the value of the description property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("cae9b1ae-d6ff-11e1-9f03-001ec947ccaf")
@@ -460,6 +464,7 @@ public class JxbModule {
 
     /**
      * Sets the value of the description property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -470,8 +475,8 @@ public class JxbModule {
 
     /**
      * Gets the value of the version property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("cae9b1b0-d6ff-11e1-9f03-001ec947ccaf")
@@ -481,6 +486,7 @@ public class JxbModule {
 
     /**
      * Sets the value of the version property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -491,8 +497,8 @@ public class JxbModule {
 
     /**
      * Gets the value of the clazz property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("cae74ec2-d6ff-11e1-9f03-001ec947ccaf")
@@ -502,6 +508,7 @@ public class JxbModule {
 
     /**
      * Sets the value of the clazz property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -512,8 +519,8 @@ public class JxbModule {
 
     /**
      * Gets the value of the licenseRequired property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link Boolean }
      */
     @objid ("cae74ec4-d6ff-11e1-9f03-001ec947ccaf")
@@ -523,6 +530,7 @@ public class JxbModule {
 
     /**
      * Sets the value of the licenseRequired property.
+     *
      * @param value allowed object is
      * {@link Boolean }
      */
@@ -533,8 +541,8 @@ public class JxbModule {
 
     /**
      * Gets the value of the binaryversion property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("cae74ec6-d6ff-11e1-9f03-001ec947ccaf")
@@ -544,6 +552,7 @@ public class JxbModule {
 
     /**
      * Sets the value of the binaryversion property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -554,20 +563,20 @@ public class JxbModule {
 
     /**
      * Gets the value of the parameterOrProfileOrGui property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the parameterOrProfileOrGui property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      * getParameterOrProfileOrGui().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link JxbDocpath }
@@ -587,9 +596,9 @@ public class JxbModule {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType>
      * &lt;complexContent>
@@ -647,20 +656,20 @@ public class JxbModule {
 
         /**
          * Gets the value of the requiredOrOptionalOrRamc property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the requiredOrOptionalOrRamc property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          * getRequiredOrOptionalOrRamc().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link JxbModule.Dependencies.Optional }
@@ -677,9 +686,9 @@ public class JxbModule {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType>
          * &lt;complexContent>
@@ -705,8 +714,8 @@ public class JxbModule {
 
             /**
              * Gets the value of the name property.
-             * @return
-             * possible object is
+             *
+             * @return possible object is
              * {@link String }
              */
             @objid ("cae9b2d6-d6ff-11e1-9f03-001ec947ccaf")
@@ -716,6 +725,7 @@ public class JxbModule {
 
             /**
              * Sets the value of the name property.
+             *
              * @param value allowed object is
              * {@link String }
              */
@@ -726,8 +736,8 @@ public class JxbModule {
 
             /**
              * Gets the value of the version property.
-             * @return
-             * possible object is
+             *
+             * @return possible object is
              * {@link String }
              */
             @objid ("cae9b2db-d6ff-11e1-9f03-001ec947ccaf")
@@ -737,6 +747,7 @@ public class JxbModule {
 
             /**
              * Sets the value of the version property.
+             *
              * @param value allowed object is
              * {@link String }
              */
@@ -749,9 +760,9 @@ public class JxbModule {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType>
          * &lt;complexContent>
@@ -777,8 +788,8 @@ public class JxbModule {
 
             /**
              * Gets the value of the name property.
-             * @return
-             * possible object is
+             *
+             * @return possible object is
              * {@link String }
              */
             @objid ("cae74f37-d6ff-11e1-9f03-001ec947ccaf")
@@ -788,6 +799,7 @@ public class JxbModule {
 
             /**
              * Sets the value of the name property.
+             *
              * @param value allowed object is
              * {@link String }
              */
@@ -798,8 +810,8 @@ public class JxbModule {
 
             /**
              * Gets the value of the version property.
-             * @return
-             * possible object is
+             *
+             * @return possible object is
              * {@link String }
              */
             @objid ("cae74f39-d6ff-11e1-9f03-001ec947ccaf")
@@ -809,6 +821,7 @@ public class JxbModule {
 
             /**
              * Sets the value of the version property.
+             *
              * @param value allowed object is
              * {@link String }
              */
@@ -821,9 +834,9 @@ public class JxbModule {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType>
          * &lt;complexContent>
@@ -849,8 +862,8 @@ public class JxbModule {
 
             /**
              * Gets the value of the name property.
-             * @return
-             * possible object is
+             *
+             * @return possible object is
              * {@link String }
              */
             @objid ("caee7601-d6ff-11e1-9f03-001ec947ccaf")
@@ -860,6 +873,7 @@ public class JxbModule {
 
             /**
              * Sets the value of the name property.
+             *
              * @param value allowed object is
              * {@link String }
              */
@@ -870,8 +884,8 @@ public class JxbModule {
 
             /**
              * Gets the value of the version property.
-             * @return
-             * possible object is
+             *
+             * @return possible object is
              * {@link String }
              */
             @objid ("caee7603-d6ff-11e1-9f03-001ec947ccaf")
@@ -881,6 +895,7 @@ public class JxbModule {
 
             /**
              * Sets the value of the version property.
+             *
              * @param value allowed object is
              * {@link String }
              */
@@ -895,9 +910,9 @@ public class JxbModule {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType>
      * &lt;complexContent>
@@ -1004,20 +1019,20 @@ public class JxbModule {
 
         /**
          * Gets the value of the propertyPageOrCommandOrElementCreationCommand property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the propertyPageOrCommandOrElementCreationCommand property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          * getPropertyPageOrCommandOrElementCreationCommand().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link JxbModule.Gui.PropertyPage }
@@ -1035,9 +1050,9 @@ public class JxbModule {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType>
          * &lt;complexContent>
@@ -1052,14 +1067,14 @@ public class JxbModule {
         @XmlType(name = "")
         public static class Command extends JxbContextualCommand {
 // empty
-            
+
         }
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType>
          * &lt;complexContent>
@@ -1138,8 +1153,8 @@ public class JxbModule {
 
             /**
              * Gets the value of the baseDiagram property.
-             * @return
-             * possible object is
+             *
+             * @return possible object is
              * {@link String }
              */
             @objid ("cae9b2fd-d6ff-11e1-9f03-001ec947ccaf")
@@ -1149,6 +1164,7 @@ public class JxbModule {
 
             /**
              * Sets the value of the baseDiagram property.
+             *
              * @param value allowed object is
              * {@link String }
              */
@@ -1159,8 +1175,8 @@ public class JxbModule {
 
             /**
              * Gets the value of the stereotype property.
-             * @return
-             * possible object is
+             *
+             * @return possible object is
              * {@link String }
              */
             @objid ("cae9b301-d6ff-11e1-9f03-001ec947ccaf")
@@ -1170,6 +1186,7 @@ public class JxbModule {
 
             /**
              * Sets the value of the stereotype property.
+             *
              * @param value allowed object is
              * {@link String }
              */
@@ -1180,8 +1197,8 @@ public class JxbModule {
 
             /**
              * Gets the value of the keepBasePalette property.
-             * @return
-             * possible object is
+             *
+             * @return possible object is
              * {@link Boolean }
              */
             @objid ("cae9b303-d6ff-11e1-9f03-001ec947ccaf")
@@ -1191,6 +1208,7 @@ public class JxbModule {
 
             /**
              * Sets the value of the keepBasePalette property.
+             *
              * @param value allowed object is
              * {@link Boolean }
              */
@@ -1201,20 +1219,20 @@ public class JxbModule {
 
             /**
              * Gets the value of the paletteOrStyle property.
-             * 
+             *
              * <p>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the JAXB object.
              * This is why there is not a <CODE>set</CODE> method for the paletteOrStyle property.
-             * 
+             *
              * <p>
              * For example, to add a new item, do as follows:
              * <pre>
              * getPaletteOrStyle().add(newItem);
              * </pre>
-             * 
-             * 
+             *
+             *
              * <p>
              * Objects of the following type(s) are allowed in the list
              * {@link JxbModule.Gui.CustomizedDiagram.Palette }
@@ -1230,9 +1248,9 @@ public class JxbModule {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType>
              * &lt;complexContent>
@@ -1265,20 +1283,20 @@ public class JxbModule {
 
                 /**
                  * Gets the value of the diagramCommandOrDiagramCommandBoxOrDiagramCommandLink property.
-                 * 
+                 *
                  * <p>
                  * This accessor method returns a reference to the live list,
                  * not a snapshot. Therefore any modification you make to the
                  * returned list will be present inside the JAXB object.
                  * This is why there is not a <CODE>set</CODE> method for the diagramCommandOrDiagramCommandBoxOrDiagramCommandLink property.
-                 * 
+                 *
                  * <p>
                  * For example, to add a new item, do as follows:
                  * <pre>
                  * getDiagramCommandOrDiagramCommandBoxOrDiagramCommandLink().add(newItem);
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  * <p>
                  * Objects of the following type(s) are allowed in the list
                  * {@link JAXBElement }{@code <}{@link JxbDiagramCommand }{@code >}
@@ -1298,9 +1316,9 @@ public class JxbModule {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType>
              * &lt;complexContent>
@@ -1341,20 +1359,20 @@ public class JxbModule {
 
                 /**
                  * Gets the value of the styleProperty property.
-                 * 
+                 *
                  * <p>
                  * This accessor method returns a reference to the live list,
                  * not a snapshot. Therefore any modification you make to the
                  * returned list will be present inside the JAXB object.
                  * This is why there is not a <CODE>set</CODE> method for the styleProperty property.
-                 * 
+                 *
                  * <p>
                  * For example, to add a new item, do as follows:
                  * <pre>
                  * getStyleProperty().add(newItem);
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  * <p>
                  * Objects of the following type(s) are allowed in the list
                  * {@link JxbModule.Gui.CustomizedDiagram.Style.StyleProperty }
@@ -1369,8 +1387,8 @@ public class JxbModule {
 
                 /**
                  * Gets the value of the baseStyle property.
-                 * @return
-                 * possible object is
+                 *
+                 * @return possible object is
                  * {@link String }
                  */
                 @objid ("caec1458-d6ff-11e1-9f03-001ec947ccaf")
@@ -1380,6 +1398,7 @@ public class JxbModule {
 
                 /**
                  * Sets the value of the baseStyle property.
+                 *
                  * @param value allowed object is
                  * {@link String }
                  */
@@ -1390,9 +1409,9 @@ public class JxbModule {
 
                 /**
                  * <p>Java class for anonymous complex type.
-                 * 
+                 *
                  * <p>The following schema fragment specifies the expected content contained within this class.
-                 * 
+                 *
                  * <pre>
                  * &lt;complexType>
                  * &lt;complexContent>
@@ -1428,8 +1447,8 @@ public class JxbModule {
 
                     /**
                      * Gets the value of the metaclass property.
-                     * @return
-                     * possible object is
+                     *
+                     * @return possible object is
                      * {@link String }
                      */
                     @objid ("caec152e-d6ff-11e1-9f03-001ec947ccaf")
@@ -1439,6 +1458,7 @@ public class JxbModule {
 
                     /**
                      * Sets the value of the metaclass property.
+                     *
                      * @param value allowed object is
                      * {@link String }
                      */
@@ -1449,8 +1469,8 @@ public class JxbModule {
 
                     /**
                      * Gets the value of the stereotype property.
-                     * @return
-                     * possible object is
+                     *
+                     * @return possible object is
                      * {@link String }
                      */
                     @objid ("caec1530-d6ff-11e1-9f03-001ec947ccaf")
@@ -1460,6 +1480,7 @@ public class JxbModule {
 
                     /**
                      * Sets the value of the stereotype property.
+                     *
                      * @param value allowed object is
                      * {@link String }
                      */
@@ -1470,8 +1491,8 @@ public class JxbModule {
 
                     /**
                      * Gets the value of the key property.
-                     * @return
-                     * possible object is
+                     *
+                     * @return possible object is
                      * {@link String }
                      */
                     @objid ("caec1532-d6ff-11e1-9f03-001ec947ccaf")
@@ -1481,6 +1502,7 @@ public class JxbModule {
 
                     /**
                      * Sets the value of the key property.
+                     *
                      * @param value allowed object is
                      * {@link String }
                      */
@@ -1491,8 +1513,8 @@ public class JxbModule {
 
                     /**
                      * Gets the value of the value property.
-                     * @return
-                     * possible object is
+                     *
+                     * @return possible object is
                      * {@link String }
                      */
                     @objid ("caec1534-d6ff-11e1-9f03-001ec947ccaf")
@@ -1502,6 +1524,7 @@ public class JxbModule {
 
                     /**
                      * Sets the value of the value property.
+                     *
                      * @param value allowed object is
                      * {@link String }
                      */
@@ -1518,9 +1541,9 @@ public class JxbModule {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType>
          * &lt;complexContent>
@@ -1535,14 +1558,14 @@ public class JxbModule {
         @XmlType(name = "")
         public static class ElementCreationCommand extends JxbContextualCommand {
 //          empty
-            
+
         }
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType>
          * &lt;simpleContent>
@@ -1584,8 +1607,8 @@ public class JxbModule {
 
             /**
              * Gets the value of the value property.
-             * @return
-             * possible object is
+             *
+             * @return possible object is
              * {@link String }
              */
             @objid ("cae9b310-d6ff-11e1-9f03-001ec947ccaf")
@@ -1595,6 +1618,7 @@ public class JxbModule {
 
             /**
              * Sets the value of the value property.
+             *
              * @param value allowed object is
              * {@link String }
              */
@@ -1605,8 +1629,8 @@ public class JxbModule {
 
             /**
              * Gets the value of the name property.
-             * @return
-             * possible object is
+             *
+             * @return possible object is
              * {@link String }
              */
             @objid ("cae9b319-d6ff-11e1-9f03-001ec947ccaf")
@@ -1616,6 +1640,7 @@ public class JxbModule {
 
             /**
              * Sets the value of the name property.
+             *
              * @param value allowed object is
              * {@link String }
              */
@@ -1626,8 +1651,8 @@ public class JxbModule {
 
             /**
              * Gets the value of the clazz property.
-             * @return
-             * possible object is
+             *
+             * @return possible object is
              * {@link String }
              */
             @objid ("cae9b31b-d6ff-11e1-9f03-001ec947ccaf")
@@ -1637,6 +1662,7 @@ public class JxbModule {
 
             /**
              * Sets the value of the clazz property.
+             *
              * @param value allowed object is
              * {@link String }
              */
@@ -1647,8 +1673,8 @@ public class JxbModule {
 
             /**
              * Gets the value of the label property.
-             * @return
-             * possible object is
+             *
+             * @return possible object is
              * {@link String }
              */
             @objid ("cae9b31d-d6ff-11e1-9f03-001ec947ccaf")
@@ -1658,6 +1684,7 @@ public class JxbModule {
 
             /**
              * Sets the value of the label property.
+             *
              * @param value allowed object is
              * {@link String }
              */
@@ -1668,8 +1695,8 @@ public class JxbModule {
 
             /**
              * Gets the value of the image property.
-             * @return
-             * possible object is
+             *
+             * @return possible object is
              * {@link String }
              */
             @objid ("cae9b31f-d6ff-11e1-9f03-001ec947ccaf")
@@ -1679,6 +1706,7 @@ public class JxbModule {
 
             /**
              * Sets the value of the image property.
+             *
              * @param value allowed object is
              * {@link String }
              */
@@ -1693,9 +1721,9 @@ public class JxbModule {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType>
      * &lt;complexContent>
@@ -1773,8 +1801,8 @@ public class JxbModule {
 
         /**
          * Gets the value of the name property.
-         * @return
-         * possible object is
+         *
+         * @return possible object is
          * {@link String }
          */
         @objid ("cae9b0e6-d6ff-11e1-9f03-001ec947ccaf")
@@ -1784,6 +1812,7 @@ public class JxbModule {
 
         /**
          * Sets the value of the name property.
+         *
          * @param value allowed object is
          * {@link String }
          */
@@ -1794,8 +1823,8 @@ public class JxbModule {
 
         /**
          * Gets the value of the label property.
-         * @return
-         * possible object is
+         *
+         * @return possible object is
          * {@link String }
          */
         @objid ("cae9b0e8-d6ff-11e1-9f03-001ec947ccaf")
@@ -1805,6 +1834,7 @@ public class JxbModule {
 
         /**
          * Sets the value of the label property.
+         *
          * @param value allowed object is
          * {@link String }
          */
@@ -1815,8 +1845,8 @@ public class JxbModule {
 
         /**
          * Gets the value of the group property.
-         * @return
-         * possible object is
+         *
+         * @return possible object is
          * {@link String }
          */
         @objid ("cae9b0ea-d6ff-11e1-9f03-001ec947ccaf")
@@ -1826,6 +1856,7 @@ public class JxbModule {
 
         /**
          * Sets the value of the group property.
+         *
          * @param value allowed object is
          * {@link String }
          */
@@ -1836,8 +1867,8 @@ public class JxbModule {
 
         /**
          * Gets the value of the defaultValue property.
-         * @return
-         * possible object is
+         *
+         * @return possible object is
          * {@link String }
          */
         @objid ("cae9b0ec-d6ff-11e1-9f03-001ec947ccaf")
@@ -1847,6 +1878,7 @@ public class JxbModule {
 
         /**
          * Sets the value of the defaultValue property.
+         *
          * @param value allowed object is
          * {@link String }
          */
@@ -1857,8 +1889,8 @@ public class JxbModule {
 
         /**
          * Gets the value of the type property.
-         * @return
-         * possible object is
+         *
+         * @return possible object is
          * {@link String }
          */
         @objid ("cae9b0ee-d6ff-11e1-9f03-001ec947ccaf")
@@ -1868,6 +1900,7 @@ public class JxbModule {
 
         /**
          * Sets the value of the type property.
+         *
          * @param value allowed object is
          * {@link String }
          */
@@ -1878,8 +1911,8 @@ public class JxbModule {
 
         /**
          * Gets the value of the uid property.
-         * @return
-         * possible object is
+         *
+         * @return possible object is
          * {@link String }
          */
         @objid ("cae9b0f0-d6ff-11e1-9f03-001ec947ccaf")
@@ -1889,6 +1922,7 @@ public class JxbModule {
 
         /**
          * Sets the value of the uid property.
+         *
          * @param value allowed object is
          * {@link String }
          */
@@ -1899,20 +1933,20 @@ public class JxbModule {
 
         /**
          * Gets the value of the enumerationOrDescription property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the enumerationOrDescription property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          * getEnumerationOrDescription().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link JxbModule.JxbParameter.JxbEnumeration }
@@ -1928,9 +1962,9 @@ public class JxbModule {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType>
          * &lt;complexContent>
@@ -1963,20 +1997,20 @@ public class JxbModule {
 
             /**
              * Gets the value of the literal property.
-             * 
+             *
              * <p>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the JAXB object.
              * This is why there is not a <CODE>set</CODE> method for the literal property.
-             * 
+             *
              * <p>
              * For example, to add a new item, do as follows:
              * <pre>
              * getLiteral().add(newItem);
              * </pre>
-             * 
-             * 
+             *
+             *
              * <p>
              * Objects of the following type(s) are allowed in the list
              * {@link JxbModule.JxbParameter.JxbEnumeration.Literal }
@@ -1991,9 +2025,9 @@ public class JxbModule {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType>
              * &lt;complexContent>
@@ -2019,8 +2053,8 @@ public class JxbModule {
 
                 /**
                  * Gets the value of the name property.
-                 * @return
-                 * possible object is
+                 *
+                 * @return possible object is
                  * {@link String }
                  */
                 @objid ("caec14aa-d6ff-11e1-9f03-001ec947ccaf")
@@ -2030,6 +2064,7 @@ public class JxbModule {
 
                 /**
                  * Sets the value of the name property.
+                 *
                  * @param value allowed object is
                  * {@link String }
                  */
@@ -2040,8 +2075,8 @@ public class JxbModule {
 
                 /**
                  * Gets the value of the label property.
-                 * @return
-                 * possible object is
+                 *
+                 * @return possible object is
                  * {@link String }
                  */
                 @objid ("caec14ac-d6ff-11e1-9f03-001ec947ccaf")
@@ -2051,6 +2086,7 @@ public class JxbModule {
 
                 /**
                  * Sets the value of the label property.
+                 *
                  * @param value allowed object is
                  * {@link String }
                  */
@@ -2067,9 +2103,9 @@ public class JxbModule {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType>
      * &lt;complexContent>
@@ -2177,8 +2213,8 @@ public class JxbModule {
 
         /**
          * Gets the value of the uid property.
-         * @return
-         * possible object is
+         *
+         * @return possible object is
          * {@link String }
          */
         @objid ("cae9b0fc-d6ff-11e1-9f03-001ec947ccaf")
@@ -2188,6 +2224,7 @@ public class JxbModule {
 
         /**
          * Sets the value of the uid property.
+         *
          * @param value allowed object is
          * {@link String }
          */
@@ -2198,8 +2235,8 @@ public class JxbModule {
 
         /**
          * Gets the value of the name property.
-         * @return
-         * possible object is
+         *
+         * @return possible object is
          * {@link String }
          */
         @objid ("cae9b0ff-d6ff-11e1-9f03-001ec947ccaf")
@@ -2209,6 +2246,7 @@ public class JxbModule {
 
         /**
          * Sets the value of the name property.
+         *
          * @param value allowed object is
          * {@link String }
          */
@@ -2219,20 +2257,20 @@ public class JxbModule {
 
         /**
          * Gets the value of the stereotypeOrAnonymousStereotype property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the stereotypeOrAnonymousStereotype property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          * getStereotypeOrAnonymousStereotype().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link JxbModule.JxbProfile.JxbStereotype }
@@ -2248,9 +2286,9 @@ public class JxbModule {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType>
          * &lt;complexContent>
@@ -2291,8 +2329,8 @@ public class JxbModule {
 
             /**
              * Gets the value of the uid property.
-             * @return
-             * possible object is
+             *
+             * @return possible object is
              * {@link String }
              */
             @objid ("caec1345-d6ff-11e1-9f03-001ec947ccaf")
@@ -2302,6 +2340,7 @@ public class JxbModule {
 
             /**
              * Sets the value of the uid property.
+             *
              * @param value allowed object is
              * {@link String }
              */
@@ -2312,8 +2351,8 @@ public class JxbModule {
 
             /**
              * Gets the value of the metaclass property.
-             * @return
-             * possible object is
+             *
+             * @return possible object is
              * {@link String }
              */
             @objid ("caec1347-d6ff-11e1-9f03-001ec947ccaf")
@@ -2323,6 +2362,7 @@ public class JxbModule {
 
             /**
              * Sets the value of the metaclass property.
+             *
              * @param value allowed object is
              * {@link String }
              */
@@ -2333,20 +2373,20 @@ public class JxbModule {
 
             /**
              * Gets the value of the taggedvaluesOrNotetypeOrExterndocumenttype property.
-             * 
+             *
              * <p>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the JAXB object.
              * This is why there is not a <CODE>set</CODE> method for the taggedvaluesOrNotetypeOrExterndocumenttype property.
-             * 
+             *
              * <p>
              * For example, to add a new item, do as follows:
              * <pre>
              * getTaggedvaluesOrNotetypeOrExterndocumenttype().add(newItem);
              * </pre>
-             * 
-             * 
+             *
+             *
              * <p>
              * Objects of the following type(s) are allowed in the list
              * {@link JxbTaggedvalues }
@@ -2365,9 +2405,9 @@ public class JxbModule {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType>
          * &lt;complexContent>
@@ -2466,8 +2506,8 @@ public class JxbModule {
 
             /**
              * Gets the value of the uid property.
-             * @return
-             * possible object is
+             *
+             * @return possible object is
              * {@link String }
              */
             @objid ("caec134f-d6ff-11e1-9f03-001ec947ccaf")
@@ -2477,6 +2517,7 @@ public class JxbModule {
 
             /**
              * Sets the value of the uid property.
+             *
              * @param value allowed object is
              * {@link String }
              */
@@ -2487,8 +2528,8 @@ public class JxbModule {
 
             /**
              * Gets the value of the name property.
-             * @return
-             * possible object is
+             *
+             * @return possible object is
              * {@link String }
              */
             @objid ("caec1351-d6ff-11e1-9f03-001ec947ccaf")
@@ -2498,6 +2539,7 @@ public class JxbModule {
 
             /**
              * Sets the value of the name property.
+             *
              * @param value allowed object is
              * {@link String }
              */
@@ -2508,8 +2550,8 @@ public class JxbModule {
 
             /**
              * Gets the value of the label property.
-             * @return
-             * possible object is
+             *
+             * @return possible object is
              * {@link String }
              */
             @objid ("caec1353-d6ff-11e1-9f03-001ec947ccaf")
@@ -2519,6 +2561,7 @@ public class JxbModule {
 
             /**
              * Sets the value of the label property.
+             *
              * @param value allowed object is
              * {@link String }
              */
@@ -2529,8 +2572,8 @@ public class JxbModule {
 
             /**
              * Gets the value of the metaclass property.
-             * @return
-             * possible object is
+             *
+             * @return possible object is
              * {@link String }
              */
             @objid ("caec1357-d6ff-11e1-9f03-001ec947ccaf")
@@ -2540,6 +2583,7 @@ public class JxbModule {
 
             /**
              * Sets the value of the metaclass property.
+             *
              * @param value allowed object is
              * {@link String }
              */
@@ -2550,8 +2594,8 @@ public class JxbModule {
 
             /**
              * Gets the value of the ownerStereotype property.
-             * @return
-             * possible object is
+             *
+             * @return possible object is
              * {@link String }
              */
             @objid ("caec1359-d6ff-11e1-9f03-001ec947ccaf")
@@ -2561,6 +2605,7 @@ public class JxbModule {
 
             /**
              * Sets the value of the ownerStereotype property.
+             *
              * @param value allowed object is
              * {@link String }
              */
@@ -2571,8 +2616,8 @@ public class JxbModule {
 
             /**
              * Gets the value of the isHidden property.
-             * @return
-             * possible object is
+             *
+             * @return possible object is
              * {@link String }
              */
             @objid ("caec135b-d6ff-11e1-9f03-001ec947ccaf")
@@ -2582,6 +2627,7 @@ public class JxbModule {
 
             /**
              * Sets the value of the isHidden property.
+             *
              * @param value allowed object is
              * {@link String }
              */
@@ -2592,20 +2638,20 @@ public class JxbModule {
 
             /**
              * Gets the value of the iconsOrTaggedvaluesOrNotetype property.
-             * 
+             *
              * <p>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the JAXB object.
              * This is why there is not a <CODE>set</CODE> method for the iconsOrTaggedvaluesOrNotetype property.
-             * 
+             *
              * <p>
              * For example, to add a new item, do as follows:
              * <pre>
              * getIconsOrTaggedvaluesOrNotetype().add(newItem);
              * </pre>
-             * 
-             * 
+             *
+             *
              * <p>
              * Objects of the following type(s) are allowed in the list
              * {@link JxbModule.JxbProfile.JxbStereotype.Icons }
@@ -2623,9 +2669,9 @@ public class JxbModule {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType>
              * &lt;complexContent>
@@ -2680,20 +2726,20 @@ public class JxbModule {
 
                 /**
                  * Gets the value of the smallOrExplorerOrDiagram property.
-                 * 
+                 *
                  * <p>
                  * This accessor method returns a reference to the live list,
                  * not a snapshot. Therefore any modification you make to the
                  * returned list will be present inside the JAXB object.
                  * This is why there is not a <CODE>set</CODE> method for the smallOrExplorerOrDiagram property.
-                 * 
+                 *
                  * <p>
                  * For example, to add a new item, do as follows:
                  * <pre>
                  * getSmallOrExplorerOrDiagram().add(newItem);
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  * <p>
                  * Objects of the following type(s) are allowed in the list
                  * {@link JxbModule.JxbProfile.JxbStereotype.Icons.Small }
@@ -2710,9 +2756,9 @@ public class JxbModule {
 
                 /**
                  * <p>Java class for anonymous complex type.
-                 * 
+                 *
                  * <p>The following schema fragment specifies the expected content contained within this class.
-                 * 
+                 *
                  * <pre>
                  * &lt;complexType>
                  * &lt;complexContent>
@@ -2733,8 +2779,8 @@ public class JxbModule {
 
                     /**
                      * Gets the value of the path property.
-                     * @return
-                     * possible object is
+                     *
+                     * @return possible object is
                      * {@link String }
                      */
                     @objid ("caec1570-d6ff-11e1-9f03-001ec947ccaf")
@@ -2744,6 +2790,7 @@ public class JxbModule {
 
                     /**
                      * Sets the value of the path property.
+                     *
                      * @param value allowed object is
                      * {@link String }
                      */
@@ -2756,9 +2803,9 @@ public class JxbModule {
 
                 /**
                  * <p>Java class for anonymous complex type.
-                 * 
+                 *
                  * <p>The following schema fragment specifies the expected content contained within this class.
-                 * 
+                 *
                  * <pre>
                  * &lt;complexType>
                  * &lt;complexContent>
@@ -2779,8 +2826,8 @@ public class JxbModule {
 
                     /**
                      * Gets the value of the path property.
-                     * @return
-                     * possible object is
+                     *
+                     * @return possible object is
                      * {@link String }
                      */
                     @objid ("caec1576-d6ff-11e1-9f03-001ec947ccaf")
@@ -2790,6 +2837,7 @@ public class JxbModule {
 
                     /**
                      * Sets the value of the path property.
+                     *
                      * @param value allowed object is
                      * {@link String }
                      */
@@ -2802,9 +2850,9 @@ public class JxbModule {
 
                 /**
                  * <p>Java class for anonymous complex type.
-                 * 
+                 *
                  * <p>The following schema fragment specifies the expected content contained within this class.
-                 * 
+                 *
                  * <pre>
                  * &lt;complexType>
                  * &lt;complexContent>
@@ -2825,8 +2873,8 @@ public class JxbModule {
 
                     /**
                      * Gets the value of the path property.
-                     * @return
-                     * possible object is
+                     *
+                     * @return possible object is
                      * {@link String }
                      */
                     @objid ("caec157c-d6ff-11e1-9f03-001ec947ccaf")
@@ -2836,6 +2884,7 @@ public class JxbModule {
 
                     /**
                      * Sets the value of the path property.
+                     *
                      * @param value allowed object is
                      * {@link String }
                      */

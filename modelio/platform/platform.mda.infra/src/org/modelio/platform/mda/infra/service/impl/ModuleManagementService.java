@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.service.impl;
 
@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -118,6 +118,7 @@ public class ModuleManagementService implements IModuleManagementService, IModul
 
     /**
      * Activates and starts the given module. This method does NOT activate nor start modules required by the given module.
+     *
      * @param module the module to activate.
      * @throws ModuleException if an error occurred while trying to activate the module.
      */
@@ -126,11 +127,12 @@ public class ModuleManagementService implements IModuleManagementService, IModul
     public void activateModule(GModule gModule) throws ModuleException {
         IRTModule rtModule = getIRTModule(gModule);
         rtModule.getController().activate();
-        
+
     }
 
     /**
      * Stops and deactivates the given module. Modules requiring the given module will be stopped first.
+     *
      * @param module the module to deactivate.
      * @throws ModuleException if an error occurred while trying to deactivate the module.
      */
@@ -138,13 +140,14 @@ public class ModuleManagementService implements IModuleManagementService, IModul
     @Override
     public void deactivateModule(GModule gModule) throws ModuleException {
         IRTModule rtModule = getIRTModule(gModule);
-        
+
         rtModule.getController().deactivate();
-        
+
     }
 
     /**
      * Returns the started IRTModule matching the passed GModule or <code>null</code> if none is found.
+     *
      * @param gModule the GModule to search a started IRTModule for.
      * @return the started IRTModule matching to the passed GModule or <code>null</code> if none is found.
      */
@@ -162,6 +165,7 @@ public class ModuleManagementService implements IModuleManagementService, IModul
 
     /**
      * Returns the ModuleRegistry which contains the list of all loaded IRTModule and the list of all started IRTModule.
+     *
      * @return the {@link IModuleRegistry}
      */
     @objid ("2bb63ef6-f1ed-11e1-af52-001ec947c8cc")
@@ -196,7 +200,7 @@ public class ModuleManagementService implements IModuleManagementService, IModul
         }
         throw new UnknownModuleException(
                 String.format("The '%s' class is not kwown as a Java module.", metaclass.getName()));
-        
+
     }
 
     @objid ("54c108e5-d963-4068-83b5-d700733746e6")
@@ -215,25 +219,27 @@ public class ModuleManagementService implements IModuleManagementService, IModul
      * Ensure loading all RT modules of the given project.
      * <p>
      * Only {@link IRTModule} instances are initialized, the modules themselves are not loaded. This allows calling install(...) methods to update existing modules before they are started.
+     *
      * @param project the project to start all activated modules of.
      */
     @objid ("897a9375-b523-40b1-af56-2927f71ab07c")
     @Override
     public void initRTModules(IGProject project) {
         List<GModule> gModules = project.getParts(GModule.class);
-        
+
         // Sort the module list by start order
         List<GModule> sortedModules = getSortedModules(gModules);
-        
+
         // Load sorted modules list in order
         for (GModule gModule : sortedModules) {
             getRTModule(gModule);
         }
-        
+
     }
 
     /**
      * Installs, load and start the module contained in the given file in the given project. This method adds (or update) a module in the given GProject, then load and start the corresponding {@link IRTModule}.
+     *
      * @param gProject the project to install the module into.
      * @param moduleUri the path to the file of the module.
      * @param authData authentication data to access the URI. May be <i>null</i>.
@@ -245,16 +251,17 @@ public class ModuleManagementService implements IModuleManagementService, IModul
     private void __installModule(IGProject gProject, URI moduleUri, IAuthData authData) throws ModuleException {
         try (UriPathAccess access = new UriPathAccess(moduleUri, authData)) {
             Path archivePath = access.getPath();
-        
+
             installModule(null, gProject, archivePath, moduleUri);
         } catch (IOException e) {
             throw new ModuleException(FileUtils.getLocalizedMessage(e), e);
         }
-        
+
     }
 
     /**
      * Stops, unload and removes a module.
+     *
      * @param gModule the module to remove.
      * @throws ModuleException if an error occurred while trying to remove the module.
      */
@@ -266,6 +273,7 @@ public class ModuleManagementService implements IModuleManagementService, IModul
 
     /**
      * Stops, unload and removes a module.
+     *
      * @param gModule the module to remove.
      * @param deleteAnnotations if true, delete all annotations typed by extensions provided by the module.
      * @throws ModuleException if an error occurred while trying to remove the module.
@@ -283,7 +291,7 @@ public class ModuleManagementService implements IModuleManagementService, IModul
                 throw new ModuleException(e.getLocalizedMessage(), e);
             }
         }
-        
+
     }
 
     /**
@@ -291,13 +299,14 @@ public class ModuleManagementService implements IModuleManagementService, IModul
      * {@link GModule}.
      * <p>
      * Creates a new IRTModule if none is found.
+     *
      * @param gModule the module .
      * @return the matching <code>IRTModule</code>.
      */
     @objid ("9398cd15-9ffa-47a3-87f6-95b5ab6922ed")
     private IRTModule getRTModule(GModule gModule) {
         IRTModule rtModule = this.moduleRegistry.getModule(gModule);
-        
+
         if (rtModule == null) {
             rtModule = new RTModule(gModule, this.moduleRegistry, this.mdaResourceProviderRegistry);
             // Add loaded module to the registry
@@ -308,6 +317,7 @@ public class ModuleManagementService implements IModuleManagementService, IModul
 
     /**
      * Load and Start all activated non started modules of the given project.
+     *
      * @param project the project to start all activated modules of.
      * @param aMonitor optional progress monitor, may be <code>null</code>
      */
@@ -315,13 +325,13 @@ public class ModuleManagementService implements IModuleManagementService, IModul
     @Override
     public void startAllModules(IGProject project, final IProgressMonitor aMonitor) {
         SubMonitor progress = SubMonitor.convert(aMonitor);
-        
+
         List<GModule> gModules = project.getParts(GModule.class);
         progress.setWorkRemaining(gModules.size());
-        
+
         // Sort the module list by start order
         List<GModule> sortedModules = getSortedModules(gModules);
-        
+
         // Load all modules, but start only activated modules.
         for (GModule gModule : sortedModules) {
             try {
@@ -331,21 +341,21 @@ public class ModuleManagementService implements IModuleManagementService, IModul
                 if (rtModule.getState() == ModuleRuntimeState.Started) {
                     continue;
                 }
-        
+
                 // If the module has the property "SELECT_ON_OPEN", consider it's a first install
                 GProperties properties = gModule.getProperties();
                 final boolean isSelectDone = properties.getBooleanValue(PROP_SELECT_DONE, false);
                 if (!isSelectDone) {
                     // It's a first install : install, activate and start
                     rtModule.getController().install();
-        
+
                     // Remove the property, next time it will be a simple start
                     properties.setBooleanProperty(PROP_SELECT_DONE, true, DefinitionScope.LOCAL);
                 } else if (gModule.isActive()) {
                     // Start the module
                     progress.subTask(MdaInfra.I18N.getMessage("ModuleStartProgress.Starting", rtModule.getLabel(),
                             rtModule.getVersion().toString()));
-        
+
                     rtModule.getController().start();
                 }
             } catch (ModuleException e) {
@@ -356,14 +366,15 @@ public class ModuleManagementService implements IModuleManagementService, IModul
                 MdaInfra.LOG.error(e);
             }
             progress.worked(1);
-        
+
         }
         progress.done();
-        
+
     }
 
     /**
      * Stop all started modules and unloads all loaded modules of the given project.
+     *
      * @param project the project to stop all modules of.
      */
     @objid ("2bb63ee1-f1ed-11e1-af52-001ec947c8cc")
@@ -373,7 +384,7 @@ public class ModuleManagementService implements IModuleManagementService, IModul
         for (IRTModule module : new ArrayList<>(getModuleRegistry().getModules())) {
             closeModule(module);
         }
-        
+
     }
 
     @objid ("b5a61523-1207-11e2-8ab5-001ec947c8cc")
@@ -383,19 +394,19 @@ public class ModuleManagementService implements IModuleManagementService, IModul
     void onProjectClosed(@EventTopic (ModelioEventTopics.PROJECT_CLOSED) IGProject gProject, IEclipseContext context) {
         // Clean up generic context
         context.set(IModuleContext.class, null);
-        
+
         // Note: Don't remove this instance from the context , it would be garbage collected.
-        
+
         // dispose the module registry and create a new one.
         this.moduleRegistry.dispose();
         this.moduleRegistry = new ModuleRegistry();
-        
+
         // dispose the module mda resource provider registry and create a new one.
         this.mdaResourceProviderRegistry.reset();
-        
+
         this.eventFirer = null;
         this.mdaExpert = null;
-        
+
     }
 
     @objid ("b5a6151d-1207-11e2-8ab5-001ec947c8cc")
@@ -406,16 +417,17 @@ public class ModuleManagementService implements IModuleManagementService, IModul
         EmptyModuleConfiguration emptyConfiguration = new EmptyModuleConfiguration();
         IModuleContext genericContext = ModuleContextFactory.getInstance().createModuleContext(null, emptyConfiguration, emptyConfiguration);
         context.set(IModuleContext.class, genericContext);
-        
+
         this.moduleRegistry.setProjectName(gProject.getName());
-        
+
         this.eventFirer = new ManagerModuleListener(this.modelioEventService, this, this.moduleRegistry);
         this.mdaExpert = new MdaExpert(this.moduleRegistry);
-        
+
     }
 
     /**
      * Unload definitively a module beginning by modules depending on him.
+     *
      * @param module the module to unload.
      */
     @objid ("050708da-7140-4e40-b847-497d6a674dda")
@@ -428,17 +440,18 @@ public class ModuleManagementService implements IModuleManagementService, IModul
             for (IRTModule m : module.getModuleOptionalUses()) {
                 closeModule(m);
             }
-        
+
             module.getController().close();
         } catch (ModuleException | RuntimeException | LinkageError e) {
             MdaInfra.LOG.warning("'" + module.getName() + "' module does not want to close:");
             MdaInfra.LOG.warning(e);
         }
-        
+
     }
 
     /**
      * Sort the module list by start order.
+     *
      * @param gModules a module list
      * @return the sorted list
      */
@@ -474,16 +487,17 @@ public class ModuleManagementService implements IModuleManagementService, IModul
             if (rtModuleHandle == null) {
                 throw new ModuleException(MdaInfra.I18N.getMessage("ModuleExceptionMessage.InvalidArchivePath", moduleFilePath.toString()));
             }
-        
+
             installModule(mon.newChild(1), gProject, rtModuleHandle, origUri);
         } catch (IOException e) {
             throw new ModuleException(MdaInfra.I18N.getMessage("ModuleExceptionMessage.CannotInstallModule", FileUtils.getLocalizedMessage(e)), e);
         }
-        
+
     }
 
     /**
      * Installs, load and start the module contained in the given file in the given project. This method adds (or update) a module in the given GProject, then load and start the corresponding {@link IRTModule}.
+     *
      * @param gProject the project to install the module into.
      * @param moduleFilePath the path to the file of the module.
      * @throws ModuleException if an error occurred while trying to install the module.
@@ -502,7 +516,7 @@ public class ModuleManagementService implements IModuleManagementService, IModul
         try {
             // Are dependencies missing or incompatible?
             ModuleResolutionHelper.checkCanInstall(rtModuleHandle, gProject);
-        
+
             // Determine whether it is a first deployment or it is an upgrade.
             // For this, we have to look for the old module.
             GModule previouslyInstalledGModule = ModuleResolutionHelper.getGModuleByHandle(gProject, rtModuleHandle);
@@ -511,14 +525,14 @@ public class ModuleManagementService implements IModuleManagementService, IModul
                 GProjectPartDescriptor d = new GProjectPartDescriptor(GProjectPartType.MODULE, rtModuleHandle.getName(), rtModuleHandle.getVersion(), DefinitionScope.LOCAL);
                 d.setLocation(origUri);
                 newGModule = (GModule) GPartFactory.getInstance().instantiate(d);
-        
+
                 gProject.addGPart(newGModule, true);
-        
+
                 // Instantiate a RTModule if necessary
                 IRTModule rt = getRTModule(newGModule);
                 boolean ok = false;
                 try {
-        
+
                     // Install, activate and start
                     rt.getListeners().add(this.eventFirer);
                     rt.getController().install();
@@ -527,21 +541,21 @@ public class ModuleManagementService implements IModuleManagementService, IModul
                     if (!ok) {
                         // Uninstall the GModule
                         gProject.removeGPart(newGModule);
-        
+
                         // Unregister the module registered by loadModule()
                         this.moduleRegistry.removeModule(rt);
                     }
                 }
-        
+
             } else {
                 // Update existing module
                 IRTModule startedOldModule = getModuleRegistry().getModule(previouslyInstalledGModule);
-        
+
                 startedOldModule.getController().updateTo(rtModuleHandle, origUri);
-        
+
                 newGModule = startedOldModule.getGModule();
             }
-        
+
             if (newGModule != null) {
                 // Note 08/04/2015: this event is not used
                 this.modelioEventService.postSyncEvent(this, ModelioEvent.MODULE_DEPLOYED, newGModule);
@@ -549,7 +563,7 @@ public class ModuleManagementService implements IModuleManagementService, IModul
         } catch (GPartException e) {
             throw new ModuleException(MdaInfra.I18N.getMessage("ModuleExceptionMessage.CannotInstallModule", e.getLocalizedMessage()), e);
         }
-        
+
     }
 
     @objid ("8010845b-c71c-4897-8d8c-3a33da9a2477")
@@ -647,12 +661,12 @@ public class ModuleManagementService implements IModuleManagementService, IModul
         private IModuleRegistryAccess registry;
 
         @objid ("80cdb293-d5b0-4049-8a21-55868df62944")
-        public  ManagerModuleListener(IModelioEventService modelioEventService, IModelioService svc, IModuleRegistryAccess registry) {
+        public ManagerModuleListener(IModelioEventService modelioEventService, IModelioService svc, IModuleRegistryAccess registry) {
             super();
             this.modelioEventService = modelioEventService;
             this.svc = svc;
             this.registry = registry;
-            
+
         }
 
         @objid ("9746356e-40fa-4903-b565-e2286c9b3793")
@@ -660,7 +674,7 @@ public class ModuleManagementService implements IModuleManagementService, IModul
         public void moduleStarted(IRTModule module) {
             this.registry.addStartedModule(module);
             this.modelioEventService.postSyncEvent(this.svc, ModelioEvent.MODULE_STARTED, module);
-            
+
         }
 
         @objid ("15d214dc-5a51-4efd-ac17-1e0d65243498")
@@ -668,7 +682,7 @@ public class ModuleManagementService implements IModuleManagementService, IModul
         public void moduleStopping(IRTModule module) {
             this.registry.removeStartedModule(module);
             this.modelioEventService.postSyncEvent(this.svc, ModelioEvent.MODULE_STOPPED, module);
-            
+
         }
 
         @objid ("0ee6579a-656a-4041-aa67-0dbaceb275db")
@@ -682,7 +696,7 @@ public class ModuleManagementService implements IModuleManagementService, IModul
         public void moduleRemoved(IRTModule module) {
             this.registry.removeModule(module);
             this.modelioEventService.postSyncEvent(this.svc, ModelioEvent.MODULE_REMOVED, module);
-            
+
         }
 
     }

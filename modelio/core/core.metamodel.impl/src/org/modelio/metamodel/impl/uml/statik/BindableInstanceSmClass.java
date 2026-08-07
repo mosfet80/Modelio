@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -48,87 +47,86 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("929c1766-d895-4a01-9a64-35321250afcc")
 public class BindableInstanceSmClass extends InstanceSmClass {
-    @objid ("7d758333-73d4-4628-ad68-fd3cd7895595")
+    @objid ("4c39d60a-9e21-4dfc-97e6-4cb185d643d5")
     private SmDependency clusterDep;
 
-    @objid ("07247713-9599-4cb6-9d31-8a64d990a34b")
+    @objid ("4547a9cd-9090-416d-b765-e3a849d9bbf0")
     private SmDependency internalOwnerDep;
 
-    @objid ("ef739940-2b2f-46ca-8aee-50c77fb79750")
+    @objid ("1622af4e-4e66-4c94-b3c3-caa719874082")
     private SmDependency representationDep;
 
-    @objid ("731e1600-dae6-4b4f-a0f1-bb9548f9e16b")
+    @objid ("de68da61-f49e-4278-8670-30a31496b722")
     private SmDependency representedFeatureDep;
 
-    @objid ("2ba0b527-1d56-4de4-bfb5-507e5c24b0e9")
-    public  BindableInstanceSmClass(ISmMetamodelFragment origin) {
+    @objid ("a08c64ea-131a-47b9-9087-f7e711e0e069")
+    public BindableInstanceSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("064c06b3-bcc6-4635-b7bb-12b17f770fc5")
+    @objid ("723fb831-2c4c-42f8-ab6b-1c0642672e99")
     @Override
     public String getName() {
         return "BindableInstance";
-        
+
     }
 
-    @objid ("f243f473-1372-450c-9dd8-5db5c3705a11")
+    @objid ("494d2289-1813-47fb-9df4-971ea12c8e14")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("4a53cc57-f18d-45fb-b797-4e19700bb282")
+    @objid ("3ad100d6-aecb-4f16-83c4-efaa2fd63461")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return BindableInstance.class;
-        
+
     }
 
-    @objid ("cf82cb8c-c499-4d6a-964e-17f528e05b4d")
+    @objid ("05da1a1d-a4f2-4e1d-a2b4-cfcc97c60d49")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("0464bf38-ca7a-4593-9f6f-d719cdb4a64a")
+    @objid ("142d8c3b-e459-4b96-8389-40e97800262e")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("a14ce21f-9bcb-4bf2-8cff-9385770216d2")
+    @objid ("dd9d3d30-a78d-4e1d-80d9-2b63da48ef88")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(Instance.MQNAME);
         this.registerFactory(new BindableInstanceObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
         this.clusterDep = new ClusterSmDependency();
         this.clusterDep.init("Cluster", this, metamodel.getMClass(Instance.MQNAME), 0, 1 );
         registerDependency(this.clusterDep);
-        
+
         this.internalOwnerDep = new InternalOwnerSmDependency();
         this.internalOwnerDep.init("InternalOwner", this, metamodel.getMClass(Classifier.MQNAME), 0, 1 );
         registerDependency(this.internalOwnerDep);
-        
+
         this.representationDep = new RepresentationSmDependency();
         this.representationDep.init("Representation", this, metamodel.getMClass(Binding.MQNAME), 0, -1 );
         registerDependency(this.representationDep);
-        
+
         this.representedFeatureDep = new RepresentedFeatureSmDependency();
         this.representedFeatureDep.init("RepresentedFeature", this, metamodel.getMClass(UmlModelElement.MQNAME), 0, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.representedFeatureDep);
-        
-        
+
     }
 
-    @objid ("829a5ce7-bb6c-495a-9379-bd8d09ca6711")
+    @objid ("8bc069ca-2c1a-4a6c-928b-70c12b0ad20c")
     public SmDependency getClusterDep() {
         if (this.clusterDep == null) {
         	this.clusterDep = this.getDependencyDef("Cluster");
@@ -136,7 +134,7 @@ public class BindableInstanceSmClass extends InstanceSmClass {
         return this.clusterDep;
     }
 
-    @objid ("06cc88af-a828-4fee-9bd0-cb1afce8efa1")
+    @objid ("be991f4a-31ac-4bee-8a1e-1f2306f26f9b")
     public SmDependency getInternalOwnerDep() {
         if (this.internalOwnerDep == null) {
         	this.internalOwnerDep = this.getDependencyDef("InternalOwner");
@@ -144,7 +142,7 @@ public class BindableInstanceSmClass extends InstanceSmClass {
         return this.internalOwnerDep;
     }
 
-    @objid ("96e4f4bb-83a6-4649-b0e3-cb84f5172e9d")
+    @objid ("b14cea03-6ef7-4de5-b9e5-bb18d2c3e17a")
     public SmDependency getRepresentationDep() {
         if (this.representationDep == null) {
         	this.representationDep = this.getDependencyDef("Representation");
@@ -152,7 +150,7 @@ public class BindableInstanceSmClass extends InstanceSmClass {
         return this.representationDep;
     }
 
-    @objid ("634c3521-c5aa-44b5-becf-029a5224e12c")
+    @objid ("ddb18082-9394-491f-9af6-79b7fbb5c8f5")
     public SmDependency getRepresentedFeatureDep() {
         if (this.representedFeatureDep == null) {
         	this.representedFeatureDep = this.getDependencyDef("RepresentedFeature");
@@ -162,21 +160,21 @@ public class BindableInstanceSmClass extends InstanceSmClass {
 
     @objid ("9cf26865-0d09-4dd3-a0e6-fd48a1f71a29")
     private static class BindableInstanceObjectFactory implements ISmObjectFactory {
-        @objid ("c61a60ba-a533-42dc-9107-5057b420cbf1")
+        @objid ("8ead1365-02bc-4aeb-bfae-124e39e0df33")
         private BindableInstanceSmClass smClass;
 
-        @objid ("a699ad29-13c6-4347-b9f3-94284f244e21")
-        public  BindableInstanceObjectFactory(BindableInstanceSmClass smClass) {
+        @objid ("e9cf7fda-91a0-4657-8c8a-77ef5fdb1a47")
+        public BindableInstanceObjectFactory(BindableInstanceSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("3dc0399e-29ac-4a40-9bc4-7bda2c80759c")
+        @objid ("e1fbae5a-1e6a-4261-9b2a-4695f988fa04")
         @Override
         public ISmObjectData createData() {
             return new BindableInstanceData(this.smClass);
         }
 
-        @objid ("dba2c9e4-5040-4c6b-b329-760eea91b7c8")
+        @objid ("bf620a0e-2055-4491-917c-faa331e24fc8")
         @Override
         public SmObjectImpl createImpl() {
             return new BindableInstanceImpl();
@@ -186,117 +184,117 @@ public class BindableInstanceSmClass extends InstanceSmClass {
 
     @objid ("8822c08a-5a58-4c7d-b551-2ada873d7b70")
     public static class ClusterSmDependency extends SmSingleDependency {
-        @objid ("71656727-3b74-4652-b84b-91ee3e85ec79")
+        @objid ("487eba48-9258-4b5b-a2d0-575a05947f9c")
         private SmDependency symetricDep;
 
-        @objid ("4200c85d-eff5-4d50-a61e-0b5685c6dbbd")
+        @objid ("ad517fb1-2555-4715-9ea6-74b068d7ee8b")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((BindableInstanceData) data).mCluster;
         }
 
-        @objid ("b07d2c85-1575-4d86-971f-338479243326")
+        @objid ("b1dd0d48-2a60-4b08-95ca-34cce8c97a9f")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((BindableInstanceData) data).mCluster = value;
         }
 
-        @objid ("7e70a89c-2310-40e7-b148-4566efe09a34")
+        @objid ("79ecb9d5-2276-49b4-ae8d-95407da99857")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((InstanceSmClass)this.getTarget()).getPartDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("27ffb7fe-d71c-4f2e-b992-5f8c555f6e99")
     public static class InternalOwnerSmDependency extends SmSingleDependency {
-        @objid ("61bea0b6-556f-4876-a07a-15a3cfbb30c7")
+        @objid ("e7afc655-0024-47df-9728-425e3dd9b312")
         private SmDependency symetricDep;
 
-        @objid ("beb7e7e3-9b63-43dd-9efd-dbaf305f2334")
+        @objid ("72b4dcc1-82d3-4d6a-a788-bd7f45b94f9c")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((BindableInstanceData) data).mInternalOwner;
         }
 
-        @objid ("50168be6-8b6f-48f8-95dc-a5f222a2bc98")
+        @objid ("774f1761-913f-47dc-a90c-fc6ca150d5e5")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((BindableInstanceData) data).mInternalOwner = value;
         }
 
-        @objid ("6d387bc8-9f82-4e46-a795-373bb71a1adb")
+        @objid ("716ae828-8432-4c99-9a09-4c296f1ef1f8")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((ClassifierSmClass)this.getTarget()).getInternalStructureDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("eed184a9-9094-451a-afdb-0e6f898d5a3e")
     public static class RepresentationSmDependency extends SmMultipleDependency {
-        @objid ("a424cf7f-f702-46ee-8f2b-771d163a3226")
+        @objid ("34fe411d-a8ad-44b7-bf59-60efb64030a0")
         private SmDependency symetricDep;
 
-        @objid ("fadb0cf5-f6be-4702-a293-7e76f4cc57d1")
+        @objid ("4b1d01a2-3e6c-40de-87c1-af4e17e95b6b")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((BindableInstanceData)data).mRepresentation != null)? ((BindableInstanceData)data).mRepresentation:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("89a41b45-5874-4057-9bb8-7c2c80df3672")
+        @objid ("169307c9-9485-45fd-91cf-43cfbd3e6dd1")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((BindableInstanceData) data).mRepresentation = values;
-            
+
         }
 
-        @objid ("f4aa3e90-0f7e-4196-bad6-5f24d00e5ac1")
+        @objid ("0e643fcf-7dac-48fe-8bab-88dad4d77dd6")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((BindingSmClass)this.getTarget()).getRoleDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("9fb9688f-85fd-4811-9a44-5bada06fd5b9")
     public static class RepresentedFeatureSmDependency extends SmSingleDependency {
-        @objid ("ba0d818b-6ead-43d8-8659-c2aefca9b45a")
+        @objid ("9a1877f9-7fb8-44fe-94d0-bd646eb7e0b6")
         private SmDependency symetricDep;
 
-        @objid ("9aadadc0-9864-4002-ac75-a4b4776cbabf")
+        @objid ("a0f707fd-0d08-4607-9a6d-c225d511e525")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((BindableInstanceData) data).mRepresentedFeature;
         }
 
-        @objid ("ce02988f-01b0-46aa-b8b9-e927b0fc10e0")
+        @objid ("5b675790-d120-4574-b5e3-c6c2b3b272f5")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((BindableInstanceData) data).mRepresentedFeature = value;
         }
 
-        @objid ("37b77d80-5d52-4bdb-a8db-223e2465b89c")
+        @objid ("c954aad2-54b9-4843-ab6f-34d5310a1224")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((UmlModelElementSmClass)this.getTarget()).getRepresentingInstanceDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

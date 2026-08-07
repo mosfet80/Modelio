@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.service.plugins;
 
@@ -43,6 +43,7 @@ import org.osgi.framework.Bundle;
 
 /**
  * {@link IModuleRTCache} and {@link IModuleStore} implementation for plugin modules.
+ *
  * @author cma
  * @since 3.8
  */
@@ -55,7 +56,7 @@ public class PluginModulesCache implements IModuleRTCache, IModuleStore {
     private final Map<Bundle, IModuleHandle> handles = new WeakHashMap<>();
 
     @objid ("ac9f5c75-1208-4fb0-a41a-7ae8d47b6148")
-    public  PluginModulesCache(final Collection<IGMetamodelExtension> mmExtensions) {
+    public PluginModulesCache(final Collection<IGMetamodelExtension> mmExtensions) {
         this.handleFactory = new PluginModuleHandleFactory(mmExtensions);
     }
 
@@ -74,7 +75,7 @@ public class PluginModulesCache implements IModuleRTCache, IModuleStore {
         for (final IConfigurationElement elt : new ExtensionPointContributionManager(PluginModuleConstants.EXTENSION_ID).getExtensions(PluginModuleConstants.MODULE_EL)) {
             if (elt.getAttribute(PluginModuleConstants.MODULE_NAME).equals(moduleName)
                     && moduleVersion == null || elt.getAttribute(PluginModuleConstants.MODULE_VERSION).equals(moduleVersion)) {
-        
+
                 return getModuleHandle(monitor,  elt);
             }
         }
@@ -84,12 +85,12 @@ public class PluginModulesCache implements IModuleRTCache, IModuleStore {
     @objid ("79593e3c-c6a5-4902-9cbc-cc07558f4898")
     private IModuleHandle getModuleHandle(final IModelioProgress monitor, final IConfigurationElement elt) throws IOException {
         final Bundle plugin = getBundle(elt.getContributor());
-        
+
         IModuleHandle h = this.handles.get(plugin);
         if (h != null || this.handles.containsKey(plugin)) {
             return h;
         }
-        
+
         h = this.handleFactory.get(plugin, monitor, elt);
         this.handles.put(plugin, h);
         return h;
@@ -126,7 +127,7 @@ public class PluginModulesCache implements IModuleRTCache, IModuleStore {
         } else {
             return Platform.getBundle(contributor.getName());
         }
-        
+
     }
 
     @objid ("77ff05cb-91b2-4cec-811d-4d34809d37c4")

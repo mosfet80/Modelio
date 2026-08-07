@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.bpmn.activities;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -31,84 +30,77 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnBaseElement;
 
 /**
  * BpmnComplexBehaviorDefinition v0.0.9054
- * 
- * 
+ *
+ *
  * This element controls when and which Events are thrown in case behavior of the Multi-Instance Activity is set to complex.
- * 
- * 
+ *
  */
 @objid ("007f7bdc-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnComplexBehaviorDefinition extends BpmnBaseElement {
     /**
      * The metaclass simple name.
      */
-    @objid ("f272e3fd-ff7e-43fd-b2a2-ceb06327efd4")
+    @objid ("1f8a3427-2397-4991-89c2-10e25f4ef4a0")
     public static final String MNAME = "BpmnComplexBehaviorDefinition";
 
     /**
      * The metaclass qualified name.
      */
-    @objid ("0c340198-776a-4472-b145-01b9e3d076c5")
+    @objid ("822a3cec-0a1d-4e0a-ab4d-0adab462ec16")
     public static final String MQNAME = "Standard.BpmnComplexBehaviorDefinition";
 
     /**
      * Getter for attribute 'BpmnComplexBehaviorDefinition.Condition'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("54c9c31d-994b-4994-baf3-4669562ed284")
+    @objid ("19daabe1-0269-4914-a2bf-6ccec3854e7c")
     String getCondition();
 
     /**
      * Setter for attribute 'BpmnComplexBehaviorDefinition.Condition'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("171c71b7-a5e8-4c5a-a7bd-52b7184f7142")
+    @objid ("7af82781-45d2-4e34-b552-3e1a3ad441a8")
     void setCondition(String value);
 
     /**
      * Getter for relation 'BpmnComplexBehaviorDefinition->Owner'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("c9efaab1-6cb1-4a17-a87d-18b328740e4c")
+    @objid ("64f3edfd-c7a0-43cc-8d49-472f7eb92131")
     BpmnMultiInstanceLoopCharacteristics getOwner();
 
     /**
      * Setter for relation 'BpmnComplexBehaviorDefinition->Owner'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("135ff49e-7c01-457a-a727-d346659a3156")
+    @objid ("792e5935-ed9b-435c-ad28-fca003d12766")
     void setOwner(BpmnMultiInstanceLoopCharacteristics value);
 
     /**
      * Getter for relation 'BpmnComplexBehaviorDefinition->Event'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("e1686bd9-3f4e-4466-a1e9-94baa26e6bef")
+    @objid ("6b9ffc4f-fe86-4ce4-8a82-625f18951c61")
     BpmnImplicitThrowEvent getEvent();
 
     /**
      * Setter for relation 'BpmnComplexBehaviorDefinition->Event'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("190cc26a-320e-4388-93a7-cbad64fc65d8")
+    @objid ("a704faac-299c-4619-8d2b-37f7ab333124")
     void setEvent(BpmnImplicitThrowEvent value);
-}
 
+}

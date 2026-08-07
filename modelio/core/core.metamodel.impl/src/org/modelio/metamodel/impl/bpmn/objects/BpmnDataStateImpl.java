@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.objects;
 
 import java.util.ArrayList;
@@ -43,20 +42,20 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00087bf4-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnDataStateImpl extends BpmnBaseElementImpl implements BpmnDataState {
-    @objid ("dc878963-9af4-4af1-b99b-db4e01b8a07a")
+    @objid ("8f6d8180-8966-449a-9184-046b9faa93ac")
     @Override
     public BpmnItemAwareElement getItem() {
         Object obj = getDepVal(((BpmnDataStateSmClass)getClassOf()).getItemDep());
         return (obj instanceof BpmnItemAwareElement)? (BpmnItemAwareElement)obj : null;
     }
 
-    @objid ("f5e366af-b1dc-4019-ba03-d757e9cdcd38")
+    @objid ("717d51fc-f1b5-4a4e-9467-7413f7b7a494")
     @Override
     public void setItem(BpmnItemAwareElement value) {
         appendDepVal(((BpmnDataStateSmClass)getClassOf()).getItemDep(), (SmObjectImpl)value);
     }
 
-    @objid ("90961a6c-de99-43fd-b27d-27510c95aa7e")
+    @objid ("be324712-abde-4943-88c0-a8123d4f413c")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -68,22 +67,22 @@ public class BpmnDataStateImpl extends BpmnBaseElementImpl implements BpmnDataSt
         return super.getCompositionOwner();
     }
 
-    @objid ("f0beb323-bab7-4cf7-8578-d04f2780b033")
+    @objid ("44bd5209-4a49-485c-ba97-e1163291dc07")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // Item
         dep = ((BpmnDataStateSmClass)getClassOf()).getItemDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("390e7360-84af-44de-a88e-37656a32635b")
+    @objid ("8a4c7699-c00d-4001-91fe-ab2d101e1cc3")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitBpmnDataState(this);

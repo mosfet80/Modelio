@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.panel.data.standard.infrastructure;
 
@@ -38,10 +38,11 @@ public class ModuleComponentPropertyModel extends AbstractPropertyModel<ModuleCo
 
     /**
      * Instantiate the project properties view.
+     *
      * @param theEditedElement the current project.
      */
     @objid ("d3d0e292-18bb-4866-afdc-43fe666993d3")
-    public  ModuleComponentPropertyModel(ModuleComponent theEditedElement) {
+    public ModuleComponentPropertyModel(ModuleComponent theEditedElement) {
         super(theEditedElement);
     }
 
@@ -76,7 +77,7 @@ public class ModuleComponentPropertyModel extends AbstractPropertyModel<ModuleCo
         default:
             return null;
         }
-        
+
     }
 
     @objid ("1bc9eb23-e668-4aa9-a960-1925741bb915")
@@ -97,7 +98,7 @@ public class ModuleComponentPropertyModel extends AbstractPropertyModel<ModuleCo
         default:
             return null;
         }
-        
+
     }
 
     @objid ("d92db6ed-7541-447e-b1c5-b647260e2bad")
@@ -106,7 +107,7 @@ public class ModuleComponentPropertyModel extends AbstractPropertyModel<ModuleCo
         if (col == 0) {
             return false;
         }
-        
+
         if (row == 1) {
             if (isLocalModule()) {
                 // LocalModule name and attributes are not editable.
@@ -114,7 +115,7 @@ public class ModuleComponentPropertyModel extends AbstractPropertyModel<ModuleCo
             }
             return super.isEditable(row, col);
         }
-        
+
         // Nothing else is editable
         return false;
     }
@@ -138,7 +139,7 @@ public class ModuleComponentPropertyModel extends AbstractPropertyModel<ModuleCo
         default:
             return;
         }
-        
+
     }
 
     @objid ("a8b8dd76-dfd2-4333-8b14-092a3bbb16ba")
@@ -148,7 +149,7 @@ public class ModuleComponentPropertyModel extends AbstractPropertyModel<ModuleCo
         } else {
             return PROPERTIES;
         }
-        
+
     }
 
     @objid ("cb66d21f-7158-4cb1-beab-4b9fcbf397c6")

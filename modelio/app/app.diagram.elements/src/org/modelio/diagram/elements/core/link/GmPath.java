@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link;
 
@@ -70,37 +70,38 @@ public class GmPath implements IGmPath {
      * Default constructor.
      */
     @objid ("8027e5a0-1dec-11e2-8cad-001ec947c8cc")
-    public  GmPath() {
-        
+    public GmPath() {
+
     }
 
     /*
          * C'tor for a DIRECT link, no layout data, anchors undefined
          */
     @objid ("7a872343-a799-45f1-b6a8-4365dc0d57da")
-    public  GmPath(ConnectionRouterId routerKind, Object layoutData) {
+    public GmPath(ConnectionRouterId routerKind, Object layoutData) {
         this.routerKind = routerKind;
         this.pathData = layoutData;
         this.sourceAnchor = null;
         this.targetAnchor = null;
         this.sourceRake = null;
         this.targetRake = null;
-        
+
     }
 
     /**
      * Copy constructor.
+     *
      * @param path the path to copy.
      */
     @objid ("8027e5a3-1dec-11e2-8cad-001ec947c8cc")
-    public  GmPath(final IGmPath path) {
+    public GmPath(final IGmPath path) {
         this.pathData = path.getPathData();
         this.routerKind = path.getRouterKind();
         this.sourceAnchor = path.getSourceAnchor();
         this.targetAnchor = path.getTargetAnchor();
         this.sourceRake = path.getSourceRake();
         this.targetRake = path.getTargetRake();
-        
+
     }
 
     @objid ("8343611c-cf69-45b7-a999-49428d5f89e2")
@@ -122,7 +123,7 @@ public class GmPath implements IGmPath {
                 && Objects.equals(this.sourceRake, other.sourceRake)
                 && Objects.equals(this.targetAnchor, other.targetAnchor)
                 && Objects.equals(this.targetRake, other.targetRake);
-        
+
     }
 
     @objid ("802a47dd-1dec-11e2-8cad-001ec947c8cc")
@@ -139,6 +140,7 @@ public class GmPath implements IGmPath {
 
     /**
      * Get the link connection routing mode.
+     *
      * @return The link connection routing mode.
      */
     @objid ("802a47bb-1dec-11e2-8cad-001ec947c8cc")
@@ -156,6 +158,7 @@ public class GmPath implements IGmPath {
 
     /**
      * Get the source side rake if the link is raked on its source side.
+     *
      * @return the source side rake or <code>null</code>.
      */
     @objid ("802a47d2-1dec-11e2-8cad-001ec947c8cc")
@@ -173,6 +176,7 @@ public class GmPath implements IGmPath {
 
     /**
      * Get the target side rake if the link is raked.
+     *
      * @return the target side rake or <code>null</code>.
      */
     @objid ("802a47c7-1dec-11e2-8cad-001ec947c8cc")
@@ -215,7 +219,7 @@ public class GmPath implements IGmPath {
             break;
         }
         }
-        
+
     }
 
     @objid ("8027e576-1dec-11e2-8cad-001ec947c8cc")
@@ -226,6 +230,7 @@ public class GmPath implements IGmPath {
 
     /**
      * Set the link connection routing mode.
+     *
      * @param routerKind The new link connection routing mode.
      */
     @objid ("802a47c1-1dec-11e2-8cad-001ec947c8cc")
@@ -234,7 +239,7 @@ public class GmPath implements IGmPath {
         // Automatically generated method. Please delete this comment before entering specific code.
         assert routerKind != null;
         this.routerKind = routerKind;
-        
+
     }
 
     @objid ("8027e580-1dec-11e2-8cad-001ec947c8cc")
@@ -248,7 +253,7 @@ public class GmPath implements IGmPath {
     public void setSourceRake(final IGmLinkRake value) {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.sourceRake = value;
-        
+
     }
 
     @objid ("8027e58a-1dec-11e2-8cad-001ec947c8cc")
@@ -262,7 +267,7 @@ public class GmPath implements IGmPath {
     public void setTargetRake(final IGmLinkRake value) {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.targetRake = value;
-        
+
     }
 
     @objid ("0d5b8ff4-c629-4513-ad68-76900628cdc0")
@@ -280,14 +285,15 @@ public class GmPath implements IGmPath {
         out.writeProperty("RouterKind", this.routerKind);
         out.writeProperty("sourceRake", this.sourceRake);
         out.writeProperty("targetRake", this.targetRake);
-        
+
         // Write version of this Gm
         writeMinorVersion(out, "GmPath.", MINOR_VERSION);
-        
+
     }
 
     /**
      * Helper to read the graphic model minor version from the {@value #MINOR_VERSION_PROPERTY} property.
+     *
      * @param in a reader to read the version from.
      * @param prefix the prefix : usually the simple name of java class calling this method + ".".
      * @return the read version, defaults to 0 if not found
@@ -307,7 +313,7 @@ public class GmPath implements IGmPath {
         if (this.routerKind == ConnectionRouterId.ORTHOGONAL && this.pathData instanceof List) {
             ((List<Point>) this.pathData).replaceAll(point -> new MPoint(point.x, point.y, true));
         }
-        
+
     }
 
     @objid ("46a2bea3-6bcd-4339-941d-de9662a4c517")
@@ -318,11 +324,12 @@ public class GmPath implements IGmPath {
         this.routerKind = (ConnectionRouterId) in.readProperty("RouterKind");
         this.sourceRake = (IGmLinkRake) in.readProperty("sourceRake");
         this.targetRake = (IGmLinkRake) in.readProperty("targetRake");
-        
+
     }
 
     /**
      * Helper method to write the graphic model minor version.
+     *
      * @param out the writer to use
      * @param prefix the prefix to use. Usually the java simple name of the class calling this method. Use the same as the matching {@link #readMinorVersion(IDiagramReader, String)}.
      * @param theMinorVersion the minor version to write
@@ -333,7 +340,7 @@ public class GmPath implements IGmPath {
         if (theMinorVersion != 0) {
             out.writeProperty(prefix + MINOR_VERSION_PROPERTY, Integer.valueOf(theMinorVersion));
         }
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.mmextensions.standard.services;
 
@@ -60,12 +60,13 @@ class ExtensionCache {
     private Map<Integer, ResourceType> rmap = new HashMap<>();
 
     @objid ("61ab750e-1913-41fd-9c25-5a2112eb8661")
-    public  ExtensionCache(MMetamodel metamodel) {
+    public ExtensionCache(MMetamodel metamodel) {
         this.metamodel = metamodel;
     }
 
     /**
      * Add a note type to the cache
+     *
      * @param moduleName the module name
      * @param metaclass the metaclass to register. Might be <code>null</code>.
      * @param element the note type
@@ -74,11 +75,12 @@ class ExtensionCache {
     public void add(String moduleName, MClass metaclass, NoteType element) {
         int key = getKey(moduleName, getOwnerName(element), element.getName(), metaclass);
         this.nmap.put(key, element);
-        
+
     }
 
     /**
      * Add a tag type to the cache
+     *
      * @param moduleName the module name
      * @param metaclass the metaclass to register. Might be <code>null</code>.
      * @param element the tag type
@@ -87,11 +89,12 @@ class ExtensionCache {
     public void add(String moduleName, MClass metaclass, TagType element) {
         int key = getKey(moduleName, getOwnerName(element), element.getName(), metaclass);
         this.tmap.put(key, element);
-        
+
     }
 
     /**
      * Add a stereotype to the cache
+     *
      * @param moduleName the module name
      * @param metaclass the metaclass to register.
      * @param element the stereotype
@@ -100,11 +103,12 @@ class ExtensionCache {
     public void add(String moduleName, MClass metaclass, Stereotype element) {
         int key = getKey(moduleName, null, element.getName(), metaclass);
         this.smap.put(key, element);
-        
+
     }
 
     /**
      * Find a note type.
+     *
      * @param moduleName the module name
      * @param ownerName the name of the {@link Stereotype} or {@link MetaclassReference} owning the type.
      * @param noteTypeName the note type name
@@ -114,7 +118,7 @@ class ExtensionCache {
     @objid ("ce57cec4-09d0-44ca-94e4-8f2255ff1491")
     public NoteType getNoteType(String moduleName, String ownerName, String noteTypeName, MClass metaclass) {
         int key = getKey(moduleName, ownerName, noteTypeName, metaclass);
-        
+
         NoteType n = this.nmap.get(key);
         if (n != null) {
             // Make sure the type still matches the criteria
@@ -123,7 +127,7 @@ class ExtensionCache {
             if (n.isValid() && noteTypeName.equals(n.getName()) && module != null && foundMClass != null && moduleName.equals(module.getName()) && metaclass.hasBase(foundMClass)) {
                 return n;
             }
-        
+
             this.nmap.remove(key);
         }
         return null;
@@ -131,6 +135,7 @@ class ExtensionCache {
 
     /**
      * Find a stereotype.
+     *
      * @param moduleName the module name
      * @param name the note type name
      * @param metaclass the metaclass
@@ -139,7 +144,7 @@ class ExtensionCache {
     @objid ("5a5bf417-274c-4c04-9ef9-51acb3172c62")
     public Stereotype getStereotype(String moduleName, String name, MClass metaclass) {
         int key = getKey(moduleName, null, name, metaclass);
-        
+
         Stereotype n = this.smap.get(key);
         if (n != null) {
             // Make sure the type still matches the criteria
@@ -149,7 +154,7 @@ class ExtensionCache {
                     && metaclass.hasBase(foundMClass)) {
                 return n;
             }
-        
+
             this.smap.remove(key);
         }
         return null;
@@ -157,6 +162,7 @@ class ExtensionCache {
 
     /**
      * Find a tag type.
+     *
      * @param moduleName the module name
      * @param ownerName the name of the {@link Stereotype} or {@link MetaclassReference} owning the type.
      * @param tagTypeName the note type name
@@ -166,7 +172,7 @@ class ExtensionCache {
     @objid ("e4fa8821-896b-4249-8160-3cdb3fbd3efe")
     public TagType getTagType(String moduleName, String ownerName, String tagTypeName, MClass metaclass) {
         int key = getKey(moduleName, ownerName, tagTypeName, metaclass);
-        
+
         TagType n = this.tmap.get(key);
         if (n != null) {
             // Make sure the type still matches the criteria
@@ -175,7 +181,7 @@ class ExtensionCache {
             if (n.isValid() && tagTypeName.equals(n.getName()) && module != null && foundMClass != null && moduleName.equals(module.getName()) && metaclass.hasBase(foundMClass)) {
                 return n;
             }
-        
+
             this.tmap.remove(key);
         }
         return null;
@@ -198,6 +204,7 @@ class ExtensionCache {
 
     /**
      * Compute a hash key.
+     *
      * @param moduleName a module spec
      * @param ownerName name of the extension's composition owner
      * @param extensionName the note/tag/stereotype name
@@ -217,6 +224,7 @@ class ExtensionCache {
 
     /**
      * Add a resource type to the cache
+     *
      * @param moduleName the module name
      * @param metaclass the metaclass to register. Might be <code>null</code>.
      * @param element the resource type
@@ -225,11 +233,12 @@ class ExtensionCache {
     public void add(String moduleName, MClass metaclass, ResourceType element) {
         int key = getKey(moduleName, getOwnerName(element), element.getName(), metaclass);
         this.rmap.put(key, element);
-        
+
     }
 
     /**
      * Find a resource type.
+     *
      * @param moduleName the module name
      * @param ownerName the name of the {@link Stereotype} or {@link MetaclassReference} owning the type.
      * @param resourceTypeName the resource type name
@@ -239,9 +248,9 @@ class ExtensionCache {
     @objid ("16bc6d30-38c6-4d56-8b34-e13eb7e01064")
     public ResourceType getResourceType(String moduleName, String ownerName, String resourceTypeName, MClass metaclass) {
         int key = getKey(moduleName, ownerName, resourceTypeName, metaclass);
-        
+
         ResourceType n = this.rmap.get(key);
-        
+
         if (n != null) {
             // Make sure the type still matches the criteria
             final ModuleComponent module = n.getModule();
@@ -249,13 +258,14 @@ class ExtensionCache {
             if (n.isValid() && resourceTypeName.equals(n.getName()) && module != null && foundMClass != null && moduleName.equals(module.getName()) && metaclass.hasBase(foundMClass)) {
                 return n;
             }
-        
+
             this.rmap.remove(key);
         }
         return null;
     }
 
     /**
+     *
      * @param stereotypes a list of stereotypes.
      * @return a set containing the initial stereotypes as well as all parents in their inheritance tree.
      */

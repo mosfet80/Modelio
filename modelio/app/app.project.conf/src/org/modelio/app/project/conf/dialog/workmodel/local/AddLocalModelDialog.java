@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.conf.dialog.workmodel.local;
 
@@ -66,10 +66,10 @@ public final class AddLocalModelDialog extends ModelioDialog {
     private static final Pattern NAME_PATTERN = Pattern.compile("[\\p{L}\\p{N}\\._ ]+");
 
     @objid ("7d5f3ed1-3adc-11e2-916e-002564c97630")
-    public  AddLocalModelDialog(Shell parentShell, List<String> allFragmentsIds) {
+    public AddLocalModelDialog(Shell parentShell, List<String> allFragmentsIds) {
         super(parentShell);
         this.invalidIds = allFragmentsIds;
-        
+
     }
 
     @objid ("7d5f3ed4-3adc-11e2-916e-002564c97630")
@@ -79,22 +79,22 @@ public final class AddLocalModelDialog extends ModelioDialog {
         final Composite data = new Composite(parent, 0);
         data.setLayout(new GridLayout(3, false));
         data.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-        
+
         // fragment name
         Label label = new Label(data, SWT.NULL);
         label.setText(AppProjectConf.I18N.getString("AddLocalModelDialog.FragmentId")); //$NON-NLS-1$
-        
+
         this.fragmentIdText = new Text(data, SWT.BORDER | SWT.SINGLE);
         this.fragmentIdText.setText(""); //$NON-NLS-1$
         this.fragmentIdText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         this.fragmentIdText.addModifyListener(new ModifyListener() {
-        
+
             @Override
             public void modifyText(ModifyEvent e) {
                 isFragmentIdValid();
             }
         });
-        
+
         // fragment type description message
         Label fragmentDescription = new Label(data, SWT.NONE);
         fragmentDescription.setText(AppProjectConf.I18N.getString("AddLocalModelDialog.Description")); //$NON-NLS-1$
@@ -111,7 +111,7 @@ public final class AddLocalModelDialog extends ModelioDialog {
         createButton(parent, Window.CANCEL, IDialogConstants.CANCEL_LABEL, true);
         this.addBtn = createButton(parent, Window.OK, AppProjectConf.I18N.getString("AddLocalModelDialog.AddFragment"), true); //$NON-NLS-1$
         this.addBtn.setEnabled(false);
-        
+
     }
 
     @objid ("7d5f3ede-3adc-11e2-916e-002564c97630")
@@ -120,7 +120,7 @@ public final class AddLocalModelDialog extends ModelioDialog {
         getShell().setText(AppProjectConf.I18N.getString("AddLocalModelDialog.ShellTitle")); //$NON-NLS-1$
         setTitle(AppProjectConf.I18N.getString("AddLocalModelDialog.Title")); //$NON-NLS-1$
         setMessage(AppProjectConf.I18N.getString("AddLocalModelDialog.Message")); //$NON-NLS-1$
-        
+
     }
 
     @objid ("7d5f3ee7-3adc-11e2-916e-002564c97630")
@@ -128,7 +128,7 @@ public final class AddLocalModelDialog extends ModelioDialog {
     protected void okPressed() {
         this.result = new GProjectPartDescriptor(GProjectPartType.EXMLFRAGMENT, this.fragmentIdText.getText(), null, DefinitionScope.LOCAL);
         super.okPressed();
-        
+
     }
 
     @objid ("7d61a029-3adc-11e2-916e-002564c97630")
@@ -152,7 +152,7 @@ public final class AddLocalModelDialog extends ModelioDialog {
             this.addBtn.setEnabled(true);
             this.fragmentIdText.setForeground(this.fragmentIdText.getDisplay().getSystemColor(SWT.COLOR_DARK_GREEN));
         }
-        
+
     }
 
     @objid ("9e2fecec-22f1-4757-8d7b-988bc754e6d7")

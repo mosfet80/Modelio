@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.factories.common;
 
@@ -54,14 +54,14 @@ public class DiagramElementsGmNodeFactory implements IGmNodeFactory {
         } else {
             // Use the node factory visitor
             final NodeFactoryVisitor v = new NodeFactoryVisitor(diagram, parentNode, initialLayoutData);
-        
+
             final GmNodeModel child = (GmNodeModel) elementToUnmask.accept(v);
             if (child != null) {
                 parentNode.addChild(child);
             }
             return child;
         }
-        
+
     }
 
     @objid ("599f034d-2e99-407b-8d16-649ccf13097c")
@@ -75,7 +75,7 @@ public class DiagramElementsGmNodeFactory implements IGmNodeFactory {
                     return clazz.asSubclass(IPersistent.class);
                 }
             }
-        
+
             // Diagram view migration :
             switch (namespace) {
             case "org.modelio.diagram.editor.activity.elements.activitydiagramview.GmActivityDiagramView":
@@ -141,16 +141,17 @@ public class DiagramElementsGmNodeFactory implements IGmNodeFactory {
 
         /**
          * Creates the visitor.
+         *
          * @param diagram The diagram
          * @param parent The parent node
          * @param initialLayoutData The initial layout data.
          */
         @objid ("66a3b242-1b5f-44fc-8c8e-c61d2e087957")
-        public  NodeFactoryVisitor(IGmDiagram diagram, GmCompositeNode parent, Object initialLayoutData) {
+        public NodeFactoryVisitor(IGmDiagram diagram, GmCompositeNode parent, Object initialLayoutData) {
             this.diagram = diagram;
             this.parent = parent;
             this.initialLayoutData = initialLayoutData;
-            
+
         }
 
         @objid ("3978b383-6301-4253-95a5-62636b9fdb5b")
@@ -163,11 +164,11 @@ public class DiagramElementsGmNodeFactory implements IGmNodeFactory {
                     // It is a related diagram link
                     GmDiagramView node = new GmDiagramView(this.diagram, (AbstractDiagram) target, new MRef(target));
                     node.setLayoutData(this.initialLayoutData);
-            
+
                     return node;
                 }
             }
-            
+
             // Not handled
             return super.visitDependency(dep);
         }

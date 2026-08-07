@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.anchors.fixed2.algorithms.variable;
 
@@ -40,44 +40,48 @@ public class MarginFixedAnchorFactory extends ConfigurableFixedAnchorFactory {
 
     /**
      * C'tor setting a default minimum distance of {@value #DIST_BETWEEN_ANCHORS} between anchors.
+     *
      * @param algoId the algorithm id
      * @param locator the anchor locator
      */
     @objid ("306e9eef-d031-4cd5-85d3-efb21ede6b3a")
-    public  MarginFixedAnchorFactory(String algoId, IFixedAnchorLocator locator) {
+    public MarginFixedAnchorFactory(String algoId, IFixedAnchorLocator locator) {
         this(algoId, DIST_BETWEEN_ANCHORS, locator);
     }
 
     /**
      * C'tor setting a default minimum distance of {@value #DIST_BETWEEN_ANCHORS} between anchors
      * and no locator for the moment.
+     *
+     * @param algoId the algorithm id
      * @see #setLocator(IFixedAnchorLocator)
      * @see #setWrappedLocator(IFixedAnchorLocator)
-     * @param algoId the algorithm id
      */
     @objid ("44a61a55-148a-43d0-82c3-4fa4abb246fc")
-    public  MarginFixedAnchorFactory(String algoId) {
+    public MarginFixedAnchorFactory(String algoId) {
         this(algoId, DIST_BETWEEN_ANCHORS, null);
-        
+
         setLocator(new VariableFixedAnchorLocator(getAlgorithmId(),  this::getAnchorCount));
-        
+
     }
 
     /**
      * C'tor.
+     *
      * @param algoId the algorithm id
      * @param margin the minimum distance to keep between anchors.
      * @param locator the anchor locator
      */
     @objid ("3ac1c8e8-d2d4-4a02-87f1-f218aa9ea3ed")
-    public  MarginFixedAnchorFactory(String algoId, int margin, IFixedAnchorLocator locator) {
+    public MarginFixedAnchorFactory(String algoId, int margin, IFixedAnchorLocator locator) {
         super(algoId, locator);
         this.margin = margin;
-        
+
     }
 
     /**
      * Wrap the locator in a {@link VariableWrappedAnchorLocator} set sets the result as the {@link #getLocator()}.
+     *
      * @param locator the locator to wrap then set
      * @return this instance
      */
@@ -91,11 +95,11 @@ public class MarginFixedAnchorFactory extends ConfigurableFixedAnchorFactory {
     @Override
     public void fillAnchorCount(Dimension out) {
         Dimension figSize = getNodeFigure().getSize();
-        
+
         // compute how many time the 'margin' fit on horizontal and vertical faces
         int nHorizontal = Math.max(1, figSize.width / this.margin - 0);
         int nVertical = Math.max(1, figSize.height / this.margin - 0);
-        
+
         // ensure count is odd
         if (nHorizontal % 2 == 0) {
             nHorizontal++;
@@ -104,7 +108,7 @@ public class MarginFixedAnchorFactory extends ConfigurableFixedAnchorFactory {
             nVertical++;
         }
         out.setSize(nHorizontal, nVertical);
-        
+
     }
 
 }

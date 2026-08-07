@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.embeddeddiagram;
 
@@ -81,22 +81,23 @@ public class GmEmbeddedDiagram extends GmNoStyleCompositeNode {
 
     /**
      * Default constructor.
+     *
      * @param diagram the diagram in which this gm is used.
      * @param viewedDiagram the unmasked diagram (can be <code>null</code>)
      * @param relatedRef a reference to the unmasked diagram (cannot be <code>null</code>).
      */
     @objid ("5f87d5fb-4271-4d34-86ed-b5bfb1431aeb")
-    public  GmEmbeddedDiagram(final IGmDiagram diagram, final AbstractDiagram viewedDiagram, final MRef relatedRef) {
+    public GmEmbeddedDiagram(final IGmDiagram diagram, final AbstractDiagram viewedDiagram, final MRef relatedRef) {
         super(diagram, relatedRef);
         this.viewedDiagram = viewedDiagram;
-        
+
     }
 
     /**
      * Empty constructor needed for serialisation.
      */
     @objid ("3e7ed134-1ee9-4768-ab4c-01af511b6efe")
-    public  GmEmbeddedDiagram() {
+    public GmEmbeddedDiagram() {
         // Nothing to do.
     }
 
@@ -116,9 +117,9 @@ public class GmEmbeddedDiagram extends GmNoStyleCompositeNode {
     @Override
     public void delete() {
         dispose();
-        
+
         super.delete();
-        
+
     }
 
     @objid ("5469766c-c380-482a-b129-8fe668f14691")
@@ -147,6 +148,7 @@ public class GmEmbeddedDiagram extends GmNoStyleCompositeNode {
      * <p>
      * Loads the diagram if not already done and loadIfNeeded is true.
      * </p>
+     *
      * @param loadIfNeeded Loads the diagram if not already done if true. If false and the diagram model is not loaded, return null.
      * @return the viewed diagram model. Might be <code>null</code>.
      */
@@ -164,11 +166,11 @@ public class GmEmbeddedDiagram extends GmNoStyleCompositeNode {
                     final GmAbstractDiagram newDiagramModel = createGmDiagram(getDiagram().getModelManager(), this.viewedDiagram);
                     newDiagramModel.setVisible(isVisible());
                     newDiagramModel.load();
-        
+
                     // We do not want the diagram's content to be persisted, do not add it to the children
                     // Instead only set the inverse relation getParentNode() .
                     newDiagramModel.setParentNode(this);
-        
+
                     newDiagramModel.refreshAllFromObModel();
                     newDiagramModel.enableRefresh(true);
                     setViewedDiagramModel(newDiagramModel);
@@ -200,6 +202,7 @@ public class GmEmbeddedDiagram extends GmNoStyleCompositeNode {
      * Tells whether the viewed diagram should be centered.
      * <p>
      * If not the diagram will be aligned on top left.
+     *
      * @return whether the viewed diagram should be centered
      */
     @objid ("db4ac006-626e-467c-bc47-abc367f84762")
@@ -223,7 +226,7 @@ public class GmEmbeddedDiagram extends GmNoStyleCompositeNode {
         read_0(in);
         break;
         }
-        
+
     }
 
     @objid ("f6f975f2-93d3-4223-90af-598fca08be71")
@@ -231,17 +234,17 @@ public class GmEmbeddedDiagram extends GmNoStyleCompositeNode {
     public void removeChild(final GmNodeModel child) {
         // Viewed diagram is not really a child, ignore it
         assert child instanceof GmAbstractDiagram : child;
-        
+
     }
 
     @objid ("be680020-0fdf-443f-b37a-13f330f5038c")
     @Override
     public void write(final IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, GmEmbeddedDiagram.MINOR_PREFIX, GmEmbeddedDiagram.MINOR_VERSION);
-        
+
     }
 
     @objid ("1f45d5b4-0cda-41c7-906a-649eb1baeb6c")
@@ -251,7 +254,7 @@ public class GmEmbeddedDiagram extends GmNoStyleCompositeNode {
         if (this.viewedDiagramModel != null) {
             this.viewedDiagramModel.setVisible(visible);
         }
-        
+
     }
 
     @objid ("4b2bb817-7274-4ae8-9f67-eec6722458c9")
@@ -259,11 +262,12 @@ public class GmEmbeddedDiagram extends GmNoStyleCompositeNode {
     protected void finalize() throws Throwable {
         dispose();
         super.finalize();
-        
+
     }
 
     /**
      * Hook for sub classes called when the embedded diagram model is loaded.
+     *
      * @param newDiagramModel the loaded diagram.
      */
     @objid ("c77f80ba-8ffd-42e2-86eb-2d9665cb16f5")
@@ -281,36 +285,36 @@ public class GmEmbeddedDiagram extends GmNoStyleCompositeNode {
             this.viewedDiagramModel.delete();
             setViewedDiagramModel(null);
         }
-        
+
     }
 
     @objid ("2ead4e75-cc1d-47da-b03b-41654afd243b")
     private void read_0(final IDiagramReader in) {
         super.read(in);
-        
+
         this.viewedDiagram = (AbstractDiagram) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("c5af0616-de6e-42c6-ac6a-a1702c848fff")
     private void setViewedDiagramModel(final GmAbstractDiagram newViewedModel) {
         final IGmDiagram oldViewedModel = this.viewedDiagramModel;
         final IGmDiagram ownGmDiagram = getDiagram();
-        
+
         assert !(newViewedModel != null && ownGmDiagram == null) : String.format("setViewedDiagramModel(%s) on disposed %s.", newViewedModel, this);
-        
+
         if (oldViewedModel != null && ownGmDiagram != null) {
             ownGmDiagram.removeEmbeddedDiagram(oldViewedModel);
         }
-        
+
         this.viewedDiagramModel = newViewedModel;
-        
+
         if (newViewedModel != null && ownGmDiagram != null) {
             ownGmDiagram.addEmbeddedDiagram(newViewedModel);
         }
-        
+
         firePropertyChange(GmEmbeddedDiagram.PROP_INNER_DIAGRAM, oldViewedModel, newViewedModel);
-        
+
     }
 
     @objid ("8c47f9e3-bfd7-4e6c-b814-42d2f0f984fd")
@@ -367,7 +371,7 @@ public class GmEmbeddedDiagram extends GmNoStyleCompositeNode {
      * <p>
      * Cycles cannot be detected by inspecting {@link GmAbstractDiagram#getParentNode()}
      * because the relation is filled only after having loaded the embedded diagram
-     * 
+     *
      * @author cmarin
      * @since 5.4.1 23/10/2023
      */
@@ -386,14 +390,14 @@ public class GmEmbeddedDiagram extends GmNoStyleCompositeNode {
         private final AbstractDiagram containerAdded;
 
         @objid ("c35a6c1b-2825-4e03-ac2b-a64b426d3eee")
-        public  CycleDetector(AbstractDiagram container, AbstractDiagram child) {
+        public CycleDetector(AbstractDiagram container, AbstractDiagram child) {
             this.childDiagram = child;
             this.cycleDetected =  loading.contains(container) || loading.contains(child) || Objects.equals(container, child);
-            
+
             loading.add(child);
-            
+
             this.containerAdded = loading.add(container) ? container : null;
-            
+
         }
 
         @objid ("f8e6119d-6322-47f7-ae85-e29382f124e8")
@@ -402,7 +406,7 @@ public class GmEmbeddedDiagram extends GmNoStyleCompositeNode {
             loading.remove(this.childDiagram);
             if (this.containerAdded != null)
                 loading.remove(this.containerAdded);
-            
+
         }
 
     }

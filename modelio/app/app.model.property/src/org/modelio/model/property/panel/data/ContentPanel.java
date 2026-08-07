@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.panel.data;
 
@@ -47,12 +47,13 @@ public class ContentPanel extends Composite {
     private Object typingElement;
 
     @objid ("8dfe6d8e-c068-11e1-8c0a-002564c97630")
-    public  ContentPanel(SashForm sash, int style) {
+    public ContentPanel(SashForm sash, int style) {
         super(sash, style);
     }
 
     /**
      * Set the panel input.
+     *
      * @param newInput the new input
      */
     @objid ("8dfe6d93-c068-11e1-8c0a-002564c97630")
@@ -63,17 +64,17 @@ public class ContentPanel extends Composite {
                 this.propertyPanel.refresh();
             return;
         }
-        
+
         this.input = newInput;
         this.typedElement = newInput.getTypedElement();
         this.typingElement = newInput.getTypingElement();
-        
+
         // cleanup
         if (this.propertyPanel != null) {
             this.propertyPanel.stop();
             this.propertyPanel.getComposite().dispose();
         }
-        
+
         if (this.typingElement instanceof Stereotype) {
             // Display a Stereotype tagged values set
             this.propertyPanel = new GenericPropertyPanel(this, (ModelElement) this.typedElement,
@@ -87,8 +88,8 @@ public class ContentPanel extends Composite {
             this.propertyPanel.setInput(newInput);
             //this.propertyPanel.refresh();
             this.layout();
-            
-            
+
+
         } else {
             // Display the element standard meta attributes
             this.propertyPanel = PropertyPanelFactory.createStandardPanel(this, this.typedElement);
@@ -97,10 +98,11 @@ public class ContentPanel extends Composite {
             this.propertyPanel.refresh();
             this.layout();
         }
-        
+
     }
 
     /**
+     *
      * @return the edited element.
      */
     @objid ("8dfe6d9b-c068-11e1-8c0a-002564c97630")

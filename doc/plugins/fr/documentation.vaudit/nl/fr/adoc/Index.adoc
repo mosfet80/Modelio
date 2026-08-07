@@ -200,5 +200,8 @@
 * *<<Modeler_audit_rules_R3320.adoc#,R3320>>* : Un MessageFlow doit partir d'un SendTask/ThrowEvent/Participant et arriver sur un ReceiveTask/CatchEvent/Participant.
 * *<<Modeler_audit_rules_R4000.adoc#,R4000>>* : Les relations doivent respecter la norme ArchiMate.
 * *<<Modeler_audit_rules_R4010.adoc#,R4010>>* : Les relations entrantes et/ou sortantes d'une Jonction doivent être de même type.
-
+* *<<Modeler_audit_rules_R4020.adoc#,R4020>>* : Les éléments ArchiMate de même type doivent porter des noms différents.
+* *<<Modeler_audit_rules_R4030.adoc#,R4030>>* : Le nom d’un élément ArchiMate ne doit pas être vide ou non significatif.
+* *<<Modeler_audit_rules_R4040.adoc#,R4040>>* : L’élément ArchiMate n’apparait dans aucune vue.
+* *<<Modeler_audit_rules_R4050.adoc#,R4050>>* : Les deux éléments ArchiMate sont reliés par plusieurs relations identiques.
 

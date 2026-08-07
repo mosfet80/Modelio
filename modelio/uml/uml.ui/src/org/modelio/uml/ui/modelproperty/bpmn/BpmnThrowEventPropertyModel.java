@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.bpmn;
 
@@ -50,15 +50,17 @@ public class BpmnThrowEventPropertyModel extends AbstractPropertyModel<BpmnThrow
     /**
      * Create a new <i>BpmnThrowEvent</i> data model from an
      * <i>BpmnThrowEvent</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("fbd28847-760a-477e-a7ea-59080c0e5445")
-    public  BpmnThrowEventPropertyModel(BpmnThrowEvent theEditedElement) {
+    public BpmnThrowEventPropertyModel(BpmnThrowEvent theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("0ed4539c-64e7-4c4e-8eb4-bad13e9babf0")
@@ -69,6 +71,7 @@ public class BpmnThrowEventPropertyModel extends AbstractPropertyModel<BpmnThrow
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("4f8ec854-7329-43fb-961d-057e395cde76")
@@ -81,6 +84,7 @@ public class BpmnThrowEventPropertyModel extends AbstractPropertyModel<BpmnThrow
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -102,7 +106,7 @@ public class BpmnThrowEventPropertyModel extends AbstractPropertyModel<BpmnThrow
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -112,6 +116,7 @@ public class BpmnThrowEventPropertyModel extends AbstractPropertyModel<BpmnThrow
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -134,13 +139,14 @@ public class BpmnThrowEventPropertyModel extends AbstractPropertyModel<BpmnThrow
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -165,7 +171,7 @@ public class BpmnThrowEventPropertyModel extends AbstractPropertyModel<BpmnThrow
         default:
             return;
         }
-        
+
     }
 
 }

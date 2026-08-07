@@ -1,27 +1,50 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.vstore.exml.local.loader.sax;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.vcore.model.DuplicateObjectException;
 import org.modelio.vcore.smkernel.SmObjectImpl;
+import org.modelio.vstore.exml.common.index.IndexException;
 import org.modelio.vstore.exml.common.model.DependencyNotFoundException;
+import org.modelio.vstore.exml.common.model.IllegalReferenceException;
+import org.modelio.vstore.exml.common.model.ObjIdName;
 
 /**
  * Data model that loads a read model object.
@@ -40,9 +63,17 @@ interface IObjectDataModel {
     @objid ("fb192de2-3d9c-452e-ba99-3996023558e9")
     void updateCurrentDependency();
 
+    /**
+     *
+     * @return the current SAX state
+     */
     @objid ("5ed5eaeb-cef6-4fc5-acb7-43b2b13b9568")
     AbstractState getCurrentState();
 
+    /**
+     *
+     * @param currentstate the new SAX state
+     */
     @objid ("13a2766a-cc1b-4aa9-85bb-b95964440074")
     void setCurrentState(AbstractState currentstate);
 
@@ -54,5 +85,8 @@ interface IObjectDataModel {
      */
     @objid ("c2a12bb8-5846-4141-9de5-fcf7b7e7082b")
     void finishDependenciesLoading();
-}
 
+    @objid ("b3c16f12-7520-4b61-bc2b-e0ae51de3ced")
+    void addRefToDep(ObjIdName ref) throws DuplicateObjectException, IllegalReferenceException, IndexException;
+
+}

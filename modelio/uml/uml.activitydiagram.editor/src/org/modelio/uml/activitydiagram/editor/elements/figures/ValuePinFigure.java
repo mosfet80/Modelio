@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.figures;
 
@@ -32,12 +32,12 @@ public class ValuePinFigure extends GradientFigure {
     private LineBorder lineBorder;
 
     @objid ("2a723448-55b6-11e2-877f-002564c97630")
-    public  ValuePinFigure() {
+    public ValuePinFigure() {
         super();
         this.setOpaque(true);
         this.lineBorder = new LineBorder(1);
         setBorder(this.lineBorder);
-        
+
     }
 
     @objid ("2a72344a-55b6-11e2-877f-002564c97630")
@@ -47,7 +47,7 @@ public class ValuePinFigure extends GradientFigure {
             super.setLineColor(lineColor);
             this.lineBorder.setColor(lineColor);
         }
-        
+
     }
 
     @objid ("2a72344e-55b6-11e2-877f-002564c97630")
@@ -57,7 +57,7 @@ public class ValuePinFigure extends GradientFigure {
             super.setLineWidth(lineWidth);
             this.lineBorder.setWidth(lineWidth);
         }
-        
+
     }
 
     @objid ("2a723452-55b6-11e2-877f-002564c97630")
@@ -65,11 +65,11 @@ public class ValuePinFigure extends GradientFigure {
     protected void paintFigure(Graphics g) {
         super.paintFigure(g);
         Rectangle r = this.getBounds().getCopy();
-        
+
         r.shrink(r.width / 3, r.height / 3);
         g.setBackgroundColor(this.penOptions.lineColor);
         g.fillRectangle(r);
-        
+
     }
 
 }

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0029668e-c4bf-1fd8-97fe-001ec947cd2a")
 public class ActivityParameterNodeImpl extends ObjectNodeImpl implements ActivityParameterNode {
-    @objid ("42624492-0ac1-4665-b182-b8579e02572e")
+    @objid ("b138be3b-124f-4ee0-af1d-afd960a2c5c7")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -49,17 +48,17 @@ public class ActivityParameterNodeImpl extends ObjectNodeImpl implements Activit
         return super.getCompositionOwner();
     }
 
-    @objid ("84500a8c-1cb3-4a27-8c02-d1bf37967774")
+    @objid ("0a588f1b-224a-402c-9d66-1d03283a350a")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("e6770018-83d2-4026-bbe8-703cff9cb20d")
+    @objid ("35338855-79fd-48e9-85d2-bd167c2ef69b")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitActivityParameterNode(this);

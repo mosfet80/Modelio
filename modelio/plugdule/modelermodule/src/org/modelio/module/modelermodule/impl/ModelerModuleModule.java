@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.module.modelermodule.impl;
 
@@ -72,16 +72,17 @@ public class ModelerModuleModule extends AbstractJavaModule {
      * <p>
      * <p>
      * This constructor must not be called by the user. It is automatically invoked by Modelio when the module is installed, selected or started.
+     *
      * @param moduleContext the module's context.
      */
     @objid ("e8160f77-9187-43c5-ab4f-b3c7116a48de")
-    public  ModelerModuleModule(IModuleContext moduleContext) {
+    public ModelerModuleModule(IModuleContext moduleContext) {
         super(moduleContext);
         this.session = new ModelerModuleLifeCycleHandler(this);
         this.peerModule = new ModelerModulePeerModule(this, moduleContext.getPeerConfiguration());
-        
+
         ModelerModuleModule.instance = this;
-        
+
     }
 
     @objid ("2338e2a2-5259-44d3-9ec3-2a384e9ab1ac")
@@ -97,6 +98,7 @@ public class ModelerModuleModule extends AbstractJavaModule {
     }
 
     /**
+     *
      * @return the only instance of ModelerModule.
      */
     @objid ("46fef5ea-30c3-4c2c-b5c2-2c692a771334")
@@ -118,7 +120,7 @@ public class ModelerModuleModule extends AbstractJavaModule {
         if (expert != null) {
             return expert;
         } // End generated code
-        
+
         String baseClassName = st.getBaseClassName();
         if (baseClassName.equals(Dependency.MQNAME) || baseClassName.equals(Dependency.MNAME)) {
             if (isAnalystMetamodelPresent()) {
@@ -162,7 +164,7 @@ public class ModelerModuleModule extends AbstractJavaModule {
                     break;
                 }
             }
-        
+
             // Regular Dependency experts
             switch (st.getName()) {
             case IModelerModuleStereotypes.RELATED_DIAGRAM:
@@ -175,6 +177,7 @@ public class ModelerModuleModule extends AbstractJavaModule {
     }
 
     /**
+     *
      * @return <code>true</code> if the <b>Analyst</b> metamodel fragment is installed in the project.
      */
     @objid ("d87e9616-a773-487d-a840-83b0f0d92e84")
@@ -185,6 +188,7 @@ public class ModelerModuleModule extends AbstractJavaModule {
 
     /**
      * Generated expert looking for a MDA expert in the generated MDA API.
+     *
      * @param st a stereotype owned by the current module.
      * @return a MDA expert belonging to the MDA API or <code>null</code>.
      */
@@ -219,7 +223,7 @@ public class ModelerModuleModule extends AbstractJavaModule {
             case "c2d2a1ec-2c29-453c-a79c-19e4f2d27f13": return new org.modelio.module.modelermodule.api.methodology.infrastructure.methodologicallink.StateExpert();
             default: return null;
         }
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.parts.data.element.single;
 
@@ -41,6 +41,9 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  */
 @objid ("2b48c6ee-c2da-4720-aa80-07df15f8d4a2")
 public class ElementNatValueEditor extends AbstractCellEditor {
+    @objid ("567b9cc8-586d-4690-98b7-c492356e7fe3")
+    private Text text;
+
     @objid ("6d0dbcb8-3018-40e3-bf6a-b24f91c300d2")
     private IElementNatValue elementData;
 
@@ -50,22 +53,19 @@ public class ElementNatValueEditor extends AbstractCellEditor {
     @objid ("631e123f-03a2-4492-8db5-ad0facfe0865")
     private final ICoreSession session;
 
-    @objid ("aff41e78-e6d9-4c55-a5b3-d014361b75e8")
-    private Text text;
-
     @objid ("b159b474-3a7d-4f23-87fe-d3d8a7eb614d")
     private TextElement textElement;
 
     /**
      * Build a new editor.
+     *
      * @param session a model session, needed to look for elements. CAN BE <code>null</code> in which case no completion will occur in the editor.
      * @param pickingService the picking service, to manually select an element in the model. CAN BE <code>null</code> in which case no picking will occur in the editor.
      */
     @objid ("748fceb2-7bc6-43ce-9d04-e68ba346dbd9")
-    public  ElementNatValueEditor(ICoreSession session, IModelioPickingService pickingService) {
+    public ElementNatValueEditor(ICoreSession session, IModelioPickingService pickingService) {
         this.session = session;
         this.pickingService = pickingService;
-        
     }
 
     /**
@@ -79,7 +79,7 @@ public class ElementNatValueEditor extends AbstractCellEditor {
             // only add the focus and traverse listeners for inline mode
             // editorControl.addFocusListener(this.focusListener);
             // editorControl.addTraverseListener(this.traverseListener);
-        
+
             editorControl.addKeyListener(new KeyListener() {
                 @Override
                 public void keyReleased(KeyEvent e) {
@@ -87,7 +87,7 @@ public class ElementNatValueEditor extends AbstractCellEditor {
                         close();
                     }
                 }
-        
+
                 @Override
                 public void keyPressed(KeyEvent e) {
                     if (e.keyCode == SWT.ESC) {
@@ -96,7 +96,6 @@ public class ElementNatValueEditor extends AbstractCellEditor {
                 }
             });
         }
-        
     }
 
     @objid ("1538d513-68f1-4319-9ea2-d123571692c4")
@@ -105,7 +104,6 @@ public class ElementNatValueEditor extends AbstractCellEditor {
         // Clean up
         this.textElement = null;
         super.close();
-        
     }
 
     @objid ("65b5ec19-dd5c-44e7-b779-f18a29aa73ae")
@@ -143,7 +141,6 @@ public class ElementNatValueEditor extends AbstractCellEditor {
             // editorControl.removeFocusListener(this.focusListener);
             // editorControl.removeTraverseListener(this.traverseListener);
         }
-        
     }
 
     /**
@@ -157,7 +154,7 @@ public class ElementNatValueEditor extends AbstractCellEditor {
             if (value instanceof IElementNatValue) {
                 this.elementData = (IElementNatValue) value;
                 obj = this.elementData.getValue();
-        
+
                 this.textElement.getAcceptedMetaclasses().clear();
                 for (Class<? extends MObject> allowedClass : this.elementData.getAllowedClasses()) {
                     this.textElement.getAcceptedMetaclasses().add(this.session.getMetamodel().getMClass(allowedClass));
@@ -172,23 +169,22 @@ public class ElementNatValueEditor extends AbstractCellEditor {
         } else {
             this.textElement.setValue(null);
         }
-        
     }
 
     @objid ("f683b024-1a92-4ad1-9d95-791ad73c0498")
     @Override
     protected Control activateCell(Composite parentComposite, Object originalCanonicalValue) {
         this.text = createEditorControl(parentComposite);
-        
+
         this.textElement.addListener(new ITextElementSelectionListener() {
             @Override
             public void selectedElementChanged(MObject oldElement, MObject newElement) {
                 commit(MoveDirectionEnum.DOWN, true);
             }
         });
-        
+
         setEditorValue(originalCanonicalValue);
-        
+
         this.textElement.getTextControl().selectAll();
         this.textElement.getTextControl().setFocus();
         return this.text;

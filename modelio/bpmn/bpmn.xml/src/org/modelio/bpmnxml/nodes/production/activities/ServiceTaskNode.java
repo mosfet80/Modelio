@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.activities;
 
@@ -79,12 +79,12 @@ public class ServiceTaskNode implements IProductionNode<BpmnServiceTask, TServic
     @objid ("fb62bc03-4b7f-4f0b-9723-3675a4cf5032")
     @Override
     public BpmnServiceTask createUMLElement(MObject context, TServiceTask jaxbElement, BpmnImportFactory factory, boolean keepId) {
-        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {  
+        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {
             return factory.createWithId(BpmnServiceTask.class,context,jaxbElement.getId());
         }else{
             return factory.create(BpmnServiceTask.class,context);
         }
-        
+
     }
 
     @objid ("b86c8ff5-e550-4301-b553-ccec3977b6c9")
@@ -96,7 +96,7 @@ public class ServiceTaskNode implements IProductionNode<BpmnServiceTask, TServic
         }else if(context instanceof BpmnSubProcess){
             ((BpmnSubProcess) context).getFlowElement().add(modelioElement);
         }
-        
+
         // Group
         if(jaxbElement.getCategoryValueRef() != null){
             for(QName jaxGroupRef : jaxbElement.getCategoryValueRef()){
@@ -106,7 +106,7 @@ public class ServiceTaskNode implements IProductionNode<BpmnServiceTask, TServic
                 }
             }
         }
-        
+
         // Operations
         if(jaxbElement.getOperationRef() != null){
             BpmnOperation modelioOper = (BpmnOperation) this.elementsMap.get(jaxbElement.getOperationRef().getLocalPart());
@@ -114,20 +114,20 @@ public class ServiceTaskNode implements IProductionNode<BpmnServiceTask, TServic
                 modelioElement.setOperationRef(modelioOper);
             }
         }
-        
+
         // Set properties
         if(jaxbElement.getName()!=null)
             modelioElement.setName(StringConvertor.imports(jaxbElement.getName()));
-        
+
         if(jaxbElement.getCompletionQuantity() != null)
             modelioElement.setCompletionQuantity(jaxbElement.getCompletionQuantity().intValue());
-        
+
         if(jaxbElement.getStartQuantity() != null)
             modelioElement.setStartQuantity(jaxbElement.getStartQuantity().intValue());
-        
-        
+
+
         modelioElement.setIsForCompensation(jaxbElement.isIsForCompensation());
-        
+
         modelioElement.setImplementation(jaxbElement.getImplementation());
         // Default Flow
         if(jaxbElement.getDefault() != null && jaxbElement.getDefault() instanceof TSequenceFlow){
@@ -144,7 +144,7 @@ public class ServiceTaskNode implements IProductionNode<BpmnServiceTask, TServic
     public TServiceTask createJaxbElement(Object context, BpmnServiceTask modelioElement) {
         // Create JaxbElement
         TServiceTask jaxTask = new TServiceTask();
-        
+
         // Add to context
         ObjectFactory factory = new ObjectFactory();
         if(context instanceof TProcess){
@@ -154,7 +154,7 @@ public class ServiceTaskNode implements IProductionNode<BpmnServiceTask, TServic
             List<JAXBElement<? extends TFlowElement>> jaxContent = ((TSubProcess)context).getFlowElement();
             jaxContent.add(factory.createServiceTask(jaxTask));
         }
-        
+
         jaxTask.setId(IDUtils.formatJaxbID(modelioElement));
         return jaxTask;
     }
@@ -163,25 +163,25 @@ public class ServiceTaskNode implements IProductionNode<BpmnServiceTask, TServic
     @Override
     public TServiceTask updateJaxbElement(Object context, TServiceTask jaxTask, BpmnServiceTask modelioElement) {
         jaxTask.setName(modelioElement.getName());
-        
+
         if(modelioElement.getCompletionQuantity() != 0){
             jaxTask.setCompletionQuantity(BigInteger.valueOf(modelioElement.getCompletionQuantity()));
         }
-        
+
         if(modelioElement.getStartQuantity() != 0){
             jaxTask.setStartQuantity(BigInteger.valueOf(modelioElement.getStartQuantity()));
         }
-        
+
         if(modelioElement.getOperationRef() != null){
             TOperation jaxOper = (TOperation)this.elementsMap.get(modelioElement.getOperationRef().getUuid());
             if(jaxOper != null){
                 jaxTask.setOperationRef(new QName(IDUtils.formatJaxbID(modelioElement.getOperationRef())));
             }
         }
-        
+
         jaxTask.setImplementation(modelioElement.getImplementation());
         jaxTask.setIsForCompensation(modelioElement.isIsForCompensation());
-        
+
         // Default Flow
         if(modelioElement.getDefaultFlow() != null){
             Object target = this.elementsMap.get(modelioElement.getDefaultFlow().getUuid());

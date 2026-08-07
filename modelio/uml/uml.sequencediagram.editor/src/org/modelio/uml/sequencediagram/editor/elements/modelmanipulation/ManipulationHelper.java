@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.modelmanipulation;
 
@@ -77,22 +77,24 @@ public class ManipulationHelper {
 
     /**
      * Initialize the helper.
+     *
      * @param host the host edit part.
      */
     @objid ("25cf255d-1267-4a12-a8f2-a57dd6ba3f0d")
-    public  ManipulationHelper(GraphicalEditPart host) {
+    public ManipulationHelper(GraphicalEditPart host) {
         this.host = host;
     }
 
     /**
      * Reset the helper and computes predicates that must be valid.
+     *
      * @param objs the interaction element(s) handled by the host edit part.
      */
     @objid ("ddb5ecb0-a980-4f34-88f5-c8c3b839890f")
     public void computePredicatesForHost(MObject... objs) {
         this.variables.clear();
         this.predicates.clear();
-        
+
         for (MObject obj : objs) {
             if (obj instanceof Message) {
                 computePredicatesForMessage((Message) obj);
@@ -102,13 +104,13 @@ public class ManipulationHelper {
                 throw new UnsupportedOperationException(obj.toString());
             }
         }
-        
     }
 
     /**
      * Show source feed back on the given feedback layer.
      * <p>
      * Display rectangles in red where predicates fail.
+     *
      * @param fbLayer the feedback layer.
      */
     @objid ("c86dd748-832c-4c1f-b3cf-feab04b57f05")
@@ -118,10 +120,10 @@ public class ManipulationHelper {
             fbLayer.remove(fig);
         }
         this.fbRectangles.clear();
-        
+
         final Color redColor = ColorConstants.red;
         final Color greenColor = ColorConstants.green;
-        
+
         for (Predicate pr : this.predicates) {
             for (Variable v : pr.getVariables()) {
                 MObject el = v.getRef().getElement();
@@ -150,7 +152,6 @@ public class ManipulationHelper {
                 this.fbRectangles.add(rf);
             }
         }
-        
     }
 
     @objid ("0f5e6d35-8ef6-44ca-aa4b-947c0eff6cca")
@@ -174,6 +175,7 @@ public class ManipulationHelper {
      * Update the {@link Variable} for a {@link MObject}.
      * <p>
      * In case of initialization the variable is created if non existent.
+     *
      * @param ref the time reference
      * @param value the new line value
      * @return the found or created variable.
@@ -187,6 +189,7 @@ public class ManipulationHelper {
      * Update the {@link Variable} for a {@link TimeReference}.
      * <p>
      * In case of initialization the variable is created if non existent.
+     *
      * @param ref the time reference
      * @param value the new line value
      * @return the found or created variable.
@@ -207,6 +210,7 @@ public class ManipulationHelper {
 
     /**
      * Tests whether the move is valid.
+     *
      * @return <i>true</i> if the move is valid else <i>false</i>.
      */
     @objid ("d9683e49-55b6-11e2-877f-002564c97630")
@@ -216,18 +220,19 @@ public class ManipulationHelper {
                 return false;
             }
         }
-        
+
         // All predicate evaluated to true
         return true;
     }
 
     /**
+     *
      * @param message a Message
      */
     @objid ("d9683e53-55b6-11e2-877f-002564c97630")
     private void computePredicatesForMessage(final Message message) {
         computePredicatesForMessageEnd(message.getSendEvent());
-        
+
         if (message.getSendEvent() instanceof ExecutionOccurenceSpecification) {
             ExecutionOccurenceSpecification startEos = (ExecutionOccurenceSpecification) message.getSendEvent();
             if (startEos.getStarted() != null) {
@@ -235,16 +240,16 @@ public class ManipulationHelper {
                 computePredicatesForMessageEnd(finishEos);
             }
         }
-        
+
         computePredicatesForMessageEnd(message.getReceiveEvent());
-        
+
         if (message.getReceiveEvent() instanceof ExecutionOccurenceSpecification) {
             ExecutionOccurenceSpecification recvEvent = (ExecutionOccurenceSpecification) message.getReceiveEvent();
             if (recvEvent.getStarted() != null) {
                 ExecutionOccurenceSpecification finishEos = recvEvent.getStarted().getFinish();
-                
+
                 computePredicatesForMessageEnd(finishEos);
-        
+
                 Message finishSentMessage = finishEos.getSentMessage();
                 if (finishSentMessage != null &&
                         finishSentMessage.getSortOfMessage() == MessageSort.RETURNMESSAGE) {
@@ -252,14 +257,13 @@ public class ManipulationHelper {
                 }
             }
         }
-        
     }
 
     @objid ("d9683e4d-55b6-11e2-877f-002564c97630")
     private void computePredicatesForMessageEnd(final MessageEnd messageEnd) {
         TimeReference timeReference = new TimeReference(messageEnd);
         Variable variable = initVariable(timeReference, messageEnd.getLineNumber());
-        
+
         if (messageEnd instanceof ExecutionOccurenceSpecification) {
             final ExecutionOccurenceSpecification eosDot = (ExecutionOccurenceSpecification) messageEnd;
             if (eosDot.getStarted() != null) {
@@ -267,7 +271,7 @@ public class ManipulationHelper {
                         .getFinish();
                 TimeReference msgFinishTimeRef = new TimeReference(msgFinish);
                 Variable msgfinishVar = initVariable(msgFinishTimeRef, msgFinish.getLineNumber());
-        
+
                 Predicate predicate = new IsBeforePredicate(variable,
                         msgfinishVar,
                         0/* execution specification min size */,
@@ -279,7 +283,7 @@ public class ManipulationHelper {
                         .getStart();
                 TimeReference msgStartTimeRef = new TimeReference(msgStart);
                 Variable msgStartVar = initVariable(msgStartTimeRef, msgStart.getLineNumber());
-        
+
                 Predicate predicate = new IsBeforePredicate(msgStartVar,
                         variable,
                         0/* execution specification min size */,
@@ -292,7 +296,7 @@ public class ManipulationHelper {
             MessageEnd otherEnd = messageEnd.getSentMessage().getReceiveEvent();
             TimeReference otherEndTimeReference = new TimeReference(otherEnd);
             Variable variable2 = initVariable(otherEndTimeReference, otherEnd.getLineNumber());
-        
+
             Predicate predicate = new IsBeforePredicate(variable, variable2, 0, false);
             this.predicates.add(predicate);
         }
@@ -304,15 +308,15 @@ public class ManipulationHelper {
             Predicate predicate = new IsBeforePredicate(variable2, variable, 0, false);
             this.predicates.add(predicate);
         }
-        
+
         computeCreateDestroyPredicates(messageEnd, variable);
-        
     }
 
     /**
      * Initialize a {@link Variable} for a {@link TimeReference}.
      * <p>
      * The variable is created if non existent. If the variable already exists it is directly returned.
+     *
      * @param ref the time reference
      * @param value the new line value
      * @return the found or created variable.
@@ -333,6 +337,7 @@ public class ManipulationHelper {
 
     /**
      * Erase source feedback.
+     *
      * @param fbLayer The feedback layer.
      */
     @objid ("88f80ce7-aac5-445f-91d5-a149ad2d2e13")
@@ -341,11 +346,11 @@ public class ManipulationHelper {
             fbLayer.remove(fig);
         }
         this.fbRectangles.clear();
-        
     }
 
     /**
      * Ensure forMessageEnd is not moved before a creation message or after a destroy message received on its lifeline.
+     *
      * @param forMessageEnd a message end
      * @param forVariable the message end variable
      * @since 3.7.1
@@ -371,11 +376,11 @@ public class ManipulationHelper {
                         Variable destroyVar = initVariable(destroyTimeRef, messageEnd.getLineNumber());
                         Predicate predicate = new IsBeforePredicate(forVariable, destroyVar, 0, true);
                         this.predicates.add(predicate);
-                    } 
+                    }
                 }
             }
         }
-        
+
         Message recMessage = forMessageEnd.getReceivedMessage();
         if (recMessage == null) {
             // continue
@@ -404,7 +409,6 @@ public class ManipulationHelper {
                 }
             }
         }
-        
     }
 
 }

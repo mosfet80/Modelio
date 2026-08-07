@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.datas;
 
@@ -83,7 +83,7 @@ public class DataStoreNode implements IProductionNode<BpmnDataStore, TDataStoreR
         } else {
             return factory.create(BpmnDataStore.class, context);
         }
-        
+
     }
 
     @objid ("3cbefddc-3ea2-4839-a820-233a5379a878")
@@ -95,7 +95,7 @@ public class DataStoreNode implements IProductionNode<BpmnDataStore, TDataStoreR
         } else if (context instanceof BpmnSubProcess) {
             ((BpmnSubProcess) context).getFlowElement().add(modelioElement);
         }
-        
+
         // Group
         if (jaxbElement.getCategoryValueRef() != null) {
             for (QName jaxGroupRef : jaxbElement.getCategoryValueRef()) {
@@ -105,7 +105,7 @@ public class DataStoreNode implements IProductionNode<BpmnDataStore, TDataStoreR
                 }
             }
         }
-        
+
         // Set properties
         if (jaxbElement.getName() != null) {
             modelioElement.setName(StringConvertor.imports(jaxbElement.getName()));
@@ -118,7 +118,7 @@ public class DataStoreNode implements IProductionNode<BpmnDataStore, TDataStoreR
     public TDataStoreReference createJaxbElement(Object context, BpmnDataStore modelioElement) {
         // Create DataStoreReference
         TDataStoreReference jaxTask = new TDataStoreReference();
-        
+
         // Add to context
         ObjectFactory factory = new ObjectFactory();
         if (context instanceof TProcess) {
@@ -128,7 +128,7 @@ public class DataStoreNode implements IProductionNode<BpmnDataStore, TDataStoreR
             List<JAXBElement<? extends TFlowElement>> jaxContent = ((TSubProcess) context).getFlowElement();
             jaxContent.add(factory.createDataStoreReference(jaxTask));
         }
-        
+
         jaxTask.setId(IDUtils.formatJaxbID(modelioElement));
         return jaxTask;
     }
@@ -137,9 +137,9 @@ public class DataStoreNode implements IProductionNode<BpmnDataStore, TDataStoreR
     @Override
     public TDataStoreReference updateJaxbElement(Object context, TDataStoreReference jaxTask, BpmnDataStore modelioElement) {
         jaxTask.setName(modelioElement.getName());
-        
+
         // Create Data Store
-        
+
         BpmnProcess process = getBpmnProcess(modelioElement);
         Object jaxRoot = this.elementsMap.get("TDefinitions");
         if (jaxRoot instanceof TDefinitions) {
@@ -148,7 +148,7 @@ public class DataStoreNode implements IProductionNode<BpmnDataStore, TDataStoreR
             jaxDataObject.setName(modelioElement.getName());
             jaxDataObject.setId("REF-" + IDUtils.formatJaxbID(modelioElement));
             jaxDataObject.setCapacity(BigInteger.valueOf(modelioElement.getCapacity()));
-        
+
             // Add to context
             ObjectFactory factory = new ObjectFactory();
             List<JAXBElement<? extends TRootElement>> jaxContent = ((TDefinitions) jaxRoot).getRootElement();
@@ -165,7 +165,7 @@ public class DataStoreNode implements IProductionNode<BpmnDataStore, TDataStoreR
         } else {
             return getBpmnProcess(modelioElement.getCompositionOwner());
         }
-        
+
     }
 
     @objid ("15f35cf6-93da-467e-87be-d2cf0bb832a1")

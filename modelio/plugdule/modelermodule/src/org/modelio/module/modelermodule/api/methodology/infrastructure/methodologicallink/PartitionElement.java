@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class PartitionElement {
      * Tells whether a {@link PartitionElement proxy} can be instantiated from a {@link MObject} checking it is a {@link MethodologicalLink} stereotyped << PartitionElement >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,7 +73,7 @@ public class PartitionElement {
 
     /**
      * Create a new {@link MethodologicalLink} stereotyped << PartitionElement >> then instantiate a {@link PartitionElement} proxy.
-     * 
+     *
      * @return a {@link PartitionElement} proxy on the created {@link MethodologicalLink}.
      */
     @objid ("08b5abc1-8b73-4e6c-9426-b6ab46324476")
@@ -83,9 +84,10 @@ public class PartitionElement {
     }
 
     /**
-     * Tries to instantiate a {@link PartitionElement} proxy from a {@link MethodologicalLink} stereotyped << PartitionElement >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link PartitionElement} proxy from a {@link MethodologicalLink} stereotyped << PartitionElement >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a MethodologicalLink
      * @return a {@link PartitionElement} proxy or <i>null</i>.
      */
@@ -95,9 +97,10 @@ public class PartitionElement {
     }
 
     /**
-     * Tries to instantiate a {@link PartitionElement} proxy from a {@link MethodologicalLink} stereotyped << PartitionElement >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link PartitionElement} proxy from a {@link MethodologicalLink} stereotyped << PartitionElement >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link MethodologicalLink}
      * @return a {@link PartitionElement} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -143,7 +146,8 @@ public class PartitionElement {
     }
 
     /**
-     * Get the underlying {@link MethodologicalLink}. 
+     * Get the underlying {@link MethodologicalLink}.
+     *
      * @return the MethodologicalLink represented by this proxy, never null.
      */
     @objid ("df0d85f9-802e-4afd-897f-6e4b9a0f9d99")
@@ -155,11 +159,11 @@ public class PartitionElement {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("af68965a-2ed3-4f68-827b-89340edc440d")
-    protected  PartitionElement(MethodologicalLink elt) {
+    protected PartitionElement(MethodologicalLink elt) {
         this.elt = elt;
     }
 
@@ -179,7 +183,7 @@ public class PartitionElement {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "5de33d2a-ed28-439c-aa09-d11bf1a6d878");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -187,7 +191,7 @@ public class PartitionElement {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

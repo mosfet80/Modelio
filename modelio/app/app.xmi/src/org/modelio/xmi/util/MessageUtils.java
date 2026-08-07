@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.util;
 
@@ -35,13 +35,13 @@ public class MessageUtils {
     @objid ("16d1b0eb-f784-4986-83fe-09a44d31b9e1")
     private static String getEltTypeName(final String name, final String type) {
         if ((name != null ) && (!name.equals(""))) {
-            return Xmi.I18N.getMessage("logFile.facility.name",           
+            return Xmi.I18N.getMessage("logFile.facility.name",
                     name,
                     type);
         }else {
             return type;
         }
-        
+
     }
 
     @objid ("0c3783c2-9fa1-453d-baa5-ffe538436c43")
@@ -51,7 +51,7 @@ public class MessageUtils {
         }else {
             return element.getClass().getSimpleName();
         }
-        
+
     }
 
 }

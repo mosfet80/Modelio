@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.ui.welcome.impl;
 
@@ -24,8 +24,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Objects;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.help.internal.base.BaseHelpSystem;
 import org.eclipse.swt.SWT;
@@ -39,6 +39,7 @@ import org.modelio.app.ui.welcome.plugin.AppUiWelcome;
 import org.modelio.platform.project.services.IProjectService;
 import org.modelio.platform.rcp.uiservice.IModelioUiService;
 import org.modelio.platform.ui.progress.IModelioProgressService;
+import org.modelio.platform.ui.swt.BrowserConfigurator;
 
 @objid ("a1b3a124-3052-4d98-910a-c5e700f002e2")
 public class WelcomeView {
@@ -48,24 +49,24 @@ public class WelcomeView {
     @objid ("db8b9253-6c9c-41af-baf1-b88e2e20db5c")
     public static String PARTID = "org.modelio.app.ui.welcome.part";
 
+    @objid ("46d4d4b3-b1c4-4b99-a3f3-dd2e5a38ddbc")
+    private Browser browser;
+
     @objid ("e00b46d5-2982-4fe9-a969-36956aadd1fe")
     private WelcomeViewController controller;
-
-    @objid ("019e01fe-0a8b-481e-82a4-dd5c93254b8c")
-    private Browser browser;
 
     @objid ("f61bf743-15b6-42c0-82af-f5d3d7675c99")
     @PostConstruct
     public void createControls(Composite parent, IModelioUiService pm, IProjectService projectService, IModelioProgressService progressService) {
-        this.browser = new Browser(parent, SWT.BORDER);
-        
+        this.browser = BrowserConfigurator.newBrowser(parent, SWT.BORDER);
+
         this.controller = new WelcomeViewController(this, pm, projectService, progressService);
-        
+
         this.browser.addLocationListener(new InstallExampleLocationListener(this.controller));
-        
+
         URL url = BaseHelpSystem.resolve(WelcomeView.WELCOME_HREF, true);
         this.browser.setUrl(url.toString());
-        
+
     }
 
     @objid ("6c6f0cc8-2e65-4b05-961d-684793abfcb6")
@@ -73,7 +74,7 @@ public class WelcomeView {
     public void onFocus() {
         URL url = BaseHelpSystem.resolve(WelcomeView.WELCOME_HREF, true);
         this.browser.setUrl(url.toString());
-        
+
     }
 
     @objid ("7cf6fc1f-7918-44a6-8be1-170c05f9b51e")
@@ -90,7 +91,7 @@ public class WelcomeView {
                 pm.switchToPerspective(null);
             }
         });
-        
+
     }
 
     @objid ("32ad12ce-a2f0-4a45-af71-59a6441d1234")
@@ -120,7 +121,7 @@ public class WelcomeView {
             } catch (URISyntaxException e) {
                 AppUiWelcome.LOG.error(e);
             }
-            
+
         }
 
         @objid ("2a92dd1e-d59e-4510-ba6b-60a3aa1d22bf")
@@ -129,7 +130,7 @@ public class WelcomeView {
         }
 
         @objid ("ba3055e6-2a9a-4328-8709-954b65829aaf")
-        public  InstallExampleLocationListener(WelcomeViewController controller) {
+        public InstallExampleLocationListener(WelcomeViewController controller) {
             this.controller = controller;
         }
 

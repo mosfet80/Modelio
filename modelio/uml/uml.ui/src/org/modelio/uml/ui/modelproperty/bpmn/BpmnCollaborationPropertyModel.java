@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.bpmn;
 
@@ -51,15 +51,17 @@ public class BpmnCollaborationPropertyModel extends AbstractPropertyModel<BpmnCo
     /**
      * Create a new <i>BpmnCollaboration</i> data model from an
      * <i>BpmnCollaboration</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("3e8c0786-0402-4039-a611-b9869c87a69f")
-    public  BpmnCollaborationPropertyModel(BpmnCollaboration theEditedElement) {
+    public BpmnCollaborationPropertyModel(BpmnCollaboration theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("678a9b31-9754-4d8a-b531-bc1aed33dd97")
@@ -70,6 +72,7 @@ public class BpmnCollaborationPropertyModel extends AbstractPropertyModel<BpmnCo
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("46e37a8f-b2d4-4ca4-bfe4-1d5c11a32017")
@@ -82,6 +85,7 @@ public class BpmnCollaborationPropertyModel extends AbstractPropertyModel<BpmnCo
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -105,7 +109,7 @@ public class BpmnCollaborationPropertyModel extends AbstractPropertyModel<BpmnCo
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -115,6 +119,7 @@ public class BpmnCollaborationPropertyModel extends AbstractPropertyModel<BpmnCo
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -139,13 +144,14 @@ public class BpmnCollaborationPropertyModel extends AbstractPropertyModel<BpmnCo
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -173,7 +179,7 @@ public class BpmnCollaborationPropertyModel extends AbstractPropertyModel<BpmnCo
         default:
             return;
         }
-        
+
     }
 
 }

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("002e18a0-c4bf-1fd8-97fe-001ec947cd2a")
 public class ControlFlowImpl extends ActivityEdgeImpl implements ControlFlow {
-    @objid ("5025f670-5b9f-46e9-ac6a-6b341a7d26bd")
+    @objid ("1450e4e7-8c93-49ea-b38b-06193e40c80d")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -49,17 +48,17 @@ public class ControlFlowImpl extends ActivityEdgeImpl implements ControlFlow {
         return super.getCompositionOwner();
     }
 
-    @objid ("f6ff03b9-0a28-4589-8618-bde81dc8a75b")
+    @objid ("fdab5308-2885-4227-8f6b-4ad39a24ffe7")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("d646252b-9098-4849-80d1-200a6df3554a")
+    @objid ("22130365-3129-45cc-954c-d3df541e5615")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitControlFlow(this);

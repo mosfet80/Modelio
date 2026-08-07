@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.naryassoc;
 
@@ -31,9 +31,9 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Represents an association role cardinality label.
- * 
- * @see NaryAssociationEnd
+ *
  * @author cma
+ * @see NaryAssociationEnd
  */
 @objid ("a9f54966-5b62-4427-bcb7-cf486382b4b9")
 public class GmNaryRoleCardinalityLabel extends GmElementLabel {
@@ -51,25 +51,26 @@ public class GmNaryRoleCardinalityLabel extends GmElementLabel {
 
     /**
      * Creates a role cardinality label.
+     *
      * @param diagram The diagram
      * @param role The represented role, may be null
      * @param roleRef The represented role reference, may not be null
      */
     @objid ("5d60a9b9-e22e-4c78-80a4-135aae2407e4")
-    public  GmNaryRoleCardinalityLabel(IGmDiagram diagram, NaryAssociationEnd role, MRef roleRef) {
+    public GmNaryRoleCardinalityLabel(IGmDiagram diagram, NaryAssociationEnd role, MRef roleRef) {
         super(diagram, roleRef);
         this.role = role;
-        
+
     }
 
     @objid ("8fc84721-5a52-4a3a-bd93-d14087c60875")
     private String computeLabel(final NaryAssociationEnd theNaryAssociationEnd) {
         StringBuilder multiplicity = new StringBuilder();
-        
+
         String multiplicityMinStr = theNaryAssociationEnd.getMultiplicityMin();
         String multiplicityMaxStr = theNaryAssociationEnd.getMultiplicityMax();
         String separator = "";
-        
+
         if (!multiplicityMinStr.equals("") || !multiplicityMaxStr.equals("")) {
             if (multiplicityMinStr.equals(multiplicityMaxStr)) {
                 multiplicity.append(multiplicityMinStr);
@@ -79,7 +80,7 @@ public class GmNaryRoleCardinalityLabel extends GmElementLabel {
                 if (!multiplicityMinStr.equals("") && !multiplicityMaxStr.equals("")) {
                     separator = "..";
                 }
-        
+
                 multiplicity.append(multiplicityMinStr);
                 multiplicity.append(separator);
                 multiplicity.append(multiplicityMaxStr);
@@ -92,8 +93,8 @@ public class GmNaryRoleCardinalityLabel extends GmElementLabel {
      * Constructor for deserialization only.
      */
     @objid ("c2bac03c-94e8-48eb-9a33-d43aba459a58")
-    public  GmNaryRoleCardinalityLabel() {
-        
+    public GmNaryRoleCardinalityLabel() {
+
     }
 
     @objid ("087b2d51-28e2-45b2-9981-664225362b73")
@@ -125,7 +126,7 @@ public class GmNaryRoleCardinalityLabel extends GmElementLabel {
             break;
         }
         }
-        
+
     }
 
     @objid ("799c2ab2-09bd-4ab3-86a7-10f6e4f4f90e")
@@ -138,11 +139,11 @@ public class GmNaryRoleCardinalityLabel extends GmElementLabel {
     @Override
     public boolean isVisible() {
         if (getParent() != null) {
-            return getDisplayedStyle().getProperty(NAssocStructuredStyleKeys.SHOWCARD);
+            return Boolean.TRUE.equals(getDisplayedStyle().getProperty(NAssocStructuredStyleKeys.SHOWCARD));
         } else {
             return false;
         }
-        
+
     }
 
     @objid ("ebd37f4a-0b7c-41a8-beba-04c1d93a5727")
@@ -157,11 +158,11 @@ public class GmNaryRoleCardinalityLabel extends GmElementLabel {
                     public String getText() {
                         return computeLabel();
                     }
-        
+
                     @Override
                     public void setText(String text) {
                         String[] values = text.split("\\.\\.");
-        
+
                         if (values.length == 1 && values[0].equals("*")) {
                             assocEnd.setMultiplicityMin("0");
                             assocEnd.setMultiplicityMax(values[0]);
@@ -174,24 +175,24 @@ public class GmNaryRoleCardinalityLabel extends GmElementLabel {
                         }
                     }
                 };
-        
+
     }
 
     @objid ("79eb2842-6147-4679-9819-9fde6c9778fd")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmNaryRoleCardinalityLabel.", GmNaryRoleCardinalityLabel.MINOR_VERSION);
-        
+
     }
 
     @objid ("c8ccb7a3-8fb2-4de8-aa04-3ebae1c6cdbf")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.role = (NaryAssociationEnd) resolveRef(this.getRepresentedRef());
-        
+
     }
 
     @objid ("c2aede2a-3bbf-4eb2-8942-ee4ffe6d541b")

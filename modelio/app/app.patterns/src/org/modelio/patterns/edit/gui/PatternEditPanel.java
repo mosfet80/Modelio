@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.patterns.edit.gui;
 
@@ -72,7 +72,7 @@ public class PatternEditPanel implements IPanelProvider {
     private Controller controller;
 
     @objid ("e24888cf-0898-4931-8169-fc5ad96a57a6")
-    public  PatternEditPanel() {
+    public PatternEditPanel() {
         this.controller = new Controller();
     }
 
@@ -117,7 +117,7 @@ public class PatternEditPanel implements IPanelProvider {
         } else {
             this.controller.setData(null);
         }
-        
+
     }
 
     @objid ("3d076ec8-c4db-4603-a27a-e030c35bbdd2")
@@ -168,7 +168,7 @@ public class PatternEditPanel implements IPanelProvider {
         private TabItem paramsTabItem;
 
         @objid ("3cd8364b-7b64-44d3-a84f-5b88aaf228ae")
-        public  PanelUI(Controller controller) {
+        public PanelUI(Controller controller) {
             this.controller = controller;
         }
 
@@ -176,16 +176,16 @@ public class PatternEditPanel implements IPanelProvider {
         public Control createUI(Composite parent) {
             this.composite = new Composite(parent, SWT.NONE);
             this.composite.setLayoutData(new GridData(GridData.FILL_BOTH));
-            
+
             FillLayout layout = new FillLayout(SWT.HORIZONTAL);
             layout.marginHeight = 8;
             this.composite.setLayout(layout);
-            
+
             TabFolder tabFolder = new TabFolder(this.composite, SWT.NONE);
-            
+
             this.idTabItem = createIdentificationTab(tabFolder);
             this.idTabItem.setText(Patterns.I18N.getString("PatternEditPanel.IdentificationTab.label"));
-            
+
             this.paramsTabItem = createParametersTab(tabFolder);
             this.paramsTabItem.setText(Patterns.I18N.getString("PatternEditPanel.ParameterTab.label"));
             return this.composite;
@@ -200,7 +200,7 @@ public class PatternEditPanel implements IPanelProvider {
                 this.categoryText.setText(rtPattern.getCategory());
                 this.parameters.setInput(rtPattern.getParameters());
                 //this.iconPreviewLabel.setImage(rtPattern.getIcon());
-            
+
                 boolean editable = rtPattern.getModelPattern() == null || rtPattern.getModelPattern().isModifiable();
                 this.idTabItem.getControl().setEnabled(editable);
                 this.paramsTabItem.getControl().setEnabled(editable);
@@ -211,7 +211,7 @@ public class PatternEditPanel implements IPanelProvider {
                 this.categoryText.setText("");
                 this.parameters.setInput(Collections.emptyList());
             }
-            
+
         }
 
         @objid ("485fb606-842c-471f-989a-b8f9feaef130")
@@ -224,22 +224,22 @@ public class PatternEditPanel implements IPanelProvider {
             TabItem idTabItem = new TabItem(tabFolder, SWT.NONE);
             Composite contents = new Composite(tabFolder, SWT.NONE);
             contents.setLayout(new GridLayout(2, false));
-            
+
             Label nameLabel = new Label(contents, SWT.NONE);
             nameLabel.setText(Patterns.I18N.getString("PatternEditPanel.Name.label"));
             nameLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false));
-            
+
             this.nameText = new Text(contents, SWT.BORDER);
             this.nameText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
             this.nameText.setToolTipText(Patterns.I18N.getString("PatternEditPanel.Name.tooltip"));
-            
+
             this.nameText.addFocusListener(new FocusAdapter() {
                 @Override
                 public void focusLost(FocusEvent e) {
                     PanelUI.this.controller.onNameChange(((Text) e.widget).getText());
                 }
             });
-            
+
             this.nameText.addKeyListener(new KeyAdapter() {
                 @Override
                 public void keyReleased(KeyEvent e) {
@@ -248,22 +248,22 @@ public class PatternEditPanel implements IPanelProvider {
                     }
                 }
             });
-            
+
             Label versionLabel = new Label(contents, SWT.NONE);
             versionLabel.setText(Patterns.I18N.getString("PatternEditPanel.Version.label"));
             versionLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false));
-            
+
             this.versionText = new Text(contents, SWT.BORDER);
             this.versionText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
             this.versionText.setToolTipText(Patterns.I18N.getString("PatternEditPanel.Version.tooltip"));
-            
+
             this.versionText.addFocusListener(new FocusAdapter() {
                 @Override
                 public void focusLost(FocusEvent e) {
                     PanelUI.this.controller.onVersionChange(((Text) e.widget).getText());
                 }
             });
-            
+
             this.versionText.addKeyListener(new KeyAdapter() {
                 @Override
                 public void keyReleased(KeyEvent e) {
@@ -272,55 +272,55 @@ public class PatternEditPanel implements IPanelProvider {
                     }
                 }
             });
-            
+
             /*
             Label iconLabel = new Label(contents, SWT.NONE);
             iconLabel.setText(Patterns.I18N.getString("PatternEditPanel.Icon.label"));
             iconLabel.setLayoutData(new GridData(SWT.FILL, SWT.TOP, false, false));
-            
+
             Composite iconZone = new Composite (contents, SWT.NONE);
             iconZone.setLayoutData(new GridData(SWT.FILL, SWT.TOP, false, false));
             iconZone.setLayout(new FillLayout(SWT.HORIZONTAL));
             this.iconPreviewLabel = new Label(iconZone, SWT.NONE);
-            
+
             this.chooseIconButton = new Button(iconZone, SWT.NONE);
             this.chooseIconButton.setImage(UIImages.CHOOSER);
             this.chooseIconButton.addSelectionListener(new SelectionListener() {
-            
+
                 @Override
                 public void widgetSelected(SelectionEvent e) {
                     FileDialog dialog = new FileDialog(tabFolder.getShell(), SWT.APPLICATION_MODAL | SWT.OPEN);
                     dialog.setFilterNames(new String[] { "png", "bmp", "jpg" });
                     dialog.setFilterExtensions(new String[] { "*.png", "*.bmp", "*.jpg" });
-            
+
                     String result = dialog.open();
                     if (result != null) {
                         PanelUI.this.controller.onIconPathChange(result);
                     }
                 }
-            
+
                 @Override
                 public void widgetDefaultSelected(SelectionEvent e) {
                     // Nothing to do
                 }
             });*/
-            
+
             Label descriptionLabel = new Label(contents, SWT.NONE);
             descriptionLabel.setText(Patterns.I18N.getString("PatternEditPanel.Description.label"));
             descriptionLabel.setLayoutData(new GridData(SWT.FILL, SWT.TOP, false, false));
-            
+
             this.descriptionText = new Text(contents, SWT.BORDER | SWT.MULTI);
             this.descriptionText.setEditable(true);
             this.descriptionText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
             this.descriptionText.setToolTipText(Patterns.I18N.getString("PatternEditPanel.Description.tooltip"));
-            
+
             this.descriptionText.addFocusListener(new FocusAdapter() {
                 @Override
                 public void focusLost(FocusEvent e) {
                     PanelUI.this.controller.onDescriptionChange(((Text) e.widget).getText());
                 }
             });
-            
+
             this.descriptionText.addKeyListener(new KeyAdapter() {
                 @Override
                 public void keyReleased(KeyEvent e) {
@@ -329,23 +329,23 @@ public class PatternEditPanel implements IPanelProvider {
                     }
                 }
             });
-            
+
             Label categoryLabel = new Label(contents, SWT.NONE);
             categoryLabel.setText(Patterns.I18N.getString("PatternEditPanel.Category.label"));
             descriptionLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false));
-            
+
             this.categoryText = new Text(contents, SWT.BORDER);
             this.categoryText.setEditable(true);
             this.categoryText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
             this.categoryText.setToolTipText(Patterns.I18N.getString("PatternEditPanel.Category.tooltip"));
-            
+
             this.categoryText.addFocusListener(new FocusAdapter() {
                 @Override
                 public void focusLost(FocusEvent e) {
                     PanelUI.this.controller.onCategoryChange(((Text) e.widget).getText());
                 }
             });
-            
+
             this.categoryText.addKeyListener(new KeyAdapter() {
                 @Override
                 public void keyReleased(KeyEvent e) {
@@ -354,7 +354,7 @@ public class PatternEditPanel implements IPanelProvider {
                     }
                 }
             });
-            
+
             idTabItem.setControl(contents);
             return idTabItem;
         }
@@ -363,50 +363,50 @@ public class PatternEditPanel implements IPanelProvider {
         private TabItem createParametersTab(TabFolder tabFolder) {
             TabItem paramsTabItem = new TabItem(tabFolder, SWT.NONE);
             Composite contents = new Composite(tabFolder, SWT.NONE);
-            
+
             TableColumnLayout tableColumnLayout = new TableColumnLayout();
             contents.setLayout(tableColumnLayout);
-            
+
             this.parameters = new TableViewer(contents, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
             this.parameters.setContentProvider(new ArrayContentProvider());
-            
+
             // Get the SWT Table that's inside the TableViewer
             Table table = this.parameters.getTable();
-            
+
             // Show the column headers
             table.setHeaderVisible(true);
-            
+
             // Parameter Name
             TableViewerColumn nameColumn = new TableViewerColumn(this.parameters, SWT.NONE);
             nameColumn.getColumn().setText(Patterns.I18N.getString("PatternEditPanel.parameter.name.column.label"));
             nameColumn.getColumn().setToolTipText(Patterns.I18N.getString("PatternEditPanel.parameter.name.column.tooltip"));
             nameColumn.getColumn().setAlignment(SWT.CENTER);
             nameColumn.setLabelProvider(new ColumnLabelProvider() {
-            
+
                 @Override
                 public Color getForeground(Object element) {
                     return UIColor.NONMODIFIABLE_ELEMENT_FG;
                 }
-            
+
                 @Override
                 public String getText(Object element) {
                     Parameter p = (Parameter) element;
                     return p.getName();
                 }
             });
-            
+
             // Parameter type
             TableViewerColumn typeColumn = new TableViewerColumn(this.parameters, SWT.NONE);
             typeColumn.getColumn().setText(Patterns.I18N.getString("PatternEditPanel.parameter.type.column.label"));
             typeColumn.getColumn().setToolTipText(Patterns.I18N.getString("PatternEditPanel.parameter.type.column.tooltip"));
             typeColumn.getColumn().setAlignment(SWT.CENTER);
             typeColumn.setLabelProvider(new ColumnLabelProvider() {
-            
+
                 @Override
                 public Color getForeground(Object element) {
                     return UIColor.NONMODIFIABLE_ELEMENT_FG;
                 }
-            
+
                 @Override
                 public String getText(Object element) {
                     Parameter p = (Parameter) element;
@@ -422,10 +422,10 @@ public class PatternEditPanel implements IPanelProvider {
                     if (p instanceof ElementParameter) {
                         return "Element";
                     }
-            
+
                     return p.getName();
                 }
-            
+
                 @Override
                 public Image getImage(Object element) {
                     Parameter p = (Parameter) element;
@@ -435,56 +435,56 @@ public class PatternEditPanel implements IPanelProvider {
                     return null;
                 }
             });
-            
+
             // Parameter Label
             TableViewerColumn labelColumn = new TableViewerColumn(this.parameters, SWT.NONE);
             labelColumn.getColumn().setText(Patterns.I18N.getString("PatternEditPanel.parameter.label.column.label"));
             labelColumn.getColumn().setToolTipText(Patterns.I18N.getString("PatternEditPanel.parameter.label.column.tooltip"));
             labelColumn.getColumn().setAlignment(SWT.LEFT);
             labelColumn.setLabelProvider(new ColumnLabelProvider() {
-            
+
                 @Override
                 public Color getForeground(Object element) {
                     return (element instanceof ConstantParameter) ? UIColor.NONMODIFIABLE_ELEMENT_FG : UIColor.MODIFIABLE_ELEMENT_FG;
                 }
-            
-            
+
+
                 @Override
                 public String getText(Object element) {
                     Parameter p = (Parameter) element;
                     return p.getLabel();
                 }
             });
-            
+
             labelColumn.setEditingSupport(new ParameterLabelEditingSupport(this.parameters, this.controller));
-            
+
             // Parameter description
             TableViewerColumn descriptionColumn = new TableViewerColumn(this.parameters, SWT.NONE);
             descriptionColumn.getColumn().setText(Patterns.I18N.getString("PatternEditPanel.parameter.description.column.label"));
             descriptionColumn.getColumn().setToolTipText(Patterns.I18N.getString("PatternEditPanel.parameter.description.column.tooltip"));
             descriptionColumn.getColumn().setAlignment(SWT.LEFT);
             descriptionColumn.setLabelProvider(new ColumnLabelProvider() {
-            
+
                 @Override
                 public Color getForeground(Object element) {
                     return (element instanceof ConstantParameter) ? UIColor.NONMODIFIABLE_ELEMENT_FG : UIColor.MODIFIABLE_ELEMENT_FG;
                 }
-            
-            
+
+
                 @Override
                 public String getText(Object element) {
                     Parameter p = (Parameter) element;
                     return p.getDescription();
                 }
             });
-            
+
             descriptionColumn.setEditingSupport(new ParameterDescriptionEditingSupport(this.parameters, this.controller));
-            
+
             tableColumnLayout.setColumnData(nameColumn.getColumn(), new ColumnWeightData(30, 150, true));
             tableColumnLayout.setColumnData(typeColumn.getColumn(),  new ColumnWeightData(10, 90, true));
             tableColumnLayout.setColumnData(labelColumn.getColumn(), new ColumnWeightData(50, 200, true));
             tableColumnLayout.setColumnData(descriptionColumn.getColumn(), new ColumnWeightData(50, 200, true));
-            
+
             paramsTabItem.setControl(contents);
             return paramsTabItem;
         }
@@ -513,7 +513,7 @@ public class PatternEditPanel implements IPanelProvider {
             if (this.ui != null) {
                 this.ui.update(this.rtPattern);
             }
-            
+
         }
 
         @objid ("667c7ead-35c1-4073-9bba-b345c7689061")
@@ -533,7 +533,7 @@ public class PatternEditPanel implements IPanelProvider {
         public void dispose() {
             this.ui.dispose();
             this.ui = null;
-            
+
         }
 
         @objid ("13ce79bd-a72f-419e-a87c-f87137126386")
@@ -552,7 +552,7 @@ public class PatternEditPanel implements IPanelProvider {
                 throw new InvalidParameterException("Listener already registered");
             }
             this.listeners.add(l);
-            
+
         }
 
         @objid ("48302a1b-f7a7-4a15-97ea-1f468a5769c2")
@@ -563,7 +563,7 @@ public class PatternEditPanel implements IPanelProvider {
                 this.ui.update(this.rtPattern);
                 fireListeners(this.rtPattern, true);
             }
-            
+
         }
 
         @objid ("720b4d6c-552f-48aa-ab92-424c97495e13")
@@ -574,7 +574,7 @@ public class PatternEditPanel implements IPanelProvider {
                 this.ui.update(this.rtPattern);
                 fireListeners(this.rtPattern, true);
             }
-            
+
         }
 
         @objid ("db40f410-e0a6-4d60-bc46-7ba78c2a088f")
@@ -585,7 +585,7 @@ public class PatternEditPanel implements IPanelProvider {
                 this.ui.update(this.rtPattern);
                 fireListeners(this.rtPattern, true);
             }
-            
+
         }
 
         @objid ("bd4ecb0a-0c5b-4f30-b922-7ec0aa86d9e2")
@@ -596,7 +596,7 @@ public class PatternEditPanel implements IPanelProvider {
                 this.ui.update(this.rtPattern);
                 fireListeners(this.rtPattern, true);
             }
-            
+
         }
 
         @objid ("60c31e8e-20e2-4c48-8cbd-05e1a12c2e04")
@@ -607,7 +607,7 @@ public class PatternEditPanel implements IPanelProvider {
                 this.ui.update(this.rtPattern);
                 fireListeners(this.rtPattern, true);
             }
-            
+
         }
 
         @objid ("57a6122c-d576-4bc8-b307-9324ef319521")
@@ -618,7 +618,7 @@ public class PatternEditPanel implements IPanelProvider {
                 this.ui.update(this.rtPattern);
                 fireListeners(this.rtPattern, true);
             }
-            
+
         }
 
         @objid ("a10cd53b-4b29-4935-9541-4078c79a4038")
@@ -629,7 +629,7 @@ public class PatternEditPanel implements IPanelProvider {
                 this.ui.update(this.rtPattern);
                 fireListeners(this.rtPattern, true);
             }
-            
+
         }
 
     }
@@ -643,11 +643,11 @@ public class PatternEditPanel implements IPanelProvider {
         private final CellEditor editor;
 
         @objid ("b04cf8bc-1562-42c2-b40c-ac5ae2341c6b")
-        public  ParameterLabelEditingSupport(TableViewer viewer, Controller controller) {
+        public ParameterLabelEditingSupport(TableViewer viewer, Controller controller) {
             super(viewer);
             this.controller = controller;
             this.editor = new TextCellEditor(viewer.getTable());
-            
+
         }
 
         @objid ("c19c666a-4301-430b-92b3-3d5ed66fdee5")
@@ -685,11 +685,11 @@ public class PatternEditPanel implements IPanelProvider {
         private final CellEditor editor;
 
         @objid ("eb10e5a9-8dae-41e0-be4f-7d2694130c0a")
-        public  ParameterDescriptionEditingSupport(TableViewer viewer, Controller controller) {
+        public ParameterDescriptionEditingSupport(TableViewer viewer, Controller controller) {
             super(viewer);
             this.controller = controller;
             this.editor = new TextCellEditor(viewer.getTable());
-            
+
         }
 
         @objid ("e2e599cf-db27-4b24-a94d-7b920350bb1f")

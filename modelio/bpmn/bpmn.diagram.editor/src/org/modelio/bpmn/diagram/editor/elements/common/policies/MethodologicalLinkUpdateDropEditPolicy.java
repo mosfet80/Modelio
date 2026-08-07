@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.common.policies;
 
@@ -58,10 +58,11 @@ public class MethodologicalLinkUpdateDropEditPolicy extends DefaultElementDropEd
      * <p>
      * Equivalent to <code>MethodologicalLinkUpdateDropEditPolicy(Stereotype, false)</code>.
      * </p>
+     *
      * @param methoLinkStereotype a {@link MethodologicalLink} stereotype.
      */
     @objid ("6c94c081-de35-400d-84e5-1bc398a401f8")
-    public  MethodologicalLinkUpdateDropEditPolicy(Stereotype methoLinkStereotype) {
+    public MethodologicalLinkUpdateDropEditPolicy(Stereotype methoLinkStereotype) {
         this(methoLinkStereotype, false);
     }
 
@@ -75,7 +76,7 @@ public class MethodologicalLinkUpdateDropEditPolicy extends DefaultElementDropEd
         if (!(model instanceof GmModel)) {
             return null;
         }
-        
+
         if (request.isSmart() && request.getDroppedElements().length == 1) {
             GmModel gmModel = (GmModel) getHost().getModel();
             IGmDiagram gmDiagram = gmModel.getDiagram();
@@ -94,7 +95,7 @@ public class MethodologicalLinkUpdateDropEditPolicy extends DefaultElementDropEd
         if (!request.isSmart()) {
             return null;
         }
-        
+
         GmModel gmModel = (GmModel) getHost().getModel();
         IGmDiagram gmDiagram = gmModel.getDiagram();
         MObject element = ((GmModel) getHost().getModel()).getRelatedElement();
@@ -119,14 +120,15 @@ public class MethodologicalLinkUpdateDropEditPolicy extends DefaultElementDropEd
 
     /**
      * Instanciate the policy for a specific {@link MethodologicalLink} stereotype.
+     *
      * @param methoLinkStereotype a {@link MethodologicalLink} stereotype.
      * @param synchronizeName whether or not the name of the element owning the methodological link should be updated when a link is set.
      */
     @objid ("6e47b292-b412-4da3-ab23-02c23424c6a0")
-    public  MethodologicalLinkUpdateDropEditPolicy(Stereotype methoLinkStereotype, boolean synchronizeName) {
+    public MethodologicalLinkUpdateDropEditPolicy(Stereotype methoLinkStereotype, boolean synchronizeName) {
         this.methoLinkStereotype = methoLinkStereotype;
         this.synchronizeName = synchronizeName;
-        
+
     }
 
     /**
@@ -148,18 +150,19 @@ public class MethodologicalLinkUpdateDropEditPolicy extends DefaultElementDropEd
 
         /**
          * Constructor for the command.
+         *
          * @param elementToType the element to type.
          * @param newType the type to use. Might be <code>null</code>.
          * @param methoLinkStereotype the stereotype to use for the {@link MethodologicalLink}.
          * @param synchronizeName whether or not the name of the element owning the methodological link should be updated when a link is set.
          */
         @objid ("8021b9b5-18be-4014-8593-48efc363b2ed")
-        public  UpdateMethoLinkCommand(final MObject elementToType, final MObject newType, Stereotype methoLinkStereotype, boolean synchronizeName) {
+        public UpdateMethoLinkCommand(final MObject elementToType, final MObject newType, Stereotype methoLinkStereotype, boolean synchronizeName) {
             this.elementToType = elementToType;
             this.newType = newType;
             this.methoLinkStereotype = methoLinkStereotype;
             this.synchronizeName = synchronizeName;
-            
+
         }
 
         @objid ("78381c06-9d89-45b0-bd28-f9a76109d1d9")
@@ -178,7 +181,7 @@ public class MethodologicalLinkUpdateDropEditPolicy extends DefaultElementDropEd
                     this.elementToType.setName(this.newType.getName());
                 }
             }
-            
+
         }
 
         @objid ("d5f38146-ca40-401e-9a9b-392fc65f5a2a")
@@ -189,7 +192,7 @@ public class MethodologicalLinkUpdateDropEditPolicy extends DefaultElementDropEd
             if (oldType != null && !oldType.equals(this.newType)) {
                 warning.append(DiagramEditorBpmn.I18N.getMessage("MethodologicalLinkUpdateDropEditPolicy.confirmdialog.type", oldType.getName(), this.newType != null ? this.newType.getName() : "null"));
             }
-            
+
             if (warning.length() > 0 && !MessageDialog.openQuestion(
                     Display.getDefault().getActiveShell(),
                     DiagramEditorBpmn.I18N.getString("MethodologicalLinkUpdateDropEditPolicy.confirmdialog.title"),

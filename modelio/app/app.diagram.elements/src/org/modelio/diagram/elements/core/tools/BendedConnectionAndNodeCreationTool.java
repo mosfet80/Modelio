@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.tools;
 
@@ -47,7 +47,7 @@ public class BendedConnectionAndNodeCreationTool extends BendedConnectionCreatio
 
     /**
      * Redefined to display create node and link cursor.
-     * 
+     *
      * {@inheritDoc}
      */
     @objid ("e1d0e2f7-c031-4933-acba-4d8d240e817c")
@@ -67,18 +67,19 @@ public class BendedConnectionAndNodeCreationTool extends BendedConnectionCreatio
 
     /**
      * Called when the user creates a node and link.
-     * @see #handleCreateConnection()
+     *
      * @return always true
+     * @see #handleCreateConnection()
      */
     @objid ("7cc66948-5a73-4f89-9110-513c3ecb43fd")
     protected boolean handleCreateConnectedNode() {
         Command endCommand = getCommand();
         setCurrentCommand(endCommand);
         executeCurrentCommand();
-        
+
         eraseTargetFeedback();
         eraseSourceFeedback();
-        
+
         EditPartViewer viewer = getCurrentViewer();
         selectAddedObject(viewer);
         return true;
@@ -91,11 +92,11 @@ public class BendedConnectionAndNodeCreationTool extends BendedConnectionCreatio
     private void disableViewerPopupMenu() {
         if (this.savedmenu == null) {
             Control viewerControl = getCurrentViewer().getControl();
-        
+
             this.savedmenu = viewerControl.getMenu();
             viewerControl.setMenu(null);
         }
-        
+
     }
 
     @objid ("844302c2-9393-48e3-bda7-9c9b953d4c95")
@@ -104,7 +105,7 @@ public class BendedConnectionAndNodeCreationTool extends BendedConnectionCreatio
         // When the interaction starts, remove the popup menu
         disableViewerPopupMenu();
         super.updateTargetRequest();
-        
+
     }
 
     /**
@@ -119,7 +120,7 @@ public class BendedConnectionAndNodeCreationTool extends BendedConnectionCreatio
             }
             this.savedmenu = null;
         }
-        
+
     }
 
     @objid ("46e780fb-07d8-4cda-8b7e-9fe00d074e6e")
@@ -128,7 +129,7 @@ public class BendedConnectionAndNodeCreationTool extends BendedConnectionCreatio
         // Just in case an interaction has been aborted while the menu was removed.
         restoreViewerPopupMenu();
         super.deactivate();
-        
+
     }
 
     @objid ("6e42d70f-c2a7-446f-b7ad-59efadf9357f")
@@ -138,31 +139,31 @@ public class BendedConnectionAndNodeCreationTool extends BendedConnectionCreatio
             // First look for a target in the current state
             String newRequestType = getCommandName();
             EditPart editPart = findTargetUnderMouse(newRequestType);
-        
+
             if (editPart == null && isInState(AbstractConnectionCreationTool.STATE_CONNECTION_STARTED)) {
                 // If no target can end the link, ask to add a node and link
                 if (getCurrentInput().isControlKeyDown() || getCurrentInput().isMouseButtonDown(3)) {
                     newRequestType = CreateLinkConstants.REQ_CONNECTION_CREATE_LINK_CHOOSENODE;
                     editPart = findTargetUnderMouse(newRequestType);
                 }
-        
+
                 if (editPart == null) {
                     // If no target can add a node and link, ask to add a bendpoint
                     newRequestType = CreateLinkConstants.REQ_CONNECTION_ADD_BENDPOINT;
                     editPart = findTargetUnderMouse(newRequestType);
                 }
-        
+
                 if (editPart == null) {
                     newRequestType = getCommandName();
                 }
             }
-        
+
             return updateTargetEditPart(editPart, newRequestType);
-        
+
         } else {
             return false;
         }
-        
+
     }
 
     @objid ("881d2948-8623-4812-a325-53ef033c8024")
@@ -184,7 +185,7 @@ public class BendedConnectionAndNodeCreationTool extends BendedConnectionCreatio
     @Override
     protected boolean handleButtonDown(int button) {
         AbstractTool.Input input = getCurrentInput();
-        
+
         if (isInState(AbstractConnectionCreationTool.STATE_CONNECTION_STARTED)) {
             if (button == 1) {
                 if (input.isControlKeyDown()) {
@@ -204,6 +205,7 @@ public class BendedConnectionAndNodeCreationTool extends BendedConnectionCreatio
     }
 
     /**
+     *
      * @return whether the current request is a {@link CreateLinkConstants#REQ_CONNECTION_CREATE_LINK_CHOOSENODE} request.
      */
     @objid ("a6a3f9ba-c163-4343-901c-4b42b375904f")

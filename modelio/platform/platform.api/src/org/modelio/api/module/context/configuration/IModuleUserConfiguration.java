@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.module.context.configuration;
 
@@ -35,6 +35,7 @@ public interface IModuleUserConfiguration {
     /**
      * Get the value of the parameter identified by the given <code>key</code>.<p>
      * Returns null if the key does not exist
+     *
      * @param key Key of the parameter
      * @return The value of the <code>key</code> parameter (or null)
      */
@@ -43,6 +44,7 @@ public interface IModuleUserConfiguration {
 
     /**
      * Get all parameter values.
+     *
      * @return A map representing the parameter name as key and the parameter value as value.
      */
     @objid ("e7981cbc-03e3-11e2-8e1f-001ec947c8cc")
@@ -50,6 +52,7 @@ public interface IModuleUserConfiguration {
 
     /**
      * Set the value of a parameter.
+     *
      * @param key Key of the parameter
      * @param value Value to define on the parameter
      * @return <code>true</code> if the parameter is only locally defined.
@@ -59,6 +62,7 @@ public interface IModuleUserConfiguration {
 
     /**
      * Update the mdac parameters with the given ones.
+     *
      * @param parameters The new module parameter values.
      */
     @objid ("e7981cbe-03e3-11e2-8e1f-001ec947c8cc")
@@ -67,6 +71,7 @@ public interface IModuleUserConfiguration {
     /**
      * Get the path where the files packaged with the module were deployed.
      * It allows the module to access its resource files.
+     *
      * @return the module resources path.
      */
     @objid ("e7981cc1-03e3-11e2-8e1f-001ec947c8cc")
@@ -74,6 +79,7 @@ public interface IModuleUserConfiguration {
 
     /**
      * Returns the documentation path.
+     *
      * @return the documentation path.
      */
     @objid ("e7981cc2-03e3-11e2-8e1f-001ec947c8cc")
@@ -85,6 +91,7 @@ public interface IModuleUserConfiguration {
     /**
      * Get the lock status of the parameter identified by the given <code>key</code>.<p>
      * A parameter is locked when defined by a Modelio server.
+     *
      * @param key Key of the parameter
      * @return Whether or not the given parameter is locked.
      */
@@ -93,6 +100,7 @@ public interface IModuleUserConfiguration {
 
     /**
      * Returns the style path.
+     *
      * @return the style path.
      */
     @objid ("5b1183a7-896e-4f8c-a22a-102913888a2a")
@@ -101,6 +109,7 @@ public interface IModuleUserConfiguration {
     /**
      * Add a IModuleConfigurationListener listener.
      * A IModuleConfigurationListener is called whenever a module parameter value changes.
+     *
      * @param l The listener to add
      * @since 4.1
      */
@@ -109,10 +118,11 @@ public interface IModuleUserConfiguration {
 
     /**
      * Remove a previously added listener
+     *
      * @param l The listener to remove
      * @since 4.1
      */
     @objid ("85f9f1c1-ae51-4623-b858-d611585f0c58")
     void removeListener(IModuleConfigurationListener l);
-}
 
+}

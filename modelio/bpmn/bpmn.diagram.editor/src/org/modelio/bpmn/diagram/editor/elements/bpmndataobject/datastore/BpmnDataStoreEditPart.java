@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmndataobject.datastore;
 
@@ -64,6 +64,7 @@ public class BpmnDataStoreEditPart extends AbstractBpmnSmallNodeEditPart {
     }
 
     /**
+     *
      * @see AbstractNodeEditPart#propertyChange(java.beans.PropertyChangeEvent)
      */
     @objid ("60ccb1a4-55b6-11e2-877f-002564c97630")
@@ -74,10 +75,11 @@ public class BpmnDataStoreEditPart extends AbstractBpmnSmallNodeEditPart {
         } else {
             super.propertyChange(evt);
         }
-        
+
     }
 
     /**
+     *
      * @see AbstractNodeEditPart#createEditPolicies()
      */
     @objid ("60ccb1a9-55b6-11e2-877f-002564c97630")
@@ -88,11 +90,12 @@ public class BpmnDataStoreEditPart extends AbstractBpmnSmallNodeEditPart {
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START, new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
         installEditPolicy(ModelElementDropRequest.TYPE, new BpmnItemAwareElementElementDropEditPolicy());
-        
+
     }
 
     /**
      * Creates the Figure to be used as this part's visuals
+     *
      * @see AbstractNodeEditPart#createFigure()
      */
     @objid ("60ccb1ad-55b6-11e2-877f-002564c97630")
@@ -100,22 +103,23 @@ public class BpmnDataStoreEditPart extends AbstractBpmnSmallNodeEditPart {
     protected IFigure createFigure() {
         // create the figure
         BpmnDataFigure figure1 = new BpmnDataFigure();
-        
+
         // set style independent properties
         MinimumSizeLayout.apply(figure1, 40, 55);
         figure1.setOpaque(true);
-        
+
         figure1.setCenterIcon(DiagramEditorBpmn.getImageRegistry().getImage(BpmnSharedImages.STORE));
-        
+
         // set style dependent properties
         refreshFromStyle(figure1, getModelStyle());
-        
+
         // return the figure
         return figure1;
     }
 
     /**
      * Get the note figure.
+     *
      * @return The note figure.
      */
     @objid ("60ccb1b3-55b6-11e2-877f-002564c97630")
@@ -126,6 +130,7 @@ public class BpmnDataStoreEditPart extends AbstractBpmnSmallNodeEditPart {
 
     /**
      * Refresh this EditPart's visuals.
+     *
      * @see org.eclipse.gef.editparts.AbstractEditPart#refreshVisuals()
      */
     @objid ("60ccb1b8-55b6-11e2-877f-002564c97630")
@@ -135,7 +140,7 @@ public class BpmnDataStoreEditPart extends AbstractBpmnSmallNodeEditPart {
         final GmBpmnDataStorePrimaryNode gm = (GmBpmnDataStorePrimaryNode) getModel();
         fig.getParent().setConstraint(fig, gm.getLayoutData());
         fig.setTopIcons(gm.getReferenceIcone());
-        
+
     }
 
     @objid ("60ccb1bc-55b6-11e2-877f-002564c97630")
@@ -145,7 +150,7 @@ public class BpmnDataStoreEditPart extends AbstractBpmnSmallNodeEditPart {
         if (index == 0) {
             getFigure().add(child, BorderLayout.CENTER, index);
         }
-        
+
     }
 
     @objid ("60ccb1c1-55b6-11e2-877f-002564c97630")
@@ -159,7 +164,7 @@ public class BpmnDataStoreEditPart extends AbstractBpmnSmallNodeEditPart {
     protected void refreshFromStyle(final IFigure aFigure, final IStyle style) {
         if (!switchRepresentationMode()) {
             super.refreshFromStyle(aFigure, style);
-        
+
             if (aFigure instanceof ColorizableImageFigure) {
                 ColorizableImageFigure cFigure = (ColorizableImageFigure) aFigure;
                 final GmModel gmModel = getModel();
@@ -167,7 +172,7 @@ public class BpmnDataStoreEditPart extends AbstractBpmnSmallNodeEditPart {
                 cFigure.setColor(color);
             }
         }
-        
+
     }
 
 }

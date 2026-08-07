@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -57,15 +57,17 @@ public class RequiredInterfacePropertyModel extends AbstractPropertyModel<Requir
     /**
      * Create a new <i>RequiredInterface</i> data model from an
      * <i>RequiredInterface</i>.
+     *
      * @param theEditedElement the edited element.
      */
     @objid ("03a522b0-7025-409c-b325-85c48c0eaa52")
-    public  RequiredInterfacePropertyModel(RequiredInterface theEditedElement) {
+    public RequiredInterfacePropertyModel(RequiredInterface theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("c0d0adf0-3735-4e37-9a5c-be048473dc1d")
@@ -76,6 +78,7 @@ public class RequiredInterfacePropertyModel extends AbstractPropertyModel<Requir
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("b5cca619-7fb5-426d-8ab3-ead6c6663491")
@@ -88,6 +91,7 @@ public class RequiredInterfacePropertyModel extends AbstractPropertyModel<Requir
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -109,7 +113,7 @@ public class RequiredInterfacePropertyModel extends AbstractPropertyModel<Requir
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -119,6 +123,7 @@ public class RequiredInterfacePropertyModel extends AbstractPropertyModel<Requir
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -143,13 +148,14 @@ public class RequiredInterfacePropertyModel extends AbstractPropertyModel<Requir
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -180,7 +186,7 @@ public class RequiredInterfacePropertyModel extends AbstractPropertyModel<Requir
         default:
             return;
         }
-        
+
     }
 
 }

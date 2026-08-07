@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.api.impl.model;
 
@@ -268,7 +287,11 @@ import org.modelio.metamodel.uml.statik.TemplateBinding;
 import org.modelio.metamodel.uml.statik.TemplateParameter;
 import org.modelio.metamodel.uml.statik.TemplateParameterSubstitution;
 import org.modelio.vcore.session.api.model.IModel;
+import org.modelio.vcore.session.api.repository.IRepositorySupport;
+import org.modelio.vcore.session.impl.CoreSession;
+import org.modelio.vcore.session.impl.SmFactory;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.vcore.smkernel.meta.SmMetamodel;
 
 /**
  * The UMLModel provide navigation and modification in the UML model represented in Modelio.
@@ -306,21 +329,45 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a new instance of UMLModel.
+     *
      * @param openedProject the opened project.
      * @param modelService the model object factory.
      * @param model the model access
      */
     @objid ("d4fb7a4d-87e9-4a59-8d69-ff16c3c345f1")
-    public  UMLModel(final IGProject openedProject, final IMModelServices modelService, final IModel model) {
+    public UMLModel(final IGProject openedProject, final IMModelServices modelService, final IModel model) {
         this.model = model;
         this.modelService = modelService;
         this.openedProject = openedProject;
         this.umlTypes = new UMLTypes(this.model);
-        
+    }
+
+    /**
+     * Create Create an instance of the MObject class with specified Identifier
+     * Using this method poses risks to the integrity of the repository. We advise against its use and do not guarantee the integrity of the repository in the event of inappropriate use.
+     *
+     * @param type Class of the object to create
+     * @param identifier identifier of the object
+     * @param referent MObject Referring MObject belonging to the current project. THe new create object will be add in the same repository as this object
+     * @return New instanceof of MObject
+     * @throws IllegalArgumentException if and object with the same id already exist in the curent repository
+     */
+    @objid ("4e085be5-0383-4af0-b589-539f189796a6")
+    @Override
+    @Deprecated(forRemoval = false)
+    public MObject createElement(java.lang.Class<? extends MObject> type, String identifier, MObject referent) throws IllegalArgumentException {
+        CoreSession session =(CoreSession)this.openedProject.getSession();
+
+        IRepositorySupport support = session.getRepositorySupport();
+        SmFactory smFactory = session.getSmFactory();
+        SmMetamodel metamodel = session.getMetamodel();
+
+        return smFactory.createObject(metamodel.getMClass(type), support.getRepository(referent),identifier);
     }
 
     /**
      * Create an Abstraction. The created Abstraction has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IAbstraction representing the Abstraction in the Model.
+     *
      * @return An IAbstraction representing the Abstraction in the Model.
      */
     @objid ("b809f030-eb03-48ba-9881-efccdcf1edb9")
@@ -332,6 +379,7 @@ public class UMLModel implements IUmlModel {
     /**
      * Create an AcceptCallEventAction. The created AcceptCallEventAction has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IAcceptCallEventAction representing the
      * AcceptCallEventAction in the Model.
+     *
      * @return An IAcceptCallEventAction representing the AcceptCallEventAction in the Model.
      */
     @objid ("3f02497b-5a82-4fdc-9e4e-630e442db6e9")
@@ -343,6 +391,7 @@ public class UMLModel implements IUmlModel {
     /**
      * Create an AcceptChangeEventAction. The created AcceptChangeEventAction has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IAcceptChangeEventAction representing the
      * AcceptChangeEventAction in the Model.
+     *
      * @return An IAcceptChangeEventAction representing the AcceptChangeEventAction in the Model.
      */
     @objid ("39c6a5c5-3550-4b28-af35-b37fb89d689c")
@@ -354,6 +403,7 @@ public class UMLModel implements IUmlModel {
     /**
      * Create an AcceptSignalAction. The created AcceptSignalAction has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IAcceptSignalAction representing the AcceptSignalAction in the
      * Model.
+     *
      * @return An IAcceptSignalAction representing the AcceptSignalAction in the Model.
      */
     @objid ("c376ab73-fda8-47f6-91a7-9e1957761c7f")
@@ -365,6 +415,7 @@ public class UMLModel implements IUmlModel {
     /**
      * Create an AcceptTimeEventAction. The created AcceptTimeEventAction has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IAcceptTimeEventAction representing the
      * AcceptTimeEventAction in the Model.
+     *
      * @return An IAcceptTimeEventAction representing the AcceptTimeEventAction in the Model.
      */
     @objid ("b3aa44c3-cc82-41c9-add7-14fb9f5cc041")
@@ -375,6 +426,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an Activity. The created Activity has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IActivity representing the Abstraction in the Model.
+     *
      * @return An IActivity representing the Activity in the Model.
      */
     @objid ("7a4d0b77-5f66-4b2b-a35a-9428708a37a1")
@@ -385,6 +437,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an ActivityDiagram. The returned object is an IActivityDiagram owned by 'owner' and named by 'name'
+     *
      * @param name the name of the ActivityDiagram to be created.
      * @param owner the ModelElement that will contain the ActivityDiagram.
      * @return An IActivityDiagram representing the diagram in the Model.
@@ -397,6 +450,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an ActivityFinalNode. The created ActivityFinalNode has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IActivityFinalNode representing the ActivityFinalNode in the Model.
+     *
      * @return An IActivityFinalNode representing the ActivityFinalNode in the Model.
      */
     @objid ("f85c11ce-59f3-4f2b-b064-bd6620dfdb14")
@@ -408,6 +462,7 @@ public class UMLModel implements IUmlModel {
     /**
      * Create an ActivityParameterNode. The created ActivityParameterNode has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IActivityParameterNode representing the
      * ActivityParameterNode in the Model.
+     *
      * @return An IActivityParameterNode representing the ActivityParameterNode in the Model.
      */
     @objid ("3dbab2a0-f1c5-4f1f-b6dd-e0cd076f9065")
@@ -418,6 +473,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an ActivityPartition. The created ActivityPartition has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IActivityPartition representing the ActivityPartition in the Model.
+     *
      * @return An IActivityPartition representing the ActivityPartition in the Model.
      */
     @objid ("bcf0bcab-7957-4a55-babe-eac4fa21bafa")
@@ -428,6 +484,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an Actor. The created Actor has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IActor representing the Abstraction in the Model.
+     *
      * @return An IActor representing the Actor in the Model.
      */
     @objid ("d1025971-4ee4-468b-b3e4-d711b69f2329")
@@ -438,6 +495,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an Actor. The created Actor is valid for the current transaction. (It as a name and an owner.)
+     *
      * @param name The name of the Actor to be created.
      * @param owner The NameSpace that will contain the Actor.
      * @return An IActor representing the Actor in the Model.
@@ -456,6 +514,7 @@ public class UMLModel implements IUmlModel {
      * <p>
      * <p>
      * The created Actor is stereotyped by the <code>stereotype</code> argument. The <code>ExtensionNotFoundException</code> is thrown if the stereotype is not found.
+     *
      * @param name The name of the Actor to be created.
      * @param owner The NameSpace that will contain the Actor.
      * @param stereotype the Stereotype that will be refered by the Actor.
@@ -475,11 +534,11 @@ public class UMLModel implements IUmlModel {
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
-        
     }
 
     /**
      * Create an Artifact. The created Artifact has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IArtifact representing the Abstraction in the Model.
+     *
      * @return An IArtifact representing the Artifact in the Model.
      */
     @objid ("d5b70a03-c289-4621-8c46-bf3eb8db76b5")
@@ -490,6 +549,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an Artifact. The created Artifact is valid for the current transaction. (It as a name and an owner.)
+     *
      * @param name The name of the Artifact to be created.
      * @param owner The NameSpace that will contain the Artifact.
      * @return An IArtifact representing the Artifact in the Model.
@@ -503,6 +563,7 @@ public class UMLModel implements IUmlModel {
     /**
      * Create an Artifact. The created Artifact has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IArtifact representing the Abstraction in the Model. The created Artifact is
      * stereotyped by the <code>stereotype</code> argument. The <code>ExtensionNotFoundException</code> is thrown if the stereotype is not found.
+     *
      * @param name Name of the Artifact
      * @param owner The Owner of the Artifact
      * @param stereotype the stereotype to add on the created Artifact or null if none.
@@ -522,11 +583,11 @@ public class UMLModel implements IUmlModel {
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
-        
     }
 
     /**
      * Create a binary association. This method create a binary association between two classifiers and give a name to the destination role. The created association has a navigable role.
+     *
      * @param source the source Classifier of the Association.
      * @param destination the destination Classifier of the Association.
      * @param destinationRole the Name of the destination role.
@@ -540,6 +601,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an Association. The created Association has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an Association representing the Association in the Model.
+     *
      * @return An Association representing the Association in the Model.
      */
     @objid ("94e16813-a429-46b9-bf91-1dab5b3c3c75")
@@ -550,6 +612,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an AssociationEnd. The created AssociationEnd has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an AssociationEnd representing the Abstraction in the Model.
+     *
      * @return An AssociationEnd representing the AssociationEnd in the Model.
      */
     @objid ("b5f1e758-6dcc-4266-8a4c-c500036d5351")
@@ -560,6 +623,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an Attribute. The created Attribute has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IAttribute representing the Abstraction in the Model.
+     *
      * @return An IAttribute representing the Attribute in the Model.
      */
     @objid ("bda33d76-3966-42ec-a53c-2606631941eb")
@@ -570,6 +634,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an Attribute. The Attribute is created on owner and has a name, a type.
+     *
      * @param name the name of the Attribute to be created.
      * @param type the GeneralClass that will type the Atrribute.
      * @param owner the Classifier that will contain the Attribute
@@ -583,6 +648,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a stereotyped Attribute. The Attribute is created on owner and has a name, a type and a stereotype.
+     *
      * @param name the name of the Attribute to be created.
      * @param type the GeneralClass that will type the Atrribute.
      * @param owner the Classifier that will contain the Attribute.
@@ -603,11 +669,11 @@ public class UMLModel implements IUmlModel {
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
-        
     }
 
     /**
      * Create an AttributeLink. The created AttributeLink has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IAttributeLink representing the Abstraction in the Model.
+     *
      * @return An IAttributeLink representing the AttributeLink in the Model.
      */
     @objid ("07e18f84-501f-4906-82a6-4de97fa022d1")
@@ -618,6 +684,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a BehaviorParameter. The created BehaviorParameter has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IBehaviorParameter representing the BehaviorParameter in the Model.
+     *
      * @return An IBehaviorParameter representing the BehaviorParameter in the Model.
      */
     @objid ("d7e2f272-7ac8-48c0-a42a-cd07a636688f")
@@ -628,6 +695,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a BindableInstance. The created BindableInstance has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an BindableInstance representing the Abstraction in the Model.
+     *
      * @return An BindableInstance representing the BindableInstance in the Model.
      */
     @objid ("b5952b1e-b187-4bd7-afb1-9042991b4535")
@@ -638,6 +706,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Binding. The created Binding has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IBinding representing the Abstraction in the Model.
+     *
      * @return An IBinding representing the Binding in the Model.
      */
     @objid ("2194e569-3395-4f76-85f7-08738f939b02")
@@ -1045,6 +1114,7 @@ public class UMLModel implements IUmlModel {
     /**
      * Create a CallBehaviorAction. The created CallBehaviorAction has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an ICallBehaviorAction representing the CallBehaviorAction in the
      * Model.
+     *
      * @return An ICallBehaviorAction representing the CallBehaviorAction in the Model.
      */
     @objid ("006a104d-4406-4f55-b5fc-b37d4816c4cd")
@@ -1056,6 +1126,7 @@ public class UMLModel implements IUmlModel {
     /**
      * Create a CallOperationAction. The created CallOperationAction has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an ICallOperationAction representing the CallOperationAction in the
      * Model.
+     *
      * @return An ICallOperationAction representing the CallOperationAction in the Model.
      */
     @objid ("2f215751-3edf-43d4-94f3-7de5e9d2643c")
@@ -1066,6 +1137,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a CentralBufferNode. The created CentralBufferNode has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an ICentralBufferNode representing the CentralBufferNode in the Model.
+     *
      * @return An ICentralBufferNode representing the CentralBufferNode in the Model.
      */
     @objid ("09e8652b-bcec-4e9a-a756-e97482c0f767")
@@ -1076,6 +1148,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a ChoicePseudoState. The created ChoicePseudoState has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IChoicePseudoState representing the ChoicePseudoState in the Model.
+     *
      * @return An IChoicePseudoState representing the ChoicePseudoState in the Model.
      */
     @objid ("3da62da4-7459-4917-a432-6f7a042ebe0b")
@@ -1086,6 +1159,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Class. The created Class has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IClass representing the Abstraction in the Model.
+     *
      * @return An IClass representing the Class in the Model.
      */
     @objid ("baed3667-0f23-4c80-8137-c24f364ac626")
@@ -1096,6 +1170,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a class. The class is created on owner and has a name.
+     *
      * @param name the name of the Class to create.
      * @param owner the NameSpace that will contain the Class.
      * @return An IClass representing the Class in the Model.
@@ -1108,6 +1183,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a stereotyped class. The class is created on owner, has a name and owns a Stereotype.
+     *
      * @param name the name of the Class to create.
      * @param owner the NameSpace that will contain the Class.
      * @param stereotype the Stereotype to refer on the class.
@@ -1127,11 +1203,11 @@ public class UMLModel implements IUmlModel {
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
-        
     }
 
     /**
      * Create a ClassAssociation. The created ClassAssociation has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IClassAssociation representing the Abstraction in the Model.
+     *
      * @return An IClassAssociation representing the ClassAssociation in the Model.
      */
     @objid ("54b1d74d-8d1f-4480-8f1d-1e67532d4da9")
@@ -1142,6 +1218,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a ClassDiagram. The returned object is an IClassDiagram owned by <code>owner</code> named by <code>name</code> and sterotyped by <code>stereotype</code>
+     *
      * @param name the name of the Class Diagram to create.
      * @param owner the element on which the Class Diagram will be created.
      * @param stereotype the name of the stereotype that will be used to type the Class Diagram
@@ -1155,6 +1232,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Clause. The created Clause has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IClause representing the Clause in the Model.
+     *
      * @return An IClause representing the Clause in the Model.
      */
     @objid ("ee09e334-d7eb-480f-822b-bd737088d48c")
@@ -1165,6 +1243,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Collaboration. The created Collaboration has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an ICollaboration representing the Collaboration in the Model.
+     *
      * @return An ICollaboration representing the Collaboration in the Model.
      */
     @objid ("2857f47c-d697-43f1-bda7-98ccf01fa41d")
@@ -1175,6 +1254,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a CollaborationUse. The created CollaborationUse has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an ICollaborationUse representing the Abstraction in the Model.
+     *
      * @return An ICollaborationUse representing the CollaborationUse in the Model.
      */
     @objid ("afc723b5-37ac-4870-84ac-92f81a8b3549")
@@ -1185,6 +1265,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a CombinedFragment. The created CombinedFragment has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an ICombinedFragment representing the CombinedFragment in the Model.
+     *
      * @return An ICombinedFragment representing the CombinedFragment in the Model.
      */
     @objid ("ea9e790b-e84e-4575-87d9-89649b7c3811")
@@ -1195,6 +1276,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a CombinedFragment. Create a CombinedFragment with an InteractionOperator. In order to build a valid model, the CombinedFragment must be inserted in the model.
+     *
      * @param operator the operator of the CombinedFragment to create.
      * @return An ICombinedFragment representing the CombinedFragment in the Model.
      */
@@ -1212,6 +1294,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a CommunicationDiagram. The returned object is an ICommunicationDiagram owned by <code>owner</code> named by <code>name</code> and sterotyped by <code>stereotype</code>
+     *
      * @param name the name of the Communication Diagram to create.
      * @param owner the element on which the Communication Diagram will be created.
      * @param stereotype the name of the stereotype that will be used to type the Communication Diagram
@@ -1226,6 +1309,7 @@ public class UMLModel implements IUmlModel {
     /**
      * Create a CommunicationInteraction. The created CommunicationInteraction has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is a CommunicationInteraction representing the
      * CommunicationInteraction in the Model.
+     *
      * @return A CommunicationInteraction representing the CommunicationInteraction in the Model.
      */
     @objid ("7925326d-88df-47b6-8b0a-e789f6966e4b")
@@ -1248,6 +1332,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Component. The created Component has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IComponent representing the Abstraction in the Model.
+     *
      * @return An IComponent representing the Component in the Model.
      */
     @objid ("66b7b66b-1b43-4726-8bca-ce84bdaf0bed")
@@ -1258,6 +1343,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Component. The component is created on owner and has a name.
+     *
      * @param name the name of the Component to create.
      * @param owner the NameSpace that will contain the Component.
      * @return An IComponent representing the Component in the Model.
@@ -1270,6 +1356,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a stereotyped Component. The Component is created on owner, has a name and owns a Stereotype.
+     *
      * @param name the name of the Component to create.
      * @param owner the NameSpace that will contain the Component.
      * @param stereotype the Stereotype to refer on the Component.
@@ -1289,16 +1376,16 @@ public class UMLModel implements IUmlModel {
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
-        
     }
 
     /**
      * Create a CompositeStructureDiagram. The returned object is an ICompositeStructureDiagram owned by <code>owner</code> named by <code>name</code> and sterotyped by <code>stereotype</code>
-     * @since 2.1.1
+     *
      * @param name the name of the CompositeStructure Diagram to create.
      * @param owner the element on which the Class Diagram will be created.
      * @param stereotype the name of the stereotype that will be used to type the Class Diagram
      * @return An ICompositeStructureDiagram representing the diagram in the Model.
+     * @since 2.1.1
      */
     @objid ("fe6e27e8-4859-426d-9c7a-9eec2b17fc07")
     @Override
@@ -1308,6 +1395,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a ConditionalNode. The created ConditionalNode has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IConditionalNode representing the ConditionalNode in the Model.
+     *
      * @return An IConditionalNode representing the ConditionalNode in the Model.
      */
     @objid ("14c8b3a2-dae4-4e5e-ac28-4c2a444f0f7c")
@@ -1319,6 +1407,7 @@ public class UMLModel implements IUmlModel {
     /**
      * Create a ConnectionPointReference. The created ConnectionPointReference has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IConnectionPointReference representing the
      * ConnectionPointReference in the Model.
+     *
      * @return An IConnectionPointReference representing the ConnectionPointReference in the Model.
      */
     @objid ("a6caa19c-b653-4732-8c4f-72bbf82f90e5")
@@ -1341,6 +1430,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a ConnectorEnd. The created ConnectorEnd has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IConnectorEnd representing the ConnectorEnd in the Model.
+     *
      * @return An IConnectorEnd representing the ConnectorEnd in the Model.
      */
     @objid ("0a7a2cf0-c456-466b-b17b-0020fdfd81ab")
@@ -1351,6 +1441,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Constraint. The created Constraint has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IConstraint representing the Constraint in the Model.
+     *
      * @return An IConstraint representing the Constraint in the Model.
      */
     @objid ("3481eeb4-beba-4a33-a134-c9c5f0e6e50a")
@@ -1361,6 +1452,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a ControlFlow. The created ControlFlow has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IControlFlow representing the ControlFlow in the Model.
+     *
      * @return An IControlFlow representing the ControlFlow in the Model.
      */
     @objid ("75c5c894-7e02-4f2f-b87c-f6f78050946b")
@@ -1371,6 +1463,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a DataFlow. The created DataFlow has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IDataFlow representing the DataFlow in the Model.
+     *
      * @return An IDataFlow representing the DataFlow in the Model.
      */
     @objid ("e2a8df71-453d-418a-8885-082884bd02d7")
@@ -1381,6 +1474,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a DataStoreNode. The created DataStoreNode has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IDataStoreNode representing the DataStoreNode in the Model.
+     *
      * @return An IDataStoreNode representing the DataStoreNode in the Model.
      */
     @objid ("060fc6a2-6558-4f9d-9785-95c4adb91944")
@@ -1391,6 +1485,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a DataType. The created DataType has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IDataType representing the Abstraction in the Model.
+     *
      * @return An IDataType representing the DataType in the Model.
      */
     @objid ("8b089d1b-33b8-401c-8770-cc104c6b5ccf")
@@ -1401,6 +1496,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a DataType. The created DataType has a composition owner and a name.
+     *
      * @param name the name of the DataType to create.
      * @param owner the NameSpace that will contain the DataType.
      * @return An IDataType representing the DataType in the Model.
@@ -1413,6 +1509,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a DataType. The created DataType has a composition owner, a name and refers a Stereotype.
+     *
      * @param name the name of the DataType to create.
      * @param owner the NameSpace that will contain the DataType.
      * @param stereotype the stereotype that will extend the DataType.
@@ -1432,11 +1529,11 @@ public class UMLModel implements IUmlModel {
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
-        
     }
 
     /**
      * Create a DecisionMergeNode. The created DecisionMergeNode has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IDecisionMergeNode representing the DecisionMergeNode in the Model.
+     *
      * @return An IDecisionMergeNode representing the DecisionMergeNode in the Model.
      */
     @objid ("3c9283e0-093b-4c5d-8899-50db9e47c37e")
@@ -1448,6 +1545,7 @@ public class UMLModel implements IUmlModel {
     /**
      * Create a DeepHistoryPseudoState. The created DeepHistoryPseudoState has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IDeepHistoryPseudoState representing the
      * DeepHistoryPseudoState in the Model.
+     *
      * @return An IDeepHistoryPseudoState representing the DeepHistoryPseudoState in the Model.
      */
     @objid ("adaf07f8-d591-43d3-8b4e-29fc0cf3a465")
@@ -1458,6 +1556,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Dependency. The created Dependency has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IDependency representing the Abstraction in the Model.
+     *
      * @return An IDependency representing the Dependency in the Model.
      */
     @objid ("ebe05e96-7732-4371-ae95-f0558bd01d81")
@@ -1468,6 +1567,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Dependency between two ModelElements.<br>
+     *
      * @param source the origin of the dependency.
      * @param destination the destination of the dependency.
      * @param stereotype the Stereotype that extends the d?pendency.
@@ -1487,11 +1587,11 @@ public class UMLModel implements IUmlModel {
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
-        
     }
 
     /**
      * Create a DeploymentDiagram. The returned object is an IDeploymentDiagram owned by <code>owner</code> named by <code>name</code> and sterotyped by <code>stereotype</code>
+     *
      * @param name the name of the Deployment Diagram to create.
      * @param owner the element on which the Deployment Diagram will be created.
      * @param stereotype the name of the stereotype that will be used to type the Deployment Diagram
@@ -1504,6 +1604,7 @@ public class UMLModel implements IUmlModel {
     }
 
     /**
+     *
      * @return An UseCase representing the UseCase in the Model.
      */
     @objid ("7edb28d6-6682-4316-8640-ed7b201d19cd")
@@ -1521,6 +1622,7 @@ public class UMLModel implements IUmlModel {
     /**
      * Create a DurationConstraint. The created DurationConstraint has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IDurationConstraint representing the DurationConstraint in the
      * Model.
+     *
      * @return An IDurationConstraint representing the DurationConstraint in the Model.
      */
     @objid ("ba18826c-b1b7-4771-b12d-682b9ac5a801")
@@ -1543,6 +1645,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an ElementImport. The created ElementImport has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an ElementImport representing the Abstraction in the Model.
+     *
      * @return An ElementImport representing the ElementImport in the Model.
      */
     @objid ("74f28a44-7dae-4d0e-9e0c-a382206a11ba")
@@ -1553,6 +1656,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an ElementImport between two NameSpaces.
+     *
      * @param source origin of the ElementImport
      * @param destination destination of the ElementImport
      * @return An ElementImport representing the ElementImport in the Model.
@@ -1565,6 +1669,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an ElementImport between an Operation and a NameSpace.
+     *
      * @param source origin of the ElementImport
      * @param destination destination of the ElementImport
      * @return An ElementImport representing the ElementImport in the Model.
@@ -1577,6 +1682,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an ElementRealization. The created ElementRealization has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an ElementRealization representing the Abstraction in the Model.
+     *
      * @return An ElementRealization representing the ElementRealization in the Model.
      */
     @objid ("de0ea9ff-6c85-4628-bc84-bfca7ef9d5e1")
@@ -1624,6 +1730,7 @@ public class UMLModel implements IUmlModel {
     /**
      * Create a EntryPointPseudoState. The created EntryPointPseudoState has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IEntryPointPseudoState representing the EntryPointPseudoState
      * in the Model.
+     *
      * @return An IEntryPointPseudoState representing the EntryPointPseudoState in the Model.
      */
     @objid ("815e27c8-c6a2-408c-9b3e-b01bd62f218c")
@@ -1640,6 +1747,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an Enumeration. The created Enumeration has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an Enumeration representing the Abstraction in the Model.
+     *
      * @return An Enumeration representing the Enumeration in the Model.
      */
     @objid ("b4af8391-96f6-442d-8863-9db07eff20bd")
@@ -1650,6 +1758,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an Enumeration.
+     *
      * @param name the name of the Enumeration to create.
      * @param owner the NameSpace that will contain the Enumeration
      * @return An Enumeration representing the Enumeration in the Model.
@@ -1662,6 +1771,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an stereotyped Enumeration.
+     *
      * @param name the name of the Enumeration to create.
      * @param owner the NameSpace that will contain the Enumeration.
      * @param stereotype tthe Stereotype that will extend the Enumeration.
@@ -1681,11 +1791,11 @@ public class UMLModel implements IUmlModel {
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
-        
     }
 
     /**
      * Create an EnumerationLiteral. The created EnumerationLiteral has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an EnumerationLiteral representing the Abstraction in the Model.
+     *
      * @return An EnumerationLiteral representing the EnumerationLiteral in the Model.
      */
     @objid ("47c8e071-04c0-4427-957a-73f21eaf0e4a")
@@ -1696,6 +1806,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an EnumerationLiteral.
+     *
      * @param name the name of the EnumerationLiteral to create.
      * @param owner the Enumeration that will contain the EnumerationLiteral
      * @return An Enumeration representing the EnumerationLiteral in the Model.
@@ -1708,6 +1819,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an stereotyped EnumerationLiteral.
+     *
      * @param name the name of the EnumerationLiteral to create.
      * @param owner the Enumeration that will contain the EnumerationLiteral.
      * @param stereotype the Stereotype that will extend the EnumerationLiteral.
@@ -1727,11 +1839,11 @@ public class UMLModel implements IUmlModel {
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
-        
     }
 
     /**
      * Create an Event. The created Event has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IEvent representing the Abstraction in the Model.
+     *
      * @return An IEvent representing the Event in the Model.
      */
     @objid ("177c2201-ad72-4de3-8a2e-7d506341d9b9")
@@ -1749,6 +1861,7 @@ public class UMLModel implements IUmlModel {
     /**
      * Create a ExecutionOccurenceSpecification. The created ExecutionOccurenceSpecification has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IExecutionOccurenceSpecification
      * representing the ExecutionOccurenceSpecification in the Model.
+     *
      * @return An IExecutionOccurenceSpecification representing the ExecutionOccurenceSpecification in the Model.
      */
     @objid ("bebc8fbe-a443-4f9c-b363-eb79ee06cf21")
@@ -1760,6 +1873,7 @@ public class UMLModel implements IUmlModel {
     /**
      * Create a ExecutionSpecification. The created ExecutionOccurenceSpecification has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IExecutionSpecification representing the
      * ExecutionSpecification in the Model.
+     *
      * @return An IExecutionOccurenceSpecification representing the ExecutionOccurenceSpecification in the Model.
      */
     @objid ("cdb362d3-2288-42d6-9212-b2ca014572b8")
@@ -1771,6 +1885,7 @@ public class UMLModel implements IUmlModel {
     /**
      * Create a ExitPointPseudoState. The created ExitPointPseudoState has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IExitPointPseudoState representing the ExitPointPseudoState in
      * the Model.
+     *
      * @return An ObExitpointPseudoState representing the ExitpointPseudoState in the Model.
      */
     @objid ("67ccd03c-9993-44e4-9549-8fd98c6b9763")
@@ -1793,6 +1908,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an extend UseCaseDependency between two UseCases.
+     *
      * @param source the origin of the UseCaseDependency
      * @param destination the destination of the UseCaseDependency
      * @return An UseCaseDependency representing the UseCaseDependency in the Model.
@@ -1805,11 +1921,11 @@ public class UMLModel implements IUmlModel {
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
-        
     }
 
     /**
      * Create a ExtensionPoint. The created ExtensionPoint has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IExtensionPoint representing the ExtensionPoint in the Model.
+     *
      * @return An IExtensionPoint representing the ExtensionPoint in the Model.
      */
     @objid ("1877f964-f0c1-42ea-b6bd-6ed96258c099")
@@ -1862,6 +1978,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a FinalState. The created FinalState has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IFinalState representing the FinalState in the Model.
+     *
      * @return An IFinalState representing the FinalState in the Model.
      */
     @objid ("b05cdb3e-63e7-4a87-a803-5aac6b45dc8e")
@@ -1872,6 +1989,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a FlowFinalNode. The created FlowFinalNode has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IFlowFinalNode representing the FlowFinalNode in the Model.
+     *
      * @return An IFlowFinalNode representing the FlowFinalNode in the Model.
      */
     @objid ("555814bf-40ea-43e1-bd93-0465fa072765")
@@ -1882,6 +2000,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a ForkJoinNode. The created ForkJoinNode has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IForkJoinNode representing the ForkJoinNode in the Model.
+     *
      * @return An IForkJoinNode representing the ForkJoinNode in the Model.
      */
     @objid ("fd1aedfc-2473-4855-b7ae-8976adb69b14")
@@ -1892,6 +2011,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a ForkPseudoState. The created ForkPseudoState has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IForkPseudoState representing the ForkPseudoState in the Model.
+     *
      * @return An IForkPseudoState representing the ForkPseudoState in the Model.
      */
     @objid ("dbdf1b61-c3ff-4ddb-bc5e-138270a2e1e9")
@@ -1902,6 +2022,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Gate. The created Gate has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IGate representing the Gate in the Model.
+     *
      * @return An IGate representing the Gate in the Model.
      */
     @objid ("7b0db3c5-9671-40a2-b1c7-3894da84db23")
@@ -1912,6 +2033,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Gate. The Gate is created with a name. In order to build a valid model, the Gate must be inserted in the model. must be defined.
+     *
      * @param name The name of the gate.
      * @return An IGate representing the Gate in the Model.
      */
@@ -1923,6 +2045,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a GeneralOrdering. The created GeneralOrdering has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IGeneralOrdering representing the GeneralOrdering in the Model.
+     *
      * @return An IGeneralOrdering representing the GeneralOrdering in the Model.
      */
     @objid ("e9a42f75-902d-4163-bd91-0e9a9528f2f6")
@@ -1933,6 +2056,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Generalization. The created Generalization has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IGeneralization representing the Abstraction in the Model.
+     *
      * @return An IGeneralization representing the Generalization in the Model.
      */
     @objid ("6360743e-f41c-4322-84c6-a906a544a234")
@@ -1943,6 +2067,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Generalization between two NameSpaces.
+     *
      * @param source the child element of the Generaliartion
      * @param destination the parent element of the Generaliartion
      * @return An IGeneralization representing the Generalization in the Model.
@@ -1955,6 +2080,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an IOParameter.
+     *
      * @param name the name of the Parameter to create.
      * @param type the type of the Parameter to create.
      * @param owner the Operation that will contain the Parameter.
@@ -1968,6 +2094,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a stereotyped IOParameter.
+     *
      * @param name the name of the Parameter to create.
      * @param type the type of the Parameter to create.
      * @param owner the Operation that will contain the Parameter.
@@ -1988,11 +2115,11 @@ public class UMLModel implements IUmlModel {
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
-        
     }
 
     /**
      * Create an include UseCaseDependency between two NameSpaces.
+     *
      * @param source the origin element of the UseCaseDependency
      * @param destination the destination element of the UseCaseDependency
      * @return An UseCaseDependency representing the UseCaseDependency in the Model.
@@ -2005,11 +2132,11 @@ public class UMLModel implements IUmlModel {
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
-        
     }
 
     /**
      * Create a InformationFlow. The created InformationFlow has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IInformationFlow representing the InformationFlow in the Model.
+     *
      * @return An IInformationFlow representing the InformationFlow in the Model.
      */
     @objid ("bf466df3-d6e2-4805-ad43-409fbc50a140")
@@ -2020,6 +2147,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a InformationItem. The created InformationItem has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IInformationItem representing the InformationItem in the Model.
+     *
      * @return An IInformationItem representing the InformationItem in the Model.
      */
     @objid ("b6d6e69a-3f52-4321-bf46-a53058a1fa5c")
@@ -2030,6 +2158,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a InitialNode. The created InitialNode has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IInitialNode representing the InitialNode in the Model.
+     *
      * @return An IInitialNode representing the InitialNode in the Model.
      */
     @objid ("04145221-6862-4d0f-bcce-f5f300891199")
@@ -2041,6 +2170,7 @@ public class UMLModel implements IUmlModel {
     /**
      * Create a InitialPseudoState. The created InitialPseudoState has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IInitialPseudoState representing the InitialPseudoState in the
      * Model.
+     *
      * @return An IInitialPseudoState representing the InitialPseudoState in the Model.
      */
     @objid ("98c7a2f3-fcb4-4734-bdff-8b242f0a1117")
@@ -2051,6 +2181,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a InputPin. The created InputPin has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IInputPin representing the InputPin in the Model.
+     *
      * @return An IInputPin representing the InputPin in the Model.
      */
     @objid ("bfe94eb0-f475-4cb6-950e-6c88922388d2")
@@ -2061,6 +2192,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an Instance. The created Instance has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an Instance representing the Instance in the Model.
+     *
      * @return An Instance representing the Instance in the Model.
      */
     @objid ("43fdf71a-9e07-4fd6-ae9f-2263c4dbcfc1")
@@ -2071,6 +2203,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an Instance. The Instance is created with the specified name and owner Package.
+     *
      * @param name the name of the Instance to create.
      * @param owner the Package that will conbtain the Port.
      * @return an Instance representing the Instance in the Model.
@@ -2083,6 +2216,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an InstanceNode. The created InstanceNode has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an InstanceNode representing the InstanceNode in the Model.
+     *
      * @return An InstanceNode representing the InstanceNode in the Model.
      */
     @objid ("9bbea1a1-d266-4ea2-95aa-3548189698f3")
@@ -2093,6 +2227,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an Interaction. The created Interaction has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an Interaction representing the Interaction in the Model.
+     *
      * @return An Interaction representing the Interaction in the Model.
      */
     @objid ("f60aa706-2ca2-4341-b9f3-dc2087db8fc5")
@@ -2104,6 +2239,7 @@ public class UMLModel implements IUmlModel {
     /**
      * Create an InteractionOperand. The created InteractionOperand has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an InteractionOperand representing the InteractionOperand in the
      * Model.
+     *
      * @return An InteractionOperand representing the InteractionOperand in the Model.
      */
     @objid ("2453f314-1da3-403e-b260-063507145af0")
@@ -2114,6 +2250,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an InteractionOperand. The created InteractionOperand has a guard condition. In order to build a valid model, the InteractionOperand must be inserted in the model.
+     *
      * @param guard the guard condition of the InteractionOperand to create.
      * @return An InteractionOperand representing the InteractionOperand in the Model.
      */
@@ -2125,6 +2262,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an InteractionUse. The created InteractionUse has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an InteractionUse representing the InteractionUse in the Model.
+     *
      * @return An InteractionUse representing the InteractionUse in the Model.
      */
     @objid ("2affcbf0-82f2-4a39-93e2-52eea9fca02d")
@@ -2135,6 +2273,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an InteractionUse. The created InteractionUse refer an Interaction. In order to build a valid model, the InteractionUse must be inserted in the model.
+     *
      * @param refered the refered Interaction.
      * @return An InteractionUse representing the InteractionUse in the Model.
      */
@@ -2146,6 +2285,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an Interface. The created Interface has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an Interface representing the Abstraction in the Model.
+     *
      * @return An Interface representing the Interface in the Model.
      */
     @objid ("950b1e85-b47e-4076-8c7e-075abe389f4f")
@@ -2156,6 +2296,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an Interface.
+     *
      * @param name the name of the Interface to create.
      * @param owner the NameSpace that will contain the Interface.
      * @return An Interface representing the Interface in the Model.
@@ -2168,6 +2309,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a stereotyped Interface.
+     *
      * @param name the name of the Interface to create.
      * @param owner the NameSpace that will contain the Interface.
      * @param stereotype the stereotype that will extend the Interface.
@@ -2187,12 +2329,12 @@ public class UMLModel implements IUmlModel {
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
-        
     }
 
     /**
      * Create an InterfaceRealization. The created InterfaceRealization has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an InterfaceRealization representing the Abstraction in the
      * Model.
+     *
      * @return An InterfaceRealization representing the InterfaceRealization in the Model.
      */
     @objid ("dc30464c-51cb-4306-b71f-740a92e93a7b")
@@ -2203,6 +2345,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an InterfaceRealization.
+     *
      * @param source the origin of the InterfaceRealization.
      * @param destination the destination of the InterfaceRealization
      * @return An InterfaceRealization representing the InterfaceRealization in the Model.
@@ -2215,6 +2358,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an InternalTransition. The created InternalTransition has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IInternalTransition representing the Abstraction in the Model.
+     *
      * @return An IInternalTransition representing the InternalTransition in the Model.
      */
     @objid ("9cd9b2ad-fc7b-475d-8837-88c000fd315e")
@@ -2226,6 +2370,7 @@ public class UMLModel implements IUmlModel {
     /**
      * Create an InterruptibleActivityRegion. The created InterruptibleActivityRegion has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IInterruptibleActivityRegion representing the
      * InterruptibleActivityRegion in the Model.
+     *
      * @return An IInterruptibleActivityRegion representing the InterruptibleActivityRegion in the Model.
      */
     @objid ("26c811cf-3813-4f66-84e3-f74ab051ca1c")
@@ -2236,6 +2381,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an JoinPseudoState. The created JoinPseudoState has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IJoinPseudoState representing the JoinPseudoState in the Model.
+     *
      * @return An IJoinPseudoState representing the JoinPseudoState in the Model.
      */
     @objid ("7841f99a-d38f-44a8-be9e-43998c3fc834")
@@ -2247,6 +2393,7 @@ public class UMLModel implements IUmlModel {
     /**
      * Create an JunctionPseudoState. The created JunctionPseudoState has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IJunctionPseudoState representing the JunctionPseudoState in the
      * Model.
+     *
      * @return An IJunctionPseudoState representing the JunctionPseudoState in the Model.
      */
     @objid ("0f8ee2bd-f340-499e-a5e3-aa7514c057a0")
@@ -2257,6 +2404,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Lifeline. The created Lifeline has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an ILifeline representing the Lifeline in the Model.
+     *
      * @return An ILifeline representing the Lifeline in the Model.
      */
     @objid ("9013ed66-6868-4d9b-8401-924cfebfedec")
@@ -2267,6 +2415,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Lifeline. The Lifeline is created with a <code>name</code> in the <code>owner</code> Interaction.
+     *
      * @param name the name of the Lifeline to create.
      * @param owner the owner Interaction of the Lifeline to create.
      * @return An ILifeline representing the Lifeline in the Model.
@@ -2279,6 +2428,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Lifeline. The Lifeline is created with a <code>name</code> in the <code>owner</code> Interaction. The <code>represented</code> instance is set on the Lifeline.
+     *
      * @param name the name of the Lifeline to create.
      * @param owner the owner Interaction of the Lifeline to create.
      * @param represented the Instance that will be represented by the Lifeline.
@@ -2304,6 +2454,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a LinkEnd. The created LinkEnd has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an ILinkEnd representing the Abstraction in the Model.
+     *
      * @return An ILinkEnd representing the LinkEnd in the Model.
      */
     @objid ("c1c866c1-ea73-463a-86d6-f9b39f70eafa")
@@ -2320,6 +2471,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a LoopNode. The created LoopNode has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an ILoopNode representing the LoopNode in the Model.
+     *
      * @return An ILoopNode representing the LoopNode in the Model.
      */
     @objid ("3e761365-697a-4317-83e0-840b7ee452f8")
@@ -2330,6 +2482,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Manifestation. The created Manifestation has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IManifestation representing the Manifestation in the Model.
+     *
      * @return An IManifestation representing the Manifestation in the Model.
      */
     @objid ("1e67fcf4-78e0-424c-b3b3-b57aa9c17850")
@@ -2349,7 +2502,7 @@ public class UMLModel implements IUmlModel {
     public MatrixDefinition createMatrixDefinition(final String name, final QueryDefinition lineQuery, final QueryDefinition colQuery, final QueryDefinition depthQuery, final MatrixValueDefinition valueDefinition) {
         MatrixDefinition matrixDef = createMatrixDefinition();
         matrixDef.setName(name);
-        
+
         matrixDef.setLinesDefinition(lineQuery);
         matrixDef.setColumnsDefinition(colQuery);
         matrixDef.setDepthDefinition(depthQuery);
@@ -2367,7 +2520,7 @@ public class UMLModel implements IUmlModel {
     @Override
     public MatrixValueDefinition createMatrixValueDefinition(final String implementationClassName, final String moduleName) {
         MatrixValueDefinition valueDef = createMatrixValueDefinition();
-        
+
         ExternProcessor queryProcessor = createExternProcessor(moduleName, implementationClassName);
         valueDef.setProcessor(queryProcessor);
         return valueDef;
@@ -2375,6 +2528,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Message. The created Message has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IMessage representing the Message in the Model.
+     *
      * @return An IMessage representing the Message in the Model.
      */
     @objid ("7dbd3591-10f9-4ac4-8b38-a03d9c876697")
@@ -2385,6 +2539,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Message. The Message is created with a type. In order to build a valid model, the Message must be inserted in the model.
+     *
      * @param sort the type of message to create.
      * @return An IMessage representing the Message in the Model.
      */
@@ -2396,6 +2551,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Message. The Message is created with a type and invoke an operation. In order to build a valid model, the Message must be inserted in the model.
+     *
      * @param sort the type of message to create.
      * @param invoked the operation that is invoked by the Message to create.
      * @return An IMessage representing the Message in the Model.
@@ -2408,6 +2564,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Message. The Message is created with a <code>name</code> and a type. In order to build a valid model, the Message must be inserted in the model.
+     *
      * @param name the name of the message to create.
      * @param sort the type of message to create.
      * @return An IMessage representing the Message in the Model.
@@ -2420,6 +2577,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a MessageFlow. The created MessageFlow has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IMessageFlow representing the MessageFlow in the Model.
+     *
      * @return An IMessageFlow representing the MessageFlow in the Model.
      */
     @objid ("19dcfa23-176d-45e8-8c8f-932cf6874a9c")
@@ -2484,6 +2642,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Node. The created Node has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an INode representing the Abstraction in the Model.
+     *
      * @return An INode representing the Node in the Model.
      */
     @objid ("54232fee-c447-413c-985a-1889413bdb39")
@@ -2494,6 +2653,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Note. The created Note has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an INote representing the Abstraction in the Model.
+     *
      * @return An INote representing the Note in the Model.
      */
     @objid ("645ba0f8-1b4d-4410-a3ca-cd9721a81a07")
@@ -2504,6 +2664,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Note.
+     *
      * @param noteType the type of the Note.
      * @param owner the composition owner of the Note.
      * @param content the text of the Note.
@@ -2517,7 +2678,6 @@ public class UMLModel implements IUmlModel {
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
-        
     }
 
     @objid ("24214696-421f-4613-ae3b-7c12aafc9995")
@@ -2528,6 +2688,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a ObjectDiagram. The returned object is an IObjectDiagram owned by <code>owner</code> named by <code>name</code> and sterotyped by <code>stereotype</code>
+     *
      * @param name the name of the Object Diagram to create.
      * @param owner the element on which the Object Diagram will be created.
      * @param stereotype the name of the stereotype that will be used to type the Object Diagram
@@ -2541,6 +2702,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a ObjectFlow. The created ObjectFlow has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IObjectFlow representing the ObjectFlow in the Model.
+     *
      * @return An IObjectFlow representing the ObjectFlow in the Model.
      */
     @objid ("61f69a24-a09e-4e91-a39d-b2697e5c4a4a")
@@ -2551,6 +2713,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a OpaqueAction. The created OpaqueAction has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IOpaqueAction representing the OpaqueAction in the Model.
+     *
      * @return An IOpaqueAction representing the OpaqueAction in the Model.
      */
     @objid ("765801c8-2bd6-4437-b181-1c5d57e3cba9")
@@ -2561,6 +2724,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a OpaqueBehavior. The created OpaqueBehavior has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IOpaqueBehavior representing the OpaqueBehavior in the Model.
+     *
      * @return An IOpaqueBehavior representing the OpaqueBehavior in the Model.
      */
     @objid ("fb44a558-46b1-49a9-bdef-702d8b31facb")
@@ -2571,6 +2735,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an Operation. The created Operation has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an Operation representing the Abstraction in the Model.
+     *
      * @return An Operation representing the Operation in the Model.
      */
     @objid ("1f955855-48a5-4241-85f8-7a51c61d70d7")
@@ -2581,6 +2746,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an Operation.
+     *
      * @param name the name of the Operation to create.
      * @param owner the Classifier that will contain the Operation.
      * @return An Operation representing the Operation in the Model.
@@ -2593,6 +2759,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a stereotyped Operation.
+     *
      * @param name the name of the Operation to create.
      * @param owner the Classifier that will contain the Operation.
      * @param stereotype the Stereotype that will extend the Operation.
@@ -2612,11 +2779,11 @@ public class UMLModel implements IUmlModel {
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
-        
     }
 
     /**
      * Create a OutputPin. The created OutputPin has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IOutputPin representing the OutputPin in the Model.
+     *
      * @return An IOutputPin representing the OutputPin in the Model.
      */
     @objid ("d9920f99-74c5-48f7-a320-a81a2e5fb850")
@@ -2627,6 +2794,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Package. The created Package has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an Package representing the Abstraction in the Model.
+     *
      * @return An Package representing the Package in the Model.
      */
     @objid ("ac540fc4-f1d0-4f00-b6a5-3395b015cc1a")
@@ -2637,6 +2805,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Package.
+     *
      * @param name the name of the Package to create.
      * @param owner the NameSpace that will contain the Package.
      * @return An Package representing the Package in the Model.
@@ -2649,6 +2818,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a stereotyped Package.
+     *
      * @param name the name of the Package to create.
      * @param owner the NameSpace that will contain the Package.
      * @param stereotype the Stereotype will extend the Package.
@@ -2668,11 +2838,11 @@ public class UMLModel implements IUmlModel {
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
-        
     }
 
     /**
      * Create a PackageImport. The created PackageImport has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an PackageImport representing the Abstraction in the Model.
+     *
      * @return An PackageImport representing the PackageImport in the Model.
      */
     @objid ("b81ed849-1db5-4303-a779-f92822d6d073")
@@ -2683,6 +2853,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a PackageImport between a NameSpace and a Package.
+     *
      * @param source origin of the ElementImport
      * @param destination destination of the ElementImport
      * @return An ElementImport representing the ElementImport in the Model.
@@ -2695,6 +2866,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a PackageImport between an Operation and a Package.
+     *
      * @param source origin of the ElementImport
      * @param destination destination of the ElementImport
      * @return An ElementImport representing the ElementImport in the Model.
@@ -2707,6 +2879,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a PackageMerge. The created PackageMerge has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an PackageMerge representing the Abstraction in the Model.
+     *
      * @return An PackageMerge representing the PackageMerge in the Model.
      */
     @objid ("80179be7-f1c8-4955-ad64-611b43b6191d")
@@ -2717,6 +2890,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Parameter. The created Parameter has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IParameter representing the Abstraction in the Model.
+     *
      * @return An IParameter representing the Parameter in the Model.
      */
     @objid ("c4e4c998-e49b-476a-acb4-80f32bc0b9b0")
@@ -2727,6 +2901,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a PartDecomposition. The created PartDecomposition has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IPartDecomposition representing the PartDecomposition in the Model.
+     *
      * @return An IPartDecomposition representing the PartDecomposition in the Model.
      */
     @objid ("52d072b8-0d41-4647-8b0b-18120a0e8943")
@@ -2737,6 +2912,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an PartDecomposition. The created PartDecomposition refer an Interaction. In order to build a valid model, the PartDecomposition must be inserted in the model.
+     *
      * @param refered the refered Interaction.
      * @return An IPartDecomposition representing the PartDecomposition in the Model.
      */
@@ -2748,6 +2924,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Port. The created Port has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an Port representing the Abstraction in the Model.
+     *
      * @return An Port representing the Port in the Model.
      */
     @objid ("dae2500c-1ff9-464a-89bc-f7ed271fc36a")
@@ -2758,6 +2935,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Port. The Port is created with the specified name and owner Instance.
+     *
      * @param name The name of the Port to create.
      * @param owner The Instance that will contain the Port.
      * @return An Port representing the Port in the Model.
@@ -2770,6 +2948,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Port. The port is Created with the specified name and owner Classifier.
+     *
      * @param name The name of the Port to create.
      * @param owner The Classifier that will contain the Port.
      * @return An Port representing the Port in the Model.
@@ -2812,6 +2991,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a ProvidedInterface. The created ProvidedInterface has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IProvidedInterface representing the Abstraction in the Model.
+     *
      * @return An IProvidedInterface representing the ProvidedInterface in the Model.
      */
     @objid ("5f2e34e7-e6bd-419e-aa77-7802e89cbe30")
@@ -2822,6 +3002,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a ProvidedInterface.
+     *
      * @param owner the Port that contains the ProvidedInterface.
      * @param interfaces the provided Interfaces
      * @return An IProvidedInterface representing the ProvidedInterface in the Model.
@@ -2842,7 +3023,7 @@ public class UMLModel implements IUmlModel {
     @Override
     public QueryDefinition createQueryDefinition(final String implementationClassName, final String moduleName) {
         QueryDefinition query = createQueryDefinition();
-        
+
         ExternProcessor queryProcessor = createExternProcessor(moduleName, implementationClassName);
         query.setProcessor(queryProcessor);
         return query;
@@ -2850,6 +3031,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a RaisedException. The created RaisedException has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IRaisedException representing the Abstraction in the Model.
+     *
      * @return An IRaisedException representing the RaisedException in the Model.
      */
     @objid ("dc67187c-c219-407e-8eac-c7e51cd45f4d")
@@ -2860,6 +3042,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Region. The created Region has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IRegion representing the Abstraction in the Model.
+     *
      * @return An IRequiredInterface representing the RequiredInterface in the Model.
      */
     @objid ("d3f09d72-2dfa-4eaf-9b43-a7f04cf9561a")
@@ -2870,6 +3053,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a RequiredInterface. The created RequiredInterface has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IRequiredInterface representing the Abstraction in the Model.
+     *
      * @return An IRequiredInterface representing the RequiredInterface in the Model.
      */
     @objid ("2cbd7ba6-0a75-4bbe-9fb6-af7a55bff30a")
@@ -2880,6 +3064,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a RequiredInterface.
+     *
      * @param owner the Port that contains the RequiredInterface.
      * @param interfaces the required Interfaces
      * @return An IRequiredInterface representing the RequiredInterface in the Model.
@@ -2892,6 +3077,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create an ReturnParameter.
+     *
      * @param name the name of the Parameter to create.
      * @param type the type of the Parameter to create.
      * @param owner the Operation that will contain the Parameter.
@@ -2905,6 +3091,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a stereotyped ReturnParameter.
+     *
      * @param name the name of the Parameter to create.
      * @param type the type of the Parameter to create.
      * @param owner the Operation that will contain the Parameter.
@@ -2925,11 +3112,11 @@ public class UMLModel implements IUmlModel {
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
-        
     }
 
     /**
      * Create a SendSignalAction. The created SendSignalAction has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an ISendSignalAction representing the SendSignalAction in the Model.
+     *
      * @return An ISendSignalAction representing the SendSignalAction in the Model.
      */
     @objid ("84dd4915-8d20-45d6-a05c-0c9dc7cee008")
@@ -2940,6 +3127,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a SequenceDiagram. The created SequenceDiagram has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an ISequenceDiagram representing the SequenceDiagram in the Model.
+     *
      * @return An ISequenceDiagram representing the SequenceDiagram in the Model.
      */
     @objid ("bfcc9a46-64d3-4dfb-ac9f-e0b6bc2e0984")
@@ -2951,6 +3139,7 @@ public class UMLModel implements IUmlModel {
     /**
      * Create a ShallowHistoryPseudoState. The created ShallowHistoryPseudoState has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IShallowHistoryPseudoState representing the
      * ShallowHistoryPseudoState in the Model.
+     *
      * @return An IShallowHistoryPseudoState representing the ShallowHistoryPseudoState in the Model.
      */
     @objid ("d0e2d73e-1ade-4b13-a428-17323adb93e1")
@@ -2961,6 +3150,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Signal. The created Signal has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an ISignal representing the Abstraction in the Model.
+     *
      * @return An ISignal representing the Signal in the Model.
      */
     @objid ("6042d49a-4a28-4e4f-94d2-898111589c4e")
@@ -2971,6 +3161,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a State. The created State has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IState representing the Abstraction in the Model.
+     *
      * @return An IState representing the State in the Model.
      */
     @objid ("1a8cd5b2-98f9-49de-b53e-3771c6ea0661")
@@ -2981,6 +3172,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a StateInvariant. The created StateInvariant has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IStateInvariant representing the StateInvariant in the Model.
+     *
      * @return An IStateInvariant representing the StateInvariant in the Model.
      */
     @objid ("96dd168f-d338-4eab-96b9-188a32bbcd6b")
@@ -2991,6 +3183,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a StateInvariant. Create a StateInvariant with a body. In order to build a valid model, the StateInvariant must be inserted in the model.
+     *
      * @param body the body of the StateInvariant to create.
      * @return An IStateInvariant representing the StateInvariant in the Model.
      */
@@ -3002,6 +3195,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a StateMachine. The created StateMachine has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IStateMachine representing the Abstraction in the Model.
+     *
      * @return An IStateMachine representing the StateMachine in the Model.
      */
     @objid ("4fc78b10-425d-4e38-baba-5c325873a412")
@@ -3012,6 +3206,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a StateMachineDiagram. The returned object is an IStateMachineDiagram owned by <code>owner</code> named by <code>name</code> and sterotyped by <code>stereotype</code>
+     *
      * @param name the name of the StateMachine Diagram to create.
      * @param owner the element on which the StateMachine Diagram will be created.
      * @param stereotype the name of the stereotype that will be used to type the StateMachine Diagram
@@ -3025,6 +3220,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a StaticDiagram. The returned object is an IStaticDiagram owned by <code>owner</code> named by <code>name</code> and sterotyped by <code>stereotype</code>
+     *
      * @param name the name of the Static Diagram to create.
      * @param owner the element on which the Static Diagram will be created.
      * @param stereotype the name of the stereotype that will be used to type the Static Diagram
@@ -3044,12 +3240,12 @@ public class UMLModel implements IUmlModel {
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
-        
     }
 
     /**
      * Create a StructuredActivityNode. The created StructuredActivityNode has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IStructuredActivityNode representing the
      * StructuredActivityNode in the Model.
+     *
      * @return An IStructuredActivityNode representing the StructuredActivityNode in the Model.
      */
     @objid ("e3e40be7-5c99-4b7d-bdfb-745f2dfa9d67")
@@ -3060,6 +3256,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Substitution. The created Substitution has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an ISubstitution representing the Abstraction in the Model.
+     *
      * @return An ISubstitution representing the Substitution in the Model.
      */
     @objid ("de134fc3-37af-4933-a665-3516b7d1bd88")
@@ -3070,6 +3267,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a TagParameter. The created TagParameter has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an TagParameter representing the Abstraction in the Model.
+     *
      * @return An TagParameter representing the TagParameter in the Model.
      */
     @objid ("7d47e6bd-5be8-40a5-88c7-3f095a55240c")
@@ -3080,6 +3278,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a TagParameter using a parameter as initial value.
+     *
      * @param value the value of the tag parameter.
      * @param owner the owner tagged value of the tag parameter.
      * @return An TagParameter representing the TagParameter in the Model.
@@ -3092,6 +3291,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a TaggedValue. The created TaggedValue has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an TaggedValue representing the Abstraction in the Model.
+     *
      * @return An TaggedValue representing the TaggedValue in the Model.
      */
     @objid ("f0b810fb-3997-40f7-924f-8c397fe5b26a")
@@ -3108,6 +3308,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a TaggedValue.
+     *
      * @param tagType the type of the TaggedValue.
      * @param owner the ModelElement that contains the Taggedvalue.
      * @return An TaggedValue representing the TaggedValue in the Model.
@@ -3120,11 +3321,11 @@ public class UMLModel implements IUmlModel {
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
-        
     }
 
     /**
      * Create a TemplateBinding. The created TemplateBinding has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an ITemplateBinding representing the Abstraction in the Model.
+     *
      * @return An ITemplateBinding representing the TemplateBinding in the Model.
      */
     @objid ("ff7fddc8-e92f-4b28-ba02-4d9d4e62875d")
@@ -3135,6 +3336,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a TemplateParameter. The created TemplateParameter has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an ITemplateParameter representing the Abstraction in the Model.
+     *
      * @return An ITemplateParameter representing the TemplateParameter in the Model.
      */
     @objid ("76e07202-3310-431a-a684-f28af7793106")
@@ -3146,6 +3348,7 @@ public class UMLModel implements IUmlModel {
     /**
      * Create a TemplateParameterSubstitution. The created TemplateParameterSubstitution has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an ITemplateParameterSubstitution representing
      * the Abstraction in the Model.
+     *
      * @return An ITemplateParameterSubstitution representing the TemplateParameterSubstitution in the Model.
      */
     @objid ("9fea54cb-70ea-4fd5-99bf-6d7b79131860")
@@ -3157,6 +3360,7 @@ public class UMLModel implements IUmlModel {
     /**
      * Create a TerminatePseudoState. The created TerminatePseudoState has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an ITerminatePseudoState representing the TerminatePseudoState in
      * the Model.
+     *
      * @return An ITerminatePseudoState representing the TerminatePseudoState in the Model.
      */
     @objid ("11f059ff-de55-4aa1-9b1b-c3769d590916")
@@ -3167,6 +3371,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Transition. The created Transition has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an ITransition representing the Abstraction in the Model.
+     *
      * @return An ITransition representing the Transition in the Model.
      */
     @objid ("8a6bff65-6cbd-4ff5-9427-9bb578111df0")
@@ -3183,6 +3388,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Usage. The created Usage has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IUsage representing the Abstraction in the Model.
+     *
      * @return An IUsage representing the Usage in the Model.
      */
     @objid ("8b227e3d-736b-414f-8326-f5463afd46e5")
@@ -3193,6 +3399,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a Usage between two ModelElement.
+     *
      * @param source the origin of the Usage.
      * @param destination the destination of the Usage.
      * @return An IUsage representing the Usage in the Model.
@@ -3205,6 +3412,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a UseCase. The created UseCase has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an UseCase representing the Abstraction in the Model.
+     *
      * @return An UseCase representing the UseCase in the Model.
      */
     @objid ("c2405f87-b982-4a4a-8e7f-4fc710cde6ae")
@@ -3215,6 +3423,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a UseCase.
+     *
      * @param name the name of the UseCase to create.
      * @param owner the NameSpace that will contain the Usecase.
      * @return An UseCase representing the UseCase in the Model.
@@ -3227,6 +3436,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a stereotyped UseCase.
+     *
      * @param name the name of the UseCase to create.
      * @param owner the NameSpace that will contain the Usecase.
      * @param stereotype the Stereotype that will extend the UseCase.
@@ -3246,11 +3456,11 @@ public class UMLModel implements IUmlModel {
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
-        
     }
 
     /**
      * Create a UseCaseDependency. The created UseCaseDependency has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an UseCaseDependency representing the Abstraction in the Model.
+     *
      * @return An UseCaseDependency representing the UseCaseDependency in the Model.
      */
     @objid ("d4747b19-4159-4fae-aa73-9f8dd2c1dac3")
@@ -3261,6 +3471,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a UseCaseDiagram. The returned object is an UseCaseDiagram owned by <code>owner</code> named by <code>name</code> and sterotyped by <code>stereotype</code>
+     *
      * @param name the name of the UseCase Diagram to create.
      * @param owner the element on which the UseCase Diagram will be created.
      * @param stereotype the name of the stereotype that will be used to type the UseCase Diagram
@@ -3286,6 +3497,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Get all the roots of the libraries. They are mostly instances of {@link AbstractProject}.
+     *
      * @return The library root elements.
      */
     @objid ("a417bb8d-fe24-47cc-95c6-f748f9733031")
@@ -3308,6 +3520,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Get all the roots of the editable model. They are mostly instances of {@link AbstractProject}.
+     *
      * @return The model root elements.
      */
     @objid ("d88baddf-eb4a-4b32-847d-08cdccd9696a")
@@ -3317,6 +3530,7 @@ public class UMLModel implements IUmlModel {
         for (IGModelFragment fragment : this.openedProject.getParts(IGModelFragment.class)) {
             switch (fragment.getType()) {
             case EXMLFRAGMENT:
+            case CONFERENCEFRAGMENT:
             case SVNFRAGMENT:
                 ret.addAll(fragment.getRoots());
                 break;
@@ -3335,13 +3549,13 @@ public class UMLModel implements IUmlModel {
         while (contextElement.getCompositionOwner() != null) {
             contextElement = contextElement.getCompositionOwner();
         }
-        
+
         for (MObject root : getModelRoots()) {
             if (root.equals(contextElement)) {
                 return root;
             }
         }
-        
+
         for (MObject root : getLibraryRoots()) {
             if (root.equals(contextElement)) {
                 return root;
@@ -3352,6 +3566,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Get access to the UML types
+     *
      * @return an object that allow access to UML types
      */
     @objid ("e200e79c-00f1-42c1-8251-9a4b19ed1dba")
@@ -3364,6 +3579,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a ExternElement. The created ExternElement has no composition owner. In order to build a valid model, a composition owner must be defined. The returned object is an IExternElement representing the Abstraction in the Model.
+     *
      * @return An IExternElement representing the ExternElement in the Model.
      */
     @objid ("0fc41bd1-c26b-481f-8436-79e6c7af8087")
@@ -3374,6 +3590,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a stereotyped externElement.
+     *
      * @param name the name of the ExternElement to create.
      * @param owner the MethodologicalLink that will contain the ExternElement.
      * @param stereotype the Stereotype to refer on the externElement.
@@ -3393,6 +3610,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a MethodologicalLink.
+     *
      * @return An IMethodologicalLink representing the MethodologicalLink in the Model.
      */
     @objid ("cfcc4ef9-6ccb-431b-aead-22c8c0c5a10f")
@@ -3403,6 +3621,7 @@ public class UMLModel implements IUmlModel {
 
     /**
      * Create a stereotyped MethodologicalLink between two ModelElements.<br>
+     *
      * @param source the origin of the methodologicalLink.
      * @param destination the destination of the methodologicalLink.
      * @param stereotype the Stereotype that extends the methodologicalLink.

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.constraint;
 
@@ -43,7 +43,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * EditPart for the GmConstraintBody.
- * 
+ *
  * @author fpoyer
  */
 @objid ("81165088-1dec-11e2-8cad-001ec947c8cc")
@@ -60,7 +60,7 @@ public class ConstraintBodyEditPart extends AbstractNodeEditPart {
         }
         // In any case apply the super routine.
         super.propertyChange(evt);
-        
+
     }
 
     @objid ("8116508f-1dec-11e2-8cad-001ec947c8cc")
@@ -70,7 +70,7 @@ public class ConstraintBodyEditPart extends AbstractNodeEditPart {
                 new MRef(sourceModel.getRelatedElement()),
                 constrainedElement,
                 new MRef(constrainedElement));
-        
+
         sourceModel.addStartingLink(link);
         CreateBendedConnectionRequest request = new CreateBendedConnectionRequest();
         request.setType(RequestConstants.REQ_CONNECTION_END);
@@ -81,7 +81,7 @@ public class ConstraintBodyEditPart extends AbstractNodeEditPart {
         DefaultCreateLinkCommand startCommand = new DefaultCreateLinkCommand(context);
         startCommand.setSource(sourceModel);
         request.setStartCommand(startCommand);
-        
+
         // Search on the edit part composition
         Collection<GmModel> constrainedElementModels = sourceModel.getDiagram().getAllGMRelatedTo(new MRef(constrainedElement));
         for (GmModel constrainedElementModel : constrainedElementModels) {
@@ -101,7 +101,7 @@ public class ConstraintBodyEditPart extends AbstractNodeEditPart {
                 }
             }
         }
-        
+
         // No target found, look for parent edit parts...
         for (GmModel constrainedElementModel : constrainedElementModels) {
             // For each gm, search the corresponding edit part
@@ -119,7 +119,7 @@ public class ConstraintBodyEditPart extends AbstractNodeEditPart {
                 }
             }
         }
-        
+
     }
 
     @objid ("81165093-1dec-11e2-8cad-001ec947c8cc")
@@ -128,9 +128,9 @@ public class ConstraintBodyEditPart extends AbstractNodeEditPart {
         GradientFigure fig = new GradientFigure();
         fig.setOpaque(false);
         fig.setLayoutManager(new BorderLayout());
-        
+
         MinimumSizeLayout.apply(fig, 100, 15);
-        
+
         refreshFromStyle(fig, getModelStyle());
         return fig;
     }
@@ -140,7 +140,7 @@ public class ConstraintBodyEditPart extends AbstractNodeEditPart {
     protected void addChildVisual(final EditPart childEditPart, final int index) {
         IFigure child = ((GraphicalEditPart) childEditPart).getFigure();
         getContentPane().add(child, BorderLayout.CENTER, index);
-        
+
     }
 
     @objid ("811650a3-1dec-11e2-8cad-001ec947c8cc")
@@ -148,7 +148,7 @@ public class ConstraintBodyEditPart extends AbstractNodeEditPart {
     protected void refreshVisuals() {
         final GmAbstractObject model = getModel();
         getFigure().getParent().setConstraint(getFigure(), model.getLayoutData());
-        
+
     }
 
 }

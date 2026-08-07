@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.umlcommon.diagramheader;
 
@@ -42,21 +42,22 @@ public class GmDiagramHeader extends GmDefaultModelElementLabel {
 
     /**
      * Create an header label
+     *
      * @param diagram the diagram.
      * @param relatedRef reference to the diagram.
      */
     @objid ("812e2810-1dec-11e2-8cad-001ec947c8cc")
-    public  GmDiagramHeader(final IGmDiagram diagram, final MRef relatedRef) {
+    public GmDiagramHeader(final IGmDiagram diagram, final MRef relatedRef) {
         super(diagram, relatedRef);
         setShowMetaclassIcon(true);
-        
+
     }
 
     /**
      * For deserialization.
      */
     @objid ("812e2817-1dec-11e2-8cad-001ec947c8cc")
-    public  GmDiagramHeader() {
+    public GmDiagramHeader() {
         super();
     }
 
@@ -77,17 +78,17 @@ public class GmDiagramHeader extends GmDefaultModelElementLabel {
                 break;
             }
         }
-        
+
     }
 
     @objid ("812e281e-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmDiagramHeader.", MINOR_VERSION);
-        
+
     }
 
     @objid ("812e2822-1dec-11e2-8cad-001ec947c8cc")

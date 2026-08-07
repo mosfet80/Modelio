@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel.mapi.modelshield.spi;
 
@@ -35,7 +35,7 @@ import org.modelio.vcore.smkernel.mapi.modelshield.api.TriggerType;
 /**
  * Checker for link metaclasses that checks source and targets are valid from the
  * metamodel expert.
- * 
+ *
  * @author cmarin
  * @since 3.6
  */
@@ -55,28 +55,28 @@ public class LinkExpertChecker implements IChecker {
     public void check(MObject object, final IErrorReport report) {
         MObject src = this.mExpert.getSource(object);
         MObject target = this.mExpert.getTarget(object);
-        
+
         boolean ok = this.mExpert.canLink(object.getMClass(), src, target);
         if (! ok) {
             IModelError anEntry = new ModelError(this.ruleId, object, Arrays.<Object>asList(src, target));
             report.addEntry(anEntry);
         }
-        
+
     }
 
     @objid ("2f6715ff-3f2f-4752-bf56-cb25f279f35f")
     @Override
     public void register(final IModelShieldRegistry plan, MMetamodel smMetamodel) {
         MClass cls = smMetamodel.getMClass(this.linkClass);
-        
+
         if (cls == null)
             throw new IllegalArgumentException(this.linkClass.toString());
         if (! cls.isLinkMetaclass())
             throw new IllegalArgumentException(this.linkClass.toString()+" is not a link metaclass");
-        
-        
+
+
         this.mExpert = smMetamodel.getMExpert();
-        
+
         plan.registerChecker(this, cls, TriggerType.Create, null);
         for (MDependency dep : cls.getLinkMetaclassSources()) {
             plan.registerChecker(this, cls, TriggerType.Update, dep.getName());
@@ -84,18 +84,19 @@ public class LinkExpertChecker implements IChecker {
         for (MDependency dep : cls.getLinkMetaclassTargets()) {
             plan.registerChecker(this, cls, TriggerType.Update, dep.getName());
         }
-        
+
     }
 
     /**
+     *
      * @param ruleId the rule id
      * @param linkClass the java interface of the link metaclass.
      */
     @objid ("ad7cb240-f9bd-4c4d-bc5e-140bd8dab595")
-    public  LinkExpertChecker(String ruleId, Class<? extends MObject> linkClass) {
+    public LinkExpertChecker(String ruleId, Class<? extends MObject> linkClass) {
         this.ruleId = ruleId;
         this.linkClass = linkClass;
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.drawings.ellipse;
 
@@ -38,17 +38,18 @@ public class GmEllipseDrawing extends GmNodeDrawing {
      * Deserialization only constructor.
      */
     @objid ("daa32cba-d7ee-47a2-9363-cae0b1b91fd7")
-    public  GmEllipseDrawing() {
+    public GmEllipseDrawing() {
         super();
     }
 
     /**
      * Default constructor.
+     *
      * @param diagram the owner diagram.
      * @param identifier drawing identifier, must be unique in the diagram.
      */
     @objid ("dc897a04-918f-4306-8409-0ac5cddf5bd1")
-    public  GmEllipseDrawing(IGmDiagram diagram, String identifier) {
+    public GmEllipseDrawing(IGmDiagram diagram, String identifier) {
         super(diagram, identifier);
     }
 

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnmessage;
 
@@ -69,8 +69,8 @@ public class GmBpmnMessage extends GmPortContainer {
      * Constructor to use only for deserialization.
      */
     @objid ("615c207c-55b6-11e2-877f-002564c97630")
-    public  GmBpmnMessage() {
-        
+    public GmBpmnMessage() {
+
     }
 
     @objid ("615c207f-55b6-11e2-877f-002564c97630")
@@ -100,7 +100,7 @@ public class GmBpmnMessage extends GmPortContainer {
         default:
             return null;
         }
-        
+
     }
 
     @objid ("615c2097-55b6-11e2-877f-002564c97630")
@@ -118,29 +118,30 @@ public class GmBpmnMessage extends GmPortContainer {
         default:
             return Collections.emptyList();
         }
-        
+
     }
 
     /**
      * Creates a GmBpmnMessage.
+     *
      * @param diagram The diagram owning the node
      * @param message The represented note element
      * @param ref The represented note reference
      */
     @objid ("615c209f-55b6-11e2-877f-002564c97630")
-    public  GmBpmnMessage(final IGmDiagram diagram, final BpmnMessage message, final MRef ref) {
+    public GmBpmnMessage(final IGmDiagram diagram, final BpmnMessage message, final MRef ref) {
         super(diagram, ref);
-        
+
         GmBpmnMessagePrimaryNode mainNode = new GmBpmnMessagePrimaryNode(diagram, ref);
         mainNode.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
         this.addChild(mainNode);
-        
+
         this.message = message;
         GmBpmnMessageLabel label = new GmBpmnMessageLabel(diagram, ref);
         label.setRoleInComposition(GmPortContainer.SATELLITE_ROLE);
         label.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
         this.addChild(label);
-        
+
     }
 
     @objid ("615da704-55b6-11e2-877f-002564c97630")
@@ -164,7 +165,7 @@ public class GmBpmnMessage extends GmPortContainer {
             break;
         }
         }
-        
+
     }
 
     @objid ("615da70a-55b6-11e2-877f-002564c97630")
@@ -185,7 +186,7 @@ public class GmBpmnMessage extends GmPortContainer {
         if (this.message != null) {
             firePropertyChange(IGmObject.PROPERTY_LABEL, null, this.message.getName());
         }
-        
+
     }
 
     @objid ("615da728-55b6-11e2-877f-002564c97630")
@@ -198,17 +199,17 @@ public class GmBpmnMessage extends GmPortContainer {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmBpmnMessage.", GmBpmnMessage.MINOR_VERSION);
-        
+
     }
 
     @objid ("615f2da5-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.message = (BpmnMessage) resolveRef(this.getRepresentedRef());
-        
+
         for (StyleKey oldStyleKey : getPersistedStyle().getLocalKeys().toArray(new StyleKey[0])) {
             String newId = oldStyleKey.getId().replace("DATA_", "BPMNMESSAGE_");
             StyleKey newStyleKey = StyleKey.getInstance(newId);
@@ -218,7 +219,7 @@ public class GmBpmnMessage extends GmPortContainer {
             }
             getPersistedStyle().removeProperty(oldStyleKey);
         }
-        
+
     }
 
     @objid ("615f2daa-55b6-11e2-877f-002564c97630")
@@ -229,6 +230,7 @@ public class GmBpmnMessage extends GmPortContainer {
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */
@@ -240,6 +242,7 @@ public class GmBpmnMessage extends GmPortContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */
@@ -260,7 +263,7 @@ public class GmBpmnMessage extends GmPortContainer {
     private void read_1(IDiagramReader in) {
         super.read(in);
         this.message = (BpmnMessage) resolveRef(this.getRepresentedRef());
-        
+
     }
 
 }

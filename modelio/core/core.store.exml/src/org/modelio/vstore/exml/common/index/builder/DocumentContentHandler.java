@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.exml.common.index.builder;
 
@@ -88,29 +88,29 @@ class DocumentContentHandler extends DefaultHandler {
     private final Deque<Data> dataStack = new ArrayDeque<>();
 
     @objid ("fd21f716-5986-11e1-991a-001ec947ccaf")
-    public  DocumentContentHandler(SmMetamodel metamodel, ICmsNodeIndex parentIndex, IUserNodeIndex userIndex) {
+    public DocumentContentHandler(SmMetamodel metamodel, ICmsNodeIndex parentIndex, IUserNodeIndex userIndex) {
         this.cmsNodeIndex = parentIndex;
         this.userNodeIndex = userIndex;
-        
+
         this.extIdState = new EXTIDState();
         this.objectState = new OBJECTState();
         this.refObjState = new REFOBJState();
         this.linkState = new LINKState();
-        
+
         this.documentState = new DocumentState();
-        
+
         this.documentState.setStateHandler(this);
         this.extIdState.setStateHandler(this);
         this.objectState.setStateHandler(this);
         this.refObjState.setStateHandler(this);
         this.linkState.setStateHandler(this);
-        
+
         this.currentState = (this.documentState);
         this.errorEncountered = false;
-        this.idReader = new ObjIdReader(metamodel, 
-                () -> "Index builder: ", 
+        this.idReader = new ObjIdReader(metamodel,
+                () -> "Index builder: ",
                 () -> ": line "+getLocator().getLineNumber() + " in " + getLocator().getPublicId());
-        
+
     }
 
     @objid ("fd21f715-5986-11e1-991a-001ec947ccaf")
@@ -121,22 +121,22 @@ class DocumentContentHandler extends DefaultHandler {
             assert (isCmsNode);
             this.cmsNodeId = childId;
         }
-        
+
         this.cmsNodeIndex.addObject(this.cmsNodeId, childIdName);
         pushObject(childId);
-        
+
     }
 
     @objid ("fd21f714-5986-11e1-991a-001ec947ccaf")
     public void addDependencyTarget(final String className, final String uid, final String name) throws IndexException {
         ObjId usedId = this.idReader.readObjId(className, uid, false);
-        
+
         // add to used refs unless usedId is contained inside cmsNodeId
         if (! this.cmsNodeId.equals(this.cmsNodeIndex.getCmsNodeOf(usedId))) {
             Data data = getDataStack().element();
             this.userNodeIndex.addUsed(data.id, data.curDepName, usedId);
         }
-        
+
     }
 
     @objid ("fd21f711-5986-11e1-991a-001ec947ccaf")
@@ -161,7 +161,7 @@ class DocumentContentHandler extends DefaultHandler {
     public void enterEXTIDState(final Attributes attributes) throws SAXException {
         this.currentState = this.extIdState;
         this.extIdState.enterState(attributes);
-        
+
     }
 
     @objid ("fd21f70a-5986-11e1-991a-001ec947ccaf")
@@ -195,7 +195,7 @@ class DocumentContentHandler extends DefaultHandler {
         ObjIdName objIdName = this.idReader.readObjIdName(className, uid, name, true);
         this.cmsNodeId = objIdName.toObjId();
         this.cmsNodeIndex.addCmsNode(objIdName);
-        
+
     }
 
     @objid ("fd21f6ea-5986-11e1-991a-001ec947ccaf")
@@ -211,6 +211,7 @@ class DocumentContentHandler extends DefaultHandler {
 
     /**
      * Set the current CMS node parent
+     *
      * @param className the metaclass name
      * @param uid the UUID
      * @param name the name (currently unused)
@@ -220,11 +221,11 @@ class DocumentContentHandler extends DefaultHandler {
     public void setParent(final String className, final String uid, final String name) throws IndexException {
         if (!this.parentSet) {
             this.parentSet = true;
-        
+
             ObjId parentId = this.idReader.readObjId(className, uid, true);
             this.cmsNodeIndex.setParent(this.cmsNodeId, parentId);
         }
-        
+
     }
 
     @objid ("fd21f6e6-5986-11e1-991a-001ec947ccaf")
@@ -235,7 +236,7 @@ class DocumentContentHandler extends DefaultHandler {
         } catch (IOError err) {
             throwError((Exception) err.getCause());
         }
-        
+
     }
 
     @objid ("fd21f6e5-5986-11e1-991a-001ec947ccaf")
@@ -244,9 +245,9 @@ class DocumentContentHandler extends DefaultHandler {
         if (msg==null || msg.isEmpty()) {
             msg = e.toString();
         }
-        
+
         throw new SAXParseException(msg, getLocator(), e);
-        
+
     }
 
     @objid ("fd21f6d2-5986-11e1-991a-001ec947ccaf")
@@ -263,7 +264,7 @@ class DocumentContentHandler extends DefaultHandler {
         this.cmsNodeId = null;
         this.errorEncountered = false;
         this.parentSet = false;
-        
+
     }
 
     @objid ("56e05097-6d1e-4c2c-b20d-844e7cbd08f9")
@@ -272,7 +273,7 @@ class DocumentContentHandler extends DefaultHandler {
         if (depName != null) {
             getDataStack().element().curDepName = depName;
         }
-        
+
     }
 
     @objid ("b5c0b734-c5dc-4025-a9a2-7a4ee1b33a32")
@@ -309,7 +310,7 @@ class DocumentContentHandler extends DefaultHandler {
         final ObjId id;
 
         @objid ("0f74cb1e-9161-4dcf-a719-248b8a787b74")
-        public  Data(ObjId id) {
+        public Data(ObjId id) {
             this.id = id;
         }
 

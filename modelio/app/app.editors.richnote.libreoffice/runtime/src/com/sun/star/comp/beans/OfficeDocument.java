@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package com.sun.star.comp.beans;
 
@@ -29,9 +29,9 @@ import com.sun.star.util.XCloseable;
  * ==========================================================================
  * Wrapper class for service OfficeDocument which emulates the upcoming mode of automatic
  * runtime Java classes to get rid of the need for queryInterface.
- * 
+ *
  * See further information on the wrapping and compatibility limitations in the base class Wrapper.
- * 
+ *
  * @since OOo 2.0.0
  */
 @objid ("d7b971ff-be65-44c0-8e41-5474a89fc051")
@@ -53,21 +53,22 @@ public class OfficeDocument extends Wrapper implements com.sun.star.frame.XModel
 
     /**
      * Create the document
+     *
      * @param xModel XModel of the document.
      */
     @objid ("88d65d68-31da-4dff-bb61-8637cddf0258")
-    public  OfficeDocument(final com.sun.star.frame.XModel xModel) {
+    public OfficeDocument(final com.sun.star.frame.XModel xModel) {
         super( xModel );
-        
+
         this.xModel = xModel;
-        this.xModifiable = UnoRuntime.queryInterface( 
+        this.xModifiable = UnoRuntime.queryInterface(
                                                      com.sun.star.util.XModifiable.class, xModel );
-        this.xPrintable = UnoRuntime.queryInterface( 
+        this.xPrintable = UnoRuntime.queryInterface(
                                                     com.sun.star.view.XPrintable.class, xModel );
-        this.xStorable = UnoRuntime.queryInterface( 
+        this.xStorable = UnoRuntime.queryInterface(
                                                    com.sun.star.frame.XStorable.class, xModel );
         this.xCloseable = UnoRuntime.queryInterface(XCloseable.class, xModel );
-        
+
     }
 
     /**
@@ -173,7 +174,7 @@ public class OfficeDocument extends Wrapper implements com.sun.star.frame.XModel
             e.printStackTrace();
             return false;
         }
-        
+
     }
 
     @objid ("f46fc226-0917-401b-b571-6f67a203f898")
@@ -261,27 +262,27 @@ public class OfficeDocument extends Wrapper implements com.sun.star.frame.XModel
     @objid ("b282fe43-48bf-49ce-9272-2a11e7f1bb73")
     @Override
     public void close(final boolean DeliverOwnership) throws CloseVetoException {
-        // It is a full featured office document. 
+        // It is a full featured office document.
         // Try to use close mechanism instead of a hard dispose().
-        // But maybe such service is not available on this model. 
-        if(this.xCloseable!=null) { 
-            try { 
+        // But maybe such service is not available on this model.
+        if(this.xCloseable!=null) {
+            try {
                 // use close(boolean DeliverOwnership)
                 // The boolean parameter DeliverOwnership tells objects vetoing the close process that they may
                 // assume ownership if they object the closure by throwing a CloseVetoException
-                // Here we give up ownership. To be on the safe side, catch possible veto exception anyway.  
-                this.xCloseable.close(true); 
+                // Here we give up ownership. To be on the safe side, catch possible veto exception anyway.
+                this.xCloseable.close(true);
                 this.xCloseable = null;
             } catch(com.sun.star.util.CloseVetoException exCloseVeto){
-            } 
+            }
         } else {
             this.xModel.dispose();
-        } 
-        
+        }
+
         this.xModel = null;
         this.xPrintable = null;
         this.xStorable = null;
-        
+
     }
 
 }

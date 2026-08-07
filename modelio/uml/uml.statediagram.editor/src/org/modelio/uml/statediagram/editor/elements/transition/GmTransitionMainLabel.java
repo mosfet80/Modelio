@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.transition;
 
@@ -33,7 +33,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Specialization of the default flat header to compute the correct label for transition.
- * 
+ *
  * @author fpoyer
  */
 @objid ("f5ad2e98-55b6-11e2-877f-002564c97630")
@@ -49,11 +49,12 @@ public class GmTransitionMainLabel extends GmDefaultModelElementLabel {
 
     /**
      * C'tor.
+     *
      * @param diagram the diagram.
      * @param relatedRef related element reference, must not be null.
      */
     @objid ("f5ad2ea1-55b6-11e2-877f-002564c97630")
-    public  GmTransitionMainLabel(IGmDiagram diagram, MRef relatedRef) {
+    public GmTransitionMainLabel(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -61,15 +62,15 @@ public class GmTransitionMainLabel extends GmDefaultModelElementLabel {
     @Override
     protected String computeMainLabel() {
         final Transition theTransition = (Transition) getRelatedElement();
-        
+
         if (theTransition == null) {
             return "";
         }
-        
+
         final StringBuilder symbol = new StringBuilder();
-        
+
         final boolean withEvent = true;
-        
+
         // Trigger
         final Event trigger = theTransition.getTrigger();
         if (trigger != null) {
@@ -77,7 +78,7 @@ public class GmTransitionMainLabel extends GmDefaultModelElementLabel {
         } else {
             symbol.append(theTransition.getReceivedEvents());
         }
-        
+
         // Action
         String sEffect = theTransition.getEffect();
         Operation op = theTransition.getProcessed();
@@ -93,7 +94,7 @@ public class GmTransitionMainLabel extends GmDefaultModelElementLabel {
             symbol.append("/");
             symbol.append(behavior.getName());
         }
-        
+
         // SentEvent
         final Signal effects = theTransition.getEffects();
         if (effects != null && withEvent) {
@@ -107,7 +108,7 @@ public class GmTransitionMainLabel extends GmDefaultModelElementLabel {
                 symbol.append(sentEvents);
             }
         }
-        
+
         if (symbol.length() == 0) {
             // Return the name at last resort
             return theTransition.getName();
@@ -119,7 +120,7 @@ public class GmTransitionMainLabel extends GmDefaultModelElementLabel {
      * Empty c'tor for deserialization.
      */
     @objid ("f5ad2eaf-55b6-11e2-877f-002564c97630")
-    public  GmTransitionMainLabel() {
+    public GmTransitionMainLabel() {
         // Nothing to do.
     }
 
@@ -140,17 +141,17 @@ public class GmTransitionMainLabel extends GmDefaultModelElementLabel {
             break;
         }
         }
-        
+
     }
 
     @objid ("f5ad2ebd-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmTransitionMainLabel.", GmTransitionMainLabel.MINOR_VERSION);
-        
+
     }
 
     @objid ("f5aeb51d-55b6-11e2-877f-002564c97630")

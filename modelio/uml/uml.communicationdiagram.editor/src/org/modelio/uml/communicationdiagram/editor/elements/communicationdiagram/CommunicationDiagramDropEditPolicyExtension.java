@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.communicationdiagram.editor.elements.communicationdiagram;
 
@@ -106,7 +106,7 @@ public class CommunicationDiagramDropEditPolicyExtension extends AbstractDiagram
             // what to do with it... return null
             return false;
         }
-        
+
         // All dropped elements understood: return host!
         return true;
     }
@@ -117,7 +117,7 @@ public class CommunicationDiagramDropEditPolicyExtension extends AbstractDiagram
         if (candidate == null || candidate instanceof CommunicationInteraction) {
             return false;
         }
-        
+
         // Make sure the element is part of the current communication
         ModelElement communication = context.getRelatedElement().getOrigin();
         MObject parent = candidate.getCompositionOwner();
@@ -150,18 +150,19 @@ public class CommunicationDiagramDropEditPolicyExtension extends AbstractDiagram
         private Point location;
 
         /**
+         *
          * @param dropLocation the location where the {@link CommunicationNode} is to be unmasked.
          * @param toUnmask the element that the {@link CommunicationNode} will represent.
          * @param parentEditPart the edit part handling the unmasking
          * @param parentElement the element that will own the new {@link CommunicationNode}
          */
         @objid ("7a2e3109-55b6-11e2-877f-002564c97630")
-        public  SmartCreateCommunicationNodeCommand(final Point dropLocation, final MObject toUnmask, final EditPart parentEditPart, final CommunicationInteraction parentElement) {
+        public SmartCreateCommunicationNodeCommand(final Point dropLocation, final MObject toUnmask, final EditPart parentEditPart, final CommunicationInteraction parentElement) {
             this.location = dropLocation;
             this.toUnmask = toUnmask;
             this.parentEditPart = parentEditPart;
             this.parentElement = parentElement;
-            
+
         }
 
         @objid ("7a2e3118-55b6-11e2-877f-002564c97630")
@@ -169,7 +170,7 @@ public class CommunicationDiagramDropEditPolicyExtension extends AbstractDiagram
         public boolean canExecute() {
             final GmModel gmModel = (GmModel) this.parentEditPart.getModel();
             final IGmDiagram gmDiagram = gmModel.getDiagram();
-            
+
             if (!MTools.getAuthTool().canModify(gmDiagram.getRelatedElement())) {
                 return false;
             }
@@ -183,27 +184,27 @@ public class CommunicationDiagramDropEditPolicyExtension extends AbstractDiagram
             IGmDiagram gmDiagram = gmModel.getDiagram();
             IModelManager modelManager = gmDiagram.getModelManager();
             IStandardModelFactory modelFactory = modelManager.getModelFactory().getFactory(IStandardModelFactory.class);
-            
+
             CommunicationInteraction interaction = this.parentElement;
-            
+
             // Create the communication node
             CommunicationNode commNode = modelFactory.createCommunicationNode();
             commNode.setOwner(interaction);
-            
+
             Instance instanceNode;
             if (this.toUnmask instanceof Instance) {
                 instanceNode = (Instance) this.toUnmask;
             } else {
                 instanceNode = createBindableInstance(modelFactory, modelManager.getModelServices().getElementNamer(), interaction);
             }
-            
+
             // Link the node to the instance
             commNode.setRepresented(instanceNode);
             commNode.setName(instanceNode.getName());
-            
+
             // Unmask the node
             unmaskElement(commNode);
-            
+
         }
 
         @objid ("7a2e3120-55b6-11e2-877f-002564c97630")
@@ -214,13 +215,13 @@ public class CommunicationDiagramDropEditPolicyExtension extends AbstractDiagram
             if (localsCollaboration == null) {
                 localsCollaboration = createLocalsCollaboration(factory, interaction);
             }
-            
+
             // Create the new instance
             BindableInstance bindableInstance = factory.createBindableInstance();
             localsCollaboration.getDeclared().add(bindableInstance);
-            
+
             bindableInstance.setName(elementNamer.getUniqueName("r", bindableInstance));
-            
+
             // Attach to dropped element
             if (this.toUnmask instanceof Instance) {
                 bindableInstance.setRepresentedFeature((Instance) this.toUnmask);
@@ -257,6 +258,7 @@ public class CommunicationDiagramDropEditPolicyExtension extends AbstractDiagram
 
         /**
          * Copy the Ports of the base class to the instance.
+         *
          * @param part the part where Ports are to be added.
          * @return the created ports.
          */
@@ -264,15 +266,15 @@ public class CommunicationDiagramDropEditPolicyExtension extends AbstractDiagram
         private Collection<Port> createPorts(final BindableInstance part) {
             final Classifier type = (Classifier) part.getBase();
             final Collection<Port> ret = new ArrayList<>();
-            
+
             for (BindableInstance typePart : type.getInternalStructure()) {
                 if (typePart instanceof Port) {
-            
+
                     final Port partPort = (Port) MTools.getModelTool().cloneElement(typePart);
                     partPort.setInternalOwner(null);
                     partPort.setCluster(part);
                     partPort.setRepresentedFeature(typePart);
-            
+
                     ret.add(partPort);
                 }
             }
@@ -282,18 +284,18 @@ public class CommunicationDiagramDropEditPolicyExtension extends AbstractDiagram
         @objid ("7a2fb7ae-55b6-11e2-877f-002564c97630")
         private void unmaskElement(final MObject el) {
             final ModelioCreationContext gmCreationContext = new ModelioCreationContext(el);
-            
+
             final CreateRequest creationRequest = new CreateRequest();
             creationRequest.setLocation(this.location);
             creationRequest.setSize(new Dimension(-1, -1));
             creationRequest.setFactory(gmCreationContext);
-            
+
             final Command cmd = this.parentEditPart.getTargetEditPart(creationRequest)
                     .getCommand(creationRequest);
             if (cmd != null && cmd.canExecute()) {
                 cmd.execute();
             }
-            
+
         }
 
     }
@@ -307,10 +309,10 @@ public class CommunicationDiagramDropEditPolicyExtension extends AbstractDiagram
         private DiagramElementDropEditPolicy dropPolicy;
 
         @objid ("598a770e-d85f-4a69-ab1b-ed12158e5fef")
-        public  StandardVisitorImpl(DiagramElementDropEditPolicy dropPolicy, Point dropLocation) {
+        public StandardVisitorImpl(DiagramElementDropEditPolicy dropPolicy, Point dropLocation) {
             this.dropPolicy = dropPolicy;
             this.dropLocation = dropLocation;
-            
+
         }
 
         @objid ("a0de39a1-8c6e-43f1-8344-a2a26df7fa28")

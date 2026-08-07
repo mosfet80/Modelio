@@ -1,37 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin>
-   <extension-point id="statusbar"
-   name="Status Bar contributions" schema="schema/org.modelio.app.ui.statusbar.exsd"/>
+   <extension-point id="statusbar" name="Status Bar contributions" schema="schema/org.modelio.app.ui.statusbar.exsd"/>
+
    <extension id="modelio-themes" point="org.eclipse.e4.ui.css.swt.theme">
-      <theme id="org.modelio.app.theme.default"
-             basestylesheeturi="css/default.gtk.css"
-             label="Default"
-             os="linux">
+      <theme id="org.modelio.app.theme.light"
+             basestylesheeturi="css/lightTheme.css"
+             label="Light">
       </theme>
-      <theme id="org.modelio.app.theme.default"
-             basestylesheeturi="css/default.win.css"
-             label="Default"
-             os="win32">
+      <theme id="org.modelio.app.theme.obscure"
+             basestylesheeturi="css/obscureTheme.css"
+             label="Obscure">
       </theme>
-      <theme id="org.modelio.app.theme.modelio1"
-            basestylesheeturi="css/modelio1.gtk.css"
-            label="Modelio1"
-            os="linux">
-      </theme>
-      <theme id="org.modelio.app.theme.modelio1"
-            basestylesheeturi="css/modelio1.win.css"
-            label="Modelio 1"
-            os="win32">
-      </theme>
-      <theme id="org.modelio.app.theme.modelio2"
-            basestylesheeturi="css/modelio2.gtk.css"
-            label="Modelio 2"
-            os="linux">
-      </theme>
-      <theme id="org.modelio.app.theme.modelio2"
-            basestylesheeturi="css/modelio2.win.css"
-            label="Modelio 2"
-            os="win32">
+      <theme id="org.modelio.app.theme.system"
+             basestylesheeturi="css/systemTheme.css"
+             label="System">
       </theme>
    </extension>
 
@@ -40,10 +22,13 @@
        <property name="appName"                 value="Modelio" />
        <property name="lifeCycleURI"            value="bundleclass://org.modelio.app.ui/org.modelio.app.ui.lifecycle.OsLifeCycleManager"/>
        <property name="applicationXMI"          value="org.modelio.app.ui/e4model/modelio.e4xmi"/>
-       <property name="applicationCSSResources" value="platform:/plugin/org.modelio.app.ui/css" />
-       <property name="cssTheme"                value="org.modelio.app.theme.default" />
+       <property name="applicationCSSResources" value="platform:/plugin/org.modelio.app.ui/css"/>
+       <property name="cssTheme"                value="org.modelio.app.theme.light"/>
     </product>
   </extension>
+
+
+
   <extension
         id="org.modelio.app.ui.selectionStatus"
         point="org.modelio.app.ui.statusbar">

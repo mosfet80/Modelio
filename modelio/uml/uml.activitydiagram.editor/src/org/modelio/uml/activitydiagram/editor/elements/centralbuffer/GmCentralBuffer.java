@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.centralbuffer;
 
@@ -71,31 +71,32 @@ public class GmCentralBuffer extends GmPortContainer {
 
     /**
      * Default constructor.
+     *
      * @param diagram the diagram in which this gm is unmasked.
      * @param theCentralBuffer the represented central buffer, may be null.
      * @param ref a reference to the represented central buffer.
      */
     @objid ("29e2c57c-55b6-11e2-877f-002564c97630")
-    public  GmCentralBuffer(IGmDiagram diagram, CentralBufferNode theCentralBuffer, MRef ref) {
+    public GmCentralBuffer(IGmDiagram diagram, CentralBufferNode theCentralBuffer, MRef ref) {
         super(diagram, ref);
         this.element = theCentralBuffer;
-        
+
         GmCentralBufferPrimaryNode primary = new GmCentralBufferPrimaryNode(diagram, ref);
         primary.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
         addChild(primary);
-        
+
         GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(diagram, ref);
         imageModeHeader.setRoleInComposition(IMAGE_MODE_HEADER);
         imageModeHeader.setLayoutData(PositionConstants.SOUTH);
         addChild(imageModeHeader);
-        
+
     }
 
     /**
      * Empty constructor, needed for serialisation.
      */
     @objid ("29e2c588-55b6-11e2-877f-002564c97630")
-    public  GmCentralBuffer() {
+    public GmCentralBuffer() {
         // empty constructor for the serialization
     }
 
@@ -112,12 +113,12 @@ public class GmCentralBuffer extends GmPortContainer {
         if (ret != null) {
             return ret;
         }
-        
+
         ret = SIMPLEKEYS.getStyleKey(metakey);
         if (ret != null) {
             return ret;
         }
-        
+
         ret = IMAGEKEYS.getStyleKey(metakey);
         return ret;
     }
@@ -141,7 +142,7 @@ public class GmCentralBuffer extends GmPortContainer {
         } else {
             return Collections.emptyList();
         }
-        
+
     }
 
     @objid ("29e2c5a5-55b6-11e2-877f-002564c97630")
@@ -161,7 +162,7 @@ public class GmCentralBuffer extends GmPortContainer {
             break;
         }
         }
-        
+
     }
 
     @objid ("29e2c5ab-55b6-11e2-877f-002564c97630")
@@ -186,7 +187,7 @@ public class GmCentralBuffer extends GmPortContainer {
             case IMAGE:
             default:
                 break;
-        
+
             }
         }
         return ret;
@@ -202,17 +203,17 @@ public class GmCentralBuffer extends GmPortContainer {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmCentralBuffer.", GmCentralBuffer.MINOR_VERSION);
-        
+
     }
 
     @objid ("29e44c2a-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (CentralBufferNode) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("29e44c2f-55b6-11e2-877f-002564c97630")
@@ -223,23 +224,24 @@ public class GmCentralBuffer extends GmPortContainer {
 
     /**
      * Migration constructor from major version 0, should only be called by migrator.
+     *
      * @param oldVersionGm the instance to migrate from.
      */
     @objid ("29e44c34-55b6-11e2-877f-002564c97630")
-     GmCentralBuffer(final _GmCentralBuffer oldVersionGm) {
+    GmCentralBuffer(final _GmCentralBuffer oldVersionGm) {
         super(oldVersionGm.getDiagram(), oldVersionGm.getRepresentedRef());
         this.element = (CentralBufferNode) oldVersionGm.getRelatedElement();
-        
+
         GmCentralBufferPrimaryNode primary = new GmCentralBufferPrimaryNode(oldVersionGm);
         primary.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
         addChild(primary);
-        
+
         GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(oldVersionGm.getDiagram(),
                 oldVersionGm.getRepresentedRef());
         imageModeHeader.setRoleInComposition(IMAGE_MODE_HEADER);
         imageModeHeader.setLayoutData(PositionConstants.SOUTH);
         addChild(imageModeHeader);
-        
+
     }
 
     @objid ("29e44c3e-55b6-11e2-877f-002564c97630")
@@ -262,7 +264,7 @@ public class GmCentralBuffer extends GmPortContainer {
         } else {
             super.addStartingLink(link);
         }
-        
+
     }
 
     @objid ("29e5d2be-55b6-11e2-877f-002564c97630")
@@ -273,7 +275,7 @@ public class GmCentralBuffer extends GmPortContainer {
         } else {
             super.addEndingLink(link);
         }
-        
+
     }
 
     @objid ("36419428-dcd4-42e8-be56-63891c974d89")

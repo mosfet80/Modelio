@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.tools;
 
@@ -59,10 +59,11 @@ public class ClonePropertiesSelectionTool extends PanSelectionTool {
 
     /**
      * C'tor.
+     *
      * @param refEditPart the edit part used as reference.
      */
     @objid ("66a54802-33f7-11e2-95fe-001ec947c8cc")
-    public  ClonePropertiesSelectionTool(final GraphicalEditPart refEditPart) {
+    public ClonePropertiesSelectionTool(final GraphicalEditPart refEditPart) {
         this.refEditPart = refEditPart;
     }
 
@@ -75,7 +76,7 @@ public class ClonePropertiesSelectionTool extends PanSelectionTool {
         } else {
             return this.fullMode ? SharedCursors2.CURSOR_CLONE_ALL_OPTIONS : SharedCursors2.CURSOR_CLONE_GRAPHIC_OPTIONS;
         }
-        
+
     }
 
     @objid ("66a5480b-33f7-11e2-95fe-001ec947c8cc")
@@ -93,15 +94,15 @@ public class ClonePropertiesSelectionTool extends PanSelectionTool {
         if (target.equals(this.refEditPart)) {
             return false;
         }
-        
+
         IGmObject gmObject = (IGmObject) target.getModel();
         if (! gmObject.isUserEditable()) {
             return false;
         }
-        
+
         final IGmDiagram diagram = gmObject.getDiagram();
         final ITransactionSupport session = diagram.getModelManager().getModelingSession().getTransactionSupport();
-        
+
         try (ITransaction transaction = session.createTransaction("Clone "+target+" properties")) {
             // model processing code (may throw an unplanned exception...)
             if (this.fullMode) {
@@ -109,10 +110,10 @@ public class ClonePropertiesSelectionTool extends PanSelectionTool {
             } else {
                 cloneGraphicProperties(target);
             }
-            
+
             // Save diagram
             diagram.save(false);
-            
+
             // end of processing code , commit the transaction
             transaction.commit();
         }
@@ -125,7 +126,7 @@ public class ClonePropertiesSelectionTool extends PanSelectionTool {
         final IStyle refStyle = refGm.getPersistedStyle();
         final IGmObject targetGm = (IGmObject) target.getModel();
         final IStyle targetStyle = targetGm.getPersistedStyle();
-        
+
         // copy 'graphic' StyleKey values from source to target
         for (final MetaKey mk : graphicProperties) {
             if (refGm.getStyleKey(mk) != null && targetGm.getStyleKey(mk) != null) {
@@ -133,7 +134,7 @@ public class ClonePropertiesSelectionTool extends PanSelectionTool {
             }
         }
         targetStyle.normalize();
-        
+
     }
 
     @objid ("66a54816-33f7-11e2-95fe-001ec947c8cc")
@@ -142,9 +143,9 @@ public class ClonePropertiesSelectionTool extends PanSelectionTool {
         final IStyle refStyle = refGm.getPersistedStyle();
         final IGmObject targetGm = (IGmObject) target.getModel();
         final IStyle targetStyle = targetGm.getPersistedStyle();
-        
+
         for (final StyleKey sk : refGm.getStyleKeys()) {
-        
+
             if (targetGm.getStyleKeys().contains(sk)) {
                 // direct match
                 targetStyle.setProperty(sk, refStyle.getProperty(sk));
@@ -155,10 +156,10 @@ public class ClonePropertiesSelectionTool extends PanSelectionTool {
                     targetStyle.setProperty(targetGm.getStyleKey(metaKey), refStyle.getProperty(sk));
                 }
             }
-        
+
         }
         targetStyle.normalize();
-        
+
     }
 
     /**
@@ -167,6 +168,7 @@ public class ClonePropertiesSelectionTool extends PanSelectionTool {
      * <li>ESC or SPACE : abort the tool</li>
      * <li>CTRL : switch the tool in 'full' mode</li>
      * </ul>
+     *
      * @see org.eclipse.gef.tools.SelectionTool#handleKeyDown(org.eclipse.swt.events.KeyEvent)
      */
     @objid ("66a5481a-33f7-11e2-95fe-001ec947c8cc")
@@ -176,7 +178,7 @@ public class ClonePropertiesSelectionTool extends PanSelectionTool {
             this.fullMode = false;
             refreshCursor();
         }
-        
+
         if (e.keyCode == SWT.ESC || e.keyCode == ' ') {
             getDomain().setActiveTool(getDomain().getDefaultTool());
         }
@@ -189,6 +191,7 @@ public class ClonePropertiesSelectionTool extends PanSelectionTool {
      * <li>ESC or SPACE : abort the tool</li>
      * <li>CTRL : switch the tool in 'graphic' mode</li>
      * </ul>
+     *
      * @see org.eclipse.gef.tools.SelectionTool#handleKeyUp(org.eclipse.swt.events.KeyEvent)
      */
     @objid ("66a54822-33f7-11e2-95fe-001ec947c8cc")
@@ -198,7 +201,7 @@ public class ClonePropertiesSelectionTool extends PanSelectionTool {
             this.fullMode = true;
             refreshCursor();
         }
-        
+
         if (e.keyCode == SWT.ESC || e.keyCode == ' ') {
             abort();
         }
@@ -215,13 +218,14 @@ public class ClonePropertiesSelectionTool extends PanSelectionTool {
     /**
      * Returns the GraphicalEditPart being hovered by the mouse however
      * excluding the root edit part.
+     *
      * @return the hovered GraphicalEditPart or null
      */
     @objid ("66a7aa5e-33f7-11e2-95fe-001ec947c8cc")
     private GraphicalEditPart getHovered() {
         final GraphicalEditPart ep = (GraphicalEditPart) getTargetEditPart();
-        
-        
+
+
         if (ep == null || ep instanceof RootEditPart) {
             return null;
         } else if (((IGmObject) ep.getModel()).isUserEditable()) {
@@ -229,7 +233,7 @@ public class ClonePropertiesSelectionTool extends PanSelectionTool {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("66a7aa63-33f7-11e2-95fe-001ec947c8cc")
@@ -255,18 +259,18 @@ public class ClonePropertiesSelectionTool extends PanSelectionTool {
     @Override
     public void mouseDown(final MouseEvent e, final EditPartViewer viewer) {
         super.mouseDown(e, viewer);
-        
+
         // Set state 'in progress' to avoid edition
         int oldState = getState();
         setState(STATE_DRAG_IN_PROGRESS);
-        
+
         super.mouseUp(e, viewer);
-        
+
         // Reset state
         setState(oldState);
-        
+
         super.mouseDown(e, viewer);
-        
+
     }
 
 }

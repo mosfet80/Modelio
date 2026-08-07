@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -36,7 +36,7 @@ import org.modelio.xmi.util.EcoreModelNavigation;
 @objid ("08d3d55e-f178-4680-9292-5a9108619472")
 public class EActivityNode extends ENamedElement {
     @objid ("30c50b21-ccb2-41c8-aeb3-7fcc250fe3f0")
-    public  EActivityNode(final org.eclipse.uml2.uml.ActivityNode element) {
+    public EActivityNode(final org.eclipse.uml2.uml.ActivityNode element) {
         super(element);
     }
 
@@ -61,14 +61,14 @@ public class EActivityNode extends ENamedElement {
                 objingElt.delete();
             }
         }
-        
+
     }
 
     @objid ("25424326-2ee8-472e-b4e3-4276d2d3760f")
     private void attachToPartition(final Element objingElt) {
         List<org.eclipse.uml2.uml.ActivityPartition> ecorePartitions = EcoreModelNavigation
                 .getOwnerPartitions((org.eclipse.uml2.uml.ActivityNode)getEcoreElement());
-        
+
         if (ecorePartitions.size() > 0) {
             org.eclipse.uml2.uml.ActivityPartition ecorePartition = null;
             if (ecorePartitions.size() > 1)
@@ -76,14 +76,14 @@ public class EActivityNode extends ENamedElement {
                 .getLeafPartition(ecorePartitions);
             else
                 ecorePartition = ecorePartitions.get(0);
-        
+
             if (ecorePartition != null) {
                 ActivityPartition objingPartition = (ActivityPartition)  ReverseProperties.getInstance()
                         .getMappedElement(ecorePartition);
                 ((ActivityNode) objingElt).setOwnerPartition(objingPartition);
             }
         }
-        
+
     }
 
     @objid ("bd3661fe-a17a-49c3-905a-036af05fa908")
@@ -98,9 +98,9 @@ public class EActivityNode extends ENamedElement {
                 else
                     ((ActivityNode) objingElt).setOwnerNode(objingNode);
             }
-        
+
         }
-        
+
     }
 
     @objid ("33d4b1b1-fdf9-4b4b-8177-42a2d4edfeaa")
@@ -113,22 +113,22 @@ public class EActivityNode extends ENamedElement {
                 ((ActivityNode) objingElt)
                 .setOwnerClause(objingClause);
         }
-        
+
     }
 
     @objid ("b3f7bbb8-5778-48b8-876c-b744b8ade233")
     private void attachToActivity(final Element objingElt) {
         org.eclipse.uml2.uml.Activity ecoreActivity = EcoreModelNavigation
                 .getOwnerActivity((org.eclipse.uml2.uml.ActivityNode) getEcoreElement());
-        
+
         if (ecoreActivity != null) {
             Activity objingActivity = (Activity)  ReverseProperties.getInstance()
                     .getMappedElement(ecoreActivity);
-        
+
             if (objingActivity != null)
                 ((ActivityNode) objingElt).setOwner(objingActivity);
         }
-        
+
     }
 
     @objid ("3d10795d-7722-44fb-ade7-b9ea0899bea9")
@@ -140,9 +140,9 @@ public class EActivityNode extends ENamedElement {
             if (objingNode != null) {
                   ((ActivityNode) objingElt).setOwnerNode(objingNode);
             }
-        
+
         }
-        
+
     }
 
 }

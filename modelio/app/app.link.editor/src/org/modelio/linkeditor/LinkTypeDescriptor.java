@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.linkeditor;
 
@@ -35,10 +54,9 @@ public class LinkTypeDescriptor implements Comparable<LinkTypeDescriptor> {
     private final Stereotype stereotype;
 
     @objid ("56a225db-91c6-48d6-a960-b4fc0e38d53f")
-    public  LinkTypeDescriptor(MClass mClass, Stereotype stereotype) {
+    public LinkTypeDescriptor(MClass mClass, Stereotype stereotype) {
         this.mClass = mClass;
         this.stereotype = stereotype;
-        
     }
 
     @objid ("951a6b36-1681-4b5c-b6f7-cfaed216ba40")
@@ -52,7 +70,6 @@ public class LinkTypeDescriptor implements Comparable<LinkTypeDescriptor> {
         } else {
             return mcCompare;
         }
-        
     }
 
     @objid ("6be54d76-7031-4414-b7c5-836b344f68a6")

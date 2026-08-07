@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -56,7 +56,7 @@ public class R1180 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -74,7 +74,7 @@ public class R1180 extends AbstractUmlRule {
     @Override
     public void autoRegister(UmlAuditPlan plan) {
         plan.registerRule(ControlFlow.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE);
-        
+
         // ObjectNode
         plan.registerRule(ExpansionNode.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(InstanceNode.MQNAME, this, AuditTrigger.UPDATE);
@@ -82,7 +82,7 @@ public class R1180 extends AbstractUmlRule {
         plan.registerRule(OutputPin.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(ActivityParameterNode.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(CentralBufferNode.MQNAME, this, AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -116,14 +116,14 @@ public class R1180 extends AbstractUmlRule {
      * Default constructor for R1180
      */
     @objid ("6db1e624-d327-4628-9f16-0a83339c774a")
-    public  R1180() {
+    public R1180() {
         this.checkerInstance = new CheckR1180(this);
     }
 
     @objid ("c8380789-be07-47c1-a0ab-f975c5e50629")
     private static class CheckR1180 extends AbstractControl {
         @objid ("0b4a82f6-3cc0-403d-85cd-938e490196b4")
-        public  CheckR1180(IRule rule) {
+        public CheckR1180(IRule rule) {
             super(rule);
         }
 
@@ -145,17 +145,17 @@ public class R1180 extends AbstractUmlRule {
         private IAuditEntry checkR1180(ControlFlow controlFlow) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(),
                     AuditSeverity.AuditSuccess, controlFlow, null);
-            
+
             ActivityNode sourceNode = controlFlow.getSource();
             ActivityNode targetNode = controlFlow.getTarget();
-            
+
             if ((sourceNode instanceof ObjectNode && !((ObjectNode) sourceNode)
                     .isIsControlType())
                     || (targetNode instanceof ObjectNode && !((ObjectNode) targetNode)
                             .isIsControlType())) {
-            
+
                 // Rule failed
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(controlFlow);
@@ -167,13 +167,13 @@ public class R1180 extends AbstractUmlRule {
         @objid ("2f0d8734-44a9-4251-8f1b-be2439f5def6")
         private List<IAuditEntry> checkR1180(ObjectNode objectNode) {
             List<IAuditEntry> auditEntries = new ArrayList<>();
-            
+
             for (ActivityEdge edge : objectNode.getIncoming()) {
                 if (edge instanceof ControlFlow) {
                     auditEntries.add(checkR1180((ControlFlow) edge));
                 }
             }
-            
+
             for (ActivityEdge edge : objectNode.getOutgoing()) {
                 if (edge instanceof ControlFlow) {
                     auditEntries.add(checkR1180((ControlFlow) edge));

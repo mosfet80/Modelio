@@ -1,27 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.browser.handlers;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -40,7 +40,7 @@ public class DeleteHandler extends AbstractBrwModelHandler {
      * <li>ModelElementAdapter for diagram and diagram set
      * <li>BrowserDiagramAdapter for diagram reference
      * </ul>
-     * 
+     *
      * Deleting a diagram or a diagram set is straight forward => treat the delete at the model level. Diagram reference
      * a a little bit more tricky. If the reference has a non-null getReferenceOwner() it actually belongs to a diagram
      * set => the delete can be done.
@@ -59,11 +59,12 @@ public class DeleteHandler extends AbstractBrwModelHandler {
                 ((MObject) obj).delete();
             }
         }
-        
+
     }
 
     /**
      * Rule for enabling a multiple selection => all selected elements are modifiable
+     *
      * @param selection the eclipse selection
      * @return if the selection may be deleted.
      */
@@ -71,14 +72,14 @@ public class DeleteHandler extends AbstractBrwModelHandler {
     @CanExecute
     public boolean isEnabled(@Named(IServiceConstants.ACTIVE_SELECTION) IStructuredSelection selection) {
         List<Object> selectedObjects = getSelected(selection);
-        
+
         if (selectedObjects.isEmpty()) {
             return false;
         }
-        
+
         for (Object obj : selectedObjects) {
             boolean valid = canDelete(obj);
-            
+
             if (!valid) {
                 return false;
             }
@@ -108,7 +109,7 @@ public class DeleteHandler extends AbstractBrwModelHandler {
         } else {
             return false;
         }
-        
+
     }
 
 }

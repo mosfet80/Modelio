@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.attributegroup;
 
@@ -40,7 +40,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Attribute group model.
- * 
+ *
  * @author cmarin
  */
 @objid ("96d11fbb-55b6-11e2-877f-002564c97630")
@@ -58,17 +58,18 @@ public class GmAttributeGroup extends GmGroup {
      * Constructor for deserialization only.
      */
     @objid ("3404597b-55b7-11e2-877f-002564c97630")
-    public  GmAttributeGroup() {
-        
+    public GmAttributeGroup() {
+
     }
 
     /**
      * Creates an attribute group.
+     *
      * @param gmDiagram The diagram.
      * @param relatedRef The related element reference, must not be null.
      */
     @objid ("3404597e-55b7-11e2-877f-002564c97630")
-    public  GmAttributeGroup(IGmDiagram gmDiagram, MRef relatedRef) {
+    public GmAttributeGroup(IGmDiagram gmDiagram, MRef relatedRef) {
         super(gmDiagram, relatedRef);
     }
 
@@ -122,7 +123,7 @@ public class GmAttributeGroup extends GmGroup {
         } else {
             super.styleChanged(property, newValue);
         }
-        
+
     }
 
     @objid ("3405e00f-55b7-11e2-877f-002564c97630")
@@ -131,7 +132,7 @@ public class GmAttributeGroup extends GmGroup {
         refreshFromObModel();
         fireVisibilityChanged();
         super.styleChanged(style);
-        
+
     }
 
     @objid ("3405e015-55b7-11e2-877f-002564c97630")
@@ -145,13 +146,14 @@ public class GmAttributeGroup extends GmGroup {
             return;
         }
         getDisplayedStyle().setProperty(styleKey, visible);
-        
+
     }
 
     /**
      * Checks whether the given model element can be and still be displayed here.
      * <p>
      * Check all conditions except the case where it is already unmasked.
+     *
      * @param el The element to unmask
      * @return true if it satisfies all conditions, else false.
      */
@@ -162,20 +164,20 @@ public class GmAttributeGroup extends GmGroup {
         if (!(el instanceof Attribute) || !el.isValid()) {
             return false;
         }
-        
+
         // Cannot unmask a foreign attribute (not belonging to the class)
         if (!el.getCompositionOwner().equals(getRelatedElement())) {
             return false;
         }
-        
+
         final Attribute att = (Attribute) el;
-        
+
         // Cannot unmask an attribute whose visibility does not match the current visualization options.
         StyleKey.UmaskByVisibilityStragegy unmaskmode = getVisibilityFilter();
         if (unmaskmode == null) {
             return false;
         }
-        
+
         switch (unmaskmode) {
         case ALL:
             return true;
@@ -195,16 +197,16 @@ public class GmAttributeGroup extends GmGroup {
         final Classifier classifier = getRelatedElement();
         if (classifier != null && classifier.isValid()) {
             boolean hasHiddenFeature = false;
-        
+
             StyleKey.UmaskByVisibilityStragegy mode = getVisibilityFilter();
             if (mode == null) {
                 return;
             }
-            
+
             switch (mode) {
             case ALL:
                 break;
-        
+
             case ALL_PUBLIC:
                 for (Feature part : classifier.getOwnedAttribute()) {
                     if (part.getVisibility() != VisibilityMode.PUBLIC) {
@@ -212,7 +214,7 @@ public class GmAttributeGroup extends GmGroup {
                     }
                 }
                 break;
-        
+
             case ALL_NON_PRIVATE:
                 for (Feature part : classifier.getOwnedAttribute()) {
                     if (part.getVisibility() == VisibilityMode.PRIVATE) {
@@ -224,11 +226,11 @@ public class GmAttributeGroup extends GmGroup {
                 hasHiddenFeature = classifier.getOwnedAttribute().size() != getChildren().size();
                 break;
             }
-        
+
             setHiddenFeature(hasHiddenFeature);
-        
+
         }
-        
+
     }
 
     @objid ("3405e025-55b7-11e2-877f-002564c97630")
@@ -248,17 +250,17 @@ public class GmAttributeGroup extends GmGroup {
             break;
         }
         }
-        
+
     }
 
     @objid ("3405e02b-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmAttributeGroup.", GmAttributeGroup.MINOR_VERSION);
-        
+
     }
 
     @objid ("3405e031-55b7-11e2-877f-002564c97630")

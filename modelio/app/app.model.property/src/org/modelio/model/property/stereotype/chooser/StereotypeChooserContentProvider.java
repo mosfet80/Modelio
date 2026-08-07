@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.stereotype.chooser;
 
@@ -63,7 +63,7 @@ public class StereotypeChooserContentProvider implements ITreeContentProvider {
         if (parent instanceof StereotypeChooserModel) {
             StereotypeChooserModel model = (StereotypeChooserModel) parent;
             this.element = model.getElement();
-        
+
             List<Stereotype> stereotypes = this.modelService.findStereotypes(".*", ".*", this.element.getMClass());
             for (Stereotype stereotype : stereotypes) {
                 if (!stereotype.isIsHidden() && !stereotype.isShell()) {
@@ -75,10 +75,11 @@ public class StereotypeChooserContentProvider implements ITreeContentProvider {
             }
         } else if (parent instanceof ModuleComponent) {
             ModuleComponent moduleComponent = (ModuleComponent) parent;
-        
+
             List<Stereotype> stereotypes = this.modelService.findStereotypes(moduleComponent.getName(), ".*", this.element.getMClass());
             for (Stereotype stereotype : stereotypes) {
-                if (!stereotype.isIsHidden()) {
+                if ((!stereotype.isIsHidden()
+                  && (stereotype.getOwner().getOwnerModule().getUuid().equals(moduleComponent.getUuid())))) {
                     ret.add(stereotype);
                 }
             }
@@ -94,7 +95,6 @@ public class StereotypeChooserContentProvider implements ITreeContentProvider {
         } else {
             return null;
         }
-        
     }
 
     @objid ("a404dadb-2021-4911-8be2-de1e680c7555")
@@ -103,7 +103,7 @@ public class StereotypeChooserContentProvider implements ITreeContentProvider {
         if (parent instanceof StereotypeChooserModel) {
             StereotypeChooserModel model = (StereotypeChooserModel) parent;
             this.element = model.getElement();
-        
+
             List<Stereotype> stereotypes = this.modelService.findStereotypes(".*", ".*", this.element.getMClass());
             for (Stereotype stereotype : stereotypes) {
                 if (!stereotype.isIsHidden()) {
@@ -115,7 +115,7 @@ public class StereotypeChooserContentProvider implements ITreeContentProvider {
             }
         } else if (parent instanceof ModuleComponent) {
             ModuleComponent moduleComponent = (ModuleComponent) parent;
-        
+
             List<Stereotype> stereotypes = this.modelService.findStereotypes(moduleComponent.getName(), ".*", this.element.getMClass());
             for (Stereotype stereotype : stereotypes) {
                 if (!stereotype.isIsHidden()) {
@@ -128,10 +128,11 @@ public class StereotypeChooserContentProvider implements ITreeContentProvider {
 
     /**
      * Constructor initializing the model service.
+     *
      * @param modelService the model service needed to find elements.
      */
     @objid ("0dbdff71-379e-4cb2-bf4f-743bef84fd18")
-    public  StereotypeChooserContentProvider(IMModelServices modelService) {
+    public StereotypeChooserContentProvider(IMModelServices modelService) {
         this.modelService = modelService;
     }
 

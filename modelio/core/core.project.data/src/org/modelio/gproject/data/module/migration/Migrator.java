@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.data.module.migration;
 
@@ -96,7 +96,7 @@ public class Migrator {
     private Jxbv2Module migrateModule(JxbModule moduleV1) {
         // Create the module
         final Jxbv2Module moduleV2 = this.factoryV2.createModule();
-        
+
         // Attributes and trivial cases
         moduleV2.setAuthor(moduleV1.getAuthor());
         moduleV2.setBinaryversion(moduleV1.getBinaryversion());
@@ -106,26 +106,26 @@ public class Migrator {
         moduleV2.setUid(moduleV1.getUid());
         moduleV2.setVersion(moduleV1.getVersion());
         moduleV2.setSchemaLevel(2L);
-        
+
         // Composed elements
         // ClassPath
         migrateClassPath(moduleV1, moduleV2);
-        
+
         // DocPath
         migrateDocPath(moduleV1, moduleV2);
-        
+
         // Dependencies
         migrateDependencies(moduleV1, moduleV2);
-        
+
         // Parameters
         migrateParameters(moduleV1, moduleV2);
-        
+
         // Profile
         migrateProfiles(moduleV1, moduleV2);
-        
+
         // Gui
         migrateGUI(moduleV1, moduleV2);
-        
+
         // PropertyTypes
         // nothing to do since PropertyTypes did not exist in V1
         return moduleV2;
@@ -143,99 +143,99 @@ public class Migrator {
             }
             moduleV2.setClassPath(classpathV2);
         }
-        
+
     }
 
     @objid ("600e1364-503e-4978-b9af-13ee48b52997")
     private void migrateDocPath(JxbModule moduleV1, Jxbv2Module moduleV2) {
         final JxbDocpath docpathV1 = V1Utils.getDocPath(moduleV1);
         if (docpathV1 != null) {
-        
+
             final Jxbv2MultiPathes docpathV2 = this.factoryV2.createMultiPathes();
             for (final org.modelio.gproject.data.module.jaxbv1.JxbDocpath.Entry entryV1 : docpathV1.getEntry()) {
                 final Jxbv2PathEntry entryV2 = this.factoryV2.createMultiPathesPathEntry();
                 entryV2.setPath(entryV1.getPath());
                 docpathV2.getPathEntry().add(entryV2);
             }
-        
+
             if (moduleV2.getResources() == null) {
                 moduleV2.setResources(this.factoryV2.createModuleResources());
             }
             moduleV2.getResources().setDocFiles(docpathV2);
         }
-        
+
     }
 
     @objid ("4c78031a-f9b2-400b-84d1-b2a357ec850e")
     private void migrateDependencies(JxbModule moduleV1, Jxbv2Module moduleV2) {
         // Create V2 Dependencies section
         moduleV2.setDependencies(this.factoryV2.createModuleDependencies());
-        
+
         for (final Optional depV1 : V1Utils.getOptionalDependencies(moduleV1)) {
             final Jxbv2Optional depV2 = this.factoryV2.createModuleDependenciesOptional();
             depV2.setName(depV1.getName());
             depV2.setVersion(depV1.getVersion());
             moduleV2.getDependencies().getOptional().add(depV2);
         }
-        
+
         for (final Required depV1 : V1Utils.getRequiredDependencies(moduleV1)) {
             final Jxbv2Required depV2 = this.factoryV2.createModuleDependenciesRequired();
             depV2.setName(depV1.getName());
             depV2.setVersion(depV1.getVersion());
             moduleV2.getDependencies().getRequired().add(depV2);
         }
-        
+
     }
 
     @objid ("23228bcf-fa56-43c7-9b9e-3d2d45a67734")
     private void migrateParameters(JxbModule moduleV1, Jxbv2Module moduleV2) {
         // Create V2 Parameters section
         moduleV2.setParameters(this.factoryV2.createModuleParameters());
-        
+
         for (final JxbParameter paramV1 : V1Utils.getParameters(moduleV1)) {
             // Create new V2 parameter
             final Jxbv2Parameter paramV2 = this.factoryV2.createModuleParametersParameter();
-        
+
             // Simple cases
             paramV2.setDefaultValue(paramV1.getDefaultValue());
             paramV2.setDescription(paramV2.getDescription());
-        
+
             paramV2.setGroup(paramV1.getGroup());
             paramV2.setId(paramV1.getName());
             paramV2.setLabel(paramV1.getLabel());
             paramV2.setType(paramV1.getType());
             paramV2.setUid(paramV1.getUid());
-        
+
             // Enumeration
             final JxbEnumeration enumV1 = V1Utils.getParameterEnumeration(paramV1);
             if (enumV1 != null) {
                 paramV2.setEnumeration(this.factoryV2.createEnumeration());
                 migrateParameterEnumeration(enumV1, paramV2.getEnumeration());
             }
-        
+
             // Description
             final String descriptionV1 = V1Utils.getParameterDescription(paramV1);
             if (descriptionV1 != null) {
                 paramV2.setDescription(descriptionV1);
             }
-        
+
             // Add V2 parameter
             moduleV2.getParameters().getParameter().add(paramV2);
         }
-        
+
     }
 
     @objid ("8bb48769-f0f5-4142-9340-cc8e65f80921")
     private void migrateProfiles(JxbModule moduleV1, Jxbv2Module moduleV2) {
         // Create V2 Profiles section
         moduleV2.setProfiles(this.factoryV2.createModuleProfiles());
-        
+
         for (final JxbProfile profileV1 : V1Utils.getProfiles(moduleV1)) {
             final Jxbv2Profile profileV2 = this.factoryV2.createModuleProfilesProfile();
             migrateOneProfile(profileV1, profileV2);
             moduleV2.getProfiles().getProfile().add(profileV2);
         }
-        
+
     }
 
     @objid ("35b0c00d-2aab-49da-aa0c-e3091638574c")
@@ -243,13 +243,13 @@ public class Migrator {
         // Attributes
         profileV2.setId(profileV1.getName());
         profileV2.setUid(profileV1.getUid());
-        
+
         // Stereotypes
         migrateStereotypes(profileV1, profileV2);
-        
+
         // MetaclassReferences
         migrateMetaclassReferences(profileV1, profileV2);
-        
+
     }
 
     @objid ("1059a9f9-5b94-4412-aa5e-5cc21c246528")
@@ -259,7 +259,7 @@ public class Migrator {
             migrateOneStereotype(stV1, stV2);
             profileV2.getStereotype().add(stV2);
         }
-        
+
     }
 
     @objid ("e8a1fb6a-0759-469f-96c4-4b8f0bb6bf10")
@@ -269,7 +269,7 @@ public class Migrator {
             migrateOneMetaclassReference(stV1, stV2);
             profileV2.getMetaclassReference().add(stV2);
         }
-        
+
     }
 
     @objid ("1a05deb5-69e1-4e5c-8bde-945696b8082c")
@@ -281,69 +281,69 @@ public class Migrator {
         stV2.setMetaclass(stV1.getMetaclass());
         stV2.setOwnerStereotype(stV1.getOwnerStereotype());
         stV2.setUid(stV1.getUid());
-        
+
         // Composed elements
         stV2.setTagTypes(this.factoryV2.createModuleProfilesProfileStereotypeTagTypes());
-        
+
         for (final Object obj : stV1.getIconsOrTaggedvaluesOrNotetype()) {
             if (obj instanceof Icons) {
                 migrateIcons((Icons) obj, stV2);
             }
-        
+
             // TagType
             if (obj instanceof JxbTaggedvalues) {
                 final JxbTaggedvalues taggedValuesV1 = (JxbTaggedvalues) obj;
                 final Jxbv2TagType tagTypeV2 = this.factoryV2.createTagType();
-        
+
                 tagTypeV2.setName(taggedValuesV1.getName());
                 tagTypeV2.setIsHidden(taggedValuesV1.getIsHidden());
                 tagTypeV2.setIsSigned(taggedValuesV1.getIsSigned());
                 tagTypeV2.setLabel(taggedValuesV1.getLabel());
                 tagTypeV2.setParameterCard(taggedValuesV1.getParameterCard());
                 tagTypeV2.setUid(taggedValuesV1.getUid());
-        
+
                 stV2.getTagTypes().getTagType().add(tagTypeV2);
             }
-        
+
             // NoteType
             if (obj instanceof JxbNotetype) {
-        
+
                 final JxbNotetype noteTypeV1 = (JxbNotetype) obj;
                 final Jxbv2NoteType noteTypeV2 = this.factoryV2.createNoteType();
-        
+
                 noteTypeV2.setName(noteTypeV1.getName());
                 noteTypeV2.setIsHidden(noteTypeV1.getIsHidden());
                 noteTypeV2.setLabel(noteTypeV1.getLabel());
                 noteTypeV2.setUid(noteTypeV1.getUid());
-        
+
                 if (stV2.getNoteTypes() == null) {
                     stV2.setNoteTypes(this.factoryV2.createModuleProfilesProfileStereotypeNoteTypes());
                 }
                 stV2.getNoteTypes().getNoteType().add(noteTypeV2);
             }
-        
+
             // ExternDocumentType
             if (obj instanceof JxbExterndocumenttype) {
-        
+
                 final JxbExterndocumenttype noteTypeV1 = (JxbExterndocumenttype) obj;
                 final Jxbv2ExternDocumentType noteTypeV2 = this.factoryV2.createExternDocumentType();
-        
+
                 noteTypeV2.setName(noteTypeV1.getName());
                 noteTypeV2.setIsHidden(noteTypeV1.getIsHidden());
                 noteTypeV2.setLabel(noteTypeV1.getLabel());
                 noteTypeV2.setUid(noteTypeV1.getUid());
-        
+
                 if (stV2.getExternDocumentTypes() == null) {
                     stV2.setExternDocumentTypes(this.factoryV2.createModuleProfilesProfileStereotypeExternDocumentTypes());
                 }
                 stV2.getExternDocumentTypes().getExternDocumentType().add(noteTypeV2);
             }
-        
+
             // PropertyTable
             // nothing to do since PropertyTable did not exist in V1
-        
+
         }
-        
+
     }
 
     @objid ("81cb5bb7-f5b2-4c83-b73c-e1ef6ca904ef")
@@ -368,7 +368,7 @@ public class Migrator {
                 stV2.setImage(imageV2);
             }
         }
-        
+
     }
 
     @objid ("f37f44c8-9c5e-469e-8c88-64d044973089")
@@ -376,61 +376,61 @@ public class Migrator {
         // Attributes
         stV2.setMetaclass(stV1.getMetaclass());
         stV2.setUid(stV1.getUid());
-        
+
         // Composed elements
         for (final Object obj : stV1.getTaggedvaluesOrNotetypeOrExterndocumenttype()) {
-        
+
             // TagType
             if (obj instanceof JxbTaggedvalues) {
                 final JxbTaggedvalues taggedValuesV1 = (JxbTaggedvalues) obj;
                 final Jxbv2TagType tagTypeV2 = this.factoryV2.createTagType();
-        
+
                 tagTypeV2.setName(taggedValuesV1.getName());
                 tagTypeV2.setIsHidden(taggedValuesV1.getIsHidden());
                 tagTypeV2.setIsSigned(taggedValuesV1.getIsSigned());
                 tagTypeV2.setLabel(taggedValuesV1.getLabel());
                 tagTypeV2.setParameterCard(taggedValuesV1.getParameterCard());
                 tagTypeV2.setUid(taggedValuesV1.getUid());
-        
+
                 if (stV2.getTagTypes() == null) {
                     stV2.setTagTypes(this.factoryV2.createModuleProfilesProfileMetaclassReferenceTagTypes());
                 }
                 stV2.getTagTypes().getTagType().add(tagTypeV2);
             }
-        
+
             // NoteType
             if (obj instanceof JxbNotetype) {
                 final JxbNotetype noteTypeV1 = (JxbNotetype) obj;
                 final Jxbv2NoteType noteTypeV2 = this.factoryV2.createNoteType();
-        
+
                 noteTypeV2.setName(noteTypeV1.getName());
                 noteTypeV2.setIsHidden(noteTypeV1.getIsHidden());
                 noteTypeV2.setLabel(noteTypeV1.getLabel());
                 noteTypeV2.setUid(noteTypeV1.getUid());
-        
+
                 if (stV2.getNoteTypes() == null) {
                     stV2.setNoteTypes(this.factoryV2.createModuleProfilesProfileMetaclassReferenceNoteTypes());
                 }
                 stV2.getNoteTypes().getNoteType().add(noteTypeV2);
             }
-        
+
             // ExternDocumentType
             if (obj instanceof JxbExterndocumenttype) {
                 final JxbExterndocumenttype noteTypeV1 = (JxbExterndocumenttype) obj;
                 final Jxbv2ExternDocumentType noteTypeV2 = this.factoryV2.createExternDocumentType();
-        
+
                 noteTypeV2.setName(noteTypeV1.getName());
                 noteTypeV2.setIsHidden(noteTypeV1.getIsHidden());
                 noteTypeV2.setLabel(noteTypeV1.getLabel());
                 noteTypeV2.setUid(noteTypeV1.getUid());
-        
+
                 if (stV2.getExternDocumentTypes() == null) {
                     stV2.setExternDocumentTypes(this.factoryV2.createModuleProfilesProfileMetaclassReferenceExternDocumentTypes());
                 }
                 stV2.getExternDocumentTypes().getExternDocumentType().add(noteTypeV2);
             }
         }
-        
+
     }
 
     /**
@@ -439,42 +439,42 @@ public class Migrator {
     @objid ("3e1aee9a-1096-4d75-aa9a-b880085e9853")
     private void migrateGUI(JxbModule moduleV1, Jxbv2Module moduleV2) {
         final Gui guiV1 = V1Utils.getGui(moduleV1);
-        
+
         if (guiV1 == null) {
             return;
         }
-        
+
         final Jxbv2Gui guiV2 = this.factoryV2.createModuleGui();
         moduleV2.setGui(guiV2);
-        
+
         // Commands
         migrateCommands(guiV1, guiV2);
-        
+
         // Tools
         migrateTools(guiV1, guiV2);
-        
+
         // Contextual menu
         migrateContextualMenu(guiV1, guiV2);
-        
+
         // Diagrams
         migrateDiagrams(guiV1, guiV2);
-        
+
         // Views
         migrateViews(guiV1, guiV2);
-        
+
     }
 
     @objid ("dbec51e2-3bc4-4c30-86be-4df91104a860")
     private void migrateDiagrams(Gui guiV1, Jxbv2Gui guiV2) {
         guiV2.setDiagrams(this.factoryV2.createModuleGuiDiagrams());
-        
+
         for (final CustomizedDiagram diagramV1 : V1Utils.getCustomizedDiagrams(guiV1)) {
-        
+
             final Jxbv2DiagramType diagramV2 = this.factoryV2.createModuleGuiDiagramsDiagramType();
-        
+
             diagramV2.setBaseDiagram(diagramV1.getBaseDiagram());
             diagramV2.setStereotype(diagramV1.getStereotype());
-        
+
             for (final Object obj : diagramV1.getPaletteOrStyle()) {
                 // Migrate Palette
                 final Palette paletteV1 = V1Utils.getDiagramPalette(diagramV1);
@@ -483,28 +483,28 @@ public class Migrator {
                     migratePalette(diagramV1, paletteV1, paletteV2);
                     diagramV2.setPalette(paletteV2);
                 }
-        
+
                 // Migrate Style => V1 Style do not migrate in V2. nothing to do
             }
-        
+
             // Add standard handler
             Jxbv2Handler handler = new Jxbv2Handler();
             handler.setClazz("StandardCustomizer");
             diagramV2.setHandler(handler);
-        
+
             guiV2.getDiagrams().getDiagramType().add(diagramV2);
         }
-        
+
     }
 
     @objid ("d5ac771b-3634-481c-8dc2-4ae389785d99")
     private void migratePalette(CustomizedDiagram diagramV1, Palette paletteV1, Jxbv2Palette paletteV2) {
         paletteV2.setKeepBasePalette(diagramV1.isKeepBasePalette());
-        
+
         for (final JAXBElement<?> obj : paletteV1.getDiagramCommandOrDiagramCommandBoxOrDiagramCommandLink()) {
             String toolNameV1 = "";
             String toolGroupV1 = "";
-        
+
             if (obj.getValue() instanceof JxbDiagramCommand) {
                 toolNameV1 = ((JxbDiagramCommand) obj.getValue()).getName();
                 toolGroupV1 = ((JxbDiagramCommand) obj.getValue()).getGroup();
@@ -517,20 +517,20 @@ public class Migrator {
                 toolNameV1 = ((JxbDiagramCommandLink) obj.getValue()).getName();
                 toolGroupV1 = ((JxbDiagramCommandLink) obj.getValue()).getGroup();
             }
-        
+
             final Jxbv2ToolRef toolrefV2 = this.factoryV2.createModuleGuiDiagramsDiagramTypePaletteToolRef();
             toolrefV2.setRefid(toolNameV1);
             toolrefV2.setGroup(toolGroupV1);
             paletteV2.getToolRef().add(toolrefV2);
         }
-        
+
     }
 
     @objid ("665e4b5f-a2fb-45cd-9c6f-c449ef9ebe8d")
     private void migrateContextualMenu(org.modelio.gproject.data.module.jaxbv1.JxbModule.Gui guiV1, Jxbv2Gui guiV2) {
         final Jxbv2ContextualMenu menuV2 = this.factoryV2.createModuleGuiContextualMenu();
         guiV2.getContextualMenu().add(menuV2);
-        
+
         for (final JxbModule.Gui.Command commandV1 : V1Utils.getCommands(guiV1)) {
             final Contribution contribution = V1Utils.getContribution(commandV1);
             if ("contextualpopup".equals(contribution.getLocation())) {
@@ -539,7 +539,7 @@ public class Migrator {
                 menuV2.getCommandRef().add(ref);
             }
         }
-        
+
         for (final ElementCreationCommand commandV1 : V1Utils.getCreationCommands(guiV1)) {
             final Contribution contribution = V1Utils.getContribution(commandV1);
             if ("contextualpopup".equals(contribution.getLocation())) {
@@ -548,7 +548,7 @@ public class Migrator {
                 menuV2.getCommandRef().add(ref);
             }
         }
-        
+
     }
 
     /**
@@ -558,13 +558,13 @@ public class Migrator {
     private void migrateTools(Gui guiV1, Jxbv2Gui guiV2) {
         // Create Tools section
         guiV2.setTools(this.factoryV2.createModuleGuiTools());
-        
+
         // Collect tools
         for (final CustomizedDiagram diagramV1 : V1Utils.getCustomizedDiagrams(guiV1)) {
             final Palette paletteV1 = V1Utils.getDiagramPalette(diagramV1);
             if (paletteV1 != null) {
                 for (final JAXBElement<?> obj : paletteV1.getDiagramCommandOrDiagramCommandBoxOrDiagramCommandLink()) {
-        
+
                     if (obj.getValue() instanceof JxbDiagramCommand) {
                         final JxbDiagramCommand cmdV1 = (JxbDiagramCommand) obj.getValue();
                         final Jxbv2Tool cmdV2 = this.factoryV2.createTool();
@@ -586,7 +586,7 @@ public class Migrator {
                 }
             }
         }
-        
+
     }
 
     @objid ("f04c89f5-b5e0-45a3-8ede-b3a74614709f")
@@ -596,29 +596,29 @@ public class Migrator {
         cmdV2.setImage(cmdV1.getImage());
         cmdV2.setLabel(cmdV1.getLabel());
         cmdV2.setTooltip(cmdV1.getTooltip());
-        
+
         // Composed (Handler, Scopes)
         final JxbHandler handlerV1 = cmdV1.getHandler();
         final Jxbv2Handler handlerV2 = this.factoryV2.createHandler();
-        
+
         migrateToolHandler(handlerV1, handlerV2, "Link");
-        
+
         cmdV2.setHandler(handlerV2);
-        
+
         for (final JxbScope sourceScopeV1 : cmdV1.getScopeSource()) {
             final Jxbv2Scope sourceScopeV2 = this.factoryV2.createScope();
             sourceScopeV2.setMetaclass(sourceScopeV1.getMetaclass());
             sourceScopeV2.setStereotype(sourceScopeV1.getStereotype());
             cmdV2.getScopeSource().add(sourceScopeV2);
         }
-        
+
         for (final JxbScope targetScopeV1 : cmdV1.getScopeTarget()) {
             final Jxbv2Scope targetScopeV2 = this.factoryV2.createScope();
             targetScopeV2.setMetaclass(targetScopeV1.getMetaclass());
             targetScopeV2.setStereotype(targetScopeV1.getStereotype());
             cmdV2.getScopeTarget().add(targetScopeV2);
         }
-        
+
     }
 
     @objid ("566baee7-8620-4448-bfb6-b834c7e0fd67")
@@ -628,10 +628,10 @@ public class Migrator {
         cmdV2.setImage(cmdV1.getImage());
         cmdV2.setLabel(cmdV1.getLabel());
         cmdV2.setTooltip(cmdV1.getTooltip());
-        
+
         // Composed (Handler)
         for (final Object obj : cmdV1.getScopeOrHandler()) {
-        
+
             if (obj instanceof JxbHandler) {
                 final JxbHandler handlerV1 = (JxbHandler) obj;
                 final Jxbv2Handler handlerV2 = this.factoryV2.createHandler();
@@ -646,7 +646,7 @@ public class Migrator {
                 cmdV2.getScopeTarget().add(scopeV2);
             }
         }
-        
+
     }
 
     @objid ("eea5c2e1-98f4-421d-a5da-4266002d1bb2")
@@ -656,13 +656,13 @@ public class Migrator {
         cmdV2.setImage(cmdV1.getImage());
         cmdV2.setLabel(cmdV1.getLabel());
         cmdV2.setTooltip(cmdV1.getTooltip());
-        
+
         // Composed (Handler)
         final JxbHandler handlerV1 = cmdV1.getHandler();
         final Jxbv2Handler handlerV2 = this.factoryV2.createHandler();
         migrateToolHandler(handlerV1, handlerV2, "Box");
         cmdV2.setHandler(handlerV2);
-        
+
     }
 
     @objid ("c478a154-caa9-429a-ab7a-1fb026ca67d0")
@@ -690,7 +690,7 @@ public class Migrator {
                 handlerV2.getHParameter().add(relation);
             }
         }
-        
+
     }
 
     /**
@@ -700,7 +700,7 @@ public class Migrator {
     private void migrateCommands(Gui guiV1, Jxbv2Gui guiV2) {
         // Create V2 commands section
         guiV2.setCommands(this.factoryV2.createModuleGuiCommands());
-        
+
         // Both V1 'commands' and 'element creation commands' go in the V2 Commands section
         for (final JxbModule.Gui.Command commandV1 : V1Utils.getCommands(guiV1)) {
             final Jxbv2Command commandV2 = this.factoryV2.createCommand();
@@ -712,14 +712,14 @@ public class Migrator {
             migrateOneCreationCommand(commandV1, commandV2);
             guiV2.getCommands().getCommand().add(commandV2);
         }
-        
+
     }
 
     @objid ("30ef00e7-b262-4fb6-9c33-dd348364ed3e")
     private void migrateOneCommand(org.modelio.gproject.data.module.jaxbv1.JxbModule.Gui.Command commandV1, Jxbv2Command commandV2) {
         commandV2.setGroup(commandV1.getGroup());
         commandV2.setGroupImage(commandV1.getGroupImage());
-        
+
         for (final Object xobj : commandV1.getScopeOrHandlerOrContribution()) {
             if (xobj instanceof JxbHandler) {
                 final JxbHandler handlerV1 = (JxbHandler) xobj;
@@ -738,19 +738,19 @@ public class Migrator {
                 // contributions are no longer needed
             }
         }
-        
+
         commandV2.setId(commandV1.getName());
         commandV2.setLabel(commandV1.getLabel());
         commandV2.setModifyModel(commandV1.getModifyModel());
         commandV2.setTooltip(commandV1.getTooltip());
-        
+
     }
 
     @objid ("d1025882-900c-4b21-bb6a-b17f528a71f5")
     private void migrateOneCreationCommand(ElementCreationCommand commandV1, Jxbv2Command commandV2) {
         commandV2.setGroup(commandV1.getGroup());
         commandV2.setGroupImage(commandV1.getGroupImage());
-        
+
         for (final Object xobj : commandV1.getScopeOrHandlerOrContribution()) {
             if (xobj instanceof JxbHandler) {
                 final JxbHandler handlerV1 = (JxbHandler) xobj;
@@ -769,20 +769,20 @@ public class Migrator {
                 // contributions are no longer needed
             }
         }
-        
+
         commandV2.setId(commandV1.getName());
         commandV2.setLabel(commandV1.getLabel());
         commandV2.setImage(commandV1.getImage());
         commandV2.setTooltip(commandV1.getTooltip());
         commandV2.setModifyModel(commandV1.getModifyModel());
-        
+
     }
 
     @objid ("c1721027-ff82-4f0d-af99-f07456d92ad0")
     private void migrateViews(org.modelio.gproject.data.module.jaxbv1.JxbModule.Gui guiV1, Jxbv2Gui guiV2) {
         // Create the V2 Views section
         guiV2.setViews(this.factoryV2.createModuleGuiViews());
-        
+
         // Migrate the property pages which are the only available views in V1
         for (final JxbModule.Gui.PropertyPage propertyPageV1 : V1Utils.getPropertyPages(guiV1)) {
             final Jxbv2PropertyPage propertyPageV2 = this.factoryV2.createModuleGuiViewsPropertyPage();
@@ -790,7 +790,7 @@ public class Migrator {
             propertyPageV2.setClazz(propertyPageV1.getClazz());
             propertyPageV2.setImage(propertyPageV1.getImage());
             propertyPageV2.setLabel(propertyPageV1.getLabel());
-        
+
             for (final JxbModule.Gui.Command commandV1 : V1Utils.getCommands(guiV1)) {
                 final Contribution contribution = V1Utils.getContribution(commandV1);
                 if ("property".equals(contribution.getLocation())) {
@@ -800,7 +800,7 @@ public class Migrator {
                     propertyPageV2.getCommandRef().add(ref);
                 }
             }
-        
+
             for (final ElementCreationCommand commandV1 : V1Utils.getCreationCommands(guiV1)) {
                 final Contribution contribution = V1Utils.getContribution(commandV1);
                 if ("property".equals(contribution.getLocation())) {
@@ -810,10 +810,10 @@ public class Migrator {
                     propertyPageV2.getCommandRef().add(ref);
                 }
             }
-        
+
             guiV2.getViews().getPropertyPage().add(propertyPageV2);
         }
-        
+
     }
 
     @objid ("7e00bcde-1bde-49dc-b373-1635da1a11f7")
@@ -824,7 +824,7 @@ public class Migrator {
             literalV2.setValue(literalV1.getName());
             enumV2.getLiteral().add(literalV2);
         }
-        
+
     }
 
     @objid ("1ea4da3a-eb74-4eb6-99d4-10c84e27589b")
@@ -832,7 +832,7 @@ public class Migrator {
         // In V1 diagram tool never used a class to implement the tool
         // For migrated tool let use the generic handler
         handlerV2.setClazz(flavor);
-        
+
         if (handlerV1.getMetaclass() != null && !handlerV1.getMetaclass().isEmpty()) {
             final Jxbv2HParameter metaclass = this.factoryV2.createHandlerHParameter();
             metaclass.setName("metaclass");
@@ -851,7 +851,7 @@ public class Migrator {
             relation.setValue(handlerV1.getRelation());
             handlerV2.getHParameter().add(relation);
         }
-        
+
     }
 
 }

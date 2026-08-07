@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.common.policies.msgflow;
 
@@ -55,10 +55,10 @@ public class MessageFlowSolverDialog extends ModelioDialog {
     private Controller controller;
 
     @objid ("e0c0b9f6-55bb-4911-a807-249ad53d0e47")
-    public  MessageFlowSolverDialog(Shell parentShell, MessageFlowSolverDataModel data) {
+    public MessageFlowSolverDialog(Shell parentShell, MessageFlowSolverDataModel data) {
         super(parentShell);
         this.controller = new Controller(data);
-        
+
     }
 
     @objid ("c8da0599-4b3d-47a3-b3ba-f9f361949526")
@@ -72,7 +72,7 @@ public class MessageFlowSolverDialog extends ModelioDialog {
     public void addButtonsInButtonBar(Composite parent) {
         createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
         createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
-        
+
     }
 
     @objid ("3d7e89ca-ee2c-484c-be74-84fc6d84047d")
@@ -81,13 +81,13 @@ public class MessageFlowSolverDialog extends ModelioDialog {
         getShell().setText(DiagramEditorBpmn.I18N.getString("MessageFlowSolverDialog.title"));
         setTitle(DiagramEditorBpmn.I18N.getString("MessageFlowSolverDialog.title"));
         setMessage(DiagramEditorBpmn.I18N.getString("MessageFlowSolverDialog.message"));
-        
+
         Shell parentShell = getShell().getParent().getShell();
         Point shellLocation = parentShell.getLocation();
         getShell().setSize(600, 500);
         getShell().setLocation(shellLocation.x + 300, shellLocation.y + 300);
         setLogoImage(null);
-        
+
     }
 
     @objid ("6370cf06-8f98-451a-ba0e-01ce40119a07")
@@ -114,7 +114,7 @@ public class MessageFlowSolverDialog extends ModelioDialog {
         private Text nameText;
 
         @objid ("9969b24b-ca14-40a1-a45b-5b89d2d6c7b8")
-        public  Ui(Controller controller) {
+        public Ui(Controller controller) {
             this.controller = controller;
         }
 
@@ -124,26 +124,26 @@ public class MessageFlowSolverDialog extends ModelioDialog {
             GridData gd = new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
             this.composite.setLayoutData(gd);
             this.composite.setFont(parent.getFont());
-            
+
             this.composite.setLayout(new FormLayout());
-            
+
             Composite preview = createNameChooser(this.composite);
             Composite sourceChooser = createSourceChooser(this.composite);
             Composite targetChooser = createTargetChooser(this.composite);
-            
+
             FormData fd = new FormData();
             fd.left = new FormAttachment(0, 4);
             fd.right = new FormAttachment(100, -4);
             fd.top = new FormAttachment(0, 4);
             preview.setLayoutData(fd);
-            
+
             FormData fd1 = new FormData();
             fd1.left = new FormAttachment(0, 4);
             fd1.right = new FormAttachment(50, 0);
             fd1.top = new FormAttachment(preview, 4);
             fd1.bottom = new FormAttachment(100, -4);
             sourceChooser.setLayoutData(fd1);
-            
+
             FormData fd2 = new FormData();
             fd2.left = new FormAttachment(sourceChooser, 4);
             fd2.right = new FormAttachment(100, -4);
@@ -156,22 +156,22 @@ public class MessageFlowSolverDialog extends ModelioDialog {
         @objid ("00b3a9aa-067e-49ac-aee6-7bcf4ca13778")
         private Composite createNameChooser(Composite parent) {
             Composite c = new Composite(parent, SWT.BORDER);
-            
+
             GridLayout layout = new GridLayout(2, false);
             layout.marginHeight = 4;
             layout.marginWidth = 4;
             c.setLayout(layout);
-            
+
             Label nameLabel= new Label(c, SWT.NONE);
             nameLabel.setText(DiagramEditorBpmn.I18N.getString("MessageFlowSolverDialog.name.label"));
             nameLabel.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false));
-            
+
             this.nameText = new Text(c, SWT.BORDER);
             this.nameText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-            
-            
+
+
             this.nameText.addModifyListener(new ModifyListener() {
-                
+
                 @Override
                 public void modifyText(ModifyEvent e) {
                     Ui.this.controller.onNameChange(((Text)e.widget).getText());
@@ -185,7 +185,7 @@ public class MessageFlowSolverDialog extends ModelioDialog {
             Composite c = new Composite(parent, SWT.BORDER);
             c.setLayout(new GridLayout());
             this.sourcesTitle = new Label(c, SWT.NONE);
-            
+
             this.sourcesViewer = new TreeViewer(c, SWT.SINGLE|SWT.FULL_SELECTION);
             this.sourcesViewer.setContentProvider(new ITreeContentProvider() {
                 @Override
@@ -205,7 +205,7 @@ public class MessageFlowSolverDialog extends ModelioDialog {
                     return false;
                 }
             });
-            
+
             this.sourcesViewer.setLabelProvider(new UniversalLabelProvider2());
             this.sourcesViewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
             this.sourcesViewer.getTree().setToolTipText(DiagramEditorBpmn.I18N.getMessage("MessageFlowSolverDialog.sources.tooltip"));
@@ -222,11 +222,11 @@ public class MessageFlowSolverDialog extends ModelioDialog {
         private Composite createTargetChooser(Composite parent) {
             Composite c = new Composite(parent, SWT.BORDER);
             c.setLayout(new GridLayout());
-            
-            
+
+
             this.targetsTitle = new Label(c, SWT.NONE);
-            
-            
+
+
             this.targetsViewer = new TreeViewer(c, SWT.SINGLE|SWT.FULL_SELECTION);
             this.targetsViewer.setContentProvider(new ITreeContentProvider() {
                 @Override
@@ -246,9 +246,9 @@ public class MessageFlowSolverDialog extends ModelioDialog {
                     return false;
                 }
             });
-            
+
             this.targetsViewer.setLabelProvider(new UniversalLabelProvider2());
-            
+
             this.targetsViewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
             this.targetsViewer.getTree().setToolTipText(DiagramEditorBpmn.I18N.getMessage("MessageFlowSolverDialog.targets.tooltip"));
             this.targetsViewer.addSelectionChangedListener(new ISelectionChangedListener() {
@@ -275,7 +275,7 @@ public class MessageFlowSolverDialog extends ModelioDialog {
             this.sourcesTitle.setText(DiagramEditorBpmn.I18N.getMessage("MessageFlowSolverDialog.sourcesTitle.label", sourcesProvider.getName()));
             this.sourcesViewer.setInput(sources);
             this.sourcesViewer.setSelection(new StructuredSelection(selected));
-            
+
         }
 
         @objid ("a45933b9-9175-479f-94fc-4a9884dbd837")
@@ -283,7 +283,7 @@ public class MessageFlowSolverDialog extends ModelioDialog {
             this.targetsTitle.setText(DiagramEditorBpmn.I18N.getMessage("MessageFlowSolverDialog.targetsTitle.label", targetsProvider.getName()));
             this.targetsViewer.setInput(targets);
             this.targetsViewer.setSelection(new StructuredSelection(selected));
-            
+
         }
 
     }
@@ -297,7 +297,7 @@ public class MessageFlowSolverDialog extends ModelioDialog {
         private MessageFlowSolverDataModel data;
 
         @objid ("bb121a77-117f-4180-8998-7db8cb7dd1e6")
-        public  Controller(MessageFlowSolverDataModel data) {
+        public Controller(MessageFlowSolverDataModel data) {
             this.data = data;
         }
 
@@ -314,11 +314,12 @@ public class MessageFlowSolverDialog extends ModelioDialog {
             this.ui.updateName(this.data.getMessageFlowName());
             this.ui.updateSources(this.data.getSourcesProvider(), this.data.getSources(), this.data.getSelectedSource());
             this.ui.updateTargets(this.data.getTargetsProvider(), this.data.getTargets(), this.data.getSelectedTarget());
-            
+
         }
 
         /**
          * Called by Ui when the user changes the target selection
+         *
          * @param selection the new target selection
          */
         @objid ("9e0b6d06-af4f-4607-9852-cc227ee5d420")
@@ -328,6 +329,7 @@ public class MessageFlowSolverDialog extends ModelioDialog {
 
         /**
          * Called by Ui when the user changes the source selection
+         *
          * @param selection the new source selection
          */
         @objid ("91ed068c-68a2-4290-9f69-d86d8e711a37")

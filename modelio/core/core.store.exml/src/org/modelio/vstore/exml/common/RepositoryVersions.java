@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.vstore.exml.common;
 
@@ -47,10 +66,21 @@ public class RepositoryVersions {
      * <li> 0 : before this class exist
      * <li> 1 : current repository format.
      * <li> 2 : metaclass directories is now the qualified metaclass name
+     * <li> 3 : no more metaclass directory, files are hashed in 2 sub directories based on a part of the UUID.
      * </ul>
      */
     @objid ("ca97c930-e00a-4a24-9d40-7b5d80df7e15")
-    public static final int CURRENT_FORMAT = 2;
+    public static final int CURRENT_FORMAT = 3;
+
+    /**
+     * The latest stable format version.
+     * <p>
+     * Repositories with format version before this one will be migrated to this one.
+     *
+     * @see #CURRENT_FORMAT
+     */
+    @objid ("b0eccb40-2f1a-47e0-a1e3-d0f682a6da28")
+    public static final int LATEST_STABLE_FORMAT = 3;
 
     @objid ("cbd3a65f-a164-426f-9a16-2a071d088f32")
     private static final String PROP_CMSNODES = "cmsnodes";
@@ -66,6 +96,7 @@ public class RepositoryVersions {
 
     /**
      * Read a {@link RepositoryVersions} written with {@link #write(OutputStream)}.
+     *
      * @param is the input stream
      * @return the RepositoryVersions
      * @throws IOException on failure
@@ -74,7 +105,7 @@ public class RepositoryVersions {
     public static RepositoryVersions fromStream(InputStream is) throws IOException {
         Properties props = new Properties();
         props.load(is);
-        
+
         int repositoryFormat = Integer.parseInt((String) props.get(PROP_REPOSITORY_FORMAT));
         String cmsnodes_str = (String) props.get(PROP_CMSNODES);
         List<String> lcmsNodesSig = Arrays.asList(cmsnodes_str.split(","));
@@ -83,35 +114,37 @@ public class RepositoryVersions {
 
     /**
      * Constructor from fields.
+     *
      * @param format the repository format version
      * @param cmsNodesSig The CMS nodes
      */
     @objid ("c1ecc9df-9773-472c-84dd-e066d92578dd")
-    public  RepositoryVersions(int format, List<String> cmsNodesSig) {
+    public RepositoryVersions(int format, List<String> cmsNodesSig) {
         this.repositoryFormat = format;
         this.cmsNodesSig = new ArrayList<>(cmsNodesSig);
-        
     }
 
     /**
      * Constructor for the given metamodel.
+     *
      * @param mm a metamodel
      */
     @objid ("4c84eefd-4b78-408e-b1df-e5f66598cf19")
-    public  RepositoryVersions(MMetamodel mm) {
+    public RepositoryVersions(MMetamodel mm) {
         this (CURRENT_FORMAT, mm);
     }
 
     /**
      * Constructor for the given metamodel.
+     *
      * @param format the format version
      * @param mm a metamodel
      */
     @objid ("a1a0a84a-812d-4ba8-8a93-d13c42bfb6c8")
-    public  RepositoryVersions(int format, MMetamodel mm) {
+    public RepositoryVersions(int format, MMetamodel mm) {
         final Collection<? extends MClass> registeredClasses = mm.getRegisteredMClasses();
         this.cmsNodesSig = new ArrayList<>();
-        
+
         if (format < 2) {
             for (MClass c : registeredClasses) {
                 if (c.isCmsNode()) {
@@ -126,14 +159,14 @@ public class RepositoryVersions {
             }
         }
         Collections.sort(this.cmsNodesSig);
-        
-        
+
+
         this.repositoryFormat = format;
-        
     }
 
     /**
      * Check whether this version is compatible with the project one.
+     *
      * @param mm the project metamodel
      * @throws IncompatibleVersionException if the version is not compatible.
      */
@@ -143,6 +176,7 @@ public class RepositoryVersions {
     }
 
     /**
+     *
      * @return all CMS node metaclasses known by this repository.
      * @since 3.6.1
      */
@@ -152,6 +186,7 @@ public class RepositoryVersions {
     }
 
     /**
+     *
      * @return the repository format version.
      */
     @objid ("c59f67e0-6c7b-4614-9047-cdd3bc899f6e")
@@ -161,6 +196,7 @@ public class RepositoryVersions {
 
     /**
      * Write this version in a property map
+     *
      * @param properties the write destination
      */
     @objid ("5c9a1281-2a9e-4af9-b09c-4769db46e32f")
@@ -170,15 +206,15 @@ public class RepositoryVersions {
             s.append(c);
             s.append(',');
         }
-        
+
         properties.put(PROP_CMSNODES, s.toString());
-        
+
         properties.put(PROP_REPOSITORY_FORMAT, String.valueOf(this.repositoryFormat));
-        
     }
 
     /**
      * Write this version in the given stream in the format read by {@link #repositoryFormat} .
+     *
      * @param out where to write this version.
      * @throws IOException on I/O failure
      */
@@ -187,19 +223,39 @@ public class RepositoryVersions {
         Properties props = new Properties();
         write(props);
         props.store(out, "Repository format version, DO NOT EDIT.");
-        
     }
 
     @objid ("f1446c54-34d5-413f-9e98-817fcc09fc6a")
     private void checkCompatible(RepositoryVersions reference) throws IncompatibleVersionException {
-        if (this.repositoryFormat != reference.repositoryFormat) {
-            if (reference.getRepositoryFormat() == 2 && this.repositoryFormat < 2) {
-                // format 0 and 1 are compatible with 2, continue.
-            } else {
-                throw new IncompatibleVersionException("Repository format "+this.repositoryFormat+" is incompatible with "+reference.repositoryFormat+ " version.");
-            }
+        if (this.repositoryFormat == reference.repositoryFormat) {
+            return;
         }
-        
+
+        if (reference.getRepositoryFormat() == 2 && this.repositoryFormat < 2) {
+            // format 0 and 1 are compatible with 2, continue.
+        } else if (reference.getRepositoryFormat() == CURRENT_FORMAT && this.repositoryFormat >= 1) {
+            // format 2 is compatible with 3, continue.
+        } else {
+            throw new IncompatibleVersionException("Repository format "+this.repositoryFormat+" is incompatible with "+reference.repositoryFormat+ " version.");
+        }
+    }
+
+    @objid ("d4eb7faf-8bcb-49f0-a374-3ad68e550337")
+    @Override
+    public String toString() {
+        int f = getRepositoryFormat();
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("[");
+        builder.append(f);
+        if (f == CURRENT_FORMAT) {
+            builder.append(" (latest)");
+        } else if (f == LATEST_STABLE_FORMAT) {
+            builder.append(" (latest stable)");
+        }
+        builder.append("]");
+
+        return builder.toString();
     }
 
     /**
@@ -212,10 +268,11 @@ public class RepositoryVersions {
 
         /**
          * Constructs an <code>IncompatibleVersionException</code> with the specified detail message.
+         *
          * @param message the message
          */
         @objid ("aee7c652-11d3-4734-bb35-5b661972a21e")
-        public  IncompatibleVersionException(String message) {
+        public IncompatibleVersionException(String message) {
             super(message);
         }
 

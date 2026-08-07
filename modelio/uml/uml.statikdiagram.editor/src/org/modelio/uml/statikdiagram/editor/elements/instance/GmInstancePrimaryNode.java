@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.instance;
 
@@ -89,36 +89,37 @@ public class GmInstancePrimaryNode extends GmNoStyleCompositeNode implements IIm
      * Constructor for deserialization only.
      */
     @objid ("353a1a61-55b7-11e2-877f-002564c97630")
-    public  GmInstancePrimaryNode() {
+    public GmInstancePrimaryNode() {
         // Nothing to do.
     }
 
     /**
      * Creates a GmInstancePrimaryNode.
+     *
      * @param diagram The owner diagram.
      * @param relatedRef a reference to the element this GmModel is related to, must not be null.
      */
     @objid ("353a1a64-55b7-11e2-877f-002564c97630")
-    public  GmInstancePrimaryNode(IGmDiagram diagram, MRef relatedRef) {
+    public GmInstancePrimaryNode(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
-        
+
         this.header = new GmInstanceHeader(diagram, relatedRef);
         this.header.setRoleInComposition(Constants.HEADER);
-        
+
         this.slotGroup = new GmSlotGroup(diagram, relatedRef);
         this.slotGroup.setRoleInComposition(Constants.SLOTGROUP);
-        
+
         this.internalStructure = new GmInstanceInternalStructure(diagram, relatedRef);
         this.internalStructure.setRoleInComposition(Constants.INTERNALSTRUCTURE);
-        
+
         super.addChild(this.header);
         super.addChild(this.slotGroup);
         super.addChild(this.internalStructure);
-        
+
         styleChanged(getDisplayedStyle());
         this.imageModeHeader = new GmDefaultModelElementLabel(diagram, relatedRef);
         addChild(this.imageModeHeader);
-        
+
     }
 
     @objid ("353a1a6d-55b7-11e2-877f-002564c97630")
@@ -135,6 +136,7 @@ public class GmInstancePrimaryNode extends GmNoStyleCompositeNode implements IIm
 
     /**
      * Get the group where <tt>GmAttributes</tt> are unmasked.
+     *
      * @return the attributes group.
      */
     @objid ("353a1a7d-55b7-11e2-877f-002564c97630")
@@ -146,7 +148,7 @@ public class GmInstancePrimaryNode extends GmNoStyleCompositeNode implements IIm
     @Override
     public GmCompositeNode getCompositeFor(Class<? extends MObject> metaclass) {
         GmCompositeNode ret = null;
-        
+
         if (BindableInstance.class.isAssignableFrom(metaclass) && !(Port.class.isAssignableFrom(metaclass))) {
             // Instances are unmasked in the internal structure zone or group
             ret = getInternalStructure().getCompositeFor(metaclass);
@@ -169,6 +171,7 @@ public class GmInstancePrimaryNode extends GmNoStyleCompositeNode implements IIm
 
     /**
      * Get the internal structure.
+     *
      * @return the internal structure.
      */
     @objid ("353ba0e9-55b7-11e2-877f-002564c97630")
@@ -209,7 +212,7 @@ public class GmInstancePrimaryNode extends GmNoStyleCompositeNode implements IIm
             break;
         }
         }
-        
+
     }
 
     @objid ("353ba102-55b7-11e2-877f-002564c97630")
@@ -221,7 +224,7 @@ public class GmInstancePrimaryNode extends GmNoStyleCompositeNode implements IIm
         firePropertyChange(PROPERTY_LABEL, oldLabel, this.header.getMainLabel());
         // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("353ba105-55b7-11e2-877f-002564c97630")
@@ -253,30 +256,30 @@ public class GmInstancePrimaryNode extends GmNoStyleCompositeNode implements IIm
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmInstancePrimaryNode.", GmInstancePrimaryNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("353ba114-55b7-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
-        
+
         this.header = (GmInstanceHeader) getFirstChild(Constants.HEADER);
         this.slotGroup = (GmSlotGroup) getFirstChild(Constants.SLOTGROUP);
         GmGroup internalStructureGroup = (GmGroup) getFirstChild(Constants.INTERNALGROUP);
         GmFreeZone internalStructureZone = (GmFreeZone) getFirstChild(Constants.INTERNALZONE);
         this.imageModeHeader = (GmDefaultModelElementLabel) this.getChildren().get(4);
-        
+
         // Migrate internal structure group/zone
         removeChild(internalStructureGroup);
         removeChild(internalStructureZone);
-        
+
         this.internalStructure = new GmInstanceInternalStructure(getDiagram(), getRepresentedRef(), internalStructureZone, internalStructureGroup);
         this.internalStructure.setRoleInComposition(Constants.INTERNALSTRUCTURE);
         addChild(this.internalStructure, 2);
-        
+
     }
 
     @objid ("353ba119-55b7-11e2-877f-002564c97630")
@@ -288,18 +291,18 @@ public class GmInstancePrimaryNode extends GmNoStyleCompositeNode implements IIm
     @objid ("353d277c-55b7-11e2-877f-002564c97630")
     private void read_1(IDiagramReader in) {
         super.read(in);
-        
+
         this.header = (GmInstanceHeader) getFirstChild(Constants.HEADER);
         this.slotGroup = (GmSlotGroup) getFirstChild(Constants.SLOTGROUP);
         this.internalStructure = (GmInstanceInternalStructure) getFirstChild(Constants.INTERNALSTRUCTURE);
-        
+
         this.imageModeHeader = (GmDefaultModelElementLabel) this.getChildren().get(3);
-        
+
     }
 
     /**
      * Constants to retrieve children node on deserialization.
-     * 
+     *
      * @author cmarin
      */
     @objid ("353d2781-55b7-11e2-877f-002564c97630")
@@ -320,7 +323,7 @@ public class GmInstancePrimaryNode extends GmNoStyleCompositeNode implements IIm
 
         @objid ("353d278d-55b7-11e2-877f-002564c97630")
         public static final String INTERNALSTRUCTURE = "InternalStructure";
-}
-    
+
+    }
 
 }

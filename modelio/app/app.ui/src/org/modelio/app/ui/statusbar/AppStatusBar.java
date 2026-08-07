@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.ui.statusbar;
 
@@ -24,8 +24,8 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Inject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
@@ -72,33 +72,33 @@ public class AppStatusBar {
     public void createControls(Composite parent, final IEclipseContext context) {
         // Collect contributors from extension point
         collectContributors();
-        
+
         // Create the bar container
         // This will span the whole application widht (see 'stretch' tag in e4xmi contribution )
         this.barContainer = new Composite(parent, SWT.NONE);
         GridLayout barLayout = new GridLayout(3, false);
         barLayout.verticalSpacing = 0;
         barLayout.marginHeight = 0;
-        
+
         this.barContainer.setLayout(barLayout);
         // this.barContainer.setBackground(UIColor.BLUE);
-        
+
         // Create the area containers
         this.leftContainer = new Composite(this.barContainer, SWT.NONE);
         this.leftContainer.setLayout(createAreaContainerLayout());
         this.leftContainer.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
         // this.leftContainer.setBackground(UIColor.ORANGE);
-        
+
         this.centerContainer = new Composite(this.barContainer, SWT.NONE);
         this.centerContainer.setLayout(createAreaContainerLayout());
         this.centerContainer.setLayoutData(new GridData(SWT.CENTER, SWT.FILL, true, false));
         // this.centerContainer.setBackground(UIColor.GREEN);
-        
+
         this.rightContainer = new Composite(this.barContainer, SWT.NONE);
         this.rightContainer.setLayout(createAreaContainerLayout());
         this.rightContainer.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
         // this.rightContainer.setBackground(UIColor.YELLOW);
-        
+
         // Fill area containers
         for (GroupDescriptor group : this.leftContributors) {
             Composite groupControl = createGroupControl(group, this.leftContainer);
@@ -109,7 +109,7 @@ public class AppStatusBar {
         }
         if (this.centerContributors.size() > 0)
             createGroupSeparator(this.centerContainer);
-        
+
         for (GroupDescriptor group : this.centerContributors) {
             Composite groupControl = createGroupControl(group, this.centerContainer);
             createGroupItemControls(group, groupControl, context);
@@ -120,14 +120,14 @@ public class AppStatusBar {
             Composite groupControl = createGroupControl(group, this.rightContainer);
             createGroupItemControls(group, groupControl, context);
         }
-        
+
     }
 
     @objid ("d7c26b63-68a7-436e-b7e1-d65dc643c1d8")
     private void createGroupSeparator(Composite parent) {
         // Group Separator
         new Label(parent, SWT.SEPARATOR).setLayoutData(new RowData(-1, 10));
-        
+
     }
 
     @objid ("3b93cc1b-18c7-4e58-a400-1f30296c3c08")
@@ -146,7 +146,7 @@ public class AppStatusBar {
         for (ItemDescriptor item : group.items) {
             // Inject the contribution
             ContextInjectionFactory.inject(item.contribution, context);
-        
+
             // Get the contribution control
             Control l = item.contribution.createControl(parent);
             int heightHint = 30;
@@ -156,7 +156,7 @@ public class AppStatusBar {
                 l.setToolTipText(item.tooltip);
             }
         }
-        
+
     }
 
     @objid ("cf494ce4-9571-4d6c-93bd-9f1111421579")
@@ -214,7 +214,7 @@ public class AppStatusBar {
     private void collectContributors() {
         // collect statically registered contributions
         ExtensionPointContributionManager em = new ExtensionPointContributionManager("org.modelio.app.ui.statusbar");
-        
+
         Collection<IConfigurationElement> groups = em.getExtensions("group");
         for (final IConfigurationElement g : groups) {
             GroupDescriptor group = new GroupDescriptor(g);
@@ -228,10 +228,10 @@ public class AppStatusBar {
             case right:
                 this.rightContributors.add(group);
                 break;
-        
+
             }
         }
-        
+
         // Sort contributions
         this.leftContributors.sort(new Comparator<GroupDescriptor>() {
             @Override
@@ -251,7 +251,7 @@ public class AppStatusBar {
                 return -Integer.compare(g1.priority, g2.priority);
             }
         });
-        
+
     }
 
     @objid ("dab8c4bc-24d4-4ea6-950b-262f959ec063")
@@ -280,7 +280,7 @@ public class AppStatusBar {
         public List<ItemDescriptor> items = new ArrayList<>();
 
         @objid ("37c8b250-b862-4583-a3ce-87bec022b5db")
-        public  GroupDescriptor(IConfigurationElement g) {
+        public GroupDescriptor(IConfigurationElement g) {
             this.label = g.getAttribute("label");
             try {
                 this.priority = Integer.parseInt(g.getAttribute("priority"));
@@ -291,7 +291,7 @@ public class AppStatusBar {
             }
             this.area = Area.valueOf(g.getAttribute("area"));
             parseItems(g);
-            
+
         }
 
         @objid ("7ef9c14b-63d9-4239-ab1d-741b310615e1")
@@ -315,7 +315,7 @@ public class AppStatusBar {
                     AppUi.LOG.warning(String.format("Error in configuration element '%s', ignoring contribution.", e));
                 }
             }
-            
+
         }
 
     }

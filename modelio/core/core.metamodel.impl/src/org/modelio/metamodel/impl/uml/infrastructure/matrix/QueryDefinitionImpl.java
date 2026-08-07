@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure.matrix;
 
 import java.util.ArrayList;
@@ -78,7 +77,7 @@ public class QueryDefinitionImpl extends ElementImpl implements QueryDefinition 
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
     @objid ("e558ca73-a1e7-4d28-9de6-6801c3d7640e")
@@ -172,22 +171,22 @@ public class QueryDefinitionImpl extends ElementImpl implements QueryDefinition 
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // OwnerAsLine
         dep = ((QueryDefinitionSmClass)getClassOf()).getOwnerAsLineDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         // OwnerAsCol
         dep = ((QueryDefinitionSmClass)getClassOf()).getOwnerAsColDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         // OwnerAsDepth
         dep = ((QueryDefinitionSmClass)getClassOf()).getOwnerAsDepthDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 

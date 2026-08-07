@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vbasic.progress;
 
@@ -64,6 +64,7 @@ public interface IModelioProgress {
     /**
      * Notifies that the main task is beginning.  This must only be called once
      * on a given progress monitor instance.
+     *
      * @param name the name (or description) of the main task
      * @param totalWork the total number of work units into which
      * the main task is been subdivided. If the value is <code>UNKNOWN</code>
@@ -71,7 +72,7 @@ public interface IModelioProgress {
      * doesn't require the total number of work units in advance.
      */
     @objid ("c98a8cbd-a5a3-11e1-aa98-001ec947ccaf")
-    void beginTask(String name, int totalWork);
+    abstract void beginTask(String name, int totalWork);
 
     /**
      * Notifies that the work is done; that is, either the main task is completed
@@ -79,64 +80,70 @@ public interface IModelioProgress {
      * (implementations should be prepared to handle this case).
      */
     @objid ("c98a8cc1-a5a3-11e1-aa98-001ec947ccaf")
-    void done();
+    abstract void done();
 
     /**
      * Internal method to handle scaling correctly. This method
      * must not be called by a client. Clients should
      * always use the method </code>worked(int)</code>.
+     *
      * @param work the amount of work done
      */
     @objid ("c98a8cc3-a5a3-11e1-aa98-001ec947ccaf")
-    void internalWorked(double work);
+    abstract void internalWorked(double work);
 
     /**
      * Returns whether cancelation of current operation has been requested.
      * Long-running operations should poll to see if cancelation
      * has been requested.
-     * @see #setCanceled(boolean)
+     *
      * @return <code>true</code> if cancellation has been requested,
      * and <code>false</code> otherwise
+     * @see #setCanceled(boolean)
      */
     @objid ("c98a8cc6-a5a3-11e1-aa98-001ec947ccaf")
-    boolean isCanceled();
+    abstract boolean isCanceled();
 
     /**
      * Sets the cancel state to the given value.
-     * @see #isCanceled()
+     *
      * @param value <code>true</code> indicates that cancelation has
      * been requested (but not necessarily acknowledged);
      * <code>false</code> clears this flag
+     * @see #isCanceled()
      */
     @objid ("c98a8cc9-a5a3-11e1-aa98-001ec947ccaf")
-    void setCanceled(boolean value);
+    abstract void setCanceled(boolean value);
 
     /**
      * Sets the task name to the given value. This method is used to
      * restore the task label after a nested operation was executed.
      * Normally there is no need for clients to call this method.
-     * @see #beginTask(java.lang.String, int)
+     *
      * @param name the name (or description) of the main task
+     * @see #beginTask(java.lang.String, int)
      */
     @objid ("c98a8ccc-a5a3-11e1-aa98-001ec947ccaf")
-    void setTaskName(String name);
+    abstract void setTaskName(String name);
 
     /**
      * Notifies that a subtask of the main task is beginning.
      * Subtasks are optional; the main task might not have subtasks.
+     *
      * @param name the name (or description) of the subtask
      */
     @objid ("c98a8ccf-a5a3-11e1-aa98-001ec947ccaf")
-    void subTask(String name);
+    abstract void subTask(String name);
 
     /**
      * Notifies that a given number of work unit of the main task
      * has been completed. Note that this amount represents an
      * installment, as opposed to a cumulative amount of work done
      * to date.
+     *
      * @param work a non-negative number of work units just completed
      */
     @objid ("c98a8cd2-a5a3-11e1-aa98-001ec947ccaf")
-    void worked(int work);
-}
+    abstract void worked(int work);
 
+}

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.policies;
 
@@ -36,7 +36,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * Generic policy that delegates the {@link #getTargetEditPart(Request)} method call to another edit part (determined by a call to the host's getCompositeFor method).
  * <p>
  * All other methods will do nothing and/or return <code>null</code>.
- * 
+ *
  * @author fpoyer
  */
 @objid ("80d12c67-1dec-11e2-8cad-001ec947c8cc")
@@ -52,6 +52,7 @@ public class DelegatingEditPolicy implements EditPolicy {
      * EditPart was selected at the time of activation.
      * <P>
      * Activate is called after the <i>host</i> has been set, and that host has been activated.
+     *
      * @see EditPart#activate()
      * @see #deactivate()
      * @see EditPart#installEditPolicy(Object, EditPolicy)
@@ -64,6 +65,7 @@ public class DelegatingEditPolicy implements EditPolicy {
 
     /**
      * Deactivates the EditPolicy, the inverse of {@link #activate()}. Deactivate is called when the <i>host</i> is deactivated, or when the EditPolicy is uninstalled from an active host. Deactivate unhooks any listeners, and removes all feedback.
+     *
      * @see EditPart#deactivate()
      * @see #activate()
      * @see EditPart#removeEditPolicy(Object)
@@ -78,6 +80,7 @@ public class DelegatingEditPolicy implements EditPolicy {
      * Erases source feedback based on the given <code>Request</code>. Does nothing if the EditPolicy does not apply to the given Request.
      * <P>
      * This method is declared on {@link EditPart#eraseSourceFeedback(Request) EditPart}, and is redeclared here so that EditPart can delegate its implementation to each of its EditPolicies.
+     *
      * @param request the Request
      */
     @objid ("80d12c77-1dec-11e2-8cad-001ec947c8cc")
@@ -90,6 +93,7 @@ public class DelegatingEditPolicy implements EditPolicy {
      * Erases target feedback based on the given <code>Request</code>. Does nothing if the EditPolicy does not apply to the given Request.
      * <P>
      * This method is declared on {@link EditPart#eraseTargetFeedback(Request) EditPart}, and is redeclared here so that EditPart can delegate its implementation to each of its EditPolicies.
+     *
      * @param request the Request
      */
     @objid ("80d12c7e-1dec-11e2-8cad-001ec947c8cc")
@@ -104,6 +108,7 @@ public class DelegatingEditPolicy implements EditPolicy {
      * <P>
      * This method is declared on {@link EditPart#getCommand(Request) EditPart}, and is redeclared here so that EditPart can delegate its implementation to each of its EditPolicies. The EditPart will combine each EditPolicy's contribution into a
      * {@link org.eclipse.gef.commands.CompoundCommand}.
+     *
      * @param request the Request
      * @return <code>null</code> or a Command contribution
      */
@@ -127,7 +132,7 @@ public class DelegatingEditPolicy implements EditPolicy {
         } else if (RequestConstants.REQ_ADD.equals(request.getType()) || RequestConstants.REQ_MOVE.equals(request.getType()) || RequestConstants.REQ_CLONE.equals(request.getType())) {
             return getTargetEditPartForGroupRequest((GroupRequest) request);
         }
-        
+
         // No satisfying edit part found...
         return null;
     }
@@ -144,12 +149,12 @@ public class DelegatingEditPolicy implements EditPolicy {
             if (model instanceof GmModel) {
                 final GmModel gm = (GmModel) model;
                 final EditPart targetEditPart = getEditPartFor(gm.getRelatedMClass().getJavaInterface());
-        
+
                 // No known edit part can handle that metaclass, consider we cannot the request cannot handled.
                 if (targetEditPart == null) {
                     return null;
                 }
-        
+
                 if (ret == null) {
                     // First time, initialize...
                     ret = targetEditPart;
@@ -186,7 +191,7 @@ public class DelegatingEditPolicy implements EditPolicy {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("80d38ec0-1dec-11e2-8cad-001ec947c8cc")
@@ -201,6 +206,7 @@ public class DelegatingEditPolicy implements EditPolicy {
      * Does nothing if the EditPolicy does not recognize the given Request.
      * <P>
      * This method is declared on {@link EditPart#showSourceFeedback(Request) EditPart}, and is redeclared here so that EditPart can delegate its implementation to each of its EditPolicies.
+     *
      * @param request the Request
      */
     @objid ("80d38ec6-1dec-11e2-8cad-001ec947c8cc")
@@ -215,6 +221,7 @@ public class DelegatingEditPolicy implements EditPolicy {
      * Does nothing if the EditPolicy does not recognize the given request.
      * <P>
      * This method is declared on {@link EditPart#showTargetFeedback(Request) EditPart}, and is redeclared here so that EditPart can delegate its implementation to each of its EditPolicies.
+     *
      * @param request the Request
      */
     @objid ("80d38ecd-1dec-11e2-8cad-001ec947c8cc")
@@ -228,9 +235,10 @@ public class DelegatingEditPolicy implements EditPolicy {
      * <P>
      * This method is declared on {@link EditPart#understandsRequest(Request) EditPart}, and is redeclared here so that EditPart can delegate its implementation to each of its EditPolicies. <code>EditPart</code> returns <code>true</code> if any of its
      * EditPolicies returns <code>true</code>. In other words, it performs a logical OR.
-     * @see EditPart#understandsRequest(Request)
+     *
      * @param request the Request
      * @return boolean <code>true</code> if the EditPolicy understands the specified request
+     * @see EditPart#understandsRequest(Request)
      */
     @objid ("80d38ed4-1dec-11e2-8cad-001ec947c8cc")
     @Override
@@ -247,6 +255,7 @@ public class DelegatingEditPolicy implements EditPolicy {
      * If no child model is found, return <tt>null</tt>.<br>
      * If the found model is not visible, return the host edit part.
      * <p>
+     *
      * @param metaclass The metaclass to create or drop.
      * @return
      * <ul>
@@ -258,13 +267,13 @@ public class DelegatingEditPolicy implements EditPolicy {
     @objid ("80d38edd-1dec-11e2-8cad-001ec947c8cc")
     private EditPart getEditPartFor(Class<? extends MObject> metaclass) {
         final GmCompositeNode gmNode = (GmCompositeNode) getHost().getModel();
-        
+
         final GmCompositeNode gmTargetChild = gmNode.getCompositeFor(metaclass);
-        
+
         if (gmTargetChild == null || !gmTargetChild.isVisible()) {
             return null;
         }
-        
+
         final EditPart p = (EditPart) getHost().getRoot().getViewer().getEditPartRegistry().get(gmTargetChild);
         return p;
     }

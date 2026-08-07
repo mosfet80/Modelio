@@ -1,0 +1,93 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= Concept de raffinement
+
+
+
+= Introduction
+
+Le *raffinement* est une fonction de Modelio qui permet de dériver des éléments de modèle de différents formalismes au sein d'un même modèle.
+
+Depuis sa version 3.6, Modelio supporte plusieurs formalismes de modélisation (UML, ArchiMate, Analyst...), qui coexistent coexistent en tant que sous-projets à l'intérieur d'un projet Modelio.
+
+Le processus de raffinement est utilisé pour transformer un élément de modèle appartenant à l'un de ces sous-projets en un ou plusieurs éléments de modèle appartenant à un autre sous-projet. Cette transformation préserve la sémantique des éléments de modèle au sein des différents formalismes. Selon la situation, Modelio suggère un certains nombre de transformations possibles et recommandées.
+
+Une utilisation courante est de raffiner un modèle abstrait ou de haut niveau en des éléments plus concrets, tout en conservant la traçabilité (par les liens de raffinement) tout au long de la phase de conception.
+
+Par exemple, raffiner une Exigence ArchiMate en une Exigence Analyst beaucoup plus détaillée. Cette Exigence Analyst peut ensuite être elle même raffinée en Use Cases UML !
+
+L'outil de raffinement apporte:
+
+* des recommandations intelligentes sur les transformations à appliquer, en laissant l'utilisateur choisir entre plusieurs options si nécessaire ;
+* une création automatique d'éléments raffinés ;
+* l'enregistrement automatique de la traçabilité, à travers la création et la mise à jour de dépendances de type "refine".
+
+Modelio distingue trois scénarios distincts pour le raffinement :
+
+1.   <<User_Documentation_fr_Raffinement_d_element_Raffiner_les_elements.adoc#,raffiner des éléments>> uniques avec l'outil de raffinement, ce qui crée un ou plusieurs nouveau éléments.
+2.   <<User_Documentation_fr_Raffinement_d_element_Remplir_par_raffinement.adoc#,remplir par raffinement>> dans une opération unique, ce qui crée un ou plusieurs nouveau éléments.
+3.   <<#HAjoutermanuellementdesraffinements,établir manuellement des liens de raffinement>> entre deux éléments existants.
+
+Les deux premiers scénarios sont supportés par l'outil de raffinement, et respectent strictement les <<#HRE8glesderaffinement,règles de raffinement>>.
+
+Le troisième scénario, manuel, ignore complètement ces règles et permet à l'utilisateur d'établir des liens "refine" entre tous les éléments qu'il voudrait voir associés.
+
+
+= Ajouter manuellement des raffinements
+
+Le coeur du processus de raffinement est l'existence de dépendances de type «refine» entre les éléments créés, et les éléments qu'ils raffinent.
+
+Ceci rend l'analyse de la traçabilité très facile en utilisant l'éditeur de liens de Modelio, et rend également possible de tracer manuellement des liens de raffinement entre des éléments existants, qu'ils respectent ou non les règles de raffinement standard.
+
+
+= Règles de raffinement
+
+Voici la liste des raffinements actuellement disponibles dans les outils de raffinage :
+
+[cols=",",options="header",]
+|=======================================================================================================================================================================================================================================================
+|Elément à raffiner |Raffinements possibles
+|Access (ArchiMate) |Usage (UML)
+|Aggregation (ArchiMate) |Aggregation (UML)
+|ApplicationCollaboration (ArchiMate) |Collaboration (UML)
+|ApplicationComponent (ArchiMate) |Component (UML)
+|ApplicationInteraction (ArchiMate) |Interaction (UML)
+|ApplicationInterface (ArchiMate) |Interface (UML)
+|ApplicationProcess (ArchiMate) |BpmnProcess (BPMN)
+|Artifact (ArchiMate) |Artifact (UML)
+|Association (ArchiMate) |Association (UML)
+|BusinessActor (ArchiMate) |Actor (UML)
+|BusinessCollaboration (ArchiMate) |Collaboration (UML), UseCaseDiagram (UML)
+|BusinessInteraction (ArchiMate) |Interaction (UML), BpmnProcess (BPMN)
+|BusinessObject (ArchiMate) |Interface (UML), Class (UML)
+|BusinessProcess (ArchiMate) |BpmnProcess (BPMN)
+|BusinessRole (ArchiMate) |Actor (UML)
+|BusinessRule (Analyst) |Activity (UML), BusinessRule (Analyst), Goal (Analyst), Operation (UML), Requirement (Analyst), UseCase (UML)
+|Composition (ArchiMate) |Composition (UML)
+|DataObject (ArchiMate) |Class (UML)
+|Device (ArchiMate) |Node (UML)
+|Driver (ArchiMate) |Goal (Analyst)
+|Equipment (ArchiMate) |Node (UML)
+|Facility (ArchiMate) |Node (UML)
+|Flow (ArchiMate) |InformationFlow (UML), InformationItem (UML)
+|Goal (Analyst) |Activity (UML), BusinessRule (Analyst), Goal (Analyst), Requirement (Analyst), Signal (UML), UseCase (UML)
+|Goal (Analyst) (ArchiMate) |Goal (Analyst)
+|Meaning (ArchiMate) |Term (Analyst)
+|Node (ArchiMate) |Node (UML)
+|Principle (ArchiMate) |Requirement (Analyst), BusinessRule (Analyst)
+|Realization (ArchiMate) |InterfaceRealization (UML)
+|Requirement (Analyst) |Activity (UML), BusinessRule (Analyst), Goal (Analyst), Operation (UML), Requirement (Analyst), UseCase (UML)
+|Requirement (ArchiMate) |Requirement (Analyst)
+|Serving (ArchiMate) |Usage (UML)
+|Specialization (ArchiMate) |Generalization (UML)
+|Stakeholder (ArchiMate) |Actor (UML)
+|SystemSoftware (ArchiMate) |Node (UML)
+|TechnologyObject (ArchiMate) |Class (UML)
+|TechnologyProcess (ArchiMate) |BpmnProcess (BPMN)
+|Term (Analyst) |Activity (UML), Actor (UML), Attribute (UML), BusinessRule (Analyst), Class (UML), Component (UML), DataType (UML), Goal (Analyst), Interface (UML), Operation (UML), Package (UML), Requirement (Analyst), Signal (UML), UseCase (UML)
+|=======================================================================================================================================================================================================================================================

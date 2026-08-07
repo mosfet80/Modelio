@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.api.services;
 
@@ -45,17 +45,19 @@ import org.modelio.platform.ui.CoreFontRegistry;
  * <p>
  * All methods declared on this class are static. This
  * class cannot be instantiated.
+ *
  * @see StringConverter
  */
 @objid ("3665adf2-a604-4688-99ed-6d2b625dea08")
 public class StyleKeyTypeConverter {
     @objid ("7ef59774-cc7e-4cf0-83ed-8ee6b4545ba1")
-    private  StyleKeyTypeConverter() {
+    private StyleKeyTypeConverter() {
         // Nothing to do
     }
 
     /**
      * Convert a value to a String.
+     *
      * @param key a style key
      * @param value its value
      * @return its value converted to string
@@ -66,32 +68,32 @@ public class StyleKeyTypeConverter {
         if (key.getType().isEnum()) {
             return value.toString();
         }
-        
+
         // Boolean type
         if (key.getType().isAssignableFrom(Boolean.class)) {
             return ((Boolean) value).toString();
         }
-        
+
         // Integer type
         if (key.getType().isAssignableFrom(Integer.class)) {
             return ((Integer) value).toString();
         }
-        
+
         // Font type
         if (key.getType().isAssignableFrom(Font.class)) {
             return StringConverter.asString(((Font) value).getFontData()[0]);
         }
-        
+
         // Color type
         if (key.getType().isAssignableFrom(Color.class)) {
             return StringConverter.asString(((Color) value).getRGB());
         }
-        
+
         // String type
         if (key.getType().isAssignableFrom(String.class)) {
             return (String) value;
         }
-        
+
         // Unknown type
         DiagramApi.LOG.warning(Api.PLUGIN_ID, "Missing converted for : " + key.getId());
         return null;
@@ -99,6 +101,7 @@ public class StyleKeyTypeConverter {
 
     /**
      * Convert stringValue to the type of the StyleKey.
+     *
      * @param key a style key
      * @param stringValue a style key value as a string
      * @return the same value converted to the style key type
@@ -113,33 +116,33 @@ public class StyleKeyTypeConverter {
                 }
             }
         }
-        
+
         // Boolean type
         if (key.getType().isAssignableFrom(Boolean.class)) {
             return Boolean.valueOf(stringValue);
         }
-        
+
         // Integer type
         if (key.getType().isAssignableFrom(Integer.class)) {
             return Integer.valueOf(stringValue);
         }
-        
+
         // Font type
         if (key.getType().isAssignableFrom(Font.class)) {
             return CoreFontRegistry.getFont(StringConverter.asFontData(stringValue));
         }
-        
+
         // Color type
         if (key.getType().isAssignableFrom(Color.class)) {
             RGB rgb = StringConverter.asRGB(stringValue);
             return CoreColorRegistry.getColor(rgb);
         }
-        
+
         // String type
         if (key.getType().isAssignableFrom(String.class)) {
             return stringValue;
         }
-        
+
         // Unknown type
         DiagramApi.LOG.warning(Api.PLUGIN_ID, "Missing converted for : " + key.getId());
         return null;

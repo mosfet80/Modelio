@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -57,7 +56,7 @@ public class ExternProcessorSmClass extends ModelElementSmClass {
     private SmDependency ownerValDefDep;
 
     @objid ("9dfe26ef-556e-4612-ad2d-936a2bc6169c")
-    public  ExternProcessorSmClass(ISmMetamodelFragment origin) {
+    public ExternProcessorSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
@@ -65,7 +64,7 @@ public class ExternProcessorSmClass extends ModelElementSmClass {
     @Override
     public String getName() {
         return "ExternProcessor";
-        
+
     }
 
     @objid ("235194e4-7b7b-4329-83fa-2d5d2145a514")
@@ -78,21 +77,21 @@ public class ExternProcessorSmClass extends ModelElementSmClass {
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return ExternProcessor.class;
-        
+
     }
 
     @objid ("f999335a-8c73-46fe-a110-0a096257aedc")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
     @objid ("cf72ecf3-f1a1-4afd-9b32-9d3208503a23")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
     @objid ("584f4008-98ed-4b59-918c-c5e6d8537ad6")
@@ -100,24 +99,23 @@ public class ExternProcessorSmClass extends ModelElementSmClass {
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(ModelElement.MQNAME);
         this.registerFactory(new ExternProcessorObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
         this.classNameAtt = new ClassNameSmAttribute();
         this.classNameAtt.init("ClassName", this, String.class );
         registerAttribute(this.classNameAtt);
-        
-        
+
+
         // Initialize and register the SmDependency
         this.ownerQueryDep = new OwnerQuerySmDependency();
         this.ownerQueryDep.init("OwnerQuery", this, metamodel.getMClass(QueryDefinition.MQNAME), 0, 1 );
         registerDependency(this.ownerQueryDep);
-        
+
         this.ownerValDefDep = new OwnerValDefSmDependency();
         this.ownerValDefDep.init("OwnerValDef", this, metamodel.getMClass(MatrixValueDefinition.MQNAME), 0, 1 );
         registerDependency(this.ownerValDefDep);
-        
-        
+
     }
 
     @objid ("74a8d9a2-cec7-474c-bf8e-6d9512b275e6")
@@ -150,7 +148,7 @@ public class ExternProcessorSmClass extends ModelElementSmClass {
         private ExternProcessorSmClass smClass;
 
         @objid ("65404f26-0245-452f-bdbc-75a89f01a280")
-        public  ExternProcessorObjectFactory(ExternProcessorSmClass smClass) {
+        public ExternProcessorObjectFactory(ExternProcessorSmClass smClass) {
             this.smClass = smClass;
         }
 
@@ -206,7 +204,7 @@ public class ExternProcessorSmClass extends ModelElementSmClass {
             	this.symetricDep = ((QueryDefinitionSmClass)this.getTarget()).getProcessorDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -235,7 +233,7 @@ public class ExternProcessorSmClass extends ModelElementSmClass {
             	this.symetricDep = ((MatrixValueDefinitionSmClass)this.getTarget()).getProcessorDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

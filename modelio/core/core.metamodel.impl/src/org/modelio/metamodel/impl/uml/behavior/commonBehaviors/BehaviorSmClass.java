@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.commonBehaviors;
 
 import java.util.ArrayList;
@@ -58,115 +57,114 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("263559ae-b792-4606-bc85-3bc49331fac4")
 public class BehaviorSmClass extends UmlModelElementSmClass {
-    @objid ("fe9d0247-e334-4a86-bef6-9b265231357a")
+    @objid ("96235f8d-43cb-41f1-8093-66f734668463")
     private SmAttribute isReentrantAtt;
 
-    @objid ("42a3662b-1b5b-476a-ae48-19c39bb77ef6")
+    @objid ("7e0c3926-58e5-466a-9855-5101ad098d4c")
     private SmDependency ownerDep;
 
-    @objid ("0b01ab0d-7933-4e69-a8a4-80f916a20cae")
+    @objid ("1f978aba-36d7-4b64-b1dc-2dac7504a994")
     private SmDependency parameterDep;
 
-    @objid ("aadbc6a0-b141-44ef-ab3d-5c27c0f34d0d")
+    @objid ("d2ecde72-d251-4292-89eb-24e018865d6a")
     private SmDependency ownerOperationDep;
 
-    @objid ("88333cf7-eb6b-4da5-9e30-61d0b6fb490a")
+    @objid ("39ef783a-2d0f-4e35-ba1d-1921440e93af")
     private SmDependency ownedCollaborationDep;
 
-    @objid ("49aee30d-eb87-40d0-b5d7-664e138a6723")
+    @objid ("8f6ba073-37dc-4773-9a1a-7c47f69380c6")
     private SmDependency callerDep;
 
-    @objid ("00438226-0384-49ec-84fc-b7914f51a3cd")
+    @objid ("3a7f0247-70fa-4d8f-bd39-fdffe551b367")
     private SmDependency eComponentDep;
 
-    @objid ("b5fb8d20-f834-4bee-bc2b-2e2e3380e624")
+    @objid ("d0088f69-cab4-404d-8f7d-5e6376e2637f")
     private SmDependency effectOfDep;
 
-    @objid ("8dd8f75a-65f6-476f-8903-296af69e5932")
-    public  BehaviorSmClass(ISmMetamodelFragment origin) {
+    @objid ("9fafbc23-6a43-4c23-b9bf-b68097ccdcf5")
+    public BehaviorSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("ba65ba59-70b6-4c97-bef2-88edbd3c25e5")
+    @objid ("9a95b33f-a119-4ccf-a0f9-39d77eceef0a")
     @Override
     public String getName() {
         return "Behavior";
-        
+
     }
 
-    @objid ("2e39be2b-69b3-4d7e-8dff-8e7aca4de639")
+    @objid ("eab4f797-41bf-455c-9c06-5f6198b36429")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("9205c4ef-085c-461b-beb4-38b0fd770cfe")
+    @objid ("4af401f0-58d6-46d8-a230-489a1d69d810")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return Behavior.class;
-        
+
     }
 
-    @objid ("a93cde29-7ccc-4666-a495-50e6b007c79f")
+    @objid ("739df72e-c411-4b00-b771-8d4c58d75658")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("f7f3a9a4-4bcd-40b0-af55-a1efa99b5f7b")
+    @objid ("65554e74-ec8a-4154-92ef-cae8dbe7deb3")
     @Override
     public boolean isAbstract() {
         return true;
-        
+
     }
 
-    @objid ("a8a6a597-9aa3-41db-a13a-35fbb87f0513")
+    @objid ("0fa97d47-0cd5-40a4-ab14-175f01cd4848")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(UmlModelElement.MQNAME);
         this.registerFactory(new BehaviorObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
         this.isReentrantAtt = new IsReentrantSmAttribute();
         this.isReentrantAtt.init("IsReentrant", this, Boolean.class );
         registerAttribute(this.isReentrantAtt);
-        
-        
+
+
         // Initialize and register the SmDependency
         this.ownerDep = new OwnerSmDependency();
         this.ownerDep.init("Owner", this, metamodel.getMClass(NameSpace.MQNAME), 0, 1 );
         registerDependency(this.ownerDep);
-        
+
         this.parameterDep = new ParameterSmDependency();
         this.parameterDep.init("Parameter", this, metamodel.getMClass(BehaviorParameter.MQNAME), 0, -1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.parameterDep);
-        
+
         this.ownerOperationDep = new OwnerOperationSmDependency();
         this.ownerOperationDep.init("OwnerOperation", this, metamodel.getMClass(Operation.MQNAME), 0, 1 );
         registerDependency(this.ownerOperationDep);
-        
+
         this.ownedCollaborationDep = new OwnedCollaborationSmDependency();
         this.ownedCollaborationDep.init("OwnedCollaboration", this, metamodel.getMClass(Collaboration.MQNAME), 0, -1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.ownedCollaborationDep);
-        
+
         this.callerDep = new CallerSmDependency();
         this.callerDep.init("Caller", this, metamodel.getMClass(CallBehaviorAction.MQNAME), 0, -1 );
         registerDependency(this.callerDep);
-        
+
         this.eComponentDep = new EComponentSmDependency();
         this.eComponentDep.init("EComponent", this, metamodel.getMClass(Event.MQNAME), 0, -1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.eComponentDep);
-        
+
         this.effectOfDep = new EffectOfSmDependency();
         this.effectOfDep.init("EffectOf", this, metamodel.getMClass(Transition.MQNAME), 0, -1 );
         registerDependency(this.effectOfDep);
-        
-        
+
     }
 
-    @objid ("81d5efe7-92c7-45f3-8a23-3f302499fe0d")
+    @objid ("b628fca1-c86a-4e84-afaf-b81488ede58c")
     public SmAttribute getIsReentrantAtt() {
         if (this.isReentrantAtt == null) {
         	this.isReentrantAtt = this.getAttributeDef("IsReentrant");
@@ -174,7 +172,7 @@ public class BehaviorSmClass extends UmlModelElementSmClass {
         return this.isReentrantAtt;
     }
 
-    @objid ("623f86f4-f8f2-490a-b499-651de09e7642")
+    @objid ("ae18edeb-4122-4826-917b-eb3d584be007")
     public SmDependency getOwnerDep() {
         if (this.ownerDep == null) {
         	this.ownerDep = this.getDependencyDef("Owner");
@@ -182,7 +180,7 @@ public class BehaviorSmClass extends UmlModelElementSmClass {
         return this.ownerDep;
     }
 
-    @objid ("7fd64f1a-fe0e-4880-ab66-b9fa53b61ba3")
+    @objid ("9c314b09-aaa8-43a6-8bb5-844627ec1636")
     public SmDependency getParameterDep() {
         if (this.parameterDep == null) {
         	this.parameterDep = this.getDependencyDef("Parameter");
@@ -190,7 +188,7 @@ public class BehaviorSmClass extends UmlModelElementSmClass {
         return this.parameterDep;
     }
 
-    @objid ("ef6ed789-cf24-4b33-a666-d48447f3e58f")
+    @objid ("1923b1ad-3ba0-4333-a8a0-6ac6924fef2f")
     public SmDependency getOwnerOperationDep() {
         if (this.ownerOperationDep == null) {
         	this.ownerOperationDep = this.getDependencyDef("OwnerOperation");
@@ -198,7 +196,7 @@ public class BehaviorSmClass extends UmlModelElementSmClass {
         return this.ownerOperationDep;
     }
 
-    @objid ("b9690fb4-c0cb-4e98-94a9-0b2bc02bb420")
+    @objid ("1f7a9fe6-889d-409f-a0c1-72570d79913b")
     public SmDependency getOwnedCollaborationDep() {
         if (this.ownedCollaborationDep == null) {
         	this.ownedCollaborationDep = this.getDependencyDef("OwnedCollaboration");
@@ -206,7 +204,7 @@ public class BehaviorSmClass extends UmlModelElementSmClass {
         return this.ownedCollaborationDep;
     }
 
-    @objid ("0e3873dc-5f25-44c0-aea0-018c2db386c4")
+    @objid ("25ea68cb-b5e3-4232-a04a-2947163d82c5")
     public SmDependency getCallerDep() {
         if (this.callerDep == null) {
         	this.callerDep = this.getDependencyDef("Caller");
@@ -214,7 +212,7 @@ public class BehaviorSmClass extends UmlModelElementSmClass {
         return this.callerDep;
     }
 
-    @objid ("6347e333-d1e0-4ed5-ace0-ebd888b9b0b9")
+    @objid ("230df737-bfb7-4277-be41-beead6208781")
     public SmDependency getEComponentDep() {
         if (this.eComponentDep == null) {
         	this.eComponentDep = this.getDependencyDef("EComponent");
@@ -222,7 +220,7 @@ public class BehaviorSmClass extends UmlModelElementSmClass {
         return this.eComponentDep;
     }
 
-    @objid ("56961aea-e3d8-4963-9a81-f1ba0d24380a")
+    @objid ("2cb48fe3-b13b-47d6-b534-8b88efcb8964")
     public SmDependency getEffectOfDep() {
         if (this.effectOfDep == null) {
         	this.effectOfDep = this.getDependencyDef("EffectOf");
@@ -232,21 +230,21 @@ public class BehaviorSmClass extends UmlModelElementSmClass {
 
     @objid ("a904cfd4-9f8d-43c8-aebe-c37f5f7e8ab8")
     private static class BehaviorObjectFactory implements ISmObjectFactory {
-        @objid ("f86c366f-1ba9-4609-ba35-5cde62bc3c21")
+        @objid ("b89940c5-f7c8-4c3a-8dd3-5665edcbc298")
         private BehaviorSmClass smClass;
 
-        @objid ("9724a944-e384-43e6-b623-b99de241fbe2")
-        public  BehaviorObjectFactory(BehaviorSmClass smClass) {
+        @objid ("cf890f52-79db-4b0d-898e-dba26b2bfa38")
+        public BehaviorObjectFactory(BehaviorSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("8b9641e2-0fe2-4e86-a7c6-9c808f601e61")
+        @objid ("8074b576-3204-41dc-864d-083166e99ba7")
         @Override
         public ISmObjectData createData() {
             throw new UnsupportedOperationException();
         }
 
-        @objid ("2ff7f9d9-d5cc-4455-bbb4-732eb422e243")
+        @objid ("a5a7dada-ce06-4518-9966-6167e4f1f90d")
         @Override
         public SmObjectImpl createImpl() {
             throw new UnsupportedOperationException();
@@ -256,12 +254,12 @@ public class BehaviorSmClass extends UmlModelElementSmClass {
 
     @objid ("27531df8-2475-4c87-bf97-1c4f5236ac27")
     public static class IsReentrantSmAttribute extends SmAttribute {
-        @objid ("f4ad4839-a044-48b3-bfa5-efcf980f253e")
+        @objid ("8e7ac835-0d82-45d0-aa27-77ec810a44d2")
         public Object getValue(ISmObjectData data) {
             return ((BehaviorData) data).mIsReentrant;
         }
 
-        @objid ("d856e803-69eb-450e-b16f-96f1c6b73c58")
+        @objid ("b2e7cc51-2035-4fba-923c-3c56eaf01b16")
         public void setValue(ISmObjectData data, Object value) {
             ((BehaviorData) data).mIsReentrant = value;
         }
@@ -270,208 +268,208 @@ public class BehaviorSmClass extends UmlModelElementSmClass {
 
     @objid ("ac1d0444-b5cd-4d44-8010-ff5541ed274e")
     public static class OwnerSmDependency extends SmSingleDependency {
-        @objid ("a377a2bc-1db2-46fe-8d8a-ae3e1eaa5b05")
+        @objid ("63e28f59-d52e-41bb-9729-10c5761cb856")
         private SmDependency symetricDep;
 
-        @objid ("f4f2cdff-b863-4af1-86cf-992a8a22bd24")
+        @objid ("e9086117-3c92-432a-8d5d-f197ae05e0cd")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((BehaviorData) data).mOwner;
         }
 
-        @objid ("b36dac94-aad0-40c2-8d7e-4ff4b5f8c1c1")
+        @objid ("545af01a-da11-481a-ad23-f636e1e93e69")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((BehaviorData) data).mOwner = value;
         }
 
-        @objid ("3413be44-d864-40db-8e49-0f8a35d4a956")
+        @objid ("afbccae1-b481-4310-beda-d5d8111e2e71")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((NameSpaceSmClass)this.getTarget()).getOwnedBehaviorDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("a91e9eaa-2798-4694-a33d-cff4cde37c4a")
     public static class ParameterSmDependency extends SmMultipleDependency {
-        @objid ("2d47cbb4-aa67-40ad-8c91-5adce037d1d6")
+        @objid ("c1cd3109-1d0f-4d52-a792-7a623437b5f6")
         private SmDependency symetricDep;
 
-        @objid ("9168b962-8cbe-40d1-9f12-04951d733f11")
+        @objid ("e7961233-fa25-46fe-9630-d488424ffb93")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((BehaviorData)data).mParameter != null)? ((BehaviorData)data).mParameter:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("114c18f5-0375-43c1-b21f-996cba3c8b8a")
+        @objid ("c11ae6b4-b9a2-430c-82de-a65bd92015c4")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((BehaviorData) data).mParameter = values;
-            
+
         }
 
-        @objid ("d3a22d5a-11ab-454a-a125-86bf53c38a35")
+        @objid ("0647d2ce-a30d-4351-b620-64d316a64a17")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((BehaviorParameterSmClass)this.getTarget()).getOwnerDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("2f9465e7-2701-41e4-b1a7-fcc8b7c43fa4")
     public static class OwnerOperationSmDependency extends SmSingleDependency {
-        @objid ("d574e481-edbf-4818-9a2b-f0a237f13228")
+        @objid ("6b06c0e5-198b-4372-9adc-f0217d662c64")
         private SmDependency symetricDep;
 
-        @objid ("30290508-e611-4c68-9fc7-ad22e2e2ab85")
+        @objid ("9fb6f5d1-50ae-41e3-b87b-61aa383ccfa8")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((BehaviorData) data).mOwnerOperation;
         }
 
-        @objid ("3d7455f1-1a80-48dc-9823-876c62e2bb54")
+        @objid ("41ccef2a-5739-47d4-8864-1d2be32ee1ae")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((BehaviorData) data).mOwnerOperation = value;
         }
 
-        @objid ("a72daf15-05b9-44a9-8fce-53f1a53cafbb")
+        @objid ("2f48efeb-679a-46dc-bfb5-f95546c3ef4c")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((OperationSmClass)this.getTarget()).getOwnedBehaviorDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("522b5a55-072b-4ba2-a9cb-72331a7aecdb")
     public static class OwnedCollaborationSmDependency extends SmMultipleDependency {
-        @objid ("c5f58e50-ff80-4b73-be8a-0da97ece81ac")
+        @objid ("e72b0ea2-24df-48d1-979b-8fd53a44870e")
         private SmDependency symetricDep;
 
-        @objid ("97505e4b-c901-48b5-aa35-a9cc51bc18db")
+        @objid ("51c95d2c-c0d1-427d-8b5c-c92ad4211a78")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((BehaviorData)data).mOwnedCollaboration != null)? ((BehaviorData)data).mOwnedCollaboration:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("6059a0b1-2d0d-45ba-b1f2-3cdc923eebea")
+        @objid ("ba64ead9-0c6c-4734-9e55-90d8de838940")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((BehaviorData) data).mOwnedCollaboration = values;
-            
+
         }
 
-        @objid ("069f42e2-abb6-4bff-bc0c-f223396b75d9")
+        @objid ("0e4b0dd8-8f62-4168-9b6b-a1d1c34b31a9")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((CollaborationSmClass)this.getTarget()).getBRepresentedDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("9fbed98a-4910-4fb5-9478-d48e7fbc8954")
     public static class CallerSmDependency extends SmMultipleDependency {
-        @objid ("8bcc86c1-34f4-4119-a395-3e7c0b2ddbaa")
+        @objid ("13f9fdc3-9382-48a4-990b-2aadf4eac382")
         private SmDependency symetricDep;
 
-        @objid ("fcb7b8cc-16fe-4c51-a8d9-66ed0cee3dd1")
+        @objid ("91cb06d8-29c6-4c16-b33e-b0bdee38b360")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((BehaviorData)data).mCaller != null)? ((BehaviorData)data).mCaller:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("82e73ff4-7e6d-4a84-a0fc-57d3b102bff4")
+        @objid ("5cb858a4-ba23-4524-9ce1-83c340ae6fc6")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((BehaviorData) data).mCaller = values;
-            
+
         }
 
-        @objid ("dc85e338-76d7-4599-80ff-558c1de64764")
+        @objid ("5faa0ccf-55da-4bc0-8b78-760c23826fae")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((CallBehaviorActionSmClass)this.getTarget()).getCalledDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("91f067a3-654a-426b-8463-ab91e6e4d30c")
     public static class EComponentSmDependency extends SmMultipleDependency {
-        @objid ("2ed8c6e1-f066-4f71-b943-d0131eb00f9a")
+        @objid ("fdcab367-f5ba-46f2-9590-96be061416cc")
         private SmDependency symetricDep;
 
-        @objid ("50fe56a8-9494-43e7-8928-e814e1336e8b")
+        @objid ("e42cd503-7273-4dd8-99ee-4a5b1f3c079d")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((BehaviorData)data).mEComponent != null)? ((BehaviorData)data).mEComponent:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("c90028ed-c249-4750-838d-85a6914ce240")
+        @objid ("dfe150c1-d75e-4691-ad7b-99aeb20a19ca")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((BehaviorData) data).mEComponent = values;
-            
+
         }
 
-        @objid ("48f4a520-2d35-4568-a529-c2f2636a30fc")
+        @objid ("5b489f61-9585-4054-a929-b0ce44ad02e2")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((EventSmClass)this.getTarget()).getComposedDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("7893f36d-c3bf-4e52-8ac5-1d379b9bdc1b")
     public static class EffectOfSmDependency extends SmMultipleDependency {
-        @objid ("e56c5046-2250-47bf-aadb-bf509a76b16e")
+        @objid ("4bff2aa6-d6c5-4c35-8fdd-f56876a6f9f1")
         private SmDependency symetricDep;
 
-        @objid ("a28c532f-1589-4585-a0cd-c9266e2911f7")
+        @objid ("0a344d8b-3e68-4a11-b44c-cb4e77af82bc")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((BehaviorData)data).mEffectOf != null)? ((BehaviorData)data).mEffectOf:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("adde751b-2e2d-4d8a-a79d-34958750f164")
+        @objid ("efe84d85-7952-4010-a588-43b7d5708042")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((BehaviorData) data).mEffectOf = values;
-            
+
         }
 
-        @objid ("2ef1fbf8-9146-4195-8edb-2f66f60c59d8")
+        @objid ("076a3476-13ee-4b63-a7d3-8ceb3d2457bf")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((TransitionSmClass)this.getTarget()).getBehaviorEffectDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

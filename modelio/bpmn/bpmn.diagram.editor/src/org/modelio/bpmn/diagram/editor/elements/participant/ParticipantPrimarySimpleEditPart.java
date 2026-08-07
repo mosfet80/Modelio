@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.participant;
 
@@ -59,7 +59,7 @@ public class ParticipantPrimarySimpleEditPart extends AbstractNodeEditPart {
             // header, on the left.
             child.setBorder(new TLBRBorder(false, false, false, true));
             getContentPane().add(child, BorderLayout.LEFT);
-        
+
             // refresh style for the new border
             refreshFromStyle(getContentPane(), getModelStyle());
         } else if (index == 1) {
@@ -68,7 +68,7 @@ public class ParticipantPrimarySimpleEditPart extends AbstractNodeEditPart {
         } else {
             throw new IllegalArgumentException(String.format("Unexpected '%s' child at index %d.", childEditPart, index));
         }
-        
+
     }
 
     @objid ("14bc32cd-84e6-4a73-a6cc-acecb444383d")
@@ -79,7 +79,7 @@ public class ParticipantPrimarySimpleEditPart extends AbstractNodeEditPart {
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START, new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
         installEditPolicy(ModelElementDropRequest.TYPE, new BpmnParticipantElementDropEditPolicy());
-        
+
     }
 
     @objid ("7e1a4abd-8c90-45ac-af6b-283cea2c3ee9")
@@ -88,13 +88,13 @@ public class ParticipantPrimarySimpleEditPart extends AbstractNodeEditPart {
         BpmnLaneFigure fig = new BpmnLaneFigure();
         fig.setLayoutManager(new BorderLayout());
         MinimumSizeLayout.apply(fig, 700, 200);
-        
+
         // set style independent properties
         fig.setOpaque(true);
-        
+
         // set style dependent properties
         refreshFromStyle(fig, getModelStyle());
-        
+
         // return the figure
         return fig;
     }
@@ -105,7 +105,7 @@ public class ParticipantPrimarySimpleEditPart extends AbstractNodeEditPart {
         if (aFigure instanceof BpmnLaneFigure) {
             if (!switchRepresentationMode()) {
                 super.refreshFromStyle(aFigure, style);
-        
+
                 final GmModel gmModel = getModel();
                 if (aFigure.getChildren().size() > 0) {
                     IFigure headerFigure = (IFigure) aFigure.getChildren().get(0);
@@ -115,7 +115,7 @@ public class ParticipantPrimarySimpleEditPart extends AbstractNodeEditPart {
         } else {
             super.refreshFromStyle(aFigure, style);
         }
-        
+
     }
 
     @objid ("455aa655-3f9a-4a36-95b3-222730215ed3")
@@ -123,7 +123,7 @@ public class ParticipantPrimarySimpleEditPart extends AbstractNodeEditPart {
     protected void refreshVisuals() {
         GmBpmnParticipantPrimaryNode model = (GmBpmnParticipantPrimaryNode) getModel();
         getFigure().getParent().setConstraint(getFigure(), model.getLayoutData());
-        
+
     }
 
 }

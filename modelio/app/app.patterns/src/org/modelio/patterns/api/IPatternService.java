@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.patterns.api;
 
@@ -30,6 +30,7 @@ import org.modelio.patterns.model.RuntimePattern;
 public interface IPatternService {
     /**
      * Export a pattern.
+     *
      * @param pattern the pattern to export.
      * @throws PatternException when the pattern metadatas are invalid or the pattern can't be read.
      */
@@ -38,9 +39,10 @@ public interface IPatternService {
 
     /**
      * Get the project's pattern catalog.
+     *
      * @return the pattern catalog. Should be <code>null</code> when no project is opened.
      */
     @objid ("b21e3d18-54cf-4992-8c9e-f81720eea83e")
     IPatternRepository getCatalog();
-}
 
+}

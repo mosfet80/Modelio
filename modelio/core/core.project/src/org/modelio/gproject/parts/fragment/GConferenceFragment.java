@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.parts.fragment;
 
@@ -46,7 +46,7 @@ import org.modelio.version.ModelioVersion;
 
 /**
  * Temporary skeleton for future conference fragments.
- * 
+ *
  * @author cmarin
  * @since 5.4.1 , 19/10/2023
  */
@@ -57,10 +57,11 @@ public class GConferenceFragment extends AbstractGModelFragment {
 
     /**
      * Initialize the feature.
+     *
      * @param desc the part descriptor
      */
     @objid ("f5fbdbf6-3473-4445-8c99-b293b56dd458")
-    public  GConferenceFragment(GProjectPartDescriptor desc) {
+    public GConferenceFragment(GProjectPartDescriptor desc) {
         super(desc);
     }
 
@@ -74,12 +75,12 @@ public class GConferenceFragment extends AbstractGModelFragment {
     @Override
     public IFragmentInfos getInformations() throws IOException {
         return new IFragmentInfos() {
-        
+
             @Override
             public Version getVersion() {
                 return getDescriptor().getVersion();
             }
-        
+
             @Override
             public String getName() {
                 final String label = getDescriptor().getLabel();
@@ -87,18 +88,18 @@ public class GConferenceFragment extends AbstractGModelFragment {
                     return label;
                 return getDescriptor().getId();
             }
-        
+
             @Override
             public Version getModelioVersion() {
                 return ModelioVersion.VERSION;
             }
-        
+
             @Override
             public String getDescription() {
                 return "Future conference model fragment";
             }
         };
-        
+
     }
 
     @objid ("3caabbc6-cbba-4778-a606-b02f1a79e962")
@@ -116,13 +117,13 @@ public class GConferenceFragment extends AbstractGModelFragment {
     @objid ("7962fab3-d245-447c-9b75-fb82414e565b")
     @Override
     protected void doInstall(IGProject aProject, IModelioProgress monitor) throws GPartException {
-        
+
     }
 
     @objid ("092b076e-6004-499a-ac19-35996f776844")
     @Override
     protected void doUninstall(IGProject project, IModelioProgress monitor) throws GPartException {
-        
+
     }
 
     @objid ("16413d42-04be-4ec3-a34f-a4c271c8f3ff")
@@ -138,7 +139,7 @@ public class GConferenceFragment extends AbstractGModelFragment {
     protected IAccessManager doInitAccessManager() {
         return (SmObjectImpl obj, IModelLoader loader) -> {
         };
-        
+
     }
 
     @objid ("0f69aa18-377a-4949-8b3d-cb17eb245a0c")

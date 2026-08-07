@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnsripttask;
 
@@ -71,29 +71,30 @@ public class GmBpmnScriptTaskPrimaryNode extends GmNoStyleCompositeNode implemen
 
     /**
      * Default constructor.
+     *
      * @param diagram the diagram in which this gm is unmasked.
      * @param relatedRef ref
      */
     @objid ("61b31a03-55b6-11e2-877f-002564c97630")
-    public  GmBpmnScriptTaskPrimaryNode(IGmDiagram diagram, MRef relatedRef) {
+    public GmBpmnScriptTaskPrimaryNode(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
         this.header = new GmBpmnNodeHeader(diagram, relatedRef, true);
         this.footer = new GmBpmnNodeFooter(diagram, relatedRef);
-        
+
         super.addChild(this.header);
         super.addChild(this.footer);
-        
+
         List<Image> images = new ArrayList<>();
         images.add(DiagramEditorBpmn.getImageRegistry().getImage(BpmnSharedImages.SCRIPTTASKHEADER));
         this.header.addHeaderImage(images);
-        
+
     }
 
     /**
      * Empty constructor, needed for serialisation.
      */
     @objid ("61b31a0c-55b6-11e2-877f-002564c97630")
-    public  GmBpmnScriptTaskPrimaryNode() {
+    public GmBpmnScriptTaskPrimaryNode() {
         // empty constructor for the serialization
     }
 
@@ -183,7 +184,7 @@ public class GmBpmnScriptTaskPrimaryNode extends GmNoStyleCompositeNode implemen
             break;
         }
         }
-        
+
     }
 
     @objid ("61b4a09b-55b6-11e2-877f-002564c97630")
@@ -193,24 +194,24 @@ public class GmBpmnScriptTaskPrimaryNode extends GmNoStyleCompositeNode implemen
         String oldLabel = this.header.getMainLabel();
         this.header.refreshFromObModel();
         firePropertyChange(PROPERTY_LABEL, oldLabel, this.header.getMainLabel());
-        
+
         List<Image> images = new ArrayList<>();
         images.add(DiagramEditorBpmn.getImageRegistry().getImage(BpmnSharedImages.SCRIPTTASKHEADER));
         this.header.addHeaderImage(images);
-        
+
         if (this.getRelatedElement() != null) {
             if (this.getRelatedElement().isIsForCompensation()) {
                 this.footer.setCompensation(true);
             } else {
                 this.footer.setCompensation(false);
             }
-        
+
             if (this.getRelatedElement().getLoopCharacteristics() instanceof BpmnStandardLoopCharacteristics) {
                 this.footer.setLoop(true);
             } else {
                 this.footer.setLoop(false);
             }
-        
+
             if (this.getRelatedElement().getLoopCharacteristics() instanceof BpmnMultiInstanceLoopCharacteristics) {
                 BpmnMultiInstanceLoopCharacteristics loop = (BpmnMultiInstanceLoopCharacteristics) this.getRelatedElement()
                         .getLoopCharacteristics();
@@ -226,21 +227,21 @@ public class GmBpmnScriptTaskPrimaryNode extends GmNoStyleCompositeNode implemen
                 this.footer.setSequential(false);
             }
         }
-        
+
         this.footer.refreshFromObModel();
         // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("61b4a0b7-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmBpmnScriptTaskPrimaryNode.", MINOR_VERSION);
-        
+
     }
 
     @objid ("61b4a0bd-55b6-11e2-877f-002564c97630")
@@ -248,10 +249,10 @@ public class GmBpmnScriptTaskPrimaryNode extends GmNoStyleCompositeNode implemen
         super.read(in);
         this.header = (GmBpmnNodeHeader) this.getChildren().get(0);
         this.footer = (GmBpmnNodeFooter) this.getChildren().get(1);
-        
+
         GmDefaultModelElementLabel imageModeHeader = (GmDefaultModelElementLabel) this.getChildren().get(2);
         imageModeHeader.delete();
-        
+
     }
 
     @objid ("61b4a0c7-55b6-11e2-877f-002564c97630")
@@ -259,7 +260,7 @@ public class GmBpmnScriptTaskPrimaryNode extends GmNoStyleCompositeNode implemen
         super.read(in);
         this.header = (GmBpmnNodeHeader) this.getChildren().get(0);
         this.footer = (GmBpmnNodeFooter) this.getChildren().get(1);
-        
+
     }
 
 }

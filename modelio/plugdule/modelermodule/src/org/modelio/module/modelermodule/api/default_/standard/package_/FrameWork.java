@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class FrameWork {
      * Tells whether a {@link FrameWork proxy} can be instantiated from a {@link MObject} checking it is a {@link Package} stereotyped << frameWork >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,7 +73,7 @@ public class FrameWork {
 
     /**
      * Create a new {@link Package} stereotyped << frameWork >> then instantiate a {@link FrameWork} proxy.
-     * 
+     *
      * @return a {@link FrameWork} proxy on the created {@link Package}.
      */
     @objid ("01195cb1-ce57-4f58-b349-1d967345eed8")
@@ -83,9 +84,10 @@ public class FrameWork {
     }
 
     /**
-     * Tries to instantiate a {@link FrameWork} proxy from a {@link Package} stereotyped << frameWork >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link FrameWork} proxy from a {@link Package} stereotyped << frameWork >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a Package
      * @return a {@link FrameWork} proxy or <i>null</i>.
      */
@@ -95,9 +97,10 @@ public class FrameWork {
     }
 
     /**
-     * Tries to instantiate a {@link FrameWork} proxy from a {@link Package} stereotyped << frameWork >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link FrameWork} proxy from a {@link Package} stereotyped << frameWork >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link Package}
      * @return a {@link FrameWork} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -127,7 +130,8 @@ public class FrameWork {
     }
 
     /**
-     * Get the underlying {@link Package}. 
+     * Get the underlying {@link Package}.
+     *
      * @return the Package represented by this proxy, never null.
      */
     @objid ("bbd14ed8-37ba-4447-a3ce-3853bb3489fb")
@@ -139,11 +143,11 @@ public class FrameWork {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("1360899c-6130-454f-b7ec-e0f9cea575ea")
-    protected  FrameWork(Package elt) {
+    protected FrameWork(Package elt) {
         this.elt = elt;
     }
 
@@ -163,7 +167,7 @@ public class FrameWork {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "00700680-0000-01db-0000-000000000000");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -171,7 +175,7 @@ public class FrameWork {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

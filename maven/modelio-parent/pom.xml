@@ -7,7 +7,7 @@
 
 	<groupId>org.modelio</groupId>
 	<artifactId>modelio-parent</artifactId>
-	<version>5.4.1-SNAPSHOT</version>
+	<version>6.2.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -15,36 +15,38 @@
 		<modelio.ws.path>${env.ECLIPSE_WS}</modelio.ws.path>
 
 		<!-- Compilation settings -->
+		<maven.compiler.source>21</maven.compiler.source>
+		<maven.compiler.target>21</maven.compiler.target>
+		<maven.compiler.release>21</maven.compiler.release>
 		<tycho-groupid>org.eclipse.tycho</tycho-groupid>
-		<tycho-version>2.2.0</tycho-version>
-		<maven.compiler.target>11</maven.compiler.target>
-		<maven.compiler.source>11</maven.compiler.source>
+		<tycho-version>4.0.13</tycho-version>
+		<properties-maven-plugin-version>1.2.1</properties-maven-plugin-version>
+		<tycho.compiler.source>21</tycho.compiler.source>
+		<tycho.compiler.target>21</tycho.compiler.target>
 		<javadesigner.annotation.version>2.2.0</javadesigner.annotation.version>
 
 		<!-- Modelio version settings -->
-		<modelio.rootFolder>Modelio 5.4</modelio.rootFolder>
-		<modelio.version>5.4.1-SNAPSHOT</modelio.version>
-		<newVersion>5.4.1</newVersion>
-
+		<modelio.rootFolder>Modelio 6.2</modelio.rootFolder>
+		<modelio.version>6.2.0-SNAPSHOT</modelio.version>
+		<newVersion>6.2.0</newVersion>
 	</properties>
-
 	<repositories>
 
+        <repository>
+			<id>modelio</id>
+			<url>https://repository.modelio.org</url>
+        </repository>
+		
 		<!-- Eclipse RCP platform -->
 		<repository>
-			<id>rcp-Eclipse</id>
+			<id>rcp-eclipse</id>
 			<layout>p2</layout>
 			<url>file://${modelio.ws.path}/dev-platform/rcp-target/rcp-eclipse/eclipse</url>
 		</repository>
 		<repository>
-			<id>rcp-Eclipse-fr</id>
+			<id>rcp-eclipse-fr</id>
 			<layout>p2</layout>
 			<url>file://${modelio.ws.path}/dev-platform/rcp-target/rcp-eclipse/eclipse-fr</url>
-		</repository>
-		<repository>
-			<id>SWT</id>
-			<layout>p2</layout>
-			<url>file://${modelio.ws.path}/dev-platform/rcp-target/rcp-eclipse/swt</url>
 		</repository>
 
 		<!-- Third-party Libraries re-packaged by Modeliosoft or Modeliosoft libraries -->
@@ -52,6 +54,11 @@
 			<id>jaxb</id>
 			<layout>p2</layout>
 			<url>file://${modelio.ws.path}/dev-platform/rcp-target/javax/jaxb</url>
+		</repository>
+		<repository>
+			<id>jackson</id>
+			<layout>p2</layout>
+			<url>file://${modelio.ws.path}/dev-platform/rcp-target/jackson/integ</url>
 		</repository>
 		<repository>
 			<id>astyle</id>
@@ -91,11 +98,6 @@
 
 		<!-- Third-party libraries  -->
 		<repository>
-			<id>log4j</id>
-			<layout>p2</layout>
-			<url>file://${modelio.ws.path}/dev-platform/rcp-target/apache/log4j</url>
-		</repository>
-		<repository>
 			<id>logback</id>
 			<layout>p2</layout>
 			<url>file://${modelio.ws.path}/dev-platform/rcp-target/ch.qos/logback</url>
@@ -121,11 +123,6 @@
 			<url>file://${modelio.ws.path}/dev-platform/rcp-target/org.eclipse/nebula-nattable</url>
 		</repository>
 		<repository>
-			<id>nebula-incubator</id>
-			<layout>p2</layout>
-			<url>file://${modelio.ws.path}/dev-platform/rcp-target/org.eclipse/nebula-incubator</url>
-		</repository>
-		<repository>
 			<id>nebula</id>
 			<layout>p2</layout>
 			<url>file://${modelio.ws.path}/dev-platform/rcp-target/org.eclipse/nebula</url>
@@ -133,7 +130,7 @@
 		<repository>
 			<id>gef-draw2d</id>
 			<layout>p2</layout>
-			<url>file://${modelio.ws.path}/dev-platform/rcp-target/org.eclipse/gef-draw2d</url>
+			<url>file://${modelio.ws.path}/dev-platform/rcp-target/org.eclipse/gef-classic-S202409301913</url>
 		</repository>
 		<repository>
 			<id>uml2</id>
@@ -148,21 +145,57 @@
 		<repository>
 			<id>svnkit</id>
 			<layout>p2</layout>
-			<url>file://${modelio.ws.path}/dev-platform/rcp-target/tmatesoft/svnkit-1.10.9</url>
+			<url>file://${modelio.ws.path}/dev-platform/rcp-target/tmatesoft/svnkit-1.10.10</url>
+		</repository>
+
+		<!-- SWT -->
+		<repository>
+			<id>swt</id>
+			<layout>p2</layout>
+			<url>file://${modelio.ws.path}/dev-platform/rcp-target/org.eclipse/swt</url>
+		</repository>
+
+		<!-- ELK lib -->
+		<repository>
+			<id>ELK</id>
+			<layout>p2</layout>
+			<url>file://${modelio.ws.path}/dev-platform/rcp-target/elk</url>
 		</repository>
 		<repository>
-			<id>slf4j</id>
+			<id>guava</id>
 			<layout>p2</layout>
-			<url>file://${modelio.ws.path}/dev-platform/rcp-target/org.slf4j/slf4j</url>
+			<url>file://${modelio.ws.path}/dev-platform/rcp-target/guava</url>
+		</repository>
+		<repository>
+			<id>xtext</id>
+			<layout>p2</layout>
+			<url>file://${modelio.ws.path}/dev-platform/rcp-target/xtext</url>
+		</repository>
+
+		<!-- HttpClient version 4.4  -->
+		<repository>
+			<id>httpclient</id>
+			<layout>p2</layout>
+			<url>file://${modelio.ws.path}/dev-platform/rcp-target/apache/httpclient</url>
 		</repository>
 
 		<!-- JRE  -->
 		<repository>
-			<id>openjdk-jre11</id>
+			<id>openjdk-jre</id>
 			<layout>p2</layout>
-			<url>file://${modelio.ws.path}/dev-platform/pack-resources/openjdk-jre11</url>
+			<url>file://${modelio.ws.path}/dev-platform/pack-resources/openjdk-jre</url>
 		</repository>
+
 	</repositories>
+
+
+    <pluginRepositories>
+      <pluginRepository>
+        <id>modelio-plugins</id>
+        <url>https://repository.modelio.org</url>
+      </pluginRepository>
+    </pluginRepositories>
+
 
 	<build>
 		<plugins>
@@ -212,11 +245,19 @@
 				<artifactId>target-platform-configuration</artifactId>
 				<version>${tycho-version}</version>
 				<configuration>
+					<environments>
+						<environment>
+							<os>linux</os> <ws>gtk</ws> <arch>x86_64</arch>
+						</environment>
+						<environment>
+							<os>win32</os> <ws>win32</ws> <arch>x86_64</arch>
+						</environment>
+					</environments>
 					<target>
 						<artifact>
 							<groupId>org.modelio</groupId>
 							<artifactId>rcp</artifactId>
-							<version>5.4.1-SNAPSHOT</version>
+							<version>6.2.0-SNAPSHOT</version>
 						</artifact>
 					</target>
 				</configuration>
@@ -228,7 +269,7 @@
 				<version>${tycho-version}</version>
 				<configuration>
 					<strictVersions>false</strictVersions>
-					<strictBinIncludes>true</strictBinIncludes>
+					<strictBinIncludes>false</strictBinIncludes>
 					<archive>
 						<!-- don't create the maven directory (descriptor files) in META-INF -->
 						<addMavenDescriptor>false</addMavenDescriptor>
@@ -242,11 +283,32 @@
 			<plugins>
 				<plugin>
 					<groupId>${tycho-groupid}</groupId>
+					<artifactId>tycho-maven-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<extensions>true</extensions>
+					<configuration>
+						<resolver>p2</resolver>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>${tycho-groupid}</groupId>
 					<artifactId>tycho-compiler-plugin</artifactId>
 					<version>${tycho-version}</version>
 					<configuration>
-						<useProjectSettings>true</useProjectSettings>
+					    <useJDK>BREE</useJDK>
 						<encoding>UTF-8</encoding>
+						<useProjectSettings>true</useProjectSettings>
+						<optimize>false</optimize>
+						<showWarnings>true</showWarnings>
+						<verbose>false</verbose>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>${tycho-groupid}</groupId>
+					<artifactId>tycho-surefire-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<configuration>
+						<enableAssertions>true</enableAssertions>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -275,17 +337,40 @@
 						</targetFiles>
 					</configuration>
 				</plugin>
+
 				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>sonar-maven-plugin</artifactId>
-					<version>3.4.1.1168</version>
+					<groupId>${tycho-groupid}</groupId>
+					<artifactId>target-platform-configuration</artifactId>
+					<version>${tycho-version}</version>
+					<configuration>
+						<environments>
+							<environment>
+								<os>linux</os>
+								<ws>gtk</ws>
+								<arch>x86_64</arch>
+							</environment>
+							<environment>
+								<os>win32</os>
+								<ws>win32</ws>
+								<arch>x86_64</arch>
+							</environment>
+						</environments>
+					</configuration>
 				</plugin>
+
 			</plugins>
 		</pluginManagement>
 
 	</build>
 
 	<profiles>
+
+		<profile>
+			<id>ci</id>
+			<properties>
+				<maven.test.skip>true</maven.test.skip>
+			</properties>
+		</profile>
 
 		<profile>
 			<id>realtimebuild</id>
@@ -305,10 +390,10 @@
 					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>properties-maven-plugin</artifactId>
-						<version>1.0-alpha-2</version>
+						<version>${properties-maven-plugin-version}</version>
 					</plugin>
 					<plugin>
-						<groupId>org.eclipse.tycho</groupId>
+						<groupId>${tycho-groupid}</groupId>
 						<artifactId>tycho-versions-plugin</artifactId>
 						<version>${tycho-version}</version>
 					</plugin>
@@ -318,7 +403,7 @@
 						<plugin>
 							<groupId>org.codehaus.mojo</groupId>
 							<artifactId>properties-maven-plugin</artifactId>
-							<version>1.0-alpha-2</version>
+							<version>${properties-maven-plugin-version}</version>
 							<executions>
 								<execution>
 									<phase>validate</phase>
@@ -335,7 +420,7 @@
 							</executions>
 						</plugin>
 						<plugin>
-							<groupId>org.eclipse.tycho</groupId>
+							<groupId>${tycho-groupid}</groupId>
 							<artifactId>tycho-versions-plugin</artifactId>
 							<version>${tycho-version}</version>
 							<executions>
@@ -345,6 +430,23 @@
 									<goals>
 										<goal>set-version</goal>
 									</goals>
+								</execution>
+							</executions>
+						</plugin>
+						<plugin>
+							<groupId>${tycho-groupid}</groupId>
+							<artifactId>tycho-p2-director-plugin</artifactId>
+							<version>${tycho-version}</version>
+							<executions>
+								<execution>
+									<id>versions</id>
+									<phase>initialize</phase>
+									<goals>
+											<goal>director</goal>
+									</goals>
+									<configuration>
+										<verifyOnly>true</verifyOnly>
+									</configuration>
 								</execution>
 							</executions>
 						</plugin>

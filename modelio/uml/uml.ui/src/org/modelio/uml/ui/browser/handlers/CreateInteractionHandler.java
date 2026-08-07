@@ -1,26 +1,26 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.browser.handlers;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.swt.widgets.Display;
 import org.modelio.metamodel.diagrams.SequenceDiagram;
@@ -58,7 +58,7 @@ public class CreateInteractionHandler extends CreateCmsElementHandler {
         } else {
             smartCreateForNameSpace(interaction, mmServices);
         }
-        
+
     }
 
     @objid ("4e4e5922-ccde-11e1-97e5-001ec947c8cc")
@@ -76,79 +76,79 @@ public class CreateInteractionHandler extends CreateCmsElementHandler {
                 }, ModelioEvent.EDIT_ELEMENT, param);
             }
         });
-        
+
     }
 
     @objid ("4e4e5927-ccde-11e1-97e5-001ec947c8cc")
     private void smartCreateForOperation(Interaction interaction, Operation parentOperation, IMModelServices mmServices) {
         IStandardModelFactory mmFactory = mmServices.getModelFactory().getFactory(IStandardModelFactory.class);
-        
+
         // Create the sequence diagram:
         SequenceDiagram diagram = mmFactory.createSequenceDiagram();
         interaction.getProduct().add(diagram);
         diagram.setName(mmServices.getElementNamer().getUniqueName(diagram));
-        
+
         // Create the locals Collaboration:
         Collaboration locals = mmFactory.createCollaboration();
         interaction.getOwnedCollaboration().add(locals);
         locals.setName("locals");
-        
+
         // Create the instance:
         BindableInstance instance = mmFactory.createBindableInstance();
         locals.getDeclared().add(instance);
         instance.setName("this");
         instance.setBase(parentOperation.getOwner());
-        
+
         // Create the corresponding InstanceNode:
         Lifeline lifeline = mmFactory.createLifeline();
         interaction.getOwnedLine().add(lifeline);
         lifeline.setName("this");
         lifeline.setRepresented(instance);
-        
+
     }
 
     @objid ("4e4e592b-ccde-11e1-97e5-001ec947c8cc")
     private void smartCreateForNameSpace(Interaction interaction, IMModelServices mmServices) {
         IStandardModelFactory mmFactory = mmServices.getModelFactory().getFactory(IStandardModelFactory.class);
-        
+
         // Create the sequence diagram:
         SequenceDiagram diagram = mmFactory.createSequenceDiagram();
         interaction.getProduct().add(diagram);
         diagram.setName(mmServices.getElementNamer().getUniqueName(diagram));
-        
+
         // Create the locals Collaboration:
         Collaboration locals = mmFactory.createCollaboration();
         interaction.getOwnedCollaboration().add(locals);
         locals.setName("locals");
-        
+
     }
 
     @objid ("4e4e592e-ccde-11e1-97e5-001ec947c8cc")
     private void smartCreateForClassifier(Interaction interaction, Classifier parentClassifier, IMModelServices mmServices) {
         IStandardModelFactory mmFactory = mmServices.getModelFactory().getFactory(IStandardModelFactory.class);
-        
+
         // Create the sequence diagram:
         SequenceDiagram diagram = mmFactory.createSequenceDiagram();
         interaction.getProduct().add(diagram);
         diagram.setName(mmServices.getElementNamer().getUniqueName(diagram));
-        
+
         // Create the locals Collaboration:
         Collaboration locals = mmFactory.createCollaboration();
         interaction.getOwnedCollaboration().add(locals);
         locals.setName("locals");
-        
+
         // Create the instance representing the classifier:
         BindableInstance instance = mmFactory.createBindableInstance();
         locals.getDeclared().add(instance);
         instance.setName("this");
         instance.setBase(parentClassifier);
-        
+
         // Create the corresponding InstanceNode:
         Lifeline lifeline = mmFactory.createLifeline();
         interaction.getOwnedLine().add(lifeline);
         lifeline.setName("this");
         lifeline.setRepresented(instance);
-        
+
     }
 
 }

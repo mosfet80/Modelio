@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -38,10 +38,10 @@ public class ECallOperationAction extends EActivityNode {
     }
 
     @objid ("78fa823f-9eca-4e62-9d4c-f9f62661cefc")
-    public  ECallOperationAction(org.eclipse.uml2.uml.CallOperationAction element) {
+    public ECallOperationAction(org.eclipse.uml2.uml.CallOperationAction element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("0021d5a7-f916-44fb-ac27-89a88df3ce02")
@@ -50,7 +50,7 @@ public class ECallOperationAction extends EActivityNode {
         super.setProperties(objingElt);
         setSynchronous((CallOperationAction) objingElt);
         setOperation((CallOperationAction) objingElt);
-        
+
     }
 
     @objid ("52f7c0b7-83ab-4c6f-b029-9dd4c65c665f")
@@ -61,13 +61,13 @@ public class ECallOperationAction extends EActivityNode {
     @objid ("8d3abbf6-2f87-412f-ab04-04157089b272")
     private void setOperation(CallOperationAction action) {
         org.eclipse.uml2.uml.Operation ecoreOperation = this.ecoreElement.getOperation();
-        
+
         if (ecoreOperation != null) {
             Object objingOperation =  ReverseProperties.getInstance().getMappedElement(ecoreOperation);
             if (objingOperation instanceof Operation)
                 action.setCalled((Operation) objingOperation);
         }
-        
+
     }
 
 }

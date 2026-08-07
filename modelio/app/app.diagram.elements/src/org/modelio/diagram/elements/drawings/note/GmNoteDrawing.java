@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.drawings.note;
 
@@ -48,7 +48,7 @@ public class GmNoteDrawing extends GmNodeDrawing {
      * Constructor to use only for deserialization.
      */
     @objid ("e8502d00-c1b9-4d90-81c7-55a8c4f3d63a")
-    public  GmNoteDrawing() {
+    public GmNoteDrawing() {
         setLabel("Text");
     }
 
@@ -58,20 +58,21 @@ public class GmNoteDrawing extends GmNodeDrawing {
         if (! Objects.equals( super.getLabel(), text)) {
             String oldLabel = text;
             super.setLabel(text);
-        
+
             firePropertyChange(PROPERTY_LABEL, oldLabel, text);
         }
-        
+
     }
 
     /**
      * Creates a GmNoteDrawing.
+     *
      * @param note The represented note element
      * @param ref The represented note reference
      * @param diagram The diagram owning the node
      */
     @objid ("166d50fd-2f16-4c39-9713-141ed58aef7a")
-    public  GmNoteDrawing(IGmDiagram diagram, String identifier) {
+    public GmNoteDrawing(IGmDiagram diagram, String identifier) {
         super(diagram, identifier);
     }
 

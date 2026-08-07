@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.substitution;
 
@@ -38,7 +38,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Graphic model for {@link Substitution}.
- * 
+ *
  * @author cma
  */
 @objid ("a048d8a4-469b-4b3d-b861-1f0b8f3904ea")
@@ -63,19 +63,20 @@ public class GmSubstitution extends GmLink {
 
     /**
      * Initialize a control flow graphic model.
+     *
      * @param diagram The owning diagram
      * @param dependency The reference flow, may be null
      * @param ref The referenced flow reference, may not be null
      */
     @objid ("f3920b0f-0598-4ebd-bfad-5ec060710c95")
-    public  GmSubstitution(IGmDiagram diagram, Substitution dependency, MRef ref) {
+    public GmSubstitution(IGmDiagram diagram, Substitution dependency, MRef ref) {
         super(diagram, ref);
         this.dependency = dependency;
-        
+
         final GmSubstitutionHeader header = new GmSubstitutionHeader(diagram, ref);
         header.setShowMetaclassKeyword(true);
         addExtension(ExtensionLocation.MiddleNW, IGmLink.ROLE_MAIN_LABEL, header);
-        
+
     }
 
     @objid ("ddc63ea1-34b7-4593-87fa-e6e7ab0c166d")
@@ -94,15 +95,15 @@ public class GmSubstitution extends GmLink {
      * For deserialization only.
      */
     @objid ("c9ded327-4bc4-47aa-b6a2-48f0e0286aa5")
-    public  GmSubstitution() {
-        
+    public GmSubstitution() {
+
     }
 
     @objid ("791eeb60-71ef-4c52-b361-f91e47638963")
     @Override
     protected void readLink(IDiagramReader in) {
         super.readLink(in);
-        
+
         int readVersion = readMinorVersion(in, "GmSubstitution.");
         switch (readVersion) {
         case 0: {
@@ -120,7 +121,7 @@ public class GmSubstitution extends GmLink {
             break;
         }
         }
-        
+
     }
 
     @objid ("e75eb3cd-ef1d-4afb-995d-a6023f7ce7f4")
@@ -151,9 +152,9 @@ public class GmSubstitution extends GmLink {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         writeMinorVersion(out, "GmSubstitution.", GmSubstitution.MINOR_VERSION);
-        
+
     }
 
     @objid ("2372d3be-6ba0-41d1-a44f-6d4ffcd3dc22")
@@ -175,14 +176,14 @@ public class GmSubstitution extends GmLink {
     @objid ("9acc18c9-916f-4a82-9b89-0677049f5519")
     private void read_0(IDiagramReader in) {
         read_1(in);
-        
+
         IStyle style = getPersistedStyle();
         StyleKey styleKey = GmSubstitution.styleKeyProvider.getStyleKey(MetaKey.CONNECTIONROUTER);
         if (styleKey != null && !style.isLocal(styleKey)) {
             // Before 3.7.1, default value was "orthogonal router"
             style.setProperty(styleKey, ConnectionRouterId.ORTHOGONAL);
         }
-        
+
     }
 
     /**

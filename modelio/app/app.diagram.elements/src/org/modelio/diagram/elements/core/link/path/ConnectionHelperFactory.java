@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.path;
 
@@ -32,7 +32,7 @@ import org.modelio.diagram.styles.core.StyleKey.ConnectionRouterId;
 
 /**
  * Factory to create connection helper.
- * 
+ *
  * @author cmarin
  */
 @objid ("80448198-1dec-11e2-8cad-001ec947c8cc")
@@ -48,11 +48,11 @@ public class ConnectionHelperFactory implements IConnectionHelperFactory {
             return new ObliqueConnectionHelper(new ArrayList<Point>(0), connection);
         case ORTHOGONAL:
             return new OrthoConnectionHelper(new ArrayList<Point>(0), connection);
-        
+
         default:
             throw new IllegalArgumentException(mode + " is unknown");
         }
-        
+
     }
 
     @objid ("8044819a-1dec-11e2-8cad-001ec947c8cc")
@@ -71,7 +71,7 @@ public class ConnectionHelperFactory implements IConnectionHelperFactory {
         default:
             throw new IllegalArgumentException(rawData.getRoutingMode() + " is unknown");
         }
-        
+
     }
 
     @objid ("99268caa-97d4-43b1-afc6-6e8fb189fb1b")
@@ -86,12 +86,12 @@ public class ConnectionHelperFactory implements IConnectionHelperFactory {
     @SuppressWarnings ("unchecked")
     public IConnectionHelper createFromSerializedData(final ConnectionRouterId router, final ConnectionEditPart connectionEp, final Connection connection) {
         IGmLinkObject model = (IGmLinkObject) connectionEp.getModel();
-        
+
         Object serializedData = model.getPath().getPathData();
         if (serializedData instanceof RakeConstraint) {
             return new RakeConnectionHelper((RakeConstraint) serializedData, connection);
         }
-        
+
         switch (router) {
         case DIRECT:
             return new DirectConnectionHelper();
@@ -99,11 +99,11 @@ public class ConnectionHelperFactory implements IConnectionHelperFactory {
             return new ObliqueConnectionHelper((List<Point>) serializedData, connection);
         case ORTHOGONAL:
             return new OrthoConnectionHelper((List<Point>) serializedData, connection);
-        
+
         default:
             throw new IllegalArgumentException(router + " is unknown");
         }
-        
+
     }
 
     @objid ("8b1b9927-9968-4845-8d4d-752905d35049")
@@ -111,7 +111,7 @@ public class ConnectionHelperFactory implements IConnectionHelperFactory {
     public IConnectionHelper getUpdatedConnectionHelper(final CreateBendedConnectionRequest req, final Connection connection) {
         // Look for the IConnectionHelper cached in the request
         IConnectionHelper connHelper = (IConnectionHelper) req.getExtendedData().get(IConnectionHelper.class);
-        
+
         if (connHelper == null || !connHelper.isUsable() || !isCompatible(req, connHelper)) {
             // Create a new helper
             connHelper = createFromRawData(req, connection);

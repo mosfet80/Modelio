@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.editor;
 
@@ -35,6 +35,7 @@ public interface IRichNoteFileRepository {
      * Get the file for a given rich note.
      * <p>
      * Extract it from blob if needed.
+     *
      * @param doc a rich note
      * @param editor The editor willing to edit the note.
      * It will be fired if the original note is modified externally, by SVN for example. <code>null</code> means no edition.
@@ -46,6 +47,7 @@ public interface IRichNoteFileRepository {
 
     /**
      * Get the file where the firle referred by the artifact can be edited.
+     *
      * @param art an  artifact
      * @return its file path.
      */
@@ -54,6 +56,7 @@ public interface IRichNoteFileRepository {
 
     /**
      * Get the path where the given rich note should be created.
+     *
      * @param doc a rich note
      * @param format the rich note format
      * @return the path where the editor should save the rich note.
@@ -63,6 +66,7 @@ public interface IRichNoteFileRepository {
 
     /**
      * Save the rich note.
+     *
      * @param doc the rich note model object.
      * @param fileToSave the rich note content
      * @throws IOException in case of failure.
@@ -72,6 +76,7 @@ public interface IRichNoteFileRepository {
 
     /**
      * To call when a rich note file is not used anymore, when the editor is closed.
+     *
      * @param editor the editor to remove.
      */
     @objid ("077c1d91-07c2-4144-927c-762e7adb33c2")
@@ -79,5 +84,5 @@ public interface IRichNoteFileRepository {
 
     @objid ("be65d41b-e8b1-4cb7-93b7-d5487bbb94ed")
     void initRichNoteFromFile(AbstractResource doc, Path fileToSave) throws IOException;
-}
 
+}

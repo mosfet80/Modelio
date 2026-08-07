@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -37,7 +37,7 @@ public class EOperationTemplateParameter extends EElement {
     }
 
     @objid ("f7cf5ae8-59fc-42ba-ac07-578f3d575ae1")
-    public  EOperationTemplateParameter(org.eclipse.uml2.uml.OperationTemplateParameter element) {
+    public EOperationTemplateParameter(org.eclipse.uml2.uml.OperationTemplateParameter element) {
         super(element);
     }
 
@@ -52,17 +52,17 @@ public class EOperationTemplateParameter extends EElement {
         }catch (RuntimeException e){
             Xmi.LOG.error(e);
         }
-        
+
         if (objingOperation instanceof Operation) {
-        
+
             ((Operation) objingOperation)
             .getIO().add((Parameter) objingElt);
             ((Parameter) objingElt).setParameterPassing(PassingMode.INOUT);
-        
+
         }else{
             objingElt.delete();
         }
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.deploymentdiagram.editor.elements.manifestation;
 
@@ -58,26 +58,27 @@ public class GmManifestation extends GmLink {
      * For deserialization only.
      */
     @objid ("972fba88-55b6-11e2-877f-002564c97630")
-    public  GmManifestation() {
-        
+    public GmManifestation() {
+
     }
 
     /**
      * Initialize a control flow graphic model.
+     *
      * @param diagram The owning diagram
      * @param theManifestation The reference flow, may be null
      * @param ref The referenced flow reference, may not be null
      */
     @objid ("972fba8b-55b6-11e2-877f-002564c97630")
-    public  GmManifestation(IGmDiagram diagram, Manifestation theManifestation, MRef ref) {
+    public GmManifestation(IGmDiagram diagram, Manifestation theManifestation, MRef ref) {
         super(diagram, ref);
         this.theManifestation = theManifestation;
-        
+
         GmDefaultModelElementLabel extension = new GmDefaultModelElementLabel(diagram, ref);
         extension.setShowLabel(false);
         extension.setShowMetaclassKeyword(true);
         addExtension(ExtensionLocation.MiddleNW, IGmLink.ROLE_MAIN_LABEL, extension);
-        
+
     }
 
     @objid ("972fba97-55b6-11e2-877f-002564c97630")
@@ -102,9 +103,9 @@ public class GmManifestation extends GmLink {
     @Override
     protected void readLink(IDiagramReader in) {
         super.readLink(in);
-        
+
         this.theManifestation = (Manifestation) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("97314127-55b6-11e2-877f-002564c97630")
@@ -129,10 +130,10 @@ public class GmManifestation extends GmLink {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmManifestation.", GmManifestation.MINOR_VERSION);
-        
+
     }
 
     @objid ("97314142-55b6-11e2-877f-002564c97630")

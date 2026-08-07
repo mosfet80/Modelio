@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.exml.common.index.builder;
 
@@ -48,21 +48,22 @@ public class IndexBuilder {
 
     /**
      * Initialize the index builder.
+     *
      * @param metamodel the metamodel
      * @param parentIndex the parent/child index
      * @param userIndex the used CMS nodes index.
      */
     @objid ("fd21f71a-5986-11e1-991a-001ec947ccaf")
-    public  IndexBuilder(SmMetamodel metamodel, ICmsNodeIndex parentIndex, IUserNodeIndex userIndex) {
+    public IndexBuilder(SmMetamodel metamodel, ICmsNodeIndex parentIndex, IUserNodeIndex userIndex) {
         this.defaultHandler = new DocumentContentHandler(metamodel, parentIndex, userIndex);
-        
+
         try {
             SAXParserFactory saxFactory = SAXParserFactory.newInstance();
             SAXParser parser = saxFactory.newSAXParser();
             this.xmlReader = parser.getXMLReader();
-        
+
             this.xmlReader.setFeature("http://xml.org/sax/features/namespaces", true);
-        
+
             this.xmlReader.setContentHandler(this.defaultHandler);
             this.xmlReader.setErrorHandler(this.defaultHandler);
         } catch (ParserConfigurationException e) {
@@ -72,11 +73,12 @@ public class IndexBuilder {
             // should never happen
             throw new Error(e);
         }
-        
+
     }
 
     /**
      * Run the builder on an XML file.
+     *
      * @param is the XML input source.
      * @throws IOException in case of failure writing the index.
      * @throws InvalidExmlException in case of error reading the EXML source.
@@ -85,13 +87,13 @@ public class IndexBuilder {
     public void run(final InputSource is) throws IOException, InvalidExmlException {
         this.defaultHandler.resetModel();
         this.defaultHandler.enterDocumentState();
-        
+
         // Parse stream
         try  {
             this.xmlReader.parse(is);
         } catch(SAXParseException toCatch) {
             String msg = toCatch.getPublicId()+":"+toCatch.getLineNumber()+":"+toCatch.getColumnNumber()+": "+toCatch.getLocalizedMessage();
-        
+
             // If no IOException cause, it is a parsing error,
             // if IOException cause it is a JDBM error
             if (toCatch.getCause() instanceof IOException ) {
@@ -117,7 +119,7 @@ public class IndexBuilder {
             String msg = this.defaultHandler.getLocator()+": "+toCatch.getLocalizedMessage();
             throw new IOException (msg, toCatch);
         }
-        
+
     }
 
 }

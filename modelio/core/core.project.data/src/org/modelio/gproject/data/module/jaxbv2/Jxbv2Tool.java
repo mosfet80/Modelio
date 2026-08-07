@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.data.module.jaxbv2;
 
@@ -30,9 +30,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for _Tool complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="_Tool">
  * &lt;complexContent>
@@ -89,20 +89,20 @@ public class Jxbv2Tool {
 
     /**
      * Gets the value of the scopeSource property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the scopeSource property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      * getScopeSource().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Jxbv2Scope }
@@ -117,20 +117,20 @@ public class Jxbv2Tool {
 
     /**
      * Gets the value of the scopeTarget property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the scopeTarget property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      * getScopeTarget().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Jxbv2Scope }
@@ -145,8 +145,8 @@ public class Jxbv2Tool {
 
     /**
      * Gets the value of the handler property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link Jxbv2Handler }
      */
     @objid ("898cb446-746c-40e8-8a54-5234f544df2f")
@@ -156,6 +156,7 @@ public class Jxbv2Tool {
 
     /**
      * Sets the value of the handler property.
+     *
      * @param value allowed object is
      * {@link Jxbv2Handler }
      */
@@ -166,8 +167,8 @@ public class Jxbv2Tool {
 
     /**
      * Gets the value of the id property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("9b090c13-f31b-4784-8309-99aa95bf6444")
@@ -177,6 +178,7 @@ public class Jxbv2Tool {
 
     /**
      * Sets the value of the id property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -187,8 +189,8 @@ public class Jxbv2Tool {
 
     /**
      * Gets the value of the label property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("35eb48c0-1cfa-47d5-8ea8-0047841d4acd")
@@ -198,6 +200,7 @@ public class Jxbv2Tool {
 
     /**
      * Sets the value of the label property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -208,8 +211,8 @@ public class Jxbv2Tool {
 
     /**
      * Gets the value of the tooltip property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("a31ed6bc-5d4d-443f-bf84-a48d4ec82ead")
@@ -219,6 +222,7 @@ public class Jxbv2Tool {
 
     /**
      * Sets the value of the tooltip property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -229,8 +233,8 @@ public class Jxbv2Tool {
 
     /**
      * Gets the value of the image property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("63f4ab6d-c7d4-4c2d-8efc-b1a7e719cd36")
@@ -240,6 +244,7 @@ public class Jxbv2Tool {
 
     /**
      * Sets the value of the image property.
+     *
      * @param value allowed object is
      * {@link String }
      */

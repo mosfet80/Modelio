@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.infrastructure;
 
@@ -51,7 +51,7 @@ public class R2100 extends AbstractInfrastructureRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -72,7 +72,7 @@ public class R2100 extends AbstractInfrastructureRule {
         plan.registerRule(PropertyEnumerationLitteral.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -106,14 +106,14 @@ public class R2100 extends AbstractInfrastructureRule {
      * Default constructor for R2100
      */
     @objid ("48a83cd4-5560-48a5-9eeb-bbcef6cb24bf")
-    public  R2100() {
+    public R2100() {
         this.checkerInstance = new CheckR2100(this);
     }
 
     @objid ("7f0c7ac4-f99f-4d56-b882-46826dc88e8c")
     private static class CheckR2100 extends AbstractControl {
         @objid ("69e8b42f-9e94-4f68-9499-ab07315d96ea")
-        public  CheckR2100(IRule rule) {
+        public CheckR2100(IRule rule) {
             super(rule);
         }
 
@@ -139,9 +139,9 @@ public class R2100 extends AbstractInfrastructureRule {
                     AuditSeverity.AuditSuccess,
                     enumPropType,
                     null);
-            
+
             Map<String, List<PropertyEnumerationLitteral>> duplicates = new HashMap<>();
-            
+
             for (PropertyEnumerationLitteral p : enumPropType.getLitteral()) {
                 String name = p.getName();
                 if (!duplicates.containsKey(name)) {
@@ -149,12 +149,12 @@ public class R2100 extends AbstractInfrastructureRule {
                 }
                 duplicates.get(p.getName()).add(p);
             }
-            
+
             for (Entry<String, List<PropertyEnumerationLitteral>> entry : duplicates.entrySet()) {
                 if (entry.getValue().size() > 1) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(enumPropType);

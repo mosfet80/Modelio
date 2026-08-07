@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class UML2ConnectableElementTemplateParameter {
      * Tells whether a {@link UML2ConnectableElementTemplateParameter proxy} can be instantiated from a {@link MObject} checking it is a {@link TemplateParameter} stereotyped << UML2ConnectableElementTemplateParameter >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,7 +73,7 @@ public class UML2ConnectableElementTemplateParameter {
 
     /**
      * Create a new {@link TemplateParameter} stereotyped << UML2ConnectableElementTemplateParameter >> then instantiate a {@link UML2ConnectableElementTemplateParameter} proxy.
-     * 
+     *
      * @return a {@link UML2ConnectableElementTemplateParameter} proxy on the created {@link TemplateParameter}.
      */
     @objid ("11a6e4f1-c818-4ac2-8651-f0178361c738")
@@ -83,9 +84,10 @@ public class UML2ConnectableElementTemplateParameter {
     }
 
     /**
-     * Tries to instantiate a {@link UML2ConnectableElementTemplateParameter} proxy from a {@link TemplateParameter} stereotyped << UML2ConnectableElementTemplateParameter >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2ConnectableElementTemplateParameter} proxy from a {@link TemplateParameter} stereotyped << UML2ConnectableElementTemplateParameter >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a TemplateParameter
      * @return a {@link UML2ConnectableElementTemplateParameter} proxy or <i>null</i>.
      */
@@ -95,9 +97,10 @@ public class UML2ConnectableElementTemplateParameter {
     }
 
     /**
-     * Tries to instantiate a {@link UML2ConnectableElementTemplateParameter} proxy from a {@link TemplateParameter} stereotyped << UML2ConnectableElementTemplateParameter >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2ConnectableElementTemplateParameter} proxy from a {@link TemplateParameter} stereotyped << UML2ConnectableElementTemplateParameter >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link TemplateParameter}
      * @return a {@link UML2ConnectableElementTemplateParameter} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -127,7 +130,8 @@ public class UML2ConnectableElementTemplateParameter {
     }
 
     /**
-     * Get the underlying {@link TemplateParameter}. 
+     * Get the underlying {@link TemplateParameter}.
+     *
      * @return the TemplateParameter represented by this proxy, never null.
      */
     @objid ("793432b5-8cb0-4950-8922-3163e1450a84")
@@ -139,11 +143,11 @@ public class UML2ConnectableElementTemplateParameter {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("de7f0d90-0d50-48b1-b803-c8f8bcffc826")
-    protected  UML2ConnectableElementTemplateParameter(TemplateParameter elt) {
+    protected UML2ConnectableElementTemplateParameter(TemplateParameter elt) {
         this.elt = elt;
     }
 
@@ -163,7 +167,7 @@ public class UML2ConnectableElementTemplateParameter {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "ff6e0375-5d09-11df-a996-001302895b2b");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -171,7 +175,7 @@ public class UML2ConnectableElementTemplateParameter {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

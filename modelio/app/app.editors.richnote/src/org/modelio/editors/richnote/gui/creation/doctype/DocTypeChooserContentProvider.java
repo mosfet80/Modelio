@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.gui.creation.doctype;
 
@@ -54,7 +54,7 @@ class DocTypeChooserContentProvider implements ITreeContentProvider {
         } else {
             return new Object[0];
         }
-        
+
     }
 
     @objid ("28f0531e-525d-4ba6-bc05-df65bd9e56fa")
@@ -72,7 +72,7 @@ class DocTypeChooserContentProvider implements ITreeContentProvider {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("bb53834a-d16c-47a0-82b5-7278190604ed")
@@ -90,7 +90,7 @@ class DocTypeChooserContentProvider implements ITreeContentProvider {
         } else {
             return false;
         }
-        
+
     }
 
     @objid ("d39fe58f-ea10-4597-ba57-db8d3b2b4911")

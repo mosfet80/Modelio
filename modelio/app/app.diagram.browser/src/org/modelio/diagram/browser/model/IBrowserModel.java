@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.browser.model;
 
@@ -31,7 +31,7 @@ import org.modelio.vcore.session.api.ICoreSession;
  * An IBrowserModel is used to configure the diagram browser tree aspect and
  * behavior. The IBrowserModel provides the tree's content provider, label
  * provider, editing support and content sorter.
- * 
+ *
  * @author phv
  */
 @objid ("003083d8-0d4f-10c6-842f-001ec947cd2a")
@@ -62,5 +62,5 @@ public interface IBrowserModel {
 
     @objid ("0030d694-0d4f-10c6-842f-001ec947cd2a")
     ICellModifier getLabelEditor(TreeViewer browserView, ICoreSession iCoreSession);
-}
 
+}

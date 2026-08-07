@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.impl.handles;
 
@@ -38,6 +38,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 @objid ("9164f465-3a25-11e2-bf6c-001ec947ccaf")
 public interface IStorageHandle {
     /**
+     *
      * @param dep a metamodel relation
      * @return whether the given dependency is physically written in storages.
      */
@@ -46,6 +47,7 @@ public interface IStorageHandle {
 
     /**
      * Load an attribute value
+     *
      * @param obj a model object
      * @param att the model attribute to load
      * @param data the model object data
@@ -55,6 +57,7 @@ public interface IStorageHandle {
 
     /**
      * Ensure the given dependency is loaded for the given object.
+     *
      * @param obj An object
      * @param data The object data, to avoid calling {@link SmObjectImpl#getData()}.
      * @param dep the dependency to load.
@@ -64,6 +67,7 @@ public interface IStorageHandle {
 
     /**
      * Force loading a model dependency
+     *
      * @param obj a model object
      * @param dep a model dependency
      * @param data the model object data to fill
@@ -73,6 +77,7 @@ public interface IStorageHandle {
 
     /**
      * Called when an object relation is modified
+     *
      * @param data The object data, to avoid calling {@link SmObjectImpl#getData()}.
      * @param obj An object
      * @param dep the modified metamodel relation
@@ -82,7 +87,19 @@ public interface IStorageHandle {
     void appendObjDepVal(ISmObjectData data, SmObjectImpl obj, SmDependency dep, SmObjectImpl dep_val);
 
     /**
+     * Called when an object relation is modified
+     *
+     * @param data The object data, to avoid calling {@link SmObjectImpl#getData()}.
+     * @param obj An object
+     * @param dep the modified metamodel relation
+     * @param dep_val the added object
+     */
+    @objid ("fa61bcd7-d907-48fd-9305-71a6477966e5")
+    void eraseObjDepVal(ISmObjectData data, SmObjectImpl obj, SmDependency dep, SmObjectImpl dep_val);
+
+    /**
      * Called when an object relation modification is rollbacked.
+     *
      * @param obj An object
      * @param dep the modified metamodel relation
      * @param dep_val the object to remove
@@ -92,6 +109,7 @@ public interface IStorageHandle {
     void undoAppendDepVal(SmObjectImpl obj, SmDependency dep, SmObjectImpl dep_val, IRepositoryObject oldValStore);
 
     /**
+     *
      * @param obj a model object
      * @param dep a model dependency
      * @param dep_val the searched model object
@@ -100,5 +118,28 @@ public interface IStorageHandle {
      */
     @objid ("1f1a5485-3a2d-11e2-bf6c-001ec947ccaf")
     int loadDepIndexOf(SmObjectImpl obj, SmDependency dep, SmObjectImpl dep_val, ISmObjectData data);
-}
 
+    @objid ("a6e446cb-5837-4ec6-9d10-590e3c592188")
+    void undoEraseObjDepVal(SmObjectImpl obj, SmDependency dep, SmObjectImpl dep_val, IRepositoryObject previousRepo);
+
+    /**
+     * Called when an object is deleted
+     *
+     * @param data The object data, to avoid calling {@link SmObjectImpl#getData()}.
+     * @param obj An object
+     * @since > 6.1.2 22/12/2025
+     */
+    @objid ("5305a8af-9291-4d3d-b660-047aa28aa8bc")
+    void objDeleted(ISmObjectData data, SmObjectImpl obj);
+
+    /**
+     * Called when an object is undeleted
+     *
+     * @param data The object data, to avoid calling {@link SmObjectImpl#getData()}.
+     * @param obj An object
+     * @since > 6.1.2 22/12/2025
+     */
+    @objid ("dbb57c37-c70a-4340-9145-4cdd4ce468b9")
+    void objUndeleted(ISmObjectData data, SmObjectImpl obj);
+
+}

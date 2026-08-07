@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.core.modelshield;
 
@@ -54,6 +54,7 @@ public class ModelShield {
 
     /**
      * Add a protection agent.
+     *
      * @param agent a protection agent.
      */
     @objid ("5edd4230-2b5b-11de-b561-001ec947cd2a")
@@ -63,6 +64,7 @@ public class ModelShield {
 
     /**
      * Remove a protection agent.
+     *
      * @param agent a protection agent.
      */
     @objid ("25146e1e-721e-11de-9c55-0014222a9f79")
@@ -72,6 +74,7 @@ public class ModelShield {
 
     /**
      * Add a diagnostic listener.
+     *
      * @param listener a diagnostic listener.
      */
     @objid ("002804f8-0000-064a-0000-000000000000")
@@ -81,6 +84,7 @@ public class ModelShield {
 
     /**
      * Remove a diagnostic listener
+     *
      * @param listener a diagnostic listener.
      */
     @objid ("002804f8-0000-0647-0000-000000000000")
@@ -90,6 +94,7 @@ public class ModelShield {
 
     /**
      * Check for model errors on a model object.
+     *
      * @param anObject a model object to check.
      * @return the check report.
      */
@@ -99,13 +104,13 @@ public class ModelShield {
         // checking an object consists in
         // - running the registered agents
         // - collect the diagnostics
-        
+
         for (IProtectionAgent agent : this.agents.values()) {
             if (agent.isInScope(anObject)) {
                 agent.check(anObject, diagnostic);
             }
         }
-        
+
         fireDiagnostic(diagnostic);
         return diagnostic;
     }
@@ -117,11 +122,12 @@ public class ModelShield {
                 listener.onCommitDiagnostic(diagnostic);
             }
         }
-        
+
     }
 
     /**
      * Check a transaction for model errors.
+     *
      * @param transaction the transaction to check.
      * @return the check report.
      */
@@ -134,7 +140,7 @@ public class ModelShield {
         for (IProtectionAgent agent : this.agents.values()) {
             agent.check(transaction, diagnostic);
         }
-        
+
         fireDiagnostic(diagnostic);
         return diagnostic;
     }
@@ -150,7 +156,7 @@ public class ModelShield {
         private final ModelShield modelShield;
 
         @objid ("01f40340-0000-6958-0000-000000000000")
-        public  ModelShieldTransactionValidator(final ModelShield modelShield) {
+        public ModelShieldTransactionValidator(final ModelShield modelShield) {
             this.modelShield = modelShield;
         }
 
@@ -158,10 +164,10 @@ public class ModelShield {
         @Override
         public void validate(Transaction currentTransaction) {
             IErrorReport report = this.modelShield.check(currentTransaction);
-            
+
             if (report.isFailed())
                 throw new IllegalModelManipulationException(MODELSHIELD_ERROR, null, report);
-            
+
         }
 
     }

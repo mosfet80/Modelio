@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.bpmn;
 
@@ -72,23 +72,24 @@ public class BpmnSequenceFlowPropertyModel extends AbstractPropertyModel<BpmnSeq
 
     /**
      * Create a new <i>BpmnSequenceFlow</i> data model from an <i>BpmnSequenceFlow</i>.
+     *
      * @param theEditedElement the flow to edit.
      * @param modelService the model service needed to find elements.
      */
     @objid ("6fde7cdb-dfd4-4bcd-97d6-27e7d116b90f")
-    public  BpmnSequenceFlowPropertyModel(BpmnSequenceFlow theEditedElement, IMModelServices modelService) {
+    public BpmnSequenceFlowPropertyModel(BpmnSequenceFlow theEditedElement, IMModelServices modelService) {
         super(theEditedElement);
         this.modelService = modelService;
-        
+
     }
 
     @objid ("37eed1eb-b6cd-4f67-92a8-ad468a8a76af")
     private void addDataObject(IMModelServices mmService, final BpmnDataObject dataobject) {
         IStandardModelFactory modelFactory = mmService.getModelFactory().getFactory(IStandardModelFactory.class);
-        
+
         final BpmnFlowNode source = this.theEditedElement.getSourceRef();
         final BpmnFlowNode target = this.theEditedElement.getTargetRef();
-        
+
         final BpmnDataAssociation sourceAssociation = modelFactory.createBpmnDataAssociation();
         if (source instanceof BpmnActivity) {
             sourceAssociation.setStartingActivity((BpmnActivity) source);
@@ -99,7 +100,7 @@ public class BpmnSequenceFlowPropertyModel extends AbstractPropertyModel<BpmnSeq
             sourceAssociation.setStartingEvent((BpmnThrowEvent) source);
         }
         sourceAssociation.setTargetRef(dataobject);
-        
+
         final BpmnDataAssociation targetAssociation = modelFactory.createBpmnDataAssociation();
         if (target instanceof BpmnActivity) {
             targetAssociation.setEndingActivity((BpmnActivity) target);
@@ -110,16 +111,17 @@ public class BpmnSequenceFlowPropertyModel extends AbstractPropertyModel<BpmnSeq
             targetAssociation.setEndingEvent((BpmnCatchEvent) target);
         }
         targetAssociation.getSourceRef().add(dataobject);
-        
+
         final BpmnSequenceFlowDataAssociation sequenceFlowAssociation = modelFactory.createBpmnSequenceFlowDataAssociation();
         sequenceFlowAssociation.setConnected(this.theEditedElement);
         sequenceFlowAssociation.getDataAssociation().add(sourceAssociation);
         sequenceFlowAssociation.getDataAssociation().add(targetAssociation);
-        
+
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("26822cc4-69a5-4719-b748-d2a1223c70bf")
@@ -130,6 +132,7 @@ public class BpmnSequenceFlowPropertyModel extends AbstractPropertyModel<BpmnSeq
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("fdd57a36-a89a-48c8-828c-971141147f6f")
@@ -142,6 +145,7 @@ public class BpmnSequenceFlowPropertyModel extends AbstractPropertyModel<BpmnSeq
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -183,7 +187,7 @@ public class BpmnSequenceFlowPropertyModel extends AbstractPropertyModel<BpmnSeq
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -192,6 +196,7 @@ public class BpmnSequenceFlowPropertyModel extends AbstractPropertyModel<BpmnSeq
      * This type will be used to choose an editor and a renderer for each cell of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -224,7 +229,7 @@ public class BpmnSequenceFlowPropertyModel extends AbstractPropertyModel<BpmnSeq
         default:
             return null;
         }
-        
+
     }
 
     @objid ("2af6d4fc-ed39-484a-a4ee-4a84a68f61d3")
@@ -232,9 +237,9 @@ public class BpmnSequenceFlowPropertyModel extends AbstractPropertyModel<BpmnSeq
         final List<BpmnDataAssociation> dataAssociations = new ArrayList<>();
         dataAssociations.addAll(dataobject.getSourceOfDataAssociation());
         dataAssociations.addAll(dataobject.getTargetOfDataAssociation());
-        
+
         final Set<MObject> toDelete = new HashSet<>();
-        
+
         // Gather BpmnDataAssociation and BpmnSequenceFlowDataAssociation connected to the edited sequence flow
         for (final BpmnDataAssociation dataAssociation : dataAssociations) {
             for (final BpmnSequenceFlowDataAssociation sfda : dataAssociation.getVisualShortCut().toArray(new BpmnSequenceFlowDataAssociation[0])) {
@@ -244,18 +249,19 @@ public class BpmnSequenceFlowPropertyModel extends AbstractPropertyModel<BpmnSeq
                 }
             }
         }
-        
+
         // Delete unwanted elements
         for (MObject mObject : toDelete) {
             mObject.delete();
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -294,7 +300,7 @@ public class BpmnSequenceFlowPropertyModel extends AbstractPropertyModel<BpmnSeq
                     this.theEditedElement.setDefaultOfInclusive(null);
                     this.theEditedElement.setDefaultOfComplex(null);
                 }
-        
+
                 break;
             case 3:
                 this.theEditedElement.setConditionExpression((String) value);
@@ -312,20 +318,20 @@ public class BpmnSequenceFlowPropertyModel extends AbstractPropertyModel<BpmnSeq
                         }
                     }
                 }
-        
+
                 final List<BpmnDataObject> newcontent = (List<BpmnDataObject>) value;
                 for (final BpmnDataObject s : element) {
                     if (!newcontent.contains(s)) {
                         removeDataObject(s);
                     }
                 }
-        
+
                 for (final BpmnDataObject s : newcontent) {
                     if (!element.contains(s)) {
                         addDataObject(this.modelService, s);
                     }
                 }
-        
+
                 break;
             default:
                 return;
@@ -334,7 +340,7 @@ public class BpmnSequenceFlowPropertyModel extends AbstractPropertyModel<BpmnSeq
         default:
             return;
         }
-        
+
     }
 
     @objid ("bf2703d6-0483-4080-827c-77eb5ad50a67")
@@ -344,14 +350,14 @@ public class BpmnSequenceFlowPropertyModel extends AbstractPropertyModel<BpmnSeq
         if (col == 1 && row == 5) {
             final BpmnFlowNode source = this.theEditedElement.getSourceRef();
             final BpmnFlowNode target = this.theEditedElement.getTargetRef();
-        
+
             boolean isValidSource = source instanceof BpmnActivity || source instanceof BpmnCatchEvent;
             boolean isValidTarget = target instanceof BpmnActivity || target instanceof BpmnThrowEvent;
             return isEditable && isValidSource && isValidTarget;
         } else {
             return isEditable;
         }
-        
+
     }
 
 }

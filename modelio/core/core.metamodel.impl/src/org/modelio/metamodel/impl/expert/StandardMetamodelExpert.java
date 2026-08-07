@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.expert;
 
@@ -99,13 +99,14 @@ public class StandardMetamodelExpert extends org.modelio.vcore.smkernel.meta.Def
     private final MetaExpertRegistry META_REGISTRY;
 
     /**
+     *
      * @param mm the metamodel.
      */
     @objid ("ea0fbaa9-47e9-4e3b-8907-142d54d6e6c4")
-    public  StandardMetamodelExpert(MMetamodel mm) {
+    public StandardMetamodelExpert(MMetamodel mm) {
         this.LINK_REGISTRY = new LinkExpertRegistry(mm);
         this.META_REGISTRY = new MetaExpertRegistry(mm);
-        
+
     }
 
     @objid ("000103ce-de02-1097-bcec-001ec947cd2a")
@@ -210,7 +211,7 @@ public class StandardMetamodelExpert extends org.modelio.vcore.smkernel.meta.Def
         } catch (final ClassCastException e) {
             throw new IllegalArgumentException(newSource + " is not a legal source for " + linkElement, e);
         }
-        
+
     }
 
     @objid ("4a959dc3-cf59-48aa-ba80-344a28195da2")
@@ -223,7 +224,7 @@ public class StandardMetamodelExpert extends org.modelio.vcore.smkernel.meta.Def
         } catch (final ClassCastException e) {
             throw new IllegalArgumentException(newTarget + " is not a legal target for " + linkElement, e);
         }
-        
+
     }
 
     // typical usage: creation tools
@@ -304,6 +305,7 @@ public class StandardMetamodelExpert extends org.modelio.vcore.smkernel.meta.Def
 
         /**
          * Get the creation expert for the given element.
+         *
          * @param metaclass a metamodel class.
          * @return the matching creation expert (never returns <code>null</code>)
          */
@@ -319,20 +321,21 @@ public class StandardMetamodelExpert extends org.modelio.vcore.smkernel.meta.Def
 
         /**
          * This class has no instances.
+         *
          * @param mm the metamodel.
          */
         @objid ("00043486-de02-1097-bcec-001ec947cd2a")
-        public  LinkExpertRegistry(MMetamodel mm) {
+        public LinkExpertRegistry(MMetamodel mm) {
             // Init experts
             this.DEFAULT_EXPERT = new DefaultLinkExpert(mm);
-            
+
             this.EXPERTS.put(mm.getMClass(Binding.class), new BindingCreationExpert(this.DEFAULT_EXPERT));
             this.EXPERTS.put(mm.getMClass(BpmnDataAssociation.class), new BpmnDataAssociationCreationExpert(this.DEFAULT_EXPERT));
             this.EXPERTS.put(mm.getMClass(BpmnMessageFlow.class), new BpmnMessageFlowCreationExpert(this.DEFAULT_EXPERT));
             this.EXPERTS.put(mm.getMClass(BpmnSequenceFlow.class), new BpmnSequenceFlowCreationExpert(this.DEFAULT_EXPERT));
             this.EXPERTS.put(mm.getMClass(TemplateBinding.class), new TemplateBindingCreationExpert(this.DEFAULT_EXPERT));
             this.EXPERTS.put(mm.getMClass(ClassAssociation.class), new ClassAssociationCreationExpert(this.DEFAULT_EXPERT));
-            
+
         }
 
     }
@@ -360,6 +363,7 @@ public class StandardMetamodelExpert extends org.modelio.vcore.smkernel.meta.Def
 
         /**
          * Get the creation expert for the given element.
+         *
          * @param metaclass a metamodel class.
          * @return the matching creation expert (never returns <code>null</code>)
          */
@@ -375,15 +379,16 @@ public class StandardMetamodelExpert extends org.modelio.vcore.smkernel.meta.Def
 
         /**
          * This class has no instances.
+         *
          * @param mm the metamodel.
          */
         @objid ("0097fbc6-de01-1097-bcec-001ec947cd2a")
-        public  MetaExpertRegistry(MMetamodel mm) {
+        public MetaExpertRegistry(MMetamodel mm) {
             // Init experts
             this.DEFAULT_EXPERT = new DefaultMetaExpert();
             this.EXPERTS.put(mm.getMClass(Lifeline.class), new PartDecompositionCreationExpert((SmClass) mm.getMClass(PartDecomposition.class)));
             this.EXPERTS.put(mm.getMClass(BpmnLane.class), new BpmnLaneCreationExpert());
-            
+
         }
 
     }
@@ -394,7 +399,7 @@ public class StandardMetamodelExpert extends org.modelio.vcore.smkernel.meta.Def
         private final MObject objDest;
 
         @objid ("80ea318e-272c-11e2-a9d1-002564c97630")
-        public  CompositionDepVisitor(MObject to) {
+        public CompositionDepVisitor(MObject to) {
             this.objDest = to;
         }
 

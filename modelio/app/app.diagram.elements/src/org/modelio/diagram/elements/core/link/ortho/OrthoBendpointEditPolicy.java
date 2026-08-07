@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.ortho;
 
@@ -33,6 +33,7 @@ import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.PrecisionPoint;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.Handle;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
@@ -52,7 +53,7 @@ import org.modelio.diagram.elements.core.policies.SelectionHandlesBuilder;
 
 /**
  * Try 2 at an edit policy for links with and Orthogonal router.
- * 
+ *
  * @author fpoyer
  */
 @objid ("803895f3-1dec-11e2-8cad-001ec947c8cc")
@@ -93,7 +94,6 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
         super.activate();
         getConnection().addPropertyChangeListener(Connection.PROPERTY_POINTS, this);
         this.isActive = true;
-        
     }
 
     /**
@@ -105,7 +105,6 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
         getConnection().removePropertyChangeListener(Connection.PROPERTY_POINTS, this);
         this.isActive = false;
         super.deactivate();
-        
     }
 
     @objid ("803af84d-1dec-11e2-8cad-001ec947c8cc")
@@ -117,7 +116,6 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
         } else if (RequestConstants.REQ_MOVE.equals(type) || RequestConstants.REQ_ADD.equals(type)) {
             eraseChangeBoundsFeedback((ChangeBoundsRequest) request);
         }
-        
     }
 
     /**
@@ -127,7 +125,7 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
     @Override
     public Command getCommand(final Request request) {
         Object type = request.getType();
-        
+
         if (ConnectionSegmentTracker.REQ_MOVE_SEGMENT.equals(type)) {
             return getMoveSegmentCommand((BendpointRequest) request);
         } else if (RequestConstants.REQ_MOVE_BENDPOINT.equals(type)) {
@@ -140,6 +138,7 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
 
     /**
      * If the number of bendpoints changes, handles are updated.
+     *
      * @see java.beans.PropertyChangeListener#propertyChange(PropertyChangeEvent)
      */
     @objid ("803d5a9b-1dec-11e2-8cad-001ec947c8cc")
@@ -148,7 +147,6 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
         if (getHost().getSelected() != EditPart.SELECTED_NONE) {
             addSelectionHandles();
         }
-        
     }
 
     @objid ("803d5aae-1dec-11e2-8cad-001ec947c8cc")
@@ -162,7 +160,6 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
         } else if (RequestConstants.REQ_MOVE.equals(type) || RequestConstants.REQ_ADD.equals(type)) {
             showChangeBoundsFeedback((ChangeBoundsRequest) request);
         }
-        
     }
 
     @objid ("803fbd14-1dec-11e2-8cad-001ec947c8cc")
@@ -173,7 +170,6 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
         } else {
             return super.understandsRequest(req);
         }
-        
     }
 
     /**
@@ -181,13 +177,13 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
      */
     @objid ("803af83a-1dec-11e2-8cad-001ec947c8cc")
     @Override
-    protected List<?> createSelectionHandles() {
+    protected List<? extends Handle> createSelectionHandles() {
         boolean userEditable = ((IGmObject) getHost().getModel()).isUserEditable();
-        
+
         List<ConnectionHandle> list = new ArrayList<>();
         ConnectionEditPart connEP = getHost();
         PointList points = getConnection().getPoints();
-        
+
         points.getPoint(TMP1, 0);
         points.getPoint(TMP2, 1);
         Orientation orientation = getSegmentOrientation(TMP1, TMP2);
@@ -198,10 +194,10 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
                 list.add(new VerticalSegmentMoveHandle(connEP, 0));
             }
         }
-        
+
         @SuppressWarnings ("unchecked")
         List<MPoint> constraints = (List<MPoint>) ((IGmLinkObject) getHost().getModel()).getPath().getPathData();
-        
+
         for (int i = 1; i < points.size() - 1; i++) {
             int idxC = i - 1;
             if (idxC < constraints.size()) {
@@ -212,11 +208,11 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
                     list.add(new OrthoBendPointMoveHandle(connEP, i, orientation));
                 }
             }
-        
+
             points.getPoint(TMP1, i);
             points.getPoint(TMP2, i + 1);
             orientation = getSegmentOrientation(TMP1, TMP2);
-        
+
             if (userEditable) {
                 // Add a bendpoint move handle using orientation of previous segment.
                 if (orientation == Orientation.HORIZONTAL) {
@@ -226,7 +222,7 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
                 }
             }
         }
-        
+
         SelectionHandlesBuilder.disableHandlesIfReadOnly(getHost(), list);
         return list;
     }
@@ -235,6 +231,7 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
      * Erases all bendpoint feedback.
      * <p>
      * Since the original <code>Connection</code> figure is used for feedback, we just restore the original constraint that was saved before feedback started to show.
+     *
      * @param request the ChangeBoundsRequest
      */
     @objid ("803fbd0e-1dec-11e2-8cad-001ec947c8cc")
@@ -246,6 +243,7 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
      * Erases all bendpoint feedback.
      * <p>
      * Since the original <code>Connection</code> figure is used for feedback, we just restore the original constraint that was saved before feedback started to show.
+     *
      * @param request the BendpointRequest
      */
     @objid ("803af846-1dec-11e2-8cad-001ec947c8cc")
@@ -255,6 +253,7 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
 
     /**
      * Convenience method for obtaining the host's <code>Connection</code> figure.
+     *
      * @return the Connection figure
      */
     @objid ("803d5a89-1dec-11e2-8cad-001ec947c8cc")
@@ -263,6 +262,7 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
     }
 
     /**
+     *
      * @param request the request to use to build the command.
      */
     @objid ("803d5a90-1dec-11e2-8cad-001ec947c8cc")
@@ -275,7 +275,7 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
         if (!ToolSelectionUtils.bothEndsInRequest(getHost(), request)) {
             return null;
         }
-        
+
         // The request is completely ignored in this method, it might be a design problem:
         // when handling a request without displaying feedback first, we have to simulate it first
         // in order to compute the move coordinates...
@@ -285,21 +285,21 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
             showSourceFeedback(request);
             showTargetFeedback(request);
         }
-        
+
         Connection conn = getConnection();
         ConnectionAnchor currentSourceAnchor = conn.getSourceAnchor();
         ConnectionAnchor currentTargetAnchor = conn.getTargetAnchor();
-        
+
         conn.setSourceAnchor(this.originalSourceAnchor);
         conn.setTargetAnchor(this.originalTargetAnchor);
-        
+
         ConnectionEditPart hostEP = getHost();
-        
+
         Command command = new TranslateBendpointsCommand(hostEP);
-        
+
         conn.setSourceAnchor(currentSourceAnchor);
         conn.setTargetAnchor(currentTargetAnchor);
-        
+
         if (simulateFeedback) {
             eraseSourceFeedback(request);
             eraseTargetFeedback(request);
@@ -314,6 +314,7 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
      * <li>VERTICAL if <code>p1.x == p2.x || abs(p1.y - p2.y)/abs(p1.x - p2.x) > 1</code></li>
      * <li>NONE otherwise (ie: either point is <code>null</code> or <code>p1.x != p2.x && p1.y != p2.y && abs(p1.x - p2.x)/abs(p1.y - p2.y) == 1</code></li>
      * </ul>
+     *
      * @param point1 the first point
      * @param point2 the second point
      * @return the orientation of the segment.
@@ -345,7 +346,6 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
                 }
             }
         }
-        
     }
 
     /**
@@ -361,17 +361,16 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
             }
             this.originalConstraint = null;
         }
-        
+
         if (this.originalSourceAnchor != null) {
             getConnection().setSourceAnchor(this.originalSourceAnchor);
             this.originalSourceAnchor = null;
         }
-        
+
         if (this.originalTargetAnchor != null) {
             getConnection().setTargetAnchor(this.originalTargetAnchor);
             this.originalTargetAnchor = null;
         }
-        
     }
 
     /**
@@ -379,7 +378,7 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
      * connection, inclusive of the first and last).
      */
     @objid ("803d5aa4-1dec-11e2-8cad-001ec947c8cc")
-    @SuppressWarnings ("unchecked")
+    @SuppressWarnings("unchecked")
     protected void saveOriginalConstraint() {
         this.originalConstraint = (List<Bendpoint>) getConnection().getRoutingConstraint();
         if (this.originalConstraint == null) {
@@ -388,7 +387,6 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
         this.originalSourceAnchor = getConnection().getSourceAnchor();
         this.originalTargetAnchor = getConnection().getTargetAnchor();
         getConnection().setRoutingConstraint(rebuildRoutingConstraint(getConnection()));
-        
     }
 
     @objid ("803fbd08-1dec-11e2-8cad-001ec947c8cc")
@@ -397,12 +395,12 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
         if (this.originalConstraint == null) {
             saveOriginalConstraint();
         }
-        
+
         Point absMoveDelta = request.getMoveDelta();
         List<Bendpoint> newConstraint = new ArrayList<>(this.originalConstraint.size());
         if (ToolSelectionUtils.bothEndsInRequest(getHost(), request)) {
             Connection connection = getConnection();
-        
+
             for (Bendpoint bendpoint : this.originalConstraint) {
                 Point location = Point.SINGLETON;
                 location.setLocation(bendpoint.getLocation());
@@ -422,7 +420,6 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
             // Node feedbacks are now part of the request, we should be able to take them into account to display a proper feedback when moving one end only
             // ChangeBoundsFeedbackMap feedbacks = ChangeBoundsFeedbackMap.getOrDummy(request);
         }
-        
     }
 
     @objid ("803d5aa8-1dec-11e2-8cad-001ec947c8cc")
@@ -436,7 +433,6 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
         } else if (request.getExtendedData().get(Orientation.class) == Orientation.VERTICAL) {
             showMoveVerticalBendpointFeedback(request);
         }
-        
     }
 
     @objid ("803d5ac0-1dec-11e2-8cad-001ec947c8cc")
@@ -445,7 +441,7 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
         if (this.originalConstraint == null) {
             saveOriginalConstraint();
         }
-        
+
         Object orientation = request.getExtendedData().get(Orientation.class);
         if (orientation == Orientation.HORIZONTAL) {
             showMoveHorizontalSegmentFeedback(request);
@@ -453,10 +449,10 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
             assert orientation == Orientation.VERTICAL : "no orientation in data!";
             showMoveVerticalSegmentFeedback(request);
         }
-        
     }
 
     /**
+     *
      * @param request the request to use to build the command.
      */
     @objid ("803d5ab5-1dec-11e2-8cad-001ec947c8cc")
@@ -466,6 +462,7 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
 
     /**
      * Rebuilds a complete routing constraint for the given connection and returns it.
+     *
      * @param connection the connection to rebuild a constraint for.
      */
     @objid ("803d5ac6-1dec-11e2-8cad-001ec947c8cc")
@@ -480,37 +477,36 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
     }
 
     @objid ("803fbcf0-1dec-11e2-8cad-001ec947c8cc")
-    @SuppressWarnings ("unchecked")
+    @SuppressWarnings("unchecked")
     private void showMoveHorizontalBendpointFeedback(final BendpointRequest request) {
         List<Bendpoint> routingConstraint = (List<Bendpoint>) getConnection().getRoutingConstraint();
         Bendpoint previousPoint = routingConstraint.get(request.getIndex() - 1);
         Bendpoint nextPoint = routingConstraint.get(request.getIndex() + 1);
-        
+
         // Previous point
         TMP1.setLocation(previousPoint.getLocation());
         getConnection().translateToAbsolute(TMP1);
         TMP1.setY(request.getLocation().y());
         getConnection().translateToRelative(TMP1);
         routingConstraint.set(request.getIndex() - 1, new MPoint(TMP1, true));
-        
+
         // Next point
         TMP1.setLocation(nextPoint.getLocation());
         getConnection().translateToAbsolute(TMP1);
         TMP1.setX(request.getLocation().x());
         getConnection().translateToRelative(TMP1);
         routingConstraint.set(request.getIndex() + 1, new MPoint(TMP1, true));
-        
+
         // Moved point.
         TMP1.setLocation(request.getLocation());
         getConnection().translateToRelative(TMP1);
         routingConstraint.set(request.getIndex(), new MPoint(TMP1, true));
-        
+
         getConnection().setRoutingConstraint(routingConstraint);
-        
     }
 
     @objid ("803fbce9-1dec-11e2-8cad-001ec947c8cc")
-    @SuppressWarnings ("unchecked")
+    @SuppressWarnings("unchecked")
     private void showMoveHorizontalSegmentFeedback(final BendpointRequest request) {
         Connection connection = getConnection();
         List<Bendpoint> routingConstraint = (List<Bendpoint>) connection.getRoutingConstraint();
@@ -518,7 +514,7 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
         Bendpoint endPoint = routingConstraint.get(request.getIndex() + 1);
         boolean snapPrevious = false;
         boolean snapNext = false;
-        
+
         // Moving an horizontal segment, only take the y axis information.
         // Start point
         TMP1.setLocation(startPoint.getLocation());
@@ -532,7 +528,7 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
                 TMP1.setY(previous.y());
             }
         }
-        
+
         // End point
         TMP2.setLocation(endPoint.getLocation());
         connection.translateToAbsolute(TMP2);
@@ -545,7 +541,7 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
                 TMP2.setY(next.y());
             }
         }
-        
+
         if (snapPrevious) {
             TMP2.setY(TMP1.y());
         } else if (snapNext) {
@@ -555,7 +551,7 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
         connection.translateToRelative(TMP2);
         routingConstraint.set(request.getIndex(), new MPoint(TMP1, true));
         routingConstraint.set(request.getIndex() + 1, new MPoint(TMP2, true));
-        
+
         // If necessary ask for new anchors
         if (request.getIndex() == 0) {
             // Update source anchor.
@@ -580,54 +576,52 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
             connection.setTargetAnchor(targetEditPart.getTargetConnectionAnchor(reconnectRequest));
         }
         connection.setRoutingConstraint(routingConstraint);
-        
     }
 
     @objid ("803fbcf7-1dec-11e2-8cad-001ec947c8cc")
-    @SuppressWarnings ("unchecked")
+    @SuppressWarnings("unchecked")
     private void showMoveVerticalBendpointFeedback(final BendpointRequest request) {
         List<Bendpoint> routingConstraint = (List<Bendpoint>) getConnection().getRoutingConstraint();
         Bendpoint previousPoint = routingConstraint.get(request.getIndex() - 1);
         Bendpoint nextPoint = routingConstraint.get(request.getIndex() + 1);
-        
+
         // Previous point
         TMP1.setLocation(previousPoint.getLocation());
         getConnection().translateToAbsolute(TMP1);
         TMP1.setX(request.getLocation().x());
         getConnection().translateToRelative(TMP1);
         routingConstraint.set(request.getIndex() - 1, new MPoint(TMP1, true));
-        
+
         // Next point
         TMP1.setLocation(nextPoint.getLocation());
         getConnection().translateToAbsolute(TMP1);
         TMP1.setY(request.getLocation().y());
         getConnection().translateToRelative(TMP1);
         routingConstraint.set(request.getIndex() + 1, new MPoint(TMP1, true));
-        
+
         // Moved point.
         TMP1.setLocation(request.getLocation());
         getConnection().translateToRelative(TMP1);
         routingConstraint.set(request.getIndex(), new MPoint(TMP1, true));
-        
+
         getConnection().setRoutingConstraint(routingConstraint);
-        
     }
 
     /**
      * Moving a vertical segment, only take the x axis information. y coordinates are ignored.
      */
     @objid ("803d5adf-1dec-11e2-8cad-001ec947c8cc")
-    @SuppressWarnings ("unchecked")
+    @SuppressWarnings("unchecked")
     private void showMoveVerticalSegmentFeedback(final BendpointRequest request) {
         Connection connection = getConnection();
         List<Bendpoint> routingConstraint = (List<Bendpoint>) connection.getRoutingConstraint();
         Bendpoint segmentStartPoint = routingConstraint.get(request.getIndex());
         Bendpoint segmentEndPoint = routingConstraint.get(request.getIndex() + 1);
-        
+
         // Snapping consist in re-aligning successive vertical fragments that would be unaligned of less than TOLERANCE (on the x axis).
         boolean snapPrevious = false;
         boolean snapNext = false;
-        
+
         // Snapping for the previous vertical segment
         TMP1.setLocation(segmentStartPoint.getLocation());
         connection.translateToAbsolute(TMP1);
@@ -640,7 +634,7 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
                 TMP1.setX(previous.x());
             }
         }
-        
+
         // Snapping for the next vertical segment
         TMP2.setLocation(segmentEndPoint.getLocation());
         connection.translateToAbsolute(TMP2);
@@ -653,7 +647,7 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
                 TMP2.setX(next.x());
             }
         }
-        
+
         if (snapPrevious) {
             TMP2.setX(TMP1.x());
         } else if (snapNext) {
@@ -687,9 +681,8 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
             connection.setTargetAnchor(targetEditPart.getTargetConnectionAnchor(reconnectRequest));
         }
         connection.setRoutingConstraint(routingConstraint);
-        
+
         connection.validate();
-        
     }
 
     @objid ("df7b4219-2061-4c82-8f5d-cc1be3a8f9e5")
@@ -706,19 +699,18 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
     protected void addSelectionHandles() {
         // protect against reentrance in headless mode:
         // super.addSelectionHandles() adds figures that triggers revalidation that triggers connection layout
-        
+
         // Protect against buggy call in deactivated state related to rakes.
         if (! this.isActive) {
             return;
         }
-        
+
         Connection connection = getConnection();
         connection.removePropertyChangeListener(Connection.PROPERTY_POINTS, this);
-        
+
         super.addSelectionHandles();
-        
+
         connection.addPropertyChangeListener(Connection.PROPERTY_POINTS, this);
-        
     }
 
 }

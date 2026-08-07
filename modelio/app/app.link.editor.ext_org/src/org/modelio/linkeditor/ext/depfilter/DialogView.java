@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.linkeditor.ext.depfilter;
 
@@ -67,7 +67,7 @@ class DialogView extends ModelioDialog {
     private Button removeAll;
 
     @objid ("1b64076b-5e33-11e2-b81d-002564c97630")
-    protected  DialogView(final Shell parentShell, final DialogModel model) {
+    protected DialogView(final Shell parentShell, final DialogModel model) {
         super(parentShell);
         this.setModel(model);
         setShellStyle(SWT.CLOSE |
@@ -78,7 +78,7 @@ class DialogView extends ModelioDialog {
                       SWT.BORDER |
                       SWT.APPLICATION_MODAL |
                       getDefaultOrientation());
-        
+
     }
 
     @objid ("1b640771-5e33-11e2-b81d-002564c97630")
@@ -87,7 +87,7 @@ class DialogView extends ModelioDialog {
         this.composite = new Composite(parent, SWT.NONE);
         this.composite.setLayout(new FormLayout());
         this.composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-        
+
         // Left tree
         this.setLeftTree(new TreeViewer(this.composite, SWT.MULTI | SWT.BORDER));
         FormData leftData = new FormData();
@@ -102,7 +102,7 @@ class DialogView extends ModelioDialog {
         this.getLeftTree().setInput(this.getModel());
         this.getLeftTree().expandAll();
         this.getLeftTree().setAutoExpandLevel(2);
-        
+
         // Right tree
         this.setRightTree(new TreeViewer(this.composite, SWT.MULTI | SWT.BORDER));
         FormData rightData = new FormData();
@@ -117,7 +117,7 @@ class DialogView extends ModelioDialog {
         this.getRightTree().setInput(this.getModel());
         this.getRightTree().expandAll();
         this.getRightTree().setAutoExpandLevel(AbstractTreeViewer.ALL_LEVELS);
-        
+
         // Buttons
         this.buttonsZone = new Composite(this.composite, SWT.NONE);
         FormData buttonsZoneData = new FormData();
@@ -132,11 +132,11 @@ class DialogView extends ModelioDialog {
         this.add = new Button(this.buttonsZone, SWT.PUSH);
         this.add.setText(LinkEditorOrg.I18N.getString("Add"));
         this.add.addSelectionListener(new AddButtonSelectionListener(this));
-        
+
         this.addAll = new Button(this.buttonsZone, SWT.PUSH);
         this.addAll.setText(LinkEditorOrg.I18N.getString("AddAll"));
         this.addAll.addSelectionListener(new AddAllButtonSelectionListener(this));
-        
+
         this.remove = new Button(this.buttonsZone, SWT.PUSH);
         this.remove.setText(LinkEditorOrg.I18N.getString("Remove"));
         this.remove.addSelectionListener(new RemoveButtonSelectionListener(this));
@@ -151,7 +151,7 @@ class DialogView extends ModelioDialog {
     public void addButtonsInButtonBar(final Composite parent) {
         createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
         createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
-        
+
     }
 
     @objid ("1b64077d-5e33-11e2-b81d-002564c97630")
@@ -163,11 +163,11 @@ class DialogView extends ModelioDialog {
         getShell().setText(LinkEditorOrg.I18N.getMessage("DialogView.WindowTitle"));
         setTitle(LinkEditorOrg.I18N.getMessage("DialogView.DialogTitle"));
         setMessage(LinkEditorOrg.I18N.getMessage("DialogView.DialogMessage"));
-        
+
         // Set size
         this.getShell().setSize(800, 600);
         this.getShell().setMinimumSize(800, 600);
-        
+
     }
 
     @objid ("1b640780-5e33-11e2-b81d-002564c97630")

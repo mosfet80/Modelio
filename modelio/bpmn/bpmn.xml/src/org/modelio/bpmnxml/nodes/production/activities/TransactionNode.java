@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.activities;
 
@@ -77,12 +77,12 @@ public class TransactionNode implements IProductionNode<BpmnTransaction, TTransa
     @objid ("15fbf7ee-4fe0-46d5-b51e-f51b36831e50")
     @Override
     public BpmnTransaction createUMLElement(MObject context, TTransaction jaxbElement, BpmnImportFactory factory, boolean keepId) {
-        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {  
+        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {
             return factory.createWithId(BpmnTransaction.class,context,jaxbElement.getId());
         }else{
             return factory.create(BpmnTransaction.class,context);
         }
-        
+
     }
 
     @objid ("dfed2d31-3a32-46d5-b4f0-2da068961ff3")
@@ -94,7 +94,7 @@ public class TransactionNode implements IProductionNode<BpmnTransaction, TTransa
         }else if(context instanceof BpmnSubProcess){
             ((BpmnSubProcess) context).getFlowElement().add(modelioElement);
         }
-        
+
         // Group
         if(jaxbElement.getCategoryValueRef() != null){
             for(QName jaxGroupRef : jaxbElement.getCategoryValueRef()){
@@ -104,21 +104,21 @@ public class TransactionNode implements IProductionNode<BpmnTransaction, TTransa
                 }
             }
         }
-        
-        
+
+
         // Set properties
         if(jaxbElement.getName()!=null)
             modelioElement.setName(StringConvertor.imports(jaxbElement.getName()));
-        
+
         if(jaxbElement.getCompletionQuantity() != null)
             modelioElement.setCompletionQuantity(jaxbElement.getCompletionQuantity().intValue());
-        
+
         if(jaxbElement.getStartQuantity() != null)
             modelioElement.setStartQuantity(jaxbElement.getStartQuantity().intValue());
-        
-        
-        modelioElement.setIsForCompensation(jaxbElement.isIsForCompensation());  
-        
+
+
+        modelioElement.setIsForCompensation(jaxbElement.isIsForCompensation());
+
         // Default Flow
         if(jaxbElement.getDefault() != null && jaxbElement.getDefault() instanceof TSequenceFlow){
             BpmnSequenceFlow  flow = (BpmnSequenceFlow) this.elementsMap.get( ((TSequenceFlow)jaxbElement.getDefault()).getId());
@@ -134,7 +134,7 @@ public class TransactionNode implements IProductionNode<BpmnTransaction, TTransa
     public TTransaction createJaxbElement(Object context, BpmnTransaction modelioElement) {
         // Create JaxbElement
         TTransaction jaxTask = new TTransaction();
-        
+
         // Add to context
         ObjectFactory factory = new ObjectFactory();
         if(context instanceof TProcess){
@@ -144,7 +144,7 @@ public class TransactionNode implements IProductionNode<BpmnTransaction, TTransa
             List<JAXBElement<? extends TFlowElement>> jaxContent = ((TSubProcess)context).getFlowElement();
             jaxContent.add(factory.createTransaction(jaxTask));
         }
-        
+
         jaxTask.setId(IDUtils.formatJaxbID(modelioElement));
         return jaxTask;
     }
@@ -153,17 +153,17 @@ public class TransactionNode implements IProductionNode<BpmnTransaction, TTransa
     @Override
     public TTransaction updateJaxbElement(Object context, TTransaction jaxTask, BpmnTransaction modelioElement) {
         jaxTask.setName(modelioElement.getName());
-        
+
         if(modelioElement.getCompletionQuantity() != 0){
             jaxTask.setCompletionQuantity(BigInteger.valueOf(modelioElement.getCompletionQuantity()));
         }
-        
+
         if(modelioElement.getStartQuantity() != 0){
             jaxTask.setStartQuantity(BigInteger.valueOf(modelioElement.getStartQuantity()));
         }
-        
+
         jaxTask.setIsForCompensation(modelioElement.isIsForCompensation());
-        
+
         // Default Flow
         if(modelioElement.getDefaultFlow() != null){
             Object target = this.elementsMap.get(modelioElement.getDefaultFlow().getUuid());

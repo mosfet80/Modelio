@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -44,66 +43,65 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("59646a2c-a1d3-48dc-b061-9200708cc332")
 public class NodeSmClass extends ClassifierSmClass {
-    @objid ("788f1959-62d5-4a1b-8e35-de16a75d14a4")
+    @objid ("27e15b73-7edd-4c10-b8b4-07f52a13f556")
     private SmDependency residentDep;
 
-    @objid ("30106a16-e868-4637-bd57-0d4fe8561d71")
-    public  NodeSmClass(ISmMetamodelFragment origin) {
+    @objid ("dbde99a0-98a5-47c3-9646-ca560c5e4dc4")
+    public NodeSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("ef8ceb7c-c970-401b-8f6f-c0f6d74b791a")
+    @objid ("bd6a22ca-eb64-4479-8018-6c736037337a")
     @Override
     public String getName() {
         return "Node";
-        
+
     }
 
-    @objid ("8836ff79-13a5-4d6d-b2f4-206a189f9d11")
+    @objid ("2616b6dc-5aef-4729-b050-5fd9c1fbf443")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("b3847367-905e-4e7b-977c-59b72ac1ec2f")
+    @objid ("ce0d6101-866f-4d88-b700-2db6664bd924")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return Node.class;
-        
+
     }
 
-    @objid ("c0b1d8ab-63d5-4e24-a4bd-dc8c5e04256b")
+    @objid ("7c92ec7c-933b-4780-a5de-ea0b7b7111f5")
     @Override
     public boolean isCmsNode() {
         return true;
-        
+
     }
 
-    @objid ("6b2203bf-c300-488c-8cb7-8d16d3daeee4")
+    @objid ("b081dd04-e54a-426a-97cf-505491f007f1")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("aa4892ed-73ac-491e-ba62-ddcf827c1395")
+    @objid ("bf965d17-6584-4df2-8a0b-f258a9ac4b2a")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(Classifier.MQNAME);
         this.registerFactory(new NodeObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
         this.residentDep = new ResidentSmDependency();
         this.residentDep.init("Resident", this, metamodel.getMClass(Artifact.MQNAME), 0, -1 , SmDirective.SMCDPARTOF);
         registerDependency(this.residentDep);
-        
-        
+
     }
 
-    @objid ("b10afac5-6062-4352-84a6-948bb9afcad6")
+    @objid ("61cf9a6b-2b6f-4e01-bf44-bd07f8ca01f5")
     public SmDependency getResidentDep() {
         if (this.residentDep == null) {
         	this.residentDep = this.getDependencyDef("Resident");
@@ -113,21 +111,21 @@ public class NodeSmClass extends ClassifierSmClass {
 
     @objid ("c950b822-9710-41c4-b49b-0134275175e8")
     private static class NodeObjectFactory implements ISmObjectFactory {
-        @objid ("15f03199-084e-41ee-a25e-6baea74cfde6")
+        @objid ("2d3ed2c6-d751-4a7c-a0ce-46879d4b7c71")
         private NodeSmClass smClass;
 
-        @objid ("268b04ee-de3d-4886-9026-550a77cd55c7")
-        public  NodeObjectFactory(NodeSmClass smClass) {
+        @objid ("a92df787-534f-4715-b52f-10223797d977")
+        public NodeObjectFactory(NodeSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("5c3184f5-418c-4e2f-9e8f-2d47816f8ad4")
+        @objid ("75572fe2-f881-4f9d-8f64-cea521cfc767")
         @Override
         public ISmObjectData createData() {
             return new NodeData(this.smClass);
         }
 
-        @objid ("80b917df-54c0-4386-b80e-4e0a779a9e30")
+        @objid ("68b36dc0-12b7-4292-b4fc-8188c4ccb0cf")
         @Override
         public SmObjectImpl createImpl() {
             return new NodeImpl();
@@ -137,30 +135,30 @@ public class NodeSmClass extends ClassifierSmClass {
 
     @objid ("817fd4d7-b247-4f17-9352-e74d98b7ae54")
     public static class ResidentSmDependency extends SmMultipleDependency {
-        @objid ("f0ce84f0-30f9-41fa-87bb-103d7942da86")
+        @objid ("2245bc8f-de65-447d-9094-3e0b05cea113")
         private SmDependency symetricDep;
 
-        @objid ("10e9258b-a97e-4c5b-82b8-adde65275b08")
+        @objid ("2d530722-81a9-478e-a20f-3dbc0db94199")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((NodeData)data).mResident != null)? ((NodeData)data).mResident:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("7a4e2e50-2573-498f-8aeb-90d12419cf16")
+        @objid ("ac29308a-e454-4854-9899-99a2c42674d5")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((NodeData) data).mResident = values;
-            
+
         }
 
-        @objid ("3e57583f-f272-4a5e-afbc-15ec4812269b")
+        @objid ("570a2888-97e1-44a7-b633-7fb56414ea07")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((ArtifactSmClass)this.getTarget()).getDeploymentLocationDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

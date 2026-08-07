@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.styles.editingsupport.font;
 
@@ -35,7 +35,7 @@ import org.modelio.platform.ui.CoreFontRegistry;
 
 /**
  * Editor that opens immediately a {@link FontDialog}.
- * 
+ *
  * @since 3.7
  */
 @objid ("85a2342c-1926-11e2-92d2-001ec947c8cc")
@@ -55,25 +55,27 @@ public class FontDialogEditor extends CellEditor {
     /**
      * Creates a new color cell editor parented under the given control. The cell editor value is black (
      * <code>Font(0,0,0)</code>) initially, and has no validator.
+     *
      * @param parent the parent control
      */
     @objid ("85a23439-1926-11e2-92d2-001ec947c8cc")
-    public  FontDialogEditor(final Composite parent) {
+    public FontDialogEditor(final Composite parent) {
         this(parent, SWT.NONE);
     }
 
     /**
      * Creates a new font cell editor parented under the given control.
      * The cell editor value is null initially, and has no validator.
+     *
      * @param parent the parent control
      * @param style the style bits
      * @since 2.1
      */
     @objid ("85a2343d-1926-11e2-92d2-001ec947c8cc")
-    public  FontDialogEditor(final Composite parent, final int style) {
+    public FontDialogEditor(final Composite parent, final int style) {
         super(parent, style);
         doSetValue(null);
-        
+
     }
 
     @objid ("85a49689-1926-11e2-92d2-001ec947c8cc")
@@ -106,13 +108,13 @@ public class FontDialogEditor extends CellEditor {
         final Display display = cellEditorWindow.getDisplay();
         final Shell centerShell = new Shell(cellEditorWindow.getShell(), SWT.NO_TRIM);
         centerShell.setLocation(display.getCursorLocation());
-        
+
         FontDialog ftDialog = new FontDialog(centerShell, SWT.NONE);
         if (this.value != null) {
             ftDialog.setFontList(this.value.getFontData());
         }
         ftDialog.setEffectsVisible(false);
-        
+
         FontData fData = ftDialog.open();
         if (fData != null) {
             FontData[] fontList = ftDialog.getFontList();
@@ -125,13 +127,13 @@ public class FontDialogEditor extends CellEditor {
     @Override
     public void activate() {
         Font res = openDialogBox(this.composite);
-        
+
         if (res != null && !Objects.equals(res, doGetValue())) {
             doSetValue(res);
             fireApplyEditorValue();
         }
         deactivate();
-        
+
     }
 
     @objid ("e483e907-d747-42c7-bb34-c918d1c8c6e3")
@@ -140,13 +142,13 @@ public class FontDialogEditor extends CellEditor {
         if (activationEvent.eventType != ColumnViewerEditorActivationEvent.TRAVERSAL) {
             super.activate(activationEvent);
         }
-        
+
     }
 
     @objid ("1e2bdb62-7420-4788-a25b-6263de1162a4")
     @Override
     public void dispose() {
-        
+
     }
 
 }

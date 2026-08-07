@@ -1,39 +1,37 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.uml.infrastructure.properties;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * TypedPropertyTable v0.0.9054
- * 
- * 
+ *
+ *
  * Property table whose possible keys are restrained to the table definition.
- * 
- * 
+ *
  */
 @objid ("006a7cb4-ec87-1098-b22e-001ec947cd2a")
 public interface TypedPropertyTable extends PropertyTable {
@@ -54,6 +52,7 @@ public interface TypedPropertyTable extends PropertyTable {
      * <p>
      * It is the responsibility of the called to convert it to the appropriate class according to the property's base class.
      * </p>
+     *
      * @param pdef a property.
      * @return its value
      */
@@ -62,6 +61,7 @@ public interface TypedPropertyTable extends PropertyTable {
 
     /**
      * Set a property value.
+     *
      * @param pdef a property.
      * @param value its value.
      */
@@ -70,6 +70,7 @@ public interface TypedPropertyTable extends PropertyTable {
 
     /**
      * Get a property value, converted to the appropriate class according to the definition's base class.
+     *
      * @param pdef a property.
      * @return its value
      */
@@ -78,6 +79,7 @@ public interface TypedPropertyTable extends PropertyTable {
 
     /**
      * Set a property value.
+     *
      * @param pdef a property.
      * @param value its value.
      */
@@ -86,22 +88,20 @@ public interface TypedPropertyTable extends PropertyTable {
 
     /**
      * Getter for relation 'TypedPropertyTable->Type'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
     @objid ("56adfc3b-92a7-46dc-bfdb-58e32ed17a1b")
     PropertyTableDefinition getType();
 
     /**
      * Setter for relation 'TypedPropertyTable->Type'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
     @objid ("e52363ce-3d82-40d5-9568-c4af94dabcb3")
     void setType(PropertyTableDefinition value);
-}
 
+}

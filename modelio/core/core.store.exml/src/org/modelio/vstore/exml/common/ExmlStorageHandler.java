@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.exml.common;
 
@@ -24,12 +24,14 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.modelio.vbasic.log.Log;
 import org.modelio.vcore.model.DuplicateObjectException;
+import org.modelio.vcore.session.api.repository.IRepository;
 import org.modelio.vcore.session.api.repository.RepositoryClosedException;
 import org.modelio.vcore.session.impl.storage.IModelLoader;
 import org.modelio.vcore.smkernel.IRStatus;
 import org.modelio.vcore.smkernel.IRepositoryObject;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.StatusState;
+import org.modelio.vcore.smkernel.mapi.MDependency;
 import org.modelio.vcore.smkernel.meta.SmAttribute;
 import org.modelio.vcore.smkernel.meta.SmDependency;
 import org.modelio.vstore.exml.common.index.ICmsNodeIndex;
@@ -47,13 +49,13 @@ import org.modelio.vstore.exml.common.utils.ExmlUtils;
 @objid ("fd26ba13-5986-11e1-991a-001ec947ccaf")
 public class ExmlStorageHandler implements IRepositoryObject {
     @objid ("fd21f4cb-5986-11e1-991a-001ec947ccaf")
-    private boolean loaded;
+    private volatile boolean loaded;
 
     @objid ("fd21f4d0-5986-11e1-991a-001ec947ccaf")
-    private boolean dirty;
+    private volatile boolean dirty;
 
     @objid ("fd21f4e0-5986-11e1-991a-001ec947ccaf")
-    private boolean parentLoaded;
+    private volatile boolean parentLoaded;
 
     @objid ("61cc023a-49bf-4b0d-909f-335456e57c8c")
     private final IExmlBase base;
@@ -65,67 +67,106 @@ public class ExmlStorageHandler implements IRepositoryObject {
     private final ObjId cmsNodeId;
 
     @objid ("fd245807-5986-11e1-991a-001ec947ccaf")
-    protected static boolean isInverseCompositionDep(SmDependency dep) {
-        return (dep.getSymetric() != null && dep.getSymetric().isComponent());
+    protected static boolean isInverseCompositionDep(MDependency dep) {
+        return (dep.getSymetric() != null && dep.getSymetric().isComposition());
     }
 
     /**
      * Initialize the handler.
+     *
      * @param base the EXML repository.
      * @param cmsNode the root CMS node
      * @param isNodeLoaded <code>true</code> if the node is already loaded else <code>false</code>.
      */
     @objid ("fd245855-5986-11e1-991a-001ec947ccaf")
-    public  ExmlStorageHandler(IExmlBase base, SmObjectImpl cmsNode, final boolean isNodeLoaded) {
+    public ExmlStorageHandler(IExmlBase base, SmObjectImpl cmsNode, final boolean isNodeLoaded) {
         this.cmsNode = cmsNode;
         this.base = base;
         this.loaded = isNodeLoaded;
         this.cmsNodeId = new ObjId(cmsNode);
-        
     }
 
     @objid ("fd24575c-5986-11e1-991a-001ec947ccaf")
     @Override
-    public void attModified(SmObjectImpl obj, SmAttribute att) {
+    public void attModified(SmObjectImpl obj, SmAttribute att, Object oldVal) {
         this.dirty = true;
+        getBase().getDirtyElementsCache().addModified(obj, att, oldVal);
     }
 
     @objid ("fd245802-5986-11e1-991a-001ec947ccaf")
     @Override
     public void attach(final SmObjectImpl obj) {
-        if ( this != obj.getRepositoryObject()) {
-            this.base.addObject(obj);
-        
-            if (!obj.getClassOf().isCmsNode()) {
-                this.dirty = true;
-                obj.setRepositoryObject(this);
-            }
+        if ( this == obj.getRepositoryObject())
+            return;
+
+        this.base.addObject(obj);
+
+        if (!obj.getClassOf().isCmsNode()) {
+            obj.setRepositoryObject(this);
+            onObjAttachedToThis(obj, false);
         }
-        
+    }
+
+    @objid ("f26eb894-49b6-4711-ac7e-d7a11cc3cf87")
+    @Override
+    public void attachCreatedObj(SmObjectImpl obj) {
+        if ( this == obj.getRepositoryObject())
+            return;
+
+        this.base.addCreatedObject(obj);
+
+        if (!obj.getClassOf().isCmsNode()) {
+            obj.setRepositoryObject(this);
+            onObjAttachedToThis(obj, true);
+        }
+    }
+
+    /**
+     * Hook called when an object is attached to this handler during a model <b>modification</b>.
+     * <p>
+     * To be called only by  {@link IRepository#addCreatedObject(SmObjectImpl)} , {@link IRepository#addObject(SmObjectImpl)}
+     * {@link #attach(SmObjectImpl)} or {@link #attachCreatedObj(SmObjectImpl)}
+     * after it has called {@link SmObjectImpl#setRepositoryObject(IRepositoryObject)}
+     * <p>
+     * Do not call it during model loading.
+     * <p>
+     * May be redefined by sub classes to do more work.
+     *
+     * @param obj the object to attach to this handler
+     * @param isNewObject true if the call comes from {@link IRepository#addCreatedObject(SmObjectImpl)}
+     * @since 6.0.1
+     */
+    @objid ("da5b213b-7f21-47dd-90fa-6a9c4a3fc6b8")
+    protected void onObjAttachedToThis(final SmObjectImpl obj, boolean isNewObject) {
+        assert ( this == obj.getRepositoryObject()) : (String.format("%s is attached to %s instead of %s", obj, obj.getRepositoryObject(), this));
+
+        setDirty(true);
+        //getBase().getDirtyElementsCache().addObject(obj); // 11/02/2025 : already called by all this method callers
     }
 
     @objid ("fd24575a-5986-11e1-991a-001ec947ccaf")
     @Override
     public void depValAppended(SmObjectImpl obj, SmDependency dep, SmObjectImpl val) {
-        if (isPersistent(dep)) {
+        if (isDepPersistent(dep)) {
             this.dirty = true;
+            //getBase().getDirtyElementsCache().addObject(obj);
         }
-        
+
         if ((ExmlUtils.isComposition(obj, dep, val))
                 && !val.getClassOf().isCmsNode() && val.getRepositoryObject() != this) {
             // A non CMS node moved into this CMS node, fix its storage handler
             propagateHandler(val);
         }
-        
     }
 
     @objid ("fd245756-5986-11e1-991a-001ec947ccaf")
     @Override
     public void depValErased(SmObjectImpl obj, SmDependency dep, SmObjectImpl val) {
-        if (isPersistent(dep)) {
+        if (isDepPersistent(dep)) {
             this.dirty = true;
+            //getBase().getDirtyElementsCache().addObject(obj);
         }
-        
+
         if ((ExmlUtils.isComposition(obj, dep, val))
                 && !val.getClassOf().isCmsNode() && val.getRepositoryObject() == this) {
             // A non CMS node moved out this CMS node.
@@ -140,16 +181,15 @@ public class ExmlStorageHandler implements IRepositoryObject {
                 }
             }
         }
-        
     }
 
     @objid ("fd245759-5986-11e1-991a-001ec947ccaf")
     @Override
     public void depValMoved(SmObjectImpl obj, SmDependency dep, SmObjectImpl val) {
-        if (isPersistent(dep)) {
+        if (isDepPersistent(dep)) {
             this.dirty = true;
+            //getBase().getDirtyElementsCache().addObject(obj);
         }
-        
     }
 
     @objid ("fd24572b-5986-11e1-991a-001ec947ccaf")
@@ -161,13 +201,13 @@ public class ExmlStorageHandler implements IRepositoryObject {
         } catch (IOException e) {
             this.base.getErrorSupport().fireError(e);
         }
-        
     }
 
     /**
      * Get the root CMS node of this handler.
      * <p>
      * May return <i>null</i> if the node was deleted then unloaded.
+     *
      * @return the root CMS node of this handler or <i>null</i>.
      */
     @objid ("fd245752-5986-11e1-991a-001ec947ccaf")
@@ -198,7 +238,7 @@ public class ExmlStorageHandler implements IRepositoryObject {
 
     @objid ("fd245825-5986-11e1-991a-001ec947ccaf")
     @Override
-    public final boolean isAttLoaded(SmObjectImpl obj, SmAttribute att) {
+    public boolean isAttLoaded(SmObjectImpl obj, SmAttribute att) {
         if (att != null && att.isNameAtt()) {
             return true;
         }
@@ -208,7 +248,7 @@ public class ExmlStorageHandler implements IRepositoryObject {
     @objid ("fd245753-5986-11e1-991a-001ec947ccaf")
     @Override
     public final boolean isDepLoaded(SmObjectImpl obj, SmDependency dep) {
-        if (isPersistent(dep)) {
+        if (isDepPersistent(dep)) {
             if (obj.equals(getCmsNode()) && isInverseCompositionDep(dep)) {
                 return this.parentLoaded;
             } else {
@@ -218,25 +258,26 @@ public class ExmlStorageHandler implements IRepositoryObject {
             return true;
         } else if (isInverseDepStored(dep)) {
             // dynamic dependencies are always reloaded
-        
+
             return false;
         } else {
             // Inverse dependency not stored either, this case shouldn't occur
             return true;
         }
-        
     }
 
     /**
+     *
      * @return <code>true</code> if the node needs to be saved.
      */
     @objid ("fd24574b-5986-11e1-991a-001ec947ccaf")
-    public final boolean isDirty() {
+    public boolean isDirty() {
         return this.dirty;
     }
 
     /**
      * Tells whether the CMS node is loaded.
+     *
      * @return <code>true</code> if the node is loaded else <code>false</code>.
      */
     @objid ("3c9891b4-2f3f-11e2-8359-001ec947ccaf")
@@ -247,6 +288,12 @@ public class ExmlStorageHandler implements IRepositoryObject {
     @objid ("fd21f72a-5986-11e1-991a-001ec947ccaf")
     @Override
     public final boolean isPersistent(SmDependency dep) {
+        // Inverse of composition SmDependencies are considered as stored.
+        return isDepPersistent(dep);
+    }
+
+    @objid ("986c05a7-a596-41a9-9ccf-34efd4e6c713")
+    private static final boolean isDepPersistent(SmDependency dep) {
         // Inverse of composition SmDependencies are considered as stored.
         return (dep.isPartOf() || dep.isComponent() || dep.isSharedComposition() || isInverseCompositionDep(dep));
     }
@@ -261,22 +308,32 @@ public class ExmlStorageHandler implements IRepositoryObject {
     @Override
     public final void loadDep(SmObjectImpl obj, SmDependency dep) {
         try (IModelLoader modelLoader = this.base.getModelLoaderProvider().beginLoadSession()) {
-            if (isPersistent(dep)) {
+            if (isDepPersistent(dep)) {
                 SmObjectImpl lcmsNode = getCmsNode(modelLoader);
                 if (obj.equals(lcmsNode) && isInverseCompositionDep(dep)) {
                     // It is the dependency from the CMS node to the parent CMS node
                     if (!this.parentLoaded ) {
-                        final ObjId  parentId = getParentCmsNode(obj);
-                        if (parentId != null) {
-                            this.base.loadCmsNode(parentId, modelLoader, false);
+                        if (false) {
+                            // does not work on migration : seems in some cases the PID is not updated.
+                            final ObjId  parentId = getParentCmsNode(obj);
+                            if (parentId != null) {
+                                this.base.loadCmsNode(parentId, modelLoader, false);
+                            }
+                        } else {
+                            //TODO : This work around is more expensive than the original code.
+                            for (MDependency ownerDep : obj.getMClass().getDependencies(true)) {
+                                if (isInverseCompositionDep(ownerDep)) {
+                                    this.base.loadDynamicDep(obj, (SmDependency) ownerDep);
+                                }
+                            }
                         }
-        
+
                         this.parentLoaded = true;
                     }
                 } else {
                     // any "navigable" dependency : load the node
                     load ();
-        
+
                 }
             } else if (isInverseDepStored(dep)) {
                 this.base.loadDynamicDep(obj, dep);
@@ -289,11 +346,17 @@ public class ExmlStorageHandler implements IRepositoryObject {
         } catch (IndexException e) {
             this.base.getErrorSupport().fireError(e);
         }
-        
+    }
+
+    @objid ("974f0763-b9f4-42e0-a597-64c936777051")
+    @Override
+    public void loadStatus(SmObjectImpl obj) {
+        load();
     }
 
     /**
      * Set the node as dirty or not.
+     *
      * @param value the new dirty state.
      */
     @objid ("fd24572c-5986-11e1-991a-001ec947ccaf")
@@ -303,6 +366,7 @@ public class ExmlStorageHandler implements IRepositoryObject {
 
     /**
      * Set the node as loaded or not.
+     *
      * @param value the new load state.
      */
     @objid ("fd245812-5986-11e1-991a-001ec947ccaf")
@@ -316,55 +380,54 @@ public class ExmlStorageHandler implements IRepositoryObject {
         if (this.cmsNode == obj) {
             this.cmsNode = null;
         }
-        
+
         this.base.unloadObject(obj);
-        
     }
 
     @objid ("fd245806-5986-11e1-991a-001ec947ccaf")
-    private boolean isInverseDepStored(SmDependency dep) {
+    private static boolean isInverseDepStored(SmDependency dep) {
         SmDependency sym = dep.getSymetric();
         if (sym == null) {
             return false;
         }
-        return isPersistent(sym);
+        return isDepPersistent(sym);
     }
 
     @objid ("fd245816-5986-11e1-991a-001ec947ccaf")
-    private void load() {
-        if (! this.loaded) {
-            try (IModelLoader modelLoader = this.base.getModelLoaderProvider().beginLoadSession()) {
-                this.base.loadCmsNode(this.cmsNodeId, modelLoader, false);
-            } catch (DuplicateObjectException e) {
-                this.base.getErrorSupport().fireError(new IOException("Failed loading "+this+": "+e.getLocalizedMessage(), e));
-            } catch (RepositoryClosedException e) {
-                // Should not happen, this is a race condition, log an do as if loaded
-                this.loaded = true;
-                this.cmsNode.setRStatus(IRStatus.SHELL, 0, 0);
-                Log.warning("Cannot load %s : %s", this, e);
-                Log.warning(e);
-            } catch (RuntimeException e) {
-                this.base.getErrorSupport().fireError(new IOException("Failed loading "+this+": "+e.toString(), e));
-            }
+    protected final void load() {
+        if ( this.loaded)
+            return;
+
+        try (IModelLoader modelLoader = this.base.getModelLoaderProvider().beginLoadSession()) {
+            this.base.loadCmsNode(this.cmsNodeId, modelLoader, false);
+        } catch (DuplicateObjectException e) {
+            this.base.getErrorSupport().fireError(new IOException("Failed loading "+this+": "+e.getLocalizedMessage(), e));
+        } catch (RepositoryClosedException e) {
+            // Should not happen, this is a race condition, log an do as if loaded
+            this.loaded = true;
+            this.cmsNode.setRStatus(IRStatus.SHELL, 0, 0);
+            Log.warning("Cannot load %s : %s", this, e);
+            Log.warning(e);
+        } catch (RuntimeException e) {
+            this.base.getErrorSupport().fireError(new IOException("Failed loading "+this+": "+e.toString(), e));
         }
-        
     }
 
     /**
      * Set the repository object of the given model object to this handler.
      * Propagates to all composition children in the same CMS node
+     *
      * @param obj a non CMS node model object
      */
     @objid ("fd245805-5986-11e1-991a-001ec947ccaf")
     private void propagateHandler(SmObjectImpl obj) {
         assert (! obj.getClassOf().isCmsNode());
         obj.setRepositoryObject(this);
-        
+
         for (SmObjectImpl child : ExmlUtils.getLoadedCmsNodeContent(obj))
         {
             child.setRepositoryObject(this);
         }
-        
     }
 
     @objid ("785dabaa-485e-11e2-91c9-001ec947ccaf")
@@ -381,11 +444,11 @@ public class ExmlStorageHandler implements IRepositoryObject {
         } else {
             return "ExmlStorageHandler {nodeid="+this.cmsNodeId+", base="+this.base.toString()+"}";
         }
-        
     }
 
     /**
      * Look for the parent CMS node in the index.
+     *
      * @param obj the model object whose parent is wanted.
      * @return the model object parent CMS node or <code>null</code>.
      * @throws IndexException in case of error in the indexes.
@@ -397,17 +460,17 @@ public class ExmlStorageHandler implements IRepositoryObject {
         try {
             ObjId parent = cmsNodeIndex.getParentNodeOf(objId);
             /*
-            if (parent==null && ! obj.getClassOf().getName().equals("Project")) {
-                throw new IOException(objId+" has no parent CMS node");
-            }*/
+                                    if (parent==null && ! obj.getClassOf().getName().equals("Project")) {
+                                        throw new IOException(objId+" has no parent CMS node");
+                                    }*/
             return parent;
         } catch (IndexException | RuntimeException e) {
             // Set indexes as damaged
             this.base.setIndexesDamaged(e);
-        
+
             // This will rebuild the indexes
             cmsNodeIndex = this.base.getCmsNodeIndex();
-        
+
             // Try again
             try {
                 ObjId parent = cmsNodeIndex.getParentNodeOf(objId);
@@ -418,7 +481,6 @@ public class ExmlStorageHandler implements IRepositoryObject {
                 throw e2;
             }
         }
-        
     }
 
     @objid ("b8d57a7a-9c78-4ac7-aac7-4acaf82a2891")
@@ -427,26 +489,11 @@ public class ExmlStorageHandler implements IRepositoryObject {
         return this.base;
     }
 
-    @objid ("f26eb894-49b6-4711-ac7e-d7a11cc3cf87")
-    @Override
-    public void attachCreatedObj(SmObjectImpl obj) {
-        if ( this != obj.getRepositoryObject()) {
-            this.base.addCreatedObject(obj);
-        
-            if (!obj.getClassOf().isCmsNode()) {
-                this.dirty = true;
-                obj.setRepositoryObject(this);
-            }
-        }
-        
-    }
-
     @objid ("f0a06ea8-060f-4e02-9cee-2e9e378ee9ae")
     @Override
     public void setToReload(SmObjectImpl obj) {
         // Set the whole CMS node as to be reloaded
         this.loaded = false;
-        
     }
 
     @objid ("a1f03963-0759-4ce9-8ea4-0a76aa868ecd")
@@ -463,17 +510,31 @@ public class ExmlStorageHandler implements IRepositoryObject {
             } else {
                 Log.trace("ExmlStorageHandler.getCmsNode(IModelLoader) : %s not found in %s.", this.cmsNodeId, this.base);
             }
-        
+
         }
         return this.cmsNode;
     }
 
     /**
+     *
      * @return The identifier of the represented CMS node.
      */
     @objid ("1b686a21-1bf7-419d-b0f8-eb816fe7fc45")
     public ObjId getCmsNodeId() {
         return this.cmsNodeId;
+    }
+
+    /**
+     * Record the parent CMS node as loaded.
+     * <p>
+     * please do not mess with this method.
+     *
+     * @param val new perent loaded status
+     * @since 6.0.0
+     */
+    @objid ("69c28dd8-af38-40af-b3b8-c300b11a6cb7")
+    public void setParentLoaded(boolean val) {
+        this.parentLoaded = val;
     }
 
 }

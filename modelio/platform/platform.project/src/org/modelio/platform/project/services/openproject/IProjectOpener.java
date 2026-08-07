@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.project.services.openproject;
 
@@ -34,6 +34,7 @@ import org.modelio.vbasic.auth.IAuthData;
 public interface IProjectOpener {
     /**
      * Open a project given its loaded descriptor {@link GProjectDescriptor}.
+     *
      * @param projectToOpen the project descriptor, never <i>null</i>.
      * @param authData the authentication data
      * @param monitor a progress monitor, may be <i>null</i>.
@@ -46,6 +47,7 @@ public interface IProjectOpener {
 
     /**
      * Initialize the service from required services
+     *
      * @param service a write access to the project service
      */
     @objid ("0b017211-5a49-42c2-ab4f-dd409ba224b3")
@@ -53,6 +55,7 @@ public interface IProjectOpener {
 
     /**
      * Open a project from an URI.
+     *
      * @param projectURI where the project is.
      * @param authData the authentication data
      * @param monitor a progress monitor, may be <i>null</i>.
@@ -62,5 +65,5 @@ public interface IProjectOpener {
      */
     @objid ("5923395d-e5f9-43a2-a7ce-18b290da41a6")
     void openProject(URI projectURI, IAuthData authData, IProgressMonitor monitor) throws GProjectAuthenticationException, IOException, InterruptedException;
-}
 
+}

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -34,7 +34,7 @@ public class ECombinedFragment extends EInteractionFragment {
     }
 
     @objid ("1b540561-ca4e-4683-b6ef-d24fc48a7359")
-    public  ECombinedFragment(org.eclipse.uml2.uml.CombinedFragment element) {
+    public ECombinedFragment(org.eclipse.uml2.uml.CombinedFragment element) {
         super(element);
     }
 
@@ -43,14 +43,14 @@ public class ECombinedFragment extends EInteractionFragment {
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setOperand((CombinedFragment) objingElt);
-        
+
     }
 
     @objid ("f8b20d02-7bb9-41b3-a4ed-2ac0bcf708e8")
     private void setOperand(CombinedFragment fragment) {
         org.eclipse.uml2.uml.InteractionOperatorKind kindOfOperator = ( (org.eclipse.uml2.uml.CombinedFragment) getEcoreElement())
                 .getInteractionOperator();
-        
+
         switch (kindOfOperator.getValue()) {
         case  org.eclipse.uml2.uml.InteractionOperatorKind.ALT:
             fragment.setOperator(org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperator.ALTOP);
@@ -91,7 +91,7 @@ public class ECombinedFragment extends EInteractionFragment {
         default :
             break;
         }
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.mmextensions.infrastructure.factory;
 
@@ -48,7 +48,7 @@ import org.modelio.vcore.session.impl.CoreSession;
  * Attached resource element builder.
  * <p>
  * Builds {@link Document} and {@link Resource} elements.
- * 
+ *
  * @author cma
  * @since 3.7
  */
@@ -88,7 +88,7 @@ public class ResourceBuilder implements IResourceBuilder {
     private URI uri;
 
     @objid ("7f0c3630-3704-4ede-ae81-368aa1643805")
-    public  ResourceBuilder(InfrastructureModelFactoryImpl factory) {
+    public ResourceBuilder(InfrastructureModelFactoryImpl factory) {
         this.factory = factory;
     }
 
@@ -96,7 +96,7 @@ public class ResourceBuilder implements IResourceBuilder {
     @Override
     public Document createDocumentReference() {
         Document doc = this.factory.createElement(Document.class);
-        
+
         initResource(doc);
         initExternalRef(doc);
         this.factory.elementInitializer.initialize(doc);
@@ -107,7 +107,7 @@ public class ResourceBuilder implements IResourceBuilder {
     @Override
     public Document createEmbeddedDocument() throws IOException {
         Document doc = this.factory.createElement(Document.class);
-        
+
         initResource(doc);
         embedResource(doc);
         this.factory.elementInitializer.initialize(doc);
@@ -192,7 +192,7 @@ public class ResourceBuilder implements IResourceBuilder {
         if (this.owner == null) {
             throw new IllegalStateException("ResourceBuilder.withOwner(ModelElement) not yet called.");
         }
-        
+
         try {
             this.type = new MModelServices(CoreSession.getSession(this.owner)).getResourceType(this.typeModuleName, this.ownerName, this.typeName, this.owner.getMClass());
             if (this.type == null) {
@@ -211,7 +211,7 @@ public class ResourceBuilder implements IResourceBuilder {
         Path fileName = this.filePath != null ? this.filePath.getFileName() : null;
         if (fileName != null) {
             IResourceHandle resHandle = res.createEmbeddedResource(fileName.toString());
-        
+
             try (OutputStream os = resHandle.write();) {
                 Files.copy(this.filePath, os);
             }
@@ -228,7 +228,7 @@ public class ResourceBuilder implements IResourceBuilder {
         } else {
             res.setStorageInfo("blob:");
         }
-        
+
     }
 
     @objid ("28860bb9-c74c-48c7-a743-d57534097443")
@@ -238,7 +238,7 @@ public class ResourceBuilder implements IResourceBuilder {
         } else if (this.uri != null) {
             res.createExternalResource(this.uri.toString());
         }
-        
+
     }
 
     @objid ("8e363dad-9e83-4a14-abfe-5358440c513b")
@@ -256,14 +256,14 @@ public class ResourceBuilder implements IResourceBuilder {
                     UriConnection c = UriConnections.createConnection(this.uri);
                     c.setAuthenticationData(this.authData);
                     this.mimeType = c.getContentType();
-        
+
                 } catch (IOException e) {
                     Log.warning("Unable to probe file type of '%s': %s.", this.uri, FileUtils.getLocalizedMessage(e));
                     Log.trace(e);
                 }
             }
         }
-        
+
         if (this.mimeType == null || this.mimeType.isEmpty()) {
             this.mimeType = "application/octet-stream";
         } else {
@@ -273,16 +273,16 @@ public class ResourceBuilder implements IResourceBuilder {
                 this.mimeType = this.mimeType.substring(0, index);
             }
         }
-        
+
         if (this.name == null) {
             this.name = res.getMClass().getName();
         }
-        
+
         res.setName(this.name);
         res.setMimeType(this.mimeType);
         res.setSubject(this.owner);
         res.setType(this.type);
-        
+
     }
 
     @objid ("15ae885d-78f5-4f7d-9ee7-b4f61a192241")

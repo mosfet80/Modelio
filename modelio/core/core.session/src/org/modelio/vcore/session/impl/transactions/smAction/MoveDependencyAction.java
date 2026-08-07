@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.vcore.session.impl.transactions.smAction;
 
@@ -23,24 +42,23 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.session.impl.transactions.smAction.smActionInteractions.IActionVisitor;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.meta.SmDependency;
+import org.modelio.vcore.smkernel.transaction.ISmMoveDepValAction;
 
 /**
- * Permet de deplace une association. L'ancien objet conetant l'association est
- * sauvegarde pour le undo.
+ * Permet de deplacer un element d'une association.
+ * <p>
+ * L'ancien objet contenant l'association est sauvegarde pour le undo.
  */
 @objid ("006e7cec-0d1e-1f20-85a5-001ec947cd2a")
-public class MoveDependencyAction extends DependencyModificationAction {
+public class MoveDependencyAction extends DependencyModificationAction implements ISmMoveDepValAction {
     /**
-     * Remet l'objet a son ancienne place dans l'association. L'action est
-     * dejouee uniquement si l'object n'est pas un transient objet ou si c'est
-     * un rollback.i
+     * Remet l'objet a son ancienne place dans l'association.
      */
     @objid ("006d4304-0d1e-1f20-85a5-001ec947cd2a")
     @Override
-    public void undo(final boolean rollback) {
+    public void rollbackAction() {
         // On remet l'objet a son ancienne place dans la dependance
         this.smDep.moveRef(this.refered.getData(), this.ref, -this.index);
-        
     }
 
     /**
@@ -49,7 +67,7 @@ public class MoveDependencyAction extends DependencyModificationAction {
      */
     @objid ("006d4390-0d1e-1f20-85a5-001ec947cd2a")
     @Override
-    public void redo() {
+    public void redoAction() {
         this.smDep.moveRef(this.refered.getData(), this.ref, this.index);
     }
 
@@ -62,10 +80,8 @@ public class MoveDependencyAction extends DependencyModificationAction {
      * deplacement effectue.
      */
     @objid ("006d4426-0d1e-1f20-85a5-001ec947cd2a")
-    public  MoveDependencyAction(final SmObjectImpl obj, final SmDependency dep, final SmObjectImpl moving, final int offset) {
-        super(obj, dep, moving);
-        this.index = offset;
-        
+    public MoveDependencyAction(final SmObjectImpl obj, final SmDependency dep, final SmObjectImpl moving, final int offset) {
+        super(obj, dep, moving, offset);
     }
 
     @objid ("006d44bc-0d1e-1f20-85a5-001ec947cd2a")

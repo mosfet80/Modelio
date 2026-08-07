@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vbasic.oidc.flows;
 
@@ -51,6 +51,7 @@ public class OidUserPasswordFlow implements IOidcAuthenticationFlow {
     private final Secret userPassword;
 
     /**
+     *
      * @param metadata the OIDC provider metadatas
      * @param clientId the client identifier, not null
      * @param clientSecret the optional client secret.
@@ -58,14 +59,14 @@ public class OidUserPasswordFlow implements IOidcAuthenticationFlow {
      * @param userPassword the user password. Should not be null.
      */
     @objid ("68d31419-77fe-4af4-be1e-dd6d9af98d0e")
-    public  OidUserPasswordFlow(OIDCProviderMetadata metadata, ClientID clientId, Secret clientSecret, String userName, Secret userPassword) {
+    public OidUserPasswordFlow(OIDCProviderMetadata metadata, ClientID clientId, Secret clientSecret, String userName, Secret userPassword) {
         super();
         this.metadata = Objects.requireNonNull(metadata, "metadata");
         this.clientId = Objects.requireNonNull(clientId);
         this.clientSecret = clientSecret;
         this.userName = Objects.requireNonNull(userName);
         this.userPassword = userPassword;
-        
+
     }
 
     @objid ("fd68d87c-f3ea-4892-9917-46465ec13b3d")

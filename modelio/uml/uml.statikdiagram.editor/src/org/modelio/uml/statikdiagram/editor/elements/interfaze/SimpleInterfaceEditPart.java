@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.interfaze;
 
@@ -63,41 +63,41 @@ public class SimpleInterfaceEditPart extends AbstractNodeEditPart {
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         // Allow drag & drop
         installEditPolicy(ModelElementDropRequest.TYPE, new DefaultElementDropEditPolicy());
-        
+
         // Not any more =>       // Switch to structured mode when creating elements inside
         //        installEditPolicy(EditPolicy.LAYOUT_ROLE, new SimpleModeDeferringCreateNodePolicy());
-        
+
         // Allow links
         installEditPolicy(EditPolicy.NODE_ROLE, new SmartGeneralizationEditPolicy());
-        
+
         // Allow notes
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START,
                           new LinkedNodeStartCreationEditPolicy());
-        
+
         installEditPolicy("Constraint creation", new ConstraintLinkEditPolicy(false));
         installEditPolicy("N-ary assoc", new AcceptNAssocEditPolicy(true));
-        
+
         // Add specific policy to handle requests to redraw composition links.
         installEditPolicy("RedrawCompositionLinkEditPolicy", new RedrawCompositionLinkEditPolicy());
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new SimpleModeOwnedElementCreationEditPolicy());
-        
+
     }
 
     @objid ("3584defc-55b7-11e2-877f-002564c97630")
     @Override
     protected IFigure createFigure() {
         final EllipseFigure classFigure = new EllipseFigure();
-        
+
         // Set style independent properties
         final Dimension d = new Dimension(26, 26);
         classFigure.setOpaque(true);
         classFigure.setPreferredSize(d);
         classFigure.setMinimumSize(d);
         classFigure.setMaximumSize(d);
-        
+
         // Set style dependent properties
         refreshFromStyle(classFigure, getModelStyle());
         return classFigure;
@@ -128,7 +128,7 @@ public class SimpleInterfaceEditPart extends AbstractNodeEditPart {
         if (!switchRepresentationMode()) {
             super.refreshFromStyle(aFigure, style);
         }
-        
+
     }
 
     @objid ("3584df08-55b7-11e2-877f-002564c97630")
@@ -136,9 +136,9 @@ public class SimpleInterfaceEditPart extends AbstractNodeEditPart {
     protected void refreshVisuals() {
         final IFigure fig = getFigure();
         final GmNodeModel gm = getModel();
-        
+
         fig.getParent().setConstraint(fig, gm.getLayoutData());
-        
+
     }
 
     /**

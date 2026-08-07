@@ -1,25 +1,24 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnsequenceflow.insert;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -49,10 +48,9 @@ class CenterNodeCommand extends Command {
     private final ConnectionEditPart connectionEditPart;
 
     @objid ("97bf1b1f-049f-4452-a52f-ef4927cb11d5")
-    public  CenterNodeCommand(ICreationCommand<GmNodeModel> createNodeCmd, ConnectionEditPart connectionEditPart) {
+    public CenterNodeCommand(ICreationCommand<GmNodeModel> createNodeCmd, ConnectionEditPart connectionEditPart) {
         this.connectionEditPart = connectionEditPart;
         this.createNodeCmd = createNodeCmd;
-        
     }
 
     @objid ("6327dfd5-ff99-4904-acc7-39d21cfb69e5")
@@ -60,28 +58,28 @@ class CenterNodeCommand extends Command {
     public void execute() {
         GmNodeModel newGmNode = this.createNodeCmd.getCreatedGraphicModel();
         NodeEditPart newNodeEditPart = findNode(newGmNode);
-        
+
         IFigure primaryFigure = newNodeEditPart.getFigure();
         Rectangle primaryBounds = getEffectiveBounds(primaryFigure);
         primaryFigure.translateToAbsolute(primaryBounds);
-        
+
         Point moveDelta = new Point(primaryBounds.width / 2, primaryBounds.height / 2).getNegated();
         ChangeBoundsRequest req = new ChangeBoundsRequest(RequestConstants.REQ_MOVE);
         req.setEditParts(newNodeEditPart);
         req.setMoveDelta(moveDelta);
         req.setSizeDelta(new Dimension(0, 0));
-        
+
         Command command = newNodeEditPart.getCommand(req);
-        
+
         if (command.canExecute()) {
             newNodeEditPart.getViewer().getEditDomain().getCommandStack().execute(command);
             primaryFigure.getUpdateManager().performValidation();
         }
-        
     }
 
     /**
      * This method returns the effective bounds (those seen by the end user) of a figure
+     *
      * @param figure the figure which bounds are to be returned.
      * @return a copy of the effective bounds of the figure
      */
@@ -97,15 +95,14 @@ class CenterNodeCommand extends Command {
 
     @objid ("4c55cb52-679c-49d4-bcf1-8cfa09f47ac0")
     private static EditPart findChildEditPartFor(EditPart from, Request req) {
-        for (EditPart e : (List<EditPart>) from.getChildren()) {
+        for (EditPart e : from.getChildren()) {
             EditPart targetEditPart = e.getTargetEditPart(req);
             if (targetEditPart != null) {
                 return targetEditPart;
             }
         }
-        
+
         throw new IllegalArgumentException(String.format("No child edit part in '%s' that supports %s", from, RequestHelper.toString(req)));
-        
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.bpmn;
 
@@ -65,20 +65,22 @@ public class BpmnEndEventPropertyModel extends AbstractPropertyModel<BpmnEndEven
 
     /**
      * Create a new <i>BpmnEndEvent</i> data model from an <i>BpmnEndEvent</i>.
+     *
      * @param theEditedElement the model to edit.
      * @param modelService the model service needed to find elements.
      */
     @objid ("afc942a6-9249-4950-8b7a-edb61f37f03c")
-    public  BpmnEndEventPropertyModel(BpmnEndEvent theEditedElement, IMModelServices modelService, UmlPropertyModelVisitor umlPropertyModelVisitor) {
+    public BpmnEndEventPropertyModel(BpmnEndEvent theEditedElement, IMModelServices modelService, UmlPropertyModelVisitor umlPropertyModelVisitor) {
         super(theEditedElement);
         this.modelService = modelService;
         this.umlPropertyModelVisitor = umlPropertyModelVisitor;
         updateFieldsLists();
-        
+
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("43664f50-51ca-41f1-859d-13c57a7a43ce")
@@ -89,6 +91,7 @@ public class BpmnEndEventPropertyModel extends AbstractPropertyModel<BpmnEndEven
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("ccceae29-a582-4637-a085-686d512e32a2")
@@ -104,6 +107,7 @@ public class BpmnEndEventPropertyModel extends AbstractPropertyModel<BpmnEndEven
      * This type will be used to choose an editor and a renderer for each cell of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -116,13 +120,14 @@ public class BpmnEndEventPropertyModel extends AbstractPropertyModel<BpmnEndEven
         } else {
             return this.fieldList.get(row);
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -162,9 +167,9 @@ public class BpmnEndEventPropertyModel extends AbstractPropertyModel<BpmnEndEven
                     }
                 }
             }
-        
+
         }
-        
+
     }
 
     @objid ("566461ce-bb6e-49f3-8e37-1890319e0159")
@@ -174,16 +179,16 @@ public class BpmnEndEventPropertyModel extends AbstractPropertyModel<BpmnEndEven
         for (BpmnEventDefinition definition : this.theEditedElement.getEventDefinitions()) {
             this.delegatedPropertyModel.add((AbstractPropertyModel<BpmnEventDefinition>) definition.accept(this.umlPropertyModelVisitor));
         }
-        
+
         this.labelList = new ArrayList<>();
         this.fieldList = new ArrayList<>();
-        
+
         this.labelList.add(new DefaultStringNatValue(getPropertyI18n(AbstractPropertyModel.PROPERTY_ID), false)); // Header
         this.fieldList.add(new DefaultStringNatValue(getPropertyI18n(AbstractPropertyModel.VALUE_ID), false)); // Header
-        
+
         this.labelList.add(new DefaultStringNatValue(getPropertyI18n("Name"), false)); // Name
         this.fieldList.add(new DefaultStringNatValue(this.theEditedElement.getName(), false)); // Name
-        
+
         for (EventType evt : EventType.values()) {
             AbstractPropertyModel<BpmnEventDefinition> tdef = null;
             for (AbstractPropertyModel<BpmnEventDefinition> def : this.delegatedPropertyModel) {
@@ -203,7 +208,7 @@ public class BpmnEndEventPropertyModel extends AbstractPropertyModel<BpmnEndEven
                 }
             }
         }
-        
+
     }
 
     @objid ("bd9c78ee-9c77-469a-a0f8-d89a4477c85f")
@@ -212,7 +217,7 @@ public class BpmnEndEventPropertyModel extends AbstractPropertyModel<BpmnEndEven
         BpmnEventDefinition event_definition = (BpmnEventDefinition) modelFactory.createElement(EventType.getMetaclass(evt));
         event_definition.setName(this.modelService.getElementNamer().getBaseName(event_definition.getMClass()));
         event_definition.setDefined(this.theEditedElement);
-        
+
     }
 
     @objid ("00b0134c-0493-4f5e-bc35-db6e3c602de1")

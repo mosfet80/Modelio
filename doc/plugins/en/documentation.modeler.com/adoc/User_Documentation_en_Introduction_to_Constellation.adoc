@@ -1,0 +1,35 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Teamwork – Modelio Server project overview
+
+
+Shared work models are used to share a unique model between several users, allowing each of them to modify the model and to retrieve the changes carried out by other users on the model. This mechanism is the base of teamwork collaboration.
+
+However, when teams and projects get larger, sharing a simple work model between users raises process issues that are costly to deal with. These issues are mostly related to the fact that, in order for the team to be efficient and to produce reliable model changes, it is required that the overall configuration of the shared project is guaranteed to be the same for each user:
+
+* same set of modules and versions of these modules deployed on each user's workstation
+* same set of library models composing the project, same versions also where applicable (Model Components)
+* same parameters for modules at least for the most critical parameters (for example generation options for a code generator)
+
+This homogeneity is difficult and hard to ensure if managed manually. Someone has to permanently check the users local project configurations to detect inconsistencies and fix them. Another option is to rely on developers applying strict update policies, however this option is most often not reliable.
+
+In Modelio Teamwork, so-called *Modelio Server Projects* are the solution to the above issues. A *Modelio Server project* is a Modelio project whose definition is entirely controlled by *Modelio Server*. When a team member opens a *Modelio Server project*, the actual configuration of the project is retrieved from *Modelio Server* instead of being read from the local workspace. Of course this is perfectly transparent to the end user.
+
+The main benefit of this mechanism is obvious: the project configuration is guaranteed to be exactly the same for all the team members. Furthermore, the exact project configuration can easily be defined and maintained in a unique location: *Modelio Server*.
+
+The *Modelio Server project* can define almost everything that can be configured in classical local projects in the 'Project Configurator' window:
+
+* work models
+* libraries
+* modules
+* module parameters
+
+There are two main use cases to consider:
+
+* Join a *Modelio Server project* : an operation that consists, for _a team member_, to declare the server project in his local workspace (this will also import all the necessary material from the server). Note that this use case has to be played only once by the user.
+* Open and work on a project _by a team member_
+
+As explained above, the second use case is trivial because opening a server project in Modelio once it has been 'joined' is wholly transparent to the end user.

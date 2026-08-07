@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing.profile;
 
@@ -52,7 +52,7 @@ public class PExportStereotype implements IExportProfileElement {
     private ProfileExportVisitorImpl _visitor = null;
 
     @objid ("f4dddec1-04c0-493c-b74e-daf6ebbc26b0")
-    public  PExportStereotype(Stereotype stereotype) {
+    public PExportStereotype(Stereotype stereotype) {
         this.objingElt = stereotype;
     }
 
@@ -61,7 +61,7 @@ public class PExportStereotype implements IExportProfileElement {
     public void accept(ProfileExportVisitorImpl visitor) {
         this._visitor = visitor;
         visitor.visit(this);
-        
+
     }
 
     @objid ("a84e6d62-d897-4f3c-8eca-0004e87a3ba9")
@@ -72,16 +72,16 @@ public class PExportStereotype implements IExportProfileElement {
     @objid ("2bf58f66-fe8d-4929-8da6-241e4a0889ff")
     private void setProperties(org.eclipse.uml2.uml.Stereotype stereotype) {
         setInheritance(stereotype);
-        
+
         ObjingEAnnotation.addObjingID(stereotype, this.objingElt.getUuid().toString());
-        
+
         if (this.genProp.isRoundtripEnabled()){
             setHidden(stereotype);
             setLabel(stereotype);
             setBaseClass(stereotype);
-        
+
         }
-        
+
     }
 
     @objid ("9c4790b4-eb9e-460f-ac72-83abc816f37e")
@@ -97,60 +97,60 @@ public class PExportStereotype implements IExportProfileElement {
     @objid ("96b7f855-5fc6-4be0-9eb8-04683d15e71f")
     private void setIcon(org.eclipse.uml2.uml.Stereotype stereotype) {
         String moduleName =  this.objingElt.getOwner().getOwnerModule().getName();
-        
+
         for (IPeerModule pModules : Modelio.getInstance().getModuleService().getAllPeerModules()){
             if (pModules.getName().equals(moduleName)){
                 Path moduleResPath = pModules.getConfiguration().getModuleResourcesPath();
-        
+
                 String iconPath = this.objingElt.getIcon();
-        
-                String imagePath = this.objingElt.getImage();    
-        
+
+                String imagePath = this.objingElt.getImage();
+
                 if ((imagePath != null) && (!imagePath.equals("")))
                     ProfileUtils.setStereotypeImage( moduleResPath,  imagePath, stereotype);
                 else if ((iconPath != null) && (!iconPath.equals("")))
                     ProfileUtils.setStereotypeImage( moduleResPath,  iconPath, stereotype);
             }
         }
-        
+
     }
 
     @objid ("d247064c-3133-4a3a-8e4e-cbe2cdeb009f")
     private void setInheritance(org.eclipse.uml2.uml.Stereotype stereotype) {
         // inheritance link
-        
+
         Stereotype parent = this.objingElt.getParent();
-        
+
         if(( parent != null) && (ProfileUtils.isInScope(parent))){
             org.eclipse.uml2.uml.Stereotype parentEcore = (org.eclipse.uml2.uml.Stereotype) this.genProp.getMappedElement(parent);
-        
+
             if (parentEcore == null)  {
                 Profile obParentProfile = this.objingElt.getParent().getOwner();
                 PExportProfile parentProfile = new PExportProfile(obParentProfile);
                 this. _visitor.visit(parentProfile);
-        
+
                 org.eclipse.uml2.uml.Profile ecoreParentProfile = (org.eclipse.uml2.uml.Profile) this.genProp.getMappedElement(obParentProfile);
-        
+
                 org.eclipse.uml2.uml.Profile ecoreProfile = (org.eclipse.uml2.uml.Profile) this.genProp.getMappedElement(this.objingElt.getOwner());
                 this.genProp.inverseProfiles(ecoreParentProfile, ecoreProfile);
-        
+
                 parentEcore = (org.eclipse.uml2.uml.Stereotype) this.genProp.getMappedElement(parent);
             }
-        
+
             if (!stereotype.getSuperClasses().contains(parentEcore))
                 stereotype.getSuperClasses().add(parentEcore);
         }
-        
+
     }
 
     @objid ("7d1456a4-5d57-4231-a4c4-d7b101275b3b")
     public List<PExportAttribut> getAttribute() {
         List<PExportAttribut> result = new ArrayList<>();
         for (TagType part : this.objingElt.getDefinedTagType()){
-        
+
             PExportAttribut attribut = new PExportAttribut(part);
             result.add(attribut);
-        
+
         }
         return result;
     }
@@ -163,13 +163,13 @@ public class PExportStereotype implements IExportProfileElement {
     @objid ("9e204695-da8d-4674-8aa4-07b8ed5261bc")
     public void visit() {
         org.eclipse.uml2.uml.Stereotype ecoreElt = (org.eclipse.uml2.uml.Stereotype) this.totalMap.get(this.objingElt.getUuid().toString());
-        
+
         if ((ecoreElt == null) && AbstractObjingModelNavigation.mustBeExported(this.objingElt)){
             ecoreElt = createEcoreStereotype();
             this.totalMap.put(this.objingElt.getUuid().toString(), ecoreElt);
             setProperties(ecoreElt);
         }
-        
+
     }
 
     @objid ("577b5cea-8ec0-4a04-af6a-257706de5c22")
@@ -180,12 +180,12 @@ public class PExportStereotype implements IExportProfileElement {
     @objid ("167ba41d-6c83-40d9-99b8-e094fd1b3a32")
     public List<PExportNoteType> getNoteTypes() {
         List<PExportNoteType> result = new ArrayList<>();
-        
+
         for (NoteType part : this.objingElt.getDefinedNoteType()){
-        
+
             PExportNoteType attribut = new PExportNoteType(part);
             result.add(attribut);
-        
+
         }
         return result;
     }

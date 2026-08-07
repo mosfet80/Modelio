@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.project;
 
@@ -52,6 +52,7 @@ public class GProjectDescriptorFactory {
 
     /**
      * Get the remote project descriptor for a project descriptor.
+     *
      * @param projectDescriptor a project descriptor.
      * @param authData authentication data.
      * @param monitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call <code>done()</code> on the given monitor. Accepts <code>null</code>, indicating that no progress should be reported
@@ -64,7 +65,7 @@ public class GProjectDescriptorFactory {
     public static GProjectDescriptor getRemoteDescriptor(GProjectDescriptor localDescriptor, IAuthData authData, IModelioProgress monitor) throws IOException, GProjectAuthenticationException {
         //        IProjectFactory f = GProjectFactory.getProjectFactory(projectDescriptor);
         //        return f.getRemoteDescriptor(projectDescriptor, authData, monitor);
-        
+
                 final InputSource is = readRemoteDescriptor(localDescriptor, authData, monitor);
                 try {
                     final GProjectDescriptor newServerDesc = new GProjectDescriptorReader().read(is, null);
@@ -75,20 +76,20 @@ public class GProjectDescriptorFactory {
                         final InputSource is2 = readRemoteDescriptor(localDescriptor, authData, monitor);
                         final String content = FileUtils.readWhole(is2.getByteStream(), "utf-8");
                         e.addSuppressed(new Throwable("Descriptor content:\n"+content));
-        
+
                     } catch (final Exception e2) {
                         e.addSuppressed(e2);
                     }
                     throw e;
                 }
-        
+
     }
 
     @objid ("2281a346-45b4-4dc8-9cc7-e22ae9f9bd14")
     public static InputSource readRemoteDescriptor(GProjectDescriptor projectDescriptor, IAuthData authData, IModelioProgress monitor) throws IOException, GProjectAuthenticationException {
         URI remoteUri = UriUtils.asDirectoryUri(getRemoteDirUri(projectDescriptor));
         URI remoteConfUri =  remoteUri.resolve(REMOTE_PROJECT_CONF);
-        
+
         try {
             InputSource inputSource = new InputSource(UriConnections.openInputStream(remoteConfUri, authData));
             inputSource.setSystemId(remoteConfUri.toString());
@@ -96,7 +97,7 @@ public class GProjectDescriptorFactory {
         } catch (UriAuthenticationException e) {
             throw new GProjectAuthenticationException(FileUtils.getLocalizedMessage(e), e);
         }
-        
+
     }
 
     @objid ("d3301f2e-e727-4a4f-9107-def82f69db44")
@@ -108,11 +109,12 @@ public class GProjectDescriptorFactory {
             e2.initCause(e);
             throw e2;
         }
-        
+
     }
 
     /**
      * Tells whether the given path is a project space path.
+     *
      * @param projectPath a directory path
      * @return <code>true</code> if it is a project space path, else <code>false</code>.
      */
@@ -124,6 +126,7 @@ public class GProjectDescriptorFactory {
 
     /**
      * Create a ProjectDescriptor from a project directory.
+     *
      * @param projectDir the project directory.
      * @return the read project descriptor.
      * @throws IOException in case of error reading the configuration file.
@@ -134,7 +137,7 @@ public class GProjectDescriptorFactory {
         GProjectDescriptor desc = new GProjectDescriptorReader()
                 .setDefaultScope(DefinitionScope.LOCAL)
                 .read(confFile, null);
-        
+
         try {
             desc.setLockInfo(GProjectDescriptorFactory.getLockInformations(desc));
         } catch (IOException e) {
@@ -152,6 +155,7 @@ public class GProjectDescriptorFactory {
 
     /**
      * Test whether a project is locked.
+     *
      * @param desc a project descriptor.
      * @return lock informations if the project is locked, else <i>null</i>.
      * @throws IOException in case of I/O failure
@@ -166,7 +170,7 @@ public class GProjectDescriptorFactory {
      * No instance.
      */
     @objid ("b9e9ef93-f4b0-4a03-bb48-fc37f1f6cfa5")
-    private  GProjectDescriptorFactory() {
+    private GProjectDescriptorFactory() {
         // No instance
     }
 

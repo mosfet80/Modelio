@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures.html.flyingsaucer.impl;
 
@@ -53,7 +53,7 @@ import org.xhtmlrenderer.swt.SWTFSImage;
 
 /**
  * Implementation of {@link OutputDevice} for SWT.
- * 
+ *
  * @author Vianney le Clément
  */
 @objid ("243884c6-3dbf-4e5b-b877-98bf81b02311")
@@ -81,17 +81,19 @@ class GefFsOutputDevice extends AbstractOutputDevice {
     private FSRGBColor _awt_color = null;
 
     /**
+     *
      * @param graphics a draw2d context
      * @param device a SWT Device
      */
     @objid ("9981f317-8feb-48d6-a835-7d05718d5d1a")
-    public  GefFsOutputDevice(Graphics graphics, Device device) {
+    public GefFsOutputDevice(Graphics graphics, Device device) {
         this._gc = graphics;
         this.device = device;
-        
+
     }
 
     /**
+     *
      * @return the Graphical Context associated with this OutputDevice
      */
     @objid ("fd7ce588-f77b-4d8f-8eb7-7fbaef5c4a24")
@@ -117,7 +119,7 @@ class GefFsOutputDevice extends AbstractOutputDevice {
         /*
          * if (this._transform != null) { this._gc.setTransform(null); this._transform.dispose(); }
          */
-        
+
     }
 
     @objid ("6cc380f9-a869-4fe6-8a17-bfeca7d44546")
@@ -133,7 +135,7 @@ class GefFsOutputDevice extends AbstractOutputDevice {
             a.intersect(new Area(s));
             setClip(a);
         }
-        
+
     }
 
     @objid ("e18558de-bf46-4ffb-abe7-a0cf3ae8fe31")
@@ -150,7 +152,7 @@ class GefFsOutputDevice extends AbstractOutputDevice {
         }
         this._clippingPath = path;
         this._clippingArea = (s == null ? null : new Area(s));
-        
+
     }
 
     @objid ("108790e9-8df5-474f-a32a-b88647a4e375")
@@ -172,9 +174,9 @@ class GefFsOutputDevice extends AbstractOutputDevice {
         int y = bounds.y;
         int w = bounds.width;
         int h = bounds.height;
-        
+
         int adj = solid ? 1 : 0;
-        
+
         if (side == BorderPainter.TOP) {
             drawLine(x, y + (lineWidth / 2), x + w - adj, y + (lineWidth / 2));
         } else if (side == BorderPainter.LEFT) {
@@ -192,7 +194,7 @@ class GefFsOutputDevice extends AbstractOutputDevice {
             }
             drawLine(x, y + h - offset, x + w - adj, y + h - offset);
         }
-        
+
     }
 
     @objid ("376c36bc-08c8-4fbd-9c0d-20c0dea5ce60")
@@ -217,7 +219,7 @@ class GefFsOutputDevice extends AbstractOutputDevice {
             this._gc.drawImage(img, 0, 0, bounds.width, bounds.height, x, y, image
                     .getWidth(), image.getHeight());
         }
-        
+
     }
 
     @objid ("609618bd-14d5-41b8-951d-6280cfc6795a")
@@ -243,7 +245,7 @@ class GefFsOutputDevice extends AbstractOutputDevice {
         Path p = convertToPath(s);
         this._gc.fillPath(p);
         p.dispose();
-        
+
     }
 
     @objid ("19e1ed78-f548-4736-a726-217091878790")
@@ -270,7 +272,7 @@ class GefFsOutputDevice extends AbstractOutputDevice {
             org.xhtmlrenderer.simple.xhtml.swt.SWTFormControl swtControl = ((FormControlReplacementElement) replaced).getControl();
             swtControl.getSWTControl().setVisible(true);
         }
-        
+
     }
 
     @objid ("d2f64f96-a458-484a-a1c2-cdaac9c72cbb")
@@ -278,7 +280,7 @@ class GefFsOutputDevice extends AbstractOutputDevice {
         if (color.equals(this._awt_color)) {
             return;
         }
-        
+
         Color col = new Color(getDevice(), color.getRed(),
                 color.getGreen(), color.getBlue());
         this._gc.setForegroundColor(col);
@@ -289,7 +291,7 @@ class GefFsOutputDevice extends AbstractOutputDevice {
         }
         this._color = col;
         this._awt_color = color;
-        
+
     }
 
     @objid ("cd170c01-bd47-4dcf-bce3-ec0def031fdd")
@@ -307,7 +309,7 @@ class GefFsOutputDevice extends AbstractOutputDevice {
         } else {
             throw new IllegalArgumentException("unsupported color class " + color.getClass().getName());
         }
-        
+
     }
 
     @objid ("d1e9da89-7d5a-4cbe-a666-8dc48aed2c03")
@@ -320,7 +322,7 @@ class GefFsOutputDevice extends AbstractOutputDevice {
     @Override
     public void setStroke(Stroke s) {
         this._stroke = s;
-        
+
         /*
          * Code borrowed from SwingWT
          */
@@ -331,16 +333,16 @@ class GefFsOutputDevice extends AbstractOutputDevice {
             this._gc.setLineDash((int[]) null);
             return;
         }
-        
+
         if (!(s instanceof BasicStroke)) {
             return;
         }
-        
+
         BasicStroke bs = (BasicStroke) s;
-        
+
         // Setup the line width
         this._gc.setLineWidth((int) bs.getLineWidth());
-        
+
         // Setup the line cap
         int gcCap = SWT.CAP_SQUARE;
         switch (bs.getEndCap()) {
@@ -357,7 +359,7 @@ class GefFsOutputDevice extends AbstractOutputDevice {
             break;
         }
         this._gc.setLineCap(gcCap);
-        
+
         // Setup the line Join
         int gcJoin = SWT.JOIN_MITER;
         switch (bs.getLineJoin()) {
@@ -374,27 +376,27 @@ class GefFsOutputDevice extends AbstractOutputDevice {
             break;
         }
         this._gc.setLineJoin(gcJoin);
-        
+
         float d[] = bs.getDashArray();
         int[] dashes = new int[d.length];
         for (int i = 0; i < d.length; i++) {
             dashes[i] = (int) d[i];
         }
         this._gc.setLineDash(dashes);
-        
+
     }
 
     @objid ("9e23bdba-1ef3-4e8f-ae12-e4cb2361ecf6")
     @Override
     public void translate(double tx, double ty) {
         this._gc.translate((float) tx, (float) ty);
-        
+
         if (this._clippingArea != null) {
             AffineTransform t = new AffineTransform();
             t.translate(-tx, -ty);
             this._clippingArea.transform(t);
         }
-        
+
     }
 
     @objid ("fe677246-53ad-4722-9a4c-d9e5482d5105")
@@ -426,11 +428,12 @@ class GefFsOutputDevice extends AbstractOutputDevice {
             }
             this._gc.setAntialias(antialias);
         }
-        
+
     }
 
     /**
      * Convert an AWT Shape to an SWT Path.
+     *
      * @param shape an AWT Shape
      * @return the SWT Path or <code>null</code> if <code>shape == null</code>
      */

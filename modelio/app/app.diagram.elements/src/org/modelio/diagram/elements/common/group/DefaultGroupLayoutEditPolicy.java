@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.group;
 
@@ -60,15 +60,15 @@ public class DefaultGroupLayoutEditPolicy extends OrderedLayoutEditPolicy {
     @Override
     public void eraseTargetFeedback(Request request) {
         if (REQ_ADD.equals(request.getType()) || REQ_CREATE.equals(request.getType())   || RequestTypes.UNMASK_OR_CREATE_CHILDREN.equals(request.getType())) {
-        
+
             if (this.highlight != null) {
                 removeFeedback(this.highlight);
                 this.highlight = null;
             }
         }
-        
+
         super.eraseTargetFeedback(request);
-        
+
     }
 
     @objid ("7e4fd3f4-1dec-11e2-8cad-001ec947c8cc")
@@ -89,7 +89,7 @@ public class DefaultGroupLayoutEditPolicy extends OrderedLayoutEditPolicy {
     @Override
     public void showTargetFeedback(Request request) {
         if (REQ_ADD.equals(request.getType()) || REQ_CREATE.equals(request.getType())) {
-        
+
             // compute highlight type
             final Command c = getCommand(request);
             FigureUtilities2.HighlightType hightlightType = FigureUtilities2.HighlightType.INFO;
@@ -100,11 +100,11 @@ public class DefaultGroupLayoutEditPolicy extends OrderedLayoutEditPolicy {
             } else {
                 hightlightType = FigureUtilities2.HighlightType.WARNING;
             }
-        
+
             // create a highlight figure if it does not exist
             if (this.highlight == null) {
                 this.highlight = FigureUtilities2.createHighlightFigure(getFeedbackLayer(), getHostFigure(), hightlightType);
-        
+
                 // add the highlight figure to the feedback layer
                 getFeedbackLayer().add(this.highlight);
             }
@@ -112,13 +112,14 @@ public class DefaultGroupLayoutEditPolicy extends OrderedLayoutEditPolicy {
             FigureUtilities2.updateHighlightType(this.highlight, hightlightType);
         }
         super.showTargetFeedback(request);
-        
+
     }
 
     /**
      * Returns whether this edit policy can handle this metaclass (either through simple or smart behavior). Default behavior is to
      * accept any metaclass that can be child (in the CreationExpert's understanding) of the host's metaclass This method should be
      * overridden by subclasses to add specific the behavior.
+     *
      * @param metaclass the metaclass to handle.
      * @return true if this policy can handle the metaclass.
      */
@@ -178,7 +179,7 @@ public class DefaultGroupLayoutEditPolicy extends OrderedLayoutEditPolicy {
     protected Command getCloneCommand(ChangeBoundsRequest request) {
         if (getHost().getModel() instanceof GmCompositeNode) {
             final GmCompositeNode hostModel = (GmCompositeNode) getHost().getModel();
-        
+
             final CompoundCommand command = new CompoundCommand();
             for (final Object editPartObj : request.getEditParts()) {
                 final EditPart editPart = (EditPart) editPartObj;
@@ -205,7 +206,7 @@ public class DefaultGroupLayoutEditPolicy extends OrderedLayoutEditPolicy {
         if (ctx != null) {
             final MClass mc = ctx.getMetaclass();
             final MExpert expert = mc.getMetamodel().getMExpert();
-        
+
             final GmCompositeNode gmGroup = (GmCompositeNode) getHost().getModel();
             final boolean returnCommand = expert.canCompose(gmGroup.getRelatedElement(), mc, null);
             if (returnCommand) {
@@ -228,6 +229,7 @@ public class DefaultGroupLayoutEditPolicy extends OrderedLayoutEditPolicy {
 
     /**
      * Return the host edit part if this policy can handle the metaclass involved in the request.
+     *
      * @param createRequest the request.
      * @return the host editpart if the metaclass involved in the request can be handled by this policy, <code>null</code>
      * otherwise.
@@ -246,6 +248,7 @@ public class DefaultGroupLayoutEditPolicy extends OrderedLayoutEditPolicy {
 
     /**
      * Return the host edit part if this policy can handle all edit parts involved in the request.
+     *
      * @param changeBoundsRequest the request, can be CLONE or ADD.
      * @return the host editpart if all editparts involved in the request can be handled by this policy, <code>null</code>
      * otherwise.

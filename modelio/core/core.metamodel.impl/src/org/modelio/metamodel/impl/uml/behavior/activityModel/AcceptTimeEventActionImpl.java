@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -41,19 +40,19 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0025b188-c4bf-1fd8-97fe-001ec947cd2a")
 public class AcceptTimeEventActionImpl extends ActivityActionImpl implements AcceptTimeEventAction {
-    @objid ("889712e8-9290-4471-9fbe-6205825e05c3")
+    @objid ("d0c1dc01-fa90-4e1e-b745-c9f5c138175f")
     @Override
     public String getTimeExpresion() {
         return (String) getAttVal(((AcceptTimeEventActionSmClass)getClassOf()).getTimeExpresionAtt());
     }
 
-    @objid ("b9920fe8-be0a-4cca-ab46-db055fa50f8d")
+    @objid ("728f294d-8179-4109-b129-1df6d23d51a0")
     @Override
     public void setTimeExpresion(String value) {
         setAttVal(((AcceptTimeEventActionSmClass)getClassOf()).getTimeExpresionAtt(), value);
     }
 
-    @objid ("17afd63b-3fd8-4a99-8897-b37c56ad7241")
+    @objid ("081c1d73-413b-4631-831a-322cf79da99d")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -61,17 +60,17 @@ public class AcceptTimeEventActionImpl extends ActivityActionImpl implements Acc
         return super.getCompositionOwner();
     }
 
-    @objid ("f34ec81c-6321-4eb4-928e-2112485c913b")
+    @objid ("17f0f6e7-70f1-4509-bc79-e722a128df4d")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("00df93d6-be39-4267-99be-2a4820314404")
+    @objid ("0ee0842e-ec65-4134-9b6c-0ece1d776d42")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitAcceptTimeEventAction(this);

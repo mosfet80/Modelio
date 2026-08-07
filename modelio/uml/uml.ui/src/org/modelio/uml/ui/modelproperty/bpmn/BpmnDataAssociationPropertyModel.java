@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.bpmn;
 
@@ -51,15 +51,17 @@ public class BpmnDataAssociationPropertyModel extends AbstractPropertyModel<Bpmn
     /**
      * Create a new <i>BpmnDataAssociation</i> data model from an
      * <i>BpmnDataAssociation</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("6aa80d64-6936-43ec-a11c-89f9a4396579")
-    public  BpmnDataAssociationPropertyModel(BpmnDataAssociation theEditedElement) {
+    public BpmnDataAssociationPropertyModel(BpmnDataAssociation theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("8a3ef07e-51f2-40a6-a6ca-ca63edbf65f5")
@@ -70,6 +72,7 @@ public class BpmnDataAssociationPropertyModel extends AbstractPropertyModel<Bpmn
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("272547ff-9ffd-47c2-8a08-648f0a562954")
@@ -82,6 +85,7 @@ public class BpmnDataAssociationPropertyModel extends AbstractPropertyModel<Bpmn
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -109,7 +113,7 @@ public class BpmnDataAssociationPropertyModel extends AbstractPropertyModel<Bpmn
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -119,6 +123,7 @@ public class BpmnDataAssociationPropertyModel extends AbstractPropertyModel<Bpmn
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -147,13 +152,14 @@ public class BpmnDataAssociationPropertyModel extends AbstractPropertyModel<Bpmn
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -187,7 +193,7 @@ public class BpmnDataAssociationPropertyModel extends AbstractPropertyModel<Bpmn
         default:
             return;
         }
-        
+
     }
 
 }

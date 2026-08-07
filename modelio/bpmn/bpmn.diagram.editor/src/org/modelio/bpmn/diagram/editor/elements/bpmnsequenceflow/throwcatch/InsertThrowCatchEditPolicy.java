@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnsequenceflow.throwcatch;
 
@@ -50,7 +50,7 @@ public class InsertThrowCatchEditPolicy extends GraphicalEditPolicy {
         if (RequestConstants.REQ_CREATE.equals(request.getType())) {
             CreateRequest createRequest = (CreateRequest) request;
             ModelioCreationContext ctx = ModelioCreationContext.lookRequest(createRequest);
-        
+
             if (ctx != null && isHandled(ctx)) {
                 return getHost();
             }
@@ -72,17 +72,17 @@ public class InsertThrowCatchEditPolicy extends GraphicalEditPolicy {
         if (ctx == null) {
             return null;
         }
-        
+
         // Throw link - Catch Link insertion, allowed cases:
         // - BpmnIntermediateThrowEvent in 'throw link' flavor
         // - BpmnIntermediateCatchEvent in 'catch link' flavor
         //
         if (isHandled(ctx)) {
-        
+
             // Create task command
             GmBpmnSequenceFlow gm = getSequenceFlowHost().getModel();
             Rectangle requestRect = new Rectangle(new Point(0,0), new Dimension(-1, -1));
-        
+
             InsertThrowCatchCommand createTaskCommand = new InsertThrowCatchCommand(gm.getDiagram(), gm, ctx, requestRect);
             return createTaskCommand;
         }
@@ -94,7 +94,7 @@ public class InsertThrowCatchEditPolicy extends GraphicalEditPolicy {
         return (BpmnIntermediateThrowEvent.class.isAssignableFrom(ctx.getJavaClass())
                 || BpmnIntermediateCatchEvent.class.isAssignableFrom(ctx.getJavaClass()))
                 && "LINK".equals(ctx.getProperties().get("type"));
-        
+
     }
 
     @objid ("3a9b9e73-f38f-4ae1-b06f-95fccabc61a0")
@@ -105,7 +105,7 @@ public class InsertThrowCatchEditPolicy extends GraphicalEditPolicy {
         if (command == null || !command.canExecute()) {
             return;
         }
-        
+
         // If command is create show 'InsertThrowCatch' feedback
         if (RequestConstants.REQ_CREATE.equals(request.getType())) {
             CreateRequest createRequest = (CreateRequest) request;
@@ -114,7 +114,7 @@ public class InsertThrowCatchEditPolicy extends GraphicalEditPolicy {
             }
             this.feedback.show(getHostFigure(), createRequest.getLocation());
         }
-        
+
     }
 
     @objid ("497c5802-e384-413c-80e4-a72f6e13194c")
@@ -124,12 +124,13 @@ public class InsertThrowCatchEditPolicy extends GraphicalEditPolicy {
             this.feedback.hide();
             this.feedback = null;
         }
-        
+
     }
 
     /**
-     * @see #getHost()
+     *
      * @return the <i>host</i> BpmnSequenceFlowEditPart on which this policy is installed.
+     * @see #getHost()
      */
     @objid ("24f4deae-4a6b-4eec-a559-cf9e4832a68b")
     public BpmnSequenceFlowEditPart getSequenceFlowHost() {

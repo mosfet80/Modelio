@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -48,7 +48,7 @@ public class R2610 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -67,7 +67,7 @@ public class R2610 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         plan.registerRule(State.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(ConnectionPointReference.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE);
-        
+
     }
 
     /**
@@ -101,14 +101,14 @@ public class R2610 extends AbstractUmlRule {
      * Default constructor for R2610
      */
     @objid ("4770043a-8e81-440d-872e-17a438d9fdc6")
-    public  R2610() {
+    public R2610() {
         this.checkerInstance = new CheckR2610(this);
     }
 
     @objid ("e3272e80-f3e6-4e03-87b6-34273030555f")
     private static class CheckR2610 extends AbstractControl {
         @objid ("b2a010f8-70ce-465e-bed2-7039d98da789")
-        public  CheckR2610(IRule rule) {
+        public CheckR2610(IRule rule) {
             super(rule);
         }
 
@@ -131,13 +131,13 @@ public class R2610 extends AbstractUmlRule {
         @objid ("123016c4-85fe-4321-99ec-b3fba491ed21")
         private IAuditEntry checkR2610(State state) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, state, null);
-            
+
             if (state.getSubMachine() != null) {
                 return auditEntry;
             }
-            
+
             List<ConnectionPointReference> cprs = state.getConnection();
-            
+
             if (!cprs.isEmpty()) {
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();

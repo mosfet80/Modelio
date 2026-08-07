@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.service.impl.controller.states.features;
 
@@ -56,22 +56,23 @@ public class StartedFeature extends AbstractFeature {
     IRTModuleListener requiredModuleRestartListener;
 
     /**
+     *
      * @param myModule the module
      */
     @objid ("6fb51ead-d0fb-4340-a3e2-42d47d1d1c59")
-    public  StartedFeature(IRTModuleAccess myModule) {
+    public StartedFeature(IRTModuleAccess myModule) {
         super(myModule);
-        
+
         // Create listeners that stop the module when a required one is stopped.
         this.requiredModuleStopListener = new AbstractIRTModuleListener() {
             @Override
             public void moduleStopping(IRTModule amodule) {
                 try {
                     MdaInfra.LOG.debug(" Stopping '%s' because required '%s' is stopping.", myModule.getName(), amodule.getName());
-        
+
                     // Stop the module when an required module is stopped
                     myModule.getController().stop();
-        
+
                     // Listen for module restart to restart itself
                     amodule.getListeners().add(StartedFeature.this.requiredModuleRestartListener);
                 } catch (ModuleException e) {
@@ -80,9 +81,9 @@ public class StartedFeature extends AbstractFeature {
                 }
             }
         };
-        
+
         this.requiredModuleRestartListener = new AbstractIRTModuleListener() {
-        
+
             @Override
             public void moduleStarted(IRTModule amodule) {
                 // Restart the module when an required module has restarted.
@@ -95,11 +96,11 @@ public class StartedFeature extends AbstractFeature {
                     MdaInfra.LOG.warning("Restarting module '%s' required by '%s' module failed:",
                             myModule.getName(), amodule.getName());
                     MdaInfra.LOG.warning(e);
-        
+
                 }
             }
         };
-        
+
         this.optionalModuleListener = new AbstractIRTModuleListener() {
             @Override
             public void moduleStopping(IRTModule amodule) {
@@ -107,7 +108,7 @@ public class StartedFeature extends AbstractFeature {
                 try {
                     MdaInfra.LOG.debug(" Temporarly stopping '%s' because optional '%s' is stopping.", myModule.getName(), amodule.getName());
                     myModule.getController().stop();
-        
+
                     // stop() did remove this listener, add it again
                     amodule.getListeners().add(this);
                 } catch (ModuleException e) {
@@ -116,12 +117,12 @@ public class StartedFeature extends AbstractFeature {
                     MdaInfra.LOG.warning(e);
                 }
             }
-        
+
             @Override
             public void moduleStopped(IRTModule amodule) {
                 // One shot operation
                 amodule.getListeners().remove(this);
-        
+
                 // Restart the module when an optional module is stopped
                 try {
                     myModule.getController().start();
@@ -132,7 +133,7 @@ public class StartedFeature extends AbstractFeature {
                 }
             }
         };
-        
+
     }
 
     @objid ("89c4baab-297f-4142-b39e-ca9aff1d885e")
@@ -140,11 +141,11 @@ public class StartedFeature extends AbstractFeature {
     public void enable() throws ModuleException {
         // Start dependencies
         startDependencies();
-        
+
         // Start the module
         try {
             boolean ok = this.module.getIModule().getLifeCycleHandler().start();
-        
+
             if (!ok) {
                 throw new ModuleRefusedActionException(MdaInfra.I18N.getMessage("StartedFeature.StartReturnedFalse", this.module.getLabel()));
             }
@@ -155,23 +156,23 @@ public class StartedFeature extends AbstractFeature {
                     e.toString());
             throw new ModuleException(message, e);
         }
-        
+
         this.module.setState(ModuleRuntimeState.Started);
-        
+
         this.module.getController().getModuleRegistry().addStartedModule(this.module);
-        
+
         // Register a module MDA resource provider
         ModuleMdaResourceProvider mdaResourceProvider = new ModuleMdaResourceProvider(this.module.getIModule());
         this.module.getController().getMdaResourceProviderRegistry().register(this.module.getGModule().getModuleElement(), mdaResourceProvider);
-        
+
         MdaInfra.LOG.debug("ModuleStarter.doStartModule(): %s v%s started successfully.", this.module.getName(), this.module.getVersion());
-        
+
         // Register listeners on used modules
         registerListeners();
-        
+
         // Fire start listener
         IRTModuleListener.Poster.moduleStarted(this.module);
-        
+
     }
 
     @objid ("0af0c3ae-5590-4be0-9325-e8b8b410afaf")
@@ -179,21 +180,21 @@ public class StartedFeature extends AbstractFeature {
     public void disable() throws ModuleException {
         // fire stop listener
         IRTModuleListener.Poster.moduleStopping(this.module);
-        
+
         // Stop the module itself
         this.module.getIModule().getLifeCycleHandler().stop();
-        
+
         // Add to registry and set state
         this.module.getController().getModuleRegistry().removeStartedModule(this.module);
-        
+
         this.module.setState(ModuleRuntimeState.Loaded);
-        
+
         // remove listeners
         removeListeners();
-        
+
         // fire stop listener
         IRTModuleListener.Poster.moduleStopped(this.module);
-        
+
     }
 
     @objid ("1581326e-3629-41e7-8750-49f864685bf3")
@@ -215,7 +216,7 @@ public class StartedFeature extends AbstractFeature {
                 }
             }
         }
-        
+
         MdaInfra.LOG.debug("Starting '%s' module optionally used modules", this.module.getName());
         for (IRTModule dep : this.module.getOptionalRequiredModules()) {
             if (dep.getGModule().isActive()) {
@@ -230,7 +231,7 @@ public class StartedFeature extends AbstractFeature {
                 }
             }
         }
-        
+
     }
 
     @objid ("cfe4e120-4d54-49fb-9698-719b2968dbe3")
@@ -247,11 +248,11 @@ public class StartedFeature extends AbstractFeature {
         for (IRTModule reqModule : this.module.getMandatoryRequiredModules()) {
             reqModule.getListeners().add(this.requiredModuleStopListener);
         }
-        
+
         for (IRTModule reqModule : this.module.getOptionalRequiredModules()) {
             reqModule.getListeners().add(this.optionalModuleListener);
         }
-        
+
     }
 
     @objid ("08f2e6a3-bb57-4fb7-98d4-5de9c650a585")
@@ -260,15 +261,16 @@ public class StartedFeature extends AbstractFeature {
             reqModule.getListeners().remove(this.requiredModuleStopListener);
             reqModule.getListeners().remove(this.requiredModuleRestartListener);
         }
-        
+
         for (IRTModule reqModule : this.module.getOptionalRequiredModules()) {
             reqModule.getListeners().remove(this.optionalModuleListener);
         }
-        
+
     }
 
     /**
      * fire listeners on dependent modules first then on the given module.
+     *
      * @param amodule the module being unloaded
      */
     @objid ("acab238a-3001-40dd-ac92-d1bee452d308")
@@ -280,7 +282,7 @@ public class StartedFeature extends AbstractFeature {
         for (IRTModule m : amodule.getModuleMandatoryUses()) {
             fireModuleStopping(m);
         }
-        
+
         for (IRTModuleListener listener : amodule.getListeners()) {
             try {
                 listener.moduleStopping(this.module);
@@ -288,7 +290,7 @@ public class StartedFeature extends AbstractFeature {
                 MdaInfra.LOG.warning(e);
             }
         }
-        
+
     }
 
 }

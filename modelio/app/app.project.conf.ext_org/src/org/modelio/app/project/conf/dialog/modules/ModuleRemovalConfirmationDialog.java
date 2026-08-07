@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.conf.dialog.modules;
 
@@ -37,6 +37,7 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
 import org.modelio.app.project.conf.plugin.AppProjectConfExt;
 import org.modelio.platform.ui.dialog.ModelioDialog;
+import org.modelio.platform.ui.swt.BrowserConfigurator;
 import org.osgi.framework.Bundle;
 
 @objid ("27698d42-4b5b-4785-aaa5-ffa8d7eaafe3")
@@ -48,14 +49,14 @@ public class ModuleRemovalConfirmationDialog extends ModelioDialog {
     private static final int WIDTH = 600;
 
     @objid ("b8fc0c21-1500-488c-b49a-bd0cb1b123dc")
-    public  ModuleRemovalConfirmationDialog(Shell parentShell) {
+    public ModuleRemovalConfirmationDialog(Shell parentShell) {
         super(parentShell);
     }
 
     @objid ("72d0e8a5-45b7-474f-a9a4-e359c0816ff4")
     @Override
     public Control createContentArea(Composite parent) {
-        final Browser browser = new Browser(parent, SWT.BORDER);
+        final Browser browser = BrowserConfigurator.newBrowser(parent, SWT.BORDER);
         browser.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         browser.setMenu(new Menu(browser));
         browser.setJavascriptEnabled(false);
@@ -75,7 +76,7 @@ public class ModuleRemovalConfirmationDialog extends ModelioDialog {
     public void addButtonsInButtonBar(Composite parent) {
         createButton(parent, IDialogConstants.OK_ID, IDialogConstants.YES_LABEL, false);
         createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.NO_LABEL, true);
-        
+
     }
 
     @objid ("36011b57-042e-4e7f-beca-da43363f3746")
@@ -84,12 +85,12 @@ public class ModuleRemovalConfirmationDialog extends ModelioDialog {
         getShell().setText(AppProjectConfExt.I18N.getString("RemoveMdacsDlg.Confirm.Title"));
         setTitle(AppProjectConfExt.I18N.getString("RemoveMdacsDlg.Confirm.Title"));
         setMessage(AppProjectConfExt.I18N.getString("RemoveMdacsDlg.Confirm.Text"));
-        
+
         getShell().setMinimumSize(WIDTH, HEIGHT);
-        
+
         final Rectangle b = getShell().getParent().getBounds();
         getShell().setBounds(b.x + (b.width - WIDTH) / 2, b.y + (b.height - HEIGHT) / 2, WIDTH, HEIGHT);
-        
+
     }
 
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ASCII"?>
+<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmlns:ui="http://www.eclipse.org/ui/2010/UIModel/application/ui" xmi:id="_dFWpUJrDEeadRojUGD63wQ">
+  <imports xsi:type="advanced:Area" xmi:id="_Sj9XQJE4Eea54pS79SzzyA" elementId="org.modelio.app.ui.area"/>
+  <imports xsi:type="basic:Part" xmi:id="_vdtw0JE4Eea54pS79SzzyA" elementId="org.modelio.diagram.browser.part"/>
+  <imports xsi:type="basic:Part" xmi:id="_AAg0wJE5Eea54pS79SzzyA" elementId="org.modelio.model.browser.view.part"/>
+  <imports xsi:type="basic:Part" xmi:id="_GZ1HQJE5Eea54pS79SzzyA" elementId="org.modelio.propertyviewId"/>
+  <imports xsi:type="advanced:PerspectiveStack" xmi:id="_I86LMJE9Eea54pS79SzzyA" elementId="org.modelio.app.ui.stack.perspectives"/>
+  <imports xsi:type="menu:HandledMenuItem" xmi:id="_LuDkMLpfEei4R5aVDpWJww" elementId="org.modelio.archimate.exchange.handeledmenuitem.import"/>
+  <imports xsi:type="menu:HandledMenuItem" xmi:id="_MIWTgLpfEei4R5aVDpWJww" elementId="org.modelio.archimate.exchange.handeledmenuitem.export"/>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_vRaPoJE3Eea54pS79SzzyA" featurename="children" parentElementId="org.modelio.app.ui.stack.perspectives">
+    <elements xsi:type="advanced:Perspective" xmi:id="_w9xq0JE3Eea54pS79SzzyA" elementId="com.modeliosoft.modelio.archimate.perspective" label="%Archimate.perspective.label" iconURI="platform:/plugin/org.modelio.archimate.ui/icons/archimate.png" tooltip="%Archimate.perspective.tooltip">
+      <tags>project</tags>
+      <tags>default</tags>
+      <tags>user</tags>
+      <children xsi:type="basic:PartSashContainer" xmi:id="_ISz3kJE4Eea54pS79SzzyA" elementId="archimate.ui.partsashcontainer.0" horizontal="true">
+        <children xsi:type="basic:PartStack" xmi:id="_KB0XEJE4Eea54pS79SzzyA" elementId="archimate.ui.partstack.left" containerData="25">
+          <children xsi:type="advanced:Placeholder" xmi:id="_Bqr3kJE5Eea54pS79SzzyA" elementId="model.browser.placeholder" ref="_AAg0wJE5Eea54pS79SzzyA" closeable="true"/>
+          <children xsi:type="advanced:Placeholder" xmi:id="_wowAkJE4Eea54pS79SzzyA" elementId="diagram.browser.placeholder" ref="_vdtw0JE4Eea54pS79SzzyA" closeable="true"/>
+        </children>
+        <children xsi:type="basic:PartSashContainer" xmi:id="_LeqvkJE4Eea54pS79SzzyA" elementId="archimate.ui.partsashcontainer.1" containerData="75">
+          <children xsi:type="advanced:Placeholder" xmi:id="_OJuAkJE4Eea54pS79SzzyA" elementId="org.eclipse.ui.editorss" containerData="72" ref="_Sj9XQJE4Eea54pS79SzzyA" closeable="true"/>
+          <children xsi:type="basic:PartStack" xmi:id="_b1EWQJE4Eea54pS79SzzyA" elementId="archimate.ui.partstack.bottom" containerData="28">
+            <tags>MODULE_STACK</tags>
+            <children xsi:type="advanced:Placeholder" xmi:id="_IOrwEJE5Eea54pS79SzzyA" elementId="properties.placeholder" ref="_GZ1HQJE5Eea54pS79SzzyA" closeable="true"/>
+          </children>
+        </children>
+      </children>
+    </elements>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_NNevkLpfEei4R5aVDpWJww" featurename="visibleWhen" parentElementId="org.modelio.archimate.exchange.handeledmenuitem.import">
+    <elements xsi:type="ui:CoreExpression" xmi:id="_NNevkbpfEei4R5aVDpWJww" elementId="archimate.ui.ext_com.coreexpression.0" coreExpressionId="org.modelio.archimate.activeexpertise"/>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_NnzUELpfEei4R5aVDpWJww" featurename="visibleWhen" parentElementId="org.modelio.archimate.exchange.handeledmenuitem.export">
+    <elements xsi:type="ui:CoreExpression" xmi:id="_NnzUEbpfEei4R5aVDpWJww" elementId="archimate.ui.ext_com.coreexpression.0" coreExpressionId="org.modelio.archimate.activeexpertise"/>
+  </fragments>
+</fragment:ModelFragments>

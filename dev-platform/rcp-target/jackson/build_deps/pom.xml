@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001 XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.modelio</groupId>
+  <artifactId>jackson-p2-site</artifactId>
+  <packaging>pom</packaging>
+  <version>6.1.2-SNAPSHOT</version>
+
+  <properties>
+    <jackson.version>2.18.3</jackson.version>
+  </properties>
+
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.reficio</groupId>
+        <artifactId>p2-maven-plugin</artifactId>
+        <version>2.0.0</version>
+        <executions>
+          <!--  documentation: https://github.com/reficio/p2-maven-plugin -->
+          <execution>
+            <id>default-cli</id>
+            <phase>generate-resources</phase>
+            <goals><goal>site</goal></goals>
+            <configuration>
+              <featureDefinitions>
+                <feature>
+                  <id>org.modelio.jackson.feature</id>
+                  <version>${project.version}</version>
+                  <label>Jackson libraries feature</label>
+                  <providerName>${project.groupId}</providerName>
+                  <description>Jackson libraries in a feature</description>
+                  <copyright>Docaposte</copyright>
+                  <generateSourceFeature>true</generateSourceFeature>
+                  <artifacts>
+                    <!-- specify your depencies here -->
+                    <!-- groupId:artifactId:version-->
+                    <artifact>
+                        <id>com.fasterxml.jackson.core:jackson-databind:${jackson.version}</id>
+                        <transitive>true</transitive>
+                        <source>true</source>
+                    </artifact>
+                    <artifact>
+                        <id>com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jackson.version}</id>
+                        <transitive>true</transitive>
+                        <source>true</source>
+                    </artifact>
+                  </artifacts>
+                </feature>
+
+              </featureDefinitions>
+              <compressSite>false</compressSite>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+    </plugins>
+  </build>
+
+</project>

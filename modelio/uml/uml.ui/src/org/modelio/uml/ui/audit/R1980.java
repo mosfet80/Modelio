@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -59,7 +59,7 @@ public class R1980 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(IElement)
      * @see AbstractRule#getUpdateControl(IElement)
      * @see AbstractRule#getMoveControl(IElementMovedEvent)
@@ -90,10 +90,10 @@ public class R1980 extends AbstractUmlRule {
         plan.registerRule(UseCase.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Node.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Component.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         plan.registerRule(Attribute.MQNAME, this, AuditTrigger.MOVE | AuditTrigger.UPDATE);
         plan.registerRule(AssociationEnd.MQNAME, this, AuditTrigger.MOVE | AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -127,14 +127,14 @@ public class R1980 extends AbstractUmlRule {
      * Default constructor for R1980
      */
     @objid ("ed044804-4dac-4acf-a5a1-fea1d090ed31")
-    public  R1980() {
+    public R1980() {
         this.checkerInstance = new CheckR1980(this);
     }
 
     @objid ("649a482a-8ccd-46d1-a3b7-596356b20072")
     private static class CheckR1980 extends AbstractControl {
         @objid ("b97784f6-9b07-4ace-9e65-15da1b9cf293")
-        public  CheckR1980(IRule rule) {
+        public CheckR1980(IRule rule) {
             super(rule);
         }
 
@@ -149,7 +149,7 @@ public class R1980 extends AbstractUmlRule {
                     diagnostic.addEntry(checkR1980((Classifier) owner));
                 }
             } else if (element instanceof AssociationEnd) {
-            
+
                 AssociationEnd end = (AssociationEnd) element;
                 Classifier owner = end.getSource() != null ? end.getSource() : end.getOpposite().getTarget();
                 diagnostic.addEntry(checkR1980(owner));
@@ -165,39 +165,39 @@ public class R1980 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     classifier,
                     null);
-            
+
             List<String> foundNames = new ArrayList<>();
-            
+
             for (Attribute attribute : classifier.getOwnedAttribute(Attribute.class)) {
                 String attName = attribute.getName();
                 if (foundNames.contains(attName)) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(classifier);
                     linkedObjects.add(attName);
                     auditEntry.setLinkedInfos(linkedObjects);
-            
+
                 } else if (!attName.isEmpty()) {
                     foundNames.add(attName);
                 }
             }
-            
+
             for (AssociationEnd assocEnd : classifier.getOwnedEnd(AssociationEnd.class)) {
                 if (assocEnd.getSource() != null) {
                     String assocName = assocEnd.getName();
                     if (foundNames.contains(assocName)) {
-            
+
                         // Rule failed
-            
+
                         auditEntry.setSeverity(this.rule.getSeverity());
                         List<Object> linkedObjects = new ArrayList<>();
                         linkedObjects.add(classifier);
                         linkedObjects.add(assocName);
                         auditEntry.setLinkedInfos(linkedObjects);
-            
+
                     } else if (!assocName.isEmpty()) {
                         foundNames.add(assocName);
                     }

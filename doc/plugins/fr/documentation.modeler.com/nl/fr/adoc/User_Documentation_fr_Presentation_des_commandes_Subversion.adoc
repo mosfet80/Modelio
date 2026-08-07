@@ -1,0 +1,36 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= Présentation des commandes du travail de groupe
+
+
+Plusieurs commandes sont disponibles sur les modèles de travail partagés. Ces commandes peuvent être lancées directement depuis le menu contextuel d'un élément. Pour accéder au menu contextuel, il suffit de cliquer droit sur l'élément en question.
+
+Notez que seules les commandes pertinentes à l'élément en question sont proposées, selon la nature de l'élément et son statut actuel (lecture seule / lecture-écriture).
+
+Les commandes disponibles sont les suivantes :
+
+* *Mettre à jour...* : Met à jour le modèle de travail dans son intégralité depuis le référentiel.
+* *Prendre le verrou...* : Verrouille un élément, afin de pouvoir le modifier.
+* *Livrer...* : Publie l'élément local en l'exportant dans le référentiel, afin qu'il soit disponible dans sa dernière version aux autres utilisateurs.
+* *Restaurer...* : Annule le verrouillage et restaure l'élément local dans sa version précédente (la version avant la modification).
+* *Ajouter en version...* : Indique qu'un élément local qui n'était pas géré par le travail de groupe est maintenant ajouté en version. Cet ajout ne sera effectif que lors de la prochaine opération de livraison.
+* *Annuler l'ajout en version* : Annule une opération d'ajout en version qui n'a pas encore été livrée.
+* *Diff-Merge* : Compare le modèle courant au référentiel. Les comparaisons peuvent être faites par rapport à une autre branche ou une autre révision.
+* *Informations...* : Affiche les informations sur le statut de l'élément.
+* *Historique...* : Affiche l'historique des révisions et permet l'exécution d'une opération de diff / merge pour une révision donnée. [[Le-mode-hiérarchique]]
+
+
+= Le mode hiérarchique
+
+Certaines commandes peuvent être exécutées de manière récursive sur tous les sous-éléments de l'élément sur lequel la commande est lancée, prenant ainsi en compte la hiérarchie de composition du modèle. Dans ce type de situation, le travail de groupe affiche une fenêtre qui propose explicitement cette option.
+
+De manière générale, il est préférable de travailler en mode récursive, car ceci facilite les mises à jours cohérentes du modèle. Cependant, il faut faire attention lorsque vous verrouillez les grains de haut niveau, comme le projet lui-même, car le verrou s'appliquera à plusieurs éléments dans le modèle (voire tous les éléments, dans le cas du projet), ce qui empêchera d'autres utilisateurs de travailler sur des parties importantes du modèle. En outre, si une commande est lancée en mode récursive sur un élément de haut niveau (par exemple, le projet), elle peut prendre plusieurs minutes, car elle s'exécutera sur tous les composants de l'élément en question.
+
+.La fenêtre "Mise à jour et prise de verrou" proposant l'option "Récursif"
+image::images/attachment/modeliocom41/User_Documentation_fr/Presentation_des_commandes_Subversion/WebHome/TW_004_example_getlock.png[TW_004_example_getlock.png]
+

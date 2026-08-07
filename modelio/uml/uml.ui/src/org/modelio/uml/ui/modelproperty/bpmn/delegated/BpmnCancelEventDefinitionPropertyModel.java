@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.bpmn.delegated;
 
@@ -51,15 +51,17 @@ public class BpmnCancelEventDefinitionPropertyModel extends AbstractPropertyMode
     /**
      * Create a new <i>BpmnCancelEventDefinition</i> data model from an
      * <i>BpmnCancelEventDefinition</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("f297961c-ea4a-4da5-a4cf-67b8e8230c74")
-    public  BpmnCancelEventDefinitionPropertyModel(BpmnCancelEventDefinition theEditedElement) {
+    public BpmnCancelEventDefinitionPropertyModel(BpmnCancelEventDefinition theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("be9865ef-5251-4364-baca-32b42390de69")
@@ -70,6 +72,7 @@ public class BpmnCancelEventDefinitionPropertyModel extends AbstractPropertyMode
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("b9c7d519-305c-4f0c-bfed-856940c65006")
@@ -82,6 +85,7 @@ public class BpmnCancelEventDefinitionPropertyModel extends AbstractPropertyMode
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -99,7 +103,7 @@ public class BpmnCancelEventDefinitionPropertyModel extends AbstractPropertyMode
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -109,6 +113,7 @@ public class BpmnCancelEventDefinitionPropertyModel extends AbstractPropertyMode
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -127,13 +132,14 @@ public class BpmnCancelEventDefinitionPropertyModel extends AbstractPropertyMode
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -152,7 +158,7 @@ public class BpmnCancelEventDefinitionPropertyModel extends AbstractPropertyMode
         default:
             return;
         }
-        
+
     }
 
 }

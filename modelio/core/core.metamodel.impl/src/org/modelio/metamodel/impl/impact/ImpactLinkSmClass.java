@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.impact;
 
 import java.util.ArrayList;
@@ -61,7 +60,7 @@ public class ImpactLinkSmClass extends ModelElementSmClass {
     private SmDependency ownerDep;
 
     @objid ("7bdd8674-6c0d-4d19-a660-f9ae486179af")
-    public  ImpactLinkSmClass(ISmMetamodelFragment origin) {
+    public ImpactLinkSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
@@ -69,7 +68,7 @@ public class ImpactLinkSmClass extends ModelElementSmClass {
     @Override
     public String getName() {
         return "ImpactLink";
-        
+
     }
 
     @objid ("27d72480-970d-4e39-b0b3-42d0c3cccdf3")
@@ -82,21 +81,21 @@ public class ImpactLinkSmClass extends ModelElementSmClass {
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return ImpactLink.class;
-        
+
     }
 
     @objid ("45fab8a0-64df-435e-a34f-9a1b50d76e67")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
     @objid ("25a306f4-3572-4986-8809-e7b43d745b46")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
     @objid ("c16ba547-dafb-43ed-80cf-83a9d7fe42a9")
@@ -104,28 +103,27 @@ public class ImpactLinkSmClass extends ModelElementSmClass {
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(ModelElement.MQNAME);
         this.registerFactory(new ImpactLinkObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
         this.dependsOnDep = new DependsOnSmDependency();
         this.dependsOnDep.init("dependsOn", this, metamodel.getMClass(ModelElement.MQNAME), 1, 1 , SmDirective.SMCDLINKTARGET, SmDirective.SMCDPARTOF);
         registerDependency(this.dependsOnDep);
-        
+
         this.impactedDep = new ImpactedSmDependency();
         this.impactedDep.init("impacted", this, metamodel.getMClass(ModelElement.MQNAME), 1, 1 , SmDirective.SMCDLINKSOURCE, SmDirective.SMCDPARTOF);
         registerDependency(this.impactedDep);
-        
+
         this.causesDep = new CausesSmDependency();
         this.causesDep.init("causes", this, metamodel.getMClass(Element.MQNAME), 0, -1 , SmDirective.SMCDPARTOF);
         registerDependency(this.causesDep);
-        
+
         this.ownerDep = new OwnerSmDependency();
         this.ownerDep.init("owner", this, metamodel.getMClass(ImpactModel.MQNAME), 1, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.ownerDep);
-        
-        
+
     }
 
     @objid ("5562242f-5220-4306-aa45-9295cc955f31")
@@ -164,14 +162,14 @@ public class ImpactLinkSmClass extends ModelElementSmClass {
     @Override
     public boolean isLinkMetaclass() {
         return true;
-        
+
     }
 
     @objid ("e348270a-e42b-4390-b0a8-79529c28c5be")
     @Override
     public boolean areOrphansAllowed() {
         return true;
-        
+
     }
 
     @objid ("fc020c8d-a334-42a5-8e52-84839335983c")
@@ -180,7 +178,7 @@ public class ImpactLinkSmClass extends ModelElementSmClass {
         private ImpactLinkSmClass smClass;
 
         @objid ("e2d3abef-672c-489c-97b8-51372250e929")
-        public  ImpactLinkObjectFactory(ImpactLinkSmClass smClass) {
+        public ImpactLinkObjectFactory(ImpactLinkSmClass smClass) {
             this.smClass = smClass;
         }
 
@@ -222,7 +220,7 @@ public class ImpactLinkSmClass extends ModelElementSmClass {
             	this.symetricDep = ((ModelElementSmClass)this.getTarget()).getImpactImpactedDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -251,7 +249,7 @@ public class ImpactLinkSmClass extends ModelElementSmClass {
             	this.symetricDep = ((ModelElementSmClass)this.getTarget()).getImpactDependsOnDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -271,7 +269,7 @@ public class ImpactLinkSmClass extends ModelElementSmClass {
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((ImpactLinkData) data).mCauses = values;
-            
+
         }
 
         @objid ("b27587f9-9533-4cf4-a95e-19a1581ce2dd")
@@ -281,7 +279,7 @@ public class ImpactLinkSmClass extends ModelElementSmClass {
             	this.symetricDep = ((ElementSmClass)this.getTarget()).getCausedImpactDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -310,7 +308,7 @@ public class ImpactLinkSmClass extends ModelElementSmClass {
             	this.symetricDep = ((ImpactModelSmClass)this.getTarget()).getOwnedLinksDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

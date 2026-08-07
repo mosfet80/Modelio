@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -36,11 +36,11 @@ public class OSendSignalAction extends OActivityNode {
             return UMLFactory.eINSTANCE.createBroadcastSignalAction();
         else
             return UMLFactory.eINSTANCE.createSendSignalAction();
-        
+
     }
 
     @objid ("162e6c88-2eea-4d10-a9ef-9682a09b7191")
-    public  OSendSignalAction(SendSignalAction element) {
+    public OSendSignalAction(SendSignalAction element) {
         super(element);
     }
 
@@ -52,31 +52,31 @@ public class OSendSignalAction extends OActivityNode {
             setSignal((org.eclipse.uml2.uml.SendSignalAction) ecoreElt);
         else  if (ecoreElt instanceof org.eclipse.uml2.uml.BroadcastSignalAction)
             setSignal((org.eclipse.uml2.uml.BroadcastSignalAction) ecoreElt);
-        
+
     }
 
     @objid ("0ec05a23-eb4b-46ea-a6a8-f73a2a1b3826")
     private void setSignal(org.eclipse.uml2.uml.SendSignalAction action) {
         Signal objingSignal = getObjingElement().getSent();
-        
+
         if (objingSignal != null) {
             org.eclipse.uml2.uml.Element ecoreSignal = GenerationProperties.getInstance().getMappedElement(objingSignal);
             if (ecoreSignal instanceof  org.eclipse.uml2.uml.Signal)
                 action.setSignal( (org.eclipse.uml2.uml.Signal) ecoreSignal);
         }
-        
+
     }
 
     @objid ("7e230fa1-e778-4b9d-8afb-e1c17d4ae74a")
     private void setSignal(org.eclipse.uml2.uml.BroadcastSignalAction action) {
         Signal objingSignal = getObjingElement().getSent();
-        
+
         if (objingSignal != null) {
             org.eclipse.uml2.uml.Element ecoreSignal = GenerationProperties.getInstance().getMappedElement(objingSignal);
             if (ecoreSignal instanceof  org.eclipse.uml2.uml.Signal)
                 action.setSignal( (org.eclipse.uml2.uml.Signal) ecoreSignal);
         }
-        
+
     }
 
     @objid ("38c7769b-1baa-444e-9100-4520f9df3d9a")

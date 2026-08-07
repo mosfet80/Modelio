@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.control;
 
@@ -71,7 +71,7 @@ public class CollaborationUseNRepresentedChecker extends AbstractDependencyTypeC
      * C'tor
      */
     @objid ("31634809-bc63-40c4-8d11-054c11991f58")
-    public  CollaborationUseNRepresentedChecker(SmMetamodel mm) {
+    public CollaborationUseNRepresentedChecker(SmMetamodel mm) {
         // Cached SmClass
         this.templateParameterID = mm.getMClass(TemplateParameter.class);
         this.componentID = mm.getMClass(Component.class);
@@ -85,14 +85,14 @@ public class CollaborationUseNRepresentedChecker extends AbstractDependencyTypeC
         this.signalID = mm.getMClass(Signal.class);
         this.templateParameterID = mm.getMClass(TemplateParameter.class);
         this.useCaseID = mm.getMClass(UseCase.class);
-        
+
         // Direct checker
         register(mm.getMClass(CollaborationUse.class), "NRepresented");
-        
+
         // Symetric checker
         NameSpaceOwnedCollaborationUseChecker symetricChecker = new NameSpaceOwnedCollaborationUseChecker(this);
         symetricChecker.register(mm.getMClass(NameSpace.class), "OwnedCollaborationUse");
-        
+
     }
 
     @objid ("e4c440cc-ecfb-11e1-91c5-002564c97630")
@@ -100,7 +100,7 @@ public class CollaborationUseNRepresentedChecker extends AbstractDependencyTypeC
     public int doCheck(final SmObjectImpl obj, final SmObjectImpl value) {
         if (value != null) {
             SmClass valueTypeID = value.getClassOf();
-        
+
             // A CollaborationUse must be owned by a node, a Class, a Component,
             // a TemplateParameter, a Package, a Signal, a useCase, an Actor or
             // a Collaboration.
@@ -123,7 +123,7 @@ public class CollaborationUseNRepresentedChecker extends AbstractDependencyTypeC
         CollaborationUseNRepresentedChecker symetricChecker;
 
         @objid ("e4c5c771-ecfb-11e1-91c5-002564c97630")
-        public  NameSpaceOwnedCollaborationUseChecker(CollaborationUseNRepresentedChecker symetricChecker) {
+        public NameSpaceOwnedCollaborationUseChecker(CollaborationUseNRepresentedChecker symetricChecker) {
             this.symetricChecker = symetricChecker;
         }
 

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.narylink;
 
@@ -38,7 +38,7 @@ import org.modelio.uml.statikdiagram.editor.elements.informationflowgroup.Defaul
 
 /**
  * Edit part for {@link GmNLinkEndLink}.
- * 
+ *
  * @author cmarin
  */
 @objid ("35eca191-55b7-11e2-877f-002564c97630")
@@ -60,42 +60,42 @@ public class NLinkEndLinkEditPart extends LinkEditPart {
     @Override
     protected void refreshFromStyle(IFigure aFigure, IStyle style) {
         super.refreshFromStyle(aFigure, style);
-        
+
         // recreate arrows if the display navigability changes.
         GmNLinkEndLink gmModel = (GmNLinkEndLink) getModel();
-        
+
         boolean showArrows = gmModel.getDisplayedStyle().getProperty(NLinkStructuredStyleKeys.SHOWNAVIGABILITY);
         if (showArrows != this.showNavigability) {
             this.showNavigability = showArrows;
             createDecorations((PolylineConnection) aFigure, gmModel);
         }
-        
+
         refreshDecorationsFromStyle((LinkFigure) aFigure, style);
-        
+
     }
 
     @objid ("35ee27fc-55b7-11e2-877f-002564c97630")
     @Override
     protected void refreshVisuals() {
         super.refreshVisuals();
-        
+
         LinkFigure connection = (LinkFigure) getFigure();
         GmNLinkEndLink model = (GmNLinkEndLink) getModel();
-        
+
         // Target side navigability & aggregation
         createDecorations(connection, model);
-        
+
         refreshDecorationsFromStyle(connection, getModelStyle());
-        
+
     }
 
     @objid ("35ee27ff-55b7-11e2-877f-002564c97630")
     private void createDecorations(PolylineConnection connection, GmNLinkEndLink model) {
         RotatableDecoration deco;
-        
+
         deco = createDecoration(AggregationKind.KINDISASSOCIATION, this.showNavigability && model.isToNavigable());
         connection.setTargetDecoration(deco);
-        
+
     }
 
     @objid ("35ee2803-55b7-11e2-877f-002564c97630")
@@ -132,19 +132,19 @@ public class NLinkEndLinkEditPart extends LinkEditPart {
     @objid ("35ee280b-55b7-11e2-877f-002564c97630")
     protected void refreshDecorationsFromStyle(LinkFigure connection, IStyle style) {
         GmNLinkEndLink model = (GmNLinkEndLink) getModel();
-        
+
         // Get style values
         Color fillColor = null;
         int lineWidth = 1;
         LinePattern linePattern = LinePattern.LINE_SOLID;
-        
+
         if (model.getStyleKey(MetaKey.FILLCOLOR) != null)
             fillColor = (style.getColor(model.getStyleKey(MetaKey.FILLCOLOR)));
         if (model.getStyleKey(MetaKey.LINEWIDTH) != null)
             lineWidth = (style.getInteger(model.getStyleKey(MetaKey.LINEWIDTH)));
         if (model.getStyleKey(MetaKey.LINEPATTERN) != null)
             linePattern = (style.getProperty(model.getStyleKey(MetaKey.LINEPATTERN)));
-        
+
         // Source decoration
         RotatableDecoration decoration = connection.getSourceDecoration();
         if (decoration != null) {
@@ -153,12 +153,12 @@ public class NLinkEndLinkEditPart extends LinkEditPart {
             //} else {
             decoration.setBackgroundColor(fillColor);
             //}
-        
+
             final IPenOptionsSupport pennable = (IPenOptionsSupport) decoration;
             pennable.setLinePattern(linePattern);
             pennable.setLineWidth(lineWidth);
         }
-        
+
         decoration = connection.getTargetDecoration();
         if (decoration != null) {
             //if (model.getFromAggregation() == AggregationKind.KIND_IS_COMPOSITION) {
@@ -166,22 +166,22 @@ public class NLinkEndLinkEditPart extends LinkEditPart {
             //} else {
             decoration.setBackgroundColor(fillColor);
             //}
-        
+
             final IPenOptionsSupport pennable = (IPenOptionsSupport) decoration;
             pennable.setLinePattern(linePattern);
             pennable.setLineWidth(lineWidth);
         }
-        
+
     }
 
     @objid ("35ee2813-55b7-11e2-877f-002564c97630")
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         installEditPolicy("CreateInfoFlow", new DefaultCreateInfoFlowOnLinkEditPolicy());
         removeEditPolicy("rake");
-        
+
     }
 
 }

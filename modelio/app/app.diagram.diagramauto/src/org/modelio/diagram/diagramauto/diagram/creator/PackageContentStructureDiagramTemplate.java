@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.diagramauto.diagram.creator;
 
@@ -60,11 +60,11 @@ public class PackageContentStructureDiagramTemplate extends AbstractDiagramTempl
      * Mandatory default c'tor needed by eclipse when loading the extension point.
      */
     @objid ("f0acf05c-f837-4cca-b24f-2945ec08b40f")
-    public  PackageContentStructureDiagramTemplate() {
+    public PackageContentStructureDiagramTemplate() {
         super();
         this._unmasker = new NodeRollingUnmasker();
         this._contentDgs = new ArrayList<>();
-        
+
     }
 
     @objid ("7788d30f-0a7f-46b2-90e0-371fb226d7b0")
@@ -81,7 +81,7 @@ public class PackageContentStructureDiagramTemplate extends AbstractDiagramTempl
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("a4bfe413-0605-4a86-9d37-b2830f18d9ec")
@@ -90,16 +90,16 @@ public class PackageContentStructureDiagramTemplate extends AbstractDiagramTempl
         // Get rid of dumb case
         if (!(main instanceof Package))
             return;
-        
+
         Package pack = (Package) main;
-        
+
         // unmask content
         for (ModelTree child : pack.getOwnedElement()) {
             // Ignore packages
             if (child instanceof Package) {
                 continue;
             }
-        
+
             IDiagramNode node = this._unmasker.unmask(dh, child);
             if (node != null) {
                 node.setRepresentationMode(1);
@@ -108,7 +108,7 @@ public class PackageContentStructureDiagramTemplate extends AbstractDiagramTempl
                 this._contentDgs.add(node);
             }
         }
-        
+
         // Unmask generalizations, realizations & associations nodes
         // for (ModelTree child : pack.getOwnedElement()) {
         // if (child instanceof NameSpace) {
@@ -132,7 +132,7 @@ public class PackageContentStructureDiagramTemplate extends AbstractDiagramTempl
         // }
         // }
         // }
-        
+
         // Unmask realizations
         // for (InterfaceRealization ir : ((NameSpace) child).getRealized()) {
         // // Get already unmasked parent node only
@@ -156,7 +156,7 @@ public class PackageContentStructureDiagramTemplate extends AbstractDiagramTempl
         // }
         // }
         // }
-        
+
         // if (child instanceof Classifier) {
         // // unmask associations
         // for (AssociationEnd a : ((Classifier) child).getOwnedEnd()) {
@@ -184,7 +184,7 @@ public class PackageContentStructureDiagramTemplate extends AbstractDiagramTempl
         // }
         // }
         // }
-        
+
     }
 
     @objid ("817a0f47-56e3-4423-97a9-180e9024fad2")
@@ -193,9 +193,9 @@ public class PackageContentStructureDiagramTemplate extends AbstractDiagramTempl
         // Get rid of dumb case
         if (!(main instanceof Package))
             return;
-        
+
         Package pack = (Package) main;
-        
+
         // Unmask generalizations, realizations & associations
         for (ModelTree child : pack.getOwnedElement()) {
             if (child instanceof NameSpace) {
@@ -214,7 +214,7 @@ public class PackageContentStructureDiagramTemplate extends AbstractDiagramTempl
                         }
                     }
                 }
-        
+
                 // Unmask realizations
                 for (InterfaceRealization ir : ((NameSpace) child).getRealized()) {
                     // Get already unmasked parent node only
@@ -227,18 +227,18 @@ public class PackageContentStructureDiagramTemplate extends AbstractDiagramTempl
                             if (link.getFrom().equals(link.getTo())) {
                                 link.mask();
                             }
-        
+
                             // TODO layout ?
                         }
                     }
                 }
             }
-        
+
             if (child instanceof Classifier) {
                 // unmask associations
                 for (AssociationEnd a : ((Classifier) child).getOwnedEnd()) {
                     AssociationEnd other = a.getOpposite();
-        
+
                     // Ignore nodes that are not unmasked
                     Classifier owner = other.getSource() != null ? other.getSource() : a.getTarget();
                     if (isUnmasked(dh, owner)
@@ -259,7 +259,7 @@ public class PackageContentStructureDiagramTemplate extends AbstractDiagramTempl
                 }
             }
         }
-        
+
     }
 
     @objid ("aa037884-d4c6-4984-a6b7-ba8d6445af16")
@@ -271,11 +271,12 @@ public class PackageContentStructureDiagramTemplate extends AbstractDiagramTempl
         } else {
             node.setStyle(new DiagramStyleHandle(DiagramStyles.getStyleManager().getStyle(DiagramStyles.INTERN_STYLE_NAME)));
         }
-        
+
     }
 
     /**
      * Layout all nodes in the diagram.
+     *
      * @param dh the edited diagram.
      * @since 5.1.1
      */
@@ -289,11 +290,12 @@ public class PackageContentStructureDiagramTemplate extends AbstractDiagramTempl
             // Should never happen
             DiagramAuto.LOG.debug(e);
         }
-        
+
     }
 
     /**
      * Layout all links in the diagram.
+     *
      * @param dh the edited diagram.
      * @since 5.1.1
      */
@@ -306,7 +308,7 @@ public class PackageContentStructureDiagramTemplate extends AbstractDiagramTempl
             // Should never happen
             DiagramAuto.LOG.debug(e);
         }
-        
+
     }
 
     @objid ("4ab4a0a2-6c84-4a87-b330-5c17541a38fc")
@@ -330,7 +332,7 @@ public class PackageContentStructureDiagramTemplate extends AbstractDiagramTempl
     protected void reset() {
         this._contentDgs.clear();
         this._unmasker = new NodeRollingUnmasker();
-        
+
     }
 
 }

@@ -1,26 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.exml.local.save;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -29,8 +30,11 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import javax.xml.stream.FactoryConfigurationError;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
+import org.modelio.vbasic.log.Log;
 import org.modelio.vbasic.xml.CloseableXMLStreamWriter;
+import org.modelio.vcore.session.api.repository.StorageErrorSupport;
 import org.modelio.vcore.smkernel.IRepositoryObject;
+import org.modelio.vcore.smkernel.SmLiveId;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.meta.SmAttribute;
@@ -38,6 +42,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 import org.modelio.vstore.exml.common.ExmlStorageHandler;
 import org.modelio.vstore.exml.common.model.ExmlTags;
 import org.modelio.vstore.exml.common.utils.ExmlUtils;
+import org.modelio.vstore.exml.plugin.VStoreExml;
 
 /**
  * Save a CMS node in an EXML file.
@@ -47,10 +52,19 @@ public class ExmlSaver implements ExmlTags {
     @objid ("fd21f5c9-5986-11e1-991a-001ec947ccaf")
     private XMLStreamWriter out;
 
+    @objid ("34677d33-4683-4585-b5e3-b91284e8ee47")
+    private final StorageErrorSupport errSupport;
+
+    @objid ("9b74a925-deed-4406-8fd3-3018fbf893fe")
+    public ExmlSaver(StorageErrorSupport errSupport) {
+        this.errSupport = errSupport;
+    }
+
     /**
      * Get the parent CMS node of the given object.
      * <p>
      * If the object is itself a CMS node returns the composition owner CMS node.
+     *
      * @param object a model object
      * @return its parent CMS node.
      */
@@ -68,7 +82,7 @@ public class ExmlSaver implements ExmlTags {
         } else {
             handler = object.getRepositoryObject();
         }
-        
+
         // Return the CMS node represented by the handler
         ExmlStorageHandler exmlHandler = (ExmlStorageHandler) handler;
         SmObjectImpl cmsNode = exmlHandler.getCmsNode();
@@ -77,6 +91,7 @@ public class ExmlSaver implements ExmlTags {
 
     /**
      * Save the given CMS node in an output stream.
+     *
      * @param object the CMS node to save
      * @param os an output stream.
      * @throws IOException in case of failure.
@@ -88,10 +103,10 @@ public class ExmlSaver implements ExmlTags {
         // is run after the resources declared have been closed.
         try (CloseableXMLStreamWriter closeableWriter = new CloseableXMLStreamWriter(os, INDENT_FILES)){
             this.out = closeableWriter.getW();
-        
+
             this.out.writeStartDocument();
             this.out.writeComment("GENERATED FILE, PLEASE DO NOT EDIT!!!");
-        
+
             dumpEXT(object);
         } catch (FactoryConfigurationError e) {
             throw new IOException(e);
@@ -100,7 +115,34 @@ public class ExmlSaver implements ExmlTags {
         } finally {
             this.out = null;
         }
-        
+    }
+
+    @objid ("dfa7e478-b926-461f-ab49-1841505bd0f1")
+    private void reportCompToForeign(final SmObjectImpl object, SmDependency dep, SmObjectImpl t) {
+        Object[] args = {object, t, dep,
+                object.getRepositoryObject(), t.getRepositoryObject() ,
+                object.getRepositoryObject().getRepositoryId(), t.getRepositoryObject().getRepositoryId(),
+                object.getStatusLazy(), t.getStatusLazy(),
+                SmLiveId.getRid(object.getLiveId()), SmLiveId.getRid(t.getLiveId())};
+
+        String msg = MessageFormat.format("""
+                Consistency error : {0} owns {1} through {2} , but they are not in the same repository .
+                - {0} storage is handled by {3} (rid={5})
+                - {1} storage is handled by {4} (rid={6})
+                - {0} status : {7} ; live rid = {9}
+                - {1} status : {8} ; live rid = {10}
+                """,
+                args);
+
+        if (! ExmlUtils.areTargetsAlwaysInSameRepository(dep)) {
+            Log.trace(msg);
+            return;
+        }
+
+        Log.error(msg);
+
+        Throwable err = new IllegalArgumentException(VStoreExml.I18N.getMessage("ExmlSaver.reportCompToForeign", args));
+        this.errSupport.fireWarning(err);
     }
 
     @objid ("fd245741-5986-11e1-991a-001ec947ccaf")
@@ -109,34 +151,33 @@ public class ExmlSaver implements ExmlTags {
             // Object already being externalized, skip it
             return;
         }
-        
+
         // Process it, add it to context
         recursionContext.add(object);
-        
+
         SmObjectImpl parent = getParentExt(object);
-        
+
         this.out.writeStartElement(TAG_OBJECT);
-        
+
         dumpID(TAG_ID, object);
         if (withPid && parent != null) {
             dumpID(TAG_CMSNODE_PID, parent);
         }
-        
+
         dumpATTRIBUTES(object);
         dumpDEPENDENCIES(object, recursionContext);
-        
+
         this.out.writeEndElement();
-        
+
         // // Processed, remove from context
         // recursionContext.remove(object);
-        
     }
 
     @objid ("fd245738-5986-11e1-991a-001ec947ccaf")
     private void dumpATT(final SmObjectImpl object, final SmAttribute att) throws XMLStreamException {
         this.out.writeStartElement(TAG_ATT);
         this.out.writeAttribute(ATT_NAME, att.getName());
-        
+
         Object attVal = object.getAttVal(att);
         if (attVal == null) {
             //TODO que faire ??
@@ -151,25 +192,23 @@ public class ExmlSaver implements ExmlTags {
             }
         }
         this.out.writeEndElement();
-        
     }
 
     @objid ("fd245735-5986-11e1-991a-001ec947ccaf")
     private void dumpATTRIBUTES(final SmObjectImpl object) throws XMLStreamException {
         this.out.writeStartElement(TAG_ATTRIBUTES);
-        
+
         for (SmAttribute att : object.getClassOf().getAllAttDef()) {
             dumpATT(object, att);
         }
         this.out.writeEndElement();
-        
     }
 
     @objid ("fd245734-5986-11e1-991a-001ec947ccaf")
     private void dumpCOMPS(final SmObjectImpl object, final SmDependency dep, final List<SmObjectImpl> targets, Collection<SmObjectImpl> recursionContext) throws XMLStreamException {
         this.out.writeStartElement(TAG_COMP);
         this.out.writeAttribute(ATT_RELATION, dep.getName());
-        
+
         for (SmObjectImpl t : targets) {
             if (! ExmlUtils.sameRepository(object, t)) {
                 dumpID(TAG_FOREIGNID, t);
@@ -180,19 +219,21 @@ public class ExmlSaver implements ExmlTags {
                 dumpID(TAG_COMPID, t);
             } else if (t.getRepositoryObject() != object.getRepositoryObject()) {
                 // Different handle ==> different file
+                assert (t.getRepositoryObject() instanceof ExmlStorageHandler) : String.format("Broken object: %s has %s as storage handler while saving %s->%s", t, t.getRepositoryObject(), object, dep);
+                assert (! ExmlUtils.areTargetsAlwaysInSameRepository(dep)) : String.format("Suspicious identifier instead of whole object for %s->%s : %s", object, dep , t);
                 dumpREFOBJ(t);
             } else {
                 // composed by value, recursive call
                 dumpOBJECT( t, recursionContext, false);
             }
         }
-        
+
         this.out.writeEndElement();
-        
     }
 
     /**
      * Write the object SmDependencies.
+     *
      * @param object the CMS node
      * @param recursionContext to avoid cycles
      * @throws XMLStreamException in case of XML error
@@ -200,13 +241,13 @@ public class ExmlSaver implements ExmlTags {
     @objid ("fd245730-5986-11e1-991a-001ec947ccaf")
     private void dumpDEPENDENCIES(final SmObjectImpl object, Collection<SmObjectImpl> recursionContext) throws XMLStreamException {
         this.out.writeStartElement(TAG_DEPENDENCIES);
-        
+
         List<SmDependency > dependencies = ExmlUtils.getExternalisableDeps(object);
-        
+
         for (SmDependency dep : dependencies) {
-        
+
             List<SmObjectImpl> content = object.getDepValList(dep);
-        
+
             if (! content.isEmpty()) {
                 if (ExmlUtils.isDepComponent(dep)) {
                     dumpCOMPS(object, dep, content, recursionContext);
@@ -215,24 +256,21 @@ public class ExmlSaver implements ExmlTags {
                 }
             }
         }
-        
+
         this.out.writeEndElement();
-        
     }
 
     /**
      * Write the CMS node dependencies.
-     * @param object
-     * @throws XMLStreamException
      */
     @objid ("fd24572d-5986-11e1-991a-001ec947ccaf")
     @Deprecated
     private void dumpFileDEPS(final SmObjectImpl object) throws XMLStreamException {
         this.out.writeStartElement(TAG_DEPS);
         dumpID("ID", object);
-        
+
         ElementDependencies deps = new DependencyAnalyzer().getDependentObjects(object);
-        
+
         // #if 0
         //         cout << std::endl << "BEGIN list of dependency objects for: " << const_cast<SmObjectImpl&>(object).name() << std::endl;
         //
@@ -250,33 +288,33 @@ public class ExmlSaver implements ExmlTags {
         //         }
         //         cout << std::endl << "END list of dependency objects for: " << const_cast<SmObjectImpl&>(object).name() << std::endl;
         // #endif
-        
+
         // dump composed
         for ( MObject it:deps.compNodes ) {
             dumpID(TAG_COMPID, it);
         }
-        
+
         // dump references nodes
         for ( MObject it:deps.refNodes) {
             dumpID(TAG_DEPS_EXTID, it);
         }
-        
+
         // dump ext ref
         for ( MObject it:deps.extDeps) {
             dumpID(TAG_FOREIGNID, it);
         }
-        
+
         // dump links
         for ( MObject it: deps.refDeps) {
             dumpREFOBJ(it);
         }
-        
+
         this.out.writeEndElement();
-        
     }
 
     /**
      * Write the file header.
+     *
      * @param object the main CMS node
      * @throws XMLStreamException in case of write error.
      */
@@ -288,17 +326,15 @@ public class ExmlSaver implements ExmlTags {
         //dumpFileDEPS(object);
         dumpOBJECT(object, new HashSet<SmObjectImpl>(), true);
         this.out.writeEndElement();
-        
     }
 
     @objid ("fd21f74d-5986-11e1-991a-001ec947ccaf")
     private void dumpID(final String xmlkey, final MObject object) throws XMLStreamException {
         this.out.writeEmptyElement(xmlkey);
-        
+
         this.out.writeAttribute(ATT_ID_NAME, Objects.toString(object.getName(), ""));
         this.out.writeAttribute(ATT_ID_MC, object.getMClass().getQualifiedName());
         this.out.writeAttribute(ATT_ID_UID, object.getUuid().toString());
-        
     }
 
     @objid ("fd21f747-5986-11e1-991a-001ec947ccaf")
@@ -315,24 +351,22 @@ public class ExmlSaver implements ExmlTags {
             }
         }
         this.out.writeEndElement();
-        
     }
 
     @objid ("fd21f73c-5986-11e1-991a-001ec947ccaf")
     private void dumpREFOBJ(final MObject object) throws XMLStreamException {
         this.out.writeStartElement(TAG_REFOBJ);
         dumpID(TAG_ID, object);
-        
+
         /*ExmlStorageHandler h = (ExmlStorageHandler) object.getRepositoryObject();
-        MObject parent = h.getCmsNode();
-        if (parent != null) {
-            // TODO This information is not accurate over time, to be removed and no tool should rely on it.
-            dumpID(TAG_PID, parent);
-        } else {
-            throw new XMLStreamException(object+" is not in a CMS node.");
-        }*/
+                        MObject parent = h.getCmsNode();
+                        if (parent != null) {
+                            // TODO This information is not accurate over time, to be removed and no tool should rely on it.
+                            dumpID(TAG_PID, parent);
+                        } else {
+                            throw new XMLStreamException(object+" is not in a CMS node.");
+                        }*/
         this.out.writeEndElement();
-        
     }
 
     /**
@@ -342,6 +376,7 @@ public class ExmlSaver implements ExmlTags {
      * <p><code>
      * "&#x5d; &#x5d;&gt;" <b>---></b> "]"(1) <b>+</b> "&#x5d; &#x5d;&gt;&lt;![CDATA[" <b>+</b> "]&gt;"(2)
      * </code>
+     *
      * @param aString a future CDATA string
      * @return a CDATA ready string
      */

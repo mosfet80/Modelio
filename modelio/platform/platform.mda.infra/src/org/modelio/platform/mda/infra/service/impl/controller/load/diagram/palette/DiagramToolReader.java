@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.service.impl.controller.load.diagram.palette;
 
@@ -40,26 +40,26 @@ public class DiagramToolReader {
         // the module.
         try {
             Object instance = null;
-        
+
             ContributionReader helper = new ContributionReader(module);
-        
+
             instance = helper.createHandler(
                     ContributionReader.CONTRIB_DIAGRAMTOOL, toolDef
                             .getHandler().getClazz(),
                     IDiagramTool.class);
-        
+
             // Check what we finally got for handler
             if (!(instance instanceof IDiagramTool)) {
                 throw new IOException(MdaInfra.I18N.getMessage("L43_class_is_not_IDiagramTool", toolDef.getHandler().getClazz()));
             }
-        
+
             // Process command addition
             IDiagramTool diagramTool = (IDiagramTool) instance;
-        
+
             // Decorate: label, icon, tooltip
             String label = module.getLabel(toolDef.getLabel());
             String tooltip = module.getLabel(toolDef.getTooltip());
-        
+
             ImageDescriptor image = null;
             if ((toolDef.getImage() != null) && !toolDef.getImage().equals("")) {
                 Path bitmap = module.getConfiguration()
@@ -67,29 +67,29 @@ public class DiagramToolReader {
                         .resolve(module.getLabel(toolDef.getImage()));
                 image = ImageDescriptor.createFromFile(null, bitmap.toString());
             }
-        
+
             diagramTool.decorate(label, tooltip, image);
-        
+
             // Collect hParameters
             Map<String, String> hParameters = helper.readParameters(toolDef
                     .getHandler().getHParameter());
-        
+
             // Collect applicable scopes
             List<ElementScope> sourceScopes = helper.readScopes(toolDef
                     .getScopeSource());
             List<ElementScope> targetScopes = helper.readScopes(toolDef
                     .getScopeTarget());
-        
+
             diagramTool.initialize(sourceScopes, targetScopes, hParameters,
                     module.getIModule());
-        
+
             // Register command
             module.registerCustomizedTool(toolDef.getId(), diagramTool);
-        
+
         } catch (IOException e) {
             MdaInfra.LOG.error(e);
         }
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.mmextensions.standard.modelshield.standardcheckers;
 
@@ -65,18 +65,18 @@ public class E243Checker extends TypeChecker {
         addRequiredType(smMetamodel.getMClass(Component.class));
         addRequiredType(smMetamodel.getMClass(TemplateParameter.class));
         addRequiredType(smMetamodel.getMClass(Enumeration.class));
-        
+
         plan.registerChecker(this, smMetamodel.getMClass(AssociationEnd.class), TriggerType.Update, "Source");
         plan.registerChecker(this, smMetamodel.getMClass(AssociationEnd.class), TriggerType.Update, "Target");
-        
+
         plan.registerChecker(this, smMetamodel.getMClass(AssociationEnd.class), TriggerType.Update, "Opposite");
-        
+
         plan.registerChecker(this, smMetamodel.getMClass(AssociationEnd.class), TriggerType.Create, null);
-        
+
     }
 
     @objid ("002ca718-38c1-1f6b-b3fb-001ec947cd2a")
-    public  E243Checker() {
+    public E243Checker() {
         super(ERRORID);
     }
 

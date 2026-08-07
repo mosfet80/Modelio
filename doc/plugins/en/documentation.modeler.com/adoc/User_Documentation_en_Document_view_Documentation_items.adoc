@@ -1,0 +1,45 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= Documentation items
+
+
+An essential quality of a model is its readability and that it should be easy to understand, this being even more critical long after the model elaboration, during the maintenance and evolution phases when stakeholders have forgotten almost everything about the model elaboration rationales.
+
+Among the information that helps understanding a model, there are obviously the diagrams whose presentation is normalized and therefore should be understood by every trained stakeholder. Added information to the diagrams are the description notes and other similar annotations, that also helps clarifying the model.
+
+Let's call all these elements *documentation items* in order to distinguish them from *documents* which are either real documents (word file, excel file, image file, and so on) or, in the context of Document Publisher, the specifications of document generation configurations (contents, template, stylesheet...).
+
+*Documentation items* are said to be *relative* to a model element, i.e a documentation item helps understanding a model element.
+
+The already evoked documentation items like diagrams, description notes and so on, are themselves model elements and are stored with the model. They are called *internal* documentation items. An important property of these internal documentation items is that their life cycle is strictly aligned to the life cycle of the element they document and their links to their relative model element cannot be lost as it is persisted in the model itself.
+
+However, these internal documentation items are most often not sufficient.
+
+The problem is that, during the elaboration of model (eg the design phases), many design discussions occur, many design decisions are taken based on rationales that are mostly expressed in natural language and never modeled for the simple reason that they can not easily be modeled. In the worst cases, these rationales are neither written nor stored anywhere and vanishes in the stakeholder memory with the time passing. When they are luckily written down into documents, most of the time they are stored and archived out of the model, which is fine excepted that, as a consequence, they may become literally disconnected from the model life cycle. Later on, their existence is forgotten, their relationships with some model elements are lost, resulting in difficult maintenance phases.
+
+*Examples of documentation items for a Package:*
+
+* Description notes _(internal)_
+* Diagrams _(internal)_
+* Design notes , meeting notes _(external eg: word document, mail)_
+* Prototype GUI sketches _(external)_
+* HTML page, Wiki page _(external)_
+
+Modelio can display and manage the links between model elements and those external documents and archives which are called _external_ documentation items. +
+The Document View is the view in Modelio aimed to manage all the *documentation items* relative to a given model element.
+
+The Document View is synchronized with the current selection in the tool. This means that the view is automatically refreshed when the selection changes, making of the Document View a dynamic view that immediately shows the documentation items available for the selected element.
+
+The Document view supports the following features:
+
+* displays the list of the documentation items relative to the currently selected element
+* displays a preview of the documentation items contents (where possible, the preview is an approximation for some formats)
+* supports the creation of new documentation items
+* supports the edition of a new documentation item (where possible)
+
+Like most views in Modelio, it can be shown/hidden at any moment.

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.usecasediagram.editor.plugin;
 
@@ -28,6 +28,9 @@ import org.modelio.diagram.editor.processor.AbstractDiagramInitializationProcess
 import org.modelio.diagram.elements.core.model.factory.DiagramFactoryRegistry;
 import org.modelio.diagram.styles.core.FactoryStyle;
 import org.modelio.diagram.styles.core.StyleLoader;
+import org.modelio.metamodel.diagrams.ClassDiagram;
+import org.modelio.metamodel.diagrams.CompositeStructureDiagram;
+import org.modelio.metamodel.diagrams.DeploymentDiagram;
 import org.modelio.metamodel.diagrams.StaticDiagram;
 import org.modelio.metamodel.diagrams.UseCaseDiagram;
 import org.modelio.uml.usecasediagram.editor.elements.actor.GmActorStructuredStyleKeys;
@@ -55,10 +58,14 @@ public class UseCaseProcessor extends AbstractDiagramInitializationProcessor {
     @Override
     protected void declareFactories(DiagramFactoryRegistry factoryRegistry) {
         factoryRegistry.registerDiagramFactories(UseCaseDiagram.MNAME, new UseCaseGmNodeFactory(), new UseCaseGmLinkFactory(), new UseCaseEditPartFactory());
-        
+
         factoryRegistry.registerExtensions(StaticDiagram.MNAME, UseCaseDiagram.MNAME);
         factoryRegistry.registerExtensions(UseCaseDiagram.MNAME, StaticDiagram.MNAME);
-        
+
+        // 27/11/2023 : found a Deployment diagram that displays GmActor whose namespace need migration
+        factoryRegistry.registerExtensions(UseCaseDiagram.MNAME, DeploymentDiagram.MNAME);
+        factoryRegistry.registerExtensions(UseCaseDiagram.MNAME, ClassDiagram.MNAME);
+        factoryRegistry.registerExtensions(UseCaseDiagram.MNAME, CompositeStructureDiagram.MNAME);
     }
 
     @objid ("7c1c4013-5eff-11e2-b9cc-001ec947c8cc")
@@ -69,7 +76,7 @@ public class UseCaseProcessor extends AbstractDiagramInitializationProcessor {
         factoryStyle.declareProvider(GmActorStructuredStyleKeys.Attribute.class);
         factoryStyle.declareProvider(GmActorStructuredStyleKeys.Operation.class);
         factoryStyle.declareProvider(GmActorStructuredStyleKeys.InternalStructure.class);
-        
+
         // Use Case
         factoryStyle.declareProvider(GmUseCaseStructuredStyleKeys.class);
         factoryStyle.declareProvider(GmUseCaseStructuredStyleKeys.Attribute.class);
@@ -77,16 +84,15 @@ public class UseCaseProcessor extends AbstractDiagramInitializationProcessor {
         factoryStyle.declareProvider(GmUseCaseStructuredStyleKeys.ExtensionPoint.class);
         factoryStyle.declareProvider(GmUseCaseStructuredStyleKeys.Inner.class);
         factoryStyle.declareProvider(GmUseCaseStructuredStyleKeys.InternalStructure.class);
-        
+
         // Use Case Dependency
         factoryStyle.declareProvider(GmUseCaseDependencyStyleKeys.class);
-        
+
         // Use Case Diagram
         factoryStyle.declareProvider(GmUseCaseDiagramStyleKeys.class);
-        
+
         // System
         factoryStyle.declareProvider(GmSystemStyleKeys.class);
-        
     }
 
     @objid ("7c1c4015-5eff-11e2-b9cc-001ec947c8cc")
@@ -96,11 +102,10 @@ public class UseCaseProcessor extends AbstractDiagramInitializationProcessor {
         StyleLoader loader = new StyleLoader();
         BundleContext bundle = DiagramEditorUseCase.getContext();
         URL url = FileLocator.find(bundle.getBundle(), new Path("res/factory.settings"), null);
-        
+
         loader.load(url);
-        
+
         factoryStyle.injectDefaultValues(loader.getStyleProperties());
-        
     }
 
 }

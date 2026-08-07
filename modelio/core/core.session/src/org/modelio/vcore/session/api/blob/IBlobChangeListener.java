@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.api.blob;
 
@@ -35,9 +35,10 @@ public interface IBlobChangeListener {
      * to the running Modelio instance, eg. when a Subversion update
      * modifies blobs. It may not be called if a Modelio plugin or module
      * modifies the blobs.
+     *
      * @param ev a blob change event.
      */
     @objid ("9e15860a-7366-483b-8f26-2732d1fe658b")
     void blobsChanged(IBlobChangeEvent ev);
-}
 
+}

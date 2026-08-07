@@ -14,7 +14,7 @@ Pour migrer des projets développés avec des versions antérieures à Modelio 2
 
 * Une installation opérationnelle de Modelio 2.2.1 ou 2.2.2
 * Une installation opérationnelle de Modelio 4
-* Le module de migration *M2toM3* que vous pouvez télécharger depuis le site https://store.modelio.org/resource/modules/migration-modelio-2-2-1-to-3-0.html[Modelio store].
+* Le module de migration *M2toM3*.
 
 
 ===== Lancement de la procédure de migration

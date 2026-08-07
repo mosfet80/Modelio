@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.ui.dialog;
 
@@ -49,43 +49,43 @@ import org.modelio.platform.ui.UIImages;
  * </ul>
  * <p>
  * Subclasses typical implementation:
- * 
+ *
  * <pre>
  * public class ExampleDialog extends ModelioDialog2 {
  * protected ExampleDialog(Shell parentShell) {
  * super(parentShell);
  * setBlockOnOpen(false);
  * }
- * 
+ *
  * &#64;Override
  * public Control createContentArea(Composite parent) {
  * Composite composite = new Composite(parent, SWT.NONE);
  * composite.setLayoutData(new GridData(GridData.FILL_BOTH));
- * 
+ *
  * composite.setLayout(new FillLayout());
  * // add controls to composite as necessary
  * Label label = new Label(composite, SWT.NONE);
  * label.setText("Dialog content is here");
- * 
+ *
  * return composite;
  * }
- * 
+ *
  * &#64;Override
  * protected void addButtonsInButtonBar(Composite parent) {
  * addDefaultButtons(parent);
  * }
- * 
+ *
  * &#64;Override
  * public void init() {
  * setTitle("ExampleDialog");
  * setImage(anImage);
  * }
- * 
+ *
  * &#64;Override
  * protected Point getInitialSize() {
  * return new Point(150, 150);
  * }
- * 
+ *
  * }
  * </pre>
  * </p>
@@ -124,10 +124,10 @@ public abstract class ModelioDialog2 extends TrayDialog {
             int style = getShellStyle();
             style &= ~(SWT.PRIMARY_MODAL | SWT.APPLICATION_MODAL | SWT.SYSTEM_MODAL);
             setShellStyle(style);
-        
+
         }
         super.setBlockOnOpen(shouldBlock);
-        
+
     }
 
     @objid ("2dd96dcb-ca3f-4842-b3ad-29398c5458d0")
@@ -137,7 +137,7 @@ public abstract class ModelioDialog2 extends TrayDialog {
             style &= ~(SWT.PRIMARY_MODAL | SWT.APPLICATION_MODAL | SWT.SYSTEM_MODAL);
             setShellStyle(style);
         }
-        
+
     }
 
     /**
@@ -145,19 +145,21 @@ public abstract class ModelioDialog2 extends TrayDialog {
      * <p>
      * For non modal dialogs, implementers should call <code>setBlockOnOpen(false)</code>
      * </p>
+     *
      * @param parentShell the parent SWT shell
      */
     @objid ("4d290b77-48b1-44d2-ab5e-1a68bdb1a148")
-    protected  ModelioDialog2(final Shell parentShell) {
+    protected ModelioDialog2(final Shell parentShell) {
         super(parentShell);
         setShellStyle(SWT.RESIZE | SWT.TITLE | SWT.CLOSE | SWT.BORDER | SWT.APPLICATION_MODAL | getDefaultOrientation());
         setBlockOnOpen(true);
         this.resourceManager = new LocalResourceManager(JFaceResources.getResources());
-        
+
     }
 
     /**
      * Return a local resource manager whose lifecycle is bound to the dialog life cycle (disposed when the dialog is disposed)
+     *
      * @return a resource manager local for this dialog.
      */
     @objid ("07d860c4-9ff3-4f9d-a6dc-474088e9c10d")
@@ -173,7 +175,7 @@ public abstract class ModelioDialog2 extends TrayDialog {
      * <p>
      * Subclasses may override this method as in the following example:
      * </p>
-     * 
+     *
      * <pre>
      * createButton(parent, IDialogConstants.YES_ID, IDialogConstants.YES_LABEL, false);
      * createButton(parent, IDialogConstants.NO_ID, IDialogConstants.NO_LABEL, false);
@@ -182,8 +184,9 @@ public abstract class ModelioDialog2 extends TrayDialog {
      * <p>
      * Note: The common button order is: <b>{other buttons}</b>, <b>OK</b>, <b>Cancel</b>. On some platforms, {@link #initializeBounds()} will move the default button to the right.
      * </p>
-     * @see #addDefaultButtons(Composite)
+     *
      * @param parent the button bar composite
+     * @see #addDefaultButtons(Composite)
      */
     @objid ("90ab2b55-209c-4d95-9a43-750a4f6e6b70")
     protected abstract void addButtonsInButtonBar(Composite parent);
@@ -193,13 +196,14 @@ public abstract class ModelioDialog2 extends TrayDialog {
      * <p>
      * Note: The common button order is: <b>{other buttons}</b>, <b>OK</b>, <b>Cancel</b>. On some platforms, {@link #initializeBounds()} will move the default button to the right.
      * </p>
+     *
      * @param parent the button bar composite
      */
     @objid ("f39a90e6-950f-4695-9fde-dca3adee3468")
     protected void addDefaultButtons(final Composite parent) {
         createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
         createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
-        
+
     }
 
     @objid ("f16a9b7f-b100-4b02-80d6-a1741e4e6699")
@@ -216,13 +220,14 @@ public abstract class ModelioDialog2 extends TrayDialog {
      * </p>
      * <p>
      * Subclasses should override this method as in the following example:
-     * 
+     *
      * <pre>
      * Composite composite = new Composite(parent, SWT.NONE);
      * composite.setLayoutData(new GridData(GridData.FILL_BOTH));
      * // add controls to composite as necessary
      * return composite;
      * </pre>
+     *
      * @param parent the parent composite to contain the dialog content area
      * @return the dialog content area control
      */
@@ -233,7 +238,7 @@ public abstract class ModelioDialog2 extends TrayDialog {
     @Override
     protected Control createContents(final Composite parent) {
         getShell().addDisposeListener((e) -> this.resourceManager.dispose());
-        
+
         // create the top level composite for the dialog
         GridLayout layout = new GridLayout();
         layout.marginHeight = 0;
@@ -242,16 +247,16 @@ public abstract class ModelioDialog2 extends TrayDialog {
         Composite composite = new Composite(parent, SWT.NONE);
         composite.setLayout(layout);
         composite.setLayoutData(new GridData(GridData.FILL_BOTH));
-        
+
         // applyDialogFont(composite);
         // initialize the dialog units
         initializeDialogUnits(composite);
         composite.setBackground(UIColor.WHITE);
-        
+
         // create the dialog area and button bar
         this.dialogArea = createDialogArea(composite);
         this.buttonBar = createButtonBar(composite);
-        
+
         setImage(UIImages.MODELIO);
         init();
         return composite;
@@ -273,6 +278,7 @@ public abstract class ModelioDialog2 extends TrayDialog {
      * <p>
      * The <code>Dialog</code> implementation of this framework method creates and returns a new <code>Composite</code> with no margins and spacing. Subclasses should override.
      * </p>
+     *
      * @param parent The parent composite to contain the dialog area
      * @return the dialog area control
      */
@@ -290,15 +296,15 @@ public abstract class ModelioDialog2 extends TrayDialog {
         composite.setLayoutData(new GridData(GridData.FILL_BOTH));
         composite.setFont(parent.getFont());
         composite.setBackground(UIColor.WHITE);
-        
+
         // Build the separator line
         final Label titleBarSeparator = new Label(composite, SWT.HORIZONTAL | SWT.SEPARATOR);
         titleBarSeparator.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        
+
         initHelpButton(getShell());
-        
+
         Control content = createContentArea(composite);
-        
+
         // Ensure returned control has valid layout data
         if (content != null && ! (content.getLayoutData() instanceof GridData)) {
             throw new IllegalStateException(String.format("%s.createContentArea() returned a %s with no valid GridData layout data", getClass().getName(), content.getClass().getSimpleName()));
@@ -313,6 +319,7 @@ public abstract class ModelioDialog2 extends TrayDialog {
 
     /**
      * The <code>ModelioDialog</code> implementation of this <code>Window</code> methods returns an initial size which is at least some reasonable minimum.
+     *
      * @return the initial size of the dialog
      */
     @objid ("d574c44e-4167-4550-9211-5c252b55ec1a")
@@ -321,7 +328,7 @@ public abstract class ModelioDialog2 extends TrayDialog {
         final Point shellSize = super.getInitialSize();
         return new Point(Math.max(convertHorizontalDLUsToPixels(ModelioDialog2.MIN_DIALOG_WIDTH), shellSize.x),
                 Math.max(convertVerticalDLUsToPixels(ModelioDialog2.MIN_DIALOG_HEIGHT), shellSize.y));
-        
+
     }
 
     /**
@@ -335,24 +342,26 @@ public abstract class ModelioDialog2 extends TrayDialog {
 
     /**
      * Sets the dialog shell title.
+     *
      * @param title the title show
      */
     @objid ("94288b27-6867-4eb4-bcd2-faabe267883d")
     protected void setTitle(final String title) {
         if (getShell() != null)
             getShell().setText(title != null ? title : "");
-        
+
     }
 
     /**
      * Sets the dialog shell icon.
+     *
      * @param title the title show
      */
     @objid ("2ffcd314-1c85-42f9-af38-a9ff33114635")
     protected void setImage(final Image image) {
         if (getShell() != null)
             getShell().setImage(image != null ? image : null);
-        
+
     }
 
     @objid ("aeff832f-940b-42e5-bd4e-da734903ff65")
@@ -370,7 +379,7 @@ public abstract class ModelioDialog2 extends TrayDialog {
                 }
             });
         }
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.communicationdiagram.editor.elements.communicationmessage;
 
@@ -31,7 +31,7 @@ import org.modelio.diagram.styles.core.IStyle;
  * Edit part for {@link GmCommunicationSentMessageArrow} and {@link GmCommunicationInvertedMessageArrow}.
  * <p>
  * Creates a filled arrow on the connection owning it. The arrow is filled with the line color.
- * 
+ *
  * @author cmarin
  */
 @objid ("7a3a6615-55b6-11e2-877f-002564c97630")
@@ -52,13 +52,13 @@ public class CommunicationMessageArrowEditPart extends AbstractNodeEditPart {
     @Override
     protected IFigure createFigure() {
         final DefaultPolylineDecoration deco = new DefaultPolylineDecoration();
-        
+
         deco.setTemplate(TRIANGLE_TIP);
         deco.setScale(7, 6);
         deco.setOpaque(true);
         deco.setLineWidth(5);
         deco.setFill(false);
-        
+
         refreshFromStyle(deco, getModelStyle());
         return deco;
     }
@@ -74,7 +74,7 @@ public class CommunicationMessageArrowEditPart extends AbstractNodeEditPart {
     protected void createEditPolicies() {
         super.createEditPolicies();
         removeEditPolicy(EditPolicy.COMPONENT_ROLE);
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.project.services.createproject;
 
@@ -34,6 +34,7 @@ import org.modelio.platform.project.services.openproject.IProjectServiceAccess;
 public interface IProjectCreator {
     /**
      * Creates a new project in the current workspace. The nature and the properties of the project to create are passed in the <code>dataModel</code> argument.
+     *
      * @param projectCreator the delegated project creator, typically null. If null a project creator will be guessed from 'data' and used to create the project.
      * @param data the nature, characteristics and properties of the project to create.
      * @param monitor a progress monitor, null accepted.
@@ -44,6 +45,7 @@ public interface IProjectCreator {
 
     /**
      * Equivalent to calling {@link IProjectService#createProject(IProjectCreator, IProjectCreationData, IProgressMonitor)} with projectCreator being null
+     *
      * @param data the nature, characteristics and properties of the project to create. This will determine wich project creator to use.
      * @param monitor a progress monitor, null accepted.
      */
@@ -52,5 +54,5 @@ public interface IProjectCreator {
 
     @objid ("708c7f99-24db-4439-b328-54a2163a2efe")
     void configure(IProjectServiceAccess service);
-}
 
+}

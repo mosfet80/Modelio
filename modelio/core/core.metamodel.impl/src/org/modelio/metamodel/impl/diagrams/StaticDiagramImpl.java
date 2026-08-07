@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.diagrams;
 
 import java.util.ArrayList;
@@ -43,7 +42,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0070c830-c4bf-1fd8-97fe-001ec947cd2a")
 public class StaticDiagramImpl extends AbstractDiagramImpl implements StaticDiagram {
-    @objid ("fc8e0744-0e95-4a37-9a49-e98a244b3aa2")
+    @objid ("a2fbe250-4a04-4bbd-aa63-04d8a9772f94")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -51,17 +50,17 @@ public class StaticDiagramImpl extends AbstractDiagramImpl implements StaticDiag
         return super.getCompositionOwner();
     }
 
-    @objid ("a1bb4f4c-781f-41af-b7e0-8d266e1cc58d")
+    @objid ("4425ccf6-852c-4558-b139-d9f870480db2")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("b5f33ddf-edb5-44ae-9340-80278e995856")
+    @objid ("2153f25e-bf5e-42fb-a31d-397a2887a1ab")
     @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
@@ -70,7 +69,7 @@ public class StaticDiagramImpl extends AbstractDiagramImpl implements StaticDiag
           return super.accept(v);
     }
 
-    @objid ("13d1492d-75ef-4411-8c24-1ba0b1016f03")
+    @objid ("7b491113-165d-48fb-84fc-692dff27b11f")
     public Object accept(IModelVisitor v) {
         return v.visitStaticDiagram(this);
     }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel.meta.descriptor;
 
@@ -28,13 +28,13 @@ import org.modelio.vbasic.version.Version;
 
 /**
  * Metaclass descriptor.
- * 
+ *
  * @author cma
  * @since 3.6
  */
 @objid ("a04ba7a0-3a0b-4735-8b55-51f4969dfe39")
 public class MClassDescriptor implements Serializable {
-    
+
     @mdl.prop
     @objid ("cc92dd8b-6228-45d1-8082-3361409939b3")
     public boolean cmsNode;
@@ -51,7 +51,7 @@ public class MClassDescriptor implements Serializable {
         this.cmsNode = value;
     }
 
-    
+
     @mdl.prop
     @objid ("7c99a649-37d2-4625-9272-c14a2f29e704")
     public boolean abstrakt;
@@ -68,7 +68,7 @@ public class MClassDescriptor implements Serializable {
         this.abstrakt = value;
     }
 
-    
+
     @mdl.prop
     @objid ("9757f1aa-249e-495d-81c4-0b6f9678f1db")
     public String name;
@@ -85,7 +85,7 @@ public class MClassDescriptor implements Serializable {
         this.name = value;
     }
 
-    
+
     @mdl.prop
     @objid ("aa6c545d-c25f-496a-9492-1072b9713d51")
     public boolean fake;
@@ -105,7 +105,7 @@ public class MClassDescriptor implements Serializable {
     @objid ("dc4ac586-8a61-4eee-b191-66fcb0f0c1fd")
     private static final long serialVersionUID = 1L;
 
-    
+
     @mdl.prop
     @objid ("fed8b124-a4c7-4fba-8056-c37ce1223827")
     public final List<MDependencyDescriptor> dependencies = new ArrayList<> ();
@@ -116,7 +116,7 @@ public class MClassDescriptor implements Serializable {
         return this.dependencies;
     }
 
-    
+
     @mdl.prop
     @objid ("846261a3-133b-4172-848a-4b17e3714e3a")
     public final List<MAttributeDescriptor> attributes = new ArrayList<> ();
@@ -127,7 +127,7 @@ public class MClassDescriptor implements Serializable {
         return this.attributes;
     }
 
-    
+
     @mdl.prop
     @objid ("3f4675b5-f963-4181-bd2a-d96d0ee13dd7")
     public Version version;
@@ -144,7 +144,7 @@ public class MClassDescriptor implements Serializable {
         this.version = value;
     }
 
-    
+
     @mdl.prop
     @objid ("ed2a407e-dc88-4b81-9dff-4bd65b7359c5")
     public MClassRef parent;
@@ -231,7 +231,7 @@ public class MClassDescriptor implements Serializable {
         return getClass().getSimpleName()+" = [" +
                                 "name=" + (this.name != null ? "\"" + this.name + "\"" : null) +
                                 "]";
-        
+
     }
 
 }

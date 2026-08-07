@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.data.ramc;
 
@@ -32,6 +32,7 @@ import org.modelio.vbasic.xml.CloseableXMLStreamWriter;
 
 /**
  * Write a RAMC manifest as XML to a stream.
+ *
  * @author cma
  * @since 3.6
  */
@@ -44,6 +45,7 @@ public class ManifestWriter {
     private XMLStreamWriter writer;
 
     /**
+     *
      * @param manifestToWrite the manifest to write
      * @param out the output stream
      * @throws IOException on failure
@@ -53,36 +55,36 @@ public class ManifestWriter {
         try (CloseableXMLStreamWriter w = new CloseableXMLStreamWriter(out, true)){
             this.writer = w.getW();
             this.manifest = manifestToWrite;
-            
+
             write ();
         } catch (FactoryConfigurationError | XMLStreamException e) {
             throw new IOException(e.getLocalizedMessage(), e);
         }
-        
+
     }
 
     @objid ("9b74427b-24c9-4354-8e2e-fc87f18757e2")
     private void write() throws XMLStreamException {
         writeMetadataHeader();
-        
+
         // Dependencies
         writeMetadataDependencies();
-            
+
         // Contributors
         writeMetadataContributors();
-            
+
         // Contributors
         writeMetadataMetamodels();
-            
+
         // Roots
         writeMetadataRoots();
-            
+
         // Exported files
         writeFileEntries();
-            
+
         // Footer
         writeMetadataFooter();
-        
+
     }
 
     @objid ("38d0f95c-ac82-4c5b-a43d-bba051ed9e98")
@@ -99,39 +101,39 @@ public class ManifestWriter {
         this.writer.writeStartElement("description");
         this.writer.writeCData(this.manifest.getDescription());
         this.writer.writeEndElement();
-        
+
     }
 
     @objid ("9b2698a2-770d-4b8e-a781-79d2d82e6d33")
     private void writeMetadataDependencies() throws XMLStreamException {
         this.writer.writeStartElement("dependencies");
-        
+
         for (VersionedItem<?> parentRamc : this.manifest.getRequiredModelComponents()) {
             this.writer.writeEmptyElement("dependency");
             this.writer.writeAttribute("name", parentRamc.getName());
             this.writer.writeAttribute("version", parentRamc.getVersion().toString());
         }
         this.writer.writeEndElement();
-        
+
     }
 
     @objid ("39d86a68-f2e2-4877-8b41-229b48682255")
     private void writeMetadataContributors() throws XMLStreamException {
         this.writer.writeStartElement("contributors");
-        
+
         for (VersionedItem<?> parentRamc : this.manifest.getContributingModules()) {
             this.writer.writeEmptyElement("contributor");
             this.writer.writeAttribute("name", parentRamc.getName());
             this.writer.writeAttribute("version", parentRamc.getVersion().toString());
         }
         this.writer.writeEndElement();
-        
+
     }
 
     @objid ("388c48dc-9ec4-4415-a4f2-94e741c873c5")
     private void writeMetadataRoots() throws XMLStreamException {
         this.writer.writeStartElement("roots");
-        
+
         for (ModelRef ref : this.manifest.getRoots()) {
             this.writer.writeEmptyElement("root");
             this.writer.writeAttribute("metaclass", ref.mc);
@@ -139,13 +141,13 @@ public class ManifestWriter {
             this.writer.writeAttribute("uuid", ref.uuid);
         }
         this.writer.writeEndElement();
-        
+
     }
 
     @objid ("d59684ba-0619-4652-9e10-85596e880f57")
     private void writeFileEntries() throws XMLStreamException {
         //this.writer.writeStartElement("roots");
-        
+
         for (ExportedFile ref : this.manifest.getExportedFiles()) {
             this.writer.writeEmptyElement("file");
             this.writer.writeAttribute("archive-name", ref.getNameInArchive());
@@ -153,27 +155,27 @@ public class ManifestWriter {
             this.writer.writeAttribute("mtime", String.valueOf(ref.getDate().to(TimeUnit.SECONDS)));
         }
         //this.writer.writeEndElement();
-        
+
     }
 
     @objid ("f6251cbb-7ec3-4254-93d8-452fdcc69a1a")
     private void writeMetadataFooter() throws XMLStreamException {
         this.writer.writeEndElement();
         this.writer.writeEndDocument();
-        
+
     }
 
     @objid ("2393b778-33ba-4d2b-b274-74f377c87bd7")
     private void writeMetadataMetamodels() throws XMLStreamException {
         this.writer.writeStartElement("metamodels");
-        
+
         for (VersionedItem<?> mm : this.manifest.getRequiredMetamodelFragments()) {
             this.writer.writeEmptyElement("metamodel");
             this.writer.writeAttribute("name", mm.getName());
             this.writer.writeAttribute("version", mm.getVersion().toString());
         }
         this.writer.writeEndElement();
-        
+
     }
 
 }

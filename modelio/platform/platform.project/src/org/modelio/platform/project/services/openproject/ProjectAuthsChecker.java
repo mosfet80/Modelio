@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.project.services.openproject;
 
@@ -55,7 +55,7 @@ import org.modelio.vbasic.progress.SubProgress;
  * <li>{@link #checkMissingAuths(GProjectDescriptor)} : to be called before opening the project
  * <li>{@link #checkAuthErrors(IProgressMonitor, IGProject)} : to be called after project opening to request auth on fragments that failed authentication.
  * </ul>
- * 
+ *
  * @author cma
  * @since 4.0 : was before in one of the OpenProjectHandler implementations.
  */
@@ -71,12 +71,12 @@ class ProjectAuthsChecker {
     private final IAuthData projectAuth;
 
     @objid ("bdd08bcf-d7f8-4bb2-9bba-c67bc6adafd9")
-    public  ProjectAuthsChecker(IAuthenticationPrompter authPrompter, IModuleManagementService moduleService, IAuthData projectAuth) {
+    public ProjectAuthsChecker(IAuthenticationPrompter authPrompter, IModuleManagementService moduleService, IAuthData projectAuth) {
         super();
         this.authPrompter = authPrompter;
         this.moduleService = moduleService;
         this.projectAuth = projectAuth;
-        
+
     }
 
     /**
@@ -85,6 +85,7 @@ class ProjectAuthsChecker {
      * Ask the user for authentication data if needed and possible. Try to mount again fragments after the user changed authentication data.
      * <p>
      * TODO : this method might be useless now {@link OpenProjectService} and {@link TodoRunner} nearly catches everywhere authentication problems and uses {@link IAuthenticationPrompter} to resolve them real time.
+     *
      * @param monitor a progress monitor, may be null.
      * @param openedProject the opened project
      */
@@ -93,30 +94,30 @@ class ProjectAuthsChecker {
         if (this.authPrompter == null) {
             return;
         }
-        
+
         int monCount = openedProject.getParts(IGModelFragment.class).size() + openedProject.getParts(GModule.class).size();
         SubProgress mon = ModelioProgressAdapter.convert(monitor, monCount);
-        
+
         for (IGModelFragment f : openedProject.getParts(IGModelFragment.class)) {
             while (needsAuthPrompt(f)) {
                 mon.setWorkRemaining(monCount + 1);
-        
+
                 IAuthData confAuthData = f.getAuth().getData();
                 IAuthData oldAuthData = confAuthData != null ? confAuthData : new NoneAuthData();
                 String label = AppProjectCore.I18N.getMessage("OpenProjectHandler.Auth.FragmentLabel", f.getId());
-        
+
                 // Prompt for auth
                 IAuthData newAuthData = promptAuthentication(oldAuthData, label, uriToString(f.getDescriptor().getLocation()), getError(f));
-        
+
                 // Check for user abort
                 if (newAuthData == null) {
                     break;
                 }
-        
+
                 if (oldAuthData != newAuthData) {
                     f.getAuth().setData(newAuthData);
                 }
-        
+
                 // FIXME Not sure here, should not mount() but rather add to project parts which in turn will mount() ?
                 SubProgress m2 = mon.newChild(1);
                 try {
@@ -125,11 +126,11 @@ class ProjectAuthsChecker {
                     // ignore here, error is checked in while condition
                 }
             }
-        
+
             mon.worked(1);
             monCount--;
         }
-        
+
         List<GModule> sortedModules = openedProject.getParts(GModule.class);
         try {
             sortedModules = MTopoSorter.sortModules(sortedModules);
@@ -137,37 +138,38 @@ class ProjectAuthsChecker {
             AppProjectCore.LOG.warning(e.toString());
             AppProjectCore.LOG.debug(e);
         }
-        
+
         for (GModule f : sortedModules) {
             IAuthData authData = f.getAuth().getData();
             while (needsAuthPrompt(f)) {
                 String label = AppProjectCore.I18N.getMessage("OpenProjectHandler.Auth.ModuleLabel", f.getId(), f.getVersion().toString());
                 IAuthData newAuthData = promptAuthentication(authData, label, f.getDescriptor().getLocation().toString(), getError(f));
-        
+
                 // Check for user abort
                 if (newAuthData == null) {
                     break;
                 }
-        
+
                 if (authData != newAuthData) {
                     f.getAuth().setData(newAuthData);
                 }
-        
+
                 try {
                     this.moduleService.activateModule(f);
                 } catch (@SuppressWarnings ("unused") ModuleException e) {
                     // ignore here, error is checked in while condition
                 }
             }
-        
+
             mon.worked(1);
             monCount--;
         }
-        
+
     }
 
     /**
      * Check authentication data on the project and all fragments before the project is opened.
+     *
      * @param projectToOpen a project descriptor
      * @return the project authentication data on success, <i>null</i> if the user aborts open.
      */
@@ -175,12 +177,12 @@ class ProjectAuthsChecker {
     public IAuthData checkMissingAuths(final GProjectDescriptor projectToOpen) {
         String label = AppProjectCore.I18N.getMessage("OpenProjectHandler.Auth.ProjectLabel", projectToOpen.getName());
         IAuthData firstProjAuth = this.projectAuth != null ? this.projectAuth : projectToOpen.getAuthDescriptor().getData();
-        
+
         IAuthData projAuthData = checkMissingPartAuth(
                 firstProjAuth,
                 label,
                 projectToOpen.getRemoteLocation());
-        
+
         AuthResolver authResolver = new AuthResolver(projAuthData);
         for (GProjectPartDescriptor f : projectToOpen.getPartDescriptors()) {
             IAuthData authData = authResolver.resolve(f.getAuth());
@@ -200,6 +202,7 @@ class ProjectAuthsChecker {
 
     /**
      * Display a SWT dialog that prompts authentication .
+     *
      * @param authData the authentication to complete
      * @param name the project or fragment name to authenticate.
      * @param location the location of the element to authenticate , usually an URL.
@@ -214,12 +217,12 @@ class ProjectAuthsChecker {
     @objid ("384b0ca0-9855-4902-bc4a-44b058677c75")
     private IAuthData checkMissingPartAuth(IAuthData authToCheck, String name, String location) {
         IAuthData authData = authToCheck;
-        
+
         if (authData == null || !authData.isComplete()) {
             if (authData == null) {
                 authData = new UserPasswordAuthData();
             }
-        
+
             do {
                 authData = promptAuthentication(authData, name, location, null);
             } while (authData != null && !authData.isComplete());
@@ -248,11 +251,12 @@ class ProjectAuthsChecker {
         } else {
             return e.getLocalizedMessage();
         }
-        
+
     }
 
     /**
      * A fragment needs authentication prompting if it is down with a {@link FragmentAuthenticationException} or a {@link AccessDeniedException}.
+     *
      * @param f the module to check
      * @return true if authentication needs to be prompted
      */
@@ -265,11 +269,12 @@ class ProjectAuthsChecker {
         } else {
             return false;
         }
-        
+
     }
 
     /**
      * A module needs authentication prompting if its model component fragment is down with a {@link FragmentAuthenticationException} or a {@link AccessDeniedException}.
+     *
      * @param f the module to check
      * @return true if authentication needs to be prompted
      */
@@ -279,7 +284,7 @@ class ProjectAuthsChecker {
                 || InheritedAuthData.matches(f.getAuth().getData())) {
             return false;
         }
-        
+
         // IGModelFragment moduleFrag = f.getModelFragment();
         Throwable downError = f.getState().getDownError();
         return downError instanceof FragmentAuthenticationException || downError instanceof AccessDeniedException;
@@ -290,9 +295,9 @@ class ProjectAuthsChecker {
         if (authData != null || uri == null) {
             return false;
         }
-        
+
         final String scheme = uri.getScheme();
-        
+
         if (scheme == null || scheme.isEmpty()) {
             // relative path : no auth
             return false;
@@ -303,7 +308,7 @@ class ProjectAuthsChecker {
             // file : no auth
             return false;
         }
-        
+
         // all other cases : auth needed
         return true;
     }

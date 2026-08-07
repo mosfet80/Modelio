@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -42,7 +42,7 @@ public class EAddStructuralFeatureValueAction extends EActivityNode {
     }
 
     @objid ("5d523051-d4b5-4ec8-bba2-888cc8d68a6f")
-    public  EAddStructuralFeatureValueAction(org.eclipse.uml2.uml.AddStructuralFeatureValueAction element) {
+    public EAddStructuralFeatureValueAction(org.eclipse.uml2.uml.AddStructuralFeatureValueAction element) {
         super(element);
     }
 
@@ -51,34 +51,34 @@ public class EAddStructuralFeatureValueAction extends EActivityNode {
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setFeature((OpaqueAction) objingElt);
-        
+
     }
 
     @objid ("beeb8435-5d1a-4e6b-9016-71dfb150ae2d")
     private void setFeature(OpaqueAction objingElt) {
         org.eclipse.uml2.uml.StructuralFeature feature = ((org.eclipse.uml2.uml.AddStructuralFeatureValueAction) getEcoreElement()).getStructuralFeature();
-        
+
         if (feature != null) {
-            
+
             ReverseProperties revProp = ReverseProperties.getInstance();
             Object behavior = revProp.getMappedElement(feature);
-        
-            if ((behavior != null) && (behavior instanceof ModelElement)){   
-        
+
+            if ((behavior != null) && (behavior instanceof ModelElement)){
+
                 IMModelServices mmServices  = revProp.getMModelServices();
-        
+
                 Dependency dependency = mmServices.getModelFactory().getFactory(IStandardModelFactory.class).createDependency();
                 try {
                     dependency.addStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2STRUCTURALFEATUREREFERENCE);
                 } catch (ExtensionNotFoundException e) {
                     Xmi.LOG.warning(e);
                 }
-        
+
                 dependency.setDependsOn((ModelElement) behavior);
                 dependency.setImpacted(objingElt);
             }
         }
-        
+
     }
 
 }

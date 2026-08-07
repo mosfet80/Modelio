@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.jdbm.impl.migration.v4;
 
@@ -57,18 +57,20 @@ class V4Transcoder {
     private MRef currentRef;
 
     /**
+     *
      * @param mm the metamodel
      * @param index the new base index to be populated
      */
     @objid ("36fc4c77-d94e-42dd-bcc1-5e3faecacc1d")
-    public  V4Transcoder(SmMetamodel mm, JdbmIndex index) {
+    public V4Transcoder(SmMetamodel mm, JdbmIndex index) {
         this.mm = mm;
         this.index = index;
-        
+
     }
 
     /**
      * Transcode in to out and update indexes.
+     *
      * @param in input data with old format
      * @param out same data with new format
      * @param uuid the UUID of the object to transcode.
@@ -79,34 +81,34 @@ class V4Transcoder {
         try {
             final String clsName = in.readUTF();
             final SmClass cls = this.mm.getMClass(clsName);
-        
+
             if (cls == null) {
                 throw new IOException(MessageFormat.format("''{0}'' metaclass is missing.", clsName, uuid));
             }
-        
+
             String strUuid = uuid.toString();
             this.currentRef = new MRef (clsName, strUuid);
-        
+
             out.writeUTF(cls.getQualifiedName());
-        
+
             for (MAttribute att : cls.getAttributes(true)) {
                 Object v = readAttribute(in, out, att);
                 writeAttribute(out, v, att);
             }
-        
+
             for (SmDependency  d: cls.getAllDepDef()) {
                 if (Helper.isPersistent(d)) {
                     transcodeDep(in, out, d);
                 }
             }
-            
+
             this.index.addRefToMain(cls, strUuid);
-            
+
         } catch (IOError e) {
             // JDBM throws IOErrors
             throw new IOException(e);
         }
-        
+
     }
 
     @objid ("1f3d48c1-4efa-4c0e-8e2c-93b07807b5ac")
@@ -119,7 +121,7 @@ class V4Transcoder {
             for (int i=0; i < len; i++) {
                 s.append(in.readChar());
             }
-        
+
             val = s.toString();
         } else if (type == Integer.class) {
             val = in.readInt();
@@ -168,36 +170,36 @@ class V4Transcoder {
         } else {
             throw new UnsupportedOperationException(type+" "+val+" "+att+" attribute not supported.");
         }
-        
+
     }
 
     @objid ("903922f0-d822-4920-88aa-8ee56fece6ea")
     private void transcodeDep(DataInput in, final DataOutput out, SmDependency d) throws IOException {
         final int size = in.readInt();
-        
+
         assert (d.getMaxCardinality() == -1 || size <= d.getMaxCardinality()) ;
-        
+
         Collection<MRef> values = new ArrayList<>(size);
-        
+
         out.writeInt(size);
-        
+
         for (int i=0; i<size; i++) {
             values.add(transcodeRef(in, out));
         }
-        
+
         this.index.addCrossRef(this.currentRef, d, values );
-        
+
     }
 
     @objid ("179dbc6c-a7d9-4b20-8060-b11b4bcd66db")
     private MRef transcodeRef(DataInput in, final DataOutput out) throws IOException {
         // Read
         boolean isLocal = in.readBoolean();
-        
+
         String clsid = in.readUTF();
         String uuid = readUuid(in);
-        
-        // Write 
+
+        // Write
         out.writeBoolean( isLocal);
         out.writeUTF(clsid);
         out.writeUTF(uuid);
@@ -206,6 +208,7 @@ class V4Transcoder {
 
     /**
      * Get all possible enumeration values of an enumerate type.
+     *
      * @param type a enumerate class.
      * @return all possible values, ordered.
      */
@@ -223,7 +226,7 @@ class V4Transcoder {
     private static String readUuid(DataInput in) throws IOException {
         long most = in.readLong();
         long least = in.readLong();
-        
+
         UUID uuid = new UUID(most, least);
         return uuid.toString();
     }

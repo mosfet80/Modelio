@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.admtool.handlers;
 
@@ -27,7 +46,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
@@ -39,9 +58,14 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.modelio.admtool.plugin.AdmTool;
 import org.modelio.api.module.lifecycle.ModuleException;
+import org.modelio.gproject.core.IGPart;
 import org.modelio.gproject.core.IGProject;
+import org.modelio.gproject.data.project.DefinitionScope;
 import org.modelio.gproject.data.project.ProjectType;
+import org.modelio.gproject.module.IModuleHandle;
 import org.modelio.gproject.module.IModuleStore;
+import org.modelio.gproject.parts.module.GModule;
+import org.modelio.platform.core.project.ICurrentProjectService;
 import org.modelio.platform.mda.infra.service.IModuleManagementService;
 import org.modelio.platform.project.services.IProjectService;
 import org.modelio.platform.ui.progress.IModelioProgressService;
@@ -50,35 +74,53 @@ import org.modelio.vbasic.files.FileUtils;
 import org.modelio.vbasic.progress.SubProgress;
 
 /**
- * Handler to deploy an archive direclty in the project
- * 
+ * Handler to deploy an archive directly in the project
+ *
  * @author cmarin
  */
 @objid ("e762e859-1cf3-4d59-a25a-1a11c87718e7")
 public class DeployArchiveHandler {
+    /**
+     * Boolean property to put on the project to allow it being upgraded.
+     *
+     * @since 6.0.0
+     * @deprecated It is currently impossible for users to add it with Modelio Server GUI .
+     */
+    @objid ("00a31ac9-3bdc-4129-8c9b-078292cedc70")
+    @Deprecated
+    private static final String PROP_CAN_DEPLOY_ARCHIVES_ANY = "org.modelio.admtool.can-deploy-archives.ANY";
+
+    /**
+     * Boolean part property to put on a module to allow it being upgraded.
+     *
+     * @since 6.0.0
+     */
+    @objid ("bcf8e70d-dd6e-41dc-a87f-9b0dda2228b6")
+    private static final String PROP_CAN_UPDATE_MODULE = "org.modelio.admtool.can-deploy-archives";
+
     @objid ("92b3a153-caf2-4be4-a075-c8b6a860c6ad")
     @Execute
-    void execute(@Named (IServiceConstants.ACTIVE_SHELL) Shell shell, IModuleManagementService moduleSvc, IProjectService projectservice, IModelioProgressService progressService, IModuleStore catalog) {
+    void execute(@Named(IServiceConstants.ACTIVE_SHELL) Shell shell, IModuleManagementService moduleSvc, ICurrentProjectService projectservice, IModelioProgressService progressService, IModuleStore catalog) {
         FileDialog dlg = new FileDialog(shell, SWT.OPEN);
         dlg.setFilterNames(new String[] { AdmTool.I18N.getString("DeployArchiveHandler.MDAComponents") }); //$NON-NLS-1$
         dlg.setFilterExtensions(new String[] { "*.jmdac" }); //$NON-NLS-1$
-        
+
         dlg.open();
-        
+
         String[] modules = dlg.getFileNames();
         ArrayList<String> paths = new ArrayList<>(modules.length);
         File parentPath = new File(dlg.getFilterPath());
         for (String m : modules) {
             paths.add(new File(parentPath, m).toString());
         }
-        
+
         final IGProject openedProject = projectservice.getOpenedProject();
-        
+
         DeployModule runnable = new DeployModule(paths, catalog, moduleSvc, openedProject);
-        
+
         try {
             progressService.run(AdmTool.I18N.getString("DeployArchiveHandler.AddModulesProgressTitle"), true, false, runnable);
-        
+
         } catch (InvocationTargetException e) {
             AdmTool.LOG.error(e);
             MessageDialog.openError(shell,
@@ -87,11 +129,11 @@ public class DeployArchiveHandler {
         } catch (InterruptedException e) {
             // ignore
         }
-        
     }
 
     /**
      * Forbid this command for server projects.
+     *
      * @param projectservice the project service
      * @return true if the command is available.
      */
@@ -99,9 +141,21 @@ public class DeployArchiveHandler {
     @CanExecute
     boolean canExecute(IProjectService projectservice) {
         IGProject openedProject = projectservice.getOpenedProject();
-        
-        // Forbid this command for server projects.
-        return openedProject != null && openedProject.getType() == ProjectType.LOCAL;
+        if (openedProject == null)
+            return false;
+
+        // Allow the command on local projects
+        if (openedProject.getType() == ProjectType.LOCAL)
+            return true;
+
+        for (GModule module : openedProject.getParts(GModule.class)) {
+            // One module allows the command
+            if (module.getProperties().getBooleanValue(PROP_CAN_UPDATE_MODULE, false))
+                return true;
+        }
+
+        // the command is allowed on the whole project
+        return openedProject.getProperties().getBooleanValue(PROP_CAN_DEPLOY_ARCHIVES_ANY, false);
     }
 
     /**
@@ -125,12 +179,11 @@ public class DeployArchiveHandler {
         private StringBuilder report = new StringBuilder();
 
         @objid ("0d33a12f-affa-44c3-b873-d746e8aa3828")
-         DeployModule(List<String> paths, IModuleStore catalog, IModuleManagementService moduleSvc, IGProject project) {
+        DeployModule(List<String> paths, IModuleStore catalog, IModuleManagementService moduleSvc, IGProject project) {
             this.modules = paths;
             this.catalog = catalog;
             this.moduleSvc = moduleSvc;
             this.project = project;
-            
         }
 
         @objid ("33e251e7-ac9a-4c1e-93d1-260139896671")
@@ -141,36 +194,81 @@ public class DeployArchiveHandler {
             for (String module : this.modules) {
                 try {
                     Path mdacFile = Paths.get(module);
-            
-                    // Keys {0}:counter {1}:sum of modules {2}:module file name
-                    monitor.subTask(AdmTool.I18N.getMessage("DeployArchiveHandler.AddModulesProgressSubTask", String.valueOf(i + 1), String.valueOf(this.modules.size()), mdacFile.getFileName()));
-                    this.catalog.installModuleArchive(mdacFile, mon.newChild(2));
-            
-                    this.moduleSvc.installModule(null, this.project, mdacFile);
-                    mon.worked(1);
-            
+
+                    // Keys:
+                    //  {0}:counter
+                    //  {1}:sum of modules
+                    //  {2}:module file name
+                    monitor.subTask(AdmTool.I18N.getMessage("DeployArchiveHandler.AddModulesProgressSubTask", i + 1, this.modules.size(), mdacFile.getFileName()));
+                    IModuleHandle tmpHandle = this.catalog.installModuleArchive(mdacFile, mon.newChild(2));
+
+                    if (! canDeployModule(tmpHandle)) {
+                        throw new ModuleException(AdmTool.I18N.getMessage("DeployArchiveHandler.DeployModuleForbidden", module, tmpHandle.getName(), tmpHandle.getVersion()));
+                    }
+
+                    this.moduleSvc.installModule(mon.newChild(1), this.project, mdacFile);
+
+                    restoreModuleProperty(tmpHandle.getName());
+
                 } catch (IOException e) {
                     this.report
                             .append(AdmTool.I18N.getMessage("DeployArchiveHandler.AddToCatalogFailed", module, FileUtils.getLocalizedMessage(e)))
                             .append("\n\n");
-            
+
                     AdmTool.LOG.error(e);
                 } catch (ModuleException e) {
                     this.report
                             .append(AdmTool.I18N.getMessage("DeployArchiveHandler.DeployModuleFailed", module, e.getLocalizedMessage()))
                             .append("\n\n");
-            
+
                     AdmTool.LOG.error(e);
                 }
                 i++;
             }
             monitor.done();
-            
+
             if (this.report.length() > 0) {
                 this.report.insert(0, AdmTool.I18N.getMessage("DeployArchiveHandler.SomeFailed"));
                 throw new InvocationTargetException(new IOException(this.report.toString()));
             }
-            
+        }
+
+        /**
+         * Ugly hack that put back the #PROP module property that was deleted by the update process.
+         *
+         * @param moduleName the module name to fing the IGpart
+         */
+        @objid ("36e9bbbc-e7cc-42c6-b170-22a57d60f43d")
+        private void restoreModuleProperty(String moduleName) {
+            GModule part = this.project.getPart(moduleName, GModule.class);
+            if (part == null) {
+                AdmTool.LOG.warning("Cannot find '%s' module in '%s' project after update. found parts:", this.project.getParts());
+                return;
+            }
+            part.getProperties().setBooleanProperty(PROP_CAN_UPDATE_MODULE, true, DefinitionScope.SHARED);
+        }
+
+        @objid ("96577fa0-8633-4fe7-9f72-54ee99658cbb")
+        private boolean canDeployModule(IModuleHandle archiveHandle) {
+            if (this.project.getType()==ProjectType.LOCAL) {
+                return true;
+            }
+
+            String moduleName = archiveHandle.getName();
+
+            if (false && Boolean.parseBoolean(this.project.getProperties().getValue(PROP_CAN_DEPLOY_ARCHIVES_ANY))) {
+                // disabled at least for now
+                AdmTool.LOG.warning("'%s' Project configuration allows user to deploy directly ANY module archives.", this.project.getName());
+                return true;
+            }
+
+            IGPart modulePart = this.project.getPart(moduleName, IGPart.class);
+            if (modulePart != null && modulePart.getProperties().getBooleanValue(PROP_CAN_UPDATE_MODULE, false)) {
+                AdmTool.LOG.warning("'%s' Project module configuration allows user to deploy directly '%s' module archives.", this.project.getName(), moduleName);
+                return true;
+            }
+
+            return false;
         }
 
     }

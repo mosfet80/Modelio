@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.script.engine.core.engine;
 
@@ -40,10 +40,11 @@ public class TransactionScriptRunner implements IScriptRunner {
 
     /**
      * Constructor
+     *
      * @param runner the adapted runner.
      */
     @objid ("89cc69b2-ed76-461f-b726-b29fd740d516")
-    public  TransactionScriptRunner(IScriptRunner runner) {
+    public TransactionScriptRunner(IScriptRunner runner) {
         this.runner = runner;
     }
 
@@ -59,7 +60,7 @@ public class TransactionScriptRunner implements IScriptRunner {
         } else {
             this.runner.runFile(file, selection, selectedElements);
         }
-        
+
     }
 
     @objid ("c425984b-9c4d-4f6b-94f2-ca8584381121")
@@ -74,7 +75,7 @@ public class TransactionScriptRunner implements IScriptRunner {
         } else {
             this.runner.runScript(script, selection, elements);
         }
-        
+
     }
 
     @objid ("3d609f2f-8046-453b-94e9-8b09584bd06e")

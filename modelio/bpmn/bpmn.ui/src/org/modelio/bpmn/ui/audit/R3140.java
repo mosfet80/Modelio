@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.ui.audit;
 
@@ -51,7 +51,7 @@ public class R3140 extends AbstractBpmnRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -66,7 +66,7 @@ public class R3140 extends AbstractBpmnRule {
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE);
         plan.registerRule(BpmnFlowElement.MQNAME, this, AuditTrigger.UPDATE);
-        
+
     }
 
     @objid ("e51c1e65-abdb-4903-932a-a8f130df46e9")
@@ -106,7 +106,7 @@ public class R3140 extends AbstractBpmnRule {
      * Default constructor for R3140
      */
     @objid ("56c46cc4-558b-42f8-be2d-2c5d5bf85cf4")
-    public  R3140() {
+    public R3140() {
         this.checkerInstance = new CheckR3140(this);
     }
 
@@ -117,10 +117,11 @@ public class R3140 extends AbstractBpmnRule {
     private static class CheckR3140 extends AbstractControl {
         /**
          * C'tor.
+         *
          * @param rule the rule to check.
          */
         @objid ("2b19ef6c-96b9-4bc4-aa47-dd473f0a8294")
-        public  CheckR3140(final IRule rule) {
+        public CheckR3140(final IRule rule) {
             super(rule);
         }
 
@@ -141,19 +142,19 @@ public class R3140 extends AbstractBpmnRule {
                     AuditSeverity.AuditSuccess,
                     seqFlow,
                     null);
-            
+
             BpmnFlowNode source = seqFlow.getSourceRef();
-            
+
             if (source instanceof BpmnEventBasedGateway || source instanceof BpmnParallelGateway) {
                 if (!seqFlow.getConditionExpression().isEmpty()) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(seqFlow);
                     auditEntry.setLinkedInfos(linkedObjects);
-            
+
                 }
             }
             return auditEntry;

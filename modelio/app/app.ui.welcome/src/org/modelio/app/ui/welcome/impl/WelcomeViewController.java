@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.ui.welcome.impl;
 
@@ -58,37 +58,39 @@ public class WelcomeViewController {
     private IModelioUiService uiService;
 
     /**
+     *
      * @param welcomeView the welcome viewitself
      * @param uiService the modelio ui service to manage views
      * @param projectService the project service to create/select projects
      * @param progressService the progress service to display example projects loading progression
      */
     @objid ("a83b1307-f034-45d2-9388-20a7e861ef95")
-    public  WelcomeViewController(WelcomeView welcomeView, IModelioUiService uiService, IProjectService projectService, IModelioProgressService progressService) {
+    public WelcomeViewController(WelcomeView welcomeView, IModelioUiService uiService, IProjectService projectService, IModelioProgressService progressService) {
         this.welcomeView = welcomeView;
         this.uiService = uiService;
         this.progressService = progressService;
         this.projectService = projectService;
-        
+
     }
 
     /**
+     *
      * @param zipUri the URI of the example zip file
      */
     @objid ("57b94a3c-c95c-4746-9b27-135ae16d8cac")
     public void installExample(URI zipUri) {
         final Display display = this.welcomeView.getControl().getDisplay();
         final Shell shell = this.welcomeView.getControl().getShell();
-        
+
         // Install example in workspace
         try {
             this.progressService.run(AppUiWelcome.I18N.getString("InstallExample.title"), true, false, monitor -> {
-        
+
                 AppUiWelcome.LOG.debug("Installing example: %s\n", zipUri.toASCIIString());
-        
+
                 SubMonitor progress = SubMonitor.convert(monitor,
                         AppUiWelcome.I18N.getString("InstallExample.task"), 100);
-        
+
                 // Download zip file
                 progress.subTask(AppUiWelcome.I18N.getMessage("InstallExample.downloading", zipUri.toASCIIString()));
                 Path localZip;
@@ -104,11 +106,11 @@ public class WelcomeViewController {
                 }
                 progress.worked(20);
                 progress.subTask(AppUiWelcome.I18N.getString("InstallExample.importing"));
-        
+
                 // Import the archive
                 new ProjectImporter(this.projectService, shell)
                         .importProject(localZip, progress.newChild(78));
-        
+
                 progress.subTask(AppUiWelcome.I18N.getString("InstallExample.cleaningup"));
                 cleanTempZipFile(localZip);
                 progress.done();
@@ -126,7 +128,7 @@ public class WelcomeViewController {
             // Switch to workspace perspective
             this.uiService.switchToWorkspace();
         }
-        
+
     }
 
     @objid ("5426cd53-03ad-43f5-aeaf-9d42480b9716")
@@ -138,7 +140,7 @@ public class WelcomeViewController {
             AppUiWelcome.LOG.warning(FileUtils.getLocalizedMessage(e));
             AppUiWelcome.LOG.debug(e);
         }
-        
+
     }
 
     @objid ("2e1b5761-f845-4115-a525-11c26825ecfc")
@@ -151,12 +153,12 @@ public class WelcomeViewController {
         if (filename == null) {
             throw new IllegalArgumentException(String.format("Zip URI'%s' has no path component.", zipUri.toString()));
         }
-        
+
         String zipName = filename.toString();
-        
+
         Path tempDir = Files.createTempDirectory("zip");
         Path tempFile = tempDir.resolve(zipName);
-        
+
         try (InputStream in = zipUri.toURL().openStream()) {
             Files.copy(in, tempFile, StandardCopyOption.REPLACE_EXISTING);
         }

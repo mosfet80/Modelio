@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -47,7 +47,7 @@ public class R1790 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -98,14 +98,14 @@ public class R1790 extends AbstractUmlRule {
      * Default constructor for R1790
      */
     @objid ("d53a7422-3930-43e1-8c3f-51eed7a7a554")
-    public  R1790() {
+    public R1790() {
         this.checkerInstance = new CheckR1790(this);
     }
 
     @objid ("3cad6c79-c4db-4785-a131-9e9a9635b983")
     private static class CheckR1790 extends AbstractControl {
         @objid ("d47f489a-838d-4980-af14-a69849625530")
-        public  CheckR1790(IRule rule) {
+        public CheckR1790(IRule rule) {
             super(rule);
         }
 
@@ -123,11 +123,11 @@ public class R1790 extends AbstractUmlRule {
         @objid ("6733ef0a-3721-45c6-b476-b07d4bc24331")
         private IAuditEntry checkR1790(final Instance instance) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, instance, null);
-            
+
             if (instance.getName().isEmpty() && instance.getBase() == null) {
-            
+
                 // Rule failed
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(instance);

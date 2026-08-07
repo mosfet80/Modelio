@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Archimate UI (Open Source)
+Bundle-SymbolicName: org.modelio.archimate.ui.ext_org;singleton:=true
+Bundle-Version: 6.2.0.qualifier 
+Bundle-ClassPath: .,
+ res/
+Bundle-Activator: org.modelio.archimate.ui.plugin.ArchiUiOrg
+Bundle-Vendor: modelio.org
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.ui.workbench,
+ org.eclipse.osgi,
+ org.modelio.platform.utils,
+ org.eclipse.jface,
+ org.eclipse.core.runtime,
+ org.modelio.app.model.property,
+ org.modelio.archimate.ui,
+ org.modelio.app.diagram.browser,
+ org.modelio.app.model.browser.view
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Import-Package: jakarta.annotation;version="1.1.0",
+ jakarta.inject;version="1.0.0"
+Bundle-ActivationPolicy: lazy

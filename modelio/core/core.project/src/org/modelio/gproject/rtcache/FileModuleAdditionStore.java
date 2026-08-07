@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.rtcache;
 
@@ -53,11 +53,12 @@ class FileModuleAdditionStore extends FileModuleStore {
 
     /**
      * Instantiate a new FileModuleCatalog.
+     *
      * @param metamodelFragments the metamodel fragments to use
      * @param cachePath the path to store unzipped .jmdacs into. Needs to be a writable directory.
      */
     @objid ("2c95c24a-f37d-11e1-a3c7-002564c97630")
-    public  FileModuleAdditionStore(Collection<IGMetamodelExtension> metamodelFragments, Path cachePath) {
+    public FileModuleAdditionStore(Collection<IGMetamodelExtension> metamodelFragments, Path cachePath) {
         super(metamodelFragments, cachePath);
     }
 
@@ -97,7 +98,7 @@ class FileModuleAdditionStore extends FileModuleStore {
             // Assume it's -1
             return -1;
         }
-        
+
     }
 
     @objid ("69f1aa55-26b6-40c4-84e9-83dd1e8e3a0b")
@@ -117,27 +118,27 @@ class FileModuleAdditionStore extends FileModuleStore {
         FileModuleStoreHandle h = (FileModuleStoreHandle) handle;
         Path dir = h.getModuleCachePath();
         Path dirParent = dir.getParent();
-        
+
         // Move extracted contents in the proper directory in the catalog
         Path moduleCatalogPath = computeNewModuleStorePath(handle);
-        
+
         // Create parent directory
         if (!Files.isDirectory(moduleCatalogPath.getParent())) {
             Files.createDirectories(moduleCatalogPath.getParent());
         }
-        
+
         // Clean existing contents if exist
         if (Files.exists(moduleCatalogPath)) {
             FileUtils.delete(moduleCatalogPath);
         }
-        
+
         // Move extracted files
         FileUtils.copyDirectoryTo(dirParent, moduleCatalogPath);
-        
+
         // Update the cache
         FileModuleStoreEntry entry = new FileModuleStoreEntry(moduleCatalogPath, this.metamodelExtensions);
         String key = getEntryKey(handle.getName(), handle.getVersion().toString());
-        
+
         if (this.state == FileModuleStoreState.VALID) {
             this.entries.put(key, entry);
         }
@@ -155,19 +156,19 @@ class FileModuleAdditionStore extends FileModuleStore {
             for (Path p : stream) {
                 long pathIndex = computeModuleCachePathIndex(p);
                 Path entryPath = p.resolve(Long.toString(pathIndex)).toAbsolutePath();
-        
+
                 FileModuleStoreEntry entry = new FileModuleStoreEntry(entryPath, this.metamodelExtensions);
                 IModuleHandle mh = entry.getModuleHandle(monitor);
                 String key = getEntryKey(mh.getName(), mh.getVersion().toString());
                 this.entries.put(key, entry);
-        
+
             }
             this.state = FileModuleStoreState.VALID;
         } catch (IOException e) {
             Log.warning(e);
             this.state = FileModuleStoreState.INITIAL;
         }
-        
+
     }
 
 }

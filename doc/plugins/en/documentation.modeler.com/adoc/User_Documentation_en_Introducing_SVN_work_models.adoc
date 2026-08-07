@@ -1,0 +1,41 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= Introducing shared work models
+
+
+Shared work models are shared, read-write or read-only work models hosted on servers.
+
+In our context, teamwork means a group of people working simultaneously on a single Modelio model. This organization is called a workgroup. In practical terms, a workgroup is most often a development team.
+
+Shared work model enables teamwork by providing essential features such as:
+
+* project data sharing between users
+* centralization of work model data in a unique central repository
+* management of local copies of work model
+* work model modification and publication
+* branches and model diff/merge
+
+The typical activity cycle on an shared work model once up and running is as follows:
+
+* update the model from the repository
+* modify the model
+* publish the modifications in the repository
+
+This is a typical work cycle to which some additional management commands have been added, such as the creation of a tag or a branch.
+
+The following figure shows a typical workgroup set-up.
+
+.A typical work model set-up
+image::images/attachment/modeliocom41/User_Documentation_en/Introducing_SVN_work_models/WebHome/TW_001_teamwork_setup.png[TW_001_teamwork_setup.png]
+
+In the following chapters, the following assumptions are made:
+
+* The server is properly configured and accessible by user workstations.
+* Each user has been provided with the following data:
+** his user name and password (noted *$user* and *$password* )
+** the Server URL (noted *$teamworkurl* )

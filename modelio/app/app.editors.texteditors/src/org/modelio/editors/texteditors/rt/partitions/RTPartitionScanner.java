@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.texteditors.rt.partitions;
 
@@ -51,34 +51,34 @@ public class RTPartitionScanner extends RuleBasedPartitionScanner {
     private Token commentToken;
 
     @objid ("7b650e36-2a77-11e2-9fb9-bc305ba4815c")
-    public  RTPartitionScanner() {
+    public RTPartitionScanner() {
         this.tagToken = new Token(RTPartitionTypes.OBJINGID_PARTITION);
         this.keywordToken = new Token(RTPartitionTypes.KEYWORD_PARTITION);
         this.commentToken = new Token(RTPartitionTypes.COMMENT_PARTITION);
-                
+
         Vector<IPredicateRule> therules = new Vector<>();
-                
+
         KeywordRule keywordRule = new KeywordRule(this.keywordToken);
-                
+
         for (int i = 0; i < keywords.length; i++)
             keywordRule.addKeyword(keywords[i], this.keywordToken);
-                
+
         this.objidRule = new RTTagRule("@objid", this.tagToken);
-                
+
         IPredicateRule comment = new CommentRule("//", this.commentToken, this);
         IPredicateRule multilineComment = new MultilineCommentRule("/*", "*/", this.commentToken, this);
         therules.add(keywordRule);
-                
+
         therules.add(this.objidRule);
         therules.add(comment);
         therules.add(multilineComment);
-                
+
         this.rules = new IPredicateRule[therules.size()];
         for (int i = 0; i < therules.size(); i++)
             this.rules[i] = therules.get(i);
-                
+
         setPredicateRules(this.rules);
-        
+
     }
 
 }

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.bpmnService;
 
 import java.util.List;
@@ -32,11 +31,11 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 
 @objid ("000ef07e-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnEndPointData extends BpmnSharedElementData {
-    @objid ("e4b80f5d-7dff-4908-bda2-f3b84e91241a")
+    @objid ("0b64113c-8780-4456-85dd-f2b850491ea3")
     List<SmObjectImpl> mParticipantRefs = null;
 
-    @objid ("62f14718-08dc-4b26-a0cf-246fe477d6c0")
-    public  BpmnEndPointData(BpmnEndPointSmClass smClass) {
+    @objid ("8397df2c-deab-44d0-8dbc-38859f2d21b1")
+    public BpmnEndPointData(BpmnEndPointSmClass smClass) {
         super(smClass);
     }
 

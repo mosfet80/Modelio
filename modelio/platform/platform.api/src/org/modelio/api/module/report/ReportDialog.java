@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.module.report;
 
@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Base64.Decoder;
 import java.util.Base64.Encoder;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -51,76 +50,77 @@ import org.modelio.api.ui.ModelioDialog;
 import org.modelio.platform.rcp.system.ModelioHelpSystem;
 import org.modelio.platform.ui.UIColor;
 import org.modelio.platform.ui.UIImages;
+import org.modelio.platform.ui.swt.BrowserConfigurator;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * The report dialog is used by modules willing to display the contents of a {@link Report} which they have built during a processing operation by adding {@link ReportEntry} records to it.
- * 
+ *
  * A Report is a sequence of ReportEntry. A ReportEntry can be of several kind (see @link {@link EntryKind}. The contents of the report are displayed in HTML rendered text in a browser.
- * 
+ *
  * Two kind of links are exclusively supported:
  * <ul>
  * <li>modelio model element links that allow to navigate to a given element listed in the report</li>
  * <li>modelio help topic links that pops the Modelio help for a given topic.</li>
  * </ul>
  * The ReportDialog browser is configured to ignore any other type of link.
- * 
+ *
  * The @link {@link HTMLReport} private class is in charge to lay out the reported message in HTML text, controlled by its internal CSS stylesheet {@link HTMLReport#CSS}.
- * 
+ *
  * <p>
  * Typical use:
- * 
+ *
  * <pre>
  * Report myReport = new Report();
  * myReport.addError(...);
  * myReport.addWarning(...);
  * myReport.addTip(...);
  * myReport.addInfo(...);
- * 
+ *
  * ReportDialog dlg = new ReportDialog(parent, navigationService, modelioHelpService, myReport);
  * dlg.open();
  * </pre>
  * </p>
- * 
+ *
  * @since 4.1
  */
 @objid ("a517d575-5af7-431c-8070-ebb7e9617a06")
 public class ReportDialog extends ModelioDialog {
     @objid ("c013cc68-1401-4dac-ae4a-9b6cb6910388")
-    private static boolean showInfos = false;
+    private boolean showInfos = false;
 
     @objid ("5f54f3a9-07aa-4d02-8c97-ed7b52ee2c34")
-    private static boolean showTips = false;
+    private boolean showTips = false;
 
     @objid ("a571c061-e442-4988-a2b3-2d2ac9dfe33e")
-    private static boolean showWarnings = true;
+    private boolean showWarnings = true;
 
     @objid ("69608667-245e-4819-b2e5-4363bae10310")
-    private static boolean showErrors = true;
+    private boolean showErrors = true;
 
     @objid ("a527ecdb-ac6c-4a5c-a9de-4c6939b394f3")
-    private static int sortMode;
+    private int sortMode;
 
     /**
      * The Modelio help service used to displays help topics from Modelio documentation.
      */
     @objid ("a8dbbac1-5eb2-46c7-a0ac-ee23c2e6b8d4")
-    IWorkbenchHelpSystem helpService;
+    private final IWorkbenchHelpSystem helpService;
 
-    @objid ("7c3eb779-0344-406e-9fa1-8622b74e419f")
+    @objid ("a9700969-a275-4009-af75-1be464371753")
     private Browser browser;
 
-    @objid ("e9c51ee9-ff0b-49e5-8035-3db176ecebb7")
+    @objid ("f55d9c4b-645b-436a-a2cb-bbaf6596feb9")
     private Image sortSequence;
 
-    @objid ("de1bbbc3-1718-475c-9d70-51da1f33b4d7")
+    @objid ("147d93ba-44ed-443a-bc42-348df9cc9f10")
     private Image sortCode;
 
-    @objid ("b5b052b3-031b-4c18-8f33-e2bd0c98cea7")
+    @objid ("3f7589bf-ace3-401c-86ce-952e57deb1fd")
     private Image sortSeverity;
 
-    @objid ("452b28fd-2288-44dc-a36a-e2a2791b142c")
+    @objid ("75138cf1-7fd3-4797-b882-9d52cf7686d1")
     private Image sortElement;
 
     /**
@@ -133,28 +133,28 @@ public class ReportDialog extends ModelioDialog {
      * The Modelio navigation service used select elements in Modelio.
      */
     @objid ("1a470a1d-a387-4761-a933-1b5641004179")
-    private INavigationService navigationService;
+    private final INavigationService navigationService;
 
     @objid ("10951397-e353-4e5c-a2ca-9da9a9839d53")
-    private IModelingSession session;
+    private final IModelingSession session;
 
     /**
      * C'tor
+     *
      * @param parentShell the parent shell. Can be <code>null</code>.
      * @param session access to the project's model. Can be <code>null</code> in which case element links are not displayed and no navigation is possible..
      * @param navigationService the Modelio navigation service. Can be <code>null</code> in which case element links are not displayed and no navigation is possible.
      * @param report the report to display. Cannot be <code>null</code>.
      */
     @objid ("e541a99c-7ee0-45d1-abff-80fda5cf5442")
-    public  ReportDialog(Shell parentShell, final IModelingSession session, final INavigationService navigationService, Report report) {
+    public ReportDialog(Shell parentShell, final IModelingSession session, final INavigationService navigationService, Report report) {
         super(parentShell);
         setShellStyle(SWT.SHELL_TRIM | getDefaultOrientation());
-        
+
         this.session = session;
         this.navigationService = navigationService;
         this.report = report;
         this.helpService = ModelioHelpSystem.getInstance();
-        
     }
 
     @objid ("74e69d11-4e05-4b9a-8f8e-77c63dcf688e")
@@ -170,77 +170,84 @@ public class ReportDialog extends ModelioDialog {
     }
 
     @objid ("66587b66-f364-4817-bb64-7834dd04a5ac")
-    @SuppressWarnings ("unused")
+    @SuppressWarnings("unused")
     @Override
     protected Control createContentArea(Composite parent) {
         this.sortSequence = AbstractUIPlugin.imageDescriptorFromPlugin(Api.PLUGIN_ID, "images/sortsequence.png").createImage();
         this.sortCode = AbstractUIPlugin.imageDescriptorFromPlugin(Api.PLUGIN_ID, "images/sortcode.png").createImage();
         this.sortSeverity = AbstractUIPlugin.imageDescriptorFromPlugin(Api.PLUGIN_ID, "images/sortseverity.png").createImage();
         this.sortElement = AbstractUIPlugin.imageDescriptorFromPlugin(Api.PLUGIN_ID, "images/sortelement.png").createImage();
-        
+
+        parent.addDisposeListener(ev -> {
+            this.sortSequence.dispose();
+            this.sortCode.dispose();
+            this.sortSeverity.dispose();
+            this.sortElement.dispose();
+        });
+
         ToolBar tb = new ToolBar(parent, SWT.NONE);
         tb.setBackground(UIColor.WHITE);
         tb.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, true, false));
-        
+
         final ToolItem errorsCheckButton = new ToolItem(tb, SWT.BORDER | SWT.CHECK);
         errorsCheckButton.setImage(UIImages.ERROR);
         errorsCheckButton.setToolTipText(Api.I18N.getString("ReportDialog.ShowErrors.tooltip"));
-        errorsCheckButton.setSelection(ReportDialog.showErrors);
+        errorsCheckButton.setSelection(this.showErrors);
         errorsCheckButton.addSelectionListener(
                 SelectionListener.widgetSelectedAdapter((e) -> onShowErrors(((ToolItem) e.widget).getSelection())));
-        
+
         final ToolItem warningsCheckButton = new ToolItem(tb, SWT.BORDER | SWT.CHECK);
         warningsCheckButton.setImage(UIImages.WARNING);
         warningsCheckButton.setToolTipText(Api.I18N.getString("ReportDialog.ShowWarnings.tooltip"));
-        warningsCheckButton.setSelection(ReportDialog.showWarnings);
+        warningsCheckButton.setSelection(this.showWarnings);
         warningsCheckButton.addSelectionListener(
                 SelectionListener.widgetSelectedAdapter((e) -> onShowWarnings(((ToolItem) e.widget).getSelection())));
-        
+
         final ToolItem tipsCheckButton = new ToolItem(tb, SWT.CHECK);
         tipsCheckButton.setImage(UIImages.INFO);
         tipsCheckButton.setToolTipText(Api.I18N.getString("ReportDialog.ShowTips.tooltip"));
-        tipsCheckButton.setSelection(ReportDialog.showTips);
+        tipsCheckButton.setSelection(this.showTips);
         tipsCheckButton.addSelectionListener(
                 SelectionListener.widgetSelectedAdapter((e) -> onShowTips(((ToolItem) e.widget).getSelection())));
-        
+
         final ToolItem infosCheckButton = new ToolItem(tb, SWT.CHECK);
         infosCheckButton.setImage(UIImages.TIP);
         infosCheckButton.setToolTipText(Api.I18N.getString("ReportDialog.ShowInfos.tooltip"));
-        infosCheckButton.setSelection(ReportDialog.showInfos);
+        infosCheckButton.setSelection(this.showInfos);
         infosCheckButton.addSelectionListener(
                 SelectionListener.widgetSelectedAdapter((e) -> onShowInfos(((ToolItem) e.widget).getSelection())));
-        
+
         new ToolItem(tb, SWT.SEPARATOR);
-        
+
         final ToolItem bySequenceCheckButton = new ToolItem(tb, SWT.RADIO);
         bySequenceCheckButton.setImage(this.sortSequence);
         bySequenceCheckButton.setToolTipText(Api.I18N.getString("ReportDialog.SortBySequence.tooltip"));
-        bySequenceCheckButton.setSelection(ReportDialog.sortMode == 0);
+        bySequenceCheckButton.setSelection(this.sortMode == 0);
         bySequenceCheckButton.addSelectionListener(
                 SelectionListener.widgetSelectedAdapter((e) -> onSortChange(0, ((ToolItem) e.widget).getSelection())));
-        
+
         final ToolItem bySeverityCheckButton = new ToolItem(tb, SWT.RADIO);
         bySeverityCheckButton.setImage(this.sortSeverity);
         bySeverityCheckButton.setToolTipText(Api.I18N.getString("ReportDialog.SortBySeverity.tooltip"));
-        bySeverityCheckButton.setSelection(ReportDialog.sortMode == 1);
+        bySeverityCheckButton.setSelection(this.sortMode == 1);
         bySeverityCheckButton.addSelectionListener(
                 SelectionListener.widgetSelectedAdapter((e) -> onSortChange(1, ((ToolItem) e.widget).getSelection())));
-        
+
         final ToolItem byCodeCheckButton = new ToolItem(tb, SWT.RADIO);
         byCodeCheckButton.setImage(this.sortCode);
         byCodeCheckButton.setToolTipText(Api.I18N.getString("ReportDialog.SortByCode.tooltip"));
-        byCodeCheckButton.setSelection(ReportDialog.sortMode == 2);
+        byCodeCheckButton.setSelection(this.sortMode == 2);
         byCodeCheckButton.addSelectionListener(
                 SelectionListener.widgetSelectedAdapter((e) -> onSortChange(2, ((ToolItem) e.widget).getSelection())));
-        
+
         final ToolItem byElementCheckButton = new ToolItem(tb, SWT.RADIO);
         byElementCheckButton.setImage(this.sortElement);
         byElementCheckButton.setToolTipText(Api.I18N.getString("ReportDialog.SortByElement.tooltip"));
-        byElementCheckButton.setSelection(ReportDialog.sortMode == 3);
+        byElementCheckButton.setSelection(this.sortMode == 3);
         byElementCheckButton.addSelectionListener(
                 SelectionListener.widgetSelectedAdapter((e) -> onSortChange(3, ((ToolItem) e.widget).getSelection())));
-        
-        this.browser = new Browser(parent, SWT.NONE);
+
+        this.browser = BrowserConfigurator.newBrowser(parent, SWT.NONE);
         this.browser.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         this.browser.addLocationListener(new LocationAdapter() {
             @Override
@@ -248,6 +255,12 @@ public class ReportDialog extends ModelioDialog {
                 if (Objects.equals(event.location, "about:blank")) {
                     return;
                 }
+
+                // Edge sends LocationEvent with location=data:text/html:...+base64 of HTML text
+                // This event must not be intercepted otherwise no HTML is displayed.
+                if (event.location.startsWith("data:") && (browser.getStyle() & SWT.EDGE) == SWT.EDGE)
+                    return;
+
                 try {
                     URI uri = new URI(event.location);
                     if (Objects.equals(uri.getScheme(), "modelio")) {
@@ -266,7 +279,7 @@ public class ReportDialog extends ModelioDialog {
                             }
                         }
                     }
-        
+
                 } catch (URISyntaxException e) {
                     Api.LOG.error("Invalid URI " + event.location);
                     Api.LOG.debug(e);
@@ -287,60 +300,58 @@ public class ReportDialog extends ModelioDialog {
 
     @objid ("5d948804-4edc-4613-acdd-24fd7b5abb5f")
     private void onShowInfos(boolean selection) {
-        if (selection != ReportDialog.showInfos) {
-            ReportDialog.showInfos = selection;
+        if (selection != this.showInfos) {
+            this.showInfos = selection;
             refreshContents();
         }
-        
     }
 
     @objid ("9f0fb41e-c123-4d79-bf31-714e61f51282")
     private void refreshContents() {
         boolean withNavigation = this.navigationService != null && this.session != null;
         boolean withHelp = this.helpService != null;
-        
+
         HTMLReport htmlreport = new HTMLReport(this.report, withNavigation, withHelp)
-                .withContents(ReportDialog.showErrors, ReportDialog.showWarnings, ReportDialog.showTips, ReportDialog.showInfos)
-                .withSortMode(ReportDialog.sortMode);
-        
-        this.browser.setText(htmlreport.getText());
-        
+                .withContents(this.showErrors, this.showWarnings, this.showTips, this.showInfos)
+                .withSortMode(this.sortMode);
+
+        if (!this.browser.setText(htmlreport.getText())) {
+            Api.LOG.debug(new IllegalStateException("Browser.setText(...) return false for:"));
+            Api.LOG.debug(htmlreport.getText());
+            Api.LOG.debug("browser = %s", this.browser);
+        }
     }
 
     @objid ("fe9d7faa-9b93-4b04-99b3-7475f54f9bba")
     private void onShowTips(boolean selection) {
-        if (selection != ReportDialog.showTips) {
-            ReportDialog.showTips = selection;
+        if (selection != this.showTips) {
+            this.showTips = selection;
             refreshContents();
         }
-        
     }
 
     @objid ("e302f676-6342-462d-8273-aaf6c7572f33")
     private void onShowWarnings(boolean selection) {
-        if (selection != ReportDialog.showWarnings) {
-            ReportDialog.showWarnings = selection;
+        if (selection != this.showWarnings) {
+            this.showWarnings = selection;
             refreshContents();
         }
-        
     }
 
     @objid ("a1a038a6-9625-4dcb-a36b-0df14acd5d1a")
     private void onShowErrors(boolean selection) {
-        if (selection != ReportDialog.showErrors) {
-            ReportDialog.showErrors = selection;
+        if (selection != this.showErrors) {
+            this.showErrors = selection;
             refreshContents();
         }
-        
     }
 
     @objid ("61f0a515-c230-4b89-9f2c-a0ca2003c8e8")
     private void onSortChange(int sortMode, boolean selection) {
-        if (ReportDialog.sortMode != sortMode && selection) {
-            ReportDialog.sortMode = sortMode;
+        if (this.sortMode != sortMode && selection) {
+            this.sortMode = sortMode;
             refreshContents();
         }
-        
     }
 
     /**
@@ -350,22 +361,22 @@ public class ReportDialog extends ModelioDialog {
     private static class HTMLReport {
         @objid ("23b00d41-7428-4b0d-9a19-4541ee7b1e2a")
         private final String CSS = "<style>\n"
-                                + "body          {background-color: #F8F8FB; /*Docaposte Light Grey */ color: #666D92; /* Docaposte Lynch */; font-family: \"Barlow\", \"Barlow-Regular\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", sans-serif;}\n"
-                                + ".title        {font-size:1.5em;font-weight:bold;color:#00008C; /* ultramarine */}\n"
-                                + ".summary      {font-size:0.8em;margin-bottom:12px;color:#00008C; /* ultramarine */}\n"
-                                + "#diagnostics  {width:100%;font-size:0.90em;overflow-x:auto;border-collapse:collapse;}\n"
-                                + ".ERROR        {color:red;}\n"
-                                + ".WARNING      {color:darkorange;}\n"
-                                + ".TIP          {color:green;}\n"
-                                + ".INFO         {font-weight:bold;color:#00008C; /* ultramarine */}\n"
-                                + "#code         {width:4em;text-align:left;}\n"
-                                + "#message      {word-break:white-space:-o-pre-wrap;word-wrap:break-word;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;}\n"
-                                + "#category     {width:5%;}\n"
-                                + "#links        {width:20%;word-break:white-space:-o-pre-wrap;word-wrap:break-word;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;}\n"
-                                + "#help         {width:1em;text-align:right;}\n"
-                                + "#info         {padding-top:12px; padding-bottom:2px;border-bottom: 1px solid #00008C; /* ultramarine */}\n"
-                                + "td            {vertical-align: top; border-bottom: 1px dotted #666D92; /* Docaposte Lynch */}\n"
-                                + "</style>\n";
+                            + "body          {background-color: #F8F8FB; /*Docaposte Light Grey */ color: #666D92; /* Docaposte Lynch */; font-family: \"Barlow\", \"Barlow-Regular\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", sans-serif;}\n"
+                            + ".title        {font-size:1.5em;font-weight:bold;color:#00008C; /* ultramarine */}\n"
+                            + ".summary      {font-size:0.8em;margin-bottom:12px;color:#00008C; /* ultramarine */}\n"
+                            + "#diagnostics  {width:100%;font-size:0.90em;overflow-x:auto;border-collapse:collapse;}\n"
+                            + ".ERROR        {color:red;}\n"
+                            + ".WARNING      {color:darkorange;}\n"
+                            + ".TIP          {color:green;}\n"
+                            + ".INFO         {font-weight:bold;color:#00008C; /* ultramarine */}\n"
+                            + "#code         {width:4em;text-align:left;}\n"
+                            + "#message      {word-break:white-space:-o-pre-wrap;word-wrap:break-word;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;}\n"
+                            + "#category     {width:5%;}\n"
+                            + "#links        {width:20%;word-break:white-space:-o-pre-wrap;word-wrap:break-word;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;}\n"
+                            + "#help         {width:1em;text-align:right;}\n"
+                            + "#info         {padding-top:12px; padding-bottom:2px;border-bottom: 1px solid #00008C; /* ultramarine */}\n"
+                            + "td            {vertical-align: top; border-bottom: 1px dotted #666D92; /* Docaposte Lynch */}\n"
+                            + "</style>\n";
 
         @objid ("eae94003-761b-4fe4-b4dd-f8ef1235d0a4")
         private String text;
@@ -395,11 +406,10 @@ public class ReportDialog extends ModelioDialog {
         private Report report;
 
         @objid ("7451f33b-52e9-46b6-813a-34b08fb05493")
-        public  HTMLReport(Report report, boolean withNavigation, boolean withHelp) {
+        public HTMLReport(Report report, boolean withNavigation, boolean withHelp) {
             this.withNavigation = withNavigation;
             this.withHelp = withHelp;
             this.report = report;
-            
         }
 
         @objid ("ae9b19e2-2ed1-4343-a495-79b2829fd235")
@@ -414,17 +424,17 @@ public class ReportDialog extends ModelioDialog {
         private String produce() {
             StringBuilder html = new StringBuilder();
             String title = this.report.getTitle() != null ? this.report.getTitle() : "";
-            
+
             // Produce the html document header
             html.append(String.format("<!DOCTYPE html>\n <html><head>%s<title>%s</title></head><body>\n", this.CSS, title));
-            
+
             // Produce the report title and summary
             produceTitle(html);
-            
+
             // Produce report entries
             List<ReportEntry> entries = this.report.getEntries();
             List<ReportEntry> sortedEntries = null;
-            
+
             switch (this.sortMode) {
             case 3: // by element
                 sortedEntries = sortByElement(entries);
@@ -439,9 +449,9 @@ public class ReportDialog extends ModelioDialog {
             default:
                 sortedEntries = entries;
             }
-            
+
             produceTable(html, sortedEntries);
-            
+
             html.append(String.format("</body></html>\n"));
             return html.toString();
         }
@@ -449,7 +459,7 @@ public class ReportDialog extends ModelioDialog {
         @objid ("77010baf-a9d6-411f-8b47-6e0c9fbdd577")
         private void produceTable(StringBuilder html, List<ReportEntry> entries) {
             html.append("<table id='diagnostics'>\n");
-            
+
             for (ReportEntry e : entries) {
                 switch (e.getKind()) {
                 case ERROR:
@@ -468,7 +478,6 @@ public class ReportDialog extends ModelioDialog {
                 }
             }
             html.append(String.format("</table>\n"));
-            
         }
 
         @objid ("0a592760-4e18-459c-a99e-89fe86dd1d70")
@@ -479,7 +488,6 @@ public class ReportDialog extends ModelioDialog {
             long nErrors = this.report.getEntries().stream().filter(ReportEntry::isError).count();
             long nWarnings = this.report.getEntries().stream().filter(ReportEntry::isWarning).count();
             html.append(String.format("<div class='summary'>%s, %d Error(s), %d Warning(s)</div>\n", new Date().toString(), nErrors, nWarnings));
-            
         }
 
         @objid ("ff1846fb-0ef4-4df2-8a33-598eacb5bcd9")
@@ -487,7 +495,6 @@ public class ReportDialog extends ModelioDialog {
             if (this.withErrors) {
                 produceDiagnosticRow(html, e);
             }
-            
         }
 
         @objid ("5259dadf-d6fa-4da6-ac93-34a817926fb3")
@@ -495,7 +502,6 @@ public class ReportDialog extends ModelioDialog {
             if (this.withWarnings) {
                 produceDiagnosticRow(html, e);
             }
-            
         }
 
         @objid ("927e7a71-21d6-4e0d-9568-3d9a4a94ce57")
@@ -503,7 +509,6 @@ public class ReportDialog extends ModelioDialog {
             if (this.withTips) {
                 produceDiagnosticRow(html, e);
             }
-            
         }
 
         /**
@@ -524,18 +529,16 @@ public class ReportDialog extends ModelioDialog {
                             urlEncoder.encodeToString(mRef.name.getBytes(StandardCharsets.UTF_8)),
                             mRef.name.isEmpty() ? "&lt;no name&gt;" : mRef.name);
                     html.append(s);
-            
+
                 }
             }
             html.append(String.format("</td>\n"));
-            
         }
 
         @objid ("648ea142-93a2-46fa-b0a6-ed4f20663a8c")
         private void produceMessage(StringBuilder html, ReportEntry e) {
             String s = e.getMessage().replaceAll("\\n", "<br>\n");
             html.append(String.format("<div class=\"message\">%s</div>\n", s));
-            
         }
 
         @objid ("90404cf4-b058-4d33-96f0-a086ebdc5ca0")
@@ -543,7 +546,6 @@ public class ReportDialog extends ModelioDialog {
             if (e.getCategory() != null && !e.getCategory().isEmpty()) {
                 html.append(String.format("<span class=\"category\">[%s]</span>\n", e.getCategory()));
             }
-            
         }
 
         @objid ("6fdd84af-1961-49ab-9632-2a154607f5cd")
@@ -557,6 +559,7 @@ public class ReportDialog extends ModelioDialog {
         }
 
         /**
+         *
          * @param mode 0 = events order, 1 = by severity, 2 = by code, 3 = by first associated element
          * @return the HTMLReport
          */
@@ -570,18 +573,15 @@ public class ReportDialog extends ModelioDialog {
         @objid ("d40d3114-b7ae-44c5-a0ac-a746fe24964d")
         private List<ReportEntry> sortByElement(List<ReportEntry> entries) {
             List<ReportEntry> sortedEntries = new ArrayList<>(entries);
-            sortedEntries.sort(new Comparator<ReportEntry>() {
-                @Override
-                public int compare(ReportEntry e1, ReportEntry e2) {
-            
-                    MObject o1 = e1.getLinkedObjects().isEmpty() ? null : e1.getLinkedObjects().get(0);
-                    MObject o2 = e2.getLinkedObjects().isEmpty() ? null : e2.getLinkedObjects().get(0);
-            
-                    String key1 = o1 != null ? o1.getMClass().getQualifiedName() + o1.getName() : "";
-                    String key2 = o2 != null ? o2.getMClass().getQualifiedName() + o2.getName() : "";
-            
-                    return key1.compareTo(key2);
-                }
+            sortedEntries.sort((ReportEntry e1, ReportEntry e2) -> {
+
+                MObject o1 = e1.getLinkedObjects().isEmpty() ? null : e1.getLinkedObjects().get(0);
+                MObject o2 = e2.getLinkedObjects().isEmpty() ? null : e2.getLinkedObjects().get(0);
+
+                String key1 = o1 != null ? o1.getMClass().getQualifiedName() + o1.getName() : "";
+                String key2 = o2 != null ? o2.getMClass().getQualifiedName() + o2.getName() : "";
+
+                return key1.compareTo(key2);
             });
             return sortedEntries;
         }
@@ -589,25 +589,15 @@ public class ReportDialog extends ModelioDialog {
         @objid ("5879932d-2694-4755-93ec-f19bf6b2f613")
         private List<ReportEntry> sortByCode(List<ReportEntry> entries) {
             List<ReportEntry> sortedEntries = new ArrayList<>(entries);
-            sortedEntries.sort(new Comparator<ReportEntry>() {
-                @Override
-                public int compare(ReportEntry e1, ReportEntry e2) {
-                    return e1.getCode().compareTo(e2.getCode());
-                }
-            });
+            sortedEntries.sort((ReportEntry e1, ReportEntry e2) -> e1.getCode().compareTo(e2.getCode()));
             return sortedEntries;
         }
 
         @objid ("fc49199e-eca4-46a3-bab1-2e7641470d69")
         private List<ReportEntry> sortBySeverity(List<ReportEntry> entries) {
             List<ReportEntry> sortedEntries = new ArrayList<>(entries);
-            
-            sortedEntries.sort(new Comparator<ReportEntry>() {
-                @Override
-                public int compare(ReportEntry e1, ReportEntry e2) {
-                    return e1.getKind().compareTo(e2.getKind());
-                }
-            });
+
+            sortedEntries.sort((ReportEntry e1, ReportEntry e2) -> e1.getKind().compareTo(e2.getKind()));
             return sortedEntries;
         }
 
@@ -621,7 +611,7 @@ public class ReportDialog extends ModelioDialog {
         @objid ("d91666df-b4af-41a7-9527-c356bbfbaacb")
         private void produceCodeCell(StringBuilder html, ReportEntry e) {
             html.append("<td id='code'>");
-            
+
             String helpUrl = e.getHelpUrl();
             if (this.withHelp && helpUrl != null && !helpUrl.isEmpty()) {
                 try {
@@ -635,34 +625,32 @@ public class ReportDialog extends ModelioDialog {
                 html.append(String.format("%s", e.getCode()));
             }
             html.append("</td>\n");
-            
         }
 
         @objid ("168bd010-384e-4686-a46b-3a1a13f75980")
         private void produceDiagnosticRow(StringBuilder html, ReportEntry e) {
             // New row
             html.append(String.format("<tr class='%s'>\n", e.getKind()));
-            
+
             // Code cell
             produceCodeCell(html, e);
-            
+
             // Message cell
             html.append("  <td id='message'>");
             html.append(e.getMessage());
             html.append("</td>\n");
-            
+
             // Links cell
             produceLinksCell(html, e);
-            
+
             // Category cell
             html.append("  <td id='category'>");
             String cat = e.getCategory();
             html.append(cat == null ? "" : cat);
             html.append("</td>\n");
-            
+
             // End row
             html.append(String.format("</tr>\n"));
-            
         }
 
         @objid ("61724b19-1102-47c9-b6d7-1308ff49e6d9")
@@ -670,7 +658,6 @@ public class ReportDialog extends ModelioDialog {
             if (this.withInfos) {
                 html.append(String.format("<tr class='INFO'>\n<td id='info' colspan='4'>%s</td>\n</tr>\n", e.getMessage()));
             }
-            
         }
 
     }

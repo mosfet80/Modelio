@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnmessage;
 
@@ -50,14 +50,14 @@ public class BpmnMessageSimpleEditPart extends AbstractNodeEditPart {
     protected IFigure createFigure() {
         // create the figure
         final BpmnMessageFigure fig = new BpmnMessageFigure();
-        
+
         // set style independent properties
         MinimumSizeLayout.apply(fig, 40, 55);
         fig.setMinimumSize(new Dimension(40, 55));
-        
+
         // set style dependent properties
         refreshFromStyle(fig, getModelStyle());
-        
+
         // return the figure
         return fig;
     }
@@ -68,20 +68,20 @@ public class BpmnMessageSimpleEditPart extends AbstractNodeEditPart {
         super.refreshVisuals();
         GmAbstractObject model = getModel();
         getFigure().getParent().setConstraint(getFigure(), model.getLayoutData());
-        
+
     }
 
     @objid ("a5bb0ee2-deaa-463f-b5a5-b092698931d3")
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         installEditPolicy(EditPolicy.NODE_ROLE, new BpmnCreateLinkEditPolicy());
         installEditPolicy("linkedNode", new LinkedNodeEndReconnectEditPolicy());
         installEditPolicy(ModelElementDropRequest.TYPE, new BpmnMessageElementDropEditPolicy());
-        
+
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START, new LinkedNodeStartCreationEditPolicy());
-        
+
     }
 
     @objid ("217713ac-06e7-4ca3-a11b-714a1e835f8c")
@@ -92,7 +92,7 @@ public class BpmnMessageSimpleEditPart extends AbstractNodeEditPart {
                 super.refreshFromStyle(aFigure, style);
             }
         }
-        
+
     }
 
     @objid ("58d28b13-b7ca-448d-b7a9-8665ebd31a25")
@@ -113,14 +113,14 @@ public class BpmnMessageSimpleEditPart extends AbstractNodeEditPart {
          * Default c'tor building an opaque figure using a {@link ToolbarLayoutWithGrab}.
          */
         @objid ("e0f1c0a1-51f1-4efe-af17-8a685df868f8")
-        public  BpmnMessageFigure() {
+        public BpmnMessageFigure() {
             // Add layout
             final ToolbarLayoutWithGrab layout = new ToolbarLayoutWithGrab();
             layout.setHorizontal(false);
             layout.setStretchMinorAxis(true);
             setLayoutManager(layout);
             setOpaque(true);
-            
+
         }
 
         @objid ("bf928e46-7d37-4328-87a1-eaecfd71f3bc")
@@ -134,7 +134,7 @@ public class BpmnMessageSimpleEditPart extends AbstractNodeEditPart {
         protected void paintFigure(Graphics graphics) {
             Rectangle messageBounds = getBounds().getCopy();
             int initialHeight = messageBounds.height;
-            
+
             // Compute the message bounds to preserve the ideal dimensions
             double wRatio = ((double) messageBounds.width) / (double) BpmnMessageFigure.IDEAL_DIMENSIONS.width;
             double hRatio = ((double) messageBounds.height) / (double) BpmnMessageFigure.IDEAL_DIMENSIONS.height;
@@ -143,19 +143,19 @@ public class BpmnMessageSimpleEditPart extends AbstractNodeEditPart {
             } else {
                 messageBounds.setSize(messageBounds.width, (int) (BpmnMessageFigure.IDEAL_DIMENSIONS.height * hRatio));
             }
-            
+
             // If the message is smaller than the figure itself, center it
             if (messageBounds.height < initialHeight) {
                 messageBounds.translate(0, (initialHeight - messageBounds.height) / 2);
             }
-            
+
             // Remove 1 pixel from each side to compensate rounding errors
             messageBounds.shrink(1, 1);
-            
+
             // Draw the message's background
             if (isOpaque() && this.brushOptions.fillColor != null) {
                 graphics.setAlpha(this.brushOptions.alpha);
-            
+
                 if (this.brushOptions.useGradient) {
                     Color gradientColor = computeGradientColor(this.brushOptions.fillColor);
                     graphics.setBackgroundColor(gradientColor);
@@ -167,16 +167,16 @@ public class BpmnMessageSimpleEditPart extends AbstractNodeEditPart {
                 }
                 graphics.restoreState();
             }
-            
+
             // Draw the message itself
             graphics.setForegroundColor(this.penOptions.lineColor);
             graphics.setLineWidth(this.penOptions.lineWidth);
             graphics.drawRectangle(messageBounds);
             graphics.drawLine(messageBounds.x, messageBounds.y, messageBounds.x + messageBounds.width / 2, messageBounds.y + messageBounds.height / 2);
             graphics.drawLine(messageBounds.x + messageBounds.width / 2, messageBounds.y + messageBounds.height / 2, messageBounds.x + messageBounds.width - 1, messageBounds.y);
-            
+
             graphics.restoreState();
-            
+
         }
 
     }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -30,15 +30,15 @@ public class ECommunicationPath extends EAssociation {
     @Override
     public Element createObjingElt() {
         int endNumber = EcoreModelNavigation.getValidEndNumber((org.eclipse.uml2.uml.CommunicationPath) getEcoreElement());
-        
+
         if (endNumber == 2){
-            return UML2CommunicationPath.create().getElement();        
+            return UML2CommunicationPath.create().getElement();
         }
         return null;
     }
 
     @objid ("2fa5c192-a78c-4cad-8262-125b1f8036f8")
-    public  ECommunicationPath(org.eclipse.uml2.uml.CommunicationPath element) {
+    public ECommunicationPath(org.eclipse.uml2.uml.CommunicationPath element) {
         super(element);
     }
 

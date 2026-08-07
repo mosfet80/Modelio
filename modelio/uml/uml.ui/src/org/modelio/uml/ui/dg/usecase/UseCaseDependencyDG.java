@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.dg.usecase;
 
@@ -35,11 +35,12 @@ import org.modelio.uml.usecasediagram.editor.elements.usecasedependency.GmUseCas
 @objid ("6c50a578-71fc-48ea-b592-b9f7fba78018")
 public class UseCaseDependencyDG extends DiagramLink {
     /**
+     *
      * @param diagramHandle The diagram manipulation class.
      * @param link The graphic model link represented by this class.
      */
     @objid ("ff3186dc-c7ce-49bb-bfad-66b5deb774c4")
-    public  UseCaseDependencyDG(DiagramHandle diagramHandle, IGmLink link) {
+    public UseCaseDependencyDG(DiagramHandle diagramHandle, IGmLink link) {
         super(diagramHandle, link);
     }
 
@@ -47,16 +48,16 @@ public class UseCaseDependencyDG extends DiagramLink {
     @Override
     protected Collection<IGmNode> getGmNodes(ExtensionRole role) {
         switch (role) {
-        case EXTENSIONPOINT:  
+        case EXTENSIONPOINT:
             return getGmLink().getExtensions(GmUseCaseDependency.ROLE_EXTENSIONPOINTS);
         case MAIN:
             return getGmLink().getExtensions(IGmLink.ROLE_MAIN_LABEL);
             //$CASES-OMITTED$
         default:
             return Collections.emptyList();
-        
+
         }
-        
+
     }
 
 }

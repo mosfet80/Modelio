@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.ui.audit;
 
@@ -78,7 +78,7 @@ public class R3280 extends AbstractBpmnRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -117,7 +117,7 @@ public class R3280 extends AbstractBpmnRule {
         plan.registerRule(BpmnTransaction.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
         plan.registerRule(BpmnUserTask.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
         plan.registerRule(BpmnLane.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
-        
+
     }
 
     @objid ("6e94fd71-3025-42e3-885b-1d4144ef4676")
@@ -160,7 +160,7 @@ public class R3280 extends AbstractBpmnRule {
      * Default constructor for R3250
      */
     @objid ("2c75d652-59ff-4e57-9441-fa5dcf4ffff7")
-    public  R3280() {
+    public R3280() {
         this.checkerInstance = new CheckR3280(this);
     }
 
@@ -171,10 +171,11 @@ public class R3280 extends AbstractBpmnRule {
     private static class CheckR3280 extends AbstractControl {
         /**
          * C'tor.
+         *
          * @param rule the rule to check.
          */
         @objid ("51862eb6-02f6-465e-8d8d-a7115b750e8d")
-        public  CheckR3280(final IRule rule) {
+        public CheckR3280(final IRule rule) {
             super(rule);
         }
 
@@ -195,7 +196,7 @@ public class R3280 extends AbstractBpmnRule {
         @objid ("9d5f8218-d606-4e73-98cc-0e6e1251be46")
         private IAuditEntry checkR3280(final BpmnFlowElement element) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, element, null);
-            
+
             final EList<BpmnLane> lanes = element.getLane();
             if (lanes.isEmpty()) {
                 BpmnSubProcess subProcess = element.getSubProcess();
@@ -223,7 +224,7 @@ public class R3280 extends AbstractBpmnRule {
             linkedObjects.add(element);
             linkedObjects.add(parent);
             auditEntry.setLinkedInfos(linkedObjects);
-            
+
         }
 
     }

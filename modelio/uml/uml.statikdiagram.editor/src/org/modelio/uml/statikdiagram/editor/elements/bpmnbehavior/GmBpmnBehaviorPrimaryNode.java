@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.bpmnbehavior;
 
@@ -62,25 +62,26 @@ public class GmBpmnBehaviorPrimaryNode extends GmNoStyleCompositeNode implements
 
     /**
      * Default constructor.
+     *
      * @param diagram the diagram in which this gm is unmasked.
      * @param relatedRef a reference to the represented CallBehaviorAction
      */
     @objid ("341e4a0c-55b7-11e2-877f-002564c97630")
-    public  GmBpmnBehaviorPrimaryNode(final IGmDiagram diagram, final MRef relatedRef) {
+    public GmBpmnBehaviorPrimaryNode(final IGmDiagram diagram, final MRef relatedRef) {
         super(diagram, relatedRef);
-        
+
         this.header = new GmDefaultModelElementHeader(diagram, relatedRef);
         this.header.setShowMetaclassIcon(true);
-        
+
         addChild(this.header);
-        
+
     }
 
     /**
      * Empty constructor needed for the serialization.
      */
     @objid ("341e4a17-55b7-11e2-877f-002564c97630")
-    public  GmBpmnBehaviorPrimaryNode() {
+    public GmBpmnBehaviorPrimaryNode() {
         // empty constructor for the serialization
     }
 
@@ -155,7 +156,7 @@ public class GmBpmnBehaviorPrimaryNode extends GmNoStyleCompositeNode implements
             break;
         }
         }
-        
+
     }
 
     @objid ("341fd0b1-55b7-11e2-877f-002564c97630")
@@ -163,29 +164,29 @@ public class GmBpmnBehaviorPrimaryNode extends GmNoStyleCompositeNode implements
     public void refreshFromObModel() {
         super.refreshFromObModel(); // forcing visual refresh in case Image changed
         firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("341fd0b4-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmBpmnBehaviorPrimaryNode.", GmBpmnBehaviorPrimaryNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("341fd0ba-55b7-11e2-877f-002564c97630")
     private void read_0(final IDiagramReader in) {
         super.read(in);
-        
+
         int i = 0;
-        
+
         this.header = (GmDefaultModelElementHeader) this.getChildren().get(i++);
         GmNodeModel imageModeHeader = this.getChildren().get(i++);
         imageModeHeader.delete();
-        
+
     }
 
     @objid ("341fd0c0-55b7-11e2-877f-002564c97630")
@@ -197,9 +198,9 @@ public class GmBpmnBehaviorPrimaryNode extends GmNoStyleCompositeNode implements
     @objid ("341fd0c5-55b7-11e2-877f-002564c97630")
     private void read_1(final IDiagramReader in) {
         super.read(in);
-        
+
         this.header = (GmDefaultModelElementHeader) this.getChildren().get(0);
-        
+
     }
 
 }

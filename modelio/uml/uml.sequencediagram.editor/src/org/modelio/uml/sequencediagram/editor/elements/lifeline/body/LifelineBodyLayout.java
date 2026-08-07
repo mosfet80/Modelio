@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.lifeline.body;
 
@@ -44,7 +44,7 @@ import org.modelio.uml.sequencediagram.editor.elements.sequencediagram.Placement
  * Constraints for each child figure are instances of {@link PlacementConstraint} which is an implementation of the {@link Locator} interface. Basically, being given a desired X coordinate in absolute coordinates and a desired width, a PlacementConstraint
  * should be able to determine the correct bounds by reading informations in the Ob model.
  * </p>
- * 
+ *
  * @author fpoyer
  */
 @objid ("d932d66a-55b6-11e2-877f-002564c97630")
@@ -76,7 +76,7 @@ public class LifelineBodyLayout extends AbstractLayout {
                 locator.relocate(child);
             }
         }
-        
+
         for (int i = 0; i < children.size(); i++) {
             IFigure child = (IFigure) children.get(i);
             PlacementConstraint locator = getConstraint(child);
@@ -94,15 +94,14 @@ public class LifelineBodyLayout extends AbstractLayout {
                     locator.setX(parent.getBounds().getCenter().x +
                             computeNestingForExecutionOccurenceSpecification(parent,
                                     (ExecutionOccurenceSpecificationFigure) child));
-        
+
                 } else if (child instanceof RoundedBoxFigure) {
                     locator.setX(parent.getBounds().getCenter().x);
-        
+
                 }
                 locator.relocate(child);
             }
         }
-        
     }
 
     @objid ("d932d67e-55b6-11e2-877f-002564c97630")
@@ -118,7 +117,6 @@ public class LifelineBodyLayout extends AbstractLayout {
         if (constraint instanceof PlacementConstraint) {
             this.constraints.put(figure, (PlacementConstraint) constraint);
         }
-        
     }
 
     @objid ("d932d68a-55b6-11e2-877f-002564c97630")
@@ -143,7 +141,7 @@ public class LifelineBodyLayout extends AbstractLayout {
                     locator.setX(referenceX +
                             computeNestingForExecutionOccurenceSpecification(parent,
                                     (ExecutionOccurenceSpecificationFigure) child));
-        
+
                 } else {
                     locator.setX(referenceX);
                 }
@@ -160,7 +158,7 @@ public class LifelineBodyLayout extends AbstractLayout {
         // 2 - ExecutionSpecification only care about other ExecutionSpecifications.
         // 3 - ExecutionOccurenceSpecifications use the same nesting as the ExecutionOccurenceSpecification at their center.
         int yReference = reference.getBounds().y;
-        
+
         List<?> children = container.getChildren();
         Deque<IFigure> currentNesting = new ArrayDeque<>();
         for (int i = 0; i < children.size(); i++) {

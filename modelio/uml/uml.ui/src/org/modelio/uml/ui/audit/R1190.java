@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -51,7 +51,7 @@ public class R1190 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -71,7 +71,7 @@ public class R1190 extends AbstractUmlRule {
         plan.registerRule(DecisionMergeNode.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(ControlFlow.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE | AuditTrigger.UPDATE);
         plan.registerRule(ObjectFlow.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE | AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -105,14 +105,14 @@ public class R1190 extends AbstractUmlRule {
      * Default constructor for R1190
      */
     @objid ("8b34ef15-a025-41c4-8431-accafa5c4784")
-    public  R1190() {
+    public R1190() {
         this.checkerInstance = new CheckR1190(this);
     }
 
     @objid ("a56a546a-3de3-49a5-9ba7-6bb2c179c327")
     private static class CheckR1190 extends AbstractControl {
         @objid ("d6cd49e7-7615-4bf2-a16b-bd11d83843cf")
-        public  CheckR1190(IRule rule) {
+        public CheckR1190(IRule rule) {
             super(rule);
         }
 
@@ -132,12 +132,12 @@ public class R1190 extends AbstractUmlRule {
         @objid ("f6b7303b-a605-4f13-a534-0fec124f7595")
         private List<IAuditEntry> checkR1190(ActivityEdge edge) {
             List<IAuditEntry> auditEntries = new ArrayList<>();
-            
+
             ActivityNode source = edge.getSource();
             if (source instanceof DecisionMergeNode) {
                 auditEntries.add(checkR1190((DecisionMergeNode) source));
             }
-            
+
             ActivityNode target = edge.getTarget();
             if (target instanceof DecisionMergeNode) {
                 auditEntries.add(checkR1190((DecisionMergeNode) target));
@@ -148,17 +148,17 @@ public class R1190 extends AbstractUmlRule {
         @objid ("881ed302-7acd-4ffe-b613-1258c951e983")
         private IAuditEntry checkR1190(DecisionMergeNode decisionMerge) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, decisionMerge, null);
-            
+
             // This rule is necessary because Modelio uses the same element to represents Decision nodes and Merge nodes.
             // However, it is advised to use the DecisionMerge in only one configuration, either Decision or Merge, and not the two at the same time.
-            
+
             List<ActivityEdge> sourceEdges = decisionMerge.getIncoming();
             List<ActivityEdge> targetEdges = decisionMerge.getOutgoing();
-            
+
             if (sourceEdges.size() > 1 && targetEdges.size() > 1) {
-            
+
                 // Rule failed
-            
+
                 List<Object> linkedObjects = new ArrayList<>();
                 auditEntry.setSeverity(this.rule.getSeverity());
                 linkedObjects.add(decisionMerge);

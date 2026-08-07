@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.edition.dialogs.dialog;
 
@@ -99,16 +99,17 @@ public class EditElementDialog extends ModelioDialog {
     private IStatusChangeListener statusChangeListener = evt -> getShell().getDisplay().asyncExec(this::refresh);
 
     /**
+     *
      * @param parentShell the parent SWT shell
      * @param panelDescriptors the dialog panel descriptors
      * @param coreSession the modeling session
      */
     @objid ("e11d9728-db21-4462-8460-cd4e87f90d44")
-    public  EditElementDialog(Shell parentShell, List<PanelDescriptor> panelDescriptors, ICoreSession coreSession) {
+    public EditElementDialog(Shell parentShell, List<PanelDescriptor> panelDescriptors, ICoreSession coreSession) {
         super(parentShell);
         this.coreSession = coreSession;
         this.panelDescriptors = panelDescriptors;
-        
+
     }
 
     @objid ("8fa7c864-c068-11e1-8c0a-002564c97630")
@@ -120,7 +121,7 @@ public class EditElementDialog extends ModelioDialog {
             public void widgetSelected(SelectionEvent e) {
                 EditElementDialog.this.close();
             }
-        
+
             @Override
             public void widgetDefaultSelected(SelectionEvent e) {
                 EditElementDialog.this.close();
@@ -133,14 +134,14 @@ public class EditElementDialog extends ModelioDialog {
     @Override
     public Control createContentArea(final Composite parent) {
         this.tabFolder = new TabFolder(parent, SWT.NONE);
-        
+
         GridData gd = new GridData(800, 600);
         gd.horizontalAlignment = SWT.FILL;
         gd.grabExcessHorizontalSpace = true;
         gd.verticalAlignment = SWT.FILL;
         gd.grabExcessVerticalSpace = true;
         this.tabFolder.setLayoutData(gd);
-        
+
         // Create the panels
         for (PanelDescriptor desc : this.panelDescriptors) {
             IPanelProvider panel = desc.getPanel();
@@ -148,10 +149,10 @@ public class EditElementDialog extends ModelioDialog {
                 createTabbedPanel(this.tabFolder, panel, desc.getPanelLabel());
             }
         }
-        
+
         // Set the input
         setEditedElement(this.editedElement);
-        
+
         // This listener avoids closing the dialog when pressing enter to validate an edition field.
         parent.addTraverseListener(new TraverseListener() {
             @Override
@@ -161,7 +162,7 @@ public class EditElementDialog extends ModelioDialog {
                 }
             }
         });
-        
+
         // Plug model change listener ( the listener is un-plugged in the close() method)
         if (this.coreSession != null) {
             this.coreSession.getModelChangeSupport().addModelChangeListener(this.modelChangeListener);
@@ -174,11 +175,11 @@ public class EditElementDialog extends ModelioDialog {
     @Override
     public void init() {
         setLogoImage(null);
-        
+
         // Put the messages in the banner area
         final String name = this.editedElement.getName();
         setTitle(EditionDialogs.I18N.getMessage("EditElementDialog.Title", name, name.length()));
-        
+
         final String type;
         if (this.editedElement instanceof ModelElement && !((ModelElement) this.editedElement).getExtension().isEmpty()) {
             type = MdaResources.getQualifiedLabel((ModelElement) this.editedElement, null);
@@ -186,14 +187,14 @@ public class EditElementDialog extends ModelioDialog {
             type = MetamodelLabels.getString(this.editedElement.getMClass().getName());
         }
         setMessage(EditionDialogs.I18N.getMessage("EditElementDialog.Message", type));
-        
+
         // Center the shell on the screen
         Shell shell = getShell();
         shell.pack(true);
         Point size = shell.getSize();
         Rectangle parentBounds = shell.getParent().getBounds();
         shell.setLocation(parentBounds.x + parentBounds.width / 2 - size.x / 2, parentBounds.y + parentBounds.height / 2 - size.y / 2);
-        
+
     }
 
     @objid ("a060dadd-69d9-41ab-b87a-02041f2c9bab")
@@ -209,7 +210,7 @@ public class EditElementDialog extends ModelioDialog {
         newShell.setText(EditionDialogs.I18N.getMessage("EditElementDialog.shellTitle"));
         newShell.setImage(UIImages.OPENPROPERTIES);
         newShell.setMinimumSize(800, 600);
-        
+
         // Un-plug model change listener on Shell disposal
         newShell.addDisposeListener((e) -> {
             if (this.coreSession != null) {
@@ -217,16 +218,17 @@ public class EditElementDialog extends ModelioDialog {
                 this.coreSession.getModelChangeSupport().removeStatusChangeListener(this.statusChangeListener);
                 this.coreSession = null;
             }
-        
+
             for (IPanelProvider panelProvider : this.tabbedPanels) {
                 panelProvider.dispose();
             }
         });
-        
+
     }
 
     /**
      * Set the edited element.
+     *
      * @param editedElement the new edited element.
      */
     @objid ("8fa7c869-c068-11e1-8c0a-002564c97630")
@@ -242,7 +244,7 @@ public class EditElementDialog extends ModelioDialog {
             }
         }
         this.editedElement = editedElement;
-        
+
     }
 
     @objid ("7538de8a-3f63-49bf-b35a-c11949946877")
@@ -265,7 +267,7 @@ public class EditElementDialog extends ModelioDialog {
         for (IPanelProvider panel : this.tabbedPanels) {
             panel.setInput(input);
         }
-        
+
     }
 
     /**
@@ -284,7 +286,7 @@ public class EditElementDialog extends ModelioDialog {
                 }
             }
         }
-        
+
         // return dialog help
         return EditionDialogs.I18N.getString("EditElementDialog.HELP_TOPIC");
     }
@@ -293,7 +295,7 @@ public class EditElementDialog extends ModelioDialog {
     private IPanelProvider createTabbedPanel(TabFolder aTabFolder, IPanelProvider panel, String label) {
         TabItem tabItem = new TabItem(aTabFolder, SWT.NULL);
         tabItem.setText(label);
-        
+
         // GTK3 issue (see https://bugs.eclipse.org/bugs/show_bug.cgi?id=534089)
         // If the panel contains a table using 'composite' cell editors seems that we MUST call tabItem.setControl(c);
         // BEFORE creating the table
@@ -302,7 +304,7 @@ public class EditElementDialog extends ModelioDialog {
         workaroundComposite.setLayout(new GridLayout(1, false));
         // Set the tabItem control immediately
         tabItem.setControl(workaroundComposite);
-        
+
         // Now create the panel possibly using a table with composite cell editors balh blah blah ...
         Control top = (Control) panel.createPanel(workaroundComposite);
         top.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));

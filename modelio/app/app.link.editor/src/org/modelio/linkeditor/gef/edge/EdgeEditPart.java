@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.linkeditor.gef.edge;
 
@@ -78,14 +97,14 @@ public class EdgeEditPart extends AbstractConnectionEditPart {
     @objid ("c99f8824-5bf9-4cae-b0de-06e272deb543")
     private static final int VERTICALLAYOUT_EDGELABELGAP = 4;
 
-    @objid ("2694c9d2-6f1c-4605-8ead-591dcf64142a")
+    @objid ("fc3d6337-2e2a-4601-b982-43ae13fefe87")
     private static final PointList AGGREG_TIP = new PointList(new int[] { -1, 1, 0, 0, -1, -1, -2, 0 });
 
-    @objid ("a453cc05-31bf-4ad0-92d4-9ba5c2a2aed2")
+    @objid ("1569df54-8070-48f5-b4a6-9ce73c8ce75b")
     private static final PointList NAVIG_AGGREG_TIP = new PointList(new int[] { -1, 1, 0, 0, -1, -1, -2, 0,
-            	        -3, -1, -2, 0, -3, 1, -2, 0 });
+                	        -3, -1, -2, 0, -3, 1, -2, 0 });
 
-    @objid ("c95d026f-58e2-45ea-af1a-761b6e8ba561")
+    @objid ("90c6e9ea-e262-423f-8b42-1561ccae3c56")
     private static final PointList TRIANGLE_TIP = new PointList(new int[] { -1, 1, 0, 0, -1, -1 });
 
     /**
@@ -93,39 +112,38 @@ public class EdgeEditPart extends AbstractConnectionEditPart {
      */
     @objid ("3e66ff73-5806-45e6-a3d4-cc056af6f039")
     public static IEdgeDecorator colorizer = new IEdgeDecorator() {
-    
-            		@Override
-            		public void decorateLabel(Edge edge, Label fig) {
-            			fig.setFont(UIFont.SMALL);
-            			fig.setForegroundColor(ColorConstants.lightGray);
-            		}
-    
-            		@Override
-            		public void decorateLine(Edge edge, PolylineConnection fig) {
-    
-            			if (edge.data != null) {
-            				// Link towards node
-            				Color swtColor = Display.getDefault().getSystemColor(SWT.COLOR_LIST_FOREGROUND);
-                            fig.setForegroundColor(swtColor);
-                            fig.setLineWidth(1);
-    
-            			} else {
-            				// Link towards bus
-            				fig.setForegroundColor(ColorConstants.lightGray);
-                            fig.setLineWidth(2);
-            			}
-    
-            		}
-    
-    
-            	};
+
+                		@Override
+                		public void decorateLabel(Edge edge, Label fig) {
+                			fig.setFont(UIFont.SMALL);
+                			fig.setForegroundColor(ColorConstants.lightGray);
+                		}
+
+                		@Override
+                		public void decorateLine(Edge edge, PolylineConnection fig) {
+
+                			if (edge.data != null) {
+                				// Link towards node
+                				Color swtColor = Display.getDefault().getSystemColor(SWT.COLOR_LIST_FOREGROUND);
+                                fig.setForegroundColor(swtColor);
+                                fig.setLineWidth(1);
+
+                			} else {
+                				// Link towards bus
+                				fig.setForegroundColor(ColorConstants.lightGray);
+                                fig.setLineWidth(2);
+                			}
+
+                		}
+
+
+                	};
 
     @objid ("1b9d2874-5e33-11e2-b81d-002564c97630")
     @Override
     protected void createEditPolicies() {
         installEditPolicy(EditPolicy.CONNECTION_ENDPOINTS_ROLE, new ConnectionEndpointEditPolicy());
         installEditPolicy(EditPolicy.COMPONENT_ROLE, new DeleteEdgeEditPolicy());
-        
     }
 
     @objid ("1b9d2877-5e33-11e2-b81d-002564c97630")
@@ -138,12 +156,12 @@ public class EdgeEditPart extends AbstractConnectionEditPart {
         // Add model specific decorations
         Edge edge = (Edge) getModel();
         Object model = edge.data;
-        
+
         colorizer.decorateLine(edge, fig);
-        
-        
+
+
         if (model != null) {
-        
+
             if (model instanceof Generalization || model instanceof Operation) {
                 decorateGeneralization(fig);
             } else if (model instanceof InterfaceRealization) {
@@ -159,14 +177,13 @@ public class EdgeEditPart extends AbstractConnectionEditPart {
                 decorateNamespaceUse(fig, model);
             }
         }
-        
     }
 
     @objid ("1b9d287a-5e33-11e2-b81d-002564c97630")
     @Override
     public Object getAdapter(final Class adapter) {
         final Object model = getModel();
-        
+
         if (adapter.isInstance(model)) {
             return model;
         } else if (model instanceof Edge) {
@@ -181,7 +198,7 @@ public class EdgeEditPart extends AbstractConnectionEditPart {
     private void decorateElementImport(final PolylineConnection fig, final Object model) {
         BackgroundEditPart ep = (BackgroundEditPart) getRoot().getContents();
         boolean vertical = ep.isVerticalLayout();
-        
+
         fig.setLineStyle(SWT.LINE_DASH);
         fig.setTargetDecoration(new PolylineDecoration());
         Label role = new Label();
@@ -190,24 +207,23 @@ public class EdgeEditPart extends AbstractConnectionEditPart {
         } else {
             role.setText(EdgeEditPart.OPENING + "access" + EdgeEditPart.CLOSING);
         }
-        
-        
-        
+
+
+
         colorizer.decorateLabel((Edge) getModel(), role);
-        
+
         ConnectionLocator constraint = new ConnectionLocator(fig, ConnectionLocator.MIDDLE);
         constraint.setGap(vertical ? VERTICALLAYOUT_EDGELABELGAP : HORIZONTALLAYOUT_EDGELABELGAP);
         constraint.setRelativePosition(PositionConstants.NORTH);
         fig.add(role, 0);
         fig.setConstraint(role, constraint);
-        
     }
 
     @objid ("1b9d2889-5e33-11e2-b81d-002564c97630")
     private void decorateDependency(final PolylineConnection fig, final Object model) {
         BackgroundEditPart ep = (BackgroundEditPart) getRoot().getContents();
         boolean vertical = ep.isVerticalLayout();
-        
+
         Dependency dependency = (Dependency) model;
         fig.setLineStyle(SWT.LINE_DASH);
         fig.setTargetDecoration(new PolylineDecoration());
@@ -234,16 +250,15 @@ public class EdgeEditPart extends AbstractConnectionEditPart {
                 String stereoLabel = MdaResources.getLabel(stereotype);
                 role.setText(EdgeEditPart.OPENING + stereoLabel + ", ... " + EdgeEditPart.CLOSING);
             }
-        
+
             colorizer.decorateLabel((Edge) getModel(), role);
-        
+
             ConnectionLocator constraint = new ConnectionLocator(fig, ConnectionLocator.MIDDLE);
             constraint.setGap(vertical ? VERTICALLAYOUT_EDGELABELGAP : HORIZONTALLAYOUT_EDGELABELGAP);
             constraint.setRelativePosition(PositionConstants.NORTH);
             fig.add(role, 0);
             fig.setConstraint(role, constraint);
         }
-        
     }
 
     @objid ("1b9d2891-5e33-11e2-b81d-002564c97630")
@@ -251,7 +266,6 @@ public class EdgeEditPart extends AbstractConnectionEditPart {
         AssociationEnd assocEnd = (AssociationEnd) model;
         decorateAssociationSource(fig, assocEnd);
         decorateAssociationTarget(fig, assocEnd);
-        
     }
 
     @objid ("1b9d2899-5e33-11e2-b81d-002564c97630")
@@ -265,7 +279,6 @@ public class EdgeEditPart extends AbstractConnectionEditPart {
         arrow.setForegroundColor(fig.getForegroundColor());
         arrow.setBackgroundColor(ColorConstants.white);
         fig.setTargetDecoration(arrow);
-        
     }
 
     @objid ("1b9f89ae-5e33-11e2-b81d-002564c97630")
@@ -278,7 +291,7 @@ public class EdgeEditPart extends AbstractConnectionEditPart {
     private void decorateAssociationTarget(final PolylineConnection fig, final AssociationEnd assocEnd) {
         BackgroundEditPart ep = (BackgroundEditPart) getRoot().getContents();
         boolean vertical = ep.isVerticalLayout();
-        
+
         RotatableDecoration targetDecoration;
         if (assocEnd.isNavigable()) {
             AssociationEnd opposite = assocEnd.getOpposite();
@@ -298,13 +311,13 @@ public class EdgeEditPart extends AbstractConnectionEditPart {
             fig.setTargetDecoration(targetDecoration);
             Label role = new Label();
             role.setText(assocEnd.getName());
-        
-        
+
+
             colorizer.decorateLabel((Edge) getModel(), role);
-        
+
             ConnectionLocator constraint = new ConnectionLocator(fig, ConnectionLocator.TARGET);
             constraint.setGap(vertical ? VERTICALLAYOUT_EDGELABELGAP : HORIZONTALLAYOUT_EDGELABELGAP);
-        
+
             if (vertical) {
                 constraint.setRelativePosition(PositionConstants.SOUTH_WEST);
             } else {
@@ -327,9 +340,9 @@ public class EdgeEditPart extends AbstractConnectionEditPart {
                 cardText = "[" + assocEnd.getMultiplicityMin() + ".." + assocEnd.getMultiplicityMax() + "]";
             }
             card.setText(cardText);
-        
+
             colorizer.decorateLabel((Edge) getModel(), card);
-        
+
             constraint = new ConnectionLocator(fig, ConnectionLocator.TARGET);
             constraint.setGap(vertical ? VERTICALLAYOUT_EDGELABELGAP : HORIZONTALLAYOUT_EDGELABELGAP);
             if (vertical) {
@@ -350,17 +363,16 @@ public class EdgeEditPart extends AbstractConnectionEditPart {
             }
             fig.setTargetDecoration(targetDecoration);
         }
-        
     }
 
     @objid ("1b9f89bd-5e33-11e2-b81d-002564c97630")
     private void decorateAssociationSource(final PolylineConnection fig, final AssociationEnd assocEnd) {
         RotatableDecoration sourceDecoration = new PolygonDecoration();
         AssociationEnd opposite = assocEnd.getOpposite();
-        
+
         BackgroundEditPart ep = (BackgroundEditPart) getRoot().getContents();
         boolean vertical = ep.isVerticalLayout();
-        
+
         if (opposite.isNavigable()) {
             if (assocEnd.getAggregation() == AggregationKind.KINDISAGGREGATION ||
                     assocEnd.getAggregation() == AggregationKind.KINDISCOMPOSITION) {
@@ -378,8 +390,8 @@ public class EdgeEditPart extends AbstractConnectionEditPart {
             fig.setSourceDecoration(sourceDecoration);
             Label role = new Label();
             role.setText(opposite.getName());
-        
-        
+
+
             colorizer.decorateLabel((Edge) getModel(), role);
             ConnectionLocator constraint = new ConnectionLocator(fig, ConnectionLocator.SOURCE);
             constraint.setGap(vertical ? VERTICALLAYOUT_EDGELABELGAP : HORIZONTALLAYOUT_EDGELABELGAP);
@@ -405,10 +417,10 @@ public class EdgeEditPart extends AbstractConnectionEditPart {
                 cardText = "[" + opposite.getMultiplicityMin() + ".." + opposite.getMultiplicityMax() + "]";
             }
             card.setText(cardText);
-        
-        
+
+
             colorizer.decorateLabel((Edge) getModel(), card);
-        
+
             constraint = new ConnectionLocator(fig, ConnectionLocator.SOURCE);
             constraint.setGap(vertical ? VERTICALLAYOUT_EDGELABELGAP : HORIZONTALLAYOUT_EDGELABELGAP);
             if (vertical) {
@@ -429,35 +441,33 @@ public class EdgeEditPart extends AbstractConnectionEditPart {
             }
             fig.setSourceDecoration(sourceDecoration);
         }
-        
     }
 
     @objid ("1b9f89c7-5e33-11e2-b81d-002564c97630")
     private void decorateNamespaceUse(final PolylineConnection fig, final Object model) {
         BackgroundEditPart ep = (BackgroundEditPart) getRoot().getContents();
         boolean vertical = ep.isVerticalLayout();
-        
+
         fig.setLineStyle(SWT.LINE_DASHDOT);
         fig.setForegroundColor(ColorConstants.lightBlue);
         fig.setLineWidth(2);
-        
+
         PolylineDecoration arrow = new PolylineDecoration();
         arrow.setTemplate(PolylineDecoration.TRIANGLE_TIP);
         arrow.setScale(7, 4);
         arrow.setLineWidth(2);
         arrow.setOpaque(false);
         fig.setTargetDecoration(arrow);
-        
+
         Label role = new Label();
         role.setText(((ImpactLink) model).getCauses().size() + " cause(s)");
-        
+
         colorizer.decorateLabel((Edge) getModel(), role);
-        
+
         ConnectionLocator constraint = new ConnectionLocator(fig, ConnectionLocator.MIDDLE);
         constraint.setGap(vertical ? VERTICALLAYOUT_EDGELABELGAP : HORIZONTALLAYOUT_EDGELABELGAP);
         constraint.setRelativePosition(PositionConstants.NORTH);
         fig.add(role, constraint);
-        
     }
 
     @objid ("06f88162-8bdf-4d49-ae41-1dc8ab140945")
@@ -473,7 +483,7 @@ public class EdgeEditPart extends AbstractConnectionEditPart {
          */
         @objid ("8de71a1e-e4c7-4664-b07a-abc10820842d")
         void decorateLabel(Edge edge, Label fig);
-}
-    
+
+    }
 
 }

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.rootElements;
 
 import java.util.ArrayList;
@@ -43,25 +42,25 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("007a5ba2-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnGroupImpl extends BpmnArtifactImpl implements BpmnGroup {
-    @objid ("562f8627-6974-433f-adfa-0ccea1679ee8")
+    @objid ("07ffdb62-46ba-4585-a8ac-effe0f94c6c2")
     @Override
     public String getCategory() {
         return (String) getAttVal(((BpmnGroupSmClass)getClassOf()).getCategoryAtt());
     }
 
-    @objid ("65830aeb-97f6-495d-997c-eaed08c2e9ba")
+    @objid ("3b10346d-68d3-43fc-b18a-48076116b8fe")
     @Override
     public void setCategory(String value) {
         setAttVal(((BpmnGroupSmClass)getClassOf()).getCategoryAtt(), value);
     }
 
-    @objid ("c8f4d71e-f00f-415d-aaa9-b6b370c69a20")
+    @objid ("72fad1f1-29e2-4e9e-a3e0-bfd11ddeed3c")
     @Override
     public EList<BpmnFlowElement> getCategorized() {
         return new SmList<>(this, ((BpmnGroupSmClass)getClassOf()).getCategorizedDep());
     }
 
-    @objid ("b5fd9293-4da8-4382-914b-5f3b545229c6")
+    @objid ("e46e7086-d574-4060-9bd5-b004c105e7ac")
     @Override
     public <T extends BpmnFlowElement> List<T> getCategorized(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -74,10 +73,10 @@ public class BpmnGroupImpl extends BpmnArtifactImpl implements BpmnGroup {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("61bdd3ba-4ae5-44c4-931a-101d6569c9ed")
+    @objid ("59968158-4b6b-47e4-94de-646efecd28c0")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -85,17 +84,17 @@ public class BpmnGroupImpl extends BpmnArtifactImpl implements BpmnGroup {
         return super.getCompositionOwner();
     }
 
-    @objid ("91b9f1d2-4322-4b97-9890-e24b40f378b1")
+    @objid ("bb48b186-4b11-4af5-b66e-22e79dd58f9c")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("b9ff1f45-0075-4131-b01d-e7e93d56ccda")
+    @objid ("67118e69-aba7-4081-ab4b-3fb7c29ef509")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitBpmnGroup(this);

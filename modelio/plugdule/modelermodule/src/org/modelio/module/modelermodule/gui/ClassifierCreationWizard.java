@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.module.modelermodule.gui;
 
@@ -59,6 +59,7 @@ public class ClassifierCreationWizard {
 
     /**
      * Get the inputed name.
+     *
      * @return a name for the new classifier.
      */
     @objid ("a58792ce-1af2-40d4-83da-9bf3f2f291fa")
@@ -68,6 +69,7 @@ public class ClassifierCreationWizard {
 
     /**
      * Get the selected classifier type.
+     *
      * @return a classifier sub-type name: Class, Component, Interface or Node.
      */
     @objid ("c0825a83-6a1a-465d-83b4-3f3eba14d53c")
@@ -77,18 +79,19 @@ public class ClassifierCreationWizard {
 
     /**
      * Default constructor.
+     *
      * @param parent the parent shell.
      * @param instance the instance indicating which classifier sub-types should be made available.
      * Interfaces and Nodes won't be available is the instance has ports.
      */
     @objid ("2a5f40e9-e5f1-480b-87a5-3aa7ee34495e")
-    public  ClassifierCreationWizard(final Shell parent, final Instance instance) {
+    public ClassifierCreationWizard(final Shell parent, final Instance instance) {
         this.name = "";
         this.selected = I18nMessageService.getString("module.gui.classifierWizard.class");
         this.instance = instance;
-        
+
         createContents(parent);
-        
+
     }
 
     /**
@@ -97,16 +100,16 @@ public class ClassifierCreationWizard {
     @objid ("6a046262-483f-4bde-b794-59a06b86dfe1")
     public void open() {
         ShellHelper.centerShell(this.shell);
-        
+
         this.shell.open();
         this.shell.layout();
-        
+
         final Display display = this.shell.getDisplay();
         while (!this.shell.isDisposed()) {
             if (!display.readAndDispatch())
                 display.sleep();
         }
-        
+
     }
 
     /**
@@ -115,10 +118,10 @@ public class ClassifierCreationWizard {
     @objid ("f26b626e-0f37-4eb4-b7e8-17fba4bcc6b2")
     protected void createContents(Shell parent) {
         this.shell = new Shell(parent, SWT.DIALOG_TRIM);
-        
+
         this.shell.setLayout(new FormLayout());
         this.shell.setText(I18nMessageService.getString("module.gui.classifierWizard.title"));
-        
+
         final Label nameLabel = new Label(this.shell, SWT.NONE);
         nameLabel.setAlignment(SWT.CENTER);
         final FormData fd_nameLabel = new FormData();
@@ -127,7 +130,7 @@ public class ClassifierCreationWizard {
         fd_nameLabel.top = new FormAttachment(0, 5);
         nameLabel.setLayoutData(fd_nameLabel);
         nameLabel.setText(I18nMessageService.getString("module.gui.classifierWizard.name"));
-        
+
         this.text = new Text(this.shell, SWT.BORDER);
         final FormData fd_text = new FormData();
         fd_text.right = new FormAttachment(nameLabel, 0, SWT.RIGHT);
@@ -135,7 +138,7 @@ public class ClassifierCreationWizard {
         fd_text.left = new FormAttachment(nameLabel, 0, SWT.LEFT);
         this.text.setText(this.instance.getName());
         this.text.setLayoutData(fd_text);
-        
+
         final Label classLabel = new Label(this.shell, SWT.NONE);
         classLabel.setAlignment(SWT.CENTER);
         final FormData fd_classLabel = new FormData();
@@ -144,9 +147,9 @@ public class ClassifierCreationWizard {
         fd_classLabel.left = new FormAttachment(this.text, 0, SWT.LEFT);
         classLabel.setLayoutData(fd_classLabel);
         classLabel.setText(I18nMessageService.getString("module.gui.classifierWizard.type"));
-        
+
         Composite buttons = createButtons();
-        
+
         Group composite_1;
         composite_1 = new Group(this.shell, SWT.NONE);
         final GridLayout gridLayout = new GridLayout();
@@ -158,12 +161,12 @@ public class ClassifierCreationWizard {
         fd_composite.right = new FormAttachment(100, -5);
         fd_composite.bottom = new FormAttachment(buttons, 0);
         composite_1.setLayoutData(fd_composite);
-        
+
         createClasses(composite_1);
-        
+
         this.shell.pack();
         this.shell.setSize(this.shell.getSize().x + 30, this.shell.getSize().y);
-        
+
     }
 
     @objid ("69140fe7-a73d-4231-8bc9-ce16ef83859f")
@@ -177,10 +180,10 @@ public class ClassifierCreationWizard {
         fd_composite_1.bottom = new FormAttachment(100, 0);
         fd_composite_1.right = new FormAttachment(100, -5);
         composite.setLayoutData(fd_composite_1);
-        
+
         final Composite composite_2 = new Composite(composite, SWT.NONE);
         composite_2.setLayout(new FillLayout());
-        
+
         final Button okButton = new Button(composite_2, SWT.NONE);
         okButton.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -195,7 +198,7 @@ public class ClassifierCreationWizard {
             }
         });
         okButton.setText(I18nMessageService.getString("module.gui.ok"));
-        
+
         Button cancelButton;
         cancelButton = new Button(composite_2, SWT.NONE);
         cancelButton.addSelectionListener(new SelectionAdapter() {
@@ -217,30 +220,30 @@ public class ClassifierCreationWizard {
                 ClassifierCreationWizard.this.selected = ((String) event.widget.getData());
             }
         };
-        
+
         final Button classButton = new Button(composite_1, SWT.RADIO);
         classButton.setText(I18nMessageService.getString("module.gui.classifierWizard.class"));
         classButton.setData(I18nMessageService.getString("module.gui.classifierWizard.class"));
         classButton.setSelection(true);
         classButton.addSelectionListener(listener);
-        
+
         final Button componentButton = new Button(composite_1, SWT.RADIO);
         componentButton.setText(I18nMessageService.getString("module.gui.classifierWizard.component"));
         componentButton.setData(I18nMessageService.getString("module.gui.classifierWizard.component"));
         componentButton.addSelectionListener(listener);
-        
+
         if (this.instance != null && this.instance.getPart(Port.class).size() == 0) {
             final Button interfaceButton = new Button(composite_1, SWT.RADIO);
             interfaceButton.setText(I18nMessageService.getString("module.gui.classifierWizard.interface"));
             interfaceButton.setData(I18nMessageService.getString("module.gui.classifierWizard.interface"));
             interfaceButton.addSelectionListener(listener);
-        
+
             final Button nodeButton = new Button(composite_1, SWT.RADIO);
             nodeButton.setText(I18nMessageService.getString("module.gui.classifierWizard.node"));
             nodeButton.setData(I18nMessageService.getString("module.gui.classifierWizard.node"));
             nodeButton.addSelectionListener(listener);
         }
-        
+
     }
 
     @objid ("9355ee74-82dc-4501-b12d-d94133a979be")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.freezone;
 
@@ -42,7 +42,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  * Represents a zone where elements can be unmasked.
  * <p>
  * This class must be subclassed , {@link #canUnmask(MObject)} and {@link #canCreate(Class)} must be defined.
- * 
+ *
  * @author cmarin
  */
 @objid ("7e3cc0f8-1dec-11e2-8cad-001ec947c8cc")
@@ -58,11 +58,12 @@ public abstract class GmFreeZone extends GmCompositeNode {
 
     /**
      * Initializes a free zone.
+     *
      * @param diagram The diagram
      * @param relatedRef a reference to the element this GmModel is related to.
      */
     @objid ("7e3cc0ff-1dec-11e2-8cad-001ec947c8cc")
-    public  GmFreeZone(IGmDiagram diagram, MRef relatedRef) {
+    public GmFreeZone(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -70,7 +71,7 @@ public abstract class GmFreeZone extends GmCompositeNode {
      * Constructor for deserialization only.
      */
     @objid ("7e3cc104-1dec-11e2-8cad-001ec947c8cc")
-    public  GmFreeZone() {
+    public GmFreeZone() {
         super();
     }
 
@@ -137,15 +138,15 @@ public abstract class GmFreeZone extends GmCompositeNode {
     @objid ("7e3cc133-1dec-11e2-8cad-001ec947c8cc")
     protected void removeObsoleteChildren() {
         final MObject el = getRelatedElement();
-        
+
         // Do nothing if invalid itself
         if (el == null || el.isShell() || el.isDeleted()) {
             return;
         }
-        
+
         // Get the children to delete
         final List<GmNodeModel> toDel = new ArrayList<>();
-        
+
         for (GmNodeModel child : getChildren()) {
             MObject childEl = child.getRelatedElement();
             if (childEl != null) {
@@ -154,12 +155,12 @@ public abstract class GmFreeZone extends GmCompositeNode {
                 }
             }
         }
-        
+
         // Delete found obsolete children
         for (GmNodeModel child : toDel) {
             child.delete();
         }
-        
+
     }
 
     /**
@@ -171,12 +172,12 @@ public abstract class GmFreeZone extends GmCompositeNode {
         GmModel oldParent = getParent();
         // Call inherited
         super.setParent(parent);
-        
+
         // Modify the style
         if (parent != null && !parent.equals(oldParent)) {
             getPersistedStyle().setCascadedStyle(parent.getPersistedStyle());
         }
-        
+
     }
 
     /**
@@ -205,17 +206,17 @@ public abstract class GmFreeZone extends GmCompositeNode {
                 break;
             }
         }
-        
+
     }
 
     @objid ("7e3f235c-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmFreeZone.", MINOR_VERSION);
-        
+
     }
 
     @objid ("7e3f2360-1dec-11e2-8cad-001ec947c8cc")

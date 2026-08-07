@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.ui.swt.metaclassselect;
 
@@ -43,6 +43,7 @@ import org.modelio.vcore.smkernel.mapi.MClass;
 public interface IMetaclassSelector {
     /**
      * Setup a metaclass filter.
+     *
      * @param filter a {@link Predicate} that returns true to display the metaclass, false to exclude it.
      */
     @objid ("08b6aeaa-6b31-4da2-b6fe-35c1d46fd945")
@@ -50,6 +51,7 @@ public interface IMetaclassSelector {
 
     /**
      * Add a listener to be notified when the selection changes.
+     *
      * @param listener a {@link Consumer} that accepts the selected metaclass.
      */
     @objid ("d38389eb-f663-40cb-b0c4-c2bbf9b7badd")
@@ -63,6 +65,7 @@ public interface IMetaclassSelector {
     Text getControl();
 
     /**
+     *
      * @return the selected metaclass.
      */
     @objid ("c6db0c17-033c-4557-8820-4c7c5a14d7db")
@@ -70,6 +73,7 @@ public interface IMetaclassSelector {
 
     /**
      * remove a listener added with {@link #addListener(Consumer)}.
+     *
      * @param listener the listener to remove.
      */
     @objid ("f43dfb13-0362-42e4-b8a1-92d12512961a")
@@ -77,9 +81,10 @@ public interface IMetaclassSelector {
 
     /**
      * Set the selected metaclass.
+     *
      * @param mClass the selected metaclass.
      */
     @objid ("ef91aa87-211c-4415-a3b4-beddd7de9a24")
     void setSelected(MClass mClass);
-}
 
+}

@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.vcore.smkernel;
 
@@ -32,7 +51,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  * <p>
  * This identifier is valid while the project is opened.
  * It is used to help recovering a swapped object.
- * 
+ *
  * @see ISwap
  * @see IKernelServiceProvider
  */
@@ -57,6 +76,7 @@ public final class SmLiveId {
     private static final int classshift = 0;
 
     /**
+     *
      * @param liveId a live id.
      * @return the kernel id.
      */
@@ -66,6 +86,7 @@ public final class SmLiveId {
     }
 
     /**
+     *
      * @param liveId a live id.
      * @return the metaclass id.
      */
@@ -75,6 +96,7 @@ public final class SmLiveId {
     }
 
     /**
+     *
      * @param liveId a live id.
      * @return the repository id.
      */
@@ -85,6 +107,7 @@ public final class SmLiveId {
 
     /**
      * Build a live identifier.
+     *
      * @param kid a kernel id.
      * @param rid a repository id.
      * @param classid a metaclass id.
@@ -96,7 +119,22 @@ public final class SmLiveId {
     }
 
     /**
+     * Compute a modified live id with the given repository id.
+     *
+     * @param origLiveId the original live id
+     * @param newRid the new repository id
+     * @return the modified live id.
+     * @since 6.0.1 09/07/2024
+     */
+    @objid ("668a4166-8d1c-4621-8b5d-f2d062a25885")
+    public static long withRid(long origLiveId, short newRid) {
+        long resetRid = origLiveId & (kidMask | classidMask);
+        return resetRid | ((((long) newRid) << ridshift) & ridMask) ;
+    }
+
+    /**
      * Dumps a live identifier.
+     *
      * @param liveId a live id.
      * @return its dump.
      */
@@ -106,7 +144,7 @@ public final class SmLiveId {
     }
 
     @objid ("540bd860-e3a8-4f36-8d67-49326b57968a")
-    private  SmLiveId() {
+    private SmLiveId() {
         // no instance
     }
 

@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.module.command.standard;
 
@@ -62,7 +62,7 @@ public class DiagramCreationStandardHandler extends ElementCreationStandardHandl
      * Default constructor.
      */
     @objid ("2371011f-6d06-43e8-9e9f-bb79693d176f")
-    public  DiagramCreationStandardHandler() {
+    public DiagramCreationStandardHandler() {
         super();
     }
 
@@ -76,10 +76,10 @@ public class DiagramCreationStandardHandler extends ElementCreationStandardHandl
     @Override
     protected void postConfigureElement(MObject newElement, IModule module) {
         super.postConfigureElement(newElement, module);
-        
+
         if (newElement instanceof AbstractDiagram) {
             final AbstractDiagram diagram = (AbstractDiagram) newElement;
-        
+
             // Set new diagram style
             IModelioServices modelioServices = module.getModuleContext().getModelioServices();
             final IDiagramService diagramService = modelioServices.getDiagramService();
@@ -90,20 +90,20 @@ public class DiagramCreationStandardHandler extends ElementCreationStandardHandl
                     handle.save();
                 }
             }
-        
+
             // Open diagram
             if (isToOpen()) {
                 modelioServices.getEditionService().openEditor(diagram);
             }
         }
-        
+
     }
 
     @objid ("8f33aae2-7678-4482-8528-5c74cf6519a1")
     @Override
     public void initialize(List<ElementScope> scopes, Map<String, String> hParameters) {
         super.initialize(scopes, hParameters);
-        
+
         for (Entry<String, String> param : hParameters.entrySet()) {
             switch (param.getKey()) {
             case STYLE_NAME:
@@ -116,10 +116,11 @@ public class DiagramCreationStandardHandler extends ElementCreationStandardHandl
                 continue;
             }
         }
-        
+
     }
 
     /**
+     *
      * @return the diagram style name.
      */
     @objid ("641f420f-8992-4830-b70d-37b66d0b5677")
@@ -128,6 +129,7 @@ public class DiagramCreationStandardHandler extends ElementCreationStandardHandl
     }
 
     /**
+     *
      * @return true if the diagram is to be opened in an editor.
      */
     @objid ("4a99502c-4ddb-41d3-808a-1fd3ac72511e")

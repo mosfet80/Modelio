@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.edition.notes.panelprovider.helpers;
 
@@ -35,10 +35,10 @@ public class MoveUpHelper extends AbstractHelper {
         if (element == null || !element.isModifiable()) {
             return false;
         }
-        
+
         Class<?> selectType = null;
         for (ModelElement me : selectedItems) {
-            if (!me.getStatus().isModifiable()) {
+            if (!me.getStatusLazy().isModifiable()) {
                 return false;
             }
             if (selectType == null) {
@@ -63,7 +63,7 @@ public class MoveUpHelper extends AbstractHelper {
         } else if (selectedItems.get(0) instanceof Document) {
             listToReorder = element.getAttached(); // // list of Documents
         }
-        
+
         for (ModelElement e : selectedItems) {
             int index = MoveUpHelper.getIndexUp(e, listToReorder);
             if (index != -1) {

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -36,7 +36,7 @@ public class OEnumeration extends ONameSpace {
     }
 
     @objid ("7c804373-49c0-4c26-83be-5b2be0d5389f")
-    public  OEnumeration(Enumeration element) {
+    public OEnumeration(Enumeration element) {
         super(element);
     }
 
@@ -44,19 +44,19 @@ public class OEnumeration extends ONameSpace {
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
-        
+
         ModelTree objingOwner =  getObjingElement().getOwner();
         org.eclipse.uml2.uml.Element ecoreOwner = genProp.getMappedElement(objingOwner);
-        
+
         // In UML2,  org.eclipse.uml2.uml.Signals can't own org.eclipse.uml2.uml.Enumerations.
         if ((ecoreOwner != null) && (ecoreOwner instanceof  org.eclipse.uml2.uml.Signal)){
-        
+
             AbstractObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(
                     objingOwner,  getObjingElement(),ecoreElt);
-        
+
             ecoreOwner = genProp.getMappedElement(objingOwner.getOwner());
         }
-        
+
         if (ecoreOwner != null) {
             if (ecoreOwner instanceof org.eclipse.uml2.uml.Package) {
                 ((org.eclipse.uml2.uml.Package) ecoreOwner).getPackagedElements().add((org.eclipse.uml2.uml.PackageableElement)ecoreElt);
@@ -75,7 +75,7 @@ public class OEnumeration extends ONameSpace {
                         + ecoreOwner.getClass().getSimpleName() + ") Not Found");
             }
         }
-        
+
     }
 
     @objid ("8db3fced-f513-4adc-809e-3e113961230b")

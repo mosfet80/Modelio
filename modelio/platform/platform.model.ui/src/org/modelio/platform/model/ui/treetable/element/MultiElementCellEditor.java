@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.treetable.element;
 
@@ -28,20 +28,19 @@ import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.platform.model.ui.dialogs.selectelements.SelectElementsDialog;
 import org.modelio.platform.model.ui.swt.textelement.TextElement;
 import org.modelio.platform.model.ui.treetable.EditableDialogCellEditor;
-import org.modelio.platform.search.engine.ISearchCriteria;
-import org.modelio.platform.search.engine.ISearchEngine;
+import org.modelio.platform.search.engine.api.ISearchCriteria;
+import org.modelio.platform.search.engine.api.ISearchEngine;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * JFace Cell editor usable in JFace table and TreeTable.
- * 
+ *
  * Allows the selection of a multiple model element. The underlying edition SWT
  * component is a {@link TextElement} that can be retrieved by
  * {@link SingleElementCellEditor#getTextElement()}. The underlying TextElement
  * is highly configurable to support filtering, completion, D&D, picking...
- * 
- * 
+ *
  * @author phv
  */
 @objid ("224a6a92-4bd6-42c4-9a83-f3ffa6703dfc")
@@ -59,7 +58,7 @@ public class MultiElementCellEditor extends EditableDialogCellEditor {
     private ISearchCriteria searchCriteria;
 
     @objid ("df6f4d81-2964-4c12-9203-d6e6526ae8e1")
-    public  MultiElementCellEditor(Composite parent) {
+    public MultiElementCellEditor(Composite parent) {
         super(parent);
     }
 
@@ -69,7 +68,6 @@ public class MultiElementCellEditor extends EditableDialogCellEditor {
         this.searcher = searcher;
         this.searchCriteria = searchCriteria;
         this.title = titleKey;
-        
     }
 
     @objid ("9f9d0871-bc32-4411-a9eb-f1eef4c9caa4")

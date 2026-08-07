@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.styles.plugin;
 
@@ -26,7 +26,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.URIUtil;
 import org.eclipse.e4.core.di.annotations.Execute;
@@ -57,7 +57,7 @@ public class DiagramStylesProcessor {
     void init() {
         // Create an instance and store it so it can listen to project open/close events.
         DiagramStylesProcessor.INSTANCE = this;
-        
+
     }
 
     @objid ("12c628eb-19f0-11e2-92d2-001ec947c8cc")
@@ -66,11 +66,11 @@ public class DiagramStylesProcessor {
     void onProjectOpened(@EventTopic (ModelioEventTopics.PROJECT_OPENING) final IGProject openedProject) {
         // Ensure that the project style dir is initialized and that a default style exists in it
         DiagramStylesProcessor.checkProjectStyleDirectory(openedProject.getPfs().getProjectDataPath());
-        
+
         // Load styles
         StyleManager styleManager = DiagramStyles.getStyleManager();
         styleManager.reloadStylesIn(openedProject.getPfs().getProjectDataPath().resolve(DiagramStyles.PROJECT_STYLE_SUBDIR));
-        
+
         if (this.projectService != null) {
             // Listen to diagram theme changes
             IGProjectPreferenceStore store = this.projectService.getProjectPreferences(ProjectPreferencesKeys.NODE_ID);
@@ -82,7 +82,7 @@ public class DiagramStylesProcessor {
                     }
                 }
             });
-        
+
             // Init default diagram theme
             if (store.getDefaultString(ProjectPreferencesKeys.DIAGRAM_DEFAULT_THEME_PREFKEY).isEmpty()) {
                 store.setDefault(ProjectPreferencesKeys.DIAGRAM_DEFAULT_THEME_PREFKEY, styleManager.getDefaultTheme().getName());
@@ -90,7 +90,7 @@ public class DiagramStylesProcessor {
             }
             styleManager.setDefaultTheme(store.getString(ProjectPreferencesKeys.DIAGRAM_DEFAULT_THEME_PREFKEY));
         }
-        
+
     }
 
     @objid ("12c628f1-19f0-11e2-92d2-001ec947c8cc")
@@ -104,13 +104,13 @@ public class DiagramStylesProcessor {
                 DiagramStyles.LOG.error(e);
             }
         }
-        
+
         // ensure the existence of the style files
         ensureFileExistence(getStyleDirectory(), DiagramStyles.STYLE_FILE_EXTENSION, projectStyleDir);
-        
+
         // ensure the existence of the theme files
         ensureFileExistence(getThemeDirectory(), DiagramStyles.THEME_FILE_EXTENSION, projectStyleDir);
-        
+
     }
 
     /**
@@ -129,7 +129,7 @@ public class DiagramStylesProcessor {
             DiagramStyles.LOG.error(e);
             return null;
         }
-        
+
     }
 
     /**
@@ -148,7 +148,7 @@ public class DiagramStylesProcessor {
             DiagramStyles.LOG.error(e);
             return null;
         }
-        
+
     }
 
     /**
@@ -173,7 +173,7 @@ public class DiagramStylesProcessor {
         } catch (IOException e) {
             DiagramStyles.LOG.debug(e);
         }
-        
+
     }
 
 }

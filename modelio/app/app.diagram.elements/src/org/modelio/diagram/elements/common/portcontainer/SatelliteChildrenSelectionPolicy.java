@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.portcontainer;
 
@@ -37,7 +37,7 @@ import org.modelio.diagram.elements.core.node.GmNodeModel;
 
 /**
  * Policy that shows a dashed link between all satellites figures and their main figure when any of them is selected.
- * 
+ *
  * @author cmarin
  */
 @objid ("7f0041da-1dec-11e2-8cad-001ec947c8cc")
@@ -62,6 +62,7 @@ public class SatelliteChildrenSelectionPolicy extends GraphicalEditPolicy {
 
     /**
      * Extends activate to hook the appropriate listener and to initialize the visual changes for representing selection/focus.
+     *
      * @see org.eclipse.gef.EditPolicy#activate()
      */
     @objid ("7f0041ee-1dec-11e2-8cad-001ec947c8cc")
@@ -70,11 +71,12 @@ public class SatelliteChildrenSelectionPolicy extends GraphicalEditPolicy {
         super.activate();
         addSelectionListener();
         setSelectedState(getHost().getSelected());
-        
+
     }
 
     /**
      * Extends deactivate to unhook the seleciton listener and to remove the visual changes for representing selection/focus.
+     *
      * @see org.eclipse.gef.EditPolicy#deactivate()
      */
     @objid ("7f0041f2-1dec-11e2-8cad-001ec947c8cc")
@@ -83,10 +85,11 @@ public class SatelliteChildrenSelectionPolicy extends GraphicalEditPolicy {
         removeSelectionListener();
         setSelectedState(EditPart.SELECTED_NONE);
         super.deactivate();
-        
+
     }
 
     /**
+     *
      * @see org.eclipse.gef.EditPolicy#getTargetEditPart(Request)
      */
     @objid ("7f0041f6-1dec-11e2-8cad-001ec947c8cc")
@@ -106,14 +109,14 @@ public class SatelliteChildrenSelectionPolicy extends GraphicalEditPolicy {
         if (this.compositionListener == null) {
             this.compositionListener = new CompositionListener();
         }
-        
+
         if (this.selectionListener == null) {
             this.selectionListener = new SelectionListener();
         }
-        
+
         getHost().addEditPartListener(this.selectionListener);
         getHost().addEditPartListener(this.compositionListener);
-        
+
         for (Object o : getHost().getChildren()) {
             EditPart c = (EditPart) o;
             c.addEditPartListener(this.selectionListener);
@@ -121,11 +124,12 @@ public class SatelliteChildrenSelectionPolicy extends GraphicalEditPolicy {
                 this.mainEditPart = c;
             }
         }
-        
+
     }
 
     /**
      * Get the selection listener used to show satellite links.
+     *
      * @return the selection listener.
      */
     @objid ("7f004205-1dec-11e2-8cad-001ec947c8cc")
@@ -139,7 +143,7 @@ public class SatelliteChildrenSelectionPolicy extends GraphicalEditPolicy {
             removeFeedback(l);
         }
         this.focuslinks.clear();
-        
+
     }
 
     @objid ("7f00420e-1dec-11e2-8cad-001ec947c8cc")
@@ -147,7 +151,7 @@ public class SatelliteChildrenSelectionPolicy extends GraphicalEditPolicy {
         if (!(child.getModel() instanceof GmNodeModel)) {
             return false;
         }
-        
+
         GmNodeModel m = (GmNodeModel) child.getModel();
         GmPortContainer pc = (GmPortContainer) m.getParentNode();
         return pc != null && pc.getMainNode() == m;
@@ -158,7 +162,7 @@ public class SatelliteChildrenSelectionPolicy extends GraphicalEditPolicy {
         if (!(child.getModel() instanceof GmNodeModel)) {
             return false;
         }
-        
+
         GmNodeModel m = (GmNodeModel) child.getModel();
         GmPortContainer pc = (GmPortContainer) m.getParentNode();
         return pc.isSatellite(m);
@@ -172,13 +176,13 @@ public class SatelliteChildrenSelectionPolicy extends GraphicalEditPolicy {
         if (this.selectionListener != null) {
             getHost().removeEditPartListener(this.selectionListener);
             getHost().removeEditPartListener(this.compositionListener);
-        
+
             for (Object o : getHost().getChildren()) {
                 EditPart c = (EditPart) o;
                 c.removeEditPartListener(this.selectionListener);
             }
         }
-        
+
     }
 
     @objid ("7f02a425-1dec-11e2-8cad-001ec947c8cc")
@@ -188,6 +192,7 @@ public class SatelliteChildrenSelectionPolicy extends GraphicalEditPolicy {
 
     /**
      * Sets the internal selection value. This method is called automatically by the listener. If the selection value is changed, the appropriate method is called to show the specified selection type.
+     *
      * @param type the type of selection the EditPolicy should display
      */
     @objid ("7f02a42b-1dec-11e2-8cad-001ec947c8cc")
@@ -203,7 +208,7 @@ public class SatelliteChildrenSelectionPolicy extends GraphicalEditPolicy {
         } else {
             hideSelection();
         }
-        
+
     }
 
     /**
@@ -219,10 +224,10 @@ public class SatelliteChildrenSelectionPolicy extends GraphicalEditPolicy {
         if (this.mainEditPart == null) {
             return;
         }
-        
+
         final IFigure mainfig = ((GraphicalEditPart) this.mainEditPart).getFigure();
         final ConnectionAnchor targetAnchor = new ChopboxAnchor(mainfig);
-        
+
         for (Object o : getHost().getChildren()) {
             EditPart childPart = (EditPart) o;
             if (isSatellitePart(childPart)) {
@@ -237,19 +242,19 @@ public class SatelliteChildrenSelectionPolicy extends GraphicalEditPolicy {
                 this.focuslinks.add(focuslink);
             }
         }
-        
+
     }
 
     /**
      * Selection listener that show links from satellites to main node.
-     * 
+     *
      * @author cmarin
      */
     @objid ("7f02a435-1dec-11e2-8cad-001ec947c8cc")
     private class SelectionListener extends Stub {
         @objid ("7f02a439-1dec-11e2-8cad-001ec947c8cc")
-        public  SelectionListener() {
-            
+        public SelectionListener() {
+
         }
 
         @objid ("7f02a43b-1dec-11e2-8cad-001ec947c8cc")
@@ -262,14 +267,14 @@ public class SatelliteChildrenSelectionPolicy extends GraphicalEditPolicy {
 
     /**
      * Listen children addition to put a selection listener on them.
-     * 
+     *
      * @author cmarin
      */
     @objid ("7f02a442-1dec-11e2-8cad-001ec947c8cc")
     private class CompositionListener extends Stub {
         @objid ("7f02a446-1dec-11e2-8cad-001ec947c8cc")
-        public  CompositionListener() {
-            
+        public CompositionListener() {
+
         }
 
         @objid ("7f02a448-1dec-11e2-8cad-001ec947c8cc")
@@ -281,20 +286,20 @@ public class SatelliteChildrenSelectionPolicy extends GraphicalEditPolicy {
             } else if (isSatellitePart(child)) {
                 child.addEditPartListener(getSelectionListener());
             }
-            
+
         }
 
         @objid ("7f02a451-1dec-11e2-8cad-001ec947c8cc")
         @Override
         public void removingChild(final EditPart child, final int index) {
             child.removeEditPartListener(getSelectionListener());
-            
+
             hideSelection();
-            
+
             if (isMainPart(child)) {
                 setMainEditPart(null);
             }
-            
+
         }
 
     }

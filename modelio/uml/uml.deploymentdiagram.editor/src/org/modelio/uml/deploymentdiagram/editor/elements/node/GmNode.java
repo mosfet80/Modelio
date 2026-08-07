@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.deploymentdiagram.editor.elements.node;
 
@@ -77,31 +77,32 @@ public class GmNode extends GmPortContainer {
      * Empty constructor needed for deserialisation.
      */
     @objid ("97375bcc-55b6-11e2-877f-002564c97630")
-    public  GmNode() {
+    public GmNode() {
         // Nothing specific to do.
     }
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram in which the class is unmasked.
      * @param el the unmasked class.
      * @param ref a reference to the unmasked class.
      */
     @objid ("97375bcf-55b6-11e2-877f-002564c97630")
-    public  GmNode(IGmDiagram diagram, Node el, MRef ref) {
+    public GmNode(IGmDiagram diagram, Node el, MRef ref) {
         super(diagram, ref);
         this.element = el;
-        
+
         GmNodePrimaryNode mainNode = new GmNodePrimaryNode(diagram, ref);
         mainNode.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
-        
+
         GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(diagram, ref);
         imageModeHeader.setRoleInComposition(GmNode.IMAGE_LABEL_ROLE);
         imageModeHeader.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
-        
+
         super.addChild(mainNode);
         super.addChild(imageModeHeader);
-        
+
     }
 
     @objid ("9738e23c-55b6-11e2-877f-002564c97630")
@@ -143,7 +144,7 @@ public class GmNode extends GmPortContainer {
         default:
             return Collections.emptyList();
         }
-        
+
     }
 
     @objid ("9738e265-55b6-11e2-877f-002564c97630")
@@ -167,7 +168,7 @@ public class GmNode extends GmPortContainer {
             break;
         }
         }
-        
+
     }
 
     @objid ("9738e26b-55b6-11e2-877f-002564c97630")
@@ -188,21 +189,22 @@ public class GmNode extends GmPortContainer {
                     gmPort.setRoleInComposition(GmPortContainer.PORT_ROLE);
                 }
             }
-        
+
         }
-        
+
     }
 
     @objid ("9738e275-55b6-11e2-877f-002564c97630")
     @Override
     public void refreshFromObModel() {
         super.refreshFromObModel();
-        
+
         refreshPortsFromObModel();
-        
+
     }
 
     /**
+     *
      * @return true if ports are to be unmasked automatically.
      */
     @objid ("9738e278-55b6-11e2-877f-002564c97630")
@@ -228,7 +230,7 @@ public class GmNode extends GmPortContainer {
             default: {
                 break;
             }
-        
+
             }
         }
         return ret;
@@ -238,24 +240,24 @@ public class GmNode extends GmPortContainer {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmNode.", GmNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("973a68e8-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (Node) resolveRef(getRepresentedRef());
-        
+
         // Fix role on the header...
         for (GmNodeModel children : getChildren()) {
             if (children instanceof GmDefaultModelElementLabel) {
                 children.setRoleInComposition(GmNode.IMAGE_LABEL_ROLE);
             }
         }
-        
+
     }
 
     @objid ("973a68ed-55b6-11e2-877f-002564c97630")
@@ -268,11 +270,12 @@ public class GmNode extends GmPortContainer {
     private void read_1(final IDiagramReader in) {
         super.read(in);
         this.element = (Node) resolveRef(getRepresentedRef());
-        
+
     }
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */
@@ -282,11 +285,12 @@ public class GmNode extends GmPortContainer {
         String role = childNode.getRoleInComposition();
         return GmPortContainer.SATELLITE_ROLE.equals(role)
                         || GmNode.IMAGE_LABEL_ROLE.equals(role);
-        
+
     }
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */
@@ -304,7 +308,7 @@ public class GmNode extends GmPortContainer {
         } else {
             super.addStartingLink(link);
         }
-        
+
     }
 
     @objid ("973bef7c-55b6-11e2-877f-002564c97630")
@@ -315,7 +319,7 @@ public class GmNode extends GmPortContainer {
         } else {
             super.addEndingLink(link);
         }
-        
+
     }
 
     @objid ("71a9b7d4-3761-49d0-997d-d09f567a82f5")

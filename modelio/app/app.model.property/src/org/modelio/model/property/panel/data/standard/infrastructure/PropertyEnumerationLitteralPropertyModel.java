@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.panel.data.standard.infrastructure;
 
@@ -50,15 +50,17 @@ public class PropertyEnumerationLitteralPropertyModel extends AbstractPropertyMo
     /**
      * Create a new <i>PropertyEnumerationLitteral</i> data model from an
      * <i>PropertyEnumerationLitteral</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("a62254dd-d97d-410e-94e3-9d55f46cb587")
-    public  PropertyEnumerationLitteralPropertyModel(PropertyEnumerationLitteral theEditedElement) {
+    public PropertyEnumerationLitteralPropertyModel(PropertyEnumerationLitteral theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("7c0612cb-ba1b-4a0f-b628-c80bce159914")
@@ -69,6 +71,7 @@ public class PropertyEnumerationLitteralPropertyModel extends AbstractPropertyMo
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("d8d21bd2-f791-4fd9-9325-c641c56e8b19")
@@ -81,6 +84,7 @@ public class PropertyEnumerationLitteralPropertyModel extends AbstractPropertyMo
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -102,7 +106,7 @@ public class PropertyEnumerationLitteralPropertyModel extends AbstractPropertyMo
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -112,6 +116,7 @@ public class PropertyEnumerationLitteralPropertyModel extends AbstractPropertyMo
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -134,13 +139,14 @@ public class PropertyEnumerationLitteralPropertyModel extends AbstractPropertyMo
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -165,7 +171,7 @@ public class PropertyEnumerationLitteralPropertyModel extends AbstractPropertyMo
         default:
             return;
         }
-        
+
     }
 
 }

@@ -1,0 +1,33 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= La commande "Informations"
+
+
+
+===== Description
+
+La commande "Informations" indique l'état des éléments par rapport à l'état de ces mêmes éléments au référentiel. Les éléments sont groupés selon les états suivants :
+
+* Verrouillé par vous-même : les éléments qui sont verrouillés par l'utilisateur courant.
+* Verrouillé par les autres : les éléments qui sont verrouillés par un autre utilisateur.
+* Non versionné : les nouveaux éléments et les éléments qui n'ont pas encore été ajoutés en version.
+* A ajouter en version : les éléments qui ont été ajoutés en version mais qui n'ont pas encore été livrés dans le référentiel.
+* Pas à jour : les éléments qui ont été modifiés par un autre utilisateur. [[Conditions-et-restrictions]]
+
+
+===== Conditions et restrictions
+
+Aucune condition particulière. [[Interface-utilisateur]]
+
+
+===== Interface utilisateur
+
+La commande "Informations" ouvre la fenêtre suivante à la fin de son exécution :
+
+.La fenêtre de résultats affichée après l'exécution de la commande "Informations"
+image::images/attachment/modeliocom41/User_Documentation_fr/Presentation_des_commandes_Subversion/Informations/TW_006_information.png[TW_006_information.png]

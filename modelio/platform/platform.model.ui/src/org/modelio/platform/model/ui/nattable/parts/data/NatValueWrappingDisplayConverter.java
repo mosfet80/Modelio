@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.parts.data;
 
@@ -34,18 +34,18 @@ import org.eclipse.nebula.widgets.nattable.data.convert.IDisplayConverter;
  */
 @objid ("831af93b-0b10-4d4b-81a2-05ca066eb691")
 public class NatValueWrappingDisplayConverter extends DisplayConverter {
-    @objid ("55e74184-db3e-46b9-8b3b-7f2e0a52dff5")
+    @objid ("7a0c0b23-ed73-4310-9c65-1b2b9184ab74")
     private final IDisplayConverter wrappedConverter;
 
     /**
      * Build a new converter.
+     *
      * @param wrappedConverter the converter to delegate the conversion to after unwrapping the value from the {@link INatValue}.
      */
     @objid ("fbc30964-de4b-4ac3-b951-4484e62a35fc")
-    public  NatValueWrappingDisplayConverter(IDisplayConverter wrappedConverter) {
+    public NatValueWrappingDisplayConverter(IDisplayConverter wrappedConverter) {
         super();
         this.wrappedConverter = wrappedConverter;
-        
     }
 
     /**

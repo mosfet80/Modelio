@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -52,7 +52,7 @@ public class R2670 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -72,7 +72,7 @@ public class R2670 extends AbstractUmlRule {
         plan.registerRule(StateMachine.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(DeepHistoryPseudoState.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE);
         plan.registerRule(ShallowHistoryPseudoState.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE);
-        
+
     }
 
     /**
@@ -106,14 +106,14 @@ public class R2670 extends AbstractUmlRule {
      * Default constructor for R2670
      */
     @objid ("fdd7b406-bd85-4f48-bfe8-84a06117548e")
-    public  R2670() {
+    public R2670() {
         this.checkerInstance = new CheckR2670(this);
     }
 
     @objid ("6c34eb25-f66a-4fe0-8869-781a39b4bc76")
     private static class CheckR2670 extends AbstractControl {
         @objid ("52ecb4df-78f5-4cd8-b84f-ddfd27884467")
-        public  CheckR2670(IRule rule) {
+        public CheckR2670(IRule rule) {
             super(rule);
         }
 
@@ -137,14 +137,14 @@ public class R2670 extends AbstractUmlRule {
         @objid ("d5a6d817-91d0-404f-96fe-0a3013f0a299")
         private IAuditEntry checkR2670(StateMachine stateMachine) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, stateMachine, null);
-            
+
             if (stateMachine.getKind().equals(KindOfStateMachine.PROTOCOL)) {
-            
+
                 Region region = stateMachine.getTop();
-            
+
                 List<DeepHistoryPseudoState> deepsHistories = region.getSub(DeepHistoryPseudoState.class);
                 List<ShallowHistoryPseudoState> shallowHistories = region.getSub(ShallowHistoryPseudoState.class);
-            
+
                 if (!deepsHistories.isEmpty() || !shallowHistories.isEmpty()) {
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();

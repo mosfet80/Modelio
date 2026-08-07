@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.data.module.jaxbv1;
 
@@ -27,9 +27,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for taggedvalues complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="taggedvalues">
  * &lt;complexContent>
@@ -75,8 +75,8 @@ public class JxbTaggedvalues {
 
     /**
      * Gets the value of the name property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("cae74f5f-d6ff-11e1-9f03-001ec947ccaf")
@@ -86,6 +86,7 @@ public class JxbTaggedvalues {
 
     /**
      * Sets the value of the name property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -96,8 +97,8 @@ public class JxbTaggedvalues {
 
     /**
      * Gets the value of the uid property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("cae74f61-d6ff-11e1-9f03-001ec947ccaf")
@@ -107,6 +108,7 @@ public class JxbTaggedvalues {
 
     /**
      * Sets the value of the uid property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -117,8 +119,8 @@ public class JxbTaggedvalues {
 
     /**
      * Gets the value of the label property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("cae74f63-d6ff-11e1-9f03-001ec947ccaf")
@@ -128,6 +130,7 @@ public class JxbTaggedvalues {
 
     /**
      * Sets the value of the label property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -138,8 +141,8 @@ public class JxbTaggedvalues {
 
     /**
      * Gets the value of the parameterCard property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("cae74f65-d6ff-11e1-9f03-001ec947ccaf")
@@ -149,6 +152,7 @@ public class JxbTaggedvalues {
 
     /**
      * Sets the value of the parameterCard property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -159,8 +163,8 @@ public class JxbTaggedvalues {
 
     /**
      * Gets the value of the isHidden property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("cae74f67-d6ff-11e1-9f03-001ec947ccaf")
@@ -170,6 +174,7 @@ public class JxbTaggedvalues {
 
     /**
      * Sets the value of the isHidden property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -180,8 +185,8 @@ public class JxbTaggedvalues {
 
     /**
      * Gets the value of the isSigned property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("cae74f69-d6ff-11e1-9f03-001ec947ccaf")
@@ -191,6 +196,7 @@ public class JxbTaggedvalues {
 
     /**
      * Sets the value of the isSigned property.
+     *
      * @param value allowed object is
      * {@link String }
      */

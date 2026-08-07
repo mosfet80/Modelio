@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.module.propertiesPage;
 
@@ -30,6 +30,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public interface IModulePropertyTable {
     /**
      * Add an "integer" typed property in the model.
+     *
      * @param key the name of the property.
      * @param value the value of the property.
      */
@@ -38,6 +39,7 @@ public interface IModulePropertyTable {
 
     /**
      * Add a "string" typed property in the model.
+     *
      * @param key the name of the property.
      * @param value the value of the property.
      */
@@ -46,6 +48,7 @@ public interface IModulePropertyTable {
 
     /**
      * Add a "boolean" typed property in the model.
+     *
      * @param key the name of the property.
      * @param value the value of the property.
      */
@@ -54,6 +57,7 @@ public interface IModulePropertyTable {
 
     /**
      * Add an "enumeration" typed property in the model.
+     *
      * @param key the name of the property.
      * @param value the value of the property.
      * @param enumValues the values of the property.
@@ -63,6 +67,7 @@ public interface IModulePropertyTable {
 
     /**
      * Add a read only property in the model.
+     *
      * @param key the name of the property.
      * @param value the value of the property.
      */
@@ -77,6 +82,7 @@ public interface IModulePropertyTable {
 
     /**
      * Add a "MObject" typed property in the model.
+     *
      * @param key the name of the property.
      * @param value the value of the property.
      * @param acceptedMetaclasses a list of metaclasses that can be set in this property.
@@ -85,5 +91,5 @@ public interface IModulePropertyTable {
      */
     @objid ("0b195d2a-1f03-4698-a056-a395e60d06ee")
     void addProperty(String key, MObject value, Collection<? extends MClass> acceptedMetaclasses, IMObjectFilter mobjectFilter);
-}
 
+}

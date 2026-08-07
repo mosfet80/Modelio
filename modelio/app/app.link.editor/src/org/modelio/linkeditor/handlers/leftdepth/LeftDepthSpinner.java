@@ -1,26 +1,45 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.linkeditor.handlers.leftdepth;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -40,7 +59,7 @@ public class LeftDepthSpinner {
     @objid ("c00d2d3e-fb2b-4e57-b39f-0164416a782f")
     private static final int MAXIMUM_DEPTH = 4;
 
-    @objid ("d422be42-f83e-4140-9b7d-bb8b9088222b")
+    @objid ("3e953726-458d-4712-af93-32a9a5c882c0")
     private Spinner spinner;
 
     @objid ("1b49d86e-5e33-11e2-b81d-002564c97630")
@@ -49,14 +68,14 @@ public class LeftDepthSpinner {
         if (!(part.getObject() instanceof ILinkEditorView)) {
             return null;
         }
-        
+
         final ILinkEditorView linkEditorView = (ILinkEditorView) part.getObject();
-        
+
         this.spinner = new Spinner(parent, SWT.BORDER);
         this.spinner.setMinimum(0);
-        
+
         int selectedValue = linkEditorView.getLinkEditor().getConfigurator().getLeftDepth();
-        
+
         this.spinner.setValues(selectedValue, MINIMUM_DEPTH, MAXIMUM_DEPTH, 0, 1, 1);
         this.spinner.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -86,7 +105,6 @@ public class LeftDepthSpinner {
                 }
             }
         });
-        
     }
 
     @objid ("eaf641a6-fcc2-4a1c-8ad2-817527a22f8f")

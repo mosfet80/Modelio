@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -28,7 +28,7 @@ import org.modelio.xmi.generation.GenerationProperties;
 @objid ("c2058076-5bc7-427f-b65f-6e005d08851b")
 public class OExpansionNode extends OObjectNode {
     @objid ("3f66224a-6c92-4185-afd1-9509f1a04d70")
-    public  OExpansionNode(ExpansionNode element) {
+    public OExpansionNode(ExpansionNode element) {
         super(element);
     }
 
@@ -46,7 +46,7 @@ public class OExpansionNode extends OObjectNode {
              ((org.eclipse.uml2.uml.ExpansionNode) ecoreElt).setRegionAsOutput(ecoreOwner);
              ((org.eclipse.uml2.uml.ExpansionNode) ecoreElt).setInStructuredNode(ecoreOwner);
         }
-        
+
     }
 
     @objid ("ca8ff8ca-123d-4052-81e8-3b0438d87aff")

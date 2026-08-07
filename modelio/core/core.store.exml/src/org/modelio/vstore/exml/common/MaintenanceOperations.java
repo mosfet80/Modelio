@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.exml.common;
 
@@ -38,10 +38,11 @@ public class MaintenanceOperations implements IMaintenanceOperations {
 
     /**
      * Initialize the maintenance.
+     *
      * @param repo the EXML repository.
      */
     @objid ("7ce77667-441c-4ac0-b3f9-6eeac37350bc")
-    public  MaintenanceOperations(AbstractExmlRepository repo) {
+    public MaintenanceOperations(AbstractExmlRepository repo) {
         this.repo = repo;
     }
 
@@ -50,19 +51,19 @@ public class MaintenanceOperations implements IMaintenanceOperations {
     public void rebuildIndexes(IModelioProgress monitor) throws IOException {
         try {
             SubProgress mon = SubProgress.convert(monitor, 200);
-        
+
             ExmlIndex indexes = this.repo.getIndexes(mon.newChild(20));
-        
+
             mon.subTask(MessageFormat.format("Deleting {0} indexes ...", this.repo.getResourceProvider().getName()));
             indexes.deleteIndexes();
-        
+
             mon.subTask(MessageFormat.format("Rebuilding {0} indexes ...", this.repo.getResourceProvider().getName()));
             indexes.open(mon.newChild(30), this.repo.getModelLoaderProvider().getMetamodel());
             indexes.buildIndexes(mon.newChild(150));
         } catch (IndexException | CannotOpenIndexException e) {
             throw new IOException(e.getLocalizedMessage(), e);
         }
-        
+
     }
 
     @objid ("a7b8b3fd-fe1a-4007-a2d6-ca03723c8bed")
@@ -70,15 +71,15 @@ public class MaintenanceOperations implements IMaintenanceOperations {
     public void compressIndexes(IModelioProgress monitor) throws IOException {
         try {
             SubProgress mon = SubProgress.convert(monitor, 200);
-        
+
             ExmlIndex indexes = this.repo.getIndexes(mon.newChild(20));
-        
+
             mon.subTask(MessageFormat.format("Compressing {0} indexes ...", this.repo.getResourceProvider().getName()));
             indexes.compress(mon.newChild(180));
         } catch (IndexException | CannotOpenIndexException e) {
             throw new IOException(e.getLocalizedMessage(), e);
         }
-        
+
     }
 
     @objid ("a7f3ee50-7301-42c9-b184-1d4096c12f1e")
@@ -86,13 +87,13 @@ public class MaintenanceOperations implements IMaintenanceOperations {
     public void deleteIndexes(IModelioProgress monitor) throws IOException {
         try {
             ExmlIndex indexes = this.repo.getIndexes(monitor);
-        
+
             monitor.subTask("Deleting " + this.repo.getResourceProvider().getName() + " indexes ...");
             indexes.deleteIndexes();
         } catch (IndexException | CannotOpenIndexException e) {
             throw new IOException(e.getLocalizedMessage(), e);
         }
-        
+
     }
 
     @objid ("c6a635c3-97a3-4bba-ba9a-1f04c119d974")

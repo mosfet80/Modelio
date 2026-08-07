@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.executionoccurencespecification;
 
@@ -29,6 +29,7 @@ import org.eclipse.gef.editpolicies.GraphicalEditPolicy;
 
 /**
  * Selection edit policy to show the "blue square" when the mouse is over it : it helps the user knowing the existence of this invisible figure.
+ *
  * @author cmarin
  * @since Modelio 3.4
  */
@@ -47,33 +48,31 @@ class EosSelectionEditPolicy extends GraphicalEditPolicy {
                 this.feedback.setForegroundColor(ColorConstants.blue);
                 this.feedback.setBackgroundColor(null);
                 this.feedback.setFill(false);
-        
+
                 // Set bounds once : the figure won't move
                 IFigure hostFigure = getHostFigure();
                 Rectangle b = hostFigure.getBounds().getCopy();
                 hostFigure.translateToAbsolute(b);
                 getFeedbackLayer().translateToRelative(b);
                 this.feedback.setBounds(b);
-        
+
                 getFeedbackLayer().add(this.feedback);
             }
-        
+
         }
-        
     }
 
     @objid ("8e8a10de-defb-4e65-96cc-c2df2b15c18d")
     @Override
     public void eraseTargetFeedback(Request request) {
         if (request.getType().equals(REQ_SELECTION)) {
-        
+
             if (this.feedback != null) {
                 getFeedbackLayer().remove(this.feedback);
                 this.feedback = null;
             }
-        
+
         }
-        
     }
 
 }

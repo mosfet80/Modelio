@@ -1,0 +1,113 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<description>Modelio SaaS client documentation to be deployed in Modelio Server SaaS assets.
+The embedded info-center is specific to Wildfly.</description>
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>modeliohelp_saas.wildfly</artifactId>
+	<packaging>pom</packaging> <!-- don't set to war - leave pom -->
+
+	<parent>
+		<groupId>org.modelio</groupId>
+		<artifactId>doc-parent</artifactId>
+		<version>6.2.0-SNAPSHOT</version>
+		<relativePath>../../parent</relativePath>
+	</parent>
+
+	<properties>
+		<war.name>modeliohelp-saas.wildfly_${project.version}</war.name>
+		<infocenter.tmp>target/_info-center_</infocenter.tmp>
+		<modeliohelp.doc.plugins>../doc-modelio_saas/target/plugins</modeliohelp.doc.plugins>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.modelio</groupId>
+			<artifactId>doc-modelio_saas</artifactId>
+			<version>6.2.0-SNAPSHOT</version>
+			<scope>provided</scope>
+			<type>pom</type>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<extensions>true</extensions>
+			</plugin>
+
+			<!-- The Ant task add the doc bundle in the config.ini (So it must be
+				called before the assembly). -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<id>config.ini</id>
+						<phase>package</phase>
+						<configuration>
+							<target>
+								<!-- copy the info-center product in a temporary folder in order
+									to can modify the config.ini -->
+								<copy todir="${infocenter.tmp}">
+									<fileset dir="info-center" includes="**" />
+								</copy>
+								<!-- Update the config.ini file => add all plugins doc (so all jar
+									files without their version and .jar prefix) -->
+								<fileset id="docJarFiles"
+									dir="${modeliohelp.doc.plugins}" includes="*.jar" />
+								<property name="propDocJarFiles" refid="docJarFiles" />
+								<loadresource property="propBundleToAdd">
+									<string value="${propDocJarFiles}" />
+									<filterchain>
+										<tokenfilter>
+											<replaceregex pattern="-[0-9\.]+(-SNAPSHOT)?\.jar"
+												replace="" flags="g" />
+											<replaceregex pattern=";" replace="," flags="g" />
+										</tokenfilter>
+									</filterchain>
+								</loadresource>
+								<loadfile
+									srcfile="${infocenter.tmp}/WEB-INF/eclipse/configuration/config.ini"
+									property="configIni.file" />
+								<concat
+									destfile="${infocenter.tmp}/WEB-INF/eclipse/configuration/config.ini"
+									append="no" fixlastline="no">${configIni.file} ${propBundleToAdd}</concat>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.5</version>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<descriptors>
+						<descriptor>modelio-help.xml</descriptor>
+					</descriptors>
+					<finalName>${war.name}</finalName>
+					<appendAssemblyId>false</appendAssemblyId>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

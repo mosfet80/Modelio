@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -48,7 +48,7 @@ public class R1480 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -67,7 +67,7 @@ public class R1480 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         plan.registerRule(Attribute.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
         plan.registerRule(Class.MQNAME, this, AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -101,14 +101,14 @@ public class R1480 extends AbstractUmlRule {
      * Default constructor for R1480
      */
     @objid ("2de488da-1e45-43bf-ae98-741c67af5842")
-    public  R1480() {
+    public R1480() {
         this.checkerInstance = new CheckR1480(this);
     }
 
     @objid ("e8731082-af28-4cee-ba75-71d62187a6f2")
     private static class CheckR1480 extends AbstractControl {
         @objid ("1c6dd426-cf57-49b5-8319-6887cf116502")
-        public  CheckR1480(IRule rule) {
+        public CheckR1480(IRule rule) {
             super(rule);
         }
 
@@ -129,13 +129,13 @@ public class R1480 extends AbstractUmlRule {
         @objid ("b49afbc4-d10f-4260-9ff9-fa1b506adf63")
         private IAuditEntry checkR1480(final Attribute attribute) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, attribute, null);
-            
+
             if (attribute.getQualified() != null) {
                 return auditEntry;
             }
-            
+
             GeneralClass type = attribute.getType();
-            
+
             if (type != null && !type.isIsElementary()) {
                 // failed
                 auditEntry.setSeverity(this.rule.getSeverity());

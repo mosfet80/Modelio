@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.utils.metamodel.experts;
 
@@ -39,7 +39,7 @@ import org.modelio.vcore.utils.metamodel.experts.meta.RuleBasedMetaExpertHelper;
  * </ol>
  * where X, Y are either elements or metaclasses and dep a SmDependency name.
  * </p>
- * 
+ *
  * <p>
  * Also provides service methods to work with 'links', e.g. Generalizations, Dependencies... Each link has a generic 'source' and
  * 'target', that can represent several MDependencies. In most cases, the source is also the composition owner.
@@ -63,18 +63,19 @@ public class CompositeMetamodelExpert extends org.modelio.vcore.smkernel.meta.De
     protected final MMetamodel metamodel;
 
     /**
+     *
      * @param mm the metamodel.
      */
     @objid ("488f1475-3aba-4e93-a3f0-13a8ced3f6b6")
-    public  CompositeMetamodelExpert(MMetamodel mm) {
+    public CompositeMetamodelExpert(MMetamodel mm) {
         this.metamodel = mm;
-        
+
         this.ruleMetaExpert = new RuleBasedMetaExpertHelper(mm);
         this.ruleLinkExpert = new RuleBasedLinkExpertHelper(mm);
-        
+
         this.LINK_REGISTRY = new LinkExpertRegistry(this.ruleLinkExpert);
         this.META_REGISTRY = new MetaExpertRegistry(this.ruleMetaExpert);
-        
+
     }
 
     @objid ("c736fe6c-62fb-499b-b148-9b5e836820d3")
@@ -141,7 +142,7 @@ public class CompositeMetamodelExpert extends org.modelio.vcore.smkernel.meta.De
     public void setSource(MObject linkElement, final MObject oldSource, MObject newSource) throws IllegalArgumentException {
         ILinkExpertHelper expert = this.LINK_REGISTRY.getExpert(linkElement.getMClass());
         expert.setSource(linkElement, oldSource, newSource);
-        
+
     }
 
     @objid ("3f566980-7434-4750-b47f-08b6f54d4e42")
@@ -149,7 +150,7 @@ public class CompositeMetamodelExpert extends org.modelio.vcore.smkernel.meta.De
     public void setTarget(MObject linkElement, final MObject oldTarget, MObject newTarget) throws IllegalArgumentException {
         ILinkExpertHelper expert = this.LINK_REGISTRY.getExpert(linkElement.getMClass());
         expert.setTarget(linkElement, oldTarget, newTarget);
-        
+
     }
 
     // typical usage: creation tools
@@ -200,6 +201,7 @@ public class CompositeMetamodelExpert extends org.modelio.vcore.smkernel.meta.De
 
     /**
      * Register a link expert.
+     *
      * @param cls the metaclass
      * @param expert the expert
      */
@@ -210,6 +212,7 @@ public class CompositeMetamodelExpert extends org.modelio.vcore.smkernel.meta.De
 
     /**
      * Register a meta expert.
+     *
      * @param cls the metaclass
      * @param expert the expert
      */
@@ -241,6 +244,7 @@ public class CompositeMetamodelExpert extends org.modelio.vcore.smkernel.meta.De
 
         /**
          * Get the creation expert for the given element.
+         *
          * @param metaclass a metamodel class.
          * @return the matching creation expert (never returns <code>null</code>)
          */
@@ -256,17 +260,19 @@ public class CompositeMetamodelExpert extends org.modelio.vcore.smkernel.meta.De
 
         /**
          * This class has no instances.
+         *
          * @param defaultExpert the default expert
          */
         @objid ("a4e96390-88b2-408e-9634-c6ee24cb2e52")
-        public  LinkExpertRegistry(ILinkExpertHelper defaultExpert) {
+        public LinkExpertRegistry(ILinkExpertHelper defaultExpert) {
             // Init experts
             this.DEFAULT_EXPERT = defaultExpert;
-            
+
         }
 
         /**
          * Register an expert
+         *
          * @param cls the metaclass
          * @param expert the expert
          */
@@ -300,6 +306,7 @@ public class CompositeMetamodelExpert extends org.modelio.vcore.smkernel.meta.De
 
         /**
          * Get the creation expert for the given element.
+         *
          * @param metaclass a metamodel class.
          * @return the matching creation expert (never returns <code>null</code>)
          */
@@ -314,17 +321,19 @@ public class CompositeMetamodelExpert extends org.modelio.vcore.smkernel.meta.De
         }
 
         /**
+         *
          * @param defaultExpert the default expert.
          */
         @objid ("98103981-629c-4fb3-a78c-27b90e6ed456")
-        public  MetaExpertRegistry(IMetaExpertHelper defaultExpert) {
+        public MetaExpertRegistry(IMetaExpertHelper defaultExpert) {
             // Init experts
             this.DEFAULT_EXPERT = defaultExpert;
-            
+
         }
 
         /**
          * Register an expert
+         *
          * @param cls the metaclass
          * @param expert the expert
          */

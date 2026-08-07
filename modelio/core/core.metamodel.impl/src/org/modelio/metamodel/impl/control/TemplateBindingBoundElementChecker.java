@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.control;
 
@@ -79,7 +79,7 @@ public class TemplateBindingBoundElementChecker extends AbstractDependencyTypeCh
      * C'tor
      */
     @objid ("3c6b87b5-8597-495c-8bb3-69564024855b")
-    public  TemplateBindingBoundElementChecker(SmMetamodel mm) {
+    public TemplateBindingBoundElementChecker(SmMetamodel mm) {
         // Cached SmClass
         this.artifactID = mm.getMClass(Artifact.class);
         this.classID = mm.getMClass(Class.class);
@@ -92,14 +92,14 @@ public class TemplateBindingBoundElementChecker extends AbstractDependencyTypeCh
         this.packageID = mm.getMClass(Package.class);
         this.signalID = mm.getMClass(Signal.class);
         this.useCaseID = mm.getMClass(UseCase.class);
-        
+
         // Direct checker
         register(mm.getMClass(TemplateBinding.class), "BoundElement");
-        
+
         // Symetric checker
         NameSpaceDeclaredChecker symetricChecker = new NameSpaceDeclaredChecker(this);
         symetricChecker.register(mm.getMClass(NameSpace.class), "Declared");
-        
+
     }
 
     @objid ("ea01823a-ec50-11e1-91c5-002564c97630")
@@ -107,7 +107,7 @@ public class TemplateBindingBoundElementChecker extends AbstractDependencyTypeCh
     public int doCheck(final SmObjectImpl obj, final SmObjectImpl value) {
         if (value != null) {
             SmClass valueTypeID = value.getClassOf();
-        
+
             // A TemplateBinding can only be part of a Package, a Collaboration,
             // a Node, a Signal, an Interface, an Enumeration, a DataType, a
             // Class, a Component, an Artifact or a UseCase.
@@ -131,7 +131,7 @@ public class TemplateBindingBoundElementChecker extends AbstractDependencyTypeCh
         TemplateBindingBoundElementChecker symetricChecker;
 
         @objid ("ea0308c8-ec50-11e1-91c5-002564c97630")
-        public  NameSpaceDeclaredChecker(TemplateBindingBoundElementChecker symetricChecker) {
+        public NameSpaceDeclaredChecker(TemplateBindingBoundElementChecker symetricChecker) {
             this.symetricChecker = symetricChecker;
         }
 

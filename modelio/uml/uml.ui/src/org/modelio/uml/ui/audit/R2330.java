@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -48,7 +48,7 @@ public class R2330 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -67,13 +67,13 @@ public class R2330 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         // This cover the case of moving or deleting a Parameter, which triggers an UPDATE on the old parent.
         plan.registerRule(Operation.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         // This cover the case of [creating|moving] a Parameter [under|to] a new parent.
         // It also covers the case of renaming a Parameter.
         plan.registerRule(Parameter.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -107,14 +107,14 @@ public class R2330 extends AbstractUmlRule {
      * Default constructor for R2330
      */
     @objid ("64c775af-934a-43a0-a83f-76a01128d215")
-    public  R2330() {
+    public R2330() {
         this.checkerInstance = new CheckR2330(this);
     }
 
     @objid ("2d0fa287-5001-472e-a865-5740728e865a")
     private static class CheckR2330 extends AbstractControl {
         @objid ("700588ab-fc86-4e0f-9361-794869ed9f72")
-        public  CheckR2330(IRule rule) {
+        public CheckR2330(IRule rule) {
             super(rule);
         }
 
@@ -141,18 +141,18 @@ public class R2330 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     operation,
                     null);
-            
+
             if (operation.getIO().size() > 1) {
-            
+
                 List<String> paremeterNames = new ArrayList<>();
-            
+
                 for (Parameter parameter : operation.getIO()) {
                     String name = parameter.getName();
-            
+
                     if (paremeterNames.contains(name)) {
-            
+
                         // Rule failed
-            
+
                         auditEntry.setSeverity(this.rule.getSeverity());
                         List<Object> linkedObjects = new ArrayList<>();
                         linkedObjects.add(operation);

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnlinkedobject;
 
@@ -51,13 +51,13 @@ public class BpmnLinkedObjectEditPolicy extends LinkedNodeStartCreationEditPolic
         if (getHost().getModel() instanceof GmNodeModel) {
             if (request.getNewObjectType().equals("BpmnDataInput") ||
                     request.getNewObjectType().equals("BpmnDataOutput")) {
-        
+
                 final ModelioCreationContext context = (ModelioCreationContext) request.getNewObject();
                 final AbstractGraphicalEditPart nodeEditPart = (AbstractGraphicalEditPart) getHost();
-        
+
                 GmNodeModel sourceGM = (GmNodeModel) getHost().getModel();
                 MObject sourceElement = sourceGM.getRelatedElement();
-        
+
                 if (sourceElement instanceof BpmnThrowEvent &&
                         request.getNewObjectType().equals("BpmnDataOutput")) {
                     return null;
@@ -82,7 +82,7 @@ public class BpmnLinkedObjectEditPolicy extends LinkedNodeStartCreationEditPolic
                     return cmd;
                 }
             }
-        
+
             return super.getConnectionCreateCommand(request);
         }
         return null;

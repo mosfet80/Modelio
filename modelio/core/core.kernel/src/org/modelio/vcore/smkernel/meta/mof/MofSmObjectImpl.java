@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel.meta.mof;
 
@@ -57,6 +57,7 @@ public class MofSmObjectImpl extends SmObjectImpl implements MMofObject {
 
     /**
      * Redefined to return a proxy adapter if needed.
+     *
      * @deprecated Experimental API, use it at your own risks!
      */
     @objid ("d2eab878-e9bf-486d-89a7-bf1fbf025ea6")
@@ -68,17 +69,18 @@ public class MofSmObjectImpl extends SmObjectImpl implements MMofObject {
             return (T) this;
         } else {
             InvocationHandler handler = new ProxyObj(this, getMClass().getMetamodel().getMClass(cls));
-        
+
             return (T) Proxy.newProxyInstance(
                     cls.getClassLoader(),
                     new Class[]{cls, MObject.class, ISmMeta.class, ISmStorable.class},
                     handler);
         }
-        
+
     }
 
     /**
      * Get an attribute value.
+     *
      * @param attName the attribute name.
      * @return attribute value.
      * @throws IllegalArgumentException if the attribute does not exist on the metaclass.
@@ -113,13 +115,13 @@ public class MofSmObjectImpl extends SmObjectImpl implements MMofObject {
                 }
             }
         }*/
-        
+
         // Avoid one element cycle : exclude owners whose composition owners contain 'this'
         return getCompositionOwners(this)
                                                                         .filter(owner -> getCompositionOwners(owner).noneMatch(this::equals))
                                                                         .findFirst()
                                                                         .orElse(null);
-        
+
     }
 
     @objid ("db54e5da-8e85-41a6-8599-76873f58f394")
@@ -141,6 +143,7 @@ public class MofSmObjectImpl extends SmObjectImpl implements MMofObject {
      * <p>
      * <b>Note:</b> The returned list reflects the content of the dependency at any moment.
      * Modifying the returned list will modify the dependency content.
+     *
      * @param depName the dependency name
      * @return the dependency content.
      */
@@ -151,7 +154,7 @@ public class MofSmObjectImpl extends SmObjectImpl implements MMofObject {
         if (dependency == null) {
             throw new IllegalArgumentException(String.format("No '%s' dependency in '%s'" , depName, getClassOf()));
         }
-        
+
         // Ugly hard cast List<MObject> --> List<MofSmObjectImpl>
         List<MObject> l1 = mGet(dependency);
         Object o = l1;
@@ -175,6 +178,7 @@ public class MofSmObjectImpl extends SmObjectImpl implements MMofObject {
 
     /**
      * Get a 0..1 dependency content.
+     *
      * @param depName the dependency name.
      * @return null or the dependency content.
      * @throws IllegalArgumentException if the dependency contains many elements or the dependency does not exist.
@@ -189,11 +193,12 @@ public class MofSmObjectImpl extends SmObjectImpl implements MMofObject {
         } else {
             throw new IllegalArgumentException(String.format("%s.%s contains many elements: %s", this, depName, content));
         }
-        
+
     }
 
     /**
      * Set an attribute value
+     *
      * @param attName the attribute name
      * @param value the value to set.
      * @throws IllegalArgumentException if the attribute does not exist on the metaclass.
@@ -208,9 +213,9 @@ public class MofSmObjectImpl extends SmObjectImpl implements MMofObject {
                     attName,
                     this));
         }
-        
+
         setAttVal(att, value);
-        
+
     }
 
     @objid ("9ce15fff-9e83-442a-9305-ea23ad96f1da")
@@ -222,7 +227,7 @@ public class MofSmObjectImpl extends SmObjectImpl implements MMofObject {
         } else {
             throw new UnsupportedOperationException(this+" has no name attribute.");
         }
-        
+
     }
 
     @objid ("3c35d3f8-7c4a-45c5-9de7-5bf87af48188")
@@ -232,7 +237,7 @@ public class MofSmObjectImpl extends SmObjectImpl implements MMofObject {
                                                                 .filter(SmDependency::isCompositionOpposite)
                                                                 .flatMap(dep -> obj.getDepValList(dep).stream())
                                                                 ;
-        
+
     }
 
     /**
@@ -240,7 +245,7 @@ public class MofSmObjectImpl extends SmObjectImpl implements MMofObject {
      * <p>
      * All attribute/dependency accessor interface methods are proxied.
      * Calls to {@link #directClasses} methods are forwarded to the fake object.
-     * 
+     *
      * @author cmarin
      * @since not yet official on 3.4
      * @deprecated not yet official on 3.4
@@ -267,10 +272,10 @@ public class MofSmObjectImpl extends SmObjectImpl implements MMofObject {
         static final List<Class<? extends Object>> directClasses = Arrays.asList(Object.class, MObject.class, ISmMeta.class, ISmStorable.class);
 
         @objid ("324f4f4f-2e09-4615-a84c-d41fe94043fb")
-        public  ProxyObj(MofSmObjectImpl obj, MClass targetClass) {
+        public ProxyObj(MofSmObjectImpl obj, MClass targetClass) {
             this.obj = obj;
             this.targetClass = targetClass;
-            
+
         }
 
         @objid ("8229b330-c557-40f6-8be7-56c689026bb9")
@@ -287,11 +292,11 @@ public class MofSmObjectImpl extends SmObjectImpl implements MMofObject {
                     throw new UnsupportedOperationException(method.toString()+" on "+args[0]+": no "+visitMethodName+" on "+args[0]);
                 }
             }
-            
+
             if (directClasses.contains(method.getDeclaringClass()) || stdMet.contains(metName)) {
                 return method.invoke(this.obj, args);
             }
-            
+
             MofSmClass fakeSmClass = this.obj.getClassOf();
             String featureName = metName.substring(3);
             if (metName.startsWith("get")) {
@@ -307,7 +312,7 @@ public class MofSmObjectImpl extends SmObjectImpl implements MMofObject {
                         return new SmList<>(this.obj,dep);
                     }
                 }
-            
+
                 // Look for attribute
                 MAttribute targetAtt = this.targetClass.getAttribute(featureName);
                 if (targetAtt != null) {
@@ -332,7 +337,7 @@ public class MofSmObjectImpl extends SmObjectImpl implements MMofObject {
                         return null;
                     }
                 }
-            
+
                 // Look for SmAttribute
                 MAttribute targetAtt = this.targetClass.getAttribute(featureName);
                 if (targetAtt != null) {
@@ -343,9 +348,9 @@ public class MofSmObjectImpl extends SmObjectImpl implements MMofObject {
                     }
                 }
             }
-            
+
             throw new UnsupportedOperationException(method.toString()+" on "+this.obj.toString());
-            
+
         }
 
         @objid ("ba14ad27-5d25-4f0e-a303-92f522fa20aa")

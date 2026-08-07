@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.conf.dialog.projectinfo;
 
@@ -38,7 +38,7 @@ import org.modelio.app.project.conf.plugin.AppProjectConf;
  * <ul>
  * <li>the displayed project is the currently opened project
  * <li>the displayed project is NOT the currently opened project
- * 
+ *
  * In the first case, most sections will allow modifying the project configuration while such modifications are forbidden in the second case.
  */
 @objid ("a745c46e-33f6-11e2-a514-002564c97630")
@@ -62,6 +62,7 @@ public class ProjectInfosPage implements IProjectConfPage {
      * Creates the SWT controls.
      * <p>
      * Called by E4 injection.
+     *
      * @param toolkit a form toolkit
      * @param application the E4 application model
      * @param parent the parent composite.
@@ -72,30 +73,30 @@ public class ProjectInfosPage implements IProjectConfPage {
     public ScrolledForm createControls(FormToolkit toolkit, MApplication application, final Composite parent) {
         // The form
         this.form = toolkit.createScrolledForm(parent);
-        
+
         GridLayout formlayout = new GridLayout();
         this.form.getBody().setLayout(formlayout);
         formlayout.numColumns = 2;
         formlayout.makeColumnsEqualWidth = true;
-        
+
         // General section
         this.generalSection = new GeneralSection(this.form.getMessageManager());
         Section section = this.generalSection.createControls(toolkit, this.form.getBody());
         GridData twd = new GridData(SWT.FILL, SWT.FILL, true, false);
         section.setLayoutData(twd);
-        
+
         // Storage section
         this.storageSection = new StorageSection();
         section = this.storageSection.createControls(toolkit, this.form.getBody());
         twd = new GridData(SWT.FILL, SWT.TOP, false, false);
         section.setLayoutData(twd);
-        
+
         // Fragment Section
         this.fragmentsSection = new FragmentsSection(application.getContext());
         section = this.fragmentsSection.createControls(toolkit, this.form.getBody());
         twd = new GridData(SWT.FILL, SWT.FILL, false, true, 2, 1);
         section.setLayoutData(twd);
-        
+
         // Modules Section
         this.modulesSection = new ModulesSection(application.getContext());
         section = this.modulesSection.createControls(toolkit, this.form.getBody());
@@ -112,7 +113,7 @@ public class ProjectInfosPage implements IProjectConfPage {
         this.storageSection.setInput(projectAdapter);
         this.fragmentsSection.setInput(projectAdapter);
         this.modulesSection.setInput(projectAdapter);
-        
+
     }
 
     @objid ("b8cdd418-fe2f-490d-af80-d15bdfc4a6f1")

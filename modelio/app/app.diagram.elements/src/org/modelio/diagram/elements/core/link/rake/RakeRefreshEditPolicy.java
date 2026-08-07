@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.rake;
 
@@ -43,6 +43,7 @@ import org.modelio.diagram.styles.core.StyleKey.ConnectionRouterId;
  * <li> the edit part to implement{@link ConnectionEditPart}
  * <li> the model to implement {@link IGmLinkObject}
  * </ul>
+ *
  * @author cma
  * @since 5.1.0
  */
@@ -64,7 +65,7 @@ public class RakeRefreshEditPolicy extends GraphicalEditPolicy implements Proper
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         final String propName = evt.getPropertyName();
-        
+
         switch (propName) {
         case IGmObject.PROPERTY_LAYOUTDATA:
             // Link layout (bendpoints) update
@@ -84,7 +85,7 @@ public class RakeRefreshEditPolicy extends GraphicalEditPolicy implements Proper
         default:
             // nothing
         }
-        
+
     }
 
     @objid ("36c9e87c-bacd-48d9-af3f-51732e8ce378")
@@ -92,17 +93,17 @@ public class RakeRefreshEditPolicy extends GraphicalEditPolicy implements Proper
         PropertyChangeEvent evt = new PropertyChangeEvent(getModel(), IGmObject.PROPERTY_LAYOUTDATA, null, getModel().getLayoutData());
         PropertyChangeListener l = (PropertyChangeListener) getHost();
         l.propertyChange(evt);
-        
+
     }
 
     @objid ("da577758-9a08-4095-ab19-6e6adfad0409")
     @Override
     public void activate() {
         super.activate();
-        
+
         final IGmLinkObject gmLink = getModel();
         gmLink.addPropertyChangeListener(this);
-        
+
     }
 
     @objid ("ed419069-bf1b-417b-b012-1410d0202052")
@@ -110,9 +111,9 @@ public class RakeRefreshEditPolicy extends GraphicalEditPolicy implements Proper
     public void deactivate() {
         getModel().removePropertyChangeListener(this);
         removeRakeListeners();
-        
+
         super.deactivate();
-        
+
     }
 
     @objid ("0d47401d-3d85-47e7-b2a9-deff105c3567")
@@ -120,7 +121,7 @@ public class RakeRefreshEditPolicy extends GraphicalEditPolicy implements Proper
         final IGmLinkObject gmLink = getModel();
         final IGmPath gmPath = gmLink.getPath();
         boolean changed = false;
-        
+
         if (this.currentSourceRake != null) {
             Object sourceSharedAnchor = this.currentSourceRake.getSharedAnchor();
             if (! Objects.equals(gmPath.getSourceAnchor(), sourceSharedAnchor)) {
@@ -128,7 +129,7 @@ public class RakeRefreshEditPolicy extends GraphicalEditPolicy implements Proper
                 changed = true;
             }
         }
-        
+
         if (this.currentTargetRake != null) {
             Object targetSharedAnchor = this.currentTargetRake.getSharedAnchor();
             if (! Objects.equals(gmPath.getTargetAnchor(), targetSharedAnchor)) {
@@ -148,12 +149,12 @@ public class RakeRefreshEditPolicy extends GraphicalEditPolicy implements Proper
     private void removeRakeFromPath(final IGmPath gmPath) {
         OrthoConnectionHelper connectionPath = new OrthoConnectionHelper(getConnectionFigure(), (ConnectionEditPart) getHost());
         Object pathData = connectionPath.getModelPathData();
-        
+
         gmPath.setRouterKind(ConnectionRouterId.ORTHOGONAL);
         gmPath.setSourceRake(null);
         gmPath.setTargetRake(null);
         gmPath.setPathData(pathData);
-        
+
     }
 
     @objid ("e80dad98-0a66-4283-8bba-9e082260f235")
@@ -167,7 +168,7 @@ public class RakeRefreshEditPolicy extends GraphicalEditPolicy implements Proper
             this.currentSourceRake.removeListener(this);
         if (this.currentTargetRake != null)
             this.currentTargetRake.removeListener(this);
-        
+
     }
 
     @objid ("7c3bcc4d-e0cd-4dcc-accb-f1cfbaff1ea2")
@@ -177,7 +178,7 @@ public class RakeRefreshEditPolicy extends GraphicalEditPolicy implements Proper
         final IGmLinkRake newSourceRake = gmPath.getSourceRake();
         final IGmLinkRake newTargetRake = gmPath.getTargetRake();
         boolean refreshNeeded = false;
-        
+
         if (this.currentSourceRake != newSourceRake) {
             if (this.currentSourceRake != null) {
                 this.currentSourceRake.removeListener(this);
@@ -191,7 +192,7 @@ public class RakeRefreshEditPolicy extends GraphicalEditPolicy implements Proper
             this.currentSourceRake = newSourceRake;
             refreshNeeded = true;
         }
-        
+
         if (this.currentTargetRake != newTargetRake) {
             if (this.currentTargetRake != null) {
                 this.currentTargetRake.removeListener(this);

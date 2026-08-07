@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.model.api;
 
@@ -50,7 +50,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * Now some of them need to get a {@link MTools} instance from a {@link ICoreSession} (or a {@link MObject} ).
  * This class now regroups all accesses to factories and other model tools.</li>
  * </ul>
- * 
+ *
  * @since < 3.3
  */
 @objid ("00193be2-d357-1097-bcec-001ec947cd2a")
@@ -58,7 +58,7 @@ public class MTools {
     @objid ("91d96560-306f-46ed-b362-872ee9c55d52")
     private static IAuthTool authTool;
 
-    
+
     @mdl.prop
     @objid ("7018434a-7149-4e44-b20a-c190268257be")
     private final IElementConfiguratorService configurator;
@@ -83,7 +83,7 @@ public class MTools {
     @objid ("0db9ca95-89ab-4c32-9485-fe94fe01b2fb")
     private static IModelTool modelTool;
 
-    
+
     @mdl.prop
     @objid ("975cb1da-d241-4790-b51e-831e5b4f8451")
     private final IElementNamerService namer;
@@ -94,7 +94,7 @@ public class MTools {
         return this.namer;
     }
 
-    
+
     @mdl.prop
     @objid ("2cae1294-df9a-44b4-af8e-16209deefb14")
     private final IRepositoryContentInitializerService populator;
@@ -105,7 +105,7 @@ public class MTools {
         return this.populator;
     }
 
-    
+
     @mdl.prop
     @objid ("b665e985-19b1-415e-b1db-ae56b94cb914")
     private final IRepositoryRootGetterService rootGetter;
@@ -118,6 +118,7 @@ public class MTools {
 
     /**
      * Get the model tools from a model object.
+     *
      * @param obj a model object
      * @return the tools for the project of this model object.
      */
@@ -128,6 +129,7 @@ public class MTools {
 
     /**
      * Get the model tools for a project.
+     *
      * @param session an opened core session.
      * @return the tools for this project.
      */
@@ -149,6 +151,7 @@ public class MTools {
     }
 
     /**
+     *
      * @return the authorization testing tool.
      */
     @objid ("00599f98-d3c9-1097-bcec-001ec947cd2a")
@@ -158,6 +161,7 @@ public class MTools {
 
     /**
      * Get the service used to get a model factory.
+     *
      * @return the model factories service.
      * @since 3.6
      */
@@ -168,6 +172,7 @@ public class MTools {
 
     /**
      * Get the service used to get a model factory.
+     *
      * @return the model factories service.
      * @deprecated renamed to {@link #getModelFactories()} since 3.6 .
      */
@@ -181,6 +186,7 @@ public class MTools {
      * Get a specific model factory.
      * <p>
      * This is a convenience method replacing <code>{@link #getModelFactories()}.{@link IModelFactoryService#getFactory(Class) getFactory(Class<? extends IModelFactory>)}</code>
+     *
      * @param factoryCls the model factory interface class.
      * @return the matching model factory
      * @throws IllegalArgumentException if there is no model factory implementing the class or interface.
@@ -191,6 +197,7 @@ public class MTools {
     }
 
     /**
+     *
      * @return the copy, clone and move tool.
      */
     @objid ("0059844a-d3c9-1097-bcec-001ec947cd2a")
@@ -202,6 +209,7 @@ public class MTools {
      * Initialize {@link MTools} so that {@link #getModelTool()} and {@link #getAuthTool()} work.
      * <p>
      * This method should be called by GProject on first open.
+     *
      * @param modelTool the model tool
      * @param authTool the auth tool
      */
@@ -209,34 +217,51 @@ public class MTools {
     public static synchronized void initializeMTools(IModelTool modelTool, IAuthTool authTool) {
         // Note : this is an ugly way to initialize these but both objects currently need the metamodel.
         // This method should be called by GProject on first open.
-        
+
         if (MTools.authTool != null || MTools.modelTool != null) {
-            throw new IllegalStateException();
+            throw new IllegalStateException("MTools already initialized with modelTool=" + MTools.modelTool + " and authTool=" + MTools.authTool);
         }
-        
+
         Objects.requireNonNull(modelTool);
         Objects.requireNonNull(authTool);
-        
+
         MTools.authTool = authTool;
         MTools.modelTool = modelTool;
-        
+    }
+
+    /**
+     * Replace the global authorization tool.
+     * <p>
+     * Called once at bundle startup by CMS bundles (e.g. via {@code ProjectSvn.init()}) to inject a
+     * CMS-aware implementation. Stays installed for the application lifetime.
+     * <p>
+     * The default implementation is {@link org.modelio.gproject.mtools.AuthTool}, set
+     * by {@link #initializeMTools(IModelTool, IAuthTool)}.
+     *
+     * @param authTool the new authorization tool; must not be null.
+     * @since 6.2
+     */
+    @objid ("2d04fb91-cd52-4e59-9364-d5f354d14b67")
+    public static synchronized void setAuthTool(IAuthTool authTool) {
+        Objects.requireNonNull(authTool);
+        MTools.authTool = authTool;
     }
 
     /**
      * Private constructor.
      * <p>
      * Builds all project related tools.
+     *
      * @param proj the related project
      */
     @objid ("39f94803-cd04-479d-8745-c361c0d011da")
-    private  MTools(ICoreSession proj) {
+    private MTools(ICoreSession proj) {
         ICoreSession ref = new CoreSessionWeakRef(proj);
         this.namer = new ElementNamer();
         this.populator = new UmlFragmentContentInitializer();
         this.configurator = new ElementConfigurator();
         this.rootGetter = new CompositionRootGetter(ref);
         this.modelFactory = new ModelFactory(ref);
-        
     }
 
     @objid ("012c864f-d71d-4797-9cf7-a7108728a8c6")
@@ -247,7 +272,6 @@ public class MTools {
             synchronized (MTools.instances) {
                 MTools.instances.remove(closedSession);
             }
-            
         }
 
     }

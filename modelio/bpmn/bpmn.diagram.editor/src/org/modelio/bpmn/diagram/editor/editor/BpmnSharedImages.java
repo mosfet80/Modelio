@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.editor;
 
@@ -158,7 +158,7 @@ public class BpmnSharedImages implements ISharedImages {
     private ImageRegistry imageRegistry;
 
     @objid ("6075b807-55b6-11e2-877f-002564c97630")
-    public  BpmnSharedImages() {
+    public BpmnSharedImages() {
         initializeImageRegistry();
     }
 
@@ -184,263 +184,263 @@ public class BpmnSharedImages implements ISharedImages {
         this.imageRegistry = new ImageRegistry(Display.getDefault());
         this.imageRegistry.put("MissingImage", ImageDescriptor.getMissingImageDescriptor());
         Bundle bundle = Platform.getBundle(DiagramEditorBpmn.PLUGIN_ID);
-        
+
         ImageDescriptor image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/bpmnexclusivegateway40x40.png"), null));
         declareImage(BpmnExclusiveGateway.MNAME, image);
-        
+
         // Variant of the BpmnExclusiveGateway image is currently not used
         // image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/bpmnexclusivegateway2_40x40.png"), null));
         // declareImage(BpmnExclusiveGateway.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/bpmnparallelgateway40x40.png"), null));
         declareImage(BpmnParallelGateway.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/bpmninclusivegateway40x40.png"), null));
         declareImage(BpmnInclusiveGateway.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/bpmneventbasedgateway40x40.png"), null));
         declareImage(BpmnEventBasedGateway.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/bpmncomplexgateway40x40.png"), null));
         declareImage(BpmnComplexGateway.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/startevent32x32.png"), null));
         declareImage(BpmnStartEvent.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/endevent32x32.png"), null));
         declareImage(BpmnEndEvent.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/bpmncomplexgateway40x40.png"), null));
         declareImage(BpmnComplexGateway.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/intermediaryevent_tr32x32.png"), null));
         declareImage(BpmnIntermediateThrowEvent.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/intermediaryevent_ca32x32.png"), null));
         declareImage(BpmnIntermediateCatchEvent.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/intermediaryevent_ca32x32.png"), null));
         declareImage(BpmnBoundaryEvent.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/message_intermediaryevent_tr32x32.png"), null));
         declareImage(BpmnIntermediateThrowEvent.MNAME + BpmnSharedImages.SEPARATOR + BpmnMessageEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/message_startevent_ni32x32.png"), null));
         declareImage(BpmnStartEvent.MNAME + BpmnSharedImages.NI_SUFFIX + BpmnSharedImages.SEPARATOR + BpmnMessageEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/startevent_ni32x32.png"), null));
         declareImage(BpmnStartEvent.MNAME + BpmnSharedImages.NI_SUFFIX, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/message_endevent32x32.png"), null));
         declareImage(BpmnEndEvent.MNAME + BpmnSharedImages.SEPARATOR + BpmnMessageEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/message_intermediaryevent_ca32x32.png"), null));
         declareImage(BpmnIntermediateCatchEvent.MNAME + BpmnSharedImages.SEPARATOR + BpmnMessageEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/message_intermediaryevent_ni32x32.png"), null));
         declareImage(BpmnIntermediateCatchEvent.MNAME + BpmnSharedImages.NI_SUFFIX + BpmnSharedImages.SEPARATOR + BpmnMessageEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/message_startevent32x32.png"), null));
         declareImage(BpmnStartEvent.MNAME + BpmnSharedImages.SEPARATOR + BpmnMessageEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/timer_startevent32x32.png"), null));
         declareImage(BpmnStartEvent.MNAME + BpmnSharedImages.SEPARATOR + BpmnTimerEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/timer_startevent_ni32x32.png"), null));
         declareImage(BpmnStartEvent.MNAME + BpmnSharedImages.NI_SUFFIX + BpmnSharedImages.SEPARATOR + BpmnTimerEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/timer_intermediaryevent_ca32x32.png"), null));
         declareImage(BpmnIntermediateCatchEvent.MNAME + BpmnSharedImages.SEPARATOR + BpmnTimerEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/timer_intermediaryevent_ni32x32.png"), null));
         declareImage(BpmnIntermediateCatchEvent.MNAME + BpmnSharedImages.NI_SUFFIX + BpmnSharedImages.SEPARATOR + BpmnTimerEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/error_startevent32x32.png"), null));
         declareImage(BpmnStartEvent.MNAME + BpmnSharedImages.SEPARATOR + BpmnErrorEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/error_endevent32x32.png"), null));
         declareImage(BpmnEndEvent.MNAME + BpmnSharedImages.SEPARATOR + BpmnErrorEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/error_intermediaryevent_ca32x32.png"), null));
         declareImage(BpmnIntermediateCatchEvent.MNAME + BpmnSharedImages.SEPARATOR + BpmnErrorEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/escalation_intermediaryevent_tr32x32.png"), null));
         declareImage(BpmnIntermediateThrowEvent.MNAME + BpmnSharedImages.SEPARATOR + BpmnEscalationEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/escalation_intermediaryevent_ca32x32.png"), null));
         declareImage(BpmnIntermediateCatchEvent.MNAME + BpmnSharedImages.SEPARATOR + BpmnEscalationEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/escalation_intermediaryevent_ni32x32.png"), null));
         declareImage(BpmnIntermediateCatchEvent.MNAME + BpmnSharedImages.NI_SUFFIX + BpmnSharedImages.SEPARATOR + BpmnEscalationEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/escalation_startevent32x32.png"), null));
         declareImage(BpmnStartEvent.MNAME + BpmnSharedImages.SEPARATOR + BpmnEscalationEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/escalation_startevent_ni32x32.png"), null));
         declareImage(BpmnStartEvent.MNAME + BpmnSharedImages.NI_SUFFIX + BpmnSharedImages.SEPARATOR + BpmnEscalationEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/escalation_endevent32x32.png"), null));
         declareImage(BpmnEndEvent.MNAME + BpmnSharedImages.SEPARATOR + BpmnEscalationEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/cancel_endevent32x32.png"), null));
         declareImage(BpmnEndEvent.MNAME + BpmnSharedImages.SEPARATOR + BpmnCancelEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/cancel_intermediaryevent_ca32x32.png"), null));
         declareImage(BpmnIntermediateCatchEvent.MNAME + BpmnSharedImages.SEPARATOR + BpmnCancelEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/compensation_intermediaryevent_th32x32.png"), null));
         declareImage(BpmnIntermediateThrowEvent.MNAME + BpmnSharedImages.SEPARATOR + BpmnCompensateEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/compensation_endevent32x32.png"), null));
         declareImage(BpmnEndEvent.MNAME + BpmnSharedImages.SEPARATOR + BpmnCompensateEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/compensation_intermediaryevent_ca32x32.png"), null));
         declareImage(BpmnIntermediateCatchEvent.MNAME + BpmnSharedImages.SEPARATOR + BpmnCompensateEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/compensation_startevent32x32.png"), null));
         declareImage(BpmnStartEvent.MNAME + BpmnSharedImages.SEPARATOR + BpmnCompensateEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/conditional_startevent32x32.png"), null));
         declareImage(BpmnStartEvent.MNAME + BpmnSharedImages.SEPARATOR + BpmnConditionalEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/conditional_startevent_ni32x32.png"), null));
         declareImage(BpmnStartEvent.MNAME + BpmnSharedImages.NI_SUFFIX + BpmnSharedImages.SEPARATOR + BpmnConditionalEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/conditional_intermediaryevent_ca32x32.png"), null));
         declareImage(BpmnIntermediateCatchEvent.MNAME + BpmnSharedImages.SEPARATOR + BpmnConditionalEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/conditional_intermediaryevent_ni32x32.png"), null));
         declareImage(BpmnIntermediateCatchEvent.MNAME + BpmnSharedImages.NI_SUFFIX + BpmnSharedImages.SEPARATOR + BpmnConditionalEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/link_intermediaryevent_ca32x32.png"), null));
         declareImage(BpmnIntermediateCatchEvent.MNAME + BpmnSharedImages.SEPARATOR + BpmnLinkEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/link_intermediaryevent_tr32x32.png"), null));
         declareImage(BpmnIntermediateThrowEvent.MNAME + BpmnSharedImages.SEPARATOR + BpmnLinkEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/signal_intermediaryevent_tr32x32.png"), null));
         declareImage(BpmnIntermediateThrowEvent.MNAME + BpmnSharedImages.SEPARATOR + BpmnSignalEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/signal_endevent32x32.png"), null));
         declareImage(BpmnEndEvent.MNAME + BpmnSharedImages.SEPARATOR + BpmnSignalEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/signal_intermediaryevent_ca32x32.png"), null));
         declareImage(BpmnIntermediateCatchEvent.MNAME + BpmnSharedImages.SEPARATOR + BpmnSignalEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/signal_intermediaryevent_ni32x32.png"), null));
         declareImage(BpmnIntermediateCatchEvent.MNAME + BpmnSharedImages.NI_SUFFIX + BpmnSharedImages.SEPARATOR + BpmnSignalEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/signal_startevent32x32.png"), null));
         declareImage(BpmnStartEvent.MNAME + BpmnSharedImages.SEPARATOR + BpmnSignalEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/signal_startevent_ni32x32.png"), null));
         declareImage(BpmnStartEvent.MNAME + BpmnSharedImages.NI_SUFFIX + BpmnSharedImages.SEPARATOR + BpmnSignalEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/terminate_endevent32x32.png"), null));
         declareImage(BpmnEndEvent.MNAME + BpmnSharedImages.SEPARATOR + BpmnTerminateEventDefinition.MNAME, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/multiple_startevent32x32.png"), null));
         declareImage(BpmnStartEvent.MNAME + BpmnSharedImages.MULTIPLE_SUFFIX, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/multiple_parallel_startevent32x32.png"), null));
         declareImage(BpmnStartEvent.MNAME + BpmnSharedImages.PARALLEL_SUFFIX + BpmnSharedImages.MULTIPLE_SUFFIX, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/multiple_startevent_ni32x32.png"), null));
         declareImage(BpmnStartEvent.MNAME + BpmnSharedImages.NI_SUFFIX + BpmnSharedImages.MULTIPLE_SUFFIX, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/multiple_parallel_startevent_ni32x32.png"), null));
         declareImage(BpmnStartEvent.MNAME + BpmnSharedImages.NI_SUFFIX + BpmnSharedImages.PARALLEL_SUFFIX + BpmnSharedImages.MULTIPLE_SUFFIX, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/multiple_intermediaryevent_ca32x32.png"), null));
         declareImage(BpmnIntermediateCatchEvent.MNAME + BpmnSharedImages.MULTIPLE_SUFFIX, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/multiple_parallel_intermediaryevent_ca32x32.png"), null));
         declareImage(BpmnIntermediateCatchEvent.MNAME + BpmnSharedImages.PARALLEL_SUFFIX + BpmnSharedImages.MULTIPLE_SUFFIX, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/multiple_intermediaryevent_ni32x32.png"), null));
         declareImage(BpmnIntermediateCatchEvent.MNAME + BpmnSharedImages.NI_SUFFIX + BpmnSharedImages.MULTIPLE_SUFFIX, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/multiple_parallel_intermediaryevent_ni32x32.png"), null));
         declareImage(BpmnIntermediateCatchEvent.MNAME + BpmnSharedImages.NI_SUFFIX + BpmnSharedImages.PARALLEL_SUFFIX + BpmnSharedImages.MULTIPLE_SUFFIX, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/intermediaryevent_ni32x32.png"), null));
         declareImage(BpmnIntermediateCatchEvent.MNAME + BpmnSharedImages.NI_SUFFIX, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/multiple_intermediaryevent_tr32x32.png"), null));
         declareImage(BpmnIntermediateThrowEvent.MNAME + BpmnSharedImages.MULTIPLE_SUFFIX, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/multiple_endevent32x32.png"), null));
         declareImage(BpmnEndEvent.MNAME + BpmnSharedImages.MULTIPLE_SUFFIX, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/message32x32.png"), null));
         declareImage(BpmnSharedImages.MESSAGE, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/message_return32x32.png"), null));
         declareImage(BpmnSharedImages.MESSAGERETURN, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/input32x32.png"), null));
         declareImage(BpmnSharedImages.INPUT, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/collection32x32.png"), null));
         declareImage(BpmnSharedImages.COLLECTION, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/output32x32.png"), null));
         declareImage(BpmnSharedImages.OUTPUT, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.MEDIUM_IMAGES_SUBDIR + "/store32x32.png"), null));
         declareImage(BpmnSharedImages.STORE, image);
-        
+
         // Images for headers
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.SMALL_ICONS_SUBDIR + "receivetask_header.png"), null));
         declareImage(BpmnSharedImages.RECEIVETASKHEADER, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.SMALL_ICONS_SUBDIR + "sendtask_header.png"), null));
         declareImage(BpmnSharedImages.SENDTASKHEADER, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.SMALL_ICONS_SUBDIR + "servicetask_header.png"), null));
         declareImage(BpmnSharedImages.SERVICETASKHEADER, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.SMALL_ICONS_SUBDIR + "usertask_header.png"), null));
         declareImage(BpmnSharedImages.USERTASKHEADER, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.SMALL_ICONS_SUBDIR + "manualtask_header.png"), null));
         declareImage(BpmnSharedImages.MANUALTASKHEADER, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.SMALL_ICONS_SUBDIR + "scripttask_header.png"), null));
         declareImage(BpmnSharedImages.SCRIPTTASKHEADER, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.SMALL_ICONS_SUBDIR + "businessruletask_header.png"), null));
         declareImage(BpmnSharedImages.BUSINESSRULETASKHEADER, image);
-        
+
         // Images for BPMN activity
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.SMALL_ICONS_SUBDIR + "activity_subprocess.png"), null));
         declareImage(BpmnSharedImages.SUBPROCESS, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.SMALL_ICONS_SUBDIR + "activity_subprocess_content.png"), null));
         declareImage(BpmnSharedImages.NONEMPTYSUBPROCESS, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.SMALL_IMAGES_SUBDIR + "activity_loop12x12.png"), null));
         declareImage(BpmnSharedImages.LOOP, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.SMALL_IMAGES_SUBDIR + "activity_parallel12x12.png"), null));
         declareImage(BpmnSharedImages.PARALLEL, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.SMALL_IMAGES_SUBDIR + "activity_sequential12x12.png"), null));
         declareImage(BpmnSharedImages.SEQUENTIAL, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.SMALL_IMAGES_SUBDIR + "activity_adhock12x12.png"), null));
         declareImage(BpmnSharedImages.ADHOC, image);
-        
+
         image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(BpmnSharedImages.SMALL_IMAGES_SUBDIR + "activity_compensation12x12.png"), null));
         declareImage(BpmnSharedImages.COMPENSATION, image);
-        
+
     }
 
     @objid ("dc19f6e0-19bb-4727-95d0-f46392e065aa")
     private static String getImageRef(BpmnStartEvent startEvent) {
         if (startEvent != null && startEvent.isValid()) {
             List<BpmnEventDefinition> definitions = startEvent.getEventDefinitions();
-        
+
             if (startEvent.isIsInterrupting()) {
                 if (definitions.size() == 1) {
                     BpmnEventDefinition definition = definitions.get(0);
@@ -472,7 +472,7 @@ public class BpmnSharedImages implements ISharedImages {
     private static String getImageRef(BpmnEndEvent endEvent) {
         if (endEvent != null && endEvent.isValid()) {
             List<BpmnEventDefinition> definitions = endEvent.getEventDefinitions();
-        
+
             if (definitions.size() == 1) {
                 BpmnEventDefinition definition = definitions.get(0);
                 return BpmnEndEvent.MNAME + BpmnSharedImages.SEPARATOR + definition.getMClass().getName();
@@ -487,7 +487,7 @@ public class BpmnSharedImages implements ISharedImages {
     private static String getImageRef(BpmnBoundaryEvent bdEvent) {
         if (bdEvent != null && bdEvent.isValid()) {
             List<BpmnEventDefinition> definitions = bdEvent.getEventDefinitions();
-        
+
             if (bdEvent.isCancelActivity()) {
                 if (definitions.size() == 1) {
                     BpmnEventDefinition definition = definitions.get(0);
@@ -499,7 +499,7 @@ public class BpmnSharedImages implements ISharedImages {
                         return BpmnIntermediateCatchEvent.MNAME + BpmnSharedImages.MULTIPLE_SUFFIX;
                     }
                 }
-        
+
             } else {
                 if (definitions.size() == 1) {
                     BpmnEventDefinition definition = definitions.get(0);
@@ -521,7 +521,7 @@ public class BpmnSharedImages implements ISharedImages {
     @objid ("1007fe1b-16bf-445b-b87a-1d7b1ee3bc96")
     private static String getImageRef(BpmnIntermediateCatchEvent catchEvent) {
         List<BpmnEventDefinition> definitions = catchEvent.getEventDefinitions();
-        
+
         if (definitions.size() == 1) {
             BpmnEventDefinition definition = definitions.get(0);
             return BpmnIntermediateCatchEvent.MNAME + BpmnSharedImages.SEPARATOR + definition.getMClass().getName();
@@ -539,7 +539,7 @@ public class BpmnSharedImages implements ISharedImages {
     private static String getImageRef(BpmnIntermediateThrowEvent throwEvent) {
         if (throwEvent != null && throwEvent.isValid()) {
             List<BpmnEventDefinition> definitions = throwEvent.getEventDefinitions();
-        
+
             if (definitions.size() == 1) {
                 BpmnEventDefinition definition = definitions.get(0);
                 return BpmnIntermediateThrowEvent.MNAME + BpmnSharedImages.SEPARATOR + definition.getMClass().getName();
@@ -567,7 +567,7 @@ public class BpmnSharedImages implements ISharedImages {
         } else {
             return "";
         }
-        
+
     }
 
     @objid ("65e4ade4-c61a-46e0-a621-caa3e277514e")
@@ -576,6 +576,7 @@ public class BpmnSharedImages implements ISharedImages {
         private String image_ref = null;
 
         /**
+         *
          * @return the image ref for a {@link MObject}.
          */
         @objid ("f4824f2c-fc0e-4966-aba7-2e37660541b3")
@@ -585,6 +586,7 @@ public class BpmnSharedImages implements ISharedImages {
 
         /**
          * Compute a new image ref for a {@link MObject}, and store it.
+         *
          * @param model a gm model.
          * @return <code>true</code> if the ref changed.
          */
@@ -597,7 +599,7 @@ public class BpmnSharedImages implements ISharedImages {
             } else {
                 return false;
             }
-            
+
         }
 
     }

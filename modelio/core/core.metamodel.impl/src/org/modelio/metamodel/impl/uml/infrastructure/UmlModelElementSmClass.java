@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -64,150 +63,149 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("dac456b2-2978-4c10-b927-63fc6d53a265")
 public class UmlModelElementSmClass extends ModelElementSmClass {
-    @objid ("7cc88ab7-3cc3-4bcc-9651-784c4d398eb1")
+    @objid ("bbb58984-80a6-4f4d-8979-52e9eda3fcdb")
     private SmDependency templateSubstitutionDep;
 
-    @objid ("5722667f-5059-4569-a000-b81983950e20")
+    @objid ("05e8a1fa-1db0-45b7-87b1-b2e97462cb9f")
     private SmDependency defaultParameteringDep;
 
-    @objid ("c7074b85-58ae-455a-b2b8-f48f659241fd")
+    @objid ("46595eba-9b51-45b5-ab1a-d4bcaa2665a1")
     private SmDependency representsDep;
 
-    @objid ("42390f32-9ed5-41b6-b37d-d6292451471b")
+    @objid ("c7512228-c307-41ea-a236-bbcc69f8cf37")
     private SmDependency ownerTemplateParameterDep;
 
-    @objid ("9e718f1d-f470-4a56-b632-33bea5bc44bc")
+    @objid ("e0e432bc-c47c-426b-b8d1-b563d103aca1")
     private SmDependency representingEndDep;
 
-    @objid ("8f1ce267-67d5-4264-aa5b-2aa563492030")
+    @objid ("29125920-8b7d-43d9-97e4-68dcac56fc9f")
     private SmDependency representingPartitionDep;
 
-    @objid ("af75725a-036b-4df6-a055-5cc150e504bd")
+    @objid ("f4070ace-0a2a-46a4-a31d-90dfff916d7b")
     private SmDependency constraintDefinitionDep;
 
-    @objid ("ae3de3fe-f019-43eb-9f9a-1ca40c6e1865")
+    @objid ("8fd1f77f-0174-4628-8358-06ffdc320e3b")
     private SmDependency typingParameterDep;
 
-    @objid ("b45643ef-10be-4bda-be2b-4b14cfb31ea0")
+    @objid ("5ff51afc-1d2f-4e29-b13f-879774827c96")
     private SmDependency manifestingDep;
 
-    @objid ("a2888f81-d630-4dce-a802-e455cc0b3716")
+    @objid ("3049d230-01d1-4d21-9bf4-a987b3cd3b1e")
     private SmDependency representingInstanceDep;
 
-    @objid ("c247f204-a19d-4a34-8441-44f69da2394e")
+    @objid ("a3695761-d1a0-4b68-b1d1-05179196cfde")
     private SmDependency receivedInfoDep;
 
-    @objid ("d7c6eeeb-64e9-4bda-9521-f880500127b9")
+    @objid ("a7155186-f3b0-4882-8f33-bf4713accdd0")
     private SmDependency sentInfoDep;
 
-    @objid ("3b5cb25f-96a1-4d98-9cda-05697a608542")
+    @objid ("b9a11a5b-98a3-4d69-9279-c2b8f071669c")
     private SmDependency representingConnectorDep;
 
-    @objid ("99bb8377-e362-435f-bae3-c2238e5c7773")
-    public  UmlModelElementSmClass(ISmMetamodelFragment origin) {
+    @objid ("2dbb27b6-198b-4aec-9658-c1768e2bb5f0")
+    public UmlModelElementSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("0c68ed8f-4e8c-43b1-b1e1-6b8336df948e")
+    @objid ("94b35bc2-f11d-4936-a57c-ec0741cca2e3")
     @Override
     public String getName() {
         return "UmlModelElement";
-        
+
     }
 
-    @objid ("f83c6b22-f8f8-4e24-ae58-9b89f877695e")
+    @objid ("31d495ab-7b04-44a3-93a0-e4b12a4f7842")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("2291bf98-0e9d-4fd5-9c49-f45c210f9930")
+    @objid ("f147926d-3cab-402d-932f-9594423e6cda")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return UmlModelElement.class;
-        
+
     }
 
-    @objid ("dc4ba0e3-4eb2-4d8c-9a70-ed1d0edf1c90")
+    @objid ("291bff9f-ae9d-40b6-b775-a72002e68bef")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("ecbfb0db-1a2d-43f4-8862-75c503f4599c")
+    @objid ("c3353f7a-357e-4003-b781-6695bb1b42be")
     @Override
     public boolean isAbstract() {
         return true;
-        
+
     }
 
-    @objid ("be73d003-5e58-4f4b-b837-79ac30326ffd")
+    @objid ("587e8914-38bf-4521-b384-c056718073a7")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(ModelElement.MQNAME);
         this.registerFactory(new UmlModelElementObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
         this.templateSubstitutionDep = new TemplateSubstitutionSmDependency();
         this.templateSubstitutionDep.init("TemplateSubstitution", this, metamodel.getMClass(TemplateParameterSubstitution.MQNAME), 0, -1 );
         registerDependency(this.templateSubstitutionDep);
-        
+
         this.defaultParameteringDep = new DefaultParameteringSmDependency();
         this.defaultParameteringDep.init("DefaultParametering", this, metamodel.getMClass(TemplateParameter.MQNAME), 0, -1 );
         registerDependency(this.defaultParameteringDep);
-        
+
         this.representsDep = new RepresentsSmDependency();
         this.representsDep.init("Represents", this, metamodel.getMClass(Binding.MQNAME), 0, -1 );
         registerDependency(this.representsDep);
-        
+
         this.ownerTemplateParameterDep = new OwnerTemplateParameterSmDependency();
         this.ownerTemplateParameterDep.init("OwnerTemplateParameter", this, metamodel.getMClass(TemplateParameter.MQNAME), 0, 1 );
         registerDependency(this.ownerTemplateParameterDep);
-        
+
         this.representingEndDep = new RepresentingEndSmDependency();
         this.representingEndDep.init("RepresentingEnd", this, metamodel.getMClass(ConnectorEnd.MQNAME), 0, -1 );
         registerDependency(this.representingEndDep);
-        
+
         this.representingPartitionDep = new RepresentingPartitionSmDependency();
         this.representingPartitionDep.init("RepresentingPartition", this, metamodel.getMClass(ActivityPartition.MQNAME), 0, -1 );
         registerDependency(this.representingPartitionDep);
-        
+
         this.constraintDefinitionDep = new ConstraintDefinitionSmDependency();
         this.constraintDefinitionDep.init("ConstraintDefinition", this, metamodel.getMClass(Constraint.MQNAME), 0, -1 , SmDirective.SMCDSHAREDCOMPONENT, SmDirective.SMCDTODELETE);
         registerDependency(this.constraintDefinitionDep);
-        
+
         this.typingParameterDep = new TypingParameterSmDependency();
         this.typingParameterDep.init("TypingParameter", this, metamodel.getMClass(TemplateParameter.MQNAME), 0, -1 );
         registerDependency(this.typingParameterDep);
-        
+
         this.manifestingDep = new ManifestingSmDependency();
         this.manifestingDep.init("Manifesting", this, metamodel.getMClass(Manifestation.MQNAME), 0, -1 , SmDirective.SMCDTODELETE);
         registerDependency(this.manifestingDep);
-        
+
         this.representingInstanceDep = new RepresentingInstanceSmDependency();
         this.representingInstanceDep.init("RepresentingInstance", this, metamodel.getMClass(BindableInstance.MQNAME), 0, -1 );
         registerDependency(this.representingInstanceDep);
-        
+
         this.receivedInfoDep = new ReceivedInfoSmDependency();
         this.receivedInfoDep.init("ReceivedInfo", this, metamodel.getMClass(InformationFlow.MQNAME), 0, -1 );
         registerDependency(this.receivedInfoDep);
-        
+
         this.sentInfoDep = new SentInfoSmDependency();
         this.sentInfoDep.init("SentInfo", this, metamodel.getMClass(InformationFlow.MQNAME), 0, -1 );
         registerDependency(this.sentInfoDep);
-        
+
         this.representingConnectorDep = new RepresentingConnectorSmDependency();
         this.representingConnectorDep.init("RepresentingConnector", this, metamodel.getMClass(NaryConnector.MQNAME), 0, -1 );
         registerDependency(this.representingConnectorDep);
-        
-        
+
     }
 
-    @objid ("9af2ba88-e44c-42a6-887d-ff3612ad21ea")
+    @objid ("08cfe8e6-dcf0-4ef6-b3fd-a2104ff37573")
     public SmDependency getTemplateSubstitutionDep() {
         if (this.templateSubstitutionDep == null) {
         	this.templateSubstitutionDep = this.getDependencyDef("TemplateSubstitution");
@@ -215,7 +213,7 @@ public class UmlModelElementSmClass extends ModelElementSmClass {
         return this.templateSubstitutionDep;
     }
 
-    @objid ("2f606a21-ceab-4076-8ff1-ee8d134f18f4")
+    @objid ("b13c79cd-4591-4d56-8eec-78e31dbff25d")
     public SmDependency getDefaultParameteringDep() {
         if (this.defaultParameteringDep == null) {
         	this.defaultParameteringDep = this.getDependencyDef("DefaultParametering");
@@ -223,7 +221,7 @@ public class UmlModelElementSmClass extends ModelElementSmClass {
         return this.defaultParameteringDep;
     }
 
-    @objid ("c3c8ec48-e2a1-4a10-b7c0-215aa2d854f3")
+    @objid ("a310aa3b-135e-4d4f-a265-940db0333d66")
     public SmDependency getRepresentsDep() {
         if (this.representsDep == null) {
         	this.representsDep = this.getDependencyDef("Represents");
@@ -231,7 +229,7 @@ public class UmlModelElementSmClass extends ModelElementSmClass {
         return this.representsDep;
     }
 
-    @objid ("84aab6a1-5b16-4fc4-b7ec-77ae9ea52dc9")
+    @objid ("579c394c-b6dd-4b66-bff2-5c891bdf9abd")
     public SmDependency getOwnerTemplateParameterDep() {
         if (this.ownerTemplateParameterDep == null) {
         	this.ownerTemplateParameterDep = this.getDependencyDef("OwnerTemplateParameter");
@@ -239,7 +237,7 @@ public class UmlModelElementSmClass extends ModelElementSmClass {
         return this.ownerTemplateParameterDep;
     }
 
-    @objid ("c40e21e5-c276-44ed-8c18-334d4c53b13e")
+    @objid ("93c9dc5f-9ae1-447a-80e5-e17cd6640170")
     public SmDependency getRepresentingEndDep() {
         if (this.representingEndDep == null) {
         	this.representingEndDep = this.getDependencyDef("RepresentingEnd");
@@ -247,7 +245,7 @@ public class UmlModelElementSmClass extends ModelElementSmClass {
         return this.representingEndDep;
     }
 
-    @objid ("717faf40-b6fb-4fbd-8d4b-848defaa6697")
+    @objid ("8233c235-d339-4110-8033-c79a17f16850")
     public SmDependency getRepresentingPartitionDep() {
         if (this.representingPartitionDep == null) {
         	this.representingPartitionDep = this.getDependencyDef("RepresentingPartition");
@@ -255,7 +253,7 @@ public class UmlModelElementSmClass extends ModelElementSmClass {
         return this.representingPartitionDep;
     }
 
-    @objid ("82449a03-7db6-433c-ab12-f9f54cbf919b")
+    @objid ("6e8b1dce-35c8-4584-a39f-94a7967461ad")
     public SmDependency getConstraintDefinitionDep() {
         if (this.constraintDefinitionDep == null) {
         	this.constraintDefinitionDep = this.getDependencyDef("ConstraintDefinition");
@@ -263,7 +261,7 @@ public class UmlModelElementSmClass extends ModelElementSmClass {
         return this.constraintDefinitionDep;
     }
 
-    @objid ("1409ee0c-1bce-433a-85c9-b355b5cf358d")
+    @objid ("36d69eca-4bc1-4175-9d14-bf1da91ea7db")
     public SmDependency getTypingParameterDep() {
         if (this.typingParameterDep == null) {
         	this.typingParameterDep = this.getDependencyDef("TypingParameter");
@@ -271,7 +269,7 @@ public class UmlModelElementSmClass extends ModelElementSmClass {
         return this.typingParameterDep;
     }
 
-    @objid ("02b66d3a-28be-442d-b1c7-8f11d0b52d41")
+    @objid ("9400bdf5-6ca9-4c7f-aa4d-c5b653ed8c57")
     public SmDependency getManifestingDep() {
         if (this.manifestingDep == null) {
         	this.manifestingDep = this.getDependencyDef("Manifesting");
@@ -279,7 +277,7 @@ public class UmlModelElementSmClass extends ModelElementSmClass {
         return this.manifestingDep;
     }
 
-    @objid ("8a0ec087-5372-4848-b4e5-55214f42269b")
+    @objid ("edfa9cdf-eee1-44f5-bc40-41a5dd138c06")
     public SmDependency getRepresentingInstanceDep() {
         if (this.representingInstanceDep == null) {
         	this.representingInstanceDep = this.getDependencyDef("RepresentingInstance");
@@ -287,7 +285,7 @@ public class UmlModelElementSmClass extends ModelElementSmClass {
         return this.representingInstanceDep;
     }
 
-    @objid ("3d857d0e-ffad-4ec7-8475-be8c7d900d8e")
+    @objid ("9b59be98-6586-4dfc-9400-567ee7ef93fd")
     public SmDependency getReceivedInfoDep() {
         if (this.receivedInfoDep == null) {
         	this.receivedInfoDep = this.getDependencyDef("ReceivedInfo");
@@ -295,7 +293,7 @@ public class UmlModelElementSmClass extends ModelElementSmClass {
         return this.receivedInfoDep;
     }
 
-    @objid ("ea1dc5ed-6f20-4dae-b811-209594919042")
+    @objid ("7d217837-d623-4886-9e4c-3f5c1f8d7043")
     public SmDependency getSentInfoDep() {
         if (this.sentInfoDep == null) {
         	this.sentInfoDep = this.getDependencyDef("SentInfo");
@@ -303,7 +301,7 @@ public class UmlModelElementSmClass extends ModelElementSmClass {
         return this.sentInfoDep;
     }
 
-    @objid ("c4cb2fa1-d144-4c64-a174-68c6abe98398")
+    @objid ("cf2ab75a-3151-4d62-bbab-23c19a1303bb")
     public SmDependency getRepresentingConnectorDep() {
         if (this.representingConnectorDep == null) {
         	this.representingConnectorDep = this.getDependencyDef("RepresentingConnector");
@@ -313,21 +311,21 @@ public class UmlModelElementSmClass extends ModelElementSmClass {
 
     @objid ("4a3cb52e-f85b-46cc-8e7e-5ba166bd8908")
     private static class UmlModelElementObjectFactory implements ISmObjectFactory {
-        @objid ("2d3c5c4a-8ce4-46dd-bdb0-547fe4a09b6e")
+        @objid ("19b8d33c-7f29-43e6-ae2f-fb8d5f63f054")
         private UmlModelElementSmClass smClass;
 
-        @objid ("76ffc1ea-8f7a-4f1c-9546-ba5cc2c85e5a")
-        public  UmlModelElementObjectFactory(UmlModelElementSmClass smClass) {
+        @objid ("bad0cde5-b42a-4428-be7c-ce3d7839da19")
+        public UmlModelElementObjectFactory(UmlModelElementSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("a0dde006-caaf-41a1-b965-ec0d8eb4b056")
+        @objid ("16440cb3-2b3e-4d38-8422-52dff1ea3be2")
         @Override
         public ISmObjectData createData() {
             throw new UnsupportedOperationException();
         }
 
-        @objid ("0509c2c8-a5d1-49e4-a05c-0be1a85b10f9")
+        @objid ("ba9cd56e-7221-4537-9398-8e4dfa7d8bed")
         @Override
         public SmObjectImpl createImpl() {
             throw new UnsupportedOperationException();
@@ -337,389 +335,389 @@ public class UmlModelElementSmClass extends ModelElementSmClass {
 
     @objid ("15f32f2d-f9d3-4bce-a514-4f465b7f88fb")
     public static class TemplateSubstitutionSmDependency extends SmMultipleDependency {
-        @objid ("0d733403-0fd9-41ec-aec3-e8c9df325c6f")
+        @objid ("695acf9f-ed8f-46ca-8218-3ad1d238aa49")
         private SmDependency symetricDep;
 
-        @objid ("f8ec2d63-2438-47c1-9602-dcdc4e12a99a")
+        @objid ("fc0f5cdd-9300-4126-88bd-7bfdc3da25dd")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((UmlModelElementData)data).mTemplateSubstitution != null)? ((UmlModelElementData)data).mTemplateSubstitution:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("d974bbaa-9885-47ae-bcf8-e51aa4ed37b6")
+        @objid ("74642641-7807-41e8-8e74-7f4204a308f5")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((UmlModelElementData) data).mTemplateSubstitution = values;
-            
+
         }
 
-        @objid ("8f64b73e-b174-4214-a5e0-980ea02ad0f6")
+        @objid ("0e1a846e-675b-40a5-ad4e-6f13cf7fdd6c")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((TemplateParameterSubstitutionSmClass)this.getTarget()).getActualDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("193becd3-9601-4440-a204-ef1b4360b996")
     public static class DefaultParameteringSmDependency extends SmMultipleDependency {
-        @objid ("ac279f80-57e3-4f42-9525-aaa8c5662d24")
+        @objid ("a5d2c367-f684-4579-baaf-c09ace73c1f0")
         private SmDependency symetricDep;
 
-        @objid ("7678e8e0-225b-4421-989a-6140e10ea27c")
+        @objid ("fe61453c-1d8e-4091-9181-07428a4c380a")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((UmlModelElementData)data).mDefaultParametering != null)? ((UmlModelElementData)data).mDefaultParametering:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("8e8b7678-140e-4fcd-b4b2-5531a8400baa")
+        @objid ("9c36ca3b-258c-4af0-89ea-bf45adcb4a8d")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((UmlModelElementData) data).mDefaultParametering = values;
-            
+
         }
 
-        @objid ("23edfba2-3543-4bc3-acdb-51cb471125ca")
+        @objid ("646c36e3-57c1-408f-aa1f-fb0d8e58b7a9")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((TemplateParameterSmClass)this.getTarget()).getDefaultTypeDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("d4751fbc-ecdf-4900-800c-c79bb72062c3")
     public static class RepresentsSmDependency extends SmMultipleDependency {
-        @objid ("87392a7b-fd99-46a4-97ad-45ce38aa62cd")
+        @objid ("748d832c-328b-42ad-bcc5-93d526fe10e9")
         private SmDependency symetricDep;
 
-        @objid ("7f1d6048-3919-4103-9fbf-9abb2958b498")
+        @objid ("0e11ef0e-b7cf-4eee-94fa-02d06ad59725")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((UmlModelElementData)data).mRepresents != null)? ((UmlModelElementData)data).mRepresents:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("0ab5b42d-0d56-4317-9717-f496894a3871")
+        @objid ("75e71bb1-3583-4ddf-ae12-d32a300b54ad")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((UmlModelElementData) data).mRepresents = values;
-            
+
         }
 
-        @objid ("501d1eed-ff9f-43c9-bb3a-9db1395b2634")
+        @objid ("c5425dc6-4884-42a6-9e80-293e8a1e15d3")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((BindingSmClass)this.getTarget()).getRepresentedFeatureDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("dffa69dc-3787-4667-b035-eac75be88c8a")
     public static class OwnerTemplateParameterSmDependency extends SmSingleDependency {
-        @objid ("2002b3a1-e4da-43fd-88a9-9c1ba778ede4")
+        @objid ("3b355633-1703-4efe-9e3b-279f01fe2955")
         private SmDependency symetricDep;
 
-        @objid ("5a06e526-091f-419a-8aa3-d46ebcf2da28")
+        @objid ("c0bb462d-fbb1-4642-adc0-c52c7b06105d")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((UmlModelElementData) data).mOwnerTemplateParameter;
         }
 
-        @objid ("1574d83c-63a8-4ba4-8ab3-600d3ba7876e")
+        @objid ("34161164-ee5f-43dc-b0f0-10f9787230ba")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((UmlModelElementData) data).mOwnerTemplateParameter = value;
         }
 
-        @objid ("1510ffe5-8710-44cd-b56e-b09d17a31bb5")
+        @objid ("71b719ee-3907-4d20-97bc-a986e9f6945c")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((TemplateParameterSmClass)this.getTarget()).getOwnedParameterElementDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("40dbcade-1bff-4954-86fd-a4d40a52e021")
     public static class RepresentingEndSmDependency extends SmMultipleDependency {
-        @objid ("9791cb96-6a61-442e-a2b2-e2b66f0ff5b3")
+        @objid ("ecee5995-7769-41f3-97f9-2cb019508be9")
         private SmDependency symetricDep;
 
-        @objid ("48a0dcc2-31bb-4cb7-9975-74375156af91")
+        @objid ("308802ef-e14c-4462-884b-4a9e76731959")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((UmlModelElementData)data).mRepresentingEnd != null)? ((UmlModelElementData)data).mRepresentingEnd:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("5fc82c42-637b-496c-9d0d-ce1d7bb79114")
+        @objid ("12a20c72-85bc-4e94-ab22-2c22a3cee64c")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((UmlModelElementData) data).mRepresentingEnd = values;
-            
+
         }
 
-        @objid ("d9c0adf5-6787-4f6e-85d3-3f158892a26f")
+        @objid ("15c04e52-17c7-4e10-90fa-4ab333b05530")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((ConnectorEndSmClass)this.getTarget()).getRepresentedFeatureDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("d38a7f4a-be92-4c06-b40e-a36e36a1d7c7")
     public static class RepresentingPartitionSmDependency extends SmMultipleDependency {
-        @objid ("39923023-ad4c-4be2-8ffa-749a25a9342b")
+        @objid ("703bec90-1db5-4532-bef1-330542cc0ba5")
         private SmDependency symetricDep;
 
-        @objid ("cc3c1ae6-e8b3-4790-899e-a59bbb9d4c1f")
+        @objid ("0c77baec-8774-4214-8efc-a38a2c07c173")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((UmlModelElementData)data).mRepresentingPartition != null)? ((UmlModelElementData)data).mRepresentingPartition:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("1b2765ae-87d6-4a78-9678-fe312076275e")
+        @objid ("fa924c7e-e3eb-4aa9-9320-f9ba03ee3bae")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((UmlModelElementData) data).mRepresentingPartition = values;
-            
+
         }
 
-        @objid ("fb80b5bd-171c-4240-a401-6f0be608c2da")
+        @objid ("4dc6c95b-ea2a-496f-a760-b5234b20c52a")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((ActivityPartitionSmClass)this.getTarget()).getRepresentedDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("69c3a2fa-e958-441d-9f22-48342e4622f6")
     public static class ConstraintDefinitionSmDependency extends SmMultipleDependency {
-        @objid ("acfa2dc0-cb87-43e5-b404-78978875ab3d")
+        @objid ("565c9e6d-8479-46a1-bbd3-262ad714ab34")
         private SmDependency symetricDep;
 
-        @objid ("c133e127-1156-4cf3-9bd3-52bda9bb31c3")
+        @objid ("e32a3735-8718-4cd2-a6b2-ecb8755f4ac4")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((UmlModelElementData)data).mConstraintDefinition != null)? ((UmlModelElementData)data).mConstraintDefinition:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("9f2739d7-b645-4486-a7c3-53121b555acc")
+        @objid ("fe07a1ca-4b61-46c6-b500-a40ee910179a")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((UmlModelElementData) data).mConstraintDefinition = values;
-            
+
         }
 
-        @objid ("a4c82cad-e1e0-4f0e-9d97-427562c8510d")
+        @objid ("94453863-3281-456c-a470-e0e862e3cdac")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((ConstraintSmClass)this.getTarget()).getConstrainedElementDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("20836ad0-a6e1-464e-b294-ffc6e2cb761b")
     public static class TypingParameterSmDependency extends SmMultipleDependency {
-        @objid ("bad4d635-634a-4c0f-a3a3-692945e9c54d")
+        @objid ("79eb349d-e2ea-4553-aea6-e065f8281c48")
         private SmDependency symetricDep;
 
-        @objid ("0c1e2c72-6549-4bd5-8115-11e3905a8386")
+        @objid ("7e0c4151-d4be-4afe-bd55-4ded2d080f3c")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((UmlModelElementData)data).mTypingParameter != null)? ((UmlModelElementData)data).mTypingParameter:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("68185084-44bd-4521-a6b9-08e8f872af7e")
+        @objid ("69d703dd-66d0-4626-b72f-c0a89cd1087b")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((UmlModelElementData) data).mTypingParameter = values;
-            
+
         }
 
-        @objid ("6a3666af-503d-4188-8fe8-0397ce794ca6")
+        @objid ("2c81b8a1-0482-4e70-8940-2c77728e5af6")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((TemplateParameterSmClass)this.getTarget()).getTypeDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("84a34709-cabc-4d67-828e-67363b3b057f")
     public static class ManifestingSmDependency extends SmMultipleDependency {
-        @objid ("50484d01-72c8-48bc-b631-e5c939d1cd96")
+        @objid ("593d73b0-03fb-4937-b7c3-d738bd8147e5")
         private SmDependency symetricDep;
 
-        @objid ("7673dc91-3fe5-42c4-82d4-a470299611ef")
+        @objid ("fd1139d4-04c1-42b1-bb30-ec391fc85709")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((UmlModelElementData)data).mManifesting != null)? ((UmlModelElementData)data).mManifesting:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("1e18535d-38e2-45e0-b0c8-e89836c40eda")
+        @objid ("8d5487d3-8c05-4bc7-a837-01efa8308904")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((UmlModelElementData) data).mManifesting = values;
-            
+
         }
 
-        @objid ("d6c37972-1eba-4668-9070-154367f5bc8f")
+        @objid ("29f191d5-7f5b-4ddd-9e05-714f7168f149")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((ManifestationSmClass)this.getTarget()).getUtilizedElementDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("328355f9-01c1-4ca3-875f-2c3a4557d0f1")
     public static class RepresentingInstanceSmDependency extends SmMultipleDependency {
-        @objid ("835442b3-bca3-45d6-b0a5-130f27471569")
+        @objid ("ae278b4b-ffb4-49c3-be29-f5ba30d6d1bb")
         private SmDependency symetricDep;
 
-        @objid ("449c4a88-53b5-411e-9be1-b350f1df475b")
+        @objid ("80e280ff-dbe5-4bfa-948a-5b22f6396b84")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((UmlModelElementData)data).mRepresentingInstance != null)? ((UmlModelElementData)data).mRepresentingInstance:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("05e1657d-48e1-4d06-8450-3f53ea61aba3")
+        @objid ("52fc3750-4363-421a-a1a5-60ffacc0f685")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((UmlModelElementData) data).mRepresentingInstance = values;
-            
+
         }
 
-        @objid ("e3811b24-032d-4ef4-9fc7-9e439e67f7af")
+        @objid ("257d1e19-e5d8-4248-87ac-ffbd6120e208")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((BindableInstanceSmClass)this.getTarget()).getRepresentedFeatureDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("de1c8ea7-8f0b-4074-9bf2-c20a44e45770")
     public static class ReceivedInfoSmDependency extends SmMultipleDependency {
-        @objid ("1a93d854-7485-4842-9420-151cee7d5c10")
+        @objid ("80f29325-4605-4bed-935e-d38d8e2e1ab2")
         private SmDependency symetricDep;
 
-        @objid ("ed47235e-d03c-4a10-9d59-472ea4157c81")
+        @objid ("5adf752b-d214-4a1d-aa3d-b0623677315b")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((UmlModelElementData)data).mReceivedInfo != null)? ((UmlModelElementData)data).mReceivedInfo:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("66b04838-a1ec-4c93-8f6b-472e399b1d0f")
+        @objid ("b28933ad-906a-4a1a-8247-a0a00b6df1b8")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((UmlModelElementData) data).mReceivedInfo = values;
-            
+
         }
 
-        @objid ("d78ac929-9f26-4cc8-ad93-1e0714497dfb")
+        @objid ("9b3b264c-b10c-4201-8aba-23ee0e3fefc6")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((InformationFlowSmClass)this.getTarget()).getInformationTargetDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("9810647b-3c94-4022-8505-8f9ef4c80a3e")
     public static class SentInfoSmDependency extends SmMultipleDependency {
-        @objid ("0c8b1b7f-84c0-4953-8f9a-c6a88b41d5df")
+        @objid ("e02d1b76-7771-4117-b74e-f4328dcfe631")
         private SmDependency symetricDep;
 
-        @objid ("1a8a83b7-0771-4752-abca-40332107bf9d")
+        @objid ("1bc8ba00-1ae8-4c4a-b34e-397ca50daaab")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((UmlModelElementData)data).mSentInfo != null)? ((UmlModelElementData)data).mSentInfo:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("e6febcfe-3492-484f-a5a5-ef95cf6cab0b")
+        @objid ("aef3d71e-8265-476a-9bb8-f2e6f1443a94")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((UmlModelElementData) data).mSentInfo = values;
-            
+
         }
 
-        @objid ("d483ec60-274c-42bc-9b3a-931ef544da65")
+        @objid ("d60cb7f1-0195-4b22-8bfd-856cceec34b1")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((InformationFlowSmClass)this.getTarget()).getInformationSourceDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("a11e31d7-7a1c-445b-b5d9-4019913fef38")
     public static class RepresentingConnectorSmDependency extends SmMultipleDependency {
-        @objid ("5a04a9c4-63c2-4a87-bbf1-8b26d3a15b2e")
+        @objid ("27c3b586-d123-4609-9a0e-59da4872fa6e")
         private SmDependency symetricDep;
 
-        @objid ("fc949ddd-07d5-453f-89f5-2f1e213c997f")
+        @objid ("b0688c50-6307-4085-8cd3-4ca123c77f86")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((UmlModelElementData)data).mRepresentingConnector != null)? ((UmlModelElementData)data).mRepresentingConnector:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("72ee473c-f0a5-4919-8145-f4dd90b047aa")
+        @objid ("fd38db4d-24af-4075-a2d2-6df2d5f1974e")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((UmlModelElementData) data).mRepresentingConnector = values;
-            
+
         }
 
-        @objid ("198ff6d4-cb5a-415d-9de9-136d540fbc03")
+        @objid ("afaf83ee-2ba7-414c-aebc-fb4a32e6803e")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((NaryConnectorSmClass)this.getTarget()).getRepresentedFeatureDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

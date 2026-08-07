@@ -1,0 +1,26 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= Méthodologie
+
+
+
+== Introduction
+
+Modelio est devenu au fil du temps un outil multiformalisme, c'est-à-dire supportant plusieurs méta-modèles et notations tels que UML, BPMN, ArchiMate, etc.
+
+Les liaisons entre ces différents formalismes sont souvent matérialisées par des liens de traçabilité, mais ceux-ci n'apportent qu'une sémantique assez limitée, et permettent de lier tout et n'importe quoi.
+
+Depuis la version 3.8, Modelio apporte une solution à ce problème avec les *méthodologies*.
+
+Une méthodologie dans Modelio est constituée d'un ensemble de liens méthodologiques bien définis qui peuvent être établis par l'utilisateur entre éléments de modèles, y compris s'ils proviennent de méta-modèles différents.
+
+Chaque lien méthodologique apporte une sémantique précise, avec ses propres règles de liaison afin que son utilisation soit la plus simple possible.
+
+*  <<User_Documentation_fr_Methodologie_Methodologie_standard.adoc#,Méthodologie standard>>
+*  <<User_Documentation_fr_Methodologie_Vue_methodologique.adoc#,Utilisation des liens méthodologiques>>
+*  <<User_Documentation_fr_Methodologie_Methodologies_personnalisees.adoc#,Méthodologies personnalisées>>

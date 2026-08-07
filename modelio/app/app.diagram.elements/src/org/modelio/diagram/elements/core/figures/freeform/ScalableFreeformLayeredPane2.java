@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures.freeform;
 
@@ -24,11 +24,12 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.ScalableFreeformLayeredPane;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.modelio.diagram.elements.core.figures.ZoomDrawer;
 
 /**
  * Same as {@link ScalableFreeformLayeredPane} but don't use a ScaledGraphics
  * to paint the area, this class sucks at zooming texts.
- * 
+ *
  * @author cmarin
  */
 @objid ("e693d18f-7c7a-470a-b770-d77888ee9e1e")
@@ -48,15 +49,18 @@ public class ScalableFreeformLayeredPane2 extends ScalableFreeformLayeredPane im
             if (!optimizeClip) {
                 graphics.clipRect(getBounds().getShrinked(getInsets()));
             }
-            
+
+
             graphics.scale(getScale());
-        
+            ZoomDrawer.onScaledGraphics(graphics, getScale());
+
             graphics.pushState();
             paintChildren(graphics);
             graphics.popState();
             graphics.restoreState();
+
+            ZoomDrawer.onScaledGraphics(graphics, 1 / getScale());
         }
-        
     }
 
     @objid ("f9303804-3537-4421-bd80-79786e1f70e3")
@@ -64,7 +68,6 @@ public class ScalableFreeformLayeredPane2 extends ScalableFreeformLayeredPane im
     public void add(IFigure child, Object constraint, int index) {
         super.add(child, constraint, index);
         this.helper.hookChild(child);
-        
     }
 
     @objid ("0a0d548a-5fc7-4fd1-ba29-b625c54a1b03")
@@ -75,7 +78,6 @@ public class ScalableFreeformLayeredPane2 extends ScalableFreeformLayeredPane im
         }
         super.setScale(newZoom);
         this.helper.invalidate();
-        
     }
 
     @objid ("d976854c-4016-423a-a710-9a5ffb2a2fe5")
@@ -89,7 +91,6 @@ public class ScalableFreeformLayeredPane2 extends ScalableFreeformLayeredPane im
     public void remove(IFigure child) {
         this.helper.unhookChild(child);
         super.remove(child);
-        
     }
 
     @objid ("e9098abf-3382-46d8-ae15-f4fb0adfe552")
@@ -102,6 +103,7 @@ public class ScalableFreeformLayeredPane2 extends ScalableFreeformLayeredPane im
      * Set a filter to use when computing {@link #getFreeformExtent()}.
      * <p>
      * Filtered out figures won't be used to compute the extent, that may result to the figures being cropped.
+     *
      * @param f an extent filter.
      */
     @objid ("af2d5f82-a64f-42e2-a5a4-4cbaccab3951")
@@ -114,6 +116,7 @@ public class ScalableFreeformLayeredPane2 extends ScalableFreeformLayeredPane im
      * Get the filter used when computing {@link #getFreeformExtent()}.
      * <p>
      * Filtered out figures won't be used to compute the extent, that may result to the figures being cropped.
+     *
      * @return an extent filter.
      */
     @objid ("259cec09-5f5c-4f1d-b5e9-5f0778adf22f")

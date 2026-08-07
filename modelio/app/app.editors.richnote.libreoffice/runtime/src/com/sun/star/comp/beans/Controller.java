@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package com.sun.star.comp.beans;
 
@@ -24,7 +24,7 @@ import com.sun.star.uno.UnoRuntime;
 
 /**
  * Wrapper class for a com.sun.star.frame.XController.
- * 
+ *
  * @since OOo 2.0.0
  */
 @objid ("f47ca0cf-85ab-4062-bed9-f230d528eb42")
@@ -36,12 +36,12 @@ public class Controller extends Wrapper implements com.sun.star.frame.XControlle
     private com.sun.star.frame.XDispatchProvider xDispatchProvider;
 
     @objid ("2a090419-1d9c-44cc-a283-d9ff4c52738f")
-     Controller(final com.sun.star.frame.XController xController) {
+    Controller(final com.sun.star.frame.XController xController) {
         super( xController );
         this.xController = xController;
         this.xDispatchProvider = UnoRuntime.queryInterface( com.sun.star.frame.XDispatchProvider.class,
             xController );
-        
+
     }
 
     /**

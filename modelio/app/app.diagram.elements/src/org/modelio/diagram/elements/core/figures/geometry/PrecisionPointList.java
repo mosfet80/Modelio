@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures.geometry;
 
@@ -28,7 +28,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
  * Class implementing a list of <code>PrecisionPoint</code> similarly to <code>PointList</code> class.
- * 
+ *
  * @author aboyko
  */
 @objid ("7f9b3ade-1dec-11e2-8cad-001ec947c8cc")
@@ -49,43 +49,47 @@ public class PrecisionPointList extends PointList {
      * Constructs an empty PrecisionPointList.
      */
     @objid ("7f9d9d06-1dec-11e2-8cad-001ec947c8cc")
-    public  PrecisionPointList() {
-        
+    public PrecisionPointList() {
+
     }
 
     /**
      * Constructs a PointList with the given points.
+     *
      * @param points double array where two consecutive double form the coordinates of a point
      */
     @objid ("7f9d9d09-1dec-11e2-8cad-001ec947c8cc")
-    public  PrecisionPointList(double[] points) {
+    public PrecisionPointList(double[] points) {
         this.points = points;
         this.size = points.length / 2;
-        
+
     }
 
     /**
      * Constructs a PrecisionPointList with initial capacity <i>size</i>, but no points.
+     *
      * @param size Number of points to hold.
      */
     @objid ("7f9d9d0f-1dec-11e2-8cad-001ec947c8cc")
-    public  PrecisionPointList(int size) {
+    public PrecisionPointList(int size) {
         this.points = new double[size * 2];
     }
 
     /**
      * Creates a precision point list.
+     *
      * @param pointList a point list.
      */
     @objid ("7f9d9d13-1dec-11e2-8cad-001ec947c8cc")
-    public  PrecisionPointList(PointList pointList) {
+    public PrecisionPointList(PointList pointList) {
         this();
         addAll(pointList);
-        
+
     }
 
     /**
      * Appends all of the given points to this PrecisionPointList.
+     *
      * @param source the source PrecisionPointlist
      */
     @objid ("7f9d9d19-1dec-11e2-8cad-001ec947c8cc")
@@ -93,7 +97,7 @@ public class PrecisionPointList extends PointList {
         ensureCapacity(this.size + source.size);
         System.arraycopy(source.points, 0, this.points, this.size * 2, source.size * 2);
         this.size += source.size;
-        
+
     }
 
     @objid ("7f9d9d1d-1dec-11e2-8cad-001ec947c8cc")
@@ -106,7 +110,7 @@ public class PrecisionPointList extends PointList {
         for (int i = 0; i < source.size(); i++) {
             addPoint(source.getPoint(i));
         }
-        
+
     }
 
     @objid ("7f9d9d23-1dec-11e2-8cad-001ec947c8cc")
@@ -117,6 +121,7 @@ public class PrecisionPointList extends PointList {
 
     /**
      * Adds the input point values to this PointList.
+     *
      * @param x X value of a point to add
      * @param y Y value of a point to add
      */
@@ -128,7 +133,7 @@ public class PrecisionPointList extends PointList {
         this.points[index] = x;
         this.points[index + 1] = y;
         ++this.size;
-        
+
     }
 
     @objid ("7f9d9d2e-1dec-11e2-8cad-001ec947c8cc")
@@ -211,13 +216,13 @@ public class PrecisionPointList extends PointList {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + this.size);
         }
         index *= 2;
-        
+
         int length = this.points.length;
         double old[] = this.points;
         this.points = new double[length + 2];
         System.arraycopy(old, 0, this.points, 0, index);
         System.arraycopy(old, index, this.points, index + 2, length - index);
-        
+
         if (p instanceof PrecisionPoint) {
             PrecisionPoint precisionPt = (PrecisionPoint) p;
             this.points[index] = precisionPt.preciseX();
@@ -227,7 +232,7 @@ public class PrecisionPointList extends PointList {
             this.points[index + 1] = p.y;
         }
         this.size++;
-        
+
     }
 
     @objid ("7f9fff69-1dec-11e2-8cad-001ec947c8cc")
@@ -237,7 +242,7 @@ public class PrecisionPointList extends PointList {
             this.points[i] = this.points[i] * factor;
         }
         this.bounds = null;
-        
+
     }
 
     @objid ("7f9fff6d-1dec-11e2-8cad-001ec947c8cc")
@@ -250,7 +255,7 @@ public class PrecisionPointList extends PointList {
         if (this.bounds != null) {
             this.bounds.translate(dx, dy);
         }
-        
+
     }
 
     @objid ("7f9fff72-1dec-11e2-8cad-001ec947c8cc")
@@ -258,7 +263,7 @@ public class PrecisionPointList extends PointList {
     public void removeAllPoints() {
         this.bounds = null;
         this.size = 0;
-        
+
     }
 
     @objid ("7f9fff75-1dec-11e2-8cad-001ec947c8cc")
@@ -268,7 +273,7 @@ public class PrecisionPointList extends PointList {
         if (index < 0 || index >= this.size) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + this.size);
         }
-        
+
         index *= 2;
         PrecisionPoint pt = new PrecisionPoint(this.points[index], this.points[index + 1]);
         if (index != this.size * 2 - 2) {
@@ -290,7 +295,7 @@ public class PrecisionPointList extends PointList {
             this.points[i + 1] = this.points[j + 1];
             this.points[j + 1] = temp;
         }
-        
+
     }
 
     @objid ("7f9fff80-1dec-11e2-8cad-001ec947c8cc")
@@ -310,7 +315,7 @@ public class PrecisionPointList extends PointList {
             this.points[index * 2] = pt.x;
             this.points[index * 2 + 1] = pt.y;
         }
-        
+
     }
 
     @objid ("7f9fff87-1dec-11e2-8cad-001ec947c8cc")
@@ -324,7 +329,7 @@ public class PrecisionPointList extends PointList {
         System.arraycopy(this.points, 0, newArray, 0, this.points.length);
         this.points = newArray;
         this.size = newSize;
-        
+
     }
 
     @objid ("7f9fff8b-1dec-11e2-8cad-001ec947c8cc")
@@ -335,6 +340,7 @@ public class PrecisionPointList extends PointList {
 
     /**
      * Returns the contents of this PrecisionPointList as a double array. The returned array is by reference. Any changes made to the array will also be changing the original PrecisionPointList.
+     *
      * @return the integer array of points by reference
      */
     @objid ("7f9fff90-1dec-11e2-8cad-001ec947c8cc")
@@ -373,7 +379,7 @@ public class PrecisionPointList extends PointList {
             this.points[i] += x;
             this.points[i + 1] += y;
         }
-        
+
     }
 
     @objid ("7f9fffa3-1dec-11e2-8cad-001ec947c8cc")
@@ -388,7 +394,7 @@ public class PrecisionPointList extends PointList {
             this.points[i] = this.points[i + 1];
             this.points[i + 1] = temp;
         }
-        
+
     }
 
     @objid ("7f9fffa6-1dec-11e2-8cad-001ec947c8cc")
@@ -399,7 +405,7 @@ public class PrecisionPointList extends PointList {
             this.points = new double[Math.max(newSize, this.size * 4)];
             System.arraycopy(old, 0, this.points, 0, this.size * 2);
         }
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.module.commands;
 
@@ -35,7 +35,7 @@ import org.eclipse.emf.ecore.EObject;
  * Expression used to determine whether a MUIElement provided by a module should be visible or not. Calls the method annotated
  * {@link IsVisible} (if any) on the passed object. Default return value is {@link EvaluationResult#TRUE} if no such method is
  * found.
- * 
+ *
  * @author fpoyer
  */
 @objid ("17e936a5-13bd-11e2-825e-001ec947c8cc")
@@ -47,10 +47,10 @@ public class IsVisibleExpression extends Expression {
     private final Object object;
 
     @objid ("17e936a9-13bd-11e2-825e-001ec947c8cc")
-    public  IsVisibleExpression(Object object, MUIElement item) {
+    public IsVisibleExpression(Object object, MUIElement item) {
         this.object = object;
         this.item = item;
-        
+
     }
 
     @objid ("17e936ac-13bd-11e2-825e-001ec947c8cc")
@@ -85,7 +85,7 @@ public class IsVisibleExpression extends Expression {
         } else {
             return EvaluationResult.TRUE;
         }
-        
+
     }
 
 }

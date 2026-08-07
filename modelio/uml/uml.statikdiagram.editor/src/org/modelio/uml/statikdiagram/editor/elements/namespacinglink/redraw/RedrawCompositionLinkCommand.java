@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.namespacinglink.redraw;
 
@@ -46,10 +46,11 @@ public class RedrawCompositionLinkCommand extends Command {
 
     /**
      * Command constructor
+     *
      * @param context Informations on the model element to create and or unmask.
      */
     @objid ("35b2a5a6-55b7-11e2-877f-002564c97630")
-    public  RedrawCompositionLinkCommand(RedrawCompositionLinkFactory context) {
+    public RedrawCompositionLinkCommand(RedrawCompositionLinkFactory context) {
         this.context = context;
     }
 
@@ -75,11 +76,12 @@ public class RedrawCompositionLinkCommand extends Command {
         this.sourceNode.addStartingLink(link);
         this.targetNode.addEndingLink(link);
         link.setLayoutData(this.path);
-        
+
     }
 
     /**
      * Sets the context
+     *
      * @param newContext the link creation context.
      */
     @objid ("35b2a5b2-55b7-11e2-877f-002564c97630")
@@ -89,6 +91,7 @@ public class RedrawCompositionLinkCommand extends Command {
 
     /**
      * Set the link source.
+     *
      * @param sourceNode the link source.
      */
     @objid ("35b2a5b6-55b7-11e2-877f-002564c97630")
@@ -98,6 +101,7 @@ public class RedrawCompositionLinkCommand extends Command {
 
     /**
      * Set the link destination.
+     *
      * @param targetNode the link destination.
      */
     @objid ("35b2a5bd-55b7-11e2-877f-002564c97630")
@@ -107,6 +111,7 @@ public class RedrawCompositionLinkCommand extends Command {
 
     /**
      * Set the path of the link.
+     *
      * @param path the link path.
      */
     @objid ("35b2a5c4-55b7-11e2-877f-002564c97630")

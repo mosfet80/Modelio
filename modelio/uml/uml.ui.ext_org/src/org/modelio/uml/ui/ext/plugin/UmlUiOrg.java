@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.ext.plugin;
 
@@ -38,7 +38,7 @@ public class UmlUiOrg extends AbstractUIPlugin {
      */
     @objid ("4edbb350-b88b-4e81-86b4-22c284e905d6")
     public static final String PLUGIN_ID = "org.modelio.uml.ui.ext_org"; // $NON-NLS-1$
-    
+
 
     @objid ("3ac7b048-2c40-480e-8753-bf17d80da1c9")
     private static BundleContext context;
@@ -63,7 +63,7 @@ public class UmlUiOrg extends AbstractUIPlugin {
         ExtendedLogService service = bundleContext.getService(ref);
         UmlUiOrg.LOG = new PluginLogger(service.getLogger(bundleContext.getBundle(), UmlUiOrg.PLUGIN_ID));
         UmlUiOrg.I18N = new BundledMessages(UmlUiOrg.LOG, ResourceBundle.getBundle("umlui"));
-        
+
     }
 
     @objid ("e16fdd25-671a-4922-ac9f-ebf130b3e51f")
@@ -73,6 +73,7 @@ public class UmlUiOrg extends AbstractUIPlugin {
     }
 
     /**
+     *
      * @return the bundle's execution context within the Framework.
      */
     @objid ("3f9e4c50-a2c3-4a5a-960c-ed451c359328")

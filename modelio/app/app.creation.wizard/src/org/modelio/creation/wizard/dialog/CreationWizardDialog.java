@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.creation.wizard.dialog;
 
@@ -115,15 +115,15 @@ public abstract class CreationWizardDialog extends ModelioDialog {
     private Composite typeBrowserArea;
 
     @objid ("52e2480d-b76d-4a54-9aa6-3b5816804629")
-    public  CreationWizardDialog(final Shell parentShell, final CreationWizardModel dataModel, IProjectService projectService, IModelioPickingService pickingService) {
+    public CreationWizardDialog(final Shell parentShell, final CreationWizardModel dataModel, IProjectService projectService, IModelioPickingService pickingService) {
         super(parentShell);
         setShellStyle(SWT.DIALOG_TRIM | SWT.RESIZE | SWT.MAX);
-        
+
         this.projectService = projectService;
         this.pickingService = pickingService;
-        
+
         this.controller = new CreationWizardController(this, dataModel);
-        
+
     }
 
     @objid ("825a2d6a-684f-4ef1-806c-6b3a4b630b16")
@@ -131,7 +131,7 @@ public abstract class CreationWizardDialog extends ModelioDialog {
     public void addButtonsInButtonBar(final Composite parent) {
         createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
         createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
-        
+
     }
 
     @objid ("3ba41043-418f-478a-8245-5253493d105a")
@@ -139,12 +139,12 @@ public abstract class CreationWizardDialog extends ModelioDialog {
     public boolean close() {
         this.contextText.activatePicking(null);
         this.contextText.activateCompletion(null);
-        
+
         if (this.customArea != null) {
             this.customArea.dispose();
             this.customArea = null;
         }
-        
+
         this.composite.dispose();
         return super.close();
     }
@@ -155,12 +155,12 @@ public abstract class CreationWizardDialog extends ModelioDialog {
         this.composite = new Composite(parent, SWT.BORDER);
         this.composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         this.composite.setLayout(new FormLayout());
-        
+
         // Diagram type browser
         this.typeBrowserArea = createTypeBrowserArea(this.composite);
         // Edition area
         this.editionArea = createEditionArea(this.composite);
-        
+
         // Layout the form
         FormData fd1 = new FormData();
         fd1.top = new FormAttachment(0, 0);
@@ -168,7 +168,7 @@ public abstract class CreationWizardDialog extends ModelioDialog {
         fd1.left = new FormAttachment(0, 0);
         fd1.right = new FormAttachment(40, 0);
         this.typeBrowserArea.setLayoutData(fd1);
-        
+
         FormData fd2 = new FormData();
         fd2.top = new FormAttachment(0, 0);
         fd2.left = new FormAttachment(this.typeBrowserArea, 5);
@@ -186,30 +186,30 @@ public abstract class CreationWizardDialog extends ModelioDialog {
     @Override
     public void init() {
         getShell().setText(CreationWizard.I18N.getMessage("Ui.CreationWizard.ShellTitle"));
-        
+
         setTitle(CreationWizard.I18N.getMessage("Ui.CreationWizard.Title"));
         setMessage(CreationWizard.I18N.getMessage("Ui.CreationWizard.Message"));
-        
+
         addListeners();
-        
+
         this.controller.onInit();
-        
+
     }
 
     @objid ("c8eae388-4fc3-4b1d-9a4c-75fc5ec39fc3")
     void update(CreationWizardModel dataModel) {
         // Edition area
         updateEditionArea(dataModel);
-        
+
         // Diagram type browser
         updateTypeBrowserArea(dataModel);
-        
+
         // Custom area
         updateCustomArea(dataModel);
-        
+
         // Ok button
         updateOkButton(dataModel.isValid());
-        
+
     }
 
     @objid ("763f832c-825a-47d3-aca8-2c4ed70d988b")
@@ -221,7 +221,7 @@ public abstract class CreationWizardDialog extends ModelioDialog {
     protected void okPressed() {
         this.controller.onOk();
         super.okPressed();
-        
+
     }
 
     @objid ("c9db9dd4-a9cf-4e08-b462-28a675e0e7d6")
@@ -232,30 +232,30 @@ public abstract class CreationWizardDialog extends ModelioDialog {
     @objid ("db126456-06e9-401e-9ad7-2c6940f35530")
     private void addListeners() {
         this.nameText.addModifyListener(new ModifyListener() {
-        
+
             @Override
             public void modifyText(ModifyEvent e) {
                 CreationWizardDialog.this.controller.onNameChanged(((Text) e.getSource()).getText());
             }
         });
-        
+
         this.hideInvalidCheckBox.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 CreationWizardDialog.this.controller.onHideInvalidContributors(((Button) e.getSource()).getSelection());
             }
         });
-        
+
         this.treeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
             @Override
             public void selectionChanged(SelectionChangedEvent event) {
                 CreationWizardDialog.this.controller.onContributorSelection(
                         SelectionHelper.getFirst(event.getSelection(), IWizardContributor.class));
-        
+
             }
         });
         this.treeViewer.addDoubleClickListener(new IDoubleClickListener() {
-        
+
             @Override
             public void doubleClick(DoubleClickEvent event) {
                 // Double click to create the selected contribution if ok button
@@ -265,36 +265,36 @@ public abstract class CreationWizardDialog extends ModelioDialog {
                 }
             }
         });
-        
+
         this.contextText.addListener(new ITextElementSelectionListener() {
-        
+
             @Override
             public void selectedElementChanged(MObject oldElement, MObject newElement) {
                 CreationWizardDialog.this.controller.onContextChanged(oldElement, newElement);
-        
+
             }
         });
-        
+
     }
 
     @objid ("a1850387-e800-4bd9-9c5c-7dad3b3cc6d3")
     private Composite createEditionArea(Composite parent) {
         Group group = new Group(parent, SWT.BORDER_SOLID);
         group.setLayout(new GridLayout(2, false));
-        
+
         group.setText(CreationWizard.I18N.getMessage("Ui.CreationWizard.IdGroup.label"));
-        
+
         Label nameLabel = new Label(group, SWT.NONE);
         nameLabel.setText(CreationWizard.I18N.getMessage("Ui.CreationWizard.Name"));
         nameLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false));
-        
+
         this.nameText = new Text(group, SWT.BORDER);
         GridDataFactory.fillDefaults().grab(true, false).hint(-1, 20).applyTo(this.nameText);
-        
+
         Label contextLabel = new Label(group, SWT.NONE);
         contextLabel.setText(CreationWizard.I18N.getMessage("Ui.CreationWizard.Context"));
         contextLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false));
-        
+
         this.contextText = new TextElement(group, SWT.BORDER, false);
         this.contextText.activatePicking(this.pickingService);
         this.contextText.activateCompletion(this.projectService.getSession());
@@ -309,7 +309,7 @@ public abstract class CreationWizardDialog extends ModelioDialog {
         Group group = new Group(parent, SWT.NONE);
         group.setLayout(new GridLayout(1, false));
         group.setText(CreationWizard.I18N.getMessage("Ui.CreationWizard.TypeGroup.label"));
-        
+
         // Diagrams list tree viewer
         this.treeViewer = new TreeViewer(group, SWT.V_SCROLL | SWT.BORDER);
         this.treeViewer.setContentProvider(
@@ -318,7 +318,7 @@ public abstract class CreationWizardDialog extends ModelioDialog {
         this.treeViewer.setComparator(new ContributorSorter(null));
         this.treeViewer.setInput(new ContributorCategoryModel(this.controller.getContributorsMap()));
         this.treeViewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-        
+
         // Hide invalid checkbox
         this.hideInvalidCheckBox = new Button(group, SWT.CHECK);
         this.hideInvalidCheckBox.setText(CreationWizard.I18N.getMessage("Ui.CreationWizard.HideInvalid"));
@@ -337,7 +337,7 @@ public abstract class CreationWizardDialog extends ModelioDialog {
         // Configure the labelProvider
         ContributorTreeLabelProvider lp = (ContributorTreeLabelProvider) this.treeViewer.getLabelProvider();
         lp.setContext(dataModel.getContext());
-        
+
         // Update tree selection
         if (this.treeViewer.getSelection().isEmpty()) {
             IWizardContributor selectedContributor = dataModel.getSelectedContributor();
@@ -346,19 +346,19 @@ public abstract class CreationWizardDialog extends ModelioDialog {
                 this.treeViewer.setSelection(new StructuredSelection(selectedContributor), true);
             }
         }
-        
+
         this.hideInvalidCheckBox.setSelection(!dataModel.isShowInvalid());
-        
+
     }
 
     @objid ("db9a2b63-4b40-48e3-bc0c-b4a6830e14e4")
     void updateEditionArea(CreationWizardModel dataModel) {
         IWizardContributor selectedContributor = dataModel.getSelectedContributor();
-        
+
         // Reconfigure the TextElement field
         if (selectedContributor != null) {
             this.editionArea.setVisible(true);
-        
+
             // Update the 'context' TextElement field allowed metaclasses
             this.contextText.getAcceptedMetaclasses().clear();
             for (ElementScope scope : selectedContributor.getScopes()) {
@@ -381,7 +381,7 @@ public abstract class CreationWizardDialog extends ModelioDialog {
         this.contextText.setFilter(elementFilter);
         this.contextText.getTextControl().setForeground(UIColor.RED);
         this.contextText.setAcceptNullValue(false);
-        
+
         this.contextText.setValue(dataModel.getContext());
         if (selectedContributor != null) {
             setMessage(selectedContributor.getInformation());
@@ -391,11 +391,11 @@ public abstract class CreationWizardDialog extends ModelioDialog {
         } else {
             setMessage(CreationWizard.I18N.getMessage("Ui.CreationWizard.Message"));
         }
-        
+
         if (!this.nameText.getText().equals(dataModel.getName())) {
             this.nameText.setText(dataModel.getName());
         }
-        
+
     }
 
     @objid ("0b089dc8-df54-49b9-a2f3-259dd85115d8")
@@ -403,7 +403,7 @@ public abstract class CreationWizardDialog extends ModelioDialog {
     protected void cancelPressed() {
         this.controller.onCancel();
         super.cancelPressed();
-        
+
     }
 
     @objid ("0a24a639-991b-4444-b062-32a56ea4accc")
@@ -417,7 +417,7 @@ public abstract class CreationWizardDialog extends ModelioDialog {
                 this.customArea = null;
             }
         }
-        
+
         if (contributor != null) {
             IPanelProvider customPanel = contributor.getWizardPanel();
             if (customPanel != null) {
@@ -427,22 +427,22 @@ public abstract class CreationWizardDialog extends ModelioDialog {
                 // Create a standard WizardPreviewPanel
                 this.customArea = new WizardPreviewPanel();
             }
-        
+
             Control comp = (Control) this.customArea.createPanel(this.composite);
-        
+
             FormData fd = new FormData();
             fd.top = new FormAttachment(this.editionArea, 5);
             fd.bottom = new FormAttachment(100, 0);
             fd.left = new FormAttachment(this.typeBrowserArea, 5);
             fd.right = new FormAttachment(100, -4);
             comp.setLayoutData(fd);
-        
+
             this.customArea.setInput(contributor);
             this.nameText.setText(contributor.getLabel());
         }
-        
+
         this.composite.layout(true);
-        
+
     }
 
     /**
@@ -462,7 +462,7 @@ public abstract class CreationWizardDialog extends ModelioDialog {
                 this.dwData.setName(s);
                 this.dwDialog.update(this.dwData);
             }
-            
+
         }
 
         @objid ("86bba2b1-bc31-47eb-94d8-7522ea4866db")
@@ -471,7 +471,7 @@ public abstract class CreationWizardDialog extends ModelioDialog {
                 this.dwData.setContext((ModelElement) newElement);
                 this.dwDialog.update(this.dwData);
             }
-            
+
         }
 
         @objid ("0e5ed87e-f73d-41d0-91d0-0dbcc04de42b")
@@ -480,7 +480,7 @@ public abstract class CreationWizardDialog extends ModelioDialog {
                 this.dwData.setSelectedContributor(selectedContributor);
                 this.dwDialog.update(this.dwData);
             }
-            
+
         }
 
         @objid ("07bd578d-1175-457b-85db-e917da56ecfd")
@@ -495,27 +495,27 @@ public abstract class CreationWizardDialog extends ModelioDialog {
                     this.dwData.setSelectedContributor(null);
                 }
             }
-            
+
             this.dwData.setShowInvalid(!hideInvalidContributors);
-            
+
             // Configure tree content provider
             ContributorTreeContentProvider cp = (ContributorTreeContentProvider) this.dwDialog.treeViewer
                     .getContentProvider();
             cp.setShowInvalid(!hideInvalidContributors);
             cp.setContext(this.dwData.getContext());
-            
+
             // Refresh tree input
             this.dwDialog.treeViewer.setInput(this.dwDialog.treeViewer.getInput());
-            
+
             this.dwDialog.update(this.dwData);
-            
+
         }
 
         @objid ("9454e825-dea3-4ba4-a1d3-121a42caed1a")
-        public  CreationWizardController(CreationWizardDialog dwDialog, CreationWizardModel dwModel) {
+        public CreationWizardController(CreationWizardDialog dwDialog, CreationWizardModel dwModel) {
             this.dwData = dwModel;
             this.dwDialog = dwDialog;
-            
+
         }
 
         @objid ("147fe5f7-acd4-4b82-8d9f-4e228415f5c2")
@@ -523,20 +523,20 @@ public abstract class CreationWizardDialog extends ModelioDialog {
             if (this.dwData.getSelectedContributor() == null) {
                 ModelElement initialContext = this.dwData.getContext();
                 ModelElement context = initialContext;
-            
+
                 List<IWizardContributor> validContributors = getValidContributors(context);
                 while (validContributors.size() == 0 && context != null) {
                     MObject owner = context.getCompositionOwner();
                     context = owner instanceof ModelElement ? (ModelElement) owner : null;
                     validContributors = getValidContributors(context);
                 }
-            
+
                 if (validContributors.size() > 0) {
                     IWizardContributor classDiagramContributor = null;
                     IWizardContributor firstUmlDiagramContributor = null;
                     IWizardContributor firstDiagramContributor = null;
                     IWizardContributor firstOtherContributor = null;
-            
+
                     // Take first diagram contribution as default
                     for (IWizardContributor contributor : validContributors) {
                         if (contributor instanceof IDiagramWizardContributor) {
@@ -553,7 +553,7 @@ public abstract class CreationWizardDialog extends ModelioDialog {
                             firstOtherContributor = contributor;
                         }
                     }
-            
+
                     /*
                      * Select a contributor: - class diagram is always first - first UML diagram is class diagram isn't valid - first diagram when no UML diagram is valid - last chance fallback, use first contributor
                      */
@@ -566,7 +566,7 @@ public abstract class CreationWizardDialog extends ModelioDialog {
                     } else {
                         this.dwData.setSelectedContributor(firstOtherContributor);
                     }
-            
+
                     this.dwData.setContext(context);
                 }
             } else {
@@ -574,7 +574,7 @@ public abstract class CreationWizardDialog extends ModelioDialog {
                 IWizardContributor contributor = this.dwData.getSelectedContributor();
                 ModelElement initialContext = this.dwData.getContext();
                 ModelElement context = initialContext;
-            
+
                 while (!contributor.accept(context) && context != null) {
                     MObject owner = context.getCompositionOwner();
                     context = owner instanceof ModelElement ? (ModelElement) owner : null;
@@ -583,7 +583,7 @@ public abstract class CreationWizardDialog extends ModelioDialog {
                 this.dwData.setContext(context);
             }
             this.dwDialog.update(this.dwData);
-            
+
         }
 
         @objid ("80ddb03c-1892-4fff-956d-3c8610abdfdf")
@@ -631,7 +631,7 @@ public abstract class CreationWizardDialog extends ModelioDialog {
         private WizardPreviewPanelController controller;
 
         @objid ("8299ea2e-79c1-43c4-a34e-2fbe8926f84d")
-        public  WizardPreviewPanel() {
+        public WizardPreviewPanel() {
             this.controller = new WizardPreviewPanelController();
         }
 
@@ -667,7 +667,7 @@ public abstract class CreationWizardDialog extends ModelioDialog {
             } else {
                 this.controller.setData(null);
             }
-            
+
         }
 
         @objid ("7ab495c6-5e39-43d7-9930-46a7d7138d1e")
@@ -706,7 +706,7 @@ public abstract class CreationWizardDialog extends ModelioDialog {
             private Link detailsLink;
 
             @objid ("4e6702fa-7787-433b-b4ee-4fa24c449722")
-            public  WizardPreviewPanelUI(WizardPreviewPanelController controller) {
+            public WizardPreviewPanelUI(WizardPreviewPanelController controller) {
                 this.controller = controller;
             }
 
@@ -716,7 +716,7 @@ public abstract class CreationWizardDialog extends ModelioDialog {
                 this.previewGroup.setText(CreationWizard.I18N.getMessage("Ui.CreationWizard.PreviewGroup.label"));
                 this.previewGroup.setLayoutData(new GridData(GridData.FILL_BOTH));
                 this.previewGroup.setLayout(new GridLayout(1, false));
-                
+
                 this.previewImage = new Label(this.previewGroup, SWT.BORDER);
                 this.previewImage.setSize(WizardPreviewPanelUI.PREVIEW_WIDTH, WizardPreviewPanelUI.PREVIEW_HEIGHT);
                 GridData gd = new GridData();
@@ -724,19 +724,19 @@ public abstract class CreationWizardDialog extends ModelioDialog {
                 gd.widthHint = WizardPreviewPanelUI.PREVIEW_WIDTH;
                 gd.horizontalAlignment = SWT.CENTER;
                 this.previewImage.setLayoutData(gd);
-                
+
                 this.detailsText = new StyledText(this.previewGroup, SWT.MULTI | SWT.WRAP);
                 this.detailsText.setForeground(UIColor.LABEL_TIP_FG);
                 this.detailsText.setEditable(false);
                 this.detailsText.setBackground(this.previewGroup.getBackground());
-                
+
                 GridData gd2 = new GridData(SWT.FILL, SWT.FILL, true, true);
                 this.detailsText.setLayoutData(gd2);
-                
+
                 this.detailsLink = new Link(this.previewGroup, SWT.NONE);
                 GridData gd3 = new GridData(SWT.FILL, SWT.FILL, true, false);
                 this.detailsLink.setLayoutData(gd3);
-                
+
                 // Install listeners
                 this.detailsLink.addSelectionListener(new SelectionAdapter() {
                     @Override
@@ -755,7 +755,7 @@ public abstract class CreationWizardDialog extends ModelioDialog {
                     this.previewImage.setImage(null);
                 }
                 this.previewGroup.dispose();
-                
+
             }
 
             @objid ("401b9fed-28be-453b-ba82-d63b9caba247")
@@ -766,7 +766,7 @@ public abstract class CreationWizardDialog extends ModelioDialog {
                     this.previewImage.setImage(null);
                     img.dispose();
                 }
-                
+
                 // Create and setup the new preview image
                 if (imageDescriptor != null) {
                     this.previewImage.setImage(imageDescriptor.createImage());
@@ -775,7 +775,7 @@ public abstract class CreationWizardDialog extends ModelioDialog {
                     URL imageUrl = FileLocator.find(bundle, new Path("images/noimagepreview400x300.png"), null);
                     this.previewImage.setImage(ImageDescriptor.createFromURL(imageUrl).createImage());
                 }
-                
+
             }
 
             @objid ("cde581a7-a498-44f9-953f-52e6c72b560d")
@@ -797,7 +797,7 @@ public abstract class CreationWizardDialog extends ModelioDialog {
                     this.detailsLink.setText("");
                     this.detailsLink.setData("url", null);
                 }
-                
+
             }
 
         }
@@ -821,7 +821,7 @@ public abstract class CreationWizardDialog extends ModelioDialog {
                 if (this.ui != null) {
                     this.ui.update(this.data);
                 }
-                
+
             }
 
             @objid ("d91b349a-63c4-45ea-886b-bb9457f2f2ba")
@@ -841,7 +841,7 @@ public abstract class CreationWizardDialog extends ModelioDialog {
             public void dispose() {
                 this.ui.dispose();
                 this.ui = null;
-                
+
             }
 
             @objid ("9b9d908e-b3fa-4503-b2b3-a5c1a9cb4075")
@@ -850,7 +850,7 @@ public abstract class CreationWizardDialog extends ModelioDialog {
                     BrowserDialog dialog = new BrowserDialog(getUi().getShell(), helpUrl);
                     dialog.open();
                 }
-                
+
             }
 
         }

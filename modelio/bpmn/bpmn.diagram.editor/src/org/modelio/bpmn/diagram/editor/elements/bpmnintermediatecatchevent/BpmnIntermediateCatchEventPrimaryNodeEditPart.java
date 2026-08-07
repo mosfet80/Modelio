@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnintermediatecatchevent;
 
@@ -59,7 +59,7 @@ public final class BpmnIntermediateCatchEventPrimaryNodeEditPart extends Abstrac
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START, new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
         installEditPolicy(ModelElementDropRequest.TYPE, new MethodologicalLinkUpdateDropEditPolicy(Event.MdaTypes.STEREOTYPE_ELT, true));
-        
+
     }
 
     @objid ("a68e0eb5-885c-4022-a309-1c4282e70259")
@@ -68,10 +68,10 @@ public final class BpmnIntermediateCatchEventPrimaryNodeEditPart extends Abstrac
         ColorizableImageFigure imageFigure = new ColorizableImageFigure(getModel().getEventImage());
         imageFigure.setPreferredSize(33, 33);
         imageFigure.setMinimumSize(new Dimension(33, 33));
-        
+
         // set style dependent properties
         refreshFromStyle(imageFigure, getModelStyle());
-        
+
         // return the figure
         return imageFigure;
     }
@@ -81,7 +81,7 @@ public final class BpmnIntermediateCatchEventPrimaryNodeEditPart extends Abstrac
     protected void refreshFromStyle(IFigure aFigure, IStyle style) {
         if (!switchRepresentationMode()) {
             super.refreshFromStyle(aFigure, style);
-        
+
             if (aFigure instanceof ColorizableImageFigure) {
                 ColorizableImageFigure cFigure = (ColorizableImageFigure) aFigure;
                 final GmModel gmModel = getModel();
@@ -89,7 +89,7 @@ public final class BpmnIntermediateCatchEventPrimaryNodeEditPart extends Abstrac
                 cFigure.setColor(color);
             }
         }
-        
+
     }
 
     @objid ("d89e165d-d9af-4406-9157-953714f3caad")
@@ -97,7 +97,7 @@ public final class BpmnIntermediateCatchEventPrimaryNodeEditPart extends Abstrac
     protected void refreshVisuals() {
         GmBpmnIntermediateCatchEventPrimaryNode initialNodeModel = getModel();
         getFigure().getParent().setConstraint(getFigure(), initialNodeModel.getLayoutData());
-        
+
     }
 
     @objid ("174b3c2e-8ead-46ef-9e94-b7b1d461a6d4")

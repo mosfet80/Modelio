@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.module.report;
 
@@ -25,11 +25,12 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * Data model for an entry in a {@link Report}.
+ *
  * @since 4.1
  */
 @objid ("4cd977bb-d65d-4fae-8ae6-0ad5db09a6bd")
 public class ReportEntry implements Comparable<ReportEntry> {
-    
+
     @mdl.prop
     @objid ("c8697d71-6369-40eb-9836-b64868dcb978")
     public final String helpUrl;
@@ -40,7 +41,7 @@ public class ReportEntry implements Comparable<ReportEntry> {
         return this.helpUrl;
     }
 
-    
+
     @mdl.prop
     @objid ("02ca2386-bf07-4145-98c1-60613263abe4")
     public final String message;
@@ -51,7 +52,7 @@ public class ReportEntry implements Comparable<ReportEntry> {
         return this.message;
     }
 
-    
+
     @mdl.prop
     @objid ("7dc99828-4a20-4bf1-9264-9902733f4b49")
     public final EntryKind kind;
@@ -62,7 +63,7 @@ public class ReportEntry implements Comparable<ReportEntry> {
         return this.kind;
     }
 
-    
+
     @mdl.prop
     @objid ("24d57205-ad83-47c0-8ef8-a4b424b7dfe0")
     public final String category;
@@ -73,7 +74,7 @@ public class ReportEntry implements Comparable<ReportEntry> {
         return this.category;
     }
 
-    
+
     @mdl.prop
     @objid ("8ad7015b-0ae6-4270-a071-9b6f579b0646")
     public final String code;
@@ -84,7 +85,7 @@ public class ReportEntry implements Comparable<ReportEntry> {
         return this.code;
     }
 
-    
+
     @mdl.prop
     @objid ("f6ab7d67-7e41-4e6d-9118-09c751ea9795")
     public List<MObject> linkedObjects;
@@ -102,13 +103,13 @@ public class ReportEntry implements Comparable<ReportEntry> {
     }
 
     @objid ("241c9cf9-f0d1-4a18-b241-d776332d47e1")
-    public  ReportEntry(EntryKind kind, String code, String category, String helpUrl, String message, MObject[] linkedObjects) {
+    public ReportEntry(EntryKind kind, String code, String category, String helpUrl, String message, MObject[] linkedObjects) {
         this.code = code;
         this.kind = kind;
         this.category = category;
         this.message = message;
         this.helpUrl = helpUrl;
-        
+
         if (linkedObjects != null) {
             this.linkedObjects = new ArrayList<>();
             for (MObject linkedObject : linkedObjects) {
@@ -119,7 +120,7 @@ public class ReportEntry implements Comparable<ReportEntry> {
         } else {
             this.linkedObjects = Collections.emptyList();
         }
-        
+
     }
 
     @objid ("8259bf0e-7559-447a-ae61-61740778958a")
@@ -144,7 +145,7 @@ public class ReportEntry implements Comparable<ReportEntry> {
 
     @objid ("0fd95361-03bb-40e3-8517-377bbe298925")
     @Deprecated
-    public  ReportEntry(EntryKind kind, int code, String category, String helpUrl, String message, MObject[] linkedObjects) {
+    public ReportEntry(EntryKind kind, int code, String category, String helpUrl, String message, MObject[] linkedObjects) {
         this(kind, Integer.toString(code), category, helpUrl, message, linkedObjects);
     }
 

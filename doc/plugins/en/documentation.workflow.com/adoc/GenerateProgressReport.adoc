@@ -1,0 +1,28 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+// Hightlight code source and add the line number
+:source-highlighter: coderay
+:coderay-linenums-mode: table
+
+
+= Generate progress report
+
+Note : this command requires that the Document Publisher be deployed in the project.
+
+It is used to generate Docx, ODT or HTML documents. The content of these documents is entirely configurable. It is also possible to use a custom style sheet.
+
+To generate a workflow progess report, display the Workflow Browser view, select a workflow instance then execute the *image:images/gendocicon.png[] Generate a progress report...* command.
+
+In the dialog carry out the following actions:
+
+image::images/GenerateWorkflowReport.png[GenerateWorkflowReport.png]
+
+1. Select a document format : MS Word (.docx), Libre Office (.odt) or HTML (.html)
+2. Select a generation directory
+3. Select a style sheet. It is also possible to use a custom style sheet
+4. Enter the document's properties
+5. History: Table showing the last 8 History entries for each element enrolled in the workflow
+6. Click on "OK" to launch the generation

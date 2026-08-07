@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.policies;
 
@@ -42,6 +42,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * <h2>Implemetation directives</h2>
  * When executing commands do not use the command stack, it would use a transaction and potentially break the undo/redo ,
  * call {@link Command#execute()} directly.
+ *
  * @author cma
  * @since 5.1.0
  */
@@ -57,10 +58,10 @@ public abstract class AbstractRefreshFromModelEditPolicy extends GraphicalEditPo
     @Override
     public void activate() {
         super.activate();
-        
+
         IGmModelRelated grp = getModel();
         grp.addPropertyChangeListener(this);
-        
+
     }
 
     @objid ("991f189a-3a15-4a97-b437-c4f8d46fdbfe")
@@ -68,9 +69,9 @@ public abstract class AbstractRefreshFromModelEditPolicy extends GraphicalEditPo
     public void deactivate() {
         IGmModelRelated grp = getModel();
         grp.removePropertyChangeListener(this);
-        
+
         super.deactivate();
-        
+
     }
 
     @objid ("5c928369-6eef-4b1d-a6f2-b25a161d4f45")
@@ -82,9 +83,9 @@ public abstract class AbstractRefreshFromModelEditPolicy extends GraphicalEditPo
     /**
      * Handles {@link IGmModelRelated#PROP_REFRESH_FROM_OBMODEL} and {@link IGmModelRelated#PROP_OBMODEL_DELETED} property change events
      * to refresh a {@link IGmModelRelated} content from related model element, by using requests and commands.
-     * 
+     *
      * <h2>Implementation directives</h2>
-     * 
+     *
      * When executing commands do not use the command stack: it would use a transaction and potentially break the undo/redo.
      * Call {@link Command#execute()} directly.
      */
@@ -96,7 +97,7 @@ public abstract class AbstractRefreshFromModelEditPolicy extends GraphicalEditPo
             MObject el = getModel().getRelatedElement();
             if (el != null && el.isValid()) {
                 Command cmd = getRefreshFromModelCommand(ev);
-        
+
                 // Warning: do not use the command stack, it would use a transaction and potentially break the undo/redo
                 if (cmd != null && cmd.canExecute())
                     cmd.execute();
@@ -105,19 +106,20 @@ public abstract class AbstractRefreshFromModelEditPolicy extends GraphicalEditPo
             MObject el = getModel().getRelatedElement();
             if (el != null) {
                 Command cmd = getObElementDeletedCommand(ev);
-        
+
                 // Warning: do not use the command stack, it would use a transaction and potentially break the undo/redo
                 if (cmd != null && cmd.canExecute())
                     cmd.execute();
             }
         }
-        
+
     }
 
     /**
      * Create a command to run when the related model element is deleted.
      * <p>
      * Default implementation builds a REQ_DELETE request and return the matching command.
+     *
      * @param ev the property change event, in case it contains useful informations
      * @return a command to run when the related model element is deleted.
      */
@@ -127,26 +129,26 @@ public abstract class AbstractRefreshFromModelEditPolicy extends GraphicalEditPo
         EditPart host = getHost();
         req.setEditParts(host);
         Command command = host.getCommand(req);
-        
+
         if (command != null)
             return command;
-        
+
         // No delete policy: Try to ask its parent
         EditPart parent = host.getParent();
         if (parent == null) {
             assert false : String.format("Delete request not handled on orphan %s .", host);
             return null;
         }
-        
+
         req.setType(REQ_DELETE_DEPENDANT);
         command = parent.getCommand(req);
-        
+
         if (command != null)
             return command;
-        
+
         // Last resort, we shouldn't get here
         assert false : String.format("Delete request handled neither on %s nor its parent %s", host, parent);
-        
+
         command = new DeleteInDiagramCommand().setNodetoDelete(getModel());
         return command;
     }
@@ -156,6 +158,7 @@ public abstract class AbstractRefreshFromModelEditPolicy extends GraphicalEditPo
      * <p>
      * Called when a {@link IGmModelRelated#PROP_REFRESH_FROM_OBMODEL}  property change event is caught.
      * Does nothing by default.
+     *
      * @param ev the property change event, in case it contains useful informations
      * @return a command or null.
      */

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.project.prefs;
 
@@ -63,7 +63,7 @@ public class ProjectPreferencesHelper {
     @objid ("47912c53-2c9e-4159-99b1-562366fe9531")
     private static GeneralClass getGeneralClass(GProjectPreferenceStore prefsStore, ICoreSession session, String key) {
         IGProjectPreferenceStore prefs = new GProjectPreferenceNode(prefsStore, ProjectPreferencesKeys.NODE_ID);
-        
+
         String value = prefs.getString(key);
         try {
             MRef mref = new MRef(value);
@@ -72,7 +72,7 @@ public class ProjectPreferencesHelper {
         } catch (IllegalArgumentException e) {
             return null;
         }
-        
+
     }
 
     @objid ("5f6ef255-ea3d-4fd3-87eb-fa5b148646d4")
@@ -83,10 +83,10 @@ public class ProjectPreferencesHelper {
     }
 
     @objid ("32c92bae-670e-4d52-a037-150898960834")
-    public  ProjectPreferencesHelper(GProjectPreferenceStore prefsStore, ICoreSession session) {
+    public ProjectPreferencesHelper(GProjectPreferenceStore prefsStore, ICoreSession session) {
         this.prefsStore = prefsStore;
         this.session = session;
-        
+
     }
 
 }

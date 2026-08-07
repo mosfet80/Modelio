@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.packaze;
 
@@ -33,7 +33,7 @@ import org.modelio.uml.statikdiagram.editor.elements.namespacinglink.redraw.Redr
 /**
  * Overloading of the {@link NonSelectableImageEditPart} to handle body children transfer as satellites when switching
  * to simple mode.
- * 
+ *
  * @author fpoyer
  */
 @objid ("3629aa68-55b7-11e2-877f-002564c97630")
@@ -45,41 +45,41 @@ public class PackageImageEditPart extends NonSelectableImageEditPart {
     @Override
     protected void beforeSwitchRepresentationMode() {
         super.beforeSwitchRepresentationMode();
-        
+
         GmPackagePrimaryNode model = (GmPackagePrimaryNode) getModel();
-        
+
         if (model.getRepresentationMode() == RepresentationMode.STRUCTURED) {
             // New representation mode is STRUCTURED, put back body content into body BEFORE the switch.
-        
+
             // Disable listener to avoid recursion
             model.removePropertyChangeListener(this);
-            
-            // Start by cleaning all children that might have been created by the auto-unmask behaviors.            
+
+            // Start by cleaning all children that might have been created by the auto-unmask behaviors.
             final GmCompositeNode body = model.getBody();
             for (GmNodeModel mbodyChild : body.getChildren()) {
                 mbodyChild.delete();
             }
-            
+
             // Delete composition links.
             for (IGmLink link : new ArrayList<>(model.getStartingLinks())) {
                 if (link instanceof GmCompositionLink) {
                     link.delete();
                 }
             }
-            
+
             // Put back body content into body .
             final GmCompositeNode parentNode = model.getParentNode();
             for (GmNodeModel child : parentNode.getChildren(GmPackage.BODY_CONTENT_AS_SATELLITE)) {
                 parentNode.removeChild(child);
                 child.setRoleInComposition("");
-                body.addChild(child);   
+                body.addChild(child);
             }
-            
+
             // Restore listener
             model.addPropertyChangeListener(this);
-        
+
         }
-        
+
     }
 
     @objid ("3629aa75-55b7-11e2-877f-002564c97630")
@@ -89,7 +89,7 @@ public class PackageImageEditPart extends NonSelectableImageEditPart {
         // Add specific policy to handle requests to redraw composition links.
         installEditPolicy("RedrawCompositionLinkEditPolicy", new RedrawCompositionLinkEditPolicy());
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new SimpleModeOwnedElementCreationEditPolicy());
-        
+
     }
 
 }

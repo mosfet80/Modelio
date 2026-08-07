@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.control;
 
@@ -42,19 +42,19 @@ public class BindableInstanceInternalOwnerChecker extends AbstractDependencyType
      * C'tor
      */
     @objid ("d6ded598-8849-43d3-9b41-6b0ed81e40e8")
-    public  BindableInstanceInternalOwnerChecker(SmMetamodel mm) {
+    public BindableInstanceInternalOwnerChecker(SmMetamodel mm) {
         // Cached SmClass
         this.bindableInstanceID = mm.getMClass(BindableInstance.class);
         this.interfaceID = mm.getMClass(Interface.class);
-        
+
         // Direct checker
         this.register(this.bindableInstanceID, "InternalOwner");
-        
+
         // Symetric checker
         SmClass classifierID = mm.getMClass(Classifier.class);
         ClassifierInternalStructureChecker symetricChecker = new ClassifierInternalStructureChecker(this);
         symetricChecker.register(classifierID, "InternalStructure");
-        
+
     }
 
     @objid ("93e51c0c-ec6f-11e1-91c5-002564c97630")
@@ -77,7 +77,7 @@ public class BindableInstanceInternalOwnerChecker extends AbstractDependencyType
         private BindableInstanceInternalOwnerChecker symetricChecker;
 
         @objid ("93e9ae78-ec6f-11e1-91c5-002564c97630")
-        public  ClassifierInternalStructureChecker(BindableInstanceInternalOwnerChecker symetricChecker) {
+        public ClassifierInternalStructureChecker(BindableInstanceInternalOwnerChecker symetricChecker) {
             this.symetricChecker = symetricChecker;
         }
 

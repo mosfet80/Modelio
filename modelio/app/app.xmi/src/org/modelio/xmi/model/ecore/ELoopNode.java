@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -38,26 +38,26 @@ public class ELoopNode extends EStructuredActivityNode {
     }
 
     @objid ("6dbcad6b-ed7a-4a21-b683-18a99cd4a178")
-    public  ELoopNode(org.eclipse.uml2.uml.LoopNode element) {
+    public ELoopNode(org.eclipse.uml2.uml.LoopNode element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("349df57b-5799-46eb-a027-0a658f8dd8a0")
     @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
-        
+
         // Part of the Properties are setted when mapping the super type
         // (org.eclipse.uml2.uml.StructuredActivityNode)
-        
+
         // Properties specific to org.eclipse.uml2.uml.LoopNodes:
         setIsTestedFirst((LoopNode) objingElt);
         setBody((LoopNode) objingElt);
         setSetup((LoopNode) objingElt);
         setTest((LoopNode) objingElt);
-        
+
     }
 
     @objid ("062535ca-a668-4c23-9f04-c64e6dc974f9")
@@ -72,7 +72,7 @@ public class ELoopNode extends EStructuredActivityNode {
             if (objingBody instanceof ActivityNode)
                 node.getBody().add((ActivityNode) objingBody);
         }
-        
+
     }
 
     @objid ("39dfc420-ee7c-41b6-9fc2-0180c81fa207")
@@ -94,7 +94,7 @@ public class ELoopNode extends EStructuredActivityNode {
             }
         }
         node.setSetup(objingSetup);
-        
+
     }
 
     @objid ("1ee3a966-346a-418a-b626-c90fcbded171")
@@ -102,7 +102,7 @@ public class ELoopNode extends EStructuredActivityNode {
         String objingTest = "";
         for (Object ecoreTestPart : this.ecoreElement.getTests()) {
             if (ecoreTestPart instanceof  org.eclipse.uml2.uml.ValueSpecificationAction) {
-        
+
                  org.eclipse.uml2.uml.ValueSpecification ecoreTest = ( (org.eclipse.uml2.uml.ValueSpecificationAction) ecoreTestPart)
                 .getValue();
                 if (ecoreTest != null) {
@@ -117,7 +117,7 @@ public class ELoopNode extends EStructuredActivityNode {
             }
         }
         node.setTest(objingTest);
-        
+
     }
 
 }

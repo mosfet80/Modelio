@@ -1,0 +1,40 @@
+﻿// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Recherche par requête MQL
+
+== Introduction
+
+La recherche par requête MQL permet d'enregistrer des requêtes de recherche MQL puis de les exécuter.
+
+== Description de l'interface
+
+L'outil se décompose en deux blocs complémentaires.
+
+image::images/query_search_view.png[Fenetre de recherche par requête MQL]
+
+Le premier bloc est le navigateur de requêtes MQL. Cette vue affiche une table contenant les requêtes sauvegardées, avec au minimum leur nom et un résumé fonctionnel du pipeline. 
+Des boutons placés à droite permettent de créer une nouvelle requête, de modifier la requête sélectionnée ou de la supprimer.
+Une case à cocher permet également d'indiquer si la recherche doit inclure les éléments de bibliothèque (ramc).
+
+Lorsqu'une requête est sélectionnée, une zone d'aperçu affiche son résumé. 
+
+Si la requête attend une source fournie par la sélection courante du modèle, une zone d'entrée supplémentaire affiche les éléments actuellement sélectionnés.
+Ils serviront d'entrée à l'exécution. 
+
+
+== Fonctionnement
+
+Cette interface sert à gérer le cycle de vie des requêtes MQL déjà définies.
+
+- La table centrale présente la liste des requêtes disponibles.
+- Le bouton de création ouvre un nouvel link:Modeler-_modeler_handy_tools_MQL_definition.adoc[éditeur] avec une requête initialisée par défaut.
+- Le bouton de modification recharge la requête sélectionnée dans l'éditeur graphique.
+- Le bouton de suppression retire la requête après confirmation.
+- Le panneau d'aperçu permet de comprendre rapidement le contenu de la requête avant exécution.
+- Le panneau d'entrée affiche la sélection du modèle lorsque la requête utilise une source de type fournie par la sélection.
+
+Cette table est donc orientée gestion, consultation rapide et lancement d'édition.
+

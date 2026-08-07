@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -39,10 +39,10 @@ public class EClassifierTemplateParameter extends EElement {
     }
 
     @objid ("02ffe9ab-f6e9-4df7-bf6b-fc6cf465fd34")
-    public  EClassifierTemplateParameter(org.eclipse.uml2.uml.ClassifierTemplateParameter element) {
+    public EClassifierTemplateParameter(org.eclipse.uml2.uml.ClassifierTemplateParameter element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("29b3c19b-6b8f-4844-b8de-b097eb1bbff7")
@@ -50,7 +50,7 @@ public class EClassifierTemplateParameter extends EElement {
     public void attach(Element objingElt) {
         Element objingOperation  = (Element) ReverseProperties.getInstance()
                 .getMappedElement(this.ecoreElement.getOwner());
-        
+
         if ((objingOperation != null ) && (objingOperation instanceof Operation)) {
             ((Operation) objingOperation)
             .getTemplate().add((TemplateParameter) objingElt);
@@ -61,7 +61,7 @@ public class EClassifierTemplateParameter extends EElement {
         } else {
             objingElt.delete();
         }
-        
+
     }
 
 }

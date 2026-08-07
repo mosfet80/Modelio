@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.statediagram;
 
@@ -84,7 +84,7 @@ public class StateDiagramDropEditPolicyExtension extends AbstractDiagramElementD
         if (candidate == null || candidate instanceof StateMachine || (candidate instanceof Region && ((Region) candidate).getParent() == null)) {
             return false;
         }
-        
+
         // Make sure the element is part of the current state machine
         ModelElement stateMachine = context.getRelatedElement().getOrigin();
         MObject parent = candidate.getCompositionOwner();
@@ -129,18 +129,19 @@ public class StateDiagramDropEditPolicyExtension extends AbstractDiagramElementD
 
         /**
          * Initialize the command.
+         *
          * @param dropLocation The location of the element in the diagram
          * @param toUnmask The operation to unmask
          * @param editPart The destination edit part that will own the call operation.
          * @param parentElement The element that will own the call operation action.
          */
         @objid ("f58b9cc4-55b6-11e2-877f-002564c97630")
-        public  CreateStateMachineStateCommand(final Point dropLocation, final StateMachine toUnmask, final EditPart editPart, final StateMachine parentElement) {
+        public CreateStateMachineStateCommand(final Point dropLocation, final StateMachine toUnmask, final EditPart editPart, final StateMachine parentElement) {
             this.stateMachine = toUnmask;
             this.dropLocation = dropLocation;
             this.editPart = editPart;
             this.parentElement = parentElement;
-            
+
         }
 
         @objid ("f58d235f-55b6-11e2-877f-002564c97630")
@@ -150,17 +151,17 @@ public class StateDiagramDropEditPolicyExtension extends AbstractDiagramElementD
             final IGmDiagram gmDiagram = gmModel.getDiagram();
             final IStandardModelFactory modelFactory = gmDiagram.getModelManager().getModelFactory()
                     .getFactory(IStandardModelFactory.class);
-            
+
             // Create the node
             final State el = modelFactory.createState();
-            
+
             // Attach to its parent
             el.setParent(this.parentElement.getTop());
-            
+
             // Attach to the dropped element
             el.setName(this.stateMachine.getName());
             el.setSubMachine(this.stateMachine);
-            
+
             // Also create ConnectionPointReference for each EntryPoint and
             // ExitPoint on the StateMachine.
             for (EntryPointPseudoState entry : this.stateMachine.getEntryPoint()) {
@@ -175,30 +176,31 @@ public class StateDiagramDropEditPolicyExtension extends AbstractDiagramElementD
                 reference.setExit(exit);
                 reference.setOwnerState(el);
             }
-            
+
             // Unmask the created node
             unmaskElement(el);
-            
+
         }
 
         /**
          * Unmask the given element in the destination edit part.
+         *
          * @param el The element to unmask
          */
         @objid ("f58d2362-55b6-11e2-877f-002564c97630")
         private void unmaskElement(final MObject el) {
             final ModelioCreationContext gmCreationContext = new ModelioCreationContext(el);
-            
+
             final CreateRequest creationRequest = new CreateRequest();
             creationRequest.setLocation(this.dropLocation);
             creationRequest.setSize(new Dimension(-1, -1));
             creationRequest.setFactory(gmCreationContext);
-            
+
             final Command cmd = this.editPart.getTargetEditPart(creationRequest).getCommand(creationRequest);
             if (cmd != null && cmd.canExecute()) {
                 cmd.execute();
             }
-            
+
         }
 
         @objid ("f58d2369-55b6-11e2-877f-002564c97630")
@@ -218,10 +220,10 @@ public class StateDiagramDropEditPolicyExtension extends AbstractDiagramElementD
         private DiagramElementDropEditPolicy dropPolicy;
 
         @objid ("290576bd-624f-4179-b503-f2ae9c37381f")
-        public  StandardVisitorImpl(DiagramElementDropEditPolicy dropPolicy, Point dropLocation) {
+        public StandardVisitorImpl(DiagramElementDropEditPolicy dropPolicy, Point dropLocation) {
             this.dropPolicy = dropPolicy;
             this.dropLocation = dropLocation;
-            
+
         }
 
         @objid ("902b8fb6-a3ed-4e1b-9320-69c52d16b2ac")

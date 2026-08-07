@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.ramc.core.packaging;
 
@@ -42,30 +42,35 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 @objid ("4296eaae-a37b-428e-a5ec-2a23e85b63f1")
 public interface IModelComponentContributor {
     /**
+     *
      * @return a bunch of {@link MObject} to be added to the Model Component from this contribution.
      */
     @objid ("36983300-24f6-4734-b644-c6cdd12b9502")
     Set<MObject> getElements();
 
     /**
+     *
      * @return a bunch of {@link NoteType} to be added to the Model Component from this contribution.
      */
     @objid ("d2a62245-94ac-42f7-a4b9-2815e89ca86e")
     Set<NoteType> getNoteTypes();
 
     /**
+     *
      * @return a bunch of {@link TagType} to be added to the Model Component from this contribution.
      */
     @objid ("241a9fbe-ec1f-4a64-ac9f-1f82ff4e5200")
     Set<TagType> getTagTypes();
 
     /**
+     *
      * @return a bunch of {@link Stereotype} for {@link Dependency} links to be added to the Model Component from this contribution.
      */
     @objid ("e18c47fe-c354-4428-8345-56fd71e5c1c0")
     Set<Stereotype> getDependencyStereotypes();
 
     /**
+     *
      * @return the files to be added to the Model Component from this contribution.
      */
     @objid ("d0329c46-7491-43ff-a949-8c628520f859")
@@ -88,6 +93,7 @@ public interface IModelComponentContributor {
         private Path fileToExport;
 
         /**
+         *
          * @return the path to export to, relative to the project path.
          */
         @objid ("a3d987a5-638f-4ea6-b99c-08206697bada")
@@ -106,6 +112,7 @@ public interface IModelComponentContributor {
          * Set the export path.
          * <p>
          * The export path must be relative to the project path.
+         *
          * @param exportPath the path to deploy the file into. This path must a relative path.
          */
         @objid ("54f5401f-9e9e-4734-a1bb-8c66d78f87d2")
@@ -159,18 +166,20 @@ public interface IModelComponentContributor {
          * The export path must be relative to the project path.
          * If the provided path does not match a file in the project, it will be ignored.
          * </p>
+         *
          * @param fileToExport the file to package in the model component.
          * @param exportPath the path to deploy the file into. This path must a relative path.
          * @since 3.6
          */
         @objid ("deac7d4e-775c-460f-97cb-fe94b7240989")
-        public  ExportedFileEntry(Path fileToExport, String exportPath) {
+        public ExportedFileEntry(Path fileToExport, String exportPath) {
             this.fileToExport = Objects.requireNonNull(fileToExport);
             this.exportPath = (exportPath != null) ? exportPath : "";
-            
+
         }
 
         /**
+         *
          * @return the path where the file to export currently reside.
          * @since 3.6
          */
@@ -181,6 +190,7 @@ public interface IModelComponentContributor {
 
         /**
          * Set the file to export.
+         *
          * @param fileToExport the file to export.
          */
         @objid ("e30d3d15-41aa-4a9c-9623-25b4da1ddd37")
@@ -189,5 +199,5 @@ public interface IModelComponentContributor {
         }
 
     }
-}
 
+}

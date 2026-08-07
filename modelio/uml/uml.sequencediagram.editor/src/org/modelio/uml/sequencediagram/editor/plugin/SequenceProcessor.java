@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.plugin;
 
@@ -61,54 +61,52 @@ public class SequenceProcessor extends AbstractDiagramInitializationProcessor {
     @Override
     protected void declareFactories(DiagramFactoryRegistry factoryRegistry) {
         factoryRegistry.registerDiagramFactories(SequenceDiagram.MNAME, new SequenceGmNodeFactory(), new SequenceGmLinkFactory(), new SequenceEditPartFactory());
-        
+
         factoryRegistry.registerExtensions(StaticDiagram.MNAME, SequenceDiagram.MNAME);
-        
     }
 
     @objid ("c45215d1-ae9d-4a2e-84d7-7ba1105400ab")
     @Override
     protected void declareStyleProviders(FactoryStyle factoryStyle) {
         final FactoryStyle factory = factoryStyle;
-        
+
         // Declare the StyleKey providers
         // ------------------------------
-        
+
         // Sequence Diagram
         // ----------------
         factory.declareProvider(GmSequenceDiagramStyleKeys.class);
-        
+
         // Message
         factory.declareProvider(GmMessageStyleKeys.class);
         factory.declareProvider(GmMessageStyleKeys.InfoFlows.class);
-        
+
         // Lifeline
         factory.declareProvider(GmLifelineStructuredStyleKeys.class);
-        
+
         // Execution
         factory.declareProvider(GmExecutionSpecificationStructuredStyleKeys.class);
-        
+
         // ExecutionOccurenceSpecification
         factory.declareProvider(GmExecutionOccurenceSpecificationStyleKeys.class);
-        
+
         // InteractionUse
         factory.declareProvider(GmInteractionUseStyleKeys.class);
-        
+
         // GateOnInteractionUSe
         factory.declareProvider(GmGateOnInteractionUseStructuredStyleKeys.class);
-        
+
         // Gate (on diagram background)
         factory.declareProvider(GmGateStructuredStyleKeys.class);
-        
+
         // CombinedFragment
         factory.declareProvider(GmCombinedFragmentStyleKeys.class);
-        
+
         // InteractionOperand
         factory.declareProvider(GmInteractionOperandStyleKeys.class);
-        
+
         // StateInvariant
         factory.declareProvider(GmStateInvariantStructuredStyleKeys.class);
-        
     }
 
     @objid ("b1725a5f-ec9e-4fe1-8a14-3e4af693f01f")
@@ -118,11 +116,10 @@ public class SequenceProcessor extends AbstractDiagramInitializationProcessor {
         StyleLoader loader = new StyleLoader();
         BundleContext bundle = DiagramEditorSequence.getContext();
         URL url = FileLocator.find(bundle.getBundle(), new Path("res/factory.settings"), null);
-        
+
         loader.load(url);
-        
+
         factoryStyle.injectDefaultValues(loader.getStyleProperties());
-        
     }
 
 }

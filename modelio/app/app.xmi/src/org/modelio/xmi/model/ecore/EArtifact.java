@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -36,7 +36,7 @@ public class EArtifact extends ENamedElement {
     }
 
     @objid ("420b77a9-c0b8-46c4-b207-dd11df098c68")
-    public  EArtifact(org.eclipse.uml2.uml.Artifact element) {
+    public EArtifact(org.eclipse.uml2.uml.Artifact element) {
         super(element);
     }
 
@@ -45,18 +45,18 @@ public class EArtifact extends ENamedElement {
     public void attach(Element objingElt) {
         //  take the model map
         ReverseProperties revProp = ReverseProperties.getInstance();
-        
+
         //  take the ecore Imported and Importing
         org.eclipse.uml2.uml.Element ecoreOwner = getEcoreElement().getOwner();
-        
+
         Object objingOwner =  revProp.getMappedElement(ecoreOwner);
-        
+
         if (objingOwner instanceof ModelTree) {
-            ((Artifact) objingElt).setOwner((ModelTree)objingOwner);          
+            ((Artifact) objingElt).setOwner((ModelTree)objingOwner);
         }else {
-             ((Artifact) objingElt).setOwner(ReverseProperties.getInstance().getExternalPackage()); 
+             ((Artifact) objingElt).setOwner(ReverseProperties.getInstance().getExternalPackage());
         }
-        
+
     }
 
     @objid ("d6af4cf8-a0c8-4540-8c5d-e89b182a8126")
@@ -64,7 +64,7 @@ public class EArtifact extends ENamedElement {
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setFileName((Artifact) objingElt);
-        
+
     }
 
     @objid ("473e91e3-b546-40df-88da-0f538f020619")
@@ -72,9 +72,9 @@ public class EArtifact extends ENamedElement {
         String name = ((org.eclipse.uml2.uml.Artifact)getEcoreElement()).getFileName();
         if (EcoreModelNavigation.isNotNull(name))
             objingElt.setFileName(name);
-        else 
+        else
             objingElt.setFileName("");
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.engine.impl;
 
@@ -70,7 +70,7 @@ public class AuditDispatcher implements IModelChangeListener, IStatusChangeListe
         if (!this.active) {
             return;
         }
-        
+
         // Process creations:
         // Composition children of created elements are not in the notification, get them by hand
         Collection<MObject> allCreated;
@@ -82,15 +82,15 @@ public class AuditDispatcher implements IModelChangeListener, IStatusChangeListe
             // TODO : find a way to post something like new CheckElementRunner(event.getCreationEvents(), auditService...).
             allCreated = event.getCreationEvents();
         }
-        
+
         IRuleControlPoster poster = (control, element) -> this.controlProgram.postControl(control, element, AuditDispatcher.MODELCHANGE_JOB);
-        
+
         for (MObject createdElement : allCreated) {
             for (IRule rule : getRules(createdElement, AuditTrigger.CREATE)) {
                 rule.postCreateControls(poster, createdElement);
             }
         }
-        
+
         // Deleted Events are interpreted as an update of the deleted element's
         // old parent
         for (IElementDeletedEvent deletedEvent : event.getDeleteEvents()) {
@@ -99,26 +99,26 @@ public class AuditDispatcher implements IModelChangeListener, IStatusChangeListe
                 for (IRule rule : getRules(oldParent, AuditTrigger.UPDATE)) {
                     rule.postChildRemovedFromControls(poster, deletedEvent.getDeletedElement(), oldParent);
                 }
-        
+
                 MObject deletedElement = deletedEvent.getDeletedElement();
                 for (IRule rule : getRules(deletedElement, AuditTrigger.DELETE)) {
                     rule.postDeleteControls(poster, deletedElement, oldParent);
                 }
             }
         }
-        
+
         for (MObject updatedElement : event.getUpdateEvents()) {
             for (IRule rule : getRules(updatedElement, AuditTrigger.UPDATE)) {
                 rule.postUpdateControls(poster, updatedElement);
             }
         }
-        
+
         for (IElementMovedEvent moveEvent : event.getMoveEvents()) {
             // process a MOVE on the moved element
             for (IRule rule : getRules(moveEvent.getMovedElement(), AuditTrigger.MOVE)) {
                 rule.postMoveControls(poster, moveEvent);
             }
-        
+
             // simulate an UPDATE on the 'old' parent of the moved element
             // the 'new' parent is not considered here as it remains accessible
             // via the moved element
@@ -126,14 +126,12 @@ public class AuditDispatcher implements IModelChangeListener, IStatusChangeListe
                 rule.postChildRemovedFromControls(poster, moveEvent.getMovedElement(), moveEvent.getOldParent());
             }
         }
-        
     }
 
     @objid ("3495341e-94af-457a-8053-59f40ae6c7ce")
-    public  AuditDispatcher(CheckProgram controlProgram) {
+    public AuditDispatcher(CheckProgram controlProgram) {
         this.controlProgram = controlProgram;
         this.plan = new EmptyAuditPlan();
-        
     }
 
     @objid ("faadbc73-95db-4c5e-8383-798340550543")
@@ -151,24 +149,23 @@ public class AuditDispatcher implements IModelChangeListener, IStatusChangeListe
         stop();
         this.plan = activePlan;
         start();
-        
     }
 
     @objid ("10215047-1e6a-40ff-b323-8314090ce373")
     public void submitElement(MObject elementToCheck, String jobId) {
         // Do not audit ramcs
-        if (elementToCheck.getStatus().isRamc()) {
+        if (elementToCheck.getStatusLazy().isRamc()) {
             return;
         }
-        
+
         IRuleControlPoster poster = (control, element) -> this.controlProgram.postControl(control, element, jobId);
-        
+
         // submit an element is simulated as both a creation + an update
         if (elementToCheck.isValid()) {
             for (IRule rule : getRules(elementToCheck, AuditTrigger.CREATE)) {
                 rule.postCreateControls(poster, elementToCheck);
             }
-        
+
             for (IRule rule : getRules(elementToCheck, AuditTrigger.UPDATE)) {
                 rule.postUpdateControls(poster, elementToCheck);
             }
@@ -176,7 +173,6 @@ public class AuditDispatcher implements IModelChangeListener, IStatusChangeListe
             IRule rule = this.plan.getRuleById("R3260");
             rule.postUpdateControls(poster, elementToCheck);
         }
-        
     }
 
     /**
@@ -184,6 +180,7 @@ public class AuditDispatcher implements IModelChangeListener, IStatusChangeListe
      * element has at least one stereotype, it returns all the rules concerned
      * by each stereotype. Else it returns all the rules concerned by the
      * element's metaclass.
+     *
      * @param element The element
      * @param trigger The type of event that happened to the element.
      * @return The list of rules to check.
@@ -193,18 +190,15 @@ public class AuditDispatcher implements IModelChangeListener, IStatusChangeListe
         List<IRule> returnedRules = new ArrayList<>();
         if (element.isValid()) {
             // Do not audit ramcs
-            if (element.getStatus().isRamc()) {
+            if (element.getStatusLazy().isRamc()) {
                 return Collections.emptyList();
             }
-        
+
             // Only ModelElements can have stereotypes
             if (element instanceof ModelElement) {
                 // Do not audit ramcs
-                if (element.getStatus().isRamc()) {
-                    return Collections.emptyList();
-                }
                 ModelElement elt = (ModelElement) element;
-        
+
                 // Fetching the concerned rules for each stereotype of the element
                 for (Stereotype stereotype : elt.getExtension()) {
                     returnedRules.addAll(this.plan.getRules(elt.getMClass().getQualifiedName()
@@ -212,7 +206,7 @@ public class AuditDispatcher implements IModelChangeListener, IStatusChangeListe
                 }
             }
         }
-        
+
         // No stereotypes were found, we get the rules concerned by the
         // metaclass
         if (returnedRules.isEmpty()) {
@@ -220,7 +214,6 @@ public class AuditDispatcher implements IModelChangeListener, IStatusChangeListe
         } else {
             return returnedRules;
         }
-        
     }
 
     /**
@@ -240,14 +233,13 @@ public class AuditDispatcher implements IModelChangeListener, IStatusChangeListe
         Collection<SmObjectImpl> elements = event.getShellStateChanged();
         if (elements.isEmpty())
             return;
-        
+
         IRuleControlPoster poster = (control, element) -> this.controlProgram.postControl(control, element, AuditDispatcher.MODELCHANGE_JOB);
-        
+
         for (SmObjectImpl element : elements) {
             IRule rule = this.plan.getRuleById("R3260");
             rule.postUpdateControls(poster, element);
         }
-        
     }
 
     @objid ("72309508-9fdf-40eb-873c-7ebfaf6449d1")

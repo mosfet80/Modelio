@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.helper;
 
@@ -45,10 +45,10 @@ public class RichNoteLabelProvider {
     private static final ImageRegistry REGISTRY = new ImageRegistry();
 
     @objid ("d8aee85c-1451-4173-ba84-d22f908de772")
-    private  RichNoteLabelProvider() {
+    private RichNoteLabelProvider() {
         // no instance
         throw new UnsupportedOperationException();
-        
+
     }
 
     /**
@@ -56,6 +56,7 @@ public class RichNoteLabelProvider {
      * <p>
      * The returned image is owned by a registry, may be used elsewhere and must <b>not</b> be disposed.
      * </p>
+     *
      * @param resource a resource.
      * @return an icon. Might be <code>null</code> if no icon is found for the resource's mime type.
      */
@@ -63,7 +64,7 @@ public class RichNoteLabelProvider {
     public static Image getIcon(final AbstractResource resource) {
         String mimeType = resource.getMimeType();
         RichNoteFormat format = RichNoteFormatRegistry.getInstance().getDocumentFormatForMime(mimeType);
-        
+
         if (format != null) {
             return format.getIcon();
         } else {
@@ -88,13 +89,14 @@ public class RichNoteLabelProvider {
             }
             return icon;
         }
-        
+
     }
 
     /**
      * Get the Windows explorer icon descriptor for a file.
      * <p>
      * Return <code>null</code> if the file has no registered extension or is a directory.
+     *
      * @param aFile a file.
      * @return the icon descriptor or <code>null</code>.
      */
@@ -102,31 +104,32 @@ public class RichNoteLabelProvider {
     private static ImageDescriptor getIcon(final Path aFile) {
         final String fname = aFile.getFileName().toString();
         final int idx = fname.lastIndexOf('.');
-        
+
         if (idx != -1) {
             String extension = fname.substring(idx);
             return getIcon(extension);
         } else {
             return null;
         }
-        
+
     }
 
     /**
      * Get the label to display for an extern document.
+     *
      * @param document a document.
      * @return the label.
      */
     @objid ("f6d6a31e-97aa-49bd-b7ac-1d9f5921c8c5")
     public static String getLabel(final Document document) {
         String name = document.getName();
-        
+
         final ResourceType type = document.getType();
         if (type != null) {
             if (!name.isEmpty()) {
                 name += " ";
             }
-        
+
             final String label = MdaResources.getLabel(type);
             if (!label.isEmpty()) {
                 return name + "[" + label + "]";

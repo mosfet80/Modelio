@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.texteditors.mdd.partitions;
 
@@ -44,32 +44,32 @@ public class TextAttributeManager {
     }
 
     @objid ("7b60efa5-2a77-11e2-9fb9-bc305ba4815c")
-    private  TextAttributeManager() {
+    private TextAttributeManager() {
         TextAttribute  att = null;
-        
+
         this.attributes = new HashMap<>();
         this.defaultTextAttribute = new TextAttribute(UIColor.BLACK);
-        
+
         // Read-only text
         att   = new TextAttribute(UIColor.EDITOR_ROTEXT_FG, null, 0);
         this.attributes.put(MDDPartitionTypes.RO_PARTITION, att);
-                
+
         // Keywords
         att   = new TextAttribute(UIColor.EDITOR_KEYWORD_FG, null, SWT.BOLD);
         this.attributes.put(MDDPartitionTypes.KEYWORD_PARTITION, att);
-                
+
         // MDD tags
         att   = new TextAttribute(UIColor.EDITOR_MDDTAG_FG, null, SWT.ITALIC);
         this.attributes.put(MDDPartitionTypes.TAG_PARTITION, att);
-                
+
         // Read-write text
         att   = new TextAttribute(UIColor.EDITOR_RWTEXT_FG, null, 0);
         this.attributes.put(MDDPartitionTypes.RW_PARTITION, att);
-                
+
         // Comments
         att   = new TextAttribute(UIColor.EDITOR_COMMENT_FG, null, SWT.ITALIC);
         this.attributes.put(MDDPartitionTypes.COMMENT_PARTITION, att);
-        
+
     }
 
     @objid ("7b60efa7-2a77-11e2-9fb9-bc305ba4815c")

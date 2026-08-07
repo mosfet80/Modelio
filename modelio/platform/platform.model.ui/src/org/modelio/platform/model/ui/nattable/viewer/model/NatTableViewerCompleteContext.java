@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.viewer.model;
 
@@ -33,12 +33,12 @@ import org.modelio.vcore.session.api.ICoreSession;
 
 /**
  * Implementation of {@link INatTableViewerContext} based on an {@link IEclipseContext}.
- * 
+ *
  * @since Valkyrie 3.8
  */
 @objid ("3bc0e612-5139-4578-90c1-ce7e1b2129af")
 public class NatTableViewerCompleteContext implements INatTableViewerContext {
-    @objid ("bf5f4bf4-7523-45f5-a6d1-be12a1fa8411")
+    @objid ("21a9e995-fdff-4ed8-8984-2ade7eaa2a5b")
     private IEclipseContext context;
 
     @objid ("6f870999-e7a8-4b5c-8e63-4d107f91bd77")
@@ -73,13 +73,13 @@ public class NatTableViewerCompleteContext implements INatTableViewerContext {
 
     /**
      * Initialize with an eclipse context.
+     *
      * @param context an eclipse context to get Modelio services from.
      */
     @objid ("a3696daa-3790-4a00-8ab4-2867afd5473c")
-    public  NatTableViewerCompleteContext(IEclipseContext context) {
+    public NatTableViewerCompleteContext(IEclipseContext context) {
         super();
         this.context = context;
-        
     }
 
     @objid ("25a62bec-23f7-41a8-8b93-9ec39b932ea7")

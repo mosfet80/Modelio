@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package com.sun.star.comp.beans;
 
@@ -30,6 +30,7 @@ import com.sun.star.uno.XComponentContext;
 
 /**
  * Tries to access localized OOO error messages.
+ *
  * @Deprecated not implemented, may not even work
  */
 @objid ("cc37de9e-c069-472b-82db-d81428e2a181")
@@ -48,18 +49,18 @@ class UnoMessage {
     public static synchronized String GetLocalizedString(XComponentContext xContext, int nID) throws com.sun.star.uno.Exception {
         if (nID >= STRINGS_NUM)
             throw new com.sun.star.uno.RuntimeException();
-        
+
         if (m_pConfigStrings == null) {
             XNameAccess xNameAccess = GetConfigNameAccess(xContext,
                                                           "org.openoffice.Office.Custom.WikiExtension/Strings");
-        
+
             String[] pStrings = new String[STRINGS_NUM];
             for (int nInd = 0; nInd < STRINGS_NUM; nInd++)
                 if (m_pEntryNames[nInd] != null)
                     pStrings[nInd] = AnyConverter.toString(xNameAccess.getByName(m_pEntryNames[nInd]));
                 else
                     pStrings[nInd] = "";
-        
+
             m_pConfigStrings = pStrings;
         }
         return m_pConfigStrings[nID];
@@ -78,7 +79,7 @@ class UnoMessage {
     protected static Object GetConfig(XComponentContext xContext, String sNodepath, boolean bWriteAccess) throws com.sun.star.uno.Exception {
         if (xContext == null || sNodepath == null)
             throw new com.sun.star.uno.RuntimeException();
-        
+
         PropertyValue aVal = new PropertyValue();
         aVal.Name = "nodepath";
         aVal.Value = sNodepath;
@@ -99,7 +100,7 @@ class UnoMessage {
                                                                         xContext);
             xConfigurationProvider = UnoRuntime.queryInterface(XMultiServiceFactory.class, oConfigProvider);
         }
-        
+
         if (xConfigurationProvider == null)
             throw new com.sun.star.uno.RuntimeException();
         return xConfigurationProvider;

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.umlcommon.packaze;
 
@@ -47,7 +47,7 @@ import org.modelio.diagram.styles.core.StyleKey.LinePattern;
  * Represents a package.
  * <p>
  * This figure is decomposed of an header area and a content area that each can receive one figure.
- * 
+ *
  * @author phv
  */
 @objid ("8194ad2a-1dec-11e2-8cad-001ec947c8cc")
@@ -74,45 +74,45 @@ public class PackageFigure extends Figure implements IPenOptionsSupport, IBrushO
      * Creates a package figure.
      */
     @objid ("8194ad3b-1dec-11e2-8cad-001ec947c8cc")
-    public  PackageFigure() {
+    public PackageFigure() {
         // init text and line pen support
         this.penOptions = new PenOptions();
-        
+
         // The package figure is a container managing two areas the headerArea and the contentsArea
         // Dedicated figures can be set in each of theses areas.
         // The areas are transparent
-        
+
         BorderLayout lm1 = new BorderLayout();
         lm1.setVerticalSpacing(-1);
         setLayoutManager(lm1);
-        
+
         // The top figure contains the header area and a gradient figure. It receives a dedicated layout manager to maintain its width a a ratio of the package figure width
         this.top = new Figure();
         this.top.setLayoutManager(new HeaderAreaLayout());
         this.top.setOpaque(false);
         this.add(this.top, BorderLayout.TOP);
-        
+
         // The package header area
         this.headerArea = new GradientFigure();
         this.headerArea.setOpaque(true);
-        
+
         // Use a stack layout for label wrapping...
         final StackLayout layout = new StackLayout();
         this.headerArea.setLayoutManager(layout);
         this.top.add(this.headerArea);
-        
+
         // The package contents area
         this.contentsArea = new GradientFigure();
         this.contentsArea.setLayoutManager(new BorderLayout());
         MinimumSizeLayout.apply(this.contentsArea, 100, 60);
-        
+
         this.contentsArea.setOpaque(true);
         this.add(this.contentsArea, BorderLayout.CENTER);
-        
+
         updateBorders();
-        
+
         setOpaque(false);
-        
+
     }
 
     @objid ("81970f87-1dec-11e2-8cad-001ec947c8cc")
@@ -159,6 +159,7 @@ public class PackageFigure extends Figure implements IPenOptionsSupport, IBrushO
 
     /**
      * Set the content figure that will be placed in the content area.
+     *
      * @param figure the content figure.
      */
     @objid ("81970fb1-1dec-11e2-8cad-001ec947c8cc")
@@ -166,11 +167,11 @@ public class PackageFigure extends Figure implements IPenOptionsSupport, IBrushO
         if (!this.contentsArea.getChildren().isEmpty()) {
             this.contentsArea.removeAll();
         }
-        
+
         if (figure != null) {
             this.contentsArea.add(figure, BorderLayout.CENTER);
         }
-        
+
     }
 
     @objid ("81970fb7-1dec-11e2-8cad-001ec947c8cc")
@@ -178,13 +179,14 @@ public class PackageFigure extends Figure implements IPenOptionsSupport, IBrushO
     public void setFillColor(Color fillColor) {
         this.headerArea.setFillColor(fillColor);
         this.contentsArea.setFillColor(fillColor);
-        
+
     }
 
     /**
      * Set the header figure.
      * <p>
      * The header figure will be placed in the header area.
+     *
      * @param figure the new header figure.
      */
     @objid ("81970fbb-1dec-11e2-8cad-001ec947c8cc")
@@ -192,12 +194,12 @@ public class PackageFigure extends Figure implements IPenOptionsSupport, IBrushO
         if (!this.headerArea.getChildren().isEmpty()) {
             this.headerArea.removeAll();
         }
-        
+
         if (figure != null) {
             this.headerArea.add(figure, BorderLayout.LEFT);
             figure.setBackgroundColor(ColorConstants.red);
         }
-        
+
     }
 
     @objid ("81970fc1-1dec-11e2-8cad-001ec947c8cc")
@@ -205,7 +207,7 @@ public class PackageFigure extends Figure implements IPenOptionsSupport, IBrushO
     public void setLineColor(Color lineColor) {
         this.penOptions.lineColor = lineColor;
         updateBorders();
-        
+
     }
 
     @objid ("81970fc5-1dec-11e2-8cad-001ec947c8cc")
@@ -213,7 +215,7 @@ public class PackageFigure extends Figure implements IPenOptionsSupport, IBrushO
     public void setLinePattern(LinePattern linePattern) {
         this.penOptions.linePattern = linePattern;
         updateBorders();
-        
+
     }
 
     @objid ("81970fc9-1dec-11e2-8cad-001ec947c8cc")
@@ -221,7 +223,7 @@ public class PackageFigure extends Figure implements IPenOptionsSupport, IBrushO
     public void setLineWidth(int lineWidth) {
         this.penOptions.lineWidth = lineWidth;
         updateBorders();
-        
+
     }
 
     @objid ("81970fcd-1dec-11e2-8cad-001ec947c8cc")
@@ -241,7 +243,7 @@ public class PackageFigure extends Figure implements IPenOptionsSupport, IBrushO
     public void setUseGradient(boolean useGradient) {
         this.contentsArea.setUseGradient(useGradient);
         this.headerArea.setUseGradient(useGradient);
-        
+
     }
 
     @objid ("81970fd9-1dec-11e2-8cad-001ec947c8cc")
@@ -250,22 +252,22 @@ public class PackageFigure extends Figure implements IPenOptionsSupport, IBrushO
         headerLineBorder.setStyle(getLinePattern().toSWTConstant());
         this.headerArea.setBorder(new CompoundBorder(headerLineBorder, new MarginBorder(0, 0, 0, 0)));
         // this.top.setBorder(new CompoundBorder(headerLineBorder, new MarginBorder(0, 0, 0, 0)));
-        
+
         final LineBorder contentLineBorder = new LineBorder(this.penOptions.lineColor, this.penOptions.lineWidth);
         contentLineBorder.setStyle(getLinePattern().toSWTConstant());
         this.contentsArea.setBorder(new CompoundBorder(contentLineBorder, new MarginBorder(1)));
-        
+
     }
 
     @objid ("81970fdb-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public Dimension getMinimumSize(int wHint, int hHint) {
         Dimension minimumSize = super.getMinimumSize(wHint, hHint);
-        
+
         if (minimumSize.height < 100) {
             minimumSize.height = 100;
         }
-        
+
         if (minimumSize.width < 100) {
             minimumSize.width = 100;
         }
@@ -307,32 +309,32 @@ public class PackageFigure extends Figure implements IPenOptionsSupport, IBrushO
         public void layout(final IFigure topFigure) {
             if (!topFigure.getChildren().isEmpty()) {
                 IFigure headerAreaFigure = (IFigure) topFigure.getChildren().get(0);
-            
+
                 Rectangle headerAreaBounds = topFigure.getBounds().getShrinked(topFigure.getInsets());
-            
+
                 // Header can occupy up to 1/MAX_LEN_RATIO of available horizontal space
                 // but no less than 1/MIN_LEN_RATIO, and all of vertical space.
                 int topAreaWidth = headerAreaBounds.width;
                 int minWidth = topAreaWidth / HeaderAreaLayout.MIN_LEN_RATIO;
                 int maxWidth = (int) (topAreaWidth / HeaderAreaLayout.MAX_LEN_RATIO);
-            
+
                 // first ask for preferred size
                 // -1 is needed because PageFlow takes whole available width hint
                 Dimension headerPrefSize = headerAreaFigure.getPreferredSize(-1, headerAreaBounds.height);
-            
+
                 if (headerPrefSize.width() > maxWidth) {
                     // Ask for minimum size
                     headerPrefSize = headerAreaFigure.getMinimumSize(maxWidth, headerAreaBounds.height);
                 }
-            
+
                 // Make size satisfy minimum and maximum
                 headerAreaBounds.width = Math.min(headerPrefSize.width, maxWidth);
                 headerAreaBounds.width = Math.max(headerAreaBounds.width, minWidth);
                 headerAreaBounds.height = Math.min(headerAreaBounds.height, headerPrefSize.height);
-            
+
                 headerAreaFigure.setBounds(headerAreaBounds);
             }
-            
+
         }
 
         @objid ("819971ed-1dec-11e2-8cad-001ec947c8cc")
@@ -343,36 +345,37 @@ public class PackageFigure extends Figure implements IPenOptionsSupport, IBrushO
                 Dimension twotextLinesSize = getTwoLinesTextSize(topFigure);
                 Dimension borderPrefSize = getBorderPreferredSize(topFigure);
                 Insets topInsets = topFigure.getInsets();
-            
+
                 // Header can occupy up to 1/MAX_LEN_RATIO of available horizontal space and all of vertical space.
                 int maxAreaWidth = wHint > 0 ? (int) ((wHint - topInsets.getWidth()) / HeaderAreaLayout.MAX_LEN_RATIO) : -1;
                 int maxAreaHeight = hHint > 0 ? hHint - topInsets.getHeight() : -1;
                 if (hHint > 0 && maxAreaHeight < 1) {
                     maxAreaHeight = twotextLinesSize.height;
                 }
-            
+
                 // Compute base preferred size
                 // -1 is needed because PageFlow takes whole available width hint
                 Dimension prefSize = headerAreaFigure.getPreferredSize(-1, maxAreaHeight).getCopy();
-            
+
                 if (maxAreaWidth != -1 && prefSize.width() > maxAreaWidth) {
                     prefSize = headerAreaFigure.getMinimumSize(maxAreaWidth, maxAreaHeight).getCopy();
                 }
-            
+
                 // prefSize.height = Math.min(prefSize.height, twotextLinesSize.height);
                 prefSize.expand(topInsets.getWidth(), topInsets.getHeight());
                 prefSize.union(borderPrefSize);
-            
+
                 return prefSize;
-            
+
             } else {
                 return new Dimension(0, 0);
             }
-            
+
         }
 
         /**
          * Compute the size of 3 lines of text, to get the maximum height of a package header.
+         *
          * @param headerAreaFigure the package header area figure to get the font from
          * @return
          */
@@ -385,7 +388,7 @@ public class PackageFigure extends Figure implements IPenOptionsSupport, IBrushO
             } else {
                 f = topFigure.getFont();
             }
-            
+
             // ok this is 3 lines...
             return TextUtilities.INSTANCE.getTextExtents("Lj1\nLj2\nL", f);
         }
@@ -394,7 +397,7 @@ public class PackageFigure extends Figure implements IPenOptionsSupport, IBrushO
          * Needed empty constructor.
          */
         @objid ("54349f11-32ea-404d-968f-516fc8b755fe")
-        public  HeaderAreaLayout() {
+        public HeaderAreaLayout() {
             super();
         }
 

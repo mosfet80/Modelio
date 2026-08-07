@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.mmextensions.standard.modelshield.standardcheckers;
 
@@ -56,7 +56,7 @@ public class E275Checker implements IChecker {
             checkForLifeline((Lifeline) object, report);
         else if (object instanceof InteractionFragment)
             checkForFragment((InteractionFragment) object, report);
-        
+
     }
 
     @objid ("0000f37a-e473-1f69-b3fb-001ec947cd2a")
@@ -64,13 +64,13 @@ public class E275Checker implements IChecker {
     public void register(final IModelShieldRegistry plan, MMetamodel smMetamodel) {
         // trigger=create, metaclass=InteractionFragment, feature=null
         plan.registerChecker(this, smMetamodel.getMClass(InteractionFragment.class), TriggerType.Create, null);
-        
+
         // trigger=create, metaclass=InteractionFragment, feature=Covered
         plan.registerChecker(this, smMetamodel.getMClass(InteractionFragment.class), TriggerType.Update, "Covered");
-        
+
         // trigger=create, metaclass=InteractionFragment, feature=Covered
         plan.registerChecker(this, smMetamodel.getMClass(InteractionFragment.class), TriggerType.Move, "Covered");
-        
+
     }
 
     @objid ("0016fee0-d3b8-1f71-90c1-001ec947cd2a")
@@ -80,13 +80,13 @@ public class E275Checker implements IChecker {
         for (Lifeline lifelineToCheck : fragmentToCheck.getCovered()) {
             checkForLifeline(lifelineToCheck, report);
         }
-        
+
     }
 
     @objid ("00172348-d3b8-1f71-90c1-001ec947cd2a")
     private static void checkForLifeline(final Lifeline lifeline, final IErrorReport report) {
         ExecutionOccurenceSpecification destroyMessageEnd = null;
-        
+
         for (InteractionFragment fragment : lifeline.getCoveredBy()) {
             if (fragment instanceof ExecutionOccurenceSpecification) {
                 ExecutionOccurenceSpecification eos = (ExecutionOccurenceSpecification) fragment;
@@ -100,12 +100,12 @@ public class E275Checker implements IChecker {
                 }
             }
         }
-        
+
         if (destroyMessageEnd != null) {
             int destroyLine = destroyMessageEnd.getLineNumber(); // was
                                                                     // getFirstLine()
                                                                     // ???
-        
+
             for (InteractionFragment fragment : lifeline.getCoveredBy()) {
                 if ((fragment.getLineNumber() > destroyLine)
                         || ((fragment instanceof InteractionUse)
@@ -116,7 +116,7 @@ public class E275Checker implements IChecker {
                 }
             }
         }
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnsequenceflowdataassociation;
 
@@ -65,20 +65,20 @@ public class GmBpmnSequenceFlowDataAssociation extends GmLink {
 
     /**
      * Initialize a control flow graphic model.
+     *
      * @param diagram The owning diagram
      * @param element The reference flow, may be null
      * @param ref The referenced flow reference, may not be null
      */
     @objid ("c96de0ed-0257-4293-9450-233d1c932a30")
-    public  GmBpmnSequenceFlowDataAssociation(IGmDiagram diagram, BpmnSequenceFlowDataAssociation element, BpmnDataObject dataObject, MRef ref) {
+    public GmBpmnSequenceFlowDataAssociation(IGmDiagram diagram, BpmnSequenceFlowDataAssociation element, BpmnDataObject dataObject, MRef ref) {
         super(diagram, ref);
         this.element = element;
         this.dataObject = dataObject;
-        
+
         GmDefaultModelElementLabel extension = new GmDefaultModelElementLabel(diagram, ref);
         extension.setShowLabel(false);
         addExtension(ExtensionLocation.MiddleNW, IGmLink.ROLE_MAIN_LABEL, extension);
-        
     }
 
     @objid ("3d845dda-650e-4701-b4f4-b57aacc25369")
@@ -88,14 +88,13 @@ public class GmBpmnSequenceFlowDataAssociation extends GmLink {
         if (this.element != null) {
             firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, null, getRepresentedElement().getName());
         }
-        
     }
 
     /**
      * For deserialization only.
      */
     @objid ("8b6d251c-17cd-4d7d-9001-f09ab1bba31e")
-    public  GmBpmnSequenceFlowDataAssociation() {
+    public GmBpmnSequenceFlowDataAssociation() {
         // Nothing to do.
     }
 
@@ -126,6 +125,10 @@ public class GmBpmnSequenceFlowDataAssociation extends GmLink {
     @objid ("b6a30465-d327-4875-8213-3fffb67e7160")
     @Override
     public MObject getFromElement() {
+        if (this.element == null) {
+            return null;
+        }
+
         return this.element.getConnected();
     }
 
@@ -134,12 +137,11 @@ public class GmBpmnSequenceFlowDataAssociation extends GmLink {
     public void readLink(IDiagramReader in) {
         super.readLink(in);
         this.element = (BpmnSequenceFlowDataAssociation) resolveRef(getRepresentedRef());
-        
+
         IGmLinkable to = getTo();
         if (to instanceof GmBpmnDataObject) {
             setTo(((GmBpmnDataObject) to).getMainNode());
         }
-        
     }
 
     @objid ("5ed3dd0b-cc5e-49ca-b2fc-02a14ab605ea")
@@ -149,6 +151,7 @@ public class GmBpmnSequenceFlowDataAssociation extends GmLink {
     }
 
     /**
+     *
      * @return <code>true</code> if the link's source or target is a {@link BpmnFlowNode}.
      */
     @objid ("9e3bf69a-fc2c-4568-b680-f8563f447fa4")
@@ -160,10 +163,9 @@ public class GmBpmnSequenceFlowDataAssociation extends GmLink {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmBpmnSequenceFlowDataAssociation.", GmBpmnSequenceFlowDataAssociation.MINOR_VERSION);
-        
     }
 
     @objid ("580dba9a-e244-48dc-80f4-efdf28194db7")

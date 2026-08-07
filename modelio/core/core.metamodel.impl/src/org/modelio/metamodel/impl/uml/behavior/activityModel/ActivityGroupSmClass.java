@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -44,66 +43,65 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("22b4d7a0-d812-413f-9aa3-c308aab80b35")
 public class ActivityGroupSmClass extends UmlModelElementSmClass {
-    @objid ("adc2d567-d192-4dd3-957f-317ae4b03b05")
+    @objid ("986e1a8b-0595-4dc0-b2f0-1a087f59db0a")
     private SmDependency inActivityDep;
 
-    @objid ("7e980fcb-e746-4c3f-9a6e-67912c375a1f")
-    public  ActivityGroupSmClass(ISmMetamodelFragment origin) {
+    @objid ("dddc106c-1921-44cf-8775-ab21b028daa7")
+    public ActivityGroupSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("54bb145d-7312-4ea6-8f43-6d1f10e5a53e")
+    @objid ("79feb485-e262-46f5-a099-e5c7fbd10959")
     @Override
     public String getName() {
         return "ActivityGroup";
-        
+
     }
 
-    @objid ("ad047723-18ca-4286-bfd2-19f07dafba9d")
+    @objid ("8ed49a9a-615a-4275-8a5d-abf6f20758f6")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("2fc8eb69-e549-4273-87d3-bcf11c830a01")
+    @objid ("3844cd80-a110-441b-aed4-2d31011784b4")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return ActivityGroup.class;
-        
+
     }
 
-    @objid ("9b1916bb-549e-4705-b041-361eb50e1576")
+    @objid ("a1be63db-f94a-4664-9358-7b6ef81f1f0d")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("a60bc9b1-081c-45f6-9c94-992378cc57aa")
+    @objid ("14869a8f-1ad1-433c-be3a-fcc84cab2b96")
     @Override
     public boolean isAbstract() {
         return true;
-        
+
     }
 
-    @objid ("637715cd-2f7a-4c1a-b168-2ffbb85996e0")
+    @objid ("6175c887-fe4b-45cb-9a08-c867f820b3b4")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(UmlModelElement.MQNAME);
         this.registerFactory(new ActivityGroupObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
         this.inActivityDep = new InActivitySmDependency();
         this.inActivityDep.init("InActivity", this, metamodel.getMClass(Activity.MQNAME), 0, 1 );
         registerDependency(this.inActivityDep);
-        
-        
+
     }
 
-    @objid ("a81a2333-0a49-41cf-b3ad-a982c9ef1b66")
+    @objid ("bbd70a3d-4d4e-4dea-8132-b3d4e9e1a135")
     public SmDependency getInActivityDep() {
         if (this.inActivityDep == null) {
         	this.inActivityDep = this.getDependencyDef("InActivity");
@@ -113,21 +111,21 @@ public class ActivityGroupSmClass extends UmlModelElementSmClass {
 
     @objid ("29092251-e120-4984-8fe8-954de5a2d621")
     private static class ActivityGroupObjectFactory implements ISmObjectFactory {
-        @objid ("c8200f06-c731-453d-ab61-7a7078579c73")
+        @objid ("7122afe3-78a2-4d1d-9872-e66d5c36785f")
         private ActivityGroupSmClass smClass;
 
-        @objid ("95a5979e-bb94-43f3-9214-f67893046c80")
-        public  ActivityGroupObjectFactory(ActivityGroupSmClass smClass) {
+        @objid ("e4fdbb83-f4a2-4cb7-9723-1c5271f91e94")
+        public ActivityGroupObjectFactory(ActivityGroupSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("451f1a5d-0afa-47fd-b77e-31f046e368a7")
+        @objid ("4da6ab7c-b4f2-4ec1-8679-ad3baca5acb2")
         @Override
         public ISmObjectData createData() {
             throw new UnsupportedOperationException();
         }
 
-        @objid ("a63814ea-c55d-4e4f-886e-70dbe5af2027")
+        @objid ("845dbcb9-88a9-4df2-86f1-ceda90cb60a2")
         @Override
         public SmObjectImpl createImpl() {
             throw new UnsupportedOperationException();
@@ -137,29 +135,29 @@ public class ActivityGroupSmClass extends UmlModelElementSmClass {
 
     @objid ("a6db40ef-10ad-4e36-ae6a-5b4e34b0bc23")
     public static class InActivitySmDependency extends SmSingleDependency {
-        @objid ("d76b2101-2614-416b-92e4-172ec4e8b888")
+        @objid ("435843b7-d96b-4097-b731-86ac841ecb25")
         private SmDependency symetricDep;
 
-        @objid ("a6423585-60da-4f17-9ac6-25c334b0d8e4")
+        @objid ("d0eb2101-cc04-4774-8e1b-c1c0f09eba65")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((ActivityGroupData) data).mInActivity;
         }
 
-        @objid ("4534030d-1b73-4859-ac3d-44a28c5cf785")
+        @objid ("1f4d453f-333b-4d67-92c4-65cceaeeff8c")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((ActivityGroupData) data).mInActivity = value;
         }
 
-        @objid ("7baa84c4-7ac1-4cbb-b77a-fb06b095a322")
+        @objid ("10f1eb6c-11d5-4e49-ab2c-fb0a6b442c4d")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((ActivitySmClass)this.getTarget()).getOwnedGroupDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

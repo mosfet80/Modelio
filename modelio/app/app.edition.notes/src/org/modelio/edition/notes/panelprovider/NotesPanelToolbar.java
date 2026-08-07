@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.edition.notes.panelprovider;
 
@@ -45,51 +45,52 @@ import org.modelio.platform.ui.plugin.UI;
  */
 @objid ("2ddaa41e-4814-4f81-b61e-131e84da513c")
 public class NotesPanelToolbar implements IPanelProvider {
+    @objid ("68ea08fe-6f9e-49c2-9259-46dbe2eaf299")
+    private ToolItem addConstraint;
+
+    @objid ("38ac3dc4-6bb5-4652-b699-64acd9553c9d")
+    private Composite tbComp;
+
+    @objid ("a2c234e6-bf21-4790-8c4c-abd4407c64f0")
+    private ToolItem addNote;
+
+    @objid ("d1b8e886-182f-4bdd-9c8c-0a4c5663508b")
+    private ToolItem addDescription;
+
+    @objid ("6489ab2c-7985-4b63-a93a-af0f2777d094")
+    private ToolItem removeAnnotation;
+
+    @objid ("3fd8a36b-3e01-4588-8d8d-2dcfd82321c3")
+    private ToolItem cleanContent;
+
+    @objid ("dfcadc72-81ff-4877-a735-e65f2d2b591a")
+    private ToolItem moveUp;
+
+    @objid ("f528befc-0b34-4f45-9fa7-585a9b691667")
+    private ToolItem moveDown;
+
+    @objid ("5d778211-e1fe-48e2-aa2b-56395117b76e")
+    private MenuItem horizontalLayout;
+
+    @objid ("5a5e0a93-2c7a-417b-bc81-110f86e19a64")
+    private MenuItem verticalLayout;
+
+    @objid ("a700872e-ad33-47f5-8b65-9e5a8c81e17c")
+    private MenuItem autoLayout;
+
+    @objid ("80c8f62a-ccd4-443f-9796-40abb2bbc930")
+    private ToolItem addDocument;
+
     @objid ("14674e5a-0e10-4402-9aea-cb0e81f8c38c")
     private NotesPanelController controller;
 
-    @objid ("0abff9e1-4b52-43bd-8078-8a5047dda006")
-    private ToolItem addConstraint;
-
-    @objid ("d5389283-9aa2-46a6-bff4-8f0d4535b4da")
-    private Composite tbComp;
-
-    @objid ("f15dba22-3ab2-43e9-a04a-cf4f33f94cc3")
-    private ToolItem addNote;
-
-    @objid ("c1403b0e-bb4e-4c7d-8b8e-754bbc8ba9df")
-    private ToolItem addDescription;
-
-    @objid ("1046dcf5-8587-4b16-88ab-d2164bd47adb")
-    private ToolItem removeAnnotation;
-
-    @objid ("8bcac6d6-b288-43fc-9085-9871e63baa81")
-    private ToolItem cleanContent;
-
-    @objid ("cc4f5129-e756-4388-b531-4358439032ab")
-    private ToolItem moveUp;
-
-    @objid ("2aa2e6be-8022-437d-97d7-f0444bae6ca3")
-    private ToolItem moveDown;
-
-    @objid ("e5e3763e-282b-439c-8ecc-941157fe3f1c")
-    private MenuItem horizontalLayout;
-
-    @objid ("cb5c66a3-9910-4c5c-a157-7d69b1039921")
-    private MenuItem verticalLayout;
-
-    @objid ("366be6bf-1e70-4bfb-8129-e88ee956b797")
-    private MenuItem autoLayout;
-
-    @objid ("52171d38-8327-462d-ad4d-13e3b2ed8f6d")
-    private ToolItem addDocument;
-
     /**
      * C'Tor
+     *
      * @param controller the controller of the GUI panel owning the tool bar
      */
     @objid ("3e929c96-c812-4811-8401-f0783c4a15d6")
-    public  NotesPanelToolbar(NotesPanelController controller) {
+    public NotesPanelToolbar(NotesPanelController controller) {
         NotesPanelToolbar.this.controller = controller;
     }
 
@@ -108,78 +109,86 @@ public class NotesPanelToolbar implements IPanelProvider {
         gl.marginHeight = gl.marginTop = gl.marginBottom = -1;
         gl.marginLeft = gl.marginRight = gl.marginWidth = 0;
         this.tbComp.setLayout(gl);
-        
+
         ToolBar tb = new ToolBar(this.tbComp, SWT.HORIZONTAL);
         tb.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, false, false));
-        
+
         this.addConstraint = createToolButton(tb, SWT.PUSH, EditionNotes.getImageDescriptor("icons/addconstraint.png"), "$AddConstraint.tooltip");
         this.addConstraint.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
+                NotesPanelToolbar.this.tbComp.setFocus();
                 NotesPanelToolbar.this.controller.onAddConstraint();
             }
         });
-        
+
         this.addNote = createToolButton(tb, SWT.PUSH, EditionNotes.getImageDescriptor("icons/addnote.png"), "$AddNote.tooltip");
         this.addNote.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
+                NotesPanelToolbar.this.tbComp.setFocus();
                 NotesPanelToolbar.this.controller.onAddNote();
             }
         });
-        
+
         this.addDescription = createToolButton(tb, SWT.PUSH, EditionNotes.getImageDescriptor("icons/adddescription.png"), "$AddDescription.tooltip");
         this.addDescription.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
+                NotesPanelToolbar.this.tbComp.setFocus();
                 NotesPanelToolbar.this.controller.onAddDescription();
             }
         });
-        
+
         this.addDocument = createToolButton(tb, SWT.PUSH, EditionNotes.getImageDescriptor("icons/adddocument.png"), "$AddDocument.tooltip");
         this.addDocument.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
+                NotesPanelToolbar.this.tbComp.setFocus();
                 NotesPanelToolbar.this.controller.onAddRichNote();
             }
         });
-        
+
         this.removeAnnotation = createToolButton(tb, SWT.PUSH, UI.getImageDescriptor("icons/delete.png"), "$RemoveAnnotation.tooltip");
         this.removeAnnotation.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
+                NotesPanelToolbar.this.tbComp.setFocus();
                 NotesPanelToolbar.this.controller.onRemoveAnnotation();
             }
         });
-        
+
         this.cleanContent = createToolButton(tb, SWT.PUSH, EditionNotes.getImageDescriptor("icons/cleannote.png"), "$CleanNote.tooltip");
         this.cleanContent.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
+                NotesPanelToolbar.this.tbComp.setFocus();
                 NotesPanelToolbar.this.controller.onCleanContent();
             }
         });
-        
+
         this.moveUp = createToolButton(tb, SWT.PUSH, UI.getImageDescriptor("icons/uparrow.png"), "$MoveUp.tooltip");
         this.moveUp.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
+                NotesPanelToolbar.this.tbComp.setFocus();
                 NotesPanelToolbar.this.controller.onMoveUp();
             }
         });
-        
+
         this.moveDown = createToolButton(tb, SWT.PUSH, UI.getImageDescriptor("icons/downarrow.png"), "$MoveDown.tooltip");
         this.moveDown.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
+                NotesPanelToolbar.this.tbComp.setFocus();
                 NotesPanelToolbar.this.controller.onMoveDown();
             }
         });
-        
+
         // Drop down menu to select layout mode
         final ToolItem dropDown = new ToolItem(tb, SWT.DROP_DOWN);
         final Menu menu = new Menu(tb.getShell(), SWT.POP_UP);
-        
+
         this.autoLayout = createMenuItem(menu, SWT.RADIO, UI.getImageDescriptor("icons/automaticorientation.png"), "$SetAutoLayout.label", "$SetAutoLayout.tooltip");
         this.autoLayout.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -187,7 +196,7 @@ public class NotesPanelToolbar implements IPanelProvider {
                 NotesPanelToolbar.this.controller.onAutomaticLayout();
             }
         });
-        
+
         this.horizontalLayout = createMenuItem(menu, SWT.RADIO, UI.getImageDescriptor("icons/horizontalorientation.png"), "$SetHorizontalLayout.label", "$SetHorizontalLayout.tooltip");
         this.horizontalLayout.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -202,7 +211,7 @@ public class NotesPanelToolbar implements IPanelProvider {
                 NotesPanelToolbar.this.controller.onVerticalLayout();
             }
         });
-        
+
         dropDown.addListener(SWT.Selection, event -> {
             if (event.detail == SWT.ARROW) {
                 Rectangle rect = dropDown.getBounds();
@@ -244,20 +253,20 @@ public class NotesPanelToolbar implements IPanelProvider {
         this.addConstraint.setEnabled(this.controller.canAddConstraint());
         this.addNote.setEnabled(this.controller.canAddNote());
         this.addDescription.setEnabled(this.controller.canAddNote());
-        this.addDocument.setEnabled(this.controller.canAddNote());
+        this.addDocument.setEnabled(this.controller.canAddDocument());
         this.removeAnnotation.setEnabled(this.controller.canRemoveAnnotation());
         this.cleanContent.setEnabled(this.controller.canCleanContent());
         this.moveDown.setEnabled(this.controller.canMoveDown());
         this.moveUp.setEnabled(this.controller.canMoveUp());
-        
+
         this.verticalLayout.setSelection(this.controller.isVerticalLayout());
         this.horizontalLayout.setSelection(this.controller.isHorizontalLayout());
         this.autoLayout.setSelection(this.controller.isAutoLayout());
-        
     }
 
     /**
      * Helper function to create tool item
+     *
      * @param parent the parent toolbar
      * @param iconDescriptor the image to display on the tool item
      * @param tooltip the tool tip text for the tool item
@@ -276,7 +285,7 @@ public class NotesPanelToolbar implements IPanelProvider {
                 }
             });
         }
-        
+
         item.setToolTipText(EditionNotes.I18N.getString(tooltip));
         return item;
     }
@@ -290,12 +299,12 @@ public class NotesPanelToolbar implements IPanelProvider {
     @objid ("589fee9a-a0cc-43a5-814e-2240f9f97d7e")
     private MenuItem createMenuItem(Menu parent, int style, ImageDescriptor iconDescriptor, String label, String tooltip) {
         MenuItem item = new MenuItem(parent, style);
-        
+
         // Get the icon and setup a listener for disposal
         if (iconDescriptor != null) {
             final Image icon = iconDescriptor.createImage();
             item.setImage(icon);
-        
+
             parent.addDisposeListener(new DisposeListener() {
                 @Override
                 public void widgetDisposed(DisposeEvent e) {

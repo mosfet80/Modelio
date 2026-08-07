@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.mmextensions.standard.facilities;
 
@@ -34,7 +34,7 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 /**
  * Helper class to compute 'related' diagrams of a model element.
- * 
+ *
  * @since 3.7
  */
 @objid ("b56f03ec-5ae3-45e1-b9f3-405d740fabe2")
@@ -51,13 +51,14 @@ public abstract class RelatedDiagramHelper {
      * <p>
      * <i>Please note that <b>diagrams the element is displayed into are not included</b>, you must call {@link ModelElement#getDiagramElement()} to get them.</i>
      * </p>
+     *
      * @param elt a model element.
      * @return a diagram list.
      */
     @objid ("83a6272c-bced-486d-8157-d1164557f54e")
     public static Set<AbstractDiagram> getRelatedDiagrams(final ModelElement elt) {
         final Set<AbstractDiagram> relatedDiagrams = new LinkedHashSet<>();
-        
+
         // Get diagrams targeted by <<related_diagram>> dependencies.
         for (final Dependency dependency : elt.getDependsOnDependency()) {
             if (dependency.isStereotyped("ModelerModule", "related_diagram")) {
@@ -67,10 +68,10 @@ public abstract class RelatedDiagramHelper {
                 }
             }
         }
-        
+
         // Get owned diagrams
         relatedDiagrams.addAll(elt.getProduct());
-        
+
         if (elt instanceof BpmnParticipant) {
             // For BpmnParticipant, get related diagrams of the BpmnProcesses
             BpmnParticipant participant = (BpmnParticipant) elt;
@@ -81,7 +82,7 @@ public abstract class RelatedDiagramHelper {
         } else if (elt instanceof BpmnCallActivity) {
             // For BpmnCallActivity, get related diagrams of the called element
             BpmnCallActivity callActivity = (BpmnCallActivity) elt;
-        
+
             for (MethodologicalLink dep : callActivity.getDependsOnDependency(MethodologicalLink.class)) {
                 if (dep.isStereotyped("ModelerModule", "Called")) {
                     ModelElement target = dep.getDependsOn();
@@ -98,7 +99,7 @@ public abstract class RelatedDiagramHelper {
                 relatedDiagrams.addAll(RelatedDiagramHelper.getRelatedDiagrams(behavior));
             }
         }
-        
+
         // Make sure the current diagram isn't part of the related diagrams
         relatedDiagrams.remove(elt);
         return relatedDiagrams;

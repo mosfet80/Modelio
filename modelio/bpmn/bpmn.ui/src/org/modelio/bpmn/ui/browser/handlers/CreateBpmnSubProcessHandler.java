@@ -1,26 +1,26 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.ui.browser.handlers;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.modelio.bpmn.diagram.editor.layout.BpmnLayouter;
 import org.modelio.metamodel.bpmn.activities.BpmnAdHocSubProcess;
@@ -61,38 +61,38 @@ public class CreateBpmnSubProcessHandler extends CreateBpmnFlowElement {
     @Override
     protected void postCreationStep(MObject createdElement, IMModelServices mmServices) {
         super.postCreationStep(createdElement, mmServices);
-        
+
         BpmnSubProcess subProcess = (BpmnSubProcess) createdElement;
-        
+
         IStandardModelFactory modelFactory = mmServices.getModelFactory().getFactory(IStandardModelFactory.class);
         IElementNamer namer = mmServices.getElementNamer();
-        
+
         // Create a diagram
         BpmnSubProcessDiagram diagram = modelFactory.createBpmnSubProcessDiagram();
         diagram.setOrigin(subProcess);
         diagram.setName(namer.getUniqueName(diagram));
-        
+
         // Layout diagram
         new BpmnLayouter(diagram).run();
-        
+
     }
 
     @objid ("8c00d5c6-b1fc-4e9d-85e4-36471da0079f")
     @Override
     protected void postCommit(MPart part, MObject element, IMModelServices mmServices) {
         super.postCommit(part, element, mmServices);
-        
+
         if (!(element instanceof BpmnAdHocSubProcess)) {
             final BpmnSubProcessDiagram diagram = ((BpmnSubProcess) element).getProduct(BpmnSubProcessDiagram.class).get(0);
-        
+
             // Open the diagram
             CreateBpmnSubProcessHandler.this.activationService.activateMObject(diagram);
-        
+
             // Select the diagram in the browser
             this.navigationService.fireNavigate(diagram);
             this.navigationService.fireNavigate(diagram.getCompositionOwner());
         }
-        
+
     }
 
     @objid ("8abb396a-65b4-4ddf-b8ef-2c1b7a13af48")

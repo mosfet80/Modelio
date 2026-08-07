@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.mmextensions.standard.modelshield.standardcheckers.generic;
 
@@ -45,28 +45,28 @@ public abstract class DepCardinalityChecker implements IChecker {
     public void check(MObject object, final IErrorReport report) {
         if (object == null)
             return;
-        
+
         if (this.dep == null)
             this.dep = object.getMClass().getDependency(this.depName);
-        
+
         if (this.dep == null || ((SmDependency) this.dep).isDynamic())
             return;
-        
+
         int currentCard = object.mGet(this.dep).size();
-        
+
         if (currentCard < this.dep.getMinCardinality()
                 || ((this.dep.getMaxCardinality() > 0) && (currentCard > this.dep.getMaxCardinality()))) {
-        
+
             report.addEntry(createError(object, this.dep, currentCard));
         }
-        
+
     }
 
     @objid ("0071f48a-80c8-1f6c-bf9a-001ec947cd2a")
-    public  DepCardinalityChecker(final String errorId, final String depName) {
+    public DepCardinalityChecker(final String errorId, final String depName) {
         this.errorId = errorId;
         this.depName = depName;
-        
+
     }
 
     /*

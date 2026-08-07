@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnsequenceflow;
 
@@ -72,7 +72,7 @@ public class BpmnSequenceFlowElementDropEditPolicy extends DefaultElementDropEdi
         if (!request.isSmart()) {
             return null;
         }
-        
+
         GmModel model = (GmModel) getHost().getModel();
         BpmnSequenceFlow element = (BpmnSequenceFlow) model.getRelatedElement();
         if (request.getDroppedElements().length > 0) {
@@ -105,16 +105,17 @@ public class BpmnSequenceFlowElementDropEditPolicy extends DefaultElementDropEdi
 
         /**
          * Constructor to attach a {@link BpmnDataObject} to a {@link BpmnSequenceFlow}.
+         *
          * @param elementToType the element to type.
          * @param dataObjects the objects to be attached.
          * @param modelFactory the model object factory registry.
          */
         @objid ("062610e1-6f62-4ddb-8fe4-673fc5f1206b")
-        public  BpmnDataObjectSmartAttachCommand(final BpmnSequenceFlow elementToType, List<BpmnDataObject> dataObjects, IModelFactoryService modelFactory) {
+        public BpmnDataObjectSmartAttachCommand(final BpmnSequenceFlow elementToType, List<BpmnDataObject> dataObjects, IModelFactoryService modelFactory) {
             this.elementToType = elementToType;
             this.modelFactory = modelFactory;
             this.dataObjects = new ArrayList<>();
-            
+
             // Ignore already referenced data objects
             final List<BpmnDataObject> referencedDataObjects = new ArrayList<>();
             for (final BpmnSequenceFlowDataAssociation sfda : this.elementToType.getConnector()) {
@@ -130,7 +131,7 @@ public class BpmnSequenceFlowElementDropEditPolicy extends DefaultElementDropEdi
                     this.dataObjects.add(dataObject);
                 }
             }
-            
+
         }
 
         @objid ("a996920e-dc1a-44f1-8757-569a4e772d79")
@@ -138,7 +139,7 @@ public class BpmnSequenceFlowElementDropEditPolicy extends DefaultElementDropEdi
         public boolean canExecute() {
             final BpmnFlowNode source = this.elementToType.getSourceRef();
             final BpmnFlowNode target = this.elementToType.getTargetRef();
-            
+
             boolean isValidSource = source instanceof BpmnActivity || source instanceof BpmnCatchEvent;
             boolean isValidTarget = target instanceof BpmnActivity || target instanceof BpmnThrowEvent;
             boolean isEditable = MTools.getAuthTool().canModify(this.elementToType);
@@ -152,7 +153,7 @@ public class BpmnSequenceFlowElementDropEditPolicy extends DefaultElementDropEdi
             for (final BpmnDataObject dataObject : this.dataObjects) {
                 addDataObject(dataObject);
             }
-            
+
         }
 
         @objid ("11765974-8bbc-4793-9b80-c01b4f8d3021")
@@ -169,15 +170,16 @@ public class BpmnSequenceFlowElementDropEditPolicy extends DefaultElementDropEdi
 
         /**
          * Attach a {@link BpmnDataObject} to a {@link BpmnSequenceFlow}.
+         *
          * @param dataObject a data object that is not already linked to the edited flow.
          */
         @objid ("1cd6747e-e3e5-49d6-8eb0-bb5bd3aeb4d3")
         private void addDataObject(final BpmnDataObject dataObject) {
             IStandardModelFactory bpmnModelFactory = this.modelFactory.getFactory(IStandardModelFactory.class);
-            
+
             final BpmnFlowNode source = this.elementToType.getSourceRef();
             final BpmnFlowNode target = this.elementToType.getTargetRef();
-            
+
             final BpmnDataAssociation sourceAssociation = bpmnModelFactory.createBpmnDataAssociation();
             if (source instanceof BpmnActivity) {
                 sourceAssociation.setStartingActivity((BpmnActivity) source);
@@ -188,7 +190,7 @@ public class BpmnSequenceFlowElementDropEditPolicy extends DefaultElementDropEdi
                 sourceAssociation.setStartingEvent((BpmnThrowEvent) source);
             }
             sourceAssociation.setTargetRef(dataObject);
-            
+
             final BpmnDataAssociation targetAssociation = bpmnModelFactory.createBpmnDataAssociation();
             if (target instanceof BpmnActivity) {
                 targetAssociation.setEndingActivity((BpmnActivity) target);
@@ -199,12 +201,12 @@ public class BpmnSequenceFlowElementDropEditPolicy extends DefaultElementDropEdi
                 targetAssociation.setEndingEvent((BpmnCatchEvent) target);
             }
             targetAssociation.getSourceRef().add(dataObject);
-            
+
             final BpmnSequenceFlowDataAssociation sequenceFlowAssociation = bpmnModelFactory.createBpmnSequenceFlowDataAssociation();
             sequenceFlowAssociation.setConnected(this.elementToType);
             sequenceFlowAssociation.getDataAssociation().add(sourceAssociation);
             sequenceFlowAssociation.getDataAssociation().add(targetAssociation);
-            
+
         }
 
     }

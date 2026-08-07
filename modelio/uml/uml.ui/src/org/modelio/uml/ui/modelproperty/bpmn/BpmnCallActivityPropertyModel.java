@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.bpmn;
 
@@ -63,21 +63,23 @@ public class BpmnCallActivityPropertyModel extends AbstractPropertyModel<BpmnCal
 
     /**
      * Create a new <i>BpmnCallActivity</i> data model from an <i>BpmnCallActivity</i>.
+     *
      * @param theEditedElement the model to edit.
      * @param modelService the model service needed to find elements.
      * @param mdaExpert the MDA expert to handle Methodological links.
      */
     @objid ("860449a8-dafc-4320-bf44-8dcd3492a2ec")
-    public  BpmnCallActivityPropertyModel(BpmnCallActivity theEditedElement, IMModelServices modelService, IMdaExpert mdaExpert) {
+    public BpmnCallActivityPropertyModel(BpmnCallActivity theEditedElement, IMModelServices modelService, IMdaExpert mdaExpert) {
         super(theEditedElement);
         this.modelService = modelService;
         this.mdaExpert = mdaExpert;
         initPropertyModel();
-        
+
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("be69a53f-6382-4426-ba3e-78a7f0821f7f")
@@ -88,6 +90,7 @@ public class BpmnCallActivityPropertyModel extends AbstractPropertyModel<BpmnCal
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("618869a4-6868-4a62-a8e3-ff795fe28672")
@@ -102,6 +105,7 @@ public class BpmnCallActivityPropertyModel extends AbstractPropertyModel<BpmnCal
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -112,7 +116,7 @@ public class BpmnCallActivityPropertyModel extends AbstractPropertyModel<BpmnCal
         if (col == 0) {
             return getPropertyI18n(this.properties.get(row));
         }
-        
+
         // else
         if (col == 1) // col 1 is the property value
         {
@@ -165,6 +169,7 @@ public class BpmnCallActivityPropertyModel extends AbstractPropertyModel<BpmnCal
      * This type will be used to choose an editor and a renderer for each cell of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -176,7 +181,7 @@ public class BpmnCallActivityPropertyModel extends AbstractPropertyModel<BpmnCal
         if (col == 0) {
             return new DefaultStringNatValue((String) getValue(row, col), false);
         }
-        
+
         // else
         if (col == 1) // col 1 is the property value
         {
@@ -195,7 +200,7 @@ public class BpmnCallActivityPropertyModel extends AbstractPropertyModel<BpmnCal
                         .map(mc -> mc.getJavaInterface())
                         .collect(Collectors.toList());
                 DefaultElementNatValue elementNatValue = new DefaultElementNatValue((MObject) getValue(row, col), true, allowedTargets);
-        
+
                 MClass linkMetaclass = this.theEditedElement.getMClass().getMetamodel().getMClass(MethodologicalLink.class);
                 elementNatValue.setElementFilter(new IMObjectFilter() {
                     @Override
@@ -203,7 +208,7 @@ public class BpmnCallActivityPropertyModel extends AbstractPropertyModel<BpmnCal
                         return BpmnCallActivityPropertyModel.this.mdaExpert.canLink(Called.MdaTypes.STEREOTYPE_ELT, linkMetaclass, BpmnCallActivityPropertyModel.this.theEditedElement, element);
                     }
                 });
-        
+
                 return elementNatValue;
             } else if (row == 6) {
                 return new DefaultJavaEnumNatValue((Enum<?>) getValue(row, col), LoopType.class);
@@ -243,7 +248,7 @@ public class BpmnCallActivityPropertyModel extends AbstractPropertyModel<BpmnCal
         this.properties.add("CompletionQuantity");
         this.properties.add("Called");
         this.properties.add("LoopCharacteristics");
-        
+
         LoopType type = LoopType.getType(this.theEditedElement);
         if (type == LoopType.Standard) {
             this.properties.add("TestBefore");
@@ -255,13 +260,14 @@ public class BpmnCallActivityPropertyModel extends AbstractPropertyModel<BpmnCal
             this.properties.add("CompletionCondition");
             this.properties.add("EventDefinition");
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -273,7 +279,7 @@ public class BpmnCallActivityPropertyModel extends AbstractPropertyModel<BpmnCal
         if (col == 0) {
             return;
         }
-        
+
         if (col == 1) // col 1 is the property value
         {
             if (row == 0) {
@@ -315,7 +321,7 @@ public class BpmnCallActivityPropertyModel extends AbstractPropertyModel<BpmnCal
                 }
             }
         }
-        
+
     }
 
 }

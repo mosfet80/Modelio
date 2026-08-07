@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.swt.images;
 
@@ -39,7 +39,7 @@ public class StandardModelStyleProvider {
         if (obj == null) {
             return null;
         }
-        
+
         final StyleRange[] styles = new StyleRange[1];
         final StyleRange style = new StyleRange(0, label.length(), getForeground(obj), getBackground(obj));
         style.underline = isUnderlined(obj);
@@ -71,6 +71,7 @@ public class StandardModelStyleProvider {
      * <li>Incomplete model elements font color is light red #FF8080.</li>
      * <li>Ramc model elements font color is modified yellow #A0A000.</li>
      * </ul>
+     *
      * @return a Color.
      */
     @objid ("5641b7d4-d899-4ef4-9047-ad21c7945df1")
@@ -78,7 +79,7 @@ public class StandardModelStyleProvider {
         if (obj instanceof MObject) {
             try {
                 MObject element = (MObject) obj;
-                MStatus status = element.getStatus();
+                MStatus status = element.getStatusLazy();
                 if (status.isModifiable()) {
                     return UIColor.MODIFIABLE_ELEMENT_FG;
                 } else if (status.isRamc()) {
@@ -97,10 +98,9 @@ public class StandardModelStyleProvider {
 
     /**
      * Get the background color for the given element in the given state
-     * @param element
-     * the element
-     * @param status
-     * the element state
+     *
+     * @param element the element
+     * @param status the element state
      * @return its background color
      */
     @objid ("f4fc4706-0bd2-460c-be32-877bfaeb5c5c")

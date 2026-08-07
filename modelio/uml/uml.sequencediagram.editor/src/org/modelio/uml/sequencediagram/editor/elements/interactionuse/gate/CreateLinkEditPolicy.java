@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.interactionuse.gate;
 
@@ -34,7 +34,7 @@ import org.modelio.uml.sequencediagram.editor.elements.message.CreateMessageComm
 
 /**
  * Specialisation of the create link policy to handle all the kinds and sorts of messages on Gate.
- * 
+ *
  * @author fpoyer
  */
 @objid ("d912cb42-55b6-11e2-877f-002564c97630")
@@ -70,11 +70,11 @@ public class CreateLinkEditPolicy extends DefaultCreateLinkEditPolicy {
         if (context != null) {
             if (Message.class == context.getJavaClass()) {
                 CreateMessageCommand cmd = new CreateMessageCommand(context);
-        
+
                 cmd.setSource((GmNodeModel) getHost().getModel());
                 req.setStartCommand(cmd);
                 cmd.setSourceTime(getHostFigure().getBounds().getCenter().y);
-        
+
                 if (req instanceof CreateBendedConnectionRequest) {
                     cmd.setRequest((CreateBendedConnectionRequest) req);
                 }
@@ -102,7 +102,7 @@ public class CreateLinkEditPolicy extends DefaultCreateLinkEditPolicy {
             request_copy.getData().setRoutingMode(request_origin.getData().getRoutingMode());
             request_copy.getData().setSrcPoint(request_origin.getData().getSrcPoint());
             request_copy.getData().setLastPoint(request_origin.getData().getLastPoint());
-        
+
             Command startCommand = request_origin.getStartCommand();
             request_copy.setStartCommand(startCommand);
             if (startCommand instanceof CreateMessageCommand) {
@@ -116,7 +116,6 @@ public class CreateLinkEditPolicy extends DefaultCreateLinkEditPolicy {
         } else {
             super.showCreationFeedback(request);
         }
-        
     }
 
 }

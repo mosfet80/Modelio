@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.interactionuse;
 
@@ -41,7 +41,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Gm for InteractionUse. Specialisation of GmPortContainer.
- * 
+ *
  * @author fpoyer
  */
 @objid ("d91bf327-55b6-11e2-877f-002564c97630")
@@ -65,26 +65,26 @@ public class GmInteractionUse extends GmPortContainer {
      * Empty c'tor for deserialisation.
      */
     @objid ("d91bf335-55b6-11e2-877f-002564c97630")
-    public  GmInteractionUse() {
+    public GmInteractionUse() {
         super();
     }
 
     /**
      * C'tor.
+     *
      * @param diagram diagram in which this gm is created.
      * @param interactionUse the represented interactionuse
      * @param relatedRef a reference to the represented element.
      */
     @objid ("d91d799a-55b6-11e2-877f-002564c97630")
-    public  GmInteractionUse(final IGmDiagram diagram, final InteractionUse interactionUse, final MRef relatedRef) {
+    public GmInteractionUse(final IGmDiagram diagram, final InteractionUse interactionUse, final MRef relatedRef) {
         super(diagram, relatedRef);
-        
+
         GmInteractionUsePrimaryNode mainNode = new GmInteractionUsePrimaryNode(diagram, relatedRef);
         mainNode.setRoleInComposition(MAIN_NODE_ROLE);
         addChild(mainNode);
-        
+
         this.interactionUse = interactionUse;
-        
     }
 
     @objid ("d91d79a9-55b6-11e2-877f-002564c97630")
@@ -134,7 +134,6 @@ public class GmInteractionUse extends GmPortContainer {
             break;
         }
         }
-        
     }
 
     @objid ("d91d79db-55b6-11e2-877f-002564c97630")
@@ -168,12 +167,11 @@ public class GmInteractionUse extends GmPortContainer {
                 forceUpdate = forceUpdate || unmaskAndOrderChild(gate, index);
                 ++index;
             }
-        
+
             if (forceUpdate) {
                 getDiagram().refreshAllFromObModel();
             }
         }
-        
     }
 
     @objid ("d91f003b-55b6-11e2-877f-002564c97630")
@@ -195,17 +193,15 @@ public class GmInteractionUse extends GmPortContainer {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmInteractionUse.", GmInteractionUse.MINOR_VERSION);
-        
     }
 
     @objid ("d91f004b-55b6-11e2-877f-002564c97630")
     private void read_0(final IDiagramReader in) {
         super.read(in);
         this.interactionUse = (InteractionUse) resolveRef(getRepresentedRef());
-        
     }
 
     @objid ("d91f0051-55b6-11e2-877f-002564c97630")
@@ -216,6 +212,7 @@ public class GmInteractionUse extends GmPortContainer {
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */
@@ -227,6 +224,7 @@ public class GmInteractionUse extends GmPortContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */

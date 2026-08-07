@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.participant.header;
 
@@ -61,17 +61,18 @@ public class GmBpmnParticipantHeader extends GmDefaultModelElementHeader {
      * C'tor without args for deserialization.
      */
     @objid ("a5771ec2-4da0-46da-ae90-e3ace1be568e")
-    public  GmBpmnParticipantHeader() {
+    public GmBpmnParticipantHeader() {
         // Nothing to do.
     }
 
     /**
      * C'tor.
+     *
      * @param diagram the owning diagram.
      * @param relatedRef the element reference.
      */
     @objid ("94d142b0-a668-4060-9d81-7e2c748fa1b6")
-    public  GmBpmnParticipantHeader(IGmDiagram diagram, MRef relatedRef) {
+    public GmBpmnParticipantHeader(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -104,7 +105,7 @@ public class GmBpmnParticipantHeader extends GmDefaultModelElementHeader {
             break;
         }
         }
-        
+
     }
 
     @objid ("cb66d838-2a4d-4bd4-b644-5cccb7a2c04e")
@@ -113,7 +114,7 @@ public class GmBpmnParticipantHeader extends GmDefaultModelElementHeader {
         super.write(out);
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, GmBpmnParticipantHeader.MINOR_VERSION_PREFIX, GmBpmnParticipantHeader.MINOR_VERSION);
-        
+
     }
 
     @objid ("26e4705b-78b1-41a0-8e85-cb0c6642f2ed")
@@ -135,19 +136,19 @@ public class GmBpmnParticipantHeader extends GmDefaultModelElementHeader {
             return null;
         }
         return new IEditableText() {
-        
+
                     @Override
                     public String getText() {
                         return computeMainLabel();
                     }
-        
+
                     @Override
                     public void setText(String text) {
                         final BpmnParticipant participant = getRelatedElement();
                         participant.setName(text);
                     }
                 };
-        
+
     }
 
     @objid ("ac4b1fc6-0fa1-48ed-8199-31c71f5922a7")
@@ -157,6 +158,7 @@ public class GmBpmnParticipantHeader extends GmDefaultModelElementHeader {
     }
 
     /**
+     *
      * @return <code>true</code> if the participant is shell or null.
      */
     @objid ("a765439f-f118-48b3-99ce-97a880874622")

@@ -1,29 +1,29 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.ui.closeproject;
 
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
@@ -79,13 +79,13 @@ public class CloseProjectHandler {
     @Execute
     void execute(final IProjectService projectService, @Named (IServiceConstants.ACTIVE_SHELL) final Shell shell, IModelioProgressService progressService, StatusReporter statusReporter) {
         IGProject openedProject = projectService.getOpenedProject();
-        
+
         if (saveBeforeClose(shell, projectService, openedProject, progressService, statusReporter)) {
             if (openedProject != null) {
                 projectService.closeProject(openedProject);
             }
         }
-        
+
     }
 
     @objid ("f91de263-a0ce-4305-ace0-f6b418bec739")
@@ -123,7 +123,7 @@ public class CloseProjectHandler {
     public static boolean saveBeforeClose(Shell shell, IProjectService projectService, IGProject openedProject, IModelioProgressService progressService, StatusReporter statusReporter) {
         if (openedProject != null) {
             AppProjectUi.LOG.info("Closing project '%s'", openedProject.getName());
-        
+
             if (projectService.isDirty()) {
                 // Ask the user to save before quitting
                 final String[] tab = { IDialogConstants.YES_LABEL, IDialogConstants.NO_LABEL, IDialogConstants.CANCEL_LABEL };
@@ -134,10 +134,10 @@ public class CloseProjectHandler {
                         MessageDialog.QUESTION, // image type
                         tab, // labels
                         IDialogConstants.YES_ID); // default answer
-        
+
                 dialog.setBlockOnOpen(true);
                 final int res = dialog.open();
-        
+
                 if (res == -1 || tab[res] == IDialogConstants.CANCEL_LABEL) {
                     return false;
                 } else if (tab[res] == IDialogConstants.YES_LABEL) {
@@ -182,12 +182,12 @@ public class CloseProjectHandler {
                 }
             }
         };
-        
+
         MWindow applicationWindow = getApplicationShellWindow(this.window);
         if (applicationWindow != null) {
             applicationWindow.getContext().set(IWindowCloseHandler.class, handler);
         }
-        
+
     }
 
     @objid ("9120cd18-402f-4913-b2ad-6cf53d9fbbb9")

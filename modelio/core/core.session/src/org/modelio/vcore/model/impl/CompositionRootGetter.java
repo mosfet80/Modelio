@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.model.impl;
 
@@ -33,7 +33,7 @@ import org.modelio.vcore.smkernel.meta.SmMetamodel;
 
 /**
  * Get the composition roots of a repository.
- * 
+ *
  * @author cmarin
  * @since 3.6
  */
@@ -46,21 +46,22 @@ public class CompositionRootGetter implements IRepositoryRootGetterService {
     private final MetamodelExtensionPoint<IRepositoryRootGetter> metamodelExtensionPoint;
 
     /**
+     *
      * @param rootGetters the metamodel service provider
      * @param proj the project
      */
     @objid ("62093964-a33b-4650-8a39-7b35b1344e9f")
-    public  CompositionRootGetter(ICoreSession proj) {
+    public CompositionRootGetter(ICoreSession proj) {
         this.session = proj;
         this.metamodelExtensionPoint = new MetamodelExtensionPoint<>();
-        
+
     }
 
     @objid ("628259be-8514-4ad1-b9be-95d9b8c197c6")
     @Override
     public Collection<MObject> getRootElements(IRepository repository) {
         Collection<MObject> ret = new ArrayList<>();
-        
+
         SmMetamodel mm = this.session.getMetamodel();
         for (MMetamodelFragment mmf : mm.getFragments()) {
             IRepositoryRootGetter svc = this.metamodelExtensionPoint.getService(mmf);

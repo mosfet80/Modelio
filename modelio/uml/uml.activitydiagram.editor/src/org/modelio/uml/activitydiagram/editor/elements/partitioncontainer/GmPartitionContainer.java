@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.partitioncontainer;
 
@@ -39,7 +39,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * The node (doesn't have anything corresponding in the ObModel) that contains partitions. Used on the diagram background to hold top-level partitions AND in partitions to hold sub-partitions.
- * 
+ *
  * @author fpoyer
  */
 @objid ("2b22bf89-55b6-11e2-877f-002564c97630")
@@ -85,7 +85,7 @@ public class GmPartitionContainer extends GmCompositeNode {
     public boolean canUnmask(MObject el) {
         return (ActivityPartition.class.isAssignableFrom(el.getClass()) && el.getCompositionOwner()
                         .equals(this.getRelatedElement()));
-        
+
     }
 
     @objid ("2b23a9ed-55b6-11e2-877f-002564c97630")
@@ -95,11 +95,12 @@ public class GmPartitionContainer extends GmCompositeNode {
     }
 
     /**
+     *
      * @param diagram the diagram in which this partition container is used.
      * @param relatedRef represented element reference, must not be null.
      */
     @objid ("2b23d0fd-55b6-11e2-877f-002564c97630")
-    public  GmPartitionContainer(IGmDiagram diagram, MRef relatedRef) {
+    public GmPartitionContainer(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -107,7 +108,7 @@ public class GmPartitionContainer extends GmCompositeNode {
      * Empty constructor needed for serialization.
      */
     @objid ("2b241f19-55b6-11e2-877f-002564c97630")
-    public  GmPartitionContainer() {
+    public GmPartitionContainer() {
         // Nothing to do.
     }
 
@@ -128,7 +129,7 @@ public class GmPartitionContainer extends GmCompositeNode {
             break;
         }
         }
-        
+
     }
 
     @objid ("2b246d3f-55b6-11e2-877f-002564c97630")
@@ -136,14 +137,15 @@ public class GmPartitionContainer extends GmCompositeNode {
     public void write(IDiagramWriter out) {
         super.write(out);
         out.writeProperty("isVertical", this.vertical ? Boolean.TRUE : Boolean.FALSE);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmPartitionContainer.", GmPartitionContainer.MINOR_VERSION);
-        
+
     }
 
     /**
      * Returns a list of the contained GmPartition nodes.
+     *
      * @return a list of the contained GmPartition nodes.
      */
     @objid ("2b24944e-55b6-11e2-877f-002564c97630")
@@ -157,6 +159,7 @@ public class GmPartitionContainer extends GmCompositeNode {
 
     /**
      * Returns whether this container is horizontal.
+     *
      * @return true if this container is horizontal, false otherwise.
      */
     @objid ("2b24e269-55b6-11e2-877f-002564c97630")
@@ -168,6 +171,7 @@ public class GmPartitionContainer extends GmCompositeNode {
 
     /**
      * Sets the orientation of this container.
+     *
      * @param value true if this container must be vertical, false otherwise.
      */
     @objid ("2b250979-55b6-11e2-877f-002564c97630")
@@ -181,7 +185,7 @@ public class GmPartitionContainer extends GmCompositeNode {
             }
             firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, null, this.getLayoutData());
         }
-        
+
     }
 
     @objid ("2b25097d-55b6-11e2-877f-002564c97630")
@@ -193,7 +197,7 @@ public class GmPartitionContainer extends GmCompositeNode {
             ((GmPartition) child).setVertical(!this.vertical);
         }
         super.addChild(child);
-        
+
     }
 
     @objid ("2b25308d-55b6-11e2-877f-002564c97630")
@@ -212,7 +216,7 @@ public class GmPartitionContainer extends GmCompositeNode {
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.vertical = ((Boolean) in.readProperty("isVertical")).booleanValue();
-        
+
     }
 
     @objid ("2b25cccc-55b6-11e2-877f-002564c97630")

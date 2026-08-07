@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>org.modelio</groupId>
 		<artifactId>doc-parent</artifactId>
-		<version>5.4.1-SNAPSHOT</version>
+		<version>6.2.0-SNAPSHOT</version>
 		<relativePath>../parent</relativePath>
 	</parent>
 
@@ -15,6 +15,13 @@
 		<module>../parent</module>
 		<module>../plugins</module>
 		<module>../features</module>
+
+		<!-- Products doc P2 repositories  -->
+		<module>../product.p2</module>
+
+		<!-- Modelio Help for info-center -->
+		<module>../infocenter</module>
+
 	</modules>
 
 </project>

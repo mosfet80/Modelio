@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.structuredactivity;
 
@@ -69,27 +69,28 @@ public class GmStructuredActivityPrimaryNode extends GmNoStyleCompositeNode impl
 
     /**
      * Default constructor.
+     *
      * @param diagram the diagram in which this gm is unmasked.
      * @param relatedRef reference to the represented element.
      */
     @objid ("2b55dd8e-55b6-11e2-877f-002564c97630")
-    public  GmStructuredActivityPrimaryNode(IGmDiagram diagram, MRef relatedRef) {
+    public GmStructuredActivityPrimaryNode(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
-        
+
         this.header = new GmActivityNodeHeader(diagram, relatedRef);
         this.innerZone = new GmBodyFreeZone(diagram, relatedRef);
         this.header.setShowMetaclassIcon(true);
-        
+
         super.addChild(this.header);
         super.addChild(this.innerZone);
-        
+
     }
 
     /**
      * Empty constructor needed for serialisation.
      */
     @objid ("2b55dd97-55b6-11e2-877f-002564c97630")
-    public  GmStructuredActivityPrimaryNode() {
+    public GmStructuredActivityPrimaryNode() {
         // constructor empty for the serialization
     }
 
@@ -101,7 +102,7 @@ public class GmStructuredActivityPrimaryNode extends GmNoStyleCompositeNode impl
             this.innerZone.addChild(child);
         } else
             super.addChild(child);
-        
+
     }
 
     @objid ("2b55dda0-55b6-11e2-877f-002564c97630")
@@ -110,7 +111,7 @@ public class GmStructuredActivityPrimaryNode extends GmNoStyleCompositeNode impl
         return ActivityNode.class.isAssignableFrom(type) &&
                         !Pin.class.isAssignableFrom(type) &&
                         !ActivityParameterNode.class.isAssignableFrom(type);
-        
+
     }
 
     @objid ("2b55dda8-55b6-11e2-877f-002564c97630")
@@ -122,7 +123,7 @@ public class GmStructuredActivityPrimaryNode extends GmNoStyleCompositeNode impl
                         !ActivityParameterNode.class.isAssignableFrom(type) &&
                         getRelatedElement() != null &&
                         getRelatedElement().equals(el.getCompositionOwner());
-        
+
     }
 
     @objid ("2b55ddb0-55b6-11e2-877f-002564c97630")
@@ -144,6 +145,7 @@ public class GmStructuredActivityPrimaryNode extends GmNoStyleCompositeNode impl
     }
 
     /**
+     *
      * @return the structured inner zone.
      */
     @objid ("2b576421-55b6-11e2-877f-002564c97630")
@@ -179,7 +181,7 @@ public class GmStructuredActivityPrimaryNode extends GmNoStyleCompositeNode impl
             break;
         }
         }
-        
+
     }
 
     @objid ("2b576435-55b6-11e2-877f-002564c97630")
@@ -191,7 +193,7 @@ public class GmStructuredActivityPrimaryNode extends GmNoStyleCompositeNode impl
         firePropertyChange(PROPERTY_LABEL, oldLabel, this.header.getMainLabel());
         // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("2b576438-55b6-11e2-877f-002564c97630")
@@ -217,10 +219,10 @@ public class GmStructuredActivityPrimaryNode extends GmNoStyleCompositeNode impl
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmStructuredActivityPrimaryNode.", GmStructuredActivityPrimaryNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("2b576447-55b6-11e2-877f-002564c97630")
@@ -228,10 +230,10 @@ public class GmStructuredActivityPrimaryNode extends GmNoStyleCompositeNode impl
         super.read(in);
         this.header = (GmActivityNodeHeader) this.getChildren().get(0);
         this.innerZone = (GmBodyFreeZone) this.getChildren().get(1);
-        
+
         GmDefaultModelElementLabel imageModeHeader = (GmDefaultModelElementLabel) this.getChildren().get(2);
         imageModeHeader.delete();
-        
+
     }
 
     @objid ("2b57644c-55b6-11e2-877f-002564c97630")
@@ -245,7 +247,7 @@ public class GmStructuredActivityPrimaryNode extends GmNoStyleCompositeNode impl
         super.read(in);
         this.header = (GmActivityNodeHeader) this.getChildren().get(0);
         this.innerZone = (GmBodyFreeZone) this.getChildren().get(1);
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnintermediatethrowevent;
 
@@ -60,11 +60,12 @@ public final class GmBpmnIntermediateThrowEventPrimaryNode extends GmNoStyleSimp
 
     /**
      * Create a initial graphic node.
+     *
      * @param diagram The diagram
      * @param relatedRef The related element reference, may not be null.
      */
     @objid ("610fd53a-55b6-11e2-877f-002564c97630")
-    public  GmBpmnIntermediateThrowEventPrimaryNode(IGmDiagram diagram, MRef relatedRef) {
+    public GmBpmnIntermediateThrowEventPrimaryNode(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -72,7 +73,7 @@ public final class GmBpmnIntermediateThrowEventPrimaryNode extends GmNoStyleSimp
      * Constructor for deserialization only.
      */
     @objid ("61115bd4-55b6-11e2-877f-002564c97630")
-    public  GmBpmnIntermediateThrowEventPrimaryNode() {
+    public GmBpmnIntermediateThrowEventPrimaryNode() {
         // for the serialization
     }
 
@@ -92,19 +93,19 @@ public final class GmBpmnIntermediateThrowEventPrimaryNode extends GmNoStyleSimp
     @Override
     public IEditableText getEditableText() {
         return new IEditableText() {
-                
+
                             @Override
                             public String getText() {
                                 return getRelatedElement().getName();
                             }
-                
+
                             @Override
                             public void setText(String text) {
                                 getRelatedElement().setName(text);
                             }
-                
+
                         };
-        
+
     }
 
     @objid ("d95b152e-90e4-4f07-9f39-6b3f52daa999")
@@ -136,6 +137,7 @@ public final class GmBpmnIntermediateThrowEventPrimaryNode extends GmNoStyleSimp
 
     /**
      * Get the parent model representation mode.
+     *
      * @return the parent representation mode or null if the node has still no parent.
      */
     @objid ("61115bc0-55b6-11e2-877f-002564c97630")
@@ -162,7 +164,7 @@ public final class GmBpmnIntermediateThrowEventPrimaryNode extends GmNoStyleSimp
             break;
         }
         }
-        
+
     }
 
     @objid ("610fd54a-55b6-11e2-877f-002564c97630")
@@ -171,7 +173,7 @@ public final class GmBpmnIntermediateThrowEventPrimaryNode extends GmNoStyleSimp
         if (getRelatedElement() != null) {
             firePropertyChange(IGmObject.PROPERTY_LABEL, null, getRelatedElement().getName());
         }
-        
+
         if (this.imageHolder.updateImageRef(getRelatedElement())) {
             GmCompositeNode gm_parent = getParentNode();
             if (gm_parent != null) {
@@ -181,17 +183,17 @@ public final class GmBpmnIntermediateThrowEventPrimaryNode extends GmNoStyleSimp
         }
         // forcing visual refresh in case Image changed
         firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("61115bdd-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmBpmnIntermediateThrowEventPrimaryNode.", GmBpmnIntermediateThrowEventPrimaryNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("61115be3-55b6-11e2-877f-002564c97630")

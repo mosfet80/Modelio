@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.anchors.fixed;
 
@@ -48,6 +48,7 @@ interface IFixedConnectionAnchorFactory {
 
     /**
      * Create a draw2d anchor from a model anchor
+     *
      * @param nodeFig the node figure the anchor is anchored to
      * @param gmLinkAnchor the anchor model
      * @return the draw2d anchor
@@ -57,6 +58,7 @@ interface IFixedConnectionAnchorFactory {
 
     /**
      * Get an implementation of {@link AccessibleAnchorProvider} for the given node figure.
+     *
      * @param nodeFig a node figure
      * @return an implementation of {@link AccessibleAnchorProvider}
      */
@@ -68,24 +70,25 @@ interface IFixedConnectionAnchorFactory {
             public List getSourceAnchorLocations() {
                 return getTargetAnchorLocations();
             }
-        
+
             @objid ("1bd01c33-3d6d-4108-ae55-84b7242c9220")
             @Override
             public List getTargetAnchorLocations() {
                 Collection<ConnectionAnchor> allAnchors = getAllAnchors(nodeFig, ConnectionRouterId.ORTHOGONAL, null);
                 List<Point> ret = new ArrayList<>(allAnchors.size());
-        
+
                 for (ConnectionAnchor a : allAnchors) {
                     ret.add(a.getReferencePoint());
                 }
                 return ret;
             }
         };
-        
+
     }
 
     /**
      * Return all possible anchors for the node and the connection routing mode.
+     *
      * @param nodeFig a node figure
      * @param routerId the connection routing mode
      * @param face optional face number, to filter anchors
@@ -96,6 +99,7 @@ interface IFixedConnectionAnchorFactory {
 
     /**
      * Return the nearest anchor from the given point.
+     *
      * @param nodeFig a node figure that will own the anchor
      * @param absPoint a point in absolute coordinates.
      * @param routerId the connection routing mode
@@ -107,10 +111,10 @@ interface IFixedConnectionAnchorFactory {
         Collection<ConnectionAnchor> allAnchors = getAllAnchors(nodeFig, routerId, face);
         if (allAnchors.isEmpty())
             return null;
-        
+
         double mind = Double.MAX_VALUE;
         ConnectionAnchor nearest = allAnchors.iterator().next();
-        
+
         for (ConnectionAnchor a : allAnchors) {
             double dist = a.getLocation(absPoint).getDistance(absPoint);
             if (dist < mind) {
@@ -125,9 +129,10 @@ interface IFixedConnectionAnchorFactory {
      * Get the unique identifier of the algorithm that uses this factory to generate anchors.
      * <p>
      * Will be serialized in graphic model in order to regenerate the same anchors.
+     *
      * @return the identifier of the algorithm.
      */
     @objid ("a7961408-54ca-48ea-a51c-89654d6f8c59")
     String getAlgorithmId();
-}
 
+}

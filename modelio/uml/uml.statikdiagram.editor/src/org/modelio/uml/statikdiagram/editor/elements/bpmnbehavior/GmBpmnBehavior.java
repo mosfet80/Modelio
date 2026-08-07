@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.bpmnbehavior;
 
@@ -39,13 +39,14 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Specialization of the {@link GmPortContainer} class for BpmnBehavior.
+ *
  * @since Modelio 3.7, the BpmnBehavior metaclass does not exist anymore. Keep this Gm for compatibility/migration purposes
  */
 @objid ("3419b62a-55b7-11e2-877f-002564c97630")
 public class GmBpmnBehavior extends GmPortContainer {
     @objid ("3419b62e-55b7-11e2-877f-002564c97630")
     private ModelElement element; // Behavior OR Package
-    
+
 
     /**
      * Current version of this Gm.
@@ -73,32 +74,33 @@ public class GmBpmnBehavior extends GmPortContainer {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram in which the callBehavior is unmasked.
      * @param el the unmasked callBehavior.
      * @param ref a reference to the unmasked callBehavior.
      */
     @objid ("3419b63e-55b7-11e2-877f-002564c97630")
-    public  GmBpmnBehavior(final IGmDiagram diagram, final ModelElement el, final MRef ref) {
+    public GmBpmnBehavior(final IGmDiagram diagram, final ModelElement el, final MRef ref) {
         super(diagram, ref);
         this.element = el;
-        
+
         GmBpmnBehaviorPrimaryNode mainNode = new GmBpmnBehaviorPrimaryNode(diagram, ref);
         mainNode.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
-        
+
         GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(diagram, ref);
         imageModeHeader.setRoleInComposition(GmBpmnBehavior.IMAGE_LABEL_ROLE);
         imageModeHeader.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
-        
+
         super.addChild(mainNode);
         super.addChild(imageModeHeader);
-        
+
     }
 
     /**
      * Empty constructor needed for deserialisation.
      */
     @objid ("3419b64d-55b7-11e2-877f-002564c97630")
-    public  GmBpmnBehavior() {
+    public GmBpmnBehavior() {
         // Nothing specific to do.
     }
 
@@ -187,30 +189,30 @@ public class GmBpmnBehavior extends GmPortContainer {
             break;
         }
         }
-        
+
     }
 
     @objid ("341b3ce6-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmBpmnBehavior.", GmBpmnBehavior.MINOR_VERSION);
-        
+
     }
 
     @objid ("341b3cec-55b7-11e2-877f-002564c97630")
     private void read_0(final IDiagramReader in) {
         super.read(in);
         this.element = (ModelElement) resolveRef(getRepresentedRef());
-        
+
         GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(getDiagram(), getRepresentedRef());
         imageModeHeader.setRoleInComposition(GmBpmnBehavior.IMAGE_LABEL_ROLE);
         imageModeHeader.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
-        
+
         super.addChild(imageModeHeader, 1);
-        
+
     }
 
     @objid ("341b3cf2-55b7-11e2-877f-002564c97630")
@@ -223,7 +225,7 @@ public class GmBpmnBehavior extends GmPortContainer {
     private void read_1(final IDiagramReader in) {
         super.read(in);
         this.element = (ModelElement) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("341cc359-55b7-11e2-877f-002564c97630")
@@ -244,7 +246,7 @@ public class GmBpmnBehavior extends GmPortContainer {
             default: {
                 break;
             }
-        
+
             }
         }
         return ret;
@@ -252,6 +254,7 @@ public class GmBpmnBehavior extends GmPortContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */
@@ -261,11 +264,12 @@ public class GmBpmnBehavior extends GmPortContainer {
         String role = childNode.getRoleInComposition();
         return GmPortContainer.SATELLITE_ROLE.equals(role)
                         || GmBpmnBehavior.IMAGE_LABEL_ROLE.equals(role);
-        
+
     }
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */

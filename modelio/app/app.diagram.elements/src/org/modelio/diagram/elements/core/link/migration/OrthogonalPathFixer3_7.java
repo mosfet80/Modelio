@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.migration;
 
@@ -56,10 +56,11 @@ import org.modelio.diagram.elements.core.link.MPoint;
 public final class OrthogonalPathFixer3_7 extends AbstractPathFixer {
     /**
      * C'tor.
+     *
      * @param gmLink the link to migrate.
      */
     @objid ("b2c06a65-00f8-46db-b578-b514a84d2fad")
-    public  OrthogonalPathFixer3_7(GmLink gmLink) {
+    public OrthogonalPathFixer3_7(GmLink gmLink) {
         super(gmLink);
     }
 
@@ -76,11 +77,12 @@ public final class OrthogonalPathFixer3_7 extends AbstractPathFixer {
                 }
             }
         }
-        
+
     }
 
     /**
      * Compares the point list gotten from {@link OrthogonalRouter} and {@link OrthogonalRouter3_6}.
+     *
      * @param connection the connection being routed.
      * @return a list of points when a layout fix is needed, <code>null</code> otherwise.
      */
@@ -94,22 +96,22 @@ public final class OrthogonalPathFixer3_7 extends AbstractPathFixer {
         } else {
             newRouter = (OrthogonalRouter) connection.getConnectionRouter();
         }
-        
+
         PointList newPointList = newRouter.computePointList(connection);
         PointList oldPointList = new OrthogonalRouter3_6().computePointList(connection, newRouter);
-        
+
         if (oldPointList.size() >= 2 && newPointList.size() >= 2) {
             // Keep point list unchanged when anchors are not properly initialized (aka both equals to (0, 0))
             if (newPointList.getFirstPoint().equals(new Point()) && newPointList.getFirstPoint().equals(newPointList.getLastPoint())) {
                 return null;
             }
-        
+
             // Remove first and last points, handled by anchors
             oldPointList.removePoint(oldPointList.size() - 1);
             newPointList.removePoint(newPointList.size() - 1);
             oldPointList.removePoint(0);
             newPointList.removePoint(0);
-        
+
             // Check at least one bendpoint is different
             if (PointListUtilities.isContentDifferent(newPointList, oldPointList)) {
                 // Set old router points as bend points for new router
@@ -143,6 +145,7 @@ public final class OrthogonalPathFixer3_7 extends AbstractPathFixer {
 
         /**
          * Compute a list of points to use when routing the connection.
+         *
          * @param connection an orthogonal connection.
          * @param orthogonalRouter the actual orthogonal router holding the connection's constraint.
          * @return a List of Points
@@ -151,13 +154,13 @@ public final class OrthogonalPathFixer3_7 extends AbstractPathFixer {
         public PointList computePointList(Connection connection, OrthogonalRouter orthogonalRouter) {
             final ConnectionAnchor sourceAnchor = connection.getSourceAnchor();
             final ConnectionAnchor targetAnchor = connection.getTargetAnchor();
-            
+
             final List<Bendpoint> allPoints = computeInitialBendpointsList(connection, sourceAnchor, targetAnchor, orthogonalRouter);
-            
+
             // Source and target locations are now fixed, we are not allowed to move them anymore.
             Point sourceLocation = allPoints.get(0).getLocation();
             Point targetLocation = allPoints.get(allPoints.size() - 1).getLocation();
-            
+
             // Now the tricky part: fix the first and last bend points to form an orthogonal path.
             final Rectangle sourceRelativeBounds = getAnchorOwnerAbsoluteBounds(sourceAnchor).expand(1, 1);
             connection.translateToRelative(sourceRelativeBounds);
@@ -169,14 +172,14 @@ public final class OrthogonalPathFixer3_7 extends AbstractPathFixer {
                 fixNoBendpointsLink(allPoints, sourceLocation, targetLocation, sourceAnchorOrientation, targetAnchorOrientation);
             } else if (allPoints.size() == 3) {
                 fixOneBendpointLink(allPoints, sourceLocation, targetLocation, sourceAnchorOrientation, targetAnchorOrientation);
-            
+
             } else {
                 fixSeveralBendpointsLink(allPoints, sourceLocation, targetLocation, sourceAnchorOrientation, targetAnchorOrientation);
             }
-            
+
             // Some cleanup of useless allPoints.
             cleanup(allPoints);
-            
+
             // Clear the old points list
             final PointList points = new PointList(allPoints.size());
             for (int i = 0; i < allPoints.size(); i++) {
@@ -188,6 +191,7 @@ public final class OrthogonalPathFixer3_7 extends AbstractPathFixer {
 
         /**
          * convenience method to get the constraint as a list of bend points.
+         *
          * @param connection a connection figure
          * @return The list of bend points.
          */
@@ -199,6 +203,7 @@ public final class OrthogonalPathFixer3_7 extends AbstractPathFixer {
 
         /**
          * Get the anchor owner (handle)bounds in absolute coordinates. If the anchor is not attached to a figure, returns a 1x1 sized rectangle located at the anchor reference point.
+         *
          * @param anchor The anchor.
          * @return The anchor owner bounds.
          */
@@ -213,13 +218,14 @@ public final class OrthogonalPathFixer3_7 extends AbstractPathFixer {
                         ? ((HandleBounds) f).getHandleBounds()
                         : f.getBounds());
                 f.translateToAbsolute(bounds);
-            
+
                 return bounds;
             }
-            
+
         }
 
         /**
+         *
          * @param allPoints point list to clean unnecessary bend points from.
          */
         @objid ("d1478634-0ea4-42bf-a0c1-fae5b07bfc60")
@@ -230,7 +236,7 @@ public final class OrthogonalPathFixer3_7 extends AbstractPathFixer {
             for (int i = 1; i < allPoints.size() - 2; ++i) {
                 Point p1 = allPoints.get(i).getLocation();
                 Point p2 = allPoints.get(i + 1).getLocation();
-            
+
                 if (p1.getDistance(p2) < 1) {
                     indexesToRemove.add(i);
                 }
@@ -249,7 +255,7 @@ public final class OrthogonalPathFixer3_7 extends AbstractPathFixer {
             for (int i = indexesToRemove.size() - 1; i >= 0; --i) {
                 allPoints.remove(indexesToRemove.get(i).intValue());
             }
-            
+
         }
 
         @objid ("f4fcefda-1afc-408f-8586-87ab72cf6337")
@@ -294,7 +300,7 @@ public final class OrthogonalPathFixer3_7 extends AbstractPathFixer {
             }
             AbsoluteBendpoint fixedBendpoint = new AbsoluteBendpoint(fixedPoint);
             bendpoints.set(1, fixedBendpoint);
-            
+
             int lastBendpointIndex = bendpoints.size() - 2;
             fixedPoint = bendpoints.get(lastBendpointIndex).getLocation();
             nextPoint = bendpoints.get(lastBendpointIndex - 1).getLocation();
@@ -338,7 +344,7 @@ public final class OrthogonalPathFixer3_7 extends AbstractPathFixer {
             }
             fixedBendpoint = new AbsoluteBendpoint(fixedPoint);
             bendpoints.set(lastBendpointIndex, fixedBendpoint);
-            
+
         }
 
         @objid ("85a0f971-c28c-4935-93ef-da900c04d07e")
@@ -384,7 +390,7 @@ public final class OrthogonalPathFixer3_7 extends AbstractPathFixer {
                     // else: good luck: both anchors are aligned, nothing to do!
                 }
             }
-            
+
         }
 
         @objid ("76193c86-75f1-4707-9b67-2af2e809ad74")
@@ -394,7 +400,7 @@ public final class OrthogonalPathFixer3_7 extends AbstractPathFixer {
                 origBendpoints = Collections.emptyList();
             }
             final List<Bendpoint> allPoints = new ArrayList<>();
-            
+
             // Let's assume the first point is the source anchor reference point (This may be modified later).
             OrthogonalRouter3_6.A_POINT.setLocation(sourceAnchor.getReferencePoint());
             connection.translateToRelative(OrthogonalRouter3_6.A_POINT);
@@ -407,12 +413,12 @@ public final class OrthogonalPathFixer3_7 extends AbstractPathFixer {
             OrthogonalRouter3_6.A_POINT.setLocation(targetAnchor.getReferencePoint());
             connection.translateToRelative(OrthogonalRouter3_6.A_POINT);
             allPoints.add(new AbsoluteBendpoint(OrthogonalRouter3_6.A_POINT));
-            
+
             final Rectangle srcBounds = getAnchorOwnerAbsoluteBounds(sourceAnchor).expand(1, 1);
             connection.translateToRelative(srcBounds);
             final Rectangle targetBounds = getAnchorOwnerAbsoluteBounds(targetAnchor).expand(1, 1);
             connection.translateToRelative(targetBounds);
-            
+
             // Cleanup some useless points if needed at the beginning
             boolean sourceContainsTarget = srcBounds.contains(targetBounds);
             if (!sourceContainsTarget) {
@@ -422,7 +428,7 @@ public final class OrthogonalPathFixer3_7 extends AbstractPathFixer {
                     allPoints.remove(1);
                 }
             }
-            
+
             // Cleanup some useless points if needed at the end
             boolean targetContainsSource = targetBounds.contains(srcBounds);
             if (!targetContainsSource) {
@@ -433,7 +439,7 @@ public final class OrthogonalPathFixer3_7 extends AbstractPathFixer {
                     allPoints.remove(allPoints.size() - 2);
                 }
             }
-            
+
             // Now compute the actual location of the source anchor, based on the next bendpoint (might be the target anchor reference point).
             OrthogonalRouter3_6.A_POINT.setLocation(allPoints.get(1).getLocation());
             connection.translateToAbsolute(OrthogonalRouter3_6.A_POINT);
@@ -441,7 +447,7 @@ public final class OrthogonalPathFixer3_7 extends AbstractPathFixer {
             connection.translateToRelative(OrthogonalRouter3_6.A_POINT);
             // Use that value in the list, instead of the reference point.
             allPoints.set(0, new AbsoluteBendpoint(OrthogonalRouter3_6.A_POINT));
-            
+
             // Now compute the actual location of the target anchor, based on the previous bendpoint (might be the source anchor location point).
             int index = allPoints.size() - 1;
             OrthogonalRouter3_6.A_POINT.setLocation(allPoints.get(index - 1).getLocation());
@@ -487,7 +493,7 @@ public final class OrthogonalPathFixer3_7 extends AbstractPathFixer {
             AbsoluteBendpoint fixedBendpoint = new AbsoluteBendpoint(fixedPoint);
             bendpoints.add(1, fixedBendpoint);
             bendpoints.remove(2);
-            
+
         }
 
     }

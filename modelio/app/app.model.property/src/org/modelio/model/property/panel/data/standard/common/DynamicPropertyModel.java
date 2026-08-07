@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.panel.data.standard.common;
 
@@ -52,12 +52,13 @@ public class DynamicPropertyModel extends AbstractPropertyModel<MObject> {
 
     /**
      * Create a new data model from any MObject.
+     *
      * @param theEditedElement The <i>Element</i> that corresponds to this data model.
      */
     @objid ("5124f58b-9c5d-4fd0-8b25-b6f2e6fc533f")
-    public  DynamicPropertyModel(MObject theEditedElement) {
+    public DynamicPropertyModel(MObject theEditedElement) {
         super(theEditedElement);
-        
+
         this.attributes = new ArrayList<>();
         for (MAttribute mAtt : theEditedElement.getMClass().getAttributes(true)) {
             // Filter "status" attribute only
@@ -65,18 +66,19 @@ public class DynamicPropertyModel extends AbstractPropertyModel<MObject> {
                 this.attributes.add(0, mAtt);
             }
         }
-        
+
         this.dependencies = new ArrayList<>();
         for (MDependency mDep : theEditedElement.getMClass().getDependencies(true)) {
             if (((SmDependency) mDep).isPartOf() && !mDep.isComposition() && !mDep.isSharedComposition()) {
                 this.dependencies.add(0, mDep);
             }
         }
-        
+
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("8b4cda94-318b-40f5-9a72-810af1d2bf11")
@@ -88,7 +90,7 @@ public class DynamicPropertyModel extends AbstractPropertyModel<MObject> {
     @objid ("00d48f2c-6fee-4ec0-b279-7608d10deacd")
     private INatValue getPropertyType(MAttribute mAtt) {
         Class<?> type = mAtt.getType();
-        
+
         // Get the correct PropertyDefinition:
         if (type.isEnum()) {
             return new DefaultJavaEnumNatValue((Enum<?>) this.theEditedElement.mGet(mAtt), (Class<? extends Enum<?>>) type);
@@ -100,13 +102,13 @@ public class DynamicPropertyModel extends AbstractPropertyModel<MObject> {
             // Unknown property type, treat as a text
             return new DefaultStringNatValue((String) this.theEditedElement.mGet(mAtt), true);
         }
-        
+
     }
 
     @objid ("25584cd4-2faa-446b-ab76-9aaf818fca7e")
     private INatValue getPropertyType(MDependency mDep) {
         MClass type = mDep.getTarget();
-        
+
         // Get the correct PropertyDefinition:
         List<MObject> value = this.theEditedElement.mGet(mDep);
         if (mDep.getMaxCardinality() == 1) {
@@ -116,11 +118,12 @@ public class DynamicPropertyModel extends AbstractPropertyModel<MObject> {
             return new DefaultMultiElementNatValue(value, mDep.getMinCardinality() == 0,
                     Collections.singletonList((Class<? extends Element>) type.getJavaInterface()));
         }
-        
+
     }
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("c4aa59d5-87ca-49a1-9eba-87b9d1137804")
@@ -133,6 +136,7 @@ public class DynamicPropertyModel extends AbstractPropertyModel<MObject> {
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -174,7 +178,7 @@ public class DynamicPropertyModel extends AbstractPropertyModel<MObject> {
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -184,6 +188,7 @@ public class DynamicPropertyModel extends AbstractPropertyModel<MObject> {
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -210,13 +215,14 @@ public class DynamicPropertyModel extends AbstractPropertyModel<MObject> {
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -260,7 +266,7 @@ public class DynamicPropertyModel extends AbstractPropertyModel<MObject> {
         default:
             return;
         }
-        
+
     }
 
 }

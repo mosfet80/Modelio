@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class MMStandardBehavior {
      * Tells whether a {@link MMStandardBehavior proxy} can be instantiated from a {@link MObject} checking it is a {@link Behavior}.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -71,9 +72,10 @@ public class MMStandardBehavior {
     }
 
     /**
-     * Tries to instantiate a {@link MMStandardBehavior} proxy from a {@link Behavior} checking its metaclass. 
+     * Tries to instantiate a {@link MMStandardBehavior} proxy from a {@link Behavior} checking its metaclass.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a Behavior
      * @return a {@link MMStandardBehavior} proxy or <i>null</i>.
      */
@@ -99,7 +101,8 @@ public class MMStandardBehavior {
     }
 
     /**
-     * Get the underlying {@link Behavior}. 
+     * Get the underlying {@link Behavior}.
+     *
      * @return the Behavior represented by this proxy, never null.
      */
     @objid ("bff7ce68-456f-415c-9053-21fbd472281c")
@@ -111,7 +114,7 @@ public class MMStandardBehavior {
      * Getter for string property 'userDiagramImage'
      * <p>Property description:
      * <br/><i>Image file path to use in diagrams when unmasked in custom image mode.
-     * 
+     *
      * The file path must be either absolute or relative to the project path.</i></p>
      */
     @objid ("f65355be-d7c8-4378-9213-47fc6de5bdbe")
@@ -123,14 +126,14 @@ public class MMStandardBehavior {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     /**
      * Setter for string property 'userDiagramImage'
      * <p>Property description:
      * <br/><i>Image file path to use in diagrams when unmasked in custom image mode.
-     * 
+     *
      * The file path must be either absolute or relative to the project path.</i></p>
      */
     @objid ("80494453-6e37-4e9f-8723-b67d29075ca2")
@@ -139,7 +142,7 @@ public class MMStandardBehavior {
     }
 
     @objid ("2758435b-e9dd-40bc-b5ba-2613e214f260")
-    protected  MMStandardBehavior(Behavior elt) {
+    protected MMStandardBehavior(Behavior elt) {
         this.elt = elt;
     }
 
@@ -159,7 +162,7 @@ public class MMStandardBehavior {
             USERDIAGRAMIMAGE_TAGTYPE_ELT = ctx.getModelingSession().findElementById(TagType.class, "aec5d702-6a89-471f-a273-22561cc5ed18");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -167,7 +170,7 @@ public class MMStandardBehavior {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

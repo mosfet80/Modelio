@@ -1,28 +1,28 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.contributor;
 
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.swt.graphics.Image;
 import org.modelio.api.modelio.model.scope.ElementScope;
@@ -86,7 +86,6 @@ public class SequenceDiagramCreationContributor extends AbstractDiagramWizardCon
         } else {
             return null;
         }
-        
     }
 
     @objid ("77ff93e3-6ecc-47cd-804a-d640b982c7fc")
@@ -122,7 +121,6 @@ public class SequenceDiagramCreationContributor extends AbstractDiagramWizardCon
         } else {
             return this.mmServices.getMetamodel();
         }
-        
     }
 
     @objid ("5406bf1d-0df5-479d-ab4a-23f9b850ddea")

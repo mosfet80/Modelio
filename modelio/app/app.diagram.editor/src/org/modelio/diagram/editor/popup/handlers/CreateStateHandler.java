@@ -1,26 +1,26 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.popup.handlers;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import org.eclipse.jface.viewers.ISelection;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.KindOfStateMachine;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.Region;
@@ -30,7 +30,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * This specific handler creates a State under another state and checks its enablement for PROTOCOL StateMachine.
- * 
+ *
  * @author fpoyer
  */
 @objid ("668fd2ef-33f7-11e2-95fe-001ec947c8cc")
@@ -42,7 +42,7 @@ public class CreateStateHandler extends AbstractDiagramCreateHandler {
             // Now lets have a look a some specific things:
             MObject selectedElement = getSelectedElement();
             StateMachine stateMachine = null;
-            
+
             if (selectedElement instanceof State) {
                 stateMachine = getEnclosingStateMachine((State) selectedElement);
             }
@@ -57,9 +57,9 @@ public class CreateStateHandler extends AbstractDiagramCreateHandler {
                                  "InternalTransition".equals(this.metaclass) ||
                                  "ShallowHistoryPseudoState".equals(this.metaclass)
                                  || "DeepHistoryPseudoState".equals(this.metaclass)));
-            
+
             }
-            
+
         }
         return false;
     }

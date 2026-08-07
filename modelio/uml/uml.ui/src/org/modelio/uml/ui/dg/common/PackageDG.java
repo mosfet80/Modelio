@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.dg.common;
 
@@ -36,11 +36,12 @@ import org.modelio.uml.statikdiagram.editor.elements.packaze.GmPackagePrimaryNod
 @objid ("1cbec8d8-6a62-4e23-886e-381962d4e2fa")
 public class PackageDG extends PortContainerDG {
     /**
+     *
      * @param diagramHandle The diagram manipulation class.
      * @param node The gm node represented by this class.
      */
     @objid ("26747c65-554a-4992-b424-24336ed95e0b")
-    public  PackageDG(DiagramHandle diagramHandle, GmNodeModel node) {
+    public PackageDG(DiagramHandle diagramHandle, GmNodeModel node) {
         super(diagramHandle, node);
     }
 
@@ -54,7 +55,7 @@ public class PackageDG extends PortContainerDG {
         } else {
             return Collections.emptyList();
         }
-        
+
     }
 
 }

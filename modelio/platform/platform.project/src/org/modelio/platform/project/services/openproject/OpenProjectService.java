@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.project.services.openproject;
 
@@ -103,7 +103,7 @@ import org.modelio.version.ModelioVersion;
 
 /**
  * Implementation of {@link IProjectService#openProject(ProjectDescriptor, IAuthData, IProgressMonitor)}
- * 
+ *
  * @since 5.?
  */
 @objid ("f2af0b85-65e8-4769-896d-c93e6b357b85")
@@ -124,10 +124,11 @@ public class OpenProjectService implements IProjectOpener {
     private IGProjectConfUpdater synchronizer;
 
     /**
+     *
      * @param synchronizer the service to synchronize the project from remote project configuration
      */
     @objid ("8efd9838-4109-4254-8aa6-c70dc012d966")
-    public  OpenProjectService(IGProjectConfUpdater synchronizer) {
+    public OpenProjectService(IGProjectConfUpdater synchronizer) {
         this.synchronizer = synchronizer;
     }
 
@@ -139,7 +140,7 @@ public class OpenProjectService implements IProjectOpener {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * <p>
      * This implementation carries out the following tasks:
      * <ol>
@@ -177,7 +178,7 @@ public class OpenProjectService implements IProjectOpener {
         // Reconfigure this instance
         this.project = null;
         final IGProjectEnv gprojectEnv = getProjectEnv();
-        
+
         // Check illegal parameters
         if (projectToOpen == null) {
             throw new IllegalArgumentException("Cannot open 'null' project.");
@@ -185,10 +186,10 @@ public class OpenProjectService implements IProjectOpener {
         final String taskName = AppProjectCore.I18N.getMessage("ProjectService.open.task", projectToOpen.getName());
         int remainingTicks = 500;
         final SubMonitor monitor = SubMonitor.convert(aMonitor, taskName, remainingTicks);
-        
+
         // PROGRESS PHASE 1 - 50 units
         monitor.setTaskName(AppProjectCore.I18N.getMessage("ProjectService.open.phase1"));
-        
+
         // step 1: Configure execution depending on batch mode - zero progress units
         final IModuleManagementService moduleService = getContext().get(IModuleManagementService.class);
         IAuthenticationPrompter authPrompter = null;
@@ -200,7 +201,7 @@ public class OpenProjectService implements IProjectOpener {
             authsChecker = new ProjectAuthsChecker(authPrompter, moduleService, authData);
             authsChecker.checkMissingAuths(projectToOpen);
         }
-        
+
         // step 2 - instantiate the gproject instance - 50 progress units
         final StatusReporter statusReporter = getContext().get(StatusReporter.class);
         final ProjectMonitor projectMonitor = new ProjectMonitor(this.projectServiceAccess, statusReporter);
@@ -210,107 +211,107 @@ public class OpenProjectService implements IProjectOpener {
                 .withEventMonitor(projectMonitor)
                 .build(new ModelioProgressAdapter(monitor.newChild(50)));
         remainingTicks-=50;
-        
+
         // PROGRESS PHASE 2 - 50 units
         monitor.setTaskName(AppProjectCore.I18N.getMessage("ProjectService.open.phase2"));
-        
+
         GProjectConfPlan plan = null;
         OpenState openState = new OpenState(this.projectServiceAccess.getProjectService(), this.project);
         try (CloseOnFail shield = new CloseOnFail(openState);) {
             this.projectServiceAccess.setOpeningEventSent(false);
-        
+
             // step 3 : Synchronize the project against server - 10 progress units
             plan = synchronizeProjectAgainstServer(authPrompter, monitor.newChild(10));
             remainingTicks-=10;
-        
+
             // step 4 : apply the configuration plan - 40 progress units
             startSynchronizationPlan(monitor, remainingTicks, plan);
-        
+
             // step 5 : Diagnose Modelio version and project version compatibility for migration possibilities - zero progress units
             MigrationDiagnostic migrationDiagnostic = checkVersionCompatibility(this.project);
             final boolean updateModules = migrationDiagnostic.getAction() == MigrationDiagnostic.MigrationAction.AUTO_MIGRATION_POSSIBLE;
-        
+
             if (migrationDiagnostic.getAction() != MigrationDiagnostic.MigrationAction.NO_MIGRATION_NEEDED) {
                 // DIRTY: the call to onModelioVersionMismatch() is expected to throw an exception if the user refuses migration
                 onModelioVersionMismatch(this.project.getDescriptor(), migrationDiagnostic.getProjectRequiredVersion(), taskName, parentShell);
             }
-        
+
             // step 6 : project and state preferences - zero progress units
             final GProjectPreferenceStore prefsStore = new GProjectPreferenceStore(this.project);
             this.projectServiceAccess.setProjectPreferenceStore(prefsStore);
             this.projectServiceAccess.openAppStatePreferenceStore(this.project);
             openState.add( () -> this.projectServiceAccess.closeAppStatePreferenceStore());
-        
+
             // PROGRESS PHASE 3 - 250 units
             monitor.setTaskName(AppProjectCore.I18N.getMessage("ProjectService.open.phase3"));
             // step 7 : Open the project - 250 progress units
             this.project.open(new ModelioProgressAdapter(monitor.newChild(250)));
             openState.add( () -> this.project.close());
-        
+
             // Register the services that depends on project to the context model service
             final MModelServices modelServices = new MModelServices(this.project.getSession());
             getContext().set(IMModelServices.class, modelServices);
-        
+
             // Fire session up event to initialize MDA stuff : API impl and dynamic features
             this.projectServiceAccess.postSyncEvent(ModelioEvent.PROJECT_OPENING_MDA_SESSION_UP, this.project);
-        
+
             this.project.getSession().getModelChangeSupport().addModelChangeListener(event -> {
                 // Force refresh of e4 elements...
                 final IEventBroker eventBroker = getContext().get(IEventBroker.class);
                 eventBroker.post(UIEvents.REQUEST_ENABLEMENT_UPDATE_TOPIC, UIEvents.ALL_ELEMENT_ID);
             });
-        
+
             // Fire PROJECT_OPENING event
             // note: most of ModelioEvent.PROJECT_OPENING listeners need a CoreSession
             // note: the Script engine expects IProjectService.getProject() return null until PROJECT_OPENING is sent.
             this.projectServiceAccess.postSyncEvent(ModelioEvent.PROJECT_OPENING, this.project);
             this.projectServiceAccess.setOpeningEventSent(true);
             openState.add(() -> this.projectServiceAccess.postSyncEvent(ModelioEvent.PROJECT_CLOSING, this.project));
-        
+
             // step 8 : Update modules - zero progress units
             updateModules(statusReporter, moduleService, updateModules, monitor.newChild(50));
-        
+
             // step 9 : Configure project preferences - zero progress units
             installProjectPreferencesDefaults(this.projectServiceAccess);
             installProjectPreferences(prefsStore, this.project.getSession());
-        
+
             // Now that PROJECT_OPENING events have been sent and processed, we can "declare" the project is opened
             // and update ProjectService with the newly opened project.
             this.projectServiceAccess.setOpenedProject(this.project);
-        
+
             // PROGRESS PHASE 4 - 50 units
             // step 11 : Migrate model if needed and allowed - 50 progress units
             // note : Diagram migration need projectServiceAccess.setOpenedProject() to be called before
             monitor.setTaskName(AppProjectCore.I18N.getMessage("ProjectService.open.phase4"));
             migrateFragments(this.project, monitor.newChild(50));
-        
+
             // step 12 : Configure ModelShield for the project - zero progress units
             ModelShieldController.onProjectOpening(this.project);
-        
+
             // PROGRESS PHASE 5 - 50 units
             monitor.setTaskName(AppProjectCore.I18N.getMessage("ProjectService.open.phase5"));
             // step 13 : Start all modules - 50 progress units
             moduleService.startAllModules(this.project, monitor.newChild(50));
-        
+
             // Post processed configuration actions
             if (authsChecker != null)
                 authsChecker.checkAuthErrors(monitor.newChild(1), this.project);
-        
+
             // PROGRESS PHASE 6 - 50 units
             // step 15 - Save project and fire app events - 50 progress units
             monitor.setTaskName(AppProjectCore.I18N.getMessage("ProjectService.open.phase6"));
             this.project.save(new ModelioProgressAdapter(monitor.newChild(50)));
-        
+
             // Fire PROJECT_OPENED
             if (isBatchMode()) {
                 this.projectServiceAccess.postSyncEvent(ModelioEvent.PROJECT_OPENED, this.project);
             } else {
                 this.projectServiceAccess.postAsyncEvent(ModelioEvent.PROJECT_OPENED, this.project);
             }
-        
+
             // Validate project opening
             shield.success();
-        
+
             monitor.done();
         } finally {
             // Sort out issues
@@ -321,40 +322,38 @@ public class OpenProjectService implements IProjectOpener {
                 }
                 plan.stop();
             }
-        
+
             reportProjectProblems();
         }
-        
     }
 
     @objid ("a40f5f63-7577-45dc-ad54-e664950c192a")
     @Override
     public void openProject(URI projectURI, IAuthData authData, IProgressMonitor monitor) throws GProjectAuthenticationException, IOException, InterruptedException {
         IProjectService projectService = this.projectServiceAccess.getProjectService();
-        
+
         final GProjectDescriptor projectToOpen = new GProjectDescriptorReader().read(Paths.get(projectURI), null);
         projectService.openProject(projectToOpen, authData, monitor);
-        
     }
 
     @objid ("e55fa522-2d7d-45e7-ab0b-0d55310b427e")
     protected final Shell getASwtShell() {
         Shell shell = (Shell) getContext().getActive(IServiceConstants.ACTIVE_SHELL);
-        
+
         if (shell == null) {
             final IShellProvider sp = getContext().getActive(IShellProvider.class);
             if (sp != null) {
                 shell = sp.getShell();
             }
         }
-        
+
         if (shell == null) {
             shell = CompletableFuture
                     .supplyAsync(
                             DefaultShellProvider::getBestParentShell,
                             Display.getDefault()::syncExec)
                     .join();
-        
+
         }
         return shell;
     }
@@ -378,14 +377,13 @@ public class OpenProjectService implements IProjectOpener {
                     .filter(f -> f.getState().getDownError() instanceof MigrationFailedException)
                     .map(f -> f.getId() + ": " + f.getState().getDownError().getLocalizedMessage())
                     .collect(Collectors.joining("\n"));
-        
+
             if (!pb.isEmpty()) {
                 throw new IOException(pb);
             }
         } else {
             new FragmentsMigrator(getContext(), gproject, OpenProjectService.askFragmentMigrationConfirmation).migrateFragments(mon);
         }
-        
     }
 
     /**
@@ -399,6 +397,7 @@ public class OpenProjectService implements IProjectOpener {
      * </ul>
      * <p>
      * This method may be redefined by subclasses to add more constraints.
+     *
      * @param projectDescriptor the project descriptor
      * @param neededVersion the project Modelio version
      * @param message a computed message that indicates the migration conditions
@@ -408,7 +407,7 @@ public class OpenProjectService implements IProjectOpener {
     protected void onModelioVersionMismatch(final GProjectDescriptor projectDescriptor, final Version neededVersion, final String message, final Shell parent) throws IOException {
         final String fProjectVersion = neededVersion.toString("V.R");
         final String strModelioVersion = ModelioVersion.VERSION.toString("V.R");
-        
+
         boolean acceptMigration;
         try {
             acceptMigration = CompletableFuture.supplyAsync(
@@ -423,40 +422,40 @@ public class OpenProjectService implements IProjectOpener {
             ioe.addSuppressed(e);
             throw ioe;
         }
-        
+
         if (!acceptMigration) {
             throw new IOException(message);
         }
-        
     }
 
     /**
      * Check 'project' compatibility with the the current Modelio running instance version.
+     *
      * @return A {@link MigrationDiagnostic} that indicates what kind of migration has to be applied.
      */
     @objid ("7178b2b5-3e8b-4e6b-8daa-fa0faa8a0b1b")
     private MigrationDiagnostic checkVersionCompatibility(IGProject gProject) {
         String modelioVersionStr = ModelioVersion.MAJOR_MINOR.toString("V.R");
-        
+
         // Get the project version, use a fallback guess for older versions
         Version projectRequiredVersion = (gProject.getExpectedModelioVersion() != null) ? gProject.getExpectedModelioVersion() : VersionHelper.guessModelioVersion(gProject);
-        
+
         String projectVersionStr = (projectRequiredVersion == null) ? "<none>" : projectRequiredVersion.toString("V.R");
-        
+
         if (projectRequiredVersion == null) {
             String message = AppProjectCore.I18N.getMessage("OpenProjectService.version.none", gProject.getName(), projectVersionStr, modelioVersionStr);
             return new MigrationDiagnostic(MigrationDiagnostic.MigrationAction.NO_POSSIBLE_MIGRATION, projectRequiredVersion, message);
         }
-        
+
         // For version comparisons, get rid of the build id which is not relevant
         projectRequiredVersion = projectRequiredVersion.withoutBuild();
-        
+
         // Project version is more recent than Modelio, in other words Modelio is too old for the project
         if (projectRequiredVersion.isNewerThan(ModelioVersion.MAJOR_MINOR)) {
             String message = AppProjectCore.I18N.getMessage("OpenProjectService.version.future", gProject.getName(), projectVersionStr, modelioVersionStr);
             return new MigrationDiagnostic(MigrationDiagnostic.MigrationAction.BACKWARD_MIGRATION, projectRequiredVersion, message);
         }
-        
+
         // If project is older than Modelio, need to differentiate 1.x, 2.x or 3.x cases
         if (projectRequiredVersion.isOlderThan(ModelioVersion.MAJOR_MINOR)) {
             if (projectRequiredVersion.getMajorVersion() < 2) {
@@ -490,7 +489,7 @@ public class OpenProjectService implements IProjectOpener {
                 }
                 return Collections.emptyList();
             }
-        
+
             @Override
             public Collection<GProblem> removeModule(IModelioProgress progress, IGProject aproject, GModule md) {
                 try {
@@ -500,7 +499,7 @@ public class OpenProjectService implements IProjectOpener {
                 }
                 return Collections.emptyList();
             }
-        
+
             @Override
             public Collection<GProblem> installModule(IModelioProgress progress, IGProject aproject, IModuleHandle handle, GProjectPartDescriptor md) {
                 try {
@@ -511,7 +510,6 @@ public class OpenProjectService implements IProjectOpener {
                 return Collections.emptyList();
             }
         };
-        
     }
 
     // /**
@@ -530,7 +528,6 @@ public class OpenProjectService implements IProjectOpener {
                 .addMetamodelExtensions(env.getActiveMetamodelExtensions())
                 .setModulesCache(moduleCache)
                 .setRamcCache(env.getRamcCachePath());
-        
     }
 
     @objid ("99a1f132-00dd-43e0-9671-9617eecc334a")
@@ -538,21 +535,21 @@ public class OpenProjectService implements IProjectOpener {
         final MTools mTools = MTools.get(this.project.getSession());
         final IStandardModelFactory factory = mTools.getModelFactory(IStandardModelFactory.class);
         final IInfrastructureModelFactory imfactory = mTools.getModelFactory(IInfrastructureModelFactory.class);
-        
+
         ProjectPreferencesHelper prefsHelper = new ProjectPreferencesHelper(prefsStore, session);
-        
+
         // Setup the model factories
         factory.setDefaultValue("DEFAULT_ATTRIBUTE_TYPE", prefsHelper.getAttributeDefaultType());
         factory.setDefaultValue("DEFAULT_ATTRIBUTE_VISIBILITY", prefsHelper.getAttributeDefaultVisibility());
         factory.setDefaultValue("DEFAULT_PARAMETER_TYPE", prefsHelper.getParameterDefaultType());
         factory.setDefaultValue("DEFAULT_RETURN_TYPE", prefsHelper.getReturnDefaultType());
         imfactory.setDefaultValue("DEFAULT_NOTE_MIMETYPE", prefsHelper.getNoteDefaultMimeType());
-        
+
         // Setup a listener that reconfigures the model factories
         // when project preferences change
         prefsStore.addPropertyChangeListener(event -> {
             final String name = event.getProperty();
-        
+
             if (name.endsWith(ProjectPreferencesKeys.ATT_DEFAULT_TYPE_PREFKEY)) {
                 factory.setDefaultValue("DEFAULT_ATTRIBUTE_TYPE", prefsHelper.getAttributeDefaultType());
             } else if (name.endsWith(ProjectPreferencesKeys.ATT_DEFAULT_VIS_PREFKEY)) {
@@ -565,7 +562,6 @@ public class OpenProjectService implements IProjectOpener {
                 imfactory.setDefaultValue("DEFAULT_NOTE_MIMETYPE", prefsHelper.getNoteDefaultMimeType());
             }
         });
-        
     }
 
     @objid ("bd91bb36-5ba8-4fff-8d06-59abf5d6dd8b")
@@ -578,7 +574,7 @@ public class OpenProjectService implements IProjectOpener {
             final DataType stringDataType = (DataType) coreSession.getSmFactory().getObjectReference(datatypeMClass, PredefinedTypes.STRING_UID, PredefinedTypes.STRING_NAME);
             final DataType integerDataType = (DataType) coreSession.getSmFactory().getObjectReference(datatypeMClass, PredefinedTypes.INTEGER_UID, PredefinedTypes.INTEGER_NAME);
             t.commit();
-        
+
             // Define default values if not already defined
             final IPreferenceStore store = svcAccess.getProjectService().getProjectPreferences(ProjectPreferencesKeys.NODE_ID);
             if (store.getDefaultString(ProjectPreferencesKeys.ATT_DEFAULT_TYPE_PREFKEY).isEmpty()) {
@@ -605,7 +601,7 @@ public class OpenProjectService implements IProjectOpener {
                 } else {
                     defaultValue = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
                 }
-        
+
                 store.setDefault(ProjectPreferencesKeys.RICHNOTE_DEFAULT_TYPE_PREFKEY, defaultValue);
                 store.setToDefault(ProjectPreferencesKeys.RICHNOTE_DEFAULT_TYPE_PREFKEY);
             }
@@ -614,7 +610,6 @@ public class OpenProjectService implements IProjectOpener {
                 store.setToDefault(ProjectPreferencesKeys.NOTE_DEFAULT_MIMETYPE_PREFKEY);
             }
         }
-        
     }
 
     @objid ("bbd54128-da93-4cde-bb4b-db3154d4d3ae")
@@ -627,32 +622,30 @@ public class OpenProjectService implements IProjectOpener {
                 AppProjectCore.LOG.debug(p.getCause());
             }
         }
-        
     }
 
     @objid ("33b858a4-2e24-4e70-9966-e868773e2767")
     private void reportProjectProblems() {
         if (this.project.getProblems().isEmpty())
             return;
-        
+
         logProblems(this.project.getProblems());
-        
+
         if (isBatchMode()) {
             for ( GProblem problem : this.project.getProblems() ) {
                 System.out.printf(" - %s : %s", problem.getSubject(), problem.getProblem());
             }
         }
-        
     }
 
     @objid ("352ea77b-16ed-4820-8342-e3387311e838")
     private void reportSynchronizationFail(final IOException e, final IGProject failedProj) {
         final String err = FileUtils.getLocalizedMessage(e);
         final String message = AppProjectCore.I18N.getMessage("ProjectService.ProjectSynchroFailed.message", this.project.getName(), err);
-        
+
         AppProjectCore.LOG.warning(message);
         AppProjectCore.LOG.debug(e);
-        
+
         if (isBatchMode()) {
             System.err.println(message);
         } else {
@@ -661,11 +654,11 @@ public class OpenProjectService implements IProjectOpener {
                 MessageDialog.openWarning(new DefaultShellProvider().getShell(), title, message);
             });
         }
-        
     }
 
     /**
      * Log synchronization problems and report them to the user.
+     *
      * @param shell a parent shell.
      * @param problems the problems encountered during the synchronization process.
      */
@@ -673,19 +666,19 @@ public class OpenProjectService implements IProjectOpener {
     private void reportSynchronizationProblems(Shell shell, List<GProblem> problems) {
         final String title = AppProjectCore.I18N.getMessage("ProjectService.ProjectSynchroProblems.title", this.project.getName());
         final StringBuilder sb = new StringBuilder();
-        
+
         sb.append(AppProjectCore.I18N.getMessage("ProjectService.ProjectSynchroProblems.message", this.project.getName()));
-        
+
         for (final GProblem p : problems) {
             sb.append(" - ").append(p.getSubject()).append(": ");
             sb.append(p.getProblem());
             sb.append("\n");
         }
-        
+
         AppProjectCore.LOG.warning(title);
         AppProjectCore.LOG.warning(sb.toString());
         logProblems(problems);
-        
+
         if (isBatchMode()) {
             System.err.println(title);
             System.err.println(sb.toString());
@@ -694,7 +687,6 @@ public class OpenProjectService implements IProjectOpener {
             final Display d = shell != null ? shell.getDisplay() : Display.getDefault();
             d.syncExec(() -> GProblemReportDialog.open(shell, OpenProjectService.this.project.getName(), problems));
         }
-        
     }
 
     @objid ("a7c98fe1-bad3-4621-ab9b-249fb334bcc3")
@@ -704,10 +696,9 @@ public class OpenProjectService implements IProjectOpener {
             plan.dump(s -> AppProjectCore.LOG.debug(s));
             plan.start(ModelioProgressAdapter.convert(monitor.newChild(planTicks), 100));
         }
-        
+
         remainingTicks-=planTicks;
         monitor.setWorkRemaining(remainingTicks);
-        
     }
 
     @objid ("422bdc4c-6e06-4927-9ce7-573b3a3c9179")
@@ -721,6 +712,10 @@ public class OpenProjectService implements IProjectOpener {
                         authCB,
                         getModuleUpdater(),
                         new ModelioProgressAdapter(progress.newChild(50)));
+
+
+
+
                 return plan;
             }
         } catch (final IOException e) {
@@ -733,18 +728,18 @@ public class OpenProjectService implements IProjectOpener {
     @objid ("46fcb043-0d46-4325-a4a6-835e8b72872e")
     private void updateModules(final StatusReporter statusReporter, final IModuleManagementService moduleService, final boolean migrateModules, final SubMonitor aMonitor) {
         final SubMonitor monitor = SubMonitor.convert(aMonitor, 1);
-        
+
         moduleService.initRTModules(this.project);
         final IModuleStore modulesCatalog = getContext().get(IModuleStore.class);
         final ModulesUpdater modulesUpdater = new ModulesUpdater(moduleService, modulesCatalog, this.project, false);
-        
+
         if (migrateModules) {
             modulesUpdater.run(monitor.newChild(1));
         } else {
             // Ensure mandatory modules are installed
             modulesUpdater.installMandatoryModules(monitor.newChild(1));
         }
-        
+
         // Report update errors
         final MultiStatus ms = new MultiStatus(AppProjectCore.PLUGIN_ID, 0, "Modules updating results:", null);
         modulesUpdater.getResults().stream().filter(s -> !s.isOK()).forEach(s -> ms.add(s));
@@ -752,7 +747,6 @@ public class OpenProjectService implements IProjectOpener {
             Display.getDefault().asyncExec(() -> statusReporter.report(ms, StatusReporter.SHOW));
         }
         monitor.done();
-        
     }
 
     /**
@@ -779,11 +773,10 @@ public class OpenProjectService implements IProjectOpener {
         private final Version projectRequiredVersion;
 
         @objid ("c71f850b-de10-474f-8ffa-62eddb80b2ce")
-        public  MigrationDiagnostic(MigrationAction action, Version projectRequiredVersion, String diagnostic) {
+        public MigrationDiagnostic(MigrationAction action, Version projectRequiredVersion, String diagnostic) {
             this.action = action;
             this.projectRequiredVersion = projectRequiredVersion;
             this.diagnostic = diagnostic;
-            
         }
 
         @objid ("7c684e73-fe8a-4cf4-977d-fae12b46d538")
@@ -822,6 +815,7 @@ public class OpenProjectService implements IProjectOpener {
 
     /**
      * Class that records and runs actions to be undone in case opening fails
+     *
      * @author cmarin
      * @since 5.3.1
      */
@@ -840,23 +834,22 @@ public class OpenProjectService implements IProjectOpener {
         private static final PluginLogger LOG = AppProjectCore.LOG;
 
         @objid ("d6e401c4-9db5-4131-bc83-8d8285a65ff4")
-        public  OpenState(IProjectService projectService, IGProject project) {
+        public OpenState(IProjectService projectService, IGProject project) {
             this.projectService = projectService;
             this.project = project;
-            
         }
 
         @objid ("93b2e1f4-f093-4ce5-8142-627267439601")
         @Override
         public void close() throws IOException {
             LOG.debug("OpenState: Aborting project open...");
-            
+
             if (this.projectService.getOpenedProject() != null) {
                 LOG.debug("OpenState: Project was fully open, use IProjectService ...");
                 this.projectService.closeProject(this.project);
                 return;
             }
-            
+
             while (! this.actions.isEmpty()) {
                 Runnable runnable = this.actions.pop();
                 LOG.debug("OpenState: - Running %s ...", runnable);
@@ -866,16 +859,15 @@ public class OpenProjectService implements IProjectOpener {
                     LOG.warning(e);
                 }
             }
-            
+
             if (this.project.isOpen()) {
                 LOG.debug("OpenState: Project still open, closing it ...");
                 this.project.close();
             } else {
                 LOG.debug("OpenState: Project already closed ...");
             }
-            
+
             LOG.debug("OpenState: Opening completely aborted.");
-            
         }
 
         @objid ("13e534d8-e048-4d33-972e-6d7664d2e933")

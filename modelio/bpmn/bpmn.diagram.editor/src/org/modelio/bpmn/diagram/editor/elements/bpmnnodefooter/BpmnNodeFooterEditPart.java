@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnnodefooter;
 
@@ -35,7 +35,7 @@ import org.modelio.diagram.styles.core.IStyle;
 @objid ("61717d20-55b6-11e2-877f-002564c97630")
 public class BpmnNodeFooterEditPart extends AbstractNodeEditPart {
     @objid ("617303bc-55b6-11e2-877f-002564c97630")
-    public  BpmnNodeFooterEditPart() {
+    public BpmnNodeFooterEditPart() {
         // Nothing to do.
     }
 
@@ -50,21 +50,21 @@ public class BpmnNodeFooterEditPart extends AbstractNodeEditPart {
     protected void createEditPolicies() {
         super.createEditPolicies();
         installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new DefaultElementDirectEditPolicy());
-        
+
     }
 
     @objid ("617303c6-55b6-11e2-877f-002564c97630")
     @Override
     protected IFigure createFigure() {
         GmBpmnNodeFooter gm = (GmBpmnNodeFooter) this.getModel();
-        
+
         // Create the class header figure
         Figure newFigure = new Figure();
         ToolbarLayout manager = new ToolbarLayout(gm.isHorizontal());
         manager.setMinorAlignment(OrderedLayout.ALIGN_CENTER);
         manager.setStretchMinorAxis(false);
         newFigure.setLayoutManager(manager);
-        
+
         BpmnNodeFooterFigure theFigure = new BpmnNodeFooterFigure();
         ToolbarLayout layout = new ToolbarLayout(!gm.isHorizontal());
         layout.setSpacing(5);
@@ -81,43 +81,43 @@ public class BpmnNodeFooterEditPart extends AbstractNodeEditPart {
         super.refreshVisuals();
         GmBpmnNodeFooter gm = (GmBpmnNodeFooter) this.getModel();
         BpmnNodeFooterFigure ffigure = (BpmnNodeFooterFigure) getFigure().getChildren().get(0);
-        
+
         if (gm.isLoop()) {
             ffigure.setLoopVisible(true);
         } else {
             ffigure.setLoopVisible(false);
         }
-        
+
         if (gm.isParallel()) {
             ffigure.setParallelVisible(true);
         } else {
             ffigure.setParallelVisible(false);
         }
-        
+
         if (gm.isSequential()) {
             ffigure.setSequentialVisible(true);
         } else {
             ffigure.setSequentialVisible(false);
         }
-        
+
         if (gm.isAdHoc()) {
             ffigure.setAdHocVisible(true);
         } else {
             ffigure.setAdHocVisible(false);
         }
-        
+
         if (gm.isCompensation()) {
             ffigure.setCompensationVisible(true);
         } else {
             ffigure.setCompensationVisible(false);
         }
-        
+
         if (gm.isEmptySubProcess()) {
             ffigure.setEmptySubProcessVisible(true);
         } else {
             ffigure.setEmptySubProcessVisible(false);
         }
-        
+
     }
 
     @objid ("617303ce-55b6-11e2-877f-002564c97630")
@@ -130,20 +130,20 @@ public class BpmnNodeFooterEditPart extends AbstractNodeEditPart {
         } else {
             ffigure = (BpmnNodeFooterFigure) getFigure().getChildren().get(0);
         }
-        
+
         if (gm.isEmptySubProcess()) {
             ffigure.setEmptySubProcessVisible(true);
         } else {
             ffigure.setEmptySubProcessVisible(false);
         }
-        
+
         if (gm.isNonEmptySubProcess()) {
             ffigure.setNonEmptySubProcessVisible(true);
         } else {
             ffigure.setNonEmptySubProcessVisible(false);
         }
         super.refreshFromStyle(aFigure, style);
-        
+
     }
 
 }

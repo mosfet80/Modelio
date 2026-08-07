@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.uml.statik;
 
@@ -26,21 +26,20 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * KindOfAccess v0.0.9054
- * 
- * 
+ *
+ *
  * null
- * 
- * 
+ *
  */
 @objid ("005a2ada-91e0-1f74-804b-001ec947cd2a")
 public enum KindOfAccess {
-    @objid ("1811f05a-8722-4546-a152-0cdf452a7a72")
+    @objid ("a090d641-e77a-4662-874b-9b95ec19018b")
     READ(0, "Read", "Read"),
-    @objid ("0cfe3f9e-fb2c-49bd-88b0-766bcb30ae32")
+    @objid ("6d59e8a5-6b0d-4096-85ef-58a2e7fe58e9")
     WRITE(1, "Write", "Write"),
-    @objid ("a76ce256-8d7d-4d7c-9504-9ce23a76a804")
+    @objid ("5d3592c4-ac89-420a-82be-016f184052cd")
     READWRITE(2, "ReadWrite", "ReadWrite"),
-    @objid ("ad7526f1-91f4-4ea6-bd1d-40db8d181770")
+    @objid ("23541391-71e2-44f5-a11c-b6ca04024a53")
     ACCESNONE(3, "AccesNone", "AccesNone");
 
 public static final int READ_VALUE = 0;
@@ -103,5 +102,5 @@ public static final int READ_VALUE = 0;
     public String toString() {
        return literal;
     }
-    
+
 }

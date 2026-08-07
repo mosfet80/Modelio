@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.interactionoperand.primarynode;
 
@@ -50,12 +50,12 @@ public class GuardEditPart extends ElementLabelEditPart {
         Figure mainFig = new Figure();
         mainFig.setOpaque(false);
         mainFig.setLayoutManager(new BorderLayout());
-        
+
         IFigure label = super.createFigure();
         label.setOpaque(true);
         label.setBackgroundColor(ColorConstants.white);
         mainFig.add(label, BorderLayout.LEFT, 0);
-        
+
         // transparent figure that fills remaining space
         Figure fillerFig = new Figure();
         fillerFig.setOpaque(false);
@@ -68,19 +68,19 @@ public class GuardEditPart extends ElementLabelEditPart {
     @Override
     public void performRequest(final Request req) {
         if (req.getType() == RequestConstants.REQ_DIRECT_EDIT) {
-        
+
             IEditableText editableText = ((GmModel) getModel()).getEditableText();
             if (editableText == null) {
                 return;
             }
-        
+
             final LabelumFigure label = getLabelFigure(getFigure());
-        
+
             final CellEditorLocator cellEditorLocator = new EditorLocatorForLabelFigure(
                     label,
                     (String s) -> label.setText(s))
                             .setAutoExpand(true);
-        
+
             TextDirectEditManager manager = new TextDirectEditManager(
                     this,
                     cellEditorLocator,
@@ -88,34 +88,32 @@ public class GuardEditPart extends ElementLabelEditPart {
                     editableText.getText())
                             .setMultiline(false)
                             .setWrap(false);
-        
+
             manager.show();
         } else {
             super.performRequest(req);
         }
-        
     }
 
     @objid ("d90cb0bf-55b6-11e2-877f-002564c97630")
     @Override
     protected void refreshFromStyle(final IFigure aFigure, final IStyle style) {
         final GmElementLabel model = (GmElementLabel) getModel();
-        
+
         aFigure.setForegroundColor(style.getColor(model.getStyleKey(MetaKey.TEXTCOLOR)));
         aFigure.setFont(style.getFont(model.getStyleKey(MetaKey.FONT)));
-        
+
         LabelumFigure label = getLabelFigure(aFigure);
-        
+
         StyleKey textColorStyleKey = model.getStyleKey(MetaKey.TEXTCOLOR);
         if (textColorStyleKey != null) {
             label.setForegroundColor(style.getColor(textColorStyleKey));
         }
-        
+
         StyleKey fontStyleKey = model.getStyleKey(MetaKey.FONT);
         if (fontStyleKey != null) {
             label.setFont(style.getFont(fontStyleKey));
         }
-        
     }
 
     @objid ("d90cb0c8-55b6-11e2-877f-002564c97630")
@@ -123,11 +121,10 @@ public class GuardEditPart extends ElementLabelEditPart {
     protected void refreshVisuals() {
         final GmElementLabel model = (GmElementLabel) getModel();
         final IFigure fig = getFigure();
-        
+
         getLabelFigure(fig).setText(model.getLabel());
-        
+
         fig.getParent().setConstraint(fig, model.getLayoutData());
-        
     }
 
     @objid ("60d0aec2-e519-47e9-9feb-fbc9c161801a")
@@ -138,7 +135,6 @@ public class GuardEditPart extends ElementLabelEditPart {
         } else {
             return (LabelumFigure) mainFig.getChildren().get(0);
         }
-        
     }
 
 }

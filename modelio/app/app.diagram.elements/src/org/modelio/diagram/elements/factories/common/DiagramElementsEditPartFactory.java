@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.factories.common;
 
@@ -135,7 +135,7 @@ public class DiagramElementsEditPartFactory implements EditPartFactory {
 
     /**
      * EditPart factory for node models in stereotype image mode.
-     * 
+     *
      * @author cmarin
      */
     @objid ("73e83b4a-a0fe-4be8-a6de-7b95bb45aeb8")
@@ -146,7 +146,7 @@ public class DiagramElementsEditPartFactory implements EditPartFactory {
             // Port containers stay a port container in image mode
             if (model instanceof GmPortContainer) {
                 new IllegalStateException("Ports containers should never be in image mode.").printStackTrace();
-            
+
                 final EditPart editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
@@ -169,7 +169,7 @@ public class DiagramElementsEditPartFactory implements EditPartFactory {
 
     /**
      * EditPart factory for node models in simple mode.
-     * 
+     *
      * @author cmarin
      */
     @objid ("d4edd670-adc2-4624-a6b7-e650bd126142")
@@ -183,9 +183,9 @@ public class DiagramElementsEditPartFactory implements EditPartFactory {
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Fall back
-            
+
             if (model instanceof GmModelElementHeader) {
                 EditPart editPart;
                 if (((GmModelElementHeader) model).isFlat()) {
@@ -196,7 +196,7 @@ public class DiagramElementsEditPartFactory implements EditPartFactory {
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model instanceof GmNodeModel) {
                 if (((GmNodeModel) model).getParent() instanceof GmPortContainer) {
                     final SimpleEditPart editPart = new NonSelectableSimpleEditPart();
@@ -208,7 +208,7 @@ public class DiagramElementsEditPartFactory implements EditPartFactory {
                     return editPart;
                 }
             }
-            
+
             // Not handled
             return null;
         }
@@ -219,7 +219,7 @@ public class DiagramElementsEditPartFactory implements EditPartFactory {
      * EditPart factory for node models in standard structured mode.
      * <p>
      * This is the default mode so the default factory.
-     * 
+     *
      * @author cmarin
      */
     @objid ("de3fb6bd-9371-436f-9007-caa26ba09742")
@@ -228,100 +228,100 @@ public class DiagramElementsEditPartFactory implements EditPartFactory {
         @Override
         public EditPart createEditPart(EditPart context, Object model) {
             EditPart editPart = null;
-            
+
             // "standard" elements
             if (model.getClass() == GmDependency.class) {
                 editPart = new DependencyEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmUsage.class) {
                 editPart = new DependencyEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmElementLabel.class) {
                 editPart = new ElementLabelEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmNameSimpleLabel.class) {
                 editPart = new NameSimpleLabelEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmNameLabel.class) {
                 editPart = new NameLabelEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmBodyFreeZone.class) {
                 editPart = new FreeZoneEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmNote.class) {
                 editPart = new NoteEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmNoteLink.class) {
                 editPart = new LinkEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmExternDocument.class) {
                 editPart = new ExternDocumentEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmExternDocumentLink.class) {
                 editPart = new LinkEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmNamespaceUse.class) {
                 editPart = new NamespaceUseEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmNamespaceUseLabel.class) {
                 editPart = new ElementLabelEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmEmbeddedDiagram.class) {
                 // editPart = new EmbeddedDiagramEditPart();
                 editPart = new EmbeddedDiagramRootEditPart(context, model); // TODO embedded diagrams here
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Related Diagram links
             if (model instanceof GmDiagramHeader) {
                 editPart = new DiagramHeaderEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model instanceof GmDiagramHolderLink) {
                 editPart = new LinkEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Last chance: Generic fall backs
             // -------------------------------
             if (model instanceof GmElementText) {
@@ -329,25 +329,25 @@ public class DiagramElementsEditPartFactory implements EditPartFactory {
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model instanceof GmGroup) {
                 editPart = new GroupEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model instanceof GmFreeZone) {
                 editPart = new FreeZoneEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model instanceof GmModelElementLabel) {
                 editPart = new ModelElementLabelEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model instanceof GmModelElementHeader) {
                 if (((GmModelElementHeader) model).isFlat()) {
                     editPart = new ModelElementLabelEditPart();
@@ -357,19 +357,19 @@ public class DiagramElementsEditPartFactory implements EditPartFactory {
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model instanceof GmDiagramView) {
                 editPart = new DiagramViewEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model instanceof GmDiagramViewBody) {
                 editPart = new DiagramViewBodyEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // End of last chance generic fall backs
             return null;
         }

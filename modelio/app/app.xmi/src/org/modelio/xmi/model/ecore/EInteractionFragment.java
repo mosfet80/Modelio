@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -30,6 +30,7 @@ import org.modelio.xmi.reverse.ReverseProperties;
 
 /**
  * This class handles the import of Ecore org.eclipse.uml2.uml.Interaction Fragment
+ *
  * @author ebrosse
  */
 @objid ("9423034a-3b98-4b20-b9cf-a62e2a6b5ed8")
@@ -44,32 +45,32 @@ public class EInteractionFragment extends ENamedElement {
     }
 
     @objid ("45f99f0b-df85-4837-8378-96dc157638a5")
-    public  EInteractionFragment(org.eclipse.uml2.uml.InteractionFragment element) {
+    public EInteractionFragment(org.eclipse.uml2.uml.InteractionFragment element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("7fa73463-24c0-4535-ae51-e30bf4caac8e")
     @Override
     public void attach(Element objingElt) {
         InteractionFragment interFrag = (InteractionFragment) objingElt;
-        
+
         org.eclipse.uml2.uml.Element ecoreOwner = this.ecoreElement.getOwner();
-        
+
         if (ecoreOwner != null){
-        
+
             Object owner = ReverseProperties.getInstance().getMappedElement(ecoreOwner);
             if (owner instanceof Interaction){
                 ((Interaction) owner).getFragment().add(interFrag);
             }else if (owner instanceof InteractionOperand){
-                ((InteractionOperand) owner).getFragment().add(interFrag);            
+                ((InteractionOperand) owner).getFragment().add(interFrag);
             }else if ((owner instanceof CombinedFragment)
                     && (interFrag instanceof InteractionOperand)){
                 ((CombinedFragment) owner).getOperand().add((InteractionOperand) interFrag);
             }
         }
-        
+
     }
 
     @objid ("541b5212-a3e3-4607-8814-5f78091daafa")
@@ -80,7 +81,7 @@ public class EInteractionFragment extends ENamedElement {
         //        if (ReverseProperties.getInstance().isRoundtripEnabled()){
         //            setLineNumbers(objingElt);
         //        }
-        
+
     }
 
     @objid ("fb81bf2f-6bd2-4c39-89cb-9fc0b383b2c4")
@@ -94,7 +95,7 @@ public class EInteractionFragment extends ENamedElement {
                 }
             }
         }
-        
+
     }
 
 //    @objid ("34cbfcbb-8fe7-4a95-9dcb-0dfeea02cfc5")
@@ -116,5 +117,5 @@ public class EInteractionFragment extends ENamedElement {
     //            ((StateInvariant) objingElt).setEndLineNumber(ObjingEAnnotation.getEndLineNumber(getEcoreElement()) );
     //        }
     //    }
-    
+
 }

@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.linkeditor.gef.background.typeselection;
 
@@ -48,22 +67,23 @@ import org.modelio.platform.ui.dialog.ModelioDialog;
  */
 @objid ("1b9865cd-5e33-11e2-b81d-002564c97630")
 public class LinkTypeSelectionDialog extends ModelioDialog {
+    @objid ("1ea24988-475d-4ebe-8945-f75e75585adb")
+    private Composite composite;
+
+    @objid ("f4a19812-0eed-407b-b2c2-b080e60f5fa7")
+    private Button okButton;
+
     @objid ("1b9865cf-5e33-11e2-b81d-002564c97630")
     TypeSelectionModel model;
 
-    @objid ("a35a9ee8-3679-4649-a69e-e089eccebeb4")
-    private Composite composite;
-
-    @objid ("be001ecf-b935-4fc0-93af-1605dd3b0a94")
-    private Button okButton;
-
     /**
      * C'tor.
+     *
      * @param shell The shell to use to create this dialog.
      * @param model The model to use for this popup.
      */
     @objid ("1b9865d2-5e33-11e2-b81d-002564c97630")
-    public  LinkTypeSelectionDialog(final Shell shell, final TypeSelectionModel model) {
+    public LinkTypeSelectionDialog(final Shell shell, final TypeSelectionModel model) {
         super(shell);
         this.model = model;
         setShellStyle(SWT.CLOSE |
@@ -74,7 +94,6 @@ public class LinkTypeSelectionDialog extends ModelioDialog {
                 SWT.BORDER |
                 SWT.APPLICATION_MODAL |
                 Window.getDefaultOrientation());
-        
     }
 
     @objid ("1b9865d9-5e33-11e2-b81d-002564c97630")
@@ -100,12 +119,12 @@ public class LinkTypeSelectionDialog extends ModelioDialog {
             }
         });
         treeViewer.setInput(this.model);
-        
+
         treeViewer.expandAll();
         treeViewer.setAutoExpandLevel(2);
         GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
         treeViewer.getTree().setLayoutData(gridData);
-        
+
         treeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
             @Override
             public void selectionChanged(SelectionChangedEvent event) {
@@ -123,7 +142,6 @@ public class LinkTypeSelectionDialog extends ModelioDialog {
     public void addButtonsInButtonBar(final Composite parent) {
         this.okButton = createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
         createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
-        
     }
 
     @objid ("1b9865e5-5e33-11e2-b81d-002564c97630")
@@ -133,10 +151,9 @@ public class LinkTypeSelectionDialog extends ModelioDialog {
         getShell().setText(LinkEditor.I18N.getMessage("TypeSelectionPopup.WindowTitle"));
         setTitle(LinkEditor.I18N.getMessage("TypeSelectionPopup.DialogTitle"));
         setMessage(LinkEditor.I18N.getMessage("TypeSelectionPopup.DialogMessage"));
-        
+
         // Set minimum size
         getShell().setMinimumSize(400, 300);
-        
     }
 
     @objid ("1b9865e8-5e33-11e2-b81d-002564c97630")
@@ -152,7 +169,6 @@ public class LinkTypeSelectionDialog extends ModelioDialog {
         } else {
             this.okButton.setEnabled(false);
         }
-        
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.edition.dialogs;
 
@@ -25,9 +25,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.InvalidRegistryObjectException;
@@ -78,7 +78,7 @@ public class EditionDialogService {
     @Inject
     void onEditElement(@UIEventTopic(ModelioEventTopics.EDIT_ELEMENT) final MObject mObject, final IEclipseContext eclipseContext, @Named(IServiceConstants.ACTIVE_SHELL) final Shell shell) {
         final IProjectService ps = eclipseContext.get(IProjectService.class);
-        
+
         // For some metaclasses, we want no properties edition dialog on 'edit'
         // event because we have a dedicated editor
         // alternative.
@@ -87,7 +87,7 @@ public class EditionDialogService {
             dlg.setEditedElement((Element) mObject);
             dlg.open();
         }
-        
+
     }
 
     @objid ("d31c607f-307e-4bec-94a6-43dc02922607")
@@ -95,11 +95,11 @@ public class EditionDialogService {
     @Inject
     void onEditProperties(@UIEventTopic(ModelioEventTopics.EDIT_PROPERTIES) final MObject mObject, final IEclipseContext eclipseContext, @Named(IServiceConstants.ACTIVE_SHELL) final Shell shell) {
         final IProjectService ps = eclipseContext.get(IProjectService.class);
-        
+
         final EditElementDialog dlg = new EditElementDialog(shell, getRelevantPanels(mObject), ps.getSession());
         dlg.setEditedElement((Element) mObject);
         dlg.open();
-        
+
     }
 
     @objid ("d147a8c3-5930-4558-a926-c97f33d70dc6")
@@ -209,13 +209,14 @@ public class EditionDialogService {
 
         /**
          * Get the edition panels for a model object
+         *
          * @param obj the element to edit
          * @return the panels to display
          */
         @objid ("fff4eb4b-86c1-4b56-ad8d-0f042487b8f3")
         public List<PanelDescriptor> getPanels(final MObject obj) {
             final List<PanelDescriptor> results = new ArrayList<>();
-            
+
             // Primary extension panels
             final Object input = new StructuredSelection(obj);
             for (final PanelDescriptor ext : this.extensionStaticPanels) {
@@ -223,7 +224,7 @@ public class EditionDialogService {
                     results.add(ext);
                 }
             }
-            
+
             // Modules panels
             // Build the contributing module panels
             // Things are getting tricky here. Modules can contribute two kinds
@@ -265,14 +266,14 @@ public class EditionDialogService {
                     }
                 }
             }
-            
+
             results.sort(new PanelSorter(obj));
             return results;
         }
 
         @objid ("1fbe8d0b-107f-48e6-b172-72533bf1d135")
-        public  PanelContributions() {
-            
+        public PanelContributions() {
+
         }
 
         @objid ("b4de7b39-9ff1-454e-8976-1950511cfe28")
@@ -288,7 +289,7 @@ public class EditionDialogService {
                     EditionDialogs.LOG.error(e);
                 }
             }
-            
+
         }
 
         @objid ("bbf2c04b-fc52-44d7-98fa-c7b5e431358f")
@@ -298,10 +299,10 @@ public class EditionDialogService {
                         String.class);
                 final IPanelProvider ppp = (IPanelProvider) ctor.newInstance(modulePanel.getModule(), modulePanel.getName(),
                         modulePanel.getLabel(), null);
-            
+
                 ContextInjectionFactory.inject(ppp, this.eclipseContext);
                 return ppp;
-            
+
             } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
                     | InvocationTargetException | NoSuchMethodException | SecurityException e) {
                 EditionDialogs.LOG.error(e);
@@ -315,7 +316,7 @@ public class EditionDialogService {
                 this.extensionStaticPanels.clear();
             }
             this.eclipseContext = null;
-            
+
         }
 
     }
@@ -326,7 +327,7 @@ public class EditionDialogService {
         private final MObject referencedObject;
 
         @objid ("710185c4-c6c9-48b0-9bc3-73449847adf3")
-        public  PanelSorter(final MObject input) {
+        public PanelSorter(final MObject input) {
             this.referencedObject = input;
         }
 
@@ -340,22 +341,22 @@ public class EditionDialogService {
         private int getRelevanceNote(final PanelDescriptor p) {
             // Panel has no origin information => zero point
             if (p.getRelevance() != null) {
-            
+
                 // If relevance is '*' => any element matches => one point
                 if (p.getRelevance().equals("*")) {
                     return 1;
                 }
-            
+
                 // Formalism matching => two points
                 if (this.referencedObject.getMClass().getOrigin().getName().equals(p.getRelevance())) {
                     return 2;
                 }
-            
+
                 // Exact metaclass matching => three points
                 if (this.referencedObject.getMClass().getQualifiedName().equals(p.getRelevance())) {
                     return 3;
                 }
-            
+
                 // Module matching => four points
                 if (this.referencedObject instanceof ModelElement) {
                     for (final Stereotype s : ((ModelElement) this.referencedObject).getExtension()) {

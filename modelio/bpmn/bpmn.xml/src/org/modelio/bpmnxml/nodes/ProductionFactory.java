@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes;
 
@@ -195,15 +195,15 @@ public class ProductionFactory {
             return new AnnotationNode();
         case "TParticipant":
             return new ParticipantNode();
-        
+
         case "BPMNDiagram":
             return new BehaviorDiagramNode();
-        
+
         default:
             BPMNXml.LOG.debug("[Missing Case] " + jaxbElement.getClass().getSimpleName());
             return null;
         }
-        
+
     }
 
     @objid ("5f57657d-d8ce-4d7c-9b3d-7106a40e56b1")
@@ -218,7 +218,7 @@ public class ProductionFactory {
         default:
             return null;
         }
-        
+
     }
 
     @objid ("9afdc315-3cd3-4ce9-80c2-367f80b55d80")
@@ -235,7 +235,7 @@ public class ProductionFactory {
         default:
             return null;
         }
-        
+
     }
 
     @objid ("5dcc2904-7e79-416a-ba9f-627b1d12b3a2")
@@ -357,12 +357,12 @@ public class ProductionFactory {
             return new BehaviorDiagramNode();
         case "BpmnParticipantImpl":
             return new ParticipantNode();
-        
+
         default:
             BPMNXml.LOG.debug("[Missing Case] " + modelioElement.getClass().getSimpleName());
             return null;
         }
-        
+
     }
 
 }

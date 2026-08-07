@@ -1,0 +1,20 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Ateliers et métiers
+
+
+
+== Introduction
+
+Modelio est un outil polyvalent qui supporte plusieurs méta-modèles (UML, ArchiMate, etc...) et plusieurs spécialisations. Modelio offre de nombreuses fonctionnalités et s'adapte ainsi à de nombreux projets dans des contextes métiers variés.
+
+Un mécanisme puissant de configuration de Modelio permet à l'utilisateur de n'avoir, à chaque instant, que les commandes et fonctionnalités liées à son métier et à son contexte. Ce mécanisme est basé sur les concepts de *métiers* et *ateliers*.
+
+*  <<User_Documentation_fr_Ateliers_et_metiers_Concepts.adoc#,Concepts de métier et d'atelier.>>
+*  <<User_Documentation_fr_Ateliers_et_metiers_Metiers_predefinis.adoc#,Métiers prédéfinis dans Modelio.>>
+*  <<User_Documentation_fr_Ateliers_et_metiers_Utilisation.adoc#,Utilisation des ateliers.>>
+*  <<User_Documentation_fr_Ateliers_et_metiers_Configuration.adoc#,Gestion des ateliers.>>
+

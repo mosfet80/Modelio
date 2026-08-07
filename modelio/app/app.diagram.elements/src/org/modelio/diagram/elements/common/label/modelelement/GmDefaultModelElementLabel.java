@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.label.modelelement;
 
@@ -51,11 +51,12 @@ public class GmDefaultModelElementLabel extends GmModelElementLabel {
 
     /**
      * Create an header label
+     *
      * @param diagram the diagram.
      * @param relatedRef reference to the diagram.
      */
     @objid ("fd10b176-7aaa-49b0-b8d0-dc2811851e6d")
-    public  GmDefaultModelElementLabel(IGmDiagram diagram, MRef relatedRef) {
+    public GmDefaultModelElementLabel(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -63,7 +64,7 @@ public class GmDefaultModelElementLabel extends GmModelElementLabel {
      * For deserialization only.
      */
     @objid ("1fd4100c-e727-4934-ac55-b0e89edd462b")
-    public  GmDefaultModelElementLabel() {
+    public GmDefaultModelElementLabel() {
         // serialization
     }
 
@@ -107,7 +108,7 @@ public class GmDefaultModelElementLabel extends GmModelElementLabel {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("5b2939ae-f6ab-43e8-b3c6-e8944e570f86")
@@ -118,7 +119,7 @@ public class GmDefaultModelElementLabel extends GmModelElementLabel {
         } else {
             return getParent().getStyleKeys();
         }
-        
+
     }
 
     /**
@@ -135,7 +136,7 @@ public class GmDefaultModelElementLabel extends GmModelElementLabel {
     public void read(IDiagramReader in) {
         // this may serve as test for migration
         //Object migVersionProperty = in.readProperty("GmDefaultFlatHeader." + MINOR_VERSION_PROPERTY);
-        
+
         // Read version, defaults to 0 if not found
         int readVersion = readMinorVersion(in, "GmDefaultModelElementLabel.");
         switch (readVersion) {
@@ -148,7 +149,7 @@ public class GmDefaultModelElementLabel extends GmModelElementLabel {
             read_0(in);
             break;
         }
-        
+
     }
 
     @objid ("a94efea3-de13-44a4-a3b4-9dcb8f505b5d")
@@ -156,22 +157,22 @@ public class GmDefaultModelElementLabel extends GmModelElementLabel {
     public void setParentLink(GmLink parentLink) throws IllegalStateException {
         if (getParentLink() != parentLink) {
             super.setParentLink(parentLink);
-        
+
             if (parentLink != null) {
                 getPersistedStyle().setCascadedStyle(parentLink.getPersistedStyle());
             }
         }
-        
+
     }
 
     @objid ("3ffd9da3-56a7-4a6d-81e8-5bee20ecde62")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0.
         writeMinorVersion(out, "GmDefaultFlatHeader.", Integer.valueOf(MINOR_VERSION));
-        
+
     }
 
     /**
@@ -194,12 +195,12 @@ public class GmDefaultModelElementLabel extends GmModelElementLabel {
     protected void setParent(GmCompositeNode parent) {
         if (getParent() != parent) {
             super.setParent(parent);
-        
+
             if (parent != null) {
                 getPersistedStyle().setCascadedStyle(parent.getPersistedStyle());
             }
         }
-        
+
     }
 
     @objid ("1a76b3d1-9fc5-4c74-916e-01b421e15ad5")

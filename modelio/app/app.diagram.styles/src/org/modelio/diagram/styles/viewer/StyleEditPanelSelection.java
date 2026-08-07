@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.styles.viewer;
 
@@ -30,7 +30,7 @@ import org.modelio.platform.model.ui.swt.SelectionHelper;
 
 /**
  * Contains the current selection and computations about the selection.
- * 
+ *
  * @author cma
  * @since 3.7
  */
@@ -49,25 +49,25 @@ public class StyleEditPanelSelection {
     private ISelection selection;
 
     @objid ("40d6f8c4-3102-472f-a211-ba311e9a7d03")
-    protected  StyleEditPanelSelection(ColumnViewer viewer, Supplier<IStyle> styleGetter) {
+    protected StyleEditPanelSelection(ColumnViewer viewer, Supplier<IStyle> styleGetter) {
         this.styleGetter = Objects.requireNonNull(styleGetter);
-        
+
         viewer.addSelectionChangedListener(event -> updateSelection(event.getSelection()));
-        
+
     }
 
     @objid ("2066bc1b-583f-4352-a9c6-7d436c5d0c83")
     private void updateSelection(ISelection newSelection) {
         this.selection = newSelection;
-        
+
         this.selectionContainsOnlySymbolViewItems = SelectionHelper.containsOnly(this.selection, ISymbolViewItem.class);
-        
+
         final IStyle editedStyle = this.styleGetter.get();
         boolean isAnyModified = SelectionHelper
                 .toStream(newSelection, ISymbolViewItem.class)
                 .anyMatch(item -> item.getStyleKey() != null && editedStyle.isLocal(item.getStyleKey()));
         this.selectionContainsModifiedProperties = isAnyModified;
-        
+
     }
 
     @objid ("fcf03e14-d77e-429e-b5c8-d89f2ad8d28b")
@@ -76,6 +76,7 @@ public class StyleEditPanelSelection {
     }
 
     /**
+     *
      * @return whether the current selection contains some locally modified properties.
      */
     @objid ("d96e6c82-8478-484c-b18b-7328780541f1")
@@ -84,6 +85,7 @@ public class StyleEditPanelSelection {
     }
 
     /**
+     *
      * @return whether the current selection contains only {@link ISymbolViewItem}.
      */
     @objid ("861c81d1-2e5e-48c5-b2b8-daa85fe6b3d2")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.linkednode;
 
@@ -38,7 +38,7 @@ import org.modelio.diagram.elements.core.requests.RequestProperty;
  * Edit policy that allow moving the node link end.
  * <p>
  * To be put on node link edit parts.
- * 
+ *
  * @author cmarin
  */
 @objid ("7ebb1d95-1dec-11e2-8cad-001ec947c8cc")
@@ -50,7 +50,7 @@ public class LinkedNodeEndReconnectEditPolicy extends AbstractLinkedNodeCreation
     @Override
     protected void eraseTargetConnectionFeedback(DropRequest request) {
         super.eraseTargetConnectionFeedback(request);
-        
+
         // Additional feedback: outline the Node.
         final Request request2 = (Request) request;
         RectangleFigure highlight = (RectangleFigure) request2.getExtendedData().get(HIGHLIGHTKEY);
@@ -61,7 +61,7 @@ public class LinkedNodeEndReconnectEditPolicy extends AbstractLinkedNodeCreation
                 request2.getExtendedData().remove(HIGHLIGHTKEY);
             }
         }
-        
+
     }
 
     @objid ("7ebb1d9f-1dec-11e2-8cad-001ec947c8cc")
@@ -82,13 +82,13 @@ public class LinkedNodeEndReconnectEditPolicy extends AbstractLinkedNodeCreation
         super.showTargetConnectionFeedback(request);
         /*
          * if (((Request) request).getType() != REQ_RECONNECT_TARGET) return;
-         * 
+         *
          * final ReconnectRequest req = (ReconnectRequest) request;
-         * 
+         *
          * // Additional feedback: highlight the node.
-         * 
+         *
          */
-        
+
     }
 
     @objid ("7ebb1db9-1dec-11e2-8cad-001ec947c8cc")
@@ -107,10 +107,10 @@ public class LinkedNodeEndReconnectEditPolicy extends AbstractLinkedNodeCreation
         if (request.getTarget() != request.getConnectionEditPart().getTarget()) {
             return null;
         }
-        
+
         GmLink gmLink = (GmLink) request.getConnectionEditPart().getModel();
         IGmLinkable newTarget = (IGmLinkable) getHost().getModel();
-        
+
         DefaultReconnectTargetCommand cmd = new DefaultReconnectTargetCommand(gmLink, newTarget, RequestProperty.PROP_SKIP_MODELCHANGE.get(request));
         cmd.setAnchorModel(AnchorModelHelper.getTargetAnchorModel(request));
         return cmd;

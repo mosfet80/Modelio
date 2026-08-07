@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.texteditors.mdd.partitions;
 
@@ -37,11 +37,11 @@ public class AnyTextRule implements IPredicateRule {
     IToken rwToken;
 
     @objid ("7b5c5b99-2a77-11e2-9fb9-bc305ba4815c")
-    public  AnyTextRule(IToken roToken, IToken rwToken, MDDPartitionScanner scanner) {
+    public AnyTextRule(IToken roToken, IToken rwToken, MDDPartitionScanner scanner) {
         this.roToken = roToken;
         this.rwToken = rwToken;
         this._scanner = scanner;
-        
+
     }
 
     @objid ("7b5c5b9e-2a77-11e2-9fb9-bc305ba4815c")
@@ -60,13 +60,13 @@ public class AnyTextRule implements IPredicateRule {
     @Override
     public IToken evaluate(ICharacterScanner scanner) {
         int c;
-                
+
         c = scanner.read();
         if (c == ICharacterScanner.EOF) {
             return Token.UNDEFINED;
         } else
             scanner.unread();
-                
+
         if (!this._scanner.editableArea) {
             do {
             c = scanner.read();
@@ -74,11 +74,11 @@ public class AnyTextRule implements IPredicateRule {
                 scanner.unread();
                 return this.roToken;
             }
-                
+
             } while (c != 10);
-                
+
             return this.roToken;
-                
+
         } else {
             int n = 0;
             c = scanner.read();
@@ -106,7 +106,7 @@ public class AnyTextRule implements IPredicateRule {
             return Token.UNDEFINED;
             }
         }
-        
+
     }
 
 }

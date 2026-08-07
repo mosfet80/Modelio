@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.gateways;
 
 import java.util.ArrayList;
@@ -42,20 +41,20 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00003f2a-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnExclusiveGatewayImpl extends BpmnGatewayImpl implements BpmnExclusiveGateway {
-    @objid ("cae900be-4f62-4e95-bb0f-460d6355c6ba")
+    @objid ("2752a1ce-ebf1-4082-9f7a-4dd60328e1db")
     @Override
     public BpmnSequenceFlow getDefaultFlow() {
         Object obj = getDepVal(((BpmnExclusiveGatewaySmClass)getClassOf()).getDefaultFlowDep());
         return (obj instanceof BpmnSequenceFlow)? (BpmnSequenceFlow)obj : null;
     }
 
-    @objid ("12474a2b-8f81-4964-90f9-f29b298934a8")
+    @objid ("01ec6174-854c-4951-81e0-f94c26627491")
     @Override
     public void setDefaultFlow(BpmnSequenceFlow value) {
         appendDepVal(((BpmnExclusiveGatewaySmClass)getClassOf()).getDefaultFlowDep(), (SmObjectImpl)value);
     }
 
-    @objid ("8a8fe0fc-61e4-43bd-94e4-bb0c8b66cf51")
+    @objid ("5ae53e60-a1b6-47ba-a0bf-ff660f73137f")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -63,17 +62,17 @@ public class BpmnExclusiveGatewayImpl extends BpmnGatewayImpl implements BpmnExc
         return super.getCompositionOwner();
     }
 
-    @objid ("016e0101-aedb-4316-9974-a71fe7e26deb")
+    @objid ("c1536390-59ed-4262-ab59-e0fba241b200")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("20f233b7-6450-45ac-899c-5d1dff86b465")
+    @objid ("987df92d-c0f9-4fa2-8975-26e2eef4abee")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitBpmnExclusiveGateway(this);

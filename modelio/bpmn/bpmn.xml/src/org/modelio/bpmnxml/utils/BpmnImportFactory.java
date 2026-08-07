@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.utils;
 
@@ -48,21 +48,23 @@ public final class BpmnImportFactory {
 
     /**
      * Initialize a generic factory.
+     *
      * @param smFactory a core factory.
      * @param repoSupport a repository support.
      */
     @objid ("fa561a35-a73e-48aa-90a1-0b722183fd2b")
-    public  BpmnImportFactory(CoreSession session) {
+    public BpmnImportFactory(CoreSession session) {
         this.repoSupport = session.getRepositorySupport();
         this.smFactory = session.getSmFactory();
         this.metamodel = session.getMetamodel();
         this.session = session;
-        
+
     }
 
     /**
      * Create an instance of 'metaclass' and define 'parent' as its composition owner using the dependency 'depName'.
      * The new object will belong to the same repository as the 'parent' object.
+     *
      * @param metaclass a metamodel class java interface
      * @param parent the new element owner
      * @param depName the metamodel relation from the owner to the created element.
@@ -72,7 +74,7 @@ public final class BpmnImportFactory {
     @SuppressWarnings("unchecked")
     public <T extends MObject> T createWithId(Class<T> metaclass, MObject parent, String depName, String id) {
         assert(id != null && !id.equals(""));
-        
+
         MObject newObj = null;
         try{
           newObj = this.smFactory.createObject(this.metamodel.getMClass(metaclass), this.repoSupport.getRepository(parent),id);
@@ -85,7 +87,7 @@ public final class BpmnImportFactory {
                 newObj = this.smFactory.createObject(this.metamodel.getMClass(metaclass), this.repoSupport.getRepository(parent));
             }
         }
-        
+
                 ((SmObjectImpl) parent).appendDepVal((SmDependency) parent.getMClass().getDependency(depName), (SmObjectImpl) newObj);
         return (T) newObj;
     }
@@ -93,8 +95,8 @@ public final class BpmnImportFactory {
     /**
      * Create an instance of 'metaclass'. The new object will belong to the same repository as the 'referent' object. The 'referent'
      * object is NOT the composition owner of the created object.
-     * @param <T>
-     * the metaclass interface of the object to create.
+     *
+     * @param <T> the metaclass interface of the object to create.
      * @param metaclass the metaclass of the object to create.
      * @param referent the referent object
      * @
@@ -103,8 +105,8 @@ public final class BpmnImportFactory {
     @objid ("b7e6a93c-5ad3-434b-a181-4510dd4fa20e")
     @SuppressWarnings("unchecked")
     public <T extends MObject> T createWithId(Class<T> metaclass, MObject referent, String id) {
-        assert(id != null && !id.equals(""));       
-        
+        assert(id != null && !id.equals(""));
+
         MObject newObj = null;
         try{
             newObj = this.smFactory.createObject(this.metamodel.getMClass(metaclass), this.repoSupport.getRepository(referent),id);
@@ -123,6 +125,7 @@ public final class BpmnImportFactory {
     /**
      * Create an instance of 'metaclass' and define 'parent' as its composition owner using the dependency 'depName'.
      * The new object will belong to the same repository as the 'parent' object.
+     *
      * @param metaclass a metamodel class java interface
      * @param parent the new element owner
      * @param depName the metamodel relation from the owner to the created element.
@@ -139,8 +142,8 @@ public final class BpmnImportFactory {
     /**
      * Create an instance of 'metaclass'. The new object will belong to the same repository as the 'referent' object. The 'referent'
      * object is NOT the composition owner of the created object.
-     * @param <T>
-     * the metaclass interface of the object to create.
+     *
+     * @param <T> the metaclass interface of the object to create.
      * @param metaclass the metaclass of the object to create.
      * @param referent the referent object
      * @

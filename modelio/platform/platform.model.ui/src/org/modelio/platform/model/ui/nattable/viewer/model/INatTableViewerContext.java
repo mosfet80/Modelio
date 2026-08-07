@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.viewer.model;
 
@@ -33,7 +33,7 @@ import org.modelio.vcore.session.api.model.IModel;
  * Access to services required by the property table.
  * <p>
  * These service usually don't change with the table input, that's why there are separate.
- * 
+ *
  * @author cma
  * @since Valkyrie 3.8
  */
@@ -59,6 +59,7 @@ public interface INatTableViewerContext {
 
     /**
      * Get the core session model access.
+     *
      * @return the IModel or null if there is no session.
      */
     @objid ("b1622837-ac57-47bb-bba4-af81710925ad")
@@ -75,5 +76,5 @@ public interface INatTableViewerContext {
 
     @objid ("5dd41070-2e14-4c14-b5b9-8d11211e1439")
     <T> T getService(Class<T> clazz);
-}
 
+}

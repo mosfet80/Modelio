@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.styles.editingsupport.checkbox;
 
@@ -38,7 +38,7 @@ public class CheckboxLabelProvider extends ColumnLabelProvider {
     private final ColumnViewer viewer;
 
     @objid ("858cbf09-1926-11e2-92d2-001ec947c8cc")
-    public  CheckboxLabelProvider(final ColumnViewer viewer) {
+    public CheckboxLabelProvider(final ColumnViewer viewer) {
         this.viewer = viewer;
     }
 
@@ -46,13 +46,13 @@ public class CheckboxLabelProvider extends ColumnLabelProvider {
     @Override
     public Image getImage(final Object element) {
         final ISymbolViewItem item = (ISymbolViewItem) element;
-        
+
         if ((Boolean) item.getValue(getEditedStyle())) {
             return UIImages.CHECKED;
         } else {
             return UIImages.UNCHECKED;
         }
-        
+
     }
 
     @objid ("858cbf11-1926-11e2-92d2-001ec947c8cc")

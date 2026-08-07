@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -43,12 +43,12 @@ public class UmlAuditExtension implements IAuditExtension {
     private UmlAuditPlan umlAuditPlan;
 
     @objid ("43eb0ee4-cf90-4a65-a3b1-24ad23492b22")
-    public  UmlAuditExtension() {
+    public UmlAuditExtension() {
         List<AuditCategory> categories = loadCategories();
-        
+
         this.umlConfigurationPlan = new UmlConfigurationPlan(categories);
         this.umlAuditPlan = new UmlAuditPlan(categories);
-        
+
     }
 
     @objid ("c5905e33-4e32-466e-a3fa-ced9640a9e0f")
@@ -66,7 +66,7 @@ public class UmlAuditExtension implements IAuditExtension {
     @objid ("21f339dd-bbe6-4c8f-b3d5-f9930617d2e6")
     private List<AuditCategory> loadCategories() {
         List<AuditCategory> categories;
-        
+
         Bundle bundle = UmlUi.getContext().getBundle();
         String s = "platform:/plugin/" + bundle.getSymbolicName() + "/res/umlconfiguration.xml";
         URL url = null;
@@ -74,7 +74,7 @@ public class UmlAuditExtension implements IAuditExtension {
             url = new URL(s);
             URL fileURL = FileLocator.toFileURL(url);
             java.nio.file.Path xmlFile = Paths.get(URIUtil.toURI(fileURL));
-        
+
             categories = AuditCategoryBuilder.parseCategories(xmlFile.toFile());
         } catch (Exception e) {
             UmlUi.LOG.debug("File path %s is not found!", s);

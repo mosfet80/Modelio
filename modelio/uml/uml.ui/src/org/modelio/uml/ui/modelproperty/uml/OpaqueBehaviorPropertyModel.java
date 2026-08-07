@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -52,15 +52,17 @@ public class OpaqueBehaviorPropertyModel extends AbstractPropertyModel<OpaqueBeh
     /**
      * Create a new <i>OpaqueBehavior</i> data model from an
      * <i>OpaqueBehavior</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("af09f93c-4aaf-453d-8617-fb6a8bc72013")
-    public  OpaqueBehaviorPropertyModel(OpaqueBehavior theEditedElement) {
+    public OpaqueBehaviorPropertyModel(OpaqueBehavior theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("71a0807a-868c-4ef6-be2c-86a4c5f3b0a2")
@@ -71,6 +73,7 @@ public class OpaqueBehaviorPropertyModel extends AbstractPropertyModel<OpaqueBeh
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("a04d2e2a-4309-4ea2-b1d6-22991693861b")
@@ -83,6 +86,7 @@ public class OpaqueBehaviorPropertyModel extends AbstractPropertyModel<OpaqueBeh
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -108,7 +112,7 @@ public class OpaqueBehaviorPropertyModel extends AbstractPropertyModel<OpaqueBeh
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -118,6 +122,7 @@ public class OpaqueBehaviorPropertyModel extends AbstractPropertyModel<OpaqueBeh
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -144,13 +149,14 @@ public class OpaqueBehaviorPropertyModel extends AbstractPropertyModel<OpaqueBeh
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -181,7 +187,7 @@ public class OpaqueBehaviorPropertyModel extends AbstractPropertyModel<OpaqueBeh
         default:
             return;
         }
-        
+
     }
 
 }

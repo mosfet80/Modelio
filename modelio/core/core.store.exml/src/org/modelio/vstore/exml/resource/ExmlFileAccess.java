@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.exml.resource;
 
@@ -39,7 +39,7 @@ import org.modelio.vstore.exml.common.model.ExmlTags;
 
 /**
  * Helper to map {@link File} paths to {@link MRef} for File based repositories.
- * 
+ *
  * @author cma
  * @since 3.6
  */
@@ -58,20 +58,30 @@ public class ExmlFileAccess {
     private final XMLInputFactory xmlInputFactory;
 
     /**
+     *
      * @param repositoryRoot the repository root path
      * @param geometry the repository geometry.
      */
     @objid ("980fb6d6-8f92-4840-840d-6a71ca4f8ae3")
-    public  ExmlFileAccess(File repositoryRoot, IExmlRepositoryGeometry geometry) {
+    public ExmlFileAccess(File repositoryRoot, IExmlRepositoryGeometry geometry) {
         this.repositoryRoot = Objects.requireNonNull(repositoryRoot);
         this.geometry = Objects.requireNonNull(geometry);
         this.cachedModelPath = new File(this.repositoryRoot, this.geometry.getModelPath());
         this.xmlInputFactory = XMLInputFactory.newInstance();
-        
+    }
+
+    /**
+     *
+     * @return the working copy root directory.
+     */
+    @objid ("4f120b17-398a-44bc-a1fa-ddca5d9bb530")
+    public File getWorkingCopyRoot() {
+        return this.repositoryRoot;
     }
 
     /**
      * Create a copy of this geometry with the given directory as repository root.
+     *
      * @param newRoot the repository root path
      * @return a copy of this geometry.
      */
@@ -82,6 +92,7 @@ public class ExmlFileAccess {
 
     /**
      * Get the file where the given blob should be stored.
+     *
      * @param blobKey a Blob key
      * @return the file where the blob is stored.
      */
@@ -92,6 +103,7 @@ public class ExmlFileAccess {
 
     /**
      * Get the blob key stored in the given file.
+     *
      * @param file a blob file
      * @return the blob key.
      */
@@ -102,6 +114,7 @@ public class ExmlFileAccess {
 
     /**
      * Get the root directory where blobs are stored.
+     *
      * @return the blobs directory.
      */
     @objid ("b94567dd-c6cf-4fcf-8cac-07f13e242455")
@@ -112,6 +125,7 @@ public class ExmlFileAccess {
     /**
      * This method returns the externalized file for the element. Can be null for CMS tools which are not able to
      * produce such a file.
+     *
      * @param element an element.
      * @return the element file.
      */
@@ -122,6 +136,7 @@ public class ExmlFileAccess {
 
     /**
      * This method returns the externalized file for the element.
+     *
      * @param ref the element reference.
      * @return the element file.
      */
@@ -131,6 +146,7 @@ public class ExmlFileAccess {
     }
 
     /**
+     *
      * @return the repository geometry.
      */
     @objid ("1a9625f7-c119-48b4-884d-be4df13b21b1")
@@ -140,6 +156,7 @@ public class ExmlFileAccess {
 
     /**
      * Get the directories that should exist on an empty repository.
+     *
      * @param metamodel the metamodel
      * @return the list of directories.
      */
@@ -149,11 +166,11 @@ public class ExmlFileAccess {
                                 .stream()
                                 .map(p -> new File(this.repositoryRoot,p))
                                 .collect(Collectors.toList());
-        
     }
 
     /**
      * This method returns the externalized file for the local part of an element.
+     *
      * @param ref the element reference.
      * @return the element local part file.
      */
@@ -163,6 +180,7 @@ public class ExmlFileAccess {
     }
 
     /**
+     *
      * @return the metamodel descriptor file path.
      */
     @objid ("a006dce2-a8ea-481e-a76d-6b38466c9aa6")
@@ -172,6 +190,7 @@ public class ExmlFileAccess {
 
     /**
      * Get the 'model' directory containing a sub directory per metaclass.
+     *
      * @return the model directory.
      */
     @objid ("c31bcf87-f23a-44de-acad-a5ff0d09d86b")
@@ -181,6 +200,7 @@ public class ExmlFileAccess {
 
     /**
      * Get the element reference representing the given file.
+     *
      * @param exmlFile an EXML file
      * @return the represented element reference.
      */
@@ -198,28 +218,54 @@ public class ExmlFileAccess {
                 // Not a UUID, read the identifier from file.
             }
         }
-        
+
+
         // Short metaclass name, we need to read the file
         try {
             return readRefFromFile(exmlFile);
         } catch (IOException e) {
-            Log.warning("Failed reading identifier in '%': %s", exmlFile, FileUtils.getLocalizedMessage(e));
+            /* FIXME This is a hack for migration from format version 2 to latest
+                     * Avoids :
+                     *  java.io.FileNotFoundException: C:\Users\*****\modeliosaas\6.0\ws\TestReviewer\data\fragments\TestReviewer\model\**\**\*******--Analyst.RequirementContainer.exml (Le fichier spécifié est introuvable)
+                     *  at java.base/java.io.FileInputStream.open0(Native Method)
+                     *  at java.base/java.io.FileInputStream.open(FileInputStream.java:216)
+                     *  at java.base/java.io.FileInputStream.<init>(FileInputStream.java:157)
+                     *  at org.modelio.vstore.exml.resource.ExmlFileAccess.readRefFromFile(ExmlFileAccess.java:262)
+                     *  at org.modelio.vstore.exml.resource.ExmlFileAccess.getObRef(ExmlFileAccess.java:221)
+                     *  at com.modeliosoft.modelio.gproject.svn.cmsdriver.impl.SvnStatusDriver.getStatus(SvnStatusDriver.java:266)
+                     *  at com.modeliosoft.modelio.gproject.svn.cmsdriver.impl.SvnStatusDriverHolder.getStatus(SvnStatusDriverHolder.java:95)
+                     *  at com.modeliosoft.modelio.cms.driver.WrappedCmsStatusDriver.getStatus(WrappedCmsStatusDriver.java:57)
+                     *  at com.modeliosoft.modelio.gproject.svn.cmsdriver.resilient.ResilientCmsStatusDriver.getStatus(ResilientCmsStatusDriver.java:36)
+                     *  at com.modeliosoft.modelio.gproject.svn.fragment.migration.SvnRepositoryFormatMigrator.moveFile(SvnRepositoryFormatMigrator.java:152)
+                     *  at org.modelio.vstore.exml.resource.migration.RepositoryFormatMigrator$1.run(RepositoryFormatMigrator.java:295)
+                     *  at org.modelio.vstore.exml.resource.migration.RepositoryFormatMigrator.forEachExmlFile(RepositoryFormatMigrator.java:369)
+                     *  at org.modelio.vstore.exml.resource.migration.RepositoryFormatMigrator.moveAllResources(RepositoryFormatMigrator.java:278)
+                     *  at org.modelio.vstore.exml.resource.migration.RepositoryFormatMigrator.execute(RepositoryFormatMigrator.java:150)
+                     */
+            if (this.geometry instanceof ExmlRepositoryGeometry2) try {
+                return ExmlRepositoryGeometries.ofLatest().getObRef(exmlFile.getPath());
+            } catch (RuntimeException e2) {
+                e.addSuppressed(e2);
+            }
+
+            Log.warning("Failed reading identifier in '%s': %s", exmlFile, FileUtils.getLocalizedMessage(e));
             Log.trace(e);
             // Return with error in the metaclass
             return obRef;
         }
-        
     }
 
     /**
+     *
      * @param file a file
      * @return <code>true</code> if the file is a blob file.
      */
     @objid ("a35fb18c-4e2a-42c5-9b3e-bc0f8b7cd519")
     public boolean isBlobFile(File file) {
-        return !file.isDirectory()
-                                && this.geometry.isBlobPath(toRelativePath(file));
-        
+        String relativePath = toRelativePath(file);
+        return relativePath != null &&
+                /*!file.isDirectory() && */ // disabled for perfs
+                this.geometry.isBlobPath(relativePath);
     }
 
     /**
@@ -227,18 +273,21 @@ public class ExmlFileAccess {
      * <p>
      * The answer is based on the file extension.
      * Returns <i>false</i> if it is a {@link IExmlRepositoryGeometry#EXT_LOCAL_EXML ".local.exml"} file.
+     *
      * @param file a file
      * @return <i>true</i> if it is an EXML file, else <i>false</i>.
      */
     @objid ("e47353a9-65aa-4ee7-854f-0e1632c06ca2")
     public boolean isModelFile(File file) {
-        return !file.isDirectory()
-                                && this.geometry.isModelPath(toRelativePath(file));
-        
+        String relativePath = toRelativePath(file);
+        return relativePath != null &&
+                /*!file.isDirectory() && */ // disabled for perfs
+                this.geometry.isModelPath(relativePath);
     }
 
     /**
      * Read the element reference from the file.
+     *
      * @param exmlFile the file path
      * @return the element reference
      * @throws IOException on failure
@@ -246,9 +295,9 @@ public class ExmlFileAccess {
     @objid ("169e7b58-7215-46a9-8fae-817a402e13b3")
     public MRef readRefFromFile(final File exmlFile) throws IOException {
         try (FileInputStream is = new FileInputStream(exmlFile)){
-        
+
             XMLStreamReader reader = this.xmlInputFactory.createXMLStreamReader(exmlFile.toString(), is);
-        
+
             try {
                 while (! (reader.getEventType() == XMLStreamReader.START_ELEMENT
                         && reader.getLocalName().equals(ExmlTags.TAG_ID))) {
@@ -257,7 +306,7 @@ public class ExmlFileAccess {
                 String mc = reader.getAttributeValue(null, ExmlTags.ATT_ID_MC);
                 String name = reader.getAttributeValue(null, ExmlTags.ATT_ID_NAME);
                 String uuid = reader.getAttributeValue(null, ExmlTags.ATT_ID_UID);
-        
+
                 return new MRef(mc, uuid, name);
             } finally {
                 try {reader.close();} catch (XMLStreamException e) {Log.warning(e);}
@@ -265,7 +314,6 @@ public class ExmlFileAccess {
         } catch (XMLStreamException e) {
             throw new IOException(e.getLocalizedMessage(), e);
         }
-        
     }
 
     @objid ("9c72fa65-c1b2-492d-8c4b-001695605695")
@@ -277,7 +325,6 @@ public class ExmlFileAccess {
         } else {
             return null;
         }
-        
     }
 
     @objid ("6a406bf8-4040-491f-be16-32ea708daf7c")

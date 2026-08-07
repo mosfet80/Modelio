@@ -1,0 +1,35 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= The "Cancel add to version" command
+
+
+
+===== Description
+
+The "Cancel add to version" command cancels a previously run "Add to version" command, thereby removing the element it is run on from Teamwork control. [[Conditions-and-restrictions]]
+
+
+===== Conditions and restrictions
+
+The "Cancel add to version" command can be run on the following conditions:
+
+* The element is an <<User_Documentation_en_Introducing_SVN_work_models_Atomic_units.adoc#,Atomic unit>>.
+* The element has previously been added to SVN control by running the "Add to version" command.
+* The "Add to version" command previously run on the element has not yet been committed. [[User-interface]]
+
+
+===== User interface
+
+No associated window. [[Behavior]]
+
+
+===== Behavior
+
+The element is simply placed outside Teamwork control. The next commit operation will not add it to Teamwork control, and its status marker is removed from the explorer.
+
+The element becomes a purely local element.

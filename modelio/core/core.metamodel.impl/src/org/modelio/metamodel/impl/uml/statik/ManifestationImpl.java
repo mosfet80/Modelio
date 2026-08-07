@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -44,33 +43,33 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0010c444-c4bf-1fd8-97fe-001ec947cd2a")
 public class ManifestationImpl extends UmlModelElementImpl implements Manifestation {
-    @objid ("38c2d315-5cb6-47ec-b0ec-175fea566d14")
+    @objid ("4e8186f5-72c1-4ac8-94e8-b0d66dbfd421")
     @Override
     public UmlModelElement getUtilizedElement() {
         Object obj = getDepVal(((ManifestationSmClass)getClassOf()).getUtilizedElementDep());
         return (obj instanceof UmlModelElement)? (UmlModelElement)obj : null;
     }
 
-    @objid ("1d60fe8c-1f7a-4260-85b9-a9046559c04a")
+    @objid ("c0dcc15a-cd63-49ad-8cfa-c4d2f00c0148")
     @Override
     public void setUtilizedElement(UmlModelElement value) {
         appendDepVal(((ManifestationSmClass)getClassOf()).getUtilizedElementDep(), (SmObjectImpl)value);
     }
 
-    @objid ("4bac005c-23cb-498e-b281-155a348ca25b")
+    @objid ("f5442bfe-bc89-4ed3-b998-28987583e225")
     @Override
     public Artifact getOwner() {
         Object obj = getDepVal(((ManifestationSmClass)getClassOf()).getOwnerDep());
         return (obj instanceof Artifact)? (Artifact)obj : null;
     }
 
-    @objid ("c5aff523-a760-4bc4-86a7-a079954d04b7")
+    @objid ("e9ef0372-6bbc-4263-bfec-a276f031e656")
     @Override
     public void setOwner(Artifact value) {
         appendDepVal(((ManifestationSmClass)getClassOf()).getOwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("2928da11-fa54-4bba-977b-099394fb4b7f")
+    @objid ("34ce4cb5-7142-4cf3-a0a2-db87bf603a6a")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -82,22 +81,22 @@ public class ManifestationImpl extends UmlModelElementImpl implements Manifestat
         return super.getCompositionOwner();
     }
 
-    @objid ("fd567db8-17bf-4edf-bcf3-09b563309676")
+    @objid ("af350e53-e5a1-4be4-a51a-31a8e889570e")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // Owner
         dep = ((ManifestationSmClass)getClassOf()).getOwnerDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("c7e1a3a1-5fa7-479c-91cd-97911262a368")
+    @objid ("0508d5e6-9c5c-4c21-ac75-c30fef205541")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitManifestation(this);

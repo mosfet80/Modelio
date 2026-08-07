@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -45,13 +44,13 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("000e545c-c4bf-1fd8-97fe-001ec947cd2a")
 public class InterfaceImpl extends GeneralClassImpl implements Interface {
-    @objid ("1545c859-d370-41ac-8019-a3a9b7c33947")
+    @objid ("dcabf597-e067-4e56-b300-93497517257b")
     @Override
     public EList<RequiredInterface> getRequiring() {
         return new SmList<>(this, ((InterfaceSmClass)getClassOf()).getRequiringDep());
     }
 
-    @objid ("fe61e7c1-a255-42b4-9cfb-ec68ba49b462")
+    @objid ("c88d9d7f-91ee-4867-b3b6-233735cdbcb8")
     @Override
     public <T extends RequiredInterface> List<T> getRequiring(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -64,16 +63,16 @@ public class InterfaceImpl extends GeneralClassImpl implements Interface {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("5a823c6a-2395-4580-8d9e-1696f20eab85")
+    @objid ("c966f915-4c8c-422e-affd-c059d588fba7")
     @Override
     public EList<InterfaceRealization> getImplementedLink() {
         return new SmList<>(this, ((InterfaceSmClass)getClassOf()).getImplementedLinkDep());
     }
 
-    @objid ("4714d5c4-9329-4dee-a448-5c4e91e9987a")
+    @objid ("322e2b2a-df0a-4257-8065-e7cf8993fc7c")
     @Override
     public <T extends InterfaceRealization> List<T> getImplementedLink(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -86,16 +85,16 @@ public class InterfaceImpl extends GeneralClassImpl implements Interface {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("9873aa48-f25c-4729-bfab-a20c0e257e4e")
+    @objid ("b2f50e71-6a1c-475d-bab6-6ba790bd1071")
     @Override
     public EList<ProvidedInterface> getProviding() {
         return new SmList<>(this, ((InterfaceSmClass)getClassOf()).getProvidingDep());
     }
 
-    @objid ("f3205312-a32c-47bb-a808-a717e87849eb")
+    @objid ("5f07824c-04ce-448d-8a26-615f54c2ead8")
     @Override
     public <T extends ProvidedInterface> List<T> getProviding(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -108,10 +107,10 @@ public class InterfaceImpl extends GeneralClassImpl implements Interface {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("8cc06e09-a050-431a-bdb4-282730ce6fa3")
+    @objid ("a79e7537-96c1-484d-a9ed-a6925aa87bc6")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -119,17 +118,17 @@ public class InterfaceImpl extends GeneralClassImpl implements Interface {
         return super.getCompositionOwner();
     }
 
-    @objid ("77d733f0-e28c-42cb-83fc-460bf3a1a29d")
+    @objid ("abe1a326-9872-4001-9331-0bbd4e389788")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("4735f38b-886a-42f7-9621-cbff1f803d3c")
+    @objid ("88062aa2-9762-43b8-9755-6b532a2427c7")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitInterface(this);

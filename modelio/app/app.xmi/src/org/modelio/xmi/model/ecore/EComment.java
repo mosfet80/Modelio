@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -46,9 +46,9 @@ public class EComment extends EElement {
     @objid ("d1632c07-be4d-4d08-bb18-bec150822ccb")
     private Note createNote() {
         IMModelServices mmService = ReverseProperties.getInstance().getMModelServices();
-        
+
         Note result = mmService.getModelFactory().getFactory(IStandardModelFactory.class).createNote();
-        
+
         List<NoteType> noteTypes = mmService.findNoteTypes("ModelerModule", ModelElement.MQNAME, "comment", result.getMClass().getMetamodel().getMClass(ModelElement.class));
         if (!noteTypes.isEmpty()) {
             result.setModel(noteTypes.get(0));
@@ -57,29 +57,29 @@ public class EComment extends EElement {
     }
 
     @objid ("214027c4-7a8f-43d6-be90-8696a1c94004")
-    public  EComment(org.eclipse.uml2.uml.Comment element) {
+    public EComment(org.eclipse.uml2.uml.Comment element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("7fbf2ca9-cd75-43c8-b5ba-2d4bf0ccb103")
     @Override
     public void attach(Element objingElt) {
         ReverseProperties revProp = ReverseProperties.getInstance();
-        
+
         List<org.eclipse.uml2.uml.Element> annotatedElementList = this.ecoreElement.getAnnotatedElements();
         if (annotatedElementList == null || annotatedElementList.size() == 0) {
             annotatedElementList = new ArrayList<>();
             annotatedElementList.add(this.ecoreElement.getOwner());
         }
-        
+
         for (Object annotatedElement : annotatedElementList) {
             org.eclipse.uml2.uml.Element ecoreAnnotatedElt = (org.eclipse.uml2.uml.Element) annotatedElement;
             Object objingAnnotatedElt = revProp.getMappedElement(ecoreAnnotatedElt);
-        
+
             if ((objingAnnotatedElt != null) && (objingAnnotatedElt instanceof Element)) {
-                
+
                 if (ecoreAnnotatedElt instanceof org.eclipse.uml2.uml.AssociationClass) {
                     if ((objingAnnotatedElt instanceof Class) && (ObjingEAnnotation.isOwnedByAssociation(this.ecoreElement))) {
                         createNote(((Class) objingAnnotatedElt).getLinkToAssociation().getAssociationPart());
@@ -91,8 +91,8 @@ public class EComment extends EElement {
                 } else {
                     createNote(objingAnnotatedElt);
                 }
-                
-            } else if (objingAnnotatedElt instanceof List) {              
+
+            } else if (objingAnnotatedElt instanceof List) {
                 List<?> alist = (List<?>) objingAnnotatedElt;
                 for (Object objingAnnotatedElt2 : alist) {
                     if (objingAnnotatedElt2 instanceof ModelElement) {
@@ -101,18 +101,18 @@ public class EComment extends EElement {
                 }
             }
         }
-        
+
     }
 
     @objid ("3916ec60-6288-497d-a890-23390b7ed96e")
     @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
-        
+
         if ((objingElt != null) && (objingElt instanceof Note)) {
             setNote((Note) objingElt);
         }
-        
+
     }
 
     @objid ("ad241920-7c0e-4196-b7e1-ca476b99b15c")
@@ -120,12 +120,12 @@ public class EComment extends EElement {
         if ((objingAnnotatedElt != null)
                 && (objingAnnotatedElt instanceof ModelElement)
                 && ((ModelElement) objingAnnotatedElt).getStatus().isModifiable()) {
-        
+
             Note objingNote = createNote();
             objingNote.setSubject((ModelElement) objingAnnotatedElt);
             ((ModelElement) objingAnnotatedElt).getDescriptor().add(objingNote);
         }
-        
+
     }
 
     @objid ("ec20e832-599f-41d3-aaa8-1275ac89ca0d")
@@ -134,31 +134,31 @@ public class EComment extends EElement {
         if (body != null) {
             objingElt.setContent(body);
         }
-        
+
     }
 
     @objid ("f31a49d3-e814-4a9c-b3da-c19289b22616")
     private void setModel(Note objingElt) {
         String noteTypeName = ObjingEAnnotation.getNoteTypeName(this.ecoreElement);
-        
+
         if (!noteTypeName.equals("")) {
             List<NoteType> objingNoteType = ReverseProperties.getInstance().getMModelServices().findNoteTypes(".*", ".*", noteTypeName, objingElt.getSubject().getMClass());
-        
+
             if ((objingNoteType != null) && (objingNoteType.size() > 0)) {
                 objingElt.setModel(objingNoteType.get(0));
             }
         }
-        
+
     }
 
     @objid ("d585e1b7-bf53-449b-ab8e-e9876f4ed316")
     private void setNote(Note note) {
         setBody(note);
-        
+
         if (ReverseProperties.getInstance().isRoundtripEnabled()) {
             setModel(note);
         }
-        
+
     }
 
 }

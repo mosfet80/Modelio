@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.gateways;
 
@@ -85,7 +85,7 @@ public class ComplexGatewayNode implements IProductionNode<BpmnComplexGateway, T
         } else {
             return factory.create(BpmnComplexGateway.class, context);
         }
-        
+
     }
 
     @objid ("118d3f2f-723e-41f1-bf19-1ef0c7f332af")
@@ -97,7 +97,7 @@ public class ComplexGatewayNode implements IProductionNode<BpmnComplexGateway, T
         } else if (context instanceof BpmnSubProcess) {
             ((BpmnSubProcess) context).getFlowElement().add(modelioElement);
         }
-        
+
         // Group
         if (jaxbElement.getCategoryValueRef() != null) {
             for (QName jaxGroupRef : jaxbElement.getCategoryValueRef()) {
@@ -107,12 +107,12 @@ public class ComplexGatewayNode implements IProductionNode<BpmnComplexGateway, T
                 }
             }
         }
-        
+
         // Set properties
         if (jaxbElement.getName() != null) {
             modelioElement.setName(StringConvertor.imports(jaxbElement.getName()));
         }
-        
+
         TGatewayDirection direction = jaxbElement.getGatewayDirection();
         if (direction != null) {
             if (direction == TGatewayDirection.CONVERGING) {
@@ -125,7 +125,7 @@ public class ComplexGatewayNode implements IProductionNode<BpmnComplexGateway, T
                 modelioElement.setGatewayDirection(BpmnGatewayDirection.UNSPECIFIEDDIRECTION);
             }
         }
-        
+
         if (jaxbElement.getActivationCondition() != null) {
             String condition = "";
             for (Serializable val : jaxbElement.getActivationCondition().getContent()) {
@@ -133,7 +133,7 @@ public class ComplexGatewayNode implements IProductionNode<BpmnComplexGateway, T
             }
             modelioElement.setActivationExpression(condition);
         }
-        
+
         // Default Flow
         if (jaxbElement.getDefault() != null && jaxbElement.getDefault() instanceof TSequenceFlow) {
             BpmnSequenceFlow flow = (BpmnSequenceFlow) this.elementsMap.get(((TSequenceFlow) jaxbElement.getDefault()).getId());
@@ -149,7 +149,7 @@ public class ComplexGatewayNode implements IProductionNode<BpmnComplexGateway, T
     public TComplexGateway createJaxbElement(Object context, BpmnComplexGateway modelioElement) {
         // Create JaxbElement
         TComplexGateway jaxTask = new TComplexGateway();
-        
+
         // Add to context
         ObjectFactory factory = new ObjectFactory();
         if (context instanceof TProcess) {
@@ -159,7 +159,7 @@ public class ComplexGatewayNode implements IProductionNode<BpmnComplexGateway, T
             List<JAXBElement<? extends TFlowElement>> jaxContent = ((TSubProcess) context).getFlowElement();
             jaxContent.add(factory.createComplexGateway(jaxTask));
         }
-        
+
         jaxTask.setId(IDUtils.formatJaxbID(modelioElement));
         return jaxTask;
     }
@@ -168,7 +168,7 @@ public class ComplexGatewayNode implements IProductionNode<BpmnComplexGateway, T
     @Override
     public TComplexGateway updateJaxbElement(Object context, TComplexGateway jaxbElement, BpmnComplexGateway modelioElement) {
         jaxbElement.setName(modelioElement.getName());
-        
+
         BpmnGatewayDirection direction = modelioElement.getGatewayDirection();
         if (direction != null) {
             if (direction == BpmnGatewayDirection.CONVERGINGDIRECTION) {
@@ -181,13 +181,13 @@ public class ComplexGatewayNode implements IProductionNode<BpmnComplexGateway, T
                 jaxbElement.setGatewayDirection(TGatewayDirection.UNSPECIFIED);
             }
         }
-        
+
         if (!"".equals(modelioElement.getActivationExpression())) {
             TExpression expression = new TExpression();
             expression.getContent().add(modelioElement.getActivationExpression());
             jaxbElement.setActivationCondition(expression);
         }
-        
+
         // Default Flow
         if (modelioElement.getDefaultFlow() != null) {
             Object target = this.elementsMap.get(modelioElement.getDefaultFlow().getUuid());

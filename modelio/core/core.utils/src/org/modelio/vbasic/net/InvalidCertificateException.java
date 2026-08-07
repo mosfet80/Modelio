@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vbasic.net;
 
@@ -39,22 +39,23 @@ public class InvalidCertificateException extends CertificateException {
 
     /**
      * initialize the exception.
+     *
      * @param chain the invalid certificate chain
      * @param e the exception cause
      */
     @objid ("0a7a49a1-46f7-4fcb-80eb-652ebd0f1fb5")
-    public  InvalidCertificateException(X509Certificate[] chain, Throwable e) {
+    public InvalidCertificateException(X509Certificate[] chain, Throwable e) {
         super(e);
         this.chain = chain;
-        
+
         this.msg = e.getLocalizedMessage();
-        
+
         if (e.getClass().getName().equals("sun.security.validator.ValidatorException")) {
             // Try to make the error message more user friendly.
             if (e.getCause() != null)
-                this.msg = e.getCause().getLocalizedMessage(); 
+                this.msg = e.getCause().getLocalizedMessage();
         }
-        
+
     }
 
     @objid ("a0eb6c2f-21ba-4fb3-bec1-34726752c77f")
@@ -65,6 +66,7 @@ public class InvalidCertificateException extends CertificateException {
 
     /**
      * Get the certificate chain whose validation failed.
+     *
      * @return in invalid certificate chain.
      */
     @objid ("8f29fa9a-2e64-4f27-8eab-d713ada8c0a8")

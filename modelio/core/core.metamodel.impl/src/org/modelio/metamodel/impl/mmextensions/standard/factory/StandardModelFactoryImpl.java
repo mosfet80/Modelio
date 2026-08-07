@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.mmextensions.standard.factory;
 
@@ -258,11 +258,11 @@ public class StandardModelFactoryImpl extends InfrastructureModelFactoryImpl imp
     private final IElementInitializer elementInitializer;
 
     @objid ("2f86cfde-cddc-42a6-9bdd-72fbbf25a59f")
-    public  StandardModelFactoryImpl(ICoreSession session) {
+    public StandardModelFactoryImpl(ICoreSession session) {
         super(session);
-        
+
         this.elementInitializer = new ElementInitializer(this);
-        
+
     }
 
     @objid ("e45f8be1-f906-43f9-a86e-dfb9d6309208")
@@ -404,13 +404,13 @@ public class StandardModelFactoryImpl extends InfrastructureModelFactoryImpl imp
         sourceRole.setTarget(destination);
         sourceRole.setAggregation(AggregationKind.KINDISAGGREGATION);
         sourceRole.setName(roleName);
-        
+
         AssociationEnd destinationRole = createAssociationEnd();
-        
+
         // Opposite relation must be set for both ends
         destinationRole.setOpposite(sourceRole);
         sourceRole.setOpposite(destinationRole);
-        
+
         // Create the association itself
         Association newAssoc = createAssociation();
         destinationRole.setAssociation(newAssoc);
@@ -471,13 +471,13 @@ public class StandardModelFactoryImpl extends InfrastructureModelFactoryImpl imp
         sourceRole.setTarget(destination);
         sourceRole.setAggregation(AggregationKind.KINDISASSOCIATION);
         sourceRole.setName(roleName);
-        
+
         AssociationEnd destinationRole = createAssociationEnd();
-        
+
         // Opposite relation must be set for both ends
         destinationRole.setOpposite(sourceRole);
         sourceRole.setOpposite(destinationRole);
-        
+
         // Create the association itself
         Association newAssoc = createAssociation();
         destinationRole.setAssociation(newAssoc);
@@ -1412,13 +1412,13 @@ public class StandardModelFactoryImpl extends InfrastructureModelFactoryImpl imp
         sourceRole.setTarget(destination);
         sourceRole.setAggregation(AggregationKind.KINDISCOMPOSITION);
         sourceRole.setName(roleName);
-        
+
         AssociationEnd destinationRole = createAssociationEnd();
-        
+
         // Opposite relation must be set for both ends
         destinationRole.setOpposite(sourceRole);
         sourceRole.setOpposite(destinationRole);
-        
+
         // Create the association itself
         Association newAssoc = createAssociation();
         destinationRole.setAssociation(newAssoc);
@@ -1449,14 +1449,14 @@ public class StandardModelFactoryImpl extends InfrastructureModelFactoryImpl imp
         ConnectorEnd sourceRole = createConnectorEnd();
         sourceRole.setSource(source);
         sourceRole.setTarget(destination);
-        
+
         ConnectorEnd destinationRole = createConnectorEnd();
         destinationRole.setName(destinationRoleName);
-        
+
         // Opposite relation must be set for both ends
         destinationRole.setOpposite(sourceRole);
         sourceRole.setOpposite(destinationRole);
-        
+
         // Create the link itself
         Connector newConnector = createConnector();
         destinationRole.setLink(newConnector);
@@ -1837,7 +1837,7 @@ public class StandardModelFactoryImpl extends InfrastructureModelFactoryImpl imp
     @Override
     public UseCaseDependency createExtendUseCaseDependency(UseCase source, UseCase destination) throws ExtensionNotFoundException {
         Stereotype stereotype = resolveStereotype("ModelerModule", "extend", this.metamodel.getMClass(UseCaseDependency.class));
-        
+
         UseCaseDependency newElement = this.genericFactory.create(UseCaseDependency.class, source);
         newElement.setOrigin(source);
         newElement.setTarget(destination);
@@ -1964,7 +1964,7 @@ public class StandardModelFactoryImpl extends InfrastructureModelFactoryImpl imp
     @Override
     public UseCaseDependency createIncludeUseCaseDependency(UseCase source, UseCase destination) throws ExtensionNotFoundException {
         Stereotype stereotype = resolveStereotype("ModelerModule", "include", this.metamodel.getMClass(UseCaseDependency.class));
-        
+
         UseCaseDependency newElement = this.genericFactory.create(UseCaseDependency.class, source);
         newElement.setOrigin(source);
         newElement.setTarget(destination);
@@ -2205,14 +2205,14 @@ public class StandardModelFactoryImpl extends InfrastructureModelFactoryImpl imp
         LinkEnd sourceRole = createLinkEnd();
         sourceRole.setSource(source);
         sourceRole.setTarget(destination);
-        
+
         LinkEnd destinationRole = createLinkEnd();
         destinationRole.setName(destinationRoleName);
-        
+
         // Opposite relation must be set for both ends
         destinationRole.setOpposite(sourceRole);
         sourceRole.setOpposite(destinationRole);
-        
+
         // Create the link itself
         Link newLink = createLink();
         destinationRole.setLink(newLink);
@@ -2337,13 +2337,13 @@ public class StandardModelFactoryImpl extends InfrastructureModelFactoryImpl imp
     @Override
     public NaryConnector createNaryConnector(List<BindableInstance> ends) {
         NaryConnector newElement = this.genericFactory.create(NaryConnector.class, this.scratchRepository);
-        
+
         for (BindableInstance end : ends) {
             NaryConnectorEnd newEnd = createNaryConnectorEnd();
             newEnd.setSource(end);
             newElement.getNaryLinkEnd().add(newEnd);
         }
-        
+
         this.elementInitializer.initialize(newElement);
         return newElement;
     }
@@ -2368,13 +2368,13 @@ public class StandardModelFactoryImpl extends InfrastructureModelFactoryImpl imp
     @Override
     public NaryLink createNaryLink(List<Instance> ends) {
         final NaryLink newElement = this.genericFactory.create(NaryLink.class, this.scratchRepository);
-        
+
         for (Instance end : ends) {
             NaryLinkEnd newEnd = createNaryLinkEnd();
             newEnd.setSource(end);
             newElement.getNaryLinkEnd().add(newEnd);
         }
-        
+
         this.elementInitializer.initialize(newElement);
         return newElement;
     }
@@ -3009,7 +3009,7 @@ public class StandardModelFactoryImpl extends InfrastructureModelFactoryImpl imp
     public void setDefaultValue(String key, Object value) {
         super.setDefaultValue(key, value);
         this.elementInitializer.setDefaultValue(key, value);
-        
+
     }
 
     @objid ("10aabf63-49bb-40e9-8eb6-d23791e02c5d")

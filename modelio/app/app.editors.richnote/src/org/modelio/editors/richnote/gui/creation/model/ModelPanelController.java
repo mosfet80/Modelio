@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.gui.creation.model;
 
@@ -47,7 +47,7 @@ class ModelPanelController {
             throw new InvalidParameterException("Listener already registered");
         }
         this.listeners.add(l);
-        
+
     }
 
     @objid ("23228778-3b2e-4c38-94e0-95e2d435646c")
@@ -62,7 +62,7 @@ class ModelPanelController {
     public void dispose() {
         this.ui.dispose();
         this.ui = null;
-        
+
     }
 
     @objid ("db671ba3-d1ff-4630-ae9a-b8c52bca1804")
@@ -81,13 +81,13 @@ class ModelPanelController {
         if (Objects.equals(this.data.getAbstract(), value)) {
             return;
         }
-        
+
         this.data.setAbstract(value);
         if (isValidate) {
             this.ui.update(this.data);
         }
         fireListeners(this.data, isValidate);
-        
+
     }
 
     @objid ("7a712fd2-add2-4516-bde4-21c0af9c1943")
@@ -96,10 +96,10 @@ class ModelPanelController {
         if (Objects.equals(this.data.getDocumentType(), value)) {
             return;
         }
-        
+
         this.data.setDocumentType(value);
         fireListeners(this.data, true);
-        
+
     }
 
     @objid ("0bfb16d1-119e-43d0-a610-177f0dc69850")
@@ -108,13 +108,13 @@ class ModelPanelController {
         if (Objects.equals(this.data.getName(), value)) {
             return;
         }
-        
+
         this.data.setName(value);
         if (isValidate) {
             this.ui.update(this.data);
         }
         fireListeners(this.data, isValidate);
-        
+
     }
 
     @objid ("59c1eb85-4d96-43db-ba04-8e0350d1b8e0")
@@ -128,7 +128,7 @@ class ModelPanelController {
         if (this.ui != null) {
             this.ui.update(this.data);
         }
-        
+
     }
 
     @objid ("f5f08bf0-35cf-47f1-bbf9-8b4d37ef57f6")

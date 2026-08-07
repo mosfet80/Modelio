@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.handlers.unmask.ui;
 
@@ -36,19 +36,19 @@ public class LinkedElementData {
     private List<MObject> linkedElement = new ArrayList<>();
 
     @objid ("103d5ca9-e820-43b9-ade6-ddfa72eae0e3")
-    public  LinkedElementData(MObject link, MObject linkedElement) {
+    public LinkedElementData(MObject link, MObject linkedElement) {
         this.link = link;
         this.linkedElement.add(linkedElement);
         this.isSelected = true;
-        
+
     }
 
     @objid ("48337831-c208-4537-80b3-fe18614a53e4")
-    public  LinkedElementData(MObject link, List<MObject> linkedElement) {
+    public LinkedElementData(MObject link, List<MObject> linkedElement) {
         this.link = link;
         this.linkedElement = linkedElement;
         this.isSelected = true;
-        
+
     }
 
     @objid ("44d5bfbf-990b-4858-bc35-e5b89d3d3adb")

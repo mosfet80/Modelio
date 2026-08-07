@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.model.imp.impl.ui;
 
@@ -43,10 +43,10 @@ class ImportModelContentProvider extends BrowserContentProvider {
     private final MetamodelExtensionPoint<ITreeContentProvider> contentProviderExtensions = new MetamodelExtensionPoint<>(BrowserView.CONTENTPROVIDER_EXTENSION_POINT_ID);
 
     @objid ("2481bf13-8cb6-4f7c-8a2d-9c94d0f5a844")
-    public  ImportModelContentProvider() {
+    public ImportModelContentProvider() {
         super();
         setShowModuleFragments(true);
-        
+
     }
 
     @objid ("acdf23f9-a63f-45cf-8403-795345d9f331")
@@ -63,9 +63,9 @@ class ImportModelContentProvider extends BrowserContentProvider {
                 }
             }
         }
-        
+
         super.inputChanged(currentViewer, oldInput, newInput);
-        
+
     }
 
     @objid ("24a2ad74-b9c4-4858-bf38-b3b9cdfa7706")
@@ -73,7 +73,7 @@ class ImportModelContentProvider extends BrowserContentProvider {
     public Object[] getElements(Object parent) {
         if (parent instanceof IGProject) {
             IGProject project = (IGProject) parent;
-        
+
             return getFragments(project).toArray();
         }
         return super.getElements(parent);

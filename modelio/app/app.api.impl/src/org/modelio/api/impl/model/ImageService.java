@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.api.impl.model;
 
@@ -43,10 +43,11 @@ public class ImageService implements IImageService {
 
     /**
      * C'tor
+     *
      * @param metamodel the metamodel used in the open project.
      */
     @objid ("bceb9603-dd15-46a7-8e54-8188344546e4")
-    public  ImageService(MMetamodel metamodel) {
+    public ImageService(MMetamodel metamodel) {
         this.metamodel = metamodel;
     }
 
@@ -69,14 +70,14 @@ public class ImageService implements IImageService {
             if (element instanceof ModelElement) {
                 QualifiedImage qualifiedIcon = MdaResources.getQualifiedIcon((ModelElement)element, filter);
                 return qualifiedIcon != null ? qualifiedIcon.getImage() : null;
-        
+
             } else {
                 return null;
             }
         } else {
             return ElementImageService.getIcon(element);
         }
-        
+
     }
 
     @objid ("9f4bb189-eac8-4b57-8ae0-6394318f7427")
@@ -110,7 +111,7 @@ public class ImageService implements IImageService {
         } else {
             return ElementImageService.getImage(element);
         }
-        
+
     }
 
     @objid ("c29a6704-09f0-4fad-aa80-4376ac708075")
@@ -131,7 +132,7 @@ public class ImageService implements IImageService {
         } else {
             return ElementImageService.getQualifiedIcon(element);
         }
-        
+
     }
 
     @objid ("11b0e67b-f0f8-4de4-9f46-9d7f1162e51d")
@@ -152,7 +153,7 @@ public class ImageService implements IImageService {
         } else {
             return ElementImageService.getQualifiedImage(element);
         }
-        
+
     }
 
     @objid ("c75c8dbe-f834-4fb5-8fed-da97e5c2fdc8")

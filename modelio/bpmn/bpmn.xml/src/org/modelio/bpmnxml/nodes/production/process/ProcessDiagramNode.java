@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.process;
 
@@ -66,12 +66,12 @@ public class ProcessDiagramNode implements IProductionNode<BpmnProcessDesignDiag
     @objid ("d19657c3-4389-4d3d-a046-725afe9e7f83")
     @Override
     public BpmnProcessDesignDiagram createUMLElement(MObject context, BPMNDiagram jaxbElement, BpmnImportFactory factory, boolean keepId) {
-        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {  
+        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {
             return factory.createWithId(BpmnProcessDesignDiagram.class, context,jaxbElement.getId());
         } else {
             return factory.create(BpmnProcessDesignDiagram.class, context);
         }
-        
+
     }
 
     @objid ("2b6c816f-04fb-418a-9594-fa4970e4694b")
@@ -79,7 +79,7 @@ public class ProcessDiagramNode implements IProductionNode<BpmnProcessDesignDiag
     public BpmnProcessDesignDiagram updateUMLElement(MObject context, BpmnProcessDesignDiagram modelioElement, BPMNDiagram jaxbElement) {
         ModelElement parent = findContext(jaxbElement);
         modelioElement.setOrigin(parent);
-        
+
         if (jaxbElement.getName() != null)
             modelioElement.setName(StringConvertor.imports(jaxbElement.getName()));
         return modelioElement;
@@ -90,23 +90,23 @@ public class ProcessDiagramNode implements IProductionNode<BpmnProcessDesignDiag
     public BPMNDiagram createJaxbElement(Object context, BpmnProcessDesignDiagram modelioElement) {
         TDefinitions jaxDefinition = (TDefinitions) context;
         jaxDefinition.setTargetNamespace("http://www.omg.org/bpmn20");
-        
+
         // Create JaxbElement
         BPMNDiagram jaxDiagram = new BPMNDiagram();
-        
+
         // Add to context
         List<BPMNDiagram> jaxContent = jaxDefinition.getBPMNDiagram();
         if (jaxContent == null) {
             jaxContent = new ArrayList<>();
         }
-        
+
         jaxContent.add(jaxDiagram);
         jaxDiagram.setId(IDUtils.formatJaxbID(modelioElement));
-        
+
         // Create BPMNPlane
         BPMNPlane jaxPlan = new BPMNPlane();
         MObject owner = modelioElement.getCompositionOwner();
-          
+
         jaxPlan.setBpmnElement(new QName(IDUtils.formatJaxbID(owner)));
         jaxDiagram.setBPMNPlane(jaxPlan);
         return jaxDiagram;

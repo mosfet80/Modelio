@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.mtools.merge;
 
@@ -52,7 +52,7 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
  * Service to merge one or more objects into another.
  * <p>
  * The source objects are deleted in the process.
- * 
+ *
  * @author cmarin
  * @since 5.3.1
  */
@@ -89,16 +89,18 @@ public class MergeMachine {
     static Map<Class<? extends MObject>, CustomMerger<? extends MObject>> mergersMap = initCustomMergers();
 
     /**
+     *
      * @param target the object merged objects will be merged into. It is the only object that will remain.
      */
     @objid ("222c62d7-237c-4bc6-927f-9bd07537823d")
-    public  MergeMachine(MObject target) {
+    public MergeMachine(MObject target) {
         this.target = Objects.requireNonNull(target, "target");
         this.coreSession = CoreSession.getSession(target);
-        
+
     }
 
     /**
+     *
      * @param deleteNewReflexiveLinks if true, delete links that will become reflexive after having merged the elements.
      * @return this instance
      */
@@ -109,6 +111,7 @@ public class MergeMachine {
     }
 
     /**
+     *
      * @param replaceAttributes if true, target attribute values are replaces by source attributes. Same for ?..1 dependencies.
      * @return this instance
      */
@@ -120,6 +123,7 @@ public class MergeMachine {
 
     /**
      * Add an element to merge into the {@link #target} element passed to the constructor.
+     *
      * @param asource an element to merge into the target
      * @return this instance
      */
@@ -141,22 +145,23 @@ public class MergeMachine {
                 ModelElement el = (ModelElement) source;
                 diagrams.addAll( el.getDiagramElement());
             }
-        
+
             merge(source);
         }
-        
+
         DiagramsMerger diagramsMerger = new DiagramsMerger();
         for (AbstractDiagram diag : diagrams) {
             if (diag.isValid()) {
                 diagramsMerger.fixDiagram(diag, this.sources, this.target);
             }
         }
-        
+
     }
 
     /**
      * The original object is detached to all references, that are attached to the target object.
      * At the end the original object is deleted.
+     *
      * @param source the original object to merge into target.
      */
     @objid ("fd622a96-dc0e-4054-b391-38fcd5e8060f")
@@ -164,21 +169,21 @@ public class MergeMachine {
         Objects.requireNonNull(source, "original");
         if (source.equals(this.target))
             throw new IllegalArgumentException(String.format("Cannot merge %s in itself", source));
-        
+
         if (CoreSession.getSession(source) != this.coreSession)
             throw new IllegalArgumentException(String.format("Cannot merge %s into %s : they belong to different projects.", source, this.target));
-        
-        
+
+
         MClass targetMClass = this.target.getMClass();
         SmClass sourceMClass = (SmClass) source.getMClass();
-        
+
         if (this.replaceAttributes) {
             for (MAttribute att : targetMClass.getAttributes(true)) {
                 if (targetMClass != sourceMClass && targetMClass != ((SmAttribute) att).getOwner() && !targetMClass.hasBase(((SmAttribute) att).getOwner())) {
                     // target class does not know the attribute
                     continue;
                 }
-        
+
                 Object val = source.mGet(att);
                 if (val != null) {
                     if (att.getType() == String.class) {
@@ -189,37 +194,37 @@ public class MergeMachine {
                 }
             }
         }
-        
+
         for (SmDependency sourceDep : sourceMClass.getAllDepDef()) {
-        
+
             if (targetMClass != sourceMClass && targetMClass != sourceDep.getSource() && !targetMClass.hasBase(sourceDep.getSource())) {
                 // target metaclass does not know the dependency
                 continue;
             }
-        
+
             SmDependency sourceDepSym = sourceDep.getSymetric();
             if (isNavigable(sourceDep) || sourceDepSym == null) {
-        
+
                 if (sourceDep.getMaxCardinality() == 1 && ! this.replaceAttributes) {
                     // 0..1 dependency, skip unless "this.replaceAttributes" is active
                     continue;
                 }
-        
+
                 if (sourceDep.isComposition() && mergeCompositionChildrenCustom(source, sourceDep))
                     continue;
-        
+
                 deleteFutureReflexiveLinks(source, sourceDep);
-        
+
                 // Just move the content to the new object
                 List<MObject> origDepContent = source.mGet(sourceDep);
                 List<MObject> targetDepContent = this.target.mGet(sourceDep);
                 for (MObject value : new ArrayList<>(origDepContent)) {
-        
+
                     // Usually the following line is not needed.
                     origDepContent.remove(value);
-        
+
                     targetDepContent.add(value);
-        
+
                     assert (! source.mGet(sourceDep).contains(value));
                     assert (  this.target.mGet(sourceDep).contains(value));
                     assert (sourceDepSym==null || value.mGet(sourceDepSym).contains(this.target)) : String.format("%s.%s does not contain %s", value, sourceDepSym, this.target);
@@ -230,7 +235,7 @@ public class MergeMachine {
                 // do nothing, the source object will be deleted
             } else {
                 deleteFutureReflexiveLinks(source, sourceDep);
-        
+
                 // Move the content to the new object
                 // while ensuring order is preserved on the opposite association
                 List<MObject> origDepContent = source.mGet(sourceDep);
@@ -239,19 +244,19 @@ public class MergeMachine {
                 }
             }
         }
-        
+
         // invariant: The original object should be empty
         assert (source.getCompositionChildren().isEmpty()) : source + " still owns:"+source.getCompositionChildren();
-        
+
         String msg = String.format("  Merged %s into %s.",source, this.target);
-        
+
         // Delete the original object
         source.delete();
-        
+
         // Log the action
         //getReport().getLogger().println(msg);
         Log.trace(msg);
-        
+
     }
 
     @objid ("2bb22d3f-978e-432e-869f-d1bf64c2a8e6")
@@ -260,7 +265,7 @@ public class MergeMachine {
         CustomMerger<? extends MObject> comparator = mergersMap.get(i);
         if (comparator == null )
             return false;
-        
+
         List<MObject> sourceDepContent = source.mGet(sourceDep);
         List<MObject> targetDepContent = this.target.mGet(sourceDep);
         for (MObject sourceValue : new ArrayList<>(sourceDepContent)) {
@@ -269,10 +274,10 @@ public class MergeMachine {
             if (targetDepContent.stream().noneMatch(targetVal -> comparator.run(targetVal, sourceValue)
                     && recurseMerge(targetVal, sourceValue))) {
                 // No matching object in target, move it from source to target.
-        
+
                 // Usually the following line is not needed.
                 sourceDepContent.remove(sourceValue);
-        
+
                 targetDepContent.add(sourceValue);
             }
         }
@@ -281,6 +286,7 @@ public class MergeMachine {
 
     /**
      * Merge source into target with a new MergeMachine with the same configuration as this machine.
+     *
      * @param targetVal the target to merge into
      * @param sourceValue the source element that will be deleted
      * @return always true, allows to be chained in binary expression.
@@ -317,7 +323,7 @@ public class MergeMachine {
             if (target.getDefinition().getParamNumber().equals("1")) {
                 new ArrayList<>(source.getActual()).forEach(o -> o.delete());
             }
-        
+
             return true;
         }
         return false;
@@ -331,7 +337,7 @@ public class MergeMachine {
     @objid ("a8dba9d6-ca30-49ab-a6cc-48a1eccc4e2b")
     private static boolean isSameTypedPropertyTable(TypedPropertyTable target, TypedPropertyTable source) {
         if (Objects.equals(target.getType(), source.getType())) {
-        
+
             if (false /*this.replaceAttributes*/) {
                 //TODO merge target.getPropertyObject(null);
                 for (PropertyDefinition prop : source.getType().getOwned()) {
@@ -362,7 +368,7 @@ public class MergeMachine {
                     target.setProperty(key, (String)prop.getValue());
                 }
             }
-        
+
             return true;
         }
         return false;
@@ -370,6 +376,7 @@ public class MergeMachine {
 
     /**
      * Delete link objects that would become reflexive after merging.
+     *
      * @param source a source object being merged into this.target .
      * @param sourceDep the scanned dependency.
      */
@@ -377,7 +384,7 @@ public class MergeMachine {
     private void deleteFutureReflexiveLinks(MObject source, SmDependency sourceDep) {
         if (! this.deleteNewReflexiveLinks)
             return;
-        
+
         SmDependency sourceDepSym = sourceDep.getSymetric();
         Collection<MDependency> linkOppositeDeps = null;
         SmClass depTargetType = sourceDep.getType();
@@ -390,10 +397,10 @@ public class MergeMachine {
             // nothing to do, fast exit.
             return;
         }
-        
+
         // The dep points toward a link object
         // delete all links that once merged will be reflexives.
-        
+
         List<MObject> origDepContent = source.mGet(sourceDep);
         for (MObject linkElement : new ArrayList<>(origDepContent)) {
             boolean noMoreSourceOrTarget = true;
@@ -410,13 +417,13 @@ public class MergeMachine {
                     noMoreSourceOrTarget = false;
                 }
             }
-        
+
             if (noMoreSourceOrTarget && !oppositesWereEmpty) {
                 Log.trace("Merge: Delete %s new reflexive link from %s to %s", linkElement,  mmExpert.getSource(linkElement), mmExpert.getTarget(linkElement));
                 linkElement.delete();
             }
         }
-        
+
     }
 
     @objid ("5abe1b04-5b90-4bdd-8f57-892886db4f63")
@@ -427,6 +434,7 @@ public class MergeMachine {
     /**
      * Move the given dependency value to the new object
      * while ensuring order is preserved on the opposite association.
+     *
      * @param target the target object
      * @param original the original object
      * @param origDepContent read/write access to the dependency content.
@@ -436,24 +444,24 @@ public class MergeMachine {
     private void moveNonNavigableDepValue(MObject original, MDependency dep, List<MObject> origDepContent, MObject value) {
         MDependency origDepOpposite = dep.getSymetric();
         List<MObject> origOppositeContent = value.mGet(origDepOpposite);
-        
+
         int idx = origOppositeContent.indexOf(original);
         if (idx != -1) {
             origDepContent.remove(value);
-        
+
             // Usually the following line is not needed.
             origOppositeContent.remove(original);
             if(!origOppositeContent.contains(this.target)) {
                 origOppositeContent.add(idx, this.target);
             }
-        
+
         } else {
             //getReport().getLogger().format("  Warn: %1$s.%2$s contains %3$s but %3$s.%4$s does not contain %1$s.\n",
             //        original, origDep.getName(), value, foundopposites);
             Log.warning("  Warn: %1$s.%2$s contains %3$s but %3$s.%4$s does not contain %1$s, only %5$s.",
                     original, dep.getName(), value, origDepOpposite, origOppositeContent);
         }
-        
+
     }
 
     @objid ("bcaac413-0f8c-44ef-867b-a0766814c127")
@@ -466,7 +474,7 @@ public class MergeMachine {
 
         @objid ("684b0e5a-ae93-42f8-ae50-0fff82b507fe")
         boolean merge(T target, T source);
-}
-    
+
+    }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -57,7 +57,7 @@ public class EConnectorEnd extends EElement {
     }
 
     @objid ("adcb266f-1733-4e4e-aec5-d364148e4d55")
-    public  EConnectorEnd(org.eclipse.uml2.uml.ConnectorEnd element) {
+    public EConnectorEnd(org.eclipse.uml2.uml.ConnectorEnd element) {
         super(element);
     }
 
@@ -67,7 +67,7 @@ public class EConnectorEnd extends EElement {
         ReverseProperties revProp = ReverseProperties.getInstance();
         org.eclipse.uml2.uml.ConnectorEnd ecoreConnectorEnd = getEcoreElement();
         org.eclipse.uml2.uml.Element owner = ecoreConnectorEnd.getOwner();
-        
+
         Object  obOwner = null;
         if (owner != null){
             obOwner = revProp.getMappedElement(owner);
@@ -75,14 +75,14 @@ public class EConnectorEnd extends EElement {
                 ((Link) obOwner).getLinkEnd().add((LinkEnd) objingElt);
             }
         }
-        
+
         if (((ConnectorEnd)objingElt).getOwner() == null){
             this.role = ecoreConnectorEnd.getRole();
             if (this.role != null){
-        
+
                 obOwner = revProp.getMappedElement(this.role);
                 this.part = ecoreConnectorEnd.getPartWithPort();
-        
+
                 if (this.part != null){
                     Object obPart = revProp.getMappedElement(this.part);
                     if ((obOwner instanceof Port) && (obPart instanceof Instance)){
@@ -90,14 +90,14 @@ public class EConnectorEnd extends EElement {
                         objOwner.getOwnedEnd().add((LinkEnd) objingElt);
                         objOwner.setCluster((Instance) obPart);
                     }
-        
+
                 }else if (obOwner instanceof Instance) {
-        
+
                     Instance objOwner = (Instance) obOwner;
                     objOwner.getOwnedEnd().add((LinkEnd) objingElt);
-        
+
                 }else if (obOwner instanceof List){
-        
+
                     boolean exist = false;
                     BindableInstance objOwner = null;
                     List<? extends Object> alist = (List<?>) obOwner;
@@ -108,22 +108,22 @@ public class EConnectorEnd extends EElement {
                             break;
                         }
                     }
-        
+
                     if (!exist){
                         objOwner = revProp.getMModelServices().getModelFactory().getFactory(IStandardModelFactory.class).createBindableInstance();
                         attachBindableInstance(objOwner);
                         setBindableInstanceProperties(objOwner);
-        
+
                         List<Object> newOwners = new ArrayList<>();
                         newOwners.addAll(alist);
                         newOwners.add(objOwner);
                         PartialImportMap.getInstance().put(this.role, newOwners);
                         TotalImportMap.getInstance().put(this.role, newOwners);
                     }
-        
+
                     if (objOwner != null)
                         objOwner.getOwnedEnd().add((LinkEnd) objingElt);
-        
+
                 }else{
                     objingElt.delete();
                 }
@@ -131,25 +131,25 @@ public class EConnectorEnd extends EElement {
                 objingElt.delete();
             }
         }
-        
+
     }
 
     @objid ("09092020-adc1-496f-a848-6e4faf2ff9fb")
     @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
-        
+
         setOpposite((LinkEnd) objingElt);
         setIsOrdered((LinkEnd) objingElt);
         setIsUnique((LinkEnd) objingElt);
         setMax((LinkEnd) objingElt);
         setMin((LinkEnd) objingElt);
-        
+
         if ( ReverseProperties.getInstance().isRoundtripEnabled()){
             setName((LinkEnd) objingElt);
             setIsNavigable();
         }
-        
+
     }
 
     @objid ("1f69600f-ff02-4342-8eb0-c2484a2bb8fe")
@@ -170,7 +170,7 @@ public class EConnectorEnd extends EElement {
                 }
             }
         }
-        
+
     }
 
     @objid ("97add917-096f-4774-b92e-c417f9d34d45")
@@ -199,12 +199,12 @@ public class EConnectorEnd extends EElement {
         setBase(objingElt);
         setMultiMax(objingElt);
         setMultiMin(objingElt);
-        
+
         if (ReverseProperties.getInstance().isRoundtripEnabled()){
             setIsConstant(objingElt);
             setValue(objingElt);
         }
-        
+
     }
 
     @objid ("204ff8e8-81ca-4a9b-aeb4-a942bedcdde9")
@@ -213,7 +213,7 @@ public class EConnectorEnd extends EElement {
         if (name != null){
             objingElt.setName(name);
         }
-        
+
     }
 
     @objid ("0439e18b-c8e2-4ac5-aa4a-8c6d87a1aa58")
@@ -224,7 +224,7 @@ public class EConnectorEnd extends EElement {
             if (base instanceof NameSpace)
                 objingElt.setBase((NameSpace) base);
         }
-        
+
     }
 
     @objid ("5077bc9c-6963-4216-80da-93f8051496ed")
@@ -235,13 +235,13 @@ public class EConnectorEnd extends EElement {
     @objid ("d47ef2a5-cb5e-47d6-8bf9-bbea91da0ad5")
     private void setMultiMax(Instance objFeature) {
         String multMax = EcoreModelNavigation.getMultiplicityMax(getEcoreElement());
-        
+
         if ("".equals(multMax)) {
             objFeature.setMultiplicityMax("undefined");
         }else{
             objFeature.setMultiplicityMax(multMax);
         }
-        
+
     }
 
     @objid ("66cd2922-a5c6-4c5f-a2be-41c9b5e22748")
@@ -249,7 +249,7 @@ public class EConnectorEnd extends EElement {
         String value =  ObjingEAnnotation.getValue(this.role);
         if ((value != null) && (!(value.equals(""))))
             objingElt.setValue(value);
-        
+
     }
 
     @objid ("28452a29-af28-4d62-8edb-f2cef46aea4e")
@@ -257,30 +257,30 @@ public class EConnectorEnd extends EElement {
         String value =  ObjingEAnnotation.getMultiMin(this.role);
         if ((value != null) && (!(value.equals(""))))
             objingElt.setMultiplicityMin(value);
-        
+
     }
 
     @objid ("830efd41-8bf7-4252-81e6-ac6a264ef2dc")
     private void attachBindableInstance(BindableInstance objingElt) {
         // The objing element is an BindableInstance
-        
+
         org.eclipse.uml2.uml.Element ecoreOwner = this.role.getOwner();
-        
+
         Element objingOwner = (Element)  ReverseProperties.getInstance().getMappedElement(ecoreOwner);
-        
+
         Boolean attached = false ;
-        
+
         if ( ReverseProperties.getInstance().isRoundtripEnabled()){
-        
+
             if (ObjingEAnnotation.isDeleted(this.role)){
                 attached = true;
                 objingElt.delete();
-        
+
             }else {
                 String ownerID = ObjingEAnnotation.getOwner(this.role);
-        
+
                 if ((ownerID != null) && (ecoreOwner instanceof org.eclipse.uml2.uml.StructuredClassifier)){
-        
+
                     for (Object attribute : ((org.eclipse.uml2.uml.StructuredClassifier) ecoreOwner).getOwnedAttributes()){
                         if (attribute instanceof Property){
                             Property prop = (Property) attribute;
@@ -297,8 +297,8 @@ public class EConnectorEnd extends EElement {
                 }
             }
         }
-        
-        
+
+
         if (!attached){
             if (objingOwner instanceof Classifier){
                 ((Classifier) objingOwner).getInternalStructure().add(objingElt);
@@ -314,14 +314,14 @@ public class EConnectorEnd extends EElement {
                     collab.setName("locals");
                     ((Interaction) objingOwner).getOwnedCollaboration().add(collab);
                 }
-        
+
                 if (collab.getCompositionOwner() instanceof Behavior)
                     collab.getDeclared().add(objingElt);
                 else
                     collab.getRepresentingInstance().add(objingElt);
             }
         }
-        
+
     }
 
     @objid ("0373a739-dcf6-4e72-b18c-e283bdea0df6")
@@ -331,7 +331,7 @@ public class EConnectorEnd extends EElement {
             link.getLinkEnd().get(0).setOpposite(link.getLinkEnd().get(1));
             link.getLinkEnd().get(1).setOpposite(link.getLinkEnd().get(0));
         }
-        
+
     }
 
     @objid ("7f8fef17-e87c-434a-9c77-83503361c586")

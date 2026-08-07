@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.sequencediagram;
 
@@ -94,7 +94,7 @@ public class SequenceDiagramDropEditPolicyExtension extends AbstractDiagramEleme
             // what to do with it... return null
             return false;
         }
-        
+
         // All dropped elements understood: return host!
         return true;
     }
@@ -105,7 +105,7 @@ public class SequenceDiagramDropEditPolicyExtension extends AbstractDiagramEleme
         if (candidate == null || candidate instanceof Interaction) {
             return false;
         }
-        
+
         // Make sure the element is part of the current interaction
         ModelElement interaction = context.getRelatedElement().getOrigin();
         MObject parent = candidate.getCompositionOwner();
@@ -130,7 +130,6 @@ public class SequenceDiagramDropEditPolicyExtension extends AbstractDiagramEleme
             // No interaction, return null
             return null;
         }
-        
     }
 
     @objid ("d980a87f-55b6-11e2-877f-002564c97630")
@@ -150,10 +149,9 @@ public class SequenceDiagramDropEditPolicyExtension extends AbstractDiagramEleme
         private DiagramElementDropEditPolicy dropPolicy;
 
         @objid ("5edcc9b7-c8ce-46fb-9994-08743c2667b9")
-        public  StandardVisitorImpl(DiagramElementDropEditPolicy dropPolicy, Point dropLocation) {
+        public StandardVisitorImpl(DiagramElementDropEditPolicy dropPolicy, Point dropLocation) {
             this.dropPolicy = dropPolicy;
             this.dropLocation = dropLocation;
-            
         }
 
         @objid ("6f1ea738-9f0a-45d6-9939-9ce564db1494")

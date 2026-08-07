@@ -1,28 +1,28 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.outline.view;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.EventTopic;
@@ -57,7 +57,7 @@ public class DiagramOutlineView {
         this.parent = theParent;
         this.panel = new Composite(this.parent, SWT.NONE);
         this.panel.setLayout(new FillLayout());
-        
+
     }
 
     /**
@@ -68,7 +68,7 @@ public class DiagramOutlineView {
     @Optional
     void onProjectClosed(@EventTopic(ModelioEventTopics.PROJECT_CLOSED) final IGProject closedProject) {
         Display.getDefault().asyncExec(new Runnable() {
-        
+
             @Override
             public void run() {
                 if (DiagramOutlineView.this.outlinePage != null) {
@@ -76,11 +76,12 @@ public class DiagramOutlineView {
                 }
             }
         });
-        
+
     }
 
     /**
      * Create the outline page when select a part which provides an {@link IContentOutlinePage}.
+     *
      * @param part the active part.
      */
     @objid ("a961591e-2d66-4bd3-8b50-54877732c4dc")
@@ -101,7 +102,7 @@ public class DiagramOutlineView {
             this.panel.layout();
             this.parent.layout();
         }
-        
+
     }
 
 }

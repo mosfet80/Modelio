@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.plugin;
 
@@ -62,7 +62,7 @@ public class Audit implements BundleActivator {
         ExtendedLogService service = bundleContext.getService(ref);
         Audit.LOG = new PluginLogger(service.getLogger(bundleContext.getBundle(), Audit.PLUGIN_ID));
         Audit.I18N = new BundledMessages(Audit.LOG, ResourceBundle.getBundle("audit"));
-        
+
     }
 
     @objid ("653e449b-ff0e-46be-88d4-82148f2c8ed0")
@@ -83,6 +83,7 @@ public class Audit implements BundleActivator {
 
     /**
      * Get the path of a file bundled with the plugin.
+     *
      * @param relPath the path relative to the plugin.
      * @return the found file
      * @throws IOException if the file is not found or cannot be copied on the file system, should never occur.
@@ -96,7 +97,7 @@ public class Audit implements BundleActivator {
         } catch (IOException | URISyntaxException | RuntimeException e) {
             throw new IOException("'" + relPath + "' not found in plugin.", e);
         }
-        
+
     }
 
 }

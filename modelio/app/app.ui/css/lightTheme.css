@@ -1,0 +1,25 @@
+
+
+Shell, Composite,Tree,Table,SashForm, Group, ToolBar,CTabItem,CTabFolder, CBanner, CoolBar,CLabel,MPart  {
+    background-color: white;
+}
+
+Label ,Text{
+	background-color: white;
+	color : black;
+}
+
+
+
+Button  {
+	background-color: white;
+}
+
+Button[style~='SWT.CHECK']{
+
+}
+
+
+.alternateBackground{
+	background-color:#f2f2ff;
+}

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.exml.versioned;
 
@@ -52,10 +52,11 @@ public abstract class VersionedExmlBase extends AbstractExmlRepository {
 
     /**
      * Initialize the repository.
+     *
      * @param resProvider an EXML resource provider.
      */
     @objid ("979e7140-12de-11e2-816a-001ec947ccaf")
-    public  VersionedExmlBase(IExmlResourceProvider resProvider) {
+    public VersionedExmlBase(IExmlResourceProvider resProvider) {
         super(resProvider);
     }
 
@@ -63,11 +64,11 @@ public abstract class VersionedExmlBase extends AbstractExmlRepository {
     @Override
     public synchronized void doReloadCmsNode(SmObjectImpl obj, IModelLoader modelLoader) throws DuplicateObjectException, IOException {
         ObjId cmsNodeId = new ObjId(obj);
-        
+
         IExmlResourceProvider resProvider = getResourceProvider();
         ExmlResource resource = resProvider.getResource(cmsNodeId);
         ExmlResource localRes = resProvider.getLocalResource(cmsNodeId);
-        
+
         try (InputStream is = resource.bufferedRead();
                 InputStream lis = localRes.bufferedRead();) {
             if (is == null) {
@@ -81,14 +82,14 @@ public abstract class VersionedExmlBase extends AbstractExmlRepository {
                     lsrc = new InputSource(lis);
                     lsrc.setPublicId(localRes.getPublicLocation());
                 }
-        
+
                 src.setPublicId(resource.getPublicLocation());
-        
+
                 // Load XML files
                 this.versionedLoader.load(src, lsrc, modelLoader);
             }
         }
-        
+
     }
 
     @objid ("979e714e-12de-11e2-816a-001ec947ccaf")
@@ -96,13 +97,13 @@ public abstract class VersionedExmlBase extends AbstractExmlRepository {
     protected void save(ExmlStorageHandler handler, IModelioProgress progress) throws IOException {
         final SmObjectImpl cmsNode = handler.getCmsNode();
         final ObjId cmsNodeId = new ObjId(cmsNode);
-        
+
         try (OutputStream os = getResourceProvider().getResource(cmsNodeId).bufferedWrite();){
             VersionedExmlSaver saver = new VersionedExmlSaver(getErrorSupport());
-            
+
             saver.externalize(cmsNode, os, getResourceProvider().getLocalResource(cmsNodeId));
         }
-        
+
     }
 
     @objid ("3e36dd14-1ea1-11e2-90db-001ec947ccaf")
@@ -110,11 +111,12 @@ public abstract class VersionedExmlBase extends AbstractExmlRepository {
     protected final void initializeLoader() {
         this.loadHelper = new VersionedLoadHelper(this, getStatusInitializer(), isWriteable());
         this.versionedLoader = new SaxVersionedExmlLoader(this.loadHelper);
-        
+
     }
 
     /**
      * Get the version status flags initializer.
+     *
      * @return the status flags initializer.
      */
     @objid ("3e36dd17-1ea1-11e2-90db-001ec947ccaf")

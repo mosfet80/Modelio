@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
 import java.util.ArrayList;
@@ -44,73 +43,72 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("23872769-b62e-47ff-875f-f283aa96d3a6")
 public class GeneralOrderingSmClass extends ElementSmClass {
-    @objid ("34fc8768-bce7-4165-99ec-b06ac51d4395")
+    @objid ("4e08cf6e-c280-4698-a2f1-57e9447d0af8")
     private SmDependency beforeDep;
 
-    @objid ("39738d74-7921-4c34-92fa-d6ef82573286")
+    @objid ("bf3d8a5a-f634-405d-9823-25e571abb9f6")
     private SmDependency afterDep;
 
-    @objid ("10113d2d-f34f-4081-9fac-27f2b9613a4b")
-    public  GeneralOrderingSmClass(ISmMetamodelFragment origin) {
+    @objid ("945c7db0-fa49-4c45-b8c5-2c2e0b0ac8d7")
+    public GeneralOrderingSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("cfc96993-b07f-46c3-b8be-2366c5847038")
+    @objid ("7ac79520-757f-4d4e-a01a-f2febe3c6072")
     @Override
     public String getName() {
         return "GeneralOrdering";
-        
+
     }
 
-    @objid ("9e79557d-2ceb-4f71-af9b-46b22a3cc461")
+    @objid ("d0feccae-b487-409a-8890-b67f66bbed31")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("f19933ee-7415-4e25-9406-e28e2ee065ea")
+    @objid ("67ba0460-12cf-4d6c-a5f5-7c26f5756141")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return GeneralOrdering.class;
-        
+
     }
 
-    @objid ("1d24facc-7938-4625-b43c-d4a9ad8b208e")
+    @objid ("f8163bfe-0458-4818-8605-5f729868064c")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("81d85ee2-5d9a-4a02-88dc-2a4f070c9599")
+    @objid ("abc08a17-faae-4853-859d-a668646f7f06")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("887b6af9-6281-4457-8de8-68537ac72be4")
+    @objid ("9ef94a5b-e0a1-43c3-bde1-9573acc9aa1e")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(Element.MQNAME);
         this.registerFactory(new GeneralOrderingObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
         this.beforeDep = new BeforeSmDependency();
         this.beforeDep.init("Before", this, metamodel.getMClass(OccurrenceSpecification.MQNAME), 1, 1 );
         registerDependency(this.beforeDep);
-        
+
         this.afterDep = new AfterSmDependency();
         this.afterDep.init("After", this, metamodel.getMClass(OccurrenceSpecification.MQNAME), 1, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.afterDep);
-        
-        
+
     }
 
-    @objid ("c58539b4-3426-4f46-b6ea-544c74320286")
+    @objid ("d75769a7-74ee-40f6-9e2c-c9014cddb8cb")
     public SmDependency getBeforeDep() {
         if (this.beforeDep == null) {
         	this.beforeDep = this.getDependencyDef("Before");
@@ -118,7 +116,7 @@ public class GeneralOrderingSmClass extends ElementSmClass {
         return this.beforeDep;
     }
 
-    @objid ("d4412c6c-ef05-421a-82ca-76ab1b9e989f")
+    @objid ("7c239670-3de4-46d5-9e22-e1fafc8b40cb")
     public SmDependency getAfterDep() {
         if (this.afterDep == null) {
         	this.afterDep = this.getDependencyDef("After");
@@ -128,21 +126,21 @@ public class GeneralOrderingSmClass extends ElementSmClass {
 
     @objid ("14dafb05-cf10-4fad-9b1e-ea6c7d3e666b")
     private static class GeneralOrderingObjectFactory implements ISmObjectFactory {
-        @objid ("0f952d36-109b-49c6-9025-dbd7417d8537")
+        @objid ("75cfa7f1-5865-4050-a447-bb8c9df1d18c")
         private GeneralOrderingSmClass smClass;
 
-        @objid ("8d3d132a-98c7-41de-bc73-4c265f7d4431")
-        public  GeneralOrderingObjectFactory(GeneralOrderingSmClass smClass) {
+        @objid ("611a7986-7f81-410e-b201-a12d9b502c11")
+        public GeneralOrderingObjectFactory(GeneralOrderingSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("6f76b80a-7dee-47dd-913c-36da82419990")
+        @objid ("9e7f62b2-dfa3-40d8-a378-5ec65ceef292")
         @Override
         public ISmObjectData createData() {
             return new GeneralOrderingData(this.smClass);
         }
 
-        @objid ("5e3be15d-6304-4b17-b50e-c879f0f32480")
+        @objid ("10d391d7-130d-4da8-8597-99b404914747")
         @Override
         public SmObjectImpl createImpl() {
             return new GeneralOrderingImpl();
@@ -152,58 +150,58 @@ public class GeneralOrderingSmClass extends ElementSmClass {
 
     @objid ("825b707d-030f-4611-bb16-c6622d4a5334")
     public static class BeforeSmDependency extends SmSingleDependency {
-        @objid ("e0af3f11-4c7f-4751-b34f-18b5d5dee725")
+        @objid ("35541d6a-46a5-4337-bda1-a94be3985022")
         private SmDependency symetricDep;
 
-        @objid ("a7c862d5-3b4f-46cc-92c5-6696eeabc669")
+        @objid ("e199873a-a25a-4ccb-b4a4-14c721efe3cf")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((GeneralOrderingData) data).mBefore;
         }
 
-        @objid ("c434033f-f30e-4d64-8abc-9af4f6a9d88f")
+        @objid ("b9059ad6-0f9f-47fd-a679-e19f8dce3028")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((GeneralOrderingData) data).mBefore = value;
         }
 
-        @objid ("e9270df0-f482-4666-82f5-393df630716a")
+        @objid ("3f99e93e-4257-4cd1-bbfe-0776a9e37cd7")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((OccurrenceSpecificationSmClass)this.getTarget()).getToAfterDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("3f6218ef-28e8-403c-93d0-17d2063e9e4d")
     public static class AfterSmDependency extends SmSingleDependency {
-        @objid ("170e859c-1463-499d-901c-29921f666a9b")
+        @objid ("708790f0-d1bd-4759-8767-52cc015ddcef")
         private SmDependency symetricDep;
 
-        @objid ("1b10a78d-8657-4e6c-ac89-334060142ad1")
+        @objid ("dcf7c1fa-5955-4f2c-9b48-e2c04910bad4")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((GeneralOrderingData) data).mAfter;
         }
 
-        @objid ("259e3bbc-02ed-455a-b9d1-44176010379d")
+        @objid ("3b6b2845-96bd-4185-940e-18cc36edf629")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((GeneralOrderingData) data).mAfter = value;
         }
 
-        @objid ("e0ebc5ad-65a4-4ac1-8af4-a97beede1824")
+        @objid ("3c45a011-2834-4153-83a1-42b769e33b35")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((OccurrenceSpecificationSmClass)this.getTarget()).getToBeforeDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

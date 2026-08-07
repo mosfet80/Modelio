@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.anchors.fixed2.algorithms.fixed;
 
@@ -39,7 +39,7 @@ public abstract class AbstractFixedAnchorFactory implements IFigureAnchorsFactor
     private final String algorithmId;
 
     @objid ("742c297d-e80c-483c-acd6-614cf456b69f")
-    public  AbstractFixedAnchorFactory(String algorithmId) {
+    public AbstractFixedAnchorFactory(String algorithmId) {
         this.algorithmId = algorithmId;
     }
 
@@ -52,7 +52,7 @@ public abstract class AbstractFixedAnchorFactory implements IFigureAnchorsFactor
                 gmAnchor.getRank(),
                 gmAnchor.getTotalOnFace(),
                 getLocator());
-        
+
     }
 
     @objid ("4a000e4c-4e43-42cb-9bca-6eeded7de705")
@@ -61,13 +61,13 @@ public abstract class AbstractFixedAnchorFactory implements IFigureAnchorsFactor
         IFigure newNodeFigure = getNodeFigure();
         IFixedAnchorLocator locator = getLocator();
         Dimension anchorsCount = getAnchorCount(new Dimension());
-        
+
         Collection<ConnectionAnchor> anchors = new ArrayList<>(anchorsCount.width + anchorsCount.height);
         for (int i = 0; i < anchorsCount.width; i++) {
             anchors.add(new FixedAnchor(newNodeFigure, FacesConstants.FACE_NORTH, i, anchorsCount.width, locator));
             anchors.add(new FixedAnchor(newNodeFigure, FacesConstants.FACE_SOUTH, i, anchorsCount.width, locator));
         }
-        
+
         for (int i = 0; i < anchorsCount.height; i++) {
             anchors.add(new FixedAnchor(newNodeFigure, FacesConstants.FACE_EAST, i, anchorsCount.height, locator));
             anchors.add(new FixedAnchor(newNodeFigure, FacesConstants.FACE_WEST, i, anchorsCount.height, locator));
@@ -88,6 +88,7 @@ public abstract class AbstractFixedAnchorFactory implements IFigureAnchorsFactor
      * Fills the given Dimension with the anchor count.
      * <p>
      * Method designed like with to minimize allocations in a safe way.
+     *
      * @param out the Dimension to fill with the anchor count.
      * @return the passed dimension, for convenience.
      */
@@ -101,8 +102,9 @@ public abstract class AbstractFixedAnchorFactory implements IFigureAnchorsFactor
      * Fills the given Dimension with the anchor count.
      * <p>
      * Method designed like with to minimize allocations in a safe way.
-     * @see #getAnchorCount(Dimension)
+     *
      * @param out the Dimension to fill with the anchor count.
+     * @see #getAnchorCount(Dimension)
      */
     @objid ("581692bc-a3b3-4867-91c7-7d5541326d10")
     public abstract void fillAnchorCount(Dimension out);

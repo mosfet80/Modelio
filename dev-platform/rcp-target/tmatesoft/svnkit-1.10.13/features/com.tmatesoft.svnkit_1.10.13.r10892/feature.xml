@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+        id="com.tmatesoft.svnkit"
+        label="SVNKit Library"
+        version="1.10.13.r10892"
+        provider-name="TMate Software">
+
+    <description url="https://svnkit.com/">
+        %description
+    </description>
+
+    <copyright url="https://svnkit.com/">
+        (c) 2004-2025, TMate Software Ltd.
+    </copyright>
+
+    <license url="https://svnkit.com/license.html">
+        %license
+    </license>
+
+    <url>
+        <update label="TMate Software SVNKit 1.10.x Update Site" url="https://eclipse.tmatesoft.com/1.10.x/"/>
+        <discovery label="TMate Software SVNKit 1.10.x Update Site" url="https://eclipse.tmatesoft.com/1.10.x/"/>
+    </url>
+
+    <plugin
+            id="com.tmatesoft.svnkit"
+            download-size="0"
+            install-size="0"
+            version="1.10.13.r10892"
+            unpack="false"/>
+</feature>

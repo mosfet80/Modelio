@@ -18,21 +18,22 @@
 main()
 {
 	MODELIO_PATH="$(getModelioInstallPath "$0")"
-	if [ -f "/etc/modelio-open-source5.2/modelio.config" ] ; then
-		. "/etc/modelio-open-source5.2/modelio.config"
-	else
-		UBUNTU_MENUPROXY=0
-		LIBOVERLAY_SCROLLBAR=0
-		SWT_WEBKIT2=${SWT_WEBKIT2:-0}
-		[ "${SWT_GTK3}" != "0" ] && [ "${SWT_GTK3}" != "1" ] && SWT_GTK3=0
+	if [ -f "${MODELIO_PATH}/modelio.config" ] ; then
+		. "${MODELIO_PATH}/modelio.config"
 	fi
-	export UBUNTU_MENUPROXY LIBOVERLAY_SCROLLBAR SWT_WEBKIT2 SWT_GTK3
+	UBUNTU_MENUPROXY=${UBUNTU_MENUPROXY:-0}
+	LIBOVERLAY_SCROLLBAR=${LIBOVERLAY_SCROLLBAR:-0}
+	SWT_WEBKIT2=${SWT_WEBKIT2:-1}
+	SWT_GTK3=${SWT_GTK3:-0}
+	WEBKIT_DISABLE_COMPOSITING_MODE=${WEBKIT_DISABLE_COMPOSITING_MODE:-1}
+	WEBKIT_DISABLE_DMABUF_RENDERER=${WEBKIT_DISABLE_DMABUF_RENDERER:-1}
+	export UBUNTU_MENUPROXY  LIBOVERLAY_SCROLLBAR  SWT_WEBKIT2  SWT_GTK3  WEBKIT_DISABLE_COMPOSITING_MODE  WEBKIT_DISABLE_DMABUF_RENDERER
 
-	# Force the Adwaita light theme on Gnome desktop
-	[ "${XDG_CURRENT_DESKTOP}" = "GNOME" ] && export GTK_THEME="Adwaita"
+	# Force the Adwaita light theme
+	export GTK_THEME="Adwaita"
 
 	# On GTK2, customize the theme for Modelio
-	[ ${SWT_GTK3} -eq 0 ] && [ -z "${GTK2_RC_FILES}" ] && export GTK2_RC_FILES="${MODELIO_PATH}/gtkrc-modelio"
+	export GTK2_RC_FILES="${MODELIO_PATH}/gtkrc-modelio"
 
 	# Use the embedded jre
 	[ -x "${MODELIO_PATH}/jre/bin/java" ] && export PATH="${MODELIO_PATH}/jre/bin":${PATH}
@@ -44,17 +45,16 @@ main()
 getRealFilePath()
 {
 	if [ -L "$1" ] ; then
-		SLNK=$(\ls -l "$1"| sed -e "s|.* -> ||")
-		if [ "${SLNK:0:1}" != "/" ] ; then
-			FILE_PATH="$(dirname $1)/${SLNK}"
+		slnk=$(\ls -l "$1"| sed -e "s|.* -> ||")
+		if [ "${slnk:0:1}" != "/" ] ; then
+			filepath="$(dirname $1)/${slnk}"
 		else
-			FILE_PATH="${SLNK}"
+			filepath="${slnk}"
 		fi
 	else
-		FILE_PATH="$1"
+		filepath="$1"
 	fi
-	FULL_PATH=$(cd -P -- "$(dirname -- "${FILE_PATH}")" && printf '%s\n' "$(pwd -P)/${FILE_PATH##*/}")
-	echo "${FULL_PATH}"
+	echo "$(cd -P -- "$(dirname -- "${filepath}")" && printf '%s\n' "$(pwd -P)/${filepath##*/}")"
 }
 
 getModelioInstallPath()

@@ -1,0 +1,19 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Introduction
+
+Modelio ArchiMate Entreprise Architect is a modeling tool based on Modelio.
+
+* Natively supports the *ArchiMate 3.2 ^1^*, UML and BPMN modeling standards, with the related model interchange.
+* Provides ArchiMate to UML and/or BPMN refinement mechanisms, and refinement matrices.
+* Includes Requirement analysis support (and Risk analysis; goal analysis, dictionary definition, business rules).
+* Supports traceability management on the entire enterprise scope.
+* Provides high quality customizable document generation.
+* Is fully compatible with Modelio Server features: federated enterprise repositories support, distributed repositories on the WEB, dedicated project configuration according to participant's profile.
+
+Modelio ArchiMate is subject to license. You can request a license file by sending an email to the Modelio sales department.
+
+^1^ ArchiMate® is an open and independent modeling language for Enterprise Architecture. ArchiMate enables Enterprise Architects to describe, analyze, and visualize the relationships among business domains in an unambiguous way.

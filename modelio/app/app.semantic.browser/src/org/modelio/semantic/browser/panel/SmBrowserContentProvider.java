@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.semantic.browser.panel;
 
@@ -64,12 +64,12 @@ public class SmBrowserContentProvider implements ITreeContentProvider, IModelCha
     @Override
     public Object getParent(final Object child) {
         Object parent = null;
-        
+
         if (child instanceof SmNode) {
             parent = ((SmNode) child).getObj();
         } else if (child instanceof MObject) {
             SmDepVal depVal = ((ISmMeta) child).getCompositionRelation();
-        
+
             if (depVal != null) {
                 parent = new SmNode(depVal.value, depVal.dep.getSymetric());
             } else {
@@ -93,11 +93,11 @@ public class SmBrowserContentProvider implements ITreeContentProvider, IModelCha
         if (parent instanceof MObject) {
             return getChildren((MObject) parent).toArray();
         }
-        
+
         if (parent instanceof IGModelFragment) {
             return getChildren((IGModelFragment) parent).toArray();
         }
-        
+
         if (parent instanceof SmNode) {
             SmNode node = (SmNode) parent;
             return node.getContent().toArray();
@@ -156,7 +156,7 @@ public class SmBrowserContentProvider implements ITreeContentProvider, IModelCha
     @Override
     public void inputChanged(final Viewer currentViewer, final Object oldInput, final Object newInput) {
         this.viewer = currentViewer;
-        
+
         // Unregister model change listener on the old input
         if (oldInput != null && oldInput instanceof IGProject) {
             ICoreSession session = ((IGProject) oldInput).getSession();
@@ -169,19 +169,19 @@ public class SmBrowserContentProvider implements ITreeContentProvider, IModelCha
             session.getModelChangeSupport().removeModelChangeListener(this);
             session.getModelChangeSupport().removeStatusChangeListener(this);
         }
-        
+
         // Register model change listener on the new input
         if (newInput != null && newInput instanceof IGProject) {
             IModelChangeSupport changeSupport = ((IGProject) newInput).getSession().getModelChangeSupport();
             changeSupport.addModelChangeListener(this);
             changeSupport.addStatusChangeListener(this);
-        
+
         } else if (newInput != null && newInput instanceof ICoreSession) {
             IModelChangeSupport changeSupport = ((ICoreSession) newInput).getModelChangeSupport();
             changeSupport.addModelChangeListener(this);
             changeSupport.addStatusChangeListener(this);
         }
-        
+
     }
 
     @objid ("0f187ba5-a9d2-429e-9ce6-61a98ea1392a")
@@ -190,23 +190,23 @@ public class SmBrowserContentProvider implements ITreeContentProvider, IModelCha
         if (this.viewRefresher.compareAndSet(null, newRefresher)) {
             this.viewer.getControl().getDisplay().asyncExec(newRefresher);
         }
-        
+
     }
 
     @objid ("48438868-7f03-45df-9a2f-f7543b3b4cd5")
     void doRefreshViewer() {
         this.viewRefresher.set(null);
-        
+
         if (this.viewer != null && !this.viewer.getControl().isDisposed()) {
             this.viewer.refresh();
         }
-        
+
     }
 
     @objid ("77bc1da7-83eb-47b1-b26c-05f0565dda2a")
     private Collection<Object> getChildren(MObject mObj) {
         final List<Object> smChildren = new ArrayList<>();
-        
+
         for (final MAttribute mAtt : mObj.getMClass().getAttributes(true)) {
             smChildren.add(new SmNode(mObj, mAtt));
         }
@@ -227,7 +227,7 @@ public class SmBrowserContentProvider implements ITreeContentProvider, IModelCha
     @objid ("df256539-dff8-4066-8046-0b1ebf23a3e9")
     private static class FragmentComparator implements Comparator<IGModelFragment> {
         @objid ("172e9dbc-6aab-4e10-a80a-45038685c198")
-        public  FragmentComparator() {
+        public FragmentComparator() {
             // Empty constructor
         }
 
@@ -239,7 +239,7 @@ public class SmBrowserContentProvider implements ITreeContentProvider, IModelCha
             } else {
                 return FragmentComparator.getTypeWeight(f1.getType()) - FragmentComparator.getTypeWeight(f2.getType());
             }
-            
+
         }
 
         @objid ("42fe47c4-f945-4d7e-9a15-a084aca456b5")
@@ -258,7 +258,7 @@ public class SmBrowserContentProvider implements ITreeContentProvider, IModelCha
             default:
                 return 99;
             }
-            
+
         }
 
     }
@@ -266,7 +266,7 @@ public class SmBrowserContentProvider implements ITreeContentProvider, IModelCha
     @objid ("4b68035d-0cb3-4fbc-912c-5d45861f5c07")
     private class ViewRefresher implements Runnable {
         @objid ("8c9ead83-83aa-43ed-b3ed-41afb77ecb16")
-        public  ViewRefresher() {
+        public ViewRefresher() {
             // nothing
         }
 

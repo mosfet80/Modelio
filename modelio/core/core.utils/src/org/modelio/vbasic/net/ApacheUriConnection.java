@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.vbasic.net;
 
@@ -34,7 +53,6 @@ import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
 import org.apache.http.client.HttpResponseException;
-import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.config.RequestConfig.Builder;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPut;
@@ -51,9 +69,6 @@ import org.modelio.vbasic.auth.IAuthData;
 public class ApacheUriConnection extends UriConnection {
     @objid ("6a0187ad-4705-4542-b9a9-62c4905b67aa")
     private boolean dooutput;
-
-    @objid ("d7bd2f5b-6589-4747-8ec6-9cc506dcaca6")
-    private int timeout;
 
     @objid ("a5281e74-0c89-492a-87b7-83a0eb22c299")
     private HttpResponse res;
@@ -74,22 +89,20 @@ public class ApacheUriConnection extends UriConnection {
     private HttpRequestBase req;
 
     /**
+     *
      * @param uri the URI to open
      */
     @objid ("bcf11edd-2a78-43ac-bf86-c0b0d059c536")
-    public  ApacheUriConnection(URI uri) {
+    public ApacheUriConnection(URI uri) {
         this.uri = uri;
-        this.timeout = 5_000;
-        this.configBuilder = RequestConfig.custom()
-                .setConnectTimeout(this.timeout)
-                .setSocketTimeout(this.timeout);
-        
+        // Since 5.4.1 19/02/2024 reuse our default ApacheHttpClients.DEFAULT_REQUEST_CONFIG instead
+        this.configBuilder = ApacheHttpClients.createRequestConfig();
     }
 
     @objid ("366975a5-be39-484e-a69f-c37ffc4a162e")
     @Override
     public int getConnectTimeout() {
-        return this.timeout;
+        return this.configBuilder.build().getConnectTimeout();
     }
 
     @objid ("23a62344-2666-4e45-bd5f-0ca4d03ccf5a")
@@ -102,7 +115,11 @@ public class ApacheUriConnection extends UriConnection {
     @objid ("569f276f-58a6-480b-bc05-ceb79fed4262")
     @Override
     public InputStream getInputStream() throws IOException {
-        return getResponse().getEntity().getContent();
+        HttpEntity entity = getResponse().getEntity();
+        if (entity == null)
+            return InputStream.nullInputStream();
+        else
+            return entity.getContent();
     }
 
     /**
@@ -110,6 +127,7 @@ public class ApacheUriConnection extends UriConnection {
      * <p>
      * This implementation creates a {@link PipedOutputStream} to the Apache entity input stream.
      * It is strongly advised to <b>write to the returned stream in another thread</b>.
+     *
      * @return an output stream that writes to this connection.
      * @throws IOException if an I/O error occurs while creating the output stream.
      */
@@ -119,21 +137,21 @@ public class ApacheUriConnection extends UriConnection {
         if (! this.dooutput) {
             throw new IllegalStateException("This is not an output connection");
         }
-        
+
         if (this.req != null && ! (this.req instanceof HttpPut)) {
             throw new IllegalStateException("This is not an output connection");
         }
-        
+
         PipedOutputStream outPipe = new PipedOutputStream();
         PipedInputStream snk = new PipedInputStream(outPipe);
         outPipe.connect(snk);
-        
+
         BasicHttpEntity entity = new BasicHttpEntity();
         entity.setContent(snk);
-        
+
         HttpPut pr = (HttpPut) getRequest();
         pr.setEntity(entity);
-        
+
         FilterOutputStream filterOutputStream = new FilterOutputStream(outPipe) {
             @Override
             public void close() throws IOException {
@@ -160,7 +178,6 @@ public class ApacheUriConnection extends UriConnection {
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
-        
     }
 
     @objid ("67ec1f0b-a806-46fa-af26-4cf121333975")
@@ -171,7 +188,6 @@ public class ApacheUriConnection extends UriConnection {
         } else {
             return Long.parseLong(firstHeader.getValue());
         }
-        
     }
 
     @objid ("d397b034-969b-4d1e-b1ae-d91981eb1887")
@@ -185,8 +201,6 @@ public class ApacheUriConnection extends UriConnection {
     public void setConnectTimeout(int timeout) throws IllegalArgumentException {
         this.configBuilder.setConnectTimeout(timeout);
         this.configBuilder.setSocketTimeout(timeout);
-        this.timeout = timeout;
-        
     }
 
     @objid ("b96addaa-11c6-4df7-b0f2-4882209696e4")
@@ -238,13 +252,14 @@ public class ApacheUriConnection extends UriConnection {
      * <p>
      * Adds as cause another exception whose message is the entity content.
      * This may be the HTML message sent by the server.
+     *
      * @throws FileSystemException the built exception
      */
     @objid ("4e25ec1d-3711-45cc-b742-0c77edf5e414")
     private void handleConnectionFailure() throws FileSystemException {
         StatusLine statusLine = this.res.getStatusLine();
         String reason = statusLine.getReasonPhrase();
-        
+
         Exception base = null;
         try {
             // Look for a message in the response body
@@ -255,32 +270,31 @@ public class ApacheUriConnection extends UriConnection {
         } catch (IOException e) {
             base = e;
         }
-        
+
         int statusCode = statusLine.getStatusCode();
-        
+
         FileSystemException error = HttpErrorMapper.create(statusCode, this.uri.toString(), reason, base);
         throw error;
-        
     }
 
     @objid ("f8e1a3e4-45b3-4065-8838-90de7fe64eaa")
     private void openConnection() throws IllegalStateException, IOException {
         this.context = ApacheHttpClients.createHttpContext(this.uri, this.auth, this.configBuilder);
-        
+
         HttpRequestBase request = getRequest();
         request.setConfig(this.configBuilder.build());
-        
+
         this.res = ApacheHttpClients.getDefaultClient().execute(request, this.context);
         int statusCode = this.res.getStatusLine().getStatusCode();
-        
+
         if (statusCode >=200 && statusCode < 300) {
             // Try to get content now to get an exception on failure immediately
             HttpEntity entity = this.res.getEntity();
-            entity.getContent();
+            if (entity != null)
+                entity.getContent();
         } else {
             handleConnectionFailure();
         }
-        
     }
 
     /**

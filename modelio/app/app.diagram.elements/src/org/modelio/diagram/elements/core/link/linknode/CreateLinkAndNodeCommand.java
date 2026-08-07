@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.linknode;
 
@@ -61,18 +61,19 @@ public class CreateLinkAndNodeCommand extends Command {
     private final ModelioCreationContext nodeCtx;
 
     /**
+     *
      * @param nodeCtx The target node creation context
      * @param nodeCreationCommand a command that implements {@link ILinkAndNodeCreationSupport}
      * @param connectionRequest The connection creation request.
      * @param sourceGm the connection source node
      */
     @objid ("265570c4-6e29-4b94-ba08-7c1e52606c1c")
-    public  CreateLinkAndNodeCommand(ModelioCreationContext nodeCtx, Command nodeCreationCommand, CreateConnectionRequest connectionRequest, IGmLinkable sourceGm) {
+    public CreateLinkAndNodeCommand(ModelioCreationContext nodeCtx, Command nodeCreationCommand, CreateConnectionRequest connectionRequest, IGmLinkable sourceGm) {
         this.nodeCreationCommand = nodeCreationCommand;
         this.connectionRequest = connectionRequest;
         this.sourceGm = sourceGm;
         this.nodeCtx = nodeCtx;
-        
+
     }
 
     @objid ("6df18e97-889f-41bf-9862-6494a11ac341")
@@ -80,29 +81,29 @@ public class CreateLinkAndNodeCommand extends Command {
     public void execute() {
         // create choosen node
         this.nodeCreationCommand.execute();
-        
+
         GraphicalViewer viewer = (GraphicalViewer) this.connectionRequest.getSourceEditPart().getViewer();
         GmNodeModel targetGm = ((ILinkAndNodeCreationSupport) this.nodeCreationCommand).getMainLinkable();
         if (targetGm instanceof GmPortContainer) {
             targetGm = ((GmPortContainer) targetGm).getMainNode();
         }
-        
+
         GraphicalEditPart targetNodeEp = (GraphicalEditPart) viewer.getEditPartRegistry().get(targetGm);
-        
+
         alignNode(targetNodeEp);
-        
+
         Object savedType = this.connectionRequest.getType();
         this.connectionRequest.setTargetEditPart(targetNodeEp);
         this.connectionRequest.setType(RequestConstants.REQ_CONNECTION_END);
-        
+
         Command linkCmd = targetNodeEp.getCommand(this.connectionRequest);
-        
+
         this.connectionRequest.setType(savedType);
-        
+
         if (linkCmd != null && linkCmd.canExecute()) {
             linkCmd.execute();
         }
-        
+
     }
 
     @objid ("a1f41df5-86af-482a-8a0d-ef84370e4cdf")
@@ -113,12 +114,12 @@ public class CreateLinkAndNodeCommand extends Command {
         if (!MTools.getAuthTool().canModify(gmDiagram.getRelatedElement())) {
             return false;
         }
-        
+
         // Node creation possible ?
         if (this.nodeCreationCommand.canExecute() == false) {
             return false;
         }
-        
+
         // Link creation possible ?
         MObject srcElement = this.sourceGm.getRelatedElement();
         final ModelioLinkCreationContext linkCtx = ModelioLinkCreationContext.lookRequest(this.connectionRequest);
@@ -128,42 +129,43 @@ public class CreateLinkAndNodeCommand extends Command {
         MClass linkMetaclass = linkCtx.getMetaclass();
         Stereotype linkStereotype = linkCtx.getStereotype();
         IMdaExpert mdaExpert = gmDiagram.getModelManager().getMdaExpert();
-        
+
         // Theoretical study based on metaclasses
         if (!mdaExpert.canLink(linkStereotype, linkMetaclass, srcElement.getMClass(), this.nodeCtx.getMetaclass())) {
             return false;
         }
-        
+
         // Link Source : The access right expert must allow the command
         if (!MTools.getAuthTool().canCreateLinkFrom(linkMetaclass.getJavaInterface(), srcElement)) {
             return false;
         }
-        
+
         // All conditions are fulfilled
         return true;
     }
 
     /**
      * Move the node to match the link's path.
+     *
      * @param ep the new node edit part.
      */
     @objid ("d8f054bd-8976-4862-8b98-e0b766399c29")
     private void alignNode(GraphicalEditPart ep) {
         IFigure fig = ep.getFigure();
-        
+
         fig.getUpdateManager().performValidation();
-        
+
         ChangeBoundsRequest r = new ChangeBoundsRequest(RequestConstants.REQ_MOVE);
         r.setEditParts(ep);
         r.setMoveDelta(computeNodeMoveDelta(fig));
-        
+
         Command c = ep.getCommand(r);
         if (c != null && c.canExecute()) {
             c.execute();
         }
-        
+
         fig.getUpdateManager().performValidation();
-        
+
     }
 
     /**
@@ -176,7 +178,7 @@ public class CreateLinkAndNodeCommand extends Command {
         if (this.connectionRequest instanceof CreateBendedConnectionRequest) {
             CreateBendedConnectionRequest req = (CreateBendedConnectionRequest) this.connectionRequest;
             RawPathData data = req.getData();
-        
+
             Point sourceLocation;
             Point targetLocation = data.getLastPoint();
             if (data.getRoutingMode() == ConnectionRouterId.ORTHOGONAL && !data.getPath().isEmpty()) {
@@ -184,7 +186,7 @@ public class CreateLinkAndNodeCommand extends Command {
             } else {
                 sourceLocation = data.getSrcPoint();
             }
-        
+
             // Move node according to the last segment's orientation
             if (Math.abs(sourceLocation.x - targetLocation.x) > Math.abs(sourceLocation.y - targetLocation.y)) {
                 if (sourceLocation.x < targetLocation.x) {
@@ -201,9 +203,9 @@ public class CreateLinkAndNodeCommand extends Command {
                 xScale = -0.5;
                 yScale = -1;
             }
-        
+
             Dimension delta = fig.getSize().scale(xScale, yScale);
-        
+
             // If the link is almost straight, align the nodes
             int MARGIN = 30;
             if (sourceLocation.x > targetLocation.x && sourceLocation.x - targetLocation.x <= MARGIN) {
@@ -219,7 +221,7 @@ public class CreateLinkAndNodeCommand extends Command {
                 delta.height -= targetLocation.y - sourceLocation.y;
                 targetLocation.y = sourceLocation.y;
             }
-        
+
             fig.translateToAbsolute(delta);
             return new PrecisionPoint(delta.width, delta.height);
         } else {
@@ -228,7 +230,7 @@ public class CreateLinkAndNodeCommand extends Command {
             fig.translateToAbsolute(delta);
             return new PrecisionPoint(delta.width, delta.height);
         }
-        
+
     }
 
 }

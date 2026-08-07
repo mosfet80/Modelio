@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class UML2ClearVariableAction {
      * Tells whether a {@link UML2ClearVariableAction proxy} can be instantiated from a {@link MObject} checking it is a {@link OpaqueAction} stereotyped << UML2ClearVariableAction >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,7 +73,7 @@ public class UML2ClearVariableAction {
 
     /**
      * Create a new {@link OpaqueAction} stereotyped << UML2ClearVariableAction >> then instantiate a {@link UML2ClearVariableAction} proxy.
-     * 
+     *
      * @return a {@link UML2ClearVariableAction} proxy on the created {@link OpaqueAction}.
      */
     @objid ("d049c26e-b661-4438-bc9f-f33deafc97bb")
@@ -83,9 +84,10 @@ public class UML2ClearVariableAction {
     }
 
     /**
-     * Tries to instantiate a {@link UML2ClearVariableAction} proxy from a {@link OpaqueAction} stereotyped << UML2ClearVariableAction >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2ClearVariableAction} proxy from a {@link OpaqueAction} stereotyped << UML2ClearVariableAction >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a OpaqueAction
      * @return a {@link UML2ClearVariableAction} proxy or <i>null</i>.
      */
@@ -95,9 +97,10 @@ public class UML2ClearVariableAction {
     }
 
     /**
-     * Tries to instantiate a {@link UML2ClearVariableAction} proxy from a {@link OpaqueAction} stereotyped << UML2ClearVariableAction >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2ClearVariableAction} proxy from a {@link OpaqueAction} stereotyped << UML2ClearVariableAction >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link OpaqueAction}
      * @return a {@link UML2ClearVariableAction} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -127,7 +130,8 @@ public class UML2ClearVariableAction {
     }
 
     /**
-     * Get the underlying {@link OpaqueAction}. 
+     * Get the underlying {@link OpaqueAction}.
+     *
      * @return the OpaqueAction represented by this proxy, never null.
      */
     @objid ("2612c0c5-2c45-4864-a0b9-adcdd183b5f5")
@@ -139,11 +143,11 @@ public class UML2ClearVariableAction {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("af742902-ec2c-40b2-8cb3-d7468ffe7d90")
-    protected  UML2ClearVariableAction(OpaqueAction elt) {
+    protected UML2ClearVariableAction(OpaqueAction elt) {
         this.elt = elt;
     }
 
@@ -163,7 +167,7 @@ public class UML2ClearVariableAction {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "b071b025-c2fc-11de-8ac8-001302895b2b");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -171,7 +175,7 @@ public class UML2ClearVariableAction {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

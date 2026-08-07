@@ -1,28 +1,28 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.api.impl.app.navigation;
 
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.di.annotations.Creatable;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.EventTopic;
@@ -43,7 +43,7 @@ public class NavigationService implements INavigationService {
     List<INavigationListener> listeners = null;
 
     @objid ("b032da61-2ab5-43a5-ad65-6232b5547fcc")
-    public  NavigationService() {
+    public NavigationService() {
         this.listeners = new ArrayList<>();
     }
 
@@ -53,7 +53,7 @@ public class NavigationService implements INavigationService {
         if (this.selectionService != null) {
             this.selectionService.fireNavigate(target);
         }
-        
+
     }
 
     @objid ("49fc37d9-2a14-48e2-8143-af2dcd374d47")
@@ -62,7 +62,7 @@ public class NavigationService implements INavigationService {
         if (this.selectionService != null) {
             this.selectionService.fireNavigate(targets);
         }
-        
+
     }
 
     @objid ("7b31167b-ea47-4494-a915-c30b299d80f5")
@@ -72,7 +72,7 @@ public class NavigationService implements INavigationService {
         for (INavigationListener listener : this.listeners) {
             listener.navigateTo(elements);
         }
-        
+
     }
 
     @objid ("14c8f9ac-9495-42b1-815d-c6985c719773")
@@ -82,7 +82,7 @@ public class NavigationService implements INavigationService {
         for (INavigationListener listener : this.listeners) {
             listener.navigateTo(element);
         }
-        
+
     }
 
     @objid ("656944fc-8d72-4efa-9ecf-adbedd29f39a")

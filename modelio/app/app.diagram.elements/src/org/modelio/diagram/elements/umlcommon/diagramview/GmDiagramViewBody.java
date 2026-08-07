@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.umlcommon.diagramview;
 
@@ -54,21 +54,22 @@ public class GmDiagramViewBody extends GmNoStyleCompositeNode {
      * For deserialization only.
      */
     @objid ("936c10fd-6995-4e9d-93ba-69e2663bb7eb")
-    public  GmDiagramViewBody() {
+    public GmDiagramViewBody() {
         super();
     }
 
     /**
      * Creates the model.
+     *
      * @param diagram The diagram owning this diagram view
      * @param viewedDiagram The represented diagram.
      * @param ref The represented diagram reference.
      */
     @objid ("f2ad1ce6-8754-4bed-8895-4253e8d3d76d")
-    public  GmDiagramViewBody(final IGmDiagram diagram, AbstractDiagram viewedDiagram, MRef ref) {
+    public GmDiagramViewBody(final IGmDiagram diagram, AbstractDiagram viewedDiagram, MRef ref) {
         super(diagram, ref);
         this.viewedDiagram = viewedDiagram;
-        
+
     }
 
     @objid ("b009499f-10ef-4d73-80c6-ac00173d206e")
@@ -119,25 +120,25 @@ public class GmDiagramViewBody extends GmNoStyleCompositeNode {
             read_0(in);
             break;
         }
-        
+
     }
 
     @objid ("d51484bd-6e25-4d54-87b6-000f2dee5fa0")
     private void read_0(final IDiagramReader in) {
         super.read(in);
-        
+
         this.viewedDiagram = (AbstractDiagram) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("c80e5dfe-e5ad-46d3-b9d0-971e2451b822")
     @Override
     public void write(final IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, GmDiagramViewBody.MINOR_PREFIX, GmDiagramViewBody.MINOR_VERSION);
-        
+
     }
 
     @objid ("2cd414aa-4796-4529-842e-48b579094253")

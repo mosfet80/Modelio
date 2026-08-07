@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -39,7 +39,7 @@ public class OClass extends ONameSpace {
             return createEcoreClass();
         }else
             return getOrCreateEcoreAssociationClass();
-        
+
     }
 
     @objid ("ffca62b1-d024-49df-a933-bf6c3f348013")
@@ -53,10 +53,10 @@ public class OClass extends ONameSpace {
     }
 
     @objid ("1157bb84-fe52-46b4-a871-77dace7d1d03")
-    public  OClass(Class element) {
+    public OClass(Class element) {
         super(element);
         this.isIsClassAssociation = (AbstractObjingModelNavigation.isIsClassAssociation(element));
-        
+
     }
 
     @objid ("72ca974f-3f59-43d9-9f1f-2a68d94d9883")
@@ -65,22 +65,22 @@ public class OClass extends ONameSpace {
         // The "isIsClassAssociation" test may be done on sub-classes, like
         // "Component" that inherits from "Class".
         this.isIsClassAssociation = (AbstractObjingModelNavigation.isIsClassAssociation((Class) getObjingElement()));
-        
+
         if (!this.isIsClassAssociation)
             linkEcoreClass( (org.eclipse.uml2.uml.Class) ecoreElt);
-        
+
     }
 
     @objid ("800bd8b2-4e87-4e9a-9fed-3728711677f0")
     @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
-        
+
         if (!this.isIsClassAssociation)
             setClassProperties( (org.eclipse.uml2.uml.Class) ecoreElt);
         else
             setAssociationClassProperties((org.eclipse.uml2.uml.AssociationClass) ecoreElt);
-        
+
     }
 
     @objid ("44d3b4a3-a270-4d43-bcf8-8aa78d36aeed")
@@ -106,7 +106,7 @@ public class OClass extends ONameSpace {
     @objid ("f9027fd8-4da7-4b3b-b50c-b57fe36f3876")
     private void linkEcoreClass(org.eclipse.uml2.uml.Class ecoreElt) {
         org.eclipse.uml2.uml.Element ecoreOwner = GenerationProperties.getInstance().getMappedElement(getObjingElement().getCompositionOwner());
-        
+
         if (ecoreOwner != null) {
             if (ecoreOwner instanceof org.eclipse.uml2.uml.Package) {
                 org.eclipse.uml2.uml.Package ownerIsPkg = (org.eclipse.uml2.uml.Package) ecoreOwner;
@@ -129,33 +129,33 @@ public class OClass extends ONameSpace {
                         + ecoreOwner.getClass().getSimpleName() + ") Not Found");
             }
         }
-        
+
     }
 
     @objid ("08f87693-1790-4d07-92a5-a13e6864bed1")
     private void setClassProperties(org.eclipse.uml2.uml.Class ecoreElt) {
         this.setLeaf(ecoreElt);
         this.setActive(ecoreElt);
-        
+
         if (GenerationProperties.getInstance().isRoundtripEnabled()){
             this.setPrimitiveEAnnotation(ecoreElt);
             this.setMainEAnnotation(ecoreElt);
             this.setRootEAnnotation(ecoreElt);
         }
-        
+
     }
 
     @objid ("367cd918-8f6d-4411-993b-ecee4e380078")
     private void setAssociationClassProperties(org.eclipse.uml2.uml.AssociationClass ecoreElt) {
         this.setLeaf(ecoreElt);
         this.setActive(ecoreElt);
-        
+
         if (GenerationProperties.getInstance().isRoundtripEnabled()){
             this.setPrimitiveEAnnotation(ecoreElt);
             this.setMainEAnnotation(ecoreElt);
             this.setRootEAnnotation(ecoreElt);
         }
-        
+
     }
 
     @objid ("6441a27b-5a11-42cb-913c-d830424d0674")

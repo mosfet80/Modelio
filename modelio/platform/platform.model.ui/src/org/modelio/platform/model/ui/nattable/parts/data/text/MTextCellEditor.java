@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.parts.data.text;
 
@@ -54,14 +54,14 @@ public class MTextCellEditor extends MultiLineTextCellEditor {
 
     /**
      * Create a new multi line text editor.
+     *
      * @param lineWrap Flag to configure whether the text control should enable automatic line wrap behaviour or not.
      * @param moveSelectionOnEnter Flag to configure whether the selection should move after a value was committed after pressing enter.
      */
     @objid ("15f802c4-3226-414d-8ff8-c0fe16cf222a")
-    public  MTextCellEditor(boolean lineWrap, boolean moveSelectionOnEnter) {
+    public MTextCellEditor(boolean lineWrap, boolean moveSelectionOnEnter) {
         super(lineWrap, moveSelectionOnEnter);
         this.lineWrap = lineWrap;
-        
     }
 
     /**
@@ -71,7 +71,7 @@ public class MTextCellEditor extends MultiLineTextCellEditor {
     @Override
     public Rectangle calculateControlBounds(Rectangle cellBounds) {
         Text text = getEditorControl();
-        
+
         // add a listener that increases/decreases the size of the control if
         // the text is modified as the calculateControlBounds method is only
         // called in case of inline editing, this listener shouldn't hurt
@@ -85,7 +85,7 @@ public class MTextCellEditor extends MultiLineTextCellEditor {
                         MTextCellEditor.this.layerCell.getRowPosition(),
                         new Rectangle(cellBounds.x, cellBounds.y,
                                 cellBounds.width, cellBounds.height));
-        
+
                 Point p = getEditorControl().getSize();
                 Point loc = getEditorControl().getLocation();
                 Rectangle newCellBounds = computeSize(editorBounds, text);
@@ -102,7 +102,7 @@ public class MTextCellEditor extends MultiLineTextCellEditor {
     @Override
     public Text createEditorControl(Composite composite) {
         boolean openInline = openInline(this.configRegistry, this.labelStack.getLabels());
-        
+
         int style = HorizontalAlignmentEnum.getSWTStyle(this.cellStyle) | SWT.MULTI | SWT.BORDER;
         if (!openInline) {
             // if the editor control is opened in a dialog, we add scrolling as
@@ -117,13 +117,13 @@ public class MTextCellEditor extends MultiLineTextCellEditor {
             style = style | SWT.H_SCROLL;
         }
         final Text textControl = super.createEditorControl(composite, style);
-        
+
         if (!openInline) {
             // add the layout data directly so it will not be layouted by the
             // CellEditDialog
             GridDataFactory.fillDefaults().grab(true, true).hint(100, 50).applyTo(textControl);
         }
-        
+
         // on inline editing there need to be a different handling of the return
         // key as the Text control is performing a new line on return, it is not
         // possible to commit a value by pressing enter. So for inline editing
@@ -132,7 +132,7 @@ public class MTextCellEditor extends MultiLineTextCellEditor {
         if (openInline) {
             this.commitOnEnter = true;
             textControl.addKeyListener(new KeyListener() {
-        
+
                 @Override
                 public void keyReleased(KeyEvent event) {
                     if ((event.keyCode == SWT.CR) || (event.keyCode == SWT.KEYPAD_CR)) {
@@ -141,7 +141,7 @@ public class MTextCellEditor extends MultiLineTextCellEditor {
                         }
                     }
                 }
-        
+
                 @Override
                 public void keyPressed(KeyEvent e) {
                     // Nothing to do
@@ -156,24 +156,23 @@ public class MTextCellEditor extends MultiLineTextCellEditor {
     public void setLineWrap(boolean lineWrap) {
         super.setLineWrap(lineWrap);
         this.lineWrap = lineWrap;
-        
     }
 
     @objid ("7825ae30-9b31-4ce5-a797-48f89ac1e9aa")
     protected Rectangle computeSize(Rectangle cellBounds, Text text) {
         Rectangle cellRect = new Rectangle(cellBounds.x, cellBounds.y, cellBounds.width, cellBounds.height);
         Rectangle containerRect = text.getParent().getBounds();
-        
+
         // Get the text font height
         GC gc = new GC(text);
         Point stringSize = this.lineWrap ? gc.stringExtent(text.getText()) : gc.textExtent(text.getText());
         gc.dispose();
-        
+
         int maxPossibleHeight = (containerRect.height) - cellRect.y;
         if (this.parent.getHorizontalBar() != null && this.parent.getHorizontalBar().isVisible()) {
             maxPossibleHeight -= 20;
         }
-        
+
         int HORIZONTAL_MARGIN = 8;
         int VERTICAL_MARGIN = 8;
         if (stringSize.x + HORIZONTAL_MARGIN > cellRect.width) {
@@ -183,9 +182,9 @@ public class MTextCellEditor extends MultiLineTextCellEditor {
             }
             Double estimatedNumberOfLines = ((Math.ceil((float) stringSize.x / (cellRect.width - HORIZONTAL_MARGIN)))) + 1;
             int requiredHeight = this.lineWrap ? estimatedNumberOfLines.intValue() * (stringSize.y + VERTICAL_MARGIN) : stringSize.y + VERTICAL_MARGIN;
-        
+
             cellRect.width = Math.min(Math.max(cellRect.width, stringSize.x + HORIZONTAL_MARGIN + 4), maxPossibleWidth);
-        
+
             if (requiredHeight > cellRect.height) {
                 cellRect.height = Math.min(requiredHeight, maxPossibleHeight);
             }

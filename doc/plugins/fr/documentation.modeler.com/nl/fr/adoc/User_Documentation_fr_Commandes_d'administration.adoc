@@ -1,0 +1,11 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Les commandes d'administration
+
+
+*  <<User_Documentation_fr_Commandes_d%27administration_Verifier_le_referentiel.adoc#,*Vérifier le référentiel...*>> : Vérifie la cohérence du référentiel.
+*  <<User_Documentation_fr_Commandes_d%27administration_Creer_un_tag.adoc#,*Créer un tag...*>> : Crée un tag depuis la dernière version du référentiel.
+*  <<User_Documentation_fr_Commandes_d%27administration_Nettoyer.adoc#,*Nettoyer*>> : Nettoie la copie locale.

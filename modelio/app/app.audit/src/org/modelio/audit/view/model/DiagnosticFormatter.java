@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.view.model;
 
@@ -47,13 +47,13 @@ public class DiagnosticFormatter {
     public static String getMessage(IAuditEntry entry, ILabelProvider labelProvider, IAuditConfigurationPlan auditConfigurationPlan) {
         try {
             String pattern = auditConfigurationPlan.getMessage(entry.getRuleId());
-        
+
             return MessageFormat.format(pattern, DiagnosticFormatter.makeInfos(entry.getLinkedObjects(), labelProvider));
         } catch (@SuppressWarnings("unused") MissingResourceException e) {
             Audit.LOG.warning("auditrules: no entry for rule " + entry.getRuleId() + ".message");
             return "!" + entry.getRuleId() + ".message!";
         }
-        
+
     }
 
     @objid ("412fe267-1739-495d-a70d-1af908ac81f7")
@@ -69,7 +69,7 @@ public class DiagnosticFormatter {
                         StyledString s = label;
                         label = DiagnosticFormatter.fixStyle(s);
                     }
-        
+
                 } catch (RuntimeException e) {
                     try {
                         label = new StyledString(element.getName());
@@ -94,19 +94,19 @@ public class DiagnosticFormatter {
         try {
             StyledString ret = new StyledString();
             String pattern = auditConfigurationPlan.getMessage(entry.getRuleId());
-        
+
             Object[] styledArgs = DiagnosticFormatter.makeStyledInfos(entry.getLinkedObjects(), labelProvider);
-        
+
             AttributedCharacterIterator it = new MessageFormat(pattern)
                     .formatToCharacterIterator(styledArgs);
-        
+
             it.first();
             while (it.current() != CharacterIterator.DONE) {
                 Object argn = it.getAttribute(MessageFormat.Field.ARGUMENT);
                 if (argn instanceof Integer) {
                     int start = it.getRunStart(MessageFormat.Field.ARGUMENT);
                     int limit = it.getRunLimit(MessageFormat.Field.ARGUMENT);
-        
+
                     Object arg = styledArgs[(int) argn];
                     if (arg instanceof StyledString) {
                         StyledString styledArg = (StyledString) arg;
@@ -118,20 +118,20 @@ public class DiagnosticFormatter {
                             ret.append(it.next());
                         }
                     }
-        
+
                 } else {
                     ret.append(it.current());
                 }
-        
+
                 it.next();
             }
-        
+
             return ret;
         } catch (@SuppressWarnings("unused") MissingResourceException e) {
             Audit.LOG.warning("auditrules: no entry for rule " + entry.getRuleId() + ".message");
             return new StyledString("!" + entry.getRuleId() + ".message!");
         }
-        
+
     }
 
     @objid ("ea8b7907-802c-4dd7-bca1-76abb2b852e9")
@@ -165,21 +165,21 @@ public class DiagnosticFormatter {
     @objid ("97d7de38-ead3-41a9-a848-a48a31279d5f")
     private static StyledString fixStyle(StyledString s) {
         StyledString ret = new StyledString();
-        
+
         StyleRange[] styleRanges = s.getStyleRanges();
         int strOffset = 0;
         for (StyleRange r : styleRanges) {
             if (strOffset != r.start) {
                 ret.append(s.getString().substring(strOffset, r.start), new StyleModifier());
             }
-        
+
             StyleModifier style = new StyleModifier();
             style.setOriginal(r);
             ret.append(s.getString().substring(r.start, r.start + r.length), style);
-        
+
             strOffset = r.start + r.length;
         }
-        
+
         if (strOffset != s.getString().length()) {
             ret.append(s.getString().substring(strOffset, s.getString().length()), new StyleModifier());
         }
@@ -190,7 +190,7 @@ public class DiagnosticFormatter {
      * Make default constructor private, this is a pure utility class.
      */
     @objid ("43d2339a-4a9f-497b-85d6-3052e092fefe")
-    private  DiagnosticFormatter() {
+    private DiagnosticFormatter() {
         super();
     }
 
@@ -217,7 +217,7 @@ public class DiagnosticFormatter {
                 textStyle.underlineColor = this.range.underlineColor;
                 textStyle.underlineStyle = this.range.underlineStyle;
             }
-            
+
         }
 
         @objid ("0081d8ff-8e8c-48d7-9ad9-e67a11c3ce46")
@@ -233,7 +233,7 @@ public class DiagnosticFormatter {
         @Override
         public void applyStyles(TextStyle textStyle) {
             super.applyStyles(textStyle);
-            
+
             Color targetColor = UIColor.HYPERLINK_FG;
             if (textStyle.foreground == null /* || textStyle.foreground.equals(UIColor.MODIFIABLE_ELEMENT) */) {
                 textStyle.foreground = targetColor;
@@ -241,7 +241,7 @@ public class DiagnosticFormatter {
                 RGB target = targetColor.getRGB();
                 textStyle.foreground = CoreColorRegistry.getIntermediateColor(textStyle.foreground, target, 0.3f);
             }
-            
+
         }
 
     }

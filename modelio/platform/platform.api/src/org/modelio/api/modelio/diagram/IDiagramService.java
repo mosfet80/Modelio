@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.modelio.diagram;
 
@@ -46,7 +46,7 @@ import org.modelio.vcore.smkernel.mapi.MClass;
 public interface IDiagramService {
     /**
      * Tool that creates drawing lines.
-     * 
+     *
      * @since 3.6
      */
     @objid ("053da8a5-790d-4b15-88ae-3e05130d5ef0")
@@ -54,7 +54,7 @@ public interface IDiagramService {
 
     /**
      * Tool that creates drawing texts.
-     * 
+     *
      * @since 3.6
      */
     @objid ("76097161-4a00-4b98-9cc9-7a485ef74989")
@@ -62,7 +62,7 @@ public interface IDiagramService {
 
     /**
      * Tool that creates drawing ellipses.
-     * 
+     *
      * @since 3.6
      */
     @objid ("5a9c2850-dd84-4bf3-a451-be92eb67f3b2")
@@ -70,7 +70,7 @@ public interface IDiagramService {
 
     /**
      * Tool that creates drawing rectangles.
-     * 
+     *
      * @since 3.6
      */
     @objid ("a6133f7f-bdfe-4b61-b9e4-12cd074f50e5")
@@ -78,7 +78,7 @@ public interface IDiagramService {
 
     /**
      * ID of the link creation tool that shows popup menu to choose the kind of link.
-     * 
+     *
      * @since 3.6
      */
     @objid ("0aca3bed-52b5-42da-affb-5d8bd1214d99")
@@ -86,15 +86,17 @@ public interface IDiagramService {
 
     /**
      * Get an installed diagram styles from its name.
-     * @since 2.2
+     *
      * @param name the name of the style to look for.
      * @return The style with the given name, or <code>null</code> if it isn't installed.
+     * @since 2.2
      */
     @objid ("ff24bfde-7e65-11e1-b95c-002564c97630")
     IStyleHandle getStyle(final String name);
 
     /**
      * List all diagram styles that are currently installed.
+     *
      * @return A list of styles. Might be empty, but not <code>null</code>.
      */
     @objid ("7ed90eca-d7a5-11e0-9245-001ec947cd2a")
@@ -102,6 +104,7 @@ public interface IDiagramService {
 
     /**
      * Register a new named style along with its 'data' file.<br>
+     *
      * @param styleName then name of the style to register.
      * @param baseStyleName the cascaded style.
      * @param styleData the list of all properties defined in the style.
@@ -113,6 +116,7 @@ public interface IDiagramService {
     /**
      * Get a diagram handle on 'diagram'.<br>
      * It opens a new diagram editor in Modelio, or select it if already opened.
+     *
      * @param diagram the AbstractDiagram to open.
      * @return a diagram handle representing this diagram.
      */
@@ -121,6 +125,7 @@ public interface IDiagramService {
 
     /**
      * Get the palette tool from the given id.
+     *
      * @param id An id.
      * @return the found palette tool or <i>null</i> if none found.
      */
@@ -149,7 +154,20 @@ public interface IDiagramService {
     void unregisterCustomizedTool(String id);
 
     /**
+     * Layout the given diagram.
+     * <p>
+     * This method will apply a layout algorithm to the diagram, which will rearrange the graphical elements
+     * for better readability and organization.
+     * </p>
+     *
+     * @param diagram the diagram to layout.
+     */
+    @objid ("2519b85e-f0ca-4efb-b23a-2de01b256f6a")
+    void layoutDiagram(final AbstractDiagram diagram);
+
+    /**
      * Register diagram contributor
+     *
      * @param category of the diagram contributor
      * @deprecated use {@link IEditionService#registerDiagramContributor}
      * @param contributor the diagram contributor
@@ -160,6 +178,7 @@ public interface IDiagramService {
 
     /**
      * Unregister diagram contributor
+     *
      * @param category of the diagram contributor
      * @deprecated use {@link IEditionService#unregisterDiagramContributor}
      * @param contributor the diagram contributor
@@ -278,11 +297,12 @@ public interface IDiagramService {
      * </td>
      * </tr>
      * </table>
+     *
      * @param modelViewTemplateId identifier of the diagram template.
      * @since 4.1
      * @return a new Diagram Creator. Might be <code>null</code> if the id is not found.
      */
     @objid ("492c6dc7-808d-4dac-9d63-965b1afe180e")
     IModelViewTemplate<AbstractDiagram> getDiagramTemplate(String modelViewTemplateId);
-}
 
+}

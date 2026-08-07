@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -48,7 +48,7 @@ public class R1610 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -69,7 +69,7 @@ public class R1610 extends AbstractUmlRule {
         plan.registerRule(StateMachine.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -103,14 +103,14 @@ public class R1610 extends AbstractUmlRule {
      * Default constructor for R1610
      */
     @objid ("791d0c76-832f-4977-97dd-516751729203")
-    public  R1610() {
+    public R1610() {
         this.checkerInstance = new CheckR1610(this);
     }
 
     @objid ("51b1908b-0f13-4c6f-a97e-c1cc8118ae66")
     private static class CheckR1610 extends AbstractControl {
         @objid ("99e60ba0-5655-46ab-aebc-8f0176f7bf2d")
-        public  CheckR1610(IRule rule) {
+        public CheckR1610(IRule rule) {
             super(rule);
         }
 
@@ -137,12 +137,12 @@ public class R1610 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     clazz,
                     null);
-            
+
             if (clazz.isIsElementary()) {
                 if (!clazz.getOwnedBehavior(StateMachine.class).isEmpty()) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(clazz);

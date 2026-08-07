@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.model;
 
@@ -41,7 +41,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Makes the link between the Gm model and the Ob model.
- * 
+ *
  * @author cma
  */
 @objid ("8084e16d-1dec-11e2-8cad-001ec947c8cc")
@@ -75,10 +75,11 @@ public class ModelManager implements IModelManager {
 
     /**
      * Create a model manager.
+     *
      * @param context the Eclipse 4 context
      */
     @objid ("80874372-1dec-11e2-8cad-001ec947c8cc")
-    public  ModelManager(IEclipseContext context) {
+    public ModelManager(IEclipseContext context) {
         IProjectService projectService = context.get(IProjectService.class);
         this.projectPath = projectService.getOpenedProject().getPfs().getProjectPath();
         this.session = projectService.getSession();
@@ -89,10 +90,11 @@ public class ModelManager implements IModelManager {
         this.mdaExpert = context.get(IModuleService.class).getMdaExpert();
         this.modelLinkFactory = new ModelLinkFactory(this.modelServices);
         this.context = context;
-        
+
     }
 
     /**
+     *
      * @return the Modelio activation service.
      */
     @objid ("227c2c9f-6f33-4516-bcc9-ab88159c61c1")
@@ -102,6 +104,7 @@ public class ModelManager implements IModelManager {
     }
 
     /**
+     *
      * @return the E4 context service.
      */
     @objid ("7f2d7c50-bec3-4126-b425-e2cb58866454")
@@ -112,6 +115,7 @@ public class ModelManager implements IModelManager {
 
     /**
      * Get the MDA expert to ask for example whether a stereotyped element can be put under an element.
+     *
      * @return the MDA expert.
      * @since Modelio 3.4
      */
@@ -123,6 +127,7 @@ public class ModelManager implements IModelManager {
 
     /**
      * Get the diagram project metamodel.
+     *
      * @return the project metamodel.
      */
     @objid ("ca6379a1-405d-4ac6-919c-0ff23c094e40")
@@ -134,6 +139,7 @@ public class ModelManager implements IModelManager {
     /**
      * Get the model factory used to create a model object
      * in the same repository as the given object.
+     *
      * @return a model factory.
      */
     @objid ("8087438a-1dec-11e2-8cad-001ec947c8cc")
@@ -144,6 +150,7 @@ public class ModelManager implements IModelManager {
 
     /**
      * Get the Ob link factory.
+     *
      * @return the link factory.
      */
     @objid ("80874378-1dec-11e2-8cad-001ec947c8cc")
@@ -154,6 +161,7 @@ public class ModelManager implements IModelManager {
 
     /**
      * Get the Modelio model services.
+     *
      * @return the model services.
      */
     @objid ("78b5a580-598c-11e2-8539-00137282c51b")
@@ -164,6 +172,7 @@ public class ModelManager implements IModelManager {
 
     /**
      * Get the modeling session.
+     *
      * @return the modeling session.
      */
     @objid ("8087437d-1dec-11e2-8cad-001ec947c8cc")
@@ -173,6 +182,7 @@ public class ModelManager implements IModelManager {
     }
 
     /**
+     *
      * @return the Modelio navigation service
      */
     @objid ("2e5c9d82-50ca-43c7-8a89-b39870fccb4b")
@@ -183,8 +193,8 @@ public class ModelManager implements IModelManager {
 
     /**
      * Resolve an MRef.
-     * @param <E>
-     * the type of the element, makes an automatic cast.
+     *
+     * @param <E> the type of the element, makes an automatic cast.
      * @param ref The reference to resolve
      * @return the found MObject or <i>null</i> if the element is not present in the project.
      */
@@ -197,11 +207,12 @@ public class ModelManager implements IModelManager {
         } catch (UnknownMetaclassException e) {
             return null;
         }
-        
+
     }
 
     /**
      * Get the project directory path.
+     *
      * @return the project directory path.
      */
     @objid ("7be8cb01-accf-412a-b3b9-0583785bf23c")
@@ -212,6 +223,7 @@ public class ModelManager implements IModelManager {
 
     /**
      * Returns the service associated with the given class.
+     *
      * @param clazz the class that needs to be found in the context
      * @return an object corresponding to the given class, or <code>null</code>
      */

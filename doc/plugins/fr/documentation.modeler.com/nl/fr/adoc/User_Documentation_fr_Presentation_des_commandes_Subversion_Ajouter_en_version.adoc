@@ -1,0 +1,44 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= La commande "Ajouter en version"
+
+
+
+===== Description
+
+La commande "Ajouter en version" met un nouvel élément sous la gestion de version.
+
+Lorsqu'un élément est initialement créé dans un modèle de travail partagé, il n'existe qu'en local et n'est pas géré en version par ce dernier. L'élément ne peut être publié, et aucune commande du travail de groupe ne peut être lancée sur lui, à l'exception de la commande "Ajouter en version", qui le mettra sous la gestion du travail de groupe. [[A-propos-des-éléments-non-versionnés]]
+
+
+===== A propos des éléments non versionnés
+
+Dans un modèle de travail partagé, vous pouvez créer de nouveaux éléments de modèle à n'importe quel moment, même au sein d'un élément non-verrouillé (en mode lecture seule), la seule condition étant qu'il faut que l'élément créé soit lui-même un grain.
+
+Par exemple, vous pouvez créer une classe dans un package, même si le package n'est pas actuellement verrouillé (en mode lecture-écriture). En revanche, vous ne pouvez pas ajouter une opération à une classe en mode lecture seule, car une opération n'est pas un grain.
+
+En d'autres termes, vous pouvez ajouter un nouveau grain à votre projet local à n'importe quel moment, sans tenir compte de l'état du parent du nouvel élément (en mode lecture seule ou en mode lecture-écriture). Ceci rend les modèles de travail partagés très flexibles, car vous n'êtes pas obligé de verrouiller un élément afin d'y rajouter des éléments fils, ce qui veut dire que vous ne bloquez pas d'autres utilisateurs pendant l'opération. [[Conditions-et-restrictions]]
+
+
+===== Conditions et restrictions
+
+Voici les conditions qui gèrent le lancement de la commande "Ajouter en version" :
+
+* L'élément doit être un <<User_Documentation_fr_Introduction_aux_modeles_de_travail_SVN_Grains_SVN.adoc#,grain>> ,
+* L'élément ne doit pas déjà être sous gestion du travail de groupe.
+
+
+===== Comportement
+
+Lorsque la commande "Ajouter en version" est lancée sur un nouvel élément, l'état de ce dernier change. Ce changement est représenté graphiquement par une flèche bleue dans l'explorateur de modèle, signifiant que l'élément a été ajouté en version, mais que cet ajout n'a pas encore été livré dans le référentiel, et n'est donc ni définitif, ni disponible aux autres utilisateurs.
+
+Afin de rendre l'ajout définitif et disponible aux autres utilisateurs, la commande "Livrer" doit être lancée sur l'élément parent du nouvel élément. Ceci nécessite le lancement de la commande "Prendre le verrou" sur l'élément parent, habituellement en mode non-récursif.
+
+Si l'élément parent est en mode lecture seule, il sera automatiquement verrouillé, parce que la déclaration d'un nouvel élément modifie l'arbre de composition de l'élément parent et nécessite donc que l'élément parent soit verrouillé (en mode lecture-écriture), comme toute opération de modification.
+
+Si le verrouillage de l'élément parent ne réussit pas, l'élément initial restera dans son état non versionné.

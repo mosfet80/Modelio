@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.diagrams;
 
 import java.util.ArrayList;
@@ -41,75 +40,75 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("3179c664-e485-47e8-aacc-ed2e277ea76b")
 public class BehaviorDiagramSmClass extends AbstractDiagramSmClass {
-    @objid ("25bcc39f-633b-4015-ad9b-08d2d54323b7")
-    public  BehaviorDiagramSmClass(ISmMetamodelFragment origin) {
+    @objid ("ab1c7267-beb5-4420-92a2-1f9804e01cbb")
+    public BehaviorDiagramSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("f66a8622-6293-443e-8c79-4576f8633af8")
+    @objid ("8001cc55-611a-43aa-805a-fc8c12828ec2")
     @Override
     public String getName() {
         return "BehaviorDiagram";
-        
+
     }
 
-    @objid ("0676b863-8273-4c16-98c0-aef8b69adf2c")
+    @objid ("7d5ce948-5ca8-4d5f-8bab-8d9996f1f170")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("eb2d99c8-377f-4ca6-899b-450138603bad")
+    @objid ("f03fc428-48ae-40d6-a788-287c9b12ab6d")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return BehaviorDiagram.class;
-        
+
     }
 
-    @objid ("3ff18417-4e43-4802-94d8-fdbb95b3d5af")
+    @objid ("4d0795ea-41ea-42bd-b6e4-ce9b21fe8976")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("5dab8924-f870-4742-96ac-fb178f748674")
+    @objid ("de2b4682-ff98-4a61-8e2b-fdea940edc20")
     @Override
     public boolean isAbstract() {
         return true;
-        
+
     }
 
-    @objid ("0b53060e-429c-459a-bee5-9dc695b6748c")
+    @objid ("9d627bb3-d805-4b7a-be78-59bc251b6d5e")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(AbstractDiagram.MQNAME);
         this.registerFactory(new BehaviorDiagramObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
-        
+
     }
 
     @objid ("c2789e32-bd52-49cb-b045-c5095e7ca2eb")
     private static class BehaviorDiagramObjectFactory implements ISmObjectFactory {
-        @objid ("8dfb81a3-b60e-4030-9dc6-3894b0a3c7b1")
+        @objid ("295706e7-de24-4598-bcbc-4d6cb975eba4")
         private BehaviorDiagramSmClass smClass;
 
-        @objid ("ac0c4b67-583f-4cba-b50e-79fc93fc0dd7")
-        public  BehaviorDiagramObjectFactory(BehaviorDiagramSmClass smClass) {
+        @objid ("5ea1e946-231a-4888-b57a-89aff8eb72ae")
+        public BehaviorDiagramObjectFactory(BehaviorDiagramSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("075f602e-758a-43c8-83e7-5c3338939eaf")
+        @objid ("30268658-0f17-4eeb-9111-19ff46467192")
         @Override
         public ISmObjectData createData() {
             throw new UnsupportedOperationException();
         }
 
-        @objid ("623efd65-ec90-44ac-b9d5-7f601f56eb67")
+        @objid ("ac27f0ad-d01b-4a90-9acd-100d7ddfe022")
         @Override
         public SmObjectImpl createImpl() {
             throw new UnsupportedOperationException();

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.rootElements;
 
 import java.util.ArrayList;
@@ -65,16 +64,16 @@ public abstract class BpmnBaseElementImpl extends ModelElementImpl implements Bp
         } else {
             return getBpmnContext(elt.getCompositionOwner());
         }
-        
+
     }
 
-    @objid ("c8f8d019-fd8b-4a49-a476-269caf7c8745")
+    @objid ("ecba23fb-7faf-41c5-93ab-4a70162df8d9")
     @Override
     public EList<BpmnAssociation> getOutgoingAssoc() {
         return new SmList<>(this, ((BpmnBaseElementSmClass)getClassOf()).getOutgoingAssocDep());
     }
 
-    @objid ("bddee4bf-6eb9-46f3-baf7-b196810348b5")
+    @objid ("5de213de-fc78-42e7-a422-c0d8dea78b9a")
     @Override
     public <T extends BpmnAssociation> List<T> getOutgoingAssoc(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -87,16 +86,16 @@ public abstract class BpmnBaseElementImpl extends ModelElementImpl implements Bp
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("659659e0-4792-403c-b924-0a94331d1f61")
+    @objid ("bcdcd718-08e1-42f7-ab5d-cf08c526f86a")
     @Override
     public EList<BpmnAssociation> getIncomingAssoc() {
         return new SmList<>(this, ((BpmnBaseElementSmClass)getClassOf()).getIncomingAssocDep());
     }
 
-    @objid ("4f6160db-75a0-448b-aba5-4e326647f961")
+    @objid ("0bd3b3a9-4c7a-4419-adcc-acb25f5fb800")
     @Override
     public <T extends BpmnAssociation> List<T> getIncomingAssoc(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -109,16 +108,16 @@ public abstract class BpmnBaseElementImpl extends ModelElementImpl implements Bp
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("f2d4b90b-1f4c-4db6-b3f7-371173127b46")
+    @objid ("bb23713d-f30c-43da-9950-ceeff8d8584c")
     @Override
     public EList<BpmnMessageFlow> getIncomingFlow() {
         return new SmList<>(this, ((BpmnBaseElementSmClass)getClassOf()).getIncomingFlowDep());
     }
 
-    @objid ("fe8d0636-1134-4346-b070-ff5a27be5456")
+    @objid ("294b4bb1-fef4-4927-84b4-90d3a5dfecbc")
     @Override
     public <T extends BpmnMessageFlow> List<T> getIncomingFlow(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -131,16 +130,16 @@ public abstract class BpmnBaseElementImpl extends ModelElementImpl implements Bp
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("a893b455-09ea-42f9-8ec2-95c292a92348")
+    @objid ("7e9f8244-f091-4317-a2dd-a5f103b0e92f")
     @Override
     public EList<BpmnMessageFlow> getOutgoingFlow() {
         return new SmList<>(this, ((BpmnBaseElementSmClass)getClassOf()).getOutgoingFlowDep());
     }
 
-    @objid ("669584a9-2443-4bc2-bcc2-7ec1fb119a20")
+    @objid ("3feb3a88-f707-49af-8a11-69dbfca708c5")
     @Override
     public <T extends BpmnMessageFlow> List<T> getOutgoingFlow(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -153,16 +152,16 @@ public abstract class BpmnBaseElementImpl extends ModelElementImpl implements Bp
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("7f41c329-686f-4445-b28d-dd7c7657f3d0")
+    @objid ("142d2113-c91e-426f-8e0f-5587d4ade0ec")
     @Override
     public EList<BpmnLane> getPartitionedLaneRefs() {
         return new SmList<>(this, ((BpmnBaseElementSmClass)getClassOf()).getPartitionedLaneRefsDep());
     }
 
-    @objid ("739624ff-e945-4841-9801-b6b2d814296e")
+    @objid ("c9f47a2a-404c-4459-868b-96daf7bbfe0c")
     @Override
     public <T extends BpmnLane> List<T> getPartitionedLaneRefs(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -175,10 +174,10 @@ public abstract class BpmnBaseElementImpl extends ModelElementImpl implements Bp
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("75a4137d-033b-4ce1-b9a8-a658dd3548e3")
+    @objid ("2b89ff10-f2d3-486d-b26f-2c44ecb8ee32")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -186,17 +185,17 @@ public abstract class BpmnBaseElementImpl extends ModelElementImpl implements Bp
         return super.getCompositionOwner();
     }
 
-    @objid ("b7833187-9066-48cd-8a9f-ea63a2bdfadd")
+    @objid ("3e1f3ac7-49de-4104-a515-1a0cda6505d7")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("75911978-84b2-478e-bb50-082b582a1b96")
+    @objid ("3036a842-03b9-4316-9d07-8051571e36d2")
     @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
@@ -205,7 +204,7 @@ public abstract class BpmnBaseElementImpl extends ModelElementImpl implements Bp
           return super.accept(v);
     }
 
-    @objid ("bd0fbbbf-db5c-47dd-9cb1-c0cfc02b1ed6")
+    @objid ("d6ad5b0f-fd2d-4b99-a594-938a9099307e")
     public Object accept(IModelVisitor v) {
         return v.visitBpmnBaseElement(this);
     }

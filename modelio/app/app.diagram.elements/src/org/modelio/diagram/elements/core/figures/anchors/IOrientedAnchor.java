@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures.anchors;
 
@@ -28,12 +28,14 @@ import org.modelio.diagram.elements.core.figures.geometry.GeomUtils;
 
 /**
  * {@link ConnectionAnchor} that define the orthogonal direction from the node to outside.
+ *
  * @author cma
  * @since 5.1.0
  */
 @objid ("86e1b844-94eb-490c-bbf4-42faa3781ee2")
 public interface IOrientedAnchor extends ConnectionAnchor {
     /**
+     *
      * @return the orthogonal direction from the anchor to outside the node .
      */
     @objid ("a646a28d-d4c3-48d5-a713-e92a81aa58d8")
@@ -42,6 +44,7 @@ public interface IOrientedAnchor extends ConnectionAnchor {
     /**
      * Return {@link #getDefinedDirection(ConnectionAnchor)} in the anchor if it implements {@link IOrientedAnchor},
      * {@link Direction#NONE} in the other case.
+     *
      * @param anchor an anchor
      * @return the anchor direction or NONE.
      */
@@ -57,6 +60,7 @@ public interface IOrientedAnchor extends ConnectionAnchor {
      * or compute it from the given position and the given rectangle in the other case.
      * <p>
      * Then anchor location and the node bounds must be in same coordinates.
+     *
      * @param anchor an anchor
      * @param anchorLoc the anchor location
      * @param nodeBounds the anchor node bounds
@@ -69,5 +73,5 @@ public interface IOrientedAnchor extends ConnectionAnchor {
             return ret;
         return GeomUtils.getDirection(anchorLoc, nodeBounds);
     }
-}
 
+}

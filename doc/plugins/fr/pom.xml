@@ -7,16 +7,28 @@
 	<parent>
 		<groupId>org.modelio</groupId>
 		<artifactId>doc-parent</artifactId>
-		<version>5.4.1-SNAPSHOT</version>
+		<version>6.2.0-SNAPSHOT</version>
 		<relativePath>../../parent</relativePath>
 	</parent>
 
 	<modules>
+		<module>documentation.archimate.com</module>
 		<module>documentation.bpmn</module>
 		<module>documentation.copyright.org</module>
 		<module>documentation.vaudit</module>
+		<module>documentation.modeler.org.toc-saas</module>
 		<module>documentation.modeler.org</module>
+		<module>documentation.copyright.com</module>
+		<module>documentation.modeler.com</module>
+		<module>documentation.welcome.ba.com</module>
+		<module>documentation.welcome.sd.com</module>
+		<module>documentation.modeler.org.toc</module>
+		<module>documentation.welcome.com</module>
+		<module>documentation.modeler.com.toc</module>
+		<module>documentation.modeler.com.toc-saas</module>
 		<module>documentation.welcome.org</module>
+		<module>documentation.analyst</module>
+		<module>documentation.workflow.com</module>        
 	</modules>
 
 </project>

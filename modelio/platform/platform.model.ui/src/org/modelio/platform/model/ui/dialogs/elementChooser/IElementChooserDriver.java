@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.dialogs.elementChooser;
 
@@ -28,27 +28,27 @@ import org.modelio.metamodel.uml.infrastructure.Element;
 @objid ("26cbb831-186f-11e2-bc4e-002564c97630")
 public interface IElementChooserDriver {
     @objid ("26cbb832-186f-11e2-bc4e-002564c97630")
-    StructuredViewer createViewer(Composite parent);
+    abstract StructuredViewer createViewer(Composite parent);
 
     @objid ("26cbb835-186f-11e2-bc4e-002564c97630")
-    void performFinish(StructuredViewer leftViewer, List<Object> selection);
+    abstract void performFinish(StructuredViewer leftViewer, List<Object> selection);
 
     @objid ("26cbb83a-186f-11e2-bc4e-002564c97630")
-    void performCancel();
+    abstract void performCancel();
 
     @objid ("26cbb83b-186f-11e2-bc4e-002564c97630")
-    void init(Element element);
+    abstract void init(Element element);
 
     @objid ("26cbb83d-186f-11e2-bc4e-002564c97630")
-    String getTitle();
+    abstract String getTitle();
 
     @objid ("26cbb83f-186f-11e2-bc4e-002564c97630")
-    String getLeftLabel();
+    abstract String getLeftLabel();
 
     @objid ("26cbb841-186f-11e2-bc4e-002564c97630")
-    String getShellTitle();
+    abstract String getShellTitle();
 
     @objid ("26ce1965-186f-11e2-bc4e-002564c97630")
-    String getMessage();
-}
+    abstract String getMessage();
 
+}

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.panel.data.standard.infrastructure;
 
@@ -54,15 +54,17 @@ public class DocumentPropertyModel extends AbstractPropertyModel<Document> {
 
     /**
      * Instantiate the externDocument type properties view.
+     *
      * @param theEditedElement the current externDocument type.
      */
     @objid ("f29f59d6-503c-4784-b492-336741861c91")
-    public  DocumentPropertyModel(final Document theEditedElement) {
+    public DocumentPropertyModel(final Document theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * (non-Javadoc)
+     *
      * @see IPropertyModel#getColumnNumber()
      */
     @objid ("42610c89-1add-4898-9250-e615aecbf9cd")
@@ -73,6 +75,7 @@ public class DocumentPropertyModel extends AbstractPropertyModel<Document> {
 
     /**
      * (non-Javadoc)
+     *
      * @see IPropertyModel#getRowsNumber()
      */
     @objid ("64a1cc99-86a1-4883-bb39-2e38da8ea3f9")
@@ -83,6 +86,7 @@ public class DocumentPropertyModel extends AbstractPropertyModel<Document> {
 
     /**
      * (non-Javadoc)
+     *
      * @see IPropertyModel#getValueAt(int, int)
      */
     @objid ("e54f24fd-656c-4988-96f3-b4dfe5f154d2")
@@ -119,13 +123,13 @@ public class DocumentPropertyModel extends AbstractPropertyModel<Document> {
         default:
             return null;
         }
-        
+
     }
 
     /**
      * (non-Javadoc)
-     * @see IPropertyModel#getValueAt(int,
-     * int)
+     *
+     * @see IPropertyModel#getValueAt(int, int)
      */
     @objid ("b0905163-5311-46c7-995d-6cc8f661845d")
     @Override
@@ -144,11 +148,11 @@ public class DocumentPropertyModel extends AbstractPropertyModel<Document> {
                 final MMetamodel metamodel = context.getMClass().getMetamodel();
                 final MClass contextMetaclass = context.getMClass();
                 EList<Stereotype> contextStereotypes = context.getExtension();
-        
+
                 DefaultElementNatValue externDocumentType = new DefaultElementNatValue((MObject) getValue(row, col), false,
                         Collections.singletonList(ResourceType.class));
                 externDocumentType.setElementFilter(new IMObjectFilter() {
-        
+
                     @Override
                     public boolean accept(final MObject element) {
                         if (!(element instanceof ResourceType)) {
@@ -183,13 +187,13 @@ public class DocumentPropertyModel extends AbstractPropertyModel<Document> {
         default:
             return null;
         }
-        
+
     }
 
     /**
      * (non-Javadoc)
-     * @see IPropertyModel#setValueAt(int,
-     * int, java.lang.Object)
+     *
+     * @see IPropertyModel#setValueAt(int, int, java.lang.Object)
      */
     @objid ("0ead073f-4ae6-431d-aa3c-a87e72ef8fe0")
     @Override
@@ -230,7 +234,7 @@ public class DocumentPropertyModel extends AbstractPropertyModel<Document> {
         default:
             return;
         }
-        
+
     }
 
     @objid ("71cd3168-5ff3-4d08-9627-6ccac0a14ef0")
@@ -243,7 +247,7 @@ public class DocumentPropertyModel extends AbstractPropertyModel<Document> {
         } else {
             return true;
         }
-        
+
     }
 
 }

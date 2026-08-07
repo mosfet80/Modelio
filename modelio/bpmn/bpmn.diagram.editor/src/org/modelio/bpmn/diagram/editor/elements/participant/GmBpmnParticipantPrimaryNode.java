@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.participant;
 
@@ -111,41 +111,42 @@ public class GmBpmnParticipantPrimaryNode extends GmNoStyleCompositeNode impleme
      */
     @objid ("be9a8b4b-01a8-49f0-8c00-0694ab16f54e")
     private BpmnParticipant element; // BpmnLane or BpmnParticipant
-    
+
 
     /**
      * Default constructor.
+     *
      * @param diagram the diagram in which this partition will be unmasked.
      * @param theParticipant the unmasked partition (can be null).
      * @param ref a reference to the unmasked partition (cannot be null).
      */
     @objid ("16febe96-6160-4914-a72c-b5578ff47092")
-    public  GmBpmnParticipantPrimaryNode(IGmDiagram diagram, BpmnParticipant theParticipant, MRef ref) {
+    public GmBpmnParticipantPrimaryNode(IGmDiagram diagram, BpmnParticipant theParticipant, MRef ref) {
         super(diagram, ref);
         this.element = theParticipant;
-        
+
         this.header = new GmBpmnParticipantHeader(diagram, ref);
         this.header.setRoleInComposition(GmBpmnParticipantPrimaryNode.ROLE_HEAD);
         this.header.setShowMetaclassIcon(true);
         super.addChild(this.header);
-        
+
         this.body = createBody();
-        
+
         this.footer = new GmBpmnNodeFooter(diagram, ref);
         this.footer.setHorizontal(true);
         this.footer.setEmptySubProcess(true);
         this.footer.setRoleInComposition(GmBpmnParticipantPrimaryNode.ROLE_FOOTER);
         super.addChild(this.footer);
-        
+
         refreshOrientation();
-        
+
     }
 
     /**
      * Empty constructor needed for serialization.
      */
     @objid ("d0c47542-3a13-4a14-8915-8f933aaa00c3")
-    public  GmBpmnParticipantPrimaryNode() {
+    public GmBpmnParticipantPrimaryNode() {
         // Nothing to do.
     }
 
@@ -203,15 +204,15 @@ public class GmBpmnParticipantPrimaryNode extends GmNoStyleCompositeNode impleme
         case 0:
             read_0(in);
             break;
-        
+
         default:
             assert (false) : readVersion + " version number not covered!";
             // reading as last handled version: 0
             read_0(in);
             break;
-        
+
         }
-        
+
     }
 
     @objid ("f34ced4b-4428-4f78-985e-3bf2625d24b5")
@@ -220,7 +221,7 @@ public class GmBpmnParticipantPrimaryNode extends GmNoStyleCompositeNode impleme
         super.write(out);
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, GmBpmnParticipantPrimaryNode.MINOR_PREFIX, GmBpmnParticipantPrimaryNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("38d6653b-2d91-4792-8053-3398c0f3068e")
@@ -231,23 +232,23 @@ public class GmBpmnParticipantPrimaryNode extends GmNoStyleCompositeNode impleme
         this.footer = (GmBpmnNodeFooter) getFirstChild(GmBpmnParticipantPrimaryNode.ROLE_FOOTER);
         this.element = (BpmnParticipant) resolveRef(getRepresentedRef());
         refreshOrientation();
-        
+
     }
 
     @objid ("b6b69e8e-0d3e-48a5-b441-80c95e7ec8dd")
     @Override
     public void refreshFromObModel() {
         super.refreshFromObModel();
-        
+
         if (this.body == null) {
             this.body = createBody();
         }
-        
+
         if (this.body != null) {
             GmBpmnProcessDesignDiagram embeddedDiagram = this.body.getViewedDiagramModel(true);
             if (embeddedDiagram != null) {
                 embeddedDiagram.addPropertyChangeListener(new PropertyChangeListener() {
-        
+
                     @Override
                     public void propertyChange(PropertyChangeEvent evt) {
                         if (evt.getPropertyName().equals(GmAbstractDiagram.PROP_DIAGRAM_LOAD_END)) {
@@ -258,17 +259,17 @@ public class GmBpmnParticipantPrimaryNode extends GmNoStyleCompositeNode impleme
                 });
             }
         }
-        
+
         if (getRelatedElement() != null) {
             final int multiplicityMax = getRelatedElement().getMultiplicityMax();
             this.footer.setParallel(multiplicityMax != 0 && multiplicityMax != 1);
         }
-        
+
         this.footer.setEmptySubProcess(getRepresentationMode() == RepresentationMode.SIMPLE);
-        
+
         // forcing visual refresh in case Image changed
         firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("1922ef41-593f-4ad9-b72d-851ce92715fb")
@@ -295,7 +296,7 @@ public class GmBpmnParticipantPrimaryNode extends GmNoStyleCompositeNode impleme
             visibleRoles = GmBpmnParticipantPrimaryNode.ROLES_SIMPLE;
             break;
         }
-        
+
         ret.removeIf(gm -> !visibleRoles.contains(gm.getRoleInComposition()));
         return ret;
     }
@@ -323,6 +324,7 @@ public class GmBpmnParticipantPrimaryNode extends GmNoStyleCompositeNode impleme
     }
 
     /**
+     *
      * @return whether the participant should be displayed horizontally or vertically.
      */
     @objid ("9de30138-eda2-4ac5-8a45-7364b85aca07")
@@ -340,7 +342,7 @@ public class GmBpmnParticipantPrimaryNode extends GmNoStyleCompositeNode impleme
     protected final void refreshOrientation() {
         this.header.setHorizontal(!isHorizontalParticipantOrientation());
         this.footer.setHorizontal(isHorizontalParticipantOrientation());
-        
+
     }
 
     @objid ("ad7122f2-6bc6-4449-8a54-4ee26b1c7466")
@@ -350,7 +352,7 @@ public class GmBpmnParticipantPrimaryNode extends GmNoStyleCompositeNode impleme
             this.body = null;
         }
         super.removeChild(child);
-        
+
     }
 
     @objid ("15568458-54c4-46c0-9ee9-e50f33e64f03")
@@ -363,7 +365,7 @@ public class GmBpmnParticipantPrimaryNode extends GmNoStyleCompositeNode impleme
         } else {
             return super.isValidChild(child);
         }
-        
+
     }
 
 }

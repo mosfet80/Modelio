@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmncallactivity;
 
@@ -58,7 +58,7 @@ public class GmBpmnCallActivityHeader extends GmBpmnNodeHeader {
      * C'tor
      */
     @objid ("609a571b-55b6-11e2-877f-002564c97630")
-    public  GmBpmnCallActivityHeader(final IGmDiagram diagram, final MRef relatedRef, final boolean showIcon) {
+    public GmBpmnCallActivityHeader(final IGmDiagram diagram, final MRef relatedRef, final boolean showIcon) {
         super(diagram, relatedRef, showIcon);
     }
 
@@ -73,7 +73,7 @@ public class GmBpmnCallActivityHeader extends GmBpmnNodeHeader {
             } else {
                 mlabel = "";
             }
-        
+
             String reference = null;
             Boolean showrepresented = getDisplayedStyle().getProperty(GmBpmnCallActivityStructuredStyleKeys.SHOWREPRESENTED);
             if (showrepresented) {
@@ -82,18 +82,18 @@ public class GmBpmnCallActivityHeader extends GmBpmnNodeHeader {
                     reference = type.getName();
                 }
             }
-        
+
             StringBuilder s = new StringBuilder();
             String basename = getDiagram().getModelManager().getModelServices().getElementNamer().getBaseName(callActivity.getMClass());
             if (mlabel != null && !mlabel.isEmpty()) {
                 if (!mlabel.startsWith(basename) || reference == null) {
                     s.append(mlabel);
-        
+
                     if (reference != null) {
                         s.append(": ");
                     }
                 }
-        
+
             }
             if (reference != null) {
                 s.append(reference);
@@ -102,7 +102,7 @@ public class GmBpmnCallActivityHeader extends GmBpmnNodeHeader {
         } else {
             return "";
         }
-        
+
     }
 
     @objid ("609a572c-55b6-11e2-877f-002564c97630")
@@ -123,7 +123,7 @@ public class GmBpmnCallActivityHeader extends GmBpmnNodeHeader {
      * Empty c'torfor deserialization.
      */
     @objid ("609a5732-55b6-11e2-877f-002564c97630")
-    public  GmBpmnCallActivityHeader() {
+    public GmBpmnCallActivityHeader() {
         // empty constructor for the serialization
     }
 
@@ -144,17 +144,17 @@ public class GmBpmnCallActivityHeader extends GmBpmnNodeHeader {
             break;
         }
         }
-        
+
     }
 
     @objid ("609a573b-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmBpmnCallActivityHeader.", GmBpmnCallActivityHeader.MINOR_VERSION);
-        
+
     }
 
     @objid ("609bdd99-55b6-11e2-877f-002564c97630")

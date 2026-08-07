@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.exml.local.loader.sax;
 
@@ -29,7 +29,7 @@ import org.xml.sax.SAXParseException;
 /**
  * Parses the first found ID tag to record a contained object
  * Parses the first PID tag, to record the parent CMS node.
- * 
+ *
  * then switches to the {@link OBJECT2State}.
  */
 @objid ("2afeb95e-3faf-11e2-87cb-001ec947ccaf")
@@ -44,7 +44,7 @@ class OBJECTState extends AbstractState {
         {
             this.stateHandler.popOBJECTState();
         }
-        
+
     }
 
     @objid ("2afeb961-3faf-11e2-87cb-001ec947ccaf")
@@ -73,7 +73,7 @@ class OBJECTState extends AbstractState {
             } catch (DependencyNotFoundException e) {
                 addWarning(e);
             }
-        
+
             this.stateHandler.enterRelationState();
         }
         break;
@@ -92,7 +92,7 @@ class OBJECTState extends AbstractState {
         default:
             break;
         }
-        
+
     }
 
     @objid ("0427073f-eae2-4e74-8504-24918689d7ff")
@@ -100,7 +100,7 @@ class OBJECTState extends AbstractState {
         this.stateHandler.warning(
                 new SAXParseException(e.getLocalizedMessage(),
                 this.stateHandler.getLocator()));
-        
+
     }
 
 }

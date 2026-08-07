@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.drawings.core.policies;
 
@@ -63,13 +63,13 @@ public class DrawingContainerEditLayoutPolicy extends XYLayoutEditPolicy {
                 final Object model = ((EditPart)o).getModel();
                 if (! (model instanceof IGmDrawing))
                     return null;
-                
+
                 // Process only moves/clones inside the same layer
                 IGmDrawing drawing = (IGmDrawing) model;
                 if (drawing.getLayer() != getHost().getModel())
                     return null;
             }
-            
+
             return getHost();
         }
         return super.getTargetEditPart(request);
@@ -84,9 +84,9 @@ public class DrawingContainerEditLayoutPolicy extends XYLayoutEditPolicy {
             final Class<? extends IGmNodeDrawing> nodeClass = (Class<? extends IGmNodeDrawing>) objType;
             final Object requestConstraint = getConstraintFor(request);
             final GmDrawingLayer gm = (GmDrawingLayer) getHost().getModel();
-            
+
             String drawingIdent = (String) request.getNewObject();
-            
+
             return new DefaultCreateGmNodeDrawingCommand( gm, nodeClass, drawingIdent, requestConstraint);
         }
         return null;
@@ -114,6 +114,7 @@ public class DrawingContainerEditLayoutPolicy extends XYLayoutEditPolicy {
      * for each child being added. Once the constraint is calculated,
      * {@link #createCloneCommand(ChangeBoundsRequest, GraphicalEditPart, Object)} is called. Subclasses must
      * implement this method.
+     *
      * @see org.eclipse.gef.editpolicies.LayoutEditPolicy#getAddCommand(Request)
      */
     @objid ("5f3b6579-42d0-4419-8bf6-9a535d3bec23")
@@ -123,7 +124,7 @@ public class DrawingContainerEditLayoutPolicy extends XYLayoutEditPolicy {
         CompoundCommand command = new CompoundCommand();
         command.setDebugLabel("Clone in "+DrawingContainerEditLayoutPolicy.class.getSimpleName());//$NON-NLS-1$
         GraphicalEditPart child;
-        
+
         for (int i = 0; i < editParts.size(); i++) {
             child = (GraphicalEditPart) editParts.get(i);
             command.add(createCloneCommand(
@@ -139,6 +140,7 @@ public class DrawingContainerEditLayoutPolicy extends XYLayoutEditPolicy {
      * move it to the specified child's
      * constraint. The constraint has been converted from a draw2d constraint to
      * an object suitable for the model.
+     *
      * @param request the ChangeBoundsRequest
      * @param child the EditPart of the child being changed
      * @param modelConstraint the new constraint, after being
@@ -152,14 +154,14 @@ public class DrawingContainerEditLayoutPolicy extends XYLayoutEditPolicy {
         if (model instanceof IGmNodeDrawing) {
             IGmDrawingLayer layer = (IGmDrawingLayer) getHost().getModel();
             IGmNodeDrawing nodeToCopy = (IGmNodeDrawing) model;
-            
+
             // Copy only in the same layer
             if (nodeToCopy.getLayer() == layer) {
                 return new CloneGmNodeDrawingCommand(layer, nodeToCopy, modelConstraint);
             }
         } else if (model instanceof IGmDrawingLink) {
             IGmDrawingLayer layer = (IGmDrawingLayer) getHost().getModel();
-            
+
             if (((IGmDrawing) model).getLayer() == layer) {
                 return new CloneGmLinkDrawingCommand((ConnectionEditPart) child, request.getMoveDelta());
             }

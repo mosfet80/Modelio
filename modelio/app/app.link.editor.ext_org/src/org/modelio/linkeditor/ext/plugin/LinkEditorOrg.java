@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.linkeditor.ext.plugin;
 
@@ -59,12 +59,12 @@ public final class LinkEditorOrg implements BundleActivator {
     @Override
     public void start(BundleContext bundleContext) throws Exception {
         LinkEditorOrg.context = bundleContext;
-        
+
         ServiceReference<ExtendedLogService> ref = bundleContext.getServiceReference(ExtendedLogService.class);
         ExtendedLogService service = bundleContext.getService(ref);
         LinkEditorOrg.LOG = new PluginLogger(service.getLogger(bundleContext.getBundle(), LinkEditorOrg.PLUGIN_ID));
         LinkEditorOrg.I18N = new BundledMessages(LinkEditorOrg.LOG, ResourceBundle.getBundle("linkeditororg"));
-        
+
     }
 
     @objid ("01bd39fb-2eff-4e29-bcb1-294204b2ced4")

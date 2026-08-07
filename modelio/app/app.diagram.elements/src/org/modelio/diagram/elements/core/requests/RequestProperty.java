@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.requests;
 
@@ -24,10 +24,10 @@ import org.eclipse.gef.Request;
 
 /**
  * Typed request extended data.
- * 
+ *
+ * @author cma
  * @param <T> the property type
  * @since 5.1.0
- * @author cma
  */
 @objid ("69d074be-a885-4d96-b876-84561f702ca7")
 public class RequestProperty<T> {
@@ -49,11 +49,12 @@ public class RequestProperty<T> {
     private final Object key;
 
     @objid ("a9c9fb84-8b31-4314-906f-c993d57d7483")
-    private  RequestProperty(Object key) {
+    private RequestProperty(Object key) {
         this.key = key;
     }
 
     /**
+     *
      * @param req the request to read
      * @return the property value;
      */
@@ -64,6 +65,7 @@ public class RequestProperty<T> {
     }
 
     /**
+     *
      * @param req the request to modify
      * @param val the property value.
      */

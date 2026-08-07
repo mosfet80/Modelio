@@ -1,28 +1,28 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.browser.view;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.inject.Inject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
@@ -100,7 +100,7 @@ public class BrowserView {
     public void postConstruct(final Composite parent, final MPart part) {
         // With Eclipse 4.18, the toolbar is messed up, force it right manually...
         part.getToolbar().setVisible(true);
-        
+
         // Read the extensions to find the effective browser panel
         // As only one panel is currently expected, just pick the first available one and post a LOG warning message for ignored definitions.
         this.contributedPanel = null;
@@ -108,34 +108,34 @@ public class BrowserView {
         for (final IConfigurationElement entry : registry.getConfigurationElementsFor(BrowserView.PANELPROVIDER_EXTENSION_POINT_ID)) {
             try {
                 final IPanelProvider panel = (IPanelProvider) entry.createExecutableExtension("class");
-        
+
                 if (this.contributedPanel == null) {
                     this.contributedPanel = panel;
                 } else {
                     BrowserViewActivator.LOG.warning("Ignored browser view contribution: %s", entry.getDeclaringExtension());
                 }
-        
+
             } catch (ClassCastException | InvalidRegistryObjectException | CoreException e) {
                 BrowserViewActivator.LOG.error(e);
             }
         }
-        
+
         if (this.contributedPanel != null) {
             ContextInjectionFactory.inject(this.contributedPanel, this.eclipseContext);
             this.contributedPanel.createPanel(parent);
         } else {
             BrowserViewActivator.LOG.error("No browser view contributed panel found !");
         }
-        
+
         final IProjectService projectService = this.eclipseContext.get(IProjectService.class);
         if (projectService != null) {
             final IGProject project = projectService.getOpenedProject();
-        
+
             if (project != null) {
                 onProjectOpened(project);
             }
         }
-        
+
     }
 
     @objid ("8e13286f-89b9-4614-9102-e0f25c408cbb")
@@ -145,7 +145,7 @@ public class BrowserView {
             this.contributedPanel.dispose();
             this.contributedPanel = null;
         }
-        
+
     }
 
     @objid ("041f6a72-ce7c-43ba-ac6e-cb5f41b0f0f9")
@@ -157,7 +157,7 @@ public class BrowserView {
                 panel.setFocus();
             }
         }
-        
+
     }
 
     @objid ("b8580884-a6ce-4f91-85a4-49bd00f91fa3")
@@ -169,7 +169,7 @@ public class BrowserView {
                 && !((Control) this.contributedPanel.getPanel()).isDisposed()) {
             this.contributedPanel.setInput(BrowserView.this.contributedPanel.getInput());
         }
-        
+
     }
 
     @objid ("912b01d1-f1f7-4f02-8ef8-8068e8f027c1")
@@ -181,7 +181,7 @@ public class BrowserView {
                 && !((Control) this.contributedPanel.getPanel()).isDisposed()) {
             this.contributedPanel.setInput(BrowserView.this.contributedPanel.getInput());
         }
-        
+
     }
 
     @objid ("7c518f29-5c40-46e8-a281-adada704a8df")
@@ -201,7 +201,7 @@ public class BrowserView {
         if (part != null) {
             part.setLabel(openedProject.getName());
         }
-        
+
     }
 
 }

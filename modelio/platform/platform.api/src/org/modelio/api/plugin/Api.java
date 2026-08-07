@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.plugin;
 
@@ -59,7 +59,7 @@ public class Api implements BundleActivator {
         ExtendedLogService service = bundleContext.getService(ref);
         LOG = new PluginLogger(service.getLogger(bundleContext.getBundle(), PLUGIN_ID));
         I18N = new BundledMessages(LOG, ResourceBundle.getBundle("api"));
-        
+
     }
 
     @objid ("5bf50587-d1b3-4eea-819a-515d6ceb7e77")
@@ -69,6 +69,7 @@ public class Api implements BundleActivator {
     }
 
     /**
+     *
      * @return the bundle context
      */
     @objid ("442b4a88-329c-455e-af12-5c820957bfe1")

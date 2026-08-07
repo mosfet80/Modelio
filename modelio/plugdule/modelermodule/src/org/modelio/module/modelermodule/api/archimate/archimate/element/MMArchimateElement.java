@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -51,6 +51,7 @@ public class MMArchimateElement {
      * Tells whether a {@link MMArchimateElement proxy} can be instantiated from a {@link MObject} checking it is a Archimate.Element.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -67,6 +68,7 @@ public class MMArchimateElement {
      * Tries to instantiate a {@link MMArchimateElement} proxy from a Archimate.Element checking its metaclass.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a Element
      * @return a {@link MMArchimateElement} proxy or <i>null</i>.
      */
@@ -93,6 +95,7 @@ public class MMArchimateElement {
 
     /**
      * Get the underlying Archimate.Element.
+     *
      * @return the Element represented by this proxy, never null.
      */
     @objid ("eef4b46d-0fe7-46ae-938e-1aa0a7e04ef7")
@@ -104,7 +107,7 @@ public class MMArchimateElement {
      * Getter for string property 'userDiagramImage'
      * <p>Property description:
      * <br/><i>Image file path to use in diagrams when unmasked in custom image mode.
-     * 
+     *
      * The file path must be either absolute or relative to the project path.</i></p>
      */
     @objid ("47e89d23-18b7-4570-a968-9b1b5ff39214")
@@ -122,7 +125,7 @@ public class MMArchimateElement {
      * Setter for string property 'userDiagramImage'
      * <p>Property description:
      * <br/><i>Image file path to use in diagrams when unmasked in custom image mode.
-     * 
+     *
      * The file path must be either absolute or relative to the project path.</i></p>
      */
     @objid ("b3c80936-4ab5-4612-a68c-088fcdac6e7b")
@@ -131,7 +134,7 @@ public class MMArchimateElement {
     }
 
     @objid ("7c7a22c3-8365-461c-877c-52f4469d26d3")
-    protected  MMArchimateElement(ModelElement elt) {
+    protected MMArchimateElement(ModelElement elt) {
         this.elt = elt;
     }
 
@@ -151,7 +154,7 @@ public class MMArchimateElement {
             USERDIAGRAMIMAGE_TAGTYPE_ELT = ctx.getModelingSession().findElementById(TagType.class, "4e937f83-ad13-4869-8ba0-ac698e1c0762");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 static {
@@ -159,7 +162,7 @@ static {
                     init(ModelerModuleModule.getInstance().getModuleContext());
                 }
             }
-        
+
     }
 
 }

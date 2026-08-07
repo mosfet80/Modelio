@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures.routers;
 
@@ -42,7 +42,7 @@ import org.modelio.diagram.elements.plugin.DiagramElements;
  * <p>
  * Tries to avoid going through the source and target nodes.
  * </p>
- * 
+ *
  * @see AutoOrthogonalRouterAlgorithm
  */
 @objid ("eef13028-5217-45f6-b5ae-391bbf2ae0b9")
@@ -83,9 +83,10 @@ public class AutoOrthogonalRouter extends BendpointConnectionRouter {
     /**
      * Convert a route to a constraint.
      * <p>
-     * @see AutoOrthoUtils#routeToConstraint(List)
+     *
      * @param route a route computed by {@link #computeMPointRoute(Connection, List)}, {@link #computePointList(Connection)} ...
      * @return the same list striped from extremities, suitable as constraint.
+     * @see AutoOrthoUtils#routeToConstraint(List)
      */
     @objid ("336c0542-6357-413f-9a0e-eecc1caaa7b1")
     public static List<MPoint> routeToConstraint(List<MPoint> route) {
@@ -96,6 +97,7 @@ public class AutoOrthogonalRouter extends BendpointConnectionRouter {
      * Compute the connection route as a list of {@link MPoint} from a routing constraint.
      * <p>
      * New points are added as automatic points. Manual points in the routing constraint are expected to be kept at same coordinates in the returned list.
+     *
      * @param connection a connection
      * @param initialConstraint the routing constraint. It won't be modified
      * @return the new updated connection route.
@@ -111,6 +113,7 @@ public class AutoOrthogonalRouter extends BendpointConnectionRouter {
      * Compute the connection route as a list of {@link MPoint} from a ConnectionState.
      * <p>
      * New points are added as automatic points. Manual points in the routing constraint are expected to be kept at same coordinates in the returned list.
+     *
      * @param connection a connection
      * @param connState a connection state. It won't be modified
      * @return the new updated connection route.
@@ -124,6 +127,7 @@ public class AutoOrthogonalRouter extends BendpointConnectionRouter {
      * Compute the connection route as a list of {@link MPoint} from a routing constraint.
      * <p>
      * New points are added as automatic points. Manual points in the routing constraint are expected to be kept at same coordinates in the returned list.
+     *
      * @param connection a connection
      * @param initialConstraint the routing constraint. It won't be modified
      * @param startIndex the first segment point to check
@@ -137,20 +141,20 @@ public class AutoOrthogonalRouter extends BendpointConnectionRouter {
                 initialConstraint,
                 connection.getSourceAnchor(),
                 connection.getTargetAnchor());
-        
+
         // Ask the anchors to align with 2nd and n-2 points
         state.simplifyStartBendPoints(startIndex + len);
         state.simplifyEndBendPoints(startIndex);
-        
+
         state.refreshAnchorBounds();
         state.refreshAnchorDirections();
-        
+
         int realStart = findManualPointBefore(state.allPoints, startIndex);
         int realEnd = findManualPointAfter(state.allPoints, startIndex + len);
-        
+
         // Now the tricky part: fix the bend points to form an orthogonal path.
         int delta = computePointList2(state, realStart, realEnd - realStart);
-        
+
         // Cleanup of useless points.
         AutoOrthoUtils.cleanup(state.allPoints.subList(startIndex, startIndex + len + delta), this.cleanupManualPoints);
         return state.allPoints;
@@ -158,6 +162,7 @@ public class AutoOrthogonalRouter extends BendpointConnectionRouter {
 
     /**
      * Returned a cleaned up copy of the given routing constraint.
+     *
      * @param connection the connection to use for coordinates conversions
      * @param state the connection state to use
      * @param cleanFixed true to clean manual bend points too, false to always keep them
@@ -173,10 +178,10 @@ public class AutoOrthogonalRouter extends BendpointConnectionRouter {
     public void route(Connection connection) {
         PointList newPointList = computePointList(connection);
         connection.setPoints(newPointList);
-        
     }
 
     /**
+     *
      * @param cleanupManualPoints if true useless manual points may be removed
      * @return this instance
      */
@@ -191,6 +196,7 @@ public class AutoOrthogonalRouter extends BendpointConnectionRouter {
      * <p>
      * According to the link, it may result in bendpoint removal.
      * </p>
+     *
      * @param enable if <code>true</code>, activates the simplification.
      * @return this instance
      */
@@ -203,21 +209,21 @@ public class AutoOrthogonalRouter extends BendpointConnectionRouter {
     @objid ("7a502c42-0461-4c49-b71f-3630e0e3f7b6")
     private List<MPoint> computeMPointRoute(Connection connection, List<MPoint> initialConstraint, final ConnectionAnchor sourceAnchor, final ConnectionAnchor targetAnchor) {
         AutoOrthoState state = sharedState.init(connection, initialConstraint, sourceAnchor, targetAnchor);
-        
+
         // Ask the anchors to align with 2nd and n-2 points
         if (this.simplifyEnds) {
             state.simplifyStartBendPoints(state.allPoints.size() - 1);
             state.simplifyEndBendPoints(0);
         }
-        
+
         state.refreshAnchorBounds();
-        
+
         // Get or guess initial and final directions
         state.refreshAnchorDirections();
-        
+
         // Now the tricky part: fix the bend points to form an orthogonal path.
         computePointList2(state, 0, state.allPoints.size() - 1);
-        
+
         // Cleanup of useless points.
         AutoOrthoUtils.cleanup(state.allPoints, this.cleanupManualPoints);
         return state.allPoints;
@@ -225,15 +231,16 @@ public class AutoOrthogonalRouter extends BendpointConnectionRouter {
 
     /**
      * Compute a list of points to use when routing the connection.
+     *
      * @param connection an orthogonal connection.
      * @return a List of Points
      */
     @objid ("e826abe3-71e4-4f03-adc6-fa7642276d17")
     private PointList computePointList(Connection connection) {
         List<MPoint> initialConstraint = getBendpoints(connection);
-        
+
         final List<MPoint> allPoints = computeMPointRoute(connection, initialConstraint);
-        
+
         // Build a new point list
         final PointList points = AutoOrthoUtils.toPointList(allPoints);
         return points;
@@ -243,23 +250,23 @@ public class AutoOrthogonalRouter extends BendpointConnectionRouter {
     private static boolean tryFixIntermediateBendPoint(int index, final List<MPoint> allPoints) {
         assert index > 1;
         assert index < allPoints.size() - 2;
-        
+
         MPoint cur = allPoints.get(index);
         if (cur.isFixed()) {
             return false;
         }
-        
+
         MPoint next1 = allPoints.get(index + 1);
         MPoint prev1 = allPoints.get(index - 1);
-        
+
         // here Direction.getOrtho(cur, next1) returns NONE
         Direction prevDir = Direction.getOrtho(allPoints.get(index - 2), prev1);
         Direction nextDir = Direction.getOrtho(next1, allPoints.get(index + 2));
-        
+
         if (prevDir == Direction.NONE || nextDir == Direction.NONE || prevDir.orientation() == nextDir.orientation()) {
             return false;
         }
-        
+
         if (prevDir.orientation() == Orientation.VERTICAL) {
             cur.setX(next1.x());
             cur.setY(prev1.y());
@@ -273,24 +280,24 @@ public class AutoOrthogonalRouter extends BendpointConnectionRouter {
     @objid ("dd29589a-4896-4888-a349-25fceba34b49")
     private static boolean alignFirsBendPoint(final List<MPoint> allPoints, Direction sourceAnchorDir, Direction targetAnchorDir) {
         final int index = 1;
-        
+
         MPoint cur = allPoints.get(index);
         if (cur.isFixed()) {
             return false;
         }
-        
+
         MPoint prev = allPoints.get(index - 1);
         MPoint next = allPoints.get(index + 1);
-        
+
         boolean nextSegIsLast = index + 2 >= allPoints.size() - 1;
         Orientation prevDir = sourceAnchorDir.orientation();
         Orientation nextDir = nextSegIsLast ? targetAnchorDir.orientation() : Direction.getOrtho(next, allPoints.get(index + 2)).orientation();
         Orientation expectedNextOrientation = nextSegIsLast ? prevDir.getPerpendicular() : prevDir;
-        
+
         if (prevDir == Orientation.NONE || nextDir == Orientation.NONE || nextDir != expectedNextOrientation) {
             return false;
         }
-        
+
         if (prevDir == Orientation.HORIZONTAL) {
             cur.setX(next.x());
             cur.setY(prev.y());
@@ -304,30 +311,30 @@ public class AutoOrthogonalRouter extends BendpointConnectionRouter {
     @objid ("ff74d6c5-8417-45dc-8816-bf0d2dcb40f1")
     private static boolean alignLastBendPoint(final List<MPoint> allPoints, Direction sourceAnchorDir, Direction targetAnchorDir) {
         final int index = allPoints.size() - 2;
-        
+
         MPoint cur = allPoints.get(index);
         if (cur.isFixed()) {
             return false;
         }
-        
+
         MPoint prev = allPoints.get(index - 1);
         MPoint next = allPoints.get(index + 1);
-        
+
         Orientation curdir1 = Direction.getOrtho(prev, cur).orientation();
         Orientation curdir2 = Direction.getOrtho(cur, next).orientation();
         if (curdir1 != Orientation.NONE && curdir2 != Orientation.NONE) {
             return true;
         }
-        
+
         boolean prevSegIsfirst = index - 2 < 0;
         Orientation prevDir = prevSegIsfirst ? sourceAnchorDir.orientation() : Direction.getOrtho(allPoints.get(index - 2), prev).orientation();
         Orientation nextDir = targetAnchorDir.orientation();
         Orientation expectedPrevDir = prevSegIsfirst ? nextDir.getPerpendicular() : nextDir;
-        
+
         if (prevDir == Orientation.NONE || nextDir == Orientation.NONE || prevDir != expectedPrevDir) {
             return false;
         }
-        
+
         if (nextDir == Orientation.VERTICAL) {
             cur.setX(next.x());
             cur.setY(prev.y());
@@ -342,6 +349,7 @@ public class AutoOrthogonalRouter extends BendpointConnectionRouter {
      * In case of wrong segment, allow the router to reroute all segments from previous manual point.
      * <p>
      * If false, reroute only from the wrong segment start.
+     *
      * @param rewindToPreviousManualPoint true to allow the router to reroute all segments from previous manual point.
      * @return this instance
      */
@@ -353,6 +361,7 @@ public class AutoOrthogonalRouter extends BendpointConnectionRouter {
 
     /**
      * Make partial routing.
+     *
      * @param state all points
      * @param startIndex start index of partial routing
      * @param len number of segments to reroute
@@ -368,7 +377,7 @@ public class AutoOrthogonalRouter extends BendpointConnectionRouter {
          * total number of added bend points minus number of deleted ones
          */
         int deltaCount = 0;
-        
+
         if (true) {
             // Try to align first and last bend points to their adjacent bend point and the anchor
             if (startIndex <= 1) {
@@ -378,14 +387,14 @@ public class AutoOrthogonalRouter extends BendpointConnectionRouter {
                 alignLastBendPoint(state.allPoints, state.sourceAnchorDir, state.targetAnchorDir);
             }
         }
-        
+
         int i = startIndex;
         int watchdog = 0;
         while (i < endIndex) {
             // First look for a non orthogonal segment
             MPoint segmentSource = state.allPoints.get(i);
             MPoint segmentTarget = state.allPoints.get(i + 1);
-        
+
             // Test segment is orthogonal and for extreme ones whether it matches expected direction
             Direction segmentDir = Direction.getOrtho(segmentSource, segmentTarget);
             if (segmentDir == Direction.NONE && i > 1 && i < state.allPoints.size() - 2) {
@@ -393,7 +402,7 @@ public class AutoOrthogonalRouter extends BendpointConnectionRouter {
                 tryFixIntermediateBendPoint(i, state.allPoints);
                 segmentDir = Direction.getOrtho(segmentSource, segmentTarget);
             }
-        
+
             boolean ok = segmentDir != Direction.NONE;
             if (ok && i == 0 && segmentDir != state.sourceAnchorDir) {
                 // first segment has wrong direction
@@ -409,7 +418,7 @@ public class AutoOrthogonalRouter extends BendpointConnectionRouter {
                 i++;
                 continue;
             }
-        
+
             // Here the segment [i, i+1] is not orthogonal or has wrong direction.
             //
             // Reroute all between current /*previous manual*/ point and next manual point
@@ -423,7 +432,7 @@ public class AutoOrthogonalRouter extends BendpointConnectionRouter {
             }
             final MPoint point1 = state.allPoints.get(index1);
             final MPoint point2 = state.allPoints.get(index2);
-        
+
             // Compute margin, bounds and directions for point1
             final int WORKAROUND = AutoOrthoConstants.MIN_DIST / 2;
             int margin = 0;
@@ -440,7 +449,7 @@ public class AutoOrthogonalRouter extends BendpointConnectionRouter {
                 currentSourceBounds = R1.setBounds(point1.x, point1.y, 0, 0);
                 currentSourceDir = Direction.getMajor(state.allPoints.get(index1 - 1), point1);
             }
-        
+
             // Compute margin, bounds and directions for point2
             Direction currentTargetDir;
             Rectangle currentTargetBounds;
@@ -460,7 +469,7 @@ public class AutoOrthogonalRouter extends BendpointConnectionRouter {
                     currentTargetBounds = state.anchorBounds.target;
                 }
             }
-        
+
             if (true && currentSourceBounds.intersects(currentTargetBounds)) {
                 // Source and target node are too near from each other,
                 // revert currentXxxBounds.expands(WORKAROUND,WORKAROUND)
@@ -471,7 +480,7 @@ public class AutoOrthogonalRouter extends BendpointConnectionRouter {
                     currentTargetBounds.setBounds(state.anchorBounds.target);
                 }
             }
-        
+
             // Compute a route
             List<MPoint> result = new AutoOrthogonalRouterAlgorithm(margin).computeOrthogonalPath(
                     point1,
@@ -480,13 +489,13 @@ public class AutoOrthogonalRouter extends BendpointConnectionRouter {
                     point2,
                     currentTargetDir,
                     currentTargetBounds);
-        
+
             // Get a sub list between the 2 indexes
             List<MPoint> subList = state.allPoints.subList(index1 + 1, index2);
-        
+
             if (!subList.equals(result)) {
                 // The new route is different from the initial one : OK.
-        
+
                 // Delete invalid bend points
                 int delCount = subList.size();
                 if (delCount > 0) {
@@ -494,7 +503,7 @@ public class AutoOrthogonalRouter extends BendpointConnectionRouter {
                     endIndex -= delCount;
                     subList.clear();
                 }
-        
+
                 // Put in place new bend points
                 int resultCount = result.size();
                 if (resultCount > 0) {
@@ -529,7 +538,7 @@ public class AutoOrthogonalRouter extends BendpointConnectionRouter {
                 // skip section
                 i = index2;
             }
-        
+
             if (watchdog++ > len * 2) {
                 // Too many iterations occured: Houston we have a problem ...
                 DiagramElements.LOG.warning("AutoOrthogonalRouter.computePointList2(): Watchdog triggered at iteration %d :", watchdog);
@@ -540,7 +549,7 @@ public class AutoOrthogonalRouter extends BendpointConnectionRouter {
                 DiagramElements.LOG.error(new IllegalStateException("AutoOrthogonalRouter.computePointList2(): Watchdog triggered"));
                 break;
             }
-        
+
         }
         return deltaCount;
     }
@@ -553,7 +562,7 @@ public class AutoOrthogonalRouter extends BendpointConnectionRouter {
             if (p.isFixed()) {
                 return j;
             }
-        
+
         }
         return nb - 1;
     }
@@ -571,30 +580,32 @@ public class AutoOrthogonalRouter extends BendpointConnectionRouter {
 
     /**
      * convenience method to get the constraint as a list of bend points.
+     *
      * @param connection a connection figure
      * @return The list of bend points.
      */
     @objid ("1310b8f9-0b28-4d91-b947-0125bad0cef8")
-    @SuppressWarnings ("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     private List<MPoint> getBendpoints(Connection connection) {
-        return (List<MPoint>) getConstraint(connection);
+        List constraint = getConstraint(connection);
+        return constraint;
     }
 
     @objid ("a3745fc5-6399-4760-b708-bfcbb1dfa1df")
     private static List<MPoint> getCleanedConstraint(Connection connection, List<MPoint> initialConstraint, boolean cleanFixed) {
         final List<MPoint> allPoints = new ArrayList<>(initialConstraint);
-        
+
         // Add source anchor location
         BendPointUtils.getConstrainedPoint(A_POINT, connection, initialConstraint, 0, true);
         allPoints.add(0, new MPoint(A_POINT, true));
-        
+
         // Add target anchor location
         BendPointUtils.getConstrainedPoint(A_POINT, connection, initialConstraint, initialConstraint.size() + 1, true);
         allPoints.add(new MPoint(A_POINT, true));
-        
+
         // Clean the points list
         AutoOrthoUtils.cleanup(allPoints, cleanFixed);
-        
+
         // Remove first and last points that are anchors
         AutoOrthoUtils.routeToConstraint(allPoints);
         return allPoints;

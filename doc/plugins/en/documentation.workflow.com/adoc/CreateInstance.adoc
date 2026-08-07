@@ -1,0 +1,41 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+// Hightlight code source and add the line number
+:source-highlighter: coderay
+:coderay-linenums-mode: table
+
+= Create a Workflow instance
+
+A workflow instance is a particular occurrence of a workflow, defined by:
+
+* the type of the workflow to apply (a workflow definition)
+* the elements which are subject to the workflow (See <<Subscribe.adoc#,Subscribe...>>)
+* a name and description that are used to distinguish between workflow instances.
+
+Only a user with permission at the Modelio Server project level to perform the "Subscription to workflow" transition can create an instance.
+
+=== Using the <<WorkflowExplorer.adoc#,Workflow Browser>>
+
+Display the Workflow Browser view then click on the image:images/createinstanceicon.png[createinstanceicon.png] *Create a workflow instance...* button.
+
+image::images/CreateInstance.png[CreateInstance.png]
+
+In the dialog carry out the following actions:
+
+1. Select the sub-project which the instance will be attached to.
+2. If needed change the automatic teamwork management options.
+3. Click on "Next".
+4. Enter a name for the workflow instance to create. Choose a significant name.  +
+_For example if the workflow is a "Review" and if it is intended to be used for reviewing the version 2 of a project, naming the workflow instance "Version 2 Review" is probably a smart idea._
+5. Select an icon for the workflow instance.
+6. Seletc a workflow type among the proposed ones.
+7. Enter a description. Again try to add a pertinent and useful description. +
+_In our previous  example "Version 2 Review" a description such as "Workflow used to manage the reviewing process of the initial requirements of the version 2 of the project" is likely to  be helpful_
+8. Validate by clicking  on "Finish".
+
+
+
+

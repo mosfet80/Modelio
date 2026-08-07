@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.umlcommon.diagramview;
 
@@ -39,17 +39,17 @@ class ResizableImageFigure extends Figure {
     @Override
     protected void paintFigure(Graphics gc) {
         super.paintFigure(gc);
-        
+
         if (this.image != null) {
             org.eclipse.swt.graphics.Rectangle imageBounds = this.image.getBounds();
             Rectangle areaBounds = this.getClientArea();
-        
+
             Rectangle drawBounds = computeDrawBounds(imageBounds, areaBounds);
-        
+
             gc.setInterpolation(SWT.HIGH);
             gc.drawImage(this.image, imageBounds.x, imageBounds.y, imageBounds.width, imageBounds.height, drawBounds.x, drawBounds.y, drawBounds.width, drawBounds.height);
         }
-        
+
     }
 
     /**
@@ -63,7 +63,7 @@ class ResizableImageFigure extends Figure {
         } else {
             ratio = 1.0;
         }
-        
+
         Rectangle drawBounds = Rectangle.SINGLETON;
         // Resize the image to fit the draw area
         drawBounds.width = (int) (imageBounds.width / ratio);
@@ -75,6 +75,7 @@ class ResizableImageFigure extends Figure {
     }
 
     /**
+     *
      * @return the image's full size.
      */
     @objid ("a2aacf45-30be-4422-9428-8377b0c0d3fe")
@@ -86,19 +87,20 @@ class ResizableImageFigure extends Figure {
         } else {
             return super.getPreferredSize(wHint, hHint);
         }
-        
+
     }
 
     @objid ("c9f53b37-69e2-405a-ae39-cc966193fbcd")
     @Override
     protected void finalize() throws Throwable {
         this.image = null;
-        
+
         super.finalize();
-        
+
     }
 
     /**
+     *
      * @return the displayed image.
      */
     @objid ("ed829450-8637-4e2e-94af-d1ec3e2db519")
@@ -107,6 +109,7 @@ class ResizableImageFigure extends Figure {
     }
 
     /**
+     *
      * @param image the image to display.
      */
     @objid ("e0df31b8-22b7-4eb5-8f95-9adf884e4b6d")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.drawings.core.policies;
 
@@ -50,26 +50,27 @@ public class CloneGmLinkDrawingCommand extends Command implements RequestConstan
 
     /**
      * Initialize the command
+     *
      * @param editPartToClone the connection edit part to move
      * @param moveDelta the move delta in absolute coordinates
      */
     @objid ("c372e6cf-0b1d-4d46-af3e-fba84359d7b0")
-    public  CloneGmLinkDrawingCommand(ConnectionEditPart editPartToClone, Point moveDelta) {
+    public CloneGmLinkDrawingCommand(ConnectionEditPart editPartToClone, Point moveDelta) {
         this.editPartToClone = editPartToClone;
         this.moveDelta = moveDelta;
-        
+
     }
 
     @objid ("8d3876ad-23b6-4475-867d-580b51b37a48")
     @Override
     public boolean canExecute() {
         IGmDrawingLink toClone = (IGmDrawingLink) this.editPartToClone.getModel();
-        
+
         MObject el = toClone.getFrom().getLayer().getRelatedElement();
         if (!MTools.getAuthTool().canModify(el)) {
             return false;
         }
-        
+
         el = toClone.getTo().getLayer().getRelatedElement();
         if (!MTools.getAuthTool().canModify(el)) {
             return false;
@@ -83,16 +84,16 @@ public class CloneGmLinkDrawingCommand extends Command implements RequestConstan
         // 1) clone the link model
         IGmDrawingLink toClone = (IGmDrawingLink) this.editPartToClone.getModel();
         IGmDrawingLink cloned = copyModel(toClone);
-        
+
         // Look for the cloned connection edit part
         ConnectionEditPart clonedPart = (ConnectionEditPart) this.editPartToClone.getViewer().getEditPartRegistry().get(cloned);
-        
+
         if (clonedPart == null) {
             throw new IllegalStateException("No editPart for " + cloned);
         }
-        
+
         Connection fig = (Connection) this.editPartToClone.getFigure();
-        
+
         // Move the source
         ReconnectRequest r2 = new ReconnectRequest(RequestConstants.REQ_RECONNECT_SOURCE);
         Point pSource = fig.getPoints().getFirstPoint();
@@ -102,9 +103,9 @@ public class CloneGmLinkDrawingCommand extends Command implements RequestConstan
         r2.setLocation(pAbsSource);
         r2.setTargetEditPart(this.editPartToClone.getSource());
         r2.setConnectionEditPart(clonedPart);
-        
+
         runRequest(r2);
-        
+
         // Move the target
         ReconnectRequest r3 = new ReconnectRequest(RequestConstants.REQ_RECONNECT_TARGET);
         Point pDest = fig.getPoints().getLastPoint();
@@ -114,23 +115,23 @@ public class CloneGmLinkDrawingCommand extends Command implements RequestConstan
         r3.setLocation(pAbsDest);
         r3.setTargetEditPart(this.editPartToClone.getTarget());
         r3.setConnectionEditPart(clonedPart);
-        
+
         runRequest(r3);
-        
+
     }
 
     @objid ("a980c18f-c3ea-4496-aa91-4c3a9a8930f4")
     private void runRequest(ReconnectRequest r) {
         EditPart target = r.getTarget().getTargetEditPart(r);
         Command c = target.getCommand(r);
-        
+
         if (c == null || !c.canExecute()) {
             DiagramElements.LOG.warning(new IllegalStateException("Cannot run " + r + " with " + c + " command."));
             return;
         }
-        
+
         c.execute();
-        
+
     }
 
     @objid ("33298b95-8460-429b-bd43-02a251caaa4e")
@@ -138,10 +139,10 @@ public class CloneGmLinkDrawingCommand extends Command implements RequestConstan
         try {
             IGmDrawingLink newlink = toCopy.getClass().getConstructor(IGmDiagram.class).newInstance(toCopy.getDiagram());
             // TODO : handle future composite nodes
-        
+
             final GmPath newPath = new GmPath(toCopy.getPath());
             newlink.setLayoutData(newPath);
-        
+
             // Copy graphic options
             IStyle origStyle = toCopy.getPersistedStyle();
             IStyle newStyle = newlink.getPersistedStyle();
@@ -149,18 +150,18 @@ public class CloneGmLinkDrawingCommand extends Command implements RequestConstan
             for (StyleKey k : origStyle.getLocalKeys()) {
                 newStyle.setProperty(k, origStyle.getProperty(k));
             }
-        
+
             toCopy.getFrom().addStartingDrawingLink(newlink);
             toCopy.getTo().addEndingDrawingLink(newlink);
-        
+
             return newlink;
-        
+
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException
                 | NoSuchMethodException | SecurityException e) {
             // TODO : report in another way ?
             throw new RuntimeException(e.toString(), e);
         }
-        
+
     }
 
 }

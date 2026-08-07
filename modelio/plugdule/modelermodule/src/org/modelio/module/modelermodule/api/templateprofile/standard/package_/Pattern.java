@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -81,6 +81,7 @@ public class Pattern {
      * Tells whether a {@link Pattern proxy} can be instantiated from a {@link MObject} checking it is a {@link Package} stereotyped << Pattern >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -91,7 +92,7 @@ public class Pattern {
 
     /**
      * Create a new {@link Package} stereotyped << Pattern >> then instantiate a {@link Pattern} proxy.
-     * 
+     *
      * @return a {@link Pattern} proxy on the created {@link Package}.
      */
     @objid ("77b7fcf1-3da0-434b-a6de-1bea4da00781")
@@ -102,9 +103,10 @@ public class Pattern {
     }
 
     /**
-     * Tries to instantiate a {@link Pattern} proxy from a {@link Package} stereotyped << Pattern >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link Pattern} proxy from a {@link Package} stereotyped << Pattern >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a Package
      * @return a {@link Pattern} proxy or <i>null</i>.
      */
@@ -114,9 +116,10 @@ public class Pattern {
     }
 
     /**
-     * Tries to instantiate a {@link Pattern} proxy from a {@link Package} stereotyped << Pattern >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link Pattern} proxy from a {@link Package} stereotyped << Pattern >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link Package}
      * @return a {@link Pattern} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -146,7 +149,8 @@ public class Pattern {
     }
 
     /**
-     * Get the underlying {@link Package}. 
+     * Get the underlying {@link Package}.
+     *
      * @return the Package represented by this proxy, never null.
      */
     @objid ("d8fc42c0-adb2-4b1c-848d-7e002efb92d4")
@@ -218,7 +222,7 @@ public class Pattern {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     /**
@@ -282,7 +286,7 @@ public class Pattern {
     }
 
     @objid ("26e71b0a-c8c6-4b24-a24f-5f29105eebe1")
-    protected  Pattern(Package elt) {
+    protected Pattern(Package elt) {
         this.elt = elt;
     }
 
@@ -326,7 +330,7 @@ public class Pattern {
             TEMPLATE_PARAMETERS_TAGTYPE_ELT = ctx.getModelingSession().findElementById(TagType.class, "120a832b-6bf6-4b03-900f-f60e86f19363");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -334,7 +338,7 @@ public class Pattern {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

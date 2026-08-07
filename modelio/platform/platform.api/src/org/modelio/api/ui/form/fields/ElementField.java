@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.ui.form.fields;
 
@@ -53,17 +53,17 @@ public class ElementField extends AbstractField {
     private TextWrapperForIElement textElement;
 
     @objid ("d7308fc7-94d3-4f7f-8400-b8d50c68ed4d")
-    public  ElementField(FormToolkit toolkit, Composite parent, IFormFieldData model, List<Class<? extends MObject>> allowedMetaclasses) {
+    public ElementField(FormToolkit toolkit, Composite parent, IFormFieldData model, List<Class<? extends MObject>> allowedMetaclasses) {
         super(toolkit, parent, model);
         this.allowedMetaclasses.addAll(allowedMetaclasses);
-        
+
     }
 
     @objid ("3c0f47d4-a8e3-4de8-9c78-7ea5adac54d7")
-    public  ElementField(FormToolkit toolkit, Composite parent, IFormFieldData model) {
+    public ElementField(FormToolkit toolkit, Composite parent, IFormFieldData model) {
         super(toolkit, parent, model);
         this.allowedMetaclasses.add(ModelElement.class);
-        
+
     }
 
     @objid ("b4493d3c-3fd6-4997-97f0-58f3b862dfea")
@@ -76,7 +76,7 @@ public class ElementField extends AbstractField {
         } else {
             throw new IllegalStateException(validationError);
         }
-        
+
     }
 
     /**
@@ -86,18 +86,18 @@ public class ElementField extends AbstractField {
     @Override
     public Control createControl(FormToolkit toolkit, Composite parent) {
         this.textElement = new TextWrapperForIElement(parent, null, true, this.allowedMetaclasses);
-        
+
         this.text = this.textElement.getTextField();
-        
+
         toolkit.adapt(this.text, false, false);
-        
+
         // Initialize values
         getLabel().setText(getModel().getName());
-        
+
         this.text.setText(this.labelProvider.getText(getModel().getValue()));
-        
+
         this.textElement.setAcceptNullValue(true);
-        
+
         // Install Listeners
         this.textElement.addListener(this::selectedElementChanged);
         return this.text;
@@ -123,7 +123,7 @@ public class ElementField extends AbstractField {
         if (value == null || value.isValid()) {
             return null;
         }
-        
+
         String elLabel = this.labelProvider.getText(value);
         return Api.I18N.getMessage("ElementField.error.deleted", elLabel, value, value.getName());
     }
@@ -133,7 +133,7 @@ public class ElementField extends AbstractField {
         if (!Objects.equals(oldElement, newElement)) {
             fireValueChanged(oldElement, newElement);
         }
-        
+
     }
 
 }

@@ -1,0 +1,25 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= The "solve conflicts" command
+
+
+
+===== Description
+
+This command opens a <<User_Documentation_en_Overview_of_Subversion_commands_Diff_Merge.adoc#,Diff/Merge>> dialog to allow the user to resolve the conflicts.
+
+On the left is the local version of the model as is, on the right is the repository revision retrieved by the last <<User_Documentation_en_Overview_of_Subversion_commands_Update.adoc#,update command>>. [[Conflicts-resolution-validation]]
+
+
+===== Conflicts resolution validation
+
+When validating the <<User_Documentation_en_Overview_of_Subversion_commands_Diff_Merge.adoc#,Diff/Merge>> dialog with the "Apply" or "OK" button, the atomic elements for which all differences have been resolved will have their conflict status removed and will be set as modified, ready to be commited.
+
+eg: you run the 'Resolve conflicts' on a package containing two conflicted classes C1 and C2. You resolve all differences on a 'C1' class and click on OK. Then C1 status changes from conflicted to locally modified and C2 stays as conflicted.
+
+You may choose later to set C2 as resolved by aither running this command again and solving all differences or running the " <<User_Documentation_en_Overview_of_Subversion_commands_Set_conflicts_as_resolved.adoc#,Set conflicts as resolved>> " on C2.

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.view.model;
 
@@ -37,10 +37,10 @@ public class AuditRuleModel {
     public final Collection<IAuditEntry> entries = new ArrayList<>();
 
     @objid ("bff1d125-4b8d-4e9f-80a7-32bf6c8c4c6e")
-    public  AuditRuleModel(String rule, AuditSeverity severity) {
+    public AuditRuleModel(String rule, AuditSeverity severity) {
         this.rule = rule;
         this.severity = severity;
-        
+
     }
 
     @objid ("713fd1c9-2803-4ef6-9fac-565f3175a4cb")
@@ -49,7 +49,7 @@ public class AuditRuleModel {
         if( this.severity.compareTo(entry.getSeverity()) < 0) {
             this.severity = entry.getSeverity();
         }
-        
+
     }
 
 }

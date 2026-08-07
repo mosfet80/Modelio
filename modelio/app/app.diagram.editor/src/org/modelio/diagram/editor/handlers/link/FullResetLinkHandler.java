@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.handlers.link;
 
@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
@@ -59,6 +59,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 public class FullResetLinkHandler extends AbstractLinkHandler {
     /**
      * Execute the command.
+     *
      * @param selection the current diagram selection.
      */
     @objid ("15ba4a94-73e7-4715-b1de-f84222b84673")
@@ -66,11 +67,12 @@ public class FullResetLinkHandler extends AbstractLinkHandler {
     public void execute(@Named (IServiceConstants.ACTIVE_SELECTION) ISelection selection) {
         List<LinkEditPart> linkEditPaths = SelectionHelper.toList(selection, LinkEditPart.class);
         linkEditPaths.get(0).getViewer().getEditDomain().getCommandStack().execute(new FullResetLinkCommand(linkEditPaths));
-        
+
     }
 
     /**
      * Makes sure the selection contains only orthogonal links
+     *
      * @param selection the current diagram selection.
      * @return <code>true</code> if the handler can be executed.
      */
@@ -82,10 +84,10 @@ public class FullResetLinkHandler extends AbstractLinkHandler {
         if (!super.canExecute(selection)) {
             return false;
         }
-        
+
         for (final LinkEditPart linkEditpart : SelectionHelper.toList(selection, LinkEditPart.class)) {
             final GmLink link = linkEditpart.getModel();
-        
+
             // Deactivate on non-orthogonal links
             if (link.getPath().getRouterKind() != ConnectionRouterId.ORTHOGONAL) {
                 return false;
@@ -100,7 +102,7 @@ public class FullResetLinkHandler extends AbstractLinkHandler {
         private List<LinkEditPart> linkEditPaths;
 
         @objid ("448a7034-14b7-4ebc-8366-45ee63cf0b32")
-        public  FullResetLinkCommand(List<LinkEditPart> linkEditPaths) {
+        public FullResetLinkCommand(List<LinkEditPart> linkEditPaths) {
             this.linkEditPaths = linkEditPaths;
         }
 
@@ -108,52 +110,53 @@ public class FullResetLinkHandler extends AbstractLinkHandler {
         @Override
         public void execute() {
             EditPartViewer viewer = this.linkEditPaths.get(0).getViewer();
-            
+
             List<MObject> links = new ArrayList<>();
             for (LinkEditPart linkEditPart : this.linkEditPaths) {
                 // Mask the current link
                 GmLink gmLink = linkEditPart.getModel();
                 IGmDiagram diagram = gmLink.getDiagram();
                 UnmaskState state = new UnmaskState(gmLink, null);
-            
+
                 MObject element = gmLink.getRepresentedElement();
                 links.add(element);
-            
+
                 Map<MObject, UnmaskState> toUnmask = new HashMap<>();
                 for (IGmLink startingLink : new ArrayList<>(gmLink.getStartingLinks())) {
                     MObject relatedElement = startingLink.getRelatedElement();
                     toUnmask.put(relatedElement, new UnmaskState((GmModel) startingLink, startingLink.getTo()));
                 }
-            
+
                 for (IGmLink endingLink : new ArrayList<>(gmLink.getEndingLinks())) {
                     MObject relatedElement = endingLink.getRelatedElement();
                     toUnmask.put(relatedElement, new UnmaskState((GmModel) endingLink, endingLink.getFrom()));
                 }
-            
+
                 // Mask the link
                 gmLink.delete();
-            
+
                 // Unmask the link again to reset its path and anchors
                 AbstractDiagramEditPart diagramEditPart = (AbstractDiagramEditPart) viewer.getEditPartRegistry().get(diagram);
                 unmask(diagramEditPart, element, 0, 0);
                 state.apply(element, diagram);
-            
+
                 for (Entry<MObject, UnmaskState> entry : toUnmask.entrySet()) {
                     MObject key = entry.getKey();
                     UnmaskState value = entry.getValue();
-            
+
                     diagramEditPart = (AbstractDiagramEditPart) viewer.getEditPartRegistry().get(value.diagram);
-            
+
                     unmask(diagramEditPart, key, 0, 0);
                     value.apply(key, diagram);
                 }
             }
-            
+
         }
 
         /**
          * Unmask an element in this viewer at the given coordinates.<br>
          * Uses a ModelElementDropRequest, to emulate a standard drag & drop of the element.
+         *
          * @param diagramEditPart the diagram to unmask the element on.
          * @param element the element to unmask.
          * @param x the x coordinate for the unmasking location.
@@ -162,11 +165,11 @@ public class FullResetLinkHandler extends AbstractLinkHandler {
         @objid ("eb6a5b7f-696a-4ac0-bf7e-c289c2daae13")
         private void unmask(final AbstractDiagramEditPart diagramEditPart, final MObject element, final int x, final int y) {
             Point dropLocation = new Point(x, y);
-            
+
             final ModelElementDropRequest req = new ModelElementDropRequest();
             req.setDroppedElements(new MObject[] { element });
             req.setLocation(dropLocation);
-            
+
             EditPart targetEditPart = diagramEditPart.getTargetEditPart(req);
             if (targetEditPart != null) {
                 Command com = targetEditPart.getCommand(req);
@@ -174,7 +177,7 @@ public class FullResetLinkHandler extends AbstractLinkHandler {
                     targetEditPart.getViewer().getEditDomain().getCommandStack().execute(com);
                 }
             }
-            
+
         }
 
         @objid ("df2ba265-64ca-4808-ad50-ee5da0a5d96e")
@@ -198,9 +201,9 @@ public class FullResetLinkHandler extends AbstractLinkHandler {
             private IGmDiagram diagram;
 
             @objid ("a7c02d79-2a6e-458f-91f5-ee0ee81812ec")
-            public  UnmaskState(GmModel model, IGmLinkable end) {
+            public UnmaskState(GmModel model, IGmLinkable end) {
                 GmModel toUnmask;
-                
+
                 if (model.getRepresentedElement() == null && model instanceof IGmLink) {
                     toUnmask = (GmModel) end;
                     while (toUnmask != null && toUnmask.getRepresentedElement() == null) {
@@ -209,10 +212,10 @@ public class FullResetLinkHandler extends AbstractLinkHandler {
                 } else {
                     toUnmask = model;
                 }
-                
+
                 if (toUnmask != null) {
                     this.diagram = toUnmask.getDiagram();
-                
+
                     IStyle style = toUnmask.getPersistedStyle();
                     for (StyleKey key : style.getLocalKeys()) {
                         this.localValues.put(key, style.getProperty(key));
@@ -221,7 +224,7 @@ public class FullResetLinkHandler extends AbstractLinkHandler {
                         this.layoutData = toUnmask.getLayoutData();
                     }
                 }
-                
+
             }
 
             @objid ("add20657-b8fd-41a9-bebc-9a0b289a5b52")
@@ -229,18 +232,18 @@ public class FullResetLinkHandler extends AbstractLinkHandler {
                 // Restore local properties
                 for (GmModel gm : context.getAllGMRepresenting(new MRef(element))) {
                     IStyle newPersistedStyle = gm.getPersistedStyle();
-                
+
                     for (Entry<StyleKey, Object> entry : this.localValues.entrySet()) {
                         newPersistedStyle.setProperty(entry.getKey(), entry.getValue());
                     }
-                
+
                     if (this.layoutData != null) {
                         gm.setLayoutData(this.layoutData);
                     }
-                
+
                     break;
                 }
-                
+
             }
 
         }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.mmextensions.standard.facilities;
 
@@ -72,7 +72,7 @@ public class BrokenElementTester {
             } else {
                 return visitModelElement(theElement);
             }
-            
+
         }
 
         @objid ("2542c06e-0d7a-11de-bb0e-001ec947ccaf")
@@ -82,15 +82,15 @@ public class BrokenElementTester {
             if (oppositeRole == null) {
                 return true;
             }
-            
+
             Classifier currentSource = currentRole.getSource();
             Classifier currentTarget = currentRole.getTarget();
             boolean currentNavigability = currentRole.isNavigable();
-            
+
             Classifier oppositeSource = oppositeRole.getSource();
             Classifier oppositeTarget = oppositeRole.getTarget();
             boolean oppositeNavigability = oppositeRole.isNavigable();
-            
+
             boolean ok = false;
             if (currentNavigability && !oppositeNavigability) { // THISSIDE
                 // only current source and target must be filled
@@ -101,17 +101,17 @@ public class BrokenElementTester {
             } else if (currentNavigability && oppositeNavigability) { // BOTHSIDES:
                 // current source must be equals to opposite target as well as current target and opposite source
                 ok = currentSource != null && currentTarget != null && currentSource.equals(oppositeTarget) && currentTarget.equals(oppositeSource);
-            } else if (!currentNavigability && !oppositeNavigability) { 
+            } else if (!currentNavigability && !oppositeNavigability) {
                 // both sources must be filled, but no target
                 ok = currentSource != null && currentTarget == null && oppositeSource != null && oppositeTarget == null;
             }
-            
+
             if (ok) {
                 return visitFeature(currentRole);
             } else {
                 return true;
             }
-            
+
         }
 
         @objid ("2542c06f-0d7a-11de-bb0e-001ec947ccaf")
@@ -134,7 +134,7 @@ public class BrokenElementTester {
             } else {
                 return false;
             }
-            
+
         }
 
         @objid ("2542c073-0d7a-11de-bb0e-001ec947ccaf")
@@ -145,7 +145,7 @@ public class BrokenElementTester {
             } else {
                 return visitModelElement(theElement);
             }
-            
+
         }
 
         @objid ("2542c074-0d7a-11de-bb0e-001ec947ccaf")
@@ -162,7 +162,7 @@ public class BrokenElementTester {
             } else {
                 return visitModelElement(theElement);
             }
-            
+
         }
 
         @objid ("2542c075-0d7a-11de-bb0e-001ec947ccaf")
@@ -173,7 +173,7 @@ public class BrokenElementTester {
             } else {
                 return visitModelElement(theElement);
             }
-            
+
         }
 
         @objid ("2542c077-0d7a-11de-bb0e-001ec947ccaf")
@@ -183,15 +183,15 @@ public class BrokenElementTester {
             if (oppositeRole == null) {
                 return true;
             }
-            
+
             Instance currentSource = currentRole.getSource();
             Instance currentTarget = currentRole.getTarget();
             boolean currentNavigability = currentRole.isNavigable();
-            
+
             Instance oppositeSource = oppositeRole.getSource();
             Instance oppositeTarget = oppositeRole.getTarget();
             boolean oppositeNavigability = oppositeRole.isNavigable();
-            
+
             boolean ok = false;
             if (currentNavigability && !oppositeNavigability) { // THISSIDE
                 // only current source and target must be filled
@@ -202,17 +202,17 @@ public class BrokenElementTester {
             } else if (currentNavigability && oppositeNavigability) { // BOTHSIDES:
                 // current source must be equals to opposite target as well as current target and opposite source
                 ok = currentSource != null && currentTarget != null && currentSource.equals(oppositeTarget) && currentTarget.equals(oppositeSource);
-            } else if (!currentNavigability && !oppositeNavigability) { 
+            } else if (!currentNavigability && !oppositeNavigability) {
                 // both sources must be filled, but no target
                 ok = currentSource != null && currentTarget == null && oppositeSource != null && oppositeTarget == null;
             }
-            
+
             if (ok) {
                 return visitModelElement(currentRole);
             } else {
                 return true;
             }
-            
+
         }
 
         @objid ("8a70b8e3-1303-11de-9ac2-001ec947ccaf")
@@ -223,7 +223,7 @@ public class BrokenElementTester {
             } else {
                 return visitModelElement(theElement);
             }
-            
+
         }
 
         @objid ("e9ab8783-4b90-11de-884f-001ec947ccaf")
@@ -234,7 +234,7 @@ public class BrokenElementTester {
             } else {
                 return visitElement(theElement);
             }
-            
+
         }
 
         @objid ("2542c07a-0d7a-11de-bb0e-001ec947ccaf")
@@ -245,7 +245,7 @@ public class BrokenElementTester {
             } else {
                 return visitModelElement(theElement);
             }
-            
+
         }
 
         @objid ("2542c07b-0d7a-11de-bb0e-001ec947ccaf")
@@ -256,7 +256,7 @@ public class BrokenElementTester {
             } else {
                 return visitModelElement(theElement);
             }
-            
+
         }
 
         @objid ("2542c07c-0d7a-11de-bb0e-001ec947ccaf")
@@ -267,7 +267,7 @@ public class BrokenElementTester {
             } else {
                 return visitModelElement(theElement);
             }
-            
+
         }
 
         @objid ("12033970-9de9-11de-b490-001ec947ccaf")
@@ -278,7 +278,7 @@ public class BrokenElementTester {
             } else {
                 return visitElement(theElement);
             }
-            
+
         }
 
         @objid ("2542c07d-0d7a-11de-bb0e-001ec947ccaf")
@@ -289,7 +289,7 @@ public class BrokenElementTester {
             } else {
                 return visitModelElement(theElement);
             }
-            
+
         }
 
         @objid ("2542c07e-0d7a-11de-bb0e-001ec947ccaf")
@@ -300,7 +300,7 @@ public class BrokenElementTester {
             } else {
                 return visitModelElement(theElement);
             }
-            
+
         }
 
         @objid ("1f3f4fb2-4b91-11de-884f-001ec947ccaf")
@@ -311,7 +311,7 @@ public class BrokenElementTester {
             } else {
                 return visitModelElement(theElement);
             }
-            
+
         }
 
         @objid ("2542c07f-0d7a-11de-bb0e-001ec947ccaf")
@@ -322,7 +322,7 @@ public class BrokenElementTester {
             } else {
                 return visitModelElement(theElement);
             }
-            
+
         }
 
         @objid ("38dc0cbb-12f7-11de-831d-001ec947ccaf")
@@ -333,7 +333,7 @@ public class BrokenElementTester {
             } else {
                 return visitDependency(theElement);
             }
-            
+
         }
 
         @objid ("002a6a16-f750-1090-8d81-001ec947cd2a")
@@ -355,10 +355,10 @@ public class BrokenElementTester {
         }
 
         @objid ("3a2a06b5-8bfe-419a-91a8-ea7ce70c0d4a")
-        public  BrokenVisitor() {
+        public BrokenVisitor() {
             super();
             this.infrastructureVisitor = this;
-            
+
         }
 
     }

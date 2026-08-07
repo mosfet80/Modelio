@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.message;
 
@@ -68,32 +68,33 @@ public class GmMessage extends GmLink {
 
     /**
      * Create a message link
+     *
      * @param diagram The owning diagram
      * @param obMessage The represented message, may be null.
      * @param ref The represented message reference, may not be null.
      */
     @objid ("d9546847-55b6-11e2-877f-002564c97630")
-    public  GmMessage(IGmDiagram diagram, Message obMessage, MRef ref) {
+    public GmMessage(IGmDiagram diagram, Message obMessage, MRef ref) {
         super(diagram, ref);
-        
+
         this.element = obMessage;
-        
+
         GmFractionalConnectionLocator constraint;
         constraint = new GmFractionalConnectionLocator(0.25, 0, -20);
         addExtension(new GmInfoFlowsGroup(diagram, getRepresentedRef()), ROLE_INFOFLOW_GRP, constraint);
-        
+
         constraint = new GmFractionalConnectionLocator(0.25, 0, 0, true);
         addExtension(new GmInformationFlowArrow(diagram, getRepresentedRef()), ROLE_INFOFLOW_ARROW, constraint);
-        
+
         addExtension(ExtensionLocation.MiddleSE, ROLE_MAIN_LABEL, new GmMessageHeader(diagram, ref));
-        
+
     }
 
     /**
      * For deserialization only.
      */
     @objid ("d9546853-55b6-11e2-877f-002564c97630")
-    public  GmMessage() {
+    public GmMessage() {
         // Nothing to do.
     }
 
@@ -148,17 +149,17 @@ public class GmMessage extends GmLink {
     protected void readLink(IDiagramReader in) {
         super.readLink(in);
         this.element = (Message) resolveRef(this.getRepresentedRef());
-        
+
     }
 
     @objid ("d955eeed-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmMessage.", GmMessage.MINOR_VERSION);
-        
+
     }
 
     @objid ("d955eef3-55b6-11e2-877f-002564c97630")
@@ -179,7 +180,7 @@ public class GmMessage extends GmLink {
                 n.setRoleInComposition(ROLE_MAIN_LABEL);
             }
         }
-        
+
     }
 
     @objid ("5d6f0ac3-720b-441b-97d0-a0b40e981922")

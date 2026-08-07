@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.linktovoid;
 
@@ -76,10 +76,11 @@ public class CreateLinkToVoidCommand extends Command {
 
     /**
      * Creates a node creation command.
+     *
      * @param context Details on the MObject and/or the node to create
      */
     @objid ("7ec96be8-1dec-11e2-8cad-001ec947c8cc")
-    public  CreateLinkToVoidCommand(ModelioCreationContext context) {
+    public CreateLinkToVoidCommand(ModelioCreationContext context) {
         this.context = context;
     }
 
@@ -87,32 +88,33 @@ public class CreateLinkToVoidCommand extends Command {
     @Override
     public void execute() {
         final IGmDiagram diagram = this.sourceNode.getDiagram();
-        
+
         MObject newElement = this.context.getElementToUnmask();
-        
+
         if (newElement == null) {
             newElement = createElement(diagram.getModelManager().getModelFactory(), diagram.getModelManager().getModelServices().getElementNamer());
         }
-        
+
         // Show the link between the source node
         if (this.sourceNode != this.destNode) {
             final IGmLink gmlink = diagram.unmaskLink(newElement);
-        
+
             final IGmPath path = new GmPath();
             path.setSourceAnchor(this.srcAnchorModel);
             path.setTargetAnchor(new GmSourceSatelliteAnchor(this.destinationLocation));
             path.setPathData(new ArrayList<>());
-        
+
             gmlink.setLayoutData(path);
-        
+
             this.sourceNode.addStartingLink(gmlink);
             diagram.addEndingLink(gmlink);
         }
-        
+
     }
 
     /**
      * Set the node inside which the node will be created.
+     *
      * @param destNode The node in which the node will be created.
      */
     @objid ("7ec96bef-1dec-11e2-8cad-001ec947c8cc")
@@ -122,6 +124,7 @@ public class CreateLinkToVoidCommand extends Command {
 
     /**
      * Set the parent element independently from the parent node.
+     *
      * @param parentElement the parent element.
      */
     @objid ("7ec96bf3-1dec-11e2-8cad-001ec947c8cc")
@@ -133,17 +136,19 @@ public class CreateLinkToVoidCommand extends Command {
      * Set the node on which the created node will be linked.
      * <p>
      * Set the parent element to be the represented element of the source node.
+     *
      * @param sourceNode the source node.
      */
     @objid ("7ecbce0b-1dec-11e2-8cad-001ec947c8cc")
     public void setSourceNode(GmNodeModel sourceNode) {
         this.sourceNode = sourceNode;
         this.parentElement = sourceNode.getRelatedElement();
-        
+
     }
 
     /**
      * Create and initialize the model element.
+     *
      * @param modelFactory the model factory.
      * @return the created model element.
      */
@@ -152,7 +157,7 @@ public class CreateLinkToVoidCommand extends Command {
         // Create the MObject...
         MClass mc = this.context.getMetaclass();
         this.createdElement = modelFactory.createElement(mc);
-        
+
         // ... and attach it to its parent.
         try {
             this.parentElement.mGet(this.context.getDependency()).add(this.createdElement);
@@ -168,12 +173,12 @@ public class CreateLinkToVoidCommand extends Command {
                 throw e;
             }
         }
-        
+
         // Attach the stereotype if needed.
         if (this.context.getStereotype() != null && this.createdElement instanceof ModelElement) {
             ((ModelElement) this.createdElement).getExtension().add(this.context.getStereotype());
         }
-        
+
         // Set default name
         this.createdElement.setName(elementNamer.getUniqueName(this.createdElement));
         return this.createdElement;
@@ -181,6 +186,7 @@ public class CreateLinkToVoidCommand extends Command {
 
     /**
      * Set the destination location.
+     *
      * @param dimension destination location in absolute coordiantes.
      */
     @objid ("7ecbce16-1dec-11e2-8cad-001ec947c8cc")
@@ -194,15 +200,15 @@ public class CreateLinkToVoidCommand extends Command {
         if (!MTools.getAuthTool().canModify(this.sourceNode.getDiagram().getRelatedElement())) {
             return false;
         }
-        
+
         final MObject newElement = this.context.getElementToUnmask();
-        
+
         if (newElement == null) {
             return MTools.getAuthTool().canAdd(this.parentElement, this.context.getMetaclass());
         } else {
             return true;
         }
-        
+
     }
 
     @objid ("7ecbce21-1dec-11e2-8cad-001ec947c8cc")
@@ -227,6 +233,7 @@ public class CreateLinkToVoidCommand extends Command {
 
     /**
      * Get the parent element of the element to create.
+     *
      * @return the parent element.
      */
     @objid ("7ecbce33-1dec-11e2-8cad-001ec947c8cc")
@@ -238,6 +245,7 @@ public class CreateLinkToVoidCommand extends Command {
      * Get the created model element.
      * <p>
      * Returns <code>null</code> until {@link #execute()} has been called.
+     *
      * @return the created element.
      */
     @objid ("7ecbce38-1dec-11e2-8cad-001ec947c8cc")
@@ -247,6 +255,7 @@ public class CreateLinkToVoidCommand extends Command {
 
     /**
      * Set the source anchor model.
+     *
      * @param srcAnchorModel the source anchor model.
      */
     @objid ("7ecbce3d-1dec-11e2-8cad-001ec947c8cc")

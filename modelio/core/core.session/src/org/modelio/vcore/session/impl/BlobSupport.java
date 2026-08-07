@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.impl;
 
@@ -57,7 +57,7 @@ public class BlobSupport implements IBlobSupport {
     @Override
     public Collection<String> getRelatedBlobs(MObject obj) {
         Collection<String> ret = new ArrayList<>();
-        
+
         for(IBlobProvider p : this.providers) {
             ret.addAll(p.getRelatedBlobs(obj));
         }
@@ -70,7 +70,7 @@ public class BlobSupport implements IBlobSupport {
         for(IBlobChangeListener p : this.listeners) {
             p.blobsChanged(event);
         }
-        
+
     }
 
     @objid ("91b7d44a-4c53-47c7-99a1-7683052f1354")
@@ -81,7 +81,7 @@ public class BlobSupport implements IBlobSupport {
         for(IBlobProvider p : this.providers) {
             p.objectCopied(from, fromRepo, to, toRepo);
         }
-        
+
     }
 
     @objid ("a448037d-3616-4193-a088-885a7b39fcef")
@@ -102,7 +102,7 @@ public class BlobSupport implements IBlobSupport {
         for(IBlobProvider p : this.providers) {
             p.objectsMoved(objs, fromRepo, toRepo);
         }
-        
+
     }
 
 }

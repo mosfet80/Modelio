@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.diagram.elements.core.figures.labelum;
 
@@ -57,8 +76,7 @@ import org.modelio.diagram.styles.core.StyleKey.LinePattern;
  * <li>It is copied from the {@link org.eclipse.draw2d.Label} implementation.
  * <li>It can be viewed as a rectangle containing a rotated rectangle that
  * take the maximum place.
- * 
- * 
+ *
  * @since Modelio 3.4
  */
 @objid ("40f780d8-45b2-488a-bbd5-92127d2ccf12")
@@ -67,8 +85,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
     private static boolean DEBUG = false;
 
     @objid ("5b107b27-90b4-4282-870c-28338d37cc52")
-    private static String ELLIPSIS = "..."; // $NON-NLS-1$
-    
+    private static String ELLIPSIS = "...";
 
     @objid ("39c8428f-4885-429f-9b88-10e4212c604a")
     private int iconAlignment = PositionConstants.CENTER;
@@ -95,8 +112,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
     private String subStringText;
 
     @objid ("ab21b6a3-1d50-4903-9b92-4b221ec8568a")
-    private String text = ""; // $NON-NLS-1$
-    
+    private String text = "";
 
     @objid ("ed0c38c0-9d92-48f5-b7a3-dcbd8bf95561")
     private int textAlignment = PositionConstants.CENTER;
@@ -104,8 +120,17 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
     @objid ("2cedf9be-346b-4685-87bd-5d428b57f6df")
     private int textPlacement = PositionConstants.EAST;
 
-    @objid ("068a8d0b-91b3-4f5f-b1b8-2c647e95c8ce")
+    @objid ("fd7118c6-cddc-40b7-bf06-505315c2e8b8")
     private Image icon;
+
+    /**
+     * Shared SWT {@link TextLayout} used for layouting text and drawing it.
+     */
+    @objid ("4bd9bacc-ddc9-4ed3-9062-4581b0ada26c")
+    private static TextLayout textDrawer = null;
+
+    @objid ("b00c056d-8174-47ad-aa91-36dff3286b0b")
+    private TextStyle textStyle = new TextStyle();
 
     /**
      * Icon location in the inner rectangle coordinates
@@ -125,12 +150,6 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
     @objid ("271e5f87-8ba4-44f5-a13f-c0ff674d6fc7")
     private Dimension subStringTextSize;
 
-    /**
-     * Shared SWT {@link TextLayout} used for layouting text and drawing it.
-     */
-    @objid ("102e250b-52de-422e-9192-1acf31b590c5")
-    private static TextLayout textDrawer = null;
-
     @objid ("4c35a14e-430e-4797-8168-9ad82dc9ace8")
     private ILabelumTextLayouter textLayouter = NativeTextLayouter.INSTANCE;
 
@@ -143,51 +162,48 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
     @objid ("3df57a7e-2122-459e-ae86-d0b9c0d7702e")
     private Dimension textSize;
 
-    @objid ("e1573335-3767-4516-a49e-9dbee1e68e2f")
-    private TextStyle textStyle = new TextStyle();
-
     /**
      * Creates an empty label figure oriented horizontally.
      */
     @objid ("a0ae666b-bb4e-4dce-9576-f88f13eb9274")
-    public  LabelumFigure() {
+    public LabelumFigure() {
         init();
     }
 
     /**
      * Construct a Label with passed String as its text.
+     *
      * @param s the label text
      */
     @objid ("164a393c-325f-4d6b-8dfb-78a10d45b2c2")
-    public  LabelumFigure(String s) {
+    public LabelumFigure(String s) {
         setText(s);
         init();
-        
     }
 
     /**
      * Construct a Label with passed Image as its icon.
+     *
      * @param i the label image
      */
     @objid ("3e15a74e-f886-47b9-84c9-5a7a3a519e95")
-    public  LabelumFigure(Image i) {
+    public LabelumFigure(Image i) {
         setIcon(i);
         init();
-        
     }
 
     /**
      * Construct a Label with passed String as text and passed Image as its
      * icon.
+     *
      * @param s the label text
      * @param i the label image
      */
     @objid ("b05b5606-5a3b-4771-a32e-86395249f624")
-    public  LabelumFigure(String s, Image i) {
+    public LabelumFigure(String s, Image i) {
         setText(s);
         setIcon(i);
         init();
-        
     }
 
     @objid ("668de6f4-cdd7-47a6-aa00-4f277cb70288")
@@ -197,7 +213,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
         if (this.textStyle.font != null) {
             return this.textStyle.font;
         }
-        
+
         if (getParent() != null) {
             return getParent().getFont();
         }
@@ -206,6 +222,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
 
     /**
      * Returns the Label's icon.
+     *
      * @return the label icon
      * @since 2.0
      */
@@ -217,6 +234,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
     /**
      * Returns the current alignment of the Label's icon. The default is
      * {@link PositionConstants#CENTER}.
+     *
      * @return the icon alignment
      * @since 2.0
      */
@@ -227,6 +245,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
 
     /**
      * Returns the bounds of the Label's icon.
+     *
      * @return the icon's bounds
      * @since 2.0
      */
@@ -235,11 +254,11 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
         Rectangle b = getBounds();
         return new Rectangle(b.getLocation().translate(getIconLocation()),
                         getIconSize());
-        
     }
 
     /**
      * Returns the gap in pixels between the Label's icon and its text.
+     *
      * @return the gap
      * @since 2.0
      */
@@ -251,6 +270,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
     /**
      * Returns the alignment of the entire label (icon and text). The default
      * label alignment is {@link PositionConstants#CENTER}.
+     *
      * @return the label alignment
      * @since 3.5
      */
@@ -287,6 +307,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
 
     /**
      * Get the orientation angle in counter-clockwise degrees.
+     *
      * @return the orientation angle in degrees. 0 means horizontal.
      */
     @objid ("306ba641-2e59-44b0-bfa7-70ddd808deed")
@@ -297,6 +318,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
     /**
      * Calculates the amount of the Label's current text will fit in the Label,
      * including an elipsis "..." if truncation is required.
+     *
      * @return the substring
      */
     @objid ("1d1f59f1-6eda-44d4-b9e3-6f47b5b2664e")
@@ -304,18 +326,18 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
         if (this.subStringText == null) {
             // Compute subStringText and subStringTextSize
             final String origText = getText();
-        
+
             // Format text to dimensions
             PrecisionRectangle ir = getInnerRectangle();
             Dimension availTextSize = calculateAvailableTextSize(new PrecisionDimension(ir.preciseWidth(), ir.preciseHeight()));
             this.subStringText = this.textLayouter.formatText(this, origText, availTextSize);
-        
+
             // Configure text drawer to ask him text size
             // Store text size
             TextLayout td = getTextDrawer(this.subStringText, availTextSize.width());
             org.eclipse.swt.graphics.Rectangle ttb = td.getBounds();
             this.subStringTextSize = new Dimension(ttb.width, ttb.height);
-        
+
         }
         return this.subStringText;
     }
@@ -323,6 +345,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
     /**
      * Returns the bounds of the label's text. Note that the bounds are
      * calculated using the label's displayed text, truncated if needed.
+     *
      * @return the bounds of this label's complete text
      */
     @objid ("c6100c66-f495-443e-a52e-e4a99273dc3d")
@@ -338,6 +361,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
      * label, regardless of whether it is currently being truncated. Call
      * {@link #getSubStringText()} to return the label's current text contents
      * with truncation considered.
+     *
      * @return the complete text of this label
      * @since 2.0
      */
@@ -349,6 +373,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
     /**
      * Returns the current alignment of the Label's text. The default text
      * alignment is {@link PositionConstants#CENTER}.
+     *
      * @return the text alignment
      */
     @objid ("f5341eec-bb0a-4309-b083-a18404ca1e9a")
@@ -360,6 +385,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
      * Returns the bounds of the label's text. Note that the bounds are
      * calculated using the label's complete text regardless of whether the
      * label's text is currently truncated.
+     *
      * @return the bounds of this label's complete text
      */
     @objid ("6ee9b558-e6ce-4a15-a64b-4c4e91c5f1c0")
@@ -382,6 +408,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
      * The returned {@link TextLayout} is ready to draw the given text with the labelum style.
      * <p>
      * This TextLayout must not be disposed by clients. The provided TextLayout's orientation will be LTR.
+     *
      * @param textToDraw the text to draw
      * @param width the available width to draw text. -1 means no limit. Justification and text centering need a positive value.
      * @return a SWT TextLayout that can be used for Bidi
@@ -391,7 +418,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
         if (LabelumFigure.textDrawer == null) {
             LabelumFigure.textDrawer = new TextLayout(Display.getDefault());
         }
-        
+
         TextLayout tl = LabelumFigure.textDrawer;
         try {
             if (isMirrored()) {
@@ -399,12 +426,12 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
             } else {
                 tl.setOrientation(SWT.LEFT_TO_RIGHT);
             }
-        
+
         } catch (@SuppressWarnings ("unused") org.eclipse.swt.SWTException e) {
             // the diagram is probably already disposed...
             return tl;
         }
-        
+
         // Abort if the TextLayout is already configured with same parameters
         if (tl.getWidth() == width
                 && Objects.equals(tl.getFont(), getTextFont())
@@ -412,11 +439,11 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
                 && (textToDraw.isEmpty() || this.textStyle.equals(tl.getStyle(0)))) {
             return tl;
         }
-        
+
         // 0 is illegal,
         // -1 = disable wrap for drawing
         tl.setWidth(width > 0 ? width : -1);
-        
+
         switch (this.labelAlignment) {
         case LEFT:
         case ALWAYS_LEFT:
@@ -438,7 +465,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
             tl.setJustify(true);
             break;
         }
-        
+
         tl.setFont(getTextFont());
         tl.setText(textToDraw);
         tl.setStyle(this.textStyle, 0, textToDraw.length());
@@ -453,6 +480,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
 
     /**
      * Get the line breaking strategy for this labelum.
+     *
      * @return the labelum text layouter.
      */
     @objid ("ae5b7ff2-34bd-4827-926d-90023b8ee234")
@@ -463,6 +491,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
     /**
      * Returns the current placement of the label's text relative to its icon.
      * The default text placement is {@link PositionConstants#EAST}.
+     *
      * @return the text placement
      */
     @objid ("c90b6480-5b2c-4aa0-b6df-4ae27b4ff556")
@@ -484,6 +513,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
      * <li>{@link #setStrikeThrough(boolean)}: {@link TextStyle#strikeout}
      * </ul>
      * You may need to call {@link #repaint()} after changing the text style fields.
+     *
      * @return the text style
      */
     @objid ("95c2b855-2a3e-4f18-9411-cb25e8023058")
@@ -494,6 +524,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
     /**
      * Gets the <code>TextUtilities</code> instance to be used in measurement
      * calculations.
+     *
      * @return a <code>TextUtilities</code> instance
      * @since 3.4
      */
@@ -506,7 +537,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
     @Override
     public void invalidate() {
         super.invalidate();
-        
+
         this.innerRectangle = null;
         this.prefSize = null;
         this.minSize = null;
@@ -514,7 +545,6 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
         this.textSize = null;
         this.subStringTextSize = null;
         this.subStringText = null;
-        
     }
 
     @objid ("78182752-cbe5-4ff3-a478-59b9627dcbe5")
@@ -525,11 +555,11 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
             revalidate();
             repaint();
         }
-        
     }
 
     /**
      * Sets the label's icon to the passed image.
+     *
      * @param image the new label image
      * @since 2.0
      */
@@ -546,7 +576,6 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
         } else {
             setIconDimension(new Dimension(image));
         }
-        
     }
 
     /**
@@ -560,6 +589,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
      * <LI>{@link PositionConstants#LEFT}
      * <LI>{@link PositionConstants#RIGHT}
      * </UL>
+     *
      * @param align the icon alignment
      */
     @objid ("3a94dcf0-1285-4c58-8d76-f5102d3cc654")
@@ -570,12 +600,12 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
         this.iconAlignment = align;
         clearLocations();
         repaint();
-        
     }
 
     /**
      * Sets the gap in pixels between the label's icon and text to the passed
      * value. The default is 4.
+     *
      * @param gap the gap
      */
     @objid ("f89fda84-f8bc-4521-b735-0fdbca033afb")
@@ -586,7 +616,6 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
         this.iconTextGap = gap;
         repaint();
         revalidate();
-        
     }
 
     /**
@@ -601,6 +630,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
      * <LI>{@link PositionConstants#RIGHT}
      * <LI>{@link PositionConstants#LEFT} + {@link PositionConstants#RIGHT} = Takes the whole place and justify text.
      * </UL>
+     *
      * @param align label alignment
      */
     @objid ("5d0c5514-e59f-4ecc-a8b2-de45a1af3567")
@@ -608,12 +638,11 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
         if (this.labelAlignment == align) {
             return;
         }
-        
+
         this.labelAlignment = align;
-        
+
         clearLocations();
         repaint();
-        
     }
 
     @objid ("0757f5ef-bbaa-457e-9ccc-3ffaa2a6af61")
@@ -622,9 +651,8 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
         if (manager == null || !(ChainedLayout.getRootLayout(manager) instanceof LM)) {
             throw new IllegalArgumentException(String.format("%s must be a LabelumFigure.LM ", manager));
         }
-        
+
         super.setLayoutManager(manager);
-        
     }
 
     @objid ("defbd690-f72b-4e9d-8503-f248aa16e702")
@@ -633,19 +661,17 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
         this.textStyle.underlineColor = lineColor;
         this.textStyle.strikeoutColor = lineColor;
         repaint();
-        
     }
 
     @objid ("05ff3226-ce96-4ea6-b5d3-87a5415791e9")
     @Override
     public void setLinePattern(LinePattern lineStyle) {
         // ignore
-        
+
         // We might use this to set underline style:
         // TextStyle doc:
         // This value should be one of SWT.UNDERLINE_SINGLE, SWT.UNDERLINE_DOUBLE, SWT.UNDERLINE_ERROR,
         // SWT.UNDERLINE_SQUIGGLE, or SWT.UNDERLINE_LINK.
-        
     }
 
     @objid ("096178b1-928a-4d3a-9f27-618748880135")
@@ -661,6 +687,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
      * at the 3 o'clock position.
      * A positive value indicates a counter-clockwise rotation while a negative value
      * indicates a clockwise rotation.
+     *
      * @param orientation the orientation in degrees.
      */
     @objid ("4303b9fe-46cd-4c62-a493-44442a4ad832")
@@ -669,9 +696,8 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
         if (this.orientation < 0) {
             this.orientation = 360 + this.orientation;
         }
-        
+
         revalidate();
-        
     }
 
     /**
@@ -679,6 +705,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
      * <p>
      * {@link PositionConstants#EAST} is the default horizontal direction,
      * {@link PositionConstants#NORTH} is the default vertical direction.
+     *
      * @param orientation the label orientation
      */
     @objid ("ca3ffe99-bc79-4032-bf55-c2c3ccd935c6")
@@ -711,11 +738,11 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
         default:
             throw new IllegalArgumentException(String.valueOf(orientation));
         }
-        
     }
 
     /**
      * Set whether the main label is underlined.
+     *
      * @param strikeThrough true to strike the label
      */
     @objid ("1bdf9bd4-4feb-42bf-95d9-9cfafdd72a95")
@@ -724,11 +751,11 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
             this.textStyle.strikeout = strikeThrough;
             repaint();
         }
-        
     }
 
     /**
      * Sets the label's text.
+     *
      * @param s the new label text
      * @since 2.0
      */
@@ -745,7 +772,6 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
         this.text = ls;
         revalidate();
         repaint();
-        
     }
 
     @objid ("a777d90e-6739-4b28-91bf-08380a5a1b75")
@@ -755,7 +781,6 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
             this.textStyle.foreground = textColor;
             repaint();
         }
-        
     }
 
     @objid ("a6441a57-9bdb-46e3-a89c-6e758b6338cd")
@@ -766,6 +791,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
 
     /**
      * Set the text layouter used to define where text lines are broken.
+     *
      * @param labellumLayouter the text layouter.
      */
     @objid ("690f07b0-b415-48d0-8734-24b8e88cc1c8")
@@ -775,7 +801,6 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
             revalidate();
             repaint();
         }
-        
     }
 
     /**
@@ -793,8 +818,9 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
      * <LI>{@link PositionConstants#LEFT}
      * <LI>{@link PositionConstants#RIGHT}
      * </UL>
-     * @see #setLabelAlignment(int)
+     *
      * @param align the text alignment
+     * @see #setLabelAlignment(int)
      */
     @objid ("2edd573d-169b-485f-875c-2e78e92d8393")
     public void setTextMinorAlignment(int align) {
@@ -804,7 +830,6 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
         this.textAlignment = align;
         clearLocations();
         repaint();
-        
     }
 
     /**
@@ -816,6 +841,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
      * <LI>{@link PositionConstants#SOUTH}
      * <LI>{@link PositionConstants#WEST}
      * </UL>
+     *
      * @param where the text placement
      * @since 2.0
      */
@@ -827,11 +853,11 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
         this.textPlacement = where;
         revalidate();
         repaint();
-        
     }
 
     /**
      * Set whether the main label is underlined.
+     *
      * @param underline true to underline the main label
      */
     @objid ("d8dd1dde-bd96-413d-b765-5c7bda7466f3")
@@ -840,12 +866,12 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
             this.textStyle.underline = underline;
             repaint();
         }
-        
     }
 
     /**
      * Calculates the size available for text using the passed Dimension as the size
      * of the whole Label's figure.
+     *
      * @param figureSize the precalculated size of the label's figure.
      * @return the available text size
      */
@@ -855,7 +881,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
         if (getIcon() == null || getText().isEmpty()) {
             gap = 0;
         }
-        
+
         Dimension d = new Dimension(0, 0);
         final int txtPlacement = getTextPlacement();
         if (txtPlacement == PositionConstants.WEST || txtPlacement == PositionConstants.EAST) {
@@ -865,7 +891,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
             d.width = Math.max(getIconSize().width(), figureSize.width());
             d.height = figureSize.height() - getIconSize().height() - gap;
         }
-        
+
         if (figureSize.width() == -1) {
             d.width = -1;
         }
@@ -878,6 +904,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
     /**
      * Calculates the size of the Label using the passed Dimension as the size
      * of the Label's text.
+     *
      * @param txtSize the precalculated size of the label's text
      * @return the label's size in a new Dimension.
      * @since 2.0
@@ -901,6 +928,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
 
     /**
      * Called by the layout manager.
+     *
      * @param w rectangle width
      * @param h rectangle height
      * @return The minimum size
@@ -913,19 +941,19 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
         } else {
             availTextSize = calculateAvailableTextSize(calculateMaxRotatedRectangleSize(w, h));
         }
-        
+
         // reformat text into availTextSize, setup the text layouter and compute its size
         String tt = getTextLayouter().formatText(LabelumFigure.this, getText(), availTextSize);
         TextLayout td = getTextDrawer(tt, -1 /* availTextSize.width() */);
         org.eclipse.swt.graphics.Rectangle ttBounds = td.getBounds();
         Dimension ttDim = new Dimension(ttBounds.width, ttBounds.height);
-        
+
         // Compute ellipsis size
         Dimension truncatedTextSize = getTextUtilities().getTextExtents(getTruncationString(), getFont());
-        
+
         // Compute needed label bounds for text or ellipsis
         Dimension lMinSize = calculateRotatedRectangleBounds(calculateLabelSize(truncatedTextSize.union(ttDim)), new Dimension());
-        
+
         // Add insets
         Insets insets = getInsets();
         lMinSize.expand(insets.getWidth(), insets.getHeight());
@@ -934,6 +962,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
 
     /**
      * Called by the layout manager.
+     *
      * @param wHint The width hint
      * @param hHint The height hint
      * @return The preferred size
@@ -943,15 +972,15 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
         Dimension lprefSize = calculateRotatedRectangleBounds(calculateLabelSize(getTextSize()), new Dimension());
         Insets insets = getInsets();
         lprefSize.expand(insets.getWidth(), insets.getHeight());
-        
+
         if ((wHint >= 0 && wHint < lprefSize.width) || (hHint >= 0 && hHint < lprefSize.height)) {
             // Default preferred size is too big for given hints,
             // calculate minimum size for them.
-        
+
             Dimension result = getMinimumSize(wHint, hHint).getCopy();
             result.width = Math.max(result.width, wHint);
             result.height = Math.max(result.height, hHint);
-        
+
             return result;
         } else if ((wHint >= 0 && wHint > lprefSize.width && this.labelAlignment == PositionConstants.LEFT + PositionConstants.RIGHT)) {
             // Justified text and remaining place, take the whole space and justify
@@ -965,6 +994,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
      * Dimension is calculated using the Label's full text, regardless of
      * whether or not its text is currently truncated. If text size considering
      * current truncation is desired, use {@link #getSubStringTextSize()}.
+     *
      * @return the size of the label's text, ignoring truncation
      * @since 2.0
      */
@@ -978,6 +1008,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
 
     /**
      * Returns the location of the Label's icon relative to the Label.
+     *
      * @return the icon's location
      * @since 2.0
      */
@@ -991,6 +1022,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
 
     /**
      * Gets the icon size
+     *
      * @return the icon size
      * @since 3.4
      */
@@ -1005,13 +1037,13 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
             PrecisionRectangle r = new PrecisionRectangle();
             Dimension size = getSize();
             r.setSize(calculateMaxRotatedRectangleSize(size.width, size.height));
-        
+
             this.innerRectangle = r;
             double innerW = this.innerRectangle.preciseWidth();
             double innerH = this.innerRectangle.preciseHeight();
             double sinr = Math.sin(Math.toRadians(this.orientation));
             double cosr = Math.cos(Math.toRadians(this.orientation));
-        
+
             // Translate the rotated inner rectangle so that it fits inside the figure bounds.
             if (this.orientation <= 90) {
                 // final double dy = size.preciseHeight() / 2;
@@ -1039,6 +1071,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
      * Returns the size of the Label's current text. If the text is currently
      * truncated, the truncated text with its ellipsis is used to calculate the
      * size.
+     *
      * @return the size of this label's text, taking into account truncation
      * @since 2.0
      */
@@ -1054,6 +1087,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
      * Returns the location of the label's text relative to the label.
      * <p>
      * The point is in the inner rectangle coordinates.
+     *
      * @return the text location
      */
     @objid ("7d176674-2c1e-4d1b-9abb-ac5ce235d395")
@@ -1071,6 +1105,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
      * label's text is currently being truncated and is displaying an ellipsis.
      * If the size considering current truncation is desired, call
      * {@link #getSubStringTextSize()}.
+     *
      * @return the size of this label's complete text
      * @since 2.0
      */
@@ -1085,6 +1120,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
     /**
      * Gets the string that will be appended to the text when the label is
      * truncated. By default, this returns an ellipsis.
+     *
      * @return the string to append to the text when truncated
      * @since 3.4
      */
@@ -1097,23 +1133,23 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
     @Override
     protected void paintFigure(final Graphics graphics) {
         graphics.setTextAntialias(SWT.ON);
-        
+
         if (isOpaque()) {
             super.paintFigure(graphics);
         }
-        
+
         Rectangle lbounds = getBounds();
         graphics.translate(lbounds.x, lbounds.y);
-        
+
         final Rectangle innerRect = getInnerRectangle();
-        
+
         if (this.orientation != 0) {
             if (LabelumFigure.DEBUG) {
                 graphics.setAlpha(40);
                 graphics.drawRectangle(1, 0, lbounds.width() - 1, lbounds.height() - 1);
                 graphics.setAlpha(255);
             }
-        
+
             graphics.pushState();
             graphics.translate((float) innerRect.preciseX(), (float) innerRect.preciseY());
             graphics.rotate(-this.orientation);
@@ -1123,47 +1159,64 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
                 graphics.setAlpha(255);
             }
         }
-        
-        if (this.icon != null) {
-            graphics.setInterpolation(SWT.HIGH);
-            graphics.drawImage(this.icon, getIconLocation());
-        }
-        
-        final Point lTextLocation = getTextLocation();
-        
-        if (LabelumFigure.DEBUG) {
-            graphics.setAlpha(140);
-            graphics.drawRectangle(lTextLocation.x(), lTextLocation.y(), getSubStringTextSize().width(), getSubStringTextSize().height());
-            graphics.setAlpha(255);
-        }
-        
-        translateGraphics(graphics, lTextLocation.preciseX(), lTextLocation.preciseY());
-        
-        if (LabelumFigure.DEBUG) {
-            graphics.setAlpha(100);
-            graphics.drawRectangle(0, 0, getSubStringTextSize().width(), getSubStringTextSize().height());
-            graphics.setAlpha(255);
-        }
-        
-        String draw = getSubStringText();
-        TextLayout tl = getTextDrawer(draw, calculateAvailableTextSize(innerRect.getSize()).width());
-        
-        if (!isEnabled()) {
-            translateGraphics(graphics, 1, 1);
-            graphics.setForegroundColor(ColorConstants.buttonLightest);
-        
+
+        try {
+
+            if (this.icon != null) {
+                graphics.setInterpolation(SWT.HIGH);
+                graphics.drawImage(this.icon, getIconLocation());
+            }
+
+            final Point lTextLocation = getTextLocation();
+
+            Dimension toDrawSize = getSubStringTextSize();
+            String toDrawText = getSubStringText();
+
+            if (toDrawText.isEmpty())
+                return;
+
+            if (LabelumFigure.DEBUG) {
+                graphics.setAlpha(140);
+                graphics.drawRectangle(lTextLocation.x(), lTextLocation.y(), toDrawSize.width(), toDrawSize.height());
+                graphics.setAlpha(255);
+            }
+
+            translateGraphics(graphics, lTextLocation.preciseX(), lTextLocation.preciseY());
+
+            if (LabelumFigure.DEBUG) {
+                graphics.setAlpha(100);
+                graphics.drawRectangle(0, 0, toDrawSize.width(), toDrawSize.height());
+                graphics.setAlpha(255);
+            }
+
+            TextLayout tl = getTextDrawer(toDrawText, calculateAvailableTextSize(innerRect.getSize()).width());
+
+            // workaround draw2d resource leak in ScaledGraphics.zoomTextLayout when width < -1 or width == 0
+            int relWidth = tl.getWidth();
+            if (relWidth < -1 || relWidth == 0)
+                return;
+
+            double absWidth = graphics.getAbsoluteScale() * relWidth;
+            if (absWidth < 1.0)
+                return;
+
+            if (!isEnabled()) {
+                translateGraphics(graphics, 1, 1);
+                graphics.setForegroundColor(ColorConstants.buttonLightest);
+
+                graphics.drawTextLayout(tl, 0, 0);
+
+                translateGraphics(graphics, -1, -1);
+                graphics.setForegroundColor(ColorConstants.buttonDarker);
+            }
+
             graphics.drawTextLayout(tl, 0, 0);
-        
-            translateGraphics(graphics, -1, -1);
-            graphics.setForegroundColor(ColorConstants.buttonDarker);
+
+        } finally {
+            if (this.orientation != 0) {
+                graphics.popState();
+            }
         }
-        
-        graphics.drawTextLayout(tl, 0, 0);
-        
-        if (this.orientation != 0) {
-            graphics.popState();
-        }
-        
     }
 
     @objid ("8b8d30c7-07f6-414e-8f71-295e243709a1")
@@ -1180,7 +1233,6 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
         default:
             loc.y = (ref.height - size.height) / 2;
         }
-        
     }
 
     @objid ("ca2ea81c-a6de-4e96-a466-365ba6b92239")
@@ -1197,7 +1249,6 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
         default:
             loc.x = (ref.width - size.width) / 2;
         }
-        
     }
 
     @objid ("81783808-7395-4cd9-83d7-4339b1389bac")
@@ -1215,20 +1266,19 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
             alignOnWidth(this.iconLocation, getIconSize(), this.iconAlignment);
             break;
         }
-        
     }
 
     @objid ("f84f0355-5030-44b9-8880-97f266c03555")
     private void calculateLocations() {
         this.textLocation = new PrecisionPoint();
         this.iconLocation = new PrecisionPoint();
-        
+
         calculatePlacement();
         calculateAlignment();
-        
+
         // Dimension offset = getSize().getShrinked(getPreferredSize());
         // offset.width += getTextSize().width - getSubStringTextSize().width;
-        
+
         Dimension offset = preciseSize(getInnerRectangle()).getShrinked(getSubStringTextSize());
         switch (this.labelAlignment) {
         case CENTER:
@@ -1253,7 +1303,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
             offset.scale(0.5f);
             break;
         }
-        
+
         switch (this.textPlacement) {
         case EAST:
         case WEST:
@@ -1265,15 +1315,15 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
             offset.setWidth(0);
             break;
         }
-        
+
         this.textLocation.translate(offset);
         this.iconLocation.translate(offset);
-        
     }
 
     /**
      * Calculate the max size of a rectangle inside the given rectangle size rotated by the labelum angle .
      * <p>
+     *
      * @param w rectangle width
      * @param h rectangle height
      * @return the inner rotated rectangle dimension
@@ -1289,7 +1339,6 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
         } else {
             return guessLargestRotatedTextSize(this.orientation, w, h);
         }
-        
     }
 
     @objid ("417eb5e1-9985-45b3-9001-843f23406561")
@@ -1299,7 +1348,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
             gap = 0;
         }
         Insets insets = getInsets();
-        
+
         switch (this.textPlacement) {
         case EAST:
             this.iconLocation.x = insets.left;
@@ -1318,11 +1367,11 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
             this.textLocation.y = getIconSize().height + gap + insets.top;
             this.iconLocation.y = insets.top;
         }
-        
     }
 
     /**
      * Compute the size of the a rectangle after rotation.
+     *
      * @param d the initial size.
      * @param target the dimension in which the bounds size of the rotated rectangle will be computed.
      * @return the bounds of the rotated dimension : target for convenience.
@@ -1339,10 +1388,10 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
             double rad = Math.toRadians(this.orientation);
             double cos = Math.cos(rad);
             double sin = Math.sin(rad);
-        
+
             double a = Math.abs(d.width * cos) + Math.abs(d.height * sin);
             double b = Math.abs(d.width * sin) + Math.abs(d.height * cos);
-        
+
             target.setSize((int) Math.ceil(a), (int) Math.ceil(b));
         }
         return target;
@@ -1355,6 +1404,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
 
     /**
      * Guess the ideal text width for the given dimensions.
+     *
      * @param angle the rotation angle in degrees
      * @param origWidth the constrained width.
      * @param origHeight the constrained height
@@ -1364,36 +1414,36 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
     private PrecisionDimension guessLargestRotatedTextSize(double angle, int origWidth, int origHeight) {
         org.eclipse.swt.graphics.Rectangle swtbounds = getTextDrawer(getText(), -1).getBounds();
         PrecisionDimension ret = new PrecisionDimension(swtbounds.width, swtbounds.height);
-        
+
         int limitWidth = origWidth;
         boolean vertical = false;
-        
+
         int quarter = (int) ((angle + 45) / 90);
         if (quarter == 1 || quarter == 3) {
             limitWidth = origHeight;
             vertical = true;
         }
-        
+
         Dimension cbounds = calculateRotatedRectangleBounds(ret, new Dimension());
         if (limitWidth == -1 || cbounds.width() < limitWidth) {
             // inside constraints
             return ret;
         }
-        
+
         int wrapCur = swtbounds.width;
         int wrapHigh = wrapCur;
         int wrapLow = 0;
         Dimension wrapDim = new Dimension(-1, -1);
-        
+
         while (wrapHigh - wrapLow > 2) {
             wrapCur = (wrapHigh + wrapLow) / 2;
             wrapDim.setWidth(wrapCur);
-        
+
             String formatedText = getTextLayouter().formatText(this, getText(), wrapDim);
             swtbounds = getTextDrawer(formatedText, wrapDim.width()).getBounds();
             ret.setSize(swtbounds.width, swtbounds.height);
             cbounds = calculateRotatedRectangleBounds(ret, cbounds);
-        
+
             if (cbounds.width() > limitWidth) {
                 // outside constraints
                 wrapHigh = wrapCur;
@@ -1405,7 +1455,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
                 return ret;
             }
         }
-        
+
         // Crop the other side to other limits
         if (!vertical) {
             // the text is horizontal
@@ -1437,6 +1487,7 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
 
     /**
      * Sets the label's icon size to the passed Dimension.
+     *
      * @param d the new icon size
      */
     @objid ("7044e1cd-44ef-452b-b678-0d8ba96219ce")
@@ -1446,16 +1497,16 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
         }
         this.iconSize = d;
         revalidate();
-        
     }
 
     /**
      * Wrapper aroung {@link Graphics#translate(float, float)} that ignores
      * thrown {@link NullPointerException} because of GEF bug.
-     * @see Graphics#translate(float, float)
+     *
      * @param graphics the Graphics to translate
      * @param x the horizontal offset
      * @param y the vertical offset
+     * @see Graphics#translate(float, float)
      */
     @objid ("27a1fcd1-7403-4ed0-9696-b60837161bcf")
     private void translateGraphics(final Graphics graphics, double x, double y) {
@@ -1470,7 +1521,6 @@ public class LabelumFigure extends Figure implements IPenOptionsSupport, Positio
             // at org.eclipse.draw2d.ScaledGraphics.translate(ScaledGraphics.java:884)
             // at org.modelio.diagram.elements.core.figures.labelum.LabelumFigure.paintFigure(LabelumFigure.java:101)
         }
-        
     }
 
     /**

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.exml.common;
 
@@ -38,6 +38,7 @@ import org.modelio.vstore.exml.common.model.ObjIdName;
 public interface ILoadHelper {
     /**
      * Instantiates a new storage handler for the given CMS node.
+     *
      * @param cmsNode the CMS node object.
      * @param isNodeLoaded <code>true</code> if the node is already or being loaded,
      * <code>false</code> if the object needs to be loaded on access.
@@ -48,6 +49,7 @@ public interface ILoadHelper {
 
     /**
      * Tells whether the given object is stored in this repository.
+     *
      * @param id the object id
      * @return <code>true</code> if the object is in the repository else <code>false</code>.
      */
@@ -58,6 +60,7 @@ public interface ILoadHelper {
      * Get a reference to an object that may be loaded later.
      * <p>
      * The returned object may come from another repository.
+     *
      * @param modelLoader the model loading API to use.
      * @param id the object ID
      * @return the found or created object
@@ -70,6 +73,7 @@ public interface ILoadHelper {
 
     /**
      * Creates an object that will be loaded by the caller.
+     *
      * @param modelLoader the model loading API to use.
      * @param id the object ID
      * @param handler the storage handler to put. If <i>null</i> the object will have no defined storage handler.
@@ -81,6 +85,7 @@ public interface ILoadHelper {
 
     /**
      * Find the loaded object with the given identifier.
+     *
      * @param id an identifier
      * @return the found object or <code>null</code> if no such object is loaded.
      */
@@ -89,6 +94,7 @@ public interface ILoadHelper {
 
     /**
      * Set an attribute value.
+     *
      * @param modelLoader the API to use to set the attribute
      * @param obj an object
      * @param attName an attribute name
@@ -99,6 +105,7 @@ public interface ILoadHelper {
 
     /**
      * Find an object in other repositories.
+     *
      * @param modelLoader the API to use to load the object
      * @param id the object identifier
      * @return the found or created shell object
@@ -110,6 +117,7 @@ public interface ILoadHelper {
      * Initialize the model object status flags.
      * <p>
      * <u><b>Note:</b></u> To be called <b>after</b> having loaded all attributes.
+     *
      * @param modelLoader the model loader to use to initialize flags.
      * @param obj the model object to initialize.
      */
@@ -121,6 +129,7 @@ public interface ILoadHelper {
      * <p>
      * Initialize its storage handler.
      * No other object with the given identifier must exist in memory.
+     *
      * @param pid the owner CMS node ID
      * @param modelLoader the model loading API to use.
      * @param id the object ID with its name.
@@ -136,6 +145,7 @@ public interface ILoadHelper {
 
     /**
      * Get a  metaclass with its name.
+     *
      * @param xclassof a metaclass name
      * @return the found SmClass or null.
      */
@@ -147,6 +157,7 @@ public interface ILoadHelper {
      * <p>
      * Initialize its storage handler.
      * No other object with the given identifier must exist in memory.
+     *
      * @param modelLoader the model loading API to use.
      * @param id the object ID
      * @param defaultName the fallback name of the object if its name can't be found in indexes.
@@ -157,6 +168,7 @@ public interface ILoadHelper {
     SmObjectImpl createStubCmsNode(IModelLoader modelLoader, ObjId id, String defaultName) throws DuplicateObjectException;
 
     /**
+     *
      * @param obj a model object, loaded or not.
      * @return the CMS node storing the given object or null if the object is not stored in the repository.
      * @throws IndexException if the indexes are broken
@@ -168,6 +180,7 @@ public interface ILoadHelper {
      * Method to be called when loading fails with an exception.
      * <p>
      * Fires a warning to repository monitors and set the object as shell.
+     *
      * @param obj the CMS node unable to be loaded.
      * @param modelLoader the model loader
      * @param e the exception
@@ -179,10 +192,11 @@ public interface ILoadHelper {
      * Load the name of the given object from indexes and return it in a {@link ObjIdName}.
      * <p>
      * In case of loading error, the name is set to the empty string.
+     *
      * @param id an object identifier
      * @return an object identifier with its name loaded.
      */
     @objid ("b154b872-c4e7-462d-b861-2137d1d16877")
     ObjIdName withNameFromIndex(ObjId id);
-}
 
+}

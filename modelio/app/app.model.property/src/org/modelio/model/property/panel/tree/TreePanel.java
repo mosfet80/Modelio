@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2020 Modeliosoft
+ * Copyright 2013-2025 Docaposte
  *
  * This file is part of Modelio.
  *
@@ -38,20 +38,20 @@ public class TreePanel extends Composite {
     @objid ("8faeec9c-c068-11e1-8c0a-002564c97630")
     private Element currentElement = null;
 
+    @objid ("7128b332-5495-4054-852e-489eb92222bd")
+    private Object lastSelectedType = null;
+
+    @objid ("da391a18-0fc8-4141-a993-14f04594dce3")
+    private TreeViewer viewer = null;
+
     @objid ("8faeec9b-c068-11e1-8c0a-002564c97630")
     private TreeLabelProvider annotationLabelProvider = null;
-
-    @objid ("25276b51-cf5d-11e1-80a9-002564c97630")
-    private Object lastSelectedType = null;
 
     @objid ("29c3d158-164b-4b7e-a92b-60c0cb974667")
     private TreeContentProvider contentProvider;
 
-    @objid ("48b85d08-560b-41dd-bdc5-d7b0c04625a8")
-    private TreeViewer viewer = null;
-
     @objid ("8faeeca3-c068-11e1-8c0a-002564c97630")
-    public  TreePanel(SashForm sash, int style) {
+    public TreePanel(SashForm sash, int style) {
         super(sash, style);
 
         this.annotationLabelProvider = new TreeLabelProvider();
@@ -96,6 +96,7 @@ public class TreePanel extends Composite {
     }
 
     /**
+     *
      * @return the tree viewer.
      */
     @objid ("8fb14daa-c068-11e1-8c0a-002564c97630")
@@ -105,6 +106,7 @@ public class TreePanel extends Composite {
 
     /**
      * Select the given model element in the annotation view.
+     *
      * @param target the model element to select.
      */
     @objid ("8fb14db1-c068-11e1-8c0a-002564c97630")
@@ -139,6 +141,7 @@ public class TreePanel extends Composite {
     }
 
     /**
+     *
      * @param newInput the new input
      */
     @objid ("8fb14dbe-c068-11e1-8c0a-002564c97630")
@@ -152,22 +155,23 @@ public class TreePanel extends Composite {
             // The current element did not change, only the tree selection moved
             select(typingElement);
             this.viewer.refresh();
+            // Fast exit
             return;
-        } else if(this.currentElement!= null){
-            this.currentElement = typedElement;
-            this.viewer.setInput(this.currentElement);
-            if (this.currentElement != null) {
-                if (typingElement != null) {
-                    select(typingElement);
-                } else {
-                    // try to find an optimal default selection.
-                    // rules are:
-                    // - try to find a stereotype or module of the same type as the last selected one
-                    // - if not, select the model element's class itself
-                    select(this.lastSelectedType);
-                    if (this.viewer.getSelection().isEmpty()) {
-                        select(typedElement.getMClass());
-                    }
+        }
+
+        this.currentElement = typedElement;
+        this.viewer.setInput(this.currentElement);
+        if (this.currentElement != null) {
+            if (typingElement != null) {
+                select(typingElement);
+            } else {
+                // try to find an optimal default selection.
+                // rules are:
+                // - try to find a stereotype or module of the same type as the last selected one
+                // - if not, select the model element's class itself
+                select(this.lastSelectedType);
+                if (this.viewer.getSelection().isEmpty()) {
+                    select(typedElement.getMClass());
                 }
             }
         }
@@ -175,6 +179,7 @@ public class TreePanel extends Composite {
     }
 
     /**
+     *
      * @return the last selected annotation set
      */
     @objid ("2df98193-c68e-44aa-94ab-4c3b02901c21")

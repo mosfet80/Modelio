@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.anchors;
 
@@ -35,19 +35,20 @@ import org.modelio.diagram.elements.core.figures.geometry.GeomUtils;
  * <li> non zero (0, 0)
  * <li> not a forbidden point, usually the center of a figure.
  * </ul>
- * 
+ *
  * @author cma
  * @since 5.1
  */
 @objid ("442a6a23-fd10-4bfb-b402-8500f751bc5c")
 public class AnchorRefHelper {
     @objid ("2f2354c5-724c-4e15-80c0-724f0462bc5e")
-    private  AnchorRefHelper() {
+    private AnchorRefHelper() {
         // no instance
     }
 
     /**
      * Choose the first good point in the given list
+     *
      * @param candidates the point candidates
      * @param first it true begin at the list start. If false process from the end in the reverse order.
      * @param len the number of points to test in the candidate list.
@@ -60,7 +61,7 @@ public class AnchorRefHelper {
             return null;
         if (candidates.isEmpty())
             return null;
-        
+
         if (first) {
             int stop = Math.min(len, candidates.size());
             for (int i = 0; i < stop; i++) {
@@ -82,6 +83,7 @@ public class AnchorRefHelper {
 
     /**
      * Choose the first good point in the given list
+     *
      * @param <T> the type of the candidates
      * @param candidates the point candidates
      * @param converter a function that convert a T to a Point.
@@ -96,7 +98,7 @@ public class AnchorRefHelper {
             return null;
         if (candidates.isEmpty())
             return null;
-        
+
         if (first) {
             int stop = Math.min(len, candidates.size());
             for (int i = 0; i < stop; i++) {
@@ -118,6 +120,7 @@ public class AnchorRefHelper {
 
     /**
      * Choose the first good point in the given list
+     *
      * @param <T> the type of the candidates
      * @param candidates the point candidates
      * @param converter a function that convert a T to a Point.
@@ -132,7 +135,7 @@ public class AnchorRefHelper {
             return null;
         if (candidates.isEmpty())
             return null;
-        
+
         if (first) {
             Point p1 = converter.apply(candidates.get(0));
             if (isGoodAnchorRef(p1, forbidden))
@@ -157,12 +160,12 @@ public class AnchorRefHelper {
             int i = candidates.size() - 1;
             int stop = i - len;
             Point p1 = converter.apply(candidates.get(i));
-        
+
             if (isGoodAnchorRef(p1, forbidden))
                 return p1;
             if (candidates.size()==1)
                 return null;
-        
+
             i--;
             Point p2 = converter.apply(candidates.get(i));
             boolean p2IsGood = isGoodAnchorRef(p2, forbidden);
@@ -177,7 +180,7 @@ public class AnchorRefHelper {
             else
                 return null;
         }
-        
+
     }
 
     /**
@@ -188,6 +191,7 @@ public class AnchorRefHelper {
      * <li> non zero (0, 0)
      * <li> not a forbidden point, usually the center of a figure.
      * </ul>
+     *
      * @param candidate a point
      * @param forbidden a forbidden point
      * @return true if the point is a good anchor reference point.
@@ -197,7 +201,7 @@ public class AnchorRefHelper {
         return candidate != null
                 && !candidate.equals(0, 0)
                 && !Objects.equals(candidate, forbidden) ;
-        
+
     }
 
     @objid ("4e568e70-650b-42e2-836d-6b8ba496bccd")
@@ -205,7 +209,7 @@ public class AnchorRefHelper {
         return candidate != null
                 && !candidate.equals(0, 0)
                 && !forbidden.contains(candidate) ;
-        
+
     }
 
 }

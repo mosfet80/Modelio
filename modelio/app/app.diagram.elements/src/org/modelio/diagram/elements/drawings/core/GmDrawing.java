@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.drawings.core;
 
@@ -33,7 +33,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Graphic model representing a node or a link that does not represent a model element.
- * 
+ *
  * @author cmarin
  */
 @objid ("807430a0-1dec-11e2-8cad-001ec947c8cc")
@@ -60,22 +60,23 @@ public abstract class GmDrawing extends GmAbstractObject implements IGmDrawing {
 
     /**
      * Default constructor.
+     *
      * @param diagram the owner diagram.
      * @param identifier the drawing identifier.
      */
     @objid ("110d2aa1-cc0b-46f6-8214-0704c4106da7")
-    public  GmDrawing(IGmDiagram diagram, String identifier) {
+    public GmDrawing(IGmDiagram diagram, String identifier) {
         super(diagram);
         this.identifier = identifier;
         init();
-        
+
     }
 
     /**
      * Deserialization only constructor.
      */
     @objid ("359942d3-e6ed-4612-ab94-06b04ca2c05e")
-    public  GmDrawing() {
+    public GmDrawing() {
         super();
     }
 
@@ -85,9 +86,9 @@ public abstract class GmDrawing extends GmAbstractObject implements IGmDrawing {
         if (getDiagram() != null) {
             getDiagram().removeGraphicModel(this);
         }
-        
+
         super.delete();
-        
+
     }
 
     @objid ("c12dceea-5ecb-4074-9855-47c13e2fdd12")
@@ -108,38 +109,38 @@ public abstract class GmDrawing extends GmAbstractObject implements IGmDrawing {
         // Read version, defaults to 0 if not found
         int readVersion = readMinorVersion(in, "GmDrawing.");
         switch (readVersion) {
-            case 0: 
+            case 0:
                 read_0(in);
                 read_0_hyperlink();
                 break;
             case 1:
                 read_0(in);
                 break;
-            
-            default: 
+
+            default:
                 assert (false) : readVersion+" version number not covered!";
                 // reading as last handled version: 0
                 read_0(in);
                 break;
-            
+
         }
-        
+
     }
 
     @objid ("807430b2-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0.
         writeMinorVersion(out, "GmDrawing.", GmDrawing.MINOR_VERSION);
-        
+
         out.writeProperty("id", this.identifier);
-        
+
         if (this.hyperlink != null) {
             out.writeProperty("hyperlink", this.hyperlink);
         }
-        
+
     }
 
     /**
@@ -152,6 +153,7 @@ public abstract class GmDrawing extends GmAbstractObject implements IGmDrawing {
      * <p>
      * Can be redefined to create another style or to return <tt>null<tt/> if
      * {@link #getStyle()} is redefined to return another style.
+     *
      * @param aDiagram the diagram where the object will be
      * @return the created style or <tt>null</tt> if the creation is postponed
      */
@@ -188,23 +190,23 @@ public abstract class GmDrawing extends GmAbstractObject implements IGmDrawing {
             // Register element in the diagram
             getDiagram().addGraphicModel(this);
         }
-        
+
     }
 
     @objid ("807430b6-1dec-11e2-8cad-001ec947c8cc")
     private void read_0(IDiagramReader in) {
         super.read(in);
-        
+
         this.identifier = (String) in.readProperty("id");
         this.hyperlink = (MRef) in.readProperty("hyperlink");
-        
+
         if (this.identifier == null) {
             this.identifier = UUID.randomUUID().toString();
         }
-        
-        
+
+
         init();
-        
+
     }
 
     @objid ("fd7e5c7e-248f-41e5-99e8-3edf5138b27d")
@@ -226,11 +228,12 @@ public abstract class GmDrawing extends GmAbstractObject implements IGmDrawing {
         if(! obsoleteProps.isEmpty()) {
             this.hyperlink = (MRef) obsoleteProps.get(getObsoleteHyperLinkStyleKey());
         }
-        
+
     }
 
     /**
      * To be redefined by sub classes that used hyper link stored in style keys.
+     *
      * @return the style key name where hyper link was stored.
      * @since 3.7
      */

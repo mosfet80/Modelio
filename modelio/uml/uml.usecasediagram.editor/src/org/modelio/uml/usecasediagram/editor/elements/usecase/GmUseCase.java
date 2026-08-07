@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.usecasediagram.editor.elements.usecase;
 
@@ -64,24 +64,24 @@ public class GmUseCase extends GmPortContainer {
     private static final GmUseCaseUserImageStyleKeys USERIMAGE_KEYS = new GmUseCaseUserImageStyleKeys();
 
     @objid ("5e5af8fb-55b7-11e2-877f-002564c97630")
-    public  GmUseCase(IGmDiagram diagram, UseCase theUseCase, MRef ref) {
+    public GmUseCase(IGmDiagram diagram, UseCase theUseCase, MRef ref) {
         super(diagram, ref);
         this.useCase = theUseCase;
-        
+
         GmUseCasePrimaryNode primary = new GmUseCasePrimaryNode(diagram, ref);
         primary.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
         addChild(primary);
-        
+
         GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(diagram, ref);
         imageModeHeader.setRoleInComposition(IMAGE_MODE_HEADER);
         imageModeHeader.setLayoutData(PositionConstants.SOUTH);
-        
+
         addChild(imageModeHeader);
-        
+
     }
 
     @objid ("5e5af907-55b7-11e2-877f-002564c97630")
-    public  GmUseCase() {
+    public GmUseCase() {
         // empty constructor for the serialization
     }
 
@@ -104,12 +104,12 @@ public class GmUseCase extends GmPortContainer {
         if (ret != null) {
             return ret;
         }
-        
+
         ret = SIMPLE_KEYS.getStyleKey(metakey);
         if (ret != null) {
             return ret;
         }
-        
+
         ret = IMAGE_KEYS.getStyleKey(metakey);
         return ret;
     }
@@ -133,7 +133,7 @@ public class GmUseCase extends GmPortContainer {
         } else {
             return Collections.emptyList();
         }
-        
+
     }
 
     @objid ("5e5c7f81-55b7-11e2-877f-002564c97630")
@@ -153,7 +153,7 @@ public class GmUseCase extends GmPortContainer {
                 break;
             }
         }
-        
+
     }
 
     @objid ("5e5c7f87-55b7-11e2-877f-002564c97630")
@@ -162,7 +162,7 @@ public class GmUseCase extends GmPortContainer {
         super.refreshFromObModel();
         // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("5e5c7f8a-55b7-11e2-877f-002564c97630")
@@ -181,7 +181,7 @@ public class GmUseCase extends GmPortContainer {
                    case IMAGE:
                    default:
                        break;
-        
+
                }
            }
         return ret;
@@ -197,10 +197,10 @@ public class GmUseCase extends GmPortContainer {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmUseCase.", GmUseCase.MINOR_VERSION);
-        
+
     }
 
     @objid ("5e5c7fa0-55b7-11e2-877f-002564c97630")
@@ -212,9 +212,9 @@ public class GmUseCase extends GmPortContainer {
     @objid ("5e5c7fa5-55b7-11e2-877f-002564c97630")
     private void read_0(final IDiagramReader in) {
         super.read(in);
-        
+
         this.useCase = (UseCase) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("5e5c7fb1-55b7-11e2-877f-002564c97630")
@@ -237,7 +237,7 @@ public class GmUseCase extends GmPortContainer {
         } else {
             super.addStartingLink(link);
         }
-        
+
     }
 
     @objid ("5e5e062a-55b7-11e2-877f-002564c97630")
@@ -248,24 +248,24 @@ public class GmUseCase extends GmPortContainer {
         } else {
             super.addEndingLink(link);
         }
-        
+
     }
 
     @objid ("5e5e0631-55b7-11e2-877f-002564c97630")
-     GmUseCase(final _GmUseCase oldVersionGm) {
+    GmUseCase(final _GmUseCase oldVersionGm) {
         super(oldVersionGm.getDiagram(), oldVersionGm.getRepresentedRef());
         this.useCase = oldVersionGm.getRepresentedElement();
-        
+
         GmUseCasePrimaryNode primary = new GmUseCasePrimaryNode(oldVersionGm);
         primary.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
         addChild(primary);
-        
+
         GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(oldVersionGm.getDiagram(), oldVersionGm.getRepresentedRef());
         imageModeHeader.setRoleInComposition(IMAGE_MODE_HEADER);
         imageModeHeader.setLayoutData(PositionConstants.SOUTH);
-        
+
         addChild(imageModeHeader);
-        
+
     }
 
     @objid ("3fcd97f7-7c85-4512-89e7-e0895a8854ec")

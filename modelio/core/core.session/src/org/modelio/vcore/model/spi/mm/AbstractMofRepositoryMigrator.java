@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.model.spi.mm;
 
@@ -26,6 +26,7 @@ import org.modelio.vcore.smkernel.meta.mof.MofMetamodel;
 
 /**
  * Default implementation of {@link IMofRepositoryMigrator} that does nothing.
+ *
  * @author cma
  */
 @objid ("34bad46f-90f1-460f-bbb6-1c71e877b2ff")
@@ -40,18 +41,20 @@ public abstract class AbstractMofRepositoryMigrator implements IMofRepositoryMig
     private MetamodelChangeDescriptor metamodelChangeDescriptor;
 
     /**
+     *
      * @param fromMetamodel the source metamodel
      * @param targetMetamodel the target metamodel
      */
     @objid ("dab9b2d8-6853-4bbb-8621-61e32d111ac2")
-    public  AbstractMofRepositoryMigrator(MetamodelVersionDescriptor fromMetamodel, MetamodelVersionDescriptor targetMetamodel) {
+    public AbstractMofRepositoryMigrator(MetamodelVersionDescriptor fromMetamodel, MetamodelVersionDescriptor targetMetamodel) {
         this.fromMetamodel = fromMetamodel;
         this.targetMetamodel = targetMetamodel;
         this.metamodelChangeDescriptor = new MetamodelChangeDescriptor();
-        
+
     }
 
     /**
+     *
      * @return a resume of metamodel changes between {@link #getSourceMetamodel()} and {@link #getTargetMetamodel()}.
      */
     @objid ("99bb457b-cbea-4bbe-b2e9-e24a96246e20")
@@ -61,6 +64,7 @@ public abstract class AbstractMofRepositoryMigrator implements IMofRepositoryMig
     }
 
     /**
+     *
      * @return the metamodel from which this migration can run.
      */
     @objid ("b5cf5ec8-98c5-4e4d-b73f-399139ff777b")
@@ -70,6 +74,7 @@ public abstract class AbstractMofRepositoryMigrator implements IMofRepositoryMig
     }
 
     /**
+     *
      * @return the metamodel to which the implementation will migrate the model.
      */
     @objid ("8be7763c-21ea-4fe6-8da0-f8d6e181336d")
@@ -80,6 +85,7 @@ public abstract class AbstractMofRepositoryMigrator implements IMofRepositoryMig
 
     /**
      * Modify the metamodel so that it can read the {@link #getSourceMetamodel()} repository.
+     *
      * @param metamodel the metamodel at the {@link #getTargetMetamodel() target} state.
      * @throws MofMigrationException on fatal failure preventing migration
      */
@@ -91,6 +97,7 @@ public abstract class AbstractMofRepositoryMigrator implements IMofRepositoryMig
 
     /**
      * Migrates the given repository using the given session.
+     *
      * @param monitor a progress monitor
      * @param session the migration session
      */
@@ -102,6 +109,7 @@ public abstract class AbstractMofRepositoryMigrator implements IMofRepositoryMig
 
     /**
      * Set the metamodel changes descriptor.
+     *
      * @param changes the metamodel changes descriptor.
      * @return this instance
      */

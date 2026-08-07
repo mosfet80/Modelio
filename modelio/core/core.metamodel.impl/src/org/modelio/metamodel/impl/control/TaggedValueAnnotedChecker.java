@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.control;
 
@@ -37,24 +37,24 @@ public class TaggedValueAnnotedChecker extends AbstractDependencyTypeChecker {
      * C'tor
      */
     @objid ("f2d63946-bfd8-49e7-bea5-c429708e2311")
-    public  TaggedValueAnnotedChecker(SmMetamodel mm) {
+    public TaggedValueAnnotedChecker(SmMetamodel mm) {
         // Cached SmClass
         // none
-        
+
         // Direct checker
         register(mm.getMClass(TaggedValue.class), "Annoted");
-        
+
         // Symetric checker
         ModelElementTagChecker symetricChecker = new ModelElementTagChecker(this);
         symetricChecker.register(mm.getMClass(ModelElement.class), "Tag");
-        
+
     }
 
     @objid ("03014eac-f027-11e1-8bdc-002564c97630")
     @Override
     public int doCheck(final SmObjectImpl obj, final SmObjectImpl value) {
         TaggedValue taggedValue = (TaggedValue) obj;
-        
+
         if (value != null) {
             SmClass cls = value.getClassOf();
             SmClass baseClass = getBaseClass(taggedValue);
@@ -78,7 +78,7 @@ public class TaggedValueAnnotedChecker extends AbstractDependencyTypeChecker {
         } else {
             return null;
         }
-        
+
     }
 
     /**
@@ -90,7 +90,7 @@ public class TaggedValueAnnotedChecker extends AbstractDependencyTypeChecker {
         TaggedValueAnnotedChecker symetricChecker;
 
         @objid ("0302d531-f027-11e1-8bdc-002564c97630")
-        public  ModelElementTagChecker(TaggedValueAnnotedChecker symetricChecker) {
+        public ModelElementTagChecker(TaggedValueAnnotedChecker symetricChecker) {
             this.symetricChecker = symetricChecker;
         }
 

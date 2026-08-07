@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -48,7 +48,7 @@ public class R2270 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -67,13 +67,13 @@ public class R2270 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         // This cover the case of moving or deleting a Collaboration, which triggers an UPDATE on the old parent.
         plan.registerRule(Operation.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         // This cover the case of [creating|moving] a Collaboration [under|to] a new parent.
         // It also covers the case of renaming a Collaboration.
         plan.registerRule(Collaboration.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -107,14 +107,14 @@ public class R2270 extends AbstractUmlRule {
      * Default constructor for R2270
      */
     @objid ("5fce23ab-54c9-476a-861e-49f06c3214bc")
-    public  R2270() {
+    public R2270() {
         this.checkerInstance = new CheckR2270(this);
     }
 
     @objid ("a3bf81ac-fba7-4dcd-8b11-02990fd47aea")
     private static class CheckR2270 extends AbstractControl {
         @objid ("75456bb2-56c1-4635-b3df-88e9252da318")
-        public  CheckR2270(IRule rule) {
+        public CheckR2270(IRule rule) {
             super(rule);
         }
 
@@ -141,18 +141,18 @@ public class R2270 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     operation,
                     null);
-            
+
             if (operation.getExample().size() > 1) {
-            
+
                 List<String> collaboNames = new ArrayList<>();
-            
+
                 for (Collaboration collabo : operation.getExample()) {
                     String name = collabo.getName();
-            
+
                     if (collaboNames.contains(name)) {
-            
+
                         // Rule failed
-            
+
                         auditEntry.setSeverity(this.rule.getSeverity());
                         List<Object> linkedObjects = new ArrayList<>();
                         linkedObjects.add(operation);

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.browser.model.bycontext;
 
@@ -63,10 +63,10 @@ public class ByCtxContentProvider implements ITreeContentProvider {
     @Override
     public Object[] getElements(Object inputElement) {
         ArrayList<Object> children = new ArrayList<>();
-        
+
         // the element folders
         updateElementFolders();
-        
+
         children.addAll(this.elementFolders.values());
         return children.toArray();
     }
@@ -83,7 +83,7 @@ public class ByCtxContentProvider implements ITreeContentProvider {
         }
         if (child instanceof Element)
             return ParentProvider.getParent((Element) child);
-        
+
         if (child instanceof DiagramRef)
             return ((DiagramRef) child).getReferenceOwner();
         return null;
@@ -110,7 +110,7 @@ public class ByCtxContentProvider implements ITreeContentProvider {
     }
 
     @objid ("002e0a04-0d4f-10c6-842f-001ec947cd2a")
-    public  ByCtxContentProvider(IGProject project) {
+    public ByCtxContentProvider(IGProject project) {
         this.project = project;
     }
 
@@ -123,10 +123,10 @@ public class ByCtxContentProvider implements ITreeContentProvider {
             if (context == null) {
                 continue;
             }
-        
+
             if (!this.elementFolders.containsKey(context)) {
                 final Element filteringContext = context;
-        
+
                 VirtualFolder newFolder = new VirtualFolder(filteringContext) {
                     @Override
                     public Object[] getChildren(Object parentElement) {
@@ -140,17 +140,17 @@ public class ByCtxContentProvider implements ITreeContentProvider {
                         }
                         return objects.toArray();
                     }
-        
+
                     @Override
                     public Object[] getElements(Object inputElement) {
                         return new Object[0];
                     }
-        
+
                     @Override
                     public Object getParent(Object element) {
                         return null;
                     }
-        
+
                     @Override
                     public boolean hasChildren(Object parentElement) {
                         VirtualFolder folder = (VirtualFolder) parentElement;
@@ -159,26 +159,26 @@ public class ByCtxContentProvider implements ITreeContentProvider {
                             return !((ModelElement) element).getProduct().isEmpty();
                         return false;
                     }
-        
+
                     @Override
                     public void dispose() {
                         // Nothing to dispose
-        
+
                     }
-        
+
                     @Override
                     public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
                         // Nothing to do
-        
+
                     }
-        
+
                 };
                 newFolder.setRepresentedElement(filteringContext);
                 newFolder.setName("");
                 this.elementFolders.put(context, newFolder);
             }
         }
-        
+
     }
 
     @objid ("002e3a2e-0d4f-10c6-842f-001ec947cd2a")
@@ -193,7 +193,7 @@ public class ByCtxContentProvider implements ITreeContentProvider {
                 }
             }
         }
-        
+
     }
 
     /**
@@ -225,10 +225,10 @@ public class ByCtxContentProvider implements ITreeContentProvider {
         @Override
         public Object visitDiagramSet(DiagramSet theDiagramSet) {
             ArrayList<Object> objects = new ArrayList<>();
-            
+
             // add owned sub sets
             objects.addAll(theDiagramSet.getSub());
-            
+
             // add referenced diagrams (as links)
             for (AbstractDiagram diagram : theDiagramSet.getReferencedDiagram()) {
                 objects.add(new DiagramRef(diagram, theDiagramSet));

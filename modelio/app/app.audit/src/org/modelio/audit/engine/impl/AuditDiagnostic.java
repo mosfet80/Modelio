@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.audit.engine.impl;
 
@@ -62,7 +81,7 @@ public class AuditDiagnostic implements IAuditDiagnostic {
      * Default constructor.
      */
     @objid ("4dc825d2-d00b-49c3-952d-f14df049dc42")
-    public  AuditDiagnostic() {
+    public AuditDiagnostic() {
         this.state = new State(100);
     }
 
@@ -78,7 +97,7 @@ public class AuditDiagnostic implements IAuditDiagnostic {
         if (jobId.isEmpty()) {
             return getEntries();
         }
-        
+
         List<IAuditEntry> jobEntries = new ArrayList<>();
         State curState = this.state;
         for (IAuditEntry entry : curState.entries) {
@@ -100,6 +119,7 @@ public class AuditDiagnostic implements IAuditDiagnostic {
 
     /**
      * Find and remove the diagnostic with same element and rule from the given list.
+     *
      * @param diagnosticEntries a list of diagnostic entries
      * @param searchedEntry the entry to search for same element+rule
      * @return the found and removed entry or null.
@@ -122,6 +142,7 @@ public class AuditDiagnostic implements IAuditDiagnostic {
      * <li>If the entry is already present the passed argument is not added. <br>
      * <li>If the new entry is 'success' remove the previous one(s) from the diagnostic.
      * </ul>
+     *
      * @param postedDiagnosticEntries The entries to be added.
      * @param session a modeling session
      * @return <code>true</code> if the current entry list changed, and listeners must be notified.
@@ -129,14 +150,14 @@ public class AuditDiagnostic implements IAuditDiagnostic {
     @objid ("2fa99adc-9027-4112-9596-54654acc2679")
     public synchronized boolean postDiagnostic(Collection<IAuditEntry> postedDiagnosticEntries, ICoreSession session) {
         boolean changed = false;
-        
+
         // read existing state once
         State curState = this.state;
-        
+
         Map<MObject, AuditSeverity> elementMap = new HashMap<>();
         State newState = new State(postedDiagnosticEntries.size() + curState.entries.size());
         List<IAuditEntry> remainingEntries = new ArrayList<>(postedDiagnosticEntries);
-        
+
         // Analyze the existing entries
         for (IAuditEntry existingEntry : curState.entries) {
             IAuditEntry foundPostedEntry;
@@ -147,18 +168,18 @@ public class AuditDiagnostic implements IAuditDiagnostic {
             } else if ((foundPostedEntry = pollDiagnosticEntry(remainingEntries, existingEntry)) != null) {
                 // modified entry
                 elementMap.merge(foundPostedEntry.getElement(), foundPostedEntry.getSeverity(), AuditDiagnostic::maxSeverity);
-        
+
                 if (foundPostedEntry.getSeverity() != AuditSeverity.AuditSuccess) {
                     newState.addEntry(foundPostedEntry);
                 }
-        
+
                 changed = true;
             } else {
                 // unchanged entry, add it to new state as is.
                 newState.addEntry(existingEntry);
             }
         }
-        
+
         for (IAuditEntry diagnosticEntry : remainingEntries) {
             if (diagnosticEntry.getSeverity() != AuditSeverity.AuditSuccess) {
                 newState.addEntry(diagnosticEntry);
@@ -166,14 +187,14 @@ public class AuditDiagnostic implements IAuditDiagnostic {
                 elementMap.merge(diagnosticEntry.getElement(), diagnosticEntry.getSeverity(), AuditDiagnostic::maxSeverity);
             }
         }
-        
-        
-        
+
+
+
         // notify audit listeners
         if (changed) {
             // Swap current and new state
             this.state = newState;
-        
+
             updateElementsStatus(elementMap);
             fireAuditModelChanged();
         }
@@ -182,6 +203,7 @@ public class AuditDiagnostic implements IAuditDiagnostic {
 
     /**
      * Register an audit listener.
+     *
      * @param listener the listener to add.
      */
     @objid ("984297ab-baed-43d0-9100-e0b836f3204c")
@@ -192,6 +214,7 @@ public class AuditDiagnostic implements IAuditDiagnostic {
 
     /**
      * Unregister an audit listener.
+     *
      * @param listener the listener to remove.
      */
     @objid ("9a81dff1-a01e-4b23-b6a6-524599b598fb")
@@ -220,16 +243,17 @@ public class AuditDiagnostic implements IAuditDiagnostic {
 
     /**
      * Purge current results from disabled or obsolete rules
+     *
      * @param configuredRules configuration rules.
      */
     @objid ("3bf3a592-6d40-4ce8-b35e-99d13a195d0a")
     public synchronized void auditPlanChanged(Map<String, IRule> configuredRules) {
         boolean notifyListeners = false;
-        
+
         Map<MObject, AuditSeverity> elementMap = new HashMap<>();
         final State curState = this.state;
         State newState = new State(curState.entries.size());
-        
+
         // Process the existing entries
         for (IAuditEntry entry : curState.entries) {
             IRule rule = configuredRules.get(entry.getRuleId());
@@ -243,25 +267,24 @@ public class AuditDiagnostic implements IAuditDiagnostic {
                         rule.getSeverity(),
                         entry.getElement(),
                         entry.getLinkedObjects());
-        
+
                 newState.addEntry(diagnosticEntry);
-        
+
                 elementMap.put(diagnosticEntry.getElement(), diagnosticEntry.getSeverity());
-        
+
                 notifyListeners = true;
             } else {
                 // no change, copy the entry directly
                 newState.addEntry(entry);
             }
         }
-        
+
         if (notifyListeners) {
             this.state = newState;
-        
+
             updateElementsStatus(elementMap);
             fireAuditModelChanged();
         }
-        
     }
 
     @objid ("5c873292-7f96-410a-ba2d-f3adbb6fe8ed")
@@ -270,35 +293,34 @@ public class AuditDiagnostic implements IAuditDiagnostic {
         for (IAuditListener listener : this.auditListeners) {
             listener.auditModelChanged(this);
         }
-        
     }
 
     @objid ("c602bb98-7f92-428e-9ead-650e6fae24f5")
     public synchronized void clear() {
         final State curState = this.state;
         final Map<MObject, AuditSeverity> elementMap = new HashMap<>(curState.entries.size());
-        
+
         for (IAuditEntry entry : curState.entries) {
             MObject element = entry.getElement();
             elementMap.put(element, AuditSeverity.AuditSuccess);
         }
-        
+
         this.state = new State(100);
-        
+
         updateElementsStatus(elementMap);
         fireAuditModelChanged();
-        
     }
 
     /**
      * Update the audit status flags on the audited elements.
+     *
      * @param auditStatusMap a map of elements with their audit status.
      */
     @objid ("83fdcdb9-5698-400b-97f9-a7040b9c142e")
     private static void updateElementsStatus(Map<MObject, AuditSeverity> auditStatusMap) {
         if (auditStatusMap.isEmpty())
             return;
-        
+
         for (Entry<MObject, AuditSeverity> entry : auditStatusMap.entrySet()) {
             final long on;
             final long off;
@@ -310,7 +332,7 @@ public class AuditDiagnostic implements IAuditDiagnostic {
             case AuditAdvice:
                 on = IRStatus.AUDIT1;
                 off = IRStatus.AUDIT2;
-        
+
                 break;
             case AuditWarning:
                 on = IRStatus.AUDIT2;
@@ -323,10 +345,9 @@ public class AuditDiagnostic implements IAuditDiagnostic {
             default:
                 throw new AssertionError(entry.getValue());
             }
-        
+
             ((SmObjectImpl) entry.getKey()).setRStatus(on, off, 0);
         }
-        
     }
 
     @objid ("aa63e1c3-fa14-4333-978f-bb602a46cf21")
@@ -346,18 +367,18 @@ public class AuditDiagnostic implements IAuditDiagnostic {
     @objid ("d06d5867-524f-4615-9011-ede89d84caf2")
     public synchronized void purgeJob(String jobId) {
         String jid = jobId != null ? jobId : "";
-        
+
         final State curState = this.state;
         State newState = new State(curState.entries.size());
-        
+
         for (IAuditEntry entry : curState.entries) {
-            if (! entry.getJobId().equals(jid)) {
-                newState.addEntry(entry);
+            if ( entry.getJobId().equals(jid)) {
+                entry.setJobId("");
             }
+            newState.addEntry(entry);
         }
-        
+
         this.state = newState;
-        
     }
 
     /**
@@ -386,7 +407,7 @@ public class AuditDiagnostic implements IAuditDiagnostic {
         List<IAuditEntry> entries;
 
         @objid ("d965dbb8-360c-4bc8-88b9-f67007846e98")
-        public  State(int capacity) {
+        public State(int capacity) {
             this.entries = new ArrayList<>(capacity);
         }
 
@@ -394,7 +415,6 @@ public class AuditDiagnostic implements IAuditDiagnostic {
         public void addEntry(IAuditEntry entry) {
             this.entries.add(entry);
             addToStats(entry);
-            
         }
 
         @objid ("84d67780-c57a-4a76-bdca-5e6bed66418b")
@@ -412,7 +432,6 @@ public class AuditDiagnostic implements IAuditDiagnostic {
             case AuditSuccess:
                 break;
             }
-            
         }
 
     }

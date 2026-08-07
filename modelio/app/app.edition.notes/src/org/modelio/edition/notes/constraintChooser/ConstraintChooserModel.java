@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.edition.notes.constraintChooser;
 
@@ -42,17 +42,17 @@ class ConstraintChooserModel {
     }
 
     @objid ("66cdade2-efff-4028-be6d-a8fab36bea3a")
-    public  ConstraintChooserModel(IMModelServices modelService, MMetamodel mm) {
+    public ConstraintChooserModel(IMModelServices modelService, MMetamodel mm) {
         for (Stereotype stereotype : modelService.findStereotypes(".*", ".*", mm.getMClass(Constraint.class))) {
             if (!stereotype.isIsHidden()) {
                 ModuleComponent moduleComponent = stereotype.getOwner().getOwnerModule();
                 this.roots.add(moduleComponent);
             }
         }
-        
+
         //TODO Gnii ??!?
         this.roots.add(Constraint.class);
-        
+
     }
 
 }

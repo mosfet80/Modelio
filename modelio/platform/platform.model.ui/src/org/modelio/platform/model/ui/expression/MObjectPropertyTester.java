@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.expression;
 
@@ -51,6 +51,7 @@ import org.modelio.vcore.smkernel.mapi.MStatus;
  * For boolean tests, <i>expectedValue</i> must be a boolean or <i>null</i>, meaning <i>true</i>.
  * <p>
  * For dependency tests, the dependency name is given as argument.
+ *
  * @author cmarin
  */
 @objid ("b2f914f1-7077-44ed-8340-c095b2072e56")
@@ -59,40 +60,39 @@ public class MObjectPropertyTester extends PropertyTester {
     @Override
     public boolean test(Object receiver, String property, Object[] args, Object expectedValue) {
         MObject obj = (MObject) receiver;
-        
+
         switch (property) {
         case "attribute":
             return testAttribute(args, expectedValue, obj);
-        
+
         case "dep.count.eq":
             return testDepCountEq(args, expectedValue, obj);
-        
+
         case "dep.count.empty":
             return testDepCountEmpty(args, obj);
-        
+
         case "dep.count.gt":
             return testDepCountGreater(args, expectedValue, obj);
-        
+
         case "dep.count.lt":
             return testDepCountLower(args, expectedValue, obj);
-        
+
         case "modifiable":
             return toBoolean(expectedValue) == obj.isModifiable();
-        
+
         case "shell":
             return toBoolean(expectedValue) == obj.isShell();
-        
+
         case "status.and":
             return toBoolean(expectedValue) == testStatusAnd(args, obj);
-        
-            
+
+
         case "status.or":
             return toBoolean(expectedValue) == testStatusOr(args, obj);
-            
+
         default:
             throw new IllegalArgumentException(property);
         }
-        
     }
 
     @objid ("9721e8a6-3b43-48a2-b574-8846e7b6b5ea")
@@ -103,7 +103,6 @@ public class MObjectPropertyTester extends PropertyTester {
             return val != null;
         else
             return Objects.equals(String.valueOf(expectedValue), String.valueOf(val));
-        
     }
 
     @objid ("573f3076-61a7-4aac-bb3c-1d30900dca2a")
@@ -118,7 +117,7 @@ public class MObjectPropertyTester extends PropertyTester {
     @objid ("c412b587-ec17-4cf1-8014-e2bd4991618f")
     private boolean testStatusAnd(Object[] args, MObject obj) {
         MStatus status = obj.getStatus();
-        
+
         for (Object arg : args) {
             String mname = (String) arg;
             if (testBooleanMethod(status, mname))
@@ -129,11 +128,11 @@ public class MObjectPropertyTester extends PropertyTester {
 
     @objid ("68f98331-3be8-4f86-b4ee-90bee450c17c")
     private boolean testStatusOr(Object[] args, MObject obj) {
-        MStatus status = obj.getStatus();
-        
+        MStatus status = obj.getStatusLazy();
+
         for (Object arg : args) {
             String mname = (String) arg;
-            
+
             if (testBooleanMethod(status, mname))
                 return true;
         }
@@ -144,6 +143,7 @@ public class MObjectPropertyTester extends PropertyTester {
      * Call a boolean method on the given java object and test its return value.
      * <p>
      * The method name may begin with "!", the result is then negated.
+     *
      * @param receiver the object to test
      * @param methodName the method name to call. If the method name begins with "!", the result is negated.
      * @return the test result
@@ -156,21 +156,20 @@ public class MObjectPropertyTester extends PropertyTester {
             expected = false;
             mname = mname.substring(1).trim();
         }
-        
+
         final Method method;
         try {
             method = receiver.getClass().getMethod(mname);
         } catch ( NoSuchMethodException | SecurityException e) {
             throw new IllegalArgumentException("Bad method name '"+mname+"': "+e.toString(), e);
-        }        
-        
+        }
+
         try {
             Boolean val = (Boolean) method.invoke(receiver);
             return (val.booleanValue() == expected);
         } catch (IllegalAccessException |  InvocationTargetException e) {
             throw new IllegalArgumentException(e.toString(), e);
         }
-        
     }
 
     @objid ("0df9fcc1-cf0c-4b75-8a62-9c5727a457f9")
@@ -183,7 +182,6 @@ public class MObjectPropertyTester extends PropertyTester {
             return vals.size() == (Integer)expectedValue;
         else
             throw new IllegalArgumentException("Unsupported value:"+expectedValue);
-        
     }
 
     @objid ("d4d27df3-5d7a-459e-b7f5-d81436b2fcc8")
@@ -199,9 +197,8 @@ public class MObjectPropertyTester extends PropertyTester {
         List<MObject> vals = obj.mGet(dep);
         if (expectedValue == null)
             return !vals.isEmpty();
-        else 
+        else
             return vals.size() > (Integer)expectedValue;
-        
     }
 
     @objid ("a42ae0b3-3ac4-4fd0-84c1-7b84af78d6af")
@@ -210,9 +207,8 @@ public class MObjectPropertyTester extends PropertyTester {
         List<MObject> vals = obj.mGet(dep);
         if (expectedValue == null)
             throw new IllegalArgumentException("Missing expected value.");
-        else 
+        else
             return vals.size() < (Integer)expectedValue;
-        
     }
 
     @objid ("2b0b5500-b9d0-4036-b501-5c2b2cd479d6")
@@ -220,9 +216,8 @@ public class MObjectPropertyTester extends PropertyTester {
         MAttribute att = obj.getMClass().getAttribute((String) args[0]);
         if (att != null)
             return att;
-        
+
         throw new IllegalArgumentException("No '"+args[0]+"' attribute on "+obj);
-        
     }
 
     @objid ("e2d290eb-9978-4cd7-bcac-68a158af487a")
@@ -230,9 +225,8 @@ public class MObjectPropertyTester extends PropertyTester {
         MDependency att = obj.getMClass().getDependency((String) args[0]);
         if (att != null)
             return att;
-        
+
         throw new IllegalArgumentException("No '"+args[0]+"' dependency on "+obj);
-        
     }
 
 }

@@ -1,0 +1,31 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Concepts
+
+
+== Métier
+
+Un *métier* définit ce que l'utilisateur peut voir et peut faire. Pour cela, il intervient, au niveau de l'affichage, des commandes et des modules :
+
+* *Au niveau de l'affichage, un* *métier*
+** filtre les éléments affichés dans l'explorateur de modèle
+** filtre les liens affichés dans l'éditeur de liens
+** adapte les règles d'audit
+** organise les vues (perspectives)
+* *Au niveau des commandes, un* *métier*
+** filtre les commandes du menu contextuel
+** filtre les diagrammes dont la création est possible via la barre de création rapide.
+* *Au niveau des modules, un métier*
+** active les modules utiles au métier
+** désactive les modules non-indispensables au métier
+
+
+== Atelier
+
+Un *atelier* assemble plusieurs *métiers* en réunissant (au sens _union_ dans la théorie des ensembles) l'ensemble des configurations d'affichages et de commandes des *métiers* qu'il supporte.
+
+Le mécanisme d'union des métiers dans un atelier donné prend en compte l'ordre dans lequel les métiers sont déclarés dans l'atelier. Cet ordonnancement permet de régler les situations dans lesquelles plusieurs *métiers* supportés générent un conflit sur une configuration, c'est alors le 1 ^er^ *métier* qui s'impose. L'ordre des *métiers* dans un *atelier* est donc important.
+

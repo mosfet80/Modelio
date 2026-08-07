@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.portbordered;
 
@@ -34,7 +34,7 @@ import org.modelio.diagram.styles.core.IStyle;
  * <p>
  * eg: classes, instances and component.<br>
  * May be used in the future for Pin owners in activity diagram.
- * 
+ *
  * @author phv
  */
 @objid ("7eda1c2a-1dec-11e2-8cad-001ec947c8cc")
@@ -48,7 +48,7 @@ public abstract class PortBorderedEditPart extends AbstractNodeEditPart {
     protected IFigure createFigure() {
         IFigure primaryFigure = createPrimaryFigure();
         PortBorderedFigure portFigure = new PortBorderedFigure(primaryFigure);
-        
+
         // Set style independent features.
         // Set the colors to invalid colors so as to detect immediately a problem in the figure composition.
         portFigure.setBackgroundColor(ColorConstants.red);
@@ -68,6 +68,7 @@ public abstract class PortBorderedEditPart extends AbstractNodeEditPart {
 
     /**
      * Creates the primary figure.
+     *
      * @return the primary figure.
      */
     @objid ("7edc7e85-1dec-11e2-8cad-001ec947c8cc")
@@ -80,7 +81,7 @@ public abstract class PortBorderedEditPart extends AbstractNodeEditPart {
     @Override
     protected void addChildVisual(EditPart childEditPart, int index) {
         IFigure childFigure = ((GraphicalEditPart) childEditPart).getFigure();
-        
+
         if (childEditPart instanceof IPortEditPart) {
             // Add to the portContainer
             ((PortBorderedFigure) getFigure()).addPortFigure(childFigure);
@@ -88,7 +89,7 @@ public abstract class PortBorderedEditPart extends AbstractNodeEditPart {
             // Add to the primary figure
             ((PortBorderedFigure) getFigure()).addToPrimaryFigure(childFigure, index);
         }
-        
+
     }
 
     /**
@@ -97,9 +98,9 @@ public abstract class PortBorderedEditPart extends AbstractNodeEditPart {
     @objid ("7edc7e92-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected void removeChildVisual(EditPart childEditPart) {
-        // 
+        //
         IFigure childFigure = ((GraphicalEditPart) childEditPart).getFigure();
-        
+
         if (childEditPart instanceof IPortEditPart) {
             // Add to the portContainer
             ((PortBorderedFigure) getFigure()).removePortFigure(childFigure);
@@ -107,7 +108,7 @@ public abstract class PortBorderedEditPart extends AbstractNodeEditPart {
             // Add to the primary figure
             ((PortBorderedFigure) getFigure()).removeFromPrimaryFigure(childFigure);
         }
-        
+
     }
 
     @objid ("7edc7e99-1dec-11e2-8cad-001ec947c8cc")
@@ -117,7 +118,7 @@ public abstract class PortBorderedEditPart extends AbstractNodeEditPart {
         portFigure.setBackgroundColor(ColorConstants.red /* style.getColor(StyleKey.CLASS_FILLCOLOR)*/);
         portFigure.setForegroundColor(ColorConstants.red /* style.getColor(StyleKey.CLASS_LINECOLOR)*/);
         //figure.setFont(style.getFont(StyleKey.CLASS_FONT));
-        
+
     }
 
     @objid ("7edc7e9d-1dec-11e2-8cad-001ec947c8cc")
@@ -131,11 +132,12 @@ public abstract class PortBorderedEditPart extends AbstractNodeEditPart {
         } else {
             super.refreshFromStyle(figure, style);
         }
-        
+
     }
 
     /**
      * Returns the primary figure.
+     *
      * @return the primary figure.
      */
     @objid ("7edc7ea4-1dec-11e2-8cad-001ec947c8cc")

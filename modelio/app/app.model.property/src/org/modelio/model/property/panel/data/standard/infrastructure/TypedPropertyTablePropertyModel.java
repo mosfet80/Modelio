@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.panel.data.standard.infrastructure;
 
@@ -55,15 +55,17 @@ public class TypedPropertyTablePropertyModel extends AbstractPropertyModel<Typed
     /**
      * Create a new <i>TypedPropertyTable</i> data model from an
      * <i>TypedPropertyTable</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("c3f3e00b-3147-4590-b896-b887ae0eacbd")
-    public  TypedPropertyTablePropertyModel(TypedPropertyTable theEditedElement) {
+    public TypedPropertyTablePropertyModel(TypedPropertyTable theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("0128d27c-35e6-468a-8549-7a538c047af9")
@@ -74,6 +76,7 @@ public class TypedPropertyTablePropertyModel extends AbstractPropertyModel<Typed
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("571f8127-5df0-4ee2-ac18-efda64216a60")
@@ -86,6 +89,7 @@ public class TypedPropertyTablePropertyModel extends AbstractPropertyModel<Typed
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -109,7 +113,7 @@ public class TypedPropertyTablePropertyModel extends AbstractPropertyModel<Typed
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -119,6 +123,7 @@ public class TypedPropertyTablePropertyModel extends AbstractPropertyModel<Typed
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -142,13 +147,14 @@ public class TypedPropertyTablePropertyModel extends AbstractPropertyModel<Typed
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -173,7 +179,7 @@ public class TypedPropertyTablePropertyModel extends AbstractPropertyModel<Typed
         default:
             return;
         }
-        
+
     }
 
 }

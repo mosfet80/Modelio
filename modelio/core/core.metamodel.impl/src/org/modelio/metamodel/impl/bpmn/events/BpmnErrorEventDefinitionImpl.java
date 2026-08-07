@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.events;
 
 import java.util.ArrayList;
@@ -41,19 +40,19 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("008b71e4-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnErrorEventDefinitionImpl extends BpmnEventDefinitionImpl implements BpmnErrorEventDefinition {
-    @objid ("6ad5a23a-b28f-48b0-b0c9-0874b84372c0")
+    @objid ("810f3ac4-1651-419d-bf77-f3169ad72425")
     @Override
     public String getErrorCode() {
         return (String) getAttVal(((BpmnErrorEventDefinitionSmClass)getClassOf()).getErrorCodeAtt());
     }
 
-    @objid ("5dc1298f-2231-4bd3-a306-8475721b63bd")
+    @objid ("3ce02940-7493-43a8-bb3a-2761b5364e37")
     @Override
     public void setErrorCode(String value) {
         setAttVal(((BpmnErrorEventDefinitionSmClass)getClassOf()).getErrorCodeAtt(), value);
     }
 
-    @objid ("d188518b-3d82-488f-ba41-70ed385d4baf")
+    @objid ("8d41a0e4-2ede-4414-8cbc-6dd3ed19e884")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -61,17 +60,17 @@ public class BpmnErrorEventDefinitionImpl extends BpmnEventDefinitionImpl implem
         return super.getCompositionOwner();
     }
 
-    @objid ("61bb01a2-4b05-4180-8c62-17d5a8ef7949")
+    @objid ("5d8f7032-e34e-418b-85e7-88c5af49a3c0")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("11ddbd4b-90fe-44be-9aac-3536c120a270")
+    @objid ("59b53336-4828-49ce-b5de-841a03a6b406")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitBpmnErrorEventDefinition(this);

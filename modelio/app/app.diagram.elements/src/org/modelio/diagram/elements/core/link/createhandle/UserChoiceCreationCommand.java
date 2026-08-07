@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.createhandle;
 
@@ -53,17 +53,17 @@ public class UserChoiceCreationCommand extends Command {
     private EditPartViewer viewer;
 
     @objid ("1b735e96-7c25-4bc9-93b7-3e9aeb981863")
-    public  UserChoiceCreationCommand(EditPartViewer viewer, ICreationActionProvider actionProvider) {
+    public UserChoiceCreationCommand(EditPartViewer viewer, ICreationActionProvider actionProvider) {
         this.viewer = viewer;
         this.actionProvider = actionProvider;
-        
+
     }
 
     @objid ("e9cbcd98-07b5-4a04-83ce-847a685c84b9")
     public void update(CreateConnectionRequest newReq) {
         Objects.requireNonNull(newReq);
         this.finalRequest = newReq;
-        
+
     }
 
     @objid ("ea2f2746-b877-4405-8a15-91909c9e49a0")
@@ -71,12 +71,12 @@ public class UserChoiceCreationCommand extends Command {
     public void execute() {
         final EditPart sourceEditPart = this.finalRequest.getSourceEditPart();
         final EditPart targetEditPart = this.finalRequest.getTargetEditPart();
-        
+
         final Control control = this.viewer.getControl();
         final Display display = control.getDisplay();
         final Menu pop = new Menu(control);
         final ResourceManager paletteRes = this.viewer.getEditDomain().getPaletteViewer().getResourceManager();
-        
+
         // The menu selection listener
         SelectionListener listener = new SelectionAdapter() {
             @Override
@@ -84,7 +84,7 @@ public class UserChoiceCreationCommand extends Command {
                 doCreateLink(e);
             }
         };
-        
+
         // Fill the menu
         this.actionProvider.getPaletteActions(this.finalRequest)
                 // hide commands that can't be executed
@@ -99,21 +99,21 @@ public class UserChoiceCreationCommand extends Command {
                         item.setImage((Image) paletteRes.get(icon));
                     }
                 });
-        
+
         // Display the menu and wait
         try {
             // Display feedback again, until menu is disposed.
             sourceEditPart.showSourceFeedback(this.finalRequest);
             targetEditPart.showTargetFeedback(this.finalRequest);
-        
+
             // Set menu position
             org.eclipse.draw2d.geometry.Point reqLocation = this.finalRequest.getLocation();
             Point menuPos = display.map(control, null, reqLocation.x, reqLocation.y);
             pop.setLocation(menuPos);
-        
+
             // Display menu
             pop.setVisible(true);
-        
+
             // Wait for the user
             while (!pop.isDisposed() && pop.isVisible()) {
                 if (!display.readAndDispatch()) {
@@ -125,16 +125,16 @@ public class UserChoiceCreationCommand extends Command {
             }
         } finally {
             pop.dispose();
-        
+
             // Make sure the "link" feedback is cleared
             sourceEditPart.eraseSourceFeedback(this.finalRequest);
             targetEditPart.eraseTargetFeedback(this.finalRequest);
-        
+
             // Opening a menu fucks up the active tool, manually select the default tool to end the interaction.
             EditDomain editDomain = sourceEditPart.getViewer().getEditDomain();
             editDomain.setActiveTool(editDomain.getDefaultTool());
         }
-        
+
     }
 
     @objid ("ac143616-fb7a-4429-916f-dd1a2c5bfd91")
@@ -142,7 +142,7 @@ public class UserChoiceCreationCommand extends Command {
         MenuItem item = (MenuItem) event.widget;
         ICreationActionDescriptor action = (ICreationActionDescriptor) item.getData();
         action.execute(this.viewer);
-        
+
     }
 
     @objid ("99304b5b-155d-4acd-b5af-a65f8303b49c")

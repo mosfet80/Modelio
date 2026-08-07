@@ -1,28 +1,30 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.dg.bpmn;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.modelio.diagram.IDiagramNode;
+import org.modelio.api.modelio.diagram.IDiagramNode.Role;
 import org.modelio.bpmn.diagram.editor.elements.bpmnlanesetcontainer.GmBpmnLaneSetContainer;
 import org.modelio.diagram.api.dg.DGFactory;
 import org.modelio.diagram.api.services.DiagramHandle;
@@ -35,11 +37,12 @@ import org.modelio.diagram.elements.core.node.GmNodeModel;
 @objid ("d25c3953-0b1e-4c28-aee7-1fd543317583")
 public class BpmnLaneSetContainerDG extends DiagramNode {
     /**
+     *
      * @param diagramHandle The diagram manipulation class.
      * @param node The gm node represented by this class.
      */
     @objid ("50e1b068-c136-4b9b-9a20-5ec9d725a643")
-    public  BpmnLaneSetContainerDG(DiagramHandle diagramHandle, GmNodeModel node) {
+    public BpmnLaneSetContainerDG(DiagramHandle diagramHandle, GmNodeModel node) {
         super(diagramHandle, node);
     }
 
@@ -55,9 +58,8 @@ public class BpmnLaneSetContainerDG extends DiagramNode {
         if (role == Role.INNER) {
             return getNodes();
         } else {
-            return null;
+            return Collections.emptyList();
         }
-        
     }
 
 }

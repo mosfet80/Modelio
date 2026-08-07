@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.data.module.jaxbv2;
 
@@ -28,9 +28,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for _Dependency complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="_Dependency">
  * &lt;complexContent>
@@ -60,8 +60,8 @@ public class Jxbv2Dependency {
 
     /**
      * Gets the value of the name property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("cd2c5a72-3b8e-4e37-a696-28935499df45")
@@ -71,6 +71,7 @@ public class Jxbv2Dependency {
 
     /**
      * Sets the value of the name property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -81,8 +82,8 @@ public class Jxbv2Dependency {
 
     /**
      * Gets the value of the version property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("b5dec2c8-b3fc-4a74-95ba-dd6c219d03a1")
@@ -92,6 +93,7 @@ public class Jxbv2Dependency {
 
     /**
      * Sets the value of the version property.
+     *
      * @param value allowed object is
      * {@link String }
      */

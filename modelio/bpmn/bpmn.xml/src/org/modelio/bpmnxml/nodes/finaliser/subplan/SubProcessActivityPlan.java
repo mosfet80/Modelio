@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.finaliser.subplan;
 
@@ -46,13 +46,13 @@ public class SubProcessActivityPlan {
     private BPMNPlane jaxPlan;
 
     @objid ("ca5161bb-057f-40d8-8fdc-34bbafae11ba")
-    public  SubProcessActivityPlan(BehaviorDiagram modelioDiagram, Bounds bounds) {
+    public SubProcessActivityPlan(BehaviorDiagram modelioDiagram, Bounds bounds) {
         this.modelioDiagram = modelioDiagram;
         this.jaxbDiagram = new BPMNDiagram();
         this.jaxPlan = new BPMNPlane();
         this.jaxbDiagram.setBPMNPlane(this.jaxPlan);
         this.bounds = bounds;
-        
+
     }
 
     @objid ("8179e1bd-27a5-45e3-84a6-112242c5cef4")
@@ -68,15 +68,15 @@ public class SubProcessActivityPlan {
     @objid ("8ed253c7-2e21-468f-a298-00d975a0cb3d")
     public void addShape(BPMNShape jaxShape) {
         jaxShape.setBounds(transpose(jaxShape.getBounds()));
-        
+
         BPMNLabel jaxLabel = jaxShape.getBPMNLabel();
         if (jaxLabel != null && jaxLabel.getBounds() != null) {
             jaxLabel.setBounds(transpose(jaxLabel.getBounds()));
         }
-        
+
         ObjectFactory factory = new ObjectFactory();
         this.jaxPlan.getDiagramElement().add(factory.createBPMNShape(jaxShape));
-        
+
     }
 
     @objid ("1239c951-becf-4c0d-9afa-fe11d23c61e2")
@@ -85,18 +85,18 @@ public class SubProcessActivityPlan {
         for (org.modelio.bpmnxml.model.Point p : jaxEdge.getWaypoint()) {
             newPoints.add(transpose(p));
         }
-        
+
         BPMNLabel jaxLabel = jaxEdge.getBPMNLabel();
         if (jaxLabel != null && jaxLabel.getBounds() != null) {
             jaxLabel.setBounds(transpose(jaxLabel.getBounds()));
         }
-        
+
         jaxEdge.getWaypoint().clear();
         jaxEdge.getWaypoint().addAll(newPoints);
-        
+
         ObjectFactory factory = new ObjectFactory();
         this.jaxPlan.getDiagramElement().add(factory.createBPMNEdge(jaxEdge));
-        
+
     }
 
     @objid ("aa115d45-51cb-42aa-9399-4bff8ecdfe03")
@@ -104,7 +104,7 @@ public class SubProcessActivityPlan {
         if (x < this.bounds.getX() || x > this.bounds.getX() + this.bounds.getWidth()) {
             return false;
         }
-        
+
         if (y < this.bounds.getY() || y > this.bounds.getY() + this.bounds.getHeight()) {
             return false;
         }

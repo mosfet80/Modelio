@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.search.dialog.results;
 
@@ -61,10 +61,10 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("ccf7d325-0d5f-4a70-8515-0947b65cd873")
 public class ResultsPanel {
-    @objid ("770b9119-d27c-4d63-b305-067aec6dcb4d")
+    @objid ("24d252c8-36db-4d08-ab35-dbedb139bf6c")
     private Group topGroup;
 
-    @objid ("6956c4bd-e9ed-4e8a-b13f-8c287518dc96")
+    @objid ("6d690b37-6742-4f52-95e9-63015ed16dc8")
     private TableViewer resultsViewer = null;
 
     @objid ("e8fe62a5-4c81-4fab-8457-b83c580e5939")
@@ -77,12 +77,11 @@ public class ResultsPanel {
     public void showResults(List<Element> res) {
         this.results = res;
         this.resultsViewer.setInput(res);
-        
+
         if (res != null) {
             final int nMatch = res.size();
             this.topGroup.setText(ModelSearch.I18N.getMessage("SearchDialog.results", Integer.toString(nMatch))); //$NON-NLS-1$
         }
-        
     }
 
     @objid ("15ad13fd-3d61-4c9e-b22b-d6682a0bc662")
@@ -91,28 +90,28 @@ public class ResultsPanel {
     }
 
     @objid ("c38077f7-43fd-4680-89fd-9ad83f4cc64d")
-    public  ResultsPanel(Composite parent, IModelioNavigationService navigationService) {
+    public ResultsPanel(Composite parent, IModelioNavigationService navigationService) {
         this.navigationService = navigationService;
         this.topGroup = new Group(parent, SWT.NONE);
         this.topGroup.setText(ModelSearch.I18N.getMessage("SearchDialog.initial")); //$NON-NLS-1$
         this.topGroup.setFont(UIFont.NORMALB);
-        
+
         final GridLayout gridLayout2 = new GridLayout();
         gridLayout2.numColumns = 1;
         this.topGroup.setLayout(gridLayout2);
-        
+
         this.resultsViewer = new TableViewer(this.topGroup, SWT.MULTI | SWT.FULL_SELECTION);
         this.resultsViewer.getControl().setLayoutData(new GridData(GridData.FILL_BOTH));
-        
+
         ResultsViewerComparator comparator = new ResultsViewerComparator();
-        
+
         // Make lines and make header visible
         final Table table = this.resultsViewer.getTable();
         table.setHeaderVisible(true);
         table.setLinesVisible(true);
-        
+
         final UniversalLabelProvider universalLabelProvider = new UniversalLabelProvider();
-        
+
         // First column: element metaclass icon
         final TableViewerColumn viewerColumn1 = new TableViewerColumn(this.resultsViewer, SWT.NONE);
         final TableColumn column1 = viewerColumn1.getColumn();
@@ -120,46 +119,46 @@ public class ResultsPanel {
         column1.setWidth(35);
         column1.setResizable(false);
         column1.setMoveable(false);
-        
+
         viewerColumn1.setLabelProvider(new ElementDecoratedStyledLabelProvider(new AbstractModelioElementLabelProvider() {
             @Override
             public String getText(Object element) {
                 return "";
             }
-        
+
             @Override
             public Image getImage(Object obj) {
                 return universalLabelProvider.getImage(obj);
             }
-        
+
             @Override
             public StyledString getStyledText(Object object) {
                 return new StyledString();
             }
-        
+
         }, true, false));
-        
+
         // Seconde column: element name without icon
         final TableViewerColumn viewerColumn2 = new TableViewerColumn(this.resultsViewer, SWT.NONE);
         final TableColumn column2 = viewerColumn2.getColumn();
         column2.addSelectionListener(getSelectionAdapter(comparator, column2, 1));
-        
+
         column2.setText(ModelSearch.I18N.getString("SearchDialog.results.name"));
         column2.setWidth(250);
         column2.setResizable(true);
         column2.setMoveable(false);
-        
+
         viewerColumn2.setLabelProvider(new StyledCellLabelProvider() {
             @Override
             public void update(ViewerCell cell) {
                 StyledString styledStr = universalLabelProvider.getStyledText(cell.getElement());
                 cell.setText(styledStr.getString());
                 cell.setStyleRanges(styledStr.getStyleRanges());
-        
+
                 super.update(cell);
             }
         });
-        
+
         // Second column: element name space
         final TableViewerColumn viewerColumn3 = new TableViewerColumn(this.resultsViewer, SWT.NONE);
         final TableColumn column3 = viewerColumn3.getColumn();
@@ -169,24 +168,24 @@ public class ResultsPanel {
         column3.setResizable(true);
         column3.setMoveable(false);
         viewerColumn3.setLabelProvider(new StyledCellLabelProvider() {
-        
+
             @Override
             public void update(ViewerCell cell) {
                 final Element e = (Element) cell.getElement();
                 cell.setImage(null);
-        
+
                 if (false) {
                     final String text = makeText(e);
                     cell.setText(text);
                     cell.setStyleRanges(StandardModelStyleProvider.getStyleRanges(e, text));
                 } else {
-        
+
                     StyledString t2 = makeStyledText(e);
                     cell.setText(t2.getString());
                     cell.setStyleRanges(t2.getStyleRanges());
                 }
             }
-        
+
             private String makeText(MObject obj) {
                 final StringBuilder text = new StringBuilder();
                 MObject owner = obj.getCompositionOwner();
@@ -194,28 +193,28 @@ public class ResultsPanel {
                     if (owner != obj.getCompositionOwner()) {
                         text.insert(0, '.');
                     }
-        
+
                     String name = owner.getName();
                     if (name.isEmpty()) {
                         name = universalLabelProvider.getText(owner);
                     }
-        
+
                     text.insert(0, name);
                     owner = owner.getCompositionOwner();
                 }
                 return text.toString();
             }
-        
+
             private StyledString makeStyledText(MObject obj) {
                 StyledString text = new StyledString();
                 final StyledString dot = new StyledString(".");
-        
+
                 /*
                  * new Styler() {
                  *
                  * @Override public void applyStyles(TextStyle textStyle) { textStyle.font = CoreFontRegistry.getModifiedFont(getControl().getFont(), SWT.BOLD, 1.0f); } });
                  */
-        
+
                 MObject owner = obj.getCompositionOwner();
                 boolean first = true;
                 while (owner != null) {
@@ -224,35 +223,35 @@ public class ResultsPanel {
                     } else {
                         text = concat(dot, text);
                     }
-        
+
                     String name = owner.getName();
                     if (name.isEmpty()) {
                         text = concat(universalLabelProvider.getStyledText(owner), text);
                     } else {
                         text = concat(new StyledString(name, ElementStyler.getStyler(owner)), text);
                     }
-        
+
                     owner = owner.getCompositionOwner();
                 }
                 return text;
             }
-        
+
             private StyledString concat(StyledString s1, StyledString s2) {
                 StyledString ret = new StyledString();
                 ret.append(s1);
                 ret.append(s2);
                 return ret;
             }
-        
+
         });
-        
+
         this.resultsViewer.setContentProvider(new ResultsViewerContentProvider(this.results));
-        
+
         this.resultsViewer.addSelectionChangedListener(new ISelectionChangedListener() {
             @Override
             public void selectionChanged(SelectionChangedEvent event) {
                 final IStructuredSelection selection = (IStructuredSelection) event.getSelection();
-        
+
                 if (!selection.isEmpty()) {
                     ArrayList<MObject> selected = new ArrayList<>();
                     for (Object o : selection.toList()) {
@@ -266,10 +265,9 @@ public class ResultsPanel {
                 }
             }
         });
-        
+
         this.resultsViewer.setComparator(comparator);
         this.resultsViewer.setInput(null);
-        
     }
 
     @objid ("dba7645d-f47f-45d3-91de-f39986a22d85")
@@ -301,18 +299,18 @@ public class ResultsPanel {
         @objid ("47bc9640-b9ed-435b-9f1d-9ffbbe54c2db")
         @Override
         public void dispose() {
-            
+
         }
 
         @objid ("76a63686-5db6-447d-a9f2-2ae2366d827b")
-        @SuppressWarnings ("unchecked")
+        @SuppressWarnings("unchecked")
         @Override
         public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
             this.results = (List<Element>) newInput;
         }
 
         @objid ("eb39915e-5668-48bd-9647-704e31a3966b")
-        public  ResultsViewerContentProvider(List<Element> results) {
+        public ResultsViewerContentProvider(List<Element> results) {
             this.results = results;
         }
 
@@ -340,19 +338,19 @@ public class ResultsPanel {
                 rc = compareMetaclasses(o1, o2);
                 break;
             case 1:
-            
+
                 String name1 = o1.getName();
                 String name2 = o2.getName();
                 if (o1 instanceof Note) {
                     name1 = ((Note) o1).getModel().getName();
                 }
-            
+
                 if (o2 instanceof Note) {
                     name2 = ((Note) o2).getModel().getName();
                 }
                 name1 = name1.toLowerCase();
                 name2 = name2.toLowerCase();
-            
+
                 // Empty names are always an the end
                 if (name1.equals("") && !name2.equals("")) {
                     rc = 2;
@@ -387,10 +385,9 @@ public class ResultsPanel {
         }
 
         @objid ("5ff72c61-ba18-4aaa-ad17-11550a64fe8b")
-        public  ResultsViewerComparator() {
+        public ResultsViewerComparator() {
             this.propertyIndex = 1;
             this.direction = 0;
-            
         }
 
         @objid ("f92a5da6-7f49-47fe-8d12-79b8df940c33")
@@ -408,7 +405,6 @@ public class ResultsPanel {
                 this.propertyIndex = column;
                 this.direction = 0;
             }
-            
         }
 
         @objid ("90ff36a7-c7f9-40cf-bf76-9397f318a8bf")
@@ -419,7 +415,7 @@ public class ResultsPanel {
                 if (parent != obj.getCompositionOwner()) {
                     text.insert(0, '.');
                 }
-            
+
                 text.insert(0, parent.getName());
                 parent = parent.getCompositionOwner();
             }
@@ -452,7 +448,6 @@ public class ResultsPanel {
             } else {
                 return obj.toString();
             }
-            
         }
 
         @objid ("f3b016e4-b59e-4c3a-a1a8-2effde927343")

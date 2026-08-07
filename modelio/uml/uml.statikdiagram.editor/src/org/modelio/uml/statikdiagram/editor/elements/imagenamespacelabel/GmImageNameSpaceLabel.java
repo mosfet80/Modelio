@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.imagenamespacelabel;
 
@@ -27,7 +27,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Represents an {@link NameSpace} label in image mode.
- * 
+ *
  * Derives from {@link GmNameSpaceLabel}.
  * Seems to used only for being easily found with <code>instanceof</code>.
  */
@@ -40,18 +40,19 @@ public class GmImageNameSpaceLabel extends GmNameSpaceLabel {
      * Empty constructor needed for (de-)serialization.
      */
     @objid ("34f0dc46-55b7-11e2-877f-002564c97630")
-    public  GmImageNameSpaceLabel() {
+    public GmImageNameSpaceLabel() {
         // Empty constructor needed for (de-)serialization.
     }
 
     /**
      * Default constructor.
+     *
      * @param diagram the diagram in which this gm is unmasked.
      * @param el the represented element, may be <i>null</i>.
      * @param ref a reference to the represented element.
      */
     @objid ("34f0dc49-55b7-11e2-877f-002564c97630")
-    public  GmImageNameSpaceLabel(final IGmDiagram diagram, final NameSpace el, final MRef ref) {
+    public GmImageNameSpaceLabel(final IGmDiagram diagram, final NameSpace el, final MRef ref) {
         super(diagram, el, ref);
     }
 

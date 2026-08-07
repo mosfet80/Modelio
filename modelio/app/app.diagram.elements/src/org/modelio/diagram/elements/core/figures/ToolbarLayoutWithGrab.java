@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures;
 
@@ -37,7 +37,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * Since Modelio 3.4.
  * <li> Currently minor alignment is ignored and always TOP_LEFT.
  * </ul>
- * 
+ *
  * @author cmarin
  */
 @objid ("7fcd4c2b-1dec-11e2-8cad-001ec947c8cc")
@@ -50,17 +50,18 @@ public class ToolbarLayoutWithGrab extends ToolbarLayout {
      * <code>true</code>, and {@link #ALIGN_TOPLEFT} alignment.
      */
     @objid ("7fcd4c2f-1dec-11e2-8cad-001ec947c8cc")
-    public  ToolbarLayoutWithGrab() {
+    public ToolbarLayoutWithGrab() {
         super();
     }
 
     /**
      * Constructs a ToolbarLayoutWithGrab with a specified orientation. Default values are: child spacing 0 pixels,
      * matchWidth <code>false</code>, and {@link #ALIGN_TOPLEFT} alignment.
+     *
      * @param isHorizontal whether the children are oriented horizontally
      */
     @objid ("7fcd4c32-1dec-11e2-8cad-001ec947c8cc")
-    public  ToolbarLayoutWithGrab(boolean isHorizontal) {
+    public ToolbarLayoutWithGrab(boolean isHorizontal) {
         super(isHorizontal);
     }
 
@@ -76,10 +77,10 @@ public class ToolbarLayoutWithGrab extends ToolbarLayout {
         final int x = clientArea.x;
         int y = clientArea.y;
         final int availableHeight = clientArea.height;
-        
+
         final Dimension prefSizes[] = new Dimension[numChildren];
         final Dimension minSizes[] = new Dimension[numChildren];
-        
+
         // Calculate the width and height hints. If it's a vertical
         // ToolBarLayout,
         // then ignore the height hint (set it to -1); otherwise, ignore the
@@ -92,7 +93,7 @@ public class ToolbarLayoutWithGrab extends ToolbarLayout {
         } else {
             wHint = parent.getClientArea(Rectangle.SINGLETON).width;
         }
-        
+
         /*
          * Calculate sum of preferred heights of all children(totalHeight).
          * Calculate sum of minimum heights of all children(minHeight). Cache
@@ -108,13 +109,13 @@ public class ToolbarLayoutWithGrab extends ToolbarLayout {
         int totalHeight = 0;
         int totalMinHeight = 0;
         int prefMinSumHeight = 0;
-        
+
         for (int i = 0; i < numChildren; i++) {
             child = (IFigure) children.get(i);
-        
+
             prefSizes[i] = this.transposer.t(getChildPreferredSize(child, wHint, hHint));
             minSizes[i] = this.transposer.t(getChildMinimumSize(child, wHint, hHint));
-        
+
             totalHeight += prefSizes[i].height;
             totalMinHeight += minSizes[i].height;
         }
@@ -131,11 +132,11 @@ public class ToolbarLayoutWithGrab extends ToolbarLayout {
          * respectively
          */
         int amntShrinkHeight = totalHeight - Math.max(availableHeight, totalMinHeight);
-        
+
         if (amntShrinkHeight < 0) {
             amntShrinkHeight = 0;
         }
-        
+
         for (int i = 0; i < numChildren; i++) {
             int amntShrinkCurrentHeight = 0;
             final int prefHeight = prefSizes[i].height;
@@ -143,12 +144,12 @@ public class ToolbarLayoutWithGrab extends ToolbarLayout {
             final int prefWidth = prefSizes[i].width;
             final int minWidth = minSizes[i].width;
             final Rectangle newBounds = new Rectangle(x, y, prefWidth, prefHeight);
-        
+
             child = (IFigure) children.get(i);
             if (prefMinSumHeight != 0) {
                 amntShrinkCurrentHeight = (prefHeight - minHeight) * amntShrinkHeight / (prefMinSumHeight);
             }
-        
+
             int width = Math.min(prefWidth, this.transposer.t(child.getMaximumSize()).width);
             if (isStretchMinorAxis()) {
                 // Change: If matchWidth is on, force match even if it means
@@ -160,23 +161,24 @@ public class ToolbarLayoutWithGrab extends ToolbarLayout {
             }
             newBounds.width = width;
             newBounds.height -= amntShrinkCurrentHeight;
-        
+
             if (this.lastChildGrab && i == numChildren - 1) {
                 // Last child takes all remaining space
                 newBounds.height = clientArea.bottom() - newBounds.y;
             }
-        
+
             child.setBounds(this.transposer.t(newBounds));
-        
+
             amntShrinkHeight -= amntShrinkCurrentHeight;
             prefMinSumHeight -= (prefHeight - minHeight);
             y += newBounds.height + getSpacing();
         }
-        
+
     }
 
     /**
      * Activate or disable last child grabbing the remaining space.
+     *
      * @param grab whether last child grabs the remaining space.
      * @return this for convenience.
      */

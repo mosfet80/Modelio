@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.requiredinterface;
 
@@ -70,7 +70,7 @@ public class GmLollipopConnection extends GmSimpleNode {
      * Default and deserialization constructor.
      */
     @objid ("367161e3-55b7-11e2-877f-002564c97630")
-    public  GmLollipopConnection() {
+    public GmLollipopConnection() {
         super();
     }
 
@@ -79,21 +79,22 @@ public class GmLollipopConnection extends GmSimpleNode {
     protected void refreshFromObModel() {
         refreshStyleFromModel();
         firePropertyChange(PROP_REFRESH_BRANCHES, null, this);
-        
+
     }
 
     /**
      * Initialize a lollipop connection.
+     *
      * @param diagram The diagram.
      * @param element The represented connector, may be null.
      */
     @objid ("367161e9-55b7-11e2-877f-002564c97630")
-    public  GmLollipopConnection(final IGmDiagram diagram, final NaryConnector element) {
+    public GmLollipopConnection(final IGmDiagram diagram, final NaryConnector element) {
         super(diagram, new MRef(element));
         this.element = element;
-        
+
         addPropertyChangeListener(new LinkListener());
-        
+
     }
 
     @objid ("3672e85d-55b7-11e2-877f-002564c97630")
@@ -143,18 +144,18 @@ public class GmLollipopConnection extends GmSimpleNode {
         case 1:
             read_1(in);
             break;
-        case 0: 
+        case 0:
             read_0(in);
             break;
-        
-        default: 
+
+        default:
             assert (false) : readVersion+ " version number not covered!";
             // reading as last handled version: 0
             read_0(in);
             break;
-        
+
         }
-        
+
     }
 
     @objid ("3672e88d-55b7-11e2-877f-002564c97630")
@@ -171,27 +172,28 @@ public class GmLollipopConnection extends GmSimpleNode {
         } else {
             getPersistedStyle().setCascadedStyle(getDiagram().getPersistedStyle());
         }
-        
+
     }
 
     @objid ("3672e89a-55b7-11e2-877f-002564c97630")
     @Override
     public void obElementDeleted() {
-        // Tell the edit part about deletion in order to reconnect remaining 
+        // Tell the edit part about deletion in order to reconnect remaining
         // required/provided interface links.
         for (IGmLink l : new ArrayList<>(getEndingLinks())) {
             if (l instanceof GmLink) {
                 ((GmLink) l).obElementsUpdated();
             }
         }
-        
+
         // Call inherited
         super.obElementDeleted();
-        
+
     }
 
     /**
      * Get the first provided interface link connected to this node.
+     *
      * @return the first provided interface link.
      */
     @objid ("36746efa-55b7-11e2-877f-002564c97630")
@@ -208,19 +210,19 @@ public class GmLollipopConnection extends GmSimpleNode {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm.
         writeMinorVersion(out, "GmLollipopConnection.", Integer.valueOf(MINOR_VERSION));
-        
+
     }
 
     @objid ("36746f07-55b7-11e2-877f-002564c97630")
     private void read_1(final IDiagramReader in) {
         super.read(in);
-        
+
         MObject el = resolveRef(getRepresentedRef());
         this.element = (NaryConnector) el;
-        
+
     }
 
     @objid ("36746f0d-55b7-11e2-877f-002564c97630")
@@ -232,7 +234,7 @@ public class GmLollipopConnection extends GmSimpleNode {
     @objid ("ed916166-7159-4519-9465-466e3bb48c44")
     private void read_0(final IDiagramReader in) {
         super.read(in);
-        
+
         MObject el = resolveRef(getRepresentedRef());
         if (el instanceof NaryConnectorEnd) {
             this.element = (NaryConnector) ((NaryConnectorEnd) el).getNaryLink();
@@ -245,7 +247,7 @@ public class GmLollipopConnection extends GmSimpleNode {
         } else {
             throw new IllegalArgumentException(el.toString());
         }
-        
+
     }
 
     /**
@@ -254,7 +256,7 @@ public class GmLollipopConnection extends GmSimpleNode {
     @objid ("36746f12-55b7-11e2-877f-002564c97630")
     private class LinkListener implements PropertyChangeListener {
         @objid ("36746f14-55b7-11e2-877f-002564c97630")
-        public  LinkListener() {
+        public LinkListener() {
             super();
         }
 

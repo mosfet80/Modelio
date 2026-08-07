@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.gateways;
 
@@ -83,7 +83,7 @@ public class ExclusiveGatewayNode implements IProductionNode<BpmnExclusiveGatewa
         } else {
             return factory.create(BpmnExclusiveGateway.class, context);
         }
-        
+
     }
 
     @objid ("9d12c057-b715-4454-b37f-5505a51ce4d0")
@@ -95,7 +95,7 @@ public class ExclusiveGatewayNode implements IProductionNode<BpmnExclusiveGatewa
         } else if (context instanceof BpmnSubProcess) {
             ((BpmnSubProcess) context).getFlowElement().add(modelioElement);
         }
-        
+
         // Group
         if (jaxbElement.getCategoryValueRef() != null) {
             for (QName jaxGroupRef : jaxbElement.getCategoryValueRef()) {
@@ -105,7 +105,7 @@ public class ExclusiveGatewayNode implements IProductionNode<BpmnExclusiveGatewa
                 }
             }
         }
-        
+
         TGatewayDirection direction = jaxbElement.getGatewayDirection();
         if (direction != null) {
             if (direction == TGatewayDirection.CONVERGING) {
@@ -118,12 +118,12 @@ public class ExclusiveGatewayNode implements IProductionNode<BpmnExclusiveGatewa
                 modelioElement.setGatewayDirection(BpmnGatewayDirection.UNSPECIFIEDDIRECTION);
             }
         }
-        
+
         // Set properties
         if (jaxbElement.getName() != null) {
             modelioElement.setName(StringConvertor.imports(jaxbElement.getName()));
         }
-        
+
         // Default Flow
         if (jaxbElement.getDefault() != null && jaxbElement.getDefault() instanceof TSequenceFlow) {
             BpmnSequenceFlow flow = (BpmnSequenceFlow) this.elementsMap.get(((TSequenceFlow) jaxbElement.getDefault()).getId());
@@ -139,7 +139,7 @@ public class ExclusiveGatewayNode implements IProductionNode<BpmnExclusiveGatewa
     public TExclusiveGateway createJaxbElement(Object context, BpmnExclusiveGateway modelioElement) {
         // Create JaxbElement
         TExclusiveGateway jaxTask = new TExclusiveGateway();
-        
+
         // Add to context
         ObjectFactory factory = new ObjectFactory();
         if (context instanceof TProcess) {
@@ -149,7 +149,7 @@ public class ExclusiveGatewayNode implements IProductionNode<BpmnExclusiveGatewa
             List<JAXBElement<? extends TFlowElement>> jaxContent = ((TSubProcess) context).getFlowElement();
             jaxContent.add(factory.createExclusiveGateway(jaxTask));
         }
-        
+
         jaxTask.setId(IDUtils.formatJaxbID(modelioElement));
         return jaxTask;
     }
@@ -158,7 +158,7 @@ public class ExclusiveGatewayNode implements IProductionNode<BpmnExclusiveGatewa
     @Override
     public TExclusiveGateway updateJaxbElement(Object context, TExclusiveGateway jaxbElement, BpmnExclusiveGateway modelioElement) {
         jaxbElement.setName(modelioElement.getName());
-        
+
         BpmnGatewayDirection direction = modelioElement.getGatewayDirection();
         if (direction != null) {
             if (direction == BpmnGatewayDirection.CONVERGINGDIRECTION) {
@@ -171,7 +171,7 @@ public class ExclusiveGatewayNode implements IProductionNode<BpmnExclusiveGatewa
                 jaxbElement.setGatewayDirection(TGatewayDirection.UNSPECIFIED);
             }
         }
-        
+
         // Default Flow
         if (modelioElement.getDefaultFlow() != null) {
             Object target = this.elementsMap.get(modelioElement.getDefaultFlow().getUuid());

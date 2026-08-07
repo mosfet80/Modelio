@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.linkednode;
 
@@ -87,10 +87,11 @@ public class CreateLinkedNodeCommand extends Command {
 
     /**
      * Creates a node creation command.
+     *
      * @param context Details on the MObject and/or the node to create
      */
     @objid ("7eb658f4-1dec-11e2-8cad-001ec947c8cc")
-    public  CreateLinkedNodeCommand(ModelioCreationContext context) {
+    public CreateLinkedNodeCommand(ModelioCreationContext context) {
         this.context = context;
     }
 
@@ -98,17 +99,17 @@ public class CreateLinkedNodeCommand extends Command {
     @Override
     public void execute() {
         final IGmDiagram diagram = this.sourceNode.getDiagram();
-        
+
         MObject newElement = this.context.getElementToUnmask();
-        
+
         if (newElement == null) {
             newElement = createElement(diagram.getModelManager().getModelFactory(), diagram.getModelManager().getModelServices().getElementNamer());
-        
+
             if (newElement == null) {
                 return;
             }
         }
-        
+
         // Get the new element bounds
         final Rectangle rect;
         if (this.size != null) {
@@ -116,30 +117,31 @@ public class CreateLinkedNodeCommand extends Command {
         } else {
             rect = new Rectangle(this.location, new Dimension(-1, -1));
         }
-        
+
         // Show the new element in the diagram (ie create its Gm )
         final GmNodeModel createdNode = diagram.unmask(this.destNode, newElement, rect);
-        
+
         // Show the link between the source node and the unmasked node
         if (this.sourceNode != this.destNode) {
             CreateConnectionRequest connCreateRequest = getConnectionCreationRequest(createdNode);
             IGmLinkable linkTarget = (IGmLinkable) connCreateRequest.getTargetEditPart().getModel();
-        
+
             IGmLink gmlink = diagram.unmaskLink(newElement);
             linkTarget.addEndingLink(gmlink); // Add the target first because the link depends on the target
             this.sourceNode.addStartingLink(gmlink);
-        
+
             IGmPath path = new GmPath();
             path.setSourceAnchor(this.sourceAnchor);
             path.setTargetAnchor(AnchorModelHelper.getTargetAnchorModel(connCreateRequest));
             path.setPathData(new ArrayList<>());
             gmlink.setLayoutData(path);
         }
-        
+
     }
 
     /**
      * Set the node inside which the node will be created.
+     *
      * @param destNode The node in which the node will be created.
      */
     @objid ("7eb658fb-1dec-11e2-8cad-001ec947c8cc")
@@ -149,6 +151,7 @@ public class CreateLinkedNodeCommand extends Command {
 
     /**
      * Set the node location.
+     *
      * @param location The location in absolute coordinates.
      */
     @objid ("7eb658ff-1dec-11e2-8cad-001ec947c8cc")
@@ -158,6 +161,7 @@ public class CreateLinkedNodeCommand extends Command {
 
     /**
      * set the node size.
+     *
      * @param size The size of the node to create
      */
     @objid ("7eb8bb3e-1dec-11e2-8cad-001ec947c8cc")
@@ -167,6 +171,7 @@ public class CreateLinkedNodeCommand extends Command {
 
     /**
      * Set the parent element independently from the parent node.
+     *
      * @param parentElement the parent element.
      */
     @objid ("7eb8bb44-1dec-11e2-8cad-001ec947c8cc")
@@ -178,6 +183,7 @@ public class CreateLinkedNodeCommand extends Command {
      * Set the node on which the created node will be linked.
      * <p>
      * Set the parent element to be the represented element of the source node.
+     *
      * @param source the source edit part.
      */
     @objid ("7eb8bb48-1dec-11e2-8cad-001ec947c8cc")
@@ -185,11 +191,12 @@ public class CreateLinkedNodeCommand extends Command {
         this.sourceEditPart = source;
         this.sourceNode = (IGmLinkable) this.sourceEditPart.getModel();
         this.parentElement = this.sourceNode.getRelatedElement();
-        
+
     }
 
     /**
      * Create and initialize the model element.
+     *
      * @param modelFactory the model factory.
      * @return the created model element.
      */
@@ -199,7 +206,7 @@ public class CreateLinkedNodeCommand extends Command {
         IInfrastructureModelFactory factory = modelFactory.getFactory(IInfrastructureModelFactory.class);
         MClass metaclass = this.context.getMetaclass();
         MObject newElement = metaclass.getJavaInterface().equals(Note.class) ? factory.createNote() : modelFactory.createElement(metaclass);
-        
+
         // ... and attach it to its parent.
         try {
             this.parentElement.mGet(this.context.getDependency()).add(newElement);
@@ -215,12 +222,12 @@ public class CreateLinkedNodeCommand extends Command {
                 throw e;
             }
         }
-        
+
         // Attach the stereotype if needed.
         if (this.context.getStereotype() != null && newElement instanceof ModelElement) {
             ((ModelElement) newElement).getExtension().add(this.context.getStereotype());
         }
-        
+
         // Set default name
         newElement.setName(elementNamer.getUniqueName(newElement));
         return newElement;
@@ -232,19 +239,20 @@ public class CreateLinkedNodeCommand extends Command {
         if (!MTools.getAuthTool().canModify(this.sourceNode.getDiagram().getRelatedElement())) {
             return false;
         }
-        
+
         final MObject newElement = this.context.getElementToUnmask();
-        
+
         if (newElement == null) {
             return MTools.getAuthTool().canAdd(this.parentElement, this.context.getMetaclass());
         } else {
             return true;
         }
-        
+
     }
 
     /**
      * Set the source anchor model where the link starts.
+     *
      * @param sourceAnchorModel the source anchor model.
      */
     @objid ("7eb8bb5a-1dec-11e2-8cad-001ec947c8cc")
@@ -256,10 +264,10 @@ public class CreateLinkedNodeCommand extends Command {
     protected CreateConnectionRequest getConnectionCreationRequest(final GmNodeModel createdNode) {
         // Get the edit part of the node
         EditPart targetPart = (EditPart) this.sourceEditPart.getViewer().getEditPartRegistry().get(createdNode);
-        
+
         // Compute the node figure bounds now.
         ((GraphicalEditPart) targetPart).getFigure().getUpdateManager().performValidation();
-        
+
         // Create a connection creation request
         CreateConnectionRequest request = new CreateConnectionRequest();
         request.setType(LinkedNodeRequestConstants.REQ_LINKEDNODE_END);
@@ -267,7 +275,7 @@ public class CreateLinkedNodeCommand extends Command {
         request.setSourceEditPart(this.sourceEditPart);
         request.setTargetEditPart(targetPart);
         request.setFactory(this.context);
-        
+
         // Check the edit part support this connection
         targetPart = targetPart.getTargetEditPart(request);
         if (targetPart == null) {
@@ -282,6 +290,7 @@ public class CreateLinkedNodeCommand extends Command {
 
     /**
      * Find in the viewer the right edit part to anchor the connection to.
+     *
      * @param request a connection creation request
      * @return the edit part to which the node link must be anchored to.
      */
@@ -294,7 +303,7 @@ public class CreateLinkedNodeCommand extends Command {
                 return editpart.getTargetEditPart(request) != null;
             }
         };
-        
+
         EditPart ret = viewer.findObjectAtExcluding(request.getLocation(), Collections.emptyList(), conditional);
         if (ret != null) {
             ret = ret.getTargetEditPart(request);

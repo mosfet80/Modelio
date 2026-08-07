@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.service.impl;
 
@@ -42,6 +42,7 @@ public class ModuleResolutionHelper {
      * <p>
      * Current strategy is to return <i>true</i>
      * if the module Version is equal or newer than the reference Version.
+     *
      * @param moduleVersion the Version to test for compatibility.
      * @param referenceVersion the reference version.
      * @return <i>true</i> if the passed module is version compatible with the reference.
@@ -53,6 +54,7 @@ public class ModuleResolutionHelper {
 
     /**
      * Returns the first found GModule in the project which name match the passed name.
+     *
      * @param gProject the project to search into.
      * @param moduleName the name of the GModule to find.
      * @return the first found GModule in the project which name match the passed name or <code>null</code> if none found.
@@ -70,6 +72,7 @@ public class ModuleResolutionHelper {
     /**
      * Returns the list of GModule of the passed project that the passed GModule depends on
      * (i.e. the returned GModules are required as mandatory by the passed GModule).
+     *
      * @param gModule the GModule to look dependencies for
      * @param gProject the project to look into.
      * @return the list of GModule of the passed project that the passed GModule depends on.
@@ -82,6 +85,7 @@ public class ModuleResolutionHelper {
     /**
      * Returns the list of GModule of the passed project that the passed ModuleComponent depends on
      * (i.e. the returned GModules are required as mandatory by the passed ModuleComponent).
+     *
      * @param moduleHandle the module handle to look dependencies for
      * @param gProject the project to look into.
      * @return the list of GModule of the passed project that the passed ModuleComponent depends on.
@@ -106,6 +110,7 @@ public class ModuleResolutionHelper {
 
     /**
      * Returns the list of GModule that the passed module has weak dependencies on.
+     *
      * @param gModule the GModule to look weak dependencies for
      * @param gProject the project to look into.
      * @return the list of GModule of the passed project that the passed GModule have weak dependencies on.
@@ -117,6 +122,7 @@ public class ModuleResolutionHelper {
 
     /**
      * Returns the list of GModule that the passed module has weak dependencies on.
+     *
      * @param moduleHandle the module to look weak dependencies for.
      * @param gProject the project to look into.
      * @return the list of GModule of the passed project that the passed GModule have weak dependencies on.
@@ -145,6 +151,7 @@ public class ModuleResolutionHelper {
      * Current strategy is to test if all modules required by the passed module can be found in
      * the passed project in a version compatible
      * with the requirement and that no module in the project requires a newer version of this model.
+     *
      * @param moduleHandle the module to test.
      * @param gProject the project in which the passed module would be installed
      * @throws ModuleException if a dependency is missing or the module would break another one.
@@ -154,7 +161,7 @@ public class ModuleResolutionHelper {
         StringBuilder detailMsg = new StringBuilder();
         boolean hasMissingDep = false;
         boolean hasBrokenDep = false;
-        
+
         // Check for missing or outdated dependencies
         for (VersionedItem<?> moduleId : moduleHandle.getDependencies()) {
             boolean moduleFoundInProject = false;
@@ -179,13 +186,13 @@ public class ModuleResolutionHelper {
                         moduleId.getVersion()));
             }
         }
-        
+
         // Check for modules requiring a newer version than moduleHandle
         for (GModule gModuleInProject : gProject.getParts(GModule.class)) {
             IModuleHandle moduleInProjectHandle = gModuleInProject.getModuleHandle();
             if (moduleInProjectHandle == null)
                 continue;
-        
+
             for (VersionedItem<?> requiredModuleId : moduleInProjectHandle.getDependencies()) {
                 if (requiredModuleId.getName().equals(moduleHandle.getName())
                         && !isVersionCompatible(moduleHandle.getVersion(), requiredModuleId.getVersion())) {
@@ -195,10 +202,10 @@ public class ModuleResolutionHelper {
                         detailMsg.append(MdaInfra.I18N.getMessage("ModuleExceptionMessage.ModuleIncompatible.title",
                                 moduleHandle.getName(),
                                 moduleHandle.getVersion()));
-        
+
                         hasBrokenDep = true;
                     }
-        
+
                     detailMsg.append("\n");
                     detailMsg.append(MdaInfra.I18N.getMessage("ModuleExceptionMessage.ModuleIncompatible.line",
                             gModuleInProject.getName(),
@@ -208,19 +215,20 @@ public class ModuleResolutionHelper {
                 }
             }
         }
-        
-        
+
+
         if (hasBrokenDep || hasMissingDep) {
             throw new ModuleException(MdaInfra.I18N.getMessage("ModuleExceptionMessage.CannotInstallModuleDetail",
                     moduleHandle.getName(),
                     moduleHandle.getVersion(),
                     detailMsg.toString()));
         }
-        
+
     }
 
     /**
      * Get the modules in the project that depend directly on the given module handle.
+     *
      * @param moduleHandle a module handle
      * @param gProject the project to scan
      * @return a list containing all modules that depend on <i>moduleHandle</i>
@@ -228,7 +236,7 @@ public class ModuleResolutionHelper {
     @objid ("0f380173-9925-4d1a-8e58-2fc0f6dc1fe9")
     private static List<GModule> getDependentGModules(IModuleHandle moduleHandle, IGProject gProject) {
         List<GModule> dependents = new ArrayList<>();
-        
+
         // Go through each module in the project and look at its dependencies in case it contains the passed
         // module...
         for (GModule gModuleInProject : gProject.getParts(GModule.class)) {
@@ -247,6 +255,7 @@ public class ModuleResolutionHelper {
      * Returns the first found GModule in the project which UUID matches the passed handle UUID.
      * <p>
      * If no such module is found returns the first one whose name matches the handle name.
+     *
      * @param gProject the project to search into.
      * @param handle the handle of the GModule to find.
      * @return the first found GModule in the project which matches the passed handle or <code>null</code> if none found.
@@ -270,6 +279,7 @@ public class ModuleResolutionHelper {
     /**
      * Returns the list of loaded {@link IRTModule} in the project that have a dependency
      * (direct , strong ) on the passed module.
+     *
      * @param iModule the module for which dependents are searched.
      * @param moduleRegistry the modules registry.
      * @return the list of {@link IRTModule} in the project that have a dependency (direct, strong) on the passed module.
@@ -277,9 +287,9 @@ public class ModuleResolutionHelper {
     @objid ("c57e084d-82b5-4e93-82f7-5b7183725c01")
     public static List<IRTModule> getDependentRTModules(IRTModule iModule, IModuleRegistry moduleRegistry) {
         List<IRTModule> ret = new ArrayList<>();
-        
+
         GModule gModule = iModule.getGModule();
-        
+
         List<GModule> dependentGModules = getDependentGModules(gModule.getModuleHandle(), gModule.getProject());
         for (GModule dependentGModule : dependentGModules) {
             IRTModule dependentLoadedModule = moduleRegistry.getModule(dependentGModule);
@@ -292,6 +302,7 @@ public class ModuleResolutionHelper {
 
     /**
      * Get the modules in the project that weakly depend directly on the given module handle.
+     *
      * @param moduleHandle a module handle
      * @param gProject the project to scan
      * @return a list containing all modules that depend weakly on <i>moduleHandle</i>
@@ -299,7 +310,7 @@ public class ModuleResolutionHelper {
     @objid ("ead2fe7c-43ab-494c-ae89-458163ec87b4")
     private static List<GModule> getWeakDependentGModules(IModuleHandle moduleHandle, IGProject gProject) {
         List<GModule> dependents = new ArrayList<>();
-        
+
         // Go through each module in the project and look at its dependencies in case it contains the passed
         // module...
         for (GModule gModuleInProject : gProject.getParts(GModule.class)) {
@@ -317,6 +328,7 @@ public class ModuleResolutionHelper {
     /**
      * Returns the list of loaded {@link IRTModule} in the project that have a dependency
      * (direct , weak) on the passed module.
+     *
      * @param iModule the module for which dependents are searched.
      * @param moduleRegistry the modules registry.
      * @return the list of {@link IRTModule} in the project that have a dependency (direct or not, strong or weak) on the passed module.
@@ -324,9 +336,9 @@ public class ModuleResolutionHelper {
     @objid ("61493e88-6e32-4cdf-9305-1b9b23588772")
     public static List<IRTModule> getWeakDependentRTModules(IRTModule iModule, IModuleRegistry moduleRegistry) {
         List<IRTModule> ret = new ArrayList<>();
-        
+
         GModule gModule = iModule.getGModule();
-        
+
         List<GModule> dependentGModules = getWeakDependentGModules(gModule.getModuleHandle(), gModule.getProject());
         for (GModule dependentGModule : dependentGModules) {
             IRTModule dependentLoadedModule = moduleRegistry.getModule(dependentGModule);

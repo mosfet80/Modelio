@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmndataobject;
 
@@ -56,48 +56,49 @@ public class CreateBpmnDataObjectCommand extends Command {
 
     /**
      * Creates a node creation command.
+     *
      * @param sequenceFlow the element that lead to this command.
      * @param gm The parent editPart
      * @param context Details on the MObject and/or the node to create
      */
     @objid ("60ae2d3c-55b6-11e2-877f-002564c97630")
-    public  CreateBpmnDataObjectCommand(BpmnSequenceFlow sequenceFlow, GmBpmnSequenceFlow gm, ModelioCreationContext context) {
+    public CreateBpmnDataObjectCommand(BpmnSequenceFlow sequenceFlow, GmBpmnSequenceFlow gm, ModelioCreationContext context) {
         this.parentNode = gm;
         this.parentElement = sequenceFlow;
         this.context = context;
-        
+
     }
 
     @objid ("60ae2d46-55b6-11e2-877f-002564c97630")
     @Override
     public void execute() {
         final IGmDiagram diagram = this.parentNode.getDiagram();
-        
+
         // Create the Element...
         IModelManager modelManager = diagram.getModelManager();
         final IStandardModelFactory modelFactory = modelManager.getModelFactory().getFactory(IStandardModelFactory.class);
         BpmnDataObject newElement = modelFactory.createBpmnDataObject();
-        
+
         MObject owner = getOwnerProcess(this.parentElement.getCompositionOwner());
         if (owner instanceof BpmnProcess) {
             newElement.setContainer((BpmnProcess) owner);
         } else if (owner instanceof BpmnSubProcess) {
             newElement.setSubProcess((BpmnSubProcess) owner);
         }
-        
+
         // Set default name
         newElement.setName(modelManager.getModelServices().getElementNamer().getUniqueName(newElement));
-        
+
         BpmnFlowNode source = this.parentElement.getSourceRef();
         BpmnFlowNode target = this.parentElement.getTargetRef();
-        
+
         // Assign same lane as source object
         if ( !source.getLane().isEmpty())
             newElement.getLane().addAll(source.getLane());
         else if ( !target.getLane().isEmpty()) {
             newElement.getLane().addAll(target.getLane());
         }
-        
+
         // Set source data assoc
         final BpmnDataAssociation sourceAssociation = modelFactory.createBpmnDataAssociation();
         {
@@ -110,11 +111,11 @@ public class CreateBpmnDataObjectCommand extends Command {
                 sourceAssociation.setStartingEvent((BpmnThrowEvent) source);
             }
             sourceAssociation.setTargetRef(newElement);
-        
+
             // Set default names
             sourceAssociation.setName(modelManager.getModelServices().getElementNamer().getUniqueName(sourceAssociation));
         }
-        
+
         // Set target data association
         final BpmnDataAssociation targetAssociation = modelFactory.createBpmnDataAssociation();
         {
@@ -127,27 +128,27 @@ public class CreateBpmnDataObjectCommand extends Command {
                 targetAssociation.setEndingEvent((BpmnCatchEvent) target);
             }
             targetAssociation.getSourceRef().add(newElement);
-        
+
             // Set default names
             targetAssociation.setName(modelManager.getModelServices().getElementNamer().getUniqueName(targetAssociation));
         }
-        
+
         BpmnSequenceFlowDataAssociation sequenceFlowAssociation = modelFactory.createBpmnSequenceFlowDataAssociation();
         {
             sequenceFlowAssociation.setConnected(this.parentElement);
             sequenceFlowAssociation.getDataAssociation().add(sourceAssociation);
             sequenceFlowAssociation.getDataAssociation().add(targetAssociation);
-        
-        
+
+
             // Set default name
             sequenceFlowAssociation.setName(modelManager.getModelServices().getElementNamer().getUniqueName(sequenceFlowAssociation));
         }
-        
+
         // Attach the stereotype if needed.
         if (this.context.getStereotype() != null) {
             ((ModelElement) newElement).getExtension().add(this.context.getStereotype());
         }
-        
+
     }
 
     @objid ("60ae2d49-55b6-11e2-877f-002564c97630")
@@ -163,7 +164,7 @@ public class CreateBpmnDataObjectCommand extends Command {
     public boolean canExecute() {
         BpmnFlowNode source = this.parentElement.getSourceRef();
         BpmnFlowNode target = this.parentElement.getTargetRef();
-        
+
         boolean isValidSource = source instanceof BpmnActivity || source instanceof BpmnCatchEvent;
         boolean isValidTarget = target instanceof BpmnActivity || target instanceof BpmnThrowEvent;
         boolean isEditable = MTools.getAuthTool().canModify(this.parentElement);

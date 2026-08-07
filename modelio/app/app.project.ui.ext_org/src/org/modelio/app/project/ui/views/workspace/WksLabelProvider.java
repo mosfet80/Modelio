@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.ui.views.workspace;
 
@@ -95,15 +95,16 @@ public class WksLabelProvider extends StyledCellLabelProvider {
 
     /**
      * Constructor.
+     *
      * @param projectService the project service
      * @param font the font to use.
      */
     @objid ("1f37646e-9e61-4093-a9fc-68b1cae470db")
-    public  WksLabelProvider(IProjectService projectService, final Font font) {
+    public WksLabelProvider(IProjectService projectService, final Font font) {
         FontData[] selectedFontData = WksLabelProvider.getModifiedFontData(font.getFontData(), SWT.BOLD);
         this.selectedFont = new Font(Display.getCurrent(), selectedFontData);
         this.normalFont = font;
-        
+
         if (WksLabelProvider.defaultOpenLocalProjectIcon == null) {
             WksLabelProvider.defaultOpenLocalProjectIcon = AbstractUIPlugin.imageDescriptorFromPlugin(AppProjectUi.PLUGIN_ID,
                     "icons/openproject.png").createImage();
@@ -112,7 +113,7 @@ public class WksLabelProvider extends StyledCellLabelProvider {
             WksLabelProvider.defaultClosedLocalProjectIcon = AbstractUIPlugin.imageDescriptorFromPlugin(AppProjectUi.PLUGIN_ID,
                     "icons/closedproject.png").createImage();
         }
-        
+
         if (WksLabelProvider.defaultOpenServerProjectIcon == null) {
             WksLabelProvider.defaultOpenServerProjectIcon = AbstractUIPlugin.imageDescriptorFromPlugin(AppProjectUi.PLUGIN_ID,
                     "icons/openserverproject.png").createImage();
@@ -121,34 +122,34 @@ public class WksLabelProvider extends StyledCellLabelProvider {
             WksLabelProvider.defaultClosedServerProjectIcon = AbstractUIPlugin.imageDescriptorFromPlugin(AppProjectUi.PLUGIN_ID,
                     "icons/closedserverproject.png").createImage();
         }
-        
+
         if (WksLabelProvider.lockDecoration == null) {
             WksLabelProvider.lockDecoration = AbstractUIPlugin.imageDescriptorFromPlugin(AppProjectUi.PLUGIN_ID,
                     "images/lock_indicator11x13.png").createImage();
         }
-        
+
         this.projectService = projectService;
-        
+
     }
 
     @objid ("4998475a-7209-4ebd-933b-d8ad4c0990ff")
     @Override
     public void update(final ViewerCell cell) {
         Object obj = cell.getElement();
-        
+
         if (obj instanceof GProjectDescriptor) {
             GProjectDescriptor project = (GProjectDescriptor) obj;
-        
+
             if (isCurrentlyOpenedProject(project)) {
                 updateOpenedProject(cell, project);
             } else {
                 updateClosedProject(cell, project);
             }
-        
+
         } else {
             cell.setText(obj.toString());
         }
-        
+
     }
 
     @objid ("21edb116-b51b-4ddc-9f6b-97e7f4730016")
@@ -181,7 +182,7 @@ public class WksLabelProvider extends StyledCellLabelProvider {
             }
         }
         cell.setImage(icon);
-        
+
     }
 
     @objid ("e56fb3bb-8c37-407a-acef-68957789f598")
@@ -204,20 +205,20 @@ public class WksLabelProvider extends StyledCellLabelProvider {
             }
         }
         cell.setImage(icon);
-        
+
     }
 
     @objid ("1909ecd6-c2de-4419-abf2-30139293df17")
     @Override
     public void dispose() {
         super.dispose();
-        
+
         this.selectedFont.dispose();
         this.selectedFont = null;
-        
+
         this.icons.dispose();
         this.icons = null;
-        
+
     }
 
     @objid ("f2fb3f5f-71e3-4e4d-bf1b-8057d9820aa1")
@@ -235,14 +236,14 @@ public class WksLabelProvider extends StyledCellLabelProvider {
             if (iconName == null) {
                 return null;
             }
-        
+
             Path iconPath = projectFileStructure.getProjectDataPath().resolve(iconName);
             projectIcon = createUserProjectIcon(iconPath);
-        
+
             if (projectIcon == null) {
                 projectIcon = createImageFromUrl(iconName);
             }
-        
+
             if (projectIcon != null) {
                 this.icons.put(projectFileStructure.getProjectPath().toString(), projectIcon);
             }
@@ -286,7 +287,7 @@ public class WksLabelProvider extends StyledCellLabelProvider {
         try {
             URL url = new URL(path);
             originalImage = ImageDescriptor.createFromURL(url).createImage(false, null);
-        
+
             ImageData imagePlaceholderData = UIImages.PLACEHOLDER.getImageData();
             return new Image(null, originalImage.getImageData().scaledTo(imagePlaceholderData.width, imagePlaceholderData.height));
         } catch (@SuppressWarnings ("unused") MalformedURLException e) {
@@ -297,18 +298,18 @@ public class WksLabelProvider extends StyledCellLabelProvider {
                 originalImage.dispose();
             }
         }
-        
+
     }
 
     @objid ("e610a03c-8d1d-4080-a9c8-020e45780f27")
     @Override
     protected void paint(Event event, Object element) {
         super.paint(event, element);
-        
+
         // Add lock icon on locked projects
         if (element instanceof GProjectDescriptor) {
             GProjectDescriptor desc = (GProjectDescriptor) element;
-        
+
             ILockInfo lockInfo = desc.getLockInfo();
             if (lockInfo != null) {
                 if (!lockInfo.isSelf()) {
@@ -317,7 +318,7 @@ public class WksLabelProvider extends StyledCellLabelProvider {
                 }
             }
         }
-        
+
     }
 
     @objid ("e51fc0fd-57bd-4e70-80b3-0b8d05c572c3")
@@ -325,7 +326,7 @@ public class WksLabelProvider extends StyledCellLabelProvider {
     public String getToolTipText(Object element) {
         if (element instanceof GProjectDescriptor) {
             GProjectDescriptor project = (GProjectDescriptor) element;
-        
+
             ILockInfo lockInfo = project.getLockInfo();
             if (!isCurrentlyOpenedProject(project) && lockInfo != null && !lockInfo.isSelf()) {
                 return AppProjectUiExt.I18N.getMessage("WksLabelProvider.lockedTooltip",
@@ -335,7 +336,7 @@ public class WksLabelProvider extends StyledCellLabelProvider {
                         lockInfo.getDate());
             }
         }
-        
+
         // standard behavior
         return super.getToolTipText(element);
     }
@@ -361,7 +362,7 @@ public class WksLabelProvider extends StyledCellLabelProvider {
             } else {
                 return SERVER;
             }
-            
+
         }
 
     }

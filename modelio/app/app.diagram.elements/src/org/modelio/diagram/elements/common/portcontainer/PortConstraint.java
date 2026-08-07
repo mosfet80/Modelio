@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.portcontainer;
 
@@ -29,7 +29,7 @@ import org.modelio.diagram.persistence.IPersistent;
 /**
  * Specific constraint for the PortLayout. <br>
  * Basically, it is just a pair of a reference Border and requested bounds (described as a {@link Rectangle}
- * 
+ *
  * @author fpoyer
  */
 @objid ("7eeacce6-1dec-11e2-8cad-001ec947c8cc")
@@ -51,6 +51,7 @@ public class PortConstraint implements IPersistent {
     private Point requestedCenter = null;
 
     /**
+     *
      * @return the request bounds.
      */
     @objid ("7eed2f02-1dec-11e2-8cad-001ec947c8cc")
@@ -60,6 +61,7 @@ public class PortConstraint implements IPersistent {
 
     /**
      * Sets the requested bounds.
+     *
      * @param requestedBounds the requested bounds.
      */
     @objid ("7eed2f09-1dec-11e2-8cad-001ec947c8cc")
@@ -68,6 +70,7 @@ public class PortConstraint implements IPersistent {
     }
 
     /**
+     *
      * @return the reference border.
      */
     @objid ("7eed2f0f-1dec-11e2-8cad-001ec947c8cc")
@@ -77,6 +80,7 @@ public class PortConstraint implements IPersistent {
 
     /**
      * Sets the reference border.
+     *
      * @param referenceBorder the reference border.
      */
     @objid ("7eed2f14-1dec-11e2-8cad-001ec947c8cc")
@@ -96,7 +100,7 @@ public class PortConstraint implements IPersistent {
         this.requestedBounds = (Rectangle) in.readProperty("requestedBounds");
         this.referenceBorder = (Border) in.readProperty("referenceBorder");
         this.requestedCenter = (Point) in.readProperty("requestedCenter");
-        
+
     }
 
     @objid ("7eed2f22-1dec-11e2-8cad-001ec947c8cc")
@@ -109,9 +113,9 @@ public class PortConstraint implements IPersistent {
         } else {
             out.writeProperty("requestedBounds", this.requestedBounds);
         }
-        
+
         out.writeProperty("referenceBorder", this.referenceBorder);
-        
+
         // Small hack to workaround the serialisation not handling "null" as a
         // valid Point...
         if (this.requestedCenter == null) {
@@ -119,10 +123,11 @@ public class PortConstraint implements IPersistent {
         } else {
             out.writeProperty("requestedCenter", this.requestedCenter);
         }
-        
+
     }
 
     /**
+     *
      * @return the requested centre, or null if undefined.
      */
     @objid ("7eed2f26-1dec-11e2-8cad-001ec947c8cc")
@@ -132,6 +137,7 @@ public class PortConstraint implements IPersistent {
 
     /**
      * Sets the requested centre.
+     *
      * @param requestedCenter the requested centre.
      */
     @objid ("7eef9154-1dec-11e2-8cad-001ec947c8cc")
@@ -153,11 +159,11 @@ public class PortConstraint implements IPersistent {
         builder.append("border=");
         builder.append(this.referenceBorder);
         builder.append(", ");
-        
+
         builder.append("bounds=");
         builder.append(this.requestedBounds);
         builder.append(", ");
-        
+
         if (this.requestedCenter != null) {
             builder.append("center=");
             builder.append(this.requestedCenter);
@@ -168,7 +174,7 @@ public class PortConstraint implements IPersistent {
 
     /**
      * Enumeration of the borders a child can be referencing for its layout.
-     * 
+     *
      * @author fpoyer
      */
     @objid ("7eef915f-1dec-11e2-8cad-001ec947c8cc")

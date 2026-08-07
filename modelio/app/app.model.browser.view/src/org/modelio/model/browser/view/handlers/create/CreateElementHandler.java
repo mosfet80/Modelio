@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.browser.view.handlers.create;
 
@@ -36,7 +36,7 @@ public class CreateElementHandler extends AbstractCreateElementHandler {
     protected MObject doCreate(MObject owner, MClass metaclass, MDependency dependency, Stereotype stereotype, IMModelServices mmServices) {
         IModelFactory mmFactory = mmServices.getModelFactory();
         IElementNamer mmNamer = mmServices.getElementNamer();
-        
+
         MObject newElement = mmFactory.createElement(metaclass, owner, dependency);
         if (stereotype != null && newElement instanceof ModelElement) {
             ((ModelElement) newElement).getExtension().add(stereotype);
@@ -51,13 +51,13 @@ public class CreateElementHandler extends AbstractCreateElementHandler {
         if (!owner.isModifiable()) {
             return false;
         }
-        
+
         if (dependency != null) {
             return dependency.getMaxCardinality() != 1 || owner.mGet(dependency).isEmpty();
         } else {
             return true;
         }
-        
+
     }
 
 }

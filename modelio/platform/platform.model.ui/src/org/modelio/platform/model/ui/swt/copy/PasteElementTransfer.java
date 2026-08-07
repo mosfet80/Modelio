@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.swt.copy;
 
@@ -48,8 +48,8 @@ public class PasteElementTransfer extends ByteArrayTransfer {
      * Avoid explicit instantiation
      */
     @objid ("6af30017-bb84-483e-babd-e996f39d91a0")
-    private  PasteElementTransfer() {
-        
+    private PasteElementTransfer() {
+
     }
 
     /**
@@ -64,22 +64,21 @@ public class PasteElementTransfer extends ByteArrayTransfer {
     @Override
     public void javaToNative(Object object, TransferData transferData) {
         if (object == null || !(object instanceof PasteElementObject)) return;
-        
+
         if (isSupportedType(transferData)) {
-            PasteElementObject element = (PasteElementObject) object;     
+            PasteElementObject element = (PasteElementObject) object;
             try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
                     ObjectOutput out = new ObjectOutputStream(bos)) {
                 out.writeObject(element);
-        
+
                 out.close();
-        
+
                 byte[] buffer = bos.toByteArray();
                 super.javaToNative(buffer, transferData);
             } catch (IOException e) {
                 CoreUi.LOG.error(e);
             }
         }
-        
     }
 
     @objid ("7a34484f-4414-4d6e-8df5-2e7354844403")
@@ -104,12 +103,12 @@ public class PasteElementTransfer extends ByteArrayTransfer {
     @objid ("fc05d5d9-d459-4a83-bf19-8cabcf7aca7e")
     public PasteElementObject fromByteArray(byte[] buffer) {
         if (buffer == null) return null;
-        
+
         PasteElementObject myData = null;
         try (ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(buffer))) {
             Object obj = in.readObject();
             myData = (PasteElementObject)obj;
-        
+
             in.close();
         } catch (ClassNotFoundException e) {
             CoreUi.LOG.error(e);
@@ -124,13 +123,13 @@ public class PasteElementTransfer extends ByteArrayTransfer {
     @objid ("b143052b-dd15-4639-b2fe-1bb4a4947c21")
     public byte[] toByteArray(PasteElementObject pasteObject) {
         byte[] buffer = null;
-        
+
         try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
             ObjectOutput out = new ObjectOutputStream(bos)) {
             out.writeObject(pasteObject);
-        
+
             out.close();
-        
+
             buffer = bos.toByteArray();
         } catch (IOException e) {
             CoreUi.LOG.error(e);

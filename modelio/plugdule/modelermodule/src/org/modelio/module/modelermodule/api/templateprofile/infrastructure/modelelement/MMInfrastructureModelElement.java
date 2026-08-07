@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -64,6 +64,7 @@ public class MMInfrastructureModelElement {
      * Tells whether a {@link MMInfrastructureModelElement proxy} can be instantiated from a {@link MObject} checking it is a {@link ModelElement}.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -73,9 +74,10 @@ public class MMInfrastructureModelElement {
     }
 
     /**
-     * Tries to instantiate a {@link MMInfrastructureModelElement} proxy from a {@link ModelElement} checking its metaclass. 
+     * Tries to instantiate a {@link MMInfrastructureModelElement} proxy from a {@link ModelElement} checking its metaclass.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a ModelElement
      * @return a {@link MMInfrastructureModelElement} proxy or <i>null</i>.
      */
@@ -101,7 +103,8 @@ public class MMInfrastructureModelElement {
     }
 
     /**
-     * Get the underlying {@link ModelElement}. 
+     * Get the underlying {@link ModelElement}.
+     *
      * @return the ModelElement represented by this proxy, never null.
      */
     @objid ("e4fa9d22-1996-4d74-8872-507244a97486")
@@ -133,7 +136,7 @@ public class MMInfrastructureModelElement {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     /**
@@ -157,7 +160,7 @@ public class MMInfrastructureModelElement {
     }
 
     @objid ("81462161-aac2-49b1-b813-e9a65b0cc0ee")
-    protected  MMInfrastructureModelElement(ModelElement elt) {
+    protected MMInfrastructureModelElement(ModelElement elt) {
         this.elt = elt;
     }
 
@@ -181,7 +184,7 @@ public class MMInfrastructureModelElement {
             TEMPLATEPARAMETER_LABEL_TAGTYPE_ELT = ctx.getModelingSession().findElementById(TagType.class, "d7f8ca90-8d91-11df-98b9-0014224f9977");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -189,7 +192,7 @@ public class MMInfrastructureModelElement {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.finalstate;
 
@@ -37,7 +37,7 @@ import org.modelio.diagram.styles.core.IStyle;
 
 /**
  * EditPart for an {@link GmFinalStatePrimaryNode} Node.
- * 
+ *
  * @author fpoyer
  */
 @objid ("f52560da-55b6-11e2-877f-002564c97630")
@@ -50,14 +50,14 @@ public class FinalStateEditPart extends AbstractNodeEditPart {
     protected IFigure createFigure() {
         // create the figure
         FinalStateFigure fig = new FinalStateFigure();
-        
+
         // set style independent properties
         fig.setPreferredSize(20, 20);
         fig.setMinimumSize(new Dimension(20, 20));
-        
+
         // set style dependent properties
         refreshFromStyle(fig, getModelStyle());
-        
+
         // return the figure
         return fig;
     }
@@ -71,7 +71,7 @@ public class FinalStateEditPart extends AbstractNodeEditPart {
                           new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
         installEditPolicy(AnchorsFeedbackEditPolicy.class, new AnchorsFeedbackEditPolicy(getNodeAnchorProvider()));
-        
+
     }
 
     @objid ("f52560e7-55b6-11e2-877f-002564c97630")
@@ -79,7 +79,7 @@ public class FinalStateEditPart extends AbstractNodeEditPart {
     protected void refreshVisuals() {
         GmFinalStatePrimaryNode finalStateModel = (GmFinalStatePrimaryNode) this.getModel();
         this.getFigure().getParent().setConstraint(this.getFigure(), finalStateModel.getLayoutData());
-        
+
     }
 
     @objid ("f52560ea-55b6-11e2-877f-002564c97630")
@@ -96,13 +96,14 @@ public class FinalStateEditPart extends AbstractNodeEditPart {
                 return;
             }
         }
-        
+
         super.refreshFromStyle(aFigure, style);
-        
+
     }
 
     /**
      * Create the {@link IFixedNodeAnchorProvider} for this edit part.
+     *
      * @return the created anchor provider.
      */
     @objid ("215c9b91-af09-49c1-9180-979a574774c3")

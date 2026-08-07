@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.ui.dialog;
 
@@ -35,6 +35,7 @@ import org.eclipse.swt.widgets.Label;
  * <li> Call any {@link #createSimpleField(String, Supplier, String)} or {@link #createMultiField(String, Supplier, String)}
  * for each field to create.
  * </ol>
+ *
  * @author cmarin
  * @since Alouette 5.3
  */
@@ -53,11 +54,12 @@ public class PolluxFieldBuilder {
     private Label lastCreatedCaption;
 
     /**
+     *
      * @param parent the {@link Composite} that will own all created SWT widgets.
      * This {@link Composite} must have been passed to {@link PolluxWidgetConfigurator#configureContainer(Composite)}
      */
     @objid ("03ddf9f7-f8c7-4fc2-95e0-73590a4bb77c")
-    public  PolluxFieldBuilder(Composite parent) {
+    public PolluxFieldBuilder(Composite parent) {
         this.parent = parent;
     }
 
@@ -70,6 +72,7 @@ public class PolluxFieldBuilder {
      * <li> {@link #getLastCreatedField()} returns the created field editable {@link Control}
      * <li> {@link #getLastCreatedCaption()} returns the created field caption, null if <i>caption</i> was null.
      * </ul>
+     *
      * @param <T> the field control type
      * @param label the field label
      * @param creator a Supplier that creates the field {@link Control}
@@ -90,6 +93,7 @@ public class PolluxFieldBuilder {
      * <li> {@link #getLastCreatedField()} returns the created field editable {@link Control}
      * <li> {@link #getLastCreatedCaption()} returns the created field caption, null if <i>caption</i> was null.
      * </ul>
+     *
      * @param <T> the field control type
      * @param label the field label
      * @param creator a Supplier that creates the field {@link Control}
@@ -107,23 +111,23 @@ public class PolluxFieldBuilder {
         this.lastCreatedCaption = null;
         this.lastCreatedField = null;
         this.lastCreatedLabel = null;
-        
+
         // Create field label
         this.lastCreatedLabel = new Label(this.parent, SWT.NONE);
         this.lastCreatedLabel.setText(label);
-        
+
         // Create editable field itself
         T field = creator.get();
         this.lastCreatedField = field;
-        
+
         // Create caption label if provided
         if (caption != null) {
             field.setToolTipText(caption);
-        
+
             this.lastCreatedCaption = new Label(this.parent, SWT.NONE);
             this.lastCreatedCaption.setText(caption);
         }
-        
+
         if (multiple) {
             PolluxWidgetConfigurator.configureMultiField(this.lastCreatedLabel, field, this.lastCreatedCaption);
         } else {

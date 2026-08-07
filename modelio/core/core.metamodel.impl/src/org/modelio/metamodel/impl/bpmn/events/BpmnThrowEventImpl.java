@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.events;
 
 import java.util.ArrayList;
@@ -44,13 +43,13 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0095d2e2-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class BpmnThrowEventImpl extends BpmnEventImpl implements BpmnThrowEvent {
-    @objid ("e23f16e8-9c8b-4d58-b10d-2066f2833a06")
+    @objid ("4ea3d1a9-80ad-458a-91b8-844f67eb0809")
     @Override
     public EList<BpmnDataAssociation> getDataInputAssociation() {
         return new SmList<>(this, ((BpmnThrowEventSmClass)getClassOf()).getDataInputAssociationDep());
     }
 
-    @objid ("ea1641c6-66bb-4892-9616-d4e18dee3588")
+    @objid ("a8f34443-9984-458b-ae9e-63c3777be1bb")
     @Override
     public <T extends BpmnDataAssociation> List<T> getDataInputAssociation(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -63,23 +62,23 @@ public abstract class BpmnThrowEventImpl extends BpmnEventImpl implements BpmnTh
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("42ff707a-691e-47de-98cd-9d01bb8c01de")
+    @objid ("6963b0be-8cda-465b-9dfc-052475e09a01")
     @Override
     public BpmnDataInput getDataInput() {
         Object obj = getDepVal(((BpmnThrowEventSmClass)getClassOf()).getDataInputDep());
         return (obj instanceof BpmnDataInput)? (BpmnDataInput)obj : null;
     }
 
-    @objid ("354886d1-7337-4b81-abe9-eeecf8d5381d")
+    @objid ("df0b138d-25a9-4e4b-bd2b-34fb3a7b3c4f")
     @Override
     public void setDataInput(BpmnDataInput value) {
         appendDepVal(((BpmnThrowEventSmClass)getClassOf()).getDataInputDep(), (SmObjectImpl)value);
     }
 
-    @objid ("57b6b8e4-2a22-4bec-a4ad-208e93ad3cdc")
+    @objid ("38893217-23dd-42fb-8109-7c0c792c593a")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -87,17 +86,17 @@ public abstract class BpmnThrowEventImpl extends BpmnEventImpl implements BpmnTh
         return super.getCompositionOwner();
     }
 
-    @objid ("2bf39b4a-9d70-496f-adf4-9143bc7b372c")
+    @objid ("821ee5b1-c3fd-409f-821a-a05016dc5ff4")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("f4c6497b-e488-4ede-8919-01e7f1218692")
+    @objid ("1f2c5a80-63b8-4a13-b760-b8254a445bcc")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitBpmnThrowEvent(this);

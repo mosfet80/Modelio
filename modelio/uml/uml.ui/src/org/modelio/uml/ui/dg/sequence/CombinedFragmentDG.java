@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.dg.sequence;
 
@@ -37,11 +37,12 @@ import org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperand;
 @objid ("e252c35e-0446-4ec0-a647-8fcb39267184")
 public class CombinedFragmentDG extends PortContainerDG {
     /**
+     *
      * @param diagramHandle The diagram manipulation class.
      * @param node The gm node represented by this class.
      */
     @objid ("d79958b2-0e3d-4cb7-834f-45d34b486e95")
-    public  CombinedFragmentDG(DiagramHandle diagramHandle, GmNodeModel node) {
+    public CombinedFragmentDG(DiagramHandle diagramHandle, GmNodeModel node) {
         super(diagramHandle, node);
     }
 
@@ -53,7 +54,7 @@ public class CombinedFragmentDG extends PortContainerDG {
                                       currentBounds.y(),
                                       newBounds.width(),
                                       currentBounds.height()));
-        
+
     }
 
     @objid ("7591de47-2a3f-4812-85bc-109ddb55e789")
@@ -61,14 +62,14 @@ public class CombinedFragmentDG extends PortContainerDG {
     protected List<IDiagramNode> getPrimaryChildrenNodes() {
         // Inner nodes
         GmCompositeNode mainNode = (GmCompositeNode) getPrimaryNode();
-        
+
         GmCompositeNode operandZone = mainNode.getCompositeFor(InteractionOperand.class);
         if (operandZone != null) {
             return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, operandZone.getVisibleChildren());
         } else {
             return Collections.emptyList();
         }
-        
+
     }
 
 }

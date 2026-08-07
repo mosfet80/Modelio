@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.panel.data.standard;
 
@@ -92,8 +92,8 @@ public class InfrastructurePropertyModelProvider implements IPropertyModelProvid
     @objid ("9b470280-ccc4-4907-9092-07f8d3b7d135")
     private static class InfrastructurePropertyModelVisitor extends DefaultInfrastructureVisitor {
         @objid ("fec8a3df-9c92-4792-99a8-d36acb688a78")
-        public  InfrastructurePropertyModelVisitor() {
-            
+        public InfrastructurePropertyModelVisitor() {
+
         }
 
         @objid ("8e23af6c-fd01-4398-93b4-efcfcd3eeacf")

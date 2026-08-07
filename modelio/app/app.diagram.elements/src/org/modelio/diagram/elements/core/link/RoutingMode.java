@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link;
 
@@ -28,7 +28,7 @@ import org.modelio.diagram.styles.core.StyleKey.ConnectionRouterId;
  * <p>
  * Aggregates a boolean rake mode and a {@link ConnectionRouterId} .
  * If {@link #rake} is true the rake router must be used and {@link #routingStyle} is useless.
- * 
+ *
  * @author cmarin
  */
 @objid ("8020be85-1dec-11e2-8cad-001ec947c8cc")
@@ -49,21 +49,22 @@ public class RoutingMode {
      * Default constructor: no rake and no routing style.
      */
     @objid ("802320ac-1dec-11e2-8cad-001ec947c8cc")
-    public  RoutingMode() {
+    public RoutingMode() {
         this.rake = false;
         this.routingStyle = null;
-        
+
     }
 
     /**
      * Constructor that reads a {@link IGmPath}
+     *
      * @param path the path to extract informations from
      */
     @objid ("802320ae-1dec-11e2-8cad-001ec947c8cc")
-    public  RoutingMode(final IGmPath path) {
+    public RoutingMode(final IGmPath path) {
         this.routingStyle = path.getRouterKind();
         this.rake = path.getSourceRake() != null || path.getTargetRake() != null;
-        
+
     }
 
     @objid ("802320b2-1dec-11e2-8cad-001ec947c8cc")
@@ -110,7 +111,7 @@ public class RoutingMode {
         } else {
             return getClass().getSimpleName()+"["+this.routingStyle+"]";
         }
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.panel.data.standard.infrastructure;
 
@@ -39,10 +39,11 @@ public class TagTypePropertyModel extends AbstractPropertyModel<TagType> {
 
     /**
      * Instantiate the tag type properties view.
+     *
      * @param theEditedElement the current tag type.
      */
     @objid ("b926989c-67c0-4f3d-9b21-265a1737b0a6")
-    public  TagTypePropertyModel(TagType theEditedElement) {
+    public TagTypePropertyModel(TagType theEditedElement) {
         super(theEditedElement);
     }
 
@@ -83,7 +84,7 @@ public class TagTypePropertyModel extends AbstractPropertyModel<TagType> {
         default:
             return null;
         }
-        
+
     }
 
     @objid ("c2601e2d-eb95-463b-94ac-eca7fe7893c0")
@@ -112,7 +113,7 @@ public class TagTypePropertyModel extends AbstractPropertyModel<TagType> {
         default:
             return null;
         }
-        
+
     }
 
     @objid ("28e2306b-7a3d-4593-99ec-63c728cd7ac8")
@@ -146,7 +147,7 @@ public class TagTypePropertyModel extends AbstractPropertyModel<TagType> {
         default:
             return;
         }
-        
+
     }
 
 }

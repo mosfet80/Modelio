@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.jdbm;
 
@@ -37,13 +37,13 @@ class JdbmStorageHandler implements IRepositoryObject {
     private final JdbmRepository repo;
 
     @objid ("10fbcdaa-4265-4bc1-8e42-94a6cab53133")
-    public  JdbmStorageHandler(JdbmRepository jdbmRepository) {
+    public JdbmStorageHandler(JdbmRepository jdbmRepository) {
         this.repo = jdbmRepository;
     }
 
     @objid ("395d92cc-3cf6-4660-9c8e-9439b210b308")
     @Override
-    public void attModified(SmObjectImpl obj, SmAttribute att) {
+    public void attModified(SmObjectImpl obj, SmAttribute att, Object oldVal) {
         setDirty(obj);
     }
 
@@ -54,7 +54,6 @@ class JdbmStorageHandler implements IRepositoryObject {
             data.setRFlags(IRStatus.REPO_DIRTY, StatusState.TRUE);
             this.repo.addDirty(obj);
         }
-        
     }
 
     @objid ("1446e1e9-bf70-47c0-9f18-11c694a4c447")
@@ -86,10 +85,9 @@ class JdbmStorageHandler implements IRepositoryObject {
             if (! dep.isMultiple() && dep.getValue(obj.getData()) != null) {
                 return true;
             }
-        
+
             return obj.getData().hasAllStatus(IRStatus.REPO_USERS_LOADED) == StatusState.TRUE;
         }
-        
     }
 
     @objid ("f7a5b3d3-e35e-4257-bc39-20fae7a4f3df")
@@ -120,7 +118,6 @@ class JdbmStorageHandler implements IRepositoryObject {
                 }
             }
         }
-        
     }
 
     @objid ("5e499d64-1948-4929-8d91-43b1e496ef96")
@@ -134,7 +131,12 @@ class JdbmStorageHandler implements IRepositoryObject {
                 }
             }
         }
-        
+    }
+
+    @objid ("994c652c-459d-403b-8453-5e6102e2ddbd")
+    @Override
+    public void loadStatus(SmObjectImpl obj) {
+        loadAtt(obj, obj.getClassOf().statusAtt());
     }
 
     @objid ("2e344311-8b80-4173-8cfc-631cbfd8fe04")
@@ -154,27 +156,25 @@ class JdbmStorageHandler implements IRepositoryObject {
     public void detach(SmObjectImpl obj) {
         obj.getData().setRFlags(IRStatus.MASK_REPO, StatusState.FALSE);
         this.repo.removeObj(obj);
-        
     }
 
     @objid ("bba17e72-32ac-476a-a135-d8d4837c7fcc")
     @Override
     public void attach(SmObjectImpl obj) {
         ISmObjectData data = obj.getData();
-        
+
         // Set as loaded and modified
         data.setRFlags(IRStatus.REPO_LOADED, StatusState.TRUE);
         setDirty(obj);
-        
+
         // Attach repository object
         data.setRepositoryObject(this);
-        
+
         try {
             this.repo.getLoadCache().addToCache(obj);
         } catch (DuplicateObjectException e) {
             this.repo.getErrorSupport().fireError(e);
         }
-        
     }
 
     @objid ("e585d2b9-298a-4e84-94a6-4801d2f1abf5")

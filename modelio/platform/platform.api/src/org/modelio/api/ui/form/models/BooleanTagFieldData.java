@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.ui.form.models;
 
@@ -26,18 +26,19 @@ import org.modelio.metamodel.uml.infrastructure.TagType;
 
 /**
  * {@link IFormFieldData} for TaggedValue with one TagParameter.
+ *
  * @author cma
  * @since 3.7.1
  */
 @objid ("04dbd9a6-b14d-487e-aa3d-22f22aefe033")
 public class BooleanTagFieldData extends AbstractTagFieldData {
     @objid ("9232ec59-95b1-498e-beed-36b6c8e53387")
-    public  BooleanTagFieldData(IModelingSession session, ModelElement me, String moduleName, String tagTypeName) {
+    public BooleanTagFieldData(IModelingSession session, ModelElement me, String moduleName, String tagTypeName) {
         super(session, me, moduleName, tagTypeName);
     }
 
     @objid ("24cc65c6-0e14-4751-9707-7f6766b1f9bd")
-    public  BooleanTagFieldData(IModelingSession session, ModelElement me, TagType tagType) {
+    public BooleanTagFieldData(IModelingSession session, ModelElement me, TagType tagType) {
         super(session, me, tagType);
     }
 
@@ -53,14 +54,14 @@ public class BooleanTagFieldData extends AbstractTagFieldData {
         if (getValue() == value) {
             return;
         }
-        
+
         try (ITransaction t = getModelingSession().createTransaction(String.format("Set '%s' tag on %s", this.tagTypeName, this.editedEl))) {
             this.editedEl.putTagValue(this.moduleName, this.tagTypeName, value == null ? null : value.toString());
             t.commit();
         } catch (final ExtensionNotFoundException e) {
             Api.LOG.error(e);
         }
-        
+
     }
 
 }

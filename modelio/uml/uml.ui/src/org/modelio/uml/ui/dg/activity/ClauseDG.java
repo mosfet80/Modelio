@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.dg.activity;
 
@@ -37,11 +37,12 @@ import org.modelio.uml.activitydiagram.editor.elements.clause.GmClause;
 @objid ("781803ea-6b10-461f-9d7a-e6609d5bdf06")
 public class ClauseDG extends DiagramNode {
     /**
+     *
      * @param diagramHandle The diagram manipulation class.
      * @param node The gm node represented by this class.
      */
     @objid ("749a21f6-747f-4a35-8a60-0e797367f0f9")
-    public  ClauseDG(DiagramHandle diagramHandle, GmNodeModel node) {
+    public ClauseDG(DiagramHandle diagramHandle, GmNodeModel node) {
         super(diagramHandle, node);
     }
 
@@ -54,7 +55,7 @@ public class ClauseDG extends DiagramNode {
         } else {
             return Collections.emptyList();
         }
-        
+
     }
 
     @objid ("cb990625-28e2-4ba0-a549-bb3b86f4a328")
@@ -65,7 +66,7 @@ public class ClauseDG extends DiagramNode {
         } else {
             return Collections.emptyList();
         }
-        
+
     }
 
 }

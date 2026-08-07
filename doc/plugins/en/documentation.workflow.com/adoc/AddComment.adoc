@@ -1,0 +1,40 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+// Hightlight code source and add the line number
+:source-highlighter: coderay
+:coderay-linenums-mode: table
+
+= Add a comment
+
+This command is only available on elements which have been registered in a workflow instance.
+The command allows for entering a comment for the element in its current workflow state without changing the state.
+
+The comment will be added to the element workflow history.
+
+=== Using the model browser popup menu command
+
+Select an eligible element in the model browser then execute the image:images/addcommenticon.png[addcommenticon.png] *Workflow > Add comment...* command.
+
+image::images/AddCommentCommand.png[AddCommentCommand.png]
+
+In the dialog carry out the following actions:
+
+1. Select a workflow instance (if the element has been added to several workflow instances otherwise the unique workflow instance is preselected)
+2. Enter the text of your comment.
+3. Validate by clicking  on "OK".
+
+
+=== Using the <<WorkflowUserPropertyView.adoc#,Workflow property view>>
+
+Select an eligible element then click on the image:images/addcommenticon.png[addcommenticon.png] *Add comment...* button.
+
+image::images/AddCommentButton.png[AddCommentButton.png]
+
+In the dialog carry out the following actions:
+
+1. Select a workflow instance (if the element has been added to several workflow instances otherwise the unique workflow instance is preselected)
+2. Enter the text of your comment.
+3. Validate by clicking  on "OK".

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.panel.data.standard.infrastructure;
 
@@ -50,15 +50,17 @@ public class ResourcePropertyModel extends AbstractPropertyModel<Resource> {
 
     /**
      * Instantiate the externResource type properties view.
+     *
      * @param theEditedElement the current externResource type.
      */
     @objid ("914c027a-2e29-482b-a9ff-8e4fc9051813")
-    public  ResourcePropertyModel(final Resource theEditedElement) {
+    public ResourcePropertyModel(final Resource theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * (non-Javadoc)
+     *
      * @see IPropertyModel#getColumnNumber()
      */
     @objid ("a7c3477b-4f57-4439-bcbc-69b1e21b8377")
@@ -69,6 +71,7 @@ public class ResourcePropertyModel extends AbstractPropertyModel<Resource> {
 
     /**
      * (non-Javadoc)
+     *
      * @see IPropertyModel#getRowsNumber()
      */
     @objid ("86b7e810-a43c-487d-906e-597f96d5d221")
@@ -79,6 +82,7 @@ public class ResourcePropertyModel extends AbstractPropertyModel<Resource> {
 
     /**
      * (non-Javadoc)
+     *
      * @see IPropertyModel#getValueAt(int, int)
      */
     @objid ("251f8f8a-8991-4c41-807e-3a1111a7e249")
@@ -98,13 +102,13 @@ public class ResourcePropertyModel extends AbstractPropertyModel<Resource> {
         default:
             return null;
         }
-        
+
     }
 
     /**
      * (non-Javadoc)
-     * @see IPropertyModel#getValueAt(int,
-     * int)
+     *
+     * @see IPropertyModel#getValueAt(int, int)
      */
     @objid ("8b095be3-1553-4500-bc1e-d61e506fda27")
     @Override
@@ -121,11 +125,11 @@ public class ResourcePropertyModel extends AbstractPropertyModel<Resource> {
                 final MMetamodel metamodel = context.getMClass().getMetamodel();
                 final MClass contextMetaclass = context.getMClass();
                 EList<Stereotype> contextStereotypes = context.getExtension();
-        
+
                 DefaultElementNatValue externResourceType = new DefaultElementNatValue((MObject) getValue(row, col), false,
                         Collections.singletonList(ResourceType.class));
                 externResourceType.setElementFilter(new IMObjectFilter() {
-        
+
                     @Override
                     public boolean accept(final MObject element) {
                         if (!(element instanceof ResourceType)) {
@@ -154,13 +158,13 @@ public class ResourcePropertyModel extends AbstractPropertyModel<Resource> {
         default:
             return null;
         }
-        
+
     }
 
     /**
      * (non-Javadoc)
-     * @see IPropertyModel#setValueAt(int,
-     * int, java.lang.Object)
+     *
+     * @see IPropertyModel#setValueAt(int, int, java.lang.Object)
      */
     @objid ("b7c725ff-58f2-405a-8c76-f86a5e7cefab")
     @Override
@@ -181,7 +185,7 @@ public class ResourcePropertyModel extends AbstractPropertyModel<Resource> {
         default:
             return;
         }
-        
+
     }
 
 }

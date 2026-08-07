@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.path;
 
@@ -56,6 +56,7 @@ public class RawPathData {
     private Point lastPoint;
 
     /**
+     *
      * @return the raw path
      */
     @objid ("8052cfc5-1dec-11e2-8cad-001ec947c8cc")
@@ -64,6 +65,7 @@ public class RawPathData {
     }
 
     /**
+     *
      * @return the routing mode
      */
     @objid ("8052cfce-1dec-11e2-8cad-001ec947c8cc")
@@ -73,6 +75,7 @@ public class RawPathData {
 
     /**
      * Set the routing mode.
+     *
      * @param routingMode the routing mode
      */
     @objid ("8052cfd3-1dec-11e2-8cad-001ec947c8cc")
@@ -82,6 +85,7 @@ public class RawPathData {
 
     /**
      * Set the point in the source figure.
+     *
      * @param srcPoint the source point.
      */
     @objid ("8052cfd8-1dec-11e2-8cad-001ec947c8cc")
@@ -91,6 +95,7 @@ public class RawPathData {
 
     /**
      * Get the point in the source figure.
+     *
      * @return the source point.
      */
     @objid ("8052cfdf-1dec-11e2-8cad-001ec947c8cc")
@@ -100,6 +105,7 @@ public class RawPathData {
 
     /**
      * Set the last point
+     *
      * @param lastPoint the last point.
      */
     @objid ("8052cfe6-1dec-11e2-8cad-001ec947c8cc")
@@ -109,6 +115,7 @@ public class RawPathData {
 
     /**
      * Returns the last point
+     *
      * @return the last point.
      */
     @objid ("8052cfed-1dec-11e2-8cad-001ec947c8cc")
@@ -120,12 +127,12 @@ public class RawPathData {
     @Override
     public String toString() {
         if (DiagramElements.LOG.isDebugEnabled()) {
-            return String.format("(%s - src=%s last=%s  path=%s\n", 
+            return String.format("(%s - src=%s last=%s  path=%s\n",
                     this.routingMode, this.srcPoint, this.lastPoint, this.path);
         } else {
             return super.toString();
         }
-        
+
     }
 
 }

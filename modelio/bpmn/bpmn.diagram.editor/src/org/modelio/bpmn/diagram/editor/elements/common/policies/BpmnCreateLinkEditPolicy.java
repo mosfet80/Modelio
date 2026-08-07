@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.common.policies;
 
@@ -57,19 +57,21 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class BpmnCreateLinkEditPolicy extends DefaultCreateLinkEditPolicy {
     /**
      * Default c'tor: creates an opaque instance of this policy.
+     *
      * @see #DefaultCreateLinkEditPolicy(boolean)
      */
     @objid ("6405e04f-a7b8-4a89-a50a-7d596c683dc0")
-    public  BpmnCreateLinkEditPolicy() {
+    public BpmnCreateLinkEditPolicy() {
         super(true);
     }
 
     /**
      * C'tor.
+     *
      * @param isOpaque determines the behavior of this policy on request where the creation expert doesn't allow.
      */
     @objid ("89f77598-7580-4d96-92ac-f5d75bb62162")
-    public  BpmnCreateLinkEditPolicy(boolean isOpaque) {
+    public BpmnCreateLinkEditPolicy(boolean isOpaque) {
         super(isOpaque);
     }
 
@@ -83,7 +85,7 @@ public class BpmnCreateLinkEditPolicy extends DefaultCreateLinkEditPolicy {
             if (context != null && context.getElementToUnmask() == null && BpmnMessageFlow.class.equals(context.getMetaclass().getJavaInterface())) {
                 GmModel sourceGm = ((GmModel) req.getSourceEditPart().getModel());
                 GmModel targetGm = ((GmModel) getHost().getModel());
-        
+
                 return new BpmnMessageFlowChooseEndCommand(ret, sourceGm, targetGm, context.getMetaclass());
             }
         }
@@ -111,50 +113,50 @@ public class BpmnCreateLinkEditPolicy extends DefaultCreateLinkEditPolicy {
         private MClass linkMClass;
 
         @objid ("3b823603-1ec5-4cb2-9074-951c3bce6137")
-        public  BpmnMessageFlowChooseEndCommand(DefaultCreateLinkCommand baseCommand, GmModel sourceGm, GmModel targetGm, MClass linkMClass) {
+        public BpmnMessageFlowChooseEndCommand(DefaultCreateLinkCommand baseCommand, GmModel sourceGm, GmModel targetGm, MClass linkMClass) {
             this.baseCommand = baseCommand;
             this.sourceGm = sourceGm;
             this.targetGm = targetGm;
             this.linkMClass = linkMClass;
-            
+
         }
 
         @objid ("e6c70104-3868-4a2d-a407-45ee997e25ae")
         @Override
         public void execute() {
             MExpert mExpert = this.linkMClass.getMetamodel().getMExpert();
-            
+
             // Choose from the candidates
             List<BpmnBaseElement> sourceCandidates = getCandidates(this.sourceGm, source -> mExpert.canSource(this.linkMClass, source.getMClass()));
             List<BpmnBaseElement> targetCandidates = getCandidates(this.targetGm, target -> mExpert.canTarget(this.linkMClass, target.getMClass()));
             MessageFlowSolverDataModel dataModel = new MessageFlowSolverDataModel(sourceCandidates.get(0), sourceCandidates, targetCandidates.get(0), targetCandidates);
-            
+
             MessageFlowSolverDialog dlg = new MessageFlowSolverDialog(null, dataModel);
             dlg.setBlockOnOpen(true);
             if ((sourceCandidates.size() == 1 && targetCandidates.size() == 1) || (dlg.open() == IDialogConstants.OK_ID)) {
                 // Execute base command
                 this.baseCommand.execute();
                 IGmLink gmMessageFlow = this.baseCommand.getCreatedGraphicModel();
-            
+
                 BpmnBaseElement chosenSource = dataModel.getSelectedSource();
                 BpmnBaseElement chosenTarget = dataModel.getSelectedTarget();
-            
+
                 // Set new source and target
                 BpmnMessageFlow messageFlow = (BpmnMessageFlow) gmMessageFlow.getRepresentedElement();
                 messageFlow.setSourceRef(chosenSource);
                 messageFlow.setTargetRef(chosenTarget);
                 messageFlow.setName(dataModel.getMessageFlowName());
-            
+
                 // Set owner
                 IGmDiagram diagram = this.sourceGm.getDiagram();
                 while (diagram.getDiagramOwner() != null) {
                     diagram = diagram.getDiagramOwner();
                 }
-            
+
                 BpmnCollaboration collaboration = (BpmnCollaboration) diagram.getRelatedElement().getOrigin();
                 messageFlow.setCollaboration(collaboration);
             }
-            
+
         }
 
         @objid ("bf5310e6-51cd-4fd2-88b1-4d88097ba6c9")
@@ -166,16 +168,16 @@ public class BpmnCreateLinkEditPolicy extends DefaultCreateLinkEditPolicy {
         @objid ("c570d59a-0c58-48a1-8a91-131f54f29bf9")
         private List<BpmnBaseElement> getCandidates(GmModel gm, Predicate<BpmnFlowElement> predicate) {
             List<BpmnBaseElement> candidates = new ArrayList<>();
-            
+
             // Given element is always a candidate
             MObject relatedElement = gm.getRelatedElement();
             candidates.add((BpmnBaseElement) relatedElement);
-            
+
             if (gm.getRepresentationMode() == RepresentationMode.SIMPLE) {
                 if (relatedElement instanceof BpmnParticipant) {
                     // For a participant, get the process' flow elements
                     BpmnParticipant participant = (BpmnParticipant) relatedElement;
-            
+
                     BpmnProcess process = participant.getProcess();
                     if (process != null) {
                         for (BpmnFlowElement flowElement : process.getFlowElement()) {

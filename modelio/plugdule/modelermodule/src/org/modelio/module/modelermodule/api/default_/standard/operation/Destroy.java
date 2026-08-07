@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class Destroy {
      * Tells whether a {@link Destroy proxy} can be instantiated from a {@link MObject} checking it is a {@link Operation} stereotyped << destroy >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,7 +73,7 @@ public class Destroy {
 
     /**
      * Create a new {@link Operation} stereotyped << destroy >> then instantiate a {@link Destroy} proxy.
-     * 
+     *
      * @return a {@link Destroy} proxy on the created {@link Operation}.
      */
     @objid ("60b6cc66-8cba-4892-951d-f26b4a3d9164")
@@ -83,9 +84,10 @@ public class Destroy {
     }
 
     /**
-     * Tries to instantiate a {@link Destroy} proxy from a {@link Operation} stereotyped << destroy >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link Destroy} proxy from a {@link Operation} stereotyped << destroy >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a Operation
      * @return a {@link Destroy} proxy or <i>null</i>.
      */
@@ -95,9 +97,10 @@ public class Destroy {
     }
 
     /**
-     * Tries to instantiate a {@link Destroy} proxy from a {@link Operation} stereotyped << destroy >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link Destroy} proxy from a {@link Operation} stereotyped << destroy >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link Operation}
      * @return a {@link Destroy} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -127,7 +130,8 @@ public class Destroy {
     }
 
     /**
-     * Get the underlying {@link Operation}. 
+     * Get the underlying {@link Operation}.
+     *
      * @return the Operation represented by this proxy, never null.
      */
     @objid ("a61e99b5-c0ac-42b8-a29b-35c7364f26ef")
@@ -139,11 +143,11 @@ public class Destroy {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("f1297261-426d-445a-ad5b-1fbdaef911f4")
-    protected  Destroy(Operation elt) {
+    protected Destroy(Operation elt) {
         this.elt = elt;
     }
 
@@ -163,7 +167,7 @@ public class Destroy {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "00700680-0000-0206-0000-000000000000");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -171,7 +175,7 @@ public class Destroy {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

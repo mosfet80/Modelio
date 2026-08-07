@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.uml.statik;
 
@@ -26,19 +26,18 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * PassingMode v0.0.9054
- * 
- * 
+ *
+ *
  * null
- * 
- * 
+ *
  */
 @objid ("005a729c-91e0-1f74-804b-001ec947cd2a")
 public enum PassingMode {
-    @objid ("cf8638c7-b4c2-4619-a9c5-6e51fc514179")
+    @objid ("2811c97a-7619-4521-a75d-dde4cf400441")
     IN(0, "In", "In"),
-    @objid ("e3df32c6-baf4-4187-bade-00e1ebd59f36")
+    @objid ("dfc5c641-2d06-4c78-bc3a-b4d78ee6554c")
     OUT(1, "Out", "Out"),
-    @objid ("6505c574-8e79-497b-b48a-92cdaa21908f")
+    @objid ("12527776-16f6-4266-aeaa-04d0b0eb3f58")
     INOUT(2, "Inout", "Inout");
 
 public static final int IN_VALUE = 0;
@@ -98,5 +97,5 @@ public static final int IN_VALUE = 0;
     public String toString() {
        return literal;
     }
-    
+
 }

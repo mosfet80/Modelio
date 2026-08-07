@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.diagramauto.diagram;
 
@@ -44,15 +44,15 @@ public class DiagramStyleHandle implements IStyleHandle {
     }
 
     @objid ("419b7bfe-4d6f-465f-9d67-946b04aa21ce")
-    public  DiagramStyleHandle(final String name) {
+    public DiagramStyleHandle(final String name) {
         this(DiagramStyles.getStyleManager().getStyle(name));
     }
 
     @objid ("301537ae-bf62-4f31-a756-41e46dec6833")
-    public  DiagramStyleHandle(final NamedStyle style) {
+    public DiagramStyleHandle(final NamedStyle style) {
         this.style = style;
         this.name = style.getName();
-        
+
     }
 
     @objid ("fa6c55d1-50a1-4bd3-8af9-74331d10eab6")

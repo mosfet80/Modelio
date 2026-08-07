@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.modelio.model.scope;
 
@@ -43,6 +43,7 @@ public class StereotypeSpecReader {
      * <li> <i>module regex<b>#</b>stereotype regex</i>
      * </ul>
      * Returns <i>null</i> if the specification is <i>null</i> or the stereotype is not found.
+     *
      * @param session the modeling session
      * @param metaclass the metaclass to look from
      * @param stereotypeSpec the stereotype specification
@@ -53,16 +54,16 @@ public class StereotypeSpecReader {
         if (stereotypeSpec == null) {
             return null;
         }
-        
+
         if (stereotypeSpec.contains("#")) {
             String moduleName = stereotypeSpec.substring(0, stereotypeSpec.indexOf("#"));
             String stereotypeName = stereotypeSpec.substring(stereotypeSpec.indexOf("#") + 1, stereotypeSpec.length());
-        
+
             return session.getMetamodelExtensions().getStereotype(moduleName, stereotypeName, metaclass);
         } else {
             return session.getMetamodelExtensions().getStereotype(stereotypeSpec, metaclass);
         }
-        
+
     }
 
 }

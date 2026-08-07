@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures.borders;
 
@@ -25,6 +25,9 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.draw2d.geometry.PrecisionRectangle;
+import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.modelio.diagram.elements.core.figures.ZoomDrawer;
 
@@ -51,24 +54,26 @@ public class TLBRBorder extends LineBorder {
      * Default C'tor. Create a border with all sides visible, default color and width of 1.
      */
     @objid ("7f646493-1dec-11e2-8cad-001ec947c8cc")
-    public  TLBRBorder() {
+    public TLBRBorder() {
         this(true, true, true, true);
     }
 
     /**
      * C'tor that allows to specify which sides are visible. Uses default color and width of 1.
+     *
      * @param drawTop true if top side should be drawn
      * @param drawLeft true if left side should be drawn
      * @param drawBottom true if bottom side should be drawn
      * @param drawRight true if right side should be drawn
      */
     @objid ("7f646496-1dec-11e2-8cad-001ec947c8cc")
-    public  TLBRBorder(final boolean drawTop, final boolean drawLeft, final boolean drawBottom, final boolean drawRight) {
+    public TLBRBorder(final boolean drawTop, final boolean drawLeft, final boolean drawBottom, final boolean drawRight) {
         this(1, drawTop, drawLeft, drawBottom, drawRight);
     }
 
     /**
      * C'tor that allows to specify the line width and which sides are visible. Uses default color.
+     *
      * @param width the width of the border in pixels
      * @param drawTop true if top side should be drawn
      * @param drawLeft true if left side should be drawn
@@ -76,12 +81,13 @@ public class TLBRBorder extends LineBorder {
      * @param drawRight true if right side should be drawn
      */
     @objid ("7f6464a1-1dec-11e2-8cad-001ec947c8cc")
-    public  TLBRBorder(final int width, final boolean drawTop, final boolean drawLeft, final boolean drawBottom, final boolean drawRight) {
+    public TLBRBorder(final int width, final boolean drawTop, final boolean drawLeft, final boolean drawBottom, final boolean drawRight) {
         this(null, width, drawTop, drawLeft, drawBottom, drawRight);
     }
 
     /**
      * C'tor that allows to specify the line color, the line width and which sides are visible.
+     *
      * @param color the color of the border
      * @param width the width of the border in pixels
      * @param drawTop true if top side should be drawn
@@ -90,61 +96,113 @@ public class TLBRBorder extends LineBorder {
      * @param drawRight true if right side should be drawn
      */
     @objid ("7f6464ae-1dec-11e2-8cad-001ec947c8cc")
-    public  TLBRBorder(final Color color, final int width, final boolean drawTop, final boolean drawLeft, final boolean drawBottom, final boolean drawRight) {
+    public TLBRBorder(final Color color, final int width, final boolean drawTop, final boolean drawLeft, final boolean drawBottom, final boolean drawRight) {
         super(color, width);
         this.drawTop = drawTop;
         this.drawLeft = drawLeft;
         this.drawBottom = drawBottom;
         this.drawRight = drawRight;
-        
     }
 
     @objid ("7f6464bd-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void paint(final IFigure figure, final Graphics graphics, final Insets insets) {
-        AbstractBorder.tempRect = getPaintRectangle(figure, insets);
         final int lineWidth = getWidth();
-        if (lineWidth % 2 != 0) {
-            AbstractBorder.tempRect.width--;
-            AbstractBorder.tempRect.height--;
+        Rectangle outRect = new Rectangle(getPaintRectangle(figure, insets));
+        outRect.resize(-1, -1);
+        if (false) {
+            // debug rectangle
+            graphics.setForegroundColor(graphics.getBackgroundColor().getDevice().getSystemColor(SWT.COLOR_RED));
+            graphics.drawRectangle(outRect);
         }
-        
-        ZoomDrawer.setLineWidth(graphics, lineWidth);
-        
+
+        Rectangle paintRect = new Rectangle(outRect);
+
+
+        if (false) {
+            // does not work better ;-(
+            //ZoomDrawer.setLineWidth(graphics, lineWidth);
+            ZoomDrawer.setLineWidth(graphics, lineWidth, paintRect);
+
+            graphics.setBackgroundColor(getColor());
+            if (this.drawTop) {
+                graphics.fillRectangle(paintRect.x(), paintRect.y, paintRect.width, lineWidth);
+            }
+            if (this.drawLeft) {
+                graphics.fillRectangle(paintRect.x(), paintRect.y, lineWidth, paintRect.height());
+            }
+            if (this.drawBottom) {
+                graphics.fillRectangle(paintRect.x(), paintRect.bottom()-lineWidth, paintRect.width(), lineWidth);
+
+            }
+            if (this.drawRight) {
+                graphics.fillRectangle(paintRect.right()-lineWidth, paintRect.y, lineWidth, paintRect.height());
+            }
+            return;
+        }
+
+        boolean ARCHI_MODE = true;
+        // Compute rectangular border
+        // Same as AbstractBorder.tempRect.shrink(lineWidth / 2, lineWidth / 2),
+        // But works better with odd width and scaled graphics
+        if (!ARCHI_MODE) {
+            paintRect.resize(-lineWidth , -lineWidth );
+            graphics.translate(+lineWidth / 2.0f, +lineWidth / 2.0f);
+            outRect.translate(-lineWidth / 2.0f, -lineWidth / 2.0f); // compensate graphics translation
+        }
+
+        if (false) {
+            // debug rectangle
+            graphics.setForegroundColor(graphics.getBackgroundColor().getDevice().getSystemColor(SWT.COLOR_DARK_RED));
+            graphics.drawRectangle(paintRect);
+        }
+
+        if (ARCHI_MODE) {
+            ZoomDrawer.setLineWidth(graphics, lineWidth, paintRect);
+        } else {
+            ZoomDrawer.setLineWidth(graphics, lineWidth);
+        }
+
+
         graphics.setLineStyle(getStyle());
+        graphics.setLineCap(SWT.CAP_SQUARE);
         if (getColor() != null) {
             graphics.setForegroundColor(getColor());
         }
-        
-        // Compute rectangular border just like in LineBorder
-        tempRect.shrink(lineWidth / 2, lineWidth / 2);
-        
+
+        //if (true) return;
+
+        if (this.drawTop && this.drawBottom && this.drawLeft && this.drawRight) {
+            // If all sides are drawn, just draw the rectangle
+            //paintRect.resize(+1, +1);
+
+            graphics.drawRectangle(paintRect);
+            //graphics.drawRectangle(new PrecisionRectangle(paintRect));
+            return;
+        }
+
         // Only draw selected segments of tempRect rectangle
         if (this.drawTop) {
-            // graphics.drawLine(AbstractBorder.tempRect.x, AbstractBorder.tempRect.y + halfLineWidth, AbstractBorder.tempRect.right(), AbstractBorder.tempRect.y + halfLineWidth);
-            graphics.drawLine(AbstractBorder.tempRect.x - lineWidth / 2, AbstractBorder.tempRect.y,
-                    AbstractBorder.tempRect.right() + lineWidth / 2, AbstractBorder.tempRect.y);
+            //graphics.drawLine(outRect.x() , paintRect.y(), outRect.right() , paintRect.y());
+            graphics.drawLine(paintRect.x() , paintRect.y(), paintRect.right(), paintRect.y());
         }
         if (this.drawLeft) {
-            // graphics.drawLine(AbstractBorder.tempRect.x + halfLineWidth, AbstractBorder.tempRect.y, AbstractBorder.tempRect.x + halfLineWidth, AbstractBorder.tempRect.bottom() + lineWidth);
-            graphics.drawLine(AbstractBorder.tempRect.x, AbstractBorder.tempRect.y,
-                    AbstractBorder.tempRect.x, AbstractBorder.tempRect.bottom() + lineWidth / 2);
+            //graphics.drawLine(paintRect.x(), paintRect.y(), paintRect.x(), outRect.bottom() );
+            graphics.drawLine(paintRect.x(), paintRect.y(), paintRect.x(), paintRect.bottom() );
         }
         if (this.drawBottom) {
-            // graphics.drawLine(AbstractBorder.tempRect.x, AbstractBorder.tempRect.bottom() - halfLineWidth, AbstractBorder.tempRect.right(), AbstractBorder.tempRect.bottom() - halfLineWidth);
-            graphics.drawLine(AbstractBorder.tempRect.x, AbstractBorder.tempRect.bottom(),
-                    AbstractBorder.tempRect.right(), AbstractBorder.tempRect.bottom());
+            //graphics.drawLine(paintRect.x(), paintRect.bottom(), paintRect.right(), paintRect.bottom());
+            graphics.drawLine(paintRect.x(), paintRect.bottom(), paintRect.right(), paintRect.bottom());
         }
         if (this.drawRight) {
-            // graphics.drawLine(AbstractBorder.tempRect.right() - halfLineWidth, AbstractBorder.tempRect.y, AbstractBorder.tempRect.right() - halfLineWidth, AbstractBorder.tempRect.bottom() + halfLineWidth);
-            graphics.drawLine(AbstractBorder.tempRect.right(), AbstractBorder.tempRect.y,
-                    AbstractBorder.tempRect.right(), AbstractBorder.tempRect.bottom() + lineWidth / 2);
+            //graphics.drawLine(paintRect.right(), paintRect.y(), paintRect.right(), outRect.bottom() );
+            graphics.drawLine(paintRect.right(), paintRect.y(), paintRect.right(), paintRect.bottom() );
         }
-        
     }
 
     /**
      * Changes whether the top side should be drawn or not.
+     *
      * @param drawTop true if the top side should be drawn.
      */
     @objid ("7f6464cc-1dec-11e2-8cad-001ec947c8cc")
@@ -154,6 +212,7 @@ public class TLBRBorder extends LineBorder {
 
     /**
      * Changes whether the left side should be drawn or not.
+     *
      * @param drawLeft true if the left side should be drawn.
      */
     @objid ("7f66c6e7-1dec-11e2-8cad-001ec947c8cc")
@@ -163,6 +222,7 @@ public class TLBRBorder extends LineBorder {
 
     /**
      * Changes whether the bottom side should be drawn or not.
+     *
      * @param drawBottom true if the bottom side should be drawn.
      */
     @objid ("7f66c6ec-1dec-11e2-8cad-001ec947c8cc")
@@ -172,6 +232,7 @@ public class TLBRBorder extends LineBorder {
 
     /**
      * Changes whether the right side should be drawn or not.
+     *
      * @param drawRight true if the right side should be drawn.
      */
     @objid ("7f66c6f1-1dec-11e2-8cad-001ec947c8cc")
@@ -197,7 +258,7 @@ public class TLBRBorder extends LineBorder {
         if (this.drawRight) {
             builder.append(" right");
         }
-        
+
         builder.append(", ");
         builder.append("color=");
         builder.append(getColor());
@@ -231,12 +292,23 @@ public class TLBRBorder extends LineBorder {
     @objid ("cc73de61-55b6-4a9f-8087-3e6b55aa34c8")
     @Override
     public Insets getInsets(IFigure figure) {
+        int lwidth = getWidth();
+        double scale = ZoomDrawer.getFigureScale(figure);
+
+        if (false && scale != 1.0) {
+            //lwidth = (int) Math.ceil(lwidth + 0.5);
+            if (lwidth % 2 != 0) {
+                // Make sure the line width is even, so that the border is centered on the figure bounds.
+                lwidth++;
+            }
+        }
+
+
         return new Insets(
-                hasDrawnTop() ? getWidth() : 0,
-                hasDrawnLeft() ? getWidth() : 0,
-                hasDrawnBottom() ? getWidth() : 0,
-                hasDrawnRight() ? getWidth() : 0);
-        
+                hasDrawnTop() ? lwidth : 0,
+                hasDrawnLeft() ? lwidth : 0,
+                hasDrawnBottom() ? lwidth : 0,
+                hasDrawnRight() ? lwidth : 0);
     }
 
 }

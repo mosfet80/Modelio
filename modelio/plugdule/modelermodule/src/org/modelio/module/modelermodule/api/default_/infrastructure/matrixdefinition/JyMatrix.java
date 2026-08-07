@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class JyMatrix {
      * Tells whether a {@link JyMatrix proxy} can be instantiated from a {@link MObject} checking it is a {@link MatrixDefinition} stereotyped << JyMatrix >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,7 +73,7 @@ public class JyMatrix {
 
     /**
      * Create a new {@link MatrixDefinition} stereotyped << JyMatrix >> then instantiate a {@link JyMatrix} proxy.
-     * 
+     *
      * @return a {@link JyMatrix} proxy on the created {@link MatrixDefinition}.
      */
     @objid ("d7df0721-243f-4066-9219-51f4ffc2bbd4")
@@ -83,9 +84,10 @@ public class JyMatrix {
     }
 
     /**
-     * Tries to instantiate a {@link JyMatrix} proxy from a {@link MatrixDefinition} stereotyped << JyMatrix >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link JyMatrix} proxy from a {@link MatrixDefinition} stereotyped << JyMatrix >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a MatrixDefinition
      * @return a {@link JyMatrix} proxy or <i>null</i>.
      */
@@ -95,9 +97,10 @@ public class JyMatrix {
     }
 
     /**
-     * Tries to instantiate a {@link JyMatrix} proxy from a {@link MatrixDefinition} stereotyped << JyMatrix >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link JyMatrix} proxy from a {@link MatrixDefinition} stereotyped << JyMatrix >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link MatrixDefinition}
      * @return a {@link JyMatrix} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -127,7 +130,8 @@ public class JyMatrix {
     }
 
     /**
-     * Get the underlying {@link MatrixDefinition}. 
+     * Get the underlying {@link MatrixDefinition}.
+     *
      * @return the MatrixDefinition represented by this proxy, never null.
      */
     @objid ("c5ed038a-6f0b-49e6-9d37-4a2c4d860bca")
@@ -139,11 +143,11 @@ public class JyMatrix {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("3772eb70-a5cf-466c-9a29-5bb5b4224008")
-    protected  JyMatrix(MatrixDefinition elt) {
+    protected JyMatrix(MatrixDefinition elt) {
         this.elt = elt;
     }
 
@@ -163,7 +167,7 @@ public class JyMatrix {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "72ada667-0b7f-4421-bd69-9b037642ed87");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -171,7 +175,7 @@ public class JyMatrix {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

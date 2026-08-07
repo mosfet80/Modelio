@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.activities;
 
@@ -86,7 +86,7 @@ public class AdHocSubProcessNode implements IProductionNode<BpmnAdHocSubProcess,
         } else {
             return factory.create(BpmnAdHocSubProcess.class, context);
         }
-        
+
     }
 
     @objid ("8a82ee6e-fbc7-4f7f-bae2-50a79b56896c")
@@ -98,7 +98,7 @@ public class AdHocSubProcessNode implements IProductionNode<BpmnAdHocSubProcess,
         } else if (context instanceof BpmnSubProcess) {
             ((BpmnSubProcess) context).getFlowElement().add(modelioElement);
         }
-        
+
         // Group
         if (jaxbElement.getCategoryValueRef() != null) {
             for (QName jaxGroupRef : jaxbElement.getCategoryValueRef()) {
@@ -108,26 +108,26 @@ public class AdHocSubProcessNode implements IProductionNode<BpmnAdHocSubProcess,
                 }
             }
         }
-        
+
         // Set properties
         if (jaxbElement.getName() != null) {
             modelioElement.setName(StringConvertor.imports(jaxbElement.getName()));
         }
-        
+
         if (jaxbElement.getCompletionQuantity() != null) {
             modelioElement.setCompletionQuantity(jaxbElement.getCompletionQuantity().intValue());
         }
-        
+
         if (jaxbElement.getStartQuantity() != null) {
             modelioElement.setStartQuantity(jaxbElement.getStartQuantity().intValue());
         }
-        
+
         modelioElement.setIsForCompensation(jaxbElement.isIsForCompensation());
-        
+
         modelioElement.setTriggeredByEvent(jaxbElement.isTriggeredByEvent());
-        
+
         modelioElement.setIsForCompensation(jaxbElement.isIsForCompensation());
-        
+
         if (jaxbElement.getOrdering() != null) {
             if (jaxbElement.getOrdering() == TAdHocOrdering.PARALLEL) {
                 modelioElement.setOrdering(AdHocOrdering.PARALLELORDERING);
@@ -135,9 +135,9 @@ public class AdHocSubProcessNode implements IProductionNode<BpmnAdHocSubProcess,
                 modelioElement.setOrdering(AdHocOrdering.SEQUENTIALORDERING);
             }
         }
-        
+
         modelioElement.setCancelRemainingInstances(jaxbElement.isCancelRemainingInstances());
-        
+
         if (jaxbElement.getCompletionCondition() != null) {
             String condition = "";
             for (Serializable val : jaxbElement.getCompletionCondition().getContent()) {
@@ -145,7 +145,7 @@ public class AdHocSubProcessNode implements IProductionNode<BpmnAdHocSubProcess,
             }
             modelioElement.setCompletionCondition(condition);
         }
-        
+
         // Default Flow
         if (jaxbElement.getDefault() != null && jaxbElement.getDefault() instanceof TSequenceFlow) {
             BpmnSequenceFlow flow = (BpmnSequenceFlow) this.elementsMap.get(((TSequenceFlow) jaxbElement.getDefault()).getId());
@@ -161,7 +161,7 @@ public class AdHocSubProcessNode implements IProductionNode<BpmnAdHocSubProcess,
     public TAdHocSubProcess createJaxbElement(Object context, BpmnAdHocSubProcess modelioElement) {
         // Create JaxbElement
         TAdHocSubProcess jaxTask = new TAdHocSubProcess();
-        
+
         // Add to context
         ObjectFactory factory = new ObjectFactory();
         if (context instanceof TProcess) {
@@ -171,7 +171,7 @@ public class AdHocSubProcessNode implements IProductionNode<BpmnAdHocSubProcess,
             List<JAXBElement<? extends TFlowElement>> jaxContent = ((TSubProcess) context).getFlowElement();
             jaxContent.add(factory.createAdHocSubProcess(jaxTask));
         }
-        
+
         jaxTask.setId(IDUtils.formatJaxbID(modelioElement));
         return jaxTask;
     }
@@ -180,19 +180,19 @@ public class AdHocSubProcessNode implements IProductionNode<BpmnAdHocSubProcess,
     @Override
     public TAdHocSubProcess updateJaxbElement(Object context, TAdHocSubProcess jaxTask, BpmnAdHocSubProcess modelioElement) {
         jaxTask.setName(modelioElement.getName());
-        
+
         if (modelioElement.getCompletionQuantity() != 0) {
             jaxTask.setCompletionQuantity(BigInteger.valueOf(modelioElement.getCompletionQuantity()));
         }
-        
+
         if (modelioElement.getStartQuantity() != 0) {
             jaxTask.setStartQuantity(BigInteger.valueOf(modelioElement.getStartQuantity()));
         }
-        
+
         jaxTask.setIsForCompensation(modelioElement.isIsForCompensation());
-        
+
         jaxTask.setTriggeredByEvent(modelioElement.isTriggeredByEvent());
-        
+
         if (modelioElement.getOrdering() != null) {
             if (modelioElement.getOrdering() == AdHocOrdering.PARALLELORDERING) {
                 jaxTask.setOrdering(TAdHocOrdering.PARALLEL);
@@ -200,15 +200,15 @@ public class AdHocSubProcessNode implements IProductionNode<BpmnAdHocSubProcess,
                 jaxTask.setOrdering(TAdHocOrdering.SEQUENTIAL);
             }
         }
-        
+
         jaxTask.setCancelRemainingInstances(modelioElement.isCancelRemainingInstances());
-        
+
         if (!"".equals(modelioElement.getCompletionCondition())) {
             TExpression expression = new TExpression();
             expression.getContent().add(modelioElement.getCompletionCondition());
             jaxTask.setCompletionCondition(expression);
         }
-        
+
         // Default Flow
         if (modelioElement.getDefaultFlow() != null) {
             Object target = this.elementsMap.get(modelioElement.getDefaultFlow().getUuid());

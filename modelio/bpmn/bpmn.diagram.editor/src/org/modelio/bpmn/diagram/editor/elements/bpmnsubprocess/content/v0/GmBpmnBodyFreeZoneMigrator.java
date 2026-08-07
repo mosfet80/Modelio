@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnsubprocess.content.v0;
 
@@ -54,7 +54,7 @@ public class GmBpmnBodyFreeZoneMigrator implements IPersistentMigrator {
             return null;
         }
         }
-        
+
     }
 
     @objid ("24b9b23e-f968-4da3-af94-9160ece4da55")
@@ -76,6 +76,7 @@ public class GmBpmnBodyFreeZoneMigrator implements IPersistentMigrator {
      * Else, if the migration takes place in a sub process diagram "X" and the sub process being migrated is X's owner,<br/>
      * said sub process is masked and its contents transfered into the diagram itself, therefore avoiding potential infinite loops.
      * </p>
+     *
      * @param oldGmBody the gm being migrated.
      * @return the migrated gm, replacing the given one. Might be <code>null</code>.
      */
@@ -90,7 +91,7 @@ public class GmBpmnBodyFreeZoneMigrator implements IPersistentMigrator {
         } else {
             return migrateToSubProcessContent(oldGmBody, diagram, subProcess);
         }
-        
+
     }
 
     /**
@@ -100,20 +101,20 @@ public class GmBpmnBodyFreeZoneMigrator implements IPersistentMigrator {
     private void migrateToDiagram(final GmBpmnBodyFreeZone oldGmBody, GmBpmnSubProcessDiagram diagram) {
         // Refresh the diagram to make it create its workflow
         diagram.refreshFromObModel();
-        
+
         GmWorkflow newBody = new GmWorkflow(diagram, diagram.getRepresentedRef());
         newBody.setRoleInComposition(GmBpmnSubProcessDiagram.ROLE_BODY);
         diagram.addChild(newBody);
-        
+
         // Move children into the workflow
         for (GmNodeModel ownedNode : oldGmBody.getChildren()) {
             oldGmBody.removeChild(ownedNode);
             newBody.addChild(ownedNode);
         }
-        
+
         // Migration is done, delete old gm
         oldGmBody.delete();
-        
+
     }
 
     /**
@@ -126,19 +127,19 @@ public class GmBpmnBodyFreeZoneMigrator implements IPersistentMigrator {
         List<BpmnSubProcessDiagram> processdiags = subProcess.getProduct(BpmnSubProcessDiagram.class);
         if (!processdiags.isEmpty()) {
             spd = processdiags.get(0);
-        
+
             // Create new GM
             GmBpmnSubProcessContent newGmBody = new GmBpmnSubProcessContent(diagram, spd, new MRef(spd));
             newGmBody.setRoleInComposition(GmBpmnSubProcessPrimaryNode.ROLE_BODY);
-        
+
             if (!oldGmBody.getChildren().isEmpty()) {
                 newGmBody.setVisible(true);
             }
-        
+
             // Move children to the new GM
             for (GmNodeModel ownedNode : oldGmBody.getChildren()) {
                 oldGmBody.removeChild(ownedNode);
-        
+
                 GmCompositeNode compositeFor = newGmBody.getCompositeFor(ownedNode.getRepresentedElement().getClass());
                 if (compositeFor != null) {
                     compositeFor.addChild(ownedNode);
@@ -146,7 +147,7 @@ public class GmBpmnBodyFreeZoneMigrator implements IPersistentMigrator {
                     ownedNode.delete();
                 }
             }
-        
+
             // Migration is done, delete old gm
             oldGmBody.delete();
             return newGmBody;
@@ -155,7 +156,7 @@ public class GmBpmnBodyFreeZoneMigrator implements IPersistentMigrator {
             oldGmBody.delete();
             return null;
         }
-        
+
     }
 
 }

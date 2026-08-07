@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.deploymentdiagram.editor.elements.factories;
 
@@ -63,14 +63,14 @@ public final class DeploymentEditPartFactory implements EditPartFactory {
             default:
                 editPart = null; // generically supported by standard factory
             }
-        
+
             return editPart;
         } else {
             // Link models are always in structured mode.
             editPart = this.structuredModeEditPartFactory.createEditPart(context, model);
             return editPart;
         }
-        
+
     }
 
     /**
@@ -84,43 +84,43 @@ public final class DeploymentEditPartFactory implements EditPartFactory {
         @Override
         public EditPart createEditPart(EditPart context, Object model) {
             EditPart editPart = null;
-            
+
             if (model.getClass() == GmArtifact.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmArtifactPrimaryNode.class) {
                 editPart = new ArtifactEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmDeploymentDiagram.class) {
                 editPart = new DeploymentDiagramEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmManifestation.class) {
                 editPart = new ManifestationEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmNode.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmNodePrimaryNode.class) {
                 editPart = new NodeEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // not found
             return null;
         }

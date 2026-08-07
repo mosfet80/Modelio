@@ -1,28 +1,28 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.ui;
 
 import java.lang.management.MemoryUsage;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.di.annotations.Creatable;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.EventTopic;
@@ -51,7 +51,7 @@ public class ApplicationTitleUpdater implements IMemoryEventListener {
     void applicationIsThere(@Optional final MApplication application) {
         this.swapping = false;
         updateShellTitle(application, null);
-        
+
     }
 
     @objid ("0044c14a-cc35-1ff2-a7f4-001ec947cd2a")
@@ -86,24 +86,24 @@ public class ApplicationTitleUpdater implements IMemoryEventListener {
         if (appShell == null) {
             return;
         }
-        
+
         final StringBuilder buffer = new StringBuilder();
-        
+
         if (project != null) {
             buffer.append(project.getName());
             buffer.append(" - ");
         }
         final ModelioEnv modelioEnv = application.getContext().get(ModelioEnv.class);
-        
+
         buffer.append(ApplicationTitleUpdater.MODELIO);
         buffer.append(" " + modelioEnv.getVersion().getMajorVersion() + "." + modelioEnv.getVersion().getMinorVersion());
-        
+
         if (this.swapping) {
             buffer.append(" (...)");
         }
-        
+
         appShell.setLabel(buffer.toString());
-        
+
     }
 
     @objid ("b2924121-5a1d-425a-82ce-08a55fa26f0a")

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -45,80 +44,79 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("d1292d23-82a1-4c79-bd74-1817c49e9708")
 public class ConditionalNodeSmClass extends StructuredActivityNodeSmClass {
-    @objid ("5e016470-b85c-43ec-b28e-3815f355c6c9")
+    @objid ("7319066e-cd91-4d38-9ad8-ed0fdc72b78c")
     private SmAttribute isDeterminateAtt;
 
-    @objid ("109bcd26-0dfd-4f96-9814-f09530829060")
+    @objid ("b8265e18-88a8-43d0-92a1-a7a541ef29d9")
     private SmAttribute isAssuredAtt;
 
-    @objid ("0de3660f-f774-497e-a31a-1757154b0f52")
+    @objid ("0bbeb93f-99cd-4692-8341-c8d1449de3ff")
     private SmDependency ownedClauseDep;
 
-    @objid ("3fec8d50-6020-4186-91cf-e4a3a0785bfb")
-    public  ConditionalNodeSmClass(ISmMetamodelFragment origin) {
+    @objid ("1fe88836-8377-48be-a6e8-3ca481b44a8c")
+    public ConditionalNodeSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("13f443b5-3659-4182-b03b-a3fb1777d91b")
+    @objid ("5c14f5cd-b895-494c-9eb6-fec34c566577")
     @Override
     public String getName() {
         return "ConditionalNode";
-        
+
     }
 
-    @objid ("5b49fda4-12f2-4f30-bf2b-2344a982e35d")
+    @objid ("441bc204-029b-4d8f-be0b-971ad34ac48b")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("f390134f-4dee-4b36-b7dd-6699370368cf")
+    @objid ("ff14d2a5-0a31-4339-a878-e77250f5dc87")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return ConditionalNode.class;
-        
+
     }
 
-    @objid ("87e9612a-a887-4177-a9e8-b3c091b52476")
+    @objid ("957eb652-8929-49b9-9281-3ae00d909b81")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("b2348342-5953-470a-a98f-f0f152c24387")
+    @objid ("40fd5c64-6596-4ed5-94d6-75ce4625fc0f")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("2a7def09-aee7-41ce-9eec-af9d5d49085b")
+    @objid ("526e2805-6573-4839-af2f-b0349f6d1e26")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(StructuredActivityNode.MQNAME);
         this.registerFactory(new ConditionalNodeObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
         this.isDeterminateAtt = new IsDeterminateSmAttribute();
         this.isDeterminateAtt.init("IsDeterminate", this, Boolean.class );
         registerAttribute(this.isDeterminateAtt);
-        
+
         this.isAssuredAtt = new IsAssuredSmAttribute();
         this.isAssuredAtt.init("IsAssured", this, Boolean.class );
         registerAttribute(this.isAssuredAtt);
-        
-        
+
+
         // Initialize and register the SmDependency
         this.ownedClauseDep = new OwnedClauseSmDependency();
         this.ownedClauseDep.init("OwnedClause", this, metamodel.getMClass(Clause.MQNAME), 0, -1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.ownedClauseDep);
-        
-        
+
     }
 
-    @objid ("ce0d2039-e7b3-4c44-b223-6c95c99a22a9")
+    @objid ("b6ee215c-86ad-49a2-87e3-723aeee03e76")
     public SmAttribute getIsDeterminateAtt() {
         if (this.isDeterminateAtt == null) {
         	this.isDeterminateAtt = this.getAttributeDef("IsDeterminate");
@@ -126,7 +124,7 @@ public class ConditionalNodeSmClass extends StructuredActivityNodeSmClass {
         return this.isDeterminateAtt;
     }
 
-    @objid ("9d6d08e5-94cc-4c92-91ec-2be9836a891c")
+    @objid ("fa2f28ba-a3f5-47a2-b5fc-ec614d58ecdd")
     public SmAttribute getIsAssuredAtt() {
         if (this.isAssuredAtt == null) {
         	this.isAssuredAtt = this.getAttributeDef("IsAssured");
@@ -134,7 +132,7 @@ public class ConditionalNodeSmClass extends StructuredActivityNodeSmClass {
         return this.isAssuredAtt;
     }
 
-    @objid ("6be1a2f6-4432-4ee0-89b7-fc47ebc4fa72")
+    @objid ("5f9bcde6-3cb3-40d6-9648-3d0f3ca5d8f0")
     public SmDependency getOwnedClauseDep() {
         if (this.ownedClauseDep == null) {
         	this.ownedClauseDep = this.getDependencyDef("OwnedClause");
@@ -144,21 +142,21 @@ public class ConditionalNodeSmClass extends StructuredActivityNodeSmClass {
 
     @objid ("185b454e-d285-4032-9bda-5e8ec751211b")
     private static class ConditionalNodeObjectFactory implements ISmObjectFactory {
-        @objid ("df6b660b-3bb8-4738-a03c-e6bac57e9e76")
+        @objid ("f9bae232-a1eb-4171-ba46-937f9e3c2005")
         private ConditionalNodeSmClass smClass;
 
-        @objid ("13029773-8c93-4c9a-a47e-7b8f56cc2538")
-        public  ConditionalNodeObjectFactory(ConditionalNodeSmClass smClass) {
+        @objid ("bc5aa3f0-81b7-4707-bf6d-fa6467655cfb")
+        public ConditionalNodeObjectFactory(ConditionalNodeSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("ad9a83c0-466a-484a-8001-885053eddb62")
+        @objid ("0436c1c9-88bb-43d3-b49c-e0347778b4f3")
         @Override
         public ISmObjectData createData() {
             return new ConditionalNodeData(this.smClass);
         }
 
-        @objid ("15f8da71-7f4c-413c-a23a-67a11aca0b6c")
+        @objid ("34080d93-2cde-47e3-a27c-47d9ed8f6590")
         @Override
         public SmObjectImpl createImpl() {
             return new ConditionalNodeImpl();
@@ -168,12 +166,12 @@ public class ConditionalNodeSmClass extends StructuredActivityNodeSmClass {
 
     @objid ("3b3923a1-6bc9-476d-9338-34d0dcdf3f95")
     public static class IsDeterminateSmAttribute extends SmAttribute {
-        @objid ("548d0d98-eb7f-4eb5-a1e6-353dd0e40fbf")
+        @objid ("d4744da7-d57b-44c2-8923-3bd2e113f33f")
         public Object getValue(ISmObjectData data) {
             return ((ConditionalNodeData) data).mIsDeterminate;
         }
 
-        @objid ("a23d0431-d36d-4c78-b405-1d83116fe700")
+        @objid ("cc74106b-3140-4869-9cd4-acac282d9fbf")
         public void setValue(ISmObjectData data, Object value) {
             ((ConditionalNodeData) data).mIsDeterminate = value;
         }
@@ -182,12 +180,12 @@ public class ConditionalNodeSmClass extends StructuredActivityNodeSmClass {
 
     @objid ("428fa9b7-d1aa-469a-aa1e-27669eb37407")
     public static class IsAssuredSmAttribute extends SmAttribute {
-        @objid ("7a7cb475-49df-49b9-b1e0-78a72580c6fb")
+        @objid ("a291d3f5-f958-490a-9de1-b204bb6da255")
         public Object getValue(ISmObjectData data) {
             return ((ConditionalNodeData) data).mIsAssured;
         }
 
-        @objid ("37d1bbc4-5155-4111-a1ec-8675d8fa8b5c")
+        @objid ("65cdc51b-5ad7-49a1-beee-e5b9d590ded5")
         public void setValue(ISmObjectData data, Object value) {
             ((ConditionalNodeData) data).mIsAssured = value;
         }
@@ -196,30 +194,30 @@ public class ConditionalNodeSmClass extends StructuredActivityNodeSmClass {
 
     @objid ("69eaf755-9839-4775-85c3-bbc038c347de")
     public static class OwnedClauseSmDependency extends SmMultipleDependency {
-        @objid ("fb734541-d762-4675-9d3c-5a3888295ed6")
+        @objid ("96692d4e-602c-41bb-b6c7-e5883c1ed0ce")
         private SmDependency symetricDep;
 
-        @objid ("e5a98018-cdbc-4928-b53e-7a6c1f0e7c77")
+        @objid ("6a577f76-0da6-4e75-bd65-461a117197dd")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((ConditionalNodeData)data).mOwnedClause != null)? ((ConditionalNodeData)data).mOwnedClause:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("bdd7c82e-f315-4002-8df6-a554e8161024")
+        @objid ("33c7aac5-b915-4d2f-93e8-0f75ad6008ad")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((ConditionalNodeData) data).mOwnedClause = values;
-            
+
         }
 
-        @objid ("d3596f2e-69cd-4702-92ab-1e8db57cf8c1")
+        @objid ("bc173a0f-8adc-409c-b938-f76dd86036c5")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((ClauseSmClass)this.getTarget()).getOwnerDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

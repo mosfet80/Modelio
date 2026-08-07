@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.modelio.diagram.tools;
 
@@ -54,6 +54,7 @@ public abstract class DefaultDiagramTool implements IDiagramTool {
 
     /**
      * Convenience to get a parameter value.
+     *
      * @param key the parameter
      * @return the value or null.
      */
@@ -69,7 +70,7 @@ public abstract class DefaultDiagramTool implements IDiagramTool {
         this.label = label;
         this.tooltip = tooltip;
         this.bitmap = image;
-        
+
     }
 
     @objid ("5620d586-91b1-4e86-a049-b652f438f843")
@@ -80,7 +81,7 @@ public abstract class DefaultDiagramTool implements IDiagramTool {
         this.targetScopes = targetScopes;
         this.parameters = parameters;
         this.module = module;
-        
+
     }
 
     @objid ("21f3f61a-ce9a-4f77-b2f3-ef9db1b325bc")
@@ -99,6 +100,7 @@ public abstract class DefaultDiagramTool implements IDiagramTool {
      * <li> <i>module regex<b>#</b>stereotype regex</i>
      * </ul>
      * Returns <i>null</i> if the specification is <i>null</i> or the stereotype is not found.
+     *
      * @param metaclass the metaclass to look from
      * @param stereotypeSpec the stereotype specification
      * @return the found stereotype or <i>null</i>.

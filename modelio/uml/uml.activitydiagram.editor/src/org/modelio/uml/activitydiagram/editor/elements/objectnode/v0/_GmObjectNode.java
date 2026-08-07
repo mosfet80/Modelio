@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.objectnode.v0;
 
@@ -89,12 +89,13 @@ public class _GmObjectNode extends GmCompositeNode implements IImageableNode {
 
     /**
      * Default constructor.
+     *
      * @param diagram the diagram in which this gm is unmasked.
      * @param theObjectNode the represented object node, may be null.
      * @param ref a reference to the represented object node.
      */
     @objid ("2ae31eb3-55b6-11e2-877f-002564c97630")
-    public  _GmObjectNode(IGmDiagram diagram, ObjectNode theObjectNode, MRef ref) {
+    public _GmObjectNode(IGmDiagram diagram, ObjectNode theObjectNode, MRef ref) {
         super(diagram, ref);
         this.element = theObjectNode;
         this.header = new GmObjectNodeHeader(diagram, ref);
@@ -104,14 +105,14 @@ public class _GmObjectNode extends GmCompositeNode implements IImageableNode {
         addChild(this.imageModeHeader);
         this.objectNodeStateLabel = new GmObjectNodeStateLabel(diagram, ref);
         addChild(this.objectNodeStateLabel);
-        
+
     }
 
     /**
      * Empty constructor, needed for serialization.
      */
     @objid ("2ae4a51c-55b6-11e2-877f-002564c97630")
-    public  _GmObjectNode() {
+    public _GmObjectNode() {
         // empty constructor for the serialization
     }
 
@@ -156,12 +157,12 @@ public class _GmObjectNode extends GmCompositeNode implements IImageableNode {
         if (ret != null) {
             return ret;
         }
-        
+
         ret = SIMPLEKEYS.getStyleKey(metakey);
         if (ret != null) {
             return ret;
         }
-        
+
         ret = IMAGEKEYS.getStyleKey(metakey);
         return ret;
     }
@@ -182,7 +183,7 @@ public class _GmObjectNode extends GmCompositeNode implements IImageableNode {
         default:
             return Collections.emptyList();
         }
-        
+
     }
 
     @objid ("2ae4a557-55b6-11e2-877f-002564c97630")
@@ -206,7 +207,7 @@ public class _GmObjectNode extends GmCompositeNode implements IImageableNode {
             break;
         }
         }
-        
+
     }
 
     @objid ("2ae4a55d-55b6-11e2-877f-002564c97630")
@@ -218,7 +219,7 @@ public class _GmObjectNode extends GmCompositeNode implements IImageableNode {
         firePropertyChange(PROPERTY_LABEL, oldLabel, this.header.getMainLabel());
         // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("2ae62bbb-55b6-11e2-877f-002564c97630")
@@ -259,10 +260,10 @@ public class _GmObjectNode extends GmCompositeNode implements IImageableNode {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmObjectNode.", _GmObjectNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("2ae62bd8-55b6-11e2-877f-002564c97630")
@@ -270,10 +271,10 @@ public class _GmObjectNode extends GmCompositeNode implements IImageableNode {
         super.read(in);
         this.header = (GmObjectNodeHeader) this.getChildren().get(0);
         this.element = (ObjectNode) resolveRef(getRepresentedRef());
-        
+
         this.imageModeHeader = (GmDefaultModelElementLabel) this.getChildren().get(1);
         this.objectNodeStateLabel = (GmElementLabel) this.getChildren().get(2);
-        
+
     }
 
     @objid ("2ae62bdd-55b6-11e2-877f-002564c97630")
@@ -283,11 +284,11 @@ public class _GmObjectNode extends GmCompositeNode implements IImageableNode {
         super.read(in);
         this.header = (GmObjectNodeHeader) this.getChildren().get(0);
         this.element = (ObjectNode) resolveRef(getRepresentedRef());
-        
+
         this.imageModeHeader = (GmDefaultModelElementLabel) this.getChildren().get(1);
         this.objectNodeStateLabel = new GmObjectNodeStateLabel(getDiagram(), getRepresentedRef());
         addChild(this.objectNodeStateLabel);
-        
+
     }
 
     @objid ("2ae62be2-55b6-11e2-877f-002564c97630")

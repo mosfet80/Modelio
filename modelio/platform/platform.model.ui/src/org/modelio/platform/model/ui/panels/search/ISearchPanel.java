@@ -1,28 +1,29 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.panels.search;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.modelio.platform.search.engine.ISearchCriteria;
+import org.modelio.platform.search.engine.api.ISearchCriteria;
 import org.modelio.vcore.session.api.ICoreSession;
 
 @objid ("16bc12ac-743a-45b9-807c-45cb8f11b451")
@@ -37,11 +38,17 @@ public interface ISearchPanel {
     void setCriteria(ISearchCriteria criteria);
 
     @objid ("2d506cad-7266-42e6-befa-7dcbc18f5d1d")
-    void initialize(Composite parent, ICoreSession session, ISearchController controller);
+    void initialize(Composite parent, ICoreSession session, ISearchController controller, ESelectionService selectionService, IPanelValidationListener validationListener);
+
+    @objid ("7ab850ef-1f1c-40e8-9939-b15fde52612d")
+    default int getPriority() {
+        return 0;
+    }
 
     /**
+     *
      * @since Modelio 3.8
-     * 
+     *
      * Whether or not this search panel should be displayed or not (implementors may analyze any condition they want to decide  upon)
      * @return
      */
@@ -49,5 +56,5 @@ public interface ISearchPanel {
     default boolean isActive(ICoreSession session) {
         return true;
     }
-}
 
+}

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.mda;
 
 import java.util.ArrayList;
@@ -47,80 +46,79 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("89372670-8d71-4434-8d2f-26ea95be7263")
 public class ProjectSmClass extends AbstractProjectSmClass {
-    @objid ("cd656d1e-e42d-4383-993b-fe9e704cae11")
+    @objid ("c93c21ce-02ba-4f80-b414-5ef69d273fb3")
     private SmAttribute projectContextAtt;
 
-    @objid ("7ecad069-1fc8-4654-88bc-aea055bcc2fa")
+    @objid ("123a7a4f-140b-4762-9aa9-7848a302ab22")
     private SmAttribute projectDescrAtt;
 
-    @objid ("c8e53bec-0a80-4a41-89f7-b00cefd2ea0d")
+    @objid ("c1de4871-e31e-4848-9ca9-41e0beb24e3b")
     private SmDependency modelDep;
 
-    @objid ("2a6d8ece-5330-4cc5-a41e-a28f52240814")
-    public  ProjectSmClass(ISmMetamodelFragment origin) {
+    @objid ("10c17841-5183-4c9d-a14d-81ddddc0c5b3")
+    public ProjectSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("46d8d08d-5306-4ac7-9cb4-d9ad7dba3b5f")
+    @objid ("4e1a08da-b100-49a0-ac60-b06027b8b974")
     @Override
     public String getName() {
         return "Project";
-        
+
     }
 
-    @objid ("9115168c-18a5-42ff-bba2-2c4d4103a824")
+    @objid ("36678720-cfea-4450-9f60-e0adaadce7d5")
     @Override
     public Version getVersion() {
         return new Version("1.1.1");
     }
 
-    @objid ("f075883a-f37e-43f0-a89c-42ea178edb51")
+    @objid ("1661ace8-a6bd-431c-8ce7-d8e0b36ab71f")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return Project.class;
-        
+
     }
 
-    @objid ("219d913a-4f83-47f1-bdbd-4f18d9d1ad2f")
+    @objid ("6d299cdd-6abf-42fe-be41-9e570589104c")
     @Override
     public boolean isCmsNode() {
         return true;
-        
+
     }
 
-    @objid ("00554c17-a6ab-4bb8-95a5-70735035cd95")
+    @objid ("9342ce3a-3b3a-4162-8a63-fa84412db07f")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("431b72a2-70a4-4ee2-996e-b56594c71689")
+    @objid ("2fd56fde-cc53-4510-85f6-0f38b779d645")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(AbstractProject.MQNAME);
         this.registerFactory(new ProjectObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
         this.projectContextAtt = new ProjectContextSmAttribute();
         this.projectContextAtt.init("ProjectContext", this, String.class );
         registerAttribute(this.projectContextAtt);
-        
+
         this.projectDescrAtt = new ProjectDescrSmAttribute();
         this.projectDescrAtt.init("ProjectDescr", this, String.class );
         registerAttribute(this.projectDescrAtt);
-        
-        
+
+
         // Initialize and register the SmDependency
         this.modelDep = new ModelSmDependency();
         this.modelDep.init("Model", this, metamodel.getMClass(Package.MQNAME), 0, -1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.modelDep);
-        
-        
+
     }
 
-    @objid ("24ec0304-827e-49f0-8424-bc13e2f2105e")
+    @objid ("3717970f-256b-4a29-89e1-79959ca8a24d")
     public SmAttribute getProjectContextAtt() {
         if (this.projectContextAtt == null) {
         	this.projectContextAtt = this.getAttributeDef("ProjectContext");
@@ -128,7 +126,7 @@ public class ProjectSmClass extends AbstractProjectSmClass {
         return this.projectContextAtt;
     }
 
-    @objid ("79e7f9bc-93b5-497a-9b90-d5de333f857a")
+    @objid ("dcd8097a-0e1a-48d4-a9ce-5e63bcacde8f")
     public SmAttribute getProjectDescrAtt() {
         if (this.projectDescrAtt == null) {
         	this.projectDescrAtt = this.getAttributeDef("ProjectDescr");
@@ -136,7 +134,7 @@ public class ProjectSmClass extends AbstractProjectSmClass {
         return this.projectDescrAtt;
     }
 
-    @objid ("f8a9a728-e642-4758-ac5e-b57960345cb6")
+    @objid ("86722396-78d1-4a6e-aec6-65267406ba92")
     public SmDependency getModelDep() {
         if (this.modelDep == null) {
         	this.modelDep = this.getDependencyDef("Model");
@@ -144,30 +142,30 @@ public class ProjectSmClass extends AbstractProjectSmClass {
         return this.modelDep;
     }
 
-    @objid ("6b4c498e-c38f-4006-aeac-433540563dc8")
+    @objid ("181900d8-2920-40d1-8c76-508c0f2d8dea")
     @Override
     public boolean areOrphansAllowed() {
         return true;
-        
+
     }
 
     @objid ("8184752d-2599-450a-9246-e93681627a23")
     private static class ProjectObjectFactory implements ISmObjectFactory {
-        @objid ("76b450c0-9f75-4de3-b316-6088f8b36f01")
+        @objid ("f391cc15-2124-44bc-bb53-d3f01e5dd31c")
         private ProjectSmClass smClass;
 
-        @objid ("dde8c122-7c6a-4602-b321-444292d87e2b")
-        public  ProjectObjectFactory(ProjectSmClass smClass) {
+        @objid ("fdd475e2-0604-4f43-9934-730fd0fb916f")
+        public ProjectObjectFactory(ProjectSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("135e86e6-7f01-430f-9614-4935c1616c8c")
+        @objid ("e59ede96-95ef-47c2-bbbb-64b2a4bf3546")
         @Override
         public ISmObjectData createData() {
             return new ProjectData(this.smClass);
         }
 
-        @objid ("d51607dd-0f78-4c50-99e7-d4a33c48a648")
+        @objid ("fc5df0c1-7d6b-4a58-93d3-f4951767a516")
         @Override
         public SmObjectImpl createImpl() {
             return new ProjectImpl();
@@ -177,12 +175,12 @@ public class ProjectSmClass extends AbstractProjectSmClass {
 
     @objid ("2efdf20b-cca3-46fe-aa1c-2646ca9c10ff")
     public static class ProjectContextSmAttribute extends SmAttribute {
-        @objid ("538dfd35-8ae4-4665-bf94-c974154cb79b")
+        @objid ("d0bc438e-48c4-4963-ab80-14d7283dab95")
         public Object getValue(ISmObjectData data) {
             return ((ProjectData) data).mProjectContext;
         }
 
-        @objid ("1615a9ec-4896-4750-b936-bec6ae221b03")
+        @objid ("9dcf1a1e-d0e1-4713-892f-7b06c0bc36bd")
         public void setValue(ISmObjectData data, Object value) {
             ((ProjectData) data).mProjectContext = value;
         }
@@ -191,12 +189,12 @@ public class ProjectSmClass extends AbstractProjectSmClass {
 
     @objid ("c71b1c26-1dd3-402e-bac4-acbbc0aa9196")
     public static class ProjectDescrSmAttribute extends SmAttribute {
-        @objid ("70743c10-4c0d-4b1e-8537-d73937539bf1")
+        @objid ("24acc1d3-1976-432b-b169-369c4f7af44f")
         public Object getValue(ISmObjectData data) {
             return ((ProjectData) data).mProjectDescr;
         }
 
-        @objid ("ad143d21-860d-4f95-bf00-35dcfb24bb83")
+        @objid ("1cbfcb62-6d8c-4af5-aca6-a3c0cdbab4eb")
         public void setValue(ISmObjectData data, Object value) {
             ((ProjectData) data).mProjectDescr = value;
         }
@@ -205,30 +203,30 @@ public class ProjectSmClass extends AbstractProjectSmClass {
 
     @objid ("be0afe4a-c8bb-4d94-b258-cc355d2809ba")
     public static class ModelSmDependency extends SmMultipleDependency {
-        @objid ("f1eedabf-5960-423f-ad52-7965504094e5")
+        @objid ("888b0e1c-543f-415c-8ba9-a8b5422d0169")
         private SmDependency symetricDep;
 
-        @objid ("ada72a9d-2b0b-4041-9dad-7dba5c0734f6")
+        @objid ("f926a51d-e974-435d-afdd-e84f165c894c")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((ProjectData)data).mModel != null)? ((ProjectData)data).mModel:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("a38e3693-b976-4069-93e5-322c00dce07c")
+        @objid ("0022eb0e-026e-421c-82fe-b0b39fe6327a")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((ProjectData) data).mModel = values;
-            
+
         }
 
-        @objid ("afa59242-a77e-42c2-875c-2bcaa691ab30")
+        @objid ("3c77334f-9c1d-4f07-a21f-8ace128bac31")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((PackageSmClass)this.getTarget()).getRepresentedDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

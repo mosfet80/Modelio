@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.activitydiagram;
 
@@ -90,11 +90,11 @@ public class ActivityDiagramLayoutPolicy extends DiagramEditLayoutPolicy {
             // No partition nor parameter container in the moved edit
             // parts: super should be able to handle the rest!
             return super.getTargetEditPart(request);
-        
+
         } else if (RequestConstants.REQ_CREATE != request.getType()) {
             return super.getTargetEditPart(request);
         }
-        
+
         // Only care about request for partitions, super can handle the rest.
         final ModelioCreationContext ctx = (ModelioCreationContext) ((CreateRequest) request).getNewObject();
         if (ctx.getJavaClass() != ActivityPartition.class) {
@@ -206,14 +206,14 @@ public class ActivityDiagramLayoutPolicy extends DiagramEditLayoutPolicy {
         case HORIZONTAL_CONTAINER:
         case VERTICAL_CONTAINER: {
             IFigure figure = getLayoutContainer();
-        
+
             Point where = request.getLocation().getCopy();
             Dimension size = request.getSize();
-        
+
             figure.translateToRelative(where);
             figure.translateFromParent(where);
             where.translate(getLayoutOrigin().getNegated());
-        
+
             if (size == null || size.isEmpty()) {
                 // If a default size is not provided, define one.
                 if (ctx.getElementToUnmask() != null) {
@@ -230,7 +230,7 @@ public class ActivityDiagramLayoutPolicy extends DiagramEditLayoutPolicy {
             figure.translateFromParent(size);
             return getConstraintFor(new Rectangle(where, size));
         }
-        
+
         }
         // Should never end here...
         return null;

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.parts.data.element.multirow;
 
@@ -47,10 +47,11 @@ public class MultiRowElementNatValueEditor extends AbstractCellEditor {
 
     /**
      * Build a new editor.
+     *
      * @param session a model session, needed to look for elements.
      */
     @objid ("7f8e50a4-de0a-4a12-9f85-36c4d4da7738")
-    public  MultiRowElementNatValueEditor(ICoreSession session) {
+    public MultiRowElementNatValueEditor(ICoreSession session) {
         this.session = session;
     }
 
@@ -59,7 +60,6 @@ public class MultiRowElementNatValueEditor extends AbstractCellEditor {
     public void close() {
         super.close();
         this.selectElementsPanel.dispose();
-        
     }
 
     @objid ("aa30dc5a-7718-4daa-812e-18442857a6e8")
@@ -96,9 +96,9 @@ public class MultiRowElementNatValueEditor extends AbstractCellEditor {
     @Override
     protected Control activateCell(Composite parentComposite, Object originalCanonicalValue) {
         IMultiRowElementNatValue value = originalCanonicalValue instanceof IMultiRowElementNatValue ? (IMultiRowElementNatValue) originalCanonicalValue : (IMultiRowElementNatValue) this.layerCell.getDataValue();
-        
+
         List<MObject> values =  value.getAllValues();
-        
+
         ModelSearchCriteria c = new ModelSearchCriteria();
         for (Class<? extends MObject> mClass : value.getAllowedClasses()) {
             c.addMetaclass(mClass);
@@ -106,7 +106,7 @@ public class MultiRowElementNatValueEditor extends AbstractCellEditor {
         c.setFilter(value.getElementFilter());
         c.setCaseSensitive(false);
         c.setIncludeRamc(true);
-        
+
         this.selectElementsPanel = new SelectElementsPanel(this.session, new ModelSearchEngine(), c, SelectElementsPanel.SearchMode.USER);
         this.selectElementsPanel.setInput(values);
         return createEditorControl(parentComposite);
@@ -116,7 +116,7 @@ public class MultiRowElementNatValueEditor extends AbstractCellEditor {
     @Override
     public boolean commit(MoveDirectionEnum direction, boolean closeAfterCommit, boolean skipValidation) {
         boolean commit = super.commit(direction, closeAfterCommit, skipValidation);
-        
+
         if (commit) {
             this.layerCell.getLayer().doCommand(new SelectCellCommand(
                     this.layerCell.getLayer(),

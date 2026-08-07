@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.creation.wizard.dialog;
 
@@ -109,7 +109,7 @@ public class CreationWizardModel {
     public boolean isValid() {
         return (this.selectedContributor != null && this.context != null && this.selectedContributor.accept(this.context))
                         && this.name != null && !this.name.isEmpty();
-        
+
     }
 
     @objid ("db69ad6c-b846-4d67-8390-bb9af6167aeb")
@@ -123,7 +123,7 @@ public class CreationWizardModel {
     }
 
     @objid ("5d1345d8-4001-45cd-bf43-8e6ee9ba853c")
-    public  CreationWizardModel(Map<ContributorCategory, List<IWizardContributor>> map) {
+    public CreationWizardModel(Map<ContributorCategory, List<IWizardContributor>> map) {
         this.contributors = map;
     }
 
@@ -138,6 +138,7 @@ public class CreationWizardModel {
 
     /**
      * Get all contributors by type (Diagram or Matrix)
+     *
      * @param filter the type of contributors specified by its Java interface
      * class. Cannot be null.
      * @param nameFilter optional name for further filtering based on strict string
@@ -149,7 +150,7 @@ public class CreationWizardModel {
     @SuppressWarnings("unchecked")
     public <T extends IWizardContributor> List<T> getAllContributors(java.lang.Class<T> filter, String nameFilter) {
         List<T> allContributors = new ArrayList<>();
-        
+
         for (IWizardContributor contributor : getAllContributors()) {
             if (filter.isAssignableFrom(contributor.getClass())) {
                 if (nameFilter == null || contributor.getClass().getSimpleName().equals(nameFilter)) {
@@ -162,6 +163,7 @@ public class CreationWizardModel {
 
     /**
      * Get all contributors by type (Diagram or Matrix)
+     *
      * @param filter the type of contributors specified by its Java interface
      * class. Cannot be null.
      * @return the filtered contributors
@@ -174,16 +176,16 @@ public class CreationWizardModel {
     @objid ("f96af1cd-d215-4c7b-a8c1-ec43d3cb4667")
     public <T extends IWizardContributor> Map<ContributorCategory, List<IWizardContributor>> getContributorsMap(java.lang.Class<T> filter) {
         Map<ContributorCategory, List<IWizardContributor>> results = new HashMap<>();
-        
+
         for (ContributorCategory category : getCategories()) {
             List<IWizardContributor> validContributors = new ArrayList<>();
-        
+
             for (IWizardContributor candidate : this.contributors.get(category)) {
                 if (filter == null || filter.isAssignableFrom(candidate.getClass())) {
                     validContributors.add(candidate);
                 }
             }
-        
+
             if (!validContributors.isEmpty()) {
                 results.put(category, validContributors);
             }
@@ -192,6 +194,7 @@ public class CreationWizardModel {
     }
 
     /**
+     *
      * @return all contributor categories.
      */
     @objid ("047bc30e-4a43-42c4-b5fd-72fa92c6c114")

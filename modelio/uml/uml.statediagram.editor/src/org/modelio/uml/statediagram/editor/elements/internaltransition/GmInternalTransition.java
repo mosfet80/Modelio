@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.internaltransition;
 
@@ -61,22 +61,23 @@ public class GmInternalTransition extends GmModelElementLabel {
 
     /**
      * Creates an internal transition graphic.
+     *
      * @param diagram The diagram.
      * @param theInternalTransition The represented element, may be null.
      * @param ref The represented element reference, may not be null.
      */
     @objid ("f54d0d27-55b6-11e2-877f-002564c97630")
-    public  GmInternalTransition(IGmDiagram diagram, InternalTransition theInternalTransition, MRef ref) {
+    public GmInternalTransition(IGmDiagram diagram, InternalTransition theInternalTransition, MRef ref) {
         super(diagram, ref);
         this.element = theInternalTransition;
-        
+
     }
 
     /**
      * Constructor for deserialization only.
      */
     @objid ("f54d0d33-55b6-11e2-877f-002564c97630")
-    public  GmInternalTransition() {
+    public GmInternalTransition() {
         // empty
     }
 
@@ -139,19 +140,19 @@ public class GmInternalTransition extends GmModelElementLabel {
             break;
         }
         }
-        
+
     }
 
     @objid ("f54e9400-55b6-11e2-877f-002564c97630")
     @Override
     protected String computeMainLabel() {
         final InternalTransition theTransition = (InternalTransition) getRelatedElement();
-        
+
         final StringBuilder symbol = new StringBuilder();
-        
+
         final StateVertex targetVertex = theTransition.getTarget();
         final boolean withEvent = true;
-        
+
         // Trigger
         final Event trigger = theTransition.getTrigger();
         if (trigger != null) {
@@ -159,7 +160,7 @@ public class GmInternalTransition extends GmModelElementLabel {
         } else {
             symbol.append(theTransition.getReceivedEvents());
         }
-        
+
         // Guard condition
         final String condition = theTransition.getGuard();
         if (condition != null && !condition.equals("")) {
@@ -167,7 +168,7 @@ public class GmInternalTransition extends GmModelElementLabel {
             symbol.append(condition);
             symbol.append("]");
         }
-        
+
         // Action
         String sEffect = theTransition.getEffect();
         Operation op = theTransition.getProcessed();
@@ -183,7 +184,7 @@ public class GmInternalTransition extends GmModelElementLabel {
             symbol.append("/");
             symbol.append(b.getName());
         }
-        
+
         // SentEvent
         final Signal effects = theTransition.getEffects();
         if (effects != null && withEvent) {
@@ -197,7 +198,7 @@ public class GmInternalTransition extends GmModelElementLabel {
                 symbol.append(sentEvents);
             }
         }
-        
+
         // postGard
         final String postCondition = theTransition.getPostCondition();
         if (postCondition != null && !postCondition.equals("")) {
@@ -205,16 +206,16 @@ public class GmInternalTransition extends GmModelElementLabel {
             symbol.append(postCondition);
             symbol.append("}");
         }
-        
+
         if (symbol.length() == 0) {
             symbol.append(theTransition.getName());
             if (targetVertex != null) {
                 symbol.append("::");
                 symbol.append(targetVertex.getName());
             }
-        
+
         }
-        
+
         String elementLabel = symbol.toString();
         if (elementLabel.equals("")) {
             elementLabel = "/";
@@ -226,17 +227,17 @@ public class GmInternalTransition extends GmModelElementLabel {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmInternalTransition.", GmInternalTransition.MINOR_VERSION);
-        
+
     }
 
     @objid ("f5501a63-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (InternalTransition) resolveRef(this.getRepresentedRef());
-        
+
     }
 
     @objid ("f5501a68-55b6-11e2-877f-002564c97630")

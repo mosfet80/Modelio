@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -49,7 +49,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * </tr>
  * <tr><td>Requirement</td><td>Goal</td></tr>
  * <tr><td>KPI</td><td>Goal</td></tr>
- * 
+ *
  * </table>
  */
 @objid ("f6bc15fc-7c46-4ff4-b615-18b6d6d86023")
@@ -58,7 +58,7 @@ public class GuaranteeExpert implements IMdaExpert {
     @Override
     public boolean canSource(Stereotype linkStereotype, MClass linkMetaclass, MClass fromMetaclass) {
         MMetamodel metamodel = linkMetaclass.getMetamodel();
-        return (fromMetaclass.hasBase(metamodel.getMClass("Analyst.Requirement"))) || 
+        return (fromMetaclass.hasBase(metamodel.getMClass("Analyst.Requirement"))) ||
         (fromMetaclass.hasBase(metamodel.getMClass("Analyst.KPI")));
     }
 
@@ -66,7 +66,7 @@ public class GuaranteeExpert implements IMdaExpert {
     @Override
     public boolean canSource(Stereotype linkStereotype, MObject linkElement, MObject fromElement) {
         MMetamodel metamodel = linkElement.getMClass().getMetamodel();
-        return (fromElement.getMClass().hasBase(metamodel.getMClass("Analyst.Requirement"))) || 
+        return (fromElement.getMClass().hasBase(metamodel.getMClass("Analyst.Requirement"))) ||
         (fromElement.getMClass().hasBase(metamodel.getMClass("Analyst.KPI")));
     }
 
@@ -74,7 +74,7 @@ public class GuaranteeExpert implements IMdaExpert {
     @Override
     public boolean canSource(ElementScope linkScope, MObject fromElement) {
         MMetamodel metamodel = linkScope.getMetaclass().getMetamodel();
-        return (fromElement.getMClass().hasBase(metamodel.getMClass("Analyst.Requirement"))) || 
+        return (fromElement.getMClass().hasBase(metamodel.getMClass("Analyst.Requirement"))) ||
         (fromElement.getMClass().hasBase(metamodel.getMClass("Analyst.KPI")));
     }
 
@@ -96,7 +96,7 @@ public class GuaranteeExpert implements IMdaExpert {
     @Override
     public boolean canLink(Stereotype linkStereotype, MClass linkMetaclass, MClass fromMetaclass, MClass toMetaclass) {
         MMetamodel metamodel = linkMetaclass.getMetamodel();
-        return ((fromMetaclass.hasBase(metamodel.getMClass("Analyst.Requirement"))) && (toMetaclass.hasBase(metamodel.getMClass("Analyst.Goal")))) || 
+        return ((fromMetaclass.hasBase(metamodel.getMClass("Analyst.Requirement"))) && (toMetaclass.hasBase(metamodel.getMClass("Analyst.Goal")))) ||
         ((fromMetaclass.hasBase(metamodel.getMClass("Analyst.KPI"))) && (toMetaclass.hasBase(metamodel.getMClass("Analyst.Goal"))));
     }
 
@@ -104,7 +104,7 @@ public class GuaranteeExpert implements IMdaExpert {
     @Override
     public boolean canLink(Stereotype linkStereotype, MClass linkMetaclass, MObject fromElement, MObject toElement) {
         MMetamodel metamodel = linkMetaclass.getMetamodel();
-        return ((fromElement.getMClass().hasBase(metamodel.getMClass("Analyst.Requirement"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Analyst.Goal")))) || 
+        return ((fromElement.getMClass().hasBase(metamodel.getMClass("Analyst.Requirement"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Analyst.Goal")))) ||
         ((fromElement.getMClass().hasBase(metamodel.getMClass("Analyst.KPI"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Analyst.Goal"))));
     }
 

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -50,7 +50,7 @@ public class R2840 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -101,14 +101,14 @@ public class R2840 extends AbstractUmlRule {
      * Default constructor for R2840
      */
     @objid ("8b815fe3-8bcd-4c76-8cbc-6f525bbcc71b")
-    public  R2840() {
+    public R2840() {
         this.checkerInstance = new CheckR2840(this);
     }
 
     @objid ("479183f4-e847-4709-b70c-d79847513156")
     private static class CheckR2840 extends AbstractControl {
         @objid ("3bec88ea-531d-4f8e-a35a-3ec227e9c0d4")
-        public  CheckR2840(IRule rule) {
+        public CheckR2840(IRule rule) {
             super(rule);
         }
 
@@ -126,24 +126,24 @@ public class R2840 extends AbstractUmlRule {
         @objid ("e79d2bb2-2092-40c1-bfe5-2d1d855249b4")
         private IAuditEntry checkR2840(Transition transition) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, transition, null);
-            
+
             int defined = 0;
             Behavior behavior = null;
             Signal signal = null;
             Operation operation = null;
-            
+
             if ((behavior = transition.getBehaviorEffect()) != null) {
                 defined++;
             }
-            
+
             if ((signal = transition.getEffects()) != null) {
                 defined++;
             }
-            
+
             if ((operation = transition.getProcessed()) != null) {
                 defined++;
             }
-            
+
             if (defined > 1) {
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.data.project;
 
@@ -72,20 +72,21 @@ public class GProjectPartDescriptor implements Serializable {
     private GProperties properties;
 
     @objid ("e85c86e9-bf62-45dd-bc1d-bab8848b8356")
-    public  GProjectPartDescriptor(GProjectPartType type, String id, Version version, DefinitionScope definitionScope) {
+    public GProjectPartDescriptor(GProjectPartType type, String id, Version version, DefinitionScope definitionScope) {
         this.type = type;
         this.id = id;
         this.version = version;
         this.definitionScope = definitionScope;
         this.properties = new GProperties();
-        
+
     }
 
     /**
+     *
      * @param fromDescriptor the descriptor to copy.
      */
     @objid ("de22d7d1-3c68-4991-a238-537c631e085f")
-    public  GProjectPartDescriptor(GProjectPartDescriptor fromDescriptor) {
+    public GProjectPartDescriptor(GProjectPartDescriptor fromDescriptor) {
         this.type = fromDescriptor.type;
         this.id = fromDescriptor.id;
         this.version = fromDescriptor.version;
@@ -94,10 +95,11 @@ public class GProjectPartDescriptor implements Serializable {
         this.label = fromDescriptor.label;
         this.properties = new GProperties(fromDescriptor.properties);
         this.location = fromDescriptor.location;
-        
+
     }
 
     /**
+     *
      * @return the part identifier
      */
     @objid ("990c8e88-f19b-444a-8384-31347578264e")
@@ -106,6 +108,7 @@ public class GProjectPartDescriptor implements Serializable {
     }
 
     /**
+     *
      * @param id the part identifier
      */
     @objid ("cb7dd6c5-e754-49ab-bee0-c7ec199b8c4d")
@@ -114,6 +117,7 @@ public class GProjectPartDescriptor implements Serializable {
     }
 
     /**
+     *
      * @return the part type.
      */
     @objid ("28ed172c-1cff-4612-b696-a9223ae832ad")
@@ -123,6 +127,7 @@ public class GProjectPartDescriptor implements Serializable {
 
     /**
      * Get the part user friendly label.
+     *
      * @return the part user friendly label.
      */
     @objid ("54438538-177d-497b-ac6a-8b26e7d42e67")
@@ -131,6 +136,7 @@ public class GProjectPartDescriptor implements Serializable {
     }
 
     /**
+     *
      * @return the part version or {@link #NO_VERSION} if none specified.
      */
     @objid ("4418f879-f0ba-4b7d-a765-2f30c1e2bde5")
@@ -142,6 +148,7 @@ public class GProjectPartDescriptor implements Serializable {
      * Get the part location.
      * <p>
      * The location may be relative to the project directory or a remote URI.
+     *
      * @return the part location.
      */
     @objid ("44e02eb4-c9b9-4aa9-86a0-6191d50d0fc6")
@@ -153,6 +160,7 @@ public class GProjectPartDescriptor implements Serializable {
      * Get the part location.
      * <p>
      * The location may be relative to the project directory or a remote URI.
+     *
      * @param location the part location.
      */
     @objid ("4b0a5a4e-d994-4276-946d-a51c825be177")
@@ -162,6 +170,7 @@ public class GProjectPartDescriptor implements Serializable {
 
     /**
      * Get the authentication data descriptor.
+     *
      * @return the authentication data descriptor.
      */
     @objid ("9f1ae3dc-b0a9-42c8-b91b-5dbec510fcd4")
@@ -171,6 +180,7 @@ public class GProjectPartDescriptor implements Serializable {
 
     /**
      * set the authentication descriptor.
+     *
      * @param auth the authentication descriptor
      */
     @objid ("588f4eee-1058-4fec-bbbf-3f9d949222e2")
@@ -179,6 +189,7 @@ public class GProjectPartDescriptor implements Serializable {
     }
 
     /**
+     *
      * @return the part configuration properties.
      */
     @objid ("859413f6-b588-4e7a-b3d5-e4a71f25ef86")
@@ -188,6 +199,7 @@ public class GProjectPartDescriptor implements Serializable {
 
     /**
      * Replaces the part properties.
+     *
      * @param properties the part properties.
      */
     @objid ("08cc9fe1-69b6-414d-945e-29802c712496")
@@ -199,6 +211,7 @@ public class GProjectPartDescriptor implements Serializable {
      * Get the definition scope.
      * <p>
      * The fragment may be defined locally or on a server.
+     *
      * @return the definition scope.
      */
     @objid ("9715a0c5-ac3d-4b72-a498-484472d23d23")
@@ -208,6 +221,7 @@ public class GProjectPartDescriptor implements Serializable {
 
     /**
      * Set the part user friendly label.
+     *
      * @param label the part user friendly label.
      */
     @objid ("e6d80c18-aec3-4688-9fac-9e477c381dd5")
@@ -218,6 +232,7 @@ public class GProjectPartDescriptor implements Serializable {
     /**
      * Tells whether this descriptor is a complete fragment descriptor or only
      * a reference to a fragment with local level properties.
+     *
      * @return <code>true</code> if the descriptor is complete enough to instantiate a fragment.
      */
     @objid ("098b6c59-a1fe-44c4-bc6f-c61c3266d77d")
@@ -226,11 +241,12 @@ public class GProjectPartDescriptor implements Serializable {
                 ! this.id.isEmpty() &&
                 this.definitionScope != null &&
                 this.type != null;
-        
+
     }
 
     /**
      * Set the definition scope.
+     *
      * @param definitionScope the definition scope.
      */
     @objid ("60ca6330-9181-4568-8971-18a94d43849f")
@@ -239,6 +255,7 @@ public class GProjectPartDescriptor implements Serializable {
     }
 
     /**
+     *
      * @param version the part version, may be null.
      */
     @objid ("20ed4543-5822-40e3-abc0-9d02899c1b5a")
@@ -287,6 +304,7 @@ public class GProjectPartDescriptor implements Serializable {
 
     /**
      * Compares the identifier and type of both descriptors.
+     *
      * @param other another part descriptor
      * @return true only if both {@link #getId()} and {@link #getType()} are equal.
      */
@@ -297,6 +315,7 @@ public class GProjectPartDescriptor implements Serializable {
 
     /**
      * Makes a deep comparison with the other descriptor.
+     *
      * @param other another part descriptor
      * @return true only if all fields are equal.
      */
@@ -311,13 +330,14 @@ public class GProjectPartDescriptor implements Serializable {
                 && Objects.equals(this.location, other.location)
                 && Objects.equals(this.properties, other.properties)
                 && Objects.equals(this.version, other.version);
-        
+
     }
 
     /**
      * Compare 2 part descriptor identifiers : {@link #getId()} and {@link #getType()}.
      * <p>
      * To be used as method reference to make a Comparator.
+     *
      * @param a a part descriptor, not null
      * @param b a part descriptor, not null
      * @return an order
@@ -328,14 +348,14 @@ public class GProjectPartDescriptor implements Serializable {
         String idb = b.getId();
         if (ida == null) ida = "";
         if (idb == null) idb = "";
-        
+
         int ret = ida.compareTo(idb);
         if (ret != 0)
             return ret;
-        
+
         GProjectPartType typea = a.getType();
         GProjectPartType typeb = b.getType();
-        
+
         if (typea !=null && typeb != null) {
             // usual case
             return typea.ordinal() - typeb.ordinal();
@@ -349,7 +369,7 @@ public class GProjectPartDescriptor implements Serializable {
             // both are null
             return 0;
         }
-        
+
     }
 
     /**
@@ -394,6 +414,7 @@ public class GProjectPartDescriptor implements Serializable {
         RESOURCE,
         /**
          * Shared real time Model server JSON fragment.
+         *
          * @since > 5.4.0
          */
         @objid ("c10e9ffe-591a-42a9-83d4-472b15c3e3f7")

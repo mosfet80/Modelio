@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnboundaryevent;
 
@@ -57,7 +57,7 @@ public final class BpmnBoundaryEventPrimaryNodeEditPart extends AbstractCircleNo
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START, new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
         installEditPolicy(ModelElementDropRequest.TYPE, new MethodologicalLinkUpdateDropEditPolicy(Event.MdaTypes.STEREOTYPE_ELT, true));
-        
+
     }
 
     @objid ("608373a6-55b6-11e2-877f-002564c97630")
@@ -66,10 +66,10 @@ public final class BpmnBoundaryEventPrimaryNodeEditPart extends AbstractCircleNo
         ColorizableImageFigure newFigure = new ColorizableImageFigure(getModel().getEventImage());
         newFigure.setPreferredSize(33, 33);
         newFigure.setMinimumSize(new Dimension(33, 33));
-        
+
         // set style dependent properties
         refreshFromStyle(newFigure, getModelStyle());
-        
+
         // return the figure
         return newFigure;
     }
@@ -79,7 +79,7 @@ public final class BpmnBoundaryEventPrimaryNodeEditPart extends AbstractCircleNo
     protected void refreshFromStyle(IFigure aFigure, IStyle style) {
         if (!switchRepresentationMode()) {
             super.refreshFromStyle(aFigure, style);
-        
+
             if (aFigure instanceof ColorizableImageFigure) {
                 ColorizableImageFigure cFigure = (ColorizableImageFigure) aFigure;
                 final GmModel gmModel = getModel();
@@ -87,7 +87,7 @@ public final class BpmnBoundaryEventPrimaryNodeEditPart extends AbstractCircleNo
                 cFigure.setColor(color);
             }
         }
-        
+
     }
 
     @objid ("608373b2-55b6-11e2-877f-002564c97630")
@@ -95,7 +95,7 @@ public final class BpmnBoundaryEventPrimaryNodeEditPart extends AbstractCircleNo
     protected void refreshVisuals() {
         GmBpmnBoundaryEventPrimaryNode initialNodeModel = getModel();
         getFigure().getParent().setConstraint(getFigure(), initialNodeModel.getLayoutData());
-        
+
     }
 
     @objid ("ba38ce59-4df0-47c9-9e2e-e697804f0543")

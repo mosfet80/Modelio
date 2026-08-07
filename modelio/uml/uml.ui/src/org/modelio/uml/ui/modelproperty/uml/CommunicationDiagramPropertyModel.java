@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -50,15 +50,17 @@ public class CommunicationDiagramPropertyModel extends AbstractPropertyModel<Com
     /**
      * Create a new <i>CommunicationDiagram</i> data model from an
      * <i>CommunicationDiagram</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("9b7a604f-8648-475d-86fc-cd657502a2ba")
-    public  CommunicationDiagramPropertyModel(final CommunicationDiagram theEditedElement) {
+    public CommunicationDiagramPropertyModel(final CommunicationDiagram theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("5a19ea7b-646d-4071-b0d3-a18029ad6767")
@@ -69,6 +71,7 @@ public class CommunicationDiagramPropertyModel extends AbstractPropertyModel<Com
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("24b0e69c-815e-430d-b25f-01921907d1c2")
@@ -81,6 +84,7 @@ public class CommunicationDiagramPropertyModel extends AbstractPropertyModel<Com
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -102,7 +106,7 @@ public class CommunicationDiagramPropertyModel extends AbstractPropertyModel<Com
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -112,6 +116,7 @@ public class CommunicationDiagramPropertyModel extends AbstractPropertyModel<Com
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -134,13 +139,14 @@ public class CommunicationDiagramPropertyModel extends AbstractPropertyModel<Com
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -165,7 +171,7 @@ public class CommunicationDiagramPropertyModel extends AbstractPropertyModel<Com
         default:
             return;
         }
-        
+
     }
 
 }

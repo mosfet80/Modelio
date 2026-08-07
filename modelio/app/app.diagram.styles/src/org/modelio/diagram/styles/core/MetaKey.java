@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.styles.core;
 
@@ -72,6 +72,12 @@ public class MetaKey {
      */
     @objid ("85584b4e-1926-11e2-92d2-001ec947c8cc")
     public static final MetaKey DRAWLINEBRIDGES = new MetaKey("DRAWLINEBRIDGES", Boolean.class);
+
+    /**
+     * Define the spacing between two Anchor in Diagram
+     */
+    @objid ("5846ab2c-0cd1-4a6c-9f57-5745e96318df")
+    public static final MetaKey ANCHORSPACING = new MetaKey("ANCHORSPACING", Integer.class);
 
     /**
      * Fill color meta key. Typed by {@link Color}.
@@ -175,7 +181,7 @@ public class MetaKey {
      */
     @objid ("855aada4-1926-11e2-92d2-001ec947c8cc")
     public static final MetaKey VISIBILITYFILTER = new MetaKey("VISIBILITYFILTER",
-    	        UmaskByVisibilityStragegy.class);
+                UmaskByVisibilityStragegy.class);
 
     /**
      * Show or not the information flows. {@link Boolean} type.
@@ -223,7 +229,7 @@ public class MetaKey {
      * Opacity level.
      * <p>
      * Values may range from 0 to 255. A value of 0 is completely transparent.
-     * 
+     *
      * @see org.eclipse.draw2d.Graphics#setAlpha(int)
      */
     @objid ("52dd2f54-4d93-45a8-8217-5187fb53bef4")
@@ -249,21 +255,22 @@ public class MetaKey {
 
     /**
      * Private constructor. Don't use outside this class.
+     *
      * @param key The meta key name.
      * @param type The meta key type.
      */
     @objid ("855d100f-1926-11e2-92d2-001ec947c8cc")
-     MetaKey(String key, Class<?> type) {
+    MetaKey(String key, Class<?> type) {
         this.key = key;
         this.type = type;
         this.label = DiagramStyles.I18N.getMessage("$MetaKey." + key + ".label");
         this.tooltip = DiagramStyles.I18N.getMessage("$MetaKey." + key + ".tooltip");
         MetaKey.instances.put(this.key, this);
-        
     }
 
     /**
      * Get the string uniquely identifying the meta key.
+     *
      * @return the meta key name.
      */
     @objid ("855d1016-1926-11e2-92d2-001ec947c8cc")
@@ -272,6 +279,7 @@ public class MetaKey {
     }
 
     /**
+     *
      * @return the default label for this Metakey.
      */
     @objid ("855d101b-1926-11e2-92d2-001ec947c8cc")
@@ -281,6 +289,7 @@ public class MetaKey {
     }
 
     /**
+     *
      * @return the default tooltip for this Metakey.
      */
     @objid ("855f7254-1926-11e2-92d2-001ec947c8cc")
@@ -291,6 +300,7 @@ public class MetaKey {
 
     /**
      * Get the meta key type.
+     *
      * @return the meta key type.
      */
     @objid ("855f7259-1926-11e2-92d2-001ec947c8cc")
@@ -306,6 +316,7 @@ public class MetaKey {
 
     /**
      * Return the MetaKey instance for a given string key.
+     *
      * @param id the id string value
      * @return the MetaKey for the given string key or null if none found.
      */
@@ -316,6 +327,7 @@ public class MetaKey {
 
     /**
      * Get all instances of MetaKey
+     *
      * @return all created style keys.
      */
     @objid ("855f726b-1926-11e2-92d2-001ec947c8cc")
@@ -325,7 +337,7 @@ public class MetaKey {
 
     /**
      * Attributes group meta keys.
-     * 
+     *
      * @author cmarin
      */
     @objid ("8561d4ae-1926-11e2-92d2-001ec947c8cc")
@@ -353,7 +365,7 @@ public class MetaKey {
          */
         @objid ("8561d4b7-1926-11e2-92d2-001ec947c8cc")
         public static final MetaKey ATTSHOWSTEREOTYPES = new MetaKey("ATTSHOWSTEREOTYPES",
-        		        ShowStereotypeMode.class);
+                        ShowStereotypeMode.class);
 
         /**
          * Show tagged values meta key. {@link Boolean} type.
@@ -380,7 +392,7 @@ public class MetaKey {
         public static final MetaKey ATTWRAPLABEL = new MetaKey("ATTWRAPLABEL", Boolean.class);
 
         @objid ("8564370a-1926-11e2-92d2-001ec947c8cc")
-        private  AttGroup() {
+        private AttGroup() {
             // just to forbid instantiation
         }
 
@@ -388,7 +400,7 @@ public class MetaKey {
 
     /**
      * Operation group meta keys.
-     * 
+     *
      * @author cmarin
      */
     @objid ("8564370c-1926-11e2-92d2-001ec947c8cc")
@@ -416,7 +428,7 @@ public class MetaKey {
          */
         @objid ("85643715-1926-11e2-92d2-001ec947c8cc")
         public static final MetaKey OPSHOWSTEREOTYPES = new MetaKey("OPSHOWSTEREOTYPES",
-        		        ShowStereotypeMode.class);
+                        ShowStereotypeMode.class);
 
         /**
          * Show tagged values meta key. {@link Boolean} type.
@@ -449,7 +461,7 @@ public class MetaKey {
         public static final MetaKey OPWRAPLABEL = new MetaKey("OPWRAPLABEL", Boolean.class);
 
         @objid ("85643723-1926-11e2-92d2-001ec947c8cc")
-        private  OperationGroup() {
+        private OperationGroup() {
             // just to forbid instantiation
         }
 
@@ -457,7 +469,7 @@ public class MetaKey {
 
     /**
      * Internal structure meta keys.
-     * 
+     *
      * @author cmarin
      */
     @objid ("85643725-1926-11e2-92d2-001ec947c8cc")
@@ -485,7 +497,7 @@ public class MetaKey {
          */
         @objid ("8564372e-1926-11e2-92d2-001ec947c8cc")
         public static final MetaKey INTSHOWSTEREOTYPES = new MetaKey("INTSHOWSTEREOTYPES",
-        		        ShowStereotypeMode.class);
+                        ShowStereotypeMode.class);
 
         /**
          * Show tagged values meta key. {@link Boolean} type.
@@ -516,7 +528,7 @@ public class MetaKey {
         public static final MetaKey INTWRAPLABEL = new MetaKey("INTWRAPLABEL", Boolean.class);
 
         @objid ("8564373a-1926-11e2-92d2-001ec947c8cc")
-        private  InternalGroup() {
+        private InternalGroup() {
             // just to forbid instantiation
         }
 
@@ -524,7 +536,7 @@ public class MetaKey {
 
     /**
      * Inner classes group meta keys.
-     * 
+     *
      * @author cmarin
      */
     @objid ("8564373c-1926-11e2-92d2-001ec947c8cc")
@@ -552,7 +564,7 @@ public class MetaKey {
          */
         @objid ("85669969-1926-11e2-92d2-001ec947c8cc")
         public static final MetaKey INNERSHOWSTEREOTYPES = new MetaKey("INNER_SHOWSTEREOTYPES",
-        		        ShowStereotypeMode.class);
+                        ShowStereotypeMode.class);
 
         /**
          * Show tagged values meta key. {@link Boolean} type.
@@ -581,7 +593,7 @@ public class MetaKey {
          */
         @objid ("85669972-1926-11e2-92d2-001ec947c8cc")
         public static final MetaKey INNERUNMASKFILTER = new MetaKey("INNERUNMASKFILTER",
-        		        UmaskByVisibilityStragegy.class);
+                        UmaskByVisibilityStragegy.class);
 
         /**
          * Show visibility meta key
@@ -602,7 +614,7 @@ public class MetaKey {
         public static final MetaKey INNERWRAPLABEL = new MetaKey("INNERWRAPLABEL", Boolean.class);
 
         @objid ("8566997b-1926-11e2-92d2-001ec947c8cc")
-        private  InnerGroup() {
+        private InnerGroup() {
             // just to forbid instantiation
         }
 
@@ -610,7 +622,7 @@ public class MetaKey {
 
     /**
      * Information items group meta keys.
-     * 
+     *
      * @author cmarin
      */
     @objid ("8566997d-1926-11e2-92d2-001ec947c8cc")
@@ -638,7 +650,7 @@ public class MetaKey {
          */
         @objid ("85669986-1926-11e2-92d2-001ec947c8cc")
         public static final MetaKey INFSHOWSTEREOTYPES = new MetaKey("INFSHOWSTEREOTYPES",
-        		        ShowStereotypeMode.class);
+                        ShowStereotypeMode.class);
 
         /**
          * Show tagged values meta key. {@link Boolean} type.
@@ -659,7 +671,7 @@ public class MetaKey {
         public static final MetaKey INFWRAPLABEL = new MetaKey("INFWRAPLABEL", Boolean.class);
 
         @objid ("8568fbc3-1926-11e2-92d2-001ec947c8cc")
-        private  InformationItemGroup() {
+        private InformationItemGroup() {
             // just to forbid instantiation
         }
 

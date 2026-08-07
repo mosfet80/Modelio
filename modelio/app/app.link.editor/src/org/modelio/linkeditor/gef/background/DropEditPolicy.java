@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.linkeditor.gef.background;
 
@@ -62,27 +81,27 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  */
 @objid ("1b91417c-5e33-11e2-b81d-002564c97630")
 public class DropEditPolicy extends XYLayoutEditPolicy {
-    @objid ("468251a6-ac0e-41c8-a678-0db1b5f1d719")
+    @objid ("9e013d04-294e-40b0-aa02-d63adbdcae3a")
     private final XYAnchor dummyXYAnchor = new XYAnchor(new Point(10, 10));
 
-    @objid ("4cf07c7c-4dea-4d75-9d31-0f674b269345")
+    @objid ("7fe17bbd-baba-42e2-b3dd-9bd53ae1df7b")
     private PolylineConnection connectionFeedback;
 
-    @objid ("dfc3cde0-8c18-4224-aabe-39ed067f332f")
+    @objid ("8b496c4e-bcfc-4ca2-9c17-5fd6b9ec528a")
     private final ChopboxAnchor dummyChopBoxAnchor = new ChopboxAnchor(null);
 
     @objid ("1b914193-5e33-11e2-b81d-002564c97630")
     @Override
     protected Command getCreateCommand(final CreateRequest request) {
         BackgroundEditPart ep = (BackgroundEditPart) getHost();
-        
+
         // Extracting the dropped elements
         MObject[] droppedElements = (MObject[]) request.getExtendedData().get(LinkEditorDropTargetListener.DROPPED_ELEMENTS);
-        
+
         if (droppedElements != null && droppedElements.length > 0 && ep.isEditMode() && getCenterNode() != null) {
             // determine whether it is "to" or "from"
             boolean isFrom = getSide(request);
-        
+
             Set<LinkTypeDescriptor> candidates = collectTypes(getCenterNode().getData(), droppedElements, isFrom);
             return new CreateLinkCommand(getCenterNode().getData(), droppedElements, isFrom, candidates, ep.getContext().get(IModuleService.class).getMdaExpert());
         }
@@ -109,17 +128,17 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
         this.dummyChopBoxAnchor.setOwner(centerNodeFigure);
         // update the XY anchor position.
         this.dummyXYAnchor.setLocation(createRequest.getLocation());
-        
+
         // determine wether it is "to" or "from"
         boolean isFrom = getSide(createRequest);
-        
+
         if (this.connectionFeedback == null) {
             // add the "link" feedback.
             this.connectionFeedback = new PolylineConnection();
             this.connectionFeedback.removeAllPoints();
             this.connectionFeedback.setVisible(true);
             this.connectionFeedback.setOpaque(true);
-        
+
             getFeedbackLayer().add(this.connectionFeedback);
         }
         if (isFrom) {
@@ -131,9 +150,8 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
         }
         getFeedbackLayer().remove(this.connectionFeedback);
         getFeedbackLayer().add(this.connectionFeedback);
-        
+
         super.showLayoutTargetFeedback(request);
-        
     }
 
     @objid ("1b93a2e1-5e33-11e2-b81d-002564c97630")
@@ -144,21 +162,21 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
             getFeedbackLayer().remove(this.connectionFeedback);
             this.connectionFeedback = null;
         }
-        
     }
 
     /**
      * Return true if the drop creates a link starting from center node.
+     *
      * @param request the creation request.
      * @return true if the drop should create a link that is originated from centerNode, false for a link that should target centerNode.
      */
     @objid ("1b93a2e4-5e33-11e2-b81d-002564c97630")
     private boolean getSide(final CreateRequest request) {
         BackgroundEditPart ep = (BackgroundEditPart) getHost();
-        
+
         GraphNode centerNode = getCenterNode();
         boolean vertical = ep.isVerticalLayout();
-        
+
         if (vertical) {
             if (request.getLocation().y < centerNode.y + centerNode.height / 2) {
                 // drop above the centerNode => centerNode outgoing link
@@ -176,7 +194,6 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
                 return true;
             }
         }
-        
     }
 
     @objid ("1b93a2eb-5e33-11e2-b81d-002564c97630")
@@ -187,10 +204,10 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
             this.connectionFeedback = null;
         }
         super.eraseLayoutTargetFeedback(request);
-        
     }
 
     /**
+     *
      * @return the node at the center of the link editor.
      */
     @objid ("1b93a30e-5e33-11e2-b81d-002564c97630")
@@ -201,6 +218,7 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
 
     /**
      * Returns the possible link types for creation.
+     *
      * @return a list of LinkTypeDescriptor
      */
     @objid ("b21b5287-7aa7-4642-9ce4-f1a12656e688")
@@ -208,15 +226,15 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
         BackgroundEditPart ep = (BackgroundEditPart) getHost();
         ILinkEditorConfiguration linkEditorConfiguration = ep.getModel().getConfiguration();
         IModuleService moduleService = ep.getContext().get(IModuleService.class);
-        
+
         IMdaExpert mdaExpert = moduleService.getMdaExpert();
-        
+
         // Compute the set of link candidate types
         Set<LinkTypeDescriptor> ret = new TreeSet<>();
-        
+
         ILinkEditorFilter configurationFilter = linkEditorConfiguration.getLinkFilter();
         List<MClass> enabledLinkMetaclasses = getEnabledLinkMetaclasses(refElement.getMClass().getMetamodel(), configurationFilter);
-        
+
         // Check dropped elements compatibility with the enabled link meta-classes, removing non applicable meta-classes.
         for (MObject droppedElement : droppedElements) {
             for (MClass mc : new ArrayList<>(enabledLinkMetaclasses)) {
@@ -230,26 +248,26 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
                 }
             }
         }
-        
+
         MModelServices mmService = new MModelServices(CoreSession.getSession(refElement));
         MMetamodel metamodel = mmService.getMetamodel();
-        
+
         for (MClass mc : enabledLinkMetaclasses) {
             if (mc.getQualifiedName().equals(BpmnMessageFlow.MQNAME)) {
                 continue;
             }
-        
+
             // Naked metaclass ?
             if (configurationFilter.accept(mc, null)) {
                 ret.add(new LinkTypeDescriptor(mc, null));
             }
-        
+
             // Stereotyped metaclasses ?
             List<Stereotype> enabledStereotypes = getEnabledStereotypes(mmService, moduleService, mc);
             for (Stereotype s : filterValidStereotypes(mdaExpert, mc, filterStereotypes(configurationFilter, mc, enabledStereotypes), refElement, droppedElements, isFrom)) {
                 ret.add(new LinkTypeDescriptor(metamodel.getMClass(s.getBaseClassName()), s));
             }
-        
+
         }
         return ret;
     }
@@ -260,6 +278,7 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
      * <li>are representing a 'link'</li>
      * <li>pass the configuration filter on its meta-class criterion</li>
      * </ul>
+     *
      * @param metamodel the metamodel.
      * @param filter the selected filter in link editor.
      * @return link metaclasses that are enabled by the filter.
@@ -279,6 +298,7 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
 
     /**
      * Filter the stereotypes using the {@link ILinkEditorConfiguration} filter
+     *
      * @param filter the selected filter in link editor.
      * @param mc a metaclass.
      * @param candidatesStereotypes stereotypes compatible with the given metaclass.
@@ -297,6 +317,7 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
 
     /**
      * Get all the visible stereotypes applicable on 'mc' that are provided by active modules.
+     *
      * @param mmService the model service to find stereotypes.
      * @param moduleService the module service to find active modules.
      * @param mc a metaclass.
@@ -310,7 +331,7 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
                 .map(module -> module.getName())
                 .collect(Collectors.toSet());
         activatedModules.add("LocalModule");
-        
+
         for (Stereotype st : mmService.findStereotypes(".*", ".*", mc)) {
             ModuleComponent module = st.getModule();
             if (st.isValid() && !st.isIsHidden() && module != null && activatedModules.contains(module.getName())) {
@@ -322,6 +343,7 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
 
     /**
      * Filter stereotype using the MDA Expert
+     *
      * @param mdaExpert an mda expert.
      * @param mc a metaclass.
      * @param candidatesStereotypes stereotypes compatible with the given metaclass.

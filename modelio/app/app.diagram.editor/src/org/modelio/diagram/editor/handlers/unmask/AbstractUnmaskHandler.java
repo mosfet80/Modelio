@@ -1,28 +1,28 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.handlers.unmask;
 
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.e4.core.di.annotations.Execute;
@@ -45,6 +45,7 @@ public abstract class AbstractUnmaskHandler {
 
     /**
      * Execute the handler
+     *
      * @param project project service
      * @param selection eclipse selection
      */
@@ -53,14 +54,15 @@ public abstract class AbstractUnmaskHandler {
     public final void execute(IProjectService project, @Named(IServiceConstants.ACTIVE_SELECTION) IStructuredSelection selection) {
         List<GraphicalEditPart> secondarySelection = new ArrayList<>();
         GraphicalEditPart primarySelection = getSelection(selection, secondarySelection);
-        
+
         // Unmask the elements
         unmask(primarySelection, secondarySelection, project.getSession());
-        
+
     }
 
     /**
      * This method returns the effective bounds (those seen by the end user) of a figure
+     *
      * @param figure the figure which bounds are to be returned.
      * @return a copy of the effective bounds of the figure
      */
@@ -75,6 +77,7 @@ public abstract class AbstractUnmaskHandler {
      * <p>
      * Separates the primary selection from other selected elements.
      * The primary element is returned and the other are added to <code>secondarySelection</code>.
+     *
      * @param selection the Eclipse selection
      * @param secondarySelection among the Eclipse selection, the secondary selection
      * @return the primary selected edit part main node edit part.
@@ -82,22 +85,22 @@ public abstract class AbstractUnmaskHandler {
     @objid ("65eb50a0-33f7-11e2-95fe-001ec947c8cc")
     protected GraphicalEditPart getSelection(IStructuredSelection selection, final List<GraphicalEditPart> secondarySelection) {
         GraphicalEditPart primarySelection = null;
-        
+
         List<?> selectedObjects = selection.toList();
         for (Object selectedObject : selectedObjects) {
-            if (selectedObject instanceof GraphicalEditPart && 
+            if (selectedObject instanceof GraphicalEditPart &&
                     ((EditPart)selectedObject).getModel() instanceof GmModel) {
                 GraphicalEditPart editPart = (GraphicalEditPart) selectedObject;
                 boolean isPrimary = editPart.getSelected() == EditPart.SELECTED_PRIMARY;
-        
+
                 // Only keep 'main' gms
                 while (((GmModel)editPart.getModel()).getRepresentedElement() == null) {
                     editPart = (GraphicalEditPart) editPart.getParent();
                 }
-        
+
                 if (isPrimary) {
                     primarySelection = editPart;
-        
+
                     // Avoid keeping the same edit part more than once
                     secondarySelection.remove(editPart);
                 } else {
@@ -108,7 +111,7 @@ public abstract class AbstractUnmaskHandler {
                 }
             }
         }
-        
+
         filterSelection(primarySelection, secondarySelection);
         return primarySelection;
     }
@@ -122,6 +125,7 @@ public abstract class AbstractUnmaskHandler {
      * <p>
      * That is done because any translation/resizing applied to the ancestor will already have an
      * impact on the child.
+     *
      * @param primarySelection the primary selected edit part
      * @param secondarySelection the secondary selection to be filtered
      */
@@ -142,7 +146,7 @@ public abstract class AbstractUnmaskHandler {
                 editPart = editPart.getParent();
             }
         }
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.log;
 
@@ -56,7 +56,7 @@ public class ShowLogHandler {
         final Path logPath = Paths.get(PluginLogger.getLogFile());
         IMDATextEditor editor = EditionManager.services().openEditor(null, logPath.toFile(), EditorType.TXTEditor, true, EditionManager.DEFAULT_CHARSET_NAME, "Modelio log", null);
         new LogFileWatcher(logPath, editor).start();
-        
+
     }
 
     @objid ("a0bbd7c0-587a-441f-babf-3f70061e513e")
@@ -74,28 +74,28 @@ public class ShowLogHandler {
         private final TextViewer textViewer;
 
         @objid ("bacba304-7a7f-4c18-b964-b4589f7d4bd8")
-        public  LogFileWatcher(Path logPath, IMDATextEditor editor) {
+        public LogFileWatcher(Path logPath, IMDATextEditor editor) {
             this.logPath = logPath;
             this.editor = editor;
             this.textViewer = ((TXTEditor) ((MDATextEditor) editor).getEditor().getObject()).getViewer();
-            
+
             // Position to the end of the editor
             StyledText styledText = this.textViewer.getTextWidget();
             styledText.setTopIndex(styledText.getLineCount() - 1);
             styledText.setCaretOffset(styledText.getText().length() );
-            
+
             editor.setListener(new IMDAEditorListener() {
                 @Override
                 public void editorClosed(IMDATextEditor mdaEditor) {
                     stopWatcher();
                 }
-            
+
                 @Override
                 public void documentSaved(IMDATextEditor mdaEditor, ModelElement modelElement, File file) {
                     // Nothing to do
                 }
             });
-            
+
         }
 
         @objid ("6263074d-801e-4fea-bf22-c853756d4636")
@@ -139,15 +139,15 @@ public class ShowLogHandler {
                     }
                 } catch (RuntimeException e) {
                     // Handle strange NPE when editor is closed in strange way.
-            
+
                     // Abort watcher to avoid infinite loop
                     stopWatcher();
-            
+
                     // Dump directly to stderr instead of log to avoid infinite loop
                     e.printStackTrace();
                 }
             });
-            
+
         }
 
         @objid ("223e884c-94ed-454a-aefc-08140f4583ab")
@@ -168,7 +168,7 @@ public class ShowLogHandler {
                         Thread.yield();
                         continue;
                     }
-            
+
                     for (WatchEvent<?> event : key.pollEvents()) {
                         WatchEvent.Kind<?> kind = event.kind();
                         if (kind == StandardWatchEventKinds.OVERFLOW) {
@@ -189,7 +189,7 @@ public class ShowLogHandler {
             } catch (Throwable e) {
                 // Ignore error, just end the thread
             }
-            
+
         }
 
     }

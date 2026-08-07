@@ -519,6 +519,7 @@ if isFragmentDeployed("Standard"):
   from org.modelio.metamodel.mmextensions.standard.facilities import RelatedDiagramHelper
   from org.modelio.metamodel.mmextensions.standard.facilities.interaction import MessageSequencer
   from org.modelio.metamodel.mmextensions.standard.facilities.interaction import InteractionHelper
+  from org.modelio.metamodel.mmextensions.standard.facilities import InterFragmentTester
   from org.modelio.metamodel.mmextensions.standard.factory import IStandardModelFactory
   from org.modelio.metamodel.mmextensions.standard.services import IMModelServices
   from org.modelio.metamodel.mmextensions.standard.services import MModelServices

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.participant;
 
@@ -91,7 +91,7 @@ public class ParticipantPrimaryExpandedEditPart extends AbstractNodeEditPart {
     protected void addChildVisual(EditPart childEditPart, int index) {
         IFigure childFig = ((GraphicalEditPart) childEditPart).getFigure();
         GmNodeModel childModel = (GmNodeModel) childEditPart.getModel();
-        
+
         boolean isHorizontal = getModel().isHorizontalParticipantOrientation();
         switch (childModel.getRoleInComposition()) {
         // Positional reading: see GmBpmnParticipantPrimaryExpanded constructor for details of indices.
@@ -121,9 +121,9 @@ public class ParticipantPrimaryExpandedEditPart extends AbstractNodeEditPart {
             break;
         default:
             throw new IllegalArgumentException(String.format("Unexpected '%s' child at index %d.", childEditPart, index));
-        
+
         }
-        
+
     }
 
     @objid ("550f7afc-eb02-484c-a506-49f4c3c90782")
@@ -132,10 +132,10 @@ public class ParticipantPrimaryExpandedEditPart extends AbstractNodeEditPart {
         BpmnParticipant thisParticipant = getModel().getRepresentedElement();
         List<ConnectionEditPart> srcConnections = new ArrayList<ConnectionEditPart>(getSourceConnections());
         List<ConnectionEditPart> tgtConnections = new ArrayList<ConnectionEditPart>(getTargetConnections());
-        
+
         final IGmDiagram diagram = getModel().getDiagram();
         final Map<?, EditPart> editPartRegistry = getViewer().getEditPartRegistry();
-        
+
         for (ConnectionEditPart connEp : srcConnections) {
             if (connEp.getModel() instanceof IGmLink) {
                 final IGmLink gmLink = (IGmLink) connEp.getModel();
@@ -155,7 +155,7 @@ public class ParticipantPrimaryExpandedEditPart extends AbstractNodeEditPart {
                 }
             }
         }
-        
+
         for (ConnectionEditPart connEp : tgtConnections) {
             if (connEp.getModel() instanceof IGmLink) {
                 final IGmLink gmLink = (IGmLink) connEp.getModel();
@@ -175,9 +175,9 @@ public class ParticipantPrimaryExpandedEditPart extends AbstractNodeEditPart {
                 }
             }
         }
-        
+
         super.afterSwitchRepresentationMode();
-        
+
     }
 
     /**
@@ -187,9 +187,9 @@ public class ParticipantPrimaryExpandedEditPart extends AbstractNodeEditPart {
     @Override
     protected void beforeSwitchRepresentationMode() {
         GmBpmnParticipantPrimaryNode m = getModel();
-        
+
         m.refreshOrientation();
-        
+
         GmBpmnParticipantContent body = m.getBody();
         if (body == null) {
             // Extern participant
@@ -198,20 +198,20 @@ public class ParticipantPrimaryExpandedEditPart extends AbstractNodeEditPart {
         GmBpmnProcessDesignDiagram embeddedDiag = body.getViewedDiagramModel(true);
         if (embeddedDiag != null) {
             Collection<GmModel> embeddedNodes = embeddedDiag.getAllModels();
-        
+
             for (GmModel diagModel : m.getDiagram().getAllModels()) {
                 if (diagModel instanceof IGmLink) {
                     IGmLink l = (IGmLink) diagModel;
                     IGmLinkable source = l.getFrom();
                     IGmLinkable target = l.getTo();
-        
+
                     boolean srcEmbedded = embeddedNodes.contains(source);
                     boolean targetEmbedded = embeddedNodes.contains(target);
                     if (srcEmbedded ^ targetEmbedded) {
                         if (srcEmbedded) {
                             reconnectSourceTo(l, this);
                         }
-        
+
                         if (targetEmbedded) {
                             reconnectTargetTo(l, this);
                         }
@@ -219,41 +219,41 @@ public class ParticipantPrimaryExpandedEditPart extends AbstractNodeEditPart {
                 }
             }
         }
-        
+
     }
 
     @objid ("84dedea0-c634-48ca-9885-0b8b4c24acaa")
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         installEditPolicy(AutoExpandEditPolicy.ROLE, new AutoExpandEditPolicy());
-        
+
         installEditPolicy(EditPolicy.NODE_ROLE, new BpmnCreateLinkEditPolicy(false));
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START, new LinkedNodeStartCreationEditPolicy());
         // Override the default DROP policy
         installEditPolicy(ModelElementDropRequest.TYPE, null);
-        
+
     }
 
     @objid ("312a4dc4-328d-4378-94bf-2a56bae3e5ee")
     @Override
     protected IFigure createFigure() {
         BpmnLaneFigure fig = null;
-        
+
         fig = new BpmnLaneFigure();
         fig.setLayoutManager(new BorderLayout());
         MinimumSizeLayout.apply(fig, 800, 120);
-        
+
         // set style independent properties
         fig.setOpaque(true);
-        
+
         // Init orientation
         this.isHorizontalLayoutCache = getModel().isHorizontalParticipantOrientation();
-        
+
         // set style dependent properties
         refreshFromStyle(fig, getModelStyle());
-        
+
         // return the figure
         return fig;
     }
@@ -264,7 +264,7 @@ public class ParticipantPrimaryExpandedEditPart extends AbstractNodeEditPart {
         if (aFigure instanceof BpmnLaneFigure) {
             if (!switchRepresentationMode()) {
                 super.refreshFromStyle(aFigure, style);
-        
+
                 final GmModel gmModel = getModel();
                 if (aFigure.getChildren().size() > 0) {
                     IFigure headerFigure = (IFigure) aFigure.getChildren().get(0);
@@ -274,11 +274,12 @@ public class ParticipantPrimaryExpandedEditPart extends AbstractNodeEditPart {
         } else {
             super.refreshFromStyle(aFigure, style);
         }
-        
+
     }
 
     /**
      * Refresh this EditPart's visuals.
+     *
      * @see org.eclipse.gef.editparts.AbstractEditPart#refreshVisuals()
      */
     @objid ("2375f512-3e00-4aec-b268-934420ddd921")
@@ -286,87 +287,88 @@ public class ParticipantPrimaryExpandedEditPart extends AbstractNodeEditPart {
     protected void refreshVisuals() {
         GmBpmnParticipantPrimaryNode partitionModel = getModel();
         getFigure().getParent().setConstraint(getFigure(), partitionModel.getLayoutData());
-        
+
     }
 
     @objid ("8d0d1b17-f569-40e3-a9c4-d6e730d9c746")
     private void reconnectSourceTo(IGmLink gmLink, AbstractNodeEditPart newSourceEp) {
         EditPart realSourceEp = newSourceEp instanceof PortContainerEditPart ? ((PortContainerEditPart) newSourceEp).getMainNodeEditPart() : newSourceEp;
-        
+
         ConnectionEditPart connEp = (ConnectionEditPart) getViewer().getEditPartRegistry().get(gmLink);
         Connection connFig = (Connection) connEp.getFigure();
         final Point firstPoint = connFig.getPoints().getFirstPoint();
         connFig.translateToAbsolute(firstPoint);
-        
+
         ReconnectRequest req = new ReconnectRequest(RequestConstants.REQ_RECONNECT_SOURCE);
         req.setConnectionEditPart(connEp);
         req.setLocation(firstPoint);
-        
+
         RequestProperty.PROP_SKIP_MODELCHANGE.set(req, true);
-        
+
         realSourceEp = realSourceEp.getTargetEditPart(req);
         if (realSourceEp != null) {
             req.setTargetEditPart(realSourceEp);
-        
+
             // Emulate feedback to make the router do its job
             connEp.showSourceFeedback(req);
             Command command = realSourceEp.getCommand(req);
-        
+
             // Erase feedback to reset the connection before executing the command
             connEp.eraseSourceFeedback(req);
-        
+
             if (command != null && command.canExecute()) {
                 command.execute();
             }
         }
-        
+
     }
 
     @objid ("7628abeb-2af3-4e05-8905-2e5b443f0614")
     private void reconnectTargetTo(IGmLink gmLink, AbstractNodeEditPart newTargetEp) {
         EditPart realTargetEp = newTargetEp instanceof PortContainerEditPart ? ((PortContainerEditPart) newTargetEp).getMainNodeEditPart() : newTargetEp;
-        
+
         ConnectionEditPart connEp = (ConnectionEditPart) getViewer().getEditPartRegistry().get(gmLink);
         Connection connFig = (Connection) connEp.getFigure();
         final Point lastPoint = connFig.getPoints().getLastPoint();
         connFig.translateToAbsolute(lastPoint);
-        
+
         ReconnectRequest req = new ReconnectRequest(RequestConstants.REQ_RECONNECT_TARGET);
         req.setConnectionEditPart(connEp);
         req.setLocation(lastPoint);
-        
+
         RequestProperty.PROP_SKIP_MODELCHANGE.set(req, true);
-        
+
         realTargetEp = realTargetEp.getTargetEditPart(req);
         if (realTargetEp != null) {
             req.setTargetEditPart(realTargetEp);
-        
+
             // Emulate feedback to make the router do its job
             connEp.showSourceFeedback(req);
-        
+
             Command command = realTargetEp.getCommand(req);
-        
+
             // Erase feedback to reset the connection before executing the command
             connEp.eraseSourceFeedback(req);
             if (command != null && command.canExecute()) {
                 command.execute();
             }
         }
-        
+
     }
 
     @objid ("bdb135b6-dd84-4f41-897c-f389631a38ac")
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         super.propertyChange(evt);
-        
+
         if (evt.getPropertyName().equals(GmBpmnParticipantPrimaryNode.CHECK_ORIENTATION)) {
             switchRepresentationMode();
         }
-        
+
     }
 
     /**
+     *
      * @return <code>true</code> when an orientation change occurs, to make the edit part create its figure again.
      */
     @objid ("0625b4c4-7b7a-4985-831b-72badbdd7497")
@@ -376,17 +378,17 @@ public class ParticipantPrimaryExpandedEditPart extends AbstractNodeEditPart {
         if (parentEditPart == null || !isActive()) {
             return false;
         }
-        
+
         if (this.isHorizontalLayoutCache != null && this.isHorizontalLayoutCache != getModel().isHorizontalParticipantOrientation()) {
             // update cache
             this.isHorizontalLayoutCache = getModel().isHorizontalParticipantOrientation();
-        
+
             // return true to make the edit part create its figure again
             return true;
         } else {
             return super.needsRepresentationModeSwitch();
         }
-        
+
     }
 
     @objid ("076e8fe7-cce2-4a81-b401-7ea43f489492")

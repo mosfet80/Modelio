@@ -1,25 +1,45 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.vcore.smkernel.mapi.modelshield.api;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.smkernel.mapi.MObject;
@@ -39,11 +59,17 @@ public class ModelError implements IModelError {
     private final MObject element;
 
     @objid ("00280b38-0000-0005-0000-000000000000")
-    public  ModelError(final String ruleId, final MObject element, final List<Object> linkedObjects) {
+    public ModelError(final String ruleId, final MObject element, final List<Object> linkedObjects) {
         this.ruleId = ruleId;
         this.element = element;
-        this.linkedObjects = linkedObjects;
-        
+        this.linkedObjects = linkedObjects != null ? linkedObjects : Collections.emptyList();
+    }
+
+    @objid ("7bf8816c-f3ab-4338-972e-02d00f06c08a")
+    public ModelError(final String ruleId, final MObject element, Object... linkedObjects) {
+        this.ruleId = ruleId;
+        this.element = element;
+        this.linkedObjects = Arrays.asList(linkedObjects);
     }
 
     @objid ("002804f8-0000-06bb-0000-000000000000")
@@ -64,12 +90,19 @@ public class ModelError implements IModelError {
         return this.linkedObjects;
     }
 
-    @objid ("7bf8816c-f3ab-4338-972e-02d00f06c08a")
-    public  ModelError(final String ruleId, final MObject element, Object... linkedObjects) {
-        this.ruleId = ruleId;
-        this.element = element;
-        this.linkedObjects = Arrays.asList(linkedObjects);
-        
+    @objid ("3722ca09-6e9d-4ae4-ba20-33e962e47c6d")
+    @Override
+    public String toString() {
+        final int maxLen = 10;
+        StringBuilder builder = new StringBuilder();
+        builder.append("ModelError [rule=");
+        builder.append(getRuleId());
+        builder.append(", element=");
+        builder.append(getElement());
+        builder.append(", linked=");
+        builder.append(getLinkedObjects() != null ? getLinkedObjects().subList(0, Math.min(getLinkedObjects().size(), maxLen)) : null);
+        builder.append("]");
+        return builder.toString();
     }
 
 }

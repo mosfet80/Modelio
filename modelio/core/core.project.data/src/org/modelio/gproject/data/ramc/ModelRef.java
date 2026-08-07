@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.data.ramc;
 
@@ -60,55 +60,58 @@ public class ModelRef implements Serializable {
 
     /**
      * Creates a reference.
+     *
      * @param mc The metaclass name.
      * @param tuuid The UUID
      */
     @objid ("89557d1f-5475-4fe8-a6e0-b1eacc11fe5e")
-    public  ModelRef(String mc, String tuuid) {
+    public ModelRef(String mc, String tuuid) {
         this.mc = mc;
         this.uuid = tuuid;
         this.name = "";
-        
+
     }
 
     /**
      * Creates a reference.
+     *
      * @param mc The metaclass name.
      * @param tuuid The object universal identifier
      * @param name an object name, may be <code>null</code>.
      */
     @objid ("629151b6-e3b4-447b-acde-2576ca04ffdd")
-    public  ModelRef(String mc, String tuuid, String name) {
+    public ModelRef(String mc, String tuuid, String name) {
         this.mc = mc;
         this.uuid = tuuid;
         this.name = name;
-        
+
     }
 
     /**
      * Construct a MRef instance from a String whose format is the MRef.toString() format so that:<br>
      * given <i>mref</i> a MRef, <code>new MRef(mref.toString()).equals(mref)</code> is guaranteed to be <code>true</code>.
+     *
      * @param s a string
      */
     @objid ("eac2fcf2-4526-4ab0-ab84-4b201533281e")
-    public  ModelRef(String s) {
+    public ModelRef(String s) {
         final Matcher m = pattern.matcher(s);
-        
+
         if (m.matches()) {
             final MatchResult r = m.toMatchResult();
             if (r.groupCount() == 3) {
-        
+
                 this.name = (r.group(1).isEmpty() ? null : r.group(1));
                 this.uuid = (r.group(2));
                 this.mc = r.group(3);
             } else {
                 throw new IllegalArgumentException("Invalid MRef string: " + s);
             }
-        
+
         } else {
             throw new IllegalArgumentException("Invalid MRef string: " + s);
         }
-        
+
     }
 
     @objid ("6659fae5-2345-45d2-9e01-edaaf4eb9d8c")
@@ -117,11 +120,11 @@ public class ModelRef implements Serializable {
         if (obj == null) {
             return false;
         }
-        
+
         if (obj.getClass() != getClass()) {
             return false;
         }
-        
+
         final ModelRef other = (ModelRef) obj;
         return this.mc.equals(other.mc) && this.uuid.equals(other.uuid);
     }
@@ -134,10 +137,10 @@ public class ModelRef implements Serializable {
 
     /**
      * Produces a string representing this MRef object.
-     * 
+     *
      * 'nnnn' {xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx} mmmmm
-     * 
-     * 
+     *
+     *
      * 'nnnn' = name {xxx...xx} = uuid mmmm = metaclass
      */
     @objid ("d24b0820-0a4b-4934-9602-2d49b569bb18")

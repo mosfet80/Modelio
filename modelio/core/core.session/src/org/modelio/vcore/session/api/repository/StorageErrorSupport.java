@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.api.repository;
 
@@ -41,15 +41,17 @@ public class StorageErrorSupport {
 
     /**
      * Creates a storage monitor support.
+     *
      * @param repository the handled repository.
      */
     @objid ("0d297b11-d66d-11e1-adbb-001ec947ccaf")
-    public  StorageErrorSupport(IRepository repository) {
+    public StorageErrorSupport(IRepository repository) {
         this.repository = repository;
     }
 
     /**
      * Add a listener that is fired when an I/O error occur on the repository.
+     *
      * @param listener the error listener.
      */
     @objid ("0d297b17-d66d-11e1-adbb-001ec947ccaf")
@@ -59,6 +61,7 @@ public class StorageErrorSupport {
 
     /**
      * Remove an error listener.
+     *
      * @param listener the error listener to remove.
      */
     @objid ("0d297b1b-d66d-11e1-adbb-001ec947ccaf")
@@ -68,6 +71,7 @@ public class StorageErrorSupport {
 
     /**
      * Fire a warning to repository listeners.
+     *
      * @param <T> the exception type
      * @param e the warning
      * @return the warning for convenience.
@@ -86,6 +90,7 @@ public class StorageErrorSupport {
 
     /**
      * Fire an error to repository listeners.
+     *
      * @param <T> the exception type
      * @param e the error
      * @return the error to conveniently allow the caller to throw it directly.

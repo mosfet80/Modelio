@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.data.module.jaxbv2;
 
@@ -27,9 +27,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for _Scope complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="_Scope">
  * &lt;complexContent>
@@ -65,8 +65,8 @@ public class Jxbv2Scope {
 
     /**
      * Gets the value of the metaclass property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("fb41c501-30e7-4571-ab34-ceca3e493136")
@@ -76,6 +76,7 @@ public class Jxbv2Scope {
 
     /**
      * Sets the value of the metaclass property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -86,8 +87,8 @@ public class Jxbv2Scope {
 
     /**
      * Gets the value of the stereotype property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("a7b64dd0-decf-4439-801e-730dc1c80bbd")
@@ -97,6 +98,7 @@ public class Jxbv2Scope {
 
     /**
      * Sets the value of the stereotype property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -107,8 +109,8 @@ public class Jxbv2Scope {
 
     /**
      * Gets the value of the withSubClasses property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link Boolean }
      */
     @objid ("a576ecb6-1a97-434c-9865-9a16d16f2872")
@@ -118,11 +120,12 @@ public class Jxbv2Scope {
         } else {
             return this.withSubClasses;
         }
-        
+
     }
 
     /**
      * Sets the value of the withSubClasses property.
+     *
      * @param value allowed object is
      * {@link Boolean }
      */
@@ -133,8 +136,8 @@ public class Jxbv2Scope {
 
     /**
      * Gets the value of the withSubStereotypes property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link Boolean }
      */
     @objid ("8f4969ab-f49a-4d8b-90bc-e3b368ba8303")
@@ -144,11 +147,12 @@ public class Jxbv2Scope {
         } else {
             return this.withSubStereotypes;
         }
-        
+
     }
 
     /**
      * Sets the value of the withSubStereotypes property.
+     *
      * @param value allowed object is
      * {@link Boolean }
      */

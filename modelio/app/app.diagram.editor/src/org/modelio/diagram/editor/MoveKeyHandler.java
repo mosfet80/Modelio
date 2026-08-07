@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor;
 
@@ -46,7 +46,7 @@ import org.modelio.vcore.session.impl.transactions.smAction.AddActionNoActiveTra
 
 /**
  * Specialization of the {@link KeyHandler} to add handling of the arrow keys to move elements.
- * 
+ *
  * @author fpoyer
  */
 @objid ("66674ada-33f7-11e2-95fe-001ec947c8cc")
@@ -62,35 +62,36 @@ public class MoveKeyHandler extends KeyHandler {
 
     /**
      * Creates a MoveKeyHandler that will handle arrow keys as request to translate the selected edit parts.
+     *
      * @param viewer the viewer to act on.
      */
     @objid ("666c0f8d-33f7-11e2-95fe-001ec947c8cc")
-    public  MoveKeyHandler(final GraphicalViewer viewer) {
+    public MoveKeyHandler(final GraphicalViewer viewer) {
         this.viewer = viewer;
     }
 
     @objid ("666c0f92-33f7-11e2-95fe-001ec947c8cc")
     @Override
     public boolean keyPressed(final KeyEvent event) {
-        List<GraphicalEditPart> selectedEditParts = ToolUtilities.getSelectionWithoutDependants(this.viewer);
-        
+        List<GraphicalEditPart> selectedEditParts = (List<GraphicalEditPart>) ToolUtilities.getSelectionWithoutDependants(this.viewer);
+
         if (!selectedEditParts.isEmpty()) {
             EditPart contents = this.viewer.getContents();
             SnapToHelper snapToHelper = contents.getAdapter(SnapToHelper.class);
-        
+
             int offset = 11;
             if (contents.getModel() instanceof IGmObject) {
                 offset = ((IGmObject) contents.getModel()).getDisplayedStyle().getInteger(GmAbstractDiagramStyleKeys.GRIDSPACING);
                 offset = offset / 2 + 1;
             }
-        
+
             if ((event.stateMask & SWT.ALT) != 0) {
                 offset = 10;
             }
             if ((event.stateMask & SWT.CTRL) != 0) {
                 offset = 1;
             }
-        
+
             Point moveDelta = new Point(0, 0);
             switch (event.keyCode) {
             case SWT.ARROW_UP: {
@@ -110,7 +111,7 @@ public class MoveKeyHandler extends KeyHandler {
                 break;
             }
             }
-        
+
             if (!moveDelta.equals(0, 0)) {
                 // viewer.getEditDomain().getActiveTool().
                 ChangeBoundsRequest request = new ChangeBoundsRequest(RequestConstants.REQ_MOVE);
@@ -119,26 +120,26 @@ public class MoveKeyHandler extends KeyHandler {
                         .getCenter());
                 request.setMoveDelta(moveDelta);
                 request.setEditParts(selectedEditParts);
-        
+
                 // Add all links :
                 // - linking any two nodes that are in that list or have an ancestor in that list
                 // - understanding the request
                 ToolSelectionUtils.addAllLinksFor(selectedEditParts, request, true);
-        
+
                 // TODO Read diagram style to know if snap is enabled
                 if (snapToHelper != null &&
                         (event.stateMask & SWT.ALT) == 0 &&
                         (event.stateMask & SWT.CTRL) == 0) {
                     snap(request, selectedEditParts, snapToHelper);
                 }
-        
+
                 // Accumulate commands in one command to execute all at once
                 Command bigCommand = null;
                 for (EditPart editPart : selectedEditParts) {
                     Command command = editPart.getCommand(request);
                     bigCommand = bigCommand == null ? command : bigCommand.chain(command);
                 }
-        
+
                 if (bigCommand != null && bigCommand.canExecute()) {
                     // Directly running the command does not save the diagram nor record
                     // the move in a Modelio transaction.
@@ -153,13 +154,13 @@ public class MoveKeyHandler extends KeyHandler {
                     }
                 }
             }
-        
+
         }
         return super.keyPressed(event);
     }
 
     @objid ("666c0f99-33f7-11e2-95fe-001ec947c8cc")
-    @SuppressWarnings ("deprecation")
+    @SuppressWarnings("deprecation")
     private static void snap(final ChangeBoundsRequest request, final List<GraphicalEditPart> selectedEditParts, final SnapToHelper snapToHelper) {
         PrecisionRectangle compoundRectangle = null;
         PrecisionRectangle sourceRectangle = null;
@@ -167,7 +168,7 @@ public class MoveKeyHandler extends KeyHandler {
             if (editPart instanceof ConnectionEditPart) {
                 continue;
             }
-        
+
             IFigure figure = editPart.getFigure();
             PrecisionRectangle bounds;
             if (figure instanceof HandleBounds) {
@@ -176,7 +177,7 @@ public class MoveKeyHandler extends KeyHandler {
                 bounds = new PrecisionRectangle(figure.getBounds());
             }
             figure.translateToAbsolute(bounds);
-        
+
             if (compoundRectangle == null) {
                 compoundRectangle = new PrecisionRectangle(bounds);
             } else {
@@ -186,7 +187,7 @@ public class MoveKeyHandler extends KeyHandler {
                 sourceRectangle = bounds;
             }
         }
-        
+
         if (compoundRectangle != null && sourceRectangle != null) {
             Point moveDelta = request.getMoveDelta();
             compoundRectangle.translate(moveDelta);
@@ -198,7 +199,6 @@ public class MoveKeyHandler extends KeyHandler {
                     preciseDelta);
             request.setMoveDelta(preciseDelta);
         }
-        
     }
 
     /**
@@ -215,7 +215,7 @@ public class MoveKeyHandler extends KeyHandler {
                     // Nothing to do
                 }
             });
-        
+
             this.moveDone = false;
         }
         return super.keyReleased(event);

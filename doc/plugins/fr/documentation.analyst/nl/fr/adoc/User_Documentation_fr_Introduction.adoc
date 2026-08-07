@@ -1,0 +1,10 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Introduction à la fonctionnalité Analyste
+
+Modelio Analyste est utilisé pour modéliser les phases amont d'un projet, telles que la définition des exigences, des objectifs, des règles métier et des dictionnaires.
+
+Cette fonctionnalité est soumise à licence. Vous pouvez acquérir une licence auprès de notre département commercial.

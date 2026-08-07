@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.common;
 
@@ -49,10 +49,10 @@ public class ForkJoinAnchorProvider extends FixedNodeAnchorProvider2 {
      * C'tor setting a default minimum distance of {@value #DIST_BETWEEN_ANCHORS} between anchors.
      */
     @objid ("ba27e0db-63af-4cd7-9854-e9fcee20aff0")
-    public  ForkJoinAnchorProvider(Supplier<ForkJoinOrientation> orientation) {
+    public ForkJoinAnchorProvider(Supplier<ForkJoinOrientation> orientation) {
         super(new ForkJoinAnchorFactory(DIST_BETWEEN_ANCHORS, orientation));
         this.orientation = orientation;
-        
+
     }
 
     @objid ("a9da6f06-adff-480c-8cd0-58c5a056e0be")
@@ -61,10 +61,10 @@ public class ForkJoinAnchorProvider extends FixedNodeAnchorProvider2 {
         private final Supplier<ForkJoinOrientation> orientationSupplier;
 
         @objid ("7d42acd3-b0d3-447c-a08b-88cf5ca18d4e")
-        public  ForkJoinAnchorFactory(int margin, Supplier<ForkJoinOrientation> orientationSupplier) {
+        public ForkJoinAnchorFactory(int margin, Supplier<ForkJoinOrientation> orientationSupplier) {
             super();
             this.orientationSupplier = orientationSupplier;
-            
+
         }
 
         @objid ("4936bb6b-f518-4a62-b195-a1a73c03922a")
@@ -77,20 +77,20 @@ public class ForkJoinAnchorProvider extends FixedNodeAnchorProvider2 {
                 createFaceAnchors(anchors, FacesConstants.FACE_EAST, faceFilter, anchorsCount.height);
                 createFaceAnchors(anchors, FacesConstants.FACE_WEST, faceFilter, anchorsCount.height);
             }
-            
+
         }
 
         @objid ("4b74d0c6-497b-4408-8960-e82377e876a9")
         @Override
         protected void updateGridAnchorCount(Dimension out, Dimension gridSize) {
             super.updateGridAnchorCount(out, gridSize);
-            
+
             if (this.orientationSupplier.get() == ForkJoinOrientation.HORIZONTAL) {
                 out.height = 0;
             } else {
                 out.width = 0;
             }
-            
+
         }
 
     }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.events;
 
@@ -72,12 +72,12 @@ public class StartEventNode implements IProductionNode<BpmnStartEvent, TStartEve
     @objid ("8c15c379-929b-4248-9db1-9bb1af7d923c")
     @Override
     public BpmnStartEvent createUMLElement(MObject context, TStartEvent jaxbElement, BpmnImportFactory factory, boolean keepId) {
-        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {  
+        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {
             return factory.createWithId(BpmnStartEvent.class, context,jaxbElement.getId());
         } else {
             return factory.create(BpmnStartEvent.class, context);
         }
-        
+
     }
 
     @objid ("f499c053-5c3f-4aa7-8e63-7e4f0e2ddfe5")
@@ -89,10 +89,10 @@ public class StartEventNode implements IProductionNode<BpmnStartEvent, TStartEve
         } else if (context instanceof BpmnSubProcess) {
             ((BpmnSubProcess) context).getFlowElement().add(modelioElement);
         }
-        
+
         if (jaxbElement.getName() != null)
             modelioElement.setName(StringConvertor.imports(jaxbElement.getName()));
-        
+
         modelioElement.setIsInterrupting(jaxbElement.isIsInterrupting());
         modelioElement.setParallelMultiple(jaxbElement.isParallelMultiple());
         return modelioElement;
@@ -103,7 +103,7 @@ public class StartEventNode implements IProductionNode<BpmnStartEvent, TStartEve
     public TStartEvent createJaxbElement(Object context, BpmnStartEvent modelioElement) {
         // Create JaxbElement
         TStartEvent jaxStartEvent = new TStartEvent();
-        
+
         // Add to context
         ObjectFactory factory = new ObjectFactory();
         if (context instanceof TProcess) {

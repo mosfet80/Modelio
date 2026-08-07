@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.browser.view.handlers.move;
 
@@ -23,8 +23,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
@@ -61,12 +61,13 @@ public class MoveElementUpHandler {
     private MetamodelExtensionPoint<IModelioTreeContentProvider> contentProviderExtensions;
 
     @objid ("2bff050e-8cd3-4737-bf04-ea81ef096cb6")
-    public  MoveElementUpHandler() {
+    public MoveElementUpHandler() {
         this.contentProviderExtensions = new MetamodelExtensionPoint<>(BrowserView.CONTENTPROVIDER_EXTENSION_POINT_ID);
     }
 
     /**
      * Available only when the selection contains only one modifiable element.
+     *
      * @param selection the current modelio selection.
      * @return true if the handler can be executed.
      */
@@ -77,31 +78,31 @@ public class MoveElementUpHandler {
         if (this.projectService.getSession() == null) {
             return false;
         }
-        
+
         // Must have at least an element
         List<SmObjectImpl> toClone = MoveElementUpHandler.getSelectedElements(selection);
-        
+
         SmObjectImpl dest = MoveElementUpHandler.getPasteTarget(toClone);
         if (dest == null) {
             return false;
         }
-        
-        
+
+
         for(IModelioTreeContentProvider tp : this.contentProviderExtensions.getAll()) {
             if(!tp.canReorder(toClone.get(0))) {
                 return false;
             }
         }
-        
+
         List<? extends MObject> listToReorder = getListToMove(toClone.get(0), dest);
-        
+
         // Check the elements to clone can be added to dest
         for (SmObjectImpl moved : toClone) {
-        
+
             if (MoveElementUpHandler.getIndexUp(moved, listToReorder) == -1) {
                 return false;
             }
-        
+
             if (!MTools.getAuthTool().canAdd(moved.getCompositionOwner(), moved.getMClass())) {
                 return false;
             }
@@ -130,7 +131,7 @@ public class MoveElementUpHandler {
                 // All elements to clone must have the same parent
                 compositionOwner = obj.getCompositionOwner();
             }
-        
+
             if (ret != null && ret != compositionOwner) {
                 return null;
             } else {
@@ -165,6 +166,7 @@ public class MoveElementUpHandler {
 
     /**
      * Cut the currently selected elements.
+     *
      * @param selection the current modelio selection.
      * @param currentDisplay the display Modelio runs into.
      */
@@ -172,32 +174,32 @@ public class MoveElementUpHandler {
     @Execute
     public final void execute(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, Display currentDisplay) {
         ICoreSession session = this.projectService.getSession();
-        
+
         // Sanity checks
         if (session == null) {
             return;
         }
-        
+
         final List<SmObjectImpl> selectedElements = MoveElementUpHandler.getSelectedElements(selection);
         SmObjectImpl targetElement = MoveElementUpHandler.getPasteTarget(selectedElements);
         if (targetElement == null) {
             return;
         }
-        
+
         // No elements to move
         if (selectedElements.isEmpty()) {
             return;
         }
-        
+
         try (ITransaction transaction = session.getTransactionSupport()
                 .createTransaction("Move element up")) {
             int nbToMove = 0;
-        
+
             for (SmObjectImpl element : selectedElements) {
                 List listToReorder = getListToMove(element, targetElement);
-        
+
                 int index = MoveElementUpHandler.getIndexUp(element, listToReorder);
-        
+
                 if (index != -1) {
                     nbToMove++;
                     listToReorder.remove(element);
@@ -206,7 +208,7 @@ public class MoveElementUpHandler {
                     break;
                 }
             }
-        
+
             if (nbToMove > 0) {
                 transaction.commit();
             } else {
@@ -218,19 +220,19 @@ public class MoveElementUpHandler {
             // is not a RuntimeException.
             MoveElementUpHandler.reportException(e);
         }
-        
+
     }
 
     @objid ("25481874-43a4-11e2-b513-002564c97630")
     private static int getIndexUp(SmObjectImpl element, List<? extends MObject> listToReorder) {
         int index = listToReorder.indexOf(element);
-        
+
         if (index < 1) {
             return -1;
         }
-        
+
         index--;
-        
+
         // Specific Treatment for BPMN Objects
         if (element instanceof BpmnFlowElement) {
             while (index != -1 && !(listToReorder.get(index) instanceof BpmnFlowElement)) {
@@ -239,14 +241,14 @@ public class MoveElementUpHandler {
         } else if (element.getMClass().getOrigin().getName().equals("Archimate")) {
             // Thanks TMA!
         } else {
-        
+
             // Iterate until we find an element of the same metaclass or until we
             // find the begining of the list.
             while (index != -1
                     && listToReorder.get(index).getClass() != element.getClass()) {
                 index--;
             }
-        
+
         }
         return index;
     }
@@ -255,11 +257,11 @@ public class MoveElementUpHandler {
     static void reportException(Exception e) {
         // Show an error box
         String title = BrowserViewActivator.I18N.getMessage("CannotPasteClipboard");
-        
+
         MessageDialog.openError(null, title, e.getLocalizedMessage());
-        
+
         BrowserViewActivator.LOG.error(e);
-        
+
     }
 
     @objid ("4cefcc9b-4b5d-4d1d-9fa2-f3a990306ab9")

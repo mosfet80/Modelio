@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.conf.handlers;
 
@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.FileSystemException;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
@@ -53,7 +53,7 @@ public class OpenProjectConfiguratorHandler {
     void execute(final MApplication application, final IProjectService projectService, @Named (IServiceConstants.ACTIVE_SHELL) final Shell shell, @Optional
     @Named ("folder") final String folder, IModelioProgressService progressService, StatusReporter statusReporter) {
         AppProjectConf.LOG.info("Opening project configurator");
-        
+
         IGProject openedProject = projectService.getOpenedProject();
         ProjectConfigurationDialog dialog = new ProjectConfigurationDialog(application, openedProject, shell);
         if (folder != null) {
@@ -65,7 +65,7 @@ public class OpenProjectConfiguratorHandler {
             }
         }
         dialog.open();
-        
+
         try {
             saveProject(progressService, projectService);
             projectService.refreshWorkspace(openedProject.getName());
@@ -77,7 +77,7 @@ public class OpenProjectConfiguratorHandler {
         } catch (InterruptedException e) {
             AppProjectConf.LOG.error(e);
         }
-        
+
     }
 
     @objid ("0024384e-5a8e-10a6-888d-001ec947cd2a")
@@ -89,7 +89,7 @@ public class OpenProjectConfiguratorHandler {
     @objid ("be8412e8-51a9-4f98-b6ee-6ce3df733435")
     private void saveProject(IModelioProgressService svc, final IProjectService projectService) throws InvocationTargetException, InterruptedException {
         IRunnableWithProgress runnable = new IRunnableWithProgress() {
-        
+
             @Override
             public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                 try {
@@ -101,9 +101,9 @@ public class OpenProjectConfiguratorHandler {
                 }
             }
         };
-        
+
         svc.run(true, false, runnable);
-        
+
     }
 
 }

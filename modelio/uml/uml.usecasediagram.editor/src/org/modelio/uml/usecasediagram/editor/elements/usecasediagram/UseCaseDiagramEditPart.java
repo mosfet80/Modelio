@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.usecasediagram.editor.elements.usecasediagram;
 
@@ -53,9 +53,9 @@ public class UseCaseDiagramEditPart extends AbstractDiagramEditPart {
     protected IFigure createFigure() {
         Figure diagramFigure = new UseCaseDiagramFigure();
         IStyle style = ((GmAbstractObject) this.getModel()).getDisplayedStyle();
-        
+
         // Set style independent properties
-        
+
         // Set style dependent properties
         refreshFromStyle(diagramFigure, style);
         return diagramFigure;
@@ -65,18 +65,17 @@ public class UseCaseDiagramEditPart extends AbstractDiagramEditPart {
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         // Policy to add nodes on the diagram
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new UseCaseDiagramLayoutEditPolicy());
-        
+
         // Policy to create notes
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_END,
                 new LinkedNodeFinishCreationEditPolicy());
-        
+
         // Policy to add bend points to connections being created
         installEditPolicy(CreateLinkConstants.REQ_CONNECTION_ADD_BENDPOINT,
                 new CreateLinkIntermediateEditPolicy());
-        
     }
 
     @objid ("5e88bf99-55b7-11e2-877f-002564c97630")
@@ -86,7 +85,6 @@ public class UseCaseDiagramEditPart extends AbstractDiagramEditPart {
             refreshUseCaseOwnership();
         }
         super.propertyChange(evt);
-        
     }
 
     @objid ("5e88bf9e-55b7-11e2-877f-002564c97630")
@@ -138,7 +136,7 @@ public class UseCaseDiagramEditPart extends AbstractDiagramEditPart {
                 GmUseCase useCaseGm = (GmUseCase) child;
                 GraphicalEditPart useCaseEp = (GraphicalEditPart) getViewer().getEditPartRegistry()
                         .get(useCaseGm);
-        
+
                 GraphicalEditPart systemEp = (GraphicalEditPart) getViewer().getEditPartRegistry()
                         .get(model.getBody());
                 Rectangle ucAbsBounds = layoutData.get(useCaseGm);
@@ -156,10 +154,9 @@ public class UseCaseDiagramEditPart extends AbstractDiagramEditPart {
                         getFigure().validate();
                     }
                 }
-        
+
             }
         }
-        
     }
 
     @objid ("5e88bfa0-55b7-11e2-877f-002564c97630")

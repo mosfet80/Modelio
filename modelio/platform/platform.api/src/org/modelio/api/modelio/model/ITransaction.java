@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.modelio.model;
 
@@ -37,7 +37,7 @@ public interface ITransaction extends AutoCloseable {
      * @throws: EndTransactionBadIdException if there is no currently active transaction.
      */
     @objid ("f2e1f462-0e28-11e2-baba-001ec947c8cc")
-    void commit();
+    abstract void commit();
 
     /**
      * Rollback the currently active transaction.
@@ -45,13 +45,13 @@ public interface ITransaction extends AutoCloseable {
      * The actions of the currently active transaction are undone and the transaction removed from the active stack
      */
     @objid ("f2e1f464-0e28-11e2-baba-001ec947c8cc")
-    void rollback();
+    abstract void rollback();
 
     /**
      * Failsafe mechanism that will automatically rollback the transaction if it has not been commited nor rolled back.
      */
     @objid ("f2e1f466-0e28-11e2-baba-001ec947c8cc")
     @Override
-    void close() throws RuntimeException;
-}
+    abstract void close() throws RuntimeException;
 
+}

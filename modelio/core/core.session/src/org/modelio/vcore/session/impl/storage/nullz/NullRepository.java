@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.impl.storage.nullz;
 
@@ -25,11 +25,13 @@ import java.io.OutputStream;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
+import java.util.stream.Stream;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vcore.session.api.blob.IBlobInfo;
 import org.modelio.vcore.session.api.repository.IRepository;
+import org.modelio.vcore.session.api.repository.IRepositoryQueryRunner;
 import org.modelio.vcore.session.api.repository.StorageErrorSupport;
 import org.modelio.vcore.session.impl.storage.IModelLoaderProvider;
 import org.modelio.vcore.smkernel.IRepositoryObject;
@@ -57,7 +59,7 @@ public class NullRepository implements IRepository, IRepositoryObject {
 
     @objid ("0048fc42-eb1c-1f22-8c06-001ec947cd2a")
     @Override
-    public void attModified(final SmObjectImpl obj, final SmAttribute att) {
+    public void attModified(SmObjectImpl obj, SmAttribute att, Object oldVal) {
         // no op
     }
 
@@ -109,6 +111,12 @@ public class NullRepository implements IRepository, IRepositoryObject {
         // no op
     }
 
+    @objid ("161fda05-4e60-4bbc-8740-bd404b70db0b")
+    @Override
+    public void loadStatus(SmObjectImpl obj) {
+        // no op
+    }
+
     @objid ("004a7f22-eb1c-1f22-8c06-001ec947cd2a")
     @Override
     public void detach(final SmObjectImpl obj) {
@@ -141,8 +149,8 @@ public class NullRepository implements IRepository, IRepositoryObject {
 
     @objid ("004b7ca6-eb1c-1f22-8c06-001ec947cd2a")
     @Override
-    public Collection<MObject> findByAtt(SmClass cls, boolean withSubClasses, String att, Object val) {
-        return Collections.emptyList();
+    public Stream<? extends MObject> streamByAtt(SmClass cls, boolean withSubClasses, String att, Object val) {
+        return Stream.empty();
     }
 
     @objid ("004bbc98-eb1c-1f22-8c06-001ec947cd2a")
@@ -155,6 +163,18 @@ public class NullRepository implements IRepository, IRepositoryObject {
     @Override
     public SmObjectImpl findById(final SmClass cls, final String siteIdentifier) {
         return null;
+    }
+
+    @objid ("ad4c9ee5-29c3-4790-a600-b50815413e36")
+    @Override
+    public Stream<MObject> streamByClass(SmClass cls, boolean withSubClasses) {
+        return Stream.empty();
+    }
+
+    @objid ("e4db1e2f-7c7e-4ed4-98c3-166348176c25")
+    @Override
+    public Stream<? extends MObject> streamByName(SmClass cls, boolean withSubClasses, String name) {
+        return Stream.empty();
     }
 
     @objid ("004c244e-eb1c-1f22-8c06-001ec947cd2a")
@@ -173,8 +193,8 @@ public class NullRepository implements IRepository, IRepositoryObject {
      * Instantiate the repository
      */
     @objid ("00633e90-fd1a-1f27-a7da-001ec947cd2a")
-    public  NullRepository() {
-        
+    public NullRepository() {
+
     }
 
     @objid ("0067a1c4-fd1a-1f27-a7da-001ec947cd2a")
@@ -196,6 +216,7 @@ public class NullRepository implements IRepository, IRepositoryObject {
     }
 
     /**
+     *
      * @return the singleton instance.
      */
     @objid ("00428984-4eb2-1f29-adbc-001ec947cd2a")
@@ -226,7 +247,6 @@ public class NullRepository implements IRepository, IRepositoryObject {
     public Resource getEmfResource() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException();
-        
     }
 
     @objid ("0d11a3af-d66d-11e1-adbb-001ec947ccaf")
@@ -270,12 +290,12 @@ public class NullRepository implements IRepository, IRepositoryObject {
     public OutputStream writeBlob(IBlobInfo key) throws IOException {
         // Instantiate a dummy output stream
         return new OutputStream() {
-        
+
                     @Override
                     public void write(int b) throws IOException {
                         // ignore
                     }
-        
+
                     @Override
                     public void write(byte[] b, int off, int len) throws IOException {
                         // ignore
@@ -317,6 +337,22 @@ public class NullRepository implements IRepository, IRepositoryObject {
     @Override
     public Optional<MetamodelDescriptor> getMetamodelDescriptor() {
         return Optional.empty();
+    }
+
+    @objid ("ff718b35-cdf0-4b40-ace3-900e4b4c8961")
+    @Override
+    public IRepositoryQueryRunner query() {
+        return new IRepositoryQueryRunner() {
+
+            @Override
+            public void loadAllReferencesTo(Collection<SmObjectImpl> objs) {
+            }
+
+            @Override
+            public void close() {
+            }
+
+        };
     }
 
 }

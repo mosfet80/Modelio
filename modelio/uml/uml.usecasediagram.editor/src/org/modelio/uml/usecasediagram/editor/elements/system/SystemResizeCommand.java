@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.usecasediagram.editor.elements.system;
 
@@ -46,11 +46,10 @@ class SystemResizeCommand extends Command {
     private ChangeBoundsRequest request;
 
     @objid ("5e54de8c-55b7-11e2-877f-002564c97630")
-     SystemResizeCommand(final GraphicalEditPart freeZoneEditPart, final GraphicalEditPart childEditPart, final ChangeBoundsRequest request) {
+    SystemResizeCommand(final GraphicalEditPart freeZoneEditPart, final GraphicalEditPart childEditPart, final ChangeBoundsRequest request) {
         this.freeZoneEditPart = freeZoneEditPart;
         this.childEditPart = childEditPart;
         this.request = request;
-        
     }
 
     @objid ("5e54de94-55b7-11e2-877f-002564c97630")
@@ -60,27 +59,26 @@ class SystemResizeCommand extends Command {
         Rectangle newRect = this.freeZoneEditPart.getFigure().getBounds().getCopy();
         Rectangle orig = newRect.getCopy();
         Rectangle useCaseBounds = this.childEditPart.getFigure().getBounds();
-        
+
         newRect.union(this.request.getTransformedRectangle(useCaseBounds));
-        
+
         Point moveDelta = newRect.getLocation().getTranslated(orig.getLocation().getNegated());
         Dimension sizeDelta = newRect.getSize().getShrinked(orig.getSize());
-        
+
         ChangeBoundsRequest req = new ChangeBoundsRequest(RequestConstants.REQ_RESIZE);
         req.setSizeDelta(sizeDelta);
         req.setMoveDelta(moveDelta);
         req.setEditParts(this.freeZoneEditPart.getParent());
-        
+
         Command resizeParentCommand = this.freeZoneEditPart.getParent().getCommand(req);
         if (resizeParentCommand != null && resizeParentCommand.canExecute()) {
             resizeParentCommand.execute();
-        
+
             GmNodeModel childModel = (GmNodeModel) this.childEditPart.getModel();
             if (childModel.getLayoutData() instanceof Rectangle) {
                 childModel.setLayoutData(((Rectangle) childModel.getLayoutData()).getTranslated(moveDelta));
             }
         }
-        
     }
 
     @objid ("5e54de97-55b7-11e2-877f-002564c97630")

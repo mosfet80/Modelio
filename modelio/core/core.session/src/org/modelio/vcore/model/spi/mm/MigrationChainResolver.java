@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.vcore.model.spi.mm;
 
@@ -29,6 +48,7 @@ import org.modelio.vcore.smkernel.mapi.MetamodelVersionDescriptor;
 
 /**
  * Computes a chain of migrator to reach a target metamodel.
+ *
  * @author cma
  * @since 3.6
  */
@@ -37,8 +57,8 @@ public class MigrationChainResolver {
     @objid ("d5f1cc53-184c-4224-9785-7728404fe340")
     private Collection<IMofRepositoryMigratorProvider> initCandidates;
 
-    @objid ("bbb3bce8-340b-4456-b5e9-e693ed104087")
-    private Deque<IMofRepositoryMigrator> chain;
+    @objid ("7e90bf1c-a17f-41d3-bc93-2d07b8c677e8")
+    private Deque<MigrationStepGroup> chain;
 
     @objid ("158c7473-2943-423f-9914-9242066e21ae")
     private final MetamodelVersionDescriptor to;
@@ -47,20 +67,21 @@ public class MigrationChainResolver {
     private final MetamodelVersionDescriptor from;
 
     /**
+     *
      * @param from initial metamodel
      * @param to target metamodel
      * @param candidates migration candidates
      */
     @objid ("717ef400-ef95-4f68-9480-dec549059849")
-    public  MigrationChainResolver(MetamodelVersionDescriptor from, MetamodelVersionDescriptor to, Collection<IMofRepositoryMigratorProvider> candidates) {
+    public MigrationChainResolver(MetamodelVersionDescriptor from, MetamodelVersionDescriptor to, Collection<IMofRepositoryMigratorProvider> candidates) {
         this.from = from.unmodifiable();
         this.to = to;
         this.initCandidates = new ArrayList<>(candidates);
-        
     }
 
     /**
      * Look for a chain of migrators .
+     *
      * @return the migration chain, never <i>null</i>.
      */
     @objid ("ab036867-2ddd-4e17-997f-d59e45ea1d95")
@@ -71,23 +92,22 @@ public class MigrationChainResolver {
         } else {
             return new MigrationChain(this.chain, false);
         }
-        
     }
 
     @objid ("5ff1d67d-2f93-4aaa-8dfd-e5d0b1622039")
     private boolean step(MetamodelVersionDescriptor stateMm, Collection<IMofRepositoryMigratorProvider> candidates) {
         if (this.chain.size() > 20) {
             String msg = this.chain.stream()
-                    .map(IMofRepositoryMigrator::toString)
+                    .map(MigrationStepGroup::toString)
                     .collect(Collectors.joining("\n  - ", "Cycle in migration chain:\n  - ", ""));
             throw new RuntimeException(msg);
         }
-        
+
         for (IMofRepositoryMigratorProvider candidate : candidates) {
-            IMofRepositoryMigrator stepMigrator = candidate.getMigrator(stateMm, this.to);
+            MigrationStepGroup stepMigrator = candidate.getMigrationStepGroup(stateMm, this.to);
             if (stepMigrator != null) {
                 MetamodelVersionDescriptor stepResultMm = stepMigrator.getTargetMetamodel();
-        
+
                 if (MmVersionComparator.withSource(stepResultMm).withTarget(this.to).withMissingRemoved().isTargetCompatible(false)) {
                     // reached target metamodel, finished
                     this.chain.addLast(stepMigrator);
@@ -96,7 +116,7 @@ public class MigrationChainResolver {
                 if (! stepResultMm.equals(stateMm)) {
                     // progressed toward target metamodel
                     this.chain.addLast(stepMigrator);
-        
+
                     // look for next chain
                     if (step(stepResultMm, candidates)) {
                         // finished
@@ -107,25 +127,28 @@ public class MigrationChainResolver {
                     }
                 }
             }
-        
+
         }
-        
+
+        MetamodelVersionDescriptor targetMetamodel;
         if (this.chain.isEmpty()) {
-            return false;
+            // Added 27/06/2024 to handle no metamodel change at all (only repository format change)
+            targetMetamodel = stateMm;
+        } else {
+            targetMetamodel = this.chain.getLast().getTargetMetamodel();
         }
-        
+
         // A chain is found if the obtained metamodel is build compatible with the target one.
-        MetamodelVersionDescriptor targetMetamodel = this.chain.getLast().getTargetMetamodel();
         return MmVersionComparator
                                 .withSource(targetMetamodel)
                                 .withTarget(this.to)
                                 .withMissingRemoved()
                                 .isTargetCompatible(true);
-        
     }
 
     /**
      * Look for a chain of migrator from a source toward a target metamodel.
+     *
      * @param from the source metamodel
      * @param to the target metamodel
      * @param candidates Candidate migration tools.

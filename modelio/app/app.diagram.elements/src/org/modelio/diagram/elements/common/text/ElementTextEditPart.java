@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.text;
 
@@ -45,7 +45,7 @@ import org.modelio.diagram.styles.core.MetaKey;
  * EditPart for {@link GmElementText} ..
  * <p>
  * Creates a {@link MultilineTextFigure} as figure.
- * 
+ *
  * @author cmarin
  */
 @objid ("7f2b2c33-1dec-11e2-8cad-001ec947c8cc")
@@ -54,7 +54,7 @@ public class ElementTextEditPart extends AbstractNodeEditPart {
      * Creates the edit part.
      */
     @objid ("7f2b2c35-1dec-11e2-8cad-001ec947c8cc")
-    public  ElementTextEditPart() {
+    public ElementTextEditPart() {
         super();
     }
 
@@ -66,37 +66,38 @@ public class ElementTextEditPart extends AbstractNodeEditPart {
 
     /**
      * Redefined to handle direct edition of the text.
+     *
      * @see RequestConstants#REQ_DIRECT_EDIT
      */
     @objid ("7f2b2c38-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void performRequest(Request req) {
         if (req.getType() == RequestConstants.REQ_DIRECT_EDIT) {
-        
+
             IEditableText editableText = ((GmModel) getModel()).getEditableText();
             if (editableText == null) {
                 return;
             }
-        
+
             final MultilineTextFigure label = (MultilineTextFigure) getFigure();
-        
+
             final CellEditorLocator cellEditorLocator = new EditorLocatorForLabelFigure(
-                    label, 
+                    label,
                     (String s) -> label.setText(s));
-        
+
             TextDirectEditManager manager = new TextDirectEditManager(
-                    this, 
-                    cellEditorLocator, 
-                    HAlign.Left, 
+                    this,
+                    cellEditorLocator,
+                    HAlign.Left,
                     editableText.getText())
                     .setMultiline(true)
                     .setWrap(true);
-        
+
             manager.show();
         } else {
             super.performRequest(req);
         }
-        
+
     }
 
     /**
@@ -111,9 +112,9 @@ public class ElementTextEditPart extends AbstractNodeEditPart {
             final IFigure aFigure = getFigure();
             final Dimension currentSize = aFigure.getSize();
             aFigure.translateToAbsolute(currentSize);
-        
+
             refreshVisuals();
-        
+
             // If preferred size is not the same as current size, check if it is
             // possible to resize this figure to its preferred size.
             final Dimension updatedPrefSize = aFigure.getPreferredSize().getCopy();
@@ -122,7 +123,7 @@ public class ElementTextEditPart extends AbstractNodeEditPart {
                 final ChangeBoundsRequest changeBoundsRequest = new ChangeBoundsRequest(REQ_RESIZE);
                 changeBoundsRequest.setEditParts(this);
                 changeBoundsRequest.setSizeDelta(updatedPrefSize.getShrinked(currentSize));
-        
+
                 final Command resizeCommand = getCommand(changeBoundsRequest);
                 if (resizeCommand != null && resizeCommand.canExecute()) {
                     resizeCommand.execute();
@@ -131,18 +132,18 @@ public class ElementTextEditPart extends AbstractNodeEditPart {
         } else {
             super.propertyChange(evt);
         }
-        
+
     }
 
     @objid ("7f2b2c44-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected void createEditPolicies() {
         //super.createEditPolicies();
-        
+
         if (((GmModel) getModel()).getEditableText() != null) {
             installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new DefaultElementDirectEditPolicy());
         }
-        
+
     }
 
     /**
@@ -152,13 +153,13 @@ public class ElementTextEditPart extends AbstractNodeEditPart {
     @Override
     protected IFigure createFigure() {
         final GmElementText model = (GmElementText) getModel();
-        
+
         final MultilineTextFigure f = new MultilineTextFigure(model.getText());
-        
+
         // Set style independent properties
         f.setTextAlignment(PositionConstants.LEFT);
         f.setOpaque(false);
-        
+
         // Set style dependent properties
         refreshFromStyle(f, model.getDisplayedStyle());
         return f;
@@ -168,12 +169,12 @@ public class ElementTextEditPart extends AbstractNodeEditPart {
     @Override
     protected void refreshFromStyle(IFigure aFigure, IStyle style) {
         final GmElementText model = (GmElementText) getModel();
-        
+
         aFigure.setForegroundColor(style.getColor(model.getStyleKey(MetaKey.TEXTCOLOR)));
         aFigure.setFont(style.getFont(model.getStyleKey(MetaKey.FONT)));
-        
+
         updateVisibility(aFigure);
-        
+
     }
 
     @objid ("7f2b2c56-1dec-11e2-8cad-001ec947c8cc")
@@ -181,14 +182,14 @@ public class ElementTextEditPart extends AbstractNodeEditPart {
     protected void refreshVisuals() {
         final GmElementText model = (GmElementText) getModel();
         final MultilineTextFigure labelFigure = (MultilineTextFigure) getFigure();
-        
+
         labelFigure.setText(model.getText());
-        
+
         final Object layoutData = model.getLayoutData();
         if (layoutData != null) {
             labelFigure.getParent().setConstraint(labelFigure, layoutData);
         }
-        
+
     }
 
     @objid ("7f2b2c59-1dec-11e2-8cad-001ec947c8cc")
@@ -199,7 +200,7 @@ public class ElementTextEditPart extends AbstractNodeEditPart {
         } else {
             aFigure.setVisible(false);
         }
-        
+
     }
 
 }

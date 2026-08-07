@@ -1,0 +1,11 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Introduction to the Analyst feature
+
+
+Modelio Analyst is used to model the upstream phases of a project, such as requirements, goals, business rules, dictionaries, risks and tests. +
+ +
+This feature is subject to license. You can request a license file by sending an email to the Modelio sales department.

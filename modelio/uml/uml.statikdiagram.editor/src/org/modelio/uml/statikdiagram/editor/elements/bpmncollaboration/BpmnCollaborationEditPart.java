@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.bpmncollaboration;
 
@@ -55,7 +55,7 @@ public class BpmnCollaborationEditPart extends AbstractNodeEditPart {
         IFigure child = ((GraphicalEditPart) childEditPart).getFigure();
         GmAbstractObject gmAbstractObject = (GmAbstractObject) childEditPart.getModel();
         if (index == 0 && gmAbstractObject.getLayoutData() == null) {
-        
+
             gmAbstractObject.setLayoutData(BorderLayout.TOP);
         } else if (index == 1 && gmAbstractObject.getLayoutData() == null) {
             gmAbstractObject.setLayoutData(BorderLayout.CENTER);
@@ -63,7 +63,7 @@ public class BpmnCollaborationEditPart extends AbstractNodeEditPart {
             throw new IllegalArgumentException("CallBehaviorEditPart#addChildVisual: unknown index " + index);
         }
         getFigure().add(child, gmAbstractObject.getLayoutData(), index);
-        
+
     }
 
     @objid ("d6a3bba3-2f5d-417f-9e3d-e832ff2a8612")
@@ -74,7 +74,7 @@ public class BpmnCollaborationEditPart extends AbstractNodeEditPart {
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START,
                           new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
-        
+
     }
 
     @objid ("3ebe4bf3-fd46-4b26-98fd-e2d591984351")
@@ -83,15 +83,15 @@ public class BpmnCollaborationEditPart extends AbstractNodeEditPart {
         // create the figure
         RoundedBoxFigure fig = new RoundedBoxFigure();
         fig.setLayoutManager(new BorderLayout());
-        
+
         // set style independent properties
         fig.setSize(100, 50);
         fig.setRadius(5);
         MinimumSizeLayout.apply(fig, 100, 50);
-        
+
         // set style dependent properties
         refreshFromStyle(fig, getModelStyle());
-        
+
         // return the figure
         return fig;
     }
@@ -104,7 +104,7 @@ public class BpmnCollaborationEditPart extends AbstractNodeEditPart {
                 super.refreshFromStyle(aFigure, style);
             }
         }
-        
+
     }
 
     @objid ("b13209ac-f636-4cfb-b312-1e661f8cf889")
@@ -112,7 +112,7 @@ public class BpmnCollaborationEditPart extends AbstractNodeEditPart {
     protected void refreshVisuals() {
         GmBpmnCollaborationPrimaryNode callBehaviorModel = (GmBpmnCollaborationPrimaryNode) getModel();
         getFigure().getParent().setConstraint(getFigure(), callBehaviorModel.getLayoutData());
-        
+
     }
 
 }

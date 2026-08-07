@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.script.popup;
 
@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.e4.ui.di.AboutToHide;
 import org.eclipse.e4.ui.di.AboutToShow;
@@ -61,6 +61,7 @@ public class MacrosPopupProvider {
      * Fills a dynamic creation menu with selection-compatible contributions before display.
      * <br/>
      * Called by the rcp platform through injection.
+     *
      * @param items the item list to fill.
      */
     @objid ("a3221459-605b-4db4-a5bd-b42306e609b5")
@@ -68,7 +69,7 @@ public class MacrosPopupProvider {
     public void aboutToShow(final List<MMenuElement> items) {
         // Fill creation menu with selection-compatible commands
         items.addAll(createMenuItems(this.macroService.getMacros(getSelectedElements())));
-        
+
     }
 
     /**
@@ -85,11 +86,12 @@ public class MacrosPopupProvider {
                 }
             }
         }
-        
+
     }
 
     /**
      * Compute a contributor id from a bundle.
+     *
      * @return a contributor id.
      */
     @objid ("ed31edc4-c5b6-424e-960f-79db001b7ead")
@@ -100,13 +102,14 @@ public class MacrosPopupProvider {
     /**
      * Create new handled menu items from a list of macros.
      * <p>Only macros shown in the contextual menu are returned.</p>
+     *
      * @param entries the macros to build menu elements from.
      * @return a list of menu elements.
      */
     @objid ("9b4b8d3b-2e9b-4b4c-bbce-51c678ebf07c")
     private List<MMenuElement> createMenuItems(final List<Macro> entries) {
         final String contributorId = getContributorId(Script.getContext().getBundle());
-        
+
         final List<MMenuElement> items = new ArrayList<>();
         for (final Macro entry : entries) {
             if (entry.shownInContextualMenu()) {
@@ -118,6 +121,7 @@ public class MacrosPopupProvider {
 
     /**
      * Create a new handled menu item from a macro.
+     *
      * @param entry the macro to create the menu item from.
      * @return a new menu element.
      */
@@ -127,25 +131,25 @@ public class MacrosPopupProvider {
         final MHandledMenuItem item = MMenuFactory.INSTANCE.createHandledMenuItem();
         final MCommand command = getCommand();
         item.setCommand(command);
-        
+
         // compute the element id
         item.setElementId(entry.getName());
-        
+
         // compute label, tooltip and icon
         item.setLabel(entry.getName());
         item.setTooltip(entry.getDescription());
         if (entry.getIconPath() != null) {
             item.setIconURI(entry.getIconPath().toUri().toString());
         }
-        
+
         // make the item visible
         item.setEnabled(true);
         item.setToBeRendered(true);
         item.setVisible(true);
-        
+
         // bound the item to the contributing plugin
         item.setContributorURI(contributorId);
-        
+
         // add file parameter
         final MParameter p = MCommandsFactory.INSTANCE.createParameter();
         p.setContributorURI(contributorId);
@@ -157,6 +161,7 @@ public class MacrosPopupProvider {
 
     /**
      * Get the MCommand defined in the application having a specific id.
+     *
      * @param commandId the element id of the MCommand to find.
      * @return a MCommand, or <code>null</code> if the id is not found.
      */
@@ -173,12 +178,13 @@ public class MacrosPopupProvider {
 
     /**
      * Get the currently selected elements, or an empty collection.
+     *
      * @return the selected elements.
      */
     @objid ("b975b2f0-cbc0-471f-b9d8-002af672eaad")
     private Collection<MObject> getSelectedElements() {
         final Collection<MObject> ret = new ArrayList<>();
-        
+
         // Get the active selection from the application, to avoid context-related issues when opening the same diagram several times...
         final IStructuredSelection selection = (IStructuredSelection) this.application.getContext().get(IServiceConstants.ACTIVE_SELECTION);
         if (selection != null) {

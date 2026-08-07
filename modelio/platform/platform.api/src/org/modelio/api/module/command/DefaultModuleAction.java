@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.module.command;
 
@@ -63,6 +63,7 @@ public class DefaultModuleAction implements IModuleAction {
     private IModuleCommandHandler handler;
 
     /**
+     *
      * @param module the module
      * @param name the action name
      * @param label the label
@@ -75,7 +76,7 @@ public class DefaultModuleAction implements IModuleAction {
      * @param command the command handler
      */
     @objid ("fa237f2f-5b7b-11e0-a93a-002564c97630")
-    public  DefaultModuleAction(final IModule module, final String name, final String label, final String tooltip, final String bitmapPath, final String slotPattern, final String slotImagePaths, final boolean needReadWriteObject, final boolean editTheModel, final IModuleCommandHandler command) {
+    public DefaultModuleAction(final IModule module, final String name, final String label, final String tooltip, final String bitmapPath, final String slotPattern, final String slotImagePaths, final boolean needReadWriteObject, final boolean editTheModel, final IModuleCommandHandler command) {
         this.module = module;
         this.name = name;
         this.label = label;
@@ -88,7 +89,7 @@ public class DefaultModuleAction implements IModuleAction {
         this.needReadWriteObject = needReadWriteObject;
         this.editTheModel = editTheModel;
         this.handler = command;
-        
+
     }
 
     @objid ("00d012e4-0000-59b7-0000-000000000000")
@@ -107,12 +108,12 @@ public class DefaultModuleAction implements IModuleAction {
     @Override
     public Path getBitmapPath() {
         Path candidateFile = Paths.get(this.bitmapPath);
-        
+
         if (!Files.isRegularFile(candidateFile) || !candidateFile.isAbsolute()) {
             Path moduleDirectory = this.module.getModuleContext().getConfiguration().getModuleResourcesPath();
             candidateFile = moduleDirectory.resolve(this.bitmapPath);
         }
-        
+
         if (Files.isRegularFile(candidateFile)) {
             return candidateFile;
         }
@@ -148,14 +149,14 @@ public class DefaultModuleAction implements IModuleAction {
     public Path getSlotImagePath(final int slotIndex) {
         if (slotIndex < this.slotImagePaths.size()) {
             String slotImagePath = this.slotImagePaths.get(slotIndex);
-        
+
             Path candidateFile = Paths.get(slotImagePath);
-        
+
             if (!Files.isRegularFile(candidateFile) || !candidateFile.isAbsolute()) {
                 Path moduleDirectory = this.module.getModuleContext().getConfiguration().getModuleResourcesPath();
                 candidateFile = moduleDirectory.resolve(slotImagePath);
             }
-        
+
             if (Files.isRegularFile(candidateFile)) {
                 return candidateFile;
             }
@@ -182,16 +183,16 @@ public class DefaultModuleAction implements IModuleAction {
         if (this.editTheModel && readOnlyTool) {
             return false;
         }
-        
+
         // Test concerning the object itself
         if (this.needReadWriteObject) {
             for (MObject element : selectedElements) {
-                if (!element.getStatus().isModifiable()) {
+                if (!element.getStatusLazy().isModifiable()) {
                     return false;
                 }
             }
         }
-        
+
         // User test
         try {
             return this.handler.isActiveFor(Arrays.asList(selectedElements), this.module);
@@ -199,7 +200,7 @@ public class DefaultModuleAction implements IModuleAction {
             // Ignore exception
             return false;
         }
-        
+
     }
 
     @objid ("72d5ec5f-e247-11dd-abd0-0014222a9f79")
@@ -228,7 +229,7 @@ public class DefaultModuleAction implements IModuleAction {
                 this.slots.add(this.module.getModuleContext().getI18nSupport().getString(slot));
             }
         }
-        
+
     }
 
     @objid ("080e6eb0-a308-4574-9773-6f03b0e9126c")
@@ -239,7 +240,7 @@ public class DefaultModuleAction implements IModuleAction {
                 this.slotImagePaths.add(this.module.getModuleContext().getI18nSupport().getString(slotImagePath));
             }
         }
-        
+
     }
 
 }

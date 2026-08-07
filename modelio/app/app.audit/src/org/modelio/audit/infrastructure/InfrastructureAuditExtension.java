@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.infrastructure;
 
@@ -43,12 +43,12 @@ public class InfrastructureAuditExtension implements IAuditExtension {
     private InfrastructureAuditPlan infrastructureAuditPlan;
 
     @objid ("250167ea-43b3-4283-814a-e24ba1d24fff")
-    public  InfrastructureAuditExtension() {
+    public InfrastructureAuditExtension() {
         List<AuditCategory> categories = loadCategories();
-        
+
         this.infrastructureConfigurationPlan = new InfrastructureConfigurationPlan(categories);
         this.infrastructureAuditPlan = new InfrastructureAuditPlan(categories);
-        
+
     }
 
     @objid ("5614e92f-29a0-4baa-8bcf-ff1cb681ae7c")
@@ -66,7 +66,7 @@ public class InfrastructureAuditExtension implements IAuditExtension {
     @objid ("5934aa38-8e32-4bd3-9a02-5e800e409d78")
     private List<AuditCategory> loadCategories() {
         List<AuditCategory> categories;
-        
+
         Bundle bundle = Audit.getContext().getBundle();
         String s = "platform:/plugin/" + bundle.getSymbolicName() + "/res/infrastructureconfiguration.xml";
         URL url = null;
@@ -74,7 +74,7 @@ public class InfrastructureAuditExtension implements IAuditExtension {
             url = new URL(s);
             URL fileURL = FileLocator.toFileURL(url);
             java.nio.file.Path xmlFile = Paths.get(URIUtil.toURI(fileURL));
-        
+
             categories = AuditCategoryBuilder.parseCategories(xmlFile.toFile());
         } catch (Exception e) {
             Audit.LOG.debug("File path %s is not found!", s);

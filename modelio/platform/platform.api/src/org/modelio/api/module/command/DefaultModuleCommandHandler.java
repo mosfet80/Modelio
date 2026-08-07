@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.module.command;
 
@@ -46,7 +46,7 @@ public abstract class DefaultModuleCommandHandler implements IModuleCommandHandl
     @Override
     public boolean accept(List<MObject> selectedElements, IModule module) {
         for (MObject mObj : selectedElements) {
-            boolean match = false; 
+            boolean match = false;
             for (ElementScope scope : getScopes()) {
                 if (scope.isMatching(mObj)) {
                     match = true;
@@ -75,11 +75,12 @@ public abstract class DefaultModuleCommandHandler implements IModuleCommandHandl
     public void initialize(List<ElementScope> scopes, Map<String, String> hParameters) {
         this.scopes = scopes;
         this.parameters = hParameters;
-        
+
     }
 
     /**
      * get a parameter value.
+     *
      * @param key a parameter key
      * @return the parameter value
      */
@@ -99,6 +100,7 @@ public abstract class DefaultModuleCommandHandler implements IModuleCommandHandl
      * <li><i>module regex<b>#</b>stereotype regex</i>
      * </ul>
      * Returns <i>null</i> if the specification is <i>null</i> or the stereotype is not found.
+     *
      * @param module the module
      * @param metaclass the metaclass to look from
      * @param stereotypeSpec the stereotype specification

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.management;
 
@@ -28,7 +28,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.UIEventTopic;
 import org.modelio.editors.richnote.plugin.EditorsRichNote;
@@ -73,7 +73,7 @@ public class ExternEditorsManager {
     void onEditElement(@UIEventTopic (ModelioEventTopics.EDIT_ELEMENT) final MObject target) {
         if (target instanceof Artifact) {
             Artifact artifact = (Artifact) target;
-        
+
             try {
                 if (artifact.isStereotyped(ExternEditorsManager.MODULE_NAME, ExternEditorsManager.FILE) || artifact.isStereotyped(ExternEditorsManager.MODULE_NAME, ExternEditorsManager.DIRECTORY)) {
                     Path filePath = computePath(artifact);
@@ -81,14 +81,14 @@ public class ExternEditorsManager {
                         openFile(filePath);
                     }
                 }
-        
+
                 if (artifact.isStereotyped(ExternEditorsManager.MODULE_NAME, ExternEditorsManager.URL)) {
                     URI fileUri = computeUri(artifact);
                     if (fileUri != null) {
                         browse(fileUri);
                     }
                 }
-        
+
                 if (artifact.isStereotyped(ExternEditorsManager.MODULE_NAME, ExternEditorsManager.MAIL)) {
                     URI mailToUri = computeMailToUri(artifact);
                     if (mailToUri != null) {
@@ -99,7 +99,7 @@ public class ExternEditorsManager {
                 EditorsRichNote.LOG.error("Unable to open editor for " + artifact);
             }
         }
-        
+
     }
 
     @objid ("96f2c025-0c45-4b61-a047-648e0488539f")
@@ -127,7 +127,7 @@ public class ExternEditorsManager {
     }
 
     @objid ("d2a2673b-2028-4e11-b65f-dee0bdae3aa7")
-    public  ExternEditorsManager() {
+    public ExternEditorsManager() {
         ExternEditorsManager.instance = this;
     }
 
@@ -142,7 +142,7 @@ public class ExternEditorsManager {
         }
         String fileName = fileArtifact.getFileName();
         ownerPaths.add(fileName);
-        
+
         String first = ownerPaths.remove(0);
         return Paths.get(first, ownerPaths.toArray(new String[0]));
     }

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.activities;
 
 import java.util.ArrayList;
@@ -41,31 +40,31 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00822bd4-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnScriptTaskImpl extends BpmnTaskImpl implements BpmnScriptTask {
-    @objid ("ade02b0f-9eb7-46ba-9886-a9d88e8a98ad")
+    @objid ("0894b65a-aef4-41d4-bf54-bc6ab479d4f6")
     @Override
     public String getScriptLanguage() {
         return (String) getAttVal(((BpmnScriptTaskSmClass)getClassOf()).getScriptLanguageAtt());
     }
 
-    @objid ("78a2949b-0fa1-4e08-994d-58f3a3366cc2")
+    @objid ("7dbbd6bf-6697-490a-948a-08879f218a5e")
     @Override
     public void setScriptLanguage(String value) {
         setAttVal(((BpmnScriptTaskSmClass)getClassOf()).getScriptLanguageAtt(), value);
     }
 
-    @objid ("4429f723-072a-477e-9a2d-2e37b5b9524c")
+    @objid ("18e92c6a-a170-4829-8bb3-0e25efc80108")
     @Override
     public String getScript() {
         return (String) getAttVal(((BpmnScriptTaskSmClass)getClassOf()).getScriptAtt());
     }
 
-    @objid ("8f147080-09d8-46da-a8b7-ff7ee1ddaaf0")
+    @objid ("db5e3d88-804b-4c6f-bbc5-eb651324e531")
     @Override
     public void setScript(String value) {
         setAttVal(((BpmnScriptTaskSmClass)getClassOf()).getScriptAtt(), value);
     }
 
-    @objid ("fa336ce3-6a01-41bb-88a1-237d2cb79233")
+    @objid ("a0d05a18-27b9-43c8-b936-91c2fcd3d818")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -73,17 +72,17 @@ public class BpmnScriptTaskImpl extends BpmnTaskImpl implements BpmnScriptTask {
         return super.getCompositionOwner();
     }
 
-    @objid ("152a4102-8d9f-4832-95c2-6fc8c3deed6f")
+    @objid ("3579fe90-e957-4323-a006-7256c23d6999")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("ddebe212-01a5-4488-bcca-3250cabfefa1")
+    @objid ("18f5cfd7-b837-41a8-86a3-180e7968e350")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitBpmnScriptTask(this);

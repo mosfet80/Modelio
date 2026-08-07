@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures;
 
@@ -29,13 +29,13 @@ import org.modelio.diagram.styles.core.StyleKey.LinePattern;
 /**
  * A Box figure is a rectangular GradientFigure completed by a compound border made of a LineBorder (supporting
  * PenOptions) and a inner margin border
- * 
+ *
  * @author pvlaemyn
  */
 @objid ("7fa988eb-1dec-11e2-8cad-001ec947c8cc")
 public class RectangularFigure extends GradientFigure {
     @objid ("7fa988ee-1dec-11e2-8cad-001ec947c8cc")
-    private static final int MARGIN = 1;
+    private static final int MARGIN = 3;
 
     @objid ("7fa988ed-1dec-11e2-8cad-001ec947c8cc")
     private TLBRBorder lineBorder;
@@ -44,11 +44,11 @@ public class RectangularFigure extends GradientFigure {
      * Creates a new rectangular figure.
      */
     @objid ("7fa988f0-1dec-11e2-8cad-001ec947c8cc")
-    public  RectangularFigure() {
+    public RectangularFigure() {
         super();
         this.lineBorder = new TLBRBorder();
         this.setBorder(new CompoundBorder(this.lineBorder, new MarginBorder(MARGIN)));
-        
+
     }
 
     @objid ("7fa988f3-1dec-11e2-8cad-001ec947c8cc")
@@ -58,7 +58,7 @@ public class RectangularFigure extends GradientFigure {
             this.lineBorder.setColor(lineColor);
             super.setLineColor(lineColor);
         }
-        
+
     }
 
     @objid ("7fa988f7-1dec-11e2-8cad-001ec947c8cc")
@@ -68,7 +68,7 @@ public class RectangularFigure extends GradientFigure {
             this.lineBorder.setWidth(lineWidth);
             super.setLineWidth(lineWidth);
         }
-        
+
     }
 
     @objid ("7fa988fb-1dec-11e2-8cad-001ec947c8cc")
@@ -78,11 +78,12 @@ public class RectangularFigure extends GradientFigure {
             this.lineBorder.setStyle(linePattern.toSWTConstant());
             super.setLinePattern(linePattern);
         }
-        
+
     }
 
     /**
      * Changes whether the top side should be drawn or not.
+     *
      * @param drawTop true if the top side should be drawn.
      */
     @objid ("7fa988ff-1dec-11e2-8cad-001ec947c8cc")
@@ -92,6 +93,7 @@ public class RectangularFigure extends GradientFigure {
 
     /**
      * Changes whether the left side should be drawn or not.
+     *
      * @param drawLeft true if the left side should be drawn.
      */
     @objid ("7fa98904-1dec-11e2-8cad-001ec947c8cc")
@@ -101,6 +103,7 @@ public class RectangularFigure extends GradientFigure {
 
     /**
      * Changes whether the bottom side should be drawn or not.
+     *
      * @param drawBottom true if the bottom side should be drawn.
      */
     @objid ("7fa98909-1dec-11e2-8cad-001ec947c8cc")
@@ -110,6 +113,7 @@ public class RectangularFigure extends GradientFigure {
 
     /**
      * Changes whether the right side should be drawn or not.
+     *
      * @param drawRight true if the right side should be drawn.
      */
     @objid ("7fa9890e-1dec-11e2-8cad-001ec947c8cc")

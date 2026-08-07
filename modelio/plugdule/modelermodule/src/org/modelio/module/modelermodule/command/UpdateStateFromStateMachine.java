@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.module.modelermodule.command;
 
@@ -40,20 +40,20 @@ public class UpdateStateFromStateMachine extends DefaultModuleCommandHandler {
     @Override
     public void actionPerformed(final List<MObject> selectedElements, final IModule module) {
         IModelingSession session = module.getModuleContext().getModelingSession();
-        
+
         try (ITransaction transaction = session.createTransaction("UpdateStateFromStateMachine")) {
             StateUpdater updater = new StateUpdater();
             for (MObject selectedElement : selectedElements) {
                 updater.updateStateFromStateMachine(session, (State) selectedElement);
             }
-        
+
             transaction.commit();
         } catch (ModelerModuleException e) {
             MessageDialog.openError (ShellHelper.findActiveShell(),
                     I18nMessageService.getString ("Ui.Error.Title"),
                     e.getMessage());
         }
-        
+
     }
 
     /**
@@ -66,7 +66,7 @@ public class UpdateStateFromStateMachine extends DefaultModuleCommandHandler {
         if (!super.accept(selectedElements, module)) {
             return false;
         }
-        
+
         // The method is only active if all states have sub machines
         for (MObject selectedElement : selectedElements) {
             State selectedState = (State) selectedElement;

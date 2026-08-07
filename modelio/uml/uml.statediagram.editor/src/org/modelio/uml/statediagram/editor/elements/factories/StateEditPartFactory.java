@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.factories;
 
@@ -134,14 +134,14 @@ public class StateEditPartFactory implements EditPartFactory {
             default:
                 editPart = null; // generically supported by standard factory
             }
-        
+
             return editPart;
         } else {
             // Link models are always in structured mode.
             editPart = this.structuredModeEditPartFactory.createEditPart(context, model);
             return editPart;
         }
-        
+
     }
 
     /**
@@ -155,205 +155,205 @@ public class StateEditPartFactory implements EditPartFactory {
         @Override
         public EditPart createEditPart(EditPart context, Object model) {
             EditPart editPart = null;
-            
+
             if (model.getClass() == GmTerminal.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmChoice.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmDeepHistory.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmShallowHistory.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmJunction.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmExitPoint.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmFinalState.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmInitialState.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmEntry.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmForkState.class) {
                 editPart = new ForkStateSatelliteContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmJoin.class) {
                 editPart = new JoinSatelliteContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmStateDiagram.class) {
                 editPart = new StateDiagramEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmState.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmStatePrimaryNode.class) {
                 editPart = new StateEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmRegionsGroup.class) {
                 editPart = new RegionsGroupEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmRegion.class) {
                 editPart = new RegionEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmInternalTransition.class) {
                 editPart = new InternalTransitionEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmJunctionPrimaryNode.class) {
                 editPart = new JunctionEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmInitialStatePrimaryNode.class) {
                 editPart = new InitialStateEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmFinalStatePrimaryNode.class) {
                 editPart = new FinalStateEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmTerminalPrimaryNode.class) {
                 editPart = new TerminalEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmChoicePrimaryNode.class) {
                 editPart = new ChoiceEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmExitPointPrimaryNode.class) {
                 editPart = new ExitEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmEntryPrimaryNode.class) {
                 editPart = new EntryEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmShallowHistoryPrimaryNode.class) {
                 editPart = new ShallowHistoryEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmForkStatePrimaryNode.class) {
                 editPart = new ForkStatePrimaryNodeEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmJoinPrimaryNode.class) {
                 editPart = new JoinPrimaryNodeEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmDeepHistoryPrimaryNode.class) {
                 editPart = new DeepHistoryEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmConnectionPoint.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmConnectionPointPrimaryNode.class) {
                 editPart = new ConnectionPointEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmTransition.class) {
                 editPart = new TransitionEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmTransitionGuardLabel.class) {
                 editPart = new ElementLabelEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmTransitionPostConditionLabel.class) {
                 editPart = new ElementLabelEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // not found
             return null;
         }
@@ -369,157 +369,157 @@ public class StateEditPartFactory implements EditPartFactory {
         @Override
         public EditPart createEditPart(final EditPart context, final Object model) {
             EditPart editPart = null;
-            
+
             if (model.getClass() == GmChoice.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmChoicePrimaryNode.class) {
                 editPart = new ChoiceEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmConnectionPoint.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmConnectionPointPrimaryNode.class) {
                 editPart = new ConnectionPointEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmDeepHistory.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmDeepHistoryPrimaryNode.class) {
                 editPart = new DeepHistoryEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmEntry.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmEntryPrimaryNode.class) {
                 editPart = new EntryEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmExitPoint.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmExitPointPrimaryNode.class) {
                 editPart = new ExitEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmFinalState.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmFinalStatePrimaryNode.class) {
                 editPart = new FinalStateEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmForkState.class) {
                 editPart = new ForkStateSatelliteContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmForkStatePrimaryNode.class) {
                 editPart = new ForkStatePrimaryNodeEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmInitialState.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmInitialStatePrimaryNode.class) {
                 editPart = new InitialStateEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmJoin.class) {
                 editPart = new JoinSatelliteContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmJoinPrimaryNode.class) {
                 editPart = new JoinPrimaryNodeEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmJunction.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmJunctionPrimaryNode.class) {
                 editPart = new JunctionEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmShallowHistory.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmShallowHistoryPrimaryNode.class) {
                 editPart = new ShallowHistoryEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmStatePrimaryNode.class) {
                 editPart = new StateSimpleEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmTerminal.class) {
                 editPart = new PortContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmTerminalPrimaryNode.class) {
                 editPart = new TerminalEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // not found
             return null;
         }
@@ -535,97 +535,97 @@ public class StateEditPartFactory implements EditPartFactory {
         @Override
         public EditPart createEditPart(EditPart context, Object model) {
             EditPart editPart = null;
-            
+
             if (model.getClass() == GmChoicePrimaryNode.class) {
                 editPart = new StateNonSelectableImageEditPart(false);
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmConnectionPointPrimaryNode.class) {
                 editPart = new StateNonSelectableImageEditPart(true);
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmDeepHistoryPrimaryNode.class) {
                 editPart = new StateNonSelectableImageEditPart(true);
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmEntryPrimaryNode.class) {
                 editPart = new StateNonSelectableImageEditPart(true);
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmExitPointPrimaryNode.class) {
                 editPart = new StateNonSelectableImageEditPart(true);
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmFinalStatePrimaryNode.class) {
                 editPart = new StateNonSelectableImageEditPart(true);
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmForkState.class) {
                 editPart = new StateNonSelectableImageEditPart(false);
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmForkStatePrimaryNode.class) {
                 editPart = new StateNonSelectableImageEditPart(false);
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmInitialStatePrimaryNode.class) {
                 editPart = new StateNonSelectableImageEditPart(true);
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmJoin.class) {
                 editPart = new StateNonSelectableImageEditPart(false);
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmJoinPrimaryNode.class) {
                 editPart = new StateNonSelectableImageEditPart(false);
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmJunctionPrimaryNode.class) {
                 editPart = new StateNonSelectableImageEditPart(true);
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmShallowHistoryPrimaryNode.class) {
                 editPart = new StateNonSelectableImageEditPart(true);
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmStatePrimaryNode.class) {
                 editPart = new StateNonSelectableImageEditPart(false);
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (model.getClass() == GmTerminalPrimaryNode.class) {
                 editPart = new StateNonSelectableImageEditPart(false);
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // not found
             return null;
         }

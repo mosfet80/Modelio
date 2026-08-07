@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.communicationdiagram.editor.elements.communicationmessage;
 
@@ -52,22 +52,23 @@ public final class GmCommunicationInvertedMessageGroup extends GmGroup {
 
     /**
      * Creates a group.
+     *
      * @param diagram The diagram.
      * @param relatedRef The related element reference, may not be null.
      */
     @objid ("7a438de4-55b6-11e2-877f-002564c97630")
-    public  GmCommunicationInvertedMessageGroup(final IGmDiagram diagram, final MRef relatedRef) {
+    public GmCommunicationInvertedMessageGroup(final IGmDiagram diagram, final MRef relatedRef) {
         super(diagram, relatedRef);
         this.relatedEl = (CommunicationChannel) resolveRef(relatedRef);
-        
+
     }
 
     /**
      * Constructor for deserialization only.
      */
     @objid ("7a438def-55b6-11e2-877f-002564c97630")
-    public  GmCommunicationInvertedMessageGroup() {
-        
+    public GmCommunicationInvertedMessageGroup() {
+
     }
 
     @objid ("7a438df2-55b6-11e2-877f-002564c97630")
@@ -117,14 +118,14 @@ public final class GmCommunicationInvertedMessageGroup extends GmGroup {
             break;
         }
         }
-        
+
     }
 
     @objid ("7a451474-55b6-11e2-877f-002564c97630")
     @Override
     public final void refreshFromObModel() {
         super.refreshFromObModel();
-        
+
         final MObject related = getRelatedElement();
         if (related != null && related.isValid()) {
             List<GmNodeModel> oldChildren = getChildren();
@@ -133,7 +134,7 @@ public final class GmCommunicationInvertedMessageGroup extends GmGroup {
                 GmNodeModel gmMessageLabel = getNode(oldChildren, GmCommunicationMessageLabel.class, msgRef);
                 if (gmMessageLabel == null)
                     gmMessageLabel = getDiagram().unmask(this, part, null);
-        
+
                 GmInfoFlowsGroup flowGroup = (GmInfoFlowsGroup) getNode(oldChildren,
                         GmInfoFlowsGroup.class,
                         msgRef);
@@ -148,9 +149,9 @@ public final class GmCommunicationInvertedMessageGroup extends GmGroup {
                     flowGroup.delete();
                 }
             }
-        
+
         }
-        
+
     }
 
     @objid ("7a451477-55b6-11e2-877f-002564c97630")
@@ -159,7 +160,7 @@ public final class GmCommunicationInvertedMessageGroup extends GmGroup {
         refreshFromObModel();
         fireVisibilityChanged();
         super.styleChanged(style);
-        
+
     }
 
     @objid ("7a45147e-55b6-11e2-877f-002564c97630")
@@ -196,18 +197,18 @@ public final class GmCommunicationInvertedMessageGroup extends GmGroup {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmCommunicationInvertedMessageGroup.", GmCommunicationInvertedMessageGroup.MINOR_VERSION);
-        
+
     }
 
     @objid ("7a469b08-55b6-11e2-877f-002564c97630")
     private void read_0(final IDiagramReader in) {
         super.read(in);
-        
+
         this.relatedEl = (CommunicationChannel) resolveRef((MRef) in.readProperty("relatedRef"));
-        
+
     }
 
     @objid ("7a469b0e-55b6-11e2-877f-002564c97630")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.lock;
 
@@ -30,6 +30,7 @@ import org.modelio.vbasic.log.Log;
 
 /**
  * Project lock information.
+ *
  * @author cmarin
  */
 @objid ("1fe5f0fa-0023-479c-a9df-0c3c9bb64831")
@@ -38,21 +39,22 @@ public class LockInfo implements ILockInfo {
     private static final int VERSION = 1;
 
     @objid ("b182a0e7-6d90-4dd9-a914-8025f5fee54b")
-    private Date date;
+    private final Date date;
 
     @objid ("9dbd3611-f21b-451a-a8c6-7ce6f59adaa8")
-    private String hostName;
+    private final String hostName;
 
     @objid ("90776ab9-c3f8-4e9e-9859-3e2eef52e712")
     private boolean isSelf;
 
     @objid ("c126cfd9-67ac-4faf-ab31-12aad8ce3e02")
-    private String user;
+    private final String user;
 
     @objid ("11ec1aec-61bf-4506-84fc-319f935da931")
-    private String vmIdentifier;
+    private final String vmIdentifier;
 
     /**
+     *
      * @param isSelf whether the lock is in this Java virtual machine
      * @param user the user who put the lock
      * @param hostName the machine name
@@ -60,41 +62,65 @@ public class LockInfo implements ILockInfo {
      * @param date the lock date
      */
     @objid ("87703fc3-1b21-4208-acf9-3311b6731d3f")
-    public  LockInfo(boolean isSelf, String user, String hostName, String jvmIdentifier, Date date) {
+    public LockInfo(boolean isSelf, String user, String hostName, String jvmIdentifier, Date date) {
         super();
         this.isSelf = isSelf;
         this.user = user;
         this.hostName = hostName;
         this.vmIdentifier = jvmIdentifier;
         this.date = date;
-        
     }
 
     /**
      * Constructor from a {@link Properties}.
+     *
      * @param p java properties
      * @param thisVmIdentifier this Java virtual machine identifier
      */
     @objid ("9fa84816-5067-4f57-91de-19a65f3712a0")
-    public  LockInfo(Properties p, String thisVmIdentifier) {
+    public LockInfo(Properties p, String thisVmIdentifier) {
         int readV = Integer.parseInt(p.getProperty("version"));
         if (readV > VERSION) {
             Log.warning(new ParseException("Future version "+readV+" of lock informations: "+p.toString(), 0));
         }
-        
+
         this.user = p.getProperty("user");
         this.hostName = p.getProperty("hostName");
         this.vmIdentifier = p.getProperty("vmIdentifier");
         this.isSelf = thisVmIdentifier.equals(this.vmIdentifier);
-        
-        String sdate = p.getProperty("date");
-        
-        try {
-            this.date = getDateFormat().parse(sdate);
-        } catch (ParseException e) {
-            Log.warning(e);
+        this.date = parseDate(p);
+    }
+
+    @objid ("ffa23260-82f4-417f-8322-18d516bbd4ec")
+    private static Date parseDate(Properties props) {
+        String strInstant = props.getProperty("dateEpochMillis");
+        if (strInstant != null) {
+            try {
+                return new Date(Long.parseLong(strInstant));
+            } catch (NumberFormatException e) {
+                Log.warning(e);
+            }
         }
-        
+
+        String sdate = props.getProperty("date");
+
+        try {
+            return getDateFormat().parse(sdate);
+        } catch (ParseException e) {
+            String date2 = sdate.replaceAll(" (AM|PM)", "\u00A0$1");
+            try {
+                //JDK 20 bug : AM/PM must be preceded by a "non breaking space".
+                // See:
+                //- [JDK-8304925 Some date/time strings created with JDK <=19 can not be parsed since JDK 20](https://bugs.openjdk.org/browse/JDK-8304925)
+                //- [JDK-8324665 Loose matching of space separators in the lenient date/time parsing mode](https://bugs.openjdk.org/browse/JDK-8324665)
+                return getDateFormat().parse(date2);
+            } catch (ParseException e2) {
+                e.addSuppressed(e2);
+                Log.warning(e);
+            }
+        }
+
+        return null;
     }
 
     @objid ("8807fae3-8261-4e39-89d3-9c088afc48b2")
@@ -129,6 +155,7 @@ public class LockInfo implements ILockInfo {
 
     /**
      * Serializes the lock information in a java {@link Properties}.
+     *
      * @return the saved lock infos.
      */
     @objid ("e7d17c86-ac26-406e-b1f1-ef86dd715028")
@@ -138,7 +165,13 @@ public class LockInfo implements ILockInfo {
         p.setProperty("vmIdentifier", this.vmIdentifier);
         p.setProperty("user",this.user);
         p.setProperty("hostName",this.hostName);
+
+        // Date is saved in two formats:
+        // - a human readable one for debugging
+        // - a machine readable one for robustness against date format changes and JDK 20 parsing bug.
+        // Note max date representable in millis is about 292 million years, so it should be enough for a project lock.
         p.setProperty("date",String.valueOf(getDateFormat().format(this.date)));
+        p.setProperty("dateEpochMillis", String.valueOf(this.date.getTime()));
         return p;
     }
 
@@ -152,7 +185,6 @@ public class LockInfo implements ILockInfo {
     public String toString() {
         return "LockInfo [date=" + this.date + ", hostName=" + this.hostName + ", isSelf=" + this.isSelf + ", user=" + this.user + ", vmIdentifier="
                                 + this.vmIdentifier + "]";
-        
     }
 
     @objid ("19c395e6-169f-4b3e-acf8-bb21286c6aaa")

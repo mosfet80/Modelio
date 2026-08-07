@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.model.spi;
 
@@ -33,7 +33,7 @@ import org.modelio.vcore.smkernel.meta.ISmMetamodelFragment;
  * Base implementation of {@link IGMetamodelExtension}.
  * <p>
  * All metamodel extensions should subclass this class and implement all abstract methods.
- * 
+ *
  * @author cmarin
  * @since 3.6
  */
@@ -61,13 +61,13 @@ public abstract class AbstractGMetamodelExtension implements IGMetamodelExtensio
     @Override
     public void register(ICoreSession session) {
         MTools tools = MTools.get(session);
-        
+
         registerProvider(tools.getConfigurator().getMetamodelExtensionPoint(), getConfigurator(session));
         registerProvider(tools.getModelFactory().getMetamodelExtensionPoint(), getModelFactoryProvider(session));
         registerProvider(tools.getNamer().getMetamodelExtensionPoint(), getNamer(session));
         registerProvider(tools.getPopulator().getMetamodelExtensionPoint(), getPopulator(session));
         registerProvider(tools.getRootGetter().getMetamodelExtensionPoint(), getRootGetter(session));
-        
+
     }
 
     @objid ("1eb280ca-367e-4cbf-9f46-067c16ad2b64")
@@ -75,7 +75,7 @@ public abstract class AbstractGMetamodelExtension implements IGMetamodelExtensio
         if (service != null) {
             registry.registerExtension(service, getMmFragment().getClass());
         }
-        
+
     }
 
     @objid ("7d90d164-6d74-4253-8927-c927bced9a95")
@@ -97,7 +97,7 @@ public abstract class AbstractGMetamodelExtension implements IGMetamodelExtensio
     }
 
     @objid ("166080c0-d3f8-4045-a605-16b0011b15b5")
-    protected  AbstractGMetamodelExtension(ISmMetamodelFragment mmFragment) {
+    protected AbstractGMetamodelExtension(ISmMetamodelFragment mmFragment) {
         this.mmFragment = mmFragment;
     }
 

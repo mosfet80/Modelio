@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.informationconveyed;
 
@@ -51,23 +51,24 @@ public class GmConveyedInformationItemLabel extends GmConveyedClassifierLabel {
      * Constructor for deserialization only.
      */
     @objid ("3501a51f-55b7-11e2-877f-002564c97630")
-    public  GmConveyedInformationItemLabel() {
-        
+    public GmConveyedInformationItemLabel() {
+
     }
 
     /**
      * Create an attribute representation.
+     *
      * @param diagram The diagram
      * @param el The represented InformationItem, may be null.
      * @param ref The represented InformationItem reference, may not be null.
      */
     @objid ("3501a522-55b7-11e2-877f-002564c97630")
-    public  GmConveyedInformationItemLabel(IGmDiagram diagram, InformationItem el, MRef ref) {
+    public GmConveyedInformationItemLabel(IGmDiagram diagram, InformationItem el, MRef ref) {
         super(diagram, el, ref);
-        
+
         setShowMetaclassKeyword(false);
         setShowMetaclassIcon(true);
-        
+
     }
 
     @objid ("3501a52e-55b7-11e2-877f-002564c97630")
@@ -88,7 +89,7 @@ public class GmConveyedInformationItemLabel extends GmConveyedClassifierLabel {
             case FULLQUALIFIED:
                 StringBuilder s = new StringBuilder(100);
                 s.append(att.getName());
-        
+
                 final List<Classifier> types = att.getRepresented();
                 boolean first = true;
                 for (Classifier c : types) {
@@ -102,18 +103,18 @@ public class GmConveyedInformationItemLabel extends GmConveyedClassifierLabel {
                 }
                 return s.toString();
         }
-        
+
     }
 
     @objid ("3501a539-55b7-11e2-877f-002564c97630")
     private ShowNameMode getNameMode() {
         final StyleKey nameKey = getStyleKey(MetaKey.SHOWNAME);
-        
+
         if (nameKey == null)
             return ShowNameMode.QUALIFIED;
         else
             return getDisplayedStyle().getProperty(nameKey);
-        
+
     }
 
     @objid ("3501a53e-55b7-11e2-877f-002564c97630")
@@ -133,17 +134,17 @@ public class GmConveyedInformationItemLabel extends GmConveyedClassifierLabel {
                 break;
             }
         }
-        
+
     }
 
     @objid ("3501a544-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmConveyedInformationItemLabel.", GmConveyedInformationItemLabel.MINOR_VERSION);
-        
+
     }
 
     @objid ("3501a54a-55b7-11e2-877f-002564c97630")

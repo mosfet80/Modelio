@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel;
 
@@ -38,13 +38,14 @@ public class DeadObjectException extends IllegalStateException {
 
     /**
      * Initialize the exception.
+     *
      * @param obj the shell object.
      */
     @objid ("fef179cc-98c9-48c6-8677-26df71317e59")
-    public  DeadObjectException(MObject obj) {
+    public DeadObjectException(MObject obj) {
         super(computeMessage(obj));
         this.deadObj = obj;
-        
+
     }
 
     /**
@@ -52,6 +53,7 @@ public class DeadObjectException extends IllegalStateException {
      * <p>
      * Only its UUID and metaclass can be retrieved. Any other action will throw
      * another DeadObjectException.
+     *
      * @return the unresolved reference.
      */
     @objid ("5838de6b-4059-46f6-9e0c-de1aff22729d")
@@ -70,11 +72,11 @@ public class DeadObjectException extends IllegalStateException {
             }
             return "{"+obj.getUuid().toString()+"} " + qualifiedName + " is a dead object and cannot be used anymore.";
         } catch (LinkageError e) {
-            return "{"+obj.getUuid()+"} " 
-            + obj.getClass().getName() 
+            return "{"+obj.getUuid()+"} "
+            + obj.getClass().getName()
             + " is a dead object and cannot be used anymore.";
         }
-        
+
     }
 
 }

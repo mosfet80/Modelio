@@ -1,25 +1,26 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnlane.hibridcontainer;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.bpmn.diagram.editor.elements.bpmnlane.GmBpmnLane;
 import org.modelio.bpmn.diagram.editor.elements.bpmnlanesetcontainer.GmBpmnLaneSetContainer;
 import org.modelio.diagram.elements.common.freezone.GmFreeZone;
 import org.modelio.diagram.elements.core.model.GmAbstractObject;
@@ -59,11 +60,12 @@ public class GmBodyHybridContainer extends GmFreeZone {
     private static final int MAJOR_VERSION = 0;
 
     /**
+     *
      * @param diagram the diagram in which this lane container is used.
      * @param relatedRef ref
      */
     @objid ("6137815f-55b6-11e2-877f-002564c97630")
-    public  GmBodyHybridContainer(IGmDiagram diagram, MRef relatedRef) {
+    public GmBodyHybridContainer(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -71,7 +73,7 @@ public class GmBodyHybridContainer extends GmFreeZone {
      * Empty constructor needed for serialisation.
      */
     @objid ("61378168-55b6-11e2-877f-002564c97630")
-    public  GmBodyHybridContainer() {
+    public GmBodyHybridContainer() {
         // Nothing to do.
     }
 
@@ -83,6 +85,20 @@ public class GmBodyHybridContainer extends GmFreeZone {
     public boolean canCreate(Class<? extends MObject> type) {
         // Parent node should know.
         return getParent().canCreate(type);
+    }
+
+    /**
+     * Get the parent lane of this container casted as GmBpmnLane.
+     *
+     * @return the parent lane or null if none
+     */
+    @objid ("31ce6b16-00d5-4b46-a06a-294b15b4adeb")
+    public GmBpmnLane getParentLane() {
+        GmModel parent = getParent();
+        if (parent == null) {
+            return null;
+        }
+        return (GmBpmnLane) parent;
     }
 
     /**
@@ -119,15 +135,14 @@ public class GmBodyHybridContainer extends GmFreeZone {
     @Override
     protected void setParent(GmCompositeNode parent) {
         GmModel oldParent = getParent();
-        
+
         // Call inherited
         super.setParent(parent);
-        
+
         // Modify the style
         if (parent != null && !parent.equals(oldParent)) {
             getPersistedStyle().setCascadedStyle(parent.getPersistedStyle());
         }
-        
     }
 
     @objid ("61378196-55b6-11e2-877f-002564c97630")
@@ -140,7 +155,6 @@ public class GmBodyHybridContainer extends GmFreeZone {
             child.setRoleInComposition(GmBodyHybridContainer.OWNED_NODE);
         }
         super.addChild(child);
-        
     }
 
     @objid ("613907fe-55b6-11e2-877f-002564c97630")
@@ -152,7 +166,6 @@ public class GmBodyHybridContainer extends GmFreeZone {
                 getParent().getDisplayedStyle().setProperty(key, RepresentationMode.STRUCTURED);
             }
         }
-        
     }
 
     @objid ("61390802-55b6-11e2-877f-002564c97630")
@@ -178,17 +191,15 @@ public class GmBodyHybridContainer extends GmFreeZone {
             break;
         }
         }
-        
     }
 
     @objid ("6139080d-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmBodyHybridContainer.", GmBodyHybridContainer.MINOR_VERSION);
-        
     }
 
     @objid ("61390813-55b6-11e2-877f-002564c97630")

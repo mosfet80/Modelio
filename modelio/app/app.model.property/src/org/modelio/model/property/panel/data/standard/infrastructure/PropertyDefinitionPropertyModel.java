@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.panel.data.standard.infrastructure;
 
@@ -68,15 +68,17 @@ public class PropertyDefinitionPropertyModel extends AbstractPropertyModel<Prope
     /**
      * Create a new <i>PropertyDefinition</i> data model from an
      * <i>PropertyDefinition</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("624bb0e9-1c6c-4b63-8059-0f427f8a0d0c")
-    public  PropertyDefinitionPropertyModel(PropertyDefinition theEditedElement) {
+    public PropertyDefinitionPropertyModel(PropertyDefinition theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("20b4ab93-57e5-4f72-b91c-625233ae26b3")
@@ -87,6 +89,7 @@ public class PropertyDefinitionPropertyModel extends AbstractPropertyModel<Prope
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("428db300-f67f-41ba-b64f-7af0465ca9f9")
@@ -99,13 +102,14 @@ public class PropertyDefinitionPropertyModel extends AbstractPropertyModel<Prope
             // Ignore 'metaclass' and 'stereotype' fields for non-element properties
             return PropertyDefinitionPropertyModel.PROPERTIES.length - 2;
         }
-        
+
     }
 
     /**
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -148,7 +152,7 @@ public class PropertyDefinitionPropertyModel extends AbstractPropertyModel<Prope
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -158,6 +162,7 @@ public class PropertyDefinitionPropertyModel extends AbstractPropertyModel<Prope
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -184,24 +189,24 @@ public class PropertyDefinitionPropertyModel extends AbstractPropertyModel<Prope
                 return new DefaultBooleanNatValue((Boolean) getValue(row, col));
             case 5:
                 List<String> metaclasses = new ArrayList<>();
-        
+
                 // Get all metaclasses inheriting ModelElement
                 for (MClass metaclass : metamodel.getMClass(ModelElement.class)
                         .getSub(true)) {
                     metaclasses.add(metaclass.getName());
                 }
-        
+
                 Collections.sort(metaclasses);
-        
+
                 return new DefaultStringChoiceNatValue((String) getValue(row, col), true, metaclasses, false);
             case 6:
                 DefaultElementNatValue stereotypeValue = new DefaultElementNatValue((Element) getValue(row, col), true, Collections.singletonList(Stereotype.class));
-        
+
                 String mcName = getConstrainedMetaclassName();
                 if (mcName != null) {
                     // Filter stereotypes on the specified metaclass
                     MClass metaclass = metamodel.getMClass(mcName);
-        
+
                     stereotypeValue.setElementFilter( (MObject o) -> {
                         Stereotype s = (Stereotype) o;
                         String baseClassName = s.getBaseClassName();
@@ -220,13 +225,14 @@ public class PropertyDefinitionPropertyModel extends AbstractPropertyModel<Prope
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -267,7 +273,7 @@ public class PropertyDefinitionPropertyModel extends AbstractPropertyModel<Prope
         default:
             return;
         }
-        
+
     }
 
     @objid ("301ef5f8-a1af-44de-bc0b-cc3dbf3e64c9")

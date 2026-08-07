@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.lifeline.body;
 
@@ -64,7 +64,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * Specialization of the {@link DefaultFreeZoneLayoutEditPolicy} to handle the specific constraints of execution specifications on a lifeline (centered, etc).
- * 
+ *
  * @author fpoyer
  */
 @objid ("d9345d06-55b6-11e2-877f-002564c97630")
@@ -73,13 +73,13 @@ public class LifelineBodyLayoutEditPolicy extends DefaultFreeZoneLayoutEditPolic
     @Override
     protected Command createAddCommand(ChangeBoundsRequest request, EditPart child, Object constraint) {
         MObject relatedElement = ((GmModel) child.getModel()).getRelatedElement();
-        
+
         if (relatedElement instanceof ExecutionSpecification) {
             Rectangle requestConstraint = (Rectangle) constraint;
             Rectangle tmp = requestConstraint.getCopy();
             tmp.translate(getLayoutOrigin());
             int newTime = tmp.y;
-        
+
             ExecutionSpecification spec = (ExecutionSpecification) relatedElement;
             if (spec.getLineNumber() == -1 || newTime == spec.getLineNumber()) {
                 return createAddCommandForExecution(child, (Rectangle) constraint);
@@ -93,14 +93,14 @@ public class LifelineBodyLayoutEditPolicy extends DefaultFreeZoneLayoutEditPolic
         } else {
             return super.createAddCommand(request, child, constraint);
         }
-        
+
     }
 
     @objid ("d9345d12-55b6-11e2-877f-002564c97630")
     @Override
     protected Command createChangeConstraintCommand(final ChangeBoundsRequest request, final EditPart child, final Object constraint) {
         MObject relatedElement = ((GmModel) child.getModel()).getRelatedElement();
-        
+
         if (relatedElement instanceof ExecutionSpecification) {
             return createChangeConstraintCommandForExecutionSpecification(child, (Rectangle) constraint);
         } else if (relatedElement instanceof ExecutionOccurenceSpecification) {
@@ -110,7 +110,7 @@ public class LifelineBodyLayoutEditPolicy extends DefaultFreeZoneLayoutEditPolic
         } else {
             return super.createChangeConstraintCommand(request, child, constraint);
         }
-        
+
     }
 
     @objid ("d9345d1c-55b6-11e2-877f-002564c97630")
@@ -129,7 +129,7 @@ public class LifelineBodyLayoutEditPolicy extends DefaultFreeZoneLayoutEditPolic
         } else {
             return super.createChildEditPolicy(child);
         }
-        
+
     }
 
     @objid ("d9345d22-55b6-11e2-877f-002564c97630")
@@ -142,19 +142,19 @@ public class LifelineBodyLayoutEditPolicy extends DefaultFreeZoneLayoutEditPolic
             if (elementToUnmask != null) {
                 return getUnmaskCommand(req, hostElement, ctx, elementToUnmask);
             }
-        
+
             MMetamodel mm = hostElement.getMClass().getMetamodel();
-        
+
             MClass metaclassToCreate = ctx.getMetaclass();
             if (mm.getMExpert().canCompose(hostElement.getMClass(), metaclassToCreate, ctx.getDependencyName())) {
                 Rectangle requestConstraint = (Rectangle) getConstraintFor(req);
-        
+
                 if (ExecutionSpecification.class.isAssignableFrom(metaclassToCreate.getJavaInterface())) {
                     int newHeight = requestConstraint.height == -1 ? ExecutionSpecificationEditPart.DEFAULT_EXECUTION_HEIGHT
                             : requestConstraint.height;
                     requestConstraint.setSize(ExecutionSpecificationEditPart.EXECUTION_WIDTH, newHeight);
                     return new CreateExecutionSpecificationCommand(getHostCompositeNode(), requestConstraint);
-        
+
                 } else if (StateInvariant.class.isAssignableFrom(metaclassToCreate.getJavaInterface())) {
                     int newHeight = requestConstraint.height == -1 ? StateInvariantEditPart.DEFAULT_STATEINVARIANT_HEIGHT
                             : requestConstraint.height;
@@ -176,7 +176,7 @@ public class LifelineBodyLayoutEditPolicy extends DefaultFreeZoneLayoutEditPolic
         IFigure childFigure = child.getFigure();
         return ((PlacementConstraint) childFigure.getParent().getLayoutManager().getConstraint(childFigure))
                         .getUpdatedBounds(childFigure);
-        
+
     }
 
     /**
@@ -225,7 +225,7 @@ public class LifelineBodyLayoutEditPolicy extends DefaultFreeZoneLayoutEditPolic
         Rectangle tmp = constraint.getCopy();
         tmp.translate(getLayoutOrigin());
         int newTime = tmp.getCenter().y;
-        
+
         MoveExecutionOccurenceSpecificationCommand cmd = new MoveExecutionOccurenceSpecificationCommand();
         cmd.setGmExecutionOccurenceSpecification((GmExecutionOccurenceSpecification) child.getModel());
         cmd.setNewTime(newTime);
@@ -238,7 +238,7 @@ public class LifelineBodyLayoutEditPolicy extends DefaultFreeZoneLayoutEditPolic
         tmp.translate(getLayoutOrigin());
         int startTime = tmp.y;
         int finishtime = tmp.bottom();
-        
+
         MoveResizeExecutionSpecificationCommand cmd = new MoveResizeExecutionSpecificationCommand();
         cmd.setGmExecution((GmExecutionSpecification) child.getModel());
         cmd.setStartTime(startTime);
@@ -252,12 +252,12 @@ public class LifelineBodyLayoutEditPolicy extends DefaultFreeZoneLayoutEditPolic
         tmp.translate(getLayoutOrigin());
         int startTime = tmp.y;
         int finishtime = tmp.bottom();
-        
+
         MoveResizeStateInvariantCommand cmd = new MoveResizeStateInvariantCommand();
         cmd.setGmStateInvariant((GmStateInvariant) child.getModel());
         cmd.setStartTime(startTime);
         cmd.setFinishTime(finishtime);
-        
+
         PlacementConstraint placementConstraint = ((IPlacementConstraintProvider) child).createPlacementConstraint(
                 (GmModel) child.getModel(), tmp.x, tmp.y, tmp.width, tmp.height);
         cmd.setNewLayoutData(placementConstraint);
@@ -271,7 +271,7 @@ public class LifelineBodyLayoutEditPolicy extends DefaultFreeZoneLayoutEditPolic
         } else {
             return null;
         }
-        
+
     }
 
 }

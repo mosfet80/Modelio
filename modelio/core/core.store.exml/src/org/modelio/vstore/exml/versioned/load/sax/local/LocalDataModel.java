@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.vstore.exml.versioned.load.sax.local;
 
@@ -76,14 +95,14 @@ final class LocalDataModel implements ExmlTags {
 
     /**
      * initialize the loader
+     *
      * @param loadHelper a load helper
      */
     @objid ("b5c32c01-3fbb-11e2-87cb-001ec947ccaf")
-    public  LocalDataModel(ILoadHelper loadHelper) {
+    public LocalDataModel(ILoadHelper loadHelper) {
         this.loadHelper = loadHelper;
         this.modelLoader = null;
         this.nodes = EMPTY_NODES;
-        
     }
 
     /**
@@ -95,20 +114,18 @@ final class LocalDataModel implements ExmlTags {
         this.nodes.clear();
         this.currentNode = null;
         this.currentDepNode = null;
-        
     }
 
     @objid ("b5c32b8b-3fbb-11e2-87cb-001ec947ccaf")
-    void addDepId(final ObjIdName refid) throws DuplicateObjectException, IllegalReferenceException, IndexException {
+    void addCompId(final ObjIdName refid) throws DuplicateObjectException, IllegalReferenceException, IndexException {
         if (refid != null) {
             SmObjectImpl obj = this.loadHelper.getLoadedObject(refid.toObjId());
             if (obj == null) {
-                obj = this.loadHelper.getRefObject(this.modelLoader,refid);
+                obj = this.loadHelper.createStubObject(this.modelLoader, refid, true);
             }
-        
+
             this.currentDepNode.add (obj);
         }
-        
     }
 
     @objid ("b5c58ddd-3fbb-11e2-87cb-001ec947ccaf")
@@ -127,7 +144,6 @@ final class LocalDataModel implements ExmlTags {
             final SAXParseException cause = new SAXParseException("assertion failed", getLocator());
             throw new AssertionError(cause.getMessage(), cause);
         }
-        
     }
 
     @objid ("b5c32b83-3fbb-11e2-87cb-001ec947ccaf")
@@ -136,7 +152,6 @@ final class LocalDataModel implements ExmlTags {
             final SAXParseException cause = new SAXParseException(msg, getLocator());
             throw new AssertionError(cause.getMessage(), cause);
         }
-        
     }
 
     @objid ("b5c58dd8-3fbb-11e2-87cb-001ec947ccaf")
@@ -144,14 +159,14 @@ final class LocalDataModel implements ExmlTags {
         if (this.nodes == EMPTY_NODES) {
             this.nodes = new ArrayList<>(5);
         }
-        
+
         this.currentNode = new ObjectNode(id.toObjId());
         this.nodes.add(this.currentNode);
-        
     }
 
     /**
      * Initialize the document locator.
+     *
      * @param aLocator a SAX locator.
      */
     @objid ("b5c58deb-3fbb-11e2-87cb-001ec947ccaf")
@@ -161,6 +176,7 @@ final class LocalDataModel implements ExmlTags {
 
     /**
      * initialize the model loader.
+     *
      * @param modelLoader a model loader.
      */
     @objid ("b5c58def-3fbb-11e2-87cb-001ec947ccaf")
@@ -170,6 +186,7 @@ final class LocalDataModel implements ExmlTags {
 
     /**
      * Set the file format version.
+     *
      * @param v the file format version.
      */
     @objid ("b5c58df6-3fbb-11e2-87cb-001ec947ccaf")
@@ -184,6 +201,7 @@ final class LocalDataModel implements ExmlTags {
 
     /**
      * Get the local content of a model object dependency
+     *
      * @param obj a model object
      * @param dep a dependency
      * @return the dependency content or <code>null</code> if none.
@@ -205,6 +223,7 @@ final class LocalDataModel implements ExmlTags {
 
     /**
      * Get the dependencies for which there is a local content.
+     *
      * @param obj a model object
      * @return all dependencies with a local content.
      */
@@ -234,7 +253,7 @@ final class LocalDataModel implements ExmlTags {
         @objid ("b5c58dcc-3fbb-11e2-87cb-001ec947ccaf")
         DepNode beginDependency(String depName) {
             final SmDependency dep = this.id.classof.getDependencyDef(depName);
-            
+
             DepNode newDepNode = new DepNode(dep);
             this.deps.add(newDepNode);
             return newDepNode;
@@ -247,7 +266,7 @@ final class LocalDataModel implements ExmlTags {
         }
 
         @objid ("ddd99311-407a-11e2-87cb-001ec947ccaf")
-        public  ObjectNode(ObjId objid) {
+        public ObjectNode(ObjId objid) {
             this.id = objid;
         }
 
@@ -282,10 +301,9 @@ final class LocalDataModel implements ExmlTags {
         SmDependency dep;
 
         @objid ("ddd99300-407a-11e2-87cb-001ec947ccaf")
-        public  DepNode(SmDependency adep) {
+        public DepNode(SmDependency adep) {
             this.dep = adep;
             this.content = new ArrayList<>();
-            
         }
 
         @objid ("ddd99303-407a-11e2-87cb-001ec947ccaf")

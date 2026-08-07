@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.bpmn;
 
@@ -61,18 +61,20 @@ public class BpmnOperationPropertyModel extends AbstractPropertyModel<BpmnOperat
 
     /**
      * Create a new <i>BpmnOperation</i> data model from an <i>BpmnOperation</i> .
+     *
      * @param theEditedElement the model to edit.
      * @param mdaExpert the MDA expert to handle Methodological links.
      */
     @objid ("17066827-4b63-4db0-ab2c-d82bb5a98199")
-    public  BpmnOperationPropertyModel(BpmnOperation theEditedElement, IMdaExpert mdaExpert) {
+    public BpmnOperationPropertyModel(BpmnOperation theEditedElement, IMdaExpert mdaExpert) {
         super(theEditedElement);
         this.mdaExpert = mdaExpert;
-        
+
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("25984938-8c6d-4673-86a7-f095558f7192")
@@ -83,6 +85,7 @@ public class BpmnOperationPropertyModel extends AbstractPropertyModel<BpmnOperat
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("72f22a2f-81d1-4813-89a1-cf475bd3b5ae")
@@ -95,6 +98,7 @@ public class BpmnOperationPropertyModel extends AbstractPropertyModel<BpmnOperat
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -122,7 +126,7 @@ public class BpmnOperationPropertyModel extends AbstractPropertyModel<BpmnOperat
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -131,6 +135,7 @@ public class BpmnOperationPropertyModel extends AbstractPropertyModel<BpmnOperat
      * This type will be used to choose an editor and a renderer for each cell of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -158,7 +163,7 @@ public class BpmnOperationPropertyModel extends AbstractPropertyModel<BpmnOperat
                         .map(mc -> mc.getJavaInterface())
                         .collect(Collectors.toList());
                 DefaultElementNatValue elementNatValue = new DefaultElementNatValue((MObject) getValue(row, col), true, allowedTargets);
-        
+
                 MClass linkMetaclass = this.theEditedElement.getMClass().getMetamodel().getMClass(MethodologicalLink.class);
                 elementNatValue.setElementFilter(new IMObjectFilter() {
                     @Override
@@ -173,13 +178,14 @@ public class BpmnOperationPropertyModel extends AbstractPropertyModel<BpmnOperat
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -213,7 +219,7 @@ public class BpmnOperationPropertyModel extends AbstractPropertyModel<BpmnOperat
         default:
             return;
         }
-        
+
     }
 
 }

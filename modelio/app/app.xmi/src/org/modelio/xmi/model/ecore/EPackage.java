@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -36,7 +36,7 @@ public class EPackage extends ENamedElement {
         //            if (getEcoreElement().equals(ecoremodel)){
         //                    return ReverseProperties.getInstance().getMModelServices().getModelFactory().getFactory(IStandardModelFactory.class).createPackage();
         //                }
-        //        }        
+        //        }
                 //        if (ObjingEAnnotation.isRequirementContainer(getEcoreElement())){
                 //            return  ReverseProperties.getInstance().getMModelServices().getModelFactory().getFactory(IStandardModelFactory.class).createElement(RequirementContainer.class);
                 //        }
@@ -44,7 +44,7 @@ public class EPackage extends ENamedElement {
     }
 
     @objid ("8645c284-2063-48a4-aa31-4715dec40995")
-    public  EPackage(org.eclipse.uml2.uml.Package element) {
+    public EPackage(org.eclipse.uml2.uml.Package element) {
         super(element);
     }
 
@@ -53,10 +53,10 @@ public class EPackage extends ENamedElement {
     public void attach(Element objingElt) {
         ReverseProperties revProp = ReverseProperties.getInstance();
         org.eclipse.uml2.uml.Element ecoreOwner = getEcoreElement().getOwner();
-        
+
         Element objingOwner = (Element) revProp.getMappedElement(ecoreOwner);
         Package objingPkg = (Package) objingElt;
-        
+
         if (ecoreOwner instanceof org.eclipse.uml2.uml.Profile) {
               objingPkg.setOwner(revProp.getExternalPackage());
         }else if (ecoreOwner instanceof org.eclipse.uml2.uml.Package) {
@@ -66,21 +66,21 @@ public class EPackage extends ENamedElement {
         }else{
             objingElt.delete();
         }
-        
+
     }
 
     @objid ("bd9c4ded-1370-41f3-be6b-bc5fa047a3b3")
     @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
-        
+
         if (ReverseProperties.getInstance().isRoundtripEnabled()) {
             setAbstractEAnnotation((Package) objingElt);
             setInstantiableEAnnotation((Package) objingElt);
             setLeafEAnnotation((Package) objingElt);
             setRootEAnnotation((Package) objingElt);
         }
-        
+
     }
 
     @objid ("f1c8da22-f4cc-49aa-97e2-9ef5fe2db6e6")

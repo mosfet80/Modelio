@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.ui.audit;
 
@@ -52,7 +52,7 @@ public class R3130 extends AbstractBpmnRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -66,7 +66,7 @@ public class R3130 extends AbstractBpmnRule {
         plan.registerRule(BpmnMessageFlow.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE);
-        
+
     }
 
     @objid ("aae76e59-d89b-4fe6-82fd-6632bfdb283b")
@@ -106,7 +106,7 @@ public class R3130 extends AbstractBpmnRule {
      * Default constructor for R3130
      */
     @objid ("edf004ee-929a-4e4e-84ef-1a38826100d4")
-    public  R3130() {
+    public R3130() {
         this.checkerInstance = new CheckR3130(this);
     }
 
@@ -117,10 +117,11 @@ public class R3130 extends AbstractBpmnRule {
     private static class CheckR3130 extends AbstractControl {
         /**
          * C'tor.
+         *
          * @param rule the rule to check.
          */
         @objid ("b3ac7bbb-3d4e-4efa-b77f-da051addf451")
-        public  CheckR3130(final IRule rule) {
+        public CheckR3130(final IRule rule) {
             super(rule);
         }
 
@@ -141,15 +142,15 @@ public class R3130 extends AbstractBpmnRule {
                     AuditSeverity.AuditSuccess,
                     messageFlow,
                     null);
-            
+
             BpmnBaseElement source = messageFlow.getSourceRef();
             BpmnBaseElement target = messageFlow.getTargetRef();
-            
+
             if (target instanceof BpmnEndEvent ||
                     source instanceof BpmnIntermediateCatchEvent ||
                     source instanceof BpmnStartEvent ||
                     target instanceof BpmnIntermediateThrowEvent) {
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(messageFlow);

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.diagrams;
 
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("006cd48c-c4bf-1fd8-97fe-001ec947cd2a")
 public class CommunicationDiagramImpl extends BehaviorDiagramImpl implements CommunicationDiagram {
-    @objid ("8ad01d97-55da-4963-a306-74bc43a0fbb9")
+    @objid ("3fd84077-fc5c-4c14-ab3c-a6d74a85c832")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -49,17 +48,17 @@ public class CommunicationDiagramImpl extends BehaviorDiagramImpl implements Com
         return super.getCompositionOwner();
     }
 
-    @objid ("702a49c5-fed6-4a24-9943-fff5da3db98e")
+    @objid ("dcb9e16a-4ad6-4eea-a3e8-baf41013e743")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("757e8201-c5a2-4fe4-b6a7-730dc7f7cd5b")
+    @objid ("4a5b3385-5392-4c00-bba0-0da1d95c3fc4")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitCommunicationDiagram(this);

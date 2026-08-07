@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -44,11 +44,11 @@ public class OConnectorEnd extends OLinkEnd {
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         org.eclipse.uml2.uml.Element connector = null;
-        
+
         if (this.objElt.getLink() != null) {
             connector = GenerationProperties.getInstance().getMappedElement(this.objElt.getLink());
         }
-        
+
         if (connector != null) {
             if (connector instanceof org.eclipse.uml2.uml.Connector) {
                 return UMLFactory.eINSTANCE.createConnectorEnd();
@@ -56,7 +56,7 @@ public class OConnectorEnd extends OLinkEnd {
                 return UMLFactory.eINSTANCE.createSlot();
             }
         }
-        
+
         String message = Xmi.I18N.getMessage("logFile.warning.unsupportedExport",
                 this.objElt.getName(),
                 this.objElt.getClass().getSimpleName());
@@ -66,10 +66,10 @@ public class OConnectorEnd extends OLinkEnd {
     }
 
     @objid ("a5b7652f-d7a9-432a-8126-b530632cb7b0")
-    public  OConnectorEnd(ConnectorEnd param) {
+    public OConnectorEnd(ConnectorEnd param) {
         super(param);
         this.objElt = param;
-        
+
     }
 
     @objid ("daa48618-8f38-4bd0-9a35-98b8af6c6942")
@@ -82,36 +82,36 @@ public class OConnectorEnd extends OLinkEnd {
                 attachSlot((org.eclipse.uml2.uml.Slot) ecoreElt);
             }
         }
-        
+
     }
 
     @objid ("dd11fffa-098b-4a3b-b014-f8ab0265763c")
     @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         if (ecoreElt != null) {
-            
+
             if (ecoreElt instanceof org.eclipse.uml2.uml.Slot) {
-                
+
                 setLinked((org.eclipse.uml2.uml.Slot) ecoreElt);
                 setDefiningFeature((org.eclipse.uml2.uml.Slot) ecoreElt);
-                
+
             } else if (ecoreElt instanceof org.eclipse.uml2.uml.ConnectorEnd) {
-                
+
                 setIsOrdered((org.eclipse.uml2.uml.ConnectorEnd) ecoreElt);
                 setIsUnique((org.eclipse.uml2.uml.ConnectorEnd) ecoreElt);
                 setMax((org.eclipse.uml2.uml.ConnectorEnd) ecoreElt);
                 setMin((org.eclipse.uml2.uml.ConnectorEnd) ecoreElt);
                 setPartWithPort((org.eclipse.uml2.uml.ConnectorEnd) ecoreElt);
-                
+
                 if (GenerationProperties.getInstance().isRoundtripEnabled()) {
                     setName((org.eclipse.uml2.uml.ConnectorEnd) ecoreElt);
-                    setIsNavigable((org.eclipse.uml2.uml.ConnectorEnd) ecoreElt);       
+                    setIsNavigable((org.eclipse.uml2.uml.ConnectorEnd) ecoreElt);
                 }
-        
+
                 ordered((org.eclipse.uml2.uml.ConnectorEnd) ecoreElt);
             }
         }
-        
+
     }
 
     @objid ("7e80f0ee-e5f8-4b86-9341-77e4a2479c3c")
@@ -120,12 +120,12 @@ public class OConnectorEnd extends OLinkEnd {
         if (owner instanceof org.eclipse.uml2.uml.Connector) {
             ((org.eclipse.uml2.uml.Connector) owner).getEnds().add(connectorEnd);
         }
-        
+
         org.eclipse.uml2.uml.Element role = GenerationProperties.getInstance().getMappedElement(this.objElt.getOwner());
         if (role instanceof org.eclipse.uml2.uml.ConnectableElement) {
             connectorEnd.setRole((org.eclipse.uml2.uml.ConnectableElement) role);
         }
-        
+
     }
 
     @objid ("ca99e9da-be7f-45ad-becd-07eb5ee7b16a")
@@ -134,29 +134,29 @@ public class OConnectorEnd extends OLinkEnd {
         if (owner instanceof InstanceSpecification) {
             ((InstanceSpecification) owner).getSlots().add(slot);
         }
-        
+
     }
 
     @objid ("6466163b-27ec-4508-a068-a611930a65a6")
     private void setLinked(org.eclipse.uml2.uml.Slot ecoreElt) {
         org.eclipse.uml2.uml.Element inst = GenerationProperties.getInstance().getMappedElement(this.objElt.getOwner());
-        
+
         if ((inst instanceof org.eclipse.uml2.uml.Slot) && (((org.eclipse.uml2.uml.Slot) inst).getValues().size() == 0)) {
-        
+
             org.eclipse.uml2.uml.Slot slot = (org.eclipse.uml2.uml.Slot) inst;
             InstanceValue instanceValue = UMLFactory.eINSTANCE.createInstanceValue();
             org.eclipse.uml2.uml.ValueSpecification result = ecoreElt.createValue(null, null, instanceValue.eClass());
             ((InstanceValue) result).setInstance(slot.getOwningInstance());
             slot.getValues().add(result);
-        
+
             if (AbstractObjingModelNavigation.isNotNullOrEmpty(this.objElt.getName())) {
                 ((InstanceValue) result).setName(this.objElt.getName());
             }
-        
+
         }
-        
+
         ObjingEAnnotation.setOwner(ecoreElt, String.valueOf(this.objElt.getOwner().getUuid().toString()));
-        
+
     }
 
     @objid ("4e56c1f8-599f-4acf-8a9c-e70607cf008d")
@@ -164,7 +164,7 @@ public class OConnectorEnd extends OLinkEnd {
         org.eclipse.uml2.uml.Element element = GenerationProperties.getInstance().getMappedElement(this.objElt.getLink());
         if (element instanceof org.eclipse.uml2.uml.Connector) {
             org.eclipse.uml2.uml.Connector connector = (org.eclipse.uml2.uml.Connector) element;
-        
+
             if ((connector.getKind() != null) && (connector.getKind().equals(org.eclipse.uml2.uml.ConnectorKind.DELEGATION_LITERAL))) {
                 if (this.objElt.isNavigable()) {
                     connector.getEnds().remove(ecoreElt);
@@ -172,7 +172,7 @@ public class OConnectorEnd extends OLinkEnd {
                 }
             }
         }
-        
+
     }
 
     @objid ("af93f357-c4df-4948-9261-91bce6de6aa8")
@@ -193,7 +193,7 @@ public class OConnectorEnd extends OLinkEnd {
                 }
             }
         }
-        
+
     }
 
     @objid ("125c610d-0ede-45b0-b978-98ae89ea723a")
@@ -201,7 +201,7 @@ public class OConnectorEnd extends OLinkEnd {
         if (AbstractObjingModelNavigation.isNotNullOrEmpty(this.objElt.getName())) {
             ObjingEAnnotation.setName(ecoreElt, this.objElt.getName());
         }
-        
+
     }
 
     @objid ("2c876be9-8412-47d4-ac40-420ed9f9d2cd")
@@ -222,7 +222,7 @@ public class OConnectorEnd extends OLinkEnd {
     @objid ("2ccc85af-b8f0-4b68-b820-8d120baa3d1d")
     private void setMin(org.eclipse.uml2.uml.ConnectorEnd ecoreElt) {
         String objingMultMin = this.objElt.getMultiplicityMin();
-        
+
         // If objingMultMin is "" then we don't set a lower multiplicity for the
         // UML2 element.
         if (!"".equals(objingMultMin)) {
@@ -242,13 +242,13 @@ public class OConnectorEnd extends OLinkEnd {
                 }
             }
         }
-        
+
     }
 
     @objid ("f752bd02-e66a-4f31-b141-abbaf4fce989")
     private void setMax(org.eclipse.uml2.uml.ConnectorEnd ecoreElt) {
         String objingMultMax = this.objElt.getMultiplicityMax();
-        
+
         // If objingMultMax is "" then we don't set an upper multiplicity for
         // the UML2 element.
         if (!"".equals(objingMultMax)) {
@@ -267,7 +267,7 @@ public class OConnectorEnd extends OLinkEnd {
                 }
             }
         }
-        
+
     }
 
     @objid ("daf7c8a9-69a9-40e9-822b-a048ad0eea4b")
@@ -279,9 +279,9 @@ public class OConnectorEnd extends OLinkEnd {
             if (part instanceof Property) {
                 ecoreElt.setPartWithPort((Property) part);
             }
-        
+
         }
-        
+
     }
 
 }

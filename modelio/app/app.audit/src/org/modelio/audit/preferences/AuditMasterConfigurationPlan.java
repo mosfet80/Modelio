@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.preferences;
 
@@ -38,13 +38,14 @@ public class AuditMasterConfigurationPlan implements IAuditConfigurationPlan {
 
     /**
      * Constructs a new audit plan, initializing the sub plans.
+     *
      * @param subPlans all available sub plans.
      */
     @objid ("8329e632-5437-4b44-b224-1fef69d84cc3")
-    public  AuditMasterConfigurationPlan(List<IAuditConfigurationPlan> subPlans) {
+    public AuditMasterConfigurationPlan(List<IAuditConfigurationPlan> subPlans) {
         super();
         this.subPlans.addAll(subPlans);
-        
+
     }
 
     @objid ("b6c25f3b-2a5a-414e-a39e-1822e0456dd5")
@@ -60,7 +61,7 @@ public class AuditMasterConfigurationPlan implements IAuditConfigurationPlan {
                         .map(p -> p.getRootCategories())
                         .flatMap(List::stream)
                         .collect(Collectors.toList());
-        
+
     }
 
     @objid ("3567dc74-0579-4f5a-9454-7cdc06873a8c")
@@ -72,7 +73,7 @@ public class AuditMasterConfigurationPlan implements IAuditConfigurationPlan {
                 return plan.getLabel(category);
             }
         }
-        
+
         // No label found, return the id as it is
         return categoryId;
     }
@@ -86,7 +87,7 @@ public class AuditMasterConfigurationPlan implements IAuditConfigurationPlan {
                 return plan.getDescription(rule);
             }
         }
-        
+
         // No description found, return the id as it is
         return ruleId;
     }
@@ -99,7 +100,7 @@ public class AuditMasterConfigurationPlan implements IAuditConfigurationPlan {
                 return plan.getMessage(ruleId);
             }
         }
-        
+
         // No description found, return the id as it is
         return ruleId;
     }

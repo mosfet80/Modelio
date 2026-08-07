@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.gmdbg;
 
@@ -45,15 +45,15 @@ public class EditPartView {
     private TableViewer figureProps;
 
     @objid ("f511834e-db1e-4c7a-8c59-25eef5b3f206")
-    public  EditPartView(Composite parent) {
+    public EditPartView(Composite parent) {
         this.figureProps = new TableViewer(parent, SWT.V_SCROLL);
-        
+
         final Table table = this.figureProps.getTable();
         table.setHeaderVisible(true);
         table.setLinesVisible(true);
-        
-        
-        
+
+
+
         TableViewerColumn colKey = new TableViewerColumn(this.figureProps, SWT.NONE);
         colKey.getColumn().setWidth(200);
         colKey.getColumn().setText("EditPart Property");
@@ -63,13 +63,13 @@ public class EditPartView {
             public String getText(Object element) {
                 return ((Entry<String, String>) element).getKey();
             }
-        
+
             @Override
             public Font getFont(Object element) {
                 return getText(element).startsWith(" ") ? null : UIFont.NORMALB;
             }
         });
-        
+
         TableViewerColumn colValue = new TableViewerColumn(this.figureProps, SWT.NONE);
         colValue.getColumn().setWidth(150);
         colValue.getColumn().setText("Value");
@@ -79,15 +79,15 @@ public class EditPartView {
             public String getText(Object element) {
                 return ((Entry<String, String>) element).getValue();
             }
-        
+
             @Override
             public Font getFont(Object element) {
                 return ((Entry<String, String>) element).getKey().startsWith(" ") ? null : UIFont.NORMALB;
             }
         });
-        
+
         this.figureProps.setContentProvider(new FigureContentProvider());
-        
+
     }
 
     @objid ("a8cc46db-acbb-4adc-a8cb-ec94c0674021")
@@ -115,16 +115,16 @@ public class EditPartView {
         @Override
         public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
             this.properties = new ArrayList<>();
-            
+
             if (newInput == null) {
                 return;
             }
-            
+
             if (newInput instanceof AbstractGraphicalEditPart) {
                 AbstractGraphicalEditPart ep = (AbstractGraphicalEditPart) newInput;
-            
+
                 this.properties.add(new XEntry("Type", ep.getClass().getSimpleName()));
-            
+
                 if (ep instanceof AbstractNodeEditPart) {
                     AbstractNodeEditPart nodeEditPart = (AbstractNodeEditPart) ep;
                     int i = 0;
@@ -133,7 +133,7 @@ public class EditPartView {
                         i++;
                     }
                 }
-            
+
                 if (ep instanceof LinkEditPart) {
                     LinkEditPart linkEditPart = (LinkEditPart) ep;
                     int i = 0;
@@ -142,11 +142,11 @@ public class EditPartView {
                         i++;
                     }
                 }
-            
+
                 this.properties.add(new XEntry("    parent edit part", ep.getParent().getClass().getSimpleName()));
-            
+
             }
-            
+
         }
 
         @objid ("2226635d-2a1a-4893-b09c-d6659b8efbd1")

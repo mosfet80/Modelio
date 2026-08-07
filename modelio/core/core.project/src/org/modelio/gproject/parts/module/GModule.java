@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.parts.module;
 
@@ -75,10 +75,11 @@ public class GModule extends AbstractGPart {
 
     /**
      * Initialize the module.
+     *
      * @param desc the part descriptor
      */
     @objid ("01f6a492-b41d-498d-bdb0-7fb730ddcb34")
-    public  GModule(GProjectPartDescriptor desc) {
+    public GModule(GProjectPartDescriptor desc) {
         super(desc);
     }
 
@@ -94,10 +95,10 @@ public class GModule extends AbstractGPart {
         try {
             super.install(aProject, monitor);
             this.moduleHandle = createModuleHandle(aProject, this.getId(), this.getVersion(), monitor);
-        
+
             Path archive = this.moduleHandle.getArchive(); // The archive of the module to install
             Path backupPath = aProject.getPfs().getModuleBackupDir(this.getId()); // Where installed module archives are backed up
-        
+
             // Install archive into backup directory
             if (archive != null) {
                 boolean hasChanged = installArchiveInBackup(aProject, archive, backupPath);
@@ -105,7 +106,7 @@ public class GModule extends AbstractGPart {
         } catch (IOException e) {
             setDown(e);
         }
-        
+
     }
 
     /**
@@ -113,27 +114,28 @@ public class GModule extends AbstractGPart {
      * The umount applies immediately for the current project session.<br/>
      * The 'down' state of the part is <b>not</b> persisted in the project.conf file and the part will be mounted again at next project opening.
      * Fires a {@link GProjectEventType#FRAGMENT_DOWN FRAGMENT_DOWN} {@link GProjectEvent event}.
-     * 
+     *
      * Implementors have to:
      * <ul>
      * <li>update the part state (see {@link GPartState#sendDown(Throwable)}).</li>
      * <li>report the down error in the state in case of failure</li>
      * <li>post GFailure to the project to log the umount failure cause</li>
      * </ul>
-     * 
+     *
      * Please note that the {@link GPartState} will automatically fire {@link GProjectEvent} to the project event support when state changes.
-     * @throws GPartException if the unmount fails.
+     *
      * @param error the cause of down state
+     * @throws GPartException if the unmount fails.
      */
     @objid ("68ffb43f-bcf5-4445-b629-a5b11e96761a")
     public final void setDown(Throwable error) {
         assert error != null;
-        
+
         if (this.state.getValue()==GPartStateEnum.DOWN) {
             // Ignore new error
             return;
         }
-        
+
         if (this.mdaFragment != null) {
             try {
                 this.mdaFragment.unmount(null);
@@ -141,9 +143,9 @@ public class GModule extends AbstractGPart {
                 error.addSuppressed(e);
             }
         }
-        
+
         this.state.sendDown(error);
-        
+
     }
 
     /**
@@ -160,7 +162,7 @@ public class GModule extends AbstractGPart {
     private boolean installArchiveInBackup(IGProject aProject, Path archive, Path backupPath) throws GPartException {
         Path existingArchive = backupPath.resolve(archive.getFileName());
         boolean hasToCopy = false;
-        
+
         if (Files.isRegularFile(existingArchive)) {
             // Existing archive : check last modification date
             try {
@@ -176,7 +178,7 @@ public class GModule extends AbstractGPart {
             // No existing archive
             hasToCopy = true;
         }
-        
+
         if (hasToCopy) {
             // Clean the module backup directory for module an copy new archive
             try {
@@ -203,7 +205,7 @@ public class GModule extends AbstractGPart {
     @Override
     public void mount(IModelioProgress monitor) throws GPartException {
         this.state.sendStartMount();
-        
+
         IGProject project = getProject();
         if (this.moduleHandle != null) {
             this.mdaFragment = createMdaFragment();
@@ -213,12 +215,12 @@ public class GModule extends AbstractGPart {
                 String msg = this.getId() + " " + getVersion() + " has no model fragment.";
                 project.getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(project, msg));
             }
-        
+
             this.state.sendEndMount(null);
         } else {
             this.state.sendEndMount(new Exception(String.format("GModule#mount(): Could not get module handle for %s %s", this.getId(), this.getVersion())));
         }
-        
+
     }
 
     @objid ("ee8847c7-c2fe-4173-a962-e9afd911458f")
@@ -242,9 +244,9 @@ public class GModule extends AbstractGPart {
             String msg = this.getId() + " " + getVersion() + " has no model fragment.";
             project.getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(project, msg));
         }
-        
+
         this.state.sendUnmount();
-        
+
     }
 
     @objid ("f2d2de22-a126-4002-9b7a-c330c6a527ce")
@@ -260,14 +262,14 @@ public class GModule extends AbstractGPart {
             // MDA fragment is missing, make sure there are no remaining files in the project
             delete(project);
         }
-        
+
     }
 
     @objid ("de7b8d78-b6f6-4f4a-9d41-195c896a9d80")
     private void delete(IGProject project) {
         String encodedDirectoryName = FileUtils.encodeFileName(getId(), new StringBuilder()).toString();
         String FRAGMENTS_SUBDIR = "fragments";
-        
+
         ProjectFileStructure pfs = project.getPfs();
         Path runtimeDirectory = pfs.getProjectRuntimePath().resolve(FRAGMENTS_SUBDIR).resolve(encodedDirectoryName);
         try {
@@ -275,14 +277,14 @@ public class GModule extends AbstractGPart {
         } catch (@SuppressWarnings ("unused") SecurityException | IOException e) {
             // Just skip the error
         }
-        
+
         Path dataDirectory = pfs.getProjectDataPath().resolve(FRAGMENTS_SUBDIR).resolve(encodedDirectoryName);
         try {
             FileUtils.delete(dataDirectory);
         } catch (@SuppressWarnings ("unused") SecurityException | IOException e) {
             // Just skip the error
         }
-        
+
     }
 
     /**
@@ -303,11 +305,12 @@ public class GModule extends AbstractGPart {
         } else {
             return null;
         }
-        
+
     }
 
     /**
      * Get a module handle from a module descriptor in the context of 'project'.
+     *
      * @param project the project context
      * @param name the name of the module
      * @param version the version of the module
@@ -322,13 +325,13 @@ public class GModule extends AbstractGPart {
         // First look in module cache
         IModuleRTCache moduleCache = project.getProjectEnvironment().getModulesCache();
         IModuleHandle mh = moduleCache.findModule(name, version.toString("V.R.C"), progress);
-        
+
         // If the RT cache was not able to provide a handle try to install it in the cache from the local backup
         if (mh == null) {
             Path backupPath = project.getPfs().getModuleBackupArchivePath(name, version);
             mh = moduleCache.installModuleArchive(backupPath, progress);
         }
-        
+
         // Last resort: restore from initial configuration
         if (mh == null) {
             URI archiveURI = this.getDescriptor().getLocation();
@@ -347,7 +350,7 @@ public class GModule extends AbstractGPart {
                 }
             }
         }
-        
+
         // Get the handle from the cache (last attempt)
         if (mh == null) {
             mh = moduleCache.findModule(name, version.toString("V.R.C"), progress);
@@ -361,6 +364,7 @@ public class GModule extends AbstractGPart {
      * <li>If the URI represents a file directory, uses the represented Path.
      * <li>If the URI represents a relative path, resolve it against the project path.
      * <li>In the other case try to open an URL connection to copy the file to the given file path.
+     *
      * @param anUri the URI to copy.
      * @param copyTo the path to copy the URI content to.
      * @throws IOException if the URI couldn't be resolved.
@@ -375,7 +379,7 @@ public class GModule extends AbstractGPart {
             } catch (FileSystemNotFoundException | IllegalArgumentException e) {
                 // continue
             }
-        
+
             if (fsPath != null) {
                 if (Files.isRegularFile(fsPath)) {
                     // Copy to module directory
@@ -386,7 +390,7 @@ public class GModule extends AbstractGPart {
                 }
             }
         }
-        
+
         // Maybe the URI is a relative path
         if (anUri.getScheme() == null || anUri.getScheme().equals("file")) {
             try {
@@ -394,7 +398,7 @@ public class GModule extends AbstractGPart {
             } catch (FileSystemNotFoundException | IllegalArgumentException e) {
                 // continue
             }
-        
+
             if (fsPath != null) {
                 if (Files.isRegularFile(fsPath)) {
                     // Copy to module directory
@@ -405,7 +409,7 @@ public class GModule extends AbstractGPart {
                 }
             }
         }
-        
+
         // Try to open an URL connection & copy into a temp file.
         try {
             Files.createDirectories(copyTo.getParent());
@@ -419,10 +423,11 @@ public class GModule extends AbstractGPart {
         } catch (IndexOutOfBoundsException e) {
             throw new IOException(e);
         }
-        
+
     }
 
     /**
+     *
      * @return the name of the module in its {@link IModuleHandle}
      * @deprecated use {@link #getId()} instead.
      */
@@ -434,6 +439,7 @@ public class GModule extends AbstractGPart {
 
     /**
      * Get the base structure defining the module contents.
+     *
      * @return the {@link IModuleHandle} for this {@link GModule}. Might be <code>null</code> if the module has been uninstalled.
      */
     @objid ("2b760f1e-4e91-41f9-bcbd-71151151f3bb")
@@ -443,6 +449,7 @@ public class GModule extends AbstractGPart {
 
     /**
      * Get the Module model element.
+     *
      * @return the module model element.
      */
     @objid ("e0b54506-e0ab-4916-9c2e-82f93a8d81f7")

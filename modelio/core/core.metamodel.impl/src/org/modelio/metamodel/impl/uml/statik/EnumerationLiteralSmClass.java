@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -44,66 +43,65 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("d14877d6-45e4-49f7-92c5-6db955704cf5")
 public class EnumerationLiteralSmClass extends UmlModelElementSmClass {
-    @objid ("63891e2f-e2ca-4289-946a-685778a4cf63")
+    @objid ("1f285328-8090-4603-9056-c8eae93c12ce")
     private SmDependency valuatedDep;
 
-    @objid ("3643d3e9-d86f-40c6-ae41-7819f95ee7c5")
-    public  EnumerationLiteralSmClass(ISmMetamodelFragment origin) {
+    @objid ("944ec109-b75d-4126-9c34-59187260e3d4")
+    public EnumerationLiteralSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("7dae32cd-ba20-488b-a101-c12eef3c63ca")
+    @objid ("0f3e085f-7f6b-4184-b50d-097e81969573")
     @Override
     public String getName() {
         return "EnumerationLiteral";
-        
+
     }
 
-    @objid ("1c4fdac7-9c59-4198-a272-88f94e707547")
+    @objid ("66c0f580-2647-438b-8066-a148f27438ed")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("57a9ac55-785b-4bc7-b719-76e3d3ee36bd")
+    @objid ("3bc3c4ad-f989-4332-9e16-e75ff67781f5")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return EnumerationLiteral.class;
-        
+
     }
 
-    @objid ("cf91af7e-73e1-4d8d-9250-9353c9363dda")
+    @objid ("0f2add9e-df1f-4d69-99d6-40f0518b3df0")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("9548607c-3e65-44ca-a625-f576b8841678")
+    @objid ("6e42f89a-1c74-4921-be3e-fb668d3f2e95")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("1ece4a03-ac4e-4261-9187-ac7a9183ab89")
+    @objid ("c00b79e5-1278-4e82-9b8c-3ad582406854")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(UmlModelElement.MQNAME);
         this.registerFactory(new EnumerationLiteralObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
         this.valuatedDep = new ValuatedSmDependency();
         this.valuatedDep.init("Valuated", this, metamodel.getMClass(Enumeration.MQNAME), 1, 1 );
         registerDependency(this.valuatedDep);
-        
-        
+
     }
 
-    @objid ("a4a9bfbc-c6a5-4e7c-a3cd-31a57359d5ef")
+    @objid ("ce0a3bd5-e2b0-4cb1-a74b-164afead3baf")
     public SmDependency getValuatedDep() {
         if (this.valuatedDep == null) {
         	this.valuatedDep = this.getDependencyDef("Valuated");
@@ -113,21 +111,21 @@ public class EnumerationLiteralSmClass extends UmlModelElementSmClass {
 
     @objid ("76402487-664a-4d9e-ac9f-90efe26e0dfb")
     private static class EnumerationLiteralObjectFactory implements ISmObjectFactory {
-        @objid ("b62de694-d923-4287-8988-4a5f848a1311")
+        @objid ("5bd802d3-d7eb-4d4e-ba31-a7a7ef6a9344")
         private EnumerationLiteralSmClass smClass;
 
-        @objid ("f68a3871-eacb-4ae3-9a33-52a607456dea")
-        public  EnumerationLiteralObjectFactory(EnumerationLiteralSmClass smClass) {
+        @objid ("a761b4a4-183d-46b0-b4a6-d09328664ad0")
+        public EnumerationLiteralObjectFactory(EnumerationLiteralSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("43bac855-c6af-417f-a3d5-93a2f2acb837")
+        @objid ("229927c8-069f-4799-818b-4c915190c637")
         @Override
         public ISmObjectData createData() {
             return new EnumerationLiteralData(this.smClass);
         }
 
-        @objid ("e0034035-4c5c-455d-89ab-45f487bb60cf")
+        @objid ("512eba58-98a3-4182-9a26-d1d6fa6992f1")
         @Override
         public SmObjectImpl createImpl() {
             return new EnumerationLiteralImpl();
@@ -137,29 +135,29 @@ public class EnumerationLiteralSmClass extends UmlModelElementSmClass {
 
     @objid ("243e7d39-af71-4b90-a709-2534be80e17b")
     public static class ValuatedSmDependency extends SmSingleDependency {
-        @objid ("e839f3ee-e59a-41d1-a33e-f1d5171b9e29")
+        @objid ("70aa6e99-bd24-46aa-87d1-3d9ddae3c94a")
         private SmDependency symetricDep;
 
-        @objid ("dc40ed85-edbd-45ec-90c6-7010eceb9c54")
+        @objid ("b2ebe1a8-2b1e-40e5-b30a-51247f5b0643")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((EnumerationLiteralData) data).mValuated;
         }
 
-        @objid ("320790b1-7238-4f74-a8f4-5f33c1d631d8")
+        @objid ("3eea3ab0-561e-4509-8d7c-25c71e2f991d")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((EnumerationLiteralData) data).mValuated = value;
         }
 
-        @objid ("6a00ff3e-4487-4915-9a1d-b143753032b9")
+        @objid ("1fc70930-83d2-4326-a8cd-9e615ca2e4be")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((EnumerationSmClass)this.getTarget()).getValueDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

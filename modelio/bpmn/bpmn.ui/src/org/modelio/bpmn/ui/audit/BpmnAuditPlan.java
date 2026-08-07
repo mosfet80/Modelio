@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.ui.audit;
 
@@ -29,7 +29,7 @@ import org.modelio.bpmn.ui.plugin.BpmnUi;
 @objid ("58703556-600b-4cb3-9ebd-1eedf18909b9")
 public class BpmnAuditPlan extends AbstractAuditExecutionPlan {
     @objid ("1fa9d783-86b9-483e-9e68-7019012c3b37")
-    public  BpmnAuditPlan(List<AuditCategory> rootCategories) {
+    public BpmnAuditPlan(List<AuditCategory> rootCategories) {
         super(rootCategories);
     }
 
@@ -51,7 +51,7 @@ public class BpmnAuditPlan extends AbstractAuditExecutionPlan {
         } catch (IllegalAccessException e) {
             BpmnUi.LOG.error(e);
         }
-        
+
     }
 
 }

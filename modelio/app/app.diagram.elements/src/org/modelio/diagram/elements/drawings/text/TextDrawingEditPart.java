@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.drawings.text;
 
@@ -46,14 +46,14 @@ public class TextDrawingEditPart extends NodeDrawingEditPart {
     @Override
     protected IFigure createFigure() {
         ResizeableTextFigure f = new ResizeableTextFigure();
-        
+
         // set style dependent properties
         refreshFromStyle(f, getModelStyle());
-        
+
         // set style independent properties
         MinimumSizeLayout.apply(f, 50,30);
         f.setOpaque(false);
-        
+
         // return the figure
         return f;
     }
@@ -62,24 +62,24 @@ public class TextDrawingEditPart extends NodeDrawingEditPart {
     @Override
     protected void refreshFromStyle(IFigure aFigure, IStyle style) {
         super.refreshFromStyle(aFigure, style);
-        
+
         final GmTextDrawing model = getModel();
-        
+
         StyleKey textColorStyleKey = model.getStyleKey(MetaKey.TEXTCOLOR);
         if (textColorStyleKey != null) {
             aFigure.setForegroundColor(style.getColor(textColorStyleKey));
         }
-        
+
         StyleKey fontStyleKey = model.getStyleKey(MetaKey.FONT);
         if (fontStyleKey != null) {
             aFigure.setFont(style.getFont(fontStyleKey));
         }
-        
+
         // Alignment
         ResizeableTextFigure f = (ResizeableTextFigure) aFigure;
         HAlign align = style.getProperty(GmTextStyleKeys.ALIGNMENT);
         f.setHorizontalAligment(align);
-        
+
     }
 
     @objid ("28d8ab32-c70b-4b3d-ad0c-b15a5d8674bc")
@@ -87,11 +87,11 @@ public class TextDrawingEditPart extends NodeDrawingEditPart {
     protected void refreshVisuals() {
         final ResizeableTextFigure aFigure = getFigure();
         final GmTextDrawing noteModel = getModel();
-        
+
         aFigure.getParent().setConstraint(aFigure, noteModel.getLayoutData());
-        
+
         aFigure.setContents(noteModel.getLabel());
-        
+
     }
 
     @objid ("35428fac-573f-4316-9961-d53dcec990d3")
@@ -104,9 +104,9 @@ public class TextDrawingEditPart extends NodeDrawingEditPart {
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new TextDrawingDirectEditPolicy());
-        
+
     }
 
     @objid ("763f7fa4-9077-45e7-aebb-77ae04fad199")
@@ -124,7 +124,7 @@ public class TextDrawingEditPart extends NodeDrawingEditPart {
         } else {
             super.propertyChange(evt);
         }
-        
+
     }
 
     @objid ("581f316f-cdb8-45dc-b4bc-d7a1ff5d797a")
@@ -137,15 +137,15 @@ public class TextDrawingEditPart extends NodeDrawingEditPart {
     @Override
     public void performRequest(Request req) {
         if (RequestConstants.REQ_OPEN.equals(req.getType()) || RequestConstants.REQ_DIRECT_EDIT.equals(req.getType())) {
-        
+
             final ResizeableTextFigure label = getFigure();
-        
+
             CellEditorLocator cellEditorLocator =
                     new EditorLocatorForLabelFigure(
                             label,
                             (String s) -> label.setContents(s))
                     .setFontGetter(() -> label.getTextFont());
-        
+
             TextDirectEditManager manager = new TextDirectEditManager(
                     this,
                     cellEditorLocator,
@@ -153,12 +153,12 @@ public class TextDrawingEditPart extends NodeDrawingEditPart {
                     getModel().getLabel())
                     .setMultiline(true)
                     .setWrap(false);
-        
+
             manager.show();
         } else {
             super.performRequest(req);
         }
-        
+
     }
 
 }

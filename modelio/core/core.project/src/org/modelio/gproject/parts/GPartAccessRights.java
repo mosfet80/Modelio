@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.parts;
 
@@ -28,7 +28,7 @@ import org.modelio.gproject.data.project.GPropertyConstants;
  * {@link IGAccessRights} implementation that read the part {@link GProperties properties} once on construction.
  * <p>
  * The instance is then immutable.
- * 
+ *
  * @author cmarin
  * @since 5.5 - 29/08/2023
  */
@@ -41,10 +41,10 @@ public class GPartAccessRights implements IGAccessRights {
     private final boolean editable;
 
     @objid ("f46cd8ec-b91d-4aad-8d22-c1cb239286f1")
-    public  GPartAccessRights(GProperties properties) {
+    public GPartAccessRights(GProperties properties) {
         this.visible = properties.getBooleanValue(GPropertyConstants.Access.VISIBLE, true);
         this.editable = computeEditable(properties);
-        
+
     }
 
     @objid ("2e03dbfe-dd6b-46e9-8f19-faa8ffd1a116")
@@ -65,7 +65,7 @@ public class GPartAccessRights implements IGAccessRights {
         // Compatible ascendant property, Modelio < 5.5
         if (properties.getBooleanValue(GPropertyConstants.PROP_READ_ONLY, false))
             return false;
-        
+
         // Since Modelio 5.5 and Server 4.3
         return properties.getBooleanValue(GPropertyConstants.Access.WRITE, true);
     }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.core.modelshield.internal;
 
@@ -41,7 +41,7 @@ public class ShieldContext {
     private final Set<EntryKey> alreadyApplied = new HashSet<>();
 
     @objid ("01f40340-0000-6eee-0000-000000000000")
-    public  ShieldContext(IErrorReport diagnostic) {
+    public ShieldContext(IErrorReport diagnostic) {
         this.diagnostic = diagnostic;
     }
 
@@ -55,7 +55,7 @@ public class ShieldContext {
         if (this.alreadyApplied.add(getEntryIndexKey(checker, obj))) {
             doApplyChecker(checker, obj);
         }
-        
+
     }
 
     @objid ("002804f8-0000-0673-0000-000000000000")
@@ -63,7 +63,7 @@ public class ShieldContext {
         if (!element.isDeleted()) {
             checker.check(element, this.diagnostic);
         }
-        
+
     }
 
     @objid ("008057a0-d6c6-1f60-8473-001ec947cd2a")
@@ -80,11 +80,11 @@ public class ShieldContext {
         private final MObject element;
 
         @objid ("59c28e8d-44b5-4cbc-8aa5-5b7b6268a455")
-        public  EntryKey(IChecker checker, MObject element) {
+        public EntryKey(IChecker checker, MObject element) {
             super();
             this.checker = checker;
             this.element = element;
-            
+
         }
 
         @objid ("4c7fe32d-a2c2-4f9a-8dc4-cdd28cf70509")

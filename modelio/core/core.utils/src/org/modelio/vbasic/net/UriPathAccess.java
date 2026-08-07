@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vbasic.net;
 
@@ -55,43 +55,47 @@ public class UriPathAccess implements AutoCloseable {
 
     /**
      * Constructor
+     *
      * @param uri the URI to access a a Path.
      * @deprecated Please use {@link #UriPathAccess(URI, IAuthData)} with an authentication data or <code>null</code>
      * if none is needed.
      */
     @objid ("1c5f59d7-d5ca-4c53-8504-f5eb35950306")
     @Deprecated
-    public  UriPathAccess(URI uri) {
+    public UriPathAccess(URI uri) {
         this.uri = uri;
     }
 
     /**
      * Constructor
+     *
      * @param uri the URI to access a a Path.
      * @param auth authentication data, may be <code>null</code>.
      */
     @objid ("16ad0406-1982-4623-a694-0796f242b97b")
-    public  UriPathAccess(URI uri, IAuthData auth) {
+    public UriPathAccess(URI uri, IAuthData auth) {
         this.uri = uri;
         this.authData = auth;
-        
+
     }
 
     /**
      * Convert the URI to a {@link Path}.
+     *
      * @return the converted path.
      * @throws IOException in case of I/O failure.
      * @throws FileSystemException in case of file system failure
      */
     @objid ("6f37298c-2604-40e0-ac5d-74c915898b42")
     public Path getPath() throws IOException, FileSystemException {
-        if (this.path == null) 
+        if (this.path == null)
             lookup();
         return this.path;
     }
 
     /**
      * Set the authentication data.
+     *
      * @param auth authentication data, may be <code>null</code>.
      */
     @objid ("fde22ca8-57f1-4f57-adb4-8788735d8951")
@@ -112,7 +116,7 @@ public class UriPathAccess implements AutoCloseable {
             // ignore
             //Log.trace(e);
         }
-        
+
     }
 
     @objid ("4fb461c0-e355-401b-9bf1-e18b5aec58c7")
@@ -128,7 +132,7 @@ public class UriPathAccess implements AutoCloseable {
                 this.path = this.localPath;
             }
         }
-        
+
     }
 
 }

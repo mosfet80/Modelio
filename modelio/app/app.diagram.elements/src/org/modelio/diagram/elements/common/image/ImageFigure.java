@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.image;
 
@@ -34,7 +34,7 @@ import org.modelio.diagram.styles.core.StyleKey.LinePattern;
 
 /**
  * Figure that represents an element in image mode.
- * 
+ *
  * @author phv
  */
 @objid ("7e86a9e7-1dec-11e2-8cad-001ec947c8cc")
@@ -89,6 +89,7 @@ public class ImageFigure extends Label implements IPenOptionsSupport {
 
     /**
      * Set the image.
+     *
      * @param img the image.
      */
     @objid ("7e86aa13-1dec-11e2-8cad-001ec947c8cc")
@@ -129,7 +130,7 @@ public class ImageFigure extends Label implements IPenOptionsSupport {
         if (isOpaque()) {
             super.paintFigure(graphics);
         }
-        
+
         Rectangle figureBounds = getBounds();
         graphics.translate(figureBounds.x, figureBounds.y);
         Image icon = getIcon();
@@ -139,21 +140,21 @@ public class ImageFigure extends Label implements IPenOptionsSupport {
                 double wRatio = (double) icon.getImageData().width / figureBounds.width;
                 double hRatio = (double) icon.getImageData().height / figureBounds.height;
                 double ratio = Math.max(wRatio, hRatio);
-        
+
                 PrecisionRectangle completeBounds = new PrecisionRectangle(0, 0, icon.getImageData().width, icon.getImageData().height);
                 PrecisionRectangle imageBounds = new PrecisionRectangle(0, 0, icon.getImageData().width / ratio, icon.getImageData().height / ratio);
-        
+
                 // Center resized image
                 double dx = (double) (figureBounds.width - imageBounds.width) / 2;
                 double dy = (double) (figureBounds.height - imageBounds.height) / 2;
                 imageBounds.translate(dx, dy);
-        
+
                 graphics.drawImage(icon, completeBounds, imageBounds);
             } else {
                 graphics.drawImage(icon, getIconLocation());
             }
         }
-        
+
         if (!isEnabled()) {
             graphics.translate(1, 1);
             graphics.setForegroundColor(ColorConstants.buttonLightest);
@@ -163,7 +164,7 @@ public class ImageFigure extends Label implements IPenOptionsSupport {
         }
         graphics.drawText(getSubStringText(), getTextLocation());
         graphics.translate(-figureBounds.x, -figureBounds.y);
-        
+
     }
 
 }

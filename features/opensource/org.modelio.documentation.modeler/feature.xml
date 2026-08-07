@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feature id="org.modelio.documentation.modeler"
-         label="Documentation Modeler"
-         version="5.4.1.qualifier"
-         provider-name="modelio.org">
+<feature
+      id="org.modelio.documentation.modeler"
+      label="Documentation Modeler"
+      version="6.2.0.qualifier"
+      provider-name="modelio.org">
 
-<copyright>
-      Copyright 2021 Modeliosoft
+   <copyright>
+      Copyright 2025 Docaposte
 
 This file is part of Modelio.
 Modelio is free software: you can redistribute it and/or modify
@@ -20,59 +21,50 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
-</copyright>
+   </copyright>
 
-<license url="">
-GPL
-</license>
+   <license url="">
+      GPL
+   </license>
 
-<url>
-  <discovery label="modelio.org" url="https://www.modelio.org"/>
-</url>
-<requires>
-</requires>
+   <url>
+      <discovery label="modelio.org" url="https://www.modelio.org"/>
+   </url>
 
-<plugin id="org.modelio.documentation.bpmn"
-        download-size="0"
-        install-size="0"
-        version="0.0.0"
-        fragment="false"
-        unpack="false"/>
-<plugin id="org.modelio.documentation.copyright"
-        download-size="0"
-        install-size="0"
-        version="0.0.0"
-        fragment="false"
-        unpack="false"/>
-<plugin id="org.modelio.documentation.metamodel.uml"
-        download-size="0"
-        install-size="0"
-        version="0.0.0"
-        fragment="false"
-        unpack="false"/>
-<plugin id="org.modelio.documentation.modelioapi"
-        download-size="0"
-        install-size="0"
-        version="0.0.0"
-        fragment="false"
-        unpack="false"/>
-<plugin id="org.modelio.documentation.modeliomodeler.toc"
-        download-size="0"
-        install-size="0"
-        version="0.0.0"
-        fragment="true"
-        unpack="false"/>
-<plugin id="org.modelio.documentation.vaudit"
-        download-size="0"
-        install-size="0"
-        version="0.0.0"
-        fragment="false"
-        unpack="false"/>
-<plugin id="org.modelio.documentation.welcome"
-        download-size="0"
-        install-size="0"
-        version="0.0.0"
-        fragment="false"
-        unpack="false"/>
+   <plugin
+         id="org.modelio.documentation.bpmn"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.modelio.documentation.copyright"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.modelio.documentation.metamodel.uml"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.modelio.documentation.modelioapi"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.modelio.documentation.modeliomodeler.toc"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.modelio.documentation.vaudit"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.modelio.documentation.welcome"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.modelio.documentation.modeliomodeler.nl_fr"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.modelio.documentation.modeliomodeler"
+         version="0.0.0"/>
 
 </feature>

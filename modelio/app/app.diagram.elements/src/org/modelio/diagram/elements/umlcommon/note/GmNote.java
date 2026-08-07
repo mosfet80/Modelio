@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.umlcommon.note;
 
@@ -47,7 +47,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Graphical model for a {@link Note}.
- * 
+ *
  * @author phv
  */
 @objid ("81819a59-1dec-11e2-8cad-001ec947c8cc")
@@ -71,24 +71,26 @@ public class GmNote extends GmSimpleNode {
      * Constructor to use only for deserialization.
      */
     @objid ("81865f11-1dec-11e2-8cad-001ec947c8cc")
-    public  GmNote() {
-        
+    public GmNote() {
+
     }
 
     /**
      * Creates a GmNote.
+     *
      * @param diagram The diagram owning the node
      * @param note The represented note element
      * @param ref The represented note reference
      */
     @objid ("81865f14-1dec-11e2-8cad-001ec947c8cc")
-    public  GmNote(IGmDiagram diagram, Note note, MRef ref) {
+    public GmNote(IGmDiagram diagram, Note note, MRef ref) {
         super(diagram, ref);
         this.note = note;
-        
+
     }
 
     /**
+     *
      * @return the note content.
      */
     @objid ("81865f1a-1dec-11e2-8cad-001ec947c8cc")
@@ -98,7 +100,7 @@ public class GmNote extends GmSimpleNode {
         } else {
             return "?";
         }
-        
+
     }
 
     @objid ("81865f1e-1dec-11e2-8cad-001ec947c8cc")
@@ -112,13 +114,13 @@ public class GmNote extends GmSimpleNode {
                     public String getText() {
                         return GmNote.this.getRepresentedElement().getContent();
                     }
-        
+
                     @Override
                     public void setText(String text) {
                         GmNote.this.getRepresentedElement().setContent(text);
                     }
                 };
-        
+
     }
 
     @objid ("81865f23-1dec-11e2-8cad-001ec947c8cc")
@@ -147,6 +149,7 @@ public class GmNote extends GmSimpleNode {
 
     /**
      * Get the note type label.
+     *
      * @return the note type label.
      */
     @objid ("8188c170-1dec-11e2-8cad-001ec947c8cc")
@@ -154,18 +157,18 @@ public class GmNote extends GmSimpleNode {
         if (this.note == null) {
             return "?";
         }
-        
+
         String name = this.note.getName();
-        
+
         StringBuilder result = new StringBuilder();
-        
+
         // name
         if (!name.isEmpty() && !name.equals(Note.MNAME)) {
             result.append("'");
             result.append(name);
             result.append("' ");
         }
-        
+
         // use type
         NoteType model = this.note.getModel();
         if (model == null) {
@@ -173,7 +176,7 @@ public class GmNote extends GmSimpleNode {
         } else {
             result.append(MdaResources.getLabel(model));
         }
-        
+
         // Mime type
         String mime = checkNoteMimeType("html") ? " [html]" : checkNoteMimeType("jython") ? " [py]" : "";
         if (!mime.isEmpty()) {
@@ -199,7 +202,7 @@ public class GmNote extends GmSimpleNode {
             break;
         }
         }
-        
+
     }
 
     @objid ("8188c179-1dec-11e2-8cad-001ec947c8cc")
@@ -207,10 +210,10 @@ public class GmNote extends GmSimpleNode {
     public void refreshFromObModel() {
         if (this.note != null) {
             firePropertyChange(IGmObject.PROPERTY_LABEL, null, this.note.getContent());
-        
+
             refreshNoteLink();
         }
-        
+
     }
 
     @objid ("8188c17c-1dec-11e2-8cad-001ec947c8cc")
@@ -232,24 +235,24 @@ public class GmNote extends GmSimpleNode {
             // the removed link represents the same element (the note) as this gm: delete self as well.
             delete();
         }
-        
+
     }
 
     @objid ("8188c186-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmNote.", GmNote.MINOR_VERSION);
-        
+
     }
 
     @objid ("8188c18a-1dec-11e2-8cad-001ec947c8cc")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.note = (Note) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("8188c18d-1dec-11e2-8cad-001ec947c8cc")
@@ -259,6 +262,7 @@ public class GmNote extends GmSimpleNode {
     }
 
     /**
+     *
      * @return true if the note text is HTML
      */
     @objid ("ec352994-5589-42d7-88b2-b4e4b973c4e3")
@@ -266,7 +270,7 @@ public class GmNote extends GmSimpleNode {
         if (this.note == null) {
             return false;
         }
-        
+
         String mimeType = this.note.getMimeType();
         if (mimeType == null || mimeType.isEmpty()) {
             NoteType model = this.note.getModel();
@@ -287,13 +291,13 @@ public class GmNote extends GmSimpleNode {
         if (relatedElement == null || !relatedElement.isValid() || getDiagram() == null) {
             return;
         }
-        
+
         ModelElement subject = relatedElement.getSubject();
         if (subject instanceof AbstractDiagram) {
             // Notes on diagrams do not have a link
             return;
         }
-        
+
         boolean found = false;
         // Start by scanning existing links
         for (IGmLink gmLink : new ArrayList<>(getEndingLinks())) {
@@ -309,12 +313,12 @@ public class GmNote extends GmSimpleNode {
                 }
             }
         }
-        
+
         if (found) {
             // valid link found
             return;
         }
-        
+
         // Unmask missing link.
         if (subject != null) {
             Collection<GmModel> models = getDiagram().getAllGMRelatedTo(new MRef(subject));
@@ -326,7 +330,7 @@ public class GmNote extends GmSimpleNode {
                 }
             }
         }
-        
+
     }
 
     /**

@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2020 Modeliosoft
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.vstore.exml.common.index;
 
@@ -26,19 +45,25 @@ import org.modelio.vstore.exml.resource.IExmlResourceProvider;
 
 /**
  * Interface that an index implementation must implement.
+ *
  * @author cma
  */
 @objid ("139d53b5-82b4-44df-865a-dd357fe8ef21")
 public interface IIndexDb {
     /**
      * Close all connections and release resources.
+     *
      * @throws IndexException in case of I/O failure
      */
     @objid ("8ffd24ac-aae7-4f71-8e73-c265f5a68885")
     void close() throws IndexException;
 
+    @objid ("cf345af8-52ea-4ee7-a187-af0ec08f13bd")
+    void deleteIndexes() throws IndexException;
+
     /**
      * Commit pending changes now, and reset internal counter.
+     *
      * @throws IndexException in case of JDBM failure.
      */
     @objid ("74f81083-ce49-4b84-ada9-2e905c544d8b")
@@ -46,6 +71,7 @@ public interface IIndexDb {
 
     /**
      * Read the index format version.
+     *
      * @return the index format version
      * @throws IndexException in case of I/O failure
      */
@@ -54,6 +80,7 @@ public interface IIndexDb {
 
     /**
      * Write the index  stamp.
+     *
      * @param stamp the index  stamp.
      * @throws IndexException in case of I/O failure
      */
@@ -62,6 +89,7 @@ public interface IIndexDb {
 
     /**
      * Read the index stamp.
+     *
      * @return the index stamp.
      * @throws IndexException in case of I/O failure
      */
@@ -70,6 +98,7 @@ public interface IIndexDb {
 
     /**
      * Save the index format version.
+     *
      * @throws IndexException in case of I/O failure.
      */
     @objid ("1e34a4c3-93fd-4e01-9350-e968747940ed")
@@ -77,6 +106,7 @@ public interface IIndexDb {
 
     /**
      * Defragments the index, so it consumes less space. This commits any uncommitted data.
+     *
      * @param monitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call done()
      * on the given monitor. Accepts null, indicating that no progress should be reported and that the operation cannot
      * be cancelled.
@@ -89,12 +119,14 @@ public interface IIndexDb {
     void open(IModelioProgress aMonitor, IExmlResourceProvider resProvider, SmMetamodel metamodel) throws IndexException;
 
     /**
+     *
      * @return the CMS nodes and objects index
      */
     @objid ("e2f168ed-9ff2-4aea-9040-871afbf342c6")
     ICmsNodeIndex getCmsNodeIndex();
 
     /**
+     *
      * @return the inter CMS nodes dependencies index
      */
     @objid ("d30e6aba-b356-418c-b1e6-9932d28f9ff9")
@@ -102,5 +134,18 @@ public interface IIndexDb {
 
     @objid ("e538ee9b-2a35-41bb-87e3-6b60aafcf424")
     void checkIndexFormat() throws IndexOutdatedException, IndexException;
-}
 
+    /**
+     * Tells whether the index is locally rebuildable and updatable.
+     * <p>
+     * This may not be the case for remote indexes.
+     *
+     * @return true if the index is writable for local updates.
+     * @since 5.5 26/02/2024
+     */
+    @objid ("4a9e1507-2545-4ea1-a0fc-45be5dd0d188")
+    default boolean isWritable() {
+        return true;
+    }
+
+}

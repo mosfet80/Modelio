@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -48,7 +48,7 @@ public class R1350 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -67,7 +67,7 @@ public class R1350 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         plan.registerRule(InstanceNode.MQNAME, this,
                 AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -101,14 +101,14 @@ public class R1350 extends AbstractUmlRule {
      * Default constructor for R1350
      */
     @objid ("0cde10a6-380e-4c04-a9ee-5112838874fe")
-    public  R1350() {
+    public R1350() {
         this.checkerInstance = new CheckR1350(this);
     }
 
     @objid ("12bfa406-ddf6-47a9-8e2d-206b060b6e14")
     private static class CheckR1350 extends AbstractControl {
         @objid ("18ca6e14-af5e-41e7-a98c-55ab19282d29")
-        public  CheckR1350(IRule rule) {
+        public CheckR1350(IRule rule) {
             super(rule);
         }
 
@@ -128,14 +128,14 @@ public class R1350 extends AbstractUmlRule {
         private IAuditEntry checkR1350(InstanceNode objectNnode) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(),
                     AuditSeverity.AuditSuccess, objectNnode, null);
-            
+
             boolean isOrdered = objectNnode.getOrdering() == ObjectNodeOrderingKind.ORDERED;
             boolean hasSelectionBehavior = !objectNnode.getSelectionBehavior().isEmpty();
-            
+
             if ((isOrdered && !hasSelectionBehavior) || (!isOrdered && hasSelectionBehavior)) {
-            
+
                 // Rule failed
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(objectNnode);

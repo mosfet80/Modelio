@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.styles.editingsupport.combo;
 
@@ -103,14 +103,15 @@ class ComboBoxCellEditor2 extends CellEditor {
     /**
      * Creates a new cell editor with no control and no st of choices.
      * Initially, the cell editor has no cell validator.
-     * @since 2.1
+     *
      * @see CellEditor#setStyle(int)
      * @see CellEditor#create(Composite)
      * @see #setItems(String[])
      * @see CellEditor#dispose()
+     * @since 2.1
      */
     @objid ("85964876-1926-11e2-92d2-001ec947c8cc")
-    public  ComboBoxCellEditor2() {
+    public ComboBoxCellEditor2() {
         setStyle(defaultStyle);
     }
 
@@ -118,11 +119,12 @@ class ComboBoxCellEditor2 extends CellEditor {
      * Creates a new cell editor with a combo containing the given list of choices and parented under the given control.
      * The cell editor value is the zero-based index of the selected item. Initially, the cell editor has no cell
      * validator and the first item in the list is selected.
+     *
      * @param parent the parent control
      * @param items the list of strings for the combo box
      */
     @objid ("85964879-1926-11e2-92d2-001ec947c8cc")
-    public  ComboBoxCellEditor2(final Composite parent, final String[] items) {
+    public ComboBoxCellEditor2(final Composite parent, final String[] items) {
         this(parent, items, defaultStyle);
     }
 
@@ -130,20 +132,22 @@ class ComboBoxCellEditor2 extends CellEditor {
      * Creates a new cell editor with a combo containing the given list of choices and parented under the given control.
      * The cell editor value is the zero-based index of the selected item. Initially, the cell editor has no cell
      * validator and the first item in the list is selected.
+     *
      * @param parent the parent control
      * @param items the list of strings for the combo box
      * @param style the style bits
      * @since 2.1
      */
     @objid ("85964884-1926-11e2-92d2-001ec947c8cc")
-    public  ComboBoxCellEditor2(final Composite parent, final String[] items, final int style) {
+    public ComboBoxCellEditor2(final Composite parent, final String[] items, final int style) {
         super(parent, style);
         setItems(items);
-        
+
     }
 
     /**
      * Returns the list of choices for the combo box
+     *
      * @return the list of choices for the combo box
      */
     @objid ("85964891-1926-11e2-92d2-001ec947c8cc")
@@ -153,6 +157,7 @@ class ComboBoxCellEditor2 extends CellEditor {
 
     /**
      * Sets the list of choices for the combo box
+     *
      * @param items the list of choices for the combo box
      */
     @objid ("85964898-1926-11e2-92d2-001ec947c8cc")
@@ -160,7 +165,7 @@ class ComboBoxCellEditor2 extends CellEditor {
         Assert.isNotNull(items);
         this.items = items;
         populateComboBoxItems();
-        
+
     }
 
     @objid ("8596489f-1926-11e2-92d2-001ec947c8cc")
@@ -182,20 +187,20 @@ class ComboBoxCellEditor2 extends CellEditor {
                        (this.activationStyle & DROP_DOWN_ON_TRAVERSE_ACTIVATION) != 0) {
                 dropDown = true;
             }
-        
+
             if (dropDown) {
                 getControl().getDisplay().asyncExec(new Runnable() {
-        
+
                     @Override
                     public void run() {
                         ((CCombo) getControl()).setListVisible(true);
                     }
-        
+
                 });
-        
+
             }
         }
-        
+
     }
 
     @objid ("859b0d20-1926-11e2-92d2-001ec947c8cc")
@@ -203,9 +208,9 @@ class ComboBoxCellEditor2 extends CellEditor {
     protected Control createControl(final Composite parent) {
         this.comboBox = new CCombo(parent, getStyle());
         this.comboBox.setFont(parent.getFont());
-        
+
         populateComboBoxItems();
-        
+
         this.comboBox.addKeyListener(new KeyAdapter() {
             // hook key pressed - see PR 14201
             @Override
@@ -213,13 +218,13 @@ class ComboBoxCellEditor2 extends CellEditor {
                 keyReleaseOccured(e);
             }
         });
-        
+
         this.comboBox.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetDefaultSelected(SelectionEvent event) {
                 applyEditorValueAndDeactivate();
             }
-        
+
             @Override
             public void widgetSelected(SelectionEvent event) {
                 ComboBoxCellEditor2.this.selection = ComboBoxCellEditor2.this.comboBox.getSelectionIndex();
@@ -227,13 +232,13 @@ class ComboBoxCellEditor2 extends CellEditor {
                 applyEditorValueAndDeactivate();
             }
         });
-        
+
         this.comboBox.addTraverseListener((TraverseEvent e) -> {
             if (e.detail == SWT.TRAVERSE_ESCAPE || e.detail == SWT.TRAVERSE_RETURN) {
                 e.doit = false;
             }
         });
-        
+
         this.comboBox.addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {
@@ -246,6 +251,7 @@ class ComboBoxCellEditor2 extends CellEditor {
     /**
      * The <code>ComboBoxCellEditor</code> implementation of this <code>CellEditor</code> framework method returns the
      * zero-based index of the current selection.
+     *
      * @return the zero-based index of the current selection wrapped as an <code>Integer</code>
      */
     @objid ("859b0d2b-1926-11e2-92d2-001ec947c8cc")
@@ -283,6 +289,7 @@ class ComboBoxCellEditor2 extends CellEditor {
 
     /**
      * This method allows to control how the combo reacts when activated
+     *
      * @param activationStyle the style used
      */
     @objid ("859b0d3c-1926-11e2-92d2-001ec947c8cc")
@@ -293,6 +300,7 @@ class ComboBoxCellEditor2 extends CellEditor {
     /**
      * The <code>ComboBoxCellEditor</code> implementation of this <code>CellEditor</code> framework method accepts a
      * zero-based index of a selection.
+     *
      * @param value the zero-based index of the selection wrapped as an <code>Integer</code>
      */
     @objid ("859b0d41-1926-11e2-92d2-001ec947c8cc")
@@ -301,7 +309,7 @@ class ComboBoxCellEditor2 extends CellEditor {
         Assert.isTrue(this.comboBox != null);
         this.selection = ((Integer) value).intValue();
         this.comboBox.select(this.selection);
-        
+
     }
 
     /**
@@ -314,11 +322,11 @@ class ComboBoxCellEditor2 extends CellEditor {
             for (int i = 0; i < this.items.length; i++) {
                 this.comboBox.add(this.items[i], i);
             }
-        
+
             setValueValid(true);
             this.selection = 0;
         }
-        
+
     }
 
     /**
@@ -332,7 +340,7 @@ class ComboBoxCellEditor2 extends CellEditor {
         markDirty();
         boolean isValid = isCorrect(newValue);
         setValueValid(isValid);
-        
+
         if (!isValid) {
             // Only format if the 'index' is valid
             if (this.items.length > 0 && this.selection >= 0 && this.selection < this.items.length) {
@@ -345,10 +353,10 @@ class ComboBoxCellEditor2 extends CellEditor {
                 setErrorMessage(MessageFormat.format(getErrorMessage(), new Object[] { this.comboBox.getText() }));
             }
         }
-        
+
         fireApplyEditorValue();
         deactivate();
-        
+
     }
 
     @objid ("859b0d4d-1926-11e2-92d2-001ec947c8cc")
@@ -362,7 +370,7 @@ class ComboBoxCellEditor2 extends CellEditor {
                 deactivate();
             }
         }
-        
+
     }
 
     @objid ("859b0d50-1926-11e2-92d2-001ec947c8cc")
@@ -373,7 +381,7 @@ class ComboBoxCellEditor2 extends CellEditor {
         } else if (keyEvent.character == '\t') { // tab key
             applyEditorValueAndDeactivate();
         }
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.edition;
 
@@ -54,9 +54,9 @@ import org.modelio.diagram.elements.drawings.core.HAlign;
  * <p>
  * A convenience factory method for {@link LabelumFigure} : {@link #forLabelum(GraphicalEditPart, LabelumFigure, String, boolean)}
  * instantiates and configures the editor to override exactly the labelum text.
- * 
- * @since 3.6
+ *
  * @author cma
+ * @since 3.6
  */
 @objid ("934e70a2-3160-4220-9703-bff36b0c64e0")
 public final class TextDirectEditManager extends DirectEditManager2 {
@@ -79,20 +79,21 @@ public final class TextDirectEditManager extends DirectEditManager2 {
     private static final Dimension MARGINS = Util.isWindows() ? new Dimension(8, 2) : new Dimension(2, 2);
 
     /**
+     *
      * @param source the edited edit part
      * @param locator the editor locator
      * @param halign text alignment in the Text control
      * @param initialText the initial text
      */
     @objid ("6889f954-2c6d-40dd-8ddb-355eb3443f4f")
-    public  TextDirectEditManager(GraphicalEditPart source, CellEditorLocator locator, HAlign halign, String initialText) {
+    public TextDirectEditManager(GraphicalEditPart source, CellEditorLocator locator, HAlign halign, String initialText) {
         // Call inherited constructor.
         // we pass no 'cell editor type' because we instantiate it ourself.
         super(source, null, locator);
-        
+
         this.controlStyle = 0;
         this.initialText = initialText;
-        
+
         switch (halign) {
         case Center:
             this.controlStyle |= SWT.CENTER;
@@ -106,7 +107,7 @@ public final class TextDirectEditManager extends DirectEditManager2 {
         default:
             break;
         }
-        
+
     }
 
     @objid ("93035905-0c8a-4dc0-bba0-64e95cc07579")
@@ -119,7 +120,7 @@ public final class TextDirectEditManager extends DirectEditManager2 {
         } else {
             return new TextCellEditor(composite, this.controlStyle);
         }
-        
+
     }
 
     @objid ("dc93a2a4-0006-4821-8d63-fc6f2cd8e34d")
@@ -127,18 +128,19 @@ public final class TextDirectEditManager extends DirectEditManager2 {
     protected void initCellEditor() {
         final TextCellEditor textEdit = (TextCellEditor) getCellEditor();
         textEdit.setValue(this.initialText);
-        
+
         final Text textControl = (Text) textEdit.getControl();
         textControl.selectAll();
         textControl.setBackground(ColorConstants.white);
         textControl.setForeground(ColorConstants.blue);
-        
+
         super.initCellEditor();
-        
+
     }
 
     /**
      * Set whether the editor is multiline.
+     *
      * @param v true for multiline, else false
      * @return this instance.
      */
@@ -159,6 +161,7 @@ public final class TextDirectEditManager extends DirectEditManager2 {
      * Set whether wrapping is enabled or not on the widget.
      * <p>
      * Note : This method does not modify the locator whose behavior must be coherent.
+     *
      * @param wrap true to enable wrap, else false.
      * @return this instance.
      */
@@ -174,6 +177,7 @@ public final class TextDirectEditManager extends DirectEditManager2 {
 
     /**
      * Creates a {@link TextDirectEditManager} configured for the given {@link LabelumFigure}.
+     *
      * @param source the edited edit part
      * @param headerFigure the header figure owning the Labelum
      * @param initialText the initial text
@@ -183,7 +187,7 @@ public final class TextDirectEditManager extends DirectEditManager2 {
     @objid ("3b8c96b3-5053-493e-929e-3626b6c1b1c8")
     public static TextDirectEditManager forLabelum(GraphicalEditPart source, IHeaderFigure headerFigure, String initialText, boolean autoExpandHorizontally) {
         LabelumFigure label = headerFigure.getMainLabelFigure();
-        
+
         // Convert the Labelum text alignment to a supported HAlign
         HAlign halign;
         switch (label.getLabelAlignment()) {
@@ -205,7 +209,7 @@ public final class TextDirectEditManager extends DirectEditManager2 {
             halign = HAlign.Left;
             break;
         }
-        
+
         final CellEditorLocator cellEditorLocator;
         if (label.getParent() != null) {
             cellEditorLocator = new EditorLocatorForLabelum(
@@ -218,7 +222,7 @@ public final class TextDirectEditManager extends DirectEditManager2 {
                 public void relocate(CellEditor cellEditor) {
                     final Rectangle rect = headerFigure.getBounds().getCopy();
                     headerFigure.translateToAbsolute(rect);
-        
+
                     final Dimension txtMinSize = TextUtilities.INSTANCE.getStringExtents("pPF", headerFigure.getFont());
                     rect.union(rect.x, rect.y, txtMinSize.width(), txtMinSize.height());
                     cellEditor.getControl().setBounds(rect.x, rect.y, rect.width, rect.height);
@@ -231,14 +235,14 @@ public final class TextDirectEditManager extends DirectEditManager2 {
                 halign,
                 initialText)
                 .setWrap(!autoExpandHorizontally);
-        
+
     }
 
     /**
      * Single line {@link TextCellEditor} that supports wrapping.
      * <p>
      * Uses a multiline Text with 'Enter' key validating the edition instead of adding a new line.
-     * 
+     *
      * @author cma
      * @since 3.6
      */
@@ -248,11 +252,12 @@ public final class TextDirectEditManager extends DirectEditManager2 {
          * Creates a new text string cell editor parented under the given control.
          * The cell editor value is the string itself, which is initially the empty string.
          * Initially, the cell editor has no cell validator.
+         *
          * @param parent the parent control
          * @param controlStyle the style bits
          */
         @objid ("fcfe5fa2-9297-480e-8ed9-8cd88e2a685a")
-        public  WrappingTextCellEditor(Composite parent, int controlStyle) {
+        public WrappingTextCellEditor(Composite parent, int controlStyle) {
             super(parent, controlStyle | SWT.WRAP | SWT.MULTI);
         }
 
@@ -266,13 +271,14 @@ public final class TextDirectEditManager extends DirectEditManager2 {
             } else {
                 super.keyReleaseOccured(keyEvent);
             }
-            
+
         }
 
     }
 
     /**
      * {@link CellEditorLocator} that will make the editor override a {@link LabelumFigure} label.
+     *
      * @author cma
      */
     @objid ("94b6e0d6-a140-4a12-a21b-aac4fc8f330f")
@@ -284,14 +290,16 @@ public final class TextDirectEditManager extends DirectEditManager2 {
         private final LabelumFigure figure;
 
         /**
+         *
          * @param figure the label figure to override.
          */
         @objid ("7319e4c6-de23-4239-8d9b-08d7586eb08b")
-        public  EditorLocatorForLabelum(LabelumFigure figure) {
+        public EditorLocatorForLabelum(LabelumFigure figure) {
             this.figure = figure;
         }
 
         /**
+         *
          * @param expand whether the editor should expand horizontally when too large.
          * @return this instance for chaining calls.
          */
@@ -307,23 +315,23 @@ public final class TextDirectEditManager extends DirectEditManager2 {
             // Force the figure text to the current one.
             // The text figure content is automatically rollbacked by the DirectEditManager.
             this.figure.setText((String) cellEditor.getValue());
-            
+
             final Rectangle figBounds = this.figure.getBounds();
             final Rectangle labelRect = this.autoExpand ? this.figure.getTextBounds() : this.figure.getSubStringBounds();
             final Rectangle absLabelRect = labelRect.getCopy();
             this.figure.translateToAbsolute(absLabelRect);
-            
+
             int widthHint = this.autoExpand ? -1 : figBounds.width;
             Dimension labelPrefSize = this.figure.getPreferredSize(widthHint, -1).getCopy();
-            
+
             Insets insets = this.figure.getInsets();
             labelPrefSize.shrink(insets.getWidth(), insets.getHeight());
-            
+
             final Dimension txtMinSize = TextUtilities.INSTANCE.getStringExtents("pPF", this.figure.getFont());
             final Dimension editorSize = Dimension.max(labelPrefSize, txtMinSize);
-            
+
             absLabelRect.union(absLabelRect.x, absLabelRect.y, editorSize.width(), editorSize.height());
-            
+
             Control textControl = cellEditor.getControl();
             textControl.setFont(this.figure.getTextFont());
             textControl.setBounds(
@@ -331,7 +339,7 @@ public final class TextDirectEditManager extends DirectEditManager2 {
                     absLabelRect.y,
                     absLabelRect.width + TextDirectEditManager.MARGINS.width,
                     absLabelRect.height + TextDirectEditManager.MARGINS.height);
-            
+
         }
 
     }

@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -25,6 +44,7 @@ import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
+import org.modelio.metamodel.mmextensions.standard.facilities.InterFragmentTester;
 import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.metamodel.uml.statik.NaryAssociation;
 import org.modelio.metamodel.uml.statik.NaryLink;
@@ -59,7 +79,7 @@ public class LinkEndNPropertyModel extends AbstractPropertyModel<NaryLinkEnd> {
      */
     @objid ("aa3638ea-41e7-4529-9413-397d466fbbe4")
     private static final String[] PROPERTIES = new String[] { AbstractPropertyModel.PROPERTY_ID, "LinkName",
-    			"Link.Base", "Linked", "Name", "MultiplicityMin", "MultiplicityMax", "IsOrdered", "IsUnique" };
+        			"Link.Base", "Linked", "Name", "MultiplicityMin", "MultiplicityMax", "IsOrdered", "IsUnique" };
 
     @objid ("c1229fb7-9d95-4d28-a3f0-b0de90bb0a40")
     private List<NaryLinkEnd> displayedRoles;
@@ -69,13 +89,14 @@ public class LinkEndNPropertyModel extends AbstractPropertyModel<NaryLinkEnd> {
 
     /**
      * Create a new <i>NaryLinkEnd</i> data model from an <i>NaryLinkEnd</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("bb15fb04-9c66-451f-a3e4-f366a034e1a9")
-    public  LinkEndNPropertyModel(NaryLinkEnd theEditedElement) {
+    public LinkEndNPropertyModel(NaryLinkEnd theEditedElement) {
         super(theEditedElement);
         this.theLink = theEditedElement.getNaryLink();
-        
+
         // Order the displayed roles as following:
         // - this role first for n-ary associations
         // - other roles next
@@ -89,11 +110,11 @@ public class LinkEndNPropertyModel extends AbstractPropertyModel<NaryLinkEnd> {
                 }
             }
         }
-        
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("57905db3-9788-4f45-b221-6edc68d223bf")
@@ -116,22 +137,21 @@ public class LinkEndNPropertyModel extends AbstractPropertyModel<NaryLinkEnd> {
             // else
             return ""; // Link base Association
         }
-        
     }
 
     @objid ("76a69a9e-26f9-4d2a-8c8c-aa98a97385d8")
     private Object getPropertyValue(int row, NaryLinkEnd aLinkEnd) {
         switch (row) {
         case 0: // Title
-        
+
             Instance type = aLinkEnd.getSource();
-        
+
             if (type == null) {
                 return "";
             }
-        
+
             return MessageFormat.format(MetamodelLabels.getString("Title.from"), type.getName());
-        
+
         case 1:
             // Link name
             if (this.theLink == null) {
@@ -139,7 +159,7 @@ public class LinkEndNPropertyModel extends AbstractPropertyModel<NaryLinkEnd> {
             }
             // else
             return this.theLink.getName();
-        
+
         case 2:
             // Link base association
             if (this.theLink == null) {
@@ -147,11 +167,11 @@ public class LinkEndNPropertyModel extends AbstractPropertyModel<NaryLinkEnd> {
             }
             // else
             return this.theLink.getModel();
-        
+
         case 3:
             Instance relatedInstance = aLinkEnd.getSource();
             return relatedInstance;
-        
+
         case 4:
             return aLinkEnd.getName();
         case 5:
@@ -165,11 +185,11 @@ public class LinkEndNPropertyModel extends AbstractPropertyModel<NaryLinkEnd> {
         default:
             return null;
         }
-        
     }
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("f280625f-bd73-4b97-9056-80c31461b387")
@@ -182,6 +202,7 @@ public class LinkEndNPropertyModel extends AbstractPropertyModel<NaryLinkEnd> {
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -191,10 +212,10 @@ public class LinkEndNPropertyModel extends AbstractPropertyModel<NaryLinkEnd> {
         if (row == 1 || row == 2) {
             return getLinkPropertyValue(row, col);
         }
-        
+
         // NaryLinkEnd rows
         switch (col) {
-        
+
         case 0: // col 0 is the property name
             if (row == 0) {
                 return MessageFormat.format(MetamodelLabels.getString("Title.NaryLinkEnd"),
@@ -202,11 +223,10 @@ public class LinkEndNPropertyModel extends AbstractPropertyModel<NaryLinkEnd> {
             }
             // else
             return getPropertyI18n(PROPERTIES[row]);
-        
+
         default:
             return getPropertyValue(row, this.displayedRoles.get(col - 1));
         }
-        
     }
 
     /**
@@ -216,6 +236,7 @@ public class LinkEndNPropertyModel extends AbstractPropertyModel<NaryLinkEnd> {
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -224,18 +245,18 @@ public class LinkEndNPropertyModel extends AbstractPropertyModel<NaryLinkEnd> {
     @Override
     public INatValue getValueAt(int row, int col) {
         switch (col) {
-        
+
         case 0: // col 0 is the property name
             return new DefaultStringNatValue((String) getValue(row, col), false);
-        
+
         default:
             switch (row) {
             case 0: // Title
                 return new DefaultStringNatValue((String) getValue(row, col), false);
-        
+
             case 1: // Link name
                 return new DefaultStringNatValue((String) getValue(row, col), false);
-        
+
             case 2: // Link base Association
                 if (col == 1) {
                     return new DefaultElementNatValue((MObject) getValue(row, col), true,
@@ -243,7 +264,7 @@ public class LinkEndNPropertyModel extends AbstractPropertyModel<NaryLinkEnd> {
                 }
                 // else
                 return new DefaultStringNatValue((String) getValue(row, col), false);
-        
+
             case 3: // NaryLinkEnd Type
                 return new DefaultElementNatValue((MObject) getValue(row, col), false,
                         Collections.singletonList(Instance.class));
@@ -255,7 +276,7 @@ public class LinkEndNPropertyModel extends AbstractPropertyModel<NaryLinkEnd> {
                 cardinalityMinValues.add("1");
                 return new DefaultStringChoiceNatValue((String) getValue(row, col), true, cardinalityMinValues, true);
             case 6:
-        
+
                 List<String> cardinalityMaxValues = new ArrayList<>();
                 cardinalityMaxValues.add("1");
                 cardinalityMaxValues.add("*");
@@ -268,7 +289,6 @@ public class LinkEndNPropertyModel extends AbstractPropertyModel<NaryLinkEnd> {
                 return null;
             }
         }
-        
     }
 
     @objid ("75c1d29b-66d7-4bfb-a846-0df35eabb727")
@@ -295,6 +315,10 @@ public class LinkEndNPropertyModel extends AbstractPropertyModel<NaryLinkEnd> {
             if (!relatedEnd.isModifiable()) {
                 return false;
             }
+
+            if ((row == 3) && InterFragmentTester.isAffected(this.theLink))
+                return false;
+
         }
         return true;
     }
@@ -309,7 +333,7 @@ public class LinkEndNPropertyModel extends AbstractPropertyModel<NaryLinkEnd> {
                 this.theLink.setName((String) value);
             }
             break;
-        
+
         case 2:
             if (this.theLink != null) {
                 this.theLink.setModel((NaryAssociation) value);
@@ -336,13 +360,13 @@ public class LinkEndNPropertyModel extends AbstractPropertyModel<NaryLinkEnd> {
         default:
             return;
         }
-        
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -351,16 +375,15 @@ public class LinkEndNPropertyModel extends AbstractPropertyModel<NaryLinkEnd> {
     @Override
     public void setValueAt(int row, int col, Object value) {
         switch (col) {
-        
+
         case 0:
             return;
-        
+
         default:
             setPropertyValue(row, this.displayedRoles.get(col - 1), value);
-        
+
             return;
         }
-        
     }
 
 }

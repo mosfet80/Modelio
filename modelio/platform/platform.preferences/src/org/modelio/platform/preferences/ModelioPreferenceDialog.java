@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.preferences;
 
@@ -70,31 +70,31 @@ public class ModelioPreferenceDialog extends PreferenceDialog {
      */
     @objid ("a5a1c970-27b2-4665-9edd-678676a04a4d")
     public static final String PREFS_PAGE_XP = "org.modelio.platform.preferencespages"; // $NON-NLS-1$
-    
+
 
     @objid ("d29aa870-ed62-4e6a-a9e9-b64eb6c3a7f4")
     protected static final String ELMT_PAGE = "page"; // $NON-NLS-1$
-    
+
 
     @objid ("232e9de8-8c99-4e61-a8f0-153437863c26")
     protected static final String ATTR_ID = "id"; // $NON-NLS-1$
-    
+
 
     @objid ("fdfd0bea-be48-4458-b700-2a0ebbd5de97")
     protected static final String ATTR_CATEGORY = "category"; // $NON-NLS-1$
-    
+
 
     @objid ("8ca9235b-b677-4427-aef3-64e4d4ef2f0a")
     protected static final String ATTR_CLASS = "class"; // $NON-NLS-1$
-    
+
 
     @objid ("16a275c6-bb09-4f90-b670-44d5a1606502")
     protected static final String ATTR_NAME = "name"; // $NON-NLS-1$
-    
+
 
     @objid ("07a267fa-9e6b-4e24-9c4a-2898b14b9cce")
     private static final String DLG_IMG_TITLE_BANNER = "dialog_title_banner_image"; // $NON-NLS-1$
-    
+
 
     @objid ("baa43f73-ff26-4c28-8241-80b7ca1cc153")
     private int _messageLabelHeight;
@@ -110,7 +110,7 @@ public class ModelioPreferenceDialog extends PreferenceDialog {
 
     @objid ("85b53bb3-b54b-4a5b-9021-e8b73927d532")
     protected static final String ATTR_ICON = "icon"; // $NON-NLS-1$
-    
+
 
     @objid ("30fca58c-8a46-4298-a97a-d13331fef3ef")
     private Composite _titleArea;
@@ -147,17 +147,18 @@ public class ModelioPreferenceDialog extends PreferenceDialog {
 
     /**
      * Initialize the preferences dialog.
+     *
      * @param parentShell a shell.
      * @param context the eclipse context.
      */
     @objid ("a692a03a-0d5e-4be5-aa99-36fc0fffa1ed")
-    public  ModelioPreferenceDialog(final Shell parentShell, final IEclipseContext context) {
+    public ModelioPreferenceDialog(final Shell parentShell, final IEclipseContext context) {
         super(parentShell, configurePreferences(context));
-        
+
         this._message = "";
-        
+
         this.nodes = new ArrayList<>();
-        
+
     }
 
     @objid ("e9a249e2-079a-4985-ba23-18adc676fd90")
@@ -173,10 +174,10 @@ public class ModelioPreferenceDialog extends PreferenceDialog {
     @Override
     protected Control createDialogArea(final Composite parent) {
         createTitle(parent);
-        
+
         setTitle(Preferences.I18N.getString("ParametersDlg.Title"));
         setDialogMessage(Preferences.I18N.getString("ParametersDlg.Desc"));
-        
+
         parent.addTraverseListener(new TraverseListener() {
             @Override
             public void keyTraversed(final TraverseEvent event) {
@@ -195,7 +196,7 @@ public class ModelioPreferenceDialog extends PreferenceDialog {
             this._titleLeftImageLabel.setImage(newTitleImage);
             this._titleLeftImageLabel.setVisible(newTitleImage != null);
         }
-        
+
     }
 
     @objid ("41338c48-dbbd-4a05-9db5-aed3b9cc7b9e")
@@ -204,24 +205,24 @@ public class ModelioPreferenceDialog extends PreferenceDialog {
         messageLabelData.top = new FormAttachment(this._titleLabel, verticalSpacing);
         messageLabelData.right = new FormAttachment(this._titleRightImageLabel);
         messageLabelData.left = new FormAttachment(this._messageImageLabel, horizontalSpacing);
-        
+
         if (!this._titleImageLargest) {
             messageLabelData.bottom = new FormAttachment(this._titleRightImageLabel, 0, SWT.BOTTOM);
         }
-        
+
         this._messageLabel.setLayoutData(messageLabelData);
-        
+
         final FormData imageLabelData = new FormData();
         imageLabelData.top = new FormAttachment(this._titleLabel, verticalSpacing);
         imageLabelData.left = new FormAttachment(this._titleLeftImageLabel);
         this._messageImageLabel.setLayoutData(imageLabelData);
-        
+
         final FormData data = new FormData();
         data.top = new FormAttachment(this._titleLabel, 0, SWT.TOP);
         data.left = new FormAttachment(this._titleLeftImageLabel);
         data.bottom = new FormAttachment(this._messageLabel, 0, SWT.BOTTOM);
         this._leftFillerLabel.setLayoutData(data);
-        
+
     }
 
     @objid ("34033251-be5a-463e-9c7b-3fa486ef059b")
@@ -233,21 +234,21 @@ public class ModelioPreferenceDialog extends PreferenceDialog {
         labelY += this._messageLabelHeight;
         labelY += verticalSpacing;
         this._titleImageLargest = titleY > labelY;
-        
+
     }
 
     @objid ("30b98bd5-cab0-4393-b635-b2702b1f80ed")
     private void createTitle(final Composite parent) {
         // image from plugin
         final ImageDescriptor imageDescriptor = UI.getImageDescriptor("images/headerleft110x50.png");
-        
+
         final Image image = imageDescriptor.createImage();
         setTitleLeftImage(image);
-        
+
         this._titleArea = new Composite(parent, SWT.NONE);
         initializeDialogUnits(this._titleArea);
         final GridData titleAreaData = new GridData(SWT.FILL, SWT.TOP, true, false);
-        
+
         this._titleArea.setLayoutData(titleAreaData);
         final FormLayout layout = new FormLayout();
         this._titleArea.setLayout(layout);
@@ -259,7 +260,7 @@ public class ModelioPreferenceDialog extends PreferenceDialog {
                 }
             }
         });
-        
+
         final org.eclipse.swt.widgets.Display display = this._titleArea.getDisplay();
         Color background;
         Color foreground;
@@ -274,13 +275,13 @@ public class ModelioPreferenceDialog extends PreferenceDialog {
         final int verticalSpacing = convertVerticalDLUsToPixels(1);
         final int horizontalSpacing = convertHorizontalDLUsToPixels(4);
         this._titleArea.setBackground(background);
-        
+
         this._titleRightImageLabel = new Label(this._titleArea, SWT.NONE);
         this._titleRightImageLabel.setBackground(background);
         if (this._titleRightImage != null && !this._titleRightImage.isDisposed()) {
             this._titleRightImageLabel.setImage(this._titleRightImage);
         }
-        
+
         this._titleLeftImageLabel = new Label(this._titleArea, SWT.NONE);
         this._titleLeftImageLabel.setBackground(background);
         if (this._titleLeftImage == null || this._titleLeftImage.isDisposed()) {
@@ -288,17 +289,17 @@ public class ModelioPreferenceDialog extends PreferenceDialog {
         } else {
             this._titleLeftImageLabel.setImage(this._titleLeftImage);
         }
-        
+
         final FormData rightImageData = new FormData();
         rightImageData.top = new FormAttachment(0, 0);
         rightImageData.right = new FormAttachment(100, 0);
         this._titleRightImageLabel.setLayoutData(rightImageData);
-        
+
         final FormData leftImageData = new FormData();
         leftImageData.top = new FormAttachment(0, 0);
         leftImageData.left = new FormAttachment(0, 0);
         this._titleLeftImageLabel.setLayoutData(leftImageData);
-        
+
         this._titleLabel = new Label(this._titleArea, SWT.NONE);
         JFaceColors.setColors(this._titleLabel, foreground, background);
         this._titleLabel.setFont(JFaceResources.getBannerFont());
@@ -318,11 +319,11 @@ public class ModelioPreferenceDialog extends PreferenceDialog {
         this._leftFillerLabel.setBackground(background);
         setLayoutsForNormalMessage(verticalSpacing, horizontalSpacing);
         determineTitleImageLargest();
-        
+
         final Label titleBarSeparator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
         final GridData barData = new GridData(768);
         titleBarSeparator.setLayoutData(barData);
-        
+
     }
 
     @objid ("d8090ce1-9d85-474f-9c3d-6b5050e32882")
@@ -335,7 +336,7 @@ public class ModelioPreferenceDialog extends PreferenceDialog {
             title = "";
         }
         this._titleLabel.setText(title);
-        
+
     }
 
     @objid ("778403ee-9dfc-4c1d-ae1b-f35f23ef3be8")
@@ -343,16 +344,16 @@ public class ModelioPreferenceDialog extends PreferenceDialog {
         if (this._message.equals(newMessage)) {
             return;
         }
-        
+
         this._message = newMessage;
-        
+
         if (this._message == null) {
             this._message = "";
         }
-        
+
         this._messageLabel.setText(newMessage);
         layoutForNewMessage();
-        
+
     }
 
     @objid ("23f098ef-af6e-4ad5-af83-97eab92e773c")
@@ -363,7 +364,7 @@ public class ModelioPreferenceDialog extends PreferenceDialog {
         if (this.dialogArea != null) {
             this._titleArea.layout(true);
         }
-        
+
     }
 
     @objid ("70ca0447-23a9-4e48-a547-7763389cb376")
@@ -374,18 +375,18 @@ public class ModelioPreferenceDialog extends PreferenceDialog {
                 return o1.getLabelText().compareTo(o2.getLabelText());
             }
         });
-        
+
         final IContributionFactory factory = context.get(IContributionFactory.class);
-        
+
         for (final IConfigurationElement elmt : new ExtensionPointContributionManager(ModelioPreferenceDialog.PREFS_PAGE_XP).getExtensions(ModelioPreferenceDialog.ELMT_PAGE)) {
             final String id = elmt.getAttribute(ModelioPreferenceDialog.ATTR_ID);
             final String name = elmt.getAttribute(ModelioPreferenceDialog.ATTR_NAME);
-        
+
             if (isEmpty(id) || isEmpty(name)) {
                 Preferences.LOG.warning("missing id and/or name: %s", elmt.getNamespaceIdentifier());
                 continue;
             }
-        
+
             PreferenceNode pn = null;
             final String clazz = elmt.getAttribute(ModelioPreferenceDialog.ATTR_CLASS);
             if (clazz != null) {
@@ -406,10 +407,10 @@ public class ModelioPreferenceDialog extends PreferenceDialog {
                 if ((page.getTitle() == null || page.getTitle().isEmpty()) && name != null) {
                     page.setTitle(name);
                 }
-        
+
                 final String iconAttr = elmt.getAttribute(ModelioPreferenceDialog.ATTR_ICON);
                 final ImageDescriptor icon = iconAttr != null ? AbstractUIPlugin.imageDescriptorFromPlugin(elmt.getContributor().getName(), iconAttr) : null;
-        
+
                 pn = new PreferenceNode(id, page.getTitle(), icon, null);
                 pn.setPage(page);
             } else {
@@ -427,7 +428,7 @@ public class ModelioPreferenceDialog extends PreferenceDialog {
                 }
             }
         }
-        
+
         final PreferenceManager pm = new PreferenceManager();
         for (final IPreferenceNode pn : rootPreferences) {
             pm.addToRoot(pn);
@@ -469,7 +470,7 @@ public class ModelioPreferenceDialog extends PreferenceDialog {
     protected void configureShell(final Shell newShell) {
         super.configureShell(newShell);
         newShell.setMinimumSize(860, 540);
-        
+
     }
 
 }

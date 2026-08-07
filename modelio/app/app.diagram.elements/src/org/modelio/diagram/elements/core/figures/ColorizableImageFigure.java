@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures;
 
@@ -51,7 +51,7 @@ public class ColorizableImageFigure extends Figure {
      * Registry of all computed colorized images.
      * <p>
      * TODO : this registry should be owned by the diagram and passed to the figure constructor.
-     * 
+     *
      * @author cmarin
      * @since Alouette 5.2.?
      */
@@ -60,32 +60,34 @@ public class ColorizableImageFigure extends Figure {
 
     /**
      * Creates an image colored in black.
+     *
      * @param image the image
      */
     @objid ("7f6b8bc7-1dec-11e2-8cad-001ec947c8cc")
-    public  ColorizableImageFigure(Image image) {
+    public ColorizableImageFigure(Image image) {
         this(image, Display.getCurrent().getSystemColor(SWT.COLOR_BLACK));
     }
 
     /**
      * Constructor.
+     *
      * @param image the image
      * @param color the color to apply
      */
     @objid ("7f6b8bca-1dec-11e2-8cad-001ec947c8cc")
-    public  ColorizableImageFigure(Image image, Color color) {
+    public ColorizableImageFigure(Image image, Color color) {
         assert (image != null);
         assert (color != null);
         this.setColor(color);
         this.originalImage = image;
-        
+
     }
 
     @objid ("7f6b8bce-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected void paintFigure(Graphics gc) {
         super.paintFigure(gc);
-        
+
         if (false) {
             // This code computes a new Image resource each time
             ImageData imageData = createColorizedImageData(this.originalImage, this.color);
@@ -99,13 +101,13 @@ public class ColorizableImageFigure extends Figure {
             }
         } else {
             Image colorizedImage = (Image) colorizedImages.get(new ColorizedImageDescriptor(this.originalImage, this.color));
-        
+
             org.eclipse.swt.graphics.Rectangle rect = colorizedImage.getBounds();
             Rectangle area = this.getClientArea();
             gc.drawImage(colorizedImage, rect.x, rect.y, rect.width, rect.height, area.x, area.y, area.width, area.height);
-        
+
         }
-        
+
     }
 
     @objid ("7f6b8bd4-1dec-11e2-8cad-001ec947c8cc")
@@ -113,15 +115,16 @@ public class ColorizableImageFigure extends Figure {
     protected void finalize() throws Throwable {
         this.originalImage = null;
         this.color = null;
-        
+
         super.finalize();
-        
+
     }
 
     /**
      * Produces a colorized version of an image.
      * <p>
      * The image must have an alpha layer in order to work.
+     *
      * @param original the original image
      * @param aColor the color to use
      * @return the colorized image data.
@@ -131,7 +134,7 @@ public class ColorizableImageFigure extends Figure {
         ImageData data = original.getImageData();
         ImageData imageData = new ImageData(data.width, data.height, data.depth, data.palette);
         int apixelColor = data.palette.getPixel(aColor);
-        
+
         for (int y = 0; y < imageData.height; y++) {
             for (int x = 0; x < imageData.width; x++) {
                 imageData.setPixel(x, y, apixelColor);
@@ -142,6 +145,7 @@ public class ColorizableImageFigure extends Figure {
     }
 
     /**
+     *
      * @return the color applied on the image.
      */
     @objid ("7f6b8bdb-1dec-11e2-8cad-001ec947c8cc")
@@ -152,6 +156,7 @@ public class ColorizableImageFigure extends Figure {
     }
 
     /**
+     *
      * @param color the color to appply.
      */
     @objid ("7f6b8bdf-1dec-11e2-8cad-001ec947c8cc")
@@ -162,14 +167,14 @@ public class ColorizableImageFigure extends Figure {
     @objid ("d4eee5b8-51f3-400e-93d5-03194782aff5")
     private static void dumpImage(String title, Image img) {
         System.out.println(title);
-        
+
         ImageData data = img.getImageData();
         System.out.printf(" h=%d, w=%d, d=%d bits per pixel\n", data.height, data.width, data.depth);
-        
+
         System.out.printf(" alpha: %d\n", data.alpha);
         System.out.printf(" bytesPerLine: %d\n", data.bytesPerLine);
         System.out.printf(" delayTime: %d\n", data.delayTime);
-        
+
         System.out.printf(" maskPad: %d\n", data.maskPad);
         System.out.printf(" scanLinePad: %d\n", data.scanlinePad);
         System.out.printf(" transparentPixel: %d\n", data.transparentPixel);
@@ -178,9 +183,9 @@ public class ColorizableImageFigure extends Figure {
         System.out.printf(" alphaData: %s %d bytes\n", data.alphaData, (data.alphaData != null) ? data.alphaData.length : -1);
         System.out.printf(" maskData: %s %d bytes \n", data.maskData, (data.maskData != null) ? data.maskData.length : -1);
         System.out.printf(" palette: %s\n", data.palette);
-        
+
         System.out.println();
-        
+
     }
 
     @objid ("0979be81-578d-496b-9b3e-39b6b32ec394")
@@ -190,6 +195,7 @@ public class ColorizableImageFigure extends Figure {
 
     /**
      * ImageDescriptor that produces a colorized version of an original image.
+     *
      * @author cmarin
      * @since Alouette 5.2.?
      */
@@ -202,15 +208,16 @@ public class ColorizableImageFigure extends Figure {
         private final RGB color;
 
         /**
+         *
          * @param original the original image
          * @param color the wanted color
          */
         @objid ("f729ec64-31d8-49d7-807e-22edc9cc815a")
-        public  ColorizedImageDescriptor(Image original, RGB color) {
+        public ColorizedImageDescriptor(Image original, RGB color) {
             super();
             this.original = original;
             this.color = color;
-            
+
         }
 
         @objid ("d6b70492-8d8d-4327-9ec8-dd455e8dee08")
@@ -240,7 +247,7 @@ public class ColorizableImageFigure extends Figure {
         public ImageData getImageData(int zoom) {
             if (zoom != 100 )
                 return null;
-            
+
             if (this.original==null || this.original.isDisposed())
                 return ImageDescriptor.DEFAULT_IMAGE_DATA;
             return createColorizedImageData(this.original, this.color);

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.conf.dialog.libraries.distant;
 
@@ -109,19 +109,20 @@ public final class DistantLibraryDialog extends ModelioDialog {
 
     /**
      * initialize the dialog.
+     *
      * @param parentShell a SWT shell
      * @param fragment the fragment to edit
      * @param allowProjectAuth Allow the fragment to use the project authentication data
      * @param allFragmentsIds all existing fragments identifiers. used to forbid using them again.
      */
     @objid ("7d4c33d1-3adc-11e2-916e-002564c97630")
-    public  DistantLibraryDialog(final Shell parentShell, final IGModelFragment fragment, final boolean allowProjectAuth, final List<String> allFragmentsIds) {
+    public DistantLibraryDialog(final Shell parentShell, final IGModelFragment fragment, final boolean allowProjectAuth, final List<String> allFragmentsIds) {
         super(parentShell);
         this.editedFragment = fragment;
         this.isLocalFragment = fragment == null || fragment.getDefinitionScope() == DefinitionScope.LOCAL;
         this.invalidIds = allFragmentsIds;
         this.allowProjectAuth = allowProjectAuth;
-        
+
     }
 
     @objid ("7d4c33d4-3adc-11e2-916e-002564c97630")
@@ -131,28 +132,28 @@ public final class DistantLibraryDialog extends ModelioDialog {
         final Composite data = new Composite(parent, SWT.NONE);
         data.setLayout(new GridLayout(2, false));
         data.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-        
+
         // fragment name
         final Label label = new Label(data, SWT.NULL);
         label.setText(AppProjectConfExt.I18N.getString("DistantLibraryDialog.FragmentId")); //$NON-NLS-1$
-        
+
         this.fragmentIdText = new Text(data, SWT.BORDER | SWT.SINGLE);
         this.fragmentIdText.setText(""); //$NON-NLS-1$
         this.fragmentIdText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         this.fragmentIdText.addModifyListener(new ModifyListener() {
-        
+
             @Override
             public void modifyText(final ModifyEvent e) {
                 isFragmentIdValid();
             }
         });
-        
+
         // fragment type-specific panel
         this.panel = new ExmlUrlFragmentPanel(data, SWT.NONE, this.allowProjectAuth);
         GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
         gd.horizontalSpan = 2;
         this.panel.setLayoutData(gd);
-        
+
         // fragment type description message
         final Label fragmentDescription = new Label(data, SWT.NONE);
         fragmentDescription.setText(AppProjectConfExt.I18N.getString("DistantLibraryDialog.Description")); //$NON-NLS-1$
@@ -177,7 +178,7 @@ public final class DistantLibraryDialog extends ModelioDialog {
         } else {
             createButton(parent, Window.CANCEL, IDialogConstants.CLOSE_LABEL, true);
         }
-        
+
     }
 
     @objid ("7d4e9529-3adc-11e2-916e-002564c97630")
@@ -191,19 +192,19 @@ public final class DistantLibraryDialog extends ModelioDialog {
             getShell().setText(AppProjectConfExt.I18N.getString("DistantLibraryDialog.ShellEditTitle")); //$NON-NLS-1$
             setTitle(AppProjectConfExt.I18N.getString("DistantLibraryDialog.EditTitle")); //$NON-NLS-1$
             setMessage(AppProjectConfExt.I18N.getString("DistantLibraryDialog.EditMessage")); //$NON-NLS-1$
-        
+
             this.fragmentIdText.setText(this.editedFragment.getId());
             this.fragmentIdText.setEnabled(this.editedFragment.getDefinitionScope() == DefinitionScope.LOCAL);
             this.panel.setEdited(this.editedFragment);
         }
-        
+
     }
 
     @objid ("7d4e9532-3adc-11e2-916e-002564c97630")
     @Override
     protected void okPressed() {
         final GProjectPartDescriptor fragmentDescriptor = new GProjectPartDescriptor(GProjectPartType.HTTPFRAGMENT, this.fragmentIdText.getText(), null, ScopeHelper.getScope(this.fragmentIdText));
-        
+
         try {
             this.panel.updateFragmentModel(fragmentDescriptor);
         } catch (final URISyntaxException e) {
@@ -214,10 +215,11 @@ public final class DistantLibraryDialog extends ModelioDialog {
         }
         this.result = fragmentDescriptor;
         super.okPressed();
-        
+
     }
 
     /**
+     *
      * @return the edited fragment descriptor.
      */
     @objid ("7d4e9535-3adc-11e2-916e-002564c97630")
@@ -240,7 +242,7 @@ public final class DistantLibraryDialog extends ModelioDialog {
             return;
         }
         fragmentIdIsInvalid(fragmentId);
-        
+
     }
 
     @objid ("bcbd175f-5580-415b-acae-d774a0e80e3e")
@@ -253,7 +255,7 @@ public final class DistantLibraryDialog extends ModelioDialog {
             this.editButton.setEnabled(true);
         }
         this.fragmentIdText.setForeground(this.fragmentIdText.getDisplay().getSystemColor(SWT.COLOR_DARK_GREEN));
-        
+
     }
 
     @objid ("2217df42-c3b2-4958-8036-640809a43b54")
@@ -270,7 +272,7 @@ public final class DistantLibraryDialog extends ModelioDialog {
             this.editButton.setEnabled(false);
         }
         this.fragmentIdText.setForeground(this.fragmentIdText.getDisplay().getSystemColor(SWT.COLOR_RED));
-        
+
     }
 
     @objid ("c55eae58-9524-4a16-ba3c-8be949cf9804")
@@ -298,17 +300,18 @@ public final class DistantLibraryDialog extends ModelioDialog {
 
         /**
          * Initialize the panel.
+         *
          * @param parent the parent composite.
          * @param style the style of widget to construct
          * @param allowProjectAuth Allow the fragment to use the project authentication data.
          */
         @objid ("7d4e957c-3adc-11e2-916e-002564c97630")
-        public  ExmlUrlFragmentPanel(final Composite parent, final int style, final boolean allowProjectAuth) {
+        public ExmlUrlFragmentPanel(final Composite parent, final int style, final boolean allowProjectAuth) {
             super(parent, style);
             this.allowProjectAuth = allowProjectAuth;
             setLayout(new FillLayout());
             createContents(this);
-            
+
         }
 
         @objid ("7d4e9582-3adc-11e2-916e-002564c97630")
@@ -317,13 +320,13 @@ public final class DistantLibraryDialog extends ModelioDialog {
                 final URI uri = new URI(this.urlText.getText());
                 fragmentDescriptor.setLocation(uri);
                 fragmentDescriptor.setProperties(new GProperties());
-            
+
                 this.authPanel.updateFragmentDescriptor(fragmentDescriptor);
             } else {
                 MessageDialog.openError(null, AppProjectConfExt.I18N.getString("DistantLibraryDialog.InvalidUrl"), this.message.getText()); //$NON-NLS-1$
                 throw new URISyntaxException(this.urlText.getMessage(), this.message.getText());
             }
-            
+
         }
 
         @objid ("7d4e9585-3adc-11e2-916e-002564c97630")
@@ -331,40 +334,40 @@ public final class DistantLibraryDialog extends ModelioDialog {
             final Group data = new Group(parent, 0);
             data.setText(AppProjectConfExt.I18N.getString("DistantLibraryDialog.Panel.title")); //$NON-NLS-1$
             data.setLayout(new GridLayout(2, false));
-            
+
             // URL
             Label label = new Label(data, SWT.NONE);
             label.setText(AppProjectConfExt.I18N.getString("DistantLibraryDialog.Url.label")); //$NON-NLS-1$
-            
+
             this.urlText = new Text(data, SWT.BORDER);
             this.urlText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-            
+
             // Authentication
             label = new Label(data, SWT.NONE);
             label.setText(AppProjectConfExt.I18N.getString("DistantLibraryDialog.Auth.label")); //$NON-NLS-1$
             GridDataFactory.defaultsFor(label).align(SWT.BEGINNING, SWT.BEGINNING).indent(0, 5).applyTo(label);
-            
+
             this.authPanel = new OptionalAuthPanelProvider(this.allowProjectAuth);
             this.authPanel.createPanel(data);
             this.authPanel.getPanel().setLayoutData(new GridData(SWT.FILL, SWT.BEGINNING, true, false));
             this.authPanel.setInput(null);
-            
+
             // Check button
             final Button button = new Button(data, SWT.PUSH);
             button.setText(AppProjectConfExt.I18N.getString("DistantLibraryDialog.Checkit.label")); //$NON-NLS-1$
             button.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
-            
+
             button.addSelectionListener(new SelectionAdapter() {
                 @Override
                 public void widgetSelected(final SelectionEvent event) {
                     validUrl();
                 }
             });
-            
+
             this.message = new Text(data, SWT.WRAP | SWT.READ_ONLY | SWT.MULTI);
             this.message.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
             this.message.setBackground(data.getBackground());
-            
+
         }
 
         @objid ("7d50f689-3adc-11e2-916e-002564c97630")
@@ -372,7 +375,7 @@ public final class DistantLibraryDialog extends ModelioDialog {
         boolean checkUrl() {
             final String[] toTest = new String[] { "", "admin", "model", ".index" };
             final String baseurl = this.urlText.getText();
-            
+
             boolean available = false;
             try {
                 final URI base = URIUtil.fromString(baseurl);
@@ -380,7 +383,7 @@ public final class DistantLibraryDialog extends ModelioDialog {
                     final URI url = URIUtil.append(base, sub);
                     final UriConnection connection = UriConnections.createConnection(url);
                     connection.setAuthenticationData(this.authPanel.getInput());
-            
+
                     try (InputStream is = connection.getInputStream();) {
                         is.close();
                         this.message.setText(AppProjectConfExt.I18N.getString("DistantLibraryDialog.CheckResult.validRepository"));
@@ -398,7 +401,7 @@ public final class DistantLibraryDialog extends ModelioDialog {
             } catch (IOException | URISyntaxException e) {
                 this.message.setText(e.getLocalizedMessage());
             }
-            
+
             getShell().layout(new Control[] { this.message });
             return available;
         }
@@ -408,25 +411,25 @@ public final class DistantLibraryDialog extends ModelioDialog {
             this.urlText.setText(fragment.getDescriptor().getLocation().toString());
             final AuthDescriptor authConf = fragment.getAuth();
             this.authPanel.setInput(authConf.getData());
-            
+
             if (fragment.getDefinitionScope() == DefinitionScope.SHARED) {
                 this.urlText.setEditable(false);
                 this.authPanel.setEnabled(authConf.getScope() != DefinitionScope.SHARED);
             }
-            
+
         }
 
         @objid ("94011d7c-3b7d-4214-8c49-5c05d96374ae")
         void validUrl() {
             final Color redColor = getDisplay().getSystemColor(SWT.COLOR_RED);
             final boolean valid = checkUrl();
-            
+
             final Color color = valid ? getDisplay().getSystemColor(SWT.COLOR_DARK_GREEN)
                     : redColor;
-            
+
             this.urlText.setForeground(color);
             this.message.setForeground(color);
-            
+
         }
 
     }

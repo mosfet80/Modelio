@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -47,18 +47,18 @@ public class OOperation extends OFeature {
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         MObject objingOwner = this.objingElement.getCompositionOwner();
-        
+
         if (this.objingElement.isStereotyped(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2RECEPTION)
                 && (this.objingElement.getSRepresentation() != null)){
-        
+
             if (objingOwner instanceof Actor
                     || objingOwner instanceof UseCase
                     || objingOwner instanceof Signal) {
-        
+
                 AbstractObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(
                         objingOwner, this.objingElement);
                 return null;
-        
+
             }
             return UMLFactory.eINSTANCE.createReception();
         }else if (this.objingElement.isStereotyped(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2REDEFINABLETEMPLATESIGNATURE)){
@@ -66,26 +66,26 @@ public class OOperation extends OFeature {
         }else if (this.objingElement.isStereotyped(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2TEMPLATESIGNATURE)){
             return UMLFactory.eINSTANCE.createTemplateSignature();
         }else{
-        
+
             if (objingOwner instanceof Actor
                     || objingOwner instanceof UseCase
                     || objingOwner instanceof Signal) {
-        
+
                 AbstractObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(
                         objingOwner, this.objingElement);
                 return null;
-        
+
             }
             return UMLFactory.eINSTANCE.createOperation();
         }
-        
+
     }
 
     @objid ("d72b6f62-e293-4da1-a9fd-2f66b7e06721")
-    public  OOperation(Operation element) {
+    public OOperation(Operation element) {
         super(element);
         this.objingElement = element;
-        
+
     }
 
     @objid ("78642492-e39e-40ba-b293-04924640ed44")
@@ -100,14 +100,14 @@ public class OOperation extends OFeature {
                 attachTemplateSignature((org.eclipse.uml2.uml.TemplateSignature) ecoreElt);
             }
         }
-        
+
     }
 
     @objid ("b41dcffa-a5d5-4386-9958-c7869f7e35d6")
     @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
-        
+
         if (ecoreElt instanceof org.eclipse.uml2.uml. BehavioralFeature){
             setAbstract((org.eclipse.uml2.uml.BehavioralFeature) ecoreElt);
             setFinal((org.eclipse.uml2.uml.BehavioralFeature) ecoreElt);
@@ -116,18 +116,18 @@ public class OOperation extends OFeature {
             setConcurrency((org.eclipse.uml2.uml.BehavioralFeature) ecoreElt);
             setMethod((org.eclipse.uml2.uml.BehavioralFeature) ecoreElt);
         }
-        
+
         if (ecoreElt instanceof org.eclipse.uml2.uml.Reception){
             setSignal((org.eclipse.uml2.uml.Reception) ecoreElt);
         }
         if (ecoreElt instanceof  org.eclipse.uml2.uml.Operation){
             setRedefined((org.eclipse.uml2.uml.Operation) ecoreElt);
         }
-        
+
         if(ecoreElt instanceof org.eclipse.uml2.uml.RedefinableTemplateSignature) {
             setRedefinedSignature((org.eclipse.uml2.uml.RedefinableTemplateSignature) ecoreElt);
         }
-        
+
     }
 
     @objid ("71cee9c8-de1f-497c-940c-a0eb78f830fd")
@@ -156,10 +156,10 @@ public class OOperation extends OFeature {
             isQuery = false;
             break;
         }
-        
+
         if (ecoreElt instanceof  org.eclipse.uml2.uml.Operation)
             ( (org.eclipse.uml2.uml.Operation)ecoreElt).setIsQuery(isQuery);
-        
+
     }
 
     @objid ("b8a36dac-82ea-4389-9d4f-6607ee6e1777")
@@ -171,7 +171,7 @@ public class OOperation extends OFeature {
             ecoreElt.setConcurrency(org.eclipse.uml2.uml.CallConcurrencyKind.CONCURRENT_LITERAL);
         else
             ecoreElt.setConcurrency(org.eclipse.uml2.uml.CallConcurrencyKind.SEQUENTIAL_LITERAL);
-        
+
     }
 
     @objid ("7a3ec367-89fc-4c51-adcc-2b19223fe02f")
@@ -184,7 +184,7 @@ public class OOperation extends OFeature {
                 }
             }
         }
-        
+
     }
 
     @objid ("92b8e080-75ed-4469-962b-bd5755dccf4f")
@@ -192,7 +192,7 @@ public class OOperation extends OFeature {
         GenerationProperties genProp = GenerationProperties.getInstance();
         ModelTree objingOwner = this.objingElement.getOwner();
         org.eclipse.uml2.uml.Element ecoreOwner = genProp.getMappedElement(objingOwner);
-        
+
         if (ecoreOwner != null) {
             //  org.eclipse.uml2.uml.Operations defined on org.eclipse.uml2.uml.Actor, org.eclipse.uml2.uml.UseCase and  org.eclipse.uml2.uml.Signal are not exported
             // in
@@ -227,7 +227,7 @@ public class OOperation extends OFeature {
                     }
             }
         }
-        
+
     }
 
     @objid ("662cca46-ca10-47d9-a094-4539902becc5")
@@ -235,7 +235,7 @@ public class OOperation extends OFeature {
         GenerationProperties genProp = GenerationProperties.getInstance();
         ModelTree objingOwner = this.objingElement.getOwner();
         org.eclipse.uml2.uml.Element ecoreOwner = genProp.getMappedElement(objingOwner);
-        
+
         if (ecoreOwner != null) {
             //  org.eclipse.uml2.uml.Operations defined on org.eclipse.uml2.uml.Actor, org.eclipse.uml2.uml.UseCase and  org.eclipse.uml2.uml.Signal are not exported
             // in
@@ -244,10 +244,10 @@ public class OOperation extends OFeature {
             if (objingOwner instanceof Actor
                     || objingOwner instanceof UseCase
                     || objingOwner instanceof Signal) {
-        
+
                 AbstractObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(
                         objingOwner, this.objingElement, ecoreElt);
-        
+
             } else {
                 if (ecoreOwner instanceof Component) {
                     Component ownerIsComponent = (org.eclipse.uml2.uml.Component) ecoreOwner;
@@ -279,7 +279,7 @@ public class OOperation extends OFeature {
                     }
             }
         }
-        
+
     }
 
     @objid ("61c90c0c-4015-49cf-87e9-624b78bdf1b9")
@@ -290,7 +290,7 @@ public class OOperation extends OFeature {
             if (ecoreSignal instanceof  org.eclipse.uml2.uml.Signal)
                 ecoreElt.setSignal( (org.eclipse.uml2.uml.Signal) ecoreSignal);
         }
-        
+
     }
 
     @objid ("ad2867a4-3aad-483f-9d42-451068e9cf9a")
@@ -301,7 +301,7 @@ public class OOperation extends OFeature {
                 ecoreElt.getRedefinedOperations().add( (org.eclipse.uml2.uml.Operation)ecoreOperation);
             }
         }
-        
+
     }
 
     @objid ("5c78c6ea-fab2-4477-a4dd-4af33c3709c1")
@@ -313,7 +313,7 @@ public class OOperation extends OFeature {
             ecoreElt.setTemplate((org.eclipse.uml2.uml.TemplateableElement)ecoreOwner);
         else
             ecoreElt.destroy();
-        
+
     }
 
     @objid ("fbc4281b-1bea-46d6-a246-1175ddcf71c4")
@@ -323,7 +323,7 @@ public class OOperation extends OFeature {
         if (ecoreOperation instanceof  org.eclipse.uml2.uml.RedefinableTemplateSignature){
             ecoreElt.getExtendedSignatures().add((org.eclipse.uml2.uml.RedefinableTemplateSignature) ecoreOperation);
         }
-        
+
     }
 
 }

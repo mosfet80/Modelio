@@ -1,22 +1,24 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.modelio;
 
+import java.io.IOException;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.modelio.api.modelio.audit.IAuditService;
 import org.modelio.api.modelio.diagram.IDiagramService;
 import org.modelio.api.modelio.editor.IEditionService;
@@ -41,6 +43,7 @@ import org.modelio.api.ui.swt.IUiToolkit;
 public interface IModelioServices {
     /**
      * Get the audit service.
+     *
      * @return the audit service.
      * @since 3.5
      */
@@ -49,6 +52,7 @@ public interface IModelioServices {
 
     /**
      * Get the context of the Modelio application.
+     *
      * @return the Modelio context.
      * @since 3.5
      */
@@ -57,6 +61,7 @@ public interface IModelioServices {
 
     /**
      * Get the text editor management service.
+     *
      * @return the edition service.
      * @since 3.5
      */
@@ -65,6 +70,7 @@ public interface IModelioServices {
 
     /**
      * Get the service to import/export model elements.
+     *
      * @return the exchange service.
      * @since 3.5
      */
@@ -73,6 +79,7 @@ public interface IModelioServices {
 
     /**
      * Get the service to get the image of an element.
+     *
      * @return the image service.
      * @since 3.5
      */
@@ -81,6 +88,7 @@ public interface IModelioServices {
 
     /**
      * Get the log service for modules.
+     *
      * @return the log service.
      * @since 3.5
      */
@@ -89,6 +97,7 @@ public interface IModelioServices {
 
     /**
      * Get the metamodel management service.
+     *
      * @return the metamodel service.
      * @since 3.5
      */
@@ -97,6 +106,7 @@ public interface IModelioServices {
 
     /**
      * Get the model component management service.
+     *
      * @return the model component service.
      * @since 3.5
      */
@@ -105,6 +115,7 @@ public interface IModelioServices {
 
     /**
      * Get the model manipulation service.
+     *
      * @return the model manipulation service.
      * @since 3.5
      */
@@ -113,6 +124,7 @@ public interface IModelioServices {
 
     /**
      * Get the module management service.
+     *
      * @return the module management service.
      * @since 3.5
      */
@@ -124,6 +136,7 @@ public interface IModelioServices {
      * <p>
      * The navigation service allow to force selection in all the view/dialog
      * that are registered as NavigationListener.
+     *
      * @return the navigation service.
      * @since 3.5
      */
@@ -132,6 +145,7 @@ public interface IModelioServices {
 
     /**
      * Get the service to export/apply patterns.
+     *
      * @return the pattern service
      * @since 3.5
      */
@@ -140,6 +154,7 @@ public interface IModelioServices {
 
     /**
      * Get the element picking service.
+     *
      * @return the element picking service.
      * @since 3.5
      */
@@ -152,10 +167,21 @@ public interface IModelioServices {
     /**
      * Get the GUI toolkit modules can use to create model or metamodel related widgets.
      * <p>
+     *
      * @return the GUI toolkit.
      * @since 3.7.1
      */
     @objid ("31eb3f27-145f-4dee-9deb-ac42ce8cb3e6")
     IUiToolkit getUiToolkit();
-}
 
+    /**
+     * Save current project
+     *
+     * @param kid identifier of the expected user
+     * @throws IOException if the operation failed
+     * @since 6.0.1
+     */
+    @objid ("3b78d742-b8fc-4912-9dce-082e3f793461")
+    void saveProject(IProgressMonitor progress) throws IOException;
+
+}

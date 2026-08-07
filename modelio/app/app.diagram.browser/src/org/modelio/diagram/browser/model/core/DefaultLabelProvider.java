@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.browser.model.core;
 
@@ -46,6 +46,7 @@ import org.modelio.platform.model.ui.swt.images.FragmentImageService;
 import org.modelio.platform.model.ui.swt.images.FragmentStyledLabelProvider;
 import org.modelio.platform.ui.UIColor;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.vcore.smkernel.mapi.MStatus;
 import org.osgi.framework.Bundle;
 
 /**
@@ -70,13 +71,13 @@ public class DefaultLabelProvider extends AbstractModelioElementLabelProvider {
 
     /**
      * Default constructor, initializing the view.
+     *
      * @param browserView The diagram browser view.
      */
     @objid ("0037bc7a-0d4f-10c6-842f-001ec947cd2a")
-    public  DefaultLabelProvider(TreeViewer browserView) {
+    public DefaultLabelProvider(TreeViewer browserView) {
         this();
         this.browserView = browserView;
-        
     }
 
     @objid ("0037e678-0d4f-10c6-842f-001ec947cd2a")
@@ -88,28 +89,26 @@ public class DefaultLabelProvider extends AbstractModelioElementLabelProvider {
         }
         this.images.clear();
         this.browserView = null;
-        
     }
 
     @objid ("0038052c-0d4f-10c6-842f-001ec947cd2a")
-    private  DefaultLabelProvider() {
+    private DefaultLabelProvider() {
         Bundle imageBundle = Platform.getBundle(DiagramBrowser.PLUGIN_ID);
-        
+
         URL bitmapUrl = FileLocator.find(imageBundle, new Path("icons/opened_folder.png"), null);
         this.images.put("OPENEDFOLDER", ImageDescriptor.createFromURL(bitmapUrl).createImage());
-        
+
         bitmapUrl = FileLocator.find(imageBundle, new Path("icons/closed_folder.png"), null);
         this.images.put("CLOSEDFOLDER", ImageDescriptor.createFromURL(bitmapUrl).createImage());
-        
+
         bitmapUrl = FileLocator.find(imageBundle, new Path("icons/opened_set.png"), null);
         this.images.put("OPENEDSET", ImageDescriptor.createFromURL(bitmapUrl).createImage());
-        
+
         bitmapUrl = FileLocator.find(imageBundle, new Path("icons/closed_set.png"), null);
         this.images.put("CLOSEDSET", ImageDescriptor.createFromURL(bitmapUrl).createImage());
-        
+
         bitmapUrl = FileLocator.find(imageBundle, new Path("icons/refoverlay.png"), null);
         this.linkOverlayImageDescriptor = ImageDescriptor.createFromURL(bitmapUrl);
-        
     }
 
     @objid ("28530a8a-4ab5-11e2-a4d3-002564c97630")
@@ -159,6 +158,7 @@ public class DefaultLabelProvider extends AbstractModelioElementLabelProvider {
 
     /**
      * Get the background color for the given element in the given state
+     *
      * @param obj the element
      * @return its background color
      */
@@ -175,6 +175,7 @@ public class DefaultLabelProvider extends AbstractModelioElementLabelProvider {
      * <li>Incomplete model elements font color is light red #FF8080.</li>
      * <li>Ramc model elements font color is modified yellow #A0A000.</li>
      * </ul>
+     *
      * @return a Color.
      */
     @objid ("28592520-4ab5-11e2-a4d3-002564c97630")
@@ -183,16 +184,17 @@ public class DefaultLabelProvider extends AbstractModelioElementLabelProvider {
             return DefaultLabelProvider.DARK_GRAY;
         } else if (obj instanceof DiagramSet) {
             MObject diagramSet = (DiagramSet) obj;
-            if (diagramSet.getStatus().isRamc()) {
+            if (diagramSet.getStatusLazy().isRamc()) {
                 return DefaultLabelProvider.GRAY;
             }
         } else if (obj instanceof MObject) {
             MObject element = (MObject) obj;
-            if (element.getStatus().isModifiable()) {
+            MStatus elementStatus = element.getStatusLazy();
+            if (elementStatus.isModifiable()) {
                 return UIColor.MODIFIABLE_ELEMENT_FG;
-            } else if (element.getStatus().isRamc()) {
+            } else if (elementStatus.isRamc()) {
                 return UIColor.RAMC_ELEMENT_FG;
-            } else if (element.getStatus().isShell()) {
+            } else if (elementStatus.isShell()) {
                 return UIColor.SHELL_ELEMENT_FG;
             } else {
                 return UIColor.NONMODIFIABLE_ELEMENT_FG;

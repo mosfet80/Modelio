@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package com.sun.star.comp.beans;
 
@@ -42,7 +42,7 @@ import com.sun.star.uno.XComponentContext;
 
 /**
  * This class represents a local office window.
- * 
+ *
  * @since OOo 2.0.0
  */
 @objid ("c66ae712-16c4-41e4-9ae1-2b35003b945f")
@@ -64,18 +64,20 @@ public class LocalOfficeWindow extends java.awt.Canvas implements OfficeWindow, 
 
     /**
      * Constructor.
+     *
      * @param connection The office connection object the window
      * belongs to.
      */
     @objid ("3667ef08-f14a-4c2b-803a-1fc238b3f550")
-    protected  LocalOfficeWindow(final OfficeConnection connection) {
+    protected LocalOfficeWindow(final OfficeConnection connection) {
         this.mConnection    = connection;
         this.mConnection.addEventListener(this);
-        
+
     }
 
     /**
      * Retrieves an AWT component object associated with the OfficeWindow.
+     *
      * @return The AWT component object associated with the OfficeWindow.
      * @deprecated
      */
@@ -88,6 +90,7 @@ public class LocalOfficeWindow extends java.awt.Canvas implements OfficeWindow, 
 
     /**
      * Retrieves an UNO XWindowPeer object associated with the OfficeWindow.
+     *
      * @return The UNO XWindowPeer object associated with the OfficeWindow.
      * @deprecated
      */
@@ -103,6 +106,7 @@ public class LocalOfficeWindow extends java.awt.Canvas implements OfficeWindow, 
     /**
      * Receives a notification about the connection has been closed.
      * This method has to set the connection to <code>null</code>.
+     *
      * @source The event object.
      */
     @objid ("36387179-1593-43ca-9761-815a407b2269")
@@ -111,7 +115,7 @@ public class LocalOfficeWindow extends java.awt.Canvas implements OfficeWindow, 
         // the window will be disposed by the framework
         this.mWindow = null;
         this.mConnection    = null;
-        
+
     }
 
     /**
@@ -127,13 +131,13 @@ public class LocalOfficeWindow extends java.awt.Canvas implements OfficeWindow, 
             compfactory     = xContext.getServiceManager();
             XMultiServiceFactory    factory;
             factory = UnoRuntime.queryInterface(XMultiServiceFactory.class, compfactory);
-        
+
             Object object = factory.createInstance( "com.sun.star.awt.Toolkit");
             return UnoRuntime.queryInterface(XToolkit.class, object);
         }
         else
             return null;
-        
+
     }
 
     /**
@@ -146,14 +150,14 @@ public class LocalOfficeWindow extends java.awt.Canvas implements OfficeWindow, 
             // set real parent
             XVclWindowPeer xVclWindowPeer = UnoRuntime.queryInterface(
                                                                       XVclWindowPeer.class, this.mWindow);
-        
+
             xVclWindowPeer.setProperty( "PluginParent", getWrappedWindowHandle());
             this.bPeer = true;
             // show document window
             XWindow aWindow = UnoRuntime.queryInterface(XWindow.class, this.mWindow);
             aWindow.setVisible( true );
         }
-        
+
     }
 
     /**
@@ -167,15 +171,15 @@ public class LocalOfficeWindow extends java.awt.Canvas implements OfficeWindow, 
             XWindow aWindow = UnoRuntime.queryInterface(XWindow.class, this.mWindow);
             if (aWindow != null)
                 aWindow.setVisible( false );
-        
+
             // set null parent
             XVclWindowPeer xVclWindowPeer = UnoRuntime.queryInterface(XVclWindowPeer.class, this.mWindow);
             if (xVclWindowPeer != null)
                 xVclWindowPeer.setProperty( "PluginParent", new Long(0) );
-        
+
             this.bPeer = false;
         }
-        
+
     }
 
     /**
@@ -185,14 +189,14 @@ public class LocalOfficeWindow extends java.awt.Canvas implements OfficeWindow, 
     @Override
     public void setVisible(final boolean b) {
         super.setVisible(b);
-        
+
         // Java-Bug: componentShown() is never called :-(
         // is still at least in Java 1.4.1_02
         if ( b )
             aquireSystemWindow();
         else
             releaseSystemWindow();
-        
+
     }
 
     /**
@@ -204,7 +208,7 @@ public class LocalOfficeWindow extends java.awt.Canvas implements OfficeWindow, 
         {
             // get this windows native window type
             int type = getNativeWindowSystemType();
-        
+
             // Java AWT windows only have a system window when showing.
             XWindowPeer parentPeer;
             if ( isShowing() )
@@ -220,7 +224,7 @@ public class LocalOfficeWindow extends java.awt.Canvas implements OfficeWindow, 
                 parentPeer = null;
                 this.bPeer = false;
             }
-        
+
             // create native window (mWindow)
             Rectangle aRect = new Rectangle( 0, 0, 20, 20 );
             WindowDescriptor desc = new WindowDescriptor();
@@ -231,8 +235,8 @@ public class LocalOfficeWindow extends java.awt.Canvas implements OfficeWindow, 
             desc.WindowAttributes = (type == SystemDependent.SYSTEM_WIN32)
             ? WindowAttribute.SHOW : 0;
             this.mWindow    = queryAWTToolkit().createWindow(desc);
-        
-        
+
+
             // set initial visibility
             XWindow aWindow = UnoRuntime.queryInterface(XWindow.class, this.mWindow);
             aWindow.setVisible( this.bPeer );
@@ -257,11 +261,12 @@ public class LocalOfficeWindow extends java.awt.Canvas implements OfficeWindow, 
             e.printStackTrace(System.err);
         }
         super.removeNotify();
-        
+
     }
 
     /**
      * Retrives a platform dependant system window identifier.
+     *
      * @return The system window identifier.
      */
     @objid ("eecaeef6-39d6-417f-873f-73e669a4c144")
@@ -269,6 +274,7 @@ public class LocalOfficeWindow extends java.awt.Canvas implements OfficeWindow, 
 
     /**
      * Retrives a platform dependant system window type.
+     *
      * @return The system window type.
      */
     @objid ("f4530b30-89c1-4eca-b47a-18b1684ae846")
@@ -284,7 +290,7 @@ public class LocalOfficeWindow extends java.awt.Canvas implements OfficeWindow, 
     protected Any getWrappedWindowHandle() {
         NamedValue window = new NamedValue("WINDOW", new Any(new Type(Long.class), new Long(getNativeWindow())));
         NamedValue xembed = new NamedValue("XEMBED", new Any(new Type(Boolean.class), new Boolean(false)));
-        
+
         if (getNativeWindowSystemType() == SystemDependent.SYSTEM_XWINDOW )
         {
             if (Boolean.parseBoolean(System.getProperty("sun.awt.xembedserver")))
@@ -296,7 +302,7 @@ public class LocalOfficeWindow extends java.awt.Canvas implements OfficeWindow, 
         return new Any(
                 new Type("[]com.sun.star.beans.NamedValue"),
                 new NamedValue[] {window, xembed});
-        
+
     }
 
 }

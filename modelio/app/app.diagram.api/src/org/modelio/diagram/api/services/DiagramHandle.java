@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.api.services;
 
@@ -23,10 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
-import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.RootEditPart;
+import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
@@ -59,7 +59,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 /**
  * A handle on the content of a Diagram, allowing interactions like navigating nodes and links, masking and unmasking elements, saving the content of the diagram into a file, etc. The static method {@link #create(IDiagramEditor)} should be use to get one
  * handle, and the handle should be {@link #close() closed} when it isn't needed anymore.
- * 
+ *
  * @since 2.0
  */
 @objid ("fb247494-88ea-4dd8-a65f-e58d53a983e2")
@@ -81,15 +81,15 @@ public final class DiagramHandle implements IDiagramHandle {
     public void close() {
         // Restore layout assistant state
         setLayoutAssistantEnabled(this.previousLayoutAssistantState);
-        
+
         setBatchMode(false);
         this.editor.disposeHandle();
         this.diagramEditorInput = null;
-        
     }
 
     /**
      * Creates and returns a DiagramHandle for the given diagram. It is the caller's responsibility to call {@link #close()} on the handle once it isn't needed anymore.
+     *
      * @param abstractDiagram the diagram model element.
      * @param manager a diagram model manager
      * @param projectService the project service
@@ -99,7 +99,7 @@ public final class DiagramHandle implements IDiagramHandle {
     @objid ("392e5957-d5dd-4caf-abf2-87a798299e50")
     public static DiagramHandle create(AbstractDiagram abstractDiagram, IModelManager manager, IProjectService projectService, DiagramEditorsManager editorManager) {
         MPart editorPart = editorManager.get(abstractDiagram);
-        
+
         if (editorPart != null) {
             return DiagramHandle.create((IDiagramEditor) editorPart.getObject(), true);
         } else {
@@ -107,13 +107,13 @@ public final class DiagramHandle implements IDiagramHandle {
             SilentDiagramEditor editor = new SilentDiagramEditor(input, projectService);
             return DiagramHandle.create(editor, false);
         }
-        
     }
 
     /**
      * Creates and returns a DiagramHandle for the given diagram editor.
      * <p>
      * It is the caller's responsibility to call {@link #close()} on the handle once it isn't needed anymore.
+     *
      * @param editor a diagram editor.
      * @param performValidation whether or not to force a validation on the diagram's figure.
      * @return a diagram handle
@@ -152,17 +152,17 @@ public final class DiagramHandle implements IDiagramHandle {
     @Override
     public IDiagramGraphic getDrawingGraphic(String identifier) {
         IGmDrawing gm = getDiagramEditorInput().getGmDiagram().getDrawing(identifier);
-        
+
         if (gm != null) {
             return DGFactory.getInstance().getDiagramGraphic(this, gm);
         } else {
             return null;
         }
-        
     }
 
     /**
      * Returns the edit part for the passed object.
+     *
      * @param gmObject the graphic object model
      * @return the edit part
      */
@@ -188,15 +188,14 @@ public final class DiagramHandle implements IDiagramHandle {
     @Override
     public void save() {
         getDiagramEditorInput().getGmDiagram().refreshAllFromObModel();
-        getDiagramEditorInput().getGmDiagram().save(true);
-        
+        getDiagramEditorInput().getGmDiagram().save(false);
     }
 
     @objid ("0ac50eb5-b841-4c14-81e2-a213a221030f")
     @Override
     public void saveInFile(final String format, final String targetFile, final int margin) {
         int intFormat;
-        
+
         if (format.equalsIgnoreCase("PNG")) {
             intFormat = SWT.IMAGE_PNG;
         } else if (format.equalsIgnoreCase("BMP")) {
@@ -208,9 +207,8 @@ public final class DiagramHandle implements IDiagramHandle {
         } else {
             intFormat = SWT.IMAGE_PNG;
         }
-        
+
         saveAsImage(this.editor.getRootEditPart(), targetFile, intFormat, margin);
-        
     }
 
     @objid ("510b917d-4b3f-48c4-9df8-07bd36ec7029")
@@ -220,7 +218,6 @@ public final class DiagramHandle implements IDiagramHandle {
         if (stack instanceof DiagramCommandStack) {
             ((DiagramCommandStack) stack).setBatchMode(batchMode);
         }
-        
     }
 
     @objid ("e7782f79-589d-4be4-8ac7-bf0620cc97e6")
@@ -257,11 +254,11 @@ public final class DiagramHandle implements IDiagramHandle {
     }
 
     @objid ("869afd7e-eee8-40cf-87f8-cc9785c2b4c0")
-    private  DiagramHandle(final IDiagramEditor editor, DiagramEditorInput diagramEditorInput, boolean performValidation) {
+    private DiagramHandle(final IDiagramEditor editor, DiagramEditorInput diagramEditorInput, boolean performValidation) {
         this.editor = editor;
         this.creationFactory = new DiagramGraphicFactory(this);
         this.diagramEditorInput = diagramEditorInput;
-        
+
         if (performValidation) {
             // Sometimes, the eclipse editor is hidden, the diagram must be manually updated before accessing its contents
             IGmDiagram gmDiagram = this.diagramEditorInput.getGmDiagram();
@@ -273,17 +270,17 @@ public final class DiagramHandle implements IDiagramHandle {
                 }
             }
         }
-        
+
         // disable the layout assistant
         this.previousLayoutAssistantState = getLayoutAssitantState();
         setLayoutAssistantEnabled(false);
-        
     }
 
     /**
      * Tells whether the layout assistant is disabled in the viewer properties.
      * <p>
      * The layout assistant may be disabled temporarily (without modifying the model) by setting {@link ILayoutAssistant#VIEWPROP_ENABLED} property id to <i>false</i>.
+     *
      * @return whether the layout assistant is disabled in the viewer properties.
      */
     @objid ("1c07a6cb-76a3-46b0-aa14-c0f2eecd2f1b")
@@ -295,7 +292,7 @@ public final class DiagramHandle implements IDiagramHandle {
     private void saveAsImage(final RootEditPart rootEditPart, final String location, final int format, final int margin) {
         ImageBuilder imageBuilder = new ImageBuilder(margin, format);
         Image img = imageBuilder.makeImage(rootEditPart);
-        
+
         if (img != null) {
             try {
                 ImageLoader imgLoader = new ImageLoader();
@@ -305,7 +302,6 @@ public final class DiagramHandle implements IDiagramHandle {
                 img.dispose();
             }
         }
-        
     }
 
     @objid ("e5e72c0a-e091-45c8-80fb-2c4b15a1064d")
@@ -319,13 +315,12 @@ public final class DiagramHandle implements IDiagramHandle {
         if (ref.equals(gm.getRepresentedRef())) {
             ret.add(gm);
         }
-        
+
         if (gm instanceof GmCompositeNode) {
             for (GmNodeModel child : ((GmCompositeNode) gm).getVisibleChildren()) {
                 getDiagramGraphicModels(child, ref, ret);
             }
         }
-        
     }
 
 }

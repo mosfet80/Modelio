@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnlane.hibridcontainer;
 
@@ -73,14 +73,14 @@ class BpmnLaneSetEditPolicy extends OrderedLayoutEditPolicy {
         } else {
             return super.getCommand(request);
         }
-        
+
     }
 
     @objid ("61347457-55b6-11e2-877f-002564c97630")
     @Override
     public EditPart getTargetEditPart(final Request request) {
         if (RequestConstants.REQ_CREATE.equals(request.getType())) {
-        
+
             CreateRequest createRequest = (CreateRequest) request;
             final ModelioCreationContext ctx = ModelioCreationContext.lookRequest(createRequest);
             if (ctx != null) {
@@ -126,7 +126,7 @@ class BpmnLaneSetEditPolicy extends OrderedLayoutEditPolicy {
         if (!RequestConstants.REQ_MOVE.equals(request.getType()) && (command == null || !command.canExecute())) {
             return;
         }
-        
+
         List<BpmnLaneEditPart> ownedLanes = getLanes();
         if (ownedLanes.isEmpty()) {
             if (RequestConstants.REQ_ADD.equals(request.getType())) {
@@ -146,7 +146,7 @@ class BpmnLaneSetEditPolicy extends OrderedLayoutEditPolicy {
                 } else {
                     fb.setPoint(r.getTopLeft(), 4);
                 }
-        
+
             } else {
                 // if this is a request for the creation of the first INNER
                 // lanes, show a line in the middle of the container.
@@ -167,12 +167,12 @@ class BpmnLaneSetEditPolicy extends OrderedLayoutEditPolicy {
             }
             return;
         }
-        
+
         // Otherwise, show a line where the lane would be inserted.
         Polyline fb = getLineFeedback();
         Transposer transposer = new Transposer();
         transposer.setEnabled(isHorizontalLaneOrientation());
-        
+
         boolean before = true;
         int epIndex = getFeedbackIndexFor(request);
         Rectangle r = null;
@@ -250,7 +250,7 @@ class BpmnLaneSetEditPolicy extends OrderedLayoutEditPolicy {
         fb.setPoint(header2, 1);
         fb.setPoint(p1, 2);
         fb.setPoint(p2, 3);
-        
+
     }
 
     @objid ("6135faba-55b6-11e2-877f-002564c97630")
@@ -266,7 +266,7 @@ class BpmnLaneSetEditPolicy extends OrderedLayoutEditPolicy {
                 hostNode,
                 (GmNodeModel) child.getModel(),
                 null);
-        
+
     }
 
     @objid ("4dbda419-10b9-4ed8-8000-352c7fdf80a9")
@@ -289,7 +289,7 @@ class BpmnLaneSetEditPolicy extends OrderedLayoutEditPolicy {
                 onChildAdded(child);
             }
         };
-        
+
     }
 
     @objid ("17b39ce8-66c4-4249-8a70-028c24017d81")
@@ -308,7 +308,7 @@ class BpmnLaneSetEditPolicy extends OrderedLayoutEditPolicy {
         if (isLaneSet(child)) {
             super.decorateChild(child);
         }
-        
+
     }
 
     @objid ("7625d1eb-6521-4328-b29e-3f5bc6ff4c58")
@@ -318,27 +318,27 @@ class BpmnLaneSetEditPolicy extends OrderedLayoutEditPolicy {
             removeFeedback(this.insertionLine);
             this.insertionLine = null;
         }
-        
+
     }
 
     @objid ("61347450-55b6-11e2-877f-002564c97630")
     @Override
     protected Command getCreateCommand(final CreateRequest request) {
         final ModelioCreationContext ctx = ModelioCreationContext.lookRequest(request);
-        
+
         if (ctx != null && ctx.getMetaclass().getJavaInterface() == BpmnLane.class) {
             CreateBpmnLaneSetContainerCommand cmd = new CreateBpmnLaneSetContainerCommand(getHostElement(),
                     getHostCompositeNode(),
                     ctx, null,
                     getInsertionReference(request));
-        
+
             if (true) {
                 return cmd;
             } else {
                 // CreateBpmnLaneSetContainerCommand moves and resize
                 // the host itself more or less directly, we need to
                 // layout all links from the root laneset container: .
-        
+
                 // - host is BodyHybridContainerEditPart
                 // - parent is BpmnLaneEditPart
                 // - grand parent is BpmnLaneSetContainerEditPart
@@ -351,15 +351,15 @@ class BpmnLaneSetEditPolicy extends OrderedLayoutEditPolicy {
                     root = parent;
                     parent = root.getParent();
                 }
-        
+
                 CompoundCommand compound = new CompoundCommand();
                 compound.add(cmd);
-        
+
                 LayoutChildrenNodeConnectionsHelper
                 .forRequest(request)
                 .addEditPart((GraphicalEditPart) root)
                 .createCommands(compound);
-        
+
                 return compound;
             }
         }
@@ -367,6 +367,7 @@ class BpmnLaneSetEditPolicy extends OrderedLayoutEditPolicy {
     }
 
     /**
+     *
      * @param request the Request
      * @return the index for the insertion reference
      */
@@ -376,12 +377,12 @@ class BpmnLaneSetEditPolicy extends OrderedLayoutEditPolicy {
         if (children.isEmpty()) {
             return -1;
         }
-        
+
         Transposer transposer = new Transposer();
         transposer.setEnabled(isHorizontalLaneOrientation());
-        
+
         Point p = transposer.t(getLocationFromRequest(request));
-        
+
         // Current row bottom, initialize to above the top.
         int rowBottom = Integer.MIN_VALUE;
         int candidate = -1;
@@ -435,7 +436,7 @@ class BpmnLaneSetEditPolicy extends OrderedLayoutEditPolicy {
     @Override
     protected EditPart getInsertionReference(Request request) {
         List<?> children = getLanes();
-        
+
         if (request.getType().equals(RequestConstants.REQ_CREATE)) {
             int i = getFeedbackIndexFor(request);
             if (i == -1) {
@@ -443,7 +444,7 @@ class BpmnLaneSetEditPolicy extends OrderedLayoutEditPolicy {
             }
             return (EditPart) children.get(i);
         }
-        
+
         int index = getFeedbackIndexFor(request);
         if (index != -1) {
             List<?> selection = getHost().getViewer().getSelectedEditParts();
@@ -459,6 +460,7 @@ class BpmnLaneSetEditPolicy extends OrderedLayoutEditPolicy {
 
     /**
      * Lazily creates and returns a <code>Polyline</code> Figure for use as feedback.
+     *
      * @return a Polyline figure
      */
     @objid ("9dd20a54-749c-4710-9bf2-2af9b33bbcd1")
@@ -483,7 +485,7 @@ class BpmnLaneSetEditPolicy extends OrderedLayoutEditPolicy {
                 return null;
             }
         }
-        
+
         // Apply the resize to the container
         ChangeBoundsRequest req = RequestHelper.shallowCopy(request);
         req.setType(REQ_RESIZE);
@@ -493,6 +495,7 @@ class BpmnLaneSetEditPolicy extends OrderedLayoutEditPolicy {
     }
 
     /**
+     *
      * @return whether lanes should be displayed horizontally or vertically.
      */
     @objid ("ddb769f2-0c52-4295-a3cf-79e2182cecee")
@@ -511,7 +514,7 @@ class BpmnLaneSetEditPolicy extends OrderedLayoutEditPolicy {
         if (isLaneSet(child)) {
             super.undecorateChild(child);
         }
-        
+
     }
 
     @objid ("5dc6521c-5f95-4fad-ba3d-a46ce14b1a91")
@@ -552,6 +555,7 @@ class BpmnLaneSetEditPolicy extends OrderedLayoutEditPolicy {
      * Called by an edit part listener when a child edit part is added.
      * <p>
      * Try to expand the container to fit all children.
+     *
      * @param child the added edit part
      */
     @objid ("7c5201ac-e871-4ca0-b0bd-bfc1069f3d51")
@@ -560,29 +564,30 @@ class BpmnLaneSetEditPolicy extends OrderedLayoutEditPolicy {
         if (!isLaneSet(child)) {
             return;
         }
-        
+
         // Standard behavior inherited from LayoutEditPolicy
         decorateChild(child);
-        
+
         // The child figure has just been added but not yet layouted, force layout now to avoid strange effects.
         getHostFigure().getUpdateManager().performValidation();
-        
+
         ChangeBoundsRequest request = new ChangeBoundsRequest(REQ_RESIZE);
         request.setEditParts(child);
-        
+
         Command cmd = AutoExpandHelper.getExpandContainerCommand(request, getHost(), getLayoutContainer());
-        
+
         if (cmd != null && cmd.canExecute()) {
             cmd.execute();
         } else {
             DiagramElements.LOG.debug("BpmnLaneSetEditPolicy.onChildAdded(%s) : unable to expand <%s>. Command = <%s>",
                     child.toString(), getHost().toString(), cmd);
         }
-        
+
     }
 
     /**
      * Tells whether the given point is on the 20% figure border.
+     *
      * @param absLoc a location in absolute coordinates
      * @return true if the point is near the figure border.
      */

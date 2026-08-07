@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -33,6 +33,7 @@ import org.modelio.xmi.util.SysMLProfileUtils;
 
 /**
  * This class handles the export of Note elements
+ *
  * @author ebrosse
  */
 @objid ("095ecaf0-91db-40f8-9f35-5174e7a62172")
@@ -43,28 +44,29 @@ public class ONote extends OElement implements IOElement {
         ModelElement subject = getObjingElement().getSubject();
         org.eclipse.uml2.uml.Element annotatedElement =GenerationProperties.getInstance()
                 .getMappedElement(subject);
-        
+
         if (getObjingElement().getModel().getName().equals("TimedObservation") && (annotatedElement instanceof org.eclipse.uml2.uml.NamedElement)){
             return UMLFactory.eINSTANCE.createTimeObservation();
-        
+
         }else{
             org.eclipse.uml2.uml.Comment ecoreComment = UMLFactory.eINSTANCE.createComment();
             if ((getObjingElement().getModel() != null )
                     && (((getObjingElement().getModel().getOwnerStereotype() != null ) && (SysMLProfileUtils.isSysML(getObjingElement().getModel().getOwnerStereotype().getOwner()))
                             || ((getObjingElement().getModel().getOwnerReference() != null ) && (SysMLProfileUtils.isSysML(getObjingElement().getModel().getOwnerReference().getOwnerProfile()))))))
                 GenerationProperties.getInstance().addSysMLExported(getObjingElement());
-        
+
             return ecoreComment;
-        
+
         }
-        
+
     }
 
     /**
+     *
      * @param element : the exported Note
      */
     @objid ("9dea1ffc-5d4c-4c5f-ad14-780aab9db96f")
-    public  ONote(final Note element) {
+    public ONote(final Note element) {
         super(element);
     }
 
@@ -72,15 +74,15 @@ public class ONote extends OElement implements IOElement {
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
-        
+
         ModelElement subjectModelElement = getObjingElement().getSubject();
-        
+
         if (subjectModelElement != null) {
             // Gets or creates the ecore element that owns the Note:
             org.eclipse.uml2.uml.Element annotatedElement = genProp.getMappedElement(subjectModelElement);
-        
+
             if (annotatedElement != null) {
-        
+
                 if (ecoreElt instanceof  org.eclipse.uml2.uml.Comment){
                     annotatedElement.getOwnedComments().add( (org.eclipse.uml2.uml.Comment)ecoreElt);
                 }else{
@@ -89,20 +91,20 @@ public class ONote extends OElement implements IOElement {
                         org.eclipse.uml2.uml.TimeObservation timeObs = (org.eclipse.uml2.uml.TimeObservation) ecoreElt;
                         ((org.eclipse.uml2.uml.Package) ecoreOwner).getPackagedElements().add(timeObs);
                         timeObs.setEvent((org.eclipse.uml2.uml.NamedElement) annotatedElement );
-        
+
                     }else{
                         ecoreElt.destroy();
                     }
                 }
             }
         }
-        
+
     }
 
     @objid ("7a40312c-7075-4cd4-a011-3fa5c2712165")
     @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
-        if (ecoreElt instanceof  org.eclipse.uml2.uml.Comment){           
+        if (ecoreElt instanceof  org.eclipse.uml2.uml.Comment){
             setContents( (org.eclipse.uml2.uml.Comment) ecoreElt);
             if (GenerationProperties.getInstance().isRoundtripEnabled()) {
                 setOwnerAnnotation( (org.eclipse.uml2.uml.Comment) ecoreElt);
@@ -111,7 +113,7 @@ public class ONote extends OElement implements IOElement {
         }else{
             setName((org.eclipse.uml2.uml.TimeObservation) ecoreElt);
         }
-        
+
     }
 
     @objid ("a520f5e8-d478-4e6e-bb2a-89d09887c8d3")
@@ -123,7 +125,7 @@ public class ONote extends OElement implements IOElement {
     private void setTypeEAnnotation(org.eclipse.uml2.uml.Comment ecoreElt) {
         NoteType noteType = getObjingElement().getModel();
         ObjingEAnnotation.setNoteTypeName(ecoreElt, noteType.getName());
-        
+
     }
 
     @objid ("83494a5d-8a85-4d13-963f-541b134c407d")
@@ -135,17 +137,17 @@ public class ONote extends OElement implements IOElement {
                 ObjingEAnnotation.setIsOwnedByAssociationClass(ecoreElt);
             }
         }
-        
+
     }
 
     @objid ("dfcf25f2-8f34-4c04-a5cc-ffbee21cf8bf")
     private void setName(final org.eclipse.uml2.uml.TimeObservation ecoreElt) {
         String name = getObjingElement().getName();
-        
+
         if ((name != null) &&  (!name.equals(""))){
             ecoreElt.setName(name);
         }
-        
+
     }
 
     @objid ("3ddbf38a-2ad6-4fa9-bc89-628736d04afb")

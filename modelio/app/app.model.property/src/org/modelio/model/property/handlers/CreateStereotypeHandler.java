@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.handlers;
 
@@ -23,8 +23,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.services.IServiceConstants;
@@ -40,22 +40,23 @@ import org.modelio.model.property.stereotype.creator.StereotypeEditor;
 import org.modelio.platform.core.IModelioEventService;
 import org.modelio.platform.core.IModelioService;
 import org.modelio.platform.core.events.ModelioEvent;
-import org.modelio.platform.project.services.IProjectService;
+import org.modelio.platform.core.project.ICurrentProjectService;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("a9ed8069-f8fc-4c5e-ad6e-63d679d4f9c5")
 public class CreateStereotypeHandler implements IModelioService {
     @objid ("64639f03-e39a-40c5-8a49-0fa3ab53e312")
     @Inject
-    protected IProjectService projectService;
+    protected ICurrentProjectService projectService;
 
     /**
      * (non-Javadoc)
+     *
      * @see org.eclipse.core.commands.AbstractHandler#isEnabled()
      */
     @objid ("425771fe-03eb-46d4-950e-6d1d5aef6cdb")
     @CanExecute
-    public final boolean canExecute(@Named (IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
+    public final boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
         if (this.projectService.getSession() == null || selection == null || selection.isEmpty()) {
             return false;
         }
@@ -97,11 +98,12 @@ public class CreateStereotypeHandler implements IModelioService {
 
     /**
      * (non-Javadoc)
+     *
      * @see org.eclipse.core.commands.IHandler#execute(org.eclipse.core.commands.ExecutionEvent)
      */
     @objid ("f5ed7cf9-32b3-4aca-b39f-2563405ab10f")
     @Execute
-    public final void execute(@Named (IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection, IMModelServices mmServices, IModelioEventService eventService) {
+    public final void execute(@Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection, IMModelServices mmServices, IModelioEventService eventService) {
         Profile profile = getSelectedProfile(selection);
         List<ModelElement> elements = new ArrayList<>();
         IGModelFragment fragment = getSelectedFragment(selection);
@@ -115,7 +117,6 @@ public class CreateStereotypeHandler implements IModelioService {
         if (newStecreotype != null) {
             eventService.postAsyncEvent(this, ModelioEvent.NAVIGATE_ELEMENT, Arrays.asList(newStecreotype));
         }
-        
     }
 
     @objid ("200e5614-cf0d-43d8-bbe2-0864b1455031")
@@ -123,7 +124,7 @@ public class CreateStereotypeHandler implements IModelioService {
         List<ModelElement> selectedElements = new ArrayList<>();
         List<Object> selectedObjects = selection.toList();
         for (Object selectedObject : selectedObjects) {
-            if (selectedObject instanceof ModelElement && ((ModelElement) selectedObject).isModifiable()) {
+            if (selectedObject instanceof ModelElement && ((ModelElement) selectedObject).getStatus().isModifiable()) {
                 selectedElements.add((ModelElement) selectedObject);
             }
         }

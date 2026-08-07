@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.interactionoperand;
 
@@ -38,7 +38,7 @@ import org.modelio.diagram.elements.core.policies.LayoutNodeConnectionsEditPolic
 
 /**
  * EditPart for InteractionOperand. Handles specificity of gates.
- * 
+ *
  * @author fpoyer
  */
 @objid ("d906966c-55b6-11e2-877f-002564c97630")
@@ -57,7 +57,6 @@ public class InteractionOperandEditPart extends PortContainerEditPart {
     protected void createEditPolicies() {
         super.createEditPolicies();
         removeEditPolicy(LayoutMainNodeConnectionsEditPolicy.ROLE);
-        
     }
 
     @objid ("d65dde4d-64a9-4969-a2fa-49caa715eb3b")
@@ -67,12 +66,11 @@ public class InteractionOperandEditPart extends PortContainerEditPart {
             @Override
             public void activate() {
                 super.activate();
-        
+
                 EditPart host = getHost();
                 host.removeEditPolicy(LayoutNodeConnectionsEditPolicy.ROLE);
             }
         };
-        
     }
 
     @objid ("cbb13b5e-291e-4517-8350-095e3b9f4c75")
@@ -90,10 +88,10 @@ public class InteractionOperandEditPart extends PortContainerEditPart {
         @Override
         public void layout(IFigure parent) {
             Point offset = getOrigin(parent);
-            
+
             for (Object childObj : parent.getChildren()) {
                 IFigure child = (IFigure) childObj;
-            
+
                 Object childConstraint;
                 if (child.equals(getMainNodeFigure())) {
                     // Main node _ALWAYS_ uses all available space.
@@ -101,7 +99,7 @@ public class InteractionOperandEditPart extends PortContainerEditPart {
                 } else {
                     childConstraint = getConstraint(child);
                 }
-            
+
                 if (childConstraint != null) {
                     Rectangle bounds;
                     if (childConstraint instanceof Rectangle) {
@@ -109,7 +107,7 @@ public class InteractionOperandEditPart extends PortContainerEditPart {
                     } else {
                         bounds = getCorrectedRectangle(parent, child, (PortConstraint) childConstraint);
                     }
-            
+
                     if (bounds.width == -1 || bounds.height == -1) {
                         Dimension childPreferredSize = child.getPreferredSize(bounds.width, bounds.height);
                         bounds = bounds.getCopy();
@@ -127,7 +125,6 @@ public class InteractionOperandEditPart extends PortContainerEditPart {
                     child.setSize(child.getPreferredSize());
                 }
             }
-            
         }
 
     }

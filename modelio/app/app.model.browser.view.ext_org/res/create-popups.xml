@@ -666,12 +666,12 @@
 	</popup>
 
 	<!-- Popup for CollaborationUse -->
-	<popup metaclass="Standard.CollaborationUse">
+	<!-- <popup metaclass="Standard.CollaborationUse">
 		<command id="org.modelio.app.ui.command.create.element">
 			<parameter name="metaclass" value="Standard.Binding" />
 			<parameter name="dependency" value="RoleBinding" />
 		</command>
-	</popup>
+	</popup> -->
 
 	<!-- Popup for CommunicationInteraction -->
 	<popup metaclass="Standard.CommunicationInteraction">
@@ -1538,7 +1538,7 @@
 			<parameter name="metaclass" value="Standard.ValuePin" />
 			<parameter name="dependency" value="Input" />
 		</command>
-		<!--item id="org.modelio.app.ui.command.create.element" > <parameter name="metaclass" 
+		<!--item id="org.modelio.app.ui.command.create.element" > <parameter name="metaclass"
 			value="OutputPin" /> <parameter name="dependency" value="Output" /> </command -->
 	</popup>
 
@@ -2016,7 +2016,7 @@
 	<!-- Popup for BpmnStartEvent -->
 	<popup metaclass="Standard.BpmnStartEvent">
 	</popup>
-	
+
 	<!-- Popup for BpmnIntermediateCatchEvent -->
 	<popup metaclass="Standard.BpmnCatchEvent">
 	</popup>
@@ -2056,7 +2056,7 @@
 			<parameter name="dependency" value="DefinedTable" />
 		</command>
 	</popup>
-	
+
 	<!-- Popup for Stereotype -->
 	<popup metaclass="Infrastructure.Stereotype">
 		<command id="org.modelio.app.ui.command.create.element">
@@ -2076,8 +2076,8 @@
 			<parameter name="dependency" value="DefinedTable" />
 		</command>
 	</popup>
-	
-	
+
+
 	<!-- Popup for PropertyTableDefinition -->
 	<popup metaclass="Infrastructure.PropertyTableDefinition">
 		<command id="org.modelio.app.ui.command.create.element">
@@ -2089,7 +2089,7 @@
 			<parameter name="dependency" value="Owned" />
 		</command>
 	</popup>
-	
+
 	<!-- Popup for EnumeratedPropertyType -->
 	<popup metaclass="Infrastructure.EnumeratedPropertyType">
 		<command id="org.modelio.app.ui.command.create.element">
@@ -2097,7 +2097,7 @@
 			<parameter name="dependency" value="Litteral" />
 		</command>
 	</popup>
-	
+
 	<!-- Popup for ImpactProject -->
 	<popup metaclass="Infrastructure.ImpactProject">
 		<command id="org.modelio.app.ui.command.create.cmselement">

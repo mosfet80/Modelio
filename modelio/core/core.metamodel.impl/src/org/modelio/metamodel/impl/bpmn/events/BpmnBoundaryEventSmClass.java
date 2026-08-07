@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.events;
 
 import java.util.ArrayList;
@@ -45,73 +44,72 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("433e47df-dc16-440a-be26-aecc715e5788")
 public class BpmnBoundaryEventSmClass extends BpmnCatchEventSmClass {
-    @objid ("543efe5c-d3ca-47b5-b3ed-9188ef3359e9")
+    @objid ("5d5743fc-28f3-43de-bb5b-4131fef60e10")
     private SmAttribute cancelActivityAtt;
 
-    @objid ("2660a541-ae88-44aa-8a89-ace59b545440")
+    @objid ("88a13015-7c9e-4306-a67d-817a07a96a96")
     private SmDependency attachedToRefDep;
 
-    @objid ("2ab3a1fe-9b03-457f-b3c0-412b90f6d9a8")
-    public  BpmnBoundaryEventSmClass(ISmMetamodelFragment origin) {
+    @objid ("da4924d9-2378-4f07-a894-68f60e4d10ca")
+    public BpmnBoundaryEventSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("b19fa5dc-6355-4a35-924f-b8b1623bf977")
+    @objid ("290871eb-8e1c-4491-9e95-44a1c3e1a3d8")
     @Override
     public String getName() {
         return "BpmnBoundaryEvent";
-        
+
     }
 
-    @objid ("ab83b9ff-beb3-4406-a1b9-9d7bfb146805")
+    @objid ("16a0ed1f-bbd3-4f83-9559-bdcba32c5d0e")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("2e231fc5-f3a7-4f90-8696-011728a23379")
+    @objid ("26d0d4b2-6213-4fff-a160-3932de1a3c90")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return BpmnBoundaryEvent.class;
-        
+
     }
 
-    @objid ("e0167d8a-638f-43cb-83c4-5ea1157a9b90")
+    @objid ("f7ba7446-8975-4c02-9f15-b0ab12181299")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("3507c1e4-e111-4536-9601-2922806394a2")
+    @objid ("9d14586f-2ffa-43dd-ad6b-37410490bc5a")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("e3b5c63c-5bbf-45b8-aeb0-205db070d776")
+    @objid ("f52a72a4-0cb4-4164-b711-915f7ccbe6ba")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(BpmnCatchEvent.MQNAME);
         this.registerFactory(new BpmnBoundaryEventObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
         this.cancelActivityAtt = new CancelActivitySmAttribute();
         this.cancelActivityAtt.init("CancelActivity", this, Boolean.class );
         registerAttribute(this.cancelActivityAtt);
-        
-        
+
+
         // Initialize and register the SmDependency
         this.attachedToRefDep = new AttachedToRefSmDependency();
         this.attachedToRefDep.init("AttachedToRef", this, metamodel.getMClass(BpmnActivity.MQNAME), 1, 1 );
         registerDependency(this.attachedToRefDep);
-        
-        
+
     }
 
-    @objid ("00ec2a82-e7b1-4361-a1e8-7c81adbd5f3d")
+    @objid ("4a8acc91-1560-461d-99cf-d74c25d97d5c")
     public SmAttribute getCancelActivityAtt() {
         if (this.cancelActivityAtt == null) {
         	this.cancelActivityAtt = this.getAttributeDef("CancelActivity");
@@ -119,7 +117,7 @@ public class BpmnBoundaryEventSmClass extends BpmnCatchEventSmClass {
         return this.cancelActivityAtt;
     }
 
-    @objid ("52d93f0e-294c-40fa-aa61-bf838132a945")
+    @objid ("e115823d-6253-4442-b735-2248478dad1b")
     public SmDependency getAttachedToRefDep() {
         if (this.attachedToRefDep == null) {
         	this.attachedToRefDep = this.getDependencyDef("AttachedToRef");
@@ -129,21 +127,21 @@ public class BpmnBoundaryEventSmClass extends BpmnCatchEventSmClass {
 
     @objid ("11514c9c-a3a1-4ef9-9f45-f4b358449a9e")
     private static class BpmnBoundaryEventObjectFactory implements ISmObjectFactory {
-        @objid ("c9d3022f-f376-4982-9242-0962ce5ff7f9")
+        @objid ("95aadf01-1deb-42d4-ac7a-bc0270fca043")
         private BpmnBoundaryEventSmClass smClass;
 
-        @objid ("2e920b25-fbdb-411a-aa50-702c0db19634")
-        public  BpmnBoundaryEventObjectFactory(BpmnBoundaryEventSmClass smClass) {
+        @objid ("e78e5809-06f0-4bf1-8fdf-5d7364ab89c3")
+        public BpmnBoundaryEventObjectFactory(BpmnBoundaryEventSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("20f3d3f4-8c79-4973-9e24-96de9a03852d")
+        @objid ("b5393c20-1b33-4a5b-b642-d2c355a75028")
         @Override
         public ISmObjectData createData() {
             return new BpmnBoundaryEventData(this.smClass);
         }
 
-        @objid ("a3b68c88-c1c7-41bf-86f3-602facf0d997")
+        @objid ("61675203-40aa-4f62-8620-f62d0fb25076")
         @Override
         public SmObjectImpl createImpl() {
             return new BpmnBoundaryEventImpl();
@@ -153,12 +151,12 @@ public class BpmnBoundaryEventSmClass extends BpmnCatchEventSmClass {
 
     @objid ("6f83f4a3-ef48-46f3-8660-041f6d6d6722")
     public static class CancelActivitySmAttribute extends SmAttribute {
-        @objid ("c39d56b1-b7ec-4847-b622-33dc569d4541")
+        @objid ("12597d8b-7867-4b22-9b94-df0ea42c4c15")
         public Object getValue(ISmObjectData data) {
             return ((BpmnBoundaryEventData) data).mCancelActivity;
         }
 
-        @objid ("b6b20d73-a58f-45d3-b105-2bd8cf8814cc")
+        @objid ("45b3490e-fc46-47ac-a6c6-8be6339a9d3d")
         public void setValue(ISmObjectData data, Object value) {
             ((BpmnBoundaryEventData) data).mCancelActivity = value;
         }
@@ -167,29 +165,29 @@ public class BpmnBoundaryEventSmClass extends BpmnCatchEventSmClass {
 
     @objid ("b2ef7dca-6bd0-4249-87eb-495b5d5aad08")
     public static class AttachedToRefSmDependency extends SmSingleDependency {
-        @objid ("711ac5ba-e046-4a70-a4d3-4a97649d2989")
+        @objid ("21534a16-2cb2-46b8-8f25-c5b2fe23eba0")
         private SmDependency symetricDep;
 
-        @objid ("9ba71840-4521-4e20-bbeb-4b9323447cbb")
+        @objid ("b0e8a1ba-e644-48dd-90a8-e4646849c45d")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((BpmnBoundaryEventData) data).mAttachedToRef;
         }
 
-        @objid ("2b9e94aa-1fa9-4025-92f9-24f1840477b6")
+        @objid ("26ce9826-2ee3-4654-acf0-c15153686187")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((BpmnBoundaryEventData) data).mAttachedToRef = value;
         }
 
-        @objid ("af48c3c5-cb99-4ee4-9721-338439a1eca3")
+        @objid ("bdce0122-1134-447f-8b20-71fd663c0628")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((BpmnActivitySmClass)this.getTarget()).getBoundaryEventRefDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

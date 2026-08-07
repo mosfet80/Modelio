@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -46,7 +46,7 @@ public class R1530 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(IElement)
      * @see AbstractRule#getUpdateControl(IElement)
      * @see AbstractRule#getMoveControl(IElementMovedEvent)
@@ -65,7 +65,7 @@ public class R1530 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         plan.registerRule(Association.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Port.MQNAME, this, AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -99,14 +99,14 @@ public class R1530 extends AbstractUmlRule {
      * Default constructor for R1530
      */
     @objid ("307112e5-8b57-421a-88bb-1243d1584f39")
-    public  R1530() {
+    public R1530() {
         this.checkerInstance = new CheckR1530(this);
     }
 
     @objid ("60d6fc5e-416e-4f08-a6b7-f37fd550b9c6")
     private static class CheckR1530 extends AbstractControl {
         @objid ("8a8ee153-257d-4855-b604-1baa5eccb87b")
-        public  CheckR1530(IRule rule) {
+        public CheckR1530(IRule rule) {
             super(rule);
         }
 
@@ -120,7 +120,7 @@ public class R1530 extends AbstractUmlRule {
         @objid ("1134774e-1125-4e4b-b5d8-498f74380296")
         private IAuditEntry checkR1530(MObject element) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, element, null);
-            
+
             if (element.getName().equals("")) {
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();

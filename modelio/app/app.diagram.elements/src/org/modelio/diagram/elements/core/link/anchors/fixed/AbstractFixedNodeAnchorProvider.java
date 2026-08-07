@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.anchors.fixed;
 
@@ -74,7 +74,7 @@ import org.modelio.diagram.styles.core.StyleKey.ConnectionRouterId;
  * <ul>
  * <li>The {@link IFixedConnectionAnchorFactory} interface methods.
  * </ul>
- * 
+ *
  * @author cmarin
  * @since 5.0.2
  */
@@ -85,14 +85,14 @@ class AbstractFixedNodeAnchorProvider extends AbstractNodeAnchorProvider impleme
     private IFixedConnectionAnchorFactory factory;
 
     @objid ("71830cc5-bcbd-400f-b5b5-130d31e24769")
-    public  AbstractFixedNodeAnchorProvider(IFixedConnectionAnchorFactory factory) {
+    public AbstractFixedNodeAnchorProvider(IFixedConnectionAnchorFactory factory) {
         super();
         this.factory = factory;
-        
     }
 
     /**
      * Create a serializable anchor model from the given anchor.
+     *
      * @param anchor a figure anchor
      * @return an anchor model.
      */
@@ -121,44 +121,45 @@ class AbstractFixedNodeAnchorProvider extends AbstractNodeAnchorProvider impleme
             // Compatibility with <= 5.0.0 diagrams
             return RectangleNodeAnchorProvider.get().createAnchorModel(anchor);
         }
-        
     }
 
     /**
      * <p>
      * Get an implementation of {@link AccessibleAnchorProvider} for the given node figure.
      * </p>
+     *
      * @param nodeFig a node figure
      * @return an implementation of {@link AccessibleAnchorProvider}
      */
     @objid ("1dcc11db-e367-4e01-bd14-b53d147abf5e")
+    @Override
     public AccessibleAnchorProvider getAccessibleAnchorProvider(IFigure nodeFig) {
         return new AccessibleAnchorProvider() {
             @objid ("6ec0672d-aeaf-4655-987d-4150507d600b")
             @Override
-            public List getSourceAnchorLocations() {
+            public List<Point> getSourceAnchorLocations() {
                 return getTargetAnchorLocations();
             }
-        
+
             @objid ("1bd01c33-3d6d-4108-ae55-84b7242c9220")
             @Override
-            public List getTargetAnchorLocations() {
+            public List<Point> getTargetAnchorLocations() {
                 Collection<ConnectionAnchor> allAnchors = AbstractFixedNodeAnchorProvider.this.factory.getAllAnchors(nodeFig, ConnectionRouterId.ORTHOGONAL, null);
                 List<Point> ret = new ArrayList<>(allAnchors.size());
-        
+
                 for (ConnectionAnchor a : allAnchors) {
                     ret.add(a.getReferencePoint());
                 }
                 return ret;
             }
         };
-        
     }
 
     /**
      * Returns the <code>ConnectionAnchor</code> for the specified <i>source</i> rectangular node. The NodeEditPart is the {@link ConnectionEditPart#getSource() source} EditPart for the provider connection.
      * <P>
      * The anchor may be a function of the connection's model, the node's model, a combination of both, or it may not depend on anything all.
+     *
      * @param nodeEditPart The rectangular node to anchor from
      * @param connEditpart The connection to anchor from.
      * @return the ConnectionAnchor for the given rectangular EditPart
@@ -173,13 +174,13 @@ class AbstractFixedNodeAnchorProvider extends AbstractNodeAnchorProvider impleme
             ConnectionAnchor ret = updateConnectionAnchor(state, nodeEditPart, true);
             return ret;
         }
-        
     }
 
     /**
      * Returns the <code>ConnectionAnchor</code> for the specified <i>target</i> rectangular node. The NodeEditPart is the {@link ConnectionEditPart#getTarget() source} EditPart for the provider connection.
      * <P>
      * The anchor may be a function of the connection's model, the node's model, a combination of both, or it may not depend on anything all.
+     *
      * @param nodeEditPart The rectangular node to anchor to
      * @param connEditpart The connection to anchor to.
      * @return the ConnectionAnchor for the given rectangular EditPart
@@ -188,22 +189,21 @@ class AbstractFixedNodeAnchorProvider extends AbstractNodeAnchorProvider impleme
     @Override
     public ConnectionAnchor getTargetConnectionAnchor(final GraphicalEditPart nodeEditPart, final ConnectionEditPart connEditpart) {
         State state = new State(connEditpart);
-        
+
         if (state.gmTargetAnchor == null) {
             return new ChopboxAnchor(nodeEditPart.getFigure());
         } else {
             ConnectionAnchor ret = updateConnectionAnchor(state, nodeEditPart, false);
             return ret;
         }
-        
     }
 
     /**
      * protected only constructor.
      */
     @objid ("7e60f205-a4bc-46d5-b195-e6fcdff1d9b1")
-    protected  AbstractFixedNodeAnchorProvider() {
-        
+    protected AbstractFixedNodeAnchorProvider() {
+
     }
 
     @objid ("d46b26d2-f8c7-4a37-867f-3f18962667b9")
@@ -213,7 +213,7 @@ class AbstractFixedNodeAnchorProvider extends AbstractNodeAnchorProvider impleme
         Rectangle figureBounds = figure.getBounds().getCopy();
         figure.translateToAbsolute(figureBounds);
         Point figCenter = figureBounds.getCenter();
-        
+
         if (isSourceAnchor) {
             Point srcPoint = findGoodAnchorRef(
                     req.getData().getSrcPoint(),
@@ -222,7 +222,7 @@ class AbstractFixedNodeAnchorProvider extends AbstractNodeAnchorProvider impleme
                     req.getData().getLastPoint(),
                     req.getLocation(),
                     figCenter);
-        
+
             if (srcPoint == null) {
                 srcPoint = figureBounds.getRight();
             }
@@ -242,21 +242,20 @@ class AbstractFixedNodeAnchorProvider extends AbstractNodeAnchorProvider impleme
             }
             return this.factory.getNearest(figure, targetPoint, req.getData().getRoutingMode(), null, isSourceAnchor);
         }
-        
     }
 
     @objid ("456f9d3a-43d8-4ddc-b59c-807b7756d05f")
     private static Point findGoodAnchorRef(Point candidate1, List<Point> candidates2, boolean first, Point candidate3, Point candidate4, Point forbidden) {
         if (AnchorRefHelper.isGoodAnchorRef(candidate1, forbidden))
             return candidate1;
-        
+
         Point found = AnchorRefHelper.findGoodAnchorRef(candidates2, first, 1, forbidden);
         if (found != null)
             return found;
-        
+
         if (AnchorRefHelper.isGoodAnchorRef(candidate3, forbidden))
             return candidate3;
-        
+
         if (AnchorRefHelper.isGoodAnchorRef(candidate4, forbidden))
             return candidate4;
         return null;
@@ -264,6 +263,7 @@ class AbstractFixedNodeAnchorProvider extends AbstractNodeAnchorProvider impleme
 
     /**
      * Returns the <code>ConnectionAnchor</code> for the specified Request. The returned ConnectionAnchor is used only when displaying <i>feedback</i>.
+     *
      * @param request a Request describing the current interaction
      * @param source Whether an anchor is needed for a source or a target side.
      * @return the ConnectionAnchor to use during feedback
@@ -280,31 +280,30 @@ class AbstractFixedNodeAnchorProvider extends AbstractNodeAnchorProvider impleme
     @Override
     public ConnectionAnchor getSourceConnectionAnchor(GraphicalEditPart nodeEditPart, Request request) {
         Boolean needSlidableAnchor = (Boolean) request.getExtendedData().get(CreateLinkConstants.PROP_NEED_SLIDABLE_ANCHOR);
-        
+
         if (Boolean.TRUE.equals(needSlidableAnchor)) {
             return RectangleNodeAnchorProvider.getSlidable().getSourceConnectionAnchor(nodeEditPart, request);
         } else {
             return super.getSourceConnectionAnchor(nodeEditPart, request);
         }
-        
     }
 
     @objid ("07da4008-90df-44f9-b412-333c9b8cde35")
     @Override
     public ConnectionAnchor getTargetConnectionAnchor(GraphicalEditPart nodeEditPart, Request request) {
         Boolean needSlidableAnchor = (Boolean) request.getExtendedData().get(CreateLinkConstants.PROP_NEED_SLIDABLE_ANCHOR);
-        
+
         if (Boolean.TRUE.equals(needSlidableAnchor)) {
             return RectangleNodeAnchorProvider.getSlidable().getTargetConnectionAnchor(nodeEditPart, request);
         } else {
             return super.getTargetConnectionAnchor(nodeEditPart, request);
         }
-        
     }
 
     /**
      * Returns the <code>ConnectionAnchor</code> for the specified Request. The returned ConnectionAnchor is used only when displaying <i>feedback</i>. The Request is usually a {@link org.eclipse.gef.requests.LocationRequest} , which provides the current
      * mouse location.
+     *
      * @param request a Request describing the current interaction
      * @param source Whether an anchor is needed for a source or a target side.
      * @return the ConnectionAnchor to use during feedback
@@ -317,26 +316,26 @@ class AbstractFixedNodeAnchorProvider extends AbstractNodeAnchorProvider impleme
         if (requestLocation == null) {
             throw new IllegalArgumentException(request + " has no location.");
         }
-        
+
         State state = new State(request.getConnectionEditPart());
-        
+
         final EditPart oldNodeEditPart = source ? state.connectionEditPart.getSource()
                 : state.connectionEditPart.getTarget();
-        
+
         IFigure nodeFigure = (IFigure) request.getExtendedData().get(CreateLinkConstants.PROP_RECONNECT_ON_FIGURE);
         if (nodeFigure == null) {
             nodeFigure = nodeEditPart.getFigure();
         }
-        
+
         if (oldNodeEditPart == nodeEditPart) {
             // The connection stayed on the same source/target.
             // The request may tell to stay on same face.
             // Try to return the same previous instance to spare listeners firing & changes
-        
+
             Connection connFig = state.getConnection();
             ConnectionAnchor refAnchor = (ConnectionAnchor) request.getExtendedData().get(CreateLinkConstants.PROP_RECONNECT_ON_SAME_FACE);
             ConnectionAnchor previous;
-        
+
             if (refAnchor != null) {
                 previous = refAnchor;
             } else if (source) {
@@ -344,14 +343,14 @@ class AbstractFixedNodeAnchorProvider extends AbstractNodeAnchorProvider impleme
             } else {
                 previous = connFig.getTargetAnchor();
             }
-        
+
             Integer face = refAnchor instanceof FixedAnchor ? ((FixedAnchor) refAnchor).getFace() : null;
-        
+
             ConnectionAnchor nearest = this.factory.getNearest(nodeFigure, requestLocation, state.getFigureRoutingMode(), face, source);
             if (nearest == null) {
                 nearest = this.factory.getNearest(nodeFigure, requestLocation, state.getFigureRoutingMode(), null, source);
             }
-        
+
             if (nearest == null) {
                 return previous;
             } else if (previous != null && previous.equals(nearest)) {
@@ -364,7 +363,6 @@ class AbstractFixedNodeAnchorProvider extends AbstractNodeAnchorProvider impleme
             ConnectionRouterId routerId = state.getFigureRoutingMode();
             return this.factory.getNearest(nodeFigure, requestLocation, routerId, null, source);
         }
-        
     }
 
     @objid ("1ccc8d53-bbf5-4510-b634-6dee50fed37c")
@@ -376,6 +374,7 @@ class AbstractFixedNodeAnchorProvider extends AbstractNodeAnchorProvider impleme
      * Update an existing connection anchor from a given anchor model and a connection routing mode.
      * <p>
      * May return the same connection anchor or another one. In the last case the returned anchor must be used and the other should be discarded.
+     *
      * @param nodeEditPart The rectangular node to anchor to
      * @param isSourceAnchor <code>true</code> if the anchor is a source anchor, <code>false</code> if it is a target anchor
      * @return the updated draw2d anchor, or a new one.
@@ -383,7 +382,7 @@ class AbstractFixedNodeAnchorProvider extends AbstractNodeAnchorProvider impleme
     @objid ("36a35838-5bfb-4353-af1a-40c91ca09fbb")
     private ConnectionAnchor updateConnectionAnchor(final State state, final GraphicalEditPart nodeEditPart, final boolean isSourceAnchor) {
         final Object gmLinkAnchor = !isSourceAnchor ? state.gmTargetAnchor : state.gmSourceAnchor;
-        
+
         final IFigure nodeFigure = nodeEditPart.getFigure();
         if (gmLinkAnchor instanceof GmRaySlidableAnchor || gmLinkAnchor instanceof GmNodeAnchor  || gmLinkAnchor instanceof GmBorderAnchor) {
             // Compatibility with <= 5.0.0 diagrams
@@ -407,7 +406,7 @@ class AbstractFixedNodeAnchorProvider extends AbstractNodeAnchorProvider impleme
             } else {
                 srcFig = ((GraphicalEditPart) state.connectionEditPart.getSource()).getFigure();
             }
-        
+
             return new SatelliteAnchor(srcFig, sa.getLocation());
         } else if (gmLinkAnchor instanceof GmAbstractLinkAnchor) {
             // should not happen, convert unsupported GM to supported anchor
@@ -422,9 +421,8 @@ class AbstractFixedNodeAnchorProvider extends AbstractNodeAnchorProvider impleme
             Point pos = nodeFigure.getBounds().getCenter();
             nodeFigure.translateToAbsolute(pos);
             return this.factory.getNearest(nodeEditPart.getFigure(), pos, state.getFigureRoutingMode(), null, isSourceAnchor);
-        
+
         }
-        
     }
 
     @objid ("6d8eec70-c343-4066-8e55-f01ec0ad7923")
@@ -468,15 +466,14 @@ class AbstractFixedNodeAnchorProvider extends AbstractNodeAnchorProvider impleme
         final Object gmTargetAnchor;
 
         @objid ("a7c7f730-074d-4a1b-b146-d316eaf4b80e")
-        public  State(final ConnectionEditPart aConnectionEditPart) {
+        public State(final ConnectionEditPart aConnectionEditPart) {
             this.connectionEditPart = aConnectionEditPart;
             this.gmLink = (IGmLinkObject) aConnectionEditPart.getModel();
-            
+
             final IGmPath path = this.gmLink.getPath();
             this.gmSourceAnchor = path.getSourceAnchor();
             this.gmTargetAnchor = path.getTargetAnchor();
             // this.raked = isRaked(path);
-            
         }
 
         @objid ("7849736f-121d-46f5-b95a-47bfc241e611")
@@ -486,6 +483,7 @@ class AbstractFixedNodeAnchorProvider extends AbstractNodeAnchorProvider impleme
 
         /**
          * Get the routing mode from the connection figure.
+         *
          * @return the connection routing mode
          */
         @objid ("b027ee31-ca5a-4291-ad6d-692c897bd6c5")

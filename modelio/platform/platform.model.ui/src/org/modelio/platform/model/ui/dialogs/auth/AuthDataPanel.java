@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.dialogs.auth;
 
@@ -56,6 +56,33 @@ import org.modelio.vbasic.auth.IAuthData;
 @objid ("e1e54a1c-e853-4a20-a485-5072b8d6065c")
 public class AuthDataPanel implements IPanelProvider {
     /**
+     * Top control of the panel
+     */
+    @objid ("559d121e-a30e-4a19-9bef-d9b951396b76")
+    private Composite top;
+
+    /**
+     * The combo viewer to select a scheme
+     */
+    @objid ("80810b85-ec27-4283-801d-fbd5e814c996")
+    private ComboViewer schemeSelector;
+
+    /**
+     * The composite stacking the different scheme UIs
+     */
+    @objid ("ac28c07b-ce1e-4994-bc6a-844ebf63e0ba")
+    private Composite stack;
+
+    /**
+     * The stack layout for the composite stacking the different scheme UIs
+     */
+    @objid ("58c96ba7-9792-47d9-ac00-7e0bf67a282b")
+    private StackLayout stackLayout;
+
+    @objid ("b0ca6739-24ae-4cd8-b2ee-8450379cb493")
+    private Composite dataPanel;
+
+    /**
      * A map that associates Scheme and their UIs
      */
     @objid ("04b5e34c-5bba-444f-80bf-e2d559b4423c")
@@ -73,33 +100,6 @@ public class AuthDataPanel implements IPanelProvider {
     @objid ("88d90bbd-9fab-490a-81b9-ca201acaf508")
     private IAuthData authData;
 
-    /**
-     * Top control of the panel
-     */
-    @objid ("52c0de6a-f132-4bb4-8561-da65f6771c24")
-    private Composite top;
-
-    /**
-     * The combo viewer to select a scheme
-     */
-    @objid ("7800cd64-064f-4bcd-bdb8-a75c077c2332")
-    private ComboViewer schemeSelector;
-
-    /**
-     * The composite stacking the different scheme UIs
-     */
-    @objid ("94173805-c060-4191-a0cd-87ef6fa235e4")
-    private Composite stack;
-
-    /**
-     * The stack layout for the composite stacking the different scheme UIs
-     */
-    @objid ("29511727-ad9a-464d-9278-31c848b5819f")
-    private StackLayout stackLayout;
-
-    @objid ("1a4ea7b4-e1c5-4104-88b0-73eeae7ca077")
-    private Composite dataPanel;
-
     @objid ("5f6e529a-4eb1-4ad7-9d50-eba9d59d4c92")
     @Override
     public AuthDataPanel createPanel(Composite parent) {
@@ -107,7 +107,7 @@ public class AuthDataPanel implements IPanelProvider {
         this.top = new Composite(parent, SWT.NONE);
         this.top.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         this.top.setLayout(new FormLayout());
-        
+
         // Label
         Label label = new Label(this.top, SWT.NONE);
         label.setText(CoreUi.I18N.getString("AuthDataPanel.scheme.label"));
@@ -116,18 +116,18 @@ public class AuthDataPanel implements IPanelProvider {
         fd.top = new FormAttachment(0, 8);
         fd.left = new FormAttachment(0, 8);
         label.setLayoutData(fd);
-        
+
         // List of available schemes
         Combo combo = new Combo(this.top, SWT.READ_ONLY);
         this.schemeSelector = new ComboViewer(combo);
-        
+
         //Control combo = this.schemeSelector.getControl();
         fd = new FormData();
         fd.top = new FormAttachment(label, 0, SWT.CENTER);
         fd.left = new FormAttachment(label, 8);
         fd.right = new FormAttachment(100, -8);
         combo.setLayoutData(fd);
-        
+
         this.schemeSelector.setContentProvider(new ArrayContentProvider());
         this.schemeSelector.setInput(AuthDataUiFactory.getAllSchemes().toArray());
         this.schemeSelector.addSelectionChangedListener(new ISelectionChangedListener() {
@@ -143,7 +143,7 @@ public class AuthDataPanel implements IPanelProvider {
                 return CoreUi.I18N.getString("$AuthDataPanel.scheme." + ((Class<?>)element).getSimpleName());
             }
         });
-        
+
         // Variable stack
         this.dataPanel = createDataPanel(this.top);
         fd = new FormData();
@@ -152,7 +152,7 @@ public class AuthDataPanel implements IPanelProvider {
         fd.bottom = new FormAttachment(100, 0);
         fd.right = new FormAttachment(100, 0);
         this.dataPanel.setLayoutData(fd);
-        
+
         this.controller = new AuthDataPanelController(this);
         return this;
     }
@@ -180,21 +180,20 @@ public class AuthDataPanel implements IPanelProvider {
         this.authData = (IAuthData) input;
         if (this.authData != null)
             this.schemeSelector.setSelection(new StructuredSelection(this.authData.getClass()));
-        
     }
 
     @objid ("3d941b3a-7bc8-45db-9eba-a44a48a7eb9f")
     protected void selectScheme(Class<? extends IAuthData> scheme) {
         IAuthDataUi ui = this.stackedPanels.get(scheme);
-        
+
         if (ui != null) {
             this.stackLayout.topControl = ui.getTopComposite();
             this.stack.layout();
-        
+
             // reuse and display as much data as possible
             if (this.authData != null)
                 ui.show(this.authData);
-        
+
             // instantiate data
             try {
                 this.authData = scheme.newInstance();
@@ -204,7 +203,6 @@ public class AuthDataPanel implements IPanelProvider {
             }
             this.currentUi = ui;
         }
-        
     }
 
     @objid ("bae44df8-81ad-4ba6-a04c-1c53bb339117")
@@ -212,16 +210,16 @@ public class AuthDataPanel implements IPanelProvider {
         GridData gd;
         final Composite data = new Composite(parent, SWT.NONE);
         data.setLayout(new GridLayout(2, false));
-        
+
         // fragment type-specific panel
         this.stack = new Composite(data, SWT.NONE);
         gd = new GridData(SWT.FILL, SWT.FILL, true, true);
         gd.horizontalSpan = 2;
         this.stack.setLayoutData(gd);
-        
+
         this.stackLayout = new StackLayout();
         this.stack.setLayout(this.stackLayout);
-        
+
         for (Class<? extends IAuthData> type : AuthDataUiFactory.getAllSchemes()) {
             IAuthDataUi panel = AuthDataUiFactory.createPanel(this.stack, type);
             if (panel != null) {
@@ -255,12 +253,13 @@ public class AuthDataPanel implements IPanelProvider {
         private AuthDataPanel panel;
 
         @objid ("9027602d-8e71-4383-b347-98e540074f35")
-        public  AuthDataPanelController(AuthDataPanel authDataPanel) {
+        public AuthDataPanelController(AuthDataPanel authDataPanel) {
             this.panel = authDataPanel;
         }
 
         /**
          * Called when the user selects another scheme
+         *
          * @param selection selected scheme
          */
         @objid ("f33eb41e-6157-423d-9ec6-e5f38e9abb96")
@@ -271,7 +270,6 @@ public class AuthDataPanel implements IPanelProvider {
                         .getFirstElement();
                 this.panel.selectScheme(scheme);
             }
-            
         }
 
     }

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.stateMachineModel;
 
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("005678d6-c4bf-1fd8-97fe-001ec947cd2a")
 public class FinalStateImpl extends StateImpl implements FinalState {
-    @objid ("5bf73036-623c-43e7-aca1-3d49420a72bd")
+    @objid ("43f00335-79d5-4f9f-8e66-ec1de540c112")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -49,17 +48,17 @@ public class FinalStateImpl extends StateImpl implements FinalState {
         return super.getCompositionOwner();
     }
 
-    @objid ("11b06103-4740-4bff-9a6a-3c9ddad1cf53")
+    @objid ("7f8d6654-3d77-400e-a07f-6860cf634398")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("b8d52b16-4f41-48f2-962a-ed01621c0440")
+    @objid ("3869df82-e2f0-46b9-bfe5-9b0cfd7f8c0a")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitFinalState(this);

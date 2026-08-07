@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.plugin;
 
@@ -57,11 +57,11 @@ public class DiagramElementsProcessor extends AbstractDiagramInitializationProce
         StyleLoader loader = new StyleLoader();
         BundleContext bundle = DiagramElements.getContext();
         URL url = FileLocator.find(bundle.getBundle(), new Path("res/factory.settings"), null);
-        
+
         loader.load(url);
-        
+
         factoryStyle.injectDefaultValues(loader.getStyleProperties());
-        
+
     }
 
     @objid ("f73b9f9d-58d3-11e2-be0b-002564c97630")
@@ -69,23 +69,23 @@ public class DiagramElementsProcessor extends AbstractDiagramInitializationProce
     protected void declareStyleProviders(FactoryStyle factoryStyle) {
         // Abstract Diagram
         factoryStyle.declareProvider(GmAbstractDiagramStyleKeys.class);
-        
+
         // Free zone layout
         factoryStyle.declareProvider(LayoutAssistantStyleKeys.class);
-        
+
         // Dependency
         factoryStyle.declareProvider(GmDependency.styleKeyProvider);
         factoryStyle.declareProvider(GmUsage.styleKeyProvider);
-        
+
         // Extern document
         factoryStyle.declareProvider(GmExternDocumentStyleKeys.class);
-        
+
         // Impact link
         factoryStyle.declareProvider(GmNamespaceUseStyleKeys.class);
-        
+
         // Note
         factoryStyle.declareProvider(GmNoteStyleKeys.class);
-        
+
         // Drawings
         factoryStyle.declareProvider(GmRectangleStyleKeys.class);
         factoryStyle.declareProvider(GmRectangleStyleKeys.Label.class);
@@ -97,14 +97,14 @@ public class DiagramElementsProcessor extends AbstractDiagramInitializationProce
         factoryStyle.declareProvider(GmLineStyleKeys.class);
         factoryStyle.declareProvider(GmLineStyleKeys.SourceDeco.class);
         factoryStyle.declareProvider(GmLineStyleKeys.TargetDeco.class);
-        
+
         // Diagram View
         factoryStyle.declareProvider(DiagramViewStyleKeys.class);
-        
+
         // Generic Gms
         factoryStyle.declareProvider(GmGenericNodeStyleKeys.class);
         factoryStyle.declareProvider(GmGenericLinkStyleKeys.class);
-        
+
     }
 
     @objid ("8b5deda7-d139-41c1-b8b2-7ff3c4fbcef8")

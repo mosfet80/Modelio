@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.finaliser.subplan;
 
@@ -36,7 +36,7 @@ public class CallActivityPlanFinder {
     private Map<String, Object> elementsMap;
 
     @objid ("97cdc2ca-d2b5-4bf9-8a89-2c7240cd2942")
-    public  CallActivityPlanFinder(Map<String, Object> elementsMap) {
+    public CallActivityPlanFinder(Map<String, Object> elementsMap) {
         this.elementsMap = elementsMap;
     }
 
@@ -49,7 +49,7 @@ public class CallActivityPlanFinder {
                 node = process;
             }
         }
-        
+
         for (AbstractDiagram diag : node.getProduct()) {
             if (diag instanceof BpmnProcessDesignDiagram || diag instanceof BpmnSubProcessDiagram) {
                 return (BehaviorDiagram) diag;

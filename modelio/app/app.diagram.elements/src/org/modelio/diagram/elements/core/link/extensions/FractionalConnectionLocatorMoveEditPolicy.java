@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.extensions;
 
@@ -68,36 +68,36 @@ public class FractionalConnectionLocatorMoveEditPolicy extends ResizableEditPoli
         final IFigure extension = ((GraphicalEditPart) getHost()).getFigure();
         final Connection connection = (Connection) extension.getParent();
         final Point moveDelta0 = request.getMoveDelta();
-        
+
         final FractionalConnectionLocator oldLoc = (FractionalConnectionLocator) connection.getLayoutManager()
                 .getConstraint(extension);
-        
+
         final ChangeExtensionLocationCommand cmd = new ChangeExtensionLocationCommand();
-        
+
         final Point figLocation = oldLoc.getLocation(extension);
         extension.translateToAbsolute(figLocation);
         figLocation.translate(moveDelta0);
         connection.translateToRelative(figLocation);
-        
+
         final FractionalConnectionLocator newLoc = FractionalConnectionLocator.createFromXyPoint(connection,
                 oldLoc.getFraction(),
                 figLocation,
                 oldLoc.isTowardTarget());
-        
+
         final GmNodeModel gmExtension = (GmNodeModel) getHost().getModel();
         final IGmLocator oldGmLoc = gmExtension.getParentLink().getLayoutContraint(gmExtension);
         final GmFractionalConnectionLocator newconstraint = new GmFractionalConnectionLocator();
-        
+
         newconstraint.setFraction(oldLoc.getFraction());
         newconstraint.setTowardTarget(oldLoc.isTowardTarget());
         newconstraint.setUDistance(newLoc.getUDistance());
         newconstraint.setVDistance(newLoc.getVDistance());
-        
+
         newconstraint.setWidthConstraint(oldGmLoc.getWidthConstraint());
         newconstraint.setHeightConstraint(oldGmLoc.getHeightConstraint());
-        
+
         cmd.setConstraint(newconstraint);
-        
+
         cmd.setModel(gmExtension);
         return cmd;
     }
@@ -113,10 +113,11 @@ public class FractionalConnectionLocatorMoveEditPolicy extends ResizableEditPoli
             // Mantis 0014507: Linked Data Object which represent an element becomes invisible when unchecking their "Show label" tickbox in the Symbol view.
             return getMoveResizeCommand(request);
         }
-        
+
     }
 
     /**
+     *
      * @param request a move and resize request
      * @return the created command
      */
@@ -128,37 +129,37 @@ public class FractionalConnectionLocatorMoveEditPolicy extends ResizableEditPoli
         final Connection connection = (Connection) extension.getParent();
         final Point moveDelta0 = request.getMoveDelta();
         final Dimension sizeDelta0 = request.getSizeDelta();
-        
+
         final FractionalConnectionLocator oldLoc = (FractionalConnectionLocator) connection.getLayoutManager()
                 .getConstraint(extension);
-        
+
         final ChangeExtensionLocationCommand cmd = new ChangeExtensionLocationCommand();
-        
+
         final Rectangle figBounds = oldLoc.computeBounds(extension);
         extension.translateToAbsolute(figBounds);
         figBounds.translate(moveDelta0);
         figBounds.resize(sizeDelta0);
         connection.translateToRelative(figBounds);
-        
+
         final FractionalConnectionLocator newLoc = FractionalConnectionLocator.createFromXyPoint(connection,
                 oldLoc.getFraction(),
                 figBounds.getCenter(),
                 oldLoc.isTowardTarget());
-        
+
         final GmNodeModel gmExtension = (GmNodeModel) getHost().getModel();
         final IGmLocator oldGmLoc = gmExtension.getParentLink().getLayoutContraint(gmExtension);
         final GmFractionalConnectionLocator newconstraint = new GmFractionalConnectionLocator();
-        
+
         newconstraint.setFraction(oldLoc.getFraction());
         newconstraint.setTowardTarget(oldLoc.isTowardTarget());
         newconstraint.setUDistance(newLoc.getUDistance());
         newconstraint.setVDistance(newLoc.getVDistance());
-        
+
         newconstraint.setWidthConstraint(oldGmLoc.getWidthConstraint());
         newconstraint.setHeightConstraint(oldGmLoc.getHeightConstraint());
-        
+
         cmd.setConstraint(newconstraint);
-        
+
         cmd.setModel(gmExtension);
         return cmd;
     }
@@ -167,12 +168,12 @@ public class FractionalConnectionLocatorMoveEditPolicy extends ResizableEditPoli
     @Override
     protected void showSelection() {
         super.showSelection();
-        
+
         final IFigure extension = ((GraphicalEditPart) getHost()).getFigure();
         final Connection connection = (Connection) extension.getParent();
         final FractionalConnectionLocator loc = (FractionalConnectionLocator) connection.getLayoutManager()
                 .getConstraint(extension);
-        
+
         this.focuslink = new PolylineConnection();
         this.focuslink.removeAllPoints();
         ConnectionAnchor srcAnchor = new ChopboxAnchor(extension);
@@ -180,9 +181,9 @@ public class FractionalConnectionLocatorMoveEditPolicy extends ResizableEditPoli
         this.focuslink.setSourceAnchor(srcAnchor);
         this.focuslink.setTargetAnchor(targetAnchor);
         this.focuslink.setLineStyle(org.eclipse.swt.SWT.LINE_DOT);
-        
+
         addFeedback(this.focuslink);
-        
+
     }
 
     @objid ("7fff5da7-1dec-11e2-8cad-001ec947c8cc")
@@ -193,7 +194,7 @@ public class FractionalConnectionLocatorMoveEditPolicy extends ResizableEditPoli
             removeFeedback(this.focuslink);
             this.focuslink = null;
         }
-        
+
     }
 
     /**
@@ -207,18 +208,18 @@ public class FractionalConnectionLocatorMoveEditPolicy extends ResizableEditPoli
             IFigure feedback = getDragSourceFeedbackFigure();
             IFigure hostFigure = getHostFigure();
             ChangeExtensionSizeCommand.showFeedback(request, feedback, hostFigure);
-        
+
         } else {
             super.showChangeBoundsFeedback(request);
         }
-        
+
     }
 
     /**
      * Default constructor.
      */
     @objid ("9210a3c6-209a-436c-af87-cadc7ab53da3")
-    public  FractionalConnectionLocatorMoveEditPolicy() {
+    public FractionalConnectionLocatorMoveEditPolicy() {
         // setResizeDirections(PositionConstants.EAST_WEST);
     }
 
@@ -229,7 +230,7 @@ public class FractionalConnectionLocatorMoveEditPolicy extends ResizableEditPoli
     @Override
     protected DragEditPartsTracker getDragTracker() {
         DragTracker dt = getHost().getDragTracker(new ChangeBoundsRequest(REQ_MOVE));
-        
+
         if (dt instanceof DragEditPartsTracker) {
             return (DragEditPartsTracker) dt;
         }
@@ -245,7 +246,7 @@ public class FractionalConnectionLocatorMoveEditPolicy extends ResizableEditPoli
                 .withMoveDragTracker(getDragTracker())
                 .addResizeableHandles()
                 .getHandles();
-        
+
     }
 
     /**
@@ -257,10 +258,10 @@ public class FractionalConnectionLocatorMoveEditPolicy extends ResizableEditPoli
         private FractionalConnectionLocator loc;
 
         @objid ("7fff5db0-1dec-11e2-8cad-001ec947c8cc")
-        public  LocatorAnchor(final IFigure owner, final FractionalConnectionLocator loc) {
+        public LocatorAnchor(final IFigure owner, final FractionalConnectionLocator loc) {
             super(owner);
             this.loc = loc;
-            
+
         }
 
         @objid ("7fff5db8-1dec-11e2-8cad-001ec947c8cc")

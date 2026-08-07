@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.namespaceheader;
 
@@ -57,20 +57,21 @@ public class GmNamespaceHeader extends GmDefaultModelElementHeader {
      * Constructor for deserialization only.
      */
     @objid ("3598b502-55b7-11e2-877f-002564c97630")
-    public  GmNamespaceHeader() {
+    public GmNamespaceHeader() {
         init();
     }
 
     /**
      * Initialize a classifier header
+     *
      * @param diagram the owning diagram.
      * @param relatedRef a reference to the element this GmModel is related to, must not be null.
      */
     @objid ("3598b505-55b7-11e2-877f-002564c97630")
-    public  GmNamespaceHeader(IGmDiagram diagram, MRef relatedRef) {
+    public GmNamespaceHeader(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
         init();
-        
+
     }
 
     @objid ("359a3baf-55b7-11e2-877f-002564c97630")
@@ -94,9 +95,9 @@ public class GmNamespaceHeader extends GmDefaultModelElementHeader {
         if (property == getStyleKey(MetaKey.SHOWNAME))
             if (updateMainLabelFromObModel())
                 firePropertyChange(IGmObject.PROPERTY_LABEL, this, null);
-        
+
         super.styleChanged(property, newValue);
-        
+
     }
 
     @objid ("359bc239-55b7-11e2-877f-002564c97630")
@@ -104,9 +105,9 @@ public class GmNamespaceHeader extends GmDefaultModelElementHeader {
     public void styleChanged(IStyle changedStyle) {
         if (updateMainLabelFromObModel())
             firePropertyChange(IGmObject.PROPERTY_LABEL, this, null);
-        
+
         super.styleChanged(changedStyle);
-        
+
     }
 
     @objid ("359bc23f-55b7-11e2-877f-002564c97630")
@@ -115,7 +116,7 @@ public class GmNamespaceHeader extends GmDefaultModelElementHeader {
         StyleKey showNameKey = getStyleKey(MetaKey.SHOWNAME);
         final ShowNameMode nameMode = (ShowNameMode) (showNameKey == null ? ShowNameMode.NONE
                 : getDisplayedStyle().getProperty(showNameKey));
-        
+
         switch (nameMode) {
             case FULLQUALIFIED:
                 return NamespaceSymbolProvider.computeFullQualifiedLabel(getRelatedElement(),
@@ -127,9 +128,9 @@ public class GmNamespaceHeader extends GmDefaultModelElementHeader {
             case SIMPLE:
             default:
                 return NamespaceSymbolProvider.computeSimpleLabel(getRelatedElement(), showVisibility());
-        
+
         }
-        
+
     }
 
     @objid ("359bc24a-55b7-11e2-877f-002564c97630")
@@ -147,15 +148,16 @@ public class GmNamespaceHeader extends GmDefaultModelElementHeader {
     @Override
     public void refreshFromObModel() {
         super.refreshFromObModel();
-        
+
         NameSpace el = getRelatedElement();
         if (el != null && el.isValid()) {
             setAbstract(el.isIsAbstract());
         }
-        
+
     }
 
     /**
+     *
      * @param isAbstract the isAbstract to set
      */
     @objid ("359bc253-55b7-11e2-877f-002564c97630")
@@ -164,10 +166,11 @@ public class GmNamespaceHeader extends GmDefaultModelElementHeader {
             this.isAbstract = isAbstract;
             firePropertyChange(PROPERTY_STYLE, null, getDisplayedStyle());
         }
-        
+
     }
 
     /**
+     *
      * @return the isAbstract
      */
     @objid ("359bc258-55b7-11e2-877f-002564c97630")
@@ -179,12 +182,12 @@ public class GmNamespaceHeader extends GmDefaultModelElementHeader {
     @Override
     public void write(final IDiagramWriter out) {
         super.write(out);
-        
+
         out.writeProperty("abstract", isAbstract());
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmNamespaceHeader.", GmNamespaceHeader.MINOR_VERSION);
-        
+
     }
 
     @objid ("359bc264-55b7-11e2-877f-002564c97630")
@@ -204,17 +207,17 @@ public class GmNamespaceHeader extends GmDefaultModelElementHeader {
                 break;
             }
         }
-        
+
     }
 
     @objid ("359bc26b-55b7-11e2-877f-002564c97630")
     private void read_0(final IDiagramReader in) {
         super.read(in);
-        
+
         final Boolean readAbs = (Boolean) in.readProperty("abstract");
         if (readAbs != null)
             this.isAbstract = readAbs;
-        
+
     }
 
     @objid ("359bc271-55b7-11e2-877f-002564c97630")

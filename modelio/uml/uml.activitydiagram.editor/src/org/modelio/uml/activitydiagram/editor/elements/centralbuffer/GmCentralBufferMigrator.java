@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.centralbuffer;
 
@@ -28,13 +28,14 @@ import org.modelio.uml.activitydiagram.editor.elements.centralbuffer.v0._GmCentr
 
 /**
  * Migrator class for GmCentralBuffer.
- * 
+ *
  * @author fpoyer
  */
 @objid ("29e5d2eb-55b6-11e2-877f-002564c97630")
 public class GmCentralBufferMigrator implements IPersistentMigrator {
     /**
      * Instantiate a version of the {@link IPersistent} as it was when its major version was the given parameter. The returned instance can then be used to read the serialisation string corresponding to the version without risk.
+     *
      * @param majorVersionToInstantiate the major version of the instance requested.
      * @return an instance of IPersistent at the requested version.
      */
@@ -49,11 +50,12 @@ public class GmCentralBufferMigrator implements IPersistentMigrator {
             return null;
         }
         }
-        
+
     }
 
     /**
      * Returns an instance of IPersistent with the most recent major version, using as much information from the given IPersistent as possible.
+     *
      * @param instanceToMigrate an instance of a previous major version to be used as source of information.
      * @return an instance of IPersistent with the most recent major version based on the given instance.
      */
@@ -69,11 +71,11 @@ public class GmCentralBufferMigrator implements IPersistentMigrator {
     @objid ("29e75963-55b6-11e2-877f-002564c97630")
     private IPersistent migrateFromV0(final _GmCentralBuffer oldCentralBuffer) {
         GmCentralBuffer newCentralBuffer = new GmCentralBuffer(oldCentralBuffer);
-        
+
         newCentralBuffer.setLayoutData(oldCentralBuffer.getLayoutData());
-        
+
         newCentralBuffer.setRoleInComposition(oldCentralBuffer.getRoleInComposition());
-        
+
         GmCentralBufferPrimaryNode newPrimaryNode = (GmCentralBufferPrimaryNode) newCentralBuffer.getMainNode();
         for (IGmLink link : oldCentralBuffer.getStartingLinks()) {
             oldCentralBuffer.removeStartingLink(link);
@@ -83,12 +85,12 @@ public class GmCentralBufferMigrator implements IPersistentMigrator {
             oldCentralBuffer.removeEndingLink(link);
             newPrimaryNode.addEndingLink(link);
         }
-        
+
         newCentralBuffer.getPersistedStyle().setCascadedStyle(oldCentralBuffer.getPersistedStyle().getCascadedStyle());
         for (StyleKey key : oldCentralBuffer.getPersistedStyle().getLocalKeys()) {
             newCentralBuffer.getDisplayedStyle().setProperty(key, oldCentralBuffer.getDisplayedStyle().getProperty(key));
         }
-        
+
         oldCentralBuffer.delete();
         return newCentralBuffer;
     }

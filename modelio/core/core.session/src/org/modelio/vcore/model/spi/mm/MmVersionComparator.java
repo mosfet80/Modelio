@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.model.spi.mm;
 
@@ -24,7 +24,9 @@ import org.modelio.vcore.smkernel.mapi.MetamodelVersionDescriptor;
 
 /**
  * Metamodel descriptor compatibility comparator for migrations.
- * 
+ * <p>
+ * Contains facilities to build differences model between metamodels
+ *
  * @author cma
  * @since 3.6
  */
@@ -37,6 +39,7 @@ public class MmVersionComparator {
     private MetamodelVersionDescriptor targetMetamodel;
 
     /**
+     *
      * @return the recorded source metamodel to open.
      */
     @objid ("50057a37-aa61-4349-a695-f80cdd37b556")
@@ -45,6 +48,7 @@ public class MmVersionComparator {
     }
 
     /**
+     *
      * @return the recorded available metamodel.
      */
     @objid ("a840eaa6-b2f5-4c54-bb81-6f487788cb3e")
@@ -56,16 +60,24 @@ public class MmVersionComparator {
      * Tells whether the target metamodel is compatible with the source metamodel to open.
      * <p>
      * See {@link MetamodelVersionDescriptor#isCompatibleWith(MetamodelVersionDescriptor, boolean)}.
+     * <p>
+     * Since 6.1.2 23/09/2025: ignore fragments missing from the source metamodel too
+     *
      * @param allowBuildCompatible whether to allow build compatible
      * @return whether the target metamodel is "build compatible" with the source metamodel to open.
      */
     @objid ("50eb4fbe-e3e8-49a0-b6fb-1178d19e6431")
     public boolean isTargetCompatible(boolean allowBuildCompatible) {
-        return this.targetMetamodel.isCompatibleWith(this.sourceMetamodel, allowBuildCompatible);
+        // XXX Evil hack since 6.1.2 23/09/2025: ignore fragments missing from the source metamodel too
+        // This is to allow opening a model with a metamodel that has been stripped of some fragments due to missing license.
+        MetamodelVersionDescriptor src = this.sourceMetamodel.copy().filter(m -> this.targetMetamodel.getVersion(m.getName()) != null);
+
+        return this.targetMetamodel.isCompatibleWith(src, allowBuildCompatible);
     }
 
     /**
      * Get a copy of the tester with common metamodel fragments removed.
+     *
      * @return a tester without common metamodel fragments .
      */
     @objid ("fb8504f1-bf2c-41ca-908d-af1d1b8934c8")
@@ -77,6 +89,7 @@ public class MmVersionComparator {
 
     /**
      * Get a copy of the tester with metamodel fragments missing from any side removed.
+     *
      * @return a tester without missing metamodel fragments.
      */
     @objid ("113c7dde-6d7a-4a99-aadc-de1c353724aa")
@@ -88,6 +101,7 @@ public class MmVersionComparator {
 
     /**
      * Get a copy of the tester with metamodel fragments missing from the source side removed.
+     *
      * @return a tester without missing source metamodel fragments.
      */
     @objid ("a977de00-039e-4ae4-93d5-00cf1794380b")
@@ -98,6 +112,7 @@ public class MmVersionComparator {
 
     /**
      * Initialize a tester with the source metamodel to open.
+     *
      * @param mmToOpen the source metamodel to open
      * @return a tester.
      */
@@ -109,6 +124,7 @@ public class MmVersionComparator {
 
     /**
      * Set the metamodel that will be used to access the model.
+     *
      * @param curMm the available metamodel
      * @return the same instance.
      */
@@ -119,7 +135,7 @@ public class MmVersionComparator {
     }
 
     @objid ("274d93b4-55f3-4c7a-9be9-4031a9fe457c")
-    protected  MmVersionComparator(MetamodelVersionDescriptor srcMmToOpen) {
+    protected MmVersionComparator(MetamodelVersionDescriptor srcMmToOpen) {
         this.sourceMetamodel = srcMmToOpen;
     }
 

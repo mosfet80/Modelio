@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -50,7 +50,7 @@ public class R1100 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -70,7 +70,7 @@ public class R1100 extends AbstractUmlRule {
         plan.registerRule(ActivityPartition.MQNAME, this,
                 AuditTrigger.UPDATE | AuditTrigger.MOVE);
         plan.registerRule(BindableInstance.MQNAME, this, AuditTrigger.UPDATE | AuditTrigger.MOVE);
-        
+
     }
 
     /**
@@ -104,14 +104,14 @@ public class R1100 extends AbstractUmlRule {
      * Default constructor for R1100
      */
     @objid ("fbcbc014-65f7-495a-bf8d-f29234280433")
-    public  R1100() {
+    public R1100() {
         this.checkerInstance = new CheckR1100(this);
     }
 
     @objid ("be0bc58e-0394-4447-8984-fae67ed09eba")
     private static class CheckR1100 extends AbstractControl {
         @objid ("9a41b10c-650a-44e6-ad32-3a5031e30d92")
-        public  CheckR1100(IRule rule) {
+        public CheckR1100(IRule rule) {
             super(rule);
         }
 
@@ -132,6 +132,7 @@ public class R1100 extends AbstractUmlRule {
 
         /**
          * UML2.3, ActivityPartition, Constraints [4]
+         *
          * @param partition The partition to check.
          * @return The audit entry result.
          */
@@ -139,26 +140,26 @@ public class R1100 extends AbstractUmlRule {
         private IAuditEntry checkR1100(ActivityPartition partition) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(),
                     AuditSeverity.AuditSuccess, partition, null);
-            
+
             ModelElement element = partition.getRepresented();
             ActivityPartition superPartition = partition.getSuperPartition();
-            
+
             // If the partition does not represent a part, the rule does not
             // apply
             if (element == null || !(element instanceof BindableInstance)) {
                 return auditEntry;
             }
-            
+
             // If the partition does not have a super partition, the rule does
             // not apply
             if (superPartition == null) {
                 return auditEntry;
             }
-            
+
             ModelElement superElement = superPartition.getRepresented();
             BindableInstance represented = (BindableInstance) element;
             Classifier representedClassifier = represented.getInternalOwner();
-            
+
             // The super partition must represent the same classifier, or an
             // instance typed by this classifier
             if (superElement != null) {
@@ -174,9 +175,9 @@ public class R1100 extends AbstractUmlRule {
                     return auditEntry;
                 }
             }
-            
+
             // At this point the test failed
-            
+
             auditEntry.setSeverity(this.rule.getSeverity());
             List<Object> linkedObjects = new ArrayList<>();
             linkedObjects.add(representedClassifier);
@@ -189,16 +190,17 @@ public class R1100 extends AbstractUmlRule {
 
         /**
          * When a partition is updated or moved, we need to check if it satisfies the rule, but in the case it is updated, we also need to check if its sub partitions, if any, satisfy the rule or not.
+         *
          * @param partition The updated partition.
          * @return A list of audit entry for each concerned partition.
          */
         @objid ("62e68d41-05ea-450d-9a93-b2bdecf4c314")
         private List<IAuditEntry> checkAllPartitions(ActivityPartition partition) {
             List<IAuditEntry> auditEntries = new ArrayList<>();
-            
+
             // Checking itself
             auditEntries.add(checkR1100(partition));
-            
+
             // Checking its sub partitions if any
             for (ActivityPartition subPartition : partition.getSubPartition()) {
                 auditEntries.add(checkR1100(subPartition));
@@ -209,7 +211,7 @@ public class R1100 extends AbstractUmlRule {
         @objid ("d56349fb-fb7c-45ca-a06f-50ff9cc5e1c7")
         private List<IAuditEntry> checkR1100(BindableInstance part) {
             List<IAuditEntry> auditEntries = new ArrayList<>();
-            
+
             for (ActivityPartition partition : part.getRepresentingPartition()) {
                 auditEntries.addAll(checkAllPartitions(partition));
             }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.participant.content;
 
@@ -54,12 +54,13 @@ public class GmBpmnParticipantContent extends GmEmbeddedDiagram {
 
     /**
      * Default constructor.
+     *
      * @param diagram the diagram in which this gm is used.
      * @param processDiagram the unmasked diagram (can be <code>null</code>)
      * @param relatedRef a reference to the unmasked diagram (cannot be <code>null</code>).
      */
     @objid ("27e8bbe2-374a-4fa9-aa3b-57920a600e77")
-    public  GmBpmnParticipantContent(IGmDiagram diagram, BpmnProcessDesignDiagram processDiagram, MRef relatedRef) {
+    public GmBpmnParticipantContent(IGmDiagram diagram, BpmnProcessDesignDiagram processDiagram, MRef relatedRef) {
         super(diagram, processDiagram, relatedRef);
     }
 
@@ -67,7 +68,7 @@ public class GmBpmnParticipantContent extends GmEmbeddedDiagram {
      * Empty constructor needed for serialisation.
      */
     @objid ("00f6413f-4a61-41c8-acdf-18bad37bdbcb")
-    public  GmBpmnParticipantContent() {
+    public GmBpmnParticipantContent() {
         // Nothing to do.
     }
 
@@ -122,17 +123,17 @@ public class GmBpmnParticipantContent extends GmEmbeddedDiagram {
             read_0(in);
             break;
         }
-        
+
     }
 
     @objid ("92b7c92f-54c3-4618-8efa-12d9fe84af72")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, GmBpmnParticipantContent.MINOR_PREFIX, GmBpmnParticipantContent.MINOR_VERSION);
-        
+
     }
 
     @objid ("f0eda903-0dcf-4ac7-99d3-427dc269caa1")
@@ -156,7 +157,7 @@ public class GmBpmnParticipantContent extends GmEmbeddedDiagram {
         if (wf == null) {
             return true;
         }
-        
+
         if (wf.isEmbeddedWithLanes()) {
             return false;
         }

@@ -1,27 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.handlers.link;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import org.eclipse.draw2d.Connection;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Evaluate;
@@ -48,6 +48,7 @@ import org.modelio.platform.model.ui.swt.SelectionHelper;
 public class ResetLinkHandler extends AbstractLinkHandler {
     /**
      * Execute the command.
+     *
      * @param selection the current diagram selection.
      */
     @objid ("5dd5ad59-51b1-477a-a312-09ccb152d883")
@@ -55,11 +56,12 @@ public class ResetLinkHandler extends AbstractLinkHandler {
     public void execute(@Named (IServiceConstants.ACTIVE_SELECTION) ISelection selection) {
         List<LinkEditPart> linkEditPaths = SelectionHelper.toList(selection, LinkEditPart.class);
         linkEditPaths.get(0).getViewer().getEditDomain().getCommandStack().execute(new ResetLinkCommand(linkEditPaths));
-        
+
     }
 
     /**
      * Makes sure the selection contains only orthogonal links
+     *
      * @param selection the current diagram selection.
      * @return <code>true</code> if the handler can be executed.
      */
@@ -71,10 +73,10 @@ public class ResetLinkHandler extends AbstractLinkHandler {
         if (!super.canExecute(selection)) {
             return false;
         }
-        
+
         for (final LinkEditPart linkEditpart : SelectionHelper.toList(selection, LinkEditPart.class)) {
             final GmLink link = linkEditpart.getModel();
-        
+
             // Deactivate on non-orthogonal links
             if (link.getPath().getRouterKind() != ConnectionRouterId.ORTHOGONAL) {
                 return false;
@@ -85,6 +87,7 @@ public class ResetLinkHandler extends AbstractLinkHandler {
 
     /**
      * to be used as VisibleWhen expression in the E4 model.
+     *
      * @param selection the Eclispe selection
      * @return true if the command is visible
      */
@@ -96,11 +99,11 @@ public class ResetLinkHandler extends AbstractLinkHandler {
         if (!super.isVisible(selection)) {
             return false;
         }*/
-        
+
         List<LinkEditPart> linkEditParts = SelectionHelper.toList(selection, LinkEditPart.class);
         for (final LinkEditPart linkEditpart : linkEditParts) {
             final GmLink link = linkEditpart.getModel();
-        
+
             // Deactivate on non-orthogonal links
             if (link.getPath().getRouterKind() == ConnectionRouterId.ORTHOGONAL) {
                 return true;
@@ -115,7 +118,7 @@ public class ResetLinkHandler extends AbstractLinkHandler {
         private List<LinkEditPart> linkEditPaths;
 
         @objid ("4a800875-415f-4b6f-9f25-706df3f902d3")
-        public  ResetLinkCommand(List<LinkEditPart> linkEditPaths) {
+        public ResetLinkCommand(List<LinkEditPart> linkEditPaths) {
             this.linkEditPaths = linkEditPaths;
         }
 
@@ -124,25 +127,25 @@ public class ResetLinkHandler extends AbstractLinkHandler {
         public void execute() {
             for (LinkEditPart linkEditPart : this.linkEditPaths) {
                 GmLink gmLink = linkEditPart.getModel();
-            
+
                 AutoOrthogonalRouter router = new AutoOrthogonalRouter()
                         .setCleanupManualPoints(false)
                         .setRerouteWrongSectionFromPreviousManualPoint(true);
-            
+
                 // we need a new GmPath in all cases otherwise no property change is detected...
                 IGmPath path = new GmPath(gmLink.getPath());
                 @SuppressWarnings ("unchecked")
                 List<MPoint> pathData = (List<MPoint>) path.getPathData();
                 pathData.removeIf(p -> !p.isFixed());
                 List<MPoint> newConstraint = router.computeMPointRoute((Connection) linkEditPart.getFigure(), pathData);
-            
+
                 // remove first and last points that are anchors
                 AutoOrthogonalRouter.routeToConstraint(newConstraint);
-            
+
                 path.setPathData(newConstraint);
                 gmLink.setLayoutData(path);
             }
-            
+
         }
 
         @objid ("0db24463-6655-415d-b67f-53a2686c4859")

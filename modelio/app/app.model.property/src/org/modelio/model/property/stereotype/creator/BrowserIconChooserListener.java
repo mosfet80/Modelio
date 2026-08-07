@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.stereotype.creator;
 
@@ -35,26 +35,25 @@ import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.widgets.FileDialog;
 import org.modelio.gproject.core.IGProject;
 import org.modelio.model.property.plugin.ModelProperty;
-import org.modelio.platform.project.services.IProjectService;
+import org.modelio.platform.core.project.ICurrentProjectService;
 import org.modelio.platform.ui.UIImages;
 
 @objid ("46bfc3c4-0456-4f5d-ad2c-9e8689f6196f")
 class BrowserIconChooserListener implements SelectionListener {
     @objid ("dd796780-20b5-46c1-97d8-7494f9774c97")
-    private StereotypeEditionDialog dialog = null;
+    private final StereotypeEditionDialog dialog;
 
     @objid ("bad2cc88-adeb-4f9b-b1ae-1589140d6582")
-    private StereotypeEditionDataModel dataModel = null;
+    private final StereotypeEditionDataModel dataModel;
 
     @objid ("9c627fcf-009c-4807-b94d-426c07d1ac11")
-    private IProjectService projectService = null;
+    private final ICurrentProjectService projectService;
 
     @objid ("4a26e38d-a9b7-4e0c-b01e-2a88e490beb9")
-    public  BrowserIconChooserListener(StereotypeEditionDialog dialog, IProjectService projectService, StereotypeEditionDataModel dataModel) {
+    public BrowserIconChooserListener(StereotypeEditionDialog dialog, ICurrentProjectService projectService, StereotypeEditionDataModel dataModel) {
         this.dialog = dialog;
         this.dataModel = dataModel;
         this.projectService = projectService;
-        
     }
 
     @objid ("430dc3cd-7d6f-4d0f-9e7f-d7990e29f34f")
@@ -72,24 +71,29 @@ class BrowserIconChooserListener implements SelectionListener {
     @objid ("66354488-52f2-43bd-b3bc-c549c1b29331")
     private void selectImage() {
         FileDialog fileDialog = new FileDialog(this.dialog.getShell(), SWT.OPEN);
-        
+
         String[] filterNames = new String[] { ModelProperty.I18N.getString("StereotypeCreationDialog.ImageFiles") };
         String[] filterExtensions = new String[] { "*.png;*.bmp" };
         IGProject openedProject = this.projectService.getOpenedProject();
         String projectPath = openedProject.getPfs().getProjectPath().toString();
-        
+
         fileDialog.setFilterNames(filterNames);
         fileDialog.setFilterExtensions(filterExtensions);
         fileDialog.setFilterPath(projectPath);
-        
+
         String imagePath = fileDialog.open();
-        
+
         if (imagePath != null) {
             File imageFile = new File(imagePath);
             if (imageFile.exists()) {
                 this.dataModel.setIconName(imageFile.getName());
                 Path target = this.dataModel.getDefaultTempIconPath();
                 if (target != null) {
+
+                    if(target.toFile().exists()) {
+                     target.toFile().delete();
+                    }
+
                     target.toFile().mkdirs();
                     try {
                         Files.copy(imageFile.toPath(), target, StandardCopyOption.REPLACE_EXISTING);
@@ -98,27 +102,26 @@ class BrowserIconChooserListener implements SelectionListener {
                         ModelProperty.LOG.error(e);
                     }
                 } else {
-                    ModelProperty.LOG.error("No temp browser icon!");
+                    ModelProperty.LOG.error(new IllegalStateException("No temp browser icon!"));
                 }
             }
         } else {
             this.dataModel.setIconName("");
         }
-        
+
         this.dialog.refresh();
-        
     }
 
     @objid ("fe37d721-6f34-4a84-a88c-2345bbe630d9")
     void setBrowserIcon(File temp, String fileName) {
         ImageDescriptor explorerIconDesc = null;
-        
+
         try {
             explorerIconDesc = ImageDescriptor.createFromURL(temp.toURI().toURL());
         } catch (MalformedURLException e1) {
             ModelProperty.LOG.error(e1);
         }
-        
+
         if (explorerIconDesc != null) {
             ImageData explorerIconData = explorerIconDesc.getImageData(100);
             ImageData iconPlaceholderData = UIImages.PLACEHOLDER.getImageData();
@@ -131,7 +134,6 @@ class BrowserIconChooserListener implements SelectionListener {
                         ModelProperty.I18N.getMessage("BrowserIconChooser.ImageIsTooBig.Message", fileName));
             }
         }
-        
     }
 
 }

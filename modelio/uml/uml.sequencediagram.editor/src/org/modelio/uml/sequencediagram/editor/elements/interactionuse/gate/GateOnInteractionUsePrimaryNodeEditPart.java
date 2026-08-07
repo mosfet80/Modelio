@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.interactionuse.gate;
 
@@ -41,7 +41,7 @@ import org.modelio.metamodel.uml.behavior.interactionModel.Gate;
 
 /**
  * EditPart for the main node of a Gate on InteractionUse.
- * 
+ *
  * @author fpoyer
  */
 @objid ("d912cb7b-55b6-11e2-877f-002564c97630")
@@ -64,7 +64,7 @@ public class GateOnInteractionUsePrimaryNodeEditPart extends AbstractNodeEditPar
                             .getBounds()
                             .getCenter().y +
                             ((ChangeBoundsRequest) request).getMoveDelta().y;
-        
+
                     if (newTime != gate.getLineNumber()) {
                         gate.setLineNumber(newTime);
                     }
@@ -91,7 +91,6 @@ public class GateOnInteractionUsePrimaryNodeEditPart extends AbstractNodeEditPar
             getFigure().invalidate();
         }
         super.propertyChange(evt);
-        
     }
 
     @objid ("d91451ea-55b6-11e2-877f-002564c97630")
@@ -102,7 +101,6 @@ public class GateOnInteractionUsePrimaryNodeEditPart extends AbstractNodeEditPar
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START,
                 new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
-        
     }
 
     @objid ("d91451ed-55b6-11e2-877f-002564c97630")
@@ -124,7 +122,6 @@ public class GateOnInteractionUsePrimaryNodeEditPart extends AbstractNodeEditPar
     protected void refreshVisuals() {
         super.refreshVisuals();
         getFigure().getParent().setConstraint(getFigure(), ((GmAbstractObject) getModel()).getLayoutData());
-        
     }
 
     @objid ("d91451f5-55b6-11e2-877f-002564c97630")
@@ -135,7 +132,6 @@ public class GateOnInteractionUsePrimaryNodeEditPart extends AbstractNodeEditPar
                 super.refreshFromStyle(aFigure, style);
             }
         }
-        
     }
 
 }

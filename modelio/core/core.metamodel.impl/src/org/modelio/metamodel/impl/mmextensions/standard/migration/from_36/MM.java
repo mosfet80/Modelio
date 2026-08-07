@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.mmextensions.standard.migration.from_36;
 
@@ -120,7 +120,7 @@ class MM {
     public final SmClass bpmnBaseElementMc;
 
     @objid ("b08dcf84-7782-4836-8139-11570bded790")
-    public  MM(MofMetamodel metamodel) {
+    public MM(MofMetamodel metamodel) {
         // Get pointers to used metaclasses
         this.processMclass = requireMClass(metamodel, MM.MC_BPMN_PROCESS);
         this.bpmnCollaboMC = requireMClass(metamodel, MM.MC_BPMN_COLLABO);
@@ -128,11 +128,11 @@ class MM {
         this.bpmnMessageFlowMC = requireMClass(metamodel, MM.MC_BPMN_MESSAGEFLOW);
         this.bpmnBehaviorMClass = requireMClass(metamodel, MM.MC_BPMN_BEHAVIOR);
         this.participantMC = requireMClass(metamodel, MM.MC_BPMN_PARTICIPANT);
-        
+
         this.bpmnProcessCollaborationDiagramMC = requireMClass(metamodel, "Standard.BpmnProcessCollaborationDiagram");
         this.bpmnProcessDesignDiagramMC = requireMClass(metamodel, "Standard.BpmnProcessDesignDiagram");
         this.bpmnCollaborationDiagramMC = requireMClass(metamodel, "Standard.BpmnCollaborationDiagram");
-        
+
         this.bpmnBaseElementMc = requireMClass(metamodel, "Standard.BpmnBaseElement");
         this.bpmnFlowNodeMC = requireMClass(metamodel, "Standard.BpmnFlowNode");
         this.bpmnItemAwareElementMC = requireMClass(metamodel, "Standard.BpmnItemAwareElement");
@@ -143,16 +143,16 @@ class MM {
         this.bpmnLaneMC = requireMClass(metamodel, "Standard.BpmnLane");
         this.bpmnSubProcessMC = requireMClass(metamodel, "Standard.BpmnSubProcess");
         this.bpmnDataAssociationMC = requireMClass(metamodel, "Standard.BpmnDataAssociation");
-        
+
         this.umlClassifierMC = requireMClass(metamodel, "Standard.Classifier");
         this.umlPackageMC = requireMClass(metamodel, "Standard.Package");
-        
+
         this.participantDep = this.processMclass.getDependency("Participant");
         this.flowElementDep = this.processMclass.getDependency("FlowElement");
-        
+
         assert (this.processMclass.getDependency("LaneSet") != null);
         assert (this.participantDep != null);
-        
+
     }
 
     @objid ("f980c56b-aab6-41e0-92a8-968f061b7866")

@@ -112,6 +112,7 @@
 == Outils pratiques
 
 * *<<Modeler-_modeler_handy_tools_advanced_search.adoc#,Outil de recherche de Modelio>>*
+* *<<Modeler-_modeler_handy_tools_advanced_impact_analysis.adoc#,Analyse d'impact par requête>>*
 * *<<Modeler-_modeler_handy_tools_model_audit.adoc#,Audit de modèle>>*
 * *<<Modeler-_modeler_handy_tools_automatic_diagrams.adoc#,Diagrammes automatiques>>*
 * *<<Modeler-_modeler_handy_tools_modeling_wizard_patterns.adoc#,Assistants de modélisation>>*

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnmessage;
 
@@ -63,6 +63,7 @@ public class BpmnMessageEditPart extends AbstractNodeEditPart {
     }
 
     /**
+     *
      * @see AbstractNodeEditPart#propertyChange(java.beans.PropertyChangeEvent)
      */
     @objid ("615a99ba-55b6-11e2-877f-002564c97630")
@@ -73,7 +74,7 @@ public class BpmnMessageEditPart extends AbstractNodeEditPart {
         } else {
             super.propertyChange(evt);
         }
-        
+
         if (evt.getPropertyName().equals(IGmObject.PROPERTY_LINK_TARGET)) {
             // This property change event may be used to signal that some links are missing.
             Object newValue = evt.getNewValue();
@@ -81,27 +82,29 @@ public class BpmnMessageEditPart extends AbstractNodeEditPart {
                 createMissingLinkForElement((BpmnMessageFlow) newValue);
             }
         }
-        
+
     }
 
     /**
+     *
      * @see BpmnMessageEditPart#createEditPolicies()
      */
     @objid ("615a99c0-55b6-11e2-877f-002564c97630")
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         installEditPolicy(EditPolicy.NODE_ROLE, new BpmnCreateLinkEditPolicy());
         installEditPolicy("linkedNode", new LinkedNodeEndReconnectEditPolicy());
         installEditPolicy(ModelElementDropRequest.TYPE, new BpmnMessageElementDropEditPolicy());
-        
+
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START, new LinkedNodeStartCreationEditPolicy());
-        
+
     }
 
     /**
      * Creates the Figure to be used as this part's visuals
+     *
      * @see BpmnMessageEditPart#createFigure()
      */
     @objid ("615a99c4-55b6-11e2-877f-002564c97630")
@@ -113,12 +116,12 @@ public class BpmnMessageEditPart extends AbstractNodeEditPart {
         // set style independent properties
         fig.setOpaque(true);
         fig.setCenterIcon(DiagramEditorBpmn.getImageRegistry().getImage(BpmnSharedImages.MESSAGE));
-        
+
         MinimumSizeLayout.apply(fig, 40, 55);
-        
+
         // set style dependent properties
         refreshFromStyle(fig, getModelStyle());
-        
+
         // return the figure
         return fig;
     }
@@ -130,7 +133,7 @@ public class BpmnMessageEditPart extends AbstractNodeEditPart {
         final GmBpmnMessagePrimaryNode gm = (GmBpmnMessagePrimaryNode) getModel();
         fig.getParent().setConstraint(fig, gm.getLayoutData());
         fig.setTopIcons(gm.getRepresentedIcon());
-        
+
     }
 
     @objid ("615a99cd-55b6-11e2-877f-002564c97630")
@@ -141,7 +144,7 @@ public class BpmnMessageEditPart extends AbstractNodeEditPart {
                 super.refreshFromStyle(aFigure, style);
             }
         }
-        
+
     }
 
     @objid ("615a99d6-55b6-11e2-877f-002564c97630")
@@ -155,7 +158,7 @@ public class BpmnMessageEditPart extends AbstractNodeEditPart {
         IGmLinkable sourceModel = getModel();
         GmBpmnMessageLink link = new GmBpmnMessageLink(sourceModel.getDiagram(),
                 new MRef(sourceModel.getRelatedElement()));
-        
+
         sourceModel.addStartingLink(link);
         CreateConnectionRequest request = new CreateConnectionRequest();
         request.setType(RequestConstants.REQ_CONNECTION_END);
@@ -166,7 +169,7 @@ public class BpmnMessageEditPart extends AbstractNodeEditPart {
         DefaultCreateLinkCommand startCommand = new DefaultCreateLinkCommand(context);
         startCommand.setSource(sourceModel);
         request.setStartCommand(startCommand);
-        
+
         // Search all gm representing the new target
         Collection<GmModel> constrainedElementModels = sourceModel.getDiagram().getAllGMRelatedTo(new MRef(constrainedElement));
         // This boolean will be used to note that the searched End was found
@@ -187,7 +190,7 @@ public class BpmnMessageEditPart extends AbstractNodeEditPart {
                 }
             }
         }
-        
+
     }
 
     @objid ("615a99e3-55b6-11e2-877f-002564c97630")
@@ -197,7 +200,7 @@ public class BpmnMessageEditPart extends AbstractNodeEditPart {
         if (index == 0) {
             this.getFigure().add(child, BorderLayout.CENTER, index);
         }
-        
+
     }
 
 }

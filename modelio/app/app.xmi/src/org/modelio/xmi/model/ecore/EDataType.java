@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -34,6 +34,7 @@ import org.modelio.xmi.util.ObjingEAnnotation;
 
 /**
  * This class manages the import of  Ecore org.eclipse.uml2.uml.DataType
+ *
  * @author ebrosse
  */
 @objid ("6ce204df-d714-4384-a48b-20c59dcd591c")
@@ -52,13 +53,14 @@ public class EDataType extends ENamedElement {
 
     /**
      * Constructor with the imported Ecore org.eclipse.uml2.uml.DataType
+     *
      * @param element : the imported Ecore org.eclipse.uml2.uml.DataType
      */
     @objid ("ac60c550-1ef5-410a-80b1-82ef516c6ee9")
-    public  EDataType(org.eclipse.uml2.uml.DataType element) {
+    public EDataType(org.eclipse.uml2.uml.DataType element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("d7f642bb-a25d-4847-8ffc-3541743844d6")
@@ -66,11 +68,11 @@ public class EDataType extends ENamedElement {
     public void attach(Element objingElt) {
         if (!((this.ecoreElement instanceof org.eclipse.uml2.uml.PrimitiveType)
                 || (this.ecoreElement instanceof org.eclipse.uml2.uml.Enumeration))) {
-        
+
             ModelTree objingDTImport = (ModelTree) objingElt;
-        
+
             ModelTree objingOwner = EcoreModelNavigation.getNearestDataTypeOwner(this.ecoreElement);
-        
+
             if (objingOwner != null){
                 if (objingOwner instanceof Profile){
                     objingDTImport.setOwner(ReverseProperties.getInstance().getExternalPackage());
@@ -79,7 +81,7 @@ public class EDataType extends ENamedElement {
                 }
             }
         }
-        
+
     }
 
     @objid ("5b5546ff-ec80-4e5f-afec-16dc57c3cdd3")
@@ -92,7 +94,7 @@ public class EDataType extends ENamedElement {
                 if (objingElt instanceof DataType) {
                     setAbstract((DataType) objingElt);
                     setLeaf((DataType) objingElt);
-        
+
                     if (ReverseProperties.getInstance().isRoundtripEnabled()) {
                         setPrimitiveEAnnotation((DataType) objingElt);
                         setRootEAnnotation((DataType) objingElt);
@@ -100,7 +102,7 @@ public class EDataType extends ENamedElement {
                 }
             }
         }
-        
+
     }
 
     @objid ("9bee6d47-2b95-4425-926b-62c8b4fa4c52")
@@ -121,11 +123,11 @@ public class EDataType extends ENamedElement {
         default:
             objingElt.setVisibility(VisibilityMode.PUBLIC);
         }
-        
+
         if (ObjingEAnnotation.isUndefined(this.ecoreElement))
             objingElt
             .setVisibility(VisibilityMode.VISIBILITYUNDEFINED);
-        
+
     }
 
     @objid ("cc117593-d7f9-4ffb-bfe5-0d35018ce5f1")

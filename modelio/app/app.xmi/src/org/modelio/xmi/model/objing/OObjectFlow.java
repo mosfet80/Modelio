@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -37,7 +37,7 @@ public class OObjectFlow extends OActivityEdge {
     }
 
     @objid ("ad0edac5-794e-4c5b-a161-a33d893395af")
-    public  OObjectFlow(ObjectFlow element) {
+    public OObjectFlow(ObjectFlow element) {
         super(element);
     }
 
@@ -46,17 +46,17 @@ public class OObjectFlow extends OActivityEdge {
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         // Properties defined on super classes:
         super.setProperties(ecoreElt);
-        
-        // Properties of ObjectFlows:      
+
+        // Properties of ObjectFlows:
         setMultiCast((org.eclipse.uml2.uml.ObjectFlow) ecoreElt);
         setMultiReceive((org.eclipse.uml2.uml.ObjectFlow) ecoreElt);
         setSelectionBehavior((org.eclipse.uml2.uml.ObjectFlow) ecoreElt);
         setTransformationBehavior((org.eclipse.uml2.uml.ObjectFlow) ecoreElt);
-        
+
         //Modelio Properties
         if (GenerationProperties.getInstance().isRoundtripEnabled())
             setEffectEAnnotation((org.eclipse.uml2.uml.ObjectFlow) ecoreElt);
-        
+
     }
 
     @objid ("571d6964-acf1-424a-af1a-9c77d22e8113")
@@ -81,9 +81,9 @@ public class OObjectFlow extends OActivityEdge {
         default:
             effect = "READ_FLOW";
         }
-        
+
         ObjingEAnnotation.setEffect(flow, effect);
-        
+
     }
 
     @objid ("ebb6624f-4ff0-4604-bbd8-d721fa004c2d")
@@ -105,23 +105,23 @@ public class OObjectFlow extends OActivityEdge {
             behavior.setName("SelectionBehavior");
             behavior.getBodies().add(selectionBehavior);
             flow.setSelection(behavior);
-        
+
             // Setting composition relation
             Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
                     .getEnclosingElement(getObjingElement(), getObjingElement().getMClass().getMetamodel().getMClass(Activity.class));
-        
+
             Package objingPkg = AbstractObjingModelNavigation
                     .getNearestPackage(enclosingActivity);
-        
+
             if (objingPkg != null) {
                 org.eclipse.uml2.uml.Package ecorePkg = (org.eclipse.uml2.uml.Package) GenerationProperties.getInstance()
                         .getMappedElement(objingPkg);
-        
+
                 if (ecorePkg != null)
                     ecorePkg.getPackagedElements().add(behavior);
             }
         }
-        
+
     }
 
     @objid ("afe5b010-f892-40ac-b6a7-f0f207f126a1")
@@ -135,7 +135,7 @@ public class OObjectFlow extends OActivityEdge {
             behavior.getBodies().add(transformationBehavior);
             flow.setSelection(behavior);
         }
-        
+
     }
 
     @objid ("130f8756-eda2-46b3-9bc8-f64ff6140b4c")

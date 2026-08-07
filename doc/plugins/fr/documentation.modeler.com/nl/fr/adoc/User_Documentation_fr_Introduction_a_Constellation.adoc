@@ -1,0 +1,35 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Introduction aux projets Modelio Server
+
+
+Les modèles de travail partagés sont utilisés pour partager un modèle unique entre plusieurs utilisateurs, permettant ainsi à chacun de modifier le modèle et de récupérer les modifications apportées au modèle par d'autres utilisateurs. Ce mécanisme est la base du travail collaboratif.
+
+En revanche, lorsque les équipes et les projets augmentent en taille, le partage d'un simple modèle de travail entre utilisateurs pose des questions de processus qui peuvent s'avérer coûteuses. Ces questions sont pour la plupart liées au fait que, afin que l'équipe soit efficace et procède aux modifications fiables du modèle, il est nécessaire de garantir que la configuration globale du projet partagé soit identique pour chaque utilisateur :
+
+* même ensemble de modules déployé sur le poste de travail de chaque utilisateur, dans les mêmes versions
+* même ensemble de modèles de bibliothèque qui composent le projet, dans les mêmes versions le cas échéant (les Composants de Modèle)
+* mêmes paramètres pour les modules, ou du moins pour les paramètres les plus critiques (par exemple, les options de génération pour un générateur de code)
+
+Cette homogénéité est difficile à garantir si elle est gérée manuellement. Il faut en permanence que quelqu'un vérifie les configurations locales du projet, afin d'y détecter et d'y corriger d'éventuelles incohérences. Une autre possibilité est de se fier aux développeurs, qui doivent appliquer une politique stricte de mise à jour, mais cette option n'est pas souvent fiable.
+
+Dans le travail collaboratif avec Modelio 4, les projets appelés *projets Modelio Server* sont une solution aux questions décrites ci-dessus. Un *projet Modelio Server* est un projet Modelio dont la définition est entièrement gérée par un *Modelio Server*. Lorsqu'un membre de l'équipe ouvre un *projet Modelio Server*, la configuration du projet est récupérée depuis le serveur plutôt que d'être lue depuis l'espace de travail local. Bien évidemment, ceci est parfaitement transparent à l'utilisateur final.
+
+Le principal bénéfice de ce mécanisme est évident : la garantie que la configuration du projet est identique pour tous les membres de l'équipe. Par ailleurs, la configuration exacte du projet peut être facilement définie et maintenue dans un seul endroit unique : *Modelio Server*.
+
+Le *projet Modelio Server* peut définir presque tout ce qui peut être configuré dans les projets locaux classique à travers la fenêtre 'Configuration du projet' :
+
+* les modèles de travail
+* les bibliothèques
+* les modules
+* les paramètres de modules
+
+Il existe deux principaux cas d'utilisation :
+
+* Rejoindre un projet Modelio Server : pour un _membre de l'équipe_, cette opération consiste en la déclaration d'un projet Modelio Server dans son espace de travail local (ceci importera également tout l'équipement nécessaire depuis Modelio Server). Il est à noter que cette opération ne doit être lancée qu'une seule fois par l'utilisateur.
+* L'ouverture et le travail sur un projet _par un membre de l'équipe_
+
+Comme il est détaillé ci-dessus, le deuxième cas d'utilisation est trivial, car l'ouverture d'un projet Modelio Server déjà rejoint dans Modelio est totalement transparente à l'utilisateur final.

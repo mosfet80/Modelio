@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.linkeditor.panel.model;
 
@@ -91,7 +110,7 @@ class TreeBuilder {
         if (remainingDepth <= 0) {
             return;
         }
-        
+
         // Elements on the left
         // For all the meta model meta classes that represent 'links'
         for (MClass mc : this.linkMetaclasses) {
@@ -108,7 +127,6 @@ class TreeBuilder {
                 }
             }
         }
-        
     }
 
     /**
@@ -120,7 +138,7 @@ class TreeBuilder {
         if (remainingDepth <= 0) {
             return;
         }
-        
+
         // Elements on the right
         // For all the meta model meta classes that represent 'links'
         for (MClass mc : this.linkMetaclasses) {
@@ -137,14 +155,13 @@ class TreeBuilder {
                 }
             }
         }
-        
     }
 
     /**
      * C'Tor
      */
     @objid ("6a7c54ad-07df-4693-9f28-3e97afec2ef6")
-     TreeBuilder(ILinkEditorConfiguration config) {
+    TreeBuilder(ILinkEditorConfiguration config) {
         this.config = config;
     }
 
@@ -152,25 +169,24 @@ class TreeBuilder {
     public void buildGraph(BackgroundModel graph, MObject element) {
         // Get all 'link' metaclasses
         initLinkMetaclasses(element);
-        
+
         // Build central node
         // Set up central node
         GraphNode centralNode = new GraphNode(element);
         centralNode.setCentral(true);
         graph.addNode(centralNode);
         graph.setCenter(centralNode);
-        
+
         // Build left tree
         doBuildLeftTree(graph, centralNode, element, this.config.getLeftDepth());
-        
+
         // Build right tree
         doBuildRightTree(graph, centralNode, element, this.config.getRightDepth());
-        
     }
 
     /**
      * Find and add the node that is the source of link (where link is targeted to 'targetNode').
-     * 
+     *
      * For the added left node recurse with doBuildLeftTree().
      */
     @objid ("22ad9f1c-8819-4508-b6df-af0e808776c0")
@@ -180,12 +196,11 @@ class TreeBuilder {
                 addLeftNode(graph, targetNode, link, remainingDepth, source);
             }
         }
-        
     }
 
     /**
      * Find and add the node that is the target of link (where link has source from 'sourceNode').
-     * 
+     *
      * For the added right node recurse with doBuildRightTree().
      */
     @objid ("ab9c84ad-2f57-41dd-843f-b365c2a66eaa")
@@ -195,7 +210,6 @@ class TreeBuilder {
                 addRightNode(graph, sourceNode, link, remainingDepth, target);
             }
         }
-        
     }
 
     /**
@@ -229,7 +243,6 @@ class TreeBuilder {
                 this.linkMetaclasses.add(mc);
             }
         }
-        
     }
 
     @objid ("01167238-6baf-44cc-a271-c285118c9d36")
@@ -239,10 +252,9 @@ class TreeBuilder {
         // Add to the graph
         graph.addNode(sourceNode);
         graph.addEdge(newEdge);
-        
+
         // decrement remainingDepth and recurse.
         doBuildLeftTree(graph, sourceNode, source, remainingDepth - 1);
-        
     }
 
     @objid ("ba3102f1-703f-4219-9e5b-ae744725eed2")
@@ -254,7 +266,6 @@ class TreeBuilder {
         graph.addEdge(newEdge);
         // decrement remainingDepth and recurse.
         doBuildRightTree(graph, newNode, target, remainingDepth - 1);
-        
     }
 
 }

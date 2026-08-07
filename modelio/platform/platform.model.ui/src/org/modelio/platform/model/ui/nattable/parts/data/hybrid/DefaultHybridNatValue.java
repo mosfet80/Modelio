@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.parts.data.hybrid;
 
@@ -42,29 +42,29 @@ public class DefaultHybridNatValue extends DefaultNatValue implements IHybridNat
 
     /**
      * Creates a new instance.
+     *
      * @param value the wrapped value.
      * @param acceptNullValue whether or not <code>null</code> is a valid value for this field.
      * @param allowedClasses list of the accepted metaclasses for the value.
      * @param acceptStringValue whether or not a String is a valid value for this field.
      */
     @objid ("6979470e-3302-4679-9623-b2b6a7ec7929")
-    public  DefaultHybridNatValue(Object value, boolean acceptNullValue, List<Class<? extends MObject>> allowedClasses, boolean acceptStringValue) {
+    public DefaultHybridNatValue(Object value, boolean acceptNullValue, List<Class<? extends MObject>> allowedClasses, boolean acceptStringValue) {
         super(value, acceptNullValue);
         this.allowedClasses = allowedClasses;
         this.acceptStringValue = acceptStringValue;
-        
     }
 
     /**
      * Copy constructor, creating a new instance with the same configuration as the other.
+     *
      * @param anotherInstance the instance to copy.
      */
     @objid ("50803805-813a-4877-b810-6646abcbfddf")
-    public  DefaultHybridNatValue(DefaultHybridNatValue anotherInstance) {
+    public DefaultHybridNatValue(DefaultHybridNatValue anotherInstance) {
         super(anotherInstance);
         this.allowedClasses = anotherInstance.allowedClasses;
         this.elementFilter = anotherInstance.elementFilter;
-        
     }
 
     @objid ("c077cdec-cb85-427d-a3e5-17ece1eacf35")
@@ -104,7 +104,6 @@ public class DefaultHybridNatValue extends DefaultNatValue implements IHybridNat
             throw new InvalidParameterException("Value must be a MObject or a String.");
         }
         super.setValue(value);
-        
     }
 
 }

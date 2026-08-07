@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.constraint;
 
@@ -56,11 +56,11 @@ public class ConstraintBodyLabelEditPart extends ModelElementHeaderEditPart {
                     || !gm.getRelatedElement().getStatus().isModifiable() ||  this.getViewer().getControl() == null) {
                 return;
             }
-        
+
             final IEditableText editableText = ((GmModel) getModel()).getEditableText();
             if (editableText != null) {
                 IHeaderFigure headerFigure = getHeaderFigure(getFigure());
-        
+
                 TextDirectEditManager
                         .forLabelum(
                                 this,
@@ -73,7 +73,7 @@ public class ConstraintBodyLabelEditPart extends ModelElementHeaderEditPart {
         } else {
             super.performRequest(req);
         }
-        
+
     }
 
     @objid ("b69b320c-0ee2-4f20-9e05-28db8c86d862")
@@ -88,12 +88,12 @@ public class ConstraintBodyLabelEditPart extends ModelElementHeaderEditPart {
     @Override
     protected void refreshFromStyle(IFigure aFigure, IStyle style) {
         super.refreshFromStyle(aFigure, style);
-        
+
         final WrappedHeaderFigure fig = (WrappedHeaderFigure) this.figure;
         if (fig != null) {
             updateAlignment(fig, style);
         }
-        
+
     }
 
     @objid ("76a5fe82-95e1-48d7-9d7e-04b9ba750d42")
@@ -111,9 +111,9 @@ public class ConstraintBodyLabelEditPart extends ModelElementHeaderEditPart {
         case Center:
             fig.setMainLabelAlignement(PositionConstants.CENTER);
             break;
-        
+
         }
-        
+
     }
 
     @objid ("4dd8e197-5db2-4730-8dcc-ae4686b5f844")
@@ -139,13 +139,13 @@ public class ConstraintBodyLabelEditPart extends ModelElementHeaderEditPart {
                             gmNodeModel.setLayoutData(layoutData);
                         }
                     }
-        
+
                 }
             }
         }
-        
+
         super.propertyChange(evt);
-        
+
     }
 
 }

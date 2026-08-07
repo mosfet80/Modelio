@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.message;
 
@@ -63,7 +63,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * This policy is in charge of handling the vertical translation of a message.
- * 
+ *
  * @author fpoyer
  */
 @objid ("d965312a-55b6-11e2-877f-002564c97630")
@@ -97,14 +97,14 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
         } else if (RequestConstants.REQ_MOVE.equals(request.getType())) {
             eraseChangeBoundsFeedback((ChangeBoundsRequest) request);
         }
-        
+
     }
 
     @objid ("d966b7a2-55b6-11e2-877f-002564c97630")
     @Override
     public Command getCommand(final Request request) {
         Object type = request.getType();
-        
+
         if (RequestConstants.REQ_MOVE.equals(type)) {
             // Before returning a command, check that the movement can atually be applied.
             // Compute predicates, update variables and check predicates
@@ -135,10 +135,11 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
         } else if (RequestConstants.REQ_MOVE.equals(request.getType())) {
             showChangeBoundsFeedback((ChangeBoundsRequest) request);
         }
-        
+
     }
 
     /**
+     *
      * @see org.eclipse.gef.editpolicies.SelectionHandlesEditPolicy#createSelectionHandles()
      */
     @objid ("d966b7ae-55b6-11e2-877f-002564c97630")
@@ -153,6 +154,7 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
 
     /**
      * Erases connection move feedback. This method is called when a ReconnectRequest is received.
+     *
      * @param request the reconnect request.
      */
     @objid ("d966b7b6-55b6-11e2-877f-002564c97630")
@@ -166,11 +168,12 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
         this.originalSourceAnchor = null;
         this.originalTargetAnchor = null;
         this.feedbackHelper = null;
-        
+
     }
 
     /**
      * Convenience method for obtaining the host's <code>Connection</code> figure.
+     *
      * @return the Connection figure
      */
     @objid ("d966b7bb-55b6-11e2-877f-002564c97630")
@@ -180,6 +183,7 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
 
     /**
      * Lazily creates and returns the feedback helper for the given request. The helper will be configured as either moving the source or target end of the connection.
+     *
      * @param request the reconnect request
      * @return the feedback helper
      */
@@ -195,6 +199,7 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
 
     /**
      * Hides the focus indicator. The focus indicator is a dotted outline around the connection.
+     *
      * @see #showFocus()
      * @see org.eclipse.gef.editpolicies.SelectionEditPolicy#hideFocus()
      */
@@ -205,11 +210,12 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
             removeFeedback(this.focus);
             this.focus = null;
         }
-        
+
     }
 
     /**
      * Shows or updates connection move feedback. Called whenever a show feedback request is received for reconnection.
+     *
      * @param request the reconnect request
      */
     @objid ("d966b7cb-55b6-11e2-877f-002564c97630")
@@ -235,7 +241,7 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
         }
         FeedbackHelper helper = getFeedbackHelper(request);
         helper.update(anchor, request.getLocation());
-        
+
     }
 
     @objid ("d966b7d0-55b6-11e2-877f-002564c97630")
@@ -245,11 +251,12 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
             this.focus = new ConnectionFocus();
             addFeedback(this.focus);
         }
-        
+
     }
 
     /**
      * Shows or updates feedback for a change bounds request.
+     *
      * @param originalRequest the request
      */
     @objid ("d966b7d3-55b6-11e2-877f-002564c97630")
@@ -296,11 +303,11 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
         this.dummyTargetAnchor.setLocation(p);
         getConnection().setSourceAnchor(this.dummySourceAnchor);
         getConnection().setTargetAnchor(this.dummyTargetAnchor);
-        
+
         computePredicatesForHost();
         updateVariablesFromRequest(request);
         this.manipHelper.showFeedBack(getFeedbackLayer());
-        
+
     }
 
     @objid ("d9683e39-55b6-11e2-877f-002564c97630")
@@ -322,7 +329,7 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
                 getEditPart(targetEndModel).eraseSourceFeedback(request);
             }
         }
-        
+
         if (this.originalSourceAnchor != null) {
             getConnection().setSourceAnchor(this.originalSourceAnchor);
         }
@@ -331,10 +338,10 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
         }
         this.originalSourceAnchor = null;
         this.originalTargetAnchor = null;
-        
+
         IFigure fbLayer = getFeedbackLayer();
         this.manipHelper.eraseFeedback(fbLayer);
-        
+
     }
 
     @objid ("d9683e3d-55b6-11e2-877f-002564c97630")
@@ -345,7 +352,7 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
         } else {
             return false;
         }
-        
+
     }
 
     @objid ("d9683e43-55b6-11e2-877f-002564c97630")
@@ -353,7 +360,7 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
         // Move and/or resizing an ExecutionSpecification, is really like move the ExecutionOccurrenceSpecification at each end.
         Message message = ((GmMessage) getHost().getModel()).getRelatedElement();
         this.manipHelper.computePredicatesForHost(message);
-        
+
     }
 
     @objid ("d9683e45-55b6-11e2-877f-002564c97630")
@@ -366,10 +373,10 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
                 GraphicalEditPart editPart = (GraphicalEditPart) obj;
                 IFigure figure = editPart.getFigure();
                 GmModel model = (GmModel) editPart.getModel();
-        
+
                 Dimension moveDelta = new PrecisionDimension(request.getMoveDelta().x, request.getMoveDelta().y);
                 figure.translateToRelative(moveDelta);
-        
+
                 MObject relatedElement = model.getRelatedElement();
                 if (relatedElement instanceof MessageEnd) {
                     updateVariablesForMessageEnd(
@@ -378,7 +385,7 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
                 } else if (relatedElement instanceof ExecutionSpecification) {
                     Dimension sizeDelta = new PrecisionDimension(request.getSizeDelta());
                     figure.translateToRelative(sizeDelta);
-        
+
                     updateVariablesForExecutionSpecification(
                             (ExecutionSpecification) relatedElement,
                             moveDelta.height,
@@ -386,21 +393,21 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
                 } else if (relatedElement instanceof Message) {
                     updateVariablesForMessage(moveDelta.height, (Message) relatedElement);
                 }
-        
+
             }
         }
-        
+
     }
 
     @objid ("d9683e5a-55b6-11e2-877f-002564c97630")
     private void updateVariablesForMessage(final int shift, final Message message) {
         MessageEnd msgSrcEvent = message.getSendEvent();
         MessageEnd msgTargetEvent = message.getReceiveEvent();
-        
+
         // Shift Send and Receive event
         updateVariablesForMessageEnd(msgSrcEvent, shift);
         updateVariablesForMessageEnd(msgTargetEvent, shift);
-        
+
         // If the moved message starts some execution specification, they will be moved too.
         if (msgSrcEvent instanceof ExecutionOccurenceSpecification) {
             ExecutionOccurenceSpecification eosSendEvent = (ExecutionOccurenceSpecification) msgSrcEvent;
@@ -425,11 +432,12 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
                 }
             }
         }
-        
+
     }
 
     /**
      * Update variables for execution rectangle.
+     *
      * @param executionSpecification the execution rectangle
      * @param shift the vertical move delta
      * @param sizeDelta the vertical size delta
@@ -438,12 +446,12 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
     private void updateVariablesForExecutionSpecification(final ExecutionSpecification executionSpecification, final int shift, final int sizeDelta) {
         // Start with the Execution itself.
         this.manipHelper.updateVariable(executionSpecification, executionSpecification.getLineNumber() + shift);
-        
+
         // Now the Execution start.
         updateVariablesForMessageEnd(executionSpecification.getStart(), shift);
         // And finally the Execution end.
         updateVariablesForMessageEnd(executionSpecification.getFinish(), shift + sizeDelta);
-        
+
     }
 
     @objid ("d9683e6c-55b6-11e2-877f-002564c97630")
@@ -455,9 +463,9 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
     @Override
     public void activate() {
         super.activate();
-        
+
         this.manipHelper = new ManipulationHelper((GraphicalEditPart) getHost());
-        
+
     }
 
     @objid ("6da2e559-729d-44c7-86ef-ac5c901f32fd")
@@ -493,7 +501,7 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
             super.addNotify();
             getConnection().addPropertyChangeListener(Connection.PROPERTY_POINTS, this);
             getConnection().addAncestorListener(this.ancestorListener);
-            
+
         }
 
         @objid ("d9683e79-55b6-11e2-877f-002564c97630")
@@ -508,7 +516,7 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
             getConnection().removePropertyChangeListener(Connection.PROPERTY_POINTS, this);
             getConnection().removeAncestorListener(this.ancestorListener);
             super.removeNotify();
-            
+
         }
 
         @objid ("d969c4df-55b6-11e2-877f-002564c97630")
@@ -522,17 +530,17 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
             // points = StrokePointList.strokeList(points, 5);
             translateToRelative(points);
             setPoints(points);
-            
+
         }
 
         @objid ("d969c4e2-55b6-11e2-877f-002564c97630")
-         ConnectionFocus() {
+        ConnectionFocus() {
             setFill(true);
             setForegroundColor(ColorConstants.green);
             setBackgroundColor(ColorConstants.red);
             setXOR(true);
             setOutline(true);
-            
+
         }
 
         @objid ("d969c4e4-55b6-11e2-877f-002564c97630")
@@ -540,7 +548,7 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
         protected void outlineShape(final Graphics g) {
             g.setLineDash(new int[] { 1, 1 });
             super.outlineShape(g);
-            
+
         }
 
     }

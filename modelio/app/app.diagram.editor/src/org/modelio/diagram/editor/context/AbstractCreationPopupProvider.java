@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.context;
 
@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -92,6 +92,7 @@ public abstract class AbstractCreationPopupProvider {
 
     /**
      * Get the bundle defining the new creation popup menu.
+     *
      * @return An installed bundle in the Framework.
      */
     @objid ("3324e43a-562f-474f-b878-74e2f7e86248")
@@ -100,6 +101,7 @@ public abstract class AbstractCreationPopupProvider {
     /**
      * Get the i18n bundle containing all keys referenced by the current popup menu.<br/>
      * Usually references the plugin's bundle.
+     *
      * @return an i18n bundle.
      */
     @objid ("e3486435-e49f-4588-a023-f2c5ac5eddf3")
@@ -116,6 +118,7 @@ public abstract class AbstractCreationPopupProvider {
     /**
      * Fills a dynamic creation menu with selection-compatible contributions before display. <br/>
      * Called by the rcp platform through injection.
+     *
      * @param items the item list to fill.
      */
     @objid ("56be8b8e-9246-4ce0-a0d1-6ecb9a288226")
@@ -125,8 +128,8 @@ public abstract class AbstractCreationPopupProvider {
         final IStructuredSelection selection = (IStructuredSelection) this.application.getContext().get(IServiceConstants.ACTIVE_SELECTION);
         Object firstElement = null;
         if (selection != null) {
-            firstElement = selection.getFirstElement(); 
-        }  
+            firstElement = selection.getFirstElement();
+        }
         if (!(firstElement instanceof GroupItemEditPart)) {
             if (this.popupEntries == null) {
                 loadPopupEntries();
@@ -139,28 +142,28 @@ public abstract class AbstractCreationPopupProvider {
                 final MMenu elementCreationMenu = MMenuFactory.INSTANCE.createMenu();
                 elementCreationMenu.setLabel(getMenuLabel());
                 elementCreationMenu.setIconURI(getMenuIconPath());
-        
+
                 // make the menu visible
                 elementCreationMenu.setEnabled(true);
                 elementCreationMenu.setToBeRendered(true);
                 elementCreationMenu.setVisible(true);
-        
+
                 // bound the menu to the contributing plugin
                 elementCreationMenu.setContributorURI(contributorId);
-        
+
                 // add creation items
                 elementCreationMenu.getChildren().addAll(createMenuItems(entries, contributorId));
-        
+
                 // bind the new menu to the popup
                 items.add(elementCreationMenu);
-        
+
                 // Add a separator
                 final MMenuSeparator separator = MMenuFactory.INSTANCE.createMenuSeparator();
                 separator.setContributorURI(contributorId);
                 items.add(separator);
             }
           }
-        
+
     }
 
     @objid ("4d9645ee-6631-4a39-8107-33070308ce54")
@@ -171,6 +174,7 @@ public abstract class AbstractCreationPopupProvider {
 
     /**
      * Get the currently selected element, or <code>null</code> if the selection size is not equal to one.
+     *
      * @return the selected element.
      */
     @objid ("35396dea-7520-42f8-849d-d2f3aa58f2f5")
@@ -186,6 +190,7 @@ public abstract class AbstractCreationPopupProvider {
 
     /**
      * Compute a contributor id from a bundle.
+     *
      * @return a contributor id.
      */
     @objid ("82f5952b-42d7-4fde-a955-9bfaa50107d6")
@@ -195,16 +200,17 @@ public abstract class AbstractCreationPopupProvider {
 
     /**
      * Initialize all possible contents from the xml file.
+     *
      * @see #getCreatePopupXmlFile()
      */
     @objid ("4d815172-dec8-4346-bdaf-7a394227e39d")
     private void loadPopupEntries() {
         final URL url = getCreatePopupXmlFile();
-        
+
         final CreationPopupXmlLoader loader = new CreationPopupXmlLoader();
-        
+
         this.popupEntries = loader.parseCreationPopupEntries(url);
-        
+
     }
 
     @objid ("85b9d5b8-498c-4fb3-9d89-d1fb14b0fdac")
@@ -212,17 +218,17 @@ public abstract class AbstractCreationPopupProvider {
         if (obj == null) {
             return Collections.emptyList();
         }
-        
+
         final MClass mclass = obj.getMClass();
-        
+
         final List<CreationPopupEntryDescriptor> validCommands = new ArrayList<>();
-        
+
         // Find commands with short metaclass name
         List<CreationPopupEntryDescriptor> cmds = this.popupEntries.get(mclass.getName());
         if (cmds != null) {
             validCommands.addAll(cmds);
         }
-        
+
         // Find commands with qualified metaclass name
         cmds = this.popupEntries.get(mclass.getQualifiedName());
         if (cmds != null) {
@@ -233,6 +239,7 @@ public abstract class AbstractCreationPopupProvider {
 
     /**
      * Create a new handled menu items from popup entry descriptors.
+     *
      * @param entries the descriptors to convert.
      * @return a list of menu elements.
      */
@@ -251,6 +258,7 @@ public abstract class AbstractCreationPopupProvider {
 
     /**
      * Create a new handled menu item from a popup entry descriptor.
+     *
      * @param entry the descriptor to convert.
      * @return a new menu elements.
      */
@@ -260,7 +268,7 @@ public abstract class AbstractCreationPopupProvider {
         final MHandledMenuItem item = MMenuFactory.INSTANCE.createHandledMenuItem();
         final MCommand command = getCommand(entry.commandId);
         item.setCommand(command);
-        
+
         // compute the element id
         final String sourceMetaclass = entry.sourceMetaclass;
         final String dependency = entry.parameters.getProperty("dependency", "");
@@ -272,25 +280,25 @@ public abstract class AbstractCreationPopupProvider {
             i18nKey = "$popup." + sourceMetaclass.replaceAll("^[a-zA-Z]+\\.", "") + dependency + targetMetaclass.replaceAll("^[a-zA-Z]+\\.", "") + targetStereotype;
         }
         item.setElementId(sourceMetaclass + dependency + targetMetaclass + targetStereotype);
-        
+
         // compute label, tooltip and icon
         final BundledMessages i18nBundle = getI18nBundle();
         item.setLabel(i18nBundle.getString(i18nKey + ".label"));
         item.setTooltip(i18nBundle.getString(i18nKey + ".tooltip"));
-        
+
         final String baseIcon = i18nBundle.getString(i18nKey + ".icon");
         if (!baseIcon.contains("!")) {
             item.setIconURI(MetamodelImageService.getIconCompletePath(baseIcon));
         }
-        
+
         // make the item visible
         item.setEnabled(true);
         item.setToBeRendered(true);
         item.setVisible(true);
-        
+
         // bound the item to the contributing plugin
         item.setContributorURI(contributorId);
-        
+
         // add creation parameters
         for (final Entry<Object, Object> param : entry.parameters.entrySet()) {
             final MParameter p = MCommandsFactory.INSTANCE.createParameter();
@@ -304,6 +312,7 @@ public abstract class AbstractCreationPopupProvider {
 
     /**
      * Get the MCommand defined in the application having a specific id.
+     *
      * @param commandId the element id of the MCommand to find.
      * @return a MCommand, or <code>null</code> if the id is not found.
      */
@@ -342,6 +351,7 @@ public abstract class AbstractCreationPopupProvider {
 
     /**
      * Create a new menu separator item.
+     *
      * @return a new menu elements.
      */
     @objid ("f812fb53-5620-4a74-8bfe-1f31442cc8fc")
@@ -350,7 +360,7 @@ public abstract class AbstractCreationPopupProvider {
         // make the item visible
         item.setToBeRendered(true);
         item.setVisible(true);
-        
+
         // bound the item to the contributing plugin
         item.setContributorURI(contributorId);
         return item;

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.plugin;
 
@@ -75,10 +75,10 @@ public class ActivityProcessor extends AbstractDiagramInitializationProcessor {
     @Override
     protected void declareFactories(DiagramFactoryRegistry factoryRegistry) {
         factoryRegistry.registerDiagramFactories(ActivityDiagram.MNAME, new ActivityGmNodeFactory(), new ActivityGmLinkFactory(), new ActivityEditPartFactory());
-        
+
         // Static UML elements should be usable in Activity diagrams
         factoryRegistry.registerExtensions(StaticDiagram.MNAME, ActivityDiagram.MNAME);
-        
+
     }
 
     @objid ("2ed78933-58a7-11e2-9574-002564c97630")
@@ -148,7 +148,7 @@ public class ActivityProcessor extends AbstractDiagramInitializationProcessor {
         factoryStyle.declareProvider(GmPartitionStructuredStyleKeys.class);
         // Interruptible region
         factoryStyle.declareProvider(GmInterruptibleStructuredStyleKeys.class);
-        
+
     }
 
     @objid ("a4d67dc4-58d3-11e2-be0b-002564c97630")
@@ -157,11 +157,11 @@ public class ActivityProcessor extends AbstractDiagramInitializationProcessor {
         StyleLoader loader = new StyleLoader();
         BundleContext bundle = DiagramEditorActivity.getContext();
         URL url = FileLocator.find(bundle.getBundle(), new Path("res/factory.settings"), null);
-        
+
         loader.load(url);
-        
+
         factoryStyle.injectDefaultValues(loader.getStyleProperties());
-        
+
     }
 
     @objid ("13b303e3-e8ae-48c1-9393-917916fa204d")

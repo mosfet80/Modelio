@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.gui;
 
@@ -37,6 +37,7 @@ import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.BareBonesBrowserLaunch;
 
 /**
+ *
  * @author ebrosse
  */
 @objid ("b72a3346-d88d-4771-aa39-4fdd4e429e9e")
@@ -93,6 +94,7 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
     protected Shell shell = null;
 
     /**
+     *
      * @return nothing
      */
     @objid ("f2fcf340-15f9-4a76-af7a-f14e34c1ce52")
@@ -103,7 +105,7 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
         centerOnPrimaryScreen(display);
         this.shell.open();
         this.shell.layout();
-        
+
         while (!this.shell.isDisposed()) {
             if (!display.readAndDispatch()) {
                 display.sleep();
@@ -126,11 +128,11 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
         if (this.theThread != null && this.theThread.isAlive()) {
             this.theThread.interrupt();
         }
-        
+
         if ((this.shell != null) && (!this.shell.isDisposed())) {
             this.shell.dispose();
         }
-        
+
     }
 
     @objid ("0a204520-e1a0-489b-8574-1ed74ef83707")
@@ -150,6 +152,7 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
     protected abstract void enableOrDisableCompistes(boolean isEnable);
 
     /**
+     *
      * @param cancelButton : the text of the cancel button
      */
     @objid ("43b4eaf1-377f-4d85-a207-b56eed68d8d8")
@@ -158,6 +161,7 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
     }
 
     /**
+     *
      * @param description : the description of the windows
      */
     @objid ("ac22039a-5bd2-4d2d-8781-98ee83febdfa")
@@ -166,6 +170,7 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
     }
 
     /**
+     *
      * @param frametitle : the title of the windows frame
      */
     @objid ("ae17c648-dd4c-4256-af0a-8a98e5edda04")
@@ -174,6 +179,7 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
     }
 
     /**
+     *
      * @param title : the title of the windows
      */
     @objid ("abff41e0-d9a6-437d-8f47-240b9018a602")
@@ -182,6 +188,7 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
     }
 
     /**
+     *
      * @param validateButton : the button of validation
      */
     @objid ("f21fbab8-57bb-42ef-8636-ff7785e55831")
@@ -207,10 +214,11 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
         MessageBox messageBox = new MessageBox(this.shell, SWT.ICON_WARNING);
         messageBox.setMessage(this.description);
         messageBox.open();
-        
+
     }
 
     /**
+     *
      * @return true if the process is cancelled by the user
      */
     @objid ("e5238760-0b56-4c38-9ce1-7bff302ecc70")
@@ -219,6 +227,7 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
     }
 
     /**
+     *
      * @param cancelation : set the cancellation of the process
      */
     @objid ("e0479287-d76d-4290-bfcf-0a11f7e5aa29")
@@ -252,34 +261,36 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
         MessageBox messageBox = new MessageBox(this.shell, SWT.ICON_WARNING);
         messageBox.setMessage(Xmi.I18N.getString("fileChooser.banner.import.dontexit"));
         messageBox.open();
-        
+
     }
 
     @objid ("9d8e8f80-a2aa-476c-b1c1-02a48afbf98d")
     void helpPressed() {
         String urlPath = "http://127.0.0.1:1697/help/index.jsp";
         BareBonesBrowserLaunch.openURL(urlPath, this.shell);
-        
+
     }
 
     /**
+     *
      * @param parent : the shell parent
      * @param style : the swt style
      */
     @objid ("164d1dac-c354-4fe3-815c-089c11e9ab38")
-    public  AbstractSwtWizardWindow(final Shell parent, final int style) {
+    public AbstractSwtWizardWindow(final Shell parent, final int style) {
         super(parent, style);
     }
 
     /**
+     *
      * @param parent : the shell parent
      */
     @objid ("bd78756e-a049-4d5e-959f-1c5aa3d2512b")
-    public  AbstractSwtWizardWindow(final Shell parent, IProgressService progressService, IProjectService projectService) {
-        this(parent, SWT.NONE);       
+    public AbstractSwtWizardWindow(final Shell parent, IProgressService progressService, IProjectService projectService) {
+        this(parent, SWT.NONE);
         this.progressService = progressService;
         this.projectService = projectService;
-        
+
     }
 
     @objid ("2cfa948f-4c41-4910-b2c0-4c8c66056485")
@@ -291,7 +302,7 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
         int y = bounds.y + (bounds.height - rect.height) / 2;
         this.shell.setLocation(x, y);
         this.shell.open();
-        
+
     }
 
     @objid ("bca27331-7279-463e-997c-4a390ad546d9")
@@ -307,7 +318,7 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
                 }
             });
         }
-        
+
     }
 
     @objid ("8c469992-8416-428d-849f-0ea9d7787942")
@@ -316,16 +327,16 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
         messageBox.setMessage(this.description);
         messageBox.setText(this.title);
         messageBox.open();
-        
+
     }
 
     @objid ("961cfe93-8b83-472a-8209-8d3dcaea1a58")
     protected void incompleteBox(final String errorMessage) {
         if (this.shell != null) {
             this.title = Xmi.I18N.getString("fileChooser.dialog.errorBox");
-        
+
             this.description = errorMessage;
-        
+
             Display.getDefault().asyncExec(new Runnable() {
                 @Override
                 public void run() {
@@ -334,41 +345,41 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
                 }
             });
         }
-        
+
     }
 
     @objid ("6bb85ce3-50ed-4094-bb7f-f7801e8dd76b")
     protected void catchException(final Exception e) {
         this.error = true;
         Xmi.LOG.error(e);
-        
+
         final String msgTitle = Xmi.I18N.getString("error.import.uncatchedException");
         final String msg = e.getClass().getCanonicalName();
-        
+
         Display.getDefault().asyncExec(new Runnable() {
             @Override
             public void run() {
                 if (!AbstractSwtWizardWindow.this.shell.isDisposed()) {
                     final MessageBox messageBox = new MessageBox(AbstractSwtWizardWindow.this.shell, SWT.ICON_ERROR);
-        
+
                     if (msg != null) {
                         messageBox.setMessage(msg);
                     }
-        
+
                     messageBox.setText(msgTitle);
                     messageBox.open();
                     AbstractSwtWizardWindow.this.shell.dispose();
                 }
             }
         });
-        
+
     }
 
     @objid ("10ca822f-154a-4d7b-b1c0-5c17cb6ff800")
     protected void completeBox() {
         this.title = Xmi.I18N.getString("fileChooser.dialog.endBox");
         this.description = Xmi.I18N.getString("fileChooser.dialog.endBox");
-        
+
         Display.getDefault().asyncExec(new Runnable() {
             @Override
             public void run() {
@@ -376,10 +387,11 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
                 AbstractSwtWizardWindow.this.shell.dispose();
             }
         });
-        
+
     }
 
     /**
+     *
      * @return the name of the selected element i.e. Package or IModule
      */
     @objid ("d34b2ee5-1311-4bb5-a3d2-3e4957a67687")
@@ -388,6 +400,7 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
     }
 
     /**
+     *
      * @param selectedElt : set the name of the selected element
      */
     @objid ("9743bb6b-d85e-4574-a74e-b7ee0fc8e7b4")
@@ -396,6 +409,7 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
     }
 
     /**
+     *
      * @return the selected element i.e. Package or IModule
      */
     @objid ("0c49b727-511a-4844-bb2a-d4797727b57c")

@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.vcore.smkernel.mapi;
 
@@ -35,7 +54,7 @@ import org.modelio.vbasic.version.Version;
  * <p>
  * It is advised to use the qualified name when looking for a metaclass in the case
  * several metamodel fragments define a metaclass with the same name.
- * 
+ *
  * @author phv
  */
 @objid ("00433ca8-2596-1ffc-8433-001ec947cd2a")
@@ -48,14 +67,16 @@ public interface MClass {
 
     /**
      * Tells whether this metaclass may have orphan model objects.
-     * @since 3.6
+     *
      * @return true if orphan are allowed.
+     * @since 3.6
      */
     @objid ("91420a3a-15fa-40b0-a8f6-e3a208066a58")
     boolean areOrphansAllowed();
 
     /**
      * Get the attribute with the given name.
+     *
      * @param name an attribute name.
      * @return the found attribute or <code>null</code>.
      */
@@ -63,7 +84,19 @@ public interface MClass {
     MAttribute getAttribute(String name);
 
     /**
+     * Get the name attribute.
+     * <p>
+     * The name attribute is the attribute whose name is "name", case <em>insensitive</em>.
+     *
+     * @return the name attribute
+     * @since 6.0.1 04/07/2024
+     */
+    @objid ("dab77087-ddce-4df5-a1cb-56465416125c")
+    MAttribute getNameAttribute();
+
+    /**
      * Get the class attributes.
+     *
      * @param includeInherited <code>true</code> to include inherited attributes.
      * @return the defined attributes.
      */
@@ -72,6 +105,7 @@ public interface MClass {
 
     /**
      * Get all defined metamodel dependencies
+     *
      * @param includeInherited <code>true</code> to include inherited metamodel dependency.
      * @return metamodel dependencies.
      */
@@ -80,6 +114,7 @@ public interface MClass {
 
     /**
      * Get the metamodel dependency with the given name.
+     *
      * @param name a metamodel dependency name.
      * @return the found metamodel dependency or <code>null</code>.
      */
@@ -88,6 +123,7 @@ public interface MClass {
 
     /**
      * Get the interface implemented by all objects of this metaclass.
+     *
      * @return The java interface.
      */
     @objid ("cc7e14c6-03c7-411e-92f8-8b183d33a64f")
@@ -98,6 +134,7 @@ public interface MClass {
      * <p>
      * Also return inherited source dependencies.
      * Returns an empty collection for node metaclasses.
+     *
      * @return all source dependencies.
      */
     @objid ("5acec83c-4797-4ce7-b4cd-995609eef41b")
@@ -108,6 +145,7 @@ public interface MClass {
      * <p>
      * Also return inherited target dependencies.
      * Returns an empty collection for node metaclasses.
+     *
      * @return all target dependencies.
      */
     @objid ("1c8cfce7-eb23-4618-9965-98357f5a4060")
@@ -115,12 +153,14 @@ public interface MClass {
 
     /**
      * Return the metamodel owning this metaclass (the metamodel who loaded it and registered its providing fragment)
+     *
      * @return the owning metamodel.
      */
     @objid ("6cb897ec-393d-43e2-9fa4-3cb18a727f12")
     MMetamodel getMetamodel();
 
     /**
+     *
      * @return the metaclass name.
      */
     @objid ("0090268a-2ef5-1ffc-8433-001ec947cd2a")
@@ -128,6 +168,7 @@ public interface MClass {
 
     /**
      * Get the metamodel fragment providing this metaclass.
+     *
      * @return the metamodel fragment.
      */
     @objid ("2425df28-8987-488e-830f-e73e96485ce4")
@@ -141,6 +182,7 @@ public interface MClass {
      * <p>
      * It is advised to use the qualified name when looking for a metaclass in the case
      * several metamodel fragments define a metaclass with the same name.
+     *
      * @return the metaclass qualified name.
      */
     @objid ("b28da2d6-3d9e-49d2-9821-cf3b98e4c255")
@@ -148,6 +190,7 @@ public interface MClass {
 
     /**
      * Get the sub classes.
+     *
      * @param recursive <code>true</code> to include all sub classe recursively.
      * @return the sub classes.
      */
@@ -156,6 +199,7 @@ public interface MClass {
 
     /**
      * Get the parent metamodel class.
+     *
      * @return the parent class.
      */
     @objid ("0090d86e-2ef5-1ffc-8433-001ec947cd2a")
@@ -165,6 +209,7 @@ public interface MClass {
      * Get the metaclass version.
      * <p>
      * This may be used to detect changes in the metamodel
+     *
      * @return the metaclass versions.
      */
     @objid ("aa5bae66-0a12-47d7-84ed-df62399b9cd7")
@@ -172,6 +217,7 @@ public interface MClass {
 
     /**
      * Check that <code>this</code> metaclass is a sub-metaclass of <code>parent</code> metaclass.
+     *
      * @param parent a metamodel class
      * @return <code>true</code> if <code>this</code> class inherits from the given class. <code>false</code> otherwise.
      */
@@ -179,6 +225,7 @@ public interface MClass {
     boolean hasBase(MClass parent);
 
     /**
+     *
      * @return <code>true</code> if the class is abstract.
      */
     @objid ("d54ee427-137e-11e2-816a-001ec947ccaf")
@@ -189,6 +236,7 @@ public interface MClass {
      * <p>
      * CMS nodes define a structuring unit for some storages implementations. For EXML repositories, a CMS node represents an EXML
      * file.
+     *
      * @return <code>true</code> if the class is a CMS node.
      */
     @objid ("d54ee428-137e-11e2-816a-001ec947ccaf")
@@ -199,6 +247,7 @@ public interface MClass {
      * <p>
      * A fake metaclass is a shell metaclass that represents a missing metaclass.
      * Fake metaclass model objects are all shell objects.
+     *
      * @return true if this metaclass is fake.
      */
     @objid ("a67fa0ec-b321-4161-9c3f-29dce2586ca9")
@@ -208,8 +257,9 @@ public interface MClass {
      * Tells whether this metaclass is a relationship metaclass.
      * <p>
      * A relationship metaclass elements represents links between other objects. They have source and target MDependencies.
-     * @since toutatis
+     *
      * @return true if this metaclass is fake.
+     * @since toutatis
      */
     @objid ("8c58b4f1-1361-4b3d-9008-ad5fac903970")
     boolean isLinkMetaclass();
@@ -219,6 +269,7 @@ public interface MClass {
 
     /**
      * Tells whether the model object is an instance of this metaclass or a sub metaclass.
+     *
      * @param obj a model object or null.
      * @return true if the model object is an instance of this metaclass.
      */
@@ -226,5 +277,5 @@ public interface MClass {
     default boolean isInstance(MObject obj) {
         return obj != null && obj.getMClass().hasBase(this);
     }
-}
 
+}

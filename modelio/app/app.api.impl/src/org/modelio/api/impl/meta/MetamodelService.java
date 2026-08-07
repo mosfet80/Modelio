@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.api.impl.meta;
 
@@ -60,16 +60,18 @@ public class MetamodelService implements IMetamodelService {
 
     /**
      * C'tor.
+     *
      * @param metamodel the current metamodel.
      */
     @objid ("22dc64bb-736b-4647-aba2-ebcfbe9a86d4")
-    public  MetamodelService(MMetamodel metamodel) {
+    public MetamodelService(MMetamodel metamodel) {
         this.metamodel = metamodel;
     }
 
     /**
      * Returns the textual name of a metaclass.<br>
      * <em>Note: The returned name is <u>NOT</u> i18n'd.</em>
+     *
      * @param metaclassName the metaclass whose name is sought.
      * @return the textual name of the metaclass. Might be <code>null</code> if no metaclass matches.
      */
@@ -86,6 +88,7 @@ public class MetamodelService implements IMetamodelService {
     /**
      * Returns the textual name of a metaclass.<br>
      * <em>Note: The returned name is <u>NOT</u> i18n'd.</em>
+     *
      * @param metaclass the metaclass whose name is sought, or <code>null</code> if the given class is not a metaclass.
      * @return the textual name of the metaclass.
      */
@@ -99,6 +102,7 @@ public class MetamodelService implements IMetamodelService {
      * Get the metaclasses that inherit from the given metaclass.
      * <p>
      * The given metaclass will in the result list.
+     *
      * @param javaMetaclass The parent metaclass of the wanted metaclasses.
      * @return A list of metaclasses that inherit from the given metaclass.
      */
@@ -106,7 +110,7 @@ public class MetamodelService implements IMetamodelService {
     @Override
     public List<Class<? extends MObject>> getInheritingMetaclasses(final Class<? extends MObject> javaMetaclass) {
         List<Class<? extends MObject>> ret = new ArrayList<>();
-        
+
         MClass metaclass = this.metamodel.getMClass(javaMetaclass);
         if (metaclass != null) {
             for (MClass childMClass : metaclass.getSub(true)) {

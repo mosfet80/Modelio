@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -40,10 +40,10 @@ public class ERemoveStructuralFeatureValueAction extends EActivityNode {
     }
 
     @objid ("5800b9d0-70ee-403e-bf06-4384972c8b0b")
-    public  ERemoveStructuralFeatureValueAction(org.eclipse.uml2.uml.RemoveStructuralFeatureValueAction element) {
+    public ERemoveStructuralFeatureValueAction(org.eclipse.uml2.uml.RemoveStructuralFeatureValueAction element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("55d23198-1b78-4959-a863-b612ff3c0099")
@@ -51,7 +51,7 @@ public class ERemoveStructuralFeatureValueAction extends EActivityNode {
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setFeature((OpaqueAction) objingElt);
-        
+
     }
 
     @objid ("5a6428e6-073a-4ce2-a255-a165bc303339")
@@ -62,7 +62,7 @@ public class ERemoveStructuralFeatureValueAction extends EActivityNode {
             dependency.setDependsOn((ModelElement) obBehavior);
             dependency.setImpacted(objingElt);
         }
-        
+
     }
 
 }

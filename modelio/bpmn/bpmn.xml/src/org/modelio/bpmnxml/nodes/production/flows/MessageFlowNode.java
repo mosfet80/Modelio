@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.flows;
 
@@ -53,7 +53,7 @@ public class MessageFlowNode implements IProductionNode<BpmnMessageFlow, TMessag
     public BpmnMessageFlow findUMLElement(MObject context, TMessageFlow jaxbElement) {
         Object from = this.elementsMap.get(jaxbElement.getSourceRef().getLocalPart());
         Object to = this.elementsMap.get(jaxbElement.getTargetRef().getLocalPart());
-        
+
         if (from != null && to != null) {
             BpmnBaseElement fromM = (BpmnBaseElement) from;
             for (BpmnMessageFlow out : fromM.getOutgoingFlow()) {
@@ -61,7 +61,7 @@ public class MessageFlowNode implements IProductionNode<BpmnMessageFlow, TMessag
                     return out;
                 }
             }
-        
+
         }
         return null;
     }
@@ -74,7 +74,7 @@ public class MessageFlowNode implements IProductionNode<BpmnMessageFlow, TMessag
         } else {
             return factory.create(BpmnMessageFlow.class, context, "MessageFlow");
         }
-        
+
     }
 
     @objid ("c916f0aa-0656-4fbd-9bf5-cddd6272665a")
@@ -82,25 +82,25 @@ public class MessageFlowNode implements IProductionNode<BpmnMessageFlow, TMessag
     public BpmnMessageFlow updateUMLElement(MObject context, BpmnMessageFlow modelioElement, TMessageFlow jaxbElement) {
         Object from = this.elementsMap.get(jaxbElement.getSourceRef().getLocalPart());
         Object to = this.elementsMap.get(jaxbElement.getTargetRef().getLocalPart());
-        
+
         // Find element by id in the Modelio project
         if (from == null) {
             from = CoreSession.getSession(modelioElement).getModel().findById(BpmnFlowElement.class, IDUtils.formatModelioId(jaxbElement.getSourceRef().getLocalPart()));
         }
-        
+
         if (to == null) {
             to = CoreSession.getSession(modelioElement).getModel().findById(BpmnFlowElement.class, IDUtils.formatModelioId(jaxbElement.getTargetRef().getLocalPart()));
         }
-        
+
         if (from != null && to != null) {
             modelioElement.setSourceRef((BpmnBaseElement) from);
             modelioElement.setTargetRef((BpmnBaseElement) to);
         }
-        
+
         if (jaxbElement.getName() != null) {
             modelioElement.setName(StringConvertor.imports(jaxbElement.getName()));
         }
-        
+
         if (jaxbElement.getMessageRef() != null) {
             Object message = this.elementsMap.get(jaxbElement.getMessageRef().getLocalPart());
             if (message instanceof BpmnMessage) {
@@ -114,14 +114,14 @@ public class MessageFlowNode implements IProductionNode<BpmnMessageFlow, TMessag
     @Override
     public TMessageFlow createJaxbElement(Object context, BpmnMessageFlow modelioElement) {
         TCollaboration jaxCollaboration = (TCollaboration) context;
-        
+
         if (modelioElement.getSourceRef() != null && modelioElement.getTargetRef() != null) {
             // Create JaxbElement
             TMessageFlow jaxFlow = new TMessageFlow();
-        
+
             // Add to context
             jaxCollaboration.getMessageFlow().add(jaxFlow);
-        
+
             // Edit Properties
             jaxFlow.setId(IDUtils.formatJaxbID(modelioElement));
             return jaxFlow;
@@ -137,7 +137,7 @@ public class MessageFlowNode implements IProductionNode<BpmnMessageFlow, TMessag
             jaxFlow.setSourceRef(new QName(IDUtils.formatJaxbID(modelioElement.getSourceRef())));
             jaxFlow.setTargetRef(new QName(IDUtils.formatJaxbID(modelioElement.getTargetRef())));
         }
-        
+
         if (modelioElement.getMessageRef() != null) {
             Object jaxMessage = this.elementsMap.get(modelioElement.getMessageRef().getUuid());
             if (jaxMessage instanceof TMessage) {

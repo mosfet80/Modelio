@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.uml.behavior.stateMachineModel;
 
@@ -26,33 +26,32 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * StateKind v0.0.9054
- * 
- * 
+ *
+ *
  * null
- * 
- * 
+ *
  */
 @objid ("000d61fa-91e1-1f74-804b-001ec947cd2a")
 public enum StateKind {
-    @objid ("12b3aa2e-0a1e-4dbd-9641-629d568077c9")
+    @objid ("dc6c7cf5-3e2c-4009-b34d-ad7e16490082")
     INITIALSTATE(0, "InitialState", "InitialState"),
-    @objid ("1775a390-b008-47d5-902f-3282ae52df07")
+    @objid ("eaae16dc-358d-4c71-b357-9772a5545fa8")
     DEEPHISTORYSTATE(1, "DeepHistoryState", "DeepHistoryState"),
-    @objid ("c4d25369-bfa2-4f6f-a638-43efca383c1c")
+    @objid ("b5c30909-382e-49f0-a56d-dd40e636d170")
     SHALLOWHISTORYSTATE(2, "ShallowHistoryState", "ShallowHistoryState"),
-    @objid ("ca08a003-6380-4836-8699-a0e52363a318")
+    @objid ("8d197568-7805-497b-9573-0ac7197574d2")
     JOINSTATE(3, "JoinState", "JoinState"),
-    @objid ("8cec94e5-ce56-4f4e-a20b-94fa585328a8")
+    @objid ("51fefed4-cdc7-4916-86ef-1bc442bdf44f")
     FORKSTATE(4, "ForkState", "ForkState"),
-    @objid ("b0e29b51-5915-4a03-ad9b-6c193f32e233")
+    @objid ("4f40c8c5-5d89-4713-b912-ecbfb719732a")
     BRANCHSTATE(5, "BranchState", "BranchState"),
-    @objid ("148677e0-b883-4711-a9eb-b8011a5c08a6")
+    @objid ("4ec064ef-4719-4a9d-b488-a5aa468b1b19")
     OLDFINALSTATE(6, "OldFinalState", "OldFinalState"),
-    @objid ("b94cb756-ca46-4316-9fd6-f6f5247f1ec9")
+    @objid ("9dcec546-ac60-4502-8708-0ba8ba50fa76")
     SIGNALRECEIPTSTATE(7, "SignalReceiptState", "SignalReceiptState"),
-    @objid ("7a59fc1d-204e-426d-866e-1ecad74185ca")
+    @objid ("05247222-b3cc-453d-8dd2-e0dca5c51c64")
     SIGNALSENDINGSTATE(8, "SignalSendingState", "SignalSendingState"),
-    @objid ("d18732cc-50a4-4f37-b5ff-b6ce24fff9d7")
+    @objid ("c04e7ecf-9dbf-4d0f-a6da-46f874d50c79")
     SYNCHRONIZATIONSTATE(9, "SynchronizationState", "SynchronizationState");
 
 public static final int INITIALSTATE_VALUE = 0;
@@ -133,5 +132,5 @@ public static final int INITIALSTATE_VALUE = 0;
     public String toString() {
        return literal;
     }
-    
+
 }

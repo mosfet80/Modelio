@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.service.impl.controller.remove;
 
@@ -39,6 +39,7 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 public class ModuleRemover {
     /**
      * Remove the module from the project and optionally remove MDA annotations from the model.
+     *
      * @param rtModule the module to remove.
      * @param deleteAnnotations if <code>true</code>, remove the module MDA annotations from other elements in the model.
      * @throws ModuleException on failure
@@ -49,14 +50,15 @@ public class ModuleRemover {
             ModuleComponent comp = rtModule.getModel();
             ModuleRemover.removeModel(comp);
         }
-        
+
         // Remove from project
         ModuleRemover.removeFromGProject(rtModule);
-        
+
     }
 
     /**
      * Remove the {@link GModule} from the {@link IGProject}.
+     *
      * @param rtModule the module to remove.
      * @throws ModuleException on failure
      */
@@ -69,11 +71,12 @@ public class ModuleRemover {
         } catch (GPartException e) {
             throw new ModuleException(gModule.getId() + " module could not be removed from the project.", e);
         }
-        
+
     }
 
     /**
      * Delete all annotations using annotations types provided by the module .
+     *
      * @param module the module to delete.
      * @throws ModuleException on failure
      */
@@ -81,16 +84,16 @@ public class ModuleRemover {
     public static void removeModel(ModuleComponent module) throws ModuleException {
         if (module != null) {
             CoreSession session = CoreSession.getSession(module);
-        
+
             try (ITransaction t = session.getTransactionSupport().createTransaction("Remove Module")) {
                 deleteModel(module);
-        
+
                 t.commit();
             } catch (Error e) {
                 throw new ModuleException(module.getName() + " module could not be deleted: " + e.toString(), e);
             }
         }
-        
+
     }
 
     @objid ("5555d3e9-5b4a-47df-986c-49c7123f6c57")
@@ -100,7 +103,7 @@ public class ModuleRemover {
             unlockRecursive((SmObjectImpl) module);
             module.delete();
         }
-        
+
     }
 
     @objid ("5e126601-0a08-4e77-b7d9-463fce4bd7cc")
@@ -110,7 +113,7 @@ public class ModuleRemover {
         }
         obj.setRStatus(IRStatus.RMASK_MODIFIABLE_REQUIRED & ~IRStatus.MASK_CMS, IRStatus.RMASK_MODIFIABLE_FORBIDDEN & ~IRStatus.MASK_CMS, 0);
         obj.setPStatus(IPStatus.PMASK_MODIFIABLE_REQUIRED, 0, 0);
-        
+
     }
 
 }

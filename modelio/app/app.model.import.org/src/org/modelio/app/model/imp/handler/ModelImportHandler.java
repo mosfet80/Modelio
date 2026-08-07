@@ -1,28 +1,28 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.model.imp.handler;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.services.IServiceConstants;
@@ -66,28 +66,28 @@ public class ModelImportHandler {
     @Execute
     public void execute(IProjectService projectService, @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection, @Named(IServiceConstants.ACTIVE_SHELL) Shell activeShell, IProgressService progressService, IModelioNavigationService navigator) {
         IGProject openedProject = projectService.getOpenedProject();
-        
+
         GProjectEnvironment projectEnv = new GProjectEnvironment()
                 .setModulesCache(openedProject.getProjectEnvironment().getModulesCache())
                 .addMetamodelExtensions(openedProject.getMetamodelExtensions())
                 .setRamcCache(this.modelioEnv.getRamcCachePath());
-        
+
         try (ModelImportDataModel dataModel = new ModelImportDataModel()) {
             if (promptUser(activeShell, projectEnv, dataModel) && dataModel.getElementsToImport().size() > 0) {
                 // Import the model...
                 ModelImporter importer = new ModelImporter(projectService.getSession(), selection, dataModel);
                 progressService.run(true, false, importer);
-        
+
                 navigator.fireNavigate(importer.getDoneCopies());
             }
-        
+
         } catch (@SuppressWarnings("unused") InterruptedException e) {
             // Nothing specific to do.
         } catch (Exception e) {
             AppModelImportOrg.LOG.error(e);
             // Nothing specific to do: transaction will be rolled back in the finally block.
         }
-        
+
     }
 
     /**
@@ -98,6 +98,7 @@ public class ModelImportHandler {
      * <li>the selection may contain only one element of each metaclass.
      * <li>all elements must be in the same fragment
      * </ul>
+     *
      * @param projectService the project service
      * @param selection the Eclipse selection
      * @return whether the command is available.
@@ -109,16 +110,16 @@ public class ModelImportHandler {
         if (openedProject == null) {
             return false;
         }
-        
+
         List<MObject> selObjs = SelectionHelper.toList(selection, MObject.class);
         List<IGModelFragment> selFrags = SelectionHelper.toList(selection, IGModelFragment.class);
-        
+
         // - Only one fragment must be selected
         // - One fragment or some model objects must be selected.
         if (selFrags.size() != 1 && selObjs.isEmpty()) {
             return false;
         }
-        
+
         // - the fragment must be editable.
         if (!selFrags.isEmpty()) {
             for (MObject obj : selFrags.get(0).getRoots()) {
@@ -127,7 +128,7 @@ public class ModelImportHandler {
                 }
             }
         }
-        
+
         // - the selection may contain only one element of each metaclass.
         // - all elements must be in the same fragment
         // - the fragment must be editable.
@@ -138,12 +139,12 @@ public class ModelImportHandler {
                 if (openedProject.getFragment(obj) != f) {
                     return false;
                 }
-        
+
                 // - the fragment must be editable.
                 if (!ModelImportHandler.isEditable(obj)) {
                     return false;
                 }
-        
+
                 // - the selection may contain only one element of each metaclass.
                 for (MObject obj2 : selObjs) {
                     if (obj != obj2 && obj.getMClass() == obj2.getMClass()) {
@@ -158,20 +159,22 @@ public class ModelImportHandler {
     @objid ("eda08f72-e5c8-475a-9c13-003ec39fc7e0")
     private boolean promptUser(Shell parentShell, IGProjectEnv projectEnv, ModelImportDataModel dataModel) {
         ImportModelDialog dialog = new ImportModelDialog(parentShell, dataModel, projectEnv);
-        
+
         int code = dialog.open();
-        
+
         if (code == Window.OK) {
             return true;
         } else {
             return false;
         }
-        
+
     }
 
     @objid ("ab9b20d6-d733-4c27-970d-ed0e9c7e8fb0")
     private static boolean isEditable(MObject obj) {
-        MStatus status = obj.getStatus();
+        MStatus status = obj.getStatusLazy();
+        if (! status.isStatusFullyLoaded())
+            return false;
         return status.isModifiable() || status.isCmsManaged();
     }
 

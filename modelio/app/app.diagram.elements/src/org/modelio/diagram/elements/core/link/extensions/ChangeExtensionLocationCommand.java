@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.extensions;
 
@@ -42,11 +42,12 @@ public class ChangeExtensionLocationCommand extends Command {
         if (this.model != null) {
             this.model.getParentLink().setLayoutConstraint(this.model, this.layoutData);
         }
-        
+
     }
 
     /**
      * Set the constraint that will be the new layoutData.
+     *
      * @param constraint the new constraint.
      */
     @objid ("7ff5d407-1dec-11e2-8cad-001ec947c8cc")
@@ -56,6 +57,7 @@ public class ChangeExtensionLocationCommand extends Command {
 
     /**
      * Set the model that will be updated.
+     *
      * @param model the model to update. Must be a {@link GmNodeModel}
      */
     @objid ("7ff5d40b-1dec-11e2-8cad-001ec947c8cc")

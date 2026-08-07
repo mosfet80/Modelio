@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnlane.header;
 
@@ -58,7 +58,7 @@ public class BpmnLaneHeaderEditPart extends ModelElementHeaderEditPart {
         if (getParent() != null) {
             getParent().setFocus(value);
         }
-        
+
     }
 
     @objid ("611f1767-55b6-11e2-877f-002564c97630")
@@ -80,7 +80,7 @@ public class BpmnLaneHeaderEditPart extends ModelElementHeaderEditPart {
         } else {
             return super.createFigure();
         }
-        
+
     }
 
     @objid ("611f1778-55b6-11e2-877f-002564c97630")
@@ -92,29 +92,29 @@ public class BpmnLaneHeaderEditPart extends ModelElementHeaderEditPart {
             if (editableText == null) {
                 return;
             }
-        
+
             final CellEditorLocator cellEditorLocator = new CellEditorLocator() {
                 @Override
                 public void relocate(CellEditor cellEditor) {
-        
+
                     Rectangle relRect = label.getBounds().getCopy();
-        
+
                     Rectangle absRect = relRect.getCopy();
                     label.translateToAbsolute(absRect);
-        
+
                     Point controlPrefSize = cellEditor.getControl().computeSize(-1, -1);
                     int controlW = Math.max(relRect.width, Math.max(absRect.width, controlPrefSize.x));
                     int controlH = relRect.height;
-        
+
                     cellEditor.getControl().setFont(label.getTextFont());
                     cellEditor.getControl().setBounds(absRect.x,
                             absRect.y + (absRect.height / 2) - controlH / 2,
                             controlW,
                             controlH);
                 }
-        
+
             };
-        
+
             new TextDirectEditManager(
                     this,
                     cellEditorLocator,
@@ -124,7 +124,7 @@ public class BpmnLaneHeaderEditPart extends ModelElementHeaderEditPart {
         } else {
             super.performRequest(req);
         }
-        
+
     }
 
     @objid ("2503af85-8468-4d72-a2f8-6c98e4ff5f57")
@@ -137,10 +137,11 @@ public class BpmnLaneHeaderEditPart extends ModelElementHeaderEditPart {
         } else {
             return getHeaderFigure((IFigure) aFigure.getChildren().get(0));
         }
-        
+
     }
 
     /**
+     *
      * @return whether lanes should be displayed horizontally or vertically.
      */
     @objid ("025e9be7-0e05-4b24-8604-79792ce41074")
@@ -152,9 +153,9 @@ public class BpmnLaneHeaderEditPart extends ModelElementHeaderEditPart {
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         installEditPolicy(ModelElementDropRequest.TYPE, new MethodologicalLinkUpdateDropEditPolicy(PartitionElement.MdaTypes.STEREOTYPE_ELT));
-        
+
     }
 
 }

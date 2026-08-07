@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vbasic.auth;
 
@@ -51,6 +51,7 @@ public class SshAuthData extends AuthData {
 
     /**
      * Get the SSH server port to use.
+     *
      * @return the SSH server port to use, -1 if not defined.
      */
     @objid ("e37e74a8-c51b-405a-8b9f-9a317f8b7644")
@@ -59,6 +60,7 @@ public class SshAuthData extends AuthData {
     }
 
     /**
+     *
      * @return the SSH private key as stored in the file.
      */
     @objid ("2e01f0ed-31d8-484c-9719-aaf895cfcf58")
@@ -70,6 +72,7 @@ public class SshAuthData extends AuthData {
     }
 
     /**
+     *
      * @return the SSH key passphrase, may be null .
      */
     @objid ("0d2d66ff-3db6-4afe-b670-a0d982326ec4")
@@ -88,8 +91,9 @@ public class SshAuthData extends AuthData {
 
     /**
      * Get the SSH login on the remote machine.
-     * @see #getSvnUserName()
+     *
      * @return the SSH user on the remote machine.
+     * @see #getSvnUserName()
      */
     @objid ("f33403ec-ce33-482a-810a-20268c5e6851")
     public String getSshUserName() {
@@ -100,8 +104,9 @@ public class SshAuthData extends AuthData {
      * Get the SVN user name to use once logged on the remote machine.
      * <p>
      * Don't mix with the {@link #getSshUserName() SSH login}.
-     * @see #getSshUserName()
+     *
      * @return The SVN repository user.
+     * @see #getSshUserName()
      */
     @objid ("34a18363-e064-4e46-9d4b-38d33ccc4e57")
     public String getSvnUserName() {
@@ -115,8 +120,9 @@ public class SshAuthData extends AuthData {
     }
 
     /**
-     * @see #serialize(boolean)
+     *
      * @return <code>true</code> if the SSH key password must be saved.
+     * @see #serialize(boolean)
      */
     @objid ("e50eb10e-66da-4338-b430-7d591cdfd8fd")
     public boolean isPrivateKeyPassStored() {
@@ -124,8 +130,9 @@ public class SshAuthData extends AuthData {
     }
 
     /**
-     * @see #serialize(boolean)
+     *
      * @return <code>true</code> if the SSH key must be saved.
+     * @see #serialize(boolean)
      */
     @objid ("01dce46f-74d9-49cd-8f91-fb143c07e7d2")
     public boolean isPrivateKeyStored() {
@@ -136,11 +143,11 @@ public class SshAuthData extends AuthData {
     @Override
     public Map<String, String> serialize(boolean forceCredentials) {
         HashMap<String, String> ret = new HashMap<>(getData());
-        
+
         if (!forceCredentials) {
             if (!isPrivateKeyStored())
                 ret.remove(PRIVATEKEY);
-        
+
             if (!isPrivateKeyPassStored())
                 ret.remove(PASSPHRASE);
         }
@@ -161,6 +168,7 @@ public class SshAuthData extends AuthData {
 
     /**
      * Set the SSH private key value.
+     *
      * @param value the SSH private key
      * @return this instance
      */
@@ -189,6 +197,7 @@ public class SshAuthData extends AuthData {
     }
 
     /**
+     *
      * @param store <code>true</code> if the SSH key must be saved.
      * @return this instance
      * @since 4.0
@@ -200,6 +209,7 @@ public class SshAuthData extends AuthData {
     }
 
     /**
+     *
      * @param store <code>true</code> if the SSH key password must be saved.
      * @return this instance
      * @since 4.0

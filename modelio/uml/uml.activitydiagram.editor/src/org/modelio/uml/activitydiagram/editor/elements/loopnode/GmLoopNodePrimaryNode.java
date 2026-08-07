@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.loopnode;
 
@@ -82,30 +82,31 @@ public class GmLoopNodePrimaryNode extends GmNoStyleCompositeNode implements IIm
      * C'tor. Empty constructor needed for (de-)serialisation.
      */
     @objid ("2abe7f8a-55b6-11e2-877f-002564c97630")
-    public  GmLoopNodePrimaryNode() {
+    public GmLoopNodePrimaryNode() {
         // empty constructor for the serialization
     }
 
     /**
      * C'tor.
+     *
      * @param diagram the diagram in which this gm is created.
      * @param relatedRef a reference to the loopnode this gm is related to.
      */
     @objid ("2abe7f8d-55b6-11e2-877f-002564c97630")
-    public  GmLoopNodePrimaryNode(IGmDiagram diagram, MRef relatedRef) {
+    public GmLoopNodePrimaryNode(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
-        
+
         this.header = new GmActivityNodeHeader(diagram, relatedRef);
         this.header.setShowMetaclassIcon(true);
         this.setup = new GmSetup(diagram, relatedRef);
         this.test = new GmTest(diagram, relatedRef);
         this.innerZone = new GmBodyFreeZone(diagram, relatedRef);
-        
+
         super.addChild(this.header);
         super.addChild(this.setup);
         super.addChild(this.test);
         super.addChild(this.innerZone);
-        
+
     }
 
     @objid ("2abe7f96-55b6-11e2-877f-002564c97630")
@@ -116,7 +117,7 @@ public class GmLoopNodePrimaryNode extends GmNoStyleCompositeNode implements IIm
             this.innerZone.addChild(child);
         } else
             super.addChild(child);
-        
+
     }
 
     @objid ("2abe7f9c-55b6-11e2-877f-002564c97630")
@@ -125,7 +126,7 @@ public class GmLoopNodePrimaryNode extends GmNoStyleCompositeNode implements IIm
         return ActivityNode.class.isAssignableFrom(type) &&
                         !Pin.class.isAssignableFrom(type) &&
                         !ActivityParameterNode.class.isAssignableFrom(type);
-        
+
     }
 
     @objid ("2abe7fa4-55b6-11e2-877f-002564c97630")
@@ -137,7 +138,7 @@ public class GmLoopNodePrimaryNode extends GmNoStyleCompositeNode implements IIm
                         !ActivityParameterNode.class.isAssignableFrom(type) &&
                         getRelatedElement() != null &&
                         getRelatedElement().equals(el.getCompositionOwner());
-        
+
     }
 
     @objid ("2abe7fac-55b6-11e2-877f-002564c97630")
@@ -153,6 +154,7 @@ public class GmLoopNodePrimaryNode extends GmNoStyleCompositeNode implements IIm
     }
 
     /**
+     *
      * @return the innerZone.
      */
     @objid ("2abe7fbb-55b6-11e2-877f-002564c97630")
@@ -188,7 +190,7 @@ public class GmLoopNodePrimaryNode extends GmNoStyleCompositeNode implements IIm
             break;
         }
         }
-        
+
     }
 
     @objid ("2ac0062b-55b6-11e2-877f-002564c97630")
@@ -200,7 +202,7 @@ public class GmLoopNodePrimaryNode extends GmNoStyleCompositeNode implements IIm
         firePropertyChange(PROPERTY_LABEL, oldLabel, this.header.getMainLabel());
         // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("2ac0062e-55b6-11e2-877f-002564c97630")
@@ -226,10 +228,10 @@ public class GmLoopNodePrimaryNode extends GmNoStyleCompositeNode implements IIm
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmLoopNodePrimaryNode.", GmLoopNodePrimaryNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("2ac0063d-55b6-11e2-877f-002564c97630")
@@ -239,10 +241,10 @@ public class GmLoopNodePrimaryNode extends GmNoStyleCompositeNode implements IIm
         this.setup = (GmElementLabel) this.getChildren().get(1);
         this.test = (GmElementLabel) this.getChildren().get(2);
         this.innerZone = (GmBodyFreeZone) this.getChildren().get(3);
-        
+
         GmDefaultModelElementLabel imageModeHeader = (GmDefaultModelElementLabel) this.getChildren().get(4);
         imageModeHeader.delete();
-        
+
     }
 
     @objid ("2ac00642-55b6-11e2-877f-002564c97630")
@@ -258,12 +260,12 @@ public class GmLoopNodePrimaryNode extends GmNoStyleCompositeNode implements IIm
         this.setup = (GmElementLabel) this.getChildren().get(1);
         this.test = (GmElementLabel) this.getChildren().get(2);
         this.innerZone = (GmBodyFreeZone) this.getChildren().get(3);
-        
+
     }
 
     /**
      * Setup zone of the loop node.
-     * 
+     *
      * @author sbe
      */
     @objid ("2ac0064d-55b6-11e2-877f-002564c97630")
@@ -282,17 +284,18 @@ public class GmLoopNodePrimaryNode extends GmNoStyleCompositeNode implements IIm
          * For deserialization only.
          */
         @objid ("2ac00657-55b6-11e2-877f-002564c97630")
-        public  GmSetup() {
+        public GmSetup() {
             // for the serialization
         }
 
         /**
          * Creates a label
+         *
          * @param diagram The diagram
          * @param relatedRef a reference to the loopnode this gm is related to.
          */
         @objid ("2ac18cbb-55b6-11e2-877f-002564c97630")
-        public  GmSetup(IGmDiagram diagram, MRef relatedRef) {
+        public GmSetup(IGmDiagram diagram, MRef relatedRef) {
             super(diagram, relatedRef);
         }
 
@@ -300,7 +303,7 @@ public class GmLoopNodePrimaryNode extends GmNoStyleCompositeNode implements IIm
         @Override
         public String computeLabel() {
             final String ret = ((LoopNode) getRelatedElement()).getSetup();
-            
+
             if (ret.isEmpty())
                 return "Setup: ...";
             return "Setup: " + ret;
@@ -317,13 +320,13 @@ public class GmLoopNodePrimaryNode extends GmNoStyleCompositeNode implements IIm
                             public String getText() {
                                 return loopnode.getSetup();
                             }
-            
+
                             @Override
                             public void setText(String text) {
                                 loopnode.setSetup(text);
                             }
                         };
-            
+
         }
 
         @objid ("2ac18cd0-55b6-11e2-877f-002564c97630")
@@ -343,17 +346,17 @@ public class GmLoopNodePrimaryNode extends GmNoStyleCompositeNode implements IIm
                 break;
             }
             }
-            
+
         }
 
         @objid ("2ac18cd6-55b6-11e2-877f-002564c97630")
         @Override
         public void write(IDiagramWriter out) {
             super.write(out);
-            
+
             // Write version of this Gm if different of 0
             writeMinorVersion(out, "GmSetup.", GmSetup.MINOR_VERSION);
-            
+
         }
 
         @objid ("2ac18cdc-55b6-11e2-877f-002564c97630")
@@ -371,7 +374,7 @@ public class GmLoopNodePrimaryNode extends GmNoStyleCompositeNode implements IIm
 
     /**
      * Test zone of the loop node.
-     * 
+     *
      * @author sbe
      */
     @objid ("2ac18ce6-55b6-11e2-877f-002564c97630")
@@ -390,17 +393,18 @@ public class GmLoopNodePrimaryNode extends GmNoStyleCompositeNode implements IIm
          * Constructor for the deserialization only.
          */
         @objid ("2ac18cf0-55b6-11e2-877f-002564c97630")
-        public  GmTest() {
+        public GmTest() {
             // for the serialization
         }
 
         /**
          * Creates a label
+         *
          * @param diagram The diagram
          * @param relatedRef a reference to the loopnode this gm is related to.
          */
         @objid ("2ac18cf3-55b6-11e2-877f-002564c97630")
-        public  GmTest(IGmDiagram diagram, MRef relatedRef) {
+        public GmTest(IGmDiagram diagram, MRef relatedRef) {
             super(diagram, relatedRef);
         }
 
@@ -408,7 +412,7 @@ public class GmLoopNodePrimaryNode extends GmNoStyleCompositeNode implements IIm
         @Override
         public String computeLabel() {
             final String ret = ((LoopNode) getRelatedElement()).getTest();
-            
+
             if (ret.isEmpty())
                 return "Test: ...";
             return "Test: " + ret;
@@ -425,13 +429,13 @@ public class GmLoopNodePrimaryNode extends GmNoStyleCompositeNode implements IIm
                             public String getText() {
                                 return loopnode.getTest();
                             }
-            
+
                             @Override
                             public void setText(String text) {
                                 loopnode.setTest(text);
                             }
                         };
-            
+
         }
 
         @objid ("2ac3136b-55b6-11e2-877f-002564c97630")
@@ -451,17 +455,17 @@ public class GmLoopNodePrimaryNode extends GmNoStyleCompositeNode implements IIm
                 break;
             }
             }
-            
+
         }
 
         @objid ("2ac31371-55b6-11e2-877f-002564c97630")
         @Override
         public void write(IDiagramWriter out) {
             super.write(out);
-            
+
             // Write version of this Gm if different of 0
             writeMinorVersion(out, "GmTest.", GmTest.MINOR_VERSION);
-            
+
         }
 
         @objid ("2ac31377-55b6-11e2-877f-002564c97630")

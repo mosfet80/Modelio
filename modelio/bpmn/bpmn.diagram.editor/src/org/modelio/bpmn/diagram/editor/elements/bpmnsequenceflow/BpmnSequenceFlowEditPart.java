@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnsequenceflow;
 
@@ -62,7 +62,7 @@ public class BpmnSequenceFlowEditPart extends LinkEditPart {
     protected IFigure createFigure() {
         PolylineConnection connection = (PolylineConnection) super.createFigure();
         connection.setTargetDecoration(getArrowDecoration());
-        
+
         // Make sure the arrow has appropriate style
         refreshFromStyle(connection, getModelStyle());
         return connection;
@@ -104,11 +104,11 @@ public class BpmnSequenceFlowEditPart extends LinkEditPart {
     @Override
     protected void refreshVisuals() {
         super.refreshVisuals();
-        
+
         GmBpmnSequenceFlow gmmodel = getModel();
         BpmnSequenceFlow flow = gmmodel.getRepresentedElement();
         PolylineConnection pfigure = (PolylineConnection) getFigure();
-        
+
         if (flow.getDefaultFrom() != null ||
                 flow.getDefaultOfExclusive() != null ||
                 flow.getDefaultOfInclusive() != null ||
@@ -125,7 +125,7 @@ public class BpmnSequenceFlowEditPart extends LinkEditPart {
                 pfigure.setSourceDecoration(null);
             }
         }
-        
+
     }
 
     @objid ("619dbd55-55b6-11e2-877f-002564c97630")
@@ -133,7 +133,7 @@ public class BpmnSequenceFlowEditPart extends LinkEditPart {
     protected void createEditPolicies() {
         // Do not show the smart link creation handle on links.
         installEditPolicy(UserChoiceCreateLinkEditPolicy.class, new UserChoiceCreateLinkEditPolicy(new PaletteActionProvider(this, PaletteActionProvider.IS_LINK_TOOL), false));
-        
+
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new SequenceFlowLinkLayoutEditPolicy());
         installEditPolicy(EditPolicy.NODE_ROLE, new BpmnCreateLinkEditPolicy(true));
         installEditPolicy(EditPolicy.CONNECTION_ROLE, new DefaultDeleteLinkEditPolicy());
@@ -143,20 +143,20 @@ public class BpmnSequenceFlowEditPart extends LinkEditPart {
         installEditPolicy(InsertInFlowEditPolicy.class.getSimpleName(), new InsertInFlowEditPolicy());
         installEditPolicy(InsertThrowCatchEditPolicy.class.getSimpleName(), new InsertThrowCatchEditPolicy());
         installEditPolicy(ModelElementDropRequest.class, new BpmnSequenceFlowElementDropEditPolicy());
-        
+
         // to allow using this link as link target to create a rake
         installEditPolicy("rake", new CreateRakeLinkEditPolicy());
         installEditPolicy(RakeRefreshEditPolicy.ROLE, new RakeRefreshEditPolicy());
-        
+
         if (getRoutingMode().routingStyle != null) {
             updateRouterDependentEditPolicies(getRoutingMode());
         }
-        
+
         // Additional policies that request links on the link to update their feedback then layout.
         // They require drag policies to be registered or reserved before
         installEditPolicy(LayoutConnectionConnectionsEditPolicy.ROLE, new LayoutConnectionConnectionsEditPolicy(this));
         installEditPolicy(LayoutNodeConnectionsEditPolicy.ROLE, new LayoutNodeConnectionsEditPolicy(this));
-        
+
     }
 
     @objid ("7b17cd7a-7660-41b5-b4a7-af73f01cb7d5")
@@ -173,12 +173,12 @@ public class BpmnSequenceFlowEditPart extends LinkEditPart {
                         childEditPart.performRequest(req);
                         return;
                     }
-        
+
                 }
             }
         }
         super.performRequest(req);
-        
+
     }
 
     @objid ("187cb644-237e-483b-939c-209eefc71109")

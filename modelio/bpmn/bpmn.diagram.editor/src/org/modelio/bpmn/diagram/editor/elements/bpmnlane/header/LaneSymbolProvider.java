@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnlane.header;
 
@@ -38,12 +38,13 @@ public class LaneSymbolProvider {
      * This class is not instanciable.
      */
     @objid ("612cd2fa-55b6-11e2-877f-002564c97630")
-    private  LaneSymbolProvider() {
-        
+    private LaneSymbolProvider() {
+
     }
 
     /**
      * Get the lane label at the following format: "name : type"
+     *
      * @param elementNamer service that assigns a default name to new model elements.
      * @param lane the lane
      * @return the computed label
@@ -51,19 +52,19 @@ public class LaneSymbolProvider {
     @objid ("612cd2fd-55b6-11e2-877f-002564c97630")
     public static String computeLabel(IElementNamer elementNamer, final BpmnLane lane) {
         StringBuilder ret = new StringBuilder();
-        
+
         ModelElement type = PartitionElement.getTarget(lane);
         if (type != null) {
             if (!LaneSymbolProvider.hasDefaultName(lane, elementNamer)) {
                 ret.append(lane.getName());
             }
-        
+
             ret.append(": ");
             ret.append(type.getName());
         } else {
             ret.append(lane.getName());
         }
-        
+
         if (ret.length() == 0) {
             ret.append(" ");
         }
@@ -74,13 +75,14 @@ public class LaneSymbolProvider {
     private static boolean hasDefaultName(MObject element, IElementNamer elementNamer) {
         String basename = elementNamer.getBaseName(element);
         basename = Pattern.quote(basename);
-        
+
         String aLabel = element.getName();
         return aLabel == null || aLabel.matches(basename + "[0-9]*");
     }
 
     /**
      * Get the lane label at the following format: "name : type"
+     *
      * @param elementNamer service that assigns a default name to new model elements.
      * @param elt the lane or participant
      * @return the computed label
@@ -94,7 +96,7 @@ public class LaneSymbolProvider {
         } else {
             return " ";
         }
-        
+
     }
 
 }

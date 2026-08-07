@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.utils.i18n;
 
@@ -56,7 +56,7 @@ import org.osgi.framework.Bundle;
  * MyPlugin.getFile("/res/toto").toFileOrLinkageError()
  * </ul>
  * </code></pre>
- * 
+ *
  * @author cmarin
  */
 @objid ("9667b5eb-7412-4b36-a7d0-aedb140bd06f")
@@ -71,14 +71,15 @@ public class BundledFile {
     private URL url;
 
     /**
+     *
      * @param bundle the bundle to look into
      * @param relPath the file path, relative to he bundle root.
      */
     @objid ("054f135b-e6d4-4afd-a6a7-1788d4977ed8")
-    public  BundledFile(Bundle bundle, String relPath) {
+    public BundledFile(Bundle bundle, String relPath) {
         this.relPath = relPath;
         this.bundle = bundle;
-        
+
     }
 
     @objid ("5b90b9eb-d8b2-4006-bddf-84ea976890c3")
@@ -95,8 +96,9 @@ public class BundledFile {
     /**
      * Converts a URL that uses a user-defined protocol into a File.
      * The contents of the URL may be extracted into a cache on the file-system in order to get a file.
-     * 
+     *
      * If the protocol for the given URL is not recognized by this converter, an IOException is thrown.
+     *
      * @return a File
      * @throws IOException on failure
      */
@@ -108,7 +110,7 @@ public class BundledFile {
         } catch (URISyntaxException e) {
             throw new IOException(e.getMessage(), e);
         }
-        
+
     }
 
     /**
@@ -116,6 +118,7 @@ public class BundledFile {
      * that throws an unchecked {@link LinkageError} instead of {@link IOException}.
      * <p>
      * To be used for resources that are not expected to be missing
+     *
      * @return an unchecked wrapper
      */
     @objid ("34a5a2f9-7f05-4686-8dbb-421f7ba630d1")
@@ -125,6 +128,7 @@ public class BundledFile {
 
     /**
      * Get the resource content as String.
+     *
      * @param charset the charset to use
      * @return the content
      * @throws IOException on failure
@@ -135,16 +139,17 @@ public class BundledFile {
             byte[] bytes = is.readAllBytes();
             return new String(bytes, charset);
         }
-        
+
     }
 
     /**
      * Get an URL that uses a protocol which is native to the Java class library (file, jar, http, etc).
-     * 
+     *
      * Note however that users of this API should not assume too much about the results of this method.
      * While it may consistently return a file: URL in certain installation configurations, others may result in jar: or http: URLs.
-     * 
+     *
      * If the protocol is not recognized by this converter, then the original URL is returned as-is.
+     *
      * @return an URL directly usable
      * @throws IOException on error
      */
@@ -165,15 +170,16 @@ public class BundledFile {
         private final BundledFile wrapped;
 
         @objid ("6e70d91e-7eb9-43ff-bb23-fa5273532bec")
-        public  UncheckedBundledFile(BundledFile wrapped) {
+        public UncheckedBundledFile(BundledFile wrapped) {
             this.wrapped = wrapped;
         }
 
         /**
          * Converts a URL that uses a user-defined protocol into a File.
          * The contents of the URL may be extracted into a cache on the file-system in order to get a file.
-         * 
+         *
          * If the protocol for the given URL is not recognized by this converter, an IOException is thrown.
+         *
          * @return a File
          * @throws LinkageError on failure
          */
@@ -184,16 +190,17 @@ public class BundledFile {
             } catch (IOException e) {
                 throw new LinkageError(FileUtils.getLocalizedMessage(e), e);
             }
-            
+
         }
 
         /**
          * Get an URL that uses a protocol which is native to the Java class library (file, jar, http, etc).
-         * 
+         *
          * Note however that users of this API should not assume too much about the results of this method.
          * While it may consistently return a file: URL in certain installation configurations, others may result in jar: or http: URLs.
-         * 
+         *
          * If the protocol is not recognized by this converter, then the original URL is returned as-is.
+         *
          * @return an URL directly usable
          * @throws LinkageError on failure
          */
@@ -204,11 +211,12 @@ public class BundledFile {
             } catch (IOException e) {
                 throw new LinkageError(FileUtils.getLocalizedMessage(e), e);
             }
-            
+
         }
 
         /**
          * Get the resource content as String. Failure is not expected.
+         *
          * @param charset the charset to use
          * @return the content
          * @throws LinkageError on failure
@@ -220,7 +228,7 @@ public class BundledFile {
             } catch (IOException e) {
                 throw new LinkageError(FileUtils.getLocalizedMessage(e), e);
             }
-            
+
         }
 
     }

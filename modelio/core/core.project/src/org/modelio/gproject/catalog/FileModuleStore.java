@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.catalog;
 
@@ -50,7 +50,7 @@ import org.modelio.vcore.model.spi.IGMetamodelExtension;
 
 /**
  * File and directory based implementation of IModuleStore
- * 
+ *
  * This module store structure is based on directories and files. The store maintains one directory by module (name+version).</br>
  * Both the original module archive and an unzipped file structure are kept for each stored module.<br/>
  * This structure helps saving the cost of unzipping/parsing the module archive each time a module is needed.<br/>
@@ -93,14 +93,15 @@ public class FileModuleStore implements IModuleStore {
 
     /**
      * Instantiate a new FileModuleCatalog.
+     *
      * @param metamodelFragments the metamodel fragments to use
      * @param cachePath the path to store unzipped .jmdacs into. Needs to be a writable directory.
      */
     @objid ("8e17727a-2852-4bc3-a5d6-5e3d6522c7e5")
-    public  FileModuleStore(Collection<IGMetamodelExtension> metamodelFragments, Path cachePath) {
+    public FileModuleStore(Collection<IGMetamodelExtension> metamodelFragments, Path cachePath) {
         this.metamodelExtensions = metamodelFragments;
         this.storePath = cachePath;
-        
+
         if (!Files.isDirectory(cachePath)) {
             try {
                 Files.createDirectories(cachePath);
@@ -109,11 +110,11 @@ public class FileModuleStore implements IModuleStore {
                 e.printStackTrace();
             }
         }
-        
+
         this.entries = new HashMap<>();
         this.state = FileModuleStoreState.INITIAL;
         migration();
-        
+
     }
 
     @objid ("b8063de3-7e52-4cc0-93ba-26fa46227682")
@@ -122,7 +123,7 @@ public class FileModuleStore implements IModuleStore {
         if (this.state == FileModuleStoreState.INITIAL) {
             load(monitor);
         }
-        
+
         List<IModuleHandle> ret = new ArrayList<>();
         for (FileModuleStoreEntry entry : this.entries.values()) {
             ret.add(entry.getModuleHandle(monitor));
@@ -144,12 +145,12 @@ public class FileModuleStore implements IModuleStore {
                 return null;
             }
         }
-        
+
         // First lookup in the entries cache
         if (this.state == FileModuleStoreState.INITIAL) {
             load(monitor);
         }
-        
+
         String key = getEntryKey(moduleName, moduleVersion);
         return this.entries.get(key) != null ? this.entries.get(key).getModuleHandle(monitor) : null;
     }
@@ -158,7 +159,7 @@ public class FileModuleStore implements IModuleStore {
     @Override
     public List<IModuleHandle> findModule(String moduleName, IModelioProgress monitor) throws FileSystemException, IOException {
         List<IModuleHandle> results = new ArrayList<>();
-        
+
         for (IModuleHandle mh : findAllModules(monitor)) {
             if (Objects.equals(mh.getName(), moduleName)) {
                 results.add(mh);
@@ -171,36 +172,37 @@ public class FileModuleStore implements IModuleStore {
     @Override
     public IModuleHandle findModule(Path archive, IModelioProgress monitor) throws IOException, FileSystemException {
         // poorly inefficient temporary implementation
-        
+
         IModuleHandle moduleHandle = null;
-        
+
         // Check if the jmdac is valid
         if (Files.notExists(archive)) {
             return null;
         }
         SubProgress m = SubProgress.convert(monitor, 100);
-        
+
         // Unzip module
         Path extractionDir = Files.createTempDirectory("temp");
         new Unzipper()
                 .setProgressLabelPrefix(CoreProject.I18N.getMessage("FileModuleStore.unzippingJMdac", archive.getFileName()))
                 .unzip(archive, extractionDir, m.newChild(60));
-        
+
         // Create a temporary ModuleHandle
         IModuleHandle tempModuleHandle = new FileModuleStoreEntry(extractionDir, this.metamodelExtensions).getModuleHandle(m);
-        
+
         // return new module handle if exists in cache
         moduleHandle = findModule(tempModuleHandle.getName(), tempModuleHandle.getVersion().toString(), monitor);
-        
+
         // Clean up extraction dir
         FileUtils.delete(extractionDir);
-        
+
         m.setWorkRemaining(40);
         return moduleHandle;
     }
 
     /**
      * Find all modules with the given name.
+     *
      * @return the module cache path
      */
     @objid ("e9f4408c-6779-4901-ba99-2d54c726e6b4")
@@ -209,6 +211,7 @@ public class FileModuleStore implements IModuleStore {
     }
 
     /**
+     *
      * @return the configured metamodel fragments.
      */
     @objid ("fd35e3b1-4ce3-4fb0-8875-9935c48b755d")
@@ -230,36 +233,36 @@ public class FileModuleStore implements IModuleStore {
             return null;
         }
         SubProgress m = SubProgress.convert(monitor, 100);
-        
+
         // Unzip module archive in a temporary directory
         Path extractionDir = Files.createTempDirectory("temp");
         new Unzipper().setProgressLabelPrefix(CoreProject.I18N.getMessage("FileModuleStore.unzippingJMdac", archive.getFileName()))
                 .unzip(archive, extractionDir, m.newChild(60));
-        
+
         // Get the temporary store entry and module handle
         FileModuleStoreEntry tempEntry = new FileModuleStoreEntry(extractionDir, this.metamodelExtensions);
-        IModuleHandle tempHandle = tempEntry.getModuleHandle(m.newChild(40));
-        
+        IModuleHandle tempHandle = tempEntry.getModuleHandle(m.newChild(40, SubProgress.SUPPRESS_ALL_LABELS));
+
         // Move extracted contents in the proper directory in the store
         Path moduleStorePath = computeNewModuleStorePath(tempHandle);
-        
+
         // Create parent directory in the store if required
         if (!Files.isDirectory(moduleStorePath.getParent())) {
             Files.createDirectories(moduleStorePath.getParent());
         }
-        
+
         // Clean existing contents if exist
         if (Files.exists(moduleStorePath)) {
             FileUtils.delete(moduleStorePath);
         }
-        
+
         // Move extracted files
         FileUtils.move(extractionDir, moduleStorePath);
-        
+
         // Copy the archive itself
         String moduleArchiveName = computeModuleArchiveName(tempHandle);
         Files.copy(archive, moduleStorePath.resolve(moduleArchiveName));
-        
+
         // Update the cache, benefits from the already computed "tempHandle" to create the entry
         FileModuleStoreEntry entry = new FileModuleStoreEntry(moduleStorePath, this.metamodelExtensions, tempHandle);
         String key = getEntryKey(tempHandle.getName(), tempHandle.getVersion().toString());
@@ -281,16 +284,17 @@ public class FileModuleStore implements IModuleStore {
                 String key = getEntryKey(mh.getName(), mh.getVersion().toString());
                 this.entries.remove(key);
             }
-        
+
             // Delete store directory entry
             Path path = ((FileModuleStoreHandle) mh).getModuleCachePath();
             Path path1 = path.getParent();
             FileUtils.delete(path1);
         }
-        
+
     }
 
     /**
+     *
      * @param cachePath the module cache path.
      */
     @objid ("cf13c850-e8c1-4008-a23b-7619bbffbfe7")
@@ -315,16 +319,17 @@ public class FileModuleStore implements IModuleStore {
 
     /**
      * Instantiate a new ModuleHandle from a .jmdac archive file. Returns a zip file system
-     * @throws IOException in case of failure
+     *
      * @param zipPath to construct the file system from
      * @param create true if the zip file should be created
      * @return a zip file system
+     * @throws IOException in case of failure
      */
     @objid ("47ce0cea-c8ad-4559-8969-95fa8ce3eb38")
     protected FileSystem createZipFileSystem(Path zipPath, boolean create) throws IOException {
         // convert the filename to a URI
         final URI uri = URI.create("jar:file:" + zipPath.toUri().getPath());
-        
+
         final Map<String, String> env = new HashMap<>();
         if (create) {
             env.put("create", "true");
@@ -342,7 +347,7 @@ public class FileModuleStore implements IModuleStore {
         if (!Files.exists(moduleCachePath)) {
             return false;
         }
-        
+
         if (!Files.isDirectory(moduleCachePath)) {
             return false;
         }
@@ -354,10 +359,10 @@ public class FileModuleStore implements IModuleStore {
         if (!Files.isDirectory(this.storePath)) {
             return;
         }
-        
+
         Path confFile = getConfigFile();
         Properties props = new Properties();
-        
+
         int version;
         // Read catalog version
         try (InputStream is = Files.newInputStream(confFile)) {
@@ -371,12 +376,12 @@ public class FileModuleStore implements IModuleStore {
             Log.warning(e);
             version = 0;
         }
-        
+
         boolean isMigrationNeeded = version < getRequiredConfVersion();
         if (isMigrationNeeded) {
             try {
                 Log.trace("'" + this.storePath + "' module catalog version is " + version + " instead of " + getRequiredConfVersion() + ", cleaning the catalog...");
-        
+
                 // Workaround for windows: we have to move the old cache to a
                 // temporary directory before deleting it, in order
                 // to avoid an AccessDeniedException when creating the new
@@ -384,13 +389,13 @@ public class FileModuleStore implements IModuleStore {
                 Path tmpDir = Files.createTempDirectory("ModuleCatalog");
                 FileUtils.move(this.storePath, tmpDir);
                 FileUtils.delete(tmpDir);
-        
+
                 // Create the catalog directory again
                 Files.createDirectories(this.storePath);
-        
+
                 // Write the version
                 props.setProperty("version", String.valueOf(getRequiredConfVersion()));
-        
+
                 try (OutputStream out = Files.newOutputStream(confFile)) {
                     props.store(out, "Module catalog");
                 }
@@ -404,7 +409,7 @@ public class FileModuleStore implements IModuleStore {
                 Log.warning(e);
             }
         }
-        
+
     }
 
     @objid ("09943088-a2e9-4bb6-b6a5-9bac14e48262")
@@ -419,6 +424,7 @@ public class FileModuleStore implements IModuleStore {
     }
 
     /**
+     *
      * @return the version of the configuration file handled by the current store implementation.
      */
     @objid ("5869fa53-689c-4990-84a6-402db0b63b47")
@@ -427,6 +433,7 @@ public class FileModuleStore implements IModuleStore {
     }
 
     /**
+     *
      * @return the configuration file to read for the current store implementation.
      */
     @objid ("9cbad662-ee51-4e45-b58e-aef99a7a9399")
@@ -446,7 +453,7 @@ public class FileModuleStore implements IModuleStore {
                 return Files.isDirectory(file);
             }
         };
-        
+
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(this.storePath, filter)) {
             for (Path p : stream) {
                 try {
@@ -463,7 +470,7 @@ public class FileModuleStore implements IModuleStore {
             Log.warning(e);
             this.state = FileModuleStoreState.INITIAL;
         }
-        
+
     }
 
     /**
@@ -493,32 +500,34 @@ public class FileModuleStore implements IModuleStore {
         private IModuleHandle moduleHandle;
 
         /**
-         * @throws IOException on failure finding a directory in the extracted module path.
+         *
          * @param entryPath the extracted module path
          * @param metamodelFragments the metamodel fragments
+         * @throws IOException on failure finding a directory in the extracted module path.
          */
         @objid ("faf4dc9d-a5af-4ddf-898d-52fa95a022fd")
-        public  FileModuleStoreEntry(Path entryPath, Collection<IGMetamodelExtension> metamodelFragments) throws IOException {
+        public FileModuleStoreEntry(Path entryPath, Collection<IGMetamodelExtension> metamodelFragments) throws IOException {
             this.entryPath = entryPath;
             this.datapath = getModuleContentsPath(entryPath);
             this.metamodelExtensions = metamodelFragments;
-            
+
         }
 
         /**
          * Used internally by FileModuleStore as an optimization.<br/>
          * The caller provides an already exiting module handle. The provided handle will be cloned and relocated to "entrypath" to initialize the moduleHandle attribute. This avoids recomputing a
          * module handle later as this is a rather expensive operation.
-         * @throws IOException on failure finding a directory in the extracted module path.
-         * @param an        already valid and available existing module handle
+         *
+         * @param an already valid and available existing module handle
          * @param entryPath the extracted module path
+         * @throws IOException on failure finding a directory in the extracted module path.
          */
         @objid ("2d3163d2-b682-4a56-b5d1-9c9ec5a9a510")
-        private  FileModuleStoreEntry(Path entryPath, Collection<IGMetamodelExtension> metamodelFragments, IModuleHandle refHandle) throws IOException {
+        private FileModuleStoreEntry(Path entryPath, Collection<IGMetamodelExtension> metamodelFragments, IModuleHandle refHandle) throws IOException {
             this.entryPath = entryPath;
             this.datapath = getModuleContentsPath(entryPath);
             this.metamodelExtensions = metamodelFragments;
-            
+
             this.moduleHandle = new FileModuleStoreHandle(datapath,
                     refHandle.getName(), refHandle.getVersion(),
                     refHandle.getUid(), refHandle.getMainClassName(),
@@ -526,15 +535,16 @@ public class FileModuleStore implements IModuleStore {
                     refHandle.getWeakDependencies(), refHandle.getDocPaths(),
                     refHandle.getJarPaths(), refHandle.getStylePaths(),
                     refHandle.getMetamodelFragments());
-            
+
         }
 
         /**
          * Get the module handle for this entry
-         * @throws IOException in case of failure.
+         *
          * @param monitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call <code>done()</code> on the given monitor. Accepts <code>null</code>, indicating that no progress should be reported and that
          * the operation cannot be cancelled.
          * @return the module handle
+         * @throws IOException in case of failure.
          */
         @objid ("b7eb1bfc-94ff-4bbe-9d9d-71174d7800de")
         public IModuleHandle getModuleHandle(IModelioProgress monitor) throws IOException {
@@ -544,7 +554,7 @@ public class FileModuleStore implements IModuleStore {
                         this.datapath,
                         this.metamodelExtensions)
                                 .getModuleHandle(monitor);
-            
+
             }
             return this.moduleHandle;
         }
@@ -558,10 +568,10 @@ public class FileModuleStore implements IModuleStore {
                     }
                 }
             }
-            
+
             throw new NoSuchFileException(aPath.toString(), null,
                     CoreProject.I18N.getMessage("FileModuleStoreEntry.doesNotContainDirectory", aPath));
-            
+
         }
 
         /**
@@ -572,7 +582,7 @@ public class FileModuleStore implements IModuleStore {
         private void normalizeEntryContents(IModelioProgress monitor) throws IOException {
             new ModuleXmlExtractor(this.datapath.resolve("module.xml"), this.datapath, this.metamodelExtensions)
                     .extractModuleXmlContent(monitor);
-            
+
         }
 
     }

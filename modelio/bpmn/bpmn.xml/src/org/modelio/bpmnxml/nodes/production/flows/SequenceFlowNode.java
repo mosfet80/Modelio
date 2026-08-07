@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.flows;
 
@@ -59,7 +59,7 @@ public class SequenceFlowNode implements IProductionNode<BpmnSequenceFlow, TSequ
     public BpmnSequenceFlow findUMLElement(MObject context, TSequenceFlow jaxbElement) {
         Object from = this.elementsMap.get(((TBaseElement) jaxbElement.getSourceRef()).getId());
         Object to = this.elementsMap.get(((TBaseElement) jaxbElement.getTargetRef()).getId());
-        
+
         if (from != null && to != null) {
             BpmnFlowNode fromM = (BpmnFlowNode) from;
             for (BpmnSequenceFlow out : fromM.getOutgoing()) {
@@ -67,7 +67,7 @@ public class SequenceFlowNode implements IProductionNode<BpmnSequenceFlow, TSequ
                     return out;
                 }
             }
-        
+
         }
         return null;
     }
@@ -80,7 +80,7 @@ public class SequenceFlowNode implements IProductionNode<BpmnSequenceFlow, TSequ
         } else {
             return factory.create(BpmnSequenceFlow.class, context, "FlowElement");
         }
-        
+
     }
 
     @objid ("e3c7371c-8da1-4bf7-a0bf-c24f61af389d")
@@ -94,12 +94,12 @@ public class SequenceFlowNode implements IProductionNode<BpmnSequenceFlow, TSequ
                 modelioElement.setTargetRef((BpmnFlowNode) to);
             }
         }
-        
+
         if (jaxbElement.getName() != null) {
             modelioElement.setName(StringConvertor.imports(jaxbElement.getName()));
-        
+
         }
-        
+
         // Update Properties
         if (jaxbElement.getConditionExpression() != null) {
             String condition = "";
@@ -108,7 +108,7 @@ public class SequenceFlowNode implements IProductionNode<BpmnSequenceFlow, TSequ
             }
             modelioElement.setConditionExpression(condition);
         }
-        
+
         if (jaxbElement.isIsImmediate() != null)
             modelioElement.setIsImmediate(jaxbElement.isIsImmediate());
         return modelioElement;
@@ -118,10 +118,10 @@ public class SequenceFlowNode implements IProductionNode<BpmnSequenceFlow, TSequ
     @Override
     public TSequenceFlow createJaxbElement(Object context, BpmnSequenceFlow modelioElement) {
         if (modelioElement.getSourceRef() != null && modelioElement.getTargetRef() != null) {
-        
+
             // Create JaxbElement
             TSequenceFlow jaxSequenceFlow = new TSequenceFlow();
-        
+
             // Add to context
             ObjectFactory factory = new ObjectFactory();
             List<JAXBElement<? extends TFlowElement>> jaxContent = null;
@@ -138,14 +138,14 @@ public class SequenceFlowNode implements IProductionNode<BpmnSequenceFlow, TSequ
                     jaxContent = new ArrayList<>();
                 }
             }
-        
+
             if (jaxContent != null) {
                 jaxContent.add(factory.createSequenceFlow(jaxSequenceFlow));
             }
-        
+
             // Edit Properties
             jaxSequenceFlow.setId(IDUtils.formatJaxbID(modelioElement));
-        
+
             return jaxSequenceFlow;
         }
         return null;
@@ -157,22 +157,22 @@ public class SequenceFlowNode implements IProductionNode<BpmnSequenceFlow, TSequ
         if (modelioElement.getSourceRef() != null && modelioElement.getTargetRef() != null) {
             Object jaxInput = this.elementsMap.get(modelioElement.getSourceRef().getUuid());
             Object jaxOutput = this.elementsMap.get(modelioElement.getTargetRef().getUuid());
-        
+
             if (jaxInput != null && jaxOutput != null) {
                 jaxSequenceFlow.setName(modelioElement.getName());
                 jaxSequenceFlow.setSourceRef(jaxInput);
                 jaxSequenceFlow.setTargetRef(jaxOutput);
-        
+
                 if (!"".equals(modelioElement.getConditionExpression()) /*&& !modelioElement.getConditionExpression().equals(modelioElement.getName())*/) {
                     TExpression expr = new TExpression();
                     expr.getContent().add(modelioElement.getConditionExpression());
                     jaxSequenceFlow.setConditionExpression(expr);
                 }
-        
+
                 if (jaxInput instanceof TFlowNode) {
                     ((TFlowNode) jaxInput).getOutgoing().add(new QName(IDUtils.getJaxbId(null, jaxSequenceFlow)));
                 }
-        
+
                 if (jaxOutput instanceof TFlowNode) {
                     ((TFlowNode) jaxOutput).getIncoming().add(new QName(IDUtils.getJaxbId(null, jaxSequenceFlow)));
                 }

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -47,94 +46,93 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("90f6045c-3241-4b56-a0d9-fb3745c723b3")
 public class ActivityActionSmClass extends ActivityNodeSmClass {
-    @objid ("ea3855f7-336b-4ab1-95a7-47fb842caa08")
+    @objid ("01b42f90-8aae-49e7-ba34-89955e251496")
     private SmAttribute isMultipleInstanceAtt;
 
-    @objid ("6d357333-7e85-463f-9301-a88d90ead158")
+    @objid ("61838476-f067-4256-8395-2aa3897d76c6")
     private SmAttribute isCompensationAtt;
 
-    @objid ("08fc483b-0a83-4559-b7b0-22393b5f8db3")
+    @objid ("2dd04bf2-66b6-4af9-a38e-fcca362be3a4")
     private SmDependency outputDep;
 
-    @objid ("cfa5bedb-a79f-4f25-a894-711c85397c60")
+    @objid ("2221e842-8971-44dc-b453-159b9c551ed4")
     private SmDependency inputDep;
 
-    @objid ("7d8262ed-24ca-462b-a172-10cde0d09f17")
+    @objid ("9c457c38-b000-4ec8-a6f9-41e895434da0")
     private SmDependency handlerDep;
 
-    @objid ("ff75d4dc-28be-495f-9376-c7c88349120d")
-    public  ActivityActionSmClass(ISmMetamodelFragment origin) {
+    @objid ("b30ed9cb-9ca3-46c5-88ce-7cbac6fc48db")
+    public ActivityActionSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("6730c330-071c-495e-88e1-3763a560a750")
+    @objid ("bc51851b-745a-4339-9585-10027285c4f7")
     @Override
     public String getName() {
         return "ActivityAction";
-        
+
     }
 
-    @objid ("e00fe84e-5fe9-410c-90eb-fc9face7e583")
+    @objid ("97ebc554-22cc-40f1-a1c0-86e41f08bf80")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("d674d565-d3dd-4b69-8957-e81f897aae0a")
+    @objid ("0d7397d9-a971-4fe3-80b2-f5de91402025")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return ActivityAction.class;
-        
+
     }
 
-    @objid ("e391522c-6648-42dd-8f6d-95428a6bb259")
+    @objid ("42e23735-27da-4914-b0dc-22bd1fa174c4")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("7fb532a5-a309-449c-b8a6-eaddceb36580")
+    @objid ("5841d749-67ac-4c17-8a60-1384732fef17")
     @Override
     public boolean isAbstract() {
         return true;
-        
+
     }
 
-    @objid ("510ceec9-d68a-4e00-a8c8-90af459fa6e9")
+    @objid ("80079c30-8d76-4476-bc25-a0af15b764fa")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(ActivityNode.MQNAME);
         this.registerFactory(new ActivityActionObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
         this.isMultipleInstanceAtt = new IsMultipleInstanceSmAttribute();
         this.isMultipleInstanceAtt.init("IsMultipleInstance", this, Boolean.class );
         registerAttribute(this.isMultipleInstanceAtt);
-        
+
         this.isCompensationAtt = new IsCompensationSmAttribute();
         this.isCompensationAtt.init("IsCompensation", this, Boolean.class );
         registerAttribute(this.isCompensationAtt);
-        
-        
+
+
         // Initialize and register the SmDependency
         this.outputDep = new OutputSmDependency();
         this.outputDep.init("Output", this, metamodel.getMClass(OutputPin.MQNAME), 0, -1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.outputDep);
-        
+
         this.inputDep = new InputSmDependency();
         this.inputDep.init("Input", this, metamodel.getMClass(InputPin.MQNAME), 0, -1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.inputDep);
-        
+
         this.handlerDep = new HandlerSmDependency();
         this.handlerDep.init("Handler", this, metamodel.getMClass(ExceptionHandler.MQNAME), 0, -1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.handlerDep);
-        
-        
+
     }
 
-    @objid ("ab2dde0c-5726-4140-ade1-b664f3788066")
+    @objid ("f1e4ab80-9d0a-47c7-9e89-c8e7b64bfd99")
     public SmAttribute getIsMultipleInstanceAtt() {
         if (this.isMultipleInstanceAtt == null) {
         	this.isMultipleInstanceAtt = this.getAttributeDef("IsMultipleInstance");
@@ -142,7 +140,7 @@ public class ActivityActionSmClass extends ActivityNodeSmClass {
         return this.isMultipleInstanceAtt;
     }
 
-    @objid ("7b848bdd-e5a1-4460-a473-9dac88835b4b")
+    @objid ("9413b82d-9d6f-44fd-ba41-cc610f1f3ade")
     public SmAttribute getIsCompensationAtt() {
         if (this.isCompensationAtt == null) {
         	this.isCompensationAtt = this.getAttributeDef("IsCompensation");
@@ -150,7 +148,7 @@ public class ActivityActionSmClass extends ActivityNodeSmClass {
         return this.isCompensationAtt;
     }
 
-    @objid ("cc6c580d-307f-465f-8629-28fe80419f25")
+    @objid ("45f27442-a889-4389-8b48-251fb509d179")
     public SmDependency getOutputDep() {
         if (this.outputDep == null) {
         	this.outputDep = this.getDependencyDef("Output");
@@ -158,7 +156,7 @@ public class ActivityActionSmClass extends ActivityNodeSmClass {
         return this.outputDep;
     }
 
-    @objid ("e83c981d-4e3b-40b7-ab13-b7126fc8806a")
+    @objid ("8c34e87e-752b-467e-97d1-3fe80b459aa7")
     public SmDependency getInputDep() {
         if (this.inputDep == null) {
         	this.inputDep = this.getDependencyDef("Input");
@@ -166,7 +164,7 @@ public class ActivityActionSmClass extends ActivityNodeSmClass {
         return this.inputDep;
     }
 
-    @objid ("491e4265-9d22-4608-812a-d08ff257a62e")
+    @objid ("feedf032-4d76-4234-a07f-71a287b50cbe")
     public SmDependency getHandlerDep() {
         if (this.handlerDep == null) {
         	this.handlerDep = this.getDependencyDef("Handler");
@@ -176,21 +174,21 @@ public class ActivityActionSmClass extends ActivityNodeSmClass {
 
     @objid ("0b15066a-7027-4041-8cef-9d41da804c05")
     private static class ActivityActionObjectFactory implements ISmObjectFactory {
-        @objid ("86bdc41a-bff8-47e7-939e-2d81fc1cd9d4")
+        @objid ("897f6569-e166-48ee-9398-8dcce6ef12e2")
         private ActivityActionSmClass smClass;
 
-        @objid ("e1dbcd8d-3389-4000-9346-58fa072218d7")
-        public  ActivityActionObjectFactory(ActivityActionSmClass smClass) {
+        @objid ("7da20101-74a6-4f2f-8074-caea8245b0d1")
+        public ActivityActionObjectFactory(ActivityActionSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("bdc682bc-aba9-4d02-9e7e-6994ac744521")
+        @objid ("7c48cc26-42b1-4822-b992-d2ae90c0a4bb")
         @Override
         public ISmObjectData createData() {
             throw new UnsupportedOperationException();
         }
 
-        @objid ("49b218c6-544d-4f2e-a0f3-5cc26043ab81")
+        @objid ("3b0a223d-893e-4ab0-bb8c-edcf7c5bd7f8")
         @Override
         public SmObjectImpl createImpl() {
             throw new UnsupportedOperationException();
@@ -200,12 +198,12 @@ public class ActivityActionSmClass extends ActivityNodeSmClass {
 
     @objid ("fbf2895e-e719-4e88-89be-aee1cda4e4a4")
     public static class IsMultipleInstanceSmAttribute extends SmAttribute {
-        @objid ("8402f686-e3e2-4196-9c6a-38d75c077582")
+        @objid ("928a8854-837e-436a-a53e-5ebfb4e85c2a")
         public Object getValue(ISmObjectData data) {
             return ((ActivityActionData) data).mIsMultipleInstance;
         }
 
-        @objid ("bef8a966-e4c3-443a-9936-8eb98fa6f14b")
+        @objid ("bece0363-b8c8-4bc9-892c-e989559fd03f")
         public void setValue(ISmObjectData data, Object value) {
             ((ActivityActionData) data).mIsMultipleInstance = value;
         }
@@ -214,12 +212,12 @@ public class ActivityActionSmClass extends ActivityNodeSmClass {
 
     @objid ("8be3a40f-714d-4574-bd58-9b84f2c6dfb1")
     public static class IsCompensationSmAttribute extends SmAttribute {
-        @objid ("d8219a98-53c2-47e6-8e6b-ed1798542922")
+        @objid ("aab3076d-6651-48e9-b6e6-255017ff1c56")
         public Object getValue(ISmObjectData data) {
             return ((ActivityActionData) data).mIsCompensation;
         }
 
-        @objid ("84827ff6-b269-4290-a947-4a0c0987bab6")
+        @objid ("6ed93e1e-bef2-40f0-8bf7-bda7076fa039")
         public void setValue(ISmObjectData data, Object value) {
             ((ActivityActionData) data).mIsCompensation = value;
         }
@@ -228,90 +226,90 @@ public class ActivityActionSmClass extends ActivityNodeSmClass {
 
     @objid ("99711a5b-758f-4497-850d-0d9b30a2e8e1")
     public static class OutputSmDependency extends SmMultipleDependency {
-        @objid ("7fb84306-9fe9-4948-a107-ecfa8c99b6c0")
+        @objid ("4ab484fe-e4a7-48b9-8b4a-32f53018b0b7")
         private SmDependency symetricDep;
 
-        @objid ("4c18b8a3-156e-4c69-974b-8178c0cd4230")
+        @objid ("b301a8de-c0d7-4266-aa0c-2d5270ad727d")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((ActivityActionData)data).mOutput != null)? ((ActivityActionData)data).mOutput:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("2fdc9204-cf58-454c-8a9a-a8e56e47e5c7")
+        @objid ("c06b8640-7492-4131-b065-aee75df0d662")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((ActivityActionData) data).mOutput = values;
-            
+
         }
 
-        @objid ("0a138036-12ed-4386-b50b-4546f02bed7a")
+        @objid ("53d2e23b-ee3f-48c0-ad59-209cf4c7e785")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((OutputPinSmClass)this.getTarget()).getOutputingDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("aee183a3-affe-42f3-a82b-0ece36e323ca")
     public static class InputSmDependency extends SmMultipleDependency {
-        @objid ("f8c157c6-6304-4336-a7ff-82d508c99fb4")
+        @objid ("dc956607-2e82-46de-b44d-42b5c7df4c63")
         private SmDependency symetricDep;
 
-        @objid ("89ea0a31-662b-4cf2-8433-e07a99620646")
+        @objid ("376a43eb-ffb6-42da-a934-0e83dc5e2400")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((ActivityActionData)data).mInput != null)? ((ActivityActionData)data).mInput:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("509363b4-8057-4d9d-af7b-ddc818611821")
+        @objid ("4d3375fa-eac4-4f0f-9f57-c5da8dce86bc")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((ActivityActionData) data).mInput = values;
-            
+
         }
 
-        @objid ("0ad8992f-e8d3-4837-8d80-5e44d069833b")
+        @objid ("fdab19c4-3ffc-47c9-8c37-0e182750b114")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((InputPinSmClass)this.getTarget()).getInputingDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("30db67f5-d2f6-44ef-b8a6-df2904c4eb4d")
     public static class HandlerSmDependency extends SmMultipleDependency {
-        @objid ("a9ffd022-efcb-4e11-a5c4-e43a7adcd402")
+        @objid ("0476ce4b-1fe0-4fb3-827b-9debebd7243b")
         private SmDependency symetricDep;
 
-        @objid ("2efa658d-aa98-499a-a64d-fca0f12a7305")
+        @objid ("9f48e6ee-3c52-46e8-ac82-cfff3c5d0270")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((ActivityActionData)data).mHandler != null)? ((ActivityActionData)data).mHandler:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("31d61566-18fd-4ab4-8551-ba7e14112640")
+        @objid ("70ee2edf-7f0d-4332-85ff-bacf6394a4e9")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((ActivityActionData) data).mHandler = values;
-            
+
         }
 
-        @objid ("3f5d8a8a-b8df-4b56-acd1-a1910299e57c")
+        @objid ("93cae9e1-8058-485d-a1f3-aa04387d1dbe")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((ExceptionHandlerSmClass)this.getTarget()).getProtectedNodeDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

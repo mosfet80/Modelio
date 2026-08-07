@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.namespacelabel;
 
@@ -56,21 +56,22 @@ public class GmNameSpaceLabel extends GmDefaultModelElementLabel {
      * Empty constructor needed for (de-)serialization.
      */
     @objid ("35a05624-55b7-11e2-877f-002564c97630")
-    public  GmNameSpaceLabel() {
+    public GmNameSpaceLabel() {
         // Empty constructor needed for (de-)serialization.
     }
 
     /**
      * Default constructor.
+     *
      * @param diagram the diagram in which this gm is unmasked.
      * @param el the represented element, may be <i>null</i>.
      * @param ref a reference to the represented element.
      */
     @objid ("35a05627-55b7-11e2-877f-002564c97630")
-    public  GmNameSpaceLabel(IGmDiagram diagram, NameSpace el, MRef ref) {
+    public GmNameSpaceLabel(IGmDiagram diagram, NameSpace el, MRef ref) {
         super(diagram, ref);
         this.element = el;
-        
+
     }
 
     @objid ("35a36388-55b7-11e2-877f-002564c97630")
@@ -112,11 +113,12 @@ public class GmNameSpaceLabel extends GmDefaultModelElementLabel {
         } else {
             return super.getStyleKey(metakey);
         }
-        
+
     }
 
     /**
      * Tells whether the represented element is abstract.
+     *
      * @return <i>true</i> if the namespace is abstract else <i>false</i>.
      */
     @objid ("d66920d8-7265-4669-90d0-3fd8b2e8edf2")
@@ -141,17 +143,17 @@ public class GmNameSpaceLabel extends GmDefaultModelElementLabel {
                 break;
             }
         }
-        
+
     }
 
     @objid ("35a3637d-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmNameSpaceLabel.", GmNameSpaceLabel.MINOR_VERSION);
-        
+
     }
 
     @objid ("35a1dcec-55b7-11e2-877f-002564c97630")
@@ -165,7 +167,7 @@ public class GmNameSpaceLabel extends GmDefaultModelElementLabel {
         StyleKey key = getStyleKey(MetaKey.SHOWNAME);
         if (key != null) {
             final ShowNameMode nameMode = getDisplayedStyle().getProperty(key);
-        
+
             switch (nameMode) {
                 case FULLQUALIFIED:
                     return NamespaceSymbolProvider.computeFullQualifiedLabel(att, showVisibility());
@@ -176,19 +178,19 @@ public class GmNameSpaceLabel extends GmDefaultModelElementLabel {
                 case SIMPLE:
                 default:
                     return NamespaceSymbolProvider.computeSimpleLabel(att, showVisibility());
-        
+
             }
         } else {
             return att.getName();
         }
-        
+
     }
 
     @objid ("35a36383-55b7-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (NameSpace) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("35a36379-55b7-11e2-877f-002564c97630")

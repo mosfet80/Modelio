@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.usecasediagram.editor.elements.actor;
 
@@ -47,10 +47,10 @@ public class SimpleActorEditPart extends AbstractNodeEditPart {
     protected IFigure createFigure() {
         ColorizableImageFigure actorFigure = new ColorizableImageFigure(DiagramEditorUseCase.getImageRegistry()
                                                                                             .getImage(Actor.class.getName()));
-        
+
         // Set default size
         actorFigure.setPreferredSize(64, 64);
-        
+
         // Set style dependent properties
         refreshFromStyle(actorFigure, getModelStyle());
         return actorFigure;
@@ -60,21 +60,20 @@ public class SimpleActorEditPart extends AbstractNodeEditPart {
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         // Allow drag & drop
         installEditPolicy(ModelElementDropRequest.TYPE, new DefaultElementDropEditPolicy());
-        
+
         // Switch to structured mode when creating elements inside
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new SimpleModeDeferringCreateNodePolicy());
-        
+
         // Allow links
         installEditPolicy(EditPolicy.NODE_ROLE, new SmartGeneralizationEditPolicy());
-        
+
         // Allow notes and constraints
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START,
                           new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
-        
     }
 
     @objid ("5e441586-55b7-11e2-877f-002564c97630")
@@ -85,11 +84,10 @@ public class SimpleActorEditPart extends AbstractNodeEditPart {
                 ColorizableImageFigure cFigure = (ColorizableImageFigure) aFigure;
                 final GmModel gmModel = getModel();
                 cFigure.setColor(style.getColor(gmModel.getStyleKey(MetaKey.FILLCOLOR)));
-        
+
                 super.refreshFromStyle(aFigure, style);
             }
         }
-        
     }
 
     @objid ("5e44158e-55b7-11e2-877f-002564c97630")
@@ -97,7 +95,6 @@ public class SimpleActorEditPart extends AbstractNodeEditPart {
     protected void refreshVisuals() {
         GmActorPrimaryNode model = (GmActorPrimaryNode) this.getModel();
         this.getFigure().getParent().setConstraint(this.getFigure(), model.getLayoutData());
-        
     }
 
     @objid ("5e441592-55b7-11e2-877f-002564c97630")

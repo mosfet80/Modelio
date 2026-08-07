@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.anchors.handle;
 
@@ -38,7 +38,7 @@ import org.modelio.diagram.elements.core.figures.anchors.AnchorFigureFactory;
  * The handle has no drag tracker. You may put one with {@link #setDragTracker(DragTracker)}.
  * <p>
  * The handle is drawn a little apart from the node figure .
- * 
+ *
  * @author cmarin
  * @since 5.3.1
  */
@@ -46,28 +46,30 @@ import org.modelio.diagram.elements.core.figures.anchors.AnchorFigureFactory;
 public class AnchorHandle extends AbstractHandle {
     /**
      * Make a circle figure by default
+     *
      * @param owner the node edit part
      * @param anchor the connection anchor
      */
     @objid ("f901dbd4-069b-4156-955f-521215b88f47")
-    public  AnchorHandle(GraphicalEditPart owner, ConnectionAnchor anchor) {
+    public AnchorHandle(GraphicalEditPart owner, ConnectionAnchor anchor) {
         this(owner, new TranslatedAnchorLocator(anchor), AnchorFigureFactory.createHandleFigure(anchor));
     }
 
     /**
+     *
      * @param owner the node edit part
      * @param locator the handle Locator
      * @param anchorFigure the figure to use to display the handle.
      */
     @objid ("d0ebe610-c47a-4edc-a130-058dd89b4c2d")
-    public  AnchorHandle(GraphicalEditPart owner, Locator locator, IFigure anchorFigure) {
+    public AnchorHandle(GraphicalEditPart owner, Locator locator, IFigure anchorFigure) {
         super(owner, locator);
         setLayoutManager(new StackLayout());
-        
+
         add(anchorFigure);
-        
+
         setCursor(SharedCursors.CURSOR_PLUG);
-        
+
     }
 
     /**
@@ -91,7 +93,7 @@ public class AnchorHandle extends AbstractHandle {
         for (Object object : getChildren()) {
             setTransludent((IFigure) object);
         }
-        
+
     }
 
     @objid ("4e8f4787-4cba-4054-b144-681b72b61093")
@@ -103,7 +105,7 @@ public class AnchorHandle extends AbstractHandle {
             shape.setAlpha(150);
             shape.setAntialias(1);
         }
-        
+
     }
 
 }

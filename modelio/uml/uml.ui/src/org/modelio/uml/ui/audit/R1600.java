@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -49,7 +49,7 @@ public class R1600 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -70,7 +70,7 @@ public class R1600 extends AbstractUmlRule {
         plan.registerRule(Collaboration.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -104,14 +104,14 @@ public class R1600 extends AbstractUmlRule {
      * Default constructor for R1600
      */
     @objid ("0ac3f771-5f6f-4c21-9f07-a452da48866d")
-    public  R1600() {
+    public R1600() {
         this.checkerInstance = new CheckR1600(this);
     }
 
     @objid ("49d1edbf-1894-4d3e-9202-4b17c52ba0c5")
     private static class CheckR1600 extends AbstractControl {
         @objid ("03d561ef-f6c8-43bd-a171-7713ca7bcfba")
-        public  CheckR1600(IRule rule) {
+        public CheckR1600(IRule rule) {
             super(rule);
         }
 
@@ -141,9 +141,9 @@ public class R1600 extends AbstractUmlRule {
             if (clazz.isIsElementary()) {
                 for (ModelTree elt : clazz.getOwnedElement()) {
                     if (elt instanceof Collaboration) {
-            
+
                         // Rule failed
-            
+
                         auditEntry.setSeverity(this.rule.getSeverity());
                         List<Object> linkedObjects = new ArrayList<>();
                         linkedObjects.add(clazz);

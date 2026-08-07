@@ -1,27 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.browser.view.context;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.AboutToHide;
 import org.eclipse.e4.ui.di.AboutToShow;
@@ -61,7 +61,7 @@ class ModuleCommandsForModelBrowser {
                 }
             }
         }
-        
+
     }
 
     @objid ("263dc59b-6d6c-411e-bcd0-8c0b81e2fbb4")
@@ -76,13 +76,13 @@ class ModuleCommandsForModelBrowser {
                     parentItem.getChildren().remove(item);
                 }
             }
-        
+
             // Cleanip commands & handlers
             for (IRTModule module : this.moduleService.getStartedModules()) {
                 ModulePopupManager.removeMenu(module, activePart);
             }
         }
-        
+
     }
 
 }

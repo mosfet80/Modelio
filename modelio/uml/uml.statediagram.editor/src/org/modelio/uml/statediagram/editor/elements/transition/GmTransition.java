@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.transition;
 
@@ -36,7 +36,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Graphic model for {@link Transition}.
- * 
+ *
  * @author sbe
  */
 @objid ("f5a89a9a-55b6-11e2-877f-002564c97630")
@@ -64,27 +64,28 @@ public class GmTransition extends GmLink {
 
     /**
      * Initialize a control flow graphic model.
+     *
      * @param diagram The owning diagram
      * @param transition The reference flow, may be null
      * @param ref The referenced flow reference, may not be null
      */
     @objid ("f5aa2145-55b6-11e2-877f-002564c97630")
-    public  GmTransition(IGmDiagram diagram, Transition transition, MRef ref) {
+    public GmTransition(IGmDiagram diagram, Transition transition, MRef ref) {
         super(diagram, ref);
-        
+
         this.element = transition;
-        
+
         addExtension(ExtensionLocation.MiddleNW, IGmLink.ROLE_MAIN_LABEL, new GmTransitionMainLabel(diagram, ref));
         addExtension(ExtensionLocation.SourceSE, GmTransition.ROLE_GUARD, new GmTransitionGuardLabel(diagram, ref));
         addExtension(ExtensionLocation.TargetSE, GmTransition.ROLE_POSTCOND, new GmTransitionPostConditionLabel(diagram, ref));
-        
+
     }
 
     /**
      * For deserialization only.
      */
     @objid ("f5aa2151-55b6-11e2-877f-002564c97630")
-    public  GmTransition() {
+    public GmTransition() {
         // Nothing to do.
     }
 
@@ -129,17 +130,17 @@ public class GmTransition extends GmLink {
     protected void readLink(IDiagramReader in) {
         super.readLink(in);
         this.element = (Transition) resolveRef(this.getRepresentedRef());
-        
+
     }
 
     @objid ("f5aba7e7-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmTransition.", GmTransition.MINOR_VERSION);
-        
+
     }
 
     @objid ("f5aba7ed-55b6-11e2-877f-002564c97630")
@@ -160,7 +161,7 @@ public class GmTransition extends GmLink {
                 n.setRoleInComposition(GmTransition.ROLE_POSTCOND);
             }
         }
-        
+
     }
 
 }

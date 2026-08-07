@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2005, 2010 IBM Corporation and others.
+    
+    This program and the accompanying materials are made available under the 
+    terms of the Eclipse Public License 2.0 which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+    
+    SPDX-License-Identifier: EPL-2.0
+   
+    Contributors:
+        IBM Corporation - initial API and implementation
+ -->
+<feature
+      id="org.eclipse.gef.examples"
+      label="%featureName"
+      version="3.22.0.202409301913"
+      provider-name="%providerName"
+      plugin="org.eclipse.gef.examples.logic">
+
+   <description>
+      %description
+   </description>
+
+   <copyright>
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <url>
+      <update label="%updateSiteName" url="https://download.eclipse.org/tools/gef/classic/releases/latest"/>
+      <discovery label="%updateSiteName" url="https://download.eclipse.org/tools/gef/classic/releases/latest"/>
+   </url>
+
+   <requires>
+      <import plugin="org.eclipse.gef" version="3.6.0" match="compatible"/>
+   </requires>
+
+   <plugin
+         id="org.eclipse.gef.examples.logic"
+         download-size="267"
+         install-size="533"
+         version="3.14.600.202409301913"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.gef.examples.flow"
+         download-size="107"
+         install-size="206"
+         version="3.16.200.202409301913"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.gef.examples.text"
+         download-size="157"
+         install-size="303"
+         version="3.15.300.202409301913"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.gef.examples.shapes"
+         download-size="75"
+         install-size="147"
+         version="3.15.200.202409301913"
+         unpack="false"/>
+
+</feature>

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.swt.images;
 
@@ -30,6 +30,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * Image descriptor for an image stored in a Modelio BLOB.
+ *
  * @author cma
  * @since 3.7
  */
@@ -42,16 +43,15 @@ public class ModelBlobImageDescriptor extends ImageDescriptor {
     private final IRepository repository;
 
     @objid ("0d8bef00-afa1-4a4e-9ea5-61d7a5d62d9c")
-    public  ModelBlobImageDescriptor(MObject obj, String blobKey) {
+    public ModelBlobImageDescriptor(MObject obj, String blobKey) {
         this (CoreSession.getSession(obj).getRepository(obj), blobKey);
     }
 
     @objid ("016ea926-25fe-481a-8200-efe3ec25cdff")
-    public  ModelBlobImageDescriptor(IRepository repository, String blobKey) {
+    public ModelBlobImageDescriptor(IRepository repository, String blobKey) {
         super();
         this.repository = repository;
         this.blobKey = blobKey;
-        
     }
 
     @objid ("f1df8561-1d75-4ac2-a5cc-3f31ee0ced34")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.swt.multistring;
 
@@ -33,7 +33,7 @@ class StringTextListener implements ModifyListener, KeyListener {
     private MultiStringEditionComposite dialog = null;
 
     @objid ("8dd22d9d-c068-11e1-8c0a-002564c97630")
-    public  StringTextListener(MultiStringEditionComposite dialog) {
+    public StringTextListener(MultiStringEditionComposite dialog) {
         this.dialog = dialog;
     }
 
@@ -52,21 +52,19 @@ class StringTextListener implements ModifyListener, KeyListener {
             this.dialog.addAdapter(text);
             addStringText.setText("");
         }
-        
     }
 
     @objid ("8dd3b40e-c068-11e1-8c0a-002564c97630")
     @Override
     public void modifyText(ModifyEvent e) {
         Text addStringText = (Text)e.getSource();
-        
+
         String text = addStringText.getText();
         if (text != null && !text.equals("")) {
             this.dialog.getAddParameterButton().setEnabled(true);
         } else {
             this.dialog.getAddParameterButton().setEnabled(false);
         }
-        
     }
 
 }

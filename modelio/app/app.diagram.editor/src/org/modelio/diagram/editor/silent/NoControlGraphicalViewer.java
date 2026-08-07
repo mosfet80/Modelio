@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.silent;
 
@@ -60,21 +60,21 @@ final class NoControlGraphicalViewer extends GraphicalViewerImpl {
     public void setRootEditPart(final RootEditPart editpart) {
         super.setRootEditPart(editpart);
         editpart.activate();
-        
+
     }
 
     @objid ("e95d4808-7690-452a-8a59-c1e17c027a39")
     @Override
     public void setContents(EditPart editpart) {
         super.setContents(editpart);
-        
+
         // https://mantis.softeam.com/view.php?id=12765 Some elements doesn't appears in the migrated diagrams generated in the documentation
         //
         // Workaround pb with org.modelio.diagram.elements.common.abstractdiagram.AbstractDiagramLayout.layout(IFigure) :
         // If validation is done on each revalidate() call AbstractDiagramLayout.layout() does not work: the preferred size cannot be computed because
         // child figures have not been added yet.
         ((SynchronousUpdateManager) getLightweightSystem().getUpdateManager()).setSyncValidationEnabled(true);
-        
+
     }
 
     /**
@@ -92,6 +92,7 @@ final class NoControlGraphicalViewer extends GraphicalViewerImpl {
 
     /**
      * Called if and when the viewer is disposed.
+     *
      * @param e the dispose event
      */
     @objid ("181313f7-fec1-44a9-9a16-47e3a1df6670")
@@ -101,7 +102,7 @@ final class NoControlGraphicalViewer extends GraphicalViewerImpl {
         if (this.resources != null) {
             this.resources.dispose();
         }
-        
+
     }
 
 }

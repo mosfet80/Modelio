@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.rcp.inputpart;
 
@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.model.application.MApplication;
@@ -57,7 +57,7 @@ public class InputPartService implements IInputPartService {
         MWindow sharedWindow = getModelioWindow();
         // Do we already have the part to share?
         MPart sharedPart = null;
-        
+
         // check for existing parts if necessary
         for (MUIElement element : sharedWindow.getSharedElements()) {
             if (element.getElementId().equals(id) && element instanceof MPart) {
@@ -68,7 +68,7 @@ public class InputPartService implements IInputPartService {
                 }
             }
         }
-        
+
         if (sharedPart == null) {
             MPartDescriptor descriptor = findDescriptor(id);
             sharedPart = createInputPart(descriptor);
@@ -76,7 +76,7 @@ public class InputPartService implements IInputPartService {
                 return null;
             }
             sharedPart.getPersistedState().put("inputURI", inputURI);
-        
+
             sharedWindow.getSharedElements().add(sharedPart);
         }
         return createSharedPart(sharedPart);
@@ -118,7 +118,7 @@ public class InputPartService implements IInputPartService {
         if (descriptor == null) {
             return null;
         }
-        
+
         MPart part = BasicFactoryImpl.eINSTANCE.createPart();
         part.setElementId(descriptor.getElementId());
         part.getMenus().addAll(EcoreUtil.copyAll(descriptor.getMenus()));
@@ -142,7 +142,7 @@ public class InputPartService implements IInputPartService {
     public MPart showInputPart(String id, String inputURI, PartState partState) {
         Assert.isNotNull(id);
         Assert.isNotNull(partState);
-        
+
         MPart part = getInputPart(id, inputURI);
         if (part == null) {
             MPartDescriptor descriptor = findDescriptor(id);
@@ -188,6 +188,7 @@ public class InputPartService implements IInputPartService {
      * <p>
      * Warning: do not inject the EPartService, it could be broken if a modal dialog is running.
      * </p>
+     *
      * @return the current EPartService.
      */
     @objid ("0529ae92-b7e1-4f6a-bed8-ac29948786e8")
@@ -202,9 +203,9 @@ public class InputPartService implements IInputPartService {
             //Force to show the part before hidding it (actually the part cannot be hidden if it is not visible in the current perspective)
             getPartService().showPart(part, PartState.VISIBLE);
         }
-        
+
         getPartService().hidePart(part, true);
-        
+
     }
 
 }

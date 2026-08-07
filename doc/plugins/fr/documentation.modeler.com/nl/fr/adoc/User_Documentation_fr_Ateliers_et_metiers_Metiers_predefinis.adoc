@@ -1,0 +1,69 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Métiers prédéfinis
+
+Modelio fournit plusieurs *métiers* prédéfinis :
+
+1.  UML, métier tourné vers la modélisation UML, active notamment l'intégralité du méta-modèle UML
+2.  Analyste, métier tourné l'analyse de besoins et la modélisation en phase amont
+3.  ArchiMate, métier qui active l'intégralité du méta-modèle ArchiMate
+4.  BPMN, métier qui active le méta-modèle BPMN dans Modelio
+5.  MDA, métier utilisé par les développeurs de modules ou de macros car il rend visible le modèle MDA (profile, stéréotypes...)
+
+Le tableau ci-dessous indique la configuration apportée par chaque *métier* :
+
+[options="header",cols="1,1,^1,^1,^1,^1,^1"]
+|===
+|*Métier*
+|
+|UML image:images/attachment/modeliocom41/User_Documentation_fr/Ateliers_et_metiers/Metiers_predefinis/uml.png[uml.png]
+|BPMN image:images/attachment/modeliocom41/User_Documentation_fr/Ateliers_et_metiers/Metiers_predefinis/bpmnprocess.png[bpmnprocess.png]
+|Analyste image:images/attachment/modeliocom41/User_Documentation_fr/Ateliers_et_metiers/Metiers_predefinis/analystproject.png[analystproject.png]
+|ArchiMate image:images/attachment/modeliocom41/User_Documentation_fr/Ateliers_et_metiers/Metiers_predefinis/archimate.png[archimate.png]
+|MDA image:images/attachment/modeliocom41/User_Documentation_fr/Ateliers_et_metiers/Metiers_predefinis/mda.png[mda.png]
+//----------------------------------------------------------
+|Perspective   |Perspective sélectionnée |Modèle |Modèle |Modèle |ArchiMate |Modèle
+//----------------------------------------------------------
+.5+|Explorateur de modèle
+ |Modèle UML        | X |   |   |   |
+ |Modèle BPMN       |   | X |   |   |
+ |Modèle Analyst    |   |   | X |   |
+ |Modèle ArchiMate  |   |   |   | X |
+ |Modèle MDA        |   |   |   |   | X
+
+.6+|Diagrammes
+ |Diagrammes UML          | X |   |   |   |
+ |Diagrammes BPMN         |   | X |   |   |
+ |Diagrammes Analyste     |   |   | X |   |
+ |Diagrammes ArchiMate    |   |   |   | X |
+ |Diagrammes d'Impact     | X | X |   |   |
+ |Diagrammes Automatiques | X |   |   |   |
+
+.10+|Éditeur de liens
+ |Liens Héritage                    | X |   |   |   |
+ |Liens Association                 | X |   |   |   |
+ |Liens Dépendance (tous types)     | X |   |   |   |
+ |Flux BPMN                         |   | X |   | X |
+ |Liens Analyste                    |   |   | X |   |
+ |Relations ArchiMate (tous types)  |   |   |   | X |
+ |Relations ArchiMate dynamiques    |   |   |   | X |
+ |Relations ArchiMate structurelles |   |   |   | X |
+ |Relations ArchiMate de dépendance |   |   |   | X |
+ |Liens Traçabilité                 | X | X | X | X | X
+
+.5+|Modules activés
+ |Modeler Module       | X | X | X | X | X
+ |Document Publisher   | X | X | X | X | X
+ |Web Model Publisher  | X | X | X | X | X
+ |Excel Exchange       |   |   | X |   |
+ |ArchiMate Architect  |   |   |   | X |
+
+|===
+
+
+D'autres *métiers* et *ateliers* peuvent être apportés par les modules. Par exemple, le module Java Designer ajoute un *métier* "Java" qui configure Modelio pour un contexte de développement Java.
+
+Il est aussi possible de définir des *ateliers* via l'application "Modelio Server". Les projets Modelio connectés à un Modelio Server viendront donc avec ces *ateliers* sélectionnés par défaut.

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.styles.core;
 
@@ -37,7 +37,7 @@ import org.modelio.diagram.persistence.IDiagramWriter;
 @objid ("8a3a38a6-a61e-44c5-831d-64d32a045945")
 public class DynamicStyle extends Style {
     @objid ("0e3cb4ca-419d-4cb2-ad09-9a30e3d7a145")
-    public  DynamicStyle(IStyle cascadedStyle) {
+    public DynamicStyle(IStyle cascadedStyle) {
         super(cascadedStyle);
     }
 
@@ -51,6 +51,7 @@ public class DynamicStyle extends Style {
      * Get all style keys for which a value has been locally set.
      * <p>
      * Overriden style keys are ignored.
+     *
      * @return locally defined style keys.
      */
     @objid ("2c2c390d-5770-43db-ba06-f46875c4a29b")
@@ -70,6 +71,7 @@ public class DynamicStyle extends Style {
     }
 
     /**
+     *
      * @param propertyKey the key to test.
      * @return true if a local value is defined locally or on the cascaded style for the key
      */
@@ -114,6 +116,7 @@ public class DynamicStyle extends Style {
 
     /**
      * Override a style property.
+     *
      * @param key a style key
      * @param value the forced value.
      */

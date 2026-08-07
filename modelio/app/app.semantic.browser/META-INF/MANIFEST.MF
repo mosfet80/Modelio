@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Modelio Semantic Browser
 Bundle-SymbolicName: org.modelio.app.semantic.browser;singleton:=true
-Bundle-Version: 5.4.1.qualifier 
+Bundle-Version: 6.2.0.qualifier 
 Bundle-ClassPath: .,
  res/
 Bundle-Activator: org.modelio.semantic.browser.plugin.SemanticBrowser
@@ -29,8 +29,8 @@ Require-Bundle: org.eclipse.e4.ui.model.workbench,
  org.eclipse.e4.ui.services,
  org.eclipse.e4.ui.workbench,
  org.modelio.platform.api
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-ActivationPolicy: lazy
-Import-Package: javax.annotation;version="1.1.0",
- javax.inject;version="1.0.0",
+Import-Package: jakarta.annotation;version="1.1.0",
+ jakarta.inject;version="1.0.0",
  org.modelio.vcore.session.api.model.change

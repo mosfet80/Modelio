@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -72,15 +72,17 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
     /**
      * Create a new <i>InformationFlow</i> data model from an
      * <i>InformationFlow</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("1c409e1b-273c-4ab0-bc1f-a40dfc21c529")
-    public  InformationFlowPropertyModel(InformationFlow theEditedElement) {
+    public InformationFlowPropertyModel(InformationFlow theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("bca31842-c97f-4f80-a4a8-55cd04e3964d")
@@ -91,12 +93,13 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
 
     /**
      * Returns the element realizing by the given InformationFlow node.
+     *
      * @return the realizing element
      */
     @objid ("b53e1e78-0bdb-4518-94ae-298f67ab87f9")
     private UmlModelElement getRealizing() {
         UmlModelElement ret = null;
-        
+
         EList<StructuralFeature> featureList = this.theEditedElement.getRealizingFeature();
         if (featureList.size() > 0) {
             ret = featureList.get(0);
@@ -104,7 +107,7 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
                 return ret;
             }
         }
-        
+
         EList<LinkEnd> linkList = this.theEditedElement.getRealizingLink();
         if (linkList.size() > 0) {
             ret = linkList.get(0);
@@ -112,7 +115,7 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
                 return ret;
             }
         }
-        
+
         EList<ActivityEdge> edgeList = this.theEditedElement.getRealizingActivityEdge();
         if (edgeList.size() > 0) {
             ret = edgeList.get(0);
@@ -120,7 +123,7 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
                 return ret;
             }
         }
-        
+
         EList<Message> messageList = this.theEditedElement.getRealizingMessage();
         if (messageList.size() > 0) {
             ret = messageList.get(0);
@@ -128,7 +131,7 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
                 return ret;
             }
         }
-        
+
         EList<CommunicationMessage> communicationMessageList = this.theEditedElement.getRealizingCommunicationMessage();
         if (communicationMessageList.size() > 0) {
             ret = communicationMessageList.get(0);
@@ -141,6 +144,7 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("a2f782c8-7faa-4fb2-98d6-7fe9b243f3c9")
@@ -153,6 +157,7 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -195,7 +200,7 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -205,6 +210,7 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -248,12 +254,13 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set the InstanceNode realizing elements. This method set the right
      * dependency and clears the otheEditedElement.
+     *
      * @param theEditedElement the instance node
      * @param value the new represented element
      */
@@ -268,7 +275,7 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
             }
             theEditedElement.getRealizingFeature().remove(old1);
         }
-        
+
         EList<LinkEnd> linkList = theEditedElement.getRealizingLink();
         if (linkList.size() > 0) {
             LinkEnd old1 = linkList.get(0);
@@ -277,7 +284,7 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
             }
             theEditedElement.getRealizingLink().remove(old1);
         }
-        
+
         EList<ActivityEdge> edgeList = theEditedElement.getRealizingActivityEdge();
         if (edgeList.size() > 0) {
             ActivityEdge old3 = edgeList.get(0);
@@ -286,7 +293,7 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
             }
             theEditedElement.getRealizingActivityEdge().remove(old3);
         }
-        
+
         EList<Message> messageList = theEditedElement.getRealizingMessage();
         if (messageList.size() > 0) {
             Message old4 = messageList.get(0);
@@ -295,7 +302,7 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
             }
             theEditedElement.getRealizingMessage().remove(old4);
         }
-        
+
         EList<CommunicationMessage> communicationMessageList = theEditedElement.getRealizingCommunicationMessage();
         if (communicationMessageList.size() > 0) {
             CommunicationMessage old5 = communicationMessageList.get(0);
@@ -304,7 +311,7 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
             }
             theEditedElement.getRealizingCommunicationMessage().remove(old5);
         }
-        
+
         if (value != null) {
             // Set new value
             if (LinkEnd.class.isAssignableFrom(value.getClass())) {
@@ -320,13 +327,14 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
                 theEditedElement.getRealizingCommunicationMessage().add((CommunicationMessage) value);
             }
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -371,7 +379,7 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
         default:
             return;
         }
-        
+
     }
 
 }

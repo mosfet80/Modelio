@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.service;
 
@@ -33,6 +33,7 @@ import org.modelio.vbasic.version.Version;
 @objid ("ae4bfe37-a3fd-4e72-a987-d996ef32860d")
 public interface IRTModuleController {
     /**
+     *
      * @return the controlled module.
      */
     @objid ("d8c51593-d4fa-48bb-872a-5b8d39ee862c")
@@ -40,6 +41,7 @@ public interface IRTModuleController {
 
     /**
      * Installs, activate and start the module.
+     *
      * @throws ModuleException on failure.
      */
     @objid ("2395ad81-38e7-4871-8581-92823cfdc2b3")
@@ -47,6 +49,7 @@ public interface IRTModuleController {
 
     /**
      * Stop the module.
+     *
      * @throws ModuleException on failure.
      */
     @objid ("9d8093dc-56cd-4e3d-ad03-c7cb9835435e")
@@ -54,6 +57,7 @@ public interface IRTModuleController {
 
     /**
      * Unload the IModule implementation.
+     *
      * @throws ModuleException on failure.
      */
     @objid ("74717681-d89d-4509-a214-5c3ed3dcf5ec")
@@ -61,6 +65,7 @@ public interface IRTModuleController {
 
     /**
      * Update the module.
+     *
      * @param rtModuleHandle the new module handle
      * @param moduleUri the new module URI
      * @throws ModuleException on failure.
@@ -72,6 +77,7 @@ public interface IRTModuleController {
      * Stop and unload the module before the project is closed.
      * <p>
      * The module will free its resources that are not freed with the project when closing.
+     *
      * @throws ModuleException on failure.
      */
     @objid ("275c2ca1-d1ef-418a-a9a1-9b87acfcf6a3")
@@ -79,6 +85,7 @@ public interface IRTModuleController {
 
     /**
      * Load and start the module
+     *
      * @throws ModuleException on failure
      */
     @objid ("413dfead-9b37-4e0f-b6fb-906d76189601")
@@ -86,6 +93,7 @@ public interface IRTModuleController {
 
     /**
      * Remove the module from the project
+     *
      * @param deleteAnnotations if true, delete all annotations typed by extensions provided by the module.
      * @throws ModuleException on failure.
      */
@@ -94,6 +102,7 @@ public interface IRTModuleController {
 
     /**
      * To set the module as broken.
+     *
      * @param e the breakage cause
      */
     @objid ("4b8a1458-d044-4503-92d5-46a66ebf1238")
@@ -101,6 +110,7 @@ public interface IRTModuleController {
 
     /**
      * Load the module implementation.
+     *
      * @throws ModuleException on failure.
      */
     @objid ("c31481c0-4bd1-474c-b669-ca74e605d9b7")
@@ -108,6 +118,7 @@ public interface IRTModuleController {
 
     /**
      * Activate and start the module.
+     *
      * @throws ModuleException on failure.
      */
     @objid ("c16ac946-f92b-4670-a39c-cfe382061df4")
@@ -115,12 +126,14 @@ public interface IRTModuleController {
 
     /**
      * Stop and deactivate an activated module.
+     *
      * @throws ModuleException on failure.
      */
     @objid ("dde216fc-e24c-48a6-9666-895b1e41fa65")
     void deactivate() throws ModuleException;
 
     /**
+     *
      * @return the modules registry.
      */
     @objid ("9185f322-d1b5-427a-9ab2-4af0e83a81f6")
@@ -128,6 +141,7 @@ public interface IRTModuleController {
 
     /**
      * Run the module update process from its already updated GModule.
+     *
      * @param oldVersion the old module version
      * @throws ModuleException on failure
      */
@@ -142,5 +156,5 @@ public interface IRTModuleController {
 
     @objid ("f115cfff-c8bd-4fa0-adbf-1ae8f8560f57")
     IMdaResourceProviderRegistry getMdaResourceProviderRegistry();
-}
 
+}

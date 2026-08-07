@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.packaze;
 
@@ -41,7 +41,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Graphic representation for a {@link Package}.
- * 
+ *
  * @author cmarin
  */
 @objid ("3618e1a1-55b7-11e2-877f-002564c97630")
@@ -90,15 +90,16 @@ public class GmPackage extends GmPortContainer {
 
     /**
      * Creates a GmPackage.
+     *
      * @param diagram The diagram.
      * @param thePackage The represented package, may be <tt>null</tt>
      * @param ref The represented package reference, may not be <tt>null</tt>.
      */
     @objid ("3618e1b7-55b7-11e2-877f-002564c97630")
-    public  GmPackage(IGmDiagram diagram, Package thePackage, MRef ref) {
+    public GmPackage(IGmDiagram diagram, Package thePackage, MRef ref) {
         super(diagram, ref);
         this.element = thePackage;
-        
+
         GmPackagePrimaryNode primary = new GmPackagePrimaryNode(diagram, ref);
         primary.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
         addChild(primary);
@@ -106,15 +107,15 @@ public class GmPackage extends GmPortContainer {
         imageModeHeader.setRoleInComposition(IMAGE_MODE_HEADER);
         imageModeHeader.setLayoutData(PositionConstants.SOUTH);
         addChild(imageModeHeader);
-        
+
     }
 
     /**
      * For deserialization only.
      */
     @objid ("361a6819-55b7-11e2-877f-002564c97630")
-    public  GmPackage() {
-        
+    public GmPackage() {
+
     }
 
     @objid ("361a681c-55b7-11e2-877f-002564c97630")
@@ -136,12 +137,12 @@ public class GmPackage extends GmPortContainer {
         if (ret != null) {
             return ret;
         }
-        
+
         ret = SIMPLE_KEYS.getStyleKey(metakey);
         if (ret != null) {
             return ret;
         }
-        
+
         ret = IMAGE_KEYS.getStyleKey(metakey);
         return ret;
     }
@@ -165,7 +166,7 @@ public class GmPackage extends GmPortContainer {
         } else {
             return Collections.emptyList();
         }
-        
+
     }
 
     @objid ("361a683e-55b7-11e2-877f-002564c97630")
@@ -185,7 +186,7 @@ public class GmPackage extends GmPortContainer {
                 break;
             }
         }
-        
+
     }
 
     @objid ("361a6844-55b7-11e2-877f-002564c97630")
@@ -218,7 +219,7 @@ public class GmPackage extends GmPortContainer {
                 default: {
                     break;
                 }
-        
+
             }
         }
         return ret;
@@ -228,18 +229,18 @@ public class GmPackage extends GmPortContainer {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmPackage.", GmPackage.MINOR_VERSION);
-        
+
     }
 
     @objid ("361beec5-55b7-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
-        
+
         this.element = (Package) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("361beeca-55b7-11e2-877f-002564c97630")
@@ -250,6 +251,7 @@ public class GmPackage extends GmPortContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */
@@ -261,6 +263,7 @@ public class GmPackage extends GmPortContainer {
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */
@@ -278,7 +281,7 @@ public class GmPackage extends GmPortContainer {
         } else {
             super.addStartingLink(link);
         }
-        
+
     }
 
     @objid ("361beef0-55b7-11e2-877f-002564c97630")
@@ -289,18 +292,19 @@ public class GmPackage extends GmPortContainer {
         } else {
             super.addEndingLink(link);
         }
-        
+
     }
 
     /**
      * Migration constructor from major version 0, should only be called by migrator.
+     *
      * @param oldVersionGm the instance to migrate from.
      */
     @objid ("361d7559-55b7-11e2-877f-002564c97630")
-     GmPackage(final _GmPackage oldVersionGm) {
+    GmPackage(final _GmPackage oldVersionGm) {
         super(oldVersionGm.getDiagram(), oldVersionGm.getRepresentedRef());
         this.element = (Package) oldVersionGm.getRelatedElement();
-        
+
         GmPackagePrimaryNode primary = new GmPackagePrimaryNode(oldVersionGm);
         primary.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
         addChild(primary);
@@ -309,7 +313,7 @@ public class GmPackage extends GmPortContainer {
         imageModeHeader.setRoleInComposition(IMAGE_MODE_HEADER);
         imageModeHeader.setLayoutData(PositionConstants.SOUTH);
         addChild(imageModeHeader);
-        
+
     }
 
     @objid ("361d755e-55b7-11e2-877f-002564c97630")
@@ -332,7 +336,7 @@ public class GmPackage extends GmPortContainer {
             child.setRoleInComposition(BODY_CONTENT_AS_SATELLITE);
         }
         super.addChild(child);
-        
+
     }
 
     @objid ("361d756e-55b7-11e2-877f-002564c97630")

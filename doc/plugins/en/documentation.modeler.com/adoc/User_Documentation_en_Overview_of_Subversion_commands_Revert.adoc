@@ -1,0 +1,44 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= The "Revert" command
+
+
+
+===== Description
+
+The "Revert" command restores local elements to their current state and contents in the repository. [[Conditions-and-restrictions]]
+
+
+===== Conditions and restrictions
+
+The "Revert" command can be run on the following conditions:
+
+* The element is an <<User_Documentation_en_Introducing_SVN_work_models_Atomic_units.adoc#,Atomic unit>>.
+* The element is currently read-write. [[User-interface]]
+
+
+===== User interface
+
+The "Revert" command opens the following window:
+
+.The "Revert modifications" window
+image::images/attachment/modeliocom41/User_Documentation_en/Overview_of_Subversion_commands/Revert/TW_007_revert.png[TW_007_revert.png]
+
+
+This window includes an "Is recursive" option and a "Release locks" option. These options are checked by default. It also lists the elements that are about to be reverted depending on the chosen option values. [[Behavior]]
+
+
+===== Behavior
+
+The "Revert" command window options modify command behavior as described below.
+
+* *Is recursive* : +
+The element AND all its sub-elements will be reverted by the command. +
+Example: a package and all its classes.
+* *Release locks* : +
+The command will also unlock the elements it is applied to, leaving them in the unlocked status (read-only).

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.objectdiagram.editor.elements.factories;
 
@@ -99,7 +99,7 @@ public final class ObjectGmLinkFactory implements IGmLinkFactory {
         private IGmDiagram diagram;
 
         @objid ("b693e6cd-c895-429d-ab24-6d49c7c5e0c1")
-        public  ImplVisitor(IGmDiagram diagram) {
+        public ImplVisitor(IGmDiagram diagram) {
             this.diagram = diagram;
         }
 

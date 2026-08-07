@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -43,7 +43,7 @@ public class OMessageEnd extends OOccurrenceSpecification {
     }
 
     @objid ("15570f8b-3d47-4e3e-83f4-8a7c710a2e86")
-    public  OMessageEnd(MessageEnd param) {
+    public OMessageEnd(MessageEnd param) {
         super(param);
     }
 
@@ -57,22 +57,22 @@ public class OMessageEnd extends OOccurrenceSpecification {
     @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
-        
+
         if (ecoreElt instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification
                 || ecoreElt instanceof org.eclipse.uml2.uml.Gate) {
-        
+
             org.eclipse.uml2.uml.MessageEnd messageEnd = (org.eclipse.uml2.uml.MessageEnd) ecoreElt;
             Message message = ((MessageEnd) getObjingElement()).getReceivedMessage();
-        
+
             if (message != null)
                 setMessageAndSignatureMessage(messageEnd, message);
-        
+
             message = ((MessageEnd) getObjingElement()).getSentMessage();
             if (message != null)
                 setMessageAndSignatureMessage(messageEnd, message);
-        
+
         }
-        
+
     }
 
     @objid ("e9b81052-4cc8-4822-af78-907d9014e36e")
@@ -81,90 +81,90 @@ public class OMessageEnd extends OOccurrenceSpecification {
         // org.eclipse.uml2.uml.Message we may create Execution occurence in bad order
         Operation objinOperation = message.getInvoked();
         Signal objingSignal = message.getSignalSignature();
-        
+
         org.eclipse.uml2.uml.Message ecoreMessage = (org.eclipse.uml2.uml.Message) GenerationProperties.getInstance().getMappedElement(message);
         Element objingElement= getObjingElement();
-        
+
         org.eclipse.uml2.uml.Event event = null;
-        
+
         if (ecoreMessage != null) {
-        
+
             if (objingElement.equals(message.getSendEvent())) {
-        
+
                 ecoreMessage.setSendEvent(ecoreMessOccSpec);
                 ecoreMessOccSpec.setMessage(ecoreMessage);
-        
+
             } else if (objingElement.equals(message.getReceiveEvent())){
-        
+
                 ecoreMessage.setReceiveEvent(ecoreMessOccSpec);
                 ecoreMessOccSpec.setMessage(ecoreMessage);
             }
-        
+
             if (message.getSortOfMessage().equals(org.modelio.metamodel.uml.behavior.interactionModel.MessageSort.CREATEMESSAGE)
                     && objinOperation != null
                     && ecoreMessOccSpec instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification){
-        
+
                 event = UMLFactory.eINSTANCE.createCreationEvent();
-        
+
             }
-        
+
             // We set a SentEvent  org.eclipse.uml2.uml.Operation
             if (objinOperation != null
                     && ecoreMessOccSpec instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification) {
                 event = UMLFactory.eINSTANCE.createSendOperationEvent();
                 ((SendOperationEvent) event).setOperation((org.eclipse.uml2.uml.Operation) GenerationProperties.getInstance().getMappedElement(objinOperation));
             }
-        
+
             if ((objingSignal != null)
                     && (ecoreMessOccSpec instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification)) {
                 event = UMLFactory.eINSTANCE.createSendSignalEvent();
                 ((SendSignalEvent) event).setSignal((org.eclipse.uml2.uml.Signal) GenerationProperties.getInstance().getMappedElement(objingSignal));
-        
+
             }
-        
+
             if (event != null) {
                 attachEvent(event, ecoreMessOccSpec);
                 setEvent(event,ecoreMessOccSpec);
             }
         }
-        
+
     }
 
     @objid ("1aa94ba1-b2e0-424d-95f9-cd9c60d4af74")
     private void attachEvent(org.eclipse.uml2.uml.Event event, org.eclipse.uml2.uml.MessageEnd ecoreMessOccSpec) {
         org.eclipse.uml2.uml.Package thePackage = ecoreMessOccSpec.getNearestPackage();
-        
+
         if (thePackage == null) {
-        
+
             Interaction objingInteraction = (Interaction) AbstractObjingModelNavigation.getEnclosingElement(getObjingElement(), getObjingElement().getMClass().getMetamodel().getMClass(Interaction.class));
-        
+
             if (objingInteraction != null) {
-        
+
                 org.eclipse.uml2.uml.Interaction ecoreInteraction = (org.eclipse.uml2.uml.Interaction) GenerationProperties.getInstance()
                         .getMappedElement(objingInteraction);
-        
+
                 if (ecoreInteraction != null)
                     thePackage = ecoreInteraction.getNearestPackage();
-        
+
             }
         }
-        
+
         if (thePackage != null){
             thePackage.getPackagedElements().add(event);
         }
-        
+
     }
 
     @objid ("1b4554b1-e982-497b-8510-a1dabcc45e8d")
     private boolean haveUML2Event(Message objingMessage) {
         MessageEnd end = objingMessage.getSendEvent();
         MessageEnd start = objingMessage.getReceiveEvent();
-        
+
         for (Dependency dep : end.getDependsOnDependency()){
             if (dep.isStereotyped(IModelerModulePeerModule.MODULE_NAME, "UML2Event"))
                 return true;
         }
-        
+
         for (Dependency dep : start.getDependsOnDependency()){
             if (dep.isStereotyped(IModelerModulePeerModule.MODULE_NAME, "UML2Event"))
                 return true;
@@ -178,7 +178,7 @@ public class OMessageEnd extends OOccurrenceSpecification {
             ((org.eclipse.uml2.uml.OccurrenceSpecification) ecoreMessOccSpec)
             .setEvent(event);
         }
-        
+
     }
 
 }

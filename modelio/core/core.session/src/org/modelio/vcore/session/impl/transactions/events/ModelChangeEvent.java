@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.impl.transactions.events;
 
@@ -64,6 +64,7 @@ class ModelChangeEvent implements IModelChangeEvent {
 
     /**
      * Get the origin of this model change event
+     *
      * @return the model change event cause.
      */
     @objid ("fd08e6f2-d258-4e5a-b4f6-a068f92f49cd")
@@ -76,6 +77,7 @@ class ModelChangeEvent implements IModelChangeEvent {
      * Get a resume of model object creations.
      * <p>
      * When whole composition trees are created the list only contains the root and CMS node elements .
+     *
      * @return the created elements.
      */
     @objid ("003d7bec-ca41-1f3c-aafd-001ec947cd2a")
@@ -88,6 +90,7 @@ class ModelChangeEvent implements IModelChangeEvent {
      * Get a resume of model object deletions.
      * <p>
      * When whole composition trees are deleted the list only contains the root and CMS node elements .
+     *
      * @return model objects deletions
      */
     @objid ("003e0eb8-ca41-1f3c-aafd-001ec947cd2a")
@@ -104,6 +107,7 @@ class ModelChangeEvent implements IModelChangeEvent {
 
     /**
      * Get all model moves.
+     *
      * @return all model moves.
      */
     @objid ("003ddea2-ca41-1f3c-aafd-001ec947cd2a")
@@ -123,6 +127,7 @@ class ModelChangeEvent implements IModelChangeEvent {
      * Get all deleted composition root model objects.
      * <p>
      * This list contains all composition tree root that were deleted.
+     *
      * @return all deleted composition roots.
      */
     @objid ("35ae0406-b6f4-4c28-a6fd-66a0a885fd55")
@@ -136,6 +141,7 @@ class ModelChangeEvent implements IModelChangeEvent {
      * <p>
      * This list does not contain the composition owner of created elements, unless other
      * modification was made on the owner.
+     *
      * @return all modified model objects.
      */
     @objid ("003dae64-ca41-1f3c-aafd-001ec947cd2a")
@@ -148,13 +154,14 @@ class ModelChangeEvent implements IModelChangeEvent {
      * Test whether the model change event is empty.
      * <p>
      * An empty model change events does not need to be fired.
+     *
      * @return <code>true</code> if the model change event is empty.
      */
     @objid ("6e9bc8dd-aabe-4050-8784-c6e832542201")
     @Override
     public boolean isEmpty() {
-        return this.updatedElements.isEmpty() && 
-                        this.createdElements.isEmpty() && 
+        return this.updatedElements.isEmpty() &&
+                        this.createdElements.isEmpty() &&
                         this.deletedElements.isEmpty() &&
                         this.movedElements.isEmpty() &&
                         this.deletedRootElements.isEmpty();
@@ -169,10 +176,10 @@ class ModelChangeEvent implements IModelChangeEvent {
         private MObject oldParent;
 
         @objid ("0020f5d0-47fe-1f3d-aafd-001ec947cd2a")
-        public  ElementDeletedEvent(final MObject moved, final MObject oldParent) {
+        public ElementDeletedEvent(final MObject moved, final MObject oldParent) {
             this.moved = moved;
             this.oldParent = oldParent;
-            
+
         }
 
         @objid ("002110ba-47fe-1f3d-aafd-001ec947cd2a")
@@ -201,11 +208,11 @@ class ModelChangeEvent implements IModelChangeEvent {
         private MObject oldParent;
 
         @objid ("001fcf98-47fe-1f3d-aafd-001ec947cd2a")
-        public  ElementMovedEvent(final MObject mObject, final MObject mObject2, final MObject mObject3) {
+        public ElementMovedEvent(final MObject mObject, final MObject mObject2, final MObject mObject3) {
             this.moved = mObject;
             this.newParent = mObject2;
             this.oldParent = mObject3;
-            
+
         }
 
         @objid ("00206dea-47fe-1f3d-aafd-001ec947cd2a")

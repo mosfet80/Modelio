@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.resizablegroup;
 
@@ -56,11 +56,10 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * installed on the {@link ResizableGroupEditPart}.
  * <p>
  * {@link GmResizableGroup} does fire {@link GmModel#PROP_REFRESH_FROM_OBMODEL} property change event.
- * 
- * 
+ *
  * @author cma
- * @since 5.1.0
  * @see org.modelio.diagram.elements.core.policies.AutoFitToContentEditPolicy
+ * @since 5.1.0
  */
 @objid ("497c7aa3-d8a5-46eb-8afb-7e634205c095")
 public class ResizableGroupRefreshFromModelEditPolicy extends DefaultRefreshFromModelEditPolicy {
@@ -71,15 +70,16 @@ public class ResizableGroupRefreshFromModelEditPolicy extends DefaultRefreshFrom
     private final Function<MObject, List<? extends MObject>> expectedChildren;
 
     /**
+     *
      * @param expectedChildren a function that return the model elements that must be displayed, in order
      * @param ordered if true, order of the graphic elements will be synchronized with the order returned by the function
      */
     @objid ("77df9754-d0e5-4909-926c-9d9720710aa7")
-    public  ResizableGroupRefreshFromModelEditPolicy(Function<MObject, List<? extends MObject>> expectedChildren, boolean ordered) {
+    public ResizableGroupRefreshFromModelEditPolicy(Function<MObject, List<? extends MObject>> expectedChildren, boolean ordered) {
         super();
         this.expectedChildren = expectedChildren;
         this.ordered = ordered;
-        
+
     }
 
     /**
@@ -92,12 +92,13 @@ public class ResizableGroupRefreshFromModelEditPolicy extends DefaultRefreshFrom
      * whose models no longer exist are {@link #getRemoveChildCommand(GmNodeModel, Map) removed}.
      * New models have their GmNodeModel {@link #getCreateChildCommand(MObject, int) created}.
      * <p>
+     *
      * @author Inspired from {@link AbstractEditPart#refreshChildren()}
      */
     @objid ("d0d44b4d-860a-46b7-941d-2834f8eb705d")
     protected final Command getRefreshCommand() {
         final GmCompositeNode gmGroup = getModel();
-        
+
         List<? extends MObject> obChildren = this.expectedChildren.apply(gmGroup.getRelatedElement());
         if (obChildren == null) {
             // Abort refresh
@@ -116,6 +117,7 @@ public class ResizableGroupRefreshFromModelEditPolicy extends DefaultRefreshFrom
      * whose models no longer exist are {@link #getRemoveChildCommand(GmNodeModel, Map) removed}.
      * New models have their GmNodeModel {@link #getCreateChildCommand(MObject, int) created}.
      * <p>
+     *
      * @author Inspired from {@link AbstractEditPart#refreshChildren()}
      * @param gmGroup the host graphic model
      * @param obChildren the children model elements to display
@@ -125,7 +127,7 @@ public class ResizableGroupRefreshFromModelEditPolicy extends DefaultRefreshFrom
         final CompoundCommand command = new CompoundCommand();
         final Map<Object, EditPart> editPartRegistry = getHost().getViewer().getEditPartRegistry();
         final List<GmNodeModel> gmChildren = gmGroup.getChildren();
-        
+
         int gmSize = gmChildren.size();
         Map<MObject, GmNodeModel> obToGm = Collections.emptyMap();
         if (gmSize > 0) {
@@ -134,12 +136,12 @@ public class ResizableGroupRefreshFromModelEditPolicy extends DefaultRefreshFrom
                 obToGm.put(gmChild.getRelatedElement(), gmChild);
             }
         }
-        
+
         int obSize = obChildren.size();
         int obIndex = 0;
         while (obIndex < obSize) {
             MObject obElement = obChildren.get(obIndex);
-        
+
             // Do a quick check to see if gmChildren[i] == obChildren[i]
             if (obIndex < gmSize
                     && obElement.equals((gmChildren.get(obIndex)).getRelatedElement())) {
@@ -147,11 +149,11 @@ public class ResizableGroupRefreshFromModelEditPolicy extends DefaultRefreshFrom
                 obToGm.remove(obElement);
                 continue;
             }
-        
+
             // Look to see if the GmNodeModel is already around but in the
             // wrong location
             GmNodeModel gmChild = obToGm.remove(obElement);
-        
+
             if (gmChild != null) {
                 if (this.ordered) {
                     command.add(getReorderChildCommand(gmChild, obIndex));
@@ -161,24 +163,24 @@ public class ResizableGroupRefreshFromModelEditPolicy extends DefaultRefreshFrom
                 // insert one.
                 command.add(getCreateChildCommand(obElement, obIndex));
             }
-        
+
             obIndex++;
         }
-        
+
         Collection<GraphicalEditPart> deletedEp = Collections.emptyList();
         // Remove the remaining GmNodeModel
         if (! obToGm.isEmpty()) {
             deletedEp = new ArrayList<>();
-        
+
             for (GmNodeModel gmToDelete : obToGm.values()) {
                 command.add(getRemoveChildCommand(gmToDelete, editPartRegistry));
                 deletedEp.add((GraphicalEditPart) editPartRegistry.get(gmToDelete));
             }
         }
-        
+
         if (command.size()==0)
             return null;
-        
+
         // Add layout links command
         if (false) {
             LayoutChildrenNodeConnectionsHelper.forRequest(null)
@@ -196,7 +198,7 @@ public class ResizableGroupRefreshFromModelEditPolicy extends DefaultRefreshFrom
         ModelioCreationContext ctx = new ModelioCreationContext(model);
         req.setFactory(ctx);
         RequestProperty.PROP_GROUP_ITEM_INDEX.set(req, index);
-        
+
         Command cmd = getHost().getCommand(req);
         if (cmd == null || !cmd.canExecute()) {
             DiagramElements.LOG.debug("%s: Unable to unmask %s under %s, command = %s", getClass().getSimpleName(), model, getHost(), cmd);
@@ -220,7 +222,7 @@ public class ResizableGroupRefreshFromModelEditPolicy extends DefaultRefreshFrom
         } else {
             return new DeleteInDiagramCommand().setNodetoDelete(gmChild);
         }
-        
+
     }
 
     @objid ("ac7ae576-fcf2-480e-bf99-f2f4e834f34c")
@@ -240,11 +242,11 @@ public class ResizableGroupRefreshFromModelEditPolicy extends DefaultRefreshFrom
         protected final GmNodeModel gmChild;
 
         @objid ("6b11e792-fc2e-4c6a-8a41-7b31f9c113ad")
-        public  ReorderChildCommand(GmCompositeNode group, GmNodeModel gmChild, int i) {
+        public ReorderChildCommand(GmCompositeNode group, GmNodeModel gmChild, int i) {
             this.group = group;
             this.gmChild = gmChild;
             this.i = i;
-            
+
         }
 
         @objid ("a61788a1-9561-4d9a-b636-1e7d975f9e53")

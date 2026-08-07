@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.events;
 
 import java.util.ArrayList;
@@ -45,66 +44,65 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("b176ad0b-b65b-4dd5-9dad-1af827c191b1")
 public class BpmnEventSmClass extends BpmnFlowNodeSmClass {
-    @objid ("4161ab47-7113-4a9c-abfe-46e6b382751f")
+    @objid ("eae9bc12-84c9-4b97-b3f1-36f5e5387039")
     private SmDependency eventDefinitionsDep;
 
-    @objid ("d7cf49e3-f1d5-48c8-b7dc-b0b29825e007")
-    public  BpmnEventSmClass(ISmMetamodelFragment origin) {
+    @objid ("b46f950f-5d82-4b98-b622-14abc670297c")
+    public BpmnEventSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("31fd2b67-695c-4275-bca6-953a2daa9da5")
+    @objid ("d0d41910-4ff9-465d-84bf-db3888f7f116")
     @Override
     public String getName() {
         return "BpmnEvent";
-        
+
     }
 
-    @objid ("af23d280-913b-4c65-80f5-4154238bf1df")
+    @objid ("37586ffb-b8f6-419b-9fff-7c9d855a4939")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("81223ec5-91ac-4f30-974c-aa0fce814111")
+    @objid ("38064e92-2977-403e-97e4-834a73401f61")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return BpmnEvent.class;
-        
+
     }
 
-    @objid ("3888c6f4-0c99-485f-8133-d40fa67ec466")
+    @objid ("5b049838-244d-4584-9fd5-5f0491e104fd")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("3f2cb934-b40c-4ce5-8585-58e0df0cb7f2")
+    @objid ("c4ea5e91-9bb4-4760-a5cb-9b99ee22d3c3")
     @Override
     public boolean isAbstract() {
         return true;
-        
+
     }
 
-    @objid ("ed27cbce-2fd4-4dc1-ab0d-0d4d828ba3bc")
+    @objid ("c5ffe10b-13c4-4fe6-b3ed-02bfcdf0602c")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(BpmnFlowNode.MQNAME);
         this.registerFactory(new BpmnEventObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
         this.eventDefinitionsDep = new EventDefinitionsSmDependency();
         this.eventDefinitionsDep.init("EventDefinitions", this, metamodel.getMClass(BpmnEventDefinition.MQNAME), 0, -1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.eventDefinitionsDep);
-        
-        
+
     }
 
-    @objid ("33bc1322-c411-498a-a51a-ad0edf4fb339")
+    @objid ("140d83f1-aee3-4a1b-9940-a8690cd6ad5f")
     public SmDependency getEventDefinitionsDep() {
         if (this.eventDefinitionsDep == null) {
         	this.eventDefinitionsDep = this.getDependencyDef("EventDefinitions");
@@ -114,21 +112,21 @@ public class BpmnEventSmClass extends BpmnFlowNodeSmClass {
 
     @objid ("0f092c62-798b-483b-b633-71830ca058cb")
     private static class BpmnEventObjectFactory implements ISmObjectFactory {
-        @objid ("dfa09baf-36c8-4ea9-b063-a0c4ca31fd3e")
+        @objid ("eae9712c-b18c-4868-9a6a-4813be3074be")
         private BpmnEventSmClass smClass;
 
-        @objid ("64123256-871a-4640-ab78-a6cd621de2c7")
-        public  BpmnEventObjectFactory(BpmnEventSmClass smClass) {
+        @objid ("8c64009c-4a02-4bbe-b69f-a17b135d66b6")
+        public BpmnEventObjectFactory(BpmnEventSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("9c7ca479-7994-49c6-91be-9dffd493f1a0")
+        @objid ("3764948f-f724-41ad-a505-bfad093411c6")
         @Override
         public ISmObjectData createData() {
             throw new UnsupportedOperationException();
         }
 
-        @objid ("5e70b9fa-d5fe-4d0e-85aa-af9cdbde496d")
+        @objid ("1c4ecafb-d5a9-4171-a979-d57470dbd2a6")
         @Override
         public SmObjectImpl createImpl() {
             throw new UnsupportedOperationException();
@@ -138,30 +136,30 @@ public class BpmnEventSmClass extends BpmnFlowNodeSmClass {
 
     @objid ("e88e2a7d-7395-4308-ad8f-ddbf7a513642")
     public static class EventDefinitionsSmDependency extends SmMultipleDependency {
-        @objid ("03db9718-71a1-4670-94d6-976375011269")
+        @objid ("e95d14a0-ef78-41b7-b454-5fea03eac731")
         private SmDependency symetricDep;
 
-        @objid ("c82acb1a-a58c-430c-99f4-594a524d2866")
+        @objid ("72506e75-4882-4b92-99ea-570b0e55d2d9")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((BpmnEventData)data).mEventDefinitions != null)? ((BpmnEventData)data).mEventDefinitions:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("ffe6542d-0c24-41ae-a683-13b346f92c7e")
+        @objid ("b74ef37a-d051-438a-aa73-710939d28ed8")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((BpmnEventData) data).mEventDefinitions = values;
-            
+
         }
 
-        @objid ("6f8d5ecc-bdab-4abb-b8d1-baed83662a62")
+        @objid ("e475e1dd-ff67-4042-912c-b55cef3b5162")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((BpmnEventDefinitionSmClass)this.getTarget()).getDefinedDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

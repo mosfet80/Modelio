@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.ui.persp;
 
@@ -26,9 +26,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.EventTopic;
@@ -80,8 +80,8 @@ import org.osgi.service.event.EventHandler;
 @SuppressWarnings ("restriction")
 public class PerspectiveSwitcher extends TrimBarComponent {
     @objid ("a6605b37-b873-4011-b716-0a62f2e0699f")
-    public static final String PERSPECTIVE_SWITCHER_ID = "org.eclipse.e4.ui.PerspectiveSwitcher"; // // $NON-NLS-1$
-    
+    public static final String PERSPECTIVE_SWITCHER_ID = "org.eclipse.e4.ui.PerspectiveSwitcher";// $NON-NLS-1$
+
 
     @objid ("d72c1e5a-a0e2-49f9-8090-66121b599d35")
     private static final String PERSPECTIVE_SUBDIR = "perspective";
@@ -160,7 +160,7 @@ public class PerspectiveSwitcher extends TrimBarComponent {
                     // update the layout
                     refreshLayout();
                 }
-    
+
                 private void updateToolItem(ToolItem ti, String attName, Object newValue) {
                     boolean showText = PrefUtil.getAPIPreferenceStore().getBoolean(
                             IWorkbenchPreferenceConstants.SHOW_TEXT_ON_PERSPECTIVE_BAR);
@@ -185,7 +185,7 @@ public class PerspectiveSwitcher extends TrimBarComponent {
                     if (getControl().isDisposed()) {
                         return;
                     }
-    
+
                     MUIElement changedElement = (MUIElement) event.getProperty(UIEvents.EventTags.ELEMENT);
                     if (PerspectiveSwitcher.this.toolControl == null || !(changedElement instanceof MPerspectiveStack)) {
                         return;
@@ -246,7 +246,7 @@ public class PerspectiveSwitcher extends TrimBarComponent {
     private Image perspectiveImage;
 
     @objid ("f957c856-3f6d-4535-bc36-0a6b13616cfa")
-    public  PerspectiveSwitcher() {
+    public PerspectiveSwitcher() {
         super(AppUi.I18N.getString("PerspectiveSwitcher.PerspectiveZone.label"));
     }
 
@@ -254,15 +254,15 @@ public class PerspectiveSwitcher extends TrimBarComponent {
     @Override
     protected Control createControl(Composite parent) {
         ToolBar toolbar = new ToolBar(parent, SWT.FLAT | SWT.WRAP | SWT.RIGHT);
-        
+
         toolbar.addDisposeListener(new DisposeListener() {
             @Override
             public void widgetDisposed(DisposeEvent e) {
                 disposeTBImages();
             }
-        
+
         });
-        
+
         toolbar.getAccessible().addAccessibleListener(new AccessibleAdapter() {
             @Override
             public void getName(AccessibleEvent e) {
@@ -282,7 +282,7 @@ public class PerspectiveSwitcher extends TrimBarComponent {
         if (getControl() == null) {
             return null;
         }
-        
+
         for (ToolItem ti : getControl().getItems()) {
             if (ti.getData() == persp) {
                 return ti;
@@ -311,7 +311,7 @@ public class PerspectiveSwitcher extends TrimBarComponent {
                 }
             }
         }
-        
+
     }
 
     @objid ("12303834-b2a9-4edc-85c7-b9f3c0ff7ecd")
@@ -324,7 +324,7 @@ public class PerspectiveSwitcher extends TrimBarComponent {
     private ToolItem addPerspectiveItem(final MPerspective persp) {
         final ToolItem psItem = new ToolItem(getControl(), SWT.RADIO);
         psItem.setData(persp);
-        
+
         String iconUri = persp.getIconURI();
         ImageDescriptor imageDescriptor = null;
         try {
@@ -332,7 +332,7 @@ public class PerspectiveSwitcher extends TrimBarComponent {
         } catch (MalformedURLException e) {
             AppUi.LOG.error(e);
         }
-        
+
         boolean foundImage = false;
         if (imageDescriptor != null) {
             final Image image = imageDescriptor.createImage(false);
@@ -348,14 +348,14 @@ public class PerspectiveSwitcher extends TrimBarComponent {
                 psItem.setToolTipText(persp.getLocalizedLabel());
             }
         }
-        
+
         if (!foundImage) {
             psItem.setText(persp.getLocalizedLabel());
             psItem.setToolTipText(persp.getLocalizedTooltip());
         }
-        
+
         psItem.setSelection(persp == persp.getParent().getSelectedElement());
-        
+
         /*
          * The perspective button supports a little trick here. - when simply pressed it selects the perspective. - when CTRL+ALT pressed it resets the perspective and restart Modelio.
          */
@@ -367,10 +367,10 @@ public class PerspectiveSwitcher extends TrimBarComponent {
                 if (reset) {
                     // Switch to the perspective
                     p.getParent().setSelectedElement(p);
-        
+
                     // Create the reset flag file and restart modelio
                     final IEclipseContext eclipseContext = E4Workbench.getServiceContext().getActiveChild();
-        
+
                     IProjectService projectService = eclipseContext.get(IProjectService.class);
                     IGProject openedProject = projectService.getOpenedProject();
                     Path persistenceDir = openedProject.getPfs().getProjectRuntimePath().resolve(PERSPECTIVE_SUBDIR);
@@ -382,21 +382,21 @@ public class PerspectiveSwitcher extends TrimBarComponent {
                             Display.getDefault().asyncExec(() -> workbench.restart());
                         }
                     } catch (IOException e1) {
-        
+
                     }
                 } else {
                     // Just switch to the perspective
                     p.getParent().setSelectedElement(p);
                 }
             }
-        
+
             @Override
             public void widgetDefaultSelected(SelectionEvent e) {
                 MPerspective p = (MPerspective) e.widget.getData();
                 p.getParent().setSelectedElement(p);
             }
         });
-        
+
         // update the layout
         refreshLayout();
         return psItem;
@@ -409,16 +409,17 @@ public class PerspectiveSwitcher extends TrimBarComponent {
             this.perspectiveImage.dispose();
             this.perspectiveImage = null;
         }
-        
+
         this.eventBroker.unsubscribe(this.toBeRenderedHandler);
         this.eventBroker.unsubscribe(this.childrenHandler);
         this.eventBroker.unsubscribe(this.selectionHandler);
         this.eventBroker.unsubscribe(this.labelHandler);
-        
+
     }
 
     /**
      * Initialize the SWT toolbar.
+     *
      * @param parent a widget which will be the parent of the new SWT components.
      */
     @objid ("a3491422-474c-4ebb-9b21-87e5982edded")
@@ -437,7 +438,7 @@ public class PerspectiveSwitcher extends TrimBarComponent {
                 image.dispose();
             }
         }
-        
+
     }
 
     @objid ("d6d98beb-5d47-41f3-bfd4-584f34127d17")
@@ -456,7 +457,7 @@ public class PerspectiveSwitcher extends TrimBarComponent {
         this.eventBroker.subscribe(UIEvents.UIElement.TOPIC_TOBERENDERED, this.toBeRenderedHandler);
         this.eventBroker.subscribe(UIEvents.ElementContainer.TOPIC_SELECTEDELEMENT, this.selectionHandler);
         this.eventBroker.subscribe(UIEvents.UILabel.TOPIC_ALL, this.labelHandler);
-        
+
     }
 
     @objid ("3b16c889-4ecc-4cfd-85ac-ccf01216a8de")
@@ -465,10 +466,10 @@ public class PerspectiveSwitcher extends TrimBarComponent {
         if (psItem != null) {
             psItem.dispose();
         }
-        
+
         // update the layout
         refreshLayout();
-        
+
     }
 
     @objid ("d252865a-a816-4196-8ba7-4b63f94cae56")

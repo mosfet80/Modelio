@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.script.macro.catalogdialog;
 
@@ -61,7 +61,7 @@ class CatalogLabelProvider extends LabelProvider {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("00699a92-c497-106a-bf4f-001ec947cd2a")
@@ -81,16 +81,16 @@ class CatalogLabelProvider extends LabelProvider {
         } else {
             return element.toString();
         }
-        
+
     }
 
     @objid ("0069772e-c497-106a-bf4f-001ec947cd2a")
-     CatalogLabelProvider() {
+    CatalogLabelProvider() {
         this.images = new ImageRegistry(Display.getDefault());
         final Bundle bundle = Platform.getBundle(org.modelio.script.plugin.Script.PLUGIN_ID);
         final URL catalogImageUrl = FileLocator.find(bundle, new org.eclipse.core.runtime.Path("icons/scriptcatalog.png"), null);
         this.images.put(CATALOGID, ImageDescriptor.createFromURL(catalogImageUrl));
-        
+
     }
 
     @objid ("00699dda-c497-106a-bf4f-001ec947cd2a")

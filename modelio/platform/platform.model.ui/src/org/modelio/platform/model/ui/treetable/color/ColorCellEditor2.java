@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.treetable.color;
 
@@ -45,7 +45,7 @@ import org.eclipse.swt.widgets.Tree;
  * This class is a clone of SWT/JFace original org.eclipse.jface.viewers.ColorCellEditor modified to center the color
  * chooser dialog when it pops. The original class is marked @noextend therefore we choose to use a copy instead of
  * inheriting and specialising
- * 
+ *
  * @author pvlaemyn
  */
 @objid ("6b1eba10-1eba-11e2-9382-bc305ba4815c")
@@ -65,25 +65,25 @@ public class ColorCellEditor2 extends DialogCellEditor {
     /**
      * The composite widget containing the color and RGB label widgets
      */
-    @objid ("9ad3026c-c12e-43ce-b7e9-fd78b47b9bc9")
+    @objid ("2adfd428-46fc-426b-a3b6-c19b8739ef6c")
     private Composite composite;
 
     /**
      * The label widget showing the current color.
      */
-    @objid ("624221f6-eb64-4385-9a0c-1cc2e423db42")
+    @objid ("21714f79-e834-44f5-8ff6-c4dd39836bd8")
     private Label colorLabel;
 
     /**
      * The label widget showing the RGB values.
      */
-    @objid ("d785385d-e437-40bd-8a92-d6b232210888")
+    @objid ("fc0751f9-360d-4930-b50b-48fa99b875d9")
     private Label rgbLabel;
 
     /**
      * The image.
      */
-    @objid ("a52512d5-9f9a-412a-81dd-ea70eaa0aa92")
+    @objid ("65ecce4a-9cb8-4a4c-ac3a-d0f8f3b0dc8e")
     private Image image;
 
     @objid ("6b298f83-1eba-11e2-9382-bc305ba4815c")
@@ -107,9 +107,9 @@ public class ColorCellEditor2 extends DialogCellEditor {
         final Display display = cellEditorWindow.getDisplay();
         final Shell centerShell = new Shell(cellEditorWindow.getShell(), SWT.NO_TRIM);
         centerShell.setLocation(display.getCursorLocation());
-        
+
         ColorDialog dialog = new ColorDialog(centerShell, SWT.NONE);
-        
+
         Object value = getValue();
         if (value != null) {
             dialog.setRGB((RGB) value);
@@ -130,43 +130,44 @@ public class ColorCellEditor2 extends DialogCellEditor {
         if (this.image != null) {
             this.image.dispose();
         }
-        
+
         ImageData id = createColorImage(this.colorLabel.getParent().getParent(), rgb);
         ImageData mask = id.getTransparencyMask();
         this.image = new Image(this.colorLabel.getDisplay(), id, mask);
         this.colorLabel.setImage(this.image);
-        
+
         this.rgbLabel.setText("(" + rgb.red + "," + rgb.green + "," + rgb.blue + ")");//$NON-NLS-4$//$NON-NLS-3$//$NON-NLS-2$//$NON-NLS-1$
-        
     }
 
     /**
      * Creates a new color cell editor parented under the given control. The cell editor value is black (
      * <code>RGB(0,0,0)</code>) initially, and has no validator.
+     *
      * @param parent the parent control
      */
     @objid ("6b2c2793-1eba-11e2-9382-bc305ba4815c")
-    public  ColorCellEditor2(final Composite parent) {
+    public ColorCellEditor2(final Composite parent) {
         this(parent, SWT.NONE);
     }
 
     /**
      * Creates a new color cell editor parented under the given control. The cell editor value is black (
      * <code>RGB(0,0,0)</code>) initially, and has no validator.
+     *
      * @param parent the parent control
      * @param style the style bits
      * @since 2.1
      */
     @objid ("6b2c75b1-1eba-11e2-9382-bc305ba4815c")
-    public  ColorCellEditor2(final Composite parent, final int style) {
+    public ColorCellEditor2(final Composite parent, final int style) {
         super(parent, style);
         doSetValue(new RGB(0, 0, 0));
-        
     }
 
     /**
      * Creates and returns the color image data for the given control and RGB value. The image's size is either the
      * control's item extent or the cell editor's default extent, which is 16 pixels square.
+     *
      * @param w the control
      * @param color the color
      */
@@ -176,7 +177,7 @@ public class ColorCellEditor2 extends DialogCellEditor {
         FontMetrics fm = gc.getFontMetrics();
         int size = fm.getAscent();
         gc.dispose();
-        
+
         int indent = 6;
         int extent = ColorCellEditor2.DEFAULT_EXTENT;
         if (w instanceof Table) {
@@ -184,22 +185,22 @@ public class ColorCellEditor2 extends DialogCellEditor {
         } else if (w instanceof Tree) {
             extent = ((Tree) w).getItemHeight() - 1;
         }
-        
+
         if (size > extent) {
             size = extent;
         }
-        
+
         int width = indent + size;
         int height = extent;
-        
+
         int xoffset = indent;
         int yoffset = (height - size) / 2;
-        
+
         RGB black = new RGB(0, 0, 0);
         PaletteData dataPalette = new PaletteData(new RGB[] { black, black, color });
         ImageData data = new ImageData(width, height, 4, dataPalette);
         data.transparentPixel = 0;
-        
+
         int end = size - 1;
         for (int y = 0; y < size; y++) {
             for (int x = 0; x < size; x++) {
@@ -221,7 +222,6 @@ public class ColorCellEditor2 extends DialogCellEditor {
             this.image = null;
         }
         super.dispose();
-        
     }
 
     /**
@@ -252,7 +252,6 @@ public class ColorCellEditor2 extends DialogCellEditor {
             }
             ColorCellEditor2.this.colorLabel.setBounds(-1, 0, colorSize.x, colorSize.y);
             ColorCellEditor2.this.rgbLabel.setBounds(colorSize.x + ColorCellEditor2.GAP - 1, ty, bounds.width - colorSize.x - ColorCellEditor2.GAP, bounds.height);
-            
         }
 
     }

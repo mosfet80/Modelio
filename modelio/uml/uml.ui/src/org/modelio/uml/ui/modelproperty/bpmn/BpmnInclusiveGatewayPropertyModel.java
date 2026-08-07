@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.bpmn;
 
@@ -53,15 +53,17 @@ public class BpmnInclusiveGatewayPropertyModel extends AbstractPropertyModel<Bpm
     /**
      * Create a new <i>BpmnInclusiveGateway</i> data model from an
      * <i>BpmnInclusiveGateway</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("b03a1efe-9f6b-4c89-94db-9b0bd565c87d")
-    public  BpmnInclusiveGatewayPropertyModel(BpmnInclusiveGateway theEditedElement) {
+    public BpmnInclusiveGatewayPropertyModel(BpmnInclusiveGateway theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("37778a92-d028-482f-980b-6147896a1e1d")
@@ -72,6 +74,7 @@ public class BpmnInclusiveGatewayPropertyModel extends AbstractPropertyModel<Bpm
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("9ea1e737-1072-4c03-be80-9226c88e50f2")
@@ -84,6 +87,7 @@ public class BpmnInclusiveGatewayPropertyModel extends AbstractPropertyModel<Bpm
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -107,7 +111,7 @@ public class BpmnInclusiveGatewayPropertyModel extends AbstractPropertyModel<Bpm
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -117,6 +121,7 @@ public class BpmnInclusiveGatewayPropertyModel extends AbstractPropertyModel<Bpm
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -141,13 +146,14 @@ public class BpmnInclusiveGatewayPropertyModel extends AbstractPropertyModel<Bpm
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -175,7 +181,7 @@ public class BpmnInclusiveGatewayPropertyModel extends AbstractPropertyModel<Bpm
         default:
             return;
         }
-        
+
     }
 
 }

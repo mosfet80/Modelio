@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.narylink;
 
@@ -51,7 +51,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  * The target the {@link NaryLinkEnd#getSource()} instance.
  * <p>
  * The link style is a proxy on the link node style.
- * 
+ *
  * @author cmarin
  */
 @objid ("35e379d9-55b7-11e2-877f-002564c97630")
@@ -84,25 +84,26 @@ public class GmNLinkEndLink extends GmLink {
      * Constructor for deserialization only.
      */
     @objid ("35e5003f-55b7-11e2-877f-002564c97630")
-    public  GmNLinkEndLink() {
+    public GmNLinkEndLink() {
         // Nothing to do.
     }
 
     /**
      * Creates a GmAssociation.
+     *
      * @param diagram The diagram
      * @param role The represented association role, may be null
      * @param roleRef The represented association role reference, must not be null
      */
     @objid ("35e50042-55b7-11e2-877f-002564c97630")
-    public  GmNLinkEndLink(IGmDiagram diagram, NaryLinkEnd role, MRef roleRef) {
+    public GmNLinkEndLink(IGmDiagram diagram, NaryLinkEnd role, MRef roleRef) {
         super(diagram, roleRef);
         this.role = role;
-        
+
         if (role != null) {
             // Create extensions
             GmFractionalConnectionLocator constraint;
-        
+
             // Target side extensions
             addExtension(ExtensionLocation.TargetNW, IGmLink.ROLE_MAIN_LABEL, new GmNaryLinkRoleNameLabel(diagram, this.role, roleRef));
             addExtension(ExtensionLocation.TargetSE, GmNLinkEndLink.ROLE_CARD_LABEL, new GmNaryLinkRoleCardinalityLabel(diagram, this.role, roleRef));
@@ -110,9 +111,9 @@ public class GmNLinkEndLink extends GmLink {
             addExtension(new GmInfoFlowsGroup(diagram, roleRef), GmNLinkEndLink.ROLE_INFOFLOW_GROUP, constraint);
             constraint = new GmFractionalConnectionLocator(0.75, 0, 0, true);
             addExtension(new GmInformationFlowArrow(diagram, roleRef), GmNLinkEndLink.ROLE_INFOFLOW_ARROW, constraint);
-        
+
         }
-        
+
     }
 
     @objid ("35e5004e-55b7-11e2-877f-002564c97630")
@@ -137,6 +138,7 @@ public class GmNLinkEndLink extends GmLink {
      * Get the represented association role.
      * <p>
      * Returns null if the represented role is not in the model.
+     *
      * @return the represented association role.
      */
     @objid ("35e50063-55b7-11e2-877f-002564c97630")
@@ -166,10 +168,10 @@ public class GmNLinkEndLink extends GmLink {
     @Override
     public void refreshFromObModel() {
         super.refreshFromObModel();
-        
+
         // post change event
         firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, null, this);
-        
+
     }
 
     @objid ("35e686f2-55b7-11e2-877f-002564c97630")
@@ -196,7 +198,7 @@ public class GmNLinkEndLink extends GmLink {
             break;
         }
         }
-        
+
     }
 
     @objid ("35e686f8-55b7-11e2-877f-002564c97630")
@@ -212,17 +214,17 @@ public class GmNLinkEndLink extends GmLink {
         if (from != null) {
             getPersistedStyle().setCascadedStyle(from.getPersistedStyle());
         }
-        
+
     }
 
     @objid ("35e6870a-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmNLinkEndLink.", GmNLinkEndLink.MINOR_VERSION);
-        
+
     }
 
     @objid ("35e68710-55b7-11e2-877f-002564c97630")
@@ -232,6 +234,7 @@ public class GmNLinkEndLink extends GmLink {
     }
 
     /**
+     *
      * @return the target side navigability.
      */
     @objid ("ed20daeb-dd22-4475-a5c1-c2f1631ee3c1")
@@ -243,7 +246,7 @@ public class GmNLinkEndLink extends GmLink {
     @objid ("00ba8920-44da-4f02-ae60-11e92c98f174")
     protected void read_0() {
         read_1();
-        
+
         // Look for labels to migrate... there should be two
         GmLinkRoleNameLabel oldRoleLabel = null;
         GmLinkRoleCardinalityLabel oldCardinalityLabel = null;
@@ -254,29 +257,29 @@ public class GmNLinkEndLink extends GmLink {
                 oldCardinalityLabel = (GmLinkRoleCardinalityLabel) extension;
             }
         }
-        
+
         if (oldRoleLabel != null) {
             // Create a new label, with the appropriate Gm
             final GmNaryLinkRoleNameLabel newRoleLabel = new GmNaryLinkRoleNameLabel(getDiagram(), this.role, oldRoleLabel.getRepresentedRef());
             addExtension(ExtensionLocation.TargetNW, IGmLink.ROLE_MAIN_LABEL, newRoleLabel);
             newRoleLabel.setLayoutData(oldRoleLabel.getLayoutData());
-        
+
             // Delete the old association label
             removeExtension(oldRoleLabel);
             oldRoleLabel.delete();
         }
-        
+
         if (oldCardinalityLabel != null) {
             // Create a new label, with the appropriate Gm
             final GmNaryLinkRoleCardinalityLabel newCardinalityLabel = new GmNaryLinkRoleCardinalityLabel(getDiagram(), this.role, oldCardinalityLabel.getRepresentedRef());
             addExtension(ExtensionLocation.TargetSE, GmNLinkEndLink.ROLE_CARD_LABEL, newCardinalityLabel);
             newCardinalityLabel.setLayoutData(oldCardinalityLabel.getLayoutData());
-        
+
             // Delete the old association label
             removeExtension(oldCardinalityLabel);
             oldCardinalityLabel.delete();
         }
-        
+
     }
 
     /**
@@ -286,7 +289,7 @@ public class GmNLinkEndLink extends GmLink {
     @objid ("d24d2a8b-08b9-4a61-af13-56c01dfdb717")
     protected void read_1() {
         read_2();
-        
+
         for (GmNodeModel n : getExtensions()) {
             if (n.getRoleInComposition().equals(GmNLinkEndLink.ROLE_CARD_LABEL)) {
                 IGmLocator layoutContraint = getLayoutContraint(n);
@@ -298,7 +301,7 @@ public class GmNLinkEndLink extends GmLink {
                 }
             }
         }
-        
+
     }
 
     @objid ("591bd5eb-15c3-4030-9d4d-5fcb8db27f0f")
@@ -315,7 +318,7 @@ public class GmNLinkEndLink extends GmLink {
                 n.setRoleInComposition(GmNLinkEndLink.ROLE_INFOFLOW_ARROW);
             }
         }
-        
+
     }
 
     @objid ("59baa0ba-bbf3-48a1-b98e-7e29f197896c")

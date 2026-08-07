@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -73,7 +72,7 @@ public class TagTypeSmClass extends ModelElementSmClass {
     private SmDependency ownerReferenceDep;
 
     @objid ("102bb096-a078-4af0-8f8e-68905800b093")
-    public  TagTypeSmClass(ISmMetamodelFragment origin) {
+    public TagTypeSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
@@ -81,7 +80,7 @@ public class TagTypeSmClass extends ModelElementSmClass {
     @Override
     public String getName() {
         return "TagType";
-        
+
     }
 
     @objid ("82ceb2ed-46e4-4c03-b936-ad3bac057b80")
@@ -94,21 +93,21 @@ public class TagTypeSmClass extends ModelElementSmClass {
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return TagType.class;
-        
+
     }
 
     @objid ("4f2729fb-5092-44c0-b144-4046c72fd970")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
     @objid ("be9c6d74-6f37-4b01-9a5a-38c2b0b673df")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
     @objid ("2459662c-db4a-43db-9aeb-2b1d678f22f0")
@@ -116,44 +115,43 @@ public class TagTypeSmClass extends ModelElementSmClass {
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(ModelElement.MQNAME);
         this.registerFactory(new TagTypeObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
         this.paramNumberAtt = new ParamNumberSmAttribute();
         this.paramNumberAtt.init("ParamNumber", this, String.class );
         registerAttribute(this.paramNumberAtt);
-        
+
         this.isQualifiedAtt = new IsQualifiedSmAttribute();
         this.isQualifiedAtt.init("IsQualified", this, Boolean.class );
         registerAttribute(this.isQualifiedAtt);
-        
+
         this.belongToPrototypeAtt = new BelongToPrototypeSmAttribute();
         this.belongToPrototypeAtt.init("BelongToPrototype", this, Boolean.class );
         registerAttribute(this.belongToPrototypeAtt);
-        
+
         this.isHiddenAtt = new IsHiddenSmAttribute();
         this.isHiddenAtt.init("IsHidden", this, Boolean.class );
         registerAttribute(this.isHiddenAtt);
-        
+
         this.labelKeyAtt = new LabelKeySmAttribute();
         this.labelKeyAtt.init("LabelKey", this, String.class );
         registerAttribute(this.labelKeyAtt);
-        
-        
+
+
         // Initialize and register the SmDependency
         this.tagOccurenceDep = new TagOccurenceSmDependency();
         this.tagOccurenceDep.init("TagOccurence", this, metamodel.getMClass(TaggedValue.MQNAME), 0, -1 , SmDirective.SMCDTODELETE, SmDirective.SMCDDYNAMIC);
         registerDependency(this.tagOccurenceDep);
-        
+
         this.ownerStereotypeDep = new OwnerStereotypeSmDependency();
         this.ownerStereotypeDep.init("OwnerStereotype", this, metamodel.getMClass(Stereotype.MQNAME), 0, 1 );
         registerDependency(this.ownerStereotypeDep);
-        
+
         this.ownerReferenceDep = new OwnerReferenceSmDependency();
         this.ownerReferenceDep.init("OwnerReference", this, metamodel.getMClass(MetaclassReference.MQNAME), 0, 1 );
         registerDependency(this.ownerReferenceDep);
-        
-        
+
     }
 
     @objid ("25f0fef2-53d3-4c7d-8bbd-a34b63307341")
@@ -226,7 +224,7 @@ public class TagTypeSmClass extends ModelElementSmClass {
         private TagTypeSmClass smClass;
 
         @objid ("b793e085-e0a7-41d8-a539-30dbd6675deb")
-        public  TagTypeObjectFactory(TagTypeSmClass smClass) {
+        public TagTypeObjectFactory(TagTypeSmClass smClass) {
             this.smClass = smClass;
         }
 
@@ -329,7 +327,7 @@ public class TagTypeSmClass extends ModelElementSmClass {
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((TagTypeData) data).mTagOccurence = values;
-            
+
         }
 
         @objid ("6a8ae34f-b146-4c9b-a7ed-7639ec7eefcb")
@@ -339,7 +337,7 @@ public class TagTypeSmClass extends ModelElementSmClass {
             	this.symetricDep = ((TaggedValueSmClass)this.getTarget()).getDefinitionDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -368,7 +366,7 @@ public class TagTypeSmClass extends ModelElementSmClass {
             	this.symetricDep = ((StereotypeSmClass)this.getTarget()).getDefinedTagTypeDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -397,7 +395,7 @@ public class TagTypeSmClass extends ModelElementSmClass {
             	this.symetricDep = ((MetaclassReferenceSmClass)this.getTarget()).getDefinedTagTypeDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

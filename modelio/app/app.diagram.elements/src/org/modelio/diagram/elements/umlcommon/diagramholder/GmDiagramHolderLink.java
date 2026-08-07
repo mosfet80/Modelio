@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.umlcommon.diagramholder;
 
@@ -41,7 +41,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  * Represents the link between the note and the annoted element.
  * <p>
  * The annoted element is the source and the destination is a {@link GmDiagramView}.
- * 
+ *
  * @author cmarin
  */
 @objid ("813ed889-1dec-11e2-8cad-001ec947c8cc")
@@ -62,21 +62,22 @@ public class GmDiagramHolderLink extends GmLink {
      * Constructor that must be used for deserialization only.
      */
     @objid ("813ed891-1dec-11e2-8cad-001ec947c8cc")
-    public  GmDiagramHolderLink() {
+    public GmDiagramHolderLink() {
         // Nothing to do.
     }
 
     /**
      * Creates a new GmNoteLink
+     *
      * @param diagram The diagram containing the link.
      * @param relatedRef a reference to the related dependency.
      * @param el the related dependency
      */
     @objid ("813ed894-1dec-11e2-8cad-001ec947c8cc")
-    public  GmDiagramHolderLink(IGmDiagram diagram, MRef relatedRef, final Dependency el) {
+    public GmDiagramHolderLink(IGmDiagram diagram, MRef relatedRef, final Dependency el) {
         super(diagram, relatedRef);
         this.relatedDep = el;
-        
+
     }
 
     @objid ("813ed89b-1dec-11e2-8cad-001ec947c8cc")
@@ -123,6 +124,7 @@ public class GmDiagramHolderLink extends GmLink {
 
     /**
      * Updates the proxy style to point to the given node style.
+     *
      * @param ref the reference node, may be null.
      */
     @objid ("81413ade-1dec-11e2-8cad-001ec947c8cc")
@@ -133,7 +135,7 @@ public class GmDiagramHolderLink extends GmLink {
         } else {
             getPersistedStyle().setCascadedStyle(getDiagram().getPersistedStyle());
         }
-        
+
     }
 
     @objid ("81413ae3-1dec-11e2-8cad-001ec947c8cc")
@@ -143,16 +145,16 @@ public class GmDiagramHolderLink extends GmLink {
         if (to instanceof GmAbstractObject) {
             refreshStyle((GmAbstractObject) to);
         }
-        
+
     }
 
     @objid ("81413ae8-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected void readLink(final IDiagramReader in) {
         super.readLink(in);
-        
+
         this.relatedDep = (Dependency) resolveRef(getRepresentedRef());
-        
+
         if (getTo() == this) {
             for (GmModel gm : getDiagram().getAllGMRelatedTo(new MRef(getToElement()))) {
                 if (gm instanceof GmDiagramView) {
@@ -163,7 +165,7 @@ public class GmDiagramHolderLink extends GmLink {
         } else if (getTo() instanceof GmAbstractObject) {
             refreshStyle((GmAbstractObject) getTo());
         }
-        
+
     }
 
     @objid ("81413aed-1dec-11e2-8cad-001ec947c8cc")
@@ -176,10 +178,10 @@ public class GmDiagramHolderLink extends GmLink {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmDiagramHolderLink.", GmDiagramHolderLink.MINOR_VERSION);
-        
+
     }
 
     @objid ("81413af6-1dec-11e2-8cad-001ec947c8cc")
@@ -198,11 +200,11 @@ public class GmDiagramHolderLink extends GmLink {
     @Override
     protected void refreshFromObModel() {
         super.refreshFromObModel();
-        
+
         if (this.relatedDep == null || this.relatedDep.getDependsOn() == null || getTo() == this) {
             delete();
         }
-        
+
     }
 
 }

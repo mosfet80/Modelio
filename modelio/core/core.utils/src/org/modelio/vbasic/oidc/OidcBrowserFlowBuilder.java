@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vbasic.oidc;
 
@@ -28,9 +28,9 @@ import org.modelio.vbasic.oidc.flows.OidcRefreshTokenFlow;
 
 /**
  * Builder of {@link OidcBrowserFlow}.
- * 
+ *
  * <h2>Usage</h2>
- * 
+ *
  * Call {@link OidcAuthentications#browserFlow(IOidcWebBrowser)} ,
  * then call withXxxx(...) methods and finish with {@link #build()}.
  */
@@ -56,15 +56,16 @@ public class OidcBrowserFlowBuilder {
 
     /**
      * Package private constructor.
+     *
      * @param providerMetadata OIDC provider metadatas
      * @param browser the web browser to use
      */
     @objid ("81659e06-be8e-4ebf-a64f-21faf1136c8e")
-     OidcBrowserFlowBuilder(OIDCProviderMetadata providerMetadata, IOidcWebBrowser browser) {
+    OidcBrowserFlowBuilder(OIDCProviderMetadata providerMetadata, IOidcWebBrowser browser) {
         this.providerMetadata = providerMetadata;
         this.webBrowser = browser;
         this.clientId = OidcAuthentications.PUBLIC_CLIENT_ID;
-        
+
     }
 
     @objid ("a20c02ed-6ca8-42ca-9209-737698a4ef36")
@@ -77,6 +78,7 @@ public class OidcBrowserFlowBuilder {
      * To base the new authentication flow on the tokens of another authentication flows.
      * <p>
      * This allows to change the authentication process without loosing the tokens got from the initial authentication flow.
+     *
      * @param aPreviousAuth the initial authentication flow.
      * @return this builder
      */
@@ -124,6 +126,7 @@ public class OidcBrowserFlowBuilder {
     }
 
     /**
+     *
      * @return the build authentication flow
      * @throws IOException on error accessing the authentication server
      */
@@ -136,7 +139,7 @@ public class OidcBrowserFlowBuilder {
                 this.providerMetadata,
                 browserFlow,
                 getPreviousAuth() != null ? getPreviousAuth().run() : null);
-        
+
     }
 
 }

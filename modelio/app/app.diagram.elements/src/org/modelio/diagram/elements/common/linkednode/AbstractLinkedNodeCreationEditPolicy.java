@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.linkednode;
 
@@ -40,7 +40,7 @@ import org.modelio.diagram.elements.core.model.IGmObject;
 
 /**
  * Edit policy that allow creating notes on an element.
- * 
+ *
  * @author cmarin
  */
 @objid ("7eaf31d4-1dec-11e2-8cad-001ec947c8cc")
@@ -58,6 +58,7 @@ public abstract class AbstractLinkedNodeCreationEditPolicy extends GraphicalEdit
     protected Connection connectionFeedback;
 
     /**
+     *
      * @see org.eclipse.gef.EditPolicy#deactivate()
      */
     @objid ("7eaf31e0-1dec-11e2-8cad-001ec947c8cc")
@@ -69,11 +70,12 @@ public abstract class AbstractLinkedNodeCreationEditPolicy extends GraphicalEdit
             this.connectionFeedback = null;
         }
         super.deactivate();
-        
+
     }
 
     /**
      * Calls {@link #eraseCreationFeedback(CreateConnectionRequest)} when appropriate.
+     *
      * @see org.eclipse.gef.EditPolicy#eraseSourceFeedback(Request)
      */
     @objid ("7eaf31e4-1dec-11e2-8cad-001ec947c8cc")
@@ -82,11 +84,12 @@ public abstract class AbstractLinkedNodeCreationEditPolicy extends GraphicalEdit
         if (REQ_LINKEDNODE_END.equals(request.getType())) {
             eraseCreationFeedback((CreateConnectionRequest) request);
         }
-        
+
     }
 
     /**
      * Calls {@link #eraseTargetConnectionFeedback(DropRequest)} when appropriate.
+     *
      * @see org.eclipse.gef.EditPolicy#eraseTargetFeedback(Request)
      */
     @objid ("7eaf31eb-1dec-11e2-8cad-001ec947c8cc")
@@ -95,11 +98,12 @@ public abstract class AbstractLinkedNodeCreationEditPolicy extends GraphicalEdit
         if (isHandled(request)) {
             eraseTargetConnectionFeedback((DropRequest) request);
         }
-        
+
     }
 
     /**
      * Factors the request into one of four abstract methods. Subclasses must implement these methods.
+     *
      * @see org.eclipse.gef.EditPolicy#getCommand(Request)
      */
     @objid ("7eb19433-1dec-11e2-8cad-001ec947c8cc")
@@ -108,7 +112,7 @@ public abstract class AbstractLinkedNodeCreationEditPolicy extends GraphicalEdit
         if (!isUserEditable()) {
             return null;
         }
-        
+
         if (REQ_LINKEDNODE_START.equals(request.getType())) {
             return getConnectionCreateCommand((CreateConnectionRequest) request);
         }
@@ -126,6 +130,7 @@ public abstract class AbstractLinkedNodeCreationEditPolicy extends GraphicalEdit
 
     /**
      * calls {@link #showCreationFeedback(CreateConnectionRequest)} when appropriate.
+     *
      * @see org.eclipse.gef.EditPolicy#showSourceFeedback(Request)
      */
     @objid ("7eb1943e-1dec-11e2-8cad-001ec947c8cc")
@@ -134,11 +139,12 @@ public abstract class AbstractLinkedNodeCreationEditPolicy extends GraphicalEdit
         if (REQ_LINKEDNODE_END.equals(request.getType())) {
             showCreationFeedback((CreateConnectionRequest) request);
         }
-        
+
     }
 
     /**
      * Calls {@link #showTargetConnectionFeedback(DropRequest)} when appropriate.
+     *
      * @see org.eclipse.gef.EditPolicy#showTargetFeedback(Request)
      */
     @objid ("7eb19445-1dec-11e2-8cad-001ec947c8cc")
@@ -147,11 +153,12 @@ public abstract class AbstractLinkedNodeCreationEditPolicy extends GraphicalEdit
         if (isHandled(request)) {
             showTargetConnectionFeedback((DropRequest) request);
         }
-        
+
     }
 
     /**
      * Returns a connection to be used as feedback during creates.
+     *
      * @param req the operation being performed
      * @return a connection to use as feedback
      */
@@ -164,6 +171,7 @@ public abstract class AbstractLinkedNodeCreationEditPolicy extends GraphicalEdit
 
     /**
      * Erases connection feedback if necessary. Frees unused fields.
+     *
      * @param request the CreateLinkedNodeRequest
      */
     @objid ("7eb19456-1dec-11e2-8cad-001ec947c8cc")
@@ -173,11 +181,12 @@ public abstract class AbstractLinkedNodeCreationEditPolicy extends GraphicalEdit
             this.feedbackHelper = null;
             this.connectionFeedback = null;
         }
-        
+
     }
 
     /**
      * Override to erase target feedback. Does nothing by default.
+     *
      * @param request the DropRequest
      */
     @objid ("7eb1945c-1dec-11e2-8cad-001ec947c8cc")
@@ -187,6 +196,7 @@ public abstract class AbstractLinkedNodeCreationEditPolicy extends GraphicalEdit
 
     /**
      * Returns the Command that will create the connection. This is second part of creation. {@link CreateConnectionRequest#getStartCommand()} is used here to obtain the contribution from the EditPart from which the User started the <i>creation</i>.
+     *
      * @param request the CreateLinkedNodeRequest
      * @return the complete command to create a connection
      */
@@ -195,15 +205,17 @@ public abstract class AbstractLinkedNodeCreationEditPolicy extends GraphicalEdit
 
     /**
      * Returns the Command that represents the first half of creating a connection. This Command will be passed to the target node EditPart. The target node may do anything necessary to create a Command that represents the entire creation.
-     * @see #getConnectionCompleteCommand(CreateConnectionRequest)
+     *
      * @param request the CreateLinkedNodeRequest
      * @return a Command representing half of a connection creation
+     * @see #getConnectionCompleteCommand(CreateConnectionRequest)
      */
     @objid ("7eb1946a-1dec-11e2-8cad-001ec947c8cc")
     protected abstract Command getConnectionCreateCommand(CreateConnectionRequest request);
 
     /**
      * Returns the ConnectionRouter for the creation feedback's connection.
+     *
      * @param request the create request
      * @return a connection router
      * @since 3.2
@@ -215,6 +227,7 @@ public abstract class AbstractLinkedNodeCreationEditPolicy extends GraphicalEdit
 
     /**
      * Returns the FeedbackHelper that is ready to use. The feedback helper must be configured with the connection that will be used to display feedback, and that connection must be added to the appropriate layer in the diagram.
+     *
      * @param request the CreateLinkedNodeRequest
      * @return a FeedbackHelper
      */
@@ -235,6 +248,7 @@ public abstract class AbstractLinkedNodeCreationEditPolicy extends GraphicalEdit
 
     /**
      * Called during the display of creation feedback to snap the feedback to the nearest source ConnectionAnchor.
+     *
      * @param request CreateLinkedNodeRequest
      * @return <code>null</code> or the nearest source ConnectionAnchor
      */
@@ -243,11 +257,12 @@ public abstract class AbstractLinkedNodeCreationEditPolicy extends GraphicalEdit
         EditPart source = request.getSourceEditPart();
         return source instanceof NodeEditPart ? ((NodeEditPart) source).getSourceConnectionAnchor(request)
                 : null;
-        
+
     }
 
     /**
      * Called during the display of creation feedback to snap the feedback to the nearest target ConnectionAnchor.
+     *
      * @param request CreateLinkedNodeRequest
      * @return <code>null</code> or the nearest target ConnectionAnchor
      */
@@ -256,11 +271,12 @@ public abstract class AbstractLinkedNodeCreationEditPolicy extends GraphicalEdit
         EditPart target = request.getTargetEditPart();
         return target instanceof NodeEditPart ? ((NodeEditPart) target).getTargetConnectionAnchor(request)
                 : null;
-        
+
     }
 
     /**
      * Shows feedback during a creation.
+     *
      * @param request CreateLinkedNodeRequest
      */
     @objid ("7eb3f6a9-1dec-11e2-8cad-001ec947c8cc")
@@ -268,11 +284,12 @@ public abstract class AbstractLinkedNodeCreationEditPolicy extends GraphicalEdit
         FeedbackHelper helper = getFeedbackHelper(request);
         Point p = new Point(request.getLocation());
         helper.update(getTargetConnectionAnchor(request), p);
-        
+
     }
 
     /**
      * Override to show target connection feedback. Does nothing by default.
+     *
      * @param request the DropRequest
      */
     @objid ("7eb3f6af-1dec-11e2-8cad-001ec947c8cc")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -62,7 +62,7 @@ public class R1720 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -82,11 +82,11 @@ public class R1720 extends AbstractUmlRule {
         plan.registerRule(Generalization.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.UPDATE |
                 AuditTrigger.MOVE);
-        
+
         // Namespaces
         plan.registerRule(Package.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Collaboration.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         // Namespaces.Classifiers
         plan.registerRule(InformationItem.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Artifact.MQNAME, this, AuditTrigger.UPDATE);
@@ -100,7 +100,7 @@ public class R1720 extends AbstractUmlRule {
         plan.registerRule(UseCase.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Node.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Component.MQNAME, this, AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -134,14 +134,14 @@ public class R1720 extends AbstractUmlRule {
      * Default constructor for R1720
      */
     @objid ("d6fe4a59-4a48-4cc4-bdac-ff861197f17b")
-    public  R1720() {
+    public R1720() {
         this.checkerInstance = new CheckR1720(this);
     }
 
     @objid ("69cf6449-6bea-438b-8466-8c6e97283a48")
     private static class CheckR1720 extends AbstractControl {
         @objid ("4421616e-9cdb-41dc-a461-b02717be30e3")
-        public  CheckR1720(IRule rule) {
+        public CheckR1720(IRule rule) {
             super(rule);
         }
 
@@ -151,12 +151,12 @@ public class R1720 extends AbstractUmlRule {
             if (element instanceof Generalization) {
                 diagnostic.addEntry(checkR1720(((Generalization) element).getSubType()));
             } else if (element instanceof NameSpace) {
-            
+
                 NameSpace nameSpace = (NameSpace) element;
-            
+
                 // Check the rule on the namespace itself
                 diagnostic.addEntry(checkR1720(nameSpace));
-            
+
                 // Check the rule on every sub namespace in case the rule failed on one of them previously.
                 for (Generalization gen : nameSpace.getSpecialization()) {
                     diagnostic.addEntry(checkR1720(gen.getSubType()));
@@ -173,24 +173,24 @@ public class R1720 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     nameSpace,
                     null);
-            
+
             if (nameSpace.isIsAbstract()) {
-            
+
                 // Checking super namespaces are abstract
                 for (Generalization gen : nameSpace.getParent()) {
-            
+
                     NameSpace superNs = gen.getSuperType();
-            
+
                     if (!superNs.isIsAbstract()) {
-            
+
                         // Rule failed
-            
+
                         auditEntry.setSeverity(this.rule.getSeverity());
                         List<Object> linkedObjects = new ArrayList<>();
                         linkedObjects.add(nameSpace);
                         linkedObjects.add(superNs);
                         auditEntry.setLinkedInfos(linkedObjects);
-            
+
                     }
                 }
             }

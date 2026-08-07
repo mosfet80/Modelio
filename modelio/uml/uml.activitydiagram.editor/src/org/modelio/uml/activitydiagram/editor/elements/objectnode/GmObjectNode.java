@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.objectnode;
 
@@ -71,31 +71,32 @@ public class GmObjectNode extends GmPortContainer {
 
     /**
      * Default constructor.
+     *
      * @param diagram the diagram in which this gm is unmasked.
      * @param theObjectNode the represented object node, may be null.
      * @param ref a reference to the represented object node.
      */
     @objid ("2acf486b-55b6-11e2-877f-002564c97630")
-    public  GmObjectNode(IGmDiagram diagram, ObjectNode theObjectNode, MRef ref) {
+    public GmObjectNode(IGmDiagram diagram, ObjectNode theObjectNode, MRef ref) {
         super(diagram, ref);
         this.element = theObjectNode;
-        
+
         GmObjectNodePrimaryNode primary = new GmObjectNodePrimaryNode(diagram, ref);
         primary.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
         addChild(primary);
-        
+
         GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(diagram, ref);
         imageModeHeader.setRoleInComposition(IMAGE_MODE_HEADER);
         imageModeHeader.setLayoutData(PositionConstants.SOUTH);
         addChild(imageModeHeader);
-        
+
     }
 
     /**
      * Empty constructor, needed for serialization.
      */
     @objid ("2ad0cefc-55b6-11e2-877f-002564c97630")
-    public  GmObjectNode() {
+    public GmObjectNode() {
         // empty constructor for the serialization
     }
 
@@ -112,17 +113,17 @@ public class GmObjectNode extends GmPortContainer {
         if (ret != null) {
             return ret;
         }
-        
+
         ret = SIMPLEKEYS.getStyleKey(metakey);
         if (ret != null) {
             return ret;
         }
-        
+
         ret = USERIMAGE_KEYS.getStyleKey(metakey);
         if (ret != null) {
             return ret;
         }
-        
+
         ret = IMAGEKEYS.getStyleKey(metakey);
         return ret;
     }
@@ -146,7 +147,7 @@ public class GmObjectNode extends GmPortContainer {
         } else {
             return Collections.emptyList();
         }
-        
+
     }
 
     @objid ("2ad0cf19-55b6-11e2-877f-002564c97630")
@@ -166,7 +167,7 @@ public class GmObjectNode extends GmPortContainer {
             break;
         }
         }
-        
+
     }
 
     @objid ("2ad0cf1f-55b6-11e2-877f-002564c97630")
@@ -191,7 +192,7 @@ public class GmObjectNode extends GmPortContainer {
             case USER_IMAGE:
             default:
                 break;
-        
+
             }
         }
         return ret;
@@ -207,17 +208,17 @@ public class GmObjectNode extends GmPortContainer {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmObjectNode.", GmObjectNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("2ad0cf3c-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (ObjectNode) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("2ad25599-55b6-11e2-877f-002564c97630")
@@ -228,6 +229,7 @@ public class GmObjectNode extends GmPortContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */
@@ -239,6 +241,7 @@ public class GmObjectNode extends GmPortContainer {
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */
@@ -256,7 +259,7 @@ public class GmObjectNode extends GmPortContainer {
         } else {
             super.addStartingLink(link);
         }
-        
+
     }
 
     @objid ("2ad255bf-55b6-11e2-877f-002564c97630")
@@ -267,27 +270,28 @@ public class GmObjectNode extends GmPortContainer {
         } else {
             super.addEndingLink(link);
         }
-        
+
     }
 
     /**
      * Migration constructor from major version 0, should only be called by migrator.
+     *
      * @param oldVersionGm the instance to migrate from.
      */
     @objid ("2ad255c6-55b6-11e2-877f-002564c97630")
-     GmObjectNode(final _GmObjectNode oldVersionGm) {
+    GmObjectNode(final _GmObjectNode oldVersionGm) {
         super(oldVersionGm.getDiagram(), oldVersionGm.getRepresentedRef());
         this.element = (ObjectNode) oldVersionGm.getRelatedElement();
-        
+
         GmObjectNodePrimaryNode primary = new GmObjectNodePrimaryNode(oldVersionGm);
         primary.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
         addChild(primary);
-        
+
         GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(oldVersionGm.getDiagram(), oldVersionGm.getRepresentedRef());
         imageModeHeader.setRoleInComposition(IMAGE_MODE_HEADER);
         imageModeHeader.setLayoutData(PositionConstants.SOUTH);
         addChild(imageModeHeader);
-        
+
     }
 
     @objid ("54f3c7f7-c0ba-4b76-83a2-0ff2ea9dc961")

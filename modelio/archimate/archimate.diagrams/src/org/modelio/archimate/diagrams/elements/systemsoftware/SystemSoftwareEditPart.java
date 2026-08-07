@@ -1,0 +1,75 @@
+/*
+ * Copyright 2013-2025 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+package org.modelio.archimate.diagrams.elements.systemsoftware;
+
+import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.draw2d.IFigure;
+import org.modelio.archimate.diagrams.elements.common.archielement.ArchiElementEditPart;
+import org.modelio.diagram.elements.core.figures.MinimumSizeLayout;
+import org.modelio.diagram.elements.core.figures.RectangularFigure;
+import org.modelio.diagram.elements.core.figures.ToolbarLayoutWithGrab;
+import org.modelio.diagram.styles.core.IStyle;
+
+/**
+ * EditPart for a {@link GmSystemSoftware} Node.
+ */
+@objid ("37c5b48e-d1d6-48c6-bc0e-82fe8a0a1d15")
+public class SystemSoftwareEditPart extends ArchiElementEditPart {
+    @objid ("831d0b38-8768-42ee-a90d-af3cb9a278dc")
+    @Override
+    protected IFigure createFigure() {
+        // create the figure
+        final RectangularFigure fig = new RectangularFigure();
+        fig.setOpaque(true);
+
+        // Add layout
+        final ToolbarLayoutWithGrab layout = new ToolbarLayoutWithGrab();
+        layout.setHorizontal(false);
+        layout.setStretchMinorAxis(true);
+        fig.setLayoutManager(layout);
+
+        // set style independent properties
+        MinimumSizeLayout.apply(fig, 90, 60);
+
+        // set style dependent properties
+        refreshFromStyle(fig, getModelStyle());
+
+        // return the figure
+        return fig;
+    }
+
+    @objid ("8c7d043f-2319-42f5-b4e9-e652b7d3b333")
+    @Override
+    protected void refreshFromStyle(IFigure aFigure, IStyle style) {
+        if (aFigure instanceof RectangularFigure) {
+            if (!switchRepresentationMode()) {
+                super.refreshFromStyle(aFigure, style);
+            }
+        }
+
+    }
+
+    @objid ("f86b1289-3f7e-474d-9683-8505cb95bcae")
+    @Override
+    public boolean isSelectable() {
+        return false;
+    }
+
+}

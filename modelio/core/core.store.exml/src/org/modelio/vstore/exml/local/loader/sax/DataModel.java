@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.vstore.exml.local.loader.sax;
 
@@ -80,16 +99,17 @@ class DataModel implements ExmlTags {
 
     /**
      * initialize the loader
+     *
      * @param loadHelper a load helper
      */
     @objid ("2af7926a-3faf-11e2-87cb-001ec947ccaf")
-    public  DataModel(ILoadHelper loadHelper) {
+    public DataModel(ILoadHelper loadHelper) {
         this.loadHelper = loadHelper;
         this.objStack = new ArrayDeque<>(30);
-        
     }
 
     /**
+     *
      * @return the current data model.
      */
     @objid ("2af7926f-3faf-11e2-87cb-001ec947ccaf")
@@ -98,6 +118,7 @@ class DataModel implements ExmlTags {
     }
 
     /**
+     *
      * @return the CMS node root.
      */
     @objid ("2af9f4b5-3faf-11e2-87cb-001ec947ccaf")
@@ -122,19 +143,11 @@ class DataModel implements ExmlTags {
         this.objStack.clear();
         this.currentModel = null;
         this.rootObject = null;
-        
     }
 
     @objid ("2af792a9-3faf-11e2-87cb-001ec947ccaf")
     void addDepRef(ObjIdName ref) throws DuplicateObjectException, IllegalReferenceException, IndexException {
-        SmObjectImpl obj = this.loadHelper.getLoadedObject(ref.toObjId());
-        
-        if (obj == null) {
-            obj = this.loadHelper.getRefObject(this.modelLoader, ref);
-        }
-        
-        getCurrent().addToDep (obj);
-        
+        getCurrent().addRefToDep (ref);
     }
 
     @objid ("2af9f4be-3faf-11e2-87cb-001ec947ccaf")
@@ -158,7 +171,6 @@ class DataModel implements ExmlTags {
             final SAXParseException cause = new SAXParseException("assertion failed", getLocator());
             throw new AssertionError(cause.getMessage(), cause);
         }
-        
     }
 
     @objid ("2af792b2-3faf-11e2-87cb-001ec947ccaf")
@@ -167,11 +179,11 @@ class DataModel implements ExmlTags {
             final SAXParseException cause = new SAXParseException(msg, getLocator());
             throw new AssertionError(cause.getMessage(), cause);
         }
-        
     }
 
     /**
      * Pop an object model from the stack.
+     *
      * @return the removed object model.
      */
     @objid ("2af9f4c6-3faf-11e2-87cb-001ec947ccaf")
@@ -189,24 +201,9 @@ class DataModel implements ExmlTags {
         } else {
             boolean isNew = false;
             SmObjectImpl obj = this.loadHelper.getLoadedObject(objid);
-        
+
             if (obj != null) {
-                // Already loaded from this repository
-                IRepositoryObject objHandler = obj.getRepositoryObject();
-                if (objHandler != this.nodeStorageHandler) {
-                    // This object moved here from another CMS node or is stored in many EXML files. 
-                    ObjId realParent = getCmsNodeId(objid);
-                    if (realParent.equals(this.nodeStorageHandler.getCmsNodeId())) {
-                        // The object moved here, change its storage handler
-                        obj.setRepositoryObject(this.nodeStorageHandler);
-                    } else {
-                        // This can happen only for object that are saved in more than 1 EXML file
-                        // (Association, Link, Constraint)
-                        // It should never happen for other objects.
-                        this.currentModel = new DummyObjectDataModel(obj);
-                    }
-                }
-                this.currentModel = new ObjectDataModel(this, obj, isNew);
+                pushAlreadyLoadedObject(objid, obj, isNew);
             } else if (this.loadHelper.isStored(objid)) {
                 // Not loaded but present in repository
                 try {
@@ -214,8 +211,15 @@ class DataModel implements ExmlTags {
                     isNew = true;
                     this.currentModel = new ObjectDataModel(this, obj, isNew);
                 } catch (DuplicateObjectException e) {
-                    throw new SAXParseException(e.getLocalizedMessage(), getLocator(), e);
-                    //this.currentModel = new DummyObjectDataModel(obj);
+                    if (this.loadHelper.getLoadedObject(objid) == e.getOriginalObj()) {
+                        // The object was loaded concurrently,
+                        // probably by CoreSession.connectRepository(...) that moves all from the shell repository.
+                        obj = (SmObjectImpl) e.getOriginalObj();
+                        pushAlreadyLoadedObject(objid, obj, isNew);
+                    } else {
+                        throw new SAXParseException(e.getLocalizedMessage(), getLocator(), e);
+                        //this.currentModel = new DummyObjectDataModel(obj);
+                    }
                 }
             } else {
                 // Comes from another repository.
@@ -226,12 +230,31 @@ class DataModel implements ExmlTags {
                 // ignore the object
                 this.currentModel = new DummyObjectDataModel(obj);
             }
-        
+
             this.objStack.push(this.currentModel);
-        
+
             return obj;
         }
-        
+    }
+
+    @objid ("f6d87c24-651e-4cef-b7a1-dcc8cf121ac6")
+    private void pushAlreadyLoadedObject(ObjId objid, SmObjectImpl obj, boolean isNew) throws SAXParseException {
+        // Already loaded from this repository
+        IRepositoryObject objHandler = obj.getRepositoryObject();
+        if (objHandler != this.nodeStorageHandler) {
+            // This object moved here from another CMS node or is stored in many EXML files.
+            ObjId realParent = getCmsNodeId(objid);
+            if (realParent.equals(this.nodeStorageHandler.getCmsNodeId())) {
+                // The object moved here, change its storage handler
+                obj.setRepositoryObject(this.nodeStorageHandler);
+            } else {
+                // This can happen only for object that are saved in more than 1 EXML file
+                // (Association, Link, Constraint)
+                // It should never happen for other objects.
+                this.currentModel = new DummyObjectDataModel(obj);
+            }
+        }
+        this.currentModel = new ObjectDataModel(this, obj, isNew);
     }
 
     @objid ("2af9f4b0-3faf-11e2-87cb-001ec947ccaf")
@@ -239,13 +262,13 @@ class DataModel implements ExmlTags {
         if (objid == null) {
             return null;
         }
-        
+
         boolean isNew = false;
         SmObjectImpl obj = this.loadHelper.getLoadedObject(objid.toObjId());
-        
+
         if (obj != null) {
             assert (obj.getClassOf().isCmsNode());
-        
+
             this.nodeStorageHandler = (ExmlStorageHandler) (obj.getRepositoryObject());
             this.nodeStorageHandler.setLoaded(true);
         } else {
@@ -254,14 +277,14 @@ class DataModel implements ExmlTags {
             } catch (DuplicateObjectException e) {
                 throw new SAXParseException(e.getLocalizedMessage(), getLocator(), e);
             }
-        
+
             assert (obj.getClassOf().isCmsNode());
-        
+
             this.nodeStorageHandler = this.loadHelper.createStorageHandler(obj, true);
             obj.setRepositoryObject(this.nodeStorageHandler);
             isNew = true;
         }
-        
+
         this.currentModel = new ObjectDataModel(this, obj, isNew);
         this.objStack.push(this.currentModel);
         this.rootObject = obj;
@@ -270,6 +293,7 @@ class DataModel implements ExmlTags {
 
     /**
      * Initialize the document locator.
+     *
      * @param aLocator a SAX locator.
      */
     @objid ("2af9f4cd-3faf-11e2-87cb-001ec947ccaf")
@@ -279,6 +303,7 @@ class DataModel implements ExmlTags {
 
     /**
      * initialize the model loader.
+     *
      * @param modelLoader a model loader.
      */
     @objid ("2af9f4d1-3faf-11e2-87cb-001ec947ccaf")
@@ -288,6 +313,7 @@ class DataModel implements ExmlTags {
 
     /**
      * Set the file format version.
+     *
      * @param v the file format version.
      */
     @objid ("2af9f4d8-3faf-11e2-87cb-001ec947ccaf")
@@ -297,6 +323,7 @@ class DataModel implements ExmlTags {
 
     /**
      * Set a hook that can modify the content of a dependency.
+     *
      * @param depContentHook a dependency content hook. May be <code>null</code>.
      */
     @objid ("ddf3cc54-407a-11e2-87cb-001ec947ccaf")
@@ -316,7 +343,6 @@ class DataModel implements ExmlTags {
         } catch (IndexException e) {
             throw new SAXParseException(e.getLocalizedMessage(), getLocator(), e);
         }
-        
     }
 
 }

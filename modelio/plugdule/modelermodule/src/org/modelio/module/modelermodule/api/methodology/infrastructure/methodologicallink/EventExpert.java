@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -51,7 +51,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * <tr><td>BpmnEvent</td><td>BusinessEvent</td></tr>
  * <tr><td>BpmnEvent</td><td>TechnologyEvent</td></tr>
  * <tr><td>BpmnEvent</td><td>Signal</td></tr>
- * 
+ *
  * </table>
  */
 @objid ("d380f89f-9140-46b8-bf10-3bd06e004afa")
@@ -81,9 +81,9 @@ public class EventExpert implements IMdaExpert {
     @Override
     public boolean canTarget(Stereotype linkStereotype, MClass linkMetaclass, MClass toMetaclass) {
         MMetamodel metamodel = linkMetaclass.getMetamodel();
-        return (toMetaclass.hasBase(metamodel.getMClass("Archimate.ApplicationEvent"))) || 
-        (toMetaclass.hasBase(metamodel.getMClass("Archimate.BusinessEvent"))) || 
-        (toMetaclass.hasBase(metamodel.getMClass("Archimate.TechnologyEvent"))) || 
+        return (toMetaclass.hasBase(metamodel.getMClass("Archimate.ApplicationEvent"))) ||
+        (toMetaclass.hasBase(metamodel.getMClass("Archimate.BusinessEvent"))) ||
+        (toMetaclass.hasBase(metamodel.getMClass("Archimate.TechnologyEvent"))) ||
         (toMetaclass.hasBase(metamodel.getMClass("Standard.Signal")));
     }
 
@@ -91,9 +91,9 @@ public class EventExpert implements IMdaExpert {
     @Override
     public boolean canTarget(Stereotype linkStereotype, MObject linkElement, MObject toElement) {
         MMetamodel metamodel = linkElement.getMClass().getMetamodel();
-        return (toElement.getMClass().hasBase(metamodel.getMClass("Archimate.ApplicationEvent"))) || 
-        (toElement.getMClass().hasBase(metamodel.getMClass("Archimate.BusinessEvent"))) || 
-        (toElement.getMClass().hasBase(metamodel.getMClass("Archimate.TechnologyEvent"))) || 
+        return (toElement.getMClass().hasBase(metamodel.getMClass("Archimate.ApplicationEvent"))) ||
+        (toElement.getMClass().hasBase(metamodel.getMClass("Archimate.BusinessEvent"))) ||
+        (toElement.getMClass().hasBase(metamodel.getMClass("Archimate.TechnologyEvent"))) ||
         (toElement.getMClass().hasBase(metamodel.getMClass("Standard.Signal")));
     }
 
@@ -101,9 +101,9 @@ public class EventExpert implements IMdaExpert {
     @Override
     public boolean canLink(Stereotype linkStereotype, MClass linkMetaclass, MClass fromMetaclass, MClass toMetaclass) {
         MMetamodel metamodel = linkMetaclass.getMetamodel();
-        return ((fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnEvent"))) && (toMetaclass.hasBase(metamodel.getMClass("Archimate.ApplicationEvent")))) || 
-        ((fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnEvent"))) && (toMetaclass.hasBase(metamodel.getMClass("Archimate.BusinessEvent")))) || 
-        ((fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnEvent"))) && (toMetaclass.hasBase(metamodel.getMClass("Archimate.TechnologyEvent")))) || 
+        return ((fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnEvent"))) && (toMetaclass.hasBase(metamodel.getMClass("Archimate.ApplicationEvent")))) ||
+        ((fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnEvent"))) && (toMetaclass.hasBase(metamodel.getMClass("Archimate.BusinessEvent")))) ||
+        ((fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnEvent"))) && (toMetaclass.hasBase(metamodel.getMClass("Archimate.TechnologyEvent")))) ||
         ((fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnEvent"))) && (toMetaclass.hasBase(metamodel.getMClass("Standard.Signal"))));
     }
 
@@ -111,9 +111,9 @@ public class EventExpert implements IMdaExpert {
     @Override
     public boolean canLink(Stereotype linkStereotype, MClass linkMetaclass, MObject fromElement, MObject toElement) {
         MMetamodel metamodel = linkMetaclass.getMetamodel();
-        return ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnEvent"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Archimate.ApplicationEvent")))) || 
-        ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnEvent"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Archimate.BusinessEvent")))) || 
-        ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnEvent"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Archimate.TechnologyEvent")))) || 
+        return ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnEvent"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Archimate.ApplicationEvent")))) ||
+        ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnEvent"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Archimate.BusinessEvent")))) ||
+        ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnEvent"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Archimate.TechnologyEvent")))) ||
         ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnEvent"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Standard.Signal"))));
     }
 

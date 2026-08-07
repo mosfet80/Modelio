@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.exml.versioned.load.sax.local;
 
@@ -57,19 +57,19 @@ final class DocumentContentHandler extends DefaultHandler {
     private final OBJECTState objectState;
 
     @objid ("b5c58e09-3fbb-11e2-87cb-001ec947ccaf")
-    public  DocumentContentHandler(LocalDataModel dataModel) {
+    public DocumentContentHandler(LocalDataModel dataModel) {
         this.objectState = new OBJECTState();
         this.relationState = new RelationState();
         this.documentState = new DocumentState();
-        
+
         this.documentState.setStateHandler (this);
         this.relationState.setStateHandler (this);
         this.objectState.setStateHandler (this);
-        
+
         this.currentState = (this.documentState);
         this.errorEncountered = false;
         this.dataModel = dataModel;
-        
+
     }
 
     @objid ("b5c58e0f-3fbb-11e2-87cb-001ec947ccaf")
@@ -84,51 +84,51 @@ final class DocumentContentHandler extends DefaultHandler {
         //TODO trace
         //System.out.println(" /"+localName);
         this.currentState.endElement (uri, localName, qName);
-        
+
     }
 
     @objid ("b5c58e2f-3fbb-11e2-87cb-001ec947ccaf")
     @Override
     public void error(final SAXParseException exc) throws SAXException {
         // === begin cxx code ===
-        // 
+        //
         //     char  msg = XMLString.transcode(exc.getMessage());
         //     XMLSSize_t column = exc.getColumnNumber();
         //     XMLSSize_t line = exc.getLineNumber();
-        // 
+        //
         //     CR_string crmsg = getRC().getFormattedString("saxerror", line, column, msg);
-        // 
+        //
         //     cerr << crmsg << endl;
         //     FLog.error(crmsg);
-        // 
+        //
         //     XMLString.release( msg);
         throw exc;
         // === end cxx code ===
-        
+
     }
 
     @objid ("b5c58e34-3fbb-11e2-87cb-001ec947ccaf")
     @Override
     public void fatalError(final SAXParseException exc) throws SAXException {
         throw exc;
-        
+
         // === begin cxx code ===
-        // 
+        //
         //     char                  msg = XMLString.transcode (exc.getMessage ());
         //     XMLSSize_t column = exc.getColumnNumber ();
         //     XMLSSize_t line = exc.getLineNumber ();
-        // 
+        //
         //     CR_string crmsg =
         //             getRC ().getFormattedString ("saxerror", line, column, msg);
-        // 
+        //
         //     cerr << crmsg << endl;
         //     FLog.fatal (crmsg);
-        // 
+        //
         //     XMLString.release ( msg);
-        // 
+        //
         //     throw exc;
         // === end cxx code ===
-        
+
     }
 
     @objid ("b5c58e39-3fbb-11e2-87cb-001ec947ccaf")
@@ -141,7 +141,7 @@ final class DocumentContentHandler extends DefaultHandler {
     public void setDocumentLocator(final Locator aLocator) {
         this.locator = aLocator;
         this.dataModel.setDocumentLocator(aLocator);
-        
+
     }
 
     @objid ("b5c58e46-3fbb-11e2-87cb-001ec947ccaf")
@@ -150,27 +150,27 @@ final class DocumentContentHandler extends DefaultHandler {
         //TODO trace
         //System.out.println(" >"+localName);
         this.currentState.startElement (uri, localName, qName, atts);
-        
+
     }
 
     @objid ("b5c58e5a-3fbb-11e2-87cb-001ec947ccaf")
     @Override
     public void warning(final SAXParseException exc) {
         // === begin cxx code ===
-        // 
+        //
         //     char                  msg = XMLString.transcode (exc.getMessage ());
         //     XMLSSize_t column = exc.getColumnNumber ();
         //     XMLSSize_t line = exc.getLineNumber ();
-        // 
+        //
         //     CR_string crmsg =
         //             getRC ().getFormattedString ("saxwarning", line, column, msg);
-        // 
+        //
         //     FLog.warn (crmsg);
-        // 
+        //
         //     XMLString.release ( msg);
         // === end cxx code ===
         Log.warning(exc); // TODO better reporting
-        
+
     }
 
     @objid ("b5c58e2b-3fbb-11e2-87cb-001ec947ccaf")
@@ -200,7 +200,7 @@ final class DocumentContentHandler extends DefaultHandler {
     void reset() {
         this.errorEncountered = false;
         enterDocumentState();
-        
+
     }
 
     @objid ("b5c58e44-3fbb-11e2-87cb-001ec947ccaf")

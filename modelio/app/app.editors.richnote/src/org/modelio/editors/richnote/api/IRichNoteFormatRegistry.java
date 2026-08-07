@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.api;
 
@@ -39,6 +39,7 @@ public interface IRichNoteFormatRegistry {
      * Get all supported formats with the best matching provider for which edition is possible.
      * <p>
      * Formats that are not editable because a needed software is not installed are excluded.
+     *
      * @return all editable document formats.
      */
     @objid ("e744e545-74e1-4a7a-99a6-bfa1e7efcf1a")
@@ -48,6 +49,7 @@ public interface IRichNoteFormatRegistry {
      * Get all supported formats with the best matching provider.
      * <h2>Note:</h2>
      * Some of the formats may not be usable because a needed software is not installed.
+     *
      * @return all supported document formats.
      */
     @objid ("7663a117-9b9e-411b-8759-76c813223c6d")
@@ -57,6 +59,7 @@ public interface IRichNoteFormatRegistry {
      * Get the best matching registered document format for the given file.
      * <h2>Note:</h2>
      * The returned format <b>may not be usable</b> because the needed software is not installed.
+     *
      * @param aFile a file.
      * @return the best matching document format or <code>null</code>.
      */
@@ -67,6 +70,7 @@ public interface IRichNoteFormatRegistry {
      * Get the best matching registered document format for the given MIME type.
      * <h2>Note:</h2>
      * The returned format <b>may not be usable</b> because the needed software is not installed.
+     *
      * @param mimeType a MIME type.
      * @return the best matching document format or <code>null</code>.
      */
@@ -77,6 +81,7 @@ public interface IRichNoteFormatRegistry {
      * Get the best matching registered document format for the given extern document.
      * <h2>Note:</h2>
      * The returned format <b>may not be usable</b> because the needed software is not installed.
+     *
      * @param target a document.
      * @return the best matching document format or <code>null</code>.
      */
@@ -90,5 +95,5 @@ public interface IRichNoteFormatRegistry {
      */
     @objid ("2d7db861-618a-4f96-98cb-4875d1d83f82")
     void reset();
-}
 
+}

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.helper;
 
@@ -43,26 +43,28 @@ public class RichNoteFilesGeometry {
 
     /**
      * initialize the service.
+     *
      * @param project the project to handle
      */
     @objid ("8f1bf648-57fd-48fb-8d86-069b26a5ecdc")
-    public  RichNoteFilesGeometry(IGProject project) {
+    public RichNoteFilesGeometry(IGProject project) {
         this.project = project;
     }
 
     /**
      * Get the file path of the given document.
+     *
      * @param doc an external document.
      * @return the file path.
      */
     @objid ("4802475e-1349-4948-94ed-dcf4484514da")
     public Path getPath(final Artifact doc) {
         String fileName = doc.getFileName();
-        
+
         if (fileName.isEmpty()) {
             return null;
         }
-        
+
         Path f = Paths.get(fileName);
         if (!Files.exists(f)) {
             f = getAbsoluteFile(fileName);
@@ -73,6 +75,7 @@ public class RichNoteFilesGeometry {
     /**
      * Relativize the given path and return it in a format that can be directly
      * stored in the {@link ExternDocument#getPath() path} rich note field.
+     *
      * @param filePath the path to relativize.
      * @return the relativized path.
      */
@@ -85,12 +88,12 @@ public class RichNoteFilesGeometry {
             // Relative to the project directory
             String docPath = this.project.getPfs().getProjectPath().relativize(filePath).toString();
             return RichNoteFilesGeometry.PROJECT_KEYWORD + "/" + docPath;
-        
+
         } else {
             // Store as is
             return filePath.toString();
         }
-        
+
     }
 
     /**
@@ -100,6 +103,7 @@ public class RichNoteFilesGeometry {
      * in a file with the element UUID as name with the given extension.
      * <p>
      * The returned path should be made relative before being stored in the rich note element using {@link ExternDocument#setPath(String)}.
+     *
      * @param doc a rich note.
      * @param extension the file extension
      * @return its default path.
@@ -115,6 +119,7 @@ public class RichNoteFilesGeometry {
      * If <i>fileName</i> contains {@value #PROJECT_KEYWORD}, the path is relative to the project
      * root directory. In the other case the path is relative to the project
      * runtime directory.
+     *
      * @param fileName a relative file path
      * @return an absolute file path.
      */
@@ -126,10 +131,11 @@ public class RichNoteFilesGeometry {
         } else {
             return this.project.getPfs().getProjectPath().resolve(fileName.substring(idx + RichNoteFilesGeometry.PROJECT_KEYWORD.length()));
         }
-        
+
     }
 
     /**
+     *
      * @return the project space path.
      */
     @objid ("6ca7b7a7-4d2f-4082-a310-cd59c3d8a69d")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vbasic.xml;
 
@@ -33,7 +33,7 @@ import javax.xml.stream.XMLStreamWriter;
  * General Public License Version 2 only ("GPL") or the Common Development
  * and Distribution License("CDDL") (collectively, the "License").  You
  * may not use this file except in compliance with the License.  You can
- * obtain a copy of the License at 
+ * obtain a copy of the License at
  * https://glassfish.dev.java.net/public/CDDL+GPL_1_1.html
  * or packager/legal/LICENSE.txt.  See the License for the specific
  * language governing permissions and limitations under the License.
@@ -65,7 +65,7 @@ import javax.xml.stream.XMLStreamWriter;
  */
 /**
  * Delegating {@link XMLStreamWriter}.
- * 
+ *
  * @author Kohsuke Kawaguchi
  */
 @objid ("78520866-3010-11e2-8359-001ec947ccaf")
@@ -74,7 +74,7 @@ abstract class DelegatingXMLStreamWriter implements XMLStreamWriter {
     private final XMLStreamWriter writer;
 
     @objid ("7852086a-3010-11e2-8359-001ec947ccaf")
-    public  DelegatingXMLStreamWriter(XMLStreamWriter writer) {
+    public DelegatingXMLStreamWriter(XMLStreamWriter writer) {
         this.writer = writer;
     }
 

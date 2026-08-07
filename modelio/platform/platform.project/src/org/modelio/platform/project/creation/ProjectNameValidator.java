@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.project.creation;
 
@@ -50,20 +50,21 @@ public class ProjectNameValidator implements IInputValidator {
         // project we also have to look for a directory of the same name even if it is
         // not a real ProjectSpace
         File dir = new File(this.workspace.toFile(), newText);
-        
+
         if (dir.exists()) {
             return AppProjectCore.I18N.getMessage("ProjectName.NameAlreadyUsed");
-        
+
         }
         return null;
     }
 
     /**
      * Default constructor.
+     *
      * @param workspace The Modelio work space.
      */
     @objid ("00463886-cc35-1ff2-a7f4-001ec947cd2a")
-    public  ProjectNameValidator(final Path workspace) {
+    public ProjectNameValidator(final Path workspace) {
         this.workspace = workspace;
     }
 

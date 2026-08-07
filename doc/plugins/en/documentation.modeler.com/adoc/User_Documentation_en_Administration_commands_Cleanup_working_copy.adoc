@@ -1,0 +1,21 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= Cleanup working copy
+
+
+
+===== Description
+
+If a Subversion command cannot complete successfully, perhaps due to server problems, your working copy can be left in an inconsistent state.
+
+If you ever get a _"working copy locked"_ error, run this command to remove stale locks and get your working copy into a usable state again. [[Conditions-and-restrictions]]
+
+
+===== Conditions and restrictions
+
+No particular conditions.

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.expert.standard.links.impl.creation;
 
@@ -40,7 +40,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 @objid ("7e99a2b9-1eb2-11e2-8009-002564c97630")
 public class BpmnSequenceFlowCreationExpert extends DefaultDelegatingLinkExpert {
     @objid ("f92825f6-49d5-426a-bdc5-76d79a78a49e")
-    public  BpmnSequenceFlowCreationExpert(ILinkExpert defaultExpert) {
+    public BpmnSequenceFlowCreationExpert(ILinkExpert defaultExpert) {
         super(defaultExpert);
     }
 
@@ -50,23 +50,23 @@ public class BpmnSequenceFlowCreationExpert extends DefaultDelegatingLinkExpert 
         if (!canSource(linkMetaclass, fromElement.getMClass())) {
             return false;
         }
-        
+
         if (fromElement.equals(toElement)) {
             return false;
         }
-        
+
         if (toElement instanceof BpmnStartEvent) {
             return false;
         }
-        
+
         if (toElement instanceof BpmnBoundaryEvent) {
             return false;
         }
-        
+
         if (toElement instanceof BpmnItemAwareElement) {
             return false;
         }
-        
+
         if (!(toElement instanceof BpmnFlowNode)) {
             return false;
         }
@@ -79,11 +79,11 @@ public class BpmnSequenceFlowCreationExpert extends DefaultDelegatingLinkExpert 
         if (fromElement instanceof BpmnEndEvent) {
             return false;
         }
-        
+
         if (fromElement instanceof BpmnItemAwareElement) {
             return false;
         }
-        
+
         if (fromElement instanceof BpmnFlowNode) {
             return true;
         }

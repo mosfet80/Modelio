@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.activities;
 
@@ -87,7 +87,7 @@ public class CallActivityNode implements IProductionNode<BpmnCallActivity, TCall
         } else {
             return factory.create(BpmnCallActivity.class, context);
         }
-        
+
     }
 
     @objid ("66148b5a-b6df-4592-a81c-467b2cb7ca9d")
@@ -99,7 +99,7 @@ public class CallActivityNode implements IProductionNode<BpmnCallActivity, TCall
         } else if (context instanceof BpmnSubProcess) {
             ((BpmnSubProcess) context).getFlowElement().add(modelioElement);
         }
-        
+
         // Group
         if (jaxbElement.getCategoryValueRef() != null) {
             for (QName jaxGroupRef : jaxbElement.getCategoryValueRef()) {
@@ -109,12 +109,12 @@ public class CallActivityNode implements IProductionNode<BpmnCallActivity, TCall
                 }
             }
         }
-        
+
         // Set properties
         if (jaxbElement.getName() != null) {
             modelioElement.setName(StringConvertor.imports(jaxbElement.getName()));
         }
-        
+
         if (jaxbElement.getCalledElement() != null) {
             Object called = this.elementsMap.get(jaxbElement.getCalledElement().getLocalPart());
             if (called instanceof BpmnTask) {
@@ -128,17 +128,17 @@ public class CallActivityNode implements IProductionNode<BpmnCallActivity, TCall
                 Called.setTarget(modelioElement, (BpmnCollaboration) called);
             }
         }
-        
+
         if (jaxbElement.getCompletionQuantity() != null) {
             modelioElement.setCompletionQuantity(jaxbElement.getCompletionQuantity().intValue());
         }
-        
+
         if (jaxbElement.getStartQuantity() != null) {
             modelioElement.setStartQuantity(jaxbElement.getStartQuantity().intValue());
         }
-        
+
         modelioElement.setIsForCompensation(jaxbElement.isIsForCompensation());
-        
+
         // Default Flow
         if (jaxbElement.getDefault() != null && jaxbElement.getDefault() instanceof TSequenceFlow) {
             BpmnSequenceFlow flow = (BpmnSequenceFlow) this.elementsMap.get(((TSequenceFlow) jaxbElement.getDefault()).getId());
@@ -154,7 +154,7 @@ public class CallActivityNode implements IProductionNode<BpmnCallActivity, TCall
     public TCallActivity createJaxbElement(Object context, BpmnCallActivity modelioElement) {
         // Create JaxbElement
         TCallActivity jaxTask = new TCallActivity();
-        
+
         // Add to context
         ObjectFactory factory = new ObjectFactory();
         if (context instanceof TProcess) {
@@ -164,7 +164,7 @@ public class CallActivityNode implements IProductionNode<BpmnCallActivity, TCall
             List<JAXBElement<? extends TFlowElement>> jaxContent = ((TSubProcess) context).getFlowElement();
             jaxContent.add(factory.createCallActivity(jaxTask));
         }
-        
+
         jaxTask.setId(IDUtils.formatJaxbID(modelioElement));
         return jaxTask;
     }
@@ -173,24 +173,24 @@ public class CallActivityNode implements IProductionNode<BpmnCallActivity, TCall
     @Override
     public TCallActivity updateJaxbElement(Object context, TCallActivity jaxTask, BpmnCallActivity modelioElement) {
         jaxTask.setName(modelioElement.getName());
-        
+
         if (modelioElement.getCompletionQuantity() != 0) {
             jaxTask.setCompletionQuantity(BigInteger.valueOf(modelioElement.getCompletionQuantity()));
         }
-        
+
         if (modelioElement.getStartQuantity() != 0) {
             jaxTask.setStartQuantity(BigInteger.valueOf(modelioElement.getStartQuantity()));
         }
-        
+
         jaxTask.setIsForCompensation(modelioElement.isIsForCompensation());
-        
+
         if (modelioElement.getCalledGlobalTask() != null) {
             TTask called = (TTask) this.elementsMap.get(modelioElement.getCalledGlobalTask().getUuid());
             if (called != null) {
                 jaxTask.setCalledElement(new QName(called.getId()));
             }
         }
-        
+
         ModelElement calledElement = Called.getTarget(modelioElement);
         if (calledElement != null) {
             TProcess called = (TProcess) this.elementsMap.get(calledElement.getUuid());
@@ -198,7 +198,7 @@ public class CallActivityNode implements IProductionNode<BpmnCallActivity, TCall
                 jaxTask.setCalledElement(new QName(called.getId()));
             }
         }
-        
+
         // Default Flow
         if (modelioElement.getDefaultFlow() != null) {
             Object target = this.elementsMap.get(modelioElement.getDefaultFlow().getUuid());

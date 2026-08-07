@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -47,10 +47,10 @@ public class EReadStructuralFeatureAction extends EActivityNode {
     }
 
     @objid ("314e3281-a7b8-452e-bbf5-15ae30e79642")
-    public  EReadStructuralFeatureAction(org.eclipse.uml2.uml.ReadStructuralFeatureAction element) {
+    public EReadStructuralFeatureAction(org.eclipse.uml2.uml.ReadStructuralFeatureAction element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("b70ee92c-57e6-4212-8b14-bed7ab23af16")
@@ -58,7 +58,7 @@ public class EReadStructuralFeatureAction extends EActivityNode {
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setFeature((OpaqueAction) objingElt);
-        
+
     }
 
     @objid ("0b878b15-814e-4ff5-8bfb-f2efc67c87aa")
@@ -66,7 +66,7 @@ public class EReadStructuralFeatureAction extends EActivityNode {
         org.eclipse.uml2.uml.StructuralFeature feature = this.ecoreElement.getStructuralFeature();
         if (feature != null) {
             Object behavior = ReverseProperties.getInstance().getMappedElement(feature);
-        
+
             if (behavior instanceof ModelElement){
                   attachFeature(objingElt, (ModelElement) behavior);
             }else if (behavior instanceof List){
@@ -77,23 +77,23 @@ public class EReadStructuralFeatureAction extends EActivityNode {
                 }
             }
         }
-        
+
     }
 
     @objid ("8c089eb4-13b3-4204-8bf7-9229bb2dec36")
     private void attachFeature(OpaqueAction objingElt, ModelElement obBehavior) {
         IMModelServices mmServices  = ReverseProperties.getInstance().getMModelServices();
         Dependency dependency = mmServices.getModelFactory().getFactory(IStandardModelFactory.class).createDependency();
-              
+
         try {
             dependency.addStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2STRUCTURALFEATUREREFERENCE);
         } catch (ExtensionNotFoundException e) {
             Xmi.LOG.warning(e);
         }
-              
+
         dependency.setDependsOn(obBehavior);
         dependency.setImpacted(objingElt);
-        
+
     }
 
 }

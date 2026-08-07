@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.path;
 
@@ -37,7 +37,7 @@ import org.modelio.diagram.styles.core.StyleKey.ConnectionRouterId;
 
 /**
  * Helper class for Orthogonal routing mode.
- * 
+ *
  * @author cmarin
  */
 @objid ("b7f25aae-15ba-4b9e-8157-dfb2312c1520")
@@ -53,6 +53,7 @@ public class AutoOrthoConnectionHelper implements IConnectionHelper {
 
     /**
      * Constructor a connection and its existing points.
+     *
      * @param connection the connection for which this helper is created.
      * @return the built helper
      */
@@ -75,6 +76,7 @@ public class AutoOrthoConnectionHelper implements IConnectionHelper {
      * Create an empty helper.
      * <p>
      * Uses {@link #updateFrom(RawPathData)} next.
+     *
      * @param connection the connection for which this helper is created.
      * @return the built helper
      */
@@ -91,14 +93,15 @@ public class AutoOrthoConnectionHelper implements IConnectionHelper {
 
     /**
      * Constructor from a list of points stored in the model (in coordinates relative to the connection or the origin figure).
+     *
      * @param modelBendPoints the list of point as stored in the model.
      * @param connection the connection for which this helper is created.
      */
     @objid ("4ac88b5b-3da1-40c1-9aa0-37854511ef8b")
-    public  AutoOrthoConnectionHelper(final List<Point> modelBendPoints, final Connection connection) {
+    public AutoOrthoConnectionHelper(final List<Point> modelBendPoints, final Connection connection) {
         this.connection = connection;
         this.modelBendPoints = modelBendPoints;
-        
+
     }
 
     @objid ("d752a3da-7b11-4283-9186-97b24bd32bf3")
@@ -123,15 +126,15 @@ public class AutoOrthoConnectionHelper implements IConnectionHelper {
     @Override
     public void updateFrom(final RawPathData req) {
         this.modelBendPoints.clear();
-        
+
         ConnectionAnchor targetAnchor = this.connection.getTargetAnchor();
-        
+
         if (targetAnchor instanceof XYAnchor) {
             // Replace XY anchor with an anchor that snaps with previous point
             this.connection.setTargetAnchor(new OrthoSnapAnchor(targetAnchor.getReferencePoint()));
-        
+
             readRawPoints(req.getPath());
-        
+
             // Hack : modify RawPathData.getLastPoint() with the snapped target point
             this.view.init(this.connection);
             this.view.getState().setConstraint(this.modelBendPoints);
@@ -140,13 +143,14 @@ public class AutoOrthoConnectionHelper implements IConnectionHelper {
         } else {
             readRawPoints(req.getPath());
         }
-        
+
     }
 
     /**
      * Go through the list of point and try to make an orthogonal path from it.
      * <p>
      * Add the points to {@link #modelBendPoints} .
+     *
      * @param path a list of points in absolute coordinates
      */
     @objid ("0d9c0369-d07c-4b33-a08b-c29d4c163e8b")
@@ -158,17 +162,17 @@ public class AutoOrthoConnectionHelper implements IConnectionHelper {
             List<MPoint> newRoute = router.computeMPointRoute(this.connection, Collections.emptyList());
             AutoOrthogonalRouter.routeToConstraint(newRoute);
             this.modelBendPoints.addAll(newRoute);
-        
+
         } else {
             // Go through the list of user point as is.
             List<MPoint> userBendPoints = convertToRelativeConstraint(path);
-        
+
             // launch the router to compute automatic points
             List<MPoint> newRoute = router.computeMPointRoute(this.connection, userBendPoints);
             AutoOrthogonalRouter.routeToConstraint(newRoute);
             this.modelBendPoints.addAll(newRoute);
         }
-        
+
     }
 
     @objid ("4d57c366-9c24-4b90-8279-9ae495296e26")
@@ -181,7 +185,7 @@ public class AutoOrthoConnectionHelper implements IConnectionHelper {
                 // This may happen when RawPath is built with module API.
                 relPt.setFixed(((MPoint) absPt).isFixed());
             }
-        
+
             this.connection.translateToRelative(relPt);
             userBendPoints.add(relPt);
         }
@@ -190,13 +194,13 @@ public class AutoOrthoConnectionHelper implements IConnectionHelper {
 
     /**
      * Variation of XYAnchor that snaps to the point passed to {@link #getLocation(Point)}.
-     * 
+     *
      * @author cma
      */
     @objid ("a7d36ff7-8205-4396-96ef-ec3f980f1edb")
     private static class OrthoSnapAnchor extends XYAnchor {
         @objid ("6c55df6c-5e64-4546-a47c-ea4a8040c4fc")
-        public  OrthoSnapAnchor(Point p) {
+        public OrthoSnapAnchor(Point p) {
             super(p);
         }
 
@@ -204,7 +208,7 @@ public class AutoOrthoConnectionHelper implements IConnectionHelper {
         @Override
         public Point getLocation(Point prev) {
             Point p = getReferencePoint().getCopy();
-            
+
             // snap to prev
             if (Math.abs(p.x() - prev.x()) < AutoOrthoConstants.MIN_DIST) {
                 p.setX(prev.x());

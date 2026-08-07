@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.gui.creation.file;
 
@@ -97,7 +97,7 @@ class FilePanelUI {
     private Label errorLabel;
 
     @objid ("1c187075-c33b-4ba2-8122-087e3eacc82e")
-    public  FilePanelUI(FilePanelController controller) {
+    public FilePanelUI(FilePanelController controller) {
         this.controller = controller;
     }
 
@@ -105,55 +105,55 @@ class FilePanelUI {
     public Control createUI(Composite parent) {
         this.top = new Composite(parent, SWT.NONE);
         this.top.setLayout(new GridLayout(3, false));
-        
+
         Label modeLabel = new Label(this.top, SWT.WRAP);
         modeLabel.setText(EditorsRichNote.I18N.getString("FileWizardPage.Mode.label"));
         modeLabel.setForeground(UIColor.LABEL_TIP_FG);
         modeLabel.setLayoutData(GridDataFactory.fillDefaults().grab(true, false).span(3, 1).create());
-        
+
         Group userChoiceGroup = createChoiceGroup(top);
         userChoiceGroup.setLayoutData(GridDataFactory.fillDefaults().grab(true, false).span(3, 1).create());
-        
-        
+
+
         // Embedded document: group to hide/show according to the button's selection
         this.embeddedGroup = new Group(top, SWT.NONE);
         this.embeddedGroup.setText(EditorsRichNote.I18N.getString("FileWizardPage.Parameters.label"));
         this.embeddedGroup.setLayout(new GridLayout(3, false));
         this.embeddedGroup.setLayoutData(GridDataFactory.fillDefaults().grab(true, true).span(3, 1).create());
-        
+
         // Document MIME type
         createLabel(this.embeddedGroup, EditorsRichNote.I18N.getString("FileWizardPage.MimeType.label"));
         this.embeddedMimeTypeViewer = createMimeTypeViewer(this.embeddedGroup, EditorsRichNote.I18N.getString("FileWizardPage.MimeType.tooltip"));
-        
+
         // Import
-        
+
         // Group to hide/show according to the button's selection
         this.importGroup = new Group(top, SWT.NONE);
         this.importGroup.setText(EditorsRichNote.I18N.getString("FileWizardPage.Parameters.label"));
         this.importGroup.setLayout(new GridLayout(3, false));
         this.importGroup.setLayoutData(GridDataFactory.fillDefaults().grab(true, true).span(3, 1).create());
-        
+
         // Document MIME type
         createLabel(this.importGroup, EditorsRichNote.I18N.getString("FileWizardPage.MimeType.label"));
         this.importMimeTypeViewer = createMimeTypeViewer(this.importGroup, EditorsRichNote.I18N.getString("FileWizardPage.MimeType.tooltip"));
-        
+
         // File/url chooser
         createLabel(this.importGroup, EditorsRichNote.I18N.getString("FileWizardPage.ImportContent.label"));
         this.importContentText = createContentText(this.importGroup, EditorsRichNote.I18N.getString("FileWizardPage.ImportContent.tooltip"));
         createContentChooserButton(this.importGroup, EditorsRichNote.I18N.getString("FileWizardPage.ImportContentDialog.title"), EditorsRichNote.I18N.getString("FileWizardPage.ImportContent.tooltip"), this.importMimeTypeViewer);
-        
+
         // Group to hide/show according to the button's selection
         this.externalGroup = new Group(top, SWT.NONE);
         this.externalGroup.setText(EditorsRichNote.I18N.getString("FileWizardPage.Parameters.label"));
         this.externalGroup.setLayout(new GridLayout(3, false));
         this.externalGroup.setLayoutData(GridDataFactory.fillDefaults().grab(true, true).span(3, 1).create());
-        
+
         // File/url chooser
         createLabel(this.externalGroup, EditorsRichNote.I18N.getString("FileWizardPage.ReferencedContent.label"));
         this.externalContentText = createContentText(this.externalGroup, EditorsRichNote.I18N.getString("FileWizardPage.ReferencedContent.tooltip"));
         createContentChooserButton(this.externalGroup, EditorsRichNote.I18N.getString("FileWizardPage.ReferencedContentDialog.title"), EditorsRichNote.I18N.getString("FileWizardPage.ReferencedContent.tooltip"), null);
-        
-        
+
+
         this.errorLabel = new Label(top, SWT.NONE);
         this.errorLabel.setForeground(UIColor.RED);
         this.errorLabel.setLayoutData(GridDataFactory.fillDefaults().grab(true, false).span(3, 1).create());
@@ -169,7 +169,7 @@ class FilePanelUI {
                 this.isEmbeddedButton.setSelection(true);
                 this.embeddedMimeTypeViewer.setInput(data.getTargetElement());
                 this.embeddedMimeTypeViewer.setSelection(data.getChosenMimeType() != null ? new StructuredSelection(data.getChosenMimeType()) : new StructuredSelection());
-        
+
                 // Hide/show groups
                 this.embeddedGroup.setVisible(true);
                 ((GridData) this.embeddedGroup.getLayoutData()).exclude = false;
@@ -177,13 +177,13 @@ class FilePanelUI {
                 ((GridData) this.externalGroup.getLayoutData()).exclude = true;
                 this.importGroup.setVisible(false);
                 ((GridData) this.importGroup.getLayoutData()).exclude = true;
-        
+
                 break;
             case EXTERNAL:
                 // Init widgets
                 this.isExternalButton.setSelection(true);
                 this.externalContentText.setText(data.getPath());
-        
+
                 // Hide/show groups
                 this.embeddedGroup.setVisible(false);
                 ((GridData) this.embeddedGroup.getLayoutData()).exclude = true;
@@ -191,7 +191,7 @@ class FilePanelUI {
                 ((GridData) this.externalGroup.getLayoutData()).exclude = false;
                 this.importGroup.setVisible(false);
                 ((GridData) this.importGroup.getLayoutData()).exclude = true;
-        
+
                 break;
             case IMPORT:
                 // Init visible widgets
@@ -199,7 +199,7 @@ class FilePanelUI {
                 this.importMimeTypeViewer.setInput(data.getTargetElement());
                 this.importMimeTypeViewer.setSelection(data.getChosenMimeType() != null ? new StructuredSelection(data.getChosenMimeType()) : new StructuredSelection());
                 this.importContentText.setText(data.getPath());
-        
+
                 // Hide/show groups
                 this.embeddedGroup.setVisible(false);
                 ((GridData) this.embeddedGroup.getLayoutData()).exclude = true;
@@ -207,7 +207,7 @@ class FilePanelUI {
                 ((GridData) this.externalGroup.getLayoutData()).exclude = true;
                 this.importGroup.setVisible(true);
                 ((GridData) this.importGroup.getLayoutData()).exclude = false;
-        
+
                 break;
             case UNDEFINED:
             default:
@@ -217,13 +217,13 @@ class FilePanelUI {
                 ((GridData) this.externalGroup.getLayoutData()).exclude = true;
                 this.importGroup.setVisible(false);
                 ((GridData) this.importGroup.getLayoutData()).exclude = true;
-        
+
                 break;
             }
-        
+
             this.top.layout(true);
         }
-        
+
     }
 
     @objid ("9809e1e6-e89f-450b-86b3-efc28aeac18e")
@@ -233,17 +233,17 @@ class FilePanelUI {
 
     @objid ("d2c21cd0-0941-47b6-a2a2-be1803d79465")
     private void createEmbeddedWidgets(Composite parent) {
-        
+
     }
 
     @objid ("a171f639-9214-452f-9fee-2caba63cb5c8")
     private void createExternalWidgets(Composite parent) {
-        
+
     }
 
     @objid ("fa4a898f-7000-4ef2-9ba3-b411ae8b2150")
     private void createImportWidgets(Composite parent) {
-        
+
     }
 
     @objid ("f5f8aed7-da1d-48cf-89c8-b2be34aabfdd")
@@ -255,10 +255,10 @@ class FilePanelUI {
         b.addListener(SWT.Selection, l -> {
             FileDialog fd = new FileDialog(parent.getShell(), SWT.OPEN);
             fd.setText(chooserDialogTitle);
-        
+
             if (mimeTypeViewer != null) {
                 RichNoteFormat format = SelectionHelper.getFirst(mimeTypeViewer.getSelection(), RichNoteFormat.class);
-        
+
                 Collection<String> formatExtensions = format.getFileExtensions();
                 String[] filterExtensions = new String[formatExtensions.size()];
                 int i = 0;
@@ -267,7 +267,7 @@ class FilePanelUI {
                 }
                 fd.setFilterExtensions(filterExtensions);
             }
-        
+
             String selected = fd.open();
             if (selected != null) {
                 FilePanelUI.this.controller.onContentChanged(selected, true);
@@ -287,12 +287,12 @@ class FilePanelUI {
                 FilePanelUI.this.controller.onContentChanged(t.getText(), true);
             }
         });
-        
+
         t.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
                 FilePanelUI.this.controller.onContentChanged(t.getText(), false);
-        
+
             }
         });
         return t;
@@ -324,19 +324,19 @@ class FilePanelUI {
     void setErrorIndication(String errorText) {
         if (errorText != null) {
             this.errorLabel.setText(errorText);
-        
+
         } else {
             // no error
             this.errorLabel.setText("");
         }
-        
+
     }
 
     @objid ("019a10a9-cc1f-485a-a0a1-41f5fd3f8a14")
     private Group createChoiceGroup(Composite parent) {
         Group userChoiceGroup = new Group(parent, SWT.NONE);
         userChoiceGroup.setLayout(new GridLayout());
-        
+
         // Create the choice radio buttons and their help
         // Embedded
         this.isEmbeddedButton = new Button(userChoiceGroup, SWT.RADIO);
@@ -345,13 +345,13 @@ class FilePanelUI {
         this.isEmbeddedButton.addListener(SWT.Selection, e -> {
             this.controller.onSetCreationMode(CreationMode.EMBEDDED);
         });
-        
+
         Label isEmbeddedLabel = new Label(userChoiceGroup, SWT.WRAP);
         isEmbeddedLabel.setText(EditorsRichNote.I18N.getString("FileWizardPage.Embedded.tooltip"));
         isEmbeddedLabel.setForeground(UIColor.LABEL_TIP_FG);
         isEmbeddedLabel.setFont(UIFont.SMALLI);
         isEmbeddedLabel.setLayoutData(GridDataFactory.fillDefaults().grab(true, false).indent(FilePanelUI.DEFAULT_INDENT).span(3, 1).create());
-        
+
         // Import
         this.isImportButton = new Button(userChoiceGroup, SWT.RADIO);
         this.isImportButton.setText(EditorsRichNote.I18N.getString("FileWizardPage.Import.label"));
@@ -359,13 +359,13 @@ class FilePanelUI {
         this.isImportButton.addListener(SWT.Selection, e -> {
             this.controller.onSetCreationMode(CreationMode.IMPORT);
         });
-        
+
         Label isImportLabel = new Label(userChoiceGroup, SWT.WRAP);
         isImportLabel.setText(EditorsRichNote.I18N.getString("FileWizardPage.Import.tooltip"));
         isImportLabel.setForeground(UIColor.LABEL_TIP_FG);
         isImportLabel.setFont(UIFont.SMALLI);
         isImportLabel.setLayoutData(GridDataFactory.fillDefaults().grab(true, false).indent(FilePanelUI.DEFAULT_INDENT).span(3, 1).create());
-        
+
         // External
         this.isExternalButton = new Button(userChoiceGroup, SWT.RADIO);
         this.isExternalButton.setText(EditorsRichNote.I18N.getString("FileWizardPage.External.label"));
@@ -373,7 +373,7 @@ class FilePanelUI {
         this.isExternalButton.addListener(SWT.Selection, e -> {
             this.controller.onSetCreationMode(CreationMode.EXTERNAL);
         });
-        
+
         Label isExternalLabel = new Label(userChoiceGroup, SWT.WRAP);
         isExternalLabel.setText(EditorsRichNote.I18N.getString("FileWizardPage.External.tooltip"));
         isExternalLabel.setForeground(UIColor.LABEL_TIP_FG);

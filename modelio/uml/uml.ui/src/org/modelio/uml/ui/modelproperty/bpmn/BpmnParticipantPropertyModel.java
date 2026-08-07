@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.bpmn;
 
@@ -67,17 +67,19 @@ public class BpmnParticipantPropertyModel extends AbstractPropertyModel<BpmnPart
 
     /**
      * Create a new <i>BpmnParticipant</i> data model from an <i>BpmnParticipant</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("2a202e1e-57a5-45bd-90e5-b6d135f5c89d")
-    public  BpmnParticipantPropertyModel(BpmnParticipant theEditedElement, IMdaExpert mdaExpert) {
+    public BpmnParticipantPropertyModel(BpmnParticipant theEditedElement, IMdaExpert mdaExpert) {
         super(theEditedElement);
         this.mdaExpert = mdaExpert;
-        
+
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("1c78d8b0-29db-46ba-b00f-543a6d3f515f")
@@ -88,6 +90,7 @@ public class BpmnParticipantPropertyModel extends AbstractPropertyModel<BpmnPart
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("0a85b291-907d-4912-9e65-eccabf5c51bb")
@@ -100,6 +103,7 @@ public class BpmnParticipantPropertyModel extends AbstractPropertyModel<BpmnPart
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -133,7 +137,7 @@ public class BpmnParticipantPropertyModel extends AbstractPropertyModel<BpmnPart
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -142,6 +146,7 @@ public class BpmnParticipantPropertyModel extends AbstractPropertyModel<BpmnPart
      * This type will be used to choose an editor and a renderer for each cell of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -179,7 +184,7 @@ public class BpmnParticipantPropertyModel extends AbstractPropertyModel<BpmnPart
                         .map(mc -> mc.getJavaInterface())
                         .collect(Collectors.toList());
                 DefaultElementNatValue elementNatValue = new DefaultElementNatValue((MObject) getValue(row, col), true, allowedTargets);
-        
+
                 MClass linkMetaclass = this.theEditedElement.getMClass().getMetamodel().getMClass(MethodologicalLink.class);
                 elementNatValue.setElementFilter(new IMObjectFilter() {
                     @Override
@@ -193,7 +198,7 @@ public class BpmnParticipantPropertyModel extends AbstractPropertyModel<BpmnPart
                         .map(mc -> mc.getJavaInterface())
                         .collect(Collectors.toList());
                 elementNatValue = new DefaultElementNatValue((MObject) getValue(row, col), true, allowedTargets);
-        
+
                 linkMetaclass = this.theEditedElement.getMClass().getMetamodel().getMClass(MethodologicalLink.class);
                 elementNatValue.setElementFilter(new IMObjectFilter() {
                     @Override
@@ -212,13 +217,14 @@ public class BpmnParticipantPropertyModel extends AbstractPropertyModel<BpmnPart
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -268,7 +274,7 @@ public class BpmnParticipantPropertyModel extends AbstractPropertyModel<BpmnPart
         default:
             return;
         }
-        
+
     }
 
     @objid ("d8caeb97-cd01-48e3-8394-ef72c5c73a28")
@@ -281,10 +287,11 @@ public class BpmnParticipantPropertyModel extends AbstractPropertyModel<BpmnPart
         } else {
             return isEditable;
         }
-        
+
     }
 
     /**
+     *
      * @return <code>true</code> if the participant refers to a {@link BpmnProcess}.
      */
     @objid ("f4539b98-ee07-4794-990e-86ffa872206d")

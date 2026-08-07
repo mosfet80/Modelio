@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.parts.module;
 
@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.gproject.module.IModuleHandle;
 import org.modelio.vbasic.collections.TopologicalSorter;
 import org.modelio.vbasic.collections.TopologicalSorter.CyclicDependencyException;
 import org.modelio.vbasic.version.VersionedItem;
@@ -39,6 +40,7 @@ public class MTopoSorter extends TopologicalSorter<GModule> {
 
     /**
      * Sort handles by dependencies, the first ones having no dependencies.
+     *
      * @param modules module to sort. This collection is not modified.
      * @return the sorted list.
      * @throws CyclicDependencyException in case of cyclic dependency.
@@ -49,7 +51,7 @@ public class MTopoSorter extends TopologicalSorter<GModule> {
     }
 
     @objid ("1a5f1e08-a8bf-4992-9297-7b956009c8c6")
-    private  MTopoSorter(Collection<GModule> modules) {
+    private MTopoSorter(Collection<GModule> modules) {
         this.modules = modules;
     }
 
@@ -63,7 +65,7 @@ public class MTopoSorter extends TopologicalSorter<GModule> {
     @Override
     public Collection<GModule> getAdjacent(GModule node) {
         Collection<GModule> ret = new ArrayList<>();
-        
+
         for (GModule m : this.modules) {
             if (dependsOn(node, m)) {
                 ret.add(m);
@@ -77,13 +79,17 @@ public class MTopoSorter extends TopologicalSorter<GModule> {
         if (module2 == null) {
             return false;
         }
-        
-        for (VersionedItem<?> requiredRef : module1.getModuleHandle().getDependencies()) {
+
+        IModuleHandle module1Handle = module1.getModuleHandle();
+        if (module1Handle==null)
+            return false; // a broken module depends on nothing
+
+        for (VersionedItem<?> requiredRef : module1Handle.getDependencies()) {
             if (module2.getName().equals(requiredRef.getName()) && !module2.getVersion().isOlderThan(requiredRef.getVersion())) {
                 return true;
             }
         }
-        
+
         for (VersionedItem<?> weakRef : module1.getModuleHandle().getWeakDependencies()) {
             if (module2.getName().equals(weakRef.getName()) && !module2.getVersion().isOlderThan(weakRef.getVersion())) {
                 return true;

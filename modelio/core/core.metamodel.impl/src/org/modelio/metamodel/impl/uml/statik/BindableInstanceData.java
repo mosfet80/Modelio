@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.List;
@@ -31,20 +30,20 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 
 @objid ("00011508-c4bf-1fd8-97fe-001ec947cd2a")
 public class BindableInstanceData extends InstanceData {
-    @objid ("f44d6336-c212-4ebd-9b90-5ee77a2ebfd3")
+    @objid ("93e814c8-9464-4cd5-abd1-95b8b40d69f6")
     SmObjectImpl mCluster;
 
-    @objid ("bfd72c45-73e0-49a9-8138-9bddbb0d392a")
+    @objid ("ce3b923e-5506-48c4-99fe-f6a95edacd44")
     SmObjectImpl mInternalOwner;
 
-    @objid ("0ec1ea84-7bce-47ba-bb96-49ca2bb6be6d")
+    @objid ("4a89db8c-5cd4-4b7b-8b26-26f1a87ac92f")
     List<SmObjectImpl> mRepresentation = null;
 
-    @objid ("316c75dc-5d84-492d-9e6c-be2eb266927e")
+    @objid ("f70ca981-7a59-4b23-99e0-b9a8bc0feaf2")
     SmObjectImpl mRepresentedFeature;
 
-    @objid ("ce6544af-c8cb-48ab-8d69-821bc369a579")
-    public  BindableInstanceData(BindableInstanceSmClass smClass) {
+    @objid ("50b6111b-25f7-4bff-a6a4-59d733a6722d")
+    public BindableInstanceData(BindableInstanceSmClass smClass) {
         super(smClass);
     }
 

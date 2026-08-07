@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.lifeline;
 
@@ -39,7 +39,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * {@link PlacementConstraint} implementation for a lifeline.
- * 
+ *
  * @author fpoyer
  */
 @objid ("d94cc716-55b6-11e2-877f-002564c97630")
@@ -61,6 +61,7 @@ public class LifelinePlacementConstraint extends PlacementConstraint {
 
     /**
      * Constructor.
+     *
      * @param lifeline the represented lifeline
      * @param x the desired X coordinate in relative coordinates.
      * @param y the desired Y coordinate in relative coordinates.
@@ -69,18 +70,17 @@ public class LifelinePlacementConstraint extends PlacementConstraint {
      * @param diagram the diagram in which this constraint is used.
      */
     @objid ("d94cc722-55b6-11e2-877f-002564c97630")
-    public  LifelinePlacementConstraint(final Lifeline lifeline, final int x, final int y, final int width, final int height, final GmSequenceDiagram diagram) {
+    public LifelinePlacementConstraint(final Lifeline lifeline, final int x, final int y, final int width, final int height, final GmSequenceDiagram diagram) {
         // Y and height are meaningless for a lifeline (these coordinates are computed from the ObModel)
         super(x, y, width, height, diagram);
         this.lifeline = lifeline;
-        
     }
 
     /**
      * Empty constructor for deserialisation. Do not use!
      */
     @objid ("d94cc733-55b6-11e2-877f-002564c97630")
-    public  LifelinePlacementConstraint() {
+    public LifelinePlacementConstraint() {
         super();
     }
 
@@ -102,7 +102,6 @@ public class LifelinePlacementConstraint extends PlacementConstraint {
     public void read(final IDiagramReader reader) {
         super.read(reader);
         this.lifeline = resolveRef((MRef) reader.readProperty("lifeline"));
-        
     }
 
     @objid ("d94e4da7-55b6-11e2-877f-002564c97630")
@@ -110,7 +109,6 @@ public class LifelinePlacementConstraint extends PlacementConstraint {
     public void write(final IDiagramWriter writer) {
         super.write(writer);
         writer.writeProperty("lifeline", new MRef(this.lifeline));
-        
     }
 
     @objid ("d94e4dae-55b6-11e2-877f-002564c97630")
@@ -125,7 +123,7 @@ public class LifelinePlacementConstraint extends PlacementConstraint {
                         getY() +
                         (ExecutionOccurenceSpecificationPlacementConstraint.DESTRUCTION_SIZE / 2);
             }
-        
+
         }
         // No destroy message received, align the lifeline with the other lifelines, a few pixels under the last line of this interaction.
         Interaction interaction = this.lifeline.getOwner();
@@ -137,17 +135,17 @@ public class LifelinePlacementConstraint extends PlacementConstraint {
             if (fragment instanceof InteractionUse &&
                     ((InteractionUse) fragment).getEndLineNumber() > lastLine) {
                 lastLine = ((InteractionUse) fragment).getEndLineNumber();
-        
+
             }
             if (fragment instanceof InteractionOperand &&
                     ((InteractionOperand) fragment).getEndLineNumber() > lastLine) {
                 lastLine = ((InteractionOperand) fragment).getEndLineNumber();
-        
+
             }
             if (fragment instanceof StateInvariant &&
                     ((StateInvariant) fragment).getEndLineNumber() > lastLine) {
                 lastLine = fragment.getLineNumber();
-        
+
             }
         }
         int bottom = lastLine + ADDITIONAL_SPACE_AT_BOTTOM;
@@ -168,7 +166,7 @@ public class LifelinePlacementConstraint extends PlacementConstraint {
                         ? ((IFigure) this.tmpFig.getChildren().get(0)).getPreferredSize().height / 2 : 0 : 0;
                 return blueSquare.getLineNumber() - offset;
             }
-        
+
         }
         return 0;
     }

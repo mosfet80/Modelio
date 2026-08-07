@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.panel.data.standard.infrastructure;
 
@@ -44,10 +44,11 @@ public class MetaclassReferencePropertyModel extends AbstractPropertyModel<Metac
 
     /**
      * Instantiate the profile properties view.
+     *
      * @param theEditedElement the current profile.
      */
     @objid ("4726e9e1-e1d5-41e9-b74a-0f28bedee2fc")
-    public  MetaclassReferencePropertyModel(MetaclassReference theEditedElement) {
+    public MetaclassReferencePropertyModel(MetaclassReference theEditedElement) {
         super(theEditedElement);
     }
 
@@ -80,7 +81,7 @@ public class MetaclassReferencePropertyModel extends AbstractPropertyModel<Metac
         default:
             return null;
         }
-        
+
     }
 
     @objid ("6720fe7f-5268-4d6d-b531-8088bb99129b")
@@ -95,14 +96,14 @@ public class MetaclassReferencePropertyModel extends AbstractPropertyModel<Metac
                 return new DefaultStringNatValue((String) getValue(row, col), false);
             case 1:
                 List<String> metaclasses = new ArrayList<>();
-        
+
                 // Get all metaclasses inheriting Element
                 for (MClass metaclass : this.theEditedElement.getMClass().getMetamodel().getMClass(Element.class).getSub(true)) {
                     metaclasses.add(metaclass.getQualifiedName());
                 }
-        
+
                 Collections.sort(metaclasses);
-        
+
                 return new DefaultStringChoiceNatValue((String) getValue(row, col), false, metaclasses, false);
             default:
                 return null;
@@ -110,7 +111,7 @@ public class MetaclassReferencePropertyModel extends AbstractPropertyModel<Metac
         default:
             return null;
         }
-        
+
     }
 
     @objid ("ebe8e341-aa0b-4030-b84f-933b53660599")
@@ -138,7 +139,7 @@ public class MetaclassReferencePropertyModel extends AbstractPropertyModel<Metac
         default:
             return;
         }
-        
+
     }
 
 }

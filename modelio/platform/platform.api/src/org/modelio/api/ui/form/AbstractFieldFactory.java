@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.ui.form;
 
@@ -64,16 +64,18 @@ public abstract class AbstractFieldFactory implements IFieldFactory {
 
     /**
      * Initialize the field factory.
+     *
      * @param moduleContext The module context
      * @since 3.8 : a module context is now needed
      */
     @objid ("87fdbd9b-17a3-4f7f-9dce-7a2c03c2f1c8")
-    public  AbstractFieldFactory(IModuleContext moduleContext) {
+    public AbstractFieldFactory(IModuleContext moduleContext) {
         this.moduleContext = Objects.requireNonNull(moduleContext);
     }
 
     /**
      * Create a form field for a specific {@link PropertyDefinition}.
+     *
      * @param parent a widget which will be the parent of the new field instance (cannot be null)
      * @param input the element to build the form field for.
      */
@@ -83,9 +85,9 @@ public abstract class AbstractFieldFactory implements IFieldFactory {
         MClass mClass;
         PropertyType type = pdef.getType();
         MMetamodel metamodel = pdef.getMClass().getMetamodel();
-        
+
         IFormFieldData model = new PropertyFieldData(getModuleContext().getModelingSession(), input, pdef);
-        
+
         final GridData layoutData = new GridData(SWT.FILL, SWT.TOP, true, false);
         layoutData.widthHint = 600;
         switch (type.getBaseType()) {
@@ -97,7 +99,7 @@ public abstract class AbstractFieldFactory implements IFieldFactory {
             } else {
                 field = new TextField(toolkit, parent, model, 1);
             }
-        
+
             Composite cText = field.getComposite();
             cText.setLayoutData(layoutData);
             break;
@@ -156,7 +158,7 @@ public abstract class AbstractFieldFactory implements IFieldFactory {
             c.setLayoutData(layoutData);
             break;
         }
-        
+
         // If the property definition has a description put it as help
         String desc = getModuleContext().getModelingSession().getMetamodelExtensions().getDescription(pdef);
         if (desc != null) {
@@ -167,20 +169,21 @@ public abstract class AbstractFieldFactory implements IFieldFactory {
 
     /**
      * Create a form field from a specific {@link Stereotype}.
+     *
      * @param parent a widget which will be the parent of the new field instance (cannot be null)
      * @param input the element to build the form field for.
      */
     @objid ("09986b9c-41c2-48d1-9837-37984d546d85")
     public List<IField> createFormFields(FormToolkit toolkit, Composite parent, ModelElement input, Stereotype stereotype) {
         List<IField> fields = new ArrayList<>();
-        
+
         PropertyTableDefinition ptype = stereotype.getDefinedTable();
         if (ptype != null) {
             for (PropertyDefinition pdef : ptype.getOwned()) {
                 fields.add(createFormField(toolkit, parent, input, pdef));
             }
         }
-        
+
         Stereotype parentStereotype = stereotype.getParent();
         if (parentStereotype != null) {
             fields.addAll(createFormFields(toolkit, parent, input, parentStereotype));
@@ -198,10 +201,10 @@ public abstract class AbstractFieldFactory implements IFieldFactory {
     @objid ("d717c366-8419-4184-9f01-65a6639987e7")
     public List<IField> createGenericFields(FormToolkit toolkit, Composite parent, ModelElement input) {
         List<IField> fields = new ArrayList<>();
-        
+
         // Name
         fields.add(createMAttributeField(toolkit, parent, input, input.getMClass().getAttribute("Name")));
-        
+
         // Fields from all stereotypes
         for (Stereotype stereotype : input.getExtension()) {
             fields.addAll(createFormFields(toolkit, parent, input, stereotype));
@@ -211,13 +214,14 @@ public abstract class AbstractFieldFactory implements IFieldFactory {
 
     /**
      * Create a form field from a specific {@link MAttribute}.
+     *
      * @param parent a widget which will be the parent of the new field instance (cannot be null)
      * @param input the element to build the form field for.
      */
     @objid ("c039db35-5e3b-4e30-9299-b27371d50965")
     public IField createMAttributeField(FormToolkit toolkit, Composite parent, ModelElement input, MAttribute mAtt) {
         IFormFieldData fieldModel = new MAttributeFieldData(getModuleContext().getModelingSession(), input, mAtt, this.moduleContext.getModelioServices().getMetamodelService().getI18nSupport().getLabel(mAtt));
-        
+
         Class<?> attType = mAtt.getType();
         if (attType == UUID.class) {
             StringField stringField = new StringField(toolkit, parent, fieldModel);
@@ -231,7 +235,7 @@ public abstract class AbstractFieldFactory implements IFieldFactory {
             });
             setupFieldLayout(stringField);
             return stringField;
-        
+
         } else if (attType == String.class) {
             IField stringField = new StringField(toolkit, parent, fieldModel);
             setupFieldLayout(stringField);
@@ -248,7 +252,7 @@ public abstract class AbstractFieldFactory implements IFieldFactory {
             });
             setupFieldLayout(stringField);
             return stringField;
-        
+
         } else if (attType == Long.class) {
             StringField stringField = new StringField(toolkit, parent, fieldModel);
             stringField.setValidator(s -> {
@@ -273,7 +277,7 @@ public abstract class AbstractFieldFactory implements IFieldFactory {
             });
             setupFieldLayout(stringField);
             return stringField;
-        
+
         } else if (attType == Double.class) {
             StringField stringField = new StringField(toolkit, parent, fieldModel);
             stringField.setValidator(s -> {
@@ -286,7 +290,7 @@ public abstract class AbstractFieldFactory implements IFieldFactory {
             });
             setupFieldLayout(stringField);
             return stringField;
-        
+
         } else if (attType == Boolean.class) {
             IField booleanField = new BooleanField(toolkit, parent, fieldModel);
             setupFieldLayout(booleanField);
@@ -296,7 +300,7 @@ public abstract class AbstractFieldFactory implements IFieldFactory {
             setupFieldLayout(enumField);
             return enumField;
         }
-        
+
         // Default case, return a String field
         IField stringField = new StringField(toolkit, parent, fieldModel);
         setupFieldLayout(stringField);
@@ -305,6 +309,7 @@ public abstract class AbstractFieldFactory implements IFieldFactory {
 
     /**
      * Create a form field page.
+     *
      * @param id the id
      * @param label the page label
      * @param image the page icon
@@ -318,6 +323,7 @@ public abstract class AbstractFieldFactory implements IFieldFactory {
 
     /**
      * Get the module context whose service may be used to build fields.
+     *
      * @return the module context
      * @since 3.8
      */
@@ -328,6 +334,7 @@ public abstract class AbstractFieldFactory implements IFieldFactory {
 
     /**
      * Setup default layout for a {@link IField}.
+     *
      * @param aField a form field
      * @since 3.7.1
      */
@@ -336,12 +343,12 @@ public abstract class AbstractFieldFactory implements IFieldFactory {
         final GridData ld_name = new GridData(SWT.FILL, SWT.CENTER, true, false);
         ld_name.widthHint = 600;
         aField.getComposite().setLayoutData(ld_name);
-        
+
     }
 
     /**
      * Basic implementation of {@link FormFieldPage} to be instantiated directly.
-     * 
+     *
      * @since 3.7.1
      */
     @objid ("9b03c6c3-4b47-49f6-ad20-dcd9338178ce")
@@ -356,12 +363,12 @@ public abstract class AbstractFieldFactory implements IFieldFactory {
         private final Image image;
 
         @objid ("180a4175-5472-4ae5-956f-26cd01bc5289")
-        public  BasicPage(int id, String label, Image image) {
+        public BasicPage(int id, String label, Image image) {
             super();
             this.id = id;
             this.label = label;
             this.image = image;
-            
+
         }
 
         @objid ("488499b3-2fc4-4c66-ab0a-4f95e442bf42")

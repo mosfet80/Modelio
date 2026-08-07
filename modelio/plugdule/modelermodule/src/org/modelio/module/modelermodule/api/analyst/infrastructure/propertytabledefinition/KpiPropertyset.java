@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -61,6 +61,7 @@ public class KpiPropertyset {
      * Tells whether a {@link KpiPropertyset proxy} can be instantiated from a {@link MObject} checking it is a {@link PropertyTableDefinition} stereotyped << kpi_propertyset >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -71,7 +72,7 @@ public class KpiPropertyset {
 
     /**
      * Create a new {@link PropertyTableDefinition} stereotyped << kpi_propertyset >> then instantiate a {@link KpiPropertyset} proxy.
-     * 
+     *
      * @return a {@link KpiPropertyset} proxy on the created {@link PropertyTableDefinition}.
      */
     @objid ("71a9524f-4f77-4d06-89cc-f5f726ed3e72")
@@ -82,9 +83,10 @@ public class KpiPropertyset {
     }
 
     /**
-     * Tries to instantiate a {@link KpiPropertyset} proxy from a {@link PropertyTableDefinition} stereotyped << kpi_propertyset >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link KpiPropertyset} proxy from a {@link PropertyTableDefinition} stereotyped << kpi_propertyset >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a PropertyTableDefinition
      * @return a {@link KpiPropertyset} proxy or <i>null</i>.
      */
@@ -94,9 +96,10 @@ public class KpiPropertyset {
     }
 
     /**
-     * Tries to instantiate a {@link KpiPropertyset} proxy from a {@link PropertyTableDefinition} stereotyped << kpi_propertyset >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link KpiPropertyset} proxy from a {@link PropertyTableDefinition} stereotyped << kpi_propertyset >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link PropertyTableDefinition}
      * @return a {@link KpiPropertyset} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -126,7 +129,8 @@ public class KpiPropertyset {
     }
 
     /**
-     * Get the underlying {@link PropertyTableDefinition}. 
+     * Get the underlying {@link PropertyTableDefinition}.
+     *
      * @return the PropertyTableDefinition represented by this proxy, never null.
      */
     @objid ("7569c38f-776f-4ec9-858c-15a04efbb4cb")
@@ -138,11 +142,11 @@ public class KpiPropertyset {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("fd274be4-15f1-42a0-9a2e-280e7c787505")
-    protected  KpiPropertyset(PropertyTableDefinition elt) {
+    protected KpiPropertyset(PropertyTableDefinition elt) {
         this.elt = elt;
     }
 
@@ -162,7 +166,7 @@ public class KpiPropertyset {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "a1a154ca-b239-4724-9953-8ca651e3ee64");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -170,7 +174,7 @@ public class KpiPropertyset {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

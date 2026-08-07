@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="com.modeliosoft.modelio.documentation.modeler.nl_fr.feature"
+      label="%featureName"
+      version="6.2.0.qualifier"
+      provider-name="Docaposte">
+
+   <description url="">
+   	All French Modelio documentation
+   </description>
+
+   <copyright url="">
+	Modeliosoft
+   </copyright>
+
+   <license url="">
+    Commercial
+   </license>
+
+   <plugin
+         id="com.modeliosoft.modelio.documentation.copyright.nl_fr"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"/>
+
+   <plugin
+         id="com.modeliosoft.modelio.documentation.modeliomodeler.nl_fr"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"/>
+
+   <plugin
+         id="com.modeliosoft.modelio.documentation.modeliomodeler.toc.nl_fr"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"/>
+
+   <plugin
+         id="com.modeliosoft.modelio.documentation.analyst.nl_fr"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"/>
+
+   <plugin
+         id="com.modeliosoft.modelio.documentation.archimate.nl_fr"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"/>
+
+   <plugin
+         id="org.modelio.documentation.modeliomodeler.nl_fr"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"/>
+
+   <plugin
+         id="org.modelio.documentation.modeliomodeler.toc.nl_fr"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.modeliosoft.modelio.documentation.welcome.nl_fr"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"/>
+
+   <plugin
+         id="com.modeliosoft.modelio.documentation.welcome.ba.nl_fr"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.modeliosoft.modelio.documentation.welcome.sd.nl_fr"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.modelio.documentation.vaudit.nl_fr"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"/>
+
+   <plugin
+         id="org.modelio.documentation.bpmn.nl_fr"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"/>
+         
+   <plugin
+         id="com.modeliosoft.modelio.documentation.workflow.nl_fr"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"/>
+          
+</feature>

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel.meta.mof;
 
@@ -42,7 +42,7 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
  * <p>
  * Missing metamodel fragments, metaclasses and attributes are created.
  * No other modification is done, for the moment.
- * 
+ *
  * @author cma
  * @since 3.6
  */
@@ -55,10 +55,11 @@ public class MofMetamodelMerger extends AbstractMetamodelMerger {
     private final MofMetamodel metamodel;
 
     /**
+     *
      * @param metamodel the metamodel to modify
      */
     @objid ("1f7f603c-d5f6-4dd7-86b5-5898eb22fa4b")
-    public  MofMetamodelMerger(MofMetamodel metamodel) {
+    public MofMetamodelMerger(MofMetamodel metamodel) {
         this.metamodel = metamodel;
     }
 
@@ -71,23 +72,23 @@ public class MofMetamodelMerger extends AbstractMetamodelMerger {
                 MofSmDependency mofd = (MofSmDependency) m.getDependency(depName);
                 mofd.addFlags(Collections.singleton(SmDirective.SMCDLINKSOURCE));
             }
-            
+
             for (String depName : mld.getTargetDepencencies()) {
                 MofSmDependency mofd = (MofSmDependency) m.getDependency(depName);
                 mofd.addFlags(Collections.singleton(SmDirective.SMCDLINKTARGET));
             }
-            
+
         }
-        
+
         for (MDependencyDescriptor dd : md.getDependencies()) {
             MofSmDependency mofd = (MofSmDependency) m.getDependency(dd.getName());
-            
+
             Optional.ofNullable(dd.getTarget())
             .map(targetRef -> this.metamodel.getMClass(targetRef.getQualifiedName()))
             .map(mc -> (SmDependency) mc.getDependency(dd.getOppositeName()))
             .ifPresent(oppDep -> mofd.setSymetric(oppDep));
         }
-        
+
     }
 
     @objid ("b293a956-22fc-4165-a367-40ce00c9675a")
@@ -110,7 +111,7 @@ public class MofMetamodelMerger extends AbstractMetamodelMerger {
                                                 .createClass(md.getName(), fd.getName(), md.isCmsNode())
                                                 .setVersion(md.getVersion())
                                                 .build();
-        
+
     }
 
     @objid ("b864f1b2-44d2-4042-ac10-29e6e482c4b8")
@@ -121,14 +122,14 @@ public class MofMetamodelMerger extends AbstractMetamodelMerger {
             // workaround classCastException in DepBuilder.setTarget
             targetQName = "Infrastructure.Element";
         }
-        
+
         DepBuilder depBuilder = this.metamodel.builder()
                 .setTemporary(this.temporary)
                 .createDep(dd.getName())
                 .setCardinality(dd.getMin(), dd.getMax())
                 .setSource((MofSmClass) m)
                 .setTarget(targetQName);
-        
+
         switch(dd.getAggregation()) {
         case Composition:
             depBuilder.setComposition();
@@ -145,16 +146,16 @@ public class MofMetamodelMerger extends AbstractMetamodelMerger {
             }
             break;
         }
-        
+
         if (dd.isCascadeDelete()) {
             depBuilder.addFlag(SmDirective.SMCDTODELETE);
         }
         if (dd.isWeakReference()) {
             depBuilder.addFlag(SmDirective.SMCD_KEEP_DELETED_ON_READONLY);
         }
-        
+
         depBuilder.build();
-        
+
     }
 
     @objid ("51ad3d93-a49c-4eb9-ae53-e07fa1f7e3b0")
@@ -164,7 +165,7 @@ public class MofMetamodelMerger extends AbstractMetamodelMerger {
         MofSmAttribute mofAtt = new MofSmAttribute(mofSmClass, ad.getName());
         mofAtt.setTemporary(this.temporary);
         mofSmClass.addAttribute(mofAtt);
-        
+
     }
 
     @objid ("8a8501f9-2cf1-408c-97f5-1de4858495f2")
@@ -184,13 +185,14 @@ public class MofMetamodelMerger extends AbstractMetamodelMerger {
     protected void postMergeMetaclass(MClassDescriptor md, MClass m) {
         MofSmClass mofSmClass = (MofSmClass) m;
         mofSmClass.ensurePostInit();
-        
+
     }
 
     /**
      * Set whether created meta elements are temporary.
      * <p>
      * Temporary meta elements are not serialized in {@link MofMetamodel#serialize()}.
+     *
      * @param temporary whether created meta elements are temporary.
      * @return this instance.
      */

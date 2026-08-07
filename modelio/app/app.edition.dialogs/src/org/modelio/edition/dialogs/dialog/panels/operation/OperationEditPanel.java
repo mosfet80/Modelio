@@ -1,26 +1,26 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.edition.dialogs.dialog.panels.operation;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.di.annotations.Creatable;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWT;
@@ -74,7 +74,7 @@ public class OperationEditPanel implements IPanelProvider {
     @Override
     public Control createPanel(Composite parent) {
         this.area = new Composite(parent, SWT.NO_REDRAW_RESIZE);
-        
+
         final GridLayout layout = new GridLayout(1, true);
         layout.horizontalSpacing = 0;
         layout.verticalSpacing = 2;
@@ -83,23 +83,23 @@ public class OperationEditPanel implements IPanelProvider {
         layout.marginHeight = 2;
         layout.marginBottom = 2;
         this.area.setLayout(layout);
-        
+
         this.propertiesPanel = new OperationPropertiesPanel();
         final Composite propertyArea = (Composite) this.propertiesPanel.createPanel(this.area);
         GridData gd = new GridData(SWT.FILL, SWT.FILL, true, false);
         propertyArea.setLayoutData(gd);
-        
+
         this.parametersPanel = new OperationParametersPanel();
         final Composite parametersArea = (Composite) this.parametersPanel.createPanel(this.area);
         gd = new GridData(SWT.FILL, SWT.FILL, true, false);
         gd.heightHint = 240;
         parametersArea.setLayoutData(gd);
-        
+
         this.signaturePanel = new OperationSignaturePanel();
         final Composite previewArea = (Composite) this.signaturePanel.createPanel(this.area);
         gd = new GridData(SWT.FILL, SWT.FILL, true, false);
         previewArea.setLayoutData(gd);
-        
+
         this.descriptionPanel = new ElementDescriptionPanel();
         final Composite descriptionArea = (Composite) this.descriptionPanel.createPanel(this.area);
         gd = new GridData(SWT.FILL, SWT.FILL, true, true);
@@ -139,7 +139,7 @@ public class OperationEditPanel implements IPanelProvider {
         } else {
             return obj instanceof Operation;
         }
-        
+
     }
 
     // private ElementDescriptionPanel descriptionPanel;
@@ -147,28 +147,28 @@ public class OperationEditPanel implements IPanelProvider {
     @Override
     public void setInput(Object input) {
         Operation newInput = input instanceof ModelElement ? (Operation) input : SelectionHelper.getFirst((ISelection) input, Operation.class);
-        
+
         // Bad input, clear all
         if (newInput == null) {
             this.op = null;
             return;
         }
-        
+
         if (!newInput.isValid()) {
             this.op = null;
             return;
         }
-        
+
         // Input is a valid Operation
         this.op = newInput;
-        
+
         this.model = new OperationModel(this.op);
-        
+
         this.signaturePanel.setInput(this.model);
         this.propertiesPanel.setInput(this.model);
         this.parametersPanel.setInput(this.model);
         this.descriptionPanel.setInput(this.model.getOperation());
-        
+
     }
 
     @objid ("99a9d0c7-f615-4102-965c-b8fbd6183468")

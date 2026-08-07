@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.edition.dialogs.dialog.panels.operation.properties;
 
@@ -91,26 +91,26 @@ public class OperationPropertiesPanel implements IPanelProvider {
         gl.marginWidth = 2;
         gl.verticalSpacing = 2;
         gl.horizontalSpacing = 10;
-        
+
         this.container.setLayout(gl);
-        
+
         createNameField(this.container);
-        
+
         // Kind
         createKindField(this.container);
-        
+
         // Visibility
         createVisibilityField(this.container);
-        
+
         // IsAbstract
         createIsAbstractField(this.container);
-        
+
         // IsClass
         createIsClassField(this.container);
-        
+
         // IsFinal
         createIsFinalField(this.container);
-        
+
         // Redefines
         /*
          * final Composite redefinesField = createRedefinesField(this.container); redefinesField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
@@ -129,24 +129,24 @@ public class OperationPropertiesPanel implements IPanelProvider {
     public void setInput(Object input) {
         if (input instanceof IOperationPropertyModel) {
             this.opModel = (IOperationPropertyModel) input;
-        
+
             this.nameText.setText(this.opModel.getName());
             this.isAbstractCheckbox.setSelection(this.opModel.isAbstract());
             this.isClassCheckbox.setSelection(this.opModel.isClass());
             this.isFinalCheckbox.setSelection(this.opModel.isFinal());
             this.kindCombo.setSelection(new StructuredSelection(this.opModel.getOperationType()));
             this.visibilityCombo.setSelection(new StructuredSelection(this.opModel.getVisibility()));
-        
+
             /*
              * this.redefinitionTextElement.getTextControl().setText("");
              */
-        
+
         } else {
             this.opModel = null;
             this.nameText.setText("");
         }
         setReadOnly(this.opModel != null && !this.opModel.isModifiable());
-        
+
     }
 
     @objid ("345b0f3e-3fdc-480c-94fd-fca4035a13a5")
@@ -162,12 +162,12 @@ public class OperationPropertiesPanel implements IPanelProvider {
         label.setText(EditionDialogs.I18N.getString("OperationEditPanel.opName"));
         GridData gd = new GridData(SWT.LEFT, SWT.CENTER, false, false);
         label.setLayoutData(gd);
-        
+
         this.nameText = new Text(parent, SWT.BORDER);
         gd = new GridData(SWT.FILL, SWT.TOP, true, false);
         gd.horizontalSpan = 6;
         this.nameText.setLayoutData(gd);
-        
+
         this.nameText.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
@@ -179,7 +179,7 @@ public class OperationPropertiesPanel implements IPanelProvider {
                 }
             }
         });
-        
+
         this.nameText.addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {
@@ -187,7 +187,7 @@ public class OperationPropertiesPanel implements IPanelProvider {
                 OperationPropertiesPanel.this.opModel.setName(text.getText());
             }
         });
-        
+
     }
 
     @objid ("87f35b4b-45d1-4403-a4d2-fe5778d6a642")
@@ -196,12 +196,12 @@ public class OperationPropertiesPanel implements IPanelProvider {
         label.setText(EditionDialogs.I18N.getString("OperationEditPanel.opKind"));
         final GridData gd = new GridData(SWT.LEFT, SWT.CENTER, false, false);
         label.setLayoutData(gd);
-        
+
         this.kindCombo = new ComboViewer(parent, SWT.READ_ONLY);
         this.kindCombo.getCombo().setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false));
         this.kindCombo.setContentProvider(new ArrayContentProvider());
         this.kindCombo.setInput(Arrays.asList("Operation", "Constructor", "Destructor"));
-        
+
         this.kindCombo.addSelectionChangedListener(new ISelectionChangedListener() {
             @Override
             public void selectionChanged(SelectionChangedEvent event) {
@@ -213,7 +213,7 @@ public class OperationPropertiesPanel implements IPanelProvider {
                 }
             }
         });
-        
+
     }
 
     @objid ("4db4ec7e-f259-4525-9c87-5d7faf51f5c1")
@@ -222,7 +222,7 @@ public class OperationPropertiesPanel implements IPanelProvider {
         GridData gd = new GridData(SWT.RIGHT, SWT.CENTER, true, false);
         label.setLayoutData(gd);
         label.setText(EditionDialogs.I18N.getString("OperationEditPanel.opVisibility"));
-        
+
         this.visibilityCombo = new ComboViewer(parent, SWT.READ_ONLY);
         gd = new GridData(SWT.FILL, SWT.CENTER, false, false);
         this.visibilityCombo.getCombo().setLayoutData(gd);
@@ -234,7 +234,7 @@ public class OperationPropertiesPanel implements IPanelProvider {
                 return MetamodelLabels.getString(o.toString());
             }
         });
-        
+
         this.visibilityCombo.addSelectionChangedListener(new ISelectionChangedListener() {
             @Override
             public void selectionChanged(SelectionChangedEvent event) {
@@ -246,7 +246,7 @@ public class OperationPropertiesPanel implements IPanelProvider {
                 }
             }
         });
-        
+
     }
 
     @objid ("5d000f73-e96a-42eb-8375-8386745ca3ca")
@@ -255,12 +255,12 @@ public class OperationPropertiesPanel implements IPanelProvider {
         //        GridData gd = new GridData(SWT.LEFT, SWT.CENTER, false, false);
         //        label.setLayoutData(gd);
         //        //label.setText(EditionDialogs.I18N.getString("OperationEditPanel.opIsAbstract"));
-        
+
                 this.isAbstractCheckbox = new Button(parent, SWT.CHECK);
                 GridData gd = new GridData(SWT.FILL, SWT.CENTER, true, false);
                 this.isAbstractCheckbox.setLayoutData(gd);
                 this.isAbstractCheckbox.setText(EditionDialogs.I18N.getString("OperationEditPanel.opIsAbstract"));
-        
+
                 this.isAbstractCheckbox.addSelectionListener(new SelectionAdapter() {
                     @Override
                     public void widgetSelected(SelectionEvent e) {
@@ -276,7 +276,7 @@ public class OperationPropertiesPanel implements IPanelProvider {
         //        GridData gd = new GridData(SWT.LEFT, SWT.CENTER, false, false);
         //        label.setLayoutData(gd);
         //        label.setText(EditionDialogs.I18N.getString("OperationEditPanel.opIsClass"));
-        
+
                 this.isClassCheckbox = new Button(parent, SWT.CHECK);
                 GridData gd = new GridData(SWT.FILL, SWT.CENTER, true, false);
                 this.isClassCheckbox.setLayoutData(gd);
@@ -296,12 +296,12 @@ public class OperationPropertiesPanel implements IPanelProvider {
         //        GridData gd = new GridData(SWT.LEFT, SWT.CENTER, false, false);
         //        label.setLayoutData(gd);
         //        label.setText(EditionDialogs.I18N.getString("OperationEditPanel.opIsFinal"));
-        
+
                 this.isFinalCheckbox = new Button(parent, SWT.CHECK);
                 GridData gd = new GridData(SWT.FILL, SWT.CENTER, true, false);
                 this.isFinalCheckbox.setLayoutData(gd);
                 this.isFinalCheckbox.setText(EditionDialogs.I18N.getString("OperationEditPanel.opIsFinal"));
-        
+
                 this.isFinalCheckbox.addSelectionListener(new SelectionAdapter() {
                     @Override
                     public void widgetSelected(SelectionEvent e) {
@@ -317,11 +317,11 @@ public class OperationPropertiesPanel implements IPanelProvider {
         GridData gd = new GridData(SWT.LEFT, SWT.CENTER, false, false);
         label.setLayoutData(gd);
         label.setText(EditionDialogs.I18N.getString("OperationEditPanel.opRedefined"));
-        
+
         this.redefinitionTextElement = new TextElement(parent, SWT.BORDER, true);
         gd = new GridData(SWT.FILL, SWT.CENTER, true, false);
         this.redefinitionTextElement.getTextControl().setLayoutData(gd);
-        
+
     }
 
     @objid ("5e593f1f-3aea-41a1-a60f-7af45789b263")
@@ -333,7 +333,7 @@ public class OperationPropertiesPanel implements IPanelProvider {
         this.kindCombo.getControl().setEnabled(!ro);
         this.nameText.setEnabled(!ro);
         this.visibilityCombo.getControl().setEnabled(!ro);
-        
+
     }
 
     @objid ("dcf3386e-3f8b-4949-a3dd-884bf70769ee")

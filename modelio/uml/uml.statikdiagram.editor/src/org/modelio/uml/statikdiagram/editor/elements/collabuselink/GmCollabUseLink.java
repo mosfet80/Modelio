@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.collabuselink;
 
@@ -61,29 +61,30 @@ public class GmCollabUseLink extends GmLink {
      * Constructor for deserialization.
      */
     @objid ("348dadaf-55b7-11e2-877f-002564c97630")
-    public  GmCollabUseLink() {
+    public GmCollabUseLink() {
         // Nothing to do.
     }
 
     /**
      * Creates a GmElementImport.
+     *
      * @param diagram The diagram containing the link.
      * @param role The represented element.
      * @param ref The represented element reference. May not be null.
      */
     @objid ("348dadb2-55b7-11e2-877f-002564c97630")
-    public  GmCollabUseLink(IGmDiagram diagram, CollaborationUse role, MRef ref) {
+    public GmCollabUseLink(IGmDiagram diagram, CollaborationUse role, MRef ref) {
         super(diagram, ref);
-        
+
         this.element = role;
-        
+
         if (role != null) {
             // Create extensions
-        
+
             addExtension(ExtensionLocation.MiddleSE, ROLE_MAIN_LABEL, new GmCollabUseLinkHeader(diagram, ref));
             addExtension(ExtensionLocation.SourceNW, ROLE_BINDING_GROUP, new GmBindingLabelGroup(diagram, ref));
         }
-        
+
     }
 
     @objid ("348dadbe-55b7-11e2-877f-002564c97630")
@@ -131,17 +132,17 @@ public class GmCollabUseLink extends GmLink {
     protected void readLink(IDiagramReader in) {
         super.readLink(in);
         this.element = (CollaborationUse) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("348f344f-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmCollabUseLink.", GmCollabUseLink.MINOR_VERSION);
-        
+
     }
 
     @objid ("348f3455-55b7-11e2-877f-002564c97630")
@@ -160,7 +161,7 @@ public class GmCollabUseLink extends GmLink {
                 n.setRoleInComposition(ROLE_BINDING_GROUP);
             }
         }
-        
+
     }
 
 }

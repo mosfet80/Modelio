@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -48,7 +48,7 @@ public class R1670 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -67,7 +67,7 @@ public class R1670 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         plan.registerRule(Enumeration.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(EnumerationLiteral.MQNAME, this, AuditTrigger.UPDATE | AuditTrigger.MOVE);
-        
+
     }
 
     /**
@@ -101,14 +101,14 @@ public class R1670 extends AbstractUmlRule {
      * Default constructor for R1670
      */
     @objid ("ab28944a-71c9-4cde-9cbd-c4f00350a768")
-    public  R1670() {
+    public R1670() {
         this.checkerInstance = new CheckR1670(this);
     }
 
     @objid ("9525dbd5-49e9-43c5-8381-4047c0a9c4ba")
     private static class CheckR1670 extends AbstractControl {
         @objid ("28e4b4bb-36ff-4892-9a15-42eef652f9e5")
-        public  CheckR1670(IRule rule) {
+        public CheckR1670(IRule rule) {
             super(rule);
         }
 
@@ -131,21 +131,21 @@ public class R1670 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     enumeration,
                     null);
-            
+
             List<String> enumLitNames = new ArrayList<>();
-            
+
             for (EnumerationLiteral enumLit : enumeration.getValue()) {
                 String enumLitName = enumLit.getName();
                 if (enumLitNames.contains(enumLitName)) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(enumeration);
                     linkedObjects.add(enumLitName);
                     auditEntry.setLinkedInfos(linkedObjects);
-            
+
                 } else {
                     enumLitNames.add(enumLitName);
                 }

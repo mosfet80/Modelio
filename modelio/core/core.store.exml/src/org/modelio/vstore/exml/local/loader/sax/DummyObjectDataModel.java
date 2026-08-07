@@ -1,27 +1,50 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.vstore.exml.local.loader.sax;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.vcore.model.DuplicateObjectException;
 import org.modelio.vcore.smkernel.SmObjectImpl;
+import org.modelio.vstore.exml.common.index.IndexException;
 import org.modelio.vstore.exml.common.model.DependencyNotFoundException;
+import org.modelio.vstore.exml.common.model.IllegalReferenceException;
+import org.modelio.vstore.exml.common.model.ObjIdName;
 
 /**
  * Data model for an object to be skipped while loading.
@@ -35,7 +58,7 @@ class DummyObjectDataModel implements IObjectDataModel {
     private final SmObjectImpl skippedObj;
 
     @objid ("22513207-356f-48ee-88af-c84b7b086c63")
-    public  DummyObjectDataModel(SmObjectImpl obj) {
+    public DummyObjectDataModel(SmObjectImpl obj) {
         this.skippedObj = obj;
     }
 
@@ -60,6 +83,12 @@ class DummyObjectDataModel implements IObjectDataModel {
     @objid ("0b695b74-eada-4a7f-a1b1-9d28669f415d")
     @Override
     public void updateCurrentDependency() {
+        // ignore
+    }
+
+    @objid ("8ccf6bca-4d40-428a-b536-dbdf49432f19")
+    @Override
+    public void addRefToDep(ObjIdName ref) throws DuplicateObjectException, IllegalReferenceException, IndexException {
         // ignore
     }
 

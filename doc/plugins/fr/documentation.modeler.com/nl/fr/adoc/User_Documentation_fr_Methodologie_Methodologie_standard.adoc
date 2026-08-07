@@ -1,0 +1,109 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Methodologie standard
+
+
+Les liens méthodologiques standards sont apportés par Modelio via le module *ModelerModule*. Ils permettent de relier des éléments appartenant aux modèles UML, BPMN, ArchiMate et Analyst.
+
+Ces liens sont pour la plupart visibles dans la vue Propriété, et ils sont aussi pris en compte dans les diagrammes pour activer des comportements avancés lors des démasquages.
+
+
+[%header,cols="1,1,1,1,1"]
+|========================================================
+|Link|Label|Source|Destination|Description
+|«AbstractMethodologicalLink»
+ | N/A
+ |ModelElement |ModelElement
+ |Lien méthodologique abstrait destiné à être étendu par tous les autres liens méthodologiques.
+//----------------------------------------------------------
+|«Allocated»
+ |Alloué
+ |ModelElement |KPI
+ |Allocation d'un KPI à un élément de modèle. +
+  Ex : KPI "Durée de traitement maximale" alloué à un processus "traiter commande"
+//----------------------------------------------------------
+.8+|«Called»
+ .8+|Active
+     |BpmnCallActivity|ApplicationProcess
+      .8+|Lien décrivant quel comportement est déclenché lors de l'activation de l'activité.
+     |BpmnCallActivity|BusinessProcess
+     |BpmnCallActivity|Operation
+     |BpmnCallActivity|Behavior
+     |BpmnReceiveTask|Operation
+     |BpmnSendTask|Operation
+     |BpmnServiceTask|Operation
+     |BpmnServiceTask|BusinessService
+//----------------------------------------------------------
+.4+|«Event»
+ .4+|Evénement
+     |BpmnEvent|ApplicationEvent
+      .4+|Lien reliant les événements ou signaux dans le modèle aux événements dans le processus BPMN
+     |BpmnEvent|BusinessEvent
+     |BpmnEvent|TechnologyEvent
+     |BpmnEvent|Signal
+//----------------------------------------------------------
+.8+|«PartitionElement»
+ .8+|Acteur de processus
+     |BpmnLane|BusinessActor
+      .8+|Lien associant les Lanes BPMN (responsables d'un ensemble d'actions dans un processus) à l'élément actif dans le modèle (acteur, unité d'organisation, application...). +
+          Exemple : L'acteur "Agent Commercial" est associé à une Lane dans le processus "traiter commande")
+     |BpmnLane|BusinessRole
+     |BpmnLane|Actor
+     |BpmnLane|Package
+     |BpmnLane|Component
+     |BpmnLane|Class
+     |BpmnLane|Node
+     |BpmnLane|ApplicationComponent
+//----------------------------------------------------------
+.3+|«Process»
+ .3+|Lien processus
+     |BpmnProcess|ApplicationProcess
+      .3+|Lien d'équivalence entre les processus BPMN et les processus ArchiMate. Les processus BPMN détaillent le comportement des processus ArchiMate.
+     |BpmnProcess|BusinessProcess
+     |BpmnProcess|TechnologyProcess
+//----------------------------------------------------------
+.10+|«Reference»
+ .10+|Référence inter modèles
+      |BpmnInterface|GeneralClass
+       .10+|Associe un élément représenté dans un processus BPMN à un élément de modèle . (Exemple, un participant dans une collaboration BPMN est associé à un acteur)
+      |BpmnItemDefinition|GeneralClass
+      |BpmnOperation|Operation
+      |BpmnParticipant|Package
+      |BpmnParticipant|BusinessActor
+      |BpmnParticipant|BusinessRole
+      |BpmnParticipant|ApplicationComponent
+      |BpmnParticipant|ApplicationProcess
+      |BpmnParticipant|BusinessProcess
+      |BpmnParticipant|TechnologyProcess
+//----------------------------------------------------------
+.16+|«Represents»
+ .16+|Représente
+      |BpmnDataInput|Parameter
+       .16+|Lien d'usage/instanciation d'un élément de modèle au sein d'un processus. Ex : Le Data Object "CommandeRecue" dans un processus BPMN et une occurrence de l'Objet Métier (Classe) "Commande".
+      |BpmnDataObject|Artifact
+      |BpmnDataObject|BusinessObject
+      |BpmnDataObject|DataObject
+      |BpmnDataObject|Product
+      |BpmnDataOutput|Parameter
+      |BpmnItemAwareElement|AssociationEnd
+      |BpmnItemAwareElement|Attribute
+      |BpmnItemAwareElement|Instance
+      |BpmnItemAwareElement|GeneralClass
+      |BpmnMessage|GeneralClass
+      |BpmnParticipant|Classifier
+      |BpmnMessage|BusinessObject
+      |BpmnMessage|DataObject
+      |BpmnMessage|Artifact
+      |BpmnMessage|Product
+//----------------------------------------------------------
+.3+|«State»
+ .3+|Lien état
+     |BpmnDataState|State
+      .3+|Lien montrant l'occurrence d'un état UML au sein d'un processus BPMN.+
+          Exemple : l'état "En cours" de l'objet Métier "Commande" est l'état courant d'un data object "CommandeRecue" dans un processus BPMN.
+     |BpmnItemAwareElement|State
+     |BpmnMessage|State
+|========================================================

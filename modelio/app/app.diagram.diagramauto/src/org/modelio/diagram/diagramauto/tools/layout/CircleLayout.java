@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.diagramauto.tools.layout;
 
@@ -41,40 +41,40 @@ public class CircleLayout {
     public void layout(final IDiagramHandle dh, final List<IDiagramNode> contentDgs) throws InvalidSourcePointException, InvalidPointsPathException, InvalidDestinationPointException {
         int maxWidth = 0;
         int maxHeight = 0;
-        
+
         // compute max height and width of the elements to layout.
         for (IDiagramNode content : contentDgs) {
             content.fitToContent();
-        
+
             Rectangle r = content.getOverallBounds();
-        
+
             maxWidth = Math.max(maxWidth, r.width);
             maxHeight = Math.max(maxHeight, r.height);
         }
-        
+
         // compute the center and radius of the circle
         double radius = Math.max(maxHeight, maxWidth) * (1.5 + contentDgs.size() / 10);
         PrecisionPoint center = new PrecisionPoint(maxWidth + radius, maxHeight + radius);
-        
+
         // set the elements on the circle
         moveElements(contentDgs, center, radius);
-        
+
         dh.save();
-        
+
         // move links on content nodes
         for (IDiagramNode source : contentDgs) {
             Rectangle sourceR = source.getOverallBounds();
-        
+
             // Links to the content
             for (IDiagramLink link : source.getFromLinks()) {
                 if (link.getTo() instanceof IDiagramNode) {
                     link.setRouterKind(LinkRouterKind.DIRECT);
-        
+
                     IDiagramNode target = (IDiagramNode) link.getTo();
                     Rectangle targetR = target.getOverallBounds();
-        
+
                     ILinkPath path = link.getPath();
-        
+
                     // Each link is a direct line between the element's centers
                     List<Point> points = new ArrayList<>();
                     if (sourceR.x > targetR.x) {
@@ -84,20 +84,21 @@ public class CircleLayout {
                         points.add(new Point(targetR.x + targetR.width / 2, targetR.y + targetR.height / 2));
                         points.add(new Point(sourceR.x + sourceR.width / 2, sourceR.y + sourceR.height / 2));
                     }
-        
+
                     // System.out.println();
                     path.setPoints(points);
                     link.setPath(path);
                 }
             }
         }
-        
+
         dh.save();
-        
+
     }
 
     /**
      * Sets locations of all dgs, distributed around a circle. The center of each dg is part of the circle itself.
+     *
      * @param dgs the graphics to layout.
      * @param center The center of the circle.
      * @param radius The radius of the circle.
@@ -109,21 +110,21 @@ public class CircleLayout {
         double angleRad = Math.PI * angleDeg / 180;
         double cos = Math.cos(angleRad);
         double sin = Math.sin(angleRad);
-        
+
         // Compute the center point of each dg
         PrecisionPoint p = new PrecisionPoint(0, radius);
         for (IDiagramNode node : dgs) {
             Rectangle r = node.getOverallBounds();
-        
+
             // Set the node in the correct place in the circle, with a shift corresponding to the center's coordinates
             DgUtils.setLocation(node, center.x + p.x - r.width / 2, center.y + p.y - r.height / 2);
-        
+
             // Compute next point, with a rotation of (360/n) ?
             double newX = p.preciseX() * cos + p.preciseY() * sin;
             double newY = -p.preciseX() * sin + p.preciseY() * cos;
             p = new PrecisionPoint(newX, newY);
         }
-        
+
     }
 
 }

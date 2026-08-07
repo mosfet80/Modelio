@@ -1,0 +1,21 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Consulter les modèles de travail du projet
+
+
+Dans un projet Modelio, on appelle *modèle de travail* un morceau de modèle qui peut être modifiable. +
+
+Pour avoir des détails sur les modèle de travail d'un projet, sélectionnez l'onglet *Modèles de travail* de la fenêtre de *Configuration du projet* accessible depuis le bouton image:images/attachment/modeliocom41/User_Documentation_fr/Project_Local/Consulting_project_work_models_Local/ConsultingProjectInformation_002.png[ConsultingProjectInformation_002.png]
+
+image::images/attachment/modeliocom41/User_Documentation_fr/Project_Local/Consulting_project_work_models_Local/ConsultingProjectWorkModels_001.png[ConsultingProjectWorkModels_001.png]
+
+*Légende :*
+
+. Modèles de travail du projet
+. Ajouter un nouveau modèle de travail local au projet
+. Renommer le modèle de travail sélectionné
+. Supprimer le modèle de travail sélectionné du projet
+

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -32,20 +31,20 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 
 @objid ("000879a6-c4bf-1fd8-97fe-001ec947cd2a")
 public class ElementImportData extends UmlModelElementData {
-    @objid ("db5fb2cf-94c3-4b6b-b8cb-288b0fa7f4de")
+    @objid ("2ddd5d5a-8afe-42e4-9576-2ca41f96cf42")
     Object mVisibility = VisibilityMode.PRIVATE;
 
-    @objid ("a97d0f00-8c07-4245-88be-4b434fcb57bc")
+    @objid ("00170ba6-e2a7-4a9d-98b9-5aa218d59d6f")
     SmObjectImpl mImportingNameSpace;
 
-    @objid ("8738fc74-3afb-4627-a713-52ba32acb0be")
+    @objid ("6115dd19-385d-4136-a805-8f2fe65e1336")
     SmObjectImpl mImportedElement;
 
-    @objid ("8aca47ea-1801-445c-a5b7-d33a62a652c7")
+    @objid ("0fc995a9-81f3-4f14-8493-3ebd98117fad")
     SmObjectImpl mImportingOperation;
 
-    @objid ("681b512b-8424-4c9e-811c-5625e52f76f6")
-    public  ElementImportData(ElementImportSmClass smClass) {
+    @objid ("6e759c3e-4163-4619-b13c-4f47537bc7c3")
+    public ElementImportData(ElementImportSmClass smClass) {
         super(smClass);
     }
 

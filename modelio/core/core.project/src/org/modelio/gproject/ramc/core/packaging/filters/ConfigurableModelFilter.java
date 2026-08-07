@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.ramc.core.packaging.filters;
 
@@ -45,14 +45,15 @@ public class ConfigurableModelFilter implements IModelFilterConfigurer, IObjectF
 
     /**
      * Initialize the filter.
+     *
      * @param metamodel the modelio metamodel.
      */
     @objid ("871694ab-1b3f-4889-abb6-e0122ae97e3a")
-    public  ConfigurableModelFilter(SmMetamodel metamodel) {
+    public ConfigurableModelFilter(SmMetamodel metamodel) {
         List<SmClass> allMetaclasses = metamodel.getRegisteredMClasses();
         this.metamodel = metamodel;
         this.classDescriptors = new HashMap<>(allMetaclasses.size());
-        
+
     }
 
     @objid ("b76fcf68-7f2f-45ba-97e1-c13cf3af24ce")
@@ -64,7 +65,7 @@ public class ConfigurableModelFilter implements IModelFilterConfigurer, IObjectF
         } else {
             return filter.accept(obj);
         }
-        
+
     }
 
     @objid ("729f32df-60f0-4344-a0ed-dc6950d95076")
@@ -75,7 +76,7 @@ public class ConfigurableModelFilter implements IModelFilterConfigurer, IObjectF
         for (SmClass c : cls.getAllSubClasses()) {
             this.classDescriptors.put(c, objectFilter);
         }
-        
+
     }
 
 }

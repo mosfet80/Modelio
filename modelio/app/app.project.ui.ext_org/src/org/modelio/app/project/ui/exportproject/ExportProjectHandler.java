@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.ui.exportproject;
 
@@ -26,7 +26,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
@@ -55,11 +55,11 @@ public class ExportProjectHandler {
         if (projectToExport == null) {
             return;
         }
-        
+
         AppProjectUi.LOG.info("Exporting project " + projectToExport.getName());
-        
+
         final IGProject openedProject = projectService.getOpenedProject();
-        
+
         // check that the project to export is not the currently opened one.
         // Opened project cannot be exported as the exported project file would
         // be locked
@@ -69,7 +69,7 @@ public class ExportProjectHandler {
                     AppProjectUiExt.I18N.getMessage("ExportProjectHandler.CannotExportOpenedProjectMsg", projectToExport.getName()));
             return;
         }
-        
+
         // Exporting a project consists in zipping its directory contents into a
         // zip archive
         // Prompt the user for the archive file path and name
@@ -78,7 +78,7 @@ public class ExportProjectHandler {
             AppProjectUi.LOG.info("Export aborted by user.");
             return;
         }
-        
+
         try {
             progressService.busyCursorWhile(monitor -> {
                 try {
@@ -101,7 +101,7 @@ public class ExportProjectHandler {
                 MessageDialog.openError(shell, AppProjectUiExt.I18N.getString("ExportProjectHandler.ExportError"), e.getCause().toString());
             }
         }
-        
+
     }
 
     @objid ("51338a00-c621-499a-ac12-f7a9e1bdaada")
@@ -112,12 +112,12 @@ public class ExportProjectHandler {
         if (projectDescriptors.size() != 1) {
             return false;
         }
-        
+
         final GProjectDescriptor desc = projectDescriptors.get(0);
         if (desc.getLockInfo() != null) {
             return false;
         }
-        
+
         IGProject openedProject = projectService.getOpenedProject();
         if (openedProject != null) {
             // cannot export currently opened project
@@ -131,32 +131,32 @@ public class ExportProjectHandler {
     @objid ("1f0e3998-bcdb-49df-8bda-056552d51fe3")
     protected Path promptUserForFile(Shell parentShell, Path projectSpace) throws java.nio.file.InvalidPathException {
         FileDialog dialog = new FileDialog(parentShell, SWT.SAVE);
-        
+
         dialog.setFilterNames(new String[] { AppProjectUiExt.I18N.getString("ExportProjectHandler.ProjectArchive") });
         dialog.setFilterExtensions(new String[] { "*.zip;" });
         dialog.setFileName(projectSpace.getFileName() + ".zip");
         dialog.setFilterPath(projectSpace.getParent().toString());
-        
+
         String sfilePath = dialog.open();
         if (sfilePath != null) {
-        
+
             if (!sfilePath.endsWith(".zip")) {
                 sfilePath += ".zip";
             }
-        
+
             Path path = Paths.get(sfilePath);
-        
+
             if (Files.exists(path)) {
                 boolean override = MessageDialog.openConfirm(
                         parentShell,
                         AppProjectUiExt.I18N.getString("ExportProjectHandler.override.title"),
                         AppProjectUiExt.I18N.getString("ExportProjectHandler.override.message"));
-        
+
                 if (override == false) {
                     return promptUserForFile(parentShell, projectSpace);
                 }
             }
-        
+
             return path;
         }
         return null;

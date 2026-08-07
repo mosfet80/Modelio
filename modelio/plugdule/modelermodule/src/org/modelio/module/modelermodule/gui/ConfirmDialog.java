@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.module.modelermodule.gui;
 
@@ -34,6 +34,7 @@ import org.modelio.module.modelermodule.i18n.I18nMessageService;
 
 /**
  * Basic swt dialog asking to choose a confirmation value.
+ *
  * @see ConfirmDialog.Values
  */
 @objid ("fccbb842-64e7-49fd-9bdc-fa7e76f25904")
@@ -45,11 +46,11 @@ public class ConfirmDialog {
     protected Shell shell;
 
     @objid ("12474440-0321-48ff-a1c6-bb84af340409")
-    private  ConfirmDialog(final Shell parent, final String label, final String title) {
+    private ConfirmDialog(final Shell parent, final String label, final String title) {
         this.res = Values.CANCEL_OPTION;
-        
+
         createContents(parent, label, title);
-        
+
     }
 
     /**
@@ -58,12 +59,12 @@ public class ConfirmDialog {
     @objid ("b43dfae2-cbc4-4822-9019-e76e27e0e39e")
     private void createContents(final Shell parent, final String label, final String title) {
         this.shell = new Shell(parent, SWT.DIALOG_TRIM);
-        
+
         this.shell.setLayout(new FormLayout());
         this.shell.setText(title);
-        
+
         Composite composite = createButtons();
-        
+
         final Label lab = new Label(this.shell, SWT.NONE);
         lab.setAlignment(SWT.CENTER);
         final FormData fd_label = new FormData();
@@ -73,10 +74,10 @@ public class ConfirmDialog {
         fd_label.left = new FormAttachment(0, 5);
         lab.setLayoutData(fd_label);
         lab.setText(label);
-        
+
         this.shell.pack();
         this.shell.setSize(this.shell.getSize().x + 30, this.shell.getSize().y);
-        
+
     }
 
     @objid ("75426ee1-4c5c-4101-a58f-58dbf75d6249")
@@ -90,10 +91,10 @@ public class ConfirmDialog {
         fd_composite_1.bottom = new FormAttachment(100, -5);
         fd_composite_1.right = new FormAttachment(100, -5);
         composite.setLayoutData(fd_composite_1);
-        
+
         final Composite composite_2 = new Composite(composite, SWT.NONE);
         composite_2.setLayout(new FillLayout());
-        
+
         final Button yesButton = new Button(composite_2, SWT.NONE);
         yesButton.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -103,7 +104,7 @@ public class ConfirmDialog {
             }
         });
         yesButton.setText(I18nMessageService.getString("module.gui.yes"));
-        
+
         final Button noButton = new Button(composite_2, SWT.NONE);
         noButton.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -113,7 +114,7 @@ public class ConfirmDialog {
             }
         });
         noButton.setText(I18nMessageService.getString("module.gui.no"));
-        
+
         final Button cancelButton = new Button(composite_2, SWT.NONE);
         cancelButton.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -129,10 +130,10 @@ public class ConfirmDialog {
     @objid ("2134f690-829e-4b1e-a251-04e4f63b7295")
     private Values choose() {
         ShellHelper.centerShell(this.shell);
-        
+
         this.shell.open();
         this.shell.layout();
-        
+
         final Display display = this.shell.getDisplay();
         while (!this.shell.isDisposed()) {
             if (!display.readAndDispatch())
@@ -143,6 +144,7 @@ public class ConfirmDialog {
 
     /**
      * Opens a dialog and returns the chosen value.
+     *
      * @param parent the parent to attach the dialog to.
      * @param label the label to display in the dialog.
      * @param title the title for the dialog.

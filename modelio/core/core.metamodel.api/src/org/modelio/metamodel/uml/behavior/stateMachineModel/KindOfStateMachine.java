@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.uml.behavior.stateMachineModel;
 
@@ -26,17 +26,16 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * KindOfStateMachine v0.0.9054
- * 
- * 
+ *
+ *
  * null
- * 
- * 
+ *
  */
 @objid ("000d2dc0-91e1-1f74-804b-001ec947cd2a")
 public enum KindOfStateMachine {
-    @objid ("6d67c725-a88c-4909-9ae6-d6c0ec1b5706")
+    @objid ("b251e3ed-ec99-4645-9a39-9ca2f07470fd")
     DYNAMIC(0, "Dynamic", "Dynamic"),
-    @objid ("ba0adeb8-25a2-4228-87d8-a5f2573e4f3b")
+    @objid ("17be7c7f-2cdc-4f2f-b84f-811bdcc9db7f")
     PROTOCOL(1, "Protocol", "Protocol");
 
 public static final int DYNAMIC_VALUE = 0;
@@ -93,5 +92,5 @@ public static final int DYNAMIC_VALUE = 0;
     public String toString() {
        return literal;
     }
-    
+
 }

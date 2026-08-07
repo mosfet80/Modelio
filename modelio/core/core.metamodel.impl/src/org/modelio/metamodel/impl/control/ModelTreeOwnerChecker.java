@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.control;
 
@@ -102,7 +102,7 @@ public class ModelTreeOwnerChecker extends AbstractDependencyTypeChecker {
             if (obj.equals(value)) {
                 return ControlErrorCodes.MODELTREE_SELF_OWNER;
             }
-        
+
             // Check specific metaclass cases
             SmClass valueTypeID = value.getClassOf();
             if (obj.getClassOf() == this.actorID) {
@@ -119,11 +119,11 @@ public class ModelTreeOwnerChecker extends AbstractDependencyTypeChecker {
                             .extEquals(this.componentID)) ? ControlErrorCodes.NO_ERROR : ControlErrorCodes.ARTIFACT_INVALID_OWNER;
             } else if (obj.getClassOf() == this.classID) {
                 // A Class must belong to a Package, a Class, a Component, an Enumeration or an Interface.
-        
+
                 return (valueTypeID.extEquals(this.packageID) || valueTypeID.extEquals(this.classID)
                         || valueTypeID.extEquals(this.componentID) || valueTypeID.extEquals(this.interfaceID) || valueTypeID
                             .extEquals(this.enumerationID)) ? ControlErrorCodes.NO_ERROR : ControlErrorCodes.CLASS_INVALID_OWNER;
-        
+
             } else if (obj.getClassOf() == this.collaborationID) {
                 // A Collaboration must be owned by a Package, a Class, a
                 // Component, an Interface, a UseCase, a Signal or an Actor.
@@ -164,13 +164,13 @@ public class ModelTreeOwnerChecker extends AbstractDependencyTypeChecker {
                 // Project.
                 return (valueTypeID.extEquals(this.packageID) || valueTypeID.extEquals(this.componentID) || valueTypeID
                         .extEquals(this.projectID)) ? ControlErrorCodes.NO_ERROR : ControlErrorCodes.PACKAGE_INVALID_OWNER;
-        
+
             } else if (obj.getClassOf() == this.signalID) {
                 // A Signal must belong to a Class, an Interface, a Package or a Component.
                 return (valueTypeID.extEquals(this.packageID) || valueTypeID.extEquals(this.classID)
                         || valueTypeID.extEquals(this.componentID) || valueTypeID.extEquals(this.interfaceID)) ? ControlErrorCodes.NO_ERROR
                         : ControlErrorCodes.SIGNAL_INVALID_OWNER;
-        
+
             } else if (obj.getClassOf() == this.templateParameterID) {
                 // Owner relationship must be empty for TemplateParameters, use
                 // Parameterized instead.
@@ -184,7 +184,7 @@ public class ModelTreeOwnerChecker extends AbstractDependencyTypeChecker {
      * C'tor
      */
     @objid ("33142dec-82de-4fad-9cfe-58ad3b15d715")
-    public  ModelTreeOwnerChecker(SmMetamodel mm) {
+    public ModelTreeOwnerChecker(SmMetamodel mm) {
         // Cached SmClass
         this.actorID = mm.getMClass(Actor.class);
         this.artifactID = mm.getMClass(Artifact.class);
@@ -202,14 +202,14 @@ public class ModelTreeOwnerChecker extends AbstractDependencyTypeChecker {
         this.signalID = mm.getMClass(Signal.class);
         this.templateParameterID = mm.getMClass(TemplateParameter.class);
         this.useCaseID = mm.getMClass(UseCase.class);
-        
+
         // Direct checker
         register(mm.getMClass(ModelTree.class), "Owner");
-        
+
         // Symetric checker
         ModelTreeOwnedElementChecker symetricChecker = new ModelTreeOwnedElementChecker(this);
         symetricChecker.register(mm.getMClass(ModelTree.class), "OwnedElement");
-        
+
     }
 
     /**
@@ -221,7 +221,7 @@ public class ModelTreeOwnerChecker extends AbstractDependencyTypeChecker {
         ModelTreeOwnerChecker symetricChecker;
 
         @objid ("00431796-5f5e-1032-829a-001ec947cd2a")
-        public  ModelTreeOwnedElementChecker(ModelTreeOwnerChecker symetricChecker) {
+        public ModelTreeOwnedElementChecker(ModelTreeOwnerChecker symetricChecker) {
             this.symetricChecker = symetricChecker;
         }
 

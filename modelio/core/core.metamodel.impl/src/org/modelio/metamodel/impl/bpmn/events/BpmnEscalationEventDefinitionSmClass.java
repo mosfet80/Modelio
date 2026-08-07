@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.events;
 
 import java.util.ArrayList;
@@ -41,66 +40,66 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("b033b513-64ec-4756-a171-630a637d92e6")
 public class BpmnEscalationEventDefinitionSmClass extends BpmnEventDefinitionSmClass {
-    @objid ("ea741fd9-a7e2-46e1-a1f1-52499780eef7")
+    @objid ("dd8fa746-d05a-44ae-8788-c06505e8e92a")
     private SmAttribute escalationCodeAtt;
 
-    @objid ("5378a601-14d4-4c11-9147-f33ce391e532")
-    public  BpmnEscalationEventDefinitionSmClass(ISmMetamodelFragment origin) {
+    @objid ("ac4e17a5-7287-408a-90f8-f279d52560fd")
+    public BpmnEscalationEventDefinitionSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("1c38251b-038f-4c5f-a334-e0e6a9caa7e5")
+    @objid ("42bedd71-e982-412e-a0a9-835c446d2b4d")
     @Override
     public String getName() {
         return "BpmnEscalationEventDefinition";
-        
+
     }
 
-    @objid ("35f6586b-357c-43a3-a8fa-494d5fcac522")
+    @objid ("15416739-62db-42e7-8644-26ca83289c85")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("d62c3e77-c2ee-4ceb-baa5-b24188bad501")
+    @objid ("e211bcbb-497c-4c41-bb23-341381fc3b40")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return BpmnEscalationEventDefinition.class;
-        
+
     }
 
-    @objid ("646c592a-89e8-4c51-b65e-82443cb7ae2f")
+    @objid ("b7c26341-1e47-4a6b-86db-6c5dd4652021")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("3e94ed30-7ade-44ac-8d63-a4926840542c")
+    @objid ("848f1f52-9002-4e76-8531-58ef87655489")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("96b1dcac-111f-4bdd-97e2-6a6945e08c14")
+    @objid ("5bfa7559-db14-4a78-9d2e-de273b5ab4e1")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(BpmnEventDefinition.MQNAME);
         this.registerFactory(new BpmnEscalationEventDefinitionObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
         this.escalationCodeAtt = new EscalationCodeSmAttribute();
         this.escalationCodeAtt.init("EscalationCode", this, String.class );
         registerAttribute(this.escalationCodeAtt);
-        
-        
+
+
         // Initialize and register the SmDependency
-        
+
     }
 
-    @objid ("5713cbf3-598e-4451-b6fe-f8dc53e0a5c1")
+    @objid ("407738fd-4cd3-4727-bdb5-6a694c7cac87")
     public SmAttribute getEscalationCodeAtt() {
         if (this.escalationCodeAtt == null) {
         	this.escalationCodeAtt = this.getAttributeDef("EscalationCode");
@@ -110,21 +109,21 @@ public class BpmnEscalationEventDefinitionSmClass extends BpmnEventDefinitionSmC
 
     @objid ("8e715810-1930-4ea8-9f7c-1e4c31f247b4")
     private static class BpmnEscalationEventDefinitionObjectFactory implements ISmObjectFactory {
-        @objid ("16952069-51d6-4e16-b300-d66887fbacbe")
+        @objid ("c145a5e6-0706-453d-a556-a00a5ca2dfa6")
         private BpmnEscalationEventDefinitionSmClass smClass;
 
-        @objid ("f0bc3753-ccab-4539-9142-23e4430f75bf")
-        public  BpmnEscalationEventDefinitionObjectFactory(BpmnEscalationEventDefinitionSmClass smClass) {
+        @objid ("86bfcff8-518a-4dcd-a28e-8d265e4e15c5")
+        public BpmnEscalationEventDefinitionObjectFactory(BpmnEscalationEventDefinitionSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("4d316b79-04bc-403c-b1bd-c5f683644f47")
+        @objid ("43069174-44e4-4a64-9f69-d5ff94a91d90")
         @Override
         public ISmObjectData createData() {
             return new BpmnEscalationEventDefinitionData(this.smClass);
         }
 
-        @objid ("3d4e0d85-e6ea-408e-92a3-a1db15ab3a64")
+        @objid ("72a69e6c-5ca9-40ba-8f86-b6ce4c6ef451")
         @Override
         public SmObjectImpl createImpl() {
             return new BpmnEscalationEventDefinitionImpl();
@@ -134,12 +133,12 @@ public class BpmnEscalationEventDefinitionSmClass extends BpmnEventDefinitionSmC
 
     @objid ("df6c8e9c-c38c-4144-be62-54b9aeb500af")
     public static class EscalationCodeSmAttribute extends SmAttribute {
-        @objid ("772671eb-8a40-4666-94cb-065c42f3b318")
+        @objid ("5229eb4d-cd32-4741-aebf-f4d3341917e3")
         public Object getValue(ISmObjectData data) {
             return ((BpmnEscalationEventDefinitionData) data).mEscalationCode;
         }
 
-        @objid ("ee3ff62e-43a5-4265-a21a-7b78fcbf7f84")
+        @objid ("a2da5899-b56f-4c2b-a73f-0bcdb79dc6bf")
         public void setValue(ISmObjectData data, Object value) {
             ((BpmnEscalationEventDefinitionData) data).mEscalationCode = value;
         }

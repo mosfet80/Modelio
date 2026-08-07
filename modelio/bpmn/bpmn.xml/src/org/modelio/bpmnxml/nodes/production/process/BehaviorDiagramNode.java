@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.process;
 
@@ -87,7 +87,7 @@ public class BehaviorDiagramNode implements IProductionNode<BehaviorDiagram, BPM
                 return factory.create(BpmnSubProcessDiagram.class, context);
             }
         }
-        
+
     }
 
     @objid ("10275ab1-82a8-4c2d-9d16-9820b2699989")
@@ -95,7 +95,7 @@ public class BehaviorDiagramNode implements IProductionNode<BehaviorDiagram, BPM
     public BehaviorDiagram updateUMLElement(MObject context, BehaviorDiagram modelioElement, BPMNDiagram jaxbElement) {
         ModelElement parent = findContext(jaxbElement);
         modelioElement.setOrigin(parent);
-        
+
         if (jaxbElement.getName() != null)
             modelioElement.setName(StringConvertor.imports(jaxbElement.getName()));
         return modelioElement;
@@ -106,19 +106,19 @@ public class BehaviorDiagramNode implements IProductionNode<BehaviorDiagram, BPM
     public BPMNDiagram createJaxbElement(Object context, BehaviorDiagram modelioElement) {
         TDefinitions jaxDefinition = (TDefinitions) context;
         jaxDefinition.setTargetNamespace("http://www.omg.org/bpmn20");
-        
+
         // Create JaxbElement
         BPMNDiagram jaxDiagram = new BPMNDiagram();
-        
+
         // Add to context
         List<BPMNDiagram> jaxContent = jaxDefinition.getBPMNDiagram();
         if (jaxContent == null) {
             jaxContent = new ArrayList<>();
         }
-        
+
         jaxContent.add(jaxDiagram);
         jaxDiagram.setId(IDUtils.formatJaxbID(modelioElement));
-        
+
         // Create BPMNPlane
         BPMNPlane jaxPlan = new BPMNPlane();
         MObject owner = modelioElement.getCompositionOwner();

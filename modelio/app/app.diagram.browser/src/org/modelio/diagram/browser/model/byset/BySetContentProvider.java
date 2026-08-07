@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.browser.model.byset;
 
@@ -69,14 +69,14 @@ public class BySetContentProvider implements ITreeContentProvider {
     @Override
     public Object[] getElements(Object inputElement) {
         Set<Object> fragments = new HashSet<>();
-        
+
         for (DiagramSet p : this.project.getSession().getModel().findByClass(DiagramSet.class, IModel.NODELETED)) {
             IGModelFragment fragment =  this.project.getFragment(p);
             if (fragment != null) {
                 fragments.add(fragment);
             }
         }
-        
+
         fragments.add(this.allDiagramsFolder);
         return fragments.toArray();
     }
@@ -107,10 +107,10 @@ public class BySetContentProvider implements ITreeContentProvider {
         if (parent instanceof DiagramSet) {
             DiagramSet theDiagramSet = (DiagramSet) parent;
             ArrayList<Object> objects = new ArrayList<>();
-        
+
             // add owned sub sets
             objects.addAll(theDiagramSet.getSub());
-        
+
             // add referenced diagrams (as links)
             for (AbstractDiagram diagram : theDiagramSet.getReferencedDiagram()) {
                 objects.add(new DiagramRef(diagram, theDiagramSet));
@@ -121,7 +121,7 @@ public class BySetContentProvider implements ITreeContentProvider {
             return ((VirtualFolder) parent).getChildren(parent);
         } else if (parent instanceof IGModelFragment) {
             List<DiagramSet> diagramSets = new ArrayList<>();
-        
+
             for (MObject root : ((IGModelFragment) parent).getRoots()) {
                 if (root instanceof AbstractProject) {
                     DiagramSet diagramRoot = ((AbstractProject) root).getDiagramRoot();
@@ -130,7 +130,7 @@ public class BySetContentProvider implements ITreeContentProvider {
                     }
                 }
             }
-        
+
             return diagramSets.toArray();
         }
         // other cases are not expected
@@ -156,20 +156,21 @@ public class BySetContentProvider implements ITreeContentProvider {
         } else if (parent instanceof AbstractProject) {
             return ((AbstractProject) parent).getDiagramRoot() != null;
         }
-        
+
         // other cases are not expected
         return false;
     }
 
     /**
      * Constructor initializing the project.
+     *
      * @param project an opened GProject.
      */
     @objid ("0046b8ce-0d4f-10c6-842f-001ec947cd2a")
-    public  BySetContentProvider(IGProject project) {
+    public BySetContentProvider(IGProject project) {
         this.project = project;
         this.allDiagramsFolder = new AllDiagramsNode(this.project, null);
-        
+
     }
 
     /**

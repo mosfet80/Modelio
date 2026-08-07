@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.anchors;
 
@@ -38,13 +38,14 @@ import org.modelio.diagram.elements.core.link.CreateBendedConnectionRequest;
 
 /**
  * Base implementation of {@link INodeAnchorProvider}.
- * 
+ *
  * @since 5.0.2
  */
 @objid ("66f7b578-b76b-4355-b2a2-9ddc3909906b")
 public abstract class AbstractNodeAnchorProvider implements INodeAnchorProvider {
     /**
      * Create a serializable anchor model from the given anchor.
+     *
      * @param anchor a figure anchor
      * @return an anchor model.
      */
@@ -61,20 +62,20 @@ public abstract class AbstractNodeAnchorProvider implements INodeAnchorProvider 
             Point anchorPoint = a.getReferencePoint().getCopy();
             Point figureLocation = a.getOwner().getBounds().getTopLeft();
             a.getOwner().translateToAbsolute(figureLocation);
-        
+
             Dimension difference = anchorPoint.getDifference(figureLocation);
             a.getOwner().translateToRelative(difference);
-        
+
             return new GmRaySlidableAnchor(difference);
         } else if (anchor instanceof NodeAnchor) {
             NodeAnchor a = (NodeAnchor) anchor;
             Point anchorPoint = a.getReferencePoint().getCopy();
             Point figureLocation = a.getOwner().getBounds().getTopLeft();
             a.getOwner().translateToAbsolute(figureLocation);
-        
+
             Dimension difference = anchorPoint.getDifference(figureLocation);
             a.getOwner().translateToRelative(difference);
-        
+
             return new GmNodeAnchor(difference);
         } else if (anchor instanceof XYAnchor) {
             XYAnchor xy = (XYAnchor) anchor;
@@ -90,7 +91,7 @@ public abstract class AbstractNodeAnchorProvider implements INodeAnchorProvider 
         } else {
             throw new IllegalArgumentException(anchor + " not handled");
         }
-        
+
     }
 
     /**
@@ -105,6 +106,7 @@ public abstract class AbstractNodeAnchorProvider implements INodeAnchorProvider 
      * <li> {@link #getAnchorForCreateRequest(GraphicalEditPart, CreateRequest, boolean)}
      * </ul>
      * Sub classes should implement these 3 methods instead before redefining this one.
+     *
      * @param nodeEditPart The rectangular node to anchor from
      * @param request a Request describing the current interaction
      * @return the ConnectionAnchor to use during feedback
@@ -122,7 +124,7 @@ public abstract class AbstractNodeAnchorProvider implements INodeAnchorProvider 
         } else {
             throw new IllegalArgumentException(request + " not handled.");
         }
-        
+
     }
 
     /**
@@ -138,6 +140,7 @@ public abstract class AbstractNodeAnchorProvider implements INodeAnchorProvider 
      * <li> {@link #getAnchorForCreateRequest(GraphicalEditPart, CreateRequest, boolean)}
      * </ul>
      * Sub classes should implement these 3 methods instead before redefining this one.
+     *
      * @param nodeEditPart The rectangular node to anchor from
      * @param request a Request describing the current interaction
      * @return the ConnectionAnchor to use during feedback
@@ -148,7 +151,7 @@ public abstract class AbstractNodeAnchorProvider implements INodeAnchorProvider 
         if (request instanceof CreateBendedConnectionRequest) {
             CreateBendedConnectionRequest req = (CreateBendedConnectionRequest) request;
             return getAnchorForCreateBendedConnectionRequest(nodeEditPart, req, false);
-        
+
         } else if (request instanceof ReconnectRequest) {
             return getAnchorForReconnectRequest(nodeEditPart, (ReconnectRequest) request, false);
         } else if (request instanceof CreateRequest) {
@@ -156,13 +159,14 @@ public abstract class AbstractNodeAnchorProvider implements INodeAnchorProvider 
         } else {
             throw new IllegalArgumentException(request + " not handled.");
         }
-        
+
     }
 
     /**
      * Returns the <code>ConnectionAnchor</code> for the specified {@link CreateBendedConnectionRequest}.
      * <p>
      * The returned ConnectionAnchor is used only when displaying <i>feedback</i>.
+     *
      * @param nodeEditPart the node on which an anchor is requested
      * @param request a Request describing the current interaction
      * @param isSourceAnchor Whether an anchor is needed for a source or a target side.
@@ -176,6 +180,7 @@ public abstract class AbstractNodeAnchorProvider implements INodeAnchorProvider 
      * Returns the <code>ConnectionAnchor</code> for the specified {@link ReconnectRequest}.
      * <p>
      * The returned ConnectionAnchor is used only when displaying <i>feedback</i>.
+     *
      * @param nodeEditPart the node on which an anchor is requested
      * @param request a Request describing the current interaction
      * @param source Whether an anchor is needed for a source or a target side.
@@ -189,6 +194,7 @@ public abstract class AbstractNodeAnchorProvider implements INodeAnchorProvider 
      * Returns the <code>ConnectionAnchor</code> for the specified {@link CreateRequest}.
      * <p>
      * The returned ConnectionAnchor is used only when displaying <i>feedback</i>.
+     *
      * @param nodeEditPart the node on which an anchor is requested
      * @param request a Request describing the current interaction
      * @param source Whether an anchor is needed for a source or a target side.

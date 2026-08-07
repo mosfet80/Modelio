@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.module.propertytab.ui.panel.treeview;
 
@@ -46,7 +46,7 @@ public class TreeContentPanel implements IModulePropertyTreePanel {
     protected TreeViewer treeViewer;
 
     @objid ("c89a9c92-1eba-11e2-9382-bc305ba4815c")
-    public  TreeContentPanel(Composite parent, ModelElement element) {
+    public TreeContentPanel(Composite parent, ModelElement element) {
         createGUI(parent);
     }
 
@@ -55,7 +55,7 @@ public class TreeContentPanel implements IModulePropertyTreePanel {
     public void stop() {
         setInput(null, null);
         disableGUI();
-        
+
     }
 
     @objid ("c89ac3a3-1eba-11e2-9382-bc305ba4815c")
@@ -82,7 +82,7 @@ public class TreeContentPanel implements IModulePropertyTreePanel {
                 | SWT.FLAT | SWT.BORDER | SWT.NO_REDRAW_RESIZE);
         this.treeViewer.getTree().setHeaderVisible(true);
         this.treeViewer.getTree().setLinesVisible(true);
-        
+
         // Layout the viewer
         GridData gridData = new GridData();
         gridData.verticalAlignment = GridData.FILL;
@@ -91,24 +91,24 @@ public class TreeContentPanel implements IModulePropertyTreePanel {
         gridData.grabExcessVerticalSpace = true;
         gridData.horizontalAlignment = GridData.FILL;
         this.treeViewer.getControl().setLayoutData(gridData);
-        
+
         // Create columns
         String[] columnTitles = { ModulePropertyTab.I18N.getString("TreeView.Property"),  ModulePropertyTab.I18N.getString("TreeView.Value")};
         int[] columnInitialWidths = { 200, 300 };
         TreeViewerColumn col1 = this.createTreeViewerColumn(columnTitles[0], columnInitialWidths[0]);
         col1.setLabelProvider(new KeyLabelProvider());
-        
+
         TreeViewerColumn col2 = createTreeViewerColumn(columnTitles[1], columnInitialWidths[1]);
         col2.setLabelProvider(new ModulePropertyCellLabelProvider());
         col2.setEditingSupport(new ModulePropertyEditingSupport(this.treeViewer));
-        
+
         ModulePropertyContentProvider content = new ModulePropertyContentProvider();
         this.treeViewer.setContentProvider(content);
-        
+
         final LayoutChangeListener layoutListener = new LayoutChangeListener();
         col1.getColumn().addControlListener(layoutListener);
         this.treeViewer.getTree().addControlListener(layoutListener);
-        
+
     }
 
     @objid ("c89b11c4-1eba-11e2-9382-bc305ba4815c")
@@ -146,17 +146,17 @@ public class TreeContentPanel implements IModulePropertyTreePanel {
             // On Mac OS, we have to
             Composite parent = this.treeViewer.getTree().getParent();
             this.treeViewer.getTree().dispose();
-        
+
             createGUI(parent);
             parent.layout();
         }
-        
+
         if (moduleProperty == null) {
             this.treeViewer.setInput(null);
         } else {
             this.treeViewer.setInput(moduleProperty);
         }
-        
+
     }
 
     @objid ("c89bae03-1eba-11e2-9382-bc305ba4815c")
@@ -167,7 +167,7 @@ public class TreeContentPanel implements IModulePropertyTreePanel {
     @objid ("459c5b53-3acf-465f-a9a3-81b578161274")
     private class LayoutChangeListener implements ControlListener {
         @objid ("f67b0e48-ac08-46c0-a477-90b4c80a17c6")
-        protected  LayoutChangeListener() {
+        protected LayoutChangeListener() {
             super();
         }
 
@@ -187,14 +187,14 @@ public class TreeContentPanel implements IModulePropertyTreePanel {
         private void changeLayout(ControlEvent theEvent) {
             Tree tree = TreeContentPanel.this.treeViewer.getTree();
             final ScrollBar verticalScrollbar = TreeContentPanel.this.treeViewer.getTree().getVerticalBar();
-            
+
             final TreeColumn col0 = tree.getColumn(0);
             final TreeColumn col1 = tree.getColumn(1);
             final int newWidth = getRemainingWidth(tree, col0.getWidth(), verticalScrollbar);
             if (newWidth > 0) {
                 col1.setWidth(newWidth);
             }
-            
+
         }
 
         @objid ("09e8b078-ee7c-4e85-a06b-42c9ebafef13")
@@ -202,7 +202,7 @@ public class TreeContentPanel implements IModulePropertyTreePanel {
             int parentWidth = parentComposite.getSize().x;
             int scollbarWidth = verticalScrollbar != null && verticalScrollbar.isVisible() ? verticalScrollbar.getSize().x : 0;
             int margin = 5;
-            
+
             // We have two columns, let the second one take all the available width
             final int secondColumnWidth = parentWidth - scollbarWidth - usedWidth - margin;
             return secondColumnWidth;

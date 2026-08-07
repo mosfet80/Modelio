@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.abstractdiagram;
 
@@ -41,7 +41,7 @@ import org.eclipse.gef.rulers.RulerProvider;
  * Provider of {@link SnapToHelper} for {@link GraphicalEditPart edit parts}.
  * <p>
  * To be used in implementation of {@link GraphicalEditPart#getAdapter(Class)} when c is {@link SnapToHelper}.
- * 
+ *
  * @author cmarin
  * @since 3.5.1
  * @credits Archi
@@ -55,50 +55,51 @@ public class SnapEditPartAdapter {
     private Collection<Data> otherContainers = Collections.emptyList();
 
     @objid ("736740c9-05dd-4e70-8b7e-e56194033fc0")
-    public  SnapEditPartAdapter(GraphicalEditPart editPart) {
+    public SnapEditPartAdapter(GraphicalEditPart editPart) {
         this.editPart = editPart;
     }
 
     /**
      * Generates the SnapToHelper.
+     *
      * @return a SnapToHelper
      */
     @objid ("e4012c1e-c134-468a-a879-f6e8e9cd104e")
     public SnapToHelper getSnapToHelper() {
         List<SnapToHelper> snapStrategies = new ArrayList<>();
-        
+
         // Snap to Ruler Guides
         Boolean val = (Boolean)this.editPart.getViewer().getProperty(RulerProvider.PROPERTY_RULER_VISIBILITY);
         if(val != null && val.booleanValue()) {
             snapStrategies.add(new SnapToGuides(this.editPart));
         }
-        
+
         // Snap to Geometry
         val = (Boolean)this.editPart.getViewer().getProperty(SnapToGeometry.PROPERTY_SNAP_ENABLED);
         if(val != null && val.booleanValue()) {
             snapStrategies.add(new ModelioSnapToGeometry(this.editPart, 0));
-        
+
             for (Data cont : this.otherContainers) {
                 snapStrategies.add(new ModelioSnapToGeometry(cont.container, cont.margin));
             }
         }
-        
+
         // Snap to Grid
         val = (Boolean)this.editPart.getViewer().getProperty(SnapToGrid.PROPERTY_GRID_ENABLED);
         if(val != null && val.booleanValue()) {
             snapStrategies.add(new SnapToGrid(this.editPart));
         }
-        
+
         if(snapStrategies.isEmpty()) {
             return null;
         }
-        
+
         if(snapStrategies.size() == 1) {
             return snapStrategies.get(0);
         }
-        
+
         SnapToHelper ss[] = new SnapToHelper[snapStrategies.size()];
-        
+
         for(int i = 0; i < snapStrategies.size(); i++) {
             ss[i] = snapStrategies.get(i);
         }
@@ -111,6 +112,7 @@ public class SnapEditPartAdapter {
      * All the container children will be considered, with their bounds expanded by the given margin.
      * If the margin is positive, the dragged parts insets will be also added to the margin
      * so that the dragged parts may draw a frame around the snapped to graphic.
+     *
      * @param container the container whose children geometry must be considered
      * @param margin the margin that should expand children bounds with.
      * @return this instance for calls chaining.
@@ -126,6 +128,7 @@ public class SnapEditPartAdapter {
 
     /**
      * SnapToGeometry overridden to increase threshold.
+     *
      * @author cmarin
      * @since 3.5.1
      */
@@ -138,10 +141,9 @@ public class SnapEditPartAdapter {
         private Insets movedInset;
 
         @objid ("f84bbf9e-da7c-4e8f-8522-624948e9054a")
-        public  ModelioSnapToGeometry(GraphicalEditPart container, int margin) {
+        public ModelioSnapToGeometry(GraphicalEditPart container, int margin) {
             super(container);
             this.margin = margin;
-            
         }
 
         @objid ("3c26fda9-edc4-42b5-8900-f5294f9a0b78")
@@ -156,7 +158,7 @@ public class SnapEditPartAdapter {
             if (this.margin > 0 && this.movedInset == null && request instanceof GroupRequest) {
                 // Cache the maximum insets of the dragged element(s)
                 this.movedInset = new Insets();
-                List<GraphicalEditPart> dragged = ((GroupRequest) request).getEditParts();
+                List<GraphicalEditPart> dragged = (List<GraphicalEditPart>) ((GroupRequest) request).getEditParts();
                 for (GraphicalEditPart ep : dragged) {
                     Insets inset = ep.getFigure().getInsets();
                     this.movedInset.top = Math.max(this.movedInset.top, inset.top);
@@ -200,10 +202,9 @@ public class SnapEditPartAdapter {
         final GraphicalEditPart container;
 
         @objid ("7df67877-6459-453e-afd2-8b65c7fa1e12")
-        public  Data(int margin, GraphicalEditPart container) {
+        public Data(int margin, GraphicalEditPart container) {
             this.margin = margin;
             this.container = container;
-            
         }
 
     }

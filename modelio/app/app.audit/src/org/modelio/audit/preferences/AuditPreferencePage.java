@@ -1,26 +1,26 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.preferences;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -49,18 +49,17 @@ public class AuditPreferencePage extends FieldEditorPreferencePage {
 
     @objid ("2e06a5ed-deeb-4425-9e5b-f8b4987fd2dc")
     @Inject
-    public  AuditPreferencePage(IProjectService projectService) {
+    public AuditPreferencePage(IProjectService projectService) {
         super(GRID);
         init(projectService);
-        
     }
 
     @objid ("027658ce-64d5-4330-8c36-d284c3cc6488")
     private void init(IProjectService projectService) {
         this.setDescription(Audit.I18N.getMessage("Audit.Preference.Description",MAX_MODEL_SIZE));
-        
+
         if ((projectService == null) || (projectService.getOpenedProject() == null)) {
-        
+
             setPreferenceStore(null);
             if (isControlCreated()) {
                 setVisible(false);
@@ -72,9 +71,8 @@ public class AuditPreferencePage extends FieldEditorPreferencePage {
             setPreferenceStore(preferenceStore);
             preferenceStore.setDefault(RUN_AT_STARTUP, false);
         }
-        
+
         this.projectService = projectService;
-        
     }
 
     @objid ("636e1e7b-dff4-48b7-bc68-f930f069c910")
@@ -82,17 +80,16 @@ public class AuditPreferencePage extends FieldEditorPreferencePage {
     protected void createFieldEditors() {
         this.runAtStartup = new BooleanFieldEditor(AuditPreferencePage.RUN_AT_STARTUP, Audit.I18N.getString("Audit.Preference.RunAtStartup"), getFieldEditorParent());
         addField(this.runAtStartup);
-        
+
         // Check model size and disable option if model is bigger than MAX_MODEL_SIZE
-        if(!checkModelSize()) {
-            this.runAtStartup.setEnabled(false, getFieldEditorParent());
-        
-        }
-        
+        //        if(!checkModelSize()) {
+        //        this.runAtStartup.setEnabled(false, getFieldEditorParent());
+        //        }
     }
 
     /**
      * Check if number of model elements in project is below MAX_MODEL_SIZE
+     *
      * @return return false if number of model elements is upper MAX_MODEL_SIZE
      */
     @objid ("84ee5e77-d2e7-4808-87e6-5eec3475652b")
@@ -101,17 +98,31 @@ public class AuditPreferencePage extends FieldEditorPreferencePage {
         IGProject project =  this.projectService.getOpenedProject();
         if (project == null)
             return false;
-        
+
         SmClass melement = project.getSession().getMetamodel().getMClass(ModelElement.class);
-        for (IGModelFragment iProjectFragment : project.getParts(IGModelFragment.class)) {
-            if (iProjectFragment.getType().equals(GProjectPartType.EXMLFRAGMENT) || iProjectFragment.getType().equals(GProjectPartType.SVNFRAGMENT)) {
-                projectSize = projectSize + iProjectFragment.getRepository().findByClass(melement, true).size();
+
+        if (true) {
+            // New code that should avoid loading more than AuditPreferencePage.MAX_MODEL_SIZE elements
+            projectSize = project.getParts(IGModelFragment.class).stream()
+                    .filter(f -> f.getAccessRights().isEditable() )
+                    .flatMap(f -> f.getRepository().streamByClass(melement, true))
+                    .limit(MAX_MODEL_SIZE)
+                    .count();
+
+            return (projectSize < AuditPreferencePage.MAX_MODEL_SIZE) ;
+        } else {
+            // Old code that leads to loading all the projet in memory
+            for (IGModelFragment iProjectFragment : project.getParts(IGModelFragment.class)) {
+                if (iProjectFragment.getType().equals(GProjectPartType.EXMLFRAGMENT) || iProjectFragment.getType().equals(GProjectPartType.SVNFRAGMENT)) {
+
+                    projectSize = projectSize + iProjectFragment.getRepository().findByClass(melement, true).size();
+                }
+                if (projectSize > AuditPreferencePage.MAX_MODEL_SIZE) {
+                    return false;
+                }
             }
-            if (projectSize > AuditPreferencePage.MAX_MODEL_SIZE) {
-                return false;
-            }
+            return true;
         }
-        return true;
     }
 
     @objid ("ac1e6011-4efc-4afa-870c-70adfa796658")
@@ -131,7 +142,6 @@ public class AuditPreferencePage extends FieldEditorPreferencePage {
         if (getPreferenceStore() == null) {
             this.setVisible(false);
         }
-        
     }
 
 }

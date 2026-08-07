@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.informationflowlink;
 
@@ -30,7 +30,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Information flow label.
- * 
+ *
  * @author cmarin
  */
 @objid ("35063928-55b7-11e2-877f-002564c97630")
@@ -46,23 +46,24 @@ public class GmInformationFlowLinkHeader extends GmDefaultModelElementLabel {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram
      * @param relatedRef a reference to the element this GmModel is related to, must not be null.
      */
     @objid ("35063931-55b7-11e2-877f-002564c97630")
-    public  GmInformationFlowLinkHeader(IGmDiagram diagram, MRef relatedRef) {
+    public GmInformationFlowLinkHeader(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
         this.setShowMetaclassIcon(false);
         this.setShowMetaclassKeyword(true);
-        
+
     }
 
     /**
      * For deserialization only.
      */
     @objid ("3506393a-55b7-11e2-877f-002564c97630")
-    public  GmInformationFlowLinkHeader() {
-        
+    public GmInformationFlowLinkHeader() {
+
     }
 
     /**
@@ -106,17 +107,17 @@ public class GmInformationFlowLinkHeader extends GmDefaultModelElementLabel {
                 break;
             }
         }
-        
+
     }
 
     @objid ("3507bfdd-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0.
         writeMinorVersion(out, "GmInformationFlowLinkHeader.", Integer.valueOf(MINOR_VERSION));
-        
+
     }
 
     @objid ("3509463d-55b7-11e2-877f-002564c97630")

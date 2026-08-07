@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -47,7 +47,7 @@ public class OConnectionPointReference extends OModelElement {
     }
 
     @objid ("7b8c2712-5d37-4988-9234-998a28b3fb73")
-    public  OConnectionPointReference(ConnectionPointReference objingElt) {
+    public OConnectionPointReference(ConnectionPointReference objingElt) {
         super(objingElt);
     }
 
@@ -55,18 +55,18 @@ public class OConnectionPointReference extends OModelElement {
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         MObject objingOwner = getObjingElement().getCompositionOwner();
-        
+
         if (objingOwner != null) {
             org.eclipse.uml2.uml.Element ecoreOwner = this.genProp.getMappedElement(objingOwner);
-        
+
             if (ecoreOwner != null) {
-        
+
                 if (ecoreOwner instanceof org.eclipse.uml2.uml.State) {
                     ((org.eclipse.uml2.uml.ConnectionPointReference) ecoreElt).setState((org.eclipse.uml2.uml.State)ecoreOwner);
                 } else if (ecoreOwner instanceof  org.eclipse.uml2.uml.Region) {
                     ( (org.eclipse.uml2.uml.Region) ecoreOwner).getSubvertices().add((Vertex)ecoreElt);
                 } else if (ecoreOwner instanceof org.eclipse.uml2.uml.StateMachine) {
-        
+
                     EList<?> regions = ((org.eclipse.uml2.uml.StateMachine) ecoreOwner).getRegions();
                     if (regions.size() > 0) {
                         ( (org.eclipse.uml2.uml.Region) regions.get(0)).getSubvertices().add((Vertex)ecoreElt);
@@ -86,7 +86,7 @@ public class OConnectionPointReference extends OModelElement {
             ecoreElt.destroy();
             throw new NotFoundException("Owner Class of FinalState Not Found");
         }
-        
+
     }
 
     @objid ("cf7cd0f2-3128-497a-9355-58a73470f5fa")
@@ -95,7 +95,7 @@ public class OConnectionPointReference extends OModelElement {
         super.setProperties(ecoreElt);
         setExit((org.eclipse.uml2.uml.ConnectionPointReference) ecoreElt);
         setEntry((org.eclipse.uml2.uml.ConnectionPointReference) ecoreElt);
-        
+
     }
 
     @objid ("4839afaa-c792-4f00-bff1-424e28839c46")
@@ -106,7 +106,7 @@ public class OConnectionPointReference extends OModelElement {
             if (ecoreEntry != null){
                 if ((ecoreEntry instanceof org.eclipse.uml2.uml.Pseudostate) && ( (org.eclipse.uml2.uml.Pseudostate) ecoreEntry).getKind().equals (org.eclipse.uml2.uml.PseudostateKind.ENTRY_POINT_LITERAL)){
                     (ecoreElt).getEntries().add( (org.eclipse.uml2.uml.Pseudostate) ecoreEntry);
-        
+
                 }
             }else{
                 ecoreElt.destroy();
@@ -114,7 +114,7 @@ public class OConnectionPointReference extends OModelElement {
                         + ecoreElt.getName() + ") Not Found");
             }
         }
-        
+
     }
 
     @objid ("280e826e-6fe5-47ba-8825-647684b454f7")
@@ -125,7 +125,7 @@ public class OConnectionPointReference extends OModelElement {
             if (ecoreExit != null){
                 if ((ecoreExit instanceof org.eclipse.uml2.uml.Pseudostate) && ( (org.eclipse.uml2.uml.Pseudostate) ecoreExit).getKind().equals (org.eclipse.uml2.uml.PseudostateKind.EXIT_POINT_LITERAL)){
                     (ecoreElt).getExits().add( (org.eclipse.uml2.uml.Pseudostate) ecoreExit);
-        
+
                 }
             }else{
                 ecoreElt.destroy();
@@ -133,7 +133,7 @@ public class OConnectionPointReference extends OModelElement {
                         + ecoreElt.getName() + ") Not Found");
             }
         }
-        
+
     }
 
     @objid ("cbcbf84b-6cf4-4eb5-ad03-d542c6433dc2")

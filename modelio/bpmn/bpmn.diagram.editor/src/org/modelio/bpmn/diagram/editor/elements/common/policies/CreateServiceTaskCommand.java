@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.common.policies;
 
@@ -58,18 +58,19 @@ public class CreateServiceTaskCommand extends Command {
 
     /**
      * Initialize the command.
+     *
      * @param dropLocation The location of the element in the diagram
      * @param elementToBeCalled The element to be 'called'.
      * @param editPart The destination edit part that will own the call activity.
      * @param parentElement The element that will own the call activity.
      */
     @objid ("edf57152-ae92-4e8a-9216-bfa965a94746")
-    public  CreateServiceTaskCommand(final Point dropLocation, final MObject elementToBeCalled, final EditPart editPart, final MObject parentElement) {
+    public CreateServiceTaskCommand(final Point dropLocation, final MObject elementToBeCalled, final EditPart editPart, final MObject parentElement) {
         this.elementToBeCalled = elementToBeCalled;
         this.dropLocation = dropLocation;
         this.editPart = editPart;
         this.parentElement = parentElement;
-        
+
     }
 
     @objid ("e564b20b-062c-4dce-a4c0-a4a2d81f04e4")
@@ -79,13 +80,13 @@ public class CreateServiceTaskCommand extends Command {
         final IGmDiagram gmDiagram = gmModel.getDiagram();
         final IModelManager modelManager = gmDiagram.getModelManager();
         final IStandardModelFactory modelFactory = modelManager.getModelFactory().getFactory(IStandardModelFactory.class);
-        
+
         // Create the smart node
         final BpmnServiceTask newElement = modelFactory.createBpmnServiceTask();
-        
+
         // Set default name
         newElement.setName(modelManager.getModelServices().getElementNamer().getUniqueName(newElement));
-        
+
         // In a BpmnLane, replace the parent with a BpmnProcess or BpmnSubProcess
         if (this.parentElement instanceof BpmnLane) {
             BpmnLane lane = (BpmnLane) this.parentElement;
@@ -96,14 +97,14 @@ public class CreateServiceTaskCommand extends Command {
                 this.parentElement = lane.getLaneSet().getSubProcess();
             }
         }
-        
+
         // Attach parent
         if (this.parentElement instanceof BpmnProcess) {
             newElement.setContainer((BpmnProcess) this.parentElement);
         } else if (this.parentElement instanceof BpmnSubProcess) {
             newElement.setSubProcess((BpmnSubProcess) this.parentElement);
         }
-        
+
         if (newElement.getCompositionOwner() == null) {
             // The new element must be attached to its parent using the composition dependency
             // provided by the context.
@@ -121,32 +122,33 @@ public class CreateServiceTaskCommand extends Command {
                 throw new IllegalStateException(msg.toString());
             }
         }
-        
+
         // Set called
         Called.setTarget(newElement, (ModelElement) this.elementToBeCalled);
-        
+
         unmaskElement(newElement);
-        
+
     }
 
     /**
      * Unmask the given element in the destination edit part.
+     *
      * @param el The element to unmask
      */
     @objid ("e8cc09e2-e07a-4607-8545-e6783d469710")
     private void unmaskElement(final MObject el) {
         final ModelioCreationContext gmCreationContext = new ModelioCreationContext(el);
-        
+
         final CreateRequest creationRequest = new CreateRequest();
         creationRequest.setLocation(this.dropLocation);
         creationRequest.setSize(new Dimension(-1, -1));
         creationRequest.setFactory(gmCreationContext);
-        
+
         final Command cmd = this.editPart.getTargetEditPart(creationRequest).getCommand(creationRequest);
         if (cmd != null && cmd.canExecute()) {
             cmd.execute();
         }
-        
+
     }
 
     @objid ("21c7ee80-9400-4c47-97c2-e4418b33b852")
@@ -156,7 +158,7 @@ public class CreateServiceTaskCommand extends Command {
                 this.parentElement.isValid() &&
                 this.parentElement.getStatus().isModifiable() &&
                 (this.elementToBeCalled == null || this.elementToBeCalled instanceof ModelElement);
-        
+
     }
 
 }

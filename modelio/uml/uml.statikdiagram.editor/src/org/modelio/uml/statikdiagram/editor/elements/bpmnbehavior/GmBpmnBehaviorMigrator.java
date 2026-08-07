@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.bpmnbehavior;
 
@@ -59,7 +59,7 @@ public class GmBpmnBehaviorMigrator implements IPersistentMigrator {
             return null;
         }
         }
-        
+
     }
 
     @objid ("70db2a2f-5ccf-48d9-9378-9f142c187d89")
@@ -76,6 +76,7 @@ public class GmBpmnBehaviorMigrator implements IPersistentMigrator {
      * <li>{@link GmBpmnBehavior} representing a {@link BpmnSharedDefinitions} are handled by {@link #migrateToSharedDefinitions(GmBpmnBehavior)}</li>
      * <li>{@link GmBpmnBehavior} representing a {@link Package} are handled by {@link #migrateToPackage(GmBpmnBehavior)}</li>
      * </ul>
+     *
      * @param oldGmBehavior the gm being migrated.
      * @return the migrated gm, replacing the given one.
      * @throws PersistenceException if the lane do not represents a {@link BpmnLane} nor a {@link BpmnParticipant}.
@@ -95,7 +96,7 @@ public class GmBpmnBehaviorMigrator implements IPersistentMigrator {
             // Should never happen, return the deprecated Gm
             return oldGmBehavior;
         }
-        
+
     }
 
     /**
@@ -105,12 +106,12 @@ public class GmBpmnBehaviorMigrator implements IPersistentMigrator {
     private GmBpmnCollaboration migrateToCollaboration(GmBpmnBehavior oldGmBehavior) {
         IGmDiagram diagram = oldGmBehavior.getDiagram();
         BpmnCollaboration elt = (BpmnCollaboration) oldGmBehavior.getRepresentedElement();
-        
+
         GmBpmnCollaboration newGmCollaboration = new GmBpmnCollaboration(diagram, elt, oldGmBehavior.getRepresentedRef());
         newGmCollaboration.setLayoutData(oldGmBehavior.getLayoutData());
-        
+
         migrateStyle(oldGmBehavior, newGmCollaboration);
-        
+
         // Migration is done, delete old gm
         oldGmBehavior.delete();
         return newGmCollaboration;
@@ -123,14 +124,14 @@ public class GmBpmnBehaviorMigrator implements IPersistentMigrator {
     private GmPackage migrateToPackage(GmBpmnBehavior oldGmBehavior) {
         IGmDiagram diagram = oldGmBehavior.getDiagram();
         Package elt = (Package) oldGmBehavior.getRepresentedElement();
-        
+
         GmPackage newGmPackage = new GmPackage(diagram, elt, oldGmBehavior.getRepresentedRef());
         newGmPackage.setLayoutData(oldGmBehavior.getLayoutData());
-        
+
         migrateStyle(oldGmBehavior, newGmPackage);
-        
+
         newGmPackage.getPersistedStyle().setProperty(newGmPackage.getStyleKey(MetaKey.REPMODE), RepresentationMode.SIMPLE);
-        
+
         // Migration is done, delete old gm
         oldGmBehavior.delete();
         return newGmPackage;
@@ -143,12 +144,12 @@ public class GmBpmnBehaviorMigrator implements IPersistentMigrator {
     private GmBpmnProcess migrateToProcess(GmBpmnBehavior oldGmBehavior) {
         IGmDiagram diagram = oldGmBehavior.getDiagram();
         BpmnProcess elt = (BpmnProcess) oldGmBehavior.getRepresentedElement();
-        
+
         GmBpmnProcess newGmProcess = new GmBpmnProcess(diagram, elt, oldGmBehavior.getRepresentedRef());
         newGmProcess.setLayoutData(oldGmBehavior.getLayoutData());
-        
+
         migrateStyle(oldGmBehavior, newGmProcess);
-        
+
         // Migration is done, delete old gm
         oldGmBehavior.delete();
         return newGmProcess;
@@ -161,12 +162,12 @@ public class GmBpmnBehaviorMigrator implements IPersistentMigrator {
     private GmBpmnSharedDefinitions migrateToSharedDefinitions(GmBpmnBehavior oldGmBehavior) {
         IGmDiagram diagram = oldGmBehavior.getDiagram();
         BpmnSharedDefinitions elt = (BpmnSharedDefinitions) oldGmBehavior.getRepresentedElement();
-        
+
         GmBpmnSharedDefinitions newGmSharedDefinitions = new GmBpmnSharedDefinitions(diagram, elt, oldGmBehavior.getRepresentedRef());
         newGmSharedDefinitions.setLayoutData(oldGmBehavior.getLayoutData());
-        
+
         migrateStyle(oldGmBehavior, newGmSharedDefinitions);
-        
+
         // Migration is done, delete old gm
         oldGmBehavior.delete();
         return newGmSharedDefinitions;
@@ -176,14 +177,14 @@ public class GmBpmnBehaviorMigrator implements IPersistentMigrator {
     private void migrateStyle(GmBpmnBehavior oldGm, GmNodeModel newGm) {
         // Keep cascaded style
         newGm.getPersistedStyle().setCascadedStyle(oldGm.getPersistedStyle().getCascadedStyle());
-        
+
         // Keep local style changes, converting style keys
         for (StyleKey oldKey : oldGm.getPersistedStyle().getLocalKeys()) {
             Object oldValue = oldGm.getPersistedStyle().getProperty(oldKey);
             StyleKey newKey = newGm.getStyleKey(oldKey.getMetakey());
             newGm.getPersistedStyle().setProperty(newKey, oldValue);
         }
-        
+
     }
 
 }

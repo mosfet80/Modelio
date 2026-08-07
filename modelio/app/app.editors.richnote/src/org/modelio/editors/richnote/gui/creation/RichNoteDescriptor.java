@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.gui.creation;
 
@@ -57,9 +57,8 @@ public class RichNoteDescriptor {
 
     /**
      * <p>Optional authentication data for remote documents.</p><p>The authentication data might&nbsp;or may not be stored in the model.</p>
-     * 
      */
-    
+
     @mdl.prop
     @objid ("782b187e-ba5d-4278-b3a6-16540808a01d")
     public IAuthData authData;
@@ -78,20 +77,22 @@ public class RichNoteDescriptor {
 
     /**
      * Initialize the rich note descriptor.
+     *
      * @param targetElement The element on which the rich note must be created.
      */
     @objid ("8be9937f-bcef-4d60-b932-02c72651412c")
-    public  RichNoteDescriptor(final ModelElement targetElement) {
+    public RichNoteDescriptor(final ModelElement targetElement) {
         this.targetElement = targetElement;
-        
+
         this.mimeType = RichNoteFormatRegistry.getInstance().getDocumentFormatForMime("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
         if (this.mimeType == null || !this.mimeType.isUsable() || this.mimeType.getSupportLevel() != SupportLevel.Primary) {
             this.mimeType = RichNoteFormatRegistry.getInstance().getDocumentFormatForMime("application/vnd.oasis.opendocument.text");
         }
-        
+
     }
 
     /**
+     *
      * @return the document abstract.
      */
     @objid ("149fe782-6de5-46d6-9fdc-f777d27aab45")
@@ -100,6 +101,7 @@ public class RichNoteDescriptor {
     }
 
     /**
+     *
      * @return the document MIME type
      */
     @objid ("67806a6f-74b7-4262-b202-e78c2d2643dd")
@@ -108,6 +110,7 @@ public class RichNoteDescriptor {
     }
 
     /**
+     *
      * @return the document type.
      */
     @objid ("6a29cda6-6081-4708-9e9a-1b3db02f018e")
@@ -116,6 +119,7 @@ public class RichNoteDescriptor {
     }
 
     /**
+     *
      * @return the document name.
      */
     @objid ("3e7ced40-8c65-457a-b908-8262b32214a1")
@@ -124,6 +128,7 @@ public class RichNoteDescriptor {
     }
 
     /**
+     *
      * @return the document path
      */
     @objid ("f39c526d-40dc-4fe0-8cc6-c83abb3b7e95")
@@ -132,6 +137,7 @@ public class RichNoteDescriptor {
     }
 
     /**
+     *
      * @return The element on which the rich note will be created.
      */
     @objid ("d59bbefd-c390-4122-808b-5b76e36cd1d4")
@@ -145,6 +151,7 @@ public class RichNoteDescriptor {
     }
 
     /**
+     *
      * @param theAbstract the Abstract to set
      */
     @objid ("b932cdf9-ed9a-48b1-ade3-b420ea505d31")
@@ -163,6 +170,7 @@ public class RichNoteDescriptor {
     }
 
     /**
+     *
      * @param mimeType the MIME type
      */
     @objid ("c3c09c47-f158-4b64-9326-7d5ce3c43c98")
@@ -176,6 +184,7 @@ public class RichNoteDescriptor {
     }
 
     /**
+     *
      * @param path the path to set
      */
     @objid ("7c9ece22-c8b2-4d81-a585-cfab64c49610")

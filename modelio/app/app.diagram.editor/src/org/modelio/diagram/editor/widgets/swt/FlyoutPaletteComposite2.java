@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.widgets.swt;
 
@@ -97,9 +97,9 @@ import org.eclipse.ui.XMLMemento;
 
 /**
  * The FlyoutPaletteComposite is used to show a flyout palette alongside another control. The flyout palette auto-hides (thus maximizing space) when not in use, but can also be pinned open if so desired. It will only be visible when the PaletteView is not.
- * 
+ *
  * Modified Phv: to reduce TitleLabel size and look (no more label and icon)
- * 
+ *
  * @author Pratik Shah
  * @since 3.0
  */
@@ -163,7 +163,7 @@ public class FlyoutPaletteComposite2 extends Composite {
     int cachedTitleHeight = 24;/*
      * // give it a default value
      */
-    
+
 
     @objid ("185b7bdd-3897-11e2-95fe-001ec947c8cc")
     private static final String PROPERTY_PALETTE_WIDTH = "org.eclipse.gef.ui.palette.fpa.paletteWidth";
@@ -212,19 +212,20 @@ public class FlyoutPaletteComposite2 extends Composite {
 
     /**
      * Constructor
+     *
      * @param parent The parent Composite
      * @param style The style of the widget to construct; only SWT.BORDER is allowed
      * @param pvProvider The provider that is to be used to create the flyout palette
      * @param flyoutPreferences To save/retrieve the preferences for the flyout
      */
     @objid ("659ca2f6-33f7-11e2-95fe-001ec947c8cc")
-    public  FlyoutPaletteComposite2(Composite parent, int style, PaletteViewerProvider pvProvider, FlyoutPreferences flyoutPreferences) {
+    public FlyoutPaletteComposite2(Composite parent, int style, PaletteViewerProvider pvProvider, FlyoutPreferences flyoutPreferences) {
         super(parent, style & SWT.BORDER);
         this.provider = pvProvider;
         this.prefs = flyoutPreferences;
         this.sash = createSash();
         this.paletteContainer = createPaletteContainer();
-        
+
         // Initialize the state properly
         if (this.prefs.getPaletteWidth() <= 0) {
             this.prefs.setPaletteWidth(FlyoutPaletteComposite2.DEFAULT_PALETTE_SIZE);
@@ -232,7 +233,7 @@ public class FlyoutPaletteComposite2 extends Composite {
         setPaletteWidth(this.prefs.getPaletteWidth());
         setDockLocation(this.prefs.getDockLocation());
         setState(this.prefs.getPaletteState());
-        
+
         addListener(SWT.Resize, new Listener() {
             @Override
             public void handleEvent(Event event) {
@@ -245,7 +246,7 @@ public class FlyoutPaletteComposite2 extends Composite {
                 }
             }
         });
-        
+
         this.listeners.addPropertyChangeListener(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
@@ -262,7 +263,7 @@ public class FlyoutPaletteComposite2 extends Composite {
                 }
             }
         });
-        
+
     }
 
     @objid ("659ca2fd-33f7-11e2-95fe-001ec947c8cc")
@@ -275,7 +276,7 @@ public class FlyoutPaletteComposite2 extends Composite {
         for (int i = 0; i < children.length; i++) {
             addListenerToCtrlHierarchy(children[i], eventType, listener);
         }
-        
+
     }
 
     @objid ("659ca302-33f7-11e2-95fe-001ec947c8cc")
@@ -355,6 +356,7 @@ public class FlyoutPaletteComposite2 extends Composite {
     }
 
     /**
+     *
      * @see Composite#layout(boolean)
      */
     @objid ("659ca32d-33f7-11e2-95fe-001ec947c8cc")
@@ -363,19 +365,19 @@ public class FlyoutPaletteComposite2 extends Composite {
         if (this.graphicalControl == null || this.graphicalControl.isDisposed()) {
             return;
         }
-        
+
         Rectangle area = getClientArea();
         if (area.width == 0 || area.height == 0) {
             return;
         }
-        
+
         int sashWidth = this.sash.computeSize(-1, -1).x;
         int pWidth = this.paletteWidth;
         int maxWidth = Math.min(area.width / 2, FlyoutPaletteComposite2.MAX_PALETTE_SIZE);
         maxWidth = Math.max(maxWidth, this.minWidth);
         pWidth = Math.max(pWidth, this.minWidth);
         pWidth = Math.min(pWidth, maxWidth);
-        
+
         /*
          * Fix for Bug# 65892 Laying out only when necessary helps reduce flicker on GTK in the case where the flyout palette is being resized past its maximum size.
          */
@@ -387,7 +389,7 @@ public class FlyoutPaletteComposite2 extends Composite {
         this.cachedSize = pWidth;
         this.cachedLocation = this.dock;
         this.cachedBounds = getSize();
-        
+
         setRedraw(false);
         if (isInState(FlyoutPaletteComposite2.STATE_HIDDEN)) {
             this.sash.setVisible(false);
@@ -401,7 +403,7 @@ public class FlyoutPaletteComposite2 extends Composite {
         this.sash.layout();
         setRedraw(true);
         update();
-        
+
     }
 
     @objid ("659ca332-33f7-11e2-95fe-001ec947c8cc")
@@ -426,7 +428,7 @@ public class FlyoutPaletteComposite2 extends Composite {
             this.sash.setVisible(true);
             this.paletteContainer.setVisible(true);
         }
-        
+
     }
 
     @objid ("659ca337-33f7-11e2-95fe-001ec947c8cc")
@@ -451,7 +453,7 @@ public class FlyoutPaletteComposite2 extends Composite {
             this.sash.setBounds(area.x + pWidth, area.y, sashWidth, area.height);
             this.graphicalControl.setBounds(area.x + pWidth + sashWidth, area.y, area.width - sashWidth - pWidth, area.height);
         }
-        
+
     }
 
     @objid ("659ca33c-33f7-11e2-95fe-001ec947c8cc")
@@ -469,6 +471,7 @@ public class FlyoutPaletteComposite2 extends Composite {
     /**
      * If an external palette viewer is provided, palette state (that is captured in {@link PaletteViewer#saveState(IMemento)} -- active tool, drawer expansion state, drawer pin state, etc.) will be maintained when switching between the two viewers.
      * Providing an external viewer, although recommended, is optional.
+     *
      * @param viewer The palette viewer used in the PaletteView
      */
     @objid ("659ca342-33f7-11e2-95fe-001ec947c8cc")
@@ -480,7 +483,7 @@ public class FlyoutPaletteComposite2 extends Composite {
         if (this.externalViewer != null && this.pViewer != null) {
             transferState(this.pViewer, this.externalViewer);
         }
-        
+
     }
 
     @objid ("659ca346-33f7-11e2-95fe-001ec947c8cc")
@@ -496,7 +499,7 @@ public class FlyoutPaletteComposite2 extends Composite {
                 layout(true);
             }
         }
-        
+
     }
 
     @objid ("659ca349-33f7-11e2-95fe-001ec947c8cc")
@@ -509,11 +512,12 @@ public class FlyoutPaletteComposite2 extends Composite {
                 layout(true);
             }
         }
-        
+
     }
 
     /**
      * Sets the control along the side of which the palette is to be displayed. The given Control should be a child of this Composite. This method should only be invoked once.
+     *
      * @param graphicalViewer the control of the graphical viewer; cannot be <code>null</code>
      */
     @objid ("659ca34c-33f7-11e2-95fe-001ec947c8cc")
@@ -541,7 +545,7 @@ public class FlyoutPaletteComposite2 extends Composite {
                 }
             });
         }
-        
+
     }
 
     @objid ("659f0551-33f7-11e2-95fe-001ec947c8cc")
@@ -551,37 +555,37 @@ public class FlyoutPaletteComposite2 extends Composite {
             public void dragEnter(DropTargetEvent event) {
                 // Nothing to do.
             }
-        
+
             @Override
             public void dragLeave(DropTargetEvent event) {
                 // Nothing to do.
             }
-        
+
             @Override
             public void dragOperationChanged(DropTargetEvent event) {
                 // Nothing to do.
             }
-        
+
             @Override
             public void dragOver(DropTargetEvent event) {
                 // Nothing to do.
             }
-        
+
             @Override
             public void drop(DropTargetEvent event) {
                 // Nothing to do.
             }
-        
+
             @Override
             public void dropAccept(DropTargetEvent event) {
                 // Nothing to do.
             }
-        
+
             @Override
             public Transfer getTransfer() {
                 return TemplateTransfer.getInstance();
             }
-        
+
             @Override
             public boolean isEnabled(DropTargetEvent event) {
                 if (isInState(FlyoutPaletteComposite2.STATE_EXPANDED)) {
@@ -590,7 +594,7 @@ public class FlyoutPaletteComposite2 extends Composite {
                 return false;
             }
         });
-        
+
     }
 
     @objid ("659f0554-33f7-11e2-95fe-001ec947c8cc")
@@ -602,11 +606,11 @@ public class FlyoutPaletteComposite2 extends Composite {
         } else {
             newState = initialNewState;
         }
-        
+
         if (this.paletteState == newState) {
             return;
         }
-        
+
         int oldState = this.paletteState;
         this.paletteState = newState;
         switch (this.paletteState) {
@@ -651,7 +655,7 @@ public class FlyoutPaletteComposite2 extends Composite {
         }
         layout(true);
         this.listeners.firePropertyChange(FlyoutPaletteComposite2.PROPERTY_STATE, oldState, newState);
-        
+
     }
 
     @objid ("659f0557-33f7-11e2-95fe-001ec947c8cc")
@@ -661,7 +665,7 @@ public class FlyoutPaletteComposite2 extends Composite {
 
     /**
      * FlyoutPreferences is used to save/load the preferences for the flyout palette.
-     * 
+     *
      * @author Pratik Shah
      * @since 3.0
      */
@@ -669,6 +673,7 @@ public class FlyoutPaletteComposite2 extends Composite {
     public interface FlyoutPreferences {
         /**
          * Should return {@link PositionConstants#EAST} or {@link PositionConstants#WEST}. Any other int will be ignored and the default dock location (EAST) will be used instead.
+         *
          * @return the saved dock location of the Palette
          */
         @objid ("659f055d-33f7-11e2-95fe-001ec947c8cc")
@@ -677,6 +682,7 @@ public class FlyoutPaletteComposite2 extends Composite {
         /**
          * When there is no saved state, this method can return any non-positive int (which will result in the palette using the default state -- collapsed), or {@link FlyoutPaletteComposite#STATE_COLLAPSED}, or
          * {@link FlyoutPaletteComposite#STATE_PINNED_OPEN}
+         *
          * @return the saved state of the palette
          */
         @objid ("659f0560-33f7-11e2-95fe-001ec947c8cc")
@@ -685,6 +691,7 @@ public class FlyoutPaletteComposite2 extends Composite {
         /**
          * When there is no saved width, this method can return any int (preferrably a non-positive int). Returning a non-positive int will cause the palette to be sized to the default size, whereas returning a postive int will find the closest match in
          * the valid range (>= minimum and <= maximum)
+         *
          * @return the saved width of the flyout palette
          */
         @objid ("659f0563-33f7-11e2-95fe-001ec947c8cc")
@@ -692,6 +699,7 @@ public class FlyoutPaletteComposite2 extends Composite {
 
         /**
          * This method is invoked when the flyout palette's dock location is changed. The provided dock location should be persisted and returned in {@link #getDockLocation()}.
+         *
          * @param location {@link PositionConstants#EAST} or {@link PositionConstants#WEST}
          */
         @objid ("659f0566-33f7-11e2-95fe-001ec947c8cc")
@@ -699,6 +707,7 @@ public class FlyoutPaletteComposite2 extends Composite {
 
         /**
          * This method is invoked when the flyout palette's state is changed (the new state becomes the default). The provided state should be persisted and returned in {@link #getPaletteState()}.
+         *
          * @param state {@link FlyoutPaletteComposite#STATE_COLLAPSED} or {@link FlyoutPaletteComposite#STATE_PINNED_OPEN}
          */
         @objid ("659f0569-33f7-11e2-95fe-001ec947c8cc")
@@ -706,12 +715,13 @@ public class FlyoutPaletteComposite2 extends Composite {
 
         /**
          * This method is invoked when the flyout palette is resized. The provided width should be persisted and returned in {@link #getPaletteWidth()}.
+         *
          * @param width the new size of the flyout palette
          */
         @objid ("659f056c-33f7-11e2-95fe-001ec947c8cc")
         void setPaletteWidth(int width);
-}
-    
+
+    }
 
     @objid ("659f056f-33f7-11e2-95fe-001ec947c8cc")
     private class Sash extends Composite {
@@ -719,13 +729,13 @@ public class FlyoutPaletteComposite2 extends Composite {
         private Control button;
 
         @objid ("659f0571-33f7-11e2-95fe-001ec947c8cc")
-        public  Sash(Composite parent, int style) {
+        public Sash(Composite parent, int style) {
             super(parent, style);
             this.button = createFlyoutControlButton(this);
             SashDragManager sashDragManager = new SashDragManager();
             addMouseMoveListener(sashDragManager);
             addMouseListener(sashDragManager);
-            
+
             addMouseTrackListener(new MouseTrackAdapter() {
                 @Override
                 public void mouseHover(MouseEvent e) {
@@ -734,21 +744,21 @@ public class FlyoutPaletteComposite2 extends Composite {
                     }
                 }
             });
-            
+
             addListener(SWT.Paint, new Listener() {
                 @Override
                 public void handleEvent(Event event) {
                     paintSash(event.gc);
                 }
             });
-            
+
             addListener(SWT.Resize, new Listener() {
                 @Override
                 public void handleEvent(Event event) {
                     layout(true);
                 }
             });
-            
+
             FlyoutPaletteComposite2.this.listeners.addPropertyChangeListener(new PropertyChangeListener() {
                 @Override
                 public void propertyChange(PropertyChangeEvent evt) {
@@ -757,7 +767,7 @@ public class FlyoutPaletteComposite2 extends Composite {
                     }
                 }
             });
-            
+
         }
 
         @objid ("659f0575-33f7-11e2-95fe-001ec947c8cc")
@@ -766,7 +776,7 @@ public class FlyoutPaletteComposite2 extends Composite {
             if (isInState(FlyoutPaletteComposite2.STATE_PINNED_OPEN)) {
                 return new Point(3, 3);
             }
-            
+
             // button size plus two pixels for the two lines to be drawn
             return new Point(FlyoutPaletteComposite2.SASH_BUTTON_WIDTH + 2, FlyoutPaletteComposite2.this.cachedTitleHeight);
         }
@@ -776,7 +786,7 @@ public class FlyoutPaletteComposite2 extends Composite {
             int newSize = FlyoutPaletteComposite2.this.paletteContainer.getBounds().width
                     + (FlyoutPaletteComposite2.this.dock == PositionConstants.EAST ? -shiftAmount : shiftAmount);
             setPaletteWidth(newSize);
-            
+
         }
 
         @objid ("659f0580-33f7-11e2-95fe-001ec947c8cc")
@@ -785,21 +795,21 @@ public class FlyoutPaletteComposite2 extends Composite {
             if (this.button == null) {
                 return;
             }
-            
+
             if (isInState(FlyoutPaletteComposite2.STATE_PINNED_OPEN)) {
                 this.button.setVisible(false);
                 return;
             }
-            
+
             this.button.setVisible(true);
             Rectangle area = getClientArea();
             this.button.setBounds(area.x + 1, area.y + 1, FlyoutPaletteComposite2.SASH_BUTTON_WIDTH, FlyoutPaletteComposite2.this.cachedTitleHeight - 1);
-            
+
             if (FlyoutPaletteComposite2.this.transferFocus) {
                 FlyoutPaletteComposite2.this.transferFocus = false;
                 this.button.setFocus();
             }
-            
+
         }
 
         @objid ("659f0584-33f7-11e2-95fe-001ec947c8cc")
@@ -808,7 +818,7 @@ public class FlyoutPaletteComposite2 extends Composite {
             if (isInState(FlyoutPaletteComposite2.STATE_PINNED_OPEN)) {
                 gc.setBackground(PaletteColorUtil.WIDGET_BACKGROUND);
                 gc.fillRectangle(0, 0, bounds.width, bounds.height);
-            
+
                 gc.setForeground(PaletteColorUtil.WIDGET_LIST_BACKGROUND);
                 gc.drawLine(0, 0, bounds.width, 0);
                 gc.setForeground(PaletteColorUtil.WIDGET_NORMAL_SHADOW);
@@ -821,14 +831,14 @@ public class FlyoutPaletteComposite2 extends Composite {
                 gc.setForeground(PaletteColorUtil.WIDGET_NORMAL_SHADOW);
                 gc.drawLine(0, 0, 0, bounds.height);
                 gc.drawLine(bounds.width - 1, 0, bounds.width - 1, bounds.height);
-            
+
                 gc.setForeground(PaletteColorUtil.WIDGET_LIST_BACKGROUND);
                 gc.drawLine(1, 0, 1, bounds.height);
-            
+
                 gc.setForeground(PaletteColorUtil.WIDGET_BACKGROUND_LIST_BACKGROUND_85);
                 gc.drawLine(2, 0, 2, bounds.height);
             }
-            
+
         }
 
         @objid ("659f0587-33f7-11e2-95fe-001ec947c8cc")
@@ -864,7 +874,7 @@ public class FlyoutPaletteComposite2 extends Composite {
                                                 };
 
             @objid ("65a167ab-33f7-11e2-95fe-001ec947c8cc")
-            public  SashDragManager() {
+            public SashDragManager() {
                 super();
             }
 
@@ -878,7 +888,7 @@ public class FlyoutPaletteComposite2 extends Composite {
                 this.correctState = isInState(FlyoutPaletteComposite2.STATE_EXPANDED | FlyoutPaletteComposite2.STATE_PINNED_OPEN);
                 this.origX = me.x;
                 Display.getCurrent().addFilter(SWT.KeyDown, this.keyListener);
-                
+
             }
 
             @objid ("65a167b1-33f7-11e2-95fe-001ec947c8cc")
@@ -890,7 +900,7 @@ public class FlyoutPaletteComposite2 extends Composite {
                 if (this.dragging && this.correctState) {
                     handleSashDragged(me.x - this.origX);
                 }
-                
+
             }
 
             @objid ("65a167b5-33f7-11e2-95fe-001ec947c8cc")
@@ -907,7 +917,7 @@ public class FlyoutPaletteComposite2 extends Composite {
                 this.dragging = false;
                 this.correctState = false;
                 this.mouseDown = false;
-                
+
             }
 
         }
@@ -917,7 +927,7 @@ public class FlyoutPaletteComposite2 extends Composite {
     @objid ("65a167b9-33f7-11e2-95fe-001ec947c8cc")
     private class ResizeAction extends Action {
         @objid ("65a167ba-33f7-11e2-95fe-001ec947c8cc")
-        public  ResizeAction() {
+        public ResizeAction() {
             super(PaletteMessages.RESIZE_LABEL);
         }
 
@@ -943,7 +953,7 @@ public class FlyoutPaletteComposite2 extends Composite {
                 setPaletteWidth(FlyoutPaletteComposite2.this.paletteContainer.getBounds().width + deltaX);
             }
             tracker.dispose();
-            
+
         }
 
     }
@@ -960,7 +970,7 @@ public class FlyoutPaletteComposite2 extends Composite {
         protected int threshold;
 
         @objid ("65a167c8-33f7-11e2-95fe-001ec947c8cc")
-        public  TitleDragManager() {
+        public TitleDragManager() {
             super();
         }
 
@@ -1050,7 +1060,7 @@ public class FlyoutPaletteComposite2 extends Composite {
                 this.dragging = false;
             }
             tracker.dispose();
-            
+
         }
 
         @objid ("65a167ce-33f7-11e2-95fe-001ec947c8cc")
@@ -1074,7 +1084,7 @@ public class FlyoutPaletteComposite2 extends Composite {
             if (isInState(FlyoutPaletteComposite2.STATE_COLLAPSED)) {
                 setState(FlyoutPaletteComposite2.STATE_EXPANDED);
             }
-            
+
         }
 
         @objid ("65a167da-33f7-11e2-95fe-001ec947c8cc")
@@ -1088,7 +1098,7 @@ public class FlyoutPaletteComposite2 extends Composite {
             } else if (isInState(FlyoutPaletteComposite2.STATE_EXPANDED)) {
                 setState(FlyoutPaletteComposite2.STATE_COLLAPSED);
             }
-            
+
         }
 
     }
@@ -1102,10 +1112,10 @@ public class FlyoutPaletteComposite2 extends Composite {
         protected Control title;
 
         @objid ("65a3ca02-33f7-11e2-95fe-001ec947c8cc")
-        public  PaletteComposite(Composite parent, int style) {
+        public PaletteComposite(Composite parent, int style) {
             super(parent, style);
             createComponents();
-            
+
             FlyoutPaletteComposite2.this.listeners.addPropertyChangeListener(new PropertyChangeListener() {
                 @Override
                 public void propertyChange(PropertyChangeEvent evt) {
@@ -1118,23 +1128,23 @@ public class FlyoutPaletteComposite2 extends Composite {
                     }
                 }
             });
-            
+
             addListener(SWT.Resize, new Listener() {
                 @Override
                 public void handleEvent(Event event) {
                     layout(true);
                 }
             });
-            
+
             updateState();
-            
+
         }
 
         @objid ("65a3ca06-33f7-11e2-95fe-001ec947c8cc")
         protected final void createComponents() {
             this.title = createTitle(this);
             this.button = createFlyoutControlButton(this);
-            
+
         }
 
         @objid ("65a3ca08-33f7-11e2-95fe-001ec947c8cc")
@@ -1144,7 +1154,7 @@ public class FlyoutPaletteComposite2 extends Composite {
             if (pCtrl == null || pCtrl.isDisposed()) {
                 return;
             }
-            
+
             Rectangle area = getClientArea();
             boolean buttonVisible = this.button.getVisible();
             Point titleSize = this.title.computeSize(-1, -1);
@@ -1165,7 +1175,7 @@ public class FlyoutPaletteComposite2 extends Composite {
             area.y += FlyoutPaletteComposite2.this.cachedTitleHeight;
             area.height -= FlyoutPaletteComposite2.this.cachedTitleHeight;
             pCtrl.setBounds(area);
-            
+
         }
 
         @objid ("65a3ca0c-33f7-11e2-95fe-001ec947c8cc")
@@ -1176,7 +1186,7 @@ public class FlyoutPaletteComposite2 extends Composite {
                 this.button.setFocus();
             }
             layout(true);
-            
+
         }
 
     }
@@ -1190,7 +1200,7 @@ public class FlyoutPaletteComposite2 extends Composite {
         protected static final Border TOOL_TIP_BORDER = new MarginBorder(0, 2, 0, 2);
 
         @objid ("65a3ca14-33f7-11e2-95fe-001ec947c8cc")
-        public  TitleLabel() {
+        public TitleLabel() {
             // super(GEFMessages.Palette_Label, InternalImages.get(InternalImages.IMG_PALETTE));
             super();
             setLabelAlignment(PositionConstants.LEFT);
@@ -1199,7 +1209,7 @@ public class FlyoutPaletteComposite2 extends Composite {
             // tooltip.setBorder(TOOL_TIP_BORDER);
             // setToolTip(tooltip);
             setForegroundColor(ColorConstants.listForeground);
-            
+
         }
 
         @objid ("65a3ca16-33f7-11e2-95fe-001ec947c8cc")
@@ -1221,16 +1231,16 @@ public class FlyoutPaletteComposite2 extends Composite {
             graphics.setForegroundColor(PaletteColorUtil.WIDGET_LIST_BACKGROUND);
             graphics.setBackgroundColor(PaletteColorUtil.WIDGET_BACKGROUND);
             graphics.fillGradient(r, true);
-            
+
             // draw bottom border
             graphics.setForegroundColor(PaletteColorUtil.WIDGET_NORMAL_SHADOW);
             graphics.drawLine(r.getBottomLeft().getTranslated(0, -1), r.getBottomRight().getTranslated(0, -1));
-            
+
             graphics.popState();
-            
+
             // paint the text and icon
             super.paintFigure(graphics);
-            
+
             // paint the focus rectangle around the text
             if (hasFocus()) {
                 org.eclipse.draw2d.geometry.Rectangle textBounds = getTextBounds();
@@ -1238,7 +1248,7 @@ public class FlyoutPaletteComposite2 extends Composite {
                 textBounds.width--;
                 graphics.drawFocus(this.bounds.getResized(-1, -1).intersect(textBounds.getExpanded(getInsets())));
             }
-            
+
         }
 
     }
@@ -1249,11 +1259,11 @@ public class FlyoutPaletteComposite2 extends Composite {
         private LightweightSystem lws;
 
         @objid ("65a3ca21-33f7-11e2-95fe-001ec947c8cc")
-        public  ButtonCanvas(Composite parent) {
+        public ButtonCanvas(Composite parent) {
             super(parent, SWT.NO_REDRAW_RESIZE | SWT.NO_BACKGROUND);
             init();
             provideAccSupport();
-            
+
         }
 
         @objid ("65a3ca24-33f7-11e2-95fe-001ec947c8cc")
@@ -1323,7 +1333,7 @@ public class FlyoutPaletteComposite2 extends Composite {
                 }
             });
             this.lws.setContents(b);
-            
+
         }
 
         @objid ("65a3ca36-33f7-11e2-95fe-001ec947c8cc")
@@ -1333,12 +1343,12 @@ public class FlyoutPaletteComposite2 extends Composite {
                 public void getDescription(AccessibleEvent e) {
                     e.result = PaletteMessages.ACC_DESC_PALETTE_BUTTON;
                 }
-            
+
                 @Override
                 public void getHelp(AccessibleEvent e) {
                     getDescription(e);
                 }
-            
+
                 @Override
                 public void getName(AccessibleEvent e) {
                     e.result = getToolTipText();
@@ -1350,7 +1360,7 @@ public class FlyoutPaletteComposite2 extends Composite {
                     e.detail = ACC.ROLE_PUSHBUTTON;
                 }
             });
-            
+
         }
 
         @objid ("65a3ca38-33f7-11e2-95fe-001ec947c8cc")
@@ -1360,19 +1370,20 @@ public class FlyoutPaletteComposite2 extends Composite {
 
             /**
              * Creates a new instance
+             *
              * @param direction the direction the arrow should face (PositionConstants.RIGHT or PositionConstants.LEFT)
              */
             @objid ("65a62c5c-33f7-11e2-95fe-001ec947c8cc")
-            public  ArrowButton(int direction) {
+            public ArrowButton(int direction) {
                 super();
                 setDirection(direction);
-                
+
                 this.triangle = new Triangle();
                 this.triangle.setOutline(true);
                 this.triangle.setBackgroundColor(PaletteColorUtil.WIDGET_LIST_BACKGROUND);
                 this.triangle.setForegroundColor(PaletteColorUtil.WIDGET_DARK_SHADOW);
                 setContents(this.triangle);
-                
+
             }
 
             @objid ("65a62c60-33f7-11e2-95fe-001ec947c8cc")
@@ -1380,24 +1391,24 @@ public class FlyoutPaletteComposite2 extends Composite {
                 if (this.triangle != null) {
                     this.triangle.setDirection(direction);
                 }
-                
+
             }
 
             @objid ("65a62c63-33f7-11e2-95fe-001ec947c8cc")
             @Override
             protected void layout() {
                 org.eclipse.draw2d.geometry.Rectangle clientArea = getBounds();
-                
+
                 this.triangle.setBounds(new org.eclipse.draw2d.geometry.Rectangle(clientArea.getCenter().getTranslated(
                         -FlyoutPaletteComposite2.ARROW_SIZE.width / 2, -FlyoutPaletteComposite2.ARROW_SIZE.height / 2), FlyoutPaletteComposite2.ARROW_SIZE));
-                
+
             }
 
             @objid ("65a62c66-33f7-11e2-95fe-001ec947c8cc")
             @Override
             protected void paintFigure(Graphics graphics) {
                 super.paintFigure(graphics);
-                
+
                 // paint the gradient
                 graphics.pushState();
                 org.eclipse.draw2d.geometry.Rectangle r = org.eclipse.draw2d.geometry.Rectangle.SINGLETON;
@@ -1406,11 +1417,11 @@ public class FlyoutPaletteComposite2 extends Composite {
                 graphics.setBackgroundColor(PaletteColorUtil.WIDGET_BACKGROUND);
                 graphics.fillGradient(r, true);
                 graphics.popState();
-                
+
                 // draw bottom border
                 graphics.setForegroundColor(PaletteColorUtil.WIDGET_NORMAL_SHADOW);
                 graphics.drawLine(r.getBottomLeft().getTranslated(0, -1), r.getBottomRight().getTranslated(0, -1));
-                
+
             }
 
         }
@@ -1423,14 +1434,15 @@ public class FlyoutPaletteComposite2 extends Composite {
         private LightweightSystem lws;
 
         @objid ("65a62c6c-33f7-11e2-95fe-001ec947c8cc")
-        public  TitleCanvas(Composite parent) {
+        public TitleCanvas(Composite parent) {
             super(parent, SWT.NO_REDRAW_RESIZE | SWT.NO_BACKGROUND);
             init();
             provideAccSupport();
-            
+
         }
 
         /**
+         *
          * @see org.eclipse.swt.widgets.Control#computeSize(int, int, boolean)
          */
         @objid ("65a62c6f-33f7-11e2-95fe-001ec947c8cc")
@@ -1451,13 +1463,13 @@ public class FlyoutPaletteComposite2 extends Composite {
                 public void focusGained(FocusEvent fe) {
                     fe.gainer.repaint();
                 }
-            
+
                 @Override
                 public void focusLost(FocusEvent fe) {
                     fe.loser.repaint();
                 }
             });
-            
+
             this.lws = new LightweightSystem();
             this.lws.setControl(this);
             this.lws.setContents(contents);
@@ -1467,7 +1479,7 @@ public class FlyoutPaletteComposite2 extends Composite {
             addListener(SWT.DragDetect, titleDragManager);
             addMouseListener(titleDragManager);
             addMouseTrackListener(titleDragManager);
-            
+
             final MenuManager manager = new MenuManager();
             MenuManager mgr = new MenuManager(PaletteMessages.DOCK_LABEL);
             mgr.add(new ChangeDockAction(PaletteMessages.LEFT_LABEL, PositionConstants.WEST));
@@ -1484,7 +1496,7 @@ public class FlyoutPaletteComposite2 extends Composite {
                     }
                 }
             });
-            
+
             addDisposeListener(new DisposeListener() {
                 @Override
                 public void widgetDisposed(DisposeEvent e) {
@@ -1492,7 +1504,7 @@ public class FlyoutPaletteComposite2 extends Composite {
                     manager.dispose();
                 }
             });
-            
+
         }
 
         @objid ("65a62c7a-33f7-11e2-95fe-001ec947c8cc")
@@ -1502,12 +1514,12 @@ public class FlyoutPaletteComposite2 extends Composite {
                 public void getDescription(AccessibleEvent e) {
                     e.result = PaletteMessages.ACC_DESC_PALETTE_TITLE;
                 }
-            
+
                 @Override
                 public void getHelp(AccessibleEvent e) {
                     getDescription(e);
                 }
-            
+
                 @Override
                 public void getName(AccessibleEvent e) {
                     e.result = GEFMessages.Palette_Label;
@@ -1519,7 +1531,7 @@ public class FlyoutPaletteComposite2 extends Composite {
                     e.detail = ACC.ROLE_SLIDER;
                 }
             });
-            
+
         }
 
         @objid ("65a62c7c-33f7-11e2-95fe-001ec947c8cc")
@@ -1534,7 +1546,7 @@ public class FlyoutPaletteComposite2 extends Composite {
                 FlyoutPaletteComposite2.this.layout(true);
                 getParent().layout(true);
             }
-            
+
         }
 
     }
@@ -1546,18 +1558,20 @@ public class FlyoutPaletteComposite2 extends Composite {
 
         /**
          * Constructor
+         *
          * @param text this action's text
          * @param position the dock side that this action represents: PositionConstants.EAST or PositionConstants.WEST
          */
         @objid ("65a88eb8-33f7-11e2-95fe-001ec947c8cc")
-        public  ChangeDockAction(String text, int position) {
+        public ChangeDockAction(String text, int position) {
             super(text, IAction.AS_RADIO_BUTTON);
             this.position = position;
-            
+
         }
 
         /**
          * This Action is checked when the palette is docked on the side this action represents
+         *
          * @see org.eclipse.jface.action.IAction#isChecked()
          */
         @objid ("65a88ebd-33f7-11e2-95fe-001ec947c8cc")
@@ -1568,6 +1582,7 @@ public class FlyoutPaletteComposite2 extends Composite {
 
         /**
          * Changes the palette's dock location to the side this action represents
+         *
          * @see org.eclipse.jface.action.IAction#run()
          */
         @objid ("65a88ec3-33f7-11e2-95fe-001ec947c8cc")
@@ -1600,8 +1615,8 @@ public class FlyoutPaletteComposite2 extends Composite {
         private List<Control> registrants = new ArrayList<>();
 
         @objid ("65a88ed1-33f7-11e2-95fe-001ec947c8cc")
-         FontManager() {
-            
+        FontManager() {
+
         }
 
         @objid ("65a88ed3-33f7-11e2-95fe-001ec947c8cc")
@@ -1613,7 +1628,7 @@ public class FlyoutPaletteComposite2 extends Composite {
         protected void dispose() {
             this.titleFont = null;
             JFaceResources.getFontRegistry().removeListener(this.fontListener);
-            
+
         }
 
         @objid ("65a88ed9-33f7-11e2-95fe-001ec947c8cc")
@@ -1632,14 +1647,14 @@ public class FlyoutPaletteComposite2 extends Composite {
                 iter.next().setFont(this.titleFont);
             }
             oldFont.dispose();
-            
+
         }
 
         @objid ("65a88edf-33f7-11e2-95fe-001ec947c8cc")
         protected void init() {
             this.titleFont = createTitleFont();
             JFaceResources.getFontRegistry().addListener(this.fontListener);
-            
+
         }
 
         @objid ("65a88ee1-33f7-11e2-95fe-001ec947c8cc")
@@ -1649,7 +1664,7 @@ public class FlyoutPaletteComposite2 extends Composite {
             }
             ctrl.setFont(this.titleFont);
             this.registrants.add(ctrl);
-            
+
         }
 
         @objid ("65a88ee4-33f7-11e2-95fe-001ec947c8cc")
@@ -1658,7 +1673,7 @@ public class FlyoutPaletteComposite2 extends Composite {
             if (this.registrants.isEmpty()) {
                 dispose();
             }
-            
+
         }
 
     }
@@ -1683,6 +1698,7 @@ public class FlyoutPaletteComposite2 extends Composite {
          * to INVALID. Note that since these three cursors are static, they will
          * only be created once for the lifetime of the eclipse session and
          * shared (i.e this is not an image leak).
+         *
          * @param code the code
          * @return the cursor
          */

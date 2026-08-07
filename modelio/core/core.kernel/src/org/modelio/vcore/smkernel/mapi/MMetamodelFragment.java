@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel.mapi;
 
@@ -35,9 +35,9 @@ import org.modelio.vbasic.version.VersionedItem;
  * Note the Modelio kernel does not know anything about metamodel fragment providers and that the above description is there only
  * for the sake of clarity. Practically, once initialized with its composing fragments the Metamodel is only a repository for known
  * MClass instances.
- * 
+ *
  * <h2>Modelio and provider version management</h2>
- * 
+ *
  * The fragment has a Modelio version and a provider version.
  * <p>
  * Metamodel fragments are often a port from a tool to Modelio and
@@ -47,29 +47,30 @@ import org.modelio.vbasic.version.VersionedItem;
  * <li>When the source tool metamodel changes, the Modelio version should be modified
  * and the provider version should reflect the new metamodel version from the provider tool.
  * </ul>
- * 
+ *
  * <h2>Metamodel compatibility checking convention</h2>
- * 
+ *
  * Compatibility checking should be done by looking at the Modelio version as following:<ul>
  * <li> if major == 0 : old version numbering before Modelio 3.4
  * <li> major version different : major migration or migration impossible
  * <li> minor version different : migration needed
  * <li> release version different : can be opened by newer metamodel
  * </ul>
- * 
+ *
  * <h2>Comparison</h2>
  * Two metamodel fragments are equal if their name and version are equal.
  * The vendor is only informative.
- * 
- * @since Modelio 3.4
+ *
  * @author cmarin
+ * @since Modelio 3.4
  */
 @objid ("b5203fb6-296a-4064-82ed-c8cdd30f41ab")
 public interface MMetamodelFragment {
     /**
      * The mandatory name of this metamodel fragment. Must be distinct from any other loaded metamodel fragment.
-     * 
+     *
      * Examples: org.modelio.metamodel.standard
+     *
      * @return name of this metamodel fragment.
      */
     @objid ("f0b4c213-1683-4e2d-9d38-a56891e75910")
@@ -84,6 +85,7 @@ public interface MMetamodelFragment {
      * <li> minor different : migration needed
      * <li> release different : can be opened by newer metamodel
      * </ul>
+     *
      * @return The version identifier.
      */
     @objid ("5d853a4a-489a-4c47-afac-9b6eeac8894b")
@@ -91,8 +93,9 @@ public interface MMetamodelFragment {
 
     /**
      * The optional name of the provider of this metamodel fragment, typically the vendor.
-     * 
+     *
      * Example: Modeliosoft
+     *
      * @return name of the provider
      */
     @objid ("d73febc3-e78f-4e9a-b3f6-3b3e7902c537")
@@ -109,6 +112,7 @@ public interface MMetamodelFragment {
      * Each porting should result in an increase of the Modelio version.
      * When the source tool metamodel changes, the Modelio version should be modified
      * and the provider version should reflect the new metamodel version from the provider tool.
+     *
      * @return The metamodel version for/from the provider.
      */
     @objid ("a2414efd-daed-48dd-b5bb-3cd91bb97783")
@@ -121,12 +125,14 @@ public interface MMetamodelFragment {
      * By default all metamodel fragments are extension fragments.
      * <p>
      * Standard Modelio metamodel fragments are guaranteed to have no metaclass name collisions.
+     *
      * @return <i>true</i> if the fragment is an extension, <i>false</i> if it is a Modelio standard fragment.
      */
     @objid ("4bac70a9-db57-4e90-acb9-f55c703d1514")
     boolean isExtension();
 
     /**
+     *
      * @return the metamodel fragments needed by this fragment.
      * @since 3.6
      */
@@ -135,8 +141,9 @@ public interface MMetamodelFragment {
 
     /**
      * Tells whether this metamodel fragment is a fake metamodel fragment.
-     * 
+     *
      * A fake metamodel fragment represents a missing metamodel fragment. Fake metamodel model metaclasses are all fake metaclasses.
+     *
      * @return true if this metamodel fragment is fake.
      */
     @objid ("7d9391b5-84a2-49d5-99bb-c969ed8368f9")
@@ -144,11 +151,12 @@ public interface MMetamodelFragment {
 
     /**
      * Returns the dynamic behavior to which the specified key is mapped, or {@code null} if this key has no mapping.
-     * @throws ClassCastException if the mapped behavior does not match the given type
-     * @since 3.8
+     *
      * @param key the key whose associated behavior is to be returned
      * @param type the class of the dynamic behavior to get
      * @return the dynamic behavior to which the specified key is mapped, or {@code null} if key has no mapping
+     * @throws ClassCastException if the mapped behavior does not match the given type
+     * @since 3.8
      */
     @objid ("5a0172dc-659d-40d3-89cb-ef17a96e46ea")
     default <T> T getDynamicBehavior(String key, Class<T> type) {
@@ -157,6 +165,7 @@ public interface MMetamodelFragment {
 
     /**
      * Add a dynamic behavior for the specified key.
+     *
      * @param key key with which the specified behavior is to be associated
      * @param value behavior to be associated with the specified key
      * @since 3.8
@@ -168,6 +177,7 @@ public interface MMetamodelFragment {
 
     /**
      * Removes the dynamic behavior for the specified key only if it is currently mapped to the specified value.
+     *
      * @param key key with which the specified behavior is associated
      * @param value behavior expected to be associated with the specified key
      * @since 3.8
@@ -176,5 +186,5 @@ public interface MMetamodelFragment {
     default void removeDynamicBehavior(String key, Object value) {
         throw new UnsupportedOperationException("removeDynamicBehavior is not available.");
     }
-}
 
+}

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.swt.labelprovider;
 
@@ -31,14 +31,14 @@ public abstract class AbstractContainer<T> implements IModelContainer<T> {
     @objid ("9408b514-bb93-4033-bf6b-377edf446461")
     private List<T> contents;
 
-    @objid ("61a400a6-ec1b-4fe3-8039-b6df936a155e")
-    private MObject owner;
-
-    @objid ("cba5f5e5-31ac-4609-bdb2-01e6eaa3a06b")
+    @objid ("e7859491-eb33-47c2-b97d-9f9c581bb5fc")
     private Image icon = GENERIC_CONTAINER_ICON;
 
-    @objid ("7763d0bb-2070-4b91-9314-3f602f20c1fb")
+    @objid ("721d3436-c0fd-490a-b6dc-3d37b6902ba3")
     private static final Image GENERIC_CONTAINER_ICON = CoreUi.getImageDescriptor("icons/genericcontainer.png").createImage(true);
+
+    @objid ("61a400a6-ec1b-4fe3-8039-b6df936a155e")
+    private MObject owner;
 
     @objid ("c6a60a8a-eb67-4262-b725-5bfac1a567b0")
     @Override
@@ -96,10 +96,9 @@ public abstract class AbstractContainer<T> implements IModelContainer<T> {
     }
 
     @objid ("8d503a4b-b5cc-4575-bebe-dee5c2d11fee")
-    public  AbstractContainer(MObject owner, List<T> contents) {
+    public AbstractContainer(MObject owner, List<T> contents) {
         this.owner = owner;
         this.contents = contents;
-        
     }
 
     @objid ("334ea458-0863-4fa4-af0d-a7439c78823b")

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -51,14 +50,14 @@ public class NoteTypeImpl extends ModelElementImpl implements NoteType {
     public ModuleComponent getModule() {
         MetaclassReference ref = getOwnerReference();
         Stereotype st = getOwnerStereotype();
-        
+
         if (ref != null && ref.getOwnerProfile() != null) {
             return ref.getOwnerProfile().getOwnerModule();
         } else if (st != null && st.getOwner() != null) {
             return st.getOwner().getOwnerModule();
         } else
             return null;
-        
+
     }
 
     @objid ("e9556f17-235d-4294-9ea9-6686e02b10e0")
@@ -116,7 +115,7 @@ public class NoteTypeImpl extends ModelElementImpl implements NoteType {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
     @objid ("4f246dd7-40d5-4653-9c4c-44875f234509")
@@ -167,17 +166,17 @@ public class NoteTypeImpl extends ModelElementImpl implements NoteType {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // OwnerStereotype
         dep = ((NoteTypeSmClass)getClassOf()).getOwnerStereotypeDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         // OwnerReference
         dep = ((NoteTypeSmClass)getClassOf()).getOwnerReferenceDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 

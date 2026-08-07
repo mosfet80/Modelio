@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.datas;
 
@@ -64,12 +64,12 @@ public class MessageNode implements IProductionNode<BpmnMessage, TMessage> {
     @objid ("f2959ce1-372b-4ed1-911c-719af320ec35")
     @Override
     public BpmnMessage createUMLElement(MObject context, TMessage jaxbElement, BpmnImportFactory factory, boolean keepId) {
-        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {  
+        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {
             return factory.createWithId(BpmnMessage.class,context,jaxbElement.getId());
         }else{
             return factory.create(BpmnMessage.class,context);
         }
-        
+
     }
 
     @objid ("4971d085-657f-48ed-a060-912e88ef1cfa")
@@ -78,7 +78,7 @@ public class MessageNode implements IProductionNode<BpmnMessage, TMessage> {
         if (context instanceof BpmnCollaboration) {
             ((BpmnCollaboration) context).getMessages().add(modelioElement);
         }
-        
+
         if (jaxbElement.getName() != null) {
             modelioElement.setName(StringConvertor.imports(jaxbElement.getName()));
         }
@@ -90,7 +90,7 @@ public class MessageNode implements IProductionNode<BpmnMessage, TMessage> {
     public TMessage createJaxbElement(Object context, BpmnMessage modelioElement) {
         // Create JaxbElement
         TMessage message = new TMessage();
-        
+
         // Add to context
         TDefinitions jaxDefinition = (TDefinitions) context;
         List<JAXBElement<? extends TRootElement>> jaxContent = jaxDefinition.getRootElement();
@@ -99,7 +99,7 @@ public class MessageNode implements IProductionNode<BpmnMessage, TMessage> {
         }
         ObjectFactory factory = new ObjectFactory();
         jaxContent.add(factory.createMessage(message));
-        
+
         message.setId(IDUtils.formatJaxbID(modelioElement));
         return message;
     }

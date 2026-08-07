@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.browser.view.plugin;
 
@@ -39,7 +39,7 @@ public class ModelBrowserExtOrg extends AbstractUIPlugin {
      */
     @objid ("001c1240-dd16-1fab-b27f-001ec947cd2a")
     public static final String PLUGIN_ID = "org.modelio.app.model.browser.view.ext_org"; // $NON-NLS-1$
-    
+
 
     @objid ("f0357e0e-bedd-11e1-b430-001ec947c8cc")
     public static BundledMessages I18N;
@@ -59,7 +59,7 @@ public class ModelBrowserExtOrg extends AbstractUIPlugin {
         ExtendedLogService service = bundleContext.getService(ref);
         ModelBrowserExtOrg.LOG = new PluginLogger(service.getLogger(bundleContext.getBundle(), ModelBrowserExtOrg.PLUGIN_ID));
         ModelBrowserExtOrg.I18N = new BundledMessages(ModelBrowserExtOrg.LOG, ResourceBundle.getBundle("modelbrowser"));
-        
+
     }
 
     @objid ("001c89b4-dd16-1fab-b27f-001ec947cd2a")
@@ -71,6 +71,7 @@ public class ModelBrowserExtOrg extends AbstractUIPlugin {
     /**
      * Returns an image descriptor for the image file at the given plug-in
      * relative path
+     *
      * @param path the path
      * @return the image descriptor
      */

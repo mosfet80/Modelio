@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.freezone;
 
@@ -56,7 +56,7 @@ public class FreeZoneEditPart extends AbstractNodeEditPart {
      * c'tor.
      */
     @objid ("7e3f236a-1dec-11e2-8cad-001ec947c8cc")
-    public  FreeZoneEditPart() {
+    public FreeZoneEditPart() {
         super();
     }
 
@@ -68,9 +68,9 @@ public class FreeZoneEditPart extends AbstractNodeEditPart {
         if (evt.getPropertyName() == IGmObject.PROPERTY_LAYOUTDATA) {
             updateVisibility(getFigure());
         }
-        
+
         super.propertyChange(evt);
-        
+
     }
 
     @objid ("7e3f2371-1dec-11e2-8cad-001ec947c8cc")
@@ -78,32 +78,33 @@ public class FreeZoneEditPart extends AbstractNodeEditPart {
     protected void addChildVisual(EditPart childEditPart, int index) {
         // Update visibility
         IFigure freeZoneFig = getFigure();
-        
+
         updateVisibility(freeZoneFig);
-        
+
         // Call super
         super.addChildVisual(childEditPart, index);
-        
+
     }
 
     @objid ("7e3f2378-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new DefaultFreeZoneLayoutEditPolicy());
-        
+
         installEditPolicy(TranslateChildrenOnResizeEditPolicy.class, new TranslateChildrenOnResizeEditPolicy());
-        
+
         // Snap to Geometry feedback
         installEditPolicy("Snap Feedback", new SnapFeedbackPolicy()); //$NON-NLS-1$
-        
+
     }
 
     /**
      * Encapsulate layout edit policies into {@link #createLayoutPolicyDecorator(EditPolicy)}.
      * <p>
      * May be redefined by sub classes.
+     *
      * @param layoutPolicy the layout edit policy. expected to be a {@link ConstrainedLayoutEditPolicy} by default implementation.
      * @return the created policy.
      * @since 5.1.0
@@ -115,21 +116,21 @@ public class FreeZoneEditPart extends AbstractNodeEditPart {
         return new LayoutConnectionsConstrainedLayoutEditPolicyDecorator((ConstrainedLayoutEditPolicy) layoutPolicy);
         else
             return layoutPolicy;
-        
+
     }
 
     @objid ("7e3f237b-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected IFigure createFigure() {
         Figure groupFigure = new Figure();
-        
+
         // Style independent properties
         groupFigure.setOpaque(false);
         groupFigure.setBackgroundColor(null);
         groupFigure.setBorder(new MarginBorder(3, 2, 3, 2));
         final FreeZoneLayout layout = new FreeZoneLayout();
         groupFigure.setLayoutManager(layout);
-        
+
         /*
         // debug free zone position
         FreeZoneEditPart thisEp = this;
@@ -150,7 +151,7 @@ public class FreeZoneEditPart extends AbstractNodeEditPart {
                 }
             }
         });*/
-        
+
         // Set style dependent properties
         refreshFromStyle(groupFigure, getModelStyle());
         return groupFigure;
@@ -158,6 +159,7 @@ public class FreeZoneEditPart extends AbstractNodeEditPart {
 
     /**
      * Get the GmFreeZone model.
+     *
      * @return the GmFreeZone.
      */
     @objid ("7e3f2382-1dec-11e2-8cad-001ec947c8cc")
@@ -170,7 +172,7 @@ public class FreeZoneEditPart extends AbstractNodeEditPart {
     protected void refreshFromStyle(IFigure fig, IStyle style) {
         super.refreshFromStyle(fig, style);
         updateVisibility(fig);
-        
+
     }
 
     @objid ("7e3f238e-1dec-11e2-8cad-001ec947c8cc")
@@ -178,14 +180,15 @@ public class FreeZoneEditPart extends AbstractNodeEditPart {
     protected void removeChildVisual(EditPart childEditPart) {
         // call super
         super.removeChildVisual(childEditPart);
-        
+
         // update visibility
         updateVisibility(getFigure());
-        
+
     }
 
     /**
      * Updates the visibility of the zone's figure.
+     *
      * @param aFigure the zone's figure.
      */
     @objid ("7e3f2394-1dec-11e2-8cad-001ec947c8cc")
@@ -193,13 +196,13 @@ public class FreeZoneEditPart extends AbstractNodeEditPart {
         final GmFreeZone gmZone = (GmFreeZone) getModel();
         final boolean oldVisible = (aFigure.isVisible());
         final boolean newVisible = gmZone.isVisible();
-        
+
         if (oldVisible == newVisible) {
             return;
         }
-        
+
         aFigure.setVisible(newVisible);
-        
+
     }
 
     @objid ("7e3f239a-1dec-11e2-8cad-001ec947c8cc")
@@ -223,6 +226,7 @@ public class FreeZoneEditPart extends AbstractNodeEditPart {
 
     /**
      * Create a {@link PointAnchor} anchor relative to free zone coordinates.
+     *
      * @param absPoint an absolute point.
      * @return a XY anchor for the free zone figure
      */
@@ -245,7 +249,7 @@ public class FreeZoneEditPart extends AbstractNodeEditPart {
             return createAnchor(p);
         }
         throw new IllegalArgumentException(request + " not handled.");
-        
+
     }
 
     /**
@@ -259,7 +263,7 @@ public class FreeZoneEditPart extends AbstractNodeEditPart {
             return createAnchor(p);
         }
         throw new IllegalArgumentException(request + " not handled.");
-        
+
     }
 
 }

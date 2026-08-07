@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.patterns.plugin;
 
@@ -57,7 +57,7 @@ public class Patterns implements BundleActivator {
         ExtendedLogService service = bundleContext.getService(ref);
         Patterns.LOG = new PluginLogger(service.getLogger((String)null));
         Patterns.I18N = new BundledMessages(Patterns.LOG, ResourceBundle.getBundle("patterns"));
-        
+
     }
 
     @objid ("7201dcca-c4e9-4553-90c4-3542a6589977")
@@ -73,6 +73,7 @@ public class Patterns implements BundleActivator {
 
     /**
      * Returns an image descriptor for the image file in the plug-in relative path.
+     *
      * @param path a path relative to this plugin.
      * @return the image descriptor.
      */
@@ -82,6 +83,7 @@ public class Patterns implements BundleActivator {
     }
 
     /**
+     *
      * @param openedProject a project
      * @return the directory where project patterns are stored.
      */

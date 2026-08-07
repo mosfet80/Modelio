@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.api;
 
@@ -60,8 +60,8 @@ public class RichNoteCreator {
      * No instance.
      */
     @objid ("dac062b7-e7eb-43ff-a7f9-8f69d71786c6")
-    private  RichNoteCreator() {
-        
+    private RichNoteCreator() {
+
     }
 
     /**
@@ -78,6 +78,7 @@ public class RichNoteCreator {
      * All invalid characters for a file name in the document type and MIME type
      * are replaced by '_' when looked for the file.
      * </ol>
+     *
      * @param docToInitialize The document to initialize
      * @throws IOException in case of error trying to create the file.
      * @throws UnknownServiceException if no default content could be found.
@@ -89,29 +90,29 @@ public class RichNoteCreator {
         if (format == null) {
             throw new UnknownServiceException("No rich note format found for " + docToInitialize);
         }
-        
+
         // Use the first declared extension
         final String extension = format.getFileExtensions().iterator().next();
         IRichNoteFileRepository fileRepo = RichNotesSession.get(docToInitialize).getFileRepository();
-        
+
         // First to create from template
         Path templatePath = getTemplate(docToInitialize, extension);
         if (templatePath != null) {
             fileRepo.saveRichNote(docToInitialize, templatePath);
             return;
         }
-        
+
         IRichNoteEditorProvider editor = format.getEditorProvider();
         if (editor == null) {
             throw new UnknownServiceException("No editor to support " + format.getLabel() + " files.");
         }
-        
+
         if (!editor.isUsable()) {
             throw new UnknownServiceException(editor.getClass().getSimpleName() + " editor is not supported in this computer");
         }
-        
+
         editor.createEmptyFile(docToInitialize, format, fileRepo);
-        
+
     }
 
     /**
@@ -128,6 +129,7 @@ public class RichNoteCreator {
      * All invalid characters for a file name in the document type and MIME type
      * are replaced by '_' when looked for the file.
      * </ol>
+     *
      * @param docToInitialize The document to initialize
      * @param extension the file extension
      * @return <code>true</code> if the file was created, false if no default content could be found.
@@ -137,16 +139,16 @@ public class RichNoteCreator {
     private static Path getTemplate(final AbstractResource docToInitialize, final String extension) throws IOException {
         Path defPath;
         IGProject gproject = AbstractGProject.getProject(docToInitialize);
-        
+
         AbstractResource defDoc = getDefaultDocument(docToInitialize);
         if (defDoc != null) {
             defPath = extractDefaultRichNote(defDoc);
         } else {
             Path dir = gproject.getPfs().getProjectDataConfigPath().resolve(RichNoteCreator.RICHNOTES_SUBDIR);
-        
+
             defPath = lookForDefaultFile(dir, docToInitialize, extension);
         }
-        
+
         if (defPath != null) {
             return defPath;
         }
@@ -156,13 +158,13 @@ public class RichNoteCreator {
     @objid ("3a155ecd-d4c0-47ad-bd51-865f5f9ee867")
     private static AbstractResource getDefaultDocument(final AbstractResource docToInitialize) {
         ResourceType docType = docToInitialize.getType();
-        
+
         for (AbstractResource defDoc : docType.getTypedResource()) {
             if (defDoc.getMimeType().equals(docToInitialize.getMimeType()) &&
                     defDoc.getName().equals("default")) {
                 return defDoc;
             }
-        
+
         }
         return null;
     }
@@ -175,6 +177,7 @@ public class RichNoteCreator {
      * </ol>
      * All invalid characters for a file name in the document type and MIME type
      * are replaced by '_' when looked for the file.
+     *
      * @param dir the directory to search
      * @param docToInitialize the document to initialize
      * @param extension the file extension
@@ -188,7 +191,7 @@ public class RichNoteCreator {
         if (Files.isRegularFile(f)) {
             return f;
         }
-        
+
         f = dir.resolve(roleName + "." + extension);
         if (Files.isRegularFile(f)) {
             return f;
@@ -199,6 +202,7 @@ public class RichNoteCreator {
     /**
      * Replace illegal characters in a filename with "_".<br>
      * Illegal characters : * : \ / * ? | < >
+     *
      * @param name the file name to sanitize
      * @return the valid file name
      */
@@ -211,28 +215,28 @@ public class RichNoteCreator {
     private static Path extractDefaultRichNote(AbstractResource doc) throws IOException {
         RichNotesSession rsess = RichNotesSession.get(doc);
         IRichNoteEditor editor = new IRichNoteEditor() {
-        
+
             @Override
             public void onOriginalModified(MObject model) {
                 EditorsRichNote.LOG.error("Unexpected modification of " + model + " template.");
             }
-        
+
             @Override
             public void onOriginalDeleted(MObject model) {
                 EditorsRichNote.LOG.error("Unexpected delete of " + model + " template.");
             }
-        
+
             @Override
             public MPart getMPart() {
                 return null;
             }
-        
+
             @Override
             public void disposeResources() {
                 // nothing
             }
         };
-        
+
         Path ret = rsess.getFileRepository().openRichNote(doc, editor);
         rsess.getFileRepository().removeEditor(editor);
         return ret;

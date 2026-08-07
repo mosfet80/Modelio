@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.panel;
 
@@ -93,14 +93,14 @@ public class ElementPropertyUi {
     private SelectionChangedListener treeSelectionListener;
 
     @objid ("2963ac57-4902-4a33-8038-53bc7d99030d")
-    public  ElementPropertyUi(ElementPropertyController controller) {
+    public ElementPropertyUi(ElementPropertyController controller) {
         this.controller = controller;
     }
 
     @objid ("b6589a30-58f5-4ec0-9e3b-3c5f5c7bcd1a")
     public Composite createContents(Composite currentParent) {
         this.parent = currentParent;
-        
+
         // Top level container: a Composite
         this.top = new Composite(currentParent, SWT.NONE);
         final GridLayout gl = new GridLayout(1, true);
@@ -108,34 +108,34 @@ public class ElementPropertyUi {
         gl.marginLeft = gl.marginRight = gl.marginWidth = 0;
         gl.horizontalSpacing = gl.verticalSpacing = 0;
         this.top.setLayout(gl);
-        
+
         // The tool bar
         this.toolBar = new ElementPropertyPanelToolbar(this.controller);
         this.toolBar.createPanel(this.top);
         ((Composite) this.toolBar.getPanel()).setLayoutData(new GridData(SWT.RIGHT, SWT.TOP, true, false));
-        
+
         this.shform = new SashForm(this.top, SWT.HORIZONTAL);
         this.shform.setLayout(new FillLayout());
         this.shform.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-        
+
         this.treePanel = new TreePanel(this.shform, SWT.NONE);
         this.treePanel.setLayout(new FillLayout());
-        
+
         this.contentPanel = new ContentPanel(this.shform, SWT.NONE);
         this.contentPanel.setLayout(new FillLayout());
-        
+
         this.shform.setWeights(new int[] { 30, 70 });
-        
+
         this.layoutChangeListener = new LayoutChangeListener(this);
         enableAutoLayout();
-        
+
         this.treeSelectionListener = new SelectionChangedListener(this.controller);
         this.treePanel.getTreeViewer().addSelectionChangedListener(this.treeSelectionListener);
         currentParent.layout();
-        
+
         // The tree popup menu
         initPopupMenu(this.treePanel.getTreeViewer());
-        
+
         // The tree shortcuts
         initTreeShortcuts();
         return this.top;
@@ -143,6 +143,7 @@ public class ElementPropertyUi {
 
     /**
      * Get the top level container of the UI.
+     *
      * @return the top level container of the UI.
      */
     @objid ("0a2f0ccf-d59a-4ee4-8065-af810437f5b5")
@@ -175,7 +176,7 @@ public class ElementPropertyUi {
         this.layoutChangeListener = new LayoutChangeListener(this);
         this.parent.addControlListener(this.layoutChangeListener);
         autoLayout();
-        
+
     }
 
     /**
@@ -188,7 +189,7 @@ public class ElementPropertyUi {
             this.parent.removeControlListener(this.layoutChangeListener);
             this.layoutChangeListener = null;
         }
-        
+
     }
 
     /**
@@ -203,7 +204,7 @@ public class ElementPropertyUi {
         } else if (ratio > ElementPropertyUi.HWMAX) {
             setVerticalLayout();
         }
-        
+
     }
 
     @objid ("0d004ed8-9d50-4897-bdf4-fc84a10df6dd")
@@ -230,12 +231,12 @@ public class ElementPropertyUi {
         }
         Element me = this.controller.getSelectedElement();
         this.toolBar.setInput(me);
-        
+
         // Force an update by firing a tree selection change
         Object previousTypeItem = this.controller.getSelectedTypeItems().isEmpty() ? null : this.controller.getSelectedTypeItems().get(0);
         this.controller.onTreeSelectionChange(null);
         this.controller.onTreeSelectionChange(previousTypeItem);
-        
+
     }
 
     @objid ("8ad7f439-2906-4250-905a-c9b3ce510c83")
@@ -243,7 +244,7 @@ public class ElementPropertyUi {
         this.treePanel.setInput(treeInput);
         this.contentPanel.setInput(dataInput);
         this.toolBar.setInput(dataInput.getTypedElement());
-        
+
     }
 
     @objid ("cd41a824-371c-459e-9cfe-ad10048b9383")
@@ -254,7 +255,7 @@ public class ElementPropertyUi {
     @objid ("84523e8a-a048-4235-8cad-27af4b2df714")
     private void initTreeShortcuts() {
         this.treePanel.getTreeViewer().getTree().addKeyListener(new KeyAdapter() {
-        
+
             @Override
             public void keyReleased(KeyEvent e) {
                 // CTRL-C, CTRL-V, CTRL-X
@@ -305,11 +306,11 @@ public class ElementPropertyUi {
                         break;
                     }
                 }
-        
+
             }
-        
+
         });
-        
+
     }
 
     @objid ("b423d61c-3130-4841-9990-fc5ee70780de")
@@ -329,7 +330,7 @@ public class ElementPropertyUi {
         });
         Menu menu = menuMgr.createContextMenu(treeViewer.getTree());
         treeViewer.getTree().setMenu(menu);
-        
+
     }
 
     @objid ("fa04acc0-b591-4dbd-bc4c-95367244ed8e")
@@ -351,13 +352,14 @@ public class ElementPropertyUi {
 
         /**
          * C'tor
+         *
          * @param view the panel view
          */
         @objid ("3ff46de3-8d23-449e-910f-ec0acaa39a86")
-        public  LayoutChangeListener(final ElementPropertyUi view) {
+        public LayoutChangeListener(final ElementPropertyUi view) {
             super();
             this.view = view;
-            
+
         }
 
         @objid ("694014c5-ccba-425b-bf39-6859ab9b102d")
@@ -365,7 +367,7 @@ public class ElementPropertyUi {
             final Composite comp = (Composite) theEvent.widget;
             comp.layout();
             this.view.autoLayout();
-            
+
         }
 
     }
@@ -374,7 +376,7 @@ public class ElementPropertyUi {
      * This listener is the Tree selection listener of the note view. Its
      * responsibility is to update the data panel contents when a particular
      * note is selected in the tree.
-     * 
+     *
      * @author phv
      */
     @objid ("8faa29d5-c068-11e1-8c0a-002564c97630")
@@ -383,7 +385,7 @@ public class ElementPropertyUi {
         private final ElementPropertyController controller;
 
         @objid ("8fac8aed-c068-11e1-8c0a-002564c97630")
-        protected  SelectionChangedListener(final ElementPropertyController controller) {
+        protected SelectionChangedListener(final ElementPropertyController controller) {
             this.controller = controller;
         }
 
@@ -392,10 +394,10 @@ public class ElementPropertyUi {
         public void selectionChanged(final SelectionChangedEvent event) {
             // This method listen to the selection changes in the tree viewer.
             ISelection selection = event.getSelection();
-            
+
             Object obj = SelectionHelper.getFirst(selection, Object.class);
             this.controller.onTreeSelectionChange(obj);
-            
+
         }
 
     }

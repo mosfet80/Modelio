@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.ui;
 
@@ -47,6 +47,7 @@ import org.eclipse.swt.widgets.Control;
  * .scale(scaleFactor)
  * .build;
  * </code></pre>
+ *
  * @author cma
  * @since 3.8.1
  */
@@ -57,10 +58,11 @@ public class LocalFontRegistry {
 
     /**
      * Create a font registry that uses the given resources registry.
+     *
      * @param rm a registry that handles resource allocation
      */
     @objid ("16835627-75d8-4c3c-8903-05ffccad463e")
-    public  LocalFontRegistry(ResourceManager rm) {
+    public LocalFontRegistry(ResourceManager rm) {
         this.rm = rm;
     }
 
@@ -69,6 +71,7 @@ public class LocalFontRegistry {
      * <p>
      * It is not necessary to call {@link FontBuilder#withAllocator(ResourceManager)} on the
      * returned FontBuilder.
+     *
      * @param font the font to be based on.
      * @return a font builder.
      */
@@ -84,6 +87,7 @@ public class LocalFontRegistry {
      * <p>
      * It is not necessary to call {@link FontBuilder#withAllocator(ResourceManager)} on the
      * returned FontBuilder.
+     *
      * @param font the font to be based on.
      * @return a font builder.
      */
@@ -100,6 +104,7 @@ public class LocalFontRegistry {
      * <p>
      * Note that registries created in this way should not
      * be used to allocate any font that must outlive the given control.
+     *
      * @param parentRegistry global registry that handles resource allocation
      * @param owner control whose disposal will trigger cleanup of everything
      * in the registry.
@@ -117,6 +122,7 @@ public class LocalFontRegistry {
      * <p>
      * Note that registries created in this way should not
      * be used to allocate any font that must outlive the given control.
+     *
      * @param parentRegistry global registry that handles resource allocation
      * @param owner control whose disposal will trigger cleanup of everything
      * in the registry.
@@ -130,6 +136,7 @@ public class LocalFontRegistry {
      * Get a font given a device and font data which describes the desired font's appearance.
      * <p>
      * {@link #getFont(FontData[])} should better be used to be fully compatible on Unix.
+     *
      * @param fontdata describes the desired font (must not be null)
      * @return the matching font
      */
@@ -140,6 +147,7 @@ public class LocalFontRegistry {
 
     /**
      * Get a font given an array of font data which describes the desired font's appearance.
+     *
      * @param fontdatas the array of FontData that describes the desired font (must not be null)
      * @return the matching font
      */
@@ -149,6 +157,7 @@ public class LocalFontRegistry {
     }
 
     /**
+     *
      * @return the used resources manager.
      */
     @objid ("2dc950e8-dc60-48ec-8214-8eaf53f91be1")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.packaze;
 
@@ -59,15 +59,15 @@ public class SimpleModeOwnedElementCreationEditPolicy extends XYLayoutEditPolicy
     @Override
     public void eraseTargetFeedback(final Request request) {
         if (REQ_ADD.equals(request.getType()) || REQ_CREATE.equals(request.getType())) {
-        
+
             if (this.highlight != null) {
                 removeFeedback(this.highlight);
                 this.highlight = null;
             }
         }
-        
+
         super.eraseTargetFeedback(request);
-        
+
     }
 
     @objid ("362cb7cb-55b7-11e2-877f-002564c97630")
@@ -100,7 +100,7 @@ public class SimpleModeOwnedElementCreationEditPolicy extends XYLayoutEditPolicy
     @Override
     public void showTargetFeedback(final Request request) {
         if (REQ_ADD.equals(request.getType()) || REQ_CREATE.equals(request.getType())) {
-        
+
             // compute highlight type
             final Command c = getHost().getCommand(request);
             FigureUtilities2.HighlightType hightlightType = null;
@@ -111,7 +111,7 @@ public class SimpleModeOwnedElementCreationEditPolicy extends XYLayoutEditPolicy
             } else {
                 hightlightType = FigureUtilities2.HighlightType.WARNING;
             }
-        
+
             // create the highlight figure if it does not exists
             if (this.highlight == null) {
                 // create a highlight figure
@@ -125,13 +125,14 @@ public class SimpleModeOwnedElementCreationEditPolicy extends XYLayoutEditPolicy
             FigureUtilities2.updateHighlightType(this.highlight, hightlightType);
         }
         super.showTargetFeedback(request);
-        
+
     }
 
     /**
      * Returns whether this edit policy can handle this metaclass (either through simple or smart behavior). Default
      * behavior is to accept any metaclass that can be child (in the CreationExpert's understanding) of the host's
      * metaclass This method should be overridden by subclasses to add specific the behavior.
+     *
      * @param metaclass the metaclass to handle.
      * @return true if this policy can handle the metaclass.
      */
@@ -144,7 +145,7 @@ public class SimpleModeOwnedElementCreationEditPolicy extends XYLayoutEditPolicy
         MClass hostMClass = hostElement.getMClass();
         return hostMClass.getMetamodel().getMExpert().canCompose(hostMClass, metaclass, null) &&
                                                                                 ((GmCompositeNode) getHost().getModel()).canCreate(metaclass.getJavaInterface());
-        
+
     }
 
     @objid ("362cb7e0-55b7-11e2-877f-002564c97630")
@@ -160,7 +161,7 @@ public class SimpleModeOwnedElementCreationEditPolicy extends XYLayoutEditPolicy
         } else {
             return new SimpleModeDeferredGroupCommand(request, getHost());
         }
-        
+
     }
 
     @objid ("362e3e42-55b7-11e2-877f-002564c97630")
@@ -203,7 +204,7 @@ public class SimpleModeOwnedElementCreationEditPolicy extends XYLayoutEditPolicy
                 if (editPart.getModel() instanceof GmModel) {
                     GmModel gmModel = (GmModel) editPart.getModel();
                     MClass hostMClass = getHostElement().getMClass();
-        
+
                     if(hostMClass.getMetamodel().getMExpert().canCompose(hostMClass, gmModel.getRelatedElement().getMClass(), null)){
                         final Object requestConstraint = getConstraintFor(request,
                                 (GraphicalEditPart) editPart);
@@ -224,7 +225,7 @@ public class SimpleModeOwnedElementCreationEditPolicy extends XYLayoutEditPolicy
     protected Command getCreateCommand(final CreateRequest request) {
         final MObject hostElement = getHostElement();
         final ModelioCreationContext ctx = (ModelioCreationContext) request.getNewObject();
-        
+
         final MObject elementToUnmask = ctx.getElementToUnmask();
         final GmCompositeNode gmParentNode = getHostCompositeNode();
         if (elementToUnmask != null) {
@@ -239,7 +240,7 @@ public class SimpleModeOwnedElementCreationEditPolicy extends XYLayoutEditPolicy
             final MClass metaclassToCreate = ctx.getMetaclass();
             final String depName = ctx.getDependencyName();
             final MClass hostMetaclass = hostElement.getMClass();
-        
+
             if (gmParentNode.canCreate(metaclassToCreate.getJavaInterface())) {
                 if (hostMetaclass.getMetamodel().getMExpert().canCompose(hostMetaclass, metaclassToCreate, depName)) {
                     final Object requestConstraint = getConstraintFor(request);
@@ -255,6 +256,7 @@ public class SimpleModeOwnedElementCreationEditPolicy extends XYLayoutEditPolicy
     }
 
     /**
+     *
      * @return the {@link GmCompositeNode} model of the host edit part.
      */
     @objid ("362e3e62-55b7-11e2-877f-002564c97630")
@@ -263,6 +265,7 @@ public class SimpleModeOwnedElementCreationEditPolicy extends XYLayoutEditPolicy
     }
 
     /**
+     *
      * @return the element represented.
      */
     @objid ("362e3e69-55b7-11e2-877f-002564c97630")
@@ -283,6 +286,7 @@ public class SimpleModeOwnedElementCreationEditPolicy extends XYLayoutEditPolicy
 
     /**
      * Return the host edit part if this policy can handle the metaclass involved in the request.
+     *
      * @param createRequest the request.
      * @return the host editpart if the metaclass involved in the request can be handled by this policy,
      * <code>null</code> otherwise.
@@ -296,19 +300,20 @@ public class SimpleModeOwnedElementCreationEditPolicy extends XYLayoutEditPolicy
                     return getHost();
                 }
             }
-        
+
             if (canHandle(ctx.getMetaclass())) {
                 return getHost();
             }
-        
+
             return getEditPartFor(ctx.getMetaclass().getJavaInterface());
-        
+
         }
         return null;
     }
 
     /**
      * Return the host edit part if this policy can handle all edit parts involved in the request.
+     *
      * @param changeBoundsRequest the request, can be CLONE or ADD.
      * @return the host edit part if all edit parts involved in the request can be handled by this policy,
      * <code>null</code> otherwise.
@@ -322,12 +327,12 @@ public class SimpleModeOwnedElementCreationEditPolicy extends XYLayoutEditPolicy
         // part handle what it can.
         EditPart ret = null;
         for (final Object editPartObj : changeBoundsRequest.getEditParts()) {
-        
+
             final EditPart editPart = (EditPart) editPartObj;
             if (editPart.getModel() instanceof GmModel) {
                 final GmModel gmModel = (GmModel) editPart.getModel();
                 final MClass gmMClass = gmModel.getRelatedMClass();
-        
+
                 // If there is at least 1 element that this policy cannot
                 // handle, do not handle the request at all!
                 EditPart target = null;
@@ -373,7 +378,7 @@ public class SimpleModeOwnedElementCreationEditPolicy extends XYLayoutEditPolicy
     protected Rectangle getEffectiveBounds(final IFigure figure) {
         return (figure instanceof HandleBounds) ? ((HandleBounds) figure).getHandleBounds().getCopy()
                                                                                 : figure.getBounds().getCopy();
-        
+
     }
 
     @objid ("362fc4f2-55b7-11e2-877f-002564c97630")
@@ -411,7 +416,7 @@ public class SimpleModeOwnedElementCreationEditPolicy extends XYLayoutEditPolicy
         CompoundCommand command = new CompoundCommand();
         command.setDebugLabel("Add in ConstrainedLayoutEditPolicy");//$NON-NLS-1$
         GraphicalEditPart child;
-        
+
         for (int i = 0; i < editParts.size(); i++) {
             child = (GraphicalEditPart) editParts.get(i);
             if (child instanceof ConnectionEditPart) {
@@ -452,6 +457,7 @@ public class SimpleModeOwnedElementCreationEditPolicy extends XYLayoutEditPolicy
      * If the found model has no edit part, return the host edit part.
      * <p>
      * Copy-pasted from: SimpleModeDeferringCreateNodePolicy.
+     *
      * @param metaclass The metaclass to create or drop.
      * @return <ul>
      * <li><tt>null</tt> if no suitable child model could be found <li>{@link #getHost()} if the child model is
@@ -465,13 +471,13 @@ public class SimpleModeOwnedElementCreationEditPolicy extends XYLayoutEditPolicy
             return null;
         }
         final GmCompositeNode gmNode = (GmCompositeNode) model;
-        
+
         final GmCompositeNode gmTargetChild = gmNode.getCompositeFor(metaclass);
-        
+
         if (gmTargetChild == null || !gmTargetChild.canCreate(metaclass)) {
             return null;
         }
-        
+
         final EditPart p = (EditPart) getHost().getRoot()
                 .getViewer()
                 .getEditPartRegistry()
@@ -481,7 +487,7 @@ public class SimpleModeOwnedElementCreationEditPolicy extends XYLayoutEditPolicy
         } else {
             return getHost();
         }
-        
+
     }
 
 }

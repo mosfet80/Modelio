@@ -1,0 +1,26 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= Methodology
+
+
+
+== Introduction
+
+Over time, Modelio has become a multiformalism tool, supporting several standards and metamodels, such as UML, BPMN, ArchiMate, etc.
+
+The links between those formalisms are often embodied by traceability links. But traceability links only provide a reduced semantics and can be used to bind anything and everything.
+
+Modelio 3.8 introduces a solution to this situation with its new *Methodology* feature.
+
+In Modelio, a methodology consists of a set of well defined methodological links which the user can use to bind model elements, even if they come from different metamodels.
+
+Each methodological link brings its own precise semantics and linking rules, making it as simple to use as possible.
+
+*  <<User_Documentation_en_Methodology_Standard_methodology.adoc#,Standard methodology.>>
+*  <<User_Documentation_en_Methodology_Methodology_view.adoc#,Using methodological links.>>
+*  <<User_Documentation_en_Methodology_Custom_methodology.adoc#,Custom methodology.>>

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.naryassoc;
 
@@ -31,19 +31,20 @@ import org.modelio.metamodel.uml.statik.NaryAssociation;
  * Edit policy that accept creation of n-ary associations from the host.
  * <p>
  * To be put on all Classifier edit parts.
- * 
+ *
  * @author cmarin
  */
 @objid ("35bd53fa-55b7-11e2-877f-002564c97630")
 public class AcceptNAssocEditPolicy extends MultiPointCreationEditPolicy {
     /**
      * C'tor.
+     *
+     * @param isOpaque whether this policy is opaque or not.
      * @see MultiPointCreationEditPolicy#MultiPointCreationEditPolicy(boolean) for details on the effect of isOpaque
      * parameter.
-     * @param isOpaque whether this policy is opaque or not.
      */
     @objid ("35beda9b-55b7-11e2-877f-002564c97630")
-    public  AcceptNAssocEditPolicy(final boolean isOpaque) {
+    public AcceptNAssocEditPolicy(final boolean isOpaque) {
         super(isOpaque);
     }
 
@@ -55,7 +56,7 @@ public class AcceptNAssocEditPolicy extends MultiPointCreationEditPolicy {
             return new AcceptModifiableNodeCommand(getHost());
         else
             return null;
-        
+
     }
 
     @objid ("35bedaa8-55b7-11e2-877f-002564c97630")
@@ -79,7 +80,7 @@ public class AcceptNAssocEditPolicy extends MultiPointCreationEditPolicy {
             return new AcceptModifiableNodeCommand(getHost());
         } else
             return null;
-        
+
     }
 
 }

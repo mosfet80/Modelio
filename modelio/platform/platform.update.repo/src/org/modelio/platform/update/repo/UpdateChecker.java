@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.update.repo;
 
@@ -47,7 +47,7 @@ import org.modelio.version.ModelioVersion;
  * <p>
  * Relies on the {@link AppSharedPreferencesKeys#UPDATESITE_PREFKEY} preference to find the update's site address.
  * </p>
- * 
+ *
  * @see UpdateChecker#checkUpdate() for more infos.
  */
 @objid ("3e15f42c-baa4-4599-8eee-470437f7b482")
@@ -72,6 +72,7 @@ public class UpdateChecker {
 
     /**
      * Computes the list of proposed updates available for the given module map.
+     *
      * @param referenceModules a map of module names & versions serving as a reference for the update.
      * @param strict if <code>true</code> the proposed updates will be strictly limited to the modules declared in the reference modules (no new modules proposed)
      * @return a list of possible updates, i.e. all module newest versions that do not already belong to the referenceModules map.
@@ -88,6 +89,7 @@ public class UpdateChecker {
 
     /**
      * Computes the list of proposed updates available for the given ramc map.
+     *
      * @param referenceRamcs a map of ramc names & versions serving as a reference for the update.
      * @param strict if <code>true</code> the proposed updates will be strictly limited to the ramcs declared in the reference ramcs (no new ramcs proposed)
      * @return a list of possible updates, i.e. all ramc newest versions that do not already belong to the referenceRamcs map.
@@ -104,6 +106,7 @@ public class UpdateChecker {
 
     /**
      * Computes the list of proposed updates available for the given template map.
+     *
      * @param referenceTemplates a map of template names & versions serving as a reference for the update.
      * @param strict if <code>true</code> the proposed updates will be strictly limited to the templates declared in the reference templates (no new templates proposed)
      * @return a list of possible updates, i.e. all template newest versions that do not already belong to the referenceTemplates map.
@@ -122,7 +125,7 @@ public class UpdateChecker {
     private List<UpdateDescriptor> computeUpdates(List<UpdateDescriptor> updatePlan, Map<String, Version> referenceItems, boolean strict) {
         List<UpdateDescriptor> updates = new ArrayList<>();
         List<String> notFoundItems = new ArrayList<>();
-        
+
         // Here is the resolution algorithm
         for (UpdateDescriptor updatePlanEntry : updatePlan) {
             String name = updatePlanEntry.getId();
@@ -145,6 +148,7 @@ public class UpdateChecker {
 
     /**
      * Get the configured modules update site from the preferences. since Modelio 3.5 this path is defined as: $BASE/$VRC/modules $BASE = path/url from Modelio global preferences $VRC = modelio version
+     *
      * @return the modules update URL
      */
     @objid ("692f7365-842d-48e0-954a-8745f925a09c")
@@ -155,6 +159,7 @@ public class UpdateChecker {
 
     /**
      * Get the configured ramcs update site from the preferences. since Modelio 3.5 this path is defined as: $BASE/$VRC/ramcs $BASE = path/url from Modelio global preferences $VRC = modelio version
+     *
      * @return the ramcs update URL
      */
     @objid ("4ec2d007-f355-4205-88cb-bc083a5961f7")
@@ -165,6 +170,7 @@ public class UpdateChecker {
 
     /**
      * Get the configured templates update site from the preferences. since Modelio 3.5 this path is defined as: $BASE/$VRC/templates $BASE = path/url from Modelio global preferences $VRC = modelio version
+     *
      * @return the templates update URL
      */
     @objid ("dea2a99b-03ad-4324-91e6-4ef534b9f199")
@@ -183,16 +189,17 @@ public class UpdateChecker {
 
     /**
      * Checks the update file for the current version of Modelio.
+     *
      * @return the list of all updates available in the update file.
      * @throws IOException if the update site couldn't be contacted
      */
     @objid ("c4de2b63-cadc-4450-af4c-3673fa369971")
     private List<UpdateDescriptor> readUpdatePlan(String updateFile) throws IOException {
         List<UpdateDescriptor> updatePlan = new ArrayList<>();
-        
+
         // Read properties file.
         final Properties updateProperties = new Properties();
-        
+
         try (UriPathAccess pathAccess = new UriPathAccess(URIUtil.fromString(updateFile), null)) {
             final Path path = pathAccess.getPath();
             try (BufferedReader in = Files.newBufferedReader(path)) {
@@ -203,7 +210,7 @@ public class UpdateChecker {
         } catch (final IOException e) {
             throw new IOException(UpdateRepo.I18N.getMessage("UpdateCheckerError.Message", updateFile, FileUtils.getLocalizedMessage(e)), e);
         }
-        
+
         // Parse update properties to build UpdateDescriptor instances where currentVersion is equals to next version
         int cpt = 0;
         String keyPrefix;

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.service.impl.controller.load.parameter;
 
@@ -48,23 +48,23 @@ public class ParameterReader {
         final IModule iModule = module.getIModule();
         final IModuleUserConfiguration conf = iModule.getModuleContext().getConfiguration();
         I18nSupport i18nSupport = iModule.getModuleContext().getI18nSupport();
-        
+
         ParametersEditionModel pem = new ParametersEditionModel(iModule);
-        
+
         Map<String, ParameterGroupModel> groups = new HashMap<>();
-        
+
         for (Jxbv2Parameter jaxbelement : parameters.getParameter()) {
             String groupName = i18nSupport.getString(jaxbelement.getGroup());
             if (groupName.isEmpty()) {
                 // Skip parameters having no group
                 continue;
             }
-        
+
             String name = jaxbelement.getId();
             String description = i18nSupport.getString(jaxbelement.getDescription());
             String label = i18nSupport.getString(jaxbelement.getLabel());
             String value = conf.getParameterValue(name);
-        
+
             ParameterModel parameterModel;
             final String type = jaxbelement.getType();
             switch (type != null ? type : "String") {
@@ -100,7 +100,7 @@ public class ParameterReader {
                 parameterModel = new StringParameterModel(conf, name, label, description, value);
                 break;
             }
-        
+
             // Add parameter to its group
             ParameterGroupModel groupModel = groups.get(groupName);
             if (groupModel == null) {
@@ -110,10 +110,10 @@ public class ParameterReader {
             }
             groupModel.addParameter(parameterModel);
         }
-        
+
         // Init param edition model on module
         iModule.initParametersEditionModel(pem);
-        
+
     }
 
 }

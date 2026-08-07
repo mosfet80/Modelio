@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.parts.data.texticon;
 
@@ -44,25 +44,24 @@ import org.eclipse.swt.graphics.TextLayout;
 
 /**
  * NAT Cell painter for {@link StyledString} .
- * 
+ *
  * @author cma
- * @deprecated experimental, not yet used
  * @since Valkyrie 3.8
+ * @deprecated experimental, not yet used
  */
 @objid ("d5c2d98d-7f2f-490a-8a3e-1b8e52025d78")
 @Deprecated
 public class StyledTextPainter extends AbstractCellPainter {
-    @objid ("b29b3086-64c1-4ead-af0e-2d5b5a6f7128")
+    @objid ("dad7836c-aa9d-4b19-864f-654969e248ca")
     private final TextLayout textDrawer;
 
-    @objid ("fb28ed8b-34b0-4037-a8ee-f84590485110")
+    @objid ("88df99fc-a4c0-47bf-a82d-2515b709eb77")
     private final IStyledLabelProvider labelProvider;
 
     @objid ("a625391e-65c7-4302-a6a7-43324cb71594")
-    public  StyledTextPainter(TextLayout textDrawer, IStyledLabelProvider labelProvider) {
+    public StyledTextPainter(TextLayout textDrawer, IStyledLabelProvider labelProvider) {
         this.textDrawer = textDrawer;
         this.labelProvider = labelProvider;
-        
     }
 
     @objid ("2da6f7a5-e9b8-4f6f-b14e-1a4dc86bda65")
@@ -76,36 +75,36 @@ public class StyledTextPainter extends AbstractCellPainter {
     public void paintCell(ILayerCell cell, GC gc, Rectangle bounds, IConfigRegistry configRegistry) {
         final IStyle cellStyle = CellStyleUtil.getCellStyle(cell, configRegistry);
         final StyledString text = convertDataType(cell, configRegistry);
-        
+
         updateTextLayout(text , cellStyle, false);
-        
+
         // remember colors to restore the GC later
         Color oldForeground = gc.getForeground();
         Color oldBackground = gc.getBackground();
-        
+
         boolean applyColors = ! isSelected(cell);
-        
+
         if (applyColors ) {
             final Color foreground = cellStyle.getAttributeValue(CellStyleAttributes.FOREGROUND_COLOR);
             final Color background = cellStyle.getAttributeValue(CellStyleAttributes.BACKGROUND_COLOR);
-        
+
             if (foreground != null) {
                 gc.setForeground(foreground);
             }
-        
+
             if (background != null) {
                 gc.setBackground(background);
             }
         }
-        
+
         Rectangle textBounds = cell.getBounds();
         if (textBounds != null) {
-        
+
             Rectangle layoutBounds = this.textDrawer.getBounds();
-        
+
             HorizontalAlignmentEnum horizontalAlignment = cellStyle
                     .getAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT);
-        
+
             int x = textBounds.x;
             switch (horizontalAlignment) {
             case CENTER:
@@ -118,21 +117,20 @@ public class StyledTextPainter extends AbstractCellPainter {
             default:
                 break;
             }
-        
+
             int y = textBounds.y
                     + Math.max(0, (textBounds.height - layoutBounds.height) / 2);
-        
+
             Rectangle saveClipping = gc.getClipping();
             gc.setClipping(textBounds);
             this.textDrawer.draw(gc, x, y);
             gc.setClipping(saveClipping);
         }
-        
+
         if (applyColors) {
             gc.setForeground(oldForeground);
             gc.setBackground(oldBackground);
         }
-        
     }
 
     @objid ("1d5b3eb6-72cb-4958-9e58-1516886220ca")
@@ -161,43 +159,40 @@ public class StyledTextPainter extends AbstractCellPainter {
     protected StyledString convertDataType(ILayerCell cell, IConfigRegistry configRegistry) {
         Object canonicalValue = cell.getDataValue();
         Object displayValue;
-        
+
         IDisplayConverter displayConverter = configRegistry.getConfigAttribute(
                 CellConfigAttributes.DISPLAY_CONVERTER,
                 cell.getDisplayMode(),
                 cell.getConfigLabels().getLabels());
-        
+
         if (displayConverter != null) {
             displayValue = displayConverter.canonicalToDisplayValue(cell, configRegistry, canonicalValue);
         } else {
             displayValue = canonicalValue;
         }
-        
+
         if (displayValue instanceof StyledString) {
             return (StyledString) displayValue;
         } else if (displayValue instanceof String) {
             return new StyledString((String) displayValue);
         } else {
-            return this.labelProvider.getStyledText(displayValue); 
+            return this.labelProvider.getStyledText(displayValue);
         }
-        
     }
 
     /**
-     * @param layout
-     * @param cell
-     * @param applyColors
+     *
      * @return the text width delta (0 if the text layout contains no other font)
      */
     @objid ("24e93a97-08fa-4f42-9798-b20131190fee")
     private int updateTextLayout(StyledString text, IStyle cellStyle, boolean applyColors) {
         this.textDrawer.setStyle(null, 0, Integer.MAX_VALUE); // clear old styles
         final Font font = cellStyle.getAttributeValue(CellStyleAttributes.FONT);
-        
+
         if (false) {
             HorizontalAlignmentEnum horizontalAlignment = cellStyle
                     .getAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT);
-        
+
             switch (horizontalAlignment) {
             default:
             case LEFT:
@@ -211,13 +206,13 @@ public class StyledTextPainter extends AbstractCellPainter {
                 break;
             }
         }
-        
+
         this.textDrawer.setFont(font);
         this.textDrawer.setText(text.getString());
-        
+
         int originalTextWidth = this.textDrawer.getBounds().width; // text width without any styles
         boolean containsOtherFont= false;
-        
+
         StyleRange[] styleRanges = text.getStyleRanges();
         if (styleRanges != null) { // user didn't fill styled ranges
             for (int i = 0; i < styleRanges.length; i++) {
@@ -240,6 +235,7 @@ public class StyledTextPainter extends AbstractCellPainter {
      * no colors are drawn when the element is selected.
      * The current version of the {@link StyledCellLabelProvider} will also ignore all font settings on the
      * style range. Clients can override.
+     *
      * @param styleRange the style range to prepare. the style range element must not be modified
      * @param applyColors specifies if colors should be applied.
      * @return
@@ -267,13 +263,12 @@ public class StyledTextPainter extends AbstractCellPainter {
         final Color fg = cellStyle.getAttributeValue(CellStyleAttributes.FOREGROUND_COLOR);
         final Color bg = cellStyle.getAttributeValue(CellStyleAttributes.BACKGROUND_COLOR);
         final Font font = cellStyle.getAttributeValue(CellStyleAttributes.FONT);
-        
+
         gc.setAntialias(GUIHelper.DEFAULT_ANTIALIAS);
         gc.setTextAntialias(GUIHelper.DEFAULT_TEXT_ANTIALIAS);
         gc.setFont(font);
         gc.setForeground(fg != null ? fg : GUIHelper.COLOR_LIST_FOREGROUND);
         gc.setBackground(bg != null ? bg : GUIHelper.COLOR_LIST_BACKGROUND);
-        
     }
 
 }

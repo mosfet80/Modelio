@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("002eb59e-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class ControlNodeImpl extends ActivityNodeImpl implements ControlNode {
-    @objid ("5988fc86-78f4-408b-a571-6f6ae1cabcdb")
+    @objid ("7b871e16-a4bf-4d6f-9484-9896d02ff8fb")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -49,17 +48,17 @@ public abstract class ControlNodeImpl extends ActivityNodeImpl implements Contro
         return super.getCompositionOwner();
     }
 
-    @objid ("dad6fdd3-9d92-446b-ba16-814aa81b86a9")
+    @objid ("6cb926c1-c9d1-4533-8810-be640ed8a10c")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("f79dd124-22b1-4e01-a8ad-d270b5fc71c6")
+    @objid ("51fac9a4-d8bd-4a22-aba6-bd04fee05998")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitControlNode(this);

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel.meta.descriptor;
 
@@ -25,12 +25,13 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * Metamodel attribute descriptor.
+ *
  * @author cma
  * @since 3.6
  */
 @objid ("6ed5dfcd-a248-490b-a762-d71c7cfa64b8")
 public class MAttributeDescriptor implements Serializable {
-    
+
     @mdl.prop
     @objid ("e53bd4f1-cc0d-490d-bf82-48ae4a7da34c")
     public String name;
@@ -50,7 +51,7 @@ public class MAttributeDescriptor implements Serializable {
     @objid ("96104fec-e06c-4b8f-8124-1877fbfadc1a")
     private static final long serialVersionUID = 1L;
 
-    
+
     @mdl.prop
     @objid ("87193928-1a9c-4f2c-8911-015fb21f10e6")
     public String enumType;
@@ -67,7 +68,7 @@ public class MAttributeDescriptor implements Serializable {
         this.enumType = value;
     }
 
-    
+
     @mdl.prop
     @objid ("ddbc9732-898c-4958-8ac3-7f56b6f4a152")
     public Class<?> type;

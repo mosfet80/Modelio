@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vbasic.progress;
 
@@ -25,6 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 /**
  * IModelioProgress implementation that consumes and allocates nothing on its parent
  * if not used.
+ *
  * @author cmarin
  * @since 5.3.1
  */
@@ -40,10 +41,10 @@ public class OptionalProgress implements IModelioProgress {
     protected final IModelioProgress parent;
 
     @objid ("ec7fe90d-5fbe-4887-bbcf-34c7561c79b5")
-    public  OptionalProgress(IModelioProgress parent, Supplier<? extends IModelioProgress> supplier) {
+    public OptionalProgress(IModelioProgress parent, Supplier<? extends IModelioProgress> supplier) {
         this.parent = parent;
         this.supplier = supplier;
-        
+
     }
 
     @objid ("7949d97e-5522-4f57-8382-dcc643702109")
@@ -69,7 +70,7 @@ public class OptionalProgress implements IModelioProgress {
     public void done() {
         if (this.wrapped != null)
             this.wrapped.done();
-        
+
     }
 
     @objid ("b29607bd-018f-42a5-9efc-f7d3cb6704dd")
@@ -93,7 +94,7 @@ public class OptionalProgress implements IModelioProgress {
             this.parent.setCanceled(value);
         else
             getWrapped().setCanceled(value);
-        
+
     }
 
     @objid ("c6a3861e-28b9-4d82-879a-b109e18cf6ba")

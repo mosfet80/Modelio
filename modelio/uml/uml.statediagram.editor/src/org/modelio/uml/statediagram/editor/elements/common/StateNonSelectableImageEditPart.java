@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.common;
 
@@ -28,7 +28,7 @@ import org.modelio.diagram.elements.core.policies.AnchorsFeedbackEditPolicy;
 
 /**
  * {@link NonSelectableImageEditPart} with fixed anchors.
- * 
+ *
  * @since 5.1
  */
 @objid ("aa531675-80dc-479d-9854-4a8da7c40721")
@@ -38,15 +38,17 @@ public class StateNonSelectableImageEditPart extends NonSelectableImageEditPart 
 
     /**
      * C'tor
+     *
      * @param useEllipseAnchorProvider whether this edit part should use an ellipse or a default anchor provider.
      */
     @objid ("842e5497-61a1-4376-9654-f7683125b371")
-    public  StateNonSelectableImageEditPart(boolean useEllipseAnchorProvider) {
+    public StateNonSelectableImageEditPart(boolean useEllipseAnchorProvider) {
         this.useEllipseAnchorProvider = useEllipseAnchorProvider;
     }
 
     /**
      * Create the {@link IFixedNodeAnchorProvider} for this edit part.
+     *
      * @return the created anchor provider.
      */
     @objid ("7d418295-5f57-4dd1-8c2b-34b223c06292")
@@ -58,9 +60,9 @@ public class StateNonSelectableImageEditPart extends NonSelectableImageEditPart 
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         installEditPolicy(AnchorsFeedbackEditPolicy.class, new AnchorsFeedbackEditPolicy(getNodeAnchorProvider()));
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.partitioncontainer;
 
@@ -28,7 +28,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Specialization of the Partition Container that delete itself when last child is removed.
- * 
+ *
  * @author fpoyer
  */
 @objid ("2b209ca9-55b6-11e2-877f-002564c97630")
@@ -49,24 +49,25 @@ public class GmDiagramPartitionContainer extends GmPartitionContainer {
         // If removed child was the last, delete self.
         if (!this.hasChildren())
             delete();
-        
+
     }
 
     /**
      * Empty c'tor for deserialisation.
      */
     @objid ("2b20eacd-55b6-11e2-877f-002564c97630")
-    public  GmDiagramPartitionContainer() {
+    public GmDiagramPartitionContainer() {
         // Nothing to do.
     }
 
     /**
      * Default C'tor.
+     *
      * @param diagram the diagram.
      * @param relatedRef represented element reference, must not be null.
      */
     @objid ("2b2138e9-55b6-11e2-877f-002564c97630")
-    public  GmDiagramPartitionContainer(IGmDiagram diagram, MRef relatedRef) {
+    public GmDiagramPartitionContainer(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -87,17 +88,17 @@ public class GmDiagramPartitionContainer extends GmPartitionContainer {
             break;
         }
         }
-        
+
     }
 
     @objid ("2b21870c-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmDiagramPartitionContainer.", GmDiagramPartitionContainer.MINOR_VERSION);
-        
+
     }
 
     @objid ("2b21ae19-55b6-11e2-877f-002564c97630")

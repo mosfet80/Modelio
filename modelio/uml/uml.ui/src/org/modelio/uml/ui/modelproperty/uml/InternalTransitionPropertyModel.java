@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -65,18 +65,20 @@ public class InternalTransitionPropertyModel extends AbstractPropertyModel<Inter
     /**
      * Create a new <i>InternalTransition</i> data model from an
      * <i>InternalTransition</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("9c384417-a771-4009-9530-384b4d3d0793")
-    public  InternalTransitionPropertyModel(InternalTransition theEditedElement) {
+    public InternalTransitionPropertyModel(InternalTransition theEditedElement) {
         super(theEditedElement);
         this.transitionEffectType = new TransitionEffectType();
         this.transitionSentType = new TransitionSentType();
-        
+
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("4c56fa14-65ad-4925-bbb9-980cb9738427")
@@ -87,6 +89,7 @@ public class InternalTransitionPropertyModel extends AbstractPropertyModel<Inter
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("b9dd4d8f-0bb1-4b83-ba04-b4d5cdbc310a")
@@ -99,6 +102,7 @@ public class InternalTransitionPropertyModel extends AbstractPropertyModel<Inter
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -138,7 +142,7 @@ public class InternalTransitionPropertyModel extends AbstractPropertyModel<Inter
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -148,6 +152,7 @@ public class InternalTransitionPropertyModel extends AbstractPropertyModel<Inter
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -179,13 +184,14 @@ public class InternalTransitionPropertyModel extends AbstractPropertyModel<Inter
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -215,7 +221,7 @@ public class InternalTransitionPropertyModel extends AbstractPropertyModel<Inter
                 default:
                     break;
                 }
-        
+
                 break;
             case 2:
                 this.theEditedElement.setGuard((String) value);
@@ -236,12 +242,12 @@ public class InternalTransitionPropertyModel extends AbstractPropertyModel<Inter
         default:
             return;
         }
-        
+
     }
 
     /**
      * Predefined events for InternalTransition.ReceivedEvents
-     * 
+     *
      * @author cmarin
      */
     @objid ("4adceafd-0ad5-46f7-b393-71dda9eda9f6")
@@ -257,16 +263,17 @@ public class InternalTransitionPropertyModel extends AbstractPropertyModel<Inter
 
     /**
      * Represents the Transition effects.
-     * 
+     *
      * Merges the following Transition features: - Effect : string - Processed :
      * Operation - BehaviorEffect : Behavior
-     * 
+     *
      * @author cmarin
      */
     @objid ("84287822-0789-4227-8a76-d0ee08bcdf57")
     protected static class TransitionEffectType {
         /**
          * Get the effect of a transition
+         *
          * @param t a Transition
          * @return a String, an Operation or a Behavior
          */
@@ -276,18 +283,19 @@ public class InternalTransitionPropertyModel extends AbstractPropertyModel<Inter
             if (sEffect != null && !sEffect.isEmpty()) {
                 return sEffect;
             }
-            
+
             Operation op = t.getProcessed();
             if (op != null) {
                 return op;
             }
-            
+
             Behavior b = t.getBehaviorEffect();
             return b;
         }
 
         /**
          * Set the effect of a Transition
+         *
          * @param t a Transition
          * @param value a String, an Operation or a Behavior
          */
@@ -317,7 +325,7 @@ public class InternalTransitionPropertyModel extends AbstractPropertyModel<Inter
                     }
                 }
             }
-            
+
             if (value != null) {
                 // Set new value
                 if (String.class.isAssignableFrom(value.getClass())) {
@@ -331,23 +339,24 @@ public class InternalTransitionPropertyModel extends AbstractPropertyModel<Inter
                             + value.getClass().getCanonicalName());
                 }
             }
-            
+
         }
 
     }
 
     /**
      * Represents the Transition sent signals.
-     * 
+     *
      * Merges the following Transition features: - SentEvents : string - Effects
      * : Signal
-     * 
+     *
      * @author cmarin
      */
     @objid ("21d02a49-1de4-4010-835c-c4b3c1bd295c")
     protected static class TransitionSentType {
         /**
          * Get the sent signal of a transition
+         *
          * @param t a Transition
          * @return a String, or a Signal
          */
@@ -357,13 +366,14 @@ public class InternalTransitionPropertyModel extends AbstractPropertyModel<Inter
             if (sEffect != null && !sEffect.isEmpty()) {
                 return sEffect;
             }
-            
+
             Signal op = t.getEffects();
             return op;
         }
 
         /**
          * Set the signal sent from a Transition
+         *
          * @param t a Transition
          * @param value a String or a Signal
          */
@@ -385,7 +395,7 @@ public class InternalTransitionPropertyModel extends AbstractPropertyModel<Inter
                     t.setEffects(null);
                 }
             }
-            
+
             if (value != null) {
                 // Set new value
                 if (String.class.isAssignableFrom(value.getClass())) {
@@ -397,7 +407,7 @@ public class InternalTransitionPropertyModel extends AbstractPropertyModel<Inter
                             "value must be a String or a Signal but not a " + value.getClass().getCanonicalName());
                 }
             }
-            
+
         }
 
     }

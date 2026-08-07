@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.diagram.elements.drawings.core;
 
@@ -23,6 +42,7 @@ import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.diagram.elements.core.model.IGmModelRelated;
 import org.modelio.diagram.elements.core.model.IGmObject;
+import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Layer containing drawings.
@@ -31,6 +51,7 @@ import org.modelio.diagram.elements.core.model.IGmObject;
 public interface IGmDrawingLayer extends IGmDrawingLinkable, IGmModelRelated {
     /**
      * Add a child to the children list at the given index and fires a {@link IGmObject#PROPERTY_CHILDREN} property change event.
+     *
      * @param child The node to add
      * @param index the index where the child will be added.
      */
@@ -39,6 +60,7 @@ public interface IGmDrawingLayer extends IGmDrawingLinkable, IGmModelRelated {
 
     /**
      * Add a child to the children list and fires a {@link IGmObject#PROPERTY_CHILDREN} property change event.
+     *
      * @param child The node to add
      */
     @objid ("8b04a00c-552a-45a3-a1dc-1c90f9c06f35")
@@ -46,6 +68,7 @@ public interface IGmDrawingLayer extends IGmDrawingLinkable, IGmModelRelated {
 
     /**
      * Get the node drawings.
+     *
      * @return the node drawings.
      */
     @objid ("5c33a7d9-3c52-41f2-ad7e-e442e510fc18")
@@ -53,9 +76,23 @@ public interface IGmDrawingLayer extends IGmDrawingLinkable, IGmModelRelated {
 
     /**
      * Remove a child from the children list and fires a {@link IGmObject#PROPERTY_CHILDREN} property change event.
+     *
      * @param child The node to remove
      */
     @objid ("68d296fc-a6f3-4a18-9ad8-6537e8774cc7")
     void removeChild(IGmNodeDrawing child);
-}
 
+    /**
+     * Hidden setter for {@link #getRepresentedRef()} .
+     * <p>
+     *
+     * @param newRef the new related reference.
+     * @deprecated Should be used only in last resort when the reference must be fixed by hand.
+     * Related references are not expected to change.
+     * @since 6.0.1 27/06/2024
+     */
+    @objid ("7e8ab01d-4f50-4cc9-8011-637e2914cddf")
+    @Deprecated
+    void fixRelatedRef(MRef newRef);
+
+}

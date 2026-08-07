@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -35,7 +35,7 @@ public class EValuePin extends EInputPin {
     }
 
     @objid ("3021b0f3-8d15-464e-a455-a86453a14cc8")
-    public  EValuePin(org.eclipse.uml2.uml.ValuePin element) {
+    public EValuePin(org.eclipse.uml2.uml.ValuePin element) {
         super(element);
     }
 
@@ -44,17 +44,17 @@ public class EValuePin extends EInputPin {
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setValue((ValuePin) objingElt);
-        
+
     }
 
     @objid ("c1a7b94d-a143-4874-89c6-8926c806a35f")
     private void setValue(ValuePin objingElt) {
         org.eclipse.uml2.uml.ValueSpecification value = ((org.eclipse.uml2.uml.ValuePin) getEcoreElement()).getValue();
-        
+
         if (value != null){
             objingElt.setValue(EcoreModelNavigation.getValue(value));
         }
-        
+
     }
 
 }

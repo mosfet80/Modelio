@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.umlcommon.diagramview;
 
@@ -45,10 +45,11 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public final class CreateDiagramViewCommand extends CreateLinkedNodeCommand {
     /**
      * Creates a node creation command.
+     *
      * @param context Details on the MObject and/or the node to create
      */
     @objid ("b7c9c5b2-57be-4605-a6cd-d0b98edf3bc5")
-    public  CreateDiagramViewCommand(ModelioCreationContext context) {
+    public CreateDiagramViewCommand(ModelioCreationContext context) {
         super(context);
     }
 
@@ -58,10 +59,10 @@ public final class CreateDiagramViewCommand extends CreateLinkedNodeCommand {
         Dependency dependency = (Dependency) super.createElement(modelFactory, elementNamer);
         if (dependency != null && dependency.getDependsOn() == null) {
             Collection<AbstractDiagram> diagrams = CoreSession.getSession(dependency).getModel().findByClass(AbstractDiagram.class);
-        
+
             // A related diagram can't show its parent diagram, this would cause an infinite loop...
             diagrams.remove(this.sourceNode.getDiagram().getRelatedElement());
-        
+
             // Open diagram selection popup.
             DiagramSelectionModel model = new DiagramSelectionModel(diagrams);
             DiagramSelectionPopup popup = new DiagramSelectionPopup(Display.getDefault().getActiveShell());

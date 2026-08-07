@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.ramc.core.packaging.filters;
 
@@ -36,7 +36,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 @objid ("d0c46f18-ab12-46e0-a5d4-b41ac46ba594")
 class AssociationEndFilter extends LinkTargetFilter {
     @objid ("f1cdd5c2-9856-4d6b-96e0-503d201e445f")
-    public  AssociationEndFilter(IObjectFilter targetFilter, MExpert expert) {
+    public AssociationEndFilter(IObjectFilter targetFilter, MExpert expert) {
         super(expert, targetFilter);
     }
 
@@ -44,18 +44,18 @@ class AssociationEndFilter extends LinkTargetFilter {
     @Override
     public boolean accept(MObject obj) {
         AssociationEnd e = (AssociationEnd) obj;
-        
+
         VisibilityMode vis = e.getVisibility();
         if (vis != VisibilityMode.PUBLIC && vis != VisibilityMode.PROTECTED) {
             return false;
         }
-        
+
         // Check the target is to be exported
         MObject target = this.expert.getTarget(obj);
         if (!isValidTarget(target)) {
             return false;
         }
-        
+
         // Check the source is to be exported
         MObject source = this.expert.getSource(obj);
         if (!isValidTarget(source)) {

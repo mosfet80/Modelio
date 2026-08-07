@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.generation;
 
@@ -110,7 +110,7 @@ public class GenerationProperties extends XMIProperties {
         if (!(this.exportedProfiles.contains(newProfile))) {
             this.exportedProfiles.add(newProfile);
         }
-        
+
     }
 
     @objid ("c442faee-ae80-4f4c-95f7-27d3e70ccfb0")
@@ -118,7 +118,7 @@ public class GenerationProperties extends XMIProperties {
         if (!this.stereotypesExported.contains(element)) {
             this.stereotypesExported.add(element);
         }
-        
+
     }
 
     @objid ("9a23bb1d-1118-42e6-8d60-4abfe8002238")
@@ -126,7 +126,7 @@ public class GenerationProperties extends XMIProperties {
         if (!this.sysMLElementExported.contains(element)) {
             this.sysMLElementExported.add(element);
         }
-        
+
     }
 
     @objid ("70ba6010-debf-4f44-b6dd-ada56337c4fc")
@@ -146,6 +146,7 @@ public class GenerationProperties extends XMIProperties {
 
     /**
      * This methods returns the list of Ecore classes corresponding to a given Modelio class name
+     *
      * @param ecoreClassName : the name of the Modelio class name
      * @return the list of the corresponding Ecore class names
      */
@@ -154,24 +155,24 @@ public class GenerationProperties extends XMIProperties {
     public List<String> getClassNames(final String className) {
         //Class name without the metamodel prefix
         String realClassName = "";
-        
+
         //Standard metamodel case
         if (className.startsWith("Standard.")){
             //remove Standard prefix
             realClassName = className.replace("Standard.", "");
-        
+
             //return result
             if (this.umlClassTabConvertion.containsKey(realClassName))
-                return this.umlClassTabConvertion.get(realClassName); 
-        
-        
-        }else  if (className.startsWith("Infrastructure.")){           
+                return this.umlClassTabConvertion.get(realClassName);
+
+
+        }else  if (className.startsWith("Infrastructure.")){
             //remove Infrastructure prefix
             realClassName = className.replace("Infrastructure.", "");
-        
+
             //return result
             if (this.infraClassTabConvertion.containsKey(realClassName))
-                return this.infraClassTabConvertion.get(realClassName);        
+                return this.infraClassTabConvertion.get(realClassName);
         }
         return new ArrayList<>();
     }
@@ -223,13 +224,13 @@ public class GenerationProperties extends XMIProperties {
     public org.eclipse.uml2.uml.Element getMappedElement(MObject objingElt) {
         PartialExportMap partialCreationMap = PartialExportMap.getInstance();
         TotalExportMap totalCreationMap = TotalExportMap.getInstance();
-        
+
         org.eclipse.uml2.uml.Element mappedElement = totalCreationMap.get(objingElt.getUuid().toString());
-        
+
         if (mappedElement == null) {
             mappedElement = partialCreationMap.get(objingElt.getUuid().toString());
         }
-        
+
         if (mappedElement == null) {
             // If the element is not in the scope, it will not be created
             // partially:
@@ -269,9 +270,9 @@ public class GenerationProperties extends XMIProperties {
     @objid ("a94c8c09-2e34-4242-ba56-721f46dca380")
     public org.eclipse.uml2.uml.Profile getSysMLProfile() {
         if (this.sysMLProfile == null){
-        
+
             Profile obSysMLProfile = (Profile) this.mmServices.findById(this.profileMClass, SYSML_PROFILE_UID);
-        
+
             if (obSysMLProfile != null){
                 this.sysMLProfile = (org.eclipse.uml2.uml.Profile) TotalExportMap.getInstance().get(obSysMLProfile.getUuid().toString());
                 //SysML export
@@ -280,8 +281,8 @@ public class GenerationProperties extends XMIProperties {
                     PExportProfile pprofile = new PExportProfile(obSysMLProfile);
                     profileVisitor.visit(pprofile);
                     this.sysMLProfile = (org.eclipse.uml2.uml.Profile) TotalExportMap.getInstance().get(obSysMLProfile.getUuid().toString());
-        
-                }     
+
+                }
             }
         }
         return this.sysMLProfile;
@@ -291,20 +292,20 @@ public class GenerationProperties extends XMIProperties {
     @Override
     public void initialize(final IMModelServices mmService, final MMetamodel metamodel, final IModelioNavigationService navigationService) {
         super.initialize(mmService, metamodel, navigationService);
-        
+
         //Clear Export maps
         TotalExportMap.getInstance().clear();
         PartialExportMap.getInstance().clear();
-        
+
         //Set primitive type correspondance
         this.ecoreUMLTypes = new EcoreUMLTypes();
-        
+
         this.profileMClass = metamodel.getMClass(Profile.class);
-        
+
         if (this.libraryExported != null){
             this.libraryExported.clear();
         }
-        
+
     }
 
     @objid ("4443f7f1-8686-4f52-832f-ec1466f3fc0f")
@@ -319,15 +320,15 @@ public class GenerationProperties extends XMIProperties {
             } else {
                 this.exportedProfiles.add(profileFirst);
             }
-        
+
             if (indexLast < this.exportedProfiles.size() -1) {
                 this.exportedProfiles.add(indexLast, profileLast);
             } else {
                 this.exportedProfiles.add(profileLast);
             }
-        
+
         }
-        
+
     }
 
     @objid ("a11ab043-8f81-4989-81ca-0e6aa6ab19ba")
@@ -339,11 +340,12 @@ public class GenerationProperties extends XMIProperties {
         } else {
             return false;
         }
-        
+
     }
 
     /**
      * This method allows to know if the Modelio annotation are available
+     *
      * @return true if the imported XMI files contains Modelio annotations
      */
     @objid ("d051074a-a332-4d22-baeb-7e0ed37483ad")
@@ -395,7 +397,7 @@ public class GenerationProperties extends XMIProperties {
     public void setVersionExport(FormatExport version) {
         this.exportVersion = version;
         this.ecoreTypes = new EcoreTypes(version);
-        
+
     }
 
     @objid ("9076ed4e-ee50-49ba-89ac-6b1541d0869b")
@@ -406,7 +408,7 @@ public class GenerationProperties extends XMIProperties {
             }
         }
         this.exportedProfiles = new ArrayList<>();
-        
+
     }
 
     @objid ("b5aa4ff9-0070-4f5a-8412-a391b83d71fc")
@@ -417,12 +419,12 @@ public class GenerationProperties extends XMIProperties {
             }
             this.sysMLProfile = null;
         }
-        
+
     }
 
     @objid ("f491dbd5-7dd6-444a-b2f9-999c3c23acc3")
-    private  GenerationProperties() {
-        
+    private GenerationProperties() {
+
     }
 
     @objid ("9ad89e6f-0243-47b0-b8b2-268f9d3de1fb")
@@ -540,7 +542,7 @@ public class GenerationProperties extends XMIProperties {
         this.umlClassTabConvertion.put("Usage",  new ArrayList<String>(){{add("Usage");}});
         this.umlClassTabConvertion.put("UseCase",  new ArrayList<String>(){{add("UseCase");}});
         this.umlClassTabConvertion.put("UseCaseDependency",  new ArrayList<String>(){{add("Extend");add("Include");}});
-        
+
     }
 
     @objid ("09b74215-fde7-4796-a90e-5f662a48d6a0")
@@ -551,7 +553,7 @@ public class GenerationProperties extends XMIProperties {
         this.infraClassTabConvertion.put("Dependency",  new ArrayList<String>(){{add("Dependency"); add("Extend"); add("Include");}});
         this.infraClassTabConvertion.put("ModelElement",  new ArrayList<String>(){{add("NamedElement");}});
         this.infraClassTabConvertion.put("Stereotype",  new ArrayList<String>(){{add("Stereotype");}});
-        
+
     }
 
 }

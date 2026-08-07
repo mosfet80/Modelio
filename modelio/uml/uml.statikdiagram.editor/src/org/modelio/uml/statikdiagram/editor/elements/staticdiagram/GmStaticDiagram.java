@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.staticdiagram;
 
@@ -52,7 +52,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Represents a {@link StaticDiagram}
- * 
+ *
  * @author phv
  */
 @objid ("c1014b7b-55b6-11e2-877f-002564c97630")
@@ -79,15 +79,16 @@ public class GmStaticDiagram extends GmAbstractDiagram {
 
     /**
      * Creates a diagram model.
+     *
      * @param modelManager The model manager.
      * @param el The represented diagram.
      * @param ref The represented diagram reference.
      */
     @objid ("36b2fea9-55b7-11e2-877f-002564c97630")
-    public  GmStaticDiagram(IModelManager modelManager, StaticDiagram el, MRef ref) {
+    public GmStaticDiagram(IModelManager modelManager, StaticDiagram el, MRef ref) {
         super(modelManager, ref);
         this.obDiagram = el;
-        
+
     }
 
     @objid ("36b2feb5-55b7-11e2-877f-002564c97630")
@@ -100,7 +101,7 @@ public class GmStaticDiagram extends GmAbstractDiagram {
                 ProvidedInterface.class.isAssignableFrom(type) ||
                 NaryAssociation.class.isAssignableFrom(type) ||
                 Behavior.class.isAssignableFrom(type) || BpmnProcess.class.isAssignableFrom(type));
-        
+
     }
 
     @objid ("36b2febd-55b7-11e2-877f-002564c97630")
@@ -112,7 +113,7 @@ public class GmStaticDiagram extends GmAbstractDiagram {
                 el instanceof ActivityNode ||
                 el instanceof ActivityEdge ||
                 el instanceof InteractionFragment || el instanceof Message || el instanceof BpmnMessage);
-        
+
     }
 
     @objid ("36b4853f-55b7-11e2-877f-002564c97630")
@@ -154,7 +155,7 @@ public class GmStaticDiagram extends GmAbstractDiagram {
             break;
         }
         }
-        
+
     }
 
     @objid ("36b4855f-55b7-11e2-877f-002564c97630")
@@ -189,28 +190,28 @@ public class GmStaticDiagram extends GmAbstractDiagram {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmStaticDiagram.", GmStaticDiagram.MINOR_VERSION);
-        
+
     }
 
     @objid ("36b60bd9-55b7-11e2-877f-002564c97630")
     private void read_1(IDiagramReader in) {
         super.read(in);
-        
+
         this.obDiagram = (StaticDiagram) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("105cf82e-40a9-4bd9-9060-d49f60482cc9")
     private void read_0(IDiagramReader in) {
         super.read(in);
-        
+
         this.obDiagram = (StaticDiagram) resolveRef(getRepresentedRef());
-        
+
         OrthoLinkDiagramMigrationHelper.migrate(this);
-        
+
     }
 
     @objid ("36b60bde-55b7-11e2-877f-002564c97630")

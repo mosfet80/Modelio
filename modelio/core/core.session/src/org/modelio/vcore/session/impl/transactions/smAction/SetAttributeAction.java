@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.vcore.session.impl.transactions.smAction;
 
@@ -24,20 +43,21 @@ import org.modelio.vcore.session.impl.transactions.smAction.smActionInteractions
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.SmStatus;
 import org.modelio.vcore.smkernel.meta.SmAttribute;
+import org.modelio.vcore.smkernel.transaction.ISmSetAttAction;
 
 /**
  * Permet le modfication de l'attribut. L'ancienne valeur est sauvegardee pour l'undo.
  */
 @objid ("006e7bd4-0d1e-1f20-85a5-001ec947cd2a")
-public class SetAttributeAction extends SimpleAction {
+public class SetAttributeAction extends SimpleAction implements ISmSetAttAction {
     @objid ("006e71de-0d1e-1f20-85a5-001ec947cd2a")
-    protected SmAttribute smAtt;
+    protected final SmAttribute smAtt;
 
     @objid ("006b3690-0d1e-1f20-85a5-001ec947cd2a")
-    protected Object oldValue;
+    protected final Object oldValue;
 
     @objid ("006b37d0-0d1e-1f20-85a5-001ec947cd2a")
-    protected Object newValue;
+    protected final Object newValue;
 
     /**
      * Remet l'ancienne valeur de l'attribut.
@@ -45,10 +65,10 @@ public class SetAttributeAction extends SimpleAction {
      */
     @objid ("006d35ee-0d1e-1f20-85a5-001ec947cd2a")
     @Override
-    public void undo(final boolean rollback) {
+    public void rollbackAction() {
         // Affectation de la nouvelle valeur
-        this.smAtt.setValue(this.refered.getData(), this.oldValue);
-        
+        //this.smAtt.setValue(this.refered.getData(), this.oldValue);
+        this.refered.getMetaOf().setObjAttVal(this.refered, this.smAtt, this.oldValue);
     }
 
     /**
@@ -57,22 +77,24 @@ public class SetAttributeAction extends SimpleAction {
      */
     @objid ("006d367a-0d1e-1f20-85a5-001ec947cd2a")
     @Override
-    public void redo() {
+    public void redoAction() {
         // Affectation de la nouvelle valeur
-        this.smAtt.setValue(this.refered.getData(), this.newValue);
-        
+        //this.smAtt.setValue(this.refered.getData(), this.newValue);
+        this.refered.getMetaOf().setObjAttVal(this.refered, this.smAtt, this.newValue);
     }
 
     /**
-     * Constructeur de l'action de modification d'un attribut d'un objet. L'objet est sauvegarde dans l'associartion "Refer", l'attribut concerne dans l'association "smAtt" on sauvegarde aussi l'ancienne et la nouvelle valeur de l'attribut.
+     * Constructeur de l'action de modification d'un attribut d'un objet.
+     * <p>
+     * L'objet est sauvegarde dans l'associartion "Refer", l'attribut concerne dans l'association "smAtt" .
+     * On sauvegarde aussi l'ancienne et la nouvelle valeur de l'attribut.
      */
     @objid ("006d3710-0d1e-1f20-85a5-001ec947cd2a")
-    public  SetAttributeAction(final SmObjectImpl obj, final SmAttribute smAtt, final Object oldValue, final Object newValue) {
+    public SetAttributeAction(final SmObjectImpl obj, final SmAttribute smAtt, final Object oldValue, final Object newValue) {
         super(obj);
         this.smAtt = smAtt;
         this.oldValue = oldValue;
         this.newValue = newValue;
-        
     }
 
     @objid ("006d37a6-0d1e-1f20-85a5-001ec947cd2a")
@@ -82,16 +104,19 @@ public class SetAttributeAction extends SimpleAction {
     }
 
     @objid ("0090435e-f11f-1f3c-aafd-001ec947cd2a")
+    @Override
     public SmAttribute getAtt() {
         return this.smAtt;
     }
 
     @objid ("00905dee-f11f-1f3c-aafd-001ec947cd2a")
+    @Override
     public Object getNewValue() {
         return this.newValue;
     }
 
     @objid ("0090784c-f11f-1f3c-aafd-001ec947cd2a")
+    @Override
     public Object getOldValue() {
         return this.oldValue;
     }
@@ -104,7 +129,6 @@ public class SetAttributeAction extends SimpleAction {
         } else {
             return String.format("Set %s.%s from %s to %s action", this.refered, this.smAtt.getName(), this.oldValue, this.newValue);
         }
-        
     }
 
 }

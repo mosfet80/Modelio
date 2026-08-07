@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.group;
 
@@ -34,7 +34,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  * Represents a group of labels.
  * <p>
  * This class must be subclassed.
- * 
+ *
  * @author cmarin
  */
 @objid ("7e523667-1dec-11e2-8cad-001ec947c8cc")
@@ -58,17 +58,18 @@ public abstract class GmGroup extends GmNoStyleCompositeNode {
      * Constructor for deserialization only.
      */
     @objid ("7e549878-1dec-11e2-8cad-001ec947c8cc")
-    public  GmGroup() {
-        
+    public GmGroup() {
+
     }
 
     /**
      * Initialize a group.
+     *
      * @param diagram The diagram.
      * @param relatedRef a reference to the element this GmModel is related to. Must not be <i>null</i>.
      */
     @objid ("7e54987b-1dec-11e2-8cad-001ec947c8cc")
-    public  GmGroup(IGmDiagram diagram, MRef relatedRef) {
+    public GmGroup(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -76,9 +77,9 @@ public abstract class GmGroup extends GmNoStyleCompositeNode {
     @Override
     public void addChild(GmNodeModel toAdd) {
         super.addChild(toAdd);
-        
+
         updateHiddenFeatures();
-        
+
     }
 
     /**
@@ -103,7 +104,7 @@ public abstract class GmGroup extends GmNoStyleCompositeNode {
         if (!isValidElement(el)) {
             return false;
         }
-        
+
         // Cannot unmask if the element is already displayed
         final GmNodeModel sameChild = getChild(new MRef(el));
         return (sameChild == null);
@@ -117,11 +118,12 @@ public abstract class GmGroup extends GmNoStyleCompositeNode {
         } else {
             return null;
         }
-        
+
     }
 
     /**
      * Tells whether the group has hidden features.
+     *
      * @return true if the group has hidden features.
      */
     @objid ("7e549898-1dec-11e2-8cad-001ec947c8cc")
@@ -133,6 +135,7 @@ public abstract class GmGroup extends GmNoStyleCompositeNode {
      * Tells whether the zone must be hidden if empty.
      * <p>
      * The default implementation returns false. It may be overridden to return true depending on a style key.
+     *
      * @return whether the zone must be hidden if empty.
      */
     @objid ("7e54989d-1dec-11e2-8cad-001ec947c8cc")
@@ -149,7 +152,7 @@ public abstract class GmGroup extends GmNoStyleCompositeNode {
     public void removeChild(GmNodeModel child) {
         super.removeChild(child);
         updateHiddenFeatures();
-        
+
     }
 
     /**
@@ -158,6 +161,7 @@ public abstract class GmGroup extends GmNoStyleCompositeNode {
      * The default implementation returns <i>false</i>.
      * <p>
      * Subclasses may redefine this method.
+     *
      * @return true to grab excess space, else false.
      */
     @objid ("7e5498a9-1dec-11e2-8cad-001ec947c8cc")
@@ -173,11 +177,11 @@ public abstract class GmGroup extends GmNoStyleCompositeNode {
     @Override
     protected final boolean isValidChild(GmNodeModel node) {
         final MObject el = node.getRelatedElement();
-        
+
         if (el == null || !isValidElement(el)) {
             return false;
         }
-        
+
         // Cannot unmask if the element is already displayed
         MRef ref = node.getRepresentedRef();
         for (GmNodeModel child : getChildren()) {
@@ -199,6 +203,7 @@ public abstract class GmGroup extends GmNoStyleCompositeNode {
      * </ul>
      * <p>
      * Implementations MUST NOT check whether the element is already unmasked.
+     *
      * @param el The element to unmask
      * @return <tt>true</tt> if it satisfies all conditions, else <tt>false</tt>.
      */
@@ -209,6 +214,7 @@ public abstract class GmGroup extends GmNoStyleCompositeNode {
      * Set whether the group hides some elements.
      * <p>
      * In this case adds a "..." label. Remove the label in the other case.
+     *
      * @param hasHiddenFeatures true if some elements are hidden else false.
      */
     @objid ("7e56fade-1dec-11e2-8cad-001ec947c8cc")
@@ -217,7 +223,7 @@ public abstract class GmGroup extends GmNoStyleCompositeNode {
             this.hasHiddenFeatures = hasHiddenFeatures;
             firePropertyChange(IGmObject.PROPERTY_CHILDREN, null, hasHiddenFeatures);
         }
-        
+
     }
 
     /**
@@ -233,7 +239,7 @@ public abstract class GmGroup extends GmNoStyleCompositeNode {
     public void addChild(final GmNodeModel child, final int index) {
         super.addChild(child, index);
         updateHiddenFeatures();
-        
+
     }
 
     @objid ("c0cac7e0-77a8-4e88-8b23-c9015a98e47e")
@@ -241,7 +247,7 @@ public abstract class GmGroup extends GmNoStyleCompositeNode {
     public void refreshFromObModel() {
         //TODO : move this in parent class
         firePropertyChange(PROP_REFRESH_FROM_OBMODEL, null, this);
-        
+
     }
 
     @objid ("7e56faeb-1dec-11e2-8cad-001ec947c8cc")
@@ -253,25 +259,25 @@ public abstract class GmGroup extends GmNoStyleCompositeNode {
         case 0:
             read_0(in);
             break;
-        
+
         default:
             assert (false) : readVersion + " version number not covered!";
             // reading as last handled version: 0
             read_0(in);
             break;
-        
+
         }
-        
+
     }
 
     @objid ("7e56faef-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmGroup.", GmGroup.MINOR_VERSION);
-        
+
     }
 
     @objid ("7e56faf3-1dec-11e2-8cad-001ec947c8cc")

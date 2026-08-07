@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.umlcommon.diagramholder;
 
@@ -46,7 +46,7 @@ public class GmDiagramHolderMigrator implements IPersistentMigrator {
             return null;
         }
         }
-        
+
     }
 
     @objid ("09cb4022-72bb-4dce-8704-205c7cc25489")
@@ -68,12 +68,12 @@ public class GmDiagramHolderMigrator implements IPersistentMigrator {
             return null;
         }
         GmNodeModel gmDiagramView = children.get(0);
-        
+
         instanceToMigrate.removeChild(gmDiagramView);
-        
+
         gmDiagramView.setLayoutData(instanceToMigrate.getLayoutData());
         gmDiagramView.setRoleInComposition(instanceToMigrate.getRoleInComposition());
-        
+
         for (IGmLink link : instanceToMigrate.getStartingLinks()) {
             instanceToMigrate.removeStartingLink(link);
             gmDiagramView.addStartingLink(link);
@@ -82,12 +82,12 @@ public class GmDiagramHolderMigrator implements IPersistentMigrator {
             instanceToMigrate.removeEndingLink(link);
             gmDiagramView.addEndingLink(link);
         }
-        
+
         gmDiagramView.getPersistedStyle().setCascadedStyle(instanceToMigrate.getPersistedStyle().getCascadedStyle());
         for (StyleKey key : instanceToMigrate.getPersistedStyle().getLocalKeys()) {
             gmDiagramView.getDisplayedStyle().setProperty(key, instanceToMigrate.getDisplayedStyle().getProperty(key));
         }
-        
+
         instanceToMigrate.delete();
         return gmDiagramView;
     }

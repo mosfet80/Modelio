@@ -1,28 +1,28 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.semantic.browser;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
@@ -49,21 +49,21 @@ public class SemanticBrowserView {
     public void postConstruct(Composite parent, final MPart part) {
         // With Eclipse 4.18, the toolbar is messed up, force it right manually...
         part.getToolbar().setVisible(true);
-        
+
         this.panel = new SmBrowserPanelProvider();
         ContextInjectionFactory.inject(this.panel, this.eclipseContext);
         this.panel.createPanel(parent);
-        
+
         // The view might be instantiated when a project is already opened
         IProjectService projectService = this.eclipseContext.get(IProjectService.class);
         if (projectService != null) {
             IGProject project = projectService.getOpenedProject();
-        
+
             if (project != null) {
                 onProjectOpened(project);
             }
         }
-        
+
     }
 
     @objid ("a79d0511-b5a4-4505-9b8b-6beef95b3f8d")
@@ -79,7 +79,7 @@ public class SemanticBrowserView {
             this.panel.dispose();
             this.panel = null;
         }
-        
+
     }
 
     @objid ("927dbf00-20bb-476a-a260-4bc9ff3c5c4f")

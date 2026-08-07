@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.dialogs.elementChooser;
 
@@ -44,10 +44,10 @@ import org.modelio.platform.ui.dialog.ModelioDialog;
 
 @objid ("26c956b7-186f-11e2-bc4e-002564c97630")
 public class ElementChooserDlg extends ModelioDialog {
-    @objid ("26c956b8-186f-11e2-bc4e-002564c97630")
+    @objid ("29bc6ccf-8afb-4752-a0a6-89fcffd6b949")
     private Label leftViewerLabel;
 
-    @objid ("26c956b9-186f-11e2-bc4e-002564c97630")
+    @objid ("e953228a-3902-4f54-b994-75bca14b391e")
     private StructuredViewer leftViewer;
 
     @objid ("26c956ba-186f-11e2-bc4e-002564c97630")
@@ -57,11 +57,10 @@ public class ElementChooserDlg extends ModelioDialog {
     private IElementChooserDriver driver;
 
     @objid ("26c956bc-186f-11e2-bc4e-002564c97630")
-    public  ElementChooserDlg(Shell parentShell, IElementChooserDriver chooserDriver, ModelElement input) {
+    public ElementChooserDlg(Shell parentShell, IElementChooserDriver chooserDriver, ModelElement input) {
         super(parentShell);
         this.driver = chooserDriver;
         this.input = input;
-        
     }
 
     @objid ("26c956c1-186f-11e2-bc4e-002564c97630")
@@ -69,7 +68,6 @@ public class ElementChooserDlg extends ModelioDialog {
     public void addButtonsInButtonBar(Composite parent) {
         createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
         createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
-        
     }
 
     @objid ("26cbb80f-186f-11e2-bc4e-002564c97630")
@@ -79,14 +77,14 @@ public class ElementChooserDlg extends ModelioDialog {
         GridData data = new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
         composite.setLayoutData(data);
         composite.setFont(parent.getFont());
-        
+
         GridLayout compositeLayout = new GridLayout(3, false);
         compositeLayout.marginWidth = 3;
         compositeLayout.marginHeight = 3;
         compositeLayout.verticalSpacing = 0;
         compositeLayout.horizontalSpacing = 0;
         composite.setLayout(compositeLayout);
-        
+
         // Create left viewer:
         // --------------------
         Composite leftViewerComposite = new Composite(composite, SWT.NONE);
@@ -94,10 +92,10 @@ public class ElementChooserDlg extends ModelioDialog {
         leftViewerComposite.setLayoutData(leftViewerCompositeData);
         FormLayout leftViewerLayout = new FormLayout();
         leftViewerComposite.setLayout(leftViewerLayout);
-        
+
         this.leftViewerLabel = new Label(leftViewerComposite, SWT.NONE);
         this.leftViewerLabel.setText(this.driver.getLeftLabel());
-        
+
         this.leftViewer = this.driver.createViewer(leftViewerComposite);
         FormData leftViewerData = new FormData();
         leftViewerData.left = new FormAttachment(0, 0);
@@ -105,7 +103,7 @@ public class ElementChooserDlg extends ModelioDialog {
         leftViewerData.top = new FormAttachment(this.leftViewerLabel, 3);
         leftViewerData.bottom = new FormAttachment(100, 0);
         this.leftViewer.getControl().setLayoutData(leftViewerData);
-        
+
         // Validate the box on double click
         this.leftViewer.addDoubleClickListener(new IDoubleClickListener() {
             @Override
@@ -122,15 +120,14 @@ public class ElementChooserDlg extends ModelioDialog {
         getShell().setText(this.driver.getShellTitle());
         setTitle(this.driver.getTitle());
         setMessage(this.driver.getMessage());
-        
+
         Shell parentShell = getShell().getParent().getShell();
         Point shellLocation = parentShell.getLocation();
         getShell().setSize(500, 500);
         getShell().setLocation(shellLocation.x + 300, shellLocation.y + 300);
         setLogoImage(null);
-        
+
         this.driver.init(this.input);
-        
     }
 
     @objid ("26cbb818-186f-11e2-bc4e-002564c97630")
@@ -143,7 +140,6 @@ public class ElementChooserDlg extends ModelioDialog {
     protected void cancelPressed() {
         this.driver.performCancel();
         super.cancelPressed();
-        
     }
 
     @objid ("26cbb81e-186f-11e2-bc4e-002564c97630")
@@ -151,16 +147,15 @@ public class ElementChooserDlg extends ModelioDialog {
     protected void okPressed() {
         ISelection selection = this.leftViewer.getSelection();
         List<Object> selectedElements = null;
-        
+
         if (selection instanceof IStructuredSelection) {
             IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-        
+
             selectedElements = structuredSelection.toList();
         }
-        
+
         this.driver.performFinish(this.leftViewer, selectedElements);
         super.okPressed();
-        
     }
 
     @objid ("26cbb821-186f-11e2-bc4e-002564c97630")

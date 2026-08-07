@@ -1,0 +1,18 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Créer un projet
+
+.Création d'un nouveau projet
+image::images/attachment/modeliocom41/User_Documentation_fr/Creer_un_projet/Modeler-_modeler_managing_projects_create_project_CreateNewProjectCom.png[Modeler-_modeler_managing_projects_create_project_CreateNewProjectCom.png]
+
+
+1.  Cliquez sur "Fichier \ Créer un projet...".
+2.  Choisissez un type de projet pour votre projet.
+3.  Saisissez le nom du projet.
+4.  Saisissez la description du projet.
+5.  Cliquez sur "Créer le projet" pour créer et ouvrir le projet.
+
+*Note :* Le nom de chaque projet doit être unique. Il n'est pas possible de créer deux projets ayant le même nom.

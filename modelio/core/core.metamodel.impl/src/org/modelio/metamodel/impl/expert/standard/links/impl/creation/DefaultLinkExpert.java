@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.metamodel.impl.expert.standard.links.impl.creation;
 
@@ -210,7 +229,7 @@ public class DefaultLinkExpert implements ILinkExpert {
     }
 
     @objid ("b703336c-beb4-4120-89be-3a6eab130e7e")
-    public  DefaultLinkExpert(MMetamodel mm) {
+    public DefaultLinkExpert(MMetamodel mm) {
         this.RULES = new MetamodelRules(mm);
     }
 
@@ -246,6 +265,7 @@ public class DefaultLinkExpert implements ILinkExpert {
 
         /**
          * Tells whether a link of the given metaclass can have another metaclass as source.
+         *
          * @param linkMetaclass The link metaclass
          * @param fromMetaclass The source metaclass
          * @return true if the creation is possible, false otherwise.
@@ -257,7 +277,7 @@ public class DefaultLinkExpert implements ILinkExpert {
                 // InformationFlow can link ANY UmlModelElement, but we do not want to add thousands of rules for it...
                 return UmlModelElement.class.isAssignableFrom(fromMetaclass.getJavaInterface());
             }
-            
+
             final String fromMetaclassName = fromMetaclass.getQualifiedName();
             return this.directRules.contains(linkMetaclassName + fromMetaclassName)
                                             || this.directRules.contains(linkMetaclassName + MetamodelRules.ANY);
@@ -265,6 +285,7 @@ public class DefaultLinkExpert implements ILinkExpert {
 
         /**
          * Tells whether a link of the given metaclass can be created between the 2 other metaclasses.
+         *
          * @param linkMetaclass The link metaclass
          * @param fromMetaclass The Source metaclass
          * @param toMetaclass The destination metaclass
@@ -278,7 +299,7 @@ public class DefaultLinkExpert implements ILinkExpert {
                 return UmlModelElement.class.isAssignableFrom(fromMetaclass.getJavaInterface())
                         && UmlModelElement.class.isAssignableFrom(toMetaclass.getJavaInterface());
             }
-            
+
             final String fromMetaclassName = fromMetaclass.getQualifiedName();
             final String toMetaclassName = toMetaclass.getQualifiedName();
             return this.directRules.contains(linkMetaclassName + fromMetaclassName + toMetaclassName)
@@ -287,17 +308,16 @@ public class DefaultLinkExpert implements ILinkExpert {
         }
 
         @objid ("65067ea0-1f4f-11e2-8009-002564c97630")
-        public  MetamodelRules(MMetamodel mm) {
+        public MetamodelRules(MMetamodel mm) {
             this.mm = mm;
-            
+
             // Use several methods to avoid the java length limit
             registerUmlLinks1();
             registerUmlLinks2();
             registerUmlLinks3();
-            
+
             registerBpmnLinks1();
             registerBpmnLinks2();
-            
         }
 
         /**
@@ -307,7 +327,7 @@ public class DefaultLinkExpert implements ILinkExpert {
         private void registerUmlLinks1() {
             // Abstraction (same as dependency)
             addRule(Abstraction.MQNAME, MetamodelRules.ANY, MetamodelRules.ANY);
-            
+
             // Association
             addRule(AssociationEnd.MQNAME, Actor.MQNAME, Actor.MQNAME);
             addRule(AssociationEnd.MQNAME, Actor.MQNAME, Class.MQNAME);
@@ -350,7 +370,7 @@ public class DefaultLinkExpert implements ILinkExpert {
             addRule(AssociationEnd.MQNAME, UseCase.MQNAME, Actor.MQNAME);
             addRule(AssociationEnd.MQNAME, UseCase.MQNAME, Class.MQNAME);
             addRule(AssociationEnd.MQNAME, UseCase.MQNAME, UseCase.MQNAME);
-            
+
             addRule(Association.MQNAME, Actor.MQNAME, Actor.MQNAME);
             addRule(Association.MQNAME, Actor.MQNAME, Class.MQNAME);
             addRule(Association.MQNAME, Actor.MQNAME, Component.MQNAME);
@@ -392,7 +412,7 @@ public class DefaultLinkExpert implements ILinkExpert {
             addRule(Association.MQNAME, UseCase.MQNAME, Actor.MQNAME);
             addRule(Association.MQNAME, UseCase.MQNAME, Class.MQNAME);
             addRule(Association.MQNAME, UseCase.MQNAME, UseCase.MQNAME);
-            
+
             // Binding
             addRule(Binding.MQNAME, CollaborationUse.MQNAME, AssociationEnd.MQNAME);
             addRule(Binding.MQNAME, CollaborationUse.MQNAME, Attribute.MQNAME);
@@ -411,7 +431,7 @@ public class DefaultLinkExpert implements ILinkExpert {
             addRule(Binding.MQNAME, Parameter.MQNAME, ConnectorEnd.MQNAME);
             addRule(ClassAssociation.MQNAME, AssociationEnd.MQNAME, Class.MQNAME);
             addRule(ClassAssociation.MQNAME, NaryAssociation.MQNAME, Class.MQNAME);
-            
+
             // CollaborationUse in link mode
             addRule(CollaborationUse.MQNAME, Actor.MQNAME, Collaboration.MQNAME);
             addRule(CollaborationUse.MQNAME, Class.MQNAME, Collaboration.MQNAME);
@@ -421,24 +441,24 @@ public class DefaultLinkExpert implements ILinkExpert {
             addRule(CollaborationUse.MQNAME, Operation.MQNAME, Collaboration.MQNAME);
             addRule(CollaborationUse.MQNAME, Package.MQNAME, Collaboration.MQNAME);
             addRule(CollaborationUse.MQNAME, UseCase.MQNAME, Collaboration.MQNAME);
-            
+
             // CommunicationChannel
             addRule(CommunicationChannel.MQNAME, CommunicationNode.MQNAME, CommunicationNode.MQNAME);
-            
+
             // ComponentRealization
             addRule(ComponentRealization.MQNAME, Classifier.MQNAME, true, Component.MQNAME, true);
-            
+
             // ConnectorEnd
             addRule(ConnectorEnd.MQNAME, BindableInstance.MQNAME, BindableInstance.MQNAME);
             addRule(ConnectorEnd.MQNAME, BindableInstance.MQNAME, Port.MQNAME);
             addRule(ConnectorEnd.MQNAME, Port.MQNAME, BindableInstance.MQNAME);
             addRule(ConnectorEnd.MQNAME, Port.MQNAME, Port.MQNAME);
-            
+
             addRule(Connector.MQNAME, BindableInstance.MQNAME, BindableInstance.MQNAME);
             addRule(Connector.MQNAME, BindableInstance.MQNAME, Port.MQNAME);
             addRule(Connector.MQNAME, Port.MQNAME, BindableInstance.MQNAME);
             addRule(Connector.MQNAME, Port.MQNAME, Port.MQNAME);
-            
+
             // ControlFlow
             addRule(ControlFlow.MQNAME, AcceptCallEventAction.MQNAME, AcceptCallEventAction.MQNAME);
             addRule(ControlFlow.MQNAME, AcceptCallEventAction.MQNAME, AcceptChangeEventAction.MQNAME);
@@ -839,7 +859,7 @@ public class DefaultLinkExpert implements ILinkExpert {
             addRule(ControlFlow.MQNAME, StructuredActivityNode.MQNAME, OutputPin.MQNAME);
             addRule(ControlFlow.MQNAME, StructuredActivityNode.MQNAME, SendSignalAction.MQNAME);
             addRule(ControlFlow.MQNAME, StructuredActivityNode.MQNAME, StructuredActivityNode.MQNAME);
-            
+
             // DataFlow
             addRule(DataFlow.MQNAME, Actor.MQNAME, Actor.MQNAME);
             addRule(DataFlow.MQNAME, Actor.MQNAME, Artifact.MQNAME);
@@ -905,7 +925,7 @@ public class DefaultLinkExpert implements ILinkExpert {
             addRule(DataFlow.MQNAME, UseCase.MQNAME, Node.MQNAME);
             addRule(DataFlow.MQNAME, UseCase.MQNAME, Package.MQNAME);
             addRule(DataFlow.MQNAME, UseCase.MQNAME, UseCase.MQNAME);
-            
+
             // ExceptionHandler
             addRule(ExceptionHandler.MQNAME, AcceptCallEventAction.MQNAME, InputPin.MQNAME);
             addRule(ExceptionHandler.MQNAME, AcceptChangeEventAction.MQNAME, InputPin.MQNAME);
@@ -919,7 +939,7 @@ public class DefaultLinkExpert implements ILinkExpert {
             addRule(ExceptionHandler.MQNAME, OpaqueAction.MQNAME, InputPin.MQNAME);
             addRule(ExceptionHandler.MQNAME, SendSignalAction.MQNAME, InputPin.MQNAME);
             addRule(ExceptionHandler.MQNAME, StructuredActivityNode.MQNAME, InputPin.MQNAME);
-            
+
             // ElementImport
             addRule(ElementImport.MQNAME, Actor.MQNAME, Actor.MQNAME);
             addRule(ElementImport.MQNAME, Actor.MQNAME, Artifact.MQNAME);
@@ -1103,10 +1123,10 @@ public class DefaultLinkExpert implements ILinkExpert {
             addRule(ElementImport.MQNAME, UseCase.MQNAME, Package.MQNAME);
             addRule(ElementImport.MQNAME, UseCase.MQNAME, Signal.MQNAME);
             addRule(ElementImport.MQNAME, UseCase.MQNAME, UseCase.MQNAME);
-            
+
             // ElementRealization
             addRule(ElementRealization.MQNAME, MetamodelRules.ANY, MetamodelRules.ANY);
-            
+
             // Generalization
             addRule(Generalization.MQNAME, Actor.MQNAME, Actor.MQNAME);
             addRule(Generalization.MQNAME, Artifact.MQNAME, Artifact.MQNAME);
@@ -1119,31 +1139,30 @@ public class DefaultLinkExpert implements ILinkExpert {
             addRule(Generalization.MQNAME, Signal.MQNAME, Class.MQNAME);
             addRule(Generalization.MQNAME, Signal.MQNAME, Signal.MQNAME);
             addRule(Generalization.MQNAME, UseCase.MQNAME, UseCase.MQNAME);
-            
         }
 
         @objid ("65067ea8-1f4f-11e2-8009-002564c97630")
         private void registerUmlLinks2() {
             // InformationFlow
             addRule(InformationFlow.MQNAME, UmlModelElement.MQNAME, UmlModelElement.MQNAME);
-            
+
             // InterfaceRealization
             addRule(InterfaceRealization.MQNAME, Class.MQNAME, Interface.MQNAME);
             addRule(InterfaceRealization.MQNAME, Collaboration.MQNAME, Interface.MQNAME);
             addRule(InterfaceRealization.MQNAME, Component.MQNAME, Interface.MQNAME);
             addRule(InterfaceRealization.MQNAME, Enumeration.MQNAME, Interface.MQNAME);
-            
+
             // LinkEnd
             addRule(LinkEnd.MQNAME, Instance.MQNAME, Instance.MQNAME);
             addRule(LinkEnd.MQNAME, Instance.MQNAME, BindableInstance.MQNAME);
             addRule(LinkEnd.MQNAME, BindableInstance.MQNAME, Instance.MQNAME);
-            addRule(LinkEnd.MQNAME, BindableInstance.MQNAME, BindableInstance.MQNAME);
-            
+            //addRule(LinkEnd.MQNAME, BindableInstance.MQNAME, BindableInstance.MQNAME); // disabled since 6.0.0
+
             addRule(Link.MQNAME, Instance.MQNAME, Instance.MQNAME);
             addRule(Link.MQNAME, Instance.MQNAME, BindableInstance.MQNAME);
             addRule(Link.MQNAME, BindableInstance.MQNAME, Instance.MQNAME);
-            addRule(Link.MQNAME, BindableInstance.MQNAME, BindableInstance.MQNAME);
-            
+            //addRule(Link.MQNAME, BindableInstance.MQNAME, BindableInstance.MQNAME); // disabled since 6.0.0
+
             // Manifestation
             addRule(Manifestation.MQNAME, Artifact.MQNAME, Actor.MQNAME);
             addRule(Manifestation.MQNAME, Artifact.MQNAME, Artifact.MQNAME);
@@ -1158,7 +1177,7 @@ public class DefaultLinkExpert implements ILinkExpert {
             addRule(Manifestation.MQNAME, Artifact.MQNAME, Package.MQNAME);
             addRule(Manifestation.MQNAME, Artifact.MQNAME, Signal.MQNAME);
             addRule(Manifestation.MQNAME, Artifact.MQNAME, UseCase.MQNAME);
-            
+
             // Message
             addRule(Message.MQNAME, ExecutionOccurenceSpecification.MQNAME, ExecutionOccurenceSpecification.MQNAME);
             addRule(Message.MQNAME, ExecutionOccurenceSpecification.MQNAME, ExecutionSpecification.MQNAME);
@@ -1208,7 +1227,7 @@ public class DefaultLinkExpert implements ILinkExpert {
             addRule(Message.MQNAME, PartDecomposition.MQNAME, InteractionUse.MQNAME);
             addRule(Message.MQNAME, PartDecomposition.MQNAME, Lifeline.MQNAME);
             addRule(Message.MQNAME, PartDecomposition.MQNAME, PartDecomposition.MQNAME);
-            
+
             // ObjectFlow
             addRule(ObjectFlow.MQNAME, AcceptCallEventAction.MQNAME, ActivityFinalNode.MQNAME);
             addRule(ObjectFlow.MQNAME, AcceptCallEventAction.MQNAME, ActivityParameterNode.MQNAME);
@@ -1638,7 +1657,6 @@ public class DefaultLinkExpert implements ILinkExpert {
             addRule(ObjectFlow.MQNAME, StructuredActivityNode.MQNAME, ObjectNode.MQNAME);
             addRule(ObjectFlow.MQNAME, StructuredActivityNode.MQNAME, OutputPin.MQNAME);
             addRule(ObjectFlow.MQNAME, StructuredActivityNode.MQNAME, ValuePin.MQNAME);
-            
         }
 
         @objid ("65067eaa-1f4f-11e2-8009-002564c97630")
@@ -1657,27 +1675,27 @@ public class DefaultLinkExpert implements ILinkExpert {
             addRule(PackageImport.MQNAME, Package.MQNAME, Package.MQNAME);
             addRule(PackageImport.MQNAME, Signal.MQNAME, Package.MQNAME);
             addRule(PackageImport.MQNAME, UseCase.MQNAME, Package.MQNAME);
-            
+
             // PackageMerge
             addRule(PackageMerge.MQNAME, Package.MQNAME, Package.MQNAME);
-            
+
             // ProvidedInterface
             addRule(ProvidedInterface.MQNAME, Port.MQNAME, ProvidedInterface.MQNAME);
             addRule(ProvidedInterface.MQNAME, Port.MQNAME, RequiredInterface.MQNAME);
-            
+
             // RaisedException
             addRule(RaisedException.MQNAME, Operation.MQNAME, Class.MQNAME);
             addRule(RaisedException.MQNAME, Operation.MQNAME, DataType.MQNAME);
             addRule(RaisedException.MQNAME, Operation.MQNAME, Enumeration.MQNAME);
             addRule(RaisedException.MQNAME, Operation.MQNAME, Interface.MQNAME);
-            
+
             // RequiredInterface
             addRule(RequiredInterface.MQNAME, Port.MQNAME, ProvidedInterface.MQNAME);
             addRule(RequiredInterface.MQNAME, Port.MQNAME, RequiredInterface.MQNAME);
-            
+
             // Substitution
             addRule(Substitution.MQNAME, Classifier.MQNAME, true, Classifier.MQNAME, true);
-            
+
             // TemplateBinding
             addRule(TemplateBinding.MQNAME, Artifact.MQNAME, Artifact.MQNAME);
             addRule(TemplateBinding.MQNAME, Class.MQNAME, Class.MQNAME);
@@ -1693,7 +1711,7 @@ public class DefaultLinkExpert implements ILinkExpert {
             addRule(TemplateBinding.MQNAME, Package.MQNAME, Package.MQNAME);
             addRule(TemplateBinding.MQNAME, Signal.MQNAME, Signal.MQNAME);
             addRule(TemplateBinding.MQNAME, UseCase.MQNAME, UseCase.MQNAME);
-            
+
             // Transition
             addRule(Transition.MQNAME, ChoicePseudoState.MQNAME, ChoicePseudoState.MQNAME);
             addRule(Transition.MQNAME, ChoicePseudoState.MQNAME, ConnectionPointReference.MQNAME);
@@ -1837,13 +1855,12 @@ public class DefaultLinkExpert implements ILinkExpert {
             addRule(Transition.MQNAME, TerminatePseudoState.MQNAME, ShallowHistoryPseudoState.MQNAME);
             addRule(Transition.MQNAME, TerminatePseudoState.MQNAME, State.MQNAME);
             addRule(Transition.MQNAME, TerminatePseudoState.MQNAME, TerminatePseudoState.MQNAME);
-            
+
             // Usage (same as dependency)
             addRule(Usage.MQNAME, MetamodelRules.ANY, MetamodelRules.ANY);
-            
+
             // UseCaseDependency
             addRule(UseCaseDependency.MQNAME, UseCase.MQNAME, UseCase.MQNAME);
-            
         }
 
         @objid ("65067eae-1f4f-11e2-8009-002564c97630")
@@ -2273,7 +2290,6 @@ public class DefaultLinkExpert implements ILinkExpert {
             addRule(BpmnMessageFlow.MQNAME, BpmnParticipant.MQNAME, BpmnThrowEvent.MQNAME);
             addRule(BpmnMessageFlow.MQNAME, BpmnParticipant.MQNAME, BpmnTransaction.MQNAME);
             addRule(BpmnMessageFlow.MQNAME, BpmnParticipant.MQNAME, BpmnUserTask.MQNAME);
-            
         }
 
         @objid ("65067eb2-1f4f-11e2-8009-002564c97630")
@@ -3008,7 +3024,7 @@ public class DefaultLinkExpert implements ILinkExpert {
             addRule(BpmnSequenceFlow.MQNAME, BpmnUserTask.MQNAME, BpmnThrowEvent.MQNAME);
             addRule(BpmnSequenceFlow.MQNAME, BpmnUserTask.MQNAME, BpmnTransaction.MQNAME);
             addRule(BpmnSequenceFlow.MQNAME, BpmnUserTask.MQNAME, BpmnUserTask.MQNAME);
-            
+
             // BpmnDataAssociation
             addRule(BpmnDataAssociation.MQNAME, BpmnActivity.MQNAME, BpmnDataInput.MQNAME);
             addRule(BpmnDataAssociation.MQNAME, BpmnActivity.MQNAME, BpmnDataObject.MQNAME);
@@ -3117,7 +3133,6 @@ public class DefaultLinkExpert implements ILinkExpert {
             addRule(BpmnDataAssociation.MQNAME, BpmnUserTask.MQNAME, BpmnDataObject.MQNAME);
             addRule(BpmnDataAssociation.MQNAME, BpmnUserTask.MQNAME, BpmnDataOutput.MQNAME);
             addRule(BpmnDataAssociation.MQNAME, BpmnUserTask.MQNAME, BpmnDataStore.MQNAME);
-            
         }
 
         @objid ("65067eb8-1f4f-11e2-8009-002564c97630")
@@ -3125,16 +3140,15 @@ public class DefaultLinkExpert implements ILinkExpert {
             // Add 'canSource' and 'canLink' rules
             this.directRules.add(mcD + mcX);
             this.directRules.add(mcD + mcX + mcY);
-            
+
             // Add 'canTarget' rules in a different set to avoid collisions
             this.reversedRules.add(mcD + mcY);
-            
         }
 
         /**
          * Returns whether this metaclass is known or not.
-         * @param metaclass
-         * the sought metaclass.
+         *
+         * @param metaclass the sought metaclass.
          * @param linkMetaclass The link metaclass
          * @param toMetaclass The target metaclass
          * @return true if the creation is possible, false otherwise.
@@ -3146,7 +3160,7 @@ public class DefaultLinkExpert implements ILinkExpert {
                 // InformationFlow can link ANY UmlModelElement, but we do not want to add thousands of rules for it...
                 return UmlModelElement.class.isAssignableFrom(toMetaclass.getJavaInterface());
             }
-            
+
             final String toMetaclassName = toMetaclass.getQualifiedName();
             return this.reversedRules.contains(linkMetaclassName + toMetaclassName)
                                             || this.reversedRules.contains(linkMetaclassName + MetamodelRules.ANY);
@@ -3157,24 +3171,23 @@ public class DefaultLinkExpert implements ILinkExpert {
             // Add 'canSource' and 'canLink' rules
             this.directRules.add(mcD + mcX);
             this.directRules.add(mcD + mcX + mcY);
-            
+
             // Add 'canTarget' rules in a different set to avoid collisions
             this.reversedRules.add(mcD + mcY);
-            
+
             if (xRec) {
                 MClass mx = this.mm.getMClass(mcX);
                 for (MClass xsub : mx.getSub(false)) {
                     addRule(mcD, xsub.getQualifiedName(), true, mcY, yRec);
                 }
             }
-            
+
             if (yRec) {
                 MClass my = this.mm.getMClass(mcY);
                 for (MClass ysub : my.getSub(false)) {
                     addRule(mcD, mcX, xRec, ysub.getQualifiedName(), true);
                 }
             }
-            
         }
 
     }

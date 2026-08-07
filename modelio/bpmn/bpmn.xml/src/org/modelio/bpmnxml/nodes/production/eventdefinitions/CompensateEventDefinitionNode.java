@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.eventdefinitions;
 
@@ -68,12 +68,12 @@ public class CompensateEventDefinitionNode implements IProductionNode<BpmnCompen
     @objid ("52f5d2c6-fc1c-4c93-bc45-e3846870b8c4")
     @Override
     public BpmnCompensateEventDefinition createUMLElement(MObject context, TCompensateEventDefinition jaxbElement, BpmnImportFactory factory, boolean keepId) {
-        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {  
+        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {
             return factory.createWithId(BpmnCompensateEventDefinition.class, context, "EventDefinitions", jaxbElement.getId());
         } else {
             return factory.create(BpmnCompensateEventDefinition.class, context, "EventDefinitions");
         }
-        
+
     }
 
     @objid ("c2149777-faf5-413f-90b6-ee637e7269bd")
@@ -85,7 +85,7 @@ public class CompensateEventDefinitionNode implements IProductionNode<BpmnCompen
                 modelioElement.setActivityRef(ref);
             }
         }
-        
+
         if (jaxbElement.isWaitForCompletion() != null) {
             modelioElement.setWaitForCompletion(jaxbElement.isWaitForCompletion().toString());
         }
@@ -96,11 +96,11 @@ public class CompensateEventDefinitionNode implements IProductionNode<BpmnCompen
     @Override
     public TCompensateEventDefinition createJaxbElement(Object context, BpmnCompensateEventDefinition modelioElement) {
         TEvent jaxEvent = (TEvent) context;
-        
+
         // Create JaxbElement
         TCompensateEventDefinition jaxEventDefinition = new TCompensateEventDefinition();
         this.elementsMap.put(modelioElement.getUuid(), jaxEventDefinition);
-        
+
         // Add to context
         List<JAXBElement<? extends TEventDefinition>> jaxContext = null;
         if (jaxEvent instanceof TThrowEvent) {
@@ -113,9 +113,9 @@ public class CompensateEventDefinitionNode implements IProductionNode<BpmnCompen
         }
         ObjectFactory factory = new ObjectFactory();
         jaxContext.add(factory.createCompensateEventDefinition(jaxEventDefinition));
-        
+
         jaxEventDefinition.setId(IDUtils.getJaxbId(context, modelioElement));
-        
+
         if (!modelioElement.getWaitForCompletion().equals("")) {
             jaxEventDefinition.setWaitForCompletion(true);
         } else {

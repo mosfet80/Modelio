@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.parts.data.text;
 
@@ -56,28 +56,28 @@ class MultiLineTextCellEditor extends TextCellEditor {
      * Create a new multi line text editor that ensures to not commit the editor value in case enter is typed. The text control will support automatic line wrapping.
      */
     @objid ("b3953f3b-b8b0-463c-985d-31120a0cfa94")
-    public  MultiLineTextCellEditor() {
+    public MultiLineTextCellEditor() {
         this(true, true);
     }
 
     /**
      * Create a new multi line text editor that ensures to not commit the editor value in case enter is typed.
+     *
      * @param lineWrap Flag to configure whether the text control should enable automatic line wrap behaviour or not.
      * @param moveSelectionOnEnter Flag to configure whether the selection should move after a value was committed after pressing enter.
      */
     @objid ("f2cc6405-9229-4f60-b236-d579d8218d39")
-    public  MultiLineTextCellEditor(boolean lineWrap, boolean moveSelectionOnEnter) {
+    public MultiLineTextCellEditor(boolean lineWrap, boolean moveSelectionOnEnter) {
         super(false, moveSelectionOnEnter, false);
         this.commitOnEnter = false;
         this.lineWrap = lineWrap;
-        
     }
 
     @objid ("66ddc642-ee3b-49fb-8321-c3124d4cf51d")
     @Override
     public Text createEditorControl(Composite parent) {
         boolean openInline = openInline(this.configRegistry, this.labelStack.getLabels());
-        
+
         int style = HorizontalAlignmentEnum.getSWTStyle(this.cellStyle) | SWT.MULTI | SWT.BORDER;
         if (!openInline) {
             // if the editor control is opened in a dialog, we add scrolling as
@@ -92,13 +92,13 @@ class MultiLineTextCellEditor extends TextCellEditor {
             style = style | SWT.H_SCROLL;
         }
         final Text textControl = super.createEditorControl(parent, style);
-        
+
         if (!openInline) {
             // add the layout data directly so it will not be layouted by the
             // CellEditDialog
             GridDataFactory.fillDefaults().grab(true, true).hint(100, 50).applyTo(textControl);
         }
-        
+
         // on inline editing there need to be a different handling of the return
         // key as the Text control is performing a new line on return, it is not
         // possible to commit a value by pressing enter. So for inline editing
@@ -107,7 +107,7 @@ class MultiLineTextCellEditor extends TextCellEditor {
         if (openInline) {
             this.commitOnEnter = true;
             textControl.addKeyListener(new KeyListener() {
-        
+
                 @Override
                 public void keyReleased(KeyEvent event) {
                     if (event.keyCode == SWT.CR
@@ -117,7 +117,7 @@ class MultiLineTextCellEditor extends TextCellEditor {
                         }
                     }
                 }
-        
+
                 @Override
                 public void keyPressed(KeyEvent e) {
                 }
@@ -131,7 +131,7 @@ class MultiLineTextCellEditor extends TextCellEditor {
     public Rectangle calculateControlBounds(final Rectangle cellBounds) {
         int widthHintForCompute = this.lineWrap ? cellBounds.width : SWT.DEFAULT;
         Point size = getEditorControl().computeSize(widthHintForCompute, SWT.DEFAULT);
-        
+
         int diff = 0;
         if (this.lineWrap) {
             // Because of computeTrim internally the computed width is bigger than the given
@@ -140,9 +140,9 @@ class MultiLineTextCellEditor extends TextCellEditor {
             diff = size.x - cellBounds.width;
             size = getEditorControl().computeSize(widthHintForCompute - diff, SWT.DEFAULT);
         }
-        
+
         final int widthHint = widthHintForCompute - diff;
-        
+
         // add a listener that increases/decreases the size of the control if
         // the text is modified as the calculateControlBounds method is only
         // called in case of inline editing, this listener shouldn't hurt
@@ -164,10 +164,10 @@ class MultiLineTextCellEditor extends TextCellEditor {
                 cellBounds.y,
                 this.lineWrap ? cellBounds.width : Math.max(size.x, cellBounds.width),
                 Math.max(size.y, cellBounds.height));
-        
     }
 
     /**
+     *
      * @param lineWrap <code>true</code> if the text control should enable automatic line wrap behaviour, <code>false</code> if not
      */
     @objid ("410b1abe-d616-464f-b2a6-70262cb42b01")

@@ -1,29 +1,29 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.view;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.EventTopic;
@@ -110,6 +110,7 @@ public class ElementView implements IModelChangeListener, IStatusChangeListener 
 
     /**
      * Called by the framework to create the view and initialize it.
+     *
      * @param aProjectService the project service.
      * @param modelServices the model service.
      * @param modelioActivationService the activation service
@@ -124,7 +125,7 @@ public class ElementView implements IModelChangeListener, IStatusChangeListener 
     public void createControls(IProjectService aProjectService, @Optional IMModelServices modelServices, @Optional IActivationService modelioActivationService, IModelioPickingService modelioPickingService, Composite parent, @Optional
     @Named (IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection, @Optional EMenuService theMenuService, @Optional MPart propertyPart, IEclipseContext eclipseContext) {
         this.parentComposite = parent;
-        
+
         // Sometimes, the view is instantiated only after the project is opened
         if (aProjectService != null && aProjectService.getOpenedProject() != null) {
             onProjectOpened(aProjectService.getOpenedProject(), modelServices, modelioPickingService,
@@ -133,11 +134,12 @@ public class ElementView implements IModelChangeListener, IStatusChangeListener 
                 update(selection, eclipseContext);
             }
         }
-        
+
     }
 
     /**
      * Updates the view for the given selection.
+     *
      * @param selection an Eclipse selection
      */
     @objid ("8fb871d4-c068-11e1-8c0a-002564c97630")
@@ -148,25 +150,25 @@ public class ElementView implements IModelChangeListener, IStatusChangeListener 
         if (this.project == null || this.projectService.getOpenedProject() == null) {
             return;
         }
-        
+
         if (this.panel == null) {
             // Create the view content
             this.panel = new ElementPropertyPanelProvider(eclipseContext);
             this.panel.createPanel(this.parentComposite);
             this.parentComposite.layout();
-        
+
             configurePanelByPreferences();
         } else if (this.panel.isPinned()) {
             return;
         }
-        
+
         if (selection != null && selection.size() == 1) {
             this.panel.setInput(selection);
             this.currentSelection = selection;
             return;
         }
         this.panel.setInput(null);
-        
+
     }
 
     /**
@@ -182,19 +184,19 @@ public class ElementView implements IModelChangeListener, IStatusChangeListener 
         this.activationService = modelioActivationService;
         this.menuService = theMenuService;
         this.myPart = propertyPart;
-        
+
         // Activate edition on the view
         if (this.panel != null) {
             // this.view.activateEdition(this.projectService, this.project !=
             // null ? this.project.getSession() : null,
             // this.modelService, this.pickingService, this.activationService);
         }
-        
+
         if (this.project != null) {
             this.project.getSession().getModelChangeSupport().addModelChangeListener(this);
             this.project.getSession().getModelChangeSupport().addStatusChangeListener(this);
         }
-        
+
     }
 
     /**
@@ -207,7 +209,7 @@ public class ElementView implements IModelChangeListener, IStatusChangeListener 
         if (this.panel != null) {
             this.panel.setInput(null);
         }
-        
+
     }
 
     /**
@@ -219,11 +221,11 @@ public class ElementView implements IModelChangeListener, IStatusChangeListener 
     void onProjectClosed(@EventTopic (ModelioEventTopics.PROJECT_CLOSED) IGProject closedProject) {
         if (closedProject == this.project) {
             removeModelListeners();
-        
+
             this.project = null;
             this.modelService = null;
         }
-        
+
     }
 
     @objid ("06be8d36-16d1-11e2-aa0d-002564c97630")
@@ -232,7 +234,7 @@ public class ElementView implements IModelChangeListener, IStatusChangeListener 
         if (this.panel != null) {
             this.panel.getPanel().setFocus();
         }
-        
+
     }
 
     /**
@@ -245,7 +247,7 @@ public class ElementView implements IModelChangeListener, IStatusChangeListener 
     void onPickingStart(@EventTopic (ModelioEventTopics.PICKING_START) final IPickingSession session) {
         // Temporary pin the view when picking is in progress
         this.panel.setPinned(true);
-        
+
     }
 
     /**
@@ -258,10 +260,11 @@ public class ElementView implements IModelChangeListener, IStatusChangeListener 
     void onPickingSessionStop(@EventTopic (ModelioEventTopics.PICKING_STOP) final IPickingSession session) {
         // Unpin the view
         this.panel.setPinned(false);
-        
+
     }
 
     /**
+     *
      * @return the property panel.
      */
     @objid ("650c6290-def7-47cf-85e5-e4eb3466e275")
@@ -276,15 +279,15 @@ public class ElementView implements IModelChangeListener, IStatusChangeListener 
     public void configurePanelByPreferences() {
         if (this.configurator == null) {
             this.configurator = new PropertyViewConfigurator(this.projectService, this.myPart);
-        
+
             // Add a property change listener for future updates
             this.projectService.getProjectPreferences(this.myPart.getElementId())
                     .addPropertyChangeListener(new IPropertyChangeListener() {
-        
+
                         @Override
                         public void propertyChange(PropertyChangeEvent event) {
                             Display.getDefault().asyncExec(new Runnable() {
-        
+
                                 @Override
                                 public void run() {
                                     configurePanelByPreferences();
@@ -297,10 +300,11 @@ public class ElementView implements IModelChangeListener, IStatusChangeListener 
             this.configurator.loadConfiguration(this.panel);
             configureMenuItem();
         }
-        
+
     }
 
     /**
+     *
      * @param isShown whether hidden annotations should be displayed.
      */
     @objid ("fd9b4d33-c965-4a1a-ab4b-91115deb7cea")
@@ -323,7 +327,7 @@ public class ElementView implements IModelChangeListener, IStatusChangeListener 
         // hideMenu);
         // fragmentsMenuItem.setSelected(this.configurator.areHiddenMdaElementsDisplayed());
         // }
-        
+
     }
 
     @objid ("93d2c6e4-7ce6-4d3b-9bf5-f4af115ddf64")
@@ -338,7 +342,7 @@ public class ElementView implements IModelChangeListener, IStatusChangeListener 
         // Automatically generated method. Please delete this comment before
         // entering specific code.
         this.menuService = value;
-        
+
     }
 
     @objid ("147b931d-17dd-4194-8bf0-0e686ef67f94")
@@ -348,10 +352,10 @@ public class ElementView implements IModelChangeListener, IStatusChangeListener 
             this.panel.getTreeViewer().getControl().getDisplay().syncExec(() -> {
                 // Simplest strategy here : setInput on element Panel
                 this.panel.setInput(this.currentSelection);
-        
+
             });
         }
-        
+
     }
 
     @objid ("6eee49d3-a7cc-4da8-93a0-96ff440f0089")
@@ -365,7 +369,7 @@ public class ElementView implements IModelChangeListener, IStatusChangeListener 
                 }
             });
         }
-        
+
     }
 
     /**
@@ -385,7 +389,7 @@ public class ElementView implements IModelChangeListener, IStatusChangeListener 
             this.project.getSession().getModelChangeSupport().removeModelChangeListener(this);
             this.project.getSession().getModelChangeSupport().removeStatusChangeListener(this);
         }
-        
+
     }
 
     /**
@@ -414,7 +418,7 @@ public class ElementView implements IModelChangeListener, IStatusChangeListener 
             if (prefs != null) {
                 prefs.setValue(PropertyViewConfigurator.SHOW_HIDDEN_MDA_ELEMENTS, isShown);
             }
-            
+
         }
 
         @objid ("412a7fee-8d3f-4dc3-b424-a092ae484a44")
@@ -423,19 +427,19 @@ public class ElementView implements IModelChangeListener, IStatusChangeListener 
             if (prefs != null) {
                 panel.setShowHiddenMdaElements(prefs.getBoolean(PropertyViewConfigurator.SHOW_HIDDEN_MDA_ELEMENTS));
             }
-            
+
         }
 
         @objid ("f639c91d-23b7-4d68-8fc7-3e3e9241d8e6")
-        public  PropertyViewConfigurator(IProjectService projectService, MPart part) {
+        public PropertyViewConfigurator(IProjectService projectService, MPart part) {
             this.projectService = projectService;
             this.part = part;
-            
+
             final IPreferenceStore prefs = projectService.getProjectPreferences(part.getElementId());
             if (prefs != null) {
                 prefs.setDefault(PropertyViewConfigurator.SHOW_HIDDEN_MDA_ELEMENTS, PropertyViewConfigurator.SHOW_HIDDEN_MDA_ELEMENTS_DEFAULT);
             }
-            
+
         }
 
         @objid ("a1da02dc-21bc-4be3-8909-51bc6b4f1b03")
@@ -454,7 +458,7 @@ public class ElementView implements IModelChangeListener, IStatusChangeListener 
             } else {
                 return null;
             }
-            
+
         }
 
     }

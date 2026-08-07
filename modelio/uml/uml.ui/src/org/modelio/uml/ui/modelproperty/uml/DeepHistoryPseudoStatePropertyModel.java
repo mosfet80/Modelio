@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -50,15 +50,17 @@ public class DeepHistoryPseudoStatePropertyModel extends AbstractPropertyModel<D
     /**
      * Create a new <i>DeepHistoryPseudoState</i> data model from an
      * <i>DeepHistoryPseudoState</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("da239f08-9d6a-4dfe-ba54-874323d34478")
-    public  DeepHistoryPseudoStatePropertyModel(DeepHistoryPseudoState theEditedElement) {
+    public DeepHistoryPseudoStatePropertyModel(DeepHistoryPseudoState theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("069d792f-3a0b-4279-91e7-ed43db9a554f")
@@ -69,6 +71,7 @@ public class DeepHistoryPseudoStatePropertyModel extends AbstractPropertyModel<D
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("41aa551c-8df7-4226-b5d5-47e29cbe80ea")
@@ -81,6 +84,7 @@ public class DeepHistoryPseudoStatePropertyModel extends AbstractPropertyModel<D
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -102,7 +106,7 @@ public class DeepHistoryPseudoStatePropertyModel extends AbstractPropertyModel<D
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -112,6 +116,7 @@ public class DeepHistoryPseudoStatePropertyModel extends AbstractPropertyModel<D
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -134,13 +139,14 @@ public class DeepHistoryPseudoStatePropertyModel extends AbstractPropertyModel<D
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -165,7 +171,7 @@ public class DeepHistoryPseudoStatePropertyModel extends AbstractPropertyModel<D
         default:
             return;
         }
-        
+
     }
 
 }

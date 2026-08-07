@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package com.sun.star.lib.loader;
 
@@ -38,7 +38,7 @@ import org.modelio.editors.richnote.libreoffice.plugin.LibreOfficeEditors;
 
 /**
  * This class can be used as a class path builder for application classes which use UNO.
- * 
+ *
  * <p>The Loader class detects a UNO installation on the system and returns the
  * UNO jar files to add to the search path of a customized class loader.</p>
  */
@@ -51,14 +51,15 @@ public final class Loader {
      * do not instantiate
      */
     @objid ("e407d35d-7860-48e6-89df-11f6e4d12e28")
-    private  Loader() {
-        
+    private Loader() {
+
     }
 
     /**
      * Gets the customized class path with the UNO jar files.
      * <p>
      * Returns <code>null</code> if LibreOffice or OpenOffice is not installed.
+     *
      * @return the customized class loader
      * @throws IOException if the LibreOffice/OpenOffice installation is broken or incomplete.
      */
@@ -66,9 +67,9 @@ public final class Loader {
     public static synchronized List<URL> getUnoClassPath() throws IOException {
         final String CLASSESDIR = "classes";
         final String JUHJAR = "juh.jar";
-        
-        if ( m_urls == null ) { 
-        
+
+        if ( m_urls == null ) {
+
             // get the urls from which to load classes and resources
             // from the class path
             ArrayList<URL> urls = new ArrayList<>();
@@ -83,15 +84,15 @@ public final class Loader {
                         "java.class.path: ");
                 LibreOfficeEditors.LOG.warning(e);
             }
-            
+
             if ( classpath != null ) {
                 addUrls(urls, classpath, File.pathSeparator);
             }
-        
-            // get the urls from which to load classes and resources       
+
+            // get the urls from which to load classes and resources
             // from the UNO installation
-            String path = InstallationFinder.getPath();        
-            if ( path != null ) {            
+            String path = InstallationFinder.getPath();
+            if ( path != null ) {
                 boolean found = false;
                 File fClassesDir = new File( path, CLASSESDIR );
                 File fJuh = new File( fClassesDir, JUHJAR );
@@ -128,7 +129,7 @@ public final class Loader {
                         // loader URLs
                         LibreOfficeEditors.LOG.warning(e);
                     }
-                } 
+                }
                 if (!found){
                     callUnoinfo(path, urls);
                 }
@@ -136,11 +137,11 @@ public final class Loader {
                 LibreOfficeEditors.LOG.warning("No LibreOffice/OpenOffice installation found.");
                 return null;
             }
-            
+
             // Check URLs
             checkUrls(urls);
             m_urls = urls;
-        
+
         }
         return m_urls;
     }
@@ -159,7 +160,7 @@ public final class Loader {
                         "addUrls(): bad '"+ nextToken+"' pathname: "+ e );
             }
         }
-        
+
     }
 
     @objid ("6839a4df-5bac-4b72-921a-893e3dc2cb23")
@@ -172,7 +173,7 @@ public final class Loader {
             //System.err.println("com.sun.star.lib.loader.Loader::callUnoinfo: exec unoinfo: " + e);
             throw e;
         }
-        
+
         new Drain(p.getErrorStream()).start();
         int code;
         byte[] buf = new byte[1000];
@@ -201,7 +202,7 @@ public final class Loader {
             throw new IOException("com.sun.star.lib.loader.Loader::callUnoinfo: reading" +
                                           " unoinfo output: " + e, e);
         }
-        
+
         int ev;
         try {
             ev = p.waitFor();
@@ -214,9 +215,9 @@ public final class Loader {
         if (ev != 0) {
             throw new IOException("com.sun.star.lib.loader.Loader::callUnoinfo: unoinfo"
                                           + " exit value " + n);
-        
+
         }
-        
+
         String s;
         if (code == '0') {
             s = new String(buf);
@@ -230,13 +231,14 @@ public final class Loader {
         } else {
             throw new IOException("Bad unoinfo output code:"+code);
         }
-        
+
         addUrls(urls, s, "\0");
-        
+
     }
 
     /**
      * Check all URLS are valid and throws {@link IOException} if an invalid URL is found.
+     *
      * @param vec the URLS to validate
      * @throws IOException if an invalid URL is found.
      */
@@ -244,11 +246,11 @@ public final class Loader {
     private static void checkUrls(final List<URL> vec) throws IOException {
         for (URL url : vec) {
             if (url.getProtocol().equals("file")) {
-        
+
                 try {
                     File f = new File(url.toURI());
                     if (! f.exists()) {
-        
+
                         String msg;
                         if (f.getPath().contains("unoil.jar")) {
                             //msg = "The "+f.getCanonicalPath()+" file is missing.\nYou probably miss the 'libreoffice-java-common' debian package.";
@@ -263,9 +265,9 @@ public final class Loader {
                     throw new IOException(e);
                 }
             }
-        
+
         }
-        
+
     }
 
     @objid ("8489c3c5-3b81-47e8-987d-029eca38e0fe")
@@ -274,10 +276,10 @@ public final class Loader {
         private final InputStream stream;
 
         @objid ("4a6b9513-ade1-4486-8cfd-903c091d2200")
-        public  Drain(final InputStream stream) {
+        public Drain(final InputStream stream) {
             super("unoinfo stderr drain");
             this.stream = stream;
-            
+
         }
 
         @objid ("bed607d6-6f1c-4503-a5a1-1cccf48ce506")
@@ -286,7 +288,7 @@ public final class Loader {
             try {
                 while (this.stream.read() != -1) {/* noop */}
             } catch (IOException e) { /* ignored */ }
-            
+
         }
 
     }

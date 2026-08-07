@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.silent;
 
@@ -72,6 +72,7 @@ final class SynchronousUpdateManager extends UpdateManager {
     /**
      * Adds a dirty region (defined by the rectangle <i>x, y, w, h</i>) to the update queue. If the figure isn't visible
      * or either the width or height are 0, the method returns without queueing the dirty region.
+     *
      * @param figure the figure that contains the dirty region
      * @param x the x coordinate of the dirty region
      * @param y the y coordinate of the dirty region
@@ -84,7 +85,7 @@ final class SynchronousUpdateManager extends UpdateManager {
         if (w == 0 || h == 0 || !figure.isShowing()) {
             return;
         }
-        
+
         Rectangle rect = this.dirtyRegions.get(figure);
         if (rect == null) {
             rect = new Rectangle(x, y, w, h);
@@ -92,13 +93,14 @@ final class SynchronousUpdateManager extends UpdateManager {
         } else {
             rect.union(x, y, w, h);
         }
-        
+
         queueWork();
-        
+
     }
 
     /**
      * Validates immediately the figure and schedule repaint.
+     *
      * @param f the invalid figure
      */
     @objid ("66a08350-33f7-11e2-95fe-001ec947c8cc")
@@ -107,7 +109,7 @@ final class SynchronousUpdateManager extends UpdateManager {
         if (this.invalidFigures.contains(f)) {
             return;
         }
-        
+
         // Watch-dog for validation cycles
         if (this.validating) {
             final int MAX_ATTEMPT = 20;
@@ -117,7 +119,7 @@ final class SynchronousUpdateManager extends UpdateManager {
                 if (size == MAX_ATTEMPT) {
                     // String dump = new FigureDumper().withOnlyInvalidfigures().dump(f);
                     // DiagramEditor.LOG.error(new IllegalStateException(String.format("Validation cycle detected on %s.\n\t Invalid figures: %s", f, dump)));
-        
+
                     // add a dummy figure to increment size
                     this.invalidFigures.add(new Figure());
                 }
@@ -125,19 +127,20 @@ final class SynchronousUpdateManager extends UpdateManager {
                 return;
             }
         }
-        
+
         this.invalidFigures.add(f);
-        
+
         queueWork();
-        
+
         if (this.syncValidationEnabled) {
             performValidation();
         }
-        
+
     }
 
     /**
      * Returns a Graphics object for the given region.
+     *
      * @param region the region to be repainted
      * @return the Graphics object
      */
@@ -151,6 +154,7 @@ final class SynchronousUpdateManager extends UpdateManager {
 
     /**
      * Performs the update. Validates the invalid figures and then repaints the dirty regions.
+     *
      * @see #validateFigures()
      * @see #repairDamage()
      */
@@ -176,10 +180,11 @@ final class SynchronousUpdateManager extends UpdateManager {
         } finally {
             this.updating = false;
         }
-        
+
     }
 
     /**
+     *
      * @see UpdateManager#performValidation()
      */
     @objid ("66a08363-33f7-11e2-95fe-001ec947c8cc")
@@ -201,11 +206,12 @@ final class SynchronousUpdateManager extends UpdateManager {
             this.invalidFigures.clear();
             this.validating = false;
         }
-        
+
     }
 
     /**
      * Adds the given exposed region to the update queue and then performs the update.
+     *
      * @param exposed the exposed region
      */
     @objid ("66a08368-33f7-11e2-95fe-001ec947c8cc")
@@ -213,7 +219,7 @@ final class SynchronousUpdateManager extends UpdateManager {
     public synchronized void performUpdate(final Rectangle exposed) {
         addDirtyRegion(this.root, exposed);
         performUpdate();
-        
+
     }
 
     /**
@@ -227,29 +233,31 @@ final class SynchronousUpdateManager extends UpdateManager {
             this.updateQueued = true;
             sendUpdateRequest();
         }
-        
+
     }
 
     /**
      * Fires the <code>UpdateRequest</code> to the current display asynchronously.
+     *
      * @since 3.2
      */
     @objid ("66a08372-33f7-11e2-95fe-001ec947c8cc")
     private void sendUpdateRequest() {
         Display display = Display.getDefault();
         display.asyncExec(new UpdateRequest());
-        
+
     }
 
     /**
      * Releases the graphics object, which causes the GraphicsSource to flush.
+     *
      * @param graphics the graphics object
      */
     @objid ("66a08375-33f7-11e2-95fe-001ec947c8cc")
     protected void releaseGraphics(final Graphics graphics) {
         graphics.dispose();
         this.graphicsSource.flushGraphics(this.damage);
-        
+
     }
 
     /**
@@ -262,7 +270,7 @@ final class SynchronousUpdateManager extends UpdateManager {
         Rectangle contribution;
         IFigure figure;
         IFigure walker;
-        
+
         while (keys.hasNext()) {
             figure = keys.next();
             walker = figure.getParent();
@@ -280,13 +288,13 @@ final class SynchronousUpdateManager extends UpdateManager {
                 this.damage.union(contribution);
             }
         }
-        
+
         if (!this.dirtyRegions.isEmpty()) {
             Map<IFigure, Rectangle> oldRegions = this.dirtyRegions;
             this.dirtyRegions = new HashMap<>();
             firePainting(this.damage, oldRegions);
         }
-        
+
         if (this.damage != null && !this.damage.isEmpty()) {
             // ystem.out.println(damage);
             Graphics graphics = getGraphics(this.damage);
@@ -296,11 +304,12 @@ final class SynchronousUpdateManager extends UpdateManager {
             }
         }
         this.damage = null;
-        
+
     }
 
     /**
      * Adds the given runnable and queues an update if an update is not under progress.
+     *
      * @param runnable the runnable
      */
     @objid ("66a0837d-33f7-11e2-95fe-001ec947c8cc")
@@ -310,11 +319,12 @@ final class SynchronousUpdateManager extends UpdateManager {
         if (!this.updating) {
             queueWork();
         }
-        
+
     }
 
     /**
      * Sets the graphics source.
+     *
      * @param gs the graphics source
      */
     @objid ("66a08384-33f7-11e2-95fe-001ec947c8cc")
@@ -325,6 +335,7 @@ final class SynchronousUpdateManager extends UpdateManager {
 
     /**
      * Sets the root figure.
+     *
      * @param figure the root figure
      */
     @objid ("66a0838a-33f7-11e2-95fe-001ec947c8cc")
@@ -343,12 +354,13 @@ final class SynchronousUpdateManager extends UpdateManager {
     }
 
     @objid ("66a08393-33f7-11e2-95fe-001ec947c8cc")
-    public  SynchronousUpdateManager() {
+    public SynchronousUpdateManager() {
         super();
     }
 
     /**
      * Enable or disable synchronous validation.
+     *
      * @param syncValidationEnabled whether synchronous validation must be enabled.
      */
     @objid ("5e138dd2-d3a7-4f4a-8fe7-ba6c6f312f14")
@@ -362,7 +374,7 @@ final class SynchronousUpdateManager extends UpdateManager {
     @objid ("66a08395-33f7-11e2-95fe-001ec947c8cc")
     class UpdateRequest implements Runnable {
         @objid ("66a08397-33f7-11e2-95fe-001ec947c8cc")
-        public  UpdateRequest() {
+        public UpdateRequest() {
             super();
         }
 
@@ -386,10 +398,10 @@ final class SynchronousUpdateManager extends UpdateManager {
         Runnable run;
 
         @objid ("66a2e5a3-33f7-11e2-95fe-001ec947c8cc")
-         RunnableChain(final Runnable run, final RunnableChain next) {
+        RunnableChain(final Runnable run, final RunnableChain next) {
             this.run = run;
             this.next = next;
-            
+
         }
 
         @objid ("66a2e5a9-33f7-11e2-95fe-001ec947c8cc")
@@ -398,7 +410,7 @@ final class SynchronousUpdateManager extends UpdateManager {
                 this.next.run();
             }
             this.run.run();
-            
+
         }
 
     }

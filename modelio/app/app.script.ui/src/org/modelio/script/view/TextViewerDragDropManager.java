@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.script.view;
 
@@ -74,15 +74,16 @@ class TextViewerDragDropManager {
 
     /**
      * Installs text drag and drop on the given TextViewer.
+     *
      * @param aViewPart
      * @param aTextViewer
      */
     @objid ("0087e420-663d-105c-84ef-001ec947cd2a")
-    public  TextViewerDragDropManager(ScriptView aViewPart, TextViewer aTextViewer) {
+    public TextViewerDragDropManager(ScriptView aViewPart, TextViewer aTextViewer) {
         this.viewPart = aViewPart;
         this.textViewer = aTextViewer;
         this.textWidget = aTextViewer.getTextWidget();
-        
+
         // Install drag source
         final DragSource source = new DragSource(this.textWidget, DND.DROP_COPY | DND.DROP_MOVE);
         source.setTransfer(new Transfer[] { this.textTransfer });
@@ -90,7 +91,7 @@ class TextViewerDragDropManager {
             private String fSelectedText;
             private Point fSelection;
             private final ISelectionProvider selectionProvider = TextViewerDragDropManager.this.textViewer.getSelectionProvider();
-        
+
             @Override
             public void dragStart(DragSourceEvent event) {
                 TextViewerDragDropManager.this.fTextDragAndDropToken = null;
@@ -102,7 +103,7 @@ class TextViewerDragDropManager {
                         offset--;
                     }
                     event.doit = offset >= this.fSelection.x && offset < this.fSelection.y;
-        
+
                     final ISelection selection = this.selectionProvider.getSelection();
                     if (selection instanceof ITextSelection) {
                         this.fSelectedText = ((ITextSelection) selection).getText();
@@ -113,7 +114,7 @@ class TextViewerDragDropManager {
                     event.doit = false;
                 }
             }
-        
+
             @Override
             public void dragSetData(DragSourceEvent event) {
                 event.data = this.fSelectedText;
@@ -123,7 +124,7 @@ class TextViewerDragDropManager {
                 // non-null
                 // object
             }
-        
+
             @Override
             public void dragFinished(DragSourceEvent event) {
                 try {
@@ -135,7 +136,7 @@ class TextViewerDragDropManager {
                             delta = length;
                         }
                         TextViewerDragDropManager.this.textWidget.replaceTextRange(this.fSelection.x + delta, length, ""); //$NON-NLS-1$
-        
+
                         if (TextViewerDragDropManager.this.fTextDragAndDropToken == null) {
                             // Move in same editor - end compound change
                             final IRewriteTarget target = TextViewerDragDropManager.this.textViewer.getRewriteTarget();
@@ -143,19 +144,19 @@ class TextViewerDragDropManager {
                                 target.endCompoundChange();
                             }
                         }
-        
+
                     }
                 } finally {
                     TextViewerDragDropManager.this.fTextDragAndDropToken = null;
                 }
             }
         });
-        
+
         // Install drag target
         DropTargetListener dropTargetListener = new DropTargetAdapter() {
-        
+
             private Point fSelection;
-        
+
             /**
              * Returns true if only text files are dragged.
              *
@@ -170,17 +171,17 @@ class TextViewerDragDropManager {
                     if (!isTextFile(filePath)) {
                         return false;
                     }
-        
+
                 }
-        
+
                 return true;
             }
-        
+
             @Override
             public void dragEnter(DropTargetEvent event) {
                 TextViewerDragDropManager.this.fTextDragAndDropToken = null;
                 this.fSelection = TextViewerDragDropManager.this.textWidget.getSelection();
-        
+
                 // will accept text but prefer to have files dropped
                 for (int i = 0; i < event.dataTypes.length; i++) {
                     if (TextViewerDragDropManager.this.fileTransfer.isSupportedType(event.dataTypes[i])) {
@@ -197,7 +198,7 @@ class TextViewerDragDropManager {
                         break;
                     }
                 }
-        
+
                 if (event.detail == DND.DROP_DEFAULT) {
                     if ((event.operations & DND.DROP_MOVE) != 0) {
                         event.detail = DND.DROP_MOVE;
@@ -207,9 +208,9 @@ class TextViewerDragDropManager {
                         event.detail = DND.DROP_NONE;
                     }
                 }
-        
+
             }
-        
+
             @Override
             public void dragOperationChanged(DropTargetEvent event) {
                 if (event.detail == DND.DROP_DEFAULT) {
@@ -222,12 +223,12 @@ class TextViewerDragDropManager {
                     }
                 }
             }
-        
+
             @Override
             public void dragOver(DropTargetEvent event) {
                 event.feedback |= DND.FEEDBACK_SCROLL;
             }
-        
+
             @Override
             public void drop(DropTargetEvent event) {
                 if (TextViewerDragDropManager.this.textTransfer.isSupportedType(event.currentDataType)) {
@@ -237,7 +238,7 @@ class TextViewerDragDropManager {
                     dropFiles(event);
                 }
             }
-        
+
             /**
              * Tests whether the given file contains ASCII text. This is done by
              * reading the first 512 bytes and ensuring that they are all
@@ -251,14 +252,14 @@ class TextViewerDragDropManager {
                     final byte[] bytes = new byte[512];
                     final int byteCount = fileInputStream.read(bytes);
                     fileInputStream.close();
-        
+
                     int zeroByteCount = 0;
                     for (int i = 0; i < byteCount; ++i) {
                         if (bytes[i] == 0) {
                             ++zeroByteCount;
                         }
                     }
-        
+
                     // Consider file as text file if there is no 00 byte
                     isTextFile = (byteCount == -1 || zeroByteCount == 0);
                 } catch (IOException ex) {
@@ -266,7 +267,7 @@ class TextViewerDragDropManager {
                 }
                 return isTextFile;
             }
-        
+
             public void dropFiles(DropTargetEvent event) {
                 final String[] files = (String[]) event.data;
                 final StringBuilder errors = new StringBuilder();
@@ -281,38 +282,38 @@ class TextViewerDragDropManager {
                         e.printStackTrace();
                     } catch (IOException e) {
                         e.printStackTrace();
-        
+
                         errors.append(e.getLocalizedMessage());
                         errors.append("\n");
                     }
                 }
-        
+
                 if (errors.length() > 0) {
                     MessageDialog.openError(TextViewerDragDropManager.this.textWidget.getShell(), "Error", errors.toString());
                 }
-        
+
                 dropText(text.toString());
-        
+
             }
-        
+
             private String readFileContents(String file) throws FileNotFoundException, IOException {
                 try (Reader reader = new FileReader(file);
                         final Reader in = new BufferedReader(reader)) {
                     final StringBuffer buffer = new StringBuffer(512);
                     final char[] readBuffer = new char[512];
-        
+
                     int n = in.read(readBuffer);
                     while (n > 0) {
                         buffer.append(readBuffer, 0, n);
                         n = in.read(readBuffer);
                     }
-        
+
                     in.close();
-        
+
                     return (buffer.toString());
                 }
             }
-        
+
             public void dropText(DropTargetEvent event) {
                 try {
                     if (TextViewerDragDropManager.this.fTextDragAndDropToken != null && event.detail == DND.DROP_MOVE) {
@@ -322,39 +323,39 @@ class TextViewerDragDropManager {
                             event.detail = DND.DROP_NONE;
                             return;
                         }
-        
+
                         // Start compound change
                         final IRewriteTarget target = TextViewerDragDropManager.this.textViewer.getRewriteTarget();
                         if (target != null) {
                             target.beginCompoundChange();
                         }
                     }
-        
+
                     final String text = (String) event.data;
                     dropText(text);
-        
+
                 } finally {
                     TextViewerDragDropManager.this.fTextDragAndDropToken = null;
                 }
             }
-        
+
             private void dropText(String text) {
                 final Point newSelection = TextViewerDragDropManager.this.textWidget.getSelection();
-        
+
                 final int modelOffset = TextViewerDragDropManager.this.textViewer.widgetOffset2ModelOffset(newSelection.x);
                 try {
                     TextViewerDragDropManager.this.textViewer.getDocument().replace(modelOffset, 0, text);
                 } catch (BadLocationException e) {
                     Script.LOG.error(e);
                 }
-        
+
                 TextViewerDragDropManager.this.textWidget.setSelectionRange(newSelection.x, text.length());
             }
         };
-        
+
         final int dropOperations = DND.DROP_MOVE | DND.DROP_COPY | DND.DROP_DEFAULT;
         final Transfer[] dropableTypes = new Transfer[] { this.fileTransfer, this.textTransfer };
-        
+
         // note: Seems to be always null in our case.
         // final IDragAndDropService dndService = (IDragAndDropService)
         // this.viewPart.getSite().getService(IDragAndDropService.class);
@@ -376,7 +377,7 @@ class TextViewerDragDropManager {
         // target.setTransfer(dropableTypes);
         // target.addDropListener(dropTargetListener);
         // }
-        
+
     }
 
     /**
@@ -386,7 +387,7 @@ class TextViewerDragDropManager {
     public void disposeMergedDropTarget() {
         // if (viewer == null || !fIsTextDragAndDropInstalled)
         // return;
-        
+
         // final IDragAndDropService dndService = (IDragAndDropService)
         // this.viewPart.getSite().getService(IDragAndDropService.class);
         // if (dndService == null) {
@@ -401,9 +402,9 @@ class TextViewerDragDropManager {
         // dragSource.dispose();
         // this.textWidget.setData(DND.DRAG_SOURCE_KEY, null);
         // }
-        
+
         // fIsTextDragAndDropInstalled= false;
-        
+
     }
 
 }

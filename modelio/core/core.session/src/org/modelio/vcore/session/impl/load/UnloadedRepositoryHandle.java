@@ -1,24 +1,25 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.impl.load;
 
+import java.util.concurrent.CompletableFuture;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.modelio.vcore.session.api.repository.IRepository;
@@ -40,7 +41,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
  * Used mainly to ease debugging of orphans/detached/duplicate objects.
  * <p>
  * Is able to resurrect objects if another instance has been loaded in memory.
- * 
+ *
  * @author cmarin
  */
 @objid ("e44ff08e-9c51-478a-98f3-2a43a2e62c1c")
@@ -57,7 +58,7 @@ public class UnloadedRepositoryHandle implements IRepositoryObject {
     private final IRepository repository;
 
     @objid ("8cc4a47c-fab4-4964-8577-a06a513ac10e")
-    public  UnloadedRepositoryHandle(IRepository repository) {
+    public UnloadedRepositoryHandle(IRepository repository) {
         this.repository = repository;
     }
 
@@ -87,7 +88,6 @@ public class UnloadedRepositoryHandle implements IRepositoryObject {
         } else {
             return true;
         }
-        
     }
 
     @objid ("9c4b6d5f-1ca1-4556-bd8d-55446c5b1ad0")
@@ -96,9 +96,8 @@ public class UnloadedRepositoryHandle implements IRepositoryObject {
             return true;
         } else {
             String attName = att.getName();
-            return attName.equalsIgnoreCase("name") || attName.equalsIgnoreCase("status");
+            return "name".equalsIgnoreCase(attName) || "status".equalsIgnoreCase(attName);
         }
-        
     }
 
     @objid ("292eaff8-ea31-4ef8-b36a-ca233af48c01")
@@ -111,7 +110,28 @@ public class UnloadedRepositoryHandle implements IRepositoryObject {
                 throw createException(obj);
             }
         }
-        
+    }
+
+    @objid ("474b2426-7bc6-4ad3-996b-d1993e94b879")
+    @Override
+    public void loadStatus(SmObjectImpl obj) {
+        if (tryRestore(obj)) {
+            obj.getRepositoryObject().loadStatus(obj);
+        } else if (CRASH_ON_READ) {
+            if (!isPassThroughAtt(obj.getClassOf().statusAtt())) {
+                throw createException(obj);
+            }
+        }
+    }
+
+    @objid ("748b2057-22b9-455b-a46f-f51ab846c496")
+    @Override
+    public CompletableFuture<Void> whenStatusFullyLoaded(SmObjectImpl obj) {
+        if (tryRestore(obj)) {
+            return obj.getRepositoryObject().whenStatusFullyLoaded(obj);
+        } else {
+            return CompletableFuture.failedFuture(createException(obj));
+        }
     }
 
     @objid ("d0d04edd-967b-4c60-a462-6b0e03885b8f")
@@ -123,7 +143,6 @@ public class UnloadedRepositoryHandle implements IRepositoryObject {
             // forbid modification of normal dependencies (allow opposite ones)
             throw createException(obj);
         }
-        
     }
 
     @objid ("ccc9ba64-9a94-4de2-98cf-6171c69d6e40")
@@ -133,6 +152,7 @@ public class UnloadedRepositoryHandle implements IRepositoryObject {
 
     /**
      * Try to reload another live instance of the object data with another repository handle.
+     *
      * @param obj the object to reload.
      * @return true if the object was successfully  else false.
      */
@@ -146,7 +166,7 @@ public class UnloadedRepositoryHandle implements IRepositoryObject {
                 if (newdata.getRepositoryObject() != this) {
                     return true;
                 }
-            } 
+            }
         } catch (NoSuchKernelException | DeadObjectException e) {
             // ignore
         }
@@ -155,13 +175,12 @@ public class UnloadedRepositoryHandle implements IRepositoryObject {
 
     @objid ("cd2642bd-9b35-48f0-ace5-d185de62c39a")
     @Override
-    public void attModified(SmObjectImpl obj, SmAttribute att) {
+    public void attModified(SmObjectImpl obj, SmAttribute att, Object oldVal) {
         if (tryRestore(obj)) {
-            obj.getRepositoryObject().attModified(obj, att);
+            obj.getRepositoryObject().attModified(obj, att, oldVal);
         } else {
             throw createException(obj);
         }
-        
     }
 
     @objid ("23354f5c-9bcb-45cf-b861-1073195b53db")
@@ -169,7 +188,6 @@ public class UnloadedRepositoryHandle implements IRepositoryObject {
     public void attach(SmObjectImpl obj) {
         // should not be called
         throw new UnsupportedOperationException();
-        
     }
 
     @objid ("5c2548eb-8c81-4e71-a1cc-9ffb5073fac6")
@@ -177,7 +195,6 @@ public class UnloadedRepositoryHandle implements IRepositoryObject {
     public void attachCreatedObj(SmObjectImpl obj) {
         // should not be called
         throw new UnsupportedOperationException();
-        
     }
 
     @objid ("5cc40b01-2f59-4d80-9185-2ad31aaede09")
@@ -188,7 +205,6 @@ public class UnloadedRepositoryHandle implements IRepositoryObject {
         } else {
             throw createException(obj);
         }
-        
     }
 
     @objid ("2db6c98e-7197-4a7d-b355-d12536e8a5ef")
@@ -199,7 +215,6 @@ public class UnloadedRepositoryHandle implements IRepositoryObject {
         } else {
             throw createException(obj);
         }
-        
     }
 
     @objid ("5a0ee0ee-18f3-476b-a92d-a1f84c10dece")
@@ -210,7 +225,6 @@ public class UnloadedRepositoryHandle implements IRepositoryObject {
         } else {
             // Gladly accept a such request
         }
-        
     }
 
     @objid ("a6f5a876-fe53-4a1f-9bf2-b070c2cc1479")
@@ -218,7 +232,6 @@ public class UnloadedRepositoryHandle implements IRepositoryObject {
     public Resource getEmfResource() {
         // should not be called
         throw new UnsupportedOperationException();
-        
     }
 
     @objid ("fd40e079-14b7-495a-9f23-b7b63e14f906")
@@ -244,7 +257,6 @@ public class UnloadedRepositoryHandle implements IRepositoryObject {
     public boolean isPersistent(SmDependency dep) {
         // should not be called
         throw new UnsupportedOperationException();
-        
     }
 
     @objid ("9f2db59f-c60e-429c-b9af-c8330d90f66f")
@@ -253,7 +265,6 @@ public class UnloadedRepositoryHandle implements IRepositoryObject {
         if (tryRestore(obj)) {
             obj.getRepositoryObject().loadDep(obj, dep);
         }
-        
     }
 
     @objid ("4851dcf6-a02e-4efa-a664-cc741cb3e507")
@@ -261,7 +272,6 @@ public class UnloadedRepositoryHandle implements IRepositoryObject {
     public void unload(SmObjectImpl obj) {
         // already done
         // should not be called
-        
     }
 
     @objid ("26ee9ed0-b03b-4375-9b12-7a2f54de5693")
@@ -269,7 +279,6 @@ public class UnloadedRepositoryHandle implements IRepositoryObject {
     public void setToReload(SmObjectImpl obj) {
         // ignore
         // should not be called
-        
     }
 
     @objid ("3e41e2ef-7830-407a-b6a6-57a633a01319")
@@ -278,7 +287,7 @@ public class UnloadedRepositoryHandle implements IRepositoryObject {
         private static final long serialVersionUID = 1L;
 
         @objid ("e85c60d5-14e2-4548-8e4c-3a292c305c17")
-        public  UnloadedException(MObject related, IRepository repository) {
+        public UnloadedException(MObject related, IRepository repository) {
             super(related+" has been unloaded from "+repository+".", related);
         }
 

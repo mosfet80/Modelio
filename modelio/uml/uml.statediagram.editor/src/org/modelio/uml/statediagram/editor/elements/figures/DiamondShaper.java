@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.figures;
 
@@ -28,7 +28,7 @@ import org.modelio.diagram.elements.core.figures.IShaper;
 
 /**
  * Draws a diamond shape.
- * 
+ *
  * @author sbe
  */
 @objid ("f523da3c-55b6-11e2-877f-002564c97630")
@@ -46,9 +46,9 @@ public class DiamondShaper implements IShaper {
         int y = rect.y;
         int w = rect.width;
         int h = rect.height;
-        
+
         Path path = new Path(Display.getCurrent());
-        
+
         path.moveTo(x + w / 2, y);
         path.lineTo(x + w, y + h / 2);
         path.lineTo(x + w / 2, y + h);

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.tools.multipoint;
 
@@ -29,7 +29,7 @@ import org.eclipse.gef.requests.TargetRequest;
 
 /**
  * A request used by {@link MultiPointCreationTool}.
- * 
+ *
  * @author fpoyer
  */
 @objid ("80e903d9-1dec-11e2-8cad-001ec947c8cc")
@@ -69,6 +69,7 @@ public class CreateMultiPointRequest extends CreateRequest implements TargetRequ
 
     /**
      * Returns the EditParts that were accepted so far.
+     *
      * @return the source EditParts
      */
     @objid ("80e903f7-1dec-11e2-8cad-001ec947c8cc")
@@ -78,6 +79,7 @@ public class CreateMultiPointRequest extends CreateRequest implements TargetRequ
 
     /**
      * Returns the EditPart that the target end of the connection should be connected to.
+     *
      * @return the target EditPart
      */
     @objid ("80e90400-1dec-11e2-8cad-001ec947c8cc")
@@ -88,6 +90,7 @@ public class CreateMultiPointRequest extends CreateRequest implements TargetRequ
     /**
      * Returns the start commands. These commands should only be used to pass on information to the target EditPart so
      * it can create the final command.
+     *
      * @return the commands
      */
     @objid ("80e90407-1dec-11e2-8cad-001ec947c8cc")
@@ -97,6 +100,7 @@ public class CreateMultiPointRequest extends CreateRequest implements TargetRequ
 
     /**
      * Adds an EditPart to the list of sources.
+     *
      * @param part the source EditPart to add
      */
     @objid ("80e90410-1dec-11e2-8cad-001ec947c8cc")
@@ -106,6 +110,7 @@ public class CreateMultiPointRequest extends CreateRequest implements TargetRequ
 
     /**
      * Removes an EditPart to the list of sources.
+     *
      * @param part the source EditPart to remove
      */
     @objid ("80e90417-1dec-11e2-8cad-001ec947c8cc")
@@ -115,6 +120,7 @@ public class CreateMultiPointRequest extends CreateRequest implements TargetRequ
 
     /**
      * Sets the target of the Connection to the given EditPart.
+     *
      * @param part the target EditPart
      */
     @objid ("80e9041e-1dec-11e2-8cad-001ec947c8cc")
@@ -126,6 +132,7 @@ public class CreateMultiPointRequest extends CreateRequest implements TargetRequ
     /**
      * Adds a Command to the list of start commands. This command is only used to pass on information to the target
      * EditPart so it can create the final command.
+     *
      * @param command the command
      */
     @objid ("80e90426-1dec-11e2-8cad-001ec947c8cc")
@@ -135,6 +142,7 @@ public class CreateMultiPointRequest extends CreateRequest implements TargetRequ
 
     /**
      * Removes a Command from the list of start commands.
+     *
      * @param command the command
      */
     @objid ("80eb6633-1dec-11e2-8cad-001ec947c8cc")

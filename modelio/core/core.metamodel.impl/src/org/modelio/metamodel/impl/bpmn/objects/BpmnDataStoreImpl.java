@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.objects;
 
 import java.util.ArrayList;
@@ -41,31 +40,31 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00041136-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnDataStoreImpl extends BpmnItemAwareElementImpl implements BpmnDataStore {
-    @objid ("ead9fd6a-2726-4488-b437-c02ca3372014")
+    @objid ("02679fb4-0c2e-44b2-b0b1-2c2b6ac3a8ab")
     @Override
     public int getCapacity() {
         return (Integer) getAttVal(((BpmnDataStoreSmClass)getClassOf()).getCapacityAtt());
     }
 
-    @objid ("0e4e8dea-b718-4aaf-8c07-d2201bfcd1f0")
+    @objid ("db33250d-c9b8-4d5d-8626-cb295d2ad393")
     @Override
     public void setCapacity(int value) {
         setAttVal(((BpmnDataStoreSmClass)getClassOf()).getCapacityAtt(), value);
     }
 
-    @objid ("a11c8bcc-e2b0-4f6f-860f-6f4f91f5c373")
+    @objid ("f81ee789-0c5e-41da-a7ca-a68aecb2b01f")
     @Override
     public boolean isIsUnlimited() {
         return (Boolean) getAttVal(((BpmnDataStoreSmClass)getClassOf()).getIsUnlimitedAtt());
     }
 
-    @objid ("6921af46-8247-4c9e-9c0e-42c1fab6dce6")
+    @objid ("c3170be5-a0e6-4f2c-8999-6ccc3ff69d97")
     @Override
     public void setIsUnlimited(boolean value) {
         setAttVal(((BpmnDataStoreSmClass)getClassOf()).getIsUnlimitedAtt(), value);
     }
 
-    @objid ("b69b2dd5-fc2b-4b7a-b520-250c50b25ea9")
+    @objid ("44f3fcb2-d928-4ee3-8690-3b22a2544df6")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -73,17 +72,17 @@ public class BpmnDataStoreImpl extends BpmnItemAwareElementImpl implements BpmnD
         return super.getCompositionOwner();
     }
 
-    @objid ("ddd63076-fb35-4499-8c61-83ce0576bcac")
+    @objid ("f8c1c731-75d5-438c-8c90-8eda11db8246")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("720a46fd-4c8f-4c25-a401-cc5cf6f11bc4")
+    @objid ("b38fc150-0137-456c-bfc9-2f3f89b605d5")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitBpmnDataStore(this);

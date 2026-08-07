@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.preferences;
 
@@ -37,13 +37,14 @@ public class AuditMasterExecutionPlan implements IAuditExecutionPlan {
 
     /**
      * Constructs a new audit plan, initializing the sub plans.
+     *
      * @param subPlans all available sub plans.
      */
     @objid ("cd8df505-d9df-423d-989c-c839e1a2c01a")
-    public  AuditMasterExecutionPlan(List<IAuditExecutionPlan> subPlans) {
+    public AuditMasterExecutionPlan(List<IAuditExecutionPlan> subPlans) {
         super();
         this.subPlans.addAll(subPlans);
-        
+
     }
 
     @objid ("a3a13651-dfe4-4193-817e-8efdb80dad02")
@@ -53,7 +54,7 @@ public class AuditMasterExecutionPlan implements IAuditExecutionPlan {
                         .map(p -> p.getRules(metaclass, trigger))
                         .flatMap(List::stream)
                         .collect(Collectors.toList());
-        
+
     }
 
     @objid ("4862d137-5bfb-4347-91e9-531217fd51ca")
@@ -75,7 +76,7 @@ public class AuditMasterExecutionPlan implements IAuditExecutionPlan {
                         .map(p -> p.getAllRules())
                         .flatMap(Collection::stream)
                         .collect(Collectors.toList());
-        
+
     }
 
     @objid ("2a92188b-2d8a-41c9-8282-2f20cc2a03a6")
@@ -87,7 +88,7 @@ public class AuditMasterExecutionPlan implements IAuditExecutionPlan {
                 plan.disableRule(rule);
             }
         }
-        
+
     }
 
 }

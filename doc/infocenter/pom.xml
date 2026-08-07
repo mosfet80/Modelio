@@ -1,0 +1,28 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>aggregator-info</artifactId>
+	<packaging>pom</packaging>
+
+	<parent>
+		<groupId>org.modelio</groupId>
+		<artifactId>doc-parent</artifactId>
+		<version>6.2.0-SNAPSHOT</version>
+		<relativePath>../parent</relativePath>
+	</parent>
+
+	<modules>
+		<module>doc-modelio_com</module>
+		<module>doc-modelio_saas</module>
+		<!-- 
+		   The doc modules have producted by the module job. 
+		   In order to product a module, the release Modelio artefacts must be product and delivered first.
+		   So the doc-module Maven module aggregator is disable.
+		-->
+		<!-- <module>doc-modules</module> -->
+		<module>modelio_help-tomcat9_com</module>
+		<module>modelio_help-tomcat9_saas</module>
+		<module>modelio_help-wildfly_saas</module>
+	</modules>
+	<description>Aggregator for Modelio client help WAR projects.</description>
+</project>

@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.audit.engine.core;
 
@@ -31,6 +50,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * that is called for any element to audit.
  * <p>
  * If this is not the case you <b> have to redefine {@link #equals(Object)} and {@link #hashCode()} !</b>.
+ *
  * @author cmarin
  */
 @objid ("578f0691-fee9-4dc1-bd98-8b9bd9752a25")
@@ -39,7 +59,7 @@ public abstract class AbstractControl implements IControl {
     protected IRule rule;
 
     @objid ("710c73e9-3451-42bd-b712-d8b02dc02a61")
-    public  AbstractControl(IRule rule) {
+    public AbstractControl(IRule rule) {
         this.rule = rule;
     }
 
@@ -47,6 +67,7 @@ public abstract class AbstractControl implements IControl {
      * Don't use this method anymore.
      * <p>
      * Don't redefine it, redefined {@link #hashCode()} and {@link #equals(Object)} instead.
+     *
      * @return a hash code for this control.
      * @deprecated Not safe. There is no safe way to generate a unique hashId for any control. They should all implement equals and hashcode.
      */
@@ -91,7 +112,7 @@ public abstract class AbstractControl implements IControl {
     @objid ("45dbc326-5ed2-4a1d-82ef-7c953c93ba04")
     @Override
     public IDiagnosticCollector run(IDiagnosticCollector diagnostic, MObject element) {
-        if (!element.isDeleted()) {
+        if (!element.isDeleted() && !element.isShell()) {
             doRun(diagnostic, element);
             return diagnostic;
         }

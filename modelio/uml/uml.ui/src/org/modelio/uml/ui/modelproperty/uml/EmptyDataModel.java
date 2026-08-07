@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -36,10 +36,11 @@ import org.modelio.platform.model.ui.nattable.viewer.model.AbstractPropertyModel
 @objid ("502561e6-a24d-4255-8ba7-347bb1688755")
 public class EmptyDataModel extends AbstractPropertyModel<Element> {
     /**
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("0212aa16-2fdc-416e-9e53-3cbfae05013b")
-    public  EmptyDataModel(Element theEditedElement) {
+    public EmptyDataModel(Element theEditedElement) {
         super(theEditedElement);
     }
 
@@ -78,7 +79,7 @@ public class EmptyDataModel extends AbstractPropertyModel<Element> {
         default:
             return null;
         }
-        
+
     }
 
     @objid ("207f43be-cf5d-4d08-85b1-7a261ef0f90f")
@@ -92,7 +93,7 @@ public class EmptyDataModel extends AbstractPropertyModel<Element> {
         default:
             return null;
         }
-        
+
     }
 
     @objid ("f409fee4-79b6-462a-9a7b-9ee84dc6649e")

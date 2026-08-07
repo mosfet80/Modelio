@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.view.statusbar;
 
@@ -23,7 +23,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
@@ -94,6 +94,7 @@ public class AuditStatusContributor implements IStatusBarContribution, IAuditMon
 
     /**
      * Initialize the status bar.
+     *
      * @param parent The parent composite.
      */
     @objid ("883b78f2-31c7-4d7e-9472-3c9a591b0ea2")
@@ -101,15 +102,15 @@ public class AuditStatusContributor implements IStatusBarContribution, IAuditMon
     public Control createControl(Composite parent) {
         this.resources = new Resources();
         this.barContainer = new Composite(parent, SWT.NONE);
-        
+
         final GridLayout layout = new GridLayout(7, false);
         layout.verticalSpacing = 0;
         layout.horizontalSpacing = 2;
         layout.marginHeight = 0;
         this.barContainer.setLayout(layout);
-        
+
         this.barContainer.addDisposeListener((e) -> AuditStatusContributor.this.resources.freeResources());
-        
+
         //
         this.errorsNumberLabel = new Label(this.barContainer, SWT.NONE);
         this.errorsNumberLabel.setText("   ");
@@ -118,9 +119,9 @@ public class AuditStatusContributor implements IStatusBarContribution, IAuditMon
         this.errorsNumberLabel.setLayoutData(rd);
         this.errorsNumberLabel.setForeground(UIColor.RED);
         this.errorsNumberLabel.setToolTipText(Audit.I18N.getMessage("Audit.Status.nbErrors.tooltip"));
-        
+
         new Label(this.barContainer, SWT.SEPARATOR).setLayoutData(new GridData(SWT.DEFAULT, 10));
-        
+
         //
         this.warningsNumberLabel = new Label(this.barContainer, SWT.NONE);
         this.warningsNumberLabel.setText("   ");
@@ -130,7 +131,7 @@ public class AuditStatusContributor implements IStatusBarContribution, IAuditMon
         this.warningsNumberLabel.setForeground(UIColor.ORANGE);
         new Label(this.barContainer, SWT.SEPARATOR).setLayoutData(new GridData(SWT.DEFAULT, 10));
         this.warningsNumberLabel.setToolTipText(Audit.I18N.getMessage("Audit.Status.nbWarnings.tooltip"));
-        
+
         //
         this.tipsNumberLabel = new Label(this.barContainer, SWT.NONE);
         this.tipsNumberLabel.setText("   ");
@@ -139,7 +140,7 @@ public class AuditStatusContributor implements IStatusBarContribution, IAuditMon
         this.tipsNumberLabel.setLayoutData(rd);
         this.tipsNumberLabel.setForeground(UIColor.BLUE);
         this.tipsNumberLabel.setToolTipText(Audit.I18N.getMessage("Audit.Status.nbTips.tooltip"));
-        
+
         // Queue size labeled progress bar
         this.progressBar = new ProgressBar2(this.barContainer, SWT.RIGHT_TO_LEFT) {
             @Override
@@ -160,17 +161,17 @@ public class AuditStatusContributor implements IStatusBarContribution, IAuditMon
         rd.heightHint = this.progressBar.getSize().y;
         this.progressBar.setLayoutData(rd);
         this.progressBar.setToolTipText(Audit.I18N.getString("Audit.Status.nbTests.tooltip"));
-        
+
         // Runner status 'LED-like' display
         this.runnerStatusIcon = new Label(this.barContainer, SWT.NONE);
         this.runnerStatusIcon.setImage(this.resources.idleStatusIcon);
         rd = new GridData(SWT.FILL, SWT.CENTER, false, false);
         this.runnerStatusIcon.setLayoutData(rd);
-        
+
         // TODO : This method shouldn't have to be called here:
         // Adding this status bar as listener should fire its status(...) method.
         doRefreshStatus(AuditRunnerStatus.IDLE, 0);
-        
+
         this.auditService.addAuditMonitor(this);
         this.auditService.getAuditEngine().getAuditDiagnostic().addAuditListener(this);
         return this.barContainer;
@@ -181,7 +182,7 @@ public class AuditStatusContributor implements IStatusBarContribution, IAuditMon
         if (this.eventBroker != null) {
             this.eventBroker.post("org/modelio/app/ui/statusbar", controls);
         }
-        
+
     }
 
     /**
@@ -194,7 +195,7 @@ public class AuditStatusContributor implements IStatusBarContribution, IAuditMon
             doRefreshStatus(status, queueSize);
             fireStatusBarUpdate(Arrays.asList(this.runnerStatusIcon));
         });
-        
+
     }
 
     /**
@@ -207,13 +208,14 @@ public class AuditStatusContributor implements IStatusBarContribution, IAuditMon
             doRefreshDiagnostic(auditDiagnostic);
             fireStatusBarUpdate(Arrays.asList(this.errorsNumberLabel, this.warningsNumberLabel, this.tipsNumberLabel));
         });
-        
+
     }
 
     /**
      * Get the status bar SWT Composite.
      * <p>
      * The returned Composite is a child of the composite given to the constructor.
+     *
      * @return the status bar composite.
      */
     @objid ("fb0b64ca-377f-4bb9-92b5-7b3ad825349e")
@@ -223,6 +225,7 @@ public class AuditStatusContributor implements IStatusBarContribution, IAuditMon
 
     /**
      * Update the status bar from last audit diagnostic. MUST BE CALLED from the UI Thread
+     *
      * @param auditDiagnostic the last audit diagnostic.
      */
     @objid ("332e571f-5112-429a-b853-7fbff79b6a9f")
@@ -230,18 +233,19 @@ public class AuditStatusContributor implements IStatusBarContribution, IAuditMon
         int nErrors = auditDiagnostic.getErrorCount();
         int nWarnings = auditDiagnostic.getWarningCount();
         int nTips = auditDiagnostic.getTipCount();
-        
+
         if ((nErrors + nWarnings + nTips) != this.lastRefreshedCount) {
             this.errorsNumberLabel.setText(String.format("%4d", nErrors));
             this.warningsNumberLabel.setText(String.format("%4d", nWarnings));
             this.tipsNumberLabel.setText(String.format("%4d", nTips));
             this.lastRefreshedCount = nErrors + nWarnings + nTips;
         }
-        
+
     }
 
     /**
      * Update the status view from the given parameters. MUST BE CALLED from the UI Thread
+     *
      * @param status The audit status
      * @param queueSize The queue size
      */
@@ -271,10 +275,10 @@ public class AuditStatusContributor implements IStatusBarContribution, IAuditMon
             default:
                 break;
             }
-        
+
             this.lastRefreshedstatus = status;
         }
-        
+
     }
 
     @objid ("b02ef402-46d2-4549-a05b-1168e082f4cc")
@@ -301,12 +305,12 @@ public class AuditStatusContributor implements IStatusBarContribution, IAuditMon
         private Image idleStatusIcon;
 
         @objid ("08f15c7e-0fdd-4608-a6f9-d1d682683011")
-        public  Resources() {
+        public Resources() {
             this.processingStatusIcon = createImageDescriptor("icons/processing.png").createImage();
             this.processingStatusIcon2 = createImageDescriptor("icons/processing2.png").createImage();
             this.suspendedStatusIcon = createImageDescriptor("icons/suspended.png").createImage();
             this.idleStatusIcon = createImageDescriptor("icons/idle.png").createImage();
-            
+
         }
 
         @objid ("615f4570-0637-4a37-bfd9-7a83ef5f2011")
@@ -327,11 +331,12 @@ public class AuditStatusContributor implements IStatusBarContribution, IAuditMon
                 this.idleStatusIcon.dispose();
                 this.idleStatusIcon = null;
             }
-            
+
         }
 
         /**
          * Create an image descriptor from a path relative to the Audit plugin.
+         *
          * @param path a relative path.
          * @return the image descriptor.
          */

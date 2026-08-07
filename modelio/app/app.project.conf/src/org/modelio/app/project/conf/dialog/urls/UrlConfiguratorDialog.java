@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.conf.dialog.urls;
 
@@ -59,11 +59,11 @@ public class UrlConfiguratorDialog extends ModelioDialog {
     Button editBtn = null;
 
     @objid ("1b6f4b05-2a05-4a8b-93c2-1635a3df56ab")
-    public  UrlConfiguratorDialog(Shell shell, UrlEntry entry, boolean isLocalProject) {
+    public UrlConfiguratorDialog(Shell shell, UrlEntry entry, boolean isLocalProject) {
         super(shell);
         this.entry = entry;
         this.isLocalProject = isLocalProject;
-        
+
     }
 
     @objid ("d4c3aec5-1dd5-436a-a91e-cca0c3c05554")
@@ -77,13 +77,13 @@ public class UrlConfiguratorDialog extends ModelioDialog {
         layout.marginWidth = 2;
         layout.marginHeight = 2;
         composite.setLayout(layout);
-        
+
         // Name label and field
         Label nameLabel = new Label(composite, SWT.NULL);
         nameLabel.setText("Name:");
         GridData gd = new GridData(SWT.RIGHT, SWT.FILL, false, true);
         nameLabel.setLayoutData(gd);
-        
+
         this.nameText = new Text(composite, SWT.NULL);
         gd = new GridData(SWT.FILL, SWT.FILL, true, true);
         String entryName = (this.entry == null) ? AppProjectConf.I18N.getString("UrlConfiguratorDialog.EnterName") : this.entry.name;
@@ -91,7 +91,7 @@ public class UrlConfiguratorDialog extends ModelioDialog {
         this.nameText.setLayoutData(gd);
         this.nameText.setEditable(this.isLocalProject);
         this.nameText.addModifyListener(new ModifyListener() {
-        
+
             @Override
             public void modifyText(ModifyEvent e) {
                 String text = ((Text) e.getSource()).getText();
@@ -114,19 +114,19 @@ public class UrlConfiguratorDialog extends ModelioDialog {
                 }
             }
         });
-        
+
         // Url label and field
         Label urlLabel = new Label(composite, SWT.NULL);
         urlLabel.setText("URL:");
         gd = new GridData(SWT.RIGHT, SWT.FILL, false, true);
         nameLabel.setLayoutData(gd);
-        
+
         this.urlText = new Text(composite, SWT.NULL);
         String entryUrl = (this.entry == null) ? AppProjectConf.I18N.getString("UrlConfiguratorDialog.EnterURL") : this.entry.url;
         this.urlText.setText(entryUrl);
         this.urlText.setEditable(this.isLocalProject);
         gd = new GridData(SWT.FILL, SWT.FILL, true, true);
-        
+
         this.urlText.setLayoutData(gd);
         return composite;
     }
@@ -135,7 +135,7 @@ public class UrlConfiguratorDialog extends ModelioDialog {
     @Override
     public void addButtonsInButtonBar(Composite parent) {
         createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, true);
-        
+
         if (this.entry == null) { // null when create
             this.addBtn = createButton(parent, IDialogConstants.OK_ID, AppProjectConf.I18N.getString("UrlConfiguratorDialog.AddUrl"), true); //$NON-NLS-1$
             this.addBtn.setEnabled(this.isLocalProject);
@@ -143,7 +143,7 @@ public class UrlConfiguratorDialog extends ModelioDialog {
             this.editBtn = createButton(parent, IDialogConstants.OK_ID, AppProjectConf.I18N.getString("UrlConfiguratorDialog.EditUrl"), true); //$NON-NLS-1$
             this.editBtn.setEnabled(this.isLocalProject);
         }
-        
+
     }
 
     @objid ("529118d1-9105-4767-bb0b-8206edacbfa1")
@@ -161,7 +161,7 @@ public class UrlConfiguratorDialog extends ModelioDialog {
             setTitle(AppProjectConf.I18N.getString("UrlConfiguratorDialog.EditTitle")); //$NON-NLS-1$
             setMessage(AppProjectConf.I18N.getString("UrlConfiguratorDialog.EditMessage")); //$NON-NLS-1$
         }
-        
+
     }
 
     @objid ("79eaaa7c-5921-48b9-a6fc-a1494e0a8894")
@@ -175,7 +175,7 @@ public class UrlConfiguratorDialog extends ModelioDialog {
         this.entry.url = UrlConfiguratorDialog.this.urlText.getText();
         close();
         super.okPressed();
-        
+
     }
 
     @objid ("d8c766e2-3ae6-403e-a9f0-3515de9c2370")
@@ -183,7 +183,7 @@ public class UrlConfiguratorDialog extends ModelioDialog {
     protected void cancelPressed() {
         this.entry = null;
         super.cancelPressed();
-        
+
     }
 
     @objid ("170179a7-232b-4961-9e0b-b594f0c6594d")

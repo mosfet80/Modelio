@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.embeddeddiagram;
 
@@ -81,44 +81,44 @@ public class EmbeddedDiagramRootEditPart extends ScalableFreeformRootEditPart2 i
     private GmEmbeddedDiagram model;
 
     @objid ("1e4a518b-f2fe-40a8-9da9-8a9694d28064")
-    public  EmbeddedDiagramRootEditPart(EditPart parent, Object model) {
+    public EmbeddedDiagramRootEditPart(EditPart parent, Object model) {
         super();
-        
+
         setModel(model);
         setParent(parent);
         this.embeddedViewer = new EmbeddedEditPartViewer(this);
-        
+
         // Ensure max zoom level is 1.0
         getLocalZoomManager().setZoomLevels(new double[] { 0.1, 0.2, 0.3, 0.5, 0.7, 0.8, 0.9, 1.0 });
-        
+
     }
 
     @objid ("9a3380fe-7046-421e-a205-7acd113c0a3b")
     @Override
     public void activate() {
         super.activate();
-        
+
         // Load the viewed diagram
         final IGmDiagram viewedDiagram = getModel().getViewedDiagramModel(true);
         if (viewedDiagram != null) {
             // Ensure the listener is registered once and only once.
             viewedDiagram.removePropertyChangeListener(this.diagramListener);
             viewedDiagram.addPropertyChangeListener(this.diagramListener);
-        
+
             // Make sure embedded diagram register their factories as "secondary"
             EditPartFactory editPartFactory = getViewer().getEditPartFactory();
             if (editPartFactory instanceof StandardEditPartFactory) {
                 StandardEditPartFactory currentFactory = (StandardEditPartFactory) editPartFactory;
                 DelegatingEditPartFactory secondaryFactories = currentFactory.getSecondaryFactories();
-        
+
                 String embeddedFactoryIdentifier = viewedDiagram.getFactoryIdentifier();
                 secondaryFactories.registerFactory(DiagramFactoryRegistry.getInstance().getEditPartFactory(embeddedFactoryIdentifier));
-        
+
                 for (String embeddedFactoryExtension : DiagramFactoryRegistry.getInstance().getExtensions(embeddedFactoryIdentifier)) {
                     secondaryFactories.registerFactory(DiagramFactoryRegistry.getInstance().getEditPartFactory(embeddedFactoryExtension));
                 }
             }
-        
+
             setContents(editPartFactory.createEditPart(this, viewedDiagram));
         } else {
             // Loading failed, probably diagram cycle
@@ -129,36 +129,36 @@ public class EmbeddedDiagramRootEditPart extends ScalableFreeformRootEditPart2 i
             setContents(editpart);
             getContentPane().setLayoutManager(new StackLayout());
         }
-        
+
         getModel().addPropertyChangeListener(this);
-        
+
     }
 
     @objid ("a9eda506-5942-4c6d-b08b-065fb6da63b8")
     @Override
     public void deactivate() {
         getModel().removePropertyChangeListener(this);
-        
+
         final IGmDiagram viewedDiagram = getModel().getViewedDiagramModel(false);
         if (viewedDiagram != null) {
             viewedDiagram.removePropertyChangeListener(this.diagramListener);
             viewedDiagram.dispose();
         }
-        
+
         super.deactivate();
-        
+
     }
 
     @objid ("bf7730e0-0a92-4a18-9983-43ce582a94b7")
     @Override
     public Object getAdapter(Class adapter) {
         final GmNodeModel gmModel = getModel();
-        
+
         // Support IGmObject, GmModel and its subclasses
         if (adapter.isInstance(gmModel)) {
             return gmModel;
         }
-        
+
         // Support ObElement & subclasses
         if (gmModel != null) {
             final MObject obElement = gmModel.getRelatedElement();
@@ -171,6 +171,7 @@ public class EmbeddedDiagramRootEditPart extends ScalableFreeformRootEditPart2 i
 
     /**
      * Get the zoom manager for the embedded diagram.
+     *
      * @return the local zoom manager.
      */
     @objid ("e5c93b60-67c1-4f11-a0f3-46686b3a99a9")
@@ -189,6 +190,7 @@ public class EmbeddedDiagramRootEditPart extends ScalableFreeformRootEditPart2 i
 
     /**
      * Get the root edit part of the parent EditPart.
+     *
      * @return the owner RootEditPart.
      */
     @objid ("2654b85b-27cf-441c-8d34-b7520aca414e")
@@ -208,6 +210,7 @@ public class EmbeddedDiagramRootEditPart extends ScalableFreeformRootEditPart2 i
 
     /**
      * Get the zoom manager for the embedded diagram.
+     *
      * @return the local zoom manager.
      */
     @objid ("ebeb7434-8418-48a6-b1eb-8844c6850bec")
@@ -231,21 +234,21 @@ public class EmbeddedDiagramRootEditPart extends ScalableFreeformRootEditPart2 i
         if (NavigationRequest.TYPE == req.getType()) {
             final GmNodeModel gm = getModel();
             final MObject relatedEl = gm.getRelatedElement();
-        
+
             IModelioNavigationService service = gm.getDiagram().getModelManager().getNavigationService();
             service.fireNavigate(relatedEl);
-        
+
             getViewer().setSelection(new StructuredSelection(this));
         } else if (RequestConstants.REQ_OPEN.equals(req.getType())) {
             final GmNodeModel gm = getModel();
             final MObject relatedEl = gm.getRelatedElement();
-        
+
             IActivationService service = gm.getDiagram().getModelManager().getActivationService();
             service.activateMObject(relatedEl);
-        
+
         }
         super.performRequest(req);
-        
+
     }
 
     @objid ("76748a0e-ecd0-4fde-8d8b-8bb430e7235d")
@@ -254,7 +257,7 @@ public class EmbeddedDiagramRootEditPart extends ScalableFreeformRootEditPart2 i
         if (ev.getPropertyName().equals(IGmObject.PROPERTY_CHILDREN)) {
             refreshDiagramChildren();
         }
-        
+
         if (GmEmbeddedDiagram.PROP_INNER_DIAGRAM.equals(ev.getPropertyName())) {
             final IGmDiagram oldViewedDiagram = (IGmDiagram) ev.getOldValue();
             final IGmDiagram newViewedDiagram = (IGmDiagram) ev.getNewValue();
@@ -265,7 +268,7 @@ public class EmbeddedDiagramRootEditPart extends ScalableFreeformRootEditPart2 i
                 newViewedDiagram.addPropertyChangeListener(this.diagramListener);
             }
         }
-        
+
     }
 
     @objid ("17a6ac43-ba70-498d-ad0c-957ec9316432")
@@ -274,7 +277,7 @@ public class EmbeddedDiagramRootEditPart extends ScalableFreeformRootEditPart2 i
         if (contents != null) {
             contents.refresh();
         }
-        
+
     }
 
     @objid ("5f3c2f06-8db5-4e45-a65c-4acd816fc5a7")
@@ -282,7 +285,7 @@ public class EmbeddedDiagramRootEditPart extends ScalableFreeformRootEditPart2 i
     public void setModel(Object model) {
         this.model = (GmEmbeddedDiagram) model;
         super.setModel(model);
-        
+
     }
 
     @objid ("44bacba2-592f-41d9-97d5-c646984524ea")
@@ -290,7 +293,7 @@ public class EmbeddedDiagramRootEditPart extends ScalableFreeformRootEditPart2 i
     public void setViewer(EditPartViewer newViewer) {
         // The viewer is set on construction
         throw new UnsupportedOperationException();
-        
+
     }
 
     /**
@@ -306,28 +309,29 @@ public class EmbeddedDiagramRootEditPart extends ScalableFreeformRootEditPart2 i
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         installEditPolicy(EditPolicy.COMPONENT_ROLE, new DefaultDeleteNodeEditPolicy());
         installEditPolicy(ModelElementDropRequest.TYPE, new DefaultElementDropEditPolicy());
-        
+
         installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new ReadOnlyHoverFeedbackEditPolicy());
-        
+
         // installEditPolicy(TranslateChildrenOnResizeEditPolicy.class, new TranslateChildrenOnResizeEditPolicy());
-        
+
     }
 
     @objid ("c5dbb896-6350-4ae7-b538-7c2738fce6fa")
     @Override
     protected void createLayers(LayeredPane layeredPane) {
         super.createLayers(layeredPane);
-        
+
         // Remove the guides layer
         layeredPane.remove(layeredPane.getLayer(LayerConstants.GUIDE_LAYER));
-        
+
     }
 
     /**
      * Creates a layered pane and the layers that should be scaled.
+     *
      * @return a new freeform layered pane containing the scalable layers
      */
     @objid ("c790bb2d-745e-488d-a220-28ed7106edb0")
@@ -345,7 +349,7 @@ public class EmbeddedDiagramRootEditPart extends ScalableFreeformRootEditPart2 i
             zm.setCenterView(getModel().isViewToCenter());
             zm.fitToContent();
         }
-        
+
     }
 
     @objid ("64ec8cec-e8a9-46bf-801f-b33cd67a29fc")
@@ -353,7 +357,7 @@ public class EmbeddedDiagramRootEditPart extends ScalableFreeformRootEditPart2 i
     protected FreeformViewport createViewport() {
         EmbeddedDiagramViewport viewport = new EmbeddedDiagramViewport();
         viewport.setLayoutManager(new EmbeddedDiagramViewportLayout());
-        
+
         // Auto fit to content
         viewport.addLayoutListener(new LayoutListener.Stub() {
             @Override
@@ -366,6 +370,7 @@ public class EmbeddedDiagramRootEditPart extends ScalableFreeformRootEditPart2 i
 
     /**
      * Responsible of creating a {@link ZoomManager} to be used by this {@link ScalableRootEditPart}.
+     *
      * @return A new {@link ZoomManager} bound to the given {@link ScalableFigure} and {@link Viewport}.
      * @since 3.10
      */
@@ -396,7 +401,7 @@ public class EmbeddedDiagramRootEditPart extends ScalableFreeformRootEditPart2 i
     @Override
     protected List<?> getModelChildren() {
         GmEmbeddedDiagram gmNodeModel = getModel();
-        
+
         // Only visible composite nodes have children
         if (gmNodeModel.isVisible()) {
             // Filter visible children
@@ -404,18 +409,18 @@ public class EmbeddedDiagramRootEditPart extends ScalableFreeformRootEditPart2 i
         } else {
             return Collections.emptyList();
         }
-        
+
     }
 
     @objid ("217aac8d-ddb0-47f1-b985-ba0f597ff67c")
     @Override
     protected void refreshGridLayer() {
-        
+
     }
 
     /**
      * Copy of package private org.eclipse.draw2d.FreeformViewport.FreeformViewportLayout to redefine {@link #calculateMinimumSize(IFigure, int, int)}.
-     * 
+     *
      * @author cma
      * @since 3.7
      */
@@ -435,7 +440,7 @@ public class EmbeddedDiagramRootEditPart extends ScalableFreeformRootEditPart2 i
                     // .union(0, 0)
                     // .union(wHint - 1, hHint - 1)
                     .getSize();
-            
+
         }
 
         @objid ("0a04fa34-c837-4426-9ec4-24a81f1612bd")
@@ -448,7 +453,7 @@ public class EmbeddedDiagramRootEditPart extends ScalableFreeformRootEditPart2 i
                     .scale(1 / getZoomManager().getZoom())
                     .expand(parent.getInsets())
                     .getSize();
-            
+
         }
 
         @objid ("d8b6b2ea-147f-4f66-8c58-d12fa48c268e")

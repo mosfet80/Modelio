@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel.meta.descriptor;
 
@@ -25,13 +25,13 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * Metamodel dependency descriptor.
- * 
+ *
  * @author cma
  * @since 3.6
  */
 @objid ("ae5aea12-6236-40b9-952a-14067c4daf00")
 public class MDependencyDescriptor implements Serializable {
-    
+
     @mdl.prop
     @objid ("13f4bd6d-24fa-4ecb-ad90-d81f7cdfab18")
     public MAggregation aggregation;
@@ -48,7 +48,7 @@ public class MDependencyDescriptor implements Serializable {
         this.aggregation = value;
     }
 
-    
+
     @mdl.prop
     @objid ("51598580-e4ea-4ecf-8631-3a92fe3b3634")
     public boolean cascadeDelete;
@@ -65,7 +65,7 @@ public class MDependencyDescriptor implements Serializable {
         this.cascadeDelete = value;
     }
 
-    
+
     @mdl.prop
     @objid ("98cfcb64-0c3c-4972-b4db-29f4eda713aa")
     public int max;
@@ -82,7 +82,7 @@ public class MDependencyDescriptor implements Serializable {
         this.max = value;
     }
 
-    
+
     @mdl.prop
     @objid ("d08b23ea-48d0-488d-aede-c934c2c07a2f")
     public int min;
@@ -99,7 +99,7 @@ public class MDependencyDescriptor implements Serializable {
         this.min = value;
     }
 
-    
+
     @mdl.prop
     @objid ("aa596655-3d02-4d9c-ad48-35151a17e14b")
     public String name;
@@ -116,7 +116,7 @@ public class MDependencyDescriptor implements Serializable {
         this.name = value;
     }
 
-    
+
     @mdl.prop
     @objid ("48755031-4ae1-4ef7-bbd0-d1e098fca194")
     public boolean navigate;
@@ -133,7 +133,7 @@ public class MDependencyDescriptor implements Serializable {
         this.navigate = value;
     }
 
-    
+
     @mdl.prop
     @objid ("b1577d28-aba3-4303-bc75-20bf959ef1cc")
     public String oppositeName;
@@ -150,7 +150,7 @@ public class MDependencyDescriptor implements Serializable {
         this.oppositeName = value;
     }
 
-    
+
     @mdl.prop
     @objid ("56c99848-563a-49c0-8640-82f09b732f49")
     public boolean weakReference;
@@ -170,7 +170,7 @@ public class MDependencyDescriptor implements Serializable {
     @objid ("5870a6b8-85af-4040-8ff4-7dda771e8761")
     private static final long serialVersionUID = 1L;
 
-    
+
     @mdl.prop
     @objid ("212b79d4-b8dc-470a-87ba-a3f0456f6315")
     public MClassRef target;

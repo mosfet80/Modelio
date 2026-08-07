@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.service.impl.common;
 
@@ -74,55 +74,57 @@ public class FakeIModule implements IModule {
 
     /**
      * Instantiate a fake module.
+     *
      * @param modelingSession a modeling session.
      * @param gmodule the low level module.
      * @param moduleUserConfiguration the user version of the module configuration
      * @param moduleApiConfiguration the api version of the module configuration
      */
     @objid ("b317e52b-f11c-11e1-af52-001ec947c8cc")
-    public  FakeIModule(final GModule gmodule, final IModuleUserConfiguration moduleUserConfiguration, final IModuleAPIConfiguration moduleApiConfiguration) {
+    public FakeIModule(final GModule gmodule, final IModuleUserConfiguration moduleUserConfiguration, final IModuleAPIConfiguration moduleApiConfiguration) {
         this.gmodule = gmodule;
         this.moduleConfiguration = moduleUserConfiguration;
         this.lifecyleHandler = new IModuleLifeCycleHandler() {
-        
+
             @Override
             public void upgrade(final Version oldVersion,
                     final Map<String, String> oldParameters) throws ModuleException {
                 // Empty
             }
-        
+
             @Override
             public void unselect() throws ModuleException {
                 // Empty
             }
-        
+
             @Override
             public void stop() throws ModuleException {
                 // Empty
             }
-        
+
             @Override
             public boolean start() throws ModuleException {
                 return false;
             }
-        
+
             @Override
             public boolean select() throws ModuleException {
                 return false;
             }
-        
+
             @Override
             public void configurationChanged(String pName, String oldValue, String newValue) {
                // ignore
             }
         };
-        
+
         this.peerModule = new DefaultPeerModule(null, moduleApiConfiguration);
-        
+
     }
 
     /**
      * Used to return the module description.
+     *
      * @return The module description
      */
     @objid ("b317e540-f11c-11e1-af52-001ec947c8cc")
@@ -146,6 +148,7 @@ public class FakeIModule implements IModule {
     /**
      * Get the module label that is displayed in dialog boxes and other GUIU
      * parts.
+     *
      * @return The module label.
      */
     @objid ("b317e559-f11c-11e1-af52-001ec947c8cc")
@@ -174,6 +177,7 @@ public class FakeIModule implements IModule {
 
     /**
      * Always returns null.
+     *
      * @return null.
      */
     @objid ("b317e567-f11c-11e1-af52-001ec947c8cc")
@@ -194,6 +198,7 @@ public class FakeIModule implements IModule {
      * <p>
      * The module name corresponds to the name of the module, as defined in the
      * <i>MDA Designer<i> tool.
+     *
      * @return The module name
      */
     @objid ("b31a4782-f11c-11e1-af52-001ec947c8cc")
@@ -206,6 +211,7 @@ public class FakeIModule implements IModule {
      * Returns the peer module, connected to this module.
      * <p>
      * The peer module represents the public services of this current module.
+     *
      * @return The associated peer module
      */
     @objid ("b31a478e-f11c-11e1-af52-001ec947c8cc")
@@ -222,6 +228,7 @@ public class FakeIModule implements IModule {
 
     /**
      * Used to return the module version.
+     *
      * @return The module version
      */
     @objid ("b31a47a8-f11c-11e1-af52-001ec947c8cc")

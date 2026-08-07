@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.panel.data.standard.infrastructure;
 
@@ -49,15 +49,17 @@ public class DiagramSetPropertyModel extends AbstractPropertyModel<DiagramSet> {
 
     /**
      * Create a new <i>DiagramSet</i> data model from an <i>DiagramSet</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("9c722067-b495-4eaf-b090-d3e1cb1bbcfb")
-    public  DiagramSetPropertyModel(final DiagramSet theEditedElement) {
+    public DiagramSetPropertyModel(final DiagramSet theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("458ce944-7d51-4185-a128-c9336081ceb4")
@@ -68,6 +70,7 @@ public class DiagramSetPropertyModel extends AbstractPropertyModel<DiagramSet> {
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("b5dde917-7c46-4085-8d6d-582ea9d46783")
@@ -80,6 +83,7 @@ public class DiagramSetPropertyModel extends AbstractPropertyModel<DiagramSet> {
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -101,7 +105,7 @@ public class DiagramSetPropertyModel extends AbstractPropertyModel<DiagramSet> {
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -111,6 +115,7 @@ public class DiagramSetPropertyModel extends AbstractPropertyModel<DiagramSet> {
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -133,13 +138,14 @@ public class DiagramSetPropertyModel extends AbstractPropertyModel<DiagramSet> {
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -164,7 +170,7 @@ public class DiagramSetPropertyModel extends AbstractPropertyModel<DiagramSet> {
         default:
             return;
         }
-        
+
     }
 
 }

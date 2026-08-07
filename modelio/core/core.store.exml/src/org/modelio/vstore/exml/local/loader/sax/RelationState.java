@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.vstore.exml.local.loader.sax;
 
@@ -46,7 +65,6 @@ class RelationState extends AbstractState {
         default:
             break;
         }
-        
     }
 
     @objid ("2afeb993-3faf-11e2-87cb-001ec947ccaf")
@@ -56,20 +74,10 @@ class RelationState extends AbstractState {
             ObjIdName objid;
             SmObjectImpl obj;
             switch (localName) {
-            case TAG_COMPID:
-                objid = readID(atts);
-                if (objid != null) {
-                    obj = getObjRef(objid);
-        
-                    if (obj != null) {
-                        getDataModel().getCurrent().addToDep(obj);
-                    }
-                }
-        
-                break;
             case TAG_REFOBJ:
                 this.stateHandler.enterREFOBJState();
                 break;
+            case TAG_COMPID:
             case TAG_ID:
             case TAG_FOREIGNID:
                 objid = readID(atts);
@@ -84,7 +92,7 @@ class RelationState extends AbstractState {
             default:
                 throwInvalidTag(localName);
                 break;
-        
+
             }
         } catch (DuplicateObjectException e) {
             rethrowException(e);
@@ -95,17 +103,6 @@ class RelationState extends AbstractState {
         } catch (IllegalReferenceException e) {
             rethrowException(e);
         }
-        
-    }
-
-    @objid ("6050a96f-dab6-4d6a-8eb8-9ac2ff410284")
-    private SmObjectImpl getObjRef(ObjIdName objid) throws DuplicateObjectException, IllegalReferenceException, IndexException {
-        SmObjectImpl obj;
-        obj = getDataModel().loadHelper.getLoadedObject(objid.toObjId());
-        if (obj == null) {
-            obj = getDataModel().loadHelper.getRefObject(getDataModel().modelLoader, objid);
-        }
-        return obj;
     }
 
 }

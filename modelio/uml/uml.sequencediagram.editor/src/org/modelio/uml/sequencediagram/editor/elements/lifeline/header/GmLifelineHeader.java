@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.lifeline.header;
 
@@ -35,7 +35,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Specialisation of the default header to handle representation mode 'Image'.
- * 
+ *
  * @author fpoyer
  */
 @objid ("d942189a-55b6-11e2-877f-002564c97630")
@@ -53,17 +53,18 @@ public class GmLifelineHeader extends GmDefaultModelElementHeader {
      * Empty c'tor for deserialisation.
      */
     @objid ("d94218a3-55b6-11e2-877f-002564c97630")
-    public  GmLifelineHeader() {
+    public GmLifelineHeader() {
         super();
     }
 
     /**
      * Default c'tor.
+     *
      * @param diagram the diagram in which this Gm is created.
      * @param ref a reference to the related element.
      */
     @objid ("d94218a6-55b6-11e2-877f-002564c97630")
-    public  GmLifelineHeader(final IGmDiagram diagram, final MRef ref) {
+    public GmLifelineHeader(final IGmDiagram diagram, final MRef ref) {
         super(diagram, ref);
     }
 
@@ -75,7 +76,6 @@ public class GmLifelineHeader extends GmDefaultModelElementHeader {
         } else {
             return RepresentationMode.STRUCTURED;
         }
-        
     }
 
     @objid ("d94218b7-55b6-11e2-877f-002564c97630")
@@ -95,7 +95,6 @@ public class GmLifelineHeader extends GmDefaultModelElementHeader {
             setShowMetaclassIcon(false);
         }
         super.refreshFromObModel();
-        
     }
 
     /**
@@ -120,6 +119,7 @@ public class GmLifelineHeader extends GmDefaultModelElementHeader {
      * The secondary label of a Lifeline is the represented PartDecomposition if any.
      * <p>
      * This method may be redefined by subclasses.
+     *
      * @return The secondary label of the header.
      */
     @objid ("d94218c5-55b6-11e2-877f-002564c97630")
@@ -148,17 +148,15 @@ public class GmLifelineHeader extends GmDefaultModelElementHeader {
             break;
         }
         }
-        
     }
 
     @objid ("d9439f3c-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmLifelineHeader.", GmLifelineHeader.MINOR_VERSION);
-        
     }
 
     @objid ("d9439f42-55b6-11e2-877f-002564c97630")
@@ -186,7 +184,7 @@ public class GmLifelineHeader extends GmDefaultModelElementHeader {
                     return c.getName();
                 }
             }
-        
+
             @Override
             public void setText(String text) {
                 final Lifeline c = (Lifeline) getRelatedElement();

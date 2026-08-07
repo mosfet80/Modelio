@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.header;
 
@@ -57,7 +57,7 @@ public class ModelElementHeaderEditPart extends AbstractNodeEditPart {
      * Default constructor.
      */
     @objid ("0350116f-4efc-425b-9f59-9fe8bd0d9426")
-    public  ModelElementHeaderEditPart() {
+    public ModelElementHeaderEditPart() {
         super();
     }
 
@@ -65,6 +65,7 @@ public class ModelElementHeaderEditPart extends AbstractNodeEditPart {
      * Get the main label figure.
      * <p>
      * The main label usually displays the element name.
+     *
      * @return the main label figure.
      */
     @objid ("7e739715-1dec-11e2-8cad-001ec947c8cc")
@@ -90,7 +91,7 @@ public class ModelElementHeaderEditPart extends AbstractNodeEditPart {
                     || !gm.getRelatedElement().getStatus().isModifiable() || this.getViewer().getControl() == null) {
                 return;
             }
-        
+
             final IEditableText editableText = ((GmModel) getModel()).getEditableText();
             if (editableText != null) {
                 IHeaderFigure headerFigure = getHeaderFigure(getFigure());
@@ -105,7 +106,7 @@ public class ModelElementHeaderEditPart extends AbstractNodeEditPart {
         } else {
             super.performRequest(req);
         }
-        
+
     }
 
     @objid ("7e739711-1dec-11e2-8cad-001ec947c8cc")
@@ -114,9 +115,9 @@ public class ModelElementHeaderEditPart extends AbstractNodeEditPart {
         if (evt.getPropertyName().equals(IGmObject.PROPERTY_LABEL)) {
             refreshVisuals();
         }
-        
+
         super.propertyChange(evt);
-        
+
     }
 
     @objid ("7e73971c-1dec-11e2-8cad-001ec947c8cc")
@@ -125,7 +126,7 @@ public class ModelElementHeaderEditPart extends AbstractNodeEditPart {
         super.createEditPolicies();
         installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new DefaultElementDirectEditPolicy());
         installEditPolicy(AutoFitOnEditEditPolicy.ROLE, new AutoFitOnEditEditPolicy());
-        
+
     }
 
     /**
@@ -142,26 +143,26 @@ public class ModelElementHeaderEditPart extends AbstractNodeEditPart {
         } else {
             headerFigure = new WrappedHeaderFigure();
         }
-        
+
         // Set style dependent properties
         refreshFromStyle(headerFigure, getModelStyle());
-        
+
         // Set style independent properties
         headerFigure.setLineWidth(0);
-        
+
         // Main label
         refreshLabel(headerFigure);
-        
+
         // Tagged values
         refreshTaggedValues(headerFigure);
-        
+
         // Stereotypes
         ShowStereotypeMode mode = getStereotypeMode(gm);
         refreshStereotypes(headerFigure, mode);
-        
+
         // Keyword
         refreshMetaclassKeyword(headerFigure, gm, mode);
-        
+
         // Metaclass icon
         refreshMetaclassIcon(headerFigure, gm, mode);
         return headerFigure;
@@ -173,6 +174,7 @@ public class ModelElementHeaderEditPart extends AbstractNodeEditPart {
      * Default implementation casts the argument to <code>IHeaderFigure</code> and returns it.
      * <p>
      * Sub classes that may put the <code>IHeaderFigure</code> inside another figure and modify the implementation.
+     *
      * @param aFigure a figure, usually {@link #getFigure()}.
      * @return the {@link IHeaderFigure}.
      */
@@ -185,8 +187,8 @@ public class ModelElementHeaderEditPart extends AbstractNodeEditPart {
      * Get whether each stereotype is in its own &lt;&lt; >> or all are in the same &lt;&lt;a, b, c ...>>.
      * <p>
      * By default asks to {@link GmModelElementHeader#isDisplayStereotypesAsStack()}, may be redefined in sub classes.
-     * @return
-     * <li><i>true</i>: each stereotype is in its &lt;&lt; >>.<br>
+     *
+     * @return <li><i>true</i>: each stereotype is in its &lt;&lt; >>.<br>
      * <li><i>false</i>: all stereotypes will be in a single &lt;&lt;a, b, c ...>> label
      */
     @objid ("8f3f5a12-b6c9-48dc-941b-628481899947")
@@ -198,6 +200,7 @@ public class ModelElementHeaderEditPart extends AbstractNodeEditPart {
      * Get whether the given model must be displayed as a flat header or a stacked wrapped header.
      * <p>
      * The default implementation directly asks the question to the model.
+     *
      * @param gm the graphic model
      * @return <i>true</i> to display it flat.
      */
@@ -210,28 +213,28 @@ public class ModelElementHeaderEditPart extends AbstractNodeEditPart {
     @Override
     protected void refreshFromStyle(final IFigure aFigure, IStyle style) {
         final IHeaderFigure headerFigure = getHeaderFigure(aFigure);
-        
+
         // Pen and brush options are managed by the superclass
         super.refreshFromStyle(headerFigure, style);
-        
+
         // We have to deal with stereotype mode and show/hide for name, stereotypes and tags
         ShowStereotypeMode mode = getStereotypeMode((GmModelElementHeader) getModel());
         refreshLabel(headerFigure);
         refreshStereotypes(headerFigure, mode);
         refreshTaggedValues(headerFigure);
         refreshWrapping(headerFigure, style);
-        
+
     }
 
     @objid ("7e739739-1dec-11e2-8cad-001ec947c8cc")
     protected void refreshMetaclassIcon(final IHeaderFigure headerFigure, final GmModelElementHeader gm, ShowStereotypeMode mode) {
         ArrayList<Image> icons = new ArrayList<>(1);
-        
+
         if (gm.isShowMetaclassIcon() && mode != ShowStereotypeMode.NONE && mode != ShowStereotypeMode.TEXT) {
             icons.add(gm.getMetaclassIcon());
         }
         headerFigure.setLeftIcons(icons);
-        
+
     }
 
     @objid ("7e73973f-1dec-11e2-8cad-001ec947c8cc")
@@ -241,18 +244,19 @@ public class ModelElementHeaderEditPart extends AbstractNodeEditPart {
         } else {
             headerFigure.setKeywordLabel(null);
         }
-        
+
     }
 
     /**
      * To be called when the stereotype mode changes or when the applied stereotypes change.
+     *
      * @param aFigure The figure to update.
      * @param mode the stereotype display mode.
      */
     @objid ("7e73972e-1dec-11e2-8cad-001ec947c8cc")
     protected final void refreshStereotypes(final IHeaderFigure aFigure, ShowStereotypeMode mode) {
         GmModelElementHeader gm = (GmModelElementHeader) getModel();
-        
+
         switch (mode) {
         case ICON:
             aFigure.setRightIcons(gm.getStereotypeIcons());
@@ -272,7 +276,7 @@ public class ModelElementHeaderEditPart extends AbstractNodeEditPart {
             aFigure.setTopLabel("");
             break;
         }
-        
+
     }
 
     @objid ("7e739733-1dec-11e2-8cad-001ec947c8cc")
@@ -280,9 +284,9 @@ public class ModelElementHeaderEditPart extends AbstractNodeEditPart {
     protected void refreshVisuals() {
         final IHeaderFigure aFigure = getHeaderFigure(getFigure());
         final GmModelElementHeader gm = (GmModelElementHeader) getModel();
-        
+
         ShowStereotypeMode mode = getStereotypeMode(gm);
-        
+
         // Layout data
         final Object layoutData = gm.getLayoutData();
         if (layoutData != null) {
@@ -303,26 +307,27 @@ public class ModelElementHeaderEditPart extends AbstractNodeEditPart {
                 }
             }
         }
-        
+
         // Main label
         refreshLabel(aFigure);
-        
+
         // Tagged values
         refreshTaggedValues(aFigure);
-        
+
         // Stereotypes
         refreshStereotypes(aFigure, mode);
-        
+
         // Metaclass Keyword
         refreshMetaclassKeyword(aFigure, gm, mode);
-        
+
         // Metaclass Icon
         refreshMetaclassIcon(aFigure, gm, mode);
-        
+
     }
 
     /**
      * Refresh the wrapping mode from the figure.
+     *
      * @param fig the header's figure.
      * @param style the current style.
      * @return if the wrapping mode changed
@@ -330,7 +335,7 @@ public class ModelElementHeaderEditPart extends AbstractNodeEditPart {
     @objid ("e4c00ec5-ef25-44b1-a89b-074c840053c5")
     protected boolean refreshWrapping(IHeaderFigure fig, IStyle style) {
         GmModelElementHeader gm = (GmModelElementHeader) getModel();
-        
+
         StyleKey propertyKey = gm.getStyleKey(MetaKey.WRAPLABEL);
         boolean wrap = propertyKey != null ? style.getBoolean(propertyKey) : !isFlat(gm);
         return fig.setWrapped(wrap);
@@ -341,7 +346,7 @@ public class ModelElementHeaderEditPart extends AbstractNodeEditPart {
         if (gm.getStereotypesLabel().isEmpty()) {
             return "";
         }
-        
+
         final StringBuilder labels = new StringBuilder();
         if (isDisplayStereotypesAsStack(gm)) {
             // Each stereotype in <<s1>> <<s2>>
@@ -349,7 +354,7 @@ public class ModelElementHeaderEditPart extends AbstractNodeEditPart {
                 if (labels.length() > 2) {
                     labels.append("\u200B"); // ZERO WIDTH SPACE
                 }
-        
+
                 labels.append("<<");
                 labels.append(s.replace(" ", "\u00A0")); // replace spaces by non breaking spaces
                 labels.append(">>");
@@ -361,7 +366,7 @@ public class ModelElementHeaderEditPart extends AbstractNodeEditPart {
                 if (labels.length() > 2) {
                     labels.append(", ");
                 }
-        
+
                 labels.append(s.replace(" ", "\u00A0")); // replace spaces by non breaking spaces
             }
             labels.append(">>");
@@ -372,19 +377,19 @@ public class ModelElementHeaderEditPart extends AbstractNodeEditPart {
     @objid ("eca498ab-3609-4a5b-af18-99cc12a6328f")
     private String computeTagsLabel(GmModelElementHeader gm) {
         List<String> taggedValuesLabels = gm.getTaggedValueLabels();
-        
+
         if (taggedValuesLabels.isEmpty()) {
             return "";
         }
-        
+
         StringBuilder sb = new StringBuilder(taggedValuesLabels.size() * 20);
-        
+
         // add new label figures
         for (String s : taggedValuesLabels) {
             if (sb.length() != 0) {
                 sb.append(", ");
             }
-        
+
             sb.append(s.replace(" ", "\u00A0")); // replace spaces by non breaking spaces
         }
         return sb.toString();
@@ -406,24 +411,25 @@ public class ModelElementHeaderEditPart extends AbstractNodeEditPart {
     @objid ("7e739736-1dec-11e2-8cad-001ec947c8cc")
     private void refreshLabel(IHeaderFigure headerFigure) {
         GmModelElementHeader gm = (GmModelElementHeader) getModel();
-        
+
         // Ask the gm if the label is shown
         if (gm.isShowLabel()) {
             headerFigure.setMainLabel(gm.getMainLabel());
         } else {
             headerFigure.setMainLabel("");
         }
-        
+
     }
 
     /**
      * Refresh the tagged values zone.
+     *
      * @param aFigure The figure to update
      */
     @objid ("7e739745-1dec-11e2-8cad-001ec947c8cc")
     private void refreshTaggedValues(IHeaderFigure aFigure) {
         GmModelElementHeader gm = (GmModelElementHeader) getModel();
-        
+
         StyleKey showTagKey = gm.getStyleKey(MetaKey.SHOWTAGS);
         boolean mode = showTagKey != null ? gm.getDisplayedStyle().getProperty(showTagKey) : false;
         if (mode) {
@@ -431,7 +437,7 @@ public class ModelElementHeaderEditPart extends AbstractNodeEditPart {
         } else {
             aFigure.setBottomLabel("");
         }
-        
+
     }
 
 }

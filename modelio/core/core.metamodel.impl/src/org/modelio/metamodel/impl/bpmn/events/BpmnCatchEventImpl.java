@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.events;
 
 import java.util.ArrayList;
@@ -44,25 +43,25 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0088d56a-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class BpmnCatchEventImpl extends BpmnEventImpl implements BpmnCatchEvent {
-    @objid ("bd1ed38f-0a22-40c9-bf35-4ec471d57194")
+    @objid ("b260416f-4ae5-46b4-b8ae-51920678d0eb")
     @Override
     public boolean isParallelMultiple() {
         return (Boolean) getAttVal(((BpmnCatchEventSmClass)getClassOf()).getParallelMultipleAtt());
     }
 
-    @objid ("f71ae32d-4776-46fb-b6c1-b9929b7dc0ae")
+    @objid ("27599ec8-9365-4b78-b8ad-16356c30c754")
     @Override
     public void setParallelMultiple(boolean value) {
         setAttVal(((BpmnCatchEventSmClass)getClassOf()).getParallelMultipleAtt(), value);
     }
 
-    @objid ("031ae53d-ae0f-44d8-86c3-7f443569fc46")
+    @objid ("3f9f079e-0fae-4f41-9382-eaf6a3208d5c")
     @Override
     public EList<BpmnDataAssociation> getDataOutputAssociation() {
         return new SmList<>(this, ((BpmnCatchEventSmClass)getClassOf()).getDataOutputAssociationDep());
     }
 
-    @objid ("65df6bce-ad7d-4357-b4bf-a2738ccf2d58")
+    @objid ("aa22b846-ffb5-409d-936f-1b59553afbb2")
     @Override
     public <T extends BpmnDataAssociation> List<T> getDataOutputAssociation(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -75,23 +74,23 @@ public abstract class BpmnCatchEventImpl extends BpmnEventImpl implements BpmnCa
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("8a2dbfd6-59b7-497c-b6c8-83a2500e327a")
+    @objid ("362b2dd3-252a-4c4f-9c33-53387b6e2134")
     @Override
     public BpmnDataOutput getDataOutput() {
         Object obj = getDepVal(((BpmnCatchEventSmClass)getClassOf()).getDataOutputDep());
         return (obj instanceof BpmnDataOutput)? (BpmnDataOutput)obj : null;
     }
 
-    @objid ("8667bcf5-fac0-417d-8f88-8db324e50507")
+    @objid ("2981215f-6200-4724-880c-680cce72707a")
     @Override
     public void setDataOutput(BpmnDataOutput value) {
         appendDepVal(((BpmnCatchEventSmClass)getClassOf()).getDataOutputDep(), (SmObjectImpl)value);
     }
 
-    @objid ("7c001ca0-813e-4c82-8304-015005e31fdb")
+    @objid ("c7a3018c-7186-4e59-9c6e-5f68ebf1f256")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -99,17 +98,17 @@ public abstract class BpmnCatchEventImpl extends BpmnEventImpl implements BpmnCa
         return super.getCompositionOwner();
     }
 
-    @objid ("c7772cb3-e951-47c4-a796-77c9423922b7")
+    @objid ("59b3ea76-bee8-4ef8-ae23-d66b0485d224")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("524c36fa-be81-45eb-998e-a34517ccde0e")
+    @objid ("bd764455-2299-470e-93be-d57bb24f2797")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitBpmnCatchEvent(this);

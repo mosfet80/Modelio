@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.impl.load;
 
@@ -29,6 +29,7 @@ import org.modelio.vbasic.log.Log;
 import org.modelio.vcore.smkernel.IMetaOf;
 import org.modelio.vcore.smkernel.ISmObjectData;
 import org.modelio.vcore.smkernel.SmObjectImpl;
+import org.modelio.vcore.smkernel.mapi.MQueryRunner;
 import org.modelio.vcore.smkernel.meta.SmAttribute;
 import org.modelio.vcore.smkernel.meta.SmDependency;
 import org.modelio.vcore.smkernel.meta.SmMultipleDependency;
@@ -45,12 +46,15 @@ public class ModelLoaderMetaObject implements IMetaOf {
     @objid ("e7f1e841-e242-4056-89fc-eb34dfd784bb")
     private volatile Lock lock;
 
+    @objid ("4f91d680-79ae-4d21-9fdc-cc0ebdaea64b")
+    private final IMetaOf parentMeta;
+
     /**
      * Initialize the metaobject.
      */
     @objid ("bd3fe0b2-2d9b-11e2-8aaa-001ec947ccaf")
-    public  ModelLoaderMetaObject() {
-        
+    public ModelLoaderMetaObject(IMetaOf parentMeta) {
+        this.parentMeta = parentMeta;
     }
 
     @objid ("bd3fe0be-2d9b-11e2-8aaa-001ec947ccaf")
@@ -61,7 +65,7 @@ public class ModelLoaderMetaObject implements IMetaOf {
         if (concurrentLoading(obj)) {
             return obj.getMetaOf().getObjDepVal(obj, dep);
         }
-        
+
         ISmObjectData data = obj.getData();
         return dep.getValue(data);
     }
@@ -85,7 +89,7 @@ public class ModelLoaderMetaObject implements IMetaOf {
         if (concurrentLoading(obj)) {
             return obj.getMetaOf().appendObjDepValIndex(obj, dep, dep_val, index);
         }
-        
+
         dep.insert(obj.getData(), dep_val, index);
         return true;
     }
@@ -109,7 +113,7 @@ public class ModelLoaderMetaObject implements IMetaOf {
         if (concurrentLoading(obj)) {
             return obj.getMetaOf().moveObjDepVal(obj, dep, moving_ref, offset);
         }
-        
+
         dep.moveRef(obj.getData(), moving_ref, offset);
         return true;
     }
@@ -122,7 +126,7 @@ public class ModelLoaderMetaObject implements IMetaOf {
         if (concurrentLoading(obj)) {
             return obj.getMetaOf().setObjDepVal(obj, dep, dep_val, index);
         }
-        
+
         // Do the job on the SmObjectImpl
         if (dep.isMultiple()) {
             List<SmObjectImpl> list = ((SmMultipleDependency) dep).getValueList(obj.getData());
@@ -131,7 +135,6 @@ public class ModelLoaderMetaObject implements IMetaOf {
         } else {
             throw new IllegalArgumentException(dep + " is a simple dependency.");
         }
-        
     }
 
     @objid ("bd3fe0ee-2d9b-11e2-8aaa-001ec947ccaf")
@@ -153,7 +156,7 @@ public class ModelLoaderMetaObject implements IMetaOf {
         if (concurrentLoading(obj)) {
             return obj.getMetaOf().setObjAttVal(obj, att, value);
         }
-        
+
         att.setValue(obj.getData(), value);
         return true;
     }
@@ -172,9 +175,8 @@ public class ModelLoaderMetaObject implements IMetaOf {
         if (concurrentLoading(obj)) {
             obj.getMetaOf().deleteObject(obj);
         }
-        
+
         throw new UnsupportedOperationException();
-        
     }
 
     @objid ("bd424310-2d9b-11e2-8aaa-001ec947ccaf")
@@ -185,28 +187,8 @@ public class ModelLoaderMetaObject implements IMetaOf {
         if (concurrentLoading(obj)) {
             obj.getMetaOf().objUndeleted(obj);
         }
-        
-        throw new UnsupportedOperationException();
-        
-    }
 
-    @objid ("bd424314-2d9b-11e2-8aaa-001ec947ccaf")
-    @Override
-    public void setActionRecording(boolean val) {
-        // nothing to do
-    }
-
-    @objid ("bd424318-2d9b-11e2-8aaa-001ec947ccaf")
-    @Override
-    public void silentActionRemove(SmObjectImpl obj) {
-        // If object is being loaded in concurrent thread, wait for loading end and
-        // delegate to its new meta object.
-        if (concurrentLoading(obj)) {
-            obj.getMetaOf().silentActionRemove(obj);
-        }
-        
         throw new UnsupportedOperationException();
-        
     }
 
     @objid ("18948f56-af8d-428d-98fb-e91d0bfbaa0d")
@@ -218,9 +200,8 @@ public class ModelLoaderMetaObject implements IMetaOf {
             // TODO the loading may have overriden the status change
             obj.getMetaOf().objStatusChanged(obj, oldStatus, newStatus);
         }
-        
+
         // ignore
-        
     }
 
     /**
@@ -246,6 +227,7 @@ public class ModelLoaderMetaObject implements IMetaOf {
      * <p>
      * Tests whether the current thread is the one using this meta object.
      * In the other case waits for the other thread to finish loading for 10 seconds.
+     *
      * @param obj the object to access
      * @return <i>true</i> if the object was concurrently being loaded.
      * @throws ConcurrentModificationException if after 10 seconds the object is still being loaded.
@@ -253,43 +235,52 @@ public class ModelLoaderMetaObject implements IMetaOf {
     @objid ("6bb8dddc-c205-4cc4-a84a-11a877385dd6")
     private boolean concurrentLoading(SmObjectImpl obj) throws ConcurrentModificationException {
         final Lock curLock = this.lock;
-        final Thread slowThread = curLock.loadingThread; 
+        final Thread slowThread = curLock.loadingThread;
         final Thread currentThread = Thread.currentThread();
         if (slowThread == currentThread) {
             return false;
         } else {
             try {
                 ISmObjectData data = obj.getData();
-                // Wait for 10 seconds max 
+                // Wait for 10 seconds max
                 long nanoStart = System.nanoTime();
                 boolean freed = curLock.sync.await(10, TimeUnit.SECONDS);
                 long nanoEnd = System.nanoTime();
-        
-                if (data.getMetaOf() == this) {
+
+                if (! freed || data.getMetaOf() == this) {
                     assert (!freed);
+                    assert (data.getMetaOf() == this) : String.format("%s meta changed to %s after loading by %s", obj, data.getMetaOf(), slowThread);
+
                     throw createDeadLockException(obj, slowThread, null);
                 } else {
                     assert (freed);
-                    Log.trace("'%s' thread waited %,d ms for {%s} %s to finish loading from %s.", 
-                            currentThread.getName(), 
-                            (nanoEnd-nanoStart)/1000, 
-                            obj.getUuid(), 
-                            data.getClassOf().getQualifiedName(), 
-                            data.getRepositoryObject());
+                    assert (data.getMetaOf() != this) : String.format("%s has still %s meta after loading by %s", obj, this, slowThread);
+
+                    long ellapsedMillis = (nanoEnd - nanoStart) / 1000_000;
+                    if (ellapsedMillis > 1_000) {
+                        Log.warning(createDeadLockException(obj, slowThread, new IllegalStateException(String.format("Stalled %,d ms", ellapsedMillis))));
+                    } else if (ellapsedMillis > 5) {
+                        Log.trace("'%s' thread waited %,d ms for '%s' thread to finish loading {%s} %s from %s.",
+                                currentThread.getName(),
+                                ellapsedMillis,
+                                slowThread.getName(),
+                                obj.getUuid(),
+                                data.getClassOf().getQualifiedName(),
+                                data.getRepositoryObject());
+                    }
                 }
             } catch (InterruptedException e) {
                 throw createDeadLockException(obj, slowThread, e);
             }
-        
+
             return true;
         }
-        
     }
 
     @objid ("a815e54d-f49b-4dea-9187-2e2a064ac056")
     private ConcurrentModificationException createDeadLockException(SmObjectImpl obj, Thread offendingThread, Throwable cause) {
         String pb = cause == null ? "Dead lock" : cause.getClass().getSimpleName();
-        String msg = pb 
+        String msg = pb
                 + " waiting for "
                 + obj.getUuid()
                 + " "
@@ -299,9 +290,9 @@ public class ModelLoaderMetaObject implements IMetaOf {
                 + offendingThread
                 + ", current thread="
                 + Thread.currentThread();
-        
+
         ConcurrentModificationException exc = new ConcurrentModificationException(msg, cause);
-        
+
         if (offendingThread != null) {
             // Add the loading thread stack trace as a suppressed exception
             StackTraceElement[] loadingThreadStackTrace = offendingThread.getStackTrace();
@@ -318,6 +309,12 @@ public class ModelLoaderMetaObject implements IMetaOf {
         // do nothing
     }
 
+    @objid ("c8db48ce-fb13-4872-93c2-7bf91e0bec52")
+    @Override
+    public MQueryRunner query() {
+        return this.parentMeta.query();
+    }
+
     @objid ("27899ef5-2a68-47c6-b7c4-f6fe5fc6a97f")
     private static final class Lock {
         @objid ("7c4874a4-3f79-439e-ae44-3ad0171bf2ec")
@@ -327,10 +324,9 @@ public class ModelLoaderMetaObject implements IMetaOf {
         final CountDownLatch sync;
 
         @objid ("74478a52-da06-4626-80da-0711ff65de83")
-        public  Lock() {
+        public Lock() {
             this.loadingThread = Thread.currentThread();
             this.sync = new CountDownLatch(1);
-            
         }
 
     }

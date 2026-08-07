@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.uml.statik;
 
@@ -26,21 +26,20 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * Navigability v0.0.9054
- * 
- * 
+ *
+ *
  * null
- * 
- * 
+ *
  */
 @objid ("5dedaa90-debc-4e72-8fb8-7a45806b91b6")
 public enum Navigability {
-    @objid ("43784b23-9105-4b96-8d13-76ad783864e3")
+    @objid ("f793803b-0b9f-49d6-9dbf-33c05b2720bc")
     NONE(0, "None", "None"),
-    @objid ("2c39a55f-8192-491a-837b-a68f33dc6f8f")
+    @objid ("c814cda1-3843-497e-a07e-f770552d236a")
     THISSIDE(1, "ThisSide", "ThisSide"),
-    @objid ("2768da10-fdbd-4ab1-bbfd-3b489a4c0150")
+    @objid ("274ba250-5fce-4193-a984-407eafc822f6")
     OTHERSIDE(2, "OtherSide", "OtherSide"),
-    @objid ("9b154c2c-1740-4e66-b5fe-251d85e40ef6")
+    @objid ("9cf88a8d-6a06-4258-9786-9400299b291c")
     BOTHSIDES(3, "BothSides", "BothSides");
 
 public static final int NONE_VALUE = 0;
@@ -103,5 +102,5 @@ public static final int NONE_VALUE = 0;
     public String toString() {
        return literal;
     }
-    
+
 }

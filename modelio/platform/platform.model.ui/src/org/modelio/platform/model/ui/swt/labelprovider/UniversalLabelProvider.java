@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.swt.labelprovider;
 
@@ -38,24 +38,23 @@ public class UniversalLabelProvider extends BrowserLabelProvider {
     @objid ("b8aaf619-c412-470c-b372-621cf3af6273")
     private static final String LABEL_PROVIDER_EXTENSION_POINT = "org.modelio.platform.model.ui.labelprovider";
 
-    @objid ("3cd42bd4-1ea3-4b14-a3a2-20b6de0ecf61")
+    @objid ("bce92b92-3bdc-47eb-bcfe-52a0976f7bb9")
     private IRegistryEventListener listener;
 
     /**
      * Default c'tor.
      */
     @objid ("a41fd1d2-305e-47b4-9c70-6369e61d3a41")
-    public  UniversalLabelProvider() {
+    public UniversalLabelProvider() {
         super();
-        
+
         IExtensionRegistry registry = RegistryFactory.getRegistry();
         this.listener = new MmServicesListener();
-        
+
         registry.addListener(this.listener, LABEL_PROVIDER_EXTENSION_POINT);
-        
+
         IConfigurationElement[] cfels = registry.getConfigurationElementsFor(LABEL_PROVIDER_EXTENSION_POINT);
         addExtensionElements(cfels);
-        
     }
 
     /**
@@ -65,13 +64,14 @@ public class UniversalLabelProvider extends BrowserLabelProvider {
      * <li>a "metamodel" string attribute
      * <li>a "implementation" string attribute representing a java class accessible by the declaring plugin.
      * </ul>
+     *
      * @param configurationElements the {@link IConfigurationElement} at the root of the matched plugin extensions.
      */
     @objid ("44d3d12b-1757-4282-afba-e323d233f90e")
     protected void addExtensionElements(IConfigurationElement[] configurationElements) {
         for (IConfigurationElement ce : configurationElements) {
             String mmf = ce.getAttribute("metamodel");
-        
+
             try {
                 IModelioElementLabelProvider svc = (IModelioElementLabelProvider) ce.createExecutableExtension("implementation");
                 registerExtension(mmf, svc);
@@ -85,12 +85,11 @@ public class UniversalLabelProvider extends BrowserLabelProvider {
                 CoreUi.LOG.error(e);
             }
         }
-        
     }
 
     /**
      * Unregister the services that were registered with {@link #addExtensionElements(IConfigurationElement[])}.
-     * @see #addExtensionElements(IConfigurationElement[])
+     *
      * @param configurationElements the configuration elements to remove.
      */
     @objid ("477bf3d3-fc26-411c-8242-e6d96c4abc6d")
@@ -103,7 +102,6 @@ public class UniversalLabelProvider extends BrowserLabelProvider {
                 }
             }
         }
-        
     }
 
     @objid ("8aaa7301-7192-4138-b37b-7a53fd4206df")
@@ -113,13 +111,12 @@ public class UniversalLabelProvider extends BrowserLabelProvider {
         if (registry != null) {
             registry.removeListener(this.listener);
         }
-        
     }
 
     @objid ("d3126c96-94eb-4dd6-a935-ee400c3a2783")
     private class MmServicesListener implements IRegistryEventListener {
         @objid ("2827cae4-cf6c-4aeb-94ab-b4479e54cba8")
-        public  MmServicesListener() {
+        public MmServicesListener() {
             // Empty
         }
 
@@ -130,7 +127,6 @@ public class UniversalLabelProvider extends BrowserLabelProvider {
                 IConfigurationElement[] configurationElements = extension.getConfigurationElements();
                 addExtensionElements(configurationElements);
             }
-            
         }
 
         @objid ("47038afb-4bba-4fdf-b41d-db4a156a2f81")
@@ -140,7 +136,6 @@ public class UniversalLabelProvider extends BrowserLabelProvider {
                 IConfigurationElement[] configurationElements = extension.getConfigurationElements();
                 removeExtensionElements(configurationElements);
             }
-            
         }
 
         @objid ("d566e4b8-79ac-4bcc-b6ee-71dee5152367")

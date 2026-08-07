@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.treetable.percentscale;
 
@@ -36,15 +36,14 @@ public class PercentScaleCellEditor extends CellEditor {
     @objid ("6b413632-1eba-11e2-9382-bc305ba4815c")
     private int max;
 
-    @objid ("6b413633-1eba-11e2-9382-bc305ba4815c")
+    @objid ("e39d4a37-8e4b-4fb2-add7-cb3f4bbfa24a")
     private Slider slider;
 
     @objid ("6b413634-1eba-11e2-9382-bc305ba4815c")
-    public  PercentScaleCellEditor(Composite parent, int min, int max) {
+    public PercentScaleCellEditor(Composite parent, int min, int max) {
         super(parent);
         this.min = min;
         this.max = max;
-        
     }
 
     @objid ("6b415d43-1eba-11e2-9382-bc305ba4815c")
@@ -67,7 +66,7 @@ public class PercentScaleCellEditor extends CellEditor {
         this.slider.setMaximum(101);
         this.slider.setIncrement(1);
         this.slider.setThumb(1);
-        
+
         this.slider.addListener(SWT.Selection, new Listener() {
             @Override
             public void handleEvent(Event event) {

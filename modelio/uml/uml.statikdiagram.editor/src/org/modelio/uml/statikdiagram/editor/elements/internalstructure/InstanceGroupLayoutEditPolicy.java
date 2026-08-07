@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.internalstructure;
 
@@ -41,7 +41,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * <li>a {@link BindableInstance} under a {@link Classifier} or an {@link Instance}.
  * <li>an {@link Instance} under a package or anything else.
  * </ul>
- * 
+ *
  * @author cmarin
  */
 @objid ("3594212c-55b7-11e2-877f-002564c97630")
@@ -60,36 +60,36 @@ public class InstanceGroupLayoutEditPolicy extends DefaultGroupLayoutEditPolicy 
         } else {
             return super.getTargetEditPart(request);
         }
-        
+
     }
 
     @objid ("3594213b-55b7-11e2-877f-002564c97630")
     private CreateRequest getModifiedRequest(CreateRequest req) {
         ModelioCreationContext context = ModelioCreationContext.lookRequest(req);
-        
+
         if (context != null && "true".equals(context.getProperties().get("smart"))) {
-        
+
             final AbstractNodeEditPart targetEditPart = (AbstractNodeEditPart) getHost();
             final MObject targetElement = targetEditPart.getModel().getRelatedElement();
-        
+
             if (targetElement instanceof Instance ||
                     targetElement instanceof Classifier ||
                     targetElement instanceof Collaboration) {
                 MMetamodel mm = targetElement.getMClass().getMetamodel();
-        
+
                 // Ask to create a BindableInstance
                 ModelioCreationContext newContext = new ModelioCreationContext(mm.getMClass(BindableInstance.class),
                         context.getDependency(),
                         context.getStereotype());
-        
+
                 newContext.setProperties(context.getProperties());
-        
+
                 final CreateRequest newreq = new CreateRequest();
                 newreq.setExtendedData(req.getExtendedData());
                 newreq.setFactory(newContext);
                 newreq.setLocation(req.getLocation());
                 newreq.setSize(req.getSize());
-        
+
                 return newreq;
             }
         }

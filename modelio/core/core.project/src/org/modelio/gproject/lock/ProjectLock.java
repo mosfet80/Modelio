@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.lock;
 
@@ -25,8 +25,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.management.ManagementFactory;
 import java.lang.ref.WeakReference;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.channels.OverlappingFileLockException;
@@ -35,6 +33,7 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -44,11 +43,12 @@ import org.modelio.gproject.plugin.CoreProject;
 import org.modelio.vbasic.files.CloseOnFail;
 import org.modelio.vbasic.files.FileUtils;
 import org.modelio.vbasic.log.Log;
+import org.modelio.vbasic.net.HostName;
 
 /**
  * Used to prevent a project from being opened by many Modelio instances at once.
  * <p>
- * There is only one instance of ProjectLock per project directory, because Linux JVM releases the lock if any related or not
+ * There is only one latest of ProjectLock per project directory, because Linux JVM releases the lock if any related or not
  * Channel or InputStream towards the locked file is closed.
  * <p>
  * <h3>Notes</h3>
@@ -68,7 +68,7 @@ import org.modelio.vbasic.log.Log;
 @objid ("d1972049-fe6a-4be9-a3fe-e80275ae8bec")
 public class ProjectLock {
     @objid ("7e49cb68-e341-4a92-b785-d3121c1f3a15")
-    private String projectName;
+    private final String projectName;
 
     @objid ("2b70f8e4-7fb4-4fd6-8a40-b6091c383626")
     private FileChannel channel;
@@ -82,98 +82,108 @@ public class ProjectLock {
     @objid ("1bdfd6ea-4b89-4fc9-8984-4b7483fd755f")
     private final Path lockInfoFile;
 
+    @objid ("89bdf0d5-a4df-4602-b4de-3681f85c72f1")
+    private Throwable lockCreationTrace;
+
     /**
-     * To allow only one instance for a given project
+     * To allow only one latest for a given project
      */
     @objid ("8d15560b-568f-4698-a10d-b5fa4fdb0b52")
     private static final Map<Path, WeakReference<ProjectLock>> instances = new HashMap<>();
 
     /**
-     * Initialize the lock.
+     * Private constructor, use {@link #getInstance(Path, String)} to get an instance.
      * <p>
      * Call {@link #lock()} to acquire the lock.
+     *
      * @param directory the lock directory.
      * @param projectName the project name.
      */
     @objid ("fe4c5ce8-659e-4f77-b296-82424bebbd85")
-    private  ProjectLock(Path directory, String projectName) {
+    private ProjectLock(Path directory, String projectName) {
         this.projectName = projectName;
         this.lockFile = directory.resolve("lock.dat");
         this.lockInfoFile = directory.resolve("lock.info");
-        
     }
 
     /**
      * Release the lock.
-     * @throws IOException If an I/O error occurs
+     *
+     * @throws IOException Deprecated since 6.2.0 : Not thrown anymore
      */
     @objid ("a6f9da52-06de-496f-bdc4-c27c0291c903")
     public synchronized void close() throws IOException {
-        if (this.lock != null)  {
-            IOException err = null;
-        
-            try {
-                this.lock.release();
-            } catch (IOException e) {
-                err = e;
-            }
-        
-            if (this.channel != null) {
-                try {
-                    this.channel.close();
-                    if (Files.isRegularFile(this.lockFile)) {
-                        Files.delete(this.lockFile);
-                    }
-        
-                    this.channel = null;
-                } catch (IOException e) {
-                    if (err != null) {
-                        err.addSuppressed(e);
-                    } else {
-                        err = e;
-                    }
-                }
-            }
-        
-            try {
-                if (Files.isRegularFile(this.lockInfoFile)) {
-                    Files.delete(this.lockInfoFile);
-                }
-            } catch (IOException e) {
-                if (err != null) {
-                    err.addSuppressed(e);
-                } else {
-                    Log.warning(e);
-                }
-            }
-        
-            if (err == null) {
-                this.lock = null;
-            } else {
-                throw err;
-            }
+        if (this.lock == null) {
+            return;
         }
-        
+
+        // Always clear the lock reference, even if release() fails,
+        // to prevent retry loops on subsequent close() calls.
+        FileLock lockToRelease = this.lock;
+        this.lock = null;
+        this.lockCreationTrace = null;
+
+        IOException deferred = null;
+
+        try {
+            lockToRelease.release();
+        } catch (IOException e) {
+            deferred = e;
+        }
+
+        if (this.channel != null) {
+            try {
+                this.channel.close();
+                if (Files.isRegularFile(this.lockFile)) {
+                    Files.delete(this.lockFile);
+                }
+            } catch (IOException e) {
+                if (deferred != null) {
+                    deferred.addSuppressed(e);
+                } else {
+                    deferred = e;
+                }
+            }
+            this.channel = null; // treat channel as gone regardless
+        }
+
+        try {
+            if (Files.isRegularFile(this.lockInfoFile)) {
+                Files.delete(this.lockInfoFile);
+            }
+        } catch (IOException e) {
+            // Non-critical: lock already released; log only.
+            e.addSuppressed(this.lockCreationTrace);
+            Log.warning(e);
+        }
+
+        if (deferred != null) {
+            deferred.addSuppressed(this.lockCreationTrace);
+            Log.warning(deferred); // or throw if callers ever act on it
+        }
+
+        this.lockCreationTrace = null;
     }
 
     /**
      * Acquires the lock.
-     * @throws GProjectLockedException if the project is already open somewhere else or this lock instance is already acquired.
+     *
+     * @throws GProjectLockedException if the project is already open somewhere else or this lock latest is already acquired.
      * @throws IOException in case of I/O failure
      */
     @objid ("709d2133-0d55-4318-a2c8-c06f58ceccd0")
     public synchronized void lock() throws GProjectLockedException, IOException {
         if (this.lock != null || this.channel != null) {
             String msg = CoreProject.I18N.getMessage("ProjectLock.sameVm", this.projectName);
-            throw new GProjectLockedException(msg, new IllegalStateException(msg));
+            throw new GProjectLockedException(msg, new IllegalStateException(msg, this.lockCreationTrace));
         }
-        
+
         // Ensure directory exists
         Files.createDirectories(this.lockFile.getParent());
-        
+
         // Open or create the file
         this.channel = FileChannel.open(this.lockFile, StandardOpenOption.WRITE, StandardOpenOption.READ, StandardOpenOption.CREATE);
-        
+
         try (CloseOnFail shield = new CloseOnFail(this.channel)){
             this.lock = this.channel.tryLock(0, Long.MAX_VALUE, false);
             if (this.lock == null) {
@@ -184,15 +194,19 @@ public class ProjectLock {
                 // Build a LockInfo
                 String jvmIdentifier = getJvmId();
                 String user = System.getProperty("user.name");
-                LockInfo lockInfo = new LockInfo(true, user, getHostName(), jvmIdentifier, Calendar.getInstance().getTime());
-        
+                Date date = Calendar.getInstance().getTime();
+                LockInfo lockInfo = new LockInfo(true, user, getHostName(), jvmIdentifier, date);
+
                 // Write the lock info
                 try (OutputStream out = Files.newOutputStream(this.lockInfoFile)) {
                     lockInfo.toProperties().store(out, "Project lock informations");
                 }
-        
+
                 // keep the channel open on success to keep the lock
                 shield.success();
+
+                // Record the stack trace to debug same VM lock attempts
+                this.lockCreationTrace = new Throwable("Project locked at "+ date+" by "+user+" on "+Thread.currentThread()+" thread");
             }
         } catch (GProjectLockedException e) {
             // prevent GProjectLockedException to be caught as IOException
@@ -202,11 +216,11 @@ public class ProjectLock {
         } catch (IOException e) {
             throw new IOException(CoreProject.I18N.getMessage("ProjectLock.failure", this.projectName, FileUtils.getLocalizedMessage(e)), e);
         }
-        
     }
 
     /**
      * Test whether the project is locked
+     *
      * @return a lock information if the project is locked else <i>null</i>.
      * @throws IOException in case of I/O error.
      */
@@ -216,37 +230,27 @@ public class ProjectLock {
             // Locked in this VM
             return getLockInfo();
         }
-        
+
         try (FileChannel c = FileChannel.open(this.lockFile, StandardOpenOption.READ, StandardOpenOption.WRITE);
                 FileLock l = c.tryLock(0, Long.MAX_VALUE, false);){
-        
+
             if (l == null) {
                 return getLockInfo();
             }
-        
+
             return null;
-        } catch (NoSuchFileException | FileNotFoundException e) {
+        } catch (@SuppressWarnings ("unused") NoSuchFileException | FileNotFoundException e) {
             // No lock
             return null;
-        } catch (OverlappingFileLockException e) {
+        } catch (@SuppressWarnings ("unused") OverlappingFileLockException e) {
             // Locked in same VM
             return getLockInfo();
         }
-        
     }
 
     @objid ("3d0b7117-836b-450d-aaa8-d76d907ced65")
-    private String getHostName() {
-        String hostname = "Unknown host";
-        
-        try {
-            InetAddress addr = InetAddress.getLocalHost();
-            //hostname = addr.getHostName();
-            return addr.getCanonicalHostName();
-        } catch (UnknownHostException ex) {
-            Log.trace(ex);
-        }
-        return hostname;
+    private static String getHostName() {
+        return HostName.get();
     }
 
     @objid ("6025a0fc-f8af-4085-9df5-b355e8b157c0")
@@ -255,7 +259,7 @@ public class ProjectLock {
         // see http://stackoverflow.com/questions/35842/how-can-a-java-program-get-its-own-process-id
         // get a string like "26574@MachineName"
         String jvmId = ManagementFactory.getRuntimeMXBean().getName();
-        
+
         //String[] items = pidLong.split("@");
         //String processId = items[0];
         return jvmId;
@@ -264,10 +268,10 @@ public class ProjectLock {
     @objid ("da981f60-b696-45b8-97bb-71025f2cde36")
     private ILockInfo getLockInfo() throws IOException {
         Properties props = new Properties();
-        
+
         try (InputStream is = Files.newInputStream(this.lockInfoFile);) {
             props.load(is);
-        } catch (FileNotFoundException | NoSuchFileException e) {
+        } catch (@SuppressWarnings ("unused") FileNotFoundException | NoSuchFileException e) {
             return null;
         }
         return new LockInfo(props, getJvmId());
@@ -276,9 +280,9 @@ public class ProjectLock {
     @objid ("eede210e-0b96-4f22-b4f2-5708b7fd9853")
     private GProjectLockedException createLockException() {
         try {
-        
+
             ILockInfo info = getLockInfo();
-        
+
             String msg;
             if (info.isSelf()) {
                 msg = CoreProject.I18N.getMessage("ProjectLock.sameVm", this.projectName);
@@ -289,18 +293,18 @@ public class ProjectLock {
                         info.getOwner(),
                         info.getDate());
             }
-        
+
             return new GProjectLockedException(msg, info);
         } catch (IOException e) {
             return new GProjectLockedException(FileUtils.getLocalizedMessage(e), e);
         }
-        
     }
 
     /**
      * Get a project lock for a project directory.
      * <p>
      * Call {@link #lock()} then to acquire the lock.
+     *
      * @param directory the lock directory.
      * @param projectName the project name.
      * @return the matching project lock
@@ -309,21 +313,20 @@ public class ProjectLock {
     @objid ("8a2e5430-e8fa-4830-a0cc-26e806dc0947")
     public static ProjectLock get(Path directory, String projectName) throws IOException {
         Files.createDirectories(directory);
-        
+
         Path realDir = directory.toRealPath();
-        
+
         synchronized (instances) {
             WeakReference<ProjectLock> ref = instances.get(realDir);
             ProjectLock instance = ref != null ? ref.get() : null;
-        
+
             if (instance == null) {
                 instance = new ProjectLock(realDir, projectName);
                 instances.put(realDir, new WeakReference<>(instance));
             }
-        
+
             return instance;
         }
-        
     }
 
     @objid ("bad37bb5-a194-4dbd-8664-56a1bd1e692f")
@@ -339,9 +342,8 @@ public class ProjectLock {
                 instances.remove(this.lockFile.getParent());
             }
         }
-        
+
         super.finalize();
-        
     }
 
 }

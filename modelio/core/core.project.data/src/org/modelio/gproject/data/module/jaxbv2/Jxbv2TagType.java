@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.data.module.jaxbv2;
 
@@ -30,9 +30,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for _TagType complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="_TagType">
  * &lt;complexContent>
@@ -103,8 +103,8 @@ public class Jxbv2TagType {
 
     /**
      * Gets the value of the name property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("82af38e2-2f16-4b80-bf40-f9399244abc6")
@@ -114,6 +114,7 @@ public class Jxbv2TagType {
 
     /**
      * Sets the value of the name property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -124,8 +125,8 @@ public class Jxbv2TagType {
 
     /**
      * Gets the value of the uid property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("85c0d28d-de40-4f11-8473-55d9683513be")
@@ -135,6 +136,7 @@ public class Jxbv2TagType {
 
     /**
      * Sets the value of the uid property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -145,8 +147,8 @@ public class Jxbv2TagType {
 
     /**
      * Gets the value of the label property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("8e46f058-1d7f-4f49-93cc-093f5f19f548")
@@ -156,6 +158,7 @@ public class Jxbv2TagType {
 
     /**
      * Sets the value of the label property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -166,8 +169,8 @@ public class Jxbv2TagType {
 
     /**
      * Gets the value of the parameterCard property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("68bfebb8-164a-4d33-9a5c-d5d6c752730e")
@@ -177,6 +180,7 @@ public class Jxbv2TagType {
 
     /**
      * Sets the value of the parameterCard property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -187,8 +191,8 @@ public class Jxbv2TagType {
 
     /**
      * Gets the value of the isHidden property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("3efa2ecb-3486-4eea-9559-62a9d2157f57")
@@ -198,6 +202,7 @@ public class Jxbv2TagType {
 
     /**
      * Sets the value of the isHidden property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -208,8 +213,8 @@ public class Jxbv2TagType {
 
     /**
      * Gets the value of the isSigned property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("b1599daa-9b7d-45ba-99d7-3fc998a5ccfc")
@@ -219,6 +224,7 @@ public class Jxbv2TagType {
 
     /**
      * Sets the value of the isSigned property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -229,8 +235,8 @@ public class Jxbv2TagType {
 
     /**
      * Gets the value of the description property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("03b6fd9a-80c6-4c03-ae52-bf8af5b77823")
@@ -240,6 +246,7 @@ public class Jxbv2TagType {
 
     /**
      * Sets the value of the description property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -250,8 +257,8 @@ public class Jxbv2TagType {
 
     /**
      * Gets the value of the extensions property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link TagType.Extensions }
      */
     @objid ("c7615ccd-8661-41f8-806d-f1ce55fb46e6")
@@ -261,6 +268,7 @@ public class Jxbv2TagType {
 
     /**
      * Sets the value of the extensions property.
+     *
      * @param value allowed object is
      * {@link TagType.Extensions }
      */
@@ -271,9 +279,9 @@ public class Jxbv2TagType {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType>
      * &lt;complexContent>
@@ -298,20 +306,20 @@ public class Jxbv2TagType {
 
         /**
          * Gets the value of the stereotypeRef property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the stereotypeRef property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          * getStereotypeRef().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link StereotypeRef }

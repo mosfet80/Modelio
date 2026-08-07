@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.objectnode;
 
@@ -46,17 +46,18 @@ public class GmObjectNodeStateLabel extends GmElementLabel {
      * Empty c'tor for deserialisation.
      */
     @objid ("2adb7d68-55b6-11e2-877f-002564c97630")
-    public  GmObjectNodeStateLabel() {
+    public GmObjectNodeStateLabel() {
         // Nothing to do.
     }
 
     /**
      * C'tor.
+     *
      * @param diagram the diagram.
      * @param relatedRef ref to the related ObjectNode
      */
     @objid ("2adb7d6b-55b6-11e2-877f-002564c97630")
-    public  GmObjectNodeStateLabel(final IGmDiagram diagram, final MRef relatedRef) {
+    public GmObjectNodeStateLabel(final IGmDiagram diagram, final MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -64,7 +65,7 @@ public class GmObjectNodeStateLabel extends GmElementLabel {
     @Override
     protected String computeLabel() {
         StringBuffer mainLabel = new StringBuffer();
-        
+
         ObjectNode objectNode = (ObjectNode) getRelatedElement();
         if (objectNode != null && objectNode.isValid()) {
             State state = objectNode.getInState();
@@ -94,17 +95,17 @@ public class GmObjectNodeStateLabel extends GmElementLabel {
             break;
         }
         }
-        
+
     }
 
     @objid ("2adb7d81-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmObjectNodeStateLabel.", GmObjectNodeStateLabel.MINOR_VERSION);
-        
+
     }
 
     @objid ("2adb7d87-55b6-11e2-877f-002564c97630")

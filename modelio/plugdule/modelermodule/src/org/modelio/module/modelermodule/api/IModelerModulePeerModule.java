@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.module.modelermodule.api;
 
@@ -48,6 +48,7 @@ public interface IModelerModulePeerModule extends IPeerModule {
 
     /**
      * Create an attribute from an attribute link. If the class doesn't exists, it is also created.
+     *
      * @param attr The attribute link to create a new attribute from.
      * @return <code>true</code> when an attribute is created.
      * @throws ModelerModuleException when the attribute already exists, or when the base of the instance isn't a classifier.
@@ -61,6 +62,7 @@ public interface IModelerModulePeerModule extends IPeerModule {
      * - ports from the instance ports.
      * - attributes from attribute links.
      * - operations from incoming messages.
+     *
      * @param inst The instance to create the classifier from.
      * @return <code>true</code> when a new classifier is created.
      * @throws ModelerModuleException When an error happens during creation.
@@ -75,6 +77,7 @@ public interface IModelerModulePeerModule extends IPeerModule {
      * - ports from the instance ports.
      * - attributes from attribute links.
      * - operations from incoming messages.
+     *
      * @param ll The lifeline to create the classifier from.
      * @return <code>true</code> when a new classifier is created.
      * @throws ModelerModuleException When an error happens during creation.
@@ -85,6 +88,7 @@ public interface IModelerModulePeerModule extends IPeerModule {
     /**
      * Create an operation from a message.
      * An Instance might be created in the process, or a Classifier.
+     *
      * @param message The message to create the operation from.
      * @return <code>true</code> if a new operation is created.
      * @throws ModelerModuleException When an error happens during the creation.
@@ -95,6 +99,7 @@ public interface IModelerModulePeerModule extends IPeerModule {
     /**
      * Create an operation from a transition.
      * An Instance might be created in the process, or a Classifier.
+     *
      * @param transition The transition to create the operation from.
      * @return <code>true</code> if a new transition is created.
      * @throws ModelerModuleException When an error happens during the creation.
@@ -104,6 +109,7 @@ public interface IModelerModulePeerModule extends IPeerModule {
 
     /**
      * Create Operations in those Classifiers from those defined in their implemented Interfaces.
+     *
      * @param classifiers The Classifiers to create the Operations in.
      */
     @objid ("d30dd53a-79f5-4a75-b7a1-052c50fd56aa")
@@ -111,6 +117,7 @@ public interface IModelerModulePeerModule extends IPeerModule {
 
     /**
      * Delete Operations in Classifiers from those defined in their implemented Interfaces.
+     *
      * @param classifiers The Classifiers to remove the Operations from.
      */
     @objid ("f759f7bd-ee15-40c3-a507-ce0b090c98e5")
@@ -119,6 +126,7 @@ public interface IModelerModulePeerModule extends IPeerModule {
     /**
      * For all classifiers implementing those interfaces, synchronize all operation signatures.
      * Missing operations are created.
+     *
      * @param interfaces the interfaces to update operations from.
      */
     @objid ("651d2c3e-2634-44f0-8dcc-fda73057c3a5")
@@ -127,6 +135,7 @@ public interface IModelerModulePeerModule extends IPeerModule {
     /**
      * Update a part contents from its base classifier.
      * Allows creation of a new classifier if no base exists, or referencing an existing classifier.
+     *
      * @param inst the instance to update.
      * @throws ModelerModuleException when an error occurs during the update.
      */
@@ -136,6 +145,7 @@ public interface IModelerModulePeerModule extends IPeerModule {
     /**
      * Update a lifeline's represented instance contents from its base classifier.
      * Allows creation of the instance, and of a new classifier if no base exists, or referencing an existing classifier.
+     *
      * @param ll the lifeline to update.
      * @throws ModelerModuleException when an error occurs during the update.
      */
@@ -146,6 +156,7 @@ public interface IModelerModulePeerModule extends IPeerModule {
      * Update the internal structure of a class.
      * Updates all parts from their base classifiers, and allows creation of all missing bases.
      * It is also possible to reference an existing classifier.
+     *
      * @param classToUpdate The class to update.
      * @throws ModelerModuleException When an error happens during the update.
      */
@@ -154,6 +165,7 @@ public interface IModelerModulePeerModule extends IPeerModule {
 
     /**
      * Create a sub state machine from a state having entry and exit points.
+     *
      * @param state the state to create the sub state machine from.
      * @return the create sub state machine.
      */
@@ -162,6 +174,7 @@ public interface IModelerModulePeerModule extends IPeerModule {
 
     /**
      * Updates a state machine from a sub state machine. (entry, exit points)
+     *
      * @param state the state to update.
      */
     @objid ("eabbafc2-81a9-448f-bb95-434f8c5ac5b0")
@@ -169,5 +182,5 @@ public interface IModelerModulePeerModule extends IPeerModule {
 
     @objid ("8a7663ad-c072-4a7d-a3d1-80b88bea1305")
     Path computePath(final Artifact fileArtifact);
-}
 
+}

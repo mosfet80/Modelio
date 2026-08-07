@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.lifeline.body;
 
@@ -52,17 +52,17 @@ public class ReparentBlueSquareCommand extends Command {
 
     /**
      * Default C'tor.
+     *
      * @param newParent the composite node that will be the new parent of the reparented node.
      * @param reparentedChild the reparented node.
      * @param newTime the new "time" of the ExecutionOccurenceSpecification.
      */
     @objid ("d9376a40-55b6-11e2-877f-002564c97630")
-    public  ReparentBlueSquareCommand(GmCompositeNode newParent, GmExecutionOccurenceSpecification reparentedChild, final int newTime) {
+    public ReparentBlueSquareCommand(GmCompositeNode newParent, GmExecutionOccurenceSpecification reparentedChild, final int newTime) {
         super();
         this.newParentNode = newParent;
         this.reparentedChild = reparentedChild;
         this.newTime = newTime;
-        
     }
 
     @objid ("d9376a49-55b6-11e2-877f-002564c97630")
@@ -70,7 +70,7 @@ public class ReparentBlueSquareCommand extends Command {
     public boolean canExecute() {
         final ExecutionOccurenceSpecification childElement = (ExecutionOccurenceSpecification) this.reparentedChild
                 .getRelatedElement();
-        
+
         if (childElement == null || !childElement.getStatus().isModifiable()) {
             return false;
         }
@@ -82,20 +82,19 @@ public class ReparentBlueSquareCommand extends Command {
         if (finish != null && !finish.getStatus().isModifiable()) {
             return false;
         }
-        
+
         MObject oldParent = getOldLifeline();
         MObject newParent = getNewLifeline();
         if (newParent == null) {
             return false;
         }
-        
+
         MMetamodel mm = childElement.getMClass().getMetamodel();
-        
+
         boolean sameParentInObModel = newParent.equals(oldParent);
         return sameParentInObModel
                         || (oldParent.getStatus().isModifiable() && newParent.getStatus().isModifiable() && mm.getMExpert().canCompose(
                                 newParent, childElement, "CoveredBy"));
-        
     }
 
     @objid ("d9376a4e-55b6-11e2-877f-002564c97630")
@@ -109,10 +108,10 @@ public class ReparentBlueSquareCommand extends Command {
         if (!sameParentInObModel) {
             // orphan the underlying {@link MObject element} from its previous
             // {@link Element#getCompositionOwner() composition owner},
-        
+
             MDependency mDep = oldParentElement.getMClass().getDependency(oldParentDep);
             List<MObject> children = oldParentElement.mGet(mDep);
-        
+
             children.remove(childElement);
             if (childElement.getStarted() != null) {
                 children.remove(childElement.getStarted());
@@ -140,7 +139,7 @@ public class ReparentBlueSquareCommand extends Command {
                 oldParent.removeChild(startedFinishGm);
             }
         }
-        
+
         GmNodeModel finishedGm = null;
         GmNodeModel finishedStartGm = null;
         if (childElement.getFinished() != null) {
@@ -152,12 +151,12 @@ public class ReparentBlueSquareCommand extends Command {
             if (finishedStartGm != null) {
                 oldParent.removeChild(finishedStartGm);
             }
-        
+
         }
         if (!sameParentInObModel) {
             // attach the underlying {@link MObject element} to its new {@link
             // Element#getCompositionOwner() composition owner},
-        
+
             try {
                 MDependency mDep = newParentElement.getMClass().getDependency(oldParentDep);
                 List<MObject> children = oldParentElement.mGet(mDep);
@@ -213,7 +212,6 @@ public class ReparentBlueSquareCommand extends Command {
             tmp = childElement.getFinished().getStart().getLineNumber() + delta;
             childElement.getFinished().getStart().setLineNumber(tmp);
         }
-        
     }
 
     @objid ("d9376a51-55b6-11e2-877f-002564c97630")
@@ -226,7 +224,6 @@ public class ReparentBlueSquareCommand extends Command {
         } else {
             return null;
         }
-        
     }
 
     @objid ("d9376a56-55b6-11e2-877f-002564c97630")
@@ -239,7 +236,6 @@ public class ReparentBlueSquareCommand extends Command {
         } else {
             return null;
         }
-        
     }
 
 }

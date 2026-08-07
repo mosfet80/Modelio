@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -50,7 +50,7 @@ public class R2890 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(IElement)
      * @see AbstractRule#getUpdateControl(IElement)
      * @see AbstractRule#getMoveControl(IElementMovedEvent)
@@ -69,7 +69,7 @@ public class R2890 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         // plan actor && usecase
         plan.registerRule(AssociationEnd.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE | AuditTrigger.MOVE);
-        
+
     }
 
     /**
@@ -103,14 +103,14 @@ public class R2890 extends AbstractUmlRule {
      * Default constructor for R2890
      */
     @objid ("52b19bf5-822f-4994-9c89-01445ed765c5")
-    public  R2890() {
+    public R2890() {
         this.checkerInstance = new CheckR2890(this);
     }
 
     @objid ("7fdf840c-1d3f-4d61-8977-08b994d5c5e6")
     private static class CheckR2890 extends AbstractControl {
         @objid ("861ce989-134b-4743-bf2b-78387d2ae92a")
-        public  CheckR2890(IRule rule) {
+        public CheckR2890(IRule rule) {
             super(rule);
         }
 
@@ -130,23 +130,23 @@ public class R2890 extends AbstractUmlRule {
         @objid ("d3193209-4fdc-487f-8c07-5de4f5f9c98b")
         private IAuditEntry checkR2890(Association association) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, association, null);
-            
+
             List<AssociationEnd> assocEnds = association.getEnd();
-            
+
             if (assocEnds.size() != 2) {
                 return auditEntry;
             }
-            
+
             Classifier owner1 = assocEnds.get(0).getSource() != null ? assocEnds.get(0).getSource() : assocEnds.get(0).getOpposite().getTarget();
             Classifier owner2 = assocEnds.get(1).getSource() != null ? assocEnds.get(1).getSource() : assocEnds.get(1).getOpposite().getTarget();
-            
+
             if (owner1 != null && owner2 != null
                     && ((owner1 instanceof UseCase && owner2 instanceof UseCase)
                             || (owner1 instanceof Actor && owner2 instanceof Actor))
                     && owner1.equals(owner2)) {
-            
+
                 // Rule failed
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(association);

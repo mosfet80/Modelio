@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.drawings.line;
 
@@ -48,12 +48,12 @@ public class LineDrawingEditPart extends AbstractLinkDrawingEditPart {
     @Override
     protected void refreshFromStyle(IFigure aFigure, IStyle style) {
         super.refreshFromStyle(aFigure, style);
-        
+
         LinkFigure connection = (LinkFigure) aFigure;
         GmLineDrawing model = getModel();
-        
+
         createDecorations(connection, model);
-        
+
     }
 
     @objid ("be84e7d5-3536-4f89-a39d-a4d62be95257")
@@ -118,7 +118,7 @@ public class LineDrawingEditPart extends AbstractLinkDrawingEditPart {
     @objid ("cba7732f-7d8b-41ff-9a1f-c3c47e716855")
     private void createDecorations(LinkFigure connection, GmLineDrawing model) {
         RotatableDecoration deco;
-        
+
         LineDecoration kind;
         int scalex;
         int scaley;
@@ -127,9 +127,9 @@ public class LineDrawingEditPart extends AbstractLinkDrawingEditPart {
         Color fillColor;
         Color lineColor;
         LinePattern linePattern;
-        
+
         final IStyle style = model.getDisplayedStyle();
-        
+
         kind = style.getProperty(GmLineStyleKeys.SourceDeco.KIND);
         scalex = style.getProperty(GmLineStyleKeys.SourceDeco.SCALEX);
         scaley = style.getProperty(GmLineStyleKeys.SourceDeco.SCALEY);
@@ -137,20 +137,20 @@ public class LineDrawingEditPart extends AbstractLinkDrawingEditPart {
         fillColor = style.getProperty(GmLineStyleKeys.SourceDeco.FILLCOLOR);
         lineColor = style.getProperty(GmLineStyleKeys.SourceDeco.LINECOLOR);
         linePattern = style.getProperty(GmLineStyleKeys.SourceDeco.LINEPATTERN);
-        
+
         if (fillColor==null && model.getStyleKey(MetaKey.FILLCOLOR) != null)
             fillColor = style.getColor(model.getStyleKey(MetaKey.FILLCOLOR));
         if (lineColor==null && model.getStyleKey(MetaKey.LINECOLOR) != null)
             lineColor = style.getColor(model.getStyleKey(MetaKey.LINECOLOR));
         if (linePattern==null && model.getStyleKey(MetaKey.LINEPATTERN) != null)
             linePattern = style.getProperty(model.getStyleKey(MetaKey.LINEPATTERN));
-        if (model.getStyleKey(MetaKey.LINEWIDTH) != null) 
+        if (model.getStyleKey(MetaKey.LINEWIDTH) != null)
             lineWidth = style.getInteger(model.getStyleKey(MetaKey.LINEWIDTH));
-        
-        
+
+
         deco = createDecoration(kind, scalex,scaley,fillmode, fillColor, lineColor, linePattern, lineWidth);
         connection.setSourceDecoration(deco);
-        
+
         kind = style.getProperty(GmLineStyleKeys.TargetDeco.KIND);
         scalex = style.getProperty(GmLineStyleKeys.TargetDeco.SCALEX);
         scaley = style.getProperty(GmLineStyleKeys.TargetDeco.SCALEY);
@@ -158,19 +158,19 @@ public class LineDrawingEditPart extends AbstractLinkDrawingEditPart {
         fillColor = style.getProperty(GmLineStyleKeys.TargetDeco.FILLCOLOR);
         lineColor = style.getProperty(GmLineStyleKeys.TargetDeco.LINECOLOR);
         linePattern = style.getProperty(GmLineStyleKeys.TargetDeco.LINEPATTERN);
-        
+
         if (fillColor==null && model.getStyleKey(MetaKey.FILLCOLOR) != null)
             fillColor = style.getColor(model.getStyleKey(MetaKey.FILLCOLOR));
         if (lineColor==null && model.getStyleKey(MetaKey.LINECOLOR) != null)
             lineColor = style.getColor(model.getStyleKey(MetaKey.LINECOLOR));
         if (linePattern==null && model.getStyleKey(MetaKey.LINEPATTERN) != null)
             linePattern = style.getProperty(model.getStyleKey(MetaKey.LINEPATTERN));
-        if (lineWidth==null && model.getStyleKey(MetaKey.LINEWIDTH) != null) 
+        if (lineWidth==null && model.getStyleKey(MetaKey.LINEWIDTH) != null)
             lineWidth = style.getInteger(model.getStyleKey(MetaKey.LINEWIDTH));
-        
+
         deco = createDecoration(kind, scalex,scaley,fillmode, fillColor, lineColor, linePattern, lineWidth);
         connection.setTargetDecoration(deco);
-        
+
     }
 
 }

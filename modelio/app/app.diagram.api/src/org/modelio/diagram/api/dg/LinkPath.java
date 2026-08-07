@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.api.dg;
 
@@ -42,34 +42,37 @@ public class LinkPath implements ILinkPath {
      * Creates a new empty link path.
      */
     @objid ("4b7a6bd0-19db-4ae1-9911-ebac5ce5b736")
-    public  LinkPath() {
+    public LinkPath() {
         this.points = new ArrayList<>();
     }
 
     /**
      * Convert a Connection points to a list of {@link ILinkPoint}.
+     *
      * @param connection a connection figure
      */
     @objid ("209a3132-bfc6-419a-9d81-d6f1c41df961")
-    public  LinkPath(Connection connection) {
+    public LinkPath(Connection connection) {
         this.points = computeLinkPoints(connection);
     }
 
     /**
      * Creates a new link path.
+     *
      * @param points points of the path
      */
     @objid ("fbdc9a1b-0e16-45dc-b424-65cebf087897")
-    public  LinkPath(Collection<Point> points) {
+    public LinkPath(Collection<Point> points) {
         this.points = new ArrayList<>(points.size());
         for (Point p : points) {
             this.points.add(p.getCopy());
         }
-        
+
     }
 
     /**
      * Convert a Connection to a list of {@link ILinkPoint}.
+     *
      * @param connection a connection figure
      * @return its points as a list of ILinkPoint.
      */
@@ -77,7 +80,7 @@ public class LinkPath implements ILinkPath {
     protected static List<Point> computeLinkPoints(Connection connection) {
         final PointList connPoints = connection.getPoints();
         ArrayList<Point> ret;
-        
+
         ret = new ArrayList<>(connPoints.size());
         Point p = new PrecisionPoint();
         for (int i = 0, last=connPoints.size()-1; i <= last; i++) {
@@ -123,7 +126,7 @@ public class LinkPath implements ILinkPath {
         for (Point p : points) {
             this.points.add(new Point(p));
         }
-        
+
     }
 
     @objid ("c0eab552-67f8-4f4d-946c-48dcd9e365e7")

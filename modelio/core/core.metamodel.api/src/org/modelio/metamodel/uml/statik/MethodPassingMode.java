@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.uml.statik;
 
@@ -26,17 +26,16 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * MethodPassingMode v0.0.9054
- * 
- * 
+ *
+ *
  * null
- * 
- * 
+ *
  */
 @objid ("005a4e98-91e0-1f74-804b-001ec947cd2a")
 public enum MethodPassingMode {
-    @objid ("38ba6ecc-afb2-4182-a49d-850a36ed526c")
+    @objid ("39882160-1c4f-4b8b-a427-82325cbaa85d")
     METHODIN(0, "MethodIn", "MethodIn"),
-    @objid ("118fafcc-f2c5-4078-b3aa-33369969187d")
+    @objid ("c62af924-9975-4755-9e3d-5cd6e468d523")
     METHODOUT(1, "MethodOut", "MethodOut");
 
 public static final int METHODIN_VALUE = 0;
@@ -93,5 +92,5 @@ public static final int METHODIN_VALUE = 0;
     public String toString() {
        return literal;
     }
-    
+
 }

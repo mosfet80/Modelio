@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.finaliser.subplan;
 
@@ -47,7 +47,7 @@ public class ParticipantPlanFinder {
     private Map<String, Object> elementsMap;
 
     @objid ("aacc739b-2051-4799-8ef3-e6a82cffe621")
-    public  ParticipantPlanFinder(Map<String, Object> elementsMap) {
+    public ParticipantPlanFinder(Map<String, Object> elementsMap) {
         this.elementsMap = elementsMap;
     }
 
@@ -55,10 +55,10 @@ public class ParticipantPlanFinder {
     public List<ParticipantPlan> getParticipantPlan(BPMNPlane plane, BpmnCollaboration modelioCollab) {
         // Find Participant referencing internal process
         List<ParticipantPlan> planeList = crateParticipantPlan(plane);
-        
+
         // Create Plan for lane without Participant
         crateParticipantPlanForOrfanElements(planeList, modelioCollab, plane);
-        
+
         // Transpose Elements into ParticipantPlan
         populateParticipantPlan(plane, planeList);
         return planeList;
@@ -67,36 +67,36 @@ public class ParticipantPlanFinder {
     @objid ("1cd1880c-0267-4950-b87a-1555b239c6aa")
     private void crateParticipantPlanForOrfanElements(List<ParticipantPlan> planeList, BpmnCollaboration modelioCollab, BPMNPlane plane) {
         for (BpmnParticipant participant : modelioCollab.getParticipants()) {
-        
+
             // Find Plan associated to process
             ParticipantPlan partPlan = getPlanOfParticipant(planeList, participant);
             if (partPlan == null) {
                 BpmnProcess process = participant.getProcess();
                 if (process != null) {
-        
+
                     Bounds partBounds = findBounds(process, plane);
                     // Create new Plane
                     if (partBounds != null && !process.getProduct().isEmpty() && process.getProduct().get(0) instanceof BpmnProcessDesignDiagram) {
                         BpmnProcessDesignDiagram diagram = (BpmnProcessDesignDiagram) process.getProduct().get(0);
                         planeList.add(new ParticipantPlan(diagram, partBounds));
-        
+
                         // Create BPMNShape for the new participant
                         BPMNShape jaxbShape = new BPMNShape();
                         jaxbShape.setBounds(partBounds);
-        
+
                         jaxbShape.setBpmnElement(new QName(IDUtils.formatJaxbID(participant)));
                         jaxbShape.setId(IDUtils.formatJaxbID(participant) + "-gr");
-        
+
                         List<JAXBElement<? extends DiagramElement>> jaxContent = plane.getDiagramElement();
                         ObjectFactory factory = new ObjectFactory();
                         jaxContent.add(factory.createBPMNShape(jaxbShape));
-        
+
                         this.elementsMap.put(jaxbShape.getBpmnElement().getLocalPart(), participant);
                     }
                 }
             }
         }
-        
+
     }
 
     @objid ("bc148a37-d889-4f33-b642-992ef390b748")
@@ -115,12 +115,12 @@ public class ParticipantPlanFinder {
     @objid ("31a071f0-27f1-45b9-a1b9-5a89437b8aae")
     private Bounds findBounds(BpmnProcess process, BPMNPlane plane) {
         Bounds bounds = null;
-        
+
         List<MObject> processElement = new ArrayList<>();
         if (process.getLaneSet() != null) {
             processElement.addAll(process.getLaneSet().getLane());
         }
-        
+
         for (JAXBElement<? extends DiagramElement> jaxDiag : plane.getDiagramElement()) {
             if (jaxDiag.getValue() instanceof BPMNShape) {
                 BPMNShape jaxShape = (BPMNShape) jaxDiag.getValue();
@@ -137,15 +137,15 @@ public class ParticipantPlanFinder {
                         if (elemBounds.getX() < bounds.getX()) {
                             bounds.setX(elemBounds.getX());
                         }
-        
+
                         if (elemBounds.getX() + elemBounds.getWidth() > bounds.getX() + bounds.getWidth()) {
                             bounds.setWidth(elemBounds.getX() + elemBounds.getWidth() - bounds.getX());
                         }
-        
+
                         if (elemBounds.getY() < bounds.getY()) {
                             bounds.setY(elemBounds.getY());
                         }
-        
+
                         if (elemBounds.getY() + elemBounds.getHeight() > bounds.getY() + bounds.getHeight()) {
                             bounds.setHeight(elemBounds.getY() + elemBounds.getHeight() - bounds.getY());
                         }
@@ -178,7 +178,7 @@ public class ParticipantPlanFinder {
                         }
                     }
                 }
-        
+
             }
         }
         return plans;
@@ -201,10 +201,10 @@ public class ParticipantPlanFinder {
                         }
                     }
                 }
-        
+
             }
         }
-        
+
         for (JAXBElement<? extends DiagramElement> jaxDiag : new ArrayList<>(plane.getDiagramElement())) {
             if (jaxDiag.getValue() instanceof BPMNEdge) {
                 BPMNEdge jaxEdge = (BPMNEdge) jaxDiag.getValue();
@@ -220,7 +220,7 @@ public class ParticipantPlanFinder {
                 }
             }
         }
-        
+
     }
 
 }

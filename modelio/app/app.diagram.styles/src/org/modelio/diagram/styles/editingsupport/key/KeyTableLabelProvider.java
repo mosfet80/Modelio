@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.styles.editingsupport.key;
 
@@ -47,7 +47,7 @@ import org.modelio.platform.ui.UIImages;
 
 /**
  * Key column label provider for a {@link TableViewer}.
- * 
+ *
  * @author cma
  * @since Forked KeyLabelProvider on 3.7
  */
@@ -75,10 +75,10 @@ public class KeyTableLabelProvider extends StyledCellLabelProvider {
     private Image sectionIcon;
 
     @objid ("85a95b3b-1926-11e2-92d2-001ec947c8cc")
-    public  KeyTableLabelProvider(Supplier<ISymbolViewModel> modelSupplier, Supplier<IStyle> inputSupplier) {
+    public KeyTableLabelProvider(Supplier<ISymbolViewModel> modelSupplier, Supplier<IStyle> inputSupplier) {
         this.modelSupplier = modelSupplier;
         this.inputSupplier = inputSupplier;
-        
+
     }
 
     @objid ("1a377a76-f0ae-4e54-acb2-0d375a8ae16e")
@@ -90,9 +90,9 @@ public class KeyTableLabelProvider extends StyledCellLabelProvider {
         gc.setBackground(UIColor.TABLE_HEADER_BG);
         gc.fillRectangle(0, 0, 24, 24);
         gc.dispose();
-        
+
         super.initialize(viewer, column);
-        
+
     }
 
     @objid ("85a95b48-1926-11e2-92d2-001ec947c8cc")
@@ -104,7 +104,7 @@ public class KeyTableLabelProvider extends StyledCellLabelProvider {
             this.sectionIcon = null;
         }
         super.dispose();
-        
+
     }
 
     @objid ("6a884317-40e3-41ae-b99f-1a1cec9f87f1")
@@ -112,7 +112,7 @@ public class KeyTableLabelProvider extends StyledCellLabelProvider {
     public String getToolTipText(Object obj) {
         ISymbolViewItem element = (ISymbolViewItem) obj;
         String cellText = element.getLabel();
-        
+
         if (element.getStyleKey() != null && getEditedStyle().isDynamicValue(element.getStyleKey())) {
             return DiagramStyles.I18N.getMessage("editingsupport.key.dynamic.tooltip", cellText);
         } else if (element.isLocallyModified(getEditedStyle())) {
@@ -123,7 +123,7 @@ public class KeyTableLabelProvider extends StyledCellLabelProvider {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("85a95b3e-1926-11e2-92d2-001ec947c8cc")
@@ -132,11 +132,11 @@ public class KeyTableLabelProvider extends StyledCellLabelProvider {
         ISymbolViewItem element = (ISymbolViewItem) cell.getElement();
         ISymbolViewModel viewModel = this.modelSupplier.get();
         List<? extends ISymbolViewItem> children = viewModel.getChildren(element);
-        
+
         // Cell text
         String cellText = element.getLabel();
         cell.setText(cellText);
-        
+
         int indent = 0;
         // if (cellText == null) {
         // cellText = "";
@@ -147,7 +147,7 @@ public class KeyTableLabelProvider extends StyledCellLabelProvider {
         // indent += 2;
         // }
         // }
-        
+
         // Cell icon
         if (!children.isEmpty()) {
             cell.setImage(this.sectionIcon);
@@ -157,7 +157,7 @@ public class KeyTableLabelProvider extends StyledCellLabelProvider {
         } else {
             cell.setImage(null);
         }
-        
+
         // Cell coloring
         if (!children.isEmpty()) {
             // Item with children
@@ -213,7 +213,7 @@ public class KeyTableLabelProvider extends StyledCellLabelProvider {
         } finally {
             gc.dispose();
         }
-        
+
     }
 
     @objid ("70f5b636-d6aa-4364-af50-8ae0d0bff223")
@@ -223,7 +223,7 @@ public class KeyTableLabelProvider extends StyledCellLabelProvider {
         if (event.height < 24) {
             event.height = 24;
         }
-        
+
     }
 
 }

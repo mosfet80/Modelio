@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.vcore.smkernel;
 
@@ -95,11 +114,6 @@ public interface IRStatus {
     @objid ("3856b010-820c-418e-95c6-c91626968140")
     public static final long CMSSYNC = 1L << 10;
 
-    /*
-     * //
-     * // Audit status
-     * //
-     */
     /**
      * Audit state first bit
      */
@@ -169,13 +183,6 @@ public interface IRStatus {
     @objid ("29146a85-d0a7-48db-8b59-8dd359e12aea")
     public static final long CMSNEEDSLOCK = 1L << 41;
 
-    /*
-     * //
-     * // Repository flags.
-     * //
-     * // These flags may be used or not by the repository implementation.
-     * //
-     */
     /**
      * The object has been loaded.
      * This flag may be used or not by the repository implementation.
@@ -202,6 +209,14 @@ public interface IRStatus {
      */
     @objid ("5c03d0ce-6ddc-4a5f-9fd9-a557bd3ff834")
     public static final long REPO_DIRTY = 1L << 45;
+
+    /**
+     * The object is stored in a <b>remote</b> repository, not locally.
+     *
+     * @since 6.0.0 22/05/2024
+     */
+    @objid ("3d74f8e1-e357-477e-9f1c-b462507bd4c0")
+    public static final long REMOTE = 1L << 46;
 
     /**
      * Flags that represent the CMS status
@@ -237,7 +252,7 @@ public interface IRStatus {
      * Required runtime flags for an object to be modifiable.
      * <p>
      * All of the must be set to <code>true</code> for an object to be modifiable.
-     * 
+     *
      * @see #RMASK_MODIFIABLE_FORBIDDEN
      */
     @objid ("caeef124-d58f-11e1-b069-001ec947ccaf")
@@ -252,15 +267,15 @@ public interface IRStatus {
     public static final long RMASK_MODIFIABLE_FORBIDDEN = IRStatus.RAMC | IRStatus.SHELL | IRStatus.DELETED | IRStatus.CMSREADONLY;
 
     /**
+     * Flags usable by the repository implementation
+     */
+    @objid ("d147b0b9-a93a-4336-9626-af1b0fce858c")
+    public static final long MASK_REPO = REPO_LOADED | REPO_USERS_LOADED | REPO_OWNER_LOADED | REPO_DIRTY;
+
+    /**
      * Mask telling the object is deleted or being deleted.
      */
     @objid ("0eb2ce7b-d4cd-11e1-b069-001ec947ccaf")
     public static final long MASK_DELETE = DELETED | BEINGDELETED;
 
-    /**
-     * Flags usable by the repository implementation
-     */
-    @objid ("d147b0b9-a93a-4336-9626-af1b0fce858c")
-    public static final long MASK_REPO = REPO_LOADED | REPO_USERS_LOADED | REPO_OWNER_LOADED | REPO_DIRTY;
 }
-

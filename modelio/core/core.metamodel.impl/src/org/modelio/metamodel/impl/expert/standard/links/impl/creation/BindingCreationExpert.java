@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.expert.standard.links.impl.creation;
 
@@ -39,7 +39,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 /**
  * Creation expert for {@link Binding}
  * <p>
- * 
+ *
  * Bindings can be traced:
  * <ul>
  * <li>From a collaboration use to a "feature" owned by the same classifier/collaboration as the collaboration use.</li>
@@ -54,48 +54,48 @@ public class BindingCreationExpert extends DefaultDelegatingLinkExpert {
         if (!canSource(linkMetaclass, from.getMClass())) {
             return false;
         }
-        
+
         if (from instanceof CollaborationUse) {
             // Binding from a collaboration use to a represented feature.
             // The collaboration use and the represented feature must be owned by:
             // - the same classifier.
             // - the same collaboration
-        
+
             final MObject fromOwner = getClassifierOwner(from);
             final MObject toOwner = getClassifierOwner(to);
             // Same Classifier owner => return true
             if (fromOwner != null && toOwner != null && fromOwner.equals(toOwner)) {
                 return true;
             }
-        
+
             // Mantis 11428 - Same Collaboration owner => return true
             final MObject fromCollabOwner = getCollaborationOwner(from);
             final MObject toCollabOwner = getCollaborationOwner(to);
-        
+
             return (fromCollabOwner != null && toCollabOwner != null && fromCollabOwner.equals(toCollabOwner));
         } else {
             // Binding from a represented feature to a collaboration role.
             // - the source must be a "feature" owned by the collaboration use owner
             // - the target must be owned by the used Collaboration
-        
+
             final CollaborationUse collabUse = findCollabUse(from, to);
             if (collabUse == null) {
                 return false;
             }
-        
+
             final Collaboration usedCollab = collabUse.getType();
-        
+
             final Collaboration collaboration = getCollaborationOwner(to);
             if (collaboration == null || !collaboration.equals(usedCollab)) {
                 return false;
             }
-        
+
             final MObject fromOwner = getClassifierOwner(from);
             final MObject collabUseOwner = getClassifierOwner(collabUse);
-        
+
             return (fromOwner != null && collabUseOwner != null && fromOwner.equals(collabUseOwner));
         }
-        
+
     }
 
     @objid ("7e94dfea-1eb2-11e2-8009-002564c97630")
@@ -104,7 +104,7 @@ public class BindingCreationExpert extends DefaultDelegatingLinkExpert {
         if (CollaborationUse.class.isAssignableFrom(fromMetaclass.getJavaInterface())) {
             return true;
         }
-        
+
         if (Attribute.class.isAssignableFrom(fromMetaclass.getJavaInterface())
                 || AssociationEnd.class.isAssignableFrom(fromMetaclass.getJavaInterface())
                 || BindableInstance.class.isAssignableFrom(fromMetaclass.getJavaInterface())
@@ -147,22 +147,23 @@ public class BindingCreationExpert extends DefaultDelegatingLinkExpert {
             } else {
                 return false;
             }
-        
+
         } else {
             return false;
         }
-        
+
     }
 
     /**
      * Get the Classifier owning the given element
+     *
      * @param e an element
      * @return The classifier owner or null.
      */
     @objid ("7e94e01f-1eb2-11e2-8009-002564c97630")
     private static MObject getClassifierOwner(final MObject e) {
         MObject ret = e.getCompositionOwner();
-        
+
         while (ret != null && !(ret instanceof Classifier)) {
             ret = ret.getCompositionOwner();
         }
@@ -171,8 +172,8 @@ public class BindingCreationExpert extends DefaultDelegatingLinkExpert {
 
     /**
      * Get the collaboration owning the given element, or null if the element is not owned by a collaboration.
-     * @param e
-     * an element
+     *
+     * @param e an element
      * @return The owning collaboration or null.
      */
     @objid ("7e97413f-1eb2-11e2-8009-002564c97630")
@@ -192,6 +193,7 @@ public class BindingCreationExpert extends DefaultDelegatingLinkExpert {
 
     /**
      * Guess the collaboration use from the represented feature and the role.
+     *
      * @param feature the represented feature
      * @param role the role
      * @return the found collaboration use or null if none.
@@ -202,12 +204,12 @@ public class BindingCreationExpert extends DefaultDelegatingLinkExpert {
         if (collab == null) {
             return null;
         }
-        
+
         final Collection<CollaborationUse> uses = getCollabUsesOf(feature);
         if (uses == null) {
             return null;
         }
-        
+
         for (CollaborationUse u : uses) {
             if (collab.equals(u.getType())) {
                 return u;
@@ -218,6 +220,7 @@ public class BindingCreationExpert extends DefaultDelegatingLinkExpert {
 
     /**
      * Get the collaboration uses accessible from the given represented feature.
+     *
      * @param feature a represented feature
      * @return accessible collaboration uses
      */
@@ -237,7 +240,7 @@ public class BindingCreationExpert extends DefaultDelegatingLinkExpert {
     }
 
     @objid ("b40d3b76-ded4-4f93-971c-80a43c29f0cb")
-    public  BindingCreationExpert(ILinkExpert defaultExpert) {
+    public BindingCreationExpert(ILinkExpert defaultExpert) {
         super(defaultExpert);
     }
 

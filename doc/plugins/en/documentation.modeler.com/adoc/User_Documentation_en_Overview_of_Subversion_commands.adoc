@@ -1,0 +1,39 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= Overview of Teamwork commands
+
+
+A number of dedicated commands are available on shared work models which can be run directly from an element's context menu. This context menu is accessed by right-clicking on the element in question.
+
+Note that only commands that are pertinent to the element in question will be proposed, depending on its current read-only/read-write status and on its nature.
+
+The commands provided are as follows:
+
+* *Update...* : Updates the whole work model from the repository.
+* *Get lock...* : Locks an element, in order to subsequently modify it.
+* *Commit...* : Publishes the local element by exporting it into the repository, so that the element is available to other users in its latest version.
+* *Revert...* : Cancels the lock and restores the local element to its previous version (the version before the modification).
+* *Add to version...* : Marks a local element that was not previously managed as being added to version. This will only become effective when the next commit operation is run.
+* *Cancel Add to version* : Cancels an "Add to version" which has not already been committed.
+* *Diff-Merge* : Compares the current model with the repository. Comparison can be made against another branch or revision.
+* *Get information...* : Displays the element's teamwork status.
+* *Show log...* : Shows revision history and allows to run a diff/merge for a given revision. [[Hierarchical-mode]]
+
+
+== Hierarchical mode
+
+Some commands can be run recursively through all the sub-elements of the elements on which the command is run, thereby taking into account model composition hierarchy. In this type of situation, Modelio usually opens a window in which the option is explicitly proposed.
+
+The recursive mode is usually what you need, as it facilitates consistent model updates. However, you must be careful when locking high level units, such as the project itself, as this lock will apply to several elements in the model (or even to all elements, in the case of the project), meaning that other users will not be able to work on large parts of the model. This also means that if a command is run in recursive mode on a high-level element (for example, the project), it may take several minutes to run, since it will be executed on all the components.
+
+For example:
+
+.The "Get lock" window proposing the "Is recursive" option
+image::images/attachment/modeliocom41/User_Documentation_en/Overview_of_Subversion_commands/WebHome/TW_004_example_getlock.png[TW_004_example_getlock.png]
+
+

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.browser.model.bytype;
 
@@ -96,7 +96,7 @@ public class ByTypeContentProvider implements ITreeContentProvider {
      * Constructor.
      */
     @objid ("00421d46-0d4f-10c6-842f-001ec947cd2a")
-    public  ByTypeContentProvider(IGProject project) {
+    public ByTypeContentProvider(IGProject project) {
         this.project = project;
     }
 
@@ -107,13 +107,13 @@ public class ByTypeContentProvider implements ITreeContentProvider {
             return;
         for (AbstractDiagram diagram : session.getModel().findByClass(AbstractDiagram.class, IModel.NODELETED)) {
             String type = getType(diagram);
-        
+
             // Create a new virtual folder for types that are not already in the
             // type cache
             if (!this.types.containsKey(type)) {
                 final String filteringType = type;
                 VirtualFolder newFolder = new VirtualFolder(type) {
-        
+
                     @Override
                     public Object[] getChildren(Object parentElement) {
                         ArrayList<Object> objects = new ArrayList<>();
@@ -123,43 +123,43 @@ public class ByTypeContentProvider implements ITreeContentProvider {
                                 objects.add(diag);
                             }
                         }
-        
+
                         return objects.toArray();
                     }
-        
+
                     @Override
                     public Object[] getElements(Object inputElement) {
                         return new Object[0];
                     }
-        
+
                     @Override
                     public Object getParent(Object element) {
                         return null;
                     }
-        
+
                     @Override
                     public boolean hasChildren(Object parentElement) {
                         return true;
                     }
-        
+
                     @Override
                     public void dispose() {
                         // Nothing to dispose
-        
+
                     }
-        
+
                     @Override
                     public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
                         // Nothing to do
-        
+
                     }
-        
+
                 };
                 newFolder.setName(getI18nType(diagram));
                 this.types.put(type, newFolder);
             }
         }
-        
+
     }
 
     @objid ("00425586-0d4f-10c6-842f-001ec947cd2a")

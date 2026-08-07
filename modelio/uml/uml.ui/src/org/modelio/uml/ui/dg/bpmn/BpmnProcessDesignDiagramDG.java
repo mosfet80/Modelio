@@ -1,34 +1,38 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.dg.bpmn;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.modelio.diagram.IDiagramLink;
 import org.modelio.api.modelio.diagram.IDiagramNode;
 import org.modelio.bpmn.diagram.editor.elements.diagrams.processdesign.GmBpmnProcessDesignDiagram;
+import org.modelio.bpmn.diagram.editor.elements.workflow.GmWorkflow;
 import org.modelio.diagram.api.dg.DGFactory;
 import org.modelio.diagram.api.dg.common.DiagramDG;
 import org.modelio.diagram.api.services.DiagramHandle;
 import org.modelio.diagram.api.services.DiagramNode;
+import org.modelio.diagram.elements.common.genericnode.GmGenericNode;
+import org.modelio.diagram.elements.core.model.IGmNode;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 
 /**
@@ -56,11 +60,12 @@ public class BpmnProcessDesignDiagramDG extends DiagramDG {
 
     /**
      * Initialize the activity diagram graphic element.
+     *
      * @param diagramHandle The diagram handle
      * @param node The internal graphic node representing the diagram.
      */
     @objid ("f032e114-e34e-46dd-a700-e77439bc1e40")
-    public  BpmnProcessDesignDiagramDG(final DiagramHandle diagramHandle, final GmNodeModel node) {
+    public BpmnProcessDesignDiagramDG(final DiagramHandle diagramHandle, final GmNodeModel node) {
         super(diagramHandle, node);
     }
 
@@ -68,7 +73,26 @@ public class BpmnProcessDesignDiagramDG extends DiagramDG {
     @Override
     public List<IDiagramNode> getNodes() {
         // Make the GmWorkflow transparent
-        return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, ((GmBpmnProcessDesignDiagram) this.gmNode).getWorkflow().getVisibleChildren());
+        List<IGmNode> nodes = new ArrayList<IGmNode>();
+
+
+        for(GmNodeModel node  : ((GmBpmnProcessDesignDiagram) this.gmNode).getChildren()) {
+        if(node instanceof GmGenericNode) {
+        nodes.add(node);
+        }
+        }
+
+
+        GmWorkflow workflow = ((GmBpmnProcessDesignDiagram) this.gmNode).getWorkflow();
+        if (workflow != null) {
+         nodes.addAll(workflow.getVisibleChildren());
+        }
+
+        if(nodes.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, nodes);
     }
 
 }

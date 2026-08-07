@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.module.contributor;
 
@@ -32,10 +32,10 @@ public class ElementDescriptor implements Comparable<ElementDescriptor> {
     private final Stereotype stereotype;
 
     @objid ("b260b1f0-ff16-4093-9670-f08aa31e1b4c")
-    public  ElementDescriptor(MClass mClass, Stereotype stereotype) {
+    public ElementDescriptor(MClass mClass, Stereotype stereotype) {
         this.mClass = mClass;
         this.stereotype = stereotype;
-        
+
     }
 
     @objid ("d933c24c-c055-40d0-b50c-ce5ed342b569")
@@ -49,7 +49,7 @@ public class ElementDescriptor implements Comparable<ElementDescriptor> {
         } else {
             return mcCompare;
         }
-        
+
     }
 
     @objid ("08fededf-ee18-4ac3-86ba-a36e7d870e00")

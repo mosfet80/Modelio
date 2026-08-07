@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.ui.swt;
 
@@ -30,11 +30,12 @@ import org.modelio.platform.ui.plugin.UI;
 /**
  * Service that polls the SWT display for DPI changes regularly.
  * <p>
- * 
+ *
  * Calls by reflection internal protected methods of {@link Display} and {@link Device}.
  * Works around {@link Display#gsettingsProc} not being called at least on Linux.
  * <p>
  * Runs on Linux 64, not tested on Windows.
+ *
  * @author cma
  * @since 3.7
  * @deprecated Experimental, not used, may have strange side effects, use at your own risks.
@@ -46,7 +47,7 @@ public final class DpiChangeListener {
     public static void listenDpiChanges() {
         Display display = Display.getDefault();
         listenDpiChanges(display);
-        
+
     }
 
     @objid ("3c6a511b-1eea-461d-b4f0-6b711d0ab784")
@@ -54,10 +55,10 @@ public final class DpiChangeListener {
         try {
             Method getDeviceZoom = Device.class.getDeclaredMethod("getDeviceZoom");
             getDeviceZoom.setAccessible(true);
-        
+
             Method gsettingsProc = Display.class.getDeclaredMethod("gsettingsProc", long.class, long.class, long.class );
             gsettingsProc.setAccessible(true);
-        
+
             Runnable runnable = new Runnable() {
                 @SuppressWarnings ("restriction")
                 @Override
@@ -65,21 +66,21 @@ public final class DpiChangeListener {
                     if (display.isDisposed()) {
                         return;
                     }
-        
+
                     try {
                         int newZoom = (int) getDeviceZoom.invoke(display);
                         int curZoom = DPIUtil.getDeviceZoom();
-        
+
                         // DPIUtil.setDeviceZoom rounds native zoom depending on env variables.
                         // Need to run this conversion first to have comparable zoom levels.
                         DPIUtil.setDeviceZoom(newZoom);
                         newZoom = DPIUtil.getDeviceZoom();
-        
+
                         if (newZoom != curZoom) {
                             // We could avoid calling this and call layout(true, true) on all shells instead
                             gsettingsProc.invoke(display, 0, 0, 1);
-                        } 
-        
+                        }
+
                         // Schedule again
                         display.timerExec(2000, this);
                     } catch (RuntimeException | IllegalAccessException | InvocationTargetException e) {
@@ -87,14 +88,14 @@ public final class DpiChangeListener {
                     }
                 }
             };
-        
+
             // First schedule
             display.timerExec(5000, runnable);
-        
+
         } catch (NoSuchMethodException | SecurityException e) {
             UI.LOG.info(e);
         }
-        
+
     }
 
 }

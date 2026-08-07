@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -52,15 +52,17 @@ public class CommunicationInteractionPropertyModel extends AbstractPropertyModel
     /**
      * Create a new <i>CommunicationInteraction</i> data model from an
      * <i>CommunicationInteraction</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("45af1ecb-3b1f-4032-9086-976b4828a3e2")
-    public  CommunicationInteractionPropertyModel(CommunicationInteraction theEditedElement) {
+    public CommunicationInteractionPropertyModel(CommunicationInteraction theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("a24aa773-7410-4443-b073-8e4eb6131f6d")
@@ -71,6 +73,7 @@ public class CommunicationInteractionPropertyModel extends AbstractPropertyModel
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("190f19ab-0b41-46f7-ae7e-d31f2c8a13b6")
@@ -83,6 +86,7 @@ public class CommunicationInteractionPropertyModel extends AbstractPropertyModel
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -106,7 +110,7 @@ public class CommunicationInteractionPropertyModel extends AbstractPropertyModel
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -116,6 +120,7 @@ public class CommunicationInteractionPropertyModel extends AbstractPropertyModel
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -140,13 +145,14 @@ public class CommunicationInteractionPropertyModel extends AbstractPropertyModel
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -174,7 +180,7 @@ public class CommunicationInteractionPropertyModel extends AbstractPropertyModel
         default:
             return;
         }
-        
+
     }
 
 }

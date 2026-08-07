@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -36,16 +36,16 @@ public class EInstanceValue extends ENamedElement {
     @Override
     public Element createObjingElt() {
         InstanceSpecification instance = this.ecoreElement.getInstance();
-        
+
         if (instance != null) {
             Object temp = ReverseProperties.getInstance().getMappedElement(instance);
             if (temp instanceof Instance){
                 Instance objInstance = (Instance) temp;
                 if (objInstance instanceof BindableInstance){
-                    
-                    if ((((BindableInstance) objInstance).getInternalOwner() == null) 
+
+                    if ((((BindableInstance) objInstance).getInternalOwner() == null)
                             && (((BindableInstance) objInstance).getOwner() == null)){
-                        
+
                         ((BindableInstance) objInstance).setCluster(
                                 (Instance) ReverseProperties.getInstance().getMappedElement(this.ecoreElement.getInstance()));
                     }
@@ -56,10 +56,10 @@ public class EInstanceValue extends ENamedElement {
     }
 
     @objid ("ddefe9b5-3431-4c99-a207-f8163749c937")
-    public  EInstanceValue(InstanceValue element) {
+    public EInstanceValue(InstanceValue element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
 }

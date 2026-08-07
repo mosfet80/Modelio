@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.state;
 
@@ -47,7 +47,7 @@ public class StateCreateNodeEditPolicy extends DeferringCreateNodePolicy {
         if (ret != null) {
             return ret;
         }
-        
+
         // Inherited failed, return host if the asked element
         // can be created under a region.
         if (createRequest.getNewObject() instanceof ModelioCreationContext) {
@@ -56,9 +56,9 @@ public class StateCreateNodeEditPolicy extends DeferringCreateNodePolicy {
             String depName = ctx.getDependencyName();
             MMetamodel mm = toCreate.getMetamodel();
             MExpert mExpert = mm.getMExpert();
-        
+
             MClass owner = mm.getMClass(Region.class);
-        
+
             if (mExpert.canCompose(owner, toCreate, depName)) {
                 return getHost();
             }
@@ -74,29 +74,29 @@ public class StateCreateNodeEditPolicy extends DeferringCreateNodePolicy {
         if (editPart == getHost()) {
             return super.getCreateCommand(createRequest);
         }
-        
+
         GmModel gmModel = (GmModel) getHost().getModel();
         MMetamodel mm = gmModel.getDiagram().getModelManager().getMetamodel();
         MClass regionMClass = mm.getMClass(Region.class);
-        
+
         // Inherited didn't work. Build a Command that:
         // - creates a region and unmask it
         // - validates all figures
         // - creates the asked element and unmask it under the region
         if (!stateHasRegion() && createRequest.getNewObject() instanceof ModelioCreationContext) {
-        
+
             // First request to create a new region
             final ModelioCreationContext regionCtx = new ModelioCreationContext(regionMClass,
                     regionMClass.getDependency("OwnedRegion"), null);
-        
+
             final CreateRequest createRegionReq = new CreateRequest();
             createRegionReq.setFactory(regionCtx);
             createRegionReq.setLocation(createRequest.getLocation());
-        
+
             final CompoundCommand cmd = new CompoundCommand();
             final Command createRegionCommand = new DeferredCreateCommand(createRegionReq, getHost());
             cmd.add(createRegionCommand);
-        
+
             // Validate the host figure and all its children so that
             // everybody's bounds are valid. (they are {0,0,0,0} without this)
             final Command validateCmd = new Command() {
@@ -106,7 +106,7 @@ public class StateCreateNodeEditPolicy extends DeferringCreateNodePolicy {
                 }
             };
             cmd.add(validateCmd);
-        
+
             // Then request to create the element into the region
             final Command createCommand = new DeferredCreateCommand(createRequest, getHost()) {
                 @Override
@@ -116,9 +116,9 @@ public class StateCreateNodeEditPolicy extends DeferringCreateNodePolicy {
                     return true;
                 }
             };
-        
+
             cmd.add(createCommand);
-        
+
             return cmd;
         } else if (stateHasRegion() && createRequest.getNewObject() instanceof ModelioCreationContext) {
             //Issue 11934
@@ -127,7 +127,7 @@ public class StateCreateNodeEditPolicy extends DeferringCreateNodePolicy {
             // Call inherited behavior.
             return super.getCreateCommand(createRequest);
         }
-        
+
     }
 
     @objid ("f58a161a-55b6-11e2-877f-002564c97630")

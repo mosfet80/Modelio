@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures.anchors;
 
@@ -28,6 +28,7 @@ import org.modelio.diagram.elements.core.figures.geometry.Direction;
 
 /**
  * Algorithm the {@link FixedAnchor} delegates to to compute its position.
+ *
  * @since 5.0.2
  */
 @objid ("a4f04b9c-ac2b-4436-b653-c2f3dff3ed4a")
@@ -38,6 +39,7 @@ public interface IFixedAnchorLocator extends IAnchorHandleProvider {
      * this location.
      * <p>
      * Default implementation return the reference point.
+     *
      * @param anchor the anchor to compute
      * @param reference The reference Point in absolute coordinates
      * @return The anchor's location
@@ -51,6 +53,7 @@ public interface IFixedAnchorLocator extends IAnchorHandleProvider {
      * Returns the reference point for this anchor in absolute coordinates. This
      * might be used by another anchor to determine its own location (i.e.
      * {@link ChopboxAnchor}).
+     *
      * @param anchor the anchor to compute
      * @return The reference Point
      */
@@ -59,6 +62,7 @@ public interface IFixedAnchorLocator extends IAnchorHandleProvider {
 
     /**
      * Get a debug friendly name for the face number
+     *
      * @param fixedAnchor an anchor
      * @return the anchor face name
      */
@@ -71,6 +75,7 @@ public interface IFixedAnchorLocator extends IAnchorHandleProvider {
      * Called when an anchor node figure moved.
      * <p>
      * Do nothing by default.
+     *
      * @param figure a node figure
      */
     @objid ("b77bda68-a0f1-453b-b96a-33b75c69a097")
@@ -79,6 +84,7 @@ public interface IFixedAnchorLocator extends IAnchorHandleProvider {
     }
 
     /**
+     *
      * @param anchor a fixed anchor
      * @return the orthogonal direction from the anchor to outside the node .
      */
@@ -89,6 +95,7 @@ public interface IFixedAnchorLocator extends IAnchorHandleProvider {
 
     /**
      * Get the locator implementation identifier, used for serialization.
+     *
      * @return the locator implementation identifier.
      */
     @objid ("edd9b4fe-dc79-40f4-bd3c-ba2853991a93")
@@ -99,5 +106,5 @@ public interface IFixedAnchorLocator extends IAnchorHandleProvider {
     default IFigure createAnchorHandleFigure(ConnectionAnchor anchor) {
         return AnchorFigureFactory.createDefaultHandleFigure(anchor.getOwner());
     }
-}
 
+}

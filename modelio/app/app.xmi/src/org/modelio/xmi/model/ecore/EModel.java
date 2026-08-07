@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -47,10 +47,10 @@ public class EModel extends EPackage {
     }
 
     @objid ("645fad64-be3f-4838-b299-af84e690d859")
-    public  EModel(final org.eclipse.uml2.uml.Model element) {
+    public EModel(final org.eclipse.uml2.uml.Model element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("c143572b-d3d7-47f9-bed8-358eb9ac3dab")
@@ -60,14 +60,14 @@ public class EModel extends EPackage {
             Package objingPkg = (Package) objingElt;
             ReverseProperties revProp = ReverseProperties.getInstance();
             org.eclipse.uml2.uml.Element ecoreOwner = this.ecoreElement.getOwner();
-        
+
             if (ecoreOwner != null){
                 Element objingOwner = (Element) revProp
                         .getMappedElement(ecoreOwner);
-        
-                if (ecoreOwner instanceof org.eclipse.uml2.uml.Model) {            
+
+                if (ecoreOwner instanceof org.eclipse.uml2.uml.Model) {
                     objingPkg.setOwner((Package) objingOwner);
-                }else if (ecoreOwner instanceof org.eclipse.uml2.uml.Package) {             
+                }else if (ecoreOwner instanceof org.eclipse.uml2.uml.Package) {
                     objingPkg.setOwner((Package) objingOwner);
                 }else if (ecoreOwner instanceof org.eclipse.uml2.uml.Component){
                     objingPkg.setOwner((Component) objingOwner);
@@ -75,9 +75,9 @@ public class EModel extends EPackage {
             }else{
                 objingPkg.setOwner(ReverseProperties.getInstance().getExternalPackage());
             }
-        
+
         }
-        
+
     }
 
 }

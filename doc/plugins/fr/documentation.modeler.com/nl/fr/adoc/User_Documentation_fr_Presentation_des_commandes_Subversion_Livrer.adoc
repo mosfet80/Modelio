@@ -1,0 +1,48 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= La commande "Livrer"
+
+
+
+===== Description
+
+La commande "Livrer" publie les modifications apportées localement à un grain. A la fin de cette opération, les éléments sur lesquels la commande a été lancée sont déverrouillés, devenant ainsi disponibles pour verrouillage par un autre utilisateur.
+
+Lorsque la commande "Livrer" est lancée sur un ou plusieurs éléments, ces derniers passent en mode lecture seule. En revanche, dans certains cas, d'autres éléments peuvent également être livrés automatiquement : il s'agit de grains supplémentaires, qui dépendent directement des éléments initiaux sur lesquels l'opération de livraison est lancée, et qui sont actuellement verrouillés. Ce comportement garantit la cohérence parfaite du projet après l'opération de livraison. 
+
+===== Conditions et restrictions
+
+Cette commande ne peut être lancée que sur les composants précédemment verrouillés ou modifiés en mode sans verrous.
+
+Cependant, la commande reste disponible sur les éléments en mode lecture seule. Dans ce cas, lors de son lancement, la commande "Livrer" livrera simplement les sous-éléments verrouillés, s'il y en a. [[Interface-utilisateur]]
+
+
+===== Interface utilisateur
+
+La commande "Livrer" ouvre la fenêtre suivante :
+
+.La fenêtre "Publier les modifications"
+image::images/attachment/modeliocom41/User_Documentation_fr/Presentation_des_commandes_Subversion/Livrer/TW_005_commit.png[TW_005_commit.png]
+
+
+Cette fenêtre inclut une option "Récursif", une option "Relâcher les verrous", et un champ de texte multi-ligne ("Commentaire"), où vous pouvez saisir des informations sur les modifications apportées aux éléments livrés. Ceci peut être très utile pour le chef de projet ou les autres utilisateurs, qui découvrent ainsi exactement ce qui a été modifié au sein du projet, et par qui.
+
+*Note :* Il n'est pas obligatoire de saisir un commentaire dans la zone "Commentaire".
+
+Notez l'existence de la zone "Détails des changements publiés", qui liste les éléments qui sont sur le point d'être publiés dans le référentiel. Cette liste prend en compte tous les éléments dépendants qui vont être publiés par déduction, ainsi que les éléments initialement sélectionnés pour livraison, vous permettant ainsi de vérifier les éléments qui vont être publiés, et d'annuler l'opération de livraison si cette liste ne correspond pas à vos attentes.
+
+
+===== Comportement
+
+Les options proposées dans la fenêtre "Publier les modifications" modifient le comportement de la commande "Livrer" :
+
+* *Récursif* : +
+L'élément ET tous ses sous-éléments seront livrés. +
+Exemple : un package et toutes ses classes.
+* *Relâcher les verrous* : +
+Les verrous sur les éléments seront relâchés après l'opération de livraison. Si vous ne cochez pas cette case, vous possédez toujours les verrous et vous pouvez continuer à travailler sur les éléments que vous venez de livrer. Ceci peut être pratique si vous souhaitez effectuer des livraisons intermédiaires, tout en continuant à travailler sur les mêmes classes, packages, ...

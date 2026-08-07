@@ -1,0 +1,81 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Migration de projets en travail de groupe de versions antérieures de Modelio
+
+
+Les projets Modelio 2.2.1 ou 2.2.2 peuvent être migrés vers Modelio 4.
+
+Pour migrer des projets développés avec des versions antérieures à Modelio 2.2.1, il faut d'abord les migrer vers Modelio 2.2.1 en suivant la bonne procédure de migration.
+
+
+===== Prérequis
+
+* Une installation opérationnelle de Modelio 2.2.1 ou 2.2.2
+* Une installation opérationnelle de Modelio 4
+* Le module de migration *M2toM3*.
+
+Pour les projets multi-utilisateurs, il est necessaire de préparer les projets et leur référentiel. Il est fondamental que tous les utilisateurs d'un même projet partagé travaillent avec la même version de Modelio. Avant de mettre à jour Modelio, et ce pour chaque référentiel partagé :
+
+1.  Tous les utilisateurs doivent publier (commit) leur travail de manière à ce que le référentiel soit complet et à jour.
+2.  Un responsable de projet désigné met alors son projet à jour (update). Ce projet à jour servira de projet de référence. [[Lancement-de-la-procédure-de-migration]]
+
+
+===== Lancement de la procédure de migration
+
+La capture d'écran ci-dessous montre comment lancer la procédure qui vous permettra de migrer un projet développé avec Modelio 2.2.1 vers Modelio 4.
+
+image::images/attachment/modeliocom41/User_Documentation_fr/Presentation_des_commandes_Subversion/Migration/Teamwork-migration_M2toM3Migration-fr.png[Teamwork-migration_M2toM3Migration-fr.png] [[Dans-Modelio-221-ou-222]]
+
+
+===== Dans Modelio 2.2.1 ou 2.2.2
+
+1.  Démarrez Modelio 2 et ouvrez le projet de référence à migrer.
+2.  Installez le module M2toM3 dans le projet.
+3.  Depuis la racine du projet, lancez la commande *"M2 to M3\Export pour Modelio 3"*.
+4.  Dans la fenêtre de sélection de fichier, indiquez un chemin et un nom pour le fichier zippé qui contiendra le projet migré.
+5.  Lorsque la commande a fini de s'exécuter, le projet migré est disponible dans le fichier (zippé) sélectionné lors de l'étape précédente.
+6.  Fermez le projet et quittez Modelio 2, après avoir noté le nom et le chemin du fichier du projet migré.
+
+C'est tout pour Modelio 2 ! [[Dans-Modelio-3]]
+
+
+===== Dans Modelio 4
+
+1.  Démarrez Modelio 4.
+2.  Depuis le menu _Fichier_, lancez la commande *"Importer un projet"*.
+3.  Dans la fenêtre de sélection de fichier, indiquez le chemin et le nom du fichier zippé contenant le projet migré.
+4.  Lorsque la commande a fini de s'exécuter, le projet migré apparaît dans la liste des projets disponibles dans l'espace de travail.
+5.  Ouvrez le projet migré.
+6.  Effectuez les dernières opérations décrites ci-dessous.
+
+*Note :* La toute première ouverture d'un projet migré peut durer quelques minutes à cause de la technologie de stockage différente de Modelio 4, qui nécessite l'initialisation du projet migré lors de sa première ouverture. [[Etapes-finales]]
+
+
+===== Etapes finales
+
+Le nouveau projet migré dans Modelio 4 doit contenir toutes les données du projet Modelio 2 sans aucune perte. Cependant, il se peut que le projet nouvellement migré référence encore des modules de Modelio 2 qui sont obsolètes.
+
+Ceci est facile à diagnostiquer dans l'onglet *Modules* de la fenêtre de *configuration du projet* montrée dans la capture d'écran ci-dessous :
+
+image::images/attachment/modeliocom41/User_Documentation_fr/Presentation_des_commandes_Subversion/Migration/TW_013_deploy_modules.png[TW_013_deploy_modules.png]
+
+Cliquez sur "Configuration\ image:images/attachment/modeliocom41/User_Documentation_fr/Presentation_des_commandes_Subversion/Migration/Teamwork-migration_module.png[Teamwork-migration_module.png] Modules..." puis l'onglet "Modules". +
+Dans la liste de modules du projet (à gauche), identifiez les modules *cassés*. Ce sont les modules qui ont besoin d'être mis à jour pour Modelio 4.
+
+1.  Cliquez sur le bouton 'Ajouter..." pour ouvrir le catalogue de modules. Le catalogue montre les modules disponibles sur votre poste de travail.
+2.  Dans le catalogue de modules, identifiez la nouvelle version des modules. Pour chacun d'entre eux :
+1.  Sélectionnez-le.
+2.  Cliquez sur le bouton 'Déployer dans le projet' pour l'installer dans le projet.
+
+*Note :* Les modules *Modeling Wizard*, *Analyst*, *Analyst Administrator*, et *Subversion* font maintenant partie intégrante de Modelio, leurs versions obsolètes peuvent donc être simplement retirés du projet ( image:images/attachment/modeliocom41/User_Documentation_fr/Presentation_des_commandes_Subversion/Migration/Teamwork-migration_delete.png[Teamwork-migration_delete.png] ). [[Création-du-nouveau-référentiel-SVN-pour-Modelio-3]]
+
+
+===== Création du nouveau référentiel pour Modelio 4
+
+1.  Dans le projet de référence migré en Modelio 4 (avec modules mis à jour et module Subversion retiré), le responsable de projet crée un <<User_Documentation_fr_Mise_en_place_d%27un_modele_de_travail_SVN.adoc#,modèle partagé>> et le connecte à un nouveau référentiel.
+2.  Le responsable de projet déplace le contenu du modèle local migré dans le modèle partagé puis sauvegarde et ferme le projet.
+3.  Le responsable de projet rouvre le projet, supprime le modèle local vide et livre le contenu du modèle partagé.
+4.  Tous les autres utilisateurs démarrent Modelio 4 et créent un nouveau projet dans lequel tous les modules nécessaires doivent être déployés, puis ils créent un modèle de travail partagé et le connecte au nouveau référentiel.

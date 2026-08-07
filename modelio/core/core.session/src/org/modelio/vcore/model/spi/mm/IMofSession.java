@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.model.spi.mm;
 
@@ -36,7 +36,7 @@ import org.modelio.vcore.smkernel.meta.mof.MofSmObjectImpl;
 
 /**
  * Interface provided to {@link IMofRepositoryMigrator} to implements the migration.
- * 
+ *
  * @author cmarin
  * @since 3.6
  */
@@ -44,6 +44,7 @@ import org.modelio.vcore.smkernel.meta.mof.MofSmObjectImpl;
 public interface IMofSession {
     /**
      * Create a new object
+     *
      * @param newMetaclass the new object metaclass
      * @return the created object.
      */
@@ -52,7 +53,7 @@ public interface IMofSession {
 
     /**
      * Create a new model object.
-     * @throws MetaclassNotFoundException
+     *
      * @param metaclassName the metaclass name, qualified by preference.
      * @param name the new object name
      * @return the created object
@@ -62,6 +63,7 @@ public interface IMofSession {
 
     /**
      * Find elements by metaclass and attribute value.
+     *
      * @param metaclass the metaclass
      * @param withSubClasses look into sub metaclass hierarchy
      * @param attName the attribute name
@@ -77,10 +79,11 @@ public interface IMofSession {
      * This method may not return objects outside the migrated fragment that are references
      * by other objects inside the migrated fragment.
      * If you also need them use {@link #getAllForeignReferences(MClass, boolean)}.
-     * @see #getAllForeignReferences(MClass, boolean)
+     *
      * @param metaclass a metaclass
      * @param withSubclasses look into sub-metaclasses hierarchy.
      * @return all objects of the metaclass.
+     * @see #getAllForeignReferences(MClass, boolean)
      */
     @objid ("187443bd-c729-4e18-b233-0cdef080b71f")
     Collection<MofSmObjectImpl> findByClass(MClass metaclass, boolean withSubclasses);
@@ -91,11 +94,11 @@ public interface IMofSession {
      * This method may not return objects outside the migrated fragment that are references
      * by other objects inside the migrated fragment.
      * If you also need them use {@link #getAllForeignReferences(MClass, boolean)}.
-     * @see #getAllForeignReferences(MClass, boolean)
-     * @throws MetaclassNotFoundException
+     *
      * @param clsName a metaclass name
      * @param withSubClasses look into sub-metaclasses hierarchy.
      * @return all objects of the metaclass.
+     * @see #getAllForeignReferences(MClass, boolean)
      */
     @objid ("6067a91c-5cc9-4414-9813-ba43904fdd30")
     Collection<MofSmObjectImpl> findByClass(String clsName, boolean withSubClasses) throws MetaclassNotFoundException;
@@ -105,20 +108,23 @@ public interface IMofSession {
      * <p>
      * If you need this object to reference it from another one you should better use {@link #getObjectReference(MRef)}
      * that will return a usable shell object if the referenced object is not in the migrated fragment.
-     * @see #getObjectReference(MRef)
+     *
      * @param ref an element reference
      * @return the found element or <i>null</i>.
+     * @see #getObjectReference(MRef)
      */
     @objid ("b31088d5-c0e3-4db5-9414-5452b737dfcb")
     MObject findByRef(MRef ref);
 
     /**
+     *
      * @return the modeling session
      */
     @objid ("282e819b-baf9-4601-9a81-d2edbaa1b799")
     ICoreSession getCoreSession();
 
     /**
+     *
      * @param clsName a metaclass name, preferably qualified
      * @return the found metaclass.
      * @throws MetaclassNotFoundException if the metaclass does not exist.
@@ -127,6 +133,7 @@ public interface IMofSession {
     SmClass getMetaclass(String clsName) throws MetaclassNotFoundException;
 
     /**
+     *
      * @return the MOF metamodel
      */
     @objid ("2b756003-d41a-4752-834b-b298007050ff")
@@ -142,7 +149,7 @@ public interface IMofSession {
      * an object stored in another model fragment.
      * e.g : you want to stereotype an object, the stereotype probably comes from a foreign module
      * that is not loaded in the migration session.
-     * @throws MetaclassNotFoundException
+     *
      * @param ref an object reference
      * @return the found object or an unresolved reference shell object.
      */
@@ -151,7 +158,7 @@ public interface IMofSession {
 
     /**
      * Look for an object by scanning a dependency. Create the element if not found.
-     * @throws MetaclassNotFoundException
+     *
      * @param from the source element to scan
      * @param depName the dependency name
      * @param clsName the target metaclass name, preferably qualified
@@ -162,18 +169,21 @@ public interface IMofSession {
     MofSmObjectImpl getOrCreate(MofSmObjectImpl from, String depName, String clsName, String name) throws MetaclassNotFoundException;
 
     /**
+     *
      * @return the migration report builder
      */
     @objid ("b4526a13-dd27-4fef-adb1-0213205f180e")
     IMigrationReporter getReport();
 
     /**
+     *
      * @return the migrated repository
      */
     @objid ("40edb9d4-9dde-4cc4-9c2c-8cfa4b466088")
     IRepository getTargetRepository();
 
     /**
+     *
      * @param monitor a progress monitor supplier, that will be called only if re-identifications are scheduled.
      * @throws MofMigrationException on failure
      */
@@ -187,6 +197,7 @@ public interface IMofSession {
      * from the original one.
      * The original object is deleted in the process.
      * The transmuted object will be re-identified at the end of the migration.
+     *
      * @param toTransmute the object to transmute.
      * @param newMetaclass the new metaclass
      * @return the new object.
@@ -196,11 +207,12 @@ public interface IMofSession {
 
     /**
      * Create a new model object.
+     *
      * @param mc the metaclass .
      * @param name the new object name
      * @return the created object
      */
     @objid ("b6f6311e-cb3f-4ab3-b5e4-4dcaf24f2eab")
     MofSmObjectImpl createObject(MClass mc, String name);
-}
 
+}

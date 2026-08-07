@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.silent;
 
@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.Display;
 
 /**
  * Override of LightweightSystem that can work without having a Control.
- * 
+ *
  * @author fpoyer
  */
 @objid ("6696f9f1-33f7-11e2-95fe-001ec947c8cc")
@@ -38,10 +38,10 @@ public final class LightweightSystemNoCanvas extends LightweightSystem {
      * C'tor.
      */
     @objid ("6696f9f3-33f7-11e2-95fe-001ec947c8cc")
-    public  LightweightSystemNoCanvas() {
+    public LightweightSystemNoCanvas() {
         super();
         setUpdateManager(new SynchronousUpdateManager());
-        
+
     }
 
     @objid ("6696f9f6-33f7-11e2-95fe-001ec947c8cc")
@@ -51,7 +51,7 @@ public final class LightweightSystemNoCanvas extends LightweightSystem {
         Rectangle r = new Rectangle(0, 0, 1000, 1000);
         getRootFigure().setBounds(r);
         getRootFigure().revalidate();
-        
+
     }
 
     @objid ("6696f9fb-33f7-11e2-95fe-001ec947c8cc")
@@ -87,11 +87,11 @@ public final class LightweightSystemNoCanvas extends LightweightSystem {
             } else {
                 return Display.getDefault().getSystemFont();
             }
-            
+
         }
 
         @objid ("66995c3e-33f7-11e2-95fe-001ec947c8cc")
-        public  NoControlRootFigure() {
+        public NoControlRootFigure() {
             super();
         }
 

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.ui.swt;
 
@@ -32,10 +32,10 @@ import org.eclipse.swt.graphics.ImageLoader;
 
 /**
  * Custom clipboard transfer to work around SWT bug 283960 that make copy image to clipboard not working on Linux 64.
- * 
+ *
+ * @author cma
  * @see https://bugs.eclipse.org/bugs/show_bug.cgi?id=283960
  * @see https://mantis.softeam.com/view.php?id=13256
- * @author cma
  * @since 3.7
  */
 @objid ("2e5069b1-c840-41f7-a0b5-1d463a31d313")
@@ -50,8 +50,8 @@ public class PngTransfer extends ByteArrayTransfer {
     private static PngTransfer _instance = new PngTransfer();
 
     @objid ("b9e99bd4-1ec2-4586-a0f4-b08c729e3327")
-    private  PngTransfer() {
-        
+    private PngTransfer() {
+
     }
 
     @objid ("2ba408e6-9de7-490c-bc16-1a8ba4d3d5aa")
@@ -77,37 +77,37 @@ public class PngTransfer extends ByteArrayTransfer {
         if (object == null || !(object instanceof ImageData)) {
             return;
         }
-        
+
          if (isSupportedType(transferData)) {
              ImageData image = (ImageData) object;
              try (ByteArrayOutputStream out = new ByteArrayOutputStream();){
                  // write data to a byte array and then ask super to convert to pMedium
-                 
+
                 ImageLoader imgLoader = new ImageLoader();
                 imgLoader.data = new ImageData[] { image };
                 imgLoader.save(out, SWT.IMAGE_PNG);
-        
+
                  byte[] buffer = out.toByteArray();
                  out.close();
-        
+
                  super.javaToNative(buffer, transferData);
              } catch (IOException e) {
                  throw new UncheckedIOException(e);
              }
          }
-        
+
     }
 
     @objid ("9be531ef-d7f6-440e-8d87-24ecbf287231")
     @Override
     protected Object nativeToJava(TransferData transferData) {
         if (isSupportedType(transferData)) {
-        
+
              byte[] buffer = (byte[])super.nativeToJava(transferData);
              if (buffer == null) {
                 return null;
             }
-        
+
              try (ByteArrayInputStream in = new ByteArrayInputStream(buffer)){
                 return new ImageData(in);
              } catch (IOException e) {

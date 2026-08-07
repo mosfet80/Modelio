@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.patterns.engine;
 
@@ -72,7 +72,7 @@ class PatternRepository implements IPatternRepository {
         if (this.isReadOnly) {
             throw new ReadOnlyFileSystemException();
         }
-        
+
         // Copy the file into the repository
         Path target = this.repositoryPath.resolve(newPattern.toFile().getName());
         if (!target.equals(newPattern)) {
@@ -82,7 +82,7 @@ class PatternRepository implements IPatternRepository {
                 throw new PatternException(e);
             }
         }
-        
+
         // Load the pattern
         return loadPattern(target);
     }
@@ -118,9 +118,9 @@ class PatternRepository implements IPatternRepository {
     public Collection<CategoryData> getCategories(Collection<MObject> elements) {
         final Set<String> availableLibraries = getAvailableLibraries();
         final Set<String> availableModules = getAvailableModules();
-        
+
         Collection<CategoryData> relevantCategories = new ArrayList<>();
-        
+
         for (CategoryData candidateCategory : getCategories()) {
             for (RuntimePattern p : candidateCategory.getPatterns()) {
                 if (p.isRunnableOn(elements) && p.isValid(availableLibraries, availableModules)) {
@@ -164,7 +164,7 @@ class PatternRepository implements IPatternRepository {
     public Collection<RuntimePattern> getPatterns(Collection<MObject> elements) {
         final Set<String> availableLibraries = getAvailableLibraries();
         final Set<String> availableModules = getAvailableModules();
-        
+
         Collection<RuntimePattern> ret = new ArrayList<>();
         for (RuntimePattern p : getPatterns()) {
             if (p.isRunnableOn(elements) && p.isValid(availableLibraries, availableModules)) {
@@ -185,7 +185,7 @@ class PatternRepository implements IPatternRepository {
     public void reloadPatterns() {
         this.patterns = new TreeSet<>();
         this.categoryMap = new HashMap<>();
-        
+
         try (Stream<Path> fileWalker = Files.walk(this.repositoryPath)) {
             fileWalker
             .filter(Files::isRegularFile)
@@ -202,7 +202,7 @@ class PatternRepository implements IPatternRepository {
             Patterns.LOG.error("Unable to load pattern catalog from '%s': %s" , this.repositoryPath, FileUtils.getLocalizedMessage(e1));
             Patterns.LOG.debug(e1);
         }
-        
+
     }
 
     @objid ("934f5482-9a41-457f-becf-4e7cdf37912b")
@@ -218,35 +218,35 @@ class PatternRepository implements IPatternRepository {
             Patterns.LOG.error("Unable to delete '%s' pattern : %s" , patternPath, FileUtils.getLocalizedMessage(e));
             Patterns.LOG.debug(e);
         }
-        
+
     }
 
     @objid ("6abce19e-4353-47a6-bbd3-c38a84507ac9")
-     PatternRepository(String catalogName, Path aPath, Boolean isReadOnly) {
+    PatternRepository(String catalogName, Path aPath, Boolean isReadOnly) {
         this.catalogName = catalogName;
         this.isReadOnly = isReadOnly;
-        
+
         this.repositoryPath = aPath;
         this.repositoryPath.toFile().mkdirs();
-        
+
         reloadPatterns();
-        
+
     }
 
     @objid ("89fdb0fc-2055-4be4-b9c2-bdc1eda9c4af")
     private void initCategories(RuntimePattern pattern) {
         if (pattern.isValid(getAvailableLibraries(), getAvailableModules())) {
             List<Category> categories = pattern.getCategories();
-        
+
             for (Category cat : categories) {
                 CategoryData category = this.categoryMap.get(cat.getName());
                 if (category == null) {
                     category = new CategoryData(cat);
                     this.categoryMap.put(cat.getName(), category);
-        
+
                     category.addPattern(pattern);
                 } else {
-        
+
                     category.addPattern(pattern);
                 }
             }
@@ -255,27 +255,27 @@ class PatternRepository implements IPatternRepository {
             if (category == null) {
                 final Category cat = new Category();
                 cat.setName("Invalid");
-        
+
                 category = new CategoryData(cat);
                 this.categoryMap.put("Invalid", category);
                 category.addPattern(pattern);
             }
         }
-        
+
     }
 
     @objid ("83ff1338-806a-48eb-9094-19041f5070a5")
     private RuntimePattern loadPattern(Path patternFile) throws PatternException {
         RuntimePattern patternInfo = new RuntimePattern(patternFile);
-        
+
         // Make sure an old version of the pattern is not already registered
         if (this.patterns.contains(patternInfo)) {
             this.patterns.remove(patternInfo);
         }
-        
+
         // Insert new pattern
         this.patterns.add(patternInfo);
-        
+
         initCategories(patternInfo);
         return patternInfo;
     }

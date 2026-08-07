@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.classifier;
 
@@ -32,7 +32,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 /**
  * Resizable group that contains the attribute group, the operation group, the internal structure group/zone and the
  * inner elements zone/group. Allows resize of children, but not move/reorder/orphan/add.
- * 
+ *
  * @author fpoyer
  */
 @objid ("3433a6f8-55b7-11e2-877f-002564c97630")
@@ -45,21 +45,22 @@ public class GmClassifierResizableGroup extends GmResizableGroup {
 
     /**
      * C'tor.
+     *
      * @param diagram the diagram in which this Gm is created.
      * @param relatedRef the reference of the represented element.
      */
     @objid ("3433a700-55b7-11e2-877f-002564c97630")
-    public  GmClassifierResizableGroup(final IGmDiagram diagram, final MRef relatedRef) {
+    public GmClassifierResizableGroup(final IGmDiagram diagram, final MRef relatedRef) {
         super(diagram, relatedRef);
         setVertical(true);
-        
+
     }
 
     /**
      * Deserialisation c'tor.
      */
     @objid ("34352d5c-55b7-11e2-877f-002564c97630")
-    public  GmClassifierResizableGroup() {
+    public GmClassifierResizableGroup() {
         super();
     }
 
@@ -85,10 +86,10 @@ public class GmClassifierResizableGroup extends GmResizableGroup {
     @Override
     public void write(final IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0.
         writeMinorVersion(out, "GmClassifierResizableGroup.", Integer.valueOf(GmClassifierResizableGroup.MINOR_VERSION));
-        
+
     }
 
     @objid ("34352d81-55b7-11e2-877f-002564c97630")
@@ -108,7 +109,7 @@ public class GmClassifierResizableGroup extends GmResizableGroup {
                 break;
             }
         }
-        
+
     }
 
     @objid ("34352d88-55b7-11e2-877f-002564c97630")
@@ -134,7 +135,7 @@ public class GmClassifierResizableGroup extends GmResizableGroup {
         // Only visible if no parent or parent is in structured mode.
         return super.isVisible() &&
                                                                        (getParentNode() == null || getParentNode().getRepresentationMode() == RepresentationMode.STRUCTURED);
-        
+
     }
 
 }

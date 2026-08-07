@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -44,73 +43,72 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("8b52c6d8-b2a1-483b-9534-357edc70ea1e")
 public class NaryAssociationEndSmClass extends StructuralFeatureSmClass {
-    @objid ("a9738528-cc84-4ebb-9f5e-5ba27d289af3")
+    @objid ("a0934019-1e68-4978-8718-519e50d4ef75")
     private SmDependency naryAssociationDep;
 
-    @objid ("95a1cf50-70af-44ab-bdd2-9eb8ce9be064")
+    @objid ("2a057610-c78b-468a-94b4-c896f84afbe7")
     private SmDependency ownerDep;
 
-    @objid ("6051fbb5-db6b-4a0b-b313-422e39cc5053")
-    public  NaryAssociationEndSmClass(ISmMetamodelFragment origin) {
+    @objid ("abe1e033-e30e-474a-86ac-731227e63a29")
+    public NaryAssociationEndSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("2a9c2cc2-9dfb-407f-8a67-f092115f862a")
+    @objid ("c1d7a255-8e34-418a-8dff-2be8db3a2b81")
     @Override
     public String getName() {
         return "NaryAssociationEnd";
-        
+
     }
 
-    @objid ("ad726f9b-7d6c-4fdb-a785-e97f53247e86")
+    @objid ("a7ee79f3-0fbb-47ab-9ce1-ff20ade93b29")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("93ba9f9a-eb18-466e-b337-f553e59077ce")
+    @objid ("834515ab-c4d2-4c27-89f5-6dcc78cbdd6a")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return NaryAssociationEnd.class;
-        
+
     }
 
-    @objid ("087e8320-ce23-40f3-a62e-fa92427b55be")
+    @objid ("0cb1701f-cbd8-4398-b20f-d057e0f5a2f2")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("64edf9b7-92fc-424c-a662-055d5fcf0d7b")
+    @objid ("2b8909dd-7899-45e5-b176-34222f9867e4")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("d9b6efc7-4589-4859-86e4-511f721f4235")
+    @objid ("42147772-8a1d-47e9-91c5-e359485d5885")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(StructuralFeature.MQNAME);
         this.registerFactory(new NaryAssociationEndObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
         this.naryAssociationDep = new NaryAssociationSmDependency();
         this.naryAssociationDep.init("NaryAssociation", this, metamodel.getMClass(NaryAssociation.MQNAME), 1, 1 , SmDirective.SMCDSHAREDCOMPONENT);
         registerDependency(this.naryAssociationDep);
-        
+
         this.ownerDep = new OwnerSmDependency();
         this.ownerDep.init("Owner", this, metamodel.getMClass(Classifier.MQNAME), 1, 1 );
         registerDependency(this.ownerDep);
-        
-        
+
     }
 
-    @objid ("6317c51f-1d99-4d4a-bb71-ab41e2e3ab00")
+    @objid ("4e979d6c-5f7b-44b3-b6e5-f25e70953d05")
     public SmDependency getNaryAssociationDep() {
         if (this.naryAssociationDep == null) {
         	this.naryAssociationDep = this.getDependencyDef("NaryAssociation");
@@ -118,7 +116,7 @@ public class NaryAssociationEndSmClass extends StructuralFeatureSmClass {
         return this.naryAssociationDep;
     }
 
-    @objid ("5bb17956-a528-4eed-8a41-3d555fb7dc0b")
+    @objid ("f0629718-2065-4dfd-a79c-d74608ea57de")
     public SmDependency getOwnerDep() {
         if (this.ownerDep == null) {
         	this.ownerDep = this.getDependencyDef("Owner");
@@ -128,21 +126,21 @@ public class NaryAssociationEndSmClass extends StructuralFeatureSmClass {
 
     @objid ("e6a43f06-7934-4bfb-92d3-ffab8fe431d3")
     private static class NaryAssociationEndObjectFactory implements ISmObjectFactory {
-        @objid ("85ecdd51-34ea-4d0e-bb92-2f199f02b387")
+        @objid ("be3209a4-fe8f-4f0b-addc-e7bbde12f2e9")
         private NaryAssociationEndSmClass smClass;
 
-        @objid ("e98b7096-622b-421e-b713-bc44f6454471")
-        public  NaryAssociationEndObjectFactory(NaryAssociationEndSmClass smClass) {
+        @objid ("41effea7-bc88-44fb-b3d0-188ed7dbb3ff")
+        public NaryAssociationEndObjectFactory(NaryAssociationEndSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("b2ccd8cc-85eb-4f80-9db6-7f0405f2ca68")
+        @objid ("2e0a0ab3-509c-4829-abd4-d8b1589262a3")
         @Override
         public ISmObjectData createData() {
             return new NaryAssociationEndData(this.smClass);
         }
 
-        @objid ("522914f0-b495-4074-addb-b8bee0edb395")
+        @objid ("e0f11113-3d73-4321-a286-edac92fe8eb1")
         @Override
         public SmObjectImpl createImpl() {
             return new NaryAssociationEndImpl();
@@ -152,58 +150,58 @@ public class NaryAssociationEndSmClass extends StructuralFeatureSmClass {
 
     @objid ("0e0baf00-9a7d-4293-8d1b-8fb714119cb5")
     public static class NaryAssociationSmDependency extends SmSingleDependency {
-        @objid ("9a541600-0177-4166-bcb0-7eb175536b6a")
+        @objid ("253372ce-bfa9-4e47-ad2f-fc0906b07fe1")
         private SmDependency symetricDep;
 
-        @objid ("88fd6a2c-3bb3-4d97-aa0e-e9e02d44ca9d")
+        @objid ("bb00fdb1-0575-4e34-b5a7-63af9e26f963")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((NaryAssociationEndData) data).mNaryAssociation;
         }
 
-        @objid ("a3264d69-8a81-4a38-86c4-7d4118cf5cd0")
+        @objid ("b04802d8-5f1a-4982-ba2d-13894f3e50ef")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((NaryAssociationEndData) data).mNaryAssociation = value;
         }
 
-        @objid ("836e65f9-ff3d-4c1c-91ba-7bd219f0e2d6")
+        @objid ("825156ab-a6ca-43d3-8b45-b70c4b3d9f79")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((NaryAssociationSmClass)this.getTarget()).getNaryEndDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("6f3e8882-8768-4454-916a-1bd701bd766a")
     public static class OwnerSmDependency extends SmSingleDependency {
-        @objid ("f17b18ee-d340-4513-b933-6186bfa5d19c")
+        @objid ("dba6b3e1-ff04-4c59-b4ac-5b1e5eaf44f0")
         private SmDependency symetricDep;
 
-        @objid ("a2556d66-6d82-4a7e-b02c-decd0d447d77")
+        @objid ("308cf8d1-777f-4dbb-98b9-cbf66f0e7180")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((NaryAssociationEndData) data).mOwner;
         }
 
-        @objid ("1e6128ef-1a6f-479a-8997-d93d15e94753")
+        @objid ("a1ef3c09-1472-4117-ace6-3c55fc6dfbef")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((NaryAssociationEndData) data).mOwner = value;
         }
 
-        @objid ("859dbf82-2116-40fa-afda-52598d6056df")
+        @objid ("db81d6d6-cffa-4c2e-a670-a0c86067eb95")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((ClassifierSmClass)this.getTarget()).getOwnedNaryEndDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

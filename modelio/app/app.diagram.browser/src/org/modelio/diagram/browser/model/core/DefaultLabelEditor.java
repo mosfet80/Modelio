@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.browser.model.core;
 
@@ -43,11 +43,11 @@ public class DefaultLabelEditor implements ICellModifier {
     private ICoreSession iCoreSession;
 
     @objid ("00359d96-0d4f-10c6-842f-001ec947cd2a")
-    public  DefaultLabelEditor(TreeViewer view, ICoreSession iCoreSession) {
+    public DefaultLabelEditor(TreeViewer view, ICoreSession iCoreSession) {
         super();
         this.view = view;
         this.iCoreSession = iCoreSession;
-        
+
     }
 
     @objid ("0035bcc2-0d4f-10c6-842f-001ec947cd2a")
@@ -63,15 +63,15 @@ public class DefaultLabelEditor implements ICellModifier {
         if (object instanceof DiagramSet) {
             return ((DiagramSet) object).getName();
         }
-        
+
         if (object instanceof DiagramRef) {
             return ((DiagramRef) object).getReferencedDiagram().getName();
         }
-        
+
         if (object instanceof AbstractDiagram) {
             return ((AbstractDiagram) object).getName();
         }
-        
+
         DiagramBrowser.LOG.error("DefaultLabelEditor: unknown type '%s'", object.getClass().getName());
         return null;
     }
@@ -81,36 +81,37 @@ public class DefaultLabelEditor implements ICellModifier {
     public void modify(Object object, String property, Object value) {
         // Note that it is possible for an SWT Item to be passed instead of the model element.
         Object data = (object instanceof TreeItem) ? ((Item) object).getData() : object;
-        
+
         // modify the element's property here
         Object currentValue = getValue(data, property);
-        
+
         if (!value.equals(currentValue)) {
             if (this.iCoreSession != null) {
                 final ITransactionSupport transactionManager = this.iCoreSession.getTransactionSupport();
-        
+
                 try (ITransaction transaction = transactionManager.createTransaction("Rename")) {
                     if (data instanceof DiagramSet) {
                         ((DiagramSet) data).setName((String) value);
                     }
-        
+
                     if (data instanceof DiagramRef) {
                         ((DiagramRef) data).getReferencedDiagram().setName((String) value);
                     }
                     if (data instanceof AbstractDiagram) {
                         ((AbstractDiagram) data).setName((String) value);
                     }
-        
+
                     transaction.commit();
                 }
             }
         }
-        
+
     }
 
     /**
      * Check if the object can theoretically be edited based on its nature. The diagram browser tree shows only three types of node:
      * DiagramSet, DiagramRef, VirtualFolder. Only the name of DiagramSet and DiagramRef can be edited.
+     *
      * @return true if the object nature allows its edition, false otherwise.
      */
     @objid ("0036fd6c-0d4f-10c6-842f-001ec947cd2a")

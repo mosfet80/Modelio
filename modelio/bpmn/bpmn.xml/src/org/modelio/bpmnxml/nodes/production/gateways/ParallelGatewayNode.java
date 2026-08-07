@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.gateways;
 
@@ -81,7 +81,7 @@ public class ParallelGatewayNode implements IProductionNode<BpmnParallelGateway,
         } else {
             return factory.create(BpmnParallelGateway.class, context);
         }
-        
+
     }
 
     @objid ("091db3b8-33fd-4372-bc14-c39082d0850d")
@@ -93,7 +93,7 @@ public class ParallelGatewayNode implements IProductionNode<BpmnParallelGateway,
         } else if (context instanceof BpmnSubProcess) {
             ((BpmnSubProcess) context).getFlowElement().add(modelioElement);
         }
-        
+
         // Group
         if (jaxbElement.getCategoryValueRef() != null) {
             for (QName jaxGroupRef : jaxbElement.getCategoryValueRef()) {
@@ -103,7 +103,7 @@ public class ParallelGatewayNode implements IProductionNode<BpmnParallelGateway,
                 }
             }
         }
-        
+
         TGatewayDirection direction = jaxbElement.getGatewayDirection();
         if (direction != null) {
             if (direction == TGatewayDirection.CONVERGING) {
@@ -116,7 +116,7 @@ public class ParallelGatewayNode implements IProductionNode<BpmnParallelGateway,
                 modelioElement.setGatewayDirection(BpmnGatewayDirection.UNSPECIFIEDDIRECTION);
             }
         }
-        
+
         // Set properties
         if (jaxbElement.getName() != null) {
             modelioElement.setName(StringConvertor.imports(jaxbElement.getName()));
@@ -129,7 +129,7 @@ public class ParallelGatewayNode implements IProductionNode<BpmnParallelGateway,
     public TParallelGateway createJaxbElement(Object context, BpmnParallelGateway modelioElement) {
         // Create JaxbElement
         TParallelGateway jaxTask = new TParallelGateway();
-        
+
         // Add to context
         ObjectFactory factory = new ObjectFactory();
         if (context instanceof TProcess) {
@@ -139,7 +139,7 @@ public class ParallelGatewayNode implements IProductionNode<BpmnParallelGateway,
             List<JAXBElement<? extends TFlowElement>> jaxContent = ((TSubProcess) context).getFlowElement();
             jaxContent.add(factory.createParallelGateway(jaxTask));
         }
-        
+
         jaxTask.setId(IDUtils.formatJaxbID(modelioElement));
         return jaxTask;
     }
@@ -148,7 +148,7 @@ public class ParallelGatewayNode implements IProductionNode<BpmnParallelGateway,
     @Override
     public TParallelGateway updateJaxbElement(Object context, TParallelGateway jaxbElement, BpmnParallelGateway modelioElement) {
         jaxbElement.setName(modelioElement.getName());
-        
+
         BpmnGatewayDirection direction = modelioElement.getGatewayDirection();
         if (direction != null) {
             if (direction == BpmnGatewayDirection.CONVERGINGDIRECTION) {

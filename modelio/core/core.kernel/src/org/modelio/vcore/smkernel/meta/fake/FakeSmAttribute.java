@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel.meta.fake;
 
@@ -34,14 +34,15 @@ public class FakeSmAttribute extends SmAttribute {
 
     /**
      * Create a String fake attribute.
+     *
      * @param owner the metaclass
      * @param name the name
      */
     @objid ("447be8b6-cec9-4e67-8b2d-d645af0e39da")
-    public  FakeSmAttribute(SmClass owner, String name) {
+    public FakeSmAttribute(SmClass owner, String name) {
         init(name, owner, String.class);
         this.defaultValue = getDefaultValue(String.class);
-        
+
     }
 
     @objid ("4c2529a0-b512-4566-bd19-cb1369bc572a")
@@ -58,6 +59,7 @@ public class FakeSmAttribute extends SmAttribute {
 
     /**
      * Fluent version of cast operator to make code more readable.
+     *
      * @param data the data to cast to {@link FakeSmObjectData}
      * @return the casted data.
      */
@@ -68,14 +70,15 @@ public class FakeSmAttribute extends SmAttribute {
 
     /**
      * Create a fake copy of a SmAttribute.
+     *
      * @param owner the metaclass that will own this attribute.
      * @param orig the SmAttribute to copy.
      */
     @objid ("87076ce4-5e06-4e29-b943-55f78be1e676")
-    public  FakeSmAttribute(SmClass owner, SmAttribute orig) {
+    public FakeSmAttribute(SmClass owner, SmAttribute orig) {
         init(orig.getName(), owner, orig.getType(), orig.getDirectives());
         this.defaultValue = getDefaultValue(orig.getType());
-        
+
     }
 
     @objid ("9093fe2d-309f-4e16-a93d-702649830dac")
@@ -98,7 +101,7 @@ public class FakeSmAttribute extends SmAttribute {
             return type.getEnumConstants()[0];
         }
         throw new IllegalArgumentException(String.format("Unsupported type: %s",type));
-        
+
     }
 
 }

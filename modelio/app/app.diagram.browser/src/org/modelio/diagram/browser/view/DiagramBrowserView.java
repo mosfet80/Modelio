@@ -1,30 +1,30 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.browser.view;
 
 import java.util.List;
 import java.util.Objects;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.Focus;
@@ -103,18 +103,19 @@ public class DiagramBrowserView {
     public void createPartControl(Composite aParent, @Optional IProjectService aProjectService, MPart part, EMenuService menuService, IModelioNavigationService navigationService) {
         // With Eclipse 4.18, the toolbar is messed up, force it right manually...
         part.getToolbar().setVisible(true);
-        
+
         // Connect to session if one is open
         this.parent = aParent;
         this.projectService = aProjectService;
         if ((this.projectService != null) && (this.projectService.getOpenedProject() != null)) {
             onProjectOpened(this.projectService.getOpenedProject(), part, menuService, navigationService);
         }
-        
+
     }
 
     /**
      * Get the modeling session.
+     *
      * @return the modeling session.
      */
     @objid ("000d345a-0d4f-10c6-842f-001ec947cd2a")
@@ -124,6 +125,7 @@ public class DiagramBrowserView {
 
     /**
      * Select and reveal the given model element in the browser.
+     *
      * @param element the element to select.
      */
     @objid ("000d76e0-0d4f-10c6-842f-001ec947cd2a")
@@ -140,7 +142,7 @@ public class DiagramBrowserView {
     @Optional
     void onProjectOpened(@UIEventTopic (ModelioEventTopics.PROJECT_OPENED) final IGProject openedProject, final MPart part, final EMenuService menuService, final IModelioNavigationService navigationService) {
         this.project = openedProject;
-        
+
         if (DiagramBrowserView.this.diagramBrowserPanelProvider == null) {
             // diagramBrowserPanelProvider may be null if we click diagram
             // browser view before opening a project
@@ -149,7 +151,7 @@ public class DiagramBrowserView {
         // Install the selected model
         DiagramBrowserView.this.diagramBrowserPanelProvider.switchBrowserModel(getSelectedContentModel(part));
         DiagramBrowserView.this.diagramBrowserPanelProvider.setInput(openedProject);
-        
+
         // Branch a model change listener:
         DiagramBrowserView.this.modelChangeListener = new DiagramBrowserModelChangeListener(
                 DiagramBrowserView.this.diagramBrowserPanelProvider);
@@ -157,9 +159,9 @@ public class DiagramBrowserView {
             openedProject.getSession().getModelChangeSupport().addModelChangeListener(DiagramBrowserView.this.modelChangeListener);
             openedProject.getSession().getModelChangeSupport().addStatusChangeListener(DiagramBrowserView.this.modelChangeListener);
         }
-        
+
         DiagramBrowserView.this.parent.layout();
-        
+
     }
 
     @objid ("0012503e-43b1-10c7-842f-001ec947cd2a")
@@ -168,7 +170,7 @@ public class DiagramBrowserView {
         if (this.diagramBrowserPanelProvider != null) {
             this.diagramBrowserPanelProvider.getPanel().getTree().setFocus();
         }
-        
+
     }
 
     /**
@@ -195,7 +197,7 @@ public class DiagramBrowserView {
                     DiagramBrowserView.this.diagramBrowserPanelProvider.getPanel(), session);
             DiagramBrowserView.this.pickingManager.beginPicking();
         }
-        
+
     }
 
     @objid ("2869edf0-4ab5-11e2-a4d3-002564c97630")
@@ -207,7 +209,7 @@ public class DiagramBrowserView {
             DiagramBrowserView.this.pickingManager.endPicking();
             DiagramBrowserView.this.pickingManager = null;
         }
-        
+
     }
 
     @objid ("2869edf6-4ab5-11e2-a4d3-002564c97630")
@@ -217,6 +219,7 @@ public class DiagramBrowserView {
 
     /**
      * Selects and edits the given element in the tree if possible.
+     *
      * @param elementToEdit the element to select and edit.
      */
     @objid ("cd493808-54c7-11e2-ae63-002564c97630")
@@ -226,7 +229,7 @@ public class DiagramBrowserView {
             DiagramBrowserView.this.diagramBrowserPanelProvider.getPanel().expandToLevel(elementToEdit, 0);
             DiagramBrowserView.this.diagramBrowserPanelProvider.getPanel().editElement(elementToEdit, 0);
         });
-        
+
     }
 
     @objid ("cd49380d-54c7-11e2-ae63-002564c97630")
@@ -234,21 +237,21 @@ public class DiagramBrowserView {
         if (this.diagramBrowserPanelProvider != null) {
             this.diagramBrowserPanelProvider.getPanel().collapseAll();
         }
-        
+
     }
 
     @objid ("fc05adf8-2a43-402f-8e86-0018f85d2c90")
     protected void initDiagramBrowserPanelProvider(EMenuService menuService, IModelioNavigationService navigationService) {
         this.diagramBrowserPanelProvider = new DiagramBrowserPanelProvider(this.projectService.getOpenedProject(), navigationService);
         this.diagramBrowserPanelProvider.createPanel(this.parent);
-        
+
         // Add the selection provider
         this.diagramBrowserPanelProvider.getPanel().addSelectionChangedListener(event -> {
             if (DiagramBrowserView.this.selectionService != null) {
                 DiagramBrowserView.this.selectionService.setSelection(event.getSelection());
             }
         });
-        
+
         // Add the double click listener
         this.diagramBrowserPanelProvider.getPanel().addDoubleClickListener(
                 event -> {
@@ -269,12 +272,12 @@ public class DiagramBrowserView {
                             }
                         }
                     }
-        
+
                 });
-        
+
         // Add the contextual menu
         menuService.registerContextMenu(this.diagramBrowserPanelProvider.getPanel().getTree(), DiagramBrowserView.POPUPID);
-        
+
     }
 
     /**
@@ -307,6 +310,7 @@ public class DiagramBrowserView {
 
     /**
      * This listener is activated when the selection changes in the workbench.<br>
+     *
      * @param selection the current modelio selection.
      */
     @objid ("ac1b12ab-a34a-4c6a-8791-66e0a2555261")
@@ -317,7 +321,7 @@ public class DiagramBrowserView {
         if (getComposite() == null) {
             return;
         }
-        
+
         // Discard selection from myself, process only selections from other
         // views
         if (part != null && !Objects.equals(part.getObject(), this)) {
@@ -326,7 +330,7 @@ public class DiagramBrowserView {
                 getComposite().setInput(e);
             }
         }
-        
+
     }
 
     /**
@@ -343,13 +347,13 @@ public class DiagramBrowserView {
             project.getSession().getModelChangeSupport().removeStatusChangeListener(this.modelChangeListener);
         }
         this.modelChangeListener = null;
-        
+
         this.project = null;
-        
+
         DiagramBrowserView.this.diagramBrowserPanelProvider.setInput(null);
         DiagramBrowserView.this.diagramBrowserPanelProvider.getPanel().getTree().dispose();
         DiagramBrowserView.this.diagramBrowserPanelProvider = null;
-        
+
     }
 
 }

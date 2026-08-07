@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.conf.dialog.common;
 
@@ -33,12 +33,14 @@ import org.modelio.vbasic.files.FileUtils;
 
 /**
  * Create already configured table columns.
+ *
  * @author cmarin
  */
 @objid ("1000e997-c3d3-44bb-8b5d-2b3c371fb8e5")
 public class ColumnHelper {
     /**
      * Create a fragment name table column viewer.
+     *
      * @param viewer the table viewer
      * @return the column
      */
@@ -57,7 +59,7 @@ public class ColumnHelper {
                 }
                 return ""; //$NON-NLS-1$
             }
-        
+
             @Override
             public Image getImage(Object element) {
                 if (element instanceof IGModelFragment) {
@@ -71,6 +73,7 @@ public class ColumnHelper {
 
     /**
      * Create a fragment scope table column viewer.
+     *
      * @param viewer the table viewer
      * @return the column
      */
@@ -95,6 +98,7 @@ public class ColumnHelper {
 
     /**
      * Create a fragment metamodel version table column viewer.
+     *
      * @param viewer the table viewer
      * @return the column
      */

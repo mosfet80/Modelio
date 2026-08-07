@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class UML2StartObjectBehaviorAction {
      * Tells whether a {@link UML2StartObjectBehaviorAction proxy} can be instantiated from a {@link MObject} checking it is a {@link OpaqueAction} stereotyped << UML2StartObjectBehaviorAction >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,7 +73,7 @@ public class UML2StartObjectBehaviorAction {
 
     /**
      * Create a new {@link OpaqueAction} stereotyped << UML2StartObjectBehaviorAction >> then instantiate a {@link UML2StartObjectBehaviorAction} proxy.
-     * 
+     *
      * @return a {@link UML2StartObjectBehaviorAction} proxy on the created {@link OpaqueAction}.
      */
     @objid ("ffac6012-d157-4de8-8e2b-be6ee5d0f258")
@@ -83,9 +84,10 @@ public class UML2StartObjectBehaviorAction {
     }
 
     /**
-     * Tries to instantiate a {@link UML2StartObjectBehaviorAction} proxy from a {@link OpaqueAction} stereotyped << UML2StartObjectBehaviorAction >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2StartObjectBehaviorAction} proxy from a {@link OpaqueAction} stereotyped << UML2StartObjectBehaviorAction >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a OpaqueAction
      * @return a {@link UML2StartObjectBehaviorAction} proxy or <i>null</i>.
      */
@@ -95,9 +97,10 @@ public class UML2StartObjectBehaviorAction {
     }
 
     /**
-     * Tries to instantiate a {@link UML2StartObjectBehaviorAction} proxy from a {@link OpaqueAction} stereotyped << UML2StartObjectBehaviorAction >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2StartObjectBehaviorAction} proxy from a {@link OpaqueAction} stereotyped << UML2StartObjectBehaviorAction >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link OpaqueAction}
      * @return a {@link UML2StartObjectBehaviorAction} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -127,7 +130,8 @@ public class UML2StartObjectBehaviorAction {
     }
 
     /**
-     * Get the underlying {@link OpaqueAction}. 
+     * Get the underlying {@link OpaqueAction}.
+     *
      * @return the OpaqueAction represented by this proxy, never null.
      */
     @objid ("6f3193a4-7d1d-4bf7-bc75-a49de7f52813")
@@ -139,11 +143,11 @@ public class UML2StartObjectBehaviorAction {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("e469efd2-2f56-4978-a147-f36922f0989c")
-    protected  UML2StartObjectBehaviorAction(OpaqueAction elt) {
+    protected UML2StartObjectBehaviorAction(OpaqueAction elt) {
         this.elt = elt;
     }
 
@@ -163,7 +167,7 @@ public class UML2StartObjectBehaviorAction {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "d4d4a0b8-fb19-4b78-bc9e-e04ad77087f8");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -171,7 +175,7 @@ public class UML2StartObjectBehaviorAction {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

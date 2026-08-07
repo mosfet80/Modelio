@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.communicationdiagram.editor.elements.communicationmessage;
 
@@ -39,12 +39,13 @@ import org.modelio.vcore.model.api.IElementNamer;
 class CreateCommunicationMessageCommand extends DefaultCreateElementCommand {
     /**
      * Creates the command
+     *
      * @param gmGroup The group where the flow must be created
      * @param ctx The creation context
      * @param index an index in the group
      */
     @objid ("7a3d7365-55b6-11e2-877f-002564c97630")
-    public  CreateCommunicationMessageCommand(final GmCompositeNode gmGroup, final ModelioCreationContext ctx, final Integer index) {
+    public CreateCommunicationMessageCommand(final GmCompositeNode gmGroup, final ModelioCreationContext ctx, final Integer index) {
         super(gmGroup, ctx, index);
     }
 
@@ -52,40 +53,40 @@ class CreateCommunicationMessageCommand extends DefaultCreateElementCommand {
     @Override
     public void execute() {
         final IGmDiagram diagram = this.getParentNode().getDiagram();
-        
+
         CommunicationMessage newElement = (CommunicationMessage) this.getContext().getElementToUnmask();
-        
+
         if (newElement == null) {
             IModelManager modelManager = diagram.getModelManager();
-        
+
             // Create the Element...
             final IStandardModelFactory modelFactory = modelManager.getModelFactory().getFactory(IStandardModelFactory.class);
             newElement = modelFactory.createCommunicationMessage();
-        
+
             if (getParentNode() instanceof GmCommunicationSentMessageGroup) {
                 ((CommunicationChannel) getParentElement()).getStartToEndMessage().add(newElement);
             } else {
                 ((CommunicationChannel) getParentElement()).getEndToStartMessage().add(newElement);
             }
-        
+
             // Attach the stereotype if needed.
             if (getContext().getStereotype() != null) {
                 ((ModelElement) newElement).getExtension().add(getContext().getStereotype());
             }
-        
+
             // Configure element from properties
             final IElementConfigurator elementConfigurer = modelManager.getModelServices().getElementConfigurer();
             elementConfigurer.configure(newElement, getContext().getProperties());
-        
+
             // Set default name
             IElementNamer elementNamer = modelManager.getModelServices().getElementNamer();
             newElement.setName(elementNamer.getUniqueName(newElement));
-        
+
         }
-        
+
         // Show the new element in the diagram (ie create its Gm )
         diagram.unmask(getParentNode(), newElement, this.getConstraint());
-        
+
     }
 
 }

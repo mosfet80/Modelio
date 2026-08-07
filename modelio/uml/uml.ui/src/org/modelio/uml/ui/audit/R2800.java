@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -49,7 +49,7 @@ public class R2800 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -68,7 +68,7 @@ public class R2800 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         plan.registerRule(Transition.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE | AuditTrigger.MOVE);
         plan.registerRule(InitialPseudoState.MQNAME, this, AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -102,14 +102,14 @@ public class R2800 extends AbstractUmlRule {
      * Default constructor for R2800
      */
     @objid ("5fe52bbb-bd75-4b37-a373-1f41abac0677")
-    public  R2800() {
+    public R2800() {
         this.checkerInstance = new CheckR2800(this);
     }
 
     @objid ("c008a17a-c305-493d-8706-32f2131fed53")
     private static class CheckR2800 extends AbstractControl {
         @objid ("ab0611be-71fa-4546-908b-89c4dc71c701")
-        public  CheckR2800(IRule rule) {
+        public CheckR2800(IRule rule) {
             super(rule);
         }
 
@@ -132,7 +132,7 @@ public class R2800 extends AbstractUmlRule {
         @objid ("117c14ce-33d1-4f44-8ef8-ef81cade03cb")
         private IAuditEntry checkR2800(InitialPseudoState state) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, state, null);
-            
+
             List<Transition> outgoings = state.getOutGoing();
             if (outgoings.size() > 1) {
                 auditEntry.setSeverity(this.rule.getSeverity());

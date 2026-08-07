@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -50,101 +49,100 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("8cf09d5a-5b45-402b-9ebd-b7d23239cb63")
 public class ActivityEdgeSmClass extends UmlModelElementSmClass {
-    @objid ("58d8158b-0870-4d20-80d6-58677bbeb543")
+    @objid ("21139c7c-0008-49f1-87e9-4aa6b1b0764a")
     private SmAttribute guardAtt;
 
-    @objid ("bc0abf0e-a307-4860-9996-6b6a759cb7ba")
+    @objid ("9bd58612-2f23-4f82-8a9a-7cbd8070a97b")
     private SmAttribute weightAtt;
 
-    @objid ("302bd008-9b0d-4fbc-9194-92a90d27b448")
+    @objid ("6b1be238-d8a3-4c28-9bdd-23dfbbcebfe2")
     private SmDependency targetDep;
 
-    @objid ("8e4bd0b5-d000-4441-833f-f5d5ec288563")
+    @objid ("fc500125-8a3e-4cff-8f11-498381f2b63d")
     private SmDependency sourceDep;
 
-    @objid ("46d2c895-8b31-404d-86c9-804bf54d174f")
+    @objid ("140d3eca-9376-4554-85d7-ce718e45d433")
     private SmDependency interruptsDep;
 
-    @objid ("2fd2684e-e43b-4712-8445-4fe29e68cea9")
+    @objid ("cb1e6814-a45c-4a77-9247-21c1b4e7a985")
     private SmDependency realizedInformationFlowDep;
 
-    @objid ("4693c9ad-247c-405d-b69e-0777ee63eaf9")
-    public  ActivityEdgeSmClass(ISmMetamodelFragment origin) {
+    @objid ("a623ddbd-c410-4237-90f4-f051f657b56f")
+    public ActivityEdgeSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("f9138d65-bc59-47e9-ad8b-4440e1cc25d9")
+    @objid ("90d28b6f-a2da-4432-8c8f-9742d1d5bccd")
     @Override
     public String getName() {
         return "ActivityEdge";
-        
+
     }
 
-    @objid ("de6f5101-a559-4a58-b8ed-7200d129dcab")
+    @objid ("b71dc6cc-f924-43bc-a547-d72b16c2291e")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("a1a00ec4-81e3-4945-9863-3d3dcb3e2aea")
+    @objid ("544fd8e4-a539-4396-a29b-2b156e431089")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return ActivityEdge.class;
-        
+
     }
 
-    @objid ("2e46210e-1431-4eb0-b02c-0ab9927d5ee5")
+    @objid ("3989fb25-7e29-4902-aa6f-786b2093532d")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("e3adbd69-5181-4432-99ed-d8e280b630ad")
+    @objid ("750cda41-e4e5-4e86-bb4f-eb4ce6d7e7e9")
     @Override
     public boolean isAbstract() {
         return true;
-        
+
     }
 
-    @objid ("ccec8c90-2f20-4ef0-ac68-8d5a33452a71")
+    @objid ("9464390f-1453-4e01-8320-4535d6483508")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(UmlModelElement.MQNAME);
         this.registerFactory(new ActivityEdgeObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
         this.guardAtt = new GuardSmAttribute();
         this.guardAtt.init("Guard", this, String.class );
         registerAttribute(this.guardAtt);
-        
+
         this.weightAtt = new WeightSmAttribute();
         this.weightAtt.init("Weight", this, String.class );
         registerAttribute(this.weightAtt);
-        
-        
+
+
         // Initialize and register the SmDependency
         this.targetDep = new TargetSmDependency();
         this.targetDep.init("Target", this, metamodel.getMClass(ActivityNode.MQNAME), 0, 1 , SmDirective.SMCDLINKTARGET, SmDirective.SMCDPARTOF);
         registerDependency(this.targetDep);
-        
+
         this.sourceDep = new SourceSmDependency();
         this.sourceDep.init("Source", this, metamodel.getMClass(ActivityNode.MQNAME), 0, 1 , SmDirective.SMCDLINKSOURCE);
         registerDependency(this.sourceDep);
-        
+
         this.interruptsDep = new InterruptsSmDependency();
         this.interruptsDep.init("Interrupts", this, metamodel.getMClass(InterruptibleActivityRegion.MQNAME), 0, 1 );
         registerDependency(this.interruptsDep);
-        
+
         this.realizedInformationFlowDep = new RealizedInformationFlowSmDependency();
         this.realizedInformationFlowDep.init("RealizedInformationFlow", this, metamodel.getMClass(InformationFlow.MQNAME), 0, -1 );
         registerDependency(this.realizedInformationFlowDep);
-        
-        
+
     }
 
-    @objid ("f87aad65-989e-43a2-ac92-ccfa22e47194")
+    @objid ("2f4853fe-1457-4cbf-91d7-d4640453612f")
     public SmAttribute getGuardAtt() {
         if (this.guardAtt == null) {
         	this.guardAtt = this.getAttributeDef("Guard");
@@ -152,7 +150,7 @@ public class ActivityEdgeSmClass extends UmlModelElementSmClass {
         return this.guardAtt;
     }
 
-    @objid ("af4330ef-1378-4672-b102-c8373176b936")
+    @objid ("21208daf-8ef5-4373-9821-615b66fb41d1")
     public SmAttribute getWeightAtt() {
         if (this.weightAtt == null) {
         	this.weightAtt = this.getAttributeDef("Weight");
@@ -160,7 +158,7 @@ public class ActivityEdgeSmClass extends UmlModelElementSmClass {
         return this.weightAtt;
     }
 
-    @objid ("abdfb9a9-79df-40f0-9af2-36eab215c805")
+    @objid ("e6f53596-b307-4691-ac4b-8b4a63ea3208")
     public SmDependency getTargetDep() {
         if (this.targetDep == null) {
         	this.targetDep = this.getDependencyDef("Target");
@@ -168,7 +166,7 @@ public class ActivityEdgeSmClass extends UmlModelElementSmClass {
         return this.targetDep;
     }
 
-    @objid ("ddc07921-633c-46c4-9817-cca7a856fff6")
+    @objid ("af14e1d3-5309-47a5-b6ee-6a0d9ff59277")
     public SmDependency getSourceDep() {
         if (this.sourceDep == null) {
         	this.sourceDep = this.getDependencyDef("Source");
@@ -176,7 +174,7 @@ public class ActivityEdgeSmClass extends UmlModelElementSmClass {
         return this.sourceDep;
     }
 
-    @objid ("1c41c6b0-780f-413f-b89f-3278e61d2946")
+    @objid ("5b2bd157-2c83-4074-b5d5-8ac376058f12")
     public SmDependency getInterruptsDep() {
         if (this.interruptsDep == null) {
         	this.interruptsDep = this.getDependencyDef("Interrupts");
@@ -184,7 +182,7 @@ public class ActivityEdgeSmClass extends UmlModelElementSmClass {
         return this.interruptsDep;
     }
 
-    @objid ("358d0d30-455f-4db5-ab24-6c0974ac110b")
+    @objid ("7c9fc5e0-5237-4e6a-b4d1-641444d76e89")
     public SmDependency getRealizedInformationFlowDep() {
         if (this.realizedInformationFlowDep == null) {
         	this.realizedInformationFlowDep = this.getDependencyDef("RealizedInformationFlow");
@@ -192,30 +190,30 @@ public class ActivityEdgeSmClass extends UmlModelElementSmClass {
         return this.realizedInformationFlowDep;
     }
 
-    @objid ("f7be5f17-8be0-4b73-9557-e1e06e791104")
+    @objid ("96e12e2c-339d-4f51-9b51-b9357d176fe1")
     @Override
     public boolean isLinkMetaclass() {
         return true;
-        
+
     }
 
     @objid ("fabbc42a-95dc-4161-9ee3-3256d9f69cd1")
     private static class ActivityEdgeObjectFactory implements ISmObjectFactory {
-        @objid ("f2de3550-7d52-4fef-9331-eb9b25abc825")
+        @objid ("75f65a30-c0ab-4a0e-8fb8-18e62eb2bc5a")
         private ActivityEdgeSmClass smClass;
 
-        @objid ("7e3de592-cd26-4777-8e6c-9faf8a8a3294")
-        public  ActivityEdgeObjectFactory(ActivityEdgeSmClass smClass) {
+        @objid ("6762bf25-f3e1-4484-98fa-ff55f3324df1")
+        public ActivityEdgeObjectFactory(ActivityEdgeSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("a1d559c2-7133-4b4c-8a03-229cfd4455b9")
+        @objid ("873eeccb-29f0-4703-a79d-24992609fbef")
         @Override
         public ISmObjectData createData() {
             throw new UnsupportedOperationException();
         }
 
-        @objid ("df82a86f-a024-4d95-89b4-f4b601f663b8")
+        @objid ("5a01afa8-8ccc-460d-8578-f657623f9cbc")
         @Override
         public SmObjectImpl createImpl() {
             throw new UnsupportedOperationException();
@@ -225,12 +223,12 @@ public class ActivityEdgeSmClass extends UmlModelElementSmClass {
 
     @objid ("da7c0da1-83a9-4f5c-963a-04645cbe2890")
     public static class GuardSmAttribute extends SmAttribute {
-        @objid ("003d4ff2-b438-4716-a925-de269f52f324")
+        @objid ("ac5f2c6b-1dec-4a41-b911-21d4f8d870b3")
         public Object getValue(ISmObjectData data) {
             return ((ActivityEdgeData) data).mGuard;
         }
 
-        @objid ("8d1f8c35-305e-4707-aecd-ba50c348cc87")
+        @objid ("6fa9032f-359f-418d-89ed-105517595b15")
         public void setValue(ISmObjectData data, Object value) {
             ((ActivityEdgeData) data).mGuard = value;
         }
@@ -239,12 +237,12 @@ public class ActivityEdgeSmClass extends UmlModelElementSmClass {
 
     @objid ("f0e617b3-212c-45c1-a785-8fd0b92df9dc")
     public static class WeightSmAttribute extends SmAttribute {
-        @objid ("48e44a43-66c2-474c-99f6-503925b8a670")
+        @objid ("2fc8e9b5-28a1-43c7-a78c-514339679ea4")
         public Object getValue(ISmObjectData data) {
             return ((ActivityEdgeData) data).mWeight;
         }
 
-        @objid ("95ec662c-0c1a-4549-8141-8ec24cd0ffce")
+        @objid ("3c41c329-8fa8-4fd5-8d9a-7bb177a87cd1")
         public void setValue(ISmObjectData data, Object value) {
             ((ActivityEdgeData) data).mWeight = value;
         }
@@ -253,117 +251,117 @@ public class ActivityEdgeSmClass extends UmlModelElementSmClass {
 
     @objid ("b9ee5417-26c6-4ec7-a768-4189a264f245")
     public static class TargetSmDependency extends SmSingleDependency {
-        @objid ("29cca0e6-0ada-4a4a-992d-85f8d7539e22")
+        @objid ("913626cf-2047-472d-a7e0-5914c27368a1")
         private SmDependency symetricDep;
 
-        @objid ("0b477775-2fef-4d86-8ccf-ae401eb968d3")
+        @objid ("e3607b59-f7e5-4480-9429-9d7d4f01e474")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((ActivityEdgeData) data).mTarget;
         }
 
-        @objid ("038492fe-4ab0-45a6-9bad-a57ecce32d41")
+        @objid ("001f0d5b-938d-4f03-8160-350252b1cd0c")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((ActivityEdgeData) data).mTarget = value;
         }
 
-        @objid ("7ba5081f-ce9a-4459-95dd-03521d907c21")
+        @objid ("4fc6b93e-e53a-4f8a-a9d9-c185200a1936")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((ActivityNodeSmClass)this.getTarget()).getIncomingDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("a3bb85c2-43dc-475e-810c-c7c5973266cb")
     public static class SourceSmDependency extends SmSingleDependency {
-        @objid ("1e33f17a-fcf3-479a-82f4-4489e9c22d06")
+        @objid ("0ef5253e-5881-484b-8bfb-243b306a9bb2")
         private SmDependency symetricDep;
 
-        @objid ("59dfd8b8-1d51-4a80-9a9b-a5d8f1ecf5d0")
+        @objid ("1fe3209a-ec63-4cf7-be89-ae8be5d63ba7")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((ActivityEdgeData) data).mSource;
         }
 
-        @objid ("8439bbe8-5228-4cb4-adcf-55b33d29cb4c")
+        @objid ("4e2c26ba-e45b-4da8-91de-477a807cf7bd")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((ActivityEdgeData) data).mSource = value;
         }
 
-        @objid ("17f95479-9f90-4191-853d-1e3e2da9c17b")
+        @objid ("e269fcc6-4f7a-4de3-8124-a74cd07c53ac")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((ActivityNodeSmClass)this.getTarget()).getOutgoingDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("c8ad2b22-923f-4570-9b1e-0ddebbbf87ad")
     public static class InterruptsSmDependency extends SmSingleDependency {
-        @objid ("9bc789e7-a21c-4ff8-8622-07e468632101")
+        @objid ("83862f21-5b58-4378-b043-d41fe82517c3")
         private SmDependency symetricDep;
 
-        @objid ("a255d925-569b-414c-a90e-03f718888489")
+        @objid ("7315e167-a247-40ea-9fbb-f5b68bda966a")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((ActivityEdgeData) data).mInterrupts;
         }
 
-        @objid ("20714193-6b24-4b20-b859-bcefdc08547c")
+        @objid ("9a49ff33-a889-4fde-9588-41553211f58c")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((ActivityEdgeData) data).mInterrupts = value;
         }
 
-        @objid ("adb88484-99a6-4955-89f0-d8484121be27")
+        @objid ("a7845fe3-60dc-4a96-9c8e-d4d879ece23a")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((InterruptibleActivityRegionSmClass)this.getTarget()).getInterruptingEdgeDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("0b0a84e7-5b62-4ed3-8c38-bb34a7c66dc2")
     public static class RealizedInformationFlowSmDependency extends SmMultipleDependency {
-        @objid ("94740d3b-9a80-4293-b967-e323a70e8210")
+        @objid ("dcdf9554-d112-42a2-82eb-7855db443f6c")
         private SmDependency symetricDep;
 
-        @objid ("d69fb256-7565-4886-9633-4d2f95fad0c0")
+        @objid ("705798bd-5e51-4d80-bbe0-e541ff54eca9")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((ActivityEdgeData)data).mRealizedInformationFlow != null)? ((ActivityEdgeData)data).mRealizedInformationFlow:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("dc302470-0f3c-4e2c-84cf-f5f6b2076603")
+        @objid ("40b63363-8c78-4984-8d8e-dd83fce97c82")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((ActivityEdgeData) data).mRealizedInformationFlow = values;
-            
+
         }
 
-        @objid ("4aa02970-632c-4217-9d0b-f3538eefcfa5")
+        @objid ("1ffd950e-d912-4e22-878b-74437539e055")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((InformationFlowSmClass)this.getTarget()).getRealizingActivityEdgeDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

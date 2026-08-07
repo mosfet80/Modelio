@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.commands;
 
@@ -38,9 +38,9 @@ import org.modelio.diagram.elements.drawings.core.IGmDrawing;
  * The factory returns the class of model drawing to create in {@link #getObjectType()}.
  * {@link #getNewObject()} returns the identifier to use as the drawing identifier.
  * It generates a new identifier at each call unless an identifier has been specified at construction.
- * 
+ *
  * Used by <code>DefaultCreateGmNodeDrawingCommand</code>.
- * 
+ *
  * @see org.modelio.diagram.elements.drawings.core.policies.DefaultCreateGmNodeDrawingCommand DefaultCreateGmNodeDrawingCommand
  */
 @objid ("00eeeaca-9f0a-4012-bc8a-efa6a233d78b")
@@ -62,17 +62,19 @@ public class DrawingObjectFactory implements CreationFactory {
 
     /**
      * Creates a factory that creates a {@link GmDrawing} with a random identifier.
+     *
      * @param metaclass the drawing class
      */
     @objid ("20b43e3c-87ab-4818-9151-b433cbf598f9")
-    public  DrawingObjectFactory(Class<? extends GmDrawing> metaclass) {
+    public DrawingObjectFactory(Class<? extends GmDrawing> metaclass) {
         this.metaclass = metaclass;
         this.drawingIdentifier = null;
-        
+
     }
 
     /**
      * Get the class of the drawing to create.
+     *
      * @return the drawing class.
      */
     @objid ("10bd46bc-41d1-43c9-92da-470a128a3407")
@@ -89,9 +91,9 @@ public class DrawingObjectFactory implements CreationFactory {
     public Object getNewObject() {
         if (this.drawingIdentifier != null)
             return this.drawingIdentifier;
-        else 
+        else
             return UUID.randomUUID().toString();
-        
+
     }
 
     @objid ("ec4e71bc-2588-4e61-ab23-edffb7cfb7bd")
@@ -102,6 +104,7 @@ public class DrawingObjectFactory implements CreationFactory {
 
     /**
      * Get the creation custom properties.
+     *
      * @return the creation properties or <tt>null</tt> if no property was defined.
      */
     @objid ("e572b963-5226-4025-b834-411444b0f5eb")
@@ -111,6 +114,7 @@ public class DrawingObjectFactory implements CreationFactory {
 
     /**
      * Set the creation properties.
+     *
      * @param properties the creation properties.
      */
     @objid ("52d7208b-f4bc-4548-89f7-a41dce40e6cf")
@@ -120,6 +124,7 @@ public class DrawingObjectFactory implements CreationFactory {
 
     /**
      * Add a custom property value.
+     *
      * @param key The property key
      * @param value The property value.
      */
@@ -130,14 +135,15 @@ public class DrawingObjectFactory implements CreationFactory {
 
     /**
      * Creates a factory that creates a {@link GmDrawing}.
+     *
      * @param metaclass the drawing class
      * @param drawingIdentifier the new drawing identifier. Must be unique in the diagram.
      */
     @objid ("41156150-76ce-4560-b3ce-b5ca706c8e56")
-    public  DrawingObjectFactory(Class<? extends IGmDrawing> metaclass, String drawingIdentifier) {
+    public DrawingObjectFactory(Class<? extends IGmDrawing> metaclass, String drawingIdentifier) {
         this.metaclass = metaclass;
         this.drawingIdentifier = drawingIdentifier;
-        
+
     }
 
 }

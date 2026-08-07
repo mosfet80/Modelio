@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.plugin;
 
@@ -45,11 +45,11 @@ public class ModuleDiagramCustomizer implements IDiagramConfigurer {
     private final IDynamicStyler styler;
 
     @objid ("b39d7a70-7474-440e-8c31-a121ee0e9e21")
-    public  ModuleDiagramCustomizer(IDiagramConfigurer baseConfigurer, final IDiagramCustomizer customizer, IDynamicStyler styler) {
+    public ModuleDiagramCustomizer(IDiagramConfigurer baseConfigurer, final IDiagramCustomizer customizer, IDynamicStyler styler) {
         this.customizer = customizer;
         this.baseConfigurer = baseConfigurer;
         this.styler = styler;
-        
+
     }
 
     @objid ("3dae4810-e99a-4e6c-836b-b5a9f4f20669")
@@ -67,7 +67,7 @@ public class ModuleDiagramCustomizer implements IDiagramConfigurer {
         } else {
             paletteRoot = new PaletteRoot();
         }
-        
+
         this.customizer.fillPalette(paletteRoot);
         return paletteRoot;
     }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /**
  *
@@ -40,7 +40,7 @@ public class StaticDiagramModuleMenuCreator extends ModuleMenuCreator {
         if (getSelectedElement() != null) {
             super.aboutToShow(items);
         }
-        
+
     }
 
     @objid ("6c7da2b2-8d82-4327-aabb-ca6990533424")
@@ -50,7 +50,7 @@ public class StaticDiagramModuleMenuCreator extends ModuleMenuCreator {
         if (selection == null || selection.size() != 1) {
             return null;
         }
-        
+
         final Object obj = selection.getFirstElement();
         if (obj instanceof MObject) {
             return (MObject) obj;

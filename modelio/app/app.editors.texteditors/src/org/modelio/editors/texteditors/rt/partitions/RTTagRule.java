@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.texteditors.rt.partitions;
 
@@ -28,7 +28,7 @@ import org.eclipse.jface.text.rules.Token;
 @objid ("7b65d189-2a77-11e2-9fb9-bc305ba4815c")
 public class RTTagRule extends EndOfLineRule {
     @objid ("7b65d18a-2a77-11e2-9fb9-bc305ba4815c")
-    public  RTTagRule(String startSequence, IToken token) {
+    public RTTagRule(String startSequence, IToken token) {
         super(startSequence, token);
     }
 
@@ -47,9 +47,9 @@ public class RTTagRule extends EndOfLineRule {
             swallowedCharNb++;
         }
         scanner.unread();
-        
+
         IToken token = super.evaluate(scanner, resume);
-        
+
         if (token == this.fToken) {
             return token;
         } else {
@@ -78,13 +78,13 @@ public class RTTagRule extends EndOfLineRule {
             swallowedCharNb++;
         }
         scanner.unread();
-                
+
         IToken token = super.evaluate(scanner);
         if (token == this.fToken) {
             return token;
         } else {
             // rewind
-                
+
             while (swallowedCharNb-- > 0)
             scanner.unread();
         }

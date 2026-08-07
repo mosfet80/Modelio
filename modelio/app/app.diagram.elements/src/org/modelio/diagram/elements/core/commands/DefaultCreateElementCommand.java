@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.diagram.elements.core.commands;
 
@@ -25,8 +44,12 @@ import org.modelio.diagram.elements.core.model.IGmDiagram;
 import org.modelio.diagram.elements.core.model.IGmDiagram.IModelManager;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
+import org.modelio.diagram.elements.plugin.DiagramElements;
+import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.mmextensions.standard.services.IMModelServices;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
+import org.modelio.platform.model.ui.MetamodelLabels;
+import org.modelio.platform.model.ui.swt.labelprovider.UniversalLabelProvider;
 import org.modelio.vcore.model.api.IModelFactory;
 import org.modelio.vcore.model.api.MTools;
 import org.modelio.vcore.smkernel.mapi.MClass;
@@ -61,42 +84,42 @@ public class DefaultCreateElementCommand extends Command implements ILinkAndNode
 
     /**
      * Creates a node creation command.
+     *
      * @param parentNode The parent node
      * @param context Details on the MObject and/or the node to create
      * @param constraint The initial constraint of the created node.
      */
     @objid ("7f34b5c8-1dec-11e2-8cad-001ec947c8cc")
-    public  DefaultCreateElementCommand(GmCompositeNode parentNode, ModelioCreationContext context, Object constraint) {
+    public DefaultCreateElementCommand(GmCompositeNode parentNode, ModelioCreationContext context, Object constraint) {
         this.parentNode = parentNode;
         this.parentElement = parentNode.getRelatedElement();
         this.context = context;
         this.constraint = constraint;
         this.mainLinkable = null;
-        
     }
 
     /**
      * Creates a node creation command.
+     *
      * @param parentElement The parent MObject of the MObject to create
      * @param parentNode The parent node
      * @param context Details on the MObject and/or the node to create
      * @param constraint The initial constraint of the created node.
      */
     @objid ("7f3717dd-1dec-11e2-8cad-001ec947c8cc")
-    public  DefaultCreateElementCommand(MObject parentElement, GmCompositeNode parentNode, ModelioCreationContext context, Object constraint) {
+    public DefaultCreateElementCommand(MObject parentElement, GmCompositeNode parentNode, ModelioCreationContext context, Object constraint) {
         this.parentNode = parentNode;
         this.parentElement = parentElement;
         this.context = context;
         this.constraint = constraint;
         this.mainLinkable = null;
-        
     }
 
     @objid ("7f3717e4-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void execute() {
         canExecute();
-        
+
         final IGmDiagram diagram = this.parentNode.getDiagram();
         MObject newElement = this.context.getElementToUnmask();
         if (newElement == null) {
@@ -105,15 +128,46 @@ public class DefaultCreateElementCommand extends Command implements ILinkAndNode
         beforeUnmask(newElement);
         // Show the new element in the diagram (ie create its Gm )
         GmNodeModel gm = diagram.unmask(this.parentNode, newElement, this.constraint);
-        
+
         this.mainLinkable = gm;
-        
+
         afterUnmask(newElement, gm);
-        
+    }
+
+    @objid ("ec88c60e-cb54-4a47-82df-0860ca578c17")
+    @Override
+    public String getLabel() {
+        String ret = super.getLabel();
+        if (ret != null)
+            return ret;
+
+        MObject newElement = this.context.getElementToUnmask();
+        UniversalLabelProvider universalLabelProvider = new UniversalLabelProvider();
+
+        if (newElement == null) {
+            MClass toCreate = this.context.getMetaclass();
+            ret = DiagramElements.I18N.getMessage("DefaultCreateElementCommand.label.create",
+                    MetamodelLabels.getString(toCreate.getName()),
+                    universalLabelProvider.getText(this.parentElement),
+                    MetamodelLabels.getString(this.parentElement.getMClass().getName())
+                    );
+        } else {
+            AbstractDiagram obDiagram = this.parentNode.getDiagram().getRelatedElement();
+            ret = DiagramElements.I18N.getMessage("DefaultCreateElementCommand.label.unmask",
+                    universalLabelProvider.getText(newElement),
+                    MetamodelLabels.getString(newElement.getMClass().getName()),
+                    universalLabelProvider.getText(obDiagram),
+                    MetamodelLabels.getString(obDiagram.getMClass().getName())
+                    );
+        }
+
+        setLabel(ret);
+        return ret;
     }
 
     /**
      * Get the creation context (parent element, parent dependency, stereotype).
+     *
      * @return the creation context.
      */
     @objid ("7f3717e7-1dec-11e2-8cad-001ec947c8cc")
@@ -123,6 +177,7 @@ public class DefaultCreateElementCommand extends Command implements ILinkAndNode
 
     /**
      * Get the initial layout constraint.
+     *
      * @return the initial layout constraint.
      */
     @objid ("7f3717ec-1dec-11e2-8cad-001ec947c8cc")
@@ -132,6 +187,7 @@ public class DefaultCreateElementCommand extends Command implements ILinkAndNode
 
     /**
      * Get the parent model element.
+     *
      * @return the parent model element.
      */
     @objid ("7f3717f1-1dec-11e2-8cad-001ec947c8cc")
@@ -141,6 +197,7 @@ public class DefaultCreateElementCommand extends Command implements ILinkAndNode
 
     /**
      * Get the parent graphic node.
+     *
      * @return the parent graphic node.
      */
     @objid ("7f3717f6-1dec-11e2-8cad-001ec947c8cc")
@@ -156,27 +213,28 @@ public class DefaultCreateElementCommand extends Command implements ILinkAndNode
         if (gmDiagram == null || !MTools.getAuthTool().canModify(gmDiagram.getRelatedElement())) {
             return false;
         }
-        
+
         // If it is an actual creation (and not a simple unmasking).
         if (this.context.getElementToUnmask() == null) {
             final MClass toCreate = this.context.getMetaclass();
-        
+
             // The parent element must be modifiable or
             // both must be CMS nodes.
             if (!MTools.getAuthTool().canAdd(this.parentElement, this.context.getMetaclass())) {
                 return false;
             }
-        
+
             // Ask metamodel experts
             MExpert expert = this.parentElement.getMClass().getMetamodel().getMExpert();
             return expert.canCompose(this.parentElement, toCreate, this.context.getDependencyName());
-        
+
         }
         return true;
     }
 
     /**
      * Redefine this method to add code before unmasking the new element.
+     *
      * @param newElement the element being unmasked.
      */
     @objid ("15be47f8-eeaf-4993-a3e2-cb48eab9cf44")
@@ -186,6 +244,7 @@ public class DefaultCreateElementCommand extends Command implements ILinkAndNode
 
     /**
      * Redefine this method to add code after unmasking the new element.
+     *
      * @param newElement the element being unmasked.
      * @param gm The unmasked node, or <code>null</code> if the newElement can't be unmasked.
      */
@@ -201,9 +260,9 @@ public class DefaultCreateElementCommand extends Command implements ILinkAndNode
         final IModelManager modelManager = diagram.getModelManager();
         final IModelFactory modelFactory = modelManager.getModelFactory();
         final MExpert expert = this.parentElement.getMClass().getMetamodel().getMExpert();
-        
+
         newElement = modelFactory.createElement(this.context.getMetaclass());
-        
+
         // The new element must be attached to its parent using the composition dependency
         // provided by the context.
         // If the context provides a null dependency, use the default dependency recommended by the metamodel
@@ -211,7 +270,7 @@ public class DefaultCreateElementCommand extends Command implements ILinkAndNode
         if (effectiveDependency == null) {
             effectiveDependency = expert.getDefaultCompositionDep(this.parentElement, newElement);
         }
-        
+
         // ... and attach it to its parent.
         try {
             this.parentElement.mGet(effectiveDependency).add(newElement);
@@ -225,15 +284,15 @@ public class DefaultCreateElementCommand extends Command implements ILinkAndNode
                 return null;
             }
         }
-        
+
         // Attach the stereotype if needed.
         if (this.context.getStereotype() != null && newElement instanceof ModelElement) {
             ((ModelElement) newElement).getExtension().add(this.context.getStereotype());
         }
-        
+
         // Set default name
         newElement.setName(modelManager.getModelServices().getElementNamer().getUniqueName(newElement));
-        
+
         // Configure element
         IMModelServices modelServices = modelManager.getModelServices();
         modelServices.getElementConfigurer().configure(newElement, this.context.getProperties());

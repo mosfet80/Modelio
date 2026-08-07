@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.anchors.fixed2.algorithms.variable;
 
@@ -35,7 +35,7 @@ import org.modelio.diagram.elements.core.link.anchors.fixed2.algorithms.wrapped.
  * <p>
  * Convert the {@link FixedAnchor} from its base number of anchors per face to the current available anchors number.
  * The returned anchor location may then move to match the new fixed anchor locations.
- * 
+ *
  * @author cmarin
  */
 @objid ("10881977-c910-4d57-b0fa-167e0fcf36f6")
@@ -58,14 +58,15 @@ public class VariableWrappedAnchorLocator extends WrappedFixedAnchorLocator {
     private static FixedAnchor temporary;
 
     /**
+     *
      * @param delegate the locator to wrap
      * @param anchorCountGetter a function that take a node figure and return the number of anchors.
      */
     @objid ("87d1a646-79b3-401b-ba52-3df0148992ba")
-    public  VariableWrappedAnchorLocator(IFixedAnchorLocator delegate, Consumer<Dimension> anchorCountGetter) {
+    public VariableWrappedAnchorLocator(IFixedAnchorLocator delegate, Consumer<Dimension> anchorCountGetter) {
         super(delegate);
         this.anchorCountGetter = anchorCountGetter;
-        
+
     }
 
     @objid ("d1664721-2f24-462f-933d-28002704d59f")
@@ -86,6 +87,7 @@ public class VariableWrappedAnchorLocator extends WrappedFixedAnchorLocator {
      * When the node is resized the number of available fixed anchors is different.
      * <p>
      * Convert the given anchor from its base number of anchors per face to the current available anchors number. The returned anchor location may then move to match the new fixed anchor locations.
+     *
      * @param anchor a fixed anchor
      * @return an anchor on the same face with the right rank.
      */
@@ -93,7 +95,7 @@ public class VariableWrappedAnchorLocator extends WrappedFixedAnchorLocator {
     protected FixedAnchor getCorrectedAnchor(final FixedAnchor anchor) {
         Dimension anchorCounts = TMP;
         this.anchorCountGetter.accept(anchorCounts);
-        
+
         int newAnchorCount;
         switch (anchor.getFace()) {
         case FacesConstants.FACE_EAST:
@@ -105,15 +107,15 @@ public class VariableWrappedAnchorLocator extends WrappedFixedAnchorLocator {
         default:
             newAnchorCount = anchorCounts.width;
         }
-        
+
         if (newAnchorCount==0 || anchor.getTotalOnFace() == newAnchorCount) {
             // No change, fast exit
             return anchor;
         }
-        
+
         if (temporary == null)
             temporary = new FixedAnchor(anchor);
-        
+
         // Compute new anchor
         int newRank = Math.round((float) (anchor.getRank() + 1.0) / (anchor.getTotalOnFace() + 1) * (newAnchorCount + 1)) - 1;
         newRank = Math.min(newRank, newAnchorCount - 1);

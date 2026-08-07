@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.jdbm.index;
 
@@ -37,7 +37,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  * Index of all known {@link MRef}.
  * <p>
  * References are indexed by UUID and get a local {@link Long} identifier.
- * 
+ *
  * @author cma
  * @since 3.6.1
  */
@@ -54,19 +54,21 @@ public class IdTable {
     PrimaryTreeMap<Long, MRef> tableInverse;
 
     /**
+     *
      * @param db the JDBM base
      * @param name the name of this table
      */
     @objid ("b45b3bf6-8b3a-4913-a4f1-35d665f9f358")
-    private  IdTable(RecordManager db, String name) {
+    private IdTable(RecordManager db, String name) {
         this.db = db;
         this.table = db.hashMap(name, UTFSerializer.INSTANCE);
         this.tableInverse = db.treeMap(name+"_inverse", MRefSerializer.instance);
-        
+
     }
 
     /**
      * Get the MRef from a local id.
+     *
      * @param key a local identifier
      * @return the found MRef or null.
      * @throws IOException on JDBM failure.
@@ -80,6 +82,7 @@ public class IdTable {
      * Get the local identifier for a MRef.
      * <p>
      * Records the MRef and gives him a local identifier if it is missing.
+     *
      * @param ref a MRef.
      * @return the exisiting or new local identifier.
      * @throws IOException on JDBM failure.
@@ -95,10 +98,11 @@ public class IdTable {
         } catch (IOError | InternalError e) {
             throw new IOException(e);
         }
-        
+
     }
 
     /**
+     *
      * @param uuid the uuid to find
      * @return the MRef local ID or -1 if not found.
      * @throws IOException on JDBM failure
@@ -109,6 +113,7 @@ public class IdTable {
     }
 
     /**
+     *
      * @param ref the MRef to find
      * @return the MRef local ID or -1 if not found.
      * @throws IOException on JDBM failure
@@ -120,6 +125,7 @@ public class IdTable {
 
     /**
      * Create a garbage collector.
+     *
      * @param repositoryLabel a user friendly repository label
      * @return a garbage collector for this table.
      * @throws IOException on I/O error
@@ -131,6 +137,7 @@ public class IdTable {
 
     /**
      * Remove an entry from the table.
+     *
      * @param lid the local id
      * @throws IOException on I/O error
      */
@@ -138,11 +145,12 @@ public class IdTable {
     public void remove(Long lid) throws IOException {
         MRef ref = this.tableInverse.remove(lid);
         this.table.remove(ref.uuid);
-        
+
     }
 
     /**
      * Table garbage collector.
+     *
      * @author cma
      */
     @objid ("03a66bde-9d2b-4364-ad2a-0a5bc8e43c96")
@@ -155,17 +163,19 @@ public class IdTable {
 
         /**
          * Initialize a garbage collector.
+         *
          * @throws IOException on I/O error
          */
         @objid ("f6e4ae24-6ff1-49eb-b88d-03888756dc2e")
-         GC(String repoLabel) throws IOException {
+        GC(String repoLabel) throws IOException {
             this.repoLabel = repoLabel;
             this.walked = new HashSet<>(50_000);
-            
+
         }
 
         /**
          * Mark the local id as used.
+         *
          * @param lid a local id
          * @throws IOError on I/O error
          */
@@ -176,6 +186,7 @@ public class IdTable {
 
         /**
          * Delete unused entried.
+         *
          * @param monitor a progress monitor
          * @throws IOException on I/O error
          */
@@ -183,7 +194,7 @@ public class IdTable {
         public void finish(IModelioProgress monitor) throws IOException {
             int nwalked = this.walked.size();
             SubProgress mon = SubProgress.convert(monitor, (int)(nwalked * 1.5));
-            
+
             int i = 0;
             for (Iterator<Long> it = IdTable.this.table.values().iterator(); it.hasNext();) {
                 Long entry = it.next();
@@ -194,12 +205,12 @@ public class IdTable {
                     mon.worked(1);
                     mon.setWorkRemaining(5);
                 }
-            }            
-            
+            }
+
             mon.subTask(VCoreSession.I18N.getMessage("JdbmRepository.gc.finish.commit", this.repoLabel));
             IdTable.this.db.commit();
             mon.worked(nwalked / 2);
-            
+
         }
 
     }

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.processCollaboration;
 
 import java.util.List;
@@ -34,41 +33,41 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 
 @objid ("00768e50-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnProcessData extends BehaviorData {
-    @objid ("35d034b7-be3f-4fdc-84a0-e936d08b3342")
+    @objid ("89898129-c743-4d19-adbf-7180802feec0")
     Object mProcessType = BpmnProcessType.NONEPROCESS;
 
-    @objid ("5d2d9f0f-7183-4c0e-9f20-07f3114c20a5")
+    @objid ("adb45b50-d2f7-4258-b0a5-55bd3a8524bb")
     Object mIsClosed = false;
 
-    @objid ("84e29822-6c93-432d-b20b-9e4018735cf7")
+    @objid ("150d8878-6677-4ea0-b829-d25fc86fb705")
     Object mIsExecutable = OptionalBoolean.OUNDEFINED;
 
-    @objid ("23eb5948-4b3e-4467-b0e4-6e9178cc534a")
+    @objid ("59297cdc-13f3-41a1-8494-3a66d218770b")
     List<SmObjectImpl> mSupports = null;
 
-    @objid ("cb6f62ff-e2e0-4f13-9ef4-d002f421e14b")
+    @objid ("114ca73b-956c-4b8e-9e56-6670c16668a9")
     List<SmObjectImpl> mArtifact = null;
 
-    @objid ("b7da39ad-a717-4e02-b5d9-8a6b8e6bc475")
+    @objid ("a15302a6-ba6a-419c-9806-92bec62ec51f")
     SmObjectImpl mLaneSet;
 
-    @objid ("343b121d-0da2-4eb3-9ab5-0bee5a9d7d1e")
+    @objid ("c2e3de07-6eb0-4bf0-acb0-d85851c5bd7b")
     List<SmObjectImpl> mSupported = null;
 
-    @objid ("a663c69d-5b5e-480e-b8ca-d4375c977b1b")
+    @objid ("573c5f27-4ddc-4608-a565-c467ce0de42b")
     List<SmObjectImpl> mParticipant = null;
 
-    @objid ("07c632c3-28d1-4e56-8cce-66a30977b025")
+    @objid ("dd3e9fb4-2f24-4db8-a74b-dfc7d4f0ed34")
     List<SmObjectImpl> mFlowElement = null;
 
-    @objid ("f172eb12-0447-4cde-bc38-01859edfb2c5")
+    @objid ("77757a23-59e1-4b06-932d-cab04375a861")
     List<SmObjectImpl> mResource = null;
 
-    @objid ("3df6b801-6dfc-4067-b08a-9b80424b570c")
+    @objid ("6c2bbde9-c392-43f3-86e0-d3816271019c")
     SmObjectImpl mDefinitionalCollaboration;
 
-    @objid ("9731f0ae-6096-4a1a-adf4-93cb588af7f4")
-    public  BpmnProcessData(BpmnProcessSmClass smClass) {
+    @objid ("df000134-52ed-4ea3-8715-1343d242808e")
+    public BpmnProcessData(BpmnProcessSmClass smClass) {
         super(smClass);
     }
 

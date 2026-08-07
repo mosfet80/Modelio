@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -72,12 +72,13 @@ public class TemplateBindingPropertyModel extends AbstractPropertyModel<Template
      * parameters on the bound namespace or operations. Deletes the obsolete
      * substitutions and create the missing ones with theEditedElement default
      * values.
+     *
      * @param aTemplateBinding the binding to update
      */
     @objid ("c16f92d9-fedd-447f-9241-63fe857e0f22")
     static void updateTemplateBinding(TemplateBinding aTemplateBinding, IMModelServices mmService) {
         List<TemplateParameter> parameters;
-        
+
         Operation op = aTemplateBinding.getInstanciatedTemplateOperation();
         NameSpace ns = aTemplateBinding.getInstanciatedTemplate();
         if (op != null && aTemplateBinding.getBoundOperation() != null) {
@@ -90,26 +91,26 @@ public class TemplateBindingPropertyModel extends AbstractPropertyModel<Template
             parameters = new ArrayList<>();
             aTemplateBinding.setName("");
         }
-        
+
         // Clear all obsolete TemplateParameterSubstitution
         for (TemplateParameterSubstitution sub : new ArrayList<>(aTemplateBinding.getParameterSubstitution())) {
             if (!parameters.contains(sub.getFormalParameter())) {
                 sub.delete();
             }
         }
-        
+
         // Create missing substitutions
         EList<TemplateParameterSubstitution> substitutions = aTemplateBinding.getParameterSubstitution();
         List<TemplateParameter> substituedParameters = new ArrayList<>(substitutions.size());
-        
+
         for (TemplateParameterSubstitution sub : substitutions) {
             substituedParameters.add(sub.getFormalParameter());
         }
-        
+
         IStandardModelFactory mmFactory = mmService.getModelFactory().getFactory(IStandardModelFactory.class);
         for (TemplateParameter param : parameters) {
             if (!substituedParameters.contains(param)) {
-                
+
                 TemplateParameterSubstitution newSub = mmFactory.createTemplateParameterSubstitution();
                 newSub.setFormalParameter(param);
                 newSub.setName(param.getName());
@@ -118,25 +119,27 @@ public class TemplateBindingPropertyModel extends AbstractPropertyModel<Template
                 aTemplateBinding.getParameterSubstitution().add(newSub);
             }
         }
-        
+
     }
 
     /**
      * Create a new <i>TemplateBinding</i> data model from an
      * <i>TemplateBinding</i>.
+     *
      * @param theEditedElement the edited element.
      * @param modelService the model services
      */
     @objid ("61202dfd-d4f8-44d2-8488-01aa6387d2ef")
-    public  TemplateBindingPropertyModel(TemplateBinding theEditedElement, IMModelServices modelService) {
+    public TemplateBindingPropertyModel(TemplateBinding theEditedElement, IMModelServices modelService) {
         super(theEditedElement);
         this.modelService = modelService;
         this.isOperation = (theEditedElement.getBoundOperation() != null);
-        
+
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("2a895fd0-1fa4-4e1b-a6f4-3e7b04f9e23e")
@@ -147,6 +150,7 @@ public class TemplateBindingPropertyModel extends AbstractPropertyModel<Template
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("5abcf1c5-ed9d-4599-b4ca-6bf6d10a0123")
@@ -164,7 +168,7 @@ public class TemplateBindingPropertyModel extends AbstractPropertyModel<Template
             }
             return Collections.emptyList();
         }
-        
+
         NameSpace ns = this.theEditedElement.getInstanciatedTemplate();
         if (ns != null) {
             return ns.getTemplate();
@@ -179,6 +183,7 @@ public class TemplateBindingPropertyModel extends AbstractPropertyModel<Template
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -187,7 +192,7 @@ public class TemplateBindingPropertyModel extends AbstractPropertyModel<Template
     @Override
     public INatValue getValueAt(int row, int col) {
         switch (col) {
-        case 0: 
+        case 0:
             // col 0 is the property key
             String val;
             if (row < 2) {
@@ -196,10 +201,10 @@ public class TemplateBindingPropertyModel extends AbstractPropertyModel<Template
                 // It is a template substitution row
                 val = "  " + getTemplateParameters().get(row - 2).getName() + " = ";
             }
-            
+
             return new DefaultStringNatValue(val, false);
-        case 1: 
-            // col 1 is the property value 
+        case 1:
+            // col 1 is the property value
             switch (row) {
             case 0: // Header
                 return new DefaultStringNatValue(getPropertyI18n(AbstractPropertyModel.VALUE_ID), false);
@@ -214,7 +219,7 @@ public class TemplateBindingPropertyModel extends AbstractPropertyModel<Template
                             this.theEditedElement.getInstanciatedTemplate(), true,
                             Collections.singletonList(NameSpace.class));
                 }
-        
+
             default:
                 // parameter substitutions
                 TemplateParameterSubstitutionPropertyModel subModel = getSubModel(row, col);
@@ -223,22 +228,23 @@ public class TemplateBindingPropertyModel extends AbstractPropertyModel<Template
                 } else {
                     TemplateParameter templateParam = getTemplateParameters().get(row - 2);
                     return new DefaultHybridNatValue(
-                            getDefaultValue(templateParam), 
+                            getDefaultValue(templateParam),
                             true,
-                            TemplateParameterSubstitutionPropertyModel.getSubstitutionsAllowedMetaclasses(templateParam), 
+                            TemplateParameterSubstitutionPropertyModel.getSubstitutionsAllowedMetaclasses(templateParam),
                             true);
                 }
             }
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -259,9 +265,9 @@ public class TemplateBindingPropertyModel extends AbstractPropertyModel<Template
                 } else {
                     this.theEditedElement.setInstanciatedTemplate((NameSpace) value);
                 }
-        
+
                 updateTemplateBinding(this.theEditedElement, this.modelService);
-        
+
                 break;
             default:
                 // It is a template substitution
@@ -272,7 +278,7 @@ public class TemplateBindingPropertyModel extends AbstractPropertyModel<Template
         default:
             return;
         }
-        
+
     }
 
     /**
@@ -281,6 +287,7 @@ public class TemplateBindingPropertyModel extends AbstractPropertyModel<Template
      * <p>
      * Calling {@link #updateTemplateBinding(TemplateBinding, IMModelServices)} before this method should
      * ensure it won't return <i>null</i>.
+     *
      * @param row the edited row
      * @param col the edited column
      * @return a matching {@link TemplateBindingPropertyModel} or <i>null</i>.
@@ -294,7 +301,7 @@ public class TemplateBindingPropertyModel extends AbstractPropertyModel<Template
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("1a6300ac-8375-4fa2-b955-31409a4c9026")

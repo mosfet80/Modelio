@@ -1,0 +1,11 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= The Analyst diagrams
+
+.An example of a Requirement diagram
+image::images/attachment/analyst41/User_Documentation_en/Analyst_diagrams/Analyst-Diagrams_analystdiagram.png[Analyst-Diagrams_analystdiagram.png]
+
+

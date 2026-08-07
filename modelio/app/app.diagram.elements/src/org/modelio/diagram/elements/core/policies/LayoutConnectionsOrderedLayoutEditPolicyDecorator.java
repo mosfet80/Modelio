@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.policies;
 
@@ -38,6 +38,7 @@ import org.eclipse.gef.requests.GroupRequest;
  * Pass to the constructor the real {@link OrderedLayoutEditPolicy layout policy}
  * <p>
  * With this policy there is no need to use {@link LayoutNodeConnectionsEditPolicy} on the child edit parts.
+ *
  * @author cma
  * @see LayoutEditPolicy
  * @since 5.1.0
@@ -45,10 +46,11 @@ import org.eclipse.gef.requests.GroupRequest;
 @objid ("b686f483-d6d1-46e5-a276-5656f7019c10")
 public class LayoutConnectionsOrderedLayoutEditPolicyDecorator extends LayoutConnectionsAbstractLayoutEditPolicyDecorator {
     /**
+     *
      * @param decorated the initial layout edit policy.
      */
     @objid ("4a47d43f-8079-459f-b005-353880399bdb")
-    public  LayoutConnectionsOrderedLayoutEditPolicyDecorator(OrderedLayoutEditPolicy decorated) {
+    public LayoutConnectionsOrderedLayoutEditPolicyDecorator(OrderedLayoutEditPolicy decorated) {
         super( decorated);
     }
 
@@ -58,7 +60,7 @@ public class LayoutConnectionsOrderedLayoutEditPolicyDecorator extends LayoutCon
         LayoutChildrenNodeConnectionsHelper.forRequest(request)
         .addEditParts(getHost().getChildren())
         .createCommands(command);
-        
+
     }
 
     @objid ("92a8999a-f8a1-430a-87ea-16ade66d161e")
@@ -67,11 +69,12 @@ public class LayoutConnectionsOrderedLayoutEditPolicyDecorator extends LayoutCon
         LayoutChildrenNodeConnectionsHelper.forRequest(request)
         .addEditParts(getHost().getChildren())
         .createCommands(command);
-        
+
     }
 
     /**
      * Add <code>Commands</code> to perform a create.
+     *
      * @param request the CreateRequest
      */
     @objid ("ff30f0ff-0bc6-46ac-8b04-ddc2131e5741")
@@ -80,7 +83,7 @@ public class LayoutConnectionsOrderedLayoutEditPolicyDecorator extends LayoutCon
         LayoutChildrenNodeConnectionsHelper.forRequest(request)
         .addEditParts(getHost().getChildren())
         .createCommands(command);
-        
+
     }
 
     /**
@@ -88,6 +91,7 @@ public class LayoutConnectionsOrderedLayoutEditPolicyDecorator extends LayoutCon
      * <p>
      * This method does not get called unless the child forwards an additional request to the
      * container editpart.
+     *
      * @param request the Request
      */
     @objid ("2e895f92-dfe9-4e9c-8cda-37a840180d88")
@@ -97,11 +101,12 @@ public class LayoutConnectionsOrderedLayoutEditPolicyDecorator extends LayoutCon
         .addEditParts(getHost().getChildren())
         .removeEditParts(request)
         .createCommands(command);
-        
+
     }
 
     /**
      * Add <code>Commands</code> to move a group of children.
+     *
      * @param request the Request
      */
     @objid ("48143f6a-e0ea-4809-8e55-de282e8aa3de")
@@ -110,7 +115,7 @@ public class LayoutConnectionsOrderedLayoutEditPolicyDecorator extends LayoutCon
         LayoutChildrenNodeConnectionsHelper.forRequest(request)
         .addEditParts(getHost().getChildren())
         .createCommands(command);
-        
+
     }
 
     /**
@@ -126,6 +131,7 @@ public class LayoutConnectionsOrderedLayoutEditPolicyDecorator extends LayoutCon
      * example, a Table layout might simplify itself by collapsing any unused
      * columns and rows.
      * </ul>
+     *
      * @param request the Request
      */
     @objid ("894efe5a-c692-42da-9153-a22888ea1461")
@@ -135,7 +141,7 @@ public class LayoutConnectionsOrderedLayoutEditPolicyDecorator extends LayoutCon
         .addEditParts(getHost().getChildren())
         .removeEditParts(request)
         .createCommands(command);
-        
+
     }
 
 }

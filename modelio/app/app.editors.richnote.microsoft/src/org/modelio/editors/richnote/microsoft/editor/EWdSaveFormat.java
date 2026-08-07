@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.microsoft.editor;
 
@@ -23,6 +23,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * Specifies the format to use when saving a Word document.
+ *
  * @see <a href="http://msdn.microsoft.com/en-us/library/ff839952.aspx">Office 2010 documentation </a>
  * @see <a href="http://msdn.microsoft.com/en-us/library/bb238158.aspx">Office 2007 documentation </a>
  */
@@ -173,12 +174,13 @@ enum EWdSaveFormat {
     private int value;
 
     @objid ("8701724c-5a5b-4d3a-8fc2-67eae9fa8760")
-    private  EWdSaveFormat(int v) {
+    private EWdSaveFormat(int v) {
         this.value = v;
     }
 
     /**
      * Get the matching Word WdSaveFormat value.
+     *
      * @return the Ms Word matching value.
      */
     @objid ("703c473a-0699-440c-81e8-4bc0f725e681")
@@ -188,6 +190,7 @@ enum EWdSaveFormat {
 
     /**
      * Get the enum value matching the given integer constant.
+     *
      * @param v a Word WdSaveFormat constant.
      * @return the matching enum.
      */
@@ -198,7 +201,7 @@ enum EWdSaveFormat {
                 return l;
         }
         throw new IllegalArgumentException(v+" is not a known format.");
-        
+
     }
 
 }

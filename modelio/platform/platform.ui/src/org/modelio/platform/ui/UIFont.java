@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.ui;
 
@@ -27,12 +27,12 @@ import org.eclipse.swt.widgets.Display;
 
 /**
  * The UIFont fonts are pre-allocated resources for Modelio that can be used without having to deal with their lifecycle (they are available once Modelio starts and only freed when Modelio stops).<br/>
- * 
+ *
  * <b>Modelio developers must use these fonts wherever it is possible prior to defining 'customs' by {@link CoreFontRegistry#getModifiedFont(Font, int, float)} .</b>
  * <p>
  * The font face is the <u>one of the system default font</u>. The NORMAL size is the size of the system default font. All other scale factors are relative to this NORMAL font size which scale is considered to be 1.0.
  * </p>
- * 
+ *
  * <p>
  * The naming indicates the properties of the font:
  * <ul>
@@ -154,5 +154,5 @@ public interface UIFont {
 
     @objid ("8e36949e-743e-4e36-a16c-8303ad32cee0")
     public static final Font XXLARGEBI = BASE_FONT_BUILDER.copy().scale(XXLARGE_SIZE).addStyle(SWT.BOLD | SWT.ITALIC).build();
-}
 
+}

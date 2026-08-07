@@ -1,0 +1,162 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+// Hightlight code source and add the line number
+:source-highlighter: coderay
+:coderay-linenums-mode: table
+
+= Concepts
+
+This chapter reviews the main concepts used and implemented by Modelio Workflow. +
+These main concepts are:
+
+. Model element managed by a workflow
+. State
+. Transition, possible transition, allowed transition
+. Definition of a workflow
+. Workflow instances
+. General process for using Modelio Workflow
+
+== Model element managed in workflow
+
+A model element managed in a workflow is a model element whose status is to be managed and monitored as part of a particular workflow.
+This element must *first be registered* in the considered workflow in order to have a state in this workflow.
+
+When registering  a model element in a workflow, the state of the model element is *Initial* which becomes the current state of the model element.
+This is true for all workflow. Subsequently, the workflow transitions that will occur will change this current state to another state.
+
+In a model, only certain elements will in practice be managed in Workflow.
+This is because not all of the elements of a model require life cycle management.
+In general, managing the life cycle of an element in a model is only relevant for high-level elements, typically packages,
+components or other artifacts. These elements are said to be complex because they are made up of many parts and other sub-elements.
+
+_For example, a BPMN process designer is unlikely to be interested in the life cycle of each activity in the process but rather in the process
+as a whole: _dev in progress_, _ready for testing_, _validated_ and so on._
+
+However, Modelio Workflow does not impose any particular limit on the nature of the elements that can be managed in Workflow excepted that  these elements
+must support stereotyping, that is to say that they must be ModelElement. This technical restriction caused by  the internally used modeling techniques
+has no practical impact on the user experience.
+
+== State
+
+When an element is managed in Workflow, it has a state which is called its *current state*.
+There are a finite number of possible states for a given Workflow, this list of possible states constituting the very basis of the *Workflow definition*.
+Choosing and defining meaningful and relevant states for the development cycle and methodology used is the the Workflow Designer responsibility.
+Of course the current state of a model element can be changed by applying *Transitions*
+
+== Transition
+
+A transition represents the change of the current state *E1* from a model element managed by workflow *W* to another state *E2*.
+Note the following rules:
+
+. state *E1* belongs by definition to workflow *W*
+. state *E2* also belongs to workflow *W*, which means that there are no cross workflow transitions
+. all the possible states of the workflow *W* are not systematically accessible from a given current state *E*. This is one of the main benefit of workflow management:
+only allow certain transitions thereby  guiding and sequencing the evolutions of the model element.
+
+The set of possible transitions along with the state pairs linked by these transitions are defined in the workflow definition graph.
+
+== Workflow Definition
+
+The definition of a workflow is essentially the graph of the possible states and transitions that are applicable to an element registered in this workflow.
+The workflow thus defines, in addition to the possible states, the transitions allowing to pass from one of these states to another one.
+The figure below shows an example of a workflow for a document review cycle before publication:
+
+.An example of a document review workflow.
+
+image::images/WorkflowReviewExample.png[]
+
+The Workflow can be used to follow the evolution of a document  review cycle. The rectangles correspond to the states, the arrows to the possible transitions.
+
+A document can go from the state *Editing in progress* to the state *Ready for review*, this transition will probably be applied by the document author  when he considers
+that his drafting work is complete and that the document can be reviewed.
+However, this same author can not change the status of the document directly to *Publishable* because no transition exists between *Editing in progress*
+ and *Publishable* .
+
+The dotted red arrow link  shows the 'missing ' transition whose absence  forbids a direct state change from *Editing in progress* to *Publishable*).
+ The absence of this transition is clearly a design choice of the developer of the workflow. In other words, the workflow definition graph contains all the logic
+ and semantics of the workflow.
+
+As part of the application of this workflow, it is likely that another participant to the project, with a reviewer role for example, will be able, after reviewing the document,
+to put the document in the *To be corrected* or *Publishable* state depending on the result of the review.
+
+Here, an important feature of workflow management is to be understood:  a possible transition is not necessarily achievable by just any actor. +
+In terms of vocabulary,  two situations will be distinguished by talking about *possible* transition when it comes to the workflow definition graph and *authorized* (or *allowed*) transition
+when the user's rights come into play. +
+Note that an authorized transition is always a possible transition, but the converse is not true.
+
+The workflow definition, along with the state and transition graph, will also hold some properties such as its name, the description of its purpose, its version, its author. and so on.
+
+== Diversity of the workflow
+
+The development processes likely to benefit from the exploitation of a workflow are numerous and diversified, at least as much as the professions
+and the organizations that implement them. Indeed, each profession, each organization has its own working methods, methodology and needs.
+
+A workflow definition mainly depends on:
+
+* the objective of the workflow in its business domain: workflow content, states and transitions defining the follow-up to be carried out.
+* the field of application, ie the types of the model elements to be managed b the workflow
+
+*Modelio Workflow Designer* allows you to define as many different workflow as needed at will. These workflow have to be first modeled by a *workflow designer*
+and then *deployed* in the projects where they are needed.
+
+*Modelio Workflow User* can then use these workflow definitions to create so called *workflow instances* in order to manage the project model elements.
+
+== Using a workflow - notion of workflow instance
+
+A given type of workflow,  ie a Workflow definition, can be used  in several contexts:
+
+* in different projects.
+* at different times in a given project.
+* on different parts of the same project.
+
+The first case, reuse in several projects, does not pose particular problems because the projects are separated without intersection.
+
+The other two cases justify distinguishing the definition of a workflow, which lists its possible states and transitions, from its uses.
+
+====
+*Example:*
+
+As part of a project, let define an extremely simple  workflow named *Validation* defining four states: _initial_, _to be validated_, _validated OK_, _validated KO_.
+
+This workflow is initially used  to follow the validation of a part of the model noted *Part1*.
+
+Later on, while the *Validation* workflow is being applied on *Part1*, it appears that  the *Validation* workflow has to be used on another set of model elements
+constituting part *Part2* of the model. However, this *Part2* validation cycle, being a separate task, must not interfere with what is happening on *Part1* .
+
+To distinguish between  the two jobs:  validation of Part1 and validation of Part2, two so called *workflow instances* can be defined such as:
+
+* both workflow instances shares the  *Validation* workflow definition, ie they will provide the same state and transitions logic.
+* each instance receives a specific relevant name: *Validation of Part1* and *Validation of Part2* for example.
+* the model elements of *Part1* are registered in the workflow instance  *Validation of Part1*
+* the model elements of *Part2* are registered in the workflow instance *Validation of Part2*
+
+The workflow instances are used exactly as they were two separated workflow except that they obey to the same state and transition graph. +
+Thus at any time it will be possible to consult and analyze the model under the angle of *Validation of Part 1* or that of *Validation of part 2*.
+
+====
+
+A *workflow instance* is a particular occurrence of a workflow, defined by:
+
+* the type of workflow (its workflow definition) to apply
+* the elements which are subject to it (registered elements)
+* a name,a description and properties that helps distinguishing  the instance
+
+== How to start  ?
+
+In order to  use a workflow in a project:
+
+. Identify and obtain the workflow to use
+.. either choose an existing off-the-shelf workflow
+.. or have a specific  "custom" workflow developed for your usage
+. Install the workflow in the project (s). This operation is carried out in the project configuration pages of the Modelio Server administration pages
+. Create one or more instances of the workflow
+. Register the relevant model elements in the workflow instance(s)
+. Use of workflow instance(s) in the project:
+.. Apply transitions
+.. Consult report matrices
+.. Generate documentation
+
+

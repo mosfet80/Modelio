@@ -1,0 +1,33 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= La commande "Créer un tag"
+
+
+
+=== Description
+
+La commande "Créer un tag" permet à un utilisateur ayant des droits suffisants de créer un tag ou une branche SVN pour le modèle.
+
+Une boîte de dialogue permet à l'utilisateur de saisir l'URL complète du tag, ainsi qu'une description. L'URL du tag doit être une URL absolue se trouvant au sein du référentiel. Le tag / la branche est créé(e) pour la dernière révision du référentiel. [[Conditions-et-restrictions]]
+
+
+=== Conditions et restrictions
+
+La commande "Créer un tag" ne peut être lancée que depuis des éléments non modifiés. [[Interface-utilisateur]]
+
+
+=== Interface utilisateur
+
+La commande "Créer un tag" ouvre la fenêtre suivante :
+
+.La fenêtre "Créer un tag"
+image::images/attachment/modeliocom41/User_Documentation_fr/Commandes_administration/Creer_un_tag/TW_012_create_tag.png[TW_012_create_tag.png]
+
+
+
+=== Comportement
+
+La commande "Créer un tag" crée un tag ou une branche pour le modèle.

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.patterns.exporter.impl;
 
@@ -67,7 +67,7 @@ class FileWriterUtil implements AutoCloseable {
         } catch (IOException e) {
             Patterns.LOG.debug(e);
         }
-        
+
     }
 
     @objid ("0f096d26-eb93-4a93-b4d4-65d9aea6c153")
@@ -83,7 +83,7 @@ class FileWriterUtil implements AutoCloseable {
         } catch (IOException e) {
             Patterns.LOG.debug(e);
         }
-        
+
     }
 
     @objid ("98de30f0-ba8f-408d-b434-4283c19f047b")
@@ -96,7 +96,7 @@ class FileWriterUtil implements AutoCloseable {
                 this.hWriter.write("private void createModel" + (this.methodIndex) + "()throws Exception {");
                 this.hWriter.newLine();
             }
-        
+
             if (contents != null) {
                 if ((this.counter < 1000)) {
                     this.hWriter.write(contents);
@@ -116,7 +116,7 @@ class FileWriterUtil implements AutoCloseable {
         } catch (IOException e) {
             Patterns.LOG.debug(e);
         }
-        
+
     }
 
     @objid ("6555e2ab-90f1-421f-b657-e022eca4f8fd")
@@ -130,11 +130,11 @@ class FileWriterUtil implements AutoCloseable {
         } catch (IOException e) {
             Patterns.LOG.debug(e);
         }
-        
+
     }
 
     @objid ("4b7093e7-01cc-4484-b1fa-f15b8c1c7f9e")
-    public  FileWriterUtil(Path path) {
+    public FileWriterUtil(Path path) {
         if (path != null) {
             try {
                 if (Files.exists(path)) {
@@ -147,7 +147,7 @@ class FileWriterUtil implements AutoCloseable {
         }
         this.counter = 0;
         this.methodIndex = 1;
-        
+
     }
 
 }

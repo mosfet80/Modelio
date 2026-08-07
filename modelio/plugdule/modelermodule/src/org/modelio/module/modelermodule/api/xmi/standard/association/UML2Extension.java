@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class UML2Extension {
      * Tells whether a {@link UML2Extension proxy} can be instantiated from a {@link MObject} checking it is a {@link Association} stereotyped << UML2Extension >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,7 +73,7 @@ public class UML2Extension {
 
     /**
      * Create a new {@link Association} stereotyped << UML2Extension >> then instantiate a {@link UML2Extension} proxy.
-     * 
+     *
      * @return a {@link UML2Extension} proxy on the created {@link Association}.
      */
     @objid ("2be3d41e-a6b2-46e9-9a67-354a0390ebe3")
@@ -83,9 +84,10 @@ public class UML2Extension {
     }
 
     /**
-     * Tries to instantiate a {@link UML2Extension} proxy from a {@link Association} stereotyped << UML2Extension >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2Extension} proxy from a {@link Association} stereotyped << UML2Extension >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a Association
      * @return a {@link UML2Extension} proxy or <i>null</i>.
      */
@@ -95,9 +97,10 @@ public class UML2Extension {
     }
 
     /**
-     * Tries to instantiate a {@link UML2Extension} proxy from a {@link Association} stereotyped << UML2Extension >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2Extension} proxy from a {@link Association} stereotyped << UML2Extension >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link Association}
      * @return a {@link UML2Extension} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -127,7 +130,8 @@ public class UML2Extension {
     }
 
     /**
-     * Get the underlying {@link Association}. 
+     * Get the underlying {@link Association}.
+     *
      * @return the Association represented by this proxy, never null.
      */
     @objid ("662f91f5-71e6-4375-bafc-643be6955cf1")
@@ -139,11 +143,11 @@ public class UML2Extension {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("c27a3381-8f2f-4cd9-8d27-b1db2d67151e")
-    protected  UML2Extension(Association elt) {
+    protected UML2Extension(Association elt) {
         this.elt = elt;
     }
 
@@ -163,7 +167,7 @@ public class UML2Extension {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "4b4745a9-5d0c-11df-a996-001302895b2b");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -171,7 +175,7 @@ public class UML2Extension {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

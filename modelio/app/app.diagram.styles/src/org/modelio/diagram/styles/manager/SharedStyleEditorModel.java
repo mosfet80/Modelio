@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.styles.manager;
 
@@ -40,7 +40,7 @@ import org.modelio.diagram.styles.core.view.LegacyStyleKeyProviderSymbolViewMode
 
 /**
  * {@link ISymbolViewModel} that looks for all style key providers and concatenates their symbol view models.
- * 
+ *
  * @author cma
  * @since 3.7
  */
@@ -50,12 +50,12 @@ public class SharedStyleEditorModel implements ISymbolViewModel {
     private final List<ISymbolViewItem> roots;
 
     @objid ("2f447a4b-ac8c-4cc6-967c-edb1e5968483")
-    public  SharedStyleEditorModel(IStyle style) {
+    public SharedStyleEditorModel(IStyle style) {
         this.roots = new ArrayList<>();
         Map<String, List<StyleKey>> allStyleKeys = new HashMap<>();
         Collection<StyleKey> managedKeys = new HashSet<>();
         Collection<AbstractStyleKeyProvider> legacyProviders = new ArrayList<>();
-        
+
         for (AbstractStyleKeyProvider styleKeyProvider : FactoryStyle.getInstance().getStyleKeyProviders()) {
             // ignore inner classes
             if (styleKeyProvider.getClass().getDeclaringClass() == null) {
@@ -71,7 +71,7 @@ public class SharedStyleEditorModel implements ISymbolViewModel {
                 }
             }
         }
-        
+
         for (AbstractStyleKeyProvider skp : legacyProviders) {
             List<StyleKey> providerKeys = skp.getStyleKeys();
             for (StyleKey key : providerKeys) {
@@ -83,15 +83,15 @@ public class SharedStyleEditorModel implements ISymbolViewModel {
                 }
             }
         }
-        
+
         for (Entry<String, List<StyleKey>> entry : allStyleKeys.entrySet()) {
             LegacyStyleKeyProviderSymbolViewModel legacyModel = new LegacyStyleKeyProviderSymbolViewModel(entry.getKey(), entry.getValue(), null);
             RootNode rn = new RootNode(legacyModel);
             this.roots.add(rn);
         }
-        
+
         Collections.sort(this.roots, (o1, o2) -> o1.getLabel().compareTo(o2.getLabel()));
-        
+
     }
 
     @objid ("d14ddac1-258f-463d-9bc3-cbf3c84ae57a")
@@ -109,7 +109,7 @@ public class SharedStyleEditorModel implements ISymbolViewModel {
         } else if (entry instanceof ProxyNode) {
             ProxyNode pn = (ProxyNode) entry;
             return toProxies(pn.getModel().getChildren(pn.delegate), pn, pn.getModel());
-        
+
         }
         return Collections.emptyList();
     }
@@ -155,7 +155,7 @@ public class SharedStyleEditorModel implements ISymbolViewModel {
         private final ISymbolViewModel model;
 
         @objid ("8a284828-c28a-4573-b48a-cf85c2e0bc0e")
-        public  RootNode(ISymbolViewModel model) {
+        public RootNode(ISymbolViewModel model) {
             this.model = model;
         }
 
@@ -265,13 +265,13 @@ public class SharedStyleEditorModel implements ISymbolViewModel {
         private final ISymbolViewModel rootModel;
 
         @objid ("34633570-c267-4c52-a27e-616e5ee462d4")
-        public  ProxyNode(ISymbolViewItem delegate, ISymbolViewModel delegateModel, ISymbolViewModel rootModel, ISymbolViewItem parentNode) {
+        public ProxyNode(ISymbolViewItem delegate, ISymbolViewModel delegateModel, ISymbolViewModel rootModel, ISymbolViewItem parentNode) {
             super();
             this.delegate = delegate;
             this.rootModel = rootModel;
             this.model = delegateModel;
             this.parentNode = parentNode;
-            
+
         }
 
         @objid ("9c1a0c34-401d-4835-8720-458efadaae7f")
@@ -304,7 +304,7 @@ public class SharedStyleEditorModel implements ISymbolViewModel {
             if (this.delegate.isLocallyModified(input)) {
                 return true;
             }
-            
+
             for (ISymbolViewItem child : this.rootModel.getChildren(this)) {
                 if (child.isLocallyModified(input)) {
                     return true;

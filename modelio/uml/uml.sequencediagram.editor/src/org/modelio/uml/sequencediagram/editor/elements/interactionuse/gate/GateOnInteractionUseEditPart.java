@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.interactionuse.gate;
 
@@ -38,7 +38,7 @@ import org.modelio.metamodel.uml.behavior.interactionModel.Gate;
 
 /**
  * EditPart for Gate on an InteractionUse. Specialisation of a PortContainerEditPart.
- * 
+ *
  * @author fpoyer
  */
 @objid ("d912cb6d-55b6-11e2-877f-002564c97630")
@@ -74,7 +74,6 @@ public class GateOnInteractionUseEditPart extends PortContainerEditPart {
     protected void createEditPolicies() {
         super.createEditPolicies();
         removeEditPolicy(LayoutMainNodeConnectionsEditPolicy.ROLE);
-        
     }
 
     @objid ("ca235194-d829-450e-b164-5c038b7a54dc")
@@ -84,12 +83,11 @@ public class GateOnInteractionUseEditPart extends PortContainerEditPart {
             @Override
             public void activate() {
                 super.activate();
-        
+
                 EditPart host = getHost();
                 host.removeEditPolicy(LayoutNodeConnectionsEditPolicy.ROLE);
             }
         };
-        
     }
 
     @objid ("5c9a5b5d-cb5e-4548-bb29-9f11a73123d4")

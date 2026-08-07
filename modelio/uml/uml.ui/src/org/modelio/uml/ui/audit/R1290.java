@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -56,7 +56,7 @@ public class R1290 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -75,7 +75,7 @@ public class R1290 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         plan.registerRule(InstanceNode.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(ObjectFlow.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE | AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -109,14 +109,14 @@ public class R1290 extends AbstractUmlRule {
      * Default constructor for R1290
      */
     @objid ("0456e323-dd1a-41d1-8ebd-64573fad1b47")
-    public  R1290() {
+    public R1290() {
         this.checkerInstance = new CheckR1290(this);
     }
 
     @objid ("cb695c59-9c2b-427d-9ebe-986b6e40fdb4")
     private static class CheckR1290 extends AbstractControl {
         @objid ("7ddc2e71-d3f1-4cce-8eab-0ea17d613b8e")
-        public  CheckR1290(IRule rule) {
+        public CheckR1290(IRule rule) {
             super(rule);
         }
 
@@ -136,50 +136,50 @@ public class R1290 extends AbstractUmlRule {
         @objid ("c11561a1-d354-4f95-9726-c5c77b10f449")
         private IAuditEntry checkR1290(ObjectFlow objectFlow) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, objectFlow, null);
-            
+
             ActivityNode sourceNode = objectFlow.getSource();
             ActivityNode targetNode = objectFlow.getTarget();
-            
+
             // If one of the end of the ObjectFlow is not an ObjectNode, rule
             // does not apply.
             if (!(sourceNode instanceof InstanceNode) || !(targetNode instanceof InstanceNode)) {
                 return auditEntry;
             }
-            
+
             List<GeneralClass> sourceClasses = new ArrayList<>();
             List<GeneralClass> targetClasses = new ArrayList<>();
-            
+
             // Look for the first ObjecNodes, which is not a ControlType, on
             // each path in the source and target directions, and stores its
             // Type in a list.
             findSourceClasses(sourceNode, sourceClasses, new ArrayList<ActivityNode>());
             findTargetClasses(targetNode, targetClasses, new ArrayList<ActivityNode>());
-            
+
             // No ObjectNode, which is not a ControlType, was found in one of
             // the direction.
             if (sourceClasses.isEmpty() || targetClasses.isEmpty()) {
                 return auditEntry;
             }
-            
+
             try {
-            
+
                 // Checking the types of the found Classes.
                 KindOfType result = computeKindOfType(sourceClasses, targetClasses);
-            
+
                 // Types are NULL and NOTNULL, the rule failed.
                 if (result == KindOfType.MIX) {
                     throw new Exception();
                 } else if (result == KindOfType.NULL) {
                     return auditEntry;
                 }
-            
+
                 List<GeneralClass> sourceSuperClasses = findSuperTypesIntersection(sourceClasses);
-            
+
                 // No intersection was found in the types of the source nodes.
                 if (sourceSuperClasses.isEmpty()) {
                     throw new Exception();
                 }
-            
+
                 // Check if all target nodes are types or super types of the
                 // types of the source nodes.
                 for (GeneralClass targetClass : targetClasses) {
@@ -189,7 +189,7 @@ public class R1290 extends AbstractUmlRule {
                 }
             } catch (@SuppressWarnings("unused") Exception e) {
                 // Rule failed
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(objectFlow);
@@ -201,20 +201,20 @@ public class R1290 extends AbstractUmlRule {
         @objid ("3ca5c317-7e29-4217-bdb6-c85d24cd17f1")
         private List<IAuditEntry> checkR1290(InstanceNode objectNode) {
             List<IAuditEntry> auditEntries = new ArrayList<>();
-            
+
             // The ObjectNode is a control, rule does not apply.
             if (objectNode.isIsControlType()) {
                 return auditEntries;
             } else {
-            
+
                 List<ObjectFlow> sourceObjectFlows = new ArrayList<>();
                 List<ObjectFlow> targetObjectFlows = new ArrayList<>();
-            
+
                 // Fetches all the object flows on the path between our object
                 // node and other object nodes.
                 findSourceFlows(objectNode, sourceObjectFlows, new ArrayList<ObjectFlow>());
                 findTargetFlows(objectNode, targetObjectFlows, new ArrayList<ObjectFlow>());
-            
+
                 // Check the rule on all the found flows.
                 for (ObjectFlow sourceObjectFlow : sourceObjectFlows) {
                     auditEntries.add(checkR1290(sourceObjectFlow));
@@ -228,34 +228,35 @@ public class R1290 extends AbstractUmlRule {
 
         /**
          * Find if there are types that are super types of all the given classes.
+         *
          * @param sourceClasses The source Classes.
          * @return The list of the super Classes or an empty list is no such Classes are found.
          */
         @objid ("49f4bb31-4277-49fd-9dc3-84e982b08744")
         private List<GeneralClass> findSuperTypesIntersection(List<GeneralClass> sourceClasses) {
             List<GeneralClass> intersection = new ArrayList<>();
-            
+
             for (GeneralClass genClass : sourceClasses) {
-            
+
                 Set<GeneralClass> srcTypes = new HashSet<>();
                 getAllSuperTypes(genClass, srcTypes);
-            
+
                 // If the intersection list is empty, we add all the super types
                 // of the first node.
                 if (intersection.isEmpty()) {
                     intersection.addAll(srcTypes);
                 } else {
-            
+
                     List<GeneralClass> tmpIntersection = new ArrayList<>();
-            
+
                     for (GeneralClass srcGenClass : srcTypes) {
                         if (intersection.contains(srcGenClass)) {
                             tmpIntersection.add(srcGenClass);
                         }
                     }
-            
+
                     intersection = tmpIntersection;
-            
+
                     // No intersection was found between two types
                     if (intersection.isEmpty()) {
                         return intersection;
@@ -267,6 +268,7 @@ public class R1290 extends AbstractUmlRule {
 
         /**
          * Check the type of source and target classes and return it.
+         *
          * @param sourceClasses The source Classes
          * @param targetClasses The target Classes
          * @return The KinfOfType of source and target Classes.
@@ -277,9 +279,9 @@ public class R1290 extends AbstractUmlRule {
             List<GeneralClass> allNodes = new ArrayList<>();
             allNodes.addAll(sourceClasses);
             allNodes.addAll(targetClasses);
-            
+
             KindOfType kindOfType = null;
-            
+
             for (GeneralClass genClass : allNodes) {
                 if (genClass == null) {
                     if (kindOfType == null) {
@@ -300,6 +302,7 @@ public class R1290 extends AbstractUmlRule {
 
         /**
          * Gets All the super types of a type.
+         *
          * @param type The class to start from.
          * @param superTypes The list of found super types.
          */
@@ -310,9 +313,9 @@ public class R1290 extends AbstractUmlRule {
             if (superTypes.add(type)) {
                 // Gets all generalisations from the current type.
                 for (Generalization generalization : type.getParent()) {
-            
+
                     NameSpace superObject = generalization.getSuperType();
-            
+
                     // If the super object is a class, we look for its super
                     // classes
                     if (superObject instanceof GeneralClass) {
@@ -321,11 +324,12 @@ public class R1290 extends AbstractUmlRule {
                     }
                 }
             }
-            
+
         }
 
         /**
          * Finds all the object nodes that are connected to the given object node, except for object nodes that are controls.
+         *
          * @param node The ObjectNode to start from.
          * @param sourceClasses The list of found Classes
          * @param visitedNodes A list of visited nodes to avoid cycling
@@ -335,9 +339,9 @@ public class R1290 extends AbstractUmlRule {
             if (visitedNodes.contains(node)) {
                 return;
             }
-            
+
             visitedNodes.add(node);
-            
+
             // If the node is an action, there is no need to go further.
             if (node instanceof ActivityAction) {
                 return;
@@ -351,11 +355,12 @@ public class R1290 extends AbstractUmlRule {
                     }
                 }
             }
-            
+
         }
 
         /**
          * Finds all the object nodes that are connected to the given object node, except for object nodes that are controls.
+         *
          * @param node The ObjectNode to start from.
          * @param targetClasses The list of found Classes
          * @param visitedNodes A list of visited nodes to avoid cycling
@@ -365,9 +370,9 @@ public class R1290 extends AbstractUmlRule {
             if (visitedNodes.contains(node)) {
                 return;
             }
-            
+
             visitedNodes.add(node);
-            
+
             // If the node is an action, there is no need to go further.
             if (node instanceof ActivityAction) {
                 return;
@@ -381,11 +386,12 @@ public class R1290 extends AbstractUmlRule {
                     }
                 }
             }
-            
+
         }
 
         /**
          * Finds all the ObjectFlows connecting the given ObjectNode to another ObjectNode, except for ObjectNodes that are controls.
+         *
          * @param node The Object node to search from
          * @param objectFlows The list of found ObjectFlow
          * @param visitedFlows The list of visited ObjectFlows
@@ -394,14 +400,14 @@ public class R1290 extends AbstractUmlRule {
         private void findSourceFlows(ActivityNode node, List<ObjectFlow> objectFlows, List<ObjectFlow> visitedFlows) {
             // Check in all incoming directions from the current node
             for (ObjectFlow incomingObjectFlow : node.getIncoming(ObjectFlow.class)) {
-            
+
                 if (visitedFlows.contains(incomingObjectFlow)) {
                     continue;
                 }
-            
+
                 visitedFlows.add(incomingObjectFlow);
                 ActivityNode sourceNode = incomingObjectFlow.getSource();
-            
+
                 // If the node is an action, there is no need to go further.
                 if (sourceNode instanceof ActivityAction) {
                     return;
@@ -412,11 +418,12 @@ public class R1290 extends AbstractUmlRule {
                     findSourceFlows(sourceNode, objectFlows, visitedFlows);
                 }
             }
-            
+
         }
 
         /**
          * Finds all the ObjectFlows connecting the given ObjectNode to another ObjectNode, except for ObjectNodes that are controls.
+         *
          * @param node The Object node to search from
          * @param objectFlows The list of found ObjectFlow
          * @param visitedFlows The list of visited ObjectFlows
@@ -425,14 +432,14 @@ public class R1290 extends AbstractUmlRule {
         private void findTargetFlows(ActivityNode node, List<ObjectFlow> objectFlows, List<ObjectFlow> visitedFlows) {
             // Check in all incoming directions from the current node
             for (ObjectFlow outgoingObjectFlow : node.getOutgoing(ObjectFlow.class)) {
-            
+
                 if (visitedFlows.contains(outgoingObjectFlow)) {
                     continue;
                 }
-            
+
                 visitedFlows.add(outgoingObjectFlow);
                 ActivityNode targetNode = outgoingObjectFlow.getTarget();
-            
+
                 // If the node is an action, there is no need to go further.
                 if (targetNode instanceof ActivityAction) {
                     return;
@@ -443,7 +450,7 @@ public class R1290 extends AbstractUmlRule {
                     findTargetFlows(targetNode, objectFlows, visitedFlows);
                 }
             }
-            
+
         }
 
     }

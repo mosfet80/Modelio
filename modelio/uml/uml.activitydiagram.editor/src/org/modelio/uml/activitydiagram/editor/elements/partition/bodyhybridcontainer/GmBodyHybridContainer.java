@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.partition.bodyhybridcontainer;
 
@@ -56,11 +56,12 @@ public class GmBodyHybridContainer extends GmPartitionContainer {
 
     /**
      * Initialize the container.
+     *
      * @param diagram the diagram in which this partition container is used.
      * @param relatedRef represented element reference, must not be null.
      */
     @objid ("2afb8883-55b6-11e2-877f-002564c97630")
-    public  GmBodyHybridContainer(IGmDiagram diagram, MRef relatedRef) {
+    public GmBodyHybridContainer(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -68,7 +69,7 @@ public class GmBodyHybridContainer extends GmPartitionContainer {
      * Empty constructor needed for serialisation.
      */
     @objid ("2afb888c-55b6-11e2-877f-002564c97630")
-    public  GmBodyHybridContainer() {
+    public GmBodyHybridContainer() {
         // Nothing to do.
     }
 
@@ -115,15 +116,15 @@ public class GmBodyHybridContainer extends GmPartitionContainer {
     @Override
     protected void setParent(GmCompositeNode parent) {
         GmModel oldParent = getParent();
-        
+
         // Call inherited
         super.setParent(parent);
-        
+
         // Modify the style
         if (parent != null && !parent.equals(oldParent)) {
             getPersistedStyle().setCascadedStyle(parent.getPersistedStyle());
         }
-        
+
     }
 
     @objid ("2afd0f3b-55b6-11e2-877f-002564c97630")
@@ -148,7 +149,7 @@ public class GmBodyHybridContainer extends GmPartitionContainer {
             child.setRoleInComposition(OWNED_NODE);
         }
         super.addChild(child);
-        
+
     }
 
     @objid ("2afd0f41-55b6-11e2-877f-002564c97630")
@@ -168,17 +169,17 @@ public class GmBodyHybridContainer extends GmPartitionContainer {
             break;
         }
         }
-        
+
     }
 
     @objid ("2afd0f47-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmBodyHybridContainer.", GmBodyHybridContainer.MINOR_VERSION);
-        
+
     }
 
     @objid ("2afd0f4d-55b6-11e2-877f-002564c97630")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.simple;
 
@@ -61,7 +61,7 @@ public class SimpleEditPart extends AbstractNodeEditPart {
         // This edit part is way too generic to afford being smart: on any property change event, refresh all!
         refresh();
         refreshFromStyle(getFigure(), getModelStyle());
-        
+
     }
 
     @objid ("7f240517-1dec-11e2-8cad-001ec947c8cc")
@@ -71,13 +71,13 @@ public class SimpleEditPart extends AbstractNodeEditPart {
         final RectangularFigure aFigure = new RectangularFigure();
         aFigure.setLayoutManager(new BorderLayout());
         aFigure.setOpaque(true);
-        
+
         // set style independent properties
         MinimumSizeLayout.apply(aFigure, SimpleEditPart.MIN_WIDTH, SimpleEditPart.MIN_HEIGHT);
-        
+
         // set style dependent properties
         refreshFromStyle(aFigure, getModelStyle());
-        
+
         // return the figure
         return aFigure;
     }
@@ -88,7 +88,7 @@ public class SimpleEditPart extends AbstractNodeEditPart {
         if (!switchRepresentationMode()) {
             super.refreshFromStyle(aFigure, style);
         }
-        
+
     }
 
     @objid ("7f240525-1dec-11e2-8cad-001ec947c8cc")
@@ -101,7 +101,7 @@ public class SimpleEditPart extends AbstractNodeEditPart {
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START,
                 new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
-        
+
     }
 
     @objid ("7f240528-1dec-11e2-8cad-001ec947c8cc")
@@ -109,12 +109,12 @@ public class SimpleEditPart extends AbstractNodeEditPart {
     protected void refreshVisuals() {
         final GmNodeModel model = getModel();
         final IFigure aFigure = getFigure();
-        
+
         IFigure parent = aFigure.getParent();
         if (parent != null) {
             parent.setConstraint(aFigure, model.getLayoutData());
         }
-        
+
     }
 
     /**
@@ -136,7 +136,7 @@ public class SimpleEditPart extends AbstractNodeEditPart {
     protected void addChildVisual(EditPart childEditPart, int index) {
         IFigure childFig = ((AbstractGraphicalEditPart) childEditPart).getFigure();
         getContentPane().add(childFig, BorderLayout.CENTER);
-        
+
     }
 
 }

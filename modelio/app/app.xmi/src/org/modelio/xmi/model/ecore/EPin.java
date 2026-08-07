@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -39,7 +39,7 @@ public class EPin extends EActivityNode {
     }
 
     @objid ("4caadcec-592b-4985-84be-3d3255e174e9")
-    public  EPin(org.eclipse.uml2.uml.Pin element) {
+    public EPin(org.eclipse.uml2.uml.Pin element) {
         super(element);
     }
 
@@ -47,13 +47,13 @@ public class EPin extends EActivityNode {
     @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
-        
+
         // Properties defined on org.eclipse.uml2.uml.Pin
         setControl((Pin) objingElt);
         setExpansionEAnnotation((Pin) objingElt);
         setMatched((Pin) objingElt);
         setUpperBound((Pin) objingElt);
-        
+
     }
 
     @objid ("b70e5753-cb8e-4b59-b784-0dca3152d67c")
@@ -72,7 +72,7 @@ public class EPin extends EActivityNode {
                     pin.setUpperBound(stringValue);
             }
         }
-        
+
     }
 
     @objid ("f9ddac42-6148-469f-a104-deae36b68e3e")
@@ -90,21 +90,21 @@ public class EPin extends EActivityNode {
         org.eclipse.uml2.uml.Pin ecoreElement = (org.eclipse.uml2.uml.Pin) getEcoreElement();
         org.eclipse.uml2.uml.Element ecoreOwnerElt = ecoreElement.getOwner();
         Object obOwner = ReverseProperties.getInstance().getMappedElement(ecoreOwnerElt);
-        
+
         if ((ecoreOwnerElt instanceof org.eclipse.uml2.uml.CallAction) && (obOwner instanceof CallAction)){
-        
+
             List<org.eclipse.uml2.uml.Parameter> ecoreParamList = EcoreModelNavigation
                     .getMatchedParameters(ecoreElement);
-        
+
             List<? extends org.eclipse.uml2.uml.Pin> pinList = null;
-            
+
             if (pin instanceof OutputPin)
                 pinList = ((org.eclipse.uml2.uml.CallAction) ecoreOwnerElt).getOutputs();
             else
                 pinList = ((org.eclipse.uml2.uml.CallAction) ecoreOwnerElt).getInputs();
-            
+
             for (org.eclipse.uml2.uml.Parameter ecoreParam : ecoreParamList) {
-        
+
                 if (((ecoreElement.getType() != null)
                         && (ecoreParam.getType() != null)
                         && (ecoreElement.getType().equals(ecoreParam.getType())))
@@ -112,17 +112,17 @@ public class EPin extends EActivityNode {
                         && (EcoreModelNavigation.getMultiplicityMin(ecoreElement).equals(EcoreModelNavigation.getMultiplicityMin(ecoreParam)))
                         && (ecoreParamList.indexOf(ecoreParam) == pinList.indexOf(ecoreElement))
                         ){
-        
+
                     Object obParam = ReverseProperties.getInstance()
                             .getMappedElement(ecoreParam);
-        
+
                     if (obParam instanceof Parameter) {
                         pin.setMatched((Parameter) obParam);
                     }
                 }
             }
         }
-        
+
     }
 
 }

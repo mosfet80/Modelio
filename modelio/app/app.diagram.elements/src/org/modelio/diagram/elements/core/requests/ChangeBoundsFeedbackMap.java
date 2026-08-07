@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.requests;
 
@@ -34,7 +34,7 @@ import org.eclipse.gef.Request;
  * <li> {@link #getOrCreate(Request)} if you intend to put elements in the map
  * <li> {@link #getOrDummy(Request)} if you only need to read it
  * </ul>
- * 
+ *
  * @author cma
  * @since 5.0.2
  */
@@ -47,8 +47,8 @@ public class ChangeBoundsFeedbackMap {
     private final Map<EditPart, IFigure> feedbacks = new HashMap<>();
 
     @objid ("72a0df9f-23cb-4a2c-9b51-c6fb99e160c4")
-    private  ChangeBoundsFeedbackMap() {
-        
+    private ChangeBoundsFeedbackMap() {
+
     }
 
     /**
@@ -57,6 +57,7 @@ public class ChangeBoundsFeedbackMap {
      * Creates and store a new instance if missing.
      * <p>
      * Use {@link #getOrDummy(Request)} method if you only need to read the map, to avoid creating useless instances.
+     *
      * @param from the request
      * @return the {@link ChangeBoundsFeedbackMap}
      */
@@ -76,6 +77,7 @@ public class ChangeBoundsFeedbackMap {
      * Returns a non modifiable dummy instance if no instance is in the request.
      * <p>
      * Use this method if you only need to read the map, to avoid creating useless instances.
+     *
      * @param from the request
      * @return the {@link ChangeBoundsFeedbackMap}
      */
@@ -85,6 +87,7 @@ public class ChangeBoundsFeedbackMap {
     }
 
     /**
+     *
      * @param ep an edit part
      * @return the edit part feedback or null.
      */
@@ -94,6 +97,7 @@ public class ChangeBoundsFeedbackMap {
     }
 
     /**
+     *
      * @return the internal map
      */
     @objid ("5d5a8882-6b92-4291-ae84-9631c582e60d")
@@ -102,6 +106,7 @@ public class ChangeBoundsFeedbackMap {
     }
 
     /**
+     *
      * @param key an edit part
      * @param value its feedback figure
      */
@@ -109,14 +114,15 @@ public class ChangeBoundsFeedbackMap {
     public void put(EditPart key, IFigure value) {
         if (this == EMPTY)
             throw new UnsupportedOperationException("The empty ChangeBoundsFeedbackMap is not modifiable.");
-        
+
         this.feedbacks.put(key, value);
-        
+
     }
 
     /**
      * Returns the value to which the specified key is mapped, or
      * {@code defaultValue} if this map contains no mapping for the key.
+     *
      * @param editpart the key whose associated value is to be returned
      * @param defaultFigure the default mapping of the key
      * @return the value to which the specified key is mapped, or

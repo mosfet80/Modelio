@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.sendsignal;
 
@@ -45,21 +45,23 @@ public class GmSendSignalLabel extends GmElementLabel {
      * Empty c'tor for deserialisation.
      */
     @objid ("2b4821ef-55b6-11e2-877f-002564c97630")
-    public  GmSendSignalLabel() {
+    public GmSendSignalLabel() {
         // Nothing to do.
     }
 
     /**
      * C'tor.
+     *
      * @param diagram the diagram.
      * @param relatedRef ref to the related SendSignalAction
      */
     @objid ("2b4821f2-55b6-11e2-877f-002564c97630")
-    public  GmSendSignalLabel(final IGmDiagram diagram, final MRef relatedRef) {
+    public GmSendSignalLabel(final IGmDiagram diagram, final MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
     /**
+     *
      * @return the name of sent signal if: <br>
      * - element is not null <br>
      * - element is valid <br>
@@ -70,7 +72,7 @@ public class GmSendSignalLabel extends GmElementLabel {
     protected String computeLabel() {
         SendSignalAction callOperation = (SendSignalAction) getRelatedElement();
         if (callOperation != null && callOperation.isValid() && callOperation.getSent() != null) {
-        
+
             return callOperation.getSent().getName();
         }
         return "";
@@ -93,17 +95,17 @@ public class GmSendSignalLabel extends GmElementLabel {
             break;
         }
         }
-        
+
     }
 
     @objid ("2b482209-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmSendSignalLabel.", GmSendSignalLabel.MINOR_VERSION);
-        
+
     }
 
     @objid ("2b48220f-55b6-11e2-877f-002564c97630")

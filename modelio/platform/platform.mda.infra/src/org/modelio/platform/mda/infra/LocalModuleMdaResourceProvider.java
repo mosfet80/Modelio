@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra;
 
@@ -69,16 +69,17 @@ class LocalModuleMdaResourceProvider implements IMdaResourceProvider {
 
     /**
      * Default c'tor
+     *
      * @param moduleComponent the module component this provider works for.
      */
     @objid ("afab4569-b6a0-434f-aa77-f0a75f1d2589")
-    public  LocalModuleMdaResourceProvider(ModuleComponent moduleComponent) {
+    public LocalModuleMdaResourceProvider(ModuleComponent moduleComponent) {
         this.moduleComponent = moduleComponent;
-        
+
         this.imageRegistry = new ImageRegistry();
-        
+
         registerBlobListener(moduleComponent);
-        
+
     }
 
     /**
@@ -88,7 +89,7 @@ class LocalModuleMdaResourceProvider implements IMdaResourceProvider {
     public void dispose() {
         this.imageRegistry.dispose();
         this.imageRegistry = null;
-        
+
     }
 
     @objid ("78fd7e7d-921f-4c3f-85af-9b89ebc81dd0")
@@ -211,15 +212,15 @@ class LocalModuleMdaResourceProvider implements IMdaResourceProvider {
         if (stereotype == null) {
             return null;
         }
-        
+
         final String blobKey = getBlobKey(stereotype, imageType);
-        
+
         Image image = this.imageRegistry.get(blobKey);
         if (image == this.NO_IMAGE_PLACEHOLDER) {
             // there is no image
             return null;
         }
-        
+
         if (image == null) {
             // image not yet computed
             final ImageDescriptor desc = getImageDescriptor(stereotype, blobKey);
@@ -240,13 +241,13 @@ class LocalModuleMdaResourceProvider implements IMdaResourceProvider {
             final Set<IBlobInfo> blobs = new HashSet<>();
             blobs.addAll(ev.getUpdatedBlobs());
             blobs.addAll(ev.getDeletedBlobs());
-        
+
             // Remove all modified images from the registry to force a refresh.
             for (final IBlobInfo blob : blobs) {
                 this.imageRegistry.remove(blob.getKey());
             }
         });
-        
+
     }
 
     /**
@@ -261,6 +262,7 @@ class LocalModuleMdaResourceProvider implements IMdaResourceProvider {
      * Get the image descriptor provided by the module for a given stereotype.
      * <p>
      * The module should return an image if the stereotype is provided by itself, <i>null</i> in the other case.
+     *
      * @param stereotype a stereotype
      * @return the stereotype image, or <i>null</i> if the module provides none.
      */
@@ -271,9 +273,9 @@ class LocalModuleMdaResourceProvider implements IMdaResourceProvider {
         if (!isInModule(stereotype)) {
             return null;
         }
-        
+
         final BlobImageDescriptor desc = new BlobImageDescriptor(stereotype, blobKey);
-        
+
         if (!desc.exists()) {
             return null;
         }
@@ -282,6 +284,7 @@ class LocalModuleMdaResourceProvider implements IMdaResourceProvider {
 
     /**
      * Returns true if the given stereotype belongs to the module.
+     *
      * @param stereotype the stereotype to test
      * @return true if the given stereotype belongs to the module.
      */
@@ -301,7 +304,7 @@ class LocalModuleMdaResourceProvider implements IMdaResourceProvider {
      * {@link ImageDescriptor} that looks for image data in the given repository blob.
      * <p>
      * Experimental: Also look for zoomed image for Hi-DPI with 'blobKey@zoom' blob key, with zoom = 150, 200, ... .
-     * 
+     *
      * @since Modelio Valkyrie 3.8
      */
     @objid ("746f797e-bc56-4234-8141-d3d84edb0626")
@@ -313,11 +316,11 @@ class LocalModuleMdaResourceProvider implements IMdaResourceProvider {
         private final MObject element;
 
         @objid ("5d6d6073-39ca-42f7-9ab3-35a806bd8894")
-        public  BlobImageDescriptor(final MObject element, final String blobKey) {
+        public BlobImageDescriptor(final MObject element, final String blobKey) {
             super();
             this.element = element;
             this.blobKey = blobKey;
-            
+
         }
 
         @objid ("8618f259-79db-4dcc-bb8c-352df95d8214")
@@ -335,6 +338,7 @@ class LocalModuleMdaResourceProvider implements IMdaResourceProvider {
 
         /**
          * Get an InputStream access to the image content.
+         *
          * @return an InputStream or <i>null</i> if there is no matching blob.
          * @throws IOException on I/O failure
          */
@@ -361,7 +365,7 @@ class LocalModuleMdaResourceProvider implements IMdaResourceProvider {
             } catch (@SuppressWarnings ("unused") final IllegalArgumentException e) {
                 // fall through
             }
-            
+
             // fall back
             return super.createImage(returnMissingImageOnError, device);
         }
@@ -378,7 +382,7 @@ class LocalModuleMdaResourceProvider implements IMdaResourceProvider {
             } else {
                 return getImageData();
             }
-            
+
             try (InputStream is = getImageStreamFromBlob(this.blobKey + kzoom);) {
                 if (is != null) {
                     return new ImageData(is);
@@ -391,6 +395,7 @@ class LocalModuleMdaResourceProvider implements IMdaResourceProvider {
 
         /**
          * Tells whether the blob exists.
+         *
          * @return true only if the blob exists.
          */
         @objid ("e2ab267b-9af6-4594-bdc0-c7b35dc05b8b")

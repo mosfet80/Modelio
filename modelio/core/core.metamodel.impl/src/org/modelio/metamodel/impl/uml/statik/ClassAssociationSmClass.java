@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -46,80 +45,79 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("0534b2ae-67e6-4bca-8aef-baaef28233e1")
 public class ClassAssociationSmClass extends UmlModelElementSmClass {
-    @objid ("af61f757-5b5e-428f-bd8e-48c726b19104")
+    @objid ("4bc1f0b0-b9c9-4062-9682-8c4b8fa33abe")
     private SmDependency naryAssociationPartDep;
 
-    @objid ("4d150e2c-9d93-4157-89b1-084868fb9fa7")
+    @objid ("aa124bcd-1029-4eff-9be8-f2081ea52900")
     private SmDependency classPartDep;
 
-    @objid ("3a14a4e5-7586-4b04-a805-870ec7a8fc58")
+    @objid ("f71768a3-28e4-4d2f-a479-d20a9abecc3c")
     private SmDependency associationPartDep;
 
-    @objid ("7a8b4540-b750-464f-be07-24053905fe20")
-    public  ClassAssociationSmClass(ISmMetamodelFragment origin) {
+    @objid ("107b878c-b65a-49af-88b5-6e57f8b098a4")
+    public ClassAssociationSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("e650ca67-9fd3-4ac3-aec1-2bab1d7ab6aa")
+    @objid ("f4e3be0e-892f-4c31-96f3-50c632b73493")
     @Override
     public String getName() {
         return "ClassAssociation";
-        
+
     }
 
-    @objid ("6faf3e90-cb17-4d20-968d-74a01cfbd427")
+    @objid ("8a81a517-a42d-4b46-bdd0-dd41d1e4212c")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("051fd9d5-64ea-4764-b726-5e1c50056665")
+    @objid ("b1ad1214-5348-4c02-ad49-be29131300a6")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return ClassAssociation.class;
-        
+
     }
 
-    @objid ("f076db2d-c056-47c1-951a-35248e34dc8a")
+    @objid ("3364afc4-9bd8-4ebc-8f70-5cb4ae16e40f")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("6ab8dfcc-8ea9-4a18-9493-73a172884ae7")
+    @objid ("8b1b68fa-8030-4e13-91e5-bcdbfccb6e4f")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("2d1c657e-b0c3-4a3f-9549-e5ece27a3c98")
+    @objid ("0826868f-7486-4234-a19f-0c4a993eef4f")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(UmlModelElement.MQNAME);
         this.registerFactory(new ClassAssociationObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
         this.naryAssociationPartDep = new NaryAssociationPartSmDependency();
         this.naryAssociationPartDep.init("NaryAssociationPart", this, metamodel.getMClass(NaryAssociation.MQNAME), 0, 1 );
         registerDependency(this.naryAssociationPartDep);
-        
+
         this.classPartDep = new ClassPartSmDependency();
         this.classPartDep.init("ClassPart", this, metamodel.getMClass(Class.MQNAME), 1, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.classPartDep);
-        
+
         this.associationPartDep = new AssociationPartSmDependency();
         this.associationPartDep.init("AssociationPart", this, metamodel.getMClass(Association.MQNAME), 0, 1 );
         registerDependency(this.associationPartDep);
-        
-        
+
     }
 
-    @objid ("a2bba090-3aef-4eff-aa3f-4641ab9ed5a7")
+    @objid ("582befd7-519e-4eef-9081-0bfb1434d60b")
     public SmDependency getNaryAssociationPartDep() {
         if (this.naryAssociationPartDep == null) {
         	this.naryAssociationPartDep = this.getDependencyDef("NaryAssociationPart");
@@ -127,7 +125,7 @@ public class ClassAssociationSmClass extends UmlModelElementSmClass {
         return this.naryAssociationPartDep;
     }
 
-    @objid ("f7700ffd-f6b1-4e67-9b42-7f346e7a52b7")
+    @objid ("5e89eeaa-0330-47fc-b8f3-cb2868ea7bc1")
     public SmDependency getClassPartDep() {
         if (this.classPartDep == null) {
         	this.classPartDep = this.getDependencyDef("ClassPart");
@@ -135,7 +133,7 @@ public class ClassAssociationSmClass extends UmlModelElementSmClass {
         return this.classPartDep;
     }
 
-    @objid ("8225c92b-336a-4fd9-8531-9dcbb991c53c")
+    @objid ("5a7f4b4a-1be8-416a-bdc6-2fe58b7dd72a")
     public SmDependency getAssociationPartDep() {
         if (this.associationPartDep == null) {
         	this.associationPartDep = this.getDependencyDef("AssociationPart");
@@ -145,21 +143,21 @@ public class ClassAssociationSmClass extends UmlModelElementSmClass {
 
     @objid ("fcdbfec2-c6d9-4b5b-a21c-509dcada5f94")
     private static class ClassAssociationObjectFactory implements ISmObjectFactory {
-        @objid ("8f16421f-e692-4d3c-ac53-2ccad5201f94")
+        @objid ("bd103bff-7f0c-41a6-be2e-634dc8d37d60")
         private ClassAssociationSmClass smClass;
 
-        @objid ("51d914a1-7d6b-437f-be10-bf400c0b8ce0")
-        public  ClassAssociationObjectFactory(ClassAssociationSmClass smClass) {
+        @objid ("851141c6-1e10-4182-b97b-7662d08c5630")
+        public ClassAssociationObjectFactory(ClassAssociationSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("b0b5a8bd-7631-41c2-ad7c-5d193fbd4f04")
+        @objid ("eca67315-59dd-4f3c-9d2f-ab2d752b2f17")
         @Override
         public ISmObjectData createData() {
             return new ClassAssociationData(this.smClass);
         }
 
-        @objid ("3ba5259c-9cc7-45ef-803c-542b9e214c08")
+        @objid ("3839b937-e947-4345-b7e8-c420d0636004")
         @Override
         public SmObjectImpl createImpl() {
             return new ClassAssociationImpl();
@@ -169,87 +167,87 @@ public class ClassAssociationSmClass extends UmlModelElementSmClass {
 
     @objid ("09a56318-009a-4046-b7aa-b3d7d27e1070")
     public static class NaryAssociationPartSmDependency extends SmSingleDependency {
-        @objid ("1bf4c0c8-a5fb-4c07-985d-ca3ccd54d41d")
+        @objid ("e47bd03c-5365-4bfb-acd8-b2e56d18b1c0")
         private SmDependency symetricDep;
 
-        @objid ("639e3b5e-f8ed-404a-b46e-5e591da73946")
+        @objid ("72a3ca55-5aee-4612-87ee-5d5e37860bf5")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((ClassAssociationData) data).mNaryAssociationPart;
         }
 
-        @objid ("3073c81b-e30b-4c20-bb2b-e11fb3165de6")
+        @objid ("bcf7c134-8eae-4e90-992a-6b3427270e23")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((ClassAssociationData) data).mNaryAssociationPart = value;
         }
 
-        @objid ("124eb9d0-fa81-48ab-98e3-132efe5010de")
+        @objid ("f75b39c2-feb3-4eae-88df-7ac529b8b46c")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((NaryAssociationSmClass)this.getTarget()).getLinkToClassDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("db401142-043b-46ce-93f1-650f07f4cde8")
     public static class ClassPartSmDependency extends SmSingleDependency {
-        @objid ("f34e5cbc-6956-41d6-b3c6-4ef5371e92c6")
+        @objid ("3d562350-7984-4818-9992-1678239f7b21")
         private SmDependency symetricDep;
 
-        @objid ("9776e952-abb7-4597-ad6b-4555e262e29b")
+        @objid ("10151ef2-b701-43c7-8db1-65884b8fb300")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((ClassAssociationData) data).mClassPart;
         }
 
-        @objid ("216d25e5-e488-4a33-b3f0-730273028984")
+        @objid ("ad8f5674-10c0-4386-bdf0-cb153169f475")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((ClassAssociationData) data).mClassPart = value;
         }
 
-        @objid ("c957ee1c-27bd-4115-9231-e7f15224d913")
+        @objid ("d7b9a024-8a6b-4e6c-9f53-5a340ff2c4d1")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((ClassSmClass)this.getTarget()).getLinkToAssociationDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("df2b7335-0752-4be1-8743-9146a96beea4")
     public static class AssociationPartSmDependency extends SmSingleDependency {
-        @objid ("68cb1600-ea0b-42a7-b501-e43d1c43d00d")
+        @objid ("61c90dba-a0ca-40d2-bd84-1bc98d74d18d")
         private SmDependency symetricDep;
 
-        @objid ("900fa2e2-707c-43fc-83c9-9c3c776edda0")
+        @objid ("a2d5daf9-101c-4e83-8166-4405d643ca7e")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((ClassAssociationData) data).mAssociationPart;
         }
 
-        @objid ("7153b69d-b563-4105-9c9f-0fdc772fbc18")
+        @objid ("ec900388-17d0-4854-a139-56e02c47c42c")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((ClassAssociationData) data).mAssociationPart = value;
         }
 
-        @objid ("f82b51fb-8106-4da3-bc91-cfe52a0de7d9")
+        @objid ("5c2c3200-c608-48b2-ac08-7f9121abfc57")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((AssociationSmClass)this.getTarget()).getLinkToClassDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

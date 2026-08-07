@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.impl.load;
 
@@ -65,7 +65,7 @@ class DependencyLoader {
     private SmObjectImpl obj;
 
     @objid ("fd24579d-5986-11e1-991a-001ec947ccaf")
-    public  DependencyLoader() {
+    public DependencyLoader() {
         this.depCache = new HashMap<>();
     }
 
@@ -79,27 +79,27 @@ class DependencyLoader {
         if (!this.depCache.isEmpty()) {
             this.depCache = new HashMap<>();
         }
-        
+
     }
 
     @objid ("fd24579a-5986-11e1-991a-001ec947ccaf")
     public void execute(SmObjectImpl anObj, SmDependency aDep, List<SmObjectImpl> newValues) {
         assert aDep != null;
-        
+
         if (this.dep != null) {
             throwRecursion(anObj, aDep);
         }
-        
+
         try {
             this.obj = anObj;
             this.dep = aDep;
-        
+
             // Compare old and new dependency values and update if required
             List<SmObjectImpl> currentValues = getCurrentContents();
-        
+
             if (!strictEquals(currentValues, newValues)) {
                 // Change detected
-        
+
                 if (this.dep.isOrdered()) {
                     updateDefaultDependency(currentValues, newValues);
                 } else {
@@ -109,11 +109,12 @@ class DependencyLoader {
         } finally {
             reset();
         }
-        
+
     }
 
     /**
      * Hook to notify a dependency change.
+     *
      * @param anObj the modified object
      * @param aDep the modified relation
      * @param value the added value
@@ -125,6 +126,7 @@ class DependencyLoader {
 
     /**
      * Hook to notify a dependency change.
+     *
      * @param anObj the modified object
      * @param aDep the modified relation
      * @param value the removed value
@@ -136,12 +138,13 @@ class DependencyLoader {
 
     /**
      * Get the current dependencies values
+     *
      * @return the current dependencies values
      */
     @objid ("0095ff7e-20a4-10be-92d7-001ec947cd2a")
     protected List<SmObjectImpl> getCurrentContents() {
         // Get the current dependencies values
-        
+
         if (this.dep.isMultiple()) {
             SmMultipleDependency d = (SmMultipleDependency) this.dep;
             List<SmObjectImpl> l = d.getValueList(this.obj.getData());
@@ -158,25 +161,25 @@ class DependencyLoader {
                 return Collections.singletonList(value);
             }
         }
-        
+
     }
 
     @objid ("524c828d-064d-11e2-9eb7-001ec947ccaf")
     private final void __dumpDiff(List<SmObjectImpl> currentValues, List<SmObjectImpl> newValues) {
         Log.trace(" Diff on  '%s'.%s %s :", GetAbsoluteSymbol.get(this.obj), this.dep.getName(), this.obj.getClassOf().getName());
-        
+
         for (SmObjectImpl value : currentValues) {
             if (!newValues.contains(value)) {
                 Log.trace("   - removed: '%s' %s {%s}", GetAbsoluteSymbol.get(value), value.getClassOf().getName(), value.getUuid());
             }
         }
-        
+
         for (SmObjectImpl value : newValues) {
             if (!currentValues.contains(value)) {
                 Log.trace("   + added: '%s' %s {%s}", GetAbsoluteSymbol.get(value), value.getClassOf().getName(), value.getUuid());
             }
         }
-        
+
     }
 
     @objid ("fd245792-5986-11e1-991a-001ec947ccaf")
@@ -197,30 +200,30 @@ class DependencyLoader {
             // Prevent dep_val from being twice in the list
             eraseDepVal(anObj, aDep, value);
         }
-        
+
         // Do the job
         aDep.add(objData, value);
-        
+
         depValAdded(anObj, aDep, value);
-        
+
         // If the dependency is symmetric and have to propagate
         propagateAppendToOpposite(anObj, aDep, value);
-        
+
     }
 
     @objid ("fd245791-5986-11e1-991a-001ec947ccaf")
     private void eraseDepVal(SmObjectImpl anObj, SmDependency aDep, final SmObjectImpl value) {
         // do the job
         boolean returnCode = aDep.remove(anObj.getData(), value);
-        
+
         if (returnCode) {
             // Notify change
             depValErased(anObj, aDep, value);
-        
+
             // update the symetric dependency
             propagateEraseToOpposite(anObj, aDep, value);
         }
-        
+
     }
 
     @objid ("526d9dbc-75ee-4461-9436-5af4679503da")
@@ -259,11 +262,12 @@ class DependencyLoader {
             }
             return "(" + obj.getMClass().getName() + ")";
         }
-        
+
     }
 
     /**
      * Compute an error message telling wich part couldn't be loaded.
+     *
      * @param destObject the object that couldn't be added
      * @param e the error
      * @return the error message.
@@ -276,7 +280,7 @@ class DependencyLoader {
             if (origMsg == null || origMsg.isEmpty()) {
                 origMsg = e.toString();
             }
-        
+
             err = MessageFormat.format("Cannot add {0} to {1}.{2}: {3}",
                     getDebugSymbol(destObject, e),
                     getDebugSymbol(this.obj, e),
@@ -294,11 +298,11 @@ class DependencyLoader {
     @objid ("9d9edb66-8a24-432b-b5c2-403da00b51e9")
     private SmDependency getOppositeDep(final SmDependency aDep, final SmObjectImpl value) {
         SmDependency oppositeDep = aDep.getSymetric();
-        
+
         if (oppositeDep == null) {
             Log.trace("DependencyLoader: %s dependency on %s has no opposite dep.", aDep, value);
         }
-        
+
         MClass classOf = value.getClassOf();
         if (oppositeDep != null && classOf.isFake()) {
             oppositeDep = (SmDependency) ((FakeMClass) classOf).getSameDependency(oppositeDep);
@@ -311,26 +315,26 @@ class DependencyLoader {
         if (value.isShell() && this.obj.hasStatus(IRStatus.USERWRITE)) {
             Log.trace("DependencyLoader: Loading %s unresolved reference into %s.%s relation.", getDebugSymbol(value, null), getDebugSymbol(this.obj, null), this.dep.getName());
         }
-        
+
     }
 
     @objid ("fd24578f-5986-11e1-991a-001ec947ccaf")
     private void propagateAppendToOpposite(final SmObjectImpl anObj, final SmDependency aDep, final SmObjectImpl value) {
         if (value != null) {
             SmDependency symetricDep = getOppositeDep(aDep, value);
-        
+
             if (symetricDep != null) {
-        
+
                 ISmObjectData valueData = value.getData();
                 if (symetricDep.isMultiple()) {
                     SmDependency cachedSym = getCachedDep(valueData, symetricDep);
-        
+
                     // ensure the value won't be twice in the list
                     cachedSym.remove(valueData, anObj);
-        
+
                     // Propagate to symetricDep the append
                     cachedSym.add(valueData, anObj);
-        
+
                     // Notify change
                     depValAdded(value, symetricDep, anObj);
                 } else {
@@ -345,33 +349,33 @@ class DependencyLoader {
                         // Remove the old value with propagation.
                         eraseDepVal(value, symetricDep, oldValue);
                     }
-        
+
                     // Propagate to symetricDep the append
                     symetricDep.add(valueData, anObj);
-        
+
                     // Notify change
                     depValAdded(value, symetricDep, anObj);
                 }
             }
         }
-        
+
     }
 
     @objid ("fd245790-5986-11e1-991a-001ec947ccaf")
     private void propagateEraseToOpposite(final SmObjectImpl anObj, final SmDependency aDep, final SmObjectImpl value) {
         if (value != null) {
             SmDependency oppDep = getOppositeDep(aDep, value);
-        
+
             if (oppDep != null) {
                 ISmObjectData valueData = value.getData();
-        
+
                 SmDependency cachedDep = getCachedDep(valueData, oppDep);
                 cachedDep.remove(valueData, anObj);
-        
+
                 depValErased(value, oppDep, anObj);
             }
         }
-        
+
     }
 
     /**
@@ -381,7 +385,7 @@ class DependencyLoader {
     private void reset() {
         this.obj = null;
         this.dep = null;
-        
+
     }
 
     @objid ("5e23d777-afc4-4f07-ab6d-3a4cd52a71a5")
@@ -392,12 +396,12 @@ class DependencyLoader {
         if (a == null || a2 == null) {
             return false;
         }
-        
+
         int length = a.size();
         if (a2.size() != length) {
             return false;
         }
-        
+
         for (int i = 0; i < length; i++) {
             if (a.get(i) != a2.get(i)) {
                 return false;
@@ -413,7 +417,7 @@ class DependencyLoader {
                 + "): already loading {"
                 + this.obj.getUuid() + "} " + this.obj.getClassOf().getName()
                 + "." + this.dep);
-        
+
     }
 
     @objid ("fd245798-5986-11e1-991a-001ec947ccaf")
@@ -422,20 +426,20 @@ class DependencyLoader {
         for (SmObjectImpl value : currentValues) {
             eraseDepVal(this.obj, this.dep, value);
         }
-        
+
         // STEP 2 - add new values to the dependency
         for (SmObjectImpl value : newValues) {
-        
+
             try {
                 logShellDepVal(value);
-        
+
                 appendDepVal(this.obj, this.dep, value);
             } catch (RuntimeException e) {
                 final String err = getErrorMsg(value, e);
                 throw new RuntimeException(err, e);
             }
         }
-        
+
     }
 
     @objid ("fd245796-5986-11e1-991a-001ec947ccaf")
@@ -443,14 +447,14 @@ class DependencyLoader {
         if (currentValues.size() == newValues.size()) {
             // Roles order is often swapped, this is useless
             boolean changeFound = false;
-        
+
             for (SmObjectImpl role : currentValues) {
                 changeFound = !newValues.contains(role);
                 if (changeFound) {
                     break;
                 }
             }
-        
+
             // Update the dependency only if a real change is found
             if (changeFound) {
                 updateDefaultDependency(currentValues, newValues);
@@ -458,7 +462,7 @@ class DependencyLoader {
         } else {
             updateDefaultDependency(currentValues, newValues);
         }
-        
+
     }
 
     @objid ("4f5efff6-6353-4b02-895d-db50a09bd9a9")
@@ -470,11 +474,11 @@ class DependencyLoader {
         private final ISmObjectData owner;
 
         @objid ("3568d877-401a-4252-afbd-3f64fcc055eb")
-        public  CacheKey(ISmObjectData owner, SmDependency orig) {
+        public CacheKey(ISmObjectData owner, SmDependency orig) {
             super();
             this.orig = orig;
             this.owner = owner;
-            
+
         }
 
         @objid ("679554fd-c786-44e0-80dd-7a970d68b44f")
@@ -499,7 +503,7 @@ class DependencyLoader {
             if (getClass() != obj.getClass()) {
                 return false;
             }
-            
+
             CacheKey other = (CacheKey) obj;
             return Objects.equals(this.orig, other.orig) && Objects.equals(this.owner, other.owner);
         }
@@ -533,9 +537,9 @@ class DependencyLoader {
         private static final Object SYNC = new Object();
 
         @objid ("6bf68b71-4bbe-47ba-af38-a3828082e544")
-        public  CachedDep(SmDependency orig) {
+        public CachedDep(SmDependency orig) {
             this.orig = orig;
-            
+
             init(orig.getName(),
                     orig.getOwner(),
                     orig.getType(),
@@ -543,7 +547,7 @@ class DependencyLoader {
                     orig.getMaxCardinality(),
                     orig.getDirectives().toArray(new SmDirective[0]));
             postInit();
-            
+
         }
 
         @objid ("1b41afe3-d11a-4a31-88de-4529f7e6fe73")
@@ -560,7 +564,7 @@ class DependencyLoader {
                     return false;
                 }
             }
-            
+
         }
 
         @objid ("2878eec0-8589-42e3-bead-572e316bb585")
@@ -583,7 +587,7 @@ class DependencyLoader {
             } else {
                 return this.orig.getValueAsCollection(object);
             }
-            
+
         }
 
         @objid ("ede2dd83-710f-4e17-8274-abc275ff1545")
@@ -605,7 +609,7 @@ class DependencyLoader {
                 if (++this.useCount == CachedDep.MIN_USES) {
                     fillCache(obj);
                 }
-            
+
                 if (this.cache != null) {
                     if (this.cache.remove(value)) {
                         this.orig.remove(obj, value);
@@ -616,7 +620,7 @@ class DependencyLoader {
                     return this.orig.remove(obj, value);
                 }
             }
-            
+
         }
 
         @objid ("00bb7d3c-0175-4e76-90de-e9a3a8d0fdb7")
@@ -639,7 +643,7 @@ class DependencyLoader {
                         // Add thread dump to the exception and rethrow
                         throw ThreadDumper.get().getAllThreads(false).addAsSupressed(e);
                     }
-            
+
                     // The model is probably being modified in another thread.
                     // Sleep some time then try again.
                     try {
@@ -653,7 +657,7 @@ class DependencyLoader {
                     }
                 }
             }
-            
+
         }
 
     }

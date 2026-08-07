@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.gui.nattable;
 
@@ -62,18 +62,18 @@ public class DocumentPainter extends AbstractCellPainter {
     @Override
     public void paintCell(ILayerCell cell, GC gc, Rectangle bounds, IConfigRegistry configRegistry) {
         final IStyle cellStyle = CellStyleUtil.getCellStyle(cell, configRegistry);
-        
+
         // Paint background
         paintBackground(cell, gc, bounds, configRegistry);
-        
+
         // Paint Icon
         final Image image = getImage(cell);
         if (image != null) {
             final Rectangle imageBounds = image.getBounds();
-        
+
             gc.drawImage(image, bounds.x + CellStyleUtil.getHorizontalAlignmentPadding(cellStyle, bounds, imageBounds.width),
                     bounds.y + CellStyleUtil.getVerticalAlignmentPadding(cellStyle, bounds, imageBounds.height));
-        
+
             bounds.x += imageBounds.width + 1;
             bounds.width -= imageBounds.width + 1;
         } else {
@@ -83,31 +83,31 @@ public class DocumentPainter extends AbstractCellPainter {
                 paintText(cellStyle, gc, bounds, text);
             }
         }
-        
+
     }
 
     @objid ("959ff72c-cda2-49ee-8f65-dd1e0137d4df")
     private void paintText(IStyle cellStyle, GC gc, Rectangle bounds, final String text) {
         String displayedText = text;
         setupGCFromConfig(gc, cellStyle);
-        
+
         final Rectangle originalClipping = gc.getClipping();
         gc.setClipping(bounds.intersection(originalClipping));
-        
+
         final int fontHeight = gc.getFontMetrics().getHeight();
         final int contentHeight = fontHeight * 1 /* one line */;
         final int contentWidth = Math.min(gc.textExtent(text).x, bounds.width);
-        
+
         if (gc.textExtent(displayedText).x > bounds.width) {
             displayedText = truncateText(text, gc, bounds.width);
         }
-        
+
         gc.drawText(text, bounds.x + CellStyleUtil.getHorizontalAlignmentPadding(cellStyle, bounds, contentWidth),
                 bounds.y + CellStyleUtil.getVerticalAlignmentPadding(cellStyle, bounds, contentHeight),
                 SWT.DRAW_TRANSPARENT | SWT.DRAW_DELIMITER);
-        
+
         gc.setClipping(originalClipping);
-        
+
     }
 
     @objid ("6075e213-c1f2-4e68-9f68-a05c43c3b1b8")
@@ -124,7 +124,7 @@ public class DocumentPainter extends AbstractCellPainter {
             gc.fillRectangle(bounds);
             gc.setBackground(originalBackground);
         }
-        
+
     }
 
     @objid ("e4182e4e-14a7-4e2c-9e0c-685272e1d117")
@@ -132,7 +132,7 @@ public class DocumentPainter extends AbstractCellPainter {
     public int getPreferredWidth(ILayerCell cell, GC gc, IConfigRegistry configRegistry) {
         final Image image = getImage(cell);
         final int imageWidth = (image != null) ? image.getBounds().width : 0;
-        
+
         setupGCFromConfig(gc, CellStyleUtil.getCellStyle(cell, configRegistry));
         final int textWidth = gc.textExtent(convertDataType(cell, configRegistry)).x;
         return Math.max(imageWidth, textWidth);
@@ -143,7 +143,7 @@ public class DocumentPainter extends AbstractCellPainter {
     public int getPreferredHeight(ILayerCell cell, GC gc, IConfigRegistry configRegistry) {
         final Image image = getImage(cell);
         final int imageHeight = (image != null) ? image.getBounds().height : 0;
-        
+
         setupGCFromConfig(gc, CellStyleUtil.getCellStyle(cell, configRegistry));
         final int textHeight = gc.textExtent(convertDataType(cell, configRegistry)).y;
         return Math.max(imageHeight, textHeight);
@@ -155,7 +155,7 @@ public class DocumentPainter extends AbstractCellPainter {
         if (dataValue instanceof IDocumentNatValue) {
             dataValue = ((IDocumentNatValue) dataValue).getValue();
         }
-        
+
         if (dataValue instanceof MRef) {
             final MRef mref = (MRef) dataValue;
             if (mref.mc != null && !mref.mc.isEmpty()) {
@@ -188,13 +188,13 @@ public class DocumentPainter extends AbstractCellPainter {
         final Color fg = cellStyle.getAttributeValue(CellStyleAttributes.FOREGROUND_COLOR);
         final Color bg = cellStyle.getAttributeValue(CellStyleAttributes.BACKGROUND_COLOR);
         final Font font = cellStyle.getAttributeValue(CellStyleAttributes.FONT);
-        
+
         gc.setAntialias(GUIHelper.DEFAULT_ANTIALIAS);
         gc.setTextAntialias(GUIHelper.DEFAULT_TEXT_ANTIALIAS);
         gc.setFont(font);
         gc.setForeground(fg != null ? fg : GUIHelper.COLOR_LIST_FOREGROUND);
         gc.setBackground(bg != null ? bg : GUIHelper.COLOR_LIST_BACKGROUND);
-        
+
     }
 
     /**
@@ -202,6 +202,7 @@ public class DocumentPainter extends AbstractCellPainter {
      * given text is simply returned without modification. If the text does not
      * fit into the available space, it will be modified by cutting and adding
      * three dots.
+     *
      * @param text the text to compute
      * @param gc the current GC
      * @param availableLength the available space
@@ -212,14 +213,14 @@ public class DocumentPainter extends AbstractCellPainter {
     private String truncateText(String text, GC gc, int availableLength) {
         String trialText = text;
         int textWidth = gc.textExtent(trialText).x;
-        
+
         while (textWidth > availableLength) {
-        
+
             // try an optimization: estimate average char width and adjust
             // accordingly
             final double avgCharWidth = textWidth / trialText.length();
             final int nbExtraChars = 1 + (int) ((textWidth - availableLength) / avgCharWidth);
-        
+
             final int newLength = trialText.length() - nbExtraChars;
             if (newLength > 0) {
                 trialText = trialText.substring(0, newLength);
@@ -231,10 +232,11 @@ public class DocumentPainter extends AbstractCellPainter {
 
     /**
      * Build a new painter instance.
+     *
      * @param session the model session, needed for mref lookup.
      */
     @objid ("1d70afe4-8326-4df2-8573-c14d9497e4d1")
-    public  DocumentPainter(ICoreSession session) {
+    public DocumentPainter(ICoreSession session) {
         this.session = session;
     }
 

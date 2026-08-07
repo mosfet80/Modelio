@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel.meta;
 
@@ -44,7 +44,7 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 /**
  * Produce a {@link MetamodelDescriptor} from a {@link MMetamodel}.
- * 
+ *
  * @author cma
  * @since 3.6
  */
@@ -73,14 +73,14 @@ public class MetamodelWriter {
     public MetamodelDescriptor run(MMetamodel metamodel) {
         this.metamodel = metamodel;
         MetamodelDescriptor d = new MetamodelDescriptor();
-        
+
         for (MMetamodelFragment mf : metamodel.getFragments(true)) {
             if (this.mmFragmentFilter.test(mf)) {
                 MetamodelFragmentDescriptor fd = writeFragment(mf);
                 d.addFragment(fd);
             }
         }
-        
+
         writeFakeMetaclasses(d);
         return d;
     }
@@ -111,6 +111,7 @@ public class MetamodelWriter {
 
     /**
      * Produce a {@link MetamodelDescriptor} from a {@link MMetamodel}.
+     *
      * @param metamodel the metamodel to write
      * @return the metamodel descriptor.
      */
@@ -150,7 +151,7 @@ public class MetamodelWriter {
         } else {
             return new MClassRef(c.getOrigin().getName(), c.getName());
         }
-        
+
     }
 
     @objid ("553f238e-4135-46dd-8df7-a9d6f8bf90de")
@@ -180,7 +181,7 @@ public class MetamodelWriter {
         }
         d.setTarget(toMClassRef(dep.getTarget()));
         d.setAggregation(getAggreagation(dep));
-        
+
         if (dep instanceof SmDependency) {
             SmDependency smd = (SmDependency) dep;
             d.setNavigate((smd.isPartOf() || smd.isComposition() || smd.isSharedComposition()) && ! smd.isDynamic());
@@ -194,7 +195,7 @@ public class MetamodelWriter {
     private MEnumDescriptor writeEnum(Class<? extends Enum<?>> enumCls) {
         MEnumDescriptor d = new MEnumDescriptor();
         d.setName(enumCls.getName());
-        
+
         for (Enum<?> val : enumCls.getEnumConstants()) {
             d.getValues().add(val.name());
         }
@@ -206,40 +207,40 @@ public class MetamodelWriter {
         for (MClass cls : this.metamodel.getRegisteredMClasses()) {
             if (cls.isFake() && this.classFilter.test(cls)) {
                 MClassRef cref = MClassRef.fromQualifiedName(cls.getQualifiedName());
-                
+
                 MetamodelFragmentDescriptor fd = getOrCreateFragmentDescriptor(d, cref.getFragmentName());
-                
+
                 fd.getMetaclasses().add(writeMetaclass(cls));
             }
         }
-        
+
     }
 
     @objid ("716072f5-ff75-48f6-83e2-6b6b2ac3162b")
     private MetamodelFragmentDescriptor writeFragment(MMetamodelFragment mf) {
         this.enumToExport = new HashSet<>();
-        
+
         MetamodelFragmentDescriptor d = new MetamodelFragmentDescriptor();
         d.setName(mf.getName());
         d.setProvider(mf.getProvider());
         d.setProviderVersion(mf.getProviderVersion());
         d.setVersion(mf.getVersion());
         d.setFake(mf.isFake());
-        
+
         for (VersionedItem<MMetamodelFragment> neededRef : mf.getNeededFragments()) {
             d.getDependencies().add(new VersionedItem<>(neededRef.getName(), neededRef.getVersion(), null));
         }
-        
+
         for (MClass cls : this.metamodel.getRegisteredMClasses()) {
             if (cls.getOrigin() == mf && this.classFilter.test(cls)) {
                 d.getMetaclasses().add(writeMetaclass(cls));
             }
         }
-        
+
         for (Class<? extends Enum<?>> enumCls : this.enumToExport) {
             d.getEnumerations().add(writeEnum(enumCls));
         }
-        
+
         // needed to make MMetamodelFragmentDescriptor.equals() work
         Collections.sort(d.getMetaclasses(), (a,b) -> a.getName().compareTo(b.getName()));
         Collections.sort(d.getEnumerations(), (a,b) -> a.getName().compareTo(b.getName()));
@@ -251,7 +252,7 @@ public class MetamodelWriter {
         if (cls.isLinkMetaclass()) {
             MLinkMetaclassDescriptor d = new MLinkMetaclassDescriptor();
             writeMetaclassContent(cls, d);
-            
+
             for (MDependency dep : cls.getLinkMetaclassSources()) {
                 if (this.depFilter.test(dep)) {
                     d.getSourceDepencencies().add(dep.getName());
@@ -262,16 +263,16 @@ public class MetamodelWriter {
                     d.getTargetDepencencies().add(dep.getName());
                 }
             }
-            
+
             return d;
-            
+
         } else {
             MClassDescriptor d = new MClassDescriptor();
             writeMetaclassContent(cls, d);
             return d;
-            
+
         }
-        
+
     }
 
     @objid ("b429c9f0-22cd-4a6b-a23b-c26d476e4b9b")
@@ -281,21 +282,21 @@ public class MetamodelWriter {
         d.setAbstrakt(cls.isAbstract());
         d.setCmsNode(cls.isCmsNode());
         d.setFake(cls.isFake());
-        
+
         for (MAttribute att : cls.getAttributes(false)) {
             if (this.attFilter.test(att)) {
                 d.getAttributes().add(writeAttribute(att));
             }
         }
-        
+
         for (MDependency dep : cls.getDependencies(false)) {
             if (this.depFilter.test(dep)) {
                 d.getDependencies().add(writeDependency(dep));
             }
         }
-        
+
         d.setParent(toMClassRef(cls.getSuper()));
-        
+
     }
 
 }

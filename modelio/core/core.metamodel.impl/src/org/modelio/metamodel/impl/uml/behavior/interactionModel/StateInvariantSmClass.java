@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
 import java.util.ArrayList;
@@ -41,73 +40,73 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("fcdddd87-663f-4ea8-99c7-5a84503dc557")
 public class StateInvariantSmClass extends OccurrenceSpecificationSmClass {
-    @objid ("32837912-475b-49db-a14e-d2d59ce09a5a")
+    @objid ("d5793a13-c36c-48da-8004-274025885c51")
     private SmAttribute bodyAtt;
 
-    @objid ("9bf64c73-b760-451d-abd8-940346fff261")
+    @objid ("21d87d35-6d29-4444-8cbd-164fcf08a9d6")
     private SmAttribute endLineNumberAtt;
 
-    @objid ("be0654d8-5292-4255-a3d7-ea7eb46dc43f")
-    public  StateInvariantSmClass(ISmMetamodelFragment origin) {
+    @objid ("c2534cec-ac1c-404e-9b8c-70edf606e820")
+    public StateInvariantSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("0c1e37b1-84c6-4ba4-bca0-046045c2695b")
+    @objid ("26975ddd-ce74-46ed-98de-1b52d329fdee")
     @Override
     public String getName() {
         return "StateInvariant";
-        
+
     }
 
-    @objid ("e28ffef4-32c6-47d0-aa0d-2ec44e9721e1")
+    @objid ("22fecb37-13d2-431f-b667-64aed29d0735")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("f068f253-23a4-4203-b4f7-f4b16d890e30")
+    @objid ("b5d995cd-1565-4c74-98dd-ee205cbe561d")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return StateInvariant.class;
-        
+
     }
 
-    @objid ("620871bd-017f-46fb-94d2-1b99b153e695")
+    @objid ("2854ee02-c209-43fb-90d4-f14f4c3a918a")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("10284b98-f8e2-4368-ba8d-a3b9efac1ca2")
+    @objid ("b99b2f56-f890-4a0f-98b9-66abb8009293")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("0ea76f47-ea77-48e0-aa86-99120d864656")
+    @objid ("d5dfe6b3-d1a8-45ce-8475-3a882f21f68d")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(OccurrenceSpecification.MQNAME);
         this.registerFactory(new StateInvariantObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
         this.bodyAtt = new BodySmAttribute();
         this.bodyAtt.init("Body", this, String.class );
         registerAttribute(this.bodyAtt);
-        
+
         this.endLineNumberAtt = new EndLineNumberSmAttribute();
         this.endLineNumberAtt.init("EndLineNumber", this, Integer.class );
         registerAttribute(this.endLineNumberAtt);
-        
-        
+
+
         // Initialize and register the SmDependency
-        
+
     }
 
-    @objid ("48c72b0f-07f1-48c5-aaa9-fad5914d693c")
+    @objid ("dd983f42-6849-4de9-bded-95c2e1a4f2a7")
     public SmAttribute getBodyAtt() {
         if (this.bodyAtt == null) {
         	this.bodyAtt = this.getAttributeDef("Body");
@@ -115,7 +114,7 @@ public class StateInvariantSmClass extends OccurrenceSpecificationSmClass {
         return this.bodyAtt;
     }
 
-    @objid ("1b5d712b-1b50-428d-ba37-cdecbd1feb1d")
+    @objid ("5dc75d67-cb8e-47b3-af5d-b27164857da6")
     public SmAttribute getEndLineNumberAtt() {
         if (this.endLineNumberAtt == null) {
         	this.endLineNumberAtt = this.getAttributeDef("EndLineNumber");
@@ -125,21 +124,21 @@ public class StateInvariantSmClass extends OccurrenceSpecificationSmClass {
 
     @objid ("8d293fe4-7306-4b52-8df2-b120276158ca")
     private static class StateInvariantObjectFactory implements ISmObjectFactory {
-        @objid ("4740f8f0-b568-4cbc-b54d-2d177005cf9e")
+        @objid ("5fd610b4-9ed1-4ef7-8444-70d31b1a7ec6")
         private StateInvariantSmClass smClass;
 
-        @objid ("4213999d-c4f4-442e-8478-e5970544e1d5")
-        public  StateInvariantObjectFactory(StateInvariantSmClass smClass) {
+        @objid ("8a3ae03c-0c32-4eef-a0fc-771cd8f6fa88")
+        public StateInvariantObjectFactory(StateInvariantSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("0d389c98-0529-43dd-b24b-a4c776e22eff")
+        @objid ("46e9ea3c-fe41-40a6-9bfa-dc7ca3f537b5")
         @Override
         public ISmObjectData createData() {
             return new StateInvariantData(this.smClass);
         }
 
-        @objid ("02139148-d507-48c5-9051-d243324114ad")
+        @objid ("49911a93-9de3-4033-b01f-49e6426fa800")
         @Override
         public SmObjectImpl createImpl() {
             return new StateInvariantImpl();
@@ -149,12 +148,12 @@ public class StateInvariantSmClass extends OccurrenceSpecificationSmClass {
 
     @objid ("c1694ce8-f72b-4392-887b-7ad883a8aadf")
     public static class BodySmAttribute extends SmAttribute {
-        @objid ("9f5d2b1e-3060-4d37-8175-77376a1c683f")
+        @objid ("943f6e41-728d-4cfd-bf9e-2421ae2fd7a1")
         public Object getValue(ISmObjectData data) {
             return ((StateInvariantData) data).mBody;
         }
 
-        @objid ("a02c26e7-6ae0-4273-ad5e-dc3f87cbe9a4")
+        @objid ("84ac4786-5f20-4bca-8085-972096d1ca43")
         public void setValue(ISmObjectData data, Object value) {
             ((StateInvariantData) data).mBody = value;
         }
@@ -163,12 +162,12 @@ public class StateInvariantSmClass extends OccurrenceSpecificationSmClass {
 
     @objid ("5b668db3-c0ce-4d3d-9317-e74f74576591")
     public static class EndLineNumberSmAttribute extends SmAttribute {
-        @objid ("9a65f384-2bbf-45c6-a982-3491d99f01f1")
+        @objid ("987fc296-3665-4d28-8a60-df04d334777b")
         public Object getValue(ISmObjectData data) {
             return ((StateInvariantData) data).mEndLineNumber;
         }
 
-        @objid ("0f07c7c4-ab73-4fb8-be72-557b041de598")
+        @objid ("02197672-a54c-4b3e-803a-4e55028dc088")
         public void setValue(ISmObjectData data, Object value) {
             ((StateInvariantData) data).mEndLineNumber = value;
         }

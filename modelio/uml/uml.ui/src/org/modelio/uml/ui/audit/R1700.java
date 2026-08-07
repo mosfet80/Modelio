@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -48,7 +48,7 @@ public class R1700 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -99,14 +99,14 @@ public class R1700 extends AbstractUmlRule {
      * Default constructor for R1700
      */
     @objid ("5cb1b9d4-0111-4a26-8473-ccf0b35cccdc")
-    public  R1700() {
+    public R1700() {
         this.checkerInstance = new CheckR1700(this);
     }
 
     @objid ("ed57e57e-d12d-427d-a694-2b24544a3973")
     private static class CheckR1700 extends AbstractControl {
         @objid ("d0c8aee1-46f7-4ecf-8b02-415894536540")
-        public  CheckR1700(IRule rule) {
+        public CheckR1700(IRule rule) {
             super(rule);
         }
 
@@ -127,12 +127,12 @@ public class R1700 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     event,
                     null);
-            
+
             if (event.getKind().equals(EventType.SIGNALEVENT)) {
                 if (event.getModel() == null || event.getCalled() != null || !event.getExpression().isEmpty()) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(event);

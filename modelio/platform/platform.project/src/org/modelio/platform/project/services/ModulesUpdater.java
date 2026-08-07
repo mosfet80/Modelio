@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.platform.project.services;
 
@@ -54,7 +73,7 @@ import org.modelio.vbasic.version.VersionedItem;
  * Updates all project modules to the last version found in the catalog.
  * <p>
  * Installs missing dependencies if needed.
- * 
+ *
  * @author cma
  */
 @objid ("65fe3a1c-df77-4f64-9222-4e9fa028d73f")
@@ -76,20 +95,21 @@ public class ModulesUpdater {
 
     /**
      * C'tor
+     *
      * @param project the project to work on.
      * @param withConfirmation whether to ask user for confirmation.
      */
     @objid ("26c9a208-ec68-472e-b5a8-667df7e45fca")
-    public  ModulesUpdater(IModuleManagementService moduleSvc, IModuleStore modulesCatalog, IGProject project, boolean withConfirmation) {
+    public ModulesUpdater(IModuleManagementService moduleSvc, IModuleStore modulesCatalog, IGProject project, boolean withConfirmation) {
         this.modulesCatalog = modulesCatalog;
         this.project = Objects.requireNonNull(project);
         this.moduleSvc = moduleSvc;
         this.results = new ArrayList<>();
-        
     }
 
     /**
      * Update all modules to last version and add missing mandatory modules.
+     *
      * @param monitor a progress monitor
      */
     @objid ("481caa61-d023-4be9-8475-dbbbf9ba8cc9")
@@ -112,16 +132,15 @@ public class ModulesUpdater {
                 }
             }
         }
-        
+
         // add mandatory modules too
         try {
             toInstall.addAll(getMissingMandatoryModules(mon.newChild(1)));
         } catch (IOException e) {
             this.results.add(new Status(IStatus.WARNING, ModulesUpdater.pluginId, FileUtils.getLocalizedMessage(e), e));
         }
-        
+
         installUpdates(toInstall, mon.newChild(10));
-        
     }
 
     @objid ("dded2287-ac4f-4872-a614-9a90c0c374bb")
@@ -146,9 +165,9 @@ public class ModulesUpdater {
                 } catch (IOException e) {
                     String msg = MessageFormat.format("Unable to get {0} dependency for {1} : {2}", dep.getName(), module.getName(),
                             FileUtils.getLocalizedMessage(e));
-        
+
                     this.results.add(new Status(IStatus.WARNING, ModulesUpdater.pluginId, msg, e));
-        
+
                     ok = false;
                 }
             }
@@ -169,7 +188,7 @@ public class ModulesUpdater {
     @objid ("70c79c06-f967-47c0-baa9-31125aa80427")
     private void installUpdates(Collection<IModuleHandle> toInstall, SubProgress monitor) {
         monitor.setWorkRemaining(toInstall.size());
-        
+
         // Sort modules
         List<IModuleHandle> sorted;
         try {
@@ -178,11 +197,10 @@ public class ModulesUpdater {
             this.results.add(new Status(IStatus.WARNING, ModulesUpdater.pluginId, e.getLocalizedMessage(), e));
             sorted = new ArrayList<>(toInstall);
         }
-        
+
         for (IModuleHandle h : sorted) {
             installUpdate(h, monitor.newChild(1));
         }
-        
     }
 
     @objid ("e9bbc5f5-3cc2-41ce-b092-a38cc3ca3691")
@@ -191,23 +209,22 @@ public class ModulesUpdater {
             monitor.subTask(MessageFormat.format("Installing {0} v{1} module ...",
                     found.getName(),
                     found.getVersion()));
-        
+
             this.moduleSvc.installModule(monitor, this.project, found, null);
-        
+
             String msg = MessageFormat.format("Installed {0} v{1} module.",
                     found.getName(),
                     found.getVersion());
             this.results.add(new Status(IStatus.OK, ModulesUpdater.pluginId, msg));
-        
+
         } catch (ModuleException e) {
             String msg = MessageFormat.format("Unable to install {0} v{1} module : {2}",
                     found.getName(),
                     found.getVersion(),
                     e.getLocalizedMessage());
             this.results.add(new Status(IStatus.WARNING, ModulesUpdater.pluginId, msg, e));
-        
+
         }
-        
     }
 
     /**
@@ -218,29 +235,38 @@ public class ModulesUpdater {
         SubProgress mon = ModelioProgressAdapter.convert(monitor, "Checking mandatory modules ...", this.project.getParts(GModule.class).size() * 2);
         try {
             Collection<IModuleHandle> toInstall = getMissingMandatoryModules(mon.newChild(5));
-        
+
             if (!toInstall.isEmpty()) {
                 installUpdates(toInstall, mon.newChild(10));
             }
-        
+
         } catch (IOException e) {
             this.results.add(new Status(IStatus.WARNING, ModulesUpdater.pluginId, FileUtils.getLocalizedMessage(e), e));
         }
-        
     }
 
     @objid ("37d6ebe9-db51-46e0-b7a4-f5ba8400e770")
     private Collection<IModuleHandle> getMissingMandatoryModules(SubProgress mon) throws FileSystemException, IOException {
-        List<IModuleHandle> toInstall = new ArrayList<>();
-        
         IModuleHandle moduleHandle = this.modulesCatalog.findModule(IModelerModulePeerModule.MODULE_NAME,
                 IModelerModulePeerModule.MODULE_VERSION.toString(), mon);
-        
+
+        if (moduleHandle == null) {
+            IllegalStateException ex = new IllegalStateException(String.format("'%s' v%s mandatory module not found in %s catalog !",
+                    IModelerModulePeerModule.MODULE_NAME, IModelerModulePeerModule.MODULE_VERSION, this.modulesCatalog));
+            if (true) {
+                throw ex;
+            } else {
+                AppProjectCore.LOG.warning(ex);
+                return List.of();
+            }
+        }
+
         IRTModule existing = this.moduleSvc.getModuleRegistry().getModule(new VersionedItem<>(moduleHandle.getName(), moduleHandle.getVersion()));
         if (existing == null || !Objects.equals(existing.getVersion(), moduleHandle.getVersion())) {
-            toInstall.add(moduleHandle);
+            return List.of(moduleHandle);
         }
-        return toInstall;
+
+        return List.of();
     }
 
 }

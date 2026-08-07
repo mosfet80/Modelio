@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -62,7 +62,7 @@ public class R2470 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -82,11 +82,11 @@ public class R2470 extends AbstractUmlRule {
         plan.registerRule(PackageImport.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE);
-        
+
         // Namespace
         plan.registerRule(Package.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Collaboration.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         // Namespace.Classifier
         plan.registerRule(InformationItem.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Artifact.MQNAME, this, AuditTrigger.UPDATE);
@@ -100,7 +100,7 @@ public class R2470 extends AbstractUmlRule {
         plan.registerRule(UseCase.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Node.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Component.MQNAME, this, AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -134,14 +134,14 @@ public class R2470 extends AbstractUmlRule {
      * Default constructor for R2470
      */
     @objid ("a8075db3-5336-4238-a6f2-e10a2a1c2f43")
-    public  R2470() {
+    public R2470() {
         this.checkerInstance = new CheckR2470(this);
     }
 
     @objid ("d1ad1019-a16a-4e5a-bcc9-3c78dc559406")
     private static class CheckR2470 extends AbstractControl {
         @objid ("fbc9a999-3158-4ade-9f8a-f03ebf331ae3")
-        public  CheckR2470(IRule rule) {
+        public CheckR2470(IRule rule) {
             super(rule);
         }
 
@@ -167,21 +167,21 @@ public class R2470 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     nameSpace,
                     null);
-            
+
             List<Package> foundNS = new ArrayList<>();
-            
+
             for (PackageImport pi : nameSpace.getOwnedPackageImport()) {
                 Package pkg = pi.getImportedPackage();
                 if (foundNS.contains(pkg)) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(nameSpace);
                     linkedObjects.add(pkg);
                     auditEntry.setLinkedInfos(linkedObjects);
-            
+
                     return auditEntry;
                 } else {
                     foundNS.add(pkg);

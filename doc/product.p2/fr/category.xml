@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+
+	<!-- com.modeliosoft.modelio.documentation.modeler.nl_fr.feature -->
+	<feature url="features/com.modeliosoft.modelio.documentation.modeler.nl_fr.feature_0.0.0.jar" id="com.modeliosoft.modelio.documentation.modeler.nl_fr.feature" version="0.0.0">
+		<category name="com.modeliosoft.modelio.documentation.modeler.nl_fr"/>
+	</feature>
+	<category-def name="com.modeliosoft.modelio.documentation.modeler.nl_fr" label="com.modeliosoft.modelio.documentation.modeler.nl_fr">
+		<description>
+		</description>
+	</category-def>
+
+	<!-- org.modelio.documentation.modeler.nl_fr.feature -->
+	<feature url="features/org.modelio.documentation.modeler.nl_fr.feature_0.0.0.jar" id="org.modelio.documentation.modeler.nl_fr.feature" version="0.0.0">
+		<category name="org.modelio.documentation.modeler.nl_fr"/>
+	</feature>
+	<category-def name="org.modelio.documentation.modeler.nl_fr" label="org.modelio.documentation.modeler.nl_fr">
+		<description>
+		</description>
+	</category-def>
+
+</site>

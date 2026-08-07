@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.model.spi.mm;
 
@@ -26,6 +26,7 @@ import org.modelio.vcore.smkernel.meta.descriptor.MClassRef;
 
 /**
  * Resume of metamodel changes between 2 versions.
+ *
  * @author cma
  * @since 3.6
  */
@@ -45,6 +46,7 @@ public class MetamodelChangeDescriptor {
 
     /**
      * Add a new CMS node
+     *
      * @param mmFragName the metamodel fragment name
      * @param mClassName the metaclass name
      * @return this instance.
@@ -57,6 +59,7 @@ public class MetamodelChangeDescriptor {
 
     /**
      * Add a new CMS node
+     *
      * @param mmFragName the metamodel fragment name
      * @param mClassName the metaclass name
      * @return this instance.
@@ -69,6 +72,7 @@ public class MetamodelChangeDescriptor {
 
     /**
      * Add a new metaclass.
+     *
      * @param mmFragName the metamodel fragment name
      * @param mClassName the metaclass name
      * @return this instance.
@@ -81,6 +85,7 @@ public class MetamodelChangeDescriptor {
 
     /**
      * Register a deleted metaclass.
+     *
      * @param mmFragName the metamodel fragment name
      * @param mClassName the metaclass name
      * @return this instance.
@@ -92,6 +97,7 @@ public class MetamodelChangeDescriptor {
     }
 
     /**
+     *
      * @return the new metaclasses
      */
     @objid ("c13339db-0fab-4caa-bced-435b080af24a")
@@ -100,6 +106,7 @@ public class MetamodelChangeDescriptor {
     }
 
     /**
+     *
      * @return the new CMS node classes
      */
     @objid ("a9fdfb4a-d5cd-4dd4-b2f8-e25a2fe8c332")
@@ -108,6 +115,7 @@ public class MetamodelChangeDescriptor {
     }
 
     /**
+     *
      * @return the deleted metaclasses.
      */
     @objid ("2acc9fb9-49d8-4421-93c4-66c7a8c066af")
@@ -116,6 +124,7 @@ public class MetamodelChangeDescriptor {
     }
 
     /**
+     *
      * @return the metaclasses that are not CMS node anymore.
      */
     @objid ("465d4361-083c-4899-b25e-9599b6aae3aa")

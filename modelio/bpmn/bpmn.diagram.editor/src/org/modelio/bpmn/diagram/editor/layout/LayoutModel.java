@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.layout;
 
@@ -48,11 +48,11 @@ public class LayoutModel {
     private NodeTable nodeTable;
 
     @objid ("07d84efd-8540-43d5-a788-38fb15197c10")
-    public  LayoutModel() {
+    public LayoutModel() {
         this.nodesLayout = new HashMap<>();
         this.linksLayout = new HashMap<>();
         this.nodeTable = new NodeTable();
-        
+
     }
 
     @objid ("6e302ece-0308-407a-82e9-95405bde1942")
@@ -132,7 +132,7 @@ public class LayoutModel {
             } catch (IndexOutOfBoundsException e) {
                 return ILayoutableNode.NullNode;
             }
-            
+
         }
 
         /**
@@ -155,7 +155,7 @@ public class LayoutModel {
             } catch (IndexOutOfBoundsException e) {
                 return 0;
             }
-            
+
         }
 
         /**
@@ -175,7 +175,7 @@ public class LayoutModel {
                 }
             }
             colValues.set(col, node);
-            
+
         }
 
         /**

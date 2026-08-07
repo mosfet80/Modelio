@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.decisionmerge;
 
@@ -38,7 +38,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Specialisation of the GmPortContainer class for initial node.
- * 
+ *
  * @author fpoyer
  */
 @objid ("2a3b45fa-55b6-11e2-877f-002564c97630")
@@ -69,29 +69,30 @@ public class GmDecisionMerge extends GmPortContainer {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram in which the timeEvent is unmasked.
      * @param el the unmasked timeEvent.
      * @param ref a reference to the unmasked timeEvent.
      */
     @objid ("2a3ccc69-55b6-11e2-877f-002564c97630")
-    public  GmDecisionMerge(IGmDiagram diagram, DecisionMergeNode el, MRef ref) {
+    public GmDecisionMerge(IGmDiagram diagram, DecisionMergeNode el, MRef ref) {
         super(diagram, ref);
-        
+
         GmDecisionMergePrimaryNode mainNode = new GmDecisionMergePrimaryNode(diagram, ref);
         mainNode.setRoleInComposition(MAIN_NODE_ROLE);
         this.addChild(mainNode);
-        
+
         this.element = el;
         GmNameLabel label = new GmNameLabel(diagram, ref);
         label.setRoleInComposition(GmPortContainer.SATELLITE_ROLE);
         label.setLayoutData(Integer.valueOf(PositionConstants.EAST));
         this.addChild(label);
-        
+
         GmInputBehaviourText inputLabel = new GmInputBehaviourText(diagram, ref);
         inputLabel.setRoleInComposition(GmPortContainer.SATELLITE_ROLE);
         inputLabel.setLayoutData(Integer.valueOf(PositionConstants.SOUTH_EAST));
         this.addChild(inputLabel);
-        
+
     }
 
     @objid ("2a3ccc75-55b6-11e2-877f-002564c97630")
@@ -150,7 +151,7 @@ public class GmDecisionMerge extends GmPortContainer {
      * Empty constructor needed for deserialisation.
      */
     @objid ("2a3ccc98-55b6-11e2-877f-002564c97630")
-    public  GmDecisionMerge() {
+    public GmDecisionMerge() {
         // Nothing specific to do.
     }
 
@@ -171,7 +172,7 @@ public class GmDecisionMerge extends GmPortContainer {
             break;
         }
         }
-        
+
     }
 
     @objid ("2a3e52fd-55b6-11e2-877f-002564c97630")
@@ -190,17 +191,17 @@ public class GmDecisionMerge extends GmPortContainer {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmDecisionMerge.", GmDecisionMerge.MINOR_VERSION);
-        
+
     }
 
     @objid ("2a3e5311-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (DecisionMergeNode) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("2a3e5316-55b6-11e2-877f-002564c97630")
@@ -211,6 +212,7 @@ public class GmDecisionMerge extends GmPortContainer {
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */
@@ -222,6 +224,7 @@ public class GmDecisionMerge extends GmPortContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */

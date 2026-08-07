@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <?metadataRepository version='1.2.0'?>
-<repository name='file:/H:/modelio/alouette/work/eclipse/dev-platform/rcp-target/jakarta/jaxb/target/repository - metadata' type='org.eclipse.equinox.internal.p2.metadata.repository.LocalMetadataRepository' version='1.0.0'>
+<repository name='file:////home/fferran/mtools/alouette/work/eclipse/dev-platform/rcp-target/jakarta/jaxb/integ - metadata' type='org.eclipse.equinox.internal.p2.metadata.repository.LocalMetadataRepository' version='1'>
   <properties size='2'>
-    <property name='p2.timestamp' value='1686565073266'/>
+    <property name='p2.timestamp' value='1713373070686'/>
     <property name='p2.compressed' value='false'/>
   </properties>
-  <units size='23'>
+  <units size='22'>
     <unit id='jakarta.xml.bind-api' version='4.0.0' singleton='false' generation='2'>
       <update id='jakarta.xml.bind-api' range='[0.0.0,4.0.0)' severity='0'/>
       <properties size='4'>
@@ -62,7 +62,7 @@
       <touchpointData size='1'>
         <instructions size='1'>
           <instruction key='manifest'>
-            Bundle-SymbolicName: jakarta.xml.bind-api&#xA;Bundle-Version: 4.0.0
+            Bundle-SymbolicName: jakarta.xml.bind-api&#xA;Bundle-Version: 4.0.0&#xA;
           </instruction>
         </instructions>
       </touchpointData>
@@ -143,7 +143,7 @@
       <touchpointData size='1'>
         <instructions size='1'>
           <instruction key='manifest'>
-            Bundle-SymbolicName: org.glassfish.jaxb.core&#xA;Bundle-Version: 4.0.2
+            Bundle-SymbolicName: org.glassfish.jaxb.core&#xA;Bundle-Version: 4.0.2&#xA;
           </instruction>
         </instructions>
       </touchpointData>
@@ -171,7 +171,7 @@
       <touchpointData size='1'>
         <instructions size='1'>
           <instruction key='manifest'>
-            Bundle-SymbolicName: jakarta.xml.soap-api.source&#xA;Bundle-Version: 3.0.0
+            Bundle-SymbolicName: jakarta.xml.soap-api.source&#xA;Bundle-Version: 3.0.0&#xA;
           </instruction>
         </instructions>
       </touchpointData>
@@ -216,7 +216,7 @@
       <touchpointData size='1'>
         <instructions size='1'>
           <instruction key='manifest'>
-            Bundle-SymbolicName: com.sun.istack.commons-runtime&#xA;Bundle-Version: 4.1.1
+            Bundle-SymbolicName: com.sun.istack.commons-runtime&#xA;Bundle-Version: 4.1.1&#xA;
           </instruction>
         </instructions>
       </touchpointData>
@@ -244,7 +244,7 @@
       <touchpointData size='1'>
         <instructions size='1'>
           <instruction key='manifest'>
-            Bundle-SymbolicName: org.glassfish.jaxb.runtime.source&#xA;Bundle-Version: 4.0.2
+            Bundle-SymbolicName: org.glassfish.jaxb.runtime.source&#xA;Bundle-Version: 4.0.2&#xA;
           </instruction>
         </instructions>
       </touchpointData>
@@ -272,7 +272,7 @@
       <touchpointData size='1'>
         <instructions size='1'>
           <instruction key='manifest'>
-            Bundle-SymbolicName: com.sun.istack.commons-runtime.source&#xA;Bundle-Version: 4.1.1
+            Bundle-SymbolicName: com.sun.istack.commons-runtime.source&#xA;Bundle-Version: 4.1.1&#xA;
           </instruction>
         </instructions>
       </touchpointData>
@@ -315,7 +315,7 @@
       <touchpointData size='1'>
         <instructions size='1'>
           <instruction key='manifest'>
-            Bundle-SymbolicName: jakarta.xml.soap-api&#xA;Bundle-Version: 3.0.0
+            Bundle-SymbolicName: jakarta.xml.soap-api&#xA;Bundle-Version: 3.0.0&#xA;
           </instruction>
         </instructions>
       </touchpointData>
@@ -431,7 +431,7 @@
       <touchpointData size='1'>
         <instructions size='1'>
           <instruction key='manifest'>
-            Bundle-SymbolicName: org.glassfish.jaxb.runtime&#xA;Bundle-Version: 4.0.2
+            Bundle-SymbolicName: org.glassfish.jaxb.runtime&#xA;Bundle-Version: 4.0.2&#xA;
           </instruction>
         </instructions>
       </touchpointData>
@@ -459,7 +459,7 @@
       <touchpointData size='1'>
         <instructions size='1'>
           <instruction key='manifest'>
-            Bundle-SymbolicName: org.glassfish.jaxb.core.source&#xA;Bundle-Version: 4.0.2
+            Bundle-SymbolicName: org.glassfish.jaxb.core.source&#xA;Bundle-Version: 4.0.2&#xA;
           </instruction>
         </instructions>
       </touchpointData>
@@ -487,7 +487,7 @@
       <touchpointData size='1'>
         <instructions size='1'>
           <instruction key='manifest'>
-            Bundle-SymbolicName: org.glassfish.jaxb.txw2.source&#xA;Bundle-Version: 4.0.2
+            Bundle-SymbolicName: org.glassfish.jaxb.txw2.source&#xA;Bundle-Version: 4.0.2&#xA;
           </instruction>
         </instructions>
       </touchpointData>
@@ -544,7 +544,7 @@
       <touchpointData size='1'>
         <instructions size='1'>
           <instruction key='manifest'>
-            Bundle-SymbolicName: org.glassfish.jaxb.txw2&#xA;Bundle-Version: 4.0.2
+            Bundle-SymbolicName: org.glassfish.jaxb.txw2&#xA;Bundle-Version: 4.0.2&#xA;
           </instruction>
         </instructions>
       </touchpointData>
@@ -572,7 +572,7 @@
       <touchpointData size='1'>
         <instructions size='1'>
           <instruction key='manifest'>
-            Bundle-SymbolicName: angus-activation.source&#xA;Bundle-Version: 2.0.0
+            Bundle-SymbolicName: angus-activation.source&#xA;Bundle-Version: 2.0.0&#xA;
           </instruction>
         </instructions>
       </touchpointData>
@@ -631,7 +631,7 @@
       <touchpointData size='1'>
         <instructions size='1'>
           <instruction key='manifest'>
-            Bundle-SymbolicName: jakarta.xml.ws-api&#xA;Bundle-Version: 4.0.0
+            Bundle-SymbolicName: jakarta.xml.ws-api&#xA;Bundle-Version: 4.0.0&#xA;
           </instruction>
         </instructions>
       </touchpointData>
@@ -672,7 +672,7 @@
       <touchpointData size='1'>
         <instructions size='1'>
           <instruction key='manifest'>
-            Bundle-SymbolicName: jakarta.activation-api&#xA;Bundle-Version: 2.1.0
+            Bundle-SymbolicName: jakarta.activation-api&#xA;Bundle-Version: 2.1.0&#xA;
           </instruction>
         </instructions>
       </touchpointData>
@@ -728,7 +728,7 @@
       <touchpointData size='1'>
         <instructions size='1'>
           <instruction key='manifest'>
-            Bundle-SymbolicName: jakarta.activation-api&#xA;Bundle-Version: 2.1.1
+            Bundle-SymbolicName: jakarta.activation-api&#xA;Bundle-Version: 2.1.1&#xA;
           </instruction>
         </instructions>
       </touchpointData>
@@ -766,34 +766,6 @@
         (c) Softeam Software
       </copyright>
     </unit>
-    <unit id='jakarta.activation-api.source' version='2.1.0' singleton='false'>
-      <update id='jakarta.activation-api.source' range='[0.0.0,2.1.0)' severity='0'/>
-      <properties size='2'>
-        <property name='org.eclipse.equinox.p2.name' value='jakarta.activation-api.source'/>
-        <property name='org.eclipse.equinox.p2.bundle.localization' value='plugin'/>
-      </properties>
-      <provides size='4'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='jakarta.activation-api.source' version='2.1.0'/>
-        <provided namespace='osgi.bundle' name='jakarta.activation-api.source' version='2.1.0'/>
-        <provided namespace='osgi.identity' name='jakarta.activation-api.source' version='2.1.0'>
-          <properties size='1'>
-            <property name='type' value='osgi.bundle'/>
-          </properties>
-        </provided>
-        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='source' version='1.0.0'/>
-      </provides>
-      <artifacts size='1'>
-        <artifact classifier='osgi.bundle' id='jakarta.activation-api.source' version='2.1.0'/>
-      </artifacts>
-      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
-      <touchpointData size='1'>
-        <instructions size='1'>
-          <instruction key='manifest'>
-            Bundle-SymbolicName: jakarta.activation-api.source&#xA;Bundle-Version: 2.1.0
-          </instruction>
-        </instructions>
-      </touchpointData>
-    </unit>
     <unit id='jakarta.activation-api.source' version='2.1.1' singleton='false'>
       <update id='jakarta.activation-api.source' range='[0.0.0,2.1.1)' severity='0'/>
       <properties size='2'>
@@ -817,7 +789,35 @@
       <touchpointData size='1'>
         <instructions size='1'>
           <instruction key='manifest'>
-            Bundle-SymbolicName: jakarta.activation-api.source&#xA;Bundle-Version: 2.1.1
+            Bundle-SymbolicName: jakarta.activation-api.source&#xA;Bundle-Version: 2.1.1&#xA;
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='jakarta.activation-api.source' version='2.1.0' singleton='false'>
+      <update id='jakarta.activation-api.source' range='[0.0.0,2.1.0)' severity='0'/>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='jakarta.activation-api.source'/>
+        <property name='org.eclipse.equinox.p2.bundle.localization' value='plugin'/>
+      </properties>
+      <provides size='4'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='jakarta.activation-api.source' version='2.1.0'/>
+        <provided namespace='osgi.bundle' name='jakarta.activation-api.source' version='2.1.0'/>
+        <provided namespace='osgi.identity' name='jakarta.activation-api.source' version='2.1.0'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='source' version='1.0.0'/>
+      </provides>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='jakarta.activation-api.source' version='2.1.0'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: jakarta.activation-api.source&#xA;Bundle-Version: 2.1.0&#xA;
           </instruction>
         </instructions>
       </touchpointData>
@@ -851,38 +851,6 @@
         (c) Softeam Software
       </copyright>
     </unit>
-    <unit id='file:/H:/modelio/alouette/work/eclipse/dev-platform/rcp-target/jakarta/jaxb/target/repository/category.xml.all' version='1.0.0.947A7UcjMx3'>
-      <properties size='2'>
-        <property name='org.eclipse.equinox.p2.name' value='Maven osgi-bundles'/>
-        <property name='org.eclipse.equinox.p2.type.category' value='true'/>
-      </properties>
-      <provides size='1'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='file:/H:/modelio/alouette/work/eclipse/dev-platform/rcp-target/jakarta/jaxb/target/repository/category.xml.all' version='1.0.0.947A7UcjMx3'/>
-      </provides>
-      <requires size='20'>
-        <required namespace='org.eclipse.equinox.p2.iu' name='jakarta.xml.bind-api' range='[4.0.0,4.0.0]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='org.glassfish.jaxb.core' range='[4.0.2,4.0.2]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='jakarta.xml.soap-api.source' range='[3.0.0,3.0.0]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='com.sun.istack.commons-runtime' range='[4.1.1,4.1.1]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='org.glassfish.jaxb.runtime.source' range='[4.0.2,4.0.2]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='com.sun.istack.commons-runtime.source' range='[4.1.1,4.1.1]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='jakarta.xml.soap-api' range='[3.0.0,3.0.0]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='org.glassfish.jaxb.runtime' range='[4.0.2,4.0.2]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='org.glassfish.jaxb.core.source' range='[4.0.2,4.0.2]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='org.glassfish.jaxb.txw2.source' range='[4.0.2,4.0.2]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='org.glassfish.jaxb.txw2' range='[4.0.2,4.0.2]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='angus-activation.source' range='[2.0.0,2.0.0]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='jakarta.xml.ws-api' range='[4.0.0,4.0.0]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='jakarta.activation-api' range='[2.1.0,2.1.0]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='jakarta.activation-api' range='[2.1.1,2.1.1]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='jakarta.activation-api.source' range='[2.1.0,2.1.0]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='jakarta.activation-api.source' range='[2.1.1,2.1.1]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='jakarta.xml.ws-api.source' range='[4.0.0,4.0.0]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='angus-activation' range='[2.0.0,2.0.0]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='jakarta.xml.bind-api.source' range='[4.0.0,4.0.0]'/>
-      </requires>
-      <touchpoint id='null' version='0.0.0'/>
-    </unit>
     <unit id='jakarta.xml.ws-api.source' version='4.0.0' singleton='false'>
       <update id='jakarta.xml.ws-api.source' range='[0.0.0,4.0.0)' severity='0'/>
       <properties size='2'>
@@ -906,7 +874,7 @@
       <touchpointData size='1'>
         <instructions size='1'>
           <instruction key='manifest'>
-            Bundle-SymbolicName: jakarta.xml.ws-api.source&#xA;Bundle-Version: 4.0.0
+            Bundle-SymbolicName: jakarta.xml.ws-api.source&#xA;Bundle-Version: 4.0.0&#xA;
           </instruction>
         </instructions>
       </touchpointData>
@@ -966,7 +934,7 @@
       <touchpointData size='1'>
         <instructions size='1'>
           <instruction key='manifest'>
-            Bundle-SymbolicName: angus-activation&#xA;Bundle-Version: 2.0.0
+            Bundle-SymbolicName: angus-activation&#xA;Bundle-Version: 2.0.0&#xA;
           </instruction>
         </instructions>
       </touchpointData>
@@ -994,7 +962,7 @@
       <touchpointData size='1'>
         <instructions size='1'>
           <instruction key='manifest'>
-            Bundle-SymbolicName: jakarta.xml.bind-api.source&#xA;Bundle-Version: 4.0.0
+            Bundle-SymbolicName: jakarta.xml.bind-api.source&#xA;Bundle-Version: 4.0.0&#xA;
           </instruction>
         </instructions>
       </touchpointData>

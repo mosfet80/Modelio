@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures.routers;
 
@@ -38,7 +38,7 @@ import org.modelio.diagram.elements.core.link.ortho.edit.AxisAccessor;
  * <p>
  * The route constraint is modified to be made orthogonal by minimal changes only. Anchors aren't moved.
  * </p>
- * 
+ *
  * @since 5.1.0
  */
 @objid ("0d91b73f-cded-49ea-85e6-c8c1b435a3be")
@@ -54,31 +54,30 @@ public class OrthogonalRectifierRouter extends BendpointConnectionRouter {
             super.route(connection);
             return;
         }
-        
+
         AutoOrthoState state = sharedState.init(connection);
-        
+
         boolean valid = isValid(state);
         if (valid && AutoOrthoUtils.areSame(state.allPoints, connection.getPoints())) {
             return;
         }
-        
+
         if (!valid) {
             computeMPointRoute(state);
         }
-        
+
         // Build a new point list
         final PointList newPointList = AutoOrthoUtils.toPointList(state.allPoints);
-        
+
         // Set the new points
         connection.setPoints(newPointList);
-        
+
         if (!valid) {
             // Modifies the stored constraint to match the new routing.
             // Avoid call Connection.setRoutingConstraint(...) : it triggers routing again
             List<MPoint> newConstraint = AutoOrthoUtils.routeToConstraint(state.allPoints);
             setConstraint(connection, newConstraint);
         }
-        
     }
 
     @objid ("178f1c62-c322-4f5e-a6d5-b47659b00d51")
@@ -86,20 +85,19 @@ public class OrthogonalRectifierRouter extends BendpointConnectionRouter {
         // Ask the anchors to align with 2nd and n-2 points to allow deletion of first and last bend points
         state.simplifyStartBendPoints(state.allPoints.size() - 1);
         state.simplifyEndBendPoints(0);
-        
+
         state.refreshAnchorBounds();
-        
+
         // Source and target locations are now fixed, we are not allowed to move them anymore.
-        
+
         // Get or guess initial and final directions
         state.refreshAnchorDirections();
-        
+
         // Now the tricky part: fix the bend points to form an orthogonal path.
         computeMPointRoute2(state);
-        
+
         // Cleanup of useless points.
         AutoOrthoUtils.cleanup(state.allPoints, false);
-        
     }
 
     @objid ("3d3a3caa-cbfb-41e8-a0ce-534cb5ebbfb2")
@@ -110,10 +108,9 @@ public class OrthogonalRectifierRouter extends BendpointConnectionRouter {
         } else {
             // If there are at least 1 intermediary bend points, fix the second and before last segments.
             fixSecondSegment(state.allPoints, state.sourceAnchorDir);
-        
+
             fixBeforeLastSegment(state.allPoints, state.targetAnchorDir);
         }
-        
     }
 
     @objid ("e4370456-3afb-4d64-8ca4-1ee06a462eae")
@@ -123,12 +120,12 @@ public class OrthogonalRectifierRouter extends BendpointConnectionRouter {
         Point nextPoint = allPoints.get(lastBendpointIndex - 1);
         Point targetLocation = allPoints.get(lastBendpointIndex + 1);
         Orientation previousSegmentOrientation = Direction.getMajor(fixedPoint, nextPoint).orientation();
-        
+
         if (previousSegmentOrientation == Orientation.NONE) {
             // both points are equal, it's as if it had the right orientation.
             previousSegmentOrientation = targetAnchorDir.orientation().getPerpendicular();
         }
-        
+
         if (targetAnchorDir == Direction.NONE) {
             // Target anchor is not oriented, deduct orientation from previous segment if possible.
             if (previousSegmentOrientation == Orientation.VERTICAL) {
@@ -159,10 +156,9 @@ public class OrthogonalRectifierRouter extends BendpointConnectionRouter {
             }
             fixedPoint.y = targetLocation.y;
         }
-        
+
         MPoint fixedBendpoint = new MPoint(fixedPoint, false);
         allPoints.set(lastBendpointIndex, fixedBendpoint);
-        
     }
 
     @objid ("bbbbc145-9ad0-4870-9ab1-334e12ae2e27")
@@ -172,12 +168,12 @@ public class OrthogonalRectifierRouter extends BendpointConnectionRouter {
         Point fixedPoint = allPoints.get(1);
         Point nextPoint = allPoints.get(2);
         Orientation nextSegmentOrientation = Direction.getMajor(fixedPoint, nextPoint).orientation();
-        
+
         if (nextSegmentOrientation == Orientation.NONE) {
             // both points are equal, it's as if it had the right orientation.
             nextSegmentOrientation = sourceAnchorDir.orientation().getPerpendicular();
         }
-        
+
         if (sourceAnchorDir == Direction.NONE) {
             if (nextSegmentOrientation == Orientation.VERTICAL) {
                 // next segment is vertical, so first was horizontal
@@ -207,7 +203,6 @@ public class OrthogonalRectifierRouter extends BendpointConnectionRouter {
         }
         MPoint fixedBendpoint = new MPoint(fixedPoint, false);
         allPoints.set(1, fixedBendpoint);
-        
     }
 
     @objid ("f9a891e7-02da-425b-89a5-9fbcb17cdfdb")
@@ -248,18 +243,19 @@ public class OrthogonalRectifierRouter extends BendpointConnectionRouter {
                 // else: lucky: both anchors are aligned, nothing to do!
             }
         }
-        
     }
 
     /**
      * convenience method to get the constraint as a list of bend points.
+     *
      * @param connection a connection figure
      * @return The list of bend points.
      */
     @objid ("e917b8b4-3347-455e-929f-a5ac5ca182e1")
-    @SuppressWarnings ("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     private List<MPoint> getBendpoints(Connection connection) {
-        return (List<MPoint>) getConstraint(connection);
+        List constraint = getConstraint(connection);
+        return constraint;
     }
 
     @objid ("fb9e9f17-fc94-4f85-9252-5840d86182c7")
@@ -273,15 +269,15 @@ public class OrthogonalRectifierRouter extends BendpointConnectionRouter {
             Point fixedPoint = state.allPoints.get(1).getLocation();
             Point nextPoint = state.allPoints.get(2).getLocation();
             Orientation nextSegmentOrientation = Direction.getOrtho(fixedPoint, nextPoint).orientation();
-        
+
             if (state.sourceAnchorDir == Direction.NONE || state.sourceAnchorDir.orientation().getPerpendicular() != nextSegmentOrientation) {
                 return false;
             }
-        
+
             if (!AxisAccessor.forOrientation(state.sourceAnchorDir.orientation()).across.coordEquals(fixedPoint, sourceLocation)) {
                 return false;
             }
-        
+
             int lastBpIndex = state.allPoints.size() - 2;
             fixedPoint = state.allPoints.get(lastBpIndex).getLocation();
             nextPoint = state.allPoints.get(lastBpIndex - 1).getLocation();
@@ -289,15 +285,15 @@ public class OrthogonalRectifierRouter extends BendpointConnectionRouter {
             if (prevSegOrientation == Orientation.NONE) {
                 return false;
             }
-        
+
             if (state.targetAnchorDir == Direction.NONE || state.targetAnchorDir.orientation().getPerpendicular() != prevSegOrientation) {
                 return false;
             }
-        
+
             if (!AxisAccessor.forOrientation(state.targetAnchorDir.orientation()).across.coordEquals(fixedPoint, targetLocation)) {
                 return false;
             }
-        
+
         }
         return true;
     }

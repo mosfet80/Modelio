@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.commonBehaviors;
 
 import java.util.ArrayList;
@@ -49,37 +48,37 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0042b3fa-c4bf-1fd8-97fe-001ec947cd2a")
 public class EventImpl extends UmlModelElementImpl implements Event {
-    @objid ("8b69a138-dd6f-4c85-900c-32ede14a047f")
+    @objid ("5c6644ea-01e8-48ad-98e8-ba03d571e482")
     @Override
     public String getExpression() {
         return (String) getAttVal(((EventSmClass)getClassOf()).getExpressionAtt());
     }
 
-    @objid ("a6f923d2-e556-407f-8fe3-bbfb8b8af990")
+    @objid ("e2829ffe-4cb8-43f3-933a-b0e586582442")
     @Override
     public void setExpression(String value) {
         setAttVal(((EventSmClass)getClassOf()).getExpressionAtt(), value);
     }
 
-    @objid ("5c010912-62c7-4596-a4e0-8012e325ca41")
+    @objid ("a13c2128-753d-4c9c-b245-c8a20ef63351")
     @Override
     public EventType getKind() {
         return (EventType) getAttVal(((EventSmClass)getClassOf()).getKindAtt());
     }
 
-    @objid ("23b9a33e-f78a-4e03-9272-46f8eb6727df")
+    @objid ("917db382-aeff-42ef-b09a-6f2a5bc342ba")
     @Override
     public void setKind(EventType value) {
         setAttVal(((EventSmClass)getClassOf()).getKindAtt(), value);
     }
 
-    @objid ("96482703-5355-4842-949d-ee83bd3bae36")
+    @objid ("93855107-e983-4955-a3bc-85bfdd3ee947")
     @Override
     public EList<Transition> getTriggered() {
         return new SmList<>(this, ((EventSmClass)getClassOf()).getTriggeredDep());
     }
 
-    @objid ("f464570e-fade-49a7-83d2-225030f35512")
+    @objid ("2690ac12-1d17-4a80-a9c8-1bce40ca5527")
     @Override
     public <T extends Transition> List<T> getTriggered(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -92,29 +91,29 @@ public class EventImpl extends UmlModelElementImpl implements Event {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("5dc4d5d6-b70a-4301-8867-cedb9bd3d42c")
+    @objid ("22691d4e-91f1-4a8f-97f9-99a3b1eaa0a9")
     @Override
     public Signal getModel() {
         Object obj = getDepVal(((EventSmClass)getClassOf()).getModelDep());
         return (obj instanceof Signal)? (Signal)obj : null;
     }
 
-    @objid ("413966bc-9b35-4fce-ba00-d928bf98d096")
+    @objid ("48eed460-329b-47a5-a12c-21e19fc45ce6")
     @Override
     public void setModel(Signal value) {
         appendDepVal(((EventSmClass)getClassOf()).getModelDep(), (SmObjectImpl)value);
     }
 
-    @objid ("5a268444-f751-4b75-94f2-eb8ca462c3e2")
+    @objid ("c929f655-c2f7-495e-b44f-5ee089a67c5e")
     @Override
     public EList<State> getOrigin() {
         return new SmList<>(this, ((EventSmClass)getClassOf()).getOriginDep());
     }
 
-    @objid ("0bddc0c9-0b3b-474b-8817-a0ee4a33b15f")
+    @objid ("263a2624-2cb5-4eec-b285-94c1cd9c7c93")
     @Override
     public <T extends State> List<T> getOrigin(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -127,36 +126,36 @@ public class EventImpl extends UmlModelElementImpl implements Event {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("3f6e7eaf-a165-4c29-9c0b-01dafbb344c2")
+    @objid ("887658c6-4249-4808-8990-e177560b5241")
     @Override
     public Operation getCalled() {
         Object obj = getDepVal(((EventSmClass)getClassOf()).getCalledDep());
         return (obj instanceof Operation)? (Operation)obj : null;
     }
 
-    @objid ("0aadbb35-9a4b-4dc7-a390-16787112ca92")
+    @objid ("54ed6bfa-d363-4367-a071-fade295fec39")
     @Override
     public void setCalled(Operation value) {
         appendDepVal(((EventSmClass)getClassOf()).getCalledDep(), (SmObjectImpl)value);
     }
 
-    @objid ("52a9627c-adc8-457a-93df-e8497d23bc63")
+    @objid ("ab340ab8-769c-4156-bd0f-40764cd66b0e")
     @Override
     public Behavior getComposed() {
         Object obj = getDepVal(((EventSmClass)getClassOf()).getComposedDep());
         return (obj instanceof Behavior)? (Behavior)obj : null;
     }
 
-    @objid ("5857794e-6cea-44a8-952e-c3c61f155a47")
+    @objid ("8fd31d9f-2287-4289-91fe-efd2b300a2b8")
     @Override
     public void setComposed(Behavior value) {
         appendDepVal(((EventSmClass)getClassOf()).getComposedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("5c716bf9-25f2-4882-ab39-7cba66949920")
+    @objid ("0ea6db2d-839c-40b8-a45c-b66cbd3d3bcf")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -168,22 +167,22 @@ public class EventImpl extends UmlModelElementImpl implements Event {
         return super.getCompositionOwner();
     }
 
-    @objid ("4aa27281-f4f5-4909-9868-88caf3456d9b")
+    @objid ("3e083c37-e7a8-427f-9a07-3efef4b771b9")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // Composed
         dep = ((EventSmClass)getClassOf()).getComposedDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("a5ad5c99-f808-4309-a59d-f6cd1bcc1618")
+    @objid ("5b249113-c88a-4fd1-bab9-fec888c88b30")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitEvent(this);

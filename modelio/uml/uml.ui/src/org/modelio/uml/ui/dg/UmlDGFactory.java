@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.dg;
 
@@ -300,31 +300,31 @@ public class UmlDGFactory implements IDGFactory {
     @Override
     public IDiagramLink getDiagramLink(IDiagramHandle diagramHandle, IGmLink gmLink) {
         IDiagramLink ret = getActivityLink((DiagramHandle) diagramHandle, gmLink);
-        
+
         if (ret == null) {
             ret = getCommunicationLink((DiagramHandle) diagramHandle, gmLink);
         }
-        
+
         if (ret == null) {
             ret = getDeploymentLink((DiagramHandle) diagramHandle, gmLink);
         }
-        
+
         if (ret == null) {
             ret = getStateLink((DiagramHandle) diagramHandle, gmLink);
         }
-        
+
         if (ret == null) {
             ret = getUseCaseLink((DiagramHandle) diagramHandle, gmLink);
         }
-        
+
         if (ret == null) {
             ret = getStatikLink((DiagramHandle) diagramHandle, gmLink);
         }
-        
+
         if (ret == null) {
             ret = getSequenceLink((DiagramHandle) diagramHandle, gmLink);
         }
-        
+
         if (ret == null) {
             ret = getBpmnLink((DiagramHandle) diagramHandle, gmLink);
         }
@@ -337,41 +337,41 @@ public class UmlDGFactory implements IDGFactory {
         if (!gmNodeModel.isVisible()) {
             return null;
         }
-        
+
         IDiagramNode ret = getActivityNode((DiagramHandle) diagramHandle, gmNodeModel);
-        
+
         if (ret == null) {
             ret = getCommunicationNode((DiagramHandle) diagramHandle, gmNodeModel);
         }
-        
+
         if (ret == null) {
             ret = getDeploymentNode((DiagramHandle) diagramHandle, gmNodeModel);
         }
-        
+
         if (ret == null) {
             ret = getObjectNode((DiagramHandle) diagramHandle, gmNodeModel);
         }
-        
+
         if (ret == null) {
             ret = getStateNode((DiagramHandle) diagramHandle, gmNodeModel);
         }
-        
+
         if (ret == null) {
             ret = getUseCaseNode((DiagramHandle) diagramHandle, gmNodeModel);
         }
-        
+
         if (ret == null) {
             ret = getStatikNode((DiagramHandle) diagramHandle, gmNodeModel);
         }
-        
+
         if (ret == null) {
             ret = getSequenceNode((DiagramHandle) diagramHandle, gmNodeModel);
         }
-        
+
         if (ret == null) {
             ret = getBpmnNode((DiagramHandle) diagramHandle, gmNodeModel);
         }
-        
+
         if (ret == null) {
             ret = getCommonNode((DiagramHandle) diagramHandle, gmNodeModel);
         }
@@ -384,17 +384,17 @@ public class UmlDGFactory implements IDGFactory {
         if (gmLink instanceof GmControlFlow) {
             return new ControlFlowDG(diagramHandle, gmLink);
         }
-        
+
         // GmExceptionHandler
         if (gmLink instanceof GmExceptionHandler) {
             return new ExceptionHandlerDG(diagramHandle, gmLink);
         }
-        
+
         // GmObjectFlow
         if (gmLink instanceof GmObjectFlow) {
             return new ObjectFlowDG(diagramHandle, gmLink);
         }
-        
+
         // This is not an activity link
         return null;
     }
@@ -405,142 +405,142 @@ public class UmlDGFactory implements IDGFactory {
         if (gmNodeModel instanceof GmAcceptSignal) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmAction
         if (gmNodeModel instanceof GmAction) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmActivityDiagram
         if (gmNodeModel instanceof GmActivityDiagram) {
             return new ActivityDiagramDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmActivityFinal
         if (gmNodeModel instanceof GmActivityFinal) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmCallBehavior
         if (gmNodeModel instanceof GmCallBehavior) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmCallEvent
         if (gmNodeModel instanceof GmCallEvent) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmCallOperation
         if (gmNodeModel instanceof GmCallOperation) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmCentralBuffer
         if (gmNodeModel instanceof GmCentralBuffer) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmChangeEvent
         if (gmNodeModel instanceof GmChangeEvent) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmClause
         if (gmNodeModel instanceof GmClause) {
             return new ClauseDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmConditional
         if (gmNodeModel instanceof GmConditional) {
             return new ConditionalNodeDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmDataStore
         if (gmNodeModel instanceof GmDataStore) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmDecisionMerge
         if (gmNodeModel instanceof GmDecisionMerge) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmDiagramPartitionContainer
         if (gmNodeModel instanceof GmDiagramPartitionContainer) {
             return new DiagramPartitionContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmExpansionNode
         if (gmNodeModel instanceof GmExpansionNode) {
             return new LeafNodeDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmExpansionRegion
         if (gmNodeModel instanceof GmExpansionRegion) {
             return new ExpansionRegionDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmFlowFinal
         if (gmNodeModel instanceof GmFlowFinal) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmForkJoin
         if (gmNodeModel instanceof GmForkJoin) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmInitial
         if (gmNodeModel instanceof GmInitial) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmInputPin
         if (gmNodeModel instanceof GmInputPin) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmInterruptible
         if (gmNodeModel instanceof GmInterruptible) {
             return new InterruptibleActivityRegionDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmLoopNode
         if (gmNodeModel instanceof GmLoopNode) {
             return new LoopNodeDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmObjectNode
         if (gmNodeModel instanceof GmObjectNode) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmOutputPin
         if (gmNodeModel instanceof GmOutputPin) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmPartition
         if (gmNodeModel instanceof GmPartition) {
             return new ActivityPartitionDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmSendSignal
         if (gmNodeModel instanceof GmSendSignal) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmStructuredActivity
         if (gmNodeModel instanceof GmStructuredActivity) {
             return new StructuredActivityNodeDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmTimeEvent
         if (gmNodeModel instanceof GmTimeEvent) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmValuePin
         if (gmNodeModel instanceof GmValuePin) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
@@ -554,17 +554,17 @@ public class UmlDGFactory implements IDGFactory {
         if (gmLink instanceof GmBpmnDataAssociation) {
             return new BpmnDataAssociationDG(diagramHandle, gmLink);
         }
-        
+
         // GmBpmnMessageFlow
         if (gmLink instanceof GmBpmnMessageFlow) {
             return new BpmnMessageFlowDG(diagramHandle, gmLink);
         }
-        
+
         // GmBpmnSequenceFlow
         if (gmLink instanceof GmBpmnSequenceFlow) {
             return new BpmnSequenceFlowDG(diagramHandle, gmLink);
         }
-        
+
         // This is not a bpmn link
         return null;
     }
@@ -575,177 +575,177 @@ public class UmlDGFactory implements IDGFactory {
         if (gmNodeModel instanceof GmBpmnAdHocSubProcess) {
             return new BpmnAdHocSubProcessDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnBoundaryEvent
         if (gmNodeModel instanceof GmBpmnBoundaryEvent) {
             return new BpmnBoundaryEventDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnBusinessRuleTask
         if (gmNodeModel instanceof GmBpmnBusinessRuleTask) {
             return new BpmnBusinessRuleTaskDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnCallActivity
         if (gmNodeModel instanceof GmBpmnCallActivity) {
             return new BpmnCallActivityDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnComplexGateway
         if (gmNodeModel instanceof GmBpmnComplexGateway) {
             return new BpmnComplexGatewayDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnDataInput
         if (gmNodeModel instanceof GmBpmnDataInput) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnDataObject
         if (gmNodeModel instanceof GmBpmnDataObject) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnDataOutput
         if (gmNodeModel instanceof GmBpmnDataOutput) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnDataStore
         if (gmNodeModel instanceof GmBpmnDataStore) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnEndEvent
         if (gmNodeModel instanceof GmBpmnEndEvent) {
             return new BpmnEndEventDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnEventBasedGateway
         if (gmNodeModel instanceof GmBpmnEventBasedGateway) {
             return new BpmnEventBasedGatewayDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnExclusiveGateway
         if (gmNodeModel instanceof GmBpmnExclusiveGateway) {
             return new BpmnExclusiveGatewayDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnInclusiveGateway
         if (gmNodeModel instanceof GmBpmnInclusiveGateway) {
             return new BpmnInclusiveGatewayDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnIntermediateCatchEvent
         if (gmNodeModel instanceof GmBpmnIntermediateCatchEvent) {
             return new BpmnIntermediateCatchEventDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnIntermediateThrowEvent
         if (gmNodeModel instanceof GmBpmnIntermediateThrowEvent) {
             return new BpmnIntermediateThrowEventDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnLane
         if (gmNodeModel instanceof GmBpmnLane) {
             return new BpmnLaneDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnLaneSetContainer
         if (gmNodeModel instanceof GmBpmnLaneSetContainer) {
             return new BpmnLaneSetContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnManualTask
         if (gmNodeModel instanceof GmBpmnManualTask) {
             return new BpmnManualTaskDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnMessage
         if (gmNodeModel instanceof GmBpmnMessage) {
             return new BpmnMessageDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnNodeFooter
         if (gmNodeModel instanceof GmBpmnNodeFooter) {
             return new LeafNodeDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnNodeHeader
         if (gmNodeModel instanceof GmBpmnNodeHeader) {
             return new LeafNodeDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnParallelGateway
         if (gmNodeModel instanceof GmBpmnParallelGateway) {
             return new BpmnParallelGatewayDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnReceiveTask
         if (gmNodeModel instanceof GmBpmnReceiveTask) {
             return new BpmnReceiveTaskDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnSendTask
         if (gmNodeModel instanceof GmBpmnSendTask) {
             return new BpmnSendTaskDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnServiceTask
         if (gmNodeModel instanceof GmBpmnServiceTask) {
             return new BpmnServiceTaskDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnSriptTask
         if (gmNodeModel instanceof GmBpmnScriptTask) {
             return new BpmnScriptTaskDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnStartEvent
         if (gmNodeModel instanceof GmBpmnStartEvent) {
             return new BpmnStartEventDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnSubProcess
         if (gmNodeModel instanceof GmBpmnSubProcess) {
             return new BpmnSubProcessDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnTask
         if (gmNodeModel instanceof GmBpmnTask) {
             return new BpmnTaskDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnTransaction
         if (gmNodeModel instanceof GmBpmnTransaction) {
             return new BpmnTransactionDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnUserTask
         if (gmNodeModel instanceof GmBpmnUserTask) {
             return new BpmnUserTaskDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmGmBpmnProcessCollaborationDiagram
         if (gmNodeModel instanceof GmBpmnProcessCollaborationDiagram) {
             return new BpmnProcessCollaborationDiagramDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmGmBpmnSubProcessDiagram
         if (gmNodeModel instanceof GmBpmnSubProcessDiagram) {
             return new BpmnSubProcessDiagramDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnProcessDesignDiagram
         if (gmNodeModel instanceof GmBpmnProcessDesignDiagram) {
             return new BpmnProcessDesignDiagramDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBpmnParticipantPortContainer
         if (gmNodeModel instanceof GmBpmnParticipantPortContainer) {
             return new BpmnParticipantDG(diagramHandle, gmNodeModel);
         }
-        
+
         // This is not a bpmn node
         return null;
     }
@@ -774,7 +774,7 @@ public class UmlDGFactory implements IDGFactory {
         if (gmNodeModel instanceof GmCommunicationDiagram) {
             return new CommunicationDiagramDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmCommunicationNode
         if (gmNodeModel instanceof GmCommunicationNode) {
             return new CommunicationNodeDG(diagramHandle, gmNodeModel);
@@ -797,12 +797,12 @@ public class UmlDGFactory implements IDGFactory {
         if (gmNodeModel instanceof GmDeploymentDiagram) {
             return new DeploymentDiagramDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmArtifact
         if (gmNodeModel instanceof GmArtifact) {
             return new ArtifactDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmNode
         if (gmNodeModel instanceof GmNode) {
             return new NodeDG(diagramHandle, gmNodeModel);
@@ -834,42 +834,42 @@ public class UmlDGFactory implements IDGFactory {
         if (gmNodeModel instanceof GmLifeline) {
             return new LifelineDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmSequenceDiagram
         if (gmNodeModel instanceof GmSequenceDiagram) {
             return new SequenceDiagramDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmExecutionOccurenceSpecification
         if (gmNodeModel instanceof GmExecutionOccurenceSpecification) {
             return new ExecutionOccurenceSpecificationDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmExecutionSpecification
         if (gmNodeModel instanceof GmExecutionSpecification) {
             return new ExecutionSpecificationDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmInteractionUse
         if (gmNodeModel instanceof GmInteractionUse) {
             return new InteractionUseDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmGate
         if (gmNodeModel instanceof GmGate) {
             return new GateDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmCombinedFragment
         if (gmNodeModel instanceof GmCombinedFragment) {
             return new CombinedFragmentDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmInteractionOperand
         if (gmNodeModel instanceof GmInteractionOperand) {
             return new InteractionOperandDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmStateInvariant
         if (gmNodeModel instanceof GmStateInvariant) {
             return new StateInvariantDG(diagramHandle, gmNodeModel);
@@ -892,78 +892,78 @@ public class UmlDGFactory implements IDGFactory {
         if (gmNodeModel instanceof GmChoice) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmConnectionPoint
         if (gmNodeModel instanceof GmConnectionPoint) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
-        
+
         }
-        
+
         // GmDeepHistory
         if (gmNodeModel instanceof GmDeepHistory) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmEntry
         if (gmNodeModel instanceof GmEntry) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmExitPoint
         if (gmNodeModel instanceof GmExitPoint) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmFinalState
         if (gmNodeModel instanceof GmFinalState) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmForkState
         if (gmNodeModel instanceof GmForkState) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmInitialState
         if (gmNodeModel instanceof GmInitialState) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmInternalTransition
         if (gmNodeModel instanceof GmInternalTransition) {
             return new LeafNodeDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmJoin
         if (gmNodeModel instanceof GmJoin) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmJunction
         if (gmNodeModel instanceof GmJunction) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmRegion
         if (gmNodeModel instanceof GmRegion) {
             return new RegionDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmShallowHistory
         if (gmNodeModel instanceof GmShallowHistory) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmState
         if (gmNodeModel instanceof GmState) {
             return new StateDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmStateDiagram
         if (gmNodeModel instanceof GmStateDiagram) {
             return new StateDiagramDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmTerminal
         if (gmNodeModel instanceof GmTerminal) {
             return new LeafPortContainerDG(diagramHandle, gmNodeModel);
@@ -977,72 +977,72 @@ public class UmlDGFactory implements IDGFactory {
         if (gmNodeModel instanceof GmAssociation) {
             return new AssociationDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBindingLink
         if (gmNodeModel instanceof GmBindingLink) {
             return new BindingLinkDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmClassAssociation
         if (gmNodeModel instanceof GmClassAssociationLink) {
             return new ClassAssociationDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmConnector
         if (gmNodeModel instanceof GmConnectorLink) {
             return new ConnectorDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmElementImport
         if (gmNodeModel instanceof GmElementImport) {
             return new ElementImportDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmGeneralization
         if (gmNodeModel instanceof GmGeneralization) {
             return new GeneralizationDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmInformationFlowLink
         if (gmNodeModel instanceof GmInformationFlowLink) {
             return new InformationFlowDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmInstanceLink
         if (gmNodeModel instanceof GmInstanceLink) {
             return new LinkDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmInterfaceRealization
         if (gmNodeModel instanceof GmInterfaceRealization) {
             return new InterfaceRealizationDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmPackageImport
         if (gmNodeModel instanceof GmPackageImport) {
             return new PackageImportDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmPackageMerge
         if (gmNodeModel instanceof GmPackageMerge) {
             return new PackageMergeDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmProvidedInterface
         if (gmNodeModel instanceof GmProvidedInterfaceLink) {
             return new ProvidedInterfaceDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmRaisedException
         if (gmNodeModel instanceof GmRaisedException) {
             return new RaisedExceptionDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmRequiredInterface
         if (gmNodeModel instanceof GmRequiredInterfaceLink) {
             return new RequiredInterfaceDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmTemplateBinding
         if (gmNodeModel instanceof GmTemplateBinding) {
             return new TemplateBindingDG(diagramHandle, gmNodeModel);
@@ -1056,131 +1056,131 @@ public class UmlDGFactory implements IDGFactory {
         if (gmNodeModel instanceof GmActivity) {
             return new ActivityDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmAttribute
         if (gmNodeModel instanceof GmAttribute) {
             return new LeafNodeDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmBindingLabel
         if (gmNodeModel instanceof GmBindingLabel) {
             return new LabelDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmClass
         if (gmNodeModel instanceof GmClass) {
             return new ClassDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmCollaboration
         if (gmNodeModel instanceof GmCollaboration) {
             return new CollaborationDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmCollaborationUse
         if (gmNodeModel instanceof GmCollaborationUse) {
             return new CollaborationUseDG(diagramHandle, gmNodeModel);
         }
-        
+
         if (gmNodeModel instanceof GmCommunicationInteraction) {
             return new CommunicationInteractionDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmComponent
         if (gmNodeModel instanceof GmComponent) {
             return new ComponentDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmDataType
         if (gmNodeModel instanceof GmDataType) {
             return new DataTypeDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmEnum
         if (gmNodeModel instanceof GmEnum) {
             return new EnumerationDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmEnumLitteral
         if (gmNodeModel instanceof GmEnumLitteral) {
             return new LeafNodeDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmInformationItem
         if (gmNodeModel instanceof GmInformationItem) {
             return new LeafNodeDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmInstance
         if (gmNodeModel instanceof GmInstance) {
             return new InstanceDG(diagramHandle, gmNodeModel);
         }
-        
+
         if (gmNodeModel instanceof GmInteraction) {
             return new InteractionDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmInterface
         if (gmNodeModel instanceof GmInterface) {
             return new InterfaceDG(diagramHandle, gmNodeModel);
         }
-        
+
         // TODO GmModule
         // if (gmNodeModel instanceof GmModule) {
         // return new CollaborationUseDG(diagramHandle, gmNodeModel);
         // }
-        
+
         // GmOperation
         if (gmNodeModel instanceof GmOperation) {
             return new LeafNodeDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmPort
         if (gmNodeModel instanceof GmPort) {
             return new PortDG(diagramHandle, gmNodeModel);
         }
-        
+
         // TODO GmProfile
         // if (gmNodeModel instanceof GmProfile) {
         // return new ProfileDG(diagramHandle, gmNodeModel);
         // }
-        
+
         // GmSignal
         if (gmNodeModel instanceof GmSignal) {
             return new SignalDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmSlot
         if (gmNodeModel instanceof GmSlot) {
             return new LeafNodeDG(diagramHandle, gmNodeModel);
         }
-        
+
         // State Machine
         if (gmNodeModel instanceof GmStateMachine) {
             return new StateMachineDG(diagramHandle, gmNodeModel);
         }
-        
+
         if (gmNodeModel instanceof GmBpmnProcess) {
             return new BpmnProcessDG(diagramHandle, gmNodeModel);
         }
-        
+
         if (gmNodeModel instanceof GmBpmnBehavior) {
             return new BpmnBehaviorDG(diagramHandle, gmNodeModel);
         }
-        
+
         if (gmNodeModel instanceof GmBpmnCollaboration) {
             return new BpmnCollaborationDG(diagramHandle, gmNodeModel);
         }
-        
+
         if (gmNodeModel instanceof GmBpmnSharedDefinitions) {
             return new BpmnSharedDefinitionsDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmStaticDiagram
         if (gmNodeModel instanceof GmStaticDiagram) {
             return new StaticDiagramDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmPackage
         if (gmNodeModel instanceof GmPackage) {
             return new PackageDG(diagramHandle, gmNodeModel);
@@ -1194,7 +1194,7 @@ public class UmlDGFactory implements IDGFactory {
         if (gmLinkModel instanceof GmCommunicationChannel) {
             return new AssociationDG(diagramHandle, gmLinkModel);
         }
-        
+
         // GmUseCaseDependency
         if (gmLinkModel instanceof GmUseCaseDependency) {
             return new UseCaseDependencyDG(diagramHandle, gmLinkModel);
@@ -1208,23 +1208,23 @@ public class UmlDGFactory implements IDGFactory {
         if (gmNodeModel instanceof GmActor) {
             return new ActorDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmExtensionPoint
         if (gmNodeModel instanceof GmExtensionPoint) {
             return new LeafNodeDG(diagramHandle, gmNodeModel);
-        
+
         }
-        
+
         // GmUseCase
         if (gmNodeModel instanceof GmUseCase) {
             return new UseCaseDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmUseCaseDiagram
         if (gmNodeModel instanceof GmUseCaseDiagram) {
             return new UseCaseDiagramDG(diagramHandle, gmNodeModel);
         }
-        
+
         // GmSystem
         if (gmNodeModel instanceof GmSystem) {
             return new SystemDG(diagramHandle, gmNodeModel);

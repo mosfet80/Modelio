@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.corexp;
 
@@ -42,6 +42,7 @@ import org.modelio.diagram.styles.core.StyleKey.RepresentationMode;
  * <li>'is-gmnode' - true is all selected element are GmNodes</li>
  * <lI>'is-gmdiagramview' - true is all selected element are GmDiagramHolders</li>
  * </ul>
+ *
  * @author phv
  */
 @objid ("b97ed541-218b-43cd-be96-e23d6e03e2ad")
@@ -62,7 +63,7 @@ public class GmTester extends PropertyTester {
     private static final String IS_GMNODE_CUSTOMMODE = "is-gmnode-custommode";
 
     @objid ("8247ab73-74c2-458d-a9a9-843e5ca2cf49")
-    public  GmTester() {
+    public GmTester() {
         // nothing
     }
 
@@ -72,7 +73,7 @@ public class GmTester extends PropertyTester {
         if (!(receiver instanceof IStructuredSelection)) {
             return false;
         }
-        
+
         final IStructuredSelection selection = (IStructuredSelection) receiver;
         Object[] elements = selection.toArray();
         switch (property) {
@@ -128,7 +129,7 @@ public class GmTester extends PropertyTester {
         default:
             throw new IllegalArgumentException(property + " property not supported by " + getClass().getSimpleName());
         }
-        
+
     }
 
     @objid ("823cdaaf-cdb0-4bfb-a9ae-6d4efc923db1")

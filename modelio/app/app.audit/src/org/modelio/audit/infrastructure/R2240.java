@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.infrastructure;
 
@@ -55,7 +55,7 @@ public class R2240 extends AbstractInfrastructureRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -74,7 +74,7 @@ public class R2240 extends AbstractInfrastructureRule {
     public void autoRegister(InfrastructureAuditPlan plan) {
         plan.registerRule(Package.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Component.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         plan.registerRule(ElementImport.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE);
@@ -87,9 +87,9 @@ public class R2240 extends AbstractInfrastructureRule {
         plan.registerRule(Dependency.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE);
-        
+
         // plan.registerRule(Usage.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE | AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -123,14 +123,14 @@ public class R2240 extends AbstractInfrastructureRule {
      * Default constructor for R2240
      */
     @objid ("c4515e73-35f9-4a47-b8ac-b17f323d46d5")
-    public  R2240() {
+    public R2240() {
         this.checkerInstance = new CheckR2240(this);
     }
 
     @objid ("71494054-7f05-455c-84db-eee7b596aac7")
     private static class CheckR2240 extends AbstractControl {
         @objid ("282c4f88-eb4c-446c-82d5-2fb912e4ae95")
-        public  CheckR2240(IRule rule) {
+        public CheckR2240(IRule rule) {
             super(rule);
         }
 
@@ -169,11 +169,11 @@ public class R2240 extends AbstractInfrastructureRule {
                     AuditSeverity.AuditSuccess,
                     nameSpace,
                     null);
-            
+
             if (checkDependencyCycle(nameSpace, new ArrayList<NameSpace>())) {
-            
+
                 // Rule failed
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(nameSpace);
@@ -191,31 +191,31 @@ public class R2240 extends AbstractInfrastructureRule {
                 // Add tested namespace to the analyzed path
                 analysedPath.add(tested);
             }
-            
+
             // Gathers all namespaces the tested element has a link to
             Set<NameSpace> targets = new HashSet<>();
-            
+
             for (Dependency dep : tested.getDependsOnDependency()) {
                 ModelElement me = dep.getDependsOn();
                 if (me != null && (me instanceof Package || me instanceof Component)) {
                     targets.add((NameSpace) me);
                 }
             }
-            
+
             for (ElementImport ei : tested.getOwnedImport()) {
                 NameSpace ns = ei.getImportedElement();
                 if (ns != null && (ns instanceof Package || ns instanceof Component)) {
                     targets.add(ns);
                 }
             }
-            
+
             for (PackageImport pi : tested.getOwnedPackageImport()) {
                 Package pkg = pi.getImportedPackage();
                 if (pkg != null) {
                     targets.add(pkg);
                 }
             }
-            
+
             if (tested instanceof Package) {
                 for (PackageMerge pm : ((Package) tested).getMerge()) {
                     Package pkg = pm.getMergedPackage();
@@ -224,14 +224,14 @@ public class R2240 extends AbstractInfrastructureRule {
                     }
                 }
             }
-            
+
             // Check for a cycle in each of these paths
             for (NameSpace ns : targets) {
                 if (checkDependencyCycle(ns, analysedPath)) {
                     return true;
                 }
             }
-            
+
             // No cycle found, remove tested namespace from the analyzed path
             analysedPath.remove(tested);
             return false;

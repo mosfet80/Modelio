@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.events;
 
 import java.util.ArrayList;
@@ -44,26 +43,26 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("009101a4-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnMessageEventDefinitionImpl extends BpmnEventDefinitionImpl implements BpmnMessageEventDefinition {
-    @objid ("11f3776e-ac85-4c59-92ea-1f1934b36012")
+    @objid ("4f99ba05-faf5-4969-b298-cc2460eeb34b")
     @Override
     public BpmnMessage getMessageRef() {
         Object obj = getDepVal(((BpmnMessageEventDefinitionSmClass)getClassOf()).getMessageRefDep());
         return (obj instanceof BpmnMessage)? (BpmnMessage)obj : null;
     }
 
-    @objid ("23598b21-613b-4e14-8ce3-971638aef76b")
+    @objid ("5c91fba5-adbe-47e5-9314-f1cf3d9cb14c")
     @Override
     public void setMessageRef(BpmnMessage value) {
         appendDepVal(((BpmnMessageEventDefinitionSmClass)getClassOf()).getMessageRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("1cb9a0d8-577d-43e2-bcb5-7037a7e27e80")
+    @objid ("354324b2-7e07-4120-a297-900a0fa138f3")
     @Override
     public EList<BpmnOperation> getOperationRef() {
         return new SmList<>(this, ((BpmnMessageEventDefinitionSmClass)getClassOf()).getOperationRefDep());
     }
 
-    @objid ("ca202acd-41d5-4cdd-b216-489b4ccf7df4")
+    @objid ("12eec58a-821e-48d7-864a-0695451c1bbc")
     @Override
     public <T extends BpmnOperation> List<T> getOperationRef(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -76,10 +75,10 @@ public class BpmnMessageEventDefinitionImpl extends BpmnEventDefinitionImpl impl
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("fe3802be-87a3-4d66-bb2f-4f81818110c1")
+    @objid ("05aaf0d4-0c6f-40d1-b228-47134a9ebba8")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -87,17 +86,17 @@ public class BpmnMessageEventDefinitionImpl extends BpmnEventDefinitionImpl impl
         return super.getCompositionOwner();
     }
 
-    @objid ("7873b171-fe52-49b8-97a0-60ebe81c652e")
+    @objid ("98310232-3115-4315-b52d-916a221d8283")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("038e2680-8161-4808-acdc-6c2cddde55ab")
+    @objid ("6b5dbbda-1cce-4ce4-b9f2-73a22184cad1")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitBpmnMessageEventDefinition(this);

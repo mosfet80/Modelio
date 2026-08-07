@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.engine;
 
@@ -49,16 +49,17 @@ public class AuditJobRunner implements Runnable {
 
     /**
      * C'Tor
+     *
      * @param auditService - the audit service. Provides both the audit engine that will run the checks and the global audit diagnotic where results will be stored.
      * @param selectedElements - the elements that have to be audited by this audit job run.
      * @param jobId - the identifier of the job (used to further filter the results)
      */
     @objid ("6a19525b-2789-4f97-89b1-784d38cc64a9")
-    public  AuditJobRunner(IAuditService auditService, List<MObject> selectedElements, String jobId) {
+    public AuditJobRunner(IAuditService auditService, List<MObject> selectedElements, String jobId) {
         this.selectedElements = selectedElements;
         this.auditService = auditService;
         this.jobId = jobId;
-        
+
     }
 
     /**
@@ -74,7 +75,7 @@ public class AuditJobRunner implements Runnable {
             }
         }
         postChecksToAuditEngine(collectedElements);
-        
+
         // Wait until the audit job is done.
         while (this.auditService.getAuditEngine().getAuditRunner().status == AuditRunnerStatus.PROCESSING) {
             try {
@@ -83,13 +84,14 @@ public class AuditJobRunner implements Runnable {
                 // ignore
             }
         }
-        
+
     }
 
     /**
      * Recursively collect the audit jobs elements and their composition children.
-     * 
+     *
      * Each time the size of the collected elements lists reaches or exceeds BATCH_SIZE, the collected elements are immediately queued for checking to the audit engine so that checking can start while the collecting process contnues.
+     *
      * @param collectedElements - the collected elements receiving list.
      * @param element - the element to explore (composition)
      */
@@ -105,11 +107,12 @@ public class AuditJobRunner implements Runnable {
             postChecksToAuditEngine(collectedElements);
             collectedElements.clear();
         }
-        
+
     }
 
     /**
      * Enqueue the elements to the audit engine, meaning that these elements will be checked by the audit engine. Note that the jobId is used to tags these enqueued entries.
+     *
      * @param elements - the elements to enqueue for checking.
      */
     @objid ("bf5b6477-bd81-4f8d-b645-31ed6649cead")
@@ -117,7 +120,7 @@ public class AuditJobRunner implements Runnable {
         for (MObject e : elements) {
             this.auditService.checkElement(e, this.jobId);
         }
-        
+
     }
 
 }

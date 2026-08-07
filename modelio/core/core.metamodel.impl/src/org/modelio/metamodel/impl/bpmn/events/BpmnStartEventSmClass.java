@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.events;
 
 import java.util.ArrayList;
@@ -41,66 +40,66 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("d8593693-2159-4274-8e12-551d7ff986fd")
 public class BpmnStartEventSmClass extends BpmnCatchEventSmClass {
-    @objid ("9072c10e-a405-4461-95e9-204f3cd06923")
+    @objid ("094111be-80ab-438c-91e1-2a3edc2ebc2f")
     private SmAttribute isInterruptingAtt;
 
-    @objid ("6963207d-fbf4-4889-8b0c-8c7cc9a4a8ce")
-    public  BpmnStartEventSmClass(ISmMetamodelFragment origin) {
+    @objid ("a3cc38ff-9010-4d88-9041-628a309499da")
+    public BpmnStartEventSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("94a10ff1-ffb9-47bf-b909-78f1a7fb2fda")
+    @objid ("78cb6cf3-eb47-441e-89c0-21021b22d0a9")
     @Override
     public String getName() {
         return "BpmnStartEvent";
-        
+
     }
 
-    @objid ("bae50689-ed89-40d6-8332-7d1900621e89")
+    @objid ("cdc45ed7-20c4-4765-b73a-f6ba4ed2e186")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("bab18b28-be04-4180-acf4-c5c9f8fe5741")
+    @objid ("007d1202-16f8-4922-8177-805ef191ad5b")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return BpmnStartEvent.class;
-        
+
     }
 
-    @objid ("bfddbdbb-28fe-4c51-b5b8-3a2abba4cef4")
+    @objid ("e43bc76e-253c-445e-955a-053a0f12545c")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("5762dc07-1864-41b3-a72d-b3eb2e5bd321")
+    @objid ("0a86c064-5838-454e-a02d-2ad6a0cce57a")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("4eba2942-dcd1-4777-8426-e4262aa0c286")
+    @objid ("49206376-5ce4-469c-a44f-a3d2f3942917")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(BpmnCatchEvent.MQNAME);
         this.registerFactory(new BpmnStartEventObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
         this.isInterruptingAtt = new IsInterruptingSmAttribute();
         this.isInterruptingAtt.init("IsInterrupting", this, Boolean.class );
         registerAttribute(this.isInterruptingAtt);
-        
-        
+
+
         // Initialize and register the SmDependency
-        
+
     }
 
-    @objid ("5aac2c91-ceea-4b18-906b-05c3101e6187")
+    @objid ("5d49bb32-3aac-4fe6-b8d3-e5e808b69b47")
     public SmAttribute getIsInterruptingAtt() {
         if (this.isInterruptingAtt == null) {
         	this.isInterruptingAtt = this.getAttributeDef("IsInterrupting");
@@ -110,21 +109,21 @@ public class BpmnStartEventSmClass extends BpmnCatchEventSmClass {
 
     @objid ("b7ca2912-1096-4a2c-9a5c-4915b415019c")
     private static class BpmnStartEventObjectFactory implements ISmObjectFactory {
-        @objid ("5a825f6f-405e-4af2-b0de-69387c46a8d9")
+        @objid ("f220ff6c-da48-4252-9f28-e40535a08168")
         private BpmnStartEventSmClass smClass;
 
-        @objid ("64c301cc-5d16-424e-a2ab-569e0b3c6ce1")
-        public  BpmnStartEventObjectFactory(BpmnStartEventSmClass smClass) {
+        @objid ("4efe95b0-5763-43e8-908f-deb584b474f5")
+        public BpmnStartEventObjectFactory(BpmnStartEventSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("ff6d96b4-1688-439c-af52-1061563c2cae")
+        @objid ("b6e59138-1de0-4e72-ad6f-be42c43ce6b0")
         @Override
         public ISmObjectData createData() {
             return new BpmnStartEventData(this.smClass);
         }
 
-        @objid ("b805c887-28f8-451a-a39c-e66666e1f2c6")
+        @objid ("6306795e-a289-42cd-99d9-68dc51fb6fdd")
         @Override
         public SmObjectImpl createImpl() {
             return new BpmnStartEventImpl();
@@ -134,12 +133,12 @@ public class BpmnStartEventSmClass extends BpmnCatchEventSmClass {
 
     @objid ("7572cc1d-4472-4920-88fe-292e3552e75f")
     public static class IsInterruptingSmAttribute extends SmAttribute {
-        @objid ("881f7c77-8a27-4e2c-bf33-a670ab702150")
+        @objid ("fc33d455-72d7-42a5-91f1-3b551d5c88bd")
         public Object getValue(ISmObjectData data) {
             return ((BpmnStartEventData) data).mIsInterrupting;
         }
 
-        @objid ("1057ddd1-2b4b-468a-9026-b0f8b79a0d50")
+        @objid ("c1bceb19-8b80-44cd-bcd1-a4bb4f18cc16")
         public void setValue(ISmObjectData data, Object value) {
             ((BpmnStartEventData) data).mIsInterrupting = value;
         }

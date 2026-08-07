@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.linkeditor.handlers.print;
 
@@ -55,29 +74,29 @@ public class PrintPreviewDialog extends Dialog {
     @objid ("9364734b-0139-4e5b-84d3-fe6db4011ccc")
     private int printMode = PrintFigureOperation.FIT_PAGE;
 
-    @objid ("8ea0f4ad-3dd4-4ddd-9d5f-47c3be1e2899")
+    @objid ("e3c66ad5-1b42-4439-9acd-fcd5ef2efcb4")
     private Image image;
 
-    @objid ("5a97cded-2e03-44de-bdd2-2e20e21bfa21")
+    @objid ("3b37e585-da3d-4a41-8e53-274411cd8dd1")
     private Shell shell;
 
-    @objid ("616eebd0-1fbf-49ec-8109-aeb1427b1983")
+    @objid ("e1f5272d-b757-4c97-8f43-c14db7cbf644")
     private Canvas canvas;
 
-    @objid ("b119b4a0-facb-4971-bd15-dd6fff188369")
+    @objid ("3d1aaf43-e926-4264-8dac-6b4aae3b2ea1")
     private Printer printer;
 
-    @objid ("b953bb01-e58c-4271-89a0-b32bf465b816")
+    @objid ("fdf9b5b3-1c07-4bc5-a016-b332ebee67bf")
     private Label pagesLabel;
+
+    @objid ("dd9500c3-33c6-4130-9e80-000566c4d9ab")
+    private Button previousButton;
+
+    @objid ("0fd63690-7a51-4b87-af04-327079ce7c15")
+    private Button nextButton;
 
     @objid ("4c88c303-a15b-4598-ad82-53213c9260af")
     private PrintPageNavigation pageNavigation;
-
-    @objid ("a3fb9982-7ac3-4b61-8663-70153e98d1fc")
-    private Button previousButton;
-
-    @objid ("d7595fe2-32f0-4e20-8724-ece0711c52b1")
-    private Button nextButton;
 
     @objid ("93e3f9b9-c043-489d-a873-481c9d9b5a36")
     private ILinkEditor editor;
@@ -86,19 +105,18 @@ public class PrintPreviewDialog extends Dialog {
     private PrintMargin margin;
 
     @objid ("62c49fd0-687c-44cc-9c70-93d613f94ad8")
-    public  PrintPreviewDialog(Shell parent, ILinkEditor linkEditor) {
+    public PrintPreviewDialog(Shell parent, ILinkEditor linkEditor) {
         super(parent);
         this.editor = linkEditor;
         this.image = linkEditor.getImage();
         this.shell = new Shell(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL | SWT.RESIZE);
-        
     }
 
     @objid ("1ff807f9-1a5e-4e9d-8a94-3fd5d83d39c2")
     public void open() {
         this.shell.setText(LinkEditor.I18N.getString("Gui.PrintPreviewDialog.Title"));
         this.shell.setLayout(new GridLayout(5, false));
-        
+
         this.canvas = new Canvas(this.shell, SWT.BORDER);
         GridData gridData = new GridData(GridData.FILL_BOTH);
         gridData.horizontalSpan = 3;
@@ -106,23 +124,23 @@ public class PrintPreviewDialog extends Dialog {
         gridData.widthHint = 300;
         this.canvas.setLayoutData(gridData);
         this.canvas.addPaintListener(new PaintListener() {
-        
+
             @Override
             public void paintControl(PaintEvent e) {
                 int canvasBorder = 5;
-        
+
                 if (PrintPreviewDialog.this.printer == null || PrintPreviewDialog.this.printer.isDisposed()) {
                     return;
                 }
-        
+
                 Rectangle rectangle = PrintPreviewDialog.this.printer.getBounds();
                 Point canvasSize = PrintPreviewDialog.this.canvas.getSize();
-        
+
                 double viewScaleFactor = (canvasSize.x - canvasBorder * 2) * 1.0 / rectangle.width;
                 viewScaleFactor = Math.min(viewScaleFactor, (canvasSize.y - canvasBorder * 2) * 1.0 / rectangle.height);
                 int offsetX = (canvasSize.x - (int) (viewScaleFactor * rectangle.width)) / 2;
                 int offsetY = (canvasSize.y - (int) (viewScaleFactor * rectangle.height)) / 2;
-        
+
                 e.gc.setBackground(PrintPreviewDialog.this.shell.getDisplay().getSystemColor(SWT.COLOR_WHITE));
                 e.gc.fillRectangle(offsetX,
                         offsetY,
@@ -135,22 +153,22 @@ public class PrintPreviewDialog extends Dialog {
                         offsetY,
                         (int) (viewScaleFactor * rectangle.width),
                         (int) (viewScaleFactor * rectangle.height));
-        
+
                 if (PrintPreviewDialog.this.image != null) {
                     int imageWidth = PrintPreviewDialog.this.image.getBounds().width;
                     int imageHeight = PrintPreviewDialog.this.image.getBounds().height;
-        
+
                     double dpiScaleFactorX = PrintPreviewDialog.this.printer.getDPI().x * 1.0 / PrintPreviewDialog.this.shell.getDisplay().getDPI().x;
                     double dpiScaleFactorY = PrintPreviewDialog.this.printer.getDPI().y * 1.0 / PrintPreviewDialog.this.shell.getDisplay().getDPI().y;
-        
+
                     double imageSizeFactor = Math.min(rectangle.width * viewScaleFactor / imageWidth,
                             rectangle.height * viewScaleFactor / imageHeight);
                     int destX = (int) (imageSizeFactor * imageWidth) - 1; // Remove 1 in order to offset the surrounding rectangle
                     int destY = (int) (imageSizeFactor * imageHeight) - 1; // Remove 1 in order to offset the surrounding rectangle
-        
+
                     int srcX = 0;
                     int srcY = 0;
-        
+
                     // Printing in real size
                     if (PrintPreviewDialog.this.printMode == PrintFigureOperation.TILE) {
                         destX = (int) (dpiScaleFactorX * imageWidth * viewScaleFactor);
@@ -158,10 +176,10 @@ public class PrintPreviewDialog extends Dialog {
                         int nbPagesX = (int) (destX / (viewScaleFactor * rectangle.width)) + 1;
                         int nbPagesY = (int) (destY / (viewScaleFactor * rectangle.height)) + 1;
                         updateNavigation(nbPagesX, nbPagesY);
-        
+
                         srcX = (int) (rectangle.width / dpiScaleFactorX) * (PrintPreviewDialog.this.pageNavigation.x - 1);
                         srcY = (int) (rectangle.height / dpiScaleFactorY) * (PrintPreviewDialog.this.pageNavigation.y - 1);
-        
+
                         if (PrintPreviewDialog.this.pageNavigation.x * rectangle.width / dpiScaleFactorX > imageWidth) {
                             imageWidth = (int) (imageWidth - ((PrintPreviewDialog.this.pageNavigation.x - 1) * rectangle.width / dpiScaleFactorX));
                         } else {
@@ -172,11 +190,11 @@ public class PrintPreviewDialog extends Dialog {
                         } else {
                             imageHeight = (int) (rectangle.height / dpiScaleFactorY);
                         }
-        
+
                         destX = (int) (dpiScaleFactorX * imageWidth * viewScaleFactor) - 1;
                         destY = (int) (dpiScaleFactorY * imageHeight * viewScaleFactor) - 1;
                     }
-        
+
                     e.gc.drawImage(PrintPreviewDialog.this.image,
                             srcX,
                             srcY,
@@ -186,12 +204,12 @@ public class PrintPreviewDialog extends Dialog {
                             offsetY + 1,
                             destX,
                             destY);
-        
+
                 }
             }
-        
+
         });
-        
+
         final Group optionsGroup = new Group(this.shell, SWT.NONE);
         optionsGroup.setText(LinkEditor.I18N.getString("Gui.PrintPreviewDialog.PrintOptions"));
         FormLayout optionsLayout = new FormLayout();
@@ -202,12 +220,12 @@ public class PrintPreviewDialog extends Dialog {
         gridData.verticalSpan = 1;
         gridData.widthHint = 150;
         optionsGroup.setLayoutData(gridData);
-        
+
         Button adjustCheck = new Button(optionsGroup, SWT.CHECK);
         adjustCheck.setText(LinkEditor.I18N.getString("Gui.PrintPreviewDialog.FitToPage"));
         adjustCheck.setSelection(true);
         adjustCheck.addSelectionListener(new SelectionAdapter() {
-        
+
             @Override
             public void widgetSelected(SelectionEvent event) {
                 if (((Button) (event.widget)).getSelection() == true) {
@@ -219,7 +237,7 @@ public class PrintPreviewDialog extends Dialog {
                 PrintPreviewDialog.this.canvas.redraw();
             }
         });
-        
+
         final Composite cButtons = new Composite(this.shell, SWT.NONE);
         FillLayout orientationLayout = new FillLayout();
         orientationLayout.type = SWT.VERTICAL;
@@ -231,7 +249,7 @@ public class PrintPreviewDialog extends Dialog {
         gridData.widthHint = 100;
         gridData.verticalSpan = 3;
         cButtons.setLayoutData(gridData);
-        
+
         Button printButton = new Button(cButtons, SWT.PUSH);
         printButton.setText(LinkEditor.I18N.getString("Gui.PrintPreviewDialog.Print"));
         printButton.addListener(SWT.Selection, new Listener() {
@@ -244,7 +262,7 @@ public class PrintPreviewDialog extends Dialog {
                 pData.orientation = PrintPreviewDialog.this.printer.getPrinterData().orientation;
                 dialog.setPrinterData(pData);
                 PrinterData data = dialog.open();
-        
+
                 if (data != null) {
                     // PrintPreviewDialog.this.editor.print(data);
                     PrintPreviewDialog.this.printer = new Printer(data);
@@ -255,21 +273,21 @@ public class PrintPreviewDialog extends Dialog {
                             Image printerImage = new Image(PrintPreviewDialog.this.printer, imageData);
                             Point screenDPI = PrintPreviewDialog.this.shell.getDisplay().getDPI();
                             Point printerDPI = PrintPreviewDialog.this.printer.getDPI();
-        
+
                             int srcX = 0;
                             int srcY = 0;
                             int padding = 5;
                             int imageWidth = imageData.width;
                             int imageHeight = imageData.height;
-        
+
                             Rectangle trim = PrintPreviewDialog.this.printer.computeTrim(0, 0, 0, 0);
-        
+
                             int scaleForX = (printerDPI.x - padding * 2) / screenDPI.x;
                             int scaleForY = (printerDPI.y - padding * 2) / screenDPI.y;
                             int scaleFactor = Math.min(scaleForX, scaleForY);
                             int destX = scaleFactor * imageWidth;
                             int destY = scaleFactor * imageHeight;
-        
+
                             if (PrintPreviewDialog.this.printMode == PrintFigureOperation.FIT_PAGE) {
                                 scaleForX = (PrintPreviewDialog.this.printer.getBounds().width - padding * 2) / imageWidth;
                                 scaleForY = (PrintPreviewDialog.this.printer.getBounds().height - padding * 2) / imageHeight;
@@ -285,7 +303,7 @@ public class PrintPreviewDialog extends Dialog {
                                     -trim.x, -trim.y,
                                     destX,
                                     destY);
-        
+
                             // Clean up
                             printerImage.dispose();
                             gc.dispose();
@@ -298,7 +316,7 @@ public class PrintPreviewDialog extends Dialog {
                 shell_1.dispose();
             }
         });
-        
+
         final Button closeButton = new Button(cButtons, SWT.PUSH);
         closeButton.setText(LinkEditor.I18N.getString("Gui.PrintPreviewDialog.Cancel"));
         closeButton.addListener(SWT.Selection, new Listener() {
@@ -307,7 +325,7 @@ public class PrintPreviewDialog extends Dialog {
                 PrintPreviewDialog.this.shell.dispose();
             }
         });
-        
+
         Group orientationGroup = new Group(this.shell, SWT.NONE);
         orientationGroup.setText(LinkEditor.I18N.getString("Gui.PrintPreviewDialog.Orientation"));
         orientationLayout = new FillLayout();
@@ -320,14 +338,14 @@ public class PrintPreviewDialog extends Dialog {
         gridData.widthHint = 150;
         gridData.heightHint = 60;
         orientationGroup.setLayoutData(gridData);
-        
+
         Button[] orientation = new Button[2];
-        
+
         orientation[0] = new Button(orientationGroup, SWT.RADIO);
         orientation[0].setText(LinkEditor.I18N.getString("Gui.PrintPreviewDialog.Portrait"));
         orientation[0].setSelection(true);
         orientation[0].addSelectionListener(new SelectionAdapter() {
-        
+
             @Override
             public void widgetSelected(SelectionEvent event) {
                 if (((Button) (event.widget)).getSelection() == true) {
@@ -335,14 +353,14 @@ public class PrintPreviewDialog extends Dialog {
                     PrintPreviewDialog.this.printer = new Printer(PrintPreviewDialog.this.printer.getPrinterData());
                     PrintPreviewDialog.this.canvas.redraw();
                 }
-        
+
             }
         });
-        
+
         orientation[1] = new Button(orientationGroup, SWT.RADIO);
         orientation[1].setText(LinkEditor.I18N.getString("Gui.PrintPreviewDialog.Landscape"));
         orientation[1].addSelectionListener(new SelectionAdapter() {
-        
+
             @Override
             public void widgetSelected(SelectionEvent event) {
                 if (((Button) (event.widget)).getSelection() == true) {
@@ -350,10 +368,10 @@ public class PrintPreviewDialog extends Dialog {
                     PrintPreviewDialog.this.printer = new Printer(PrintPreviewDialog.this.printer.getPrinterData());
                     PrintPreviewDialog.this.canvas.redraw();
                 }
-        
+
             }
         });
-        
+
         this.previousButton = new Button(this.shell, SWT.PUSH);
         this.previousButton.setText(LinkEditor.I18N.getString("Gui.PrintPreviewDialog.Previous"));
         this.previousButton.setEnabled(false);
@@ -375,12 +393,12 @@ public class PrintPreviewDialog extends Dialog {
                         PrintPreviewDialog.this.nextButton.setEnabled(true);
                     }
                 }
-        
+
                 updatePageCounter();
-        
+
             }
         });
-        
+
         this.nextButton = new Button(this.shell, SWT.PUSH);
         this.nextButton.setText(LinkEditor.I18N.getString("Gui.PrintPreviewDialog.Next"));
         this.nextButton.setEnabled(false);
@@ -402,23 +420,23 @@ public class PrintPreviewDialog extends Dialog {
                         PrintPreviewDialog.this.previousButton.setEnabled(true);
                     }
                 }
-        
+
                 updatePageCounter();
-        
+
             }
         });
-        
+
         this.pagesLabel = new Label(this.shell, SWT.NONE);
         this.pagesLabel.setText(LinkEditor.I18N.getString("Gui.PrintPreviewDialog.Page") + " 1/1");
         gridData = new GridData(SWT.RIGHT, SWT.CENTER, true, false);
         gridData.widthHint = 100;
         this.pagesLabel.setLayoutData(gridData);
-        
+
         this.shell.setSize(600, 500);
         this.shell.setMinimumSize(600, 500);
         this.shell.open();
         setPrinter(null, 1.0);
-        
+
         // Set up the event loop.
         while (!this.shell.isDisposed()) {
             if (!this.shell.getDisplay().readAndDispatch()) {
@@ -426,11 +444,10 @@ public class PrintPreviewDialog extends Dialog {
                 this.shell.getDisplay().sleep();
             }
         }
-        
+
         if (this.image != null) {
             this.image.dispose();
         }
-        
     }
 
     @objid ("b2e96d60-4a0c-482e-a8fb-d4ee92de7f5b")
@@ -450,7 +467,6 @@ public class PrintPreviewDialog extends Dialog {
         }
         this.margin = PrintMargin.getPrintMargin(this.printer, marginSize);
         this.canvas.redraw();
-        
     }
 
     @objid ("a9955a88-828c-4003-8c0f-c4d4ec73517b")
@@ -493,9 +509,8 @@ public class PrintPreviewDialog extends Dialog {
                 this.nextButton.setEnabled(false);
             }
         }
-        
+
         updatePageCounter();
-        
     }
 
 }

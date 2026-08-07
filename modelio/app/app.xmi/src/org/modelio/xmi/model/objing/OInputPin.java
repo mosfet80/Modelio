@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -48,18 +48,18 @@ public class OInputPin extends OPin {
         else{
             return UMLFactory.eINSTANCE.createInputPin();
         }
-        
+
     }
 
     @objid ("a9533fc9-7f6a-436d-bdcd-27b555baad2b")
     private boolean allPinsAreMapped() {
         ActivityAction objingOwner = ((InputPin)getObjingElement()).getInputing();
         List<InputPin> objingInputPinList = objingOwner.getInput();
-        
+
         if (this.ecoreOwnerElt instanceof  org.eclipse.uml2.uml.Action) {
              org.eclipse.uml2.uml.Action ecoreOwner =  (org.eclipse.uml2.uml.Action) this.ecoreOwnerElt;
             EList<?> ecoreInputPinList = ecoreOwner.getInputs();
-        
+
             if (ecoreInputPinList != null
                     && objingInputPinList.size() == ecoreInputPinList.size())
                 return true;
@@ -70,15 +70,15 @@ public class OInputPin extends OPin {
     @objid ("d0e44cfb-4992-4adc-8f4f-84152f072b52")
     private List<InputPin> getSortedInputPinList() {
         ActivityAction objingOwner = ((InputPin)getObjingElement()).getInputing();
-        
+
         List<Parameter> objingParamList = AbstractObjingModelNavigation
                 .getRelatedParameters(objingOwner);
-        
+
         List<InputPin> objingInputPinList = new ArrayList<>(
                 objingOwner.getInput());
-        
+
         List<InputPin> objingPinSortedList = new ArrayList<>();
-        
+
         for (Parameter param : objingParamList) {
             InputPin matchingPin = getMatchingPin(objingInputPinList, param);
             if (matchingPin != null) {
@@ -90,10 +90,10 @@ public class OInputPin extends OPin {
     }
 
     @objid ("1360b06b-8d80-4d89-962a-0e29ef0bfcbe")
-    public  OInputPin(InputPin element) {
+    public OInputPin(InputPin element) {
         super(element);
         this.ecoreOwnerElt = GenerationProperties.getInstance().getMappedElement(element.getInputing());
-        
+
     }
 
     @objid ("b076ce85-3bfa-445f-897a-0c0e41df20e0")
@@ -101,12 +101,12 @@ public class OInputPin extends OPin {
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         MObject objingOwner = getObjingElement().getCompositionOwner();
         org.eclipse.uml2.uml.Element ecoreOwner = GenerationProperties.getInstance().getMappedElement(objingOwner);
-        
+
         if ((ecoreElt instanceof org.eclipse.uml2.uml.ExpansionNode)
-                && (ecoreOwner instanceof org.eclipse.uml2.uml.StructuredActivityNode)){       
-                ((org.eclipse.uml2.uml.StructuredActivityNode) ecoreOwner ).getNodes().add((org.eclipse.uml2.uml.ExpansionNode)ecoreElt);       
+                && (ecoreOwner instanceof org.eclipse.uml2.uml.StructuredActivityNode)){
+                ((org.eclipse.uml2.uml.StructuredActivityNode) ecoreOwner ).getNodes().add((org.eclipse.uml2.uml.ExpansionNode)ecoreElt);
         }else{
-        
+
             if (ecoreOwner != null) {
                 if (objingOwner instanceof ActivityAction)
                     attachToActivityAction(ecoreElt, ecoreOwner);
@@ -114,26 +114,26 @@ public class OInputPin extends OPin {
                     super.attach(ecoreElt);
             }
         }
-        
+
     }
 
     @objid ("e641653c-f001-4ff9-9545-cc04aa62014a")
     @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
-        
+
         setMatched();
-        
+
         if (ecoreElt instanceof  org.eclipse.uml2.uml.ActionInputPin)
             setAction( (org.eclipse.uml2.uml.ActionInputPin) ecoreElt);
-        
+
     }
 
     @objid ("754c8fdb-cd5d-4f2e-a928-3007fd0c57c3")
     private void attachToActivityAction(org.eclipse.uml2.uml.Element ecoreElt, org.eclipse.uml2.uml.Element ecoreOwner) {
         AttachInputPinToOwnerVisitor attachInputPin = new AttachInputPinToOwnerVisitor();
         attachInputPin.attachInputPin((org.eclipse.uml2.uml.InputPin) ecoreElt, ecoreOwner, ((InputPin)getObjingElement()));
-        
+
     }
 
     @objid ("6953abda-95cc-4b3f-ad24-7136ad30549d")
@@ -144,7 +144,7 @@ public class OInputPin extends OPin {
                  org.eclipse.uml2.uml.CallOperationAction action =  (org.eclipse.uml2.uml.CallOperationAction) this.ecoreOwnerElt;
                 List<InputPin> objingPinSortedList = getSortedInputPinList();
                 EList<org.eclipse.uml2.uml.InputPin> ecoreInputPinList = action.getArguments();
-        
+
                 for (InputPin objingPin : objingPinSortedList) {
                     org.eclipse.uml2.uml.Element ecorePin = GenerationProperties.getInstance().getMappedElement(objingPin);
                     if (ecorePin instanceof org.eclipse.uml2.uml.InputPin) {
@@ -157,7 +157,7 @@ public class OInputPin extends OPin {
                 Xmi.LOG.error(e);
             }
         }
-        
+
     }
 
     @objid ("73635a7f-ba89-4eba-a732-97963adb608a")
@@ -179,7 +179,7 @@ public class OInputPin extends OPin {
                 Xmi.LOG.error(Xmi.PLUGIN_ID, e);
             }
         }
-        
+
     }
 
 }

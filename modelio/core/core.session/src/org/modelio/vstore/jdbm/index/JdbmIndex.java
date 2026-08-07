@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.jdbm.index;
 
@@ -59,27 +59,29 @@ public class JdbmIndex {
 
     /**
      * Initialize the index.
+     *
      * @param symbolTable
      * @param db the JDBM database storing the index.
      * @throws IOException in case of I/O error
      */
     @objid ("96390c9e-2b45-4baf-9495-3bd0c689ece1")
-    public  JdbmIndex(final RecordManager db, StringTable symbolTable) throws IOException {
+    public JdbmIndex(final RecordManager db, StringTable symbolTable) throws IOException {
         this.db = db;
-        
+
         try {
             this.objectsIndex = new HashMap<>();
             this.userIdx = new CrossRefsIndex(db, symbolTable);
-        
+
             //dumpIndex(db);
         } catch (IOError e) {
             throw new IOException(e);
         }
-        
+
     }
 
     /**
      * Get all instances of a metaclass.
+     *
      * @param cls a metaclass
      * @return all stored instances references.
      * @throws IOError in case of I/O error
@@ -91,6 +93,7 @@ public class JdbmIndex {
 
     /**
      * Remove the given object from main indexes.
+     *
      * @param id the reference to remove
      * @throws IOError in case of I/O failure
      */
@@ -101,6 +104,7 @@ public class JdbmIndex {
 
     /**
      * Get local objects referring to the given local or foreign object.
+     *
      * @param depName the dependency name
      * @param objRef a local or foreign object
      * @return all referred local objects.
@@ -113,6 +117,7 @@ public class JdbmIndex {
 
     /**
      * Index the given model object.
+     *
      * @param obj a model object to index
      * @throws IOError in case of I/O failure
      */
@@ -121,13 +126,14 @@ public class JdbmIndex {
         MClass mClass = obj.getMClass();
         String uuid = obj.getUuid();
         addRefToMain(mClass, uuid);
-        
+
     }
 
     /**
      * Add the given model object to cross references indexes.
      * <p>
      * Caller must remove existing references first if the object was already in the index.
+     *
      * @param obj a model object to index
      * @throws IOException in case of I/O failure
      */
@@ -135,7 +141,7 @@ public class JdbmIndex {
     public void addCrossRefs(SmObjectImpl obj) throws IOException {
         try {
             MRef sourceRef = new MRef(obj);
-        
+
             //Foreign references
             for (SmDependency dep : obj.getClassOf().getAllDepDef()) {
                 if (Helper.isPersistent(dep)) {
@@ -143,20 +149,21 @@ public class JdbmIndex {
                         // one way navigable
                         for (SmObjectImpl val : obj.getDepValList(dep)) {
                             MRef valRef = new MRef(val);
-        
+
                             this.userIdx.addUse(sourceRef, dep.getName(), valRef);
                         }
                     }
-                } 
+                }
             }
         } catch (IOError e ) {
             throw new IOException(e);
         }
-        
+
     }
 
     /**
      * Get the object index for the given metaclass.
+     *
      * @param mClass a metaclass
      * @return the class objects index
      */
@@ -168,6 +175,7 @@ public class JdbmIndex {
 
     /**
      * Get the object index for the given metaclass.
+     *
      * @param className a metaclass name
      * @return the class objects index
      */
@@ -177,13 +185,14 @@ public class JdbmIndex {
         if (idx == null) {
             idx = this.db.hashMap(IDX_CLASS_PREFIX+className,
                     null, null);
-        
+
         }
         return idx;
     }
 
     /**
      * Add the given reference to the main index
+     *
      * @param mClass the metaclass
      * @param uuid the UUID
      */
@@ -191,7 +200,7 @@ public class JdbmIndex {
     public void addRefToMain(MClass mClass, String uuid) {
         Map<String, Boolean> ref = getObjectIndex(mClass);
         ref.put(uuid, Boolean.TRUE);
-        
+
     }
 
     @objid ("4d403039-1dff-4d45-856b-e99f016cebdc")
@@ -210,7 +219,7 @@ public class JdbmIndex {
                 this.userIdx.addUse(valRef, oppName, objRef);
             }
         }
-        
+
     }
 
     @objid ("1d598db3-41d3-45b3-91f0-6d2f27f921ab")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.connectionpoint;
 
@@ -49,11 +49,12 @@ public class GmConnectionPointPrimaryNode extends GmNoStyleSimpleNode implements
 
     /**
      * Initialize a connection point
+     *
      * @param diagram The diagram
      * @param ref The represented element reference, must not be null.
      */
     @objid ("f4ff3b4a-55b6-11e2-877f-002564c97630")
-    public  GmConnectionPointPrimaryNode(IGmDiagram diagram, MRef ref) {
+    public GmConnectionPointPrimaryNode(IGmDiagram diagram, MRef ref) {
         super(diagram, ref);
     }
 
@@ -61,7 +62,7 @@ public class GmConnectionPointPrimaryNode extends GmNoStyleSimpleNode implements
      * Empty constructor needed for deserialisation.
      */
     @objid ("f4ff3b53-55b6-11e2-877f-002564c97630")
-    public  GmConnectionPointPrimaryNode() {
+    public GmConnectionPointPrimaryNode() {
         // Empty constructor needed for deserialisation.
     }
 
@@ -96,9 +97,9 @@ public class GmConnectionPointPrimaryNode extends GmNoStyleSimpleNode implements
         if (this.getRelatedElement() != null) {
             firePropertyChange(PROPERTY_LAYOUTDATA, null, this.getLayoutData());
         }
-        // forcing visual refresh in case Image changed 
+        // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("f4ff3b75-55b6-11e2-877f-002564c97630")
@@ -118,17 +119,17 @@ public class GmConnectionPointPrimaryNode extends GmNoStyleSimpleNode implements
             break;
         }
         }
-        
+
     }
 
     @objid ("f4ff3b7b-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmConnectionPointPrimaryNode.", GmConnectionPointPrimaryNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("f500c1dc-55b6-11e2-877f-002564c97630")

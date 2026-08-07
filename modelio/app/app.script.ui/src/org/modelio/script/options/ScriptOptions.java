@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.script.options;
 
@@ -50,17 +50,17 @@ public class ScriptOptions {
         if(this.preferences != null){
             this.preferences.setValue(DEBUG_MODE, value ? "true" : "false");
         }
-        
+
     }
 
     @objid ("6d0d5a01-6665-43cb-8ffe-1cc7ff84d042")
-    public  ScriptOptions(IPreferenceStore preferences) {
+    public ScriptOptions(IPreferenceStore preferences) {
         this.preferences = preferences;
-               
+
         if (preferences != null) {
             preferences.setDefault(DEBUG_MODE, DEBUG_MODE_DEFAULT);
         }
-        
+
     }
 
 }

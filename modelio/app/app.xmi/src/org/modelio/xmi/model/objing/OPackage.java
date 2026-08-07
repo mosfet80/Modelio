@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -37,7 +37,7 @@ public class OPackage extends ONameSpace {
     }
 
     @objid ("4442262e-29ad-4963-b9aa-63f2506f7379")
-    public  OPackage(org.modelio.metamodel.uml.statik.Package element) {
+    public OPackage(org.modelio.metamodel.uml.statik.Package element) {
         super(element);
     }
 
@@ -45,10 +45,10 @@ public class OPackage extends ONameSpace {
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         MObject objingOwner = ((org.modelio.metamodel.uml.statik.Package)getObjingElement()).getCompositionOwner();
-        
+
         if (objingOwner != null) {// else : case of the root package
             org.eclipse.uml2.uml.Element ecoreOwner = GenerationProperties.getInstance().getMappedElement(objingOwner);
-        
+
             if (ecoreOwner != null) {
                 if (ecoreOwner instanceof org.eclipse.uml2.uml.Package) {
                     org.eclipse.uml2.uml.Package ownerIsPkg = (org.eclipse.uml2.uml.Package) ecoreOwner;
@@ -65,21 +65,21 @@ public class OPackage extends ONameSpace {
                 }
             }
         }
-        
+
     }
 
     @objid ("fa0646a6-2478-4b46-94a4-be0e9eb36fe2")
     @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
-        
+
         //Modelio Properties
         if (GenerationProperties.getInstance().isRoundtripEnabled()){
-            this.setLeafEAnnotation((org.eclipse.uml2.uml.Package) ecoreElt); 
+            this.setLeafEAnnotation((org.eclipse.uml2.uml.Package) ecoreElt);
             this.setRootEAnnotation((org.eclipse.uml2.uml.Package) ecoreElt);
             this.setInstantiableEAnnotation((org.eclipse.uml2.uml.Package) ecoreElt);
         }
-        
+
     }
 
     @objid ("54ce1f42-73ff-41c3-8a10-708626f22ae3")

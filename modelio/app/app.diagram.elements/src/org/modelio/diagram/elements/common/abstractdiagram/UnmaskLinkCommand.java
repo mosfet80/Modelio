@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.abstractdiagram;
 
@@ -50,11 +50,14 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Specific command for unmasking a link in a diagram.
- * 
+ *
  * @author fpoyer
  */
 @objid ("7e228746-1dec-11e2-8cad-001ec947c8cc")
 public class UnmaskLinkCommand extends Command {
+    @objid ("d407f49f-a0d4-4ee0-b631-86c4d08be644")
+    private Point dropLocation;
+
     @objid ("7e22874d-1dec-11e2-8cad-001ec947c8cc")
     private AbstractDiagramEditPart host;
 
@@ -69,9 +72,6 @@ public class UnmaskLinkCommand extends Command {
 
     @objid ("7e24e971-1dec-11e2-8cad-001ec947c8cc")
     private StyleKey routerKey;
-
-    @objid ("7a104643-df7c-4e36-a08a-b88030a3b219")
-    private Point dropLocation;
 
     @objid ("aeabf020-df90-4e25-92ac-f0aad0611a1f")
     private IAnchorRefResolver sourceAnchorResolver;
@@ -101,6 +101,7 @@ public class UnmaskLinkCommand extends Command {
 
     /**
      * C'tor.
+     *
      * @param link the link to unmask.
      * @param host the edit part that was asked to handle the unmasking.
      * @param dropLocation the drop location.
@@ -109,7 +110,7 @@ public class UnmaskLinkCommand extends Command {
      * @since 5.1
      */
     @objid ("7e24e972-1dec-11e2-8cad-001ec947c8cc")
-    public  UnmaskLinkCommand(IGmLink link, AbstractDiagramEditPart host, Point dropLocation, IAnchorRefResolver sourceAnchorResolver, IAnchorRefResolver targetAnchorResolver) {
+    public UnmaskLinkCommand(IGmLink link, AbstractDiagramEditPart host, Point dropLocation, IAnchorRefResolver sourceAnchorResolver, IAnchorRefResolver targetAnchorResolver) {
         this.linkElement = link.getRepresentedElement();
         this.fromElement = link.getFromElement();
         this.toElement = link.getToElement();
@@ -119,17 +120,17 @@ public class UnmaskLinkCommand extends Command {
         this.routerKey = link.getStyleKey(MetaKey.CONNECTIONROUTER);
         this.sourceAnchorResolver = sourceAnchorResolver;
         this.targetAnchorResolver = targetAnchorResolver;
-        
     }
 
     /**
      * C'tor using figure centers as default reference for anchors.
+     *
      * @param link the link to unmask.
      * @param host the edit part that was asked to handle the unmasking.
      * @param dropLocation the drop location.
      */
     @objid ("bd09b5e6-11ce-46e2-9339-d0c3158db336")
-    public  UnmaskLinkCommand(IGmLink link, AbstractDiagramEditPart host, Point dropLocation) {
+    public UnmaskLinkCommand(IGmLink link, AbstractDiagramEditPart host, Point dropLocation) {
         this(link, host, dropLocation, DefaultAnchorRefResolver.get(), DefaultAnchorRefResolver.get());
     }
 
@@ -139,7 +140,7 @@ public class UnmaskLinkCommand extends Command {
         if (this.fromElement == null || this.toElement == null) {
             return false;
         }
-        
+
         // the diagram must be modifiable
         return MTools.getAuthTool().canModify(((IGmDiagram) this.host.getModel()).getRelatedElement());
     }
@@ -161,7 +162,8 @@ public class UnmaskLinkCommand extends Command {
         } else {
             req.getData().setRoutingMode(ConnectionRouterId.ORTHOGONAL);
         }
-        
+
+
         // Look for edit part of from element... If none found, unmask it.
         AbstractGraphicalEditPart sourceEditPart = getEditPartFor(this.fromElement, req);
         boolean sourceMissing = false;
@@ -173,17 +175,17 @@ public class UnmaskLinkCommand extends Command {
                 return;
             }
         }
-        
+
         req.setSourceEditPart(sourceEditPart);
         req.getData().setSrcPoint(getAbsoluteFigureCenter(sourceEditPart));
         // Set a temp location value, it will be replaced once the targer is found
         req.setLocation(getAbsoluteFigureCenter(sourceEditPart));
-        
+
         req.setStartCommand(sourceEditPart.getCommand(req));
-        
+
         // 2 - end the creation of the connection
         req.setType(RequestConstants.REQ_CONNECTION_END);
-        
+
         // Look for edit part of to element... if none found, unmask it.
         AbstractGraphicalEditPart targetEditPart = getEditPartFor(this.toElement, req);
         if (targetEditPart == null) {
@@ -199,13 +201,12 @@ public class UnmaskLinkCommand extends Command {
         }
         req.setTargetEditPart(targetEditPart);
         req.getData().setSrcPoint(this.sourceAnchorResolver.resolveAnchorRef(sourceEditPart, targetEditPart, this.linkElement));
-        req.setLocation(this.targetAnchorResolver.resolveAnchorRef(sourceEditPart, targetEditPart, this.linkElement));
-        
+        req.setLocation(this.targetAnchorResolver.resolveAnchorRef(targetEditPart,sourceEditPart , this.linkElement));
+
         Command connectionCreationCommand = targetEditPart.getCommand(req);
         if (connectionCreationCommand != null && connectionCreationCommand.canExecute()) {
             connectionCreationCommand.execute();
         }
-        
     }
 
     @objid ("7e24e982-1dec-11e2-8cad-001ec947c8cc")
@@ -226,7 +227,7 @@ public class UnmaskLinkCommand extends Command {
                 }
             }
         }
-        
+
         if (targetEditParts.size() > 0) {
             // Find if an appropriate edit part exists at the request's location
             EditPart pointedEditPart = getHost().getViewer().findObjectAt(this.dropLocation);
@@ -238,7 +239,7 @@ public class UnmaskLinkCommand extends Command {
                 }
                 pointedEditPart = pointedEditPart.getParent();
             }
-        
+
             // No valid edit part found, return the first one
             return targetEditParts.get(0);
         } else {
@@ -258,6 +259,7 @@ public class UnmaskLinkCommand extends Command {
     }
 
     /**
+     *
      * @param element the element to unmask
      * @param location the drop location
      */
@@ -273,11 +275,11 @@ public class UnmaskLinkCommand extends Command {
                 command.execute();
             }
         }
-        
     }
 
     /**
      * Get the center of te figure bounds in absolute coordinates.
+     *
      * @param editPart a figure edit part
      * @return the center of the figure.
      */

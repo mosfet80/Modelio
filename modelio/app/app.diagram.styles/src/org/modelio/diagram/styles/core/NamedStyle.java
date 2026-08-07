@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.styles.core;
 
@@ -35,7 +35,7 @@ import org.modelio.diagram.persistence.IDiagramWriter;
  * This style can be referenced and used in many diagrams.<br/>
  * The named style name is used as identifier to find it among shared
  * styles.
- * 
+ *
  * @author phv
  */
 @objid ("8568fbc5-1926-11e2-92d2-001ec947c8cc")
@@ -61,10 +61,10 @@ public class NamedStyle extends Style {
     /**
      * The style applicability condition. This optional value helps the ui to propose only relevant styles to the end user depending on an element's type.
      * Value must be a comma separated list of full qualified metaclass names. (eg: Standard.Class, Standard.Component)
-     * 
+     *
      * A missing key or a null or empty value matches anything.
      */
-    
+
     @mdl.prop
     @objid ("63e5e109-938e-422a-8cbb-07d9990bf64f")
     private Set<String> applicability = new HashSet<>(2);
@@ -78,7 +78,7 @@ public class NamedStyle extends Style {
     /**
      * The style name is used as a unique mandatory identifier for the style. It is also used as a label in the gui when listing styles.
      */
-    
+
     @mdl.prop
     @objid ("27710c46-1927-11e2-92d2-001ec947c8cc")
     private String name;
@@ -98,7 +98,7 @@ public class NamedStyle extends Style {
     /**
      * The style provider is an optional value indicating who provided the style definition.
      */
-    
+
     @mdl.prop
     @objid ("bebaf5d6-c89d-4783-9fb8-c544954445a8")
     private String provider;
@@ -129,23 +129,24 @@ public class NamedStyle extends Style {
 
     /**
      * Creates a named style.
+     *
      * @param name The named style name.
      * @param cascadedStyle The parent style.
      */
     @objid ("856b5e1d-1926-11e2-92d2-001ec947c8cc")
-    public  NamedStyle(String name, IStyle cascadedStyle) {
+    public NamedStyle(String name, IStyle cascadedStyle) {
         super(cascadedStyle);
         this.name = name;
         this.properties = new HashMap<>();
-        
+
     }
 
     @objid ("856b5e22-1926-11e2-92d2-001ec947c8cc")
-    public  NamedStyle(String name, Map<StyleKey, Object> styleProperties, IStyle cascadedStyle) {
+    public NamedStyle(String name, Map<StyleKey, Object> styleProperties, IStyle cascadedStyle) {
         super(cascadedStyle);
         this.properties = styleProperties;
         this.name = name;
-        
+
     }
 
     @objid ("856b5e39-1926-11e2-92d2-001ec947c8cc")
@@ -166,6 +167,7 @@ public class NamedStyle extends Style {
     }
 
     /**
+     *
      * @return <code>true</code> if the given name is valid for a style.
      */
     @objid ("e127ca4d-c72f-4a28-813a-1657108a2f36")
@@ -189,18 +191,18 @@ public class NamedStyle extends Style {
     public String toString() {
         StringBuilder s = new StringBuilder();
         s.append("NamedStyle [");
-        
+
         String n = getName();
         if (n != null && !n.isEmpty()) {
             s.append("name='");
             s.append(n);
             s.append("', ");
         }
-        
+
         s.append("isTheme='");
         s.append(this.isTheme);
         s.append("', ");
-        
+
         s.append("provider=");
         s.append(this.provider);
         s.append("]");
@@ -219,7 +221,7 @@ public class NamedStyle extends Style {
         } else {
             super.write(out);
         }
-        
+
     }
 
     @objid ("be877fe5-676c-48dc-89f8-27471be87ae8")

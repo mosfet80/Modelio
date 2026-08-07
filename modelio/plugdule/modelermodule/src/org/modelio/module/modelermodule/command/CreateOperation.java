@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.module.modelermodule.command;
 
@@ -34,7 +34,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * Create an operation from a message. An Instance might be created in the process, or a Classifier.
- * 
+ *
  * @see InstanceUpdater#createInstanceAndClassifier(IModelingSession, Lifeline)
  */
 @objid ("cf4c537f-e500-4ba5-9305-7c8c2d0f95e7")
@@ -43,18 +43,18 @@ public class CreateOperation extends DefaultModuleCommandHandler {
     @Override
     public void actionPerformed(final List<MObject> selectedElements, final IModule module) {
         IModelingSession session = module.getModuleContext().getModelingSession();
-        
+
         try (ITransaction transaction = session.createTransaction("CreateOperation")) {
             InstanceUpdater p = new InstanceUpdater();
             p.createOperation(session, (Message) selectedElements.get(0));
-        
+
             transaction.commit();
         } catch (ModelerModuleException e) {
             MessageDialog.openError(ShellHelper.findActiveShell(),
                     I18nMessageService.getString("Ui.Error.Title"),
                     e.getMessage());
         }
-        
+
     }
 
     /**
@@ -70,15 +70,15 @@ public class CreateOperation extends DefaultModuleCommandHandler {
             return false;
         }
         Message message = (Message) selectedElements.get(0);
-        
+
         // The command is not active for messages not covering a lifeline
         List<Lifeline> covered = message.getReceiveEvent().getCovered();
         if (covered.size() != 1) {
             return false;
         }
-        
+
         MessageSort sort = message.getSortOfMessage();
-        
+
         // The command is not active for return message and asynchronous messages
         return (sort != MessageSort.RETURNMESSAGE && sort != MessageSort.ASYNCCALL && sort != MessageSort.ASYNCSIGNAL);
     }

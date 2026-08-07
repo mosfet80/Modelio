@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.module;
 
@@ -73,15 +73,16 @@ public abstract class AbstractJavaModule implements IModule {
 
     /**
      * Main constructor, to instantiate a new module.
+     *
      * @param moduleContext access point to Modelio services.
-     * 
+     *
      * @since 3.5
      */
     @objid ("7b74a233-3d8e-46de-92ff-d788540043e7")
-    public  AbstractJavaModule(final IModuleContext moduleContext) {
+    public AbstractJavaModule(final IModuleContext moduleContext) {
         this();
         this.moduleContext = moduleContext;
-        
+
     }
 
     @objid ("a047d2c2-479d-11df-a533-001ec947ccaf")
@@ -96,7 +97,7 @@ public abstract class AbstractJavaModule implements IModule {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        
+
         final AbstractJavaModule other = (AbstractJavaModule) obj;
         final ModuleComponent otherModuleComponent = other.getModuleContext() != null ? other.getModuleContext().getModel() : null;
         final ModuleComponent moduleComponent = this.moduleContext != null ? this.moduleContext.getModel() : null;
@@ -105,6 +106,7 @@ public abstract class AbstractJavaModule implements IModule {
 
     /**
      * Used to return the module description.
+     *
      * @return The module description
      */
     @objid ("a047d2f5-479d-11df-a533-001ec947ccaf")
@@ -117,11 +119,12 @@ public abstract class AbstractJavaModule implements IModule {
             getModuleContext().getLogService().warning(e.toString());
             return "";
         }
-        
+
     }
 
     /**
      * Get the image provided by the module for a given stereotype. The module should return an image if the stereotype is provided by itself, null in the other case. The image life cycle must be handled by the module.
+     *
      * @param stereotype a stereotype
      * @param type the image type
      * @return the stereotype image, or null if the module provides none.
@@ -132,9 +135,9 @@ public abstract class AbstractJavaModule implements IModule {
         // If only the stereotype was specified we search directly from it.
         if (stereotype != null) {
             final String key = getImageKey(stereotype, type);
-        
+
             Image image = this.imageRegistry.get(key);
-        
+
             if (image == null) {
                 final ImageDescriptor desc = getImageDescriptor(stereotype, type);
                 if (desc != null) {
@@ -152,9 +155,9 @@ public abstract class AbstractJavaModule implements IModule {
     public Image getImage(final Profile profile, final ImageType imageType) {
         if (profile != null) {
             final String key = "profile." + profile.getName() + "." + imageType.name();
-        
+
             Image image = this.imageRegistry.get(key);
-        
+
             if (image == null) {
                 final ImageDescriptor desc = getImageDescriptor(profile, imageType);
                 if (desc != null) {
@@ -169,6 +172,7 @@ public abstract class AbstractJavaModule implements IModule {
 
     /**
      * Get the module label that is displayed in dialog boxes and other GUI parts.
+     *
      * @return The module label.
      */
     @objid ("552faba7-de2d-4c53-9a68-274bfdd999e3")
@@ -209,6 +213,7 @@ public abstract class AbstractJavaModule implements IModule {
 
     /**
      * Get the path to the image representing the module.
+     *
      * @return a path relative to the module's resource path.
      */
     @objid ("a0457017-479d-11df-a533-001ec947ccaf")
@@ -220,6 +225,7 @@ public abstract class AbstractJavaModule implements IModule {
      * <p>
      * <p>
      * The module name corresponds to the name of the module, as defined in the <i>MDA Designer<i> tool.
+     *
      * @return The module name
      */
     @objid ("a047d250-479d-11df-a533-001ec947ccaf")
@@ -241,11 +247,12 @@ public abstract class AbstractJavaModule implements IModule {
         } else {
             return this.fallBackParameterEditionModel;
         }
-        
+
     }
 
     /**
      * Returns the minimum Modelio version that authorize the Module to be activated.
+     *
      * @return The minimum Modelio version
      */
     @objid ("a0457065-479d-11df-a533-001ec947ccaf")
@@ -257,11 +264,12 @@ public abstract class AbstractJavaModule implements IModule {
         } else {
             return null;
         }
-        
+
     }
 
     /**
      * Used to return the module version.
+     *
      * @return The module version
      */
     @objid ("a0457068-479d-11df-a533-001ec947ccaf")
@@ -275,7 +283,7 @@ public abstract class AbstractJavaModule implements IModule {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("466b0c4f-9748-11e0-8975-001ec947cd2a")
@@ -328,28 +336,29 @@ public abstract class AbstractJavaModule implements IModule {
             final Display display = Display.getDefault();
             display.syncExec(() -> {
                 this.moduleImage.dispose();
-        
+
                 // Give 10s to diagrams to refresh their icons before disposing all stereotypes images
                 display.timerExec(10_000, () -> {
                     this.imageRegistry.dispose();
                 });
             });
-        
+
             this.moduleImage = null;
         }
-        
+
     }
 
     @objid ("daa2701d-6652-4728-9b8d-1a591d83325a")
-    private  AbstractJavaModule() {
+    private AbstractJavaModule() {
         Display.getDefault().syncExec(() -> {
             this.imageRegistry = new ImageRegistry();
         });
-        
+
     }
 
     /**
      * Get the image descriptor provided by the module for a given stereotype. The module should return an image if the stereotype is provided by itself, null in the other case.
+     *
      * @param stereotype a stereotype
      * @param imageType the image type
      * @return the stereotype image, or null if the module provides none.
@@ -360,15 +369,15 @@ public abstract class AbstractJavaModule implements IModule {
         if (!isStereotypeOwner(stereotype)) {
             return null;
         }
-        
+
         String relativePath = null;
-        
+
         if (imageType == ImageType.ICON) {
             relativePath = stereotype.getIcon();
         } else if (imageType == ImageType.IMAGE) {
             relativePath = stereotype.getImage();
         }
-        
+
         if (relativePath == null || relativePath.isEmpty()) {
             return null;
         }
@@ -381,12 +390,12 @@ public abstract class AbstractJavaModule implements IModule {
         if (!Objects.equals(profile.getOwnerModule(), getModuleContext().getModel())) {
             return null;
         }
-        
+
         final StringBuilder i18nKey = new StringBuilder();
         i18nKey.append("%profile.");
         i18nKey.append(profile.getName());
         i18nKey.append(imageType == ImageType.IMAGE ? ".image" : ".icon");
-        
+
         final String relativePath = getModuleContext().getI18nSupport().getString(i18nKey.toString());
         if (relativePath == null || relativePath.isEmpty()) {
             return null;
@@ -411,7 +420,7 @@ public abstract class AbstractJavaModule implements IModule {
     @objid ("c1bd8ed0-fe1d-459a-afe5-164a1403d6d9")
     private ImageDescriptor getRelPathImageDescriptor(final String relativePath) {
         final Path moduleDirectory = this.moduleContext.getConfiguration().getModuleResourcesPath();
-        
+
         try {
             Path imageFile = moduleDirectory.resolve(relativePath);
             if (!Files.isRegularFile(imageFile)
@@ -420,7 +429,7 @@ public abstract class AbstractJavaModule implements IModule {
                 final String relativePath12 = relativePath.substring(getName().length() + 1);
                 imageFile = moduleDirectory.resolve(relativePath12);
             }
-        
+
             if (Files.isRegularFile(imageFile)) {
                 final URL imageUrl = imageFile.toUri().toURL();
                 final ImageDescriptor desc = ImageDescriptor.createFromURL(imageUrl);
@@ -437,6 +446,7 @@ public abstract class AbstractJavaModule implements IModule {
 
     /**
      * Returns true if the given stereotype belongs to the module.
+     *
      * @param stereotype the stereotype to test
      * @return true if the given stereotype belongs to the module.
      */
@@ -460,14 +470,14 @@ public abstract class AbstractJavaModule implements IModule {
         } else {
             final Path moduleDirectory = this.moduleContext.getConfiguration().getModuleResourcesPath();
             final Path imageFile = moduleDirectory.resolve(relativePath.substring(1));
-        
+
             if (Files.isRegularFile(imageFile)) {
                 final Display display = Display.getDefault();
                 display.syncExec(() -> {
                     try {
                         this.moduleImage = new Image(display, imageFile
                                 .toAbsolutePath().toString());
-        
+
                     } catch (final RuntimeException e) {
                         getModuleContext().getLogService().warning(e.toString());
                         getModuleContext().getLogService().info(e);
@@ -475,7 +485,7 @@ public abstract class AbstractJavaModule implements IModule {
                 });
             }
         }
-        
+
     }
 
     @objid ("aaad7d1e-2a12-467a-aff7-d3247e7ced42")

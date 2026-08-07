@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.path;
 
@@ -42,7 +42,7 @@ import org.modelio.diagram.styles.core.StyleKey.ConnectionRouterId;
 
 /**
  * Helper class for Orthogonal routing mode.
- * 
+ *
  * @author cmarin
  */
 @objid ("804ba8d7-1dec-11e2-8cad-001ec947c8cc")
@@ -66,48 +66,51 @@ public class OrthoConnectionHelper implements IConnectionHelper {
      * Constructor a connection and its existing points.
      * <p>
      * The existing points are added as automatic points.
+     *
      * @param connection the connection for which this helper is created.
      * @param connEp unused, just here to differentiate this constructor from {@link #OrthoConnectionHelper(Connection) the empty one}.
      */
     @objid ("804e0aff-1dec-11e2-8cad-001ec947c8cc")
-    public  OrthoConnectionHelper(final Connection connection, ConnectionEditPart connEp) {
+    public OrthoConnectionHelper(final Connection connection, ConnectionEditPart connEp) {
         this.connection = connection;
-        
+
         PointList l = connection.getPoints();
         this.modelBendPoints = new ArrayList<>(l.size());
         for (int i = 0; i < l.size(); i++) {
             this.modelBendPoints.add(l.getPoint(new MPoint(0, 0, false), i));
         }
-        
+
         assert (checkModelBendPoints()) : this.modelBendPoints;
-        
+
     }
 
     /**
      * Builds an empty helper.
      * <p>
      * Uses {@link #updateFrom(RawPathData)} next.
+     *
      * @param connection the connection for which this helper is created.
      */
     @objid ("804e0b06-1dec-11e2-8cad-001ec947c8cc")
-    public  OrthoConnectionHelper(final Connection connection) {
+    public OrthoConnectionHelper(final Connection connection) {
         this.connection = connection;
         this.modelBendPoints = new ArrayList<>();
-        
+
     }
 
     /**
      * Constructor from a list of points stored in the model (in coordinates relative to the connection or the origin figure).
+     *
      * @param modelBendPoints the list of point as stored in the model.
      * @param connection the connection for which this helper is created.
      */
     @objid ("804e0b0f-1dec-11e2-8cad-001ec947c8cc")
-    public  OrthoConnectionHelper(final List<Point> modelBendPoints, final Connection connection) {
+    public OrthoConnectionHelper(final List<Point> modelBendPoints, final Connection connection) {
         this.connection = connection;
         this.modelBendPoints = modelBendPoints;
-        
+
         assert (checkModelBendPoints()) : this.modelBendPoints;
-        
+
     }
 
     @objid ("3f3d9171-5f75-4b5a-a796-1b4cad168106")
@@ -147,13 +150,13 @@ public class OrthoConnectionHelper implements IConnectionHelper {
     @Override
     public void updateFrom(final RawPathData req) {
         this.modelBendPoints.clear();
-        
+
         ConnectionAnchor sourceAnchor = this.connection.getSourceAnchor();
         IFigure sourceFigure = sourceAnchor.getOwner();
-        
+
         ConnectionAnchor targetAnchor = this.connection.getTargetAnchor();
         IFigure targetFigure = targetAnchor.getOwner();
-        
+
         if (sourceFigure != null && req.getPath().isEmpty()) {
             if (areAncestors(sourceFigure, targetFigure)) {
                 // Source contains or is target
@@ -173,20 +176,21 @@ public class OrthoConnectionHelper implements IConnectionHelper {
                 reflexivePath.setRoutingMode(req.getRoutingMode());
                 addReflexivePoints(reflexivePath, sourceAnchor, targetFigure, targetAnchor);
                 readRawPoints(reflexivePath.getPath(), reflexivePath.getLastPoint());
-        
+
             } else {
                 readRawPoints(req.getPath(), req.getLastPoint());
             }
         } else {
             readRawPoints(req.getPath(), req.getLastPoint());
         }
-        
+
     }
 
     /**
      * Go through the list of point and try to make an orthogonal path from it.
      * <p>
      * Add the points to {@link #modelBendPoints} .
+     *
      * @param path a list of points in absolute coordinates
      * @param lastPoint the last point, not used anymore
      */
@@ -195,10 +199,10 @@ public class OrthoConnectionHelper implements IConnectionHelper {
         // Go through the list of point and try to make an orthogonal path from it.
         ConnectionAnchor sourceAnchor = this.connection.getSourceAnchor();
         // ConnectionAnchor targetAnchor = this.connection.getTargetAnchor();
-        
+
         // Start by determining the exact position of the source anchor (in absolute coordinates).
         // Point lastReferencePoint = targetAnchor != null ? targetAnchor.getReferencePoint() : lastPoint;
-        
+
         if (!path.isEmpty()) {
             MPoint tmpPoint = new MPoint(path.get(0), true);
             Point sourceLocation = sourceAnchor.getLocation(tmpPoint);
@@ -207,9 +211,9 @@ public class OrthoConnectionHelper implements IConnectionHelper {
             // Given the two datas, compute the orientation of the initial segment.
             Direction sourceAnchorOrientation = GeomUtils.getDirection(sourceLocation, sourceBounds);
             Orientation currentOrientation = sourceAnchorOrientation.orientation();
-        
+
             Point previousPoint = sourceLocation;
-        
+
             for (int i = 0; i < path.size(); ++i) {
                 Point currentPoint = path.get(i);
                 if (currentOrientation == Orientation.HORIZONTAL) {
@@ -219,15 +223,15 @@ public class OrthoConnectionHelper implements IConnectionHelper {
                     tmpPoint.setLocation(previousPoint.x, currentPoint.y);
                     currentOrientation = Orientation.HORIZONTAL;
                 }
-        
+
                 Point ppp = tmpPoint.getCopy();
                 this.connection.translateToRelative(ppp);
                 this.modelBendPoints.add(ppp);
-        
+
                 previousPoint.setLocation(tmpPoint);
             }
         }
-        
+
     }
 
     @objid ("804e0b4e-1dec-11e2-8cad-001ec947c8cc")
@@ -239,13 +243,13 @@ public class OrthoConnectionHelper implements IConnectionHelper {
         int left = sourceAbsoluteBounds.x() - REFLEXIVE_OFFSET;
         int top = sourceAbsoluteBounds.y() - REFLEXIVE_OFFSET;
         Point center = sourceAbsoluteBounds.getCenter();
-        
+
         Point sourceRef = sourceAnchor.getReferencePoint();
         Point targetRef = targetAnchor.getReferencePoint();
-        
+
         Direction sourceDirection = GeomUtils.getDirection(sourceRef, sourceAbsoluteBounds);
         Direction targetDirection = GeomUtils.getDirection(targetRef, sourceAbsoluteBounds);
-        
+
         List<Point> path = rawData.getPath();
         switch (sourceDirection) {
         case EAST: {
@@ -266,7 +270,7 @@ public class OrthoConnectionHelper implements IConnectionHelper {
                 if (sourceRef.y() <= center.y()) {
                     path.add(new MPoint(right, top, false));
                     path.add(new MPoint(left, top, false));
-        
+
                 } else {
                     path.add(new MPoint(right, bottom, false));
                     path.add(new MPoint(left, bottom, false));
@@ -396,7 +400,7 @@ public class OrthoConnectionHelper implements IConnectionHelper {
             break;
         }
         }
-        
+
     }
 
     @objid ("46c0d2be-729e-41c5-8932-06b3f7f9de1f")
@@ -442,7 +446,7 @@ public class OrthoConnectionHelper implements IConnectionHelper {
                 // else: good luck: both anchors are aligned, nothing to do!
             }
         }
-        
+
     }
 
     @objid ("a68af7e8-9692-44cd-b05b-8dd86deb3dd2")
@@ -451,7 +455,7 @@ public class OrthoConnectionHelper implements IConnectionHelper {
         if (allPoints.size() >= 2) {
             Point previousLocation = allPoints.get(allPoints.size() - 2);
             Point lastLocation = allPoints.get(allPoints.size() - 1);
-        
+
             Direction direction;
             if (previousLocation.x == lastLocation.x) {
                 // VERTICAL
@@ -465,7 +469,7 @@ public class OrthoConnectionHelper implements IConnectionHelper {
             }
             fixNoBendpointsLink(allPoints, lastLocation, targetLocation, direction, targetAnchorOrientation);
         }
-        
+
     }
 
     @objid ("f0d0b584-ea72-4479-8636-247de661a10f")

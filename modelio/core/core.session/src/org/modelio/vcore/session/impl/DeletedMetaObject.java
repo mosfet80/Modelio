@@ -1,39 +1,36 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.impl;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.vbasic.log.Log;
 import org.modelio.vcore.smkernel.AccessDeniedException;
 import org.modelio.vcore.smkernel.IMetaOf;
 import org.modelio.vcore.smkernel.ISmObjectData;
 import org.modelio.vcore.smkernel.SmObjectImpl;
+import org.modelio.vcore.smkernel.mapi.MQueryRunner;
 import org.modelio.vcore.smkernel.meta.SmAttribute;
 import org.modelio.vcore.smkernel.meta.SmDependency;
 
 /**
- * The DeletedMetaObject is the special meta object used for deleted objects
- * that are not yet definitely deleted, ie their deletion can still be undone as
- * no save operation occured since their deletion.
- * The DeletedMetaObject will simply forbid any modification on a deleted object
- * but will allow 'getter' accessors to work providing navigation facilities in
- * the deleted objects graph.
+ * <p>The DeletedMetaObject is the special meta object used for deleted objects that are not yet definitely deleted, ie their deletion can still be undone as no save operation occured since their deletion. The DeletedMetaObject will simply forbid any modification on a deleted object but will allow &#39;getter&#39; accessors to work providing navigation facilities in the deleted objects graph.</p>
  */
 @objid ("00050190-0dbb-1f20-85a5-001ec947cd2a")
 public class DeletedMetaObject implements IMetaOf {
@@ -57,7 +54,6 @@ public class DeletedMetaObject implements IMetaOf {
     public void createObject(SmObjectImpl obj) {
         // This code should never ever be called.
         throw throwDeletedObject(obj);
-        
     }
 
     @objid ("000513c4-0dbb-1f20-85a5-001ec947cd2a")
@@ -69,7 +65,13 @@ public class DeletedMetaObject implements IMetaOf {
     @objid ("0005023a-0dbb-1f20-85a5-001ec947cd2a")
     @Override
     public boolean eraseObjDepVal(SmObjectImpl obj, SmDependency dep, SmObjectImpl dep_val) {
-        throw throwDeletedObject(obj);
+        if (dep.isComposition() ||dep.isSharedComposition() || dep.isPartOf()) {
+            throw throwDeletedObject(obj);
+        } else {
+            // non navigable dep, do nothing and just log a warning
+            Log.trace("Called DeletedMetaObject.eraseObjDepVal(%s, %s, %s) : on deleted %s", obj, dep, dep_val, obj);
+            return false;
+        }
     }
 
     @objid ("000502f8-0dbb-1f20-85a5-001ec947cd2a")
@@ -97,29 +99,16 @@ public class DeletedMetaObject implements IMetaOf {
     public void objUndeleted(SmObjectImpl obj) {
         // Restore original metaobject
         obj.getData().setMetaOf(this.metaObject);
-        
+
         // The original metaobject has to be informed,
         // as it's to him (or this) to tell the storage handler the element
         // is undeleted
         obj.getData().getMetaOf().objUndeleted(obj);
-        
-    }
-
-    @objid ("00050820-0dbb-1f20-85a5-001ec947cd2a")
-    @Override
-    public void setActionRecording(final boolean val) {
-        throw new UnsupportedOperationException();
     }
 
     @objid ("00050942-0dbb-1f20-85a5-001ec947cd2a")
     @Override
     public boolean setObjAttVal(SmObjectImpl obj, SmAttribute att, final Object value) {
-        throw throwDeletedObject(obj);
-    }
-
-    @objid ("000509d8-0dbb-1f20-85a5-001ec947cd2a")
-    @Override
-    public void silentActionRemove(SmObjectImpl obj) {
         throw throwDeletedObject(obj);
     }
 
@@ -131,6 +120,7 @@ public class DeletedMetaObject implements IMetaOf {
 
     /**
      * Set the initial meta object of deleted objects.
+     *
      * @param initialMetaObject the initial meta object
      */
     @objid ("002c7b62-eb1c-1f22-8c06-001ec947cd2a")
@@ -142,12 +132,13 @@ public class DeletedMetaObject implements IMetaOf {
      * Initialize the meta object.
      */
     @objid ("002c91ce-eb1c-1f22-8c06-001ec947cd2a")
-    public  DeletedMetaObject() {
-        
+    public DeletedMetaObject() {
+
     }
 
     /**
      * Builds an AccessDeniedException for the given model object.
+     *
      * @param smObject a model object
      * @return AccessDeniedException a ready to throw exception
      */
@@ -167,7 +158,12 @@ public class DeletedMetaObject implements IMetaOf {
     public void importObject(SmObjectImpl obj) {
         // This code should never ever be called.
         throw throwDeletedObject(obj);
-        
+    }
+
+    @objid ("dd84598f-293d-48ab-a693-fee81a9feccc")
+    @Override
+    public MQueryRunner query() {
+        return this.metaObject.query();
     }
 
 }

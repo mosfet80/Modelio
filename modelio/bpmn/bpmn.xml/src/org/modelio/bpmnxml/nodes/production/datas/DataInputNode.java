@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.datas;
 
@@ -68,12 +68,12 @@ public class DataInputNode implements IProductionNode<BpmnDataInput, TDataInput>
     @objid ("00842838-ea4b-47f9-84ac-06918676ca2f")
     @Override
     public BpmnDataInput createUMLElement(MObject context, TDataInput jaxbElement, BpmnImportFactory factory, boolean keepId) {
-        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {  
+        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {
             return factory.createWithId(BpmnDataInput.class,context,jaxbElement.getId());
         }else{
             return factory.create(BpmnDataInput.class,context);
         }
-        
+
     }
 
     @objid ("b1fc6a6f-aa0e-4db3-b3a8-c4dfbe284782")
@@ -88,7 +88,7 @@ public class DataInputNode implements IProductionNode<BpmnDataInput, TDataInput>
         // Set properties
         if (jaxbElement.getName() != null)
             modelioElement.setName(StringConvertor.imports(jaxbElement.getName()));
-        
+
         modelioElement.setIsCollection(jaxbElement.isIsCollection());
         return modelioElement;
     }

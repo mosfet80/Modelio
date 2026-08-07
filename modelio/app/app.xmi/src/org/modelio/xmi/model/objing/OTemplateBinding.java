@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -29,6 +29,7 @@ import org.modelio.xmi.util.ObjingEAnnotation;
 
 /**
  * This class manages the export of TemplateBinding
+ *
  * @author ebrosse
  */
 @objid ("97bab9a7-2476-4bad-a9c4-2bbe6947e14e")
@@ -41,10 +42,11 @@ public class OTemplateBinding extends OElement implements IOElement {
 
     /**
      * constructor
+     *
      * @param param : the exported Modelio TemplateBinding
      */
     @objid ("367bd5bd-c0a5-4d3a-9bbc-60f9f996f743")
-    public  OTemplateBinding(final TemplateBinding param) {
+    public OTemplateBinding(final TemplateBinding param) {
         super(param);
     }
 
@@ -55,17 +57,17 @@ public class OTemplateBinding extends OElement implements IOElement {
         Element objOwner =  templateBinding.getBoundElement();
         if (objOwner == null)
             objOwner =  templateBinding.getBoundOperation();
-        
+
         org.eclipse.uml2.uml.Element ecoreOwner = GenerationProperties.getInstance().getMappedElement(objOwner);
-        
+
         if (ecoreOwner instanceof org.eclipse.uml2.uml.TemplateableElement){
-        
+
             ((org.eclipse.uml2.uml.TemplateableElement) ecoreOwner).getTemplateBindings().add((org.eclipse.uml2.uml.TemplateBinding) ecoreElt);
-        
+
         }else{
             ecoreElt.destroy();
         }
-        
+
     }
 
     @objid ("faa7e741-7999-4747-baa1-75866a30877f")
@@ -78,23 +80,23 @@ public class OTemplateBinding extends OElement implements IOElement {
     private void setTemplate(org.eclipse.uml2.uml.Element ecoreElt) {
         TemplateBinding objElt = (TemplateBinding) getObjingElement();
         org.eclipse.uml2.uml.TemplateBinding ecoreElement = (org.eclipse.uml2.uml.TemplateBinding) ecoreElt;
-        
+
         Element  template = objElt.getInstanciatedTemplate();
         if (template == null)
             template = objElt.getInstanciatedTemplateOperation();
-        
+
         if (template != null){
             org.eclipse.uml2.uml.Element ecoreTemplate = GenerationProperties.getInstance().getMappedElement(template);
-        
+
             if (ecoreTemplate instanceof org.eclipse.uml2.uml.TemplateableElement){
                 org.eclipse.uml2.uml.TemplateSignature signature = ((org.eclipse.uml2.uml.TemplateableElement) ecoreTemplate).getOwnedTemplateSignature();
-        
+
                 if (signature == null){
                     signature = ((org.eclipse.uml2.uml.TemplateableElement) ecoreTemplate).createOwnedTemplateSignature();
                     ObjingEAnnotation.setIsDeleted(signature);
                 }
                 ecoreElement.setSignature(signature);
-                
+
                 try{
                     signature.setTemplate((org.eclipse.uml2.uml.TemplateableElement) ecoreTemplate);
                 }catch(IllegalArgumentException e){
@@ -105,10 +107,10 @@ public class OTemplateBinding extends OElement implements IOElement {
                     GenerationProperties.getInstance().addWarning(message, objElt);
                     Xmi.LOG.error(e);
                 }
-               
+
             }
         }
-        
+
     }
 
 }

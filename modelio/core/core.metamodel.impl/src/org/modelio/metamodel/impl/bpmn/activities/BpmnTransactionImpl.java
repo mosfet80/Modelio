@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.activities;
 
 import java.util.ArrayList;
@@ -42,19 +41,19 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0085963e-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnTransactionImpl extends BpmnSubProcessImpl implements BpmnTransaction {
-    @objid ("c0e4b075-23b1-4826-ae68-69620131fc79")
+    @objid ("bec385ab-21fe-4d1c-8a5b-9b6b3d30330f")
     @Override
     public TransactionMethod getMethod() {
         return (TransactionMethod) getAttVal(((BpmnTransactionSmClass)getClassOf()).getMethodAtt());
     }
 
-    @objid ("baf01738-9dca-4eb7-b21a-28b13dcbbfd0")
+    @objid ("c4d3393e-81ea-48c4-b246-b2c3d98befac")
     @Override
     public void setMethod(TransactionMethod value) {
         setAttVal(((BpmnTransactionSmClass)getClassOf()).getMethodAtt(), value);
     }
 
-    @objid ("cb2de9d4-fb5b-4168-b2c3-aca9bb1e9811")
+    @objid ("96536882-a2c8-4838-9d90-e12a23dfc538")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -62,17 +61,17 @@ public class BpmnTransactionImpl extends BpmnSubProcessImpl implements BpmnTrans
         return super.getCompositionOwner();
     }
 
-    @objid ("00412621-746e-4a00-974e-d3c892f1053a")
+    @objid ("14688cd1-4eaf-46e0-9c50-f5bf1a1ce0ee")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("7a8ae670-c5e8-4083-a6af-72294d9bf549")
+    @objid ("a4c03065-4951-43af-89df-6ca2fa381085")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitBpmnTransaction(this);

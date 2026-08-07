@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -43,33 +42,33 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0020dab4-c4bf-1fd8-97fe-001ec947cd2a")
 public class NaryAssociationEndImpl extends StructuralFeatureImpl implements NaryAssociationEnd {
-    @objid ("86b1b500-24e3-43d5-ac69-213c8dc66304")
+    @objid ("eb12636b-8819-472c-871f-d30a4a2702b2")
     @Override
     public NaryAssociation getNaryAssociation() {
         Object obj = getDepVal(((NaryAssociationEndSmClass)getClassOf()).getNaryAssociationDep());
         return (obj instanceof NaryAssociation)? (NaryAssociation)obj : null;
     }
 
-    @objid ("fc418bd8-1eb6-4d2a-be49-0ba2c02f6294")
+    @objid ("d8364689-ad6c-46e9-98c9-cf0919f51cda")
     @Override
     public void setNaryAssociation(NaryAssociation value) {
         appendDepVal(((NaryAssociationEndSmClass)getClassOf()).getNaryAssociationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("89463c74-c178-4e47-a1d9-7849dd12d73a")
+    @objid ("265cd457-210f-4e27-94e7-196380810fee")
     @Override
     public Classifier getOwner() {
         Object obj = getDepVal(((NaryAssociationEndSmClass)getClassOf()).getOwnerDep());
         return (obj instanceof Classifier)? (Classifier)obj : null;
     }
 
-    @objid ("0e6f17e9-8ab4-4763-8ea7-3f2afb6c772a")
+    @objid ("ee844c90-60d2-42b0-afa5-b9f3e2082c55")
     @Override
     public void setOwner(Classifier value) {
         appendDepVal(((NaryAssociationEndSmClass)getClassOf()).getOwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("957a0fa6-f329-43e5-8f65-c91578f33380")
+    @objid ("7576d3b3-037e-4c83-9541-6c3fb5e2baf7")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -85,27 +84,27 @@ public class NaryAssociationEndImpl extends StructuralFeatureImpl implements Nar
         return super.getCompositionOwner();
     }
 
-    @objid ("5a6303d9-1e6b-4909-9867-5b48a027937d")
+    @objid ("292cd521-ba5d-4588-abcf-fb8f17106717")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // Owner
         dep = ((NaryAssociationEndSmClass)getClassOf()).getOwnerDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         // NaryAssociation
         dep = ((NaryAssociationEndSmClass)getClassOf()).getNaryAssociationDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("80499ed9-0e00-453b-b03c-9056039a7ce4")
+    @objid ("5821c029-eab3-4658-8305-54701b41718f")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitNaryAssociationEnd(this);

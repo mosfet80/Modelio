@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.script.macro.catalog;
 
@@ -40,7 +40,7 @@ import org.modelio.vcore.smkernel.meta.SmMetamodel;
  * <li>a script file Path
  * <li>a metaclass filter
  * <li>an optional icon.
- * 
+ *
  * It may be displayed in the tool bar and/or in the contextual menu.
  * <p>
  * A macro is owned by a {@linkplain Catalog} and its script path is relative to the catalog path.
@@ -75,15 +75,17 @@ public class Macro {
      * Creates a new macro in a catalog.
      * <p>
      * The macro is not added to the catalog, {@link Catalog#addMacro(Macro)} has to be called after.
+     *
      * @param catalog the catalog that contains the macro.
      */
     @objid ("009323a8-b64c-106a-bf4f-001ec947cd2a")
-    public  Macro(Catalog catalog) {
+    public Macro(Catalog catalog) {
         this.catalog = catalog;
     }
 
     /**
      * Add a metaclass on which the macro can be run.
+     *
      * @param classname a metaclass name.
      */
     @objid ("0093245c-b64c-106a-bf4f-001ec947cd2a")
@@ -93,6 +95,7 @@ public class Macro {
 
     /**
      * Get the catalog where the macro is stored.
+     *
      * @return the macro catalog.
      */
     @objid ("009324f2-b64c-106a-bf4f-001ec947cd2a")
@@ -102,6 +105,7 @@ public class Macro {
 
     /**
      * get the macro description
+     *
      * @return the description
      */
     @objid ("00932588-b64c-106a-bf4f-001ec947cd2a")
@@ -113,6 +117,7 @@ public class Macro {
 
     /**
      * Get the location of the script. The returned Path is an absolute Path.
+     *
      * @return The location of the script.
      */
     @objid ("00932614-b64c-106a-bf4f-001ec947cd2a")
@@ -122,6 +127,7 @@ public class Macro {
 
     /**
      * Get the metaclasses on which the macro can be run.
+     *
      * @return the metaclasses set.
      */
     @objid ("00932740-b64c-106a-bf4f-001ec947cd2a")
@@ -131,6 +137,7 @@ public class Macro {
 
     /**
      * Get the macro name.
+     *
      * @return the macro name.
      */
     @objid ("009327d6-b64c-106a-bf4f-001ec947cd2a")
@@ -142,6 +149,7 @@ public class Macro {
 
     /**
      * Get the location of the script. The returned Path is an absolute Path.
+     *
      * @return The location of the script.
      */
     @objid ("00932876-b64c-106a-bf4f-001ec947cd2a")
@@ -151,6 +159,7 @@ public class Macro {
 
     /**
      * Tells whether the script can be run on the given elements.
+     *
      * @param selectedElements a list of elements on which the script will be run
      * @return true if the script is runnable on the selection, false in the other case.
      */
@@ -160,23 +169,23 @@ public class Macro {
         if (getMetaclasses().isEmpty()) {
             return true;
         }
-        
+
         // A script with metaclass(es) cannot be run on empty selection
         if (selectedElements == null || selectedElements.isEmpty()) {
             return false;
         }
-        
+
         MObject firstElement = selectedElements.iterator().next();
         MMetamodel metamodel = firstElement.getMClass().getMetamodel();
-        
+
         // Prepare a list of acceptable Java interfaces for the macro allowed metaclasses
         List<Class<? extends MObject>> mcInterfaces = new ArrayList<>(this.metaclasses.size());
         for (String scriptMcName : getMetaclasses()) {
             try {
-        
+
                 // Hide SHORT_METACLASSNAMES error for old macro catalogue ( new maccro are registred with qualified metaclass name)
                 ((SmMetamodel)metamodel).TRACE_SHORT_METACLASSNAMES = false;
-        
+
                 final MClass scriptMc = metamodel.getMClass(scriptMcName);
                 final Class<? extends MObject> scriptInterface = scriptMc.getJavaInterface();
                 mcInterfaces.add(scriptInterface);
@@ -185,7 +194,7 @@ public class Macro {
                 Script.LOG.error(e);
             }
         }
-        
+
         // Check each selected element agains't the allowed Java interfaces
         for (final MObject obj : selectedElements) {
             // See one of the allowed metaclasses is matching
@@ -196,18 +205,19 @@ public class Macro {
                     break;
                 }
             }
-        
+
             if (!ok) {
                 return false;
             }
         }
-        
+
         // The script passed the test for all selected elements
         return true;
     }
 
     /**
      * set the macro description.
+     *
      * @param string the new description.
      */
     @objid ("00932a24-b64c-106a-bf4f-001ec947cd2a")
@@ -215,11 +225,12 @@ public class Macro {
         if (!string.equals(this.description)) {
             this.description = string;
         }
-        
+
     }
 
     /**
      * Set the absolute macro icon path.
+     *
      * @param iconPath The absolute Path to the script icon
      */
     @objid ("00932aba-b64c-106a-bf4f-001ec947cd2a")
@@ -229,6 +240,7 @@ public class Macro {
 
     /**
      * Set the metaclasses on which the macro can be run.
+     *
      * @param newset the metaclass name set.
      */
     @objid ("00932bdc-b64c-106a-bf4f-001ec947cd2a")
@@ -238,6 +250,7 @@ public class Macro {
 
     /**
      * Set the macro name.
+     *
      * @param value the new macro name.
      */
     @objid ("00932c72-b64c-106a-bf4f-001ec947cd2a")
@@ -247,6 +260,7 @@ public class Macro {
 
     /**
      * Set the macro absolute path.
+     *
      * @param scriptPath The absolute Path to the script
      */
     @objid ("00932cfe-b64c-106a-bf4f-001ec947cd2a")
@@ -256,6 +270,7 @@ public class Macro {
 
     /**
      * Set whether the macro is shown in the contextual menu.
+     *
      * @param showInContextualMenu true to show the macro in the menu, else false.
      */
     @objid ("00932e20-b64c-106a-bf4f-001ec947cd2a")
@@ -265,6 +280,7 @@ public class Macro {
 
     /**
      * Set whether the macro is shown in the tool bar.
+     *
      * @param showInToolbar true to show the macro in the tool bar, else false.
      */
     @objid ("00932eb6-b64c-106a-bf4f-001ec947cd2a")
@@ -274,6 +290,7 @@ public class Macro {
 
     /**
      * Tells whether the macro is shown in the contextual menu.
+     *
      * @return the showInContextualMenu
      */
     @objid ("00932f4c-b64c-106a-bf4f-001ec947cd2a")
@@ -283,6 +300,7 @@ public class Macro {
 
     /**
      * Tells whether the macro is shown in the tool bar.
+     *
      * @return the showInToolbar
      */
     @objid ("00932fd8-b64c-106a-bf4f-001ec947cd2a")
@@ -292,31 +310,32 @@ public class Macro {
 
     /**
      * Move the macro to another catalog. change the script and icon relative paths to point to the same files.
+     *
      * @param newCatalog the new catalog.
      */
     @objid ("0093306e-b64c-106a-bf4f-001ec947cd2a")
     public void moveTo(final Catalog newCatalog) {
         final Path oldPath = getScriptPath();
         final Path oldIconPath = getIconPath();
-        
+
         if (this.catalog == newCatalog) {
             return;
         }
-        
+
         if (this.catalog != null) {
             this.catalog.removeMacro(this);
         }
-        
+
         newCatalog.addMacro(this);
         this.catalog = newCatalog;
-        
+
         if (oldPath != null) {
             setScriptPath(oldPath);
         }
         if (oldIconPath != null) {
             setIconPath(oldIconPath);
         }
-        
+
     }
 
 }

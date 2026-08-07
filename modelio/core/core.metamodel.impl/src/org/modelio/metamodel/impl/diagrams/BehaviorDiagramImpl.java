@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.diagrams;
 
 import java.util.ArrayList;
@@ -43,7 +42,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0069c5b2-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class BehaviorDiagramImpl extends AbstractDiagramImpl implements BehaviorDiagram {
-    @objid ("d17acef1-2aef-46a8-8045-d9ed951651c8")
+    @objid ("7eca8d21-b8b8-43b5-9fd9-bf3e3228a52c")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -51,17 +50,17 @@ public abstract class BehaviorDiagramImpl extends AbstractDiagramImpl implements
         return super.getCompositionOwner();
     }
 
-    @objid ("285ef1a7-e585-4bb2-8669-a34d39c0a621")
+    @objid ("aeeca331-d597-4255-be34-4b26c2bf9f7b")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("14e42631-ce0d-48dc-a09a-d784822ecbb7")
+    @objid ("45b2039a-8852-4fe6-ae34-ce85d39843b3")
     @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
@@ -70,7 +69,7 @@ public abstract class BehaviorDiagramImpl extends AbstractDiagramImpl implements
           return super.accept(v);
     }
 
-    @objid ("4203935d-5e17-4c00-83df-dc108446dc62")
+    @objid ("09784b00-b94f-461e-8c0b-def81b2b4b03")
     public Object accept(IModelVisitor v) {
         return v.visitBehaviorDiagram(this);
     }

@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.ui.form.fields;
 
@@ -34,25 +34,27 @@ public class TextField extends AbstractField {
     @objid ("64e600f1-fc4b-4143-94d0-e506ffed57dc")
     private static final int VISIBLE_LINES_DEFAULT_NB = 4;
 
+    @objid ("5d64fd0f-5757-4d68-bb1f-4e47d7a331ad")
+    private String oldValue = EMPTY_STRING;
+
     /**
      * Indicates if {@link SWT#V_SCROLL} should be activated on {@link #text}.
      */
     @objid ("393a5dab-6ae9-4239-8a37-b18e403135a1")
     private final int nVisibleLines;
 
-    @objid ("56ff1db2-7583-4d92-9401-5e18523f2f4d")
+    @objid ("295553ad-0035-44b3-9a94-850431369743")
     private Text text;
 
     @objid ("a87e467b-1375-451b-8ffa-7126244f010a")
-    public  TextField(FormToolkit toolkit, Composite parent, IFormFieldData model) {
+    public TextField(FormToolkit toolkit, Composite parent, IFormFieldData model) {
         this(toolkit, parent, model, VISIBLE_LINES_DEFAULT_NB);
     }
 
     @objid ("287ca589-2716-4448-a9da-9d1c280d0b82")
-    public  TextField(FormToolkit toolkit, Composite parent, IFormFieldData model, int nVisibleLines) {
+    public TextField(FormToolkit toolkit, Composite parent, IFormFieldData model, int nVisibleLines) {
         super(toolkit, parent, model);
         this.nVisibleLines = nVisibleLines;
-        
     }
 
     @objid ("99a4b66b-2068-481c-b01c-6811f0867154")
@@ -72,25 +74,25 @@ public class TextField extends AbstractField {
         } else {
             this.text = toolkit.createText(parent, EMPTY_STRING, SWT.MULTI | SWT.WRAP);
         }
-        
+
         // Initialize values
         getLabel().setText(getModel().getName());
-        
+
         final Object value = getModel().getValue();
         this.text.setText(value != null ? value.toString() : EMPTY_STRING);
-        
+
         // Install Listeners
         this.text.addListener(SWT.FocusOut, ev -> {
             fireValueChanged(null, this.text.getText());
         });
-        
+
         this.text.addKeyListener(new KeyListener() {
-        
+
             @Override
             public void keyReleased(KeyEvent e) {
                 // Nothing to do
             }
-        
+
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.keyCode == 'a' && e.stateMask == SWT.CTRL) {
@@ -105,8 +107,10 @@ public class TextField extends AbstractField {
     @Override
     public void refresh() {
         final Object value = getModel().getValue();
-        this.text.setText(value != null ? value.toString() : EMPTY_STRING);
-        
+        if(!value.toString().equals(this.oldValue) && !this.text.isFocusControl()) {
+            this.text.setText(value != null ? value.toString() : EMPTY_STRING);
+        }
+        this.oldValue = this.text.getText();
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -46,7 +46,7 @@ public class R2410 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -97,14 +97,14 @@ public class R2410 extends AbstractUmlRule {
      * Default constructor for R2410
      */
     @objid ("768e58e0-c65d-4023-a721-950539809397")
-    public  R2410() {
+    public R2410() {
         this.checkerInstance = new CheckR2410(this);
     }
 
     @objid ("f115e534-9e4b-4d35-b5a6-034a2706b04c")
     private static class CheckR2410 extends AbstractControl {
         @objid ("2dd6bbfe-68d8-4c9e-8ab6-390292b32686")
-        public  CheckR2410(IRule rule) {
+        public CheckR2410(IRule rule) {
             super(rule);
         }
 
@@ -120,9 +120,9 @@ public class R2410 extends AbstractUmlRule {
         @objid ("abaf32ff-1840-47da-98c5-6a3eb5a9fd52")
         private IAuditEntry checkR2410(final Operation operation) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, operation, null);
-            
+
             boolean failed = false;
-            
+
             if (operation.isStereotyped("ModelerModule", "create") && operation.isStereotyped("ModelerModule", "destroy")) {
                 // Rule failed
                 failed = true;

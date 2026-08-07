@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.linkednode;
 
@@ -44,7 +44,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * Edit policy that allow to create a node linked to this node.
- * 
+ *
  * @author cmarin
  */
 @objid ("7ebfe270-1dec-11e2-8cad-001ec947c8cc")
@@ -54,6 +54,7 @@ public class LinkedNodeStartCreationEditPolicy extends AbstractLinkedNodeCreatio
 
     /**
      * Returns the <i>host</i> for the appropriate <code>Requests</code>. Returns <code>null</code> otherwise.
+     *
      * @see org.eclipse.gef.EditPolicy#getTargetEditPart(Request)
      */
     @objid ("7ebfe274-1dec-11e2-8cad-001ec947c8cc")
@@ -64,30 +65,30 @@ public class LinkedNodeStartCreationEditPolicy extends AbstractLinkedNodeCreatio
             if (context == null) {
                 return null;
             }
-        
+
             Stereotype linkStereotype = context.getStereotype();
             MClass linkMetaclass = context.getMetaclass();
             String depName = context.getDependencyName();
             GmModel gmModel = (GmModel) getHost().getModel();
             MObject sourceElement = gmModel.getRelatedElement();
             IMdaExpert mdaExpert = gmModel.getDiagram().getModelManager().getMdaExpert();
-        
+
             // If source element cannot be found, or if creation expert doesn't allow AND this instance is not "opaque" (see javadoc
             // on private attribute isOpaque for details), return null.
             if (sourceElement == null) {
                 return null;
             }
-        
+
             MExpert expert = linkMetaclass.getMetamodel().getMExpert();
-        
+
             if (expert.canCompose(sourceElement, linkMetaclass, depName)) {
                 return getHost();
             }
-        
+
             if (mdaExpert.canSource(linkStereotype, linkMetaclass, sourceElement.getMClass())) {
                 return getHost();
             }
-        
+
             return null;
         } else if (RequestConstants.REQ_RECONNECT_SOURCE.equals(request.getType())) {
             ReconnectRequest r = (ReconnectRequest) request;
@@ -102,7 +103,7 @@ public class LinkedNodeStartCreationEditPolicy extends AbstractLinkedNodeCreatio
     @Override
     protected void eraseTargetConnectionFeedback(DropRequest request) {
         super.eraseTargetConnectionFeedback(request);
-        
+
         // Additional feedback: outline the Node.
         final IFigure highlight = (IFigure) ((Request) request).getExtendedData().get(LinkedNodeStartCreationEditPolicy.HIGHLIGHTKEY);
         if (highlight != null) {
@@ -112,7 +113,7 @@ public class LinkedNodeStartCreationEditPolicy extends AbstractLinkedNodeCreatio
                 ((Request) request).getExtendedData().remove(LinkedNodeStartCreationEditPolicy.HIGHLIGHTKEY);
             }
         }
-        
+
     }
 
     @objid ("7ebfe285-1dec-11e2-8cad-001ec947c8cc")
@@ -125,7 +126,7 @@ public class LinkedNodeStartCreationEditPolicy extends AbstractLinkedNodeCreatio
     @Override
     protected Command getConnectionCreateCommand(CreateConnectionRequest request) {
         ModelioCreationContext context = ModelioCreationContext.fromRequest(request);
-        
+
         CreateLinkedNodeCommand cmd = null;
         if (Document.class == context.getJavaClass()) {
             cmd = new CreateExternDocumentCommand(context);
@@ -134,9 +135,9 @@ public class LinkedNodeStartCreationEditPolicy extends AbstractLinkedNodeCreatio
         } else {
             cmd = new CreateLinkedNodeCommand(context);
         }
-        
+
         cmd.setSource(getHost());
-        
+
         // Getting a hold on the model of both anchors
         cmd.setSourceAnchor(AnchorModelHelper.getSourceAnchorModel(request.getTargetEditPart(), request));
         request.setStartCommand(cmd);
@@ -150,12 +151,12 @@ public class LinkedNodeStartCreationEditPolicy extends AbstractLinkedNodeCreatio
     @Override
     protected void showTargetConnectionFeedback(final DropRequest dropRequest) {
         final Request request = (Request) dropRequest;
-        
+
         // Only linked node creation start is supported here
         if (request.getType() != LinkedNodeRequestConstants.REQ_LINKEDNODE_START) {
             return;
         }
-        
+
         // Additional feedback: highlight the node.
         // compute highlight type
         Command c = getCommand(request);
@@ -167,7 +168,7 @@ public class LinkedNodeStartCreationEditPolicy extends AbstractLinkedNodeCreatio
         } else {
             hightlightType = FigureUtilities2.HighlightType.WARNING;
         }
-        
+
         // create a highlight figure if it does not exist
         IFigure highlight = (IFigure) request.getExtendedData().get(LinkedNodeStartCreationEditPolicy.HIGHLIGHTKEY);
         if (highlight == null) {
@@ -175,14 +176,14 @@ public class LinkedNodeStartCreationEditPolicy extends AbstractLinkedNodeCreatio
             highlight = FigureUtilities2.createHighlightFigure(getFeedbackLayer(), getHostFigure(), hightlightType);
             // add the highlight figure to the feedback layer
             getFeedbackLayer().add(highlight);
-        
+
             // register this additional feedback into the
             request.getExtendedData().put(LinkedNodeStartCreationEditPolicy.HIGHLIGHTKEY, highlight);
         }
-        
+
         // configure the highlight figure
         FigureUtilities2.updateHighlightType(highlight, hightlightType);
-        
+
     }
 
     @objid ("7ebfe2a1-1dec-11e2-8cad-001ec947c8cc")
@@ -202,9 +203,9 @@ public class LinkedNodeStartCreationEditPolicy extends AbstractLinkedNodeCreatio
     @Override
     protected void eraseCreationFeedback(final CreateConnectionRequest request) {
         super.eraseCreationFeedback(request);
-        
+
         eraseTargetConnectionFeedback(request);
-        
+
     }
 
 }

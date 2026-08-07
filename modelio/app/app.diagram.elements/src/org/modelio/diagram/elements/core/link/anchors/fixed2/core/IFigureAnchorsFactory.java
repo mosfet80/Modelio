@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.anchors.fixed2.core;
 
@@ -38,6 +38,7 @@ import org.modelio.diagram.styles.core.StyleKey.ConnectionRouterId;
 public interface IFigureAnchorsFactory {
     /**
      * Create a draw2d anchor from a model anchor
+     *
      * @param gmLinkAnchor the anchor model
      * @return the draw2d anchor
      */
@@ -46,6 +47,7 @@ public interface IFigureAnchorsFactory {
 
     /**
      * Return all possible anchors for the node and the connection routing mode.
+     *
      * @param routerId the connection routing mode
      * @param face optional face number, to filter anchors
      * @return all possible anchors
@@ -55,6 +57,7 @@ public interface IFigureAnchorsFactory {
 
     /**
      * Return the nearest anchor from the given point.
+     *
      * @param absPoint a point in absolute coordinates.
      * @param routerId the connection routing mode
      * @param face optional face number, to filter anchors
@@ -66,10 +69,10 @@ public interface IFigureAnchorsFactory {
         Collection<ConnectionAnchor> allAnchors = getAllAnchors( routerId, face);
         if (allAnchors.isEmpty())
             return null;
-        
+
         double mind = Double.MAX_VALUE;
         ConnectionAnchor nearest = allAnchors.iterator().next();
-        
+
         for (ConnectionAnchor a : allAnchors) {
             double dist = a.getLocation(absPoint).getDistance(absPoint);
             if (dist < mind) {
@@ -84,9 +87,10 @@ public interface IFigureAnchorsFactory {
      * Get the unique identifier of the algorithm that uses this factory to generate anchors.
      * <p>
      * Will be serialized in graphic model in order to regenerate the same anchors.
+     *
      * @return the identifier of the algorithm.
      */
     @objid ("e7e1e6db-7509-452b-93dd-7c85ca696c36")
     String getAlgorithmId();
-}
 
+}

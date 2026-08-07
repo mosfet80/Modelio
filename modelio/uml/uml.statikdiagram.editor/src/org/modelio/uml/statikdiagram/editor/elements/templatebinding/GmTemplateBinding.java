@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.templatebinding;
 
@@ -37,9 +37,6 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  */
 @objid ("36d616fa-55b7-11e2-877f-002564c97630")
 public final class GmTemplateBinding extends GmLink {
-    @objid ("36d616fe-55b7-11e2-877f-002564c97630")
-    private TemplateBinding element;
-
     /**
      * Current version of this Gm. Defaults to 0.
      */
@@ -49,6 +46,9 @@ public final class GmTemplateBinding extends GmLink {
     @objid ("36d61706-55b7-11e2-877f-002564c97630")
     private static final int MAJOR_VERSION = 0;
 
+    @objid ("36d616fe-55b7-11e2-877f-002564c97630")
+    private TemplateBinding element;
+
     @objid ("65101291-5bd5-11e2-9e33-00137282c51b")
     private static final TemplateBindingStructuredStyleKeys STRUCTURED_KEYS = new TemplateBindingStructuredStyleKeys();
 
@@ -56,27 +56,28 @@ public final class GmTemplateBinding extends GmLink {
      * Constructor for deserialization.
      */
     @objid ("36d61708-55b7-11e2-877f-002564c97630")
-    public  GmTemplateBinding() {
+    public GmTemplateBinding() {
         // Nothing to do.
     }
 
     /**
      * Creates a GmElementImport.
+     *
      * @param diagram The diagram containing the link.
      * @param role The represented element.
      * @param ref The represented element reference. May not be null.
      */
     @objid ("36d6170b-55b7-11e2-877f-002564c97630")
-    public  GmTemplateBinding(IGmDiagram diagram, TemplateBinding role, MRef ref) {
+    public GmTemplateBinding(IGmDiagram diagram, TemplateBinding role, MRef ref) {
         super(diagram, ref);
-        
+
         this.element = role;
-        
+
         if (role != null) {
             // Create extensions
             addExtension(ExtensionLocation.MiddleSE, ROLE_MAIN_LABEL, new GmTemplateBindingHeader(diagram, ref));
         }
-        
+
     }
 
     @objid ("36d61717-55b7-11e2-877f-002564c97630")
@@ -96,12 +97,15 @@ public final class GmTemplateBinding extends GmLink {
     protected void readLink(IDiagramReader in) {
         super.readLink(in);
         this.element = (TemplateBinding) resolveRef(this.getRepresentedRef());
-        
+
     }
 
     @objid ("36d61730-55b7-11e2-877f-002564c97630")
     @Override
     public MObject getFromElement() {
+        if (this.element == null)
+            return null;
+
         MObject ret = this.element.getBoundElement();
         if (ret == null) {
             ret = this.element.getBoundOperation();
@@ -112,6 +116,9 @@ public final class GmTemplateBinding extends GmLink {
     @objid ("36d61737-55b7-11e2-877f-002564c97630")
     @Override
     public MObject getToElement() {
+        if (this.element == null)
+            return null;
+
         MObject ret = this.element.getInstanciatedTemplate();
         if (ret == null) {
             ret = this.element.getInstanciatedTemplateOperation();
@@ -135,10 +142,10 @@ public final class GmTemplateBinding extends GmLink {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmTemplateBinding.", GmTemplateBinding.MINOR_VERSION);
-        
+
     }
 
     @objid ("36d79db2-55b7-11e2-877f-002564c97630")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package com.sun.star.comp.beans;
 
@@ -24,7 +24,7 @@ import com.sun.star.uno.UnoRuntime;
 
 /**
  * Wrapper class for a com.sun.star.frame.XFrame.
- * 
+ *
  * @since OOo 2.0.0
  */
 @objid ("352f0437-f62e-46ea-a762-54cd263a1eb4")
@@ -40,17 +40,18 @@ public class Frame extends Wrapper implements com.sun.star.frame.XFrame, com.sun
 
     /**
      * Constructor.
+     *
      * @param xFrame the wrapped XFrame
      */
     @objid ("87fb604a-59ba-43cd-b7dd-ea7da63c34ac")
-    public  Frame(final com.sun.star.frame.XFrame xFrame) {
+    public Frame(final com.sun.star.frame.XFrame xFrame) {
         super( xFrame );
         this.xFrame = xFrame;
         this.xDispatchProvider = UnoRuntime.queryInterface( com.sun.star.frame.XDispatchProvider.class,
             xFrame );
         this.xDispatchProviderInterception = UnoRuntime.queryInterface( com.sun.star.frame.XDispatchProviderInterception.class,
             xFrame );
-        
+
     }
 
     /**

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.usecasediagram.editor.elements.system;
 
@@ -40,12 +40,12 @@ public final class GmSystemFreeZone extends GmFreeZone {
     private static final int MAJOR_VERSION = 0;
 
     @objid ("5e504a81-55b7-11e2-877f-002564c97630")
-    public  GmSystemFreeZone() {
+    public GmSystemFreeZone() {
         // Nothing to do.
     }
 
     @objid ("5e504a84-55b7-11e2-877f-002564c97630")
-    public  GmSystemFreeZone(final IGmDiagram diagram, final MRef relatedRef) {
+    public GmSystemFreeZone(final IGmDiagram diagram, final MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -77,7 +77,6 @@ public final class GmSystemFreeZone extends GmFreeZone {
             if (key != null)
                 getParent().getDisplayedStyle().setProperty(key, RepresentationMode.STRUCTURED);
         }
-        
     }
 
     @objid ("5e504aab-55b7-11e2-877f-002564c97630")
@@ -104,17 +103,15 @@ public final class GmSystemFreeZone extends GmFreeZone {
                 break;
             }
         }
-        
     }
 
     @objid ("5e504aba-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmSystemFreeZone.", GmSystemFreeZone.MINOR_VERSION);
-        
     }
 
     @objid ("5e51d11d-55b7-11e2-877f-002564c97630")
@@ -122,7 +119,6 @@ public final class GmSystemFreeZone extends GmFreeZone {
     public void addChild(final GmNodeModel child) {
         super.addChild(child);
         fireVisibilityChanged();
-        
     }
 
     @objid ("5e51d124-55b7-11e2-877f-002564c97630")
@@ -130,7 +126,6 @@ public final class GmSystemFreeZone extends GmFreeZone {
     public void addChild(final GmNodeModel child, final int index) {
         super.addChild(child, index);
         fireVisibilityChanged();
-        
     }
 
     @objid ("5e51d12d-55b7-11e2-877f-002564c97630")
@@ -138,7 +133,6 @@ public final class GmSystemFreeZone extends GmFreeZone {
     public void removeChild(final GmNodeModel child) {
         super.removeChild(child);
         fireVisibilityChanged();
-        
     }
 
     @objid ("5e51d134-55b7-11e2-877f-002564c97630")

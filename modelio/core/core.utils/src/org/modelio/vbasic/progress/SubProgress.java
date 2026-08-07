@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vbasic.progress;
 
@@ -39,7 +39,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  * </ul>
  * <p></p>
  * <p><b>USAGE:</b></p>
- * 
+ *
  * <p>When implementing a method that accepts an IModelioProgress:</p>
  * <ul>
  * <li>At the start of your method, use <code>SubProgress.convert(...).</code> to convert the IModelioProgress
@@ -49,7 +49,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  * </ul>
  * <p></p>
  * <p><b>DEFAULT BEHAVIOR:</b></p>
- * 
+ *
  * <p>When writing JavaDoc for a method that accepts an IModelioProgress, you should assume the
  * following default behavior unless the method's JavaDoc says otherwise:</p>
  * <ul>
@@ -59,7 +59,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  * </ul>
  * <p></p>
  * <p><b>BEST PRACTISES:</b></p>
- * 
+ *
  * <p>We recommend that newly-written methods follow the given contract:</p>
  * <ul>
  * <li>It WILL call beginTask on the IModelioProgress.</li>
@@ -67,21 +67,21 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  * <li>It WILL NOT call done on the IModelioProgress, leaving this responsibility up to the caller.</li>
  * </ul>
  * <p>If you wish to follow these conventions, you may copy and paste the following text into your method's JavaDoc:</p>
- * 
+ *
  * <pre>@param monitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility
  * to call done() on the given monitor. Accepts <code>null</code>, indicating that no progress should be
  * reported and that the operation cannot be cancelled.</pre>
- * 
+ *
  * <p></p>
  * <p><b>Example: Recommended usage</b></p>
- * 
+ *
  * <p>This example demonstrates how the recommended usage of <code>SubProgress</code> makes it unnecessary to call
  * IModelioProgress.done() in most situations.</p>
- * 
+ *
  * <p>It is never necessary to call done() on a monitor obtained from <code>convert</code> or <code>progress.newChild()</code>.
  * In this example, there is no guarantee that <code>monitor</code> is an instance of <code>SubProgress</code>, making it
  * necessary to call <code>monitor.done()</code>. The JavaDoc contract makes this the responsibility of the caller.</p>
- * 
+ *
  * <pre>
  * &nbsp; // param monitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility
  * &nbsp; //        to call done() on the given monitor. Accepts <code>null</code>, indicating that no progress should be
@@ -101,14 +101,14 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  * &nbsp;   doSomeWork(progress.newChild(40));
  * &nbsp; }
  * </pre>
- * 
- * 
+ *
+ *
  * <p></p>
  * <p><b>Example: Default usage</b></p>
- * 
+ *
  * <p>You will often need to implement a method that does not explicitly stipulate that calling done() is the responsibility
  * of the caller. In this case, you should use the following pattern:</p>
- * 
+ *
  * <pre>
  * <// param monitor the progress monitor to use for reporting progress to the user, or <code>null</code> indicating
  * //        that no progress should be reported and the operation cannot be cancelled.
@@ -133,12 +133,12 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  * &nbsp; }
  * }
  * </pre>
- * 
+ *
  * <p></p>
  * <p><b>Example: Branches</b></p>
- * 
+ *
  * <p>This example demonstrates how to smoothly report progress in situations where some of the work is optional.</p>
- * 
+ *
  * <pre>
  * &nbsp; void doSomething(IModelioProgress monitor) {
  * &nbsp;   SubProgress progress = SubProgress.convert(monitor, 100);
@@ -158,11 +158,11 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  * &nbsp;   doSomeWork(progress.newChild(50));
  * &nbsp; }
  * </pre>
- * 
+ *
  * <p><b>Example: optional child</b></p>
  * <p>This example demonstrates how to smoothly report progress in situations where some
  * methods may not use the passed progress monitor.</p>
- * 
+ *
  * <pre>
  * &nbsp; void doSomething(IModelioProgress monitor) {
  * &nbsp;   SubProgress progress = SubProgress.convert(monitor, 100);
@@ -181,9 +181,9 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  * &nbsp;   doSomeWork(progress.newChild(50));
  * &nbsp; }
  * </pre>
- * 
+ *
  * <p>Please beware of the following anti-pattern:</p>
- * 
+ *
  * <pre>
  * &nbsp; if (condition) {
  * &nbsp;   // Use 50% of the progress to do some work
@@ -194,13 +194,13 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  * &nbsp;   progress.worked(50);
  * &nbsp; }
  * </pre>
- * 
- * 
+ *
+ *
  * <p></p>
  * <p><b>Example: Loops</b></p>
- * 
+ *
  * <p>This example demonstrates how to report progress in a loop.</p>
- * 
+ *
  * <pre>
  * &nbsp; void doSomething(IModelioProgress monitor, Collection someCollection) {
  * &nbsp;   SubProgress progress = SubProgress.convert(monitor, 100);
@@ -219,14 +219,14 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  * &nbsp;   doSomeWork(progress.newChild(30));
  * &nbsp; }
  * </pre>
- * 
- * 
+ *
+ *
  * <p></p>
  * <p><b>Example: Infinite progress</b></p>
- * 
+ *
  * <p>This example demonstrates how to report logarithmic progress in situations where the number of ticks
  * cannot be easily computed in advance.</p>
- * 
+ *
  * <pre>
  * &nbsp; void doSomething(IModelioProgress monitor, LinkedListNode node) {
  * &nbsp;   SubProgress progress = SubProgress.convert(monitor);
@@ -242,7 +242,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  * &nbsp;   }
  * &nbsp; }
  * </pre>
- * 
+ *
  * <p>
  * This class is independent of OSGI.
  * </p>
@@ -353,27 +353,29 @@ public final class SubProgress implements IModelioProgress {
     /**
      * Creates a new SubProgress that will report its progress via
      * the given RootInfo.
+     *
      * @param rootInfo the root of this progress monitor tree
      * @param totalWork total work to perform on the given progress monitor
      * @param availableToChildren number of ticks allocated for this instance's children
      * @param flags a bitwise combination of the SUPPRESS_* constants
      */
     @objid ("c991b3c6-a5a3-11e1-aa98-001ec947ccaf")
-    private  SubProgress(final RootInfo rootInfo, final int totalWork, final int availableToChildren, final int flags) {
+    private SubProgress(final RootInfo rootInfo, final int totalWork, final int availableToChildren, final int flags) {
         this.root = rootInfo;
         this.totalParent = (totalWork > 0) ? totalWork : 0;
         this.totalForChildren = availableToChildren;
         this.flags = flags;
-        
+
     }
 
     /**
      * <p>Converts an unknown (possibly null) IModelioProgress into a SubProgress. It is
      * not necessary to call done() on the result, but the caller is responsible for calling
      * done() on the argument. Calls beginTask on the argument.</p>
-     * 
+     *
      * <p>This method should generally be called at the beginning of a method that accepts
      * an IModelioProgress in order to convert the IModelioProgress into a SubProgress.</p>
+     *
      * @param monitor monitor to convert to a SubProgress instance or null. Treats null
      * as a new instance of <code>NullProgressMonitor</code>.
      * @return a SubProgress instance that adapts the argument
@@ -388,9 +390,10 @@ public final class SubProgress implements IModelioProgress {
      * with the given number of ticks. It is not necessary to call done() on the result,
      * but the caller is responsible for calling done() on the argument. Calls beginTask
      * on the argument.</p>
-     * 
+     *
      * <p>This method should generally be called at the beginning of a method that accepts
      * an IModelioProgress in order to convert the IModelioProgress into a SubProgress.</p>
+     *
      * @param monitor monitor to convert to a SubProgress instance or null. Treats null
      * as a new instance of <code>NullProgressMonitor</code>.
      * @param work number of ticks that will be available in the resulting monitor
@@ -406,9 +409,10 @@ public final class SubProgress implements IModelioProgress {
      * with the given number of ticks. It is not necessary to call done() on the result,
      * but the caller is responsible for calling done() on the argument. Calls beginTask
      * on the argument.</p>
-     * 
+     *
      * <p>This method should generally be called at the beginning of a method that accepts
      * an IModelioProgress in order to convert the IModelioProgress into a SubProgress.</p>
+     *
      * @param initialMonitor to convert into a SubProgress instance or null. If given a null argument,
      * the resulting SubProgress will not report its progress anywhere.
      * @param taskName user readable name to pass to monitor.beginTask. Never null.
@@ -421,7 +425,7 @@ public final class SubProgress implements IModelioProgress {
         if (monitor == null) {
             monitor = new NullProgress();
         }
-        
+
         // Optimization: if the given monitor already a SubProgress, no conversion is necessary
         if (monitor instanceof SubProgress) {
             monitor.beginTask(taskName, work);
@@ -429,7 +433,7 @@ public final class SubProgress implements IModelioProgress {
         } else if (monitor instanceof OptionalProgress) {
             return convert(((OptionalProgress)monitor).getWrapped(), taskName, work);
         }
-        
+
         monitor.beginTask(taskName, MINIMUM_RESOLUTION);
         return new SubProgress(new RootInfo(monitor), MINIMUM_RESOLUTION, work, SUPPRESS_NONE);
     }
@@ -440,10 +444,11 @@ public final class SubProgress implements IModelioProgress {
      * This may be called many times for the same SubProgress instance. When this method
      * is called, the remaining space on the progress monitor is redistributed into the given
      * number of ticks.</p>
-     * 
+     *
      * <p>It doesn't matter how much progress has already been reported with this SubProgress
      * instance. If you call setWorkRemaining(100), you will be able to report 100 more ticks of
      * work before the progress meter reaches 100%.</p>
+     *
      * @param initialWorkRemaining total number of remaining ticks
      * @return the receiver
      */
@@ -451,7 +456,7 @@ public final class SubProgress implements IModelioProgress {
     public SubProgress setWorkRemaining(int initialWorkRemaining) {
         // Ensure we don't try to allocate negative ticks
         int workRemaining = Math.max(0, initialWorkRemaining);
-        
+
         // Ensure we don't cause division by zero
         if (this.totalForChildren > 0 && this.totalParent > this.usedForParent) {
             // Note: We want the following value to remain invariant after this method returns
@@ -460,7 +465,7 @@ public final class SubProgress implements IModelioProgress {
         } else {
             this.usedForChildren = 0.0d;
         }
-        
+
         this.totalParent = this.totalParent - this.usedForParent;
         this.usedForParent = 0;
         this.totalForChildren = workRemaining;
@@ -470,6 +475,7 @@ public final class SubProgress implements IModelioProgress {
     /**
      * Consumes the given number of child ticks, given as a double. Must only
      * be called if the monitor is in floating-point mode.
+     *
      * @param ticks the number of ticks to consume
      * @return ticks the number of ticks to be consumed from parent
      */
@@ -478,18 +484,18 @@ public final class SubProgress implements IModelioProgress {
         if (this.totalParent == 0 || this.totalForChildren == 0) {
             return 0;
         }
-        
+
         this.usedForChildren += ticks;
-        
+
         if (this.usedForChildren > this.totalForChildren) {
             this.usedForChildren = this.totalForChildren;
         } else if (this.usedForChildren < 0.0) {
             this.usedForChildren = 0.0;
         }
-        
+
         int parentPosition = (int) (this.totalParent * this.usedForChildren / this.totalForChildren);
         int delta = parentPosition - this.usedForParent;
-        
+
         this.usedForParent = parentPosition;
         return delta;
     }
@@ -506,7 +512,7 @@ public final class SubProgress implements IModelioProgress {
         if ((this.flags & SUPPRESS_SETTASKNAME) == 0) {
             this.root.setTaskName(name);
         }
-        
+
     }
 
     /**
@@ -514,13 +520,14 @@ public final class SubProgress implements IModelioProgress {
      * <p>
      * The string argument is ignored if and only if the {@link #SUPPRESS_BEGINTASK}
      * flag has been set on this SubProgressinstance.
-     * 
+     *
      * <p>This method is equivalent calling setWorkRemaining(...) on the receiver. Unless
      * the {@link #SUPPRESS_BEGINTASK} flag is set, this will also be equivalent to calling
      * {@link #setTaskName(String)} on the parent.</p>
-     * @see IModelioProgress#beginTask(java.lang.String, int)
+     *
      * @param name new main task name
      * @param totalWork number of ticks to allocate
+     * @see IModelioProgress#beginTask(java.lang.String, int)
      */
     @objid ("c991b3f7-a5a3-11e1-aa98-001ec947ccaf")
     @Override
@@ -529,7 +536,7 @@ public final class SubProgress implements IModelioProgress {
             this.root.setTaskName(name);
         }
         setWorkRemaining(totalWork);
-        
+
     }
 
     /* (non-Javadoc)
@@ -543,12 +550,12 @@ public final class SubProgress implements IModelioProgress {
         if (delta > 0) {
             this.root.worked(delta);
         }
-        
+
         this.totalParent = 0;
         this.usedForParent = 0;
         this.totalForChildren = 0;
         this.usedForChildren = 0.0d;
-        
+
     }
 
     /* (non-Javadoc)
@@ -558,12 +565,12 @@ public final class SubProgress implements IModelioProgress {
     @Override
     public void internalWorked(final double work) {
         cleanupActiveChild();
-        
+
         int delta = consume((work > 0.0d) ? work : 0.0d);
         if (delta != 0) {
             this.root.worked(delta);
         }
-        
+
     }
 
     /* (non-Javadoc)
@@ -575,7 +582,7 @@ public final class SubProgress implements IModelioProgress {
         if ((this.flags & SUPPRESS_SUBTASK) == 0) {
             this.root.subTask(name);
         }
-        
+
     }
 
     /* (non-Javadoc)
@@ -602,14 +609,14 @@ public final class SubProgress implements IModelioProgress {
      * result. However, the resulting progress monitor will not report any work after the first
      * call to done() or before ticks are allocated. Ticks may be allocated by calling beginTask
      * or setWorkRemaining.</p>
-     * 
+     *
      * <p>Each SubProgress only has one active child at a time. Each time newChild() is called, the
      * result becomes the new active child and any unused progress from the previously-active child is
      * consumed.</p>
-     * 
+     *
      * <p>This is property makes it unnecessary to call done() on a SubProgress instance, since child
      * monitors are automatically cleaned up the next time the parent is touched.</p>
-     * 
+     *
      * <code><pre>
      * ////////////////////////////////////////////////////////////////////////////
      * // Example 1: Typical usage of newChild
@@ -618,14 +625,14 @@ public final class SubProgress implements IModelioProgress {
      * doSomething(progress.newChild(50));
      * doSomethingElse(progress.newChild(50));
      * }
-     * 
+     *
      * ////////////////////////////////////////////////////////////////////////////
      * // Example 2: Demonstrates the function of active children. Creating children
      * // is sufficient to smoothly report progress, even if worked(...) and done()
      * // are never called.
      * void myMethod(IModelioProgress parent) {
      * SubProgress progress = SubProgress.convert(parent, 100);
-     * 
+     *
      * for (int i = 0; i < 100; i++) {
      * // Creating the next child monitor will clean up the previous one,
      * // causing progress to be reported smoothly even if we don't do anything
@@ -633,25 +640,26 @@ public final class SubProgress implements IModelioProgress {
      * progress.newChild(1);
      * }
      * }
-     * 
+     *
      * ////////////////////////////////////////////////////////////////////////////
      * // Example 3: Demonstrates a common anti-pattern
      * void wrongMethod(IModelioProgress parent) {
      * SubProgress progress = SubProgress.convert(parent, 100);
-     * 
+     *
      * // WRONG WAY: Won't have the intended effect, as only one of these progress
      * // monitors may be active at a time and the other will report no progress.
      * callMethod(progress.newChild(50), computeValue(progress.newChild(50)));
      * }
-     * 
+     *
      * void rightMethod(IModelioProgress parent) {
      * SubProgress progress = SubProgress.convert(parent, 100);
-     * 
+     *
      * // RIGHT WAY: Break up method calls so that only one SubProgress is in use at a time.
      * Object someValue = computeValue(progress.newChild(50));
      * callMethod(progress.newChild(50), someValue);
      * }
      * </pre></code>
+     *
      * @param totalWork number of ticks to consume from the receiver
      * @return new sub progress monitor that may be used in place of a new SubProgress
      */
@@ -666,14 +674,14 @@ public final class SubProgress implements IModelioProgress {
      * result. However, the resulting progress monitor will not report any work after the first
      * call to done() or before ticks are allocated. Ticks may be allocated by calling beginTask
      * or setWorkRemaining.</p>
-     * 
+     *
      * <p>Each SubProgress only has one active child at a time. Each time newChild() is called, the
      * result becomes the new active child and any unused progress from the previously-active child is
      * consumed.</p>
-     * 
+     *
      * <p>This is property makes it unnecessary to call done() on a SubProgress instance, since child
      * monitors are automatically cleaned up the next time the parent is touched.</p>
-     * 
+     *
      * <code><pre>
      * ////////////////////////////////////////////////////////////////////////////
      * // Example 1: Typical usage of newChild
@@ -682,14 +690,14 @@ public final class SubProgress implements IModelioProgress {
      * doSomething(progress.newChild(50));
      * doSomethingElse(progress.newChild(50));
      * }
-     * 
+     *
      * ////////////////////////////////////////////////////////////////////////////
      * // Example 2: Demonstrates the function of active children. Creating children
      * // is sufficient to smoothly report progress, even if worked(...) and done()
      * // are never called.
      * void myMethod(IModelioProgress parent) {
      * SubProgress progress = SubProgress.convert(parent, 100);
-     * 
+     *
      * for (int i = 0; i < 100; i++) {
      * // Creating the next child monitor will clean up the previous one,
      * // causing progress to be reported smoothly even if we don't do anything
@@ -697,25 +705,26 @@ public final class SubProgress implements IModelioProgress {
      * progress.newChild(1);
      * }
      * }
-     * 
+     *
      * ////////////////////////////////////////////////////////////////////////////
      * // Example 3: Demonstrates a common anti-pattern
      * void wrongMethod(IModelioProgress parent) {
      * SubProgress progress = SubProgress.convert(parent, 100);
-     * 
+     *
      * // WRONG WAY: Won't have the intended effect, as only one of these progress
      * // monitors may be active at a time and the other will report no progress.
      * callMethod(progress.newChild(50), computeValue(progress.newChild(50)));
      * }
-     * 
+     *
      * void rightMethod(IModelioProgress parent) {
      * SubProgress progress = SubProgress.convert(parent, 100);
-     * 
+     *
      * // RIGHT WAY: Break up method calls so that only one SubProgress is in use at a time.
      * Object someValue = computeValue(progress.newChild(50));
      * callMethod(progress.newChild(50), someValue);
      * }
      * </pre></code>
+     *
      * @param totalWork number of ticks to consume from the receiver
      * @return new sub progress monitor that may be used in place of a new SubProgress
      */
@@ -724,30 +733,30 @@ public final class SubProgress implements IModelioProgress {
         double totalWorkDouble = (totalWork > 0) ? totalWork : 0.0d;
         totalWorkDouble = Math.min(totalWorkDouble, this.totalForChildren - this.usedForChildren);
         cleanupActiveChild();
-        
+
         // Compute the flags for the child. We want the net effect to be as though the child is
         // delegating to its parent, even though it is actually talking directly to the root.
         // This means that we need to compute the flags such that - even if a label isn't
         // suppressed by the child - if that same label would have been suppressed when the
         // child delegated to its parent, the child must explicitly suppress the label.
         int childFlags = SUPPRESS_NONE;
-        
+
         if ((this.flags & SUPPRESS_SETTASKNAME) != 0) {
             // If the parent was ignoring labels passed to setTaskName, then the child will ignore
             // labels passed to either beginTask or setTaskName - since both delegate to setTaskName
             // on the parent
             childFlags |= SUPPRESS_SETTASKNAME | SUPPRESS_BEGINTASK;
         }
-        
+
         if ((this.flags & SUPPRESS_SUBTASK) != 0) {
             // If the parent was suppressing labels passed to subTask, so will the child.
             childFlags |= SUPPRESS_SUBTASK;
         }
-        
+
         // Note: the SUPPRESS_BEGINTASK flag does not affect the child since there
         // is no method on the child that would delegate to beginTask on the parent.
         childFlags |= suppressFlags;
-        
+
         SubProgress result = new SubProgress(this.root, consume(totalWorkDouble), (int) totalWorkDouble, childFlags);
         this.lastSubMonitor = result;
         return result;
@@ -767,6 +776,7 @@ public final class SubProgress implements IModelioProgress {
      * <p>
      * The returned supplier may be used only once is valid until this sub progress finishes
      * or another child progress is created.
+     *
      * @param totalWork number of ticks to consume from the receiver
      * @param suppressFlags a bitwise combination of the SUPPRESS_* constants
      * @return an optional sub progress monitor.
@@ -803,7 +813,7 @@ public final class SubProgress implements IModelioProgress {
      * <p>
      * The returned monitor is valid until this sub progress finishes
      * or another child progress is created.
-     * 
+     *
      * <code><pre>
      * ////////////////////////////////////////////////////////////////////////////
      * // Example : Typical usage of newOptionalChild
@@ -814,6 +824,7 @@ public final class SubProgress implements IModelioProgress {
      * doSomethingElse(progress.newChild(50));
      * }
      * </pre></code>
+     *
      * @param totalWork number of ticks to consume from the receiver if the returned progress monitor is used.
      * @param suppressFlags a bitwise combination of the SUPPRESS_* constants
      * @return an optional sub progress monitor.
@@ -839,7 +850,7 @@ public final class SubProgress implements IModelioProgress {
      * <p>
      * The returned monitor is valid until this sub progress finishes
      * or another child progress is created.
-     * 
+     *
      * <code><pre>
      * ////////////////////////////////////////////////////////////////////////////
      * // Example : Typical usage of newOptionalChild
@@ -850,6 +861,7 @@ public final class SubProgress implements IModelioProgress {
      * doSomethingElse(progress.newChild(50));
      * }
      * </pre></code>
+     *
      * @param totalWork number of ticks to consume from the receiver if the returned progress monitor is used.
      * @return an optional sub progress monitor.
      * @since Modelio 5.3.1
@@ -873,6 +885,7 @@ public final class SubProgress implements IModelioProgress {
      * <p>
      * The returned supplier may be used only once is valid until this sub progress finishes
      * or another child progress is created.
+     *
      * @param totalWork number of ticks to consume from the receiver
      * @return an optional sub progress monitor.
      * @since Modelio 3.6
@@ -893,7 +906,7 @@ public final class SubProgress implements IModelioProgress {
             this.lastSubMonitor = null;
             child.done();
         }
-        
+
     }
 
     /**
@@ -922,10 +935,11 @@ public final class SubProgress implements IModelioProgress {
         /**
          * Creates a RootInfo struct that delegates to the given progress
          * monitor.
+         *
          * @param root progress monitor to delegate to
          */
         @objid ("c98f5188-a5a3-11e1-aa98-001ec947ccaf")
-        public  RootInfo(final IModelioProgress root) {
+        public RootInfo(final IModelioProgress root) {
             this.root = root;
         }
 
@@ -946,7 +960,7 @@ public final class SubProgress implements IModelioProgress {
             }
             this.taskName = taskName;
             this.root.setTaskName(taskName);
-            
+
         }
 
         @objid ("c98f5196-a5a3-11e1-aa98-001ec947ccaf")
@@ -954,10 +968,10 @@ public final class SubProgress implements IModelioProgress {
             if (Objects.equals(this.subTask, name)) {
                 return;
             }
-            
+
             this.subTask = name;
             this.root.subTask(name);
-            
+
         }
 
         @objid ("c98f5199-a5a3-11e1-aa98-001ec947ccaf")
@@ -968,6 +982,7 @@ public final class SubProgress implements IModelioProgress {
     }
 
     /**
+     *
      * @author cma
      * @since Modelio 3.6
      */
@@ -983,12 +998,12 @@ public final class SubProgress implements IModelioProgress {
         private SubProgress parent;
 
         @objid ("e29339ee-af78-4ed3-b25c-7bfe880177ad")
-        public  ChildSupplier(SubProgress parent, int totalWork, int suppressFlags) {
+        public ChildSupplier(SubProgress parent, int totalWork, int suppressFlags) {
             super();
             this.totalWork = totalWork;
             this.suppressFlags = suppressFlags;
             this.parent = parent;
-            
+
         }
 
         @objid ("f88d7e7e-1cec-4e4a-a6cc-bd8606b5ed54")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.service.impl;
 
@@ -46,6 +46,7 @@ public interface IRTModuleAccess extends IRTModule {
 
     /**
      * Register a module action for the contextual popupmenu(s) of the application.
+     *
      * @param location The action insertion point in the popupmenu (see {@link ActionLocation})
      * @param action Action to store
      */
@@ -54,6 +55,7 @@ public interface IRTModuleAccess extends IRTModule {
 
     /**
      * Register a new palette Tool.<br>
+     *
      * @param id the tool id
      * @param diagramCommand The tool behavior.
      * @since 3.3.0
@@ -63,6 +65,7 @@ public interface IRTModuleAccess extends IRTModule {
 
     /**
      * Register a customizer for a stereotyped diagram.
+     *
      * @param stereotype the diagram stereotype which the customizer is intended for
      * @param baseDiagramClass the base diagram editor to customize
      * @param customizer the customizer implementation
@@ -77,6 +80,7 @@ public interface IRTModuleAccess extends IRTModule {
     /**
      * Internal use only: set the IModule implementation.
      * @internal
+     *
      * @param imodule the module implementation
      */
     @objid ("a4d820d8-888c-429e-af50-aa37c501e6c7")
@@ -85,6 +89,7 @@ public interface IRTModuleAccess extends IRTModule {
     /**
      * Internal use only: set the GModule.
      * @internal
+     *
      * @param gModule the GModule.
      */
     @objid ("76301f15-b04d-4c40-a05c-fe110df8d03c")
@@ -93,6 +98,7 @@ public interface IRTModuleAccess extends IRTModule {
     /**
      * internal use only: set the module class loader.
      * @internal
+     *
      * @param aClassLoader the module class loader.
      */
     @objid ("55e18f4d-41ff-47c1-bb2c-03bf0f33584c")
@@ -116,5 +122,5 @@ public interface IRTModuleAccess extends IRTModule {
 
     @objid ("3d336a7d-d60e-42fe-a832-b5ad6b9bc843")
     void setOptionalRequiredModules(List<IRTModule> optionalRequiredModules);
-}
 
+}

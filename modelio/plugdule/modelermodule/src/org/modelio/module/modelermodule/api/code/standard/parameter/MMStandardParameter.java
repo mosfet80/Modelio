@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -63,6 +63,7 @@ public class MMStandardParameter {
      * Tells whether a {@link MMStandardParameter proxy} can be instantiated from a {@link MObject} checking it is a {@link Parameter}.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,9 +73,10 @@ public class MMStandardParameter {
     }
 
     /**
-     * Tries to instantiate a {@link MMStandardParameter} proxy from a {@link Parameter} checking its metaclass. 
+     * Tries to instantiate a {@link MMStandardParameter} proxy from a {@link Parameter} checking its metaclass.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a Parameter
      * @return a {@link MMStandardParameter} proxy or <i>null</i>.
      */
@@ -100,7 +102,8 @@ public class MMStandardParameter {
     }
 
     /**
-     * Get the underlying {@link Parameter}. 
+     * Get the underlying {@link Parameter}.
+     *
      * @return the Parameter represented by this proxy, never null.
      */
     @objid ("ce459ed6-a576-47dc-bc31-cc694f75e1e3")
@@ -122,7 +125,7 @@ public class MMStandardParameter {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     /**
@@ -136,7 +139,7 @@ public class MMStandardParameter {
     }
 
     @objid ("f0ceeb7a-8dc1-4807-94c6-65436e6c067f")
-    protected  MMStandardParameter(Parameter elt) {
+    protected MMStandardParameter(Parameter elt) {
         this.elt = elt;
     }
 
@@ -156,7 +159,7 @@ public class MMStandardParameter {
             TYPE_TAGTYPE_ELT = ctx.getModelingSession().findElementById(TagType.class, "00000000-0000-3767-0000-000000000000");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -164,7 +167,7 @@ public class MMStandardParameter {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

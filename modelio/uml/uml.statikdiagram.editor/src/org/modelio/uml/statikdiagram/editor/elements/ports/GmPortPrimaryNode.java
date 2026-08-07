@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.ports;
 
@@ -36,7 +36,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Represents a {@link Port}.
- * 
+ *
  * @author phv
  */
 @objid ("3646a85e-55b7-11e2-877f-002564c97630")
@@ -55,11 +55,12 @@ public class GmPortPrimaryNode extends GmNoStyleSimpleNode implements IImageable
 
     /**
      * Creates a port model.
+     *
      * @param diagram The owning diagram
      * @param ref The represented port reference
      */
     @objid ("3646a86a-55b7-11e2-877f-002564c97630")
-    public  GmPortPrimaryNode(final IGmDiagram diagram, final MRef ref) {
+    public GmPortPrimaryNode(final IGmDiagram diagram, final MRef ref) {
         super(diagram, ref);
     }
 
@@ -67,7 +68,7 @@ public class GmPortPrimaryNode extends GmNoStyleSimpleNode implements IImageable
      * Constructor for deserialization only.
      */
     @objid ("3646a875-55b7-11e2-877f-002564c97630")
-    public  GmPortPrimaryNode() {
+    public GmPortPrimaryNode() {
         // Empty constructor needed for serialisation.
     }
 
@@ -81,9 +82,9 @@ public class GmPortPrimaryNode extends GmNoStyleSimpleNode implements IImageable
     @objid ("36482eda-55b7-11e2-877f-002564c97630")
     @Override
     protected void refreshFromObModel() {
-        // forcing visual refresh in case Image changed 
+        // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("36482edd-55b7-11e2-877f-002564c97630")
@@ -113,19 +114,19 @@ public class GmPortPrimaryNode extends GmNoStyleSimpleNode implements IImageable
                 break;
             }
         }
-        
+
     }
 
     @objid ("36482ee8-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         out.writeProperty("orientation", Integer.valueOf(this.position));
-        
+
         // Write version of this Gm if different of 0.
         writeMinorVersion(out, "GmPortPrimaryNode.", Integer.valueOf(GmPortPrimaryNode.MINOR_VERSION));
-        
+
     }
 
     @objid ("36482eee-55b7-11e2-877f-002564c97630")
@@ -133,7 +134,7 @@ public class GmPortPrimaryNode extends GmNoStyleSimpleNode implements IImageable
         super.read(in);
         // In version 0, orientation was not handled, initialize it to PositionConstants.NONE
         this.position = PositionConstants.NONE;
-        
+
     }
 
     @objid ("36482ef3-55b7-11e2-877f-002564c97630")
@@ -143,6 +144,7 @@ public class GmPortPrimaryNode extends GmNoStyleSimpleNode implements IImageable
     }
 
     /**
+     *
      * @return the current position of this Port. Returned value is one of {@link PositionConstants} values among:
      * NONE, NORTH, NORTH_EAST, EAST, SOUTH_EAST, SOUTH, SOUTH_WEST, WEST and NORTH_WEST.
      */
@@ -154,6 +156,7 @@ public class GmPortPrimaryNode extends GmNoStyleSimpleNode implements IImageable
     /**
      * Sets the new position of this Port. Passed value must be one of {@link PositionConstants} values among:
      * NONE, NORTH, NORTH_EAST, EAST, SOUTH_EAST, SOUTH, SOUTH_WEST, WEST and NORTH_WEST.
+     *
      * @param position the new position of this Port.
      */
     @objid ("36482efd-55b7-11e2-877f-002564c97630")
@@ -165,7 +168,7 @@ public class GmPortPrimaryNode extends GmNoStyleSimpleNode implements IImageable
     private void read_1(final IDiagramReader in) {
         super.read(in);
         this.position = ((Integer) in.readProperty("orientation")).intValue();
-        
+
     }
 
 }

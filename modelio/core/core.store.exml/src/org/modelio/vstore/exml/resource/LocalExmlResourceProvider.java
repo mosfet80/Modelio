@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.exml.resource;
 
@@ -64,25 +64,29 @@ public class LocalExmlResourceProvider extends AbstractExmlResourceProvider {
     @objid ("cf50780e-03e4-11e2-b5bf-001ec947ccaf")
     private final Path modelPath;
 
+    @objid ("b861f416-37eb-4708-bc49-d9671ade9b2a")
+    private final Path blobPaht;
+
     @objid ("cf50780d-03e4-11e2-b5bf-001ec947ccaf")
     protected final Path repositoryPath;
 
     /**
      * Initialize the resource provider.
+     *
      * @param repositoryPath a path on the local file system.
      * @param runtimePath a path on the local file system containing repository data
      * that may be discarded. This directory will usually contain the EXML indexes.
      * @param name the resource name, returned by {@link #getName()}
      */
     @objid ("be505de5-4462-4451-9764-fb11edf3c768")
-    public  LocalExmlResourceProvider(Path repositoryPath, Path runtimePath, String name) {
+    public LocalExmlResourceProvider(Path repositoryPath, Path runtimePath, String name) {
         this.repositoryPath = repositoryPath;
         this.name = name;
         this.modelPath = repositoryPath.resolve(IExmlRepositoryGeometry.MODEL_DIRNAME);
+        this.blobPaht = repositoryPath.resolve(IExmlRepositoryGeometry.BLOBS_DIRNAME);
         this.stampPath = repositoryPath.resolve(IStampGeometry.STAMP_DIR_NAME).resolve(IStampGeometry.STAMP_FILE_NAME);
         this.indexPath = runtimePath.resolve(IExmlRepositoryGeometry.INDEX_DIRNAME);
         this.versionPath = repositoryPath.resolve(IExmlRepositoryGeometry.FORMAT_VERSION_PATH);
-        
     }
 
     @objid ("cf50781d-03e4-11e2-b5bf-001ec947ccaf")
@@ -102,12 +106,11 @@ public class LocalExmlResourceProvider extends AbstractExmlResourceProvider {
     public void commit() throws IOException {
         // TODO Implement a local ACID transaction to ensure consistency when
         // write failure.
-        
+
         // Write the stamp
         if (isWriteable()) {
             writeStamp();
         }
-        
     }
 
     @objid ("b7bd8a6c-220c-4225-88ff-aa5b1540ce6e")
@@ -121,19 +124,49 @@ public class LocalExmlResourceProvider extends AbstractExmlResourceProvider {
     public Collection<ExmlResource> getAllResources(IModelioProgress aMonitor) throws IOException {
         List<ExmlResource> toBuild = new ArrayList<>();
         SubProgress monitor = SubProgress.convert(aMonitor, "Getting all repository content...", 5);
-        
-        try (DirectoryStream<Path> classDs = Files.newDirectoryStream(this.modelPath, entry -> Files.isDirectory(entry))) {
-            for (Path dir : classDs) {
-                try (DirectoryStream<Path> dirStream = Files.newDirectoryStream(dir, "*.exml")) {
-                    for (Path f : dirStream) {
-                        toBuild.add(new LocalResource(f));
-                    }
-                }
-                monitor.worked(1);
-                monitor.setWorkRemaining(5);
+
+        if (true) {
+
+            try (Stream<Path> walker = Files.walk(this.modelPath, 10);) {
+                return walker
+                        .filter(p -> p.toString().endsWith(IExmlRepositoryGeometry.EXT_EXML) || p.toString().endsWith(IExmlRepositoryGeometry.EXT_LOCAL_EXML))
+                        .map(p -> {
+                            monitor.worked(1);
+                            monitor.setWorkRemaining(5);
+                            return (ExmlResource) new LocalResource(p);
+                        })
+                        .toList();
             }
+
+        } else {
+            try (DirectoryStream<Path> classDs = Files.newDirectoryStream(this.modelPath, entry -> Files.isDirectory(entry))) {
+                for (Path dir : classDs) {
+                    try (DirectoryStream<Path> dirStream = Files.newDirectoryStream(dir, "*.exml")) {
+                        for (Path f : dirStream) {
+                            toBuild.add(new LocalResource(f));
+                        }
+                    }
+                    monitor.worked(1);
+                    monitor.setWorkRemaining(5);
+                }
+            }
+            return Collections.unmodifiableCollection(toBuild);
         }
-        return Collections.unmodifiableCollection(toBuild);
+    }
+
+    @objid ("3c1e48fe-d45c-45c3-a703-4120290a3e20")
+    public Collection<ExmlResource> getAllBlobs(IModelioProgress aMonitor) throws IOException {
+        SubProgress monitor = SubProgress.convert(aMonitor, "Getting all blobs...", 5);
+        try (Stream<Path> walker = Files.walk(this.blobPaht, 10);) {
+            return walker
+                    .filter(p -> p.toString().endsWith(IExmlRepositoryGeometry.EXT_BLOB))
+                    .map(p -> {
+                        monitor.worked(1);
+                        monitor.setWorkRemaining(5);
+                        return (ExmlResource) new LocalResource(p);
+                    })
+                    .toList();
+        }
     }
 
     @objid ("8dc9f0b0-135d-4f44-9ce7-365988d3d50c")
@@ -168,7 +201,6 @@ public class LocalExmlResourceProvider extends AbstractExmlResourceProvider {
         } catch (IOException e) {
             return "";
         }
-        
     }
 
     @objid ("cf52da74-03e4-11e2-b5bf-001ec947ccaf")
@@ -205,6 +237,7 @@ public class LocalExmlResourceProvider extends AbstractExmlResourceProvider {
 
     /**
      * Set the repository name.
+     *
      * @param name the repository name.
      */
     @objid ("7a4eab85-01fe-4946-96f6-c458bb62e242")
@@ -222,14 +255,13 @@ public class LocalExmlResourceProvider extends AbstractExmlResourceProvider {
     @Override
     public void writeStamp() throws IOException {
         Path stampDir = this.stampPath.getParent();
-        
+
         if (!stampDir.getFileSystem().isReadOnly()) {
             byte[] bytes = UUID.randomUUID().toString().getBytes(StandardCharsets.UTF_8);
-        
+
             Files.createDirectories(stampDir);
             Files.write(this.stampPath, bytes);
         }
-        
     }
 
     @objid ("cf52da71-03e4-11e2-b5bf-001ec947ccaf")
@@ -237,7 +269,6 @@ public class LocalExmlResourceProvider extends AbstractExmlResourceProvider {
     protected void doCreateRepository(MMetamodel metamodel) throws IOException {
         ExmlRepositoryCreator c = new ExmlRepositoryCreator(this.repositoryPath, getGeometry(), metamodel);
         c.createRepositoryStructure();
-        
     }
 
     /**
@@ -249,7 +280,7 @@ public class LocalExmlResourceProvider extends AbstractExmlResourceProvider {
         private Path p;
 
         @objid ("cf52da61-03e4-11e2-b5bf-001ec947ccaf")
-        public  LocalResource(Path p) {
+        public LocalResource(Path p) {
             this.p = p;
         }
 
@@ -261,7 +292,6 @@ public class LocalExmlResourceProvider extends AbstractExmlResourceProvider {
             } else {
                 return Files.newInputStream(this.p);
             }
-            
         }
 
         @objid ("cf52da69-03e4-11e2-b5bf-001ec947ccaf")

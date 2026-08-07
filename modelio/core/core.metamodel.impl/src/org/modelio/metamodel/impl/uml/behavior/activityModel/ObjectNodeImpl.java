@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -48,133 +47,133 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00397a06-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class ObjectNodeImpl extends ActivityNodeImpl implements ObjectNode {
-    @objid ("9d30c961-2984-43e0-8203-25d530bb0c84")
+    @objid ("331565b0-f213-4800-a752-4e6b9c57eaf5")
     @Override
     public boolean isIsControlType() {
         return (Boolean) getAttVal(((ObjectNodeSmClass)getClassOf()).getIsControlTypeAtt());
     }
 
-    @objid ("acf88bdc-3412-46da-a06e-db4b919e8e27")
+    @objid ("152135b8-8019-4bf3-93eb-68cc91e5788f")
     @Override
     public void setIsControlType(boolean value) {
         setAttVal(((ObjectNodeSmClass)getClassOf()).getIsControlTypeAtt(), value);
     }
 
-    @objid ("f89b3df5-47c1-4fd7-b124-5b4d303229d4")
+    @objid ("bf4ab828-bb2b-4402-ac45-ac1e97007315")
     @Override
     public ObjectNodeOrderingKind getOrdering() {
         return (ObjectNodeOrderingKind) getAttVal(((ObjectNodeSmClass)getClassOf()).getOrderingAtt());
     }
 
-    @objid ("7a8af728-c717-444a-a893-fdcdab3db39e")
+    @objid ("f6db9456-8e11-4330-8a36-de8617718a1a")
     @Override
     public void setOrdering(ObjectNodeOrderingKind value) {
         setAttVal(((ObjectNodeSmClass)getClassOf()).getOrderingAtt(), value);
     }
 
-    @objid ("25717c59-3c2d-4c16-b7ed-322bbde37af4")
+    @objid ("068769a2-3219-41bb-8cfe-bb011fe3d7c8")
     @Override
     public String getSelectionBehavior() {
         return (String) getAttVal(((ObjectNodeSmClass)getClassOf()).getSelectionBehaviorAtt());
     }
 
-    @objid ("229ee4fb-6faa-4a52-8439-d54bea51f28f")
+    @objid ("a654b552-abb9-4901-a5a4-46ee62c06a29")
     @Override
     public void setSelectionBehavior(String value) {
         setAttVal(((ObjectNodeSmClass)getClassOf()).getSelectionBehaviorAtt(), value);
     }
 
-    @objid ("c330fa87-6649-4b9c-a148-dedf640ef673")
+    @objid ("7c179893-682b-4488-8d41-d68b799dab17")
     @Override
     public String getUpperBound() {
         return (String) getAttVal(((ObjectNodeSmClass)getClassOf()).getUpperBoundAtt());
     }
 
-    @objid ("99d7ad13-9116-468f-adc7-fcbd297dac45")
+    @objid ("c28d88f1-0737-4c1a-a6d3-61433e317aea")
     @Override
     public void setUpperBound(String value) {
         setAttVal(((ObjectNodeSmClass)getClassOf()).getUpperBoundAtt(), value);
     }
 
-    @objid ("c9a0a4a5-5569-486c-9a75-aaee99ab456e")
+    @objid ("54f8cf59-a44a-4290-8c36-6b1543f9083b")
     @Override
     public Instance getRepresented() {
         Object obj = getDepVal(((ObjectNodeSmClass)getClassOf()).getRepresentedDep());
         return (obj instanceof Instance)? (Instance)obj : null;
     }
 
-    @objid ("17d7c67f-98ca-434b-80f2-9b76e072005a")
+    @objid ("7942557b-ea05-4be5-9865-f80b8ea3f313")
     @Override
     public void setRepresented(Instance value) {
         appendDepVal(((ObjectNodeSmClass)getClassOf()).getRepresentedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("69e0bfbc-f64b-47cb-ac6d-a37848767b24")
+    @objid ("a2e88f86-047e-4ed0-addc-4fe55c0950b1")
     @Override
     public BehaviorParameter getRepresentedRealParameter() {
         Object obj = getDepVal(((ObjectNodeSmClass)getClassOf()).getRepresentedRealParameterDep());
         return (obj instanceof BehaviorParameter)? (BehaviorParameter)obj : null;
     }
 
-    @objid ("8df2833d-7456-45f7-97a9-9ab539e96f37")
+    @objid ("d9e65543-970b-4377-bec0-42a88b3bdf54")
     @Override
     public void setRepresentedRealParameter(BehaviorParameter value) {
         appendDepVal(((ObjectNodeSmClass)getClassOf()).getRepresentedRealParameterDep(), (SmObjectImpl)value);
     }
 
-    @objid ("1bc8a73a-70f3-4b78-a32d-3ac0bc3a2e26")
+    @objid ("013f2c50-19fc-49b6-9b47-586f19dd7196")
     @Override
     public GeneralClass getType() {
         Object obj = getDepVal(((ObjectNodeSmClass)getClassOf()).getTypeDep());
         return (obj instanceof GeneralClass)? (GeneralClass)obj : null;
     }
 
-    @objid ("bca39e1b-313f-4ce0-870c-c8d334bdbd2f")
+    @objid ("88602f44-b5c7-4c70-8ddf-d5e7f06dd958")
     @Override
     public void setType(GeneralClass value) {
         appendDepVal(((ObjectNodeSmClass)getClassOf()).getTypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("41c394e3-3e1a-44a0-a700-0f488d1a8111")
+    @objid ("4184318f-a118-4be9-b4e8-5e06f7de3d6c")
     @Override
     public AssociationEnd getRepresentedRole() {
         Object obj = getDepVal(((ObjectNodeSmClass)getClassOf()).getRepresentedRoleDep());
         return (obj instanceof AssociationEnd)? (AssociationEnd)obj : null;
     }
 
-    @objid ("1bd025cb-7bd7-4452-8997-0a971f7c2e85")
+    @objid ("d045cb9b-85b0-447c-90c0-b2bc22dd32e5")
     @Override
     public void setRepresentedRole(AssociationEnd value) {
         appendDepVal(((ObjectNodeSmClass)getClassOf()).getRepresentedRoleDep(), (SmObjectImpl)value);
     }
 
-    @objid ("06bc4a7b-2833-4190-8b04-8a101ba51e7a")
+    @objid ("99f7e2fc-e3d6-4df5-b5e8-4eb5e004d272")
     @Override
     public Attribute getRepresentedAttribute() {
         Object obj = getDepVal(((ObjectNodeSmClass)getClassOf()).getRepresentedAttributeDep());
         return (obj instanceof Attribute)? (Attribute)obj : null;
     }
 
-    @objid ("d3474d52-49c8-4d80-a01a-8f725b2a2841")
+    @objid ("8875f174-3e52-40fb-bea4-e6af2fc0e628")
     @Override
     public void setRepresentedAttribute(Attribute value) {
         appendDepVal(((ObjectNodeSmClass)getClassOf()).getRepresentedAttributeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("1ee79d54-8b75-4ad5-947d-9725132bef9d")
+    @objid ("e96a9693-bf0b-4577-8b2b-5d52c71ed5cd")
     @Override
     public State getInState() {
         Object obj = getDepVal(((ObjectNodeSmClass)getClassOf()).getInStateDep());
         return (obj instanceof State)? (State)obj : null;
     }
 
-    @objid ("a17fd958-cd9d-4890-9942-dd083f1f1e85")
+    @objid ("a908601b-7a38-4be8-8bf1-80f3693256ff")
     @Override
     public void setInState(State value) {
         appendDepVal(((ObjectNodeSmClass)getClassOf()).getInStateDep(), (SmObjectImpl)value);
     }
 
-    @objid ("b634fd95-ee8c-4347-99ef-41bdcdce0d39")
+    @objid ("967e277b-6ce9-4c15-b081-ff62218c19a5")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -182,17 +181,17 @@ public abstract class ObjectNodeImpl extends ActivityNodeImpl implements ObjectN
         return super.getCompositionOwner();
     }
 
-    @objid ("9b0fd1e6-04a0-4b4b-9079-4a2696c4ffa8")
+    @objid ("f4ea998f-cc4c-4d5b-b606-b1e6a39b4c5c")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("a5127237-70c2-4f71-ab17-79f010201d57")
+    @objid ("27ed43c4-c1fc-4162-8980-6001e65e598f")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitObjectNode(this);

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -54,7 +54,7 @@ public class R1910 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(IElement)
      * @see AbstractRule#getUpdateControl(IElement)
      * @see AbstractRule#getMoveControl(IElementMovedEvent)
@@ -75,7 +75,7 @@ public class R1910 extends AbstractUmlRule {
         plan.registerRule(Association.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(LinkEnd.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(AssociationEnd.MQNAME, this, AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -109,14 +109,14 @@ public class R1910 extends AbstractUmlRule {
      * Default constructor for R1910
      */
     @objid ("0464325f-1e52-46b8-85a3-4e86750342f9")
-    public  R1910() {
+    public R1910() {
         this.checkerInstance = new CheckR1910(this);
     }
 
     @objid ("176394f6-058a-446e-9af3-0c1c9efe138e")
     private static class CheckR1910 extends AbstractControl {
         @objid ("87c8d687-b53b-462d-9ed8-dc9b6d0bca21")
-        public  CheckR1910(IRule rule) {
+        public CheckR1910(IRule rule) {
             super(rule);
         }
 
@@ -149,42 +149,42 @@ public class R1910 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     link,
                     null);
-            
+
             // The link should have a name to begin with...
             if (link.getName().isEmpty()) {
                 return auditEntry;
             }
-            
+
             // This rule only apply if the link instantiate an association
             Association assoc = link.getModel();
-            
+
             if (assoc == null) {
                 return auditEntry;
             }
-            
+
             // Then we need to check if the linked instances instantiate the right NameSpace, ie. the NameSpaces linked by the association.
-            
+
             List<LinkEnd> linkEnds = link.getLinkEnd();
             List<AssociationEnd> assocEnds = assoc.getEnd();
-            
+
             Map<LinkEnd, AssociationEnd> mapping = new HashMap<>();
-            
+
             for (LinkEnd le : linkEnds) {
                 for (AssociationEnd ae : assocEnds) {
                     Classifier ownerAe = ae.getSource() != null ? ae.getSource() : ae.getOpposite().getTarget();
                     Instance ownerLe = le.getSource() != null ? le.getSource() : le.getOpposite().getTarget();
-            
+
                     if (ownerAe.equals(ownerLe.getBase())) {
                         mapping.put(le, ae);
                     }
                 }
             }
-            
+
             if (!(linkEnds.size() == assocEnds.size() && assocEnds.size() == mapping.size())) {
-            
+
                 // At this point the rule failed
                 // Instances are inconsistent with the Classifiers linked by the association
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(link);
@@ -192,50 +192,50 @@ public class R1910 extends AbstractUmlRule {
                 linkedObjects.addAll(linkEnds);
                 linkedObjects.addAll(assocEnds);
                 auditEntry.setLinkedInfos(linkedObjects);
-            
+
                 return auditEntry;
             }
-            
+
             // We need to check if the name, roles, and properties are the same.
-            
+
             String assocName = assoc.getName();
             String linkName = link.getName();
-            
+
             if (assocName != null && linkName != null && !assocName.equals(linkName)) {
-            
+
                 // Rule failed, names do not match
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(link);
                 linkedObjects.add(assoc);
                 auditEntry.setLinkedInfos(linkedObjects);
-            
+
                 return auditEntry;
             }
-            
+
             for (Entry<LinkEnd, AssociationEnd> entry : mapping.entrySet()) {
-            
+
                 LinkEnd linkEnd = entry.getKey();
                 AssociationEnd assocEnd = entry.getValue();
-            
+
                 String assocEndName = assocEnd.getName();
                 String linkEndName = linkEnd.getName();
-            
+
                 if ((assocEndName != null &&
                         linkEndName != null &&
                         !(assocEndName.equals(linkEndName)) ||
                         (assocEnd.getSource() != null) != (linkEnd.getSource() != null) ||
                         assocEnd.isIsOrdered() != linkEnd.isIsOrdered() || assocEnd.isIsUnique() != linkEnd.isIsUnique())) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(linkEnd);
                     linkedObjects.add(assocEnd);
                     auditEntry.setLinkedInfos(linkedObjects);
-            
+
                     return auditEntry;
                 }
             }

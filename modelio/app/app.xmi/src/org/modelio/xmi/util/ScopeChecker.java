@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.util;
 
@@ -311,7 +311,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * This class checks if a given element is in the export scope
- * 
+ *
  * @author ebrosse
  */
 @objid ("c2865693-321e-4c26-90e7-8bebf3be9c6e")
@@ -329,11 +329,10 @@ public class ScopeChecker {
     private final ScopeSelector selector;
 
     @objid ("6298ca39-0c93-4608-80fb-aaf2f6d1057c")
-    public  ScopeChecker(List<ModelElement> localRoots) {
+    public ScopeChecker(List<ModelElement> localRoots) {
         this.localRoot = localRoots;
         this.scopeMap = new HashMap<>();
         this.selector = new ScopeSelector();
-        
     }
 
     @objid ("ec15003f-db01-4ed9-a67f-c9f5ce9c2630")
@@ -367,7 +366,7 @@ public class ScopeChecker {
     @objid ("0fbc91e8-7e3c-4438-a5d8-2776eee9f31a")
     private class ScopeSelector extends DefaultModelVisitor implements IDefaultInfrastructureVisitor {
         @objid ("92d2a917-299e-4a25-8b81-8c53878a20af")
-        public  ScopeSelector() {
+        public ScopeSelector() {
             this.infrastructureVisitor = this;
         }
 
@@ -538,7 +537,7 @@ public class ScopeChecker {
         @Override
         public Object visitConnectorEnd(ConnectorEnd eltToTest) {
             contains(eltToTest.getOwner());
-            
+
             if ((getTheResult()) && (eltToTest.getOpposite() != null)) {
                 contains(eltToTest.getOpposite().getOwner());
             }
@@ -610,7 +609,6 @@ public class ScopeChecker {
             throw new NotFoundException("Element of type "
                     + eltToTest.getClass()
                     + " has no implementation done in scope filter.");
-            
         }
 
         @objid ("ab6fba2a-8cbf-47c1-821a-af05b6436e48")
@@ -794,7 +792,7 @@ public class ScopeChecker {
         @Override
         public Object visitLinkEnd(LinkEnd eltToTest) {
             contains(eltToTest.getOwner());
-            
+
             if (getTheResult()) {
                 if (!contains(eltToTest.getOpposite().getOwner())) {
                     return null;
@@ -890,9 +888,11 @@ public class ScopeChecker {
         @Override
         public Object visitNaryConnector(NaryConnector eltToTest) {
             for (NaryLinkEnd assocEnd : eltToTest.getNaryLinkEnd()) {
-                if (!contains(assocEnd.getCompositionOwner())) {
-                    break;
-                }
+                MObject owner = assocEnd.getCompositionOwner();
+                if(!(owner instanceof NaryConnector))
+                    if (!contains(owner)) {
+                        break;
+                    }
             }
             return null;
         }
@@ -908,9 +908,11 @@ public class ScopeChecker {
         @Override
         public Object visitNaryLink(NaryLink eltToTest) {
             for (NaryLinkEnd assocEnd : eltToTest.getNaryLinkEnd()) {
-                if (!contains(assocEnd.getCompositionOwner())) {
-                    break;
-                }
+                MObject owner = assocEnd.getCompositionOwner();
+                if(!(owner instanceof NaryLink))
+                    if (!contains(owner)) {
+                        break;
+                    }
             }
             return null;
         }

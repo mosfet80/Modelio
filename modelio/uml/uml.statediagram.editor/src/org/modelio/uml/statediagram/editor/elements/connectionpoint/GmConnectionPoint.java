@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.connectionpoint;
 
@@ -38,7 +38,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Specialization of the {@link GmPortContainer} class for {@link ConnectionPointReference}.
- * 
+ *
  * @author fpoyer
  */
 @objid ("f4faa789-55b6-11e2-877f-002564c97630")
@@ -69,32 +69,33 @@ public class GmConnectionPoint extends GmPortContainer {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram in which the connection point is unmasked.
      * @param el the unmasked connection point.
      * @param ref a reference to the unmasked connection point.
      */
     @objid ("f4faa798-55b6-11e2-877f-002564c97630")
-    public  GmConnectionPoint(IGmDiagram diagram, ConnectionPointReference el, MRef ref) {
+    public GmConnectionPoint(IGmDiagram diagram, ConnectionPointReference el, MRef ref) {
         super(diagram, ref);
-        
+
         GmConnectionPointPrimaryNode mainNode = new GmConnectionPointPrimaryNode(diagram, ref);
         mainNode.setRoleInComposition(MAIN_NODE_ROLE);
-        
+
         this.element = el;
         GmNameLabel label = new GmNameLabel(diagram, ref);
         label.setRoleInComposition(GmPortContainer.SATELLITE_ROLE);
         label.setLayoutData(Integer.valueOf(PositionConstants.EAST));
-        
+
         this.addChild(mainNode);
         this.addChild(label);
-        
+
     }
 
     /**
      * Empty constructor needed for deserialisation.
      */
     @objid ("f4fc2dfb-55b6-11e2-877f-002564c97630")
-    public  GmConnectionPoint() {
+    public GmConnectionPoint() {
         // Nothing specific to do.
     }
 
@@ -179,24 +180,24 @@ public class GmConnectionPoint extends GmPortContainer {
                 break;
             }
         }
-        
+
     }
 
     @objid ("f4fc2e35-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmConnectionPoint.", GmConnectionPoint.MINOR_VERSION);
-        
+
     }
 
     @objid ("f4fc2e3b-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (ConnectionPointReference) resolveRef(this.getRepresentedRef());
-        
+
     }
 
     @objid ("f4fdb499-55b6-11e2-877f-002564c97630")
@@ -207,6 +208,7 @@ public class GmConnectionPoint extends GmPortContainer {
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */
@@ -218,6 +220,7 @@ public class GmConnectionPoint extends GmPortContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */

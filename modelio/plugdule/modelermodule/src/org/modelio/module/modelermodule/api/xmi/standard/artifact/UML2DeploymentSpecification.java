@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class UML2DeploymentSpecification {
      * Tells whether a {@link UML2DeploymentSpecification proxy} can be instantiated from a {@link MObject} checking it is a {@link Artifact} stereotyped << UML2DeploymentSpecification >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,7 +73,7 @@ public class UML2DeploymentSpecification {
 
     /**
      * Create a new {@link Artifact} stereotyped << UML2DeploymentSpecification >> then instantiate a {@link UML2DeploymentSpecification} proxy.
-     * 
+     *
      * @return a {@link UML2DeploymentSpecification} proxy on the created {@link Artifact}.
      */
     @objid ("a8ad5669-9249-4ab8-adb7-0e7e47083b20")
@@ -83,9 +84,10 @@ public class UML2DeploymentSpecification {
     }
 
     /**
-     * Tries to instantiate a {@link UML2DeploymentSpecification} proxy from a {@link Artifact} stereotyped << UML2DeploymentSpecification >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2DeploymentSpecification} proxy from a {@link Artifact} stereotyped << UML2DeploymentSpecification >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a Artifact
      * @return a {@link UML2DeploymentSpecification} proxy or <i>null</i>.
      */
@@ -95,9 +97,10 @@ public class UML2DeploymentSpecification {
     }
 
     /**
-     * Tries to instantiate a {@link UML2DeploymentSpecification} proxy from a {@link Artifact} stereotyped << UML2DeploymentSpecification >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2DeploymentSpecification} proxy from a {@link Artifact} stereotyped << UML2DeploymentSpecification >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link Artifact}
      * @return a {@link UML2DeploymentSpecification} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -127,7 +130,8 @@ public class UML2DeploymentSpecification {
     }
 
     /**
-     * Get the underlying {@link Artifact}. 
+     * Get the underlying {@link Artifact}.
+     *
      * @return the Artifact represented by this proxy, never null.
      */
     @objid ("2ad6de2a-169c-420e-afb5-81a649ab46a9")
@@ -139,11 +143,11 @@ public class UML2DeploymentSpecification {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("21497b1b-4f28-497f-aeb8-043572d63590")
-    protected  UML2DeploymentSpecification(Artifact elt) {
+    protected UML2DeploymentSpecification(Artifact elt) {
         this.elt = elt;
     }
 
@@ -163,7 +167,7 @@ public class UML2DeploymentSpecification {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "8c44d73d-5d0b-11df-a996-001302895b2b");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -171,7 +175,7 @@ public class UML2DeploymentSpecification {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

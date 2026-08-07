@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.communicationdiagram.editor.elements.communicationnode;
 
@@ -32,7 +32,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * {@link ICommunicationNode} link header displayed on the node.
- * 
+ *
  * @author cmarin
  */
 @objid ("7a5763da-55b6-11e2-877f-002564c97630")
@@ -48,11 +48,12 @@ public class GmCommunicationNodeFlatHeader extends GmDefaultModelElementLabel {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram
      * @param relatedRef a reference to the element this GmModel is related to, must not be null.
      */
     @objid ("7a5763e3-55b6-11e2-877f-002564c97630")
-    public  GmCommunicationNodeFlatHeader(final IGmDiagram diagram, final MRef relatedRef) {
+    public GmCommunicationNodeFlatHeader(final IGmDiagram diagram, final MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -60,8 +61,8 @@ public class GmCommunicationNodeFlatHeader extends GmDefaultModelElementLabel {
      * For deserialization only.
      */
     @objid ("7a5763ee-55b6-11e2-877f-002564c97630")
-    public  GmCommunicationNodeFlatHeader() {
-        
+    public GmCommunicationNodeFlatHeader() {
+
     }
 
     @objid ("7a5763f1-55b6-11e2-877f-002564c97630")
@@ -70,7 +71,7 @@ public class GmCommunicationNodeFlatHeader extends GmDefaultModelElementLabel {
         ModelElement relatedIElement = getRelatedElement();
         if (relatedIElement != null) {
             CommunicationNode node = (CommunicationNode) relatedIElement;
-        
+
             Instance represented = node.getRepresented();
             if (represented != null) {
                 // Name should be "InstanceName:InstanceBaseName"
@@ -101,17 +102,17 @@ public class GmCommunicationNodeFlatHeader extends GmDefaultModelElementLabel {
             break;
         }
         }
-        
+
     }
 
     @objid ("7a5763fc-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmCommunicationNodeFlatHeader.", GmCommunicationNodeFlatHeader.MINOR_VERSION);
-        
+
     }
 
     @objid ("7a576402-55b6-11e2-877f-002564c97630")

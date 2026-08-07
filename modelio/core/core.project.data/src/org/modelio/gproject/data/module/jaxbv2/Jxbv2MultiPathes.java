@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.data.module.jaxbv2;
 
@@ -30,9 +30,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for _MultiPathes complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="_MultiPathes">
  * &lt;complexContent>
@@ -65,20 +65,20 @@ public class Jxbv2MultiPathes {
 
     /**
      * Gets the value of the pathEntry property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the pathEntry property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      * getPathEntry().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link MultiPathes.PathEntry }
@@ -93,9 +93,9 @@ public class Jxbv2MultiPathes {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType>
      * &lt;complexContent>
@@ -116,8 +116,8 @@ public class Jxbv2MultiPathes {
 
         /**
          * Gets the value of the path property.
-         * @return
-         * possible object is
+         *
+         * @return possible object is
          * {@link String }
          */
         @objid ("80fb26b9-cc2a-4236-99ce-6bea4b23aad2")
@@ -127,6 +127,7 @@ public class Jxbv2MultiPathes {
 
         /**
          * Sets the value of the path property.
+         *
          * @param value allowed object is
          * {@link String }
          */

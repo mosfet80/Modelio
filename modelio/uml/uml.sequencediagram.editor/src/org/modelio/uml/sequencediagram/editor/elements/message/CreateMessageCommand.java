@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.message;
 
@@ -49,10 +49,11 @@ public class CreateMessageCommand extends DefaultCreateLinkCommand {
 
     /**
      * C'tor.
+     *
      * @param context the creation context.
      */
     @objid ("d94fd45b-55b6-11e2-877f-002564c97630")
-    public  CreateMessageCommand(ModelioLinkCreationContext context) {
+    public CreateMessageCommand(ModelioLinkCreationContext context) {
         super(context);
     }
 
@@ -62,11 +63,11 @@ public class CreateMessageCommand extends DefaultCreateLinkCommand {
         if (!super.canExecute()) {
             return false;
         }
-        
+
         if (this.context.getElementToUnmask() != null) {
             return true;
-        } 
-        
+        }
+
         // It is an actual creation (and not a simple unmasking).
         MClass toCreateMetaclass = this.context.getMetaclass();
         if (toCreateMetaclass.getJavaInterface() == Message.class) {
@@ -82,7 +83,7 @@ public class CreateMessageCommand extends DefaultCreateLinkCommand {
                     default:
                     }
                 } else if (targetEl instanceof Lifeline) {
-                    // Check creation and destruction message target 
+                    // Check creation and destruction message target
                     Lifeline lf = (Lifeline) targetEl;
                     switch (type) {
                     case Creation:
@@ -90,7 +91,7 @@ public class CreateMessageCommand extends DefaultCreateLinkCommand {
                         if (this.sourceNode.equals(this.targetNode)) {
                             return false;
                         }
-                        
+
                         // creation message must be received first
                         OptionalInt min = lf.getCoveredBy().stream().mapToInt(f -> f.getLineNumber()).min();
                         if (min.isPresent() && min.getAsInt() <= this.targetTime) {
@@ -116,13 +117,13 @@ public class CreateMessageCommand extends DefaultCreateLinkCommand {
     @Override
     public void execute() {
         MessageType type = getMessageType();
-        
+
         // Create the link model element
         final IGmDiagram gmDiagram = this.sourceNode.getDiagram();
         CreateMessageHelper helper = new CreateMessageHelper((GmSequenceDiagram) gmDiagram);
         helper.setRequest(this.request);
         helper.createMessage(this.sourceNode, this.sourceTime, this.targetNode, this.targetTime, type);
-        
+
     }
 
     @objid ("d9515ade-55b6-11e2-877f-002564c97630")
@@ -144,7 +145,7 @@ public class CreateMessageCommand extends DefaultCreateLinkCommand {
         // Automatically generated method. Please delete this comment before
         // entering specific code.
         this.sourceTime = value;
-        
+
     }
 
     @objid ("d9515ae9-55b6-11e2-877f-002564c97630")
@@ -152,7 +153,7 @@ public class CreateMessageCommand extends DefaultCreateLinkCommand {
         // Automatically generated method. Please delete this comment before
         // entering specific code.
         this.targetTime = value;
-        
+
     }
 
     @objid ("d9515aec-55b6-11e2-877f-002564c97630")

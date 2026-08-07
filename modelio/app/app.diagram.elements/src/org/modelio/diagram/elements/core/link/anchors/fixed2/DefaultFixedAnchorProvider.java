@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.anchors.fixed2;
 
@@ -43,11 +43,12 @@ public class DefaultFixedAnchorProvider {
      * No instance
      */
     @objid ("778fa208-eb62-4602-aa3c-dc796e4cb6d2")
-    private  DefaultFixedAnchorProvider() {
-        
+    private DefaultFixedAnchorProvider() {
+
     }
 
     /**
+     *
      * @return a new anchor provider for ellipse figures.
      */
     @objid ("7544aa03-b3b7-489f-999c-9583bd792c7e")
@@ -56,6 +57,7 @@ public class DefaultFixedAnchorProvider {
     }
 
     /**
+     *
      * @param ep an ellipse figure edit part.
      * @return a suitable anchor provider for ellipse figures.
      */
@@ -68,6 +70,7 @@ public class DefaultFixedAnchorProvider {
      * Get a default fixed anchor provider for the given node figure.
      * <p>
      * This method may create a new anchor provider or reuse an existing provider.
+     *
      * @param ep a node figure.
      * @return a suitable anchor provider.
      */
@@ -78,6 +81,7 @@ public class DefaultFixedAnchorProvider {
 
     /**
      * Get a fixed anchor provider that generates one anchor at the middle of each face.
+     *
      * @param ep a node figure.
      * @return a suitable anchor provider.
      */
@@ -88,6 +92,7 @@ public class DefaultFixedAnchorProvider {
 
     /**
      * Create a default fixed anchor provider.
+     *
      * @return a new anchor provider.
      */
     @objid ("f3345228-15f6-4df0-981b-a3b7b5ec46eb")
@@ -102,7 +107,7 @@ public class DefaultFixedAnchorProvider {
                         "one",
                         new TolerantFixedAnchorLocator(new FixedNodeAnchorLocator("one"), 1) )
                 .setAnchorCount(1, 1));
-        
+
     }
 
 }

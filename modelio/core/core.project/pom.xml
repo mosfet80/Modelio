@@ -6,8 +6,8 @@
 	<parent>
 		<groupId>org.modelio</groupId>
 		<artifactId>modelio-parent</artifactId>
-		<version>5.4.1-SNAPSHOT</version>
-		<relativePath>../../..</relativePath>
+		<version>6.2.0-SNAPSHOT</version>
+		<relativePath>../../../maven/modelio-parent</relativePath>
 	</parent>
 
 	<groupId>org.modelio</groupId>
@@ -17,15 +17,14 @@
 	<build>
 		<defaultGoal>install</defaultGoal>
 		<plugins>
-			<!-- Use JVM 1.8 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.0</version>
 				<configuration>
 					<fork>true</fork>
-					<source>11</source>
-					<target>11</target>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
 					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
@@ -34,8 +33,8 @@
 				<artifactId>tycho-compiler-plugin</artifactId>
 				<version>${tycho-version}</version>
 				<configuration>
-					<source>11</source>
-					<target>11</target>
+					<source>${tycho.compiler.source}</source>
+					<target>${tycho.compiler.target}</target>
 					<encoding>${project.build.sourceEncoding}</encoding>
 					<useJDK>BREE</useJDK>
 					<extraClasspathElements>

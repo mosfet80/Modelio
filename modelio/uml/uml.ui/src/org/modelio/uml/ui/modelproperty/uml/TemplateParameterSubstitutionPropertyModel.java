@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -67,17 +67,19 @@ public class TemplateParameterSubstitutionPropertyModel extends AbstractProperty
 
     /**
      * Create a new <i>TemplateParameterSubstitution</i> data model from an <i>TemplateParameterSubstitution</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("1000e6c8-3ed4-4019-a1c7-2b392de91525")
-    public  TemplateParameterSubstitutionPropertyModel(TemplateParameterSubstitution theEditedElement) {
+    public TemplateParameterSubstitutionPropertyModel(TemplateParameterSubstitution theEditedElement) {
         super(theEditedElement);
         this.substitutionValue = new SubstitutionValue();
-        
+
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("f22868e8-86a1-4fb7-a3a7-e347ba004072")
@@ -88,6 +90,7 @@ public class TemplateParameterSubstitutionPropertyModel extends AbstractProperty
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("5af4fb0a-0321-499c-b060-24790963611e")
@@ -100,6 +103,7 @@ public class TemplateParameterSubstitutionPropertyModel extends AbstractProperty
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -123,7 +127,7 @@ public class TemplateParameterSubstitutionPropertyModel extends AbstractProperty
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -132,6 +136,7 @@ public class TemplateParameterSubstitutionPropertyModel extends AbstractProperty
      * This type will be used to choose an editor and a renderer for each cell of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -161,13 +166,14 @@ public class TemplateParameterSubstitutionPropertyModel extends AbstractProperty
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -195,11 +201,12 @@ public class TemplateParameterSubstitutionPropertyModel extends AbstractProperty
         default:
             return;
         }
-        
+
     }
 
     /**
      * Get all types that a template substitution value must match.
+     *
      * @param t a template parameter
      * @return all namespaces a substitution must sub type to be allowed.
      */
@@ -209,23 +216,23 @@ public class TemplateParameterSubstitutionPropertyModel extends AbstractProperty
         if (t == null) {
             return l;
         }
-        
+
         // This is the Modelio way to get type constraint.
         UmlModelElement o = t.getType();
         if (o instanceof NameSpace) {
             l.add((NameSpace) o);
         }
-        
+
         // This is advanced mode for defining type constraint
         // There is at Modelio 3.7 no GUI for setting this.
         for (Generalization g : t.getParent()) {
             l.add(g.getSuperType());
         }
-        
+
         for (InterfaceRealization r : t.getRealized()) {
             l.add(r.getImplemented());
         }
-        
+
         for (ModelTree node : t.getOwnedElement()) {
             if (node instanceof NameSpace) {
                 // This is the OMG UML official way of specifying constraint on template parameter.
@@ -233,7 +240,7 @@ public class TemplateParameterSubstitutionPropertyModel extends AbstractProperty
                 for (Generalization g : t.getParent()) {
                     l.add(g.getSuperType());
                 }
-        
+
                 for (InterfaceRealization r : t.getRealized()) {
                     l.add(r.getImplemented());
                 }
@@ -246,6 +253,7 @@ public class TemplateParameterSubstitutionPropertyModel extends AbstractProperty
      * Get the metaclasses allowed for {@link TemplateParameterSubstitution} on the given {@link TemplateParameter}.
      * <p>
      * By default allow anything that can type an attribute/association/parameter. If the template parameter type is an Interface, accept Interface, Classes and Signals (exceptions classes might be modeled as Signals) .
+     *
      * @param param a TemplateParameter
      * @return the allowed substitutions value metaclasses.
      */
@@ -254,13 +262,13 @@ public class TemplateParameterSubstitutionPropertyModel extends AbstractProperty
         if (param == null) {
             return Collections.singletonList(UmlModelElement.class);
         }
-        
+
         UmlModelElement paramType = param.getType();
         if (paramType == null) {
             // By default allow anything that can type an attribute/association/parameter.
             return Collections.singletonList(GeneralClass.class);
         }
-        
+
         if (paramType instanceof Interface) {
             // if type is interface, accept Classes and Signals (exceptions classes might be modeled as Signals)
             return Arrays.asList(Interface.class, org.modelio.metamodel.uml.statik.Class.class, Signal.class);
@@ -294,9 +302,9 @@ public class TemplateParameterSubstitutionPropertyModel extends AbstractProperty
                     el.setValue("");
                 }
                 el.setActual((UmlModelElement) value);
-            
+
             }
-            
+
         }
 
         @objid ("309d09a8-54c9-4da9-9a0f-1ce7f9ee7693")
@@ -306,7 +314,7 @@ public class TemplateParameterSubstitutionPropertyModel extends AbstractProperty
         }
 
         @objid ("0438028f-e694-4cd2-95fc-17428763651f")
-        public  SubstitutionValue() {
+        public SubstitutionValue() {
             super();
         }
 
@@ -318,7 +326,7 @@ public class TemplateParameterSubstitutionPropertyModel extends AbstractProperty
         private Collection<NameSpace> typeConstraint;
 
         @objid ("b324bb36-20ce-4e8b-86bb-2772862fbb8a")
-        public  IsSubTypeFilter(Collection<NameSpace> typeConstraint) {
+        public IsSubTypeFilter(Collection<NameSpace> typeConstraint) {
             this.typeConstraint = typeConstraint;
         }
 
@@ -328,9 +336,9 @@ public class TemplateParameterSubstitutionPropertyModel extends AbstractProperty
             if (!(element instanceof NameSpace)) {
                 return false;
             }
-            
+
             NameSpace ns = (NameSpace) element;
-            
+
             for (NameSpace constraint : this.typeConstraint) {
                 if (!isSubType(ns, constraint, 200)) {
                     return false;
@@ -350,13 +358,13 @@ public class TemplateParameterSubstitutionPropertyModel extends AbstractProperty
             if (deep == 0) {
                 return false;
             }
-            
+
             for (Generalization g : ns.getParent()) {
                 if (isSubType(g.getSuperType(), constraint, deep - 1)) {
                     return true;
                 }
             }
-            
+
             for (InterfaceRealization r : ns.getRealized()) {
                 if (isSubType(r.getImplemented(), constraint, deep - 1)) {
                     return true;

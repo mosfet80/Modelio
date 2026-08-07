@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.ui.audit;
 
@@ -68,7 +68,7 @@ public class R3100 extends AbstractBpmnRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -82,10 +82,10 @@ public class R3100 extends AbstractBpmnRule {
         plan.registerRule(BpmnSequenceFlow.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE);
-        
+
         // BpmnFlowNode.Activity.Activity
         plan.registerRule(BpmnCallActivity.MQNAME, this, AuditTrigger.MOVE);
-        
+
         // BpmnFlowNode.Activity.Task
         plan.registerRule(BpmnTask.MQNAME, this, AuditTrigger.MOVE);
         plan.registerRule(BpmnSendTask.MQNAME, this, AuditTrigger.MOVE);
@@ -95,29 +95,29 @@ public class R3100 extends AbstractBpmnRule {
         plan.registerRule(BpmnManualTask.MQNAME, this, AuditTrigger.MOVE);
         plan.registerRule(BpmnScriptTask.MQNAME, this, AuditTrigger.MOVE);
         plan.registerRule(BpmnBusinessRuleTask.MQNAME, this, AuditTrigger.MOVE);
-        
+
         // BpmnFlowNode.Activity.SubProcess
         plan.registerRule(BpmnSubProcess.MQNAME, this, AuditTrigger.MOVE);
         plan.registerRule(BpmnAdHocSubProcess.MQNAME, this, AuditTrigger.MOVE);
         plan.registerRule(BpmnTransaction.MQNAME, this, AuditTrigger.MOVE);
-        
+
         // BpmnFlowNode.Event.CatchEvent
         // Except BoundaryEvent, which are not concerned by the rule.
         // Except ImplicitThrowEvent which is not implemented by Modelio.
         plan.registerRule(BpmnStartEvent.MQNAME, this, AuditTrigger.MOVE);
         plan.registerRule(BpmnIntermediateCatchEvent.MQNAME, this, AuditTrigger.MOVE);
-        
+
         // BpmnFlowNode.Event.ThrowEvent
         plan.registerRule(BpmnEndEvent.MQNAME, this, AuditTrigger.MOVE);
         plan.registerRule(BpmnIntermediateThrowEvent.MQNAME, this, AuditTrigger.MOVE);
-        
+
         // BpmnFlowNode.Gateway
         plan.registerRule(BpmnParallelGateway.MQNAME, this, AuditTrigger.MOVE);
         plan.registerRule(BpmnEventBasedGateway.MQNAME, this, AuditTrigger.MOVE);
         plan.registerRule(BpmnComplexGateway.MQNAME, this, AuditTrigger.MOVE);
         plan.registerRule(BpmnInclusiveGateway.MQNAME, this, AuditTrigger.MOVE);
         plan.registerRule(BpmnExclusiveGateway.MQNAME, this, AuditTrigger.MOVE);
-        
+
     }
 
     @objid ("05d73611-e31d-4be4-a182-7f5d1c65e478")
@@ -157,7 +157,7 @@ public class R3100 extends AbstractBpmnRule {
      * Default constructor for R3100
      */
     @objid ("f4fbdb20-ae19-48db-b239-540c067276b8")
-    public  R3100() {
+    public R3100() {
         this.checkerInstance = new CheckR3100(this);
     }
 
@@ -168,10 +168,11 @@ public class R3100 extends AbstractBpmnRule {
     private static class CheckR3100 extends AbstractControl {
         /**
          * C'tor.
+         *
          * @param rule the rule to check.
          */
         @objid ("79336ce6-040a-42c8-b01a-194f7865142a")
-        public  CheckR3100(final IRule rule) {
+        public CheckR3100(final IRule rule) {
             super(rule);
         }
 
@@ -199,22 +200,22 @@ public class R3100 extends AbstractBpmnRule {
                     AuditSeverity.AuditSuccess,
                     seqFlow,
                     null);
-            
+
             BpmnFlowNode sourceRef = seqFlow.getSourceRef();
             BpmnFlowNode targetRef = seqFlow.getTargetRef();
             if (sourceRef == null || targetRef == null) {
                 return auditEntry;
             }
-            
+
             BpmnSubProcess sourceSubPorcess = sourceRef.getSubProcess();
             BpmnSubProcess targetSubPorcess = targetRef.getSubProcess();
-            
+
             if (sourceSubPorcess != null &&
                     targetSubPorcess != null &&
                     !sourceSubPorcess.equals(targetSubPorcess)) {
-            
+
                 // Rule failed
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 auditEntry.setLinkedInfos(Arrays.asList(seqFlow, sourceRef, targetRef, sourceSubPorcess, targetSubPorcess));
             }

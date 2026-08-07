@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -38,7 +38,7 @@ public class ERedefinableTemplateSignature extends ENamedElement {
     public Element createObjingElt() {
         org.eclipse.uml2.uml.Element ecoreOwner = this.ecoreElement.getOwner();
         Object objingOwner =  ReverseProperties.getInstance().getMappedElement(ecoreOwner);
-        
+
         if ((objingOwner instanceof Classifier)
                 && !(objingOwner instanceof Enumeration)
                 && (!ObjingEAnnotation.isDeleted(this.ecoreElement))){
@@ -46,14 +46,14 @@ public class ERedefinableTemplateSignature extends ENamedElement {
         }else {
             return null;
         }
-        
+
     }
 
     @objid ("db7b17f4-809d-4f4d-a8b1-2fbd629ba607")
-    public  ERedefinableTemplateSignature(org.eclipse.uml2.uml.RedefinableTemplateSignature element) {
+    public ERedefinableTemplateSignature(org.eclipse.uml2.uml.RedefinableTemplateSignature element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("f95841d6-98e0-429f-a7ac-4971fec114aa")
@@ -61,18 +61,18 @@ public class ERedefinableTemplateSignature extends ENamedElement {
     public void attach(Element objingElt) {
         if (objingElt != null) {
             ReverseProperties revProp = ReverseProperties.getInstance();
-        
+
             org.eclipse.uml2.uml.Element ecoreOwner = this.ecoreElement.getOwner();
             Element objingOwner = (Element) revProp
                     .getMappedElement(ecoreOwner);
-        
+
             if (objingOwner instanceof Classifier)
                 ((Operation) objingElt).setOwner((Classifier) objingOwner);
             else {
                 objingElt.delete();
             }
         }
-        
+
     }
 
 }

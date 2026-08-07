@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.service.impl.controller.load;
 
@@ -59,12 +59,13 @@ public class ModuleClassLoaderFactory {
     private static final String MODULE_API_PROVIDER = "module-api-provider";
 
     @objid ("063e1289-b5cc-4499-9374-7df5ef92a9b5")
-    private  ModuleClassLoaderFactory() {
+    private ModuleClassLoaderFactory() {
         // no instance
     }
 
     /**
      * Creates a ClassLoader for the given module and local class path.
+     *
      * @param rtModule a module
      * @return a class loader
      * @throws ModuleException in case of error
@@ -76,22 +77,23 @@ public class ModuleClassLoaderFactory {
         if (providedClassLoader != null) {
             return providedClassLoader;
         }
-        
-        
+
+
         // We need to "preload" the module so that we can actually access its
         // main class to call the static method on.
         // Resolve all loaded dependencies
-        
+
         final List<IRTModule> loadedDependencies = new ArrayList<>();
         loadedDependencies.addAll(rtModule.getMandatoryRequiredModules());
         loadedDependencies.addAll(rtModule.getOptionalRequiredModules());
-        
+
         // Construct a class loader on these informations.
         return ModuleClassLoaderFactory.setupClassLoader(rtModule.getGModule(), loadedDependencies);
     }
 
     /**
      * Creates a ClassLoader for the given module and local class path.
+     *
      * @param gModule The module
      * @param loadedDependencies the list of all loaded IModules the current module depends on
      * (either strongly or weakly)
@@ -107,15 +109,15 @@ public class ModuleClassLoaderFactory {
         // - collect all required plugins class loaders
         // - build a class loader from both the list of path and the list of
         // class loaders.
-        
+
         final List<URL> completeClassPath = new ArrayList<>();
         final Collection<ClassLoader> parentLoaders = new ArrayList<>();
-        
+
         // The local class path for the module. Each path may be relative to the
         // module resources path.
         final IModuleHandle rtModuleHandle = gModule.getModuleHandle();
         final List<Path> declaredClasspath = rtModuleHandle.getJarPaths();
-        
+
         final Path fClassPath = rtModuleHandle.getResourcePath();
         if (fClassPath == null) {
             return new ModuleClassLoader(
@@ -123,11 +125,11 @@ public class ModuleClassLoaderFactory {
                     completeClassPath.toArray(new URL[completeClassPath.size()]),
                     parentLoaders);
         }
-        
+
         try {
             // Add the module path to the loader classpath (for resources loading)
             completeClassPath.add(fClassPath.toUri().toURL());
-        
+
             // Add the module declared libraries to the classpath
             if (declaredClasspath == null || declaredClasspath.isEmpty()) {
                 final String msg = String.format(
@@ -152,11 +154,11 @@ public class ModuleClassLoaderFactory {
                     }
                 }
             }
-        
+
             // Mandatory plugin class loaders
             parentLoaders.add(IModule.class.getClassLoader());
             parentLoaders.add(Version.class.getClassLoader());
-        
+
             // Collect metamodels class loaders
             for (final IGMetamodelExtension mmExt : gModule.getProject().getProjectEnvironment().getDefaultMetamodelExtensions()) {
                 final ISmMetamodelFragment mmf = mmExt.getMmFragment();
@@ -165,10 +167,10 @@ public class ModuleClassLoaderFactory {
                     parentLoaders.add(loader);
                 }
             }
-        
+
             // Collect class loaders of some plugins modules should have access to.
             ModuleClassLoaderFactory.addPluginsClassLoaders(parentLoaders);
-        
+
             // Get required modules class loaders
             for (final IRTModule im : loadedDependencies) {
                 final ClassLoader classLoader = im.getClassLoader();
@@ -176,13 +178,13 @@ public class ModuleClassLoaderFactory {
                     parentLoaders.add(classLoader);
                 }
             }
-        
+
             // Create final module class loader
             return new ModuleClassLoader(
                     rtModuleHandle.getName(),
                     completeClassPath.toArray(new URL[completeClassPath.size()]),
                     parentLoaders);
-        
+
         } catch (final MalformedURLException e) {
             final String msg = String.format(
                     "The '%1$s' module '%2$s' classpath is invalid:\n %3$s",
@@ -192,7 +194,7 @@ public class ModuleClassLoaderFactory {
             e2.initCause(e);
             throw e2;
         }
-        
+
     }
 
     /**
@@ -213,7 +215,7 @@ public class ModuleClassLoaderFactory {
                 MdaInfra.LOG.error(e);
             }
         }
-        
+
     }
 
     /**
@@ -236,11 +238,11 @@ public class ModuleClassLoaderFactory {
         private final Collection<ClassLoader> parents;
 
         @objid ("8a842ca6-f34b-11e1-9458-001ec947c8cc")
-        public  ModuleClassLoader(final String name, final URL[] classpath, final Collection<ClassLoader> pParents) {
+        public ModuleClassLoader(final String name, final URL[] classpath, final Collection<ClassLoader> pParents) {
             super(classpath);
             this.moduleName = name;
             this.parents = pParents;
-            
+
         }
 
         @objid ("8a842c56-f34b-11e1-9458-001ec947c8cc")
@@ -265,7 +267,7 @@ public class ModuleClassLoaderFactory {
                 tmp[i] = parent.getResources(name);
                 i++;
             }
-            
+
             tmp[i] = super.findResources(name);
             return new CompoundEnumeration<>(tmp);
         }
@@ -279,6 +281,7 @@ public class ModuleClassLoaderFactory {
          * <li>the original list of URLs specified to the constructor,
          * <li>along with any URLs subsequently appended by the addURL() method.
          * </ul>
+         *
          * @return the search path of URLs for loading classes and resources.
          */
         @objid ("8a842c6e-f34b-11e1-9458-001ec947c8cc")
@@ -323,15 +326,14 @@ public class ModuleClassLoaderFactory {
                 }
                 throw e;
             }
-            
+
         }
 
         /**
          * A useful utility class that will enumerate over an array of
          * enumerations.
-         * 
-         * @param <E>
-         * The type of enumerated elements
+         *
+         * @param <E> The type of enumerated elements
          */
         @objid ("8a842bfd-f34b-11e1-9458-001ec947c8cc")
         public class CompoundEnumeration<E> implements Enumeration<E> {
@@ -342,7 +344,7 @@ public class ModuleClassLoaderFactory {
             private final Enumeration<E>[] enums;
 
             @objid ("8a842ca7-f34b-11e1-9458-001ec947c8cc")
-            public  CompoundEnumeration(final Enumeration<E>[] enums) {
+            public CompoundEnumeration(final Enumeration<E>[] enums) {
                 this.enums = enums;
             }
 

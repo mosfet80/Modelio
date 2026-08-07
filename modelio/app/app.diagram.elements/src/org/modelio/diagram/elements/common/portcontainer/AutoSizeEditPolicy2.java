@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.portcontainer;
 
@@ -37,7 +37,7 @@ import org.modelio.diagram.elements.core.requests.ChangeBoundsFeedbackMap;
  * {@link PortContainerEditPart} preferred drag policy.
  * <p>
  * Enhanced version of {@link AutoSizeEditPolicy}.
- * 
+ *
  * @author cmarin
  * @since 3.4
  */
@@ -90,14 +90,14 @@ public class AutoSizeEditPolicy2 extends DefaultNodeResizableEditPolicy {
                 changeMainNodeBoundsRequest.setType(REQ_MOVE);
                 changeMainNodeBoundsRequest.setEditParts(mainNodeEditPart);
                 RequestHelper.addSharedEditParts(changeMainNodeBoundsRequest, request);
-        
+
                 // shortcut : ask directly to the policy
                 dragPolicy.setHost(mainNodeEditPart);
                 Command resizeMainNodeCommand = dragPolicy.getCommand(changeMainNodeBoundsRequest);
                 return resizeMainNodeCommand;
             }
         }
-        
+
         // No special main node drag policy.
         // Begin same as ResizableEditPolicy
         ChangeBoundsRequest req = new ChangeBoundsRequest(REQ_MOVE_CHILDREN);
@@ -107,18 +107,18 @@ public class AutoSizeEditPolicy2 extends DefaultNodeResizableEditPolicy {
         req.setSizeDelta(request.getSizeDelta());
         req.setLocation(request.getLocation());
         RequestHelper.addSharedEditParts(req, request);
-        
+
         // Adding modified handle bounds to extended data.
         PortContainerFigure containerFigure = (PortContainerFigure) getHostFigure();
         Rectangle newMainNodeBounds = PortResizeHelper.computeRequestedMainNodeBounds(containerFigure, request);
         req.getExtendedData().put(PortResizeHelper.REQPROP_MAIN_NODE_BOUNDS, newMainNodeBounds);
-        
+
         // Same for trimmed bounds
         Rectangle tb = getHost().getTrimmedBounds().getCopy();
         containerFigure.translateToAbsolute(tb);
         tb = req.getTransformedRectangle(tb);
         req.getExtendedData().put(AbstractNodeEditPart.REQPROP_TRIMMED_BOUNDS, tb);
-        
+
         // Ask to parent edit part
         return getHost().getParent().getCommand(req);
     }
@@ -136,18 +136,18 @@ public class AutoSizeEditPolicy2 extends DefaultNodeResizableEditPolicy {
         SelectionEditPolicy dragPolicy = getMainNodeDragPolicy(request, mainNodeEditPart);
         if (dragPolicy != null) {
             dragPolicy.showSourceFeedback(request);
-        
+
             ChangeBoundsFeedbackMap feedbackMap = ChangeBoundsFeedbackMap.getOrCreate(request);
             feedbackMap.put(getHost(), feedbackMap.get(mainNodeEditPart));
         } else {
             super.showChangeBoundsFeedback(request);
-        
+
             ChangeBoundsFeedbackMap feedbackMap = ChangeBoundsFeedbackMap.getOrCreate(request);
             feedbackMap.put(mainNodeEditPart, feedbackMap.get(getHost()));
-        
+
             // DiagramElements.LOG.debug("%s: No drag policy for show feedback '%s'\n", getClass().getSimpleName(), request.getType());
         }
-        
+
     }
 
     @objid ("1c21067c-7add-45d4-b10a-4577fdaaeae4")
@@ -155,15 +155,15 @@ public class AutoSizeEditPolicy2 extends DefaultNodeResizableEditPolicy {
     public void eraseSourceFeedback(Request request) {
         GraphicalEditPart mainNodeEditPart = getMainNodeEditPart();
         SelectionEditPolicy dragPolicy = getMainNodeDragPolicy(request, mainNodeEditPart);
-        
+
         if (dragPolicy != null) {
             dragPolicy.eraseSourceFeedback(request);
         } else {
             // DiagramElements.LOG.debug("%s: No drag policy for erase feedback '%s'\n", getClass().getSimpleName(), request.getType());
         }
-        
+
         super.eraseSourceFeedback(request);
-        
+
     }
 
     @objid ("694ef610-18ca-49aa-b48c-51506c642cd2")
@@ -172,19 +172,19 @@ public class AutoSizeEditPolicy2 extends DefaultNodeResizableEditPolicy {
         if (this.mainNodeMovePolicy != null) {
             this.mainNodeMovePolicy.deactivate();
         }
-        
+
         if (this.mainNodeResizePolicy != null) {
             this.mainNodeResizePolicy.deactivate();
         }
-        
+
         super.deactivate();
-        
+
     }
 
     @objid ("2ce7d296-493a-4a83-94d9-71b85f3b7fa3")
     protected SelectionEditPolicy getMainNodeDragPolicy(Request request, GraphicalEditPart mainNodeEditPart) {
         Object requestType = request.getType();
-        
+
         if (REQ_MOVE.equals(requestType) || REQ_ADD.equals(requestType)
                 || REQ_CLONE.equals(requestType) || REQ_ALIGN.equals(requestType)) {
             return getMainNodeMovePolicy((AbstractNodeEditPart) mainNodeEditPart);
@@ -198,7 +198,7 @@ public class AutoSizeEditPolicy2 extends DefaultNodeResizableEditPolicy {
     @Override
     protected Command getOrphanCommand(final Request req) {
         ChangeBoundsRequest request = (ChangeBoundsRequest) req;
-        
+
         // Adding modified handle bounds to extended data of request, so that it might be used by the layout policy of the "would be" parent.
         PortContainerFigure containerFigure = (PortContainerFigure) getHostFigure();
         Rectangle newMainNodeBounds = PortResizeHelper.computeRequestedMainNodeBounds(containerFigure, request);
@@ -219,28 +219,28 @@ public class AutoSizeEditPolicy2 extends DefaultNodeResizableEditPolicy {
             if (resizePolicy == null) {
                 resizePolicy = new DefaultNodeResizableEditPolicy();
             }
-        
+
             EditPolicy oldPol = mainNodeEditPart.getEditPolicy(PRIMARY_DRAG_ROLE);
             mainNodeEditPart.installEditPolicy(PRIMARY_DRAG_ROLE, resizePolicy);
-        
+
             // Apply the bounds change to the main node. The container should
             // adapt itself if needed.
             ChangeBoundsRequest changeMainNodeBoundsRequest = RequestHelper.shallowCopy(request);
             changeMainNodeBoundsRequest.setType(REQ_RESIZE);
             changeMainNodeBoundsRequest.setEditParts(mainNodeEditPart);
             RequestHelper.addSharedEditParts(changeMainNodeBoundsRequest, request);
-        
+
             Command resizeMainNodeCommand = mainNodeEditPart.getCommand(changeMainNodeBoundsRequest);
-        
+
             // Remove the installed resize policy: remember that main node is NOT
             // directly selectable nor moveable nor resizeable.
             mainNodeEditPart.installEditPolicy(PRIMARY_DRAG_ROLE, oldPol);
-        
+
             return resizeMainNodeCommand;
         } else {
             return super.getResizeCommand(request);
         }
-        
+
     }
 
     @objid ("a4401948-50b0-4f89-94e3-db9a3db414b7")

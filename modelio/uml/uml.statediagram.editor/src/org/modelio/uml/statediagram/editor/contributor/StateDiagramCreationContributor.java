@@ -1,28 +1,28 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.contributor;
 
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.swt.graphics.Image;
 import org.modelio.api.modelio.model.scope.ElementScope;
@@ -84,10 +84,10 @@ public class StateDiagramCreationContributor extends AbstractDiagramWizardContri
         if (metamodel != null) {
             return MetamodelImageService.getIcon(metamodel.getMClass(StateMachineDiagram.class));
         } else {
-        
+
             return null;
         }
-        
+
     }
 
     @objid ("8b564a44-c64c-4947-8f52-616f6d9e6974")
@@ -123,7 +123,7 @@ public class StateDiagramCreationContributor extends AbstractDiagramWizardContri
         } else {
             return this.mmServices.getMetamodel();
         }
-        
+
     }
 
     @objid ("207ba25b-d057-42ac-9857-c8c85c922d0b")

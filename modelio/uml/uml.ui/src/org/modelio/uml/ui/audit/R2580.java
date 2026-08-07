@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -48,7 +48,7 @@ public class R2580 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -67,7 +67,7 @@ public class R2580 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         plan.registerRule(Region.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(DeepHistoryPseudoState.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE);
-        
+
     }
 
     /**
@@ -101,14 +101,14 @@ public class R2580 extends AbstractUmlRule {
      * Default constructor for R2580
      */
     @objid ("3697ac04-b7b3-4d0e-9b1f-1348a48bbae0")
-    public  R2580() {
+    public R2580() {
         this.checkerInstance = new CheckR2580(this);
     }
 
     @objid ("a3d46c4a-81e7-4902-9de7-6b812f523dfe")
     private static class CheckR2580 extends AbstractControl {
         @objid ("2a7f51cb-e633-41b0-a5dc-7c65e558df57")
-        public  CheckR2580(IRule rule) {
+        public CheckR2580(IRule rule) {
             super(rule);
         }
 
@@ -128,13 +128,13 @@ public class R2580 extends AbstractUmlRule {
         @objid ("5222cbf5-05a3-4325-96ea-2f00105c481e")
         private IAuditEntry checkR2580(Region region) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, region, null);
-            
+
             List<DeepHistoryPseudoState> foundDhps = new ArrayList<>();
-            
+
             for (DeepHistoryPseudoState dhps : region.getSub(DeepHistoryPseudoState.class)) {
                 foundDhps.add(dhps);
             }
-            
+
             if (foundDhps.size() > 1) {
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();

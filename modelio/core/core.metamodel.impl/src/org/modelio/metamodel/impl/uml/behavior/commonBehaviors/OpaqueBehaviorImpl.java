@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.commonBehaviors;
 
 import java.util.ArrayList;
@@ -41,19 +40,19 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0041b806-c4bf-1fd8-97fe-001ec947cd2a")
 public class OpaqueBehaviorImpl extends BehaviorImpl implements OpaqueBehavior {
-    @objid ("8e1c6a30-2ed0-459f-b43c-2d0ca905fb7d")
+    @objid ("ef2d1f8e-614a-445d-b7c6-177e2afa6296")
     @Override
     public String getBody() {
         return (String) getAttVal(((OpaqueBehaviorSmClass)getClassOf()).getBodyAtt());
     }
 
-    @objid ("6b0bd6ff-6fd0-45aa-87f3-8da360e30487")
+    @objid ("8e19c9c8-9a3d-4741-9834-85a770eca0c1")
     @Override
     public void setBody(String value) {
         setAttVal(((OpaqueBehaviorSmClass)getClassOf()).getBodyAtt(), value);
     }
 
-    @objid ("be759517-ed2a-4c29-9368-0b3c720e7133")
+    @objid ("5dbcd9fb-7e68-4710-bb68-6f080bf6f089")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -61,17 +60,17 @@ public class OpaqueBehaviorImpl extends BehaviorImpl implements OpaqueBehavior {
         return super.getCompositionOwner();
     }
 
-    @objid ("a8abd4d2-ea1e-475f-a941-10b477c0d2ed")
+    @objid ("72ea2d60-2ac4-45dd-ab51-2b5caf6685fe")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("5d959a5f-08d8-419d-8ba6-834f4fb29ee2")
+    @objid ("e440f4db-ac5b-4094-beb1-2e4b16e123a6")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitOpaqueBehavior(this);

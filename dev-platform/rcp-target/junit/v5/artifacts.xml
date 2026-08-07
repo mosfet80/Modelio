@@ -1,0 +1,333 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?artifactRepository version='1.1.0'?>
+<repository name='file:/work/modelio/alouette/work/eclipse/dev-platform/rcp-target/junit/v5/build/target/repository - artifacts' type='org.eclipse.equinox.p2.artifact.repository.simpleRepository' version='1'>
+  <properties size='2'>
+    <property name='p2.timestamp' value='1773745416137'/>
+    <property name='p2.compressed' value='false'/>
+  </properties>
+  <mappings size='3'>
+    <rule filter='(&amp; (classifier=osgi.bundle))' output='${repoUrl}/plugins/${id}_${version}.jar'/>
+    <rule filter='(&amp; (classifier=binary))' output='${repoUrl}/binary/${id}_${version}'/>
+    <rule filter='(&amp; (classifier=org.eclipse.update.feature))' output='${repoUrl}/features/${id}_${version}.jar'/>
+  </mappings>
+  <artifacts size='36'>
+    <artifact classifier='osgi.bundle' id='org.hamcrest.core.source' version='3.0.0'>
+      <properties size='5'>
+        <property name='artifact.size' value='1898'/>
+        <property name='download.size' value='1898'/>
+        <property name='download.md5' value='5d689a0cb1adfca75415b0659108d009'/>
+        <property name='download.checksum.md5' value='5d689a0cb1adfca75415b0659108d009'/>
+        <property name='download.checksum.sha-256' value='5ed6a10b958e721155146d6f77ea3ef7d73295fe03a0b717768bd43fb6c1d2b6'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='org.modelio.junit5.feature.source' version='6.1.2.20260317120333'>
+      <properties size='2'>
+        <property name='download.contentType' value='application/zip'/>
+        <property name='download.size' value='605'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='junit-jupiter-api.source' version='5.14.2'>
+      <properties size='5'>
+        <property name='artifact.size' value='249055'/>
+        <property name='download.size' value='249055'/>
+        <property name='download.md5' value='ccaf322f2430a4057894da0187528e4c'/>
+        <property name='download.checksum.md5' value='ccaf322f2430a4057894da0187528e4c'/>
+        <property name='download.checksum.sha-256' value='a37d80a33d571738a7ab15c9d1144e935daf4f7aba6a4ea97d990fbc31721468'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='junit-platform-suite-commons' version='1.14.2'>
+      <properties size='5'>
+        <property name='artifact.size' value='18625'/>
+        <property name='download.size' value='18625'/>
+        <property name='download.md5' value='0438305db9d9d1562600424f8ceef4c7'/>
+        <property name='download.checksum.md5' value='0438305db9d9d1562600424f8ceef4c7'/>
+        <property name='download.checksum.sha-256' value='1841c9019eae314bf4e1132ad2e8e708deac7c28e90f26a50e0a2ac0808de157'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='assertj-core' version='3.27.6'>
+      <properties size='5'>
+        <property name='artifact.size' value='1398872'/>
+        <property name='download.size' value='1398872'/>
+        <property name='download.md5' value='79563d5e0a3400a566b2105dde08b8e3'/>
+        <property name='download.checksum.md5' value='79563d5e0a3400a566b2105dde08b8e3'/>
+        <property name='download.checksum.sha-256' value='b27872b049abc88e23c853ce5917945dd57d43bd31175d852e3941d2a6fd0231'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='junit-jupiter-engine.source' version='5.14.2'>
+      <properties size='5'>
+        <property name='artifact.size' value='170184'/>
+        <property name='download.size' value='170184'/>
+        <property name='download.md5' value='9fbb9de74381fa66e58b6f35b25809ab'/>
+        <property name='download.checksum.md5' value='9fbb9de74381fa66e58b6f35b25809ab'/>
+        <property name='download.checksum.sha-256' value='5aea506b9acfeabb8b7ebc5f9cdff9a2ba5cc927b5b44b086f8302d7bb814196'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='junit-platform-engine.source' version='1.14.2'>
+      <properties size='5'>
+        <property name='artifact.size' value='172705'/>
+        <property name='download.size' value='172705'/>
+        <property name='download.md5' value='a16d384cecb1fe317d967f6c96cb151c'/>
+        <property name='download.checksum.md5' value='a16d384cecb1fe317d967f6c96cb151c'/>
+        <property name='download.checksum.sha-256' value='85747822e9a82177d13f864e38d89d8ad4fadadaed4ff7480743759c340c06ec'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='junit-platform-commons' version='1.14.2'>
+      <properties size='5'>
+        <property name='artifact.size' value='164357'/>
+        <property name='download.size' value='164357'/>
+        <property name='download.md5' value='64155d16741a7404be32a858762a07e9'/>
+        <property name='download.checksum.md5' value='64155d16741a7404be32a858762a07e9'/>
+        <property name='download.checksum.sha-256' value='9117f9aadc663ac550ae5e81d8d3ab9f1e09bb2e34c16e60a1eb1633a17bcc06'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='junit-platform-suite-engine.source' version='1.14.2'>
+      <properties size='5'>
+        <property name='artifact.size' value='19664'/>
+        <property name='download.size' value='19664'/>
+        <property name='download.md5' value='dd7f204676fc9bcb1e57288b91e17b2d'/>
+        <property name='download.checksum.md5' value='dd7f204676fc9bcb1e57288b91e17b2d'/>
+        <property name='download.checksum.sha-256' value='3dbc8536816bc44a88b9b218f9f956ae3903fa7002df9b8d2e38877ae37bc53b'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='junit-platform-suite-api' version='1.14.2'>
+      <properties size='5'>
+        <property name='artifact.size' value='26106'/>
+        <property name='download.size' value='26106'/>
+        <property name='download.md5' value='ee9dc98c9b948ebde9b688881c499541'/>
+        <property name='download.checksum.md5' value='ee9dc98c9b948ebde9b688881c499541'/>
+        <property name='download.checksum.sha-256' value='91db3c7f67dd52ad50747430f3a0d0415a887d5ad22be406e891e2f55a1856ea'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.hamcrest' version='3.0.0'>
+      <properties size='5'>
+        <property name='artifact.size' value='126373'/>
+        <property name='download.size' value='126373'/>
+        <property name='download.md5' value='781023c38b054e9cf1c818c77895e1eb'/>
+        <property name='download.checksum.md5' value='781023c38b054e9cf1c818c77895e1eb'/>
+        <property name='download.checksum.sha-256' value='5d66b6a4a680755cb6ed7cb104fa7835ef644667586ff0737adeb977c39ecdbc'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.apiguardian.api.source' version='1.1.2'>
+      <properties size='5'>
+        <property name='artifact.size' value='6937'/>
+        <property name='download.size' value='6937'/>
+        <property name='download.md5' value='0907d07bb5853aff3435c42170a0cda4'/>
+        <property name='download.checksum.md5' value='0907d07bb5853aff3435c42170a0cda4'/>
+        <property name='download.checksum.sha-256' value='b410d8a1b0291b062befdf8e79ab17ee85a5050364158307fbc661a9df947cd9'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='junit-platform-runner.source' version='1.14.2'>
+      <properties size='5'>
+        <property name='artifact.size' value='12765'/>
+        <property name='download.size' value='12765'/>
+        <property name='download.md5' value='316ea774a388698c2f58505f9be19bec'/>
+        <property name='download.checksum.md5' value='316ea774a388698c2f58505f9be19bec'/>
+        <property name='download.checksum.sha-256' value='46788b839344b3cc68532806ad765c462a4445b1f979456251b2356184361dcd'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='assertj-core.source' version='3.27.6'>
+      <properties size='5'>
+        <property name='artifact.size' value='1466818'/>
+        <property name='download.size' value='1466818'/>
+        <property name='download.md5' value='2a74c6deea432feb49c767f8be427f0c'/>
+        <property name='download.checksum.md5' value='2a74c6deea432feb49c767f8be427f0c'/>
+        <property name='download.checksum.sha-256' value='efe9d0d54320cd003dc63760611cc6a21eea06f45c842126b98bc58ba991b057'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='junit-jupiter-params' version='5.14.2'>
+      <properties size='5'>
+        <property name='artifact.size' value='663087'/>
+        <property name='download.size' value='663087'/>
+        <property name='download.md5' value='494fd61742b36f74867fe6f1ffaf7271'/>
+        <property name='download.checksum.md5' value='494fd61742b36f74867fe6f1ffaf7271'/>
+        <property name='download.checksum.sha-256' value='06d8673ab16174117ebaea7cc9dc08809db7a394f5d93efd240362d883d01df0'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='junit-platform-suite-commons.source' version='1.14.2'>
+      <properties size='5'>
+        <property name='artifact.size' value='13736'/>
+        <property name='download.size' value='13736'/>
+        <property name='download.md5' value='86ea7d515909c68978de8f6399af54a7'/>
+        <property name='download.checksum.md5' value='86ea7d515909c68978de8f6399af54a7'/>
+        <property name='download.checksum.sha-256' value='b00d7074f96ab20b7b2c0de8a8a039de61db5a1165d4475a769d0e8b2e7d29be'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='junit-platform-suite-engine' version='1.14.2'>
+      <properties size='5'>
+        <property name='artifact.size' value='33397'/>
+        <property name='download.size' value='33397'/>
+        <property name='download.md5' value='9cc67b4d47905f5dc66f949553179071'/>
+        <property name='download.checksum.md5' value='9cc67b4d47905f5dc66f949553179071'/>
+        <property name='download.checksum.sha-256' value='4712b017d46504242a697310fd45cc3e0f4ed2469c570fff3e1f711f83e53fe1'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='net.bytebuddy.byte-buddy.source' version='1.17.7'>
+      <properties size='5'>
+        <property name='artifact.size' value='2702713'/>
+        <property name='download.size' value='2702713'/>
+        <property name='download.md5' value='f3a1bc3351934defbf735ca580916657'/>
+        <property name='download.checksum.md5' value='f3a1bc3351934defbf735ca580916657'/>
+        <property name='download.checksum.sha-256' value='d90ca7d2d7bbe95e7ee83b47269e1c6de6327973f7338f9d672401d835af5a97'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='junit-platform-runner' version='1.14.2'>
+      <properties size='5'>
+        <property name='artifact.size' value='16610'/>
+        <property name='download.size' value='16610'/>
+        <property name='download.md5' value='5c3ba688b96553a37314356fd6fd2f51'/>
+        <property name='download.checksum.md5' value='5c3ba688b96553a37314356fd6fd2f51'/>
+        <property name='download.checksum.sha-256' value='9522c6866f6d8907c0044c4f2855d121006e3b01addef760b1e10bcd24550ee6'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.hamcrest.core' version='3.0.0'>
+      <properties size='5'>
+        <property name='artifact.size' value='2655'/>
+        <property name='download.size' value='2655'/>
+        <property name='download.md5' value='9cbb4168a8f7d4d0b890fc7963fadb5c'/>
+        <property name='download.checksum.md5' value='9cbb4168a8f7d4d0b890fc7963fadb5c'/>
+        <property name='download.checksum.sha-256' value='b3c770f6ed44031c61777e3bdad99b457546db246c5216734048f5d455e3ac64'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='junit-platform-launcher.source' version='1.14.2'>
+      <properties size='5'>
+        <property name='artifact.size' value='128329'/>
+        <property name='download.size' value='128329'/>
+        <property name='download.md5' value='b354ddb3fa77421024ba1d13bfa5ca17'/>
+        <property name='download.checksum.md5' value='b354ddb3fa77421024ba1d13bfa5ca17'/>
+        <property name='download.checksum.sha-256' value='a837d523aa33fba18b861af7c5e847d1d905e618d5cb21851c5d91e239555a35'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='junit-platform-launcher' version='1.14.2'>
+      <properties size='5'>
+        <property name='artifact.size' value='223147'/>
+        <property name='download.size' value='223147'/>
+        <property name='download.md5' value='c53b0d6ace66e03e710f6287bfa28f23'/>
+        <property name='download.checksum.md5' value='c53b0d6ace66e03e710f6287bfa28f23'/>
+        <property name='download.checksum.sha-256' value='1dfc577620dd131e83765f662acaa109a2df5752a0399f034c868ac873323af2'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.opentest4j' version='1.3.0'>
+      <properties size='5'>
+        <property name='artifact.size' value='14304'/>
+        <property name='download.size' value='14304'/>
+        <property name='download.md5' value='03c404f727531f3fd3b4c73997899327'/>
+        <property name='download.checksum.md5' value='03c404f727531f3fd3b4c73997899327'/>
+        <property name='download.checksum.sha-256' value='48e2df636cab6563ced64dcdff8abb2355627cb236ef0bf37598682ddf742f1b'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='junit-jupiter-engine' version='5.14.2'>
+      <properties size='5'>
+        <property name='artifact.size' value='343273'/>
+        <property name='download.size' value='343273'/>
+        <property name='download.md5' value='bd3694abd424fc4638823f0f9df75f01'/>
+        <property name='download.checksum.md5' value='bd3694abd424fc4638823f0f9df75f01'/>
+        <property name='download.checksum.sha-256' value='024d9b06d31b90fb9c5a7c0bc62cfa2d49c673a68a7a75be9b52548ba6283509'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='junit-platform-engine' version='1.14.2'>
+      <properties size='5'>
+        <property name='artifact.size' value='271663'/>
+        <property name='download.size' value='271663'/>
+        <property name='download.md5' value='0ce1dcee9a3520ace5ec2cc7608fee68'/>
+        <property name='download.checksum.md5' value='0ce1dcee9a3520ace5ec2cc7608fee68'/>
+        <property name='download.checksum.sha-256' value='5a45c430763a26c6c55471e192d8afbb6443956bc116b7e6796b8d789a5a146d'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='junit-platform-commons.source' version='1.14.2'>
+      <properties size='5'>
+        <property name='artifact.size' value='112687'/>
+        <property name='download.size' value='112687'/>
+        <property name='download.md5' value='be1b62eee9bec26b2f03991779c18ee9'/>
+        <property name='download.checksum.md5' value='be1b62eee9bec26b2f03991779c18ee9'/>
+        <property name='download.checksum.sha-256' value='a583392de7d7c168b10015c411659ccc9189a06e54ca5d5d0c6c8ed17cd807e1'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='junit-jupiter-params.source' version='5.14.2'>
+      <properties size='5'>
+        <property name='artifact.size' value='135968'/>
+        <property name='download.size' value='135968'/>
+        <property name='download.md5' value='80a246e08574b6e424abadf6d25f062a'/>
+        <property name='download.checksum.md5' value='80a246e08574b6e424abadf6d25f062a'/>
+        <property name='download.checksum.sha-256' value='c0ca79e373e54a59a36bd431d0a5c2ae11cb420378e01389b9324b768686567a'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.apiguardian.api' version='1.1.2'>
+      <properties size='5'>
+        <property name='artifact.size' value='6806'/>
+        <property name='download.size' value='6806'/>
+        <property name='download.md5' value='8c7de3f82037fa4a2e8be2a2f13092af'/>
+        <property name='download.checksum.md5' value='8c7de3f82037fa4a2e8be2a2f13092af'/>
+        <property name='download.checksum.sha-256' value='b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='net.bytebuddy.byte-buddy' version='1.17.7'>
+      <properties size='5'>
+        <property name='artifact.size' value='9015334'/>
+        <property name='download.size' value='9015334'/>
+        <property name='download.md5' value='209b2faed508ed6804df6982f8fd2c16'/>
+        <property name='download.checksum.md5' value='209b2faed508ed6804df6982f8fd2c16'/>
+        <property name='download.checksum.sha-256' value='3575dcb8a98faf943d3c1595c47a16047c4fce8a83ebbb26262f1a2f67546357'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='junit.source' version='4.13.2'>
+      <properties size='5'>
+        <property name='artifact.size' value='235322'/>
+        <property name='download.size' value='235322'/>
+        <property name='download.md5' value='5d039a92353f7f293f003ef0f2698c20'/>
+        <property name='download.checksum.md5' value='5d039a92353f7f293f003ef0f2698c20'/>
+        <property name='download.checksum.sha-256' value='e03ecab8f77ac81d1c09581761b8eeaa94bf64d9cb364efec062f932a315981f'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='junit-jupiter-api' version='5.14.2'>
+      <properties size='5'>
+        <property name='artifact.size' value='242452'/>
+        <property name='download.size' value='242452'/>
+        <property name='download.md5' value='6c5457923f3bbb0fec0bd1e1e58041ae'/>
+        <property name='download.checksum.md5' value='6c5457923f3bbb0fec0bd1e1e58041ae'/>
+        <property name='download.checksum.sha-256' value='704cda1857316bb791199b1a1bf8173b0778b938a8445c85be1154c5f8813a0a'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='junit-platform-suite-api.source' version='1.14.2'>
+      <properties size='5'>
+        <property name='artifact.size' value='37864'/>
+        <property name='download.size' value='37864'/>
+        <property name='download.md5' value='46eafe3391c4ca6b331cc543dec406c0'/>
+        <property name='download.checksum.md5' value='46eafe3391c4ca6b331cc543dec406c0'/>
+        <property name='download.checksum.sha-256' value='14f7014c60a69b433780b3ce0337d25a589a72936619944714041f7b8c345d12'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='junit' version='4.13.2'>
+      <properties size='5'>
+        <property name='artifact.size' value='385917'/>
+        <property name='download.size' value='385917'/>
+        <property name='download.md5' value='c8ba305a0162a3b767111583d803ab9f'/>
+        <property name='download.checksum.md5' value='c8ba305a0162a3b767111583d803ab9f'/>
+        <property name='download.checksum.sha-256' value='d7e7af1c8800516c122a4107355f5ff0852f7a83d6ee3bf39831b9614237c123'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='org.modelio.junit5.feature' version='6.1.2.20260317120333'>
+      <properties size='2'>
+        <property name='download.contentType' value='application/zip'/>
+        <property name='download.size' value='582'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.opentest4j.source' version='1.3.0'>
+      <properties size='5'>
+        <property name='artifact.size' value='10640'/>
+        <property name='download.size' value='10640'/>
+        <property name='download.md5' value='a04350e7703c947f6e088359e9a53440'/>
+        <property name='download.checksum.md5' value='a04350e7703c947f6e088359e9a53440'/>
+        <property name='download.checksum.sha-256' value='0a635df1c720767ab1adfabb27771da0a247da44485d93c9dee23e1141b8e821'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.hamcrest.source' version='3.0.0'>
+      <properties size='5'>
+        <property name='artifact.size' value='87204'/>
+        <property name='download.size' value='87204'/>
+        <property name='download.md5' value='d3f9aa5b0e34d75cd5873d906f453951'/>
+        <property name='download.checksum.md5' value='d3f9aa5b0e34d75cd5873d906f453951'/>
+        <property name='download.checksum.sha-256' value='4bc1a840ac546c294839bdb7f39b9a63fe21540b560ebcd25a044daff94a7cce'/>
+      </properties>
+    </artifact>
+  </artifacts>
+</repository>

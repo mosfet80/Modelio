@@ -1,34 +1,33 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.browser.handlers.copy;
 
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.widgets.Display;
@@ -38,6 +37,7 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.uml.statik.Parameter;
+import org.modelio.platform.model.ui.swt.InputHelper;
 import org.modelio.platform.model.ui.swt.copy.PasteElementObject;
 import org.modelio.platform.model.ui.swt.copy.PasteElementObject.PasteType;
 import org.modelio.platform.model.ui.swt.copy.PasteElementTransfer;
@@ -62,6 +62,7 @@ public class PasteElementHandler {
 
     /**
      * Available only when the selection contains only one modifiable element.
+     *
      * @param selection the current modelio selection.
      * @param currentDisplay the SWT display
      * @return true if the handler can be executed.
@@ -73,27 +74,27 @@ public class PasteElementHandler {
         if (this.projectService.getSession() == null) {
             return false;
         }
-        
+
         // Must have at least an element
-        List<MObject> selectedElements = PasteElementHandler.getSelectedElements(selection);
+        List<DiagramSet> selectedElements = InputHelper.toList(selection, DiagramSet.class);
         if (selectedElements.size() != 1) {
             return false;
         }
-        
+
         Clipboard clipboard = new Clipboard(currentDisplay);
         final PasteElementObject pastedObject = (PasteElementObject) clipboard.getContents(PasteElementTransfer.getInstance());
         // There is no data corresponding to PasteElementTransfer
         if (pastedObject == null) {
             return false;
         }
-        
+
         final ICoreSession session = this.projectService.getSession();
         MExpert expert = session.getMetamodel().getMExpert();
-        
+
         final List<TransferItem> items = pastedObject.getTransferedItems();
         final List<TransferItem> pastedStereotypeItems = PasteElementHandler.getStereotypesItemsToCopy(items);
         final List<MObject> pastedElements = PasteElementHandler.getElementsToCopy(items, session);
-        
+
         for (MObject dest : selectedElements) {
             for (MObject pasted : pastedElements) {
                 switch (pastedObject.getPasteType()) {
@@ -116,32 +117,17 @@ public class PasteElementHandler {
                     break;
                 }
             }
-        
-            if (!pastedStereotypeItems.isEmpty() && !dest.getStatus().isModifiable()) {
+
+            if (!pastedStereotypeItems.isEmpty() && !dest.getStatusLazy().isModifiable()) {
                 return false;
             }
         }
         return true;
     }
 
-    @objid ("b1f0a338-54c7-11e2-ae63-002564c97630")
-    private static List<MObject> getSelectedElements(final Object selection) {
-        List<MObject> selectedElements = new ArrayList<>();
-        if (selection instanceof DiagramSet) {
-            selectedElements.add((MObject) selection);
-        } else if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() >= 1) {
-            Object[] elements = ((IStructuredSelection) selection).toArray();
-            for (Object element : elements) {
-                if (element instanceof DiagramSet) {
-                    selectedElements.add((MObject) element);
-                }
-            }
-        }
-        return selectedElements;
-    }
-
     /**
      * Cut the currently selected elements.
+     *
      * @param selection the current modelio selection.
      * @param currentDisplay the display Modelio runs into.
      */
@@ -149,16 +135,16 @@ public class PasteElementHandler {
     @Execute
     public final void execute(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, Display currentDisplay) {
         ICoreSession session = this.projectService.getSession();
-        
+
         // Must have one element
-        List<MObject> selectedElements = PasteElementHandler.getSelectedElements(selection);
+        List<DiagramSet> selectedElements = InputHelper.toList(selection, DiagramSet.class);
         if (selectedElements.size() == 1) {
             MExpert expert = session.getMetamodel().getMExpert();
             final MObject targetElement = selectedElements.get(0);
-        
+
             Clipboard clipboard = new Clipboard(currentDisplay);
             final PasteElementObject pastedObject = (PasteElementObject) clipboard.getContents(PasteElementTransfer.getInstance());
-        
+
             final List<TransferItem> items = pastedObject.getTransferedItems();
             final List<TransferItem> pastedStereotypeItems = PasteElementHandler.getStereotypesItemsToCopy(items);
             final List<MObject> pastedElements = PasteElementHandler.getElementsToCopy(items, session); // no stereotype
@@ -166,13 +152,13 @@ public class PasteElementHandler {
             if (pastedElements.isEmpty() && pastedStereotypeItems.isEmpty()) {
                 return;
             }
-        
+
             for (MObject pastedEl : pastedElements) {
-        
+
                 if (!expert.canCompose(targetElement, pastedEl, null)) {
                     return;
                 }
-        
+
                 if (pastedEl instanceof Parameter) {
                     Parameter parameter = (Parameter) pastedEl;
                     if (targetElement instanceof Operation && parameter.getReturned() != null) {
@@ -183,15 +169,15 @@ public class PasteElementHandler {
                     }
                 }
             }
-        
+
             if (pastedObject.getPasteType() == PasteType.COPY) {
                 try (ITransaction transaction = session.getTransactionSupport().createTransaction("Paste")) {
                     List<MObject> copyResult = new ArrayList<>();
-        
+
                     if (pastedElements.size() > 0) {
                         copyResult.addAll(MTools.getModelTool().copyElements(pastedElements, targetElement));
                     }
-        
+
                     // paste stereotypes
                     if (targetElement instanceof ModelElement) {
                         ModelElement selectedModelElement = (ModelElement) targetElement;
@@ -202,7 +188,7 @@ public class PasteElementHandler {
                             }
                         }
                     }
-        
+
                     transaction.commit();
                 } catch (Exception e) {
                     // Should catch InvalidModelManipulationException to display a popup box, but it
@@ -216,7 +202,7 @@ public class PasteElementHandler {
                         return;
                     }
                 }
-        
+
                 try (ITransaction transaction = session.getTransactionSupport().createTransaction("Cut")) {
                     for (TransferItem item : items) {
                         if (!item.getTransferedElementRef().mc.equals(Stereotype.MQNAME)) {
@@ -227,7 +213,7 @@ public class PasteElementHandler {
                             }
                         }
                     }
-        
+
                     // paste stereotypes
                     if (targetElement instanceof ModelElement) {
                         ModelElement selectedModelElement = (ModelElement) targetElement;
@@ -241,9 +227,9 @@ public class PasteElementHandler {
                             }
                         }
                     }
-        
+
                     transaction.commit();
-        
+
                     // Keep the elements in the clipboard, but as a copy
                     pastedObject.setPasteType(PasteType.COPY);
                     clipboard.setContents(new Object[] { pastedObject }, new Transfer[] { PasteElementTransfer.getInstance() });
@@ -252,18 +238,16 @@ public class PasteElementHandler {
                 }
             }
         }
-        
     }
 
     @objid ("b1f0a348-54c7-11e2-ae63-002564c97630")
     static void reportException(Exception e) {
         // Show an error box
         String title = DiagramBrowser.I18N.getMessage("CannotPasteClipboard");
-        
+
         MessageDialog.openError(null, title, e.getLocalizedMessage());
-        
+
         DiagramBrowser.LOG.error(e);
-        
     }
 
     @objid ("b1f0a34b-54c7-11e2-ae63-002564c97630")
@@ -271,7 +255,7 @@ public class PasteElementHandler {
         List<MObject> elementsToCopy = new ArrayList<>();
         for (TransferItem item : items) {
             MRef transferedElementRef = item.getTransferedElementRef();
-        
+
             MObject transferedElement = session.getModel().findByRef(transferedElementRef, IModel.NODELETED);
             if (!item.getTransferedElementRef().mc.equals("Stereotype")) {
                 elementsToCopy.add(transferedElement);
@@ -294,11 +278,11 @@ public class PasteElementHandler {
     @objid ("b1f3047f-54c7-11e2-ae63-002564c97630")
     private boolean isParentOf(MObject parentCandidate, MObject element) {
         MObject parent = element.getCompositionOwner();
-        
+
         if (parent == null) {
             return false;
         }
-        
+
         if (parentCandidate.equals(parent)) {
             return true;
         }

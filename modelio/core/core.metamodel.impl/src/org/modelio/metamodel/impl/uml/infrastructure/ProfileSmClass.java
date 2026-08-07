@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -63,7 +62,7 @@ public class ProfileSmClass extends ModelElementSmClass {
     private SmDependency definedTypeDep;
 
     @objid ("cde8af46-934a-4828-83a0-aeeef04b1db9")
-    public  ProfileSmClass(ISmMetamodelFragment origin) {
+    public ProfileSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
@@ -71,7 +70,7 @@ public class ProfileSmClass extends ModelElementSmClass {
     @Override
     public String getName() {
         return "Profile";
-        
+
     }
 
     @objid ("f2a444ff-37c1-49c0-9a86-01269813ea34")
@@ -84,21 +83,21 @@ public class ProfileSmClass extends ModelElementSmClass {
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return Profile.class;
-        
+
     }
 
     @objid ("fbad7e12-e769-4257-b341-9bc9b1178386")
     @Override
     public boolean isCmsNode() {
         return true;
-        
+
     }
 
     @objid ("926f9889-e2ff-41b5-989d-6ab5516d5a54")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
     @objid ("0576dad4-83bc-493c-b144-b4ec89fb3b66")
@@ -106,28 +105,27 @@ public class ProfileSmClass extends ModelElementSmClass {
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(ModelElement.MQNAME);
         this.registerFactory(new ProfileObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
         this.definedStereotypeDep = new DefinedStereotypeSmDependency();
         this.definedStereotypeDep.init("DefinedStereotype", this, metamodel.getMClass(Stereotype.MQNAME), 0, -1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.definedStereotypeDep);
-        
+
         this.ownedReferenceDep = new OwnedReferenceSmDependency();
         this.ownedReferenceDep.init("OwnedReference", this, metamodel.getMClass(MetaclassReference.MQNAME), 0, -1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.ownedReferenceDep);
-        
+
         this.ownerModuleDep = new OwnerModuleSmDependency();
         this.ownerModuleDep.init("OwnerModule", this, metamodel.getMClass(ModuleComponent.MQNAME), 0, 1 );
         registerDependency(this.ownerModuleDep);
-        
+
         this.definedTypeDep = new DefinedTypeSmDependency();
         this.definedTypeDep.init("DefinedType", this, metamodel.getMClass(PropertyType.MQNAME), 0, -1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.definedTypeDep);
-        
-        
+
     }
 
     @objid ("df15543c-ae5d-44f5-abc2-050a632b05ca")
@@ -168,7 +166,7 @@ public class ProfileSmClass extends ModelElementSmClass {
         private ProfileSmClass smClass;
 
         @objid ("ecb335b9-440c-4e16-aa1b-7257b126e175")
-        public  ProfileObjectFactory(ProfileSmClass smClass) {
+        public ProfileObjectFactory(ProfileSmClass smClass) {
             this.smClass = smClass;
         }
 
@@ -201,7 +199,7 @@ public class ProfileSmClass extends ModelElementSmClass {
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((ProfileData) data).mDefinedStereotype = values;
-            
+
         }
 
         @objid ("8054f9f8-4a7f-419e-a96a-37334efb66b4")
@@ -211,7 +209,7 @@ public class ProfileSmClass extends ModelElementSmClass {
             	this.symetricDep = ((StereotypeSmClass)this.getTarget()).getOwnerDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -240,7 +238,7 @@ public class ProfileSmClass extends ModelElementSmClass {
             	this.symetricDep = ((ModuleComponentSmClass)this.getTarget()).getOwnedProfileDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -260,7 +258,7 @@ public class ProfileSmClass extends ModelElementSmClass {
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((ProfileData) data).mOwnedReference = values;
-            
+
         }
 
         @objid ("d8712faf-ec46-41f7-aa75-3ac3a4390559")
@@ -270,7 +268,7 @@ public class ProfileSmClass extends ModelElementSmClass {
             	this.symetricDep = ((MetaclassReferenceSmClass)this.getTarget()).getOwnerProfileDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -290,7 +288,7 @@ public class ProfileSmClass extends ModelElementSmClass {
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((ProfileData) data).mDefinedType = values;
-            
+
         }
 
         @objid ("ad926ea0-9786-4c1b-87b4-edbd5b9ca1e8")
@@ -300,7 +298,7 @@ public class ProfileSmClass extends ModelElementSmClass {
             	this.symetricDep = ((PropertyTypeSmClass)this.getTarget()).getAnalystOwnerDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

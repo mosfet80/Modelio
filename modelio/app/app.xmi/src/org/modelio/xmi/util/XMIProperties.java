@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.util;
 
@@ -104,11 +104,12 @@ public abstract class XMIProperties {
         for (ModelElement newRoot : newRoots) {
             this.rootElements.add(newRoot);
         }
-        
+
     }
 
     /**
      * This methods specify the path of the imported file
+     *
      * @param file : the imported file
      */
     @objid ("9e69c6c6-178e-499a-802e-e41acc667838")
@@ -118,6 +119,7 @@ public abstract class XMIProperties {
 
     /**
      * This methods returns the path of the imported file
+     *
      * @return the imported file path
      */
     @objid ("11b6416d-b815-4e3a-9bb7-e002a8832e6e")
@@ -133,6 +135,7 @@ public abstract class XMIProperties {
 
     /**
      * This method returns the model services
+     *
      * @return the model services
      */
     @objid ("b4d1d6d1-7dfb-4246-b605-038b26afd7c4")
@@ -147,6 +150,7 @@ public abstract class XMIProperties {
 
     /**
      * This methods returns the path of the imported file
+     *
      * @return the imported file path
      */
     @objid ("32481333-7de8-4a00-a7e9-8f4ecb5e0048")
@@ -165,17 +169,17 @@ public abstract class XMIProperties {
         // stand-alone!
         resourceSet.getPackageRegistry().put(UMLPackage.eNS_URI, UMLPackage.eINSTANCE);
         resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
-        
+
         final Bundle bundle = Platform.getBundle("org.eclipse.uml2.uml.resources");
-        
+
         IPath libraries = new Path("/libraries");
         IPath metamodels = new Path("/metamodels");
         IPath profile = new Path("/profiles");
-        
+
         URI uriLibraries = URI.createURI(FileLocator.find(bundle, libraries, null).toExternalForm());
         URI uriMetamodels = URI.createURI(FileLocator.find(bundle, metamodels, null).toExternalForm());
         URI uriProfiles = URI.createURI(FileLocator.find(bundle, profile, null).toExternalForm());
-        
+
         URIConverter.URI_MAP.put(URI.createURI(UMLResource.LIBRARIES_PATHMAP), uriLibraries);
         URIConverter.URI_MAP.put(URI.createURI(UMLResource.METAMODELS_PATHMAP), uriMetamodels);
         URIConverter.URI_MAP.put(URI.createURI(UMLResource.PROFILES_PATHMAP), uriProfiles);
@@ -187,7 +191,7 @@ public abstract class XMIProperties {
     public void setRootElement(final ModelElement newRoot) {
         this.rootElements = new ArrayList<>();
         this.rootElements.add(newRoot);
-        
+
     }
 
     @objid ("ac98651d-1a32-4150-b7d0-29f1fc56f983")
@@ -271,7 +275,7 @@ public abstract class XMIProperties {
         if (this.tempFolder == null) {
             this.tempFolder = new File(getProjectRoot() + java.io.File.separator + this.XMIFolderName + java.io.File.separator + this.tempFolderName);
         }
-        
+
         if (!this.tempFolder.exists()) {
             this.tempFolder.mkdirs();
             this.tempFolder.mkdir();
@@ -292,17 +296,17 @@ public abstract class XMIProperties {
     @objid ("7c127ba1-a549-4e8f-9e6c-e1b71211c551")
     public void cleanProperties() {
         if (this.tempFolder != null) {
-        
+
             String[] children = this.tempFolder.list();
             for (String element : children) {
                 new File(this.tempFolder, element).delete();
             }
-        
+
             this.tempFolder.delete();
             this.tempFolder = null;
-        
+
         }
-        
+
     }
 
     @objid ("97f4459f-e6fc-4c13-aba9-348bb06d85e1")
@@ -310,10 +314,10 @@ public abstract class XMIProperties {
         this.modelioTypes = new ModelioTypes(mmService, metamodel);
         this.mmServices = mmService;
         this.navigationServices = navigationService;
-        
+
         initUMLClassTabConvertion();
         initInfraClassTabConvertion();
-        
+
     }
 
     @objid ("b25f7648-d1f0-405c-96d2-58d3a156e3bd")

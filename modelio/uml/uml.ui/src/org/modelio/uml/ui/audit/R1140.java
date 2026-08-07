@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -53,7 +53,7 @@ public class R1140 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -72,15 +72,15 @@ public class R1140 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         plan.registerRule(CallOperationAction.MQNAME, this, AuditTrigger.CREATE);
         plan.registerRule(CallOperationAction.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         plan.registerRule(Operation.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         plan.registerRule(Parameter.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE | AuditTrigger.UPDATE);
-        
+
         // Pin
         plan.registerRule(OutputPin.MQNAME, this, AuditTrigger.UPDATE | AuditTrigger.CREATE | AuditTrigger.MOVE);
         plan.registerRule(InputPin.MQNAME, this, AuditTrigger.UPDATE | AuditTrigger.CREATE | AuditTrigger.MOVE);
-        
+
     }
 
     /**
@@ -114,14 +114,14 @@ public class R1140 extends AbstractUmlRule {
      * Default constructor for R1140
      */
     @objid ("d4284122-d10a-4d0b-952c-e259aa33a4e9")
-    public  R1140() {
+    public R1140() {
         this.checkerInstance = new CheckR1140(this);
     }
 
     @objid ("9acc077e-f1ed-4eed-9fbd-165eb2d69af3")
     private static class CheckR1140 extends AbstractControl {
         @objid ("91c7e60c-087a-4255-b58e-74986ec7e413")
-        public  CheckR1140(IRule rule) {
+        public CheckR1140(IRule rule) {
             super(rule);
         }
 
@@ -151,27 +151,28 @@ public class R1140 extends AbstractUmlRule {
 
         /**
          * Checks if all the pins of a CallOperationAction are matched to all the BehaviorParameters of the called Operation.
+         *
          * @param callBehaviorAction The CallOperationAction to check.
          * @return An audit entry.
          */
         @objid ("b6a350bf-c2c8-42b7-bf92-1d05fc228b72")
         private IAuditEntry checkR1140(CallOperationAction callOperationAction) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, callOperationAction, null);
-            
+
             if (callOperationAction.getCalled() == null) {
                 return auditEntry;
             }
-            
+
             Operation operation = callOperationAction.getCalled();
-            
+
             // We create a list of parameters, input pins and output pins, and
             // each time we will match a parameter to a pin, we removed the
             // corresponding element from the lists.
-            
+
             List<Parameter> parameters = new ArrayList<>(operation.getIO());
             List<InputPin> inputPins = new ArrayList<>(callOperationAction.getInput());
             List<OutputPin> outputPins = new ArrayList<>(callOperationAction.getOutput());
-            
+
             for (Parameter parameter : operation.getIO()) {
                 if (parameter.getParameterPassing() == PassingMode.IN) {
                     for (InputPin inputPin : inputPins) {
@@ -183,7 +184,7 @@ public class R1140 extends AbstractUmlRule {
                     }
                 } else if (parameter.getParameterPassing() == PassingMode.INOUT) {
                     boolean found = false;
-            
+
                     for (InputPin inputPin : inputPins) {
                         if (parameter.equals(inputPin.getMatched())) {
                             inputPins.remove(inputPin);
@@ -211,7 +212,7 @@ public class R1140 extends AbstractUmlRule {
                     }
                 }
             }
-            
+
             Parameter returnParameter = operation.getReturn();
             if (returnParameter != null) {
                 for (OutputPin outputPin : callOperationAction.getOutput()) {
@@ -222,11 +223,11 @@ public class R1140 extends AbstractUmlRule {
                     }
                 }
             }
-            
+
             if (!parameters.isEmpty() || !inputPins.isEmpty() || !outputPins.isEmpty()) {
                 // The rule failed since one of the list wasn't empty, so either
                 // a parameter or a pin wasn't matched.
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(callOperationAction);
@@ -253,6 +254,7 @@ public class R1140 extends AbstractUmlRule {
 
         /**
          * A Pin was either created, moved or updated, we need to check if this Pin belong to a CallOperationAction and check it if it does.
+         *
          * @param pin The Pin to check.
          * @return An audit entry.
          */
@@ -266,13 +268,14 @@ public class R1140 extends AbstractUmlRule {
 
         /**
          * An Operation was updated, we need to check if it has registered callers and check the rule on these CallOperationAction.
+         *
          * @param behavior The Operation to check.
          * @return A list of audit entries.
          */
         @objid ("aedc07fb-c475-4cd3-a912-e250f1924fd4")
         private List<IAuditEntry> checkR1140(Operation operation) {
             List<IAuditEntry> auditEntries = new ArrayList<>();
-            
+
             for (CallOperationAction callOperationAction : operation.getCallingAction()) {
                 auditEntries.add(checkR1140(callOperationAction));
             }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.styles.core;
 
@@ -31,7 +31,7 @@ import org.eclipse.swt.graphics.Font;
  * A property value may be set with the {@link #setProperty(StyleKey, Object)} method.
  * <p>
  * These properties are intended to be displayed and edited in a properties tab.
- * 
+ *
  * @author pvlaemyn
  */
 @objid ("8551246b-1926-11e2-92d2-001ec947c8cc")
@@ -41,6 +41,7 @@ public interface IStyle {
      * <p>
      * The listener will be fired each time a property is changed or removed.<br>
      * Registering 2 times a listener will make it fired 2 times.
+     *
      * @param l The style change listener.
      */
     @objid ("855386a8-1926-11e2-92d2-001ec947c8cc")
@@ -50,6 +51,7 @@ public interface IStyle {
      * Get the cascaded style used where property values are looked for when not defined on this style.
      * <p>
      * The base style may be the cascaded style or the cascaded of the cascaded style ...
+     *
      * @return The cascaded style.
      */
     @objid ("01735af4-3422-47e4-bf98-2c09deb4ab27")
@@ -57,6 +59,7 @@ public interface IStyle {
 
     /**
      * Convenience method to get a boolean property.
+     *
      * @param propertyKey The property key
      * @return The boolean value.
      */
@@ -65,6 +68,7 @@ public interface IStyle {
 
     /**
      * Get the style where property values are looked for when not defined on this style.
+     *
      * @return The cascaded style.
      */
     @objid ("855386b4-1926-11e2-92d2-001ec947c8cc")
@@ -72,6 +76,7 @@ public interface IStyle {
 
     /**
      * Convenience method to get a Color property.
+     *
      * @param propertyKey The property key
      * @return The Color value.
      */
@@ -80,6 +85,7 @@ public interface IStyle {
 
     /**
      * Convenience method to get a Font property.
+     *
      * @param propertyKey The property key
      * @return The Font value.
      */
@@ -88,6 +94,7 @@ public interface IStyle {
 
     /**
      * Convenience method to get an integer property.
+     *
      * @param propertyKey The property key
      * @return The integer value.
      */
@@ -96,6 +103,7 @@ public interface IStyle {
 
     /**
      * Get all style keys for which a value has been locally set.
+     *
      * @return locally defined style keys.
      */
     @objid ("855386b7-1926-11e2-92d2-001ec947c8cc")
@@ -103,6 +111,7 @@ public interface IStyle {
 
     /**
      * Get a style property
+     *
      * @param <T> The wanted property value type .
      * @param propertyKey The property key
      * @return The property value
@@ -111,6 +120,7 @@ public interface IStyle {
     <T> T getProperty(StyleKey propertyKey);
 
     /**
+     *
      * @param propertyKey the key to test.
      * @return true if a value is defined dynamically for the key.
      */
@@ -120,6 +130,7 @@ public interface IStyle {
     }
 
     /**
+     *
      * @param propertyKey the key to test.
      * @return true if a local value is defined for the key
      */
@@ -140,6 +151,7 @@ public interface IStyle {
 
     /**
      * Remove a style change listener.
+     *
      * @param l a style change listener to remove.
      */
     @objid ("855386ab-1926-11e2-92d2-001ec947c8cc")
@@ -147,6 +159,7 @@ public interface IStyle {
 
     /**
      * Remove a property value and fires style changes listeners.
+     *
      * @param key The property to remove
      */
     @objid ("85538692-1926-11e2-92d2-001ec947c8cc")
@@ -163,6 +176,7 @@ public interface IStyle {
      * Set the style to use to get a property value when it is not defined on this style.
      * <p>
      * Basic implementations will set the baseStyle as cascaded style. Proxy implementations will call the same method on their cascaded style.
+     *
      * @param baseStyle The new base style.
      */
     @objid ("fbf305fa-a108-4453-a3d9-79c710e644a8")
@@ -170,6 +184,7 @@ public interface IStyle {
 
     /**
      * Set the parent style used to get a property value when it is not defined on this style.
+     *
      * @param style The new parent style.
      */
     @objid ("855386a5-1926-11e2-92d2-001ec947c8cc")
@@ -177,6 +192,7 @@ public interface IStyle {
 
     /**
      * Change a style property and fires the style listeners.
+     *
      * @param key The property key.
      * @param value The new value.
      */
@@ -184,6 +200,7 @@ public interface IStyle {
     void setProperty(StyleKey key, Object value);
 
     /**
+     *
      * @return <code>true</code> if this style should be considered as a diagram theme.
      */
     @objid ("ed61f8b5-1abc-43a7-ae42-f0ff38b1343a")
@@ -196,5 +213,5 @@ public interface IStyle {
      */
     @objid ("d311d8aa-6c59-4341-a322-6e94c0ffbf46")
     void dispose();
-}
 
+}

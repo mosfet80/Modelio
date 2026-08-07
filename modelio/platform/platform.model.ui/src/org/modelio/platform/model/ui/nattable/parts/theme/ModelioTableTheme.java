@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.parts.theme;
 
@@ -35,6 +35,12 @@ import org.modelio.platform.ui.UIColor;
  */
 @objid ("1c6712d4-cf4b-48d0-b6a9-d6b2ea118b37")
 public class ModelioTableTheme {
+    @objid ("3c108f3e-80b0-47f1-88be-7c00069318c2")
+    public static int DEFAULT_COLUMN_WIDTH = 40;
+
+    @objid ("3ef14841-cce7-42b3-b2a1-4c1402d012d0")
+    public static int DEFAULT_ROW_HEIGHT = 24 + 4;
+
     @objid ("dc978171-0ddf-49e2-a109-8d9f6442d3ca")
     public final HorizontalAlignmentEnum cellHAlign;
 
@@ -59,88 +65,82 @@ public class ModelioTableTheme {
     @objid ("041de8c8-526b-46e1-9315-559e0abd9489")
     public final VerticalAlignmentEnum verticalColumnHeaderVAlign;
 
-    @objid ("3c108f3e-80b0-47f1-88be-7c00069318c2")
-    public static int DEFAULT_COLUMN_WIDTH = 40;
-
-    @objid ("3ef14841-cce7-42b3-b2a1-4c1402d012d0")
-    public static int DEFAULT_ROW_HEIGHT = 24+4;
-
-    @objid ("e28e176a-9822-4347-83d7-b3ca75e4cce9")
+    @objid ("7e79f7f8-41d7-4e63-a465-6ebb627cddc3")
     public final Color cellBackground;
 
     // Normal (unselected) cell
-    @objid ("d14d5a43-9d77-482b-9583-7e38b153de88")
+    @objid ("7b209333-b806-4a87-945c-799657872b25")
     public final Font cellFont;
 
-    @objid ("a913622b-4de9-4dd4-a5fe-44f17fd49946")
+    @objid ("8d05fe4b-c85a-4861-92b1-b82f6eccba96")
     public final Color cellForeGround;
 
-    @objid ("10c2b8ce-22a7-4189-85ab-8f47238d8762")
+    @objid ("72a0daca-f5fd-498e-bbe6-beb39569f01d")
     public final Color evenRowBackground;
 
     // Normal (unselected) header
-    @objid ("71a2f05f-d18a-4540-9170-935add701bcb")
+    @objid ("677ab7db-d9e4-4857-859d-858cf64dadfa")
     public final Color headerBackground;
 
-    @objid ("e4051057-f4e5-4213-b925-4372c0991af1")
+    @objid ("81b26c50-7bf7-498a-ab8d-a564624fb8bb")
     public final Font headerFont;
 
-    @objid ("1c54993c-d4b3-453e-a74c-e08668c71c8e")
+    @objid ("c872c59b-c8f0-487c-87bd-bf981439c5d7")
     public final Color headerForeground;
 
-    @objid ("9b69a1c9-6f5d-45c8-a5de-2871cab4f91e")
+    @objid ("8718be41-a3ea-455e-8142-0a85cd239e26")
     public final Color headerGradientBackground;
 
-    @objid ("eb7822f5-b302-4fa6-87ae-8f797150af4b")
+    @objid ("d5ef6910-a872-4d97-8c09-a568f4dd20e9")
     public final Color headerGradientForeground;
 
-    @objid ("30a77a1b-ef08-4e3d-82e1-75e8a668e185")
-    private static ModelioTableTheme instance = null;
-
     // Alternate row background colors
-    @objid ("f72a0713-e49f-498d-9a40-00c54968fbfe")
+    @objid ("0c32a8ad-c73a-4c4d-8fb9-531103d52769")
     public final Color oddRowBackground;
 
-    @objid ("2859c1b0-411a-4531-9ec1-a2ecc459966b")
+    @objid ("69c78ce4-052f-445e-9b14-84fbeba5eeb3")
     public final Color selectedCellBackground;
 
-    @objid ("9e601593-d360-411e-b095-84a32251071e")
+    @objid ("69b0ebad-042c-40bc-a12a-9c729a08a470")
     public final Font selectedCellFont;
 
-    @objid ("cb5d5a57-9f6c-4860-885e-206b64ef306c")
+    @objid ("d07682eb-46fc-49c2-8583-eafc2fb6da1e")
     public final Color selectedCellForeground;
 
     // Selected cell
-    @objid ("a04bbba8-7066-4319-9418-5efd606baa32")
+    @objid ("7de50724-e0c2-47ea-a4b7-e437ecafec79")
     public final Color selectedCellGridlineColor;
 
     // Selected header
-    @objid ("de62be25-2aae-4c3c-b5b1-b7b14441696f")
+    @objid ("c3c99cc4-1410-4934-b17b-da3ac7002a24")
     public final Color selectedHeaderBackground;
 
-    @objid ("a07b65c9-9616-410c-b56a-deb0961312af")
+    @objid ("bb0534da-859f-49c9-98d4-b6fed313d1c7")
     public final Font selectedHeaderFont;
 
-    @objid ("aedbaf30-917b-480d-829a-dffec42a3882")
+    @objid ("13809e0a-7d5f-4e4f-a2fe-e73c12d9690a")
     public final Color selectedHeaderForeground;
 
-    @objid ("99f711f7-4d33-4b84-8ae4-06886b3c7a01")
+    @objid ("1a19ad52-0d85-47ec-880c-15f72aa2f6a7")
     public final Color selectedHeaderGradientBackground;
 
-    @objid ("59c8b40e-4013-47e0-a1f9-884605aeb026")
+    @objid ("8b9eaea2-40b1-4d75-8c9e-350956f48780")
     public final Color selectedHeaderGradientForeground;
 
-    @objid ("630d33e7-153d-4c4b-b9c8-fad8336b9989")
+    @objid ("3db4a469-7384-495b-92da-467a06b44cd1")
     public final Color selectedRowColumnBackground;
 
-    @objid ("f224b489-117d-4206-890a-efd37fd042ee")
+    @objid ("784feaa4-ba80-4b29-ba09-b0dfd17e24c8")
     public final Font selectedRowColumnFont;
 
-    @objid ("9dd2bf8a-e85f-4714-991a-e8933e651b9d")
+    @objid ("fc76a00b-9e3b-4c15-b47c-047722d7980a")
     public final Color selectedRowColumnForeground;
 
-    @objid ("06d5ece0-3e90-4216-af8d-bc85f090b673")
+    @objid ("e416db22-5c5c-4e88-8489-5f39eede7130")
     public final BorderStyle selectedCellGridBorderStyle;
+
+    @objid ("30a77a1b-ef08-4e3d-82e1-75e8a668e185")
+    private static ModelioTableTheme instance = null;
 
     @objid ("371a6bc6-5477-490b-bd92-86f5f4445541")
     public static ModelioTableTheme getInstance() {
@@ -148,62 +148,61 @@ public class ModelioTableTheme {
     }
 
     @objid ("d0812a1e-6d57-4527-9b75-03fa76da87d2")
-    private  ModelioTableTheme() {
+    private ModelioTableTheme() {
         // Use platform theme values where possible
         Color systemSelectionBackground = Display.getCurrent().getSystemColor(SWT.COLOR_LIST_SELECTION);
         Color systemSelectionForeground = Display.getCurrent().getSystemColor(SWT.COLOR_LIST_SELECTION_TEXT);
         Font defaultFont = Display.getCurrent().getSystemFont();
-        
+
         // Normal (unselected) cell
         this.cellBackground = UIColor.WHITE;
         this.cellForeGround = UIColor.BLACK;
         this.cellFont = defaultFont;
         this.cellHAlign = HorizontalAlignmentEnum.LEFT;
         this.cellVAlign = VerticalAlignmentEnum.TOP;
-        
+
         // Normal (unselected) header
         this.headerBackground = UIColor.TABLE_HEADER_BG;
         this.headerGradientBackground = this.headerBackground;
         this.headerGradientForeground = CoreColorRegistry.getDerivedColor(UIColor.WHITE, 1.5f);
         this.headerForeground = UIColor.TABLE_HEADER_FG;
-        
+
         this.headerFont = defaultFont;
-        
+
         this.verticalColumnHeaderHAlign = HorizontalAlignmentEnum.CENTER;
         this.verticalColumnHeaderVAlign = VerticalAlignmentEnum.MIDDLE;
-        
+
         this.horizontalColumnHeaderHAlign = HorizontalAlignmentEnum.CENTER;
         this.horizontalColumnHeaderVAlign = VerticalAlignmentEnum.MIDDLE;
-        
+
         this.rowHeaderHAlign = HorizontalAlignmentEnum.LEFT;
         this.rowHeaderVAlign = VerticalAlignmentEnum.TOP;
-        
+
         // Alternate row background colors
         this.oddRowBackground = UIColor.TABLE_ODDROW_BG; // CoreColorRegistry.getColor(new
         // RGB(249, 249,
         // 255));
         this.evenRowBackground = UIColor.TABLE_EVENROW_BG; // GUIHelper.COLOR_WHITE;
-        
+
         // Selected cell
         this.selectedCellGridlineColor = systemSelectionBackground;
         this.selectedCellGridBorderStyle = new BorderStyle(2, this.selectedCellGridlineColor, BorderStyle.LineStyleEnum.SOLID);
-        
+
         this.selectedCellFont = defaultFont;
         this.selectedCellBackground = this.cellBackground; // systemSelectionBackground;
         this.selectedCellForeground = this.cellForeGround; // systemSelectionForeground;
-        
+
         this.selectedRowColumnFont = defaultFont;
         this.selectedRowColumnBackground = systemSelectionBackground;
         this.selectedRowColumnForeground = systemSelectionForeground;
-        
+
         // Selected header
         this.selectedHeaderFont = defaultFont;
         this.selectedHeaderBackground = systemSelectionBackground;
         this.selectedHeaderGradientBackground = this.selectedHeaderBackground;
         this.selectedHeaderGradientForeground = this.selectedHeaderBackground;
-        
+
         this.selectedHeaderForeground = systemSelectionForeground;
-        
     }
 
 }

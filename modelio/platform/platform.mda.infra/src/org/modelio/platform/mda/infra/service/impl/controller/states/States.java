@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.service.impl.controller.states;
 
@@ -170,12 +170,13 @@ public class States {
 
     /**
      * Initialize the state machine.
+     *
      * @param rtModule the module controller
      */
     @objid ("99cea2e7-63bf-4465-b0bd-6b2667966f65")
-    public  States(IRTModuleAccess rtModule) {
+    public States(IRTModuleAccess rtModule) {
         this.rtModule = rtModule;
-        
+
         // First initialize features
         // -------------------------
         this.docFeature = new DocFeature(this.rtModule);
@@ -185,8 +186,8 @@ public class States {
         this.startedFeature = new StartedFeature(this.rtModule);
         this.guiFeature = new GuiContribFeature(this.rtModule);
         this.diagramStylesFeature = new DiagramStylesInstalledFeature(rtModule);
-        
-        
+
+
         // Define states
         // -------------
         this.toselect = new AbstractModuleState(this.rtModule, "To select"); // installed, to select
@@ -196,7 +197,7 @@ public class States {
         this.unloaded = new AbstractModuleState(this.rtModule, "Unloaded"); // not yet loaded or broken
         this.removed = new AbstractModuleState(this.rtModule, "Removed"); // definitively removed from project
         this.closed = new AbstractModuleState(this.rtModule, "Project closed"); // fast unload on project close
-        
+
         // temp states
         AbstractModuleState starting = new AbstractModuleState(this.rtModule, "Starting");
         AbstractModuleState stopping = new AbstractModuleState(this.rtModule, "Stopping");
@@ -204,30 +205,30 @@ public class States {
         AbstractModuleState activating = new AbstractModuleState(this.rtModule, "Activating");
         AbstractModuleState disabling = new AbstractModuleState(this.rtModule, "Disabling");
         AbstractModuleState closing = new AbstractModuleState(this.rtModule, "Closing");
-        
-        
+
+
         // Initialize the current state
         this.currentState = this.unloaded;
-        
+
         // Set states features
         // -------------------
         // Note: The features are activated in the order they are declared and deactivated in the reverse one.
         //       Order is important because some features depend on others
         //       (many depend on this.loadedFeature).
-        
+
         this.unloaded.addFeatures();
-        
+
         this.toselect.addFeatures(this.loadedFeature);
-        
+
         this.disabled.addFeatures(this.loadedFeature, this.diagramStylesFeature);
-        
+
         this.activated.addFeatures(this.loadedFeature,
                 this.mmFragmentFeature,
                 this.diagramStylesFeature,
                 this.dynamicModelFeature,
                 this.docFeature
                 );
-        
+
         this.started.addFeatures(this.loadedFeature,
                 this.mmFragmentFeature,
                 this.diagramStylesFeature,
@@ -235,72 +236,72 @@ public class States {
                 this.guiFeature,
                 this.docFeature,
                 this.startedFeature);
-        
-        
+
+
         // Metamodel fragments are too costly to remove
         this.closed.addFeatures(this.mmFragmentFeature);
-        
+
         this.removed.addFeatures();
-        
+
         starting.addFeatures(this.started.getFeatures());
         unloading.addFeatures();
         disabling.addFeatures(this.disabled.getFeatures());
         activating.addFeatures(this.activated.getFeatures());
         stopping.addFeatures(this.activated.getFeatures());
         closing.addFeatures(this.closed.getFeatures());
-        
-        
+
+
         // Some transition actions
         SetGModuleStateAction setDisabledAction = new SetGModuleStateAction(this.rtModule, false);
         SetGModuleStateAction setActivatedAction = new SetGModuleStateAction(this.rtModule, true);
-        
+
         // Transitions, grouped by use cases
         // ---------------------------------
-        
+
         // Installation : install, activates and start the module
         add(Transition.build().from(this.unloaded).to(this.toselect).message(MSGINSTALL).postMessage(MSGSELECT)
                 .action(new CallModuleInstallAction(this.rtModule)) );
         add(Transition.build().from(this.toselect).to(this.disabled).message(MSGSELECT).postMessage(MSGACTIVATE)
                 .action(new SelectModuleAction(this.rtModule)) );
-        
+
         // Activate : activate and starts the module
         add(Transition.build().from(this.disabled).to(activating).message(MSGACTIVATE).postMessage(MSGACTIVATE));
         add(Transition.build().from(this.unloaded).to(activating).message(MSGACTIVATE).postMessage(MSGACTIVATE));
         add(Transition.build().from(activating).to(this.activated).message(MSGACTIVATE).postMessage(MSGSTART)
                 .action(setActivatedAction));
         add(Transition.build().from(this.activated).to(this.activated).message(MSGACTIVATE).postMessage(MSGSTART));
-        
+
         // Start : activate if needed
         add(Transition.build().from(this.unloaded).to(activating).message(MSGSTART).postMessage(MSGACTIVATE));
         add(Transition.build().from(this.activated).to(starting).message(MSGSTART).postMessage(MSGSTART));
         add(Transition.build().from(starting).to(this.started).message(MSGSTART));
-        
+
         // Temporary stop
         add(Transition.build().from(this.started).to(stopping).message(MSGSTOP).postMessage(MSGSTOP));
         add(Transition.build().from(stopping).to(this.activated).message(MSGSTOP));
-        
+
         // Deactivate : stop if needed, works on broken module
         add(Transition.build().from(this.started).to(stopping).message(MSGDISABLE).action(setDisabledAction).postMessage(MSGDISABLE));
         add(Transition.build().from(stopping).to(this.activated).message(MSGDISABLE).postMessage(MSGDISABLE));
         add(Transition.build().from(this.activated).to(disabling).message(MSGDISABLE).postMessage(MSGDISABLE));
         add(Transition.build().from(disabling).to(this.disabled).message(MSGDISABLE)
                 .action(setDisabledAction));
-        
+
         add(Transition.build().from(this.unloaded).to(this.unloaded).message(MSGDISABLE)
                 .action(setDisabledAction));
-        
+
         // Unload : stop if needed
         add(Transition.build().from(this.started).to(stopping).message(MSGUNLOAD).postMessage(MSGUNLOAD));
         add(Transition.build().from(stopping).to(this.activated).message(MSGUNLOAD).postMessage(MSGUNLOAD));
         add(Transition.build().from(this.activated).to(unloading).message(MSGUNLOAD).postMessage(MSGUNLOAD));
         add(Transition.build().from(this.disabled).to(unloading).message(MSGUNLOAD).postMessage(MSGUNLOAD));
         add(Transition.build().from(unloading).to(this.unloaded).message(MSGUNLOAD));
-        
+
         // Load on project open, without starting
         add(Transition.build().from(this.unloaded).to(activating).message(MSGLOADACTIVATED).postMessage(MSGLOADACTIVATED));
         add(Transition.build().from(activating).to(this.activated).message(MSGLOADACTIVATED));
         add(Transition.build().from(this.unloaded).to(this.disabled).message(MSGLOADDISABLED));
-        
+
         // Stop and fast unload on project close
         add(Transition.build().from(this.started).to(stopping).message(MSGCLOSE).postMessage(MSGCLOSE));
         add(Transition.build().from(starting).to(this.activated).message(MSGCLOSE).postMessage(MSGCLOSE));
@@ -310,15 +311,15 @@ public class States {
         add(Transition.build().from(this.toselect).to(this.closed).message(MSGCLOSE));
         add(Transition.build().from(this.activated).to(this.closed).message(MSGCLOSE));
         add(Transition.build().from(this.disabled).to(this.closed).message(MSGCLOSE));
-        
+
         // Remove from project
         add(Transition.build().from(this.started).to(this.disabled).message(MSGDELETE).postMessage(MSGDELETE));
         add(Transition.build().from(this.activated).to(this.disabled).message(MSGDELETE).postMessage(MSGDELETE));
         add(Transition.build().from(this.disabled).to(this.removed).message(MSGDELETE)
                 .action(new UnselectModuleAction(this.rtModule)));
         add(Transition.build().from(this.unloaded).to(this.removed).message(MSGDELETE));
-        
-        
+
+
         // No-op Messages when the module is already in the right state
         setNoEffect(MSGSTART, this.started);
         setNoEffect(MSGSTOP, this.activated, this.disabled, this.unloaded);
@@ -328,24 +329,26 @@ public class States {
         setNoEffect(MSGDISABLE, this.disabled);
         setNoEffect(MSGLOADACTIVATED, this.activated, starting, this.started);
         setNoEffect(MSGLOADDISABLED, this.disabled);
-        
+
     }
 
     /**
      * Add the transition to the state graph
+     *
      * @param tb the transition descriptor
      */
     @objid ("1cd3721f-4434-4d85-a89c-347f7eb9c3d0")
     private void add(org.modelio.platform.mda.infra.service.impl.controller.states.Transition.Builder tb) {
         Transition t = tb.create();
         t.getSource().addTransition(t);
-        
+
     }
 
     /**
      * Try to move to the given state.
      * <p>
      * Executes all exit() and enter() on state change.
+     *
      * @param newState
      * @throws ModuleException on failure
      */
@@ -356,21 +359,21 @@ public class States {
             MdaInfra.LOG.debug("'%s' v%s module state already '%s'", this.rtModule.getName(), this.rtModule.getVersion(), this.currentState);
             return;
         }
-        
+
         MdaInfra.LOG.debug("'%s' v%s module state changing from '%s' to '%s'", this.rtModule.getName(), this.rtModule.getVersion(), this.currentState, newState);
-        
+
         AbstractModuleState oldState = this.currentState;
-        
+
         // Exit previous state
         this.currentState.exitState(newState);
-        
+
         try {
             // Enter new state
             newState.enterState(this.currentState);
-        
+
             // Record state
             this.currentState = newState;
-        
+
             // Update features
             try {
                 MdaInfra.LOG.indent();
@@ -378,13 +381,13 @@ public class States {
             } finally {
                 MdaInfra.LOG.dedent();
             }
-        
+
             // Reset down error
             this.rtModule.setDownError(null);
-        
+
         } catch (ModuleException ex) {
             MdaInfra.LOG.debug("'%s' v%s module state change to '%s' failed: %s",this.rtModule.getName(), this.rtModule.getVersion(), newState, ex.getMessage());
-        
+
             // Restore previous state
             try {
                 this.currentState.enterState(oldState);
@@ -394,14 +397,14 @@ public class States {
                 throw new ModuleException("Unable to restore previous state: "+e2.toString(), e2);
             }
             this.currentState = oldState;
-        
+
             // rethrow exception
             throw ex;
         } catch (RuntimeException | LinkageError ex) {
             String msg = String.format("'%s' v%s module state change to '%s' unexpectedly failed: %s",this.rtModule.getName(), this.rtModule.getVersion(), newState, ex);
             MdaInfra.LOG.debug(msg);
             ModuleException moduleException = new ModuleException(msg, ex);
-        
+
             // Restore previous state
             try {
                 this.currentState.enterState(oldState);
@@ -409,54 +412,56 @@ public class States {
             } catch (ModuleException | RuntimeException | LinkageError  e2) {
                 ex.addSuppressed(new ModuleException("Unable to restore previous state: "+e2.toString(), e2));
             }
-        
+
             this.currentState = oldState;
-        
+
             // throw new exception
             throw moduleException;
         }
-        
+
     }
 
     /**
      * Force the current state.
+     *
      * @param newState the new state
      */
     @objid ("a68aa1b7-8856-40e4-bc94-a3c6433bd3bd")
     public void forceCurrentState(AbstractModuleState newState) {
         // Record state
         this.currentState = newState;
-        
+
     }
 
     /**
      * Handle a message.
+     *
      * @param message the received message
      * @throws ModuleException on failure
      */
     @objid ("0a0cdd18-cad5-4abd-8fc9-467939f0422a")
     public void handleMessage(Object message) throws ModuleException {
         MdaInfra.LOG.debug("'%s' v%s module [%s] : message '%s'", this.rtModule.getName(), this.rtModule.getVersion(), this.currentState, message);
-        
+
         // Look for transition, may throw IllegalStateException
         Transition t = this.currentState.getTransition(message);
-        
-        
+
+
         // Execute transition actions
         for (IModuleStateAction a : t.getActions()) {
             a.execute();
         }
-        
+
         // Change target and features
         AbstractModuleState target = t.getTarget();
         changeState(target);
-        
+
         // Send post transition message if any
         Object postTransitionMessage = t.getPostTransitionMessage();
         if (postTransitionMessage != null) {
             handleMessage(postTransitionMessage);
         }
-        
+
     }
 
     @objid ("57b76af8-3295-4342-89a2-7a875dba6472")
@@ -465,7 +470,7 @@ public class States {
         StringBuilder sb = new StringBuilder();
         sb.append(this.currentState.toString()).append("\n");
         sb.append("Current features:");
-        
+
         for (IModuleFeature iModuleFeature : this.currentFeatures) {
             sb.append("\n - ").append(iModuleFeature);
         }
@@ -473,6 +478,7 @@ public class States {
     }
 
     /**
+     *
      * @return true if the module is started.
      */
     @objid ("8accdfb7-f5ef-4c32-8535-15f3a5f386f5")
@@ -481,6 +487,7 @@ public class States {
     }
 
     /**
+     *
      * @return true if the IModule class is loaded.
      */
     @objid ("59db1446-050f-490e-b475-91475d3335fc")
@@ -498,7 +505,7 @@ public class States {
         } catch (ModuleException  e) {
             forceCurrentState(this.unloaded);
         }
-        
+
     }
 
     @objid ("6c686694-c1b5-4093-898e-d31ff7ec709a")
@@ -507,7 +514,7 @@ public class States {
         for (AbstractModuleState s : states) {
             add(builder.from(s).to(s));
         }
-        
+
     }
 
     @objid ("7a11d515-3ace-41d0-bfc1-b78c370bc34f")
@@ -515,30 +522,31 @@ public class States {
         for (AbstractModuleState st : states) {
             st.addFeatures(feature);
         }
-        
+
     }
 
     /**
      * Update currently activated features from the new state.
+     *
      * @param newState the new state
      * @throws ModuleException if state change is refused by a feature, in case of breaking error
      */
     @objid ("7c2b7d77-6966-4d95-97d5-f74d3d59ca84")
     private void updateFeatures(AbstractModuleState newState) throws ModuleException {
         List<IModuleFeature> newFeatures = newState.getFeatures();
-        
+
         // disable features to remove, in the reverse order
         for (ListIterator<IModuleFeature> it = this.currentFeatures.listIterator(this.currentFeatures.size());  it.hasPrevious(); ) {
             IModuleFeature f = it.previous();
-        
+
             if (! newFeatures.contains(f)) {
                 try {
                     if (DEBUG_FEATURES) {
                         MdaInfra.LOG.debug("'%s' v%s module state [%s] : disabling feature '%s' ",this.rtModule.getName(), this.rtModule.getVersion(), newState,f);
                     }
-        
+
                     f.disable();
-        
+
                     it.remove();
                 } catch (ModuleException | RuntimeException | LinkageError e) {
                     // Log and continue
@@ -547,12 +555,12 @@ public class States {
                 }
             }
         }
-        
+
         // Activate new features
         boolean ok = false;
         ArrayList<IModuleFeature> toAbort = new ArrayList<>(newFeatures.size());
         IModuleFeature processed = null;
-        
+
         try {
             for (IModuleFeature f : newFeatures) {
                 processed = f;
@@ -560,20 +568,20 @@ public class States {
                     if (DEBUG_FEATURES) {
                         MdaInfra.LOG.debug("'%s' v%s module state [%s] : enabling feature '%s' ",this.rtModule.getName(), this.rtModule.getVersion(),newState,f);
                     }
-        
+
                     f.enable();
-        
+
                     toAbort.add(f);
                     this.currentFeatures.add(f);
                 }
             }
-        
+
             ok = true;
         } finally {
             if (! ok) {
                 MdaInfra.LOG.debug("'%s' v%s module state [%s] :  '%s' feature failed to enable, reverting %d features...  ",this.rtModule.getName(), this.rtModule.getVersion(),newState, processed, toAbort.size());
                 MdaInfra.LOG.indent();
-        
+
                 try {
                     for (IModuleFeature f : toAbort) {
                         try {
@@ -593,7 +601,7 @@ public class States {
                 }
             }
         }
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.ramc.core.packaging.filters;
 
@@ -61,20 +61,22 @@ public class RamcFilterBuilder {
 
     /**
      * Initialize the builder.
+     *
      * @param smMetamodel the modelio metamodel.
      * @param artifact the model component artifact.
      */
     @objid ("61790927-c746-11e1-96e9-001ec947ccaf")
-    public  RamcFilterBuilder(SmMetamodel smMetamodel, Artifact artifact) {
+    public RamcFilterBuilder(SmMetamodel smMetamodel, Artifact artifact) {
         this.smMetamodel = smMetamodel;
         this.dependencyFilter = new DependencyFilter(null, this.smMetamodel.getMExpert());
         this.noteFilter = new NoteFilter(artifact);
         this.tagFilter = new TaggedValueFilter(artifact);
-        
+
     }
 
     /**
      * Tells to accept {@link Dependency UML Dependencies} with the given stereotype.
+     *
      * @param type a stereotype on {@link Dependency} metaclass.
      */
     @objid ("6179078e-c746-11e1-96e9-001ec947ccaf")
@@ -84,6 +86,7 @@ public class RamcFilterBuilder {
 
     /**
      * Add a type of notes to accept.
+     *
      * @param type a note type
      */
     @objid ("617907d6-c746-11e1-96e9-001ec947ccaf")
@@ -93,6 +96,7 @@ public class RamcFilterBuilder {
 
     /**
      * Add a type of tags to accept.
+     *
      * @param type a tag type.
      */
     @objid ("6179090a-c746-11e1-96e9-001ec947ccaf")
@@ -102,17 +106,18 @@ public class RamcFilterBuilder {
 
     /**
      * Build the RAMC packaging model filter.
+     *
      * @return the RAMC model filter.
      */
     @objid ("f166aaa3-c9a1-11e1-96e9-001ec947ccaf")
     public ConfigurableModelFilter getModelFilter() {
         ConfigurableModelFilter modelFilter = new ConfigurableModelFilter(this.smMetamodel);
-        
+
         // Configure filters for recursion
         this.dependencyFilter.setTargetFilter(modelFilter);
         MExpert expert = this.smMetamodel.getMExpert();
         LinkTargetFilter linkFilter = new LinkTargetFilter(expert, modelFilter);
-        
+
         // Add link filters
         for (MClass metaclass : this.smMetamodel.getMClass(Element.class).getSub(true)) {
             if (expert.isLink(metaclass)) {
@@ -125,7 +130,7 @@ public class RamcFilterBuilder {
                 }
             }
         }
-        
+
         // Add node filters
         modelFilter.setFilter(TaggedValue.class, this.tagFilter);
         modelFilter.setFilter(Note.class, this.noteFilter);

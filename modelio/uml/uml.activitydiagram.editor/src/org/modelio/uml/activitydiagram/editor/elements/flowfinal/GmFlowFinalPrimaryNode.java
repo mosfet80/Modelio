@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.flowfinal;
 
@@ -51,11 +51,12 @@ public class GmFlowFinalPrimaryNode extends GmNoStyleSimpleNode implements IImag
 
     /**
      * Create a flow final graphic node.
+     *
      * @param diagram The diagram
      * @param relatedRef The related element reference, must not be null.
      */
     @objid ("2a79d562-55b6-11e2-877f-002564c97630")
-    public  GmFlowFinalPrimaryNode(IGmDiagram diagram, MRef relatedRef) {
+    public GmFlowFinalPrimaryNode(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -67,7 +68,7 @@ public class GmFlowFinalPrimaryNode extends GmNoStyleSimpleNode implements IImag
         }
         // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("2a79d56e-55b6-11e2-877f-002564c97630")
@@ -84,6 +85,7 @@ public class GmFlowFinalPrimaryNode extends GmNoStyleSimpleNode implements IImag
 
     /**
      * Get the parent model representation mode.
+     *
      * @return the parent representation mode or null if the node has still no parent.
      */
     @objid ("2a79d57e-55b6-11e2-877f-002564c97630")
@@ -103,26 +105,26 @@ public class GmFlowFinalPrimaryNode extends GmNoStyleSimpleNode implements IImag
     @Override
     public IEditableText getEditableText() {
         return new IEditableText() {
-        
+
                     @Override
                     public String getText() {
                         return getRelatedElement().getName();
                     }
-        
+
                     @Override
                     public void setText(String text) {
                         getRelatedElement().setName(text);
                     }
-        
+
                 };
-        
+
     }
 
     /**
      * For deserialization only.
      */
     @objid ("2a79d592-55b6-11e2-877f-002564c97630")
-    public  GmFlowFinalPrimaryNode() {
+    public GmFlowFinalPrimaryNode() {
         // for the serialization
     }
 
@@ -143,7 +145,7 @@ public class GmFlowFinalPrimaryNode extends GmNoStyleSimpleNode implements IImag
             break;
         }
         }
-        
+
     }
 
     @objid ("2a7b5bfd-55b6-11e2-877f-002564c97630")
@@ -156,10 +158,10 @@ public class GmFlowFinalPrimaryNode extends GmNoStyleSimpleNode implements IImag
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmFlowFinalPrimaryNode.", GmFlowFinalPrimaryNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("2a7b5c0a-55b6-11e2-877f-002564c97630")

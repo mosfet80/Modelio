@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.linkeditor.panel;
 
@@ -40,7 +59,6 @@ public interface ILinkEditor extends IPanelProvider, IModelChangeListener {
      * <li>disable selection change handling (the center element remains fixed)</li>
      * <li>enable dropping elements to create links</li>
      * </ul>
-     * @param onOff
      */
     @objid ("f9e4aa29-3bcd-4f40-bca0-6c9e43d06045")
     void setEditMode(boolean onOff);
@@ -50,7 +68,6 @@ public interface ILinkEditor extends IPanelProvider, IModelChangeListener {
 
     /**
      * Set the zoom level.
-     * @param level
      */
     @objid ("df7ffde0-54e2-48f0-8f9e-55cff0e084d3")
     void setZoomLevel(double level);
@@ -71,5 +88,5 @@ public interface ILinkEditor extends IPanelProvider, IModelChangeListener {
      */
     @objid ("cf2b2bc3-ae4b-4046-9db9-b5b8423a08b8")
     Image getImage();
-}
 
+}

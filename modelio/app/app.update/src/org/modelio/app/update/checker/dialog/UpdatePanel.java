@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.update.checker.dialog;
 
@@ -51,6 +51,7 @@ import org.modelio.app.update.plugin.AppUpdate;
 import org.modelio.platform.ui.UIImages;
 import org.modelio.platform.ui.panel.IPanelListener;
 import org.modelio.platform.ui.panel.IPanelProvider;
+import org.modelio.platform.ui.swt.BrowserConfigurator;
 import org.modelio.platform.update.repo.UpdateDescriptor;
 
 @objid ("8702429c-9706-4be4-8ffb-0141ec17dc94")
@@ -59,7 +60,7 @@ public class UpdatePanel implements IPanelProvider {
     private final PanelController controller;
 
     @objid ("24c63740-28a4-4d61-83f2-ee52353c2f54")
-    public  UpdatePanel() {
+    public UpdatePanel() {
         this.controller = new PanelController();
     }
 
@@ -101,7 +102,7 @@ public class UpdatePanel implements IPanelProvider {
         } else {
             this.controller.setData(null);
         }
-        
+
     }
 
     @objid ("0b16c9eb-6b42-4888-9a47-06eb1217fe03")
@@ -132,7 +133,7 @@ public class UpdatePanel implements IPanelProvider {
             if (this.ui != null) {
                 this.ui.update(this.data);
             }
-            
+
         }
 
         @objid ("95251a96-8120-4acf-a72f-9b01e872274b")
@@ -152,7 +153,7 @@ public class UpdatePanel implements IPanelProvider {
         public void dispose() {
             this.ui.dispose();
             this.ui = null;
-            
+
         }
 
         @objid ("1f8483a5-565e-4785-ad80-c521865f320d")
@@ -163,7 +164,7 @@ public class UpdatePanel implements IPanelProvider {
                 this.data.unSelectUpdate(element);
             }
             this.ui.update(this.data);
-            
+
         }
 
         @objid ("9e89ac36-57ad-4c76-a8d1-b3423dd4443b")
@@ -172,7 +173,7 @@ public class UpdatePanel implements IPanelProvider {
                 this.data.selectUpdate(descriptor);
             }
             this.ui.update(this.data);
-            
+
         }
 
         @objid ("8df13a9e-aa90-4b92-944c-229d9d8de0d2")
@@ -181,33 +182,33 @@ public class UpdatePanel implements IPanelProvider {
                 this.data.unSelectUpdate(descriptor);
             }
             this.ui.update(this.data);
-            
+
         }
 
     }
 
     @objid ("0ea997f2-1a96-46a1-8b27-ed40fe26a076")
     private static class PanelUI {
-        @objid ("027e21c1-a43f-41da-9c5b-3fea52324896")
+        @objid ("5a777f4c-6bb5-4230-9d34-12de1479350b")
         private Composite composite = null;
+
+        @objid ("18b48e9b-1c7d-4ba6-97d7-61e53645aced")
+        protected Browser browser;
+
+        @objid ("85cdd685-10ca-4c50-81dc-7212c44a1147")
+        private TableViewer tableViewer;
+
+        @objid ("a269e93e-bd01-4804-9709-ab7d0e70b78d")
+        protected static final Image RAMC = AppUpdate.getImageDescriptor("icons/ramc.png").createImage();
+
+        @objid ("1db5e080-41e8-4cc7-b5ba-1afed21a0a88")
+        protected static final Image MODULE = AppUpdate.getImageDescriptor("icons/module.png").createImage();
 
         @objid ("20bb3c6e-9b01-4f10-942e-aa33ac5685f8")
         private final PanelController controller;
 
-        @objid ("569f19e3-1625-4233-806e-28f4309d0076")
-        protected Browser browser;
-
-        @objid ("4d4ccf2b-c296-437a-a15a-055b7565bc0d")
-        private TableViewer tableViewer;
-
-        @objid ("2f39d878-54d9-49fb-aba6-389824a1d4f4")
-        protected static final Image RAMC = AppUpdate.getImageDescriptor("icons/ramc.png").createImage();
-
-        @objid ("659dc368-183b-4303-925f-6dc01d1ee801")
-        protected static final Image MODULE = AppUpdate.getImageDescriptor("icons/module.png").createImage();
-
         @objid ("d35ad481-993a-4961-9041-622b3cbf6b01")
-        public  PanelUI(final PanelController controller) {
+        public PanelUI(final PanelController controller) {
             this.controller = controller;
         }
 
@@ -215,29 +216,29 @@ public class UpdatePanel implements IPanelProvider {
         public Control createUI(final Composite parent) {
             this.composite = new Composite(parent, SWT.NONE);
             this.composite.setLayout(new GridLayout(2, false));
-            
+
             final Composite leftComposite = new Composite(this.composite, SWT.NONE);
             leftComposite.setLayout(new GridLayout(1, false));
             final GridData layoutData = new GridData(SWT.BEGINNING, SWT.FILL, false, true);
             leftComposite.setLayoutData(layoutData);
-            
+
             // Define the TableViewer
             this.tableViewer = new TableViewer(leftComposite, SWT.BORDER | SWT.SINGLE | SWT.FULL_SELECTION);
             final Table table = this.tableViewer.getTable();
             table.setHeaderVisible(true);
             table.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-            
+
             // Create the columns
             createColumns(this.tableViewer);
-            
+
             // Set the ContentProvider
             this.tableViewer.setContentProvider(ArrayContentProvider.getInstance());
-            
+
             // Sort table
             this.tableViewer.setComparator(new ViewerComparator());
-            
+
             this.tableViewer.addSelectionChangedListener(new ISelectionChangedListener() {
-            
+
                 @Override
                 public void selectionChanged(final SelectionChangedEvent event) {
                     final ISelection selection = event.getSelection();
@@ -250,54 +251,54 @@ public class UpdatePanel implements IPanelProvider {
                                 if (url != null && !url.isEmpty()) {
                                     PanelUI.this.browser.setUrl(url);
                                 }
-            
+
                             }
                         }
                     }
                 }
             });
-            
+
             final Composite buttonComposite = new Composite(leftComposite, SWT.NONE);
             buttonComposite.setLayoutData(new GridData(SWT.END, SWT.END, false, false));
             buttonComposite.setLayout(new GridLayout(2, false));
-            
+
             // Select all button
             final Button selectAllButton = new Button(buttonComposite, SWT.PUSH);
             selectAllButton.setText(AppUpdate.I18N.getString("UpdateBrowserDialog.SelectAll"));
             selectAllButton.addSelectionListener(new SelectionListener() {
-            
+
                 @Override
                 public void widgetSelected(final SelectionEvent e) {
                     PanelUI.this.controller.onSelectAll();
                 }
-            
+
                 @Override
                 public void widgetDefaultSelected(final SelectionEvent e) {
                     // Empty
                 }
             });
             selectAllButton.setLayoutData(new GridData());
-            
+
             // Unselect all button
             final Button unselectAllButton = new Button(buttonComposite, SWT.PUSH);
             unselectAllButton.setText(AppUpdate.I18N.getString("UpdateBrowserDialog.UnselectAll"));
             unselectAllButton.addSelectionListener(new SelectionListener() {
-            
+
                 @Override
                 public void widgetSelected(final SelectionEvent e) {
                     PanelUI.this.controller.onUnselectAll();
                 }
-            
+
                 @Override
                 public void widgetDefaultSelected(final SelectionEvent e) {
                     // Empty
                 }
             });
             unselectAllButton.setLayoutData(new GridData());
-            
-            this.browser = new Browser(this.composite, SWT.NONE);
+
+            this.browser = BrowserConfigurator.newBrowser(this.composite, SWT.NONE);
             this.browser.setText("");
-            
+
             final GridData browserLayoutData = new GridData(SWT.FILL, SWT.FILL, true, true);
             browserLayoutData.widthHint = 300;
             this.browser.setLayoutData(browserLayoutData);
@@ -314,7 +315,7 @@ public class UpdatePanel implements IPanelProvider {
                     final UpdateDescriptor descriptor = (UpdateDescriptor) element;
                     return descriptor.getLabel();
                 }
-            
+
                 @Override
                 public Image getImage(final Object element) {
                     final UpdateDescriptor descriptor = (UpdateDescriptor) element;
@@ -327,7 +328,7 @@ public class UpdatePanel implements IPanelProvider {
                     }
                 }
             });
-            
+
             final TableViewerColumn oldVersionCol = new TableViewerColumn(viewer, SWT.NONE);
             oldVersionCol.getColumn().setText(AppUpdate.I18N.getString("UpdateBrowserDialog.column.CurrentVersion"));
             oldVersionCol.setLabelProvider(new ColumnLabelProvider() {
@@ -340,7 +341,7 @@ public class UpdatePanel implements IPanelProvider {
                     return mud.getCurrentVersion();
                 }
             });
-            
+
             final TableViewerColumn newVersionCol = new TableViewerColumn(viewer, SWT.NONE);
             newVersionCol.getColumn().setText(AppUpdate.I18N.getString("UpdateBrowserDialog.column.NewVersion"));
             newVersionCol.setLabelProvider(new ColumnLabelProvider() {
@@ -350,7 +351,7 @@ public class UpdatePanel implements IPanelProvider {
                     return mud.getNewVersion();
                 }
             });
-            
+
             final TableViewerColumn updateCol = new TableViewerColumn(viewer, SWT.NONE);
             updateCol.getColumn().setText(AppUpdate.I18N.getString("UpdateBrowserDialog.column.SelectInstall"));
             updateCol.setLabelProvider(new ColumnLabelProvider() {
@@ -358,7 +359,7 @@ public class UpdatePanel implements IPanelProvider {
                 public String getText(final Object element) {
                     return "";
                 }
-            
+
                 @Override
                 public Image getImage(final Object element) {
                     if (PanelUI.this.controller.data.isSelected((UpdateDescriptor) element)) {
@@ -372,23 +373,23 @@ public class UpdatePanel implements IPanelProvider {
                 protected Object getValue(final Object element) {
                     return PanelUI.this.controller.data.isSelected((UpdateDescriptor) element);
                 }
-            
+
                 @Override
                 protected void setValue(final Object element, final Object value) {
                     PanelUI.this.controller.onItemSelected((UpdateDescriptor) element, (boolean) value);
                 }
-            
+
                 @Override
                 protected CellEditor getCellEditor(final Object element) {
                     return new CheckboxCellEditor(null, SWT.CHECK | SWT.READ_ONLY);
                 }
-            
+
                 @Override
                 protected boolean canEdit(final Object element) {
                     return true;
                 }
             });
-            
+
         }
 
         @objid ("f8110f0d-9eba-4775-b217-9bc83bd3fed4")
@@ -396,13 +397,13 @@ public class UpdatePanel implements IPanelProvider {
             if (data != null) {
                 final boolean noInput = this.tableViewer.getInput() == null;
                 this.tableViewer.setInput(data.getAvailableUpdates());
-            
+
                 if (noInput) {
                     final Table table = this.tableViewer.getTable();
                     for (int i = 0; i < table.getColumnCount(); i++) {
                         final TableColumn col = table.getColumn(i);
                         col.pack();
-            
+
                         // The column with an icon isn't resized well after pack, we need to
                         // add the image width
                         if (i == 4) {
@@ -411,12 +412,12 @@ public class UpdatePanel implements IPanelProvider {
                         }
                     }
                 }
-            
+
                 if (this.tableViewer.getSelection().isEmpty()) {
                     this.tableViewer.setSelection(new StructuredSelection(this.tableViewer.getElementAt(0)));
                 }
             }
-            
+
         }
 
         @objid ("ff412ffb-dc46-40c6-9f41-1ee75c7bc8c2")

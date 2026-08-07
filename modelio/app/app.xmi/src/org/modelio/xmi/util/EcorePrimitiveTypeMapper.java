@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.util;
 
@@ -27,6 +27,7 @@ import org.modelio.xmi.reverse.ReverseProperties;
 
 /**
  * This class made the mapping between Modelio predefined type and Ecore org.eclipse.uml2.uml.DataType
+ *
  * @author ebrosse
  */
 @objid ("d293344b-a8e4-4815-91a1-495786604653")
@@ -72,28 +73,29 @@ public class EcorePrimitiveTypeMapper {
 
     /**
      * provide the Modelio org.eclipse.uml2.uml.DataType corresponding to a given Ecore org.eclipse.uml2.uml.Type
+     *
      * @param ecoreType : the given Ecore org.eclipse.uml2.uml.Type
      * @return the corresponding Modelio org.eclipse.uml2.uml.DataType
      */
     @objid ("e477b643-33e0-41fc-92d0-a6a5b730beed")
     public static DataType getPredefinedType(final org.eclipse.uml2.uml.Type ecoreType) {
         ModelioTypes modelioTypes = ReverseProperties.getInstance().getModelioTypes();
-        
+
         //Compute primitiveType name
         String currentEcoreTypeName = ecoreType.getName();
-        
+
         if (currentEcoreTypeName == null) {
             if (ecoreType instanceof PrimitiveTypeImpl){
                 currentEcoreTypeName = ((PrimitiveTypeImpl) ecoreType).eProxyURI().fragment();
             }else
                 currentEcoreTypeName = ecoreType.eResource().getURI().fragment();
         }
-        
-               
-        if ((ecoreType.eContainer() instanceof ModelImpl) 
+
+
+        if ((ecoreType.eContainer() instanceof ModelImpl)
                 && (((ModelImpl) ecoreType.eContainer()).getName() != null)
                 && ((ModelImpl) ecoreType.eContainer()).getName().equals(folderName)){
-            
+
             if (currentEcoreTypeName.equals(byteEcoreName)){
                 return modelioTypes.getBYTE();
             }else if (currentEcoreTypeName.equals(dateEcoreName)){
@@ -114,9 +116,9 @@ public class EcorePrimitiveTypeMapper {
                 return ReverseProperties.getInstance().getUnlimitedNatural();
             }
         }
-        
+
         if (currentEcoreTypeName != null) {
-            
+
             currentEcoreTypeName = currentEcoreTypeName.toLowerCase();
             if (currentEcoreTypeName.equals(modelioTypes.getINTEGER().getName())){
                 return modelioTypes.getINTEGER();
@@ -151,6 +153,7 @@ public class EcorePrimitiveTypeMapper {
 
     /**
      * Test if a given Ecore org.eclipse.uml2.uml.Type is a Modelio Predefined org.eclipse.uml2.uml.Type
+     *
      * @param ecoreType : the tested Ecore org.eclipse.uml2.uml.Type
      * @return true if the Ecore org.eclipse.uml2.uml.Type corresponds to a Modelio Predefined org.eclipse.uml2.uml.Type
      */
@@ -159,10 +162,10 @@ public class EcorePrimitiveTypeMapper {
         String ecoreTypeName = ecoreType.getName();
         ModelioTypes modelioTypes = ReverseProperties.getInstance().getModelioTypes();
         String ecoreContainerName = "";
-        
+
         if (ecoreType.getPackage() != null)
             ecoreContainerName = ecoreType.getPackage().getName();
-        
+
         if (ecoreTypeName == null) {
             if (ecoreType instanceof PrimitiveTypeImpl){
                 ecoreTypeName = ((PrimitiveTypeImpl) ecoreType).eProxyURI().fragment();
@@ -170,9 +173,9 @@ public class EcorePrimitiveTypeMapper {
             }else if (ecoreType.eResource() != null)
                 ecoreTypeName = ecoreType.eResource().getURI().fragment();
         }
-        
+
         if (ecoreTypeName != null) {
-        
+
             if ((ecoreContainerName != null) && (ecoreContainerName.contains("EcorePrimitiveTypes"))){
                 if ((ecoreTypeName.equals(byteEcoreName))
                         || (ecoreTypeName.equals(dateEcoreName))
@@ -185,9 +188,9 @@ public class EcorePrimitiveTypeMapper {
                     return true;
                 }
             }
-        
+
             ecoreTypeName = ecoreTypeName.toLowerCase();
-        
+
             return  (((ecoreType instanceof org.eclipse.uml2.uml.PrimitiveType) || (ecoreType instanceof org.eclipse.uml2.uml.DataType) )
                     && ((ecoreTypeName.equals(modelioTypes.getBOOLEAN() .getName()))
                     || (ecoreTypeName.equals(modelioTypes.getBYTE().getName()))
@@ -209,6 +212,7 @@ public class EcorePrimitiveTypeMapper {
     }
 
     /**
+     *
      * @param ecoreType : the tested org.eclipse.uml2.uml.Type
      * @return true if the test org.eclipse.uml2.uml.Type is the Boolean org.eclipse.uml2.uml.Type
      */

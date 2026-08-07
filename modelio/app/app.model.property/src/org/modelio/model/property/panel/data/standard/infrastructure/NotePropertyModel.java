@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.panel.data.standard.infrastructure;
 
@@ -52,15 +52,17 @@ public class NotePropertyModel extends AbstractPropertyModel<Note> {
 
     /**
      * Instantiate the note type properties view.
+     *
      * @param theEditedElement the current note type.
      */
     @objid ("41cfd428-4eee-47fe-88a6-03d7720b84e2")
-    public  NotePropertyModel(final Note theEditedElement) {
+    public NotePropertyModel(final Note theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * (non-Javadoc)
+     *
      * @see IPropertyModel#getColumnNumber()
      */
     @objid ("ecf2f5ed-7662-400e-88c7-98cb96f8dc15")
@@ -71,6 +73,7 @@ public class NotePropertyModel extends AbstractPropertyModel<Note> {
 
     /**
      * (non-Javadoc)
+     *
      * @see IPropertyModel#getRowsNumber()
      */
     @objid ("23e7c444-d2b7-46b0-bc92-2b37e27bbbd2")
@@ -81,8 +84,8 @@ public class NotePropertyModel extends AbstractPropertyModel<Note> {
 
     /**
      * (non-Javadoc)
-     * @see IPropertyModel#getValueAt(int,
-     * int)
+     *
+     * @see IPropertyModel#getValueAt(int, int)
      */
     @objid ("ab936c84-1eb0-4098-a105-fe9c46814adf")
     private Object getValue(final int row, final int col) {
@@ -106,13 +109,13 @@ public class NotePropertyModel extends AbstractPropertyModel<Note> {
         default:
             return null;
         }
-        
+
     }
 
     /**
      * (non-Javadoc)
-     * @see IPropertyModel#getValueAt(int,
-     * int)
+     *
+     * @see IPropertyModel#getValueAt(int, int)
      */
     @objid ("87c3ebac-8cd9-4176-8c77-3dadd821541e")
     @Override
@@ -131,11 +134,11 @@ public class NotePropertyModel extends AbstractPropertyModel<Note> {
                 final MMetamodel metamodel = context.getMClass().getMetamodel();
                 final MClass contextMetaclass = context.getMClass();
                 EList<Stereotype> contextStereotypes = context.getExtension();
-        
+
                 DefaultElementNatValue noteType = new DefaultElementNatValue((MObject) getValue(row, col), false,
                         Collections.singletonList(NoteType.class));
                 noteType.setElementFilter(new IMObjectFilter() {
-        
+
                     @Override
                     public boolean accept(final MObject element) {
                         if (!(element instanceof NoteType)) {
@@ -166,7 +169,7 @@ public class NotePropertyModel extends AbstractPropertyModel<Note> {
         default:
             return null;
         }
-        
+
     }
 
     @objid ("feb788b1-1bfe-48c0-ad2c-becf59d0ecb2")
@@ -177,8 +180,8 @@ public class NotePropertyModel extends AbstractPropertyModel<Note> {
 
     /**
      * (non-Javadoc)
-     * @see IPropertyModel#setValueAt(int,
-     * int, java.lang.Object)
+     *
+     * @see IPropertyModel#setValueAt(int, int, java.lang.Object)
      */
     @objid ("902025eb-de4e-487f-b3c6-d0a4f51c2e96")
     @Override
@@ -205,7 +208,7 @@ public class NotePropertyModel extends AbstractPropertyModel<Note> {
         default:
             return;
         }
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.ui.audit;
 
@@ -43,12 +43,12 @@ public class BpmnAuditExtension implements IAuditExtension {
     private BpmnAuditPlan bpmnAuditPlan;
 
     @objid ("1f723c2c-f8d0-4273-a41a-c7fabf8debe4")
-    public  BpmnAuditExtension() {
+    public BpmnAuditExtension() {
         List<AuditCategory> categories = loadCategories();
-        
+
         this.bpmnConfigurationPlan = new BpmnConfigurationPlan(categories);
         this.bpmnAuditPlan = new BpmnAuditPlan(categories);
-        
+
     }
 
     @objid ("d818ec91-93a4-4f86-9a9b-8e6985dac469")
@@ -66,7 +66,7 @@ public class BpmnAuditExtension implements IAuditExtension {
     @objid ("814fb282-63fa-46be-a16f-cf058c0ed28b")
     private List<AuditCategory> loadCategories() {
         List<AuditCategory> categories;
-        
+
         Bundle bundle = BpmnUi.getContext().getBundle();
         String s = "platform:/plugin/" + bundle.getSymbolicName() + "/res/bpmnconfiguration.xml";
         URL url = null;
@@ -74,7 +74,7 @@ public class BpmnAuditExtension implements IAuditExtension {
             url = new URL(s);
             URL fileURL = FileLocator.toFileURL(url);
             java.nio.file.Path xmlFile = Paths.get(URIUtil.toURI(fileURL));
-        
+
             categories = AuditCategoryBuilder.parseCategories(xmlFile.toFile());
         } catch (Exception e) {
             BpmnUi.LOG.debug("File path %s is not found!", s);

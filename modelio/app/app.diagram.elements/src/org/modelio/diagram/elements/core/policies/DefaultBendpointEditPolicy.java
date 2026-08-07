@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.policies;
 
@@ -34,6 +34,7 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.BendpointEditPolicy;
+import org.eclipse.gef.handles.BendpointHandle;
 import org.eclipse.gef.requests.BendpointRequest;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.tools.ToolUtilities;
@@ -48,7 +49,7 @@ import org.modelio.diagram.elements.core.model.IGmLinkObject;
  * Default bendpoint edit policy.
  * <p>
  * Used to add, move and delete bendpoints on a connection with the bendpoint router.
- * 
+ *
  * @author cmarin
  */
 @objid ("80b4905e-1dec-11e2-8cad-001ec947c8cc")
@@ -92,13 +93,12 @@ public class DefaultBendpointEditPolicy extends BendpointEditPolicy {
         } else {
             return super.getCommand(request);
         }
-        
     }
 
     @objid ("80b6f2a5-1dec-11e2-8cad-001ec947c8cc")
     protected Command getMoveCommand(final ChangeBoundsRequest request) {
         Connection connection = getConnection();
-        
+
         // Temporarly restore original anchors to compute the command
         // TODO : seems this stuff is not needed by the command
         ConnectionAnchor currentSourceAnchor = connection.getSourceAnchor();
@@ -107,10 +107,10 @@ public class DefaultBendpointEditPolicy extends BendpointEditPolicy {
             connection.setSourceAnchor(this.changeBoundsOrigState.getSourceAnchor());
             connection.setTargetAnchor(this.changeBoundsOrigState.getTargetAnchor());
         }
-        
+
         ConnectionEditPart hostEP = getHost();
         Command command = new TranslateBendpointsCommand(hostEP);
-        
+
         // Restore connection to feedback state
         if (this.changeBoundsOrigState != null) {
             connection.setSourceAnchor(currentSourceAnchor);
@@ -127,7 +127,6 @@ public class DefaultBendpointEditPolicy extends BendpointEditPolicy {
         } else {
             return super.understandsRequest(req);
         }
-        
     }
 
     @objid ("80b6f2b7-1dec-11e2-8cad-001ec947c8cc")
@@ -135,7 +134,6 @@ public class DefaultBendpointEditPolicy extends BendpointEditPolicy {
     protected void eraseConnectionFeedback(final BendpointRequest request) {
         super.eraseConnectionFeedback(request);
         this.changeBoundsOrigState = null;
-        
     }
 
     @objid ("80b6f2be-1dec-11e2-8cad-001ec947c8cc")
@@ -146,7 +144,6 @@ public class DefaultBendpointEditPolicy extends BendpointEditPolicy {
         } else {
             super.eraseSourceFeedback(request);
         }
-        
     }
 
     @objid ("80b6f2c5-1dec-11e2-8cad-001ec947c8cc")
@@ -154,22 +151,20 @@ public class DefaultBendpointEditPolicy extends BendpointEditPolicy {
         if (this.changeBoundsOrigState != null) {
             this.changeBoundsOrigState.applyTo(getConnection());
         }
-        
     }
 
     @objid ("80b6f2c8-1dec-11e2-8cad-001ec947c8cc")
-    @SuppressWarnings ("unchecked")
+    @SuppressWarnings("unchecked")
     protected void saveMoveOriginalConstraint() {
         Connection connection = getConnection();
-        
+
         this.changeBoundsOrigState = new ConnectionState().init(connection);
-        
+
         if (this.changeBoundsOrigState.getConstraint() == null) {
             connection.setRoutingConstraint( new ArrayList<>(1));
         } else {
             connection.setRoutingConstraint(new ArrayList<>((List<Bendpoint>)this.changeBoundsOrigState.getConstraint()));
         }
-        
     }
 
     @objid ("80b6f2cb-1dec-11e2-8cad-001ec947c8cc")
@@ -180,13 +175,6 @@ public class DefaultBendpointEditPolicy extends BendpointEditPolicy {
         } else {
             super.showSourceFeedback(request);
         }
-        
-    }
-
-    @objid ("11f5c08f-e5b7-44b7-863f-b8fb074a85ee")
-    @Override
-    public ConnectionEditPart getHost() {
-        return (ConnectionEditPart) super.getHost();
     }
 
     @objid ("80b6f2d2-1dec-11e2-8cad-001ec947c8cc")
@@ -195,11 +183,11 @@ public class DefaultBendpointEditPolicy extends BendpointEditPolicy {
         if (this.changeBoundsOrigState == null) {
             saveMoveOriginalConstraint();
         }
-        
+
         Connection connection = getConnection();
         ConnectionEditPart linkEditPart = getHost();
         Point absMoveDelta = request.getMoveDelta();
-        
+
         // Deal with the source
         Point sourceAnchor = this.changeBoundsOrigState.getSourceAnchor().getReferencePoint();
         GraphicalEditPart linkSource = (GraphicalEditPart) linkEditPart.getSource();
@@ -208,7 +196,7 @@ public class DefaultBendpointEditPolicy extends BendpointEditPolicy {
             sourceAnchor = sourceAnchor.getTranslated(absMoveDelta);
         }
         connection.setSourceAnchor(new XYAnchor(sourceAnchor));
-        
+
         // Deal with the target
         Point targetAnchor = this.changeBoundsOrigState.getTargetAnchor().getReferencePoint();
         GraphicalEditPart linkTarget = (GraphicalEditPart) linkEditPart.getTarget();
@@ -217,7 +205,7 @@ public class DefaultBendpointEditPolicy extends BendpointEditPolicy {
             targetAnchor = targetAnchor.getTranslated(absMoveDelta);
         }
         connection.setTargetAnchor(new XYAnchor(targetAnchor));
-        
+
         if (sourceInSet && targetInSet) {
             // Both source and target are being moved, move the link's points too
             List<Bendpoint> newConstraint = new ArrayList<>();
@@ -230,20 +218,18 @@ public class DefaultBendpointEditPolicy extends BendpointEditPolicy {
             }
             connection.setRoutingConstraint(newConstraint);
         }
-        
     }
 
     @objid ("80b954d4-1dec-11e2-8cad-001ec947c8cc")
     protected void eraseChangeBoundsFeedback(final ChangeBoundsRequest request) {
         restoreMoveOriginalConstraint();
         this.changeBoundsOrigState = null;
-        
     }
 
     @objid ("72de9a17-6672-4d84-bf53-4637558588fd")
     @Override
-    protected List<?> createSelectionHandles() {
-        List<Object> newHandles = super.createSelectionHandles();
+    protected List<? extends BendpointHandle> createSelectionHandles() {
+        List<? extends BendpointHandle> newHandles = super.createSelectionHandles();
         return SelectionHandlesBuilder.disableHandlesIfReadOnly(getHost(), newHandles);
     }
 

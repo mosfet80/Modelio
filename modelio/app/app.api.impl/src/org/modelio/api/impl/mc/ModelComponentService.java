@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.api.impl.mc;
 
@@ -64,16 +64,17 @@ public class ModelComponentService implements IModelComponentService {
 
     /**
      * C'tor.
+     *
      * @param projectService the project service.
      * @param gProject the project this service is available for.
      * @param moduleManagementService the module service, needed to find model component contributors.
      */
     @objid ("5fa17d16-6f97-4206-b5f3-888ac153780d")
-    public  ModelComponentService(IProjectService projectService, IGProject gProject, IModuleService moduleManagementService) {
+    public ModelComponentService(IProjectService projectService, IGProject gProject, IModuleService moduleManagementService) {
         this.projectService = projectService;
         this.gProject = gProject;
         this.moduleService = moduleManagementService;
-        
+
     }
 
     @objid ("9304d2eb-2768-4914-ba80-c4097a5835c3")
@@ -84,25 +85,25 @@ public class ModelComponentService implements IModelComponentService {
             // First, remove existing ramcs with the same name
             final IModelComponentInfos infos = modelComponentArchive.getInfos();
             removeModelComponent(buildDescriptor(infos));
-        
+
             GProjectPartDescriptor fragmentDescriptor = modelComponentArchive.getFragmentDescriptor();
-        
+
             // Instantiate the part
             final IGPart newFragment = GPartFactory.getInstance().instantiate(fragmentDescriptor);
-        
+
             // Add new fragment to project, permanent mount
             this.gProject.addGPart(newFragment, true);
         } catch (Exception e) {
             ApiImpl.LOG.error(e);
         }
-        
+
     }
 
     @objid ("51c27ce0-54ad-4e8b-b821-e9055c7bf9fe")
     @Override
     public void removeModelComponent(final IModelComponentDescriptor modelComponent) {
         String name = modelComponent.getName();
-        
+
         IGModelFragment fragmentToRemove = null;
         for (IGModelFragment fragment : this.gProject.getParts(IGModelFragment.class)) {
             if (fragment.getType() == GProjectPartType.RAMC) {
@@ -117,7 +118,7 @@ public class ModelComponentService implements IModelComponentService {
                 }
             }
         }
-        
+
         if (fragmentToRemove != null) {
             try {
                 this.gProject.removeGPart(fragmentToRemove);
@@ -125,14 +126,14 @@ public class ModelComponentService implements IModelComponentService {
                 ApiImpl.LOG.error(e);
             }
         }
-        
+
     }
 
     @objid ("6ab88513-30a0-4524-bd55-157740c586f0")
     @Override
     public List<IModelComponentDescriptor> getModelComponents() {
         List<IModelComponentDescriptor> mcList = new ArrayList<>();
-        
+
         for (IGModelFragment fragment : this.gProject.getParts(IGModelFragment.class)) {
             if (fragment.getType() == GProjectPartType.RAMC) {
                 try {
@@ -156,7 +157,7 @@ public class ModelComponentService implements IModelComponentService {
         } catch (IOException e) {
             ApiImpl.LOG.error(e);
         }
-        
+
     }
 
     @objid ("27d59096-2a29-4ece-b3db-82b7a7eddbb1")
@@ -168,7 +169,7 @@ public class ModelComponentService implements IModelComponentService {
     @Override
     public List<IModelComponentContributor> getContributors(final Artifact mc, Set<IPeerModule> peerModules) {
         RamcModel model = new RamcModel(this.gProject.getPfs().getProjectPath(), mc);
-        
+
         // Contributors to RAMC packaging
         List<IModelComponentContributor> contributors = new ArrayList<>();
         for (IRTModule m : this.moduleService.getStartedModules()) {

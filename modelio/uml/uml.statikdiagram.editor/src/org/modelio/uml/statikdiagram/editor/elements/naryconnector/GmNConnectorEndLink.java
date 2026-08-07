@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.naryconnector;
 
@@ -38,7 +38,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  * The target the {@link ConnectorEnd#getLinked()} class.
  * <p>
  * The link style is a proxy on the association node style.
- * 
+ *
  * @author cmarin
  */
 @objid ("35d5be23-55b7-11e2-877f-002564c97630")
@@ -59,18 +59,19 @@ public class GmNConnectorEndLink extends GmNLinkEndLink {
      * Constructor for deserialization only.
      */
     @objid ("35d5be2c-55b7-11e2-877f-002564c97630")
-    public  GmNConnectorEndLink() {
+    public GmNConnectorEndLink() {
         // Nothing to do.
     }
 
     /**
      * Creates a GmConnectorEndLink.
+     *
      * @param diagram The diagram
      * @param role The represented Connector role, may be <code>null</code>
      * @param roleRef The represented Connector role reference, must not be <code>null</code>
      */
     @objid ("35d5be2f-55b7-11e2-877f-002564c97630")
-    public  GmNConnectorEndLink(IGmDiagram diagram, NaryConnectorEnd role, MRef roleRef) {
+    public GmNConnectorEndLink(IGmDiagram diagram, NaryConnectorEnd role, MRef roleRef) {
         super(diagram, role, roleRef);
     }
 
@@ -102,17 +103,17 @@ public class GmNConnectorEndLink extends GmNLinkEndLink {
                 break;
             }
         }
-        
+
     }
 
     @objid ("35d744a9-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmNConnectorEndLink.", GmNConnectorEndLink.MINOR_VERSION);
-        
+
     }
 
     @objid ("35d744af-55b7-11e2-877f-002564c97630")

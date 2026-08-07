@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.stateMachineModel;
 
 import java.util.ArrayList;
@@ -50,13 +49,13 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0053a458-c4bf-1fd8-97fe-001ec947cd2a")
 public class StateImpl extends StateVertexImpl implements State {
-    @objid ("74232e46-69ed-44fd-846d-31c070a46e49")
+    @objid ("dcab65d0-bacf-47c9-9222-ff8ffdfcbf2e")
     @Override
     public EList<ExitPointPseudoState> getExitPoint() {
         return new SmList<>(this, ((StateSmClass)getClassOf()).getExitPointDep());
     }
 
-    @objid ("74d47363-d19c-4a34-a5c6-b11f5301d627")
+    @objid ("352cf341-9fb5-40f1-b6e8-14c8ac21754f")
     @Override
     public <T extends ExitPointPseudoState> List<T> getExitPoint(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -69,16 +68,16 @@ public class StateImpl extends StateVertexImpl implements State {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("dd2992ca-8118-425c-aa07-ae7171fe187e")
+    @objid ("7f992f78-21b9-465c-8eab-d491cbe96e09")
     @Override
     public EList<Event> getDeffered() {
         return new SmList<>(this, ((StateSmClass)getClassOf()).getDefferedDep());
     }
 
-    @objid ("00c4a1c6-ea20-434e-8a73-0644b81a9d02")
+    @objid ("8e8904eb-5054-426e-b8ff-b12172c60c6f")
     @Override
     public <T extends Event> List<T> getDeffered(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -91,16 +90,16 @@ public class StateImpl extends StateVertexImpl implements State {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("e43b9f19-f448-452d-b6bd-c1bc23a6995c")
+    @objid ("437324fb-4f18-4f2c-a530-e5a66377c0b2")
     @Override
     public EList<InternalTransition> getInternal() {
         return new SmList<>(this, ((StateSmClass)getClassOf()).getInternalDep());
     }
 
-    @objid ("ab6a61a3-86c1-4e0d-9dbf-fb0235a532ed")
+    @objid ("980e86e2-2005-41da-82d5-d09ff5bd463a")
     @Override
     public <T extends InternalTransition> List<T> getInternal(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -113,16 +112,16 @@ public class StateImpl extends StateVertexImpl implements State {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("1bf5df5a-281b-453b-bb43-96a6e1cbc7d6")
+    @objid ("f115da47-8c0f-4612-998d-31680bd83e43")
     @Override
     public EList<EntryPointPseudoState> getEntryPoint() {
         return new SmList<>(this, ((StateSmClass)getClassOf()).getEntryPointDep());
     }
 
-    @objid ("b4906cc6-bc77-4c9a-bbb6-97aca958a941")
+    @objid ("1bfea3d1-406e-4a8c-bea1-79f16ce89af9")
     @Override
     public <T extends EntryPointPseudoState> List<T> getEntryPoint(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -135,16 +134,16 @@ public class StateImpl extends StateVertexImpl implements State {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("383a0726-46f1-4fe2-908c-c1796d4fa752")
+    @objid ("75d67db0-42f7-4aff-b9f2-9565f67252a3")
     @Override
     public EList<Region> getOwnedRegion() {
         return new SmList<>(this, ((StateSmClass)getClassOf()).getOwnedRegionDep());
     }
 
-    @objid ("b7c93c6f-0eb3-4e20-8ab7-79226841b635")
+    @objid ("74f97018-aacb-4666-a3b3-64c1d0f71f85")
     @Override
     public <T extends Region> List<T> getOwnedRegion(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -157,16 +156,16 @@ public class StateImpl extends StateVertexImpl implements State {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("981d3770-51f5-4fcb-81f9-d3120cd4bece")
+    @objid ("f29b689a-e823-4928-89af-458aa003130a")
     @Override
     public EList<ObjectNode> getRequiredStateOf() {
         return new SmList<>(this, ((StateSmClass)getClassOf()).getRequiredStateOfDep());
     }
 
-    @objid ("54507843-ee37-494b-9db1-b1041ef781d3")
+    @objid ("6657fe07-d206-4909-80c4-737a69ca31d8")
     @Override
     public <T extends ObjectNode> List<T> getRequiredStateOf(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -179,16 +178,16 @@ public class StateImpl extends StateVertexImpl implements State {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("523a1317-54df-462d-911c-75992f84842b")
+    @objid ("132890c3-b464-4761-bc47-8c635da3149a")
     @Override
     public EList<ConnectionPointReference> getConnection() {
         return new SmList<>(this, ((StateSmClass)getClassOf()).getConnectionDep());
     }
 
-    @objid ("64285e6e-a252-4a9b-8c4d-eba77ebfc18f")
+    @objid ("5301755c-1acb-401a-b8cd-273e50525e6e")
     @Override
     public <T extends ConnectionPointReference> List<T> getConnection(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -201,23 +200,23 @@ public class StateImpl extends StateVertexImpl implements State {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("63071d23-c281-412b-b80f-4b0b48eaaafb")
+    @objid ("a3f9988f-ccb2-439b-a655-5a92baf15af4")
     @Override
     public StateMachine getSubMachine() {
         Object obj = getDepVal(((StateSmClass)getClassOf()).getSubMachineDep());
         return (obj instanceof StateMachine)? (StateMachine)obj : null;
     }
 
-    @objid ("3ff2a920-2763-4735-8214-2a5668c4fbb1")
+    @objid ("96ccfea0-529f-499a-b46a-d447968f0275")
     @Override
     public void setSubMachine(StateMachine value) {
         appendDepVal(((StateSmClass)getClassOf()).getSubMachineDep(), (SmObjectImpl)value);
     }
 
-    @objid ("d9b19804-9fca-4067-9bab-08ea676e657e")
+    @objid ("1844dc8a-7e89-4f3e-a526-ad40f4e6029a")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -225,17 +224,17 @@ public class StateImpl extends StateVertexImpl implements State {
         return super.getCompositionOwner();
     }
 
-    @objid ("bbd74ac7-c9ad-4e56-a3a0-995b4f8918dd")
+    @objid ("0fc38013-67da-4d7f-b3e6-dafe5a5f9499")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("ada7d678-9df9-4535-a15b-727300c5173d")
+    @objid ("ed652c8f-1b91-4967-a86c-1c9bd08f92e7")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitState(this);

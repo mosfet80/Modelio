@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.control;
 
@@ -51,20 +51,20 @@ public class InterfaceRealizationImplementerChecker extends AbstractDependencyTy
      * C'tor
      */
     @objid ("26cfbea5-7288-43f7-93db-b4938b9c5611")
-    public  InterfaceRealizationImplementerChecker(SmMetamodel mm) {
+    public InterfaceRealizationImplementerChecker(SmMetamodel mm) {
         // Cached SmClass
         this.componentID = mm.getMClass(Component.class);
         this.classID = mm.getMClass(Class.class);
         this.enumerationID = mm.getMClass(Enumeration.class);
         this.collaborationID = mm.getMClass(Collaboration.class);
-        
+
         // Direct checker
         this.register(mm.getMClass(InterfaceRealization.class), "Implementer");
-        
+
         // Symetric checker
         NameSpaceRealizedChecker symetricChecker = new NameSpaceRealizedChecker(this);
         symetricChecker.register(mm.getMClass(NameSpace.class), "Realized");
-        
+
     }
 
     @objid ("00649664-5404-1fdf-a6ee-001ec947cd2a")
@@ -72,7 +72,7 @@ public class InterfaceRealizationImplementerChecker extends AbstractDependencyTy
     public int doCheck(final SmObjectImpl obj, final SmObjectImpl value) {
         if (value != null) {
             SmClass valueTypeID = value.getClassOf();
-        
+
             // An InterfaceRealization must belong to a Class, a Collaboration,
             // an Enumeration or a Component.
             return (valueTypeID.extEquals(this.classID) || valueTypeID.extEquals(this.collaborationID)
@@ -91,7 +91,7 @@ public class InterfaceRealizationImplementerChecker extends AbstractDependencyTy
         InterfaceRealizationImplementerChecker symetricChecker;
 
         @objid ("7ddf2293-ec3a-11e1-91c5-002564c97630")
-        public  NameSpaceRealizedChecker(InterfaceRealizationImplementerChecker symetricChecker) {
+        public NameSpaceRealizedChecker(InterfaceRealizationImplementerChecker symetricChecker) {
             this.symetricChecker = symetricChecker;
         }
 

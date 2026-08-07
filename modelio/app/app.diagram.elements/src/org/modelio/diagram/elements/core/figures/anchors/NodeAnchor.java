@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures.anchors;
 
@@ -56,26 +56,27 @@ public class NodeAnchor extends AbstractConnectionAnchor {
 
     /**
      * Create an anchor.
+     *
      * @param owner The owner node of the anchor
      * @param anchorLocation The location of the anchor relative to the owner node location.
      */
     @objid ("7f587908-1dec-11e2-8cad-001ec947c8cc")
-    public  NodeAnchor(IFigure owner, Dimension anchorLocation) {
+    public NodeAnchor(IFigure owner, Dimension anchorLocation) {
         super(owner);
         this.anchorOffset = new Dimension(anchorLocation);
-        
+
     }
 
     @objid ("7f587911-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public Point getLocation(Point reference) {
         final Point anchor = getReferencePoint(A_POINT);
-        
+
         final Rectangle r = A_RECTANGLE;
         r.setBounds(getOwner().getBounds());
         r.expand(1,1);
         getOwner().translateToAbsolute(r);
-        
+
         if (r.isEmpty()) {
             return r.getLocation();
         } else if ((reference.x() == anchor.x() && reference.y() == anchor.y())) {
@@ -84,16 +85,17 @@ public class NodeAnchor extends AbstractConnectionAnchor {
             Point ret = GeomUtils.getLineIntersection(anchor, reference, r);
             if (ret == null)
                 ret = r.getLocation();
-        
+
             return ret;
         }
-        
+
     }
 
     /**
      * Get the offset to the reference point.
      * <p>
      * The offset is returned by reference and must not be directly modified.
+     *
      * @return the reference offset.
      */
     @objid ("7f58791a-1dec-11e2-8cad-001ec947c8cc")
@@ -109,28 +111,30 @@ public class NodeAnchor extends AbstractConnectionAnchor {
 
     /**
      * Modifies the anchor reference offset.
+     *
      * @param d The new offset to locate the reference point.
      */
     @objid ("7f5adb2b-1dec-11e2-8cad-001ec947c8cc")
     public void setReference(Dimension d) {
         this.anchorOffset.setSize(d);
         fireAnchorMoved();
-        
+
     }
 
     /**
      * Fills 'out' with the computed reference point.
+     *
      * @param out the computed reference point.
      */
     @objid ("7f5adb3c-1dec-11e2-8cad-001ec947c8cc")
     private Point getReferencePoint(final Point out) {
         final Rectangle bounds = A_RECTANGLE.setBounds(getOwner().getBounds());
-        
+
         out.setLocation(bounds.x(), bounds.y());
         out.translate(this.anchorOffset);
-        
+
         GeomUtils.forcePointInside(out, bounds.expand(-1, -1));
-        
+
         getOwner().translateToAbsolute(out);
         return out;
     }
@@ -142,7 +146,7 @@ public class NodeAnchor extends AbstractConnectionAnchor {
                 getClass().getSimpleName(),
                 getOffset(),
                 getReferencePoint());
-        
+
     }
 
     @objid ("0c8309de-634a-4c29-803c-227abee40f43")

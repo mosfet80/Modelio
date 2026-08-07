@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.lifeline.body;
 
@@ -32,7 +32,7 @@ import org.modelio.diagram.styles.core.StyleKey.LinePattern;
 
 /**
  * Figure class for the body zone of the lifeline. Handles pen options.
- * 
+ *
  * @author fpoyer
  */
 @objid ("d92fc94e-55b6-11e2-877f-002564c97630")
@@ -50,10 +50,9 @@ public class LifelineBodyFigure extends Figure implements IPenOptionsSupport {
      * C'tor.
      */
     @objid ("d9314fb9-55b6-11e2-877f-002564c97630")
-    public  LifelineBodyFigure() {
+    public LifelineBodyFigure() {
         super();
         this.penOptions = new PenOptions();
-        
     }
 
     @objid ("d9314fbc-55b6-11e2-877f-002564c97630")
@@ -73,6 +72,7 @@ public class LifelineBodyFigure extends Figure implements IPenOptionsSupport {
 
     /**
      * Get the line color.
+     *
      * @return the line color.
      */
     @objid ("d9314fc5-55b6-11e2-877f-002564c97630")
@@ -83,6 +83,7 @@ public class LifelineBodyFigure extends Figure implements IPenOptionsSupport {
 
     /**
      * Get the line pattern
+     *
      * @return lineStyle the line style See {@link LinePattern}
      */
     @objid ("d9314fcb-55b6-11e2-877f-002564c97630")
@@ -93,6 +94,7 @@ public class LifelineBodyFigure extends Figure implements IPenOptionsSupport {
 
     /**
      * Get the line width.
+     *
      * @return the line width.
      */
     @objid ("d9314fd3-55b6-11e2-877f-002564c97630")
@@ -103,6 +105,7 @@ public class LifelineBodyFigure extends Figure implements IPenOptionsSupport {
 
     /**
      * Get the text color.
+     *
      * @return the text color.
      */
     @objid ("d9314fd9-55b6-11e2-877f-002564c97630")
@@ -113,6 +116,7 @@ public class LifelineBodyFigure extends Figure implements IPenOptionsSupport {
 
     /**
      * Get the text font.
+     *
      * @return the text font.
      */
     @objid ("d9314fdf-55b6-11e2-877f-002564c97630")
@@ -123,6 +127,7 @@ public class LifelineBodyFigure extends Figure implements IPenOptionsSupport {
 
     /**
      * Set the line(s) color.
+     *
      * @param lineColor the line color.
      */
     @objid ("d9314fe5-55b6-11e2-877f-002564c97630")
@@ -132,13 +137,13 @@ public class LifelineBodyFigure extends Figure implements IPenOptionsSupport {
             this.penOptions.lineColor = lineColor;
             this.repaint();
         }
-        
     }
 
     /**
      * Sets the line pattern to the argument, which must be one of the constants
-     * 
+     *
      * {@link LinePattern}
+     *
      * @param lineStyle the new style
      */
     @objid ("d9314fea-55b6-11e2-877f-002564c97630")
@@ -147,11 +152,11 @@ public class LifelineBodyFigure extends Figure implements IPenOptionsSupport {
         if (this.penOptions.linePattern != lineStyle) {
             this.penOptions.linePattern = lineStyle;
         }
-        
     }
 
     /**
      * Set the line(s) width.
+     *
      * @param lineWidth the line(s) width.
      */
     @objid ("d9314ff1-55b6-11e2-877f-002564c97630")
@@ -161,11 +166,11 @@ public class LifelineBodyFigure extends Figure implements IPenOptionsSupport {
             this.penOptions.lineWidth = lineWidth;
             this.repaint();
         }
-        
     }
 
     /**
      * Set the text color.
+     *
      * @param textColor the text color.
      */
     @objid ("d9314ff6-55b6-11e2-877f-002564c97630")
@@ -174,11 +179,11 @@ public class LifelineBodyFigure extends Figure implements IPenOptionsSupport {
         if (this.penOptions.textColor != textColor) {
             this.penOptions.textColor = textColor;
         }
-        
     }
 
     /**
      * Set the text font.
+     *
      * @param textFont the text font.
      */
     @objid ("d932d65c-55b6-11e2-877f-002564c97630")
@@ -187,7 +192,6 @@ public class LifelineBodyFigure extends Figure implements IPenOptionsSupport {
         if (this.penOptions.textFont != textFont) {
             this.penOptions.textFont = textFont;
         }
-        
     }
 
     @objid ("d932d661-55b6-11e2-877f-002564c97630")
@@ -199,9 +203,8 @@ public class LifelineBodyFigure extends Figure implements IPenOptionsSupport {
             graphics.setLineWidth(this.penOptions.lineWidth);
             graphics.drawLine(this.getBounds().getTop(), this.getBounds().getBottom());
         }
-        
+
         graphics.restoreState();
-        
     }
 
 }

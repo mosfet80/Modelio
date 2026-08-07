@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -45,10 +45,10 @@ public class ECreateObjectAction extends EActivityNode {
     }
 
     @objid ("0ddd53e4-d5a3-470a-a41c-f96bfcc4b10f")
-    public  ECreateObjectAction(org.eclipse.uml2.uml.CreateObjectAction element) {
+    public ECreateObjectAction(org.eclipse.uml2.uml.CreateObjectAction element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("322cfcf7-5cbc-4939-bcc8-1706631130de")
@@ -56,7 +56,7 @@ public class ECreateObjectAction extends EActivityNode {
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setClassifier((OpaqueAction) objingElt);
-        
+
     }
 
     @objid ("de6d4e67-f627-408a-acf5-e1b0f8f2879e")
@@ -64,20 +64,20 @@ public class ECreateObjectAction extends EActivityNode {
         org.eclipse.uml2.uml.Classifier classifier = this.ecoreElement.getClassifier();
         if (classifier != null){
             ModelElement obBehavior = (ModelElement)ReverseProperties.getInstance().getMappedElement(classifier);
-        
+
             IMModelServices mmServices  = ReverseProperties.getInstance().getMModelServices();
             Dependency dependency = mmServices.getModelFactory().getFactory(IStandardModelFactory.class).createDependency();
-        
+
             try {
                 dependency.addStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2CLASSIFIERREFERENCE);
             } catch (ExtensionNotFoundException e) {
                 Xmi.LOG.warning(e);
             }
-        
+
             dependency.setDependsOn(obBehavior);
             dependency.setImpacted(objingElt);
         }
-        
+
     }
 
 }

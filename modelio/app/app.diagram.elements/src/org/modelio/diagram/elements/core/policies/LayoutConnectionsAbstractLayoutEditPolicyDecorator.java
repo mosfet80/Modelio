@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.policies;
 
@@ -46,6 +46,7 @@ import org.modelio.diagram.elements.plugin.DiagramElements;
  * Pass to the constructor the real {@link OrderedLayoutEditPolicy layout policy}
  * <p>
  * With this policy there is no need to use {@link LayoutNodeConnectionsEditPolicy} on the child edit parts.
+ *
  * @author cma
  * @see LayoutEditPolicy
  * @since 5.1.0
@@ -56,10 +57,11 @@ public abstract class LayoutConnectionsAbstractLayoutEditPolicyDecorator extends
     private final EditPolicy decorated;
 
     /**
+     *
      * @param decorated the initial layout edit policy.
      */
     @objid ("6734377f-734d-4356-9f68-5636690f64bd")
-    protected  LayoutConnectionsAbstractLayoutEditPolicyDecorator(LayoutEditPolicy decorated) {
+    protected LayoutConnectionsAbstractLayoutEditPolicyDecorator(LayoutEditPolicy decorated) {
         this.decorated = decorated;
     }
 
@@ -89,6 +91,7 @@ public abstract class LayoutConnectionsAbstractLayoutEditPolicyDecorator extends
 
     /**
      * Factors incoming requests into various specific methods.
+     *
      * @see org.eclipse.gef.EditPolicy#getCommand(Request)
      */
     @objid ("9e08bce9-6039-4d42-999d-0535156ac3cc")
@@ -96,10 +99,10 @@ public abstract class LayoutConnectionsAbstractLayoutEditPolicyDecorator extends
     public Command getCommand(Request request) {
         Command mainCommand = this.decorated.getCommand(request);
         Object type = request.getType();
-        
+
         if (! (type instanceof String))
             return mainCommand;
-        
+
         // Fast exit if null or not possible
         if (mainCommand==null) {
             // REQ_DELETING_CHILDREN is an allowed exception
@@ -109,10 +112,10 @@ public abstract class LayoutConnectionsAbstractLayoutEditPolicyDecorator extends
         } else if (! mainCommand.canExecute()) {
             return mainCommand;
         }
-        
+
         CompoundCommand command = new CompoundCommand();
         command.add(mainCommand);
-        
+
         switch ((String)type) {
         case REQ_DELETE_DEPENDANT:
             addDeleteDependantCommand(command, (GroupRequest) request);
@@ -143,7 +146,7 @@ public abstract class LayoutConnectionsAbstractLayoutEditPolicyDecorator extends
             }
             break;
         }
-        
+
         if (command.isEmpty())
             return null;
         return command.unwrap();
@@ -157,6 +160,7 @@ public abstract class LayoutConnectionsAbstractLayoutEditPolicyDecorator extends
 
     /**
      * Forwards call to the decorated policy.
+     *
      * @see org.eclipse.gef.EditPolicy#getTargetEditPart(Request)
      */
     @objid ("06ca0967-fc46-4397-965f-6aa7971d5321")
@@ -170,7 +174,7 @@ public abstract class LayoutConnectionsAbstractLayoutEditPolicyDecorator extends
     public void setHost(EditPart host) {
         super.setHost(host);
         this.decorated.setHost(host);
-        
+
     }
 
     @objid ("766e202c-8408-4d0d-9517-d5dedf4d0a89")
@@ -181,6 +185,7 @@ public abstract class LayoutConnectionsAbstractLayoutEditPolicyDecorator extends
 
     /**
      * Factors feedback requests into two more specific methods.
+     *
      * @see org.eclipse.gef.EditPolicy#showTargetFeedback(Request)
      */
     @objid ("35e01809-a8d4-41c2-a45b-def8cf177e47")
@@ -196,7 +201,7 @@ public abstract class LayoutConnectionsAbstractLayoutEditPolicyDecorator extends
                 || REQ_RESIZE_CHILDREN.equals(request.getType())
                 || REQ_CREATE.equals(request.getType()))
             showLayoutTargetFeedback(request);
-        
+
         if (REQ_CREATE.equals(request.getType())) {
             CreateRequest createReq = (CreateRequest) request;
             if (createReq.getSize() != null) {
@@ -204,7 +209,7 @@ public abstract class LayoutConnectionsAbstractLayoutEditPolicyDecorator extends
             }
         }
         */
-        
+
     }
 
     @objid ("abd02dc4-8c8e-43ad-b0cc-a52eea62c3bb")
@@ -215,6 +220,7 @@ public abstract class LayoutConnectionsAbstractLayoutEditPolicyDecorator extends
 
     /**
      * Add <code>Commands</code> to perform a add.
+     *
      * @param command the compound command where to add new commands
      * @param request the CreateRequest
      */
@@ -223,6 +229,7 @@ public abstract class LayoutConnectionsAbstractLayoutEditPolicyDecorator extends
 
     /**
      * Add <code>Commands</code> to perform a clone.
+     *
      * @param command the compound command where to add new commands
      * @param request the clone ChangeBoundsRequest
      */
@@ -231,6 +238,7 @@ public abstract class LayoutConnectionsAbstractLayoutEditPolicyDecorator extends
 
     /**
      * Add <code>Commands</code> to perform a create.
+     *
      * @param command the compound command where to add new commands
      * @param request the CreateRequest
      */
@@ -242,6 +250,7 @@ public abstract class LayoutConnectionsAbstractLayoutEditPolicyDecorator extends
      * <p>
      * This method does not get called unless the child forwards an additional request to the
      * container editpart.
+     *
      * @param command the compound command where to add new commands
      * @param request the Request
      */
@@ -250,6 +259,7 @@ public abstract class LayoutConnectionsAbstractLayoutEditPolicyDecorator extends
 
     /**
      * Add <code>Commands</code> to move and/or resize a group of children.
+     *
      * @param command the compound command where to add new commands
      * @param request the ChangeBoundsRequest
      */
@@ -258,6 +268,7 @@ public abstract class LayoutConnectionsAbstractLayoutEditPolicyDecorator extends
 
     /**
      * Add the <code>Command</code> to orphan a group of children.
+     *
      * @param command the compound command where to add new commands
      * @param request the Request
      */
@@ -270,6 +281,7 @@ public abstract class LayoutConnectionsAbstractLayoutEditPolicyDecorator extends
      * The contentPane is the Figure which parents the childrens' figures. It
      * is also the figure which has the LayoutManager that corresponds to this
      * EditPolicy. All operations should be interpreted with respect to this figure.
+     *
      * @return the Figure that owns the corresponding <code>LayoutManager</code>
      */
     @objid ("917149f6-8e18-4616-98c4-6eebaf485119")

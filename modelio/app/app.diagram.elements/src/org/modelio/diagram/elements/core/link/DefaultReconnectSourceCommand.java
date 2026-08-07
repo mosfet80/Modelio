@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link;
 
@@ -32,7 +32,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * Command that moves the source of a GmLink to another location on the same node or another one.
- * 
+ *
  * @author cmarin
  */
 @objid ("7feead19-1dec-11e2-8cad-001ec947c8cc")
@@ -51,16 +51,17 @@ public class DefaultReconnectSourceCommand extends Command {
 
     /**
      * Create the command.
+     *
      * @param gmLink The link to move.
      * @param dest The new source node.
      * @param gmModelOnly if <code>true</code>, only the Gm model changes after executing the command.
      */
     @objid ("7feead22-1dec-11e2-8cad-001ec947c8cc")
-    public  DefaultReconnectSourceCommand(GmLink gmLink, IGmLinkable dest, Boolean gmModelOnly) {
+    public DefaultReconnectSourceCommand(GmLink gmLink, IGmLinkable dest, Boolean gmModelOnly) {
         this.gmLink = gmLink;
         this.newSrcNode = dest;
         this.gmModelOnly = Boolean.TRUE.equals(gmModelOnly);
-        
+
     }
 
     @objid ("7feead27-1dec-11e2-8cad-001ec947c8cc")
@@ -70,7 +71,7 @@ public class DefaultReconnectSourceCommand extends Command {
         if (!MTools.getAuthTool().canModify(this.gmLink.getDiagram().getRelatedElement())) {
             return false;
         }
-        
+
         // If the source changes, The old and new source and the link elements must be modifiable
         final IGmLinkable oldSrcNode = this.gmLink.getFrom();
         if (oldSrcNode == null) {
@@ -96,29 +97,30 @@ public class DefaultReconnectSourceCommand extends Command {
                     }
                 }
             }
-        
+
             // The old and new source and the link elements must be modifiable
             return isModifableElement(oldSrcNode) && isModifableElement(this.newSrcNode) && isModifableElement(this.gmLink) && expert.canSource(link, newSrc);
         }
-        
+
     }
 
     @objid ("7feead2b-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void execute() {
         updateLinkSource();
-        
+
         if (this.anchorModel != null) {
             GmPath newPath = new GmPath(this.gmLink.getPath());
             newPath.setSourceAnchor(this.anchorModel);
             newPath.setSourceRake(null); // unrake from source
             this.gmLink.setLayoutData(newPath);
         }
-        
+
     }
 
     /**
      * Set the model of the source anchor of the link.
+     *
      * @param anchorModel the model of the source anchor of the link
      */
     @objid ("7ff10f4b-1dec-11e2-8cad-001ec947c8cc")
@@ -133,23 +135,23 @@ public class DefaultReconnectSourceCommand extends Command {
             final MObject link = this.gmLink.getRelatedElement();
             final MObject newSource = this.newSrcNode.getRelatedElement();
             final MExpert expert = link.getMClass().getMetamodel().getMExpert();
-        
+
             if (oldSourceNode != null) {
                 final MObject oldSource = oldSourceNode.getRelatedElement();
                 if (!newSource.equals(oldSource)) {
                     updateObModel(expert, link, oldSource, newSource);
                 }
-        
+
                 // Update gm model
                 oldSourceNode.removeStartingLink(this.gmLink);
             } else {
                 updateObModel(expert, link, null, newSource);
             }
-        
+
             // Update gm model
             this.newSrcNode.addStartingLink(this.gmLink);
         }
-        
+
     }
 
     @objid ("41313a5a-e597-4ef7-9169-678a9d074478")
@@ -157,7 +159,7 @@ public class DefaultReconnectSourceCommand extends Command {
         if (!this.gmModelOnly) {
             expert.setSource(link, oldSource, newSource);
         }
-        
+
     }
 
     @objid ("7ff10f52-1dec-11e2-8cad-001ec947c8cc")

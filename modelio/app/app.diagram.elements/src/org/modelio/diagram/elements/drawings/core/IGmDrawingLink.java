@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.drawings.core;
 
@@ -44,6 +44,7 @@ public interface IGmDrawingLink extends IGmDrawingLinkable, IGmLinkObject {
     public static final String PROP_TARGET_GM = "Target graphic model changed";
 
     /**
+     *
      * @return The link source
      */
     @objid ("34e43653-5607-4929-840e-f94161baf871")
@@ -54,12 +55,14 @@ public interface IGmDrawingLink extends IGmDrawingLinkable, IGmLinkObject {
      * <p>
      * This method is intended to be called only by {@link IGmDrawingLinkable#addEndingDrawingLink(IGmDrawingLink)}. It does not fire change
      * event.
+     *
      * @param from The new link origin
      */
     @objid ("a957d273-b074-410e-b541-b4ec879a4a47")
     void setFrom(IGmDrawingLinkable from);
 
     /**
+     *
      * @return the link destination
      */
     @objid ("5ebe9452-0353-4422-b42c-098eec88267a")
@@ -70,6 +73,7 @@ public interface IGmDrawingLink extends IGmDrawingLinkable, IGmLinkObject {
      * <p>
      * This method is intended to be called only by {@link IGmDrawingLinkable#addEndingDrawingLink(IGmDrawingLink)}. It does not fire change
      * event.
+     *
      * @param to The new destination
      */
     @objid ("6c0b2865-f77f-4104-b884-e164616ed32b")
@@ -77,6 +81,7 @@ public interface IGmDrawingLink extends IGmDrawingLinkable, IGmLinkObject {
 
     /**
      * Tells listeners the path changed.
+     *
      * @param path the new path
      */
     @objid ("4e0dc836-97fe-431d-aef7-492983de5629")
@@ -84,6 +89,7 @@ public interface IGmDrawingLink extends IGmDrawingLinkable, IGmLinkObject {
 
     /**
      * Get the locator model used to layout the given extension.
+     *
      * @param extension A link extension.
      * @return The locator model.
      */
@@ -97,9 +103,10 @@ public interface IGmDrawingLink extends IGmDrawingLinkable, IGmLinkObject {
      * <p>
      * The returned list is a copy and may be freely modified.
      * </p>
+     *
      * @return The visible link extension nodes.
      */
     @objid ("00a4b62c-7079-4079-8410-339983a833b0")
     Collection<IGmObject> getVisibleExtensions();
-}
 
+}

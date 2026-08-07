@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnmessage;
 
@@ -66,7 +66,7 @@ public class BpmnMessageElementDropEditPolicy extends DefaultElementDropEditPoli
             GmModel model = (GmModel) getHost().getModel();
             IGmDiagram gmDiagram = model.getDiagram();
             BpmnMessage message = (BpmnMessage) model.getRelatedElement();
-        
+
             MObject droppedElement = request.getDroppedElements()[0];
             if (isSmartType(droppedElement, message, gmDiagram)) {
                 // Allow smart Type drop on the BpmnMessage
@@ -85,7 +85,7 @@ public class BpmnMessageElementDropEditPolicy extends DefaultElementDropEditPoli
         if (!request.isSmart()) {
             return null;
         }
-        
+
         GmModel model = (GmModel) getHost().getModel();
         IGmDiagram gmDiagram = model.getDiagram();
         BpmnMessage message = (BpmnMessage) model.getRelatedElement();
@@ -113,7 +113,7 @@ public class BpmnMessageElementDropEditPolicy extends DefaultElementDropEditPoli
         } else {
             return BpmnMessageElementDropEditPolicy.getStateMachineOwnerClassifier(elt.getCompositionOwner());
         }
-        
+
     }
 
     @objid ("bb3ecbfb-69f1-427c-8ce1-a18d2fe90d9b")
@@ -152,28 +152,30 @@ public class BpmnMessageElementDropEditPolicy extends DefaultElementDropEditPoli
 
         /**
          * Constructor to type the message with {@link Classifier} or {@link State}.
+         *
          * @param messageToType the message to type.
          * @param type the general class to use. Might be <code>null</code>.
          * @param state the state to use. Might be <code>null</code>.
          */
         @objid ("db69ab3e-a0d2-4c5d-8fc3-b78f76b1c3bc")
-        public  SmartTypeBpmnMessageCommand(final BpmnMessage messageToType, final ModelElement type, final ModelElement state) {
+        public SmartTypeBpmnMessageCommand(final BpmnMessage messageToType, final ModelElement type, final ModelElement state) {
             this.messageToType = messageToType;
             this.state = state;
             this.type = type;
-            
+
         }
 
         /**
          * Constructor to type the message with {@link Classifier} or {@link State}.
+         *
          * @param messageToType the message to type.
          * @param type the general class to use. Might be <code>null</code>.
          */
         @objid ("b0797e48-d214-4ecc-a69f-62ce7fb4c1eb")
-        public  SmartTypeBpmnMessageCommand(final BpmnMessage messageToType, final ModelElement type) {
+        public SmartTypeBpmnMessageCommand(final BpmnMessage messageToType, final ModelElement type) {
             this.messageToType = messageToType;
             this.type = type;
-            
+
         }
 
         @objid ("77b96ef8-d440-47bf-bdc7-f14576c5b05f")
@@ -191,7 +193,7 @@ public class BpmnMessageElementDropEditPolicy extends DefaultElementDropEditPoli
                     Represents.setTarget(this.messageToType, this.type);
                 } else if (this.type != null) {
                     Represents.setTarget(this.messageToType, this.type);
-            
+
                     // Keep the state consistent
                     ModelElement inState = State.getTarget(this.messageToType);
                     if (inState != null && !this.type.equals(BpmnMessageElementDropEditPolicy.getStateMachineOwnerClassifier(inState))) {
@@ -199,7 +201,7 @@ public class BpmnMessageElementDropEditPolicy extends DefaultElementDropEditPoli
                     }
                 }
             }
-            
+
         }
 
         @objid ("9bb39048-ab6f-4b14-ab22-e2061fa2c0be")
@@ -210,7 +212,7 @@ public class BpmnMessageElementDropEditPolicy extends DefaultElementDropEditPoli
             } else if (this.type != null) {
                 Represents.setTarget(this.messageToType, null);
             }
-            
+
         }
 
         @objid ("e2d03470-1c56-4baf-9c3f-6b575da4e877")
@@ -222,7 +224,7 @@ public class BpmnMessageElementDropEditPolicy extends DefaultElementDropEditPoli
             } else if (this.type != null) {
                 Represents.setTarget(this.messageToType, this.type);
             }
-            
+
         }
 
         @objid ("fe16065a-63e5-4e2d-908f-c391845cb5b5")
@@ -233,12 +235,12 @@ public class BpmnMessageElementDropEditPolicy extends DefaultElementDropEditPoli
             if (oldInState != null && this.state != null && !oldInState.equals(this.state)) {
                 warning.append(DiagramEditorBpmn.I18N.getMessage("BpmnMessageElementDropEditPolicy.confirmdialog.instate", oldInState.getName(), this.state != null ? this.state.getName() : "null"));
             }
-            
+
             ModelElement oldType = Represents.getTarget(this.messageToType);
             if (oldType != null && this.type != null && !oldType.equals(this.type)) {
                 warning.append(DiagramEditorBpmn.I18N.getMessage("BpmnMessageElementDropEditPolicy.confirmdialog.type", oldType.getName(), this.type.getName()));
             }
-            
+
             if (warning.length() > 0 && !MessageDialog.openQuestion(
                     Display.getDefault().getActiveShell(),
                     DiagramEditorBpmn.I18N.getString("BpmnMessageElementDropEditPolicy.confirmdialog.title"),

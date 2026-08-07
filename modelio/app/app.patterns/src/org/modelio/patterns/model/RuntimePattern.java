@@ -1,27 +1,48 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.patterns.model;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.file.FileSystem;
@@ -67,6 +88,7 @@ import org.modelio.patterns.model.information.RootParameter;
 import org.modelio.patterns.model.information.StringParameter;
 import org.modelio.patterns.plugin.Patterns;
 import org.modelio.patterns.utils.ImageRegistry;
+import org.modelio.vbasic.files.FileUtils;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MMetamodel;
@@ -94,49 +116,53 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
 
     /**
      * Build a new PatternData instance from a model element.
+     *
      * @param modelPattern can be an existing model pattern or any other element.
      */
     @objid ("9ec8fa2d-024f-4796-bec4-43863a731b22")
-    public  RuntimePattern(Package modelPattern) {
+    public RuntimePattern(Package modelPattern) {
         this.modelPattern = modelPattern;
         this.jaxbPattern = createJaxbModelFromUmlModel(modelPattern);
-        
+
         IGProject openedProject = AbstractGProject.getProject(modelPattern);
         this.patternPath = Patterns.getProjectPatternsDirectory(openedProject)
                 .resolve(this.jaxbPattern.getName() + "_" + this.jaxbPattern.getVersion() + ".umlt");
-        
     }
 
     /**
      * Build a new PatternData instance from a deployed pattern.
+     *
      * @param patternPath the file to load the pattern from.
      * @throws PatternException when the pattern metadata are invalid or can't be loaded.
      */
     @objid ("40231e6d-0350-4e8d-bf10-340ea4f9b276")
-    public  RuntimePattern(Path patternPath) throws PatternException {
+    public RuntimePattern(Path patternPath) throws PatternException {
         this.patternPath = patternPath;
-        
+
         try (FileSystem fs = FileSystems.newFileSystem(this.patternPath, this.getClass().getClassLoader())) {
             Path manifest = fs.getPath("Manifest.xml");
-            JAXBContext jc = JAXBContext.newInstance("org.modelio.patterns.model.information",RuntimePattern.class.getClassLoader());
+            JAXBContext jc = JAXBContext.newInstance("org.modelio.patterns.model.information", RuntimePattern.class.getClassLoader());
             Unmarshaller um = jc.createUnmarshaller();
-        
-            InputSource is = new InputSource(Files.newInputStream(manifest));
-            is.setSystemId(manifest.toString());
-        
-            this.jaxbPattern = (Pattern) um.unmarshal(is);
-        } catch (IOException | JAXBException e) {
+
+            try (InputStream inStream = Files.newInputStream(manifest)) {
+                InputSource is = new InputSource(inStream);
+                is.setSystemId(manifest.toString());
+
+                this.jaxbPattern = (Pattern) um.unmarshal(is);
+            }
+        } catch (IOException e) {
+            throw new PatternException(FileUtils.getLocalizedMessage(e), e);
+        } catch (JAXBException e) {
             throw new PatternException(e);
         }
-        
     }
 
     @objid ("41d731d1-b620-4606-838c-befcbc7050b7")
-    private void addConstantParameter(Pattern jaxbPattern, ModelElement element) {
+    private void addConstantParameter(Pattern loadingPattern, ModelElement element) {
         String uid = element.getUuid().toString();
-        
+
         // Do not create a new element parameter if one this the same id already exists
-        for (Object sub : jaxbPattern.getCategoryAndExternalDependencyAndParameter()) {
+        for (Object sub : loadingPattern.getCategoryAndExternalDependencyAndParameter()) {
             if (sub instanceof ConstantParameter) {
                 Parameter dcElement = (Parameter) sub;
                 if (uid.equals(dcElement.getId())) {
@@ -144,11 +170,11 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
                 }
             }
         }
-        
+
         ConstantParameter jaxbConstantParameter = new ConstantParameter();
         jaxbConstantParameter.setId(uid);
         jaxbConstantParameter.setMetaclass(element.getMClass().getQualifiedName());
-        
+
         ParameterModelData parameterData = ProfileUtils.getParameterData(jaxbConstantParameter.getId(), this.modelPattern);
         String label, name, description;
         if (parameterData != null) {
@@ -161,7 +187,7 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
             name = element.getTagValue(ProfileUtils.MODULE_NAME, PatternDesignerTagTypes.PATTERNPARAMETER_PATTERNPARAMETER_NAME);
             description = "";
         }
-        
+
         // Empty label use root name
         if (label == null || label.isEmpty()) {
             label = element.getName();
@@ -169,19 +195,18 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
         if (name == null || name.isEmpty()) {
             name = element.getName();
         }
-        
+
         jaxbConstantParameter.setName(name);
         jaxbConstantParameter.setLabel(label);
         jaxbConstantParameter.setDescription(description);
-        
-        jaxbPattern.getCategoryAndExternalDependencyAndParameter().add(jaxbConstantParameter);
-        
+
+        loadingPattern.getCategoryAndExternalDependencyAndParameter().add(jaxbConstantParameter);
     }
 
     @objid ("03cec0be-42a0-4b8e-9fa0-a7b3d20026bf")
     private void addElementParameter(Pattern jaxbPattern, ModelElement element) {
         String uid = element.getUuid().toString();
-        
+
         // Do not create a new element parameter if one this the same id already exists
         for (Object sub : jaxbPattern.getCategoryAndExternalDependencyAndParameter()) {
             if (sub instanceof ElementParameter || sub instanceof RootParameter) {
@@ -191,11 +216,11 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
                 }
             }
         }
-        
+
         ElementParameter jaxbElementParameter = new ElementParameter();
         jaxbElementParameter.setId(uid);
         jaxbElementParameter.setMetaclass(element.getMClass().getQualifiedName());
-        
+
         ParameterModelData parameterData = ProfileUtils.getParameterData(jaxbElementParameter.getId(), this.modelPattern);
         String label, name, description;
         if (parameterData != null) {
@@ -208,7 +233,7 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
             name = element.getTagValue(ProfileUtils.MODULE_NAME, PatternDesignerTagTypes.PATTERNPARAMETER_PATTERNPARAMETER_NAME);
             description = "";
         }
-        
+
         // Empty label use root name
         if (label == null || label.isEmpty()) {
             label = element.getName();
@@ -216,13 +241,12 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
         if (name == null || name.isEmpty()) {
             name = element.getName();
         }
-        
+
         jaxbElementParameter.setName(name);
         jaxbElementParameter.setLabel(label);
         jaxbElementParameter.setDescription(description);
-        
+
         jaxbPattern.getCategoryAndExternalDependencyAndParameter().add(jaxbElementParameter);
-        
     }
 
     @objid ("517f03df-6b14-4415-a51d-5dec0cc98b64")
@@ -230,7 +254,7 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
         if (element == null || element.getName().equals(ProfileUtils.MODULE_NAME)) {
             return;
         }
-        
+
         // Do not create a new module dependency if one this the same name already exists
         for (Object sub : jaxbPattern.getCategoryAndExternalDependencyAndParameter()) {
             if (sub instanceof ModuleDependency) {
@@ -240,21 +264,20 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
                 }
             }
         }
-        
+
         ModuleDependency eDependency = new ModuleDependency();
         eDependency.setName(element.getName());
         eDependency.setVersion(element.getMajVersion() + "." + element.getMinVersion() + "." + element.getMinMinVersion());
-        
+
         jaxbPattern.getCategoryAndExternalDependencyAndParameter().add(eDependency);
-        
     }
 
     @objid ("5ef62b56-8247-4feb-a671-634f756510e3")
     private void addRAMCDependency(Pattern jaxbPattern, ModelElement element) {
         addConstantParameter(jaxbPattern, element);
-        
+
         Project ramcomponent = getRamComponent(element);
-        
+
         // Do not create a new ramc dependency if one this the same name already exists
         if (ramcomponent != null) {
             for (Object sub : jaxbPattern.getCategoryAndExternalDependencyAndParameter()) {
@@ -265,12 +288,11 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
                     }
                 }
             }
-        
+
             RAMCDependency eDependency = new RAMCDependency();
             eDependency.setName(ramcomponent.getName());
             jaxbPattern.getCategoryAndExternalDependencyAndParameter().add(eDependency);
         }
-        
     }
 
     @objid ("b01b8e9a-f4a3-48de-a3c0-95f352fe356a")
@@ -284,11 +306,11 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
                 }
             }
         }
-        
+
         StringParameter sParameter = new StringParameter();
         sParameter.setId(mRef.uuid.toString());
         sParameter.setMetaclass(mRef.mc);
-        
+
         ParameterModelData parameterData = ProfileUtils.getParameterData(name, this.modelPattern);
         String label, description;
         if (parameterData != null) {
@@ -299,22 +321,22 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
             label = ProfileUtils.getStringParameterLabel(name, this.modelPattern);
             description = "";
         }
-        
+
         // Empty label use root name
         if (label == null || label.isEmpty()) {
             label = name;
         }
-        
+
         sParameter.setName(name);
         sParameter.setLabel(label);
         sParameter.setDescription(description);
-        
+
         jaxbPattern.getCategoryAndExternalDependencyAndParameter().add(sParameter);
-        
     }
 
     /**
      * Execute a pattern with the given parameters.
+     *
      * @param parameters the parameters for the pattern to run.
      * @throws PatternException when the pattern execution fails.
      */
@@ -324,21 +346,19 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
         // TODO is this initialization at the right place?
         MMetamodel metamodel = refElement.getMClass().getMetamodel();
         for (Parameter param : getParameters()) {
-            if (!(param instanceof RootParameter)) {
-                if (param instanceof ConstantParameter) {
-                    String name = param.getName();
+            if (param instanceof ConstantParameter) {
+                String name = param.getName();
+                ModelElement element = (ModelElement) coreSession.getModel().findById(metamodel.getMClass(param.getMetaclass()), param.getId());
+                parameters.put(name, element);
+            } else if (param instanceof ElementParameter) {
+                String name = param.getName();
+                if (!parameters.containsKey(name)) {
                     ModelElement element = (ModelElement) coreSession.getModel().findById(metamodel.getMClass(param.getMetaclass()), param.getId());
                     parameters.put(name, element);
-                } else if (param instanceof ElementParameter) {
-                    String name = param.getName();
-                    if (!parameters.containsKey(name)) {
-                        ModelElement element = (ModelElement) coreSession.getModel().findById(metamodel.getMClass(param.getMetaclass()), param.getId());
-                        parameters.put(name, element);
-                    }
                 }
             }
         }
-        
+
         IPattern result;
         try {
             result = getExecutablePattern();
@@ -346,9 +366,8 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
                 result.createModel(refElement, coreSession, parameters);
             }
         } catch (IOException e) {
-            throw new PatternException(e);
+            throw new PatternException(FileUtils.getLocalizedMessage(e), e);
         }
-        
     }
 
     @objid ("23f34053-353c-4573-ba60-07522dbfde5f")
@@ -386,16 +405,16 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
         for (Object sub : this.jaxbPattern.getCategoryAndExternalDependencyAndParameter()) {
             if (sub instanceof Category) {
                 Category category = (Category) sub;
-        
+
                 res.add(category);
-        
+
                 while (category.getSubCategory() != null) {
                     category = category.getSubCategory();
                     res.add(category);
                 }
             }
         }
-        
+
         if (res.isEmpty()) {
             Category defaultCategory = new Category();
             defaultCategory.setName(Patterns.I18N.getString("PropertyDefinition.DefaultCategory"));
@@ -407,15 +426,16 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
 
     /**
      * Load the executable part of a pattern.
+     *
      * @return a {@link IPattern} ready to use.
-     * @throws IOException when pattern loading fails.
+     * @throws IOException when pattern loading fails with I/O error.
+     * @throws PatternException if the pattern loading fails.
      */
     @objid ("6b7c4853-8523-4efa-9787-d1f3305680cf")
-    private IPattern getExecutablePattern() throws IOException {
+    private IPattern getExecutablePattern() throws IOException, PatternException {
         try (FileSystem fs = FileSystems.newFileSystem(this.patternPath, this.getClass().getClassLoader())) {
             return loadPatternFromJar(fs.getPath("Pattern.jar"));
         }
-        
     }
 
     @objid ("c4dab12b-a47d-4ae6-82a4-5b0bfaf0580a")
@@ -429,10 +449,10 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
                 result.append("    version : ");
                 result.append(moDependency.getVersion());
                 result.append("\n");
-        
+
             }
         }
-        
+
         for (Object sub : this.jaxbPattern.getCategoryAndExternalDependencyAndParameter()) {
             if (sub instanceof RAMCDependency) {
                 RAMCDependency rcDependency = (RAMCDependency) sub;
@@ -447,17 +467,20 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
     @objid ("16b433de-90f8-4d04-8151-ef31b7173492")
     public String getIconPath() {
         String image = this.jaxbPattern.getIcone();
-        
+
         if (image != null && !image.isEmpty()) {
             File imageFile = new File(image);
             try (FileSystem fs = FileSystems.newFileSystem(this.patternPath, this.getClass().getClassLoader())) {
                 Path imagePath = fs.getPath("");
                 return imagePath.toUri().toString() + "res" + File.separator + imageFile.getName();
-            } catch (Exception e) {
+            } catch (IOException e) {
+                Patterns.LOG.warning(FileUtils.getLocalizedMessage(e));
                 Patterns.LOG.debug(e);
+            } catch (RuntimeException e) {
+                Patterns.LOG.warning(e);
             }
         }
-        
+
         Bundle bundle = Platform.getBundle(Patterns.PLUGIN_ID);
         String s = "platform:/plugin/" + bundle.getSymbolicName() + "/" + "icons/pattern.png";
         URL url = null;
@@ -465,23 +488,30 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
             url = new URL(s);
             URL fileURL = FileLocator.toFileURL(url);
             return URIUtil.toURI(fileURL).toString();
-        } catch (Exception e) {
+        } catch (IOException e) {
+            Patterns.LOG.warning(FileUtils.getLocalizedMessage(e));
             Patterns.LOG.debug(e);
+        } catch (URISyntaxException | RuntimeException e) {
+            Patterns.LOG.warning(e);
         }
+
         return null;
     }
 
     @objid ("9f005e92-cca7-4a1e-be96-c887ce864214")
     public Image getImage() {
         String image = this.jaxbPattern.getImage();
-        
+
         if (image != null && !image.isEmpty()) {
             File imageFile = new File(image);
             try (FileSystem fs = FileSystems.newFileSystem(this.patternPath, this.getClass().getClassLoader())) {
                 Path imagePath = fs.getPath("");
                 return ImageRegistry.getImage(imagePath.toUri().toString() + "res\\" + imageFile.getName());
-            } catch (Exception e) {
+            } catch (IOException e) {
+                Patterns.LOG.warning(FileUtils.getLocalizedMessage(e));
                 Patterns.LOG.debug(e);
+            } catch (RuntimeException e) {
+                Patterns.LOG.warning(e);
             }
         }
         return ImageRegistry.getImage("icons/pattern.png");
@@ -503,7 +533,7 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
         List<Parameter> owners = new ArrayList<>();
         List<Parameter> objects = new ArrayList<>();
         List<Parameter> constant = new ArrayList<>();
-        
+
         for (Object sub : this.jaxbPattern.getCategoryAndExternalDependencyAndParameter()) {
             if (sub instanceof Parameter) {
                 if (sub instanceof RootParameter) {
@@ -517,7 +547,7 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
                 }
             }
         }
-        
+
         owners.addAll(strings);
         owners.addAll(objects);
         owners.addAll(constant);
@@ -554,7 +584,7 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
         for (Object data : this.jaxbPattern.getCategoryAndExternalDependencyAndParameter()) {
             if (data instanceof RootParameter) {
                 RootParameter root = (RootParameter) data;
-        
+
                 for (MObject elt : elements) {
                     MMetamodel metamodel = elt.getMClass().getMetamodel();
                     MClass rootMetaclass = metamodel.getMClass(root.getMetaclass());
@@ -588,14 +618,14 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
     @objid ("584e9191-03b4-4ed7-98af-d1a7ca6920c8")
     public String resolveMissingDependency(Collection<String> availableLibraries, Collection<String> availableModules) {
         String result = "";
-        
+
         for (Object sub : this.jaxbPattern.getCategoryAndExternalDependencyAndParameter()) {
             if (sub instanceof RAMCDependency) {
                 RAMCDependency rcDependency = (RAMCDependency) sub;
                 if (!availableLibraries.contains(rcDependency.getName())) {
                     result += "ramc     :  " + rcDependency.getName() + "    version : " + rcDependency.getVersion() + "\n";
                 }
-        
+
             } else if (sub instanceof ModuleDependency) {
                 ModuleDependency moDependency = (ModuleDependency) sub;
                 if (!availableModules.contains(moDependency.getName())) {
@@ -615,15 +645,15 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
                     category = (Category) sub;
                 }
             }
-        
+
             if (category == null) {
                 category = new Category();
                 this.jaxbPattern.getCategoryAndExternalDependencyAndParameter().add(category);
             }
-        
+
             category.setName(value);
         } else {
-        
+
             Category category = null;
             for (Object sub : this.jaxbPattern.getCategoryAndExternalDependencyAndParameter()) {
                 if (sub instanceof Category) {
@@ -634,7 +664,6 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
                 this.jaxbPattern.getCategoryAndExternalDependencyAndParameter().remove(category);
             }
         }
-        
     }
 
     @objid ("c73831f2-dd37-494a-9646-d8d455b6c603")
@@ -647,7 +676,6 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
                 }
             }
         }
-        
     }
 
     @objid ("3f3edfa3-3563-42c7-9d1a-f0685f1f5a6e")
@@ -660,10 +688,10 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
         String namespace = jarEntryName;
         namespace = namespace.replaceAll("/", "\\.");
         String separator = "/";
-        
+
         int index = namespace.lastIndexOf(separator);
         namespace = namespace.substring(index + 1);
-        
+
         if (namespace.endsWith(".class")) {
             namespace = namespace.substring(0, namespace.length() - 6);
         }
@@ -685,31 +713,31 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
     @objid ("aef03613-c42e-4650-a771-d0fea013b8bc")
     private Pattern createJaxbModelFromUmlModel(Package pattern) {
         Pattern jaxbPattern = new Pattern();
-        
+
         if (jaxbPattern.getName() == null || jaxbPattern.getName().isEmpty()) {
             jaxbPattern.setName(pattern.getName());
         }
-        
+
         if (jaxbPattern.getDescription() == null || jaxbPattern.getDescription().isEmpty()) {
-            String desc = pattern.getNoteContent("ModelerModule", "description");
+            String desc = pattern.getNoteContent(ProfileUtils.MODULE_NAME, ModelElement.MQNAME, "description");
             if (desc == null) {
                 desc = pattern.getName() + " Pattern";
             }
             jaxbPattern.setDescription(desc);
         }
-        
+
         String version = pattern.getTagValue(ProfileUtils.MODULE_NAME, PatternDesignerTagTypes.PATTERN_TEMPLATE_VERSION);
         if (version == null || version.isEmpty()) {
             version = "1.0.00";
         }
         jaxbPattern.setVersion(version);
-        
+
         String image = pattern.getTagValue(ProfileUtils.MODULE_NAME, PatternDesignerTagTypes.PATTERN_TEMPLATE_IMAGE);
         if (image == null) {
             image = "";
         }
         jaxbPattern.setImage(image);
-        
+
         Category parent = null;
         List<String> categories = pattern.getTagValues(ProfileUtils.MODULE_NAME,
                 PatternDesignerTagTypes.PATTERN_TEMPLATE_CATEGORIES);
@@ -720,11 +748,11 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
                 if (categories.size() > i + 1) {
                     category.setDescription(categories.get(i + 1));
                 }
-        
+
                 if (categories.size() > i + 2) {
                     category.setImage(categories.get(i + 2));
                 }
-        
+
                 if (parent == null) {
                     jaxbPattern.getCategoryAndExternalDependencyAndParameter().add(category);
                 } else {
@@ -733,27 +761,27 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
                 parent = category;
             }
         }
-        
+
         // Fill jaxb model parameters from model pattern
         final PatternModelAnalysis analysis = new PatternExporter().runAnalysis(this.modelPattern);
-        
+
         // Create roots in Jaxb model from pattern UML Model
         for (ModelElement elt : analysis.getRootParameters()) {
             addRootParameter(jaxbPattern, elt);
         }
-        
+
         for (ModelElement element : analysis.getElementParameters()) {
             addElementParameter(jaxbPattern, element);
         }
-        
+
         for (ModuleComponent module : analysis.getModuleDependencies()) {
             addModuleDependency(jaxbPattern, module);
         }
-        
+
         for (ModelElement element : analysis.getRamcDependencies()) {
             addRAMCDependency(jaxbPattern, element);
         }
-        
+
         for (ReportStringParameter param : analysis.getStringParameters()) {
             addStringParameter(jaxbPattern, param.name, param.mRef);
         }
@@ -761,13 +789,13 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
     }
 
     @objid ("b13f24a6-e2fb-4e2e-b31c-04777bfae50e")
-    private IPattern loadPatternFromJar(Path jarPath) throws IOException {
+    private IPattern loadPatternFromJar(Path jarPath) throws IOException, PatternException {
         try {
             // Create a temp file for the jar, it must not be part of a zip...
             Path jar = Files.createTempFile("Pattern", ".jar");
             Files.copy(jarPath, jar, StandardCopyOption.REPLACE_EXISTING);
             jar.toFile().deleteOnExit();
-        
+
             // Dynamically load IPattern instance from the jar
             IPattern ret = null;
             try (URLClassLoader loader = new URLClassLoader(new URL[] { jar.toFile().toURI().toURL() },
@@ -778,31 +806,33 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
                     if (jarEntry.getName().endsWith(".class")) { //$NON-NLS-1$
                         String metaclassNamespace = getNamespace(jarEntry.getName());
                         Class<?> metaclass = loader.loadClass(metaclassNamespace);
-        
+
                         if (IPattern.class.isAssignableFrom(metaclass)) {
-                            ret = (IPattern) metaclass.newInstance();
+                            return (IPattern) metaclass.getDeclaredConstructor().newInstance();
                         }
                     }
                 }
             }
             return ret;
-        } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            throw new IOException("Unable to load pattern ", e);
+        } catch (LinkageError | ReflectiveOperationException| RuntimeException e) {
+            throw new PatternException(Patterns.I18N.getMessage("RuntimePattern.load.fail", e), e);
         }
-        
     }
 
     @objid ("26d8aed3-da86-4811-8942-7c09e6284999")
     public Image getIcon() {
         String image = this.jaxbPattern.getIcone();
-        
+
         if (image != null && !image.isEmpty()) {
             File imageFile = new File(image);
             try (FileSystem fs = FileSystems.newFileSystem(this.patternPath, this.getClass().getClassLoader())) {
                 Path imagePath = fs.getPath("/res/" + imageFile.getName());
                 return ImageRegistry.getImage(imagePath);
-            } catch (Exception e) {
+            } catch (IOException e) {
+                Patterns.LOG.warning(FileUtils.getLocalizedMessage(e));
                 Patterns.LOG.debug(e);
+            } catch (RuntimeException e) {
+                Patterns.LOG.warning(e);
             }
         }
         return ImageRegistry.getImage("icons/pattern.png");
@@ -818,7 +848,7 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
         // Always take the root's owner
         ModelElement root = (ModelElement) elt.getCompositionOwner();
         String uid = root.getUuid().toString();
-        
+
         // Do not create a new root parameter if one this the same id already exists
         for (Object sub : jaxbPattern.getCategoryAndExternalDependencyAndParameter()) {
             if (sub instanceof RootParameter) {
@@ -828,12 +858,12 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
                 }
             }
         }
-        
+
         // Create the Jaxb root parameter
         RootParameter jaxbRootParameter = new RootParameter();
         jaxbRootParameter.setMetaclass(root.getMClass().getQualifiedName());
         jaxbRootParameter.setId(uid);
-        
+
         ParameterModelData parameterData = ProfileUtils.getParameterData(jaxbRootParameter.getId(), this.modelPattern);
         String label, name, description;
         if (parameterData != null) {
@@ -846,24 +876,23 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
             name = root.getName();
             description = "";
         }
-        
+
         // Empty label, use root name
         if (label == null || label.isEmpty()) {
             label = root.getName();
         }
-        
+
         // Empty name, use root name
         if (name == null || name.isEmpty()) {
             name = root.getName();
         }
-        
+
         jaxbRootParameter.setName(name);
         jaxbRootParameter.setLabel(label);
         jaxbRootParameter.setDescription(description);
-        
+
         // Add it to Jaxb model
         jaxbPattern.getCategoryAndExternalDependencyAndParameter().add(jaxbRootParameter);
-        
     }
 
     /**
@@ -926,13 +955,15 @@ public class RuntimePattern implements Comparable<RuntimePattern> {
                 Path fileInsideZipPath = fs.getPath("/res/" + imageFile.getName());
                 Files.createDirectories(fileInsideZipPath);
                 Files.copy(Paths.get(iconPath), fileInsideZipPath, StandardCopyOption.REPLACE_EXISTING);
-        
+
                 this.jaxbPattern.setIcone(fileInsideZipPath.toString());
-            } catch (Exception e) {
+            } catch (IOException e) {
+                Patterns.LOG.warning(FileUtils.getLocalizedMessage(e));
                 Patterns.LOG.debug(e);
+            } catch (RuntimeException e) {
+                Patterns.LOG.warning(e);
             }
         }
-        
     }
 
 }

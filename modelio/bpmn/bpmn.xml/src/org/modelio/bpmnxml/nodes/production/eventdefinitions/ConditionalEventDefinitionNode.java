@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.eventdefinitions;
 
@@ -68,12 +68,12 @@ public class ConditionalEventDefinitionNode implements IProductionNode<BpmnCondi
     @objid ("062eb33e-cc38-47c0-9dd3-1766e6063d3b")
     @Override
     public BpmnConditionalEventDefinition createUMLElement(MObject context, TConditionalEventDefinition jaxbElement, BpmnImportFactory factory, boolean keepId) {
-        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {  
+        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {
             return factory.createWithId(BpmnConditionalEventDefinition.class, context, "EventDefinitions", jaxbElement.getId());
         } else {
             return factory.create(BpmnConditionalEventDefinition.class, context, "EventDefinitions");
         }
-        
+
     }
 
     @objid ("c14559e5-0fa5-4435-835a-91fda56b8b71")
@@ -93,11 +93,11 @@ public class ConditionalEventDefinitionNode implements IProductionNode<BpmnCondi
     @Override
     public TConditionalEventDefinition createJaxbElement(Object context, BpmnConditionalEventDefinition modelioElement) {
         TEvent jaxEvent = (TEvent) context;
-        
+
         // Create JaxbElement
         TConditionalEventDefinition jaxEventDefinition = new TConditionalEventDefinition();
         this.elementsMap.put(modelioElement.getUuid(), jaxEventDefinition);
-        
+
         // Add to context
         List<JAXBElement<? extends TEventDefinition>> jaxContext = null;
         if (jaxEvent instanceof TThrowEvent) {
@@ -110,7 +110,7 @@ public class ConditionalEventDefinitionNode implements IProductionNode<BpmnCondi
         }
         ObjectFactory factory = new ObjectFactory();
         jaxContext.add(factory.createConditionalEventDefinition(jaxEventDefinition));
-        
+
         jaxEventDefinition.setId(IDUtils.getJaxbId(context, modelioElement));
         return jaxEventDefinition;
     }

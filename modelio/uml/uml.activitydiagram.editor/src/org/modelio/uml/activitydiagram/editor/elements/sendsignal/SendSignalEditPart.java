@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.sendsignal;
 
@@ -38,7 +38,7 @@ import org.modelio.uml.activitydiagram.editor.elements.policies.CreateFlowEditPo
 
 /**
  * EditPart for an SendSignalAction Node.
- * 
+ *
  * @author fpoyer
  */
 @objid ("2b4e3c6f-55b6-11e2-877f-002564c97630")
@@ -49,13 +49,13 @@ public class SendSignalEditPart extends AbstractNodeEditPart {
         // create the figure
         final SendArrowFigure fig = new SendArrowFigure();
         fig.setLayoutManager(new BorderLayout());
-        
+
         // set style independent properties
         MinimumSizeLayout.apply(fig, 100, 60);
-        
+
         // set style dependent properties
         refreshFromStyle(fig, getModelStyle());
-        
+
         // return the figure
         return fig;
     }
@@ -64,12 +64,12 @@ public class SendSignalEditPart extends AbstractNodeEditPart {
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         installEditPolicy(EditPolicy.NODE_ROLE, new CreateFlowEditPolicy());
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START,
                 new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
-        
+
     }
 
     @objid ("2b4e3c7b-55b6-11e2-877f-002564c97630")
@@ -77,7 +77,7 @@ public class SendSignalEditPart extends AbstractNodeEditPart {
     protected void refreshVisuals() {
         final GmSendSignalPrimaryNode sendSignalActionModel = (GmSendSignalPrimaryNode) getModel();
         getFigure().getParent().setConstraint(getFigure(), sendSignalActionModel.getLayoutData());
-        
+
     }
 
     @objid ("2b4e3c7e-55b6-11e2-877f-002564c97630")
@@ -95,7 +95,7 @@ public class SendSignalEditPart extends AbstractNodeEditPart {
             throw new IllegalArgumentException("SendSignalEditPart#addChildVisual: unknown index " + index);
         }
         getFigure().add(child, gmAbstractObject.getLayoutData(), index);
-        
+
     }
 
     @objid ("2b4e3c83-55b6-11e2-877f-002564c97630")
@@ -114,7 +114,7 @@ public class SendSignalEditPart extends AbstractNodeEditPart {
         } else {
             super.refreshFromStyle(aFigure, style);
         }
-        
+
     }
 
 }

@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.module.contributor.diagramcreation.standard;
 
@@ -39,7 +39,7 @@ import org.modelio.vcore.smkernel.mapi.MClass;
  * <li>name
  * <li>style
  * </ul>
- * 
+ *
  * @since 3.4
  */
 @objid ("da1043d3-d7e1-47ea-9329-be797a702b59")
@@ -49,10 +49,10 @@ public class GenericDiagramWizardContributor extends AbstractDiagramWizardContri
     public AbstractDiagram actionPerformed(ModelElement diagramContext, String diagramName, String diagramDescription) {
         String mc = getParameters().get("metaclass");
         String st = getParameters().get("stereotype");
-        
+
         if (mc != null) {
             MClass metaclass = diagramContext.getMClass().getMetamodel().getMClass(mc);
-        
+
             AbstractDiagram diagram = (AbstractDiagram) getModule().getModuleContext().getModelingSession().getModel().createElement(mc, diagramContext, "Product");
             if (st != null) {
                 Stereotype stereotype = findStereotypeFromSpec(metaclass, st);
@@ -60,24 +60,24 @@ public class GenericDiagramWizardContributor extends AbstractDiagramWizardContri
                     diagram.getExtension().add(stereotype);
                 }
             }
-        
+
             String name = getParameters().get("name");
             if (name == null) {
                 name = diagramName;
             }
             name = getModule().getModuleContext().getI18nSupport().getString(name);
             diagram.setName(name);
-        
-        
-        
+
+
+
             try {
                 diagram.putNoteContent("ModelerModule", ModelElement.MQNAME, "description", diagramDescription);
             } catch (@SuppressWarnings("unused") ExtensionNotFoundException e) {
                 getModule().getModuleContext().getLogService().error("Unable to find \"description\" note type, please deploy ModelerModule.");
             }
-        
-        
-        
+
+
+
             // Set new diagram style
             final IDiagramService diagramService = getModule().getModuleContext().getModelioServices().getDiagramService();
             final IStyleHandle styleHandle = diagramService.getStyle(getParameters().get("style"));
@@ -103,11 +103,11 @@ public class GenericDiagramWizardContributor extends AbstractDiagramWizardContri
     public ElementDescriptor getCreatedElementType() {
         String mc = getParameters().get("metaclass");
         String st = getParameters().get("stereotype");
-        
+
         if (mc != null) {
             MClass metaclass = getModule().getModuleContext().getModel().getMClass().getMetamodel().getMClass(mc);
             Stereotype stereotype = findStereotypeFromSpec(metaclass, st);
-        
+
             return new ElementDescriptor(metaclass, stereotype);
         }
         return null;

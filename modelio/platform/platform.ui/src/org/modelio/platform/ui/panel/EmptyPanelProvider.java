@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.ui.panel;
 
@@ -31,13 +31,13 @@ import org.modelio.platform.ui.UIFont;
 
 /**
  * A IPanelProvider implementation that provides an 'empty panel'.<br/>
- * 
+ *
  * Depending on the C'tor being used the "empty" panel displays either an strictly empty composite filling its parent or a simple header label showing name nad metaclass icon when current input is a ModelElement.
  * <p>
  * To display the "with header" variant, the C'tor requires an update BiConsumer lambda method that is called to update the header label contents.
  * </p>
  * The setInput(obj) and getInput() do nothing, but 'obj' is held by the class to keep setInput(x) getInput()=>x calls consistent.
- * 
+ *
  * @since 5.2
  */
 @objid ("39a5da03-b293-45e6-bcfd-e719615ac495")
@@ -66,9 +66,9 @@ public class EmptyPanelProvider implements IPanelProvider {
         this.container = new Composite(parent, SWT.NONE);
         this.container.setBackground(UIColor.WHITE);
         this.container.setLayoutData(new GridData(GridData.FILL_BOTH));
-        
+
         this.container.setLayout(new GridLayout(1, false));
-        
+
         // The header: a label indicating the current object name (text) and type (icon)
         if (this.selectionLabelUpdate != null) {
             this.header = new CLabel(this.container, SWT.NONE);
@@ -81,12 +81,12 @@ public class EmptyPanelProvider implements IPanelProvider {
     }
 
     @objid ("8ac48fd2-0055-4e39-ad7b-00d32a36fb1f")
-    public  EmptyPanelProvider(BiConsumer<CLabel, Object> selectionLabelUpdate) {
+    public EmptyPanelProvider(BiConsumer<CLabel, Object> selectionLabelUpdate) {
         this.selectionLabelUpdate = selectionLabelUpdate;
     }
 
     @objid ("3706d705-e97d-404c-b6ac-e6cf5ea86556")
-    public  EmptyPanelProvider() {
+    public EmptyPanelProvider() {
         this(null);
     }
 
@@ -117,13 +117,13 @@ public class EmptyPanelProvider implements IPanelProvider {
                 this.selectionLabelUpdate.accept(this.header, input);
             }
         }
-        
+
     }
 
     @objid ("0c159f5d-c44a-4bb5-bce0-eff5c9124d9c")
     @Override
     public void dispose() {
-        
+
     }
 
 }

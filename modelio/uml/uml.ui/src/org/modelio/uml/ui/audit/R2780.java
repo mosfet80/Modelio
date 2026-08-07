@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -51,7 +51,7 @@ public class R2780 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -102,14 +102,14 @@ public class R2780 extends AbstractUmlRule {
      * Default constructor for R2780
      */
     @objid ("5e57f1aa-e122-4209-9d77-9bb9d437f343")
-    public  R2780() {
+    public R2780() {
         this.checkerInstance = new CheckR2780(this);
     }
 
     @objid ("fa5a3696-0125-4605-8e46-fb1d386376cc")
     private static class CheckR2780 extends AbstractControl {
         @objid ("40c8e175-e9cf-43a7-a717-ed3b52583806")
-        public  CheckR2780(IRule rule) {
+        public CheckR2780(IRule rule) {
             super(rule);
         }
 
@@ -127,12 +127,12 @@ public class R2780 extends AbstractUmlRule {
         @objid ("883389f2-27ec-480c-a831-0d75b4050214")
         private IAuditEntry checkR2780(Transition transition) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, transition, null);
-            
+
             StateVertex source = transition.getSource();
-            
+
             if (source instanceof AbstractPseudoState && !(source instanceof InitialPseudoState)) {
                 Event event = transition.getTrigger();
-            
+
                 if (event != null) {
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();

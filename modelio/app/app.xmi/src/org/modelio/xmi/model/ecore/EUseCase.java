@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -39,29 +39,29 @@ public class EUseCase extends ENamedElement {
     }
 
     @objid ("bc7d746d-be3f-4357-ac96-e231ca3fd29e")
-    public  EUseCase(org.eclipse.uml2.uml.UseCase element) {
+    public EUseCase(org.eclipse.uml2.uml.UseCase element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("2c484edf-f20c-4323-9cdb-533f9b34cf2d")
     @Override
     public void attach(Element objingElt) {
         ReverseProperties revProp = ReverseProperties.getInstance();
-        
+
         org.eclipse.uml2.uml.Element ecoreOwner = this.ecoreElement.getOwner();
-        
+
         Object objingOwner = revProp.getMappedElement(ecoreOwner);
-        
-        if ( (objingOwner != null) 
-                && (objingOwner instanceof ModelTree) 
+
+        if ( (objingOwner != null)
+                && (objingOwner instanceof ModelTree)
                 && !(objingOwner instanceof Profile)) {
             ((UseCase) objingElt).setOwner((ModelTree)objingOwner);
         }else{
             ((UseCase) objingElt).setOwner(revProp.getExternalPackage());
         }
-        
+
     }
 
 }

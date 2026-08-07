@@ -1,29 +1,29 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.edition.notes.view;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.Focus;
@@ -106,12 +106,13 @@ public class NotesView implements IModelChangeListener, IStatusChangeListener {
      * Constructor.
      */
     @objid ("ca31b44f-fe5b-4a0e-adfa-92600a4bc6db")
-    public  NotesView() {
-        
+    public NotesView() {
+
     }
 
     /**
      * Get the notes panel.
+     *
      * @return the current notes panel.
      */
     @objid ("f5a048c6-3634-409c-bd26-94494f9ce41d")
@@ -121,6 +122,7 @@ public class NotesView implements IModelChangeListener, IStatusChangeListener {
 
     /**
      * Called by the framework to create the view and initialize it.
+     *
      * @param projectService the project service.
      * @param parent the composite the view must add its content into.
      * @param selection the application selection.
@@ -132,13 +134,13 @@ public class NotesView implements IModelChangeListener, IStatusChangeListener {
     public void createControls(IProjectService projectService, Composite parent, @Optional
     @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection, @Optional EMenuService theMenuService, IEclipseContext context) {
         this.parentComposite = parent;
-        
+
         this.panel = new NotesPanelProvider(context, context.get(IActivationService.class));
         this.panel.createPanel(NotesView.this.parentComposite);
-        
+
         theMenuService.registerContextMenu(NotesView.this.getNotesPanel().getTreeViewer().getTree(), NotesView.POPUPID);
         NotesView.this.parentComposite.layout(true, true);
-        
+
         // Sometimes, the view is instantiated only after the project is opened
         if (projectService != null && projectService.getOpenedProject() != null) {
             projectService.getOpenedProject().getSession().getModelChangeSupport().addModelChangeListener(this);
@@ -147,7 +149,7 @@ public class NotesView implements IModelChangeListener, IStatusChangeListener {
                 onSelectionChange(selection);
             }
         }
-        
+
     }
 
     /**
@@ -159,7 +161,7 @@ public class NotesView implements IModelChangeListener, IStatusChangeListener {
         if (this.panel != null) {
             this.panel.setFocus();
         }
-        
+
     }
 
     /**
@@ -175,16 +177,16 @@ public class NotesView implements IModelChangeListener, IStatusChangeListener {
         if (openedProject == null) {
             return;
         }
-        
+
         this.panel.setActivationService(activationService);
-        
+
         openedProject.getSession().getModelChangeSupport().addModelChangeListener(this);
         openedProject.getSession().getModelChangeSupport().addStatusChangeListener(this);
-        
+
         if (selection != null) {
             onSelectionChange(selection);
         }
-        
+
     }
 
     /**
@@ -204,10 +206,11 @@ public class NotesView implements IModelChangeListener, IStatusChangeListener {
                 }
             }
         });
-        
+
     }
 
     /**
+     *
      * @return the control that has keyboard focus.
      */
     @objid ("97210557-9959-4572-9740-6fd20e4c17da")
@@ -218,6 +221,7 @@ public class NotesView implements IModelChangeListener, IStatusChangeListener {
     /**
      * This listener is activated when the selection changes in the workbench.<br>
      * Its responsibility is to set the NotesView's current element.
+     *
      * @param selection the current modelio selection.
      */
     @objid ("5565698e-2918-4551-ba17-8e9893e5e18b")
@@ -229,7 +233,7 @@ public class NotesView implements IModelChangeListener, IStatusChangeListener {
             this.panel.setInput(selection);
             this.panel.getPanel().layout(true, true);
         }
-        
+
     }
 
     /*
@@ -257,6 +261,7 @@ public class NotesView implements IModelChangeListener, IStatusChangeListener {
 
     /**
      * E4 destructor.
+     *
      * @param projectService the project service.
      */
     @objid ("e3d6e9c3-ff4c-472d-a0a2-7ea4fd199c75")
@@ -271,13 +276,13 @@ public class NotesView implements IModelChangeListener, IStatusChangeListener {
         if (this.panel != null) {
             this.panel.dispose();
         }
-        
+
     }
 
     @objid ("8d2c0e8f-04df-423e-8848-015f8dce6fde")
     private class UpdateViewRunnable implements Runnable {
         @objid ("89823f35-9bd2-4689-aaa4-3efabb31b576")
-        public  UpdateViewRunnable() {
+        public UpdateViewRunnable() {
             super();
         }
 
@@ -289,7 +294,7 @@ public class NotesView implements IModelChangeListener, IStatusChangeListener {
                 notesViewPanel.setInput(new StructuredSelection(notesViewPanel.getInput()));
                 notesViewPanel.getPanel().layout(true, true);
             }
-            
+
         }
 
     }

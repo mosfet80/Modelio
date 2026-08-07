@@ -1,0 +1,21 @@
+# Below, example of the Apache configuration site :
+
+<VirtualHost *:80>
+
+	RewriteEngine on
+
+	####################################################################
+	#
+	#  Modelio 3.7 on-line help (Eclipse information center)
+	#
+	####################################################################
+	# The following rewriteRule is to workaround a bug
+	RewriteRule ^/modelio37-help/(.*) /modelio-help/37/$1 [R,L]
+	RewriteRule ^/modelio-help/37/$ /modelio-help/37/index.jsp [R]
+	RewriteRule ^/modelio-help/37$  /modelio-help/37/index.jsp [R]
+	<LocationMatch "/modelio-help/37">
+		Header add Accept-Language "en"
+		RequestHeader set Accept-Language "en"
+		ProxyPass ajp://127.0.0.1:8009/modelio37-help
+	</LocationMatch>
+</VirtualHost>

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.policies;
 
@@ -59,16 +59,17 @@ public class DefaultElementDropEditPolicy extends AbstractElementDropEditPolicy 
      * C'tor forbidding multiple unmask.
      */
     @objid ("ecf682ad-cd34-47bf-8eea-3a54e303f287")
-    public  DefaultElementDropEditPolicy() {
+    public DefaultElementDropEditPolicy() {
         this(false);
     }
 
     /**
      * C'tor.
+     *
      * @param multipleUnmaskAllowed allow or forbid multiple unmask for model elements.
      */
     @objid ("4bb89082-bf6f-43a1-86e9-ee608b5796b9")
-    public  DefaultElementDropEditPolicy(boolean multipleUnmaskAllowed) {
+    public DefaultElementDropEditPolicy(boolean multipleUnmaskAllowed) {
         this.multipleUnmaskAllowed = multipleUnmaskAllowed;
     }
 
@@ -82,7 +83,8 @@ public class DefaultElementDropEditPolicy extends AbstractElementDropEditPolicy 
 
     /**
      * Creates a drop command for an element that will be unmasked as a node.
-     * @param command      the compound in which to add the created command.
+     *
+     * @param command the compound in which to add the created command.
      * @param dropLocation the point where the drop happened.
      * @param toUnmask the element to unmask.
      */
@@ -99,7 +101,7 @@ public class DefaultElementDropEditPolicy extends AbstractElementDropEditPolicy 
         } else {
             return null;
         }
-        
+
     }
 
     /**
@@ -137,6 +139,7 @@ public class DefaultElementDropEditPolicy extends AbstractElementDropEditPolicy 
 
     /**
      * Creates a drop command for an element that will be unmasked as a link.
+     *
      * @param dropLocation the point where the drop happened.
      * @param link the link.
      * @return the created command.
@@ -150,7 +153,7 @@ public class DefaultElementDropEditPolicy extends AbstractElementDropEditPolicy 
                 diagEp = (AbstractDiagramEditPart) ep;
             }
         }
-        
+
         assert diagEp != null : getHost();
         return new UnmaskLinkCommand(link, diagEp, dropLocation);
     }
@@ -159,6 +162,7 @@ public class DefaultElementDropEditPolicy extends AbstractElementDropEditPolicy 
      * <p>
      * Creates the Command to handle a ModelElementDropRequest. This default implementation will delegate a CreateRequest for each dropped element.
      * </p>
+     *
      * @param request The drop request.
      * @return the created command.
      */
@@ -166,14 +170,14 @@ public class DefaultElementDropEditPolicy extends AbstractElementDropEditPolicy 
     @Override
     protected final Command getDropCommand(ModelElementDropRequest request) {
         final CompoundCommand command = new CompoundCommand();
-        
+
         Point dropLocation = request.getDropLocation();
         final GmModel hostModel = (GmModel) getHost().getModel();
         final IGmDiagram diagram = hostModel.getDiagram();
         for (final MObject toUnmask : request.getDroppedElements()) {
             final GmModel previousUnmask = diagram.getExistingModelFor(toUnmask);
             Command cmd;
-        
+
             if (this.multipleUnmaskAllowed || previousUnmask == null) {
                 // FIXME related diagrams should not be tested here, they are handled by another policy...
                 if (isLinkMetaclass(toUnmask) && !(toUnmask instanceof Dependency && ((Dependency) toUnmask).isStereotyped("ModelerModule", "related_diagram"))) {
@@ -187,11 +191,11 @@ public class DefaultElementDropEditPolicy extends AbstractElementDropEditPolicy 
                 // Otherwise, just select it.
                 cmd = createSelectionCommand(previousUnmask);
             }
-        
+
             if (cmd != null) {
                 command.add(cmd);
             }
-        
+
         }
         return command.isEmpty() ? null : command.unwrap();
     }
@@ -211,6 +215,7 @@ public class DefaultElementDropEditPolicy extends AbstractElementDropEditPolicy 
      * <p>
      * Subclasses should redefine this method to provide "smart interactions".
      * </p>
+     *
      * @param request the drop request
      * @return the host if all dropped elements can be unmasked by the Gm, <code>null</code> otherwise.
      */
@@ -223,12 +228,12 @@ public class DefaultElementDropEditPolicy extends AbstractElementDropEditPolicy 
             if (!(model instanceof GmModel)) {
                 return null;
             }
-        
+
             final GmModel hostModel = (GmModel) model;
             if (!hostModel.canUnmask(droppedElement)) {
                 return null;
             }
-        
+
         }
         // All dropped elements understood: return host!
         return getHost();
@@ -241,6 +246,7 @@ public class DefaultElementDropEditPolicy extends AbstractElementDropEditPolicy 
      * <p>
      * Subclasses should redefine this method to provide "smart interactions".
      * </p>
+     *
      * @param request The drop request.
      * @return the created command.
      */

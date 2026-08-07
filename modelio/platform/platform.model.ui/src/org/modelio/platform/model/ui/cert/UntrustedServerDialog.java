@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.cert;
 
@@ -98,22 +98,22 @@ public class UntrustedServerDialog extends ModelioDialog {
     private X509Certificate[] chain;
 
     /**
+     *
      * @param parentShell a SWT shell
      * @param uri the accessed URI
      * @param chain the invalid certificate chain
      * @param error the error
      */
     @objid ("ade4fc4d-e4ae-47f7-9b7d-498fdab65c9f")
-    public  UntrustedServerDialog(Shell parentShell, URI uri, X509Certificate[] chain, Throwable error) {
+    public UntrustedServerDialog(Shell parentShell, URI uri, X509Certificate[] chain, Throwable error) {
         super(parentShell);
         this.error = error;
         this.uri = uri;
         this.chain = chain;
-        
+
         // FANO 0014264: [SaaS][Linux] At first launch, the 'Unsecured connection' window appears behind the splash screen
         // Copy parent shell SWT.ON_TOP state
         setShellStyle(getShellStyle() | (getParentShell().getStyle() & (SWT.ON_TOP)));
-        
     }
 
     @objid ("af3961dc-a96e-465d-926f-70ee31ef257c")
@@ -121,82 +121,82 @@ public class UntrustedServerDialog extends ModelioDialog {
     public Control createContentArea(Composite parent) {
         final Composite top = new Composite(parent, SWT.BORDER);
         top.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-        
+
         top.setLayout(
                 new SectionContainerLayout());
-        
+
         GridLayout topLayout = new GridLayout(1, true);
         topLayout.verticalSpacing = 10;
         topLayout.marginWidth = 4;
-        
+
         //top.setLayout(topLayout);
         GridDataFactory gdFact = GridDataFactory.fillDefaults().grab(true, true);
-        
-        
+
+
         ExpandListener expandListener = new ExpandListener() {
             @Override
             public void itemExpanded(ExpandEvent e) {
                 PGroup pGroup = ((PGroup) e.widget);
                 pGroup.getParent().layout(true, true);
             }
-        
+
             @Override
             public void itemCollapsed(ExpandEvent e) {
                 PGroup pGroup = ((PGroup) e.widget);
                 pGroup.getParent().layout(true, true);
             }
         };
-        
+
         StyledText ft = new StyledText(top, SWT.MULTI | SWT.WRAP);
         ft.setEditable(false);
         ft.setEditable(false);
         ft.setBackground(parent.getBackground());
         StyledTextHelper.setStyledText(CoreUi.I18N.getMessage("UntrustedServerDialog.message", this.uri.getHost()), ft);
         gdFact.applyTo(ft);
-        
+
         // Technical error details
         PGroup techArea = new PGroup(top, SWT.NONE);
         techArea.setExpanded(true);
-        
+
         techArea.setLayout(new GridLayout());
         techArea.setText(CoreUi.I18N.getMessage("UntrustedServerDialog.techarea.title"));
         techArea.addExpandListener(expandListener);
         gdFact.applyTo(techArea);
-        
+
         Text widget = new Text(techArea, SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
         widget.setEditable(false);
         widget.setForeground(parent.getDisplay().getSystemColor(SWT.COLOR_DARK_RED));
         widget.setText(buildTechDetails());
         widget.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-        
+
         // Exception stack trace
         PGroup excArea = new PGroup(top, SWT.NONE);
         excArea.setExpanded(false);
-        
+
         excArea.setLayout(new FillLayout());
         excArea.setText(CoreUi.I18N.getMessage("UntrustedServerDialog.exceptionarea.title"));
         excArea.addExpandListener(expandListener);
         gdFact.applyTo(excArea);
-        
+
         StringWriter s = new StringWriter();
         this.error.printStackTrace(new PrintWriter(s));
         widget = new Text(excArea, SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
         widget.setText(s.toString());
         widget.setEditable(false);
-        
+
         // Certificate area
         PGroup certArea = new PGroup(top, SWT.NONE);
         certArea.setExpanded(false);
-        
+
         certArea.setLayout(new FillLayout());
         certArea.setText(CoreUi.I18N.getMessage("UntrustedServerDialog.certarea.title"));
         certArea.addExpandListener(expandListener);
         gdFact.applyTo(certArea);
-        
+
         widget = new Text(certArea, SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
         widget.setEditable(false);
         widget.setText(this.chain[0].toString());
-        
+
         // Understand area
         Composite uSection = createUnderstandSection(top, this.uri.getHost());
         ((PGroup)uSection).addExpandListener(expandListener);
@@ -207,29 +207,29 @@ public class UntrustedServerDialog extends ModelioDialog {
     @objid ("6fa7cb53-6b03-4f69-92e1-b18829755434")
     private Composite createUnderstandSection(Composite parent, String serverName) {
         PGroup understandArea = new PGroup(parent, SWT.NONE);
-        
+
         understandArea.setLayout(new FillLayout());
         understandArea.setText(CoreUi.I18N.getMessage("UntrustedServerDialog.understandarea.title"));
-        
+
         Composite compo = new Composite(understandArea, SWT.NONE);
         compo.setLayout(new GridLayout(2, false));
-        
+
         StyledText ft = new StyledText(compo, SWT.MULTI | SWT.WRAP );
         GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
         gd.horizontalSpan = 2;
         ft.setLayoutData(gd);
         ft.setBackground(parent.getBackground());
-        
+
         StyledTextHelper.setStyledText(CoreUi.I18N.getMessage("UntrustedServerDialog.understandarea.message", serverName), ft);
-        
+
         Composite toolbar = new Composite(compo, SWT.NONE);
         toolbar.setLayout(new RowLayout());
         toolbar.setLayoutData(new GridData(SWT.CENTER, SWT.FILL, false, false));
-        
+
         Button button1 = new Button(toolbar, SWT.PUSH);
         button1.setText(CoreUi.I18N.getMessage("UntrustedServerDialog.button.TrustOnce"));
         button1.addSelectionListener(widgetSelectedAdapter(event -> buttonPressed(UntrustedServerDialog.TRUST_ONCE_ID)));
-        
+
         Button button2 = new Button(toolbar, SWT.PUSH);
         button2.setText(CoreUi.I18N.getMessage("UntrustedServerDialog.button.TrustAlways"));
         button2.addSelectionListener(widgetSelectedAdapter(event -> buttonPressed(UntrustedServerDialog.TRUST_ALWAYS_ID)));
@@ -240,7 +240,7 @@ public class UntrustedServerDialog extends ModelioDialog {
     private String buildTechDetails() {
         StringBuilder s = new StringBuilder();
         s.append(this.error.getLocalizedMessage());
-        
+
         s.append("\n\n");
         s.append(CoreUi.I18N.getMessage("UntrustedServerDialog.diag.title"));
         s.append("\n");
@@ -248,19 +248,19 @@ public class UntrustedServerDialog extends ModelioDialog {
         for (int i = 0; i < this.chain.length; i++) {
             X509Certificate cert = this.chain[i];
             X509Certificate nextCert = i + 1 < this.chain.length ? this.chain[i + 1] : null;
-        
+
             String subjectName = getName(cert.getSubjectX500Principal());
-        
+
             s.append(" * ");
             s.append(CoreUi.I18N.getMessage("UntrustedServerDialog.diag.title.cert", subjectName));
             s.append("\n");
-        
+
             for (String entry : getCertificateDiagnostic(cert, certFor, nextCert)) {
                 s.append("    - ");
                 s.append(entry);
                 s.append("\n");
             }
-        
+
             certFor = subjectName;
         }
         return s.toString();
@@ -285,7 +285,6 @@ public class UntrustedServerDialog extends ModelioDialog {
         default:
             super.buttonPressed(buttonId);
         }
-        
     }
 
     @objid ("3fdadaa1-2b09-4ede-ac0a-9361a887c363")
@@ -294,13 +293,12 @@ public class UntrustedServerDialog extends ModelioDialog {
         getShell().setText(CoreUi.I18N.getMessage("UntrustedServerDialog.title"));
         setTitle(CoreUi.I18N.getString("UntrustedServerDialog.header"));
         setMessage(this.uri.getHost());
-        
     }
 
     @objid ("b857902a-c6a1-4352-a817-c54257455fe8")
     private static Collection<String> getCertificateDiagnostic(X509Certificate cert, String realHostName, X509Certificate nextCert) {
         Collection<String> ret = new ArrayList<>();
-        
+
         if (nextCert != null) {
             try {
                 cert.verify(nextCert.getPublicKey());
@@ -327,11 +325,11 @@ public class UntrustedServerDialog extends ModelioDialog {
                 ret.add(e1.getLocalizedMessage());
             }
         }
-        
+
         Date time = new Date(System.currentTimeMillis());
         if (time.before(cert.getNotBefore())) {
             // The certificate is not yet valid.
-        
+
             ret.add(CoreUi.I18N.getMessage("UntrustedServerDialog.diag.notyetvalid", DateFormat.getDateTimeInstance().format(cert.getNotBefore())));
         }
         if (time.after(cert.getNotAfter())) {
@@ -339,7 +337,7 @@ public class UntrustedServerDialog extends ModelioDialog {
             ret.add(CoreUi.I18N.getMessage("UntrustedServerDialog.diag.expired", DateFormat.getDateTimeInstance().format(cert.getNotAfter())));
         }
         String certHostName = getName(cert.getSubjectX500Principal());
-        
+
         if (!realHostName.equals(certHostName)) {
             try {
                 Collection<List<?>> altNames = cert.getSubjectAlternativeNames();
@@ -383,7 +381,6 @@ public class UntrustedServerDialog extends ModelioDialog {
         } catch (NamingException e) {
             return e.toString() + "( from " + pr.toString() + ")";
         }
-        
     }
 
     @objid ("3fe1a65c-7a87-4a90-9400-51f34dc5e18b")
@@ -415,23 +412,22 @@ public class UntrustedServerDialog extends ModelioDialog {
             int childWHint = wHint == SWT.DEFAULT ? SWT.DEFAULT : wHint - this.margin * 2 ;
             if (childWHint < 0)
                 childWHint = SWT.DEFAULT;
-            
+
             Point ret = new Point(this.margin * 2,this.margin * 2);
             for (Control child : composite.getChildren()) {
                 Point r = child.computeSize(childWHint, SWT.DEFAULT);
                 ret.x = Math.max(r.x, ret.x);
                 ret.y += r.y + this.vSpacing;
             }
-            
+
             ret.y -= this.vSpacing;
-            
+
             if (hHint > 0 && ret.y > hHint)
                 ret.y = hHint;
             if (wHint > 0 && ret.x > wHint)
                 ret.x = wHint;
             return ret;
             //return composite.getSize();
-            
         }
 
         @objid ("68a45e70-9713-4a44-9504-d293670b61d1")
@@ -439,27 +435,27 @@ public class UntrustedServerDialog extends ModelioDialog {
         protected void layout(Composite composite, boolean flushCache) {
             Control[] children = composite.getChildren();
             int nChildren = children.length;
-            
+
             Rectangle bounds = composite.getClientArea();
             Rectangle area = new Rectangle(bounds.x + this.margin, bounds.y + this.margin, bounds.width-2*this.margin, bounds.height-2*this.margin);
-            
+
             int x = area.x;
             int y = area.y;
             int w = area.width;
             int wHint = area.width;
-            
+
             int hTheoritical = (area.height - (nChildren-1)*this.vSpacing) / nChildren;
-            
+
             int spareHeight = 0;
             int spareTargetsNb = nChildren;
-            
+
             Point[] childReqSizes = new Point[children.length];
             int [] newHeights = new int[children.length];
             for (int i = 0; i < children.length; i++) {
                 Control child = children[i];
                 Point r = child.computeSize(wHint, SWT.DEFAULT);
                 childReqSizes[i] = r;
-            
+
                 if (r.y < hTheoritical) {
                     newHeights[i] = r.y;
                     spareHeight += (hTheoritical - r.y);
@@ -468,13 +464,13 @@ public class UntrustedServerDialog extends ModelioDialog {
                     newHeights[i] = hTheoritical;
                 }
             }
-            
+
             if (true) {
-            
+
                 // distribute evenly spare height among hungry widget
                 int newMeanH = hTheoritical;
                 for (int step = 0; (step <5 && spareHeight>0 && spareTargetsNb>0); step++) {
-            
+
                     int hIncs = (spareHeight / spareTargetsNb);
                     newMeanH += hIncs ;
                     for (int i = 0; i < children.length; i++) {
@@ -490,7 +486,7 @@ public class UntrustedServerDialog extends ModelioDialog {
                         }
                     }
                 }
-            
+
                 // Set bounds
                 for (int i = 0; i < children.length; i++) {
                     Control child = children[i];
@@ -508,7 +504,6 @@ public class UntrustedServerDialog extends ModelioDialog {
                     y += b.height + this.vSpacing;
                 }
             }
-            
         }
 
     }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link;
 
@@ -118,7 +118,7 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
      * Creates a {@link LinkEditPart}.
      */
     @objid ("80199778-1dec-11e2-8cad-001ec947c8cc")
-    public  LinkEditPart() {
+    public LinkEditPart() {
         super();
     }
 
@@ -126,10 +126,9 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
     @Override
     public void activate() {
         super.activate();
-        
+
         final GmLink gmLink = getModel();
         gmLink.addPropertyChangeListener(this);
-        
     }
 
     @objid ("8019977e-1dec-11e2-8cad-001ec947c8cc")
@@ -142,16 +141,15 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
     @Override
     public void deactivate() {
         super.deactivate();
-        
+
         getModel().removePropertyChangeListener(this);
-        
     }
 
     /**
      * Returns an object which is an instance of the given class associated with this object. Returns <code>null</code> if no such object can be found.
      * <p>
      * Extends {@link AbstractConnectionEditPart#getAdapter(Class)} to support {@link MObject}, {@link IGmObject}, {@link GmModel} and their subclasses.
-     * @see IAdaptable#getAdapter(Class)
+     *
      * @param adapter the adapter class to look up
      * @return a object castable to the given class, or <code>null</code> if this object does not have an adapter for the given class
      */
@@ -159,12 +157,12 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
     @Override
     public Object getAdapter(Class adapter) {
         final GmLink gmModel = getModel();
-        
+
         // Support IGmObject, GmModel and its subclasses
         if (adapter.isInstance(gmModel)) {
             return gmModel;
         }
-        
+
         // Support MObject & subclasses
         if (gmModel != null) {
             final MObject obElement = gmModel.getRelatedElement();
@@ -172,7 +170,7 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
                 return obElement;
             }
         }
-        
+
         // Support indirectly IFixedConnectionAnchorFactory
         INodeAnchorProvider anchProv = getNodeAnchorProvider();
         if (adapter.isInstance(anchProv)) {
@@ -189,7 +187,6 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
         } else {
             return new SelectEditPartTracker(this);
         }
-        
     }
 
     @objid ("801bf9b1-1dec-11e2-8cad-001ec947c8cc")
@@ -197,7 +194,7 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
     public List<Object> getModelChildren() {
         final ArrayList<Object> ret = new ArrayList<>(8);
         final GmLink link = getModel();
-        
+
         ret.addAll(link.getVisibleExtensions());
         ret.addAll(super.getModelChildren());
         return ret;
@@ -231,6 +228,7 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
      * Get the service used to produce connection anchors from ConnectionEditPart of Request.
      * <p>
      * Default implementation returns {@link RectangleNodeAnchorProvider}. May be redefined to use another service.
+     *
      * @return the service used to produce connection anchors from ConnectionEditPart of Request.
      * @since 5.1.0
      */
@@ -248,28 +246,28 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
         if (NavigationRequest.TYPE == req.getType()) {
             final GmLink gm = getModel();
             final MObject relatedEl = gm.getRelatedElement();
-        
+
             IModelioNavigationService service = gm.getDiagram().getModelManager().getNavigationService();
             service.fireNavigate(relatedEl);
-        
+
             getViewer().setSelection(new StructuredSelection(this));
         } else if (RequestConstants.REQ_OPEN.equals(req.getType())) {
             final GmLink gm = getModel();
             final MObject relatedEl = gm.getRelatedElement();
-        
+
             IActivationService service = gm.getDiagram().getModelManager().getActivationService();
             service.activateMObject(relatedEl);
         } else if (RequestConstants.REQ_DIRECT_EDIT.equals(req.getType())) {
             performDirectEditRequest(req);
         }
         super.performRequest(req);
-        
     }
 
     /**
      * Perform a direct edition request.
      * <p>
      * The request may be a {@link LocationRequest} with a mouse location or a simple {@link Request} .
+     *
      * @param req a {@link RequestConstants#REQ_DIRECT_EDIT} request
      */
     @objid ("c2efa05a-85e8-46b1-a294-ab87a76ee0e3")
@@ -277,7 +275,7 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
         if (req instanceof LocationRequest) {
             // Give the request to the child where the request is located
             final Point reqLocation = ((LocationRequest) req).getLocation();
-        
+
             for (Object childEditPartObj : getChildren()) {
                 final GraphicalEditPart childEditPart = (GraphicalEditPart) childEditPartObj;
                 if (childEditPart.understandsRequest(req) &&
@@ -293,17 +291,16 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
                     childEditPart.performRequest(req);
                     return;
                 }
-        
+
             }
         }
-        
     }
 
     @objid ("801e5bfa-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         final String propName = evt.getPropertyName();
-        
+
         if (propName.equals(IGmObject.PROPERTY_LAYOUTDATA)) {
             // Link layout (bendpoints) update
             refreshVisuals();
@@ -315,26 +312,26 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
             refreshChildren();
         } else if (propName.equals(GmLink.PROP_SOURCE_EL)) {
             // If notified that the source changed.
-        
+
             if (evt.getNewValue() instanceof MObject) {
                 // Build a reconnection request, that will be passed to edit
                 // parts that might accept it.
                 ReconnectRequest request = new ReconnectRequest(RequestConstants.REQ_RECONNECT_SOURCE);
                 request.setConnectionEditPart(this);
                 request.setLocation(new Point(0, 0));
-        
+
                 swapEnd((MObject) evt.getNewValue(), request);
             }
         } else if (propName.equals(GmLink.PROP_TARGET_EL)) {
             // If notified that the target changed.
-        
+
             if (evt.getNewValue() instanceof MObject) {
                 // Build a reconnection request, that will be passed to edit
                 // parts that might accept it.
                 ReconnectRequest request = new ReconnectRequest(RequestConstants.REQ_RECONNECT_TARGET);
                 request.setConnectionEditPart(this);
                 request.setLocation(new Point(0, 0));
-        
+
                 swapEnd((MObject) evt.getNewValue(), request);
             }
         } else if (propName.equals(IGmObject.PROPERTY_LINK_SOURCE)) {
@@ -344,28 +341,26 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
             // Links were added/removed from the link
             refreshTargetConnections();
         }
-        
     }
 
     @objid ("801e5bfe-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected void addChildVisual(EditPart childEditPart, int index) {
         final IFigure childFigure = ((GraphicalEditPart) childEditPart).getFigure();
-        
+
         final PolylineConnection connection = (PolylineConnection) getFigure();
-        
+
         ((AbstractNodeEditPart) childEditPart).setDragTrackerProvider(new SatelliteDragTrackerProvider(childEditPart));
-        
+
         connection.add(childFigure, index);
-        
+
         final GmLink gmlink = getModel();
         final IGmObject childModel = (IGmObject) childEditPart.getModel();
         final Locator constraint = LocatorFactory.getInstance()
                 .getLocator(connection,
                         gmlink.getLayoutContraint(childModel));
-        
+
         this.figure.setConstraint(childFigure, constraint);
-        
     }
 
     @objid ("801e5c05-1dec-11e2-8cad-001ec947c8cc")
@@ -373,52 +368,52 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
     protected void createEditPolicies() {
         // Do not show the smart link creation handle on links.
         installEditPolicy(UserChoiceCreateLinkEditPolicy.class, new UserChoiceCreateLinkEditPolicy(new PaletteActionProvider(this, PaletteActionProvider.IS_LINK_TOOL), false));
-        
+
         // to create links on links
         installEditPolicy(EditPolicy.NODE_ROLE, new DefaultCreateLinkEditPolicy(true));
-        
+
         // To delete links
         installEditPolicy(EditPolicy.CONNECTION_ROLE, new DefaultDeleteLinkEditPolicy());
-        
+
         // to layout extension labels
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new GmLinkLayoutEditPolicy());
-        
+
         // to allow renaming
         installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new DelegatingDirectEditionEditPolicy());
-        
+
         // to allow using this link as link target to create a rake
         installEditPolicy("rake", new CreateRakeLinkEditPolicy());
         installEditPolicy(RakeRefreshEditPolicy.ROLE, new RakeRefreshEditPolicy());
-        
+
         // setup routing mode dependent edit policies
         if (getRoutingMode().routingStyle != null) {
             updateRouterDependentEditPolicies(getRoutingMode());
         }
-        
+
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START, new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
-        
+
         // Additional policies that request links on the link to update their feedback then layout.
         installEditPolicy(LayoutConnectionConnectionsEditPolicy.ROLE, new LayoutConnectionConnectionsEditPolicy(this));
         installEditPolicy(LayoutNodeConnectionsEditPolicy.ROLE, new LayoutNodeConnectionsEditPolicy(this));
-        
+
         // Edit policy that refreshes the graphic model from model changes.
         // Deletes the graphic model when the model element is deleted.
         installEditPolicy(DefaultRefreshFromModelEditPolicy.ROLE, new DefaultRefreshFromModelEditPolicy());
-        
     }
 
     @objid ("801e5c08-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected IFigure createFigure() {
         final IFigure connection = new RoundedLinkFigure();
-        
+
         refreshFromStyle(connection, getModelStyle());
         return connection;
     }
 
     /**
      * Convenience method to get the {@link GmLink} model.
+     *
      * @return the link model.
      */
     @objid ("801e5c14-1dec-11e2-8cad-001ec947c8cc")
@@ -433,6 +428,7 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
     }
 
     /**
+     *
      * @return the model style.
      */
     @objid ("801e5c1f-1dec-11e2-8cad-001ec947c8cc")
@@ -448,6 +444,7 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
 
     /**
      * Get the current connection routing mode.
+     *
      * @return the connection routing mode.
      */
     @objid ("801e5c2a-1dec-11e2-8cad-001ec947c8cc")
@@ -457,28 +454,30 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
 
     /**
      * Refresh source and target decoration line color, width and pattern from the style
+     *
      * @param connection The figure to update, should be {@link #getFigure()}.
      * @param style The style to update from, usually {@link #getModelStyle()}
      */
     @objid ("801e5c2f-1dec-11e2-8cad-001ec947c8cc")
     protected void refreshDecorationsPenOptionsFromStyle(LinkFigure connection, IStyle style) {
         GmLink model = getModel();
-        
+
         // Get style values
         int lineWidth = 1;
         LinePattern lineStyle = LinePattern.LINE_SOLID;
         Color lineColor = null;
-        
+
         if (model.getStyleKey(MetaKey.LINECOLOR) != null) {
             lineColor = style.getColor(model.getStyleKey(MetaKey.LINECOLOR));
         }
         if (model.getStyleKey(MetaKey.LINEWIDTH) != null) {
             lineWidth = style.getInteger(model.getStyleKey(MetaKey.LINEWIDTH));
         }
-        if (model.getStyleKey(MetaKey.LINEPATTERN) != null) {
+        if (false && model.getStyleKey(MetaKey.LINEPATTERN) != null) {
+            // 23/05/2025 : disabled because it looks ugly in all cases I saw
             lineStyle = style.getProperty(model.getStyleKey(MetaKey.LINEPATTERN));
         }
-        
+
         // Source decoration
         RotatableDecoration decoration = connection.getSourceDecoration();
         if (decoration instanceof IPenOptionsSupport) {
@@ -487,7 +486,7 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
             pennable.setLinePattern(lineStyle);
             pennable.setLineWidth(lineWidth);
         }
-        
+
         // Target decoration
         decoration = connection.getTargetDecoration();
         if (decoration instanceof IPenOptionsSupport) {
@@ -496,20 +495,20 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
             pennable.setLinePattern(lineStyle);
             pennable.setLineWidth(lineWidth);
         }
-        
     }
 
     /**
      * Refresh the figure from the given style. This implementation updates pen and brush properties if applicable. StyleKey are looked up by MetaKey.
      * <p>
      * Often called in {@link #createFigure()} and after a style change.
+     *
      * @param aFigure The figure to update, should be {@link #getFigure()}.
      * @param style The style to update from, usually {@link #getModelStyle()}
      */
     @objid ("801e5c34-1dec-11e2-8cad-001ec947c8cc")
     protected void refreshFromStyle(IFigure aFigure, IStyle style) {
         final GmLink gmModel = getModel();
-        
+
         // Set pen properties where applicable
         if (aFigure instanceof IPenOptionsSupport) {
             IPenOptionsSupport pen = (IPenOptionsSupport) aFigure;
@@ -530,21 +529,21 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
                 pen.setLinePattern(pattern);
             }
         }
-        
+
         if (aFigure instanceof LinkFigure) {
             // Refresh decorations
             refreshDecorationsPenOptionsFromStyle((LinkFigure) aFigure, style);
-        
+
             // Refresh rounded line radius.
             if (aFigure instanceof RoundedLinkFigure) {
                 final RoundedLinkFigure roundedLinkFigure = (RoundedLinkFigure) aFigure;
-        
+
                 // Line corner radius
                 final StyleKey radiusStyleKey = gmModel.getStyleKey(MetaKey.LINERADIUS);
                 if (radiusStyleKey != null) {
                     roundedLinkFigure.setRadius(style.getInteger(radiusStyleKey));
                 }
-        
+
                 // Enable bridges on segment crossings
                 final StyleKey bridgeStyleKey = gmModel.getStyleKey(MetaKey.DRAWLINEBRIDGES);
                 if (bridgeStyleKey != null) {
@@ -552,22 +551,21 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
                 }
             }
         }
-        
+
         refreshRouterFromStyle((Connection) aFigure, style, gmModel);
-        
     }
 
     @objid ("801e5c3b-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected void refreshVisuals() {
         super.refreshVisuals();
-        
+
         final GmLink gmLink = getLinkModel();
         final PolylineConnection conn = (PolylineConnection) getFigure();
-        
+
         // Update the connection router & Refresh route
         updateConnectionRoute(conn);
-        
+
         // Refresh children constraint
         for (Object c : getChildren()) {
             final GraphicalEditPart childPart = (GraphicalEditPart) c;
@@ -578,11 +576,11 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
                 conn.setConstraint(childPart.getFigure(), loc);
             }
         }
-        
     }
 
     /**
      * This method is redefined to fix the constraint saving in the case where the child figure does not directly belong to the edit part figure.
+     *
      * @see org.eclipse.gef.editparts.AbstractEditPart#reorderChild(EditPart, int)
      */
     @objid ("801e5c3e-1dec-11e2-8cad-001ec947c8cc")
@@ -596,25 +594,24 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
         if (layout != null) {
             constraint = layout.getConstraint(childFigure);
         }
-        
+
         // super.reorderChild(child, index);
         // Copy of AbstractEditPart#reorderChild(EditPart, int)
         removeChildVisual(child);
-        List<Object> lchildren = getChildren();
-        lchildren.remove(child);
-        lchildren.add(index, child);
+        this.children.remove(child);
+        this.children.add(index, child);
         addChildVisual(child, index);
-        
+
         if (constraint != null) {
             setLayoutConstraint(child, childFigure, constraint);
         }
-        
     }
 
     /**
      * Change the source or destination of the link given by the request.
      * <p>
      * Unmask the element if it is not displayed in the diagram. Updates the model, the graphic model and the view.
+     *
      * @param newEndElement the new source/destination
      * @param request The reconnect request.
      */
@@ -667,7 +664,6 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
                 }
             }
         }
-        
     }
 
     @objid ("8020be57-1dec-11e2-8cad-001ec947c8cc")
@@ -688,30 +684,29 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
             if (styleRouter != oldRouter) {
                 final GmPath newPath = new GmPath(gmLink.getPath());
                 newPath.setRouterKind(styleRouter);
-        
+
                 IConnectionHelperFactory helperFactory = ConnectionPolicyUtils.getRoutingServices(this).getConnectionHelperFactory();
-        
+
                 IConnectionHelper oldHelper = helperFactory.createFromSerializedData(
                         oldRouter,
                         this,
                         connectionFigure);
-        
+
                 IConnectionHelper newHelper = helperFactory.convert(
                         oldHelper,
                         styleRouter,
                         connectionFigure);
-        
+
                 newPath.setPathData(newHelper.getModelPathData());
-        
+
                 if (newHelper.getRoutingMode() != ConnectionRouterId.ORTHOGONAL) {
                     newPath.setSourceRake(null);
                     newPath.setTargetRake(null);
                 }
-        
+
                 gmLink.setLayoutData(newPath);
             }
         }
-        
     }
 
     @objid ("8020be71-1dec-11e2-8cad-001ec947c8cc")
@@ -723,9 +718,9 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
         // place as the previous end.
         ModelElementDropRequest dropRequest = new ModelElementDropRequest();
         dropRequest.setDroppedElements(new MObject[] { newEndElement });
-        
+
         getFigure().getUpdateManager().performUpdate();
-        
+
         Point dropPoint;
         if (request.getType().equals(RequestConstants.REQ_RECONNECT_SOURCE)) {
             final GraphicalEditPart connSourceEp = (GraphicalEditPart) getSource();
@@ -760,25 +755,25 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
             return;
         }
         command.execute();
-        
     }
 
     /**
      * Add an edit policy to edit bend points if the router handles bend point editing.
+     *
      * @param mode the new routing mode
      */
     @objid ("8020be79-1dec-11e2-8cad-001ec947c8cc")
     protected void updateRouterDependentEditPolicies(final RoutingMode mode) {
         IRouterDependentEditPolicyFactory bendPointEditPoliciesFactory = ConnectionPolicyUtils.getRoutingServices(this).getEditPoliciesFactory();
-        
+
         // Note : installEditPolicy(...) removes cleanly the existing policy if any
         installEditPolicy(EditPolicy.CONNECTION_BENDPOINTS_ROLE, bendPointEditPoliciesFactory.createBendPointsPolicy(mode));
         installEditPolicy(EditPolicy.CONNECTION_ENDPOINTS_ROLE, bendPointEditPoliciesFactory.createEndPointsPolicy(mode));
-        
     }
 
     /**
      * Update the connection router, the edit policies and the drag tracker from the model routing style.
+     *
      * @param cnx The connection figure
      */
     @objid ("8020be7e-1dec-11e2-8cad-001ec947c8cc")
@@ -786,12 +781,12 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
         // Refresh anchors
         refreshSourceAnchor();
         refreshTargetAnchor();
-        
+
         final IGmLink gmLink = getLinkModel();
         final RoutingMode newRoutingMode = new RoutingMode(gmLink.getPath());
         final RoutingMode oldRoutingMode = getRoutingMode();
         final ConnectionRoutingServices routingServices = ConnectionPolicyUtils.getRoutingServices(this);
-        
+
         // Change connection router if the rake mode changes or there is no rake and the style changes
         if (oldRoutingMode.rake != newRoutingMode.rake || !newRoutingMode.rake && oldRoutingMode.routingStyle != newRoutingMode.routingStyle) {
             // Set the connection router
@@ -802,16 +797,16 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
                 cnx.setConnectionRouter(routingServices.getDisplayRouter(newRoutingMode.routingStyle));
                 isAutoRouter = routingServices.getEditionRouter(newRoutingMode.routingStyle) instanceof AutoOrthogonalRouter;
             }
-        
+
             // Set the new constraint
             IConnectionHelper helper = routingServices.getConnectionHelperFactory().createFromSerializedData(newRoutingMode.routingStyle, this, cnx);
             cnx.setRoutingConstraint(helper.getRoutingConstraint());
-        
+
             // Update edit policies
             updateRouterDependentEditPolicies(newRoutingMode);
-        
+
             this.currentRoutingMode = newRoutingMode;
-        
+
             if (isAutoRouter && oldRoutingMode.routingStyle != null) {
                 new AutoOrthogonalRouterSynchronizeConstraintCommand(this).execute();
             }
@@ -819,7 +814,6 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
             IConnectionHelper helper = routingServices.getConnectionHelperFactory().createFromSerializedData(newRoutingMode.routingStyle, this, cnx);
             cnx.setRoutingConstraint(helper.getRoutingConstraint());
         }
-        
     }
 
     @objid ("33fb250d-fc22-4302-92f3-61cfd3b86e44")
@@ -842,20 +836,20 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
             EditPart realParent = findRealParent(parent);
             super.setParent(realParent);
         }
-        
     }
 
     /**
      * Find the root edit part this ConnectionEditPart should be owned by.
      * <p>
      * For most link it is anEditPart.getRoot(), except for cross diagram connections for which the parent must be the root edit part of the connection diagram.
+     *
      * @param anEditPart the source or target of the connection
      * @return the root edit part this ConnectionEditPart should be owned by.
      */
     @objid ("b16665dc-fd0c-44af-aa4b-f5a4cbec38f8")
     protected EditPart findRealParent(EditPart anEditPart) {
         IGmDiagram diagram = getModel().getDiagram();
-        
+
         EditPart diagramEp = (EditPart) anEditPart.getViewer().getEditPartRegistry().get(diagram);
         if (diagramEp != null) {
             return diagramEp.getRoot();
@@ -867,14 +861,14 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
      * {@inheritDoc}
      * <p>
      * Redefined to set the collections of all diagram connections on the {@link RoundedLinkFigure}. This collection is used to find intersections to draw bridges.
+     *
      * @since 3.7
-     * @see RoundedLinkFigure#setAllDiagramConnections(Collection)
      */
     @objid ("7e925375-b007-41de-b7b4-867cfbe9b008")
     @Override
     protected void activateFigure() {
         super.activateFigure();
-        
+
         IFigure fig = getFigure();
         if (fig instanceof RoundedLinkFigure) {
             // Set the collections of all diagram connections.
@@ -882,7 +876,6 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
             Collection<Connection> allDiagramConnections = ConnectionPolicyUtils.getAllDiagramConnectionsCollector(this);
             ((RoundedLinkFigure) fig).setAllDiagramConnections(allDiagramConnections);
         }
-        
     }
 
     @objid ("2eec3c63-a105-4a7b-87cc-aa520413a705")
@@ -894,9 +887,9 @@ public class LinkEditPart extends AbstractConnectionEditPart implements Property
     @objid ("86e5184a-df60-461a-9c33-ee8d5eff69e7")
     public List<EditPolicy> getInstalledPolicies() {
         List<EditPolicy> policies = new ArrayList<>();
-        
+
         EditPolicyIterator it = getEditPolicyIterator();
-        
+
         while (it.hasNext()) {
             policies.add(it.next());
         }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.jdbm.index;
 
@@ -43,18 +43,18 @@ public class MRefSerializer implements Serializer<MRef> {
         assert (obj.name != null);
         assert (obj.uuid != null);
         assert (obj.mc != null);
-        
-        out.writeUTF(obj.uuid); 
-        out.writeUTF(obj.name); 
+
+        out.writeUTF(obj.uuid);
+        out.writeUTF(obj.name);
         out.writeUTF(obj.mc);
-        
+
     }
 
     @objid ("94e71b4c-a6f7-4f6c-be70-585f3503df78")
     @Override
     public MRef deserialize(final SerializerInput in) throws IOException {
         String uuid = in.readUTF();
-        String name = in.readUTF(); 
+        String name = in.readUTF();
         String cname = in.readUTF();
         return new MRef(cname, uuid, name);
     }

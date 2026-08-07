@@ -1,28 +1,28 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.usecasediagram.editor.contributor;
 
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.swt.graphics.Image;
 import org.modelio.api.modelio.model.scope.ElementScope;
@@ -80,7 +80,6 @@ public class UseCaseDiagramCreationContributor extends AbstractDiagramWizardCont
         } else {
             return null;
         }
-        
     }
 
     @objid ("4f43f0be-8ff1-45b9-bd04-ff3d05c1811e")
@@ -110,7 +109,6 @@ public class UseCaseDiagramCreationContributor extends AbstractDiagramWizardCont
         } else {
             return this.mmServices.getMetamodel();
         }
-        
     }
 
     @objid ("40fdf349-3651-4c40-8c4b-c0a84a97e373")

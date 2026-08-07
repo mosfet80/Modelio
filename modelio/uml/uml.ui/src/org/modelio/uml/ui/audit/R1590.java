@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -56,7 +56,7 @@ public class R1590 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(IElement)
      * @see AbstractRule#getUpdateControl(IElement)
      * @see AbstractRule#getMoveControl(IElementMovedEvent)
@@ -82,9 +82,9 @@ public class R1590 extends AbstractUmlRule {
         plan.registerRule(DataType.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(TemplateParameter.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Interface.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         plan.registerRule(AssociationEnd.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -118,14 +118,14 @@ public class R1590 extends AbstractUmlRule {
      * Default constructor for R1590
      */
     @objid ("64537b38-8d15-418c-bef0-bb8462079879")
-    public  R1590() {
+    public R1590() {
         this.checkerInstance = new CheckR1590(this);
     }
 
     @objid ("1ac258e2-6afe-4f03-8b80-00f6fbe50755")
     private static class CheckR1590 extends AbstractControl {
         @objid ("19656121-b6fb-4763-b5a4-0804410a7123")
-        public  CheckR1590(IRule rule) {
+        public CheckR1590(IRule rule) {
             super(rule);
         }
 
@@ -136,9 +136,9 @@ public class R1590 extends AbstractUmlRule {
                 diagnostic.addEntry(checkR1590((GeneralClass) element));
             } else if (element instanceof Association) {
                 for (AssociationEnd assocEnd : ((Association) element).getEnd()) {
-            
+
                     Classifier classifier = assocEnd.getSource() != null ? assocEnd.getSource() : assocEnd.getOpposite().getTarget();
-            
+
                     if (classifier instanceof GeneralClass) {
                         diagnostic.addEntry(checkR1590((GeneralClass) classifier));
                     }
@@ -158,16 +158,16 @@ public class R1590 extends AbstractUmlRule {
         @objid ("4172c2ec-924d-4392-8780-bd0ea1db9db0")
         private IAuditEntry checkR1590(final GeneralClass clazz) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, clazz, null);
-            
+
             if (clazz.isIsElementary() && !clazz.getOwnedEnd().isEmpty()) {
-            
+
                 // Rule failed
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(clazz);
                 auditEntry.setLinkedInfos(linkedObjects);
-            
+
             }
             return auditEntry;
         }

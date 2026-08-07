@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.module.modelermodule.command;
 
@@ -36,23 +36,23 @@ public class UnimplementInterfaces extends DefaultModuleCommandHandler {
     public void actionPerformed(final List<MObject> selectedElements, final IModule module) {
         InterfaceImplementer interfaceManager = new InterfaceImplementer();
         IModelingSession session = module.getModuleContext().getModelingSession();
-        
+
         try (ITransaction transaction = session.createTransaction("Unimplement Interfaces in class")) {
             boolean hasDoneWork = false;
             for (MObject theElement : selectedElements) {
                 Classifier theClassifier = (Classifier) theElement;
-        
+
                 boolean newResult = interfaceManager.unImplementInterfaces(theClassifier);
                 hasDoneWork = hasDoneWork || newResult;
             }
-        
+
             if (hasDoneWork) {
                 transaction.commit();
             } else {
                 transaction.rollback();
             }
         }
-        
+
     }
 
     /**
@@ -65,7 +65,7 @@ public class UnimplementInterfaces extends DefaultModuleCommandHandler {
         if (!super.accept(selectedElements, module)) {
             return false;
         }
-        
+
         // The method is only active if the class implements at least one interface
         for (MObject selectedElement : selectedElements) {
             Classifier current = (Classifier) selectedElement;

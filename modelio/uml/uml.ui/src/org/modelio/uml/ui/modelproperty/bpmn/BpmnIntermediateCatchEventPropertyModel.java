@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.bpmn;
 
@@ -64,21 +64,23 @@ public class BpmnIntermediateCatchEventPropertyModel extends AbstractPropertyMod
 
     /**
      * Create a new <i>BpmnIntermediateCatchEvent</i> data model from an <i>BpmnIntermediateCatchEvent</i>.
+     *
      * @param delegatedPropertyModel
      * @param theEditedElement the model to edit.
      * @param modelService the model service needed to find elements.
      */
     @objid ("3f603c8e-d12b-4e83-930a-780cb0209bc7")
-    public  BpmnIntermediateCatchEventPropertyModel(BpmnIntermediateCatchEvent theEditedElement, IMModelServices modelService, UmlPropertyModelVisitor umlPropertyModelVisitor) {
+    public BpmnIntermediateCatchEventPropertyModel(BpmnIntermediateCatchEvent theEditedElement, IMModelServices modelService, UmlPropertyModelVisitor umlPropertyModelVisitor) {
         super(theEditedElement);
         this.modelService = modelService;
         this.umlPropertyModelVisitor = umlPropertyModelVisitor;
         updateFieldsLists();
-        
+
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("24f0b245-a22f-4f3e-89d2-de33fdc93195")
@@ -89,6 +91,7 @@ public class BpmnIntermediateCatchEventPropertyModel extends AbstractPropertyMod
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("3fe59083-5e0a-4ecc-90c9-adc4f7e5e750")
@@ -104,6 +107,7 @@ public class BpmnIntermediateCatchEventPropertyModel extends AbstractPropertyMod
      * This type will be used to choose an editor and a renderer for each cell of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -116,13 +120,14 @@ public class BpmnIntermediateCatchEventPropertyModel extends AbstractPropertyMod
         } else {
             return this.fieldList.get(row);
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -162,11 +167,11 @@ public class BpmnIntermediateCatchEventPropertyModel extends AbstractPropertyMod
                     }
                 }
             }
-        
+
             // Row not found in event types, update ParallelMultiple
             this.theEditedElement.setParallelMultiple(Boolean.parseBoolean(Objects.toString(value)));
         }
-        
+
     }
 
     @objid ("ee655706-7b05-40ab-972b-d61875e6c7e8")
@@ -176,16 +181,16 @@ public class BpmnIntermediateCatchEventPropertyModel extends AbstractPropertyMod
         for (BpmnEventDefinition definition : this.theEditedElement.getEventDefinitions()) {
             this.delegatedPropertyModel.add((AbstractPropertyModel<BpmnEventDefinition>) definition.accept(this.umlPropertyModelVisitor));
         }
-        
+
         this.labelList = new ArrayList<>();
         this.fieldList = new ArrayList<>();
-        
+
         this.labelList.add(new DefaultStringNatValue(getPropertyI18n(AbstractPropertyModel.PROPERTY_ID), false)); // Header
         this.fieldList.add(new DefaultStringNatValue(getPropertyI18n(AbstractPropertyModel.VALUE_ID), false)); // Header
-        
+
         this.labelList.add(new DefaultStringNatValue(getPropertyI18n("Name"), false)); // Name
         this.fieldList.add(new DefaultStringNatValue(this.theEditedElement.getName(), false)); // Name
-        
+
         for (EventType evt : EventType.values()) {
             AbstractPropertyModel<BpmnEventDefinition> tdef = null;
             for (AbstractPropertyModel<BpmnEventDefinition> def : this.delegatedPropertyModel) {
@@ -205,12 +210,12 @@ public class BpmnIntermediateCatchEventPropertyModel extends AbstractPropertyMod
                 }
             }
         }
-        
+
         if (this.delegatedPropertyModel.size() >= 2) {
             this.labelList.add(new DefaultStringNatValue(getPropertyI18n("ParallelMultiple"), false)); // ParallelMultiple
             this.fieldList.add(new DefaultBooleanNatValue(this.theEditedElement.isParallelMultiple()));
         }
-        
+
     }
 
     @objid ("5b9c3c25-b4c2-4a2e-8bb9-a661c16dec05")
@@ -219,7 +224,7 @@ public class BpmnIntermediateCatchEventPropertyModel extends AbstractPropertyMod
         BpmnEventDefinition event_definition = (BpmnEventDefinition) modelFactory.createElement(EventType.getMetaclass(evt));
         event_definition.setName(this.modelService.getElementNamer().getBaseName(event_definition.getMClass()));
         event_definition.setDefined(this.theEditedElement);
-        
+
     }
 
     /**
@@ -230,7 +235,7 @@ public class BpmnIntermediateCatchEventPropertyModel extends AbstractPropertyMod
      * <li>for the first row the value is the table header label (usually the metaclass name)
      * <li>for otheEditedElement rows the values usually match the meta-attributes and roles names of the metaclass
      * </ul>
-     * 
+     *
      * Event Type
      */
     @objid ("3eab2911-550a-419b-992a-7d88279a42ab")

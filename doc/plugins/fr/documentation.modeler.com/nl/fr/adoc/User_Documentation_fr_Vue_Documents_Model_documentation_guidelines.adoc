@@ -1,0 +1,94 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= Principes de la documentation des modèles
+
+
+
+==  Documents externes et embarqués
+
+Certains documents, comme les documents MS Office ou Libre-office, peuvent être embarqués dans Modelio, auquel cas ils deviennent des éléments documentaires internes. Ils sont stockés et gérés en version dans le modèle. De ce point de vue, ils sont comparables aux notes.
+
+Modelio supporte également les documents pour lesquels seule une référence est conservée dans le modèle. Le contenu du document n'est pas stocké dans Modelio, ce qui a l'avantage de ne pas faire grossir le référentiel du modèle.
+
+Le tableau suivant résume les principales caractéristiques des deux types de documents :
+
+[cols=",,",options="header",]
+|=====================================================================================================================================================================
+| |Document embarqué |Document externe
+|*Stockage* |Contenu du document stocké dans le référentiel CMS |Contenu du document stocké sur un serveur accessible. Modelio ne stocke qu'une référence au document.
+|*Support SVN* |Support complet. Les documents doivent être verrouillés avant toute modification, ils doivent être livrés, etc. |Pas de support CMS.
+|*Format* |Formats supportés : MS Office, Libre Office. |Tous formats.
+|*Edition directe dans Modelio* |Oui, pour les formats supportés. |Non.
+|*Aperçu dans Modelio* |Oui pour certains formats. |Oui pour certains formats. Modelio indique également l'accessibilité du document.
+|*Possibilité de consulter le document en dehors de Modelio* |Non. L'utilisation de Modelio est obligatoire. |Oui.
+|=====================================================================================================================================================================
+
+
+== Notes vs documents
+
+Choisir entre une note et un document pour décrire ou spécifier un élément de modèle est important car les deux solutions ont des avantages et des inconvénients à considérer.
+
+N'oubliez pas que si une note est toujours un élément documentaire interne, un document peut être embarqué ou externe.
+
+Le tableau suivant compare les avantages et inconvénients des notes, documents embarqués, et documents externes.
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|================================================================================================================================================================================
+|Type d'élément documentaire |Avantages |Inconvénients |Remarques
+|*Note* a|
+* Efficacité
+* Directe et facile à utiliser (lecture, édition)
+* Gérée et stockée avec le modèle
+* Compatible CMS
+
+ a|
+* Format et capacités de formatage limités
+* Pas adaptée au gros contenus
+
+ +
+
+ a|
+* Les notes de Modelio ont un type qui permet de les catégoriser
+
+|*Document embarqués* a|
+* Formats communs disponibles pour édition directe dans Modelio (MS Office, Libre Office)
+* Grande capacité de formatage et de structuration
+* Gérés et stockés dans le modèle
+* Compatible CMS
+
+ a|
+* Seuls quelques formats sont supportés.
+* La taille du référentiel CMS augmente avec l'attachement de documents volumineux. Peut entraîner des altérations de performance.
+* Documents inaccessibles hord Modelio (peut être considéré comme un inconvénient ou un avantage)
+
+ | +
+|*Document externes* a|
+* Grande capacité de formatage et de structuration
+* Documents stockés sur n'importe quel serveur indépendant de Modelio : serveur cloud, portail documentaire, etc.
+* Contenu non-stocké dans le modèle. Pas d'influence sur la taille du référentiel CMS.
+* Tous les formats sont supportés car Modelio n'intervient pas dans le processus de manipulation du contenu des documents. Modelio ne fait que stocker une référence au document.
+* Les documents peuvent être partagés facilement en lecture ou en écriture sans Modelio. Utile lorsque des contributeurs n'utilisent pas Modelio.
+
+ a|
+* L'apperçu des documents peut ne pas être disponible pour certains formats.
+* L'édition des documents doit être effectuée hors Modelio (peut être considéré comme un inconvénient ou un avantage)
+* Pas de support CMS direct, l'utilisateur doit compter sur le versionage du document.
+
+ a|
+* Modelio laisse le système fournir et exécuter un outil d'édition pour le format du document.
+
+|================================================================================================================================================================================
+
+
+== Diagramme direct et diagramme lié
+
+Les diagrammes sont un moyen efficace de documenter un élément de modèle. Toutefois, un élément de modèle peut apparaître dans plusieyrs diagrammes, chacun étant plus ou moins dédié à une partie de modèle ou à un aspect particulier de la conception.
+
+Parfois, le diagramme qui documente un élément appartient à cet élément. Ce type de diagramme est appelé diagramme direct. D'autres diagrammes dans lesquels un élément apparaît sont dits liés à cet élément.
+
+La vue Documents de Modelio liste les deux types de diagrammes. Pour en savoir plus sur un élément de modèle en particulier, il suffit de le sélectionner et la vue Documents listera tous les diagrammes qui appartiennent à l'élément, ainsi que ceux dans lesquels il apparaît. Si les diagrammes sont nommés intelligemment, l'utilisateur peut immédiatement identifier les diagrammes qui correspondent à son besoin. Bien-sûr, la vue Documents permet l'ouverture d'un diagramme par double-clic.

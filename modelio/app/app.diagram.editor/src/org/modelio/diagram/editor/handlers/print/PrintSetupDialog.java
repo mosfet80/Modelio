@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.handlers.print;
 
@@ -57,6 +57,7 @@ import org.modelio.diagram.editor.plugin.DiagramEditor;
 import org.modelio.diagram.elements.common.abstractdiagram.ImageBuilder;
 
 /**
+ *
  * @author apedro Dialog box for print setup with preview image
  */
 @objid ("65b93f47-33f7-11e2-95fe-001ec947c8cc")
@@ -95,12 +96,12 @@ public class PrintSetupDialog extends Dialog {
     public Label pagesLabel;
 
     @objid ("65bba188-33f7-11e2-95fe-001ec947c8cc")
-    public  PrintSetupDialog(RootEditPart rootEditPart) {
+    public PrintSetupDialog(RootEditPart rootEditPart) {
         super(Display.getCurrent().getActiveShell());
         this.rootEditPart = rootEditPart;
         ImageBuilder imageBuilder = new ImageBuilder();
         this.image = imageBuilder.makeImage(rootEditPart);
-        
+
     }
 
     @objid ("65bba18b-33f7-11e2-95fe-001ec947c8cc")
@@ -109,7 +110,7 @@ public class PrintSetupDialog extends Dialog {
                 SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL | SWT.RESIZE);
         this.shell.setText(DiagramEditor.I18N.getString("Gui.PrintSetupDialog.Title"));
         this.shell.setLayout(new GridLayout(5, false));
-        
+
         this.canvas = new Canvas(this.shell, SWT.BORDER);
         GridData gridData = new GridData(GridData.FILL_BOTH);
         gridData.horizontalSpan = 3;
@@ -120,48 +121,48 @@ public class PrintSetupDialog extends Dialog {
             @Override
             public void paintControl(PaintEvent e) {
                 int canvasBorder = 5;
-        
+
                 if (PrintSetupDialog.this.printer == null || PrintSetupDialog.this.printer.isDisposed()) {
                     return;
                 }
                 Rectangle rectangle = PrintSetupDialog.this.printer.getBounds();
                 Point canvasSize = PrintSetupDialog.this.canvas.getSize();
-        
+
                 double viewScaleFactor = (canvasSize.x - canvasBorder * 2) * 1.0 / rectangle.width;
                 viewScaleFactor = Math.min(viewScaleFactor,
                         (canvasSize.y - canvasBorder * 2) * 1.0 / rectangle.height);
-        
+
                 int offsetX = (canvasSize.x - (int) (viewScaleFactor * rectangle.width)) / 2;
                 int offsetY = (canvasSize.y - (int) (viewScaleFactor * rectangle.height)) / 2;
-        
+
                 e.gc.setBackground(PrintSetupDialog.this.shell.getDisplay().getSystemColor(SWT.COLOR_WHITE));
                 // draws the page layout
                 e.gc.fillRectangle(offsetX,
                         offsetY,
                         (int) (viewScaleFactor * rectangle.width),
                         (int) (viewScaleFactor * rectangle.height));
-        
+
                 // draws the margin
                 e.gc.setLineStyle(SWT.LINE_SOLID);
                 e.gc.setForeground(PrintSetupDialog.this.shell.getDisplay().getSystemColor(SWT.COLOR_BLACK));
-        
+
                 e.gc.drawRectangle(offsetX,
                         offsetY,
                         (int) (viewScaleFactor * rectangle.width),
                         (int) (viewScaleFactor * rectangle.height));
-        
+
                 if (PrintSetupDialog.this.image != null) {
                     int imageWidth = PrintSetupDialog.this.image.getBounds().width;
                     int imageHeight = PrintSetupDialog.this.image.getBounds().height;
-        
+
                     double dpiScaleFactorX = PrintSetupDialog.this.printer.getDPI().x * 1.0 / PrintSetupDialog.this.shell.getDisplay().getDPI().x;
                     double dpiScaleFactorY = PrintSetupDialog.this.printer.getDPI().y * 1.0 / PrintSetupDialog.this.shell.getDisplay().getDPI().y;
-        
+
                     double imageSizeFactor = Math.min(rectangle.width * viewScaleFactor / imageWidth,
                             rectangle.height * viewScaleFactor / imageHeight);
                     int destX = (int) (imageSizeFactor * imageWidth) - 1; // Remove 1 in order to offset the surrounding rectangle
                     int destY = (int) (imageSizeFactor * imageHeight) - 1; // Remove 1 in order to offset the surrounding rectangle
-        
+
                     int srcX = 0;
                     int srcY = 0;
                     // Printing in real size
@@ -171,10 +172,10 @@ public class PrintSetupDialog extends Dialog {
                         int nbPagesX = (int) (destX / (viewScaleFactor * rectangle.width)) + 1;
                         int nbPagesY = (int) (destY / (viewScaleFactor * rectangle.height)) + 1;
                         updateNavigation(nbPagesX, nbPagesY);
-        
+
                         srcX = (int) (rectangle.width / dpiScaleFactorX) * (PrintSetupDialog.this.pageNavigation.x - 1);
                         srcY = (int) (rectangle.height / dpiScaleFactorY) * (PrintSetupDialog.this.pageNavigation.y - 1);
-        
+
                         if (PrintSetupDialog.this.pageNavigation.x * rectangle.width / dpiScaleFactorX > imageWidth) {
                             imageWidth = (int) (imageWidth - ((PrintSetupDialog.this.pageNavigation.x - 1) * rectangle.width / dpiScaleFactorX));
                         } else {
@@ -185,11 +186,11 @@ public class PrintSetupDialog extends Dialog {
                         } else {
                             imageHeight = (int) (rectangle.height / dpiScaleFactorY);
                         }
-        
+
                         destX = (int) (dpiScaleFactorX * imageWidth * viewScaleFactor) - 1;
                         destY = (int) (dpiScaleFactorY * imageHeight * viewScaleFactor) - 1;
                     }
-        
+
                     e.gc.drawImage(PrintSetupDialog.this.image,
                             srcX,
                             srcY,
@@ -199,12 +200,12 @@ public class PrintSetupDialog extends Dialog {
                             offsetY + 1,
                             destX,
                             destY);
-        
+
                 }
-        
+
             }
         });
-        
+
         final Group optionsGroup = new Group(this.shell, SWT.NONE);
         optionsGroup.setText(DiagramEditor.I18N.getString("Gui.PrintSetupDialog.PrintOptions"));
         FormLayout optionsLayout = new FormLayout();
@@ -215,12 +216,12 @@ public class PrintSetupDialog extends Dialog {
         gridData.verticalSpan = 1;
         gridData.widthHint = 150;
         optionsGroup.setLayoutData(gridData);
-        
+
         Button adjustCheck = new Button(optionsGroup, SWT.CHECK);
         adjustCheck.setText(DiagramEditor.I18N.getString("Gui.PrintSetupDialog.FitToPage"));
         adjustCheck.setSelection(true);
         adjustCheck.addSelectionListener(new SelectionAdapter() {
-        
+
             @Override
             public void widgetSelected(SelectionEvent event) {
                 if (((Button) (event.widget)).getSelection() == true) {
@@ -232,7 +233,7 @@ public class PrintSetupDialog extends Dialog {
                 PrintSetupDialog.this.canvas.redraw();
             }
         });
-        
+
         final Composite cButtons = new Composite(this.shell, SWT.NONE);
         FillLayout orientationLayout = new FillLayout();
         orientationLayout.type = SWT.VERTICAL;
@@ -244,7 +245,7 @@ public class PrintSetupDialog extends Dialog {
         gridData.widthHint = 100;
         gridData.verticalSpan = 3;
         cButtons.setLayoutData(gridData);
-        
+
         Button printButton = new Button(cButtons, SWT.PUSH);
         printButton.setText(DiagramEditor.I18N.getString("Gui.PrintSetupDialog.Print"));
         printButton.addListener(SWT.Selection, new Listener() {
@@ -257,24 +258,24 @@ public class PrintSetupDialog extends Dialog {
                 pData.orientation = PrintSetupDialog.this.printer.getPrinterData().orientation;
                 dialog.setPrinterData(pData);
                 PrinterData data = dialog.open();
-        
+
                 if (data != null) {
                     LayerManager lm = (LayerManager) PrintSetupDialog.this.rootEditPart;
-        
+
                     // Temporarily add the background layer to the "printable layers" set so that it is present in the saved image
                     IFigure backgroundLayer = lm.getLayer("BACKGROUND_LAYER");
                     Layer printableLayers = (Layer) lm.getLayer(LayerConstants.PRINTABLE_LAYERS);
                     printableLayers.add(backgroundLayer, "BACKGROUND_LAYER", 0);
-        
+
                     PrintGraphicalViewerOperation operation = new PrintGraphicalViewerOperation(new Printer(data),
                             (GraphicalViewer) PrintSetupDialog.this.rootEditPart.getViewer());
-        
+
                     // here you can set the Print Mode
                     // operation.setPrintMode(PrintFigureOperation.TILE);
                     operation.setPrintMode(PrintSetupDialog.this.printMode);
-        
+
                     operation.run("Printing diagram");
-        
+
                     // Restore the background layer to its initial placement
                     printableLayers.remove(backgroundLayer);
                     Layer scalableLayers = (Layer) lm.getLayer(LayerConstants.SCALABLE_LAYERS);
@@ -283,7 +284,7 @@ public class PrintSetupDialog extends Dialog {
                 shell1.dispose();
             }
         });
-        
+
         final Button closeButton = new Button(cButtons, SWT.PUSH);
         closeButton.setText(DiagramEditor.I18N.getString("Gui.PrintSetupDialog.Cancel"));
         closeButton.addListener(SWT.Selection, new Listener() {
@@ -292,7 +293,7 @@ public class PrintSetupDialog extends Dialog {
                 PrintSetupDialog.this.shell.dispose();
             }
         });
-        
+
         Group orientationGroup = new Group(this.shell, SWT.NONE);
         orientationGroup.setText(DiagramEditor.I18N.getString("Gui.PrintSetupDialog.Orientation"));
         orientationLayout = new FillLayout();
@@ -305,12 +306,12 @@ public class PrintSetupDialog extends Dialog {
         gridData.widthHint = 150;
         gridData.heightHint = 60;
         orientationGroup.setLayoutData(gridData);
-        
+
         Button portraitButton = new Button(orientationGroup, SWT.RADIO);
         portraitButton.setText(DiagramEditor.I18N.getString("Gui.PrintSetupDialog.Portrait"));
         portraitButton.setSelection(true);
         portraitButton.addSelectionListener(new SelectionAdapter() {
-        
+
             @Override
             public void widgetSelected(SelectionEvent event) {
                 if (((Button) (event.widget)).getSelection() == true) {
@@ -318,14 +319,14 @@ public class PrintSetupDialog extends Dialog {
                     PrintSetupDialog.this.printer = new Printer(PrintSetupDialog.this.printer.getPrinterData());
                     PrintSetupDialog.this.canvas.redraw();
                 }
-        
+
             }
         });
-        
+
         Button landscapeButton = new Button(orientationGroup, SWT.RADIO);
         landscapeButton.setText(DiagramEditor.I18N.getString("Gui.PrintSetupDialog.Landscape"));
         landscapeButton.addSelectionListener(new SelectionAdapter() {
-        
+
             @Override
             public void widgetSelected(SelectionEvent event) {
                 if (((Button) (event.widget)).getSelection() == true) {
@@ -333,10 +334,10 @@ public class PrintSetupDialog extends Dialog {
                     PrintSetupDialog.this.printer = new Printer(PrintSetupDialog.this.printer.getPrinterData());
                     PrintSetupDialog.this.canvas.redraw();
                 }
-        
+
             }
         });
-        
+
         this.previousButton = new Button(this.shell, SWT.PUSH);
         this.previousButton.setText(DiagramEditor.I18N.getString("Gui.PrintSetupDialog.Previous"));
         this.previousButton.setEnabled(false);
@@ -358,12 +359,12 @@ public class PrintSetupDialog extends Dialog {
                         PrintSetupDialog.this.nextButton.setEnabled(true);
                     }
                 }
-        
+
                 updatePageCounter();
-        
+
             }
         });
-        
+
         this.nextButton = new Button(this.shell, SWT.PUSH);
         this.nextButton.setText(DiagramEditor.I18N.getString("Gui.PrintSetupDialog.Next"));
         this.nextButton.setEnabled(false);
@@ -385,23 +386,23 @@ public class PrintSetupDialog extends Dialog {
                         PrintSetupDialog.this.previousButton.setEnabled(true);
                     }
                 }
-        
+
                 updatePageCounter();
-        
+
             }
         });
-        
+
         this.pagesLabel = new Label(this.shell, SWT.NONE);
         this.pagesLabel.setText(DiagramEditor.I18N.getString("Gui.PrintSetupDialog.Page") + " 1/1");
         gridData = new GridData(SWT.RIGHT, SWT.CENTER, true, false);
         gridData.widthHint = 100;
         this.pagesLabel.setLayoutData(gridData);
-        
+
         this.shell.setSize(600, 500);
         this.shell.setMinimumSize(600, 500);
         this.shell.open();
         setPrinter(null, 1.0);
-        
+
         // Set up the event loop.
         while (!this.shell.isDisposed()) {
             if (!this.shell.getDisplay().readAndDispatch()) {
@@ -409,15 +410,16 @@ public class PrintSetupDialog extends Dialog {
                 this.shell.getDisplay().sleep();
             }
         }
-        
+
         if (this.image != null) {
             this.image.dispose();
         }
-        
+
     }
 
     /**
      * Sets target printer.
+     *
      * @param printer
      */
     @objid ("65bba18e-33f7-11e2-95fe-001ec947c8cc")
@@ -437,7 +439,7 @@ public class PrintSetupDialog extends Dialog {
         }
         this.margin = PrintMargin.getPrintMargin(this.printer, marginSize);
         this.canvas.redraw();
-        
+
     }
 
     @objid ("65bba193-33f7-11e2-95fe-001ec947c8cc")
@@ -475,9 +477,9 @@ public class PrintSetupDialog extends Dialog {
                 this.nextButton.setEnabled(false);
             }
         }
-        
+
         updatePageCounter();
-        
+
     }
 
     @objid ("65bba197-33f7-11e2-95fe-001ec947c8cc")

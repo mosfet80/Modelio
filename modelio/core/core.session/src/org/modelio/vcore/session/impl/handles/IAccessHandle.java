@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.impl.handles;
 
@@ -34,6 +34,7 @@ public interface IAccessHandle {
      * Check the given dependency on the given object can be modified. Also checks the symmetric dependency.
      * <p>
      * Throw an exception if the dependency modification is denied.
+     *
      * @param obj the object to modify
      * @param dep the dependency to modify
      * @param val the object to append or remove to the dependency
@@ -45,6 +46,7 @@ public interface IAccessHandle {
     /**
      * Check the given object is modifiable.
      * Throws an {@link IllegalStateException} if the object is not modifiable.
+     *
      * @param obj the object  to check.
      * @throws AccessDeniedException if the object is not modifiable.
      */
@@ -55,6 +57,7 @@ public interface IAccessHandle {
      * Check the given attribute on the given object can be modified.
      * <p>
      * Throw an exception if the attribute modification is denied.
+     *
      * @param obj the object to modify
      * @param att the attribute to modify
      * @param val the object to append or remove to the dependency
@@ -62,5 +65,5 @@ public interface IAccessHandle {
      */
     @objid ("8cb387a0-283b-4a98-b2eb-f7783e65b469")
     void checkAccessFor(SmObjectImpl obj, SmAttribute att, SmObjectImpl val) throws AccessDeniedException;
-}
 
+}

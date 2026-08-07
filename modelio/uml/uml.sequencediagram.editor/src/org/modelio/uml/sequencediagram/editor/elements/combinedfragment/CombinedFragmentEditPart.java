@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.combinedfragment;
 
@@ -42,13 +42,14 @@ import org.modelio.uml.sequencediagram.editor.elements.sequencediagram.Placement
 
 /**
  * EditPart for the CombinedFragment. Specialisation of the PortContainerEditPart to add the IPlacementConstraintProvider role.
- * 
+ *
  * @author fpoyer
  */
 @objid ("d8c1ec1a-55b6-11e2-877f-002564c97630")
 public class CombinedFragmentEditPart extends PortContainerEditPart implements IPlacementConstraintProvider {
     /**
      * Creates and returns a PlacementConstraint for the given model.
+     *
      * @param model the graphic model for which a constraint is to be created.
      * @param x the desired X coordinate in coordinates relative to the parent figure.
      * @param y the desired Y coordinate in coordinates relative to the parent figure.
@@ -64,7 +65,6 @@ public class CombinedFragmentEditPart extends PortContainerEditPart implements I
                         width,
                         height,
                         (GmSequenceDiagram) model.getDiagram());
-        
     }
 
     @objid ("d8c1ec30-55b6-11e2-877f-002564c97630")
@@ -90,7 +90,7 @@ public class CombinedFragmentEditPart extends PortContainerEditPart implements I
                         operand.setEndLineNumber(operand.getEndLineNumber() +
                                 ((ChangeBoundsRequest) request).getMoveDelta().y);
                     }
-        
+
                 }
             };
             command = updateModelCommand.chain(command);
@@ -103,7 +103,6 @@ public class CombinedFragmentEditPart extends PortContainerEditPart implements I
     protected void createEditPolicies() {
         super.createEditPolicies();
         removeEditPolicy(LayoutMainNodeConnectionsEditPolicy.ROLE);
-        
     }
 
     @objid ("34db2d77-f3aa-4fd0-abed-7ea443fe0e7c")
@@ -113,12 +112,11 @@ public class CombinedFragmentEditPart extends PortContainerEditPart implements I
             @Override
             public void activate() {
                 super.activate();
-        
+
                 EditPart host = getHost();
                 host.removeEditPolicy(LayoutNodeConnectionsEditPolicy.ROLE);
             }
         };
-        
     }
 
     @objid ("9b59821c-76f8-4f8a-9415-cde757d528bd")

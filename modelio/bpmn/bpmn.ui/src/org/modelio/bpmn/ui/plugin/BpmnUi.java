@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.ui.plugin;
 
@@ -39,7 +39,7 @@ public class BpmnUi extends AbstractUIPlugin {
      */
     @objid ("cf123d74-b9cb-4ec2-ac06-a7ba13e935e4")
     public static final String PLUGIN_ID = "org.modelio.bpmn.ui"; // $NON-NLS-1$
-    
+
 
     @objid ("df4e627b-15bc-480c-82ad-befef69feb18")
     private static BundleContext context;
@@ -65,7 +65,7 @@ public class BpmnUi extends AbstractUIPlugin {
         ExtendedLogService service = bundleContext.getService(ref);
         LOG = new PluginLogger(service.getLogger(bundleContext.getBundle(), PLUGIN_ID));
         I18N = new BundledMessages(LOG, ResourceBundle.getBundle("bpmnui"));
-        
+
     }
 
     @objid ("e56195ad-d9ca-4530-8473-e7d11b3c6f41")
@@ -77,6 +77,7 @@ public class BpmnUi extends AbstractUIPlugin {
     /**
      * Returns an image descriptor for the image file at the given plug-in
      * relative path
+     *
      * @param path the path
      * @return the image descriptor
      */
@@ -86,6 +87,7 @@ public class BpmnUi extends AbstractUIPlugin {
     }
 
     /**
+     *
      * @return the bundle's execution context within the Framework.
      */
     @objid ("35470b45-4a73-4bc0-a174-9dd3cb8f3b1b")

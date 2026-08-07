@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class Document {
      * Tells whether a {@link Document proxy} can be instantiated from a {@link MObject} checking it is a {@link Artifact} stereotyped << document >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,7 +73,7 @@ public class Document {
 
     /**
      * Create a new {@link Artifact} stereotyped << document >> then instantiate a {@link Document} proxy.
-     * 
+     *
      * @return a {@link Document} proxy on the created {@link Artifact}.
      */
     @objid ("e1c40ce8-19b0-46b1-b603-76f0fb4d9e99")
@@ -83,9 +84,10 @@ public class Document {
     }
 
     /**
-     * Tries to instantiate a {@link Document} proxy from a {@link Artifact} stereotyped << document >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link Document} proxy from a {@link Artifact} stereotyped << document >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a Artifact
      * @return a {@link Document} proxy or <i>null</i>.
      */
@@ -95,9 +97,10 @@ public class Document {
     }
 
     /**
-     * Tries to instantiate a {@link Document} proxy from a {@link Artifact} stereotyped << document >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link Document} proxy from a {@link Artifact} stereotyped << document >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link Artifact}
      * @return a {@link Document} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -127,7 +130,8 @@ public class Document {
     }
 
     /**
-     * Get the underlying {@link Artifact}. 
+     * Get the underlying {@link Artifact}.
+     *
      * @return the Artifact represented by this proxy, never null.
      */
     @objid ("a322aec7-440c-48e3-b956-c1f6f8ea93c9")
@@ -139,11 +143,11 @@ public class Document {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("2b32f73b-40f3-48fb-ab4d-41677de80ae2")
-    protected  Document(Artifact elt) {
+    protected Document(Artifact elt) {
         this.elt = elt;
     }
 
@@ -163,7 +167,7 @@ public class Document {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "388ba911-9fb3-4117-80af-6099142d7816");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -171,7 +175,7 @@ public class Document {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

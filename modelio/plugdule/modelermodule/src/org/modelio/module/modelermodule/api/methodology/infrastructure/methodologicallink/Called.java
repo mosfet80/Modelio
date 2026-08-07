@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -53,6 +53,7 @@ public class Called {
      * Tells whether a {@link Called proxy} can be instantiated from a {@link MObject} checking it is a {@link MethodologicalLink} stereotyped << Called >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -63,6 +64,7 @@ public class Called {
 
     /**
      * Create a new {@link MethodologicalLink} stereotyped << Called >> then instantiate a {@link Called} proxy.
+     *
      * @return a {@link Called} proxy on the created {@link MethodologicalLink}.
      */
     @objid ("0a0e6b7d-3d43-4078-b658-745d9efb2c79")
@@ -76,6 +78,7 @@ public class Called {
      * Tries to instantiate a {@link Called} proxy from a {@link MethodologicalLink} stereotyped << Called >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a MethodologicalLink
      * @return a {@link Called} proxy or <i>null</i>.
      */
@@ -88,6 +91,7 @@ public class Called {
      * Tries to instantiate a {@link Called} proxy from a {@link MethodologicalLink} stereotyped << Called >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link MethodologicalLink}
      * @return a {@link Called} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -98,7 +102,7 @@ public class Called {
             return new Called(obj);
         else
             throw new IllegalArgumentException("Called: Cannot instantiate "+obj+": wrong element type or stereotype");
-        
+
     }
 
     /**
@@ -116,9 +120,9 @@ public class Called {
     @objid ("7de0a3b2-2dae-493d-b2e1-b4d05f76b608")
     public static void setTarget(ModelElement source, ModelElement target) {
         preloadStereotype(source);
-        
+
         AbstractMethodologicalLink.setTarget(source, MdaTypes.STEREOTYPE_ELT, target);
-        
+
     }
 
     /**
@@ -126,8 +130,9 @@ public class Called {
      * <p>
      * {@link MdaTypes#STEREOTYPE_ELT} may be null when called while doing metamodel migration on model fragments.
      * In this case modules are not yet loaded and MDA proxies are not initialized.
-     * 
+     *
      * WARNING: Manual method. Do not use ModelioStudio 2.0.xx API generator on ModelerModule otherwise the method will be cancelled. Need an evolution od ModelioStudio.
+     *
      * @param source a model element to guess the {@link CoreSession} .
      * @since 5.4.1 25/10/2023
      */
@@ -140,7 +145,7 @@ public class Called {
                     "c3862c6c-5983-4d1a-b0e2-58dd2685eda0",
                     STEREOTYPE_NAME);
         }
-        
+
     }
 
     @objid ("89a0a547-5640-4841-8b30-7bdd6472fcf4")
@@ -161,6 +166,7 @@ public class Called {
 
     /**
      * Get the underlying {@link MethodologicalLink}.
+     *
      * @return the MethodologicalLink represented by this proxy, never null.
      */
     @objid ("e37dad08-ca30-4a51-8c68-84c9f425bc10")
@@ -175,7 +181,7 @@ public class Called {
     }
 
     @objid ("31663257-1324-4099-85b0-3ba0be83cc85")
-    protected  Called(MethodologicalLink elt) {
+    protected Called(MethodologicalLink elt) {
         this.elt = elt;
     }
 
@@ -195,7 +201,7 @@ public class Called {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "c3862c6c-5983-4d1a-b0e2-58dd2685eda0");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 static {
@@ -203,7 +209,7 @@ static {
                                     init(ModelerModuleModule.getInstance().getModuleContext());
                                 }
                             }
-        
+
     }
 
 }

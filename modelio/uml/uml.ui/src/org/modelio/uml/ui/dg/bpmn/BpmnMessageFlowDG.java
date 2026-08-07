@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.dg.bpmn;
 
@@ -32,11 +32,12 @@ import org.modelio.diagram.elements.core.model.IGmNode;
 @objid ("c91884cf-6be1-4026-819d-b246bb07f1d0")
 public class BpmnMessageFlowDG extends DiagramLink {
     /**
+     *
      * @param diagramHandle The diagram manipulation class.
      * @param link The graphic model link represented by this class.
      */
     @objid ("57028a04-1032-4918-a607-87c290d2feed")
-    public  BpmnMessageFlowDG(DiagramHandle diagramHandle, IGmLink link) {
+    public BpmnMessageFlowDG(DiagramHandle diagramHandle, IGmLink link) {
         super(diagramHandle, link);
     }
 

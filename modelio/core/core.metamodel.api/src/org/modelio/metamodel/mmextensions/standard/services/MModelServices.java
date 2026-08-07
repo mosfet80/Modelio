@@ -1,27 +1,26 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.mmextensions.standard.services;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -63,27 +62,16 @@ public class MModelServices implements IMModelServices {
     private ExtensionCache extensionCache;
 
     /**
+     *
      * @param session a core modeling session.
      */
     @objid ("007930ce-030f-1035-9f91-001ec947cd2a")
-    public  MModelServices(ICoreSession session) {
+    public MModelServices(ICoreSession session) {
         Objects.requireNonNull(session);
         this.session = session;
         this.tools = MTools.get(session);
         this.extensionCache = new ExtensionCache(session.getMetamodel());
-        
-    }
 
-    @objid ("113984af-1772-11e2-aa0d-002564c97630")
-    @Override
-    public Collection<? extends MObject> findByAtt(MClass metaclass, String att, Object val) {
-        return getModel().findByAtt(metaclass, true, att, val);
-    }
-
-    @objid ("1139abc3-1772-11e2-aa0d-002564c97630")
-    @Override
-    public Collection<? extends MObject> findByClass(MClass metaclass) {
-        return getModel().findByClass(metaclass, true);
     }
 
     @objid ("1139d2d6-1772-11e2-aa0d-002564c97630")
@@ -102,9 +90,9 @@ public class MModelServices implements IMModelServices {
     @Override
     public String getCompositionPath(MObject mObject) {
         String name = mObject.getName();
-        
+
         // TODO escape '/'
-        
+
         SmObjectImpl owner = ((SmObjectImpl) mObject).getCompositionOwner();
         if (owner != null) {
             return getCompositionPath(owner) + "/" + name;
@@ -140,7 +128,7 @@ public class MModelServices implements IMModelServices {
     @Override
     public List<NoteType> findNoteTypes(String moduleName, String ownerName, String noteTypeName, MClass metaclass) {
         List<NoteType> ret = new ArrayList<>();
-        
+
         for (ModuleComponent module : getModel().findByClass(ModuleComponent.class)) {
             if (nameMatches(module, moduleName)) {
                 for (Profile profile : module.getOwnedProfile()) {
@@ -158,7 +146,7 @@ public class MModelServices implements IMModelServices {
                             reportBadMetaclass(reference, e);
                         }
                     }
-        
+
                     for (Stereotype ste : profile.getDefinedStereotype()) {
                         if (nameMatches(ste.getModule(), moduleName)) {
                             try {
@@ -185,7 +173,7 @@ public class MModelServices implements IMModelServices {
     @Override
     public List<ResourceType> findResourceTypes(String moduleName, String ownerName, String resourceTypeName, MClass metaclass) {
         List<ResourceType> ret = new ArrayList<>();
-        
+
         for (ModuleComponent module : getModel().findByClass(ModuleComponent.class)) {
             if (nameMatches(module, moduleName)) {
                 for (Profile profile : module.getOwnedProfile()) {
@@ -203,7 +191,7 @@ public class MModelServices implements IMModelServices {
                             reportBadMetaclass(reference, e);
                         }
                     }
-        
+
                     for (Stereotype ste : profile.getDefinedStereotype()) {
                         if (nameMatches(ste.getModule(), moduleName)) {
                             try {
@@ -230,7 +218,7 @@ public class MModelServices implements IMModelServices {
     @Override
     public List<Stereotype> findStereotypes(String moduleName, String stereotypeName, MClass metaclass) {
         List<Stereotype> ret = new ArrayList<>();
-        
+
         for (ModuleComponent module : getModel().findByClass(ModuleComponent.class)) {
             if (nameMatches(module, moduleName)) {
                 for (Profile profile : module.getOwnedProfile()) {
@@ -261,7 +249,7 @@ public class MModelServices implements IMModelServices {
     @Override
     public List<TagType> findTagTypes(String moduleName, String ownerName, String tagTypeName, MClass metaclass) {
         List<TagType> ret = new ArrayList<>();
-        
+
         for (ModuleComponent module : getModel().findByClass(ModuleComponent.class)) {
             if (nameMatches(module, moduleName)) {
                 for (Profile profile : module.getOwnedProfile()) {
@@ -279,7 +267,7 @@ public class MModelServices implements IMModelServices {
                             reportBadMetaclass(reference, e);
                         }
                     }
-        
+
                     for (Stereotype ste : profile.getDefinedStereotype()) {
                         if (nameMatches(ste.getModule(), moduleName)) {
                             try {
@@ -309,7 +297,7 @@ public class MModelServices implements IMModelServices {
         if (type != null) {
             return type;
         }
-        
+
         List<NoteType> noteTypes = findNoteTypes(moduleName, ownerName, noteTypeName, metaclass);
         if (noteTypes.isEmpty()) {
             return null;
@@ -320,7 +308,7 @@ public class MModelServices implements IMModelServices {
         } else {
             throw new ElementNotUniqueException(MessageFormat.format("''{0}'' is not a unique NoteType for ''{1}'' metaclass in ''{2}'' module.", noteTypeName, metaclass.getQualifiedName(), moduleName));
         }
-        
+
     }
 
     @objid ("007f9838-030f-1035-9f91-001ec947cd2a")
@@ -330,7 +318,7 @@ public class MModelServices implements IMModelServices {
         if (type != null) {
             return type;
         }
-        
+
         List<ResourceType> resourceTypes = findResourceTypes(moduleName, ownerName, resourceTypeName, metaclass);
         if (resourceTypes.isEmpty()) {
             return null;
@@ -341,7 +329,7 @@ public class MModelServices implements IMModelServices {
         } else {
             throw new ElementNotUniqueException(MessageFormat.format("''{0}'' is not a unique ResourceType for ''{1}'' metaclass in ''{2}'' module.", resourceTypeName, metaclass.getQualifiedName(), moduleName));
         }
-        
+
     }
 
     @objid ("5a88b537-7d84-42a0-ad2a-1b48243e17e5")
@@ -355,7 +343,7 @@ public class MModelServices implements IMModelServices {
         } else {
             throw new ElementNotUniqueException(stereotypeName + " is not a unique Stereotype for " + metaclass.getName());
         }
-        
+
     }
 
     @objid ("5d5198bb-ac79-4cb1-a304-4d44e649cae7")
@@ -372,7 +360,7 @@ public class MModelServices implements IMModelServices {
         if (type != null) {
             return type;
         }
-        
+
         List<TagType> tagTypes = findTagTypes(moduleName, ownerType, tagTypeName, metaclass);
         if (tagTypes.isEmpty()) {
             return null;
@@ -383,18 +371,19 @@ public class MModelServices implements IMModelServices {
         } else {
             throw new ElementNotUniqueException(tagTypeName + " is not a unique TagType for " + metaclass.getName() + " in " + moduleName);
         }
-        
+
     }
 
     /**
      * Invalidate the service and prevent further usage.
+     *
      * @param object a dummy parameter
      */
     @objid ("00913a16-0eae-1035-9f91-001ec947cd2a")
     public void invalidateProject(Object object) {
         this.session = null;
         this.tools = null;
-        
+
     }
 
     @objid ("00819d40-030f-1035-9f91-001ec947cd2a")
@@ -410,7 +399,7 @@ public class MModelServices implements IMModelServices {
                 }
             }
         }
-        
+
     }
 
     @objid ("c3282876-edee-11e1-84b0-002564c97630")
@@ -436,7 +425,7 @@ public class MModelServices implements IMModelServices {
     @objid ("c32b35b7-edee-11e1-84b0-002564c97630")
     private MClass getBaseClass(String baseName) throws MetaclassNotFoundException {
         MClass smBase = this.session.getMetamodel().getMClass(baseName);
-        
+
         if (smBase == null) {
             throw new MetaclassNotFoundException(baseName);
         }
@@ -470,11 +459,12 @@ public class MModelServices implements IMModelServices {
         } else {
             throw new UnknownMetaclassException(metaclass);
         }
-        
+
     }
 
     /**
      * Answer to the question: does 'stereotype' or one of its inheritance parent matches the given 'stereotypeName'.
+     *
      * @param stereotype a stereotype
      * @param stereotypeName the name of a stereotype.
      * @return <code>true</code> if 'stereotype' or one of its inheritance parent matches the given 'stereotypeName'.
@@ -484,7 +474,7 @@ public class MModelServices implements IMModelServices {
         if (nameMatches(stereotype, stereotypeName)) {
             return true;
         }
-        
+
         if (stereotype.getParent() != null) {
             if (inheritsFrom(stereotype.getParent(), stereotypeName)) {
                 return true;
@@ -495,6 +485,7 @@ public class MModelServices implements IMModelServices {
 
     /**
      * Answer to the question: does 'metaclass' or one of its inheritance parent matches the given 'metaclassName'.
+     *
      * @param metaclass a metaclass
      * @param metaclassName the name of a metaclass.
      * @return <code>true</code> if 'metaclass' or one of its inheritance parent matches the given 'metaclassName'.
@@ -505,7 +496,7 @@ public class MModelServices implements IMModelServices {
         if (name.matches((metaclassName == null || metaclassName.isEmpty()) ? ".*" : metaclassName) || name.equals(metaclassName)) {
             return true;
         }
-        
+
         if (metaclass.getSuper() != null) {
             if (inheritsFrom(metaclass.getSuper(), metaclassName)) {
                 return true;

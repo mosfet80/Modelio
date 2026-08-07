@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.anchors.fixed2.algorithms.swappable;
 
@@ -32,7 +32,7 @@ import org.modelio.diagram.elements.core.link.anchors.fixed2.algorithms.fixed.Fi
 @objid ("1eca4133-e73d-4b9b-89fe-6545335daaad")
 public class SwappableFixedAnchorLocator extends FixedNodeAnchorLocator {
     @objid ("d19d48d5-2e1b-40d8-a174-da507feea4a7")
-    public  SwappableFixedAnchorLocator(String algoId) {
+    public SwappableFixedAnchorLocator(String algoId) {
         super(algoId);
     }
 
@@ -41,9 +41,9 @@ public class SwappableFixedAnchorLocator extends FixedNodeAnchorLocator {
     public Point getLocation(FixedAnchor anchor, Point reference) {
         final Rectangle rect = anchor.getOwner().getBounds().getCopy();
         anchor.getOwner().translateToAbsolute(rect);
-        
+
         double fraction =  (anchor.getRank() + 1.0) / (anchor.getTotalOnFace() + 1.0);
-        
+
         switch (anchor.getFace()) {
         case FacesConstants.FACE_NORTH:
         case FacesConstants.FACE_SOUTH:
@@ -59,9 +59,9 @@ public class SwappableFixedAnchorLocator extends FixedNodeAnchorLocator {
                 return rect.getTopRight().translate(0, rect.height * fraction);
         default:
             throw new IllegalStateException("Unknow border:" + anchor.getFaceName());
-        
+
         }
-        
+
     }
 
 }

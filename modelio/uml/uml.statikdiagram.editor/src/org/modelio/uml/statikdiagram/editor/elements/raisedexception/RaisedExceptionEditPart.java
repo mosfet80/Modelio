@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.raisedexception;
 
@@ -33,7 +33,7 @@ import org.modelio.diagram.elements.core.link.LinkEditPart;
 
 /**
  * Edit part for {@link GmRaisedException}.
- * 
+ *
  * @author cmarin
  */
 @objid ("36621f85-55b7-11e2-877f-002564c97630")
@@ -43,9 +43,9 @@ public class RaisedExceptionEditPart extends LinkEditPart {
     protected IFigure createFigure() {
         // Create the link
         final PolylineConnection connection = (PolylineConnection) super.createFigure();
-        
+
         // Set style independent properties
-        
+
         // Navigability arrow toward target
         final DefaultPolylineDecoration arrow = new DefaultPolylineDecoration();
         arrow.setTemplate(PolylineDecoration.TRIANGLE_TIP);
@@ -54,16 +54,16 @@ public class RaisedExceptionEditPart extends LinkEditPart {
         arrow.setBackgroundColor(null);
         arrow.setFill(false);
         connection.setTargetDecoration(arrow);
-        
+
         CircleDeco circle = new CircleDeco();
         circle.setOpaque(true);
         circle.setSize(6, 6);
         circle.setBackgroundColor(null);
         connection.setSourceDecoration(circle);
-        
+
         // Set style dependent properties
         refreshFromStyle(connection, getModelStyle());
-        
+
         // Set style dependent properties
         return connection;
     }
@@ -71,8 +71,8 @@ public class RaisedExceptionEditPart extends LinkEditPart {
     @objid ("36621f8e-55b7-11e2-877f-002564c97630")
     private static class CircleDeco extends EllipseFigure implements RotatableDecoration {
         @objid ("36621f92-55b7-11e2-877f-002564c97630")
-        public  CircleDeco() {
-            
+        public CircleDeco() {
+
         }
 
         @objid ("36621f94-55b7-11e2-877f-002564c97630")
@@ -86,7 +86,7 @@ public class RaisedExceptionEditPart extends LinkEditPart {
         public void setLocation(final Point p) {
             Dimension dim = getBounds().getSize().scale(0.5);
             super.setLocation(new Point(p.x - dim.width, p.y - dim.height));
-            
+
         }
 
         @objid ("36621f9e-55b7-11e2-877f-002564c97630")
@@ -106,7 +106,7 @@ public class RaisedExceptionEditPart extends LinkEditPart {
         public void setLineColor(final Color lineColor) {
             super.setLineColor(lineColor);
             setFillColor(lineColor);
-            
+
         }
 
     }

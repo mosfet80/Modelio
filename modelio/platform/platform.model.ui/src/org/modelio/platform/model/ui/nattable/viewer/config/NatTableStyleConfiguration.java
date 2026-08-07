@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.viewer.config;
 
@@ -38,19 +38,18 @@ public class NatTableStyleConfiguration extends AbstractRegistryConfiguration {
     @Override
     public void configureRegistry(IConfigRegistry configRegistry) {
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_PAINTER, new TextPainter());
-        
+
         ModelioTableTheme colorScheme = ModelioTableTheme.getInstance();
-        
+
         Style cellStyle = new Style();
         cellStyle.setAttributeValue(CellStyleAttributes.FONT, colorScheme.cellFont);
         cellStyle.setAttributeValue(CellStyleAttributes.BACKGROUND_COLOR, colorScheme.cellBackground);
         cellStyle.setAttributeValue(CellStyleAttributes.FOREGROUND_COLOR, colorScheme.cellForeGround);
         cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, colorScheme.cellHAlign);
         cellStyle.setAttributeValue(CellStyleAttributes.VERTICAL_ALIGNMENT, colorScheme.cellVAlign);
-        
+
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle);
         configRegistry.registerConfigAttribute(CellConfigAttributes.DISPLAY_CONVERTER, new DefaultDisplayConverter());
-        
     }
 
 }

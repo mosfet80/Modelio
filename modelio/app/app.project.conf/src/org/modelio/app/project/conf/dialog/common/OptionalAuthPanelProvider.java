@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.conf.dialog.common;
 
@@ -61,6 +61,7 @@ public class OptionalAuthPanelProvider implements IPanelProvider {
 
     /**
      * Instantiate the panel graphical elements.
+     *
      * @param parent the composite to create the new graphical elements into.
      * @return the created panel.
      */
@@ -68,10 +69,10 @@ public class OptionalAuthPanelProvider implements IPanelProvider {
     @Override
     public Object createPanel(Composite parent) {
         assert (this.top == null);
-        
+
         this.top = new Composite(parent, SWT.NONE);
         this.top.setLayout(new GridLayout(1, false));
-        
+
         //Label label = new Label(this.top, SWT.NONE);
         this.useProjectAuthCheck = new Button(this.top, SWT.CHECK);
         this.useProjectAuthCheck.setText(AppProjectConf.I18N.getString("OptionalAuthPanelProvider.UseProjectAuth"));
@@ -82,7 +83,7 @@ public class OptionalAuthPanelProvider implements IPanelProvider {
             }
         });
         this.useProjectAuthCheck.setLayoutData(new GridData(SWT.FILL, SWT.BEGINNING, true, false));
-        
+
         this.authPanel.createPanel(this.top);
         this.authPanel.getPanel().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         return this;
@@ -90,6 +91,7 @@ public class OptionalAuthPanelProvider implements IPanelProvider {
 
     /**
      * Get the panel graphical elements, a {@link Composite}.
+     *
      * @return the created panel. <code>null</code> until IPanelProvided#create is called.
      */
     @objid ("995d638b-4fe1-45f3-bd8a-b1ed2996ce59")
@@ -100,13 +102,14 @@ public class OptionalAuthPanelProvider implements IPanelProvider {
 
     /**
      * Set a new input for the panel.
+     *
      * @param input the new input for the panel.
      */
     @objid ("fddd87ee-1335-4b32-9e43-6b2716ed32cd")
     @Override
     public void setInput(Object input) {
         IAuthData data = (IAuthData) input;
-        
+
         if (data == null) {
             data = new UserPasswordAuthData();
         } else if (InheritedAuthData.matches(data)) {
@@ -117,11 +120,12 @@ public class OptionalAuthPanelProvider implements IPanelProvider {
             this.authPanel.setInput(data);
         }
         updateVisibility();
-        
+
     }
 
     /**
      * Get the current input of the panel.
+     *
      * @return the panel's input.
      */
     @objid ("0090f1a8-1229-4dc8-b943-e38da86b37f2")
@@ -132,20 +136,21 @@ public class OptionalAuthPanelProvider implements IPanelProvider {
 
     /**
      * Initialize the panel.
+     *
      * @param allowUseProjectAuth Allow "Use project authentication"
      */
     @objid ("a5f50cbb-760e-469e-b866-f9b7c2004e32")
-    public  OptionalAuthPanelProvider(boolean allowUseProjectAuth) {
+    public OptionalAuthPanelProvider(boolean allowUseProjectAuth) {
         this.authPanel = new AuthDataPanel();
         this.allowUseProjectAuth = allowUseProjectAuth;
-        
+
     }
 
     @objid ("5350938d-ef80-41ff-b543-520baf4be470")
     void updateVisibility() {
         Composite composite = this.authPanel.getPanel();
         setWidgetVisible(this.useProjectAuthCheck, this.allowUseProjectAuth);
-        
+
         if (this.allowUseProjectAuth && this.useProjectAuthCheck.getSelection()) {
             setWidgetVisible(composite, false);
         } else {
@@ -157,11 +162,12 @@ public class OptionalAuthPanelProvider implements IPanelProvider {
             }
         }
         this.top.getShell().layout(new Control[]{composite, this.top});
-        
+
     }
 
     /**
      * Update the given fragment descriptor with the data of this panel.
+     *
      * @param fragmentDescriptor the fragment to update.
      */
     @objid ("143fc66d-8989-4f2e-9ad2-efbc6c4038f7")
@@ -178,11 +184,12 @@ public class OptionalAuthPanelProvider implements IPanelProvider {
             DefinitionScope authScope = authDesc==null ? DefinitionScope.LOCAL : authDesc.getScope();
             fragmentDescriptor.setAuth(new AuthDescriptor(newData, authScope));
         }
-        
+
     }
 
     /**
      * Enable or disable edition on the panel.
+     *
      * @param b <code>true</code> to enable edition, <code>false</code> to disable it.
      */
     @objid ("cc956ea7-dd23-4cca-9afa-20540fb51698")
@@ -194,7 +201,7 @@ public class OptionalAuthPanelProvider implements IPanelProvider {
     void setWidgetVisible(Control composite, boolean visible) {
         composite.setVisible(visible);
         ((GridData)composite.getLayoutData()).exclude = !visible;
-        
+
     }
 
     @objid ("13881cf4-7a13-4e92-b9fe-4156a065f393")

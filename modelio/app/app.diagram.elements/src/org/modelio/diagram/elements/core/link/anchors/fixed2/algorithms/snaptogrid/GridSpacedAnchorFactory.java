@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.anchors.fixed2.algorithms.snaptogrid;
 
@@ -38,10 +38,11 @@ public class GridSpacedAnchorFactory extends ConfigurableFixedAnchorFactory {
 
     /**
      * C'tor.
+     *
      * @param algoId the algorithm identifier to serialize
      */
     @objid ("6ec69b4f-7b5f-441f-87ab-18810bcb10f3")
-    public  GridSpacedAnchorFactory(String algoId, IFixedAnchorLocator locator) {
+    public GridSpacedAnchorFactory(String algoId, IFixedAnchorLocator locator) {
         super(algoId, locator);
     }
 
@@ -50,11 +51,11 @@ public class GridSpacedAnchorFactory extends ConfigurableFixedAnchorFactory {
     public void fillAnchorCount(Dimension out) {
         Dimension gridSize = getGridSize();
         Dimension figSize = getNodeFigure().getSize();
-        
+
         // compute how many time the 'margin' fit on horizontal and vertical faces
         int nHorizontal = Math.max(1, figSize.width / gridSize.width - 0);
         int nVertical = Math.max(1, figSize.height / gridSize.height - 0);
-        
+
         if (false) {
             // ensure count is odd
             if (nHorizontal % 2 == 0) {
@@ -65,7 +66,7 @@ public class GridSpacedAnchorFactory extends ConfigurableFixedAnchorFactory {
             }
         }
         out.setSize(nHorizontal, nVertical);
-        
+
     }
 
     @objid ("03ea0f57-2841-4ade-925c-e441af4d86b8")

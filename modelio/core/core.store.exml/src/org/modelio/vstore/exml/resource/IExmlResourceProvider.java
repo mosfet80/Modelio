@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.exml.resource;
 
@@ -44,6 +44,7 @@ import org.modelio.vstore.exml.common.model.ObjId;
 public interface IExmlResourceProvider {
     /**
      * Build the indexes in a local directory.
+     *
      * @param monitor a progress monitor.
      * @throws IOException in case of failure.
      */
@@ -52,6 +53,7 @@ public interface IExmlResourceProvider {
 
     /**
      * Close the resource provider.
+     *
      * @throws IOException in case of failure.
      */
     @objid ("cf2f176b-03e4-11e2-b5bf-001ec947ccaf")
@@ -59,6 +61,7 @@ public interface IExmlResourceProvider {
 
     /**
      * Commit all writes that were done since last commit().
+     *
      * @throws IOException in case of failure.
      */
     @objid ("cf2f176d-03e4-11e2-b5bf-001ec947ccaf")
@@ -66,6 +69,7 @@ public interface IExmlResourceProvider {
 
     /**
      * Create the repository.
+     *
      * @param mMetamodel the initial metamodel
      * @throws IOException in case of failure
      */
@@ -74,6 +78,7 @@ public interface IExmlResourceProvider {
 
     /**
      * Delete a blob
+     *
      * @param blob a blob identifier
      * @throws IOException in case of failure
      */
@@ -82,6 +87,7 @@ public interface IExmlResourceProvider {
 
     /**
      * Tells whether the repository exists.
+     *
      * @return whether the repository exists.
      * @throws IOException in case of I/O failure.
      */
@@ -90,6 +96,7 @@ public interface IExmlResourceProvider {
 
     /**
      * Get all the repository content.
+     *
      * @param aMonitor a progress monitor.
      * @return all CMS nodes.
      * @throws IOException in case of failure
@@ -98,9 +105,18 @@ public interface IExmlResourceProvider {
     Collection<ExmlResource> getAllResources(IModelioProgress aMonitor) throws IOException;
 
     /**
+     * GEt all blobs of repository
+     *
+     * @return all Blobs
+     */
+    @objid ("dd0ca1d7-7dd8-4ee3-9bc1-d435d3dac932")
+    Collection<ExmlResource> getAllBlobs(IModelioProgress aMonitor) throws IOException;
+
+    /**
      * Get the geometry of the repository.
      * <p>
      * {@link #open()} or {@link #createRepository(MMetamodel)} must have been called once before this method.
+     *
      * @return the repository geometry.
      */
     @objid ("89ce59ba-a607-4291-93ce-0fce053f3d89")
@@ -108,6 +124,7 @@ public interface IExmlResourceProvider {
 
     /**
      * Get the path where the EXML indexes will be accessible after having called {@link #buildIndexes(IModelioProgress)}.
+     *
      * @return the EXML indexes path.
      */
     @objid ("e710f189-e8e0-489c-9b6b-cdd574ae1a08")
@@ -117,6 +134,7 @@ public interface IExmlResourceProvider {
      * Get access to the non CMS managed content for a CMS node.
      * <p>
      * Used by EXML repositories in versioned mode.
+     *
      * @param cmsNodeId the reference of a CMS node.
      * @return the content
      * @throws IOException in case of failure
@@ -126,6 +144,7 @@ public interface IExmlResourceProvider {
 
     /**
      * Get access to the metamodel descriptor.
+     *
      * @return the metamodel descriptor resource.
      * @throws IOException in case of failure
      * @since 3.6
@@ -139,6 +158,7 @@ public interface IExmlResourceProvider {
      * This name should be short enough to be displayed and should
      * reflect the repository content, for example the root element name.
      * An implementation may compute this name or be initialized with it.
+     *
      * @return the repository name.
      */
     @objid ("a23e9ba0-1c4a-4354-abdf-b75630a8b4c2")
@@ -148,6 +168,7 @@ public interface IExmlResourceProvider {
      * Get an access to the resource pointed by the given relative path.
      * <p>
      * Returns a resource even if it does not exist.
+     *
      * @param relativePath a path relative to the repository root.
      * @return the resource access, never null.
      * @throws IOException on I/O error determining the resource
@@ -157,6 +178,7 @@ public interface IExmlResourceProvider {
 
     /**
      * Get the resource where a {@link RepositoryVersions} can be read/written.
+     *
      * @return the repository format versions resource.
      * @throws IOException in case of failure
      */
@@ -165,6 +187,7 @@ public interface IExmlResourceProvider {
 
     /**
      * Get access to the EXML content for a CMS node.
+     *
      * @param id the reference of a CMS node.
      * @return the content
      * @throws IOException in case of failure
@@ -179,6 +202,7 @@ public interface IExmlResourceProvider {
      * with the remote storage location.
      * <p>
      * Returns empty string if there is no stamp.
+     *
      * @return the repository stamp or empty string.
      * @throws IOException in case of I/O error preventing from reading the stamp
      */
@@ -187,6 +211,7 @@ public interface IExmlResourceProvider {
 
     /**
      * Get the repository location as an URI
+     *
      * @return the repository location
      */
     @objid ("cf2f1777-03e4-11e2-b5bf-001ec947ccaf")
@@ -197,6 +222,7 @@ public interface IExmlResourceProvider {
      * <p>
      * In this case indexes can be rebuilt. In the other case it is impossible to rebuild indexes
      * and {@link #getAllResources(IModelioProgress)} must not be called.
+     *
      * @return <code>true</code> if the repository can be browsed, <code>false</code> in the other case.
      */
     @objid ("644389dd-3565-4176-b4d7-2916677600cf")
@@ -205,6 +231,7 @@ public interface IExmlResourceProvider {
     /**
      * Tells whether the repository is accessible in read/write mode
      * or only in read only mode.
+     *
      * @return <code>true</code> if the repository is read/write, <code>false</code> if it is read only.
      */
     @objid ("5a44d1ec-0724-11e2-9eb7-001ec947ccaf")
@@ -215,6 +242,7 @@ public interface IExmlResourceProvider {
      * <p>
      * The implementation will probably need to read the format version
      * stored in {@link #getRepositoryVersionResource()} with {@link #readRepositoryVersion()}.
+     *
      * @throws IOException in case of non recoverable failure.
      */
     @objid ("5ef60438-4f0d-4441-b359-f5673f9cbb41")
@@ -224,6 +252,7 @@ public interface IExmlResourceProvider {
      * Read the content of a blob.
      * <p>
      * Returns <code>null</code> if there is no blob with such key.
+     *
      * @param key a blob key
      * @return the blob content or <code>null</code>.
      * @throws IOException in case of I/O error
@@ -235,6 +264,7 @@ public interface IExmlResourceProvider {
      * Read the informations of a blob.
      * <p>
      * Returns <code>null</code> if there is no blob with such key.
+     *
      * @param key a blob key
      * @return the blob content or <code>null</code>.
      * @throws IOException in case of I/O error
@@ -249,6 +279,7 @@ public interface IExmlResourceProvider {
      * <p>
      * The implementation will probably need to read the format version
      * stored in {@link #getRepositoryVersionResource()}.
+     *
      * @return the repository versions, null if none stored yet.
      * @throws IOException in case of error getting the versions
      */
@@ -260,6 +291,7 @@ public interface IExmlResourceProvider {
      * <p>
      * Create missing directories.
      * Do not delete directories not needed anymore.
+     *
      * @param mMetamodel the metamodel to match.
      * @throws IOException in case of failure
      */
@@ -268,6 +300,7 @@ public interface IExmlResourceProvider {
 
     /**
      * Write to a blob.
+     *
      * @param info the blob info
      * @return a stream to write the blob content to.
      * @throws IOException in case of copy failure.
@@ -281,6 +314,7 @@ public interface IExmlResourceProvider {
      * Should be called by {@link #commit()}.
      * May be called by external code that directly modifies the repository files
      * such as version managers.
+     *
      * @throws IOException in case of failure.
      */
     @objid ("79a4c697-eff7-401b-8e26-74d2a0dbccef")
@@ -295,6 +329,7 @@ public interface IExmlResourceProvider {
          * Open a buffered input stream on the resource.
          * <p>
          * Returns <code>null</code> if the resource does not exist.
+         *
          * @return the buffered input stream or <code>null</code> if the resource does not exist.
          * @throws IOException in case of failure.
          */
@@ -306,6 +341,7 @@ public interface IExmlResourceProvider {
 
         /**
          * Open a buffered output stream on the resource.
+         *
          * @return the buffered output stream .
          * @throws IOException in case of failure.
          */
@@ -317,6 +353,7 @@ public interface IExmlResourceProvider {
 
         /**
          * Delete the resource.
+         *
          * @throws IOException in case of failure.
          */
         @objid ("978dc0e1-12de-11e2-816a-001ec947ccaf")
@@ -326,6 +363,7 @@ public interface IExmlResourceProvider {
          * Get the resource URI.
          * <p>
          * Will be used for error reporting.
+         *
          * @return the resource URI.
          */
         @objid ("92debe6e-2cd2-11e2-81f1-001ec947ccaf")
@@ -335,6 +373,7 @@ public interface IExmlResourceProvider {
          * Open an input stream on the resource.
          * <p>
          * Returns <code>null</code> if the resource does not exist.
+         *
          * @return the input stream or <code>null</code> if the resource does not exist.
          * @throws IOException in case of failure.
          */
@@ -343,12 +382,13 @@ public interface IExmlResourceProvider {
 
         /**
          * Open an output stream on the resource.
+         *
          * @return an output stream.
          * @throws IOException in case of failure.
          */
         @objid ("cf2f175e-03e4-11e2-b5bf-001ec947ccaf")
         OutputStream write() throws IOException;
-}
-    
-}
 
+    }
+
+}

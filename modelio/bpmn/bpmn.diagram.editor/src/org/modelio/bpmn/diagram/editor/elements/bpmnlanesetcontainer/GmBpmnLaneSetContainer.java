@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnlanesetcontainer;
 
@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.bpmn.diagram.editor.elements.bpmnlane.GmBpmnLane;
+import org.modelio.bpmn.diagram.editor.elements.bpmnlane.hibridcontainer.GmBodyHybridContainer;
 import org.modelio.diagram.elements.core.model.GmAbstractObject;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.model.IGmDiagram;
@@ -72,6 +73,20 @@ public class GmBpmnLaneSetContainer extends GmNoStyleCompositeNode {
         return null;
     }
 
+    /**
+     * Get the parent lane of this container casted as GmBpmnLane.
+     *
+     * @return the parent lane or null if none
+     */
+    @objid ("40743591-f769-4f79-b04c-da46193584d3")
+    public GmBpmnLane getParentLane() {
+        GmModel parent = getParent();
+        if (parent instanceof GmBodyHybridContainer c) {
+            return (c).getParentLane();
+        }
+        return null;
+    }
+
     @objid ("6143b67f-55b6-11e2-877f-002564c97630")
     @Override
     public boolean canCreate(Class<? extends MObject> type) {
@@ -97,22 +112,22 @@ public class GmBpmnLaneSetContainer extends GmNoStyleCompositeNode {
     }
 
     /**
+     *
      * @param diagram the diagram in which this lane set container is used.
      * @param theLaneSet the element, may be null
      * @param relatedRef the related element reference, must not be null.
      */
     @objid ("6143b69d-55b6-11e2-877f-002564c97630")
-    public  GmBpmnLaneSetContainer(IGmDiagram diagram, BpmnLaneSet theLaneSet, MRef relatedRef) {
+    public GmBpmnLaneSetContainer(IGmDiagram diagram, BpmnLaneSet theLaneSet, MRef relatedRef) {
         super(diagram, relatedRef);
         this.element = theLaneSet;
-        
     }
 
     /**
      * Empty constructor needed for serialization.
      */
     @objid ("61453cfc-55b6-11e2-877f-002564c97630")
-    public  GmBpmnLaneSetContainer() {
+    public GmBpmnLaneSetContainer() {
         // Nothing to do.
     }
 
@@ -133,7 +148,6 @@ public class GmBpmnLaneSetContainer extends GmNoStyleCompositeNode {
             break;
         }
         }
-        
     }
 
     @objid ("61453d05-55b6-11e2-877f-002564c97630")
@@ -142,11 +156,11 @@ public class GmBpmnLaneSetContainer extends GmNoStyleCompositeNode {
         super.write(out);
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmBpmnLaneSetContainer.", GmBpmnLaneSetContainer.MINOR_VERSION);
-        
     }
 
     /**
      * Get the contained {@link GmBpmnLane} nodes.
+     *
      * @return a list of {@link GmBpmnLane} nodes.
      */
     @objid ("61453d0b-55b6-11e2-877f-002564c97630")
@@ -174,7 +188,6 @@ public class GmBpmnLaneSetContainer extends GmNoStyleCompositeNode {
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (BpmnLaneSet) resolveRef(getRepresentedRef());
-        
     }
 
     @objid ("61453d2b-55b6-11e2-877f-002564c97630")
@@ -194,11 +207,11 @@ public class GmBpmnLaneSetContainer extends GmNoStyleCompositeNode {
     public void refreshFromObModel() {
         if (false) {
             super.refreshFromObModel();
-        
+
             if (this.element == null || !this.element.isValid()) {
                 return;
             }
-        
+
             // If no children exist, delete self.
             List<BpmnLane> lanes = this.element.getLane();
             if (lanes.isEmpty()) {
@@ -214,13 +227,19 @@ public class GmBpmnLaneSetContainer extends GmNoStyleCompositeNode {
         } else {
             firePropertyChange(PROP_REFRESH_FROM_OBMODEL, null, this);
         }
-        
     }
 
     @objid ("11933942-5a5b-41c1-920a-3bcd82ac6373")
     @Override
     public void addChild(GmNodeModel child) {
         super.addChild(child);
+    }
+
+    @objid ("a9798936-abd8-4989-88ad-92e5a8ce745c")
+    @Override
+    public void obElementDeleted() {
+        firePropertyChange(PROP_REFRESH_FROM_OBMODEL, null, this);
+        super.obElementDeleted();
     }
 
 }

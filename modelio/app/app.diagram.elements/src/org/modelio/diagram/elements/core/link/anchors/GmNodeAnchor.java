@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.anchors;
 
@@ -39,6 +39,7 @@ public class GmNodeAnchor implements IPersistent {
 
     /**
      * Read the element properties from a serialized form.
+     *
      * @param in a reader to build the graphic model from.
      */
     @objid ("7fddfcc3-1dec-11e2-8cad-001ec947c8cc")
@@ -55,6 +56,7 @@ public class GmNodeAnchor implements IPersistent {
      * <p>
      * In the other case it can call any {@link IDiagramWriter IDiagramWriter.writeXxxx(...)} method except
      * <tt>writeExtRef(...)</tt>.
+     *
      * @param out a writer to save the model to.
      */
     @objid ("7fddfcc7-1dec-11e2-8cad-001ec947c8cc")
@@ -70,6 +72,7 @@ public class GmNodeAnchor implements IPersistent {
      * <p>
      * If this is the case, {@link #write(IDiagramWriter)} will be called, which will have to call
      * {@link IDiagramWriter#writeExtRef(IPersistent, String, String)} only.
+     *
      * @param out the writer where the model is saved.
      * @return true if this element is external, false if the element is to be saved in this writer.
      */
@@ -83,16 +86,17 @@ public class GmNodeAnchor implements IPersistent {
      * For deserialization.
      */
     @objid ("7fe05ed9-1dec-11e2-8cad-001ec947c8cc")
-    public  GmNodeAnchor() {
-        
+    public GmNodeAnchor() {
+
     }
 
     /**
      * Constructor
+     *
      * @param difference the difference to the figure's top left corner.
      */
     @objid ("7fe05edc-1dec-11e2-8cad-001ec947c8cc")
-    public  GmNodeAnchor(final Dimension difference) {
+    public GmNodeAnchor(final Dimension difference) {
         this.difference = difference;
     }
 
@@ -122,10 +126,10 @@ public class GmNodeAnchor implements IPersistent {
     @Override
     public boolean equals(Object obj) {
         // Automatically generated method.Please delete this comment before entering specific code.
-        
+
         if (this == obj) return true;
         if (this.getClass() != obj.getClass()) return false;
-        
+
         GmNodeAnchor other = (GmNodeAnchor)obj;
         if (!Objects.equals(this.difference, other.difference)) return false;
         return true;

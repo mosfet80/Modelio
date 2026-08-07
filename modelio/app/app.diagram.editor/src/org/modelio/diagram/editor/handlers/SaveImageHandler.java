@@ -1,26 +1,26 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.handlers;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
@@ -43,7 +43,7 @@ public class SaveImageHandler {
 
     @objid ("65c52b32-33f7-11e2-95fe-001ec947c8cc")
     static int initialFilterIndex = 0; // PNG
-    
+
 
     @objid ("c2ce5a68-3896-11e2-95fe-001ec947c8cc")
     private static final String[] filterExtensions = { "*.png", "*.bmp", "*.jpg", "*.gif" };
@@ -59,9 +59,9 @@ public class SaveImageHandler {
     public Object execute(@Named(IServiceConstants.ACTIVE_PART) final MPart part) {
         if (!(part.getObject() instanceof AbstractDiagramEditor))
             return null;
-        
+
         AbstractDiagramEditor editor = (AbstractDiagramEditor) part.getObject();
-        
+
         SaveInfo saveInfo = getSaveInfo(part.getLabel());
         if (saveInfo != null) {
             saveAsImage(editor.getRootEditPart(), saveInfo);
@@ -73,14 +73,14 @@ public class SaveImageHandler {
     private void saveAsImage(RootEditPart rootEditPart, SaveInfo saveInfo) {
         ImageBuilder imageBuilder = new ImageBuilder(saveInfo.format);
         Image img = imageBuilder.makeImage(rootEditPart);
-        
+
         if (img != null) {
             ImageLoader imgLoader = new ImageLoader();
             imgLoader.data = new ImageData[] { img.getImageData() };
             imgLoader.save(saveInfo.location, saveInfo.format);
             img.dispose();
         }
-        
+
     }
 
     @objid ("65c78d5d-33f7-11e2-95fe-001ec947c8cc")
@@ -94,15 +94,15 @@ public class SaveImageHandler {
         dlg.setFilterPath(initialFilterPath);
         dlg.setFileName(diagramName + filterExtensions[initialFilterIndex].substring(1));
         dlg.setOverwrite(true);
-        
+
         String saveLocation = dlg.open();
-        
+
         if (saveLocation == null)
             return null;
-        
+
         int filterIndex = dlg.getFilterIndex();
         saveLocation = normalizeFilename(saveLocation, filterExtensions[filterIndex].substring(1));
-        
+
         // for next usage...
         initialFilterIndex = filterIndex;
         initialFilterPath = dlg.getFilterPath();
@@ -115,7 +115,7 @@ public class SaveImageHandler {
             return saveLocation;
         else
             return saveLocation + fileExtension;
-        
+
     }
 
     @objid ("7a7b7b93-5e25-11e2-a8be-00137282c51b")
@@ -134,10 +134,10 @@ public class SaveImageHandler {
         public String location;
 
         @objid ("65c78d69-33f7-11e2-95fe-001ec947c8cc")
-        public  SaveInfo(String location, int format) {
+        public SaveInfo(String location, int format) {
             this.location = location;
             this.format = format;
-            
+
         }
 
     }

@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <?metadataRepository version='1.2.0'?>
-<repository name='commons-compress/ - metadata' type='org.eclipse.equinox.internal.p2.metadata.repository.LocalMetadataRepository' version='1'>
+<repository name='file:/H:/mtools/alouette/work/eclipse/dev-platform/rcp-target/apache/commons-compress/ - metadata' type='org.eclipse.equinox.internal.p2.metadata.repository.LocalMetadataRepository' version='1'>
   <properties size='2'>
-    <property name='p2.timestamp' value='1561028327089'/>
+    <property name='p2.timestamp' value='1709291881405'/>
     <property name='p2.compressed' value='false'/>
   </properties>
   <units size='1'>
@@ -59,7 +59,11 @@
         <required namespace='java.package' name='com.github.luben.zstd' range='0.0.0' optional='true' greedy='false'/>
         <required namespace='java.package' name='javax.crypto' range='0.0.0' optional='true' greedy='false'/>
         <required namespace='java.package' name='javax.crypto.spec' range='0.0.0' optional='true' greedy='false'/>
-        <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(version=1.7))'/>
+        <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(version=1.7))'>
+          <description>
+            org.apache.commons.commons-compress
+          </description>
+        </requiredProperties>
       </requires>
       <artifacts size='1'>
         <artifact classifier='osgi.bundle' id='org.apache.commons.commons-compress' version='1.18.0'/>

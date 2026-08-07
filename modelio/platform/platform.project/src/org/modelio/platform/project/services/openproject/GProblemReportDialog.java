@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.project.services.openproject;
 
@@ -48,15 +48,15 @@ public class GProblemReportDialog extends ModelioDialog {
         GProblemReportDialog dlg = new GProblemReportDialog(parent, projectName, failures);
         dlg.setBlockOnOpen(true);
         dlg.open();
-        
+
     }
 
     @objid ("747e8b0b-0385-42f2-8692-92caeaafb65b")
-    protected  GProblemReportDialog(Shell parentShell, String projectName, List<GProblem> failures) {
+    protected GProblemReportDialog(Shell parentShell, String projectName, List<GProblem> failures) {
         super(parentShell);
         this.projectName = projectName;
         this.failures = failures;
-        
+
     }
 
     @objid ("f8cf5ef0-d355-41f8-9c9e-fa4724f89e08")
@@ -75,19 +75,19 @@ public class GProblemReportDialog extends ModelioDialog {
         GridData layoutData = new GridData(SWT.FILL, SWT.FILL, true, true);
         layoutData.widthHint = 1; // Fixes styled text strange resize behavior in dialogs
         styledText.setLayoutData(layoutData);
-        
+
         StringBuilder sb = new StringBuilder();
-        
+
         sb.append("<html>");
         sb.append(AppProjectCore.I18N.getMessage("ProjectService.ProjectSynchroProblems.message", this.projectName));
         sb.append("<br/>");
-        
+
         for (final GProblem f : this.failures) {
             sb.append(String.format("<b>%s</b><br/>", f.getSubject()));
             sb.append(String.format("<i>  %s</i><br/><br/>", f.getProblem()));
         }
         sb.append("</html>");
-        
+
         StyledTextHelper.setStyledText(sb.toString(), styledText);
         return styledText;
     }
@@ -109,7 +109,7 @@ public class GProblemReportDialog extends ModelioDialog {
     protected void configureShell(Shell newShell) {
         super.configureShell(newShell);
         setTitle("Shell title");
-        
+
     }
 
 }

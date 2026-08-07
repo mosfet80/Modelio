@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.project.services;
 
@@ -26,7 +26,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -70,7 +70,7 @@ import org.osgi.service.event.EventHandler;
 public class ProjectService implements IProjectService, EventHandler {
     /**
      * Whether Modelio is in batch mode.
-     * 
+     *
      * FIXME since creation (3.6), another implementation of {@link IProjectService} should be instantiated.
      */
     @objid ("3b141013-8dc9-42dc-9de3-c78f097775c0")
@@ -111,6 +111,7 @@ public class ProjectService implements IProjectService, EventHandler {
 
     /**
      * Mandatory constructor.
+     *
      * @param context the Eclipse context.
      * @param projectCreator2 the project creation service
      * @param projectOpener the project openeing service
@@ -119,21 +120,21 @@ public class ProjectService implements IProjectService, EventHandler {
      * @param fragmentMigratorFactory the fragment migration service factory
      */
     @objid ("00802442-acc2-103b-a520-001ec947cd2a")
-    public  ProjectService(final IEclipseContext context, final IProjectCreator projectCreator2, final IProjectOpener projectOpener, final IProjectCloser projectCloser, final IWorkspaceService worskpaceService, IFragmentMigratorFactory fragmentMigratorFactory) {
+    public ProjectService(final IEclipseContext context, final IProjectCreator projectCreator2, final IProjectOpener projectOpener, final IProjectCloser projectCloser, final IWorkspaceService worskpaceService, IFragmentMigratorFactory fragmentMigratorFactory) {
         this.context = Objects.requireNonNull(context);
         this.projectCreator2 = Objects.requireNonNull(projectCreator2);
         this.projectOpener = Objects.requireNonNull(projectOpener);
         this.projectCloser = Objects.requireNonNull(projectCloser);
         this.worskpaceService = Objects.requireNonNull(worskpaceService);
         this.fragmentMigratorFactory = Objects.requireNonNull(fragmentMigratorFactory);
-        
+
         // Create a write access to ProjectService members.
         final IProjectServiceAccess svcAccess = new ProjectServiceAccess(this);
         configure(svcAccess);
-        
+
         final IEventBroker eventBroker = context.get(IEventBroker.class);
         eventBroker.subscribe("BATCH", this);
-        
+
     }
 
     @objid ("4bf5aa25-e4cd-4639-850f-47816c59766d")
@@ -143,7 +144,7 @@ public class ProjectService implements IProjectService, EventHandler {
             throw new IllegalStateException("A project is already opened.");
         }
         this.worskpaceService.changeWorkspace(path);
-        
+
     }
 
     @objid ("177f74d3-e774-49fd-85ed-cdc3e12f08e1")
@@ -187,9 +188,9 @@ public class ProjectService implements IProjectService, EventHandler {
 
     /**
      * Note that the accessor returns a IPreferenceStore instead of the effective IPersistentPreferenceStore handled by the class.
-     * 
+     *
      * The difference is that IPreferenceStore does not provide a save() method and we do not want callers to save the state preferences themselves.
-     * 
+     *
      * The state preference save policy is strictly under project service control.
      */
     @objid ("f6d902e7-d4bb-4bbb-a5ef-f98f4d4527d6")
@@ -214,7 +215,7 @@ public class ProjectService implements IProjectService, EventHandler {
         default:
             return;
         }
-        
+
     }
 
     /**
@@ -234,13 +235,13 @@ public class ProjectService implements IProjectService, EventHandler {
     public void onBATCH(@EventTopic ("BATCH") final CommandLineData data) {
         final IEventBroker eventBroker = this.context.get(IEventBroker.class);
         eventBroker.unsubscribe(this);
-        
+
         AppProjectCore.LOG.info("Running batch: %s", data.toString());
         if (!data.isEmpty()) {
             this.batchMode = data.isBatch();
             Display.getCurrent().asyncExec(new BatchRunner(this.context.get(IModelioProgressService.class), this, data));
         }
-        
+
     }
 
     @objid ("c4b025d4-9a20-4c37-8c63-d4958d46a291")
@@ -258,11 +259,11 @@ public class ProjectService implements IProjectService, EventHandler {
                     this.project.getName(),
                     this.project.getPfs().getProjectPath()));
         }
-        
+
         Objects.requireNonNull(projectToOpen, "Cannot open 'null' project descriptor.");
-        
+
         this.projectOpener.openProject(projectToOpen, authData, monitor);
-        
+
     }
 
     @objid ("004dc0f6-8d1e-10b4-9941-001ec947cd2a")
@@ -274,11 +275,11 @@ public class ProjectService implements IProjectService, EventHandler {
                     this.project.getName(),
                     this.project.getPfs().getProjectPath()));
         }
-        
+
         Objects.requireNonNull(projectURI, "Cannot open 'null' project URI.");
-        
+
         this.projectOpener.openProject(projectURI, authData, monitor);
-        
+
     }
 
     @objid ("29e438c4-9d31-43c5-a5b7-d48c966d1f20")
@@ -290,15 +291,15 @@ public class ProjectService implements IProjectService, EventHandler {
                     this.project.getName(),
                     this.project.getPfs().getProjectPath()));
         }
-        
+
         Objects.requireNonNull(projectName, "Cannot open 'null' project.");
-        
+
         final Path projectPath = getWorkspace().resolve(projectName);
         final Path confFile = new ProjectFileStructure(projectPath).getProjectConfFile();
         if (Files.isRegularFile(confFile)) {
             openProject(confFile.toUri(), authData, newChild);
         }
-        
+
     }
 
     @objid ("8e938902-eeec-4181-8f9a-ea5d5d8326f0")
@@ -317,20 +318,20 @@ public class ProjectService implements IProjectService, EventHandler {
     @Override
     public void saveProject(final IProgressMonitor monitor) throws IOException {
         checkProjectOpened();
-        
+
         final String taskName = AppProjectCore.I18N.getMessage("ProjectService.save.task", this.project.getName());
         final SubMonitor m = SubMonitor.convert(monitor, taskName, 1000);
-        
+
         this.context.set(IProgressMonitor.class, m.newChild(50));
         this.context.get(IModelioEventService.class).postSyncEvent(this, ModelioEvent.PROJECT_SAVING, this.project);
         this.context.remove(IProgressMonitor.class);
-        
+
         this.project.save(new ModelioProgressAdapter(m.newChild(900)));
         this.prefsStore.resetDirty();
-        
+
         // Fire project saved event
         this.context.get(IModelioEventService.class).postAsyncEvent(this, ModelioEvent.PROJECT_SAVED, this.project);
-        
+
     }
 
     @objid ("9de1f14d-8669-48e5-b0c0-11c43702c837")
@@ -338,13 +339,14 @@ public class ProjectService implements IProjectService, EventHandler {
         if (this.project == null) {
             throw new IllegalStateException("No current project.");
         }
-        
+
     }
 
     /**
      * Get a module catalog.
      * <p>
      * Returns the module catalog cache. Instantiate the module catalog and the cache on first call.
+     *
      * @return the module catalog cache.
      */
     @objid ("e84ef926-a1af-4f78-9342-507d1c7efcb4")
@@ -358,7 +360,7 @@ public class ProjectService implements IProjectService, EventHandler {
     public void createProject(final IProjectCreatorDelegate projectCreator, final IProjectCreationData data, final IProgressMonitor monitor) throws IOException {
         Objects.requireNonNull(data);
         this.projectCreator2.createProject(projectCreator, data, monitor);
-        
+
     }
 
     @objid ("fd9e23c8-9e64-4728-8928-26116f210a04")
@@ -366,7 +368,7 @@ public class ProjectService implements IProjectService, EventHandler {
     public void createProject(final IProjectCreationData data, final IProgressMonitor monitor) throws IOException {
         Objects.requireNonNull(data);
         this.projectCreator2.createProject(data, monitor);
-        
+
     }
 
     @objid ("7d1533ec-7800-448b-8b2c-a27212baf61d")
@@ -376,20 +378,20 @@ public class ProjectService implements IProjectService, EventHandler {
         this.projectOpener.configure(svcAccess);
         this.worskpaceService.configure(svcAccess);
         this.projectCloser.configure(svcAccess);
-        
+
     }
 
     @objid ("00809bf2-acc2-103b-a520-001ec947cd2a")
     @Override
     public void closeProject(final IGProject projectToClose, final boolean sendSyncEvents) throws IllegalStateException {
         checkProjectOpened();
-        
+
         if (projectToClose == null || projectToClose != this.project) {
             throw new IllegalArgumentException("Closing invalid " + projectToClose + " project.");
         }
-        
+
         this.projectCloser.closeProject(projectToClose, sendSyncEvents);
-        
+
     }
 
     @objid ("4d01f465-9cf4-4e11-9a47-4e061e01c47e")
@@ -419,10 +421,11 @@ public class ProjectService implements IProjectService, EventHandler {
         }
 
         /**
+         *
          * @param ps the {@link ProjectService} to setup.
          */
         @objid ("934935a3-a06d-4d50-9b89-c5e9e37be9e2")
-        public  ProjectServiceAccess(ProjectService ps) {
+        public ProjectServiceAccess(ProjectService ps) {
             this.ps = ps;
         }
 
@@ -486,7 +489,7 @@ public class ProjectService implements IProjectService, EventHandler {
                     this.ps.appStateStore = null;
                 }
             }
-            
+
         }
 
         @objid ("0a9e400f-6f6d-48ac-bc24-5acbe9f4f7b1")

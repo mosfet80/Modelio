@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.api.impl.app.picking;
 
@@ -81,7 +81,7 @@ public class PickingService implements IPickingService {
             }
             PickingService.currentSession = null;
         }
-        
+
     }
 
     @objid ("8da6ced7-df88-4dbb-b89e-490b48beac1c")
@@ -90,7 +90,7 @@ public class PickingService implements IPickingService {
     }
 
     @objid ("6868bba4-8c76-4e28-a3a9-3a6fc8702a3b")
-    public  PickingService(IModelioPickingService modelioPickin) {
+    public PickingService(IModelioPickingService modelioPickin) {
         this.modelioPicking = modelioPickin;
     }
 
@@ -100,7 +100,7 @@ public class PickingService implements IPickingService {
         private IPickingClient client;
 
         @objid ("00f54bad-cbf9-4a24-a43d-91ba538de859")
-        public  PickingClientProxy(IPickingClient client) {
+        public PickingClientProxy(IPickingClient client) {
             this.client = client;
         }
 

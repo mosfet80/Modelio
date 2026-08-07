@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -31,15 +31,15 @@ public class ECreationEvent extends ENamedElement {
     @Override
     public Element createObjingElt() {
         Object objingOwner = ReverseProperties.getInstance().getMappedElement(getEcoreElement().getOwner());
-        
-        if (objingOwner instanceof Behavior){      
+
+        if (objingOwner instanceof Behavior){
             return UML2CreationEvent.create().getElement();
         }
         return null;
     }
 
     @objid ("0e66e4fe-1f70-4b97-a596-9b850372eab9")
-    public  ECreationEvent(org.eclipse.uml2.uml.CreationEvent element) {
+    public ECreationEvent(org.eclipse.uml2.uml.CreationEvent element) {
         super(element);
     }
 

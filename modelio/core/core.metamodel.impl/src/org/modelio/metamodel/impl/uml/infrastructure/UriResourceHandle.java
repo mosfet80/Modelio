@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.uml.infrastructure;
 
@@ -38,6 +38,7 @@ import org.modelio.vbasic.net.UriUtils;
 
 /**
  * Access to an {@link AbstractResource} content.
+ *
  * @author cma
  * @since 3.7
  */
@@ -50,11 +51,10 @@ public class UriResourceHandle implements IResourceHandle {
     private IAuthData auth;
 
     @objid ("49750218-10c7-4173-bfc2-390adeddb59f")
-    public  UriResourceHandle(AbstractResource modelEl) {
+    public UriResourceHandle(AbstractResource modelEl) {
         String loc = modelEl.getStorageInfo();
-        
+
         this.uri = URI.create(loc);
-        
     }
 
     @objid ("df7f29ff-975d-4bd5-9c62-97118b3caeaa")
@@ -71,12 +71,19 @@ public class UriResourceHandle implements IResourceHandle {
 
     /**
      * Set the authentication data that may be needed to access the resource.
+     *
      * @param auth the authentication data.
      */
     @objid ("0d03d524-6f8f-44ee-9066-be5eaa13eb58")
     @Override
     public void setAuthenticationData(IAuthData auth) {
         this.auth = auth;
+    }
+
+    @objid ("5534c38f-782b-4624-979f-e1d1097e6591")
+    @Override
+    public void delete() throws IOException {
+        // NA
     }
 
     @objid ("d5703f32-1995-4908-aea2-c67f0720ce90")
@@ -90,15 +97,15 @@ public class UriResourceHandle implements IResourceHandle {
     @Override
     public Path extractInto(Path dir) throws IOException {
         String scheme = this.uri.getScheme();
-        
+
         if (scheme.isEmpty() || scheme.equals("file")) {
             Path loc = Paths.get(this.uri);
-        
+
             Path extractedFile = dir.resolve(loc.getFileName());
             Files.copy(loc, extractedFile, StandardCopyOption.REPLACE_EXISTING);
             return extractedFile;
         }
-        
+
         Path extractedFile = dir.resolve(UriUtils.getFileName(this.uri));
         Files.copy(read(), extractedFile, StandardCopyOption.REPLACE_EXISTING);
         return extractedFile;

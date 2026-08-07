@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.common.policies;
 
@@ -53,8 +53,9 @@ public class BpmnLaneSetDropEditPolicy extends GraphicalEditPolicy {
      * <p>
      * Mixed case: don't know how to handle, returns <code>null</code>.
      * </p>
-     * 
+     *
      * *
+     *
      * @param request the drop request
      * @return the host if all dropped elements are sub partitions, <code>null</code> otherwise.
      */
@@ -67,7 +68,7 @@ public class BpmnLaneSetDropEditPolicy extends GraphicalEditPolicy {
             if (!(droppedElement instanceof BpmnLane))
                 // Eliminating mixed cases right now.
                 return null;
-        
+
             // Also eliminating if dropped partition is not a sub partition
             // of host. We check that host is somewhere in the composition
             // stack of dropped partition.
@@ -77,19 +78,19 @@ public class BpmnLaneSetDropEditPolicy extends GraphicalEditPolicy {
                 // If ancestor IS in composition stack, OK, check next dropped element.
                 if (ancestorPartition.equals(hostElement))
                     break;
-        
+
                 // While we're at it, if there is a "closer" ancestor
                 // already unmasked, do not handle.
                 if (!diagram.getAllGMRepresenting(new MRef(ancestorPartition)).isEmpty())
                     return null;
-        
+
                 ancestorPartition = ancestorPartition.getLaneSet().getParentLane();
             }
             if (ancestorPartition == null)
                 // Dropped partition is not a sub partition of host,
                 // we cannot handle this request
                 return null;
-        
+
         }
         // Only partitions that are sub partitions of host and have no
         // closer unmasked ancestor: return host!
@@ -111,11 +112,11 @@ public class BpmnLaneSetDropEditPolicy extends GraphicalEditPolicy {
             // gmCreationContext.setProperty("kind", PartitionToolKind.INNER.toString());
             req.setFactory(gmCreationContext);
             command.add(getHost().getCommand(req));
-        
+
             // Introduce some offset, so that all elements are not totally on
             // top of each other.
             dropLocation = dropLocation.getTranslated(20, 20);
-        
+
         }
         return command.unwrap();
     }
@@ -150,11 +151,11 @@ public class BpmnLaneSetDropEditPolicy extends GraphicalEditPolicy {
                 this.highlight.setBounds(getHostFigure().getBounds().getCopy().expand(0, 0));
                 this.highlight.setFill(false);
                 addFeedback(this.highlight);
-        
+
             }
         }
         super.showTargetFeedback(request);
-        
+
     }
 
     @objid ("61422fca-55b6-11e2-877f-002564c97630")
@@ -166,9 +167,9 @@ public class BpmnLaneSetDropEditPolicy extends GraphicalEditPolicy {
                 this.highlight = null;
             }
         }
-        
+
         super.eraseTargetFeedback(request);
-        
+
     }
 
 }

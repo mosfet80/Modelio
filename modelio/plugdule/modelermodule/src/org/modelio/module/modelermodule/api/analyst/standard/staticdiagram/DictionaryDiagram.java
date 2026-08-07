@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class DictionaryDiagram {
      * Tells whether a {@link DictionaryDiagram proxy} can be instantiated from a {@link MObject} checking it is a {@link StaticDiagram} stereotyped << dictionary_diagram >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,7 +73,7 @@ public class DictionaryDiagram {
 
     /**
      * Create a new {@link StaticDiagram} stereotyped << dictionary_diagram >> then instantiate a {@link DictionaryDiagram} proxy.
-     * 
+     *
      * @return a {@link DictionaryDiagram} proxy on the created {@link StaticDiagram}.
      */
     @objid ("4b5b0205-d0b5-410a-82b2-196a29f89839")
@@ -83,9 +84,10 @@ public class DictionaryDiagram {
     }
 
     /**
-     * Tries to instantiate a {@link DictionaryDiagram} proxy from a {@link StaticDiagram} stereotyped << dictionary_diagram >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link DictionaryDiagram} proxy from a {@link StaticDiagram} stereotyped << dictionary_diagram >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a StaticDiagram
      * @return a {@link DictionaryDiagram} proxy or <i>null</i>.
      */
@@ -95,9 +97,10 @@ public class DictionaryDiagram {
     }
 
     /**
-     * Tries to instantiate a {@link DictionaryDiagram} proxy from a {@link StaticDiagram} stereotyped << dictionary_diagram >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link DictionaryDiagram} proxy from a {@link StaticDiagram} stereotyped << dictionary_diagram >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link StaticDiagram}
      * @return a {@link DictionaryDiagram} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -127,7 +130,8 @@ public class DictionaryDiagram {
     }
 
     /**
-     * Get the underlying {@link StaticDiagram}. 
+     * Get the underlying {@link StaticDiagram}.
+     *
      * @return the StaticDiagram represented by this proxy, never null.
      */
     @objid ("62585cce-155e-4ae7-b426-436b86b5488d")
@@ -139,11 +143,11 @@ public class DictionaryDiagram {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("51f2bd3a-202b-403e-88b5-16bdb53154ab")
-    protected  DictionaryDiagram(StaticDiagram elt) {
+    protected DictionaryDiagram(StaticDiagram elt) {
         this.elt = elt;
     }
 
@@ -163,7 +167,7 @@ public class DictionaryDiagram {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "01ec12fc-0000-0c02-0000-000000000000");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -171,7 +175,7 @@ public class DictionaryDiagram {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

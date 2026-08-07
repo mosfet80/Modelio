@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.core.modelshield.engine;
 
@@ -42,7 +42,7 @@ import org.modelio.vcore.smkernel.meta.SmMetamodel;
 /**
  * The CoreProtectionAgent is in charge of checking the model against the
  * standard metamodel.
- * 
+ *
  * @author phv
  */
 @objid ("007812d4-f0b6-1f4c-b2b8-001ec947cd2a")
@@ -51,13 +51,14 @@ public class CoreProtectionAgent implements IProtectionAgent {
     private final CompositePlan plan;
 
     /**
+     *
      * @param session the core session
      */
     @objid ("0008c9ec-09c6-1f4d-b2b8-001ec947cd2a")
-    public  CoreProtectionAgent(ICoreSession session) {
+    public CoreProtectionAgent(ICoreSession session) {
         this.plan = new CompositePlan();
         initCheckers( session);
-        
+
     }
 
     @objid ("0008e1a2-09c6-1f4d-b2b8-001ec947cd2a")
@@ -76,7 +77,7 @@ public class CoreProtectionAgent implements IProtectionAgent {
     @Override
     public CheckStatus check(final Transaction theTransaction, final IErrorReport report) {
         ShieldContext context = new ShieldContext(report);
-        
+
         TransactionProcessor v = new TransactionProcessor(this.plan);
         v.check(theTransaction, context);
         return report.getEntries().isEmpty() ? CheckStatus.Success : CheckStatus.Fail;
@@ -86,7 +87,7 @@ public class CoreProtectionAgent implements IProtectionAgent {
     @Override
     public CheckStatus check(final MObject obj, final IErrorReport report) {
         ShieldContext context = new ShieldContext(report);
-        
+
         ObjectProcessor v = new ObjectProcessor(context, this.plan);
         v.check(obj);
         return report.getEntries().isEmpty() ? CheckStatus.Success : CheckStatus.Fail;
@@ -101,31 +102,31 @@ public class CoreProtectionAgent implements IProtectionAgent {
     @objid ("00824da8-d6c6-1f60-8473-001ec947cd2a")
     private void initCheckers(ICoreSession session) {
         SmMetamodel mm = session.getMetamodel();
-        
+
         for (MMetamodelFragment fragment : mm.getFragments()) {
             registerCheckers(mm, fragment);
         }
-        
+
         session.getMetamodelSupport().addMetamodelListener(new MmListener());
-        
+
     }
 
     @objid ("1a56e35d-1d48-460c-9235-c648c967e5b2")
     protected void registerCheckers(MMetamodel mm, MMetamodelFragment fragment) {
         ISmMetamodelFragment smFrag = (ISmMetamodelFragment) fragment;
-        
+
         // get integrated checkers
         ICheckerFactory integratedCheckers = smFrag.getModelShieldCheckers();
-        
+
         if (integratedCheckers != null) {
             Plan fragPlan = new Plan();
             this.plan.addPlan(fragment, fragPlan);
-        
+
             // register integrated checkers
             integratedCheckers.createCheckers(fragPlan, mm);
-        
+
         }
-        
+
     }
 
     /**
@@ -133,7 +134,7 @@ public class CoreProtectionAgent implements IProtectionAgent {
      * and register all their checkers in a separate plan.
      * <p>
      * On removal drop the plan.
-     * 
+     *
      * @author cmarin
      * @since 3.6
      */

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.exml.local;
 
@@ -56,10 +56,11 @@ public class ExmlBase extends AbstractExmlRepository {
 
     /**
      * Initialize a EXML repository from an EXML resource provider.
+     *
      * @param resProvider an EXML resource provider.
      */
     @objid ("3e1a4116-1ea1-11e2-90db-001ec947ccaf")
-    public  ExmlBase(IExmlResourceProvider resProvider) {
+    public ExmlBase(IExmlResourceProvider resProvider) {
         super(resProvider);
     }
 
@@ -67,13 +68,14 @@ public class ExmlBase extends AbstractExmlRepository {
      * Initialize a EXML repository from a directory path.
      * <p>
      * The repository needs to be {@link #open(IModelLoaderProvider, IModelioProgress) opened} before being used.
+     *
      * @param path a directory path.
      * @throws IOException in case of failure.
      * @deprecated use {@link #ExmlBase(Path, String)}
      */
     @objid ("3e1a4119-1ea1-11e2-90db-001ec947ccaf")
     @Deprecated
-    public  ExmlBase(Path path) throws IOException {
+    public ExmlBase(Path path) throws IOException {
         super(path, path, path.toString());
     }
 
@@ -81,12 +83,13 @@ public class ExmlBase extends AbstractExmlRepository {
      * Initialize a EXML repository from a directory path.
      * <p>
      * The repository needs to be {@link #open(IModelLoaderProvider, IModelioProgress) opened} before being used.
+     *
      * @param path a directory path.
      * @param name a repository identifier to use in messages.
      * @throws IOException in case of failure.
      */
     @objid ("e1cdc0fc-80ea-4f03-965a-548bd951c657")
-    public  ExmlBase(Path path, String name) throws IOException {
+    public ExmlBase(Path path, String name) throws IOException {
         super(path, path, name);
     }
 
@@ -94,7 +97,7 @@ public class ExmlBase extends AbstractExmlRepository {
     @Override
     public synchronized void doReloadCmsNode(SmObjectImpl obj, IModelLoader modelLoader) throws DuplicateObjectException, IOException, IndexException {
         final ObjId cmsNodeId = new ObjId(obj);
-        
+
         ExmlResource resource = getResourceProvider().getResource(cmsNodeId);
         if (resource == null) {
             // No EXML for this node, set the object as shell.
@@ -107,12 +110,11 @@ public class ExmlBase extends AbstractExmlRepository {
                 } else {
                     InputSource isrc = new InputSource(is);
                     isrc.setPublicId(resource.getPublicLocation());
-        
+
                     this.loader.load(isrc, modelLoader);
                 }
             }
         }
-        
     }
 
     @objid ("679e4b84-2e7b-11e2-8aaa-001ec947ccaf")
@@ -125,9 +127,7 @@ public class ExmlBase extends AbstractExmlRepository {
     @Override
     protected void initializeLoader() {
         this.loadHelper = new LoadHelper(this, isWriteable());
-        //this.loader = new ExmlLoader(this.loadHelper, this.getLoadCache());
         this.loader = new SaxExmlLoader(this.loadHelper);
-        
     }
 
     @objid ("fd2458e1-5986-11e1-991a-001ec947ccaf")
@@ -135,12 +135,11 @@ public class ExmlBase extends AbstractExmlRepository {
     protected void save(ExmlStorageHandler handler, IModelioProgress progress) throws IOException {
         SmObjectImpl cmsNode = handler.getCmsNode();
         ObjId cmsNodeId = handler.getCmsNodeId();
-        
+
         try (OutputStream os = getResourceProvider().getResource(cmsNodeId).bufferedWrite()){
-            ExmlSaver saver = new ExmlSaver();
+            ExmlSaver saver = new ExmlSaver(getErrorSupport());
             saver.externalize(cmsNode, os);
         }
-        
     }
 
 }

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -51,87 +50,86 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("56a1be66-9aa3-4aee-a7a1-458bda97db4a")
 public class NaryLinkSmClass extends UmlModelElementSmClass {
-    @objid ("f5e8d70b-2198-428f-9176-7b6557d9b85f")
+    @objid ("e806a4ac-5f6c-49ce-99b8-a1aaeb006425")
     private SmDependency naryLinkEndDep;
 
-    @objid ("a3509e02-cbd7-481f-8835-8cb9f916da91")
+    @objid ("5eabb8f6-cfb2-4bbd-9c00-02970af51c44")
     private SmDependency modelDep;
 
-    @objid ("af2ba76f-ca7c-415d-93b2-c4f001f3d31c")
+    @objid ("11292912-ad7f-4e06-88a8-04a98b2e5ad7")
     private SmDependency realizedInformationFlowDep;
 
-    @objid ("e66b97e0-0819-4cab-bb9e-c2d8b70f5e3c")
+    @objid ("b0da499e-63ca-4692-9d5a-e6773b524172")
     private SmDependency sentDep;
 
-    @objid ("70dbc32e-08de-4b09-ab93-dbbf14f22484")
-    public  NaryLinkSmClass(ISmMetamodelFragment origin) {
+    @objid ("8526a1b2-f1cb-4678-a03b-6b749da06937")
+    public NaryLinkSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("96e60983-c70e-4aea-b73b-568a2c9bd502")
+    @objid ("e43ac3a8-cd9a-4842-8fc7-65ef29159232")
     @Override
     public String getName() {
         return "NaryLink";
-        
+
     }
 
-    @objid ("c13b3113-6c8d-4d32-b770-f1c6b2039279")
+    @objid ("00c70a4a-b590-4d76-8cca-2819f9cae9e2")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("47f1ca24-a411-4f21-9319-b754b9aac8c1")
+    @objid ("b6fe235d-2acd-424f-95a4-178189715b4b")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return NaryLink.class;
-        
+
     }
 
-    @objid ("7d9a7cd6-a8ea-4090-bb23-597ea1293eb1")
+    @objid ("5781b588-ca92-4519-bba2-ce62887cf608")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("8c86a451-56ae-4ec7-8c41-7f36b1433612")
+    @objid ("64d6cd40-51f7-4947-89d6-821c24b4a6f5")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("6a842e5e-69ae-40f8-9c57-60fe7b14b88e")
+    @objid ("4febb065-62b5-4eeb-9b00-dad5288cce10")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(UmlModelElement.MQNAME);
         this.registerFactory(new NaryLinkObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
         this.naryLinkEndDep = new NaryLinkEndSmDependency();
         this.naryLinkEndDep.init("NaryLinkEnd", this, metamodel.getMClass(NaryLinkEnd.MQNAME), 0, -1 , SmDirective.SMCDSHAREDCOMPONENT);
         registerDependency(this.naryLinkEndDep);
-        
+
         this.modelDep = new ModelSmDependency();
         this.modelDep.init("Model", this, metamodel.getMClass(NaryAssociation.MQNAME), 0, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.modelDep);
-        
+
         this.realizedInformationFlowDep = new RealizedInformationFlowSmDependency();
         this.realizedInformationFlowDep.init("RealizedInformationFlow", this, metamodel.getMClass(InformationFlow.MQNAME), 0, -1 );
         registerDependency(this.realizedInformationFlowDep);
-        
+
         this.sentDep = new SentSmDependency();
         this.sentDep.init("Sent", this, metamodel.getMClass(CommunicationChannel.MQNAME), 0, -1 );
         registerDependency(this.sentDep);
-        
-        
+
     }
 
-    @objid ("6412642f-ae9c-41a8-af95-38a3599874fa")
+    @objid ("568e5fe6-3d0f-46d0-9d20-4eabf9d2436a")
     public SmDependency getNaryLinkEndDep() {
         if (this.naryLinkEndDep == null) {
         	this.naryLinkEndDep = this.getDependencyDef("NaryLinkEnd");
@@ -139,7 +137,7 @@ public class NaryLinkSmClass extends UmlModelElementSmClass {
         return this.naryLinkEndDep;
     }
 
-    @objid ("5c81fe4c-39c0-4545-9d53-be1110cc9edd")
+    @objid ("19397347-2b6c-4fa9-91bb-31b55113f875")
     public SmDependency getModelDep() {
         if (this.modelDep == null) {
         	this.modelDep = this.getDependencyDef("Model");
@@ -147,7 +145,7 @@ public class NaryLinkSmClass extends UmlModelElementSmClass {
         return this.modelDep;
     }
 
-    @objid ("2d64c482-fd9e-4f01-8300-f380dcc5ae3b")
+    @objid ("713491dc-2b7b-4d71-93f4-fec4594ff01a")
     public SmDependency getRealizedInformationFlowDep() {
         if (this.realizedInformationFlowDep == null) {
         	this.realizedInformationFlowDep = this.getDependencyDef("RealizedInformationFlow");
@@ -155,7 +153,7 @@ public class NaryLinkSmClass extends UmlModelElementSmClass {
         return this.realizedInformationFlowDep;
     }
 
-    @objid ("42de236e-a7c6-4e6d-8b64-c85a8985e77f")
+    @objid ("74c4aa9d-1992-4968-9c60-5024ce6a5539")
     public SmDependency getSentDep() {
         if (this.sentDep == null) {
         	this.sentDep = this.getDependencyDef("Sent");
@@ -165,21 +163,21 @@ public class NaryLinkSmClass extends UmlModelElementSmClass {
 
     @objid ("daf5d772-4002-46a2-9e0e-903989292865")
     private static class NaryLinkObjectFactory implements ISmObjectFactory {
-        @objid ("6abe6569-b8d8-449c-947e-364dacdea5d7")
+        @objid ("c115ff41-184f-4173-95cc-a67cadbffbbf")
         private NaryLinkSmClass smClass;
 
-        @objid ("9ac4857c-c4e1-4939-b06d-737decc2f25d")
-        public  NaryLinkObjectFactory(NaryLinkSmClass smClass) {
+        @objid ("7a66748b-0ff7-4b4c-814f-ef2f4d8aa341")
+        public NaryLinkObjectFactory(NaryLinkSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("76d3f31a-9c88-4197-8aed-26ad0dac0219")
+        @objid ("fafd7366-73b8-4812-b398-ff9cb2b302e8")
         @Override
         public ISmObjectData createData() {
             return new NaryLinkData(this.smClass);
         }
 
-        @objid ("7c5a29df-327d-4216-ab2f-4713f6bf7197")
+        @objid ("77bde7f4-c12e-4e51-b8d7-761caa020117")
         @Override
         public SmObjectImpl createImpl() {
             return new NaryLinkImpl();
@@ -189,119 +187,119 @@ public class NaryLinkSmClass extends UmlModelElementSmClass {
 
     @objid ("ed377a92-b085-4726-9ee9-5f7082a7b6c3")
     public static class NaryLinkEndSmDependency extends SmMultipleDependency {
-        @objid ("54f97219-4017-4602-a706-661bb2c89c1e")
+        @objid ("835c8ca9-58ff-44e6-8813-9743bfad6a67")
         private SmDependency symetricDep;
 
-        @objid ("2837f1a0-65c6-41f5-8f42-fd32745e74a9")
+        @objid ("ca7a7737-69c7-4009-803f-1403bef98813")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((NaryLinkData)data).mNaryLinkEnd != null)? ((NaryLinkData)data).mNaryLinkEnd:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("e1bd0edd-0a23-4c9e-ac80-5e8690148b6c")
+        @objid ("19cd1533-7163-4817-84d9-3dcc45fad46c")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((NaryLinkData) data).mNaryLinkEnd = values;
-            
+
         }
 
-        @objid ("ca87bc6e-9163-459e-9e0d-4e93ef8bba51")
+        @objid ("bd377b46-bc4f-4f2c-9b3b-33985b86c1b5")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((NaryLinkEndSmClass)this.getTarget()).getNaryLinkDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("02cdd21a-e5eb-496d-af4d-438db75f8b8c")
     public static class ModelSmDependency extends SmSingleDependency {
-        @objid ("46d63af0-57d7-4848-b771-ffe9e8f45ba2")
+        @objid ("2be3e86d-18d4-4229-afee-dacd34aa0fde")
         private SmDependency symetricDep;
 
-        @objid ("6d4ffd1d-0e3e-4661-a05b-f02f74b15f21")
+        @objid ("a13d6bab-5338-4848-a7f6-6781c5c6d7a5")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((NaryLinkData) data).mModel;
         }
 
-        @objid ("684f7a56-f557-47f5-beca-60933695428a")
+        @objid ("19af7016-5cdf-4464-87de-9c85b27663d2")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((NaryLinkData) data).mModel = value;
         }
 
-        @objid ("f0644876-09d2-4a4e-98e8-2c05c396e96a")
+        @objid ("c46fd004-f480-44be-8b07-bdceb9026b27")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((NaryAssociationSmClass)this.getTarget()).getOccurenceDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("e2f938e8-923b-43dd-9575-dbfef4105318")
     public static class RealizedInformationFlowSmDependency extends SmMultipleDependency {
-        @objid ("e8c592ce-6574-4ff8-81ef-f655c7c1b6f5")
+        @objid ("4dccd1be-aafb-48c4-96fc-b20ddb6e1972")
         private SmDependency symetricDep;
 
-        @objid ("54647df9-3a2c-4b0d-a92d-87b4e7fe18c7")
+        @objid ("75d23349-c0e5-4bfc-8514-f11bcbd1e67d")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((NaryLinkData)data).mRealizedInformationFlow != null)? ((NaryLinkData)data).mRealizedInformationFlow:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("c922c2a6-e140-4a7d-b4df-3d4c235fa417")
+        @objid ("144f5ee0-9e6b-49b1-81a1-3ffed0fd1036")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((NaryLinkData) data).mRealizedInformationFlow = values;
-            
+
         }
 
-        @objid ("4efb64ac-a30e-49b7-99fb-c86499f48fa5")
+        @objid ("fea070f2-90f5-46b6-9c30-8e3ca33fe909")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((InformationFlowSmClass)this.getTarget()).getRealizingNaryLinkDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("91d3602e-5aae-4cde-8a76-4a1b5c9d3551")
     public static class SentSmDependency extends SmMultipleDependency {
-        @objid ("8a23bef6-3f34-4cee-a4a0-2685544c0f5a")
+        @objid ("124e0e84-556d-4952-8d20-b8207fc0a3f0")
         private SmDependency symetricDep;
 
-        @objid ("912c7384-b9b2-4929-a3d0-8bb322afbab0")
+        @objid ("68872903-3f87-41ce-a2a0-b104b40435c1")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((NaryLinkData)data).mSent != null)? ((NaryLinkData)data).mSent:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("76073a6e-1521-408c-90c1-144903074c55")
+        @objid ("448db596-fd4d-4d09-88da-4a9467615ac9")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((NaryLinkData) data).mSent = values;
-            
+
         }
 
-        @objid ("398c146d-4181-42e7-85ec-f97e24a2c497")
+        @objid ("3d40015b-cf7c-41b4-b9e0-6c8d34648450")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((CommunicationChannelSmClass)this.getTarget()).getNaryChannelDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

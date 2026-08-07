@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.communicationdiagram.editor.elements.communicationchannel;
 
@@ -50,6 +50,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class CreateCommunicationMessageEditPolicy extends DeferringCreateNodePolicy {
     /**
      * Redefined to return the {@link GmGroup} for the nearest association role from the mouse.
+     *
      * @param gmLink The association model
      * @param location The mouse location
      * @return The nearest {@link GmGroup} from the mouse.
@@ -57,14 +58,14 @@ public class CreateCommunicationMessageEditPolicy extends DeferringCreateNodePol
     @objid ("7a1eeecd-55b6-11e2-877f-002564c97630")
     protected GmCompositeNode getExtensionFor(final GmLink gmLink, final Point location) {
         Connection fig = (Connection) getHostFigure();
-        
+
         PointList points = fig.getPoints();
         Point begin = points.getFirstPoint();
         Point last = points.getLastPoint();
-        
+
         int d1 = Math.abs(begin.getDistance2(location));
         int d2 = Math.abs(last.getDistance2(location));
-        
+
         GmCompositeNode gmTargetChild = null;
         if (d1 > d2) {
             // source side
@@ -119,18 +120,18 @@ public class CreateCommunicationMessageEditPolicy extends DeferringCreateNodePol
         if (metaclass != CommunicationMessage.class) {
             return null;
         }
-        
+
         final GmLink gmLink = (GmLink) getHost().getModel();
         final GmCompositeNode gmTargetChild = getExtensionFor(gmLink, location);
-        
+
         if (gmTargetChild == null) {
             return null;
         }
-        
+
         if (!gmTargetChild.isVisible()) {
             return getHost();
         }
-        
+
         final EditPart p = (EditPart) getHost().getRoot()
                 .getViewer()
                 .getEditPartRegistry()
@@ -169,15 +170,16 @@ public class CreateCommunicationMessageEditPolicy extends DeferringCreateNodePol
 
         /**
          * Create a deferred command.
+         *
          * @param req The creation request.
          * @param sender The edit part sending the request
          */
         @objid ("7a207591-55b6-11e2-877f-002564c97630")
-        public  DeferredCommand(final Request req, final EditPart sender) {
+        public DeferredCommand(final Request req, final EditPart sender) {
             this.req = req;
             this.gmLink = (GmLink) sender.getModel();
             this.editPartRegistry = sender.getViewer().getEditPartRegistry();
-            
+
         }
 
         @objid ("7a207598-55b6-11e2-877f-002564c97630")
@@ -194,34 +196,34 @@ public class CreateCommunicationMessageEditPolicy extends DeferringCreateNodePol
             if (cmd != null && cmd.canExecute()) {
                 cmd.execute();
             }
-            
+
         }
 
         @objid ("7a21fbfd-55b6-11e2-877f-002564c97630")
         private Command createCommand() {
             final GmCompositeNode gmTarget = getExtensionFor(this.gmLink,
                     ((DropRequest) this.req).getLocation());
-            
+
             if (gmTarget == null) {
                 return null;
             }
-            
+
             if (!gmTarget.isVisible()) {
                 gmTarget.setVisible(true);
             }
-            
+
             final EditPart p = (EditPart) this.editPartRegistry.get(gmTarget);
             if (p == null) {
                 return null;
             }
-            
+
             final EditPart targetPart = p.getTargetEditPart(this.req);
             if (targetPart != null) {
                 return targetPart.getCommand(this.req);
             } else {
                 return null;
             }
-            
+
         }
 
     }

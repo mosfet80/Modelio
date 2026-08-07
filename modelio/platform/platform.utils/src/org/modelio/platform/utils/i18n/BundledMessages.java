@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.utils.i18n;
 
@@ -43,36 +43,38 @@ public class BundledMessages {
     protected PluginLogger pluginLogger;
 
     /**
+     *
      * @param pluginLogger the plugin logger used to log warnings
      * @param bundle the bundle where messages are stored
      */
     @objid ("00063984-9df5-1fcc-9f44-001ec947cd2a")
-    public  BundledMessages(final PluginLogger pluginLogger, final ResourceBundle bundle) {
+    public BundledMessages(final PluginLogger pluginLogger, final ResourceBundle bundle) {
         this.pluginLogger = pluginLogger;
         this.bundle = bundle;
-        
+
     }
 
     /**
      * Gets an internationalized message for the given key and arguments from this plugin resource bundle.
      * <p>
      * The internationalized string is expected to use {@link MessageFormat} pattern.
-     * @see MessageFormat
+     *
      * @param key The message key
      * @param arguments arguments for the message pattern
      * @return the internationalized message
+     * @see MessageFormat
      */
     @objid ("00066a08-9df5-1fcc-9f44-001ec947cd2a")
     public String getMessage(final String key, final Object... arguments) {
         String pattern;
-        
+
         try {
             pattern = this.bundle.getString(key);
         } catch (MissingResourceException e) {
             this.pluginLogger.warning("No I18n message for '%s'", key);
             pattern = "!" + key + "!";
         }
-        
+
         try {
             return MessageFormat.format(pattern, arguments);
         } catch (IllegalArgumentException e) {
@@ -80,18 +82,19 @@ public class BundledMessages {
             this.pluginLogger.warning(e);
             return "!" + key + "(" + Arrays.toString(arguments) + "):"+e.getMessage()+"!";
         }
-        
+
     }
 
     /**
      * Gets an internationalized string for the given key from this plugin resource bundle.
+     *
      * @param key The string key
      * @return The internationalized string
      */
     @objid ("0006aac2-9df5-1fcc-9f44-001ec947cd2a")
     public String getString(final String key) {
         String pattern;
-        
+
         try {
             pattern = this.bundle.getString(key);
         } catch (MissingResourceException e) {
@@ -103,6 +106,7 @@ public class BundledMessages {
 
     /**
      * Return the locale currently being used by this BundledMessages
+     *
      * @return the locale
      */
     @objid ("edf4007f-b609-48f6-ad81-dbc55ddc7bbe")

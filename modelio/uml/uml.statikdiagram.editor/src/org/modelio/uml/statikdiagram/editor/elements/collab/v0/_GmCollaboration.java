@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.collab.v0;
 
@@ -127,43 +127,44 @@ public class _GmCollaboration extends GmCompositeNode implements IImageableNode 
 
     /**
      * Default constructor.
+     *
      * @param diagram the diagram in which this gm is unmasked.
      * @param theCollaboration the represented object node, may be null.
      * @param ref a reference to the represented object node.
      */
     @objid ("34678833-55b7-11e2-877f-002564c97630")
-    public  _GmCollaboration(IGmDiagram diagram, final Collaboration theCollaboration, MRef ref) {
+    public _GmCollaboration(IGmDiagram diagram, final Collaboration theCollaboration, MRef ref) {
         super(diagram, ref);
         this.collaboration = theCollaboration;
-        
+
         this.header = new GmNamespaceHeader(diagram, ref);
         this.header.setRoleInComposition(HEADER);
-        
+
         this.internalStructureGroup = new GmInternalStructureGroup(diagram, ref);
         this.internalStructureGroup.setRoleInComposition(INTERNAL_GROUP);
-        
+
         this.internalStructureZone = new GmInternalStructureZone(diagram, ref);
         this.internalStructureZone.setRoleInComposition(INTERNAL_ZONE);
-        
+
         this.innerElements = new GmInnerClass(diagram, ref);
         this.innerElements.setRoleInComposition(INNER);
-        
+
         this.imageModeHeader = new GmDefaultModelElementLabel(diagram, ref);
         this.imageModeHeader.setRoleInComposition(IMAGE_HEADER);
-        
+
         super.addChild(this.header);
         super.addChild(this.internalStructureGroup);
         super.addChild(this.internalStructureZone);
         super.addChild(this.innerElements);
         super.addChild(this.imageModeHeader);
-        
+
     }
 
     /**
      * Empty constructor, needed for serialization.
      */
     @objid ("34690ea0-55b7-11e2-877f-002564c97630")
-    public  _GmCollaboration() {
+    public _GmCollaboration() {
         // empty constructor for the serialization
     }
 
@@ -183,7 +184,7 @@ public class _GmCollaboration extends GmCompositeNode implements IImageableNode 
     @Override
     public GmCompositeNode getCompositeFor(Class<? extends MObject> metaclass) {
         GmCompositeNode ret = null;
-        
+
         if (InformationItem.class.isAssignableFrom(metaclass)) {
             // Namespaces are unmasked in the inner classes zones or group
             ret = getInnerElements();
@@ -199,6 +200,7 @@ public class _GmCollaboration extends GmCompositeNode implements IImageableNode 
 
     /**
      * Get the stereotype image to display.
+     *
      * @return the stereotype image to display. Must not be <i>null</i>.
      */
     @objid ("34690ebd-55b7-11e2-877f-002564c97630")
@@ -208,6 +210,7 @@ public class _GmCollaboration extends GmCompositeNode implements IImageableNode 
     }
 
     /**
+     *
      * @return the internalStructureGroup
      */
     @objid ("34690ec3-55b7-11e2-877f-002564c97630")
@@ -216,6 +219,7 @@ public class _GmCollaboration extends GmCompositeNode implements IImageableNode 
     }
 
     /**
+     *
      * @return the internalStructureZone
      */
     @objid ("34690eca-55b7-11e2-877f-002564c97630")
@@ -241,11 +245,11 @@ public class _GmCollaboration extends GmCompositeNode implements IImageableNode 
         StyleKey ret = STRUCTKEYS.getStyleKey(metakey);
         if (ret != null)
             return ret;
-        
+
         ret = SIMPLEKEYS.getStyleKey(metakey);
         if (ret != null)
             return ret;
-        
+
         ret = IMAGEKEYS.getStyleKey(metakey);
         return ret;
     }
@@ -264,7 +268,7 @@ public class _GmCollaboration extends GmCompositeNode implements IImageableNode 
         default:
             return Collections.emptyList();
         }
-        
+
     }
 
     @objid ("346a954f-55b7-11e2-877f-002564c97630")
@@ -288,7 +292,7 @@ public class _GmCollaboration extends GmCompositeNode implements IImageableNode 
             break;
         }
         }
-        
+
     }
 
     @objid ("346a9555-55b7-11e2-877f-002564c97630")
@@ -296,7 +300,7 @@ public class _GmCollaboration extends GmCompositeNode implements IImageableNode 
     public void refreshFromObModel() {
         // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("346a9558-55b7-11e2-877f-002564c97630")
@@ -331,41 +335,41 @@ public class _GmCollaboration extends GmCompositeNode implements IImageableNode 
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmCollaboration.", _GmCollaboration.MINOR_VERSION);
-        
+
     }
 
     @objid ("346a956e-55b7-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
-        
+
         this.collaboration = (Collaboration) resolveRef(getRepresentedRef());
-        
+
         final List<GmNodeModel> children = getChildren();
-        
+
         this.header = (GmModelElementHeader) children.get(0);
         this.internalStructureGroup = (GmGroup) children.get(1);
         this.internalStructureZone = (GmFreeZone) children.get(2);
         GmGroup innerGroup = (GmGroup) children.get(3);
         GmFreeZone innerZone = (GmFreeZone) children.get(4);
         this.imageModeHeader = (GmDefaultModelElementLabel) this.getChildren().get(5);
-        
+
         // Migrate inner group/zone
         removeChild(innerGroup);
         removeChild(innerZone);
-        
+
         this.innerElements = new GmInnerClass(getDiagram(), getRepresentedRef(), innerZone, innerGroup);
         addChild(this.innerElements, 3);
-        
+
         // Add roles
         this.header.setRoleInComposition(HEADER);
         this.internalStructureGroup.setRoleInComposition(INTERNAL_GROUP);
         this.internalStructureZone.setRoleInComposition(INTERNAL_ZONE);
         this.innerElements.setRoleInComposition(INNER);
         this.imageModeHeader.setRoleInComposition(IMAGE_HEADER);
-        
+
     }
 
     @objid ("346a9573-55b7-11e2-877f-002564c97630")
@@ -382,15 +386,15 @@ public class _GmCollaboration extends GmCompositeNode implements IImageableNode 
     @objid ("346c1bd9-55b7-11e2-877f-002564c97630")
     private void read_1(final IDiagramReader in) {
         super.read(in);
-        
+
         this.collaboration = (Collaboration) resolveRef(getRepresentedRef());
-        
+
         this.header = (GmModelElementHeader) getFirstChild(HEADER);
         this.internalStructureGroup = (GmGroup) getFirstChild(INTERNAL_GROUP);
         this.internalStructureZone = (GmFreeZone) getFirstChild(INTERNAL_ZONE);
         this.innerElements = (GmInnerClass) getFirstChild(INNER);
         this.imageModeHeader = (GmDefaultModelElementLabel) getFirstChild(IMAGE_HEADER);
-        
+
     }
 
     @objid ("346c1bdf-55b7-11e2-877f-002564c97630")

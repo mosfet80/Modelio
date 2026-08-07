@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.linkeditor.handlers.print;
 
@@ -42,8 +61,8 @@ public class PrintPageNavigation {
     private int nbPagesY = 1;
 
     /**
-     * @return
-     * Number of pages on horizontal coordinates
+     *
+     * @return Number of pages on horizontal coordinates
      */
     @objid ("19fa923d-fc4a-4953-a144-b40b64ee130a")
     public int getNbPagesX() {
@@ -56,8 +75,8 @@ public class PrintPageNavigation {
     }
 
     /**
-     * @return
-     * Number of pages on vertical coordinates
+     *
+     * @return Number of pages on vertical coordinates
      */
     @objid ("f1a9c77c-cdd4-47f0-a3bb-9a8a15466296")
     public int getNbPagesY() {
@@ -70,10 +89,9 @@ public class PrintPageNavigation {
     }
 
     @objid ("016b98c7-3b72-4f51-99d1-e63ac1c7ebe9")
-    public  PrintPageNavigation(int nbPagesX, int nbPagesY) {
+    public PrintPageNavigation(int nbPagesX, int nbPagesY) {
         this.nbPagesX = nbPagesX;
         this.nbPagesY = nbPagesY;
-        
     }
 
     @objid ("d6e89cf5-9ae7-442a-bfe3-44ad879d20af")
@@ -82,7 +100,6 @@ public class PrintPageNavigation {
             return true;
         else
             return false;
-        
     }
 
     @objid ("a29ffd45-9f86-432f-9c2e-6fbd4ed4e84f")
@@ -91,7 +108,6 @@ public class PrintPageNavigation {
             return true;
         else
             return false;
-        
     }
 
     /**
@@ -110,7 +126,6 @@ public class PrintPageNavigation {
                     this.y = this.y + 1;
             }
         }
-        
     }
 
     /**
@@ -123,14 +138,13 @@ public class PrintPageNavigation {
         else {
             if (this.x > 1)
                 this.x = this.x - 1;
-            else if (this.x == 1) {             
+            else if (this.x == 1) {
                 if (this.y > 1) {
                     this.y = this.y - 1;
                     this.x = this.nbPagesX;
                 }
             }
         }
-        
     }
 
     @objid ("93ee19d5-9f5e-4877-a04b-d89e78adaf21")

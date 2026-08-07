@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.finalstate;
 
@@ -33,7 +33,7 @@ import org.modelio.diagram.elements.core.figures.borders.ShapedBorder;
  * Figure for the final state.
  * <p>
  * The line color and the fill color are the same.
- * 
+ *
  * @author cmarin
  */
 @objid ("f52560ff-55b6-11e2-877f-002564c97630")
@@ -48,7 +48,7 @@ public class FinalStateFigure extends ShapedFigure {
      * Creates the figure.
      */
     @objid ("f5256108-55b6-11e2-877f-002564c97630")
-    public  FinalStateFigure() {
+    public FinalStateFigure() {
         super(new EllipseShaper());
         setSize(20, 20);
         setOpaque(true);
@@ -56,7 +56,7 @@ public class FinalStateFigure extends ShapedFigure {
                                              this.penOptions.lineWidth,
                                              this.shaper);
         setBorder(this.shapedBorder);
-        
+
     }
 
     /**
@@ -70,7 +70,7 @@ public class FinalStateFigure extends ShapedFigure {
             super.setLineColor(lineColor);
             super.setFillColor(lineColor);
         }
-        
+
     }
 
     @objid ("f5256110-55b6-11e2-877f-002564c97630")
@@ -80,7 +80,7 @@ public class FinalStateFigure extends ShapedFigure {
             this.shapedBorder.setWidth(lineWidth);
             super.setLineWidth(lineWidth);
         }
-        
+
     }
 
     @objid ("f5256114-55b6-11e2-877f-002564c97630")
@@ -88,38 +88,38 @@ public class FinalStateFigure extends ShapedFigure {
     protected void paintFigure(Graphics graphics) {
         graphics.setAdvanced(true);
         graphics.setAntialias(SWT.ON);
-        
+
         // Shrink the bounds to draw the inner circle (therefore fooling the shaper)
         Rectangle innerRect = getBounds().getCopy().shrink(MARGIN, MARGIN);
         Path shapePath = this.shaper.createShapePath(innerRect);
         try {
             graphics.setClip(shapePath);
-        
+
             // Draw the (gradient) background
             // do not call the super method as it would restore a full sized shaped clip
             final Color fillColor = getFillColor();
             if (isOpaque() && fillColor != null) {
                 Color base = fillColor;
-        
+
                 if (this.brushOptions.useGradient) {
                     final Color gradientColor = computeGradientColor(base);
                     graphics.setBackgroundColor(gradientColor);
                     graphics.setForegroundColor(base);
-        
+
                     graphics.fillGradient(innerRect, false);
-        
+
                     gradientColor.dispose();
                 } else {
                     graphics.setBackgroundColor(base);
                     graphics.fillRectangle(innerRect);
                 }
             }
-        
+
             graphics.restoreState();
         } finally {
             shapePath.dispose();
         }
-        
+
     }
 
     /**

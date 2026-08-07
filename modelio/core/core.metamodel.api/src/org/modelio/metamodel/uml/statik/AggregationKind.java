@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.uml.statik;
 
@@ -26,19 +26,18 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * AggregationKind v0.0.9054
- * 
- * 
+ *
+ *
  * null
- * 
- * 
+ *
  */
 @objid ("005a03ac-91e0-1f74-804b-001ec947cd2a")
 public enum AggregationKind {
-    @objid ("7a878548-425d-40e3-a722-022af4cc68dc")
+    @objid ("8778f23f-307d-45a7-922f-142fc4cc0ca3")
     KINDISASSOCIATION(0, "KindIsAssociation", "KindIsAssociation"),
-    @objid ("44e39631-703e-4e9a-b05f-dfc2fa86e687")
+    @objid ("ba8a9c4e-353d-4dfb-89e8-d98e725c6bf2")
     KINDISAGGREGATION(1, "KindIsAggregation", "KindIsAggregation"),
-    @objid ("06e91cdf-4ddd-4b1d-a2a8-8a73c5d47af4")
+    @objid ("df5778bd-0e75-47cd-b816-ca069e9f7d3d")
     KINDISCOMPOSITION(2, "KindIsComposition", "KindIsComposition");
 
 public static final int KINDISASSOCIATION_VALUE = 0;
@@ -98,5 +97,5 @@ public static final int KINDISASSOCIATION_VALUE = 0;
     public String toString() {
        return literal;
     }
-    
+
 }

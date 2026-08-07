@@ -1,0 +1,52 @@
+/*
+ * Copyright 2013-2025 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+/* WARNING: GENERATED FILE -  DO NOT EDIT
+     Metamodel: Archimate, version 1.0.4, by Modeliosoft
+     Generator version: 3.14.00
+     Generated on: Feb 9, 2023
+*/
+package org.modelio.archimate.metamodel.layers.implementation_and_migration;
+
+import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.archimate.metamodel.core.generic.PassiveStructureElement;
+
+/**
+ * Gap vnull
+ *
+ *
+ * <p>The gap element is linked to two plateaus (e.g., Baseline and Target Architectures, or two&nbsp;subsequent Transition Architectures), and represents the differences between these plateaus.</p><p>In the TOGAF framework, a gap is an important outcome of a gap analysis in Phases B, C,&nbsp;and D of the ADM process, and forms an important input for the subsequent implementation and&nbsp;migration planning.</p>
+ *
+ *
+ */
+@objid ("a198b16c-1567-48f8-9039-49cdce2058e4")
+public interface Gap extends PassiveStructureElement {
+    /**
+     * The metaclass simple name.
+     */
+    @objid ("6d493f53-2884-4fb4-8adf-7aae6e5ba165")
+    public static final String MNAME = "Gap";
+
+    /**
+     * The metaclass qualified name.
+     */
+    @objid ("1f9e829e-f82c-430c-9033-c38272a99717")
+    public static final String MQNAME = "Archimate.Gap";
+
+}

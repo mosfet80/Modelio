@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.diagram.editor;
 
@@ -23,6 +42,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
+import org.eclipse.gef.commands.CompoundCommand;
 import org.modelio.diagram.editor.plugin.DiagramEditor;
 import org.modelio.diagram.elements.core.model.IGmDiagram;
 import org.modelio.vcore.session.api.ICoreSession;
@@ -49,14 +69,14 @@ public class DiagramCommandStack extends CommandStack {
 
     /**
      * Initialize the command stack.
+     *
      * @param iCoreSession a modeling session
      * @param gmDiagram The diagram model to handle.
      */
     @objid ("6590b740-33f7-11e2-95fe-001ec947c8cc")
-    public  DiagramCommandStack(ICoreSession iCoreSession, IGmDiagram gmDiagram) {
+    public DiagramCommandStack(ICoreSession iCoreSession, IGmDiagram gmDiagram) {
         this.session = iCoreSession.getTransactionSupport();
         this.diagram = gmDiagram;
-        
     }
 
     @objid ("6590b745-33f7-11e2-95fe-001ec947c8cc")
@@ -72,11 +92,11 @@ public class DiagramCommandStack extends CommandStack {
     }
 
     @objid ("6590b74f-33f7-11e2-95fe-001ec947c8cc")
-    @SuppressWarnings ("deprecation")
+    @SuppressWarnings("deprecation")
     @Override
     public void undo() {
         Command command = null;
-        
+
         notifyListeners(command, CommandStack.PRE_UNDO);
         try {
             this.session.undo();
@@ -84,11 +104,10 @@ public class DiagramCommandStack extends CommandStack {
         } finally {
             notifyListeners(command, CommandStack.POST_UNDO);
         }
-        
     }
 
     @objid ("6590b752-33f7-11e2-95fe-001ec947c8cc")
-    @SuppressWarnings ("deprecation")
+    @SuppressWarnings("deprecation")
     @Override
     public void redo() {
         if (!canRedo()) {
@@ -102,7 +121,6 @@ public class DiagramCommandStack extends CommandStack {
         } finally {
             notifyListeners(command, CommandStack.POST_REDO);
         }
-        
     }
 
     @objid ("6590b755-33f7-11e2-95fe-001ec947c8cc")
@@ -124,21 +142,23 @@ public class DiagramCommandStack extends CommandStack {
     }
 
     @objid ("6590b762-33f7-11e2-95fe-001ec947c8cc")
-    @SuppressWarnings ("deprecation")
+    @SuppressWarnings("deprecation")
     @Override
     public void execute(Command command) {
         if (command == null || !command.canExecute()) {
             return;
         }
-        
+
         notifyListeners(command, CommandStack.PRE_EXECUTE);
-        
+
         boolean commitFailed = true;
-        try (ITransaction t = this.session.createTransaction(command.getLabel())) {
+        try (ITransaction t = this.session.createTransaction(getLabel(command))) {
             command.execute();
+
             if (!this.batchMode) {
                 this.diagram.save(true);
             }
+
             t.commit();
             commitFailed = false;
             notifyListeners();
@@ -156,7 +176,40 @@ public class DiagramCommandStack extends CommandStack {
             }
             notifyListeners(command, CommandStack.POST_EXECUTE);
         }
-        
+    }
+
+    /**
+     * Look for a Command that has a {@link Command#getLabel() label}.
+     *
+     * @param c a command
+     * @return the found command label or null.
+     */
+    @objid ("ef9e9797-02e9-4cd8-96ad-b62edd72cf1a")
+    private static String getLabel(Command c) {
+        String ret = c.getLabel();
+        if (ret != null && !ret.isEmpty())
+            return ret;
+
+        if (c instanceof CompoundCommand) {
+            CompoundCommand cc =(CompoundCommand) c;
+            // Stop first command that has a label
+            for (Object child : cc.getChildren()) {
+                Command childCommand = (Command) child;
+                ret = childCommand.getLabel();
+                if (ret != null && ! ret.isEmpty())
+                    return ret;
+            }
+
+            // No direct child has a label, lets recurse
+            for (Object child : cc.getChildren()) {
+                Command childCommand = (Command) child;
+                ret = getLabel(childCommand);
+                if (ret != null && ! ret.isEmpty())
+                    return ret;
+            }
+        }
+        // No luck, abort
+        return null;
     }
 
     @objid ("6590b766-33f7-11e2-95fe-001ec947c8cc")
@@ -166,6 +219,7 @@ public class DiagramCommandStack extends CommandStack {
     }
 
     /**
+     *
      * @return true if batch mode should be engaged (ie no more automatic save of the diagram).
      */
     @objid ("b18cc6d0-742b-45ee-ae67-efa55510b404")
@@ -176,13 +230,13 @@ public class DiagramCommandStack extends CommandStack {
 
     /**
      * Sets the batch mode on/off. Should only be used by API.
+     *
      * @param value true if batch mode should be engaged (ie no more automatic save of the diagram).
      */
     @objid ("9b591753-bb10-4490-a379-79e041b56702")
     public void setBatchMode(boolean value) {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.batchMode = value;
-        
     }
 
 }

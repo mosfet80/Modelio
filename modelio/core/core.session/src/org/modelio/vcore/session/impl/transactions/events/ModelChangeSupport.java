@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.impl.transactions.events;
 
@@ -56,7 +56,7 @@ public class ModelChangeSupport implements IModelChangeSupport {
         if (!this.modelChangeHandlers.contains(aHandler)) {
             this.modelChangeHandlers.add(aHandler);
         }
-        
+
     }
 
     @objid ("006ecea4-0d1e-1f20-85a5-001ec947cd2a")
@@ -65,7 +65,7 @@ public class ModelChangeSupport implements IModelChangeSupport {
         if (!this.modelChangeListeners.contains(aListener)) {
             this.modelChangeListeners.add(aListener);
         }
-        
+
     }
 
     @objid ("e53318d4-778f-49bf-8194-d39a80a0a37a")
@@ -74,7 +74,7 @@ public class ModelChangeSupport implements IModelChangeSupport {
         if (!this.persistentViewChangeHandlers.contains(aHandler)) {
             this.persistentViewChangeHandlers.add(aHandler);
         }
-        
+
     }
 
     @objid ("7d7cdcf4-1c43-11e2-8eb9-001ec947ccaf")
@@ -83,7 +83,7 @@ public class ModelChangeSupport implements IModelChangeSupport {
         if (!this.statusListeners.contains(aListener)) {
             this.statusListeners.add(aListener);
         }
-        
+
     }
 
     @objid ("0070892e-e3b9-1fd5-b969-001ec947cd2a")
@@ -115,6 +115,7 @@ public class ModelChangeSupport implements IModelChangeSupport {
      * <p>
      * Transactions are forbidden for model change listeners, ie model change listeners are not allowed to modify the model
      * Exceptions thrown by listeners are caught, added to the log and ignored.
+     *
      * @param event the model change event.
      */
     @objid ("7d7cdcfc-1c43-11e2-8eb9-001ec947ccaf")
@@ -126,7 +127,7 @@ public class ModelChangeSupport implements IModelChangeSupport {
                 Log.warning(e);
             }
         }
-        
+
     }
 
     /**
@@ -134,6 +135,7 @@ public class ModelChangeSupport implements IModelChangeSupport {
      * <p>
      * Transactions are forbidden for status change listeners, ie status change listeners are not allowed to modify the model.
      * Exceptions thrown by listeners are caught, added to the log and ignored.
+     *
      * @param event a status change event
      */
     @objid ("7d7cdd01-1c43-11e2-8eb9-001ec947ccaf")
@@ -145,13 +147,14 @@ public class ModelChangeSupport implements IModelChangeSupport {
                 Log.warning(e);
             }
         }
-        
+
     }
 
     /**
      * Get the model change handlers.
      * <p>
      * Do not modify the returned list!
+     *
      * @return the model change handlers.
      */
     @objid ("056c9b92-ff9d-4e4a-8731-53d3a9ea8bfa")
@@ -160,6 +163,7 @@ public class ModelChangeSupport implements IModelChangeSupport {
     }
 
     /**
+     *
      * @return persistent view change listeners.
      */
     @objid ("7fd8a57c-95df-46a1-aba8-cc957c7ab33d")

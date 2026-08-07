@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.swt.labelprovider;
 
@@ -68,30 +68,29 @@ public class UniversalLabelProvider2 extends LabelProvider implements IModelioEl
     @objid ("ad09bb75-846f-4771-b121-e20357e24c5b")
     private static final String LABEL_PROVIDER_EXTENSION_POINT = "org.modelio.platform.model.ui.labelprovider";
 
+    @objid ("bfc5d9bd-bf19-4aee-a8a0-25e291c3960e")
+    private IRegistryEventListener listener;
+
     @objid ("2d312b47-d304-4ba5-bb20-419c52aecf54")
     protected BrowserLabelService umlLabelService;
 
     @objid ("2b624f23-7227-4bd6-887f-7ee611574dd5")
     private Map<String, IModelioElementLabelProvider> extensions = new HashMap<>();
 
-    @objid ("03adfe76-35e7-4020-ada6-f614770cddff")
-    private IRegistryEventListener listener;
-
     /**
      * Default c'tor.
      */
     @objid ("0ce39571-4580-45d1-9d59-6762c82d1bc8")
-    public  UniversalLabelProvider2() {
+    public UniversalLabelProvider2() {
         this.umlLabelService = new BrowserLabelService();
-        
+
         IExtensionRegistry registry = RegistryFactory.getRegistry();
         this.listener = new MmServicesListener();
-        
+
         registry.addListener(this.listener, UniversalLabelProvider2.LABEL_PROVIDER_EXTENSION_POINT);
-        
+
         IConfigurationElement[] cfels = registry.getConfigurationElementsFor(UniversalLabelProvider2.LABEL_PROVIDER_EXTENSION_POINT);
         addExtensionElements(cfels);
-        
     }
 
     @objid ("142f93b2-80bf-478a-9228-62437c1d017b")
@@ -183,12 +182,11 @@ public class UniversalLabelProvider2 extends LabelProvider implements IModelioEl
         if (registry != null) {
             registry.removeListener(this.listener);
         }
-        
     }
 
     /**
      * Unregister the services that were registered with {@link #addExtensionElements(IConfigurationElement[])}.
-     * @see #addExtensionElements(IConfigurationElement[])
+     *
      * @param configurationElements the configuration elements to remove.
      */
     @objid ("9a4ec9cf-857e-46c3-9402-941813bc41c1")
@@ -201,7 +199,6 @@ public class UniversalLabelProvider2 extends LabelProvider implements IModelioEl
                 }
             }
         }
-        
     }
 
     /**
@@ -212,13 +209,14 @@ public class UniversalLabelProvider2 extends LabelProvider implements IModelioEl
      * <li>a "metamodel" string attribute
      * <li>a "implementation" string attribute representing a java class accessible by the declaring plugin.
      * </ul>
+     *
      * @param configurationElements the {@link IConfigurationElement} at the root of the matched plugin extensions.
      */
     @objid ("c0ff2b9c-9f83-4aff-98b1-ee6cd915030f")
     protected void addExtensionElements(IConfigurationElement[] configurationElements) {
         for (IConfigurationElement ce : configurationElements) {
             String mmf = ce.getAttribute("metamodel");
-        
+
             try {
                 IModelioElementLabelProvider svc = (IModelioElementLabelProvider) ce.createExecutableExtension("implementation");
                 registerExtension(mmf, svc);
@@ -231,7 +229,6 @@ public class UniversalLabelProvider2 extends LabelProvider implements IModelioEl
                 CoreUi.LOG.error(e);
             }
         }
-        
     }
 
     @objid ("7b1b5255-e08b-4003-838d-ef5b5f9ab28d")
@@ -253,12 +250,13 @@ public class UniversalLabelProvider2 extends LabelProvider implements IModelioEl
         private final Stack<MObject> elementStack;
 
         @objid ("c8dc96a2-c85a-460e-8c3b-1206e5df526a")
-        public  BrowserLabelService() {
+        public BrowserLabelService() {
             this(new Stack<MObject>());
         }
 
         /**
          * Get the explorer label for the given element.
+         *
          * @param featuresVisibility Whether or not to show the visibility in feature's labels.
          * @param namespaceVisibility Whether or not to show the visibility in namespace's
          * labels.
@@ -271,22 +269,21 @@ public class UniversalLabelProvider2 extends LabelProvider implements IModelioEl
             if (element == null) {
                 return new StyledString("<null>", ElementStyler.getStyler(null));
             }
-            
+
             if (this.elementStack.contains(element)) {
                 // loop detected, return the name...
                 return new StyledString(element.getName());
             }
-            
+
             // store the element for loop detection, push context
             this.elementStack.push(element);
-            
+
             try {
                 // call the visitor
                 return (StyledString) element.accept(this);
             } finally {
                 this.elementStack.pop();
             }
-            
         }
 
         @objid ("124c258f-bf16-4881-b699-c654c7e68cb2")
@@ -318,7 +315,6 @@ public class UniversalLabelProvider2 extends LabelProvider implements IModelioEl
             } else {
                 return new StyledString("<null>", styler);
             }
-            
         }
 
         @objid ("24beb65e-6574-4cae-9c9c-cb59bd587346")
@@ -332,21 +328,21 @@ public class UniversalLabelProvider2 extends LabelProvider implements IModelioEl
         public Object visitNote(Note obj) {
             final StyledString symbol = new StyledString();
             final Styler style = ElementStyler.getStyler(obj);
-            
+
             NoteType model = obj.getModel();
             String noteType = model == null ? "<none>" : model.getName();
-            
+
             String name = obj.getName();
             if (name.equals("Note") || name.equals(noteType)) {
                 name = "";
             }
-            
+
             if (!name.isEmpty()) {
                 symbol.append('\'', style);
                 symbol.append(name, style);
                 symbol.append("\' ", style);
             }
-            
+
             symbol.append(noteType, ElementStyler.getStyler(obj, model));
             return symbol;
         }
@@ -378,16 +374,16 @@ public class UniversalLabelProvider2 extends LabelProvider implements IModelioEl
         @Override
         public Object visitTaggedValue(TaggedValue obj) {
             final StyledString symbol = new StyledString();
-            
+
             symbol.append("{");
-            
+
             TagType def = obj.getDefinition();
             if (def == null) {
                 symbol.append("<none>");
             } else {
                 symbol.append(def.getName(), ElementStyler.getStyler(obj, def));
             }
-            
+
             List<TagParameter> params = obj.getActual();
             if (!params.isEmpty()) {
                 symbol.append(" = ");
@@ -401,25 +397,26 @@ public class UniversalLabelProvider2 extends LabelProvider implements IModelioEl
                     symbol.append(p.getValue(), ElementStyler.getStyler(obj, p));
                 }
             }
-            
+
             symbol.append("}");
             return symbol;
         }
 
         /**
          * Initialize the label service.
+         *
          * @param elementStack a stack to use for recursive calls to
          * {@link #getLabel(Element, boolean)}
          */
         @objid ("a6156103-4da4-4719-9c01-e02f3d13cfc8")
-         BrowserLabelService(Stack<MObject> elementStack) {
+        BrowserLabelService(Stack<MObject> elementStack) {
             super();
             this.elementStack = elementStack;
-            
         }
 
         /**
          * Append <code>"(from xxxx)"</code> to the symbol
+         *
          * @param symbol the symbol to modify
          * @param srcObj the source object, used to compute the style of
          * <code>'xxxx'</code>
@@ -433,7 +430,6 @@ public class UniversalLabelProvider2 extends LabelProvider implements IModelioEl
                 symbol.append(owner.getName(), ElementStyler.getStyler(srcObj, owner));
                 symbol.append(")", styler);
             }
-            
         }
 
         @objid ("c9bfe0c7-9809-46fa-9ed3-edddd4e28655")
@@ -442,7 +438,7 @@ public class UniversalLabelProvider2 extends LabelProvider implements IModelioEl
             if (!dep.getExtension().isEmpty()) {
                 for (final Stereotype v : dep.getExtension()) {
                     stringBuilder.append(MdaResources.getLabel(v));
-            
+
                     stringBuilder.append(", ");
                 }
                 // remove last ", "
@@ -465,20 +461,20 @@ public class UniversalLabelProvider2 extends LabelProvider implements IModelioEl
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(theDependency);
             final StringBuilder verb = BrowserLabelService.getDependencyVerb(theDependency, mmverb).append(" ");
-            
+
             if (destination != null) {
                 symbol.append(verb.toString(), styler);
-            
+
                 final StyledString destLabel = new BrowserLabelService(this.elementStack).getLabel(destination);
                 symbol.append(destLabel.getString(), ElementStyler.getStyler(theDependency, destination));
-            
+
                 ModelTree owner = null;
-            
+
                 if (destination instanceof ModelTree) {
                     owner = ((ModelTree) destination).getOwner();
                     appendFrom(symbol, theDependency, owner, styler);
                 }
-            
+
             } else {
                 symbol.append(verb.toString(), styler);
                 symbol.append("<No destination>", styler);
@@ -491,20 +487,20 @@ public class UniversalLabelProvider2 extends LabelProvider implements IModelioEl
         public Object visitImpactLink(ImpactLink theImpactLink) {
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(theImpactLink);
-            
+
             ModelElement source = theImpactLink.getImpacted();
             ModelElement target = theImpactLink.getDependsOn();
-            
+
             if (source != null) {
                 symbol.append(getLabel(source).toString(), ElementStyler.getStyler(theImpactLink, source));
             }
-            
+
             symbol.append(" -> ", styler);
-            
+
             if (target != null) {
                 symbol.append(getLabel(target).toString(), ElementStyler.getStyler(theImpactLink, target));
             }
-            
+
             String causes = " (" + theImpactLink.getCauses().size() + " cause(s))";
             symbol.append(causes, styler);
             return symbol;
@@ -515,7 +511,7 @@ public class UniversalLabelProvider2 extends LabelProvider implements IModelioEl
     @objid ("b24690c7-0a24-457f-a7b7-02b912e18740")
     private class MmServicesListener implements IRegistryEventListener {
         @objid ("2a51c816-b1fb-47e4-8c3a-dae843fecc6a")
-        public  MmServicesListener() {
+        public MmServicesListener() {
             // Empty
         }
 
@@ -526,7 +522,6 @@ public class UniversalLabelProvider2 extends LabelProvider implements IModelioEl
                 IConfigurationElement[] configurationElements = extension.getConfigurationElements();
                 addExtensionElements(configurationElements);
             }
-            
         }
 
         @objid ("556abb60-5d06-47f8-8622-8bd9eaeb6f3f")
@@ -536,7 +531,6 @@ public class UniversalLabelProvider2 extends LabelProvider implements IModelioEl
                 IConfigurationElement[] configurationElements = extension.getConfigurationElements();
                 removeExtensionElements(configurationElements);
             }
-            
         }
 
         @objid ("45da8497-8615-41d4-ac44-429e6d106182")

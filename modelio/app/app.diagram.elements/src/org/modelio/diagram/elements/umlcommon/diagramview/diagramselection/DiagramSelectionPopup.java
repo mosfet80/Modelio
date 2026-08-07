@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.umlcommon.diagramview.diagramselection;
 
@@ -69,12 +69,12 @@ public class DiagramSelectionPopup extends ModelioDialog2 {
     private Ui ui;
 
     @objid ("cbba8eb7-41f3-4975-8d00-4dd32b150284")
-    public  DiagramSelectionPopup(Shell parentShell) {
+    public DiagramSelectionPopup(Shell parentShell) {
         super(parentShell);
         this.controler = new Controler();
         this.ui = new Ui(this.controler);
         this.controler.setUi(this.ui);
-        
+
     }
 
     @objid ("d4f1d77b-7484-488c-95d0-1bcedf39b55d")
@@ -89,7 +89,7 @@ public class DiagramSelectionPopup extends ModelioDialog2 {
         addDefaultButtons(parent);
         getButton(IDialogConstants.OK_ID).setEnabled(true);
         this.ui.setOkButton(getButton(IDialogConstants.OK_ID));
-        
+
     }
 
     @objid ("90373794-010d-4a05-ad93-ca1629e6a406")
@@ -134,7 +134,7 @@ public class DiagramSelectionPopup extends ModelioDialog2 {
             this.data = data;
             this.filtredData = new ArrayList<>(this.data.getAllowed());
             this.ui.update(data,new ArrayList<>(this.data.getAllowed()));
-            
+
         }
 
         @objid ("37232304-7568-4fb2-b0a1-5f0607afaea1")
@@ -145,16 +145,16 @@ public class DiagramSelectionPopup extends ModelioDialog2 {
                     filtredData.add(candidate);
                 }
             }
-            
+
             this.ui.update(this.data,this.filtredData);
-            
+
         }
 
         @objid ("d2e8d435-aa1b-4bd5-814e-0b886c4b3b14")
         public void onElementSelectionChange(AbstractDiagram element) {
             this.data.setSelected(element);
             this.ui.update(this.data, this.filtredData);
-            
+
         }
 
     }
@@ -180,7 +180,7 @@ public class DiagramSelectionPopup extends ModelioDialog2 {
         private Controler controler;
 
         @objid ("68243fff-f8eb-4c7b-a385-3a91ec2ee313")
-        public  Ui(Controler controler) {
+        public Ui(Controler controler) {
             this.controler = controler;
         }
 
@@ -209,25 +209,25 @@ public class DiagramSelectionPopup extends ModelioDialog2 {
             GridData gd = new GridData(GridData.FILL_BOTH);
             listComposite.setLayoutData(gd);
             PolluxWidgetConfigurator.configureContainer(listComposite);
-            
+
             createSearchComposite(listComposite);
-            
+
             this.searchText.addListener(SWT.Modify, new Listener() {
                 @Override
                 public void handleEvent(Event event) {
                     controler.onSerachUpdate(searchText.getText());
                 }
             });
-            
+
             this.existingElementTable = new TableViewer(listComposite, SWT.V_SCROLL | SWT.BORDER | SWT.MULTI);
-            
+
             this.existingElementTable.getTable().setLayoutData(new GridData(GridData.FILL_BOTH));
             this.existingElementTable.setContentProvider(ArrayContentProvider.getInstance());
-            
+
             TableViewerColumn elementListColumn = new TableViewerColumn(this.existingElementTable, SWT.FILL);
             elementListColumn.getColumn().setAlignment(SWT.CENTER);
             elementListColumn.getColumn().setResizable(false);
-            
+
             // Universal Label Provider
             elementListColumn.setLabelProvider(new ColumnLabelProvider() {
                 @Override
@@ -237,7 +237,7 @@ public class DiagramSelectionPopup extends ModelioDialog2 {
                     }
                     return super.getImage(obj);
                 }
-            
+
                 @Override
                 public String getText(final Object obj) {
                     if (obj instanceof AbstractDiagram) {
@@ -246,7 +246,7 @@ public class DiagramSelectionPopup extends ModelioDialog2 {
                     return super.getText(obj);
                 }
             });
-            
+
             this.existingElementTable.getControl().addControlListener(new ControlListener() {
                 @Override
                 public void controlResized(ControlEvent e) {
@@ -255,20 +255,20 @@ public class DiagramSelectionPopup extends ModelioDialog2 {
                         elementListColumn.getColumn().setWidth(rect.width);
                     }
                 }
-            
+
                 @Override
                 public void controlMoved(ControlEvent e) {
                     // TODO Auto-generated method stub
-            
+
                 }
             });
-            
+
             this.existingElementTable.addSelectionChangedListener(new ISelectionChangedListener() {
                 @Override
                 public void selectionChanged(SelectionChangedEvent event) {
                     IStructuredSelection selection = existingElementTable.getStructuredSelection();
                     controler.onElementSelectionChange((AbstractDiagram)selection.getFirstElement());
-            
+
                 }
             });
             return listComposite;
@@ -280,10 +280,10 @@ public class DiagramSelectionPopup extends ModelioDialog2 {
             GridData gd = new GridData(GridData.FILL_HORIZONTAL);
             searchComposite.setLayoutData(gd);
             PolluxWidgetConfigurator.configureContainer(searchComposite);
-            
+
             GridLayout gridLayout = new GridLayout();
             gridLayout.numColumns = 2;
-            
+
             searchComposite.setLayout(gridLayout);
             Label searchImage = new Label(searchComposite, SWT.NONE);
             searchImage.setImage(UIImages.SEARCH);
@@ -298,15 +298,15 @@ public class DiagramSelectionPopup extends ModelioDialog2 {
         public void update(DiagramSelectionModel data, List<AbstractDiagram> filtresData) {
             this.headerLabel.setText(DiagramElements.I18N.getMessage("DiagramSelectionPopup.DialogTitle"));
             this.existingElementTable.setInput(filtresData);
-            
+
                     /*    if(data.getSelected() != null) {
                 this.existingElementTable.setSelection(new StructuredSelection(data.getSelected()));
             }*/
-            
+
             if (this.okButton != null) {
                 this.okButton.setEnabled(data.getSelected() != null);
             }
-            
+
         }
 
         @objid ("5ac3f788-922e-469b-80c6-87b410dc8f54")
@@ -318,7 +318,7 @@ public class DiagramSelectionPopup extends ModelioDialog2 {
         public void setOkButton(Button button) {
             this.okButton = button;
             this.okButton.setEnabled(false);
-            
+
         }
 
     }

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure.properties;
 
 import java.text.DateFormat;
@@ -68,7 +67,7 @@ public class PropertyDefinitionImpl extends ModelElementImpl implements Property
         if (getType() == null || getType().getBaseType() == null) {
             return value;
         }
-        
+
         // Conversion based on the base type of the property definition
         switch (getType().getBaseType()) {
         case BOOLEAN:
@@ -149,7 +148,7 @@ public class PropertyDefinitionImpl extends ModelElementImpl implements Property
             // Return value as it is
             return value;
         }
-        
+
     }
 
     @objid ("0698d3b7-30c2-403a-b040-c601503f3655")
@@ -158,7 +157,7 @@ public class PropertyDefinitionImpl extends ModelElementImpl implements Property
         if (value == null) {
             return "";
         }
-        
+
         PropertyType type = getType();
         switch (type != null ? type.getBaseType() : PropertyBaseType.TEXT) {
         case BOOLEAN:
@@ -206,7 +205,7 @@ public class PropertyDefinitionImpl extends ModelElementImpl implements Property
         default:
             return "?" + value.getClass().getSimpleName() + "?";
         }
-        
+
     }
 
     @objid ("9ddc4236-4b88-4c6a-9e75-c547d6441c2b")
@@ -217,7 +216,7 @@ public class PropertyDefinitionImpl extends ModelElementImpl implements Property
         } catch (@SuppressWarnings ("unused") final IllegalArgumentException e) {
             return null;
         }
-        
+
     }
 
     @objid ("63f1768b-2744-4a81-970b-23b1521eb101")
@@ -226,7 +225,7 @@ public class PropertyDefinitionImpl extends ModelElementImpl implements Property
         if (value == null || value.isEmpty()) {
             return "";
         }
-        
+
         switch (getType().getBaseType()) {
         case DATE:
             DateFormat dateFormatter = DateFormat.getDateInstance(DateFormat.DEFAULT, Locale.getDefault());
@@ -249,7 +248,7 @@ public class PropertyDefinitionImpl extends ModelElementImpl implements Property
         default:
             return value;
         }
-        
+
     }
 
     @objid ("e9ecf193-a17c-4606-bc2e-485c79739636")
@@ -327,12 +326,12 @@ public class PropertyDefinitionImpl extends ModelElementImpl implements Property
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // Owner
         dep = ((PropertyDefinitionSmClass)getClassOf()).getOwnerDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 

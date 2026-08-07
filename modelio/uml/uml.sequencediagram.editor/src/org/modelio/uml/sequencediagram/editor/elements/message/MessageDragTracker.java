@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.message;
 
@@ -53,7 +53,7 @@ import org.eclipse.swt.graphics.Cursor;
 
 /**
  * Drag tracker specific to the movement (vertical translation) of Message in Sequence Diagrams.
- * 
+ *
  * @author fpoyer
  */
 @objid ("d95a82d9-55b6-11e2-877f-002564c97630")
@@ -65,14 +65,14 @@ public class MessageDragTracker extends SelectEditPartTracker {
      * The max flag
      */
     @objid ("d95c0940-55b6-11e2-877f-002564c97630")
-    @SuppressWarnings ("hiding")
+    @SuppressWarnings("hiding")
     protected static final int MAX_FLAG = FLAG_SOURCE_FEEBBACK;
 
     @objid ("d95c0944-55b6-11e2-877f-002564c97630")
     private String commandName;
 
     @objid ("3088a4c8-c825-4d23-a0b9-79b624ab3f66")
-    private List<Object> exclusionSet;
+    private List<IFigure> exclusionSet;
 
     @objid ("b159dba4-36ec-4a2d-baae-036944b05ab3")
     private PrecisionPoint sourceRelativeStartPoint;
@@ -82,18 +82,19 @@ public class MessageDragTracker extends SelectEditPartTracker {
 
     /**
      * Constructs a new ConnectionEndpointTracker for the given ConnectionEditPart.
+     *
      * @param cep the ConnectionEditPart
      */
     @objid ("d95c0945-55b6-11e2-877f-002564c97630")
-    public  MessageDragTracker(final ConnectionEditPart cep) {
+    public MessageDragTracker(final ConnectionEditPart cep) {
         super(cep);
         setConnectionEditPart(cep);
         setDisabledCursor(Cursors.NO);
-        
     }
 
     /**
      * Erases source and target feedback and executes the current command.
+     *
      * @see DragTracker#commitDrag()
      */
     @objid ("d95c094a-55b6-11e2-877f-002564c97630")
@@ -102,11 +103,11 @@ public class MessageDragTracker extends SelectEditPartTracker {
         eraseSourceFeedback();
         eraseTargetFeedback();
         executeCurrentCommand();
-        
     }
 
     /**
      * Erases feedback and sets the viewer's focus to <code>null</code>. This will remove any focus rectangles that were painted to show the new target or source edit part.
+     *
      * @see Tool#deactivate()
      */
     @objid ("d95c094e-55b6-11e2-877f-002564c97630")
@@ -115,11 +116,11 @@ public class MessageDragTracker extends SelectEditPartTracker {
         eraseSourceFeedback();
         getCurrentViewer().setFocus(null);
         super.deactivate();
-        
     }
 
     /**
      * Sets the command name.
+     *
      * @param newCommandName the new command name
      */
     @objid ("d95c0952-55b6-11e2-877f-002564c97630")
@@ -129,6 +130,7 @@ public class MessageDragTracker extends SelectEditPartTracker {
 
     /**
      * Sets the connection edit part that is being reconnected.
+     *
      * @param cep the connection edit part
      */
     @objid ("d95c0957-55b6-11e2-877f-002564c97630")
@@ -138,6 +140,7 @@ public class MessageDragTracker extends SelectEditPartTracker {
 
     /**
      * Returns a custom "plug" cursor if this tool is in the initial, drag or accessible drag state. Otherwise defers to <code>super</code>.
+     *
      * @return the cursor
      */
     @objid ("d95c0962-55b6-11e2-877f-002564c97630")
@@ -150,13 +153,14 @@ public class MessageDragTracker extends SelectEditPartTracker {
 
     /**
      * Returns a List of top-level edit parts excluding dependants (by calling {@link ToolUtilities#getSelectionWithoutDependants(EditPartViewer)} .
+     *
      * @see org.eclipse.gef.tools.AbstractTool#createOperationSet()
      */
     @objid ("d95c0968-55b6-11e2-877f-002564c97630")
     @Override
-    protected List<?> createOperationSet() {
+    protected List<? extends EditPart> createOperationSet() {
         if (getCurrentViewer() != null) {
-            List<?> list = ToolUtilities.getSelectionWithoutDependants(getCurrentViewer());
+            List<? extends EditPart> list = ToolUtilities.getSelectionWithoutDependants(getCurrentViewer());
             return list;
         }
         return new ArrayList<>();
@@ -164,6 +168,7 @@ public class MessageDragTracker extends SelectEditPartTracker {
 
     /**
      * Creates the target request, a {@link ChangeBoundsRequest}.
+     *
      * @return the target request
      */
     @objid ("d95c0970-55b6-11e2-877f-002564c97630")
@@ -187,11 +192,11 @@ public class MessageDragTracker extends SelectEditPartTracker {
             EditPart editPart = (EditPart) iter.next();
             editPart.eraseSourceFeedback(getTargetRequest());
         }
-        
     }
 
     /**
      * Asks each edit part in the {@link AbstractTool#getOperationSet() operation set} to contribute to a {@link CompoundCommand} after first setting the request type to {@link RequestConstants#REQ_MOVE}.
+     *
      * @see org.eclipse.gef.tools.AbstractTool#getCommand()
      */
     @objid ("d95d8fde-55b6-11e2-877f-002564c97630")
@@ -199,11 +204,11 @@ public class MessageDragTracker extends SelectEditPartTracker {
     protected Command getCommand() {
         CompoundCommand command = new CompoundCommand();
         command.setDebugLabel("MessageDragTracker");//$NON-NLS-1$
-        
+
         Iterator<?> iter = getOperationSet().iterator();
-        
+
         Request request = getTargetRequest();
-        
+
         request.setType(REQ_MOVE);
         while (iter.hasNext()) {
             EditPart editPart = (EditPart) iter.next();
@@ -213,6 +218,7 @@ public class MessageDragTracker extends SelectEditPartTracker {
     }
 
     /**
+     *
      * @see AbstractTool#getCommandName()
      */
     @objid ("d95d8fe4-55b6-11e2-877f-002564c97630")
@@ -223,6 +229,7 @@ public class MessageDragTracker extends SelectEditPartTracker {
 
     /**
      * Returns the ConnectionEditPart's figure.
+     *
      * @return the connection
      */
     @objid ("d95d8fea-55b6-11e2-877f-002564c97630")
@@ -232,6 +239,7 @@ public class MessageDragTracker extends SelectEditPartTracker {
 
     /**
      * Returns the ConnectionEditPart.
+     *
      * @return the ConnectionEditPart
      */
     @objid ("d95d8fef-55b6-11e2-877f-002564c97630")
@@ -247,7 +255,7 @@ public class MessageDragTracker extends SelectEditPartTracker {
 
     @objid ("d95d8ff9-55b6-11e2-877f-002564c97630")
     @Override
-    protected Collection<?> getExclusionSet() {
+    protected Collection<IFigure> getExclusionSet() {
         if (this.exclusionSet == null) {
             this.exclusionSet = new ArrayList<>();
             this.exclusionSet.add(getConnection());
@@ -257,6 +265,7 @@ public class MessageDragTracker extends SelectEditPartTracker {
 
     /**
      * If currently in the drag-in-progress state, it goes into the terminal state erases feedback and executes the current command.
+     *
      * @see org.eclipse.gef.tools.AbstractTool#handleButtonUp(int)
      */
     @objid ("d95d9000-55b6-11e2-877f-002564c97630")
@@ -272,6 +281,7 @@ public class MessageDragTracker extends SelectEditPartTracker {
 
     /**
      * Updates the request and the mouse target, asks to show feedback, and gets the current command.
+     *
      * @return <code>true</code>
      */
     @objid ("d95d9008-55b6-11e2-877f-002564c97630")
@@ -302,6 +312,7 @@ public class MessageDragTracker extends SelectEditPartTracker {
 
     /**
      * Processes the arrow keys (to choose a different source or target edit part) and forwardslash and backslash keys (to try to connect to another connection).
+     *
      * @see org.eclipse.gef.tools.AbstractTool#handleKeyDown(org.eclipse.swt.events.KeyEvent)
      */
     @objid ("d95f167d-55b6-11e2-877f-002564c97630")
@@ -333,7 +344,7 @@ public class MessageDragTracker extends SelectEditPartTracker {
             default:
                 break;
             }
-        
+
             boolean consumed = false;
             if (direction != 0 && e.stateMask == 0)
                 consumed = navigateNextAnchor(direction);
@@ -378,7 +389,6 @@ public class MessageDragTracker extends SelectEditPartTracker {
         // sourceRectangle.translate(delta);
         // if (compoundSrcRect != null)
         // compoundSrcRect.translate(delta);
-        
     }
 
     @objid ("d95f1688-55b6-11e2-877f-002564c97630")
@@ -392,7 +402,6 @@ public class MessageDragTracker extends SelectEditPartTracker {
             this.sourceRelativeStartPoint = new PrecisionPoint(getStartLocation());
             figure.translateToRelative(this.sourceRelativeStartPoint);
         }
-        
     }
 
     /**
@@ -408,11 +417,11 @@ public class MessageDragTracker extends SelectEditPartTracker {
             editPart.showSourceFeedback(getTargetRequest());
         }
         setFlag(FLAG_SOURCE_FEEBBACK, true);
-        
     }
 
     /**
      * Calls {@link #repairStartLocation()} in case auto scroll is being performed. Updates the request with the current {@link AbstractTool#getOperationSet() operation set}, move delta, location and type.
+     *
      * @see org.eclipse.gef.tools.TargetingTool#updateTargetRequest()
      */
     @objid ("d95f1690-55b6-11e2-877f-002564c97630")
@@ -422,15 +431,15 @@ public class MessageDragTracker extends SelectEditPartTracker {
         ChangeBoundsRequest request = (ChangeBoundsRequest) getTargetRequest();
         request.setEditParts(getOperationSet());
         Dimension delta = getDragMoveDelta();
-        
+
         // constrains the move to dx=0, dy=0, or dx=dy if shift is depressed
         if (getCurrentInput().isShiftKeyDown()) {
             request.setConstrainedMove(true);
             float ratio = 0;
-        
+
             if (delta.width != 0)
                 ratio = (float) delta.height / (float) delta.width;
-        
+
             ratio = Math.abs(ratio);
             if (ratio > 0.5 && ratio < 1.5) {
                 if (Math.abs(delta.height) > Math.abs(delta.width)) {
@@ -452,17 +461,16 @@ public class MessageDragTracker extends SelectEditPartTracker {
             }
         } else
             request.setConstrainedMove(false);
-        
+
         Point moveDelta = new Point(delta.width, delta.height);
         request.getExtendedData().clear();
         request.setMoveDelta(moveDelta);
-        
+
         // TODO : snap?
         // snapPoint(request);
-        
+
         request.setLocation(getLocation());
         request.setType(getCommandName());
-        
     }
 
     @objid ("7752f87d-2f24-4f88-b4ec-fc87fd1e67d9")
@@ -472,9 +480,9 @@ public class MessageDragTracker extends SelectEditPartTracker {
         provider = focus.getAdapter(AccessibleAnchorProvider.class);
         if (provider == null)
             return false;
-        
+
         List<?> list = provider.getSourceAnchorLocations();
-        
+
         Point start = getLocation();
         int distance = Integer.MAX_VALUE;
         Point next = null;
@@ -488,7 +496,7 @@ public class MessageDragTracker extends SelectEditPartTracker {
                 next = p;
             }
         }
-        
+
         if (next != null) {
             placeMouseInViewer(next);
             return true;

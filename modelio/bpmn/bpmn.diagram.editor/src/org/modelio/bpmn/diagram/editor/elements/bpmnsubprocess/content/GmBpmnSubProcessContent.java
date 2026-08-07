@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnsubprocess.content;
 
@@ -57,12 +57,13 @@ public class GmBpmnSubProcessContent extends GmEmbeddedDiagram {
 
     /**
      * Default constructor.
+     *
      * @param diagram the diagram in which this gm is used.
      * @param subProcessDiagram the unmasked diagram (can be <code>null</code>)
      * @param relatedRef a reference to the unmasked diagram (cannot be <code>null</code>).
      */
     @objid ("386898f0-294e-4d1f-a76a-f279ac4383b0")
-    public  GmBpmnSubProcessContent(IGmDiagram diagram, BpmnSubProcessDiagram subProcessDiagram, MRef relatedRef) {
+    public GmBpmnSubProcessContent(IGmDiagram diagram, BpmnSubProcessDiagram subProcessDiagram, MRef relatedRef) {
         super(diagram, subProcessDiagram, relatedRef);
     }
 
@@ -70,7 +71,7 @@ public class GmBpmnSubProcessContent extends GmEmbeddedDiagram {
      * Empty constructor needed for serialisation.
      */
     @objid ("121f2833-1f73-4c14-b23f-6af22c666fb8")
-    public  GmBpmnSubProcessContent() {
+    public GmBpmnSubProcessContent() {
         // Nothing to do.
     }
 
@@ -111,7 +112,7 @@ public class GmBpmnSubProcessContent extends GmEmbeddedDiagram {
             read_0(in);
             break;
         }
-        
+
     }
 
     @objid ("9a298615-7a87-4716-af37-c5d53fe5048c")
@@ -123,10 +124,10 @@ public class GmBpmnSubProcessContent extends GmEmbeddedDiagram {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, GmBpmnSubProcessContent.MINOR_PREFIX, GmBpmnSubProcessContent.MINOR_VERSION);
-        
+
     }
 
     @objid ("fbc5ef0b-9884-43f9-9c94-c3540dcc17ca")
@@ -140,27 +141,27 @@ public class GmBpmnSubProcessContent extends GmEmbeddedDiagram {
     protected void doSetVisible(final boolean visible) {
         getDisplayedStyle().setProperty(GmBpmnSubProcessStructuredStyleKeys.SHOWCONTENT, visible);
         super.doSetVisible(visible);
-        
+
     }
 
     @objid ("18ac09a8-6a64-4620-9c5f-9b0d74ef39d2")
     @Override
     public void styleChanged(IStyle changedStyle) {
         super.styleChanged(changedStyle);
-        
+
         refreshViewedDiagramVisibility();
-        
+
     }
 
     @objid ("b7091178-5bd5-41d7-b560-4a855bfc476f")
     @Override
     public void styleChanged(StyleKey property, Object newValue) {
         super.styleChanged(property, newValue);
-        
+
         if (property == GmBpmnSubProcessStructuredStyleKeys.SHOWCONTENT) {
             refreshViewedDiagramVisibility();
         }
-        
+
     }
 
     @objid ("0fdb3f31-cf1e-402a-b2f1-071f92193333")
@@ -169,7 +170,7 @@ public class GmBpmnSubProcessContent extends GmEmbeddedDiagram {
         if (viewedDiagramModel != null) {
             viewedDiagramModel.setVisible(isVisible());
         }
-        
+
     }
 
     /**

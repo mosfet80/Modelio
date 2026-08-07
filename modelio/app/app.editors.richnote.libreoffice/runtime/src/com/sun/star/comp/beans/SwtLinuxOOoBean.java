@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package com.sun.star.comp.beans;
 
@@ -44,13 +44,12 @@ import org.eclipse.swt.widgets.Widget;
 import org.modelio.editors.richnote.libreoffice.plugin.LibreOfficeEditors;
 
 /**
+ *
+ * @since OOo 2.0.0
  * @requirement FUNC.PERF.LRN/0.6
  * @requirement FUNC.PERF.LOC/0.6
- * @requirement FUNC.PERF.FIX/0.6
- * This is the basic JavaBean for all OOo application modules.
- * 
+ * @requirement FUNC.PERF.FIX/0.6 This is the basic JavaBean for all OOo application modules.
  * @requirement FUNC.RES.OTH/0.2 No other resources are needed yet.
- * @since OOo 2.0.0
  */
 @objid ("cbc569a5-a14f-46e5-b60f-57ca13e74eb2")
 @SuppressWarnings ("unused")
@@ -72,7 +71,7 @@ public class SwtLinuxOOoBean extends Composite {
      */
     @objid ("2131b039-e0dc-41dc-95fa-c119c70e36b1")
     private boolean bIgnoreVisibility = false; // to show even if already visible
-    
+
 
     @objid ("817baf8a-ee0d-43d7-b818-04a84c3b5b92")
     private boolean bMenuBarVisible = true;
@@ -108,9 +107,9 @@ public class SwtLinuxOOoBean extends Composite {
     private transient EventListener xConnectionListener;
 
     /**
+     *
      * @requirement FUNC.BEAN.VIEW/0.4
-     * @requirement FUNC.BEAN.EDIT/0.4
-     * This member contains the OOo window
+     * @requirement FUNC.BEAN.EDIT/0.4 This member contains the OOo window
      * if a connection is established.
      * It is a child of the OOoBean canvas.
      */
@@ -131,6 +130,7 @@ public class SwtLinuxOOoBean extends Composite {
 
     /**
      * debugging method
+     *
      * @param aMessage message to print
      */
     @objid ("6c919523-361c-49dc-a38c-b8463dbdec9d")
@@ -140,19 +140,12 @@ public class SwtLinuxOOoBean extends Composite {
 
     /**
      * Generic constructor of the OOoBean.
-     * 
+     *
      * Neither a connection is established nor any document loaded.
-     * @see SWT#NO_BACKGROUND
-     * @see SWT#NO_FOCUS
-     * @see SWT#NO_MERGE_PAINTS
-     * @see SWT#NO_REDRAW_RESIZE
-     * @see SWT#NO_RADIO_GROUP
-     * @see SWT#EMBEDDED
-     * @see SWT#DOUBLE_BUFFERED
-     * @see Widget#getStyle
+     *
      * @param parent a widget which will be the parent of the new instance (cannot be null)
      * @param style the style of widget to construct
-     * 
+     *
      * @exception IllegalArgumentException
      * <ul>
      * <li>ERROR_NULL_ARGUMENT - if the parent is null</li>
@@ -161,28 +154,36 @@ public class SwtLinuxOOoBean extends Composite {
      * <ul>
      * <li>ERROR_THREAD_INVALID_ACCESS - if not called from the thread that created the parent</li>
      * </ul>
+     * @see SWT#NO_BACKGROUND
+     * @see SWT#NO_FOCUS
+     * @see SWT#NO_MERGE_PAINTS
+     * @see SWT#NO_REDRAW_RESIZE
+     * @see SWT#NO_RADIO_GROUP
+     * @see SWT#EMBEDDED
+     * @see SWT#DOUBLE_BUFFERED
+     * @see Widget#getStyle
      */
     @objid ("130df596-4afa-42da-972d-347b2a4b0e76")
-    public  SwtLinuxOOoBean(final Composite parent, final int style) {
+    public SwtLinuxOOoBean(final Composite parent, final int style) {
         super(parent, style);
         setLayout(new FillLayout());
-        
+
         // Note: Don't redefine dispose(), it is never called.
         addDisposeListener(new DisposeListener() {
-        
+
             @Override
             public void widgetDisposed(DisposeEvent e) {
                 stopOOoConnection();
             }
         });
-        
+
         try {
             // Establish the connection by requesting the ServiceFactory.
             getMultiServiceFactory();
-        
+
             // get window from OOo on demand
             initSWTOfficeWindow();
-        
+
             // create the document frame from UNO window.
             // initXFrame();
         } catch (NoConnectionException e) {
@@ -190,13 +191,14 @@ public class SwtLinuxOOoBean extends Composite {
             // } catch (com.sun.star.uno.Exception e) {
             // throw (SWTException) new SWTException(e.getMessage()).initCause(e);
         }
-        
+
     }
 
     /**
      * Sets the timeout for methods which launch OOo in milli seconds.
-     * 
+     *
      * This method does not need a connection to an OOo instance.
+     *
      * @param nMilliSecs the timeout
      */
     @objid ("74356d01-cabe-4772-9a72-988e05396438")
@@ -206,8 +208,9 @@ public class SwtLinuxOOoBean extends Composite {
 
     /**
      * Sets the timeout for normal OOO methods calls in milli seconds.
-     * 
+     *
      * This method does not need a connection to an OOo instance.
+     *
      * @param nMilliSecs the timeout
      */
     @objid ("d089e006-7360-492e-9387-dc11bfedd672")
@@ -217,8 +220,9 @@ public class SwtLinuxOOoBean extends Composite {
 
     /**
      * Sets the period length in milli seconds to check the OOo connection.
-     * 
+     *
      * This method does not need a connection to an OOo instance.
+     *
      * @param nMilliSecs the timeout
      */
     @objid ("a30ebf1b-208a-47d8-968f-74212ef1b514")
@@ -236,9 +240,9 @@ public class SwtLinuxOOoBean extends Composite {
         if (this.iConnection != null) {
             throw new IllegalStateException("There is already a connection.");
         }
-        
+
         OfficeConnection iNewConnection = new LocalOfficeConnection();
-        
+
         // is there a real connection, not just the proxy?
         com.sun.star.uno.XComponentContext xComponentContext = null;
         try {
@@ -249,17 +253,17 @@ public class SwtLinuxOOoBean extends Composite {
         if (xComponentContext == null) {
             throw new NoConnectionException();
         }
-        
+
         // set the connection
         this.iConnection = iNewConnection;
-        
+
         // get notified when connection dies
         if (this.xConnectionListener != null) {
             this.xConnectionListener.end();
         }
-        
+
         this.xConnectionListener = new EventListener("setOOoConnection");
-        
+
     }
 
     /**
@@ -269,6 +273,7 @@ public class SwtLinuxOOoBean extends Composite {
      * <p>
      * When the OOoBean is displayed in an applet by a web browser, then this method must be called from within
      * java.applet.Applet.stop.
+     *
      * @requirement FUNC.CON.STOP/0.4
      */
     @objid ("85d932fe-3a20-45d6-9fb9-32d39f6da7e4")
@@ -278,10 +283,10 @@ public class SwtLinuxOOoBean extends Composite {
             this.xConnectionListener.end();
             this.xConnectionListener = null;
         }
-        
+
         // clear OOo document, frame etc.
         clear();
-        
+
         // Try release the process. Other EventListeners may prevent it if other documents are open.
         if (!tryTerminate()) {
             // cut the connection
@@ -291,11 +296,11 @@ public class SwtLinuxOOoBean extends Composite {
                 iExConnection.dispose();
             }
         }
-        
+
         this.iConnection = null;
         this.xDesktop = null;
         this.xServiceFactory = null;
-        
+
     }
 
     /**
@@ -309,6 +314,7 @@ public class SwtLinuxOOoBean extends Composite {
      * when calling {@link #stopOOoConnection()} or other API methods. If other instances share the same
      * connection then they will stop function properly, because they loose their connection as well. <br/>
      * The recommended way to end the connection is calling {@link #stopOOoConnection()}.
+     *
      * @return a connection to an OOo instance.
      * @throws NoConnectionException if no connection can be established
      * @requirement FUNC.CON.STOP/0.4 (via XComponent.dispose())
@@ -319,7 +325,7 @@ public class SwtLinuxOOoBean extends Composite {
         if (this.iConnection == null) {
             initConnection();
         }
-        
+
         if (this.iConnection.getComponentContext() == null) {
             throw new NoConnectionException();
         }
@@ -328,6 +334,7 @@ public class SwtLinuxOOoBean extends Composite {
 
     /**
      * Returns the service factory used by this OOoBean instance.
+     *
      * @return the service factory used by this OOoBean instance.
      * @throws NoConnectionException if no connection is established and no default connection can be established.
      */
@@ -336,13 +343,13 @@ public class SwtLinuxOOoBean extends Composite {
         if (this.xServiceFactory == null) {
             // avoid concurrent access from multiple threads
             final OfficeConnection iConn = getOOoConnection();
-        
+
             try {
                 this.xServiceFactory = CompletableFuture
                         .supplyAsync(() -> {
                             XMultiComponentFactory aFactory = iConn.getComponentContext().getServiceManager();
                             return UnoRuntime.queryInterface(XMultiServiceFactory.class, aFactory);
-        
+
                         })
                         .get(this.nOOoStartTimeOut, TimeUnit.MILLISECONDS);
             } catch (java.lang.InterruptedException e) {
@@ -361,6 +368,7 @@ public class SwtLinuxOOoBean extends Composite {
 
     /**
      * Returns the XDesktop interface of the OOo instance used by this OOoBean.
+     *
      * @return the XDesktop interface
      * @throws NoConnectionException if no connection is established and no default connection can be established.
      */
@@ -379,16 +387,16 @@ public class SwtLinuxOOoBean extends Composite {
 
     /**
      * Resets the OOoBean to an empty status.
-     * 
+     *
      * Any loaded document is unloaded, no matter whether it is modified or not. After calling this method, the OOoBean
      * has no office document and no frame anymore. The connection will stay, though.
-     * 
+     *
      * This method works with or without an established connection.
      */
     @objid ("73c7f0d2-c047-4b34-a930-3cca44404c0c")
     private synchronized void clear() {
         dbgPrint("clear()");
-        
+
         CallWatchThread aCallWatchThread = new CallWatchThread(this.nOOoCallTimeOut, "clear");
         try {
             // By closing the frame we avoid that dialogs are displayed, for example when
@@ -404,13 +412,13 @@ public class SwtLinuxOOoBean extends Composite {
             } catch (com.sun.star.lang.DisposedException e) {
                 // It sometimes happen on Linux when many documents are opens.
             }
-        
+
             this.aDocument = null;
             this.aFrame = null;
-        
+
             // clear xFrameWindow
             clearSwtFrameWindow();
-        
+
             // clear xURLTransformer
             if (this.xURLTransformer != null) {
                 try {
@@ -423,12 +431,12 @@ public class SwtLinuxOOoBean extends Composite {
                 }
                 this.xURLTransformer = null;
             }
-        
+
             // this.xServiceFactory = null;
         } finally {
             aCallWatchThread.cancel();
         }
-        
+
     }
 
     /**
@@ -437,11 +445,11 @@ public class SwtLinuxOOoBean extends Composite {
      * If a document is already loaded and the content modified, the changes are dismissed.
      * <p>
      * If no connection exists, a default connection is established.
-     * @throws com.sun.star.util.CloseVetoException
-     * if the currently displayed document cannot be closed because it is still be used, for example it is
-     * printed.
+     *
      * @param aURL document URL
      * @param aArguments loading arguments
+     * @throws com.sun.star.util.CloseVetoException if the currently displayed document cannot be closed because it is still be used, for example it is
+     * printed.
      * @throws IOException if an IO error occurs reading the resource specified by the URL.
      * @throws NoConnectionException if no connection can be established.
      */
@@ -454,14 +462,14 @@ public class SwtLinuxOOoBean extends Composite {
             while (!bLoaded) {
                 // watch loading in a thread with a timeout (if OOo hangs)
                 CallWatchThread aCallWatchThread = new CallWatchThread(this.nOOoStartTimeOut * 100, "loadFromURL");
-        
+
                 try {
                     initXFrame();
-        
+
                     // Initializes the slot command execution environment.
                     this.xURLTransformer = UnoRuntime.queryInterface(com.sun.star.util.XURLTransformer.class,
                             getMultiServiceFactory().createInstance("com.sun.star.util.URLTransformer"));
-        
+
                     // Setup the call
                     String frameName;
                     com.sun.star.frame.XComponentLoader xLoader;
@@ -481,13 +489,13 @@ public class SwtLinuxOOoBean extends Composite {
                         xLoader = UnoRuntime.queryInterface(com.sun.star.frame.XComponentLoader.class,
                                 this.aFrame);
                     }
-        
+
                     if (xLoader == null) {
                         throw new java.lang.RuntimeException("com.sun.star.frame.Frame(" +
                                 this.aFrame +
                                 ") without com.sun.star.frame.XComponentLoader");
                     }
-        
+
                     // Avoid Dialog 'Document changed' while reloading
                     if (this.aDocument != null) {
                         try {
@@ -498,25 +506,25 @@ public class SwtLinuxOOoBean extends Composite {
                         } catch (com.sun.star.lang.DisposedException ed) {
                             // can be disposed if user closed document via UI
                         }
-        
+
                         com.sun.star.frame.XController xOldController = null;
                         if (this.aFrame != null) {
                             xOldController = this.aFrame.getController();
                         }
-        
+
                         try {
-        
+
                             if (this.aFrame != null && xOldController != null) {
                                 if (xOldController.suspend(true) == false) {
                                     throw new com.sun.star.util.CloseVetoException("Document is still being used and cannot be closed.",
                                             this);
                                 }
                             }
-        
+
                         } catch (java.lang.IllegalStateException exp) { // ignore
                         }
                     }
-        
+
                     // Load the document
                     // -----------------
                     aArgs = addArgument(aArgs,
@@ -524,9 +532,9 @@ public class SwtLinuxOOoBean extends Composite {
                                     -1,
                                     new Short(com.sun.star.document.MacroExecMode.USE_CONFIG),
                                     com.sun.star.beans.PropertyState.DIRECT_VALUE));
-        
+
                     com.sun.star.lang.XComponent xLoadedComponent = callLoadComponentFromUrl(aURL, frameName, xLoader, aArgs);
-        
+
                     // Nothing loaded?
                     if (xLoadedComponent == null && this.aDocument != null) {
                         // reactivate old document
@@ -534,11 +542,11 @@ public class SwtLinuxOOoBean extends Composite {
                             this.aFrame.getController().suspend(false);
                         }
                         this.aDocument.setModified(true);
-        
+
                         // throw exception
                         throw new java.io.IOException("Can not load a document: \"" + aURL + "\"");
                     }
-        
+
                     // Get document's XModifiable interface if any.
                     this.aDocument = new OfficeDocument(UnoRuntime.queryInterface(com.sun.star.frame.XModel.class,
                             xLoadedComponent));
@@ -554,32 +562,33 @@ public class SwtLinuxOOoBean extends Composite {
                 } finally {
                     aCallWatchThread.cancel();
                 }
-        
+
                 // if (this.xServiceFactory == null)
                 // throw new NoConnectionException();
             }
-        
+
             if (this.iConnection == null) {
                 throw new NoConnectionException();
             }
-        
+
             setToolVisible("private:resource/toolbar/viewerbar", false, true);
             // setStandardBarVisible(false);
             // applyToolVisibilities();
-        
+
         } catch (java.lang.InterruptedException aExc) {
             throw new NoConnectionException(aExc);
         }
-        
+
     }
 
     /**
      * Loads a document from a Java stream.
-     * 
+     *
      * See loadFromURL() for further information.
-     * @throws com.sun.star.util.CloseVetoException if the open document refused to close.
+     *
      * @param iInStream input stream containing the document.
      * @param aArguments MediaDescriptor properties. see <a href="http://api.openoffice.org/docs/common/ref/com/sun/star/document/MediaDescriptor.html#CharacterSet">MediaDescriptor documentation</a>
+     * @throws com.sun.star.util.CloseVetoException if the open document refused to close.
      * @throws IOException if an IO error occurs reading the resource.
      * @throws NoConnectionException if no connection is established.
      */
@@ -592,7 +601,7 @@ public class SwtLinuxOOoBean extends Composite {
          * iInStream );
          */
         // copy stream....
-        
+
         int s = 4096;
         int r = 0, n = 0;
         byte[] buffer = new byte[s];
@@ -611,26 +620,27 @@ public class SwtLinuxOOoBean extends Composite {
             buffer = newBuffer;
         }
         com.sun.star.io.XInputStream xStream = new com.sun.star.lib.uno.adapter.ByteArrayToXInputStreamAdapter(buffer);
-        
+
         // add stream to arguments
         com.sun.star.beans.PropertyValue[] aExtendedArguments = addArgument(aArguments,
                 new com.sun.star.beans.PropertyValue("InputStream",
                         -1,
                         xStream,
                         com.sun.star.beans.PropertyState.DIRECT_VALUE));
-        
+
         // call normal load method
         loadFromURL("private:stream", aExtendedArguments);
-        
+
     }
 
     /**
      * Loads a document from a byte array.
-     * 
+     *
      * See loadFromURL() for further information.
-     * @throws com.sun.star.util.CloseVetoException if the open document refused to close.
+     *
      * @param aInBuffer the buffer containing the document.
      * @param aArguments MediaDescriptor properties. see <a href="http://api.openoffice.org/docs/common/ref/com/sun/star/document/MediaDescriptor.html#CharacterSet">MediaDescriptor documentation</a>
+     * @throws com.sun.star.util.CloseVetoException if the open document refused to close.
      * @throws IOException if an IO error occurs reading the resource.
      * @throws NoConnectionException if no connection is established.
      */
@@ -638,17 +648,17 @@ public class SwtLinuxOOoBean extends Composite {
     public void loadFromByteArray(final byte[] aInBuffer, final com.sun.star.beans.PropertyValue[] aArguments) throws IOException, NoConnectionException, com.sun.star.util.CloseVetoException {
         // wrap byte arrray into UNO stream
         com.sun.star.io.XInputStream xStream = new com.sun.star.lib.uno.adapter.ByteArrayToXInputStreamAdapter(aInBuffer);
-        
+
         // add stream to arguments
         com.sun.star.beans.PropertyValue[] aExtendedArguments = addArgument(aArguments,
                 new com.sun.star.beans.PropertyValue("InputStream",
                         -1,
                         xStream,
                         com.sun.star.beans.PropertyState.DIRECT_VALUE));
-        
+
         // call normal load method
         loadFromURL("private:stream", aExtendedArguments);
-        
+
     }
 
     /**
@@ -660,13 +670,14 @@ public class SwtLinuxOOoBean extends Composite {
      * disables the automatic backup and recovery mechanism. OOoBean offers currently no supported way of providing
      * startup options for OOo. But it is possible to set a Java property when starting Java, which is examined by
      * OOoBean:
-     * 
+     *
      * <pre>
      * java -Dcom.sun.star.officebean.Options=-norestore  ...
      * </pre>
-     * 
+     *
      * It is planned to offer a way of specifying startup options in a future version. The property can be used until
      * then. When using this property only one option can be provided.
+     *
      * @param aURL the destination
      * @param aArguments MediaDescriptor properties. see <a href="http://api.openoffice.org/docs/common/ref/com/sun/star/document/MediaDescriptor.html#CharacterSet">MediaDescriptor documentation</a>
      * @throws IllegalArgumentException if either of the arguments is out of the specified range.
@@ -680,7 +691,7 @@ public class SwtLinuxOOoBean extends Composite {
         if (this.aDocument == null) {
             throw new NoDocumentException();
         }
-        
+
         // start runtime timeout
         CallWatchThread aCallWatchThread = new CallWatchThread(this.nOOoCallTimeOut, "storeToURL");
         // store the document
@@ -694,14 +705,14 @@ public class SwtLinuxOOoBean extends Composite {
             // end runtime timeout
             aCallWatchThread.cancel();
         }
-        
+
     }
 
     /**
      * Stores a document to a stream.
-     * 
+     *
      * See {@link #storeToURL storeToURL} for further information.
-     * @see #storeToURL storeToURL
+     *
      * @param aOutStream the destination stream.
      * @param aArguments arguments
      * @return the same output stream.
@@ -709,22 +720,23 @@ public class SwtLinuxOOoBean extends Composite {
      * @throws IOException if an IO error occurs reading the resource specified by the URL.
      * @throws NoConnectionException if no connection is established.
      * @throws NoDocumentException if no document is loaded
+     * @see #storeToURL storeToURL
      */
     @objid ("a877a1c5-2b39-4614-ae33-ae1a693ed76f")
     public java.io.OutputStream storeToStream(final java.io.OutputStream aOutStream, final com.sun.star.beans.PropertyValue[] aArguments) throws IllegalArgumentException, IOException, NoConnectionException, NoDocumentException {
         // wrap Java stream into UNO stream
         com.sun.star.lib.uno.adapter.OutputStreamToXOutputStreamAdapter aStream = new com.sun.star.lib.uno.adapter.OutputStreamToXOutputStreamAdapter(aOutStream);
-        
+
         // add stream to arguments
         com.sun.star.beans.PropertyValue[] aExtendedArguments = addArgument(aArguments,
                 new com.sun.star.beans.PropertyValue("OutputStream",
                         -1,
                         aStream,
                         com.sun.star.beans.PropertyState.DIRECT_VALUE));
-        
+
         // call normal store method
         storeToURL("private:stream", aExtendedArguments);
-        
+
         // get byte array from document stream
         try {
             aStream.closeOutput();
@@ -738,9 +750,9 @@ public class SwtLinuxOOoBean extends Composite {
 
     /**
      * Stores a document to a byte array.
-     * 
+     *
      * See {@link #storeToURL storeToURL} for further information.
-     * @see #storeToURL storeToURL
+     *
      * @param aOutBuffer the byte array.
      * @param aArguments some arguments
      * @return the buffer containing the saved document, should be 'aOutBuffer'.
@@ -748,22 +760,23 @@ public class SwtLinuxOOoBean extends Composite {
      * @throws IOException if an IO error occurs reading the resource specified by the URL.
      * @throws NoConnectionException if no connection is established.
      * @throws NoDocumentException if no document is loaded
+     * @see #storeToURL storeToURL
      */
     @objid ("a3832bf6-0f98-4ccc-a296-36c942c77e02")
     public byte[] storeToByteArray(final byte[] aOutBuffer, final com.sun.star.beans.PropertyValue[] aArguments) throws IllegalArgumentException, IOException, NoConnectionException, NoDocumentException {
         // wrap byte arrray into UNO stream
         com.sun.star.lib.uno.adapter.XOutputStreamToByteArrayAdapter aStream = new com.sun.star.lib.uno.adapter.XOutputStreamToByteArrayAdapter(aOutBuffer);
-        
+
         // add stream to arguments
         com.sun.star.beans.PropertyValue arg = new com.sun.star.beans.PropertyValue("OutputStream",
                 -1,
                 aStream,
                 com.sun.star.beans.PropertyState.DIRECT_VALUE);
         com.sun.star.beans.PropertyValue[] aExtendedArguments = addArgument(aArguments, arg);
-        
+
         // call normal store method
         storeToURL("private:stream", aExtendedArguments);
-        
+
         // get byte array from document stream
         try {
             aStream.closeOutput();
@@ -776,13 +789,13 @@ public class SwtLinuxOOoBean extends Composite {
     }
 
     /**
-     * @requirement FUNC.BEAN.PROG/0.5
-     * @requirement API.SIM.SEAP/0.2
-     * returns the <type scope="com::sun::star::frame">Frame</a> of the bean.
+     *
      * @return a Java class which implements all interfaces which the service <type
      * scope="com::sun::star::frame">Frame</a> implements. Thus, methods can be called directly without
      * queryInterface. This feature might be implemented by UNO or explicitely coded.
      * @throws NoConnectionException if the connection is not established.
+     * @requirement FUNC.BEAN.PROG/0.5
+     * @requirement API.SIM.SEAP/0.2 returns the <type scope="com::sun::star::frame">Frame</a> of the bean.
      */
     @objid ("acff5a23-c399-4ce9-9d51-f8395a96cccc")
     public Frame getFrame() throws NoConnectionException {
@@ -793,13 +806,13 @@ public class SwtLinuxOOoBean extends Composite {
     }
 
     /**
-     * @requirement FUNC.BEAN.PROG/0.5
-     * @requirement API.SIM.SEAP/0.2
-     * returns the <type scope="com::sun::star::frame::Controller"> of the bean.
+     *
      * @return a Java class which implements all interfaces which the service &lt;type
      * scope="com::sun::star::frame">Controller&lt;/a> implements. Thus, methods can be called directly without
      * queryInterface. This feature might be implemented by UNO or explicitly coded.
      * @throws NoConnectionException if the connection is not established.
+     * @requirement FUNC.BEAN.PROG/0.5
+     * @requirement API.SIM.SEAP/0.2 returns the <type scope="com::sun::star::frame::Controller"> of the bean.
      */
     @objid ("ed0ed186-06c1-485b-a2ab-970426a91445")
     public Controller getController() throws NoConnectionException {
@@ -813,15 +826,15 @@ public class SwtLinuxOOoBean extends Composite {
     }
 
     /**
-     * @requirement FUNC.BEAN.PROG/0.5
-     * @requirement FUNC.BEAN.STOR/0.4
-     * @requirement FUNC.BEAN.PRNT/0.4
-     * @requirement API.SIM.SEAP/0.2
-     * returns the <type scope="com::sun::star::document::OfficeDocument"> of the bean.
+     *
      * @return a Java class which implements all interfaces which the service <type
      * scope="com::sun::star::document">OfficeDocument</a> implements. Thus, methods can be called directly
      * without queryInterface. This feature might be implemented by UNO or explicitely coded.
      * @throws NoConnectionException if the connection is not established.
+     * @requirement FUNC.BEAN.PROG/0.5
+     * @requirement FUNC.BEAN.STOR/0.4
+     * @requirement FUNC.BEAN.PRNT/0.4
+     * @requirement API.SIM.SEAP/0.2 returns the <type scope="com::sun::star::document::OfficeDocument"> of the bean.
      */
     @objid ("9a57c890-e6fa-4222-bccb-633ff1647a75")
     public synchronized OfficeDocument getDocument() throws NoConnectionException {
@@ -833,7 +846,7 @@ public class SwtLinuxOOoBean extends Composite {
 
     /**
      * Sets visibility of all tool bars known by this OOoBean version.
-     * 
+     *
      * Initially all tool bars are visible. By hiding all tool bars utilizing this method, it is possible to turn just a
      * subset of tool bars on afterwards, no matter whether all available tool bars are known or not.
      * <p>
@@ -842,11 +855,12 @@ public class SwtLinuxOOoBean extends Composite {
      * <p>
      * If no connection is established or no document is loaded, the setting is memorized until a document is loaded.
      * Same is valid when the connection dies within this function call.
+     *
      * @param bVisible the toolbars visibility
-     * 
+     *
      * @deprecated Clients should use the service com.sun.star.frame.LayoutManager, which can be obtained from a frame,
      * to control toolbars. For example:
-     * 
+     *
      * <pre>
      * com.sun.star.beans.XPropertySet xPropSet = (com.sun.star.beans.XPropertySet) UnoRuntime.queryInterface(com.sun.star.beans.XPropertySet.class,
      * aFrame);
@@ -864,12 +878,13 @@ public class SwtLinuxOOoBean extends Composite {
         setToolBarVisible(bVisible);
         setStatusBarVisible(bVisible);
         this.bIgnoreVisibility = false;
-        
+
     }
 
     /**
      * --------------------------------------------------------------------------
      * Applies all tool visibilities to the real thing.
+     *
      * @deprecated Clients should use the service com.sun.star.frame.LayoutManager, which can be obtained from a frame,
      * to control toolbars. See also {@link #setAllBarsVisible setAllBarsVisible}.
      */
@@ -882,11 +897,12 @@ public class SwtLinuxOOoBean extends Composite {
         setToolBarVisible(this.bToolBarVisible);
         setStatusBarVisible(this.bStatusBarVisible);
         this.bIgnoreVisibility = false;
-        
+
     }
 
     /**
      * Helper method to set tool bar visibility.
+     *
      * @param aResourceURL property owner
      * @param bOldValue old visibility ?
      * @param bNewValue If false, the tool bar is disabled, If true, the tool bar is visible.
@@ -900,11 +916,11 @@ public class SwtLinuxOOoBean extends Composite {
     public boolean setToolVisible(final String aResourceURL, final boolean bOldValue, final boolean bNewValue) throws InterruptedException {
         // start runtime timeout
         CallWatchThread aCallWatchThread = new CallWatchThread(this.nOOoCallTimeOut, "setToolVisible");
-        
+
         // Does a frame exist?
         if (this.aFrame != null) {
             if (this.bIgnoreVisibility || bOldValue != bNewValue) {
-        
+
                 final Frame frame = this.aFrame;
                 try {
                     com.sun.star.beans.XPropertySet xPropSet = UnoRuntime.queryInterface(com.sun.star.beans.XPropertySet.class,
@@ -915,13 +931,13 @@ public class SwtLinuxOOoBean extends Composite {
                         if (xLayoutManager.getElement(aResourceURL) == null) {
                             xLayoutManager.createElement(aResourceURL);
                         }
-        
+
                         xLayoutManager.showElement(aResourceURL);
                         xLayoutManager.doLayout();
                     } else {
                         xLayoutManager.hideElement(aResourceURL);
                     }
-        
+
                     /*
                      * System.out.println("=> "+aResourceURL+"' => "+bNewValue);
                      * for (XUIElement ui : xLayoutManager.getElements()) {
@@ -934,27 +950,28 @@ public class SwtLinuxOOoBean extends Composite {
                 } catch (com.sun.star.lang.WrappedTargetException aExc) {
                     throw new RuntimeException("Error finding layout manager:" + aExc.getMessage(), aExc);
                 }
-        
+
                 // notify change
                 getParent().layout(new Control[] { this });
-        
+
             }
         }
-        
+
         // end runtime timeout
         aCallWatchThread.cancel();
-        
+
         // the new value will be stored by caller
         return bNewValue;
     }
 
     /**
      * Sets the visibility of the menu bar.
-     * 
+     *
      * Initially the menu bar is visible.
      * <p>
      * If not connected or no document loaded, the value is stored and automatically applied to the document after it is
      * loaded. Same is valid when the connection dies within this function call.
+     *
      * @param bVisible If false, the menu bar is disabled, If true, the menu bar is visible.
      * @deprecated Clients should use the service com.sun.star.frame.LayoutManager, which can be obtained from a frame,
      * to control toolbars. See also {@link #setAllBarsVisible}.
@@ -969,14 +986,15 @@ public class SwtLinuxOOoBean extends Composite {
         } catch (java.lang.InterruptedException aExc) {
             this.bMenuBarVisible = bVisible;
         }
-        
+
     }
 
     /**
      * Returns the visibility of the menu bar.
-     * 
+     *
      * This method works independently from a connetion or loaded document. If no connection is established or no
      * document is loaded, this method just returns a memorized status.
+     *
      * @return True if the menu bar is visible, false if the menu bar is hidden.
      * @deprecated Clients should use the service com.sun.star.frame.LayoutManager, which can be obtained from a frame,
      * to control toolbars. See also {@link #setAllBarsVisible}.
@@ -989,11 +1007,12 @@ public class SwtLinuxOOoBean extends Composite {
 
     /**
      * Sets the main function bar visibilty.
-     * 
+     *
      * Initially the standard bar is visible.
-     * 
+     *
      * If not connected or no document loaded, the value is stored and automatically applied to the document after it is
      * loaded. Same is valid when the connection dies within this function call.
+     *
      * @param bVisible If false, the main function bar is disabled, If true, the main function bar is visible.
      * @deprecated Clients should use the service com.sun.star.frame.LayoutManager, which can be obtained from a frame,
      * to control toolbars. See also {@link #setAllBarsVisible}.
@@ -1008,14 +1027,15 @@ public class SwtLinuxOOoBean extends Composite {
         } catch (java.lang.InterruptedException aExc) {
             this.bMenuBarVisible = bVisible;
         }
-        
+
     }
 
     /**
      * Returns the visibility of the main function bar.
-     * 
+     *
      * This method works independently from a connetion or loaded document. If no connection is established or no
      * document is loaded, this method just returns a memorized status.
+     *
      * @return True if the main function bar is visible, false if the main function bar is hidden.
      * @deprecated Clients should use the service com.sun.star.frame.LayoutManager, which can be obtained from a frame,
      * to control toolbars. See also {@link #setAllBarsVisible}.
@@ -1028,11 +1048,12 @@ public class SwtLinuxOOoBean extends Composite {
 
     /**
      * Sets the tool function bar visibilty.
-     * 
+     *
      * Initially the tool bar is visible.
-     * 
+     *
      * If not connected or no document loaded, the value is stored and automatically applied to the document after it is
      * loaded. Same is valid when the connection dies within this function call.
+     *
      * @param bVisible If false, the tool function bar is disabled, If true, the tool function bar is visible.
      * @deprecated Clients should use the service com.sun.star.frame.LayoutManager, which can be obtained from a frame,
      * to control toolbars. See also {@link #setAllBarsVisible}.
@@ -1047,14 +1068,15 @@ public class SwtLinuxOOoBean extends Composite {
         } catch (java.lang.InterruptedException aExc) {
             this.bMenuBarVisible = bVisible;
         }
-        
+
     }
 
     /**
      * Returns the visibility of the tool function bar.
-     * 
+     *
      * This method works independently from a connection or loaded document. If no connection is established or no
      * document is loaded, this method just returns a memorized status.
+     *
      * @return True if the tool function bar is visible, false if the tool function bar is hidden.
      * @deprecated Clients should use the service com.sun.star.frame.LayoutManager, which can be obtained from a frame,
      * to control toolbars. See also {@link #setAllBarsVisible}.
@@ -1067,11 +1089,12 @@ public class SwtLinuxOOoBean extends Composite {
 
     /**
      * Sets the status function bar visibilty.
-     * 
+     *
      * Initially the status bar is visible.
-     * 
+     *
      * If not connected or no document loaded, the value is stored and automatically applied to the document after it is
      * loaded. Same is valid when the connection dies within this function call.
+     *
      * @param bVisible If false, the status function bar is disabled, If true, the status function bar is visible.
      * @deprecated Clients should use the service com.sun.star.frame.LayoutManager, which can be obtained from a frame,
      * to control toolbars. See also {@link #setAllBarsVisible}.
@@ -1086,14 +1109,15 @@ public class SwtLinuxOOoBean extends Composite {
         } catch (java.lang.InterruptedException aExc) {
             this.bMenuBarVisible = bVisible;
         }
-        
+
     }
 
     /**
      * Returns the visibility of the status function bar.
-     * 
+     *
      * This method works independently from a connetion or loaded document. If no connection is established or no
      * document is loaded, this method just returns a memorized status.
+     *
      * @return True if the status function bar is visible, false if the status function bar is hidden.
      * @deprecated Clients should use the service com.sun.star.frame.LayoutManager, which can be obtained from a frame,
      * to control toolbars. See also {@link #setAllBarsVisible}.
@@ -1113,7 +1137,7 @@ public class SwtLinuxOOoBean extends Composite {
          */
     /**
      * Adds a single argument to an array of arguments.
-     * 
+     *
      * If the argument by its name is already in aArguments it is exchanged and aArguments is returned.
      * <p>
      * If the argument by its name is not yet in aArguments, a new array is created, aArgument added and the new array
@@ -1127,29 +1151,29 @@ public class SwtLinuxOOoBean extends Composite {
         if (aArguments != null) {
             nNumArgs = aArguments.length;
         }
-        
+
         // is new argument already set?
         for (int n = 0; n < nNumArgs; ++n) {
             if (aArguments[n].Name == aArgument.Name) {
                 // substitute this argument
                 aArguments[n] = aArgument;
-        
+
                 // return current array
                 return aArguments;
             }
         }
-        
+
         // create extended arguments
         com.sun.star.beans.PropertyValue[] aExtendedArguments = new com.sun.star.beans.PropertyValue[nNumArgs + 1];
-        
+
         // copy current arguments
         for (int n = 0; n < nNumArgs; ++n) {
             aExtendedArguments[n] = aArguments[n];
         }
-        
+
         // add new argument
         aExtendedArguments[nNumArgs] = aArgument;
-        
+
         // return new arguments
         return aExtendedArguments;
     }
@@ -1157,6 +1181,7 @@ public class SwtLinuxOOoBean extends Composite {
     /**
      * Creating a correct File URL that OpenOffice can handle. This is
      * necessary to be platform independent.
+     *
      * @param newfile a file path
      * @return the OpenOffice compatible URL.
      * @throws NoConnectionException if not connected to OpenOffice
@@ -1169,9 +1194,9 @@ public class SwtLinuxOOoBean extends Composite {
         } catch (MalformedURLException e) {
             throw new IllegalArgumentException(e);
         }
-        
+
         XComponentContext xRemoteContext;
-        
+
         try {
             xRemoteContext = getOOoConnection().getComponentContext();
         } catch (java.lang.Throwable aExc) {
@@ -1180,11 +1205,11 @@ public class SwtLinuxOOoBean extends Composite {
         if (xRemoteContext == null) {
             throw new NoConnectionException();
         }
-        
+
         // Create a URL, which can be used by UNO
         String myUNOFileURL = com.sun.star.uri.ExternalUriReferenceTranslator
                 .create(xRemoteContext).translateToInternal(before.toExternalForm());
-        
+
         if (myUNOFileURL.length() == 0 && newfile.getPath().length() > 0) {
             System.out.println("File URL conversion faild. Filelocation " +
                     "contains illegal characters: " + newfile.getPath());
@@ -1201,13 +1226,14 @@ public class SwtLinuxOOoBean extends Composite {
      * disables the automatic backup and recovery mechanism. OOoBean offers currently no supported way of providing
      * startup options for OOo. But it is possible to set a Java property when starting Java, which is examined by
      * OOoBean:
-     * 
+     *
      * <pre>
      * java -Dcom.sun.star.officebean.Options=-norestore  ...
      * </pre>
-     * 
+     *
      * It is planned to offer a way of specifying startup options in a future version. The property can be used until
      * then. When using this property only one option can be provided.
+     *
      * @param aURL the destination
      * @param aArguments MediaDescriptor properties. see <a href="http://api.openoffice.org/docs/common/ref/com/sun/star/document/MediaDescriptor.html#CharacterSet">MediaDescriptor documentation</a>
      * @throws IllegalArgumentException if either of the arguments is out of the specified range.
@@ -1221,10 +1247,10 @@ public class SwtLinuxOOoBean extends Composite {
         if (this.aDocument == null) {
             throw new NoDocumentException();
         }
-        
+
         // start runtime timeout
         CallWatchThread aCallWatchThread = new CallWatchThread(this.nOOoCallTimeOut, "storeAsURL");
-        
+
         // store the document
         try {
             this.aDocument.storeAsURL(aURL, aArguments);
@@ -1238,11 +1264,12 @@ public class SwtLinuxOOoBean extends Composite {
             // end runtime timeout
             aCallWatchThread.cancel();
         }
-        
+
     }
 
     /**
      * Get the interaction handler able to handle some problems.
+     *
      * @return the interaction handler
      * @throws NoConnectionException if the specified connection cannot be established
      */
@@ -1253,10 +1280,10 @@ public class SwtLinuxOOoBean extends Composite {
             throw new NoConnectionException();
             // XComponentContext xContext = Bootstrap.bootstrap();
         }
-        
+
         com.sun.star.uno.XComponentContext xContext = this.iConnection.getComponentContext();
         com.sun.star.lang.XMultiComponentFactory xMCF = xContext.getServiceManager();
-        
+
         // Get a desktop
         Object desktop;
         try {
@@ -1269,6 +1296,7 @@ public class SwtLinuxOOoBean extends Composite {
 
     /**
      * Store the currently edited document.
+     *
      * @throws IllegalArgumentException if either of the arguments is out of the specified range.
      * @throws IOException if an IO error occurs reading the resource specified by the URL.
      * @throws NoConnectionException if no connection is established.
@@ -1280,10 +1308,10 @@ public class SwtLinuxOOoBean extends Composite {
         if (this.aDocument == null) {
             throw new NoDocumentException();
         }
-        
+
         // start runtime timeout
         CallWatchThread aCallWatchThread = new CallWatchThread(this.nOOoCallTimeOut, "storeToURL");
-        
+
         // store the document
         try {
             this.aDocument.store();
@@ -1295,7 +1323,7 @@ public class SwtLinuxOOoBean extends Composite {
             // end runtime timeout
             aCallWatchThread.cancel();
         }
-        
+
     }
 
     /**
@@ -1311,6 +1339,7 @@ public class SwtLinuxOOoBean extends Composite {
      * <p>
      * Another scenario is that a SwtOOoBean contains a document and is removed from a Java container and later added
      * again. Then <code>aquireSystemWindow</code> needs to be called after the container window is displayed.
+     *
      * @throws SystemWindowException if no system window can be aquired.
      * @throws NoConnectionException if the connection is not established.
      */
@@ -1319,20 +1348,21 @@ public class SwtLinuxOOoBean extends Composite {
         if (this.iConnection == null) {
             throw new NoConnectionException();
         }
-        
+
         if (!isVisible()) {
             throw new SystemWindowException();
         }
-        
+
         if (this.swtFrameWindow != null) {
             this.swtFrameWindow.setVisible(true);
         }
-        
+
         layout();
-        
+
     }
 
     /**
+     *
      * @return the XComponentContext.
      * @throws NoConnectionException if no connection to OpenOffice
      */
@@ -1347,10 +1377,10 @@ public class SwtLinuxOOoBean extends Composite {
     @objid ("82221da2-61ae-45c1-9b7d-94eaecf9298e")
     private void clearSwtFrameWindow() {
         final SwtLinuxOfficeWindow swtWindow = this.swtFrameWindow;
-        
+
         if (swtWindow != null && !swtWindow.isDisposed()) {
             swtWindow.getDisplay().asyncExec(new Runnable() {
-        
+
                 @Override
                 public void run() {
                     if (!swtWindow.isDisposed()) {
@@ -1360,11 +1390,12 @@ public class SwtLinuxOOoBean extends Composite {
             });
         }
         this.swtFrameWindow = null;
-        
+
     }
 
     /**
      * Close the document.
+     *
      * @throws IOException in case of failure.
      */
     @objid ("26c4ff57-428e-4fd2-8d5f-9a757faa4740")
@@ -1374,7 +1405,7 @@ public class SwtLinuxOOoBean extends Composite {
         } catch (CloseVetoException e) {
             throw new IOException(e.getCause());
         }
-        
+
     }
 
     /**
@@ -1412,7 +1443,7 @@ public class SwtLinuxOOoBean extends Composite {
             dbgPrint("OOO connection already disposed.");
             return false;
         }
-        
+
     }
 
     @objid ("d08c51df-9ed5-405b-888c-50a7ffd970b0")
@@ -1432,11 +1463,12 @@ public class SwtLinuxOOoBean extends Composite {
                 throw new java.io.IOException(c);
             }
         }
-        
+
     }
 
     /**
      * Create the OOO XFrame.
+     *
      * @throws com.sun.star.uno.Exception if com.sun.star.frame.Frame couldn't be instantiated
      * @throws NoConnectionException if no connection
      */
@@ -1446,7 +1478,7 @@ public class SwtLinuxOOoBean extends Composite {
         if (this.swtFrameWindow == null) {
             initSWTOfficeWindow();
         }
-        
+
         // create the frame
         com.sun.star.awt.XWindow xWindow = UnoRuntime.queryInterface(com.sun.star.awt.XWindow.class,
                 this.swtFrameWindow.getUNOWindowPeer());
@@ -1455,19 +1487,20 @@ public class SwtLinuxOOoBean extends Composite {
                 xFrame));
         this.aFrame.initialize(xWindow);
         this.aFrame.setName(this.aFrame.toString());
-        
+
         // register the frame at the desktop
         com.sun.star.frame.XFrames xFrames = (UnoRuntime.queryInterface(com.sun.star.frame.XFramesSupplier.class,
                 getOOoDesktop())).getFrames();
         xFrames.append(this.aFrame);
-        
+
         this.pack(true);
         this.layout(true);
-        
+
     }
 
     /**
      * Initialize the SWTOfficeWindow.
+     *
      * @throws NoConnectionException if no connection is established and no default connection can be established.
      */
     @objid ("11496fa0-bd5c-415d-8c16-7d0c423c8854")
@@ -1476,14 +1509,14 @@ public class SwtLinuxOOoBean extends Composite {
         for (Control c : getChildren()) {
             c.dispose();
         }
-        
+
         // Create the OfficeWindow.
         this.swtFrameWindow = new SwtLinuxOfficeWindow(getOOoConnection(), this);
-        
+
         this.pack(true);
         this.layout(true);
         getDisplay().update();
-        
+
     }
 
     // ===========================================================================
@@ -1491,7 +1524,7 @@ public class SwtLinuxOOoBean extends Composite {
     // ---------------------------------------------------------------------------
     /**
      * Helper class to listen on the connection to learn when it dies.
-     * 
+     *
      * @internal
      */
     @objid ("1615a827-e370-4730-847a-d2a46be8e220")
@@ -1501,29 +1534,29 @@ public class SwtLinuxOOoBean extends Composite {
 
         @objid ("ddd5f8d3-bca2-4692-8666-27b54d4a4541")
         @SuppressWarnings ("synthetic-access")
-         EventListener(final String aTag) throws NoConnectionException {
+        EventListener(final String aTag) throws NoConnectionException {
             super(aTag);
-            
+
             // init members
             this.aTag = aTag;
-            
+
             // listen on a dying connection
             SwtLinuxOOoBean.this.iConnection.addEventListener(this);
-            
+
             // listen on a terminating OOo
             getOOoDesktop().addTerminateListener(this);
-            
+
             // start this thread as a daemon
             setDaemon(true);
             start();
-            
+
         }
 
         @objid ("877c0515-56d6-4114-8b98-51d9dcf25fc5")
         @SuppressWarnings ("synthetic-access")
         public void end() {
             dbgPrint("EventListener(" + this.aTag + ").end()");
-            
+
             // do not listen on a dying connection anymore
             try {
                 OfficeConnection lConnection = SwtLinuxOOoBean.this.iConnection;
@@ -1533,21 +1566,21 @@ public class SwtLinuxOOoBean extends Composite {
             } catch (java.lang.RuntimeException aExc) {
                 // ignore
             }
-            
+
             // do not listen on a terminating OOo anymore
             try {
                 CallWatchThread aCallWatchThread = new CallWatchThread(SwtLinuxOOoBean.this.nOOoCallTimeOut, "EventListener(" + this.aTag + ").end()");
-            
+
                 getOOoDesktop().removeTerminateListener(this);
-            
+
                 aCallWatchThread.cancel();
             } catch (Exception aExc) {
                 // ignore
             }
-            
+
             // stop thread
             interrupt();
-            
+
         }
 
         /**
@@ -1559,7 +1592,7 @@ public class SwtLinuxOOoBean extends Composite {
             dbgPrint("EventListener(" + this.aTag + ").disposing()");
             // empty the OOoBean and cut the connection
             stopOOoConnection();
-            
+
         }
 
         /**
@@ -1570,7 +1603,7 @@ public class SwtLinuxOOoBean extends Composite {
         public void queryTermination(final com.sun.star.lang.EventObject Event) throws com.sun.star.frame.TerminationVetoException {
             // disallow termination of OOo while a OOoBean exists
             throw new com.sun.star.frame.TerminationVetoException();
-            
+
         }
 
         /**
@@ -1582,7 +1615,7 @@ public class SwtLinuxOOoBean extends Composite {
             dbgPrint("EventListener(" + this.aTag + ").notifyTermination()");
             // empty the OOoBean and cut the connection
             stopOOoConnection();
-            
+
         }
 
         /**
@@ -1593,24 +1626,24 @@ public class SwtLinuxOOoBean extends Composite {
         @Override
         public void run() {
             dbgPrint("EventListener(" + this.aTag + ").run()");
-            
+
             // remote call might hang => watch try
             CallWatchThread aCallWatchThread = new CallWatchThread(SwtLinuxOOoBean.this.nOOoCallTimeOut,
                     "EventListener(" + this.aTag + ")");
-            
+
             // continue to trying to connect the OOo instance
             long n = 0;
             while (isInterrupted() == false &&
                     SwtLinuxOOoBean.this.iConnection != null &&
                     SwtLinuxOOoBean.this.iConnection.getComponentContext() != null) {
                 // dbgPrint("EventListener(" + this.aTag + ").running() #" + ++n);
-            
+
                 // still alive?
                 try {
                     // an arbitrary (but cheap) call into OOo
                     @SuppressWarnings ("unused")
                     XMultiComponentFactory xServiceManager = SwtLinuxOOoBean.this.iConnection.getComponentContext().getServiceManager();
-            
+
                     // Test the document is alive
                     /*
                      * try {
@@ -1621,7 +1654,7 @@ public class SwtLinuxOOoBean extends Composite {
                      * // Ignore
                      * }
                      */
-            
+
                     // call successfully performed, restart watch for next loop
                     try {
                         aCallWatchThread.restart();
@@ -1636,7 +1669,7 @@ public class SwtLinuxOOoBean extends Composite {
                     SwtLinuxOOoBean.this.iConnection = null;
                     iDeadConn.dispose();
                 }
-            
+
                 // sleep
                 try {
                     sleep(SwtLinuxOOoBean.this.nOOoCheckCycle);
@@ -1646,10 +1679,10 @@ public class SwtLinuxOOoBean extends Composite {
                     break;
                 }
             }
-            
+
             aCallWatchThread.cancel();
             dbgPrint("EventListener(" + this.aTag + ").run() finished");
-            
+
         }
 
     }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.collabuse;
 
@@ -71,32 +71,33 @@ public final class GmCollaborationUse extends GmPortContainer {
 
     /**
      * Default constructor.
+     *
      * @param diagram the diagram in which this gm is unmasked.
      * @param theCollabCase the represented object node, may be null.
      * @param ref a reference to the represented object node.
      */
     @objid ("34723694-55b7-11e2-877f-002564c97630")
-    public  GmCollaborationUse(IGmDiagram diagram, final CollaborationUse theCollabCase, MRef ref) {
+    public GmCollaborationUse(IGmDiagram diagram, final CollaborationUse theCollabCase, MRef ref) {
         super(diagram, ref);
         this.collabUse = theCollabCase;
-        
+
         GmCollaborationUsePrimaryNode primary = new GmCollaborationUsePrimaryNode(diagram, ref);
         primary.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
         addChild(primary);
-        
+
         GmDefaultModelElementLabel header = new GmDefaultModelElementLabel(diagram, ref);
         header.setRoleInComposition(IMAGE_MODE_HEADER);
         header.setLayoutData(PositionConstants.SOUTH);
-        
+
         super.addChild(header);
-        
+
     }
 
     /**
      * Empty constructor, needed for serialization.
      */
     @objid ("3473bd05-55b7-11e2-877f-002564c97630")
-    public  GmCollaborationUse() {
+    public GmCollaborationUse() {
         // empty constructor for the serialization
     }
 
@@ -125,12 +126,12 @@ public final class GmCollaborationUse extends GmPortContainer {
         if (ret != null) {
             return ret;
         }
-        
+
         ret = SIMPLE_KEYS.getStyleKey(metakey);
         if (ret != null) {
             return ret;
         }
-        
+
         ret = IMAGE_KEYS.getStyleKey(metakey);
         return ret;
     }
@@ -152,7 +153,7 @@ public final class GmCollaborationUse extends GmPortContainer {
         } else {
             return Collections.emptyList();
         }
-        
+
     }
 
     @objid ("3473bd30-55b7-11e2-877f-002564c97630")
@@ -172,25 +173,25 @@ public final class GmCollaborationUse extends GmPortContainer {
                 break;
             }
         }
-        
+
     }
 
     @objid ("3473bd36-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0.
         writeMinorVersion(out, "GmCollaborationUse.", Integer.valueOf(GmCollaborationUse.MINOR_VERSION));
-        
+
     }
 
     @objid ("3475439c-55b7-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
-        
+
         this.collabUse = (CollaborationUse) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("347543a1-55b7-11e2-877f-002564c97630")
@@ -201,6 +202,7 @@ public final class GmCollaborationUse extends GmPortContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */
@@ -212,6 +214,7 @@ public final class GmCollaborationUse extends GmPortContainer {
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */
@@ -229,7 +232,7 @@ public final class GmCollaborationUse extends GmPortContainer {
         } else {
             super.addStartingLink(link);
         }
-        
+
     }
 
     @objid ("347543c7-55b7-11e2-877f-002564c97630")
@@ -240,7 +243,7 @@ public final class GmCollaborationUse extends GmPortContainer {
         } else {
             super.addEndingLink(link);
         }
-        
+
     }
 
     @objid ("347543ce-55b7-11e2-877f-002564c97630")
@@ -259,7 +262,7 @@ public final class GmCollaborationUse extends GmPortContainer {
                 case IMAGE:
                 default:
                     break;
-        
+
             }
         }
         return ret;
@@ -267,23 +270,24 @@ public final class GmCollaborationUse extends GmPortContainer {
 
     /**
      * Migration constructor from major version 0, should only be called by migrator.
+     *
      * @param oldVersionGm the instance to migrate from.
      */
     @objid ("3476ca3e-55b7-11e2-877f-002564c97630")
-     GmCollaborationUse(final _GmCollaborationUse oldVersionGm) {
+    GmCollaborationUse(final _GmCollaborationUse oldVersionGm) {
         super(oldVersionGm.getDiagram(), oldVersionGm.getRepresentedRef());
         this.collabUse = oldVersionGm.getRelatedElement();
-        
+
         GmCollaborationUsePrimaryNode primary = new GmCollaborationUsePrimaryNode(oldVersionGm);
         primary.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
         addChild(primary);
-        
+
         GmDefaultModelElementLabel header = new GmDefaultModelElementLabel(oldVersionGm.getDiagram(), oldVersionGm.getRepresentedRef());
         header.setRoleInComposition(IMAGE_MODE_HEADER);
         header.setLayoutData(PositionConstants.SOUTH);
-        
+
         super.addChild(header);
-        
+
     }
 
     @objid ("f78a362a-e3cf-49e3-9fa8-38b6cfc2e801")

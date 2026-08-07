@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.impl.load;
 
@@ -34,6 +34,7 @@ import org.modelio.vcore.session.impl.transactions.smAction.DeleteElementAction;
 import org.modelio.vcore.session.impl.transactions.smAction.EraseDependencyAction;
 import org.modelio.vcore.session.impl.transactions.smAction.IAction;
 import org.modelio.vcore.session.impl.transactions.smAction.SetAttributeAction;
+import org.modelio.vcore.smkernel.IMetaOf;
 import org.modelio.vcore.smkernel.IRStatus;
 import org.modelio.vcore.smkernel.IRepositoryObject;
 import org.modelio.vcore.smkernel.ISmObjectData;
@@ -84,14 +85,17 @@ class ModelRefresher extends ModelLoader implements IModelRefresher {
     @objid ("d46b9f04-832b-42d3-a854-747c2133fbc7")
     private final IRepositoryObject unloadedRepoHandle;
 
+    @objid ("323be423-7584-4565-8632-573caf1b0e37")
+    private final IMetaOf deletedMetaOf;
+
     @objid ("7d88c89e-1c43-11e2-8eb9-001ec947ccaf")
-    public  ModelRefresher(ModelLoaderConfiguration loaderConfig, Collection<IModelLoader> pool) {
+    public ModelRefresher(ModelLoaderConfiguration loaderConfig, Collection<IModelLoader> pool) {
         super(loaderConfig, pool);
         this.refreshEventService = loaderConfig.getRefreshEventService();
         this.unloadedRepoHandle = loaderConfig.getUnloadedRepositoryHandle();
-        
+        this.deletedMetaOf = loaderConfig.getDeletedMetaObject();
+
         reset();
-        
     }
 
     @objid ("7d8b2af7-1c43-11e2-8eb9-001ec947ccaf")
@@ -99,20 +103,19 @@ class ModelRefresher extends ModelLoader implements IModelRefresher {
     protected void doClose() {
         // inherited behavior
         super.doClose();
-        
+
         // Triggers the refresh event service
         this.refreshEventService.addEvent(this.recordedActions, this.deletedData);
-        
+
         // Reinitialize
         reset();
-        
     }
 
     @objid ("7d88c8a7-1c43-11e2-8eb9-001ec947ccaf")
     @Override
     public SmObjectImpl createLoadedObject(SmClass classof, String id) throws DuplicateObjectException {
         SmObjectImpl ret = super.createLoadedObject(classof, id);
-        
+
         this.recordedActions.add(new CreateElementAction(ret));
         return ret;
     }
@@ -121,13 +124,12 @@ class ModelRefresher extends ModelLoader implements IModelRefresher {
     @Override
     public void loadAttribute(SmObjectImpl obj, SmAttribute att, Object newValue) {
         final Object oldVal = att.getValue(obj.getData());
-        
+
         super.loadAttribute(obj, att, newValue);
-        
+
         if (! Objects.equals(oldVal, newValue)) {
             this.recordedActions.add(new SetAttributeAction(obj, att, oldVal, newValue));
         }
-        
     }
 
     @objid ("7d88c8b4-1c43-11e2-8eb9-001ec947ccaf")
@@ -139,13 +141,14 @@ class ModelRefresher extends ModelLoader implements IModelRefresher {
     @objid ("d2837cc9-1ebc-11e2-99fc-001ec947ccaf")
     private Collection<SmObjectImpl> getObjsToDelete() {
         Collection<SmObjectImpl> ret = new ArrayList<>(this.deletedObjs.size() + this.mayBeOrphan.size() / 2);
-        
+
         // Add explicitly deleted objects
         ret.addAll(this.deletedObjs);
-        
+
         // Add orphans objects
         for (SmObjectImpl obj : this.mayBeOrphan) {
-            if (obj.getCompositionOwner() == null) {
+            // Conference fragments : keep already locally deleted objects in memory to allow undo/redo
+            if (! obj.isDeleted() && obj.getCompositionOwner() == null) {
                 ret.add(obj);
             }
         }
@@ -163,7 +166,6 @@ class ModelRefresher extends ModelLoader implements IModelRefresher {
         this.deleter = new ModelRefreshDeleter(this);
         this.deletedObjs = new ArrayList<>();
         this.deletedData = new ArrayList<>();
-        
     }
 
     @objid ("8fd36252-152e-4714-b0bf-0f1b36269037")
@@ -171,15 +173,14 @@ class ModelRefresher extends ModelLoader implements IModelRefresher {
     public void setPStatus(SmObjectImpl obj, long trueFlags, long falseFlags, long undefFlags) {
         final ISmObjectData data = obj.getData();
         final long oldStatus = data.getStatus();
-        
+
         data.setPFlags(trueFlags, falseFlags, undefFlags);
-        
+
         long objStatus = data.getStatus();
-        
+
         if (oldStatus != objStatus) {
             this.recordedActions.add(new SetAttributeAction(obj, obj.getClassOf().statusAtt(), oldStatus, objStatus));
         }
-        
     }
 
     @objid ("3bae9bad-1d7f-42cf-bb22-5cb6afda897a")
@@ -187,34 +188,37 @@ class ModelRefresher extends ModelLoader implements IModelRefresher {
     public void setRStatus(SmObjectImpl obj, long trueFlags, long falseFlags, long undefFlags) {
         final ISmObjectData data = obj.getData();
         final long oldStatus = data.getStatus();
-        
+
         data.setRFlags(trueFlags, falseFlags, undefFlags);
-        
+
         long objStatus = data.getStatus();
-        
+
         if (oldStatus != objStatus) {
             this.recordedActions.add(new SetAttributeAction(obj, obj.getClassOf().statusAtt(), oldStatus, objStatus));
         }
-        
     }
 
     @objid ("415ceb93-daaa-4e0f-8a01-4b2fd254b537")
     @Override
     public void deleteObject(SmObjectImpl obj) {
+        // Conference fragments : keep already locally deleted objects in memory to allow undo/redo
+        if (obj.isDeleted())
+            return;
+
         // record as deleted if not already done
         boolean wasAlive = this.deletedObjs.add(obj);
-        
+
         // Register action if needed (useful only for composition roots)
         if (wasAlive && !this.mayBeOrphan.contains(obj)) {
             this.recordedActions.add(new DeleteElementAction(obj));
         }
-        
     }
 
     /**
      * Remove a value to a dependency content.
      * <p>
      * Does not remove it from the other side.
+     *
      * @param obj a model object
      * @param dep the dependency to modify
      * @param toRemove the model object to remove
@@ -225,12 +229,12 @@ class ModelRefresher extends ModelLoader implements IModelRefresher {
     boolean eraseObjDepVal(SmObjectImpl obj, SmDependency dep, SmObjectImpl toRemove) {
         // do the job
         boolean ret = dep.remove(obj.getData(), toRemove);
-        
+
         if (ret) {
             if (dep.isComposition() || dep.isSharedComposition()) {
                 this.mayBeOrphan.add(toRemove);
             }
-        
+
             this.recordedActions.add(new EraseDependencyAction(obj, dep, toRemove, 0));
         }
         return ret;
@@ -238,39 +242,50 @@ class ModelRefresher extends ModelLoader implements IModelRefresher {
 
     /**
      * Delete the given object individually.
+     *
      * @param obj the object to delete.
      */
     @objid ("ab9f7625-7ea1-4657-89d9-48c962718e50")
     void doDeleteObject(SmObjectImpl obj) {
         ISmObjectData data = obj.getData();
-        
+
         // record deletion action
         this.recordedActions.add(new DeleteElementAction(obj));
-        
+
         // record deleted data before removing from cache to avoid early garbage collection
         this.deletedData.add(data);
-        
+
         //synchronized(this.cacheManager) {
-        
+        if (true) {
+            // 23/12/2025 : don't unload deleted objects anymore, keep them until save.
+            // Also help keeping deleted remote objects in memory.
+
+            // put nice status flags
+            data.setRFlags(IRStatus.DELETED , IRStatus.BEINGDELETED, 0);
+            this.cacheManager.addToDeleted(obj);
+
+            data.setMetaOf(this.deletedMetaOf);
+        } else {
+
             // remove SmObjectImpl and smObjectData from caches
             this.cacheManager.removeFromCache(obj);
-        
+
             // tell the repository to forget the object
             data.getRepositoryObject().unload(obj);
-        
+
             // put a special "unloaded" repository handle to prevent accidental future access
             data.setRepositoryObject(this.unloadedRepoHandle);
-        
+
             // put nice status flags
             data.setRFlags(IRStatus.DELETED | IRStatus.SHELL, IRStatus.BEINGDELETED, 0);
-            
+
             data.setMetaOf(getMetaOf());
-        //}
-        
+        }
     }
 
     /**
      * Debug method to dump recorded actions.
+     *
      * @return the string dump
      */
     @objid ("f1800684-5912-45f6-bdf2-18866b99e1da")
@@ -288,10 +303,9 @@ class ModelRefresher extends ModelLoader implements IModelRefresher {
     @Override
     protected void doFinalizeDeletions() {
         super.doFinalizeDeletions();
-        
+
         // Delete orphan elements
         this.deleter.doDelete(getObjsToDelete());
-        
     }
 
     /**
@@ -306,10 +320,9 @@ class ModelRefresher extends ModelLoader implements IModelRefresher {
         private Collection<IAction> recordedActions;
 
         @objid ("7d8b2afc-1c43-11e2-8eb9-001ec947ccaf")
-        public  DepRefresher(Collection<SmObjectImpl> orphanDetection, Collection<IAction> recordedActions) {
+        public DepRefresher(Collection<SmObjectImpl> orphanDetection, Collection<IAction> recordedActions) {
             this.orphanDetection = orphanDetection;
             this.recordedActions = recordedActions;
-            
         }
 
         @objid ("7d8b2b00-1c43-11e2-8eb9-001ec947ccaf")
@@ -324,9 +337,8 @@ class ModelRefresher extends ModelLoader implements IModelRefresher {
             if (dep.isComposition() || dep.isSharedComposition()) {
                 this.orphanDetection.add(value);
             }
-            
+
             this.recordedActions.add(new EraseDependencyAction(obj, dep, value, 0));
-            
         }
 
     }

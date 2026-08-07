@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -42,24 +42,24 @@ public class ECollaboration extends ENamedElement {
     }
 
     @objid ("36d076fa-8276-4756-97a9-0c31ed67c57c")
-    public  ECollaboration(org.eclipse.uml2.uml.Collaboration element) {
+    public ECollaboration(org.eclipse.uml2.uml.Collaboration element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("da2884d5-3ff5-4eae-bfc8-996f66bd8cf4")
     @Override
     public void attach(Element objingElt) {
         ReverseProperties revProp = ReverseProperties.getInstance();
-        
+
         org.eclipse.uml2.uml.Element ecoreOwner = this.ecoreElement.getOwner();
-        
+
         ModelElement objingOwner = (ModelElement) revProp
         .getMappedElement(ecoreOwner);
         Collaboration objingCollab = (Collaboration) objingElt;
-        
-        if (objingOwner instanceof Behavior) {                
+
+        if (objingOwner instanceof Behavior) {
             objingCollab.setBRepresented((Behavior) objingOwner);
         } else if (objingOwner instanceof Profile) {
             objingCollab.setOwner(revProp.getExternalPackage());
@@ -68,7 +68,7 @@ public class ECollaboration extends ENamedElement {
         } else {
             objingCollab.setOwner(revProp.getExternalPackage());
         }
-        
+
     }
 
     @objid ("c08f92d5-170e-4c45-8c52-ae8359dcefab")
@@ -81,7 +81,7 @@ public class ECollaboration extends ENamedElement {
             setConcurrentEAnnotation((Collaboration) objingElt);
             setRootEAnnotation((Collaboration)objingElt);
         }
-        
+
     }
 
     @objid ("61abc4fc-2539-47ba-99f8-2adc8a89fd00")

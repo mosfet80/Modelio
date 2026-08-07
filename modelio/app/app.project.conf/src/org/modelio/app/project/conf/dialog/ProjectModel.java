@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.conf.dialog;
 
@@ -47,15 +47,15 @@ public class ProjectModel {
     private PropertiesUrlAdapter propertiesUrlAdapter;
 
     @objid ("a7477205-33f6-11e2-a514-002564c97630")
-    public  ProjectModel(IGProject gProject) {
+    public ProjectModel(IGProject gProject) {
         this.gProject = gProject;
-        
+
         if (gProject != null) {
             this.propertiesUrlAdapter = new PropertiesUrlAdapter(gProject.getProperties());
         } else {
             this.propertiesUrlAdapter = new PropertiesUrlAdapter(new GProperties());
         }
-        
+
     }
 
     @objid ("a7477208-33f6-11e2-a514-002564c97630")
@@ -81,7 +81,7 @@ public class ProjectModel {
     @objid ("a747e73b-33f6-11e2-a514-002564c97630")
     public List<IGModelFragment> getSVNFragments() {
         List<IGModelFragment> svnFragments = new ArrayList<>();
-        
+
         for (IGModelFragment fragment : getAllFragments()) {
             switch (fragment.getType()) {
             case SVNFRAGMENT:
@@ -97,7 +97,7 @@ public class ProjectModel {
     @objid ("a7480e4b-33f6-11e2-a514-002564c97630")
     public List<IGModelFragment> getLocalFragments() {
         List<IGModelFragment> exmlFragments = new ArrayList<>();
-        
+
         for (IGModelFragment fragment : getAllFragments()) {
             switch (fragment.getType()) {
             case EXMLFRAGMENT:
@@ -113,7 +113,7 @@ public class ProjectModel {
     @objid ("a748355a-33f6-11e2-a514-002564c97630")
     public List<IGModelFragment> getDistantLibraryFragments() {
         List<IGModelFragment> urlFragments = new ArrayList<>();
-        
+
         for (IGModelFragment fragment : getAllFragments()) {
             switch (fragment.getType()) {
             case HTTPFRAGMENT:
@@ -129,7 +129,7 @@ public class ProjectModel {
     @objid ("a7485c6b-33f6-11e2-a514-002564c97630")
     public List<IGModelFragment> getLocalLibraryFragments() {
         List<IGModelFragment> ramcFragments = new ArrayList<>();
-        
+
         List<IGModelFragment> allFragments = getAllFragments();
         List<String> toSkip = new ArrayList<>();
         toSkip.add("PredefinedTypes");
@@ -177,7 +177,7 @@ public class ProjectModel {
                 AppProjectConf.LOG.error(e);
             }
         }
-        
+
     }
 
     @objid ("cfc16cbc-eb8d-41c9-bcf0-f00f67f09d0e")
@@ -190,7 +190,7 @@ public class ProjectModel {
                 AppProjectConf.LOG.error(e);
             }
         }
-        
+
     }
 
     @objid ("242c69dd-5b9a-4553-8ccb-388352cf6271")
@@ -215,7 +215,7 @@ public class ProjectModel {
     @objid ("479ee3d8-103c-4c25-9560-d2b8b45a9697")
     public List<IGModelFragment> getModels() {
         List<IGModelFragment> models = new ArrayList<>();
-        
+
         for (IGModelFragment fragment : getAllFragments()) {
             for (MObject root : fragment.getRoots()) {
                 if (!(root instanceof ModuleComponent)) {

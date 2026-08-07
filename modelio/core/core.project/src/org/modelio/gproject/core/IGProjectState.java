@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.core;
 
@@ -33,6 +33,7 @@ import org.modelio.vbasic.progress.IModelioProgress;
  * <li> {@link GProjectStateEnum#OPENING} : installing and mounting parts
  * <li> {@link GProjectStateEnum#OPENED} : project opened.
  * </ol>
+ *
  * @author phv
  */
 @objid ("0286dc37-c167-40d9-95f8-961d4c864dfa")
@@ -42,6 +43,7 @@ public interface IGProjectState {
 
     /**
      * Tells the GProject is instantiated.
+     *
      * @return the new state
      * @throws IllegalStateException on wrong previous state.
      */
@@ -50,6 +52,7 @@ public interface IGProjectState {
 
     /**
      * Tells the ICoreSession is instantiated and open.
+     *
      * @return the new state
      * @throws IllegalStateException on wrong previous state.
      */
@@ -58,6 +61,7 @@ public interface IGProjectState {
 
     /**
      * Tells the GProject parts are being installed and mount.
+     *
      * @return the new state
      * @throws IllegalStateException on wrong previous state.
      */
@@ -66,6 +70,7 @@ public interface IGProjectState {
 
     /**
      * Tells the GProject is fully open.
+     *
      * @return the new state
      * @throws IllegalStateException on wrong previous state.
      */
@@ -73,12 +78,14 @@ public interface IGProjectState {
     GProjectStateEnum sendOpened(IModelioProgress monitorSupplier) throws IllegalStateException;
 
     /**
+     *
      * @param listener a project state change listener
      */
     @objid ("bde6cfdc-37eb-4366-a624-8b48e18b859c")
     void addListener(IProjectStateChangeListener listener);
 
     /**
+     *
      * @param listener a project state change listener
      */
     @objid ("c9026282-63de-4347-8fd1-a190aa0e266c")
@@ -95,6 +102,7 @@ public interface IGProjectState {
      * <li> {@link GProjectStateEnum#OPENING} : installing and mounting parts
      * <li> {@link GProjectStateEnum#OPENED} : project opened.
      * </ol>
+     *
      * @author phv
      */
     @objid ("4d9465eb-0c39-4125-9645-24cae289434c")
@@ -129,12 +137,13 @@ public interface IGProjectState {
     interface IProjectStateChangeListener {
         /**
          * Fired when a project changes state.
+         *
          * @param monitorSupplier a progress monitor to be used <b>only</b> if the listener runs long operations
          * @param current the project's state.
          */
         @objid ("6339b634-33cc-4c3c-9a02-9e8f869b4d2f")
         void stateChanged(IModelioProgress monitorSupplier, GProjectStateEnum current);
-}
-    
-}
 
+    }
+
+}

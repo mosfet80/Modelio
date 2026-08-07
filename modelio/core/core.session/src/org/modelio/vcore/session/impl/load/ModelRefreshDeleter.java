@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.impl.load;
 
@@ -38,32 +38,34 @@ class ModelRefreshDeleter {
 
     /**
      * Initialize the deleter.
+     *
      * @param loader the model refresher
      */
     @objid ("23849fba-2b5c-4985-bd30-3e9a7524e23a")
-    public  ModelRefreshDeleter(ModelRefresher loader) {
+    public ModelRefreshDeleter(ModelRefresher loader) {
         this.loader = loader;
     }
 
     /**
      * Delete the given model objects
+     *
      * @param rootsToDelete the objects to delete.
      */
     @objid ("d54ae311-3237-40ee-afa6-db6a40bf0a76")
     public void doDelete(Collection<SmObjectImpl> rootsToDelete) {
         // Compute all objects to delete
         Collection<SmObjectImpl> toDelete = new HashSet<>();
-        
+
         for (SmObjectImpl objToDelete : rootsToDelete) {
             getAllComponents(objToDelete, toDelete);
         }
-        
+
         // Set all objects as being deleted
         for (SmObjectImpl obj : toDelete) {
             this.loader.addModifiedData(obj.getData());
             obj.getData().setRFlags(IRStatus.BEINGDELETED, 0, 0);
         }
-        
+
         // Detach deleted objects from alive ones, only from the other side.
         for (SmObjectImpl objToDelete : toDelete) {
             ISmObjectData dataToDelete = objToDelete.getData();
@@ -72,7 +74,7 @@ class ModelRefreshDeleter {
                 if (!dep.isComposition() && ! dep.isSharedComposition()) {
                     SmDependency opposite = dep.getSymetric();
                     if (opposite != null) {
-                        
+
                         //this.loader.addLoadedData(data);
                         for (SmObjectImpl target : dep.getValueAsCollection(dataToDelete)) {
                             if (target.isValid()) {
@@ -86,23 +88,26 @@ class ModelRefreshDeleter {
                 }
             }
         }
-        
+
         // Set all objects as deleted
         for (SmObjectImpl obj : toDelete) {
             this.loader.doDeleteObject(obj);
         }
-        
     }
 
     /**
      * Get the already loaded composition tree.
+     *
      * @param obj the root object
      * @param toDelete the collection where to add the composition tree
      */
     @objid ("627bf484-70ad-43a4-80e1-4629d6347aa6")
     private void getAllComponents(SmObjectImpl obj, Collection<SmObjectImpl> toDelete) {
-        toDelete.add(obj);
-        
+        // Don't delete again already deleted elements
+        if (! obj.isDeleted()) {
+            toDelete.add(obj);
+        }
+
         final SmClass cls = obj.getClassOf();
         for (final SmDependency dep : cls.getAllDepDef()) {
             if (dep.isComposition() || dep.isSharedComposition()) {
@@ -114,7 +119,6 @@ class ModelRefreshDeleter {
                 }
             }
         }
-        
     }
 
     @objid ("7d4e6b67-a14a-4faa-a1eb-5b8b51bd8559")

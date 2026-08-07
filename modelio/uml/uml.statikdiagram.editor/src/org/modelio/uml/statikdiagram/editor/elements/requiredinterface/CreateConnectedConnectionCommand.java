@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.requiredinterface;
 
@@ -41,7 +41,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Command that creates a provided interface connected to a required interface or the reverse.
- * 
+ *
  * @author cmarin
  */
 @objid ("366fdb47-55b7-11e2-877f-002564c97630")
@@ -57,16 +57,17 @@ public class CreateConnectedConnectionCommand extends Command {
 
     /**
      * Initialize the command.
+     *
      * @param request the creation request.
      * @param targetPart The target required interface link edit part
      * @param location The join location
      */
     @objid ("366fdb4c-55b7-11e2-877f-002564c97630")
-    public  CreateConnectedConnectionCommand(final CreateConnectionRequest request, final EditPart targetPart, final Point location) {
+    public CreateConnectedConnectionCommand(final CreateConnectionRequest request, final EditPart targetPart, final Point location) {
         this.request = request;
         this.requiredInterfacePart = targetPart;
         this.location = location;
-        
+
     }
 
     @objid ("367161b9-55b7-11e2-877f-002564c97630")
@@ -77,24 +78,24 @@ public class CreateConnectedConnectionCommand extends Command {
         CreateConnectionRequest r1 = getRequestCopy();
         r1.setTargetEditPart(diagramEditPart);
         CreateLinkToVoidCommand c1 = (CreateLinkToVoidCommand) diagramEditPart.getCommand(r1);
-        
+
         c1.execute();
-        
+
         // Get the created element and edit part
         final MObject createdProvidedInterface = c1.getCreatedElement();
         final ConnectionEditPart provEditPart = (ConnectionEditPart) getEditPartFor(createdProvidedInterface);
-        
+
         // Request to connect the provided to the required.
         ReconnectRequest req = new ReconnectRequest(LinkToVoidConstants.REQ_LINKTOVOID_RECONNECT_TARGET);
         req.setConnectionEditPart(provEditPart);
         req.setTargetEditPart(this.requiredInterfacePart);
         req.setLocation(this.location);
-        
+
         Command c2 = this.requiredInterfacePart.getCommand(req);
         if (c2 != null && c2.canExecute()) {
             c2.execute();
         }
-        
+
     }
 
     @objid ("367161bc-55b7-11e2-877f-002564c97630")
@@ -105,17 +106,18 @@ public class CreateConnectedConnectionCommand extends Command {
         CreateConnectionRequest r1 = getRequestCopy();
         r1.setTargetEditPart(diagramEditPart);
         CreateLinkToVoidCommand c1 = (CreateLinkToVoidCommand) diagramEditPart.getCommand(r1);
-        
+
         if (c1 == null || !c1.canExecute()) {
             return false;
         }
-        
+
         // Check the target part is modifiable.
         GmModel tt = (GmModel) this.requiredInterfacePart.getModel();
         return MTools.getAuthTool().canModify(tt.getRelatedElement());
     }
 
     /**
+     *
      * @return a copy of the request.
      */
     @objid ("367161c1-55b7-11e2-877f-002564c97630")
@@ -138,7 +140,7 @@ public class CreateConnectedConnectionCommand extends Command {
             for (Point p : orig.getData().getPath()) {
                 dataCopy.getPath().add(p);
             }
-        
+
             return ret;
         } else {
             CreateConnectionRequest ret = new CreateConnectionRequest();
@@ -152,7 +154,7 @@ public class CreateConnectedConnectionCommand extends Command {
             ret.setType(this.request.getType());
             return ret;
         }
-        
+
     }
 
     @objid ("367161c5-55b7-11e2-877f-002564c97630")

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.mda;
 
 import java.util.ArrayList;
@@ -45,37 +44,37 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("006633d4-c4bf-1fd8-97fe-001ec947cd2a")
 public class ProjectImpl extends AbstractProjectImpl implements Project {
-    @objid ("9fbcf227-6882-47bf-961f-b399811d96a2")
+    @objid ("a9e80f8e-a6f5-496a-8630-2ce8a268d246")
     @Override
     public String getProjectContext() {
         return (String) getAttVal(((ProjectSmClass)getClassOf()).getProjectContextAtt());
     }
 
-    @objid ("63b29c80-d5c4-4fcf-8548-02f786202224")
+    @objid ("aba3586d-5c49-4bbe-b01e-24ab43289dd0")
     @Override
     public void setProjectContext(String value) {
         setAttVal(((ProjectSmClass)getClassOf()).getProjectContextAtt(), value);
     }
 
-    @objid ("0d729374-0155-4a91-a84d-59eab020cf3d")
+    @objid ("ff046642-f57b-48f9-a7fc-4f85f9490ce4")
     @Override
     public String getProjectDescr() {
         return (String) getAttVal(((ProjectSmClass)getClassOf()).getProjectDescrAtt());
     }
 
-    @objid ("ed1b0d7f-dad8-4ca9-8103-18950c4e53b7")
+    @objid ("4a043f67-9a2a-49d5-924d-6a730a6bab74")
     @Override
     public void setProjectDescr(String value) {
         setAttVal(((ProjectSmClass)getClassOf()).getProjectDescrAtt(), value);
     }
 
-    @objid ("f239f327-a3d1-425a-b2ab-bcde037e0565")
+    @objid ("08af00f8-deb0-4c6a-8ced-d578fbf8f292")
     @Override
     public EList<Package> getModel() {
         return new SmList<>(this, ((ProjectSmClass)getClassOf()).getModelDep());
     }
 
-    @objid ("d22928d0-2037-45d9-be63-f560381e2cfd")
+    @objid ("065f4b38-56ea-442a-98aa-06f4fc5c7067")
     @Override
     public <T extends Package> List<T> getModel(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -88,10 +87,10 @@ public class ProjectImpl extends AbstractProjectImpl implements Project {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("00b97de7-9c44-4e78-9ed5-43c879476077")
+    @objid ("e0936828-5632-4eab-8d19-4a0ade36f305")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -99,17 +98,17 @@ public class ProjectImpl extends AbstractProjectImpl implements Project {
         return super.getCompositionOwner();
     }
 
-    @objid ("bcaf06d2-d0a0-47b2-a8d4-60af9380f50c")
+    @objid ("757dece7-c08c-40c7-9a9c-a15de936b229")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("9c3c2db6-21c6-4c00-90a9-53752126d9ea")
+    @objid ("17d012fd-e213-445d-a04e-ab65b7811be1")
     @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
@@ -118,7 +117,7 @@ public class ProjectImpl extends AbstractProjectImpl implements Project {
           return super.accept(v);
     }
 
-    @objid ("1cfb1927-7ab0-43a4-8160-0661a8d0c9ef")
+    @objid ("b40bba4d-9721-4fa1-b733-f33e63bc4a36")
     public Object accept(IModelVisitor v) {
         return v.visitProject(this);
     }

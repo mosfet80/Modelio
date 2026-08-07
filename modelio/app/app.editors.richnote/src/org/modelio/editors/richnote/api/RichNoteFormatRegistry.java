@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.api;
 
@@ -76,7 +76,7 @@ public class RichNoteFormatRegistry implements IRichNoteFormatRegistry {
     private static IRichNoteEditorProvider loadDocumentProvider(final IConfigurationElement providerEl) {
         try {
             return (IRichNoteEditorProvider) providerEl.createExecutableExtension("class");
-        
+
         } catch (final CoreException e) {
             EditorsRichNote.LOG.error(e);
         }
@@ -87,14 +87,15 @@ public class RichNoteFormatRegistry implements IRichNoteFormatRegistry {
      * Constructor.
      */
     @objid ("8ec6a453-418a-4188-92c8-84be8ef1d942")
-    public  RichNoteFormatRegistry() {
+    public RichNoteFormatRegistry() {
         instance = this;
         init();
-        
+
     }
 
     /**
      * Get the format registry.
+     *
      * @return the format registry.
      */
     @objid ("baad7816-e378-44b2-b196-03e4ff36c1dc")
@@ -135,7 +136,7 @@ public class RichNoteFormatRegistry implements IRichNoteFormatRegistry {
     public RichNoteFormat getFileFormat(final File aFile) {
         final String path = aFile.getPath();
         final String extension = path.substring(path.lastIndexOf(".") + 1);
-        
+
         RichNoteFormat ret = null;
         for (final RichNoteFormat f : getAllFormats()) {
             if (f.getFileExtensions().contains(extension)) {
@@ -163,7 +164,7 @@ public class RichNoteFormatRegistry implements IRichNoteFormatRegistry {
             Platform.getExtensionRegistry().removeListener(this.listener);
             this.listener = null;
         }
-        
+
     }
 
     /**
@@ -173,7 +174,7 @@ public class RichNoteFormatRegistry implements IRichNoteFormatRegistry {
     void init() {
         this.listener = new RegistryListener();
         Platform.getExtensionRegistry().addListener(this.listener, DOCFORMATPROVIDER_EXTENSION_ID);
-        
+
     }
 
     /**
@@ -186,11 +187,12 @@ public class RichNoteFormatRegistry implements IRichNoteFormatRegistry {
     public void reset() {
         this.bestFormats = null;
         this.bestEditableFormats = null;
-        
+
     }
 
     /**
      * Tells whether the first given format is better than the second.
+     *
      * @param a the first format
      * @param b the second format
      * @return <code>true</code> if <i>a</i> is the best format else <code>false</code>
@@ -210,11 +212,11 @@ public class RichNoteFormatRegistry implements IRichNoteFormatRegistry {
     private void loadSupportedFormats() {
         this.bestFormats = new HashMap<>();
         this.bestEditableFormats = new HashMap<>();
-        
+
         // process registered listeners (RCP extensions)
         for (final IConfigurationElement  providerEl: new ExtensionPointContributionManager(DOCFORMATPROVIDER_EXTENSION_ID).getExtensions("provider")) {
             final IRichNoteEditorProvider docProvider = loadDocumentProvider(providerEl);
-        
+
             if (docProvider != null) {
                 final boolean providerUsable = docProvider.isUsable();
                 for (final IConfigurationElement  docEl: providerEl.getChildren("format")) {
@@ -223,13 +225,13 @@ public class RichNoteFormatRegistry implements IRichNoteFormatRegistry {
                     final String data = docEl.getAttribute("data");
                     final String extensions = docEl.getAttribute("extensions");
                     final boolean isAlternate = "alternate".equals(docEl.getAttribute("support"));
-        
+
                     final RichNoteFormat f = new RichNoteFormat(mimeType, extensions, isAlternate ? SupportLevel.Alternate : SupportLevel.Primary);
                     f.setLabel(label);
                     f.setEditorProvider(docProvider);
                     f.setData(data);
                     f.setIcon(getIcon(docEl, f));
-        
+
                     final RichNoteFormat existing = this.bestFormats.get(f.getMimeType());
                     if (existing==null || isFirstBest(f, existing)){
                         this.bestFormats.put(f.getMimeType(), f);
@@ -240,7 +242,7 @@ public class RichNoteFormatRegistry implements IRichNoteFormatRegistry {
                 }
             }
         }
-        
+
     }
 
     @objid ("98c52623-9922-4d89-bd48-e17db463f373")
@@ -259,6 +261,7 @@ public class RichNoteFormatRegistry implements IRichNoteFormatRegistry {
 
     /**
      * Get an icon for the given rich note format.
+     *
      * @param docEl the format declaration in plugin.xml
      * @param f the rich note format
      * @return The rich note format icon descriptor
@@ -268,7 +271,7 @@ public class RichNoteFormatRegistry implements IRichNoteFormatRegistry {
     private ImageDescriptor getIcon(final IConfigurationElement docEl, final RichNoteFormat f) throws InvalidRegistryObjectException {
         final String          iconPath = docEl.getAttribute("icon");
         ImageDescriptor desc     = null;
-        
+
         if (iconPath!=null && !iconPath.trim().isEmpty()) {
             final Bundle b = Platform.getBundle(docEl.getContributor().getName());
             final URL iconUrl = FileLocator.find(b, new Path(iconPath), null);
@@ -288,8 +291,8 @@ public class RichNoteFormatRegistry implements IRichNoteFormatRegistry {
     @objid ("6e4d8afc-1720-4798-8273-0fa47f739e2c")
     private class RegistryListener implements IRegistryEventListener {
         @objid ("2945f34f-947c-4eb8-a031-ef677dbbb622")
-        public  RegistryListener() {
-            
+        public RegistryListener() {
+
         }
 
         @objid ("90ca2181-40eb-4561-8426-d29bcee366ee")

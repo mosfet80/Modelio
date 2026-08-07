@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -54,15 +54,17 @@ public class SendSignalActionPropertyModel extends AbstractPropertyModel<SendSig
     /**
      * Create a new <i>SendSignalAction</i> data model from an
      * <i>SendSignalAction</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("4d476200-dfaf-48f2-a563-587770d911bf")
-    public  SendSignalActionPropertyModel(SendSignalAction theEditedElement) {
+    public SendSignalActionPropertyModel(SendSignalAction theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("15531a7d-c572-4cb9-b85d-68fdd58f1e26")
@@ -73,6 +75,7 @@ public class SendSignalActionPropertyModel extends AbstractPropertyModel<SendSig
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("57395912-060b-48fd-8b1f-92b8e1d86c3e")
@@ -85,6 +88,7 @@ public class SendSignalActionPropertyModel extends AbstractPropertyModel<SendSig
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -108,7 +112,7 @@ public class SendSignalActionPropertyModel extends AbstractPropertyModel<SendSig
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -118,6 +122,7 @@ public class SendSignalActionPropertyModel extends AbstractPropertyModel<SendSig
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -143,13 +148,14 @@ public class SendSignalActionPropertyModel extends AbstractPropertyModel<SendSig
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -177,7 +183,7 @@ public class SendSignalActionPropertyModel extends AbstractPropertyModel<SendSig
         default:
             return;
         }
-        
+
     }
 
 }

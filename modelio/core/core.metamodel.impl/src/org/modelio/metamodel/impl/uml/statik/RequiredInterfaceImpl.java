@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -47,13 +46,13 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("001b9b4e-c4bf-1fd8-97fe-001ec947cd2a")
 public class RequiredInterfaceImpl extends UmlModelElementImpl implements RequiredInterface {
-    @objid ("571e733f-2799-4f40-b589-bf3912835145")
+    @objid ("e152dd08-6072-41d4-bc99-13a5e8263b83")
     @Override
     public EList<Interface> getRequiredElement() {
         return new SmList<>(this, ((RequiredInterfaceSmClass)getClassOf()).getRequiredElementDep());
     }
 
-    @objid ("12e31d45-9e7b-4400-8031-5d1a66e7bbb4")
+    @objid ("b02774d2-25c2-4e98-876c-d3f2b0a5186d")
     @Override
     public <T extends Interface> List<T> getRequiredElement(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -66,16 +65,16 @@ public class RequiredInterfaceImpl extends UmlModelElementImpl implements Requir
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("582929cd-c303-4b2c-a825-a13431c9dc8a")
+    @objid ("7cd4e32d-d367-4b9f-babb-06fb9a2ef9e0")
     @Override
     public EList<LinkEnd> getProvider() {
         return new SmList<>(this, ((RequiredInterfaceSmClass)getClassOf()).getProviderDep());
     }
 
-    @objid ("3fdca6b0-2a9e-4aef-bdc2-be9ad705aaa9")
+    @objid ("90623c2a-0324-4bb1-a3fc-324a342275b9")
     @Override
     public <T extends LinkEnd> List<T> getProvider(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -88,29 +87,29 @@ public class RequiredInterfaceImpl extends UmlModelElementImpl implements Requir
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("d0eeaf28-df31-4066-b007-a5f4c4aad396")
+    @objid ("5e819cd5-3a05-4988-9ef8-a689f7694c85")
     @Override
     public Port getRequiring() {
         Object obj = getDepVal(((RequiredInterfaceSmClass)getClassOf()).getRequiringDep());
         return (obj instanceof Port)? (Port)obj : null;
     }
 
-    @objid ("80d3c5f4-5a8d-41f3-aada-9879874e09ff")
+    @objid ("2d853ec2-6351-4509-9569-35d28258a9a7")
     @Override
     public void setRequiring(Port value) {
         appendDepVal(((RequiredInterfaceSmClass)getClassOf()).getRequiringDep(), (SmObjectImpl)value);
     }
 
-    @objid ("0ebd0d6b-58f4-4a80-9e41-06159a1034c9")
+    @objid ("c0d9911f-9128-4290-b860-35dd3b984d7b")
     @Override
     public EList<NaryLinkEnd> getNaryProvider() {
         return new SmList<>(this, ((RequiredInterfaceSmClass)getClassOf()).getNaryProviderDep());
     }
 
-    @objid ("0a2ae108-a446-476a-9b7f-79dac0a8b0ec")
+    @objid ("c0544fdb-a051-4e47-a8cd-3ab99a661a00")
     @Override
     public <T extends NaryLinkEnd> List<T> getNaryProvider(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -123,10 +122,10 @@ public class RequiredInterfaceImpl extends UmlModelElementImpl implements Requir
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("7566a2dd-8ec7-4e62-b8dd-6dc5b6811402")
+    @objid ("b5e3b994-1975-425b-af5a-6612873d5c3b")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -138,22 +137,22 @@ public class RequiredInterfaceImpl extends UmlModelElementImpl implements Requir
         return super.getCompositionOwner();
     }
 
-    @objid ("af91c709-6fcb-49c3-9756-418c94fb7517")
+    @objid ("725dfd16-ab45-4e39-a5d2-734ffcfb016c")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // Requiring
         dep = ((RequiredInterfaceSmClass)getClassOf()).getRequiringDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("a2e7e47b-55f6-4663-b654-9588c9e9ea05")
+    @objid ("b93da608-1d16-44cb-b370-1dfe4ce65f38")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitRequiredInterface(this);

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.treetable;
 
@@ -70,9 +70,9 @@ public abstract class EditableDialogCellEditor extends CellEditor {
      * <code>"cell_editor_dots_button_image"</code>).
      */
     @objid ("13f0fee8-1c55-4395-96a6-b40620a3917a")
-    public static final String CELL_EDITOR_IMG_DOTS_BUTTON = "cell_editor_dots_button_image"; // $NON-NLS-1$
-    
+    public static final String CELL_EDITOR_IMG_DOTS_BUTTON = "cell_editor_dots_button_image";
 
+    // $NON-NLS-1$
     /**
      * Default EditableDialogCellEditor style
      */
@@ -87,20 +87,20 @@ public abstract class EditableDialogCellEditor extends CellEditor {
     /**
      * The label that gets reused by <code>updateLabel</code>.
      */
-    @objid ("0744e98f-da5f-4274-9252-ea47f30bb397")
+    @objid ("1c676969-fbf5-40c5-9a6d-41ebbf0133d0")
     private Text contents;
 
     /**
      * The button.
      */
-    @objid ("0067aace-7527-4885-b8aa-6febc91efaa9")
+    @objid ("4b97fa1f-0e12-4f96-9d19-0d37c4fb4841")
     private Button button;
 
     /**
      * Listens for 'focusLost' events and fires the 'apply' event as long as the
      * focus wasn't lost because the dialog was opened.
      */
-    @objid ("0962a549-8e7f-4d2c-8522-661a075fd76e")
+    @objid ("29daa27a-dce9-413c-838f-1537631e6d13")
     private FocusListener buttonFocusListener;
 
     /**
@@ -112,10 +112,11 @@ public abstract class EditableDialogCellEditor extends CellEditor {
     /**
      * Creates a new dialog cell editor parented under the given control. The
      * cell editor value is <code>null</code> initially, and has no validator.
+     *
      * @param parent the parent control
      */
     @objid ("778ed338-4697-45bc-952c-a6b800c7cb41")
-    public  EditableDialogCellEditor(Composite parent) {
+    public EditableDialogCellEditor(Composite parent) {
         super(parent, defaultStyle);
     }
 
@@ -125,6 +126,7 @@ public abstract class EditableDialogCellEditor extends CellEditor {
      * The default implementation of this framework method creates the button
      * display on the right hand side of the dialog cell editor.
      * </p>
+     *
      * @param parent the parent control
      * @return the new button control
      */
@@ -142,6 +144,7 @@ public abstract class EditableDialogCellEditor extends CellEditor {
      * </p>
      * <p>
      * </p>
+     *
      * @param cell the control for this cell editor
      * @return the underlying control
      */
@@ -163,12 +166,12 @@ public abstract class EditableDialogCellEditor extends CellEditor {
         editor.setFont(parent.getFont());
         editor.setBackground(parent.getBackground());
         editor.setLayout(new DialogCellLayout());
-        
+
         editor.addFocusListener(getButtonFocusListener());
-        
+
         this.contents = createContents(editor);
         configureText(editor, this.contents);
-        
+
         if (this.contents.getEditable()) {
             this.contents.addModifyListener(new ModifyListener() {
                 @Override
@@ -178,13 +181,13 @@ public abstract class EditableDialogCellEditor extends CellEditor {
             });
         }
         updateContents(this.value);
-        
+
         this.button = createButton(editor);
         configureButton(editor, this.button);
         this.button.addKeyListener(new KeyAdapter() {
             /*
              * (non-Javadoc)
-             * 
+             *
              * @see
              * org.eclipse.swt.events.KeyListener#keyReleased(org.eclipse.swt.
              * events.KeyEvent)
@@ -196,11 +199,11 @@ public abstract class EditableDialogCellEditor extends CellEditor {
                 }
             }
         });
-        
+
         this.button.addSelectionListener(new SelectionAdapter() {
             /*
              * (non-Javadoc)
-             * 
+             *
              * @see org.eclipse.swt.events.SelectionListener#widgetSelected(org.
              * eclipse.swt.events.SelectionEvent)
              */
@@ -209,17 +212,17 @@ public abstract class EditableDialogCellEditor extends CellEditor {
                 doSelectValues();
             }
         });
-        
+
         setValueValid(true);
         return editor;
     }
 
     /*
          * (non-Javadoc)
-         * 
+         *
          * Override in order to remove the button's focus listener if the cell
          * editor is deactivating.
-         * 
+         *
          * @see org.eclipse.jface.viewers.CellEditor#deactivate()
          */
     @objid ("ef19dbdf-ecb8-4f99-959c-c79b44f9bf78")
@@ -229,7 +232,6 @@ public abstract class EditableDialogCellEditor extends CellEditor {
             this.getControl().removeFocusListener(getButtonFocusListener());
         }
         super.deactivate();
-        
     }
 
     /*
@@ -250,24 +252,22 @@ public abstract class EditableDialogCellEditor extends CellEditor {
     protected void doSetFocus() {
         this.contents.setFocus();
         this.contents.selectAll();
-        
+
         // add a FocusListener to the editor
         this.getControl().addFocusListener(getButtonFocusListener());
-        
     }
 
     /**
      * Return a listener for button focus.
-     * @return FocusListener
      */
     @objid ("ce03001b-5da2-4a9c-8e9d-41a27aff64cb")
     private FocusListener getButtonFocusListener() {
         if (this.buttonFocusListener == null) {
             this.buttonFocusListener = new FocusListener() {
-        
+
                 /*
                  * (non-Javadoc)
-                 * 
+                 *
                  * @see
                  * org.eclipse.swt.events.FocusListener#focusGained(org.eclipse.
                  * swt.events.FocusEvent)
@@ -276,15 +276,15 @@ public abstract class EditableDialogCellEditor extends CellEditor {
                 public void focusGained(FocusEvent e) {
                     // Do nothing
                 }
-        
+
                 /*
                  * (non-Javadoc)
-                 * 
+                 *
                  * @see
                  * org.eclipse.swt.events.FocusListener#focusLost(org.eclipse.
                  * swt.events.FocusEvent)
                  */
-        
+
                 @Override
                 public void focusLost(FocusEvent e) {
                     EditableDialogCellEditor.this.focusLost();
@@ -302,11 +302,11 @@ public abstract class EditableDialogCellEditor extends CellEditor {
     protected void doSetValue(Object newValue) {
         this.value = newValue;
         updateContents(newValue);
-        
     }
 
     /**
      * Returns the default label widget created by <code>createContents</code>.
+     *
      * @return the default label widget
      */
     @objid ("e5db8bde-b4c2-4bbc-ac1e-39e0b95898b0")
@@ -323,6 +323,7 @@ public abstract class EditableDialogCellEditor extends CellEditor {
      * called when the user has pressed the button and the dialog box must pop
      * up.
      * </p>
+     *
      * @param cellEditorWindow the parent control cell editor's window so that a subclass can
      * adjust the dialog box accordingly
      * @return the selected value, or <code>null</code> if the dialog was
@@ -342,6 +343,7 @@ public abstract class EditableDialogCellEditor extends CellEditor {
      * Subclasses may re-implement. If you re-implement this method, you should
      * also re-implement <code>createContents</code>.
      * </p>
+     *
      * @param newValue the new value of this cell editor
      */
     @objid ("6005c15b-b266-4bff-9d80-3e8a4db7653a")
@@ -350,17 +352,15 @@ public abstract class EditableDialogCellEditor extends CellEditor {
             return;
         }
         String text = getTextRepresentation(newValue);
-        
+
         if (!this.contents.getText().equals(text)) {
             this.contents.setText(text);
         }
-        
     }
 
     /**
      * Configure the button appearance (image, text, tooltip) Subclasses should
      * redefine to customize the button appearance.
-     * @param button
      */
     @objid ("da1915f2-5b5f-4a19-8ce2-1ac54bf8ea9c")
     protected void configureButton(Composite parent, Button button) {
@@ -373,7 +373,6 @@ public abstract class EditableDialogCellEditor extends CellEditor {
      * Configure the Text appearance (image, text, tooltip) Subclasses should
      * redefine to customize the text appearance. Typical use: forbid/enable
      * direct text edition.
-     * @param button
      */
     @objid ("5176c513-63da-4fcd-987d-e85be7073cdc")
     protected void configureText(Composite parent, Text text) {
@@ -390,12 +389,12 @@ public abstract class EditableDialogCellEditor extends CellEditor {
         // Remove the button's focus listener since it's guaranteed
         // to lose focus when the dialog opens
         getControl().removeFocusListener(getButtonFocusListener());
-        
+
         Object newValue = openDialogBox(getControl());
-        
+
         // Re-add the listener once the dialog closes
         getControl().addFocusListener(getButtonFocusListener());
-        
+
         if (newValue != null) {
             boolean newValidState = isCorrect(newValue);
             if (newValidState) {
@@ -409,18 +408,17 @@ public abstract class EditableDialogCellEditor extends CellEditor {
             fireApplyEditorValue();
         }
         deactivate();
-        
     }
 
     @objid ("2c5470a4-8984-430f-8ac0-b330d43d2f39")
     protected abstract String getTextRepresentation(Object value);
 
 static {
-            ImageRegistry reg = JFaceResources.getImageRegistry();
-            reg.put(CELL_EDITOR_IMG_DOTS_BUTTON,
-                    ImageDescriptor.createFromFile(EditableDialogCellEditor.class, "images/dots_button.gif"));//$NON-NLS-1$
-        }
-    
+                            ImageRegistry reg = JFaceResources.getImageRegistry();
+                            reg.put(CELL_EDITOR_IMG_DOTS_BUTTON,
+                                    ImageDescriptor.createFromFile(EditableDialogCellEditor.class, "images/dots_button.gif"));//$NON-NLS-1$
+                        }
+
     /**
      * Internal class for laying out the dialog.
      */
@@ -435,7 +433,6 @@ static {
                 EditableDialogCellEditor.this.contents.setBounds(0, 0, bounds.width - size.x, bounds.height);
             }
             EditableDialogCellEditor.this.button.setBounds(bounds.width - size.x, 0, size.x, bounds.height);
-            
         }
 
         @objid ("f302f45e-5567-4b8d-a477-cf8f3cbfaca0")

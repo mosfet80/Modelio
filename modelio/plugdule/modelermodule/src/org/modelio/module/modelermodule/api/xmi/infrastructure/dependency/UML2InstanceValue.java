@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -61,6 +61,7 @@ public class UML2InstanceValue {
      * Tells whether a {@link UML2InstanceValue proxy} can be instantiated from a {@link MObject} checking it is a {@link Dependency} stereotyped << UML2InstanceValue >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -71,7 +72,7 @@ public class UML2InstanceValue {
 
     /**
      * Create a new {@link Dependency} stereotyped << UML2InstanceValue >> then instantiate a {@link UML2InstanceValue} proxy.
-     * 
+     *
      * @return a {@link UML2InstanceValue} proxy on the created {@link Dependency}.
      */
     @objid ("c9b9a5e5-75e7-4849-8cb0-62d6fbe8c56c")
@@ -82,9 +83,10 @@ public class UML2InstanceValue {
     }
 
     /**
-     * Tries to instantiate a {@link UML2InstanceValue} proxy from a {@link Dependency} stereotyped << UML2InstanceValue >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2InstanceValue} proxy from a {@link Dependency} stereotyped << UML2InstanceValue >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a Dependency
      * @return a {@link UML2InstanceValue} proxy or <i>null</i>.
      */
@@ -94,9 +96,10 @@ public class UML2InstanceValue {
     }
 
     /**
-     * Tries to instantiate a {@link UML2InstanceValue} proxy from a {@link Dependency} stereotyped << UML2InstanceValue >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2InstanceValue} proxy from a {@link Dependency} stereotyped << UML2InstanceValue >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link Dependency}
      * @return a {@link UML2InstanceValue} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -126,7 +129,8 @@ public class UML2InstanceValue {
     }
 
     /**
-     * Get the underlying {@link Dependency}. 
+     * Get the underlying {@link Dependency}.
+     *
      * @return the Dependency represented by this proxy, never null.
      */
     @objid ("6c3cae1b-4d7b-4a32-8935-34ce1080188f")
@@ -138,11 +142,11 @@ public class UML2InstanceValue {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("fd8ce67e-2378-4d3f-9b5e-1a552273d890")
-    protected  UML2InstanceValue(Dependency elt) {
+    protected UML2InstanceValue(Dependency elt) {
         this.elt = elt;
     }
 
@@ -162,7 +166,7 @@ public class UML2InstanceValue {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "5791cd76-03ec-11e2-9c63-0027103f347d");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -170,7 +174,7 @@ public class UML2InstanceValue {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

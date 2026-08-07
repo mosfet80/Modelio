@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.control;
 
@@ -43,18 +43,18 @@ public class InstanceOwnerChecker extends AbstractDependencyTypeChecker {
      * C'tor
      */
     @objid ("b38cfc59-8fff-4ec4-9fcc-045c3d66bfdc")
-    public  InstanceOwnerChecker(SmMetamodel mm) {
+    public InstanceOwnerChecker(SmMetamodel mm) {
         // Cached SmClass
         this.bindableInstanceID = mm.getMClass(BindableInstance.class);
         this.collaborationID = mm.getMClass(Collaboration.class);
-        
+
         // Direct checker
         this.register(mm.getMClass(Instance.class), "Owner");
-        
+
         // Symetric checker
         NameSpaceDeclaredChecker symetricChecker = new NameSpaceDeclaredChecker(this);
         symetricChecker.register(mm.getMClass(NameSpace.class), "Declared");
-        
+
     }
 
     @objid ("cac56259-ec4a-11e1-91c5-002564c97630")
@@ -62,7 +62,7 @@ public class InstanceOwnerChecker extends AbstractDependencyTypeChecker {
     public int doCheck(final SmObjectImpl obj, final SmObjectImpl value) {
         if (value != null) {
             SmClass valueTypeID = value.getClassOf();
-        
+
             if (obj.getClassOf() == this.bindableInstanceID) {
                 // A BindableInstance can only be part of a Collaboration with
                 // the Owner relationship.
@@ -82,7 +82,7 @@ public class InstanceOwnerChecker extends AbstractDependencyTypeChecker {
         InstanceOwnerChecker symetricChecker;
 
         @objid ("cac56269-ec4a-11e1-91c5-002564c97630")
-        public  NameSpaceDeclaredChecker(InstanceOwnerChecker symetricChecker) {
+        public NameSpaceDeclaredChecker(InstanceOwnerChecker symetricChecker) {
             this.symetricChecker = symetricChecker;
         }
 

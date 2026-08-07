@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.packaze.v0;
 
@@ -48,7 +48,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Graphic representation for a {@link Package}.
- * 
+ *
  * @author cmarin
  */
 @objid ("3635df92-55b7-11e2-877f-002564c97630")
@@ -97,33 +97,34 @@ public class _GmPackage extends GmCompositeNode implements IImageableNode {
 
     /**
      * Creates a GmPackage.
+     *
      * @param diagram The diagram.
      * @param thePackage The represented package, may be <tt>null</tt>
      * @param ref The represented package reference, may not be <tt>null</tt>.
      */
     @objid ("3637660c-55b7-11e2-877f-002564c97630")
-    public  _GmPackage(IGmDiagram diagram, Package thePackage, MRef ref) {
+    public _GmPackage(IGmDiagram diagram, Package thePackage, MRef ref) {
         super(diagram, ref);
-        
+
         this.element = thePackage;
-        
+
         this.header = new GmNamespaceHeader(diagram, ref);
         this.header.setRoleInComposition("header");
-        
+
         this.body = new GmPackageBody(diagram, ref);
         this.body.setRoleInComposition("body");
-        
+
         super.addChild(this.header);
         super.addChild(this.body);
-        
+
     }
 
     /**
      * For deserialization only.
      */
     @objid ("36376618-55b7-11e2-877f-002564c97630")
-    public  _GmPackage() {
-        
+    public _GmPackage() {
+
     }
 
     @objid ("3637661b-55b7-11e2-877f-002564c97630")
@@ -134,7 +135,7 @@ public class _GmPackage extends GmCompositeNode implements IImageableNode {
             this.body.addChild(child);
         else
             super.addChild(child);
-        
+
     }
 
     @objid ("36376621-55b7-11e2-877f-002564c97630")
@@ -155,10 +156,10 @@ public class _GmPackage extends GmCompositeNode implements IImageableNode {
         if (!el.getCompositionOwner().equals(this.getRelatedElement())) {
             return false;
         }
-        
+
         if (el instanceof NameSpace) {
             final NameSpace packaze = (NameSpace) el;
-        
+
             StyleKey.UmaskByVisibilityStragegy unmaskmode = getDisplayedStyle().getProperty(GmPackageStructuredStyleKeys.UNMASKINGSTRATEGY);
             switch (unmaskmode) {
             case ALL:
@@ -178,7 +179,7 @@ public class _GmPackage extends GmCompositeNode implements IImageableNode {
         } else {
             return false;
         }
-        
+
     }
 
     /**
@@ -202,11 +203,11 @@ public class _GmPackage extends GmCompositeNode implements IImageableNode {
         StyleKey ret = STRUCTURED_KEYS.getStyleKey(metakey);
         if (ret != null)
             return ret;
-        
+
         ret = SIMPLE_KEYS.getStyleKey(metakey);
         if (ret != null)
             return ret;
-        
+
         ret = IMAGE_KEYS.getStyleKey(metakey);
         return ret;
     }
@@ -226,7 +227,7 @@ public class _GmPackage extends GmCompositeNode implements IImageableNode {
         default:
             return Collections.emptyList();
         }
-        
+
     }
 
     @objid ("3638ecbb-55b7-11e2-877f-002564c97630")
@@ -246,7 +247,7 @@ public class _GmPackage extends GmCompositeNode implements IImageableNode {
             break;
         }
         }
-        
+
     }
 
     @objid ("3638ecc1-55b7-11e2-877f-002564c97630")
@@ -263,6 +264,7 @@ public class _GmPackage extends GmCompositeNode implements IImageableNode {
 
     /**
      * Get the stereotype image to display.
+     *
      * @return the stereotype image to display. Must not be <i>null</i>.
      */
     @objid ("3638eccf-55b7-11e2-877f-002564c97630")
@@ -289,7 +291,7 @@ public class _GmPackage extends GmCompositeNode implements IImageableNode {
         default:
             ret = super.getVisibleChildren();
             break;
-        
+
         }
         return ret;
     }
@@ -300,28 +302,28 @@ public class _GmPackage extends GmCompositeNode implements IImageableNode {
         super.refreshFromObModel();
         // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("363a7343-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmPackage.", _GmPackage.MINOR_VERSION);
-        
+
     }
 
     @objid ("363a7349-55b7-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
-        
+
         this.element = (Package) resolveRef(this.getRepresentedRef());
-        
+
         this.header = (GmModelElementHeader) getFirstChild("header");
         this.body = (GmPackageBody) getFirstChild("body");
-        
+
     }
 
     @objid ("363a734e-55b7-11e2-877f-002564c97630")

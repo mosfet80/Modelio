@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures;
 
@@ -55,12 +55,12 @@ public class EllipseFigure extends ShapedFigure {
      * Initialize the figure.
      */
     @objid ("7f777795-1dec-11e2-8cad-001ec947c8cc")
-    public  EllipseFigure() {
+    public EllipseFigure() {
         super(new EllipseShaper());
         this.shapedBorder = new ShapedBorder(this.penOptions.lineColor, this.penOptions.lineWidth, this.shaper);
         setBorder(this.shapedBorder);
         setOpaque(true);
-        
+
     }
 
     @objid ("7f777798-1dec-11e2-8cad-001ec947c8cc")
@@ -73,18 +73,19 @@ public class EllipseFigure extends ShapedFigure {
         } else {
             super.setBounds(rect);
         }
-        
+
     }
 
     /**
      * set the label displayed on the center of the circle.
+     *
      * @param string the label.
      */
     @objid ("7f77779e-1dec-11e2-8cad-001ec947c8cc")
     public void setLabel(String string) {
         this.label = string;
         computeFont(getClientArea());
-        
+
     }
 
     @objid ("7f7777a2-1dec-11e2-8cad-001ec947c8cc")
@@ -92,7 +93,7 @@ public class EllipseFigure extends ShapedFigure {
     public void setLineColor(Color lineColor) {
         this.shapedBorder.setColor(lineColor);
         super.setLineColor(lineColor);
-        
+
     }
 
     @objid ("7f7777a6-1dec-11e2-8cad-001ec947c8cc")
@@ -100,7 +101,7 @@ public class EllipseFigure extends ShapedFigure {
     public void setLinePattern(LinePattern lineStyle) {
         this.shapedBorder.setStyle(lineStyle.toSWTConstant());
         super.setLinePattern(lineStyle);
-        
+
     }
 
     @objid ("7f7777aa-1dec-11e2-8cad-001ec947c8cc")
@@ -113,82 +114,83 @@ public class EllipseFigure extends ShapedFigure {
             this.shapedBorder.setWidth(lineWidth);
         }
         super.setLineWidth(lineWidth);
-        
+
     }
 
     @objid ("7f7777b2-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected void paintFigure(Graphics graphics) {
         super.paintFigure(graphics);
-        
+
         if (this.label != null) {
             if (this.textSize == null) {
                 computeFont(getClientArea());
             }
-        
+
             Dimension delta = getBounds().getSize().getShrinked(this.textSize).scale(0.5);
             Point textLocation = getBounds().getLocation().translate(delta);
-        
+
             graphics.setFont(this.textFont);
             graphics.setForegroundColor(getLineColor());
             graphics.drawText(this.label, textLocation);
             graphics.restoreState();
         }
-        
+
     }
 
     @objid ("7f7777b8-1dec-11e2-8cad-001ec947c8cc")
     private void computeFont(Rectangle rect) {
         final Font figureFont = getFont();
-        
+
         if (this.label == null || figureFont == null) {
             return;
         }
-        
+
         final double maxTextW = rect.width - 2;
         final double maxTextH = rect.height - 2;
         final Dimension extents = FigureUtilities.getStringExtents(this.label, figureFont);
-        
+
         final double zoomH = maxTextH / extents.height;
         final double zoomW = maxTextW / extents.width;
-        
+
         double neededZoom = Math.max(zoomH, zoomW);
-        
+
         if (extents.width * neededZoom > maxTextW) {
             neededZoom = zoomW;
         } else if (extents.height * neededZoom > maxTextH) {
             neededZoom = zoomH;
         }
-        
+
         this.textSize = extents.scale(neededZoom);
-        
+
         final FontData[] fontData = figureFont.getFontData();
         for (FontData d : fontData) {
             d.setHeight((int) (d.getHeight() * neededZoom));
             // d.setStyle(SWT.BOLD);
         }
-        
+
         this.textFont = CoreFontRegistry.getFont(fontData);
-        
+
     }
 
     /**
      * Copy constructor
+     *
      * @param orig the original
      */
     @objid ("c7046cdc-de8d-4651-b32a-895345ba6315")
-    public  EllipseFigure(EllipseFigure orig) {
+    public EllipseFigure(EllipseFigure orig) {
         super(orig);
-        
+
         this.shapedBorder = new ShapedBorder(this.penOptions.lineColor,
                 this.penOptions.lineWidth,
                 this.shaper);
-        
+
         this.label = orig.label;
-        
+
         setOpaque(true);
         setBorder(this.shapedBorder);
-        
+
     }
 
     @objid ("c7315533-d4ec-4ac6-a28b-c558f160088b")

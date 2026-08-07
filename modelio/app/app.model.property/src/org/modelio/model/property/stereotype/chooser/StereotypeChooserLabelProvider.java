@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.stereotype.chooser;
 
@@ -60,7 +60,7 @@ public class StereotypeChooserLabelProvider extends LabelProvider implements IMo
         } else if (element instanceof Stereotype) {
             StringBuffer noteTypeLabel = new StringBuffer();
             Stereotype stereotype = (Stereotype) element;
-        
+
             noteTypeLabel.append("<<");
             String label = MdaResources.getLabel(stereotype);
             if (!"".equals(label)) {
@@ -69,12 +69,12 @@ public class StereotypeChooserLabelProvider extends LabelProvider implements IMo
                 noteTypeLabel.append(stereotype.getName());
             }
             noteTypeLabel.append(">>");
-        
+
             return noteTypeLabel.toString();
         } else {
             return element.toString();
         }
-        
+
     }
 
     @objid ("d7e3665d-0d73-42ee-8775-e402f70c6981")
@@ -86,7 +86,7 @@ public class StereotypeChooserLabelProvider extends LabelProvider implements IMo
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("98c7d17f-c83f-489d-9f33-26a6e6db4353")

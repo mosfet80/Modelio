@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.api.tools;
 
@@ -63,7 +63,7 @@ public class AttachedBoxTool extends LinkedNodeCreationTool {
      * C'tor, used by platform to instantiate the tool by reflexion.
      */
     @objid ("1bfb95b1-7eac-4c2f-8119-ff95c9b45d2f")
-    public  AttachedBoxTool() {
+    public AttachedBoxTool() {
         this.attachedBoxCommand = null;
     }
 
@@ -80,7 +80,7 @@ public class AttachedBoxTool extends LinkedNodeCreationTool {
                         return false;
                     }
                 };
-        
+
     }
 
     @objid ("15d20bb6-15a7-4c30-90c2-345627595564")
@@ -89,17 +89,17 @@ public class AttachedBoxTool extends LinkedNodeCreationTool {
         if (getTargetEditPart() == null) {
             return;
         }
-        
+
         GmModel targetModel = (GmModel) getTargetEditPart().getModel();
         initDiagramHandle(targetModel);
-        
+
         // Additional step: add the optional bend points.
         LinkRoute path = LinkRoute.createEmpty();
-        
+
         Point where = ((CreateConnectionRequest) getTargetRequest()).getLocation().getCopy();
         ((GraphicalEditPart) getTargetEditPart().getViewer().getContents()).getFigure()
                 .translateToRelative(where);
-        
+
         // Delegate the execution to the linkCommand handler
         IDiagramGraphic sourceDg = null;
         GmModel sourceModel = this.sourceGm;
@@ -112,10 +112,10 @@ public class AttachedBoxTool extends LinkedNodeCreationTool {
                 LinkRouterKind.DIRECT,
                 path,
                 where);
-        
+
         // FIXME we must handle notes created in a diagram, without a link
         setCurrentCommand(null);
-        
+
     }
 
     @objid ("386a4faa-b071-4368-b6e0-3651244ba487")
@@ -128,28 +128,30 @@ public class AttachedBoxTool extends LinkedNodeCreationTool {
             return;
         }
         super.applyProperty(key, value);
-        
+
     }
 
     /**
      * Sets the tools state.
+     *
      * @param state the new state
      */
     @objid ("b1ffed17-fb68-4da7-a12c-12df0a387d31")
     @Override
     protected void setState(final int state) {
         super.setState(state);
-        
+
         if (state == AbstractConnectionCreationTool.STATE_CONNECTION_STARTED) {
             this.sourceGm = (GmModel) getTargetEditPart().getModel();
         }
-        
+
     }
 
     /**
      * Updates the target editpart and returns <code>true</code> if the target changes. The target is updated by using
      * the target conditional and the target request. If the target has been locked, this method does nothing and
      * returns <code>false</code>.
+     *
      * @return <code>true</code> if the target was changed
      */
     @objid ("26522056-d773-4c52-b5ff-e2d68c9e5cf1")
@@ -173,31 +175,31 @@ public class AttachedBoxTool extends LinkedNodeCreationTool {
         } else {
             return false;
         }
-        
+
     }
 
     @objid ("a03ac566-dce5-46e1-8827-7fb116d7ff83")
     protected boolean doAccept(final EditPart editpart) {
         GmModel targetModel = (GmModel) editpart.getModel();
         initDiagramHandle(targetModel);
-        
+
         // Delegate the execution to the handler
         IDiagramGraphic dg = null;
         while (dg == null && targetModel != null) {
             dg = DGFactory.getInstance().getDiagramGraphic(this.diagramHandle, targetModel);
             targetModel = targetModel.getParent();
         }
-        
+
         if (dg == null) {
             return false;
         }
-        
+
         if (!isInState(AbstractConnectionCreationTool.STATE_CONNECTION_STARTED | AbstractTool.STATE_ACCESSIBLE_DRAG_IN_PROGRESS)) {
             return this.attachedBoxCommand.acceptElement(this.diagramHandle, dg);
         } else {
             return true;
         }
-        
+
     }
 
     @objid ("e5a612c0-302e-44ef-a320-1cfd80d65db7")
@@ -208,7 +210,7 @@ public class AttachedBoxTool extends LinkedNodeCreationTool {
             IDiagramEditor editor = (IDiagramEditor) DiagramEditorsManager.getInstance().get(diagram).getObject();
             this.diagramHandle = DiagramHandle.create(editor, true);
         }
-        
+
     }
 
     @objid ("96384240-3587-4a03-b81b-e7130c06d3c2")
@@ -219,7 +221,7 @@ public class AttachedBoxTool extends LinkedNodeCreationTool {
             this.diagramHandle.close();
             this.diagramHandle = null;
         }
-        
+
     }
 
 }

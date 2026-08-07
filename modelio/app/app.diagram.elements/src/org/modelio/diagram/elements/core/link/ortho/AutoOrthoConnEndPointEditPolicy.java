@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.ortho;
 
@@ -39,7 +39,7 @@ import org.modelio.diagram.styles.core.StyleKey.ConnectionRouterId;
 
 /**
  * {@link DefaultConnectionEndpointEditPolicy} redefinition to change the router to the automatic one during connection end dragging.
- * 
+ *
  * @since 5.0.2
  */
 @objid ("0b3bd8ed-f3f9-46ed-b4e4-78945d3db436")
@@ -76,7 +76,7 @@ public class AutoOrthoConnEndPointEditPolicy extends DefaultConnectionEndpointEd
             this.operationState.dispose();
             this.operationState = null;
         }
-        
+
     }
 
     @objid ("33e92f7f-9d48-4835-a672-8ad3424e4701")
@@ -89,7 +89,7 @@ public class AutoOrthoConnEndPointEditPolicy extends DefaultConnectionEndpointEd
     @Override
     public Command getCommand(Request request) {
         Object type = request.getType();
-        
+
         if (type.equals(CreateLinkConstants.REQ_CONNECTION_UPDATE_ROUTING_CONSTRAINT)) {
             return getCommand (((WrappedRequest)request).getRequest());
         } else if (type.equals(REQ_RECONNECT_SOURCE) || type.equals(REQ_RECONNECT_TARGET)) {
@@ -97,29 +97,29 @@ public class AutoOrthoConnEndPointEditPolicy extends DefaultConnectionEndpointEd
             // The contrary happens when reconnecting connections on connections.
             if (((ReconnectRequest)request).getConnectionEditPart() != getHost())
                 return null;
-        
+
             ConnectionState newState = getOperationStateShort().apply((ReconnectRequest) request);
-        
+
             ChangeLinkRoutingConstraintCommand command = new ChangeLinkRoutingConstraintCommand(
                     (ConnectionEditPart) getHost(),
                     newState,
                     true);
-        
+
             derefOperationState();
             return command;
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("b2142844-21a2-4fbe-943d-2c1c7f80714f")
     @Override
     protected void eraseConnectionMoveFeedback(ReconnectRequest request) {
         derefOperationState();
-        
+
         super.eraseConnectionMoveFeedback(request);
-        
+
     }
 
     @objid ("e0c83301-1cbb-4405-8b61-d9f4d643ffb9")
@@ -134,11 +134,11 @@ public class AutoOrthoConnEndPointEditPolicy extends DefaultConnectionEndpointEd
         private final ConnectionState origPath;
 
         @objid ("f72ebcb9-4363-4387-96c5-d87e8fbbb574")
-        public  OrthoFeedbackHelper(ILinkPathEditorFactory linkPathEditor, ConnectionEditPart editPart, ConnectionState origPath) {
+        public OrthoFeedbackHelper(ILinkPathEditorFactory linkPathEditor, ConnectionEditPart editPart, ConnectionState origPath) {
             this.linkPathEditor = linkPathEditor;
             this.editPart = editPart;
             this.origPath = origPath;
-            
+
         }
 
         @objid ("5adfb45c-cd1a-4259-877d-a66ba568a5fc")
@@ -156,7 +156,7 @@ public class AutoOrthoConnEndPointEditPolicy extends DefaultConnectionEndpointEd
             } else {
                 editor.setTargetAnchor(anchor).applyStateToConnection();
             }
-            
+
         }
 
     }
@@ -179,11 +179,11 @@ public class AutoOrthoConnEndPointEditPolicy extends DefaultConnectionEndpointEd
         private final ConnectionState origPath;
 
         @objid ("3f687fa5-7f1b-479b-94fe-b59220669a58")
-        public  OperationState(ConnectionEditPart host) {
+        public OperationState(ConnectionEditPart host) {
             this.host = host;
             this.linkPathEditor = ConnectionPolicyUtils.getRoutingServices(host).getLinkPathEditor(ConnectionRouterId.ORTHOGONAL);
             this.origPath = this.linkPathEditor.from(host).backupConnection();
-            
+
         }
 
         @objid ("21e78e62-ba86-4564-b007-a25c1e802f2a")
@@ -202,7 +202,7 @@ public class AutoOrthoConnEndPointEditPolicy extends DefaultConnectionEndpointEd
         public void dispose() {
             if (this.feedbackHelper != null)
                 this.feedbackHelper.dispose();
-            
+
         }
 
         @objid ("4ab07f5c-9605-4c0d-8ad7-d2f124d41875")
@@ -223,7 +223,7 @@ public class AutoOrthoConnEndPointEditPolicy extends DefaultConnectionEndpointEd
             NodeEditPart node = null;
             if (request.getTarget() instanceof NodeEditPart)
                 node  = (NodeEditPart) request.getTarget();
-            
+
             if (node != null) {
                 ILinkPathEditor editor = this.linkPathEditor.from(this.host, this.origPath);
                 if (request.isMovingStartAnchor()) {

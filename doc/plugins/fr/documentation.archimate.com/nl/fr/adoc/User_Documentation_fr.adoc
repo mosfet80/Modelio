@@ -1,0 +1,14 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Manuel utilisateur ArchiMate Architect
+
+
+1.   <<User_Documentation_fr_Introduction.adoc#,Introduction>>
+2.   <<User_Documentation_fr_Modele_ArchiMate.adoc#,Modèle ArchiMate>>
+3.   <<User_Documentation_fr_Diagrammes_ArchiMate.adoc#,Diagrammes ArchiMate>>
+4.   <<User_Documentation_fr_Matrices_ArchiMate.adoc#,Matrices ArchiMate>>
+5.   <<User_Documentation_fr_Import_et_export.adoc#,Import et export>>
+6.   <<User_Documentation_fr_Generation_de_la_documentation.adoc#,Génération de documentation>>

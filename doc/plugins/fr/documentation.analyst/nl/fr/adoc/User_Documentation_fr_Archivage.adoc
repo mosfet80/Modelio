@@ -1,0 +1,55 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Archiver une version
+
+
+
+== Introduction
+
+Cette commande vous permet d'archiver des éléments Analyst (exigences, règles métiers, objectifs et termes).
+
+.Archiver une version
+image::images/attachment/analyst41/User_Documentation_fr/Archivage/Analyst-Archive_Archive1.png[Analyst-Archive_Archive1.png]
+
+
+*Étapes :*
+
+1. Sélectionnez un élément Analyst.
+2. Lancez la commande *Archiver une version*. 
+
+
+
+== Boite de dialogue 'Archivage'
+
+Cette boite de dialogue vous permet de saisir un commentaire. Ce commentaire sera ajouté sous la forme d'une note 'comment' sur l'élément archivé.
+
+Lors de l'archivage des éléments, leurs dépendances sortantes seront archivées avec eux. Vous pouvez aussi choisir les dépendances entrantes à archiver.
+
+.Boite de dialogue 'Archivage'
+image::images/attachment/analyst41/User_Documentation_fr/Archivage/Analyst-Archive_Archive2.png[Analyst-Archive_Archive2.png]
+
+
+*Étapes :*
+
+1. Saisissez un commentaire
+2. Choisissez les dépendances entrantes à archiver. 
+
+
+
+== Explorateur
+
+Les versions archivées se trouvent sous le nœud 'versions archivées'.
+
+.Versions archivées dans l'explorateur.
+image::images/attachment/analyst41/User_Documentation_fr/Archivage/Analyst-Archive_Archive3.png[Analyst-Archive_Archive3.png]
+
+
+*Légende :*
+
+1. Éléments archivés.
+2. Dépendances entrantes archivées.
+
+*Note :* Les éléments archivés peuvent être démasqués dans les diagrammes.

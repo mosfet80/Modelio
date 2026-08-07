@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -49,7 +49,7 @@ public class R1950 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -100,14 +100,14 @@ public class R1950 extends AbstractUmlRule {
      * Default constructor for R1950
      */
     @objid ("e206e01f-c951-4615-bbf0-395461ddb5b7")
-    public  R1950() {
+    public R1950() {
         this.checkerInstance = new CheckR1950(this);
     }
 
     @objid ("28753f7d-be8d-410f-993b-efc515ac2ed2")
     private static class CheckR1950 extends AbstractControl {
         @objid ("683b8b40-5dbe-41af-937f-2a2a880f287d")
-        public  CheckR1950(IRule rule) {
+        public CheckR1950(IRule rule) {
             super(rule);
         }
 
@@ -128,18 +128,18 @@ public class R1950 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     message,
                     null);
-            
+
             Operation operation = message.getInvoked();
             MessageSort sort = message.getSortOfMessage();
-            
+
             if (operation != null &&
                     !sort.equals(MessageSort.ASYNCCALL) &&
                     !sort.equals(MessageSort.SYNCCALL) &&
                     !sort.equals(MessageSort.CREATEMESSAGE) &&
                     !sort.equals(MessageSort.DESTROYMESSAGE)) {
-            
+
                 // Rule failed
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(message);

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.cert;
 
@@ -40,16 +40,18 @@ public class TopShellGetter implements IShellProvider {
 
     /**
      * initialize the service.
+     *
      * @param application the application model.
      */
     @objid ("3a67721c-52d3-4c4c-af4f-c5f8ccacffac")
-    public  TopShellGetter(MApplication application) {
+    public TopShellGetter(MApplication application) {
         this.application = application;
     }
 
     /**
      * Return the modal shell that is currently open. If there isn't one then
      * return null. If there are stacked modal shells, return the top one.
+     *
      * @param shell A shell to exclude from the search. May be <code>null</code>.
      * @return Shell or <code>null</code>.
      */
@@ -59,7 +61,7 @@ public class TopShellGetter implements IShellProvider {
         if (shell == null || shell.isDisposed()) {
             return getModalChildExcluding(Display.getCurrent().getShells(), shell);
         }
-        
+
         // Start with the shell to exclude and check it's shells
         return getModalChildExcluding(shell.getShells(), shell);
     }
@@ -67,6 +69,7 @@ public class TopShellGetter implements IShellProvider {
     /**
      * Return the modal shell that is currently open. If there isn't one then
      * return null.
+     *
      * @param toSearch shells to search for modal children
      * @param toExclude shell to ignore
      * @return the most specific modal child, or null if none
@@ -75,24 +78,24 @@ public class TopShellGetter implements IShellProvider {
     private static Shell getModalChildExcluding(Shell[] toSearch, Shell toExclude) {
         int modal = SWT.APPLICATION_MODAL | SWT.SYSTEM_MODAL
                 | SWT.PRIMARY_MODAL;
-        
+
         // Make sure we don't pick a parent that has a modal child (this can
         // lock the app)
         // If we picked a parent with a modal child, use the modal child instead
-        
+
         for (int i = toSearch.length - 1; i >= 0; i--) {
             Shell shell = toSearch[i];
             if(shell.equals(toExclude)) {
                 continue;
             }
-        
+
             // Check if this shell has a modal child
             Shell[] children = shell.getShells();
             Shell modalChild = getModalChildExcluding(children, toExclude);
             if (modalChild != null) {
                 return modalChild;
             }
-        
+
             // If not, check if this shell is modal itself
             if (shell.isVisible() && (shell.getStyle() & modal) != 0) {
                 return shell;
@@ -106,6 +109,7 @@ public class TopShellGetter implements IShellProvider {
      * is a modal shell create it so as to avoid two modal dialogs. If not then
      * return the shell of the active workbench window. If neither can be found
      * return null.
+     *
      * @return Shell or <code>null</code>
      */
     @objid ("90d15d96-8d7d-44e5-a2f0-a3bb0f0e349f")
@@ -138,7 +142,7 @@ public class TopShellGetter implements IShellProvider {
                 }
             }
         }
-        
+
         // Return first shell found
         for (Shell shell : Display.getCurrent().getShells()) {
             if (! shell.isDisposed() && shell.isVisible()

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -49,7 +49,7 @@ public class R1160 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -62,7 +62,7 @@ public class R1160 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         plan.registerRule(InputPin.MQNAME, this, AuditTrigger.UPDATE
                 | AuditTrigger.MOVE);
-        
+
     }
 
     @objid ("13cde649-c3ce-4175-ae51-8a4a4ff7ad77")
@@ -102,14 +102,14 @@ public class R1160 extends AbstractUmlRule {
      * Default constructor for R1160
      */
     @objid ("2e16c829-d47a-4b35-a056-cb8597cb3108")
-    public  R1160() {
+    public R1160() {
         this.checkerInstance = new CheckR1160(this);
     }
 
     @objid ("d2fc367a-6682-4d8b-a167-3dbc5b3ac1a3")
     private static class CheckR1160 extends AbstractControl {
         @objid ("425a4339-8376-43fc-bf45-5c9201a9fd97")
-        public  CheckR1160(IRule rule) {
+        public CheckR1160(IRule rule) {
             super(rule);
         }
 
@@ -127,6 +127,7 @@ public class R1160 extends AbstractUmlRule {
 
         /**
          * If an InputPin is updated its self attribute potentially change so we need to check if it belongs to an CallOperationAction or a SendSignalAction.
+         *
          * @param inputPin The updated pin.
          * @return An audit entry for the pin.
          */
@@ -134,20 +135,20 @@ public class R1160 extends AbstractUmlRule {
         private IAuditEntry checkR1160(InputPin inputPin) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(),
                     AuditSeverity.AuditSuccess, inputPin, null);
-            
+
             MObject owner = inputPin.getCompositionOwner();
-            
+
             if (!inputPin.isIsSelf()) {
                 return auditEntry;
             }
-            
+
             if (owner instanceof CallOperationAction
                     || owner instanceof SendSignalAction) {
                 return auditEntry;
             }
-            
+
             // At this point the rule failed.
-            
+
             List<Object> linkedObjects = new ArrayList<>();
             auditEntry.setSeverity(this.rule.getSeverity());
             linkedObjects.add(inputPin);

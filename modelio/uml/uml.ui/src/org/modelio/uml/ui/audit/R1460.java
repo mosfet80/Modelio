@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -59,7 +59,7 @@ public class R1460 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(IElement)
      * @see AbstractRule#getUpdateControl(IElement)
      * @see AbstractRule#getMoveControl(IElementMovedEvent)
@@ -78,7 +78,7 @@ public class R1460 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         plan.registerRule(AssociationEnd.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE
                 | AuditTrigger.MOVE);
-        
+
         // IClassifier
         plan.registerRule(InformationItem.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Artifact.MQNAME, this, AuditTrigger.UPDATE);
@@ -92,7 +92,7 @@ public class R1460 extends AbstractUmlRule {
         plan.registerRule(UseCase.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Node.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Component.MQNAME, this, AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -126,14 +126,14 @@ public class R1460 extends AbstractUmlRule {
      * Default constructor for R1460
      */
     @objid ("9f20581f-1500-4999-b968-523db9bcddd5")
-    public  R1460() {
+    public R1460() {
         this.checkerInstance = new CheckR1460(this);
     }
 
     @objid ("044674cb-8b74-4ca8-8a0d-563634e68e3c")
     private static class CheckR1460 extends AbstractControl {
         @objid ("4ab1d644-6af0-428e-94fa-a2d63dbcb568")
-        public  CheckR1460(IRule rule) {
+        public CheckR1460(IRule rule) {
             super(rule);
         }
 
@@ -156,20 +156,20 @@ public class R1460 extends AbstractUmlRule {
         @objid ("d31379d6-4e75-49e3-82e4-a29798f9bbaf")
         private IAuditEntry checkR1460(final AssociationEnd assocEnd) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, assocEnd, null);
-            
+
             if (assocEnd.getVisibility().equals(VisibilityMode.PUBLIC) && assocEnd.getSource() != null
                     && assocEnd.getSource().getVisibility().equals(VisibilityMode.PUBLIC)) {
-            
+
                 AssociationEnd oppositeEnd = assocEnd.getOpposite();
                 Classifier opositeOwner = oppositeEnd.getSource() != null ? oppositeEnd.getSource() : oppositeEnd.getOpposite()
                         .getTarget();
-            
+
                 VisibilityMode visibility = opositeOwner.getVisibility();
-            
+
                 if (visibility.equals(VisibilityMode.PRIVATE) || visibility.equals(VisibilityMode.PROTECTED)) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(assocEnd);

@@ -1,0 +1,2397 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.opengroup.org/xsd/archimate/3.0/" identifier="m-6d11285e-2f1a-42c8-b9f6-056587252a88" xsi:schemaLocation="http://www.opengroup.org/xsd/archimate/3.0/ http://www.opengroup.org/xsd/archimate/3.0/archimate3_Diagram.xsd">
+    <name xml:lang="fr">Model</name>
+    <properties/>
+    <metadata>
+        <schema>Modelio ArchiMate</schema>
+        <schemaversion>3.6</schemaversion>
+    </metadata>
+    <elements>
+        <element xsi:type="Location" identifier="m-0d6e8dcb-a5eb-48e3-9c18-0ffacbc5ec8e">
+            <name xml:lang="fr">Location</name>
+            <properties/>
+        </element>
+        <element xsi:type="Grouping" identifier="m-08709319-2a0a-4fc6-8e6f-43a36644c71a">
+            <name xml:lang="fr">Grouping</name>
+            <properties/>
+        </element>
+        <element xsi:type="ApplicationEvent" identifier="m-3981cb8e-7e74-4fd3-96a5-e6da941eef26">
+            <name xml:lang="fr">Application Event</name>
+            <properties/>
+        </element>
+        <element xsi:type="ApplicationInterface" identifier="m-d64e31e6-9f09-4557-90fc-47319474e3bf">
+            <name xml:lang="fr">Application Interface</name>
+            <properties/>
+        </element>
+        <element xsi:type="DataObject" identifier="m-a3e0beee-3724-47a4-a10e-240fda2699a9">
+            <name xml:lang="fr">Data Object</name>
+            <properties/>
+        </element>
+        <element xsi:type="ApplicationCollaboration" identifier="m-8408a167-64b3-4e7a-b8bc-1a83bd24ed61">
+            <name xml:lang="fr">Application Collaboration</name>
+            <properties/>
+        </element>
+        <element xsi:type="ApplicationInteraction" identifier="m-3808ea1f-8b18-43ad-824d-56d1b5e2fb04">
+            <name xml:lang="fr">Application Interaction</name>
+            <properties/>
+        </element>
+        <element xsi:type="ApplicationProcess" identifier="m-de2f7aa4-586a-45b5-a104-182765b72114">
+            <name xml:lang="fr">Application Process</name>
+            <properties/>
+        </element>
+        <element xsi:type="ApplicationService" identifier="m-ba9215cb-9315-4d47-978e-4da4e4404c57">
+            <name xml:lang="fr">Application Service</name>
+            <properties/>
+        </element>
+        <element xsi:type="ApplicationComponent" identifier="m-20cc6b26-c90f-4377-a9dc-50c1ee7048bf">
+            <name xml:lang="fr">Application Component</name>
+            <properties/>
+        </element>
+        <element xsi:type="ApplicationFunction" identifier="m-62db89f5-ecc1-4ac5-b134-57738a4e7889">
+            <name xml:lang="fr">Application Function</name>
+            <properties/>
+        </element>
+        <element xsi:type="ApplicationComponent" identifier="m-57a2294c-18b6-48fd-a410-e7583b6dd4b2">
+            <name xml:lang="fr">Application Component1</name>
+            <properties/>
+        </element>
+        <element xsi:type="ApplicationCollaboration" identifier="m-9d323b56-ca96-4152-9f0f-fe5274ae47e0">
+            <name xml:lang="fr">Application Collaboration1</name>
+            <properties/>
+        </element>
+        <element xsi:type="ApplicationInterface" identifier="m-e5bec321-2afc-414a-b0b4-b0c34795b090">
+            <name xml:lang="fr">Application Interface1</name>
+            <properties/>
+        </element>
+        <element xsi:type="ApplicationProcess" identifier="m-99e443e3-9b08-4118-9d99-d81868c94463">
+            <name xml:lang="fr">Application Process1</name>
+            <properties/>
+        </element>
+        <element xsi:type="ApplicationFunction" identifier="m-d24ad56c-f954-466e-a8f2-54006cf537d3">
+            <name xml:lang="fr">Application Function1</name>
+            <properties/>
+        </element>
+        <element xsi:type="ApplicationInteraction" identifier="m-9b06a941-06cb-40ee-9ffe-7552da0815fd">
+            <name xml:lang="fr">Application Interaction1</name>
+            <properties/>
+        </element>
+        <element xsi:type="ApplicationEvent" identifier="m-15f353dd-6a65-4bb4-9a88-a48226e37a88">
+            <name xml:lang="fr">Application Event1</name>
+            <properties/>
+        </element>
+        <element xsi:type="ApplicationService" identifier="m-2224b0f8-48e2-4909-b8c8-150f81007ee6">
+            <name xml:lang="fr">Application Service1</name>
+            <properties/>
+        </element>
+        <element xsi:type="DataObject" identifier="m-bf298d2b-a4a8-4051-9580-130f62b91bc9">
+            <name xml:lang="fr">Data Object1</name>
+            <properties/>
+        </element>
+        <element xsi:type="ApplicationComponent" identifier="m-dc5219ec-3ea2-41a2-b6c1-21cece92ac6d">
+            <name xml:lang="fr">Application Component2</name>
+            <properties/>
+        </element>
+        <element xsi:type="ApplicationCollaboration" identifier="m-c267c334-8873-4613-ab7f-fc7dd8a89f3c">
+            <name xml:lang="fr">Application Collaboration2</name>
+            <properties/>
+        </element>
+        <element xsi:type="ApplicationInterface" identifier="m-49911213-bf8f-447b-8fe2-85b68c40163f">
+            <name xml:lang="fr">Application Interface2</name>
+            <properties/>
+        </element>
+        <element xsi:type="ApplicationProcess" identifier="m-6f029b39-ec7a-4f7e-b1b5-434d0d66cd90">
+            <name xml:lang="fr">Application Process2</name>
+            <properties/>
+        </element>
+        <element xsi:type="ApplicationFunction" identifier="m-0809b9b5-4c72-4950-9837-1d6767d8388a">
+            <name xml:lang="fr">Application Function2</name>
+            <properties/>
+        </element>
+        <element xsi:type="ApplicationInteraction" identifier="m-9eb08d3d-c185-493c-a9f4-3546885da2cb">
+            <name xml:lang="fr">Application Interaction2</name>
+            <properties/>
+        </element>
+        <element xsi:type="ApplicationEvent" identifier="m-97a40ee7-42fb-4731-9bbf-b87aaea8ff8a">
+            <name xml:lang="fr">Application Event2</name>
+            <properties/>
+        </element>
+        <element xsi:type="ApplicationService" identifier="m-1baef20c-bdc6-4b9e-8e9b-50e0b6154cfb">
+            <name xml:lang="fr">Application Service2</name>
+            <properties/>
+        </element>
+        <element xsi:type="DataObject" identifier="m-01307809-ca5f-46b3-9cc3-3f31e0821870">
+            <name xml:lang="fr">Data Object2</name>
+            <properties/>
+        </element>
+        <element xsi:type="BusinessActor" identifier="m-2935fb93-a689-409c-bfd3-0d7c228880d3">
+            <name xml:lang="fr">Business Actor</name>
+            <properties/>
+        </element>
+        <element xsi:type="BusinessCollaboration" identifier="m-c23fd055-c1c6-4372-8223-369e8e48b076">
+            <name xml:lang="fr">Business Collaboration</name>
+            <properties/>
+        </element>
+        <element xsi:type="BusinessEvent" identifier="m-5c79fec9-7dbd-4712-976e-0131860acb87">
+            <name xml:lang="fr">Business Event</name>
+            <properties/>
+        </element>
+        <element xsi:type="BusinessFunction" identifier="m-889f721f-fc6e-4062-8cdf-cfdbf6f5d176">
+            <name xml:lang="fr">Business Function</name>
+            <properties/>
+        </element>
+        <element xsi:type="BusinessInteraction" identifier="m-bba5cf04-dfb5-4094-9ec6-5f210a71c8fc">
+            <name xml:lang="fr">Business Interaction</name>
+            <properties/>
+        </element>
+        <element xsi:type="BusinessInterface" identifier="m-7afb9994-19d8-4bbf-87ab-8be3139dbc9c">
+            <name xml:lang="fr">Business Interface</name>
+            <properties/>
+        </element>
+        <element xsi:type="BusinessObject" identifier="m-98b16944-6005-4337-b64b-9884c2132c68">
+            <name xml:lang="fr">Business Object</name>
+            <properties/>
+        </element>
+        <element xsi:type="BusinessProcess" identifier="m-11c94c7b-cada-4809-90f3-dc57d30315c8">
+            <name xml:lang="fr">Business Process</name>
+            <properties/>
+        </element>
+        <element xsi:type="BusinessRole" identifier="m-1407c278-0e4b-443f-8299-297e89cabd35">
+            <name xml:lang="fr">Business Role</name>
+            <properties/>
+        </element>
+        <element xsi:type="BusinessService" identifier="m-641126b9-1af8-432c-ad50-f1b579ecab0e">
+            <name xml:lang="fr">Business Service</name>
+            <properties/>
+        </element>
+        <element xsi:type="BusinessObject" identifier="m-8e6a0fee-84bc-43cd-8350-c2125c21d612">
+            <name xml:lang="fr">Contract</name>
+            <properties/>
+        </element>
+        <element xsi:type="Product" identifier="m-529d097c-3d52-4f1c-abce-29ba2f268c29">
+            <name xml:lang="fr">Product</name>
+            <properties/>
+        </element>
+        <element xsi:type="Representation" identifier="m-03c62567-763f-4f68-a542-151a8d937656">
+            <name xml:lang="fr">Representation</name>
+            <properties/>
+        </element>
+        <element xsi:type="BusinessActor" identifier="m-e89baa6d-50d7-4ca7-9189-70a01c56757c">
+            <name xml:lang="fr">Business Actor1</name>
+            <properties/>
+        </element>
+        <element xsi:type="BusinessRole" identifier="m-00fa603d-1934-477e-a35e-d527756e4d60">
+            <name xml:lang="fr">Business Role1</name>
+            <properties/>
+        </element>
+        <element xsi:type="BusinessCollaboration" identifier="m-7232da5b-3fbe-4822-9c31-5905d10a60f4">
+            <name xml:lang="fr">Business Collaboration1</name>
+            <properties/>
+        </element>
+        <element xsi:type="BusinessInterface" identifier="m-5c3d810e-38bc-4a81-a5c6-abd44f318585">
+            <name xml:lang="fr">Business Interface1</name>
+            <properties/>
+        </element>
+        <element xsi:type="BusinessProcess" identifier="m-bd8aadb3-1d56-4142-8b1e-59572b873270">
+            <name xml:lang="fr">Business Process1</name>
+            <properties/>
+        </element>
+        <element xsi:type="BusinessFunction" identifier="m-d790cf10-95ba-4598-bab4-52453eced467">
+            <name xml:lang="fr">Business Function1</name>
+            <properties/>
+        </element>
+        <element xsi:type="BusinessInteraction" identifier="m-44027044-af90-476e-bdbc-90c1ae7aa876">
+            <name xml:lang="fr">Business Interaction1</name>
+            <properties/>
+        </element>
+        <element xsi:type="BusinessEvent" identifier="m-f5a58b67-c68a-4b4e-aad1-5f144aac30df">
+            <name xml:lang="fr">Business Event1</name>
+            <properties/>
+        </element>
+        <element xsi:type="BusinessService" identifier="m-4c2196a7-59f2-497f-bad1-fe704eecdd60">
+            <name xml:lang="fr">Business Service1</name>
+            <properties/>
+        </element>
+        <element xsi:type="BusinessObject" identifier="m-64268764-992c-4cc4-bee8-e873100383f1">
+            <name xml:lang="fr">Business Object1</name>
+            <properties/>
+        </element>
+        <element xsi:type="Representation" identifier="m-870ae7ed-b510-4261-acfb-d912f87b04dd">
+            <name xml:lang="fr">Representation1</name>
+            <properties/>
+        </element>
+        <element xsi:type="Gap" identifier="m-e37c761a-64ce-4d81-a4b8-9912e47e4042">
+            <name xml:lang="fr">Gap</name>
+            <properties/>
+        </element>
+        <element xsi:type="WorkPackage" identifier="m-4e1769f7-002f-4515-9913-0f4c14b945db">
+            <name xml:lang="fr">Work Package</name>
+            <properties/>
+        </element>
+        <element xsi:type="ImplementationEvent" identifier="m-e7da958e-eecf-4ab5-bf12-564fcffdb7dc">
+            <name xml:lang="fr">Implementation Event</name>
+            <properties/>
+        </element>
+        <element xsi:type="Deliverable" identifier="m-da9e5ac7-0acd-4912-8831-e9b03c81ee19">
+            <name xml:lang="fr">Deliverable</name>
+            <properties/>
+        </element>
+        <element xsi:type="Plateau" identifier="m-1fe6d336-aba5-4b81-a478-3a22758da30d">
+            <name xml:lang="fr">Plateau</name>
+            <properties/>
+        </element>
+        <element xsi:type="WorkPackage" identifier="m-6a35bcfe-b86d-485b-bb9b-1b7b5ee09493">
+            <name xml:lang="fr">Work Package1</name>
+            <properties/>
+        </element>
+        <element xsi:type="Assessment" identifier="m-045a9a13-a7de-40cd-83ae-14ef52f98d4a">
+            <name xml:lang="fr">Assessment</name>
+            <properties/>
+        </element>
+        <element xsi:type="Goal" identifier="m-0b51ee68-9c1d-424f-909d-8a01a933b275">
+            <name xml:lang="fr">Goal</name>
+            <properties/>
+        </element>
+        <element xsi:type="Constraint" identifier="m-287cce5f-fb0a-4e17-87e7-3d5ffa1db637">
+            <name xml:lang="fr">Constraint</name>
+            <properties/>
+        </element>
+        <element xsi:type="Value" identifier="m-c86aa9b9-0a55-47f3-b1a4-7099b5cd76b9">
+            <name xml:lang="fr">Value</name>
+            <properties/>
+        </element>
+        <element xsi:type="Driver" identifier="m-f69fb11b-ad33-4f57-9631-ce1039ecb18c">
+            <name xml:lang="fr">Driver</name>
+            <properties/>
+        </element>
+        <element xsi:type="Principle" identifier="m-7d1c4395-0e0f-4948-ac7f-5b385607b777">
+            <name xml:lang="fr">Principle</name>
+            <properties/>
+        </element>
+        <element xsi:type="Meaning" identifier="m-7d4f7f7b-2637-4626-ba6f-08f96907d43a">
+            <name xml:lang="fr">Meaning</name>
+            <properties/>
+        </element>
+        <element xsi:type="Outcome" identifier="m-8b2f6f5c-ee10-4e76-b335-152b351cc2ed">
+            <name xml:lang="fr">Outcome</name>
+            <properties/>
+        </element>
+        <element xsi:type="Stakeholder" identifier="m-20c6b405-de78-448b-a651-afa492f65445">
+            <name xml:lang="fr">Stakeholder</name>
+            <properties/>
+        </element>
+        <element xsi:type="Requirement" identifier="m-9872e1be-d249-4f50-af5d-be048667dda4">
+            <name xml:lang="fr">Requirement</name>
+            <properties/>
+        </element>
+        <element xsi:type="Outcome" identifier="m-2317e1d8-9b81-42f5-949b-0f8717286ca6">
+            <name xml:lang="fr">Outcome1</name>
+            <properties/>
+        </element>
+        <element xsi:type="Equipment" identifier="m-69a93cfd-08bf-4fd7-8047-ff7cc9835e07">
+            <name xml:lang="fr">Equipment</name>
+            <properties/>
+        </element>
+        <element xsi:type="DistributionNetwork" identifier="m-9112c22f-245a-474a-b7e3-fa7b2fdf701f">
+            <name xml:lang="fr">Distribution Network</name>
+            <properties/>
+        </element>
+        <element xsi:type="Material" identifier="m-ad715f5c-def3-4fb1-bacd-69a3c9c35d65">
+            <name xml:lang="fr">Material</name>
+            <properties/>
+        </element>
+        <element xsi:type="Facility" identifier="m-ebcd81ec-59bc-4843-a314-cdf8157f424e">
+            <name xml:lang="fr">Facility</name>
+            <properties/>
+        </element>
+        <element xsi:type="Capability" identifier="m-679fa74f-c35f-4b56-b3bc-4ef42dcfea82">
+            <name xml:lang="fr">Capability</name>
+            <properties/>
+        </element>
+        <element xsi:type="CourseOfAction" identifier="m-e8782eb0-f0ae-44b6-9608-b0d33e354b67">
+            <name xml:lang="fr">Course Of Action</name>
+            <properties/>
+        </element>
+        <element xsi:type="Resource" identifier="m-ae9ad8af-b60a-4120-a749-176aa8d9b132">
+            <name xml:lang="fr">Resource</name>
+            <properties/>
+        </element>
+        <element xsi:type="Capability" identifier="m-68d1fb51-86ff-44ab-ac77-73c5120dc7c9">
+            <name xml:lang="fr">Capability1</name>
+            <properties/>
+        </element>
+        <element xsi:type="Resource" identifier="m-f024e1b1-c3a0-40ba-a879-36c080640460">
+            <name xml:lang="fr">Resource1</name>
+            <properties/>
+        </element>
+        <element xsi:type="Resource" identifier="m-ef085df7-4cc0-4e6e-9743-5c9abae6c50e">
+            <name xml:lang="fr">Resource2</name>
+            <properties/>
+        </element>
+        <element xsi:type="Capability" identifier="m-83e82508-7fa8-411c-be95-31b20bdc1189">
+            <name xml:lang="fr">Capability2</name>
+            <properties/>
+        </element>
+        <element xsi:type="TechnologyEvent" identifier="m-aade0519-9706-4782-8520-5e3cb4035d2e">
+            <name xml:lang="fr">Technology Event</name>
+            <properties/>
+        </element>
+        <element xsi:type="Node" identifier="m-e43f0152-062c-4331-a95e-950bc76746f1">
+            <name xml:lang="fr">Node</name>
+            <properties/>
+        </element>
+        <element xsi:type="TechnologyService" identifier="m-5e257669-7a99-41b2-9dcb-1718562c179b">
+            <name xml:lang="fr">Technology Service</name>
+            <properties/>
+        </element>
+        <element xsi:type="CommunicationNetwork" identifier="m-d41eff5c-d782-4501-ba94-27296881e4ec">
+            <name xml:lang="fr">Communication Network</name>
+            <properties/>
+        </element>
+        <element xsi:type="TechnologyInterface" identifier="m-29ab4d5e-ca55-45a0-8b86-2b9f140ae242">
+            <name xml:lang="fr">Technology Interface</name>
+            <properties/>
+        </element>
+        <element xsi:type="Device" identifier="m-690430fe-8a9b-46e2-8b75-d51ffe009dc4">
+            <name xml:lang="fr">Device</name>
+            <properties/>
+        </element>
+        <element xsi:type="Artifact" identifier="m-0c04acd2-cb02-441b-8abc-d49d3f8aa2df">
+            <name xml:lang="fr">Artifact</name>
+            <properties/>
+        </element>
+        <element xsi:type="Path" identifier="m-13e34957-cee7-4025-a6d4-0d61fa957baf">
+            <name xml:lang="fr">Path</name>
+            <properties/>
+        </element>
+        <element xsi:type="TechnologyFunction" identifier="m-99e49eab-2743-49c1-b005-303c9570accb">
+            <name xml:lang="fr">Technology Function</name>
+            <properties/>
+        </element>
+        <element xsi:type="TechnologyProcess" identifier="m-9bc64a2a-f7b3-4e3a-8e8a-8c51c02e960b">
+            <name xml:lang="fr">Technology Process</name>
+            <properties/>
+        </element>
+        <element xsi:type="TechnologyInteraction" identifier="m-6bd797d4-8f96-44cb-a8e8-bc07fd026d79">
+            <name xml:lang="fr">Technology Interaction</name>
+            <properties/>
+        </element>
+        <element xsi:type="Node" identifier="m-d0e6ab51-60da-496c-8fcf-cad0901bc8c3">
+            <name xml:lang="fr">System Software</name>
+            <properties/>
+        </element>
+        <element xsi:type="Node" identifier="m-4b78b1ef-aebd-4576-a304-538d4ac3a3c6">
+            <name xml:lang="fr">Technology Collaboration</name>
+            <properties/>
+        </element>
+    </elements>
+    <organizations>
+        <item identifier="ref-10795ee6-58a7-4c62-a6f7-a4da33d1e243">
+            <label xml:lang="fr">application</label>
+            <item identifier="ref-3981cb8e-7e74-4fd3-96a5-e6da941eef26" identifierRef="m-3981cb8e-7e74-4fd3-96a5-e6da941eef26">
+                <label xml:lang="fr">Application Event</label>
+            </item>
+            <item identifier="ref-d64e31e6-9f09-4557-90fc-47319474e3bf" identifierRef="m-d64e31e6-9f09-4557-90fc-47319474e3bf">
+                <label xml:lang="fr">Application Interface</label>
+            </item>
+            <item identifier="ref-a3e0beee-3724-47a4-a10e-240fda2699a9" identifierRef="m-a3e0beee-3724-47a4-a10e-240fda2699a9">
+                <label xml:lang="fr">Data Object</label>
+            </item>
+            <item identifier="ref-8408a167-64b3-4e7a-b8bc-1a83bd24ed61" identifierRef="m-8408a167-64b3-4e7a-b8bc-1a83bd24ed61">
+                <label xml:lang="fr">Application Collaboration</label>
+            </item>
+            <item identifier="ref-3808ea1f-8b18-43ad-824d-56d1b5e2fb04" identifierRef="m-3808ea1f-8b18-43ad-824d-56d1b5e2fb04">
+                <label xml:lang="fr">Application Interaction</label>
+            </item>
+            <item identifier="ref-de2f7aa4-586a-45b5-a104-182765b72114" identifierRef="m-de2f7aa4-586a-45b5-a104-182765b72114">
+                <label xml:lang="fr">Application Process</label>
+            </item>
+            <item identifier="ref-ba9215cb-9315-4d47-978e-4da4e4404c57" identifierRef="m-ba9215cb-9315-4d47-978e-4da4e4404c57">
+                <label xml:lang="fr">Application Service</label>
+            </item>
+            <item identifier="ref-20cc6b26-c90f-4377-a9dc-50c1ee7048bf" identifierRef="m-20cc6b26-c90f-4377-a9dc-50c1ee7048bf">
+                <label xml:lang="fr">Application Component</label>
+            </item>
+            <item identifier="ref-62db89f5-ecc1-4ac5-b134-57738a4e7889" identifierRef="m-62db89f5-ecc1-4ac5-b134-57738a4e7889">
+                <label xml:lang="fr">Application Function</label>
+            </item>
+            <item identifier="ref-57a2294c-18b6-48fd-a410-e7583b6dd4b2" identifierRef="m-57a2294c-18b6-48fd-a410-e7583b6dd4b2">
+                <label xml:lang="fr">Application Component1</label>
+            </item>
+            <item identifier="ref-9d323b56-ca96-4152-9f0f-fe5274ae47e0" identifierRef="m-9d323b56-ca96-4152-9f0f-fe5274ae47e0">
+                <label xml:lang="fr">Application Collaboration1</label>
+            </item>
+            <item identifier="ref-e5bec321-2afc-414a-b0b4-b0c34795b090" identifierRef="m-e5bec321-2afc-414a-b0b4-b0c34795b090">
+                <label xml:lang="fr">Application Interface1</label>
+            </item>
+            <item identifier="ref-99e443e3-9b08-4118-9d99-d81868c94463" identifierRef="m-99e443e3-9b08-4118-9d99-d81868c94463">
+                <label xml:lang="fr">Application Process1</label>
+            </item>
+            <item identifier="ref-d24ad56c-f954-466e-a8f2-54006cf537d3" identifierRef="m-d24ad56c-f954-466e-a8f2-54006cf537d3">
+                <label xml:lang="fr">Application Function1</label>
+            </item>
+            <item identifier="ref-9b06a941-06cb-40ee-9ffe-7552da0815fd" identifierRef="m-9b06a941-06cb-40ee-9ffe-7552da0815fd">
+                <label xml:lang="fr">Application Interaction1</label>
+            </item>
+            <item identifier="ref-15f353dd-6a65-4bb4-9a88-a48226e37a88" identifierRef="m-15f353dd-6a65-4bb4-9a88-a48226e37a88">
+                <label xml:lang="fr">Application Event1</label>
+            </item>
+            <item identifier="ref-2224b0f8-48e2-4909-b8c8-150f81007ee6" identifierRef="m-2224b0f8-48e2-4909-b8c8-150f81007ee6">
+                <label xml:lang="fr">Application Service1</label>
+            </item>
+            <item identifier="ref-bf298d2b-a4a8-4051-9580-130f62b91bc9" identifierRef="m-bf298d2b-a4a8-4051-9580-130f62b91bc9">
+                <label xml:lang="fr">Data Object1</label>
+            </item>
+            <item identifier="ref-dc5219ec-3ea2-41a2-b6c1-21cece92ac6d" identifierRef="m-dc5219ec-3ea2-41a2-b6c1-21cece92ac6d">
+                <label xml:lang="fr">Application Component2</label>
+            </item>
+            <item identifier="ref-c267c334-8873-4613-ab7f-fc7dd8a89f3c" identifierRef="m-c267c334-8873-4613-ab7f-fc7dd8a89f3c">
+                <label xml:lang="fr">Application Collaboration2</label>
+            </item>
+            <item identifier="ref-49911213-bf8f-447b-8fe2-85b68c40163f" identifierRef="m-49911213-bf8f-447b-8fe2-85b68c40163f">
+                <label xml:lang="fr">Application Interface2</label>
+            </item>
+            <item identifier="ref-6f029b39-ec7a-4f7e-b1b5-434d0d66cd90" identifierRef="m-6f029b39-ec7a-4f7e-b1b5-434d0d66cd90">
+                <label xml:lang="fr">Application Process2</label>
+            </item>
+            <item identifier="ref-0809b9b5-4c72-4950-9837-1d6767d8388a" identifierRef="m-0809b9b5-4c72-4950-9837-1d6767d8388a">
+                <label xml:lang="fr">Application Function2</label>
+            </item>
+            <item identifier="ref-9eb08d3d-c185-493c-a9f4-3546885da2cb" identifierRef="m-9eb08d3d-c185-493c-a9f4-3546885da2cb">
+                <label xml:lang="fr">Application Interaction2</label>
+            </item>
+            <item identifier="ref-97a40ee7-42fb-4731-9bbf-b87aaea8ff8a" identifierRef="m-97a40ee7-42fb-4731-9bbf-b87aaea8ff8a">
+                <label xml:lang="fr">Application Event2</label>
+            </item>
+            <item identifier="ref-1baef20c-bdc6-4b9e-8e9b-50e0b6154cfb" identifierRef="m-1baef20c-bdc6-4b9e-8e9b-50e0b6154cfb">
+                <label xml:lang="fr">Application Service2</label>
+            </item>
+            <item identifier="ref-01307809-ca5f-46b3-9cc3-3f31e0821870" identifierRef="m-01307809-ca5f-46b3-9cc3-3f31e0821870">
+                <label xml:lang="fr">Data Object2</label>
+            </item>
+        </item>
+        <item identifier="ref-55bc41b6-de9e-4319-99a8-5eae057136b1">
+            <label xml:lang="fr">business</label>
+            <item identifier="ref-2935fb93-a689-409c-bfd3-0d7c228880d3" identifierRef="m-2935fb93-a689-409c-bfd3-0d7c228880d3">
+                <label xml:lang="fr">Business Actor</label>
+            </item>
+            <item identifier="ref-c23fd055-c1c6-4372-8223-369e8e48b076" identifierRef="m-c23fd055-c1c6-4372-8223-369e8e48b076">
+                <label xml:lang="fr">Business Collaboration</label>
+            </item>
+            <item identifier="ref-5c79fec9-7dbd-4712-976e-0131860acb87" identifierRef="m-5c79fec9-7dbd-4712-976e-0131860acb87">
+                <label xml:lang="fr">Business Event</label>
+            </item>
+            <item identifier="ref-889f721f-fc6e-4062-8cdf-cfdbf6f5d176" identifierRef="m-889f721f-fc6e-4062-8cdf-cfdbf6f5d176">
+                <label xml:lang="fr">Business Function</label>
+            </item>
+            <item identifier="ref-bba5cf04-dfb5-4094-9ec6-5f210a71c8fc" identifierRef="m-bba5cf04-dfb5-4094-9ec6-5f210a71c8fc">
+                <label xml:lang="fr">Business Interaction</label>
+            </item>
+            <item identifier="ref-7afb9994-19d8-4bbf-87ab-8be3139dbc9c" identifierRef="m-7afb9994-19d8-4bbf-87ab-8be3139dbc9c">
+                <label xml:lang="fr">Business Interface</label>
+            </item>
+            <item identifier="ref-98b16944-6005-4337-b64b-9884c2132c68" identifierRef="m-98b16944-6005-4337-b64b-9884c2132c68">
+                <label xml:lang="fr">Business Object</label>
+            </item>
+            <item identifier="ref-11c94c7b-cada-4809-90f3-dc57d30315c8" identifierRef="m-11c94c7b-cada-4809-90f3-dc57d30315c8">
+                <label xml:lang="fr">Business Process</label>
+            </item>
+            <item identifier="ref-1407c278-0e4b-443f-8299-297e89cabd35" identifierRef="m-1407c278-0e4b-443f-8299-297e89cabd35">
+                <label xml:lang="fr">Business Role</label>
+            </item>
+            <item identifier="ref-641126b9-1af8-432c-ad50-f1b579ecab0e" identifierRef="m-641126b9-1af8-432c-ad50-f1b579ecab0e">
+                <label xml:lang="fr">Business Service</label>
+            </item>
+            <item identifier="ref-8e6a0fee-84bc-43cd-8350-c2125c21d612" identifierRef="m-8e6a0fee-84bc-43cd-8350-c2125c21d612">
+                <label xml:lang="fr">Contract</label>
+            </item>
+            <item identifier="ref-529d097c-3d52-4f1c-abce-29ba2f268c29" identifierRef="m-529d097c-3d52-4f1c-abce-29ba2f268c29">
+                <label xml:lang="fr">Product</label>
+            </item>
+            <item identifier="ref-03c62567-763f-4f68-a542-151a8d937656" identifierRef="m-03c62567-763f-4f68-a542-151a8d937656">
+                <label xml:lang="fr">Representation</label>
+            </item>
+            <item identifier="ref-e89baa6d-50d7-4ca7-9189-70a01c56757c" identifierRef="m-e89baa6d-50d7-4ca7-9189-70a01c56757c">
+                <label xml:lang="fr">Business Actor1</label>
+            </item>
+            <item identifier="ref-00fa603d-1934-477e-a35e-d527756e4d60" identifierRef="m-00fa603d-1934-477e-a35e-d527756e4d60">
+                <label xml:lang="fr">Business Role1</label>
+            </item>
+            <item identifier="ref-7232da5b-3fbe-4822-9c31-5905d10a60f4" identifierRef="m-7232da5b-3fbe-4822-9c31-5905d10a60f4">
+                <label xml:lang="fr">Business Collaboration1</label>
+            </item>
+            <item identifier="ref-5c3d810e-38bc-4a81-a5c6-abd44f318585" identifierRef="m-5c3d810e-38bc-4a81-a5c6-abd44f318585">
+                <label xml:lang="fr">Business Interface1</label>
+            </item>
+            <item identifier="ref-bd8aadb3-1d56-4142-8b1e-59572b873270" identifierRef="m-bd8aadb3-1d56-4142-8b1e-59572b873270">
+                <label xml:lang="fr">Business Process1</label>
+            </item>
+            <item identifier="ref-d790cf10-95ba-4598-bab4-52453eced467" identifierRef="m-d790cf10-95ba-4598-bab4-52453eced467">
+                <label xml:lang="fr">Business Function1</label>
+            </item>
+            <item identifier="ref-44027044-af90-476e-bdbc-90c1ae7aa876" identifierRef="m-44027044-af90-476e-bdbc-90c1ae7aa876">
+                <label xml:lang="fr">Business Interaction1</label>
+            </item>
+            <item identifier="ref-f5a58b67-c68a-4b4e-aad1-5f144aac30df" identifierRef="m-f5a58b67-c68a-4b4e-aad1-5f144aac30df">
+                <label xml:lang="fr">Business Event1</label>
+            </item>
+            <item identifier="ref-4c2196a7-59f2-497f-bad1-fe704eecdd60" identifierRef="m-4c2196a7-59f2-497f-bad1-fe704eecdd60">
+                <label xml:lang="fr">Business Service1</label>
+            </item>
+            <item identifier="ref-64268764-992c-4cc4-bee8-e873100383f1" identifierRef="m-64268764-992c-4cc4-bee8-e873100383f1">
+                <label xml:lang="fr">Business Object1</label>
+            </item>
+            <item identifier="ref-870ae7ed-b510-4261-acfb-d912f87b04dd" identifierRef="m-870ae7ed-b510-4261-acfb-d912f87b04dd">
+                <label xml:lang="fr">Representation1</label>
+            </item>
+        </item>
+        <item identifier="ref-d251682a-9228-46fb-9105-b0ca1c16d386">
+            <label xml:lang="fr">implementation</label>
+            <item identifier="ref-e37c761a-64ce-4d81-a4b8-9912e47e4042" identifierRef="m-e37c761a-64ce-4d81-a4b8-9912e47e4042">
+                <label xml:lang="fr">Gap</label>
+            </item>
+            <item identifier="ref-4e1769f7-002f-4515-9913-0f4c14b945db" identifierRef="m-4e1769f7-002f-4515-9913-0f4c14b945db">
+                <label xml:lang="fr">Work Package</label>
+            </item>
+            <item identifier="ref-e7da958e-eecf-4ab5-bf12-564fcffdb7dc" identifierRef="m-e7da958e-eecf-4ab5-bf12-564fcffdb7dc">
+                <label xml:lang="fr">Implementation Event</label>
+            </item>
+            <item identifier="ref-da9e5ac7-0acd-4912-8831-e9b03c81ee19" identifierRef="m-da9e5ac7-0acd-4912-8831-e9b03c81ee19">
+                <label xml:lang="fr">Deliverable</label>
+            </item>
+            <item identifier="ref-1fe6d336-aba5-4b81-a478-3a22758da30d" identifierRef="m-1fe6d336-aba5-4b81-a478-3a22758da30d">
+                <label xml:lang="fr">Plateau</label>
+            </item>
+            <item identifier="ref-6a35bcfe-b86d-485b-bb9b-1b7b5ee09493" identifierRef="m-6a35bcfe-b86d-485b-bb9b-1b7b5ee09493">
+                <label xml:lang="fr">Work Package1</label>
+            </item>
+        </item>
+        <item identifier="ref-46d72a61-1533-410d-8af9-af4458fba84e">
+            <label xml:lang="fr">motivation</label>
+            <item identifier="ref-045a9a13-a7de-40cd-83ae-14ef52f98d4a" identifierRef="m-045a9a13-a7de-40cd-83ae-14ef52f98d4a">
+                <label xml:lang="fr">Assessment</label>
+            </item>
+            <item identifier="ref-0b51ee68-9c1d-424f-909d-8a01a933b275" identifierRef="m-0b51ee68-9c1d-424f-909d-8a01a933b275">
+                <label xml:lang="fr">Goal</label>
+            </item>
+            <item identifier="ref-287cce5f-fb0a-4e17-87e7-3d5ffa1db637" identifierRef="m-287cce5f-fb0a-4e17-87e7-3d5ffa1db637">
+                <label xml:lang="fr">Constraint</label>
+            </item>
+            <item identifier="ref-c86aa9b9-0a55-47f3-b1a4-7099b5cd76b9" identifierRef="m-c86aa9b9-0a55-47f3-b1a4-7099b5cd76b9">
+                <label xml:lang="fr">Value</label>
+            </item>
+            <item identifier="ref-f69fb11b-ad33-4f57-9631-ce1039ecb18c" identifierRef="m-f69fb11b-ad33-4f57-9631-ce1039ecb18c">
+                <label xml:lang="fr">Driver</label>
+            </item>
+            <item identifier="ref-7d1c4395-0e0f-4948-ac7f-5b385607b777" identifierRef="m-7d1c4395-0e0f-4948-ac7f-5b385607b777">
+                <label xml:lang="fr">Principle</label>
+            </item>
+            <item identifier="ref-7d4f7f7b-2637-4626-ba6f-08f96907d43a" identifierRef="m-7d4f7f7b-2637-4626-ba6f-08f96907d43a">
+                <label xml:lang="fr">Meaning</label>
+            </item>
+            <item identifier="ref-8b2f6f5c-ee10-4e76-b335-152b351cc2ed" identifierRef="m-8b2f6f5c-ee10-4e76-b335-152b351cc2ed">
+                <label xml:lang="fr">Outcome</label>
+            </item>
+            <item identifier="ref-20c6b405-de78-448b-a651-afa492f65445" identifierRef="m-20c6b405-de78-448b-a651-afa492f65445">
+                <label xml:lang="fr">Stakeholder</label>
+            </item>
+            <item identifier="ref-9872e1be-d249-4f50-af5d-be048667dda4" identifierRef="m-9872e1be-d249-4f50-af5d-be048667dda4">
+                <label xml:lang="fr">Requirement</label>
+            </item>
+            <item identifier="ref-2317e1d8-9b81-42f5-949b-0f8717286ca6" identifierRef="m-2317e1d8-9b81-42f5-949b-0f8717286ca6">
+                <label xml:lang="fr">Outcome1</label>
+            </item>
+        </item>
+        <item identifier="ref-244d1b85-d4bc-49a1-be79-5da0f83e7b8d">
+            <label xml:lang="fr">physical</label>
+            <item identifier="ref-69a93cfd-08bf-4fd7-8047-ff7cc9835e07" identifierRef="m-69a93cfd-08bf-4fd7-8047-ff7cc9835e07">
+                <label xml:lang="fr">Equipment</label>
+            </item>
+            <item identifier="ref-9112c22f-245a-474a-b7e3-fa7b2fdf701f" identifierRef="m-9112c22f-245a-474a-b7e3-fa7b2fdf701f">
+                <label xml:lang="fr">Distribution Network</label>
+            </item>
+            <item identifier="ref-ad715f5c-def3-4fb1-bacd-69a3c9c35d65" identifierRef="m-ad715f5c-def3-4fb1-bacd-69a3c9c35d65">
+                <label xml:lang="fr">Material</label>
+            </item>
+            <item identifier="ref-ebcd81ec-59bc-4843-a314-cdf8157f424e" identifierRef="m-ebcd81ec-59bc-4843-a314-cdf8157f424e">
+                <label xml:lang="fr">Facility</label>
+            </item>
+        </item>
+        <item identifier="ref-eab32356-8c3a-4509-b091-42ded0b602d6">
+            <label xml:lang="fr">strategy</label>
+            <item identifier="ref-679fa74f-c35f-4b56-b3bc-4ef42dcfea82" identifierRef="m-679fa74f-c35f-4b56-b3bc-4ef42dcfea82">
+                <label xml:lang="fr">Capability</label>
+            </item>
+            <item identifier="ref-e8782eb0-f0ae-44b6-9608-b0d33e354b67" identifierRef="m-e8782eb0-f0ae-44b6-9608-b0d33e354b67">
+                <label xml:lang="fr">Course Of Action</label>
+            </item>
+            <item identifier="ref-ae9ad8af-b60a-4120-a749-176aa8d9b132" identifierRef="m-ae9ad8af-b60a-4120-a749-176aa8d9b132">
+                <label xml:lang="fr">Resource</label>
+            </item>
+            <item identifier="ref-68d1fb51-86ff-44ab-ac77-73c5120dc7c9" identifierRef="m-68d1fb51-86ff-44ab-ac77-73c5120dc7c9">
+                <label xml:lang="fr">Capability1</label>
+            </item>
+            <item identifier="ref-f024e1b1-c3a0-40ba-a879-36c080640460" identifierRef="m-f024e1b1-c3a0-40ba-a879-36c080640460">
+                <label xml:lang="fr">Resource1</label>
+            </item>
+            <item identifier="ref-ef085df7-4cc0-4e6e-9743-5c9abae6c50e" identifierRef="m-ef085df7-4cc0-4e6e-9743-5c9abae6c50e">
+                <label xml:lang="fr">Resource2</label>
+            </item>
+            <item identifier="ref-83e82508-7fa8-411c-be95-31b20bdc1189" identifierRef="m-83e82508-7fa8-411c-be95-31b20bdc1189">
+                <label xml:lang="fr">Capability2</label>
+            </item>
+        </item>
+        <item identifier="ref-124432a7-ad8e-4e1c-b049-5e2310ee2e6a">
+            <label xml:lang="fr">technology</label>
+            <item identifier="ref-aade0519-9706-4782-8520-5e3cb4035d2e" identifierRef="m-aade0519-9706-4782-8520-5e3cb4035d2e">
+                <label xml:lang="fr">Technology Event</label>
+            </item>
+            <item identifier="ref-e43f0152-062c-4331-a95e-950bc76746f1" identifierRef="m-e43f0152-062c-4331-a95e-950bc76746f1">
+                <label xml:lang="fr">Node</label>
+            </item>
+            <item identifier="ref-5e257669-7a99-41b2-9dcb-1718562c179b" identifierRef="m-5e257669-7a99-41b2-9dcb-1718562c179b">
+                <label xml:lang="fr">Technology Service</label>
+            </item>
+            <item identifier="ref-d41eff5c-d782-4501-ba94-27296881e4ec" identifierRef="m-d41eff5c-d782-4501-ba94-27296881e4ec">
+                <label xml:lang="fr">Communication Network</label>
+            </item>
+            <item identifier="ref-29ab4d5e-ca55-45a0-8b86-2b9f140ae242" identifierRef="m-29ab4d5e-ca55-45a0-8b86-2b9f140ae242">
+                <label xml:lang="fr">Technology Interface</label>
+            </item>
+            <item identifier="ref-690430fe-8a9b-46e2-8b75-d51ffe009dc4" identifierRef="m-690430fe-8a9b-46e2-8b75-d51ffe009dc4">
+                <label xml:lang="fr">Device</label>
+            </item>
+            <item identifier="ref-0c04acd2-cb02-441b-8abc-d49d3f8aa2df" identifierRef="m-0c04acd2-cb02-441b-8abc-d49d3f8aa2df">
+                <label xml:lang="fr">Artifact</label>
+            </item>
+            <item identifier="ref-13e34957-cee7-4025-a6d4-0d61fa957baf" identifierRef="m-13e34957-cee7-4025-a6d4-0d61fa957baf">
+                <label xml:lang="fr">Path</label>
+            </item>
+            <item identifier="ref-99e49eab-2743-49c1-b005-303c9570accb" identifierRef="m-99e49eab-2743-49c1-b005-303c9570accb">
+                <label xml:lang="fr">Technology Function</label>
+            </item>
+            <item identifier="ref-9bc64a2a-f7b3-4e3a-8e8a-8c51c02e960b" identifierRef="m-9bc64a2a-f7b3-4e3a-8e8a-8c51c02e960b">
+                <label xml:lang="fr">Technology Process</label>
+            </item>
+            <item identifier="ref-6bd797d4-8f96-44cb-a8e8-bc07fd026d79" identifierRef="m-6bd797d4-8f96-44cb-a8e8-bc07fd026d79">
+                <label xml:lang="fr">Technology Interaction</label>
+            </item>
+            <item identifier="ref-d0e6ab51-60da-496c-8fcf-cad0901bc8c3" identifierRef="m-d0e6ab51-60da-496c-8fcf-cad0901bc8c3">
+                <label xml:lang="fr">System Software</label>
+            </item>
+            <item identifier="ref-4b78b1ef-aebd-4576-a304-538d4ac3a3c6" identifierRef="m-4b78b1ef-aebd-4576-a304-538d4ac3a3c6">
+                <label xml:lang="fr">Technology Collaboration</label>
+            </item>
+        </item>
+    </organizations>
+    <organizations>
+        <item identifier="ref-d39ce33e-d6b1-47a5-b167-1cabf25c9ed1">
+            <label xml:lang="fr">View Point</label>
+            <item identifier="ref-da4d1199-81b7-41ee-b9e6-3b90cb01e662" identifierRef="m-da4d1199-81b7-41ee-b9e6-3b90cb01e662">
+                <label xml:lang="fr">ArchimateView</label>
+            </item>
+            <item identifier="ref-64d67890-8a5b-4b45-bc27-818714396e0f">
+                <label xml:lang="fr">ViewPointDiagram</label>
+            </item>
+            <item identifier="ref-64076bf4-b98f-4518-8cc3-e0cce1601d39" identifierRef="m-64076bf4-b98f-4518-8cc3-e0cce1601d39">
+                <label xml:lang="fr">Vue cartographie des capacités</label>
+            </item>
+            <item identifier="ref-2741871a-12d1-4554-b6f8-4cefb592e4d7" identifierRef="m-2741871a-12d1-4554-b6f8-4cefb592e4d7">
+                <label xml:lang="fr">Vue cartographie des ressources</label>
+            </item>
+            <item identifier="ref-39744465-2119-4033-8b9d-f3f81396037e" identifierRef="m-39744465-2119-4033-8b9d-f3f81396037e">
+                <label xml:lang="fr">Vue coopération applicative</label>
+            </item>
+            <item identifier="ref-43dc6397-b40e-413d-bbf6-88d2bf77b1b8" identifierRef="m-43dc6397-b40e-413d-bbf6-88d2bf77b1b8">
+                <label xml:lang="fr">Vue coopération des processus métier</label>
+            </item>
+            <item identifier="ref-7de086ca-a787-48bb-bb58-7f1989b58f23" identifierRef="m-7de086ca-a787-48bb-bb58-7f1989b58f23">
+                <label xml:lang="fr">Vue implementation et migration</label>
+            </item>
+            <item identifier="ref-9ebabe1d-851b-4874-9f12-65e0b8c4bb99" identifierRef="m-9ebabe1d-851b-4874-9f12-65e0b8c4bb99">
+                <label xml:lang="fr">Vue implémentation et déploiement</label>
+            </item>
+            <item identifier="ref-9775b83f-9406-4386-813c-ed64bd4e70c0" identifierRef="m-9775b83f-9406-4386-813c-ed64bd4e70c0">
+                <label xml:lang="fr">Vue migration</label>
+            </item>
+            <item identifier="ref-5605bc5d-21e6-4fec-88ab-fcc1fb86478b" identifierRef="m-5605bc5d-21e6-4fec-88ab-fcc1fb86478b">
+                <label xml:lang="fr">Vue motivation</label>
+            </item>
+            <item identifier="ref-28df2fe1-c3bc-440b-95f6-dc8834631eed" identifierRef="m-28df2fe1-c3bc-440b-95f6-dc8834631eed">
+                <label xml:lang="fr">Vue organisation</label>
+            </item>
+            <item identifier="ref-4369416a-170a-4f88-860f-188824e2f8ef" identifierRef="m-4369416a-170a-4f88-860f-188824e2f8ef">
+                <label xml:lang="fr">Vue parties prenantes</label>
+            </item>
+            <item identifier="ref-4c923e1b-4b70-499f-bf83-80984720cde5" identifierRef="m-4c923e1b-4b70-499f-bf83-80984720cde5">
+                <label xml:lang="fr">Vue physique</label>
+            </item>
+            <item identifier="ref-710bee27-4202-442b-93fa-d97dc5ef974e" identifierRef="m-710bee27-4202-442b-93fa-d97dc5ef974e">
+                <label xml:lang="fr">Vue produit</label>
+            </item>
+            <item identifier="ref-b74d836a-e9de-4a3e-9005-8bc3fe3ca7e2" identifierRef="m-b74d836a-e9de-4a3e-9005-8bc3fe3ca7e2">
+                <label xml:lang="fr">Vue projet</label>
+            </item>
+            <item identifier="ref-639f7dcc-ad2a-49bc-9c55-e1337f0db125" identifierRef="m-639f7dcc-ad2a-49bc-9c55-e1337f0db125">
+                <label xml:lang="fr">Vue réalisation des exigences</label>
+            </item>
+            <item identifier="ref-8c8eca4e-466b-4fc9-8b51-225bebcf3783" identifierRef="m-8c8eca4e-466b-4fc9-8b51-225bebcf3783">
+                <label xml:lang="fr">Vue réalisation des objectifs</label>
+            </item>
+            <item identifier="ref-c82f1517-4c59-4e3f-a3c5-469ae07a72cc" identifierRef="m-c82f1517-4c59-4e3f-a3c5-469ae07a72cc">
+                <label xml:lang="fr">Vue réalisation des résultats</label>
+            </item>
+            <item identifier="ref-99825b4b-8849-4865-ab99-f393ff806979" identifierRef="m-99825b4b-8849-4865-ab99-f393ff806979">
+                <label xml:lang="fr">Vue réalisation des services</label>
+            </item>
+            <item identifier="ref-078eec62-fd59-4ec4-94fc-e53f793e1961" identifierRef="m-078eec62-fd59-4ec4-94fc-e53f793e1961">
+                <label xml:lang="fr">Vue stratégie</label>
+            </item>
+            <item identifier="ref-599f1a0d-5a36-4d2f-a56c-1fca872bd55b" identifierRef="m-599f1a0d-5a36-4d2f-a56c-1fca872bd55b">
+                <label xml:lang="fr">Vue structure d'information</label>
+            </item>
+            <item identifier="ref-bbfd8397-d3ec-4dcb-97d1-ac09b622d943" identifierRef="m-bbfd8397-d3ec-4dcb-97d1-ac09b622d943">
+                <label xml:lang="fr">Vue structure en couches</label>
+            </item>
+            <item identifier="ref-ed5918fa-04f7-4554-a02f-af5f4c809928" identifierRef="m-ed5918fa-04f7-4554-a02f-af5f4c809928">
+                <label xml:lang="fr">Vue technologie</label>
+            </item>
+            <item identifier="ref-81948b80-191e-4aa6-bc94-8760b38d013f" identifierRef="m-81948b80-191e-4aa6-bc94-8760b38d013f">
+                <label xml:lang="fr">Vue Usage applicatif</label>
+            </item>
+            <item identifier="ref-adbc9f96-0c26-4e91-bf15-8f521c39fd2c" identifierRef="m-adbc9f96-0c26-4e91-bf15-8f521c39fd2c">
+                <label xml:lang="fr">Vue utilisation technologique</label>
+            </item>
+        </item>
+    </organizations>
+    <propertyDefinitions/>
+    <views>
+        <viewpoints>
+            <viewpoint identifier="CapabilityMap">
+                <allowedElementType type="OUTCOME"/>
+                <allowedElementType type="CAPABILITY"/>
+                <allowedElementType type="RESOURCE"/>
+                <allowedElementType type="AND_JUNCTION"/>
+                <allowedElementType type="OR_JUNCTION"/>
+                <allowedRelationshipType type="Composition"/>
+                <allowedRelationshipType type="Aggregation"/>
+                <allowedRelationshipType type="Assignment"/>
+                <allowedRelationshipType type="Realization"/>
+                <allowedRelationshipType type="Serving"/>
+                <allowedRelationshipType type="Access"/>
+                <allowedRelationshipType type="Influence"/>
+                <allowedRelationshipType type="Triggering"/>
+                <allowedRelationshipType type="Flow"/>
+                <allowedRelationshipType type="Specialization"/>
+                <allowedRelationshipType type="Association"/>
+            </viewpoint>
+            <viewpoint identifier="ResourceMap">
+                <allowedElementType type="RESOURCE"/>
+                <allowedElementType type="CAPABILITY"/>
+                <allowedElementType type="WORK_PACKAGE"/>
+                <allowedElementType type="AND_JUNCTION"/>
+                <allowedElementType type="OR_JUNCTION"/>
+                <allowedRelationshipType type="Composition"/>
+                <allowedRelationshipType type="Aggregation"/>
+                <allowedRelationshipType type="Assignment"/>
+                <allowedRelationshipType type="Realization"/>
+                <allowedRelationshipType type="Serving"/>
+                <allowedRelationshipType type="Access"/>
+                <allowedRelationshipType type="Influence"/>
+                <allowedRelationshipType type="Triggering"/>
+                <allowedRelationshipType type="Flow"/>
+                <allowedRelationshipType type="Specialization"/>
+                <allowedRelationshipType type="Association"/>
+            </viewpoint>
+            <viewpoint identifier="ApplicationCooperation">
+                <allowedElementType type="LOCATION"/>
+                <allowedElementType type="APPLICATION_COMPONENT"/>
+                <allowedElementType type="APPLICATION_COLLABORATION"/>
+                <allowedElementType type="APPLICATION_INTERFACE"/>
+                <allowedElementType type="APPLICATION_PROCESS"/>
+                <allowedElementType type="APPLICATION_FUNCTION"/>
+                <allowedElementType type="APPLICATION_INTERACTION"/>
+                <allowedElementType type="APPLICATION_EVENT"/>
+                <allowedElementType type="APPLICATION_SERVICE"/>
+                <allowedElementType type="DATA_OBJECT"/>
+                <allowedElementType type="AND_JUNCTION"/>
+                <allowedElementType type="OR_JUNCTION"/>
+                <allowedRelationshipType type="Composition"/>
+                <allowedRelationshipType type="Aggregation"/>
+                <allowedRelationshipType type="Assignment"/>
+                <allowedRelationshipType type="Realization"/>
+                <allowedRelationshipType type="Serving"/>
+                <allowedRelationshipType type="Access"/>
+                <allowedRelationshipType type="Influence"/>
+                <allowedRelationshipType type="Triggering"/>
+                <allowedRelationshipType type="Flow"/>
+                <allowedRelationshipType type="Specialization"/>
+                <allowedRelationshipType type="Association"/>
+            </viewpoint>
+            <viewpoint identifier="BusinessProcessCooperation">
+                <allowedElementType type="BUSINESS_ACTOR"/>
+                <allowedElementType type="BUSINESS_ROLE"/>
+                <allowedElementType type="BUSINESS_COLLABORATION"/>
+                <allowedElementType type="BUSINESS_INTERFACE"/>
+                <allowedElementType type="BUSINESS_PROCESS"/>
+                <allowedElementType type="BUSINESS_FUNCTION"/>
+                <allowedElementType type="BUSINESS_INTERACTION"/>
+                <allowedElementType type="BUSINESS_EVENT"/>
+                <allowedElementType type="BUSINESS_SERVICE"/>
+                <allowedElementType type="BUSINESS_OBJECT"/>
+                <allowedElementType type="REPRESENTATION"/>
+                <allowedElementType type="APPLICATION_COMPONENT"/>
+                <allowedElementType type="APPLICATION_COLLABORATION"/>
+                <allowedElementType type="APPLICATION_INTERFACE"/>
+                <allowedElementType type="APPLICATION_PROCESS"/>
+                <allowedElementType type="APPLICATION_FUNCTION"/>
+                <allowedElementType type="APPLICATION_INTERACTION"/>
+                <allowedElementType type="APPLICATION_EVENT"/>
+                <allowedElementType type="APPLICATION_SERVICE"/>
+                <allowedElementType type="DATA_OBJECT"/>
+                <allowedElementType type="LOCATION"/>
+                <allowedElementType type="AND_JUNCTION"/>
+                <allowedElementType type="OR_JUNCTION"/>
+                <allowedRelationshipType type="Composition"/>
+                <allowedRelationshipType type="Aggregation"/>
+                <allowedRelationshipType type="Assignment"/>
+                <allowedRelationshipType type="Realization"/>
+                <allowedRelationshipType type="Serving"/>
+                <allowedRelationshipType type="Access"/>
+                <allowedRelationshipType type="Influence"/>
+                <allowedRelationshipType type="Triggering"/>
+                <allowedRelationshipType type="Flow"/>
+                <allowedRelationshipType type="Specialization"/>
+                <allowedRelationshipType type="Association"/>
+            </viewpoint>
+            <viewpoint identifier="ImplementationAndMigration">
+                <allowedElementType type="GOAL"/>
+                <allowedElementType type="REQUIREMENT"/>
+                <allowedElementType type="CONSTRAINT"/>
+                <allowedElementType type="WORK_PACKAGE"/>
+                <allowedElementType type="IMPLEMENTATION_EVENT"/>
+                <allowedElementType type="DELIVERABLE"/>
+                <allowedElementType type="PLATEAU"/>
+                <allowedElementType type="GAP"/>
+                <allowedElementType type="BUSINESS_ACTOR"/>
+                <allowedElementType type="BUSINESS_ROLE"/>
+                <allowedElementType type="LOCATION"/>
+                <allowedElementType type="AND_JUNCTION"/>
+                <allowedElementType type="OR_JUNCTION"/>
+                <allowedRelationshipType type="Composition"/>
+                <allowedRelationshipType type="Aggregation"/>
+                <allowedRelationshipType type="Assignment"/>
+                <allowedRelationshipType type="Realization"/>
+                <allowedRelationshipType type="Serving"/>
+                <allowedRelationshipType type="Access"/>
+                <allowedRelationshipType type="Influence"/>
+                <allowedRelationshipType type="Triggering"/>
+                <allowedRelationshipType type="Flow"/>
+                <allowedRelationshipType type="Specialization"/>
+                <allowedRelationshipType type="Association"/>
+            </viewpoint>
+            <viewpoint identifier="ImplementationAndDeployment">
+                <allowedElementType type="APPLICATION_COMPONENT"/>
+                <allowedElementType type="APPLICATION_COLLABORATION"/>
+                <allowedElementType type="APPLICATION_INTERFACE"/>
+                <allowedElementType type="APPLICATION_PROCESS"/>
+                <allowedElementType type="APPLICATION_FUNCTION"/>
+                <allowedElementType type="APPLICATION_INTERACTION"/>
+                <allowedElementType type="APPLICATION_EVENT"/>
+                <allowedElementType type="APPLICATION_SERVICE"/>
+                <allowedElementType type="DATA_OBJECT"/>
+                <allowedElementType type="SYSTEM_SOFTWARE"/>
+                <allowedElementType type="TECHNOLOGY_INTERFACE"/>
+                <allowedElementType type="PATH"/>
+                <allowedElementType type="TECHNOLOGY_PROCESS"/>
+                <allowedElementType type="TECHNOLOGY_FUNCTION"/>
+                <allowedElementType type="TECHNOLOGY_INTERACTION"/>
+                <allowedElementType type="TECHNOLOGY_SERVICE"/>
+                <allowedElementType type="ARTIFACT"/>
+                <allowedElementType type="AND_JUNCTION"/>
+                <allowedElementType type="OR_JUNCTION"/>
+                <allowedRelationshipType type="Composition"/>
+                <allowedRelationshipType type="Aggregation"/>
+                <allowedRelationshipType type="Assignment"/>
+                <allowedRelationshipType type="Realization"/>
+                <allowedRelationshipType type="Serving"/>
+                <allowedRelationshipType type="Access"/>
+                <allowedRelationshipType type="Influence"/>
+                <allowedRelationshipType type="Triggering"/>
+                <allowedRelationshipType type="Flow"/>
+                <allowedRelationshipType type="Specialization"/>
+                <allowedRelationshipType type="Association"/>
+            </viewpoint>
+            <viewpoint identifier="Migration">
+                <allowedElementType type="PLATEAU"/>
+                <allowedElementType type="GAP"/>
+                <allowedElementType type="AND_JUNCTION"/>
+                <allowedElementType type="OR_JUNCTION"/>
+                <allowedRelationshipType type="Composition"/>
+                <allowedRelationshipType type="Aggregation"/>
+                <allowedRelationshipType type="Assignment"/>
+                <allowedRelationshipType type="Realization"/>
+                <allowedRelationshipType type="Serving"/>
+                <allowedRelationshipType type="Access"/>
+                <allowedRelationshipType type="Influence"/>
+                <allowedRelationshipType type="Triggering"/>
+                <allowedRelationshipType type="Flow"/>
+                <allowedRelationshipType type="Specialization"/>
+                <allowedRelationshipType type="Association"/>
+            </viewpoint>
+            <viewpoint identifier="Motivation">
+                <allowedElementType type="STAKEHOLDER"/>
+                <allowedElementType type="DRIVER"/>
+                <allowedElementType type="ASSESSMENT"/>
+                <allowedElementType type="GOAL"/>
+                <allowedElementType type="PRINCIPLE"/>
+                <allowedElementType type="REQUIREMENT"/>
+                <allowedElementType type="CONSTRAINT"/>
+                <allowedElementType type="OUTCOME"/>
+                <allowedElementType type="VALUE"/>
+                <allowedElementType type="MEANING"/>
+                <allowedElementType type="AND_JUNCTION"/>
+                <allowedElementType type="OR_JUNCTION"/>
+                <allowedRelationshipType type="Composition"/>
+                <allowedRelationshipType type="Aggregation"/>
+                <allowedRelationshipType type="Assignment"/>
+                <allowedRelationshipType type="Realization"/>
+                <allowedRelationshipType type="Serving"/>
+                <allowedRelationshipType type="Access"/>
+                <allowedRelationshipType type="Influence"/>
+                <allowedRelationshipType type="Triggering"/>
+                <allowedRelationshipType type="Flow"/>
+                <allowedRelationshipType type="Specialization"/>
+                <allowedRelationshipType type="Association"/>
+            </viewpoint>
+            <viewpoint identifier="Organization">
+                <allowedElementType type="BUSINESS_ACTOR"/>
+                <allowedElementType type="BUSINESS_ROLE"/>
+                <allowedElementType type="BUSINESS_INTERFACE"/>
+                <allowedElementType type="BUSINESS_COLLABORATION"/>
+                <allowedElementType type="LOCATION"/>
+                <allowedElementType type="AND_JUNCTION"/>
+                <allowedElementType type="OR_JUNCTION"/>
+                <allowedRelationshipType type="Composition"/>
+                <allowedRelationshipType type="Aggregation"/>
+                <allowedRelationshipType type="Assignment"/>
+                <allowedRelationshipType type="Realization"/>
+                <allowedRelationshipType type="Serving"/>
+                <allowedRelationshipType type="Access"/>
+                <allowedRelationshipType type="Influence"/>
+                <allowedRelationshipType type="Triggering"/>
+                <allowedRelationshipType type="Flow"/>
+                <allowedRelationshipType type="Specialization"/>
+                <allowedRelationshipType type="Association"/>
+            </viewpoint>
+            <viewpoint identifier="Stakeholder">
+                <allowedElementType type="STAKEHOLDER"/>
+                <allowedElementType type="DRIVER"/>
+                <allowedElementType type="ASSESSMENT"/>
+                <allowedElementType type="GOAL"/>
+                <allowedElementType type="OUTCOME"/>
+                <allowedElementType type="AND_JUNCTION"/>
+                <allowedElementType type="OR_JUNCTION"/>
+                <allowedRelationshipType type="Composition"/>
+                <allowedRelationshipType type="Aggregation"/>
+                <allowedRelationshipType type="Assignment"/>
+                <allowedRelationshipType type="Realization"/>
+                <allowedRelationshipType type="Serving"/>
+                <allowedRelationshipType type="Access"/>
+                <allowedRelationshipType type="Influence"/>
+                <allowedRelationshipType type="Triggering"/>
+                <allowedRelationshipType type="Flow"/>
+                <allowedRelationshipType type="Specialization"/>
+                <allowedRelationshipType type="Association"/>
+            </viewpoint>
+            <viewpoint identifier="Physical">
+                <allowedElementType type="LOCATION"/>
+                <allowedElementType type="NODE"/>
+                <allowedElementType type="DEVICE"/>
+                <allowedElementType type="EQUIPMENT"/>
+                <allowedElementType type="FACILITY"/>
+                <allowedElementType type="PATH"/>
+                <allowedElementType type="COMMUNICATION_NETWORK"/>
+                <allowedElementType type="DISTRIBUTION_NETWORK"/>
+                <allowedElementType type="MATERIAL"/>
+                <allowedElementType type="AND_JUNCTION"/>
+                <allowedElementType type="OR_JUNCTION"/>
+                <allowedRelationshipType type="Composition"/>
+                <allowedRelationshipType type="Aggregation"/>
+                <allowedRelationshipType type="Assignment"/>
+                <allowedRelationshipType type="Realization"/>
+                <allowedRelationshipType type="Serving"/>
+                <allowedRelationshipType type="Access"/>
+                <allowedRelationshipType type="Influence"/>
+                <allowedRelationshipType type="Triggering"/>
+                <allowedRelationshipType type="Flow"/>
+                <allowedRelationshipType type="Specialization"/>
+                <allowedRelationshipType type="Association"/>
+            </viewpoint>
+            <viewpoint identifier="Product">
+                <allowedElementType type="BUSINESS_ACTOR"/>
+                <allowedElementType type="BUSINESS_ROLE"/>
+                <allowedElementType type="BUSINESS_COLLABORATION"/>
+                <allowedElementType type="BUSINESS_INTERFACE"/>
+                <allowedElementType type="BUSINESS_PROCESS"/>
+                <allowedElementType type="BUSINESS_FUNCTION"/>
+                <allowedElementType type="BUSINESS_INTERACTION"/>
+                <allowedElementType type="BUSINESS_EVENT"/>
+                <allowedElementType type="BUSINESS_SERVICE"/>
+                <allowedElementType type="BUSINESS_OBJECT"/>
+                <allowedElementType type="PRODUCT"/>
+                <allowedElementType type="CONTRACT"/>
+                <allowedElementType type="APPLICATION_COMPONENT"/>
+                <allowedElementType type="APPLICATION_COLLABORATION"/>
+                <allowedElementType type="APPLICATION_INTERFACE"/>
+                <allowedElementType type="APPLICATION_PROCESS"/>
+                <allowedElementType type="APPLICATION_FUNCTION"/>
+                <allowedElementType type="APPLICATION_INTERACTION"/>
+                <allowedElementType type="APPLICATION_EVENT"/>
+                <allowedElementType type="APPLICATION_SERVICE"/>
+                <allowedElementType type="DATA_OBJECT"/>
+                <allowedElementType type="TECHNOLOGY_SERVICE"/>
+                <allowedElementType type="ARTIFACT"/>
+                <allowedElementType type="MATERIAL"/>
+                <allowedElementType type="VALUE"/>
+                <allowedElementType type="AND_JUNCTION"/>
+                <allowedElementType type="OR_JUNCTION"/>
+                <allowedRelationshipType type="Composition"/>
+                <allowedRelationshipType type="Aggregation"/>
+                <allowedRelationshipType type="Assignment"/>
+                <allowedRelationshipType type="Realization"/>
+                <allowedRelationshipType type="Serving"/>
+                <allowedRelationshipType type="Access"/>
+                <allowedRelationshipType type="Influence"/>
+                <allowedRelationshipType type="Triggering"/>
+                <allowedRelationshipType type="Flow"/>
+                <allowedRelationshipType type="Specialization"/>
+                <allowedRelationshipType type="Association"/>
+            </viewpoint>
+            <viewpoint identifier="Project">
+                <allowedElementType type="GOAL"/>
+                <allowedElementType type="WORK_PACKAGE"/>
+                <allowedElementType type="IMPLEMENTATION_EVENT"/>
+                <allowedElementType type="DELIVERABLE"/>
+                <allowedElementType type="BUSINESS_ACTOR"/>
+                <allowedElementType type="BUSINESS_ROLE"/>
+                <allowedElementType type="AND_JUNCTION"/>
+                <allowedElementType type="OR_JUNCTION"/>
+                <allowedRelationshipType type="Composition"/>
+                <allowedRelationshipType type="Aggregation"/>
+                <allowedRelationshipType type="Assignment"/>
+                <allowedRelationshipType type="Realization"/>
+                <allowedRelationshipType type="Serving"/>
+                <allowedRelationshipType type="Access"/>
+                <allowedRelationshipType type="Influence"/>
+                <allowedRelationshipType type="Triggering"/>
+                <allowedRelationshipType type="Flow"/>
+                <allowedRelationshipType type="Specialization"/>
+                <allowedRelationshipType type="Association"/>
+            </viewpoint>
+            <viewpoint identifier="RequirementsRealization">
+                <allowedElementType type="GOAL"/>
+                <allowedElementType type="REQUIREMENT"/>
+                <allowedElementType type="CONSTRAINT"/>
+                <allowedElementType type="OUTCOME"/>
+                <allowedElementType type="VALUE"/>
+                <allowedElementType type="MEANING"/>
+                <allowedElementType type="BUSINESS_ACTOR"/>
+                <allowedElementType type="BUSINESS_ROLE"/>
+                <allowedElementType type="BUSINESS_COLLABORATION"/>
+                <allowedElementType type="BUSINESS_INTERFACE"/>
+                <allowedElementType type="BUSINESS_PROCESS"/>
+                <allowedElementType type="BUSINESS_FUNCTION"/>
+                <allowedElementType type="BUSINESS_INTERACTION"/>
+                <allowedElementType type="BUSINESS_SERVICE"/>
+                <allowedElementType type="BUSINESS_EVENT"/>
+                <allowedElementType type="BUSINESS_OBJECT"/>
+                <allowedElementType type="CONTRACT"/>
+                <allowedElementType type="REPRESENTATION"/>
+                <allowedElementType type="PRODUCT"/>
+                <allowedElementType type="APPLICATION_COMPONENT"/>
+                <allowedElementType type="APPLICATION_COLLABORATION"/>
+                <allowedElementType type="APPLICATION_INTERFACE"/>
+                <allowedElementType type="APPLICATION_PROCESS"/>
+                <allowedElementType type="APPLICATION_FUNCTION"/>
+                <allowedElementType type="APPLICATION_INTERACTION"/>
+                <allowedElementType type="APPLICATION_SERVICE"/>
+                <allowedElementType type="APPLICATION_EVENT"/>
+                <allowedElementType type="DATA_OBJECT"/>
+                <allowedElementType type="FACILITY"/>
+                <allowedElementType type="EQUIPMENT"/>
+                <allowedElementType type="MATERIAL"/>
+                <allowedElementType type="NODE"/>
+                <allowedElementType type="DEVICE"/>
+                <allowedElementType type="SYSTEM_SOFTWARE"/>
+                <allowedElementType type="TECHNOLOGY_COLLABORATION"/>
+                <allowedElementType type="TECHNOLOGY_INTERFACE"/>
+                <allowedElementType type="TECHNOLOGY_PROCESS"/>
+                <allowedElementType type="TECHNOLOGY_FUNCTION"/>
+                <allowedElementType type="TECHNOLOGY_INTERACTION"/>
+                <allowedElementType type="TECHNOLOGY_SERVICE"/>
+                <allowedElementType type="TECHNOLOGY_EVENT"/>
+                <allowedElementType type="ARTIFACT"/>
+                <allowedElementType type="COMMUNICATION_NETWORK"/>
+                <allowedElementType type="PATH"/>
+                <allowedElementType type="DISTRIBUTION_NETWORK"/>
+                <allowedElementType type="AND_JUNCTION"/>
+                <allowedElementType type="OR_JUNCTION"/>
+                <allowedRelationshipType type="Composition"/>
+                <allowedRelationshipType type="Aggregation"/>
+                <allowedRelationshipType type="Assignment"/>
+                <allowedRelationshipType type="Realization"/>
+                <allowedRelationshipType type="Serving"/>
+                <allowedRelationshipType type="Access"/>
+                <allowedRelationshipType type="Influence"/>
+                <allowedRelationshipType type="Triggering"/>
+                <allowedRelationshipType type="Flow"/>
+                <allowedRelationshipType type="Specialization"/>
+                <allowedRelationshipType type="Association"/>
+            </viewpoint>
+            <viewpoint identifier="GoalRealization">
+                <allowedElementType type="GOAL"/>
+                <allowedElementType type="PRINCIPLE"/>
+                <allowedElementType type="REQUIREMENT"/>
+                <allowedElementType type="CONSTRAINT"/>
+                <allowedElementType type="OUTCOME"/>
+                <allowedElementType type="AND_JUNCTION"/>
+                <allowedElementType type="OR_JUNCTION"/>
+                <allowedRelationshipType type="Composition"/>
+                <allowedRelationshipType type="Aggregation"/>
+                <allowedRelationshipType type="Assignment"/>
+                <allowedRelationshipType type="Realization"/>
+                <allowedRelationshipType type="Serving"/>
+                <allowedRelationshipType type="Access"/>
+                <allowedRelationshipType type="Influence"/>
+                <allowedRelationshipType type="Triggering"/>
+                <allowedRelationshipType type="Flow"/>
+                <allowedRelationshipType type="Specialization"/>
+                <allowedRelationshipType type="Association"/>
+            </viewpoint>
+            <viewpoint identifier="OutcomeRealization">
+                <allowedElementType type="CAPABILITY"/>
+                <allowedElementType type="RESOURCE"/>
+                <allowedElementType type="OUTCOME"/>
+                <allowedElementType type="VALUE"/>
+                <allowedElementType type="MEANING"/>
+                <allowedElementType type="BUSINESS_ACTOR"/>
+                <allowedElementType type="BUSINESS_ROLE"/>
+                <allowedElementType type="BUSINESS_COLLABORATION"/>
+                <allowedElementType type="BUSINESS_INTERFACE"/>
+                <allowedElementType type="BUSINESS_PROCESS"/>
+                <allowedElementType type="BUSINESS_FUNCTION"/>
+                <allowedElementType type="BUSINESS_INTERACTION"/>
+                <allowedElementType type="BUSINESS_SERVICE"/>
+                <allowedElementType type="BUSINESS_EVENT"/>
+                <allowedElementType type="BUSINESS_OBJECT"/>
+                <allowedElementType type="CONTRACT"/>
+                <allowedElementType type="REPRESENTATION"/>
+                <allowedElementType type="PRODUCT"/>
+                <allowedElementType type="APPLICATION_COMPONENT"/>
+                <allowedElementType type="APPLICATION_COLLABORATION"/>
+                <allowedElementType type="APPLICATION_INTERFACE"/>
+                <allowedElementType type="APPLICATION_PROCESS"/>
+                <allowedElementType type="APPLICATION_FUNCTION"/>
+                <allowedElementType type="APPLICATION_INTERACTION"/>
+                <allowedElementType type="APPLICATION_SERVICE"/>
+                <allowedElementType type="APPLICATION_EVENT"/>
+                <allowedElementType type="DATA_OBJECT"/>
+                <allowedElementType type="FACILITY"/>
+                <allowedElementType type="EQUIPMENT"/>
+                <allowedElementType type="MATERIAL"/>
+                <allowedElementType type="NODE"/>
+                <allowedElementType type="DEVICE"/>
+                <allowedElementType type="SYSTEM_SOFTWARE"/>
+                <allowedElementType type="TECHNOLOGY_COLLABORATION"/>
+                <allowedElementType type="TECHNOLOGY_INTERFACE"/>
+                <allowedElementType type="TECHNOLOGY_PROCESS"/>
+                <allowedElementType type="TECHNOLOGY_FUNCTION"/>
+                <allowedElementType type="TECHNOLOGY_INTERACTION"/>
+                <allowedElementType type="TECHNOLOGY_SERVICE"/>
+                <allowedElementType type="TECHNOLOGY_EVENT"/>
+                <allowedElementType type="ARTIFACT"/>
+                <allowedElementType type="COMMUNICATION_NETWORK"/>
+                <allowedElementType type="PATH"/>
+                <allowedElementType type="DISTRIBUTION_NETWORK"/>
+                <allowedElementType type="AND_JUNCTION"/>
+                <allowedElementType type="OR_JUNCTION"/>
+                <allowedRelationshipType type="Composition"/>
+                <allowedRelationshipType type="Aggregation"/>
+                <allowedRelationshipType type="Assignment"/>
+                <allowedRelationshipType type="Realization"/>
+                <allowedRelationshipType type="Serving"/>
+                <allowedRelationshipType type="Access"/>
+                <allowedRelationshipType type="Influence"/>
+                <allowedRelationshipType type="Triggering"/>
+                <allowedRelationshipType type="Flow"/>
+                <allowedRelationshipType type="Specialization"/>
+                <allowedRelationshipType type="Association"/>
+            </viewpoint>
+            <viewpoint identifier="ServiceRealization">
+                <allowedElementType type="BUSINESS_ACTOR"/>
+                <allowedElementType type="BUSINESS_ROLE"/>
+                <allowedElementType type="BUSINESS_COLLABORATION"/>
+                <allowedElementType type="BUSINESS_INTERFACE"/>
+                <allowedElementType type="BUSINESS_PROCESS"/>
+                <allowedElementType type="BUSINESS_FUNCTION"/>
+                <allowedElementType type="BUSINESS_INTERACTION"/>
+                <allowedElementType type="BUSINESS_EVENT"/>
+                <allowedElementType type="BUSINESS_SERVICE"/>
+                <allowedElementType type="BUSINESS_OBJECT"/>
+                <allowedElementType type="REPRESENTATION"/>
+                <allowedElementType type="APPLICATION_COMPONENT"/>
+                <allowedElementType type="APPLICATION_COLLABORATION"/>
+                <allowedElementType type="APPLICATION_INTERFACE"/>
+                <allowedElementType type="APPLICATION_PROCESS"/>
+                <allowedElementType type="APPLICATION_FUNCTION"/>
+                <allowedElementType type="APPLICATION_INTERACTION"/>
+                <allowedElementType type="APPLICATION_EVENT"/>
+                <allowedElementType type="APPLICATION_SERVICE"/>
+                <allowedElementType type="DATA_OBJECT"/>
+                <allowedElementType type="AND_JUNCTION"/>
+                <allowedElementType type="OR_JUNCTION"/>
+                <allowedRelationshipType type="Composition"/>
+                <allowedRelationshipType type="Aggregation"/>
+                <allowedRelationshipType type="Assignment"/>
+                <allowedRelationshipType type="Realization"/>
+                <allowedRelationshipType type="Serving"/>
+                <allowedRelationshipType type="Access"/>
+                <allowedRelationshipType type="Influence"/>
+                <allowedRelationshipType type="Triggering"/>
+                <allowedRelationshipType type="Flow"/>
+                <allowedRelationshipType type="Specialization"/>
+                <allowedRelationshipType type="Association"/>
+            </viewpoint>
+            <viewpoint identifier="Strategy">
+                <allowedElementType type="COURSE_OF_ACTION"/>
+                <allowedElementType type="CAPABILITY"/>
+                <allowedElementType type="RESOURCE"/>
+                <allowedElementType type="OUTCOME"/>
+                <allowedElementType type="AND_JUNCTION"/>
+                <allowedElementType type="OR_JUNCTION"/>
+                <allowedRelationshipType type="Composition"/>
+                <allowedRelationshipType type="Aggregation"/>
+                <allowedRelationshipType type="Assignment"/>
+                <allowedRelationshipType type="Realization"/>
+                <allowedRelationshipType type="Serving"/>
+                <allowedRelationshipType type="Access"/>
+                <allowedRelationshipType type="Influence"/>
+                <allowedRelationshipType type="Triggering"/>
+                <allowedRelationshipType type="Flow"/>
+                <allowedRelationshipType type="Specialization"/>
+                <allowedRelationshipType type="Association"/>
+            </viewpoint>
+            <viewpoint identifier="InformationStructure">
+                <allowedElementType type="BUSINESS_OBJECT"/>
+                <allowedElementType type="REPRESENTATION"/>
+                <allowedElementType type="DATA_OBJECT"/>
+                <allowedElementType type="ARTIFACT"/>
+                <allowedElementType type="MEANING"/>
+                <allowedElementType type="AND_JUNCTION"/>
+                <allowedElementType type="OR_JUNCTION"/>
+                <allowedRelationshipType type="Composition"/>
+                <allowedRelationshipType type="Aggregation"/>
+                <allowedRelationshipType type="Assignment"/>
+                <allowedRelationshipType type="Realization"/>
+                <allowedRelationshipType type="Serving"/>
+                <allowedRelationshipType type="Access"/>
+                <allowedRelationshipType type="Influence"/>
+                <allowedRelationshipType type="Triggering"/>
+                <allowedRelationshipType type="Flow"/>
+                <allowedRelationshipType type="Specialization"/>
+                <allowedRelationshipType type="Association"/>
+            </viewpoint>
+            <viewpoint identifier="Layered">
+                <allowedElementType type="APPLICATION_COMPONENT"/>
+                <allowedElementType type="APPLICATION_COLLABORATION"/>
+                <allowedElementType type="APPLICATION_INTERFACE"/>
+                <allowedElementType type="APPLICATION_PROCESS"/>
+                <allowedElementType type="APPLICATION_FUNCTION"/>
+                <allowedElementType type="APPLICATION_INTERACTION"/>
+                <allowedElementType type="APPLICATION_SERVICE"/>
+                <allowedElementType type="APPLICATION_EVENT"/>
+                <allowedElementType type="DATA_OBJECT"/>
+                <allowedElementType type="BUSINESS_ACTOR"/>
+                <allowedElementType type="BUSINESS_ROLE"/>
+                <allowedElementType type="BUSINESS_COLLABORATION"/>
+                <allowedElementType type="BUSINESS_INTERFACE"/>
+                <allowedElementType type="BUSINESS_PROCESS"/>
+                <allowedElementType type="BUSINESS_FUNCTION"/>
+                <allowedElementType type="BUSINESS_INTERACTION"/>
+                <allowedElementType type="BUSINESS_SERVICE"/>
+                <allowedElementType type="BUSINESS_EVENT"/>
+                <allowedElementType type="BUSINESS_OBJECT"/>
+                <allowedElementType type="CONTRACT"/>
+                <allowedElementType type="REPRESENTATION"/>
+                <allowedElementType type="PRODUCT"/>
+                <allowedElementType type="FACILITY"/>
+                <allowedElementType type="EQUIPMENT"/>
+                <allowedElementType type="MATERIAL"/>
+                <allowedElementType type="NODE"/>
+                <allowedElementType type="DEVICE"/>
+                <allowedElementType type="SYSTEM_SOFTWARE"/>
+                <allowedElementType type="TECHNOLOGY_COLLABORATION"/>
+                <allowedElementType type="TECHNOLOGY_INTERFACE"/>
+                <allowedElementType type="TECHNOLOGY_PROCESS"/>
+                <allowedElementType type="TECHNOLOGY_FUNCTION"/>
+                <allowedElementType type="TECHNOLOGY_INTERACTION"/>
+                <allowedElementType type="TECHNOLOGY_SERVICE"/>
+                <allowedElementType type="TECHNOLOGY_EVENT"/>
+                <allowedElementType type="ARTIFACT"/>
+                <allowedElementType type="COMMUNICATION_NETWORK"/>
+                <allowedElementType type="PATH"/>
+                <allowedElementType type="DISTRIBUTION_NETWORK"/>
+                <allowedElementType type="AND_JUNCTION"/>
+                <allowedElementType type="OR_JUNCTION"/>
+                <allowedRelationshipType type="Composition"/>
+                <allowedRelationshipType type="Aggregation"/>
+                <allowedRelationshipType type="Assignment"/>
+                <allowedRelationshipType type="Realization"/>
+                <allowedRelationshipType type="Serving"/>
+                <allowedRelationshipType type="Access"/>
+                <allowedRelationshipType type="Influence"/>
+                <allowedRelationshipType type="Triggering"/>
+                <allowedRelationshipType type="Flow"/>
+                <allowedRelationshipType type="Specialization"/>
+                <allowedRelationshipType type="Association"/>
+            </viewpoint>
+            <viewpoint identifier="TechnologyUsage">
+                <allowedElementType type="APPLICATION_COMPONENT"/>
+                <allowedElementType type="APPLICATION_COLLABORATION"/>
+                <allowedElementType type="APPLICATION_PROCESS"/>
+                <allowedElementType type="APPLICATION_FUNCTION"/>
+                <allowedElementType type="APPLICATION_INTERACTION"/>
+                <allowedElementType type="APPLICATION_EVENT"/>
+                <allowedElementType type="DATA_OBJECT"/>
+                <allowedElementType type="NODE"/>
+                <allowedElementType type="DEVICE"/>
+                <allowedElementType type="TECHNOLOGY_COLLABORATION"/>
+                <allowedElementType type="SYSTEM_SOFTWARE"/>
+                <allowedElementType type="TECHNOLOGY_INTERFACE"/>
+                <allowedElementType type="COMMUNICATION_NETWORK"/>
+                <allowedElementType type="PATH"/>
+                <allowedElementType type="TECHNOLOGY_PROCESS"/>
+                <allowedElementType type="TECHNOLOGY_FUNCTION"/>
+                <allowedElementType type="TECHNOLOGY_INTERACTION"/>
+                <allowedElementType type="TECHNOLOGY_SERVICE"/>
+                <allowedElementType type="TECHNOLOGY_EVENT"/>
+                <allowedElementType type="ARTIFACT"/>
+                <allowedElementType type="AND_JUNCTION"/>
+                <allowedElementType type="OR_JUNCTION"/>
+                <allowedRelationshipType type="Composition"/>
+                <allowedRelationshipType type="Aggregation"/>
+                <allowedRelationshipType type="Assignment"/>
+                <allowedRelationshipType type="Realization"/>
+                <allowedRelationshipType type="Serving"/>
+                <allowedRelationshipType type="Access"/>
+                <allowedRelationshipType type="Influence"/>
+                <allowedRelationshipType type="Triggering"/>
+                <allowedRelationshipType type="Flow"/>
+                <allowedRelationshipType type="Specialization"/>
+                <allowedRelationshipType type="Association"/>
+            </viewpoint>
+            <viewpoint identifier="ApplicationUsage">
+                <allowedElementType type="BUSINESS_ACTOR"/>
+                <allowedElementType type="BUSINESS_ROLE"/>
+                <allowedElementType type="BUSINESS_COLLABORATION"/>
+                <allowedElementType type="BUSINESS_PROCESS"/>
+                <allowedElementType type="BUSINESS_FUNCTION"/>
+                <allowedElementType type="BUSINESS_INTERACTION"/>
+                <allowedElementType type="BUSINESS_EVENT"/>
+                <allowedElementType type="BUSINESS_OBJECT"/>
+                <allowedElementType type="APPLICATION_COMPONENT"/>
+                <allowedElementType type="APPLICATION_COLLABORATION"/>
+                <allowedElementType type="APPLICATION_INTERFACE"/>
+                <allowedElementType type="APPLICATION_PROCESS"/>
+                <allowedElementType type="APPLICATION_FUNCTION"/>
+                <allowedElementType type="APPLICATION_INTERACTION"/>
+                <allowedElementType type="APPLICATION_EVENT"/>
+                <allowedElementType type="APPLICATION_SERVICE"/>
+                <allowedElementType type="DATA_OBJECT"/>
+                <allowedElementType type="AND_JUNCTION"/>
+                <allowedElementType type="OR_JUNCTION"/>
+                <allowedRelationshipType type="Composition"/>
+                <allowedRelationshipType type="Aggregation"/>
+                <allowedRelationshipType type="Assignment"/>
+                <allowedRelationshipType type="Realization"/>
+                <allowedRelationshipType type="Serving"/>
+                <allowedRelationshipType type="Access"/>
+                <allowedRelationshipType type="Influence"/>
+                <allowedRelationshipType type="Triggering"/>
+                <allowedRelationshipType type="Flow"/>
+                <allowedRelationshipType type="Specialization"/>
+                <allowedRelationshipType type="Association"/>
+            </viewpoint>
+            <viewpoint identifier="Technology">
+                <allowedElementType type="LOCATION"/>
+                <allowedElementType type="NODE"/>
+                <allowedElementType type="TECHNOLOGY_COLLABORATION"/>
+                <allowedElementType type="DEVICE"/>
+                <allowedElementType type="SYSTEM_SOFTWARE"/>
+                <allowedElementType type="TECHNOLOGY_INTERFACE"/>
+                <allowedElementType type="COMMUNICATION_NETWORK"/>
+                <allowedElementType type="PATH"/>
+                <allowedElementType type="TECHNOLOGY_PROCESS"/>
+                <allowedElementType type="TECHNOLOGY_FUNCTION"/>
+                <allowedElementType type="TECHNOLOGY_INTERACTION"/>
+                <allowedElementType type="TECHNOLOGY_SERVICE"/>
+                <allowedElementType type="TECHNOLOGY_EVENT"/>
+                <allowedElementType type="ARTIFACT"/>
+                <allowedElementType type="AND_JUNCTION"/>
+                <allowedElementType type="OR_JUNCTION"/>
+                <allowedRelationshipType type="Composition"/>
+                <allowedRelationshipType type="Aggregation"/>
+                <allowedRelationshipType type="Assignment"/>
+                <allowedRelationshipType type="Realization"/>
+                <allowedRelationshipType type="Serving"/>
+                <allowedRelationshipType type="Access"/>
+                <allowedRelationshipType type="Influence"/>
+                <allowedRelationshipType type="Triggering"/>
+                <allowedRelationshipType type="Flow"/>
+                <allowedRelationshipType type="Specialization"/>
+                <allowedRelationshipType type="Association"/>
+            </viewpoint>
+        </viewpoints>
+        <diagrams>
+            <view identifier="m-da4d1199-81b7-41ee-b9e6-3b90cb01e662">
+                <name xml:lang="fr">ArchimateView</name>
+                <properties/>
+                <node xsi:type="Element" elementRef="m-2935fb93-a689-409c-bfd3-0d7c228880d3" x="45" y="20" w="40" h="60" identifier="m-fb666a74-3df3-434e-a504-3b20cd4695a4">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="249" g="246" b="178" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-1407c278-0e4b-443f-8299-297e89cabd35" x="113" y="20" w="108" h="60" identifier="m-0746be15-e180-452c-bd35-80ce4e988d35">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="249" g="246" b="178" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-c23fd055-c1c6-4372-8223-369e8e48b076" x="281" y="30" w="60" h="40" identifier="m-8323a47d-a703-43a6-ab11-f003d41c9ca0">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="249" g="246" b="178" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-7afb9994-19d8-4bbf-87ab-8be3139dbc9c" x="411" y="30" w="60" h="40" identifier="m-61277f34-86ba-4703-8f2c-9a9a1f1953fc">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="249" g="246" b="178" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-11c94c7b-cada-4809-90f3-dc57d30315c8" x="20" y="120" w="120" h="60" identifier="m-d7427c76-73fc-43cf-a19d-0570c983d847">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="249" g="246" b="178" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-889f721f-fc6e-4062-8cdf-cfdbf6f5d176" x="168" y="120" w="118" h="60" identifier="m-d3b98c40-50db-45e7-a997-996ccdba7ea9">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="249" g="246" b="178" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-bba5cf04-dfb5-4094-9ec6-5f210a71c8fc" x="351" y="120" w="60" h="60" identifier="m-73659c05-f2fe-4055-bedd-3dcf51e1a5c4">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="249" g="246" b="178" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-641126b9-1af8-432c-ad50-f1b579ecab0e" x="511" y="30" w="120" h="60" identifier="m-d3b7dd0d-457a-4b2b-b385-f39decb2e5c4">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="249" g="246" b="178" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-5c79fec9-7dbd-4712-976e-0131860acb87" x="481" y="120" w="112" h="60" identifier="m-f65c28f5-1cfe-4cce-a257-2cf03496705a">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="249" g="246" b="178" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-98b16944-6005-4337-b64b-9884c2132c68" x="657" y="30" w="102" h="60" identifier="m-57caed2f-5ef8-4ffa-8fac-1d03350b57a1">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="249" g="246" b="178" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-8e6a0fee-84bc-43cd-8350-c2125c21d612" x="800" y="30" w="90" h="60" identifier="m-90d751c2-e0ae-45fb-bdcc-f9ed322d517f">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="249" g="246" b="178" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-03c62567-763f-4f68-a542-151a8d937656" x="660" y="120" w="95" h="60" identifier="m-f6a7e093-8d31-4817-9dd6-f029035a7519">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="249" g="246" b="178" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-529d097c-3d52-4f1c-abce-29ba2f268c29" x="800" y="120" w="90" h="60" identifier="m-1c39f08b-05e6-4c2f-a2dc-5d56790e4ac3">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="249" g="246" b="178" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-8408a167-64b3-4e7a-b8bc-1a83bd24ed61" x="35" y="360" w="60" h="40" identifier="m-6970f1cd-a7ba-443c-8759-943b6c368b4e">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="188" g="229" b="240" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-20cc6b26-c90f-4377-a9dc-50c1ee7048bf" x="569" y="360" w="172" h="60" identifier="m-5f63023d-2c8a-4210-91f3-ac8258855ca2">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="188" g="229" b="240" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-3981cb8e-7e74-4fd3-96a5-e6da941eef26" x="433" y="360" w="122" h="60" identifier="m-7a5493ac-4614-4144-a040-ff2723a8b6f1">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="188" g="229" b="240" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-62db89f5-ecc1-4ac5-b134-57738a4e7889" x="287" y="350" w="128" h="60" identifier="m-676389fb-d7c7-4cfb-b59c-92677003320f">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="188" g="229" b="240" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-3808ea1f-8b18-43ad-824d-56d1b5e2fb04" x="185" y="350" w="60" h="60" identifier="m-2ddd379d-38a3-4779-a858-c46e88fe0d9f">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="188" g="229" b="240" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-d64e31e6-9f09-4557-90fc-47319474e3bf" x="321" y="440" w="60" h="40" identifier="m-c0e7995b-fe72-4f41-afa3-d9b7c0f5d857">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="188" g="229" b="240" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-de2f7aa4-586a-45b5-a104-182765b72114" x="162" y="430" w="130" h="60" identifier="m-be6a87bc-d677-474d-8115-ea352422b07b">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="188" g="229" b="240" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-ba9215cb-9315-4d47-978e-4da4e4404c57" x="0" y="430" w="130" h="60" identifier="m-634aac03-e8e1-4f5b-be87-128336c9a85b">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="188" g="229" b="240" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-a3e0beee-3724-47a4-a10e-240fda2699a9" x="789" y="360" w="90" h="60" identifier="m-2e91dfb1-c41d-469c-ac49-05a1e937a8a3">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="188" g="229" b="240" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-da9e5ac7-0acd-4912-8831-e9b03c81ee19" x="0" y="520" w="90" h="60" identifier="m-fef8376a-2cb7-42f0-a8b6-5e6794dd6e3f">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="252" g="224" b="225" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-e37c761a-64ce-4d81-a4b8-9912e47e4042" x="129" y="520" w="90" h="60" identifier="m-4c8bfd08-3516-4b4a-ad26-9f8870e1a871">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="227" g="241" b="220" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-e7da958e-eecf-4ab5-bf12-564fcffdb7dc" x="489" y="520" w="146" h="60" identifier="m-aaabac36-1fa0-4d76-8d94-e75e854dae3f">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="252" g="224" b="225" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-1fe6d336-aba5-4b81-a478-3a22758da30d" x="389" y="520" w="90" h="60" identifier="m-a2669e73-ff55-4848-ae81-8e5e55e128c5">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="227" g="241" b="220" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-4e1769f7-002f-4515-9913-0f4c14b945db" x="266" y="520" w="90" h="60" identifier="m-da5ac4fa-c23c-4078-a873-77654c2021d1">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="252" g="224" b="225" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-045a9a13-a7de-40cd-83ae-14ef52f98d4a" x="20" y="200" w="90" h="60" identifier="m-00891010-3877-4ac1-9a46-4927062a3c3d">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="205" g="203" b="230" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-287cce5f-fb0a-4e17-87e7-3d5ffa1db637" x="162" y="200" w="90" h="60" identifier="m-b52f7a5d-4f50-442b-8141-32614cfc15fe">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="205" g="203" b="230" a="100"/>
+                        <font name="Arial" size="9">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-f69fb11b-ad33-4f57-9631-ce1039ecb18c" x="336" y="200" w="90" h="60" identifier="m-8a068184-91e6-46e8-b903-dfe0177f4add">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="205" g="203" b="230" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-0b51ee68-9c1d-424f-909d-8a01a933b275" x="474" y="200" w="90" h="60" identifier="m-a7b6bcd2-4410-4a6f-a939-e8ce4760fe27">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="205" g="203" b="230" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-7d4f7f7b-2637-4626-ba6f-08f96907d43a" x="591" y="200" w="90" h="60" identifier="m-6328ab66-b92f-4d4d-b1d4-eed6e589e925">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="205" g="203" b="230" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-8b2f6f5c-ee10-4e76-b335-152b351cc2ed" x="700" y="200" w="90" h="60" identifier="m-df121ee8-94ca-4446-a221-c3b24d88d407">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="205" g="203" b="230" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-7d1c4395-0e0f-4948-ac7f-5b385607b777" x="800" y="200" w="90" h="60" identifier="m-ab5fed0b-9494-4c93-aa57-76c0535ff70f">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="205" g="203" b="230" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-9872e1be-d249-4f50-af5d-be048667dda4" x="286" y="280" w="90" h="60" identifier="m-ad311f09-9894-4df0-a17e-02b59b8b7d7a">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="205" g="203" b="230" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-20c6b405-de78-448b-a651-afa492f65445" x="162" y="280" w="90" h="60" identifier="m-fbb4a4a7-d10f-4bce-a4bb-b2a00ae9779d">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="205" g="203" b="230" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-c86aa9b9-0a55-47f3-b1a4-7099b5cd76b9" x="20" y="280" w="90" h="60" identifier="m-993d8431-bbdf-4fb0-ba51-416a8dae1319">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="205" g="203" b="230" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-9112c22f-245a-474a-b7e3-fa7b2fdf701f" x="800" y="280" w="90" h="60" identifier="m-4a9e4583-a85e-4e9f-88a0-92cf8a61c28f">
+                    <style lineWidth="0">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-69a93cfd-08bf-4fd7-8047-ff7cc9835e07" x="449" y="280" w="90" h="60" identifier="m-d396097c-5d40-4c3e-95e2-ae92601004a2">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="183" g="219" b="164" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-ebcd81ec-59bc-4843-a314-cdf8157f424e" x="680" y="280" w="90" h="60" identifier="m-3b5352ac-8d98-4632-96e5-c059716c76b1">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="183" g="219" b="164" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-ad715f5c-def3-4fb1-bacd-69a3c9c35d65" x="571" y="280" w="90" h="60" identifier="m-3723bf0e-0067-40a1-9063-e75cf836f934">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="183" g="219" b="164" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-679fa74f-c35f-4b56-b3bc-4ef42dcfea82" x="663" y="440" w="90" h="60" identifier="m-65f685af-2089-4ffb-8eef-b7b842bfc135">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="246" g="223" b="170" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-e8782eb0-f0ae-44b6-9608-b0d33e354b67" x="544" y="440" w="100" h="60" identifier="m-5080436e-8281-4e2b-96e8-dc2812c78d58">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="246" g="223" b="170" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-ae9ad8af-b60a-4120-a749-176aa8d9b132" x="429" y="440" w="90" h="60" identifier="m-ceefd85b-6ab3-4154-9fa8-acbedfb4a269">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="246" g="223" b="170" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-0c04acd2-cb02-441b-8abc-d49d3f8aa2df" x="0" y="600" w="90" h="60" identifier="m-829fb0fd-8dc9-4446-b94e-1ff438497523">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="183" g="219" b="164" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-d41eff5c-d782-4501-ba94-27296881e4ec" x="526" y="600" w="90" h="60" identifier="m-8b951aa9-b472-427c-9852-f3c60d8102b1">
+                    <style lineWidth="0">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-690430fe-8a9b-46e2-8b75-d51ffe009dc4" x="129" y="600" w="90" h="60" identifier="m-3240339d-710f-4d74-8146-07cd6f3c6203">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="183" g="219" b="164" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-e43f0152-062c-4331-a95e-950bc76746f1" x="266" y="600" w="90" h="60" identifier="m-c83dd9e9-3586-4333-ad1f-a5253d81de8c">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="183" g="219" b="164" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-13e34957-cee7-4025-a6d4-0d61fa957baf" x="-6" y="680" w="90" h="60" identifier="m-d3117cda-aa6a-420a-bff4-50c3d8e8c27c">
+                    <style lineWidth="0">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-d0e6ab51-60da-496c-8fcf-cad0901bc8c3" x="389" y="600" w="119" h="60" identifier="m-31722e73-a84d-4440-a54e-9a850bb1caa4">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="183" g="219" b="164" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-4b78b1ef-aebd-4576-a304-538d4ac3a3c6" x="144" y="690" w="60" h="40" identifier="m-05a05cc4-fd14-4161-bb26-b73937af5496">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="183" g="219" b="164" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-aade0519-9706-4782-8520-5e3cb4035d2e" x="663" y="600" w="123" h="60" identifier="m-d6baceab-9bfa-42e8-9454-d1bf38b55ee4">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="183" g="219" b="164" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-99e49eab-2743-49c1-b005-303c9570accb" x="266" y="690" w="129" h="60" identifier="m-669364ed-2111-4276-a869-1ccdce20f5c4">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="183" g="219" b="164" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-6bd797d4-8f96-44cb-a8e8-bc07fd026d79" x="419" y="690" w="60" h="60" identifier="m-b877fdc5-2fb0-47b3-82a2-7b5c8b8d7e46">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="183" g="219" b="164" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-29ab4d5e-ca55-45a0-8b86-2b9f140ae242" x="564" y="700" w="60" h="40" identifier="m-994f1266-ee28-42e2-b644-43a7036fa2b8">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="183" g="219" b="164" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-9bc64a2a-f7b3-4e3a-8e8a-8c51c02e960b" x="800" y="600" w="131" h="60" identifier="m-39199067-838f-43a3-89af-bd07225cbc57">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="183" g="219" b="164" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-5e257669-7a99-41b2-9dcb-1718562c179b" x="659" y="690" w="131" h="60" identifier="m-b568577c-d053-4771-9fcb-0e2594ebe2a1">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="183" g="219" b="164" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+            </view>
+            <view viewpointRef="CapabilityMap" identifier="m-64076bf4-b98f-4518-8cc3-e0cce1601d39">
+                <name xml:lang="fr">Vue cartographie des capacités</name>
+                <properties/>
+                <node xsi:type="Element" elementRef="m-2317e1d8-9b81-42f5-949b-0f8717286ca6" x="-93" y="-32" w="90" h="60" identifier="m-784a9783-095f-44e7-9a35-57c346b18269">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="205" g="203" b="230" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-68d1fb51-86ff-44ab-ac77-73c5120dc7c9" x="56" y="-27" w="90" h="60" identifier="m-2c88e263-a8db-4f38-b119-e081f7bc2c18">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="246" g="223" b="170" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-f024e1b1-c3a0-40ba-a879-36c080640460" x="200" y="-27" w="90" h="60" identifier="m-b4a9b77c-df83-4a27-b5c1-37bac8119add">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="246" g="223" b="170" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+            </view>
+            <view viewpointRef="ResourceMap" identifier="m-2741871a-12d1-4554-b6f8-4cefb592e4d7">
+                <name xml:lang="fr">Vue cartographie des ressources</name>
+                <properties/>
+                <node xsi:type="Element" elementRef="m-ef085df7-4cc0-4e6e-9743-5c9abae6c50e" x="43" y="153" w="90" h="60" identifier="m-2e440e8b-829c-45cc-88cc-e617ef50588a">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="246" g="223" b="170" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-83e82508-7fa8-411c-be95-31b20bdc1189" x="240" y="153" w="90" h="60" identifier="m-fbd1fdfd-c15e-4a76-a3e3-1d783cd9125d">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="246" g="223" b="170" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-6a35bcfe-b86d-485b-bb9b-1b7b5ee09493" x="400" y="153" w="95" h="60" identifier="m-aa0974ff-25ca-415d-86f8-0dd325912bf4">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="252" g="224" b="225" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+            </view>
+            <view viewpointRef="ApplicationCooperation" identifier="m-39744465-2119-4033-8b9d-f3f81396037e">
+                <name xml:lang="fr">Vue coopération applicative</name>
+                <properties/>
+                <node xsi:type="Element" elementRef="m-57a2294c-18b6-48fd-a410-e7583b6dd4b2" x="81" y="135" w="179" h="60" identifier="m-f2d3b895-d33f-43e3-a0bb-72c6242ad2b4">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="188" g="229" b="240" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-9d323b56-ca96-4152-9f0f-fe5274ae47e0" x="320" y="135" w="161" h="60" identifier="m-c444a2b4-32d9-4813-9f82-74ad0ca7d093">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="188" g="229" b="240" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-e5bec321-2afc-414a-b0b4-b0c34795b090" x="81" y="240" w="179" h="81" identifier="m-ef0fad0f-aed0-45ae-86f5-5fb017bddfb1">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="188" g="229" b="240" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-99e443e3-9b08-4118-9d99-d81868c94463" x="320" y="240" w="141" h="81" identifier="m-3db046a9-957d-4d46-8960-392313357d93">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="188" g="229" b="240" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-d24ad56c-f954-466e-a8f2-54006cf537d3" x="81" y="380" w="160" h="61" identifier="m-12cabb53-332c-441f-a484-4b60b4f73182">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="188" g="229" b="240" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-9b06a941-06cb-40ee-9ffe-7552da0815fd" x="320" y="380" w="141" h="61" identifier="m-7ad84da6-e3ad-45f4-8aa2-08d15c220000">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="188" g="229" b="240" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-15f353dd-6a65-4bb4-9a88-a48226e37a88" x="81" y="480" w="160" h="61" identifier="m-6625ce28-565b-4b10-a73d-ce7630d60db9">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="188" g="229" b="240" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-2224b0f8-48e2-4909-b8c8-150f81007ee6" x="320" y="500" w="141" h="41" identifier="m-b0f14d5c-9634-4c7f-8e26-e9ae504f7bc3">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="188" g="229" b="240" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-bf298d2b-a4a8-4051-9580-130f62b91bc9" x="520" y="135" w="121" h="60" identifier="m-2a6cc0ea-01d2-432b-a6b2-a5d43580fc78">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="188" g="229" b="240" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+            </view>
+            <view viewpointRef="BusinessProcessCooperation" identifier="m-43dc6397-b40e-413d-bbf6-88d2bf77b1b8">
+                <name xml:lang="fr">Vue coopération des processus métier</name>
+                <properties/>
+                <node xsi:type="Element" elementRef="m-e89baa6d-50d7-4ca7-9189-70a01c56757c" x="100" y="91" w="40" h="60" identifier="m-ffbb690c-e4a9-4135-84f5-550c3d8c7d26">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="249" g="246" b="178" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-00fa603d-1934-477e-a35e-d527756e4d60" x="230" y="91" w="115" h="60" identifier="m-6729d82e-6552-4f5b-944d-53ceb9f6fc19">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="249" g="246" b="178" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-7232da5b-3fbe-4822-9c31-5905d10a60f4" x="426" y="99" w="60" h="40" identifier="m-29c1e743-09aa-4aa7-9048-138a154f4d0d">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="249" g="246" b="178" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-0d6e8dcb-a5eb-48e3-9c18-0ffacbc5ec8e" x="67" y="230" w="90" h="60" identifier="m-6b1dab51-c039-4aae-bac6-84f12afa3747">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="255" g="191" b="128" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-08709319-2a0a-4fc6-8e6f-43a36644c71a" x="64" y="366" w="250" h="150" identifier="m-e2391059-e225-476b-9ce5-7223d7ab4b06">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="255" g="255" b="255" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-5c3d810e-38bc-4a81-a5c6-abd44f318585" x="246" y="225" w="60" h="40" identifier="m-fddf4063-df73-4b8c-b82c-fbbf9896c25b">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="249" g="246" b="178" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-bd8aadb3-1d56-4142-8b1e-59572b873270" x="460" y="246" w="127" h="60" identifier="m-8ffa91ab-acd5-4893-8930-5b3a41095d06">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="249" g="246" b="178" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-d790cf10-95ba-4598-bab4-52453eced467" x="465" y="375" w="125" h="60" identifier="m-1d90bb0b-1acb-4b44-add6-38c8fd52238b">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="249" g="246" b="178" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-44027044-af90-476e-bdbc-90c1ae7aa876" x="716" y="114" w="60" h="60" identifier="m-22985a5e-329f-4d5e-b4e7-0e644a0654c9">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="249" g="246" b="178" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-f5a58b67-c68a-4b4e-aad1-5f144aac30df" x="474" y="481" w="119" h="60" identifier="m-b6314452-3564-4e18-9efe-c3f45fff4bc4">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="249" g="246" b="178" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-4c2196a7-59f2-497f-bad1-fe704eecdd60" x="634" y="322" w="127" h="60" identifier="m-6a25e399-6e33-41ff-9eb0-234167b7e6a8">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="249" g="246" b="178" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-64268764-992c-4cc4-bee8-e873100383f1" x="305" y="553" w="109" h="60" identifier="m-ee1a282b-bcc9-4220-acad-54a46a630ce7">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="249" g="246" b="178" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-870ae7ed-b510-4261-acfb-d912f87b04dd" x="643" y="581" w="102" h="60" identifier="m-5f33f6f4-fb78-4e30-baf3-8c017be1fe85">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="249" g="246" b="178" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-dc5219ec-3ea2-41a2-b6c1-21cece92ac6d" x="33" y="583" w="179" h="60" identifier="m-be24cc1a-3f6a-4815-9445-94134021b584">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="188" g="229" b="240" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-c267c334-8873-4613-ab7f-fc7dd8a89f3c" x="35" y="690" w="60" h="40" identifier="m-8b7afbe5-431b-470d-b7cc-64f51cb1d575">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="188" g="229" b="240" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-49911213-bf8f-447b-8fe2-85b68c40163f" x="202" y="715" w="60" h="40" identifier="m-689e7a20-2548-4bcd-9442-2ae6e3418f35">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="188" g="229" b="240" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-6f029b39-ec7a-4f7e-b1b5-434d0d66cd90" x="403" y="739" w="137" h="60" identifier="m-741dc855-0796-400a-9d5c-4d79f61b2e07">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="188" g="229" b="240" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-0809b9b5-4c72-4950-9837-1d6767d8388a" x="274" y="875" w="135" h="60" identifier="m-ead7fc00-0e04-417b-a6e5-25f5559a87c6">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="188" g="229" b="240" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-9eb08d3d-c185-493c-a9f4-3546885da2cb" x="88" y="842" w="60" h="60" identifier="m-707c46c7-bada-46d1-b2c0-1f2d184d3799">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="188" g="229" b="240" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-97a40ee7-42fb-4731-9bbf-b87aaea8ff8a" x="511" y="843" w="129" h="60" identifier="m-eaa9f3cd-69f8-41bf-85f6-4a3f3c3e8cd0">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="188" g="229" b="240" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-1baef20c-bdc6-4b9e-8e9b-50e0b6154cfb" x="692" y="719" w="137" h="60" identifier="m-9418b516-31ed-4f99-930d-0566da2fe865">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="188" g="229" b="240" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+                <node xsi:type="Element" elementRef="m-01307809-ca5f-46b3-9cc3-3f31e0821870" x="482" y="652" w="90" h="60" identifier="m-e4405867-0dcf-49a4-b197-8e3c7f0a6f34">
+                    <style lineWidth="1">
+                        <lineColor r="0" g="0" b="0" a="100"/>
+                        <fillColor r="188" g="229" b="240" a="100"/>
+                        <font name="Arial" size="10">
+                            <color r="0" g="0" b="0" a="100"/>
+                        </font>
+                    </style>
+                </node>
+            </view>
+            <view viewpointRef="ImplementationAndMigration" identifier="m-7de086ca-a787-48bb-bb58-7f1989b58f23">
+                <name xml:lang="fr">Vue implementation et migration</name>
+                <properties/>
+            </view>
+            <view viewpointRef="ImplementationAndDeployment" identifier="m-9ebabe1d-851b-4874-9f12-65e0b8c4bb99">
+                <name xml:lang="fr">Vue implémentation et déploiement</name>
+                <properties/>
+            </view>
+            <view viewpointRef="Migration" identifier="m-9775b83f-9406-4386-813c-ed64bd4e70c0">
+                <name xml:lang="fr">Vue migration</name>
+                <properties/>
+            </view>
+            <view viewpointRef="Motivation" identifier="m-5605bc5d-21e6-4fec-88ab-fcc1fb86478b">
+                <name xml:lang="fr">Vue motivation</name>
+                <properties/>
+            </view>
+            <view viewpointRef="Organization" identifier="m-28df2fe1-c3bc-440b-95f6-dc8834631eed">
+                <name xml:lang="fr">Vue organisation</name>
+                <properties/>
+            </view>
+            <view viewpointRef="Stakeholder" identifier="m-4369416a-170a-4f88-860f-188824e2f8ef">
+                <name xml:lang="fr">Vue parties prenantes</name>
+                <properties/>
+            </view>
+            <view viewpointRef="Physical" identifier="m-4c923e1b-4b70-499f-bf83-80984720cde5">
+                <name xml:lang="fr">Vue physique</name>
+                <properties/>
+            </view>
+            <view viewpointRef="Product" identifier="m-710bee27-4202-442b-93fa-d97dc5ef974e">
+                <name xml:lang="fr">Vue produit</name>
+                <properties/>
+            </view>
+            <view viewpointRef="Project" identifier="m-b74d836a-e9de-4a3e-9005-8bc3fe3ca7e2">
+                <name xml:lang="fr">Vue projet</name>
+                <properties/>
+            </view>
+            <view viewpointRef="RequirementsRealization" identifier="m-639f7dcc-ad2a-49bc-9c55-e1337f0db125">
+                <name xml:lang="fr">Vue réalisation des exigences</name>
+                <properties/>
+            </view>
+            <view viewpointRef="GoalRealization" identifier="m-8c8eca4e-466b-4fc9-8b51-225bebcf3783">
+                <name xml:lang="fr">Vue réalisation des objectifs</name>
+                <properties/>
+            </view>
+            <view viewpointRef="OutcomeRealization" identifier="m-c82f1517-4c59-4e3f-a3c5-469ae07a72cc">
+                <name xml:lang="fr">Vue réalisation des résultats</name>
+                <properties/>
+            </view>
+            <view viewpointRef="ServiceRealization" identifier="m-99825b4b-8849-4865-ab99-f393ff806979">
+                <name xml:lang="fr">Vue réalisation des services</name>
+                <properties/>
+            </view>
+            <view viewpointRef="Strategy" identifier="m-078eec62-fd59-4ec4-94fc-e53f793e1961">
+                <name xml:lang="fr">Vue stratégie</name>
+                <properties/>
+            </view>
+            <view viewpointRef="InformationStructure" identifier="m-599f1a0d-5a36-4d2f-a56c-1fca872bd55b">
+                <name xml:lang="fr">Vue structure d'information</name>
+                <properties/>
+            </view>
+            <view viewpointRef="Layered" identifier="m-bbfd8397-d3ec-4dcb-97d1-ac09b622d943">
+                <name xml:lang="fr">Vue structure en couches</name>
+                <properties/>
+            </view>
+            <view viewpointRef="TechnologyUsage" identifier="m-ed5918fa-04f7-4554-a02f-af5f4c809928">
+                <name xml:lang="fr">Vue technologie</name>
+                <properties/>
+            </view>
+            <view viewpointRef="ApplicationUsage" identifier="m-81948b80-191e-4aa6-bc94-8760b38d013f">
+                <name xml:lang="fr">Vue Usage applicatif</name>
+                <properties/>
+            </view>
+            <view viewpointRef="Technology" identifier="m-adbc9f96-0c26-4e91-bf15-8f521c39fd2c">
+                <name xml:lang="fr">Vue utilisation technologique</name>
+                <properties/>
+            </view>
+        </diagrams>
+    </views>
+</model>

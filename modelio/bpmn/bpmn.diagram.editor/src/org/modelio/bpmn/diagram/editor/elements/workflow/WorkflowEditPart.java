@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.workflow;
 
@@ -57,9 +57,6 @@ import org.modelio.diagram.elements.core.requests.ModelElementDropRequest;
 
 @objid ("9546f148-fd9b-4449-becb-2404eea19209")
 public class WorkflowEditPart extends FreeZoneEditPart {
-    @objid ("8d55ec4f-381c-4ccf-898d-28fcbb8c53c0")
-    private LayoutMode currentLayoutMode;
-
     /**
      * Please choose here between Peste and Cholera for layout of embedded workflow containing lanes.
      * <p>
@@ -69,10 +66,13 @@ public class WorkflowEditPart extends FreeZoneEditPart {
     @objid ("f064ce57-a9a6-4d7a-9090-0c70e6e9d2aa")
     private static boolean CROP_OUTSIDE_LANES = true;
 
+    @objid ("8d55ec4f-381c-4ccf-898d-28fcbb8c53c0")
+    private LayoutMode currentLayoutMode;
+
     /**
      * A temporary point to avoid allocations of hundred of Points. Used only by {@link #createAnchor(Point)}
      */
-    @objid ("5a2b9443-db60-4558-a8d2-35662397bd3a")
+    @objid ("c30852db-be1d-4377-9b48-3a0ddca351e9")
     private static final Point tmpAnchor = new Point();
 
     @objid ("ab2e12f7-9c6b-417f-a76f-581d402dd59e")
@@ -81,7 +81,7 @@ public class WorkflowEditPart extends FreeZoneEditPart {
         IFigure fig;
         fig = new WorkflowFreeformLayer(this::calculateLayoutMode);
         fig.setLayoutManager(new AbstractDiagramLayout());
-        
+
         // The figure must be kept transparent
         fig.setOpaque(false);
         fig.setBackgroundColor(null);
@@ -92,16 +92,15 @@ public class WorkflowEditPart extends FreeZoneEditPart {
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new WorkflowLayoutEditPolicy());
         installEditPolicy(ModelElementDropRequest.TYPE, new WorkflowDropEditPolicy());
-        
+
         // Policy to create Link+Node for sequence flow and data association (allow to create a node as target of a new link, user can choose the kind of node)
         installEditPolicy(AbstractCreateLinkChooseNodeEditPolicy.ROLE, new BpmnCreateLinkChooseNodeEditPolicy());
-        
+
         // Policy to create notes
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_END, new LinkedNodeFinishCreationEditPolicy());
-        
     }
 
     @objid ("abbe1225-e3df-4924-bdd2-0df671c65e23")
@@ -120,13 +119,15 @@ public class WorkflowEditPart extends FreeZoneEditPart {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         super.propertyChange(evt);
-        
+        if (!getModel().isValid() || getModel().getDiagram().isDisposed())
+         return;
+
         if (evt.getPropertyName().equals(IGmObject.PROPERTY_CHILDREN)) {
+            getUnmaksHelper().unmaskAllWorkflowElements();
             refreshLayout();
         } else if (evt.getPropertyName().equals(GmModel.PROP_REFRESH_FROM_OBMODEL)) {
             getUnmaksHelper().unmaskAllWorkflowElements();
         }
-        
     }
 
     @objid ("953dfc3c-dae3-48a5-9435-fe548386c39e")
@@ -134,13 +135,12 @@ public class WorkflowEditPart extends FreeZoneEditPart {
     public void refresh() {
         super.refresh();
         refreshLayout();
-        
     }
 
     @objid ("a1219fc8-f450-4507-8d8d-2f69a69852b4")
     private void refreshLayout() {
         WorkflowFreeformLayer fig = (WorkflowFreeformLayer) getFigure();
-        
+
         LayoutManager layoutManager = fig.getLayoutManager();
         LayoutMode newLayoutMode = calculateLayoutMode();
         if (layoutManager == null || this.currentLayoutMode != newLayoutMode) {
@@ -171,7 +171,6 @@ public class WorkflowEditPart extends FreeZoneEditPart {
                 break;
             }
         }
-        
     }
 
     @objid ("e3a3765e-86ec-441b-837c-7260847f9c0c")
@@ -186,7 +185,6 @@ public class WorkflowEditPart extends FreeZoneEditPart {
         } else {
             return LayoutMode.EMBEDDED_READ_ONLY;
         }
-        
     }
 
     @objid ("74e07ab5-49d2-4f2d-8af2-5c506574a397")
@@ -201,11 +199,11 @@ public class WorkflowEditPart extends FreeZoneEditPart {
             Object ld = ((IGmObject) childEp.getModel()).getLayoutData();
             setLayoutConstraint(childEp, childEp.getFigure(), ld);
         });
-        
     }
 
     /**
      * Create a XY anchor with the layer coordinates
+     *
      * @param absPoint an absolute point.
      * @return a XY anchor for the layer figure
      */
@@ -225,7 +223,6 @@ public class WorkflowEditPart extends FreeZoneEditPart {
             return createAnchor(p);
         }
         throw new IllegalArgumentException(request + " not handled.");
-        
     }
 
     @objid ("3f77f7cb-05ff-467f-b96c-c5a65c2269ef")
@@ -236,7 +233,6 @@ public class WorkflowEditPart extends FreeZoneEditPart {
             return createAnchor(p);
         }
         throw new IllegalArgumentException(request + " not handled.");
-        
     }
 
     @objid ("a3f21ef6-a8dc-4151-8882-7a9b7238cb73")
@@ -244,12 +240,11 @@ public class WorkflowEditPart extends FreeZoneEditPart {
         if (oldLayoutManager != null && oldLayoutManager.getClass() == newLayoutManager.getClass()) {
             return;
         }
-        
+
         fig.setLayoutManager(newLayoutManager);
         if (newLayoutManager instanceof XYLayout) {
             refreshChildrenLayoutData();
         }
-        
     }
 
     @objid ("2ac255b3-f9c1-49ca-aa50-19d3fd6eeda2")
@@ -262,7 +257,6 @@ public class WorkflowEditPart extends FreeZoneEditPart {
             fig = parent;
             parent = parent.getParent();
         }
-        
     }
 
     @objid ("ee8d7def-e0cb-4075-af6a-69dd54d29a34")
@@ -274,7 +268,6 @@ public class WorkflowEditPart extends FreeZoneEditPart {
                 parent = parent.getParent();
             }
         }
-        
     }
 
     @objid ("2d22b174-7d3d-4876-9128-4a181691f4a5")
@@ -284,9 +277,9 @@ public class WorkflowEditPart extends FreeZoneEditPart {
 
     /**
      * {@link FreeformLayer2} that is transparent but that respond to mouse clicks.
-     * 
+     *
      * Has special behavior when the workflow is embedded and only contain lanes.
-     * 
+     *
      * @author cma
      * @since 3.7
      */
@@ -328,7 +321,7 @@ public class WorkflowEditPart extends FreeZoneEditPart {
         }
 
         @objid ("03622dc2-33fa-45c2-ac08-5aeeebb3a5dd")
-        public  WorkflowFreeformLayer(Supplier<LayoutMode> layoutMode) {
+        public WorkflowFreeformLayer(Supplier<LayoutMode> layoutMode) {
             this.layoutMode = layoutMode;
         }
 
@@ -358,9 +351,8 @@ public class WorkflowEditPart extends FreeZoneEditPart {
             case EMBEDDED_READ_ONLY:
             default:
                 return b;
-            
+
             }
-            
         }
 
     }
@@ -384,17 +376,17 @@ public class WorkflowEditPart extends FreeZoneEditPart {
         @Override
         public void layout(IFigure parent) {
             super.layout(parent);
-            
+
             Point offset = getOrigin(parent);
             Rectangle parentBounds = parent.getBounds();
-            List<IFigure> lchildren = parent.getChildren();
+            List<? extends IFigure> lchildren = parent.getChildren();
             for (IFigure f : lchildren) {
                 if (isLaneSet(f)) {
                     Rectangle bounds = getConstraint(f);
                     if (bounds == null) {
                         continue;
                     }
-            
+
                     // With this lanes take all space unless there is something else on top or left.
                     // With this notes and bend points outside are still coherent.
                     bounds = bounds.getTranslated(offset);
@@ -403,11 +395,11 @@ public class WorkflowEditPart extends FreeZoneEditPart {
                     f.setBounds(bounds);
                 }
             }
-            
         }
 
         /**
          * Use only lanesets to compute preferred size, ignore other figures.
+         *
          * @see StackLayout#calculatePreferredSize(IFigure, int, int)
          */
         @objid ("4c025c8f-e068-44cd-9f35-32df73e0d84b")
@@ -416,7 +408,7 @@ public class WorkflowEditPart extends FreeZoneEditPart {
             final Rectangle lanesetrect = new Rectangle();
             final Rectangle nonlanerect = new Rectangle();
             final Rectangle childRect = new Rectangle();
-            final List<IFigure> children = figure.getChildren();
+            final List<? extends IFigure> children = figure.getChildren();
             for (IFigure child : children) {
                 final Rectangle childConstraint = (Rectangle) this.constraints.get(child);
                 boolean childIsLaneSet = isLaneSet(child);
@@ -424,7 +416,7 @@ public class WorkflowEditPart extends FreeZoneEditPart {
                     continue;
                 }
                 final Rectangle mergeRect = childIsLaneSet ? lanesetrect : nonlanerect;
-            
+
                 childRect.setBounds(childConstraint);
                 if (childIsLaneSet) {
                     childRect.setSize(child.getPreferredSize(-1, -1));
@@ -437,25 +429,24 @@ public class WorkflowEditPart extends FreeZoneEditPart {
                         childRect.height = prefSize.height;
                     }
                 }
-            
+
                 if (mergeRect.isEmpty()) {
                     mergeRect.setBounds(childRect);
                 } else {
                     mergeRect.union(childRect);
                 }
             }
-            
+
             final Rectangle rect;
             if (WorkflowEditPart.CROP_OUTSIDE_LANES) {
                 rect = lanesetrect;
             } else {
                 rect = lanesetrect.getUnion(nonlanerect);
             }
-            
+
             Insets insets = figure.getInsets();
             return new Dimension(rect.width + insets.getWidth(), rect.height
                     + insets.getHeight()).union(getBorderPreferredSize(figure));
-            
         }
 
     }

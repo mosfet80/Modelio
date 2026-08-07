@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.edition;
 
@@ -68,15 +68,16 @@ public final class EditorLocatorForLabelFigure implements CellEditorLocator {
 
     /**
      * Standard constructor.
+     *
      * @param figure the label figure to overwrite
      * @param figureLabelSetter a lambda that must set the label figure text.
      * This method will be called at each {@link #relocate(CellEditor)} just after having called 'figureLabelSetter'.
      */
     @objid ("8b9f7a06-695e-45c8-a0b6-51e7717d5963")
-    public  EditorLocatorForLabelFigure(IFigure figure, Consumer<String> figureLabelSetter) {
+    public EditorLocatorForLabelFigure(IFigure figure, Consumer<String> figureLabelSetter) {
         this.figure = figure;
         this.figureLabelSetter = figureLabelSetter;
-        
+
     }
 
     @objid ("83ddab97-2e53-4bd3-a049-82f9d70d2328")
@@ -85,22 +86,22 @@ public final class EditorLocatorForLabelFigure implements CellEditorLocator {
         // Force the figure text to the current one.
         // The text figure content is automatically rollbacked by the DirectEditManager.
         this.figureLabelSetter.accept((String) cellEditor.getValue());
-        
+
         // Get the figure absolute bounds after text change
         final Rectangle absLabelRect = this.figure.getBounds().getCopy();
         this.figure.translateToAbsolute(absLabelRect);
-        
+
         // Some figures may adjust their font to the text and available size.
         Font editorFont = this.fontGetter != null ? this.fontGetter.get() : this.figure.getFont();
-        
+
         int widthHint = this.autoExpand ? -1 : this.figure.getBounds().width;
         Dimension labelPrefSize = this.figure.getPreferredSize(widthHint, -1);
-        
+
         final Dimension txtMinSize = TextUtilities.INSTANCE.getStringExtents("pPF", editorFont);
         final Dimension absMinSize = txtMinSize.union(labelPrefSize).union(this.minSize);
-        
+
         absLabelRect.union(absLabelRect.x, absLabelRect.y, absMinSize.width(), absMinSize.height());
-        
+
         Control swtControl = cellEditor.getControl();
         swtControl.setFont(editorFont);
         swtControl.setBounds(
@@ -108,10 +109,11 @@ public final class EditorLocatorForLabelFigure implements CellEditorLocator {
                 absLabelRect.y,
                 absLabelRect.width + EditorLocatorForLabelFigure.MARGINS.width,
                 absLabelRect.height + EditorLocatorForLabelFigure.MARGINS.height);
-        
+
     }
 
     /**
+     *
      * @param expand whether the editor should expand horizontally if the text is too wide.
      * @return this instance to chain calls.
      */
@@ -127,6 +129,7 @@ public final class EditorLocatorForLabelFigure implements CellEditorLocator {
      * This method will be called at each {@link #relocate(CellEditor)}
      * just after having called 'figureLabelSetter'.
      * This useful when edited figures adjust their font to the text and available size.
+     *
      * @param fontGetter lambda that returns the font the editor must use.
      * @return this instance to chain calls.
      */
@@ -138,6 +141,7 @@ public final class EditorLocatorForLabelFigure implements CellEditorLocator {
 
     /**
      * Set the minimum editor size.
+     *
      * @param d the minimum editor size.
      * @return this instance to chain calls.
      */

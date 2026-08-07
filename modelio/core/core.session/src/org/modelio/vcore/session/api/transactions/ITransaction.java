@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.vcore.session.api.transactions;
 
@@ -31,7 +50,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  * try (ITransaction t = session.createTransaction("do something")) {
  * // code
  * ...
- * 
+ *
  * // Commit transaction
  * t.commit();
  * }
@@ -41,7 +60,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 public interface ITransaction extends AutoCloseable {
     /**
      * Commit a transaction <br>
-     * 
+     *
      * If the active stack is empty, we are closing and committing an 'undo'
      * block, therefore let stack the closed transaction in the "undo" stack
      * (only if it is 'undoable' otherwise just delete it).
@@ -57,11 +76,14 @@ public interface ITransaction extends AutoCloseable {
     /**
      * Rollback the currently active transaction.
      * <p>
-     * The actions of the currently active transaction are undo and the
-     * transaction removed from the active stack.
+     * The actions of the currently active transaction are undo and the transaction removed from the active stack.
+     *
+     * @throws EndTransactionBadIdException the transaction is not the currently active one
+     * @throws EndTransactionNoActiveTransactionException if there is no active transaction at all
+     * @throws TransactionRollbackFailedException if the rollback unexpectedly failed. In this case the model is not consistent anymore and the session should be closed without saving.
      */
     @objid ("6ae9a80c-bab9-11e1-9fd3-001ec947ccaf")
-    void rollback();
+    void rollback() throws EndTransactionBadIdException, EndTransactionNoActiveTransactionException, TransactionRollbackFailedException;
 
     /**
      * Disable undo/redo on the transaction.
@@ -69,15 +91,25 @@ public interface ITransaction extends AutoCloseable {
     @objid ("60d87889-babd-11e1-9fd3-001ec947ccaf")
     void disableUndo();
 
+    /**
+     * Rollback the transaction if it is active and not yet {@link #commit()} nor {@link #rollback()} .
+     * <p>
+     * {@inheritDoc}
+     *
+     * @throws EndTransactionBadIdException the transaction is not the currently active one
+     * @throws EndTransactionNoActiveTransactionException if there is no active transaction at all
+     * @throws TransactionRollbackFailedException if the rollback unexpectedly failed. In this case the model is not consistent anymore and the session should be closed without saving.
+     */
     @objid ("008a88a6-d715-1fe1-9845-001ec947cd2a")
     @Override
-    void close() throws RuntimeException;
+    void close() throws EndTransactionBadIdException, EndTransactionNoActiveTransactionException, TransactionRollbackFailedException;
 
     /**
      * Get the transaction's name.
+     *
      * @return the name of the transaction.
      */
     @objid ("75d0b810-1e9d-11e2-8009-002564c97630")
     String getName();
-}
 
+}

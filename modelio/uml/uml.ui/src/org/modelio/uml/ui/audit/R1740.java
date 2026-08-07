@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -47,7 +47,7 @@ public class R1740 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -98,14 +98,14 @@ public class R1740 extends AbstractUmlRule {
      * Default constructor for R1740
      */
     @objid ("db67d397-a913-400c-a1c2-882dca16cee1")
-    public  R1740() {
+    public R1740() {
         this.checkerInstance = new CheckR1740(this);
     }
 
     @objid ("1f13ab69-00a3-4d3e-b707-feaa24fbc5d3")
     private static class CheckR1740 extends AbstractControl {
         @objid ("7bfc071b-3a0b-4703-b13e-ceb4b28b7df9")
-        public  CheckR1740(IRule rule) {
+        public CheckR1740(IRule rule) {
             super(rule);
         }
 
@@ -123,11 +123,11 @@ public class R1740 extends AbstractUmlRule {
         @objid ("83bae946-8d0c-4f97-b778-1ca3396dd052")
         private IAuditEntry checkR1740(final InformationFlow infoFlow) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, infoFlow, null);
-            
+
             if (infoFlow.getConveyed().isEmpty()) {
-            
+
                 // Rule failed
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(infoFlow);

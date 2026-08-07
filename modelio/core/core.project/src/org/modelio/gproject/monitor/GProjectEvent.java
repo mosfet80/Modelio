@@ -1,25 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.monitor;
 
+import java.io.IOException;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.vbasic.files.FileUtils;
 
 /**
  * Event in the GProject life cycle.
@@ -52,18 +54,19 @@ public class GProjectEvent {
 
     /**
      * Initialize an event.
+     *
      * @param type the event type
      * @param message the event message. May be <code>null</code>.
      * @param subject the related object, may be <code>null</code>.
      * @param throwable the exception that caused the event, may be <code>null</code>.
      */
     @objid ("fab5ca70-bb50-4855-9115-6cc6eed3d407")
-    public  GProjectEvent(GProjectEventType type, String message, Object subject, Throwable throwable) {
+    public GProjectEvent(GProjectEventType type, String message, Object subject, Throwable throwable) {
         this.type = type;
         this.subject = subject;
         this.message = message;
         this.throwable = throwable;
-        
+
     }
 
     @objid ("a1f87b5b-2058-478f-a259-e2e421291648")
@@ -75,13 +78,13 @@ public class GProjectEvent {
             s.append(": ");
             s.append(this.message);
         }
-        
+
         if (this.subject != null) {
             s.append(" on '");
             s.append(this.subject.toString());
             s.append("'");
         }
-        
+
         if (this.throwable != null) {
             s.append(", error =");
             s.append(this.throwable.toString());
@@ -91,21 +94,32 @@ public class GProjectEvent {
 
     /**
      * Instantiate a warning event for a subject.
+     *
      * @param subject the involved object
      * @param e an exception
      * @return the built warning
      */
     @objid ("18882c59-0977-4b53-b0e0-d7b6c9b686df")
     public static GProjectEvent buildWarning(Object subject, Throwable e) {
+        String msg;
+        if (e instanceof IOException) {
+            msg = FileUtils.getLocalizedMessage((IOException) e);
+        } else if (e.getMessage() == null || e.getMessage().isEmpty()) {
+            msg = e.getClass().getSimpleName();
+        } else {
+            msg = e.getLocalizedMessage();
+        }
+
         GProjectEvent ev = new GProjectEvent(GProjectEventType.WARNING,
-                e.getLocalizedMessage(),
+                msg,
                 subject,
-                e.getCause());
+                e);
         return ev;
     }
 
     /**
      * Instantiate a warning event for a subject.
+     *
      * @param subject the involved object
      * @param message the warning message
      * @return the built warning

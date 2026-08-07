@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.diagrams;
 
@@ -58,26 +77,26 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  */
 @objid ("7205b9ab-accd-4cda-a965-31d2594bfb68")
 public class BpmnDiagramUnmaskHelper {
+    @objid ("a756e50b-911e-4b50-8f51-b5cad537b7c6")
+    private final IFigure rootFigure;
+
+    @objid ("b5ae04d1-0b82-4b57-8252-90c06a93bef4")
+    private final EditPartViewer viewer;
+
     @objid ("3329682f-4680-42b3-9b73-d82ba232da71")
     private final IGmDiagram gmDiagram;
 
-    @objid ("400c2086-f984-4f06-82fa-ff010fdbbeaa")
-    private final IFigure rootFigure;
-
-    @objid ("1b87c9e7-4e0b-4093-a681-076e7eb0d103")
-    private final EditPartViewer viewer;
-
     /**
      * C'tor.
+     *
      * @param gmDiagram the diagram to unmask contents into.
      * @param viewer the diagram viewer.
      */
     @objid ("27940cd1-e09c-4194-b7fb-ff7f2ecd829c")
-    public  BpmnDiagramUnmaskHelper(IGmDiagram gmDiagram, EditPartViewer viewer) {
+    public BpmnDiagramUnmaskHelper(IGmDiagram gmDiagram, EditPartViewer viewer) {
         this.viewer = viewer;
         this.gmDiagram = gmDiagram;
         this.rootFigure = ((GraphicalEditPart) this.viewer.getRootEditPart()).getFigure();
-        
     }
 
     /**
@@ -87,18 +106,17 @@ public class BpmnDiagramUnmaskHelper {
     public void unmaskAllWorkflowElements() {
         AbstractDiagram diagram = this.gmDiagram.getRelatedElement();
         // Called by a deletion of the diagram => do nothing
-        
+
         ModelElement origin = diagram.getOrigin();
         if (origin == null || !origin.isValid()) {
             return;
         }
-        
+
         if (origin instanceof BpmnProcess) {
             doUnmaskWorkflowElements((BpmnProcess) origin);
         } else if (origin instanceof BpmnSubProcess) {
             doUnmaskWorkflowElements((BpmnSubProcess) origin);
         }
-        
     }
 
     @objid ("2a569856-65d9-4e79-b784-b052166f0e1d")
@@ -108,38 +126,38 @@ public class BpmnDiagramUnmaskHelper {
                 return;
             }
             List<GmModel> existingGMs = getDiagramGraphicModels(elementToUnmask);
-        
+
             Point dropLocation = unmaskCoordinates.getCopy();
-        
+
             this.rootFigure.translateToParent(dropLocation);
-        
+
             final ModelElementDropRequest unmaskReq = new ModelElementDropRequest();
             unmaskReq.setDroppedElements(new MObject[] { elementToUnmask });
             unmaskReq.setLocation(dropLocation);
             unmaskReq.setSmart(false);
-        
+
             /*
-             * Fix size of Root Figure ( diagram ) at least at the size of the unmasked element
-             * in order to be able to find potential parent figure of unmasked figure.
-             * Instead, if the unmasked element is out of the scope of Root Figure,
-             * the algorithm which find the parent figure return always null
-             */
-        
+                     * Fix size of Root Figure ( diagram ) at least at the size of the unmasked element
+                     * in order to be able to find potential parent figure of unmasked figure.
+                     * Instead, if the unmasked element is out of the scope of Root Figure,
+                     * the algorithm which find the parent figure return always null
+                     */
+
             // Calcul min bounds
             Rectangle rootBounds = this.rootFigure.getBounds();
             if (rootBounds.x + rootBounds.width < unmaskCoordinates.x) {
                 rootBounds.width = unmaskCoordinates.x - rootBounds.x + 10;
             }
-        
+
             if (rootBounds.y + rootBounds.height < unmaskCoordinates.y) {
                 rootBounds.height = unmaskCoordinates.y - rootBounds.y + 10;
             }
-        
+
             // Set min bounds to diagram figure
             this.rootFigure.setBounds(rootBounds);
             this.rootFigure.getParent().setBounds(rootBounds);
             this.rootFigure.revalidate();
-        
+
             Map<Object, EditPart> reg = this.viewer.getEditPartRegistry();
             Command unmaskCommand = reg.values()
                     .stream()
@@ -150,13 +168,13 @@ public class BpmnDiagramUnmaskHelper {
                     .map(ep -> ep.getCommand(unmaskReq))
                     .filter(Command::canExecute)
                     .orElse(null);
-        
+
             if (unmaskCommand == null) {
                 return;
             }
-        
+
             unmaskCommand.execute();
-        
+
             List<GmModel> allGms = getDiagramGraphicModels(elementToUnmask);
             for (GmModel gm : allGms) {
                 if (!existingGMs.contains(gm)) {
@@ -168,7 +186,6 @@ public class BpmnDiagramUnmaskHelper {
                 }
             }
         }
-        
     }
 
     @objid ("1c5c1898-1df1-4e7e-8f30-40f334a7d939")
@@ -176,14 +193,13 @@ public class BpmnDiagramUnmaskHelper {
         BpmnLaneSet childLaneSet = lane.getChildLaneSet();
         if (childLaneSet != null) {
             doUnmaskElement(childLaneSet, unmaskCoordinates.translate(5, 5), lane);
-        
+
             doUnmaskLaneSetElements(childLaneSet, unmaskCoordinates);
         }
-        
+
         for (BpmnFlowElement node : lane.getFlowElementRef()) {
             doUnmaskElement(node, unmaskCoordinates.translate(5, 5), lane);
         }
-        
     }
 
     @objid ("e5c395a7-586a-4c52-90cf-833dddc02878")
@@ -191,32 +207,31 @@ public class BpmnDiagramUnmaskHelper {
         // Unmask lanes
         for (BpmnLane lane : laneSet.getLane()) {
             doUnmaskElement(lane, unmaskCoordinates.translate(5, 5), laneSet.getCompositionOwner());
-        
+
             doUnmaskLaneElements(lane, unmaskCoordinates);
         }
-        
     }
 
     @objid ("de99eed4-21e6-4290-a946-6960c949608c")
     private void doUnmaskWorkflowElements(BpmnProcess process) {
         BpmnLaneSet laneSet = process.getLaneSet();
         EList<BpmnFlowElement> flowElements = process.getFlowElement();
-        
+
         Point unmaskCoordinates = new Point(0, 0);
-        
+
         if (laneSet != null && !laneSet.getLane().isEmpty()) {
             // Unmask lane set
             doUnmaskElement(laneSet, unmaskCoordinates.translate(5, 5), this.gmDiagram.getRelatedElement());
             doUnmaskLaneSetElements(laneSet, unmaskCoordinates);
         }
-        
+
         // Unmask nodes at root
         for (BpmnFlowElement elt : flowElements) {
             if (elt.getLane().isEmpty() && !elt.getMClass().isLinkMetaclass()) {
-                doUnmaskElement(elt, unmaskCoordinates.translate(5, 5), this.gmDiagram.getRelatedElement());
+                doUnmaskElement(elt, unmaskCoordinates.translate(150, 0), this.gmDiagram.getRelatedElement());
             }
         }
-        
+
         // Unmask links
         for (BpmnFlowElement elt : flowElements) {
             if (elt instanceof BpmnSequenceFlow) {
@@ -225,40 +240,39 @@ public class BpmnDiagramUnmaskHelper {
                 unmaskDataAssociations(elt, unmaskCoordinates);
             }
         }
-        
     }
 
     @objid ("5e7d746b-15d2-47d9-a79b-65a0314d86ae")
     private void doUnmaskWorkflowElements(BpmnSubProcess subProcess) {
         BpmnLaneSet laneSet = subProcess.getLaneSet();
         EList<BpmnFlowElement> flowElements = subProcess.getFlowElement();
-        
+
         Point unmaskCoordinates = new Point(0, 0);
-        
+
         if (laneSet != null && !laneSet.getLane().isEmpty()) {
             // Unmask lane set
             doUnmaskElement(laneSet, unmaskCoordinates.translate(5, 5), this.gmDiagram.getRelatedElement());
             doUnmaskLaneSetElements(laneSet, unmaskCoordinates);
         }
-        
+
         // Unmask nodes at root
         for (BpmnFlowElement elt : flowElements) {
             if (elt.getLane().isEmpty() && !elt.getMClass().isLinkMetaclass()) {
-                doUnmaskElement(elt, unmaskCoordinates.translate(5, 5), this.gmDiagram.getRelatedElement());
+                doUnmaskElement(elt, unmaskCoordinates.translate(150, 0), this.gmDiagram.getRelatedElement());
             }
         }
-        
+
         // Unmask links
         for (BpmnFlowElement elt : flowElements) {
             if (elt instanceof BpmnSequenceFlow) {
                 doUnmaskElement(elt, unmaskCoordinates.translate(5, 5), this.gmDiagram.getRelatedElement());
             }
         }
-        
     }
 
     /**
      * Returns the diagram graphic models for the passed element.
+     *
      * @param gmObject a model element
      * @return a list of {@link GmModel}. Empty when the element is not unmasked in the diagram.
      */
@@ -277,6 +291,7 @@ public class BpmnDiagramUnmaskHelper {
 
     /**
      * Returns the edit part for the passed object.
+     *
      * @param gmObject the graphic object model
      * @return the edit part
      */
@@ -287,6 +302,7 @@ public class BpmnDiagramUnmaskHelper {
 
     /**
      * Unmask {@link BpmnDataAssociation} linked to this element.
+     *
      * @param elt the element to check for {@link BpmnDataAssociation} links.
      * @param unmaskCoordinates where to unmask the link.
      */
@@ -316,7 +332,6 @@ public class BpmnDiagramUnmaskHelper {
                 unmaskDataAssociations(unmaskCoordinates, dataAssociation);
             }
         }
-        
     }
 
     @objid ("6cb17e72-1135-43c2-b9d7-3f7314838ceb")
@@ -328,7 +343,6 @@ public class BpmnDiagramUnmaskHelper {
                 doUnmaskElement(bpmnSequenceFlowDataAssociation, unmaskCoordinates.translate(5, 5), this.gmDiagram.getRelatedElement());
             }
         }
-        
     }
 
 }

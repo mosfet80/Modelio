@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.umlcommon.diagramheader;
 
@@ -42,9 +42,9 @@ public class DiagramHeaderEditPart extends ModelElementLabelEditPart {
     @Override
     protected void refreshFromStyle(final IFigure headerFigure, final IStyle style) {
         super.refreshFromStyle(headerFigure, style);
-        
+
         updateFigureBorder(headerFigure);
-        
+
     }
 
     @objid ("812bc5bd-1dec-11e2-8cad-001ec947c8cc")
@@ -53,7 +53,7 @@ public class DiagramHeaderEditPart extends ModelElementLabelEditPart {
             final IPenOptionsSupport fig = (IPenOptionsSupport) aFigure;
             aFigure.setBorder(new ShapedBorder(fig.getLineColor(), fig.getLineWidth(), new DiagramHeaderShaper(fig.getLineWidth())));
         }
-        
+
     }
 
     @objid ("812bc5c3-1dec-11e2-8cad-001ec947c8cc")
@@ -67,17 +67,17 @@ public class DiagramHeaderEditPart extends ModelElementLabelEditPart {
      * <p>
      * Looks like:
      * <p>
-     * 
+     *
      * <pre>
      * +-------+
      * |       |
      * |      /
      * +------
      * </pre>
-     * 
+     *
      * Using a shapedBorder to draw the header separator is not a good idea as the ShapedBorder shrinks the figure bounds rectangle by the line width. This results in a separator line drawn 'inside' the header and not properly joining the outline of the
      * figure. Should definitely manage this with a dedicated figure...
-     * 
+     *
      * The current workaround consists in compensating for the line width, a ugly hack.
      */
     @objid ("812bc5c8-1dec-11e2-8cad-001ec947c8cc")
@@ -86,7 +86,7 @@ public class DiagramHeaderEditPart extends ModelElementLabelEditPart {
         private int lineWidth;
 
         @objid ("812bc5cb-1dec-11e2-8cad-001ec947c8cc")
-        public  DiagramHeaderShaper(int lineWidth) {
+        public DiagramHeaderShaper(int lineWidth) {
             this.lineWidth = lineWidth;
         }
 
@@ -98,6 +98,7 @@ public class DiagramHeaderEditPart extends ModelElementLabelEditPart {
 
         /**
          * Computes the fold size for a rectangle.
+         *
          * @param rect a rectangle
          * @return the fold size for this rectangle.
          */
@@ -111,7 +112,7 @@ public class DiagramHeaderEditPart extends ModelElementLabelEditPart {
         public Path createShapePath(final Rectangle r) {
             final Path ret = new Path(Display.getCurrent());
             final int foldSize = getFoldSize(r);
-            
+
             // Compensating the lineWidth => hack is here !
             // ret.moveTo(r.x, r.y);
             ret.moveTo(r.right() + this.lineWidth, r.y);

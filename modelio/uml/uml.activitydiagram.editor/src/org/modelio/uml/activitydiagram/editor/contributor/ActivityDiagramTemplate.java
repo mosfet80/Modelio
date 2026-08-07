@@ -1,27 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.contributor;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.modelio.api.ui.viewtemplate.IModelViewTemplate;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
@@ -52,7 +52,7 @@ public class ActivityDiagramTemplate implements IModelViewTemplate<AbstractDiagr
      * Mandatory default c'tor needed by eclipse when loading the extension point.
      */
     @objid ("e1d68c7a-600a-4f32-8f58-d1ee1f31c041")
-    public  ActivityDiagramTemplate() {
+    public ActivityDiagramTemplate() {
         super();
     }
 
@@ -66,10 +66,10 @@ public class ActivityDiagramTemplate implements IModelViewTemplate<AbstractDiagr
     @Override
     public AbstractDiagram createView(ModelElement base) {
         final IStandardModelFactory modelFactory = this.mmServices.getModelFactory().getFactory(IStandardModelFactory.class);
-        
+
         // Depending on the nature of 'base', carry out the proper creation actions.
         ActivityDiagram diagram = null;
-        
+
         if (base instanceof Activity) {
             diagram = smartCreateForActivity(modelFactory, (Activity) base);
         } else if ((base instanceof Classifier) && !(base instanceof UseCase)) {
@@ -109,6 +109,7 @@ public class ActivityDiagramTemplate implements IModelViewTemplate<AbstractDiagr
 
     /**
      * Create an activity diagram under 'activity' and sets its default name.
+     *
      * @return the created activity diagram or null in case of problems.
      */
     @objid ("ba01baf3-5d78-4ecf-831c-fb90ffbe574c")
@@ -133,7 +134,7 @@ public class ActivityDiagramTemplate implements IModelViewTemplate<AbstractDiagr
             locals = collab;
             break;
         }
-        
+
         // Create the local Collaboration if none exists
         if (locals == null) {
             locals = modelFactory.createCollaboration();
@@ -163,7 +164,7 @@ public class ActivityDiagramTemplate implements IModelViewTemplate<AbstractDiagr
         Activity activity = modelFactory.createActivity();
         activity.setOwner(parentNameSpace);
         activity.setName(this.mmServices.getElementNamer().getUniqueName(activity));
-        
+
         ActivityDiagram diagram = createActivityDiagram(modelFactory, activity);
         if (diagram != null) {
             ensureLocalCollaboration(modelFactory, activity);
@@ -179,7 +180,7 @@ public class ActivityDiagramTemplate implements IModelViewTemplate<AbstractDiagr
         Activity activity = modelFactory.createActivity();
         activity.setOwner(parentClassifier);
         activity.setName(this.mmServices.getElementNamer().getUniqueName(activity));
-        
+
         ActivityDiagram diagram = createActivityDiagram(modelFactory, activity);
         if (diagram != null) {
             // Create the locals Collaboration
@@ -190,7 +191,7 @@ public class ActivityDiagramTemplate implements IModelViewTemplate<AbstractDiagr
                 locals.getDeclared().add(instance);
                 instance.setName("this");
                 instance.setBase(parentClassifier);
-        
+
                 // Create the corresponding InstanceNode:
                 InstanceNode instanceNode = modelFactory.createInstanceNode();
                 if (instanceNode != null) {
@@ -211,7 +212,7 @@ public class ActivityDiagramTemplate implements IModelViewTemplate<AbstractDiagr
         Activity activity = modelFactory.createActivity();
         activity.setOwnerOperation(parentOperation);
         activity.setName(this.mmServices.getElementNamer().getUniqueName(activity));
-        
+
         ActivityDiagram diagram = createActivityDiagram(modelFactory, activity);
         if (diagram != null) {
             // Create the locals Collaboration
@@ -222,7 +223,7 @@ public class ActivityDiagramTemplate implements IModelViewTemplate<AbstractDiagr
                 locals.getDeclared().add(instance);
                 instance.setName("this");
                 instance.setBase(parentOperation.getOwner());
-        
+
                 // Create the corresponding InstanceNode:
                 InstanceNode instanceNode = modelFactory.createInstanceNode();
                 if (instanceNode != null) {
@@ -231,20 +232,20 @@ public class ActivityDiagramTemplate implements IModelViewTemplate<AbstractDiagr
                     instanceNode.setRepresented(instance);
                 }
             }
-        
+
             // Create Activity parameters:
             List<Parameter> paramsList = parentOperation.getIO();
             BehaviorParameter behaviorParameter = null;
             ActivityParameterNode parameterNode = null;
             String parameterName;
-        
+
             // IOParameters...
             for (Parameter parameter : paramsList) {
                 // Create the BehaviorParameter:
                 behaviorParameter = modelFactory.createBehaviorParameter();
                 activity.getParameter().add(behaviorParameter);
                 parameterName = parameter.getName();
-        
+
                 if (behaviorParameter != null) {
                     behaviorParameter.setName(parameterName);
                     behaviorParameter.setMultiplicityMin(parameter.getMultiplicityMin());
@@ -254,10 +255,10 @@ public class ActivityDiagramTemplate implements IModelViewTemplate<AbstractDiagr
                     behaviorParameter.setDefaultValue(parameter.getDefaultValue());
                     behaviorParameter.setMapped(parameter);
                     behaviorParameter.setType(parameter.getType());
-        
+
                     // Create the ParameterNode:
                     parameterNode = modelFactory.createActivityParameterNode();
-        
+
                     if (parameterNode != null) {
                         activity.getOwnedNode().add(parameterNode);
                         parameterNode.setRepresentedRealParameter(behaviorParameter);
@@ -265,16 +266,16 @@ public class ActivityDiagramTemplate implements IModelViewTemplate<AbstractDiagr
                     }
                 }
             }
-        
+
             // return parameter
             Parameter returnParameter = parentOperation.getReturn();
-        
+
             if (returnParameter != null) {
                 // Create the BehaviorParameter:
                 behaviorParameter = modelFactory.createBehaviorParameter();
                 activity.getParameter().add(behaviorParameter);
                 parameterName = returnParameter.getName();
-        
+
                 if (behaviorParameter != null) {
                     behaviorParameter.setName(parameterName);
                     behaviorParameter.setMultiplicityMin(returnParameter.getMultiplicityMin());
@@ -284,7 +285,7 @@ public class ActivityDiagramTemplate implements IModelViewTemplate<AbstractDiagr
                     behaviorParameter.setDefaultValue(returnParameter.getDefaultValue());
                     behaviorParameter.setMapped(returnParameter);
                     behaviorParameter.setType(returnParameter.getType());
-        
+
                     // Create the ParameterNode:
                     parameterNode = modelFactory.createActivityParameterNode();
                     activity.getOwnedNode().add(parameterNode);

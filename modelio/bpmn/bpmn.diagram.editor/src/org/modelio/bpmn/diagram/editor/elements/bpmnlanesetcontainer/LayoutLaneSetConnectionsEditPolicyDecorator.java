@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnlanesetcontainer;
 
@@ -40,13 +40,14 @@ import org.modelio.metamodel.bpmn.processCollaboration.BpmnLane;
 /**
  * {@link LayoutConnectionsOrderedLayoutEditPolicyDecorator} redefined to handle autoresize mess
  * with laneset creations and destruction.
+ *
  * @author cma
  * @since 5.1.0
  */
 @objid ("7cb7c73e-4c7b-4a2c-a491-54769579a639")
 public class LayoutLaneSetConnectionsEditPolicyDecorator extends LayoutConnectionsOrderedLayoutEditPolicyDecorator {
     @objid ("4a6b8bf7-0b3f-44f1-9dff-0c997ddaf011")
-    public  LayoutLaneSetConnectionsEditPolicyDecorator(OrderedLayoutEditPolicy decorated) {
+    public LayoutLaneSetConnectionsEditPolicyDecorator(OrderedLayoutEditPolicy decorated) {
         super(decorated);
     }
 
@@ -62,12 +63,12 @@ public class LayoutLaneSetConnectionsEditPolicyDecorator extends LayoutConnectio
             root = parent;
             parent = root.getParent();
         }
-        
+
         LayoutChildrenNodeConnectionsHelper
         .forRequest(request)
         .addEditPart((GraphicalEditPart) root)
         .createCommands(command);
-        
+
     }
 
     @objid ("ec5fe42a-1825-4b54-9903-a98671ca7ea8")
@@ -75,14 +76,14 @@ public class LayoutLaneSetConnectionsEditPolicyDecorator extends LayoutConnectio
         return parent instanceof BpmnLaneSetContainerEditPart ||
                 parent instanceof BpmnLaneEditPart ||
                 parent instanceof BodyHybridContainerEditPart;
-        
+
     }
 
     @objid ("bcdf413f-efcd-4ccb-9cb0-7a495800a348")
     @Override
     protected void addCreateCommand(CompoundCommand command, CreateRequest request) {
         final ModelioCreationContext ctx = ModelioCreationContext.lookRequest(request);
-        
+
         if (ctx != null && ctx.getMetaclass().getJavaInterface() == BpmnLane.class) {
             // CreateBpmnLaneSetContainerCommand moves and resize
             // the host itself more or less directly, we need to
@@ -91,7 +92,7 @@ public class LayoutLaneSetConnectionsEditPolicyDecorator extends LayoutConnectio
         } else {
             super.addCreateCommand(command, request);
         }
-        
+
     }
 
     @objid ("cc4d1fe5-d2d7-4edb-9989-6c7bc9456372")
@@ -102,7 +103,7 @@ public class LayoutLaneSetConnectionsEditPolicyDecorator extends LayoutConnectio
         } else {
             super.addAddCommand(command, request);
         }
-        
+
     }
 
     @objid ("07ebadda-47f3-420b-909c-30711d9a0d1f")
@@ -113,7 +114,7 @@ public class LayoutLaneSetConnectionsEditPolicyDecorator extends LayoutConnectio
         } else {
             super.addDeleteDependantCommand(command, request);
         }
-        
+
     }
 
     @objid ("314dbc69-2211-4a38-b96f-85b1a398b6b8")
@@ -124,7 +125,7 @@ public class LayoutLaneSetConnectionsEditPolicyDecorator extends LayoutConnectio
         } else {
             super.addCloneCommand(command, request);
         }
-        
+
     }
 
     @objid ("161939b9-35c9-4860-bbe5-e5f3a75679aa")
@@ -135,7 +136,7 @@ public class LayoutLaneSetConnectionsEditPolicyDecorator extends LayoutConnectio
         } else {
             super.addOrphanChildrenCommand(command, request);
         }
-        
+
     }
 
     @objid ("c28bb1a2-5c61-43df-abf4-a4f769aca6be")
@@ -146,7 +147,7 @@ public class LayoutLaneSetConnectionsEditPolicyDecorator extends LayoutConnectio
         } else {
             super.addMoveChildrenCommand(command, request);
         }
-        
+
     }
 
     @objid ("bf0400e8-6dda-46ff-83ed-96637f5af69f")

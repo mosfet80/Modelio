@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -51,7 +51,7 @@ public class R1870 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -73,7 +73,7 @@ public class R1870 extends AbstractUmlRule {
         plan.registerRule(InterfaceRealization.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -107,14 +107,14 @@ public class R1870 extends AbstractUmlRule {
      * Default constructor for R1870
      */
     @objid ("38357750-dab9-4ff4-8aed-94361f454890")
-    public  R1870() {
+    public R1870() {
         this.checkerInstance = new CheckR1870(this);
     }
 
     @objid ("51ee1a02-e4d0-4fed-961e-1f45bd718f6c")
     private static class CheckR1870 extends AbstractControl {
         @objid ("c77d345c-bbc0-4548-9daf-aff94ed8dd08")
-        public  CheckR1870(IRule rule) {
+        public CheckR1870(IRule rule) {
             super(rule);
         }
 
@@ -137,15 +137,15 @@ public class R1870 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     ns,
                     null);
-            
+
             List<Interface> interfaces = new ArrayList<>();
-            
+
             for (InterfaceRealization ir : ns.getRealized()) {
                 Interface interfaze = ir.getImplemented();
                 if (interfaces.contains(interfaze)) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(interfaze);

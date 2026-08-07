@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.swt;
 
@@ -39,11 +39,11 @@ import org.modelio.platform.ui.panel.IPanelProvider;
  * <li> a single object
  * </ul>
  * The input element(s) may implement {@link IAdaptable} to adapt themselves to the requested type.
- * 
+ *
  * @author cmarin
- * @since Valkyrie 3.8
  * @see IStructuredSelection
  * @see IAdaptable
+ * @since Valkyrie 3.8
  */
 @objid ("57459c0c-3282-4f0f-9a06-a99c1accbabc")
 public final class InputHelper {
@@ -51,6 +51,7 @@ public final class InputHelper {
      * Tells whether the input contains <b>at least</b> one element of the given type.
      * <p>
      * Returns false if the input is empty.
+     *
      * @param input an object
      * @param cls the required type
      * @return true if the input contains at least one such element.
@@ -58,7 +59,7 @@ public final class InputHelper {
     @objid ("76e9edc6-3235-4b12-8dbf-9bc7a2d48e4f")
     public static boolean contains(final Object input, Class<?> cls) {
         Collection<?> collection = toCollection(input);
-        
+
         for (Object element : collection) {
             if (adapt(element, cls) != null) {
                 return true;
@@ -71,6 +72,7 @@ public final class InputHelper {
      * Tells whether the input contains <b>only</b> elements of the given type.
      * <p>
      * Returns false if the input is empty.
+     *
      * @param input a input object
      * @param cls the required type
      * @return true if the input is not empty and contains only such elements.
@@ -78,12 +80,12 @@ public final class InputHelper {
     @objid ("96f76f1d-ba0e-4a4b-a74c-78e863972507")
     public static boolean containsOnly(final Object input, Class<?> cls) {
         Collection<?> collection = toCollection(input);
-        
+
         // Forbid empty input
         if (collection.isEmpty()) {
             return false;
         }
-        
+
         for (Object element : collection) {
             if (adapt(element, cls) == null) {
                 return false;
@@ -94,6 +96,7 @@ public final class InputHelper {
 
     /**
      * Count in the input the elements matching the given type.
+     *
      * @param input a input object
      * @param cls the required type
      * @return true the matching elements count.
@@ -102,7 +105,7 @@ public final class InputHelper {
     public static int count(final Object input, Class<?> cls) {
         int count = 0;
         Collection<?> collection = toCollection(input);
-        
+
         for (Object element : collection) {
             if (adapt(element, cls) != null) {
                 count++;
@@ -113,6 +116,7 @@ public final class InputHelper {
 
     /**
      * Get the first element in the input that matches the given type.
+     *
      * @param <T> the required type
      * @param input the input object
      * @param cls the required type class
@@ -121,7 +125,7 @@ public final class InputHelper {
     @objid ("6b248e56-67cb-4bb6-9911-409d3805e1ae")
     public static <T> T getFirst(final Object input, Class<T> cls) {
         Collection<?> collection = toCollection(input);
-        
+
         for (Object element : collection) {
             final T adapter = adapt(element, cls);
             if (adapter != null) {
@@ -133,6 +137,7 @@ public final class InputHelper {
 
     /**
      * Get the input size.
+     *
      * @param input a input object.
      * @return the input size.
      */
@@ -146,6 +151,7 @@ public final class InputHelper {
      * Convert the input object to a list of the given type.
      * <p>
      * All input elements not matching the type are filtered out.
+     *
      * @param <T> the wanted type
      * @param input the input object
      * @param cls the wanted type
@@ -160,7 +166,7 @@ public final class InputHelper {
             if (adapter != null) {
                 selectedElements.add(adapter);
             }
-        
+
         }
         return selectedElements;
     }
@@ -169,6 +175,7 @@ public final class InputHelper {
      * Convert the input object to a {@link Stream} of the given type.
      * <p>
      * All input elements not matching the type are filtered out.
+     *
      * @param <T> the wanted type
      * @param input the input object
      * @param cls the wanted type
@@ -180,16 +187,15 @@ public final class InputHelper {
         if (collection.isEmpty()) {
             return Stream.empty();
         }
-        
+
         Stream<?> stream = collection.stream();
         return stream
                                 .map(element -> adapt(element, cls))
                                 .filter(Objects::nonNull);
-        
     }
 
     @objid ("15444df8-e8d1-4764-8281-8dab32fbf397")
-    private  InputHelper() {
+    private InputHelper() {
         // no instance
     }
 
@@ -212,7 +218,7 @@ public final class InputHelper {
         if (input == null) {
             return Collections.emptyList();
         }
-        
+
         if (input instanceof IStructuredSelection) {
             return ((IStructuredSelection) input).toList();
         }

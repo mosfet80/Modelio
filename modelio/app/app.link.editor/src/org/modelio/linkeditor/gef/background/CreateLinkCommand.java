@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.linkeditor.gef.background;
 
@@ -68,6 +87,7 @@ public class CreateLinkCommand extends Command {
 
     /**
      * C'tor. the type(s) of the link to create, can be any mix of {@link AssociationEnd}.class, {@link ElementImport} .class, {@link Generalization}.class, {@link Dependency}.class and Stereotype(s) that can be applied to a dependency;
+     *
      * @param refElement the center element in the link editor.
      * @param droppedElements the dropped elements.
      * @param isFrom whether the refElement should be a source or a target for the new link.
@@ -75,13 +95,12 @@ public class CreateLinkCommand extends Command {
      * @param mdaExpert the module expert for stereotypes.
      */
     @objid ("e6088f98-5efd-11e2-a8be-00137282c51b")
-    public  CreateLinkCommand(final MObject refElement, final MObject[] droppedElements, boolean isFrom, Set<LinkTypeDescriptor> candidates, IMdaExpert mdaExpert) {
+    public CreateLinkCommand(final MObject refElement, final MObject[] droppedElements, boolean isFrom, Set<LinkTypeDescriptor> candidates, IMdaExpert mdaExpert) {
         this.refElement = refElement;
         this.droppedElements = droppedElements;
         this.isFrom = isFrom;
         this.typeModel = new TypeSelectionModel(refElement, droppedElements, isFrom, candidates);
         this.mdaExpert = mdaExpert;
-        
     }
 
     @objid ("e6088fa3-5efd-11e2-a8be-00137282c51b")
@@ -94,11 +113,11 @@ public class CreateLinkCommand extends Command {
         if (this.typeModel.isEmpty()) {
             return false;
         }
-        
+
         if (this.isFrom && !this.refElement.isModifiable()) {
             return false;
         }
-        
+
         if (!this.isFrom) {
             for (MObject o : this.droppedElements) {
                 if (!o.isModifiable()) {
@@ -113,34 +132,34 @@ public class CreateLinkCommand extends Command {
     @Override
     public void execute() {
         MTools mTools = MTools.get(this.refElement);
-        
+
         IElementNamer namer = mTools.getNamer();
         IModelFactory factory = mTools.getModelFactories();
-        
+
         // Not really expected to occur but safer...
         if (this.typeModel.isEmpty()) {
             // No usable link type, abort.
             return;
         }
-        
+
         // One or more possible links, prompt the user for his choice.
         LinkTypeDescriptor typeToUse = promptUser(this.typeModel);
-        
+
         if (typeToUse == null) {
             // User aborted the operation
             return;
         }
-        
+
         // Proceed to the creation of the links
         MClass mc = typeToUse.getMClass();
         Stereotype st = typeToUse.getStereotype();
-        
+
         for (MObject droppedElement : this.droppedElements) {
             ModelElement createdLink = (ModelElement) factory.createElement(mc);
             if (st != null) {
                 createdLink.getExtension().add(st);
             }
-        
+
             MObject source, target;
             if (this.isFrom) {
                 source = this.refElement;
@@ -149,11 +168,11 @@ public class CreateLinkCommand extends Command {
                 source = droppedElement;
                 target = this.refElement;
             }
-        
+
             MExpert mExpert = mc.getMetamodel().getMExpert();
             mExpert.setSource(createdLink, null, source);
             mExpert.setTarget(createdLink, null, target);
-        
+
             if (createdLink.getCompositionOwner() == null) {
                 // FIXME Hack for BPMN (will be fixed some day...)
                 if (createdLink instanceof BpmnMessageFlow) {
@@ -184,9 +203,9 @@ public class CreateLinkCommand extends Command {
                     }
                 }
             }
-        
+
             createdLink.setName(namer.getUniqueName(createdLink));
-        
+
             if (createdLink instanceof MethodologicalLink && st != null) {
                 // When a methodological link is not 'multiple', only keep the last link instance having the 'st' stereotype.
                 if (!this.mdaExpert.isMultiple(st)) {
@@ -198,7 +217,6 @@ public class CreateLinkCommand extends Command {
                 }
             }
         }
-        
     }
 
     /**
@@ -219,7 +237,6 @@ public class CreateLinkCommand extends Command {
             // User cancelled.
             return null;
         }
-        
     }
 
 }

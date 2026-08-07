@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.process;
 
@@ -53,7 +53,7 @@ public class LaneSetNode implements IProductionNode<BpmnLaneSet, TLaneSet> {
         if (context instanceof BpmnProcess) {
             return ((BpmnProcess) context).getLaneSet();
         } else if (context instanceof BpmnSubProcess) {
-             return ((BpmnSubProcess) context).getLaneSet();     
+             return ((BpmnSubProcess) context).getLaneSet();
         } else if (context instanceof BpmnLane) {
             BpmnLaneSet modelioLanSet = ((BpmnLane) context).getLaneSet();
             if (modelioLanSet != null)
@@ -66,12 +66,12 @@ public class LaneSetNode implements IProductionNode<BpmnLaneSet, TLaneSet> {
     @Override
     public BpmnLaneSet createUMLElement(MObject context, TLaneSet jaxbElement, BpmnImportFactory factory, boolean keepId) {
         BpmnLaneSet modelioElement = null;
-        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {  
+        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {
             modelioElement = factory.createWithId(BpmnLaneSet.class, context,jaxbElement.getId());
         } else {
             modelioElement = factory.create(BpmnLaneSet.class, context);
         }
-        
+
         // set owner
         if (context instanceof BpmnProcess) {
             modelioElement.setProcess((BpmnProcess) context);
@@ -80,7 +80,7 @@ public class LaneSetNode implements IProductionNode<BpmnLaneSet, TLaneSet> {
         } else if (context instanceof BpmnLane) {
             modelioElement.setParentLane((BpmnLane) context);
         }
-        
+
         if (jaxbElement.getName() != null)
             modelioElement.setName(StringConvertor.imports(jaxbElement.getName()));
         return modelioElement;
@@ -99,7 +99,7 @@ public class LaneSetNode implements IProductionNode<BpmnLaneSet, TLaneSet> {
     public TLaneSet createJaxbElement(Object context, BpmnLaneSet modelioElement) {
         // Create JaxbElement
         TLaneSet jaxElement = new TLaneSet();
-        
+
         // Add to context
         if (context instanceof TProcess) {
             TProcess jaxProcess = (TProcess) context;
@@ -111,7 +111,7 @@ public class LaneSetNode implements IProductionNode<BpmnLaneSet, TLaneSet> {
             TLane jaxLan = (TLane) context;
             jaxLan.setChildLaneSet(jaxElement);
         }
-        
+
         jaxElement.setId(IDUtils.formatJaxbID(modelioElement));
         return jaxElement;
     }

@@ -1,26 +1,26 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.edition.dialogs.dialog.panels.element;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Creatable;
 import org.eclipse.e4.core.di.annotations.Optional;
@@ -47,19 +47,22 @@ import org.modelio.platform.ui.panel.IPanelProvider;
 @objid ("1c5bef36-f893-42bd-860a-d0af29f41bc9")
 @Creatable
 public class ElementEditPanel implements IPanelProvider {
+    @objid ("0a8d6e1d-f419-4f96-8ba3-253b6d3c437d")
+    private ISelectionChangedListener browserSelectionListener;
+
+    @objid ("3e719ddc-4bbd-4726-a329-f0d2fd223546")
+    @Inject
+    private IEclipseContext eclipseContext;
+
+    @objid ("cdc516f9-f105-4bbb-a8ae-c151a60a09b8")
+    private SashForm shform;
+
     @objid ("1bcab80f-06fa-4b3e-9758-e06bcd8a85c2")
     @Inject
     private IActivationService activationService;
 
-    @objid ("41dd7515-cd73-491f-a187-6b1102babfc8")
-    private ISelectionChangedListener browserSelectionListener;
-
     @objid ("9d478f59-6f8e-4ecf-9659-ee47577c2a51")
     private ElementDescriptionPanel descriptionPanel;
-
-    @objid ("908ed335-31cf-4090-b3fd-6e1c5117f6a6")
-    @Inject
-    private IEclipseContext eclipseContext;
 
     @objid ("9bf75865-f171-4160-8a3f-4ac3e0ae266b")
     private ModelElement editedElement;
@@ -80,21 +83,18 @@ public class ElementEditPanel implements IPanelProvider {
     @objid ("dbdaa92b-b2b0-4c1a-8384-14204852e4f5")
     private ElementPropertyPanelProvider propertyPanel;
 
-    @objid ("1a18f246-582b-49a2-9d19-60f13893e586")
-    private SashForm shform;
-
     @objid ("8066db59-092d-4c39-a287-7bac9e842d90")
     @Override
     public Control createPanel(Composite parent) {
         this.shform = new SashForm(parent, SWT.VERTICAL);
         this.shform.setLayoutData(new GridData(GridData.FILL_BOTH));
         this.shform.setLayout(new FillLayout(SWT.VERTICAL));
-        
+
         // Create the property panel
         this.propertyPanel = new ElementPropertyPanelProvider(this.eclipseContext);
         this.propertyPanel.createPanel(this.shform);
         this.propertyPanel.setHorizontalLayout();
-        
+
         // Create the description panel
         this.descriptionPanel = new ElementDescriptionPanel();
         this.descriptionPanel.createPanel(this.shform);
@@ -104,7 +104,7 @@ public class ElementEditPanel implements IPanelProvider {
     @objid ("816f9cce-007d-415d-bea5-e7b6fce825c9")
     @Override
     public void dispose() {
-        // nothing to do
+        this.descriptionPanel.dispose();
     }
 
     @objid ("b7064f4f-5ef7-4ae4-a7ca-a94a40f5e6bd")
@@ -133,18 +133,16 @@ public class ElementEditPanel implements IPanelProvider {
         } else {
             return obj instanceof ModelElement;
         }
-        
     }
 
     @objid ("afbda4f7-6844-47a1-a951-daf8df7093e0")
     @Override
     public void setInput(Object input) {
         ModelElement me = input instanceof ModelElement ? (ModelElement) input : SelectionHelper.getFirst((ISelection) input, ModelElement.class);
-        
+
         this.editedElement = me;
         this.descriptionPanel.setInput(me);
         this.propertyPanel.setInput(me);
-        
     }
 
 }

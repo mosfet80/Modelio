@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.policies;
 
@@ -57,42 +57,43 @@ public class ReadOnlyHoverFeedbackEditPolicy extends GraphicalEditPolicy {
     @Override
     public void showTargetFeedback(Request request) {
         if (REQ_SELECTION.equals(request.getType())) {
-        
+
             IGmModelRelated model = (IGmModelRelated) getHost().getModel();
             MObject element = model.getRepresentedElement();
-        
+
             boolean isCmsNode = (element != null && element.getMClass().isCmsNode());
             boolean isEditable = model.isUserEditable() && (element != null && element.isModifiable());
-        
+
             if (isCmsNode && !isEditable) {
                 if (this.feedback == null) {
                     this.feedback = createFeedbackFigure();
                     addFeedback(this.feedback);
                 }
-        
+
                 IFigure hostFigure = getHostFigure();
                 Rectangle bounds = hostFigure.getBounds().getCopy();
                 hostFigure.translateToAbsolute(bounds);
                 this.feedback.translateToRelative(bounds);
-                this.feedback.setBounds(new Rectangle(bounds.x + bounds.width/2 - lockImage.getBounds().width/2, 
-                                                      bounds.y + bounds.height/2 - lockImage.getBounds().height/2, 
-                                                      lockImage.getBounds().width, 
+                this.feedback.setBounds(new Rectangle(bounds.x + bounds.width/2 - lockImage.getBounds().width/2,
+                                                      bounds.y + bounds.height/2 - lockImage.getBounds().height/2,
+                                                      lockImage.getBounds().width,
                                                       lockImage.getBounds().height));
-                
+
                 this.feedback.validate();
             }
         }
-        
+
     }
 
     /**
      * Create the hover feedback figure.
+     *
      * @return the hover feedback figure.
      */
     @objid ("e5852761-aec8-4a9c-a032-691b17a0ff42")
     protected IFigure createFeedbackFigure() {
         ImageFigure fb = new ImageFigure(lockImage);
-        
+
         // RectangleFigure fb = new RectangleFigure();
         // fb.setForegroundColor(ColorConstants.red);
         // fb.setOpaque(false);
@@ -112,7 +113,7 @@ public class ReadOnlyHoverFeedbackEditPolicy extends GraphicalEditPolicy {
                 this.feedback = null;
             }
         }
-        
+
     }
 
     @objid ("ece171b7-b6e3-40d5-8484-8b76b884a934")
@@ -122,9 +123,9 @@ public class ReadOnlyHoverFeedbackEditPolicy extends GraphicalEditPolicy {
             removeFeedback(this.feedback);
             this.feedback = null;
         }
-        
+
         super.deactivate();
-        
+
     }
 
 }

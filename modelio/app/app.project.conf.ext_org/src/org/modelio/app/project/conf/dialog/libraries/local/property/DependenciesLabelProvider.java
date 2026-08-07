@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.conf.dialog.libraries.local.property;
 
@@ -48,10 +48,10 @@ class DependenciesLabelProvider extends StyledCellLabelProvider {
     private final List<IGModelFragment> fragments;
 
     @objid ("aa5cfa19-237d-4eef-9e0e-26a83dde3ccb")
-    public  DependenciesLabelProvider(final List<IGModelFragment> fragments) {
+    public DependenciesLabelProvider(final List<IGModelFragment> fragments) {
         super();
         this.fragments = fragments;
-        
+
     }
 
     @objid ("e10cd899-7853-4f80-a769-9b9139262c28")
@@ -65,7 +65,7 @@ class DependenciesLabelProvider extends StyledCellLabelProvider {
         cell.setText(text.getString());
         cell.setStyleRanges(text.getStyleRanges());
         super.update(cell);
-        
+
     }
 
     @objid ("7cc0f797-ec1e-48ac-82d3-ff7605d5dc8e")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.eventdefinitions;
 
@@ -66,12 +66,12 @@ public class TerminateEventDefinitionNode implements IProductionNode<BpmnTermina
     @objid ("d4350227-c8a4-4c80-8259-6a33e22a973f")
     @Override
     public BpmnTerminateEventDefinition createUMLElement(MObject context, TTerminateEventDefinition jaxbElement, BpmnImportFactory factory, boolean keepId) {
-        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {  
+        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {
             return factory.createWithId(BpmnTerminateEventDefinition.class, context, "EventDefinitions", jaxbElement.getId());
         } else {
             return factory.create(BpmnTerminateEventDefinition.class, context, "EventDefinitions");
         }
-        
+
     }
 
     @objid ("b229e514-0b36-4fdc-bcd8-a8b561259c2f")
@@ -85,11 +85,11 @@ public class TerminateEventDefinitionNode implements IProductionNode<BpmnTermina
     @Override
     public TTerminateEventDefinition createJaxbElement(Object context, BpmnTerminateEventDefinition modelioElement) {
         TEvent jaxEvent = (TEvent) context;
-        
+
         // Create JaxbElement
         TTerminateEventDefinition jaxEventDefinition = new TTerminateEventDefinition();
         this.elementsMap.put(modelioElement.getUuid(), jaxEventDefinition);
-        
+
         // Add to context
         List<JAXBElement<? extends TEventDefinition>> jaxContext = null;
         if (jaxEvent instanceof TThrowEvent) {
@@ -102,7 +102,7 @@ public class TerminateEventDefinitionNode implements IProductionNode<BpmnTermina
         }
         ObjectFactory factory = new ObjectFactory();
         jaxContext.add(factory.createTerminateEventDefinition(jaxEventDefinition));
-        
+
         jaxEventDefinition.setId(IDUtils.getJaxbId(context, modelioElement));
         return jaxEventDefinition;
     }

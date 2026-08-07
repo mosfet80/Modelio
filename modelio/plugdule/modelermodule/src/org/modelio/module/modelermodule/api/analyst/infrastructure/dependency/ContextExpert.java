@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -51,7 +51,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * <tr><td>Actor</td><td>Goal</td></tr>
  * <tr><td>BpmnProcess</td><td>Goal</td></tr>
  * <tr><td>BpmnCollaboration</td><td>Goal</td></tr>
- * 
+ *
  * </table>
  */
 @objid ("df104a7b-4e95-4bf0-b700-05aec816039f")
@@ -60,9 +60,9 @@ public class ContextExpert implements IMdaExpert {
     @Override
     public boolean canSource(Stereotype linkStereotype, MClass linkMetaclass, MClass fromMetaclass) {
         MMetamodel metamodel = linkMetaclass.getMetamodel();
-        return (fromMetaclass.hasBase(metamodel.getMClass("Standard.Interface"))) || 
-        (fromMetaclass.hasBase(metamodel.getMClass("Standard.Actor"))) || 
-        (fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnProcess"))) || 
+        return (fromMetaclass.hasBase(metamodel.getMClass("Standard.Interface"))) ||
+        (fromMetaclass.hasBase(metamodel.getMClass("Standard.Actor"))) ||
+        (fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnProcess"))) ||
         (fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnCollaboration")));
     }
 
@@ -70,9 +70,9 @@ public class ContextExpert implements IMdaExpert {
     @Override
     public boolean canSource(Stereotype linkStereotype, MObject linkElement, MObject fromElement) {
         MMetamodel metamodel = linkElement.getMClass().getMetamodel();
-        return (fromElement.getMClass().hasBase(metamodel.getMClass("Standard.Interface"))) || 
-        (fromElement.getMClass().hasBase(metamodel.getMClass("Standard.Actor"))) || 
-        (fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnProcess"))) || 
+        return (fromElement.getMClass().hasBase(metamodel.getMClass("Standard.Interface"))) ||
+        (fromElement.getMClass().hasBase(metamodel.getMClass("Standard.Actor"))) ||
+        (fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnProcess"))) ||
         (fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnCollaboration")));
     }
 
@@ -80,9 +80,9 @@ public class ContextExpert implements IMdaExpert {
     @Override
     public boolean canSource(ElementScope linkScope, MObject fromElement) {
         MMetamodel metamodel = linkScope.getMetaclass().getMetamodel();
-        return (fromElement.getMClass().hasBase(metamodel.getMClass("Standard.Interface"))) || 
-        (fromElement.getMClass().hasBase(metamodel.getMClass("Standard.Actor"))) || 
-        (fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnProcess"))) || 
+        return (fromElement.getMClass().hasBase(metamodel.getMClass("Standard.Interface"))) ||
+        (fromElement.getMClass().hasBase(metamodel.getMClass("Standard.Actor"))) ||
+        (fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnProcess"))) ||
         (fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnCollaboration")));
     }
 
@@ -104,9 +104,9 @@ public class ContextExpert implements IMdaExpert {
     @Override
     public boolean canLink(Stereotype linkStereotype, MClass linkMetaclass, MClass fromMetaclass, MClass toMetaclass) {
         MMetamodel metamodel = linkMetaclass.getMetamodel();
-        return ((fromMetaclass.hasBase(metamodel.getMClass("Standard.Interface"))) && (toMetaclass.hasBase(metamodel.getMClass("Analyst.Goal")))) || 
-        ((fromMetaclass.hasBase(metamodel.getMClass("Standard.Actor"))) && (toMetaclass.hasBase(metamodel.getMClass("Analyst.Goal")))) || 
-        ((fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnProcess"))) && (toMetaclass.hasBase(metamodel.getMClass("Analyst.Goal")))) || 
+        return ((fromMetaclass.hasBase(metamodel.getMClass("Standard.Interface"))) && (toMetaclass.hasBase(metamodel.getMClass("Analyst.Goal")))) ||
+        ((fromMetaclass.hasBase(metamodel.getMClass("Standard.Actor"))) && (toMetaclass.hasBase(metamodel.getMClass("Analyst.Goal")))) ||
+        ((fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnProcess"))) && (toMetaclass.hasBase(metamodel.getMClass("Analyst.Goal")))) ||
         ((fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnCollaboration"))) && (toMetaclass.hasBase(metamodel.getMClass("Analyst.Goal"))));
     }
 
@@ -114,9 +114,9 @@ public class ContextExpert implements IMdaExpert {
     @Override
     public boolean canLink(Stereotype linkStereotype, MClass linkMetaclass, MObject fromElement, MObject toElement) {
         MMetamodel metamodel = linkMetaclass.getMetamodel();
-        return ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.Interface"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Analyst.Goal")))) || 
-        ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.Actor"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Analyst.Goal")))) || 
-        ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnProcess"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Analyst.Goal")))) || 
+        return ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.Interface"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Analyst.Goal")))) ||
+        ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.Actor"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Analyst.Goal")))) ||
+        ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnProcess"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Analyst.Goal")))) ||
         ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnCollaboration"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Analyst.Goal"))));
     }
 

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -58,10 +58,11 @@ public class InterruptibleActivityRegionPropertyModel extends AbstractPropertyMo
     /**
      * Create a new <i>InterruptibleActivityRegion</i> data model from an
      * <i>InterruptibleActivityRegion</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("460f67fa-b15b-460c-9c0c-3ccd88f28fd8")
-    public  InterruptibleActivityRegionPropertyModel(InterruptibleActivityRegion theEditedElement) {
+    public InterruptibleActivityRegionPropertyModel(InterruptibleActivityRegion theEditedElement) {
         super(theEditedElement);
     }
 
@@ -107,7 +108,7 @@ public class InterruptibleActivityRegionPropertyModel extends AbstractPropertyMo
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -140,7 +141,7 @@ public class InterruptibleActivityRegionPropertyModel extends AbstractPropertyMo
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -163,16 +164,16 @@ public class InterruptibleActivityRegionPropertyModel extends AbstractPropertyMo
                 this.theEditedElement.setName((String) value);
                 break;
             case 2:
-        
+
                 for (ActivityEdge e : new ArrayList<>(this.theEditedElement.getInterruptingEdge())) {
                     this.theEditedElement.getInterruptingEdge().remove(e);
                 }
-        
+
                 List<ActivityEdge> l = (List<ActivityEdge>) value;
                 for (ActivityEdge e : l) {
                     this.theEditedElement.getInterruptingEdge().add(e);
                 }
-        
+
                 break;
             default:
                 return;
@@ -181,7 +182,7 @@ public class InterruptibleActivityRegionPropertyModel extends AbstractPropertyMo
         default:
             return;
         }
-        
+
     }
 
 }

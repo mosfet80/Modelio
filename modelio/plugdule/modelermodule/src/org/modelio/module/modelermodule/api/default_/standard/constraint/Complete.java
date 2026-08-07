@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class Complete {
      * Tells whether a {@link Complete proxy} can be instantiated from a {@link MObject} checking it is a {@link Constraint} stereotyped << complete >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,7 +73,7 @@ public class Complete {
 
     /**
      * Create a new {@link Constraint} stereotyped << complete >> then instantiate a {@link Complete} proxy.
-     * 
+     *
      * @return a {@link Complete} proxy on the created {@link Constraint}.
      */
     @objid ("80be79f0-40db-4c4f-8035-872fe9e2ee71")
@@ -83,9 +84,10 @@ public class Complete {
     }
 
     /**
-     * Tries to instantiate a {@link Complete} proxy from a {@link Constraint} stereotyped << complete >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link Complete} proxy from a {@link Constraint} stereotyped << complete >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a Constraint
      * @return a {@link Complete} proxy or <i>null</i>.
      */
@@ -95,9 +97,10 @@ public class Complete {
     }
 
     /**
-     * Tries to instantiate a {@link Complete} proxy from a {@link Constraint} stereotyped << complete >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link Complete} proxy from a {@link Constraint} stereotyped << complete >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link Constraint}
      * @return a {@link Complete} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -127,7 +130,8 @@ public class Complete {
     }
 
     /**
-     * Get the underlying {@link Constraint}. 
+     * Get the underlying {@link Constraint}.
+     *
      * @return the Constraint represented by this proxy, never null.
      */
     @objid ("fb7619e1-d3b2-44fa-9a3b-de1c19487f93")
@@ -139,11 +143,11 @@ public class Complete {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("15d33a86-1ed2-44fd-979f-93e9a2f1d6b5")
-    protected  Complete(Constraint elt) {
+    protected Complete(Constraint elt) {
         this.elt = elt;
     }
 
@@ -163,7 +167,7 @@ public class Complete {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "00700680-0000-01f1-0000-000000000000");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -171,7 +175,7 @@ public class Complete {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

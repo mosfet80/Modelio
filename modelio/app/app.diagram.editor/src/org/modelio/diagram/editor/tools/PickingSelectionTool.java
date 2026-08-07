@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.tools;
 
@@ -33,7 +33,7 @@ public class PickingSelectionTool extends PanSelectionTool {
     private IPickingSession session;
 
     @objid ("66aed167-33f7-11e2-95fe-001ec947c8cc")
-    public  PickingSelectionTool(IPickingSession session) {
+    public PickingSelectionTool(IPickingSession session) {
         this.session = session;
     }
 
@@ -47,7 +47,7 @@ public class PickingSelectionTool extends PanSelectionTool {
         } else {
             return this.session.hover(hoveredElement) ? SharedCursors2.CURSOR_PICKING_YES : SharedCursors2.CURSOR_PICKING_NO;
         }
-        
+
     }
 
     @objid ("66aed16e-33f7-11e2-95fe-001ec947c8cc")
@@ -55,7 +55,7 @@ public class PickingSelectionTool extends PanSelectionTool {
     protected boolean handleButtonDown(int which) {
         // TODO this is raw implementation, might be better to send a 'picking" request to editpart and get a command to execute...
         // the command could indicate which cursor to use authorised picking versus forbidden picking...
-        
+
         MObject hoveredElement = getHoveredElement();
         if (hoveredElement != null && this.session.hover(hoveredElement)) {
             this.session.pick(hoveredElement);

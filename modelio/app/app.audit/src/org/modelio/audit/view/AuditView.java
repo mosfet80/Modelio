@@ -1,29 +1,48 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.audit.view;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.e4.ui.di.UIEventTopic;
@@ -48,7 +67,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * AuditView: the audit view in Modelio application.
- * 
+ *
  * This view displays the current Audit results (see AuditPanelProvider) along with a view toolbar providing commands to choose the results contents and presentation.
  */
 @objid ("11fe7b04-6eb3-422c-a57e-8aa3c23edeba")
@@ -70,6 +89,9 @@ public class AuditView {
     @Optional
     private ESelectionService selectionService;
 
+    @objid ("341ed57c-6d27-43e5-b8be-9b82092950c7")
+    protected Composite parentComposite;
+
     @objid ("9c9f683b-eb60-46c2-8aa5-c111a3e715c0")
     private AuditPanelProvider auditResultsPanel;
 
@@ -81,11 +103,12 @@ public class AuditView {
     @Optional
     private IAuditService auditService;
 
-    @objid ("c93f0a8b-09a2-4f15-9d91-f28b12f18e94")
-    protected Composite parentComposite;
+    @objid ("3a412caa-ecf3-46a0-bc0b-9b3a22fa40d3")
+    private List<MObject> currentScope;
 
     /**
      * Called by the framework to create the view and initialize it.
+     *
      * @param projectService the project service.
      * @param mmService the model service.
      * @param navigationService the navigation service
@@ -99,14 +122,13 @@ public class AuditView {
     @PostConstruct
     public void createControls(final IProjectService projectService, @Optional final IMModelServices mmService, final IModelioNavigationService navigationService, final MApplication application, final EModelService emService, final EMenuService menuService, final Composite parent, final MPart part) {
         this.parentComposite = parent;
-        
+
         // With Eclipse 4.18, the toolbar is messed up, force it right manually...
         part.getToolbar().setVisible(true);
-        
+
         if (projectService.getOpenedProject() != null) {
             onProjectOpened(projectService.getOpenedProject(), mmService, auditService, navigationService, application, emService, menuService);
         }
-        
     }
 
     /**
@@ -115,9 +137,9 @@ public class AuditView {
     @objid ("6cb8ea67-11e7-4e5e-85f0-d8adcbba433f")
     @Optional
     @Inject
-    public void onProjectOpened(@UIEventTopic (ModelioEventTopics.PROJECT_OPENED) final IGProject openedProject, @Optional final IMModelServices mmService, final IAuditService newAuditService, final IModelioNavigationService navigationService, final MApplication application, final EModelService emService, final EMenuService menuService) {
+    public void onProjectOpened(@UIEventTopic(ModelioEventTopics.PROJECT_OPENED) final IGProject openedProject, @Optional final IMModelServices mmService, final IAuditService newAuditService, final IModelioNavigationService navigationService, final MApplication application, final EModelService emService, final EMenuService menuService) {
         this.modelService = mmService;
-        
+
         // Sometimes, the view is instantiated only after the project is opened
         if (this.auditResultsPanel == null) {
             // Create the view content
@@ -136,7 +158,6 @@ public class AuditView {
             this.auditResultsPanel.setInput(newAuditService.getAuditEngine().getAuditDiagnostic());
             this.auditResultsPanel.scheduleRefresh();
         }
-        
     }
 
     /**
@@ -145,12 +166,11 @@ public class AuditView {
     @objid ("8825a5b5-5b52-4679-96e7-05de3ba2f3e7")
     @Inject
     @Optional
-    public void onProjectClosed(@UIEventTopic (ModelioEventTopics.PROJECT_CLOSED) final IGProject closedProject) {
+    public void onProjectClosed(@UIEventTopic(ModelioEventTopics.PROJECT_CLOSED) final IGProject closedProject) {
         if (closedProject != null) {
             this.modelService = null;
             this.auditResultsPanel.dispose();
         }
-        
     }
 
     @objid ("b6790bce-129a-4f2d-bb6e-0057ed2f3dae")
@@ -159,7 +179,6 @@ public class AuditView {
         if (this.auditResultsPanel != null) {
             this.auditResultsPanel.getPanel().setFocus();
         }
-        
     }
 
     @objid ("407156c0-a1e8-4520-bf70-13804034f189")
@@ -171,7 +190,6 @@ public class AuditView {
     public void setAuditViewMode(final AuditViewMode mode) {
         this.auditResultsPanel.setViewMode(mode);
         this.parentComposite.layout();
-        
     }
 
     @objid ("49eeb021-3adf-4db1-a87b-ce46beabdcb6")
@@ -192,33 +210,35 @@ public class AuditView {
     @objid ("1d2cda0d-801b-4969-8f00-1795b03b393a")
     @Optional
     @Inject
-    public void onSelectionChanged(@Named (IServiceConstants.ACTIVE_SELECTION) final ISelection selection) {
+    public void onSelectionChanged(@Named(IServiceConstants.ACTIVE_SELECTION) final ISelection selection) {
         // Protect agains't dumb case : 'audit view not yet rendered'.
         if (this.auditResultsPanel == null)
             return;
-        
+
         if (this.synchronizedSelectionMode) {
             List<MObject> elements = SelectionHelper.toList(selection, MObject.class);
             this.auditService.interuptCheck(jobId);
             this.auditService.getAuditEngine().getAuditDiagnostic().purgeJob(jobId);
             this.auditService.checkElementTree(elements, jobId);
             this.auditResultsPanel.setScope(elements, jobId);
-        } else {
-            this.auditResultsPanel.setScope(null, null);
         }
-        
     }
 
     @objid ("e4a188ea-c440-4031-9f8b-a0729d2056fc")
-    public void setSynchronizedSelectionMode(boolean synchronizedSelectionMode) {
+    public void setSynchronizedSelectionMode(boolean synchronizedSelectionMode, ISelection selection) {
         if (this.synchronizedSelectionMode != synchronizedSelectionMode) {
             this.synchronizedSelectionMode = synchronizedSelectionMode;
             if (! this.synchronizedSelectionMode) {
                 this.auditService.interuptCheck(jobId);
                 this.auditResultsPanel.setScope(null, null);
+            }else {
+                List<MObject> elements = SelectionHelper.toList(selection, MObject.class);
+                this.auditService.interuptCheck(jobId);
+                this.auditService.getAuditEngine().getAuditDiagnostic().purgeJob(jobId);
+                this.auditService.checkElementTree(elements, jobId);
+                this.auditResultsPanel.setScope(elements, jobId);
             }
         }
-        
     }
 
 }

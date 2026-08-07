@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.anchors.fixed;
 
@@ -40,10 +40,10 @@ class FixedNodeAnchorLocator implements IFixedAnchorLocator {
     private Consumer<IFigure> figureMovedListener;
 
     @objid ("49355cb1-d60a-44c5-acd9-eaa5756939b8")
-    public  FixedNodeAnchorLocator(String algoId, Consumer<IFigure> figureMovedListener) {
+    public FixedNodeAnchorLocator(String algoId, Consumer<IFigure> figureMovedListener) {
         this.figureMovedListener = figureMovedListener;
         this.algoId = algoId;
-        
+
     }
 
     @objid ("380b03bb-1a5a-491b-ac95-ef0a8baa5e93")
@@ -55,7 +55,7 @@ class FixedNodeAnchorLocator implements IFixedAnchorLocator {
             DiagramElements.LOG.warning(e);
             return String.valueOf(fixedAnchor.getFace());
         }
-        
+
     }
 
     @objid ("efd8b861-7c3f-4830-b952-72d130cc9020")
@@ -73,7 +73,7 @@ class FixedNodeAnchorLocator implements IFixedAnchorLocator {
             DiagramElements.LOG.warning(e);
             return Direction.NONE;
         }
-        
+
     }
 
     @objid ("92f30884-f350-491a-81be-084ddc03d6a0")
@@ -81,31 +81,31 @@ class FixedNodeAnchorLocator implements IFixedAnchorLocator {
     public Point getReferencePoint(FixedAnchor anchor) {
         final IFigure nodefig = anchor.getOwner();
         final Rectangle rect = nodefig.getBounds();
-        
+
         Point ret = new PrecisionPoint(rect.x(), rect.y());
         double fraction = (anchor.getRank() + 1.0) / (anchor.getTotalOnFace() + 1.0);
-        
+
         switch (anchor.getFace()) {
         case FacesConstants.FACE_NORTH:
             ret.translate(rect.preciseWidth() * fraction, 0);
-        
+
             break;
         case FacesConstants.FACE_SOUTH:
             ret.translate(rect.preciseWidth() * fraction, rect.preciseHeight());
             break;
-        
+
         case FacesConstants.FACE_EAST:
             ret.translate(rect.preciseWidth(), rect.preciseHeight() * fraction);
             break;
-        
+
         case FacesConstants.FACE_WEST:
             ret.translate(0, rect.preciseHeight() * fraction);
             break;
-        
+
         default:
             DiagramElements.LOG.warning(new IllegalStateException("Unknow border:" + getFaceName(anchor) + " for " + this));
         }
-        
+
         nodefig.translateToAbsolute(ret);
         return ret;
     }
@@ -120,7 +120,7 @@ class FixedNodeAnchorLocator implements IFixedAnchorLocator {
     public void onFigureMoved(IFigure figure) {
         if (this.figureMovedListener != null)
             this.figureMovedListener.accept(figure);
-        
+
     }
 
 }

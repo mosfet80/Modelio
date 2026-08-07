@@ -1,0 +1,37 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= The "Check repository" command
+
+
+
+===== Description
+
+The "Check repository" command deletes from the repository files which represent elements that are not referenced by their parent element's file.
+
+This command can be used when the repository contains spare elements.
+
+If spare files are found, a dialog box informs the user the problems that have been identified and ask for permission to fix them. In this case, the "Check repository" command gets the lock on the files to delete, and removes them from the repository. [[Conditions-and-restrictions]]
+
+
+===== Conditions and restrictions
+
+The command can only be run from the project. It is not available on other elements. [[User-interface]]
+
+
+===== User interface
+
+The "Check repository" command opens the following window:
+
+.The "Check repository" window
+image::images/attachment/modeliocom41/User_Documentation_en/Administration_commands/Check_repository/TW_012_check_repo.png[TW_012_check_repo.png]
+
+
+
+===== Behavior
+
+The "Check repository" command deletes from the repository files which represent elements that are not referenced by their parent element's file.

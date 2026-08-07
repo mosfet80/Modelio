@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.signal;
 
@@ -128,41 +128,42 @@ public class GmSignalPrimaryNode extends GmNoStyleCompositeNode implements IImag
 
     /**
      * Default constructor.
+     *
      * @param diagram the diagram in which this node is unmasked.
      * @param ref a reference to the element this GmModel is related to, must not be null.
      */
     @objid ("368fe661-55b7-11e2-877f-002564c97630")
-    public  GmSignalPrimaryNode(IGmDiagram diagram, final MRef ref) {
+    public GmSignalPrimaryNode(IGmDiagram diagram, final MRef ref) {
         super(diagram, ref);
-        
+
         this.header = new GmNamespaceHeader(diagram, ref);
         this.header.setRoleInComposition(HEADER);
         this.header.setShowMetaclassKeyword(false);
         this.header.setShowMetaclassIcon(false);
-        
+
         GmClassifierResizableGroup group = new GmClassifierResizableGroup(diagram, ref);
-        
+
         this.attributeGroup = new GmAttributeGroup(diagram, ref);
         this.attributeGroup.setRoleInComposition(ATTRIBUTE_GROUP);
-        
+
         this.methodGroup = new GmOperationGroup(diagram, ref);
         this.methodGroup.setRoleInComposition(METHOD_GROUP);
-        
+
         this.internalStructure = new GmInternalStructure(diagram, ref);
         this.internalStructure.setRoleInComposition(INTERNAL);
-        
+
         this.innerElements = new GmInnerClass(diagram, ref);
         this.innerElements.setRoleInComposition(INNER);
-        
+
         super.addChild(this.header);
         super.addChild(group);
         group.addChild(this.attributeGroup);
         group.addChild(this.methodGroup);
         group.addChild(this.internalStructure);
         group.addChild(this.innerElements);
-        
+
         styleChanged(getDisplayedStyle());
-        
+
     }
 
     @objid ("368fe66b-55b7-11e2-877f-002564c97630")
@@ -176,7 +177,7 @@ public class GmSignalPrimaryNode extends GmNoStyleCompositeNode implements IImag
         }
         // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("368fe66e-55b7-11e2-877f-002564c97630")
@@ -212,7 +213,7 @@ public class GmSignalPrimaryNode extends GmNoStyleCompositeNode implements IImag
      * Constructor for deserialization only.
      */
     @objid ("36916cea-55b7-11e2-877f-002564c97630")
-    public  GmSignalPrimaryNode() {
+    public GmSignalPrimaryNode() {
         // Nothing to do.
     }
 
@@ -292,27 +293,27 @@ public class GmSignalPrimaryNode extends GmNoStyleCompositeNode implements IImag
             break;
         }
         }
-        
+
     }
 
     @objid ("36916d06-55b7-11e2-877f-002564c97630")
     @Override
     public void styleChanged(final IStyle changedStyle) {
         super.styleChanged(changedStyle);
-        
+
         refreshHeaderFromStyle(changedStyle);
-        
+
     }
 
     @objid ("36916d0d-55b7-11e2-877f-002564c97630")
     @Override
     public void styleChanged(final StyleKey property, final Object newValue) {
         super.styleChanged(property, newValue);
-        
+
         if (property.equals(GmSignalStructuredStyleKeys.SHOWSTEREOTYPES)) {
             refreshHeaderFromStyle(getDisplayedStyle());
         }
-        
+
     }
 
     /**
@@ -338,10 +339,11 @@ public class GmSignalPrimaryNode extends GmNoStyleCompositeNode implements IImag
             this.header.setShowMetaclassKeyword(true);
             this.header.setShowMetaclassIcon(true);
         }
-        
+
     }
 
     /**
+     *
      * @return the attributes group.
      */
     @objid ("3692f383-55b7-11e2-877f-002564c97630")
@@ -350,6 +352,7 @@ public class GmSignalPrimaryNode extends GmNoStyleCompositeNode implements IImag
     }
 
     /**
+     *
      * @return the operations group.
      */
     @objid ("3692f388-55b7-11e2-877f-002564c97630")
@@ -359,6 +362,7 @@ public class GmSignalPrimaryNode extends GmNoStyleCompositeNode implements IImag
 
     /**
      * Get the internal structure.
+     *
      * @return the internal structure.
      */
     @objid ("3692f38f-55b7-11e2-877f-002564c97630")
@@ -370,18 +374,18 @@ public class GmSignalPrimaryNode extends GmNoStyleCompositeNode implements IImag
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmSignalPrimaryNode.", GmSignalPrimaryNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("3692f39a-55b7-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
-        
+
         final List<GmNodeModel> children = getChildren();
-        
+
         this.header = (GmModelElementHeader) children.get(0);
         this.attributeGroup = (GmAttributeGroup) children.get(1);
         this.methodGroup = (GmGroup) children.get(2);
@@ -389,29 +393,29 @@ public class GmSignalPrimaryNode extends GmNoStyleCompositeNode implements IImag
         GmFreeZone internalStructureZone = (GmFreeZone) children.get(4);
         GmGroup innerGroup = (GmGroup) children.get(5);
         GmFreeZone innerZone = (GmFreeZone) children.get(6);
-        
+
         // Delete image label
         GmDefaultModelElementLabel imageModeHeader = (GmDefaultModelElementLabel) children.get(7);
         imageModeHeader.delete();
-        
+
         // Migrate inner group/zone
         removeChild(innerGroup);
         removeChild(innerZone);
-        
+
         // Migrate internal structure group/zone
         removeChild(internalStructureGroup);
         removeChild(internalStructureZone);
-        
+
         this.internalStructure = new GmInternalStructure(getDiagram(), getRepresentedRef(), internalStructureZone, internalStructureGroup);
         this.innerElements = new GmInnerClass(getDiagram(), getRepresentedRef(), innerZone, innerGroup);
-        
+
         // Add roles
         this.header.setRoleInComposition(HEADER);
         this.attributeGroup.setRoleInComposition(ATTRIBUTE_GROUP);
         this.methodGroup.setRoleInComposition(METHOD_GROUP);
         this.internalStructure.setRoleInComposition(INTERNAL);
         this.innerElements.setRoleInComposition(INNER);
-        
+
         GmClassifierResizableGroup group = new GmClassifierResizableGroup(getDiagram(), getRepresentedRef());
         removeChild(this.attributeGroup);
         group.addChild(this.attributeGroup);
@@ -420,7 +424,7 @@ public class GmSignalPrimaryNode extends GmNoStyleCompositeNode implements IImag
         group.addChild(this.internalStructure);
         group.addChild(this.innerElements);
         super.addChild(group, 1);
-        
+
     }
 
     @objid ("3692f39f-55b7-11e2-877f-002564c97630")
@@ -432,25 +436,25 @@ public class GmSignalPrimaryNode extends GmNoStyleCompositeNode implements IImag
     @objid ("3692f3a4-55b7-11e2-877f-002564c97630")
     private void read_1(final IDiagramReader in) {
         super.read(in);
-        
+
         this.header = (GmModelElementHeader) getFirstChild(HEADER);
         this.attributeGroup = (GmAttributeGroup) getFirstChild(ATTRIBUTE_GROUP);
         this.methodGroup = (GmGroup) getFirstChild(METHOD_GROUP);
         GmGroup internalStructureGroup = (GmGroup) getFirstChild(INTERNAL_GROUP);
         GmFreeZone internalStructureZone = (GmFreeZone) getFirstChild(INTERNAL_ZONE);
         this.innerElements = (GmInnerClass) getFirstChild(INNER);
-        
+
         // Migrate internal structure group/zone
         removeChild(internalStructureGroup);
         removeChild(internalStructureZone);
-        
+
         this.internalStructure = new GmInternalStructure(getDiagram(), getRepresentedRef(), internalStructureZone, internalStructureGroup);
         this.internalStructure.setRoleInComposition(INTERNAL);
-        
+
         // Delete image label
         GmDefaultModelElementLabel imageModeHeader = (GmDefaultModelElementLabel) getFirstChild("ImageHeader");
         imageModeHeader.delete();
-        
+
         GmClassifierResizableGroup group = new GmClassifierResizableGroup(getDiagram(), getRepresentedRef());
         removeChild(this.attributeGroup);
         group.addChild(this.attributeGroup);
@@ -460,7 +464,7 @@ public class GmSignalPrimaryNode extends GmNoStyleCompositeNode implements IImag
         removeChild(this.innerElements);
         group.addChild(this.innerElements);
         super.addChild(group, 1);
-        
+
     }
 
     @objid ("3692f3aa-55b7-11e2-877f-002564c97630")
@@ -471,21 +475,21 @@ public class GmSignalPrimaryNode extends GmNoStyleCompositeNode implements IImag
     @objid ("3692f3ae-55b7-11e2-877f-002564c97630")
     private void read_2(final IDiagramReader in) {
         super.read(in);
-        
+
         this.header = (GmModelElementHeader) getFirstChild(HEADER);
         this.attributeGroup = (GmAttributeGroup) getFirstChild(ATTRIBUTE_GROUP);
         this.methodGroup = (GmGroup) getFirstChild(METHOD_GROUP);
         GmGroup internalStructureGroup = (GmGroup) getFirstChild(INTERNAL_GROUP);
         GmFreeZone internalStructureZone = (GmFreeZone) getFirstChild(INTERNAL_ZONE);
         this.innerElements = (GmInnerClass) getFirstChild(INNER);
-        
+
         // Migrate internal structure group/zone
         removeChild(internalStructureGroup);
         removeChild(internalStructureZone);
-        
+
         this.internalStructure = new GmInternalStructure(getDiagram(), getRepresentedRef(), internalStructureZone, internalStructureGroup);
         this.internalStructure.setRoleInComposition(INTERNAL);
-        
+
         GmClassifierResizableGroup group = new GmClassifierResizableGroup(getDiagram(), getRepresentedRef());
         removeChild(this.attributeGroup);
         group.addChild(this.attributeGroup);
@@ -495,13 +499,13 @@ public class GmSignalPrimaryNode extends GmNoStyleCompositeNode implements IImag
         removeChild(this.innerElements);
         group.addChild(this.innerElements);
         super.addChild(group, 1);
-        
+
     }
 
     @objid ("3692f3b4-55b7-11e2-877f-002564c97630")
     private void read_3(final IDiagramReader in) {
         super.read(in);
-        
+
         this.header = (GmModelElementHeader) getFirstChild(HEADER);
         GmClassifierResizableGroup group = (GmClassifierResizableGroup) getChildren().get(1);
         this.attributeGroup = (GmAttributeGroup) group.getFirstChild(ATTRIBUTE_GROUP);
@@ -509,28 +513,28 @@ public class GmSignalPrimaryNode extends GmNoStyleCompositeNode implements IImag
         GmGroup internalStructureGroup = (GmGroup) group.getFirstChild(INTERNAL_GROUP);
         GmFreeZone internalStructureZone = (GmFreeZone) group.getFirstChild(INTERNAL_ZONE);
         this.innerElements = (GmInnerClass) group.getFirstChild(INNER);
-        
+
         // Migrate internal structure group/zone
         removeChild(internalStructureGroup);
         removeChild(internalStructureZone);
-        
+
         this.internalStructure = new GmInternalStructure(getDiagram(), getRepresentedRef(), internalStructureZone, internalStructureGroup);
         this.internalStructure.setRoleInComposition(INTERNAL);
         group.addChild(this.internalStructure);
-        
+
     }
 
     @objid ("36947a1d-55b7-11e2-877f-002564c97630")
     private void read_4(final IDiagramReader in) {
         super.read(in);
-        
+
         this.header = (GmModelElementHeader) getFirstChild(HEADER);
         GmClassifierResizableGroup group = (GmClassifierResizableGroup) getChildren().get(1);
         this.attributeGroup = (GmAttributeGroup) group.getFirstChild(ATTRIBUTE_GROUP);
         this.methodGroup = (GmGroup) group.getFirstChild(METHOD_GROUP);
         this.internalStructure = (GmInternalStructure) group.getFirstChild(INTERNAL);
         this.innerElements = (GmInnerClass) group.getFirstChild(INNER);
-        
+
     }
 
 }

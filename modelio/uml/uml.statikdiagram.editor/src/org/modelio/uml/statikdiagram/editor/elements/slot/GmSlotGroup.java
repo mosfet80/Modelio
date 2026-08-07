@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.slot;
 
@@ -37,7 +37,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Slot group model that displays {@link AttributeLink}.
- * 
+ *
  * @author cmarin
  */
 @objid ("369f28b4-55b7-11e2-877f-002564c97630")
@@ -55,17 +55,18 @@ public class GmSlotGroup extends GmGroup {
      * Constructor for deserialization only.
      */
     @objid ("369f28bd-55b7-11e2-877f-002564c97630")
-    public  GmSlotGroup() {
-        
+    public GmSlotGroup() {
+
     }
 
     /**
      * Creates an attribute group.
+     *
      * @param diagram The diagram.
      * @param relatedRef The related element reference, must not be null.
      */
     @objid ("36a0af19-55b7-11e2-877f-002564c97630")
-    public  GmSlotGroup(IGmDiagram diagram, MRef relatedRef) {
+    public GmSlotGroup(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -105,14 +106,14 @@ public class GmSlotGroup extends GmGroup {
         } else {
             return false;
         }
-        
+
     }
 
     @objid ("36a0af46-55b7-11e2-877f-002564c97630")
     @Override
     public void refreshFromObModel() {
         super.refreshFromObModel();
-        
+
         final Instance instance = getRelatedElement();
         if (instance != null && instance.isValid()) {
             // Unmask missing children
@@ -121,7 +122,7 @@ public class GmSlotGroup extends GmGroup {
                     getDiagram().unmask(this, part, null);
             }
         }
-        
+
     }
 
     @objid ("36a0af49-55b7-11e2-877f-002564c97630")
@@ -132,7 +133,7 @@ public class GmSlotGroup extends GmGroup {
         } else {
             super.styleChanged(property, newValue);
         }
-        
+
     }
 
     @objid ("36a0af50-55b7-11e2-877f-002564c97630")
@@ -141,7 +142,7 @@ public class GmSlotGroup extends GmGroup {
         refreshFromObModel();
         fireVisibilityChanged();
         super.styleChanged(style);
-        
+
     }
 
     @objid ("36a235b9-55b7-11e2-877f-002564c97630")
@@ -151,13 +152,14 @@ public class GmSlotGroup extends GmGroup {
             getParent().getDisplayedStyle().setProperty(getStyleKey(MetaKey.REPMODE), RepresentationMode.STRUCTURED);
         }
         getDisplayedStyle().setProperty(GmInstanceStructuredStyleKeys.SLOTGROUPVISIBLE, visible);
-        
+
     }
 
     /**
      * Checks whether the given model element can be and still be displayed here.
      * <p>
      * Check all conditions except the case where it is already unmasked.
+     *
      * @param el The element to unmask
      * @return true if it satisfies all conditions, else false.
      */
@@ -167,7 +169,7 @@ public class GmSlotGroup extends GmGroup {
         // Cannot unmask anything else than a valid attribute link
         if (!(el instanceof AttributeLink) || !el.isValid())
             return false;
-        
+
         // Cannot unmask a foreign attribute (not belonging to the class)
         return (el.getCompositionOwner().equals(this.getRelatedElement()));
     }
@@ -178,13 +180,13 @@ public class GmSlotGroup extends GmGroup {
         final Instance classifier = getRelatedElement();
         if (classifier != null && classifier.isValid()) {
             boolean hasHiddenFeature = false;
-        
+
             hasHiddenFeature = classifier.getSlot().size() != getChildren().size();
-        
+
             setHiddenFeature(hasHiddenFeature);
-        
+
         }
-        
+
     }
 
     @objid ("36a235c9-55b7-11e2-877f-002564c97630")
@@ -204,17 +206,17 @@ public class GmSlotGroup extends GmGroup {
                 break;
             }
         }
-        
+
     }
 
     @objid ("36a235cf-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmSlotGroup.", GmSlotGroup.MINOR_VERSION);
-        
+
     }
 
     @objid ("36a235d5-55b7-11e2-877f-002564c97630")

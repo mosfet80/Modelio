@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -60,7 +60,7 @@ public class R1990 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(IElement)
      * @see AbstractRule#getUpdateControl(IElement)
      * @see AbstractRule#getMoveControl(IElementMovedEvent)
@@ -91,14 +91,14 @@ public class R1990 extends AbstractUmlRule {
         plan.registerRule(UseCase.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Node.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Component.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         plan.registerRule(Attribute.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE | AuditTrigger.UPDATE);
         plan.registerRule(AssociationEnd.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE | AuditTrigger.UPDATE);
-        
+
         plan.registerRule(Generalization.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -132,14 +132,14 @@ public class R1990 extends AbstractUmlRule {
      * Default constructor for R1990
      */
     @objid ("a08bc7ed-fcc5-4dc3-a0d9-973b4bc0ddd9")
-    public  R1990() {
+    public R1990() {
         this.checkerInstance = new CheckR1990(this);
     }
 
     @objid ("ab1cf316-bd28-4df1-8e59-2dead0e29ce1")
     private static class CheckR1990 extends AbstractControl {
         @objid ("6f8edc9d-b25a-4b61-87de-c228090ab607")
-        public  CheckR1990(IRule rule) {
+        public CheckR1990(IRule rule) {
             super(rule);
         }
 
@@ -163,7 +163,7 @@ public class R1990 extends AbstractUmlRule {
             }
             if (element instanceof AssociationEnd) {
                 AssociationEnd end = (AssociationEnd) element;
-            
+
                 Classifier classifier = end.getSource() != null ? end.getSource() : end.getOpposite().getTarget();
                 if (classifier != null) {
                     diagnostic.addEntry(checkR1990(classifier));
@@ -181,7 +181,7 @@ public class R1990 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     classifier,
                     null);
-            
+
             List<String> foundNames = new ArrayList<>();
             for (Generalization gen : classifier.getParent()) {
                 NameSpace ns = gen.getSuperType();
@@ -189,37 +189,37 @@ public class R1990 extends AbstractUmlRule {
                     fetchNames((Classifier) ns, foundNames, new ArrayList<Classifier>());
                 }
             }
-            
+
             for (Attribute attribute : classifier.getOwnedAttribute(Attribute.class)) {
                 String attName = attribute.getName();
                 if (foundNames.contains(attName)) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(classifier);
                     linkedObjects.add(attName);
                     auditEntry.setLinkedInfos(linkedObjects);
-            
+
                 } else if (!attName.isEmpty()) {
                     foundNames.add(attName);
                 }
             }
-            
+
             for (AssociationEnd assocEnd : classifier.getOwnedEnd(AssociationEnd.class)) {
                 if (assocEnd.getSource() != null) {
                     String assocName = assocEnd.getName();
                     if (foundNames.contains(assocName)) {
-            
+
                         // Rule failed
-            
+
                         auditEntry.setSeverity(this.rule.getSeverity());
                         List<Object> linkedObjects = new ArrayList<>();
                         linkedObjects.add(classifier);
                         linkedObjects.add(assocName);
                         auditEntry.setLinkedInfos(linkedObjects);
-            
+
                     } else if (!assocName.isEmpty()) {
                         foundNames.add(assocName);
                     }
@@ -231,15 +231,15 @@ public class R1990 extends AbstractUmlRule {
         @objid ("6e45a0e3-6c8f-441f-ba31-f412f1033d59")
         private List<IAuditEntry> checkDown(final Generalization generalization, final List<Generalization> generalizations) {
             List<IAuditEntry> auditEntries = new ArrayList<>();
-            
+
             if (generalizations.contains(generalization)) {
                 return auditEntries;
             } else {
                 generalizations.add(generalization);
             }
-            
+
             NameSpace ns = generalization.getSubType();
-            
+
             if (ns instanceof Classifier) {
                 Classifier cl = (Classifier) ns;
                 auditEntries.add(checkR1990(cl));
@@ -257,24 +257,24 @@ public class R1990 extends AbstractUmlRule {
             } else {
                 classifiers.add(classifier);
             }
-            
+
             for (Attribute attribute : classifier.getOwnedAttribute(Attribute.class)) {
                 foundNames.add(attribute.getName());
             }
-            
+
             for (AssociationEnd assocEnd : classifier.getOwnedEnd(AssociationEnd.class)) {
                 if (assocEnd.getSource() != null) {
                     foundNames.add(assocEnd.getName());
                 }
             }
-            
+
             for (Generalization gen : classifier.getParent()) {
                 NameSpace ns = gen.getSuperType();
                 if (ns instanceof Classifier) {
                     fetchNames((Classifier) ns, foundNames, classifiers);
                 }
             }
-            
+
         }
 
     }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.preferences.ui.labelproviders;
 
@@ -32,8 +32,8 @@ import org.modelio.platform.ui.UIImages;
 @objid ("9c85767f-699d-4ca3-a309-5b4892c5df17")
 public class StatusLabelProvider extends ColumnLabelProvider {
     @objid ("bb80dc93-5169-4b45-89fe-4089d1a50e54")
-    public  StatusLabelProvider() {
-        
+    public StatusLabelProvider() {
+
     }
 
     @objid ("d8ea2074-df43-4b8d-8155-55928f5a58ca")

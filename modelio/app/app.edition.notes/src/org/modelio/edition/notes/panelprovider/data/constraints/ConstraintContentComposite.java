@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.edition.notes.panelprovider.data.constraints;
 
@@ -40,24 +40,31 @@ import org.modelio.vcore.session.impl.CoreSession;
 
 @objid ("741530e9-7dfd-407f-98c3-7f6f4948919a")
 public class ConstraintContentComposite extends AbstractContentComposite {
+    @objid ("a92c7b12-701e-4b0b-8c2b-23ace0dc8757")
+    private boolean focus = false;
+
+    @objid ("2ae9e670-f9e8-44df-9c55-20c622defb61")
+    private final Text text;
+
     @objid ("95a99bb0-6d82-4f13-bde4-ea3461444bd0")
     private Constraint constraint = null;
-
-    @objid ("273c4e02-7306-4edc-85a8-d30fb67cc019")
-    private final Text text;
 
     @objid ("75035e7d-265e-4305-95c0-1e15df65907f")
     private final Controler controler;
 
     @objid ("5cd6ab34-6d18-43a8-ab10-f16b82522bb3")
-    public  ConstraintContentComposite(Composite parentComposite, int style, EContextService contextService) {
+    public ConstraintContentComposite(Composite parentComposite, int style, EContextService contextService) {
         super(parentComposite, style, contextService);
         setLayout(new FillLayout());
         this.text = new Text(this, SWT.BORDER | SWT.BORDER | SWT.V_SCROLL | SWT.WRAP);
         this.controler = new Controler(this);
         this.text.addFocusListener(this.controler);
         this.text.addKeyListener(this.controler);
-        
+    }
+
+    @objid ("2fcde6a0-bdbb-4eac-a091-de50a730b95e")
+    public void setFocus(Boolean focus) {
+        this.focus = focus;
     }
 
     @objid ("124a8259-0a36-4ac9-9085-a72132116c51")
@@ -75,6 +82,9 @@ public class ConstraintContentComposite extends AbstractContentComposite {
     @objid ("9cd548ff-bc1f-482b-8d1f-4e869ac71322")
     @Override
     public void setInput(final ModelElement aConstraint) {
+        if(focus) {
+        return;
+        }
         this.constraint = (Constraint) aConstraint;
         if (this.constraint != null) {
             this.text.setText(this.constraint.getBody());
@@ -83,7 +93,6 @@ public class ConstraintContentComposite extends AbstractContentComposite {
             this.text.setText("");
         }
         leaveEdition();
-        
     }
 
     @objid ("84435744-a9fd-4c6a-a593-9af4d86c82ad")
@@ -91,7 +100,6 @@ public class ConstraintContentComposite extends AbstractContentComposite {
     public void dispose() {
         this.text.dispose();
         super.dispose();
-        
     }
 
     @objid ("766cb9f6-f91e-4b4d-8691-61ba89a6e86b")
@@ -102,7 +110,6 @@ public class ConstraintContentComposite extends AbstractContentComposite {
         } else {
             this.text.setBackground(UIColor.TEXT_READONLY_BG);
         }
-        
     }
 
     @objid ("b3363697-c589-495a-9d07-21ecfe7cfa24")
@@ -113,7 +120,6 @@ public class ConstraintContentComposite extends AbstractContentComposite {
             this.text.setBackground(UIColor.TEXT_READONLY_BG);
         }
         reactivateContexts();
-        
     }
 
     @objid ("86ea5e10-3fff-4d11-a22c-6bb302a1f03b")
@@ -122,7 +128,7 @@ public class ConstraintContentComposite extends AbstractContentComposite {
         private final ConstraintContentComposite view;
 
         @objid ("c11088ad-c2ad-4e7f-a911-f509827ffb2d")
-        public  Controler(ConstraintContentComposite view) {
+        public Controler(ConstraintContentComposite view) {
             this.view = view;
         }
 
@@ -139,7 +145,6 @@ public class ConstraintContentComposite extends AbstractContentComposite {
                     transaction.commit();
                 }
             }
-            
         }
 
         /**
@@ -148,22 +153,23 @@ public class ConstraintContentComposite extends AbstractContentComposite {
         @objid ("4e716b2c-c361-4bef-bb60-410f8da3bda2")
         @Override
         public void focusGained(FocusEvent e) {
+            this.view.setFocus(true);
             final Text text = (Text) e.getSource();
             final Constraint editedconstraint = this.view.getNoteElement();
             if (editedconstraint != null && editedconstraint.getStatus().isModifiable()) {
                 this.view.enterEdition();
             }
-            
         }
 
         @objid ("11bd81fd-8972-49f7-bd41-9dbcea02625b")
         @Override
         public void focusLost(FocusEvent e) {
+            this.view.setFocus(false);
+
             final Text text = (Text) e.getSource();
             final Constraint editedConstraint = this.view.getNoteElement();
             changeContent(editedConstraint, text.getText());
             this.view.leaveEdition();
-            
         }
 
         @objid ("7a67b624-e09a-4b41-9ec8-ef350f86e6e6")
@@ -172,7 +178,6 @@ public class ConstraintContentComposite extends AbstractContentComposite {
             if ((e.stateMask &= SWT.MOD1) != 0 && e.keyCode == SWT.CR) {
                 e.doit = false;
             }
-            
         }
 
         @objid ("24f192d9-68c8-4468-a047-29d7d2ee0959")
@@ -180,7 +185,7 @@ public class ConstraintContentComposite extends AbstractContentComposite {
         public void keyReleased(KeyEvent e) {
             final Text text = (Text) e.getSource();
             final Constraint note = this.view.getNoteElement();
-            
+
             if (e.keyCode == SWT.ESC) {
                 // ESC
                 // restore content from note
@@ -194,7 +199,6 @@ public class ConstraintContentComposite extends AbstractContentComposite {
                 // CTRL A
                 text.selectAll();
             }
-            
         }
 
     }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.forkjoin;
 
@@ -43,7 +43,7 @@ import org.modelio.uml.activitydiagram.editor.elements.policies.CreateFlowEditPo
 
 /**
  * EditPart for a {@link GmForkJoinPrimaryNode} Node.
- * 
+ *
  * @author fpoyer
  */
 @objid ("2a7fefda-55b6-11e2-877f-002564c97630")
@@ -63,14 +63,14 @@ public class ForkJoinPrimaryNodeEditPart extends AbstractNodeEditPart {
         // create the figure
         RectangularFigure fig = new RectangularFigure();
         fig.setOpaque(true);
-        
+
         // set style independent properties
         fig.setPreferredSize(70, 10);
         fig.setMinimumSize(new Dimension(70, 10));
-        
+
         // set style dependent properties
         refreshFromStyle(fig, getModelStyle());
-        
+
         // return the figure
         return fig;
     }
@@ -83,7 +83,7 @@ public class ForkJoinPrimaryNodeEditPart extends AbstractNodeEditPart {
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START,
                 new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
-        
+
     }
 
     @objid ("2a7fefe9-55b6-11e2-877f-002564c97630")
@@ -91,7 +91,7 @@ public class ForkJoinPrimaryNodeEditPart extends AbstractNodeEditPart {
     protected void refreshVisuals() {
         GmForkJoinPrimaryNode forkJoinModel = (GmForkJoinPrimaryNode) getModel();
         getFigure().getParent().setConstraint(getFigure(), forkJoinModel.getLayoutData());
-        
+
     }
 
     @objid ("2a7fefec-55b6-11e2-877f-002564c97630")
@@ -106,7 +106,7 @@ public class ForkJoinPrimaryNodeEditPart extends AbstractNodeEditPart {
         if (aFigure instanceof RectangularFigure) {
             if (!switchRepresentationMode()) {
                 super.refreshFromStyle(aFigure, style);
-        
+
                 final GmForkJoinPrimaryNode model = (GmForkJoinPrimaryNode) getModel();
                 final ForkOrientation orientation = (ForkOrientation) model.getDisplayedStyle().getProperty(GmForkJoinStructuredStyleKeys.ORIENTATION);
                 if (this.currentOrientation == null) {
@@ -116,7 +116,7 @@ public class ForkJoinPrimaryNodeEditPart extends AbstractNodeEditPart {
                 }
             }
         }
-        
+
     }
 
     @objid ("2a7feff8-55b6-11e2-877f-002564c97630")
@@ -136,25 +136,25 @@ public class ForkJoinPrimaryNodeEditPart extends AbstractNodeEditPart {
                 break;
             }
             resizePolicy.activate();
-        
+
             // rotate the fork join node according to the orientation
             doRotationFigure(aFigure);
-        
+
             this.currentOrientation = orientation;
         }
-        
+
     }
 
     @objid ("2a7feffc-55b6-11e2-877f-002564c97630")
     private void doRotationFigure(IFigure aFigure) {
         Rectangle oldBounds = aFigure.getBounds();
         Point center = oldBounds.getCenter();
-        
+
         Rectangle newBounds = oldBounds.getCopy();
         newBounds.translate(-center.x(), -center.y());
         newBounds.transpose();
         newBounds.translate(center);
-        
+
         if (aFigure.getParent() != null) {
             ChangeBoundsRequest resizeRequest = new ChangeBoundsRequest(RequestConstants.REQ_RESIZE);
             resizeRequest.setEditParts(this);
@@ -164,7 +164,7 @@ public class ForkJoinPrimaryNodeEditPart extends AbstractNodeEditPart {
         } else {
             aFigure.setBounds(newBounds);
         }
-        
+
     }
 
 }

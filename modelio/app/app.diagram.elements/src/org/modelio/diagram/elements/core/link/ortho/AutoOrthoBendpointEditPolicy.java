@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.ortho;
 
@@ -35,6 +35,7 @@ import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.PrecisionPoint;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.Handle;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
@@ -59,6 +60,7 @@ import org.modelio.diagram.elements.core.link.path.BendPointUtils;
 import org.modelio.diagram.elements.core.link.path.ConnectionPolicyUtils;
 import org.modelio.diagram.elements.core.link.path.ILinkPathEditor;
 import org.modelio.diagram.elements.core.link.path.ILinkPathEditorFactory;
+import org.modelio.diagram.elements.core.model.IGmDiagram;
 import org.modelio.diagram.elements.core.model.IGmLink;
 import org.modelio.diagram.elements.core.model.IGmLinkObject;
 import org.modelio.diagram.elements.core.model.IGmObject;
@@ -69,7 +71,7 @@ import org.modelio.diagram.styles.core.StyleKey.ConnectionRouterId;
 
 /**
  * Auto Orthogonal router bendpoints edit policy.
- * 
+ *
  * @since 5.0.2
  */
 @objid ("aa94dcab-566e-4bc6-83b5-2e70b6151b76")
@@ -83,17 +85,17 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
     @objid ("5306df82-91d6-491b-aca5-ac5336b9d9d1")
     private boolean isActive;
 
-    @objid ("0027e003-f3f6-494c-9503-737f3749880e")
+    @objid ("2545a8c9-72c9-477b-9d6b-47b354964ca4")
     private static final Point TMP1 = new PrecisionPoint();
 
-    @objid ("6c7d57b6-b4e9-40fd-a22e-03710ca69f74")
+    @objid ("0da9febc-6f15-45e1-9111-9e87addc8912")
     private static final Point TMP2 = new PrecisionPoint();
+
+    @objid ("aac4e9bd-d5f7-4871-a049-d66e11102ab0")
+    private Command moveCommand;
 
     @objid ("ec29bec3-c261-4fb9-a26c-c23e62a1db5d")
     private ConnectionState originalState;
-
-    @objid ("16474b29-27b8-43b4-8463-2cae05f3791b")
-    private Command moveCommand;
 
     @objid ("5cf434fc-ca31-4532-bfba-22f2ea0beeb2")
     private ConnectionState frozenOriginalState;
@@ -106,11 +108,10 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
     public void activate() {
         assert isValidConstraint() : getConnection().getRoutingConstraint();
         this.isActive = true;
-        
+
         super.activate();
         getConnection().addPropertyChangeListener(Connection.PROPERTY_POINTS, this);
         ((IGmObject) getHost().getModel()).getDiagram().addPropertyChangeListener(this);
-        
     }
 
     @objid ("120c71b7-2273-4292-82ae-823e67168d87")
@@ -119,11 +120,11 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
         if (routingConstraint == null) {
             return true;
         }
-        
+
         if (!(routingConstraint instanceof List)) {
             return false;
         }
-        
+
         List<?> l = (List<?>) routingConstraint;
         if (l.isEmpty()) {
             return true;
@@ -138,10 +139,12 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
     @Override
     public void deactivate() {
         getConnection().removePropertyChangeListener(Connection.PROPERTY_POINTS, this);
-        ((IGmObject) getHost().getModel()).getDiagram().removePropertyChangeListener(this);
+        IGmDiagram diagram = ((IGmObject) getHost().getModel()).getDiagram();
+        if (diagram != null) {
+            diagram.removePropertyChangeListener(this);
+        }
         super.deactivate();
         this.isActive = false;
-        
     }
 
     /**
@@ -152,21 +155,20 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
     protected void addSelectionHandles() {
         // protect against reentrance in headless mode :
         // super.addSelectionHandles() adds figures that triggers revalidation that triggers connection layout
-        
+
         // Protect against buggy call in deactivated state related to rakes.
         if (!this.isActive) {
             return;
         }
-        
+
         assert isValidConstraint() : getConnection().getRoutingConstraint();
-        
+
         Connection connection = getConnection();
         connection.removePropertyChangeListener(Connection.PROPERTY_POINTS, this);
-        
+
         super.addSelectionHandles();
-        
+
         connection.addPropertyChangeListener(Connection.PROPERTY_POINTS, this);
-        
     }
 
     @objid ("0a3602ca-d855-41d6-98ff-c079d9cac900")
@@ -184,7 +186,6 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
         if (ConnectionSegmentTracker.REQ_MOVE_SEGMENT.equals(type)) {
             eraseMoveSegmentFeedback((BendpointRequest) request);
         }
-        
     }
 
     /**
@@ -208,6 +209,7 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
     }
 
     /**
+     *
      * @return the host edit part as a ConnectionEditPart.
      */
     @objid ("8eaedf2d-b7a5-4912-be66-76ed28863623")
@@ -218,7 +220,6 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
 
     /**
      * If the number of bendpoints changes, handles are updated.
-     * @see java.beans.PropertyChangeListener#propertyChange(PropertyChangeEvent)
      */
     @objid ("fac776cd-5b70-4742-a83f-8aad2b2003ee")
     @Override
@@ -226,7 +227,7 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
         if (getHost().getSelected() != EditPart.SELECTED_NONE) {
             addSelectionHandles();
         }
-        
+
         // if (this.originalState == null && Connection.PROPERTY_POINTS.equals(evt.getPropertyName())) {
         if (GmAbstractDiagram.PROP_POSTLOADACTIONS_END.equals(evt.getPropertyName())) {
             // Save the current figure routing constraint in the graphic model,
@@ -241,7 +242,6 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
                 path.setPathData(modelPoints);
             }
         }
-        
     }
 
     @objid ("a8cfda88-4f56-4fa8-aa72-b949b894c5fb")
@@ -257,7 +257,6 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
         } else if (FeedbackChangeBoundsRequest.REQ_TYPE.equals(request.getType())) {
             showResizeEndFeedback((FeedbackChangeBoundsRequest) request);
         }
-        
     }
 
     @objid ("0f97d445-af39-470a-8821-d0ce88abfac1")
@@ -266,11 +265,10 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
         if (this.originalState == null) {
             saveOriginalConstraint();
         }
-        
+
         getPathEditor().from(getHost(), this.originalState)
                 .applyChangeBoundsRequest(feedbackRequest.getLinkedRequest(), true)
                 .applyStateToConnection();
-        
     }
 
     @objid ("4fb0fbd5-921b-4507-8a22-602759b4d575")
@@ -288,14 +286,14 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
      */
     @objid ("e955b0cb-edec-467d-a2a7-709bec07f239")
     @Override
-    protected List<?> createSelectionHandles() {
+    protected List<? extends Handle> createSelectionHandles() {
         boolean userEditable = ((IGmObject) getHost().getModel()).isUserEditable();
-        
+
         List<ConnectionHandle> list = new ArrayList<>();
         ConnectionEditPart connEP = getHost();
         Connection connection = getConnection();
         PointList points = connection.getPoints();
-        
+
         // First segment move handle
         points.getPoint(TMP1, 0);
         points.getPoint(TMP2, 1);
@@ -307,10 +305,10 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
                 list.add(new VerticalSegmentMoveHandle(connEP, 0));
             }
         }
-        
+
         @SuppressWarnings ("unchecked")
         List<MPoint> constraints = (List<MPoint>) getConnection().getRoutingConstraint();
-        
+
         for (int i = 1; i < points.size() - 1; i++) {
             int idxC = i - 1;
             if (idxC < constraints.size()) {
@@ -319,7 +317,7 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
                     list.add(new PinOrthoBpMoveHandle(connEP, i, orientation));
                 }
             }
-        
+
             if (userEditable) {
                 points.getPoint(TMP1, i);
                 points.getPoint(TMP2, i + 1);
@@ -331,12 +329,13 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
                 }
             }
         }
-        
+
         SelectionHandlesBuilder.disableHandlesIfReadOnly(getHost(), list);
         return list;
     }
 
     /**
+     *
      * @param request the move request
      */
     @objid ("ba72d5e7-937b-4785-9b51-04eb4341dd41")
@@ -348,6 +347,7 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
      * Erases all bendpoint feedback.
      * <p>
      * Since the original <code>Connection</code> figure is used for feedback, we just restore the original constraint that was saved before feedback started to show.
+     *
      * @param request the BendpointRequest
      */
     @objid ("82874c31-d583-49b8-80db-91d518498500")
@@ -357,6 +357,7 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
 
     /**
      * Convenience method for obtaining the host's <code>Connection</code> figure.
+     *
      * @return the Connection figure
      */
     @objid ("83701102-abce-4914-991d-0529fff35225")
@@ -365,6 +366,7 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
     }
 
     /**
+     *
      * @return the model path as a {@link IGmPath}
      */
     @objid ("42839d13-9708-4203-b1ff-12e47c900483")
@@ -373,6 +375,7 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
     }
 
     /**
+     *
      * @param request the request to use to build the command.
      */
     @objid ("245fee0f-9e6e-456c-a60a-c6888ff5c6f6")
@@ -385,6 +388,7 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
      * Get a command for a move request.
      * <p>
      * The request may involve one or more of: - the source node - the target node - a parent of the source node - a parent of the target node - the connection
+     *
      * @return the command that updates the connection
      */
     @objid ("60cef883-73ba-48dc-9010-73e2731e91bc")
@@ -393,14 +397,14 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
         if (!host.isActive() || host.getSource() == null || host.getTarget() == null) {
             return null;
         }
-        
+
         // Before modifying the connection, save its original constraint and anchors so as to be able to cancel if needed.
         if (this.originalState == null) {
             saveOriginalConstraint();
         }
-        
+
         ILinkPathEditorFactory pathEditor = getPathEditor();
-        
+
         if (this.frozenOriginalState == null) {
             this.frozenOriginalState = pathEditor
                     .from(getHost(), this.originalState)
@@ -408,13 +412,13 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
                     .getState()
                     .immutable();
         }
-        
+
         MoveConnectionCommand moveconnCommand = new MoveConnectionCommand(
                 host,
                 pathEditor,
                 this.frozenOriginalState,
                 request);
-        
+
         CompoundCommand cmd = new CompoundCommand(moveconnCommand.getLabel());
         cmd.add(moveconnCommand);
         cmd.add(new Command("Reset original constraint") {
@@ -432,10 +436,10 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
         this.moveCommand = null;
         this.originalState = null;
         this.frozenOriginalState = null;
-        
     }
 
     /**
+     *
      * @param request the request to use to build the command.
      */
     @objid ("7ed513fb-551e-459b-abc1-bfed0e0a4bda")
@@ -453,7 +457,6 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
             this.originalState.applyTo(getConnection());
         }
         resetSavedState();
-        
     }
 
     /**
@@ -466,11 +469,11 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
         this.originalState = getPathEditor().from(getHost()).backupConnection().immutable();
         this.moveCommand = null;
         this.frozenOriginalState = null;
-        
     }
 
     /**
      * Show feedback for connected nodes move/resize request.
+     *
      * @param request a move/resize request
      */
     @objid ("9a5de569-ada2-4472-89a3-c9577574c42e")
@@ -479,11 +482,10 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
         if (this.originalState == null) {
             saveOriginalConstraint();
         }
-        
+
         getPathEditor().from(getHost(), this.originalState)
                 .applyChangeBoundsRequest(request, true)
                 .applyStateToConnection();
-        
     }
 
     @objid ("52d30e68-a520-4ba2-ad3f-cf022dd587cd")
@@ -492,21 +494,21 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
         if (this.originalState == null) {
             saveOriginalConstraint();
         }
-        
+
         int reqIndex = request.getIndex();
         Point reqLocation = request.getLocation();
-        
+
         // start again from original constraint
         this.originalState.applyTo(getConnection());
-        
+
         getPathEditor()
                 .from(getHost(), this.originalState)
                 .moveBendPoint(reqIndex, reqLocation)
                 .applyStateToConnection();
-        
     }
 
     /**
+     *
      * @return the link path editor
      */
     @objid ("8ecbb039-11c3-4eb8-abda-abf3799f64e4")
@@ -525,16 +527,16 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
         if (this.originalState == null) {
             saveOriginalConstraint();
         }
-        
+
         int reqIndex = request.getIndex();
         Point reqLocation = request.getLocation();
-        
+
         // start again from original constraint
         getPathEditor()
                 .from(getHost(), this.originalState)
                 .moveSegment(reqIndex, reqLocation)
                 .applyStateToConnection();
-        
+
         if (request.getIndex() == 0) {
             // Update source anchor.
             ConnectionEditPart connectionEditPart = getHost();
@@ -555,7 +557,6 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
             reconnectRequest.setTargetEditPart(targetEditPart);
             targetEditPart.showTargetFeedback(reconnectRequest);
         }
-        
     }
 
     @objid ("34f9d105-e08f-41ab-a0a3-22a3d7bcebc2")
@@ -579,13 +580,12 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
             reconnectRequest.setTargetEditPart(targetEditPart);
             targetEditPart.eraseTargetFeedback(reconnectRequest);
         }
-        
     }
 
     @objid ("f8d781d0-c748-4eca-bb2f-3b807036e536")
     private static class ApplyConstraintCommand extends ChangeLinkRoutingConstraintCommand {
         @objid ("13989b16-e74d-429f-9298-03c174990c0c")
-        public  ApplyConstraintCommand(ConnectionEditPart connectionEP) {
+        public ApplyConstraintCommand(ConnectionEditPart connectionEP) {
             super(connectionEP);
         }
 
@@ -600,8 +600,14 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
 
     @objid ("0ee742b5-2dea-4c48-b41b-f1096f8180be")
     private static class MoveConnectionCommand extends Command {
-        @objid ("b8ebfdef-0bf5-4db1-91e3-9399c4e1aa41")
+        @objid ("50ea4d0b-c6f5-4aef-81cc-0eaffc90a40b")
         private final WeakReference<ConnectionEditPart> epRef;
+
+        @objid ("9fbdc913-5746-4ea8-abb6-2a3e763e2bfa")
+        private final Map<Object, EditPart> editPartRegistry;
+
+        @objid ("ac52ffde-eff2-4a6a-bb8d-64e77fad8e92")
+        private final ChangeBoundsRequest origRequest;
 
         @objid ("54003271-7783-48c1-9363-3a1ddb2387c0")
         private final ILinkPathEditorFactory editor;
@@ -609,17 +615,11 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
         @objid ("c8984e1c-11aa-45c9-9d4a-738f83744fad")
         private final IGmLink gmLink;
 
-        @objid ("571b7143-c0f8-45f9-b02b-aede5a65c9c9")
-        private final Map<Object, EditPart> editPartRegistry;
-
-        @objid ("aa61cccf-c0ae-45db-95ab-30fa684f7e45")
-        private final ChangeBoundsRequest origRequest;
-
         @objid ("af3aefe6-ede8-40fc-bde6-ae1cc776b125")
         private final ConnectionState initialState;
 
         @objid ("c867a1d3-0978-40f3-aa9e-47af4b54715a")
-        public  MoveConnectionCommand(ConnectionEditPart ep, ILinkPathEditorFactory editor, ConnectionState initialState, final ChangeBoundsRequest origRequest) {
+        public MoveConnectionCommand(ConnectionEditPart ep, ILinkPathEditorFactory editor, ConnectionState initialState, final ChangeBoundsRequest origRequest) {
             super();
             this.initialState = initialState;
             this.epRef = new WeakReference<>(ep);
@@ -627,21 +627,24 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
             this.origRequest = origRequest;
             this.gmLink = (IGmLink) ep.getModel();
             this.editPartRegistry = ep.getViewer().getEditPartRegistry();
-            
         }
 
         @objid ("a6bad4a2-4066-479b-9ce6-8e1069f8d283")
         @Override
         public String getLabel() {
             if (this.gmLink.getRelatedElement() != null) {
-                return String.format("Layout '%s' connection from %s to %s", getConnectionEditPart(),
-                        this.gmLink.getFromElement(),
-                        this.gmLink.getToElement());
+            //                return String.format("Layout '%s' connection from %s to %s", getConnectionEditPart(),
+            //                        this.gmLink.getFromElement(),
+            //                        this.gmLink.getToElement());
+                return String.format("Layout connection from %s to %s",
+                        this.gmLink.getFromElement().getName(),
+                        this.gmLink.getToElement().getName());
             } else {
-                return String.format("Layout '%s' ghost connection %s", getConnectionEditPart(),
-                        this.gmLink.getRepresentedRef());
+            //                return String.format("Layout '%s' ghost connection %s", getConnectionEditPart(),
+            //                        this.gmLink.getRepresentedRef());
+                return String.format("Layout ghost connection %s",
+                        this.gmLink.getRepresentedRef().name);
             }
-            
         }
 
         @objid ("ff493356-e009-4513-aa7c-7190ee83bd8d")
@@ -655,7 +658,7 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
             if (isValidConnectionEditPart(ep)) {
                 return ep;
             }
-            
+
             ep = (ConnectionEditPart) this.editPartRegistry.get(this.gmLink);
             if (isValidConnectionEditPart(ep)) {
                 return ep;
@@ -669,7 +672,6 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
                     && ep.getParent() != null
                     && ep.getSource() != null
                     && ep.getTarget() != null;
-            
         }
 
         @objid ("47498025-ab83-4ba1-84e8-9eada124817c")
@@ -679,38 +681,37 @@ public class AutoOrthoBendpointEditPolicy extends SelectionHandlesEditPolicy imp
             if (ep == null) {
                 return;
             }
-            
+
             Connection conn = (Connection) ep.getFigure();
-            
+
             // Run figure validations to have new node figures bounds.
             ConnectionAnchor tmpAnchor = conn.getSourceAnchor();
             conn.setSourceAnchor(null); // hack to disable validation on this connection for now : it makes visible glitches
             conn.getUpdateManager().performValidation();
             conn.setSourceAnchor(tmpAnchor);
-            
+
             // Call the editor to get the new connection state
             ILinkPathEditor editor2 = this.editor.from(ep, this.initialState);
             editor2.applyChangeBoundsRequest(this.origRequest, false);
-            
+
             // Convert new state to model
             ConnectionState finalState = editor2.getState();
-            
+
             // fast exit if no change
             if (finalState.isSame(this.initialState))
                 return;
-            
+
             Object sourceAnchorModel = ((IAnchorModelProvider) ep.getSource()).createAnchorModel(finalState.getSourceAnchor());
             Object targetAnchorModel = ((IAnchorModelProvider) ep.getTarget()).createAnchorModel(finalState.getTargetAnchor());
-            
+
             IGmLinkObject model = (IGmLinkObject) ep.getModel();
             GmPath newPath = new GmPath(model.getPath());
             newPath.setPathData(finalState.getConstraint());
             newPath.setSourceAnchor(sourceAnchorModel);
             newPath.setTargetAnchor(targetAnchorModel);
-            
+
             // Apply new model
             model.setLayoutData(newPath);
-            
         }
 
     }

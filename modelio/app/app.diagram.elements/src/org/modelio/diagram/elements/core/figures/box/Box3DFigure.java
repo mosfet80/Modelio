@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures.box;
 
@@ -43,17 +43,17 @@ public class Box3DFigure extends ShapedFigure {
      * Initializes the figure with a BoxShaper, and adds the default border.
      */
     @objid ("9735d4fb-55b6-11e2-877f-002564c97630")
-    public  Box3DFigure() {
+    public Box3DFigure() {
         super();
-        
+
         setShaper(new Box3DShaper());
         this.setOpaque(true);
         this.shapedBorder = new ShapedBorder(this.penOptions.lineColor,
                                              this.penOptions.lineWidth,
                                              this.shaper);
-        
+
         setBorder(new CompoundBorder(this.shapedBorder, new MarginBorder(2)));
-        
+
     }
 
     @objid ("9735d4fe-55b6-11e2-877f-002564c97630")
@@ -63,7 +63,7 @@ public class Box3DFigure extends ShapedFigure {
             super.setLineColor(lineColor);
             this.shapedBorder.setColor(lineColor);
         }
-        
+
     }
 
     @objid ("9735d502-55b6-11e2-877f-002564c97630")
@@ -73,11 +73,12 @@ public class Box3DFigure extends ShapedFigure {
             super.setLineWidth(lineWidth);
             this.shapedBorder.setWidth(lineWidth);
         }
-        
+
     }
 
     /**
      * Setter for the depth of the box.
+     *
      * @param value the new depth for the box.
      */
     @objid ("9735d506-55b6-11e2-877f-002564c97630")
@@ -87,6 +88,7 @@ public class Box3DFigure extends ShapedFigure {
 
     /**
      * Getter for the depth of the box.
+     *
      * @return the current depth of the box.
      */
     @objid ("9735d50a-55b6-11e2-877f-002564c97630")
@@ -106,7 +108,7 @@ public class Box3DFigure extends ShapedFigure {
          * Initializes a BoxShaper with a default depth of 12.
          */
         @objid ("97375b9e-55b6-11e2-877f-002564c97630")
-        public  Box3DShaper() {
+        public Box3DShaper() {
             this.depth = 12;
         }
 
@@ -123,19 +125,19 @@ public class Box3DFigure extends ShapedFigure {
             float y = rect.y;
             float w = rect.width - 1;
             float h = rect.height - 1;
-            
+
             Path path = new Path(Display.getCurrent());
-            
+
             // Add the main rectangle
             path.addRectangle(x, y + this.depth, w - this.depth, h - this.depth);
-            
+
             // Add top parallelogram
             path.moveTo(x + w - this.depth, y + this.depth);
             path.lineTo(x, y + this.depth);
             path.lineTo(x + this.depth, y);
             path.lineTo(x + w, y);
             path.lineTo(x + w - this.depth, y + this.depth);
-            
+
             // Add right parallelogram
             path.lineTo(x + w - this.depth, y + h);
             path.lineTo(x + w, y + h - this.depth);
@@ -145,6 +147,7 @@ public class Box3DFigure extends ShapedFigure {
 
         /**
          * Setter for the depth of the box.
+         *
          * @param value the new depth for the box.
          */
         @objid ("97375bad-55b6-11e2-877f-002564c97630")
@@ -154,6 +157,7 @@ public class Box3DFigure extends ShapedFigure {
 
         /**
          * Getter for the depth of the box.
+         *
          * @return the current depth of the box.
          */
         @objid ("97375bb1-55b6-11e2-877f-002564c97630")

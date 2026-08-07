@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.styles.editingsupport;
 
@@ -52,28 +52,29 @@ public class StylePropertyEditingSupport extends EditingSupport {
 
     /**
      * Initialize the StylePropertyEditingSupport.
+     *
      * @param treeViewer The style viewer.
      */
     @objid ("85b2e4b6-1926-11e2-92d2-001ec947c8cc")
-    public  StylePropertyEditingSupport(ColumnViewer treeViewer) {
+    public StylePropertyEditingSupport(ColumnViewer treeViewer) {
         super(treeViewer);
         this.viewer = treeViewer;
-        
+
     }
 
     @objid ("85b2e4ba-1926-11e2-92d2-001ec947c8cc")
     @Override
     protected boolean canEdit(Object element) {
         StyleEditPanelUIData data = (StyleEditPanelUIData) this.viewer.getInput();
-        
+
         if (data ==  null) {
             return false;
         }
-        
+
         if (! data.isEditable()) {
             return false;
         }
-        
+
         IStyle style = data.getStyleData();
         ISymbolViewItem item = (ISymbolViewItem) element;
         return item.isEditable(style);
@@ -85,16 +86,16 @@ public class StylePropertyEditingSupport extends EditingSupport {
         if (!(element instanceof ISymbolViewItem)) {
             return null;
         }
-        
+
         final ISymbolViewItem item = (ISymbolViewItem) element;
         final Class<?> stype = item.getType();
-        
+
         final Composite tree = (Composite) this.viewer.getControl();
-        
+
         if (! item.getPossibleValues().isEmpty()) {
             return new EnumComboBoxCellEditor(tree, item.getPossibleValues(), SWT.SINGLE);
         }
-        
+
         if (stype.equals(Boolean.class)) {
             return new org.eclipse.jface.viewers.CheckboxCellEditor();
         }
@@ -125,12 +126,12 @@ public class StylePropertyEditingSupport extends EditingSupport {
         if (!(element instanceof ISymbolViewItem)) {
             return null;
         }
-        
+
         final ISymbolViewItem item = (ISymbolViewItem) element;
         final IStyle editedStyle = getEditedStyle();
         final Class<?> stype = item.getType();
         Object value = item.getValue(editedStyle);
-        
+
         if (stype.equals(Color.class)) {
             return ((Color) value).getRGB();
         }
@@ -143,11 +144,11 @@ public class StylePropertyEditingSupport extends EditingSupport {
         if (!(element instanceof ISymbolViewItem)) {
             return;
         }
-        
+
         final ISymbolViewItem item = (ISymbolViewItem) element;
         final IStyle editedStyle = getEditedStyle();
         final Class<?> stype = item.getType();
-        
+
         if (value != null) {
             // Color
             if (stype.equals(Color.class)) {
@@ -161,7 +162,7 @@ public class StylePropertyEditingSupport extends EditingSupport {
                 item.setValue(editedStyle, value);
             }
         }
-        
+
     }
 
     @objid ("80ae4efc-d720-4e38-81b1-8d512e1b59e4")

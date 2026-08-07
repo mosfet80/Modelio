@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -47,94 +46,93 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("3652073c-5639-419d-bc73-dfae88421d53")
 public class BindingSmClass extends UmlModelElementSmClass {
-    @objid ("054a76e3-7a99-4288-bb3f-31f4931f9d55")
+    @objid ("492ec371-08cd-4932-b2fb-1643e2310bf0")
     private SmDependency connectorEndRoleDep;
 
-    @objid ("75dd8894-690c-46ab-8873-37a31d8551ff")
+    @objid ("1ff42924-eafd-44ff-b9e8-d962c0d27da3")
     private SmDependency connectorRoleDep;
 
-    @objid ("c3083d34-667c-4a44-81cd-a1c0b16c67d6")
+    @objid ("e0092b2b-17b3-4426-9797-9d700bd12971")
     private SmDependency roleDep;
 
-    @objid ("274e64a1-a859-4c7f-83d5-977f85b7807b")
+    @objid ("91c9b989-5b87-4e03-ade8-6e2f1e6c864b")
     private SmDependency representedFeatureDep;
 
-    @objid ("fd8e1092-ef67-4ca4-814f-88abdc809c53")
+    @objid ("7b8e87a7-8604-4dc9-b580-39126f6477c9")
     private SmDependency ownerDep;
 
-    @objid ("72fc8162-1633-4ec8-880b-6d808c469851")
-    public  BindingSmClass(ISmMetamodelFragment origin) {
+    @objid ("eb3e94d2-21ce-4864-a09a-ba1902f642a6")
+    public BindingSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("1574b048-12c7-43d8-87f9-b32afd0bdf9e")
+    @objid ("b8fc704e-d968-46fa-9309-01363242b0f4")
     @Override
     public String getName() {
         return "Binding";
-        
+
     }
 
-    @objid ("09a3dc4f-0683-4a09-acc8-8900b220a6ee")
+    @objid ("7cb720f0-7125-40f5-80bd-9c6ff73546ba")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("494c9eac-0753-4264-bf8e-968b2bcfdeb4")
+    @objid ("f9fceb48-9478-4efb-94a7-71cb35540f47")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return Binding.class;
-        
+
     }
 
-    @objid ("029cedfb-6a4a-44d1-9ca6-f20ce30c4cff")
+    @objid ("1c8f9ab8-b359-46f4-83e0-b5b4e7b695e1")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("153589a1-8fee-4b12-8a9e-6605a0cc9177")
+    @objid ("a33ca426-3e0c-4aa7-b06b-aa107cdf17ed")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("0fbd833c-f197-474e-b655-b231a11a5485")
+    @objid ("ce1a3c57-50fc-4f3f-a017-c21be68358ab")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(UmlModelElement.MQNAME);
         this.registerFactory(new BindingObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
         this.connectorEndRoleDep = new ConnectorEndRoleSmDependency();
         this.connectorEndRoleDep.init("ConnectorEndRole", this, metamodel.getMClass(ConnectorEnd.MQNAME), 0, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.connectorEndRoleDep);
-        
+
         this.connectorRoleDep = new ConnectorRoleSmDependency();
         this.connectorRoleDep.init("ConnectorRole", this, metamodel.getMClass(NaryConnector.MQNAME), 0, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.connectorRoleDep);
-        
+
         this.roleDep = new RoleSmDependency();
         this.roleDep.init("Role", this, metamodel.getMClass(BindableInstance.MQNAME), 0, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.roleDep);
-        
+
         this.representedFeatureDep = new RepresentedFeatureSmDependency();
         this.representedFeatureDep.init("RepresentedFeature", this, metamodel.getMClass(UmlModelElement.MQNAME), 1, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.representedFeatureDep);
-        
+
         this.ownerDep = new OwnerSmDependency();
         this.ownerDep.init("Owner", this, metamodel.getMClass(CollaborationUse.MQNAME), 0, 1 );
         registerDependency(this.ownerDep);
-        
-        
+
     }
 
-    @objid ("1648d93d-175d-4bd0-903b-6eeb2666654f")
+    @objid ("ec508ef4-6812-4911-b4ea-08fb743d172a")
     public SmDependency getConnectorEndRoleDep() {
         if (this.connectorEndRoleDep == null) {
         	this.connectorEndRoleDep = this.getDependencyDef("ConnectorEndRole");
@@ -142,7 +140,7 @@ public class BindingSmClass extends UmlModelElementSmClass {
         return this.connectorEndRoleDep;
     }
 
-    @objid ("9a5a5ade-739c-40f8-9b96-183a88a17f87")
+    @objid ("396e255b-f4dc-438e-af04-d5151085d2d8")
     public SmDependency getConnectorRoleDep() {
         if (this.connectorRoleDep == null) {
         	this.connectorRoleDep = this.getDependencyDef("ConnectorRole");
@@ -150,7 +148,7 @@ public class BindingSmClass extends UmlModelElementSmClass {
         return this.connectorRoleDep;
     }
 
-    @objid ("dfd4ddbf-67ad-4ed2-9f7d-c03fc2c85e8f")
+    @objid ("70ca6749-0f6f-4433-8949-2e7c0153002a")
     public SmDependency getRoleDep() {
         if (this.roleDep == null) {
         	this.roleDep = this.getDependencyDef("Role");
@@ -158,7 +156,7 @@ public class BindingSmClass extends UmlModelElementSmClass {
         return this.roleDep;
     }
 
-    @objid ("833b8693-fe60-453a-a2da-7e556eb9d636")
+    @objid ("3f69348f-cb71-414d-9fd4-7f1b94c0fdea")
     public SmDependency getRepresentedFeatureDep() {
         if (this.representedFeatureDep == null) {
         	this.representedFeatureDep = this.getDependencyDef("RepresentedFeature");
@@ -166,7 +164,7 @@ public class BindingSmClass extends UmlModelElementSmClass {
         return this.representedFeatureDep;
     }
 
-    @objid ("2eab51e1-2877-4db0-a888-d609cac6d13f")
+    @objid ("3b566e8d-889b-4feb-b8b3-b3acf5dda26d")
     public SmDependency getOwnerDep() {
         if (this.ownerDep == null) {
         	this.ownerDep = this.getDependencyDef("Owner");
@@ -176,21 +174,21 @@ public class BindingSmClass extends UmlModelElementSmClass {
 
     @objid ("7c2e7ba9-5331-44fb-a2d1-6aeb7bd0af8c")
     private static class BindingObjectFactory implements ISmObjectFactory {
-        @objid ("da0f14bd-d8bf-4d1b-a7a4-e24a9de3c59a")
+        @objid ("4fd8f6ed-eab0-4856-bbbb-adf89ddcafbb")
         private BindingSmClass smClass;
 
-        @objid ("7afc1b2e-5f63-402c-b4cb-ee4d0c3916a3")
-        public  BindingObjectFactory(BindingSmClass smClass) {
+        @objid ("1cee7a25-7452-45c3-9ba5-103ec333197b")
+        public BindingObjectFactory(BindingSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("04b1b83c-6c25-45a6-8cc4-f6de212826a2")
+        @objid ("2b932fef-9311-4c03-bf8b-a441b77f73be")
         @Override
         public ISmObjectData createData() {
             return new BindingData(this.smClass);
         }
 
-        @objid ("c232fe9c-da3f-419a-8734-141d9e0658ce")
+        @objid ("cba97a0f-de78-45f3-9d33-65b418b017b5")
         @Override
         public SmObjectImpl createImpl() {
             return new BindingImpl();
@@ -200,145 +198,145 @@ public class BindingSmClass extends UmlModelElementSmClass {
 
     @objid ("176837b3-990c-4ae3-bce8-e11914227802")
     public static class ConnectorEndRoleSmDependency extends SmSingleDependency {
-        @objid ("0038671a-69e2-4e90-9d44-fede9ac7f257")
+        @objid ("fb07c53f-ea6c-447f-ac76-3041326e9fc4")
         private SmDependency symetricDep;
 
-        @objid ("31f389a0-4edc-40bd-a5d3-565597c63c9a")
+        @objid ("097c2852-1ee3-472b-b293-d1aa931343e0")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((BindingData) data).mConnectorEndRole;
         }
 
-        @objid ("a6944859-a15c-4797-9b66-c24b2b62c59b")
+        @objid ("a26ea430-3d4a-48b5-bdee-2b66e42340b8")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((BindingData) data).mConnectorEndRole = value;
         }
 
-        @objid ("3216e42f-cbba-484c-826a-fa8bb5f32a4f")
+        @objid ("61050aa2-2c28-4a79-b318-006979716c8e")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((ConnectorEndSmClass)this.getTarget()).getRepresentationDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("10ab29c3-3873-4e2b-a0a1-84ed0df4d76a")
     public static class ConnectorRoleSmDependency extends SmSingleDependency {
-        @objid ("bb1f373b-4a5f-441f-a193-ddc1c257e481")
+        @objid ("af631ffc-af71-47ff-ae4d-887c1fe66b07")
         private SmDependency symetricDep;
 
-        @objid ("523985ad-31e3-443f-b9f0-310b7cdbc952")
+        @objid ("a4b88a99-6285-49e9-9985-ecbd2e3e862c")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((BindingData) data).mConnectorRole;
         }
 
-        @objid ("472184b6-5bd9-4b27-aa47-2da8204fa87e")
+        @objid ("4e8613b5-45d8-4cfa-a530-b4513bbd0f34")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((BindingData) data).mConnectorRole = value;
         }
 
-        @objid ("ecbda4f3-399f-420e-ba88-27682b6a35df")
+        @objid ("e23eb537-72bb-4b05-b2bc-a89760179f1d")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((NaryConnectorSmClass)this.getTarget()).getRepresentationDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("5cd327e7-5172-4142-9e97-3d461a164432")
     public static class RoleSmDependency extends SmSingleDependency {
-        @objid ("d47a258b-2bd6-4419-ac16-f7c5b37bac81")
+        @objid ("5d71ddd0-451c-4433-97f1-c4887b1f0d55")
         private SmDependency symetricDep;
 
-        @objid ("a913e2cd-d64d-4947-be04-2dcd2afb6c9b")
+        @objid ("3e7c8b26-adb5-4eca-9d6b-c0eed2fcd5bc")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((BindingData) data).mRole;
         }
 
-        @objid ("757b889b-11d3-43e8-8d8a-99305d2cc69d")
+        @objid ("82e821cf-d7b4-4e01-b13c-406e59645431")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((BindingData) data).mRole = value;
         }
 
-        @objid ("4361c70d-627d-4571-80bf-89ecc0a19e88")
+        @objid ("c518932a-106c-4372-a921-8904f63a8e52")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((BindableInstanceSmClass)this.getTarget()).getRepresentationDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("cccad6aa-a50c-4203-b53d-43693557ab87")
     public static class RepresentedFeatureSmDependency extends SmSingleDependency {
-        @objid ("bbb5a600-9293-4a0a-8ead-0f6a4ea3aeb1")
+        @objid ("a4f413aa-9501-4622-baf8-a94f9c8c6c75")
         private SmDependency symetricDep;
 
-        @objid ("d933653d-a28a-49c3-90fb-ed0318393695")
+        @objid ("9541c17d-8726-43e3-ae3b-e399ada443da")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((BindingData) data).mRepresentedFeature;
         }
 
-        @objid ("12563224-ed2d-4de3-8c65-2be29d3578bf")
+        @objid ("240bbbc7-5965-439e-ae66-b1158869279f")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((BindingData) data).mRepresentedFeature = value;
         }
 
-        @objid ("4250aeca-b879-4b70-afdc-8c506633f267")
+        @objid ("d1137499-1a8c-4819-bddb-66a8c82edd76")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((UmlModelElementSmClass)this.getTarget()).getRepresentsDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("0e1cb824-4a4f-4b23-8a9f-34b475747f70")
     public static class OwnerSmDependency extends SmSingleDependency {
-        @objid ("dc03cf9d-2c07-428f-b568-bbd30a589613")
+        @objid ("93b46575-c8a9-49ed-9e5b-e0e526cda2c4")
         private SmDependency symetricDep;
 
-        @objid ("b2bbc0d8-1f95-4f7e-886e-5d37082c917a")
+        @objid ("54119a3c-6401-4d58-a366-85e9fc5559ed")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((BindingData) data).mOwner;
         }
 
-        @objid ("5a55e4bb-2f58-4c55-bfa7-be17ae9f70ae")
+        @objid ("da862200-ea89-4f49-908d-57b53ff7634f")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((BindingData) data).mOwner = value;
         }
 
-        @objid ("7480bd3f-8c4f-498d-8d21-162ee41d869c")
+        @objid ("ede95f59-8b4d-40cd-a104-ae6eee9e6472")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((CollaborationUseSmClass)this.getTarget()).getRoleBindingDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

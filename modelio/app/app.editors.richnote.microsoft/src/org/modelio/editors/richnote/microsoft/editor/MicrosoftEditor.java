@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.microsoft.editor;
 
@@ -25,8 +25,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.e4.ui.di.Persist;
@@ -58,7 +58,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 /**
  * Microsoft Office documents editor.
  * <p>
- * 
+ *
  * @author cmarin
  * @see <a href="http://www.microssoft.com">Microsoft main site</a>
  */
@@ -96,6 +96,7 @@ public class MicrosoftEditor implements IRichNoteEditor {
 
     /**
      * E4 constructor.
+     *
      * @param aPart the E4 part
      * @param parent the SWT parent
      * @param editedInput the edited rich note
@@ -108,36 +109,36 @@ public class MicrosoftEditor implements IRichNoteEditor {
         this.partSvc = epartSvc;
         this.parentComposite = parent;
         this.input = editedInput;
-        
+
         createPartControl(parent);
-        
+
         initTitle();
-        
+
     }
 
     @objid ("726fdd04-3428-464f-858f-1adeb7d8397c")
     private void createPartControl(final Composite parent) {
         try {
             this.viewer = new MicrosoftDocumentViewer();
-        
+
             this.viewer.createPartControl(parent);
-        
+
             if (this.input.getEditedElement() != null) {
                 loadElement(this.input.getEditedElement());
             }
-        
+
             initTitle();
             // Register the editor as a model change listener to:
             // - update tab's name if the diagram is renamed
             // - close editor if the diagram (or an ancestor) is deleted
             this.modelListener = new ModelListener(this.input);
-        
+
             this.dirtyWatcher = new DirtyWatcher(parent.getDisplay(), this.mPart);
-        
+
         } catch (RuntimeException e) {
             createErrorPartControl(parent, e);
         }
-        
+
     }
 
     /**
@@ -147,21 +148,22 @@ public class MicrosoftEditor implements IRichNoteEditor {
     @PreDestroy
     public void dispose() {
         unregisterListener();
-        
+
         if (this.viewer != null) {
             this.viewer.close();
         }
-        
+
         if (this.dirtyWatcher != null) {
             this.dirtyWatcher = null;
         }
-        
+
         this.input.getFileManager().removeEditor(this);
-        
+
     }
 
     /**
      * Called by E4 to save the rich note.
+     *
      * @param monitor a
      */
     @objid ("c57aad39-b5e7-47cb-8336-309dd2b656c2")
@@ -174,10 +176,10 @@ public class MicrosoftEditor implements IRichNoteEditor {
                 String fileName = art.getFileName();
                 File f = new File(fileName);
                 this.viewer.saveDocument(f);
-        
+
             } else if (element instanceof Document) {
                 Document doc = (Document) element;
-        
+
                 this.viewer.saveDocument(this.editedFilePath.toFile());
                 this.input.getFileManager().saveRichNote(doc, this.editedFilePath);
             }
@@ -185,9 +187,9 @@ public class MicrosoftEditor implements IRichNoteEditor {
             MicrosoftEditors.LOG.error(MicrosoftEditors.PLUGIN_ID, e);
             MessageDialog.openError(null, "Cannot save " + element, e.getLocalizedMessage());
         }
-        
+
         this.mPart.setDirty(false);
-        
+
     }
 
     /**
@@ -199,7 +201,7 @@ public class MicrosoftEditor implements IRichNoteEditor {
         try {
             if (element instanceof Artifact) {
                 this.viewer.saveDocumentAs();
-        
+
             } else if (element instanceof Document) {
                 this.viewer.saveDocumentAs();
             }
@@ -207,11 +209,12 @@ public class MicrosoftEditor implements IRichNoteEditor {
             MicrosoftEditors.LOG.error(MicrosoftEditors.PLUGIN_ID, e);
             MessageDialog.openError(null, "Cannot save " + element, e.getLocalizedMessage());
         }
-        
+
     }
 
     /**
      * Get the OLE program ID to use to open the document
+     *
      * @param doc a document
      * @return the OLE program ID.
      */
@@ -221,14 +224,14 @@ public class MicrosoftEditor implements IRichNoteEditor {
         if (format == null) {
             return null;
         }
-        
+
         for (String ext : format.getFileExtensions()) {
             String progId = OLE.findProgramID(ext);
             if (progId != null && !progId.isEmpty()) {
                 return progId;
             }
         }
-        
+
         if (format.getData() != null) {
             return format.getData();
         }
@@ -238,7 +241,7 @@ public class MicrosoftEditor implements IRichNoteEditor {
     @objid ("e7b91eaf-43fa-454d-bb01-a1aeca532268")
     void initTitle() {
         MObject el = this.input.getEditedElement();
-        
+
         String title;
         if (el == null) {
             return;
@@ -247,17 +250,17 @@ public class MicrosoftEditor implements IRichNoteEditor {
         } else {
             title = el.getName();
         }
-        
+
         if (el.getStatus().isModifiable()) {
             this.mPart.setLabel(title);
         } else {
             this.mPart.setLabel(title + MicrosoftEditors.I18N.getString("read_only"));
         }
-        
+
         /*
          * MObject el = this.input.getEditedElement(); if (el==null) return ; else if (el instanceof Document) { Image ss = RichNoteLabelProvider.getIcon((Document) el); } else { StandardImageService.getStereotypedImage(el, null); }
          */
-        
+
     }
 
     @objid ("841bcc7b-df1d-4c0a-b5f3-c0410b987533")
@@ -269,13 +272,14 @@ public class MicrosoftEditor implements IRichNoteEditor {
     private void createErrorPartControl(final Composite parent, final Throwable e) {
         Text text = new Text(parent, SWT.MULTI);
         text.setText(e.toString());
-        
+
         MicrosoftEditors.LOG.error(e);
-        
+
     }
 
     /**
      * Load the file referenced by the artifact.
+     *
      * @param art the artifact to load
      * @throws IOException in case of error opening the file.
      * @throws FileNotFoundException if the referenced file is not found.
@@ -283,17 +287,18 @@ public class MicrosoftEditor implements IRichNoteEditor {
     @objid ("04aca5d6-e88d-4300-b033-c7cc6c133121")
     private void loadArtifact(final Artifact art) throws IOException, FileNotFoundException {
         File f = this.input.getFileManager().getArtifactFile(art).toFile();
-        
+
         if (f.isFile()) {
             this.viewer.openDocument(f, getProgramID(f));
         } else {
             throw new FileNotFoundException("'" + f.getPath() + "' not found.");
         }
-        
+
     }
 
     /**
      * Load the element text into the editor.
+     *
      * @param element the edited model object
      */
     @objid ("fff6bcc6-59ae-453e-9517-9e495dc8fa43")
@@ -302,34 +307,35 @@ public class MicrosoftEditor implements IRichNoteEditor {
             if (element instanceof Artifact) {
                 Artifact art = (Artifact) element;
                 loadArtifact(art);
-        
+
             } else if (element instanceof Document) {
                 Document doc = (Document) element;
                 loadDocument(doc);
             } else {
                 MessageDialog.openError(null, "Cannot load element.", element + " is not handled.");
             }
-        
+
             // set the read/write mode
             final boolean writeMode = element.getStatus().isModifiable();
             this.viewer.setWriteable(writeMode);
-        
+
         } catch (IOException e) {
             MicrosoftEditors.LOG.error(e);
             MessageDialog.openError(null, "Cannot load " + element, e.getLocalizedMessage());
         }
-        
+
     }
 
     /**
      * Load the file referenced by the external document.
+     *
      * @param doc the rich note to load
      * @throws IOException in case of error opening the file.
      */
     @objid ("ec1ec55e-81da-4aa6-bd9f-532e0b0a5c8d")
     private void loadDocument(final Document doc) throws IOException {
         this.editedFilePath = this.input.getFileManager().openRichNote(doc, this);
-        
+
         if (this.editedFilePath != null) {
             File f = this.editedFilePath.toFile();
             this.viewer.openDocument(f, getProgramId(doc));
@@ -340,7 +346,7 @@ public class MicrosoftEditor implements IRichNoteEditor {
             this.viewer.createDocument(f, docFormat);
             this.viewer.openDocument(f, getProgramId(doc));
         }
-        
+
     }
 
     @objid ("b472c2b3-03e1-4257-9897-b6bbc7359f37")
@@ -349,7 +355,7 @@ public class MicrosoftEditor implements IRichNoteEditor {
             this.modelListener.dispose();
             this.modelListener = null;
         }
-        
+
     }
 
     @objid ("034fcac0-3d38-4d99-97ef-16d06b6169df")
@@ -389,7 +395,7 @@ public class MicrosoftEditor implements IRichNoteEditor {
                 callCloseMPart();
             }
         });
-        
+
     }
 
     @objid ("7b403788-c6e2-4903-8fca-8d7532d4587c")
@@ -399,18 +405,18 @@ public class MicrosoftEditor implements IRichNoteEditor {
         final String message = MicrosoftEditors.I18N.getMessage("MicrosoftEditor.onOriginalModified.msg", this.editedFilePath.toString(), model.getName());
         final MicrosoftDocumentViewer v = this.viewer;
         final Composite composite = this.parentComposite;
-        
+
         MicrosoftEditors.LOG.info(message);
         MicrosoftEditors.LOG.debug("Edited file:" + this.editedFilePath);
-        
+
         Display.getDefault().syncExec(new Runnable() {
-        
+
             @Override
             public void run() {
                 final Shell shell = composite.getShell();
                 // Show warning
                 MessageDialog.openWarning(shell, title, message);
-        
+
                 // If modified, offer change to save as
                 if (v.isDirty()) {
                     try {
@@ -419,12 +425,12 @@ public class MicrosoftEditor implements IRichNoteEditor {
                         MessageDialog.openWarning(shell, title, e.getLocalizedMessage());
                     }
                 }
-        
+
                 // Close the part
                 callCloseMPart();
             }
         });
-        
+
     }
 
     @objid ("33e9c48f-75b4-49d4-a841-8c1ddcf7ca3b")
@@ -434,6 +440,7 @@ public class MicrosoftEditor implements IRichNoteEditor {
 
     /**
      * Create a new Microsoft file.
+     *
      * @param file the file path
      * @param format the file format
      * @throws IOException in case of failure
@@ -444,14 +451,14 @@ public class MicrosoftEditor implements IRichNoteEditor {
         if (!parentDir.isDirectory()) {
             Files.createDirectories(parentDir.toPath());
         }
-        
+
         Shell shell = new Shell(Display.getDefault());
         MicrosoftDocumentViewer aviewer = new MicrosoftDocumentViewer();
         aviewer.createPartControl(shell);
         aviewer.createDocument(file, format);
         aviewer.close();
         shell.dispose();
-        
+
     }
 
     /**
@@ -468,12 +475,12 @@ public class MicrosoftEditor implements IRichNoteEditor {
         private final Display display;
 
         @objid ("1459212f-ad29-46e7-8636-599760afc068")
-        public  DirtyWatcher(Display display, MPart part) {
+        public DirtyWatcher(Display display, MPart part) {
             this.part = part;
             this.display = display;
-            
+
             display.timerExec(1000, this);
-            
+
         }
 
         @objid ("f0b4f4f0-5a5c-47fe-a8a3-978868c8e75e")
@@ -485,11 +492,11 @@ public class MicrosoftEditor implements IRichNoteEditor {
                 if (newDirty && !DirtyWatcher.this.part.isDirty()) {
                     DirtyWatcher.this.part.setDirty(newDirty);
                 }
-            
+
                 // Schedule again
                 this.display.timerExec(2000, this);
             }
-            
+
         }
 
     }
@@ -512,14 +519,14 @@ public class MicrosoftEditor implements IRichNoteEditor {
         private IRichNoteInput minput;
 
         @objid ("dbb23035-3237-4b84-a595-68043ba1b416")
-        public  ModelListener(final IRichNoteInput input) {
+        public ModelListener(final IRichNoteInput input) {
             this.minput = input;
             this.wasReadOnly = getEditedElement().getStatus().isModifiable();
-            
+
             final IModelChangeSupport imodel = input.getSession().getModelChangeSupport();
             imodel.addModelChangeListener(this);
             imodel.addStatusChangeListener(this);
-            
+
         }
 
         @objid ("cc6dd97f-8b28-4755-aa10-e8c5a6225ba1")
@@ -532,13 +539,13 @@ public class MicrosoftEditor implements IRichNoteEditor {
         @Override
         public void statusChanged(final IStatusChangeEvent event) {
             final boolean newModifiable = getEditedElement().getStatus().isModifiable();
-            
+
             if (this.wasReadOnly != newModifiable) {
                 MicrosoftEditor.this.viewer.setWriteable(newModifiable);
                 // loadElement(getEditedElement());
                 this.wasReadOnly = newModifiable;
             }
-            
+
         }
 
         /**
@@ -548,6 +555,7 @@ public class MicrosoftEditor implements IRichNoteEditor {
          * <li>Set the view read only if the model becomes read only (to be done)
          * <li>Close the diagram if deleted from the model.
          * <p>
+         *
          * @param changeEvent the model change event
          */
         @objid ("545bbad0-71a5-4a81-9508-0f074d1ff684")
@@ -561,13 +569,13 @@ public class MicrosoftEditor implements IRichNoteEditor {
                     callCloseMPart();
                     return;
                 }
-            
+
                 // At this point, we know that editedEl is still valid, update the editor's title and icon.
                 if (editedEl != null) {
                     initTitle();
                 }
             }
-            
+
         }
 
         /**
@@ -581,7 +589,7 @@ public class MicrosoftEditor implements IRichNoteEditor {
                 imodel.removeModelChangeListener(this);
                 imodel.removeStatusChangeListener(this);
             }
-            
+
         }
 
     }

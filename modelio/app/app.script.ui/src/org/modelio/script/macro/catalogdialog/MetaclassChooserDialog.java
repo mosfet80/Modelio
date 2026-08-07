@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.script.macro.catalogdialog;
 
@@ -68,7 +68,7 @@ class MetaclassChooserDialog extends ModelioDialog {
 
     @objid ("8c0d2a3e-65c4-486c-a4e7-3dfba63b9927")
     private Comparator<MClass> metaclassSorter = new Comparator<MClass>() {
-    
+
     		@Override
     		public int compare(MClass o1, MClass o2) {
     			return o1.getName().compareTo(o2.getName());
@@ -81,18 +81,18 @@ class MetaclassChooserDialog extends ModelioDialog {
             MClass val = (MClass) i.getData();
             this.leftValues.remove(val);
             this.rightValues.add(val);
-        
+
             Collections.sort(this.leftValues, this.metaclassSorter);
             Collections.sort(this.rightValues, this.metaclassSorter);
-        
+
             TableItem rightItem = new TableItem(this.rightTree, SWT.NONE, this.rightValues.indexOf(val));
             rightItem.setData(val);
             rightItem.setText(val.getName());
             rightItem.setImage(i.getImage());
-        
+
             i.dispose();
         }
-        
+
     }
 
     @objid ("006aac16-c497-106a-bf4f-001ec947cd2a")
@@ -101,23 +101,24 @@ class MetaclassChooserDialog extends ModelioDialog {
             MClass val = (MClass) i.getData();
             this.rightValues.remove(val);
             this.leftValues.add(val);
-        
+
             Collections.sort(this.leftValues, this.metaclassSorter);
             Collections.sort(this.rightValues, this.metaclassSorter);
-        
+
             TableItem rightItem = new TableItem(this.leftTree, SWT.NONE, this.leftValues.indexOf(val));
             rightItem.setData(val);
             rightItem.setText(val.getName());
             rightItem.setImage(i.getImage());
-        
+
             i.dispose();
-        
+
         }
-        
+
     }
 
     /**
      * Get the selected metaclasses.
+     *
      * @return the selected metaclasses.
      */
     @objid ("006aacc0-c497-106a-bf4f-001ec947cd2a")
@@ -126,21 +127,21 @@ class MetaclassChooserDialog extends ModelioDialog {
     }
 
     @objid ("00697b8e-c497-106a-bf4f-001ec947cd2a")
-    public  MetaclassChooserDialog(Shell parentShell, Collection<String> initValues, MMetamodel metamodel) {
+    public MetaclassChooserDialog(Shell parentShell, Collection<String> initValues, MMetamodel metamodel) {
         super(parentShell);
         if (metamodel != null) {
             for (MClass smClass : metamodel.getRegisteredMClasses()) {
                 this.leftValues.add(smClass);
             }
-        
+
             for (String initValue : initValues) {
                 this.rightValues.add(metamodel.getMClass(initValue));
             }
         }
-        
+
         Collections.sort(this.leftValues, this.metaclassSorter);
         Collections.sort(this.rightValues, this.metaclassSorter);
-        
+
     }
 
     /**
@@ -150,21 +151,21 @@ class MetaclassChooserDialog extends ModelioDialog {
     public void update() {
         this.leftTree.removeAll();
         this.rightTree.removeAll();
-        
+
         for (MClass s : this.leftValues) {
             TableItem item = new TableItem(this.leftTree, SWT.NONE);
             item.setData(s);
             item.setText(s.getName());
             item.setImage(getMetaclassImage(s));
         }
-        
+
         for (MClass s : this.rightValues) {
             TableItem item = new TableItem(this.rightTree, SWT.NONE);
             item.setData(s);
             item.setText(s.getName());
             item.setImage(getMetaclassImage(s));
         }
-        
+
     }
 
     @objid ("0069aaf0-c497-106a-bf4f-001ec947cd2a")
@@ -177,7 +178,7 @@ class MetaclassChooserDialog extends ModelioDialog {
     public void addButtonsInButtonBar(Composite parent) {
         createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
         createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, true);
-        
+
     }
 
     @objid ("0069ae38-c497-106a-bf4f-001ec947cd2a")
@@ -185,7 +186,7 @@ class MetaclassChooserDialog extends ModelioDialog {
     public Control createContentArea(Composite parent) {
         Composite composite = new Composite(parent, SWT.NONE);
         GridDataFactory.defaultsFor(composite).grab(true, true).applyTo(composite);
-        
+
         // Left list
         this.leftTree = new Table(composite, SWT.BORDER | SWT.MULTI | SWT.FULL_SELECTION);
         this.leftTree.addSelectionListener(new SelectionListener() {
@@ -193,13 +194,13 @@ class MetaclassChooserDialog extends ModelioDialog {
             public void widgetDefaultSelected(SelectionEvent e) {
                 MetaclassChooserDialog.this.handleAdd();
             }
-        
+
             @Override
             public void widgetSelected(SelectionEvent e) {
                 // Nothing to do.
             }
         });
-        
+
         // Buttons
         Composite buttonsGroup = new Composite(composite, SWT.NONE);
         buttonsGroup.setLayout(new GridLayout(1, true));
@@ -207,13 +208,13 @@ class MetaclassChooserDialog extends ModelioDialog {
         this.addButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false));
         this.removeButton = new Button(buttonsGroup, SWT.PUSH);
         this.removeButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false));
-        
+
         this.addButton.addSelectionListener(new AddButtonSelectionListener());
         this.addButton.setText(Script.I18N.getString("MetaclassChooserDialog.AddButton"));
-        
+
         this.removeButton.addSelectionListener(new RemoveButtonSelectionListener());
         this.removeButton.setText(Script.I18N.getString("MetaclassChooserDialog.RemoveButton"));
-        
+
         // right list
         this.rightTree = new Table(composite, SWT.BORDER | SWT.MULTI | SWT.FULL_SELECTION);
         this.rightTree.addSelectionListener(new SelectionListener() {
@@ -221,15 +222,15 @@ class MetaclassChooserDialog extends ModelioDialog {
             public void widgetDefaultSelected(SelectionEvent e) {
                 MetaclassChooserDialog.this.handleRemove();
             }
-        
+
             @Override
             public void widgetSelected(SelectionEvent e) {
                 // Nothing to do.
             }
         });
-        
+
         update();
-        
+
         GridLayoutFactory.swtDefaults().numColumns(3).generateLayout(composite);
         return composite;
     }
@@ -240,9 +241,9 @@ class MetaclassChooserDialog extends ModelioDialog {
         getShell().setText(Script.I18N.getString("MetaclassChooserDialog.Title"));
         setTitle(Script.I18N.getString("MetaclassChooserDialog.Title"));
         this.setMessage(Script.I18N.getString("MetaclassChooserDialog.Description"));
-        
+
         getShell().setMinimumSize(600, 400);
-        
+
     }
 
     @objid ("55171f9b-173c-437f-bd8a-ada62af38147")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.edition.dialogs.dialog.panels.operation;
 
@@ -33,7 +33,7 @@ public class OperationNameAreaListener implements KeyListener, FocusListener {
     private OperationEditPanel panel = null;
 
     @objid ("6965be24-dac9-45ba-90a4-12fa3a92f4ea")
-    public  OperationNameAreaListener(OperationEditPanel panel) {
+    public OperationNameAreaListener(OperationEditPanel panel) {
         this.panel = panel;
     }
 
@@ -52,7 +52,7 @@ public class OperationNameAreaListener implements KeyListener, FocusListener {
         } else if (e.keyCode == SWT.ESC) {
             nameText.setText(this.panel.getModel().getName());
         }
-        
+
     }
 
     @objid ("12039104-43a3-4718-a693-d486ecc5d521")
@@ -66,7 +66,7 @@ public class OperationNameAreaListener implements KeyListener, FocusListener {
     public void focusLost(FocusEvent e) {
         Text nameText = (Text) e.getSource();
         this.panel.getModel().setName(nameText.getText());
-        
+
     }
 
 }

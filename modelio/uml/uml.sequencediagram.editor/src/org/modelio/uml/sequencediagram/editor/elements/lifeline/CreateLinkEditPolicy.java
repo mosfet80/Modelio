@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.lifeline;
 
@@ -50,7 +50,7 @@ public class CreateLinkEditPolicy extends DefaultCreateLinkEditPolicy {
             int sourceTime = startCommand.getSourceTime();
             TMP.setLocation(req.getLocation());
             getHostFigure().translateToRelative(TMP);
-        
+
             // Do not allow a message to get back in time.
             if (TMP.y < sourceTime) {
                 startCommand.setTargetTime(sourceTime);
@@ -68,14 +68,14 @@ public class CreateLinkEditPolicy extends DefaultCreateLinkEditPolicy {
         if (context != null) {
             if (Message.class == context.getJavaClass()) {
                 CreateMessageCommand cmd = new CreateMessageCommand(context);
-        
+
                 cmd.setSource((GmNodeModel) getHost().getModel());
                 req.setStartCommand(cmd);
-                
+
                 TMP.setLocation(req.getLocation());
                 getHostFigure().translateToRelative(TMP);
                 cmd.setSourceTime(TMP.y);
-        
+
                 if (req instanceof CreateBendedConnectionRequest) {
                     cmd.setRequest((CreateBendedConnectionRequest) req);
                 }
@@ -93,7 +93,6 @@ public class CreateLinkEditPolicy extends DefaultCreateLinkEditPolicy {
         } else {
             return super.getReconnectSourceCommand(req);
         }
-        
     }
 
     @objid ("d9376a7c-55b6-11e2-877f-002564c97630")
@@ -104,7 +103,6 @@ public class CreateLinkEditPolicy extends DefaultCreateLinkEditPolicy {
         } else {
             return super.getReconnectTargetCommand(req);
         }
-        
     }
 
     @objid ("d9376a81-55b6-11e2-877f-002564c97630")
@@ -116,11 +114,11 @@ public class CreateLinkEditPolicy extends DefaultCreateLinkEditPolicy {
                 // Copy and hack the request to make sure the "destination" Y is never
                 // less than the source. Copy is needed cause we don't want to modify
                 // the original request (to avoid some nasty side effects)
-        
+
                 CreateBendedConnectionRequest request_origin = (CreateBendedConnectionRequest) request;
                 CreateBendedConnectionRequest request_copy = createCopy(context, request_origin);
                 Command startCommand = request_origin.getStartCommand();
-        
+
                 if (startCommand instanceof CreateMessageCommand) {
                     // Fix the "Y" coordinate.
                     TMP.x = 0;
@@ -135,7 +133,6 @@ public class CreateLinkEditPolicy extends DefaultCreateLinkEditPolicy {
         } else {
             super.showCreationFeedback(request);
         }
-        
     }
 
     @objid ("f4e10d72-eb70-4d60-9c19-513546e4bd9f")

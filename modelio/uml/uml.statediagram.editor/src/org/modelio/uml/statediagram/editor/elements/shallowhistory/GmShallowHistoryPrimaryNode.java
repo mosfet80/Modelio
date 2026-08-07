@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.shallowhistory;
 
@@ -50,11 +50,12 @@ public class GmShallowHistoryPrimaryNode extends GmNoStyleSimpleNode implements 
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram in which the element is unmasked.
      * @param relatedRef related element reference, must not be <code>null</code>.
      */
     @objid ("f571ac37-55b6-11e2-877f-002564c97630")
-    public  GmShallowHistoryPrimaryNode(IGmDiagram diagram, MRef relatedRef) {
+    public GmShallowHistoryPrimaryNode(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -70,9 +71,9 @@ public class GmShallowHistoryPrimaryNode extends GmNoStyleSimpleNode implements 
         if (getRelatedElement() != null) {
             firePropertyChange(PROPERTY_LABEL, null, getRelatedElement().getName());
         }
-        // forcing visual refresh in case Image changed 
+        // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("f571ac4a-55b6-11e2-877f-002564c97630")
@@ -103,26 +104,26 @@ public class GmShallowHistoryPrimaryNode extends GmNoStyleSimpleNode implements 
     @Override
     public IEditableText getEditableText() {
         return new IEditableText() {
-                                                                        
+
                                                                             @Override
                                                                             public String getText() {
                                                                         return getRelatedElement().getName();
                                                                                     }
-                                                                        
+
                                                                                     @Override
                                                                                     public void setText(String text) {
                                                                         getRelatedElement().setName(text);
                                                                                     }
-                                                                        
+
                                                                                 };
-        
+
     }
 
     /**
      * Constructor for deserialization only.
      */
     @objid ("f57332ca-55b6-11e2-877f-002564c97630")
-    public  GmShallowHistoryPrimaryNode() {
+    public GmShallowHistoryPrimaryNode() {
         // empty for the serialization
     }
 
@@ -143,17 +144,17 @@ public class GmShallowHistoryPrimaryNode extends GmNoStyleSimpleNode implements 
             break;
         }
         }
-        
+
     }
 
     @objid ("f57332d3-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmShallowHistoryPrimaryNode.", GmShallowHistoryPrimaryNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("f57332d9-55b6-11e2-877f-002564c97630")

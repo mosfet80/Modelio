@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -35,7 +35,7 @@ public class EExecutionSpecification extends EInteractionFragment {
     }
 
     @objid ("aa3b68be-b0d8-4dbe-b393-c87f07772c5e")
-    public  EExecutionSpecification(org.eclipse.uml2.uml.ExecutionSpecification element) {
+    public EExecutionSpecification(org.eclipse.uml2.uml.ExecutionSpecification element) {
         super(element);
     }
 
@@ -47,37 +47,37 @@ public class EExecutionSpecification extends EInteractionFragment {
             setStart((ExecutionSpecification) objingElt);
             setFinish((ExecutionSpecification) objingElt);
         }
-        
+
     }
 
     @objid ("d0316e60-a70b-409c-a335-279272fe163d")
     private void setStart(ExecutionSpecification objingElt) {
         org.eclipse.uml2.uml.ExecutionSpecification ecoreES = (org.eclipse.uml2.uml.ExecutionSpecification) this.getEcoreElement();
-        
+
         org.eclipse.uml2.uml.OccurrenceSpecification start = ecoreES.getStart();
-        
+
         if (start != null){
             Object objStart = ReverseProperties.getInstance().getMappedElement(start);
-        
+
             if (objStart instanceof ExecutionOccurenceSpecification)
                 objingElt.setStart((ExecutionOccurenceSpecification) objStart);
-        
+
         }
-        
+
     }
 
     @objid ("59399bf7-0235-46d6-ae07-0cea8828411e")
     private void setFinish(ExecutionSpecification objingElt) {
         org.eclipse.uml2.uml.ExecutionSpecification ecoreES = (org.eclipse.uml2.uml.ExecutionSpecification) this.getEcoreElement();
         org.eclipse.uml2.uml.OccurrenceSpecification finish = ecoreES.getFinish();
-        
+
         if (finish != null){
             Object objFinish = ReverseProperties.getInstance().getMappedElement(finish);
-        
+
             if (objFinish instanceof ExecutionOccurenceSpecification)
                 objingElt.setFinish((ExecutionOccurenceSpecification) objFinish);
         }
-        
+
     }
 
 }

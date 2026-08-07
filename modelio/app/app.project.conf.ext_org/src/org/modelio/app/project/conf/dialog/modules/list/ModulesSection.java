@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.app.project.conf.dialog.modules.list;
 
@@ -52,7 +71,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
@@ -92,6 +110,15 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  */
 @objid ("4bb31adc-d4a8-4c10-99ed-c6ad73a4324f")
 public class ModulesSection {
+    @objid ("9c3f0664-28b7-49a9-8f06-6465924707bd")
+    private TableViewer modulesTable;
+
+    @objid ("3b2b1242-328e-4fa0-a9e5-fc5d78b9dd83")
+    private Button addButton;
+
+    @objid ("4088db37-148e-4c80-96f1-99959fa6b18f")
+    protected Button removeButton;
+
     /**
      * The project that is currently being displayed by the section.
      */
@@ -104,15 +131,6 @@ public class ModulesSection {
     @objid ("b166aa36-d7ed-4b52-a7c4-55b65d59ed62")
     protected IModelioProgressService progressService;
 
-    @objid ("ee227aca-abb9-4ccb-8a83-d375a8f38130")
-    private TableViewer modulesTable;
-
-    @objid ("1b7ecc7d-dbf5-4db8-856a-780a8cea40a4")
-    private Button addButton;
-
-    @objid ("2bc22157-d1e2-4a26-868d-84b1bd798eef")
-    protected Button removeButton;
-
     @objid ("772998f6-906e-4e99-bb9c-c75025dbbf19")
     private final IModuleStore catalog;
 
@@ -120,18 +138,19 @@ public class ModulesSection {
     protected IProjectService projectService;
 
     /**
+     *
      * @param application The Eclipse context
      */
     @objid ("b77b7e36-1e37-4f10-a8c0-73134b03c249")
-    public  ModulesSection(final IEclipseContext applicationContext) {
+    public ModulesSection(final IEclipseContext applicationContext) {
         this.moduleService = applicationContext.get(IModuleManagementService.class);
         this.progressService = applicationContext.get(IModelioProgressService.class);
         this.projectService = applicationContext.get(IProjectService.class);
         this.catalog = applicationContext.get(IModuleStore.class);
-        
     }
 
     /**
+     *
      * @param projectModel the project model
      */
     @objid ("c893266a-36bb-4b78-9ae1-06d0c263d222")
@@ -147,14 +166,11 @@ public class ModulesSection {
             this.addButton.setEnabled(false);
             this.removeButton.setEnabled(false);
         }
-        for (final TableColumn col : this.modulesTable.getTable().getColumns()) {
-            col.pack();
-        }
-        
     }
 
     /**
      * Build the Eclipse form Section.
+     *
      * @param toolkit the form toolkit
      * @param parent the parent composite
      * @return the built section.
@@ -164,36 +180,36 @@ public class ModulesSection {
         final Section section = toolkit.createSection(parent,
                 ExpandableComposite.TITLE_BAR | ExpandableComposite.TWISTIE | Section.DESCRIPTION);
         section.setText(AppProjectConfExt.I18N.getString("ModulesSection.SectionText")); //$NON-NLS-1$
-        
+
         section.setDescription(AppProjectConfExt.I18N.getString("ModulesSection.SectionDescription")); //$NON-NLS-1$
         section.setExpanded(true);
-        
+
         final Composite composite = toolkit.createComposite(section, SWT.WRAP);
         final GridLayout layout = new GridLayout();
         layout.numColumns = 2;
         composite.setLayout(layout);
-        
+
         final Table table = toolkit.createTable(composite, SWT.BORDER | SWT.FULL_SELECTION);
         this.modulesTable = new TableViewer(table);
         table.setHeaderVisible(true);
-        
+
         final GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
         gd.heightHint = 180;
         gd.minimumWidth = 300;
         table.setLayoutData(gd);
-        
+
         this.modulesTable.setContentProvider(new ArrayContentProvider());
-        
+
         final TableViewerColumn enableColumn = new TableViewerColumn(this.modulesTable, SWT.LEFT);
         enableColumn.getColumn().setText(AppProjectConfExt.I18N.getString("ModulesSection.EnableColumn")); //$NON-NLS-1$
-        enableColumn.getColumn().setWidth(30);
+        enableColumn.getColumn().setWidth(60);
         enableColumn.setEditingSupport(new ModuleStateEditingSupport(this.modulesTable, this.moduleService));
         enableColumn.setLabelProvider(new ColumnLabelProvider() {
             @Override
             public String getText(final Object element) {
                 return ""; //$NON-NLS-1$
             }
-        
+
             @Override
             public Image getImage(final Object element) {
                 if (element instanceof GModule) {
@@ -205,7 +221,7 @@ public class ModulesSection {
                 return UIImages.UNCHECKED;
             }
         });
-        
+
         final TableViewerColumn scopeColumn = new TableViewerColumn(this.modulesTable, SWT.NONE);
         scopeColumn.getColumn().setWidth(120);
         scopeColumn.getColumn().setResizable(true);
@@ -219,37 +235,37 @@ public class ModulesSection {
                 return ""; //$NON-NLS-1$
             }
         });
-        
+
         final TableViewerColumn labelColumn = new TableViewerColumn(this.modulesTable, SWT.LEFT);
         labelColumn.getColumn().setText(AppProjectConfExt.I18N.getString("ModulesSection.NameColumn")); //$NON-NLS-1$
-        labelColumn.getColumn().setWidth(100);
+        labelColumn.getColumn().setWidth(150);
         labelColumn.setLabelProvider(new ColumnLabelProvider() {
             @Override
             public String getText(final Object element) {
                 return ModuleHelper.getLabel(element, ModulesSection.this.moduleService);
             }
-        
+
             @Override
             public Image getImage(final Object element) {
                 return ModuleHelper.getIcon(element);
             }
         });
-        
+
         final TableViewerColumn versionColumn = new TableViewerColumn(this.modulesTable, SWT.RIGHT);
         versionColumn.getColumn().setText(AppProjectConfExt.I18N.getString("ModulesSection.VersionColumn")); //$NON-NLS-1$
-        versionColumn.getColumn().setWidth(20);
+        versionColumn.getColumn().setWidth(60);
         versionColumn.setLabelProvider(new ColumnLabelProvider() {
             @Override
             public String getText(final Object element) {
                 return ModuleHelper.getVersion(element);
             }
-        
+
             @Override
             public Image getImage(final Object element) {
                 return null;
             }
         });
-        
+
         final TableViewerColumn statusColumn = new TableViewerColumn(this.modulesTable, SWT.LEFT);
         statusColumn.getColumn().setText(AppProjectConfExt.I18N.getString("ModulesSection.StatusColumn")); //$NON-NLS-1$
         statusColumn.getColumn().setWidth(100);
@@ -269,7 +285,7 @@ public class ModulesSection {
                 }
                 return AppProjectConfExt.I18N.getString("ModulesSection.state.Broken"); //$NON-NLS-1$
             }
-        
+
             @Override
             public String getToolTipText(final Object element) {
                 if (element instanceof GModule) {
@@ -287,16 +303,16 @@ public class ModulesSection {
                 }
                 return AppProjectConfExt.I18N.getMessage("ModulesSection.state.NoGModule", element); //$NON-NLS-1$
             }
-        
+
             @Override
             public Image getImage(final Object element) {
                 return null;
             }
         });
-        
+
         final TableViewerColumn licenseColumn = new TableViewerColumn(this.modulesTable, SWT.LEFT);
         licenseColumn.getColumn().setText(AppProjectConfExt.I18N.getString("ModulesSection.LicenseColumn")); //$NON-NLS-1$
-        licenseColumn.getColumn().setWidth(200);
+        licenseColumn.getColumn().setWidth(150);
         licenseColumn.setLabelProvider(new ColumnLabelProvider() {
             @Override
             public String getText(final Object element) {
@@ -321,16 +337,16 @@ public class ModulesSection {
                 }
                 return AppProjectConfExt.I18N.getString("$ModulesSection.License.UNDEFINED.unlimited"); //$NON-NLS-1$
             }
-        
+
             @Override
             public Image getImage(final Object element) {
                 return null;
             }
         });
-        
+
         final TableViewerColumn compatibilityColumn = new TableViewerColumn(this.modulesTable, SWT.LEFT);
         compatibilityColumn.getColumn().setText(AppProjectConfExt.I18N.getString("ModulesSection.CompatibilityColumn")); //$NON-NLS-1$
-        compatibilityColumn.getColumn().setWidth(200);
+        compatibilityColumn.getColumn().setWidth(150);
         compatibilityColumn.setLabelProvider(new ColumnLabelProvider() {
             @Override
             public String getText(final Object element) {
@@ -351,7 +367,7 @@ public class ModulesSection {
                 }
                 return "";
             }
-        
+
             @Override
             public Color getForeground(final Object element) {
                 if (element instanceof GModule) {
@@ -372,22 +388,22 @@ public class ModulesSection {
             }
         });
         this.modulesTable.setInput(null);
-        
+
         this.modulesTable.addSelectionChangedListener(new ISelectionChangedListener() {
             @Override
             public void selectionChanged(final SelectionChangedEvent event) {
                 setInput(getProjectAdapter());
             }
         });
-        
+
         ColumnViewerToolTipSupport.enableFor(this.modulesTable);
-        
+
         // The buttons composite
         final Composite btnPanel = toolkit.createComposite(composite, SWT.NONE);
         final GridData gd2 = new GridData(SWT.FILL, SWT.FILL, false, false);
         btnPanel.setLayoutData(gd2);
         btnPanel.setLayout(new GridLayout(1, false));
-        
+
         // The add button
         this.addButton = toolkit.createButton(btnPanel, "", SWT.PUSH);
         this.addButton.setText(AppProjectConfExt.I18N.getString("ModulesSection.AddModuleButtonLabel"));
@@ -400,7 +416,7 @@ public class ModulesSection {
                 addSelectedModules(promptUserModuleSeletion());
             }
         });
-        
+
         // The delete button
         this.removeButton = toolkit.createButton(btnPanel, "", SWT.PUSH); //$NON-NLS-1$
         this.removeButton.setText(AppProjectConfExt.I18N.getString("ModulesSection.RemoveModuleButtonLabel"));
@@ -411,7 +427,7 @@ public class ModulesSection {
             @Override
             public void widgetSelected(final SelectionEvent evt) {
                 AppProjectConfExt.LOG.debug("Remove a module"); //$NON-NLS-1$
-        
+
                 final ModuleRemovalConfirmationDialog confirmDlg = new ModuleRemovalConfirmationDialog(
                         ModulesSection.this.removeButton.getShell());
                 confirmDlg.setBlockOnOpen(true);
@@ -434,7 +450,7 @@ public class ModulesSection {
                 setInput(getProjectAdapter());
             }
         });
-        
+
         toolkit.paintBordersFor(composite);
         section.setClient(composite);
         return section;
@@ -442,6 +458,7 @@ public class ModulesSection {
 
     /**
      * Add a change listener to the modules table
+     *
      * @param listener the listener.
      */
     @objid ("da615b84-d28c-4781-812b-160d96770d41")
@@ -460,7 +477,7 @@ public class ModulesSection {
         if (!getProjectAdapter().isLocalProject()) {
             return;
         }
-        
+
         // Among the selected modules keep only the more recent versions.
         final Map<String, IModuleHandle> modulesToAdd = new HashMap<>();
         for (final IModuleHandle mh : selectedModules) {
@@ -469,14 +486,14 @@ public class ModulesSection {
                 modulesToAdd.put(mh.getName(), mh);
             }
         }
-        
+
         addMissingDependencies(modulesToAdd);
-        
+
         final IRunnableWithProgress runnable = new IRunnableWithProgress() {
-        
+
             @Override
             public void run(final IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-        
+
                 if (AppProjectConfExt.LOG.isDebugEnabled()) {
                     final StringBuilder sb = new StringBuilder();
                     sb.append("Add module(s):\n");//$NON-NLS-1$
@@ -491,7 +508,7 @@ public class ModulesSection {
                     }
                     AppProjectConfExt.LOG.debug(sb.toString());
                 }
-        
+
                 final IGProject openedProject = ModulesSection.this.projectService.getOpenedProject();
                 AddModuleHelper.run(openedProject, ModulesSection.this.moduleService, modulesToAdd.values(), monitor, getProjectAdapter());
             }
@@ -502,7 +519,6 @@ public class ModulesSection {
         } catch (InvocationTargetException | InterruptedException e) {
             AppProjectConfExt.LOG.error(e);
         }
-        
     }
 
     /**
@@ -512,7 +528,7 @@ public class ModulesSection {
     private void addMissingDependencies(final Map<String, IModuleHandle> modulesToAdd) {
         // Compute all missing dependencies
         final List<VersionedItem<?>> dependencies = new ArrayList<>();
-        
+
         for (final IModuleHandle module : modulesToAdd.values()) {
             for (final VersionedItem<?> dep : module.getDependencies()) {
                 if (!modulesToAdd.containsKey(dep.getName())) {
@@ -520,7 +536,7 @@ public class ModulesSection {
                 }
             }
         }
-        
+
         if (!dependencies.isEmpty()) {
             final IModuleRTCache cache = this.projectModel.getOpenedProject().getProjectEnvironment().getModulesCache();
             try {
@@ -534,7 +550,7 @@ public class ModulesSection {
                         return;
                     }
                 }
-        
+
                 // Make sure the module list is complete
                 addMissingDependencies(modulesToAdd);
             } catch (final IOException e) {
@@ -542,7 +558,6 @@ public class ModulesSection {
                 AppProjectConfExt.LOG.warning(e);
             }
         }
-        
     }
 
     @objid ("387905c9-f7e6-4156-9f31-6ea58770247b")
@@ -560,7 +575,7 @@ public class ModulesSection {
             List<IModuleHandle> sortedModules;
             try {
                 sortedModules = HTopoSorter.sortHandles(modules);
-            
+
                 if (AppProjectConfExt.LOG.isDebugEnabled()) {
                     final StringBuilder sb = new StringBuilder();
                     sb.append("AddModuleHelper: Installing module(s):\n");//$NON-NLS-1$
@@ -575,7 +590,7 @@ public class ModulesSection {
                     }
                     AppProjectConfExt.LOG.debug(sb.toString());
                 }
-            
+
             } catch (final CyclicDependencyException e) {
                 // Error dialog
                 AppProjectConfExt.LOG.debug(e);
@@ -584,7 +599,7 @@ public class ModulesSection {
                         e.getLocalizedMessage());
                 return;
             }
-            
+
             final int sum = sortedModules.size();
             monitor.beginTask(AppProjectConfExt.I18N.getString("ModulesSection.AddModulesProgressTitle"), sum);
             final List<String> invalidIds = AddModuleHelper.getExistFragmentIdList(projectAdapter);
@@ -596,11 +611,11 @@ public class ModulesSection {
                             AppProjectConfExt.I18N.getMessage("ModulesSection.ModuleInstallationErrorMessage.NameExistAlready", module.getName()));
                     return;
                 }
-            
+
                 monitor.subTask(AppProjectConfExt.I18N.getMessage("ModulesSection.AddModulesProgressSubTask",
                         String.valueOf(i + 1), String.valueOf(sum), module.getName()));
                 monitor.worked(1);
-            
+
                 try (ITransaction t = project.getSession().getTransactionSupport().createTransaction("install a module")) { //$NON-NLS-1$
                     moduleService.installModule(null, project, module, module.getArchive() != null ? module.getArchive().toUri() : null);
                     t.commit();
@@ -613,11 +628,11 @@ public class ModulesSection {
                 }
             }
             monitor.done();
-            
         }
 
         /**
          * get existing model fragment identifiers, excepted MDA ones.
+         *
          * @param projectAdapter a project
          * @return existing model fragments identifiers
          */

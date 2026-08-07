@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.browser.view.handlers.history;
 
@@ -45,7 +45,7 @@ public class SelectionHistory implements IModelChangeListener {
     protected ListIterator<MObject> currentSelection;
 
     @objid ("2c2deb53-33a4-4499-be21-7138be0b9d96")
-    public  SelectionHistory() {
+    public SelectionHistory() {
         super();
     }
 
@@ -59,41 +59,41 @@ public class SelectionHistory implements IModelChangeListener {
         if (selectedElements.size() != 1) {
             return;
         }
-        
+
         MObject element = selectedElements.get(0);
-        
+
         // Compute index for the current element
         int nextIndex = this.currentSelection != null ? this.currentSelection.nextIndex() : -1;
         if (this.isForward) {
             nextIndex--;
         }
-        
+
         // Ignore update if the selected element is already the current one
         if (nextIndex >= 0 && nextIndex < this.navigationHistory.size() && element.equals(this.navigationHistory.get(nextIndex))) {
             return;
         }
-        
+
         // Remove elements that are after the current selection in the history:
         if (this.currentSelection != null) {
             int pos = nextIndex;
             removeAfter(pos);
         }
-        
+
         // Add the selected element to the history:
-        
+
         // We add it only if it is not already the last element of the history.
         if (this.navigationHistory.size() == 0 ||
                 this.navigationHistory.size() > 0 &&
                         !this.navigationHistory.peekLast().equals(element)) {
             addElement(element);
         }
-        
+
         // Set the iterator to the added element.
         int index = this.navigationHistory.lastIndexOf(element);
         this.currentSelection = this.navigationHistory.listIterator(index);
-        
+
         this.isForward = false;
-        
+
     }
 
     @objid ("f9e74de4-48d4-498f-a16d-9d36eebdc4a0")
@@ -102,7 +102,7 @@ public class SelectionHistory implements IModelChangeListener {
             this.navigationHistory.removeFirst();
         }
         this.navigationHistory.offerLast(element);
-        
+
     }
 
     @objid ("28b1d647-012d-41ac-b470-62d790856c62")
@@ -111,11 +111,11 @@ public class SelectionHistory implements IModelChangeListener {
             this.currentSelection.previous();
             this.isForward = false;
         }
-        
+
         if (this.currentSelection.hasPrevious()) {
             fireSelection(selectionService, this.currentSelection.previous());
         }
-        
+
     }
 
     @objid ("8d5e7f26-6667-4757-aff5-2d7cb69b621c")
@@ -124,11 +124,11 @@ public class SelectionHistory implements IModelChangeListener {
             this.currentSelection.next();
             this.isForward = true;
         }
-        
+
         if (this.currentSelection.hasNext()) {
             fireSelection(selectionService, this.currentSelection.next());
         }
-        
+
     }
 
     @objid ("7a814a2c-8cec-4027-af80-910ad7947e64")
@@ -136,14 +136,14 @@ public class SelectionHistory implements IModelChangeListener {
         while (this.navigationHistory.size() > index + 1) {
             this.navigationHistory.removeLast();
         }
-        
+
     }
 
     @objid ("d8608ba7-be01-4a7d-a88b-87c8544066a9")
     @Override
     public void modelChanged(IModelChangeEvent event) {
         final List<IElementDeletedEvent> deletedEvents = event.getDeleteEvents();
-        
+
         // Re enter the UI thread
         Display display = Display.getDefault();
         if (display != null) {
@@ -155,7 +155,7 @@ public class SelectionHistory implements IModelChangeListener {
                             MObject element = deletedEvent.getDeletedElement();
                             SelectionHistory.this.navigationHistory.remove(element);
                         }
-        
+
                         // Set the iterator to the last element.
                         int index = SelectionHistory.this.navigationHistory.size();
                         SelectionHistory.this.currentSelection = SelectionHistory.this.navigationHistory.listIterator(index);
@@ -164,7 +164,7 @@ public class SelectionHistory implements IModelChangeListener {
                 }
             });
         }
-        
+
     }
 
     @objid ("15284e35-43fa-4fa1-9a5b-0434e2d2a627")
@@ -172,7 +172,7 @@ public class SelectionHistory implements IModelChangeListener {
         this.navigationHistory.clear();
         this.currentSelection = null;
         this.isForward = false;
-        
+
     }
 
     @objid ("20ba36fb-3545-4cfa-a013-b34b7f6b9d19")
@@ -180,7 +180,7 @@ public class SelectionHistory implements IModelChangeListener {
         if (this.currentSelection == null) {
             return false;
         }
-        
+
         int nextIndex = this.currentSelection.nextIndex();
         if (this.isForward) {
             nextIndex--;

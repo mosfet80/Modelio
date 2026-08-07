@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.objectdiagram.editor.elements.objectdiagram;
 
@@ -66,15 +66,16 @@ public class GmObjectDiagram extends GmAbstractDiagram {
 
     /**
      * Initialize the diagram.
+     *
      * @param manager The model manager
      * @param theObjectDiagram the displayed diagram.
      * @param diagramRef the reference of the displayed diagram. Must reference a {@link StaticDiagram}.
      */
     @objid ("9d61ba20-55b6-11e2-877f-002564c97630")
-    public  GmObjectDiagram(IModelManager manager, StaticDiagram theObjectDiagram, MRef diagramRef) {
+    public GmObjectDiagram(IModelManager manager, StaticDiagram theObjectDiagram, MRef diagramRef) {
         super(manager, diagramRef);
         this.element = theObjectDiagram;
-        
+
     }
 
     @objid ("9d61ba2f-55b6-11e2-877f-002564c97630")
@@ -94,7 +95,7 @@ public class GmObjectDiagram extends GmAbstractDiagram {
         } else {
             return true;
         }
-        
+
     }
 
     @objid ("9d61ba3f-55b6-11e2-877f-002564c97630")
@@ -146,7 +147,7 @@ public class GmObjectDiagram extends GmAbstractDiagram {
             break;
         }
         }
-        
+
     }
 
     @objid ("9d6340c1-55b6-11e2-877f-002564c97630")
@@ -171,26 +172,26 @@ public class GmObjectDiagram extends GmAbstractDiagram {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmObjectDiagram.", GmObjectDiagram.MINOR_VERSION);
-        
+
     }
 
     @objid ("9d6340d8-55b6-11e2-877f-002564c97630")
     private void read_1(IDiagramReader in) {
         super.read(in);
         this.element = (StaticDiagram) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("004c68fe-296d-4020-a05b-d8220dd16dcc")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (StaticDiagram) resolveRef(getRepresentedRef());
-        
+
         OrthoLinkDiagramMigrationHelper.migrate(this);
-        
+
     }
 
     @objid ("9d6340dd-55b6-11e2-877f-002564c97630")

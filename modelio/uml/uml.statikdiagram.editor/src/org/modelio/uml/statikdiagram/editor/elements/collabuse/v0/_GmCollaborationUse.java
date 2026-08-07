@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.collabuse.v0;
 
@@ -80,25 +80,26 @@ public final class _GmCollaborationUse extends GmCompositeNode implements IImage
 
     /**
      * Default constructor.
+     *
      * @param diagram the diagram in which this gm is unmasked.
      * @param theCollabCase the represented object node, may be null.
      * @param ref a reference to the represented object node.
      */
     @objid ("34860c8a-55b7-11e2-877f-002564c97630")
-    public  _GmCollaborationUse(IGmDiagram diagram, final CollaborationUse theCollabCase, MRef ref) {
+    public _GmCollaborationUse(IGmDiagram diagram, final CollaborationUse theCollabCase, MRef ref) {
         super(diagram, ref);
         this.collabUse = theCollabCase;
         this.header = new GmCollaborationUseHeader(diagram, ref);
-        
+
         super.addChild(this.header);
-        
+
     }
 
     /**
      * Empty constructor, needed for serialization.
      */
     @objid ("34860c97-55b7-11e2-877f-002564c97630")
-    public  _GmCollaborationUse() {
+    public _GmCollaborationUse() {
         // empty constructor for the serialization
     }
 
@@ -122,6 +123,7 @@ public final class _GmCollaborationUse extends GmCompositeNode implements IImage
 
     /**
      * Get the stereotype image to display.
+     *
      * @return the stereotype image to display. Must not be <i>null</i>.
      */
     @objid ("34860cb4-55b7-11e2-877f-002564c97630")
@@ -154,11 +156,11 @@ public final class _GmCollaborationUse extends GmCompositeNode implements IImage
         StyleKey ret = STRUCTKEYS.getStyleKey(metakey);
         if (ret != null)
             return ret;
-        
+
         ret = SIMPLEKEYS.getStyleKey(metakey);
         if (ret != null)
             return ret;
-        
+
         ret = IMAGEKEYS.getStyleKey(metakey);
         return ret;
     }
@@ -177,7 +179,7 @@ public final class _GmCollaborationUse extends GmCompositeNode implements IImage
             default:
                 return Collections.emptyList();
         }
-        
+
     }
 
     @objid ("34879345-55b7-11e2-877f-002564c97630")
@@ -197,38 +199,38 @@ public final class _GmCollaborationUse extends GmCompositeNode implements IImage
                 break;
             }
         }
-        
+
     }
 
     @objid ("3487934b-55b7-11e2-877f-002564c97630")
     @Override
     public void refreshFromObModel() {
         super.refreshFromObModel();
-        // forcing visual refresh in case Image changed 
+        // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("3487934e-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmCollaborationUse.", _GmCollaborationUse.MINOR_VERSION);
-        
+
     }
 
     @objid ("34879354-55b7-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
-                
+
         this.collabUse = (CollaborationUse) resolveRef(getRepresentedRef());
-                
+
         final List<GmNodeModel> children = getChildren();
-                
+
         this.header = (GmModelElementHeader) children.get(0);
-        
+
     }
 
     @objid ("348919bc-55b7-11e2-877f-002564c97630")

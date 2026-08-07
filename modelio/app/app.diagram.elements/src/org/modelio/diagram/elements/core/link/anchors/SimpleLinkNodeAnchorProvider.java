@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.anchors;
 
@@ -37,6 +37,7 @@ import org.modelio.diagram.styles.core.StyleKey.ConnectionRouterId;
  * Basic node anchor provider for connection edit parts
  * <p>
  * It only creates anchors at the middle of the connection.
+ *
  * @author cma
  * @since 5.1.0
  */
@@ -102,6 +103,7 @@ public class SimpleLinkNodeAnchorProvider implements INodeAnchorProvider {
     /**
      * Convenience method for casting this GraphicalEditPart's Figure to a
      * {@link Connection}
+     *
      * @return the Figure as a Connection
      */
     @objid ("0ce41440-3323-49c1-872b-4a4aeee66e1c")

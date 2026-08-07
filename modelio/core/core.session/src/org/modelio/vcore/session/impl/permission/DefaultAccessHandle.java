@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.impl.permission;
 
@@ -48,7 +48,7 @@ public class DefaultAccessHandle implements IAccessHandle {
         // Build an error message like "Package a::b::c is not modifiable."
         StringBuilder message = new StringBuilder(200);
         message.append(smObject.getName());
-        
+
         SmObjectImpl owner = smObject.getCompositionOwner();
         while (owner != null) {
             message.insert(0, "/");
@@ -56,12 +56,15 @@ public class DefaultAccessHandle implements IAccessHandle {
             owner = owner.getCompositionOwner();
         }
         message.insert(0, "'/");
-        
+
         message.append("' ");
         message.append(smObject.getMClass().getName());
         message.append(" is not modifiable:");
-        
-        MStatus status = smObject.getStatus();
+
+        MStatus status = smObject.getStatusLazy();
+        if (!status.isStatusFullyLoaded()) {
+            message.append(" its status is not yet completely loaded,");
+        }
         if (status.isCmsReadOnly()) {
             message.append(" it is locked by the CMS,");
         }
@@ -90,17 +93,12 @@ public class DefaultAccessHandle implements IAccessHandle {
 
     @objid ("dc142726-8fb5-11e1-81e9-001ec947ccaf")
     private static boolean isModifiable(final SmObjectImpl obj) {
-        if (isObjModifiable(obj)) {
+        obj.getRepositoryObject().loadStatus(obj);
+        if (obj.hasStatus(IRStatus.RMASK_MODIFIABLE_REQUIRED , IPStatus.PMASK_MODIFIABLE_REQUIRED, IRStatus.RMASK_MODIFIABLE_FORBIDDEN,0L)) {
             return true;
         } else {
             return obj.getClassOf().hasDirectiveInGraph(SmDirective.NOREADONLY);
         }
-        
-    }
-
-    @objid ("000caf9e-702c-1f21-85a5-001ec947cd2a")
-    private static boolean isObjModifiable(final SmObjectImpl obj) {
-        return obj.hasStatus(IRStatus.RMASK_MODIFIABLE_REQUIRED , IPStatus.PMASK_MODIFIABLE_REQUIRED, IRStatus.RMASK_MODIFIABLE_FORBIDDEN,0L);
     }
 
     @objid ("000d2b36-702c-1f21-85a5-001ec947cd2a")
@@ -109,14 +107,13 @@ public class DefaultAccessHandle implements IAccessHandle {
         if (!isModifiable(obj)) {
             throw createReadOnlyObjectException(obj);
         }
-        
     }
 
     @objid ("000c7bbe-702c-1f21-85a5-001ec947cd2a")
     @Override
     public void checkAccessFor(final SmObjectImpl obj, final SmAttribute att, final SmObjectImpl val) throws AccessDeniedException {
         final boolean modifiable = isModifiable(obj);
-        
+
         if (!modifiable) {
             if (!obj.getClassOf().hasDirectiveInGraph(SmDirective.NOREADONLY)) {
                 if (att == obj.getClassOf().statusAtt() || att.hasDirective(SmDirective.NOREADONLY)) {
@@ -126,19 +123,17 @@ public class DefaultAccessHandle implements IAccessHandle {
                 }
             }
         }
-        
     }
 
     @objid ("e01c01ae-9a12-4558-8b8c-3a18e35042c7")
     @Override
     public void checkAccessFor(final SmObjectImpl obj, final SmDependency dep, final SmObjectImpl val) throws AccessDeniedException {
         checkAccess(obj, dep, val);
-        
+
         SmDependency symetric = dep.getSymetric();
         if (symetric != null && val != null) {
             checkAccess(val, symetric, obj);
         }
-        
     }
 
     @objid ("24f41c7b-382d-4b30-bad3-2f0beabe297f")
@@ -146,38 +141,40 @@ public class DefaultAccessHandle implements IAccessHandle {
         // First quick check that may avoid loading the object
         if (! dep.doModifyObject()) {
             return;
-        }                
-        
+        }
+
         // Note : this may trigger object (and its CMS node) loading
         final boolean modifiable = isModifiable(obj);
-        
+
         if (!modifiable) {
             if (!obj.getClassOf().hasDirectiveInGraph(SmDirective.NOREADONLY)) {
-                
+
                 if (dep.hasDirective(SmDirective.NOREADONLY)) {
                     return;
-                } 
-                
+                }
+
                 // Allow add a non managed CMS node to a locked CMS node
                 if ((dep.isComposition() || dep.isSharedComposition()) &&
                         val != null &&
                         val.getMClass().isCmsNode() &&
-                        !val.getStatus().isCmsManaged() &&
-                        obj.hasStatus(IRStatus.RMASK_MODIFIABLE_REQUIRED, IPStatus.PMASK_MODIFIABLE_REQUIRED, MASK_FORBIDDEN_ADD_TO_CMS, 0)) {
-                    return ;
-                } 
-                
+                        !val.getStatus().isCmsManaged()) {
+
+                    obj.getRepositoryObject().loadStatus(obj);
+                    if (obj.hasStatus(IRStatus.RMASK_MODIFIABLE_REQUIRED, IPStatus.PMASK_MODIFIABLE_REQUIRED, MASK_FORBIDDEN_ADD_TO_CMS, 0)) {
+                        return ;
+                    }
+                }
+
                 // Allow deleting shell objects
                 if (obj.isShell()) {
                     if (dep.isCompositionOpposite()) {
                         return;
                     }
                 }
-                
+
                 throw createReadOnlyObjectException(obj);
             }
         }
-        
     }
 
 }

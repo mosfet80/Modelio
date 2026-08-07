@@ -1,29 +1,29 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.project.services;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.apache.commons.compress.archivers.ArchiveEntry;
@@ -39,38 +39,40 @@ import org.modelio.vbasic.progress.IModelioProgress;
 
 /**
  * Service that imports a project archive into the workspace.
+ *
  * @author cma
  * @since 3.7
  */
 @objid ("c477837f-1e54-4165-b7bb-79cbca44a828")
 public class ProjectImporter {
-    @objid ("1935afc7-6407-44ee-909f-5120f831e2d7")
+    @objid ("67efa09d-e174-45cd-b980-bba055833ed0")
     private final Shell parentShell;
 
     @objid ("6e74ce03-107f-45b4-8fc8-bab299e1b820")
     private final IProjectService projSvc;
 
     @objid ("0f418b95-3ebf-4100-8783-0961d619c8f4")
-    public  ProjectImporter(IProjectService projSvc, Shell parentShell) {
+    public ProjectImporter(IProjectService projSvc, Shell parentShell) {
         this.projSvc = Objects.requireNonNull(projSvc);
         this.parentShell = Objects.requireNonNull(parentShell);
-        
+
     }
 
     /**
-     * Import the archive.
-     * @param the name of the created project. <code>null</code> when an error occurs.
+     * Import a Modelio project archive.
+     *
      * @param archiveFile the archive file.
      * @param progress a progress monitor.
+     * @return the name of the created project. <code>null</code> when an error occurs.
      */
     @objid ("f58550c6-86a3-44b8-8a86-8a96f6f8591a")
     public String importProject(Path archiveFile, IProgressMonitor progress) {
         final Unzipper unzipper = new Unzipper();
         final IModelioProgress monitor = ModelioProgressAdapter.convert(progress, 10);
         final Display display = this.parentShell.getDisplay();
-        
+
         monitor.beginTask(AppProjectCore.I18N.getMessage("ImportingProject", "..."), 10);
-        
+
         ArchiveEntry[] projectConf;
         try {
             projectConf = unzipper.findEntry(archiveFile.toFile(), "^[^/]+/project\\.conf$");
@@ -79,7 +81,7 @@ public class ProjectImporter {
             return null;
         }
         monitor.worked(1);
-        
+
         if (projectConf.length == 1) {
             // Checks for an already existing project
             final String projectName = projectConf[0].getName().substring(0, projectConf[0].getName().indexOf("/"));
@@ -96,18 +98,18 @@ public class ProjectImporter {
             String progressMessage = AppProjectCore.I18N.getMessage("ImportingProject", projectName);
             monitor.subTask(progressMessage);
             monitor.worked(1);
-        
+
             unzipper.setProgressLabelPrefix(progressMessage);
             try {
                 unzipper.unzip(archiveFile, this.projSvc.getWorkspace(), monitor);
-        
+
                 AppProjectCore.LOG.info("Imported archive '%s' %d bytes.", archiveFile, getFileSize(archiveFile));
-        
+
                 this.projSvc.refreshWorkspace(projectName);
             } catch (final IOException e) {
                 reportIOException(projectName, e);
             }
-        
+
             return projectName;
         } else {
             display.syncExec(()
@@ -117,50 +119,53 @@ public class ProjectImporter {
                     );
             return null;
         }
-        
+
     }
 
     /**
+     *
      * @param sourcePath source folder to copy
      * @param progress is the progress bar used when doing the copy
-     * @return path destination once the copy is done
+     * @return path destination once the copy is done. Empty optional if the import fails. In this case the error has already been reported to the user.
      */
     @objid ("ed951266-9861-4c2a-9635-716c4b1bf355")
-    public String importProjectFolder(Path sourcePath, IProgressMonitor progress) {
+    public Optional<String> importProjectFolder(Path sourcePath, IProgressMonitor progress) {
+        if (sourcePath == null)
+            return Optional.empty();
+
         final IModelioProgress monitor = ModelioProgressAdapter.convert(progress, 10);
         final Display display = this.parentShell.getDisplay();
         monitor.beginTask(AppProjectCore.I18N.getMessage("ImportingProject", "..."), 10);
         monitor.worked(1);
-        if (sourcePath != null) {
-            final String projectName = sourcePath.getFileName().toString();
-            // Checks for an already existing project
-            if (this.projSvc.getWorkspace().resolve(projectName).toFile().exists()) {
-                if (! CompletableFuture.supplyAsync(
-                        () -> MessageDialog.openQuestion(this.parentShell,
-                                AppProjectCore.I18N.getString("CannotImportExistingProjectTitle"),
-                                AppProjectCore.I18N.getMessage("CannotImportExistingProjectMsg", projectName))
-                        , display::syncExec).join() ) {
-                    // Fast exit
-                    return null;
-                }
+
+        final String projectName = sourcePath.getFileName().toString();
+
+        // Checks for an already existing project
+        if (this.projSvc.getWorkspace().resolve(projectName).toFile().exists()) {
+            if (! CompletableFuture.supplyAsync(
+                    () -> MessageDialog.openQuestion(this.parentShell,
+                            AppProjectCore.I18N.getString("CannotImportExistingProjectTitle"),
+                            AppProjectCore.I18N.getMessage("CannotImportExistingProjectMsg", projectName))
+                    , display::syncExec).join() ) {
+                // Fast exit
+                return Optional.empty();
             }
-            String pathDestination = null;
-            String progressMessage = AppProjectCore.I18N.getMessage("ImportingProject", projectName);
-            monitor.subTask(progressMessage);
-            monitor.worked(1);
-            FileUtils.setProgressPrefix(progressMessage);
-            try {
-                String regex = "\\"+projectName;
-                pathDestination = this.projSvc.getWorkspace().toString().concat(regex);
-                Path pathDest = Paths.get(pathDestination);
-                FileUtils.copyDirectoryTo(sourcePath, pathDest,monitor);
-                this.projSvc.refreshWorkspace(projectName);
-            } catch (final IOException e) {
-                reportIOException(projectName, e);
-            }
-            return pathDestination;
         }
-        return null;
+
+        String progressMessage = AppProjectCore.I18N.getMessage("ImportingProject", projectName);
+        monitor.subTask(progressMessage);
+        monitor.worked(1);
+        FileUtils.setProgressPrefix(progressMessage);
+        try {
+            Path pathDest = this.projSvc.getWorkspace().resolve(projectName);
+            FileUtils.copyDirectoryTo(sourcePath, pathDest, monitor);
+            this.projSvc.refreshWorkspace(projectName);
+            return Optional.of(pathDest.toString());
+        } catch (final IOException e) {
+            reportIOException(projectName, e);
+            return Optional.empty();
+        }
+
     }
 
     @objid ("aa138a29-c435-4f86-8922-7a2c1ae24321")
@@ -168,10 +173,11 @@ public class ProjectImporter {
         try {
             return Files.size(archiveFile);
         } catch (IOException e) {
+            AppProjectCore.LOG.debug("Failed getting '%s' file size : %s", archiveFile, FileUtils.getLocalizedMessage(e));
             AppProjectCore.LOG.debug(e);
             return -1;
         }
-        
+
     }
 
     @objid ("0855ec03-eb0e-4d75-b86c-df54ee1525d3")
@@ -181,7 +187,7 @@ public class ProjectImporter {
                 -> MessageDialog.openError(this.parentShell,
                         AppProjectCore.I18N.getMessage("ImportingProject", projectName),
                         FileUtils.getLocalizedMessage(e)));
-        
+
     }
 
 }

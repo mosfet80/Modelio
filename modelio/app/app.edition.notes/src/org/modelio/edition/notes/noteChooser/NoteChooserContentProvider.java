@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.edition.notes.noteChooser;
 
@@ -72,7 +72,7 @@ public class NoteChooserContentProvider implements ITreeContentProvider {
         if (parent instanceof NoteChooserModel) {
             NoteChooserModel model = (NoteChooserModel) parent;
             this.element = model.getElement();
-        
+
             List<NoteType> noteTypes = this.modelService.findNoteTypes(".*", ".*", ".*", this.element.getMClass());
             for (NoteType noteType : noteTypes) {
                 if (!noteType.isIsHidden() && noteType.getOwnerReference() != null) {
@@ -105,7 +105,7 @@ public class NoteChooserContentProvider implements ITreeContentProvider {
                         }
                     }
                 }
-        
+
                 for (Stereotype stereotype : profile.getDefinedStereotype()) {
                     if (this.element.getExtension().contains(stereotype)) {
                         while (stereotype != null) {
@@ -153,7 +153,7 @@ public class NoteChooserContentProvider implements ITreeContentProvider {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("26e1243c-186f-11e2-bc4e-002564c97630")
@@ -178,7 +178,7 @@ public class NoteChooserContentProvider implements ITreeContentProvider {
                         }
                     }
                 }
-        
+
                 for (Stereotype stereotype : profile.getDefinedStereotype()) {
                     if (this.element.getExtension().contains(stereotype)) {
                         while (stereotype != null) {
@@ -208,10 +208,11 @@ public class NoteChooserContentProvider implements ITreeContentProvider {
 
     /**
      * Constructor initializing the model service.
+     *
      * @param modelService the model service needed to find elements.
      */
     @objid ("42b4c367-1917-11e2-bc4e-002564c97630")
-    public  NoteChooserContentProvider(IMModelServices modelService) {
+    public NoteChooserContentProvider(IMModelServices modelService) {
         this.modelService = modelService;
     }
 

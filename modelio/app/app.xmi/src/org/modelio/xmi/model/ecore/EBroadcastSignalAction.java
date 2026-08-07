@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -38,10 +38,10 @@ public class EBroadcastSignalAction extends EActivityNode {
     }
 
     @objid ("85e78ffa-c7a3-47d3-8922-bae09f47bd3d")
-    public  EBroadcastSignalAction(org.eclipse.uml2.uml.BroadcastSignalAction element) {
+    public EBroadcastSignalAction(org.eclipse.uml2.uml.BroadcastSignalAction element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("39d455db-93ae-4543-8ac5-1c3eec6b6dcf")
@@ -49,19 +49,19 @@ public class EBroadcastSignalAction extends EActivityNode {
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setSignal((SendSignalAction) objingElt);
-        
+
     }
 
     @objid ("03abb2bd-286b-44de-a7d7-747a0b4afe00")
     private void setSignal(SendSignalAction action) {
         org.eclipse.uml2.uml.Signal ecoreSignal = this.ecoreElement.getSignal();
-        
+
         if (ecoreSignal != null) {
             Object objingSignal =  ReverseProperties.getInstance().getMappedElement(ecoreSignal);
             if (objingSignal instanceof Signal)
                 action.setSent((Signal) objingSignal);
         }
-        
+
     }
 
 }

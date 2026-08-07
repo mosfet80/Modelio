@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Diagram Editor
 Bundle-SymbolicName: org.modelio.app.diagram.editor;singleton:=true
-Bundle-Version: 5.4.1.qualifier 
+Bundle-Version: 6.2.0.qualifier
 Require-Bundle: org.eclipse.core.expressions,
  org.eclipse.core.runtime,
  org.eclipse.e4.core.contexts,
@@ -34,8 +34,21 @@ Require-Bundle: org.eclipse.core.expressions,
  org.modelio.platform.module.browser.commands,
  org.modelio.platform.ui,
  org.modelio.platform.utils,
- org.modelio.platform.preferences
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+ org.modelio.platform.preferences,
+ bcpg;bundle-version="1.77.0",
+ org.eclipse.elk.graph;bundle-version="0.9.1",
+ org.eclipse.elk.core;bundle-version="0.9.1",
+ org.eclipse.elk.alg.layered;bundle-version="0.9.1",
+ org.eclipse.elk.alg.force;bundle-version="0.9.1",
+ org.eclipse.elk.alg.mrtree;bundle-version="0.9.1",
+ org.eclipse.elk.alg.common;bundle-version="0.9.1",
+ org.eclipse.elk.alg.disco;bundle-version="0.9.1",
+ org.eclipse.elk.alg.radial;bundle-version="0.9.1",
+ org.eclipse.elk.alg.rectpacking;bundle-version="0.9.1",
+ org.eclipse.elk.alg.spore;bundle-version="0.9.1",
+ org.eclipse.elk.alg.topdownpacking;bundle-version="0.9.1",
+ org.modelio.archimate.metamodel.api;bundle-version="6.0.1"
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-ClassPath: res/,
  .
 Bundle-Activator: org.modelio.diagram.editor.plugin.DiagramEditor
@@ -47,6 +60,7 @@ Export-Package: org.modelio.diagram.editor,
  org.modelio.diagram.editor.context,
  org.modelio.diagram.editor.corexp,
  org.modelio.diagram.editor.handlers,
+ org.modelio.diagram.editor.handlers.layout,
  org.modelio.diagram.editor.handlers.link,
  org.modelio.diagram.editor.handlers.print,
  org.modelio.diagram.editor.handlers.unmask,
@@ -54,6 +68,8 @@ Export-Package: org.modelio.diagram.editor,
  org.modelio.diagram.editor.plugin,
  org.modelio.diagram.editor.processor,
  org.modelio.diagram.editor.silent,
- org.modelio.diagram.editor.tools
-Import-Package: javax.annotation;version="1.1.0",
- javax.inject;version="1.0.0"
+ org.modelio.diagram.editor.tools,
+ org.modelio.diagram.editor.layout
+Import-Package: jakarta.annotation;version="1.1.0",
+ jakarta.inject;version="1.0.0",
+ org.modelio.archimate.metamodel.core

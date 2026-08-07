@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.project.services;
 
@@ -37,12 +37,13 @@ import org.modelio.vbasic.auth.IAuthData;
  * <ul>
  * <li>workspace management</li>
  * <li>project management</li>
- * 
+ *
  * IProjectService has a singleton instance available for injection.
  */
 @objid ("0056d718-9dc5-103b-a520-001ec947cd2a")
 public interface IProjectService extends ICurrentProjectService, IWorkspaceService, IProjectCreator, IProjectCloser, IFragmentMigratorFactory {
     /**
+     *
      * @param nodeId a preference node identifier.
      * @return the project preference store for the node.
      */
@@ -54,6 +55,7 @@ public interface IProjectService extends ICurrentProjectService, IWorkspaceServi
      * Opens a project in the application.
      * <p>
      * On successful return the given project receives an active CoreSession instance.
+     *
      * @param project The project to open. The project must not be already opened.
      * @param authData project authentication data.
      * @param monitor a progress monitor.
@@ -68,6 +70,7 @@ public interface IProjectService extends ICurrentProjectService, IWorkspaceServi
 
     /**
      * Opens the project designated by 'projectURI' in the current workspace.
+     *
      * @param projectURI the project URI. eg for a local project: <i>file://myworkspace/myprojectspace/project.conf</i>
      * @param authData authentication data, may be <code>null</code> if not needed.
      * @param monitor a progress monitor.
@@ -80,6 +83,7 @@ public interface IProjectService extends ICurrentProjectService, IWorkspaceServi
 
     /**
      * Opens the project designated by 'projectName' in the current workspace. This is a convenience method that build a "file://workspace/projectName/project.conf" URI to open the project.
+     *
      * @param projectName the project name of the project to open.
      * @param authData authentication data, may be <code>null</code> if not needed.
      * @param monitor a progress monitor.
@@ -92,6 +96,7 @@ public interface IProjectService extends ICurrentProjectService, IWorkspaceServi
 
     /**
      * Saves the contents of the project currently opened in the application.
+     *
      * @param monitor a progress monitor. If <code>null</code>, no progress will be reported.
      * @throws IOException If the project saving failed at the IO level.
      * @throws IllegalStateException If no project is currently opened.
@@ -100,10 +105,11 @@ public interface IProjectService extends ICurrentProjectService, IWorkspaceServi
     void saveProject(IProgressMonitor monitor) throws IOException, IllegalStateException;
 
     /**
+     *
      * @return <code>true</code> if Modelio runs in batch mode.
      * @since 5.2
      */
     @objid ("c852e319-b81f-423f-a084-147aeca3e74d")
     boolean isBatchMode();
-}
 
+}

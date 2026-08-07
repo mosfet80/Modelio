@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.mtools;
 
@@ -53,7 +53,7 @@ public class ModelTool implements IModelTool {
     public MObject copyElement(MObject toCopy, MObject target) {
         List<MObject> elementsToCopy = new ArrayList<>();
         elementsToCopy.add(toCopy);
-        
+
         List<? extends MObject> copiedElements = copyElements(elementsToCopy, target);
         if (copiedElements.size() > 0) {
             return copiedElements.get(0);
@@ -66,21 +66,21 @@ public class ModelTool implements IModelTool {
     public List<MObject> copyElements(List<? extends MObject> toCopy, MObject target) {
         CoreSession localSession = CoreSession.getSession(target);
         CoreSession refSession = null;
-        
+
         List<SmObjectImpl> smObjectsToCopy = new ArrayList<>();
         for (MObject mObject : toCopy) {
             smObjectsToCopy.add((SmObjectImpl) mObject);
-        
+
             if (refSession == null) {
                 refSession = CoreSession.getSession(mObject);
             }
         }
-        
+
         List<MObject> ret = new ArrayList<>();
-        
+
         CopyMachine machine = new CopyMachine();
         final IImportReport report = machine.execute(localSession, (SmObjectImpl) target, refSession, smObjectsToCopy);
-        
+
         // Fill the returned list in the appropriate order
         for (MObject ref : toCopy) {
             ret.add(report.getCreatedObject((SmObjectImpl) ref));
@@ -91,9 +91,9 @@ public class ModelTool implements IModelTool {
     @objid ("01f41c74-0000-00ef-0000-000000000000")
     private void moveTo(SmObjectImpl smObject, CompositionInitializer parentInitiliazer, SmObjectImpl oldParentHint) {
         SmDepVal compositionDepVal = smObject.getCompositionRelation();
-        
+
         boolean ok;
-        
+
         if (compositionDepVal.value != null) {
             if (compositionDepVal.dep.isMultiple()) {
                 ok = smObject.eraseDepVal(compositionDepVal.dep, oldParentHint);
@@ -103,25 +103,25 @@ public class ModelTool implements IModelTool {
         } else {
             ok = true;
         }
-        
+
         if (ok) {
-        
+
             if (!parentInitiliazer.execute (smObject, compositionDepVal.dep)) {
                 throw new RuntimeException("Cannot move object" + smObject.getName());
             }
         }
-        
+
     }
 
     @objid ("01f41c74-0000-00fe-0000-000000000000")
     @Override
     public void moveElements(List<? extends MObject> toMove, MObject newParent, MObject oldParentHint) {
         CompositionInitializer parentInitiliazer = new CompositionInitializer((SmObjectImpl) newParent);
-        
+
         for (MObject elementToMove : toMove) {
             moveTo((SmObjectImpl) elementToMove, parentInitiliazer, (SmObjectImpl) oldParentHint);
         }
-        
+
     }
 
     @objid ("a03dba89-24d0-11e2-ba1c-002564c97630")
@@ -129,7 +129,7 @@ public class ModelTool implements IModelTool {
     public void moveElement(MObject toMove, MObject newParent, MObject oldParentHint) {
         CompositionInitializer parentInitiliazer = new CompositionInitializer((SmObjectImpl) newParent);
         moveTo((SmObjectImpl) toMove, parentInitiliazer, (SmObjectImpl) oldParentHint);
-        
+
     }
 
     @objid ("514cfe7f-28b1-4637-bfd1-3cf154c66a04")
@@ -137,45 +137,45 @@ public class ModelTool implements IModelTool {
     public List<List<? extends MObject>> copyElements(List<List<? extends MObject>> toCopy, List<MObject> target) {
         CoreSession localSession = null;
         CoreSession refSession = null;
-        
+
         for (MObject mObject : target) {
             localSession = CoreSession.getSession(mObject);
             break;
         }
-        
+
         List<List<SmObjectImpl>> listsToCopy = new ArrayList<>();
         for (List<? extends MObject> list : toCopy) {
             List<SmObjectImpl> smObjectsToCopy = new ArrayList<>();
-        
+
             for (MObject mObject : list) {
                 smObjectsToCopy.add((SmObjectImpl) mObject);
-        
+
                 if (refSession == null) {
                     refSession = CoreSession.getSession(mObject);
                 }
             }
-        
+
             listsToCopy.add(smObjectsToCopy);
         }
-        
+
         List<SmObjectImpl> targetList = new ArrayList<>();
         for (MObject mObject : target) {
             targetList.add((SmObjectImpl) mObject);
         }
-        
+
         List<List<? extends MObject>> ret = new ArrayList<>();
-        
+
         CopyMachine machine = new CopyMachine();
         final IImportReport report = machine.execute(localSession, targetList, refSession, listsToCopy);
-        
+
         // Fill the returned list in the appropriate order
         for (List<? extends MObject> list : toCopy) {
             List<MObject> copies = new ArrayList<>();
-        
+
             for (MObject ref : list) {
                 copies.add(report.getCreatedObject((SmObjectImpl) ref));
             }
-        
+
             ret.add(copies);
         }
         return ret;

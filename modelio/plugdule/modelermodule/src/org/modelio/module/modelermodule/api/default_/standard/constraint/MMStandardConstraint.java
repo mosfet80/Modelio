@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class MMStandardConstraint {
      * Tells whether a {@link MMStandardConstraint proxy} can be instantiated from a {@link MObject} checking it is a {@link Constraint}.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -71,9 +72,10 @@ public class MMStandardConstraint {
     }
 
     /**
-     * Tries to instantiate a {@link MMStandardConstraint} proxy from a {@link Constraint} checking its metaclass. 
+     * Tries to instantiate a {@link MMStandardConstraint} proxy from a {@link Constraint} checking its metaclass.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a Constraint
      * @return a {@link MMStandardConstraint} proxy or <i>null</i>.
      */
@@ -99,7 +101,8 @@ public class MMStandardConstraint {
     }
 
     /**
-     * Get the underlying {@link Constraint}. 
+     * Get the underlying {@link Constraint}.
+     *
      * @return the Constraint represented by this proxy, never null.
      */
     @objid ("1cb55be5-17b0-47e0-8a8c-e5c8ca56430d")
@@ -111,7 +114,7 @@ public class MMStandardConstraint {
      * Getter for string property 'userDiagramImage'
      * <p>Property description:
      * <br/><i>Image file path to use in diagrams when unmasked in custom image mode.
-     * 
+     *
      * The file path must be either absolute or relative to the project path.</i></p>
      */
     @objid ("4fd396bb-a3fe-4ac5-a3d4-cec9bfe1934b")
@@ -123,14 +126,14 @@ public class MMStandardConstraint {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     /**
      * Setter for string property 'userDiagramImage'
      * <p>Property description:
      * <br/><i>Image file path to use in diagrams when unmasked in custom image mode.
-     * 
+     *
      * The file path must be either absolute or relative to the project path.</i></p>
      */
     @objid ("d754c67f-27a7-4f3b-94c3-3b35d0106aab")
@@ -139,7 +142,7 @@ public class MMStandardConstraint {
     }
 
     @objid ("149a4423-0026-42da-900d-539e3714ea48")
-    protected  MMStandardConstraint(Constraint elt) {
+    protected MMStandardConstraint(Constraint elt) {
         this.elt = elt;
     }
 
@@ -159,7 +162,7 @@ public class MMStandardConstraint {
             USERDIAGRAMIMAGE_TAGTYPE_ELT = ctx.getModelingSession().findElementById(TagType.class, "033ae065-6f6c-4a70-b9c3-2ae9ff818da3");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -167,7 +170,7 @@ public class MMStandardConstraint {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

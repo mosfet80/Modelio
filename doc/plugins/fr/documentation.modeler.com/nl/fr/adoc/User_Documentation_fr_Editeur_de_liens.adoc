@@ -1,0 +1,17 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Editeur de liens
+
+== Introduction
+
+L'éditeur de liens est une vue particulière de Modelio qui permet de visualiser, explorer, et éditer les liens du modèle. Comme les autres vues de Modelio, elle peut être affichée ou masquée à tout moment.
+
+L'éditeur de liens est un outil tout-en-un de visualisation, exploration, et édition, spécialisé dans les liens de modèle.
+
+*  <<User_Documentation_fr_Editeur_de_liens_Concepts.adoc#,Concepts>>
+*  <<User_Documentation_fr_Editeur_de_liens_The_Link_Editor_view.adoc#,La vue Editeur de liens>>
+*  <<User_Documentation_fr_Editeur_de_liens_Link_Editor_configuration.adoc#,Configuration de l'éditeur de liens>>
+*  <<User_Documentation_fr_Editeur_de_liens_Editing_links.adoc#,Edition de liens>>

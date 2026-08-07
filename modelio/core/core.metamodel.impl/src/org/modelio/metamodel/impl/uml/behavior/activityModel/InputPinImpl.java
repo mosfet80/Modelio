@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -44,25 +43,25 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00353996-c4bf-1fd8-97fe-001ec947cd2a")
 public class InputPinImpl extends PinImpl implements InputPin {
-    @objid ("0bc47ca2-f538-452a-86f7-45e40d1b7249")
+    @objid ("f745897d-bc6c-4fcc-851d-f049147958c4")
     @Override
     public boolean isIsSelf() {
         return (Boolean) getAttVal(((InputPinSmClass)getClassOf()).getIsSelfAtt());
     }
 
-    @objid ("571110a7-458d-4d10-8494-2cee1228215b")
+    @objid ("d480ca29-fc51-4ffb-a797-d2ea34997a07")
     @Override
     public void setIsSelf(boolean value) {
         setAttVal(((InputPinSmClass)getClassOf()).getIsSelfAtt(), value);
     }
 
-    @objid ("84e4702c-ead6-4444-a8a8-cbc0cc6fa288")
+    @objid ("633f59d4-2801-483a-bb3c-cf1ed3578b87")
     @Override
     public EList<ExceptionHandler> getHandler() {
         return new SmList<>(this, ((InputPinSmClass)getClassOf()).getHandlerDep());
     }
 
-    @objid ("13e83a9f-6adc-4082-9bb9-b025c6029ec5")
+    @objid ("d79b0d47-7f72-411b-872c-db5715acab7b")
     @Override
     public <T extends ExceptionHandler> List<T> getHandler(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -75,23 +74,23 @@ public class InputPinImpl extends PinImpl implements InputPin {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("01da1ba4-af63-4e10-8443-8e77baddf61e")
+    @objid ("da8d90ef-9c1b-4576-9df8-1660e9caded4")
     @Override
     public ActivityAction getInputing() {
         Object obj = getDepVal(((InputPinSmClass)getClassOf()).getInputingDep());
         return (obj instanceof ActivityAction)? (ActivityAction)obj : null;
     }
 
-    @objid ("2dffd139-dddd-4fd4-af31-ba4a7192643c")
+    @objid ("348dab61-30c4-4dd1-b666-8b70261bb77d")
     @Override
     public void setInputing(ActivityAction value) {
         appendDepVal(((InputPinSmClass)getClassOf()).getInputingDep(), (SmObjectImpl)value);
     }
 
-    @objid ("9e3376ab-401c-4f9e-9703-9ed18e58290e")
+    @objid ("83d1b6d3-5243-4bd8-a89f-2249e42e3b7c")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -103,22 +102,22 @@ public class InputPinImpl extends PinImpl implements InputPin {
         return super.getCompositionOwner();
     }
 
-    @objid ("98998f46-a682-499a-93a8-75dcf4832a79")
+    @objid ("96d21df4-dfef-4024-bb52-9ec9c2d75466")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // Inputing
         dep = ((InputPinSmClass)getClassOf()).getInputingDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("291f4ed2-0799-4b5a-bbcb-863a8cab24a6")
+    @objid ("22bcd66b-f5a3-4b08-a62a-5f6f4a29e08b")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitInputPin(this);

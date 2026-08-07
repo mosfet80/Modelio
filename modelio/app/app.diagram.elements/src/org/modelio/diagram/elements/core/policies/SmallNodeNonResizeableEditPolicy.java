@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.policies;
 
@@ -32,6 +32,7 @@ import org.eclipse.draw2d.Shape;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gef.Handle;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.handles.MoveHandle;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
@@ -57,7 +58,7 @@ public class SmallNodeNonResizeableEditPolicy extends DefaultNodeResizableEditPo
      * Initialize the policy.
      */
     @objid ("80d85378-1dec-11e2-8cad-001ec947c8cc")
-    public  SmallNodeNonResizeableEditPolicy() {
+    public SmallNodeNonResizeableEditPolicy() {
         super();
     }
 
@@ -71,59 +72,58 @@ public class SmallNodeNonResizeableEditPolicy extends DefaultNodeResizableEditPo
         try {
             final IFigure feed = clone(fig);
             feed.getBounds().setBounds(fig.getBounds());
-        
+
             if (feed instanceof Shape) {
                 ((Shape) feed).setLineStyle(SWT.LINE_DASH);
             }
-        
+
             getFeedbackLayer().add(feed);
-        
-            final GraphicalEditPart host = (GraphicalEditPart) getHost();
+
+            final GraphicalEditPart host = getHost();
             for (Object c : host.getSourceConnections()) {
                 final GraphicalEditPart connPart = (GraphicalEditPart) c;
                 final Connection origConn = (Connection) connPart.getFigure();
-                final Connection connFig = origConn.getClass().newInstance();
+                final Connection connFig = origConn.getClass().getDeclaredConstructor().newInstance();
                 connFig.setSourceAnchor(createFeedbackFigureAnchor(feed));
                 connFig.setTargetAnchor(origConn.getTargetAnchor());
-        
+
                 connFig.setConnectionRouter(origConn.getConnectionRouter());
                 connFig.setRoutingConstraint(cloneRoutingConstraint(origConn));
-        
+
                 if (connFig instanceof Shape) {
                     ((Shape) connFig).setLineStyle(SWT.LINE_DASH);
                 }
-        
+
                 this.feedbackFigures.add(connFig);
                 getFeedbackLayer().add(connFig);
-        
+
             }
-        
+
             for (Object c : host.getTargetConnections()) {
                 final GraphicalEditPart connPart = (GraphicalEditPart) c;
                 final Connection origConn = (Connection) connPart.getFigure();
-                final Connection connFig = origConn.getClass().newInstance();
-        
+                final Connection connFig = origConn.getClass().getDeclaredConstructor().newInstance();
+
                 connFig.setSourceAnchor(origConn.getSourceAnchor());
                 connFig.setTargetAnchor(createFeedbackFigureAnchor(feed));
-        
+
                 connFig.setConnectionRouter(origConn.getConnectionRouter());
                 connFig.setRoutingConstraint(cloneRoutingConstraint(origConn));
-        
+
                 if (connFig instanceof Shape) {
                     ((Shape) connFig).setLineStyle(SWT.LINE_DASH);
                 }
-        
+
                 this.feedbackFigures.add(connFig);
                 getFeedbackLayer().add(connFig);
             }
-        
+
             return feed;
-        
-        } catch (InstantiationException | IllegalAccessException e) {
+
+        } catch (ReflectiveOperationException  e) {
             DiagramElements.LOG.error(e);
             return super.createDragSourceFeedbackFigure();
         }
-        
     }
 
     @objid ("3cec539f-1ca4-46e9-a945-0c751fe94744")
@@ -133,11 +133,11 @@ public class SmallNodeNonResizeableEditPolicy extends DefaultNodeResizableEditPo
         } else {
             return new ChopboxAnchor(feedbackFigure);
         }
-        
     }
 
     /**
      * Make best effort to make a deep copy of the routing constraint
+     *
      * @param conn a connection with routing constraint
      * @return a clone or the original constraint.
      */
@@ -165,10 +165,10 @@ public class SmallNodeNonResizeableEditPolicy extends DefaultNodeResizableEditPo
      */
     @objid ("80d85382-1dec-11e2-8cad-001ec947c8cc")
     @Override
-    protected List<?> createSelectionHandles() {
-        final List<Object> ret = new ArrayList<>(1);
-        ret.add(new MoveHandle((GraphicalEditPart) getHost()));
-        
+    protected List<? extends Handle> createSelectionHandles() {
+        final List<Handle> ret = new ArrayList<>(1);
+        ret.add(new MoveHandle(getHost()));
+
         SelectionHandlesBuilder.disableHandlesIfReadOnly(getHost(), ret);
         return ret;
     }
@@ -177,9 +177,8 @@ public class SmallNodeNonResizeableEditPolicy extends DefaultNodeResizableEditPo
     @Override
     protected void eraseChangeBoundsFeedback(final ChangeBoundsRequest request) {
         super.eraseChangeBoundsFeedback(request);
-        
+
         removeFeedbacks();
-        
     }
 
     @objid ("80d85391-1dec-11e2-8cad-001ec947c8cc")
@@ -187,7 +186,7 @@ public class SmallNodeNonResizeableEditPolicy extends DefaultNodeResizableEditPo
     protected Command getResizeCommand(final ChangeBoundsRequest request) {
         ChangeBoundsRequest req = new ChangeBoundsRequest(REQ_RESIZE_CHILDREN);
         req.setEditParts(getHost());
-        
+
         req.setMoveDelta(request.getMoveDelta());
         // Ignore actual resize request: node is not really resizeable.
         req.setSizeDelta(computeSizeDelta());
@@ -206,6 +205,7 @@ public class SmallNodeNonResizeableEditPolicy extends DefaultNodeResizableEditPo
 
     /**
      * Compute the delta from the current size to the size fixed by the figure preferred size.
+     *
      * @return the delta to the preferred size.
      */
     @objid ("80d853a3-1dec-11e2-8cad-001ec947c8cc")
@@ -215,13 +215,12 @@ public class SmallNodeNonResizeableEditPolicy extends DefaultNodeResizableEditPo
     }
 
     @objid ("4ec10b22-75b7-422c-997e-9b1db2002a0d")
-    private IFigure clone(IFigure fig) throws InstantiationException, IllegalAccessException {
+    private IFigure clone(IFigure fig) throws ReflectiveOperationException, SecurityException {
         if (fig instanceof IClonableFigure) {
             return ((IClonableFigure) fig).getCopy();
         } else {
-            return fig.getClass().newInstance();
+            return fig.getClass().getDeclaredConstructor().newInstance();
         }
-        
     }
 
     @objid ("66263d23-6f31-4af7-8696-70b61868352f")
@@ -230,16 +229,14 @@ public class SmallNodeNonResizeableEditPolicy extends DefaultNodeResizableEditPo
             f.getParent().remove(f);
         }
         this.feedbackFigures.clear();
-        
     }
 
     @objid ("9a2c6e27-9288-4cc6-847a-70302477ffe5")
     @Override
     public void deactivate() {
         removeFeedbacks();
-        
+
         super.deactivate();
-        
     }
 
 }

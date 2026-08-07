@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+    <description url="https://eclipse.svnkit.com/1.10.x">
+        TMate Software SVNKit Library Update Site
+    </description>
+
+    <feature url="features/com.tmatesoft.svnkit_1.10.13.r10892.jar" id="com.tmatesoft.svnkit" version="1.10.13.r10892">
+        <category name="SVNKit Library"/>
+    </feature>
+
+    <category-def name="SVNKit Library" label="Core SVNKit Library">
+        <description>SVNKit Library</description>
+    </category-def>
+</site>

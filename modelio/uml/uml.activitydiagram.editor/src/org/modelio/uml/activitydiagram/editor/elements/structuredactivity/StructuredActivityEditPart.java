@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.structuredactivity;
 
@@ -42,7 +42,7 @@ import org.modelio.uml.activitydiagram.editor.elements.policies.SmartDropEditPol
 
 /**
  * EditPart for an {@link GmStructuredActivityPrimaryNode} Node.
- * 
+ *
  * @author fpoyer
  */
 @objid ("2b5a7177-55b6-11e2-877f-002564c97630")
@@ -53,14 +53,14 @@ public class StructuredActivityEditPart extends AbstractNodeEditPart {
         // create the figure
         RoundedBoxFigure fig = new RoundedBoxFigure();
         fig.setLayoutManager(new BorderLayout());
-        
+
         // set style independent properties
         fig.setLinePattern(LinePattern.LINE_DASH);
         MinimumSizeLayout.apply(fig, 150, 100);
-        
+
         // set style dependent properties
         refreshFromStyle(fig, getModelStyle());
-        
+
         // return the figure
         return fig;
     }
@@ -69,15 +69,15 @@ public class StructuredActivityEditPart extends AbstractNodeEditPart {
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         installEditPolicy("delegate", new DelegatingEditPolicy());
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new AutoExpandLayoutEditPolicy());
-        
+
         installEditPolicy(EditPolicy.NODE_ROLE, new CreateFlowEditPolicy());
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START, new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(ModelElementDropRequest.TYPE, new SmartDropEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
-        
+
     }
 
     @objid ("2b5a7183-55b6-11e2-877f-002564c97630")
@@ -85,7 +85,7 @@ public class StructuredActivityEditPart extends AbstractNodeEditPart {
     protected void refreshVisuals() {
         GmStructuredActivityPrimaryNode structuredactivityModel = (GmStructuredActivityPrimaryNode) getModel();
         getFigure().getParent().setConstraint(getFigure(), structuredactivityModel.getLayoutData());
-        
+
     }
 
     @objid ("2b5a7186-55b6-11e2-877f-002564c97630")
@@ -101,7 +101,7 @@ public class StructuredActivityEditPart extends AbstractNodeEditPart {
         if (index == 1) {
             getFigure().add(child, BorderLayout.CENTER, index);
         }
-        
+
     }
 
     @objid ("2b5a718b-55b6-11e2-877f-002564c97630")
@@ -120,7 +120,7 @@ public class StructuredActivityEditPart extends AbstractNodeEditPart {
         } else {
             super.refreshFromStyle(aFigure, style);
         }
-        
+
     }
 
 }

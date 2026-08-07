@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.linkeditor.gef.background;
 
@@ -35,10 +54,10 @@ public class BackgroundLayout extends FreeformLayout {
     @objid ("1b8a1d66-5e33-11e2-b81d-002564c97630")
     private static final int offset = 200;
 
-    @objid ("17e420b8-4dd4-411b-acee-40a526e63564")
+    @objid ("18832c4f-0197-4857-acd0-ab18f48f4714")
     private Map<IFigure, Rectangle> cachedPositions = new HashMap<>();
 
-    @objid ("27b984eb-f64f-45a7-a2f6-1034739ba12d")
+    @objid ("da146d61-20b7-4f2c-b637-76b8b86db115")
     private static final Rectangle REFERENCE_RECTANGLE = new Rectangle(0, 0, 100, 50);
 
     @objid ("1b8a1d68-5e33-11e2-b81d-002564c97630")
@@ -51,7 +70,6 @@ public class BackgroundLayout extends FreeformLayout {
             bounds = bounds.getTranslated(offsetPoint);
             f.setBounds(bounds);
         }
-        
     }
 
     @objid ("1b8a1d6f-5e33-11e2-b81d-002564c97630")
@@ -64,7 +82,7 @@ public class BackgroundLayout extends FreeformLayout {
             Rectangle r = getPosition(child);
             if (r == null)
                 continue;
-        
+
             if (r.width == -1 || r.height == -1) {
                 Dimension preferredSizeDimension = child.getPreferredSize(r.width, r.height);
                 r = r.getCopy();
@@ -99,7 +117,6 @@ public class BackgroundLayout extends FreeformLayout {
     public void setConstraint(final IFigure figure, final Object newConstraint) {
         super.setConstraint(figure, newConstraint);
         this.cachedPositions.clear();
-        
     }
 
 }

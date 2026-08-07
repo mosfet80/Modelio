@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.parts.data.element.single;
 
@@ -34,6 +34,7 @@ public interface IElementNatValue extends ISingleNatValue {
     /**
      * Get the list of all accepted (and proposed) metaclasses for this cell.
      * Add metaclasses to this list to complete it.
+     *
      * @return the current allowed metaclasses.
      */
     @objid ("2707d374-160a-4594-85af-85733df07d3e")
@@ -41,6 +42,7 @@ public interface IElementNatValue extends ISingleNatValue {
 
     /**
      * Get the filter that will be used to accept (and propose) elements for this cell.
+     *
      * @return the current filter. Might be <code>null</code>.
      */
     @objid ("ae893f52-e99f-4133-9b75-baec3a67d5e6")
@@ -52,9 +54,10 @@ public interface IElementNatValue extends ISingleNatValue {
 
     /**
      * Set a filter that will be used to accept (and propose) elements for this cell.
+     *
      * @param elementFilter the new filter. Might be <code>null</code>.
      */
     @objid ("3aa2bf4f-352d-4b41-9b11-010561ec3e2c")
     void setElementFilter(IMObjectFilter elementFilter);
-}
 
+}

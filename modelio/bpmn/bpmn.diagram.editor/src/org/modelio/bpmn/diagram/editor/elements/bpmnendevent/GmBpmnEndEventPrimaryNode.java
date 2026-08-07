@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnendevent;
 
@@ -63,11 +63,12 @@ public final class GmBpmnEndEventPrimaryNode extends GmNoStyleSimpleNode impleme
 
     /**
      * Create a initial graphic node.
+     *
      * @param diagram The diagram
      * @param relatedRef The related element reference, may not be null.
      */
     @objid ("60e20e82-55b6-11e2-877f-002564c97630")
-    public  GmBpmnEndEventPrimaryNode(IGmDiagram diagram, MRef relatedRef) {
+    public GmBpmnEndEventPrimaryNode(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -75,7 +76,7 @@ public final class GmBpmnEndEventPrimaryNode extends GmNoStyleSimpleNode impleme
      * Constructor for deserialization only.
      */
     @objid ("60e3951d-55b6-11e2-877f-002564c97630")
-    public  GmBpmnEndEventPrimaryNode() {
+    public GmBpmnEndEventPrimaryNode() {
         // for the serialization
     }
 
@@ -95,19 +96,19 @@ public final class GmBpmnEndEventPrimaryNode extends GmNoStyleSimpleNode impleme
     @Override
     public IEditableText getEditableText() {
         return new IEditableText() {
-                
+
                             @Override
                             public String getText() {
                                 return getRelatedElement().getName();
                             }
-                
+
                             @Override
                             public void setText(String text) {
                                 getRelatedElement().setName(text);
                             }
-                
+
                         };
-        
+
     }
 
     @objid ("956f1acb-1f85-44a5-ae99-cd5109e5e92d")
@@ -139,6 +140,7 @@ public final class GmBpmnEndEventPrimaryNode extends GmNoStyleSimpleNode impleme
 
     /**
      * Get the parent model representation mode.
+     *
      * @return the parent representation mode or null if the node has still no parent.
      */
     @objid ("60e39509-55b6-11e2-877f-002564c97630")
@@ -165,7 +167,7 @@ public final class GmBpmnEndEventPrimaryNode extends GmNoStyleSimpleNode impleme
             break;
         }
         }
-        
+
     }
 
     @objid ("60e20e92-55b6-11e2-877f-002564c97630")
@@ -174,7 +176,7 @@ public final class GmBpmnEndEventPrimaryNode extends GmNoStyleSimpleNode impleme
         if (getRelatedElement() != null) {
             firePropertyChange(IGmObject.PROPERTY_LABEL, null, getRelatedElement().getName());
         }
-        
+
         if (this.imageHolder.updateImageRef(getRelatedElement())) {
             GmCompositeNode gm_parent = getParentNode();
             if (gm_parent != null) {
@@ -184,17 +186,17 @@ public final class GmBpmnEndEventPrimaryNode extends GmNoStyleSimpleNode impleme
         }
         // forcing visual refresh in case Image changed
         firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("60e39526-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmBpmnEndEventPrimaryNode.", GmBpmnEndEventPrimaryNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("60e3952c-55b6-11e2-877f-002564c97630")

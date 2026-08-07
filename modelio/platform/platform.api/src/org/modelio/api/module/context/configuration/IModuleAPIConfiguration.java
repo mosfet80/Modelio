@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.module.context.configuration;
 
@@ -34,6 +34,7 @@ public interface IModuleAPIConfiguration {
      * Get the value of the parameter identified by the given <code>key</code>.
      * <p>
      * Returns null if the key does not exist
+     *
      * @param key Key of the parameter
      * @return The value of the <code>key</code> parameter (or null)
      */
@@ -42,6 +43,7 @@ public interface IModuleAPIConfiguration {
 
     /**
      * Get all parameter values.
+     *
      * @return A map representing the parameter name as key and the parameter value as value.
      */
     @objid ("01f40414-0000-390b-0000-000000000000")
@@ -49,6 +51,7 @@ public interface IModuleAPIConfiguration {
 
     /**
      * Set the value of a parameter.
+     *
      * @param key Key of the parameter
      * @param value Value to define on the parameter
      * @return <code>true</code> if the parameter is only locally defined.
@@ -58,6 +61,7 @@ public interface IModuleAPIConfiguration {
 
     /**
      * Update the mdac parameters with the given ones.
+     *
      * @param parameters The new module parameter values.
      */
     @objid ("01f40414-0000-42d5-0000-000000000000")
@@ -66,6 +70,7 @@ public interface IModuleAPIConfiguration {
     /**
      * Get the path where the files packaged with the module were deployed. It allows the module to access its resource
      * files.
+     *
      * @return the module resources path.
      */
     @objid ("d07290ac-cce7-11dd-8617-001ec947ccaf")
@@ -73,6 +78,7 @@ public interface IModuleAPIConfiguration {
 
     /**
      * Returns the documentation path.
+     *
      * @return the documentation path.
      */
     @objid ("079ed4d4-ae25-11e1-893a-002564c97630")
@@ -81,6 +87,7 @@ public interface IModuleAPIConfiguration {
     /**
      * Get the lock status of the parameter identified by the given <code>key</code>.<p>
      * A parameter is locked when defined by a Modelio server.
+     *
      * @param key Key of the parameter
      * @return Whether or not the given parameter is locked.
      */
@@ -90,6 +97,7 @@ public interface IModuleAPIConfiguration {
     /**
      * Add a IModuleConfigurationListener listener.
      * A IModuleConfigurationListener is called whenever a module parameter value changes.
+     *
      * @param l The listener to add
      * @since 4.1
      */
@@ -98,10 +106,11 @@ public interface IModuleAPIConfiguration {
 
     /**
      * Remove a previously added listener
+     *
      * @param l The listener to remove
      * @since 4.1
      */
     @objid ("182e0cca-faf7-4d8f-a818-d7e410702ef9")
     void removeListener(IModuleConfigurationListener l);
-}
 
+}

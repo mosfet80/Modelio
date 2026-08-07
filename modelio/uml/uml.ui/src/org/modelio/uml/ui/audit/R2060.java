@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -64,7 +64,7 @@ public class R2060 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -84,7 +84,7 @@ public class R2060 extends AbstractUmlRule {
         // Namespaces
         plan.registerRule(Package.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE | AuditTrigger.MOVE);
         plan.registerRule(Collaboration.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE | AuditTrigger.MOVE);
-        
+
         // Namespaces.Classifiers
         plan.registerRule(InformationItem.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE | AuditTrigger.MOVE);
         plan.registerRule(Artifact.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE | AuditTrigger.MOVE);
@@ -98,7 +98,7 @@ public class R2060 extends AbstractUmlRule {
         plan.registerRule(UseCase.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE | AuditTrigger.MOVE);
         plan.registerRule(Node.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE | AuditTrigger.MOVE);
         plan.registerRule(Component.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE | AuditTrigger.MOVE);
-        
+
     }
 
     /**
@@ -132,14 +132,14 @@ public class R2060 extends AbstractUmlRule {
      * Default constructor for R2060
      */
     @objid ("8e4e63b4-86be-4c5a-bdb8-8e316dff193d")
-    public  R2060() {
+    public R2060() {
         this.checkerInstance = new CheckR2060(this);
     }
 
     @objid ("50035a57-7fe9-497b-805f-993817100504")
     private static class CheckR2060 extends AbstractControl {
         @objid ("20ee36eb-22ab-4db3-8b89-dda859d9e6d6")
-        public  CheckR2060(IRule rule) {
+        public CheckR2060(IRule rule) {
             super(rule);
         }
 
@@ -165,9 +165,9 @@ public class R2060 extends AbstractUmlRule {
         private IAuditEntry checkR2060(final NameSpace nameSpace) {
             List<Object> linkedObjects = new ArrayList<>();
             IAuditEntry entry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, nameSpace, linkedObjects);
-            
+
             Map<String, List<NameSpace>> duplicates = new HashMap<>();
-            
+
             for (NameSpace me : nameSpace.getOwnedElement(NameSpace.class)) {
                 String name = me.getName();
                 if (!duplicates.containsKey(name)) {
@@ -175,17 +175,17 @@ public class R2060 extends AbstractUmlRule {
                 }
                 duplicates.get(me.getName()).add(me);
             }
-            
+
             boolean dupFound = false;
             for (Entry<String, List<NameSpace>> e : duplicates.entrySet()) {
                 if (e.getValue().size() > 1) {
                     dupFound = true;
-            
+
                     // Rule failed
                     linkedObjects.addAll(e.getValue());
                 }
             }
-            
+
             if (dupFound) {
                 linkedObjects.add(0, nameSpace);
                 entry.setSeverity(this.rule.getSeverity());

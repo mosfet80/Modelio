@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.diagram.elements.core.link;
 
@@ -29,9 +48,13 @@ import org.modelio.diagram.elements.core.model.IGmLink;
 import org.modelio.diagram.elements.core.model.IGmLinkable;
 import org.modelio.diagram.elements.core.model.IGmPath;
 import org.modelio.diagram.elements.core.obfactory.IModelLinkFactory;
+import org.modelio.diagram.elements.plugin.DiagramElements;
+import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.mmextensions.standard.services.IMModelServices;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
+import org.modelio.platform.model.ui.MetamodelLabels;
+import org.modelio.platform.model.ui.swt.labelprovider.UniversalLabelProvider;
 import org.modelio.vcore.model.api.MTools;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MObject;
@@ -58,13 +81,53 @@ public class DefaultCreateLinkCommand extends Command implements ICreationComman
 
     /**
      * Command constructor
+     *
      * @param context Informations on the model element to create and or unmask.
      */
     @objid ("7fe785e2-1dec-11e2-8cad-001ec947c8cc")
-    public  DefaultCreateLinkCommand(ModelioLinkCreationContext context) {
+    public DefaultCreateLinkCommand(ModelioLinkCreationContext context) {
         this.context = context;
         this.unmaskedLink = null;
-        
+    }
+
+    @objid ("f8b4e401-fdb5-4bd5-9c81-08abde00e468")
+    @Override
+    public String getLabel() {
+        String ret = super.getLabel();
+        if (ret != null)
+            return ret;
+
+        MObject newElement = this.context.getElementToUnmask();
+        MObject sourceEl = this.sourceNode.getRelatedElement();
+        MObject targetEl = this.targetNode.getRelatedElement();
+        UniversalLabelProvider labelProvider = new UniversalLabelProvider();
+
+        if (newElement == null) {
+
+            MClass toCreate = this.context.getMetaclass();
+            ret = DiagramElements.I18N.getMessage("DefaultCreateLinkCommand.label.create",
+                    MetamodelLabels.getString(toCreate.getName()),
+                    labelProvider.getText(sourceEl),
+                    MetamodelLabels.getString(sourceEl.getMClass().getName()),
+                    labelProvider.getText(targetEl),
+                    MetamodelLabels.getString(targetEl.getMClass().getName())
+                    );
+        } else {
+            AbstractDiagram obDiagram = this.sourceNode.getDiagram().getRelatedElement();
+            ret = DiagramElements.I18N.getMessage("DefaultCreateLinkCommand.label.unmask",
+                    labelProvider.getText(newElement),
+                    MetamodelLabels.getString(newElement.getMClass().getName()),
+                    labelProvider.getText(sourceEl),
+                    MetamodelLabels.getString(sourceEl.getMClass().getName()),
+                    labelProvider.getText(targetEl),
+                    MetamodelLabels.getString(targetEl.getMClass().getName()),
+                    labelProvider.getText(obDiagram),
+                    MetamodelLabels.getString(obDiagram.getMClass().getName())
+                    );
+        }
+
+        setLabel(ret);
+        return ret;
     }
 
     @objid ("7fe785e6-1dec-11e2-8cad-001ec947c8cc")
@@ -75,7 +138,7 @@ public class DefaultCreateLinkCommand extends Command implements ICreationComman
         if (!MTools.getAuthTool().canModify(gmDiagram.getRelatedElement())) {
             return false;
         }
-        
+
         // If it is an actual creation (and not a simple unmasking).
         if (this.context.getElementToUnmask() == null) {
             MObject srcElement = this.sourceNode.getRelatedElement();
@@ -83,18 +146,18 @@ public class DefaultCreateLinkCommand extends Command implements ICreationComman
             Class<? extends MObject> toCreateInterface = toCreateMetaclass.getJavaInterface();
             Stereotype toCreateStereotype = this.context.getStereotype();
             IMdaExpert mdaExpert = this.sourceNode.getDiagram().getModelManager().getMdaExpert();
-        
+
             if (this.targetNode == null) {
                 // The creation experts must allow starting the link
                 if (!mdaExpert.canSource(toCreateStereotype, toCreateMetaclass, srcElement.getMClass())) {
                     return false;
                 }
-        
+
                 // The access right expert must allow the command
                 if (!MTools.getAuthTool().canCreateLinkFrom(toCreateInterface, srcElement)) {
                     return false;
                 }
-        
+
             } else {
                 // The creation experts must allow the link
                 final MObject targetEl = this.targetNode.getRelatedElement();
@@ -104,14 +167,14 @@ public class DefaultCreateLinkCommand extends Command implements ICreationComman
                 if (!mdaExpert.canLink(toCreateStereotype, toCreateMetaclass, srcElement, targetEl)) {
                     return false;
                 }
-        
+
                 // The access right expert must allow the command
                 if (!MTools.getAuthTool().canCreateLink(toCreateInterface, srcElement, targetEl)) {
                     return false;
                 }
             }
         }
-        
+
         // All conditions are fulfilled
         return true;
     }
@@ -123,15 +186,15 @@ public class DefaultCreateLinkCommand extends Command implements ICreationComman
         if (linkElement == null) {
             linkElement = createElement();
         }
-        
+
         // Unmask the link
-        final IGmDiagram gmDiagram = getCommonDiagram(); 
+        final IGmDiagram gmDiagram = getCommonDiagram();
         this.unmaskedLink = unmaskElement(gmDiagram, linkElement);
-        
     }
 
     /**
      * Sets the context
+     *
      * @param newContext the link creation context.
      */
     @objid ("7fe785ee-1dec-11e2-8cad-001ec947c8cc")
@@ -141,6 +204,7 @@ public class DefaultCreateLinkCommand extends Command implements ICreationComman
 
     /**
      * Set the link source.
+     *
      * @param sourceNode the link source.
      */
     @objid ("7fe785f2-1dec-11e2-8cad-001ec947c8cc")
@@ -150,6 +214,7 @@ public class DefaultCreateLinkCommand extends Command implements ICreationComman
 
     /**
      * Set the link destination.
+     *
      * @param targetNode the link destination.
      */
     @objid ("7fe785f7-1dec-11e2-8cad-001ec947c8cc")
@@ -159,6 +224,7 @@ public class DefaultCreateLinkCommand extends Command implements ICreationComman
 
     /**
      * Set the path of the link.
+     *
      * @param path the link path.
      */
     @objid ("7fe785fc-1dec-11e2-8cad-001ec947c8cc")
@@ -170,6 +236,7 @@ public class DefaultCreateLinkCommand extends Command implements ICreationComman
      * Unmask the link element.
      * <p>
      * May be redefined to do more work.
+     *
      * @param gmDiagram the diagram where the element must be unmasked
      * @param linkElement the link element to unmask
      * @return The unmasked link graphic model.
@@ -183,6 +250,7 @@ public class DefaultCreateLinkCommand extends Command implements ICreationComman
      * Create the model element specified by the context.
      * <p>
      * May be redefined to do more work.
+     *
      * @return The created link model element.
      */
     @objid ("7fe7860a-1dec-11e2-8cad-001ec947c8cc")
@@ -195,16 +263,16 @@ public class DefaultCreateLinkCommand extends Command implements ICreationComman
         final MObject srcElement = this.sourceNode.getRelatedElement();
         final MObject targetElement = this.targetNode.getRelatedElement();
         linkElement = modelFactory.createLink(this.context.getMetaclass(), srcElement, targetElement);
-        
+
         // Attach the stereotype if needed.
         if (this.context.getStereotype() != null && linkElement instanceof ModelElement) {
             ((ModelElement) linkElement).getExtension().add(this.context.getStereotype());
         }
-        
+
         // Configure element
         IMModelServices modelServices = modelManager.getModelServices();
         modelServices.getElementConfigurer().configure(linkElement, this.context.getProperties());
-        
+
         // Set default name
         linkElement.setName(modelServices.getElementNamer().getUniqueName(linkElement));
         return linkElement;
@@ -221,6 +289,7 @@ public class DefaultCreateLinkCommand extends Command implements ICreationComman
      * <p>
      * If the source and target node are in different diagrams, the link is unmasked in the
      * diagram embedding the source diagram and the target one.
+     *
      * @return the diagram in which the link must be unmasked.
      * @since 3.7
      */

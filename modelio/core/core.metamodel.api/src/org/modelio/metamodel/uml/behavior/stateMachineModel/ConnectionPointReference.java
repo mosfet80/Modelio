@@ -1,112 +1,104 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.uml.behavior.stateMachineModel;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * ConnectionPointReference v0.0.9054
- * 
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
  */
 @objid ("004e3efa-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ConnectionPointReference extends StateVertex {
     /**
      * The metaclass simple name.
      */
-    @objid ("5c32b414-2173-4a66-b269-79b0e89d6a1c")
+    @objid ("65590e4d-7238-44f5-a45c-346d436d44be")
     public static final String MNAME = "ConnectionPointReference";
 
     /**
      * The metaclass qualified name.
      */
-    @objid ("5fd9421d-60b2-47cc-b1b3-6de8a92e0ab1")
+    @objid ("5ccf653d-f119-4e8a-8c5f-ffb18eff2852")
     public static final String MQNAME = "Standard.ConnectionPointReference";
 
     /**
      * Getter for relation 'ConnectionPointReference->Exit'
-     * 
+     *
      * Metamodel description:
      * <i></i>
-     * 
      */
-    @objid ("d8efebae-6e1c-4630-a7a8-7d84f3c31a65")
+    @objid ("6d9d3cad-4558-4037-9173-7c0fa5843d98")
     ExitPointPseudoState getExit();
 
     /**
      * Setter for relation 'ConnectionPointReference->Exit'
-     * 
+     *
      * Metamodel description:
      * <i></i>
-     * 
      */
-    @objid ("96c7f8c8-feb3-45cf-a9b3-8675cc97366c")
+    @objid ("51989e4d-2ca3-4fe5-90d8-bbf3d5c7d7bd")
     void setExit(ExitPointPseudoState value);
 
     /**
      * Getter for relation 'ConnectionPointReference->Entry'
-     * 
+     *
      * Metamodel description:
      * <i></i>
-     * 
      */
-    @objid ("724eb9ac-1e57-4f9c-8e8d-b5712a9e2cd1")
+    @objid ("0825013b-1269-45dd-934b-276dc2f27db2")
     EntryPointPseudoState getEntry();
 
     /**
      * Setter for relation 'ConnectionPointReference->Entry'
-     * 
+     *
      * Metamodel description:
      * <i></i>
-     * 
      */
-    @objid ("1b3b5a3a-91eb-4b3d-9b3c-c65f14e5c815")
+    @objid ("d4f149c2-84fd-4d16-9291-2d0838deab91")
     void setEntry(EntryPointPseudoState value);
 
     /**
      * Getter for relation 'ConnectionPointReference->OwnerState'
-     * 
+     *
      * Metamodel description:
      * <i></i>
-     * 
      */
-    @objid ("9ab3fc46-90f8-4ece-acaf-b2e398f5f93a")
+    @objid ("de138d55-9547-4361-aa27-3bf1fe34cc83")
     State getOwnerState();
 
     /**
      * Setter for relation 'ConnectionPointReference->OwnerState'
-     * 
+     *
      * Metamodel description:
      * <i></i>
-     * 
      */
-    @objid ("6e4be17e-39d9-40e5-b0ac-e4cac097f452")
+    @objid ("35c9737a-44b8-4cd3-b5e9-f6f2be47a1bf")
     void setOwnerState(State value);
-}
 
+}

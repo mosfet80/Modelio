@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.drawings.text;
 
@@ -41,20 +41,21 @@ public class GmTextDrawing extends GmNodeDrawing {
      * Deserialization only constructor.
      */
     @objid ("0f3ac5ec-fcf3-471b-b790-2cdda7ab8faa")
-    public  GmTextDrawing() {
+    public GmTextDrawing() {
         super();
     }
 
     /**
      * Default constructor.
+     *
      * @param diagram the owner diagram.
      * @param identifier drawing identifier, must be unique in the diagram.
      */
     @objid ("2731003f-730a-4629-bddf-be9eaf078346")
-    public  GmTextDrawing(IGmDiagram diagram, String identifier) {
+    public GmTextDrawing(IGmDiagram diagram, String identifier) {
         super(diagram, identifier);
         setLabel("Text");
-        
+
     }
 
     @objid ("c5afbc22-49f4-4450-9daf-4d73c20472ba")

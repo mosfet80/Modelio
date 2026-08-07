@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.propertyview.vtabfolder;
 
@@ -81,12 +81,12 @@ public class VTabFolderRenderer {
 
     @objid ("cdf0b542-7827-4281-8cc4-823c148b15e1")
     private static final String ELLIPSIS = "..."; // $NON-NLS-1$
-    
 
-     // // Part constants
+
+    // Part constants
     /**
      * Part constant indicating the body of the tab folder. The body is the underlying container for all of the tab folder and all other parts are drawn on top of it. (value is -1).
-     * 
+     *
      * @see #computeSize(int, int, GC, int, int)
      * @see #computeTrim(int, int, int, int, int, int)
      * @see #draw(int, int, Rectangle, GC)
@@ -96,7 +96,7 @@ public class VTabFolderRenderer {
 
     /**
      * Part constant indicating the tab header of the folder (value is -2). The header is drawn on top of the body and provides an area for the tabs and other tab folder buttons to be rendered.
-     * 
+     *
      * @see #computeSize(int, int, GC, int, int)
      * @see #computeTrim(int, int, int, int, int, int)
      * @see #draw(int, int, Rectangle, GC)
@@ -106,7 +106,7 @@ public class VTabFolderRenderer {
 
     /**
      * Part constant indicating the border of the tab folder. (value is -3). The border is drawn around the body and is part of the body trim.
-     * 
+     *
      * @see #computeSize(int, int, GC, int, int)
      * @see #computeTrim(int, int, int, int, int, int)
      * @see #draw(int, int, Rectangle, GC)
@@ -116,7 +116,7 @@ public class VTabFolderRenderer {
 
     /**
      * Part constant indicating the background of the tab folder. (value is -4).
-     * 
+     *
      * @see #computeSize(int, int, GC, int, int)
      * @see #computeTrim(int, int, int, int, int, int)
      * @see #draw(int, int, Rectangle, GC)
@@ -126,7 +126,7 @@ public class VTabFolderRenderer {
 
     /**
      * Part constant indicating the maximize button of the tab folder. (value is -5).
-     * 
+     *
      * @see #computeSize(int, int, GC, int, int)
      * @see #computeTrim(int, int, int, int, int, int)
      * @see #draw(int, int, Rectangle, GC)
@@ -136,7 +136,7 @@ public class VTabFolderRenderer {
 
     /**
      * Part constant indicating the minimize button of the tab folder. (value is -6).
-     * 
+     *
      * @see #computeSize(int, int, GC, int, int)
      * @see #computeTrim(int, int, int, int, int, int)
      * @see #draw(int, int, Rectangle, GC)
@@ -146,7 +146,7 @@ public class VTabFolderRenderer {
 
     /**
      * Part constant indicating the chevron button of the tab folder. (value is -7).
-     * 
+     *
      * @see #computeSize(int, int, GC, int, int)
      * @see #computeTrim(int, int, int, int, int, int)
      * @see #draw(int, int, Rectangle, GC)
@@ -156,7 +156,7 @@ public class VTabFolderRenderer {
 
     /**
      * Part constant indicating the close button of a tab item. (value is -8).
-     * 
+     *
      * @see #computeSize(int, int, GC, int, int)
      * @see #computeTrim(int, int, int, int, int, int)
      * @see #draw(int, int, Rectangle, GC)
@@ -166,7 +166,7 @@ public class VTabFolderRenderer {
 
     @objid ("01d35b3c-e0ac-47f3-9826-dce06d4b6e8d")
     public static final int MINIMUM_SIZE = 1 << 24; // TODO: Should this be a state?
-    
+
 
     @objid ("7bacabfb-5c59-4154-9672-e650e2c08b22")
     protected VTabFolder parent;
@@ -179,22 +179,23 @@ public class VTabFolderRenderer {
 
     /**
      * Constructs a new instance of this class given its parent.
-     * @see Widget#getStyle
+     *
      * @param parent CTabFolder
-     * 
+     *
      * @exception IllegalArgumentException
      * <ul>
      * <li>ERROR_INVALID_ARGUMENT - if the parent is disposed</li>
      * </ul>
+     * @see Widget#getStyle
      */
     @objid ("ff346574-632b-4060-b4ae-a72917458756")
-    protected  VTabFolderRenderer(VTabFolder parent) {
+    protected VTabFolderRenderer(VTabFolder parent) {
         if (parent == null)
             return;
         if (parent.isDisposed())
             SWT.error(SWT.ERROR_INVALID_ARGUMENT);
         this.parent = parent;
-        
+
     }
 
     /**
@@ -224,13 +225,14 @@ public class VTabFolderRenderer {
      * <li>SWT.SELECTED - whether the part is selected</li>
      * </ul>
      * </p>
+     *
      * @param part a part constant
      * @param state current state
      * @param gc the gc to use for measuring
      * @param wHint the width hint (can be <code>SWT.DEFAULT</code>)
      * @param hHint the height hint (can be <code>SWT.DEFAULT</code>)
      * @return the preferred size of the part
-     * 
+     *
      * @since 3.6
      */
     @objid ("581181f6-cb91-4839-992c-ab260dcd4953")
@@ -270,7 +272,7 @@ public class VTabFolderRenderer {
             break;
         default:
             if (0 <= part && part < this.parent.getItemCount()) {
-        
+
                 VTabItem item = this.parent.getItems()[part];
                 if (item.isDisposed())
                     return new Point(0, 0);
@@ -316,7 +318,7 @@ public class VTabFolderRenderer {
                         gc.setFont(gcFont);
                     }
                 }
-        
+
             }
             break;
         }
@@ -332,9 +334,7 @@ public class VTabFolderRenderer {
      * In other words, it returns a rectangle such that, if the part's bounds were set to that rectangle, the area of the part which is capable of displaying data (that is, not covered by the "trimmings") would be the rectangle described by the arguments
      * (relative to the receiver's parent).
      * </p>
-     * @see CTabFolderRenderer#computeSize(int, int, GC, int, int) valid part and state values
-     * 
-     * @since 3.6
+     *
      * @param part one of the part constants
      * @param state the state of the part
      * @param x the desired x coordinate of the client area
@@ -342,17 +342,19 @@ public class VTabFolderRenderer {
      * @param width the desired width of the client area
      * @param height the desired height of the client area
      * @return the required bounds to produce the given client area
+     * @see CTabFolderRenderer#computeSize(int, int, GC, int, int) valid part and state values
+     * @since 3.6
      */
     @objid ("6ccccacb-b262-443c-a4d0-6abac942213b")
     protected Rectangle computeTrim(int part, int state, int x, int y, int width, int height) {
         int borderTop = this.parent.isBorderVisible() ? 1 : 0;
         int borderBottom = borderTop;
-        
+
         int borderLeft = this.parent.isOnRight() ? borderTop : 0;
         int borderRight = this.parent.isOnRight() ? 0 : borderTop;
-        
+
         int tabWidth = this.parent.getTabWidth();
-        
+
         switch (part) {
         case PART_BODY:
             int style = this.parent.getStyle();
@@ -365,12 +367,12 @@ public class VTabFolderRenderer {
             int marginHeight = this.parent.marginHeight;
             y = y - marginHeight - highlight_margin - borderTop;
             height = height + borderTop + borderBottom + 2 * marginHeight + 2 * highlight_margin;
-        
+
             x = this.parent.isOnRight() ? x - marginWidth - highlight_margin - borderLeft
                     : x - marginWidth - highlight_header - tabWidth - borderLeft;
             width = width + borderLeft + borderRight + 2 * marginWidth + tabWidth + highlight_header;
             // + highlight_margin;
-        
+
             break;
         case PART_HEADER:
             y -= ITEM_TOP_MARGIN + ITEM_BOTTOM_MARGIN;
@@ -394,10 +396,10 @@ public class VTabFolderRenderer {
             break;
         default:
             if (0 <= part && part < this.parent.getItemCount()) {
-        
+
                 x = x - ITEM_LEFT_MARGIN;
                 width = width + ITEM_LEFT_MARGIN + ITEM_RIGHT_MARGIN;
-        
+
                 y = y - ITEM_TOP_MARGIN;
                 height = height + ITEM_TOP_MARGIN + ITEM_BOTTOM_MARGIN;
             }
@@ -408,6 +410,7 @@ public class VTabFolderRenderer {
 
     /**
      * Dispose of any operating system resources associated with the renderer. Called by the CTabFolder parent upon receiving the dispose event or when changing the renderer.
+     *
      * @since 3.6
      */
     @objid ("4d248531-2efe-47cd-a28d-9ac60cf0869a")
@@ -416,7 +419,7 @@ public class VTabFolderRenderer {
             this.fillColor.dispose();
             this.fillColor = null;
         }
-        
+
     }
 
     /**
@@ -444,11 +447,12 @@ public class VTabFolderRenderer {
      * <li>SWT.HOT - whether the part is hot (i.e. mouse is over the part)</li>
      * </ul>
      * </p>
+     *
      * @param part part to draw
      * @param state state of the part
      * @param bounds the bounds of the part
      * @param gc the gc to draw the part on
-     * 
+     *
      * @since 3.6
      */
     @objid ("b2db1aed-aa69-4c09-9825-d597e0e3f0c8")
@@ -484,7 +488,7 @@ public class VTabFolderRenderer {
             }
             break;
         }
-        
+
     }
 
     @objid ("6798866f-6259-4cdb-9312-deb081cd5b99")
@@ -492,33 +496,33 @@ public class VTabFolderRenderer {
         boolean selected = (state & SWT.SELECTED) != 0;
         Color defaultBackground = selected ? this.parent.selectionBackground : this.parent.getBackground();
         Image image = selected ? this.parent.selectionBgImage : null;
-        
+
         drawBackground(gc, null, bounds.x, bounds.y, bounds.width, bounds.height, defaultBackground, image);
-        
+
     }
 
     @objid ("24fdef38-d8d0-4d09-af6d-613109a18003")
     private void drawBackground(GC gc, int[] shape, boolean selected) {
         Color defaultBackground = selected ? this.parent.selectionBackground : this.parent.getBackground();
         Image image = selected ? this.parent.selectionBgImage : null;
-        
+
         Point size = this.parent.getSize();
         int width = this.parent.getTabWidth() + ((this.parent.getStyle() & SWT.FLAT) != 0 ? 1 : 3);
         int height = size.y;
         int x = 0;
         int y = 0;
-        
+
         int borderTop = this.parent.isBorderVisible() ? 1 : 0;
         int borderLeft = this.parent.isOnRight() ? borderTop : 0;
         int borderRight = this.parent.isOnRight() ? 0 : borderTop;
-        
+
         if (borderTop > 0) {
             y += 1;
             height -= 2;
         }
         x = this.parent.isOnRight() ? size.x - borderRight - width : borderLeft;
         drawBackground(gc, shape, x, y, width, height, defaultBackground, image);
-        
+
     }
 
     @objid ("2523a4d8-2fd6-4f89-99de-2b89f843bc69")
@@ -555,21 +559,21 @@ public class VTabFolderRenderer {
                 region.dispose();
             }
         }
-        
+
     }
 
     /*
          * Draw the border of the tab
-         * 
+         *
          * @param gc
-         * 
+         *
          * @param shape
          */
     @objid ("c1e3de8e-f412-4f56-9b6f-6d3dfdb7132e")
     private void drawBorder(GC gc, int[] shape) {
         gc.setForeground(this.parent.getDisplay().getSystemColor(BORDER1_COLOR));
         gc.drawPolyline(shape);
-        
+
     }
 
     @objid ("0de36eed-7892-48b0-bd5a-8f0f60cfcd2c")
@@ -577,30 +581,30 @@ public class VTabFolderRenderer {
         Point size = new Point(bounds.width, bounds.height);
         int selectedIndex = this.parent.getSelectedIndex();
         int tabWidth = this.parent.getTabWidth();
-        
+
         int borderTop = this.parent.isBorderVisible() ? 1 : 0;
         int borderBottom = borderTop;
-        
+
         int borderLeft = this.parent.isOnRight() ? borderTop : 0;
         int borderRight = this.parent.isOnRight() ? 0 : borderTop;
-        
+
         int style = this.parent.getStyle();
         int highlight_header = getHighlightHeader(style);
         int highlight_margin = (style & SWT.FLAT) != 0 ? 0 : 2;
-        
+
         // fill in body
-        
+
         int width = size.x - borderLeft - borderRight - tabWidth - highlight_header - highlight_margin;
         int height = size.y - borderTop - borderBottom - 2 * highlight_margin;
         // Draw highlight margin
-        
+
         if (highlight_margin > 0) {
             int[] shape = null;
             if (this.parent.isOnRight()) {
                 int x1 = borderLeft;
                 int y1 = borderTop;
                 int x2 = size.y - borderBottom - tabWidth - highlight_header;
-        
+
                 int y2 = size.y - borderBottom;
                 shape = new int[] { x1, y1, x2, y1, x2, y2, x2 - highlight_margin, y2, x2 - highlight_margin,
                         y1 + highlight_margin, x1 + highlight_margin, y1 + highlight_margin, x1 + highlight_margin, y2,
@@ -612,20 +616,20 @@ public class VTabFolderRenderer {
                 int y2 = size.y - borderBottom;
                 shape = new int[] { x1, y1, x2, y1, x2, y2, x1, y2, x1, y1 };
             }
-        
+
             gc.setBackground(selectedIndex == -1 ? this.parent.getBackground() : this.parent.selectionBackground);
             gc.fillPolygon(shape);
-        
+
         }
         // Draw client area
         if ((this.parent.getStyle() & SWT.NO_BACKGROUND) != 0) {
             gc.setBackground(this.parent.getBackground());
             int marginWidth = this.parent.marginWidth;
             int marginHeight = this.parent.marginHeight;
-        
+
             int xClient;
             int yClient = borderTop + marginHeight + highlight_margin;
-        
+
             if (this.parent.isOnRight()) {
                 xClient = borderLeft + highlight_margin + marginWidth;
             } else {
@@ -633,26 +637,26 @@ public class VTabFolderRenderer {
             }
             gc.fillRectangle(xClient - marginWidth, yClient - marginHeight, width, height);
         }
-        
+
         // draw 1 pixel border around outside
         if (borderTop > 0) {
             gc.setForeground(this.parent.getDisplay().getSystemColor(BORDER1_COLOR));
             int x1 = this.parent.isOnRight() ? borderLeft - 1 : borderLeft + tabWidth;
             int y1 = borderTop - 1;
-        
+
             int x2 = this.parent.isOnRight() ? size.x - tabWidth - borderRight - 1 : size.x - borderRight;
             int y2 = size.y - borderBottom;
-        
+
             gc.drawLine(x1, y1, x2, y1); // top
             gc.drawLine(x1, y2, x2, y2); // bottom
-        
+
             if (this.parent.isOnRight()) {
                 gc.drawLine(x2, y1, x2, y2); // right
             } else {
                 gc.drawLine(x1, y1, x1, y2); // left
             }
         }
-        
+
     }
 
     @objid ("0a1e3f78-084d-45cf-8b24-90bdf346b89e")
@@ -737,11 +741,12 @@ public class VTabFolderRenderer {
         }
         }
         f.dispose();
-        
+
     }
 
     /**
      * Draw the highlight shadow of a tab
+     *
      * @param gc
      * @param bounds
      * @param state
@@ -753,12 +758,12 @@ public class VTabFolderRenderer {
         int y = bounds.y;
         int w = bounds.width;
         int h = bounds.height;
-        
+
         gc.setForeground(this.parent.getDisplay().getSystemColor(SWT.COLOR_WIDGET_HIGHLIGHT_SHADOW));
-        
+
         // draw top horizontal line
         gc.drawLine(x + BEVEL, y + 1, x + w, y + 1);
-        
+
         if (this.parent.isOnRight()) {
             // draw right vertical line highlight
             gc.drawLine(x + w - 1, y + BEVEL, x + w - 1, y + h - BEVEL);
@@ -766,21 +771,21 @@ public class VTabFolderRenderer {
             // draw left vertical line highlight
             gc.drawLine(x + 1, y + BEVEL, x + 1, y + h - BEVEL);
         }
-        
+
     }
 
     /*
          * Draw the unselected border for the receiver on the left.
-         * 
+         *
          * @param gc
          */
     @objid ("63477b91-a47a-43d3-ac77-aae3b548bdaa")
     private void drawTopUnselectedBorder(GC gc, Rectangle bounds) {
         int x = bounds.x;
         int y = bounds.y;
-        
+
         int w = bounds.width;
-        
+
         int[] shape = null;
         if (this.parent.isOnRight()) {
             shape = new int[4];
@@ -796,12 +801,12 @@ public class VTabFolderRenderer {
             shape[3] = y;
         }
         drawBorder(gc, shape);
-        
+
     }
 
     /*
          * Draw the unselected border for the receiver on the right.
-         * 
+         *
          * @param gc
          */
     @objid ("b9f8dac0-c433-42a1-9b6b-d494786a1c69")
@@ -810,9 +815,9 @@ public class VTabFolderRenderer {
         int y = bounds.y;
         int w = bounds.width;
         int h = bounds.height;
-        
+
         int[] shape = null;
-        
+
         if (this.parent.isOnRight()) {
             shape = new int[4];
             shape[0] = x;
@@ -825,11 +830,11 @@ public class VTabFolderRenderer {
             shape[1] = y + h;
             shape[2] = x + w - 1;
             shape[3] = y + h;
-        
+
         }
-        
+
         drawBorder(gc, shape);
-        
+
     }
 
     //
@@ -926,6 +931,7 @@ public class VTabFolderRenderer {
     // }
     /**
      * Draw a seleted tab
+     *
      * @param itemIndex
      * @param gc
      * @param bounds
@@ -938,16 +944,16 @@ public class VTabFolderRenderer {
         int y = bounds.y;
         int height = bounds.height;
         int width = bounds.width;
-        
+
         int borderTop = this.parent.isBorderVisible() ? 1 : 0;
         int borderBottom = borderTop;
         int borderLeft = this.parent.isOnRight() ? borderTop : 0;
         int borderRight = this.parent.isOnRight() ? 0 : borderTop;
-        
+
         Point size = this.parent.getSize();
-        
+
         int bottomEdge = Math.min(y + height, this.parent.getBottomItemEdge(gc));
-        
+
         // Draw selection border across all tabs
         if ((state & SWT.BACKGROUND) != 0) {
             int highlight_header = getHighlightHeader(this.parent.getStyle());
@@ -956,10 +962,10 @@ public class VTabFolderRenderer {
             int yy = borderTop;
             int ww = highlight_header - 1;
             int hh = size.y - borderTop - borderBottom;
-        
+
             gc.setBackground(this.parent.selectionBackground);
             gc.fillRectangle(xx, yy, ww, hh);
-        
+
             if (this.parent.isSingle()) {
                 if (!item.isShowing())
                     return;
@@ -974,7 +980,7 @@ public class VTabFolderRenderer {
                     gc.drawLine(x1, y1, x2, y1);
                     return;
                 }
-        
+
                 // draw selected tab background and outline
                 int[] shape = null;
                 if (this.parent.isOnRight()) {
@@ -982,93 +988,93 @@ public class VTabFolderRenderer {
                     // A
                     shape[0] = x + width - BEVEL;
                     shape[1] = y;
-        
+
                     // B
                     shape[2] = x;
                     shape[3] = y;
-        
+
                     // C
                     shape[4] = x;
                     shape[5] = y + height;
-        
+
                     // D
                     shape[6] = x + width - BEVEL;
                     shape[7] = y + height;
-        
+
                     // E
                     shape[8] = x + width;
                     shape[9] = y + height - BEVEL;
-        
+
                     // F
                     shape[10] = x + width;
                     shape[11] = y + BEVEL;
-        
+
                     // A
                     shape[12] = x + width - BEVEL;
                     shape[13] = y;
-        
+
                 } else {
-        
+
                     shape = new int[14];
-        
+
                     // A
                     shape[0] = x + BEVEL;
                     shape[1] = y;
-        
+
                     // B
                     shape[2] = x + width;
                     shape[3] = y;
-        
+
                     // C
                     shape[4] = x + width;
                     shape[5] = y + height;
-        
+
                     // D
                     shape[6] = x + BEVEL;
                     shape[7] = y + height;
-        
+
                     // E
                     shape[8] = x;
                     shape[9] = y + height - BEVEL;
-        
+
                     // F
                     shape[10] = x;
                     shape[11] = y + BEVEL;
-        
+
                     // A
                     shape[12] = x + BEVEL;
                     shape[13] = y;
-        
+
                 }
-        
+
                 Rectangle clipping = gc.getClipping();
                 Rectangle clipBounds = item.getBounds();
                 clipBounds.height += 1;
                 if (this.parent.isOnRight())
                     clipBounds.y -= 1;
                 boolean tabInPaint = clipping.intersects(clipBounds);
-        
+
                 if (tabInPaint) {
                     // fill in tab background
-        
+
                     Color defaultBackground = this.parent.selectionBackground;
-        
+
                     Image image = this.parent.selectionBgImage;
-        
+
                     xx = x;
                     yy = this.parent.isOnRight() ? y - 1 : y + 1;
                     ww = width;
                     hh = height;
-        
+
                     drawBackground(gc, shape, xx, yy, ww, hh, defaultBackground, image);
-        
+
                 }
-        
+
                 // Highlight MUST be drawn before the outline so that outline
                 // can cover it in the right spots (start of swoop)
                 // otherwise the curve looks jagged
                 drawHighlight(gc, bounds, state, bottomEdge);
-        
+
                 // draw outline
                 // shape[0] = Math.max(0, borderLeft - 1);
                 // if (borderTop == 0 && itemIndex == this.parent.firstIndex) {
@@ -1081,82 +1087,82 @@ public class VTabFolderRenderer {
                 // shape[2 * i + 1] -= 1;
                 // }
                 Color borderColor = this.parent.getDisplay().getSystemColor(BORDER1_COLOR);
-        
+
                 gc.setForeground(borderColor);
-        
+
                 if (this.parent.isOnRight()) {
                     shape = new int[12];
-        
+
                     // A
                     shape[0] = x - 1;
                     shape[1] = y;
-        
+
                     // B
                     shape[2] = x + width - BEVEL - 1;
                     shape[3] = y;
-        
+
                     // C
                     shape[4] = x + width - 1;
                     shape[5] = y + BEVEL;
-        
+
                     // D
                     shape[6] = x + width - 1;
                     shape[7] = y + height - BEVEL;
-        
+
                     // E
                     shape[8] = x + width - BEVEL - 1;
                     shape[9] = y + height;
-        
+
                     // F
                     shape[10] = x - 1;
                     shape[11] = y + height;
-        
+
                 } else {
                     shape = new int[12];
-        
+
                     // A
                     shape[0] = x + width;
                     shape[1] = y;
-        
+
                     // B
                     shape[2] = x + BEVEL;
                     shape[3] = y;
-        
+
                     // C
                     shape[4] = x;
                     shape[5] = y + BEVEL;
-        
+
                     // D
                     shape[6] = x;
                     shape[7] = y + height - BEVEL;
-        
+
                     // E
                     shape[8] = x + BEVEL;
                     shape[9] = y + height;
-        
+
                     // F
                     shape[10] = x + width;
                     shape[11] = y + height;
                 }
-        
+
                 gc.drawPolyline(shape);
-        
+
                 if (!tabInPaint)
                     return;
             }
         }
-        
+
         if ((state & SWT.FOREGROUND) != 0) {
             // draw Image
             Rectangle trim = computeTrim(itemIndex, SWT.NONE, 0, 0, 0, 0);
             int xDraw = x - trim.x;
-        
+
             Image image = item.getImage();
             if (image != null && !image.isDisposed() && this.parent.showUnselectedImage) {
                 Rectangle imageBounds = image.getBounds();
                 // only draw image if it won't overlap with close button
                 int maxImageWidth = x + width - xDraw - (trim.width + trim.x);
-        
+
                 if (imageBounds.width < maxImageWidth) {
                     int imageX = xDraw;
                     int imageHeight = imageBounds.height;
@@ -1168,7 +1174,7 @@ public class VTabFolderRenderer {
                     xDraw += imageWidth + INTERNAL_SPACING;
                 }
             }
-        
+
             // draw Text
             int textWidth = x + width - xDraw; // rightEdge - xDraw -
             // (trim.width +
@@ -1178,7 +1184,7 @@ public class VTabFolderRenderer {
             if (textWidth > 0) {
                 Font gcFont = gc.getFont();
                 gc.setFont(item.font == null ? this.parent.getFont() : item.font);
-        
+
                 if (item.shortenedText == null || item.shortenedTextWidth != textWidth) {
                     item.shortenedText = shortenText(gc, item.getText(), textWidth);
                     item.shortenedTextWidth = textWidth;
@@ -1186,11 +1192,11 @@ public class VTabFolderRenderer {
                 Point extent = gc.textExtent(item.shortenedText, FLAGS);
                 int textY = y + (height - 1 - extent.y) / 2;
                 textY += 1;
-        
+
                 gc.setForeground(this.parent.selectionForeground);
                 gc.drawText(item.shortenedText, xDraw, textY, FLAGS);
                 gc.setFont(gcFont);
-        
+
                 // draw a Focus rectangle
                 if (this.parent.isFocusControl()) {
                     Display display = this.parent.getDisplay();
@@ -1204,9 +1210,9 @@ public class VTabFolderRenderer {
                     }
                 }
             }
-        
+
         }
-        
+
     }
 
     @objid ("968a3934-bd9a-4773-a060-52bdfccbb6bf")
@@ -1216,13 +1222,13 @@ public class VTabFolderRenderer {
         Color borderColor = this.parent.getDisplay().getSystemColor(BORDER1_COLOR);
         int tabWidth = this.parent.getTabWidth();
         int style = this.parent.getStyle();
-        
+
         int borderTop = this.parent.isBorderVisible() ? 1 : 0;
         int borderBottom = borderTop;
-        
+
         int borderLeft = this.parent.isOnRight() ? borderTop : 0;
         int borderRight = this.parent.isOnRight() ? 0 : borderTop;
-        
+
         int selectedIndex = this.parent.getSelectedIndex();
         int highlight_header = getHighlightHeader(style);
         if (tabWidth == 0) {
@@ -1235,12 +1241,12 @@ public class VTabFolderRenderer {
             int x2 = this.parent.isOnRight() ? size.x - borderRight : borderLeft;
             if (borderLeft > 0 && this.parent.isOnRight())
                 y2 -= 1;
-        
+
             shape = new int[] { x1, y1, x1, y2, x2, y2, x2, y1 };
-        
+
             gc.setBackground(selectedIndex == -1 ? this.parent.getBackground() : this.parent.selectionBackground);
             gc.fillPolygon(shape);
-        
+
             // draw 1 pixel border
             if (borderLeft > 0) {
                 gc.setForeground(borderColor);
@@ -1248,17 +1254,17 @@ public class VTabFolderRenderer {
             }
             return;
         }
-        
+
         int y = Math.max(0, borderTop - 1);
         int x = this.parent.isOnRight() ? size.x - borderRight - tabWidth : borderLeft;
         int height = size.y - borderTop - borderBottom + 1;
         int width = tabWidth - 1;
-        
+
         // Draw Tab Header
         if (this.parent.isOnRight()) {
-        
+
             shape = new int[10];
-        
+
             shape[0] = x + size.x;
             shape[1] = y;
             shape[2] = x + size.x - width;
@@ -1269,11 +1275,11 @@ public class VTabFolderRenderer {
             shape[7] = y + height;
             shape[8] = x + size.x;
             shape[9] = y;
-        
+
         } else {
-        
+
             shape = new int[10];
-        
+
             shape[0] = x;
             shape[1] = y;
             shape[2] = x + width;
@@ -1296,7 +1302,7 @@ public class VTabFolderRenderer {
         gc.setBackground(this.parent.getParent().getBackground());
         fillRegion(gc, r);
         r.dispose();
-        
+
         // Draw selected tab
         if (selectedIndex == -1) {
             // if no selected tab - draw line across bottom of all tabs
@@ -1306,13 +1312,13 @@ public class VTabFolderRenderer {
             gc.setForeground(borderColor);
             gc.drawLine(x1, y1, x1, y2);
         }
-        
+
         // Draw border line
         if (borderTop > 0) {
             gc.setForeground(borderColor);
             gc.drawPolyline(shape);
         }
-        
+
     }
 
     @objid ("bab1f600-7206-438b-b898-f6f1e348ddb5")
@@ -1327,15 +1333,15 @@ public class VTabFolderRenderer {
         int y = bounds.y;
         int height = bounds.height;
         int width = bounds.width;
-        
+
         // Do not draw partial items
         if (!item.showing)
             return;
-        
+
         Rectangle clipping = gc.getClipping();
         if (!clipping.intersects(bounds))
             return;
-        
+
         if ((state & SWT.BACKGROUND) != 0) {
             if (index >= 0 && index < this.parent.getSelectedIndex())
                 drawTopUnselectedBorder(gc, bounds);
@@ -1343,7 +1349,7 @@ public class VTabFolderRenderer {
             if (index > this.parent.getSelectedIndex())
                 drawBottomUnselectedBorder(gc, bounds);
         }
-        
+
         if ((state & SWT.FOREGROUND) != 0) {
             // draw Image
             Rectangle trim = computeTrim(index, SWT.NONE, 0, 0, 0, 0);
@@ -1353,7 +1359,7 @@ public class VTabFolderRenderer {
                 Rectangle imageBounds = image.getBounds();
                 // only draw image if it won't overlap with close button
                 int maxImageWidth = x + width - xDraw - (trim.width + trim.x);
-        
+
                 if (imageBounds.width < maxImageWidth) {
                     int imageX = xDraw;
                     int imageHeight = imageBounds.height;
@@ -1367,7 +1373,7 @@ public class VTabFolderRenderer {
             }
             // draw Text
             int textWidth = x + width - xDraw - (trim.width + trim.x);
-        
+
             if (textWidth > 0) {
                 Font gcFont = gc.getFont();
                 gc.setFont(item.font == null ? this.parent.getFont() : item.font);
@@ -1383,9 +1389,9 @@ public class VTabFolderRenderer {
                 gc.setFont(gcFont);
             }
             // draw close
-        
+
         }
-        
+
     }
 
     @objid ("96bd8e7e-9868-4ca5-aa3a-3ab8857ca2e1")
@@ -1398,7 +1404,7 @@ public class VTabFolderRenderer {
         gc.fillRectangle(region.getBounds());
         gc.setClipping(clipping);
         clipping.dispose();
-        
+
     }
 
     @objid ("eccd6b52-20da-4f10-acee-cabf74894380")

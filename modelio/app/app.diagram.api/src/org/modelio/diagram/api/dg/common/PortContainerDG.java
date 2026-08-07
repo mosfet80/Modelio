@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.api.dg.common;
 
@@ -48,11 +48,12 @@ import org.modelio.diagram.elements.core.node.GmNodeModel;
 public abstract class PortContainerDG extends DiagramNode {
     /**
      * Creates a PortContainerDG.
+     *
      * @param diagramHandle The diagram manipulation class.
      * @param gmNode The gm node represented by this class.
      */
     @objid ("5812cc18-3b98-45fa-9392-c30a15ae9f48")
-    public  PortContainerDG(DiagramHandle diagramHandle, final GmNodeModel gmNode) {
+    public PortContainerDG(DiagramHandle diagramHandle, final GmNodeModel gmNode) {
         super(diagramHandle, gmNode);
     }
 
@@ -60,12 +61,12 @@ public abstract class PortContainerDG extends DiagramNode {
     @Override
     public final List<IDiagramNode> getNodes() {
         ArrayList<IDiagramNode> nodes = new ArrayList<>();
-        
+
         List<IDiagramNode> children = this.getPrimaryChildrenNodes();
         if (children != null) {
             nodes.addAll(children);
         }
-        
+
         GmPortContainer pc = (GmPortContainer) this.gmNode;
         for (GmNodeModel gm : pc.getVisibleChildren()) {
             if (pc.isPort(gm) || pc.isSatellite(gm)) {
@@ -116,6 +117,7 @@ public abstract class PortContainerDG extends DiagramNode {
      * <p>
      * E.g for a model class, returns the represented attributes, operations, instances
      * and inner classes.
+     *
      * @return the represented elements diagram nodes in this node.
      */
     @objid ("c928f5d8-5493-4f17-9df3-aac9cad80df6")
@@ -126,11 +128,11 @@ public abstract class PortContainerDG extends DiagramNode {
     protected Dimension getMinimumSize() {
         // For PortContainers, we must take the main node minimum size to avoid side effects during the setSize
         GmPortContainer gpc = (GmPortContainer)this.gmNode;
-        
+
         GmNodeModel mainNode = gpc.getMainNode();
         if (mainNode != null) {
             GraphicalEditPart mainNodeEditPart = this.diagramHandle.getEditPart(mainNode);
-        
+
             if (mainNodeEditPart != null) {
                 IFigure mainFig = mainNodeEditPart.getFigure();
                 return mainFig.getMinimumSize();
@@ -155,6 +157,7 @@ public abstract class PortContainerDG extends DiagramNode {
 
     /**
      * Get the satellite nodes.
+     *
      * @return the satellite nodes.
      */
     @objid ("23b3b18b-9c0f-48ba-a5e6-a04911b9de02")
@@ -171,6 +174,7 @@ public abstract class PortContainerDG extends DiagramNode {
 
     /**
      * Get the child nodes layouted as port.
+     *
      * @return the port nodes.
      */
     @objid ("50573743-95c2-4c14-8051-6de0609b49dd")
@@ -217,7 +221,7 @@ public abstract class PortContainerDG extends DiagramNode {
         default:
             throw new IllegalArgumentException(String.valueOf(role));
         }
-        
+
     }
 
 }

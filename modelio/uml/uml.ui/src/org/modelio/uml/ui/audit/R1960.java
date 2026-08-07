@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -48,7 +48,7 @@ public class R1960 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -67,7 +67,7 @@ public class R1960 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         plan.registerRule(Message.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Operation.MQNAME, this, AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -101,14 +101,14 @@ public class R1960 extends AbstractUmlRule {
      * Default constructor for R1960
      */
     @objid ("c102d72e-1b61-4a8b-aeab-5a1fc0b85270")
-    public  R1960() {
+    public R1960() {
         this.checkerInstance = new CheckR1960(this);
     }
 
     @objid ("733a131a-026f-454a-ba75-0c19a5a519d4")
     private static class CheckR1960 extends AbstractControl {
         @objid ("cc1e6f82-8a4f-46b2-b1bc-2e67900ccc53")
-        public  CheckR1960(IRule rule) {
+        public CheckR1960(IRule rule) {
             super(rule);
         }
 
@@ -133,11 +133,11 @@ public class R1960 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     message,
                     null);
-            
+
             Operation operation = message.getInvoked();
-            
+
             if (operation != null && !operation.getName().equals(message.getName())) {
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(message);

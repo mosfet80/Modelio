@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -25,6 +25,7 @@ import org.modelio.metamodel.uml.infrastructure.Abstraction;
 
 /**
  * This class is in charge of the org.eclipse.uml2.uml.Abstraction export
+ *
  * @author ebrosse
  */
 @objid ("903a61ac-4eea-4b5e-9eb3-498f77941080")
@@ -37,10 +38,11 @@ public class OAbstraction extends ODependency {
 
     /**
      * A constructor with the exported org.eclipse.uml2.uml.Abstraction
+     *
      * @param abstraction The exported org.eclipse.uml2.uml.Abstraction
      */
     @objid ("8bcfee2b-9d02-42f1-a25a-da258e9d3eb5")
-    public  OAbstraction(Abstraction abstraction) {
+    public OAbstraction(Abstraction abstraction) {
         super(abstraction);
     }
 
@@ -55,7 +57,7 @@ public class OAbstraction extends ODependency {
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
         setAbstractionMapping( (org.eclipse.uml2.uml.Abstraction) ecoreElt);
-        
+
     }
 
     @objid ("f6c938be-41c4-46b1-8a86-7f0f5274d832")
@@ -63,16 +65,16 @@ public class OAbstraction extends ODependency {
         org.eclipse.uml2.uml.OpaqueExpression expr = UMLFactory.eINSTANCE.createOpaqueExpression();
         String abstractionName = getObjingElement().getName();
         String mappingName = "";
-        
+
         if (!"".equals(abstractionName))
             mappingName = abstractionName + "_";
-        
+
         mappingName += "Mapping";
-        
+
         expr.setName(mappingName);
         expr.getBodies().add(getObjingElement().getMapping());
         ecoreAbstraction.setMapping(expr);
-        
+
     }
 
     @objid ("0dab13ac-784d-4dc0-b279-3df9234cca97")

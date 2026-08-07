@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -43,66 +42,65 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("afb90f81-def5-4f04-bd0f-5ff0db63e929")
 public class OutputPinSmClass extends PinSmClass {
-    @objid ("7cbb63f4-4b93-4b67-8fac-c42c4a31d611")
+    @objid ("a61c22ac-0367-4ad8-8549-028f6e531d7c")
     private SmDependency outputingDep;
 
-    @objid ("eb3a60b8-d8f7-40ee-9768-4bedbd0b6f67")
-    public  OutputPinSmClass(ISmMetamodelFragment origin) {
+    @objid ("f96d51e2-86cb-4f96-9797-7e4786c7dc67")
+    public OutputPinSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("9b044201-6f20-4b40-859e-8a881ff61bf9")
+    @objid ("a4cc0d3f-2ab9-4757-91ba-2f52a288ebdc")
     @Override
     public String getName() {
         return "OutputPin";
-        
+
     }
 
-    @objid ("6744cca4-f5fb-484c-9af0-ca9a1068d21a")
+    @objid ("bcec0764-8196-4dd6-b2fd-5c849eafd9f5")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("d1ce172a-198b-4fc9-824d-cb9b900d0725")
+    @objid ("bf255ebc-be42-42ee-8862-410be9daec3a")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return OutputPin.class;
-        
+
     }
 
-    @objid ("5de9a49f-7ea3-4c3a-8496-c33fc1d4a1df")
+    @objid ("7ad04d38-838b-4f49-bfae-6d26b8fcd038")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("bd6dc9a5-fb30-4641-9724-5e59deecd2bc")
+    @objid ("e0bcd560-d412-4379-865e-693e24b5d49e")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("92cde2cb-0a11-4831-87fc-027be8863d7a")
+    @objid ("6614ea67-09ea-4fe9-b724-81292c2b77ee")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(Pin.MQNAME);
         this.registerFactory(new OutputPinObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
         this.outputingDep = new OutputingSmDependency();
         this.outputingDep.init("Outputing", this, metamodel.getMClass(ActivityAction.MQNAME), 0, 1 );
         registerDependency(this.outputingDep);
-        
-        
+
     }
 
-    @objid ("39e0d501-0a60-4ae4-a32a-08217c111741")
+    @objid ("bf6049b3-fcbb-4295-9c4a-2ded6f551441")
     public SmDependency getOutputingDep() {
         if (this.outputingDep == null) {
         	this.outputingDep = this.getDependencyDef("Outputing");
@@ -112,21 +110,21 @@ public class OutputPinSmClass extends PinSmClass {
 
     @objid ("d8975d2f-24ec-473f-b9a4-d4964e0bba79")
     private static class OutputPinObjectFactory implements ISmObjectFactory {
-        @objid ("c6071bda-d6b0-47aa-83d0-c2c4fcde8cfd")
+        @objid ("4ee22bfd-db2a-4b92-a13a-10c4bbd47476")
         private OutputPinSmClass smClass;
 
-        @objid ("11c4b9ea-72c5-43e0-836a-0f5817cd8126")
-        public  OutputPinObjectFactory(OutputPinSmClass smClass) {
+        @objid ("c03344fb-68a4-40c1-abae-c2ae92e9fb53")
+        public OutputPinObjectFactory(OutputPinSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("2a5bff36-24d0-48cc-aff0-9680dae8ba4f")
+        @objid ("e99186cb-53c6-48d9-bf42-38e68460c8ef")
         @Override
         public ISmObjectData createData() {
             return new OutputPinData(this.smClass);
         }
 
-        @objid ("20931eb4-f9cc-49f1-ba66-1afded3778a5")
+        @objid ("bba48764-4e80-4aba-b907-f2ddaf8de40c")
         @Override
         public SmObjectImpl createImpl() {
             return new OutputPinImpl();
@@ -136,29 +134,29 @@ public class OutputPinSmClass extends PinSmClass {
 
     @objid ("19d0964d-48a9-4afa-a867-cb29e1baf945")
     public static class OutputingSmDependency extends SmSingleDependency {
-        @objid ("3bf75004-c9c1-4e7a-8e5b-51ce29974f5e")
+        @objid ("2451e8d3-a354-4774-9861-046d5087479c")
         private SmDependency symetricDep;
 
-        @objid ("1c5df217-a0a3-4d45-ac60-0b6ca78678c4")
+        @objid ("694ed1a6-191a-487c-9eef-303ca70756c1")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((OutputPinData) data).mOutputing;
         }
 
-        @objid ("6213aa65-52db-45cf-a0be-fe3a7bccdd40")
+        @objid ("e64b8ecb-10db-4b8d-b082-42e633a8f692")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((OutputPinData) data).mOutputing = value;
         }
 
-        @objid ("9c8771cd-8783-47f4-a46f-24ae256ba89f")
+        @objid ("f23d4996-6699-4a18-a923-f0cc398e50c3")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((ActivityActionSmClass)this.getTarget()).getOutputDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+<toc label="Metamodel - Analyst" topic="html/Metamodel_HTML/sitemap.html">
+<topic href="html/Metamodel_HTML/1.html" label="analyst">
+<topic href="html/Metamodel_HTML/2.html" label="AnalystItem">
+</topic>
+<topic href="html/Metamodel_HTML/3.html" label="AnalystElement">
+</topic>
+<topic href="html/Metamodel_HTML/4.html" label="AnalystContainer">
+</topic>
+<topic href="html/Metamodel_HTML/5.html" label="AnalystProject">
+</topic>
+<topic href="html/Metamodel_HTML/6.html" label="AnalystPropertyTable">
+</topic>
+<topic href="html/Metamodel_HTML/7.html" label="BusinessRule">
+</topic>
+<topic href="html/Metamodel_HTML/8.html" label="BusinessRuleContainer">
+</topic>
+<topic href="html/Metamodel_HTML/9.html" label="Dictionary">
+</topic>
+<topic href="html/Metamodel_HTML/10.html" label="Goal">
+</topic>
+<topic href="html/Metamodel_HTML/11.html" label="GoalContainer">
+</topic>
+<topic href="html/Metamodel_HTML/12.html" label="KPI">
+</topic>
+<topic href="html/Metamodel_HTML/13.html" label="KPIContainer">
+</topic>
+<topic href="html/Metamodel_HTML/14.html" label="Requirement">
+</topic>
+<topic href="html/Metamodel_HTML/15.html" label="RequirementContainer">
+</topic>
+<topic href="html/Metamodel_HTML/16.html" label="Term">
+</topic>
+<topic href="html/Metamodel_HTML/17.html" label="GenericAnalystContainer">
+</topic>
+<topic href="html/Metamodel_HTML/18.html" label="GenericAnalystElement">
+</topic>
+<topic href="html/Metamodel_HTML/19.html" label="RiskContainer">
+</topic>
+<topic href="html/Metamodel_HTML/20.html" label="Risk">
+</topic>
+<topic href="html/Metamodel_HTML/21.html" label="TestContainer">
+</topic>
+<topic href="html/Metamodel_HTML/22.html" label="Test">
+</topic>
+</topic>
+</toc>

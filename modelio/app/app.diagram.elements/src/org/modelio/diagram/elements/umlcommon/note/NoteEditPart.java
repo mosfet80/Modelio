@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.umlcommon.note;
 
@@ -84,19 +84,19 @@ public class NoteEditPart extends AbstractNodeEditPart {
             }
             final NoteFigure noteFigure = getNoteFigure();
             final Figure label = noteFigure.getContentFigure();
-        
+
             if (gmNote.isHtml()) {
                 EditorLocatorForLabelFigure cellEditorLocator = new EditorLocatorForLabelFigure(
                         label,
                         (String s) -> noteFigure.setContents(s, true)).setMinSize(NoteEditPart.HTML_EDITOR_MIN_SIZE);
-        
+
                 HtmlTextEditManager manager = new HtmlTextEditManager(this, cellEditorLocator);
                 manager.show();
             } else {
                 final CellEditorLocator cellEditorLocator = new EditorLocatorForLabelFigure(
                         label,
                         (String s) -> noteFigure.setContents(s, false));
-        
+
                 TextDirectEditManager manager = new TextDirectEditManager(
                         this,
                         cellEditorLocator,
@@ -104,14 +104,14 @@ public class NoteEditPart extends AbstractNodeEditPart {
                         editableText.getText())
                                 .setMultiline(true)
                                 .setWrap(true);
-        
+
                 manager.show();
             }
-        
+
         } else {
             super.performRequest(req);
         }
-        
+
     }
 
     @objid ("818d861e-1dec-11e2-8cad-001ec947c8cc")
@@ -121,7 +121,7 @@ public class NoteEditPart extends AbstractNodeEditPart {
             refreshVisuals();
         } else if (evt.getPropertyName().equals(IGmObject.PROPERTY_LINK_TARGET)) {
             super.propertyChange(evt);
-        
+
             // This property change event may be used to signal that the link to the annoted element is missing.
             Object newValue = evt.getNewValue();
             if (newValue instanceof ModelElement) {
@@ -130,7 +130,7 @@ public class NoteEditPart extends AbstractNodeEditPart {
         } else {
             super.propertyChange(evt);
         }
-        
+
     }
 
     @objid ("818d8622-1dec-11e2-8cad-001ec947c8cc")
@@ -140,7 +140,7 @@ public class NoteEditPart extends AbstractNodeEditPart {
         installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new DefaultElementDirectEditPolicy());
         installEditPolicy(EditPolicy.NODE_ROLE, new DefaultCreateLinkEditPolicy());
         installEditPolicy("notelink", new LinkedNodeEndReconnectEditPolicy());
-        
+
     }
 
     @objid ("818d8625-1dec-11e2-8cad-001ec947c8cc")
@@ -148,20 +148,20 @@ public class NoteEditPart extends AbstractNodeEditPart {
     protected IFigure createFigure() {
         // Create the figure
         NoteFigure figure1 = new NoteFigure(!getModelStyle().getBoolean(GmNoteStyleKeys.UMLREPR));
-        
+
         // Set style independent properties
         // figure1.setSize(100, 50);
         figure1.setOpaque(true);
-        
+
         // Set style dependent properties
         refreshFromStyle(figure1, getModelStyle());
-        
+
         // Install connection figure listener (if possible, for new notes links may not bet available yet)
         List<IGmLink> endingLinks = getModel().getEndingLinks();
         if (!endingLinks.isEmpty()) {
             installConnectionFigureListener(endingLinks.get(0));
         }
-        
+
         // Return the created figure
         return figure1;
     }
@@ -176,11 +176,12 @@ public class NoteEditPart extends AbstractNodeEditPart {
                 noteLinkconnectionFigure.addFigureListener(this.connectionFigureListener);
             }
         }
-        
+
     }
 
     /**
      * Get the note figure.
+     *
      * @return The note figure.
      */
     @objid ("818d862c-1dec-11e2-8cad-001ec947c8cc")
@@ -190,6 +191,7 @@ public class NoteEditPart extends AbstractNodeEditPart {
 
     /**
      * Refresh this EditPart's visuals.
+     *
      * @see org.eclipse.gef.editparts.AbstractEditPart#refreshVisuals()
      */
     @objid ("818d8631-1dec-11e2-8cad-001ec947c8cc")
@@ -197,25 +199,26 @@ public class NoteEditPart extends AbstractNodeEditPart {
     protected void refreshVisuals() {
         final NoteFigure noteFigure = (NoteFigure) getFigure();
         final GmNote noteModel = (GmNote) getModel();
-        
+
         // Install the connection figure lmove listener if not already done
         List<IGmLink> endingLinks = getModel().getEndingLinks();
         if (this.connectionFigureListener == null && !endingLinks.isEmpty()) {
             installConnectionFigureListener(endingLinks.get(0));
         }
-        
+
         // Set the layout constraint
         noteFigure.getParent().setConstraint(noteFigure, noteModel.getLayoutData());
-        
+
         // Set the note contents
         String contents = noteModel.getContents();
         noteFigure.setContents(contents, noteModel.isHtml());
         noteFigure.setType(noteModel.getType());
-        
+
     }
 
     /**
      * Recreate the link between the {@link Note} and its annoted element through a reconnect request.
+     *
      * @param source the annoted element.
      */
     @objid ("c2e9147a-5562-4179-a9de-1c46e889df02")
@@ -223,20 +226,20 @@ public class NoteEditPart extends AbstractNodeEditPart {
         IGmLinkable gmTarget = getModel();
         GmNoteLink gmLink = new GmNoteLink(gmTarget.getDiagram(), new MRef(gmTarget.getRelatedElement()));
         gmTarget.addEndingLink(gmLink);
-        
+
         // Build a reconnect request
         CreateConnectionRequest request = new CreateConnectionRequest();
         request.setType(RequestConstants.REQ_CONNECTION_END);
         request.setSourceEditPart(this);
         request.setLocation(new Point(0, 0));
-        
+
         ModelioLinkCreationContext context = new ModelioLinkCreationContext(gmTarget.getRelatedElement());
         request.setFactory(context);
-        
+
         DefaultCreateLinkCommand startCommand = new DefaultCreateLinkCommand(context);
         startCommand.setTarget(gmTarget);
         request.setStartCommand(startCommand);
-        
+
         // Search all gm representing the new source
         for (GmModel gmSource : gmTarget.getDiagram().getAllGMRelatedTo(new MRef(source))) {
             // For each gm, search the corresponding edit part
@@ -252,17 +255,17 @@ public class NoteEditPart extends AbstractNodeEditPart {
                 }
             }
         }
-        
+
         // Unable to find a valid source, delete link
         gmLink.delete();
-        
+
     }
 
     @objid ("3c357d27-8cb5-430b-8a1a-016b8d3ada2b")
     @Override
     protected void refreshFromStyle(IFigure aFigure, IStyle style) {
         NoteFigure noteFigure = (NoteFigure) aFigure;
-        
+
         if (style.getBoolean(GmNoteStyleKeys.UMLREPR)) {
             if (noteFigure.isLightRepresentation()) {
                 noteFigure.setLightRepresentation(false);
@@ -273,13 +276,13 @@ public class NoteEditPart extends AbstractNodeEditPart {
             }
         }
         super.refreshFromStyle(aFigure, style);
-        
+
     }
 
     @objid ("4e087a9c-3234-43e5-ac5b-92e071bdb8b1")
     private static final class HtmlTextEditManager extends DirectEditManager2 {
         @objid ("04c5a293-ae68-43aa-ac4d-fe9e24c9b12b")
-         HtmlTextEditManager(GraphicalEditPart source, CellEditorLocator locator) {
+        HtmlTextEditManager(GraphicalEditPart source, CellEditorLocator locator) {
             super(source, HtmlTextCellEditor.class, locator);
         }
 
@@ -288,16 +291,16 @@ public class NoteEditPart extends AbstractNodeEditPart {
         protected void initCellEditor() {
             final HtmlTextCellEditor textEdit = (HtmlTextCellEditor) getCellEditor();
             textEdit.setValue(((GmModel) getEditPart().getModel()).getEditableText().getText());
-            
+
             final Control textControl = textEdit.getControl();
             textEdit.performSelectAll();
-            
+
             textControl.setBackground(ColorConstants.white);
             textControl.setForeground(ColorConstants.blue);
             textControl.setFont(((NoteFigure) getEditPart().getFigure()).getTextFont());
-            
+
             super.initCellEditor();
-            
+
         }
 
     }
@@ -321,7 +324,7 @@ public class NoteEditPart extends AbstractNodeEditPart {
         private Rectangle lastBounds = new Rectangle();
 
         @objid ("78dd4458-b30e-460a-945e-20469226b2e8")
-        public  NoteFigureMoveListener(NoteEditPart noteEditPart) {
+        public NoteFigureMoveListener(NoteEditPart noteEditPart) {
             this.noteEditPart = noteEditPart;
         }
 
@@ -337,7 +340,7 @@ public class NoteEditPart extends AbstractNodeEditPart {
                 noteFigure.setAnchoringBorderPosition(direction);
                 this.lastBounds.setBounds(connectionFigureBounds);
             }
-            
+
         }
 
     }

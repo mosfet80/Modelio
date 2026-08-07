@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.semantic.browser.panel;
 
@@ -61,9 +61,9 @@ public class SmBrowserLabelProvider extends UniversalLabelProvider2 {
      * Default c'tor.
      */
     @objid ("8638e297-970a-4584-b3e7-199c1b8a5177")
-    public  SmBrowserLabelProvider() {
+    public SmBrowserLabelProvider() {
         super();
-        
+
         this.metaStyler =  new Styler() {
             @Override
             public void applyStyles(TextStyle textStyle) {
@@ -71,7 +71,7 @@ public class SmBrowserLabelProvider extends UniversalLabelProvider2 {
                 textStyle.font = UIFont.NORMALI;
             }
         };
-        
+
     }
 
     @objid ("bd101365-36a2-46eb-89b7-1470af39b21b")
@@ -89,7 +89,7 @@ public class SmBrowserLabelProvider extends UniversalLabelProvider2 {
         } else {
             return super.getImage(obj);
         }
-        
+
     }
 
     @objid ("94c5dd09-4e59-40a6-b1f9-69dd895cf950")
@@ -102,7 +102,7 @@ public class SmBrowserLabelProvider extends UniversalLabelProvider2 {
                     SmObjectImpl smObj = (SmObjectImpl) node.getObj();
                     final MAttribute statusSmAtt = smObj.getClassOf().statusAtt();
                     final MAttribute mAtt = (MAttribute) node.getFeature();
-        
+
                     final StyledString s = new StyledString(mAtt.getName(), this.metaStyler);
                     Object attVal = smObj.mGet(mAtt);
                     if (mAtt == statusSmAtt) {
@@ -116,7 +116,7 @@ public class SmBrowserLabelProvider extends UniversalLabelProvider2 {
                     s.getStyleRanges();
                     return s;
                 }
-        
+
                 if (node.getFeature() instanceof MDependency) {
                     final MDependency mDep = (MDependency) node.getFeature();
                     return new StyledString(mDep.getName() + " [" + node.getContent().size() + "]", this.metaStyler);

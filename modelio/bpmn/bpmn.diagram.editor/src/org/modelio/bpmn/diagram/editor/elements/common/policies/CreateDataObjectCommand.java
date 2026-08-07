@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.common.policies;
 
@@ -62,18 +62,19 @@ public class CreateDataObjectCommand extends Command {
 
     /**
      * Initialize the command.
+     *
      * @param dropLocation The location of the element in the diagram
      * @param type The element to be used as type.
      * @param editPart The destination edit part that will own the data object.
      * @param parentElement The element that will own the data object.
      */
     @objid ("a3d35a77-7c3a-4ae5-bc54-b11710738cac")
-    public  CreateDataObjectCommand(final Point dropLocation, final ModelElement type, final EditPart editPart, final MObject parentElement) {
+    public CreateDataObjectCommand(final Point dropLocation, final ModelElement type, final EditPart editPart, final MObject parentElement) {
         this.type = type;
         this.dropLocation = dropLocation;
         this.editPart = editPart;
         this.parentElement = parentElement;
-        
+
     }
 
     @objid ("1e067f9a-cfd2-42bb-8244-5c88b80fe223")
@@ -83,13 +84,13 @@ public class CreateDataObjectCommand extends Command {
         final IGmDiagram gmDiagram = gmModel.getDiagram();
         final IModelManager modelManager = gmDiagram.getModelManager();
         final IStandardModelFactory modelFactory = modelManager.getModelFactory().getFactory(IStandardModelFactory.class);
-        
+
         // Create the smart node
         final BpmnDataObject newElement = modelFactory.createBpmnDataObject();
-        
+
         // Set default name
         newElement.setName(modelManager.getModelServices().getElementNamer().getUniqueName(newElement));
-        
+
         if (this.parentElement instanceof BpmnLane) {
             BpmnLane lane = (BpmnLane) this.parentElement;
             newElement.getLane().add((BpmnLane) this.parentElement);
@@ -99,20 +100,20 @@ public class CreateDataObjectCommand extends Command {
                 this.parentElement = lane.getLaneSet().getSubProcess();
             }
         }
-        
+
         if (this.parentElement instanceof BpmnProcess) {
             newElement.setContainer((BpmnProcess) this.parentElement);
         } else if (this.parentElement instanceof BpmnSubProcess) {
             newElement.setSubProcess((BpmnSubProcess) this.parentElement);
         }
-        
+
         if (newElement.getCompositionOwner() == null) {
             // The new element must be attached to its parent using the composition dependency
             // provided by the context.
             // If the context provides a null dependency, use the default dependency recommended by the metamodel
             MDependency effectiveDependency = modelManager.getMetamodel().getMExpert()
                     .getDefaultCompositionDep(this.parentElement, newElement);
-        
+
             // Attach to parent
             if (effectiveDependency != null) {
                 // ... and attach it to its parent.
@@ -126,7 +127,7 @@ public class CreateDataObjectCommand extends Command {
                 throw new IllegalStateException(msg.toString());
             }
         }
-        
+
         if (this.type != null) {
             MClass linkMetaclass = modelManager.getMetamodel().getMClass(MethodologicalLink.MQNAME);
             IMdaExpert mdaExpert = modelManager.getMdaExpert();
@@ -136,29 +137,30 @@ public class CreateDataObjectCommand extends Command {
                 State.setTarget(newElement, this.type);
             }
         }
-        
+
         unmaskElement(newElement);
-        
+
     }
 
     /**
      * Unmask the given element in the destination edit part.
+     *
      * @param el The element to unmask
      */
     @objid ("b5307f74-e28b-4207-a709-59c94af7ea3c")
     private void unmaskElement(final MObject el) {
         final ModelioCreationContext gmCreationContext = new ModelioCreationContext(el);
-        
+
         final CreateRequest creationRequest = new CreateRequest();
         creationRequest.setLocation(this.dropLocation);
         creationRequest.setSize(new Dimension(-1, -1));
         creationRequest.setFactory(gmCreationContext);
-        
+
         final Command cmd = this.editPart.getTargetEditPart(creationRequest).getCommand(creationRequest);
         if (cmd != null && cmd.canExecute()) {
             cmd.execute();
         }
-        
+
     }
 
     @objid ("cbb9d825-1ecd-4b11-9fb0-af0acf5693d3")
@@ -167,7 +169,7 @@ public class CreateDataObjectCommand extends Command {
         return this.parentElement != null &&
                 this.parentElement.isValid() &&
                 this.parentElement.getStatus().isModifiable();
-        
+
     }
 
 }

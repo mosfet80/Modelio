@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.impl.storage.serialized;
 
@@ -47,7 +47,7 @@ class EmfResource implements Resource {
     private SerializedRepository repo;
 
     @objid ("ddba0d5b-c063-11e1-b511-001ec947ccaf")
-    public  EmfResource(SerializedRepository serializedRepository) {
+    public EmfResource(SerializedRepository serializedRepository) {
         this.repo = serializedRepository;
     }
 
@@ -69,7 +69,7 @@ class EmfResource implements Resource {
         if (deliver == true) {
             throw new UnsupportedOperationException();
         }
-        
+
     }
 
     @objid ("ddbc6fb2-c063-11e1-b511-001ec947ccaf")
@@ -132,9 +132,9 @@ class EmfResource implements Resource {
             SmObjectImpl smObj = (SmObjectImpl) eObject;
             return smObj.getClassOf().getName()+","+smObj.getUuid().toString();
         }
-        
+
         throw new IllegalArgumentException("object is not a SmObjectImpl");
-        
+
     }
 
     /**
@@ -149,7 +149,7 @@ class EmfResource implements Resource {
         if (s.length != 2) {
             throw new IllegalArgumentException("Fragment must be encoded as 'Metaclass,UUID'.");
         }
-        
+
         SmClass mclass = this.repo.getMetamodel().getMClass(s[0]);
         return this.repo.findById(mclass, uriFragment);
     }

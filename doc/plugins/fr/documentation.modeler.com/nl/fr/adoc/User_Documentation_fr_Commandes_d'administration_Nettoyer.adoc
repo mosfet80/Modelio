@@ -1,0 +1,21 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= La commande "Nettoyer"
+
+
+
+=== Description
+
+Si l'exécution d'une commande Subversion ne réussit pas, à cause des problèmes au niveau d'un serveur par exemple, votre copie locale peut se trouver dans un état incohérent.
+
+Si jamais vous voyez une erreur _"working copy locked"_, utilisez la commande "Nettoyer" afin d'enlever des verrous obsolètes et de repasser votre copie locale dans un état d'utilisation acceptable. 
+
+
+
+
+=== Conditions et restrictions
+
+Aucune condition particulière.

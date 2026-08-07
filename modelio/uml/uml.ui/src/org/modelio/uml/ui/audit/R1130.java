@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -55,7 +55,7 @@ public class R1130 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -76,7 +76,7 @@ public class R1130 extends AbstractUmlRule {
         plan.registerRule(OutputPin.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Parameter.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(BehaviorParameter.MQNAME, this, AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -110,14 +110,14 @@ public class R1130 extends AbstractUmlRule {
      * Default constructor for R1130
      */
     @objid ("5cbfd3d0-05ea-4a3b-88b2-8595e4a15cd3")
-    public  R1130() {
+    public R1130() {
         this.checkerInstance = new CheckR1130(this);
     }
 
     @objid ("ea006856-9570-4a63-ae64-30b29a936efb")
     private static class CheckR1130 extends AbstractControl {
         @objid ("5a2d572c-f1d7-47d1-aa1a-a379b19af1f7")
-        public  CheckR1130(IRule rule) {
+        public CheckR1130(IRule rule) {
             super(rule);
         }
 
@@ -140,19 +140,19 @@ public class R1130 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     pin,
                     null);
-            
+
             if (!(pin.getCompositionOwner() instanceof CallAction)) {
                 return auditEntry;
             }
-            
+
             Parameter parameter = pin.getMatched();
-            
+
             if (parameter == null) {
                 return auditEntry;
             }
-            
+
             boolean sameType = false;
-            
+
             if (parameter.getType() != null) {
                 if (parameter.getType().equals(pin.getType())) {
                     sameType = true;
@@ -160,13 +160,13 @@ public class R1130 extends AbstractUmlRule {
             } else if (pin.getType() == null) {
                 sameType = true;
             }
-            
+
             if (sameType) {
                 if (parameter.getMultiplicityMax().equals(pin.getUpperBound())) {
                     return auditEntry;
                 }
             }
-            
+
             // At this point the rule failed
             auditEntry.setSeverity(this.rule.getSeverity());
             List<Object> linkedObjects = new ArrayList<>();
@@ -179,7 +179,7 @@ public class R1130 extends AbstractUmlRule {
         @objid ("33561554-b77a-458a-80ee-a6634340833c")
         private List<IAuditEntry> checkR1130(Parameter parameter) {
             List<IAuditEntry> auditEntries = new ArrayList<>();
-            
+
             if (parameter instanceof BehaviorParameter) {
                 for (CallBehaviorAction callBehaviorAction : ((BehaviorParameter) parameter).getOwner()
                         .getCaller()) {

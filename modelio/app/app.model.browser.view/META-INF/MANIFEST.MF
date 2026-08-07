@@ -3,8 +3,8 @@ Bundle-Localization: plugin
 Bundle-ManifestVersion: 2
 Bundle-Name: Browser View
 Bundle-SymbolicName: org.modelio.app.model.browser.view;singleton:=true
-Bundle-Version: 5.4.1.qualifier 
-Bundle-Vendor: Modeliosoft
+Bundle-Version: 6.2.0.qualifier 
+Bundle-Vendor: Docaposte
 Require-Bundle: org.eclipse.e4.ui.model.workbench,
  org.eclipse.ui.workbench,
  org.eclipse.core.runtime,
@@ -28,9 +28,9 @@ Require-Bundle: org.eclipse.e4.ui.model.workbench,
  org.modelio.core.project.data,
  org.eclipse.e4.ui.workbench,
  org.modelio.core.utils
-Bundle-RequiredExecutionEnvironment: JavaSE-11
-Import-Package: javax.annotation;version="1.0.0";resolution:=optional,
- javax.inject;version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Import-Package: jakarta.annotation;version="1.0.0";resolution:=optional,
+ jakarta.inject;version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.modelio.model.browser.view.plugin.BrowserViewActivator
 Bundle-ClassPath: res/,

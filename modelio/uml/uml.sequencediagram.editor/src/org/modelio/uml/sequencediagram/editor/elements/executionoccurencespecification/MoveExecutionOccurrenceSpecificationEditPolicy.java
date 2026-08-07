@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.executionoccurencespecification;
 
@@ -43,7 +43,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * Specialisation of the default resize edit policy to add some model checks before returning a command.
- * 
+ *
  * @author fpoyer
  */
 @objid ("d8e070bb-55b6-11e2-877f-002564c97630")
@@ -62,14 +62,12 @@ public class MoveExecutionOccurrenceSpecificationEditPolicy extends DefaultNodeN
         } else {
             return UnexecutableCommand.INSTANCE;
         }
-        
     }
 
     @objid ("d8e070cc-55b6-11e2-877f-002564c97630")
     private void computePredicatesForHost() {
         ExecutionOccurenceSpecification executionOccurrenceSpecification = (ExecutionOccurenceSpecification) ((GmExecutionOccurenceSpecification) getHost().getModel()).getRelatedElement();
         this.manipHelper.computePredicatesForHost(executionOccurrenceSpecification);
-        
     }
 
     @objid ("d8e070ce-55b6-11e2-877f-002564c97630")
@@ -82,10 +80,10 @@ public class MoveExecutionOccurrenceSpecificationEditPolicy extends DefaultNodeN
             if (editPart != null) {
                 GmModel model = (GmModel) editPart.getModel();
                 MObject el = model.getRelatedElement();
-        
+
                 Dimension moveDelta = new Dimension(request.getMoveDelta().x, request.getMoveDelta().y);
                 editPart.getFigure().translateToRelative(moveDelta);
-        
+
                 if (el instanceof MessageEnd) {
                     int newLineNumber = ((MessageEnd) el).getLineNumber();
                     newLineNumber += moveDelta.height;
@@ -96,30 +94,30 @@ public class MoveExecutionOccurrenceSpecificationEditPolicy extends DefaultNodeN
                     int newLineNumber = executionSpecification.getLineNumber();
                     newLineNumber += moveDelta.height;
                     this.manipHelper.updateVariable(el, newLineNumber);
-        
+
                     // Now the Execution start.
                     newLineNumber = executionSpecification.getStart().getLineNumber();
                     newLineNumber += moveDelta.height;
                     this.manipHelper.updateVariable(executionSpecification.getStart(), newLineNumber);
-        
+
                     // And finally the Execution end.
                     Dimension sizeDelta = request.getSizeDelta().getCopy();
                     editPart.getFigure().translateToRelative(sizeDelta);
-        
+
                     newLineNumber = executionSpecification.getFinish().getLineNumber();
                     newLineNumber += moveDelta.height + sizeDelta.height;
                     this.manipHelper.updateVariable(executionSpecification.getFinish(), newLineNumber);
-        
+
                 } else if (el instanceof Message) {
                     Message message = (Message) el;
                     int newLineNumber = message.getSendEvent().getLineNumber();
                     newLineNumber += moveDelta.height;
                     this.manipHelper.updateVariable(message.getSendEvent(), newLineNumber);
-        
+
                     newLineNumber = message.getReceiveEvent().getLineNumber();
                     newLineNumber += moveDelta.height;
                     this.manipHelper.updateVariable(message.getReceiveEvent(), newLineNumber);
-        
+
                     // If the moved message starts some execution specification, they will be moved too.
                     if (message.getSendEvent() instanceof ExecutionOccurenceSpecification &&
                             ((ExecutionOccurenceSpecification) message.getSendEvent()).getStarted() != null) {
@@ -138,22 +136,20 @@ public class MoveExecutionOccurrenceSpecificationEditPolicy extends DefaultNodeN
                         this.manipHelper.updateVariable(otherEnd, newLineNumber);
                     }
                 }
-        
+
             }
         }
-        
     }
 
     @objid ("237cd2d6-9fc0-4fba-95e4-28ec89bc4ce9")
     @Override
     public void activate() {
         super.activate();
-        
+
         // Remove the LayoutNodeConnectionsEditPolicy to avoid infinite loops at feedback
         getHost().removeEditPolicy(LayoutNodeConnectionsEditPolicy.ROLE);
-        
+
         this.manipHelper = new ManipulationHelper((GraphicalEditPart) getHost());
-        
     }
 
     @objid ("6aee83a4-6d27-4422-94fe-1df86fa7d8d8")
@@ -168,19 +164,17 @@ public class MoveExecutionOccurrenceSpecificationEditPolicy extends DefaultNodeN
             super.showSourceFeedback(request);
             this.manipHelper.eraseFeedback(getFeedbackLayer());
         }
-        
     }
 
     @objid ("febe3e69-f8b0-481e-857f-989b5fb90db6")
     @Override
     public void eraseSourceFeedback(Request request) {
         super.eraseSourceFeedback(request);
-        
+
         Object type = request.getType();
         if (type.equals(REQ_MOVE) || type.equals(REQ_RESIZE)) {
             this.manipHelper.eraseFeedback(getFeedbackLayer());
         }
-        
     }
 
     /**
@@ -191,7 +185,7 @@ public class MoveExecutionOccurrenceSpecificationEditPolicy extends DefaultNodeN
     protected List<AbstractHandle> createSelectionHandles() {
         final List<AbstractHandle> ret = new ArrayList<>(1);
         ret.add(new MoveHandle((GraphicalEditPart) getHost()));
-        
+
         SelectionHandlesBuilder.disableHandlesIfReadOnly(getHost(), ret);
         return ret;
     }

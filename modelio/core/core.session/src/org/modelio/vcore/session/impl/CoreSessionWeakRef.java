@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.impl;
 
@@ -43,7 +43,7 @@ import org.modelio.vcore.smkernel.meta.SmMetamodel;
  * It prevents memory leaks.
  * <p>
  * <b>Warning</b> : don't use <code>CoreSessionWeakRef</code> as hash map key, hashCode() and equals() are not implemented.
- * 
+ *
  * @author cmarin
  * @since 5.4.0
  */
@@ -61,10 +61,10 @@ public class CoreSessionWeakRef implements ICoreSession {
     }
 
     @objid ("2dc3beb2-2a95-4189-b4d8-7fcb27ad9865")
-    public  CoreSessionWeakRef(ICoreSession sess) {
+    public CoreSessionWeakRef(ICoreSession sess) {
         Objects.requireNonNull(sess);
         this.ref = new WeakReference<>(sess);
-        
+
     }
 
     @objid ("736ddd45-1004-45e7-a7cb-fab6fade81cc")
@@ -73,9 +73,9 @@ public class CoreSessionWeakRef implements ICoreSession {
         ICoreSession wrapped = this.ref.get();
         if (wrapped == null)
             return;
-        
+
         wrapped.close();
-        
+
     }
 
     @objid ("05f8a678-ca40-4106-913f-58895f97ab8d")
@@ -163,13 +163,13 @@ public class CoreSessionWeakRef implements ICoreSession {
     @Override
     public void removeSessionListener(ICoreSessionListener listener) {
         ICoreSession wrapped = this.ref.get();
-        
+
         // Ignore call if session closed
         if (wrapped == null)
             return ;
-        
+
         wrapped.removeSessionListener(listener);
-        
+
     }
 
 }

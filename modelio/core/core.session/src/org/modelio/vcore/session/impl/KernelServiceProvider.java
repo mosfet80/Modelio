@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.impl;
 
@@ -49,19 +49,19 @@ final class KernelServiceProvider implements IKernelServiceProvider {
     private CoreSession session;
 
     @objid ("002cface-eb1c-1f22-8c06-001ec947cd2a")
-     KernelServiceProvider(CoreSession session, ISwap swap, ISmObjectDataCache cacheManager) {
+    KernelServiceProvider(CoreSession session, ISwap swap, ISmObjectDataCache cacheManager) {
         KernelRegistry.registerService(this);
         this.swap = swap;
         this.dataCache = cacheManager;
         this.session = session;
-        
+
     }
 
     @objid ("002d0e1a-eb1c-1f22-8c06-001ec947cd2a")
     public void dispose() {
         KernelRegistry.removeService(this.kid);
         this.swap.close();
-        
+
     }
 
     @objid ("002d1cb6-eb1c-1f22-8c06-001ec947cd2a")
@@ -95,6 +95,7 @@ final class KernelServiceProvider implements IKernelServiceProvider {
 
     /**
      * Get the underlying CoreSession.
+     *
      * @return the CoreSession.
      */
     @objid ("6c4d3cac-176e-11e2-ac36-001ec947ccaf")
@@ -107,16 +108,16 @@ final class KernelServiceProvider implements IKernelServiceProvider {
     public ISmObjectData loadData(SmObjectImpl oobj) throws DeadObjectException {
         final String uuid = oobj.getUuid();
         final ISmObjectData cachedData = getDataCache().getCachedData(uuid);
-        
+
         ISmObjectData data = cachedData;
-        
+
         // Restore from swap
         if (data == null) {
             synchronized (MemoryManager.get()) {
                 data = getSwap().restore(uuid);
             }
         }
-        
+
         // Maybe the data is not loaded
         if (data == null) {
             IRepository repository = this.session.getRepository(oobj);
@@ -124,16 +125,16 @@ final class KernelServiceProvider implements IKernelServiceProvider {
                 data = repository.loadObjectData(oobj);
             }
         }
-        
-        
+
+
         if (data == null) {
             throw new DeadObjectException(oobj);
         }
-        
+
         if (cachedData == null) {
             getDataCache().putDataToCache(data);
         }
-        
+
         oobj.initData(data);
         oobj.init(uuid, data.getLiveId());
         return data;

@@ -1,0 +1,59 @@
+﻿// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= La Recherche Analyst
+
+== Introduction
+
+L'interface de recherche Analyst permet de retrouver rapidement les éléments du modèle Analyst à partir du contenu textuel de leurs propriétés. 
+Elle propose une recherche simple à utiliser, combinant le choix  d'un type d'élément Analyst, le choix d'un type de table de propriétés et la spécification d'une règle sur une propriété de la table.
+
+image::images/analyse_search_view.png[Vue de recherche par analyse]
+
+== Interface de recherche
+
+La première zone est le champ de saisie du type d'élément Analyst recherché. Ce champ constitue l'élément principal de la recherche.
+
+La deuxième zone permet la sélection de la table de propriétés typant l'élément Analyst. 
+
+Finalement, la troisième zone permet de spécifier une contrainte sur une des propriétés présente dans la table de propriétés. 
+Une liste déroulante propose les propriétés composant la table. Puis un opérateur logique ainsi que le champ de saisie d'une valeur permet de spécifier l'expression.
+
+== Fonctionnement.
+
+=== 1. Type d'élément
+
+Cette liste est le point d'entrée principal de la recherche.
+
+- Elle permet de saisir le type d'élément Analyst à rechercher (Exigence, Goal, Risk, etc.).
+
+
+=== 2. Table de propriétés
+
+La seconde liste permet de sélectionner la table de propriétés à utiliser pour la recherche. 
+Cette liste est calculée dynamiquement et correspond à l'ensemble des tables de propriétés définies dans le projet courant.
+
+
+=== 3. Spécification d'une contrainte sur une propriété
+
+La dernière partie de l'interface permet de spécifier une contrainte sur une propriété de l'élément Analyst.
+
+== Cas d'utilisation.
+
+Dans un modèle d'architecture, chaque exigence possède des métadonnées, par exemple :
+ - une source : Client A, Norme ISO 27001, Équipe Sécurité, etc.
+ - une version : v1.0, v1.2, v2.0…
+ - une criticité : Haute, Moyenne, Basse
+
+Lors d'une évolution du projet, ces exigences doivent être revues, mises à jour, ou retirées.
+
+Afin de préparer une revue avec un client “Client A”, le chef de projet veut rechercher toutes les exigences dont la source = “Client A”
+Il réalise donc une recherche Analyst de toutes les exigences typées par la table de propriétés "Implementation" et dont la source est le “Client A”. 
+
+image::images/analyse_search_view_usecase.png[Recherche des exigences du Client A]
+
+
+
+

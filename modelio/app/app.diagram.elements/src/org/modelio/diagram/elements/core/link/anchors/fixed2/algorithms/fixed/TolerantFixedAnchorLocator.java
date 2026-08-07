@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.anchors.fixed2.algorithms.fixed;
 
@@ -38,25 +38,26 @@ public class TolerantFixedAnchorLocator extends WrappedFixedAnchorLocator {
     private final int tolerance;
 
     /**
+     *
      * @param delegate the wrapped anchor.
      * @param tolerance the distance from which the passed point may be away from the anchor fixed location.
      */
     @objid ("5435321b-6bf5-440f-ad38-c91caf0fc02f")
-    public  TolerantFixedAnchorLocator(IFixedAnchorLocator delegate, int tolerance) {
+    public TolerantFixedAnchorLocator(IFixedAnchorLocator delegate, int tolerance) {
         super(delegate);
         this.tolerance = tolerance;
-        
+
     }
 
     @objid ("9bba3429-13dc-47c4-a398-f180091336f7")
     @Override
     public Point getLocation(FixedAnchor anchor, Point reference) {
         Point location = super.getLocation(anchor, reference);
-        
+
         // snap anchor location to the given reference point if within tolerance.
         Dimension tolerance2d = new PrecisionDimension(this.tolerance, this.tolerance);
         anchor.getOwner().translateToAbsolute(tolerance2d);
-        
+
         double d;
         switch (anchor.getFace()) {
         case FacesConstants.FACE_EAST:
@@ -75,7 +76,7 @@ public class TolerantFixedAnchorLocator extends WrappedFixedAnchorLocator {
             break;
         default:
         }
-        
+
         // Return anchor location by default
         return location;
     }

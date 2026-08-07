@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.infrastructure;
 
@@ -29,7 +29,7 @@ import org.modelio.audit.preferences.model.AuditRule;
 @objid ("cd638ce7-6591-4afd-96ac-7ecb5d85b39e")
 public class InfrastructureAuditPlan extends AbstractAuditExecutionPlan {
     @objid ("8f95f407-6c6a-4e1d-a42f-af742bdd5da0")
-    public  InfrastructureAuditPlan(List<AuditCategory> rootCategories) {
+    public InfrastructureAuditPlan(List<AuditCategory> rootCategories) {
         super(rootCategories);
     }
 
@@ -51,7 +51,7 @@ public class InfrastructureAuditPlan extends AbstractAuditExecutionPlan {
         } catch (IllegalAccessException e) {
             Audit.LOG.error(e);
         }
-        
+
     }
 
 }

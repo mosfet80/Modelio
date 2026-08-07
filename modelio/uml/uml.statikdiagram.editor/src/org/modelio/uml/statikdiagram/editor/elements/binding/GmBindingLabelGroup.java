@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.binding;
 
@@ -35,7 +35,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * {@linkplain CollaborationUse Collaboration use} {@linkplain GmBindingLabelGroup role bindings} group.
- * 
+ *
  * @author cmarin
  */
 @objid ("340bfa96-55b7-11e2-877f-002564c97630")
@@ -53,17 +53,18 @@ public class GmBindingLabelGroup extends GmGroup {
      * Constructor for deserialization only.
      */
     @objid ("340bfa9f-55b7-11e2-877f-002564c97630")
-    public  GmBindingLabelGroup() {
-        
+    public GmBindingLabelGroup() {
+
     }
 
     /**
      * Creates a binding group.
+     *
      * @param diagram The diagram.
      * @param relatedRef The related element reference, must not be null.
      */
     @objid ("340bfaa2-55b7-11e2-877f-002564c97630")
-    public  GmBindingLabelGroup(IGmDiagram diagram, MRef relatedRef) {
+    public GmBindingLabelGroup(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -104,7 +105,7 @@ public class GmBindingLabelGroup extends GmGroup {
     @Override
     public void refreshFromObModel() {
         super.refreshFromObModel();
-        
+
         final CollaborationUse classifier = getRelatedElement();
         if (classifier != null) {
             for (Binding part : classifier.getRoleBinding()) {
@@ -113,7 +114,7 @@ public class GmBindingLabelGroup extends GmGroup {
                 }
             }
         }
-        
+
     }
 
     @objid ("340d8128-55b7-11e2-877f-002564c97630")
@@ -124,7 +125,7 @@ public class GmBindingLabelGroup extends GmGroup {
         } else {
             super.styleChanged(property, newValue);
         }
-        
+
     }
 
     @objid ("340d812f-55b7-11e2-877f-002564c97630")
@@ -133,7 +134,7 @@ public class GmBindingLabelGroup extends GmGroup {
         refreshFromObModel();
         fireVisibilityChanged();
         super.styleChanged(style);
-        
+
     }
 
     @objid ("340d8135-55b7-11e2-877f-002564c97630")
@@ -146,6 +147,7 @@ public class GmBindingLabelGroup extends GmGroup {
      * Checks whether the given model element can be and still be displayed here.
      * <p>
      * Check all conditions except the case where it is already unmasked.
+     *
      * @param el The element to unmask
      * @return true if it satisfies all conditions, else false.
      */
@@ -156,7 +158,7 @@ public class GmBindingLabelGroup extends GmGroup {
         if (!(el instanceof Binding) || !el.isValid()) {
             return false;
         }
-        
+
         // Cannot unmask a foreign binding (not belonging to the collaboration use)
         return (el.getCompositionOwner().equals(getRelatedElement()));
     }
@@ -192,17 +194,17 @@ public class GmBindingLabelGroup extends GmGroup {
             break;
         }
         }
-        
+
     }
 
     @objid ("340d8152-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmBindingLabelGroup.", GmBindingLabelGroup.MINOR_VERSION);
-        
+
     }
 
     @objid ("340f07b9-55b7-11e2-877f-002564c97630")

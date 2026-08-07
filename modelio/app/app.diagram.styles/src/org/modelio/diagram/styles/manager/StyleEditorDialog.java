@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.styles.manager;
 
@@ -133,20 +133,21 @@ public class StyleEditorDialog extends ModelioDialog {
 
     /**
      * C'tor.
+     *
      * @param parentShell the parent SWT shell
      * @param pickingService Modelio picking service
      */
     @objid ("85bed06b-1926-11e2-92d2-001ec947c8cc")
-    public  StyleEditorDialog(Shell parentShell, IModelioPickingService pickingService) {
+    public StyleEditorDialog(Shell parentShell, IModelioPickingService pickingService) {
         super(parentShell);
         this.pickingService = pickingService;
-        
+
         final NamedStyle editedStyle = new NamedStyle("new style", FactoryStyle.getInstance());
         ISymbolViewModel viewModel = new SharedStyleEditorModel(editedStyle);
         this.model = new StyleEditPanelUIData(viewModel, editedStyle, true);
-        
+
         setBlockOnOpen(false);
-        
+
     }
 
     @objid ("85bed06f-1926-11e2-92d2-001ec947c8cc")
@@ -162,20 +163,20 @@ public class StyleEditorDialog extends ModelioDialog {
         this.mainSash = new SashForm(parent, SWT.HORIZONTAL);
         this.mainSash.setLayout(GridLayoutFactory.fillDefaults().create());
         this.mainSash.setLayoutData(GridDataFactory.defaultsFor(this.mainSash).align(SWT.FILL, SWT.FILL).grab(true, true).create());
-        
+
         // Create the style viewer
         Composite styleViewerPanel = createStyleViewerPanel(this.mainSash);
         styleViewerPanel.setLayoutData(GridDataFactory.defaultsFor(styleViewerPanel).create());
-        
+
         // Create the style editor
         Composite styleEditorPanel = createStyleEditorPanel(this.mainSash);
         styleEditorPanel.setLayoutData(GridDataFactory.defaultsFor(styleEditorPanel).create());
-        
+
         //
         this.styleEditor.addSelectionChangedListener(event -> {
             styleViewerSelectionChanged(SelectionHelper.toList(event.getSelection(), Object.class));
         });
-        
+
         this.mainSash.setWeights(new int[] { 20, 80 });
         return this.mainSash;
     }
@@ -186,7 +187,7 @@ public class StyleEditorDialog extends ModelioDialog {
         setTitle(DiagramStyles.I18N.getString("EditStylesDialog.SubTitle"));
         setMessage(DiagramStyles.I18N.getString("EditStylesDialog.Message"));
         getShell().setText(DiagramStyles.I18N.getString("EditStylesDialog.Title"));
-        
+
     }
 
     @objid ("85c3951e-1926-11e2-92d2-001ec947c8cc")
@@ -197,15 +198,16 @@ public class StyleEditorDialog extends ModelioDialog {
 
     /**
      * Set the edited style
+     *
      * @param editedStyle the edited style
      */
     @objid ("85c39522-1926-11e2-92d2-001ec947c8cc")
     void onSelectStyle(IStyle editedStyle) {
         if (editedStyle != null) {
             NamedStyle editedNamedStyle = (NamedStyle) editedStyle;
-        
+
             this.model = new StyleEditPanelUIData(new SharedStyleEditorModel(editedNamedStyle), editedNamedStyle, true);
-        
+
             if (editedNamedStyle.isTheme()) {
                 this.title.setText(DiagramStyles.I18N.getMessage("EditStylesDialog.CurrentTheme", editedNamedStyle.getName()));
                 this.titleIcon.setImage(StyleEditorDialog.THEME_ICON);
@@ -213,21 +215,21 @@ public class StyleEditorDialog extends ModelioDialog {
                 this.title.setText(DiagramStyles.I18N.getMessage("EditStylesDialog.CurrentStyle", editedNamedStyle.getName()));
                 this.titleIcon.setImage(StyleEditorDialog.STYLE_ICON);
             }
-        
+
             StringBuilder sb = new StringBuilder();
             sb.append(DiagramStyles.I18N.getMessage("EditStylesDialog.Provider", editedNamedStyle.getProvider()));
-        
+
             if (!editedNamedStyle.getApplicability().isEmpty()) {
                 sb.append(" [");
                 sb.append(editedNamedStyle.getApplicability().stream().collect(Collectors.joining(",")));
                 sb.append("]");
             }
-        
+
             this.infos.setText(sb.toString());
-        
+
             // Update the combo's comparator according to the edited style's nature
             ((StyleViewerComparator) this.parentStyleCombo.getComparator()).setThemeFirst(editedNamedStyle.isTheme());
-        
+
             // Filter the edited style from the parent combo, a style can't inherit from itself
             final StyleManager sm = DiagramStyles.getStyleManager();
             this.parentStyleCombo.setInput(sm.getAvailableStyles().stream()
@@ -246,15 +248,15 @@ public class StyleEditorDialog extends ModelioDialog {
             this.infos.setText(" ");
             this.parentStyleCombo.setSelection(new StructuredSelection());
         }
-        
+
         if (this.styleEditor != null) {
             if (this.styleEditor instanceof TreeViewer) {
                 TreeViewer treeViewer = (TreeViewer) this.styleEditor;
                 final Object[] expandedCategories = treeViewer.getExpandedElements();
-        
+
                 // change the data model, this will collapse all categories which is not user friendly :(
                 this.styleEditPanel.setInput(this.model);
-        
+
                 // try to expand the categories that were previously expanded => this is user friendly :)
                 treeViewer.getTree().setRedraw(false);
                 for (final Object o : expandedCategories) {
@@ -265,7 +267,7 @@ public class StyleEditorDialog extends ModelioDialog {
                 this.styleEditPanel.setInput(this.model);
             }
         }
-        
+
     }
 
     @objid ("85c39525-1926-11e2-92d2-001ec947c8cc")
@@ -288,54 +290,54 @@ public class StyleEditorDialog extends ModelioDialog {
     @objid ("85c3952f-1926-11e2-92d2-001ec947c8cc")
     protected void styleViewerSelectionChanged(final List<Object> selectedElements) {
         boolean onlyStyleKeys = true;
-        
+
         for (final Object o : selectedElements) {
             onlyStyleKeys &= (o instanceof ISymbolViewItem) && ((ISymbolViewItem) o).getStyleKey() != null;
         }
-        
+
         if (onlyStyleKeys) {
             if (selectedElements.isEmpty()) {
                 this.restoreButton.setEnabled(false);
-        
+
             } else if (selectedElements.size() == 1) {
                 this.restoreButton.setEnabled(true);
-        
+
             } else {
                 this.restoreButton.setEnabled(true);
-        
+
             }
         } else {
             this.restoreButton.setEnabled(false);
-        
+
         }
-        
+
     }
 
     @objid ("85c39536-1926-11e2-92d2-001ec947c8cc")
     private Composite createStyleEditorPanel(final Composite parent) {
         final Composite composite = new Composite(parent, SWT.BORDER);
         composite.setLayout(GridLayoutFactory.fillDefaults().numColumns(3).create());
-        
+
         this.titleIcon = new Label(composite, SWT.NONE);
         this.titleIcon.setImage(StyleEditorDialog.STYLE_ICON);
         this.titleIcon.setLayoutData(GridDataFactory.defaultsFor(this.titleIcon).align(SWT.FILL, SWT.FILL).grab(false, false).create());
-        
+
         this.title = new Label(composite, SWT.NONE);
         this.title.setText("");
         // Use a big Font for title
         this.title.setFont(CoreFontRegistry.getModifiedFont(this.title.getFont(), SWT.NONE, 1.4f));
         this.title.setLayoutData(GridDataFactory.defaultsFor(this.title).align(SWT.FILL, SWT.FILL).grab(true, false).span(2, 1).create());
-        
+
         this.infos = new Label(composite, SWT.NONE);
         this.infos.setText("");
         this.infos.setFont(CoreFontRegistry.getModifiedFont(this.infos.getFont(), SWT.ITALIC, 0.8f));
         this.infos.setLayoutData(GridDataFactory.defaultsFor(this.infos).align(SWT.FILL, SWT.FILL).grab(true, false).span(3, 1).indent(20, 0).create());
-        
+
         // Add the parent style combo
         Label parentStyleLabel = new Label(composite, SWT.NONE);
         parentStyleLabel.setText(DiagramStyles.I18N.getString("EditStylesDialog.ParentStyleCombo.label"));
         parentStyleLabel.setLayoutData(GridDataFactory.defaultsFor(parentStyleLabel).align(SWT.FILL, SWT.FILL).span(2, 1).indent(5, 5).create());
-        
+
         this.parentStyleCombo = new TableComboViewer(composite);
         this.parentStyleCombo.getControl().setLayoutData(GridDataFactory.defaultsFor(this.parentStyleCombo.getControl()).align(SWT.FILL, SWT.FILL).grab(true, false).hint(SWT.DEFAULT, UIImages.PLACEHOLDER.getImageData().height).create());
         this.parentStyleCombo.getControl().setToolTipText(DiagramStyles.I18N.getString("EditStylesDialog.ParentStyleCombo.tooltip"));
@@ -353,13 +355,13 @@ public class StyleEditorDialog extends ModelioDialog {
                 this.styleViewer.setSelection(new StructuredSelection(editedStyle), true);
             }
         });
-        
+
         // Add the style viewer table
         this.styleEditPanel = StyleEditPanel.newTreePanel();
         this.styleEditPanel.createPanel(composite);
         this.styleEditor = this.styleEditPanel.getViewer();
         this.styleEditPanel.getPanel().setLayoutData(GridDataFactory.defaultsFor(this.styleEditPanel.getPanel()).align(SWT.FILL, SWT.FILL).grab(true, true).span(3, 1).create());
-        
+
         // Add the toolbar
         final Composite editionToolbar = createStyleEditorToolBar(composite);
         editionToolbar.setLayoutData(GridDataFactory.defaultsFor(editionToolbar).align(SWT.FILL, SWT.FILL).grab(true, false).span(3, 1).create());
@@ -370,10 +372,10 @@ public class StyleEditorDialog extends ModelioDialog {
     private Composite createStyleViewerPanel(final Composite parent) {
         Composite styleViewerPanel = new Composite(parent, SWT.BORDER);
         styleViewerPanel.setLayout(GridLayoutFactory.swtDefaults().spacing(0, 2).margins(2, 2).create());
-        
+
         Composite toolbar = createStyleViewerToolBar(styleViewerPanel);
         toolbar.setLayoutData(GridDataFactory.fillDefaults().align(SWT.RIGHT, SWT.FILL).grab(true, false).create());
-        
+
         // Style tree viewer
         this.styleViewer = new TableViewer(styleViewerPanel, SWT.BORDER);
         this.styleViewer.getControl().setLayoutData(GridDataFactory.fillDefaults().grab(true, true).create());
@@ -381,11 +383,11 @@ public class StyleEditorDialog extends ModelioDialog {
         this.styleViewer.setComparator(new StyleViewerComparator(true));
         this.styleViewer.setLabelProvider(new StyleLabelProvider());
         this.styleViewer.setInput(DiagramStyles.getStyleManager());
-        
+
         this.styleViewer.addSelectionChangedListener(event -> {
             onSelectStyle(SelectionHelper.getFirst(event.getSelection(), IStyle.class));
         });
-        
+
         // Handle cascaded style change by drag & drop
         final Transfer[] transferTypes = new Transfer[] { TextTransfer.getInstance() };
         this.styleViewer.addDragSupport(DND.DROP_MOVE, transferTypes, new DragSourceListener() {
@@ -393,7 +395,7 @@ public class StyleEditorDialog extends ModelioDialog {
             public void dragStart(DragSourceEvent event) {
                 event.doit = (SelectionHelper.size(StyleEditorDialog.this.styleViewer.getSelection()) == 1);
             }
-        
+
             @Override
             public void dragSetData(DragSourceEvent event) {
                 final IStyle draggedStyle = SelectionHelper.getFirst(StyleEditorDialog.this.styleViewer.getSelection(), IStyle.class);
@@ -403,7 +405,7 @@ public class StyleEditorDialog extends ModelioDialog {
                     }
                 }
             }
-        
+
             @Override
             public void dragFinished(DragSourceEvent event) {
                 // nothing to do
@@ -415,13 +417,13 @@ public class StyleEditorDialog extends ModelioDialog {
                 final StyleManager styleManager = DiagramStyles.getStyleManager();
                 final IStyle droppedStyle = styleManager.getStyle((String) data);
                 final IStyle targetStyle = getTargetStyle(getCurrentTarget());
-        
+
                 droppedStyle.setCascadedStyle(targetStyle);
                 StyleEditorDialog.this.styleViewer.refresh();
                 StyleEditorDialog.this.styleViewer.setSelection(new StructuredSelection(droppedStyle));
                 return true;
             }
-        
+
             /**
              * @return <code>true</code> if the hovered target style is different than the dropped style and its current cascaded style.
              */
@@ -431,7 +433,7 @@ public class StyleEditorDialog extends ModelioDialog {
                 final IStyle targetStyle = getTargetStyle(target);
                 return droppedStyle != null && targetStyle != null && !targetStyle.equals(droppedStyle) && !targetStyle.equals(droppedStyle.getCascadedStyle()) && !(targetStyle instanceof FactoryStyle);
             }
-        
+
             /**
              * @return the style hovered by the mouse, taking the location into account.
              */
@@ -460,7 +462,7 @@ public class StyleEditorDialog extends ModelioDialog {
         // Catalog buttons
         final Composite editionToolbar = new Composite(styleEditorPanel, SWT.NONE);
         editionToolbar.setLayout(new RowLayout(SWT.HORIZONTAL));
-        
+
         // "Save" button
         this.saveButton = new Button(editionToolbar, SWT.PUSH);
         this.saveButton.setText(DiagramStyles.I18N.getString("EditStylesDialog.SaveButton.label"));
@@ -471,7 +473,7 @@ public class StyleEditorDialog extends ModelioDialog {
                 DiagramStyles.getStyleManager().save((NamedStyle) uiData.getStyleData());
             }
         });
-        
+
         // "Normalize" button
         this.normButton = new Button(editionToolbar, SWT.PUSH);
         this.normButton.setText(DiagramStyles.I18N.getString("EditStylesDialog.NormalizeButton.label"));
@@ -482,7 +484,7 @@ public class StyleEditorDialog extends ModelioDialog {
                 uiData.getStyleData().normalize();
             }
         });
-        
+
         // "Restore" button
         this.restoreButton = new Button(editionToolbar, SWT.PUSH);
         this.restoreButton.setText(DiagramStyles.I18N.getString("EditStylesDialog.RestoreButton.label"));
@@ -510,7 +512,7 @@ public class StyleEditorDialog extends ModelioDialog {
     private Composite createStyleViewerToolBar(Composite styleViewerPanel) {
         // Button bar
         final ToolBar toolbar = new ToolBar(styleViewerPanel, SWT.HORIZONTAL);
-        
+
         // Fill the toolbar
         ToolItem createThemeButton = new ToolItem(toolbar, SWT.FLAT);
         createThemeButton.setImage(StyleEditorDialog.CREATE_THEME_ICON);
@@ -518,14 +520,14 @@ public class StyleEditorDialog extends ModelioDialog {
         createThemeButton.addListener(SWT.Selection, (e) -> {
             onCreateStyle(true);
         });
-        
+
         ToolItem createStyleButton = new ToolItem(toolbar, SWT.FLAT);
         createStyleButton.setImage(StyleEditorDialog.CREATE_STYLE_ICON);
         createStyleButton.setToolTipText(DiagramStyles.I18N.getString("EditStylesDialog.CreateStyleButton.tooltip"));
         createStyleButton.addListener(SWT.Selection, (e) -> {
             onCreateStyle(false);
         });
-        
+
         ToolItem importStyleButton = new ToolItem(toolbar, SWT.FLAT);
         importStyleButton.setImage(UIImages.FILECHOOSE);
         importStyleButton.setToolTipText(DiagramStyles.I18N.getString("EditStylesDialog.ImportStyleButton.tooltip"));
@@ -538,12 +540,12 @@ public class StyleEditorDialog extends ModelioDialog {
     @objid ("2e2afe11-fbef-4fe9-8f36-2200024b99c8")
     private void onCreateStyle(boolean isTheme) {
         String suffix = isTheme ? ".Theme" : ".Style";
-        
+
         NamedStyle parentStyle = getSelectedStyle();
         if (parentStyle == null) {
             parentStyle = isTheme ? DiagramStyles.getStyleManager().getDefaultTheme() : DiagramStyles.getStyleManager().getDefaultStyle();
         }
-        
+
         final IInputValidator validator = (String newText) -> {
             // Check name is valid and unique
             if (!NamedStyle.isValidName(newText)) {
@@ -553,27 +555,27 @@ public class StyleEditorDialog extends ModelioDialog {
             }
             return null;
         };
-        
+
         final ColoredInputDialog dlg = new ColoredInputDialog(
                 this.styleViewer.getControl().getShell(),
                 DiagramStyles.I18N.getMessage("$CreateStyleDialog.Title" + suffix, parentStyle.getName()),
                 DiagramStyles.I18N.getString("$CreateStyleDialog.Prompt" + suffix),
                 DiagramStyles.I18N.getString("$CreateStyleDialog.DefaultName" + suffix),
                 validator);
-        
+
         dlg.open();
-        
+
         final String name = dlg.getValue();
         if (name == null) {
             return;
         }
-        
+
         final NamedStyle newStyle = DiagramStyles.getStyleManager().createStyle(name, parentStyle.getName(), isTheme);
         if (newStyle != null) {
             this.styleViewer.refresh();
             this.styleViewer.setSelection(new StructuredSelection(newStyle), true);
         }
-        
+
     }
 
     @objid ("2c49f859-133c-428e-a63c-697eb2ba240b")
@@ -591,7 +593,7 @@ public class StyleEditorDialog extends ModelioDialog {
         dialog.setFilterNames(extNames);
         dialog.setFilterExtensions(ext);
         String fileName = dialog.open();
-        
+
         if (fileName != null && !fileName.isEmpty()) {
             File file = new File(fileName);
             if (file.exists() && file.isFile()) {
@@ -612,7 +614,7 @@ public class StyleEditorDialog extends ModelioDialog {
                 }
             }
         }
-        
+
     }
 
     @objid ("85c5f78e-1926-11e2-92d2-001ec947c8cc")
@@ -625,7 +627,7 @@ public class StyleEditorDialog extends ModelioDialog {
             } else {
                 return super.getText(element);
             }
-            
+
         }
 
         @objid ("ce754385-7e5c-44fa-bd94-3033fad528d7")
@@ -636,7 +638,7 @@ public class StyleEditorDialog extends ModelioDialog {
             } else {
                 return super.getImage(element);
             }
-            
+
         }
 
     }
@@ -650,7 +652,7 @@ public class StyleEditorDialog extends ModelioDialog {
             return sm.getAvailableStyles().stream()
                     .map(styleName -> sm.getStyle(styleName))
                     .collect(Collectors.toList()).toArray();
-            
+
         }
 
     }
@@ -672,11 +674,11 @@ public class StyleEditorDialog extends ModelioDialog {
             } else {
                 return 2;
             }
-            
+
         }
 
         @objid ("727877b6-ad50-460c-b6f2-ff5f7b0ac96b")
-        public  StyleViewerComparator(boolean areThemeFirst) {
+        public StyleViewerComparator(boolean areThemeFirst) {
             this.areThemeFirst = areThemeFirst;
         }
 

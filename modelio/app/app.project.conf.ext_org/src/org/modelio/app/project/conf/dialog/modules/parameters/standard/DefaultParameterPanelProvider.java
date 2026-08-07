@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.conf.dialog.modules.parameters.standard;
 
@@ -56,37 +56,37 @@ public class DefaultParameterPanelProvider implements IPanelProvider {
     public Control createPanel(Composite parent) {
         this.compo = new Composite(parent, SWT.NONE);
         this.compo.setLayout(new GridLayout());
-        
+
         this.parameterViewer = new TreeViewer(this.compo, SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
         this.parameterViewer.getTree().setHeaderVisible(true);
         this.parameterViewer.getTree().setLinesVisible(true);
-        
+
         // Create columns
         String[] columnTitles = { AppProjectConfExt.I18N.getMessage("ParameterSection.NameColumn"), AppProjectConfExt.I18N.getMessage("ParameterSection.ValueColumn"), AppProjectConfExt.I18N.getMessage("ParameterSection.ScopeColumn") }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         int[] columnInitialWidths = { 300, 500, 100 };
         TreeViewerColumn col1 = DefaultParameterPanelProvider.createTreeViewerColumn(this.parameterViewer, columnTitles[0], columnInitialWidths[0]);
         col1.setLabelProvider(new NameLabelProvider());
-        
+
         TreeViewerColumn col2 = DefaultParameterPanelProvider.createTreeViewerColumn(this.parameterViewer, columnTitles[1], columnInitialWidths[1]);
         col2.setLabelProvider(new ValueLabelProvider());
         col2.setEditingSupport(new ParametersEditingSupport(this.parameterViewer));
-        
+
         TreeViewerColumn col3 = DefaultParameterPanelProvider.createTreeViewerColumn(this.parameterViewer, columnTitles[2], columnInitialWidths[2]);
         col3.setLabelProvider(new ScopeLabelProvider());
-        
+
         this.parameterViewer.setContentProvider(new ParametersContentProvider());
         this.parameterViewer.setAutoExpandLevel(2);
         this.parameterViewer.setInput(null);
         GridData gd1 = new GridData(SWT.FILL, SWT.FILL, true, true);
         this.parameterViewer.getTree().setLayoutData(gd1);
-        
+
         this.descriptionLabel = new Text(this.compo, SWT.WRAP);
         this.descriptionLabel.setForeground(UIColor.LABEL_TIP_FG);
         GridData gd2 = new GridData(SWT.FILL, SWT.FILL, false, false);
         gd2.heightHint = 60;
         gd2.widthHint = 123; // Workaround: an arbitrary width must be set here to avoid layout problems
         this.descriptionLabel.setLayoutData(gd2);
-        
+
         addParameterDescriptionSectionUpdater();
         return this.compo;
     }
@@ -127,7 +127,7 @@ public class DefaultParameterPanelProvider implements IPanelProvider {
             final IModule module = (IModule) ((Collection<?>) input).toArray()[0];
             this.descriptionLabel.setText(module.getDescription());
         }
-        
+
     }
 
     @objid ("273ef203-ac9d-4a8c-af80-a9e6b706e269")
@@ -137,7 +137,7 @@ public class DefaultParameterPanelProvider implements IPanelProvider {
         this.parameterViewer = null;
         this.compo.dispose();
         this.compo = null;
-        
+
     }
 
     /**
@@ -151,6 +151,7 @@ public class DefaultParameterPanelProvider implements IPanelProvider {
 
     /**
      * Add parameter section updater When selection change in the section, the description label text will be updated
+     *
      * @param descriptionLabel
      * @param parameterViewer
      */
@@ -161,17 +162,17 @@ public class DefaultParameterPanelProvider implements IPanelProvider {
             public void selectionChanged(SelectionChangedEvent event) {
                 // Reset description
                 DefaultParameterPanelProvider.this.descriptionLabel.setText(""); //$NON-NLS-1$
-        
+
                 ISelection selection = event.getSelection();
                 if (selection instanceof IStructuredSelection) {
                     IStructuredSelection structuredSelection = (IStructuredSelection) selection;
                     if (structuredSelection.size() == 1) {
                         Object obj = structuredSelection.getFirstElement();
-        
+
                         if (obj instanceof IParameterModel) {
                             // Fill the module's description
                             IParameterModel param = (IParameterModel) obj;
-        
+
                             DefaultParameterPanelProvider.this.descriptionLabel.setText(param.getDescription());
                             return;
                         } else if (obj instanceof IParameterGroupModel) {
@@ -188,7 +189,7 @@ public class DefaultParameterPanelProvider implements IPanelProvider {
                 }
             }
         });
-        
+
     }
 
 }

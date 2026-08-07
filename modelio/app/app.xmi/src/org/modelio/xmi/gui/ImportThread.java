@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.gui;
 
@@ -35,6 +35,7 @@ import org.modelio.xmi.util.AbortProcessException;
 
 /**
  * This class is the Thread of Model import
+ *
  * @author ebrosse
  */
 @objid ("f3f0d1d9-13b8-4f9a-b742-fd3ab0c9354b")
@@ -48,27 +49,27 @@ public class ImportThread extends AbstractXMIThread implements IRunnableWithProg
         ReverseProperties revProp = ReverseProperties.getInstance();
         Resource resource = null;
         revProp.setReportModel(ReportManager.getNewReport());
-        
+
         this.progressBar.setLabel(Xmi.I18N.getString("progressBar.content.import.XMIFileLoading"));
-        
+
         try {
-        
+
             // loading resource
             resource = this.service.getResource(new File(revProp.getFilePath()));
-        
+
             if (resource != null){
                 this.service.importEcoreModel(resource, this.progressBar, this.shell);
                 this.progressBar.addFinalValue();
             }
-        
+
         } catch (AbortProcessException e) {
             Xmi.LOG.error(e);
             cancelation();
             revProp.setRollback(true);
         } catch (Exception e) {
-        
+
             Xmi.LOG.error(e);
-        
+
             if ((resource != null) && (resource.getURI().toFileString().endsWith(".emf"))){
                 File file = new File(resource.getURI().toFileString());
                 if (file.exists())
@@ -76,7 +77,7 @@ public class ImportThread extends AbstractXMIThread implements IRunnableWithProg
             }
             revProp.addError(Xmi.I18N.getString("error.import.invalidModel"));
             this.progressBar.addFinalValue();
-        
+
         } finally {
             revProp.cleanProperties();
             if (resource != null)
@@ -84,20 +85,21 @@ public class ImportThread extends AbstractXMIThread implements IRunnableWithProg
             TotalImportMap.getInstance().clear();
             PartialImportMap.getInstance().clear();
         }
-        
+
     }
 
     /**
+     *
      * @param shell The curernt shell
      * @param progressBar The progress bar of the XMI dialog
      */
     @objid ("f63992aa-bc49-4671-82da-82e99f25eb20")
-    public  ImportThread(Shell shell, ProgressBarComposite progressBar) {
+    public ImportThread(Shell shell, ProgressBarComposite progressBar) {
         super();
         this.service = new ImportServices();
         this.progressBar = progressBar;
         this.shell = shell;
-        
+
     }
 
 }

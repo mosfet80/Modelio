@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -58,15 +58,17 @@ public class OperationPropertyModel extends AbstractPropertyModel<Operation> {
 
     /**
      * Create a new <i>Operation</i> data model from an <i>Operation</i>.
+     *
      * @param theEditedElement The edited element.
      */
     @objid ("d54b150f-06b9-4100-a7ff-d7716e01a817")
-    public  OperationPropertyModel(Operation theEditedElement) {
+    public OperationPropertyModel(Operation theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("7b4e74fe-ab62-4975-ab11-fab81b288866")
@@ -77,6 +79,7 @@ public class OperationPropertyModel extends AbstractPropertyModel<Operation> {
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("f1884a8e-7daa-4dc5-a7a3-aa32b32d6571")
@@ -92,6 +95,7 @@ public class OperationPropertyModel extends AbstractPropertyModel<Operation> {
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -125,7 +129,7 @@ public class OperationPropertyModel extends AbstractPropertyModel<Operation> {
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -135,6 +139,7 @@ public class OperationPropertyModel extends AbstractPropertyModel<Operation> {
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -170,13 +175,14 @@ public class OperationPropertyModel extends AbstractPropertyModel<Operation> {
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -222,7 +228,7 @@ public class OperationPropertyModel extends AbstractPropertyModel<Operation> {
         default:
             return;
         }
-        
+
     }
 
 }

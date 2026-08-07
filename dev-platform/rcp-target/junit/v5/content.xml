@@ -1,0 +1,1638 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?metadataRepository version='1.2.0'?>
+<repository name='file:/work/modelio/alouette/work/eclipse/dev-platform/rcp-target/junit/v5/build/target/repository - metadata' type='org.eclipse.equinox.internal.p2.metadata.repository.LocalMetadataRepository' version='1.0.0'>
+  <properties size='2'>
+    <property name='p2.timestamp' value='1773745417525'/>
+    <property name='p2.compressed' value='false'/>
+  </properties>
+  <units size='39'>
+    <unit id='junit' version='4.13.2' singleton='false' generation='2'>
+      <update id='junit' range='[0.0.0,4.13.2)' severity='0'/>
+      <properties size='1'>
+        <property name='org.eclipse.equinox.p2.name' value='junit'/>
+      </properties>
+      <provides size='36'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='junit' version='4.13.2'/>
+        <provided namespace='osgi.bundle' name='junit' version='4.13.2'/>
+        <provided namespace='java.package' name='junit.extensions' version='0.0.0'/>
+        <provided namespace='java.package' name='junit.framework' version='0.0.0'/>
+        <provided namespace='java.package' name='junit.runner' version='0.0.0'/>
+        <provided namespace='java.package' name='junit.textui' version='0.0.0'/>
+        <provided namespace='java.package' name='org.junit' version='0.0.0'/>
+        <provided namespace='java.package' name='org.junit.experimental' version='0.0.0'/>
+        <provided namespace='java.package' name='org.junit.experimental.categories' version='0.0.0'/>
+        <provided namespace='java.package' name='org.junit.experimental.max' version='0.0.0'/>
+        <provided namespace='java.package' name='org.junit.experimental.results' version='0.0.0'/>
+        <provided namespace='java.package' name='org.junit.experimental.runners' version='0.0.0'/>
+        <provided namespace='java.package' name='org.junit.experimental.theories' version='0.0.0'/>
+        <provided namespace='java.package' name='org.junit.experimental.theories.internal' version='0.0.0'/>
+        <provided namespace='java.package' name='org.junit.experimental.theories.suppliers' version='0.0.0'/>
+        <provided namespace='java.package' name='org.junit.function' version='0.0.0'/>
+        <provided namespace='java.package' name='org.junit.internal' version='0.0.0'/>
+        <provided namespace='java.package' name='org.junit.internal.builders' version='0.0.0'/>
+        <provided namespace='java.package' name='org.junit.internal.management' version='0.0.0'/>
+        <provided namespace='java.package' name='org.junit.internal.matchers' version='0.0.0'/>
+        <provided namespace='java.package' name='org.junit.internal.requests' version='0.0.0'/>
+        <provided namespace='java.package' name='org.junit.internal.runners' version='0.0.0'/>
+        <provided namespace='java.package' name='org.junit.internal.runners.model' version='0.0.0'/>
+        <provided namespace='java.package' name='org.junit.internal.runners.rules' version='0.0.0'/>
+        <provided namespace='java.package' name='org.junit.internal.runners.statements' version='0.0.0'/>
+        <provided namespace='java.package' name='org.junit.matchers' version='0.0.0'/>
+        <provided namespace='java.package' name='org.junit.rules' version='0.0.0'/>
+        <provided namespace='java.package' name='org.junit.runner' version='0.0.0'/>
+        <provided namespace='java.package' name='org.junit.runner.manipulation' version='0.0.0'/>
+        <provided namespace='java.package' name='org.junit.runner.notification' version='0.0.0'/>
+        <provided namespace='java.package' name='org.junit.runners' version='0.0.0'/>
+        <provided namespace='java.package' name='org.junit.runners.model' version='0.0.0'/>
+        <provided namespace='java.package' name='org.junit.runners.parameterized' version='0.0.0'/>
+        <provided namespace='java.package' name='org.junit.validator' version='0.0.0'/>
+        <provided namespace='osgi.identity' name='junit' version='4.13.2'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <requires size='28'>
+        <required namespace='java.package' name='junit.extensions' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='junit.framework' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='junit.runner' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.hamcrest' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.hamcrest.core' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.experimental.theories' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.experimental.theories.internal' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.function' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.internal' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.internal.builders' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.internal.management' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.internal.matchers' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.internal.requests' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.internal.runners' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.internal.runners.model' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.internal.runners.rules' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.internal.runners.statements' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.matchers' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.rules' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.runner' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.runner.manipulation' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.runner.notification' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.runners' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.runners.model' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.runners.parameterized' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.validator' range='0.0.0' optional='true' greedy='false'/>
+        <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(version=1.5))'>
+          <description>
+            junit
+          </description>
+        </requiredProperties>
+      </requires>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='junit' version='4.13.2'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: junit&#xA;Bundle-Version: 4.13.2
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='junit-platform-suite-commons' version='1.14.2' singleton='false' generation='2'>
+      <update id='junit-platform-suite-commons' range='[0.0.0,1.14.2)' severity='0'/>
+      <properties size='1'>
+        <property name='org.eclipse.equinox.p2.name' value='JUnit Platform Suite Commons'/>
+      </properties>
+      <provides size='5'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='junit-platform-suite-commons' version='1.14.2'/>
+        <provided namespace='osgi.bundle' name='junit-platform-suite-commons' version='1.14.2'/>
+        <provided namespace='java.package' name='org.junit.platform.suite.commons' version='1.14.2'/>
+        <provided namespace='osgi.identity' name='junit-platform-suite-commons' version='1.14.2'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <requires size='10'>
+        <required namespace='java.package' name='org.apiguardian.api' range='[1.1.0,2.0.0)' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.platform.commons.support' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons.util' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.engine' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.engine.discovery' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.launcher' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.launcher.core' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.suite.api' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons.logging' range='[1.14.0,2.0.0)'/>
+        <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(version=1.8))'>
+          <description>
+            junit-platform-suite-commons
+          </description>
+        </requiredProperties>
+      </requires>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='junit-platform-suite-commons' version='1.14.2'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: junit-platform-suite-commons&#xA;Bundle-Version: 1.14.2
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='org.hamcrest.core.source' version='3.0.0' singleton='false'>
+      <update id='org.hamcrest.core.source' range='[0.0.0,3.0.0)' severity='0'/>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='org.hamcrest.core.source'/>
+        <property name='org.eclipse.equinox.p2.bundle.localization' value='plugin'/>
+      </properties>
+      <provides size='4'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.hamcrest.core.source' version='3.0.0'/>
+        <provided namespace='osgi.bundle' name='org.hamcrest.core.source' version='3.0.0'/>
+        <provided namespace='osgi.identity' name='org.hamcrest.core.source' version='3.0.0'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='source' version='1.0.0'/>
+      </provides>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='org.hamcrest.core.source' version='3.0.0'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: org.hamcrest.core.source&#xA;Bundle-Version: 3.0.0
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='junit-jupiter-params.source' version='5.14.2' singleton='false'>
+      <update id='junit-jupiter-params.source' range='[0.0.0,5.14.2)' severity='0'/>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='junit-jupiter-params.source'/>
+        <property name='org.eclipse.equinox.p2.bundle.localization' value='plugin'/>
+      </properties>
+      <provides size='4'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='junit-jupiter-params.source' version='5.14.2'/>
+        <provided namespace='osgi.bundle' name='junit-jupiter-params.source' version='5.14.2'/>
+        <provided namespace='osgi.identity' name='junit-jupiter-params.source' version='5.14.2'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='source' version='1.0.0'/>
+      </provides>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='junit-jupiter-params.source' version='5.14.2'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: junit-jupiter-params.source&#xA;Bundle-Version: 5.14.2
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='assertj-core.source' version='3.27.6' singleton='false'>
+      <update id='assertj-core.source' range='[0.0.0,3.27.6)' severity='0'/>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='assertj-core.source'/>
+        <property name='org.eclipse.equinox.p2.bundle.localization' value='plugin'/>
+      </properties>
+      <provides size='4'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='assertj-core.source' version='3.27.6'/>
+        <provided namespace='osgi.bundle' name='assertj-core.source' version='3.27.6'/>
+        <provided namespace='osgi.identity' name='assertj-core.source' version='3.27.6'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='source' version='1.0.0'/>
+      </provides>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='assertj-core.source' version='3.27.6'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: assertj-core.source&#xA;Bundle-Version: 3.27.6
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='org.hamcrest.source' version='3.0.0' singleton='false'>
+      <update id='org.hamcrest.source' range='[0.0.0,3.0.0)' severity='0'/>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='org.hamcrest.source'/>
+        <property name='org.eclipse.equinox.p2.bundle.localization' value='plugin'/>
+      </properties>
+      <provides size='4'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.hamcrest.source' version='3.0.0'/>
+        <provided namespace='osgi.bundle' name='org.hamcrest.source' version='3.0.0'/>
+        <provided namespace='osgi.identity' name='org.hamcrest.source' version='3.0.0'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='source' version='1.0.0'/>
+      </provides>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='org.hamcrest.source' version='3.0.0'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: org.hamcrest.source&#xA;Bundle-Version: 3.0.0
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='junit-jupiter-engine' version='5.14.2' singleton='false' generation='2'>
+      <update id='junit-jupiter-engine' range='[0.0.0,5.14.2)' severity='0'/>
+      <properties size='1'>
+        <property name='org.eclipse.equinox.p2.name' value='JUnit Jupiter Engine'/>
+      </properties>
+      <provides size='13'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='junit-jupiter-engine' version='5.14.2'/>
+        <provided namespace='osgi.bundle' name='junit-jupiter-engine' version='5.14.2'/>
+        <provided namespace='java.package' name='org.junit.jupiter.engine' version='5.14.2'/>
+        <provided namespace='java.package' name='org.junit.jupiter.engine.config' version='5.14.2'/>
+        <provided namespace='java.package' name='org.junit.jupiter.engine.descriptor' version='5.14.2'/>
+        <provided namespace='java.package' name='org.junit.jupiter.engine.discovery' version='5.14.2'/>
+        <provided namespace='java.package' name='org.junit.jupiter.engine.discovery.predicates' version='5.14.2'/>
+        <provided namespace='java.package' name='org.junit.jupiter.engine.execution' version='5.14.2'/>
+        <provided namespace='java.package' name='org.junit.jupiter.engine.extension' version='5.14.2'/>
+        <provided namespace='java.package' name='org.junit.jupiter.engine.support' version='5.14.2'/>
+        <provided namespace='osgi.identity' name='junit-jupiter-engine' version='5.14.2'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.junit.platform.engine' name='junit-jupiter' version='5.14.2'/>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <requires size='22'>
+        <required namespace='java.package' name='org.apiguardian.api' range='[1.1.0,2.0.0)' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.platform.commons.logging' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.jupiter.api' range='[5.14.0,6.0.0)'/>
+        <required namespace='java.package' name='org.junit.jupiter.api.extension' range='[5.14.0,6.0.0)'/>
+        <required namespace='java.package' name='org.junit.jupiter.api.function' range='[5.14.0,6.0.0)'/>
+        <required namespace='java.package' name='org.junit.jupiter.api.io' range='[5.14.0,6.0.0)'/>
+        <required namespace='java.package' name='org.junit.jupiter.api.parallel' range='[5.14.0,6.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons.function' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons.support' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons.util' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.engine' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.engine.discovery' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.engine.reporting' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.engine.support.config' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.engine.support.descriptor' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.engine.support.discovery' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.engine.support.hierarchical' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.engine.support.store' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.opentest4j' range='[1.3.0,2.0.0)'/>
+        <requiredProperties namespace='org.junit.platform.launcher' match='(&amp;(org.junit.platform.launcher=junit-platform-launcher)(version&gt;=1.14.2)(!(version&gt;=2)))'>
+          <description>
+            junit-jupiter-engine
+          </description>
+        </requiredProperties>
+        <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(version=1.8))'>
+          <description>
+            junit-jupiter-engine
+          </description>
+        </requiredProperties>
+      </requires>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='junit-jupiter-engine' version='5.14.2'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: junit-jupiter-engine&#xA;Bundle-Version: 5.14.2
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='junit-platform-runner.source' version='1.14.2' singleton='false'>
+      <update id='junit-platform-runner.source' range='[0.0.0,1.14.2)' severity='0'/>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='junit-platform-runner.source'/>
+        <property name='org.eclipse.equinox.p2.bundle.localization' value='plugin'/>
+      </properties>
+      <provides size='4'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='junit-platform-runner.source' version='1.14.2'/>
+        <provided namespace='osgi.bundle' name='junit-platform-runner.source' version='1.14.2'/>
+        <provided namespace='osgi.identity' name='junit-platform-runner.source' version='1.14.2'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='source' version='1.0.0'/>
+      </provides>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='junit-platform-runner.source' version='1.14.2'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: junit-platform-runner.source&#xA;Bundle-Version: 1.14.2
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='net.bytebuddy.byte-buddy' version='1.17.7' singleton='false'>
+      <update id='net.bytebuddy.byte-buddy' range='[0.0.0,1.17.7)' severity='0'/>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='Byte Buddy (without dependencies)'/>
+        <property name='org.eclipse.equinox.p2.description' value='Byte Buddy is a Java library for creating Java classes at run time.        This artifact is a build of Byte Buddy with all ASM dependencies repackaged into its own name space.'/>
+      </properties>
+      <provides size='42'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='net.bytebuddy.byte-buddy' version='1.17.7'/>
+        <provided namespace='osgi.bundle' name='net.bytebuddy.byte-buddy' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.agent.builder' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.asm' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.build' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.description' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.description.annotation' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.description.enumeration' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.description.field' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.description.method' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.description.modifier' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.description.type' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.dynamic' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.dynamic.loading' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.dynamic.scaffold' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.dynamic.scaffold.inline' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.dynamic.scaffold.subclass' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.implementation' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.implementation.attribute' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.implementation.auxiliary' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.implementation.bind' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.implementation.bind.annotation' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.implementation.bytecode' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.implementation.bytecode.assign' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.implementation.bytecode.assign.primitive' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.implementation.bytecode.assign.reference' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.implementation.bytecode.collection' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.implementation.bytecode.constant' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.implementation.bytecode.member' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.matcher' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.pool' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.utility' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.utility.nullability' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.utility.privilege' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.utility.visitor' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.jar.asm' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.jar.asm.signature' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.jar.asm.commons' version='1.17.7'/>
+        <provided namespace='java.package' name='net.bytebuddy.jar.asmjdkbridge' version='1.17.7'/>
+        <provided namespace='osgi.identity' name='net.bytebuddy.byte-buddy' version='1.17.7'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='net.bytebuddy.byte-buddy' version='1.17.7'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: net.bytebuddy.byte-buddy&#xA;Bundle-Version: 1.17.7
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='junit.source' version='4.13.2' singleton='false'>
+      <update id='junit.source' range='[0.0.0,4.13.2)' severity='0'/>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='junit.source'/>
+        <property name='org.eclipse.equinox.p2.bundle.localization' value='plugin'/>
+      </properties>
+      <provides size='4'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='junit.source' version='4.13.2'/>
+        <provided namespace='osgi.bundle' name='junit.source' version='4.13.2'/>
+        <provided namespace='osgi.identity' name='junit.source' version='4.13.2'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='source' version='1.0.0'/>
+      </provides>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='junit.source' version='4.13.2'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: junit.source&#xA;Bundle-Version: 4.13.2
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='assertj-core' version='3.27.6' singleton='false' generation='2'>
+      <update id='assertj-core' range='[0.0.0,3.27.6)' severity='0'/>
+      <properties size='4'>
+        <property name='org.eclipse.equinox.p2.name' value='AssertJ Core'/>
+        <property name='org.eclipse.equinox.p2.description' value='Rich and fluent assertions for testing in Java'/>
+        <property name='org.eclipse.equinox.p2.provider' value='AssertJ'/>
+        <property name='org.eclipse.equinox.p2.doc.url' value='https://assertj.github.io/doc/#assertj-core'/>
+      </properties>
+      <provides size='31'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='assertj-core' version='3.27.6'/>
+        <provided namespace='osgi.bundle' name='assertj-core' version='3.27.6'/>
+        <provided namespace='java.package' name='org.assertj.core.annotation' version='3.27.6'/>
+        <provided namespace='java.package' name='org.assertj.core.annotations' version='3.27.6'/>
+        <provided namespace='java.package' name='org.assertj.core.api' version='3.27.6'/>
+        <provided namespace='java.package' name='org.assertj.core.api.exception' version='3.27.6'/>
+        <provided namespace='java.package' name='org.assertj.core.api.filter' version='3.27.6'/>
+        <provided namespace='java.package' name='org.assertj.core.api.iterable' version='3.27.6'/>
+        <provided namespace='java.package' name='org.assertj.core.api.junit.jupiter' version='3.27.6'/>
+        <provided namespace='java.package' name='org.assertj.core.api.recursive' version='3.27.6'/>
+        <provided namespace='java.package' name='org.assertj.core.api.recursive.assertion' version='3.27.6'/>
+        <provided namespace='java.package' name='org.assertj.core.api.recursive.comparison' version='3.27.6'/>
+        <provided namespace='java.package' name='org.assertj.core.condition' version='3.27.6'/>
+        <provided namespace='java.package' name='org.assertj.core.configuration' version='3.27.6'/>
+        <provided namespace='java.package' name='org.assertj.core.data' version='3.27.6'/>
+        <provided namespace='java.package' name='org.assertj.core.description' version='3.27.6'/>
+        <provided namespace='java.package' name='org.assertj.core.error' version='3.27.6'/>
+        <provided namespace='java.package' name='org.assertj.core.error.array2d' version='3.27.6'/>
+        <provided namespace='java.package' name='org.assertj.core.error.future' version='3.27.6'/>
+        <provided namespace='java.package' name='org.assertj.core.error.uri' version='3.27.6'/>
+        <provided namespace='java.package' name='org.assertj.core.extractor' version='3.27.6'/>
+        <provided namespace='java.package' name='org.assertj.core.groups' version='3.27.6'/>
+        <provided namespace='java.package' name='org.assertj.core.matcher' version='3.27.6'/>
+        <provided namespace='java.package' name='org.assertj.core.presentation' version='3.27.6'/>
+        <provided namespace='java.package' name='org.assertj.core.util' version='3.27.6'/>
+        <provided namespace='java.package' name='org.assertj.core.util.diff' version='3.27.6'/>
+        <provided namespace='java.package' name='org.assertj.core.util.diff.myers' version='3.27.6'/>
+        <provided namespace='java.package' name='org.assertj.core.util.introspection' version='3.27.6'/>
+        <provided namespace='java.package' name='org.assertj.core.util.xml' version='3.27.6'/>
+        <provided namespace='osgi.identity' name='assertj-core' version='3.27.6'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <requires size='51'>
+        <required namespace='java.package' name='net.bytebuddy' range='[1.17.0,2.0.0)'/>
+        <required namespace='java.package' name='net.bytebuddy.description.method' range='[1.17.0,2.0.0)'/>
+        <required namespace='java.package' name='net.bytebuddy.description.modifier' range='[1.17.0,2.0.0)'/>
+        <required namespace='java.package' name='net.bytebuddy.description.type' range='[1.17.0,2.0.0)'/>
+        <required namespace='java.package' name='net.bytebuddy.dynamic' range='[1.17.0,2.0.0)'/>
+        <required namespace='java.package' name='net.bytebuddy.dynamic.loading' range='[1.17.0,2.0.0)'/>
+        <required namespace='java.package' name='net.bytebuddy.dynamic.scaffold' range='[1.17.0,2.0.0)'/>
+        <required namespace='java.package' name='net.bytebuddy.implementation' range='[1.17.0,2.0.0)'/>
+        <required namespace='java.package' name='net.bytebuddy.implementation.auxiliary' range='[1.17.0,2.0.0)'/>
+        <required namespace='java.package' name='net.bytebuddy.implementation.bind.annotation' range='[1.17.0,2.0.0)'/>
+        <required namespace='java.package' name='net.bytebuddy.matcher' range='[1.17.0,2.0.0)'/>
+        <required namespace='java.package' name='java.io' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='java.lang' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='java.lang.annotation' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='java.lang.invoke' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='java.lang.management' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='java.lang.reflect' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='java.math' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='java.net' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='java.nio.charset' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='java.nio.file' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='java.security' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='java.sql' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='java.text' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='java.time' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='java.time.chrono' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='java.time.format' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='java.time.temporal' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='java.util' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='java.util.concurrent' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='java.util.concurrent.atomic' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='java.util.function' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='java.util.logging' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='java.util.regex' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='java.util.stream' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='javax.xml.parsers' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.hamcrest' range='[3.0.0,4.0.0)' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.jupiter.api' range='[5.13.0,6.0.0)' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.jupiter.api.extension' range='[5.13.0,6.0.0)' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.jupiter.api.parallel' range='[5.13.0,6.0.0)' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.platform.commons.annotation' range='[1.13.0,2.0.0)' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.platform.commons.support' range='[1.13.0,2.0.0)' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.rules' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.runner' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.runners.model' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.opentest4j' range='[1.3.0,2.0.0)' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.w3c.dom' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.w3c.dom.bootstrap' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.w3c.dom.ls' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.xml.sax' range='0.0.0' optional='true' greedy='false'/>
+        <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(version=1.8))'>
+          <description>
+            assertj-core
+          </description>
+        </requiredProperties>
+      </requires>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='assertj-core' version='3.27.6'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: assertj-core&#xA;Bundle-Version: 3.27.6
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='org.modelio.junit5.feature.source.feature.jar' version='6.1.2.20260317120333'>
+      <properties size='3'>
+        <property name='org.eclipse.equinox.p2.name' value='JUnit 5 libraries feature (Developer Resources)'/>
+        <property name='org.eclipse.equinox.p2.description' value='JUnit 5 libraries in a feature. To be used only for automatic tests.'/>
+        <property name='org.eclipse.equinox.p2.provider' value='org.modelio'/>
+      </properties>
+      <provides size='3'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.modelio.junit5.feature.source.feature.jar' version='6.1.2.20260317120333'/>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='feature' version='1.0.0'/>
+        <provided namespace='org.eclipse.update.feature' name='org.modelio.junit5.feature.source' version='6.1.2.20260317120333'/>
+      </provides>
+      <filter>
+        (org.eclipse.update.install.features=true)
+      </filter>
+      <artifacts size='1'>
+        <artifact classifier='org.eclipse.update.feature' id='org.modelio.junit5.feature.source' version='6.1.2.20260317120333'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='zipped'>
+            true
+          </instruction>
+        </instructions>
+      </touchpointData>
+      <copyright>
+        Docaposte
+      </copyright>
+    </unit>
+    <unit id='net.bytebuddy.byte-buddy.source' version='1.17.7' singleton='false'>
+      <update id='net.bytebuddy.byte-buddy.source' range='[0.0.0,1.17.7)' severity='0'/>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='net.bytebuddy.byte-buddy.source'/>
+        <property name='org.eclipse.equinox.p2.bundle.localization' value='plugin'/>
+      </properties>
+      <provides size='4'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='net.bytebuddy.byte-buddy.source' version='1.17.7'/>
+        <provided namespace='osgi.bundle' name='net.bytebuddy.byte-buddy.source' version='1.17.7'/>
+        <provided namespace='osgi.identity' name='net.bytebuddy.byte-buddy.source' version='1.17.7'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='source' version='1.0.0'/>
+      </provides>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='net.bytebuddy.byte-buddy.source' version='1.17.7'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: net.bytebuddy.byte-buddy.source&#xA;Bundle-Version: 1.17.7
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='org.apiguardian.api' version='1.1.2' singleton='false' generation='2'>
+      <update id='org.apiguardian.api' range='[0.0.0,1.1.2)' severity='0'/>
+      <properties size='4'>
+        <property name='org.eclipse.equinox.p2.name' value='apiguardian-api'/>
+        <property name='org.eclipse.equinox.p2.description' value='@API Guardian'/>
+        <property name='org.eclipse.equinox.p2.provider' value='apiguardian.org'/>
+        <property name='org.eclipse.equinox.p2.doc.url' value='https://github.com/apiguardian-team/apiguardian'/>
+      </properties>
+      <provides size='5'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.apiguardian.api' version='1.1.2'/>
+        <provided namespace='osgi.bundle' name='org.apiguardian.api' version='1.1.2'/>
+        <provided namespace='java.package' name='org.apiguardian.api' version='1.1.2'/>
+        <provided namespace='osgi.identity' name='org.apiguardian.api' version='1.1.2'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <requires size='1'>
+        <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(version=1.6))'>
+          <description>
+            org.apiguardian.api
+          </description>
+        </requiredProperties>
+      </requires>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='org.apiguardian.api' version='1.1.2'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: org.apiguardian.api&#xA;Bundle-Version: 1.1.2
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='org.modelio.junit5.feature.source.feature.group' version='6.1.2.20260317120333' singleton='false'>
+      <update id='org.modelio.junit5.feature.source.feature.group' range='[0.0.0,6.1.2.20260317120333)' severity='0'/>
+      <properties size='4'>
+        <property name='org.eclipse.equinox.p2.name' value='JUnit 5 libraries feature (Developer Resources)'/>
+        <property name='org.eclipse.equinox.p2.description' value='JUnit 5 libraries in a feature. To be used only for automatic tests.'/>
+        <property name='org.eclipse.equinox.p2.provider' value='org.modelio'/>
+        <property name='org.eclipse.equinox.p2.type.group' value='true'/>
+      </properties>
+      <provides size='1'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.modelio.junit5.feature.source.feature.group' version='6.1.2.20260317120333'/>
+      </provides>
+      <requires size='18'>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-jupiter-api.source' range='[5.14.2,5.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.opentest4j.source' range='[1.3.0,1.3.0]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-platform-commons.source' range='[1.14.2,1.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.apiguardian.api.source' range='[1.1.2,1.1.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-jupiter-engine.source' range='[5.14.2,5.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-jupiter-params.source' range='[5.14.2,5.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-platform-launcher.source' range='[1.14.2,1.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-platform-engine.source' range='[1.14.2,1.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-platform-runner.source' range='[1.14.2,1.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit.source' range='[4.13.2,4.13.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-platform-suite-api.source' range='[1.14.2,1.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-platform-suite-commons.source' range='[1.14.2,1.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-platform-suite-engine.source' range='[1.14.2,1.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='assertj-core.source' range='[3.27.6,3.27.6]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='net.bytebuddy.byte-buddy.source' range='[1.17.7,1.17.7]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.hamcrest.core.source' range='[3.0.0,3.0.0]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.hamcrest.source' range='[3.0.0,3.0.0]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.modelio.junit5.feature.source.feature.jar' range='[6.1.2.20260317120333,6.1.2.20260317120333]'>
+          <filter>
+            (org.eclipse.update.install.features=true)
+          </filter>
+        </required>
+      </requires>
+      <touchpoint id='null' version='0.0.0'/>
+      <copyright>
+        Docaposte
+      </copyright>
+    </unit>
+    <unit id='junit-platform-suite-engine' version='1.14.2' singleton='false' generation='2'>
+      <update id='junit-platform-suite-engine' range='[0.0.0,1.14.2)' severity='0'/>
+      <properties size='1'>
+        <property name='org.eclipse.equinox.p2.name' value='JUnit Platform Suite Engine'/>
+      </properties>
+      <provides size='5'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='junit-platform-suite-engine' version='1.14.2'/>
+        <provided namespace='osgi.bundle' name='junit-platform-suite-engine' version='1.14.2'/>
+        <provided namespace='java.package' name='org.junit.platform.suite.engine' version='1.14.2'/>
+        <provided namespace='osgi.identity' name='junit-platform-suite-engine' version='1.14.2'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <requires size='18'>
+        <required namespace='java.package' name='org.apiguardian.api' range='[1.1.0,2.0.0)' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.platform.commons' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons.function' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons.support' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons.util' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.engine' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.engine.discovery' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.engine.support.descriptor' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.engine.support.discovery' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.engine.support.hierarchical' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.engine.support.store' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.launcher' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.launcher.core' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.launcher.listeners' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.suite.api' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.suite.commons' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons.logging' range='[1.14.0,2.0.0)'/>
+        <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(version=1.8))'>
+          <description>
+            junit-platform-suite-engine
+          </description>
+        </requiredProperties>
+      </requires>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='junit-platform-suite-engine' version='1.14.2'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: junit-platform-suite-engine&#xA;Bundle-Version: 1.14.2
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='org.hamcrest' version='3.0.0' singleton='false' generation='2'>
+      <update id='org.hamcrest' range='[0.0.0,3.0.0)' severity='0'/>
+      <properties size='1'>
+        <property name='org.eclipse.equinox.p2.name' value='org.hamcrest'/>
+      </properties>
+      <provides size='15'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.hamcrest' version='3.0.0'/>
+        <provided namespace='osgi.bundle' name='org.hamcrest' version='3.0.0'/>
+        <provided namespace='java.package' name='org.hamcrest' version='3.0.0'/>
+        <provided namespace='java.package' name='org.hamcrest.beans' version='3.0.0'/>
+        <provided namespace='java.package' name='org.hamcrest.collection' version='3.0.0'/>
+        <provided namespace='java.package' name='org.hamcrest.comparator' version='3.0.0'/>
+        <provided namespace='java.package' name='org.hamcrest.core' version='3.0.0'/>
+        <provided namespace='java.package' name='org.hamcrest.internal' version='3.0.0'/>
+        <provided namespace='java.package' name='org.hamcrest.io' version='3.0.0'/>
+        <provided namespace='java.package' name='org.hamcrest.number' version='3.0.0'/>
+        <provided namespace='java.package' name='org.hamcrest.object' version='3.0.0'/>
+        <provided namespace='java.package' name='org.hamcrest.text' version='3.0.0'/>
+        <provided namespace='java.package' name='org.hamcrest.xml' version='3.0.0'/>
+        <provided namespace='osgi.identity' name='org.hamcrest' version='3.0.0'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <requires size='14'>
+        <required namespace='java.package' name='javax.xml.namespace' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='javax.xml.xpath' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.w3c.dom' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.hamcrest' range='0.0.0'/>
+        <required namespace='java.package' name='org.hamcrest.beans' range='0.0.0'/>
+        <required namespace='java.package' name='org.hamcrest.collection' range='0.0.0'/>
+        <required namespace='java.package' name='org.hamcrest.comparator' range='0.0.0'/>
+        <required namespace='java.package' name='org.hamcrest.core' range='0.0.0'/>
+        <required namespace='java.package' name='org.hamcrest.internal' range='0.0.0'/>
+        <required namespace='java.package' name='org.hamcrest.number' range='0.0.0'/>
+        <required namespace='java.package' name='org.hamcrest.object' range='0.0.0'/>
+        <required namespace='java.package' name='org.hamcrest.text' range='0.0.0'/>
+        <required namespace='java.package' name='org.hamcrest.xml' range='0.0.0'/>
+        <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(version=1.8))'>
+          <description>
+            org.hamcrest
+          </description>
+        </requiredProperties>
+      </requires>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='org.hamcrest' version='3.0.0'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: org.hamcrest&#xA;Bundle-Version: 3.0.0
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='junit-platform-launcher' version='1.14.2' singleton='false' generation='2'>
+      <update id='junit-platform-launcher' range='[0.0.0,1.14.2)' severity='0'/>
+      <properties size='1'>
+        <property name='org.eclipse.equinox.p2.name' value='JUnit Platform Launcher'/>
+      </properties>
+      <provides size='11'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='junit-platform-launcher' version='1.14.2'/>
+        <provided namespace='osgi.bundle' name='junit-platform-launcher' version='1.14.2'/>
+        <provided namespace='java.package' name='org.junit.platform.launcher' version='1.14.2'/>
+        <provided namespace='java.package' name='org.junit.platform.launcher.core' version='1.14.2'/>
+        <provided namespace='java.package' name='org.junit.platform.launcher.listeners' version='1.14.2'/>
+        <provided namespace='java.package' name='org.junit.platform.launcher.listeners.discovery' version='1.14.2'/>
+        <provided namespace='java.package' name='org.junit.platform.launcher.listeners.session' version='1.14.2'/>
+        <provided namespace='java.package' name='org.junit.platform.launcher.tagexpression' version='1.14.2'/>
+        <provided namespace='osgi.identity' name='junit-platform-launcher' version='1.14.2'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.junit.platform.launcher' name='junit-platform-launcher' version='1.14.2'/>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <requires size='14'>
+        <required namespace='java.package' name='org.apiguardian.api' range='[1.1.0,2.0.0)' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.platform.commons.logging' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons.support' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons.util' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.engine' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.engine.discovery' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.engine.reporting' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.engine.support.descriptor' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.engine.support.store' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.launcher' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.launcher.listeners' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.launcher.listeners.discovery' range='[1.14.0,2.0.0)'/>
+        <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(version=1.8))'>
+          <description>
+            junit-platform-launcher
+          </description>
+        </requiredProperties>
+      </requires>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='junit-platform-launcher' version='1.14.2'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: junit-platform-launcher&#xA;Bundle-Version: 1.14.2
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='org.modelio.junit5.feature.feature.jar' version='6.1.2.20260317120333'>
+      <properties size='3'>
+        <property name='org.eclipse.equinox.p2.name' value='JUnit 5 libraries feature'/>
+        <property name='org.eclipse.equinox.p2.description' value='JUnit 5 libraries in a feature. To be used only for automatic tests.'/>
+        <property name='org.eclipse.equinox.p2.provider' value='org.modelio'/>
+      </properties>
+      <provides size='3'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.modelio.junit5.feature.feature.jar' version='6.1.2.20260317120333'/>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='feature' version='1.0.0'/>
+        <provided namespace='org.eclipse.update.feature' name='org.modelio.junit5.feature' version='6.1.2.20260317120333'/>
+      </provides>
+      <filter>
+        (org.eclipse.update.install.features=true)
+      </filter>
+      <artifacts size='1'>
+        <artifact classifier='org.eclipse.update.feature' id='org.modelio.junit5.feature' version='6.1.2.20260317120333'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='zipped'>
+            true
+          </instruction>
+        </instructions>
+      </touchpointData>
+      <copyright>
+        Docaposte
+      </copyright>
+    </unit>
+    <unit id='file:/work/modelio/alouette/work/eclipse/dev-platform/rcp-target/junit/v5/build/target/repository/category.xml.all' version='1.0.0.9NEAY9I'>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='Maven osgi-bundles'/>
+        <property name='org.eclipse.equinox.p2.type.category' value='true'/>
+      </properties>
+      <provides size='1'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='file:/work/modelio/alouette/work/eclipse/dev-platform/rcp-target/junit/v5/build/target/repository/category.xml.all' version='1.0.0.9NEAY9I'/>
+      </provides>
+      <requires size='34'>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit' range='[4.13.2,4.13.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-platform-suite-commons' range='[1.14.2,1.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.hamcrest.core.source' range='[3.0.0,3.0.0]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-jupiter-params.source' range='[5.14.2,5.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='assertj-core.source' range='[3.27.6,3.27.6]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.hamcrest.source' range='[3.0.0,3.0.0]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-jupiter-engine' range='[5.14.2,5.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-platform-runner.source' range='[1.14.2,1.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='net.bytebuddy.byte-buddy' range='[1.17.7,1.17.7]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit.source' range='[4.13.2,4.13.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='assertj-core' range='[3.27.6,3.27.6]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='net.bytebuddy.byte-buddy.source' range='[1.17.7,1.17.7]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.apiguardian.api' range='[1.1.2,1.1.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-platform-suite-engine' range='[1.14.2,1.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.hamcrest' range='[3.0.0,3.0.0]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-platform-launcher' range='[1.14.2,1.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-platform-suite-api' range='[1.14.2,1.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-platform-engine' range='[1.14.2,1.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.opentest4j.source' range='[1.3.0,1.3.0]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-platform-launcher.source' range='[1.14.2,1.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-platform-suite-api.source' range='[1.14.2,1.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.opentest4j' range='[1.3.0,1.3.0]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-jupiter-params' range='[5.14.2,5.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-platform-engine.source' range='[1.14.2,1.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.hamcrest.core' range='[3.0.0,3.0.0]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-platform-suite-engine.source' range='[1.14.2,1.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-platform-commons.source' range='[1.14.2,1.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-platform-commons' range='[1.14.2,1.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-jupiter-api' range='[5.14.2,5.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-jupiter-api.source' range='[5.14.2,5.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-platform-runner' range='[1.14.2,1.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.apiguardian.api.source' range='[1.1.2,1.1.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-platform-suite-commons.source' range='[1.14.2,1.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-jupiter-engine.source' range='[5.14.2,5.14.2]'/>
+      </requires>
+      <touchpoint id='null' version='0.0.0'/>
+    </unit>
+    <unit id='junit-platform-suite-api' version='1.14.2' singleton='false' generation='2'>
+      <update id='junit-platform-suite-api' range='[0.0.0,1.14.2)' severity='0'/>
+      <properties size='1'>
+        <property name='org.eclipse.equinox.p2.name' value='JUnit Platform Suite API'/>
+      </properties>
+      <provides size='5'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='junit-platform-suite-api' version='1.14.2'/>
+        <provided namespace='osgi.bundle' name='junit-platform-suite-api' version='1.14.2'/>
+        <provided namespace='java.package' name='org.junit.platform.suite.api' version='1.14.2'/>
+        <provided namespace='osgi.identity' name='junit-platform-suite-api' version='1.14.2'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <requires size='4'>
+        <required namespace='java.package' name='org.apiguardian.api' range='[1.1.0,2.0.0)' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.platform.commons.annotation' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons.logging' range='[1.14.0,2.0.0)'/>
+        <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(version=1.8))'>
+          <description>
+            junit-platform-suite-api
+          </description>
+        </requiredProperties>
+      </requires>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='junit-platform-suite-api' version='1.14.2'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: junit-platform-suite-api&#xA;Bundle-Version: 1.14.2
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='org.modelio.junit5.feature.feature.group' version='6.1.2.20260317120333' singleton='false'>
+      <update id='org.modelio.junit5.feature.feature.group' range='[0.0.0,6.1.2.20260317120333)' severity='0'/>
+      <properties size='4'>
+        <property name='org.eclipse.equinox.p2.name' value='JUnit 5 libraries feature'/>
+        <property name='org.eclipse.equinox.p2.description' value='JUnit 5 libraries in a feature. To be used only for automatic tests.'/>
+        <property name='org.eclipse.equinox.p2.provider' value='org.modelio'/>
+        <property name='org.eclipse.equinox.p2.type.group' value='true'/>
+      </properties>
+      <provides size='1'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.modelio.junit5.feature.feature.group' version='6.1.2.20260317120333'/>
+      </provides>
+      <requires size='18'>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-jupiter-api' range='[5.14.2,5.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.opentest4j' range='[1.3.0,1.3.0]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-platform-commons' range='[1.14.2,1.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.apiguardian.api' range='[1.1.2,1.1.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-jupiter-engine' range='[5.14.2,5.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-jupiter-params' range='[5.14.2,5.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-platform-launcher' range='[1.14.2,1.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-platform-engine' range='[1.14.2,1.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-platform-runner' range='[1.14.2,1.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit' range='[4.13.2,4.13.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-platform-suite-api' range='[1.14.2,1.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-platform-suite-commons' range='[1.14.2,1.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='junit-platform-suite-engine' range='[1.14.2,1.14.2]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='assertj-core' range='[3.27.6,3.27.6]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='net.bytebuddy.byte-buddy' range='[1.17.7,1.17.7]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.hamcrest.core' range='[3.0.0,3.0.0]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.hamcrest' range='[3.0.0,3.0.0]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.modelio.junit5.feature.feature.jar' range='[6.1.2.20260317120333,6.1.2.20260317120333]'>
+          <filter>
+            (org.eclipse.update.install.features=true)
+          </filter>
+        </required>
+      </requires>
+      <touchpoint id='null' version='0.0.0'/>
+      <copyright>
+        Docaposte
+      </copyright>
+    </unit>
+    <unit id='junit-platform-engine' version='1.14.2' singleton='false' generation='2'>
+      <update id='junit-platform-engine' range='[0.0.0,1.14.2)' severity='0'/>
+      <properties size='1'>
+        <property name='org.eclipse.equinox.p2.name' value='JUnit Platform Engine API'/>
+      </properties>
+      <provides size='13'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='junit-platform-engine' version='1.14.2'/>
+        <provided namespace='osgi.bundle' name='junit-platform-engine' version='1.14.2'/>
+        <provided namespace='java.package' name='org.junit.platform.engine' version='1.14.2'/>
+        <provided namespace='java.package' name='org.junit.platform.engine.discovery' version='1.14.2'/>
+        <provided namespace='java.package' name='org.junit.platform.engine.reporting' version='1.14.2'/>
+        <provided namespace='java.package' name='org.junit.platform.engine.support.config' version='1.14.2'/>
+        <provided namespace='java.package' name='org.junit.platform.engine.support.descriptor' version='1.14.2'/>
+        <provided namespace='java.package' name='org.junit.platform.engine.support.discovery' version='1.14.2'/>
+        <provided namespace='java.package' name='org.junit.platform.engine.support.filter' version='1.14.2'/>
+        <provided namespace='java.package' name='org.junit.platform.engine.support.hierarchical' version='1.14.2'/>
+        <provided namespace='java.package' name='org.junit.platform.engine.support.store' version='1.14.2'/>
+        <provided namespace='osgi.identity' name='junit-platform-engine' version='1.14.2'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <requires size='14'>
+        <required namespace='java.package' name='org.apiguardian.api' range='[1.1.0,2.0.0)' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.platform.commons.logging' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons.function' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons.io' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons.support' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons.support.scanning' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons.util' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.engine' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.engine.discovery' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.engine.reporting' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.engine.support.store' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.opentest4j' range='[1.3.0,2.0.0)'/>
+        <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(version=1.8))'>
+          <description>
+            junit-platform-engine
+          </description>
+        </requiredProperties>
+      </requires>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='junit-platform-engine' version='1.14.2'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: junit-platform-engine&#xA;Bundle-Version: 1.14.2
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='org.opentest4j.source' version='1.3.0' singleton='false'>
+      <update id='org.opentest4j.source' range='[0.0.0,1.3.0)' severity='0'/>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='org.opentest4j.source'/>
+        <property name='org.eclipse.equinox.p2.bundle.localization' value='plugin'/>
+      </properties>
+      <provides size='4'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.opentest4j.source' version='1.3.0'/>
+        <provided namespace='osgi.bundle' name='org.opentest4j.source' version='1.3.0'/>
+        <provided namespace='osgi.identity' name='org.opentest4j.source' version='1.3.0'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='source' version='1.0.0'/>
+      </provides>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='org.opentest4j.source' version='1.3.0'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: org.opentest4j.source&#xA;Bundle-Version: 1.3.0
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='junit-platform-launcher.source' version='1.14.2' singleton='false'>
+      <update id='junit-platform-launcher.source' range='[0.0.0,1.14.2)' severity='0'/>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='junit-platform-launcher.source'/>
+        <property name='org.eclipse.equinox.p2.bundle.localization' value='plugin'/>
+      </properties>
+      <provides size='4'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='junit-platform-launcher.source' version='1.14.2'/>
+        <provided namespace='osgi.bundle' name='junit-platform-launcher.source' version='1.14.2'/>
+        <provided namespace='osgi.identity' name='junit-platform-launcher.source' version='1.14.2'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='source' version='1.0.0'/>
+      </provides>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='junit-platform-launcher.source' version='1.14.2'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: junit-platform-launcher.source&#xA;Bundle-Version: 1.14.2
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='junit-platform-suite-api.source' version='1.14.2' singleton='false'>
+      <update id='junit-platform-suite-api.source' range='[0.0.0,1.14.2)' severity='0'/>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='junit-platform-suite-api.source'/>
+        <property name='org.eclipse.equinox.p2.bundle.localization' value='plugin'/>
+      </properties>
+      <provides size='4'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='junit-platform-suite-api.source' version='1.14.2'/>
+        <provided namespace='osgi.bundle' name='junit-platform-suite-api.source' version='1.14.2'/>
+        <provided namespace='osgi.identity' name='junit-platform-suite-api.source' version='1.14.2'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='source' version='1.0.0'/>
+      </provides>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='junit-platform-suite-api.source' version='1.14.2'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: junit-platform-suite-api.source&#xA;Bundle-Version: 1.14.2
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='org.opentest4j' version='1.3.0' singleton='false' generation='2'>
+      <update id='org.opentest4j' range='[0.0.0,1.3.0)' severity='0'/>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='opentest4j'/>
+        <property name='org.eclipse.equinox.p2.provider' value='opentest4j.org'/>
+      </properties>
+      <provides size='5'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.opentest4j' version='1.3.0'/>
+        <provided namespace='osgi.bundle' name='org.opentest4j' version='1.3.0'/>
+        <provided namespace='java.package' name='org.opentest4j' version='1.3.0'/>
+        <provided namespace='osgi.identity' name='org.opentest4j' version='1.3.0'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <requires size='1'>
+        <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(version=1.6))'>
+          <description>
+            org.opentest4j
+          </description>
+        </requiredProperties>
+      </requires>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='org.opentest4j' version='1.3.0'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: org.opentest4j&#xA;Bundle-Version: 1.3.0
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='junit-jupiter-params' version='5.14.2' singleton='false' generation='2'>
+      <update id='junit-jupiter-params' range='[0.0.0,5.14.2)' severity='0'/>
+      <properties size='1'>
+        <property name='org.eclipse.equinox.p2.name' value='JUnit Jupiter Params'/>
+      </properties>
+      <provides size='9'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='junit-jupiter-params' version='5.14.2'/>
+        <provided namespace='osgi.bundle' name='junit-jupiter-params' version='5.14.2'/>
+        <provided namespace='java.package' name='org.junit.jupiter.params' version='5.14.2'/>
+        <provided namespace='java.package' name='org.junit.jupiter.params.aggregator' version='5.14.2'/>
+        <provided namespace='java.package' name='org.junit.jupiter.params.converter' version='5.14.2'/>
+        <provided namespace='java.package' name='org.junit.jupiter.params.provider' version='5.14.2'/>
+        <provided namespace='java.package' name='org.junit.jupiter.params.support' version='5.14.2'/>
+        <provided namespace='osgi.identity' name='junit-jupiter-params' version='5.14.2'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <requires size='16'>
+        <required namespace='java.package' name='org.apiguardian.api' range='[1.1.0,2.0.0)' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.platform.commons.logging' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='kotlin' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='kotlin.jvm.internal' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.jupiter.api' range='[5.14.0,6.0.0)'/>
+        <required namespace='java.package' name='org.junit.jupiter.api.extension' range='[5.14.0,6.0.0)'/>
+        <required namespace='java.package' name='org.junit.jupiter.params' range='[5.14.0,6.0.0)'/>
+        <required namespace='java.package' name='org.junit.jupiter.params.aggregator' range='[5.14.0,6.0.0)'/>
+        <required namespace='java.package' name='org.junit.jupiter.params.converter' range='[5.14.0,6.0.0)'/>
+        <required namespace='java.package' name='org.junit.jupiter.params.support' range='[5.14.0,6.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons.function' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons.support' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons.support.conversion' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons.util' range='[1.14.0,2.0.0)'/>
+        <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(version=1.8))'>
+          <description>
+            junit-jupiter-params
+          </description>
+        </requiredProperties>
+      </requires>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='junit-jupiter-params' version='5.14.2'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: junit-jupiter-params&#xA;Bundle-Version: 5.14.2
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='junit-platform-engine.source' version='1.14.2' singleton='false'>
+      <update id='junit-platform-engine.source' range='[0.0.0,1.14.2)' severity='0'/>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='junit-platform-engine.source'/>
+        <property name='org.eclipse.equinox.p2.bundle.localization' value='plugin'/>
+      </properties>
+      <provides size='4'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='junit-platform-engine.source' version='1.14.2'/>
+        <provided namespace='osgi.bundle' name='junit-platform-engine.source' version='1.14.2'/>
+        <provided namespace='osgi.identity' name='junit-platform-engine.source' version='1.14.2'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='source' version='1.0.0'/>
+      </provides>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='junit-platform-engine.source' version='1.14.2'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: junit-platform-engine.source&#xA;Bundle-Version: 1.14.2
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='org.hamcrest.core' version='3.0.0' singleton='false' generation='2'>
+      <update id='org.hamcrest.core' range='[0.0.0,3.0.0)' severity='0'/>
+      <properties size='1'>
+        <property name='org.eclipse.equinox.p2.name' value='org.hamcrest.core'/>
+      </properties>
+      <provides size='5'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.hamcrest.core' version='3.0.0'/>
+        <provided namespace='osgi.bundle' name='org.hamcrest.core' version='3.0.0'/>
+        <provided namespace='java.package' name='org.hamcrest.core.deprecated' version='0.0.0'/>
+        <provided namespace='osgi.identity' name='org.hamcrest.core' version='3.0.0'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <requires size='1'>
+        <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(version=1.8))'>
+          <description>
+            org.hamcrest.core
+          </description>
+        </requiredProperties>
+      </requires>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='org.hamcrest.core' version='3.0.0'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: org.hamcrest.core&#xA;Bundle-Version: 3.0.0
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='junit-platform-suite-engine.source' version='1.14.2' singleton='false'>
+      <update id='junit-platform-suite-engine.source' range='[0.0.0,1.14.2)' severity='0'/>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='junit-platform-suite-engine.source'/>
+        <property name='org.eclipse.equinox.p2.bundle.localization' value='plugin'/>
+      </properties>
+      <provides size='4'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='junit-platform-suite-engine.source' version='1.14.2'/>
+        <provided namespace='osgi.bundle' name='junit-platform-suite-engine.source' version='1.14.2'/>
+        <provided namespace='osgi.identity' name='junit-platform-suite-engine.source' version='1.14.2'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='source' version='1.0.0'/>
+      </provides>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='junit-platform-suite-engine.source' version='1.14.2'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: junit-platform-suite-engine.source&#xA;Bundle-Version: 1.14.2
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='junit-platform-commons.source' version='1.14.2' singleton='false'>
+      <update id='junit-platform-commons.source' range='[0.0.0,1.14.2)' severity='0'/>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='junit-platform-commons.source'/>
+        <property name='org.eclipse.equinox.p2.bundle.localization' value='plugin'/>
+      </properties>
+      <provides size='4'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='junit-platform-commons.source' version='1.14.2'/>
+        <provided namespace='osgi.bundle' name='junit-platform-commons.source' version='1.14.2'/>
+        <provided namespace='osgi.identity' name='junit-platform-commons.source' version='1.14.2'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='source' version='1.0.0'/>
+      </provides>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='junit-platform-commons.source' version='1.14.2'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: junit-platform-commons.source&#xA;Bundle-Version: 1.14.2
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='junit-platform-commons' version='1.14.2' singleton='false' generation='2'>
+      <update id='junit-platform-commons' range='[0.0.0,1.14.2)' severity='0'/>
+      <properties size='1'>
+        <property name='org.eclipse.equinox.p2.name' value='JUnit Platform Commons'/>
+      </properties>
+      <provides size='13'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='junit-platform-commons' version='1.14.2'/>
+        <provided namespace='osgi.bundle' name='junit-platform-commons' version='1.14.2'/>
+        <provided namespace='java.package' name='org.junit.platform.commons' version='1.14.2'/>
+        <provided namespace='java.package' name='org.junit.platform.commons.annotation' version='1.14.2'/>
+        <provided namespace='java.package' name='org.junit.platform.commons.function' version='1.14.2'/>
+        <provided namespace='java.package' name='org.junit.platform.commons.io' version='1.14.2'/>
+        <provided namespace='java.package' name='org.junit.platform.commons.logging' version='1.14.2'/>
+        <provided namespace='java.package' name='org.junit.platform.commons.support' version='1.14.2'/>
+        <provided namespace='java.package' name='org.junit.platform.commons.support.conversion' version='1.14.2'/>
+        <provided namespace='java.package' name='org.junit.platform.commons.support.scanning' version='1.14.2'/>
+        <provided namespace='java.package' name='org.junit.platform.commons.util' version='1.14.2'/>
+        <provided namespace='osgi.identity' name='junit-platform-commons' version='1.14.2'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <requires size='9'>
+        <required namespace='java.package' name='org.apiguardian.api' range='[1.1.0,2.0.0)' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.platform.commons' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons.function' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons.io' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons.support' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons.support.scanning' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons.util' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons.logging' range='[1.14.0,2.0.0)'/>
+        <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(version=1.8))'>
+          <description>
+            junit-platform-commons
+          </description>
+        </requiredProperties>
+      </requires>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='junit-platform-commons' version='1.14.2'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: junit-platform-commons&#xA;Bundle-Version: 1.14.2
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='junit-jupiter-api' version='5.14.2' singleton='false' generation='2'>
+      <update id='junit-jupiter-api' range='[0.0.0,5.14.2)' severity='0'/>
+      <properties size='1'>
+        <property name='org.eclipse.equinox.p2.name' value='JUnit Jupiter API'/>
+      </properties>
+      <provides size='11'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='junit-jupiter-api' version='5.14.2'/>
+        <provided namespace='osgi.bundle' name='junit-jupiter-api' version='5.14.2'/>
+        <provided namespace='java.package' name='org.junit.jupiter.api' version='5.14.2'/>
+        <provided namespace='java.package' name='org.junit.jupiter.api.condition' version='5.14.2'/>
+        <provided namespace='java.package' name='org.junit.jupiter.api.extension' version='5.14.2'/>
+        <provided namespace='java.package' name='org.junit.jupiter.api.extension.support' version='5.14.2'/>
+        <provided namespace='java.package' name='org.junit.jupiter.api.function' version='5.14.2'/>
+        <provided namespace='java.package' name='org.junit.jupiter.api.io' version='5.14.2'/>
+        <provided namespace='java.package' name='org.junit.jupiter.api.parallel' version='5.14.2'/>
+        <provided namespace='osgi.identity' name='junit-jupiter-api' version='5.14.2'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <requires size='18'>
+        <required namespace='java.package' name='org.apiguardian.api' range='[1.1.0,2.0.0)' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.platform.commons.logging' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='kotlin' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='kotlin.collections' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='kotlin.jvm.functions' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='kotlin.jvm.internal' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.jupiter.api' range='[5.14.0,6.0.0)'/>
+        <required namespace='java.package' name='org.junit.jupiter.api.extension' range='[5.14.0,6.0.0)'/>
+        <required namespace='java.package' name='org.junit.jupiter.api.function' range='[5.14.0,6.0.0)'/>
+        <required namespace='java.package' name='org.junit.jupiter.api.parallel' range='[5.14.0,6.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons.annotation' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons.function' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons.support' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.junit.platform.commons.util' range='[1.14.0,2.0.0)'/>
+        <required namespace='java.package' name='org.opentest4j' range='[1.3.0,2.0.0)'/>
+        <requiredProperties namespace='org.junit.platform.engine' match='(&amp;(org.junit.platform.engine=junit-jupiter)(version&gt;=5.14.2)(!(version&gt;=6)))'>
+          <description>
+            junit-jupiter-api
+          </description>
+        </requiredProperties>
+        <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(version=1.8))'>
+          <description>
+            junit-jupiter-api
+          </description>
+        </requiredProperties>
+      </requires>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='junit-jupiter-api' version='5.14.2'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: junit-jupiter-api&#xA;Bundle-Version: 5.14.2
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='junit-jupiter-api.source' version='5.14.2' singleton='false'>
+      <update id='junit-jupiter-api.source' range='[0.0.0,5.14.2)' severity='0'/>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='junit-jupiter-api.source'/>
+        <property name='org.eclipse.equinox.p2.bundle.localization' value='plugin'/>
+      </properties>
+      <provides size='4'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='junit-jupiter-api.source' version='5.14.2'/>
+        <provided namespace='osgi.bundle' name='junit-jupiter-api.source' version='5.14.2'/>
+        <provided namespace='osgi.identity' name='junit-jupiter-api.source' version='5.14.2'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='source' version='1.0.0'/>
+      </provides>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='junit-jupiter-api.source' version='5.14.2'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: junit-jupiter-api.source&#xA;Bundle-Version: 5.14.2
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='junit-platform-runner' version='1.14.2' singleton='false' generation='2'>
+      <update id='junit-platform-runner' range='[0.0.0,1.14.2)' severity='0'/>
+      <properties size='1'>
+        <property name='org.eclipse.equinox.p2.name' value='junit-platform-runner'/>
+      </properties>
+      <provides size='5'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='junit-platform-runner' version='1.14.2'/>
+        <provided namespace='osgi.bundle' name='junit-platform-runner' version='1.14.2'/>
+        <provided namespace='java.package' name='org.junit.platform.runner' version='0.0.0'/>
+        <provided namespace='osgi.identity' name='junit-platform-runner' version='1.14.2'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <requires size='15'>
+        <required namespace='java.package' name='org.apiguardian.api' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.platform.commons.support' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.platform.commons.util' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.platform.engine' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.platform.engine.discovery' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.platform.engine.reporting' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.platform.engine.support.descriptor' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.platform.launcher' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.platform.launcher.core' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.platform.suite.api' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.platform.suite.commons' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.runner' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.runner.manipulation' range='0.0.0' optional='true' greedy='false'/>
+        <required namespace='java.package' name='org.junit.runner.notification' range='0.0.0' optional='true' greedy='false'/>
+        <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(version=1.8))'>
+          <description>
+            junit-platform-runner
+          </description>
+        </requiredProperties>
+      </requires>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='junit-platform-runner' version='1.14.2'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: junit-platform-runner&#xA;Bundle-Version: 1.14.2
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='org.apiguardian.api.source' version='1.1.2' singleton='false'>
+      <update id='org.apiguardian.api.source' range='[0.0.0,1.1.2)' severity='0'/>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='org.apiguardian.api.source'/>
+        <property name='org.eclipse.equinox.p2.bundle.localization' value='plugin'/>
+      </properties>
+      <provides size='4'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.apiguardian.api.source' version='1.1.2'/>
+        <provided namespace='osgi.bundle' name='org.apiguardian.api.source' version='1.1.2'/>
+        <provided namespace='osgi.identity' name='org.apiguardian.api.source' version='1.1.2'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='source' version='1.0.0'/>
+      </provides>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='org.apiguardian.api.source' version='1.1.2'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: org.apiguardian.api.source&#xA;Bundle-Version: 1.1.2
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='junit-platform-suite-commons.source' version='1.14.2' singleton='false'>
+      <update id='junit-platform-suite-commons.source' range='[0.0.0,1.14.2)' severity='0'/>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='junit-platform-suite-commons.source'/>
+        <property name='org.eclipse.equinox.p2.bundle.localization' value='plugin'/>
+      </properties>
+      <provides size='4'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='junit-platform-suite-commons.source' version='1.14.2'/>
+        <provided namespace='osgi.bundle' name='junit-platform-suite-commons.source' version='1.14.2'/>
+        <provided namespace='osgi.identity' name='junit-platform-suite-commons.source' version='1.14.2'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='source' version='1.0.0'/>
+      </provides>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='junit-platform-suite-commons.source' version='1.14.2'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: junit-platform-suite-commons.source&#xA;Bundle-Version: 1.14.2
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='junit-jupiter-engine.source' version='5.14.2' singleton='false'>
+      <update id='junit-jupiter-engine.source' range='[0.0.0,5.14.2)' severity='0'/>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='junit-jupiter-engine.source'/>
+        <property name='org.eclipse.equinox.p2.bundle.localization' value='plugin'/>
+      </properties>
+      <provides size='4'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='junit-jupiter-engine.source' version='5.14.2'/>
+        <provided namespace='osgi.bundle' name='junit-jupiter-engine.source' version='5.14.2'/>
+        <provided namespace='osgi.identity' name='junit-jupiter-engine.source' version='5.14.2'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='source' version='1.0.0'/>
+      </provides>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='junit-jupiter-engine.source' version='5.14.2'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: junit-jupiter-engine.source&#xA;Bundle-Version: 5.14.2
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+  </units>
+</repository>

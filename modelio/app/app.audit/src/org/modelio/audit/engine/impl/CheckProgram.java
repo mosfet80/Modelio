@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.engine.impl;
 
@@ -46,7 +46,7 @@ public class CheckProgram {
         if (controlToAdd == null) {
             return;
         }
-        
+
         // Get the current batch for this element
         // if it does not exist, create it
         String id = elementTocheck.getUuid().toString();
@@ -55,16 +55,16 @@ public class CheckProgram {
             batch = new CheckBatch(elementTocheck, jobId);
             this.controls.put(id, batch);
         }
-        
+
         // Add the control to the element batch
         // Count the possibly added controls
         this.nPostedChecks -= batch.size();
         batch.add(controlToAdd);
         this.nPostedChecks += batch.size();
-        
+
         // Add a LIFO entry for the element
         this.lifo.addFirst(elementTocheck);
-        
+
     }
 
     @objid ("3d6b0ea9-de44-4bea-9709-55cc2f081f0c")
@@ -83,14 +83,15 @@ public class CheckProgram {
             // If element is no longer valid or if there is no batch for the element,
             // the lifo entry was old and the element batch has already been processed
             // let the 'while' loop try to get the next one...
-        
+
         } // end while
-        
+
         // the lifo is empty, there are no more batch/controls available
         return null;
     }
 
     /**
+     *
      * @return the number of {@link IControl} waiting to be run.
      */
     @objid ("e54963bf-4a15-4aff-8d95-5b053d11152a")
@@ -106,7 +107,7 @@ public class CheckProgram {
         this.lifo.clear();
         this.controls.clear();
         this.nPostedChecks = 0;
-        
+
     }
 
 }

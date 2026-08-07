@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.anchors;
 
@@ -27,7 +27,7 @@ import org.eclipse.gef.Request;
 
 /**
  * Interface for helper used by AbstractNodeEditPart to get connection anchors from connections or requests.
- * 
+ *
  * @since 5.0.2
  */
 @objid ("fb8b0712-79b5-4161-b89f-f083a0427f3d")
@@ -38,6 +38,7 @@ public interface INodeAnchorProvider {
      * <P>
      * The anchor may be a function of the connection's model, the node's model, a combination of both, or it may not
      * depend on anything all.
+     *
      * @param nodeEditPart The rectangular node to anchor from
      * @param connEditpart The connection to anchor from.
      * @return the ConnectionAnchor for the given rectangular EditPart
@@ -51,6 +52,7 @@ public interface INodeAnchorProvider {
      * <P>
      * The anchor may be a function of the connection's model, the node's model, a combination of both, or it may not
      * depend on anything all.
+     *
      * @param nodeEditPart The rectangular node to anchor to
      * @param connEditpart The connection to anchor to.
      * @return the ConnectionAnchor for the given rectangular EditPart
@@ -60,6 +62,7 @@ public interface INodeAnchorProvider {
 
     /**
      * Create a serializable anchor model from the given anchor.
+     *
      * @param anchor a figure anchor
      * @return an anchor model.
      */
@@ -70,6 +73,7 @@ public interface INodeAnchorProvider {
      * Returns the <i>source</i> <code>ConnectionAnchor</code> for the specified Request on the given node. The returned
      * ConnectionAnchor is used only when displaying <i>feedback</i>. The Request is usually a
      * {@link org.eclipse.gef.requests.LocationRequest}, which provides the current mouse location.
+     *
      * @param nodeEditPart The rectangular node to anchor from
      * @param request a Request describing the current interaction
      * @return the ConnectionAnchor to use during feedback
@@ -81,11 +85,12 @@ public interface INodeAnchorProvider {
      * Returns the <i>target</i> <code>ConnectionAnchor</code> for the specified Request on the given node. The returned
      * ConnectionAnchor is used only when displaying <i>feedback</i>. The Request is usually a
      * {@link org.eclipse.gef.requests.LocationRequest}, which provides the current mouse location.
+     *
      * @param nodeEditPart The rectangular node to anchor from
      * @param request a Request describing the current interaction
      * @return the ConnectionAnchor to use during feedback
      */
     @objid ("cd0dcfe6-ac4c-4c4d-9cc8-b3194492e578")
     ConnectionAnchor getTargetConnectionAnchor(final GraphicalEditPart nodeEditPart, final Request request);
-}
 
+}

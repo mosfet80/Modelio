@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.diagrams;
 
 import java.util.ArrayList;
@@ -71,7 +70,7 @@ public class AbstractDiagramSmClass extends ModelElementSmClass {
     private SmDependency originDep;
 
     @objid ("373122ed-9c47-477b-92f1-bd962934f316")
-    public  AbstractDiagramSmClass(ISmMetamodelFragment origin) {
+    public AbstractDiagramSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
@@ -79,7 +78,7 @@ public class AbstractDiagramSmClass extends ModelElementSmClass {
     @Override
     public String getName() {
         return "AbstractDiagram";
-        
+
     }
 
     @objid ("65fd28d0-3ae5-4447-b82b-333c1f408661")
@@ -92,21 +91,21 @@ public class AbstractDiagramSmClass extends ModelElementSmClass {
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return AbstractDiagram.class;
-        
+
     }
 
     @objid ("8abeeb2d-e6f0-4d96-ab85-1d6b9b995b7f")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
     @objid ("327189ea-69cc-4493-9b52-f37ebf4f82b0")
     @Override
     public boolean isAbstract() {
         return true;
-        
+
     }
 
     @objid ("9b6b869c-17d3-415e-af10-9ca669f9ff97")
@@ -114,40 +113,39 @@ public class AbstractDiagramSmClass extends ModelElementSmClass {
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(ModelElement.MQNAME);
         this.registerFactory(new AbstractDiagramObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
         this.uiDataVersionAtt = new UiDataVersionSmAttribute();
         this.uiDataVersionAtt.init("UiDataVersion", this, Integer.class );
         registerAttribute(this.uiDataVersionAtt);
-        
+
         this.uiDataAtt = new UiDataSmAttribute();
         this.uiDataAtt.init("UiData", this, String.class );
         registerAttribute(this.uiDataAtt);
-        
+
         this.previewDataAtt = new PreviewDataSmAttribute();
         this.previewDataAtt.init("PreviewData", this, String.class );
         registerAttribute(this.previewDataAtt);
-        
+
         this.jsStructureAtt = new JsStructureSmAttribute();
         this.jsStructureAtt.init("JsStructure", this, String.class );
         registerAttribute(this.jsStructureAtt);
-        
-        
+
+
         // Initialize and register the SmDependency
         this.representedDep = new RepresentedSmDependency();
         this.representedDep.init("Represented", this, metamodel.getMClass(Element.MQNAME), 0, -1 , SmDirective.SMCDPARTOF, SmDirective.SMCD_KEEP_DELETED_ON_READONLY);
         registerDependency(this.representedDep);
-        
+
         this.referencingSetDep = new ReferencingSetSmDependency();
         this.referencingSetDep.init("ReferencingSet", this, metamodel.getMClass(DiagramSet.MQNAME), 0, -1 );
         registerDependency(this.referencingSetDep);
-        
+
         this.originDep = new OriginSmDependency();
         this.originDep.init("Origin", this, metamodel.getMClass(ModelElement.MQNAME), 0, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.originDep);
-        
-        
+
     }
 
     @objid ("7d61c8b5-1dff-4d93-8b0e-83ac04483a4a")
@@ -212,7 +210,7 @@ public class AbstractDiagramSmClass extends ModelElementSmClass {
         private AbstractDiagramSmClass smClass;
 
         @objid ("da7867d3-5ede-4cf4-9e12-cdcd1ce90ef3")
-        public  AbstractDiagramObjectFactory(AbstractDiagramSmClass smClass) {
+        public AbstractDiagramObjectFactory(AbstractDiagramSmClass smClass) {
             this.smClass = smClass;
         }
 
@@ -282,7 +280,7 @@ public class AbstractDiagramSmClass extends ModelElementSmClass {
             	this.symetricDep = ((ModelElementSmClass)this.getTarget()).getProductDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -302,7 +300,7 @@ public class AbstractDiagramSmClass extends ModelElementSmClass {
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((AbstractDiagramData) data).mRepresented = values;
-            
+
         }
 
         @objid ("fef6d31b-58e0-40d6-a81e-47b50cd11061")
@@ -312,7 +310,7 @@ public class AbstractDiagramSmClass extends ModelElementSmClass {
             	this.symetricDep = ((ElementSmClass)this.getTarget()).getDiagramElementDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -332,7 +330,7 @@ public class AbstractDiagramSmClass extends ModelElementSmClass {
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((AbstractDiagramData) data).mReferencingSet = values;
-            
+
         }
 
         @objid ("d46a7f5d-f951-4df5-8a6d-02c37f1e97fb")
@@ -342,7 +340,7 @@ public class AbstractDiagramSmClass extends ModelElementSmClass {
             	this.symetricDep = ((DiagramSetSmClass)this.getTarget()).getReferencedDiagramDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

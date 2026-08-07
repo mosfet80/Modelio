@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.bpmn.flows;
 
 import java.util.List;
@@ -38,37 +37,36 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnFlowNode;
 
 /**
  * BpmnSequenceFlow v0.0.9054
- * 
- * 
+ *
+ *
  * A Sequence Flow is used to show the order of Flow Elements in a Process or a Choreography. Each Sequence Flow has only one source and only one target. The source and target must be from the set of the following Flow Elements: Events (Start, Intermediate, and End), Activities (Task and Sub-Process; for Processes), Choreography Activities (Choreography Task and  Sub-Choreography for Choreographies), and Gateways.
  * A Sequence Flow can optionally define a condition Expression, indicating that the token will be passed down the Sequence Flow only if the Expression evaluates to true. This Expression is typically used when the source of the Sequence Flow is a Gateway or an Activity.
  * A Sequence Flow that has an Exclusive, Inclusive, or Complex Gateway or an Activity as its source can also be defined with as default. Such Sequence Flow will have a marker to show that it is a default flow. The default Sequence Flow is taken (a token is passed) only if all the other outgoing Sequence Flow from the Activity or Gateway are not valid (i.e., their condition Expressions are false).
- * 
+ *
  * A sequence Flow is "default", if has a default association from a flowNode (Gateway or Activity).
  * A sequence flow is "conditional" is it originates from an activity, and has a conditionExpression.
- * 
+ *
  * Ownership
  * A Sequence flow belongs to a flow element container or a sub process.
- * 
- * 
+ *
  */
 @objid ("007cd986-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnSequenceFlow extends BpmnFlowElement {
     /**
      * The metaclass simple name.
      */
-    @objid ("027fb188-84ec-4be0-9518-36aebf102bb0")
+    @objid ("66d1bdf6-82ce-48bd-b355-9a5bd01d0372")
     public static final String MNAME = "BpmnSequenceFlow";
 
     /**
      * The metaclass qualified name.
      */
-    @objid ("db353ae1-9232-4da9-99da-088ba8cf14a7")
+    @objid ("1588d8e4-f07b-4a10-b87b-0574f38b67f1")
     public static final String MQNAME = "Standard.BpmnSequenceFlow";
 
     /**
      * Getter for attribute 'BpmnSequenceFlow.IsImmediate'
-     * 
+     *
      * Metamodel description:
      * <i>An optional boolean value specifying whether Activities or Choreography
      * Activities not in the model containing the Sequence Flow can occur between the
@@ -76,14 +74,13 @@ public interface BpmnSequenceFlow extends BpmnFlowElement {
      * ? For a public Processes and Choreographies no value has the same semantics as if the value were false.
      * ? For an executable and non-executable (internal) Processes no value has the same semantics as if the value were true.
      * ? For executable Processes, the attribute MUST NOT be false.</i>
-     * 
      */
-    @objid ("ee5b2fa5-cac6-4b39-a468-99b88cd42efc")
+    @objid ("380371b6-77bf-44ba-9609-e91dcef55619")
     boolean isIsImmediate();
 
     /**
      * Setter for attribute 'BpmnSequenceFlow.IsImmediate'
-     * 
+     *
      * Metamodel description:
      * <i>An optional boolean value specifying whether Activities or Choreography
      * Activities not in the model containing the Sequence Flow can occur between the
@@ -91,169 +88,152 @@ public interface BpmnSequenceFlow extends BpmnFlowElement {
      * ? For a public Processes and Choreographies no value has the same semantics as if the value were false.
      * ? For an executable and non-executable (internal) Processes no value has the same semantics as if the value were true.
      * ? For executable Processes, the attribute MUST NOT be false.</i>
-     * 
      */
-    @objid ("6b0c784a-cc1e-49bc-b125-5769d9594b78")
+    @objid ("6e87bbc0-4af6-4821-8a16-d383e601c3a2")
     void setIsImmediate(boolean value);
 
     /**
      * Getter for attribute 'BpmnSequenceFlow.ConditionExpression'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("2a4c132c-41dc-4fae-9e8b-c341577717ed")
+    @objid ("489b1d75-fb39-4f8d-bafb-a49844a47c01")
     String getConditionExpression();
 
     /**
      * Setter for attribute 'BpmnSequenceFlow.ConditionExpression'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("c031518d-e583-4377-88bb-202daf2886e0")
+    @objid ("cef05a44-706b-4268-aa0f-ed3e6811acc3")
     void setConditionExpression(String value);
 
     /**
      * Getter for relation 'BpmnSequenceFlow->SourceRef'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("59635031-9ed1-4c87-a95d-4e1d46a31b7c")
+    @objid ("8e229328-e7e6-4406-9f3a-e36f86463107")
     BpmnFlowNode getSourceRef();
 
     /**
      * Setter for relation 'BpmnSequenceFlow->SourceRef'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("850e20ee-5276-4cf7-893e-d98affbcfaf5")
+    @objid ("cdfa5eed-618a-4aa3-81aa-ead5646f65bb")
     void setSourceRef(BpmnFlowNode value);
 
     /**
      * Getter for relation 'BpmnSequenceFlow->TargetRef'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("a6733d87-0514-46fb-8a64-cb8a8a608786")
+    @objid ("f3fc9f56-4eed-4f99-bca0-1666b54cabcf")
     BpmnFlowNode getTargetRef();
 
     /**
      * Setter for relation 'BpmnSequenceFlow->TargetRef'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("ab7d76d3-0950-4873-bd9e-6cec6cc31a64")
+    @objid ("a54b74b8-32e5-42ef-9cb5-f558046f08bb")
     void setTargetRef(BpmnFlowNode value);
 
     /**
      * Getter for relation 'BpmnSequenceFlow->DefaultOfInclusive'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("e819a900-ff36-4764-ba77-ec852bd7feb8")
+    @objid ("b9d5d1ee-4db1-4cf0-aa1c-32c0f0869158")
     BpmnInclusiveGateway getDefaultOfInclusive();
 
     /**
      * Setter for relation 'BpmnSequenceFlow->DefaultOfInclusive'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("a9246186-05f1-40e9-b35b-a1b8265435aa")
+    @objid ("d75f35af-1256-4ce3-82e9-2d0d593f94bb")
     void setDefaultOfInclusive(BpmnInclusiveGateway value);
 
     /**
      * Getter for relation 'BpmnSequenceFlow->DefaultFrom'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("c429188b-0557-4131-b85a-79768bed9c8b")
+    @objid ("dce9b33e-bbca-4142-a67a-9b6553a0b93b")
     BpmnActivity getDefaultFrom();
 
     /**
      * Setter for relation 'BpmnSequenceFlow->DefaultFrom'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("ed7dab99-3273-4e8d-8ea6-4f09377d9688")
+    @objid ("2966f860-e51c-48d3-b933-d26dbea58a0c")
     void setDefaultFrom(BpmnActivity value);
 
     /**
      * Getter for relation 'BpmnSequenceFlow->DefaultOfExclusive'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("0b9ef63b-2348-4a4c-bdc4-3be1cc5c9020")
+    @objid ("86add9f3-ad05-4fc8-ba64-460716eeaa8a")
     BpmnExclusiveGateway getDefaultOfExclusive();
 
     /**
      * Setter for relation 'BpmnSequenceFlow->DefaultOfExclusive'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("998a7cca-48a4-4a48-aa94-72b473f3f59b")
+    @objid ("34a97f72-3c14-48be-891f-0e51f1d0d182")
     void setDefaultOfExclusive(BpmnExclusiveGateway value);
 
     /**
      * Getter for relation 'BpmnSequenceFlow->Connector'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("1cf68921-140f-4e0b-9315-06ed803d29ca")
+    @objid ("70161b21-3020-46ff-be6f-a6babfe99de3")
     EList<BpmnSequenceFlowDataAssociation> getConnector();
 
     /**
      * Filtered Getter for relation 'BpmnSequenceFlow->Connector'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("d0492f33-9f8b-4f6b-8ee9-120164bfb01e")
+    @objid ("cb3c0564-e4d9-4362-86a2-242558ef632b")
     <T extends BpmnSequenceFlowDataAssociation> List<T> getConnector(java.lang.Class<T> filterClass);
 
     /**
      * Getter for relation 'BpmnSequenceFlow->DefaultOfComplex'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("b3783c17-b4c7-44ff-a6e2-bd60dccf9e98")
+    @objid ("0d4bd619-64a1-4313-903a-f778e671aa93")
     BpmnComplexGateway getDefaultOfComplex();
 
     /**
      * Setter for relation 'BpmnSequenceFlow->DefaultOfComplex'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("53bbd498-e0b8-4d6e-a436-e11341887120")
+    @objid ("aee6c4bd-d437-4da9-a0e9-f498508f7e63")
     void setDefaultOfComplex(BpmnComplexGateway value);
-}
 
+}

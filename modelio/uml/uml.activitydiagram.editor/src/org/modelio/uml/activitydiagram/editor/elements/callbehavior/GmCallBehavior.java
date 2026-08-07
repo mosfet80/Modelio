@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.callbehavior;
 
@@ -43,7 +43,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Specialization of the {@link GmPinContainer} class for {@link CallBehaviorAction}.
- * 
+ *
  * @author fpoyer
  */
 @objid ("29b80c2e-55b6-11e2-877f-002564c97630")
@@ -77,32 +77,33 @@ public class GmCallBehavior extends GmPinContainer {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram in which the callBehavior is unmasked.
      * @param el the unmasked callBehavior.
      * @param ref a reference to the unmasked callBehavior.
      */
     @objid ("29b9929f-55b6-11e2-877f-002564c97630")
-    public  GmCallBehavior(IGmDiagram diagram, CallBehaviorAction el, MRef ref) {
+    public GmCallBehavior(IGmDiagram diagram, CallBehaviorAction el, MRef ref) {
         super(diagram, ref);
         this.element = el;
-        
+
         GmCallBehaviorPrimaryNode mainNode = new GmCallBehaviorPrimaryNode(diagram, ref);
         mainNode.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
-        
+
         GmBehaviorFlatLabel imageModeHeader = new GmBehaviorFlatLabel(diagram, ref);
         imageModeHeader.setRoleInComposition(GmCallBehavior.IMAGE_LABEL_ROLE);
         imageModeHeader.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
-        
+
         super.addChild(mainNode);
         super.addChild(imageModeHeader);
-        
+
     }
 
     /**
      * Empty constructor needed for deserialisation.
      */
     @objid ("29b992ab-55b6-11e2-877f-002564c97630")
-    public  GmCallBehavior() {
+    public GmCallBehavior() {
         // Nothing specific to do.
     }
 
@@ -118,7 +119,7 @@ public class GmCallBehavior extends GmPinContainer {
         return ((InputPin.class.isAssignableFrom(el.getClass()) ||
                         ValuePin.class.isAssignableFrom(el.getClass()) || OutputPin.class.isAssignableFrom(el.getClass())) && el.getCompositionOwner()
                                 .equals(this.element));
-        
+
     }
 
     @objid ("29b992be-55b6-11e2-877f-002564c97630")
@@ -194,30 +195,30 @@ public class GmCallBehavior extends GmPinContainer {
             break;
         }
         }
-        
+
     }
 
     @objid ("29bb1943-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmCallBehavior.", GmCallBehavior.MINOR_VERSION);
-        
+
     }
 
     @objid ("29bb1949-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (CallBehaviorAction) resolveRef(getRepresentedRef());
-        
+
         GmBehaviorFlatLabel imageModeHeader = new GmBehaviorFlatLabel(getDiagram(), getRepresentedRef());
         imageModeHeader.setRoleInComposition(GmCallBehavior.IMAGE_LABEL_ROLE);
         imageModeHeader.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
-        
+
         super.addChild(imageModeHeader, 1);
-        
+
     }
 
     @objid ("29bb194e-55b6-11e2-877f-002564c97630")
@@ -230,7 +231,7 @@ public class GmCallBehavior extends GmPinContainer {
     private void read_1(final IDiagramReader in) {
         super.read(in);
         this.element = (CallBehaviorAction) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("29bb1959-55b6-11e2-877f-002564c97630")
@@ -251,7 +252,7 @@ public class GmCallBehavior extends GmPinContainer {
             default: {
                 break;
             }
-        
+
             }
         }
         return ret;
@@ -259,6 +260,7 @@ public class GmCallBehavior extends GmPinContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */
@@ -268,11 +270,12 @@ public class GmCallBehavior extends GmPinContainer {
         String role = childNode.getRoleInComposition();
         return GmPortContainer.SATELLITE_ROLE.equals(role)
                         || GmCallBehavior.IMAGE_LABEL_ROLE.equals(role);
-        
+
     }
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */

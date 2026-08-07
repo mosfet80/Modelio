@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.management;
 
@@ -53,15 +53,16 @@ class FileRepository implements IRichNoteFileRepository {
 
     /**
      * Initialize
+     *
      * @param project the project to handle
      * @param editorsRegistry the editors registry.
      */
     @objid ("4d46a9b7-81d1-4a24-8a24-83173f1d32d5")
-    public  FileRepository(IGProject project, EditorsRegistry editorsRegistry) {
+    public FileRepository(IGProject project, EditorsRegistry editorsRegistry) {
         this.session = project.getSession();
         this.geometry = new RichNoteFilesGeometry(project);
         this.editorsRegistry = editorsRegistry;
-        
+
     }
 
     @objid ("e3371f5e-234c-41b9-8014-34b334958e08")
@@ -70,15 +71,15 @@ class FileRepository implements IRichNoteFileRepository {
         if (editor != null) {
             this.editorsRegistry.addEditor(doc, editor);
         }
-        
+
         IResourceHandle handle = doc.getHandle();
         if (handle == null) {
             return null;
         }
-        
+
         Path targetDir = this.geometry.getEditedFilesdirectory();
         Files.createDirectories(targetDir);
-        
+
         Path extracted = handle.extractInto(targetDir);
         return extracted;
     }
@@ -109,15 +110,15 @@ class FileRepository implements IRichNoteFileRepository {
                 doc.setName("");
                 doc.setName(name);
             }
-        
+
             try (OutputStream os = handle.write()) {
                 Files.copy(fileToSave, os);
             }
-        
+
             t.disableUndo();
             t.commit();
         }
-        
+
     }
 
     @objid ("75e7a7c9-a8dd-4cd1-89cf-54a392892f43")
@@ -132,7 +133,7 @@ class FileRepository implements IRichNoteFileRepository {
         try (OutputStream blobStream = doc.createEmbeddedResource(fileToSave.getFileName().toString()).write();) {
             Files.copy(fileToSave, blobStream);
         }
-        
+
     }
 
 }

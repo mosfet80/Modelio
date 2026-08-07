@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.impl.transactions.events;
 
@@ -60,6 +60,7 @@ class StatusChangeEvent implements IStatusChangeEvent {
      * Test whether the status change event is empty.
      * <p>
      * An empty status change event does not need to be fired.
+     *
      * @return <code>true</code> if the status change event is empty.
      */
     @objid ("da5447ea-c757-4cb6-98c7-e624c4ce0297")
@@ -73,10 +74,10 @@ class StatusChangeEvent implements IStatusChangeEvent {
     public Collection<SmObjectImpl> getAccessChanged() {
         if (this.accessChanged == null) {
             this.accessChanged = new HashSet<>();
-            
-            fill (this.accessChanged, IRStatus.MASK_RACCESS 
-                    | IPStatus.MASK_PACCESS 
-                    | IRStatus.RMASK_MODIFIABLE_FORBIDDEN 
+
+            fill (this.accessChanged, IRStatus.MASK_RACCESS
+                    | IPStatus.MASK_PACCESS
+                    | IRStatus.RMASK_MODIFIABLE_FORBIDDEN
                     | IRStatus.RMASK_MODIFIABLE_REQUIRED);
         }
         return this.accessChanged;
@@ -87,7 +88,7 @@ class StatusChangeEvent implements IStatusChangeEvent {
     public Collection<SmObjectImpl> getCmsStatusChanged() {
         if (this.cmsStatusChanged == null) {
             this.cmsStatusChanged = new HashSet<>();
-            
+
             fill (this.cmsStatusChanged, IRStatus.MASK_CMS);
         }
         return this.cmsStatusChanged;
@@ -98,7 +99,7 @@ class StatusChangeEvent implements IStatusChangeEvent {
     public Collection<SmObjectImpl> getAuditStatusChanged() {
         if (this.auditStatusChanged == null) {
             this.auditStatusChanged = new HashSet<>();
-        
+
             fill (this.auditStatusChanged, IRStatus.AUDIT1 | IRStatus.AUDIT2);
         }
         return this.auditStatusChanged;
@@ -106,6 +107,7 @@ class StatusChangeEvent implements IStatusChangeEvent {
 
     /**
      * Fill a collection with elements whose the given status flags changed.
+     *
      * @param coll the collection to fill
      * @param flagsToCompare the status flags to compare.
      */
@@ -115,11 +117,11 @@ class StatusChangeEvent implements IStatusChangeEvent {
             SmObjectImpl obj = entry.getKey();
             long oldStatus = entry.getValue();
             long newStatus = obj.getData().getStatus();
-        
+
             if (SmStatus.getBits(oldStatus, flagsToCompare) != SmStatus.getBits(newStatus, flagsToCompare))
                 coll.add(obj);
         }
-        
+
     }
 
     @objid ("54161df3-294e-44e8-b80b-a6b806434385")
@@ -127,7 +129,7 @@ class StatusChangeEvent implements IStatusChangeEvent {
     public Collection<SmObjectImpl> getShellStateChanged() {
         if (this.shellStateChanged == null) {
             this.shellStateChanged = new HashSet<>();
-            
+
             fill (this.shellStateChanged, IRStatus.SHELL);
         }
         return this.shellStateChanged;
@@ -141,6 +143,7 @@ class StatusChangeEvent implements IStatusChangeEvent {
 
     /**
      * Remove a model object from the list of changed status elements.
+     *
      * @param deletedEl the model object to remove.
      */
     @objid ("4b8d8d27-ffc2-4326-9e2f-e5f8ce04a7df")
@@ -150,6 +153,7 @@ class StatusChangeEvent implements IStatusChangeEvent {
 
     /**
      * Add a changed element.
+     *
      * @param refered the model object whose status changed
      * @param oldStatus the old object status
      * @param newStatus the new object status
@@ -158,7 +162,7 @@ class StatusChangeEvent implements IStatusChangeEvent {
     public void add(SmObjectImpl refered, long oldStatus, long newStatus) {
         if (! this.statusChanged.containsKey(refered))
             this.statusChanged.put(refered, oldStatus);
-        
+
     }
 
     @objid ("742afebb-edba-4a0f-95fe-2d247a5424cf")

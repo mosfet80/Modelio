@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.helper;
 
@@ -38,7 +38,7 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 public class AddEmbeddedDocumentHelper {
     @objid ("cdf64b3c-f142-4a1c-a4f9-7b6b918f4a45")
     public static boolean canExecute(ModelElement element) {
-        return (element != null && element.getStatus().isModifiable());
+        return (element != null && element.getStatusLazy().isModifiable());
     }
 
     /**
@@ -56,10 +56,10 @@ public class AddEmbeddedDocumentHelper {
     @objid ("8935e185-baf7-4f52-9f6e-0d2d7b3b4464")
     public static Document execute(Shell parentShell, IMModelServices modelServices, RichNoteDescriptor richNoteDescriptor) throws IOException {
         CreateEmbeddedDocumentDialog dialog = new CreateEmbeddedDocumentDialog(parentShell, richNoteDescriptor);
-        
+
         // Don't return from open() until window closes
         dialog.setBlockOnOpen(true);
-        
+
         // Open the dialog window
         int ret = dialog.open();
         if (ret == IDialogConstants.OK_ID) {
@@ -87,7 +87,7 @@ public class AddEmbeddedDocumentHelper {
         } catch (URISyntaxException e) {
             uri = Paths.get(model.getPath()).toUri();
         }
-        
+
         Document doc = factory.resourceBuilder()
                 .withOwner(model.getTargetElement())
                 .withRole(model.getDocumentType())

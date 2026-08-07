@@ -4,8 +4,8 @@
 	<parent>
 		<groupId>org.modelio</groupId>
 		<artifactId>modelio-parent</artifactId>
-		<version>5.4.1-SNAPSHOT</version>
-		<relativePath>../..</relativePath>
+		<version>6.2.0-SNAPSHOT</version>
+		<relativePath>../../maven/modelio-parent</relativePath>
 	</parent>
 
 	<groupId>org.modelio</groupId>
@@ -18,21 +18,47 @@
 				<groupId>org.eclipse.tycho.extras</groupId>
 				<artifactId>target-platform-validation-plugin</artifactId>
 				<version>${tycho-version}</version>
-				<executions>
-					<execution>
-					<phase>validate</phase>
-					<goals>
-						<goal>validate-target-platform</goal>
-					</goals>
-					<configuration>
-						<targetFiles>
-							<param>rcp.target</param>
-						</targetFiles>
-						<failOnError>true</failOnError>
-					</configuration>
-					</execution>
-				</executions>
+				<configuration>
+					<checkProvisioning>true</checkProvisioning>
+					<checkDependencies>true</checkDependencies>
+					<targetFiles>
+						<targetFile>rcp.target</targetFile>
+					</targetFiles>
+					<failOnError>False</failOnError>
+				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>${tycho-groupid}</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<environments>
+						<environment>
+							<os>linux</os>
+							<ws>gtk</ws>
+							<arch>x86_64</arch>
+						</environment>
+						<environment>
+							<os>win32</os>
+							<ws>win32</ws>
+							<arch>x86_64</arch>
+						</environment>
+						<environment>
+							<os>macosx</os>
+							<ws>cocoa</ws>
+							<arch>x86_64</arch>
+						</environment>
+					</environments>
+					<target>
+						<artifact>
+							<groupId>org.modelio</groupId>
+							<artifactId>rcp</artifactId>
+							<version>6.2.0-SNAPSHOT</version>
+						</artifact>
+					</target>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 

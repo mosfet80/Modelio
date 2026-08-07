@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -51,7 +51,7 @@ public class R1310 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -70,11 +70,11 @@ public class R1310 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         // In Modelio metamodel, InstanceNodes represent ObjectNodes
         plan.registerRule(InstanceNode.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         plan.registerRule(ControlNode.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         plan.registerRule(ObjectFlow.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE | AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -108,14 +108,14 @@ public class R1310 extends AbstractUmlRule {
      * Default constructor for R1310
      */
     @objid ("2da9181f-e509-44a6-8fcf-fe59ae0b4dcf")
-    public  R1310() {
+    public R1310() {
         this.checkerInstance = new CheckR1310(this);
     }
 
     @objid ("478889ea-42fc-4995-93c8-a14310865055")
     private static class CheckR1310 extends AbstractControl {
         @objid ("df115f1a-a83e-4280-8438-568dfaaadc7e")
-        public  CheckR1310(IRule rule) {
+        public CheckR1310(IRule rule) {
             super(rule);
         }
 
@@ -134,29 +134,30 @@ public class R1310 extends AbstractUmlRule {
 
         /**
          * Checks if the given edge respect the rule: All downstream nodes must have an upper bound lower that the flow's weight.
+         *
          * @param edge The edge to check.
          * @return The audit result.
          */
         @objid ("c3d7583d-37f7-4a7c-a14a-0929515b8bb6")
         private IAuditEntry checkR1310(ActivityEdge edge) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, edge, null);
-            
+
             // UML Constraint: An edge with constant weight may not target an object node, or lead to an object node downstream with no intervening
             // actions, that has an upper bound less than the weight.
-            
+
             // We considered that the path to check should only be made of ObjectNodes and ObjectFlows, any ControlNode or ConftrolFlow break the flow.
-            
+
             // If the edge has no weight, the rule does not apply.
             if (edge.getWeight() == null) {
                 return auditEntry;
             }
-            
+
             // Recursively check all downstream nodes starting with the edge's
             // target node.
             if (!checkAllUpperBounds(Integer.parseInt(edge.getWeight()), edge.getTarget(), new ArrayList<ActivityNode>())) {
-            
+
                 // Rule failed
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(edge);
@@ -167,13 +168,14 @@ public class R1310 extends AbstractUmlRule {
 
         /**
          * If a node is modified, its upper bound is potentially modified, so we need to check all the upstream flows' weight, either object or control, targeting it or leading to it. A node can also be updated if a flow is moved or deleted, potentially creating or removing paths between object nodes, so we need to check both upstream and downstream path to updated concerned flows.
+         *
          * @param node The object node to start from.
          * @return A list of audit entries for each concerned flow.
          */
         @objid ("0c75d089-c282-4d9c-8dfb-1783df171371")
         private List<IAuditEntry> checkR1310(ActivityNode node) {
             List<IAuditEntry> auditEntries = new ArrayList<>();
-            
+
             auditEntries.addAll(checkUpstreamPath(node));
             auditEntries.addAll(checkDownstreamPath(node));
             return auditEntries;
@@ -181,25 +183,26 @@ public class R1310 extends AbstractUmlRule {
 
         /**
          * If an object flow is created or moved, it potentially connects object nodes together, and therefore creates potentially new paths (in both direction) to check the rule on. If the object flow is updated, we also need to check the rule on it.
+         *
          * @param objectFlow The edge to check.
          * @return A list of audit entries for each impacted edges.
          */
         @objid ("98eb9379-ce64-4536-9344-0c9e488b3666")
         private List<IAuditEntry> checkR1310(ObjectFlow objectFlow) {
             List<IAuditEntry> auditEntries = new ArrayList<>();
-            
+
             // Checking the upstream paths
             ActivityNode sourceNode = objectFlow.getSource();
             if (sourceNode instanceof InstanceNode && ((InstanceNode) sourceNode).isIsControlType()) {
                 auditEntries.addAll(checkUpstreamPath(sourceNode));
             }
-            
+
             // Checking the downstream paths.
             ActivityNode targetNode = objectFlow.getTarget();
             if (targetNode instanceof InstanceNode && ((InstanceNode) targetNode).isIsControlType()) {
                 auditEntries.addAll(checkDownstreamPath(targetNode));
             }
-            
+
             // Checking the edge itself
             auditEntries.add(checkR1310((ActivityEdge) objectFlow));
             return auditEntries;
@@ -207,6 +210,7 @@ public class R1310 extends AbstractUmlRule {
 
         /**
          * Check all upper bounds of the object nodes, that are not control types, downstream of the given node.
+         *
          * @param weight The weight to compare to
          * @param target The starting node
          * @return True if all the nodes have an upper bound equal or inferior to the weight, false otherwise.
@@ -216,11 +220,11 @@ public class R1310 extends AbstractUmlRule {
             if (visitedNodes.contains(target)) {
                 return true;
             }
-            
+
             if (target instanceof InstanceNode && !((InstanceNode) target).isIsControlType()) {
-            
+
                 visitedNodes.add(target);
-            
+
                 if (Integer.parseInt(((InstanceNode) target).getUpperBound()) < weight) {
                     return false;
                 } else {
@@ -236,6 +240,7 @@ public class R1310 extends AbstractUmlRule {
 
         /**
          * Finds all the flows connecting the given ObjectNode to another ObjectNode, except for ObjectNodes that are controls.
+         *
          * @param objectFlows The list of found flows
          * @param node The Object node to search from
          * @param visitedFlows The list of visited ObjectFlows
@@ -244,14 +249,14 @@ public class R1310 extends AbstractUmlRule {
         private void findSourceFlows(ActivityNode node, List<ActivityEdge> flows, List<ActivityEdge> visitedFlows) {
             // Check in all incoming directions from the current node
             for (ActivityEdge incomingFlow : node.getIncoming(ObjectFlow.class)) {
-            
+
                 if (visitedFlows.contains(incomingFlow)) {
                     continue;
                 }
-            
+
                 visitedFlows.add(incomingFlow);
                 ActivityNode sourceNode = incomingFlow.getSource();
-            
+
                 // If the node is an object and is not a control type, we add
                 // the flow to the found flows
                 if (sourceNode instanceof InstanceNode && !((InstanceNode) sourceNode).isIsControlType()) {
@@ -259,11 +264,12 @@ public class R1310 extends AbstractUmlRule {
                     findSourceFlows(sourceNode, flows, visitedFlows);
                 }
             }
-            
+
         }
 
         /**
          * Finds all the upstream flows targeting the node until we reach either an action or an object node.
+         *
          * @param objectFlows The list of found flows
          * @param node The Object node to search from
          * @param visitedFlows The list of visited ObjectFlows
@@ -272,14 +278,14 @@ public class R1310 extends AbstractUmlRule {
         private void findTargetFlows(ActivityNode node, List<ActivityEdge> flows, List<ActivityEdge> visitedFlows) {
             // Check in all outgoing directions from the current node
             for (ActivityEdge outgoingFlow : node.getOutgoing(ObjectFlow.class)) {
-            
+
                 if (visitedFlows.contains(outgoingFlow)) {
                     continue;
                 }
-            
+
                 visitedFlows.add(outgoingFlow);
                 ActivityNode targetNode = outgoingFlow.getTarget();
-            
+
                 // If the node is an object and is not a control type, we add
                 // the flow to the found flows.
                 if (targetNode instanceof InstanceNode && !((InstanceNode) targetNode).isIsControlType()) {
@@ -287,21 +293,22 @@ public class R1310 extends AbstractUmlRule {
                     findTargetFlows(targetNode, flows, visitedFlows);
                 }
             }
-            
+
         }
 
         /**
          * Check all the flows upstream of a given node.
+         *
          * @param node The node to start from.
          * @return A list of audit entries for each flow.
          */
         @objid ("f2fc8589-d1b1-4c1a-b40c-e981aecf43b3")
         private List<IAuditEntry> checkUpstreamPath(ActivityNode node) {
             List<IAuditEntry> auditEntries = new ArrayList<>();
-            
+
             List<ActivityEdge> sourceFlows = new ArrayList<>();
             findSourceFlows(node, sourceFlows, new ArrayList<ActivityEdge>());
-            
+
             for (ActivityEdge sourceFlow : sourceFlows) {
                 auditEntries.add(checkR1310(sourceFlow));
             }
@@ -310,16 +317,17 @@ public class R1310 extends AbstractUmlRule {
 
         /**
          * Check all the flows downstream of a given node.
+         *
          * @param node The node to start from.
          * @return A list of audit entries for each flow.
          */
         @objid ("ab5ac221-069b-4cd1-bcaf-c9c724c73764")
         private List<IAuditEntry> checkDownstreamPath(ActivityNode node) {
             List<IAuditEntry> auditEntries = new ArrayList<>();
-            
+
             List<ActivityEdge> targetFlows = new ArrayList<>();
             findTargetFlows(node, targetFlows, new ArrayList<ActivityEdge>());
-            
+
             for (ActivityEdge targetFlow : targetFlows) {
                 auditEntries.add(checkR1310(targetFlow));
             }

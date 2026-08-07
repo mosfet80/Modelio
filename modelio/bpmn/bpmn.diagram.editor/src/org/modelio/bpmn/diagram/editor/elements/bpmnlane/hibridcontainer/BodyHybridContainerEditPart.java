@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnlane.hibridcontainer;
 
@@ -55,13 +55,13 @@ public class BodyHybridContainerEditPart extends FreeZoneEditPart {
         super.createEditPolicies();
         // Now just override the layout policy with our own.
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new BodyHybridContainerLayoutEditPolicy());
-        
-        
+
+
         // Now just override the drop policy with our own.
         installEditPolicy(ModelElementDropRequest.TYPE, new BodyHybridContainerDropEditPolicy());
-        
+
         installEditPolicy("ProgrammaticOnlyDragPolicy", new ProgrammaticOnlyDragPolicy());
-        
+
     }
 
     /**
@@ -87,7 +87,7 @@ public class BodyHybridContainerEditPart extends FreeZoneEditPart {
             }
         }
         super.refreshChildren();
-        
+
     }
 
     @objid ("612fe067-55b6-11e2-877f-002564c97630")
@@ -106,7 +106,7 @@ public class BodyHybridContainerEditPart extends FreeZoneEditPart {
         // Remove the margin border.
         // Note : NEVER use MarginBorder with negative insets : it breaks at least BorderLayout and StackLayout !
         fig.setBorder(new MarginBorder(MARGIN));
-        
+
         // Default to FreeZoneLayout to prevent some problems with policies.
         fig.setLayoutManager(new FreeZoneLayout());
         return fig;
@@ -114,6 +114,7 @@ public class BodyHybridContainerEditPart extends FreeZoneEditPart {
 
     /**
      * Updates both the LayoutManager of the Figure and the behavior state of the LayoutEditPolicy.
+     *
      * @param newBehaviour the new behavior to adopt.
      */
     @objid ("612fe072-55b6-11e2-877f-002564c97630")
@@ -128,7 +129,7 @@ public class BodyHybridContainerEditPart extends FreeZoneEditPart {
             fig.setLayoutManager(layoutManager);
             fig.setBorder(new MarginBorder(MARGIN));
             refreshFromStyle(fig, getModelStyle());
-        
+
             installEditPolicy(TranslateChildrenOnResizeEditPolicy.class, new TranslateChildrenOnResizeEditPolicy());
             break;
         }
@@ -137,30 +138,31 @@ public class BodyHybridContainerEditPart extends FreeZoneEditPart {
             fig.setLayoutManager(layoutManager);
             fig.setBorder(new MarginBorder(MARGIN));
             refreshFromStyle(fig, getModelStyle());
-        
+
             installEditPolicy(TranslateChildrenOnResizeEditPolicy.class, new TranslateChildrenOnResizeEditPolicy());
-        
+
             break;
         }
         case LANE_CONTAINER: {
             fig.setLayoutManager(new StackLayout());
             fig.setBorder(null);
             refreshFromStyle(fig, getModelStyle());
-        
+
             removeEditPolicy(TranslateChildrenOnResizeEditPolicy.class);
             break;
         }
         }
         refreshVisuals();
-        
+
         // Update state of hybrid policies
         ((BodyHybridContainerLayoutEditPolicy) getEditPolicy(EditPolicy.LAYOUT_ROLE)).setBehaviour(newBehaviour);
         // ((BodyHybridContainerDropEditPolicy) this.getEditPolicy(ModelElementDropRequest.TYPE)).setBehaviour(newBehaviour);
-        
+
     }
 
     /**
      * Computes the behaviour to have based on the model.
+     *
      * @return the behaviour to adopt.
      */
     @objid ("612fe076-55b6-11e2-877f-002564c97630")
@@ -175,7 +177,7 @@ public class BodyHybridContainerEditPart extends FreeZoneEditPart {
             // container only (do not accept inner nodes anymore).
             return Behaviour.LANE_CONTAINER;
         }
-        
+
     }
 
     @objid ("613166e0-55b6-11e2-877f-002564c97630")
@@ -187,7 +189,7 @@ public class BodyHybridContainerEditPart extends FreeZoneEditPart {
         } else {
             super.addChildVisual(childEditPart, index);
         }
-        
+
     }
 
     @objid ("613166e5-55b6-11e2-877f-002564c97630")
@@ -201,7 +203,7 @@ public class BodyHybridContainerEditPart extends FreeZoneEditPart {
                 parentPart = parentParentPart;
                 parentParentPart = parentParentPart.getParent();
             } while (parentParentPart != null && !(parentParentPart instanceof AbstractDiagramEditPart));
-        
+
             if (parentPart != null) {
                 return parentPart.getTargetEditPart(request);
             }

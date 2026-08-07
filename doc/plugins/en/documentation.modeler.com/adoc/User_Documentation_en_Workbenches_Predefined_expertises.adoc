@@ -1,0 +1,73 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= Predefined expertises
+
+
+Modelio provides several predefined *expertises* :
+
+1.  *UML* : UML modeling oriented expertise. Activates in particular the whole UML metamodel
+2.  *Analyst* : Expertise oriented toward the analysis of needs and upstream phases
+3.  *ArchiMate* : Expertise which activates the whole ArchiMate metamodel
+4.  *BPMN* : Expertise which activates the BPMN metamodel in Modelio
+5.  *MDA* : Expertise used by modules or macro developers. Makes the MDA model visible (profile, stereotypes, etc.)
+
+The table below lists the configuration brought by each *expertise* :
+
+[%header,cols="1,1,^1,^1,^1,^1,^1"]
+|===
+|*Expertise*
+|
+|UML image:images/attachment/modeliocom41/User_Documentation_en/Workbenches/Predefined_expertises/uml.png[uml.png]
+|BPMN image:images/attachment/modeliocom41/User_Documentation_en/Workbenches/Predefined_expertises/bpmnprocess.png[bpmnprocess.png]
+|Analyst image:images/attachment/modeliocom41/User_Documentation_en/Workbenches/Predefined_expertises/analystproject.png[analystproject.png]
+|ArchiMate image:images/attachment/modeliocom41/User_Documentation_en/Workbenches/Predefined_expertises/archimate.png[archimate.png]
+|MDA image:images/attachment/modeliocom41/User_Documentation_en/Workbenches/Predefined_expertises/mda.png[mda.png]
+//----------------------------------------------------------
+|Perspective   |Selected perspective |Model |Model |Model |ArchiMate |Model
+//----------------------------------------------------------
+.5+|Model browser
+ |UML Model        | X |   |   |   |
+ |BPMN Model       |   | X |   |   |
+ |Analyst Model    |   |   | X |   |
+ |ArchiMate Model  |   |   |   | X |
+ |MDA Model        |   |   |   |   | X
+
+.6+|Diagrams
+ |UML diagramsL        | X |   |   |   |
+ |BPMN diagrams        |   | X |   |   |
+ |Analyst diagrams     |   |   | X |   |
+ |ArchiMate diagrams   |   |   |   | X |
+ |Impact diagrams      | X | X |   |   |
+ |Automatic diagrams   | X |   |   |   |
+
+.10+|Links editor
+ |Generalization links                | X |   |   |   |
+ |Association links                   | X |   |   |   |
+ |Dependency links (all kinds)        | X |   |   |   |
+ |BPMN flows                          |   | X |   | X |
+ |Analyst links                       |   |   | X |   |
+ |ArchiMate relationships (all kinds) |   |   |   | X |
+ |Dynamic ArchiMate relationships     |   |   |   | X |
+ |Structural ArchiMate relationships  |   |   |   | X |
+ |Dependency ArchiMate                |   |   |   | X |
+ |Traceability links                  | X | X | X | X | X
+
+.5+|Activated Modules
+ |Modeler Module       | X | X | X | X | X
+ |Document Publisher   | X | X | X | X | X
+ |Web Model Publisher  | X | X | X | X | X
+ |Excel Exchange       |   |   | X |   |
+ |ArchiMate Architect  |   |   |   | X |
+
+|===
+
+
+
+More *expertises* and *workbenches* can be brought by modules. For example, the Java Designer module adds a "Java" expertise which configures Modelio for a Java development context.
+
+Also, it is possible to define new *workbenches* thanks to the "Modelio Server" application. Modelio projects which are connected to a Modelio Server will come with the *workbenches* selected by default. +

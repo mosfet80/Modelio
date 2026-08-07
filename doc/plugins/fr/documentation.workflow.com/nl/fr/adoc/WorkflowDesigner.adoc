@@ -1,0 +1,39 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+// Hightlight code source and add the line number
+:source-highlighter: coderay
+:coderay-linenums-mode: table
+
+= Conception de workflow
+
+En mode concepteur, l'utilisateur peut développer et archiver des workflows.
+Pour activer ce mode, les fonctionnalités *Workflow Designer* et *Workflow User* doivent être activées sur le projet.
+
+== Activation de Workflow Designer dans un projet serveur
+
+Voir la page <<ActivateWorkflowFeature.adoc#,Activer les fonctionnalités du Workflow dans un projet Modelio Server>>.
+
+== Activation de Workflow Designer dans un projet local
+
+Pour activer les fonctionnalités *Worflow Designer* et *Workflow User* dans un projet local, allez dans *Configuration > image:images/featureicon.png[]Fonctionnalités...*, cochez les deux fonctionnalités *Workflow Designer* et *Workflow User* puis cliquez sur le bouton *Appliquer les changements*.
+
+image::images/ActivateWorkflowDesignerFeatures.png[ActivateWorkflowDesignerFeatures.png]
+
+== Commandes
+
+L'activation de ce mode permet la création, l'édition et l'archivage de workflows.
+Dans ce mode toutes les transitions des workflows en conception peuvent être effectuées.
+
+Les commandes disponibles uniquement en mode concepteur sont :
+
+*  <<CreateWorkflow.adoc#,Créer un workflow...>>
+*  <<PackageWorkflow.adoc#,Packager le workflow...>>
+*  <<GenerateWorkflowDocumentation.adoc#,Générer la documenation du workflow...>>
+
+== Vue Workflow
+La <<WorkflowDesignerPropertyView.adoc#,vue Workflow>> apporte des informations sur un workflow et sur les éléments qui y sont inscrits.
+Lorsque le mode concepteur est activé, cette vue permet également afficher des informations sur le workflow, ses états et ses transitions et également d'être utilisée pour modifier certaines de leurs propriétés.
+

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.version;
 
@@ -24,6 +24,7 @@ import org.modelio.vbasic.version.Version;
 
 /**
  * Guess the Modelio version from a metamodel version.
+ *
  * @author cma
  * @since 3.6
  */
@@ -31,6 +32,7 @@ import org.modelio.vbasic.version.Version;
 public class ModelioVersionGuesser {
     /**
      * Guess the Modelio version from the Standard metamodel version.
+     *
      * @param v The "Standard" metamodel version
      * @return the Modelio version.
      * @throws IllegalArgumentException on invalid Modelio version
@@ -40,11 +42,11 @@ public class ModelioVersionGuesser {
     public static Version guessFromStandardMmVersion(Version v) throws IllegalArgumentException, UnsupportedOperationException {
         /*
          * Modelio releases history with metamodel versions:
-         * 
+         *
          * When a metamodel version may match many Modelio version the last one should be returned.
-         * 
-              Modelio 3.6 - 2.0.0 : date >= 2016-10-20 
-              Modelio 3.5 - 1.1.0 
+         *
+              Modelio 3.6 - 2.0.0 : date >= 2016-10-20
+              Modelio 3.5 - 1.1.0
               Modelio 3.4 - 9025  (date ?)
             Modelio 3.4.1.b - Build 2016-01-28-1820
             Modelio 3.4.1.a - Build 2015-12-081403
@@ -66,7 +68,7 @@ public class ModelioVersionGuesser {
               Modelio 3.1 - 9019: 08/11/2013
               Modelio 3.1 - 9018: 11/10/2013
             Modelio 3.0.1 - Build 2013-11-04-1840
-            Modelio 3.0.0 - Build 2013-09-24-1706: 
+            Modelio 3.0.0 - Build 2013-09-24-1706:
               Modelio Phoenix 3.0 - 9017: 04/09/2013
               Modelio Phoenix 3.0 - 9016: 17/07/2013
               Modelio Phoenix 3.0 - 9015: 14/06/2013
@@ -128,7 +130,7 @@ public class ModelioVersionGuesser {
                 throw new IllegalArgumentException(v.toString());
             }
         }
-        
+
     }
 
 }

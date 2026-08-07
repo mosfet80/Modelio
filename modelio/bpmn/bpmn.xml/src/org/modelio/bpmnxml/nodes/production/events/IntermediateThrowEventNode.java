@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.events;
 
@@ -72,12 +72,12 @@ public class IntermediateThrowEventNode implements IProductionNode<BpmnIntermedi
     @objid ("51a54499-8270-4362-93ca-ffa765b33ad4")
     @Override
     public BpmnIntermediateThrowEvent createUMLElement(MObject context, TIntermediateThrowEvent jaxbElement, BpmnImportFactory factory, boolean keepId) {
-        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {  
+        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {
             return factory.createWithId(BpmnIntermediateThrowEvent.class, context,jaxbElement.getId());
         } else {
             return factory.create(BpmnIntermediateThrowEvent.class, context);
         }
-        
+
     }
 
     @objid ("e659c823-5546-40c1-9bc4-3b04e05159ea")
@@ -89,7 +89,7 @@ public class IntermediateThrowEventNode implements IProductionNode<BpmnIntermedi
         } else if (context instanceof BpmnSubProcess) {
             ((BpmnSubProcess) context).getFlowElement().add(modelioElement);
         }
-        
+
         if (jaxbElement.getName() != null)
             modelioElement.setName(StringConvertor.imports(jaxbElement.getName()));
         return modelioElement;
@@ -100,7 +100,7 @@ public class IntermediateThrowEventNode implements IProductionNode<BpmnIntermedi
     public TIntermediateThrowEvent createJaxbElement(Object context, BpmnIntermediateThrowEvent modelioElement) {
         // Create JaxbElement
         TIntermediateThrowEvent jaxEvent = new TIntermediateThrowEvent();
-        
+
         // Add to context
         ObjectFactory factory = new ObjectFactory();
         if (context instanceof TProcess) {

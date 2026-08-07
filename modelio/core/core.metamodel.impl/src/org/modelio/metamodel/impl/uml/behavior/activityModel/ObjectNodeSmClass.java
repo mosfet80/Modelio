@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -56,129 +55,128 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("60b71769-0305-4555-b642-3fd3eccd55e4")
 public class ObjectNodeSmClass extends ActivityNodeSmClass {
-    @objid ("9a069911-893f-4f26-a62f-0b63ddb0e5d2")
+    @objid ("2074ab22-6360-4e9b-a1a0-d4b01548c5c2")
     private SmAttribute isControlTypeAtt;
 
-    @objid ("dff0e6c9-99e8-4f6d-a7b7-4174b73c1d8f")
+    @objid ("53444b5a-8c3c-485c-9435-3d67308ee113")
     private SmAttribute orderingAtt;
 
-    @objid ("521cec02-201f-4ec9-9237-bdade5400594")
+    @objid ("4c5f3802-e7ca-4e14-8247-f3b2561546d1")
     private SmAttribute selectionBehaviorAtt;
 
-    @objid ("c19c18cc-f312-47cc-ae98-e19e8bccd355")
+    @objid ("75a0ac3a-21bf-4b5b-82d3-8dd74e8d5fb2")
     private SmAttribute upperBoundAtt;
 
-    @objid ("9c9d96c1-71d3-471b-aacb-afb9dd742560")
+    @objid ("aa7315e7-c282-4a87-914d-6c77ba3c6658")
     private SmDependency representedDep;
 
-    @objid ("1e0c38d9-04ec-4903-8844-9bf5325ef9d5")
+    @objid ("b8b1d67f-32a5-4cce-9440-5f4abafae946")
     private SmDependency representedRealParameterDep;
 
-    @objid ("2d02818a-01a3-4575-9081-96c5be99e828")
+    @objid ("38e610f5-2da0-4011-8e3f-b0b3a884dfd8")
     private SmDependency typeDep;
 
-    @objid ("5bbe1551-d2cb-414c-a1a8-529d8d54b288")
+    @objid ("1ce06b82-1df0-409e-9668-208c934a1fb9")
     private SmDependency representedRoleDep;
 
-    @objid ("f93eb0ff-fcb7-4dec-9084-e48cfc049198")
+    @objid ("2f95df21-946d-472a-92cb-a560811c6aae")
     private SmDependency representedAttributeDep;
 
-    @objid ("7da8c612-adf1-48d1-9212-41d51674f0cb")
+    @objid ("5c378124-a673-42fc-8dbb-9605a2803794")
     private SmDependency inStateDep;
 
-    @objid ("80fd151c-a349-4735-939b-f0d0f8a782dc")
-    public  ObjectNodeSmClass(ISmMetamodelFragment origin) {
+    @objid ("c08eeb80-1974-4aa0-8cd8-a634d06c69d1")
+    public ObjectNodeSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("85756cda-e4d1-4c29-a873-eb0ed7b9ce04")
+    @objid ("66628e4a-5382-4555-bbcb-451826fdb960")
     @Override
     public String getName() {
         return "ObjectNode";
-        
+
     }
 
-    @objid ("be993ccd-d354-4637-8894-524cfeb19a78")
+    @objid ("cb0e23a6-6e87-4e6d-83a1-22ff0566d2e6")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("c5417a5c-15e1-492c-bfda-1ea7ad129c53")
+    @objid ("be227d35-5521-4c11-aec3-db38131a7e8b")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return ObjectNode.class;
-        
+
     }
 
-    @objid ("4f7dc840-1596-4a1d-8e03-cc390af3bbec")
+    @objid ("cf1d21a1-ec65-46eb-a972-fe9fa211582e")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("9135bb35-8e7b-45f2-a3aa-68382326dd8b")
+    @objid ("cd4e2cbd-058e-4995-82ea-cd99c8a50a3b")
     @Override
     public boolean isAbstract() {
         return true;
-        
+
     }
 
-    @objid ("9b8be859-371e-4d92-a7ce-e6c999c06e2f")
+    @objid ("cd2e06f8-2feb-460b-ac6d-465c617dd07b")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(ActivityNode.MQNAME);
         this.registerFactory(new ObjectNodeObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
         this.isControlTypeAtt = new IsControlTypeSmAttribute();
         this.isControlTypeAtt.init("IsControlType", this, Boolean.class );
         registerAttribute(this.isControlTypeAtt);
-        
+
         this.orderingAtt = new OrderingSmAttribute();
         this.orderingAtt.init("Ordering", this, ObjectNodeOrderingKind.class );
         registerAttribute(this.orderingAtt);
-        
+
         this.selectionBehaviorAtt = new SelectionBehaviorSmAttribute();
         this.selectionBehaviorAtt.init("SelectionBehavior", this, String.class );
         registerAttribute(this.selectionBehaviorAtt);
-        
+
         this.upperBoundAtt = new UpperBoundSmAttribute();
         this.upperBoundAtt.init("UpperBound", this, String.class );
         registerAttribute(this.upperBoundAtt);
-        
-        
+
+
         // Initialize and register the SmDependency
         this.representedDep = new RepresentedSmDependency();
         this.representedDep.init("Represented", this, metamodel.getMClass(Instance.MQNAME), 0, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.representedDep);
-        
+
         this.representedRealParameterDep = new RepresentedRealParameterSmDependency();
         this.representedRealParameterDep.init("RepresentedRealParameter", this, metamodel.getMClass(BehaviorParameter.MQNAME), 0, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.representedRealParameterDep);
-        
+
         this.typeDep = new TypeSmDependency();
         this.typeDep.init("Type", this, metamodel.getMClass(GeneralClass.MQNAME), 0, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.typeDep);
-        
+
         this.representedRoleDep = new RepresentedRoleSmDependency();
         this.representedRoleDep.init("RepresentedRole", this, metamodel.getMClass(AssociationEnd.MQNAME), 0, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.representedRoleDep);
-        
+
         this.representedAttributeDep = new RepresentedAttributeSmDependency();
         this.representedAttributeDep.init("RepresentedAttribute", this, metamodel.getMClass(Attribute.MQNAME), 0, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.representedAttributeDep);
-        
+
         this.inStateDep = new InStateSmDependency();
         this.inStateDep.init("InState", this, metamodel.getMClass(State.MQNAME), 0, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.inStateDep);
-        
-        
+
     }
 
-    @objid ("cb4e81ac-489f-4350-91b6-34ad429d8690")
+    @objid ("9c82e6d4-8de9-4da3-9c0f-dd4b8836895f")
     public SmAttribute getIsControlTypeAtt() {
         if (this.isControlTypeAtt == null) {
         	this.isControlTypeAtt = this.getAttributeDef("IsControlType");
@@ -186,7 +184,7 @@ public class ObjectNodeSmClass extends ActivityNodeSmClass {
         return this.isControlTypeAtt;
     }
 
-    @objid ("2dd32dfa-5383-444d-9cd3-ebcc5d05a498")
+    @objid ("cb78f583-0e1c-4480-b802-f35249d36cdc")
     public SmAttribute getOrderingAtt() {
         if (this.orderingAtt == null) {
         	this.orderingAtt = this.getAttributeDef("Ordering");
@@ -194,7 +192,7 @@ public class ObjectNodeSmClass extends ActivityNodeSmClass {
         return this.orderingAtt;
     }
 
-    @objid ("0d091aa5-24e8-4f57-82eb-9962bebdbc75")
+    @objid ("deeb7bdb-4d3b-4bf0-b319-bc43986bb237")
     public SmAttribute getSelectionBehaviorAtt() {
         if (this.selectionBehaviorAtt == null) {
         	this.selectionBehaviorAtt = this.getAttributeDef("SelectionBehavior");
@@ -202,7 +200,7 @@ public class ObjectNodeSmClass extends ActivityNodeSmClass {
         return this.selectionBehaviorAtt;
     }
 
-    @objid ("41ff8cde-0c33-4306-8526-fa309a4fec9f")
+    @objid ("231d0acb-377b-4588-8a76-a5541d68ca13")
     public SmAttribute getUpperBoundAtt() {
         if (this.upperBoundAtt == null) {
         	this.upperBoundAtt = this.getAttributeDef("UpperBound");
@@ -210,7 +208,7 @@ public class ObjectNodeSmClass extends ActivityNodeSmClass {
         return this.upperBoundAtt;
     }
 
-    @objid ("6fda2de1-83f3-48fb-9db9-94e5fba3ae77")
+    @objid ("a638cd90-a01a-42c6-a06d-af4277ce5fbb")
     public SmDependency getRepresentedDep() {
         if (this.representedDep == null) {
         	this.representedDep = this.getDependencyDef("Represented");
@@ -218,7 +216,7 @@ public class ObjectNodeSmClass extends ActivityNodeSmClass {
         return this.representedDep;
     }
 
-    @objid ("13afaf86-dce9-4666-b676-8a647fcb3fee")
+    @objid ("5d07071d-39ad-472c-b987-fc54f6878088")
     public SmDependency getRepresentedRealParameterDep() {
         if (this.representedRealParameterDep == null) {
         	this.representedRealParameterDep = this.getDependencyDef("RepresentedRealParameter");
@@ -226,7 +224,7 @@ public class ObjectNodeSmClass extends ActivityNodeSmClass {
         return this.representedRealParameterDep;
     }
 
-    @objid ("01008922-3988-4121-a748-fe795252d469")
+    @objid ("27adf386-53f8-47d1-82b6-538649953b44")
     public SmDependency getTypeDep() {
         if (this.typeDep == null) {
         	this.typeDep = this.getDependencyDef("Type");
@@ -234,7 +232,7 @@ public class ObjectNodeSmClass extends ActivityNodeSmClass {
         return this.typeDep;
     }
 
-    @objid ("90092bb8-d222-4c4c-9190-548aa2366453")
+    @objid ("280fbfcf-d135-484a-bd43-bde2a9aa879c")
     public SmDependency getRepresentedRoleDep() {
         if (this.representedRoleDep == null) {
         	this.representedRoleDep = this.getDependencyDef("RepresentedRole");
@@ -242,7 +240,7 @@ public class ObjectNodeSmClass extends ActivityNodeSmClass {
         return this.representedRoleDep;
     }
 
-    @objid ("f10e032f-835a-4d35-88d7-2f798a78555e")
+    @objid ("c5265132-64ff-4519-aa33-baa8c00cdac6")
     public SmDependency getRepresentedAttributeDep() {
         if (this.representedAttributeDep == null) {
         	this.representedAttributeDep = this.getDependencyDef("RepresentedAttribute");
@@ -250,7 +248,7 @@ public class ObjectNodeSmClass extends ActivityNodeSmClass {
         return this.representedAttributeDep;
     }
 
-    @objid ("96e7cb63-6c95-4621-b4e1-34b198981ff2")
+    @objid ("2cdd20a7-8387-4940-b6a6-8195c56f8def")
     public SmDependency getInStateDep() {
         if (this.inStateDep == null) {
         	this.inStateDep = this.getDependencyDef("InState");
@@ -260,21 +258,21 @@ public class ObjectNodeSmClass extends ActivityNodeSmClass {
 
     @objid ("8d702db0-816c-4aaa-ab3e-6fd472d71dac")
     private static class ObjectNodeObjectFactory implements ISmObjectFactory {
-        @objid ("a9f7482d-1dc1-473e-87c2-11768ddc60bf")
+        @objid ("8b4b8aaa-50cf-42a4-91ee-68b33250f02a")
         private ObjectNodeSmClass smClass;
 
-        @objid ("a04a7dbc-61e0-45be-b551-8f41675e7349")
-        public  ObjectNodeObjectFactory(ObjectNodeSmClass smClass) {
+        @objid ("42f2f583-52e4-497a-8a22-0eb089e92be2")
+        public ObjectNodeObjectFactory(ObjectNodeSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("649ce72d-ddac-4028-99f5-a4d43d123967")
+        @objid ("e7533053-c4e1-4114-9fea-81e96c3e485c")
         @Override
         public ISmObjectData createData() {
             throw new UnsupportedOperationException();
         }
 
-        @objid ("25e692f3-0d3b-4e38-bd30-6a2ff4599512")
+        @objid ("19fa6b0f-c6e5-4ff2-9269-938cce1d98f9")
         @Override
         public SmObjectImpl createImpl() {
             throw new UnsupportedOperationException();
@@ -284,12 +282,12 @@ public class ObjectNodeSmClass extends ActivityNodeSmClass {
 
     @objid ("c1c2ceac-ade9-4745-a65b-be2cb3948436")
     public static class IsControlTypeSmAttribute extends SmAttribute {
-        @objid ("19de5de8-c74f-4861-a651-39c5f0ffdf44")
+        @objid ("7fa91d44-6dbb-42d8-ac86-e68e27b6f7b4")
         public Object getValue(ISmObjectData data) {
             return ((ObjectNodeData) data).mIsControlType;
         }
 
-        @objid ("c05fae05-c428-4a61-8a9e-5ddcf365d343")
+        @objid ("af71f2f2-f28c-4647-9e53-0852ef1d8dca")
         public void setValue(ISmObjectData data, Object value) {
             ((ObjectNodeData) data).mIsControlType = value;
         }
@@ -298,12 +296,12 @@ public class ObjectNodeSmClass extends ActivityNodeSmClass {
 
     @objid ("ef835d23-f5ff-426f-9d5c-e655989df510")
     public static class OrderingSmAttribute extends SmAttribute {
-        @objid ("eb6ace98-b5af-4865-a96b-d656a985d5ef")
+        @objid ("8a63656f-aa4a-4167-a47a-47fe9be60b83")
         public Object getValue(ISmObjectData data) {
             return ((ObjectNodeData) data).mOrdering;
         }
 
-        @objid ("c17ccc2a-2fac-4076-941e-1f05ea84c7dc")
+        @objid ("ba2f6702-6191-432e-9d68-0104cff08f58")
         public void setValue(ISmObjectData data, Object value) {
             ((ObjectNodeData) data).mOrdering = value;
         }
@@ -312,12 +310,12 @@ public class ObjectNodeSmClass extends ActivityNodeSmClass {
 
     @objid ("b65e9545-3654-4c03-96d0-f02afdf6d742")
     public static class SelectionBehaviorSmAttribute extends SmAttribute {
-        @objid ("db4f3681-43c0-4ff2-9f27-21bac20eba6d")
+        @objid ("a2e32a38-8013-4e61-bfdc-7d341f61f165")
         public Object getValue(ISmObjectData data) {
             return ((ObjectNodeData) data).mSelectionBehavior;
         }
 
-        @objid ("555d01c0-0eb9-4dbb-bfbe-1136c693cb81")
+        @objid ("5ef20e44-313c-4341-ade9-bd4bfc37e9ee")
         public void setValue(ISmObjectData data, Object value) {
             ((ObjectNodeData) data).mSelectionBehavior = value;
         }
@@ -326,12 +324,12 @@ public class ObjectNodeSmClass extends ActivityNodeSmClass {
 
     @objid ("c75ddb12-8275-458e-bdf2-dc60a48862cc")
     public static class UpperBoundSmAttribute extends SmAttribute {
-        @objid ("3106ad23-d30f-430f-b093-5e198cf060fb")
+        @objid ("a90f3575-045f-4b70-9229-529652b98adc")
         public Object getValue(ISmObjectData data) {
             return ((ObjectNodeData) data).mUpperBound;
         }
 
-        @objid ("c9477b13-4a7a-4550-a643-3d4d97e65f1b")
+        @objid ("213a63fc-bb75-432c-8f56-80cdb487911f")
         public void setValue(ISmObjectData data, Object value) {
             ((ObjectNodeData) data).mUpperBound = value;
         }
@@ -340,174 +338,174 @@ public class ObjectNodeSmClass extends ActivityNodeSmClass {
 
     @objid ("75a21422-376f-4e30-9f2e-fe27274eb332")
     public static class RepresentedSmDependency extends SmSingleDependency {
-        @objid ("54db5322-9b78-463a-b93a-a64fa5db4f8f")
+        @objid ("900677ba-1767-4248-a6b1-f31f787ad9aa")
         private SmDependency symetricDep;
 
-        @objid ("74da6f97-e63e-4b02-96e2-f58b61b6e3e2")
+        @objid ("a8e234bd-50a5-4450-b991-f16a5cc82e33")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((ObjectNodeData) data).mRepresented;
         }
 
-        @objid ("b4efce2d-9148-470e-a493-afc4677e322f")
+        @objid ("e0ef69ba-a693-4fdc-ba6b-646e57d526c6")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((ObjectNodeData) data).mRepresented = value;
         }
 
-        @objid ("37453f3d-8e06-4560-9cc0-90bcbaea5c86")
+        @objid ("109cdfa9-595a-40c9-bb4f-6899023c0517")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((InstanceSmClass)this.getTarget()).getRepresentingObjectNodeDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("c9739744-7fc6-4022-a005-398fda16305c")
     public static class RepresentedRealParameterSmDependency extends SmSingleDependency {
-        @objid ("0d7b544e-3ab3-413c-aa92-efebaa62267b")
+        @objid ("791564ca-ca46-4312-9f6c-800e499d238f")
         private SmDependency symetricDep;
 
-        @objid ("59900c3d-81cd-4674-b664-7c188eda39d4")
+        @objid ("abe501d0-e243-4f7d-9fa5-6c2b81e8e9d1")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((ObjectNodeData) data).mRepresentedRealParameter;
         }
 
-        @objid ("4e2fabd8-e381-455a-85de-a773dc5a9b7b")
+        @objid ("8b46b0f9-8c47-4668-8bd6-8a9298ae04aa")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((ObjectNodeData) data).mRepresentedRealParameter = value;
         }
 
-        @objid ("f7622758-0852-47a0-9c48-4185f22faa46")
+        @objid ("0b41b597-dfc4-466e-a203-22c568dc70fc")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((BehaviorParameterSmClass)this.getTarget()).getRepresentingObjectNodeDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("c5a029a8-71e1-4322-afa3-549a91c26977")
     public static class TypeSmDependency extends SmSingleDependency {
-        @objid ("46cea9a2-32ba-4791-9ecd-a1afcc19045e")
+        @objid ("0920332e-c983-46e9-a419-2317b6856801")
         private SmDependency symetricDep;
 
-        @objid ("7ec1a8e8-82b5-423c-88f5-3f75d719e78d")
+        @objid ("76bd4630-f6e2-47d1-b099-5ad642ac582d")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((ObjectNodeData) data).mType;
         }
 
-        @objid ("05e3ec69-75d7-4233-9393-44760c201820")
+        @objid ("6259fa86-f730-466f-a5c8-f714597ba9ed")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((ObjectNodeData) data).mType = value;
         }
 
-        @objid ("3a30f85a-8103-4fd6-9328-222f305f2929")
+        @objid ("0a59b2f1-0ad7-468f-b822-8288a2a9b622")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((GeneralClassSmClass)this.getTarget()).getOccurenceObjectNodeDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("bad2b412-4720-4f4f-a88c-69d0368edacd")
     public static class RepresentedRoleSmDependency extends SmSingleDependency {
-        @objid ("4bcb85df-4e27-46f3-a750-90e74df3ba73")
+        @objid ("92b087ca-6952-470f-9743-6ce5e0f12d45")
         private SmDependency symetricDep;
 
-        @objid ("a6e159fb-31b3-45a7-a55b-d2063a8b950d")
+        @objid ("62e13fb4-c7f7-460a-97cb-0015ed9f78d9")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((ObjectNodeData) data).mRepresentedRole;
         }
 
-        @objid ("2a727608-45a1-4f45-b5d0-099bc09479e9")
+        @objid ("53c3abb6-694d-4405-9831-5751d4ae64ce")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((ObjectNodeData) data).mRepresentedRole = value;
         }
 
-        @objid ("161a966a-1ea4-450e-99cc-090db2700a63")
+        @objid ("68c888eb-63f3-4022-8031-b30a8b497722")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((AssociationEndSmClass)this.getTarget()).getRepresentingObjectNodeDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("22ca8cf9-82a9-4cf3-8e68-d2c67e3e6d63")
     public static class RepresentedAttributeSmDependency extends SmSingleDependency {
-        @objid ("4dd34a01-0381-4318-b858-86f68b176773")
+        @objid ("bdce3a59-49a1-4797-9050-9d0649edc87f")
         private SmDependency symetricDep;
 
-        @objid ("ef287a8a-dae9-4098-9898-3ef3b8b7b6c7")
+        @objid ("63331d58-8019-4e4d-8b25-de02eb4fd0a0")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((ObjectNodeData) data).mRepresentedAttribute;
         }
 
-        @objid ("08824c86-105c-4f70-a171-65375ff1878d")
+        @objid ("799909f0-4c6e-42ac-a861-261dff65a3cc")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((ObjectNodeData) data).mRepresentedAttribute = value;
         }
 
-        @objid ("2b203703-d157-4863-bc96-3235bf247c66")
+        @objid ("db5a77f5-b9dd-402e-a4ab-9fd9afc6e73b")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((AttributeSmClass)this.getTarget()).getRepresentingObjectNodeDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("e92027ed-2556-43eb-b758-74fc84a22c5f")
     public static class InStateSmDependency extends SmSingleDependency {
-        @objid ("55b49032-a0bd-4652-9431-aa1cfd0e08de")
+        @objid ("54b01a8c-221c-47fb-9032-afc77c0c67ed")
         private SmDependency symetricDep;
 
-        @objid ("59825959-2d9a-4dfb-b47a-ffdd98d3824b")
+        @objid ("0c204ecf-620c-4ed4-9be3-75f5fbdaf4f3")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((ObjectNodeData) data).mInState;
         }
 
-        @objid ("a099dfb8-8252-4ca9-8e39-0fe9d279d933")
+        @objid ("e3807301-2fcd-4bb0-a724-5c230a297e5a")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((ObjectNodeData) data).mInState = value;
         }
 
-        @objid ("013ac87a-9ea3-4758-8f1b-7d34bbc74d24")
+        @objid ("79f67a07-0632-40f3-9cad-f6c62e9d1415")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((StateSmClass)this.getTarget()).getRequiredStateOfDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

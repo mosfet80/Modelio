@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.popupmenu;
 
@@ -50,7 +50,7 @@ class CreationPopupXmlLoader {
     @objid ("fb4ce079-bbe7-46e5-9e24-2556d101da22")
     public Map<String, List<IPopupEntryDescriptor>> parseCreationPopupEntries(final URL url) {
         this.popupEntries = new HashMap<>();
-        
+
         try (InputStream xmlStream = url.openStream()) {
             // Create a DocumentBuilderFactory
             final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -58,10 +58,10 @@ class CreationPopupXmlLoader {
             dbf.setXIncludeAware(false);
             // dbf.setSchema(schema);
             dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, false);
-        
+
             // Create a DocumentBuilder
             final DocumentBuilder db = dbf.newDocumentBuilder();
-        
+
             // Parse
             // db.setErrorHandler(parserAPIUsage);
             final Document xmlDoc = db.parse(xmlStream);
@@ -78,7 +78,7 @@ class CreationPopupXmlLoader {
     private void parseMenus(final Element rootElement) {
         // Explore nodes under the root node:
         final NodeList childNodes = rootElement.getChildNodes();
-        
+
         final int nNodes = childNodes.getLength();
         for (int i = 0; i < nNodes; i++) {
             final Node node = childNodes.item(i);
@@ -86,7 +86,6 @@ class CreationPopupXmlLoader {
                 parsePopupNode(node);
             }
         }
-        
     }
 
     @objid ("e9649dfb-ccc0-402f-a311-5c741bf7bf4f")
@@ -95,7 +94,7 @@ class CreationPopupXmlLoader {
         final NamedNodeMap attributes = popupNode.getAttributes();
         String metaclassName = "";
         String stereotypeName = "";
-        
+
         // Get source metaclass and stereotype
         if (attributes != null) {
             final Node metaclassNode = attributes.getNamedItem("metaclass");
@@ -107,28 +106,28 @@ class CreationPopupXmlLoader {
                 stereotypeName = stereotypeNode.getTextContent();
             }
         }
-        
+
         // Explore items and menus
         final NodeList menuNodes = popupNode.getChildNodes();
         final int nNodes = menuNodes.getLength();
         for (int i = 0; i < nNodes; i++) {
             final Node node = menuNodes.item(i);
-        
+
             if (node.getNodeName().equals("command")) {
                 final CreationPopupEntryDescriptor entryDescriptor = parseCommandNode(node);
                 entryDescriptor.sourceMetaclass = metaclassName;
                 entryDescriptor.sourceStereotype = stereotypeName;
-        
+
                 registerPopupEntry(metaclassName, entryDescriptor);
             } else if (node.getNodeName().equals("separator")) {
                 registerPopupEntry(metaclassName, new SeparatorPopupEntryDescriptor());
             }
         }
-        
     }
 
     /**
      * Add a popup entry to display on a specific metaclass.
+     *
      * @param sourceMetaclass The metaclass to display the popup for.
      * @param item the entry to add.
      */
@@ -137,28 +136,27 @@ class CreationPopupXmlLoader {
         if (!this.popupEntries.containsKey(sourceMetaclass)) {
             this.popupEntries.put(sourceMetaclass, new ArrayList<IPopupEntryDescriptor>());
         }
-        
+
         this.popupEntries.get(sourceMetaclass).add(item);
-        
     }
 
     @objid ("ec98855c-bed4-4a41-ac4f-d618c0bc1178")
     private CreationPopupEntryDescriptor parseCommandNode(final Node itemNode) {
         final CreationPopupEntryDescriptor entryDescriptor = new CreationPopupEntryDescriptor();
-        
+
         final NamedNodeMap attributes = itemNode.getAttributes();
         String id = "";
-        
+
         // get command id
         if (attributes != null) {
             final Node nameNode = attributes.getNamedItem("id");
             if (nameNode != null) {
-        
+
                 id = nameNode.getTextContent();
             }
         }
         entryDescriptor.commandId = id;
-        
+
         // parse command parameters
         final NodeList childNodes = itemNode.getChildNodes();
         final int nNodes = childNodes.getLength();
@@ -176,7 +174,7 @@ class CreationPopupXmlLoader {
         final NamedNodeMap attributes = parameterNode.getAttributes();
         String name = "";
         String value = "";
-        
+
         if (attributes != null) {
             final Node nameNode = attributes.getNamedItem("name");
             if (nameNode != null) {
@@ -188,7 +186,6 @@ class CreationPopupXmlLoader {
             }
             entryDescriptor.parameters.put(name, value);
         }
-        
     }
 
 }

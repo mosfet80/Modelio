@@ -2,21 +2,26 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension-point id="org.modelio.app.model.search.ui.searchtool" name="Search tool" schema="schema/org.modelio.app.model.search.ui.searchtool.exsd"/>
-   
+
    <extension point="org.eclipse.e4.workbench.model" id="modelContribution">
-      <fragment uri="e4model/modelsearch.e4xmi"/> 
+      <fragment uri="e4model/modelsearch.e4xmi"/>
    </extension>
-   
+
    <extension point="org.modelio.app.model.search.ui.searchtool">
       <searchtool
             label="%ModelSearchTab.label"
-            engine="org.modelio.platform.search.engine.searchers.model.ModelSearchEngine"
-            panel="org.modelio.platform.model.ui.panels.search.model.ModelSearchPanel">
+            engine="org.modelio.platform.search.engine.searchers.query.QuerySearchEngine"
+            panel="org.modelio.platform.model.ui.panels.search.advanced.AdvancedSearchPanel">
       </searchtool>
       <searchtool
             label="%NoteSearchTab.label"
             engine="org.modelio.platform.search.engine.searchers.note.NoteSearchEngine"
             panel="org.modelio.platform.model.ui.panels.search.note.NoteSearchPanel">
+      </searchtool>
+      <searchtool
+            label="%QuerySearchTab.label"
+            engine="org.modelio.platform.search.engine.searchers.query.QuerySearchEngine"
+            panel="org.modelio.platform.model.ui.panels.search.query.MQLQueryListPanel">
       </searchtool>
    </extension>
 </plugin>

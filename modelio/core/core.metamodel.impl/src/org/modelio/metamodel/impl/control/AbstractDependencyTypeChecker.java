@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.control;
 
@@ -45,7 +45,7 @@ public abstract class AbstractDependencyTypeChecker implements SmDependencyTypeC
         } else {
             throw new IllegalModelManipulationException(9, obj, value);
         }
-        
+
     }
 
     @objid ("0062acdc-5404-1fdf-a6ee-001ec947cd2a")
@@ -60,14 +60,14 @@ public abstract class AbstractDependencyTypeChecker implements SmDependencyTypeC
     @objid ("005b45b4-5404-1fdf-a6ee-001ec947cd2a")
     protected void register(final SmClass mc, final String feature) {
         assert (mc != null);
-        
+
         SmDependency dep = mc.getDependencyDef(feature);
-        
+
         if (dep != null)
             dep.setChecker(this);
         else
             throw new IllegalArgumentException(mc.getQualifiedName()+"."+feature);
-        
+
     }
 
 }

@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -48,6 +48,7 @@ public class MMAnalystAnalystElement {
      * Tells whether a {@link MMAnalystAnalystElement proxy} can be instantiated from a {@link MObject} checking it is a Analyst.AnalystElement.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -64,6 +65,7 @@ public class MMAnalystAnalystElement {
      * Tries to instantiate a {@link MMAnalystAnalystElement} proxy from a Analyst.AnalystElement checking its metaclass.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a AnalystElement
      * @return a {@link MMAnalystAnalystElement} proxy or <i>null</i>.
      */
@@ -90,6 +92,7 @@ public class MMAnalystAnalystElement {
 
     /**
      * Get the underlying Analyst.AnalystElement.
+     *
      * @return the AnalystElement represented by this proxy, never null.
      */
     @objid ("da9bcce9-89a6-4908-b2b0-a3d3e08d3957")
@@ -104,7 +107,7 @@ public class MMAnalystAnalystElement {
     }
 
     @objid ("fa623a4c-102b-4c3e-bf0a-cbc54245d7bc")
-    protected  MMAnalystAnalystElement(ModelElement elt) {
+    protected MMAnalystAnalystElement(ModelElement elt) {
         this.elt = elt;
     }
 
@@ -120,7 +123,7 @@ public class MMAnalystAnalystElement {
         public static void init(IModuleContext ctx) {
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 static {
@@ -128,7 +131,7 @@ static {
                     init(ModelerModuleModule.getInstance().getModuleContext());
                 }
             }
-        
+
     }
 
 }

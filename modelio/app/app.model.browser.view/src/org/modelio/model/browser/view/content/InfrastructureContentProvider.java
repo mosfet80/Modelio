@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.browser.view.content;
 
@@ -66,12 +66,12 @@ public class InfrastructureContentProvider implements IModelioTreeContentProvide
         if (parent instanceof IGModelFragment) {
             return getFragmentRoots((IGModelFragment) parent).toArray();
         }
-        
+
         // General case: MObject
         if (parent instanceof MObject) {
             return getChildren((MObject) parent).toArray();
         }
-        
+
         // No children
         return Collections.EMPTY_LIST.toArray();
     }
@@ -102,7 +102,7 @@ public class InfrastructureContentProvider implements IModelioTreeContentProvide
         } else {
             return false;
         }
-        
+
     }
 
     @objid ("62547cfb-8263-4f9f-9f37-367f8c080782")
@@ -119,10 +119,10 @@ public class InfrastructureContentProvider implements IModelioTreeContentProvide
     private List<Object> getChildren(final MObject parent) {
         List<Object> mainChildren = InfrastructureContentProvider.visitor.getElements(parent);
         List<MObject> auxChildren = InfrastructureContentProvider.visitor.getLinks(parent);
-        
+
         List<Object> ret = new ArrayList<>(mainChildren.size() + 2);
         ret.addAll(mainChildren);
-        
+
         if (!auxChildren.isEmpty()) {
             ret.add(new LinkContainer(parent, auxChildren));
         }
@@ -141,7 +141,7 @@ public class InfrastructureContentProvider implements IModelioTreeContentProvide
         } else {
             return getChildren(parent).size() > 0;
         }
-        
+
     }
 
     /**
@@ -150,7 +150,7 @@ public class InfrastructureContentProvider implements IModelioTreeContentProvide
     @objid ("1a571ae3-e52e-4bbc-b881-b0a52b291ff9")
     private List<Object> getFragmentRoots(IGModelFragment fragment) {
         List<Object> ret = new ArrayList<>();
-        
+
         IRepository repository = fragment.getRepository();
         if (repository != null) {
             for (MObject root : fragment.getRoots()) {
@@ -225,7 +225,7 @@ public class InfrastructureContentProvider implements IModelioTreeContentProvide
         private List<MObject> links;
 
         @objid ("9f93e994-15e2-4ab1-8f03-ea697319d76d")
-        public  InfrastructureVisitor() {
+        public InfrastructureVisitor() {
             // nothing to do
         }
 
@@ -263,11 +263,11 @@ public class InfrastructureContentProvider implements IModelioTreeContentProvide
         public Object visitMatrixDefinition(MatrixDefinition theMatrixDefinition) {
             if (this.includeElements) {
                 addElementResult(theMatrixDefinition.getLinesDefinition());
-            
+
                 addElementResult(theMatrixDefinition.getColumnsDefinition());
-            
+
                 addElementResult(theMatrixDefinition.getDepthDefinition());
-            
+
                 addElementResult(theMatrixDefinition.getValuesDefinition());
             }
             return super.visitMatrixDefinition(theMatrixDefinition);
@@ -278,11 +278,11 @@ public class InfrastructureContentProvider implements IModelioTreeContentProvide
         public Object visitMetaclassReference(MetaclassReference theMetaclassReference) {
             if (this.includeElements) {
                 addElementResults(theMetaclassReference.getDefinedTagType());
-            
+
                 addElementResults(theMetaclassReference.getDefinedNoteType());
-            
+
                 addElementResults(theMetaclassReference.getDefinedResourceType());
-            
+
                 addElementResult(theMetaclassReference.getDefinedTable());
             }
             return super.visitMetaclassReference(theMetaclassReference);
@@ -296,7 +296,7 @@ public class InfrastructureContentProvider implements IModelioTreeContentProvide
             }
             if (this.includeElements) {
                 addElementResults(theModelElement.getProduct());
-            
+
                 // Matrix
                 addElementResults(theModelElement.getMatrix());
             }
@@ -308,11 +308,11 @@ public class InfrastructureContentProvider implements IModelioTreeContentProvide
         public Object visitModuleComponent(ModuleComponent theModule) {
             if (this.includeElements) {
                 addElementResults(theModule.getOwnedProfile());
-            
+
                 addElementResults(theModule.getModuleParameter());
-            
+
                 addElementResults(theModule.getDefinedPropertyType());
-            
+
             }
             return super.visitModuleComponent(theModule);
         }
@@ -322,9 +322,9 @@ public class InfrastructureContentProvider implements IModelioTreeContentProvide
         public Object visitProfile(Profile theProfile) {
             if (this.includeElements) {
                 addElementResults(theProfile.getOwnedReference());
-            
+
                 addElementResults(theProfile.getDefinedStereotype());
-            
+
                 addElementResults(theProfile.getDefinedType());
             }
             return super.visitProfile(theProfile);
@@ -344,11 +344,11 @@ public class InfrastructureContentProvider implements IModelioTreeContentProvide
         public Object visitStereotype(Stereotype theStereotype) {
             if (this.includeElements) {
                 addElementResults(theStereotype.getDefinedTagType());
-            
+
                 addElementResults(theStereotype.getDefinedNoteType());
-            
+
                 addElementResults(theStereotype.getDefinedResourceType());
-            
+
                 addElementResult(theStereotype.getDefinedTable());
             }
             return super.visitStereotype(theStereotype);
@@ -356,6 +356,7 @@ public class InfrastructureContentProvider implements IModelioTreeContentProvide
 
         /**
          * Avoid having a duplicated element in the result, but preserves order unlike a Set.
+         *
          * @param elt the element to add.
          */
         @objid ("eaa45a42-d9ef-49c6-9ff7-c66aef099e3e")
@@ -363,11 +364,12 @@ public class InfrastructureContentProvider implements IModelioTreeContentProvide
             if (elt != null && !this.elements.contains(elt)) {
                 this.elements.add(elt);
             }
-            
+
         }
 
         /**
          * Avoid having duplicated elements in the result, but preserves order unlike a Set.
+         *
          * @param elts the element to add.
          */
         @objid ("8ddb65b6-4ac0-47bc-a0bf-42bfaa496887")
@@ -376,11 +378,12 @@ public class InfrastructureContentProvider implements IModelioTreeContentProvide
                 // 'new ArrayList()' Shields against most concurrent modifications
                 new ArrayList<>(elts).forEach(this::addElementResult);
             }
-            
+
         }
 
         /**
          * Avoid having a duplicated element in the result, but preserves order unlike a Set.
+         *
          * @param elt the element to add.
          */
         @objid ("f8a12327-9202-468d-81d7-a102bebfc2ff")
@@ -388,11 +391,12 @@ public class InfrastructureContentProvider implements IModelioTreeContentProvide
             if (elt != null && !this.links.contains(elt)) {
                 this.links.add(elt);
             }
-            
+
         }
 
         /**
          * Avoid having duplicated elements in the result, but preserves order unlike a Set.
+         *
          * @param elts the element to add.
          */
         @objid ("f064358f-833d-4fed-8be6-cac71f968de0")
@@ -401,11 +405,12 @@ public class InfrastructureContentProvider implements IModelioTreeContentProvide
                 // 'new ArrayList()' Shields against most concurrent modifications
                 new ArrayList<>(elts).forEach(this::addLinkResult);
             }
-            
+
         }
 
         /**
          * Get the non-links children to display into the given element.
+         *
          * @param parent the element where children will be looked for
          * @return The children to display when expanding the tree node.
          */
@@ -420,6 +425,7 @@ public class InfrastructureContentProvider implements IModelioTreeContentProvide
 
         /**
          * Get the link children to display into the given element.
+         *
          * @param parent the element where children will be looked for
          * @return The children to display when expanding the tree node.
          */

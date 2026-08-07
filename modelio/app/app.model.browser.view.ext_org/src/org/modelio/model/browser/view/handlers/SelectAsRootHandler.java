@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.browser.view.handlers;
 
@@ -23,8 +23,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
@@ -54,11 +54,11 @@ public class SelectAsRootHandler {
         if (this.projectService.getSession() == null) {
             return false;
         }
-        
+
         if (part == null || !(part.getObject() instanceof BrowserView)) {
             return false;
         }
-        
+
         // Must have at least an element
         List<MObject> selectedElements = SelectAsRootHandler.getSelectedElements(selection);
         return selectedElements.size() > 0;
@@ -66,6 +66,7 @@ public class SelectAsRootHandler {
 
     /**
      * Set the selected notes as the roots for the BrowserView's tree.
+     *
      * @param part a {@link BrowserView} part.
      * @param selection the current application selection.
      */
@@ -82,7 +83,7 @@ public class SelectAsRootHandler {
         } else {
             ((ModelBrowserPanelProvider) view.getContributedPanel()).setLocalRoots(Collections.emptyList());
         }
-        
+
     }
 
     @objid ("1c35537f-452e-11e2-aeb7-002564c97630")

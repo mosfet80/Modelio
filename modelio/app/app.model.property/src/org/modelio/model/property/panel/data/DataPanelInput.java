@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.panel.data;
 
@@ -45,6 +45,7 @@ public class DataPanelInput {
     private Object typingElement;
 
     /**
+     *
      * @return the project context
      */
     @objid ("89be548a-6f4b-4846-a0bd-99c64b02377b")
@@ -53,6 +54,7 @@ public class DataPanelInput {
     }
 
     /**
+     *
      * @return the typedElement
      */
     @objid ("f3eeb270-f834-4530-a896-bbed51d50f26")
@@ -61,6 +63,7 @@ public class DataPanelInput {
     }
 
     /**
+     *
      * @param typedElement the typedElement to set
      */
     @objid ("d3452517-4265-429e-a3fc-ab6a1d9365ae")
@@ -69,6 +72,7 @@ public class DataPanelInput {
     }
 
     /**
+     *
      * @return the typingElement
      */
     @objid ("e36e61f2-f869-41bc-88c8-c7e973c699db")
@@ -77,6 +81,7 @@ public class DataPanelInput {
     }
 
     /**
+     *
      * @param typingElement the typingElement to set
      */
     @objid ("337a6591-1a27-4ed0-9c3e-5f0fb796d729")
@@ -86,6 +91,7 @@ public class DataPanelInput {
 
     /**
      * Build a new panel input.
+     *
      * @param projectService the currently opened project.
      * @param modelService service to look for model elements and metamodel extensions.
      * @param pickingService service to activate/deactivate the picking mode.
@@ -95,26 +101,27 @@ public class DataPanelInput {
      * @param showHiddenAnnotations whether or not the hidden mda annotations should be shown.
      */
     @objid ("98d05ffe-672f-4bed-89c0-eeba3dff1de2")
-    public  DataPanelInput(INatTableViewerContext context, Element typedElement, Object typingElement, boolean showHiddenAnnotations) {
+    public DataPanelInput(INatTableViewerContext context, Element typedElement, Object typingElement, boolean showHiddenAnnotations) {
         super();
         this.context = context;
         this.typedElement = typedElement;
         this.typingElement = typingElement;
         setShowHiddenAnnotations(showHiddenAnnotations);
-        
+
     }
 
     /**
      * Build a new panel input from another one.
+     *
      * @param other another panel input.
      */
     @objid ("9a011839-1861-424b-8af0-13b01fb66a80")
-    public  DataPanelInput(DataPanelInput other) {
+    public DataPanelInput(DataPanelInput other) {
         this.context = other.context;
         this.typedElement = other.typedElement;
         this.typingElement = other.typingElement;
         setShowHiddenAnnotations(other.isShowHiddenAnnotations());
-        
+
     }
 
     @objid ("7b9f4391-163e-495b-b884-3230f1ac80e1")
@@ -144,7 +151,7 @@ public class DataPanelInput {
         if (! Objects.equals(this.context, other.context)) {
             return false;
         }
-        
+
         if (this.typedElement == null) {
             if (other.typedElement != null) {
                 return false;

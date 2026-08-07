@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.obfactory;
 
@@ -102,15 +102,17 @@ public class ModelLinkFactory implements IModelLinkFactory {
 
     /**
      * Create the link element factory.
+     *
      * @param modelServices A model factory this factory will use.
      */
     @objid ("80a8a477-1dec-11e2-8cad-001ec947c8cc")
-    public  ModelLinkFactory(IMModelServices modelServices) {
+    public ModelLinkFactory(IMModelServices modelServices) {
         this.modelServices = modelServices;
     }
 
     /**
      * Create a link model element from the given source to the destination.
+     *
      * @param metaclass The metaclass of the link to create.
      * @param source The source element
      * @param target The destination element
@@ -128,13 +130,14 @@ public class ModelLinkFactory implements IModelLinkFactory {
         } else {
             return (MObject) ret.accept(new ImplInfraVisitor(source, target));
         }
-        
+
     }
 
     /**
      * Create a link model element owned by the given owner, from the given source to the destination.
      * <p>
      * This method is intended to be used to create links which have a source, a destination and an owner.
+     *
      * @param metaclass The metaclass of the link to create.
      * @param source The source element
      * @param target The destination element
@@ -168,13 +171,13 @@ public class ModelLinkFactory implements IModelLinkFactory {
         private MObject target;
 
         @objid ("80ab06d3-1dec-11e2-8cad-001ec947c8cc")
-        public  ImplUmlVisitor(final IStandardModelFactory modelFactory, MObject source, MObject target, final MObject owner) {
+        public ImplUmlVisitor(final IStandardModelFactory modelFactory, MObject source, MObject target, final MObject owner) {
             super(new ImplInfraVisitor(source, target));
             this.source = source;
             this.target = target;
             this.owner = owner;
             this.modelFactory = modelFactory;
-            
+
         }
 
         @objid ("80ab06db-1dec-11e2-8cad-001ec947c8cc")
@@ -191,10 +194,10 @@ public class ModelLinkFactory implements IModelLinkFactory {
             final AssociationEnd targetEnd = this.modelFactory.createAssociationEnd();
             sourceEnd.setOpposite(targetEnd);
             targetEnd.setOpposite(sourceEnd);
-            
+
             sourceEnd.setSource((Classifier) this.source);
             sourceEnd.setTarget((Classifier) this.target);
-            
+
             final Association assoc = this.modelFactory.createAssociation();
             sourceEnd.setAssociation(assoc);
             targetEnd.setAssociation(assoc);
@@ -218,7 +221,7 @@ public class ModelLinkFactory implements IModelLinkFactory {
             } else if (this.source instanceof BpmnCatchEvent) {
                 theDataAssociation.setEndingEvent((BpmnCatchEvent) this.source);
             }
-            
+
             // Target
             if (this.target instanceof BpmnItemAwareElement) {
                 theDataAssociation.setTargetRef((BpmnItemAwareElement) this.target);
@@ -237,11 +240,11 @@ public class ModelLinkFactory implements IModelLinkFactory {
             while (parent != null && !(parent instanceof BpmnCollaboration)) {
                 parent = parent.getCompositionOwner();
             }
-            
+
             if (parent != null) {
                 BpmnCollaboration collaboration = (BpmnCollaboration) parent;
                 theMessageeFlow.setCollaboration(collaboration);
-            
+
                 theMessageeFlow.setSourceRef((BpmnBaseElement) this.source);
                 theMessageeFlow.setTargetRef((BpmnBaseElement) this.target);
             }
@@ -253,11 +256,11 @@ public class ModelLinkFactory implements IModelLinkFactory {
         public Object visitBpmnSequenceFlow(BpmnSequenceFlow theSequenceFlow) {
             if (this.source.getCompositionOwner() instanceof BpmnProcess) {
                 theSequenceFlow.setContainer((BpmnProcess) this.source.getCompositionOwner());
-            
+
             } else if (this.source.getCompositionOwner() instanceof BpmnSubProcess) {
                 theSequenceFlow.setSubProcess((BpmnSubProcess) this.source.getCompositionOwner());
             }
-            
+
             theSequenceFlow.setSourceRef((BpmnFlowNode) this.source);
             theSequenceFlow.setTargetRef((BpmnFlowNode) this.target);
             return theSequenceFlow;
@@ -292,7 +295,7 @@ public class ModelLinkFactory implements IModelLinkFactory {
             } else {
                 theCollaborationUse.setORepresented((Operation) this.source);
             }
-            
+
             theCollaborationUse.setType((Collaboration) this.target);
             return theCollaborationUse;
         }
@@ -331,10 +334,10 @@ public class ModelLinkFactory implements IModelLinkFactory {
             final ConnectorEnd targetEnd = this.modelFactory.createConnectorEnd();
             sourceEnd.setOpposite(targetEnd);
             targetEnd.setOpposite(sourceEnd);
-            
+
             sourceEnd.setSource((BindableInstance) this.source, true);
             sourceEnd.setTarget((BindableInstance) this.target, true);
-            
+
             Connector connector = this.modelFactory.createConnector();
             sourceEnd.setLink(connector);
             targetEnd.setLink(connector);
@@ -345,7 +348,7 @@ public class ModelLinkFactory implements IModelLinkFactory {
         @Override
         public Object visitElementImport(ElementImport theElementImport) {
             theElementImport.setImportedElement((NameSpace) this.target);
-            
+
             if (this.source instanceof NameSpace) {
                 theElementImport.setImportingNameSpace((NameSpace) this.source);
             } else {
@@ -391,13 +394,13 @@ public class ModelLinkFactory implements IModelLinkFactory {
         @Override
         public Object visitLinkEnd(LinkEnd sourceEnd) {
             final LinkEnd targetEnd = this.modelFactory.createLinkEnd();
-            
+
             sourceEnd.setOpposite(targetEnd);
             targetEnd.setOpposite(sourceEnd);
-            
+
             sourceEnd.setSource((Instance) this.source, true);
             sourceEnd.setTarget((Instance) this.target, true);
-            
+
             Link link = this.modelFactory.createLink();
             sourceEnd.setLink(link);
             targetEnd.setLink(link);
@@ -416,7 +419,7 @@ public class ModelLinkFactory implements IModelLinkFactory {
         @Override
         public Object visitPackageImport(PackageImport thePackageImport) {
             thePackageImport.setImportedPackage((Package) this.target);
-            
+
             if (this.source instanceof NameSpace) {
                 thePackageImport.setImportingNameSpace((NameSpace) this.source);
             } else {
@@ -457,7 +460,7 @@ public class ModelLinkFactory implements IModelLinkFactory {
             } else {
                 theTemplateBinding.setBoundOperation((Operation) this.source);
             }
-            
+
             if (this.target instanceof NameSpace) {
                 theTemplateBinding.setInstanciatedTemplate((NameSpace) this.target);
             } else {
@@ -484,6 +487,7 @@ public class ModelLinkFactory implements IModelLinkFactory {
 
         /**
          * Get the name space owning both model elements
+         *
          * @param aSource a model element
          * @param aTarget another model element
          * @return the common namespace
@@ -493,22 +497,22 @@ public class ModelLinkFactory implements IModelLinkFactory {
         private NameSpace getCommonNameSpace(final MObject aSource, final MObject aTarget) throws IllegalArgumentException {
             final ArrayList<MObject> l1 = new ArrayList<>(20);
             final ArrayList<MObject> l2 = new ArrayList<>(20);
-            
+
             MObject el = aSource;
             while (el != null) {
                 l1.add(el);
                 el = el.getCompositionOwner();
             }
-            
+
             el = aTarget;
             while (el != null) {
                 l2.add(el);
                 el = el.getCompositionOwner();
             }
-            
+
             Collections.reverse(l1);
             Collections.reverse(l2);
-            
+
             NameSpace ret = null;
             int i = 0;
             final int max = Math.min(l1.size(), l2.size());
@@ -527,17 +531,17 @@ public class ModelLinkFactory implements IModelLinkFactory {
                     return ret;
                 }
                 i++;
-            
+
             } while (i < max);
-            
+
             // Reaching this point means aSource == aTarget
             if (ret != null) {
                 return ret;
             }
-            
+
             // Should never reach this point.
             throw new IllegalArgumentException("No common namespace between " + aSource + " and " + aTarget);
-            
+
         }
 
     }
@@ -550,7 +554,7 @@ public class ModelLinkFactory implements IModelLinkFactory {
      * <li>Binding Link from CollaborationUse to the represented feature
      * <li>Binding link from the represented feature to the role
      * </ul>
-     * 
+     *
      * @author cmarin
      */
     @objid ("80afcb91-1dec-11e2-8cad-001ec947c8cc")
@@ -559,8 +563,8 @@ public class ModelLinkFactory implements IModelLinkFactory {
          * Constructor.
          */
         @objid ("80afcb94-1dec-11e2-8cad-001ec947c8cc")
-        public  BindingLinkFactory() {
-            
+        public BindingLinkFactory() {
+
         }
 
         /**
@@ -571,6 +575,7 @@ public class ModelLinkFactory implements IModelLinkFactory {
          * <li>Binding Link from CollaborationUse to the represented feature
          * <li>Binding link from the represented feature to the role
          * </ul>
+         *
          * @param theBinding The binding to initialize
          * @param source The binding source
          * @param target The binding target
@@ -586,14 +591,14 @@ public class ModelLinkFactory implements IModelLinkFactory {
                 theBinding.setRepresentedFeature((UmlModelElement) target);
             } else {
                 // Binding link from the represented feature to the role.
-            
+
                 final CollaborationUse collabUse;
                 if (owner != null) {
                     collabUse = (CollaborationUse) owner;
                 } else {
                     collabUse = getCollabUse(source, target);
                 }
-            
+
                 if (target instanceof BindableInstance) {
                     theBinding.setRepresentedFeature((UmlModelElement) source);
                     theBinding.setRole((BindableInstance) target);
@@ -609,6 +614,7 @@ public class ModelLinkFactory implements IModelLinkFactory {
 
         /**
          * Guess the collaboration use from the represented feature and the role.
+         *
          * @param feature the represented feature
          * @param role the role
          * @return the found collaboration use
@@ -618,19 +624,20 @@ public class ModelLinkFactory implements IModelLinkFactory {
         private CollaborationUse getCollabUse(final MObject feature, final MObject role) throws IllegalArgumentException {
             final Collaboration collab = getCollaborationOf(role);
             final Collection<CollaborationUse> uses = getCollabUsesOf(feature);
-            
+
             for (CollaborationUse u : uses) {
                 if (collab.equals(u.getType())) {
                     return u;
                 }
             }
-            
+
             throw new IllegalArgumentException("No matching collaboration use found.");
-            
+
         }
 
         /**
          * Get the collaboration uses accessible from the given represented feature.
+         *
          * @param feature a represented feature
          * @return accessible collaboration uses
          * @throws IllegalArgumentException if no collaboration uses were found
@@ -648,11 +655,12 @@ public class ModelLinkFactory implements IModelLinkFactory {
                 }
             }
             throw new IllegalArgumentException("No collaboration use found for " + feature + " represented feature.");
-            
+
         }
 
         /**
          * Get the collaboration that owns directly or indirectly the given role.
+         *
          * @param role a collaboration role
          * @return The collaboration owning the role.
          * @throws IllegalArgumentException If the given role is not owned by a collaboration.
@@ -669,9 +677,9 @@ public class ModelLinkFactory implements IModelLinkFactory {
                     container = container.getCompositionOwner();
                 }
             }
-            
+
             throw new IllegalArgumentException(role + " is not in a collaboration");
-            
+
         }
 
     }
@@ -685,10 +693,10 @@ public class ModelLinkFactory implements IModelLinkFactory {
         private MObject target;
 
         @objid ("f59dfc08-4527-4f74-adfb-695e3951640b")
-        public  ImplInfraVisitor(MObject source, MObject target) {
+        public ImplInfraVisitor(MObject source, MObject target) {
             this.source = source;
             this.target = target;
-            
+
         }
 
         @objid ("80ad691d-1dec-11e2-8cad-001ec947c8cc")
@@ -711,7 +719,7 @@ public class ModelLinkFactory implements IModelLinkFactory {
             } else {
                 throw new IllegalArgumentException(metaclass.getName() + " link creation is illegal.");
             }
-            
+
         }
 
     }

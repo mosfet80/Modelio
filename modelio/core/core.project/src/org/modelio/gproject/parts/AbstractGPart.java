@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.parts;
 
@@ -62,20 +62,21 @@ public abstract class AbstractGPart implements IGPart {
     private IGProject project;
 
     @objid ("7f05765a-d420-4588-8fbf-962349dd027f")
-    protected  AbstractGPart(GProjectPartDescriptor descriptor) {
+    protected AbstractGPart(GProjectPartDescriptor descriptor) {
         this.descriptor = descriptor;
         this.state = new GPartState(this);
-        
+
         if (this.descriptor.getAuth() == null) {
             // Many callers of getAuth() don't expect null return value.
             // Some of them also directly edit the returned descriptor and expect it to be persisted.
             this.descriptor.setAuth(new AuthDescriptor(null, DefinitionScope.LOCAL));
         }
-        
+
     }
 
     /**
      * Get the authData for this GModule by resolving its descriptor fields. If none, fallback to the project authData if possible.
+     *
      * @return the IAuthData to use for this GModule MDA fragment. May be <code>null</code>.
      */
     @objid ("f9aa92cc-eb03-4a5a-b1ac-3d0de2570a39")
@@ -86,11 +87,12 @@ public abstract class AbstractGPart implements IGPart {
         } else {
             return authData;
         }
-        
+
     }
 
     /**
      * Get the project this part is currently mounted in.
+     *
      * @return the project this part is mounted in or <code>null</code> if the part is not currently mounted in a project.
      */
     @objid ("b6eec665-9ff0-4bda-bbfd-8f40905b0b67")
@@ -166,7 +168,7 @@ public abstract class AbstractGPart implements IGPart {
     public void setActive(boolean b) {
         DefinitionScope scope = this.getProperties().getPropertyScope(PROP_ISACTIVE, DefinitionScope.LOCAL);
         this.getProperties().setBooleanProperty(PROP_ISACTIVE, b, scope);
-        
+
     }
 
     @objid ("9c5ba9bb-54f0-4bd0-85f6-0f3061943783")
@@ -176,7 +178,7 @@ public abstract class AbstractGPart implements IGPart {
         if (this.state.sendInstall() != GPartStateEnum.INSTALLED) {
             throw new GPartException("Install failed");
         }
-        
+
     }
 
     @objid ("7def9691-f4a6-4642-98eb-5dc38bc3cd66")
@@ -186,7 +188,7 @@ public abstract class AbstractGPart implements IGPart {
             throw new GPartException("Uninstall failed");
         }
         this.project = null;
-        
+
     }
 
     @objid ("c57e6974-ed27-404e-a534-104a87090cac")
@@ -199,7 +201,7 @@ public abstract class AbstractGPart implements IGPart {
                 getType(),
                 getDefinitionScope(),
                 getState().getValue());
-        
+
     }
 
 }

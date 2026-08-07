@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.objectnode;
 
@@ -40,6 +40,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Primary node for GmObjectNode
+ *
  * @author fpoyer
  */
 @objid ("2ad6e9a5-55b6-11e2-877f-002564c97630")
@@ -64,25 +65,26 @@ public class GmObjectNodePrimaryNode extends GmNoStyleCompositeNode implements I
 
     /**
      * Default constructor.
+     *
      * @param diagram the diagram in which this gm is unmasked.
      * @param ref a reference to the represented object node.
      */
     @objid ("2ad6e9b5-55b6-11e2-877f-002564c97630")
-    public  GmObjectNodePrimaryNode(IGmDiagram diagram, MRef ref) {
+    public GmObjectNodePrimaryNode(IGmDiagram diagram, MRef ref) {
         super(diagram, ref);
         this.header = new GmObjectNodeHeader(diagram, ref);
         this.header.setShowMetaclassIcon(true);
         super.addChild(this.header);
         this.objectNodeStateLabel = new GmObjectNodeStateLabel(diagram, ref);
         addChild(this.objectNodeStateLabel);
-        
+
     }
 
     /**
      * Empty constructor, needed for serialization.
      */
     @objid ("2ad8701b-55b6-11e2-877f-002564c97630")
-    public  GmObjectNodePrimaryNode() {
+    public GmObjectNodePrimaryNode() {
         // empty constructor for the serialization
     }
 
@@ -109,6 +111,7 @@ public class GmObjectNodePrimaryNode extends GmNoStyleCompositeNode implements I
 
     /**
      * Get the stereotype image to display.
+     *
      * @return the stereotype image to display. Must not be <i>null</i>.
      */
     @objid ("2ad87038-55b6-11e2-877f-002564c97630")
@@ -140,7 +143,7 @@ public class GmObjectNodePrimaryNode extends GmNoStyleCompositeNode implements I
             break;
         }
         }
-        
+
     }
 
     @objid ("2ad8704b-55b6-11e2-877f-002564c97630")
@@ -152,7 +155,7 @@ public class GmObjectNodePrimaryNode extends GmNoStyleCompositeNode implements I
         firePropertyChange(PROPERTY_LABEL, oldLabel, this.header.getMainLabel());
         // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("2ad8704e-55b6-11e2-877f-002564c97630")
@@ -178,10 +181,10 @@ public class GmObjectNodePrimaryNode extends GmNoStyleCompositeNode implements I
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmObjectNodePrimaryNode.", GmObjectNodePrimaryNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("2ad9f6bc-55b6-11e2-877f-002564c97630")
@@ -189,7 +192,7 @@ public class GmObjectNodePrimaryNode extends GmNoStyleCompositeNode implements I
         super.read(in);
         this.header = (GmObjectNodeHeader) this.getChildren().get(0);
         this.objectNodeStateLabel = (GmElementLabel) this.getChildren().get(1);
-        
+
     }
 
     @objid ("2ad9f6c1-55b6-11e2-877f-002564c97630")
@@ -200,21 +203,22 @@ public class GmObjectNodePrimaryNode extends GmNoStyleCompositeNode implements I
 
     /**
      * Migration constructor.
+     *
      * @param oldVersionGm the instance to migrate from.
      */
     @objid ("2ad9f6c6-55b6-11e2-877f-002564c97630")
-     GmObjectNodePrimaryNode(final _GmObjectNode oldVersionGm) {
+    GmObjectNodePrimaryNode(final _GmObjectNode oldVersionGm) {
         super(oldVersionGm.getDiagram(), oldVersionGm.getRepresentedRef());
-        
+
         this.header = oldVersionGm.getHeader();
         this.header.setShowMetaclassIcon(true);
         oldVersionGm.removeChild(this.header);
         super.addChild(this.header);
-        
+
         this.objectNodeStateLabel = oldVersionGm.getObjectNodeStateLabel();
         oldVersionGm.removeChild(this.objectNodeStateLabel);
         addChild(this.objectNodeStateLabel);
-        
+
     }
 
 }

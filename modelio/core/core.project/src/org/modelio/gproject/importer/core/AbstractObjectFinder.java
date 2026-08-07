@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.importer.core;
 
@@ -35,10 +35,10 @@ public abstract class AbstractObjectFinder implements IObjectFinder {
     protected final IModel searchedSession;
 
     @objid ("7e6e5e8d-6df5-4cb0-b2b7-2d7da9037d94")
-    public  AbstractObjectFinder(IModel searchedSession, MMetamodel metamodel) {
+    public AbstractObjectFinder(IModel searchedSession, MMetamodel metamodel) {
         this.searchedSession = searchedSession;
         this.metamodel = metamodel;
-        
+
     }
 
     @objid ("34503f1e-2de5-47fb-b93d-94b249899525")
@@ -49,7 +49,7 @@ public abstract class AbstractObjectFinder implements IObjectFinder {
         } else {
             return (SmAttribute) getSameMetaclass(dep.getOwner()).getAttribute(dep.getName());
         }
-        
+
     }
 
     @objid ("200bac10-0220-4dd2-8598-5de1cc4168f7")
@@ -60,7 +60,7 @@ public abstract class AbstractObjectFinder implements IObjectFinder {
         } else {
             return (SmDependency) getSameMetaclass(dep.getSource()).getDependency(dep.getName());
         }
-        
+
     }
 
     @objid ("e9facf8c-b3c3-42ff-b536-3a680ca73e41")
@@ -71,7 +71,7 @@ public abstract class AbstractObjectFinder implements IObjectFinder {
         } else {
             return this.metamodel.getMClass(srcClassof.getQualifiedName());
         }
-        
+
     }
 
     @objid ("84392164-6dee-47c8-935b-5b661c9f7f04")

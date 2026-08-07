@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.factories;
 
@@ -106,7 +106,7 @@ public final class SequenceEditPartFactory implements EditPartFactory {
     @Override
     public EditPart createEditPart(EditPart context, Object model) {
         EditPart editPart;
-        
+
         if (model instanceof GmNodeModel) {
             // For node models, delegates according the representation model.
             GmNodeModel node = (GmNodeModel) model;
@@ -126,16 +126,16 @@ public final class SequenceEditPartFactory implements EditPartFactory {
             default:
                 editPart = null;
             }
-        
+
             if (editPart != null) {
                 return editPart;
             }
-        
+
             return null;
         }
         // Link models are always in structured mode.
         editPart = this.structuredModeEditPartFactory.createEditPart(context, model);
-        
+
         if (editPart != null) {
             return editPart;
         }
@@ -151,51 +151,51 @@ public final class SequenceEditPartFactory implements EditPartFactory {
         @Override
         public EditPart createEditPart(EditPart context, Object model) {
             EditPart editPart = null;
-            
+
             Class<? extends Object> cls = model.getClass();
-            
+
             if (cls == GmSequenceDiagram.class) {
                 editPart = new SequenceDiagramEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (cls == GmLifeline.class) {
                 editPart = new LifelineEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (cls == GmLifelineHeader.class) {
                 editPart = new LifelineHeaderEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (cls == GmLifelineHeaderContainer.class) {
                 editPart = new LifelineHeaderContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (cls == GmLifelineBody.class) {
                 editPart = new LifelineBodyEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (cls == GmMessage.class) {
                 editPart = new MessageEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (cls == GmMessageHeader.class) {
                 editPart = new ModelElementLabelEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (cls == GmExecutionOccurenceSpecification.class) {
                 editPart = new ExecutionOccurenceSpecificationEditPart();
                 editPart.setModel(model);
@@ -206,7 +206,7 @@ public final class SequenceEditPartFactory implements EditPartFactory {
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (cls == GmInteractionUse.class) {
                 editPart = new InteractionUseEditPart();
                 editPart.setModel(model);
@@ -217,43 +217,43 @@ public final class SequenceEditPartFactory implements EditPartFactory {
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (cls == org.modelio.uml.sequencediagram.editor.elements.combinedfragment.primarynode.GmOperatorLabel.class) {
                 editPart = new OperatorEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (cls == org.modelio.uml.sequencediagram.editor.elements.interactionuse.primarynode.GmOperatorLabel.class) {
                 editPart = new OperatorEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (cls == GmGateOnInteractionUse.class) {
                 editPart = new GateOnInteractionUseEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (cls == GmGateOnInteractionUsePrimaryNode.class) {
                 editPart = new GateOnInteractionUsePrimaryNodeEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (cls == GmGate.class) {
                 editPart = new GateEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (cls == GmGatePrimaryNode.class) {
                 editPart = new GatePrimaryNodeEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (cls == GmCombinedFragment.class) {
                 editPart = new CombinedFragmentEditPart();
                 editPart.setModel(model);
@@ -284,13 +284,13 @@ public final class SequenceEditPartFactory implements EditPartFactory {
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (cls == GmStateInvariant.class) {
                 editPart = new StateInvariantEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (cls == GmStateInvariantBodyText.class) {
                 editPart = new ElementTextEditPart();
                 editPart.setModel(model);
@@ -310,46 +310,46 @@ public final class SequenceEditPartFactory implements EditPartFactory {
         @Override
         public EditPart createEditPart(final EditPart context, final Object model) {
             EditPart editPart = null;
-            
+
             Class<? extends Object> cls = model.getClass();
-            
+
             if (cls == GmGateOnInteractionUse.class) {
                 editPart = new GateOnInteractionUseEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (cls == GmGateOnInteractionUsePrimaryNode.class) {
                 editPart = new GateOnInteractionUsePrimaryNodeEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (cls == GmGate.class) {
                 editPart = new GateEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (cls == GmGatePrimaryNode.class) {
                 editPart = new GatePrimaryNodeEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (cls == GmLifelineHeaderContainer.class) {
                 // editPart = new LifelineHeaderContainerSimpleEditPart();
                 editPart = new LifelineHeaderContainerEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (cls == GmLifeline.class) {
                 editPart = new LifelineEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             if (cls == GmLifelineHeader.class) {
                 editPart = new LifelineHeaderEditPart();
                 editPart.setModel(model);
@@ -363,7 +363,7 @@ public final class SequenceEditPartFactory implements EditPartFactory {
     /**
      * EditPart factory for Sequence graphical models in image mode.
      * <p>
-     * 
+     *
      * @author fpoyer
      */
     @objid ("d986c2c4-55b6-11e2-877f-002564c97630")
@@ -372,13 +372,13 @@ public final class SequenceEditPartFactory implements EditPartFactory {
         @Override
         public EditPart createEditPart(final EditPart context, final Object model) {
             EditPart editPart = null;
-            
+
             if (model.getClass() == GmLifelineHeaderContainer.class) {
                 editPart = new LifelineHeaderContainerImageEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
-            
+
             // Lifeline in image mode...
             if (model.getClass() == GmDefaultModelElementLabel.class) {
                 editPart = new ModelElementLabelEditPart();

@@ -1,26 +1,26 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.diagramauto.diagram.wizard;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.modelio.api.module.contributor.diagramcreation.AbstractDiagramWizardContributor;
 import org.modelio.api.ui.viewtemplate.IModelViewTemplate;
@@ -71,7 +71,7 @@ public abstract class AbstractAutoDiagramWizardContributor extends AbstractDiagr
             diagram.putNoteContent("ModelerModule", ModelElement.MQNAME, "description", diagramDescription);
             return diagram;
         }
-        
+
     }
 
     @objid ("f178b37e-78df-4a5d-99bd-d0fe80017560")
@@ -80,26 +80,26 @@ public abstract class AbstractAutoDiagramWizardContributor extends AbstractDiagr
         if (!super.accept(main)) {
             return false;
         }
-        
+
         IModelViewTemplate<AbstractDiagram> creator = this.diagramCreationService.get(getModelViewTemplateId());
         if (creator == null) {
             return false;
         }
-        
+
         // Deactivate if no context is found
         if (creator.resolveOrigin(main) == null) {
             return false;
         }
-        
+
         AbstractDiagram existingDiagram = creator.getExistingView(main);
-        
+
         // Unmodifiable diagram means the command is disabled
         if (existingDiagram != null && !existingDiagram.getStatus().isModifiable()) {
             return false;
         } else {
             return true;
         }
-        
+
     }
 
 }

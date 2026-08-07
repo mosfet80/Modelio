@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.deploymentdiagram.editor.elements.node;
 
@@ -125,42 +125,43 @@ public class GmNodePrimaryNode extends GmNoStyleCompositeNode implements IImagea
      * Constructor for deserialization only.
      */
     @objid ("973d7637-55b6-11e2-877f-002564c97630")
-    public  GmNodePrimaryNode() {
+    public GmNodePrimaryNode() {
         // Nothing to do.
     }
 
     /**
      * Creates a GmClass.
+     *
      * @param diagram The owner diagram.
      * @param ref a reference to the element this GmModel is related to, must not be null.
      */
     @objid ("973d763a-55b6-11e2-877f-002564c97630")
-    public  GmNodePrimaryNode(IGmDiagram diagram, final MRef ref) {
+    public GmNodePrimaryNode(IGmDiagram diagram, final MRef ref) {
         super(diagram, ref);
-        
+
         this.header = new GmNamespaceHeader(diagram, ref);
         this.header.setRoleInComposition(GmNodePrimaryNode.HEADER);
-        
+
         this.attributeGroup = new GmAttributeGroup(diagram, ref);
         this.attributeGroup.setRoleInComposition(GmNodePrimaryNode.ATTRIBUTE_GROUP);
-        
+
         this.methodGroup = new GmOperationGroup(diagram, ref);
         this.methodGroup.setRoleInComposition(GmNodePrimaryNode.METHOD_GROUP);
-        
+
         this.internalStructure = new GmInternalStructure(diagram, ref);
         this.internalStructure.setRoleInComposition(GmNodePrimaryNode.INTERNAL);
-        
+
         this.innerElements = new GmInnerClass(diagram, ref);
         this.innerElements.setRoleInComposition(GmNodePrimaryNode.INNER);
-        
+
         super.addChild(this.header);
         super.addChild(this.attributeGroup);
         super.addChild(this.methodGroup);
         super.addChild(this.internalStructure);
         super.addChild(this.innerElements);
-        
+
         styleChanged(getDisplayedStyle());
-        
+
     }
 
     @objid ("973d7644-55b6-11e2-877f-002564c97630")
@@ -177,6 +178,7 @@ public class GmNodePrimaryNode extends GmNoStyleCompositeNode implements IImagea
 
     /**
      * Get the group where <tt>GmAttributes</tt> are unmasked.
+     *
      * @return the attributes group.
      */
     @objid ("973d7654-55b6-11e2-877f-002564c97630")
@@ -212,6 +214,7 @@ public class GmNodePrimaryNode extends GmNoStyleCompositeNode implements IImagea
 
     /**
      * Get the internal structure.
+     *
      * @return the internal structure.
      */
     @objid ("973efccc-55b6-11e2-877f-002564c97630")
@@ -221,6 +224,7 @@ public class GmNodePrimaryNode extends GmNoStyleCompositeNode implements IImagea
 
     /**
      * Get the group where {@link Operation} are unmasked.
+     *
      * @return the operations group.
      */
     @objid ("973efcd1-55b6-11e2-877f-002564c97630")
@@ -269,7 +273,7 @@ public class GmNodePrimaryNode extends GmNoStyleCompositeNode implements IImagea
             break;
         }
         }
-        
+
     }
 
     @objid ("973efcec-55b6-11e2-877f-002564c97630")
@@ -281,7 +285,7 @@ public class GmNodePrimaryNode extends GmNoStyleCompositeNode implements IImagea
         firePropertyChange(IGmObject.PROPERTY_LABEL, oldLabel, this.header.getMainLabel());
         // forcing visual refresh in case Image changed
         firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("973efcef-55b6-11e2-877f-002564c97630")
@@ -307,18 +311,18 @@ public class GmNodePrimaryNode extends GmNoStyleCompositeNode implements IImagea
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmNodePrimaryNode.", GmNodePrimaryNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("97408359-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
-        
+
         final List<GmNodeModel> children = getChildren();
-        
+
         this.header = (GmModelElementHeader) children.get(0);
         this.attributeGroup = (GmGroup) children.get(1);
         this.methodGroup = (GmGroup) children.get(2);
@@ -327,31 +331,31 @@ public class GmNodePrimaryNode extends GmNoStyleCompositeNode implements IImagea
         GmGroup innerGroup = (GmGroup) children.get(5);
         GmFreeZone innerZone = (GmFreeZone) children.get(6);
         GmDefaultModelElementLabel imageModeHeader = (GmDefaultModelElementLabel) this.getChildren().get(7);
-        
+
         // Migrate inner group/zone
         removeChild(innerGroup);
         removeChild(innerZone);
-        
+
         // Migrate internal structure group/zone
         removeChild(internalStructureGroup);
         removeChild(internalStructureZone);
-        
+
         // Delete image mode label
         imageModeHeader.delete();
-        
+
         this.innerElements = new GmInnerClass(getDiagram(), getRepresentedRef(), innerZone, innerGroup);
         this.internalStructure = new GmInternalStructure(getDiagram(), getRepresentedRef(), internalStructureZone, internalStructureGroup);
-        
+
         addChild(this.innerElements);
         addChild(this.internalStructure);
-        
+
         // Add roles
         this.header.setRoleInComposition(GmNodePrimaryNode.HEADER);
         this.attributeGroup.setRoleInComposition(GmNodePrimaryNode.ATTRIBUTE_GROUP);
         this.methodGroup.setRoleInComposition(GmNodePrimaryNode.METHOD_GROUP);
         this.internalStructure.setRoleInComposition(GmNodePrimaryNode.INTERNAL);
         this.innerElements.setRoleInComposition(GmNodePrimaryNode.INNER);
-        
+
     }
 
     @objid ("9740835e-55b6-11e2-877f-002564c97630")
@@ -363,27 +367,27 @@ public class GmNodePrimaryNode extends GmNoStyleCompositeNode implements IImagea
     @objid ("97408363-55b6-11e2-877f-002564c97630")
     private void read_1(final IDiagramReader in) {
         super.read(in);
-        
+
         this.header = (GmModelElementHeader) getFirstChild(GmNodePrimaryNode.HEADER);
         this.attributeGroup = (GmGroup) getFirstChild(GmNodePrimaryNode.ATTRIBUTE_GROUP);
         this.methodGroup = (GmGroup) getFirstChild(GmNodePrimaryNode.METHOD_GROUP);
         GmGroup internalStructureGroup = (GmGroup) getFirstChild(GmNodePrimaryNode.INTERNAL_GROUP);
         GmFreeZone internalStructureZone = (GmFreeZone) getFirstChild(GmNodePrimaryNode.INTERNAL_ZONE);
         this.innerElements = (GmInnerClass) getFirstChild(GmNodePrimaryNode.INNER);
-        
+
         // Migrate internal structure group/zone
         removeChild(internalStructureGroup);
         removeChild(internalStructureZone);
-        
+
         this.internalStructure = new GmInternalStructure(getDiagram(), getRepresentedRef(), internalStructureZone, internalStructureGroup);
         this.internalStructure.setRoleInComposition(GmNodePrimaryNode.INTERNAL);
-        
+
         addChild(this.internalStructure);
-        
+
         // Delete image mode label
         GmDefaultModelElementLabel imageModeHeader = (GmDefaultModelElementLabel) getFirstChild("ImageHeader");
         imageModeHeader.delete();
-        
+
     }
 
     @objid ("97408369-55b6-11e2-877f-002564c97630")
@@ -394,35 +398,35 @@ public class GmNodePrimaryNode extends GmNoStyleCompositeNode implements IImagea
     @objid ("9740836d-55b6-11e2-877f-002564c97630")
     private void read_2(final IDiagramReader in) {
         super.read(in);
-        
+
         this.header = (GmModelElementHeader) getFirstChild(GmNodePrimaryNode.HEADER);
         this.attributeGroup = (GmGroup) getFirstChild(GmNodePrimaryNode.ATTRIBUTE_GROUP);
         this.methodGroup = (GmGroup) getFirstChild(GmNodePrimaryNode.METHOD_GROUP);
         GmGroup internalStructureGroup = (GmGroup) getFirstChild(GmNodePrimaryNode.INTERNAL_GROUP);
         GmFreeZone internalStructureZone = (GmFreeZone) getFirstChild(GmNodePrimaryNode.INTERNAL_ZONE);
         this.innerElements = (GmInnerClass) getFirstChild(GmNodePrimaryNode.INNER);
-        
+
         // Migrate internal structure group/zone
         removeChild(internalStructureGroup);
         removeChild(internalStructureZone);
-        
+
         this.internalStructure = new GmInternalStructure(getDiagram(), getRepresentedRef(), internalStructureZone, internalStructureGroup);
         this.internalStructure.setRoleInComposition(GmNodePrimaryNode.INTERNAL);
-        
+
         addChild(this.internalStructure);
-        
+
     }
 
     @objid ("97408373-55b6-11e2-877f-002564c97630")
     private void read_3(final IDiagramReader in) {
         super.read(in);
-        
+
         this.header = (GmModelElementHeader) getFirstChild(GmNodePrimaryNode.HEADER);
         this.attributeGroup = (GmGroup) getFirstChild(GmNodePrimaryNode.ATTRIBUTE_GROUP);
         this.methodGroup = (GmGroup) getFirstChild(GmNodePrimaryNode.METHOD_GROUP);
         this.internalStructure = (GmInternalStructure) getFirstChild(GmNodePrimaryNode.INTERNAL);
         this.innerElements = (GmInnerClass) getFirstChild(GmNodePrimaryNode.INNER);
-        
+
     }
 
 }

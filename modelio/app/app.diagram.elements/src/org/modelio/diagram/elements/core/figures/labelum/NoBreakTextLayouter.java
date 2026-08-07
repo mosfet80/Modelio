@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures.labelum;
 
@@ -47,23 +47,23 @@ public class NoBreakTextLayouter implements ILabelumTextLayouter {
     public String formatText(LabelumFigure labelumFigure, String origText, Dimension maxSize) {
         final TextUtilities textUtilities = labelumFigure.getTextUtilities();
         final Font font = labelumFigure.getTextFont();
-        
+
         int origWidth = textUtilities.getTextExtents(origText, font).width;
         if (origWidth <= maxSize.width())
             return origText;
-        
+
         int truncationWidth = textUtilities.getTextExtents(getTruncationString(), font).width;
-        
+
         if (maxSize.width < truncationWidth)
             maxSize.width = truncationWidth;
-        
+
         StringBuilder sb = new StringBuilder();
-        
+
         int largestLineLength = textUtilities.getLargestSubstringConfinedTo(
                 origText, font, maxSize.width - truncationWidth);
-        
+
         sb.append(origText, 0 , largestLineLength);
-        
+
         if (largestLineLength < origText.length())
             sb.append(getTruncationString());
         return sb.toString();

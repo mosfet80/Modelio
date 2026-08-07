@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.plugin;
 
@@ -58,6 +58,7 @@ public abstract class AbstractDiagramConfigurer implements IDiagramConfigurer {
 
     /**
      * Creates a drawings palette group.
+     *
      * @param toolRegistry the tool registry
      * @return the created drawings palette group.
      */
@@ -70,7 +71,7 @@ public abstract class AbstractDiagramConfigurer implements IDiagramConfigurer {
         group.add(toolRegistry.getTool(ToolRegistry.TOOL_CREATE_DRAWING_NOTE));
         //group.add(toolRegistry.getTool(ToolRegistry.TOOL_CREATE_DRAWING_POLYGON));
         group.add(toolRegistry.getTool(ToolRegistry.TOOL_CREATE_DRAWING_LINE));
-        
+
         group.setInitialState(PaletteDrawer.INITIAL_STATE_CLOSED);
         return group;
     }
@@ -89,6 +90,7 @@ public abstract class AbstractDiagramConfigurer implements IDiagramConfigurer {
      * Get the identifier of the palette to look for in the plugin.xml .
      * <p>
      * By default it is {@link #getContributionURI()}, may be redefined by sub classes.
+     *
      * @return the palette identifier.
      */
     @objid ("719927b7-86c6-4758-874f-d70e6c79a310")
@@ -98,6 +100,7 @@ public abstract class AbstractDiagramConfigurer implements IDiagramConfigurer {
 
     /**
      * Read the palette content from plugin.xml.
+     *
      * @param toolRegistry the tool registry
      * @return the created palette .
      */
@@ -105,7 +108,7 @@ public abstract class AbstractDiagramConfigurer implements IDiagramConfigurer {
     protected PaletteRoot readPaletteFromPlugin(final AbstractDiagramEditor diagram, final ToolRegistry toolRegistry) {
         PaletteRoot paletteRoot = new PaletteRoot();
         paletteRoot.setId(getPaletteId());
-        
+
         for (final IConfigurationElement e : new ExtensionPointContributionManager(PALETTEEXTENSION_ID).getExtensions("palette")) {
             if (e.getAttribute("id").equals(getPaletteId())) {
                 parsePaletteContainer(paletteRoot, e, toolRegistry, paletteRoot);
@@ -119,13 +122,13 @@ public abstract class AbstractDiagramConfigurer implements IDiagramConfigurer {
         for (final IConfigurationElement child : el.getChildren()) {
             parsePaletteEntry(container, toolRegistry, paletteRoot, child);
         }
-        
+
     }
 
     @objid ("7a16daeb-e080-4651-84b2-25b7274aaddb")
     private void parsePaletteEntry(final PaletteContainer container, final ToolRegistry toolRegistry, final PaletteRoot paletteRoot, final IConfigurationElement child) {
         ToolEntry createdToolEntry = null;
-        
+
         switch (child.getName()) {
         case "palette_group":
             if ("false".equalsIgnoreCase(child.getAttribute("collapsible"))) {
@@ -137,11 +140,11 @@ public abstract class AbstractDiagramConfigurer implements IDiagramConfigurer {
                 final PaletteDrawer group = new PaletteDrawer(
                         child.getAttribute("label"),
                         getIconDescriptor(child));
-        
+
                 group.setId(child.getAttribute("id"));
                 container.add(group);
                 parsePaletteContainer(group, child, toolRegistry,paletteRoot);
-        
+
                 final String initialState = child.getAttribute("initialState");
                 if (initialState == null || initialState.equals("closed")) {
                     group.setInitialState(PaletteDrawer.INITIAL_STATE_CLOSED);
@@ -184,11 +187,11 @@ public abstract class AbstractDiagramConfigurer implements IDiagramConfigurer {
         default:
             DiagramEditor.LOG.warning("AbstractDiagramConfigurer: Unknown '%s' palette entry for '%s' contributor.", child.getName(), child.getContributor().getName());
         }
-        
+
         if (createdToolEntry != null && "true".equalsIgnoreCase(child.getAttribute("default"))) {
             paletteRoot.setDefaultEntry(createdToolEntry);
         }
-        
+
     }
 
 }

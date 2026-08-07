@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vbasic.net;
 
@@ -61,20 +61,21 @@ public class CachedUriFile {
     private IAuthData authData;
 
     /**
+     *
      * @param uri the URI to cache.
      * @param destDirectory the destination directory.
      * @param authData authentication data, may be <code>null</code>.
      */
     @objid ("706c2052-0a4e-49da-99a6-1d681c904991")
-    public  CachedUriFile(URI uri, Path destDirectory, IAuthData authData) {
+    public CachedUriFile(URI uri, Path destDirectory, IAuthData authData) {
         this.uri = uri;
-        
+
         String name = UriUtils.getFileName(uri);
-        
+
         this.destFile = destDirectory.resolve(name);
         this.stampFile = destDirectory.resolve(name+".stamp");
         this.authData = authData;
-        
+
     }
 
     /**
@@ -83,6 +84,7 @@ public class CachedUriFile {
      * If the timeout expires before the connection can be established,
      * a java.net.SocketTimeoutException is raised.
      * A timeout of zero is interpreted as an infinite timeout.
+     *
      * @param timeout the time out
      */
     @objid ("4f6a159f-591d-4239-8532-8adb704a0197")
@@ -94,6 +96,7 @@ public class CachedUriFile {
      * Get a path to the up to date file.
      * <p>
      * Download the file from the remote location if needed.
+     *
      * @return the cached file path.
      * @throws FileSystemException in case of file system exception.
      * Use {@link FileUtils#getLocalizedMessage(FileSystemException)} to get an error message.
@@ -102,22 +105,22 @@ public class CachedUriFile {
     @objid ("6109fe2a-b2d4-4a63-ba5d-3dd5de305fa0")
     public Path getFile() throws FileSystemException, IOException {
         this.hasChanged = false;
-        
+
         String localStamp = readLocalStamp();
         UriConnection conn = UriConnections.createConnection(this.uri);
         conn.setConnectTimeout(this.timeout);
         conn.setAuthenticationData(this.authData);
-        
+
         if (localStamp != null)
             conn.setIfNotStamp(localStamp);
-        
+
         String remoteStamp = conn.getStamp();
         if (remoteStamp == null || localStamp==null || ! Objects.equals(localStamp, remoteStamp)) {
             try (InputStream is = conn.getInputStream();
                     Backup bak = new Backup()) {
                 Files.copy(is, this.destFile, StandardCopyOption.REPLACE_EXISTING);
                 this.hasChanged = true;
-            } 
+            }
         }
         return this.destFile;
     }
@@ -126,6 +129,7 @@ public class CachedUriFile {
      * Read the local stamp.
      * <p>
      * Returns <code>null</code> if the file has never been downloaded.
+     *
      * @return the local stamp.
      * @throws FileSystemException in case of file system exception.
      * Use {@link FileUtils#getLocalizedMessage(FileSystemException)} to get an error message.
@@ -135,17 +139,18 @@ public class CachedUriFile {
     private String readLocalStamp() throws FileSystemException, IOException {
         if (! Files.isRegularFile(this.destFile))
             return null;
-        
+
         try {
             return FileUtils.readWhole(this.stampFile, "UTF-8");
         } catch (NoSuchFileException e) {
             return null;
         }
-        
+
     }
 
     /**
      * Tells whether last call to {@link #getFile()} changed the cached file.
+     *
      * @return <code>true</code> if the cached file has been modified, else <code>false</code>.
      */
     @objid ("d0a8f416-2424-4b42-88ab-0cc518f61205")
@@ -158,6 +163,7 @@ public class CachedUriFile {
      * <p>
      * This method does not access the network and the file may
      * not exist.
+     *
      * @return the path where the cached file is downloaded.
      */
     @objid ("97419864-df5f-4757-8380-5dfdd76df02c")
@@ -175,10 +181,10 @@ public class CachedUriFile {
         private Path backFile;
 
         @objid ("258d7a64-c8f3-4ad9-a122-7d0b78c17fca")
-        public  Backup() throws IOException {
+        public Backup() throws IOException {
             this.backFile = getCachedFileLocation().resolveSibling(getCachedFileLocation().getFileName().toString()+".old");
             Files.move(getCachedFileLocation(), this.backFile, StandardCopyOption.REPLACE_EXISTING);
-            
+
         }
 
         @objid ("414669e5-18e6-4551-a79c-67f21507d75b")
@@ -187,7 +193,7 @@ public class CachedUriFile {
             if (!hasChanged()) {
                 Files.move(this.backFile, getCachedFileLocation() , StandardCopyOption.REPLACE_EXISTING);
             }
-            
+
         }
 
     }

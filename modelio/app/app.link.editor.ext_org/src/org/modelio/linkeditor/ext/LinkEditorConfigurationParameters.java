@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.linkeditor.ext;
 
@@ -179,8 +179,8 @@ public class LinkEditorConfigurationParameters implements ILinkEditorConfigurati
         List<Stereotype> enabledStereotypes = new ArrayList<>();
 
         @objid ("84f69a2c-a620-408e-95ef-6d84991ff620")
-        public  ParametrizedLinkFilter() {
-            
+        public ParametrizedLinkFilter() {
+
         }
 
         /**
@@ -192,12 +192,12 @@ public class LinkEditorConfigurationParameters implements ILinkEditorConfigurati
             // Accept any assoc whatever the stereotype
             if (this.showAssociations && AssociationEnd.class.isAssignableFrom(mc.getJavaInterface()))
                 return true;
-            
+
             // Accept inheritance linkw whatever the stereoype
             if (this.showInheritance && (Generalization.class.isAssignableFrom(mc.getJavaInterface()) || InterfaceRealization.class.isAssignableFrom(mc.getJavaInterface())))
                 return true;
-            
-            
+
+
             if (Dependency.class.isAssignableFrom(mc.getJavaInterface())) {
                 return (this.showDeps && st==null)                                                        // Accept pure Dependency links ie no stereotype at all
                         || (this.showTraces && (st != null) && (st.getName().equals("trace")))            // Accept trace links which are Dependency stereotyped <<trace>>

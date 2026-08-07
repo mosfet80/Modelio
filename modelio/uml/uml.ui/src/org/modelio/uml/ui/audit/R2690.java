@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -63,7 +63,7 @@ public class R2690 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -84,11 +84,11 @@ public class R2690 extends AbstractUmlRule {
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE);
         plan.registerRule(Operation.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         // Namespaces
         plan.registerRule(Package.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Collaboration.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         // Namespaces.Classifiers
         plan.registerRule(InformationItem.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Artifact.MQNAME, this, AuditTrigger.UPDATE);
@@ -102,7 +102,7 @@ public class R2690 extends AbstractUmlRule {
         plan.registerRule(UseCase.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Node.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Component.MQNAME, this, AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -136,14 +136,14 @@ public class R2690 extends AbstractUmlRule {
      * Default constructor for R2690
      */
     @objid ("b7f586fd-1107-4c36-b014-709c3171d061")
-    public  R2690() {
+    public R2690() {
         this.checkerInstance = new CheckR2690(this);
     }
 
     @objid ("14660255-31d7-4344-953d-f00f15306cab")
     private static class CheckR2690 extends AbstractControl {
         @objid ("cbc7307e-cc1b-445e-9160-72b84a27f599")
-        public  CheckR2690(IRule rule) {
+        public CheckR2690(IRule rule) {
             super(rule);
         }
 
@@ -174,27 +174,27 @@ public class R2690 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     tBinding,
                     null);
-            
+
             NameSpace nsOrigin = tBinding.getBoundElement();
             Operation opOrigin = tBinding.getBoundOperation();
-            
+
             NameSpace nsTarget = tBinding.getInstanciatedTemplate();
             Operation opTarget = tBinding.getInstanciatedTemplateOperation();
-            
+
             if (nsOrigin != null && nsTarget != null && nsOrigin.equals(nsTarget)) {
-            
+
                 // Rule failed
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(tBinding);
                 linkedObjects.add(nsOrigin);
                 auditEntry.setLinkedInfos(linkedObjects);
-            
+
             } else if (opOrigin != null && opTarget != null && opOrigin.equals(opTarget)) {
-            
+
                 // Rule failed
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(tBinding);

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package com.sun.star.comp.beans;
 
@@ -32,8 +32,7 @@ import com.sun.star.uno.UnoRuntime;
  * But for non optional interfaces you can already directly call their methods.
  * <p>
  * This wrapper will only work for UNO objects via a bridge, not for direct Java objects.
- * 
- * 
+ *
  * @since OOo 2.0.0
  */
 @objid ("ff4ce722-5d1b-494f-abf9-0041574dc3fb")
@@ -45,11 +44,11 @@ class Wrapper implements com.sun.star.lib.uno.Proxy, com.sun.star.uno.IQueryInte
     private com.sun.star.lang.XComponent xComponent;
 
     @objid ("25ac4214-7bfd-4051-bc9a-d200a002824a")
-    public  Wrapper(final com.sun.star.uno.XInterface xProxy) {
+    public Wrapper(final com.sun.star.uno.XInterface xProxy) {
         this.xQueryInterface = (com.sun.star.uno.IQueryInterface) xProxy;
-        this.xComponent = UnoRuntime.queryInterface( 
+        this.xComponent = UnoRuntime.queryInterface(
                                                     com.sun.star.lang.XComponent.class, xProxy );
-        
+
     }
 
     /**

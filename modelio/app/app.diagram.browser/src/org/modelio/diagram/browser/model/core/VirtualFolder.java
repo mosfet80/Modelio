@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.browser.model.core;
 
@@ -27,20 +27,19 @@ import org.modelio.metamodel.uml.infrastructure.Element;
 
 /**
  * A VirtualFolder is used to render a non modifiable folder in the browser tree.
- * 
+ *
  * A VirtualFolder holds a object 'delegate' that is passed at construction time and that can be retrieved later in the
  * VirtualFolder method implementations. The delegate object holds no particular semantic.
- * 
+ *
  * A VirtualFolder can also hold an optional "represented element", which is an Element used to choose an icon for the folder in he
  * tree. This mechanism allows for defining folders that actually display as model elements (although they do not provide ANY
  * edition facility).
- * 
- * 
+ *
  * @author pvlaemyn
  */
 @objid ("003b0830-0d4f-10c6-842f-001ec947cd2a")
 public abstract class VirtualFolder implements ITreeContentProvider {
-    
+
     @mdl.prop
     @objid ("003b7c7a-0d4f-10c6-842f-001ec947cd2a")
     public Element representedElement;
@@ -57,7 +56,7 @@ public abstract class VirtualFolder implements ITreeContentProvider {
         this.representedElement = value;
     }
 
-    
+
     @mdl.prop
     @objid ("00734d80-0d6c-10c6-842f-001ec947cd2a")
     public String name;
@@ -78,7 +77,7 @@ public abstract class VirtualFolder implements ITreeContentProvider {
     private final Object delegate;
 
     @objid ("003c16d0-0d4f-10c6-842f-001ec947cd2a")
-    public  VirtualFolder(Object delegate) {
+    public VirtualFolder(Object delegate) {
         this.delegate = delegate;
     }
 

@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.metamodel.impl.expert.standard.meta.impl;
 
@@ -127,6 +146,7 @@ import org.modelio.metamodel.uml.behavior.activityModel.ConditionalNode;
 import org.modelio.metamodel.uml.behavior.activityModel.ControlFlow;
 import org.modelio.metamodel.uml.behavior.activityModel.DataStoreNode;
 import org.modelio.metamodel.uml.behavior.activityModel.DecisionMergeNode;
+import org.modelio.metamodel.uml.behavior.activityModel.ExceptionHandler;
 import org.modelio.metamodel.uml.behavior.activityModel.ExpansionNode;
 import org.modelio.metamodel.uml.behavior.activityModel.ExpansionRegion;
 import org.modelio.metamodel.uml.behavior.activityModel.FlowFinalNode;
@@ -144,6 +164,7 @@ import org.modelio.metamodel.uml.behavior.activityModel.OutputPin;
 import org.modelio.metamodel.uml.behavior.activityModel.SendSignalAction;
 import org.modelio.metamodel.uml.behavior.activityModel.StructuredActivityNode;
 import org.modelio.metamodel.uml.behavior.activityModel.ValuePin;
+import org.modelio.metamodel.uml.behavior.commonBehaviors.BehaviorParameter;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Event;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
 import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationChannel;
@@ -199,6 +220,7 @@ import org.modelio.metamodel.uml.infrastructure.properties.PropertyEnumerationLi
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyTableDefinition;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyType;
 import org.modelio.metamodel.uml.statik.Artifact;
+import org.modelio.metamodel.uml.statik.Association;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.Attribute;
 import org.modelio.metamodel.uml.statik.AttributeLink;
@@ -208,6 +230,7 @@ import org.modelio.metamodel.uml.statik.Class;
 import org.modelio.metamodel.uml.statik.Collaboration;
 import org.modelio.metamodel.uml.statik.CollaborationUse;
 import org.modelio.metamodel.uml.statik.Component;
+import org.modelio.metamodel.uml.statik.Connector;
 import org.modelio.metamodel.uml.statik.ConnectorEnd;
 import org.modelio.metamodel.uml.statik.DataType;
 import org.modelio.metamodel.uml.statik.ElementImport;
@@ -218,8 +241,15 @@ import org.modelio.metamodel.uml.statik.Generalization;
 import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.metamodel.uml.statik.Interface;
 import org.modelio.metamodel.uml.statik.InterfaceRealization;
+import org.modelio.metamodel.uml.statik.Link;
 import org.modelio.metamodel.uml.statik.LinkEnd;
 import org.modelio.metamodel.uml.statik.Manifestation;
+import org.modelio.metamodel.uml.statik.NaryAssociation;
+import org.modelio.metamodel.uml.statik.NaryAssociationEnd;
+import org.modelio.metamodel.uml.statik.NaryConnector;
+import org.modelio.metamodel.uml.statik.NaryConnectorEnd;
+import org.modelio.metamodel.uml.statik.NaryLink;
+import org.modelio.metamodel.uml.statik.NaryLinkEnd;
 import org.modelio.metamodel.uml.statik.Node;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.uml.statik.Package;
@@ -270,7 +300,6 @@ public class DefaultMetaExpert implements IMetaExpert {
         } else {
             return DefaultMetaExpert.RULES.canCreate(composed, owner);
         }
-        
     }
 
     @objid ("0017ba88-e4d5-1097-bcec-001ec947cd2a")
@@ -315,6 +344,7 @@ public class DefaultMetaExpert implements IMetaExpert {
 
         /**
          * Returns whether the childMetaclass can be created as a child of the parentMetaclass.
+         *
          * @param childMetaclass the child
          * @param parentMetaclass the parent
          * @return true if the creation is possible, false otherwise.
@@ -325,10 +355,9 @@ public class DefaultMetaExpert implements IMetaExpert {
         }
 
         @objid ("006c417a-e60a-1097-bcec-001ec947cd2a")
-         MetamodelRules() {
+        MetamodelRules() {
             registerUmlNodes();
             registerBpmnNodes();
-            
         }
 
         /**
@@ -340,19 +369,31 @@ public class DefaultMetaExpert implements IMetaExpert {
             // AcceptCallEventAction
             addRule(AcceptCallEventAction.MQNAME, Constraint.MQNAME);
             addRule(AcceptCallEventAction.MQNAME, OutputPin.MQNAME);
-            
+            addRule(AcceptCallEventAction.MQNAME, ControlFlow.MQNAME);
+            addRule(AcceptCallEventAction.MQNAME, ObjectFlow.MQNAME);
+            addRule(AcceptCallEventAction.MQNAME, ExceptionHandler.MQNAME);
+
             // AcceptChangeEventAction
             addRule(AcceptChangeEventAction.MQNAME, Constraint.MQNAME);
             addRule(AcceptChangeEventAction.MQNAME, OutputPin.MQNAME);
-            
+            addRule(AcceptChangeEventAction.MQNAME, ControlFlow.MQNAME);
+            addRule(AcceptChangeEventAction.MQNAME, ObjectFlow.MQNAME);
+            addRule(AcceptChangeEventAction.MQNAME, ExceptionHandler.MQNAME);
+
             // AcceptSignalAction
             addRule(AcceptSignalAction.MQNAME, Constraint.MQNAME);
             addRule(AcceptSignalAction.MQNAME, OutputPin.MQNAME);
-            
+            addRule(AcceptSignalAction.MQNAME, ControlFlow.MQNAME);
+            addRule(AcceptSignalAction.MQNAME, ObjectFlow.MQNAME);
+            addRule(AcceptSignalAction.MQNAME, ExceptionHandler.MQNAME);
+
             // AcceptTimeEventAction
             addRule(AcceptTimeEventAction.MQNAME, Constraint.MQNAME);
             addRule(AcceptTimeEventAction.MQNAME, OutputPin.MQNAME);
-            
+            addRule(AcceptTimeEventAction.MQNAME, ControlFlow.MQNAME);
+            addRule(AcceptTimeEventAction.MQNAME, ObjectFlow.MQNAME);
+            addRule(AcceptTimeEventAction.MQNAME, ExceptionHandler.MQNAME);
+
             // Activity
             addRule(Activity.MQNAME, AcceptCallEventAction.MQNAME);
             addRule(Activity.MQNAME, AcceptChangeEventAction.MQNAME);
@@ -364,6 +405,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(Activity.MQNAME, CallBehaviorAction.MQNAME);
             addRule(Activity.MQNAME, CallOperationAction.MQNAME);
             addRule(Activity.MQNAME, CentralBufferNode.MQNAME);
+            addRule(Activity.MQNAME, Collaboration.MQNAME);
             addRule(Activity.MQNAME, ConditionalNode.MQNAME);
             addRule(Activity.MQNAME, Constraint.MQNAME);
             addRule(Activity.MQNAME, DataStoreNode.MQNAME);
@@ -380,13 +422,16 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(Activity.MQNAME, StructuredActivityNode.MQNAME);
             addRule(Activity.MQNAME, ExpansionRegion.MQNAME);
             addRule(Activity.MQNAME, ActivityDiagram.MQNAME);
-            
+            addRule(Activity.MQNAME, BehaviorParameter.MQNAME);
+
             // ActivityFinalNode
             addRule(ActivityFinalNode.MQNAME, Constraint.MQNAME);
-            
+
             // ActivityParameterNode
             addRule(ActivityParameterNode.MQNAME, Constraint.MQNAME);
-            
+            addRule(ActivityParameterNode.MQNAME, ControlFlow.MQNAME);
+            addRule(ActivityParameterNode.MQNAME, ObjectFlow.MQNAME);
+
             // ActivityPartition
             addRule(ActivityPartition.MQNAME, AcceptCallEventAction.MQNAME);
             addRule(ActivityPartition.MQNAME, AcceptChangeEventAction.MQNAME);
@@ -412,7 +457,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(ActivityPartition.MQNAME, SendSignalAction.MQNAME);
             addRule(ActivityPartition.MQNAME, StructuredActivityNode.MQNAME);
             addRule(ActivityPartition.MQNAME, ExpansionRegion.MQNAME);
-            
+
             // Actor
             addRule(Actor.MQNAME, Activity.MQNAME);
             addRule(Actor.MQNAME, AssociationEnd.MQNAME);
@@ -429,7 +474,8 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(Actor.MQNAME, Interaction.MQNAME);
             addRule(Actor.MQNAME, Operation.MQNAME);
             addRule(Actor.MQNAME, PackageImport.MQNAME);
-            
+            addRule(Actor.MQNAME, InformationFlow.MQNAME);
+
             // Artifact
             addRule(Artifact.MQNAME, Artifact.MQNAME);
             addRule(Artifact.MQNAME, Attribute.MQNAME);
@@ -448,54 +494,77 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(Artifact.MQNAME, Usage.MQNAME);
             addRule(Artifact.MQNAME, DeploymentDiagram.MQNAME);
             addRule(Artifact.MQNAME, ObjectDiagram.MQNAME);
-            
+            addRule(Artifact.MQNAME, AssociationEnd.MQNAME);
+            addRule(Artifact.MQNAME, InformationFlow.MQNAME);
+
+
             // AssociationEnd
             addRule(AssociationEnd.MQNAME, AssociationEnd.MQNAME);
+            addRule(AssociationEnd.MQNAME, Association.MQNAME);
             addRule(AssociationEnd.MQNAME, Attribute.MQNAME);
             addRule(AssociationEnd.MQNAME, Constraint.MQNAME);
             addRule(AssociationEnd.MQNAME, Usage.MQNAME);
-            
+
+            // NaryAssociationEnd
+            addRule(NaryAssociationEnd.MQNAME, NaryAssociationEnd.MQNAME);
+            addRule(NaryAssociationEnd.MQNAME, NaryAssociation.MQNAME);
+
             // Attribute
             addRule(Attribute.MQNAME, Constraint.MQNAME);
             addRule(Attribute.MQNAME, Usage.MQNAME);
-            
+
             // AttributeLink
             addRule(AttributeLink.MQNAME, Constraint.MQNAME);
             addRule(AttributeLink.MQNAME, Usage.MQNAME);
-            
+
             // BindableInstance
             addRule(BindableInstance.MQNAME, AttributeLink.MQNAME);
             addRule(BindableInstance.MQNAME, BindableInstance.MQNAME);
+            addRule(BindableInstance.MQNAME, ConnectorEnd.MQNAME);
             addRule(BindableInstance.MQNAME, Constraint.MQNAME);
+            addRule(BindableInstance.MQNAME, LinkEnd.MQNAME); // ugly, for ascendant compat
+            addRule(BindableInstance.MQNAME, NaryConnectorEnd.MQNAME);
+            addRule(BindableInstance.MQNAME, NaryLinkEnd.MQNAME); // ugly, for ascendant compat
             addRule(BindableInstance.MQNAME, Port.MQNAME);
             addRule(BindableInstance.MQNAME, Usage.MQNAME);
             addRule(BindableInstance.MQNAME, ObjectDiagram.MQNAME);
-            
+
+
             // Binding
             addRule(Binding.MQNAME, Constraint.MQNAME);
-            
+
             // CallBehaviorAction
             addRule(CallBehaviorAction.MQNAME, Constraint.MQNAME);
             addRule(CallBehaviorAction.MQNAME, InputPin.MQNAME);
             addRule(CallBehaviorAction.MQNAME, ValuePin.MQNAME);
             addRule(CallBehaviorAction.MQNAME, OutputPin.MQNAME);
-            
+            addRule(CallBehaviorAction.MQNAME, ControlFlow.MQNAME);
+            addRule(CallBehaviorAction.MQNAME, ObjectFlow.MQNAME);
+            addRule(CallBehaviorAction.MQNAME, ExceptionHandler.MQNAME);
+
             // CallOperationAction
             addRule(CallOperationAction.MQNAME, Constraint.MQNAME);
             addRule(CallOperationAction.MQNAME, InputPin.MQNAME);
             addRule(CallOperationAction.MQNAME, ValuePin.MQNAME);
             addRule(CallOperationAction.MQNAME, OutputPin.MQNAME);
-            
+            addRule(CallOperationAction.MQNAME, ControlFlow.MQNAME);
+            addRule(CallOperationAction.MQNAME, ObjectFlow.MQNAME);
+            addRule(CallOperationAction.MQNAME, ExceptionHandler.MQNAME);
+
             // CentralBufferNode
             addRule(CentralBufferNode.MQNAME, Constraint.MQNAME);
-            
+            addRule(CentralBufferNode.MQNAME, ControlFlow.MQNAME);
+            addRule(CentralBufferNode.MQNAME, ObjectFlow.MQNAME);
+
             // ChoicePseudoState
             addRule(ChoicePseudoState.MQNAME, Constraint.MQNAME);
-            
+            addRule(ChoicePseudoState.MQNAME, Transition.MQNAME);
+
             // Class
             addRule(Class.MQNAME, Activity.MQNAME);
             addRule(Class.MQNAME, Actor.MQNAME);
             addRule(Class.MQNAME, AssociationEnd.MQNAME);
+            addRule(Class.MQNAME, NaryAssociationEnd.MQNAME);
             addRule(Class.MQNAME, Attribute.MQNAME);
             addRule(Class.MQNAME, BindableInstance.MQNAME);
             addRule(Class.MQNAME, Class.MQNAME);
@@ -532,7 +601,8 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(Class.MQNAME, DeploymentDiagram.MQNAME);
             addRule(Class.MQNAME, ObjectDiagram.MQNAME);
             addRule(Class.MQNAME, UseCaseDiagram.MQNAME);
-            
+            addRule(Class.MQNAME, InformationFlow.MQNAME);
+
             // Clause
             addRule(Clause.MQNAME, AcceptCallEventAction.MQNAME);
             addRule(Clause.MQNAME, AcceptChangeEventAction.MQNAME);
@@ -557,7 +627,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(Clause.MQNAME, SendSignalAction.MQNAME);
             addRule(Clause.MQNAME, StructuredActivityNode.MQNAME);
             addRule(Clause.MQNAME, ExpansionRegion.MQNAME);
-            
+
             // Collaboration
             addRule(Collaboration.MQNAME, Activity.MQNAME);
             addRule(Collaboration.MQNAME, BindableInstance.MQNAME);
@@ -578,30 +648,32 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(Collaboration.MQNAME, BpmnCollaboration.MQNAME);
             addRule(Collaboration.MQNAME, CompositeStructureDiagram.MQNAME);
             addRule(Collaboration.MQNAME, ObjectDiagram.MQNAME);
-            
+            addRule(Collaboration.MQNAME, InformationFlow.MQNAME);
+
             // CollaborationUse
             addRule(CollaborationUse.MQNAME, Constraint.MQNAME);
             addRule(CollaborationUse.MQNAME, Usage.MQNAME);
-            
+
             // CombinedFragment
             addRule(CombinedFragment.MQNAME, Constraint.MQNAME);
             addRule(CombinedFragment.MQNAME, InteractionOperand.MQNAME);
-            
+
             // CommunicationInteraction
+            addRule(CommunicationInteraction.MQNAME, Collaboration.MQNAME);
             addRule(CommunicationInteraction.MQNAME, CommunicationNode.MQNAME);
             addRule(CommunicationInteraction.MQNAME, Constraint.MQNAME);
             addRule(CommunicationInteraction.MQNAME, CommunicationDiagram.MQNAME);
-            
+
             // CommunicationChannel
             addRule(CommunicationChannel.MQNAME, Constraint.MQNAME);
             addRule(CommunicationChannel.MQNAME, CommunicationMessage.MQNAME);
-            
+
             // CommunicationMessage
             addRule(CommunicationMessage.MQNAME, Constraint.MQNAME);
-            
+
             // CommunicationNode
             addRule(CommunicationNode.MQNAME, Constraint.MQNAME);
-            
+
             // Component
             addRule(Component.MQNAME, Activity.MQNAME);
             addRule(Component.MQNAME, Actor.MQNAME);
@@ -643,37 +715,48 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(Component.MQNAME, DeploymentDiagram.MQNAME);
             addRule(Component.MQNAME, ObjectDiagram.MQNAME);
             addRule(Component.MQNAME, UseCaseDiagram.MQNAME);
-            
+            addRule(Component.MQNAME, AssociationEnd.MQNAME);
+            addRule(Component.MQNAME, NaryAssociationEnd.MQNAME);
+            addRule(Component.MQNAME, InformationFlow.MQNAME);
+
             // ConditionalNode
             addRule(ConditionalNode.MQNAME, Clause.MQNAME);
             addRule(ConditionalNode.MQNAME, Constraint.MQNAME);
             addRule(ConditionalNode.MQNAME, InputPin.MQNAME);
             addRule(ConditionalNode.MQNAME, OutputPin.MQNAME);
             addRule(ConditionalNode.MQNAME, ValuePin.MQNAME);
-            
+            addRule(ConditionalNode.MQNAME, ControlFlow.MQNAME);
+            addRule(ConditionalNode.MQNAME, ObjectFlow.MQNAME);
+            addRule(ConditionalNode.MQNAME, ExceptionHandler.MQNAME);
+
             // ConnectionPointReference
             addRule(ConnectionPointReference.MQNAME, Constraint.MQNAME);
-            
+            addRule(ConnectionPointReference.MQNAME, Transition.MQNAME);
+
             // ConnectorEnd
             addRule(ConnectorEnd.MQNAME, ConnectorEnd.MQNAME);
             addRule(ConnectorEnd.MQNAME, Constraint.MQNAME);
-            
+            addRule(ConnectorEnd.MQNAME, Connector.MQNAME);
+
             // Constraint
             addRule(Constraint.MQNAME, Constraint.MQNAME);
-            
+
             // ControlFlow
             addRule(ControlFlow.MQNAME, Constraint.MQNAME);
             addRule(ControlFlow.MQNAME, InformationFlow.MQNAME);
-            
+
             // DataFlow
             addRule(DataFlow.MQNAME, Constraint.MQNAME);
             addRule(DataFlow.MQNAME, Usage.MQNAME);
-            
+
             // DataStoreNode
             addRule(DataStoreNode.MQNAME, Constraint.MQNAME);
-            
+            addRule(DataStoreNode.MQNAME, ControlFlow.MQNAME);
+            addRule(DataStoreNode.MQNAME, ObjectFlow.MQNAME);
+
             // DataType
             addRule(DataType.MQNAME, AssociationEnd.MQNAME);
+            addRule(DataType.MQNAME, NaryAssociationEnd.MQNAME);
             addRule(DataType.MQNAME, Attribute.MQNAME);
             addRule(DataType.MQNAME, BindableInstance.MQNAME);
             addRule(DataType.MQNAME, Constraint.MQNAME);
@@ -685,34 +768,41 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(DataType.MQNAME, TemplateBinding.MQNAME);
             addRule(DataType.MQNAME, TemplateParameter.MQNAME);
             addRule(DataType.MQNAME, Usage.MQNAME);
-            
+            addRule(DataType.MQNAME, InformationFlow.MQNAME);
+
+
             // DecisionMergeNode
             addRule(DecisionMergeNode.MQNAME, Constraint.MQNAME);
-            
+            addRule(DecisionMergeNode.MQNAME, ControlFlow.MQNAME);
+            addRule(DecisionMergeNode.MQNAME, ObjectFlow.MQNAME);
+
             // DeepHistoryPseudoState
             addRule(DeepHistoryPseudoState.MQNAME, Constraint.MQNAME);
-            
+            addRule(DeepHistoryPseudoState.MQNAME, Transition.MQNAME);
+
             // Dependency
             addRule(Dependency.MQNAME, Constraint.MQNAME);
             addRule(Dependency.MQNAME, InformationFlow.MQNAME);
-            
+
             // DiagramSet
             addRule(DiagramSet.MQNAME, DiagramSet.MQNAME);
-            
+
             // ElementImport
             addRule(ElementImport.MQNAME, Constraint.MQNAME);
-            
+
             // ElementRealization
             addRule(ElementRealization.MQNAME, Constraint.MQNAME);
-            
+
             // EntryPointPseudoState
             addRule(EntryPointPseudoState.MQNAME, Constraint.MQNAME);
-            
+            addRule(EntryPointPseudoState.MQNAME, Transition.MQNAME);
+
             // EnumeratedPropertyType
             addRule(EnumeratedPropertyType.MQNAME, Constraint.MQNAME);
-            
+
             // Enumeration
             addRule(Enumeration.MQNAME, AssociationEnd.MQNAME);
+            addRule(Enumeration.MQNAME, NaryAssociationEnd.MQNAME);
             addRule(Enumeration.MQNAME, Attribute.MQNAME);
             addRule(Enumeration.MQNAME, Class.MQNAME);
             addRule(Enumeration.MQNAME, Constraint.MQNAME);
@@ -727,15 +817,17 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(Enumeration.MQNAME, TemplateBinding.MQNAME);
             addRule(Enumeration.MQNAME, TemplateParameter.MQNAME);
             addRule(Enumeration.MQNAME, Usage.MQNAME);
-            
+            addRule(Enumeration.MQNAME, InformationFlow.MQNAME);
+
+
             // EnumerationLiteral
             addRule(EnumerationLiteral.MQNAME, Constraint.MQNAME);
             addRule(EnumerationLiteral.MQNAME, Usage.MQNAME);
-            
+
             // Event
             addRule(Event.MQNAME, Constraint.MQNAME);
             addRule(Event.MQNAME, Usage.MQNAME);
-            
+
             // ExpansionRegion
             addRule(ExpansionRegion.MQNAME, AcceptCallEventAction.MQNAME);
             addRule(ExpansionRegion.MQNAME, AcceptChangeEventAction.MQNAME);
@@ -761,65 +853,83 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(ExpansionRegion.MQNAME, StructuredActivityNode.MQNAME);
             addRule(ExpansionRegion.MQNAME, ExpansionNode.MQNAME);
             addRule(ExpansionRegion.MQNAME, ExpansionRegion.MQNAME);
-            
+            addRule(ExpansionRegion.MQNAME, ExceptionHandler.MQNAME);
+
             // ExpansionNode
             addRule(ExpansionNode.MQNAME, Constraint.MQNAME);
-            
+            addRule(ExpansionNode.MQNAME, ObjectFlow.MQNAME);
+
             // ExecutionOccurenceSpecification
             addRule(ExecutionOccurenceSpecification.MQNAME, Constraint.MQNAME);
-            
+            addRule(ExecutionOccurenceSpecification.MQNAME, Message.MQNAME);
+
             // ExecutionSpecification
             addRule(ExecutionSpecification.MQNAME, Constraint.MQNAME);
-            
+            addRule(ExecutionSpecification.MQNAME, Message.MQNAME);
+
             // ExitPointPseudoState
             addRule(ExitPointPseudoState.MQNAME, Constraint.MQNAME);
-            
+            addRule(ExitPointPseudoState.MQNAME, Transition.MQNAME);
+
             // ExtensionPoint
             addRule(ExtensionPoint.MQNAME, Constraint.MQNAME);
-            
+
             // FinalState
             addRule(FinalState.MQNAME, Constraint.MQNAME);
-            
+
             // FlowFinalNode
             addRule(FlowFinalNode.MQNAME, Constraint.MQNAME);
-            
+
             // ForkJoinNode
             addRule(ForkJoinNode.MQNAME, Constraint.MQNAME);
-            
+            addRule(ForkJoinNode.MQNAME, Constraint.MQNAME);
+            addRule(ForkJoinNode.MQNAME, ObjectFlow.MQNAME);
+
             // ForkPseudoState
             addRule(ForkPseudoState.MQNAME, Constraint.MQNAME);
-            
+            addRule(ForkPseudoState.MQNAME, Transition.MQNAME);
+
             // Gate
             addRule(Gate.MQNAME, Constraint.MQNAME);
-            
+            addRule(Gate.MQNAME, Message.MQNAME);
+
             // Generalization
             addRule(Generalization.MQNAME, Constraint.MQNAME);
-            
+
             // InformationItem
             addRule(InformationItem.MQNAME, Constraint.MQNAME);
-            
+            addRule(InformationItem.MQNAME, InformationFlow.MQNAME);
+
             // InitialNode
             addRule(InitialNode.MQNAME, Constraint.MQNAME);
-            
+            addRule(InitialNode.MQNAME, ControlFlow.MQNAME);
+            addRule(InitialNode.MQNAME, ObjectFlow.MQNAME);
+
             // InitialPseudoState
             addRule(InitialPseudoState.MQNAME, Constraint.MQNAME);
-            
+            addRule(InitialPseudoState.MQNAME, Transition.MQNAME);
+
             // InputPin
             addRule(InputPin.MQNAME, Constraint.MQNAME);
-            
+            addRule(InputPin.MQNAME, ObjectFlow.MQNAME);
+
             // Instance
             addRule(Instance.MQNAME, AttributeLink.MQNAME);
             addRule(Instance.MQNAME, BindableInstance.MQNAME);
             addRule(Instance.MQNAME, Constraint.MQNAME);
             addRule(Instance.MQNAME, LinkEnd.MQNAME);
+            addRule(Instance.MQNAME, NaryLinkEnd.MQNAME);
             addRule(Instance.MQNAME, Port.MQNAME);
             addRule(Instance.MQNAME, Usage.MQNAME);
             addRule(Instance.MQNAME, ObjectDiagram.MQNAME);
-            
+
             // InstanceNode
             addRule(InstanceNode.MQNAME, Constraint.MQNAME);
-            
+            addRule(InstanceNode.MQNAME, ControlFlow.MQNAME);
+            addRule(InstanceNode.MQNAME, ObjectFlow.MQNAME);
+
             // Interaction
+            addRule(Interaction.MQNAME, Collaboration.MQNAME);
             addRule(Interaction.MQNAME, CombinedFragment.MQNAME);
             addRule(Interaction.MQNAME, Constraint.MQNAME);
             addRule(Interaction.MQNAME, Gate.MQNAME);
@@ -827,19 +937,26 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(Interaction.MQNAME, Lifeline.MQNAME);
             addRule(Interaction.MQNAME, PartDecomposition.MQNAME);
             addRule(Interaction.MQNAME, SequenceDiagram.MQNAME);
-            
+            addRule(Interaction.MQNAME, ExecutionSpecification.MQNAME);
+            addRule(Interaction.MQNAME, ExecutionOccurenceSpecification.MQNAME);
+            addRule(Interaction.MQNAME, StateInvariant.MQNAME);
+            addRule(Interaction.MQNAME, Message.MQNAME);
+            addRule(Interaction.MQNAME, InteractionOperand.MQNAME);
+
             // InteractionOperand
             addRule(InteractionOperand.MQNAME, CombinedFragment.MQNAME);
             addRule(InteractionOperand.MQNAME, Constraint.MQNAME);
             addRule(InteractionOperand.MQNAME, InteractionUse.MQNAME);
-            
+
             // InteractionUse
             addRule(InteractionUse.MQNAME, Constraint.MQNAME);
             addRule(InteractionUse.MQNAME, Gate.MQNAME);
-            
+            addRule(InteractionUse.MQNAME, Message.MQNAME);
+
             // Interface
             addRule(Interface.MQNAME, Activity.MQNAME);
             addRule(Interface.MQNAME, AssociationEnd.MQNAME);
+            addRule(Interface.MQNAME, NaryAssociationEnd.MQNAME);
             addRule(Interface.MQNAME, Attribute.MQNAME);
             addRule(Interface.MQNAME, Class.MQNAME);
             addRule(Interface.MQNAME, Collaboration.MQNAME);
@@ -868,14 +985,16 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(Interface.MQNAME, ClassDiagram.MQNAME);
             addRule(Interface.MQNAME, StaticDiagram.MQNAME);
             addRule(Interface.MQNAME, UseCaseDiagram.MQNAME);
-            
+            addRule(Interface.MQNAME, InformationFlow.MQNAME);
+
+
             // InterfaceRealization
             addRule(InterfaceRealization.MQNAME, Constraint.MQNAME);
-            
+
             // InternalTransition
             addRule(InternalTransition.MQNAME, Constraint.MQNAME);
             addRule(InternalTransition.MQNAME, Usage.MQNAME);
-            
+
             // InterruptibleActivityRegion
             addRule(InterruptibleActivityRegion.MQNAME, AcceptCallEventAction.MQNAME);
             addRule(InterruptibleActivityRegion.MQNAME, AcceptChangeEventAction.MQNAME);
@@ -900,24 +1019,31 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(InterruptibleActivityRegion.MQNAME, SendSignalAction.MQNAME);
             addRule(InterruptibleActivityRegion.MQNAME, StructuredActivityNode.MQNAME);
             addRule(InterruptibleActivityRegion.MQNAME, ExpansionRegion.MQNAME);
-            
+
             // JoinPseudoState
             addRule(JoinPseudoState.MQNAME, Constraint.MQNAME);
-            
+            addRule(JoinPseudoState.MQNAME, Transition.MQNAME);
+
             // JunctionPseudoState
             addRule(JunctionPseudoState.MQNAME, Constraint.MQNAME);
-            
+            addRule(JunctionPseudoState.MQNAME, Transition.MQNAME);
+
             // Lifeline
             addRule(Lifeline.MQNAME, Constraint.MQNAME);
             addRule(Lifeline.MQNAME, ExecutionOccurenceSpecification.MQNAME);
             addRule(Lifeline.MQNAME, ExecutionSpecification.MQNAME);
             addRule(Lifeline.MQNAME, PartDecomposition.MQNAME);
             addRule(Lifeline.MQNAME, StateInvariant.MQNAME);
-            
+            addRule(Lifeline.MQNAME, Message.MQNAME);
+
+            // PartDecomposition
+            addRule(PartDecomposition.MQNAME, Message.MQNAME);
+
             // LinkEnd
             addRule(LinkEnd.MQNAME, Constraint.MQNAME);
             addRule(LinkEnd.MQNAME, LinkEnd.MQNAME);
-            
+            addRule(LinkEnd.MQNAME, Link.MQNAME);
+
             // LoopNode
             addRule(LoopNode.MQNAME, AcceptCallEventAction.MQNAME);
             addRule(LoopNode.MQNAME, AcceptChangeEventAction.MQNAME);
@@ -945,23 +1071,39 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(LoopNode.MQNAME, SendSignalAction.MQNAME);
             addRule(LoopNode.MQNAME, StructuredActivityNode.MQNAME);
             addRule(LoopNode.MQNAME, ExpansionRegion.MQNAME);
-            
+            addRule(LoopNode.MQNAME, ControlFlow.MQNAME);
+            addRule(LoopNode.MQNAME, ObjectFlow.MQNAME);
+            addRule(LoopNode.MQNAME, ExceptionHandler.MQNAME);
+
             // Manifestation
             addRule(Manifestation.MQNAME, Constraint.MQNAME);
-            
+
             // Message
             addRule(Message.MQNAME, Constraint.MQNAME);
             addRule(Message.MQNAME, InformationFlow.MQNAME);
-            
+
             // MessageFlow
             addRule(MessageFlow.MQNAME, InformationFlow.MQNAME);
-            
+
             // ModelElement
             addRule(ModelElement.MQNAME, Constraint.MQNAME);
             addRule(ModelElement.MQNAME, ElementRealization.MQNAME);
-            
+
+            // N-Ary links
+            addRule(NaryConnector.MQNAME, NaryConnectorEnd.MQNAME);
+            addRule(NaryConnectorEnd.MQNAME, Constraint.MQNAME);
+            addRule(NaryConnectorEnd.MQNAME, NaryConnector.MQNAME);
+
+            // NaryLinkEnd
+            addRule(NaryLink.MQNAME, NaryLinkEnd.MQNAME);
+
+            addRule(NaryLinkEnd.MQNAME, Constraint.MQNAME);
+            addRule(NaryLinkEnd.MQNAME, NaryLink.MQNAME);
+            addRule(NaryLinkEnd.MQNAME, NaryLinkEnd.MQNAME);
+
             // Node
             addRule(Node.MQNAME, AssociationEnd.MQNAME);
+            addRule(Node.MQNAME, NaryAssociationEnd.MQNAME);
             addRule(Node.MQNAME, Attribute.MQNAME);
             addRule(Node.MQNAME, BindableInstance.MQNAME);
             addRule(Node.MQNAME, CollaborationUse.MQNAME);
@@ -983,23 +1125,28 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(Node.MQNAME, CompositeStructureDiagram.MQNAME);
             addRule(Node.MQNAME, DeploymentDiagram.MQNAME);
             addRule(Node.MQNAME, ObjectDiagram.MQNAME);
-            
+
+
             // Note
             addRule(Note.MQNAME, Constraint.MQNAME);
-            
+
             // ObjectFlow
             addRule(ObjectFlow.MQNAME, Constraint.MQNAME);
             addRule(ObjectFlow.MQNAME, InformationFlow.MQNAME);
-            
+
             // ObjectNode
             addRule(ObjectNode.MQNAME, Constraint.MQNAME);
-            
+            addRule(ObjectNode.MQNAME, ObjectFlow.MQNAME);
+
             // OpaqueAction
             addRule(OpaqueAction.MQNAME, Constraint.MQNAME);
             addRule(OpaqueAction.MQNAME, InputPin.MQNAME);
             addRule(OpaqueAction.MQNAME, ValuePin.MQNAME);
             addRule(OpaqueAction.MQNAME, OutputPin.MQNAME);
-            
+            addRule(OpaqueAction.MQNAME, ControlFlow.MQNAME);
+            addRule(OpaqueAction.MQNAME, ObjectFlow.MQNAME);
+            addRule(OpaqueAction.MQNAME, ExceptionHandler.MQNAME);
+
             // Operation
             addRule(Operation.MQNAME, Activity.MQNAME);
             addRule(Operation.MQNAME, Collaboration.MQNAME);
@@ -1018,10 +1165,13 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(Operation.MQNAME, BpmnSharedDefinitions.MQNAME);
             addRule(Operation.MQNAME, BpmnProcess.MQNAME);
             addRule(Operation.MQNAME, BpmnCollaboration.MQNAME);
-            
+            addRule(Operation.MQNAME, ControlFlow.MQNAME);
+
             // OutputPin
             addRule(OutputPin.MQNAME, Constraint.MQNAME);
-            
+            addRule(OutputPin.MQNAME, ControlFlow.MQNAME);
+            addRule(OutputPin.MQNAME, ObjectFlow.MQNAME);
+
             // Package
             addRule(Package.MQNAME, Activity.MQNAME);
             addRule(Package.MQNAME, Actor.MQNAME);
@@ -1057,50 +1207,53 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(Package.MQNAME, DeploymentDiagram.MQNAME);
             addRule(Package.MQNAME, ObjectDiagram.MQNAME);
             addRule(Package.MQNAME, UseCaseDiagram.MQNAME);
-            
+            addRule(Package.MQNAME, InformationFlow.MQNAME);
+
             // PackageImport
             addRule(PackageImport.MQNAME, Constraint.MQNAME);
-            
+
             // PackageMerge
             addRule(PackageMerge.MQNAME, Constraint.MQNAME);
-            
+
             // Parameter
             addRule(Parameter.MQNAME, Constraint.MQNAME);
             addRule(Parameter.MQNAME, Usage.MQNAME);
-            
+
             // Port
             addRule(Port.MQNAME, ConnectorEnd.MQNAME);
             addRule(Port.MQNAME, Constraint.MQNAME);
+            addRule(Port.MQNAME, NaryConnectorEnd.MQNAME);
             addRule(Port.MQNAME, ProvidedInterface.MQNAME);
             addRule(Port.MQNAME, RequiredInterface.MQNAME);
             addRule(Port.MQNAME, Usage.MQNAME);
-            
+            addRule(Port.MQNAME, ConnectorEnd.MQNAME);
+
             // Project
             addRule(Project.MQNAME, Constraint.MQNAME);
             addRule(Project.MQNAME, Package.MQNAME);
             addRule(Project.MQNAME, StaticDiagram.MQNAME);
-            
+
             // PropertyEnumerationLitteral
             addRule(PropertyEnumerationLitteral.MQNAME, Constraint.MQNAME);
-            
+
             // PropertyDefinition
             addRule(PropertyDefinition.MQNAME, Constraint.MQNAME);
-            
+
             // DynamicPropertyDefinition
             addRule(DynamicPropertyDefinition.MQNAME, Constraint.MQNAME);
-            
+
             // PropertyTableDefinition
             addRule(PropertyTableDefinition.MQNAME, Constraint.MQNAME);
-            
+
             // PropertyType
             addRule(PropertyType.MQNAME, Constraint.MQNAME);
-            
+
             // ProvidedInterface
             addRule(ProvidedInterface.MQNAME, Constraint.MQNAME);
-            
+
             // RaisedException
             addRule(RaisedException.MQNAME, Constraint.MQNAME);
-            
+
             // Region
             addRule(Region.MQNAME, ChoicePseudoState.MQNAME);
             addRule(Region.MQNAME, Constraint.MQNAME);
@@ -1115,20 +1268,25 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(Region.MQNAME, TerminatePseudoState.MQNAME);
             addRule(Region.MQNAME, Transition.MQNAME);
             addRule(Region.MQNAME, Usage.MQNAME);
-            
+
             // RequiredInterface
             addRule(RequiredInterface.MQNAME, Constraint.MQNAME);
-            
+
             // SendSignalAction
             addRule(SendSignalAction.MQNAME, Constraint.MQNAME);
             addRule(SendSignalAction.MQNAME, InputPin.MQNAME);
             addRule(SendSignalAction.MQNAME, ValuePin.MQNAME);
-            
+            addRule(SendSignalAction.MQNAME, ControlFlow.MQNAME);
+            addRule(SendSignalAction.MQNAME, ObjectFlow.MQNAME);
+            addRule(SendSignalAction.MQNAME, ExceptionHandler.MQNAME);
+
             // ShallowHistoryPseudoState
             addRule(ShallowHistoryPseudoState.MQNAME, Constraint.MQNAME);
-            
+            addRule(ShallowHistoryPseudoState.MQNAME, Transition.MQNAME);
+
             // Signal
             addRule(Signal.MQNAME, AssociationEnd.MQNAME);
+            addRule(Signal.MQNAME, NaryAssociationEnd.MQNAME);
             addRule(Signal.MQNAME, Attribute.MQNAME);
             addRule(Signal.MQNAME, Collaboration.MQNAME);
             addRule(Signal.MQNAME, CollaborationUse.MQNAME);
@@ -1145,7 +1303,8 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(Signal.MQNAME, TemplateBinding.MQNAME);
             addRule(Signal.MQNAME, TemplateParameter.MQNAME);
             addRule(Signal.MQNAME, Usage.MQNAME);
-            
+            addRule(Signal.MQNAME, InformationFlow.MQNAME);
+
             // State
             addRule(State.MQNAME, ConnectionPointReference.MQNAME);
             addRule(State.MQNAME, Constraint.MQNAME);
@@ -1155,23 +1314,23 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(State.MQNAME, Region.MQNAME);
             addRule(State.MQNAME, Transition.MQNAME);
             addRule(State.MQNAME, Usage.MQNAME);
-            
+
             // StateInvariant
             addRule(StateInvariant.MQNAME, Constraint.MQNAME);
-            
+
             // StateMachine
             addRule(StateMachine.MQNAME, EntryPointPseudoState.MQNAME);
             addRule(StateMachine.MQNAME, ExitPointPseudoState.MQNAME);
             addRule(StateMachine.MQNAME, Region.MQNAME);
             addRule(StateMachine.MQNAME, StateMachineDiagram.MQNAME);
             addRule(StateMachine.MQNAME, Event.MQNAME);
-            
+
             // StaticDiagram
             addRule(StaticDiagram.MQNAME, Constraint.MQNAME);
-            
+
             // Stereotype
             addRule(Stereotype.MQNAME, Constraint.MQNAME);
-            
+
             // StructuredActivityNode
             addRule(StructuredActivityNode.MQNAME, AcceptCallEventAction.MQNAME);
             addRule(StructuredActivityNode.MQNAME, AcceptChangeEventAction.MQNAME);
@@ -1199,15 +1358,18 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(StructuredActivityNode.MQNAME, SendSignalAction.MQNAME);
             addRule(StructuredActivityNode.MQNAME, StructuredActivityNode.MQNAME);
             addRule(StructuredActivityNode.MQNAME, ExpansionRegion.MQNAME);
-            
+            addRule(StructuredActivityNode.MQNAME, ControlFlow.MQNAME);
+            addRule(StructuredActivityNode.MQNAME, ObjectFlow.MQNAME);
+            addRule(StructuredActivityNode.MQNAME, ExceptionHandler.MQNAME);
+
             // TaggedValue
             addRule(TaggedValue.MQNAME, Constraint.MQNAME);
-            
+
             // TemplateBinding
             addRule(TemplateBinding.MQNAME, Constraint.MQNAME);
             addRule(TemplateBinding.MQNAME, TemplateParameterSubstitution.MQNAME);
             addRule(TemplateBinding.MQNAME, Usage.MQNAME);
-            
+
             // TemplateParameter
             addRule(TemplateParameter.MQNAME, Artifact.MQNAME);
             addRule(TemplateParameter.MQNAME, Attribute.MQNAME);
@@ -1227,23 +1389,26 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(TemplateParameter.MQNAME, Signal.MQNAME);
             addRule(TemplateParameter.MQNAME, StateMachine.MQNAME);
             addRule(TemplateParameter.MQNAME, Usage.MQNAME);
-            
+            addRule(TemplateParameter.MQNAME, InformationFlow.MQNAME);
+
             // TemplateParameterSubstitution
             addRule(TemplateParameterSubstitution.MQNAME, Constraint.MQNAME);
-            
+
             // TerminatePseudoState
             addRule(TerminatePseudoState.MQNAME, Constraint.MQNAME);
-            
+            addRule(TerminatePseudoState.MQNAME, Transition.MQNAME);
+
             // Transition
             addRule(Transition.MQNAME, Constraint.MQNAME);
             addRule(Transition.MQNAME, Usage.MQNAME);
-            
+
             // Usage
             addRule(Usage.MQNAME, Constraint.MQNAME);
-            
+
             // UseCase
             addRule(UseCase.MQNAME, Activity.MQNAME);
             addRule(UseCase.MQNAME, AssociationEnd.MQNAME);
+            addRule(UseCase.MQNAME, NaryAssociationEnd.MQNAME);
             addRule(UseCase.MQNAME, Attribute.MQNAME);
             addRule(UseCase.MQNAME, BindableInstance.MQNAME);
             addRule(UseCase.MQNAME, Collaboration.MQNAME);
@@ -1263,13 +1428,14 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(UseCase.MQNAME, Usage.MQNAME);
             addRule(UseCase.MQNAME, UseCaseDependency.MQNAME);
             addRule(UseCase.MQNAME, UseCaseDiagram.MQNAME);
-            
+            addRule(UseCase.MQNAME, InformationFlow.MQNAME);
+
             // UseCaseDependency
             addRule(UseCaseDependency.MQNAME, Constraint.MQNAME);
-            
+
             // ValuePin
             addRule(ValuePin.MQNAME, Constraint.MQNAME);
-            
+            addRule(ValuePin.MQNAME, ObjectFlow.MQNAME);
         }
 
         @objid ("006c472e-e60a-1097-bcec-001ec947cd2a")
@@ -1281,13 +1447,13 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(BpmnCollaboration.MQNAME, BpmnGroup.MQNAME);
             addRule(BpmnCollaboration.MQNAME, BpmnParticipant.MQNAME);
             addRule(BpmnCollaboration.MQNAME, BpmnCollaborationDiagram.MQNAME);
-            
+
             // BpmnLane
             addRule(BpmnLane.MQNAME, BpmnLaneSet.MQNAME);
-            
+
             // BpmnLaneSet
             addRule(BpmnLaneSet.MQNAME, BpmnLane.MQNAME);
-            
+
             // BpmnProcess
             addRule(BpmnProcess.MQNAME, BpmnLaneSet.MQNAME);
             addRule(BpmnProcess.MQNAME, BpmnResourceRole.MQNAME);
@@ -1332,97 +1498,97 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(BpmnProcess.MQNAME, BpmnSequenceFlow.MQNAME);
             addRule(BpmnProcess.MQNAME, BpmnProcessDesignDiagram.MQNAME);
             addRule(BpmnProcess.MQNAME, BpmnCollaboration.MQNAME);
-            
+
             // BpmnFlowNode
             addRule(BpmnFlowNode.MQNAME, BpmnResourceRole.MQNAME);
-            
+
             // BpmnActivity
             addRule(BpmnActivity.MQNAME, BpmnResourceRole.MQNAME);
-            
+
             // BpmnCallActivity
             addRule(BpmnCallActivity.MQNAME, BpmnResourceRole.MQNAME);
-            
+
             // BpmnSubProcess
             addRule(BpmnSubProcess.MQNAME, BpmnResourceRole.MQNAME);
             addRule(BpmnSubProcess.MQNAME, BpmnSubProcessDiagram.MQNAME);
-            
+
             // BpmnAdHocSubProcess
             addRule(BpmnAdHocSubProcess.MQNAME, BpmnResourceRole.MQNAME);
             addRule(BpmnAdHocSubProcess.MQNAME, BpmnSubProcessDiagram.MQNAME);
-            
+
             // BpmnTransaction
             addRule(BpmnTransaction.MQNAME, BpmnResourceRole.MQNAME);
             addRule(BpmnTransaction.MQNAME, BpmnSubProcessDiagram.MQNAME);
-            
+
             // BpmnTask
             addRule(BpmnTask.MQNAME, BpmnResourceRole.MQNAME);
-            
+
             // BpmnManualTask
             addRule(BpmnManualTask.MQNAME, BpmnResourceRole.MQNAME);
-            
+
             // BpmnServiceTask
             addRule(BpmnServiceTask.MQNAME, BpmnResourceRole.MQNAME);
-            
+
             // BpmnSendTask
             addRule(BpmnSendTask.MQNAME, BpmnResourceRole.MQNAME);
-            
+
             // BpmnBusinessRuleTask
             addRule(BpmnBusinessRuleTask.MQNAME, BpmnResourceRole.MQNAME);
-            
+
             // BpmnUserTask
             addRule(BpmnUserTask.MQNAME, BpmnResourceRole.MQNAME);
-            
+
             // BpmnReceiveTask
             addRule(BpmnReceiveTask.MQNAME, BpmnResourceRole.MQNAME);
-            
+
             // BpmnScriptTask
             addRule(BpmnScriptTask.MQNAME, BpmnResourceRole.MQNAME);
-            
+
             // BpmnEvent
             addRule(BpmnEvent.MQNAME, BpmnResourceRole.MQNAME);
-            
+
             // BpmnCatchEvent
             addRule(BpmnCatchEvent.MQNAME, BpmnResourceRole.MQNAME);
-            
+
             // BpmnBoundaryEvent
             addRule(BpmnBoundaryEvent.MQNAME, BpmnResourceRole.MQNAME);
-            
+
             // BpmnIntermediateCatchEvent
             addRule(BpmnIntermediateCatchEvent.MQNAME, BpmnResourceRole.MQNAME);
-            
+
             // BpmnStartEvent
             addRule(BpmnStartEvent.MQNAME, BpmnResourceRole.MQNAME);
-            
+
             // BpmnThrowEvent
             addRule(BpmnThrowEvent.MQNAME, BpmnResourceRole.MQNAME);
-            
+
             // BpmnEndEvent
             addRule(BpmnEndEvent.MQNAME, BpmnResourceRole.MQNAME);
-            
+
             // BpmnIntermediateThrowEvent
             addRule(BpmnIntermediateThrowEvent.MQNAME, BpmnResourceRole.MQNAME);
-            
+
             // BpmnImplicitThrowEvent
             addRule(BpmnImplicitThrowEvent.MQNAME, BpmnResourceRole.MQNAME);
-            
+
             // BpmnGateway
             addRule(BpmnGateway.MQNAME, BpmnResourceRole.MQNAME);
-            
+
             // BpmnComplexGateway
             addRule(BpmnComplexGateway.MQNAME, BpmnResourceRole.MQNAME);
-            
+
             // BpmnEventBasedGateway
             addRule(BpmnEventBasedGateway.MQNAME, BpmnResourceRole.MQNAME);
-            
+
             // BpmnExclusiveGateway
             addRule(BpmnExclusiveGateway.MQNAME, BpmnResourceRole.MQNAME);
-            
+
             // BpmnInclusiveGateway
             addRule(BpmnInclusiveGateway.MQNAME, BpmnResourceRole.MQNAME);
-            
+
             // BpmnParallelGateway
             addRule(BpmnParallelGateway.MQNAME, BpmnResourceRole.MQNAME);
-            
+
             // BpmnBehavior
             addRule(BpmnSharedDefinitions.MQNAME, BpmnSharedElement.MQNAME);
             addRule(BpmnSharedDefinitions.MQNAME, BpmnMessage.MQNAME);
@@ -1430,243 +1596,243 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(BpmnSharedDefinitions.MQNAME, BpmnItemDefinition.MQNAME);
             addRule(BpmnSharedDefinitions.MQNAME, BpmnResource.MQNAME);
             addRule(BpmnSharedDefinitions.MQNAME, BpmnInterface.MQNAME);
-            
+
             // BpmnSequenceFlow
             addRule(BpmnSequenceFlow.MQNAME, BpmnSequenceFlowDataAssociation.MQNAME);
-            
+
             // BpmnActivity
             addRule(BpmnActivity.MQNAME, BpmnDataInput.MQNAME);
-            
+
             // BpmnCallActivity
             addRule(BpmnCallActivity.MQNAME, BpmnDataInput.MQNAME);
-            
+
             // BpmnSubProcess
             addRule(BpmnSubProcess.MQNAME, BpmnDataInput.MQNAME);
-            
+
             // BpmnAdHocSubProcess
             addRule(BpmnAdHocSubProcess.MQNAME, BpmnDataInput.MQNAME);
-            
+
             // BpmnTransaction
             addRule(BpmnTransaction.MQNAME, BpmnDataInput.MQNAME);
-            
+
             // BpmnTask
             addRule(BpmnTask.MQNAME, BpmnDataInput.MQNAME);
-            
+
             // BpmnManualTask
             addRule(BpmnManualTask.MQNAME, BpmnDataInput.MQNAME);
-            
+
             // BpmnServiceTask
             addRule(BpmnServiceTask.MQNAME, BpmnDataInput.MQNAME);
-            
+
             // BpmnSendTask
             addRule(BpmnSendTask.MQNAME, BpmnDataInput.MQNAME);
-            
+
             // BpmnBusinessRuleTask
             addRule(BpmnBusinessRuleTask.MQNAME, BpmnDataInput.MQNAME);
-            
+
             // BpmnUserTask
             addRule(BpmnUserTask.MQNAME, BpmnDataInput.MQNAME);
-            
+
             // BpmnReceiveTask
             addRule(BpmnReceiveTask.MQNAME, BpmnDataInput.MQNAME);
-            
+
             // BpmnScriptTask
             addRule(BpmnScriptTask.MQNAME, BpmnDataInput.MQNAME);
-            
+
             // BpmnActivity
             addRule(BpmnActivity.MQNAME, BpmnDataOutput.MQNAME);
-            
+
             // BpmnCallActivity
             addRule(BpmnCallActivity.MQNAME, BpmnDataOutput.MQNAME);
-            
+
             // BpmnSubProcess
             addRule(BpmnSubProcess.MQNAME, BpmnDataOutput.MQNAME);
-            
+
             // BpmnAdHocSubProcess
             addRule(BpmnAdHocSubProcess.MQNAME, BpmnDataOutput.MQNAME);
-            
+
             // BpmnTransaction
             addRule(BpmnTransaction.MQNAME, BpmnDataOutput.MQNAME);
-            
+
             // BpmnTask
             addRule(BpmnTask.MQNAME, BpmnDataOutput.MQNAME);
-            
+
             // BpmnManualTask
             addRule(BpmnManualTask.MQNAME, BpmnDataOutput.MQNAME);
-            
+
             // BpmnServiceTask
             addRule(BpmnServiceTask.MQNAME, BpmnDataOutput.MQNAME);
-            
+
             // BpmnSendTask
             addRule(BpmnSendTask.MQNAME, BpmnDataOutput.MQNAME);
-            
+
             // BpmnBusinessRuleTask
             addRule(BpmnBusinessRuleTask.MQNAME, BpmnDataOutput.MQNAME);
-            
+
             // BpmnUserTask
             addRule(BpmnUserTask.MQNAME, BpmnDataOutput.MQNAME);
-            
+
             // BpmnReceiveTask
             addRule(BpmnReceiveTask.MQNAME, BpmnDataOutput.MQNAME);
-            
+
             // BpmnScriptTask
             addRule(BpmnScriptTask.MQNAME, BpmnDataOutput.MQNAME);
-            
+
             // BpmnActivity
             addRule(BpmnActivity.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnCallActivity
             addRule(BpmnCallActivity.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnSubProcess
             addRule(BpmnSubProcess.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnAdHocSubProcess
             addRule(BpmnAdHocSubProcess.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnTransaction
             addRule(BpmnTransaction.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnTask
             addRule(BpmnTask.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnManualTask
             addRule(BpmnManualTask.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnServiceTask
             addRule(BpmnServiceTask.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnSendTask
             addRule(BpmnSendTask.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnBusinessRuleTask
             addRule(BpmnBusinessRuleTask.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnUserTask
             addRule(BpmnUserTask.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnReceiveTask
             addRule(BpmnReceiveTask.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnScriptTask
             addRule(BpmnScriptTask.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnActivity
             addRule(BpmnActivity.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnCallActivity
             addRule(BpmnCallActivity.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnSubProcess
             addRule(BpmnSubProcess.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnAdHocSubProcess
             addRule(BpmnAdHocSubProcess.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnTransaction
             addRule(BpmnTransaction.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnTask
             addRule(BpmnTask.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnManualTask
             addRule(BpmnManualTask.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnServiceTask
             addRule(BpmnServiceTask.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnSendTask
             addRule(BpmnSendTask.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnBusinessRuleTask
             addRule(BpmnBusinessRuleTask.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnUserTask
             addRule(BpmnUserTask.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnReceiveTask
             addRule(BpmnReceiveTask.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnScriptTask
             addRule(BpmnScriptTask.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnActivity
             addRule(BpmnActivity.MQNAME, BpmnLoopCharacteristics.MQNAME);
             addRule(BpmnActivity.MQNAME, BpmnStandardLoopCharacteristics.MQNAME);
             addRule(BpmnActivity.MQNAME, BpmnMultiInstanceLoopCharacteristics.MQNAME);
-            
+
             // BpmnCallActivity
             addRule(BpmnCallActivity.MQNAME, BpmnLoopCharacteristics.MQNAME);
             addRule(BpmnCallActivity.MQNAME, BpmnStandardLoopCharacteristics.MQNAME);
             addRule(BpmnCallActivity.MQNAME, BpmnMultiInstanceLoopCharacteristics.MQNAME);
-            
+
             // BpmnSubProcess
             addRule(BpmnSubProcess.MQNAME, BpmnLoopCharacteristics.MQNAME);
             addRule(BpmnSubProcess.MQNAME, BpmnStandardLoopCharacteristics.MQNAME);
             addRule(BpmnSubProcess.MQNAME, BpmnMultiInstanceLoopCharacteristics.MQNAME);
-            
+
             // BpmnAdHocSubProcess
             addRule(BpmnAdHocSubProcess.MQNAME, BpmnLoopCharacteristics.MQNAME);
             addRule(BpmnAdHocSubProcess.MQNAME, BpmnStandardLoopCharacteristics.MQNAME);
             addRule(BpmnAdHocSubProcess.MQNAME, BpmnMultiInstanceLoopCharacteristics.MQNAME);
-            
+
             // BpmnTransaction
             addRule(BpmnTransaction.MQNAME, BpmnLoopCharacteristics.MQNAME);
             addRule(BpmnTransaction.MQNAME, BpmnStandardLoopCharacteristics.MQNAME);
             addRule(BpmnTransaction.MQNAME, BpmnMultiInstanceLoopCharacteristics.MQNAME);
-            
+
             // BpmnTask
             addRule(BpmnTask.MQNAME, BpmnLoopCharacteristics.MQNAME);
             addRule(BpmnTask.MQNAME, BpmnStandardLoopCharacteristics.MQNAME);
             addRule(BpmnTask.MQNAME, BpmnMultiInstanceLoopCharacteristics.MQNAME);
-            
+
             // BpmnManualTask
             addRule(BpmnManualTask.MQNAME, BpmnLoopCharacteristics.MQNAME);
             addRule(BpmnManualTask.MQNAME, BpmnStandardLoopCharacteristics.MQNAME);
             addRule(BpmnManualTask.MQNAME, BpmnMultiInstanceLoopCharacteristics.MQNAME);
-            
+
             // BpmnServiceTask
             addRule(BpmnServiceTask.MQNAME, BpmnLoopCharacteristics.MQNAME);
             addRule(BpmnServiceTask.MQNAME, BpmnStandardLoopCharacteristics.MQNAME);
             addRule(BpmnServiceTask.MQNAME, BpmnMultiInstanceLoopCharacteristics.MQNAME);
-            
+
             // BpmnSendTask
             addRule(BpmnSendTask.MQNAME, BpmnLoopCharacteristics.MQNAME);
             addRule(BpmnSendTask.MQNAME, BpmnStandardLoopCharacteristics.MQNAME);
             addRule(BpmnSendTask.MQNAME, BpmnMultiInstanceLoopCharacteristics.MQNAME);
-            
+
             // BpmnBusinessRuleTask
             addRule(BpmnBusinessRuleTask.MQNAME, BpmnLoopCharacteristics.MQNAME);
             addRule(BpmnBusinessRuleTask.MQNAME, BpmnStandardLoopCharacteristics.MQNAME);
             addRule(BpmnBusinessRuleTask.MQNAME, BpmnMultiInstanceLoopCharacteristics.MQNAME);
-            
+
             // BpmnUserTask
             addRule(BpmnUserTask.MQNAME, BpmnLoopCharacteristics.MQNAME);
             addRule(BpmnUserTask.MQNAME, BpmnStandardLoopCharacteristics.MQNAME);
             addRule(BpmnUserTask.MQNAME, BpmnMultiInstanceLoopCharacteristics.MQNAME);
-            
+
             // BpmnReceiveTask
             addRule(BpmnReceiveTask.MQNAME, BpmnLoopCharacteristics.MQNAME);
             addRule(BpmnReceiveTask.MQNAME, BpmnStandardLoopCharacteristics.MQNAME);
             addRule(BpmnReceiveTask.MQNAME, BpmnMultiInstanceLoopCharacteristics.MQNAME);
-            
+
             // BpmnScriptTask
             addRule(BpmnScriptTask.MQNAME, BpmnLoopCharacteristics.MQNAME);
             addRule(BpmnScriptTask.MQNAME, BpmnStandardLoopCharacteristics.MQNAME);
             addRule(BpmnScriptTask.MQNAME, BpmnMultiInstanceLoopCharacteristics.MQNAME);
-            
+
             // BpmnComplexBehaviorDefinition
             addRule(BpmnComplexBehaviorDefinition.MQNAME, BpmnImplicitThrowEvent.MQNAME);
-            
+
             // BpmnMultiInstanceLoopCharacteristics
             addRule(BpmnMultiInstanceLoopCharacteristics.MQNAME, BpmnDataInput.MQNAME);
-            
+
             // BpmnMultiInstanceLoopCharacteristics
             addRule(BpmnMultiInstanceLoopCharacteristics.MQNAME, BpmnDataOutput.MQNAME);
-            
+
             // BpmnMultiInstanceLoopCharacteristics
             addRule(BpmnMultiInstanceLoopCharacteristics.MQNAME, BpmnComplexBehaviorDefinition.MQNAME);
-            
+
             // BpmnSubProcess
             addRule(BpmnSubProcess.MQNAME, BpmnFlowElement.MQNAME);
             addRule(BpmnSubProcess.MQNAME, BpmnFlowNode.MQNAME);
@@ -1704,7 +1870,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(BpmnSubProcess.MQNAME, BpmnDataObject.MQNAME);
             addRule(BpmnSubProcess.MQNAME, BpmnDataInput.MQNAME);
             addRule(BpmnSubProcess.MQNAME, BpmnSequenceFlow.MQNAME);
-            
+
             // BpmnAdHocSubProcess
             addRule(BpmnAdHocSubProcess.MQNAME, BpmnFlowElement.MQNAME);
             addRule(BpmnAdHocSubProcess.MQNAME, BpmnFlowNode.MQNAME);
@@ -1742,7 +1908,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(BpmnAdHocSubProcess.MQNAME, BpmnDataObject.MQNAME);
             addRule(BpmnAdHocSubProcess.MQNAME, BpmnDataInput.MQNAME);
             addRule(BpmnAdHocSubProcess.MQNAME, BpmnSequenceFlow.MQNAME);
-            
+
             // BpmnTransaction
             addRule(BpmnTransaction.MQNAME, BpmnFlowElement.MQNAME);
             addRule(BpmnTransaction.MQNAME, BpmnFlowNode.MQNAME);
@@ -1780,46 +1946,46 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(BpmnTransaction.MQNAME, BpmnDataObject.MQNAME);
             addRule(BpmnTransaction.MQNAME, BpmnDataInput.MQNAME);
             addRule(BpmnTransaction.MQNAME, BpmnSequenceFlow.MQNAME);
-            
+
             // BpmnSubProcess
             addRule(BpmnSubProcess.MQNAME, BpmnArtifact.MQNAME);
             addRule(BpmnSubProcess.MQNAME, BpmnAssociation.MQNAME);
             addRule(BpmnSubProcess.MQNAME, BpmnGroup.MQNAME);
-            
+
             // BpmnAdHocSubProcess
             addRule(BpmnAdHocSubProcess.MQNAME, BpmnArtifact.MQNAME);
             addRule(BpmnAdHocSubProcess.MQNAME, BpmnAssociation.MQNAME);
             addRule(BpmnAdHocSubProcess.MQNAME, BpmnGroup.MQNAME);
-            
+
             // BpmnTransaction
             addRule(BpmnTransaction.MQNAME, BpmnArtifact.MQNAME);
             addRule(BpmnTransaction.MQNAME, BpmnAssociation.MQNAME);
             addRule(BpmnTransaction.MQNAME, BpmnGroup.MQNAME);
-            
+
             // BpmnCatchEvent
             addRule(BpmnCatchEvent.MQNAME, BpmnDataOutput.MQNAME);
-            
+
             // BpmnBoundaryEvent
             addRule(BpmnBoundaryEvent.MQNAME, BpmnDataOutput.MQNAME);
-            
+
             // BpmnIntermediateCatchEvent
             addRule(BpmnIntermediateCatchEvent.MQNAME, BpmnDataOutput.MQNAME);
-            
+
             // BpmnStartEvent
             addRule(BpmnStartEvent.MQNAME, BpmnDataOutput.MQNAME);
-            
+
             // BpmnCatchEvent
             addRule(BpmnCatchEvent.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnBoundaryEvent
             addRule(BpmnBoundaryEvent.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnIntermediateCatchEvent
             addRule(BpmnIntermediateCatchEvent.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnStartEvent
             addRule(BpmnStartEvent.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnEvent
             addRule(BpmnEvent.MQNAME, BpmnEventDefinition.MQNAME);
             addRule(BpmnEvent.MQNAME, BpmnCancelEventDefinition.MQNAME);
@@ -1832,7 +1998,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(BpmnEvent.MQNAME, BpmnTerminateEventDefinition.MQNAME);
             addRule(BpmnEvent.MQNAME, BpmnMessageEventDefinition.MQNAME);
             addRule(BpmnEvent.MQNAME, BpmnTimerEventDefinition.MQNAME);
-            
+
             // BpmnCatchEvent
             addRule(BpmnCatchEvent.MQNAME, BpmnEventDefinition.MQNAME);
             addRule(BpmnCatchEvent.MQNAME, BpmnCancelEventDefinition.MQNAME);
@@ -1845,7 +2011,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(BpmnCatchEvent.MQNAME, BpmnTerminateEventDefinition.MQNAME);
             addRule(BpmnCatchEvent.MQNAME, BpmnMessageEventDefinition.MQNAME);
             addRule(BpmnCatchEvent.MQNAME, BpmnTimerEventDefinition.MQNAME);
-            
+
             // BpmnBoundaryEvent
             addRule(BpmnBoundaryEvent.MQNAME, BpmnEventDefinition.MQNAME);
             addRule(BpmnBoundaryEvent.MQNAME, BpmnCancelEventDefinition.MQNAME);
@@ -1858,7 +2024,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(BpmnBoundaryEvent.MQNAME, BpmnTerminateEventDefinition.MQNAME);
             addRule(BpmnBoundaryEvent.MQNAME, BpmnMessageEventDefinition.MQNAME);
             addRule(BpmnBoundaryEvent.MQNAME, BpmnTimerEventDefinition.MQNAME);
-            
+
             // BpmnIntermediateCatchEvent
             addRule(BpmnIntermediateCatchEvent.MQNAME, BpmnEventDefinition.MQNAME);
             addRule(BpmnIntermediateCatchEvent.MQNAME, BpmnCancelEventDefinition.MQNAME);
@@ -1871,7 +2037,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(BpmnIntermediateCatchEvent.MQNAME, BpmnTerminateEventDefinition.MQNAME);
             addRule(BpmnIntermediateCatchEvent.MQNAME, BpmnMessageEventDefinition.MQNAME);
             addRule(BpmnIntermediateCatchEvent.MQNAME, BpmnTimerEventDefinition.MQNAME);
-            
+
             // BpmnStartEvent
             addRule(BpmnStartEvent.MQNAME, BpmnEventDefinition.MQNAME);
             addRule(BpmnStartEvent.MQNAME, BpmnCancelEventDefinition.MQNAME);
@@ -1884,7 +2050,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(BpmnStartEvent.MQNAME, BpmnTerminateEventDefinition.MQNAME);
             addRule(BpmnStartEvent.MQNAME, BpmnMessageEventDefinition.MQNAME);
             addRule(BpmnStartEvent.MQNAME, BpmnTimerEventDefinition.MQNAME);
-            
+
             // BpmnThrowEvent
             addRule(BpmnThrowEvent.MQNAME, BpmnEventDefinition.MQNAME);
             addRule(BpmnThrowEvent.MQNAME, BpmnCancelEventDefinition.MQNAME);
@@ -1897,7 +2063,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(BpmnThrowEvent.MQNAME, BpmnTerminateEventDefinition.MQNAME);
             addRule(BpmnThrowEvent.MQNAME, BpmnMessageEventDefinition.MQNAME);
             addRule(BpmnThrowEvent.MQNAME, BpmnTimerEventDefinition.MQNAME);
-            
+
             // BpmnEndEvent
             addRule(BpmnEndEvent.MQNAME, BpmnEventDefinition.MQNAME);
             addRule(BpmnEndEvent.MQNAME, BpmnCancelEventDefinition.MQNAME);
@@ -1910,7 +2076,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(BpmnEndEvent.MQNAME, BpmnTerminateEventDefinition.MQNAME);
             addRule(BpmnEndEvent.MQNAME, BpmnMessageEventDefinition.MQNAME);
             addRule(BpmnEndEvent.MQNAME, BpmnTimerEventDefinition.MQNAME);
-            
+
             // BpmnIntermediateThrowEvent
             addRule(BpmnIntermediateThrowEvent.MQNAME, BpmnEventDefinition.MQNAME);
             addRule(BpmnIntermediateThrowEvent.MQNAME, BpmnCancelEventDefinition.MQNAME);
@@ -1923,7 +2089,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(BpmnIntermediateThrowEvent.MQNAME, BpmnTerminateEventDefinition.MQNAME);
             addRule(BpmnIntermediateThrowEvent.MQNAME, BpmnMessageEventDefinition.MQNAME);
             addRule(BpmnIntermediateThrowEvent.MQNAME, BpmnTimerEventDefinition.MQNAME);
-            
+
             // BpmnImplicitThrowEvent
             addRule(BpmnImplicitThrowEvent.MQNAME, BpmnEventDefinition.MQNAME);
             addRule(BpmnImplicitThrowEvent.MQNAME, BpmnCancelEventDefinition.MQNAME);
@@ -1936,60 +2102,66 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule(BpmnImplicitThrowEvent.MQNAME, BpmnTerminateEventDefinition.MQNAME);
             addRule(BpmnImplicitThrowEvent.MQNAME, BpmnMessageEventDefinition.MQNAME);
             addRule(BpmnImplicitThrowEvent.MQNAME, BpmnTimerEventDefinition.MQNAME);
-            
+
             // BpmnThrowEvent
             addRule(BpmnThrowEvent.MQNAME, BpmnDataInput.MQNAME);
-            
+
             // BpmnEndEvent
             addRule(BpmnEndEvent.MQNAME, BpmnDataInput.MQNAME);
-            
+
             // BpmnIntermediateThrowEvent
             addRule(BpmnIntermediateThrowEvent.MQNAME, BpmnDataInput.MQNAME);
-            
+
             // BpmnImplicitThrowEvent
             addRule(BpmnImplicitThrowEvent.MQNAME, BpmnDataInput.MQNAME);
-            
+
             // BpmnThrowEvent
             addRule(BpmnThrowEvent.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnEndEvent
             addRule(BpmnEndEvent.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnIntermediateThrowEvent
             addRule(BpmnIntermediateThrowEvent.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnImplicitThrowEvent
             addRule(BpmnImplicitThrowEvent.MQNAME, BpmnDataAssociation.MQNAME);
-            
+
             // BpmnItemAwareElement
             addRule(BpmnItemAwareElement.MQNAME, BpmnDataState.MQNAME);
-            
+
             // BpmnDataOutput
             addRule(BpmnDataOutput.MQNAME, BpmnDataState.MQNAME);
-            
+
             // BpmnDataStore
             addRule(BpmnDataStore.MQNAME, BpmnDataState.MQNAME);
-            
+
             // BpmnDataObject
             addRule(BpmnDataObject.MQNAME, BpmnDataState.MQNAME);
-            
+
             // BpmnDataInput
             addRule(BpmnDataInput.MQNAME, BpmnDataState.MQNAME);
-            
+
             // BpmnResource
             addRule(BpmnResource.MQNAME, BpmnResourceParameter.MQNAME);
-            
+
             // BpmnResourceRole
             addRule(BpmnResourceRole.MQNAME, BpmnResourceParameterBinding.MQNAME);
-            
+
             // BpmnInterface
             addRule(BpmnInterface.MQNAME, BpmnOperation.MQNAME);
-            
         }
 
+        /**
+         * Add a parenting rules defined as X.Y which means that an 'Y' instance can be created under an 'X' instance. Note that
+         * parenting rules do not take the metamodel inheritance tree into account
+         *
+         * @param parentMc parent metaclass
+         * @param childMc child metaclass
+         */
         @objid ("006c246a-e60a-1097-bcec-001ec947cd2a")
-        private void addRule(String mcD, String mcX) {
-            this.rules.add(mcD + mcX);
+        private void addRule(String parentMc, String childMc) {
+            this.rules.add(parentMc + childMc);
         }
 
     }

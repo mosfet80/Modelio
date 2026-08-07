@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.processCollaboration;
 
 import java.util.ArrayList;
@@ -57,136 +56,135 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("4d8f32f6-a792-47da-86c4-b3a00a3a56ce")
 public class BpmnProcessSmClass extends BehaviorSmClass {
-    @objid ("865cacfa-e062-41df-96a5-8016b67946e6")
+    @objid ("3201f1c8-05ab-47a7-be5b-13327a21fc2b")
     private SmAttribute processTypeAtt;
 
-    @objid ("1514437f-32ce-437e-a371-be4aa5f02e7e")
+    @objid ("8c6fa5a4-c1d0-4bb0-9b31-2eae4fda1acb")
     private SmAttribute isClosedAtt;
 
-    @objid ("eab3fcd3-2d67-4d28-98cc-61926a5a5e10")
+    @objid ("fd83843a-bc8f-4837-83d8-fb53e8de9832")
     private SmAttribute isExecutableAtt;
 
-    @objid ("c1f079b5-700c-4d07-b92c-a5aeb7615105")
+    @objid ("185b4a1e-3674-4fe6-bbde-f9f51917d229")
     private SmDependency supportsDep;
 
-    @objid ("6b6b8ad9-660d-42cd-96ee-0341ad0b30ff")
+    @objid ("083a65f7-7234-4ca6-b24a-b8994759ad3e")
     private SmDependency artifactDep;
 
-    @objid ("abcea710-4458-4639-b594-17eb350f0f0c")
+    @objid ("bb3af411-8d78-451d-8d80-e9bfae7f2234")
     private SmDependency laneSetDep;
 
-    @objid ("a0a8e162-2694-4fe6-9e07-75e243e73651")
+    @objid ("21234bd1-ebd7-4cb8-b1f6-a14671ef6299")
     private SmDependency supportedDep;
 
-    @objid ("454c547a-0c69-4333-98ed-16f4c393a19f")
+    @objid ("d4460c76-1f3c-42aa-951a-542cb0e3e6fa")
     private SmDependency participantDep;
 
-    @objid ("2eb04339-7aaa-4e06-94fe-ea5c368fd667")
+    @objid ("05790329-2416-44fa-b736-e70744ff6f4e")
     private SmDependency flowElementDep;
 
-    @objid ("d1f52072-b350-4ebc-b0d0-875d547215a8")
+    @objid ("69e84821-93c9-4aad-98b5-98fa76a99ab7")
     private SmDependency resourceDep;
 
-    @objid ("92f58d47-5843-4600-88be-f762bae347dd")
+    @objid ("1117b748-304a-4d1c-b9d4-7f9e3e033f33")
     private SmDependency definitionalCollaborationDep;
 
-    @objid ("dd7cbb34-5276-484b-94d7-16f3611d3a45")
-    public  BpmnProcessSmClass(ISmMetamodelFragment origin) {
+    @objid ("f56112ce-64f6-40aa-a418-69fe1fc316d7")
+    public BpmnProcessSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("440b27e0-22be-461c-be2c-b3121c5a2284")
+    @objid ("0e2757ad-253a-4552-86e4-f72a8f5235a9")
     @Override
     public String getName() {
         return "BpmnProcess";
-        
+
     }
 
-    @objid ("22f87c79-df67-4526-a2e8-4d068aac5b56")
+    @objid ("63f031b5-a718-4817-a663-fa2c891a752b")
     @Override
     public Version getVersion() {
         return new Version("2.2.0");
     }
 
-    @objid ("89e81ce7-5cdb-4297-bbbc-31f81d88fdab")
+    @objid ("66eb3f81-0e65-48c2-87b3-8e6134a0bcd5")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return BpmnProcess.class;
-        
+
     }
 
-    @objid ("de8e9b93-441c-4450-b5dd-0b3a162a3990")
+    @objid ("806d9e2d-5647-4758-86f8-9ecec72d4e75")
     @Override
     public boolean isCmsNode() {
         return true;
-        
+
     }
 
-    @objid ("c04cb950-22bf-4974-ab88-eb5db7493303")
+    @objid ("42f4341b-21d6-402c-b1b6-6fd58c387e24")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("dff6600a-18c1-468d-8fbc-1e6bf8d7d2e6")
+    @objid ("f58bdef7-2395-4df8-966d-e8593d4df319")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(Behavior.MQNAME);
         this.registerFactory(new BpmnProcessObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
         this.processTypeAtt = new ProcessTypeSmAttribute();
         this.processTypeAtt.init("ProcessType", this, BpmnProcessType.class );
         registerAttribute(this.processTypeAtt);
-        
+
         this.isClosedAtt = new IsClosedSmAttribute();
         this.isClosedAtt.init("IsClosed", this, Boolean.class );
         registerAttribute(this.isClosedAtt);
-        
+
         this.isExecutableAtt = new IsExecutableSmAttribute();
         this.isExecutableAtt.init("IsExecutable", this, OptionalBoolean.class );
         registerAttribute(this.isExecutableAtt);
-        
-        
+
+
         // Initialize and register the SmDependency
         this.supportsDep = new SupportsSmDependency();
         this.supportsDep.init("Supports", this, metamodel.getMClass(BpmnProcess.MQNAME), 0, -1 , SmDirective.SMCDPARTOF);
         registerDependency(this.supportsDep);
-        
+
         this.artifactDep = new ArtifactSmDependency();
         this.artifactDep.init("Artifact", this, metamodel.getMClass(BpmnArtifact.MQNAME), 0, -1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.artifactDep);
-        
+
         this.laneSetDep = new LaneSetSmDependency();
         this.laneSetDep.init("LaneSet", this, metamodel.getMClass(BpmnLaneSet.MQNAME), 0, 1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.laneSetDep);
-        
+
         this.supportedDep = new SupportedSmDependency();
         this.supportedDep.init("Supported", this, metamodel.getMClass(BpmnProcess.MQNAME), 0, -1 );
         registerDependency(this.supportedDep);
-        
+
         this.participantDep = new ParticipantSmDependency();
         this.participantDep.init("Participant", this, metamodel.getMClass(BpmnParticipant.MQNAME), 0, -1 );
         registerDependency(this.participantDep);
-        
+
         this.flowElementDep = new FlowElementSmDependency();
         this.flowElementDep.init("FlowElement", this, metamodel.getMClass(BpmnFlowElement.MQNAME), 0, -1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.flowElementDep);
-        
+
         this.resourceDep = new ResourceSmDependency();
         this.resourceDep.init("Resource", this, metamodel.getMClass(BpmnResourceRole.MQNAME), 0, -1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.resourceDep);
-        
+
         this.definitionalCollaborationDep = new DefinitionalCollaborationSmDependency();
         this.definitionalCollaborationDep.init("DefinitionalCollaboration", this, metamodel.getMClass(BpmnCollaboration.MQNAME), 0, 1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.definitionalCollaborationDep);
-        
-        
+
     }
 
-    @objid ("771fae46-acc3-4d80-87d6-bc196b8b6b9b")
+    @objid ("34b12559-50ca-4018-81ba-81cc5d8a3d55")
     public SmAttribute getProcessTypeAtt() {
         if (this.processTypeAtt == null) {
         	this.processTypeAtt = this.getAttributeDef("ProcessType");
@@ -194,7 +192,7 @@ public class BpmnProcessSmClass extends BehaviorSmClass {
         return this.processTypeAtt;
     }
 
-    @objid ("c2dd3476-6142-47a3-a0c1-a2c3df30c9e5")
+    @objid ("e0143f1e-1314-40b8-acb5-cfa5b2747108")
     public SmAttribute getIsClosedAtt() {
         if (this.isClosedAtt == null) {
         	this.isClosedAtt = this.getAttributeDef("IsClosed");
@@ -202,7 +200,7 @@ public class BpmnProcessSmClass extends BehaviorSmClass {
         return this.isClosedAtt;
     }
 
-    @objid ("3005e41d-58c5-4b59-b8ef-7d6ee7605473")
+    @objid ("9de4c26b-5597-4d4b-abd2-7a5401860877")
     public SmAttribute getIsExecutableAtt() {
         if (this.isExecutableAtt == null) {
         	this.isExecutableAtt = this.getAttributeDef("IsExecutable");
@@ -210,7 +208,7 @@ public class BpmnProcessSmClass extends BehaviorSmClass {
         return this.isExecutableAtt;
     }
 
-    @objid ("b8c74c5c-c9e7-45a5-a582-519d752fb392")
+    @objid ("97ea1669-3581-4e73-9445-a4b181be1a14")
     public SmDependency getSupportsDep() {
         if (this.supportsDep == null) {
         	this.supportsDep = this.getDependencyDef("Supports");
@@ -218,7 +216,7 @@ public class BpmnProcessSmClass extends BehaviorSmClass {
         return this.supportsDep;
     }
 
-    @objid ("860f1701-775a-4bf3-a7b1-8811c3a96fa1")
+    @objid ("951fb98f-c5da-4a59-9e94-377770914190")
     public SmDependency getArtifactDep() {
         if (this.artifactDep == null) {
         	this.artifactDep = this.getDependencyDef("Artifact");
@@ -226,7 +224,7 @@ public class BpmnProcessSmClass extends BehaviorSmClass {
         return this.artifactDep;
     }
 
-    @objid ("e89561f0-9c6c-4e56-8a29-427116c9ceda")
+    @objid ("17829381-c01d-4ce1-a40b-f2701cb24604")
     public SmDependency getLaneSetDep() {
         if (this.laneSetDep == null) {
         	this.laneSetDep = this.getDependencyDef("LaneSet");
@@ -234,7 +232,7 @@ public class BpmnProcessSmClass extends BehaviorSmClass {
         return this.laneSetDep;
     }
 
-    @objid ("f1050f72-0c12-40a6-990f-350ac4442bd3")
+    @objid ("27bd0348-be08-4820-b06c-1436ebccf630")
     public SmDependency getSupportedDep() {
         if (this.supportedDep == null) {
         	this.supportedDep = this.getDependencyDef("Supported");
@@ -242,7 +240,7 @@ public class BpmnProcessSmClass extends BehaviorSmClass {
         return this.supportedDep;
     }
 
-    @objid ("79880e6a-b1f2-4caf-8ba8-c698c3956012")
+    @objid ("ef016f20-b62d-4415-aa52-f1d129f66a32")
     public SmDependency getParticipantDep() {
         if (this.participantDep == null) {
         	this.participantDep = this.getDependencyDef("Participant");
@@ -250,7 +248,7 @@ public class BpmnProcessSmClass extends BehaviorSmClass {
         return this.participantDep;
     }
 
-    @objid ("c49ebb7b-9eb5-427e-a1c3-90971b2e2728")
+    @objid ("bd9ebb70-6933-4eaa-98b5-2d7478bcad31")
     public SmDependency getFlowElementDep() {
         if (this.flowElementDep == null) {
         	this.flowElementDep = this.getDependencyDef("FlowElement");
@@ -258,7 +256,7 @@ public class BpmnProcessSmClass extends BehaviorSmClass {
         return this.flowElementDep;
     }
 
-    @objid ("98472547-8790-437a-835f-c6ce034f65d9")
+    @objid ("15659ee6-ebee-42b8-ac11-6f47d7189eb5")
     public SmDependency getResourceDep() {
         if (this.resourceDep == null) {
         	this.resourceDep = this.getDependencyDef("Resource");
@@ -266,7 +264,7 @@ public class BpmnProcessSmClass extends BehaviorSmClass {
         return this.resourceDep;
     }
 
-    @objid ("ab6f845f-ba1f-4800-a129-5ef33a932099")
+    @objid ("ca8b7bae-b893-497a-a2ce-6f457967ef56")
     public SmDependency getDefinitionalCollaborationDep() {
         if (this.definitionalCollaborationDep == null) {
         	this.definitionalCollaborationDep = this.getDependencyDef("DefinitionalCollaboration");
@@ -276,21 +274,21 @@ public class BpmnProcessSmClass extends BehaviorSmClass {
 
     @objid ("f3f347e0-16ec-4d4c-afb7-5e2e4c48709c")
     private static class BpmnProcessObjectFactory implements ISmObjectFactory {
-        @objid ("51728da4-038c-4f33-a300-0996f67d6ac1")
+        @objid ("a9f814d9-12e1-4ce9-817f-6cc49822d18c")
         private BpmnProcessSmClass smClass;
 
-        @objid ("e7afe6d5-f48d-48ed-8ff3-a5add24716f9")
-        public  BpmnProcessObjectFactory(BpmnProcessSmClass smClass) {
+        @objid ("15a1b139-c560-4dee-9c4d-8cb0350f2469")
+        public BpmnProcessObjectFactory(BpmnProcessSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("65a11ecb-3cc3-49e5-b212-0d47cf7d3718")
+        @objid ("f3c1735c-964f-4673-a514-236e89b91f9f")
         @Override
         public ISmObjectData createData() {
             return new BpmnProcessData(this.smClass);
         }
 
-        @objid ("d39586c1-62cf-4d44-b90a-28000c24b388")
+        @objid ("41c43ca6-a28c-453b-b2a9-d35f4527bb98")
         @Override
         public SmObjectImpl createImpl() {
             return new BpmnProcessImpl();
@@ -300,12 +298,12 @@ public class BpmnProcessSmClass extends BehaviorSmClass {
 
     @objid ("a57e3303-6b4b-431c-b2b8-92a64b45c0d7")
     public static class ProcessTypeSmAttribute extends SmAttribute {
-        @objid ("3d48ae26-1ec1-4c00-834a-522e35c3e015")
+        @objid ("21134226-aecd-4d34-bf04-d460288e1118")
         public Object getValue(ISmObjectData data) {
             return ((BpmnProcessData) data).mProcessType;
         }
 
-        @objid ("0fde8a5f-c5f9-460a-b457-75b6ddef3bbd")
+        @objid ("26f080fb-11cd-45be-9e4c-f336385595f4")
         public void setValue(ISmObjectData data, Object value) {
             ((BpmnProcessData) data).mProcessType = value;
         }
@@ -314,12 +312,12 @@ public class BpmnProcessSmClass extends BehaviorSmClass {
 
     @objid ("143117b3-5695-45b3-8f1f-587f7d69172e")
     public static class IsClosedSmAttribute extends SmAttribute {
-        @objid ("90274c41-53a1-498e-b51b-ff172ee42d4b")
+        @objid ("9c34f8e0-10f7-4519-9289-88b77c58a274")
         public Object getValue(ISmObjectData data) {
             return ((BpmnProcessData) data).mIsClosed;
         }
 
-        @objid ("9383d6c8-9102-4a4d-9e98-81a1b6c3dd44")
+        @objid ("f45b5195-54b9-4ab6-a15c-cc969224f7a0")
         public void setValue(ISmObjectData data, Object value) {
             ((BpmnProcessData) data).mIsClosed = value;
         }
@@ -328,12 +326,12 @@ public class BpmnProcessSmClass extends BehaviorSmClass {
 
     @objid ("91507e3b-7ca8-4fbc-b093-3e9671869398")
     public static class IsExecutableSmAttribute extends SmAttribute {
-        @objid ("03f2f5e6-d278-4d27-9f9d-b7def034012d")
+        @objid ("b16dc9a9-8a59-4e89-967f-01036bccfcff")
         public Object getValue(ISmObjectData data) {
             return ((BpmnProcessData) data).mIsExecutable;
         }
 
-        @objid ("ff080a3c-41be-4bc6-9905-8c6683825ccd")
+        @objid ("ab51f72b-0efa-4844-acbe-266395d002f5")
         public void setValue(ISmObjectData data, Object value) {
             ((BpmnProcessData) data).mIsExecutable = value;
         }
@@ -342,238 +340,238 @@ public class BpmnProcessSmClass extends BehaviorSmClass {
 
     @objid ("511b7545-1288-44cf-bae6-7e4649dfe482")
     public static class SupportsSmDependency extends SmMultipleDependency {
-        @objid ("f5f0c60a-b8a6-4570-8b0e-aa9e298eaeb2")
+        @objid ("b7c11320-d770-4c6b-89d6-bcbf50732be6")
         private SmDependency symetricDep;
 
-        @objid ("5705c8d3-8bff-4ab4-8250-0279d3e3b2c0")
+        @objid ("ca53bd12-675c-4b71-b59e-71ca29a90eb7")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((BpmnProcessData)data).mSupports != null)? ((BpmnProcessData)data).mSupports:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("5e7dfdda-71d9-4ebe-8985-9cfdd813ec2e")
+        @objid ("5257b6b0-dfa1-48a2-9dfb-8a7117ab2cda")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((BpmnProcessData) data).mSupports = values;
-            
+
         }
 
-        @objid ("ac957a1d-17c9-4d2b-9b8b-54e6d7242e65")
+        @objid ("0419cc20-e106-4ada-9d83-32e85369bac7")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((BpmnProcessSmClass)this.getTarget()).getSupportedDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("a0274f02-22e6-4ab4-b904-21ec3e0ce53b")
     public static class ArtifactSmDependency extends SmMultipleDependency {
-        @objid ("4b559637-345c-444c-8b91-2e1a689b283e")
+        @objid ("db27abaf-c5d0-4840-aaed-fdb3b9086371")
         private SmDependency symetricDep;
 
-        @objid ("f5eade74-33ed-4e1c-8334-96099c22fba0")
+        @objid ("c8d8632e-4c9d-4698-962d-fbf1dc89d1ff")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((BpmnProcessData)data).mArtifact != null)? ((BpmnProcessData)data).mArtifact:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("500f0cdb-53bb-43cc-9bc8-9f4043a989c7")
+        @objid ("5ccb4f92-b971-44f9-bc00-28d0c9e8b418")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((BpmnProcessData) data).mArtifact = values;
-            
+
         }
 
-        @objid ("a1d330ea-7737-4895-82b7-21279b370b5e")
+        @objid ("93027eb2-c1e6-4be2-a10e-0e43ae7b7236")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((BpmnArtifactSmClass)this.getTarget()).getProcessDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("b38536a6-9bf3-4c1a-a4ae-1dac1b8c6be1")
     public static class LaneSetSmDependency extends SmSingleDependency {
-        @objid ("a1253ace-884c-4ace-9a31-dd9fbcd8c7b9")
+        @objid ("859656c4-138c-4251-9f4d-7e3405802924")
         private SmDependency symetricDep;
 
-        @objid ("43b9a416-7805-47af-816d-a68eca0ff5e9")
+        @objid ("71f3693f-f581-49b7-b262-99d60f3cebfd")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((BpmnProcessData) data).mLaneSet;
         }
 
-        @objid ("a56282a9-2e55-4c0b-9e4c-c64ed5ac8818")
+        @objid ("3aac36fc-3aa7-4710-a56c-a4ed93fc00d8")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((BpmnProcessData) data).mLaneSet = value;
         }
 
-        @objid ("006a909d-fe77-4a43-aebe-5068f853aaae")
+        @objid ("b3f238a2-3ed5-42c9-a0a1-9a6e26d903c6")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((BpmnLaneSetSmClass)this.getTarget()).getProcessDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("343d4720-fea3-4786-b409-c9a0d3b6ac74")
     public static class SupportedSmDependency extends SmMultipleDependency {
-        @objid ("a3a19d4a-ec2f-45d5-aec5-b3fe89354b30")
+        @objid ("fe5a7349-f83f-4303-95f2-99a76628bdf8")
         private SmDependency symetricDep;
 
-        @objid ("80762670-fa70-4a57-bd47-6f22bad37ee3")
+        @objid ("791ae858-10d2-4051-8937-26cc7d99451e")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((BpmnProcessData)data).mSupported != null)? ((BpmnProcessData)data).mSupported:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("6a913270-5f12-4af7-8fe8-3e5933e15e81")
+        @objid ("faf2810a-2c86-46c4-b124-943d1f9145e0")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((BpmnProcessData) data).mSupported = values;
-            
+
         }
 
-        @objid ("6ef53103-b790-4ee8-ac03-02076a050a6a")
+        @objid ("e3a667f4-3466-4f7c-89d5-c9104c0c0e74")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((BpmnProcessSmClass)this.getTarget()).getSupportsDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("4d9ba004-3a07-4c40-be74-246e21a33bbb")
     public static class ParticipantSmDependency extends SmMultipleDependency {
-        @objid ("56581578-3b1b-4782-a605-04a4578805cc")
+        @objid ("dd824424-6897-49f2-9372-c743657e12b3")
         private SmDependency symetricDep;
 
-        @objid ("c6f5c9f0-2b22-4717-9d1b-64735137f80f")
+        @objid ("f1f1c19f-21d1-48c2-9ea1-bf5d727347fe")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((BpmnProcessData)data).mParticipant != null)? ((BpmnProcessData)data).mParticipant:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("ca615437-acf6-4e64-9384-47000fbc1df6")
+        @objid ("e303f3a8-af22-488b-9134-f0f4437382a9")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((BpmnProcessData) data).mParticipant = values;
-            
+
         }
 
-        @objid ("cf4f92c7-6955-4980-82b9-7ca61a48d27b")
+        @objid ("fb35c162-e325-477c-b596-efaa115f6c33")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((BpmnParticipantSmClass)this.getTarget()).getProcessDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("8a3d4ed6-d838-46be-978c-271a4631ec1c")
     public static class FlowElementSmDependency extends SmMultipleDependency {
-        @objid ("e7012f5d-bbca-4843-9940-3e490820ab09")
+        @objid ("12c596ef-3d85-4866-96cd-030ea6a8e3dc")
         private SmDependency symetricDep;
 
-        @objid ("4a58be7b-1cb9-495e-bc2c-d64b85fe953a")
+        @objid ("494302b2-00f6-4382-a492-280252d36cf2")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((BpmnProcessData)data).mFlowElement != null)? ((BpmnProcessData)data).mFlowElement:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("1937c940-e413-4e35-9817-a3a6b3626bb6")
+        @objid ("c944f3d8-9404-46ac-b32c-b43a0846dbe8")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((BpmnProcessData) data).mFlowElement = values;
-            
+
         }
 
-        @objid ("0e540f08-a0c7-436d-aa05-8379f8fffdcf")
+        @objid ("0493b658-26ff-45d8-ac4f-b615745a13d8")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((BpmnFlowElementSmClass)this.getTarget()).getContainerDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("871330b9-e143-42b1-bef5-f42a7f87cb5d")
     public static class ResourceSmDependency extends SmMultipleDependency {
-        @objid ("61c7d4f3-b114-4e25-a3b9-f56c9f0b12f4")
+        @objid ("c5be2892-acfa-48c6-b8ed-3dbd2d622099")
         private SmDependency symetricDep;
 
-        @objid ("4303d96a-1fd8-4441-be96-e1f9be06e313")
+        @objid ("0df00d31-eb71-4d78-8a12-6989ea9f4af9")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((BpmnProcessData)data).mResource != null)? ((BpmnProcessData)data).mResource:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("85da08c2-3834-4699-bf6c-649049e0a0b6")
+        @objid ("be251226-c864-4dac-99af-c04487c77628")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((BpmnProcessData) data).mResource = values;
-            
+
         }
 
-        @objid ("4aaf86bb-34e6-44d6-af55-087244d66706")
+        @objid ("7047b2b3-c9a7-4ccf-bd34-2fdf977cc524")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((BpmnResourceRoleSmClass)this.getTarget()).getProcessDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("e655a513-6f7f-41ec-9ff9-ebcab4c597bb")
     public static class DefinitionalCollaborationSmDependency extends SmSingleDependency {
-        @objid ("a371828e-67d8-4a02-8b27-c0f1c41ca9e3")
+        @objid ("296dcf59-f282-4142-85c3-2b6fb515ea39")
         private SmDependency symetricDep;
 
-        @objid ("191c6508-2fd8-4342-8d1a-c85f9e9de661")
+        @objid ("8560adc3-ac7b-42c7-a2e5-a64229d3cde2")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((BpmnProcessData) data).mDefinitionalCollaboration;
         }
 
-        @objid ("287e0eb0-2e99-46ca-abf0-03af3223ac51")
+        @objid ("6dc1f6fc-ae80-4b26-bc3b-94bda2ff3dc9")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((BpmnProcessData) data).mDefinitionalCollaboration = value;
         }
 
-        @objid ("8f107659-c2ef-450b-b783-e93633060e2a")
+        @objid ("dbf9c2a7-c3b6-4527-869f-95e0761f9100")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((BpmnCollaborationSmClass)this.getTarget()).getDefinedProcessDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

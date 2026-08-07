@@ -1,27 +1,26 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.mmextensions.standard.migration.from_35;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -42,6 +41,7 @@ import org.modelio.vbasic.files.FileUtils;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vbasic.progress.SubProgress;
 import org.modelio.vcore.model.spi.mm.IMigrationReporter;
+import org.modelio.vcore.model.spi.mm.IMigrationReporter.IMigrationLogger;
 import org.modelio.vcore.model.spi.mm.IMofRepositoryMigrator;
 import org.modelio.vcore.model.spi.mm.IMofSession;
 import org.modelio.vcore.model.spi.mm.MetaclassRenamer;
@@ -75,7 +75,7 @@ import org.modelio.vcore.smkernel.meta.mof.MofSmObjectImpl;
  * ModuleComponent["LocalModule"].OwnedProfile["Analyst"]:
  * Profile.OwnedReference[name]:
  * MetaclassReference.DefinedTable
- * 
+ *
  * 'name' depend du stereotype sur la propertytabledef:
  * - 'dictionary_propertyset'{01ec141c-0000-12fc-0000-000000000000} Stereotype
  * - 'business_rule_propertyset'{01ec141c-0000-1301-0000-000000000000} Stereotype
@@ -85,6 +85,7 @@ import org.modelio.vcore.smkernel.meta.mof.MofSmObjectImpl;
  * - 'test_propertyset'{859f8b76-5acc-4a9c-a5eb-973467388b13} Stereotype
  * - sinon AnalystContainer
  * </pre>
+ *
  * @author cma
  * @since 3.6
  */
@@ -112,10 +113,9 @@ public class StandardMm9022Migrator implements IMofRepositoryMigrator {
     private final MetamodelVersionDescriptor targetMetamodel;
 
     @objid ("5b1b7ef8-f401-4add-9d19-921cde3bc599")
-    public  StandardMm9022Migrator(MetamodelVersionDescriptor sourceMetamodel, MetamodelVersionDescriptor targetMetamodel) {
+    public StandardMm9022Migrator(MetamodelVersionDescriptor sourceMetamodel, MetamodelVersionDescriptor targetMetamodel) {
         this.sourceMetamodel = sourceMetamodel;
         this.targetMetamodel = targetMetamodel;
-        
     }
 
     @objid ("a398ff8b-a5b4-4dda-b8fa-a56658ab2d66")
@@ -138,6 +138,7 @@ public class StandardMm9022Migrator implements IMofRepositoryMigrator {
 
     /**
      * Modify the metamodel so that it can read the source repository.
+     *
      * @param metamodel the metamodel at the final state
      * @throws MofMigrationException on fatal failure preventing migration
      */
@@ -148,27 +149,27 @@ public class StandardMm9022Migrator implements IMofRepositoryMigrator {
             // Modelio open source without Analyst 2.0.00, load it.
             loadMetamodel(metamodel, "/migration/metamodel_analyst_2.xml");
         }
-        
+
         // Load the source metamodel
         new MofMetamodelMerger(metamodel)
         .setTemporary(true)
         .merge(StandardMmMigrationProvider.loadMetamodel(getSourceMetamodel()));
-        
+
         MofSmClass stdModelElementMc = (MofSmClass) metamodel.getMClass("Standard.ModelElement");
         MofSmClass infraModelElementMc = (MofSmClass) metamodel.getMClass("Infrastructure.ModelElement");
-        
-        
+
+
         // Recreate Analyst.AnalystProject.PropertyRoot : PropertyContainer
         try (MofBuilder b = metamodel.builder().setTemporary(true);) {
             MofSmClass analystProjectMC = (MofSmClass) metamodel.getMClass("Analyst.AnalystProject");
-        
+
             b.createDep("PropertyRoot")
             .setSource(analystProjectMC)
             .setTarget("Standard.PropertyContainer")
             .setComposition()
             .setOpposite("OwnerProject")
             .build();
-        
+
             // Recreate PropertyTableDefinition.Owner: PropertyContainer [1..1] opposite of PropertyContainer.DefinedTable
             b.createDep("Owner")
             .setSource((MofSmClass) metamodel.getMClass("Infrastructure.PropertyTableDefinition"))
@@ -176,21 +177,21 @@ public class StandardMm9022Migrator implements IMofRepositoryMigrator {
             .setNoPartOf()
             .setOpposite("DefinedTable")
             .build();
-        
+
             // BpmnLane.PartitionElement v3.6 is buggy : it points to UmlModelElement but contains Analyst and BPMN elements
             // Recreate it with its opposite to point to ModelElement.
             // It will be correctly migrated on Modelio 3.7.1 metamodel
             MofSmClass bpmnLaneMc = (MofSmClass) metamodel.getMClass("Standard.BpmnLane");
-        
+
             bpmnLaneMc.deleteDependency("PartitionElement");
-        
+
             if (infraModelElementMc.getDependency("BpmnLaneRefs") != null) {
                 infraModelElementMc.deleteDependency("BpmnLaneRefs");
             }
             if (stdModelElementMc.getDependency("BpmnLaneRefs") != null) {
                 stdModelElementMc.deleteDependency("BpmnLaneRefs");
             }
-        
+
             MofSmDependency partitionDep = b.createDep("PartitionElement")
                     .setSource(bpmnLaneMc)
                     .setTarget(infraModelElementMc)
@@ -198,48 +199,47 @@ public class StandardMm9022Migrator implements IMofRepositoryMigrator {
                     .setPartOf()
                     .createOpposite("BpmnLaneRefs", 0 , -1)
                     .build();
-        
+
             b.createDep("BpmnLaneRefs")
             .setSource(stdModelElementMc)
             .setTarget(bpmnLaneMc)
             .setCardinality(0, -1)
             .setOpposite(partitionDep)
             .build();
-        
+
         }
-        
+
         {
             assert(metamodel.getMClass("Standard.PropertyContainer") != null);
             assert(metamodel.getMClass("Standard.PropertyContainer").getDependency("DefinedTable") != null);
             assert(metamodel.getMClass("Standard.PropertyContainer").getDependency("DefinedType") != null);
-        
+
             assert(metamodel.getMClass("Standard.AnalystProject").getDependency("PropertyRoot") != null);
             assert(metamodel.getMClass("Analyst.AnalystProject").getDependency("PropertyRoot") != null);
         }
-        
+
         {
             MofSmClass bpmnLaneMc = (MofSmClass) metamodel.getMClass("Standard.BpmnLane");
             MDependency stdModelLaneDep = stdModelElementMc.getDependency("BpmnLaneRefs");
             MDependency lanePartitionDep = bpmnLaneMc.getDependency("PartitionElement");
-        
+
             assert(stdModelLaneDep != null);
             assert(stdModelLaneDep.getTarget() == bpmnLaneMc) : stdModelLaneDep;
-        
+
             assert(lanePartitionDep != null);
             assert(lanePartitionDep.getTarget() == infraModelElementMc) : lanePartitionDep;
         }
-        
+
         // Process metaclasses renamings
         // Read renamed classes
         prepareMetaclassesRenaming(metamodel);
-        
     }
 
     @objid ("49fdf831-b1c0-4c04-acdf-6ed93cf6c98d")
     @Override
     public void run(IModelioProgress monitor, IMofSession mofSession) throws MofMigrationException {
         SubProgress mon = SubProgress.convert(monitor, 10);
-        
+
         try {
             deleteObsoleteObjects(mon.newChild(1), mofSession);
             transmuteRenamedClasses(mon.newChild(7), mofSession);
@@ -249,7 +249,6 @@ public class StandardMm9022Migrator implements IMofRepositoryMigrator {
         } catch (MetaclassNotFoundException e) {
             throw new MofMigrationException(e.getLocalizedMessage(), e);
         }
-        
     }
 
     @objid ("3cab1379-1b10-4302-af24-39f559cacbf8")
@@ -266,7 +265,6 @@ public class StandardMm9022Migrator implements IMofRepositoryMigrator {
         } catch (IOException e) {
             throw new MofMigrationException(FileUtils.getLocalizedMessage(e), e);
         }
-        
     }
 
     @objid ("d41ca2c3-fa12-49a3-95ab-596146be6bf4")
@@ -275,7 +273,7 @@ public class StandardMm9022Migrator implements IMofRepositoryMigrator {
         if (idx == -1) {
             throw new IllegalArgumentException(qualifiedName);
         }
-        
+
         MClassRef ret = new MClassRef(qualifiedName.substring(0, idx), qualifiedName.substring(idx+1));
         return ret;
     }
@@ -289,12 +287,12 @@ public class StandardMm9022Migrator implements IMofRepositoryMigrator {
             }
             mon.worked(1);
         }
-        
     }
 
     /**
      * Transform Manifestations toward ModelElements that are not UmlModelElement
      * to Dependency stereotyped &lt;&lt;manifestation>>
+     *
      * @param reporter the migration report
      * @param monitor a progress monitor
      * @param mofsession the migration session
@@ -304,27 +302,26 @@ public class StandardMm9022Migrator implements IMofRepositoryMigrator {
     private void fixManifestations(IModelioProgress monitor, IMofSession mofsession) throws MetaclassNotFoundException {
         SmClass UmlModelElementCls = mofsession.getMetaclass(UmlModelElement.MQNAME);
         MObject manifStereotype = mofsession.getObjectReference(manifestation_dependency_stereotype);
-        
+
         for (MofSmObjectImpl manif : mofsession.findByClass(Manifestation.MQNAME, true)) {
             List<MofSmObjectImpl> manifSrc = manif.getDep("Owner");
             List<MofSmObjectImpl> manifTarget = manif.getDep("UtilizedElement");
             for (MofSmObjectImpl target : manifTarget) {
                 if (! target.getMClass().hasBase(UmlModelElementCls)) {
                     // The manifestation must be converted to a Dependency <<manifestation>>
-        
+
                     MofSmObjectImpl newDep = mofsession.createObject(Dependency.MQNAME, "manifest");
                     newDep.getDep("Impacted").addAll(manifSrc);
                     newDep.getDep("DependsOn").add(target);
                     newDep.getDep("Extension").add((MofSmObjectImpl) manifStereotype);
-        
+
                     // delete the manif
                     manif.delete();
-        
+
                     mofsession.getReport().getLogger().printf("    Replaced Manifestation from %s to %s with a Dependency.\n", manifSrc, manifTarget);
                 }
             }
         }
-        
     }
 
     /**
@@ -333,6 +330,7 @@ public class StandardMm9022Migrator implements IMofRepositoryMigrator {
      * Use also {@link #mcToTransmute} to rename old qualified names to new ones.
      * <p>
      * Requires the elements having been transmuted to the new metaclasses.
+     *
      * @param reporter the logger
      * @param monitor a progress monitor
      * @param mofsession the session
@@ -344,9 +342,9 @@ public class StandardMm9022Migrator implements IMofRepositoryMigrator {
         SmClass stereotypeMc = mofsession.getMetaclass(Stereotype.MQNAME);
         MAttribute baseClassAtt = stereotypeMc.getAttribute("BaseClassName");
         IMigrationReporter reporter = mofsession.getReport();
-        
+
         for (MofSmObjectImpl obj : mofsession.findByClass(stereotypeMc, true)) {
-            if (obj.isModifiable() && obj.isValid()) {
+            if (obj.getStatus().isModifiable() && obj.isValid()) {
                 String oldBase = (String) obj.mGet(baseClassAtt);
                 if (oldBase != null && ! oldBase.isEmpty()) {
                     String newBase = getNewBaseClassName(oldBase,mofsession);
@@ -359,13 +357,13 @@ public class StandardMm9022Migrator implements IMofRepositoryMigrator {
                 }
             }
         }
-        
+
         // MetaclassReference.ReferencedClassName
         stereotypeMc = mofsession.getMetaclass(MetaclassReference.MQNAME);
         baseClassAtt = stereotypeMc.getAttribute("ReferencedClassName");
-        
+
         for (MofSmObjectImpl obj : mofsession.findByClass(stereotypeMc, true)) {
-            if (obj.isModifiable() && obj.isValid()) {
+            if (obj.getStatus().isModifiable() && obj.isValid()) {
                 String oldBase = (String) obj.mGet(baseClassAtt);
                 if (oldBase != null) {
                     String newBase = getNewBaseClassName(oldBase,mofsession);
@@ -378,21 +376,19 @@ public class StandardMm9022Migrator implements IMofRepositoryMigrator {
                 }
             }
         }
-        
     }
 
     @objid ("1ec1c744-fe14-4191-b103-cb90fdfdc9c1")
     private String getNewBaseClassName(String oldBase, IMofSession mofsession) {
         SmClass foundMetaclass = mofsession.getMetamodel().getMClass(oldBase);
         String nameToReplace = foundMetaclass != null ? foundMetaclass.getQualifiedName() : oldBase;
-        
+
         MofSmClass entry = this.mcRenamer.getNewMetaclass(nameToReplace);
         if (entry != null) {
             return entry.getQualifiedName();
         } else {
             return nameToReplace;
         }
-        
     }
 
     @objid ("50d1d3cc-412f-4603-b6e7-b5e1836cbfe9")
@@ -400,12 +396,12 @@ public class StandardMm9022Migrator implements IMofRepositoryMigrator {
         /*
           PropertyContainer->DefinedType : PropertyType -->
             ModuleComponent["LocalModule"].DefinedPropertyType
-        
+
           PropertyContainer.DefinedTable:PropertyTableDefinition -->
              ModuleComponent["LocalModule"].OwnedProfile["Analyst"]:
                 Profile.OwnedReference[name]:
                     MetaclassReference.DefinedTable
-        
+
           'name' depend du stereotype sur la propertytabledef:
             - 'dictionary_propertyset'{01ec141c-0000-12fc-0000-000000000000} Stereotype
             - 'business_rule_propertyset'{01ec141c-0000-1301-0000-000000000000} Stereotype
@@ -415,16 +411,15 @@ public class StandardMm9022Migrator implements IMofRepositoryMigrator {
             - 'test_propertyset'{859f8b76-5acc-4a9c-a5eb-973467388b13} Stereotype
                 - sinon AnalystContainer
          */
-        
-        @SuppressWarnings("resource")
-        PrintWriter logger = mofSession.getReport().getLogger();
-        
+
+        IMigrationLogger logger = mofSession.getReport().getLogger();
+
         logger.printf("\n Processing 3.5 Analyst property container...\n");
-        
+
         // Find or create 'LocalModule' module
         SmClass moduleMc = mofSession.getMetaclass("Infrastructure.ModuleComponent");
         SmClass mcRefMc = mofSession.getMetaclass("Infrastructure.MetaclassReference");
-        
+
         MofSmObjectImpl moduleComponent = mofSession
                 .findByClass(moduleMc, false).stream()
                 .filter(o -> o.getName().equals("LocalModule"))
@@ -432,52 +427,52 @@ public class StandardMm9022Migrator implements IMofRepositoryMigrator {
                 .orElseGet(
                         () -> mofSession.createObject(moduleMc, "LocalModule")
                         );
-        
-        
+
+
         MofSmObjectImpl analystProfile = null; // 'Analyst' profile under 'LocalModule'
-        
+
         // Iterate all AnalystProject
         Collection<MofSmObjectImpl> analystProjects = mofSession.findByClass("Analyst.AnalystProject", false);
-        
+
         for (MofSmObjectImpl analystProj : analystProjects) {
             Collection<MofSmObjectImpl> propertyContainers = analystProj.getDep("PropertyRoot");
             logger.printf(" Found %d property containers in %s. \n", propertyContainers.size(), analystProj);
-        
+
             // Iterate all PropertyContainers
             for (MofSmObjectImpl propCont : new ArrayList<>(propertyContainers)) {
                 // Migrate  PropertyContainer->DefinedType : PropertyType
                 //            --> ModuleComponent["LocalModule"].DefinedPropertyType
                 List<MofSmObjectImpl> propertyTypes = propCont.getDep("DefinedType");
                 logger.printf("   Found %d property types in %s. \n", propertyTypes.size(), propCont);
-        
+
                 for (MofSmObjectImpl typeDef : new ArrayList<>(propertyTypes)) {
                     propertyTypes.remove(typeDef);
                     moduleComponent.getDep("DefinedPropertyType").add(typeDef);
-        
+
                     logger.printf("     Moved %s  \n", typeDef);
                     logger.printf("        from %s \n", propCont);
                     logger.printf("        to %s. \n", moduleComponent);
                 }
-        
+
                 // Iterates property Table Definitions
                 List<MofSmObjectImpl> propertyTableDefinitions = propCont.getDep("DefinedTable");
                 logger.printf("   Found %d property table definitions in %s. \n", propertyTableDefinitions.size(), propCont);
-        
+
                 for (MofSmObjectImpl tableDef : new ArrayList<>(propertyTableDefinitions)) {
-        
+
                     if (analystProfile == null) {
                         // Find or create 'Analyst' profile under 'LocalModule'
                         analystProfile = mofSession.getOrCreate(
                                 moduleComponent, "OwnedProfile", "Infrastructure.Profile", "Analyst");
                     }
-        
+
                     // Get the base metaclass name from the PropertyContainer stereotype
                     String metaclassName = tableDef.getDep("Extension").stream() // look at stereotypes
                             .map(ste -> PropertyTableDefinitionMapping.get(ste.getName())) // get base class name from stereotype
                             .filter(s -> s != null) // ignore unknown stereotypes
                             .findFirst()
                             .orElse("Analyst.AnalystContainer"); // default base class
-        
+
                     // Get or create 'metaclassName' metaclass reference
                     final MofSmObjectImpl analystProfile2 = analystProfile ;
                     MofSmObjectImpl metaclassRef = analystProfile
@@ -490,28 +485,27 @@ public class StandardMm9022Migrator implements IMofRepositoryMigrator {
                                 MofSmObjectImpl obj = mofSession.createObject(mcRefMc);
                                 obj.setAttVal("ReferencedClassName", metaclassName);
                                 analystProfile2.getDep("OwnedReference").add(obj);
-        
+
                                 logger.printf("     Created '%s' %s in %s.\n", metaclassName, MetaclassReference.MQNAME, analystProfile2);
                                 return obj;
                             });
-        
+
                     propertyTableDefinitions.remove(tableDef);
                     metaclassRef.getDep("DefinedTable").add(tableDef);
-        
+
                     logger.printf("     Moved %s  \n", tableDef);
                     logger.printf("        from %s \n", propCont);
                     logger.printf("        to '%s' %s. \n", metaclassRef.getAtt("ReferencedClassName"), metaclassRef);
                 }
-        
+
                 assert(propCont.getDep("DefinedTable").isEmpty());
-        
+
                 propCont.delete();
                 logger.printf("   Deleted obsolete %s from %s. \n", propCont, analystProj);
             }
         }
-        
+
         logger.printf(" Processed 3.5 Analyst property containers.\n");
-        
     }
 
     @objid ("bf92bfe7-ccdd-4097-a24b-e49a41b7677e")
@@ -522,7 +516,7 @@ public class StandardMm9022Migrator implements IMofRepositoryMigrator {
         MRef goal_propertyset = new MRef(Stereotype.MQNAME, "01ec141c-0000-12f2-0000-000000000000", "goal_propertyset");
         MRef risk_propertyset = new MRef(Stereotype.MQNAME, "679a9417-8f06-4255-a409-1e1f7136e418", "risk_propertyset");
         MRef test_propertyset = new MRef(Stereotype.MQNAME, "859f8b76-5acc-4a9c-a5eb-973467388b13", "test_propertyset");
-        
+
         // use a map by name instead of by ref because stereotypes are reidentified
         // on transmutation.
         Map<String, String> ret = new HashMap<>();
@@ -537,32 +531,33 @@ public class StandardMm9022Migrator implements IMofRepositoryMigrator {
 
     /**
      * Prepare the metamodel for metaclasses renaming.
+     *
      * @param metamodel the MOF metamodel.
      * @throws MofMigrationException on failure
      */
     @objid ("3c8c0f98-cdf8-4a81-82c0-9aa6eff96907")
     private void prepareMetaclassesRenaming(MofMetamodel metamodel) throws MofMigrationException {
         this.mcRenamer = new MetaclassRenamer();
-        
+
         Properties properties = new Properties();
-        
+
         try (InputStream inputStream = getClass().getResourceAsStream("/migration/renamings_35.properties")) {
             assert(inputStream != null);
-        
+
             properties.load(inputStream);
-        
+
             for (Entry<Object, Object> entry : properties.entrySet()) {
                 String oldQualifiedName = (String) entry.getKey();
                 String newQualifiedName = (String) entry.getValue();
-        
+
                 // Decode 3.5 qualified name
                 MClassRef oldMcRef = decodeQualifiedName(oldQualifiedName);
-        
+
                 // Look for the 3.6 metaclass
                 MofSmClass newCls = (MofSmClass) metamodel.getMClass(newQualifiedName);
                 if (newCls != null) {
                     MofMetamodelFragment oldMmFragment = metamodel.getOrCreateFragment(oldMcRef.getFragmentName());
-        
+
                     MofSmClass oldCls = (MofSmClass) metamodel.getMClass(oldMcRef.getQualifiedName());
                     if (oldCls==null) {
                         // Create a renamed copy of the metaclass
@@ -581,23 +576,22 @@ public class StandardMm9022Migrator implements IMofRepositoryMigrator {
         } catch (IOException e) {
             throw new MofMigrationException(FileUtils.getLocalizedMessage(e), e);
         }
-        
     }
 
     /**
      * Many dependencies were moved from ModelElement to UmlModelElement.
      * Copy back these ones.
+     *
      * @param metamodel the metamodel
      * @param b the MOf metamodel builder
      */
     @objid ("19cccd85-c4d3-4f55-9259-cf33203c6fdc")
     private void prepareMetamodelForUmlModelElement(MofMetamodel metamodel, MofBuilder b) {
         SmClass modelElCls = metamodel.getMClass(ModelElement.MQNAME);
-        
+
         for (SmDependency dep : metamodel.getMClass(UmlModelElement.MQNAME).getSelfDepDef()) {
             b.createDepCopy(dep, modelElCls).build();
         }
-        
     }
 
     @objid ("f291f57f-2b1e-47aa-ac75-2f3a53ccd416")
@@ -612,15 +606,14 @@ public class StandardMm9022Migrator implements IMofRepositoryMigrator {
             try (InputStream is= getClass().getResourceAsStream("/migration/metamodel_analyst_2.xml")) {
                 MetamodelDescriptor anadesc = MetamodelDescriptorReader.readFrom(is, "/migration/metamodel_analyst_2.xml");
                 MetamodelFragmentDescriptor analystFd = anadesc.getFragments().get("Analyst");
-        
+
                 reporter.getLogger().format(" Adding '%s' V%s to the final metamodel descriptor.", analystFd.getName(), analystFd.getVersion());
-        
+
                 desc.addFragment(analystFd);
             } catch (IOException e) {
                 throw new MofMigrationException(FileUtils.getLocalizedMessage(e), e);
             }
         }
-        
     }
 
 }

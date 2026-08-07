@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnnodefooter;
 
@@ -49,42 +49,42 @@ public class BpmnNodeFooterFigure extends Figure {
     private ImageFigure nonemptySubProcessFigure;
 
     @objid ("617303f1-55b6-11e2-877f-002564c97630")
-    public  BpmnNodeFooterFigure() {
+    public BpmnNodeFooterFigure() {
         this.emptySubProcessFigure = new ImageFigure();
         this.emptySubProcessFigure.setIcon(DiagramEditorBpmn
                 .getImageRegistry()
                 .getImage(BpmnSharedImages.SUBPROCESS));
-        
+
         this.nonemptySubProcessFigure = new ImageFigure();
         this.nonemptySubProcessFigure.setIcon(DiagramEditorBpmn
                 .getImageRegistry()
                 .getImage(BpmnSharedImages.NONEMPTYSUBPROCESS));
-        
+
         this.loopFigure = new ImageFigure();
         this.loopFigure.setIcon(DiagramEditorBpmn
                 .getImageRegistry()
                 .getImage(BpmnSharedImages.LOOP));
-        
+
         this.parallelFigure = new ImageFigure();
         this.parallelFigure.setIcon(DiagramEditorBpmn
                 .getImageRegistry()
                 .getImage(BpmnSharedImages.PARALLEL));
-        
+
         this.sequentialFigure = new ImageFigure();
         this.sequentialFigure.setIcon(DiagramEditorBpmn
                 .getImageRegistry()
                 .getImage(BpmnSharedImages.SEQUENTIAL));
-        
+
         this.adhocFigure = new ImageFigure();
         this.adhocFigure.setIcon(DiagramEditorBpmn
                 .getImageRegistry()
                 .getImage(BpmnSharedImages.ADHOC));
-        
+
         this.copensationFigure = new ImageFigure();
         this.copensationFigure.setIcon(DiagramEditorBpmn
                 .getImageRegistry()
                 .getImage(BpmnSharedImages.COMPENSATION));
-        
+
     }
 
     @objid ("617303f3-55b6-11e2-877f-002564c97630")
@@ -96,7 +96,7 @@ public class BpmnNodeFooterFigure extends Figure {
         } else if (this.getChildren().contains(this.emptySubProcessFigure)) {
             this.remove(this.emptySubProcessFigure);
         }
-        
+
     }
 
     @objid ("617303f6-55b6-11e2-877f-002564c97630")
@@ -108,7 +108,7 @@ public class BpmnNodeFooterFigure extends Figure {
         } else if (this.getChildren().contains(this.parallelFigure)) {
             this.remove(this.parallelFigure);
         }
-        
+
     }
 
     @objid ("617303f9-55b6-11e2-877f-002564c97630")
@@ -120,7 +120,7 @@ public class BpmnNodeFooterFigure extends Figure {
         } else if (this.getChildren().contains(this.sequentialFigure)) {
             this.remove(this.sequentialFigure);
         }
-        
+
     }
 
     @objid ("617303fc-55b6-11e2-877f-002564c97630")
@@ -132,7 +132,7 @@ public class BpmnNodeFooterFigure extends Figure {
         } else if (this.getChildren().contains(this.adhocFigure)) {
             this.remove(this.adhocFigure);
         }
-        
+
     }
 
     @objid ("61748a5b-55b6-11e2-877f-002564c97630")
@@ -144,7 +144,7 @@ public class BpmnNodeFooterFigure extends Figure {
         } else if (this.getChildren().contains(this.copensationFigure)) {
             this.remove(this.copensationFigure);
         }
-        
+
     }
 
     @objid ("61748a5e-55b6-11e2-877f-002564c97630")
@@ -156,7 +156,7 @@ public class BpmnNodeFooterFigure extends Figure {
         } else if (this.getChildren().contains(this.loopFigure)) {
             this.remove(this.loopFigure);
         }
-        
+
     }
 
     @objid ("61748a61-55b6-11e2-877f-002564c97630")
@@ -168,7 +168,7 @@ public class BpmnNodeFooterFigure extends Figure {
         } else if (this.getChildren().contains(this.nonemptySubProcessFigure)) {
             this.remove(this.nonemptySubProcessFigure);
         }
-        
+
     }
 
 }

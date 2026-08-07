@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.initial;
 
@@ -51,11 +51,12 @@ public final class GmInitialPrimaryNode extends GmNoStyleSimpleNode implements I
 
     /**
      * Create a initial graphic node.
+     *
      * @param diagram The diagram
      * @param relatedRef The related element reference, may not be null.
      */
     @objid ("2a9cedf8-55b6-11e2-877f-002564c97630")
-    public  GmInitialPrimaryNode(IGmDiagram diagram, MRef relatedRef) {
+    public GmInitialPrimaryNode(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -73,7 +74,7 @@ public final class GmInitialPrimaryNode extends GmNoStyleSimpleNode implements I
         }
         // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("2a9e7469-55b6-11e2-877f-002564c97630")
@@ -90,6 +91,7 @@ public final class GmInitialPrimaryNode extends GmNoStyleSimpleNode implements I
 
     /**
      * Get the parent model representation mode.
+     *
      * @return the parent representation mode or null if the node has still no parent.
      */
     @objid ("2a9e7479-55b6-11e2-877f-002564c97630")
@@ -109,26 +111,26 @@ public final class GmInitialPrimaryNode extends GmNoStyleSimpleNode implements I
     @Override
     public IEditableText getEditableText() {
         return new IEditableText() {
-        
+
                     @Override
                     public String getText() {
                         return getRelatedElement().getName();
                     }
-        
+
                     @Override
                     public void setText(String text) {
                         getRelatedElement().setName(text);
                     }
-        
+
                 };
-        
+
     }
 
     /**
      * Constructor for deserialization only.
      */
     @objid ("2a9e748d-55b6-11e2-877f-002564c97630")
-    public  GmInitialPrimaryNode() {
+    public GmInitialPrimaryNode() {
         // for the serialization
     }
 
@@ -149,17 +151,17 @@ public final class GmInitialPrimaryNode extends GmNoStyleSimpleNode implements I
             break;
         }
         }
-        
+
     }
 
     @objid ("2a9e7496-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmInitialPrimaryNode.", GmInitialPrimaryNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("2a9ffaf9-55b6-11e2-877f-002564c97630")

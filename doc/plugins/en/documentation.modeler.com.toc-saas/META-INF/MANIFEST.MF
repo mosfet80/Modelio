@@ -1,0 +1,5 @@
+Bundle-SymbolicName: com.modeliosoft.modelio.saas.documentation.modeliomodeler.toc
+Bundle-Version: 6.2.0.qualifier 
+Fragment-Host: com.modeliosoft.modelio.documentation.modeliomodeler
+Bundle-Name: Modelio Modeler documentation for SaaS (toc)
+Bundle-Vendor: Docaposte

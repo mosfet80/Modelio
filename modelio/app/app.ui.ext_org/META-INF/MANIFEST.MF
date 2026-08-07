@@ -2,20 +2,23 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: App Ui extensions
 Bundle-SymbolicName: org.modelio.app.ui.ext_org;singleton:=true
-Bundle-Version: 5.4.1.qualifier 
+Bundle-Version: 6.2.0.qualifier 
 Fragment-Host: org.modelio.app.ui
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-Vendor: modelio.org
 Bundle-ActivationPolicy: lazy
 Bundle-Localization: fragment
+Bundle-ClassPath: res/,
+ .
+Eclipse-BundleShape: dir
 Require-Bundle: org.eclipse.e4.core.di,
  org.eclipse.e4.core.contexts,
  org.eclipse.e4.core.services,
  org.modelio.platform.core,
  org.modelio.platform.project,
- org.modelio.core.utils,
  org.modelio.core.session,
  org.modelio.core.project,
+ org.modelio.core.utils,
  org.modelio.platform.utils,
  org.modelio.platform.ui,
  org.eclipse.core.runtime,
@@ -24,7 +27,5 @@ Require-Bundle: org.eclipse.e4.core.di,
  org.eclipse.e4.ui.workbench,
  org.modelio.platform.rcp,
  org.modelio.platform.mda.infra,
- org.modelio.app.ui.welcome,
- org.eclipse.e4.ui.di
-Bundle-ClassPath: res/,
- .
+ org.eclipse.e4.ui.di,
+ org.modelio.app.ui.welcome

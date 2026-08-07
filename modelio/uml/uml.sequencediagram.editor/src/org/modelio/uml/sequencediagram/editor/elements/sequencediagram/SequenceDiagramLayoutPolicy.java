@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.sequencediagram;
 
@@ -76,7 +76,6 @@ public class SequenceDiagramLayoutPolicy extends DiagramEditLayoutPolicy {
         } else {
             return super.createChangeConstraintCommand(request, child, constraint);
         }
-        
     }
 
     @objid ("d97f2199-55b6-11e2-877f-002564c97630")
@@ -89,7 +88,6 @@ public class SequenceDiagramLayoutPolicy extends DiagramEditLayoutPolicy {
         } else {
             return super.createChildEditPolicy(child);
         }
-        
     }
 
     /**
@@ -105,10 +103,10 @@ public class SequenceDiagramLayoutPolicy extends DiagramEditLayoutPolicy {
                 exclude2.add(o);
             }
         }
-        
+
         // The inherited layout assistant.
         final ILayoutAssistant l = super.createLayoutAssistant(exclude2, forResize);
-        
+
         /**
          * Assistant adapter that ignores anything that is not a lifeline.
          */
@@ -139,7 +137,7 @@ public class SequenceDiagramLayoutPolicy extends DiagramEditLayoutPolicy {
                     coveredLifelines);
         } else if (Gate.class == ctx.getJavaClass()) {
             Rectangle requestRect = (Rectangle) getConstraintFor(request);
-        
+
             return new CreateGateCommand((Interaction) getHostElement(),
                     getHostCompositeNode(),
                     ctx,
@@ -147,7 +145,7 @@ public class SequenceDiagramLayoutPolicy extends DiagramEditLayoutPolicy {
                     requestRect.getLocation().y);
         } else if (PartDecomposition.class == ctx.getJavaClass()) {
             Rectangle requestRect = (Rectangle) getConstraintFor(request);
-        
+
             return new CreatePartDecompositionCommand((Interaction) getHostElement(),
                     getHostCompositeNode(),
                     ctx,
@@ -155,7 +153,6 @@ public class SequenceDiagramLayoutPolicy extends DiagramEditLayoutPolicy {
         } else {
             return super.getCreateCommand(request);
         }
-        
     }
 
     @objid ("d97f21a5-55b6-11e2-877f-002564c97630")
@@ -170,11 +167,11 @@ public class SequenceDiagramLayoutPolicy extends DiagramEditLayoutPolicy {
         } else {
             return null;
         }
-        
     }
 
     /**
      * Returns (0,0)
+     *
      * @see XYLayoutEditPolicy#getLayoutOrigin()
      */
     @objid ("d97f21ab-55b6-11e2-877f-002564c97630")
@@ -252,7 +249,6 @@ public class SequenceDiagramLayoutPolicy extends DiagramEditLayoutPolicy {
             allChildren.add(child);
             getAllChildren(child, allChildren);
         }
-        
     }
 
     @objid ("d97f21d3-55b6-11e2-877f-002564c97630")
@@ -266,7 +262,6 @@ public class SequenceDiagramLayoutPolicy extends DiagramEditLayoutPolicy {
                 }
             }
         }
-        
     }
 
     /**
@@ -278,7 +273,7 @@ public class SequenceDiagramLayoutPolicy extends DiagramEditLayoutPolicy {
         private final ILayoutAssistant l;
 
         @objid ("cc87b903-843f-431d-ac49-f58afef340c9")
-        public  SeqDgLayoutAssistantWrapper(ILayoutAssistant l) {
+        public SeqDgLayoutAssistantWrapper(ILayoutAssistant l) {
             this.l = l;
         }
 
@@ -315,7 +310,6 @@ public class SequenceDiagramLayoutPolicy extends DiagramEditLayoutPolicy {
             if (movedEp instanceof LifelineEditPart) {
                 this.l.addBoundsChange(movedEp, oldRect, newRect);
             }
-            
         }
 
     }

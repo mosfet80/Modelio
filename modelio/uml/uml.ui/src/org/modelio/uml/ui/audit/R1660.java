@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -47,7 +47,7 @@ public class R1660 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -98,14 +98,14 @@ public class R1660 extends AbstractUmlRule {
      * Default constructor for R1660
      */
     @objid ("f48b4e87-3015-49d3-bcc5-35b0225b8ac1")
-    public  R1660() {
+    public R1660() {
         this.checkerInstance = new CheckR1660(this);
     }
 
     @objid ("1d595a24-1a5e-4e46-9e5e-6382f95123ec")
     private static class CheckR1660 extends AbstractControl {
         @objid ("29de7a4d-c837-43d4-b3ed-9f170921df7b")
-        public  CheckR1660(IRule rule) {
+        public CheckR1660(IRule rule) {
             super(rule);
         }
 
@@ -126,11 +126,11 @@ public class R1660 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     enumeration,
                     null);
-            
+
             if (!enumeration.isIsElementary()) {
-            
+
                 // Rule failed
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(enumeration);

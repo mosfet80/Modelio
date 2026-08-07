@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.api.impl.editor;
 
@@ -75,13 +75,14 @@ public class EditionService implements IEditionService {
 
     /**
      * Initialize the edition service.
+     *
      * @param eventService the Modelio event service
      */
     @objid ("83aae504-98c5-4e05-aa25-24ca50ff57ae")
-    public  EditionService(IModelioEventService eventService, IEclipseContext eclipseContext) {
+    public EditionService(IModelioEventService eventService, IEclipseContext eclipseContext) {
         this.eventService = eventService;
         this.eclipseContext = eclipseContext;
-        
+
     }
 
     @objid ("775aa980-fcae-4a9a-934c-5f05762c412f")
@@ -107,7 +108,7 @@ public class EditionService implements IEditionService {
     @Override
     public Path editRichNote(final Document doc, final IExternDocumentChangeListener listener) throws IOException {
         final IRichNoteFileRepository fileRepository = RichNotesSession.get(AbstractGProject.getProject(doc)).getFileRepository();
-        
+
         if (listener != null) {
             // Store proxy editor in the map
             final MdaRichNoteEditor richNoteEditor = new MdaRichNoteEditor(doc, listener);
@@ -116,7 +117,7 @@ public class EditionService implements IEditionService {
         } else {
             return fileRepository.openRichNote(doc, null);
         }
-        
+
     }
 
     @objid ("0f1883de-d93e-4bb5-8f34-0bd39a384dc7")
@@ -124,7 +125,7 @@ public class EditionService implements IEditionService {
     public List<String> getSupportedMimeTypes() {
         final Collection<RichNoteFormat> formats = RichNoteFormatRegistry.getInstance().getAllFormats();
         final List<String> ret = new ArrayList<>(formats.size());
-        
+
         for (final RichNoteFormat f : formats) {
             if (f.getSupportLevel() == SupportLevel.Primary) {
                 ret.add(f.getMimeType());
@@ -197,9 +198,9 @@ public class EditionService implements IEditionService {
     @Override
     public void saveRichNote(final Document doc, Path fileToSave) throws IOException {
         final IRichNoteFileRepository fileRepository = RichNotesSession.get(AbstractGProject.getProject(doc)).getFileRepository();
-        
+
         fileRepository.saveRichNote(doc, fileToSave);
-        
+
     }
 
     @objid ("83876608-10e6-4747-a08f-f24f91066405")
@@ -210,7 +211,7 @@ public class EditionService implements IEditionService {
             final IRichNoteFileRepository fileRepository = RichNotesSession.get(doc).getFileRepository();
             fileRepository.initRichNoteFromFile(doc, content);
         }
-        
+
     }
 
     @objid ("ee7ee03c-8aed-4c77-8734-918f9dea9570")
@@ -223,10 +224,10 @@ public class EditionService implements IEditionService {
     @Override
     public void unregisterListener(final IExternDocumentChangeListener editor) {
         final MdaRichNoteEditor mdaRichNoteEditor = this.richNoteEditors.get(editor);
-        
+
         final IRichNoteFileRepository fileRepository = RichNotesSession.get(AbstractGProject.getProject(mdaRichNoteEditor.getDoc())).getFileRepository();
         fileRepository.removeEditor(mdaRichNoteEditor);
-        
+
     }
 
     @objid ("5e54bcd5-049f-4cc5-8a02-5160d2506e98")

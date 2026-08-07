@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.migration;
 
@@ -39,7 +39,7 @@ public class LinkPathFixer implements IPostLoadAction {
     private GmLink gmLink;
 
     @objid ("9a55e16e-5b69-4025-8774-bfea42af1160")
-    public  LinkPathFixer(GmLink gmLink) {
+    public LinkPathFixer(GmLink gmLink) {
         this.gmLink = gmLink;
     }
 
@@ -56,7 +56,7 @@ public class LinkPathFixer implements IPostLoadAction {
                 Rectangle originBounds = figure.getBounds().getCopy();
                 figure.translateToAbsolute(originBounds);
                 Point negated = originBounds.getTopLeft().getNegated();
-        
+
                 List<Point> points = BendPointUtils.draw2dConstraintToModelConstraint(routingConstraint);
                 for (Point p : points) {
                     p.translate(negated);
@@ -64,11 +64,12 @@ public class LinkPathFixer implements IPostLoadAction {
                 applyLayoutData(points);
             }
         }
-        
+
     }
 
     /**
      * Update the layout data of the {@link #gmLink}.
+     *
      * @param newPathData a list of points.
      */
     @objid ("445b27f2-6384-479c-9045-d12762e8f5c9")
@@ -76,7 +77,7 @@ public class LinkPathFixer implements IPostLoadAction {
         GmPath newGmPath = new GmPath(this.gmLink.getPath());
         newGmPath.setPathData(newPathData);
         this.gmLink.setLayoutData(newGmPath);
-        
+
     }
 
 }

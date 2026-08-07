@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.vstore.exml.resource;
 
@@ -87,6 +106,7 @@ public interface IExmlRepositoryGeometry {
 
     /**
      * Get the blob key stored in the given file.
+     *
      * @param relativePath a blob file path relative to the repository root.
      * @return the blob key.
      */
@@ -95,6 +115,7 @@ public interface IExmlRepositoryGeometry {
 
     /**
      * Get the path where the given blob should be stored.
+     *
      * @param blobKey a Blob key
      * @return the path where the blob is stored.
      */
@@ -105,6 +126,7 @@ public interface IExmlRepositoryGeometry {
      * Get the directories that should exist on an empty repository.
      * <p>
      * The returned paths are relative to the repository root.
+     *
      * @param metamodel the metamodel
      * @return the list of directories.
      */
@@ -113,6 +135,7 @@ public interface IExmlRepositoryGeometry {
 
     /**
      * Get the non versioned part EXML file path of an element reference relative to the repository path.
+     *
      * @param ref an element reference.
      * @return the EXML file path relative to the repository path.
      */
@@ -121,6 +144,7 @@ public interface IExmlRepositoryGeometry {
 
     /**
      * Get the path where the metamodel descriptor XMl file is stored.
+     *
      * @return the metamodel descriptor path
      * @since 3.6
      */
@@ -129,6 +153,7 @@ public interface IExmlRepositoryGeometry {
 
     /**
      * Get the 'model' directory containing a sub directory per metaclass.
+     *
      * @return the model directory path relative to the repository root.
      */
     @objid ("3bc1e08d-fa36-457b-8a48-e3ad0f2cc2bb")
@@ -136,6 +161,7 @@ public interface IExmlRepositoryGeometry {
 
     /**
      * Get the element reference representing the given EXML file.
+     *
      * @param relativePath an EXML file path relative to the repository root.
      * @return the represented element reference.
      */
@@ -144,6 +170,7 @@ public interface IExmlRepositoryGeometry {
 
     /**
      * Get the EXML file path of an element reference relative to the repository path.
+     *
      * @param ref an element reference.
      * @return the EXML file path relative to the repository path.
      */
@@ -151,6 +178,7 @@ public interface IExmlRepositoryGeometry {
     String getRelativePath(MRef ref);
 
     /**
+     *
      * @param relativePath a file path relative to the repository root.
      * @return <code>true</code> if the file is a blob file.
      */
@@ -162,10 +190,25 @@ public interface IExmlRepositoryGeometry {
      * <p>
      * The answer is based on the file extension.
      * Returns <i>false</i> if it is a {@link IExmlRepositoryGeometry#EXT_LOCAL_EXML ".local.exml"} file.
+     *
      * @param relativePath a file path relative to the repository root.
      * @return <i>true</i> if it is an EXML file, else <i>false</i>.
      */
     @objid ("d717c499-1ceb-11e2-8eb9-001ec947ccaf")
     boolean isModelPath(String relativePath);
-}
 
+    /**
+     * Get the maximum level of sub directories in the {@link #getModelPath()} directory.
+     * <p>
+     * This is a hint for repository scanners.
+     * <h3>Examples:</h3>
+     * Could return 0 if there is no sub directory (!?!),
+     * 1 for one directory per metaclass, 2 or more for more complex hierarchy.
+     *
+     * @return the max level of model sub directory .
+     * @since 6.0.0 21/06/2024
+     */
+    @objid ("28831e59-9cb0-4eb7-8724-919ab150ad58")
+    int getModelDirectoryLevels();
+
+}

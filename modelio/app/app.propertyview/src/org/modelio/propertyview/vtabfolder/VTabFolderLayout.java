@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.propertyview.vtabfolder;
 
@@ -52,7 +52,7 @@ public class VTabFolderLayout extends Layout {
                 tabH += renderer.computeSize(i, state, gc, SWT.DEFAULT, SWT.DEFAULT).y;
             }
         }
-        
+
         //int width = 0, wrapHeight = 0;
         int height = 0, wrapWidth = 0;
         //boolean leftControl = false, rightControl = false;
@@ -95,9 +95,9 @@ public class VTabFolderLayout extends Layout {
         if (bottomControl)
             height += VTabFolder.SPACING * 2;
         tabH += height;
-        
+
         gc.dispose();
-        
+
         int controlW = 0;
         int controlH = 0;
         // preferred size of controls in tab items
@@ -109,21 +109,21 @@ public class VTabFolderLayout extends Layout {
                 controlH = Math.max(controlH, size.y);
             }
         }
-        
+
         //        int minWidth = Math.max(tabW, controlW + folder.marginWidth);
         //        int minHeight = (folder.minimized) ? 0 : controlH + wrapHeight;
-        
+
         int minHeight = Math.max(tabH, controlH + folder.marginHeight);
         int minWidth =  controlW + wrapWidth;
-        
-        
-        
-        
+
+
+
+
         if (minWidth == 0)
             minWidth = VTabFolder.DEFAULT_WIDTH;
         if (minHeight == 0)
             minHeight = VTabFolder.DEFAULT_HEIGHT;
-        
+
         if (wHint != SWT.DEFAULT)
             minWidth = wHint;
         if (hHint != SWT.DEFAULT)
@@ -142,7 +142,7 @@ public class VTabFolderLayout extends Layout {
                 control.setBounds(folder.getClientArea());
             }
         }
-        
+
     }
 
     @objid ("dc184cf5-00d3-4d64-bd80-e4225d5818bc")

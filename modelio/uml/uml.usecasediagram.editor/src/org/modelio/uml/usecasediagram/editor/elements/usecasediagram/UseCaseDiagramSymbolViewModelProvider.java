@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.usecasediagram.editor.elements.usecasediagram;
 
@@ -35,13 +35,13 @@ class UseCaseDiagramSymbolViewModelProvider {
     @objid ("22bb60c9-fabc-4354-8c40-2c702419058e")
     public static ISymbolViewModel create(IStyle editedStyle, GmAbstractDiagram input) {
         BundledMessages i18n = DiagramElements.I18N;
-        
-        
-        
+
+
+
         SymbolViewContentBuilder b = new SymbolViewContentBuilder(MetamodelLabels.getString(input.getRelatedMClass().getName()));
-        
+
         IEntryFilter gridVisibleFilter = b.filterEquals(GmUseCaseDiagramStyleKeys.VIEWGRID, Boolean.TRUE);
-        
+
         b
                 .add(b.createThemeChooserItem())
                 .add(b.createStyleItem(GmUseCaseDiagramStyleKeys.SHOW_SMARTLINK_HANDLE))
@@ -49,11 +49,12 @@ class UseCaseDiagramSymbolViewModelProvider {
                 .add(b.createLabelItem(i18n.getString("symbol.Diagram.group.snap"))
                         .add(b.createStyleItem(GmUseCaseDiagramStyleKeys.VIEWGRID))
                         .add(b.createStyleItem(GmUseCaseDiagramStyleKeys.GRIDSPACING).filter((style, context) -> style.getBoolean(GmUseCaseDiagramStyleKeys.VIEWGRID) || style.getBoolean(GmUseCaseDiagramStyleKeys.SNAPTOGRID)))
+                        .add(b.createStyleItem(GmUseCaseDiagramStyleKeys.ANCHORSPACING))
                         .add(b.createStyleItem(GmUseCaseDiagramStyleKeys.GRIDCOLOR).filter(gridVisibleFilter))
                         .add(b.createStyleItem(GmUseCaseDiagramStyleKeys.GRIDALPHA).filter(gridVisibleFilter))
                         .add(b.createStyleItem(GmUseCaseDiagramStyleKeys.SNAPTOGRID))
                         .add(b.createStyleItem(GmUseCaseDiagramStyleKeys.SNAPTOGEOMETRY))
-        
+
                 )
                 .add(b.createLabelItem(i18n.getString("symbol.Diagram.group.background"))
                         .add(b.createStyleItem(GmUseCaseDiagramStyleKeys.FILLCOLOR))
@@ -69,7 +70,7 @@ class UseCaseDiagramSymbolViewModelProvider {
                         .add(b.createStyleItem(LayoutAssistantStyleKeys.AVOIDBENDDPOINTS))
                         .add(b.createStyleItem(LayoutAssistantStyleKeys.KEEP_DIST_ON_RESIZE))
                         .add(b.createStyleItem(LayoutAssistantStyleKeys.MINDIST))
-        
+
         );
         return b.build(editedStyle, input);
     }

@@ -1,27 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.browser.handlers;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.ui.services.IServiceConstants;
@@ -39,11 +39,11 @@ public class RenameHandler extends AbstractBrwModelHandler {
     protected void doExecute(DiagramBrowserView browserView, List<Object> selectedObjects, ICoreSession session) {
         if (browserView != null && !selectedObjects.isEmpty()) {
             Object firstObject = selectedObjects.get(0);
-        
+
             if (firstObject instanceof IAdaptable) {
                 IAdaptable adapter = (IAdaptable)firstObject;
                 Object elementToEdit = null;
-        
+
                 // try a diagram ref
                 DiagramRef diagramRef = adapter.getAdapter(DiagramRef.class);
                 if (diagramRef != null) {
@@ -55,23 +55,23 @@ public class RenameHandler extends AbstractBrwModelHandler {
             } else
                 browserView.getComposite().getPanel().editElement(firstObject, 0);
         }
-        
+
     }
 
     @objid ("001b194e-0d4f-10c6-842f-001ec947cd2a")
     @CanExecute
     public boolean isEnabled(@Named(IServiceConstants.ACTIVE_SELECTION) IStructuredSelection selection) {
         List<Object> selectedObjects = this.getSelected(selection);
-        
+
         // No rename when selecting several or no elements
         if (selectedObjects.size() != 1) {
             return false;
         }
-        
+
         // The element must be modifiable
         if (selectedObjects.get(0) instanceof MObject) {
             MObject e = (MObject) selectedObjects.get(0);
-            return e.getStatus().isModifiable();
+            return e.getStatusLazy().isModifiable();
         }
         // Should be able to rename a DiagramRef
         if (selectedObjects.get(0) instanceof DiagramRef) {
@@ -81,7 +81,7 @@ public class RenameHandler extends AbstractBrwModelHandler {
     }
 
     @objid ("ca3793eb-4b58-11e2-a4d3-002564c97630")
-    public  RenameHandler() {
+    public RenameHandler() {
         super();
     }
 

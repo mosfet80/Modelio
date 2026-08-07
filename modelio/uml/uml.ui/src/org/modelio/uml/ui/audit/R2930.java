@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -51,7 +51,7 @@ public class R2930 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -71,7 +71,7 @@ public class R2930 extends AbstractUmlRule {
         plan.registerRule(Message.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
         plan.registerRule(CommunicationMessage.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -105,14 +105,14 @@ public class R2930 extends AbstractUmlRule {
      * Default constructor for R2930
      */
     @objid ("957c0745-1eea-40cc-878d-b63ede86aabc")
-    public  R2930() {
+    public R2930() {
         this.checkerInstance = new CheckR2930(this);
     }
 
     @objid ("0b335309-c1ac-4696-b242-062e53aeba8b")
     private static class CheckR2930 extends AbstractControl {
         @objid ("1c8e9c82-ad19-4690-978d-370f74e96dd9")
-        public  CheckR2930(final IRule rule) {
+        public CheckR2930(final IRule rule) {
             super(rule);
         }
 
@@ -135,10 +135,10 @@ public class R2930 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     message,
                     null);
-            
+
             Operation operation = null;
             Signal signal = null;
-            
+
             if (message instanceof CommunicationMessage) {
                 CommunicationMessage msg = (CommunicationMessage) message;
                 operation = msg.getInvoked();
@@ -148,11 +148,11 @@ public class R2930 extends AbstractUmlRule {
                 operation = msg.getInvoked();
                 signal = msg.getSignalSignature();
             }
-            
+
             if (signal != null && operation != null) {
-            
+
                 // Rule failed
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(message);

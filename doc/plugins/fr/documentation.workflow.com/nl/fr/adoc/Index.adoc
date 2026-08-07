@@ -1,0 +1,16 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+// Hightlight code source and add the line number
+:source-highlighter: coderay
+:coderay-linenums-mode: table
+
+= Manuel utilisateur Workflow
+
+*  <<Introduction.adoc#,Introduction>>
+*  <<Concepts.adoc#,Concepts de Modelio Workflow>>
+*  <<WorkflowUser.adoc#,Modelio Workflow User>>
+*  <<WorkflowDesigner.adoc#,Modelio Workflow Designer>>
+*  <<ModelioServerWorkflows.adoc#,Gestion des workflows dans Modelio Server>>

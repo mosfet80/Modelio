@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.enumliteral;
 
@@ -44,7 +44,7 @@ public class EnumLitteralGroupEditPart extends GroupEditPart {
         if (model.getLayoutData() != null) {
             getFigure().getParent().setConstraint(getFigure(), model.getLayoutData());
         }
-        
+
     }
 
     @objid ("968d578d-30c5-4690-a59e-9133b86968a0")
@@ -54,7 +54,7 @@ public class EnumLitteralGroupEditPart extends GroupEditPart {
         if (getViewer().getSelectedEditParts().contains(this)) {
             return true;
         }
-        
+
         // Allow selection only if the composition parent was already selected
         EditPart parent = getParent();
         while (parent != null) {
@@ -79,7 +79,7 @@ public class EnumLitteralGroupEditPart extends GroupEditPart {
             border.setWidth(style.getInteger(gmModel.getStyleKey(MetaKey.LINEWIDTH)));
         }
         aFigure.setBorder(border);
-        
+
     }
 
 }

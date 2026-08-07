@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.uml.ui.browser.contrib.labelprovider;
 
@@ -117,8 +136,10 @@ import org.modelio.platform.model.ui.MetamodelLabels;
 import org.modelio.platform.model.ui.swt.images.ElementImageService;
 import org.modelio.platform.model.ui.swt.images.ElementStyler;
 import org.modelio.platform.model.ui.swt.images.IModelioElementLabelProvider;
+import org.modelio.platform.preferences.plugin.Preferences;
 import org.modelio.uml.ui.browser.contrib.labelprovider.builders.BpmnItemAwareElementLabelBuilder;
 import org.modelio.uml.ui.browser.contrib.labelprovider.builders.BpmnMessageLabelBuilder;
+import org.modelio.uml.ui.browser.handlers.ProjectBrowserPropertyKey;
 import org.modelio.uml.ui.plugin.UmlUi;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
@@ -127,12 +148,6 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  */
 @objid ("31f1e14d-5a25-4f93-88ae-fcba61ee8ef7")
 public class UmlLabelProvider extends LabelProvider implements IModelioElementLabelProvider {
-    @objid ("de8ca65d-755b-4d99-b646-a2b27726b0a3")
-    private boolean showFeatureVisibility = true;
-
-    @objid ("7bea6342-62a9-408a-ac31-0ef5c298cbf7")
-    private boolean showNamespaceVisibility = false;
-
     @objid ("04b1721e-3f86-439f-b080-be353dae201a")
     protected BrowserLabelService umlLabelService;
 
@@ -140,7 +155,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
      * Default c'tor.
      */
     @objid ("913792d9-9b96-427c-97db-e74381555f93")
-    public  UmlLabelProvider() {
+    public UmlLabelProvider() {
         this.umlLabelService = new BrowserLabelService();
     }
 
@@ -150,7 +165,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         if (object instanceof MObject) {
             return ElementImageService.getIcon((MObject) object);
         }
-        
+
         // Unknown object
         return null;
     }
@@ -161,9 +176,9 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         if (obj == null) {
             return new StyledString("<null>", StyledString.createColorRegistryStyler("red", null));
         } else if (obj instanceof MObject) {
-            return this.umlLabelService.getLabel((MObject) obj, this.showFeatureVisibility, this.showNamespaceVisibility);
+            return this.umlLabelService.getLabel((MObject) obj, Preferences.getPreferences().getBoolean(ProjectBrowserPropertyKey.SHOWFEATUREVISIBILITY_PREFKEY), Preferences.getPreferences().getBoolean(ProjectBrowserPropertyKey.SHOWNAMSPACEVISIBILITY_PREFKEY));
         }
-        
+
         // Unknown object
         return null;
     }
@@ -175,40 +190,6 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
     @Override
     public String getText(final Object element) {
         return getStyledText(element).getString();
-    }
-
-    /**
-     * @return <code>true</code> if feature visibility is shown.
-     */
-    @objid ("560b0585-100d-4f0a-8340-8ca8ea1778b6")
-    public boolean isShowFeatureVisibility() {
-        return this.showFeatureVisibility;
-    }
-
-    /**
-     * Enable or disable display of feature visibility.
-     * @param showFeatureVisibility <code>true</code> to enable, <code>false</code> to disable.
-     */
-    @objid ("815b6533-5514-4850-af5c-30f78ba12775")
-    public void setShowFeatureVisibility(final boolean showFeatureVisibility) {
-        this.showFeatureVisibility = showFeatureVisibility;
-    }
-
-    /**
-     * @return <code>true</code> if namespace visibility is shown.
-     */
-    @objid ("26c835a7-64ba-4d5b-97f5-a82f9face913")
-    public boolean isShowNamespaceVisibility() {
-        return this.showNamespaceVisibility;
-    }
-
-    /**
-     * Enable or disable display of namespace visibility.
-     * @param showFeatureVisibility <code>true</code> to enable, <code>false</code> to disable.
-     */
-    @objid ("973f6fbb-41a2-4b54-a84e-ae595076cdcb")
-    public void setShowNamespaceVisibility(final boolean showFeatureVisibility) {
-        this.showNamespaceVisibility = showFeatureVisibility;
     }
 
     @objid ("cd8a14ad-4516-4134-9aaa-d749cad271c6")
@@ -235,12 +216,13 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         private final Stack<MObject> elementStack;
 
         @objid ("3c2b90de-c749-4695-9254-51a8b2793aa8")
-        public  BrowserLabelService() {
+        public BrowserLabelService() {
             this(new Stack<MObject>());
         }
 
         /**
          * Get the explorer label for the given element.
+         *
          * @param element The element to get symbol
          * @param featuresVisibility Whether or not to show the visibility in feature's labels.
          * @param namespaceVisibility Whether or not to show the visibility in namespace's labels.
@@ -252,32 +234,32 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
             if (element == null) {
                 return new StyledString("<null>", ElementStyler.getStyler(null));
             }
-            
+
             if (this.elementStack.contains(element)) {
                 // loop detected, return the name...
                 return new StyledString(element.getName());
             }
-            
+
             // store the element for loop detection, push context
             final boolean oldFeaturesVisibility = this.showFeaturesVisibility;
             final boolean oldNamespaceVisibility = this.showNamespaceVisibility;
+
             this.elementStack.push(element);
-            
+
             try {
                 // reset the returned value
-            
+
                 this.showFeaturesVisibility = featuresVisibility;
                 this.showNamespaceVisibility = namespaceVisibility;
-            
+
                 // call the visitor
                 return (StyledString) element.accept(this);
-            
+
             } finally {
                 this.showFeaturesVisibility = oldFeaturesVisibility;
                 this.showNamespaceVisibility = oldNamespaceVisibility;
                 this.elementStack.pop();
             }
-            
         }
 
         @objid ("2ed8a6ba-2a9d-40f5-ac7c-0e81be1a9069")
@@ -291,10 +273,10 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         @Override
         public Object visitAcceptCallEventAction(final AcceptCallEventAction theAcceptCallEventAction) {
             final StyledString symbol = new StyledString();
-            
+
             final String acceptCallEventActionName = theAcceptCallEventAction.getName();
             final Operation operation = theAcceptCallEventAction.getCalled();
-            
+
             if (operation != null
                     && (acceptCallEventActionName.equals("Unnamed") || acceptCallEventActionName.equals(""))) {
                 symbol.append(operation.getName(), ElementStyler.getStyler(theAcceptCallEventAction, operation));
@@ -308,7 +290,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         @Override
         public Object visitAcceptSignalAction(final AcceptSignalAction theAcceptSignalAction) {
             final StyledString symbol = new StyledString();
-            
+
             final String acceptSignalActionName = theAcceptSignalAction.getName();
             final List<Signal> signals = theAcceptSignalAction.getAccepted();
             final Styler styler = ElementStyler.getStyler(theAcceptSignalAction);
@@ -331,9 +313,9 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         @Override
         public Object visitActivityEdge(final ActivityEdge theActivityEdge) {
             final StyledString symbol = new StyledString();
-            
+
             final ActivityNode target = theActivityEdge.getTarget();
-            
+
             if (target != null) {
                 final StyledString styled_label = getLabel(target, false, false);
                 if (styled_label != null) {
@@ -342,7 +324,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
                     final String target_name = target.getName();
                     symbol.append(target_name, ElementStyler.getStyler(theActivityEdge));
                 }
-            
+
             } else {
                 final String name = theActivityEdge.getName();
                 symbol.append(name, ElementStyler.getStyler(theActivityEdge));
@@ -354,14 +336,14 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         @Override
         public Object visitActivityParameterNode(final ActivityParameterNode theActivityParameterNode) {
             final StyledString symbol = new StyledString();
-            
+
             // PassingMode passingMode =
             // theActivityParameterNode.getParameterPassing();
             final Styler styler = ElementStyler.getStyler(theActivityParameterNode);
             final GeneralClass type = theActivityParameterNode.getType();
-            
+
             final BehaviorParameter behaviorParameter = theActivityParameterNode.getRepresentedRealParameter();
-            
+
             if (behaviorParameter != null) {
                 symbol.append(behaviorParameter.getName(),
                         ElementStyler.getStyler(theActivityParameterNode, behaviorParameter));
@@ -370,16 +352,16 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
                 symbol.append(theActivityParameterNode.getName(), styler);
                 symbol.append(" ");
             }
-            
+
             Parameter theParameter = null;
-            
+
             if (behaviorParameter != null) {
                 theParameter = behaviorParameter.getMapped();
             }
-            
+
             if (theParameter != null && theParameter.getComposed() != null) {
                 final PassingMode passingMode = theParameter.getParameterPassing();
-            
+
                 if (passingMode == PassingMode.IN) {
                     symbol.append("In", styler);
                 }
@@ -392,7 +374,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
             } else if (theParameter != null && theParameter.getReturned() != null) {
                 symbol.append("Out", styler);
             }
-            
+
             if (behaviorParameter != null) {
                 symbol.append(": ", styler);
                 if (type != null) {
@@ -410,7 +392,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(theActivityPartition);
             symbol.append(theActivityPartition.getName(), styler);
-            
+
             final ModelElement represented = theActivityPartition.getRepresented();
             if (represented != null) {
                 symbol.append(":", styler);
@@ -430,7 +412,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         public Object visitAssociationEnd(final AssociationEnd theAssociationEnd) {
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(theAssociationEnd);
-            
+
             if (this.showFeaturesVisibility) {
                 final VisibilityMode visibility = theAssociationEnd.getVisibility();
                 symbol.append(getVisibilitySymbol(visibility), styler);
@@ -438,16 +420,16 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
             if (theAssociationEnd.isIsDerived()) {
                 symbol.append("/", styler);
             }
-            
+
             final String associationEndName = theAssociationEnd.getName();
             if (associationEndName.isEmpty()) {
                 symbol.append(UmlUi.I18N.getString("NoName"), styler);
             } else {
                 symbol.append(theAssociationEnd.getName(), styler);
             }
-            
+
             symbol.append(": ", styler);
-            
+
             // The type
             final Classifier type = theAssociationEnd.getTarget();
             if (type != null) {
@@ -455,7 +437,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
             } else {
                 symbol.append(UmlUi.I18N.getString("NoType"), styler);
             }
-            
+
             // The cardinality
             symbol.append(BrowserLabelService.getAssociationEndMultiplicity(theAssociationEnd).toString(), styler);
             return symbol;
@@ -466,29 +448,29 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         public Object visitAttribute(final Attribute theAttribute) {
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(theAttribute);
-            
+
             if (this.showFeaturesVisibility) {
                 final VisibilityMode visibility = theAttribute.getVisibility();
                 symbol.append(getVisibilitySymbol(visibility), styler);
             }
-            
+
             if (theAttribute.isIsDerived()) {
                 symbol.append("/", styler);
             }
-            
+
             symbol.append(theAttribute.getName(), styler);
-            
+
             final GeneralClass type = theAttribute.getType();
-            
+
             symbol.append(" : ", styler);
             if (type != null) {
                 symbol.append(type.getName(), ElementStyler.getStyler(theAttribute, type));
             } else {
                 symbol.append(UmlUi.I18N.getString("NoType"), styler);
             }
-            
+
             symbol.append(BrowserLabelService.getAttributeMultiplicity(theAttribute).toString(), styler);
-            
+
             final String value = theAttribute.getValue();
             if (value != null && !value.equals("")) {
                 symbol.append(" = ", styler);
@@ -503,15 +485,15 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(theAttributeLink);
             final Attribute base = theAttributeLink.getBase();
-            
+
             if (base != null) {
                 symbol.append(base.getName(), ElementStyler.getStyler(theAttributeLink, base));
             } else {
                 symbol.append(theAttributeLink.getName(), styler);
             }
-            
+
             final String value = theAttributeLink.getValue();
-            
+
             if (!value.equals("")) {
                 symbol.append(" = ", styler);
                 symbol.append(value, styler);
@@ -525,16 +507,16 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
             final Parameter theParameter = theBehaviorParameter.getMapped();
             final Styler styler = ElementStyler.getStyler(theBehaviorParameter);
             final StyledString symbol = new StyledString();
-            
+
             final PassingMode passingMode = theBehaviorParameter.getParameterPassing();
-            
+
             final GeneralClass type = theBehaviorParameter.getType();
             if (theParameter != null) {
                 final Styler paraStyler = ElementStyler.getStyler(theBehaviorParameter, theParameter);
                 if (theParameter.getComposed() != null) {
                     symbol.append(theParameter.getName(), paraStyler);
                     symbol.append(" ", paraStyler);
-            
+
                     if (passingMode == PassingMode.IN) {
                         symbol.append("In", paraStyler);
                     }
@@ -550,7 +532,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
             } else {
                 symbol.append(theBehaviorParameter.getName(), styler);
             }
-            
+
             symbol.append(": ");
             if (type != null) {
                 symbol.append(type.getName(), ElementStyler.getStyler(theBehaviorParameter, type));
@@ -565,10 +547,10 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         public Object visitBinding(final Binding theBinding) {
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(theBinding);
-            
+
             final ModelElement role = theBinding.getRole();
             final ModelElement feature = theBinding.getRepresentedFeature();
-            
+
             if (role != null) {
                 final StyledString label = getLabel(role, false, false);
                 symbol.append(label != null ? label.toString() : "", ElementStyler.getStyler(theBinding, role));
@@ -586,11 +568,11 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         public Object visitBpmnCallActivity(final BpmnCallActivity obj) {
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(obj);
-            
+
             if (obj.getName() != null) {
                 symbol.append(obj.getName(), styler);
             }
-            
+
             final MObject called = Called.getTarget(obj);
             if (called != null) {
                 symbol.append(" call ", styler);
@@ -615,7 +597,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(lane);
             symbol.append(lane.getName(), styler);
-            
+
             final ModelElement type = PartitionElement.getTarget(lane);
             if (type != null) {
                 symbol.append(": ", styler);
@@ -635,28 +617,28 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         public Object visitBpmnMessageFlow(final BpmnMessageFlow theFlow) {
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(theFlow);
-            
+
             if (theFlow.getName() != null) {
                 symbol.append(theFlow.getName(), styler);
                 symbol.append(" {", styler);
             }
-            
+
             if (theFlow.getSourceRef() != null) {
                 symbol.append(theFlow.getSourceRef().getName(), ElementStyler.getStyler(theFlow.getSourceRef()));
             } else {
                 symbol.append("?", styler);
             }
             symbol.append(": ", styler);
-            
+
             symbol.append("", styler);
             if (theFlow.getMessageRef() != null) {
                 symbol.append(theFlow.getMessageRef().getName(), ElementStyler.getStyler(theFlow.getMessageRef()));
             } else {
                 symbol.append("?", styler);
             }
-            
+
             symbol.append(" -> ", styler);
-            
+
             if (theFlow.getTargetRef() != null) {
                 symbol.append(theFlow.getTargetRef().getName(), ElementStyler.getStyler(theFlow.getTargetRef()));
             } else {
@@ -671,9 +653,9 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         public Object visitBpmnParticipant(final BpmnParticipant theParticipant) {
             final Styler styler = ElementStyler.getStyler(theParticipant);
             final StyledString symbol = new StyledString();
-            
+
             String s = "";
-            
+
             final ModelElement representedElement = Represents.getTarget(theParticipant);
             final BpmnProcess process = theParticipant.getProcess();
             if (process != null) {
@@ -703,10 +685,10 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         @Override
         public Object visitCallBehaviorAction(final CallBehaviorAction theCallBehaviorAction) {
             final StyledString symbol = new StyledString();
-            
+
             final String callBehaviorActionName = theCallBehaviorAction.getName();
             final Behavior behavior = theCallBehaviorAction.getCalled();
-            
+
             if (behavior != null && (callBehaviorActionName.equals("Unnamed") || callBehaviorActionName.equals(""))) {
                 symbol.append(behavior.getName(), ElementStyler.getStyler(theCallBehaviorAction, behavior));
             } else {
@@ -719,10 +701,10 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         @Override
         public Object visitCallOperationAction(final CallOperationAction theCallOperationAction) {
             final StyledString symbol = new StyledString();
-            
+
             final String callOperationActionName = theCallOperationAction.getName();
             final Operation operation = theCallOperationAction.getCalled();
-            
+
             if (operation != null
                     && (callOperationActionName.equals("Unnamed") || callOperationActionName.equals(""))) {
                 symbol.append(operation.getName(), ElementStyler.getStyler(theCallOperationAction, operation));
@@ -736,9 +718,9 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         @Override
         public Object visitClassAssociation(final ClassAssociation theClassAssociation) {
             final StyledString symbol = new StyledString();
-            
+
             final Class theClass = theClassAssociation.getClassPart();
-            
+
             if (theClass != null) {
                 symbol.append(theClass.getName(), ElementStyler.getStyler(theClassAssociation, theClass));
             }
@@ -751,14 +733,14 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(theClause);
             symbol.append("[", styler);
-            
+
             final String test = theClause.getTest();
             if (test.length() == 0) {
                 symbol.append("Conditional clause", styler);
             } else {
                 symbol.append(test, styler);
             }
-            
+
             symbol.append("]", styler);
             return symbol;
         }
@@ -769,7 +751,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(theCollaborationUse);
             symbol.append(theCollaborationUse.getName(), styler);
-            
+
             final Collaboration base = theCollaborationUse.getType();
             symbol.append(": ", styler);
             if (base != null) {
@@ -787,13 +769,13 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
             final Styler styler = ElementStyler.getStyler(theCommunicationMessage);
             final String name = theCommunicationMessage.getName();
             final MessageSort messageSort = theCommunicationMessage.getSortOfMessage();
-            
+
             if (name.equals("")) {
                 symbol.append(MetamodelLabels.getString(messageSort.name()), styler);
             } else {
                 symbol.append(name, styler);
             }
-            
+
             if (messageSort != MessageSort.SYNCCALL && messageSort != MessageSort.CREATEMESSAGE) {
                 symbol.append("(", styler);
                 symbol.append(theCommunicationMessage.getArgument(), styler);
@@ -808,7 +790,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(theCommunicationNode);
             final Instance instance = theCommunicationNode.getRepresented();
-            
+
             if (instance != null) {
                 final StyledString label = getLabel(instance, false, false);
                 symbol.append(label != null ? label.toString() : "", ElementStyler.getStyler(theCommunicationNode, instance));
@@ -829,9 +811,9 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         @Override
         public Object visitDataFlow(final DataFlow theDataFlow) {
             final StyledString symbol = new StyledString();
-            
+
             final Signal signal = theDataFlow.getSModel();
-            
+
             if (signal != null) {
                 symbol.append(signal.getName(), ElementStyler.getStyler(theDataFlow, signal));
             } else {
@@ -846,7 +828,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(theElementImport);
             final NameSpace importedNamespace = theElementImport.getImportedElement();
-            
+
             if (importedNamespace != null) {
                 final Styler importNamespaceStyler = ElementStyler.getStyler(theElementImport, importedNamespace);
                 if (theElementImport.getVisibility() == VisibilityMode.PUBLIC) {
@@ -855,11 +837,11 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
                     symbol.append("access ", styler);
                 }
                 symbol.append(importedNamespace.getName(), importNamespaceStyler);
-            
+
                 final ModelTree owner = importedNamespace.getOwner();
-            
+
                 appendFrom(symbol, theElementImport, owner, styler);
-            
+
             } else {
                 symbol.append("<No destination>", styler);
             }
@@ -880,7 +862,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
             final Styler styler = ElementStyler.getStyler(theEvent);
             final Operation operation = theEvent.getCalled();
             final Signal signal = theEvent.getModel();
-            
+
             if (operation != null) {
                 symbol.append(operation.getName(), ElementStyler.getStyler(theEvent, operation));
             } else if (signal != null) {
@@ -898,12 +880,12 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         public Object visitExtensionPoint(final ExtensionPoint theExtensionPoint) {
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(theExtensionPoint);
-            
+
             if (this.showFeaturesVisibility) {
                 final VisibilityMode visibility = theExtensionPoint.getVisibility();
                 symbol.append(getVisibilitySymbol(visibility), styler);
             }
-            
+
             symbol.append(theExtensionPoint.getName(), styler);
             return symbol;
         }
@@ -917,7 +899,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
                 final VisibilityMode visibility = theFeature.getVisibility();
                 symbol.append(getVisibilitySymbol(visibility), styler);
             }
-            
+
             symbol.append(theFeature.getName(), styler);
             return symbol;
         }
@@ -929,13 +911,13 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
             final Styler styler = ElementStyler.getStyler(theGeneralization);
             symbol.append(UmlUi.I18N.getString("IsA"), styler);
             symbol.append(" ");
-            
+
             final NameSpace parent = theGeneralization.getSuperType();
-            
+
             if (parent != null) {
                 final StyledString label = getLabel(parent, false, false);
                 symbol.append(label != null ? label.toString() : "", ElementStyler.getStyler(theGeneralization, parent));
-            
+
                 final ModelTree owner = parent.getOwner();
                 appendFrom(symbol, theGeneralization, owner, styler);
             }
@@ -959,7 +941,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
             } else {
                 symbol.append(theInformationFlow.getName(), styler);
             }
-            
+
             List<UmlModelElement> elts = theInformationFlow.getInformationSource();
             boolean hasFromOrTo = false;
             if (! elts.isEmpty()) {
@@ -974,7 +956,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
                             ElementStyler.getStyler(theInformationFlow, el));
                 }
             }
-            
+
             elts = theInformationFlow.getInformationTarget();
             if (! elts.isEmpty()) {
                 if (!hasFromOrTo)
@@ -1001,7 +983,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(theInstance);
             symbol.append(theInstance.getName(), styler);
-            
+
             final NameSpace base = theInstance.getBase();
             symbol.append(": ", styler);
             if (base != null) {
@@ -1021,12 +1003,12 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
             final Attribute attribut = theInstanceNode.getRepresentedAttribute();
             final AssociationEnd assocEnd = theInstanceNode.getRepresentedRole();
             final BehaviorParameter behaviorParameter = theInstanceNode.getRepresentedRealParameter();
-            
+
             final GeneralClass type = theInstanceNode.getType();
-            
+
             if (type != null) {
                 symbol.append(theInstanceNode.getName(), styler);
-            
+
                 symbol.append(": ", styler);
                 symbol.append(type.getName(), ElementStyler.getStyler(theInstanceNode, type));
             } else if (instance != null) {
@@ -1052,15 +1034,15 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         public Object visitInterfaceRealization(final InterfaceRealization theInterfaceRealization) {
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(theInterfaceRealization);
-            
+
             // symbol.append("Realize ");
-            
+
             final Interface implemented = theInterfaceRealization.getImplemented();
-            
+
             if (implemented != null) {
                 final StyledString label = getLabel(implemented, false, false);
                 symbol.append(label != null ? label.toString() : "", ElementStyler.getStyler(theInterfaceRealization, implemented));
-            
+
                 final ModelTree owner = implemented.getOwner();
                 appendFrom(symbol, theInterfaceRealization, owner, styler);
             }
@@ -1082,7 +1064,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         public Object visitLinkEnd(final LinkEnd theLinkEnd) {
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(theLinkEnd);
-            
+
             final String linkEndName = theLinkEnd.getName();
             if (linkEndName.equals("")) {
                 symbol.append(UmlUi.I18N.getString("NoName"), styler);
@@ -1101,20 +1083,20 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         @Override
         public Object visitManifestation(final Manifestation theManifestation) {
             final StyledString symbol = new StyledString();
-            
+
             final Styler styler = ElementStyler.getStyler(theManifestation);
             final ModelElement destination = theManifestation.getUtilizedElement();
-            
+
             if (destination != null) {
                 symbol.append("manifested ", styler);
                 symbol.append(destination.getName(), ElementStyler.getStyler(theManifestation, destination));
-            
+
                 ModelTree owner = null;
-            
+
                 if (destination instanceof ModelTree) {
                     owner = ((ModelTree) destination).getOwner();
                 }
-            
+
                 appendFrom(symbol, theManifestation, owner, styler);
             } else {
                 symbol.append("<No destination>", styler);
@@ -1127,7 +1109,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         public Object visitNameSpace(final NameSpace theNameSpace) {
             final List<TemplateBinding> templateInstanciations = theNameSpace.getTemplateInstanciation();
             final Styler styler = ElementStyler.getStyler(theNameSpace);
-            
+
             final StyledString symbol = new StyledString();
             if (this.showNamespaceVisibility) {
                 symbol.append(getVisibilitySymbol(theNameSpace.getVisibility()), styler);
@@ -1135,19 +1117,19 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
             // append name
             final String name = theNameSpace.getName();
             symbol.append(name, styler);
-            
+
             if (templateInstanciations.isEmpty()) {
                 // The name space does not instantiate templates
                 return symbol;
             } else {
                 // The name space instantiates templates
-            
+
                 // append template instantiations
-            
+
                 if (!name.isEmpty()) {
                     symbol.append(": ", styler);
                 }
-            
+
                 boolean first = true;
                 for (final TemplateBinding b : templateInstanciations) {
                     final Styler stylerTB = ElementStyler.getStyler(theNameSpace, b);
@@ -1159,10 +1141,9 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
                     final StyledString label = getLabel(b, false, false);
                     symbol.append(label != null ? label.toString() : "", stylerTB);
                 }
-            
+
                 return symbol;
             }
-            
         }
 
         @objid ("75dd74aa-4a68-4548-bd5b-cea434facffa")
@@ -1170,29 +1151,29 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         public Object visitNaryAssociationEnd(final NaryAssociationEnd theAssociationEnd) {
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(theAssociationEnd);
-            
+
             if (this.showFeaturesVisibility) {
                 final VisibilityMode visibility = theAssociationEnd.getVisibility();
                 symbol.append(getVisibilitySymbol(visibility), styler);
             }
-            
+
             if (theAssociationEnd.isIsDerived()) {
                 symbol.append("/", styler);
             }
-            
+
             final String associationEndName = theAssociationEnd.getName();
             if (associationEndName.isEmpty()) {
                 symbol.append(UmlUi.I18N.getString("NoName"), styler);
             } else {
                 symbol.append(theAssociationEnd.getName(), styler);
             }
-            
+
             symbol.append(": ", styler);
-            
+
             // The type
             final NaryAssociation type = theAssociationEnd.getNaryAssociation();
             symbol.append(type.getName(), ElementStyler.getStyler(theAssociationEnd, type));
-            
+
             // The cardinality
             symbol.append(BrowserLabelService.getNaryAssociationEndMultiplicity(theAssociationEnd).toString(), styler);
             return symbol;
@@ -1203,9 +1184,9 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         public Object visitNaryLinkEnd(final NaryLinkEnd theLinkEnd) {
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(theLinkEnd);
-            
+
             final String linkEndName = theLinkEnd.getName();
-            
+
             if (linkEndName.equals("")) {
                 symbol.append(UmlUi.I18N.getString("NoName"), styler);
             } else {
@@ -1226,7 +1207,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
             final Instance instance = theObjectNode.getRepresented();
             final Attribute attribute = theObjectNode.getRepresentedAttribute();
             final AssociationEnd role = theObjectNode.getRepresentedRole();
-            
+
             if (parameter != null) {
                 final StyledString label = getLabel(parameter, false, false);
                 symbol.append(label != null ? label.toString() : "", ElementStyler.getStyler(theObjectNode, parameter));
@@ -1241,16 +1222,16 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
                 symbol.append(label != null ? label.toString() : "", ElementStyler.getStyler(theObjectNode, role));
             } else {
                 final GeneralClass type = theObjectNode.getType();
-            
+
                 symbol.append(theObjectNode.getName(), styler);
-            
+
                 final String upperbound = theObjectNode.getUpperBound();
                 if (upperbound.length() > 0 && !upperbound.equals("1")) {
                     symbol.append("[", styler);
                     symbol.append(upperbound, styler);
                     symbol.append("]", styler);
                 }
-            
+
                 if (type != null) {
                     symbol.append(" : ", styler);
                     symbol.append(type.getName(), ElementStyler.getStyler(theObjectNode, type));
@@ -1264,17 +1245,17 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         public Object visitOperation(final Operation theOperation) {
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(theOperation);
-            
+
             if (this.showFeaturesVisibility) {
                 final VisibilityMode visibility = theOperation.getVisibility();
                 symbol.append(getVisibilitySymbol(visibility), styler);
             }
             symbol.append(theOperation.getName(), styler);
-            
+
             symbol.append("(", styler);
             final List<Parameter> parameters = theOperation.getIO();
             final int parameterNumber = parameters.size();
-            
+
             for (int i = 0; i < parameterNumber; i++) {
                 final Parameter para = parameters.get(i);
                 symbol.append(BrowserLabelService.getParameterSymbol(para, styler, theOperation));
@@ -1282,9 +1263,9 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
                     symbol.append(", ", styler);
                 }
             }
-            
+
             symbol.append(")", styler);
-            
+
             final Parameter returnParameter = theOperation.getReturn();
             if (returnParameter != null) {
                 final GeneralClass type = returnParameter.getType();
@@ -1306,9 +1287,9 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         public Object visitPackageImport(final PackageImport thePackageImport) {
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(thePackageImport);
-            
+
             final NameSpace importedNamespace = thePackageImport.getImportedPackage();
-            
+
             if (importedNamespace != null) {
                 if (thePackageImport.getVisibility() == VisibilityMode.PUBLIC) {
                     symbol.append("import all ", styler);
@@ -1317,7 +1298,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
                 }
                 symbol.append(importedNamespace.getName(),
                         ElementStyler.getStyler(thePackageImport, importedNamespace));
-            
+
                 final ModelTree owner = importedNamespace.getOwner();
                 appendFrom(symbol, thePackageImport, owner, styler);
             } else {
@@ -1331,13 +1312,13 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         public Object visitPackageMerge(final PackageMerge thePackageMerge) {
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(thePackageMerge);
-            
+
             final Package mergedPackage = thePackageMerge.getMergedPackage();
-            
+
             if (mergedPackage != null) {
                 symbol.append("merge ", styler);
                 symbol.append(mergedPackage.getName(), ElementStyler.getStyler(thePackageMerge, mergedPackage));
-            
+
                 final ModelTree owner = mergedPackage.getOwner();
                 appendFrom(symbol, thePackageMerge, owner, styler);
             } else {
@@ -1358,13 +1339,13 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(thePort);
             symbol.append(thePort.getName(), styler);
-            
+
             final NameSpace type = BrowserLabelService.getType(thePort);
             if (type != null) {
                 symbol.append(" : ", styler);
                 symbol.append(type.getName(), ElementStyler.getStyler(thePort, type));
             }
-            
+
             // If the name is empty, build a list of provided and required
             // interfaces as a workaround
             if (symbol.length() == 0) {
@@ -1376,12 +1357,12 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
                             symbol.append(", ", styler);
                         }
                         final RequiredInterface ri = requiredInterfaces.get(i);
-            
+
                         final StyledString label = getLabel(ri, false, false);
                         symbol.append(label != null ? label.toString() : "", ElementStyler.getStyler(thePort, ri));
                     }
                 }
-            
+
                 final List<ProvidedInterface> providedInterfaces = thePort.getProvided();
                 if (providedInterfaces.size() > 0) {
                     if (requiredInterfaces.size() > 0) {
@@ -1393,7 +1374,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
                             symbol.append(", ", styler);
                         }
                         final ProvidedInterface pi = providedInterfaces.get(i);
-            
+
                         final StyledString label = getLabel(pi, false, false);
                         symbol.append(label != null ? label.toString() : "", ElementStyler.getStyler(thePort, pi));
                     }
@@ -1408,14 +1389,14 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(theProvidedInterface);
             final List<Interface> providedElements = theProvidedInterface.getProvidedElement();
-            
+
             if (providedElements.size() > 0) {
                 for (int i = 0; i < providedElements.size(); i++) {
                     if (i > 0) {
                         symbol.append(", ", styler);
                     }
                     final Interface pe = providedElements.get(i);
-            
+
                     final StyledString label = getLabel(pe, false, false);
                     symbol.append(label != null ? label.toString() : "", ElementStyler.getStyler(theProvidedInterface, pe));
                 }
@@ -1431,13 +1412,13 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(theRaisedException);
             symbol.append("throws ", styler);
-            
+
             final Classifier thrownType = theRaisedException.getThrownType();
-            
+
             if (thrownType != null) {
                 final StyledString label = getLabel(thrownType, false, false);
                 symbol.append(label != null ? label.toString() : "", ElementStyler.getStyler(theRaisedException, thrownType));
-            
+
                 final ModelTree owner = thrownType.getOwner();
                 appendFrom(symbol, theRaisedException, owner, styler);
             }
@@ -1450,14 +1431,14 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(theRequiredInterface);
             final List<Interface> requiredElements = theRequiredInterface.getRequiredElement();
-            
+
             if (requiredElements.size() > 0) {
                 for (int i = 0; i < requiredElements.size(); i++) {
                     if (i > 0) {
                         symbol.append(", ", styler);
                     }
                     final Interface re = requiredElements.get(i);
-            
+
                     final StyledString label = getLabel(re, false, false);
                     symbol.append(label != null ? label.toString() : "", ElementStyler.getStyler(theRequiredInterface, re));
                 }
@@ -1471,10 +1452,10 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         @Override
         public Object visitSendSignalAction(final SendSignalAction theSendSignalAction) {
             final StyledString symbol = new StyledString();
-            
+
             final String sendSignalActionName = theSendSignalAction.getName();
             final Signal signal = theSendSignalAction.getSent();
-            
+
             if (signal != null && (sendSignalActionName.equals("Unnamed") || sendSignalActionName.equals(""))) {
                 symbol.append(signal.getName(), ElementStyler.getStyler(theSendSignalAction, signal));
             } else {
@@ -1504,20 +1485,20 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
                     symbol.append(operation.getName(), ElementStyler.getStyler(theTemplateBinding, operation));
                 }
             }
-            
+
             symbol.append(" <", styler);
-            
+
             final List<TemplateParameterSubstitution> substitutions = theTemplateBinding.getParameterSubstitution();
             for (int i = 0; i < substitutions.size(); i++) {
                 if (i != 0) {
                     symbol.append(", ", styler);
                 }
                 final TemplateParameterSubstitution ts = substitutions.get(i);
-            
+
                 final StyledString label = getLabel(ts, false, false);
                 symbol.append(label != null ? label.toString() : "", ElementStyler.getStyler(theTemplateBinding, ts));
             }
-            
+
             symbol.append(" >", styler);
             return symbol;
         }
@@ -1528,29 +1509,29 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(theTemplateParameter);
             symbol.append(theTemplateParameter.getName(), styler);
-            
+
             final ModelElement type = theTemplateParameter.getType();
-            
+
             if (type != null) {
                 final Styler typeStyler = ElementStyler.getStyler(theTemplateParameter, type);
                 final StyledString label = getLabel(type, false, false);
                 if (theTemplateParameter.isIsValueParameter()) {
                     symbol.append(":", styler);
-            
+
                     symbol.append(label != null ? label.toString() : "", typeStyler);
-            
+
                     symbol.append(" expression", styler);
                 } else {
                     boolean isConstrained = false;
-            
+
                     if (type instanceof NameSpace) {
                         final NameSpace nsType = (NameSpace) type;
                         isConstrained = nsType.getSpecialization().size() > 0;
                     }
-            
+
                     if (isConstrained) {
                         symbol.append(" > ", styler);
-            
+
                         symbol.append(label != null ? label.toString() : "", typeStyler);
                     } else if (type.getClass() != Class.class || type.getExtension().size() != 0) {
                         symbol.append(" : ", styler);
@@ -1566,13 +1547,13 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         public Object visitTemplateParameterSubstitution(final TemplateParameterSubstitution theTemplateParameterSubstitution) {
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(theTemplateParameterSubstitution);
-            
+
             final TemplateParameter templateParameter = theTemplateParameterSubstitution.getFormalParameter();
             if (templateParameter != null) {
                 final StyledString label = getLabel(templateParameter, false, false);
                 symbol.append(label != null ? label.toString() : "", ElementStyler.getStyler(theTemplateParameterSubstitution, templateParameter));
             }
-            
+
             final String value = theTemplateParameterSubstitution.getValue();
             if (!value.isEmpty()) {
                 symbol.append("=", styler);
@@ -1600,13 +1581,13 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         @Override
         public Object visitTransition(final Transition theTransition) {
             final StyledString symbol = new StyledString();
-            
+
             // IStateVertex sourceVertex = theTransition.getSource();
             final StateVertex targetVertex = theTransition.getTarget();
             final boolean withEvent = true;
-            
+
             final Styler styler = ElementStyler.getStyler(theTransition);
-            
+
             // Trigger
             final Event trigger = theTransition.getTrigger();
             if (trigger != null) {
@@ -1614,7 +1595,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
             } else {
                 symbol.append(theTransition.getReceivedEvents(), styler);
             }
-            
+
             // Guard condition
             final String condition = theTransition.getGuard();
             if (condition != null && !condition.equals("")) {
@@ -1622,7 +1603,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
                 symbol.append(condition, styler);
                 symbol.append("]", styler);
             }
-            
+
             // Action
             final Operation operation = theTransition.getProcessed();
             if (operation != null) {
@@ -1636,7 +1617,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
                     symbol.append(effect, styler);
                 }
             }
-            
+
             // SentEvent
             final Signal effects = theTransition.getEffects();
             if (effects != null && withEvent) {
@@ -1650,7 +1631,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
                     symbol.append(sentEvents, styler);
                 }
             }
-            
+
             // postGard
             final String postCondition = theTransition.getPostCondition();
             if (postCondition != null && !postCondition.equals("")) {
@@ -1658,7 +1639,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
                 symbol.append(postCondition, styler);
                 symbol.append("}", styler);
             }
-            
+
             if (symbol.length() == 0) {
                 symbol.append(theTransition.getName());
                 if (targetVertex != null) {
@@ -1681,16 +1662,16 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         public Object visitUseCaseDependency(final UseCaseDependency theUseCaseDependency) {
             final StyledString symbol = new StyledString();
             final List<Stereotype> stereotypes = theUseCaseDependency.getExtension();
-            
+
             if (stereotypes.size() > 0) {
                 final Styler stylerStereotypes = ElementStyler.getStyler(theUseCaseDependency, stereotypes.get(0));
                 symbol.append("<<", stylerStereotypes);
                 symbol.append(stereotypes.get(0).getName(), stylerStereotypes);
                 symbol.append(">>", stylerStereotypes);
             }
-            
+
             final UseCase target = theUseCaseDependency.getTarget();
-            
+
             if (target != null) {
                 symbol.append(target.getName(), ElementStyler.getStyler(theUseCaseDependency, target));
             }
@@ -1699,17 +1680,18 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
 
         /**
          * Initialize the label service.
+         *
          * @param elementStack a stack to use for recursive calls.
          */
         @objid ("d6e66939-b8e4-466b-9fa0-7d433f498493")
-         BrowserLabelService(final Stack<MObject> elementStack) {
+        BrowserLabelService(final Stack<MObject> elementStack) {
             super();
             this.elementStack = elementStack;
-            
         }
 
         /**
          * Append <code>"(from xxxx)"</code> to the symbol
+         *
          * @param symbol the symbol to modify
          * @param srcObj the source object, used to compute the style of <code>'xxxx'</code>
          * @param owner the object to display in <code>'xxxx'</code>
@@ -1724,20 +1706,19 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
                 symbol.append(owner.getName(), ElementStyler.getStyler(srcObj, owner));
                 symbol.append(")", styler);
             }
-            
         }
 
         @objid ("01d4174c-eaaf-424b-955c-32bc911e8f4e")
         private static StringBuilder getAssociationEndMultiplicity(final AssociationEnd theAssociationEnd) {
             final StringBuilder multiplicity = new StringBuilder();
-            
+
             final String multiplicityMinStr = theAssociationEnd.getMultiplicityMin();
             final String multiplicityMaxStr = theAssociationEnd.getMultiplicityMax();
             String separator = "";
-            
+
             if (!multiplicityMinStr.equals("") || !multiplicityMaxStr.equals("")) {
                 multiplicity.append(" [");
-            
+
                 if (multiplicityMinStr.equals(multiplicityMaxStr)) {
                     multiplicity.append(multiplicityMinStr);
                 } else if (multiplicityMinStr.equals("0") && multiplicityMaxStr.equals("*")) {
@@ -1746,7 +1727,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
                     if (!multiplicityMinStr.equals("") && !multiplicityMaxStr.equals("")) {
                         separator = "..";
                     }
-            
+
                     multiplicity.append(multiplicityMinStr);
                     multiplicity.append(separator);
                     multiplicity.append(multiplicityMaxStr);
@@ -1759,18 +1740,18 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         @objid ("96c70b2f-51ad-4dad-acec-ae21f0961851")
         private static StringBuilder getAttributeMultiplicity(final Attribute theAttribute) {
             final StringBuilder multiplicity = new StringBuilder();
-            
+
             final String multiplicityMinStr = theAttribute.getMultiplicityMin();
             final String multiplicityMaxStr = theAttribute.getMultiplicityMax();
             String separator = "";
-            
+
             if (multiplicityMinStr.equals("1") && multiplicityMaxStr.equals("1")) {
                 return multiplicity;
             }
-            
+
             if (!multiplicityMinStr.equals("") || !multiplicityMaxStr.equals("")) {
                 multiplicity.append(" [");
-            
+
                 if (multiplicityMinStr.equals(multiplicityMaxStr)) {
                     multiplicity.append(multiplicityMinStr);
                 } else if (multiplicityMinStr.equals("0") && multiplicityMaxStr.equals("*")) {
@@ -1779,7 +1760,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
                     if (!multiplicityMinStr.equals("") && !multiplicityMaxStr.equals("")) {
                         separator = "..";
                     }
-            
+
                     multiplicity.append(multiplicityMinStr);
                     multiplicity.append(separator);
                     multiplicity.append(multiplicityMaxStr);
@@ -1795,7 +1776,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
             if (!dep.getExtension().isEmpty()) {
                 for (final Stereotype v : dep.getExtension()) {
                     stringBuilder.append(MdaResources.getLabel(v));
-            
+
                     stringBuilder.append(", ");
                 }
                 // remove last ", "
@@ -1803,9 +1784,9 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
             } else {
                 stringBuilder.append(defaultVerb);
                 /*
-                 * if (dep instanceof Usage) stringBuilder.append("uses"); else if (dep instanceof ElementRealization) stringBuilder.append("realizes"); else if (dep instanceof Abstraction) stringBuilder.append("abstracts"); else
-                 * stringBuilder.append("depends on");
-                 */
+                             * if (dep instanceof Usage) stringBuilder.append("uses"); else if (dep instanceof ElementRealization) stringBuilder.append("realizes"); else if (dep instanceof Abstraction) stringBuilder.append("abstracts"); else
+                             * stringBuilder.append("depends on");
+                             */
             }
             return stringBuilder;
         }
@@ -1813,14 +1794,14 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         @objid ("8b0fc233-64f6-47a2-852a-e6a1f8b3c69e")
         private static StringBuilder getNaryAssociationEndMultiplicity(final NaryAssociationEnd theAssociationEnd) {
             final StringBuilder multiplicity = new StringBuilder();
-            
+
             final String multiplicityMinStr = theAssociationEnd.getMultiplicityMin();
             final String multiplicityMaxStr = theAssociationEnd.getMultiplicityMax();
             String separator = "";
-            
+
             if (!multiplicityMinStr.equals("") || !multiplicityMaxStr.equals("")) {
                 multiplicity.append(" [");
-            
+
                 if (multiplicityMinStr.equals(multiplicityMaxStr)) {
                     multiplicity.append(multiplicityMinStr);
                 } else if (multiplicityMinStr.equals("0") && multiplicityMaxStr.equals("*")) {
@@ -1829,7 +1810,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
                     if (!multiplicityMinStr.equals("") && !multiplicityMaxStr.equals("")) {
                         separator = "..";
                     }
-            
+
                     multiplicity.append(multiplicityMinStr);
                     multiplicity.append(separator);
                     multiplicity.append(multiplicityMaxStr);
@@ -1842,15 +1823,15 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         @objid ("59375a58-1c78-48be-b9d2-6fde7970667f")
         private static StringBuilder getParameterMultiplicity(final Parameter theParameter) {
             final StringBuilder multiplicity = new StringBuilder();
-            
+
             final String multiplicityMinStr = theParameter.getMultiplicityMin();
             final String multiplicityMaxStr = theParameter.getMultiplicityMax();
             String separator = "";
-            
+
             if (multiplicityMinStr.equals("1") && multiplicityMaxStr.equals("1")) {
                 return multiplicity;
             }
-            
+
             if (!multiplicityMinStr.equals("") || !multiplicityMaxStr.equals("")) {
                 multiplicity.append(" [");
                 if (multiplicityMinStr.equals(multiplicityMaxStr)) {
@@ -1861,7 +1842,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
                     if (!multiplicityMinStr.equals("") && !multiplicityMaxStr.equals("")) {
                         separator = "..";
                     }
-            
+
                     multiplicity.append(multiplicityMinStr);
                     multiplicity.append(separator);
                     multiplicity.append(multiplicityMaxStr);
@@ -1874,26 +1855,26 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         @objid ("32c71241-598a-403c-afcf-666964a7c50b")
         private static StyledString getParameterSymbol(final Parameter theParameter, final Styler styler, final Operation fromOperation) {
             final StyledString symbol = new StyledString();
-            
+
             final PassingMode passingMode = theParameter.getParameterPassing();
-            
+
             final GeneralClass type = theParameter.getType();
-            
+
             if (theParameter.getReturned() != null) {
                 symbol.append("out", styler);
-            
+
                 symbol.append(" : ", styler);
                 if (type != null) {
                     symbol.append(type.getName(), ElementStyler.getStyler(theParameter, type));
                 } else {
                     symbol.append(UmlUi.I18N.getString("NoType"), styler);
                 }
-            
+
                 symbol.append(BrowserLabelService.getParameterMultiplicity(theParameter).toString(), styler);
             } else if (theParameter.getComposed() != null) {
                 symbol.append(theParameter.getName(), styler);
                 symbol.append(" ", styler);
-            
+
                 if (passingMode == PassingMode.IN) {
                     symbol.append("in", styler);
                 }
@@ -1903,7 +1884,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
                 if (passingMode == PassingMode.INOUT) {
                     symbol.append("inout", styler);
                 }
-            
+
                 symbol.append(" : ", styler);
                 if (type != null) {
                     symbol.append(type.getName(),
@@ -1911,7 +1892,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
                 } else {
                     symbol.append(UmlUi.I18N.getString("NoType"), styler);
                 }
-            
+
                 symbol.append(BrowserLabelService.getParameterMultiplicity(theParameter).toString(), styler);
             }
             return symbol;
@@ -1920,7 +1901,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
         @objid ("02509111-4566-44d7-8e3d-236e0ba37ce0")
         private static NameSpace getType(final Port thePort) {
             final ModelElement represented = thePort.getRepresentedFeature();
-            
+
             if (represented == null) {
                 return thePort.getBase();
             } else if (BrowserLabelService.hasTypeCycles(thePort)) {
@@ -1953,14 +1934,13 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
             default:
                 return "";
             }
-            
         }
 
         @objid ("0466abdb-d63c-4842-a811-54d0a160398a")
         private static boolean hasTypeCycles(final Port thePort) {
             BindableInstance currentInstance = thePort;
             boolean hasCycle = false;
-            
+
             while (currentInstance != null && !hasCycle) {
                 final ModelElement currentRepresented = currentInstance.getRepresentedFeature();
                 if (currentRepresented != null && currentRepresented instanceof BindableInstance) {
@@ -1971,7 +1951,7 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
                 } else {
                     currentInstance = null;
                 }
-            
+
             }
             return hasCycle;
         }
@@ -1981,20 +1961,20 @@ public class UmlLabelProvider extends LabelProvider implements IModelioElementLa
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(theDependency);
             final StringBuilder verb = BrowserLabelService.getDependencyVerb(theDependency, mmverb).append(" ");
-            
+
             if (destination != null) {
                 symbol.append(verb.toString(), styler);
-            
+
                 final StyledString destLabel = new BrowserLabelService(this.elementStack).getLabel(destination, this.showFeaturesVisibility, this.showNamespaceVisibility);
                 symbol.append(destLabel != null ? destLabel.getString() : "", ElementStyler.getStyler(theDependency, destination));
-            
+
                 ModelTree owner = null;
-            
+
                 if (destination instanceof ModelTree) {
                     owner = ((ModelTree) destination).getOwner();
                     appendFrom(symbol, theDependency, owner, styler);
                 }
-            
+
             } else {
                 symbol.append(verb.toString(), styler);
                 symbol.append("<No destination>", styler);

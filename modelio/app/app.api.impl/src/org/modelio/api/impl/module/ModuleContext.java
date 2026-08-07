@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.api.impl.module;
 
@@ -90,14 +90,14 @@ public final class ModuleContext implements IModuleContext {
     private final IModuleAPIConfiguration peerConfiguration;
 
     @objid ("c9501288-da8e-456e-aaca-a56ac281b5ec")
-    public  ModuleContext(ModuleComponent moduleElement, IModuleUserConfiguration moduleUserConfiguration, IModuleAPIConfiguration moduleApiConfiguration, IEclipseContext eclipseContext) {
+    public ModuleContext(ModuleComponent moduleElement, IModuleUserConfiguration moduleUserConfiguration, IModuleAPIConfiguration moduleApiConfiguration, IEclipseContext eclipseContext) {
         this.moduleComponent = moduleElement;
         this.configuration = moduleUserConfiguration;
         this.peerConfiguration = moduleApiConfiguration;
         this.logService = new LogService(moduleElement != null ? moduleElement.getName() : "");
         this.i18nSupport = new I18nSupportImpl(getManifestBundle(), this.logService);
         this.eclipseContext = eclipseContext;
-        
+
     }
 
     @objid ("5b9f5073-d8d4-4723-922c-b603d2dd3b81")
@@ -119,7 +119,7 @@ public final class ModuleContext implements IModuleContext {
         if (this.jythonEngine == null) {
             IScriptService scriptService = getModelioServices().getService(IScriptService.class);
             this.jythonEngine = scriptService.getScriptEngine(this.module.getClass().getClassLoader());
-        
+
             // preset a few variables
             this.jythonEngine.put("SESSION", getModelingSession());
             this.jythonEngine.put("MODULE", this.module);
@@ -180,6 +180,7 @@ public final class ModuleContext implements IModuleContext {
 
     /**
      * Get the {@link ResourceBundle} corresponding to the localized module.properties file in the module resources.
+     *
      * @return the resource bundle
      * @throws MissingResourceException if the file is not found
      */
@@ -225,10 +226,10 @@ public final class ModuleContext implements IModuleContext {
         private final ILogService logService;
 
         @objid ("0018e7b7-35e2-4eba-bbcb-920221421f0b")
-        public  I18nSupportImpl(ResourceBundle b, ILogService logService) {
+        public I18nSupportImpl(ResourceBundle b, ILogService logService) {
             this.I18N = b;
             this.logService = logService;
-            
+
         }
 
         @objid ("a8be668e-3b67-494c-81a9-aedf35453e57")
@@ -238,7 +239,7 @@ public final class ModuleContext implements IModuleContext {
             return getString("%propertydefinition."
                                 + (table != null ? table.getName() : "") + "."
                                 + pdef.getName() + ".description");
-            
+
         }
 
         @objid ("da3d69b3-2569-4ebf-96dc-bc535aa60e88")
@@ -298,7 +299,7 @@ public final class ModuleContext implements IModuleContext {
             return getString("%propertydefinition."
                                 + (table != null ? table.getName() : "") + "."
                                 + pdef.getName() + ".label");
-            
+
         }
 
         @objid ("4f00ca6e-3e96-40f2-a49a-fcab5486454e")

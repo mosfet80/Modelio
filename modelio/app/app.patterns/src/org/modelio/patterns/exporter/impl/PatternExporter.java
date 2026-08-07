@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.patterns.exporter.impl;
 
@@ -54,19 +54,19 @@ public class PatternExporter implements IPatternModelAnalyser, IPatternModelComp
             Path exportDirectory = Files.createTempDirectory("Pattern");
             try {
                 JarExporter jarExporter = new JarExporter();
-        
+
                 if (jarExporter.generateJavaPattern(pattern.getModelPattern(), exportDirectory) == null) {
                     throw new RuntimeException("Generation error");
                 }
-        
+
                 if (jarExporter.makeJar(exportDirectory) == false) {
                     throw new RuntimeException("Compilation error");
                 }
-        
+
                 exportManifest(pattern, exportDirectory);
-        
+
                 exportImages(pattern, exportDirectory);
-        
+
                 PackagingManager packager = createPackaging(exportDirectory, "");
                 packager.createZipFile(pattern.getPatternPath().toFile());
             } finally {
@@ -78,13 +78,13 @@ public class PatternExporter implements IPatternModelAnalyser, IPatternModelComp
         } catch (IOException|JAXBException e) {
             throw new PatternException(e);
         }
-        
+
     }
 
     @objid ("13ea3676-cb96-412d-812d-49e0d53903c5")
     private PackagingManager createPackaging(Path packages, String namespace) {
         PackagingManager packager = new PackagingManager();
-        
+
         String localNamespace = namespace;
         for (File content : packages.toFile().listFiles()) {
             if (content.isDirectory()) {
@@ -98,21 +98,22 @@ public class PatternExporter implements IPatternModelAnalyser, IPatternModelComp
 
     /**
      * Exporting metadatas from a {@link RuntimePattern}.
+     *
      * @throws JAXBException when the pattern metadatas are invalid.
-     * @see org.modelio.patterns.model.information.Pattern
      * @throws IOException when the pattern can't be read.
-     * @see org.modelio.patterns.model.information.Pattern 
+     * @see org.modelio.patterns.model.information.Pattern
+     * @see org.modelio.patterns.model.information.Pattern
      */
     @objid ("1f03b502-063b-4d74-90e7-f5b683adbeb1")
     private void exportManifest(RuntimePattern pattern, Path exportDirectory) throws IOException, JAXBException {
         Path manifest = exportDirectory.resolve("Manifest.xml");
-        
+
         JAXBContext jc = JAXBContext.newInstance("org.modelio.patterns.model.information", RuntimePattern.class.getClassLoader());
         Marshaller m = jc.createMarshaller();
         try (final FileOutputStream stream = new FileOutputStream(manifest.toFile())) {
             m.marshal(pattern.getInfos(), stream);
         }
-        
+
     }
 
     /**
@@ -124,7 +125,7 @@ public class PatternExporter implements IPatternModelAnalyser, IPatternModelComp
         if (Files.isRegularFile(image)) {
             exportFile(exportDirectory, image);
         }
-        
+
         for (Object sub : pattern.getInfos().getCategoryAndExternalDependencyAndParameter()) {
             if (sub instanceof Category) {
                 String sImage = ((Category) sub).getImage();
@@ -134,7 +135,7 @@ public class PatternExporter implements IPatternModelAnalyser, IPatternModelComp
                 }
             }
         }
-        
+
     }
 
     @objid ("6d3e6a3b-14d0-4090-96b6-b7d4dd3a9263")
@@ -142,7 +143,7 @@ public class PatternExporter implements IPatternModelAnalyser, IPatternModelComp
         Path target = exportDirectory.resolve("res").resolve(file.getFileName());
         Files.createDirectories(target.getParent());
         Files.copy(file, target, StandardCopyOption.REPLACE_EXISTING);
-        
+
     }
 
     @objid ("0b0fa053-a5d6-489a-bffb-3b4e77704af4")
@@ -159,7 +160,7 @@ public class PatternExporter implements IPatternModelAnalyser, IPatternModelComp
         private List<PackagedResource> configurationList;
 
         @objid ("616e1d29-e097-4765-b2af-f3d1da6cf91f")
-        public  PackagingManager() {
+        public PackagingManager() {
             this.configurationList = new ArrayList<>();
         }
 
@@ -200,7 +201,7 @@ public class PatternExporter implements IPatternModelAnalyser, IPatternModelComp
                 MessageDialog.openError(Display.getDefault().getActiveShell(), Patterns.I18N.getString("Gui.ErrorTitle"),
                         e.getMessage());
             }
-            
+
         }
 
         @objid ("03741d8a-51c2-41e8-90dd-703f883b70d2")
@@ -212,10 +213,10 @@ public class PatternExporter implements IPatternModelAnalyser, IPatternModelComp
             public File resourceFile;
 
             @objid ("5e0040d0-fe4a-4854-87a5-5623e7732b59")
-            public  PackagedResource(File resourceFile, String packagingPath) {
+            public PackagedResource(File resourceFile, String packagingPath) {
                 this.resourceFile = resourceFile;
                 this.packagingPath = packagingPath;
-                
+
             }
 
         }

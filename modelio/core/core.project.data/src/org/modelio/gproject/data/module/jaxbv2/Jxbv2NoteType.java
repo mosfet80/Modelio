@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.data.module.jaxbv2;
 
@@ -30,9 +30,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for _NoteType complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="_NoteType">
  * &lt;complexContent>
@@ -98,8 +98,8 @@ public class Jxbv2NoteType {
 
     /**
      * Gets the value of the name property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("6e440e26-d96b-4ff6-9031-9509be1522d8")
@@ -109,6 +109,7 @@ public class Jxbv2NoteType {
 
     /**
      * Sets the value of the name property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -119,8 +120,8 @@ public class Jxbv2NoteType {
 
     /**
      * Gets the value of the label property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("0120eee6-1a3a-4178-a682-20a63c3c4e57")
@@ -130,6 +131,7 @@ public class Jxbv2NoteType {
 
     /**
      * Sets the value of the label property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -140,8 +142,8 @@ public class Jxbv2NoteType {
 
     /**
      * Gets the value of the isHidden property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("f12ec28f-1b73-4336-9187-5d0fc04a5ef0")
@@ -151,6 +153,7 @@ public class Jxbv2NoteType {
 
     /**
      * Sets the value of the isHidden property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -161,8 +164,8 @@ public class Jxbv2NoteType {
 
     /**
      * Gets the value of the uid property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("e94507b7-81b4-4316-afed-5c755ab85d7c")
@@ -172,6 +175,7 @@ public class Jxbv2NoteType {
 
     /**
      * Sets the value of the uid property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -182,8 +186,8 @@ public class Jxbv2NoteType {
 
     /**
      * Gets the value of the mimeType property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("1486052f-f515-4915-a64c-793fb0300105")
@@ -193,11 +197,12 @@ public class Jxbv2NoteType {
         } else {
             return this.mimeType;
         }
-        
+
     }
 
     /**
      * Sets the value of the mimeType property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -208,8 +213,8 @@ public class Jxbv2NoteType {
 
     /**
      * Gets the value of the description property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("733a8eb5-f131-487f-bca5-fae9f36a78c2")
@@ -219,6 +224,7 @@ public class Jxbv2NoteType {
 
     /**
      * Sets the value of the description property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -229,8 +235,8 @@ public class Jxbv2NoteType {
 
     /**
      * Gets the value of the extensions property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link NoteType.Extensions }
      */
     @objid ("1d133935-92b2-4650-a6ce-2eb19e732842")
@@ -240,6 +246,7 @@ public class Jxbv2NoteType {
 
     /**
      * Sets the value of the extensions property.
+     *
      * @param value allowed object is
      * {@link NoteType.Extensions }
      */
@@ -250,9 +257,9 @@ public class Jxbv2NoteType {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType>
      * &lt;complexContent>
@@ -277,20 +284,20 @@ public class Jxbv2NoteType {
 
         /**
          * Gets the value of the stereotypeRef property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the stereotypeRef property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          * getStereotypeRef().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link StereotypeRef }

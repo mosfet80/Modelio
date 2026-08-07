@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel.meta.descriptor;
 
@@ -32,7 +32,7 @@ public class MLinkMetaclassDescriptor extends MClassDescriptor {
     /**
      * <p>Name of the dependencies that represent the link sources.</p>
      */
-    
+
     @mdl.prop
     @objid ("185e9a96-7319-4027-91c5-e486713e70e9")
     public final List<String> sourceDepencencies = new ArrayList<> ();
@@ -46,7 +46,7 @@ public class MLinkMetaclassDescriptor extends MClassDescriptor {
     /**
      * <p>Name of the dependencies that represent the link targets.</p>
      */
-    
+
     @mdl.prop
     @objid ("e97a30bf-3482-4f52-8d3b-04a96c8631e6")
     public final List<String> targetDepencencies = new ArrayList<> ();

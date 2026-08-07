@@ -1,0 +1,23 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= Vue Travail de groupe
+
+
+La vue Travail de groupe affiche en temps-réel l'état d'un élément de modèle en terme de GVC. A ce titre, cette vue est un outil précieux de diagnostic de l'état d'un modèle lorsque l'on est amené à travailler au sein d'une équipe.
+
+La vue Travail de groupe est un onglet de la vue "Propriétés" de Modelio. L'onglet Travail de groupe n'apparaît que lorsqu'un élément de modèle géré en GVC est sélectionné dans l'application.
+
+La vue affiche l'état courant de l'élément de modèle sélectionné ainsi qu'un historique raccourci (limité à 8 événements) des dernières opérations de travail de groupe qui ont eu lieu sur l'élément de modèle en question.
+
+Dans la figure ci-dessous, la vue affiche l'état de l'élément " *UML-BPMN* " sélectionné dans l'explorateur de modèle:
+
+* l'élément *UML-BPMN* est actuellement verrouillé par l'utilisateur courant.
+* l'élément *UML-BPMN* est à jour dans le modèle.
+* la dernière livraison en date réalisée sur l'élément *UML-BPMN* a eu lieu le 12 Février 2020.
+
+image::images/attachment/modeliocom41/User_Documentation_fr/Vue_SVN/TW_011_svn_view.png[TW_011_svn_view.png]

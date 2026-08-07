@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.vstore.exml.versioned.load.sax.local;
 
@@ -42,7 +61,6 @@ class RelationState extends AbstractState {
         default:
             break;
         }
-        
     }
 
     @objid ("b5c58eb5-3fbb-11e2-87cb-001ec947ccaf")
@@ -52,12 +70,12 @@ class RelationState extends AbstractState {
             switch (localName) {
             case TAG_COMPID:
                 ObjIdName objid = readID(atts);
-                getDataModel().addDepId(objid);
-        
+                getDataModel().addCompId(objid);
+
                 break;
             default:
                 throwInvalidTag(localName);
-        
+
             }
         } catch (IllegalReferenceException e) {
             // TODO: Don't know whether to throw a warning or a fatal error.
@@ -68,7 +86,6 @@ class RelationState extends AbstractState {
         } catch (IndexException e) {
             rethrowException(e);
         }
-        
     }
 
 }

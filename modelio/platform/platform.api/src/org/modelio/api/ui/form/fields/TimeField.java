@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.ui.form.fields;
 
@@ -33,7 +33,7 @@ import org.modelio.api.ui.form.models.IFormFieldData;
 
 /**
  * An AbstractField sub-class specialized to display/edit boolean values.
- * 
+ *
  * Uses a SWT {@link DateTime}.
  */
 @objid ("4dcd3085-337f-4d32-aa05-26acb6c99695")
@@ -45,7 +45,7 @@ public class TimeField extends AbstractField {
     private DateTime time;
 
     @objid ("78440f64-01bf-4df3-977e-b4b0f11ad919")
-    public  TimeField(FormToolkit toolkit, Composite parent, IFormFieldData model) {
+    public TimeField(FormToolkit toolkit, Composite parent, IFormFieldData model) {
         super(toolkit, parent, model);
     }
 
@@ -60,7 +60,7 @@ public class TimeField extends AbstractField {
             getModel().setValue(null);
         }
         this.time.setVisible(this.nullCheckBox.getSelection());
-        
+
     }
 
     @objid ("790c98b4-a1c9-49f8-af30-b231b6bc5b9a")
@@ -71,19 +71,19 @@ public class TimeField extends AbstractField {
         l.marginHeight = 0;
         l.marginWidth = 0;
         c.setLayout(l);
-        
+
         this.nullCheckBox = new Button(c, SWT.CHECK);
         toolkit.adapt(this.nullCheckBox, false, false);
-        
+
         this.time = new DateTime(c, SWT.TIME);
         this.time.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
         toolkit.adapt(this.time, false, false);
-        
+
         // Initialize values
         getLabel().setText(getModel().getName());
-        
+
         refresh();
-        
+
         // Install Listeners
         this.nullCheckBox.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -91,7 +91,7 @@ public class TimeField extends AbstractField {
                 apply();
             }
         });
-        
+
         this.time.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
@@ -120,7 +120,7 @@ public class TimeField extends AbstractField {
             this.nullCheckBox.setSelection(false);
             this.time.setVisible(false);
         }
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -35,7 +35,7 @@ public class OCallOperationAction extends OActivityNode {
     }
 
     @objid ("30495695-a181-4e16-8973-03f8e61766ab")
-    public  OCallOperationAction(CallOperationAction element) {
+    public OCallOperationAction(CallOperationAction element) {
         super(element);
     }
 
@@ -45,7 +45,7 @@ public class OCallOperationAction extends OActivityNode {
         super.setProperties(ecoreElt);
         setSynchronous( (org.eclipse.uml2.uml.CallOperationAction) ecoreElt);
         setOperation( (org.eclipse.uml2.uml.CallOperationAction) ecoreElt);
-        
+
     }
 
     @objid ("1ba40d51-201a-4f1f-82b5-e65c843c1c26")
@@ -56,10 +56,10 @@ public class OCallOperationAction extends OActivityNode {
     @objid ("0763b8bc-1583-4be6-aa26-d4f8b02828b9")
     private void setOperation(org.eclipse.uml2.uml.CallOperationAction ecoreElt) {
         Operation objingOperation = getObjingElement().getCalled();
-        
+
         if (objingOperation != null) {
             org.eclipse.uml2.uml.Element ecoreOperation =  GenerationProperties.getInstance().getMappedElement(objingOperation);
-        
+
             if (ecoreOperation != null) {
                 if (ecoreOperation instanceof  org.eclipse.uml2.uml.Operation) {
                     ecoreElt.setOperation( (org.eclipse.uml2.uml.Operation) ecoreOperation);
@@ -71,7 +71,7 @@ public class OCallOperationAction extends OActivityNode {
                 }
             }
         }
-        
+
     }
 
     @objid ("e0907977-0d7c-434f-bb6a-54d78dc76250")

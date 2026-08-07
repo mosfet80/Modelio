@@ -1,0 +1,28 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+// Hightlight code source and add the line number
+:source-highlighter: coderay
+:coderay-linenums-mode: table
+
+= Workflow User property view
+
+Modelio workflow provides a dedicated view that can be enabled from the Modelio *Views* menu:
+
+image::images/WorkflowViewMenu.png[WorkflowViewMenu.png]
+
+The workflow view content depends on the selected element.
+
+Workflow view of a subscribed element :
+
+image::images/WorkflowUserPropertyView.png[WorkflowUserPropertyView.png]
+
+1. <<ChangeState.adoc#,Change selected element state.>>
+2. <<AddComment.adoc#,Add a comment to the selected element.>>
+3. <<EditLastComment.adoc#,Edit the last comment of the selected element.>>
+4. <<Unsubscribe.adoc#,Unsubscribe selected element from workflow instance.>>
+5. Select the workflow instance (if the element is subscribed to several).
+6. Workflow history of the selected element in the selected instance.
+

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.handlers;
 
@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.services.IServiceConstants;
@@ -42,6 +42,7 @@ import org.modelio.xmi.gui.SwtWizardExport;
 
 /**
  * Handler of the XMI export
+ *
  * @author ebrosse
  */
 @objid ("ce38f353-e8f9-44dc-b2f1-8b8359a4ec87")
@@ -55,11 +56,11 @@ public class ExportXMI {
         GenerationProperties genProp = GenerationProperties.getInstance();
         genProp.initialize(modelServices, projectService.getSession().getMetamodel(), navigationService);
         genProp.setRootElements(this.selectedPackages);
-        
+
         final SwtWizardExport dialog = new SwtWizardExport(activeShell, progressService, projectService);
         dialog.setSelectedElt(this.selectedPackages.get(0));
         dialog.open();
-        
+
     }
 
     @objid ("83392784-7629-44b9-a089-ee91420fef33")

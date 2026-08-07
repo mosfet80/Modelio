@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.informationconveyed;
 
@@ -39,7 +39,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * {@linkplain InformationFlow information flow} {@linkplain GmInformationItemLabel items} group.
- * 
+ *
  * @author cmarin
  */
 @objid ("34fe97e8-55b7-11e2-877f-002564c97630")
@@ -57,17 +57,18 @@ public class GmConveyedClassifiersGroup extends GmGroup {
      * Constructor for deserialization only.
      */
     @objid ("34fe97f1-55b7-11e2-877f-002564c97630")
-    public  GmConveyedClassifiersGroup() {
-        
+    public GmConveyedClassifiersGroup() {
+
     }
 
     /**
      * Creates a binding group.
+     *
      * @param diagram The diagram.
      * @param relatedRef The related element reference, must not be null.
      */
     @objid ("34fe97f4-55b7-11e2-877f-002564c97630")
-    public  GmConveyedClassifiersGroup(IGmDiagram diagram, MRef relatedRef) {
+    public GmConveyedClassifiersGroup(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -109,18 +110,18 @@ public class GmConveyedClassifiersGroup extends GmGroup {
     @Override
     public void refreshFromObModel() {
         super.refreshFromObModel();
-        
+
         final InformationFlow flow = getRelatedElement();
         if (flow != null && flow.isValid()) {
             final List<Classifier> conveyedClassifiers = flow.getConveyed();
-        
+
             // Remove obsolete nodes
             for (GmNodeModel c : getChildren()) {
                 if (!isValidElement(c.getRelatedElement())) {
                     c.delete();
                 }
             }
-        
+
             // Add missing nodes
             for (Classifier part : conveyedClassifiers) {
                 if (getChild(new MRef(part)) == null) {
@@ -128,7 +129,7 @@ public class GmConveyedClassifiersGroup extends GmGroup {
                 }
             }
         }
-        
+
     }
 
     @objid ("34fe981f-55b7-11e2-877f-002564c97630")
@@ -139,7 +140,7 @@ public class GmConveyedClassifiersGroup extends GmGroup {
         } else {
             super.styleChanged(property, newValue);
         }
-        
+
     }
 
     @objid ("35001e7f-55b7-11e2-877f-002564c97630")
@@ -148,7 +149,7 @@ public class GmConveyedClassifiersGroup extends GmGroup {
         refreshFromObModel();
         fireVisibilityChanged();
         super.styleChanged(style);
-        
+
     }
 
     @objid ("35001e85-55b7-11e2-877f-002564c97630")
@@ -164,7 +165,7 @@ public class GmConveyedClassifiersGroup extends GmGroup {
         if (!(el instanceof Classifier) || !el.isValid()) {
             return false;
         }
-        
+
         // Cannot unmask a foreign InformationItem (not conveyed by the information flow)
         return getRelatedElement().getConveyed().contains(el);
     }
@@ -206,17 +207,17 @@ public class GmConveyedClassifiersGroup extends GmGroup {
             break;
         }
         }
-        
+
     }
 
     @objid ("35001ea4-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmConveyedClassifiersGroup.", GmConveyedClassifiersGroup.MINOR_VERSION);
-        
+
     }
 
     @objid ("35001eaa-55b7-11e2-877f-002564c97630")

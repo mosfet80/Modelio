@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.gui.creation.doctype;
 
@@ -53,6 +53,7 @@ class DocTypeChooserModel {
 
     /**
      * Get accessor for mdacAdapters
+     *
      * @return the module nodes.
      */
     @objid ("41ed2acb-25d5-48f8-9645-371c43ae574c")
@@ -63,7 +64,7 @@ class DocTypeChooserModel {
     @objid ("0e8f6e3b-a271-4540-9071-102066cffae3")
     public AdapterStereotype getStereotypeAdapter(ModuleComponent module, Stereotype stereotype) {
         AdapterModule mdacAdapter = this.mdacAdapters.get(module);
-        
+
         if (mdacAdapter != null) {
             return mdacAdapter.getAdapter(stereotype);
         }
@@ -71,43 +72,43 @@ class DocTypeChooserModel {
     }
 
     @objid ("b8237a0b-0226-4016-b52a-cb4f8080f5b9")
-     DocTypeChooserModel(ModelElement element) {
+    DocTypeChooserModel(ModelElement element) {
         this.element = element;
         this.modelService = new MModelServices(CoreSession.getSession(element));
         this.mdacAdapters = new HashMap<>();
         init();
-        
+
     }
 
     @objid ("e0290510-bd79-4fc5-bfab-a981875d3bcb")
     void addDocType(ModuleComponent module, ResourceType noteType) {
         AdapterModule adapter = this.mdacAdapters.get(module);
-        
+
         if (adapter == null) {
             adapter = new AdapterModule(module);
             this.mdacAdapters.put(module, adapter);
         }
         adapter.addDocType(noteType);
-        
+
     }
 
     @objid ("4b021394-8d24-4a54-8762-3f809fdbcb51")
     void addStereotype(ModuleComponent mdac, Stereotype stereotype) {
         AdapterModule adapter = this.mdacAdapters.get(mdac);
-        
+
         if (adapter == null) {
             adapter = new AdapterModule(mdac);
             this.mdacAdapters.put(mdac, adapter);
         }
-        
+
         adapter.addStereotype(stereotype);
-        
+
     }
 
     @objid ("e76b20a8-cc24-435c-90cc-1c1d92c9235b")
     private ModuleComponent getModule(MObject docType) {
         MObject parent = docType.getCompositionOwner();
-        
+
         while (parent != null && !(parent instanceof ModuleComponent)) {
             parent = parent.getCompositionOwner();
         }
@@ -119,7 +120,7 @@ class DocTypeChooserModel {
         List<Stereotype> stereotypes = this.element.getExtension();
         for (Stereotype stereotype : stereotypes) {
             Stereotype current = stereotype;
-        
+
             boolean hasDocTypes = false;
             while (!hasDocTypes && current != null) {
                 for (ResourceType docType : current.getDefinedResourceType()) {
@@ -130,7 +131,7 @@ class DocTypeChooserModel {
                 }
                 current = current.getParent();
             }
-        
+
             if (hasDocTypes) {
                 ModuleComponent module = getModule(stereotype);
                 if (module != null) {
@@ -138,16 +139,16 @@ class DocTypeChooserModel {
                 }
             }
         }
-        
+
         List<ResourceType> docTypes = this.modelService.findResourceTypes(".*", ".*", ".*", this.element.getMClass());
         for (ResourceType docType : docTypes) {
             if (docType.isIsHidden()) {
                 continue;
             }
-        
+
             if (docType.getOwnerReference() != null) {
                 ModuleComponent module = getModule(docType);
-        
+
                 if (module != null) {
                     addDocType(module, docType);
                 }
@@ -155,14 +156,14 @@ class DocTypeChooserModel {
                 Stereotype docTypeStereo = docType.getOwnerStereotype();
                 if (docTypeStereo != null && this.element.isStereotyped(getModule(docTypeStereo).getName(), docTypeStereo.getName())) {
                     ModuleComponent module = getModule(docType);
-        
+
                     if (module != null) {
                         addDocType(module, docType);
                     }
                 }
             }
         }
-        
+
     }
 
 }

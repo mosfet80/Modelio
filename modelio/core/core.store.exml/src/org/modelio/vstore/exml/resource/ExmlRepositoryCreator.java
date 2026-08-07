@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.exml.resource;
 
@@ -42,15 +42,16 @@ class ExmlRepositoryCreator {
     private final Path repositoryPath;
 
     @objid ("03bd06db-6132-11e1-a535-001ec947ccaf")
-    public  ExmlRepositoryCreator(Path repositoryPath, final IExmlRepositoryGeometry geometry, MMetamodel metamodel) {
+    public ExmlRepositoryCreator(Path repositoryPath, final IExmlRepositoryGeometry geometry, MMetamodel metamodel) {
         this.repositoryPath = Objects.requireNonNull(repositoryPath);
         this.geometry = Objects.requireNonNull(geometry);
         this.metamodel = Objects.requireNonNull(metamodel);
-        
+
     }
 
     /**
      * Create the repository directory structure in the given directory
+     *
      * @throws IOException in case of error creating the repository structure.
      */
     @objid ("03fb0397-6132-11e1-a535-001ec947ccaf")
@@ -59,14 +60,15 @@ class ExmlRepositoryCreator {
         for (String dir : this.geometry.getInitialDirectories(this.metamodel)) {
             Files.createDirectories(this.repositoryPath.resolve(dir));
         }
-        
+
         // Create index directory.
         Files.createDirectories(this.repositoryPath.resolve(IExmlRepositoryGeometry.INDEX_DIRNAME));
-        
+
     }
 
     /**
      * Delete the repository
+     *
      * @throws IOException in case of failure
      */
     @objid ("03ffc844-6132-11e1-a535-001ec947ccaf")

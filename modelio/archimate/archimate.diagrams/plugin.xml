@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+	<extension id="diagram.archimate" point="org.eclipse.e4.workbench.model">
+      <fragment uri="e4model/diagram_archimate_editor.e4xmi"/>
+      <processor beforefragment="true" class="org.modelio.archimate.diagrams.plugin.ArchimateProcessor"/>
+   </extension>
+
+	<extension point="org.modelio.app.diagram.api.factory">
+		<service metamodel="Archimate" implementation="org.modelio.archimate.diagrams.dg.ArchimateDGFactory" />
+	</extension>
+
+   <extension point="org.modelio.app.diagram.editor.inputprovider">
+      <inputprovider class="org.modelio.archimate.diagrams.editor.archimateview.ArchimateDiagramEditorInputProvider"/>
+   </extension>
+
+   <extension point="org.modelio.app.diagram.editor.inputprovider">
+      <inputprovider class="org.modelio.archimate.diagrams.editor.viewpointdiagram.ViewPointDiagramEditorInputProvider"/>
+   </extension>
+
+   <extension point="org.modelio.platform.model.view.template">
+		<viewtemplate id="ArchimateDiagramTemplate" class="org.modelio.archimate.diagrams.contributor.ArchimateDiagramTemplate"/>
+		<viewtemplate id="ViewPointDiagramTemplate" class="org.modelio.archimate.diagrams.contributor.ViewPointDiagramTemplate"/>
+   </extension>
+
+   	<extension point="org.modelio.app.creation.wizard.contributor">
+		<wizard
+				categoryId = "%ContributorCategoryType.Archimate"
+				categoryLabel = "%ContributorCategoryLabel.Archimate"
+				categoryIcon = "./icons/archimate.png"
+				class="org.modelio.archimate.diagrams.contributor.ArchimateDiagramCreationContributor"
+				label = "%CreationWizard.Archimate.Name"
+				details = "%CreationWizard.Archimate.Details"
+				information = "%CreationWizard.Archimate.Information"
+				helpUrl = "HELP_URL"
+				previewImage = "images/archimatediagrampreview400x300.png"
+				modelViewTemplateId = "ArchimateDiagramTemplate">
+		</wizard>
+		<wizard
+				categoryId = "%ContributorCategoryType.Archimate"
+				categoryLabel = "%ContributorCategoryLabel.Archimate"
+				categoryIcon = "./icons/archimate.png"
+				class="org.modelio.archimate.diagrams.contributor.ViewPointDiagramCreationContributor"
+				label = "%CreationWizard.ViewPointDiagram.Name"
+				icon = "./icons/archimate.png"
+				details = "%CreationWizard.ViewPointDiagram.Details"
+				information = "%CreationWizard.ViewPointDiagram.Information"
+				helpUrl = "HELP_URL"
+				previewImage = "images/viewdiagrampreview400x300.png"
+				modelViewTemplateId = "ViewPointDiagramTemplate">
+		</wizard>
+	</extension>
+
+
+
+	<extension point="org.modelio.app.diagram.editor.toolregistry">
+		<tools>
+			<creationtool id="CREATE_ARCHIMATE_APPLICATIONEVENT" interactor="node" label="%ApplicationEvent.label" tooltip="%ApplicationEvent.tooltip">
+				<context metaclass="Archimate.ApplicationEvent" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_GAP" interactor="node" label="%Gap.label" tooltip="%Gap.tooltip">
+				<context metaclass="Archimate.Gap" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_APPLICATIONINTERFACE" interactor="node" label="%ApplicationInterface.label" tooltip="%ApplicationInterface.tooltip">
+				<context metaclass="Archimate.ApplicationInterface" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_SPECIALIZATION" interactor="link" label="%Specialization.label" tooltip="%Specialization.tooltip">
+				<context metaclass="Archimate.Specialization" router="SPECIALIZATION_CONNECTIONROUTER" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_ASSESSMENT" interactor="node" label="%Assessment.label" tooltip="%Assessment.tooltip">
+				<context metaclass="Archimate.Assessment" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_GOAL" interactor="node" label="%Goal.label" tooltip="%Goal.tooltip">
+				<context metaclass="Archimate.Goal" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_CONSTRAINT" interactor="node" label="%Constraint.label" tooltip="%Constraint.tooltip">
+				<context metaclass="Archimate.Constraint" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_VALUE" interactor="node" label="%Value.label" tooltip="%Value.tooltip">
+				<context metaclass="Archimate.Value" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_CAPABILITY" interactor="node" label="%Capability.label" tooltip="%Capability.tooltip">
+				<context metaclass="Archimate.Capability" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_DATAOBJECT" interactor="node" label="%DataObject.label" tooltip="%DataObject.tooltip">
+				<context metaclass="Archimate.DataObject" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_WORKPACKAGE" interactor="node" label="%WorkPackage.label" tooltip="%WorkPackage.tooltip">
+				<context metaclass="Archimate.WorkPackage" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_CONTRACT" interactor="node" label="%Contract.label" tooltip="%Contract.tooltip">
+				<context metaclass="Archimate.Contract" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_TECHNOLOGYEVENT" interactor="node" label="%TechnologyEvent.label" tooltip="%TechnologyEvent.tooltip">
+				<context metaclass="Archimate.TechnologyEvent" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_NODE" interactor="node" label="%Node.label" tooltip="%Node.tooltip">
+				<context metaclass="Archimate.Node" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_IMPLEMENTATIONEVENT" interactor="node" label="%ImplementationEvent.label" tooltip="%ImplementationEvent.tooltip">
+				<context metaclass="Archimate.ImplementationEvent" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_APPLICATIONCOLLABORATION" interactor="node" label="%ApplicationCollaboration.label" tooltip="%ApplicationCollaboration.tooltip">
+				<context metaclass="Archimate.ApplicationCollaboration" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_APPLICATIONINTERACTION" interactor="node" label="%ApplicationInteraction.label" tooltip="%ApplicationInteraction.tooltip">
+				<context metaclass="Archimate.ApplicationInteraction" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_SERVING" interactor="link" label="%Serving.label" tooltip="%Serving.tooltip">
+				<context metaclass="Archimate.Serving" router="SERVING_CONNECTIONROUTER" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_TECHNOLOGYSERVICE" interactor="node" label="%TechnologyService.label" tooltip="%TechnologyService.tooltip">
+				<context metaclass="Archimate.TechnologyService" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_COMMUNICATIONNETWORK" interactor="node" label="%CommunicationNetwork.label" tooltip="%CommunicationNetwork.tooltip">
+				<context metaclass="Archimate.CommunicationNetwork" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_TECHNOLOGYINTERFACE" interactor="node" label="%TechnologyInterface.label" tooltip="%TechnologyInterface.tooltip">
+				<context metaclass="Archimate.TechnologyInterface" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_BUSINESSEVENT" interactor="node" label="%BusinessEvent.label" tooltip="%BusinessEvent.tooltip">
+				<context metaclass="Archimate.BusinessEvent" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_DEVICE" interactor="node" label="%Device.label" tooltip="%Device.tooltip">
+				<context metaclass="Archimate.Device" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_EQUIPMENT" interactor="node" label="%Equipment.label" tooltip="%Equipment.tooltip">
+				<context metaclass="Archimate.Equipment" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_BUSINESSFUNCTION" interactor="node" label="%BusinessFunction.label" tooltip="%BusinessFunction.tooltip">
+				<context metaclass="Archimate.BusinessFunction" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_APPLICATIONPROCESS" interactor="node" label="%ApplicationProcess.label" tooltip="%ApplicationProcess.tooltip">
+				<context metaclass="Archimate.ApplicationProcess" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_ARTIFACT" interactor="node" label="%Artifact.label" tooltip="%Artifact.tooltip">
+				<context metaclass="Archimate.Artifact" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_DRIVER" interactor="node" label="%Driver.label" tooltip="%Driver.tooltip">
+				<context metaclass="Archimate.Driver" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_ASSIGNMENT" interactor="link" label="%Assignment.label" tooltip="%Assignment.tooltip">
+				<context metaclass="Archimate.Assignment" router="ASSIGNMENT_CONNECTIONROUTER" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_COURSEOFACTION" interactor="node" label="%CourseOfAction.label" tooltip="%CourseOfAction.tooltip">
+				<context metaclass="Archimate.CourseOfAction" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_PATH" interactor="node" label="%Path.label" tooltip="%Path.tooltip">
+				<context metaclass="Archimate.Path" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_TECHNOLOGYFUNCTION" interactor="node" label="%TechnologyFunction.label" tooltip="%TechnologyFunction.tooltip">
+				<context metaclass="Archimate.TechnologyFunction" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_DISTRIBUTIONNETWORK" interactor="node" label="%DistributionNetwork.label" tooltip="%DistributionNetwork.tooltip">
+				<context metaclass="Archimate.DistributionNetwork" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_BUSINESSINTERFACE" interactor="node" label="%BusinessInterface.label" tooltip="%BusinessInterface.tooltip">
+				<context metaclass="Archimate.BusinessInterface" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_BUSINESSROLE" interactor="node" label="%BusinessRole.label" tooltip="%BusinessRole.tooltip">
+				<context metaclass="Archimate.BusinessRole" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_TECHNOLOGYPROCESS" interactor="node" label="%TechnologyProcess.label" tooltip="%TechnologyProcess.tooltip">
+				<context metaclass="Archimate.TechnologyProcess" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_TECHNOLOGYINTERACTION" interactor="node" label="%TechnologyInteraction.label" tooltip="%TechnologyInteraction.tooltip">
+				<context metaclass="Archimate.TechnologyInteraction" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_BUSINESSACTOR" interactor="node" label="%BusinessActor.label" tooltip="%BusinessActor.tooltip">
+				<context metaclass="Archimate.BusinessActor" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_BUSINESSCOLLABORATION" interactor="node" label="%BusinessCollaboration.label" tooltip="%BusinessCollaboration.tooltip">
+				<context metaclass="Archimate.BusinessCollaboration" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_PRINCIPLE" interactor="node" label="%Principle.label" tooltip="%Principle.tooltip">
+				<context metaclass="Archimate.Principle" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_APPLICATIONSERVICE" interactor="node" label="%ApplicationService.label" tooltip="%ApplicationService.tooltip">
+				<context metaclass="Archimate.ApplicationService" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_TRIGGERING" interactor="link" label="%Triggering.label" tooltip="%Triggering.tooltip">
+				<context metaclass="Archimate.Triggering" router="TRIGGERING_CONNECTIONROUTER" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_BUSINESSSERVICE" interactor="node" label="%BusinessService.label" tooltip="%BusinessService.tooltip">
+				<context metaclass="Archimate.BusinessService" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_REALIZATION" interactor="link" label="%Realization.label" tooltip="%Realization.tooltip">
+				<context metaclass="Archimate.Realization" router="REALIZATION_CONNECTIONROUTER" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_MATERIAL" interactor="node" label="%Material.label" tooltip="%Material.tooltip">
+				<context metaclass="Archimate.Material" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_PRODUCT" interactor="node" label="%Product.label" tooltip="%Product.tooltip">
+				<context metaclass="Archimate.Product" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_AGGREGATION" interactor="link" label="%Aggregation.label" tooltip="%Aggregation.tooltip">
+				<context metaclass="Archimate.Aggregation" router="AGGREGATION_CONNECTIONROUTER" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_BUSINESSINTERACTION" interactor="node" label="%BusinessInteraction.label" tooltip="%BusinessInteraction.tooltip">
+				<context metaclass="Archimate.BusinessInteraction" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_RESOURCE" interactor="node" label="%Resource.label" tooltip="%Resource.tooltip">
+				<context metaclass="Archimate.Resource" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_FLOW" interactor="link" label="%Flow.label" tooltip="%Flow.tooltip">
+				<context metaclass="Archimate.Flow" router="FLOW_CONNECTIONROUTER" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_ASSOCIATION" interactor="link" label="%Association.label" tooltip="%Association.tooltip">
+				<context metaclass="Archimate.Association" router="ARCHIMATE_ASSOCIATION_CONNECTIONROUTER" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_INFLUENCE" interactor="link" label="%Influence.label" tooltip="%Influence.tooltip">
+				<context metaclass="Archimate.Influence" router="INFLUENCE_CONNECTIONROUTER" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_BUSINESSPROCESS" interactor="node" label="%BusinessProcess.label" tooltip="%BusinessProcess.tooltip">
+				<context metaclass="Archimate.BusinessProcess" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_MEANING" interactor="node" label="%Meaning.label" tooltip="%Meaning.tooltip">
+				<context metaclass="Archimate.Meaning" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_BUSINESSOBJECT" interactor="node" label="%BusinessObject.label" tooltip="%BusinessObject.tooltip">
+				<context metaclass="Archimate.BusinessObject" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_OUTCOME" interactor="node" label="%Outcome.label" tooltip="%Outcome.tooltip">
+				<context metaclass="Archimate.Outcome" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_APPLICATIONCOMPONENT" interactor="node" label="%ApplicationComponent.label" tooltip="%ApplicationComponent.tooltip">
+				<context metaclass="Archimate.ApplicationComponent" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_SYSTEMSOFTWARE" interactor="node" label="%SystemSoftware.label" tooltip="%SystemSoftware.tooltip">
+				<context metaclass="Archimate.SystemSoftware" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_ARCHIMATEVIEW" interactor="node" label="%ArchimateView.label" tooltip="%ArchimateView.tooltip">
+				<context metaclass="Archimate.ArchimateView" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_COMPOSITION" interactor="link" label="%Composition.label" tooltip="%Composition.tooltip">
+				<context metaclass="Archimate.Composition" router="COMPOSITION_CONNECTIONROUTER" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_STAKEHOLDER" interactor="node" label="%Stakeholder.label" tooltip="%Stakeholder.tooltip">
+				<context metaclass="Archimate.Stakeholder" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_REPRESENTATION" interactor="node" label="%Representation.label" tooltip="%Representation.tooltip">
+				<context metaclass="Archimate.Representation" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_REQUIREMENT" interactor="node" label="%Requirement.label" tooltip="%Requirement.tooltip">
+				<context metaclass="Archimate.Requirement" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_DELIVERABLE" interactor="node" label="%Deliverable.label" tooltip="%Deliverable.tooltip">
+				<context metaclass="Archimate.Deliverable" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_TECHNOLOGYCOLLABORATION" interactor="node" label="%TechnologyCollaboration.label" tooltip="%TechnologyCollaboration.tooltip">
+				<context metaclass="Archimate.TechnologyCollaboration" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_PLATEAU" interactor="node" label="%Plateau.label" tooltip="%Plateau.tooltip">
+				<context metaclass="Archimate.Plateau" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_FACILITY" interactor="node" label="%Facility.label" tooltip="%Facility.tooltip">
+				<context metaclass="Archimate.Facility" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_ACCESS" interactor="link" label="%Access.label" tooltip="%Access.tooltip">
+				<context metaclass="Archimate.Access" router="ACCESS_CONNECTIONROUTER" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_APPLICATIONFUNCTION" interactor="node" label="%ApplicationFunction.label" tooltip="%ApplicationFunction.tooltip">
+				<context metaclass="Archimate.ApplicationFunction" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_ANDJUNCTION" interactor="node" label="%AndJunction.label" tooltip="%AndJunction.tooltip">
+				<context metaclass="Archimate.AndJunction" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_ORJUNCTION" interactor="node" label="%OrJunction.label" tooltip="%OrJunction.tooltip">
+				<context metaclass="Archimate.OrJunction" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_GROUPING" interactor="node" label="%Grouping.label" tooltip="%Grouping.tooltip">
+				<context metaclass="Archimate.Grouping" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_LOCATION" interactor="node" label="%Location.label" tooltip="%Location.tooltip">
+				<context metaclass="Archimate.Location" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_VALUESTREAM" interactor="node" label="%ValueStream.label" tooltip="%ValueStream.tooltip">
+				<context metaclass="Archimate.ValueStream" dependency="Archimate.Folder.content" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_VIEWPOINT" interactor="node" label="%ViewPoint.label" tooltip="%ViewPoint.tooltip">
+				<context metaclass="Archimate.ViewPoint" dependency="Archimate.ViewPoint.child" />
+			</creationtool>
+			<creationtool id="CREATE_ARCHIMATE_ARCHIMATEVIEWDG" interactor="node" label="%ArchimateView.label" tooltip="%ArchimateView.tooltip">
+				<context metaclass="Archimate.ArchimateView" dependency="Infrastructure.ModelElement.Product" />
+			</creationtool>
+		</tools>
+	</extension>
+
+    <extension name="Archimate drop extension" point="org.modelio.app.diagram.editor.droppolicy.extensions">
+    	<droppolicyextension class="org.modelio.archimate.diagrams.elements.archimatediagram.ArchimateDiagramDropEditPolicyExtension">
+    		<scope editorId="org.modelio.archimate.diagrams.ArchimateDiagramEditorID"/>
+    	</droppolicyextension>
+    	<droppolicyextension class="org.modelio.uml.statikdiagram.editor.editor.StaticDiagramDropEditPolicyExtension">
+    		<scope editorId="org.modelio.archimate.diagrams.ArchimateDiagramEditorID"/>
+    	</droppolicyextension>
+    </extension>
+
+    <extension point="org.modelio.app.diagram.editor.palette">
+       <palette id="org.modelio.archimate.diagrams.ArchimateDiagramEditorID">
+          <palette_group collapsible="false" label="main">
+             <selection_tool default="true"/>
+             <marquee_tool/>
+             <universal_link_tool/>
+          </palette_group>
+          <palette_group label="%ArchimatePaletteGroup.Concepts" initialState="open">
+			<!-- composite -->
+             <creation_tool id="CREATE_ARCHIMATE_LOCATION"/>
+             <creation_tool id="CREATE_ARCHIMATE_GROUPING"/>
+			 <separator/>
+          <!-- business -->
+             <creation_tool id="CREATE_ARCHIMATE_BUSINESSACTOR"/>
+             <creation_tool id="CREATE_ARCHIMATE_BUSINESSROLE"/>
+             <creation_tool id="CREATE_ARCHIMATE_BUSINESSCOLLABORATION"/>
+             <creation_tool id="CREATE_ARCHIMATE_BUSINESSINTERFACE"/>
+             <creation_tool id="CREATE_ARCHIMATE_BUSINESSPROCESS"/>
+             <creation_tool id="CREATE_ARCHIMATE_BUSINESSFUNCTION"/>
+             <creation_tool id="CREATE_ARCHIMATE_BUSINESSINTERACTION"/>
+             <creation_tool id="CREATE_ARCHIMATE_BUSINESSSERVICE"/>
+             <creation_tool id="CREATE_ARCHIMATE_BUSINESSEVENT"/>
+             <creation_tool id="CREATE_ARCHIMATE_BUSINESSOBJECT"/>
+             <creation_tool id="CREATE_ARCHIMATE_CONTRACT"/>
+             <creation_tool id="CREATE_ARCHIMATE_REPRESENTATION"/>
+             <creation_tool id="CREATE_ARCHIMATE_PRODUCT"/>
+          <!-- application -->
+        	 <separator/>
+             <creation_tool id="CREATE_ARCHIMATE_APPLICATIONCOMPONENT"/>
+             <creation_tool id="CREATE_ARCHIMATE_APPLICATIONCOLLABORATION"/>
+             <creation_tool id="CREATE_ARCHIMATE_APPLICATIONINTERFACE"/>
+             <creation_tool id="CREATE_ARCHIMATE_APPLICATIONPROCESS"/>
+             <creation_tool id="CREATE_ARCHIMATE_APPLICATIONFUNCTION"/>
+             <creation_tool id="CREATE_ARCHIMATE_APPLICATIONINTERACTION"/>
+             <creation_tool id="CREATE_ARCHIMATE_APPLICATIONSERVICE"/>
+             <creation_tool id="CREATE_ARCHIMATE_APPLICATIONEVENT"/>
+             <creation_tool id="CREATE_ARCHIMATE_DATAOBJECT"/>
+           <!-- technology -->
+        	 <separator/>
+             <creation_tool id="CREATE_ARCHIMATE_NODE"/>
+             <creation_tool id="CREATE_ARCHIMATE_DEVICE"/>
+             <creation_tool id="CREATE_ARCHIMATE_SYSTEMSOFTWARE"/>
+             <creation_tool id="CREATE_ARCHIMATE_TECHNOLOGYCOLLABORATION"/>
+             <creation_tool id="CREATE_ARCHIMATE_TECHNOLOGYINTERFACE"/>
+             <creation_tool id="CREATE_ARCHIMATE_TECHNOLOGYPROCESS"/>
+             <creation_tool id="CREATE_ARCHIMATE_TECHNOLOGYFUNCTION"/>
+             <creation_tool id="CREATE_ARCHIMATE_TECHNOLOGYINTERACTION"/>
+             <creation_tool id="CREATE_ARCHIMATE_TECHNOLOGYSERVICE"/>
+             <creation_tool id="CREATE_ARCHIMATE_TECHNOLOGYEVENT"/>
+             <creation_tool id="CREATE_ARCHIMATE_ARTIFACT"/>
+             <creation_tool id="CREATE_ARCHIMATE_COMMUNICATIONNETWORK"/>
+             <creation_tool id="CREATE_ARCHIMATE_PATH"/>
+           <!-- physical -->
+        	 <separator/>
+             <creation_tool id="CREATE_ARCHIMATE_FACILITY"/>
+             <creation_tool id="CREATE_ARCHIMATE_EQUIPMENT"/>
+             <creation_tool id="CREATE_ARCHIMATE_MATERIAL"/>
+             <creation_tool id="CREATE_ARCHIMATE_DISTRIBUTIONNETWORK"/>
+   		   <!-- Motivation -->
+        	 <separator/>
+             <creation_tool id="CREATE_ARCHIMATE_STAKEHOLDER"/>
+             <creation_tool id="CREATE_ARCHIMATE_DRIVER"/>
+             <creation_tool id="CREATE_ARCHIMATE_ASSESSMENT"/>
+             <creation_tool id="CREATE_ARCHIMATE_VALUE"/>
+             <creation_tool id="CREATE_ARCHIMATE_MEANING"/>
+             <creation_tool id="CREATE_ARCHIMATE_GOAL"/>
+             <creation_tool id="CREATE_ARCHIMATE_OUTCOME"/>
+             <creation_tool id="CREATE_ARCHIMATE_PRINCIPLE"/>
+             <creation_tool id="CREATE_ARCHIMATE_REQUIREMENT"/>
+             <creation_tool id="CREATE_ARCHIMATE_CONSTRAINT"/>
+           <!-- strategy -->
+        	 <separator/>
+             <creation_tool id="CREATE_ARCHIMATE_RESOURCE"/>
+             <creation_tool id="CREATE_ARCHIMATE_CAPABILITY"/>
+             <creation_tool id="CREATE_ARCHIMATE_COURSEOFACTION"/>
+             <creation_tool id="CREATE_ARCHIMATE_VALUESTREAM"/>
+           <!--Implementation_and_migration -->
+        	 <separator/>
+             <creation_tool id="CREATE_ARCHIMATE_WORKPACKAGE"/>
+             <creation_tool id="CREATE_ARCHIMATE_IMPLEMENTATIONEVENT"/>
+             <creation_tool id="CREATE_ARCHIMATE_DELIVERABLE"/>
+             <creation_tool id="CREATE_ARCHIMATE_PLATEAU"/>
+             <creation_tool id="CREATE_ARCHIMATE_GAP"/>
+          </palette_group>
+          <palette_group label="%ArchimatePaletteGroup.Relationships">
+             <creation_tool id="CREATE_ARCHIMATE_COMPOSITION"/>
+             <creation_tool id="CREATE_ARCHIMATE_AGGREGATION"/>
+             <creation_tool id="CREATE_ARCHIMATE_ASSIGNMENT"/>
+             <creation_tool id="CREATE_ARCHIMATE_REALIZATION"/>
+             <creation_tool id="CREATE_ARCHIMATE_SERVING"/>
+             <creation_tool id="CREATE_ARCHIMATE_ACCESS"/>
+             <creation_tool id="CREATE_ARCHIMATE_INFLUENCE"/>
+             <creation_tool id="CREATE_ARCHIMATE_TRIGGERING"/>
+             <creation_tool id="CREATE_ARCHIMATE_FLOW"/>
+             <creation_tool id="CREATE_ARCHIMATE_ASSOCIATION"/>
+             <creation_tool id="CREATE_ARCHIMATE_SPECIALIZATION"/>
+             <creation_tool id="CREATE_ARCHIMATE_ANDJUNCTION"/>
+             <creation_tool id="CREATE_ARCHIMATE_ORJUNCTION"/>
+          </palette_group>
+          <palette_group label="%ArchimatePaletteGroup.Common">
+             <creation_tool id="CREATE_NOTE"/>
+             <creation_tool id="CREATE_EXTERNDOCUMENT"/>
+             <creation_tool id="CREATE_DEPENDENCY"/>
+             <creation_tool id="CREATE_TRACEABILITY"/>
+             <creation_tool id="CREATE_RELATED_DIAGRAM_LINK"/>
+          </palette_group>
+          <palette_group label="%ArchimatePaletteGroup.Drawings">
+          	 <creation_tool id="CREATE_DRAWING_TEXT"/>
+			 <creation_tool id="CREATE_DRAWING_NOTE"/>
+			 <creation_tool id="CREATE_DRAWING_IMAGE"/>
+			 <creation_tool id="CREATE_DRAWING_RECTANGLE"/>
+             <creation_tool id="CREATE_DRAWING_ELLIPSE"/>
+             <creation_tool id="CREATE_DRAWING_LINE"/>
+          </palette_group>
+       </palette>
+    </extension>
+
+    <extension point="org.modelio.app.diagram.editor.palette">
+       <palette id="org.modelio.archimate.diagrams.ViewPointDiagramEditorID">
+          <palette_group collapsible="false" label="main">
+             <selection_tool default="true"/>
+             <marquee_tool/>
+          </palette_group>
+          <palette_group label="%ArchimatePaletteGroup.Concepts">
+             <creation_tool id="CREATE_ARCHIMATE_VIEWPOINT"/>
+             <creation_tool id="CREATE_ARCHIMATE_ARCHIMATEVIEWDG"/>
+          </palette_group>
+          <palette_group label="%ArchimatePaletteGroup.Drawings">
+          	 <creation_tool id="CREATE_DRAWING_TEXT"/>
+			 <creation_tool id="CREATE_DRAWING_NOTE"/>
+			 <creation_tool id="CREATE_DRAWING_IMAGE"/>
+			 <creation_tool id="CREATE_DRAWING_RECTANGLE"/>
+             <creation_tool id="CREATE_DRAWING_ELLIPSE"/>
+             <creation_tool id="CREATE_DRAWING_LINE"/>
+          </palette_group>
+       </palette>
+    </extension>
+</plugin>

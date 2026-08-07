@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.deploymentdiagram.editor.elements.node;
 
@@ -57,44 +57,44 @@ public class NodeEditPart extends AbstractNodeEditPart {
     @Override
     protected void addChildVisual(EditPart childEditPart, int index) {
         super.addChildVisual(childEditPart, index);
-        
+
         updateSeparations(getFigure());
-        
+
     }
 
     @objid ("97469e16-55b6-11e2-877f-002564c97630")
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         installEditPolicy(ModelElementDropRequest.TYPE, new ClassifierElementDropEditPolicy());
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new DeferringCreateNodePolicy());
         installEditPolicy(EditPolicy.NODE_ROLE, new DefaultCreateLinkEditPolicy());
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START,
                 new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
-        
+
     }
 
     @objid ("9748247b-55b6-11e2-877f-002564c97630")
     @Override
     protected IFigure createFigure() {
         final Box3DFigure nodeFigure = new Box3DFigure();
-        
+
         // Set style independent properties
         nodeFigure.setOpaque(true);
-        
+
         final ToolbarLayoutWithGrab layout = new ToolbarLayoutWithGrab();
         layout.setHorizontal(false);
         layout.setStretchMinorAxis(true);
-        
+
         nodeFigure.setLayoutManager(layout);
-        
+
         MinimumSizeLayout.apply(nodeFigure, 150, 100);
-        
+
         // set style dependent properties
         refreshFromStyle(nodeFigure, getModelStyle());
-        
+
         // return the figure
         return nodeFigure;
     }
@@ -105,11 +105,11 @@ public class NodeEditPart extends AbstractNodeEditPart {
         if (aFigure instanceof GradientFigure) {
             if (!switchRepresentationMode()) {
                 super.refreshFromStyle(aFigure, style);
-        
+
                 updateSeparations(aFigure);
             }
         }
-        
+
     }
 
     @objid ("97482487-55b6-11e2-877f-002564c97630")
@@ -117,22 +117,23 @@ public class NodeEditPart extends AbstractNodeEditPart {
     protected void refreshVisuals() {
         IFigure classFigure = getFigure();
         GmNodePrimaryNode classModel = (GmNodePrimaryNode) getModel();
-        
+
         classFigure.getParent().setConstraint(classFigure, classModel.getLayoutData());
-        
+
     }
 
     @objid ("9748248a-55b6-11e2-877f-002564c97630")
     @Override
     protected void removeChildVisual(EditPart childEditPart) {
         super.removeChildVisual(childEditPart);
-        
+
         updateSeparations(getFigure());
-        
+
     }
 
     /**
      * Update the separation lines between zones.
+     *
      * @param aFigure the composite figure to update.
      */
     @objid ("9748248e-55b6-11e2-877f-002564c97630")
@@ -145,9 +146,9 @@ public class NodeEditPart extends AbstractNodeEditPart {
                 false,
                 true,
                 false);
-        
+
         ChildFigureLineSeparator.updateSeparation(stateFig, zoneBorder);
-        
+
     }
 
 }

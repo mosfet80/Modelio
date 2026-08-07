@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.exml.local.loader.sax;
 
@@ -60,20 +60,21 @@ public class SaxExmlLoader implements IExmlLoader {
 
     /**
      * Initialize the SAX loader.
+     *
      * @param loadHelper a load helper
      */
     @objid ("2b011b9f-3faf-11e2-87cb-001ec947ccaf")
-    public  SaxExmlLoader(ILoadHelper loadHelper) {
+    public SaxExmlLoader(ILoadHelper loadHelper) {
         this.dataModel = new DataModel(loadHelper);
         this.defaultHandler = new DocumentContentHandler(this.dataModel);
-        
+
         try {
             SAXParserFactory saxFactory = SAXParserFactory.newInstance();
             SAXParser parser = saxFactory.newSAXParser();
             this.xmlReader = parser.getXMLReader();
-        
+
             this.xmlReader.setFeature("http://xml.org/sax/features/namespaces", true);
-        
+
             this.xmlReader.setContentHandler(this.defaultHandler);
             this.xmlReader.setErrorHandler(this.defaultHandler);
         } catch (ParserConfigurationException e) {
@@ -83,11 +84,12 @@ public class SaxExmlLoader implements IExmlLoader {
             // should never happen
             throw new ServiceConfigurationError(e.getLocalizedMessage(), e);
         }
-        
+
     }
 
     /**
      * Load an EXML resource from an XML {@link InputSource}.
+     *
      * @param is the EXML source.
      * @param loader the API to use to load the content.
      * @return the loaded CMS node.
@@ -100,12 +102,12 @@ public class SaxExmlLoader implements IExmlLoader {
         if (! this.loadInProgress.compareAndSet(false, true)) {
             throw new IllegalStateException(getClass().getSimpleName()+" Reentrant call not allowed.");
         }
-        
+
         try {
             this.dataModel.reset();
             this.defaultHandler.reset();
             this.dataModel.setModelLoader (loader);
-        
+
             this.xmlReader.parse(is);
             return this.dataModel.getRootObject();
         } catch(SAXParseException e) {
@@ -113,7 +115,7 @@ public class SaxExmlLoader implements IExmlLoader {
                     +":"+e.getLineNumber()
                     +":"+e.getColumnNumber()
                     +": "+e.getLocalizedMessage();
-            
+
             throw new IOException(msg, e );
         } catch (SAXException e) {
             String msg = is.getPublicId()+": "+e.getLocalizedMessage();
@@ -129,7 +131,7 @@ public class SaxExmlLoader implements IExmlLoader {
             this.loadInProgress.set(false);
             this.dataModel.setModelLoader (null);
         }
-        
+
     }
 
     @objid ("ddef07b7-407a-11e2-87cb-001ec947ccaf")

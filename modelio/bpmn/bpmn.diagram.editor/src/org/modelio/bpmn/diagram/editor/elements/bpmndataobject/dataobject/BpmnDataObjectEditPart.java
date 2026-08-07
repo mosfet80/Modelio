@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmndataobject.dataobject;
 
@@ -64,6 +64,7 @@ public class BpmnDataObjectEditPart extends AbstractBpmnSmallNodeEditPart {
     }
 
     /**
+     *
      * @see AbstractNodeEditPart#propertyChange(java.beans.PropertyChangeEvent)
      */
     @objid ("60ba6224-55b6-11e2-877f-002564c97630")
@@ -74,10 +75,11 @@ public class BpmnDataObjectEditPart extends AbstractBpmnSmallNodeEditPart {
         } else {
             super.propertyChange(evt);
         }
-        
+
     }
 
     /**
+     *
      * @see AbstractNodeEditPart#createEditPolicies()
      */
     @objid ("60ba6229-55b6-11e2-877f-002564c97630")
@@ -88,11 +90,12 @@ public class BpmnDataObjectEditPart extends AbstractBpmnSmallNodeEditPart {
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START, new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
         installEditPolicy(ModelElementDropRequest.TYPE, new BpmnItemAwareElementElementDropEditPolicy());
-        
+
     }
 
     /**
      * Creates the Figure to be used as this part's visuals
+     *
      * @see AbstractNodeEditPart#createFigure()
      */
     @objid ("60ba622d-55b6-11e2-877f-002564c97630")
@@ -104,10 +107,10 @@ public class BpmnDataObjectEditPart extends AbstractBpmnSmallNodeEditPart {
         // set style independent properties
         MinimumSizeLayout.apply(figure1, 40, 55);
         figure1.setOpaque(true);
-        
+
         // set style dependent properties
         refreshFromStyle(figure1, getModelStyle());
-        
+
         // return the figure
         return figure1;
     }
@@ -120,6 +123,7 @@ public class BpmnDataObjectEditPart extends AbstractBpmnSmallNodeEditPart {
 
     /**
      * Refresh this EditPart's visuals.
+     *
      * @see org.eclipse.gef.editparts.AbstractEditPart#refreshVisuals()
      */
     @objid ("60ba6238-55b6-11e2-877f-002564c97630")
@@ -129,13 +133,13 @@ public class BpmnDataObjectEditPart extends AbstractBpmnSmallNodeEditPart {
         final GmBpmnDataObjectPrimaryNode gm = (GmBpmnDataObjectPrimaryNode) getModel();
         fig.getParent().setConstraint(fig, gm.getLayoutData());
         fig.setTopIcons(gm.getReferenceIcone());
-        
+
         if (gm.getRelatedElement().isIsCollection()) {
             fig.setCenterIcon(DiagramEditorBpmn.getImageRegistry().getImage(BpmnSharedImages.COLLECTION));
         } else {
             fig.setCenterIcon(null);
         }
-        
+
     }
 
     @objid ("60ba623c-55b6-11e2-877f-002564c97630")
@@ -145,7 +149,7 @@ public class BpmnDataObjectEditPart extends AbstractBpmnSmallNodeEditPart {
         if (index == 0) {
             getFigure().add(child, BorderLayout.CENTER, index);
         }
-        
+
     }
 
     @objid ("60ba6241-55b6-11e2-877f-002564c97630")
@@ -159,7 +163,7 @@ public class BpmnDataObjectEditPart extends AbstractBpmnSmallNodeEditPart {
     protected void refreshFromStyle(final IFigure aFigure, final IStyle style) {
         if (!switchRepresentationMode()) {
             super.refreshFromStyle(aFigure, style);
-        
+
             if (aFigure instanceof ColorizableImageFigure) {
                 ColorizableImageFigure cFigure = (ColorizableImageFigure) aFigure;
                 final GmModel gmModel = getModel();
@@ -167,7 +171,7 @@ public class BpmnDataObjectEditPart extends AbstractBpmnSmallNodeEditPart {
                 cFigure.setColor(color);
             }
         }
-        
+
     }
 
 }

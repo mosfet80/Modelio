@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.datas;
 
@@ -61,12 +61,12 @@ public class DataOutputNode implements IProductionNode<BpmnDataOutput, TDataOutp
     @objid ("b2aa2b5b-d0fb-421c-bc0c-7985a8cc40fe")
     @Override
     public BpmnDataOutput createUMLElement(MObject context, TDataOutput jaxbElement, BpmnImportFactory factory, boolean keepId) {
-        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {  
+        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {
             return factory.createWithId(BpmnDataOutput.class,context,jaxbElement.getId());
         }else{
             return factory.create(BpmnDataOutput.class,context);
         }
-        
+
     }
 
     @objid ("9c4b7a0f-7bf5-472f-bda6-ed3c97b3707e")
@@ -78,11 +78,11 @@ public class DataOutputNode implements IProductionNode<BpmnDataOutput, TDataOutp
         }else if(context instanceof BpmnCatchEvent){
             ((BpmnCatchEvent) context).setDataOutput(modelioElement);
         }
-        
+
         // Set properties
         if(jaxbElement.getName()!=null)
             modelioElement.setName(StringConvertor.imports(jaxbElement.getName()));
-        
+
         modelioElement.setIsCollection(jaxbElement.isIsCollection());
         return modelioElement;
     }

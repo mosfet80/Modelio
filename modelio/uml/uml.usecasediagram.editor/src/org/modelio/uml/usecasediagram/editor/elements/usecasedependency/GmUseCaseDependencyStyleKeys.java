@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.usecasediagram.editor.elements.usecasedependency;
 
@@ -28,7 +28,7 @@ import org.modelio.uml.usecasediagram.editor.style.UseCaseAbstractStyleKeyProvid
 public class GmUseCaseDependencyStyleKeys extends UseCaseAbstractStyleKeyProvider {
     @objid ("d9b7ee69-55c2-11e2-9337-002564c97630")
     public static final StyleKey CONNECTIONROUTER = createStyleKey("USECASEDEPENDENCY_ROUTINGMODE",
-                                                                       MetaKey.CONNECTIONROUTER);
+                                                                           MetaKey.CONNECTIONROUTER);
 
     @objid ("d9b7ee6c-55c2-11e2-9337-002564c97630")
     public static final StyleKey LINECOLOR = createStyleKey("USECASEDEPENDENCY_LINECOLOR", MetaKey.LINECOLOR);
@@ -38,11 +38,11 @@ public class GmUseCaseDependencyStyleKeys extends UseCaseAbstractStyleKeyProvide
 
     @objid ("d9b7ee72-55c2-11e2-9337-002564c97630")
     public static final StyleKey LINERADIUS = createStyleKey("USECASEDEPENDENCY_LINERADIUS",
-                                                                 MetaKey.LINERADIUS);
+                                                                     MetaKey.LINERADIUS);
 
     @objid ("d9b7ee75-55c2-11e2-9337-002564c97630")
     public static final StyleKey DRAWLINEBRIDGES = createStyleKey("USECASEDEPENDENCY_DRAWLINEBRIDGES",
-                                                                      MetaKey.DRAWLINEBRIDGES);
+                                                                          MetaKey.DRAWLINEBRIDGES);
 
     @objid ("d9b7ee78-55c2-11e2-9337-002564c97630")
     public static final StyleKey FONT = createStyleKey("USECASEDEPENDENCY_FONT", MetaKey.FONT);
@@ -52,13 +52,13 @@ public class GmUseCaseDependencyStyleKeys extends UseCaseAbstractStyleKeyProvide
 
     @objid ("d9b7ee7e-55c2-11e2-9337-002564c97630")
     public static final StyleKey SHOWSTEREOTYPES = createStyleKey("USECASEDEPENDENCY_SHOWSTEREOTYPES",
-                                                                      MetaKey.SHOWSTEREOTYPES);
+                                                                          MetaKey.SHOWSTEREOTYPES);
 
     @objid ("d9b7ee81-55c2-11e2-9337-002564c97630")
     public static final StyleKey SHOWTAGS = createStyleKey("USECASEDEPENDENCY_SHOWTAGS", MetaKey.SHOWTAGS);
 
     @objid ("d9b7ee84-55c2-11e2-9337-002564c97630")
     public static final StyleKey LINEPATTERN = createStyleKey("USECASEDEPENDENCY_LINEPATTERN",
-                                                                  MetaKey.LINEPATTERN);
+                                                                      MetaKey.LINEPATTERN);
 
 }

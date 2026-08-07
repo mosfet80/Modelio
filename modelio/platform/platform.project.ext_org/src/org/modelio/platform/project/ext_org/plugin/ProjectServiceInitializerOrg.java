@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.project.ext_org.plugin;
 
@@ -46,8 +46,9 @@ import org.modelio.platform.project.services.workspace.WorkspaceService;
 public class ProjectServiceInitializerOrg {
     /**
      * Called by E4.
-     * 
+     *
      * Create, initialize the IProjectService instance and add it to the context.
+     *
      * @param context the Eclipse context
      */
     @objid ("00022664-dcdb-103c-9961-001ec947cd2a")
@@ -59,12 +60,12 @@ public class ProjectServiceInitializerOrg {
                 return new BasicProjectCreator();
             }
         };
-        
+
         IProjectCreator projectCreator = new ProjectCreator(creatorFactory);
         IProjectOpener projectOpener = new OpenProjectService(null);
         IProjectCloser projectCloser = new ProjectCloser();
         IWorkspaceService workspaceService = new WorkspaceService();
-        
+
         ProjectService projectService = new ProjectService(
                 context,
                 projectCreator,
@@ -74,7 +75,7 @@ public class ProjectServiceInitializerOrg {
                 (eclipseContext, project, withConfirmation) -> new FragmentsMigrator(eclipseContext, project, withConfirmation));
         context.set(IProjectService.class, projectService);
         context.set(ICurrentProjectService.class, projectService);
-        
+
     }
 
 }

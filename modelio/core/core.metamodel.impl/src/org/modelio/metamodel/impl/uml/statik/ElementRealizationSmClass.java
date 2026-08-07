@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -41,82 +40,82 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("5a66d517-b555-404b-b7f5-fbb06071a8be")
 public class ElementRealizationSmClass extends AbstractionSmClass {
-    @objid ("2c3a8f65-9a7b-4328-9cfe-c5c6910fcb3a")
-    public  ElementRealizationSmClass(ISmMetamodelFragment origin) {
+    @objid ("ff03def0-881e-4973-b536-35660aaf6044")
+    public ElementRealizationSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("182b383e-6dd1-42ff-8a7f-2d90658ea0c9")
+    @objid ("4b498bff-abbf-469c-93f9-d4e1ed8e6d23")
     @Override
     public String getName() {
         return "ElementRealization";
-        
+
     }
 
-    @objid ("c33d7668-1f43-4e32-8a11-ea93e8749ece")
+    @objid ("363e4449-d502-4a57-95b7-2b0817500947")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("0b1b513d-5890-4723-ae31-280f086fb93c")
+    @objid ("3d54f6a0-acb0-4f5f-9ead-2780872738de")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return ElementRealization.class;
-        
+
     }
 
-    @objid ("1fbec62f-f0ec-44e5-bdcb-88ac7470a3a4")
+    @objid ("d8bed6d8-4c3f-4f25-94b3-e51e369ed9cc")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("86505014-2044-4344-8343-cd263ba63c4c")
+    @objid ("956e4720-573e-4616-8336-2b33c102692a")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("afc07404-a878-47f0-b971-27167ed38cde")
+    @objid ("328236a6-c32a-43b1-acb7-6126eea10dc5")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(Abstraction.MQNAME);
         this.registerFactory(new ElementRealizationObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
-        
+
     }
 
-    @objid ("cc39d3c3-2d2e-42a5-a6a7-ff82fa7ed717")
+    @objid ("6928ec0e-c03d-46e6-9fe4-e5c63599c40b")
     @Override
     public boolean isLinkMetaclass() {
         return true;
-        
+
     }
 
     @objid ("c5da83fd-5c94-4f55-bbd5-3050c0ee1fd9")
     private static class ElementRealizationObjectFactory implements ISmObjectFactory {
-        @objid ("dfb8369d-3506-43e1-9c97-68bff5fce684")
+        @objid ("de3e4ca5-159c-4947-a17a-d74945f8cb8f")
         private ElementRealizationSmClass smClass;
 
-        @objid ("7fd45e4b-b3c6-4e23-910c-490daa9134c4")
-        public  ElementRealizationObjectFactory(ElementRealizationSmClass smClass) {
+        @objid ("42741e24-f2bc-4fa7-865b-15df6ee6a936")
+        public ElementRealizationObjectFactory(ElementRealizationSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("8331abb4-a813-4f20-bbc0-2814231a39eb")
+        @objid ("917f7040-abb2-4026-8bf3-3dff2fea4fd2")
         @Override
         public ISmObjectData createData() {
             return new ElementRealizationData(this.smClass);
         }
 
-        @objid ("c1f8b295-3a32-49ec-b0c2-fc9c8fa5fa7c")
+        @objid ("9e303757-1941-4060-a366-ecd7f2398cef")
         @Override
         public SmObjectImpl createImpl() {
             return new ElementRealizationImpl();

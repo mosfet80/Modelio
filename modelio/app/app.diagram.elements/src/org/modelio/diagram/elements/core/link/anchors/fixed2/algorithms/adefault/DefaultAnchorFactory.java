@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.anchors.fixed2.algorithms.adefault;
 
@@ -29,6 +29,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.SnapToGrid;
+import org.modelio.diagram.elements.common.abstractdiagram.AbstractDiagramEditPart;
 import org.modelio.diagram.elements.core.figures.ShapedFigure;
 import org.modelio.diagram.elements.core.figures.anchors.FacesConstants;
 import org.modelio.diagram.elements.core.figures.anchors.FixedAnchor;
@@ -40,6 +41,9 @@ import org.modelio.diagram.elements.core.link.anchors.fixed2.algorithms.shaped.S
 import org.modelio.diagram.elements.core.link.anchors.fixed2.algorithms.snaptogrid.SnapToGridAnchorLocator;
 import org.modelio.diagram.elements.core.link.anchors.fixed2.core.IFigureAnchorsAbstractFactory;
 import org.modelio.diagram.elements.core.link.anchors.fixed2.core.IFigureAnchorsFactory;
+import org.modelio.diagram.elements.core.model.GmModel;
+import org.modelio.diagram.styles.core.IStyle;
+import org.modelio.diagram.styles.core.MetaKey;
 import org.modelio.diagram.styles.core.StyleKey.ConnectionRouterId;
 
 /**
@@ -49,6 +53,7 @@ import org.modelio.diagram.styles.core.StyleKey.ConnectionRouterId;
  * <li> anchors that align on the grid
  * <li> one anchor at each middle of the figure
  * </ul>
+ *
  * @author cmarin
  */
 @objid ("6991aa8f-2029-4ac0-9e45-306e7a57111c")
@@ -62,14 +67,14 @@ public class DefaultAnchorFactory implements IFigureAnchorsFactory, IFigureAncho
     @objid ("cc3d9efa-3fd7-4560-b617-6d2ff70d00e5")
     private Collection<ConnectionAnchor> allAnchors;
 
-    @objid ("df63cffe-ae69-430b-a505-5e770b8bfcdd")
+    @objid ("7ec92d36-97e6-46f4-bb49-53c622a86548")
     private final Dimension anchorCount = new Dimension();
 
-    @objid ("219ffa84-7e48-40ec-9ae6-4fda61bce80a")
+    @objid ("3eec9b68-cb73-4d0f-ad4d-92edf949ef38")
     private final Rectangle curFigBounds = new Rectangle();
 
-    @objid ("9dca4e11-3214-41f5-a817-e1724554e564")
-    private final Dimension curViewerGridSpacing = new Dimension();
+    @objid ("1bbc501a-2ebf-4010-bc57-a3477eaddd9c")
+    private final Dimension curAncorSpacing = new Dimension();
 
     @objid ("808ddbe4-1f11-4fa0-a51c-aaf5aeb73ed6")
     private IFixedAnchorLocator gridLocator;
@@ -84,28 +89,28 @@ public class DefaultAnchorFactory implements IFigureAnchorsFactory, IFigureAncho
     @Override
     public IFigureAnchorsFactory getAnchorFactoryFor(GraphicalEditPart newEditPart, IFigure newFigure) {
         Rectangle newFigBounds = newFigure.getBounds();
-        Dimension newViewerGridSpacing = getViewerGridSpacing(newEditPart);
-        
+        Dimension newViewerAnchorSpacing = getAncorSpacing(newEditPart);
+
         // If no change fast exit
         if (this.curEditPart == newEditPart
                 && this.curFigure == newFigure
                 && newFigBounds.equals(this.curFigBounds)
-                && this.curViewerGridSpacing.equals(newViewerGridSpacing))
+                && this.curAncorSpacing.equals(newViewerAnchorSpacing))
             return this;
-        
+
         // Recompute internal state
         this.curEditPart = newEditPart;
         this.curFigure = newFigure;
         this.curFigBounds.setBounds(newFigBounds);
-        this.curViewerGridSpacing.setSize(newViewerGridSpacing);
+        this.curAncorSpacing.setSize(newViewerAnchorSpacing);
         Dimension gridSize = getGridAnchorSize(new Dimension());
         updateGridAnchorCount(this.anchorCount, gridSize);
-        
+
         // Recreate figure dependent locators
         SnapToGrid snapper = new Snapper(newEditPart, gridSize) ;
         this.gridLocator = new SnapToGridAnchorLocator(new FixedNodeAnchorLocator("grid"), snapper);
         this.middleLocator = MIDDLE_LOCATOR;
-        
+
         if (false && newFigure instanceof ShapedFigure) {
             this.gridLocator   = new ShapedFigureAnchorLocator(this.gridLocator);
             this.middleLocator = new ShapedFigureAnchorLocator(this.middleLocator);
@@ -130,7 +135,6 @@ public class DefaultAnchorFactory implements IFigureAnchorsFactory, IFigureAncho
                 gmAnchor.getRank(),
                 gmAnchor.getTotalOnFace(),
                 loc);
-        
     }
 
     @objid ("3a98776e-5729-46af-a684-359f66312b7f")
@@ -149,9 +153,9 @@ public class DefaultAnchorFactory implements IFigureAnchorsFactory, IFigureAncho
         // TODO keep in cache generated anchors
         IFigure newNodeFigure = getNodeFigure();
         Dimension anchorsCount = this.anchorCount;
-        
+
         Collection<ConnectionAnchor> anchors = new ArrayList<>(anchorsCount.width*2 + anchorsCount.height*2 + 4);
-        
+
         createAllAnchors(faceFilter, anchorsCount, anchors);
         return anchors;
     }
@@ -162,38 +166,37 @@ public class DefaultAnchorFactory implements IFigureAnchorsFactory, IFigureAncho
         createFaceAnchors(anchors, FacesConstants.FACE_SOUTH, faceFilter, anchorsCount.width);
         createFaceAnchors(anchors, FacesConstants.FACE_EAST, faceFilter, anchorsCount.height);
         createFaceAnchors(anchors, FacesConstants.FACE_WEST, faceFilter, anchorsCount.height);
-        
     }
 
     @objid ("7744fefb-2860-4b2e-a28a-7005da5250c5")
     protected void createFaceAnchors(Collection<ConnectionAnchor> anchors, int faceId, Integer faceFilter, int anchorsCount) {
         if (faceFilter != null && faceFilter != faceId)
             return;
-        
+
         IFigure newNodeFigure = getNodeFigure();
-        
+
         if (true) {
-        
+
             // Create middle anchor
             FixedAnchor northMiddle = new FixedAnchor(newNodeFigure, faceId, 0, 1, this.middleLocator);
             anchors.add(northMiddle);
-        
+
             // Compute middle anchor location in figure coordinates
             //Point anchorRef = new Point();
             Point northRef = new Point(northMiddle.getReferencePoint());
             newNodeFigure.translateToRelative(northRef);
-        
+
             // Create grid related anchors
             for (int i = 0; i < anchorsCount; i++) {
                 FixedAnchor a = new FixedAnchor(newNodeFigure, faceId, i, anchorsCount, this.gridLocator);
-        
+
                 // add the anchor only if it is far enough from the middle anchor
                 /*
                 anchorRef.setLocation(a.getReferencePoint());
                 newNodeFigure.translateToRelative(anchorRef);
                 if (anchorRef.getDistance(northRef) >= 15)*/
                     anchors.add(a);
-        
+
             }
         } else {
             // Create grid related anchors only
@@ -202,7 +205,6 @@ public class DefaultAnchorFactory implements IFigureAnchorsFactory, IFigureAncho
                 anchors.add(a);
             }
         }
-        
     }
 
     @objid ("06ae7f51-40df-4b91-8061-d53ef83b8d51")
@@ -215,37 +217,34 @@ public class DefaultAnchorFactory implements IFigureAnchorsFactory, IFigureAncho
      * Compute the anchor count due to the grid and put the result in the passed Dimension.
      * <p>
      * May be redefined by sub classes to make a different number of anchors.
+     *
      * @param out the anchor count variable to fill
      */
     @objid ("d424ce95-e7e8-438e-a474-479d5763781b")
     protected void updateGridAnchorCount(Dimension out, Dimension gridSize) {
         Rectangle figSize = this.curFigBounds.getCopy();
-        
+
         // compute how many time the 'gridSize' fit on horizontal and vertical faces
         int nHorizontal = Math.max(1, figSize.width / gridSize.width );
         int nVertical = Math.max(1, figSize.height / gridSize.height );
-        
+
         out.setSize(nHorizontal, nVertical);
-        
     }
 
     /**
      * Compute the anchor grid size to use
+     *
      * @param out the grid size to fill.
      * @return the passed grid size for convenience.
      */
     @objid ("deb4200f-6360-4605-af67-c0a311dfde83")
     protected Dimension getGridAnchorSize(Dimension out) {
-        out.setSize(this.curViewerGridSpacing);
-        
-        while (out.width < 15) {
-            out.width = out.width * 2;
+        out.setSize(this.curAncorSpacing);
+
+        while (out.width < 12) {
+            out.width = 12;
         };
-        
-        while (out.width >= 40 ) {
-            out.width = out.width / 2;
-        }
-        
+
         // We use only grids with same width and height
         out.height = out.width;
         return out;
@@ -253,12 +252,14 @@ public class DefaultAnchorFactory implements IFigureAnchorsFactory, IFigureAncho
 
     /**
      * Get the grid spacing as configured in viewer properties.
+     *
      * @param newEditPart an edit part
      * @return the official grid spacing
      */
     @objid ("ad0da0c5-502f-4096-9f8f-26b7cf427da9")
-    protected static final Dimension getViewerGridSpacing(GraphicalEditPart newEditPart) {
-        return (Dimension) newEditPart.getViewer().getProperty(SnapToGrid.PROPERTY_GRID_SPACING);
+    protected static final Dimension getAncorSpacing(GraphicalEditPart newEditPart) {
+        Integer spacing = (Integer) newEditPart.getViewer().getProperty(AbstractDiagramEditPart.PROPERTY_ANCHOR_SPACING);
+        return new Dimension(spacing,spacing);
     }
 
     /**
@@ -267,11 +268,10 @@ public class DefaultAnchorFactory implements IFigureAnchorsFactory, IFigureAncho
     @objid ("59af7a69-1a95-482e-9bbf-be5500a448a4")
     private static class Snapper extends SnapToGrid {
         @objid ("c2088d9e-da17-4f52-aa4a-2f26f5f64d62")
-        public  Snapper(GraphicalEditPart container, Dimension gridSize) {
+        public Snapper(GraphicalEditPart container, Dimension gridSize) {
             super(container);
             this.gridX = gridSize.width;
             this.gridY = gridSize.width;
-            
         }
 
     }

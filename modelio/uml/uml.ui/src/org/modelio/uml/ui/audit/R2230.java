@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -62,7 +62,7 @@ public class R2230 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -82,11 +82,11 @@ public class R2230 extends AbstractUmlRule {
         plan.registerRule(Generalization.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.UPDATE |
                 AuditTrigger.MOVE);
-        
+
         // Namespaces
         plan.registerRule(Package.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Collaboration.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         // Namespaces.Classifiers
         plan.registerRule(InformationItem.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Artifact.MQNAME, this, AuditTrigger.UPDATE);
@@ -100,7 +100,7 @@ public class R2230 extends AbstractUmlRule {
         plan.registerRule(UseCase.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Node.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Component.MQNAME, this, AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -134,14 +134,14 @@ public class R2230 extends AbstractUmlRule {
      * Default constructor for R2230
      */
     @objid ("6999e883-e16e-40fc-b860-3440a3f33709")
-    public  R2230() {
+    public R2230() {
         this.checkerInstance = new CheckR2230(this);
     }
 
     @objid ("5990fc97-918f-4d79-9bdc-c5b235a8187e")
     private static class CheckR2230 extends AbstractControl {
         @objid ("587ceede-7ba6-40d8-ac71-0d69e10d1d98")
-        public  CheckR2230(IRule rule) {
+        public CheckR2230(IRule rule) {
             super(rule);
         }
 
@@ -164,11 +164,11 @@ public class R2230 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     nameSpace,
                     null);
-            
+
             if (nameSpace.isIsRoot() && !nameSpace.getParent().isEmpty()) {
-            
+
                 // Rule failed
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(nameSpace);

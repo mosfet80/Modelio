@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vbasic.collections;
 
@@ -26,6 +26,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * virtual concatenation of many collections.
+ *
  * @param <E> The type of elements.
  */
 @objid ("fe60694c-c1ef-11e1-92d5-001ec947ccaf")
@@ -37,7 +38,7 @@ public class CompoundCollection<E> implements Collection<E> {
      * Initialize a new compound collection.
      */
     @objid ("ff2b1088-c1ef-11e1-92d5-001ec947ccaf")
-    public  CompoundCollection() {
+    public CompoundCollection() {
         this.content = new ArrayList<>(2);
     }
 
@@ -55,7 +56,7 @@ public class CompoundCollection<E> implements Collection<E> {
     public boolean isEmpty() {
         if (this.content.isEmpty())
             return true;
-        
+
         for (Collection<? extends E>  c: this.content)
             if (! c.isEmpty())
                 return false;
@@ -133,7 +134,7 @@ public class CompoundCollection<E> implements Collection<E> {
             return true;
         else
             throw new IllegalArgumentException("Argument is not part of this compound collection");
-        
+
     }
 
     @objid ("ff2d7306-c1ef-11e1-92d5-001ec947ccaf")

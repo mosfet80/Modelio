@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -35,14 +35,14 @@ public class ONameSpace extends OModelElement {
     }
 
     @objid ("8399e3fa-b3ab-459e-95f8-8dd546448825")
-    public  ONameSpace(final ModelElement element) {
+    public ONameSpace(final ModelElement element) {
         super(element);
     }
 
     @objid ("07430b86-027d-4a81-9c1a-c0f12df50870")
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
-        
+
     }
 
     @objid ("b6b51f6c-c1fb-4271-893b-35a17747698a")
@@ -54,7 +54,7 @@ public class ONameSpace extends OModelElement {
         else if (GenerationProperties.getInstance().isRoundtripEnabled()){
             this.setAbstractEAnnotation(ecoreElt);
         }
-        
+
     }
 
     @objid ("8a524f74-c36a-429f-ba45-04bbfe119083")
@@ -67,7 +67,7 @@ public class ONameSpace extends OModelElement {
         Element objElement = getObjingElement();
         if (objElement instanceof NameSpace)
             ObjingEAnnotation.setIsAbstract(ecoreElt, ((NameSpace)objElement ).isIsAbstract());
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.rtcache;
 
@@ -44,15 +44,16 @@ public class ModuleRTCache implements IModuleRTCache {
 
     /**
      * C'tor the module catalog cache.
+     *
      * @param catalog the cached catalog
      * @param metamodelFragments the metamodel fragments to use
      * @param cachePath the cache path
      */
     @objid ("08d572ed-641d-4243-81b5-6ea4bd7fc40a")
-    public  ModuleRTCache(IModuleStore catalog, Collection<IGMetamodelExtension> metamodelFragments, Path cachePath) {
+    public ModuleRTCache(IModuleStore catalog, Collection<IGMetamodelExtension> metamodelFragments, Path cachePath) {
         this.catalog = catalog;
         this.store = new FileModuleAdditionStore(metamodelFragments, cachePath);
-        
+
     }
 
     @objid ("5f6ac1b3-e763-4e70-81a4-e06123f2e5a3")

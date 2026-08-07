@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.bpmn;
 
@@ -54,19 +54,21 @@ public class BpmnUserTaskPropertyModel extends AbstractPropertyModel<BpmnUserTas
 
     /**
      * Create a new <i>BpmnUserTask</i> data model from an <i>BpmnUserTask</i>.
+     *
      * @param theEditedElement the model to edit.
      * @param modelService the model service needed to find elements.
      */
     @objid ("b3be86b0-2e9f-4fc2-95cf-3bf76f0baa5f")
-    public  BpmnUserTaskPropertyModel(BpmnUserTask theEditedElement, IMModelServices modelService) {
+    public BpmnUserTaskPropertyModel(BpmnUserTask theEditedElement, IMModelServices modelService) {
         super(theEditedElement);
         this.modelService = modelService;
         initPropertyModel();
-        
+
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("c5f86f8a-9a6d-4671-87b5-a9da9fef5954")
@@ -77,6 +79,7 @@ public class BpmnUserTaskPropertyModel extends AbstractPropertyModel<BpmnUserTas
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("5f67d608-8b8f-4658-b2f3-266a08b6abf5")
@@ -91,6 +94,7 @@ public class BpmnUserTaskPropertyModel extends AbstractPropertyModel<BpmnUserTas
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -101,7 +105,7 @@ public class BpmnUserTaskPropertyModel extends AbstractPropertyModel<BpmnUserTas
         if (col == 0) {
             return getPropertyI18n(this.properties.get(row));
         }
-        
+
         // else
         if (col == 1) // col 1 is the property value
         {
@@ -157,6 +161,7 @@ public class BpmnUserTaskPropertyModel extends AbstractPropertyModel<BpmnUserTas
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -168,7 +173,7 @@ public class BpmnUserTaskPropertyModel extends AbstractPropertyModel<BpmnUserTas
         if (col == 0) {
             return new DefaultStringNatValue((String) getValue(row, col), false);
         }
-        
+
         // else
         if (col == 1) // col 1 is the property value
         {
@@ -225,7 +230,7 @@ public class BpmnUserTaskPropertyModel extends AbstractPropertyModel<BpmnUserTas
         this.properties.add("Global");
         this.properties.add("Implementation");
         this.properties.add("LoopCharacteristics");
-        
+
         LoopType type = LoopType.getType(this.theEditedElement);
         if (type == LoopType.Standard) {
             this.properties.add("TestBefore");
@@ -237,13 +242,14 @@ public class BpmnUserTaskPropertyModel extends AbstractPropertyModel<BpmnUserTas
             this.properties.add("CompletionCondition");
             this.properties.add("EventDefinition");
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -255,7 +261,7 @@ public class BpmnUserTaskPropertyModel extends AbstractPropertyModel<BpmnUserTas
         if (col == 0) {
             return;
         }
-        
+
         if (col == 1) // col 1 is the property value
         {
             if (row == 0) {
@@ -301,7 +307,7 @@ public class BpmnUserTaskPropertyModel extends AbstractPropertyModel<BpmnUserTas
                 }
             }
         }
-        
+
     }
 
 }

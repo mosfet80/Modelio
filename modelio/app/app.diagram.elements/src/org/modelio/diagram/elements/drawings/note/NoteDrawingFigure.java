@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.drawings.note;
 
@@ -70,13 +70,13 @@ public class NoteDrawingFigure extends ShapedFigure {
      * Creates a note figure.
      */
     @objid ("2159bb63-85b7-4574-88f7-95255e00b9b7")
-    public  NoteDrawingFigure() {
+    public NoteDrawingFigure() {
         super();
-        
+
         ToolbarLayout layout = new NoteLayout();
         layout.setStretchMinorAxis(true);
         setLayoutManager(layout);
-        
+
         // The note text figure list is placed in a TRANSPARENT scroll pane
         this.scrollPane = new TransparentScrollPane();
         this.scrollPane.getViewport().setContentsTracksWidth(true);
@@ -91,7 +91,7 @@ public class NoteDrawingFigure extends ShapedFigure {
         this.add(this.scrollPane);
         setShaper(this.umlNoteShaper);
         setBorder(new ShapedBorder(getLineColor(), getLineWidth(), this.umlNoteShaper));
-        
+
     }
 
     @objid ("2229ab25-c88b-4eff-8440-3fcba9e6b19a")
@@ -99,7 +99,7 @@ public class NoteDrawingFigure extends ShapedFigure {
     public void setLineColor(Color lineColor) {
         super.setLineColor(lineColor);
         ((ShapedBorder) getBorder()).setColor(lineColor);
-        
+
     }
 
     @objid ("e620214e-8741-4043-b55b-d5e2eca38865")
@@ -107,7 +107,7 @@ public class NoteDrawingFigure extends ShapedFigure {
     public void setLineWidth(int lineWidth) {
         super.setLineWidth(lineWidth);
         ((ShapedBorder) getBorder()).setWidth(lineWidth);
-        
+
     }
 
     @objid ("1d3cd741-f465-4de5-a0e6-fe98b1f66eda")
@@ -118,11 +118,12 @@ public class NoteDrawingFigure extends ShapedFigure {
             ((LineBorder) getBorder()).setStyle(linePattern.toSWTConstant());
             this.repaint();
         }
-        
+
     }
 
     /**
      * Get the note content figure.
+     *
      * @return The figure where the note content is displayed.
      */
     @objid ("1b914c36-f302-49f9-a282-d1e2343a3f9e")
@@ -137,6 +138,7 @@ public class NoteDrawingFigure extends ShapedFigure {
 
     /**
      * Set note content and mode.
+     *
      * @param htmlMode true to activate the HTML mode
      * @param content the content, as HTML or plain text
      */
@@ -144,7 +146,7 @@ public class NoteDrawingFigure extends ShapedFigure {
     public void setContents(String content) {
         // Mode is already OK, just change text
         this.fsHtmlFigure.setHtmlText(content);
-        
+
     }
 
     /**
@@ -156,7 +158,7 @@ public class NoteDrawingFigure extends ShapedFigure {
     @objid ("16f320d9-3a71-4f9e-8d69-de7b6019a7da")
     private static final class NoteLayout extends ToolbarLayoutWithGrab {
         @objid ("8ce4b0cf-a0a1-4ee1-9847-275ec157b271")
-         NoteLayout() {
+        NoteLayout() {
             super(false);
         }
 
@@ -193,6 +195,7 @@ public class NoteDrawingFigure extends ShapedFigure {
 
         /**
          * Calculate the minimum size a note should be.
+         *
          * @param container the note figure
          * @param wHint the width hint (the desired width of the container)
          * @param hHint the height hint (the desired height of the container)
@@ -201,18 +204,18 @@ public class NoteDrawingFigure extends ShapedFigure {
         @objid ("ca37c364-96e6-45ab-80fc-fca6a402b339")
         private Dimension calculateMinSize(final NoteDrawingFigure container, final int wHint, final int hHint) {
             @SuppressWarnings ("synthetic-access")
-            
+
             Dimension ret = new Dimension(0, 0);
             ret.union(super.calculateMinimumSize(container, wHint, hHint));
-            
+
             if (ret.width < 200) {
                 ret.width = 200;
             }
-            
+
             if (ret.height < 100) {
                 ret.height = 100;
             }
-            
+
             if (ret.width / ret.height > 4) {
                 ret = super.calculateMinimumSize(container, ret.height * 4, hHint);
             }
@@ -221,6 +224,7 @@ public class NoteDrawingFigure extends ShapedFigure {
 
         /**
          * Compute the ideal size of the note.
+         *
          * @param container the note figure
          * @param wHint the width hint (the desired width of the container)
          * @param hHint the height hint (the desired height of the container)
@@ -229,30 +233,30 @@ public class NoteDrawingFigure extends ShapedFigure {
         @objid ("41d08228-0fc8-4444-ae31-62e3dba0d859")
         private Dimension calculateIdealSize(final NoteDrawingFigure container, final int wHint, final int hHint) {
             Dimension ret = super.calculatePreferredSize(container, wHint, hHint);
-            
+
             // Try to estimate the dimention of rendered htmt note
             String content = container.getContent();
             if(content.contains("<p>")) {
                 int maxString = 0;
                 int extimateLignes = 0;
                 List<String>  paragraphers = splitByParagrapher(content);
-            
+
                 for(String par : paragraphers) {
                     maxString = Math.max(maxString, par.replaceAll("<.*>", "").length());
                 }
-            
+
                 extimateLignes = paragraphers.size();
-            
-            
+
+
                 ret.height = extimateLignes * 30 + 30;
                 ret.width = maxString * 5;
-            
+
                 if (ret.width / ret.height > 3) {
                     ret.width  = ret.height * 3;
                     ret.height = ret.height * 2 ;
-            
+
                 }
-            
+
             }else {
                 ret.height = 100;
                 ret.width = 200;
@@ -275,7 +279,7 @@ public class NoteDrawingFigure extends ShapedFigure {
     @objid ("6c3a4bbe-b688-4447-9a4d-34cc5b33895b")
     public static final class TransparentScrollPane extends ScrollPane {
         @objid ("b01a7293-afe7-40dc-a583-452ca0354d3a")
-        public  TransparentScrollPane() {
+        public TransparentScrollPane() {
             super();
         }
 
@@ -301,12 +305,12 @@ public class NoteDrawingFigure extends ShapedFigure {
         @Override
         public Path createShapePath(Rectangle rect) {
             Path path = new Path(Display.getCurrent());
-            
+
             Point[] points = computeShape(rect);
-            
+
             path.moveTo(points[0].x, points[0].y);
             path.lineTo(points[1].x, points[1].y);
-            
+
             path.lineTo(points[2].x, points[2].y);
             path.lineTo(points[3].x, points[3].y);
             return path;
@@ -314,7 +318,7 @@ public class NoteDrawingFigure extends ShapedFigure {
 
         /**
          * Compute the shape of the note figure in an array of Points.
-         * 
+         *
          * <pre>
          * 1--0
          * |
@@ -324,6 +328,7 @@ public class NoteDrawingFigure extends ShapedFigure {
          * |
          * 2--3
          * </pre>
+         *
          * @param r the bounding box rectangle
          * @return the passed array or a new one
          */

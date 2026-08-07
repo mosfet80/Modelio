@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.exml.resource;
 
@@ -54,6 +54,7 @@ public class FsExmlResourceProvider extends LocalExmlResourceProvider {
 
     /**
      * Initialize the resource provider.
+     *
      * @param distantPath the location of the repository
      * @param runtimePath a directory in the local file system.
      * If <code>null</code> a temporary directory will be created in $(TEMP).
@@ -62,9 +63,9 @@ public class FsExmlResourceProvider extends LocalExmlResourceProvider {
      * @throws IOException in case of failure
      */
     @objid ("cf2a52ae-03e4-11e2-b5bf-001ec947ccaf")
-    public  FsExmlResourceProvider(Path distantPath, Path runtimePath, String name) throws IllegalArgumentException, IOException {
+    public FsExmlResourceProvider(Path distantPath, Path runtimePath, String name) throws IllegalArgumentException, IOException {
         super(distantPath, runtimePath, name);
-        
+
         if (runtimePath == null) {
             this.localIndexPath = Files.createTempDirectory(distantPath.getFileName().toString());
             this.localIndexStampPath = this.localIndexPath.resolve(IStampGeometry.LOCAL_INDEX_STAMP_FILE);
@@ -73,7 +74,7 @@ public class FsExmlResourceProvider extends LocalExmlResourceProvider {
             this.localIndexPath = runtimePath.resolve(".index");
             this.localIndexStampPath = runtimePath.resolve(IStampGeometry.LOCAL_INDEX_STAMP_FILE);
         }
-        
+
     }
 
     @objid ("cf2a52b7-03e4-11e2-b5bf-001ec947ccaf")
@@ -82,34 +83,34 @@ public class FsExmlResourceProvider extends LocalExmlResourceProvider {
         // Not a standard file system, copy all into a directory
         // accessible to JDBM.
         // The copy is made only if needed.
-        
+
         try {
             checkLocalIndex();
         } catch (IndexOutdatedException e) {
             Log.trace(e);
-        
+
             String msg = "Retrieving '"+getName()+"' indexes from '"+this.repositoryPath+"' ...";
-        
+
             Log.trace(msg);
             monitor.subTask(msg);
-        
+
             boolean islocalDir = Files.isDirectory(this.localIndexPath);
-        
+
             if (islocalDir) {
                 FileUtils.delete(this.localIndexPath);
             }
-        
+
             Files.createDirectories(this.localIndexPath);
-        
+
             // Assume the indexes are stored in the same directory.
             Path remoteIndexPath = this.repositoryPath.resolve(".index");
             if (Files.isDirectory(remoteIndexPath)) {
                 FileUtils.copyDirectoryTo(remoteIndexPath, this.localIndexPath);
                 Files.write(this.localIndexStampPath, getStamp().getBytes(StandardCharsets.UTF_8));
             }
-        
+
         }
-        
+
     }
 
     @objid ("5a0e8afa-e6d0-4281-8893-277986a48704")
@@ -130,7 +131,7 @@ public class FsExmlResourceProvider extends LocalExmlResourceProvider {
         if (! islocalDir) {
             throw new IndexOutdatedException(getName()+" indexes not yet copied in '"+this.localIndexPath+"'.");
         }
-        
+
         try {
             String localStamp = readLocalStamp();
             if (! localStamp.equals(getStamp())) {
@@ -143,7 +144,7 @@ public class FsExmlResourceProvider extends LocalExmlResourceProvider {
         } catch (IOException e) {
             throw new IndexOutdatedException("Failed reading '"+this.localIndexStampPath+"': "+e.toString(), e);
         }
-        
+
     }
 
     @objid ("2e9294ab-a6d6-4827-9f23-c62c514d6e9c")
@@ -159,11 +160,12 @@ public class FsExmlResourceProvider extends LocalExmlResourceProvider {
                 throw e;
             }
         }
-        
+
     }
 
     /**
      * Check the given path is a local directory.
+     *
      * @param localWorkPath a path
      * @throws IllegalArgumentException if the path is not valid.
      */
@@ -175,7 +177,7 @@ public class FsExmlResourceProvider extends LocalExmlResourceProvider {
         if (! Files.isDirectory(localWorkPath)) {
             throw new IllegalArgumentException(localWorkPath+" is not a directory.");
         }
-        
+
     }
 
 }

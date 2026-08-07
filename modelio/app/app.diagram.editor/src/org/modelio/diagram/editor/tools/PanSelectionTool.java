@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.tools;
 
@@ -73,6 +73,7 @@ public class PanSelectionTool extends SelectionTool {
     private Point viewLocation;
 
     /**
+     *
      * @see org.eclipse.gef.tools.AbstractTool#getDebugName()
      */
     @objid ("66aa0cc0-33f7-11e2-95fe-001ec947c8cc")
@@ -82,6 +83,7 @@ public class PanSelectionTool extends SelectionTool {
     }
 
     /**
+     *
      * @see org.eclipse.gef.tools.AbstractTool#getDebugNameForState(int)
      */
     @objid ("66aa0cc6-33f7-11e2-95fe-001ec947c8cc")
@@ -96,8 +98,9 @@ public class PanSelectionTool extends SelectionTool {
 
     /**
      * Returns the cursor used under normal conditions.
-     * @see #setDefaultCursor(Cursor)
+     *
      * @return the default cursor
+     * @see #setDefaultCursor(Cursor)
      */
     @objid ("66aa0ccd-33f7-11e2-95fe-001ec947c8cc")
     @Override
@@ -108,6 +111,7 @@ public class PanSelectionTool extends SelectionTool {
     }
 
     /**
+     *
      * @see org.eclipse.gef.tools.SelectionTool#handleButtonDown(int)
      */
     @objid ("66aa0cd3-33f7-11e2-95fe-001ec947c8cc")
@@ -122,10 +126,11 @@ public class PanSelectionTool extends SelectionTool {
             return true;
         } else
             return super.handleButtonDown(which);
-        
+
     }
 
     /**
+     *
      * @see org.eclipse.gef.tools.SelectionTool#handleButtonUp(int)
      */
     @objid ("66aa0cd9-33f7-11e2-95fe-001ec947c8cc")
@@ -144,6 +149,7 @@ public class PanSelectionTool extends SelectionTool {
     }
 
     /**
+     *
      * @see org.eclipse.gef.tools.AbstractTool#handleDrag()
      */
     @objid ("66aa0ce0-33f7-11e2-95fe-001ec947c8cc")
@@ -151,7 +157,7 @@ public class PanSelectionTool extends SelectionTool {
     protected boolean handleDrag() {
         // State PAN = rightbutton hold down, no signitificative drag yet (DRAG_THRESHOLD)
         if (this.isInState(PAN) && this.getCurrentViewer().getControl() instanceof FigureCanvas) {
-        
+
             if (Math.abs(this.getDragMoveDelta().width) > DRAG_THRESHOLD ||
                 Math.abs(this.getDragMoveDelta().height) > DRAG_THRESHOLD) {
                 if (this.stateTransition(PAN, PAN_IN_PROGRESS)) {
@@ -160,32 +166,33 @@ public class PanSelectionTool extends SelectionTool {
                 }
             }
             return super.handleDrag();
-        
+
         }
-        
+
         // State PAN_IN_PROGRESS = rightbutton hold down, already dragged of a significative amount (DRAG_THRESHOLD)
         // dragging is in progress
         if (this.isInState(PAN_IN_PROGRESS) && this.getCurrentViewer().getControl() instanceof FigureCanvas) {
-        
+
             GraphicalViewer v = (GraphicalViewer) this.getCurrentViewer();
             ScalableFreeformRootEditPart2 rootEditPart = (ScalableFreeformRootEditPart2) v.getRootEditPart();
             AbstractDiagramFigure diagramFigure = (AbstractDiagramFigure) ((GraphicalEditPart) rootEditPart.getContents()).getFigure();
-        
+
             FigureCanvas canvas = (FigureCanvas) this.getCurrentViewer().getControl();
             this.adjustWorkarea(diagramFigure, canvas);
             canvas.scrollTo(this.viewLocation.x - this.getDragMoveDelta().width,
                             this.viewLocation.y - this.getDragMoveDelta().height);
             this.viewLocation = canvas.getViewport().getViewLocation();
             this.setStartLocation(this.getLocation());
-        
+
             return true;
         } else {
             return super.handleDrag();
         }
-        
+
     }
 
     /**
+     *
      * @see org.eclipse.gef.tools.SelectionTool#handleFocusLost()
      */
     @objid ("66aa0ce5-33f7-11e2-95fe-001ec947c8cc")
@@ -203,7 +210,7 @@ public class PanSelectionTool extends SelectionTool {
     @objid ("66aa0ceb-33f7-11e2-95fe-001ec947c8cc")
     private void adjustWorkarea(AbstractDiagramFigure diagramFigure, FigureCanvas canvas) {
         Rectangle rModified = diagramFigure.getFreeformExtent().getCopy();
-        
+
         int newX = this.viewLocation.x - this.getDragMoveDelta().width;
         RangeModel hRange = canvas.getViewport().getHorizontalRangeModel();
         if (newX < hRange.getMinimum()) {
@@ -212,7 +219,7 @@ public class PanSelectionTool extends SelectionTool {
         } else if (newX + hRange.getExtent() > hRange.getMaximum()) {
             rModified.width += WORKAREA_RESIZE_INCREMENT;
         }
-        
+
         int newY = this.viewLocation.y - this.getDragMoveDelta().height;
         RangeModel vRange = canvas.getViewport().getVerticalRangeModel();
         if (newY < vRange.getMinimum()) {
@@ -221,10 +228,10 @@ public class PanSelectionTool extends SelectionTool {
         } else if (newY + vRange.getExtent() > vRange.getMaximum()) {
             rModified.height += WORKAREA_RESIZE_INCREMENT;
         }
-        
+
         // Note: setWorkArea takes care of 'non-modified' value...
         diagramFigure.setWorkArea(rModified);
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.browser.view.panel;
 
@@ -69,26 +69,26 @@ public class BrowserContentProvider implements IModelChangeListener, IStatusChan
     @objid ("20211fc1-7f61-495a-a360-30be47195113")
     private boolean showModuleFragments = false;
 
-    @objid ("b3ebb255-adb0-4f9a-801d-2e245b31f21f")
+    @objid ("5cbd37df-b6b3-41f7-a353-dc9e583cd0ae")
     private final AtomicReference<ViewRefresher> viewRefresher = new AtomicReference<>();
+
+    @objid ("5d64122c-01a8-47c4-8a5c-2045ddb43a69")
+    private List<Object> localRoots = new ArrayList<>();
+
+    @objid ("0038816f-0708-4f6a-bc1c-d8a436958f6c")
+    private Viewer viewer;
+
+    @objid ("c75f9c37-1d7f-4372-96e8-327ee871ada5")
+    private Map<String, ITreeContentProvider> extensions = new HashMap<>();
 
     @objid ("97aaacfb-d8fb-4fd5-8b6e-fa9cc2cec994")
     private IGProject openedProject;
-
-    @objid ("aa020c33-b0a1-484f-a267-124f1dc2aaa1")
-    private List<Object> localRoots = new ArrayList<>();
-
-    @objid ("65ab6d53-4da7-4bac-a7a7-5efff4072b0c")
-    private Viewer viewer;
-
-    @objid ("1402303d-117e-4e90-9d35-5bd9c3a314e9")
-    private Map<String, ITreeContentProvider> extensions = new HashMap<>();
 
     @objid ("58fc2cc8-bb7a-4f71-b79b-3ef3dc4cd878")
     @Override
     public void inputChanged(final Viewer currentViewer, final Object oldInput, final Object newInput) {
         this.viewer = currentViewer;
-        
+
         // Unregister model change listener on the old input
         if (oldInput != null && oldInput instanceof IGProject) {
             ICoreSession session = ((IGProject) oldInput).getSession();
@@ -101,28 +101,28 @@ public class BrowserContentProvider implements IModelChangeListener, IStatusChan
             session.getModelChangeSupport().removeModelChangeListener(this);
             session.getModelChangeSupport().removeStatusChangeListener(this);
         }
-        
+
         // Register model change listener on the new input
         if (newInput != null && newInput instanceof IGProject) {
             this.openedProject = (IGProject) newInput;
-        
+
             IModelChangeSupport changeSupport = ((IGProject) newInput).getSession().getModelChangeSupport();
             changeSupport.addModelChangeListener(this);
             changeSupport.addStatusChangeListener(this);
         } else if (newInput != null && newInput instanceof ICoreSession) {
             this.openedProject = null;
-        
+
             IModelChangeSupport changeSupport = ((ICoreSession) newInput).getModelChangeSupport();
             changeSupport.addModelChangeListener(this);
             changeSupport.addStatusChangeListener(this);
         } else {
             this.openedProject = null;
         }
-        
+
         for (ITreeContentProvider contentProvider : this.extensions.values()) {
             contentProvider.inputChanged(currentViewer, oldInput, newInput);
         }
-        
+
     }
 
     @objid ("a1b68b72-805e-4178-9036-92739784b671")
@@ -131,7 +131,7 @@ public class BrowserContentProvider implements IModelChangeListener, IStatusChan
         for (ITreeContentProvider contentProvider : this.extensions.values()) {
             contentProvider.dispose();
         }
-        
+
     }
 
     @objid ("0ade0bbe-2c18-463f-a215-0027baa332e7")
@@ -141,12 +141,12 @@ public class BrowserContentProvider implements IModelChangeListener, IStatusChan
         if (this.localRoots != null && this.localRoots.size() > 0) {
             return this.localRoots.toArray();
         }
-        
+
         // No local root, get all fragments
         if (parent != null && parent instanceof IGProject) {
             return getFragments((IGProject) parent).toArray();
         }
-        
+
         // Nothing to return yet
         return new Object[0];
     }
@@ -164,7 +164,7 @@ public class BrowserContentProvider implements IModelChangeListener, IStatusChan
                 // No need to ask extensions for a dead element
                 return null;
             }
-        
+
             // Delegate parent resolution to the extension that added it
             ITreeContentProvider extension = this.extensions.get(element.getMClass().getOrigin().getName());
             Object owner = extension != null ? extension.getParent(element) : element.getCompositionOwner();
@@ -186,26 +186,28 @@ public class BrowserContentProvider implements IModelChangeListener, IStatusChan
         } else if (parent instanceof IModelContainer) {
             return ((IModelContainer<?>) parent).getContents().toArray();
         }
-        
+
         // Delegate children resolution
         List<Object> ret = new ArrayList<>();
         List<LinkContainer> links = new ArrayList<>();
-        List<AbstractDiagram> diagrams = new ArrayList<>();
+        List<Object> childs = new ArrayList<>();
         for (ITreeContentProvider contentProvider : this.extensions.values()) {
             for (Object child : contentProvider.getChildren(parent)) {
                 if (child instanceof LinkContainer) {
                     links.add((LinkContainer) child);
                 } else if (child instanceof AbstractDiagram) {
-                    diagrams.add((AbstractDiagram) child);
-                } else {
                     ret.add(child);
+                } else {
+                    childs.add(child);
                 }
             }
         }
-        if (!diagrams.isEmpty()) {
-            ret.addAll(diagrams);
+
+        //Adds childs
+        if (!childs.isEmpty()) {
+            ret.addAll(childs);
         }
-        
+
         // Merge link containers
         if (!links.isEmpty()) {
             LinkContainer mergedLinks = new LinkContainer((MObject) parent, new ArrayList<>());
@@ -228,7 +230,7 @@ public class BrowserContentProvider implements IModelChangeListener, IStatusChan
         } else if (parent instanceof IModelContainer) {
             return ((IModelContainer<?>) parent).getContents().size() > 0;
         }
-        
+
         // Delegate children resolution
         for (ITreeContentProvider contentProvider : this.extensions.values()) {
             if (contentProvider.hasChildren(parent)) {
@@ -255,13 +257,13 @@ public class BrowserContentProvider implements IModelChangeListener, IStatusChan
         if (this.viewer != null && !this.viewer.getControl().isDisposed()) {
             this.viewer.refresh();
         }
-        
+
     }
 
     @objid ("dc85e8c3-5bcb-4c60-bcfa-73f06a077f3e")
     void doRefreshViewer() {
         this.viewRefresher.set(null);
-        
+
         if (this.viewer != null
                 && this.openedProject != null
                 && this.openedProject.isOpen()
@@ -269,7 +271,7 @@ public class BrowserContentProvider implements IModelChangeListener, IStatusChan
                 && !this.isEditorActive) {
             this.viewer.refresh();
         }
-        
+
     }
 
     @objid ("d50727aa-2e6b-4dae-9c5c-d5ca0d558d92")
@@ -278,7 +280,7 @@ public class BrowserContentProvider implements IModelChangeListener, IStatusChan
         if (this.viewRefresher.compareAndSet(null, newRefresher)) {
             this.viewer.getControl().getDisplay().asyncExec(newRefresher);
         }
-        
+
     }
 
     @objid ("9e6c3fff-b1b6-4d8e-8653-350e6bcd1c3e")
@@ -290,7 +292,7 @@ public class BrowserContentProvider implements IModelChangeListener, IStatusChan
     @objid ("52b87d3b-cfbe-427f-a444-4a21417f6374")
     private List<Object> getFragmentRoots(IGModelFragment fragment) {
         List<Object> ret = new ArrayList<>();
-        
+
         for (ITreeContentProvider contentProvider : this.extensions.values()) {
             for (Object root : contentProvider.getChildren(fragment)) {
                 ret.add(root);
@@ -306,12 +308,12 @@ public class BrowserContentProvider implements IModelChangeListener, IStatusChan
             // Ignore invisible model fragments
             if (!fragment.getAccessRights().isVisible())
                 continue;
-        
+
             // Ignore MDA fragments if masked
             if (!isShowModuleFragments() && fragment.getType()==GProjectPartType.MODULE) {
                 continue;
             }
-        
+
             fragments.add(fragment);
         }
         Collections.sort(fragments, new FragmentComparator());
@@ -319,6 +321,7 @@ public class BrowserContentProvider implements IModelChangeListener, IStatusChan
     }
 
     /**
+     *
      * @return true if MDA models are displayed.
      */
     @objid ("58f56eac-0069-4f1f-945f-564885dffcb1")
@@ -327,6 +330,7 @@ public class BrowserContentProvider implements IModelChangeListener, IStatusChan
     }
 
     /**
+     *
      * @param showModuleFragments true if MDA models are to displayed.
      */
     @objid ("345701fe-e1b5-40d4-aaa3-97b89b4069a9")
@@ -335,6 +339,7 @@ public class BrowserContentProvider implements IModelChangeListener, IStatusChan
     }
 
     /**
+     *
      * @return always true : projects are always displayed.
      */
     @objid ("2bde233e-e49b-4045-89b2-9def9436c902")
@@ -366,7 +371,7 @@ public class BrowserContentProvider implements IModelChangeListener, IStatusChan
     @objid ("3976546c-0369-4210-9227-2fcd043ed4e0")
     private class ViewRefresher implements Runnable {
         @objid ("a135a24b-5079-4418-80bd-260b1acfc3fe")
-        public  ViewRefresher() {
+        public ViewRefresher() {
             // nothing
         }
 
@@ -381,7 +386,7 @@ public class BrowserContentProvider implements IModelChangeListener, IStatusChan
     @objid ("b780e61b-8b01-4bc0-925d-f2bdabdd4a0d")
     private static class FragmentComparator implements Comparator<IGModelFragment> {
         @objid ("2403e2ad-9b9f-4ce9-a792-acc866bbe802")
-        public  FragmentComparator() {
+        public FragmentComparator() {
             // Empty constructor
         }
 
@@ -393,7 +398,7 @@ public class BrowserContentProvider implements IModelChangeListener, IStatusChan
             } else {
                 return FragmentComparator.getTypeWeight(f1.getType()) - FragmentComparator.getTypeWeight(f2.getType());
             }
-            
+
         }
 
         @objid ("0e80d258-ce9c-43b3-936d-13bfdd6b2d18")
@@ -412,7 +417,7 @@ public class BrowserContentProvider implements IModelChangeListener, IStatusChan
             default:
                 return 99;
             }
-            
+
         }
 
     }

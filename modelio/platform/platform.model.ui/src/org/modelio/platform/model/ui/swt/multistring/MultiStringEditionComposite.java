@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.swt.multistring;
 
@@ -46,32 +46,32 @@ public class MultiStringEditionComposite extends Composite {
     @objid ("5728b7a0-30b6-4e84-97e3-983ba4979610")
     private List<String> content = null;
 
-    @objid ("8dcd99b9-c068-11e1-8c0a-002564c97630")
+    @objid ("b6944543-c807-4604-bc8c-ff586e11c405")
     private Button addParameterButton = null;
 
-    @objid ("8dcd99ba-c068-11e1-8c0a-002564c97630")
+    @objid ("4507ab63-0912-4274-8ec1-badd6f63bd11")
     private Button removeParameterButton = null;
+
+    @objid ("433e575a-3913-4081-acee-e882306e2603")
+    private TableViewer contentTable = null;
+
+    @objid ("cbbae6bd-f245-4021-ab66-0bae8ab10064")
+    private Text addStringText = null;
+
+    @objid ("76f2b5f7-6d0a-49d1-927f-a20172880000")
+    private Button moveUpParameterButton = null;
+
+    @objid ("d741c8e1-5dd9-4c4b-9022-0030f76fe645")
+    private Button moveDownParameterButton = null;
 
     @objid ("8dcd99bd-c068-11e1-8c0a-002564c97630")
     private StringAdapterModifier stringAdapterModifier = null;
-
-    @objid ("8dcd99b5-c068-11e1-8c0a-002564c97630")
-    private TableViewer contentTable = null;
-
-    @objid ("8dcd99be-c068-11e1-8c0a-002564c97630")
-    private Text addStringText = null;
 
     @objid ("8dcf2025-c068-11e1-8c0a-002564c97630")
     private StringTextListener stringTextListener = null;
 
     @objid ("8dcf2029-c068-11e1-8c0a-002564c97630")
     private ContentTableListener contentTableListener = null;
-
-    @objid ("8dcf202c-c068-11e1-8c0a-002564c97630")
-    private Button moveUpParameterButton = null;
-
-    @objid ("8dcf202d-c068-11e1-8c0a-002564c97630")
-    private Button moveDownParameterButton = null;
 
     @objid ("8dcf202e-c068-11e1-8c0a-002564c97630")
     private AddButtonListener addButtonListener = null;
@@ -91,25 +91,24 @@ public class MultiStringEditionComposite extends Composite {
     }
 
     @objid ("c0f94828-4984-4425-82cd-e4a6856feeb5")
-    public  MultiStringEditionComposite(Composite parent, int style, int size) {
+    public MultiStringEditionComposite(Composite parent, int style, int size) {
         super(parent, style);
-        
+
         this.size = size;
         this.content = new ArrayList<>();
-        
+
         this.setLayout(new GridLayout(2, false));
         final GridData layoutData = new GridData(SWT.FILL, SWT.FILL, true, true);
         layoutData.minimumHeight = 300;
         layoutData.minimumWidth = 400;
         this.setLayoutData(layoutData);
         this.setFont(parent.getFont());
-        
+
         createListField(this);
         createListButtons(this);
         createAddStringField(this);
-        
+
         initListeners();
-        
     }
 
     @objid ("8dd22d81-c068-11e1-8c0a-002564c97630")
@@ -117,7 +116,6 @@ public class MultiStringEditionComposite extends Composite {
         this.content = new ArrayList<>();
         this.content.addAll(values);
         refresh();
-        
     }
 
     @objid ("8dd0a6f8-c068-11e1-8c0a-002564c97630")
@@ -139,35 +137,33 @@ public class MultiStringEditionComposite extends Composite {
                 }
             }
         });
-        
+
         this.addParameterButton = new Button(area, SWT.PUSH);
         this.addParameterButton.setImage(UIImages.ADD);
         this.addParameterButton.setEnabled(false);
         GridData gd_addParameterButton = new GridData(SWT.LEFT, SWT.TOP, false, false);
         this.addParameterButton.setLayoutData(gd_addParameterButton);
-        
     }
 
     @objid ("8dd22d65-c068-11e1-8c0a-002564c97630")
     private void createListField(Composite area) {
         this.contentTable = new TableViewer(area);
-        
+
         String columnNames[] = {"Value"};
-        
+
         TableColumn column0 = new TableColumn(this.contentTable.getTable(), SWT.LEFT, 0);
         column0.setWidth(150);
-        
+
         this.contentTable.setColumnProperties(columnNames);
-        
+
         this.contentTable.setContentProvider(new MultiStringContentProvider());
         this.contentTable.setLabelProvider(new MultiStringLabelProvider());
-        
+
         initEditor();
-        
+
         this.contentTable.setInput(this.content);
         GridData gd_contentTree = new GridData(SWT.FILL, SWT.FILL, true, true);
         this.contentTable.getControl().setLayoutData(gd_contentTree);
-        
     }
 
     @objid ("8dd22d8a-c068-11e1-8c0a-002564c97630")
@@ -176,23 +172,22 @@ public class MultiStringEditionComposite extends Composite {
         TextCellEditor[] cellEditors = new TextCellEditor[1];
         cellEditors[0]  = new TextCellEditor(this.contentTable.getTable(), SWT.NONE);
         this.contentTable.setCellEditors(cellEditors);
-        
+
         // Define ICellModifier:
         String[] properties = new String[1];
         properties[0] = "name";
         this.contentTable.setColumnProperties(properties);
-        
+
         this.stringAdapterModifier = new StringAdapterModifier(this);
         this.contentTable.setCellModifier(this.stringAdapterModifier);
         this.contentTable.getTable().addKeyListener(this.stringAdapterModifier);
-        
+
         // Define editor activation strategy:
         StringAdapterEditorActivationStrategy actSupport = new StringAdapterEditorActivationStrategy(this.contentTable);
-        
+
         TableViewerEditor.create(this.contentTable, null, actSupport, ColumnViewerEditor.TABBING_HORIZONTAL
                 | ColumnViewerEditor.TABBING_MOVE_TO_ROW_NEIGHBOR
                 | ColumnViewerEditor.TABBING_VERTICAL | ColumnViewerEditor.KEYBOARD_ACTIVATION);
-        
     }
 
     @objid ("8dd0a6fe-c068-11e1-8c0a-002564c97630")
@@ -204,25 +199,24 @@ public class MultiStringEditionComposite extends Composite {
         buttonsComposite.setLayout(gl_buttonComposite);
         GridData gd_buttonsComposite = new GridData(SWT.LEFT, SWT.TOP, false, false);
         buttonsComposite.setLayoutData(gd_buttonsComposite);
-        
+
         this.moveUpParameterButton = new Button(buttonsComposite, SWT.PUSH);
         this.moveUpParameterButton.setImage(UIImages.UPARROW);
         this.moveUpParameterButton.setEnabled(false);
         GridData gd_moveUpParameterButton = new GridData(SWT.LEFT, SWT.TOP, false, false);
         this.moveUpParameterButton.setLayoutData(gd_moveUpParameterButton);
-        
+
         this.moveDownParameterButton = new Button(buttonsComposite, SWT.PUSH);
         this.moveDownParameterButton.setImage(UIImages.DOWNARROW);
         this.moveDownParameterButton.setEnabled(false);
         GridData gd_moveDownParameterButton = new GridData(SWT.LEFT, SWT.TOP, false, false);
         this.moveDownParameterButton.setLayoutData(gd_moveDownParameterButton);
-        
+
         this.removeParameterButton = new Button(buttonsComposite, SWT.PUSH);
         this.removeParameterButton.setImage(UIImages.DELETE);
         this.removeParameterButton.setEnabled(false);
         GridData gd_removeParameterButton = new GridData(SWT.LEFT, SWT.TOP, false, false);
         this.removeParameterButton.setLayoutData(gd_removeParameterButton);
-        
     }
 
     @objid ("8dd22d8c-c068-11e1-8c0a-002564c97630")
@@ -231,23 +225,22 @@ public class MultiStringEditionComposite extends Composite {
         this.contentTable.addSelectionChangedListener(this.contentTableListener);
         this.contentTable.getTable().addKeyListener(this.contentTableListener);
         this.contentTable.getTable().addControlListener(this.contentTableListener);
-        
+
         this.moveUpButtonListener = new MoveUpButtonListener(this);
         this.moveUpParameterButton.addSelectionListener(this.moveUpButtonListener);
-        
+
         this.moveDownButtonListener = new MoveDownButtonListener(this);
         this.moveDownParameterButton.addSelectionListener(this.moveDownButtonListener);
-        
+
         this.removeButtonListener = new RemoveButtonListener(this);
         this.removeParameterButton.addSelectionListener(this.removeButtonListener);
-        
+
         this.addButtonListener = new AddButtonListener(this);
         this.addParameterButton.addSelectionListener(this.addButtonListener);
-        
+
         this.stringTextListener = new StringTextListener(this);
         this.addStringText.addModifyListener(this.stringTextListener);
         this.addStringText.addKeyListener(this.stringTextListener);
-        
     }
 
     @objid ("8dcf2050-c068-11e1-8c0a-002564c97630")
@@ -290,17 +283,15 @@ public class MultiStringEditionComposite extends Composite {
     public void addAdapter(String value) {
         this.content.add(value);
         refresh();
-        
     }
 
     @objid ("8dd0a6e6-c068-11e1-8c0a-002564c97630")
     public void refresh() {
         this.contentTable.setInput(this.content);
-        
+
         if (this.size != -1) {
             this.addStringText.setEnabled(this.content.size() < this.size);
         }
-        
     }
 
     @objid ("8dd0a6e8-c068-11e1-8c0a-002564c97630")
@@ -309,19 +300,18 @@ public class MultiStringEditionComposite extends Composite {
             this.content.remove(value);
         }
         refresh();
-        
     }
 
     @objid ("8dd22d68-c068-11e1-8c0a-002564c97630")
     private static int getIndexDown(String value, List<String> list) {
         int index = list.indexOf(value);
-        
+
         if (index == -1) {
             return -1;
         }
-        
+
         index++;
-        
+
         if (index >= list.size()) {
             return -1;
         }
@@ -331,11 +321,11 @@ public class MultiStringEditionComposite extends Composite {
     @objid ("8dd22d70-c068-11e1-8c0a-002564c97630")
     private static int getIndexUp(String value, List<String> list) {
         int index = list.indexOf(value);
-        
+
         if (index < 1) {
             return -1;
         }
-        
+
         index--;
         return index;
     }
@@ -346,10 +336,10 @@ public class MultiStringEditionComposite extends Composite {
         // selected elements are not affected by the move of the current element.
         for (int i = values.size() - 1; i > -1; i--) {
             String value = values.get(i);
-        
+
             // Retrieve the new index of the element
             int index = getIndexDown(value, this.content);
-        
+
             if (index != -1) {
                 // Move the element in the list
                 this.content.remove(value);
@@ -358,16 +348,15 @@ public class MultiStringEditionComposite extends Composite {
                 break;
             }
         }
-        
+
         refresh();
-        
     }
 
     @objid ("8dd0a6dc-c068-11e1-8c0a-002564c97630")
     public void moveUp(List<String> values) {
         for (String value : values) {
             int index = getIndexUp(value, this.content);
-        
+
             if (index != -1) {
                 this.content.remove(value);
                 this.content.add(index, value);
@@ -375,9 +364,8 @@ public class MultiStringEditionComposite extends Composite {
                 break;
             }
         }
-        
+
         this.refresh();
-        
     }
 
     @objid ("9454b7ad-f11d-4fd9-aa3a-5ab9b5a533f8")
@@ -387,37 +375,36 @@ public class MultiStringEditionComposite extends Composite {
             this.moveUpParameterButton.removeSelectionListener(this.moveUpButtonListener);
             this.moveUpButtonListener = null;
         }
-        
+
         if (this.moveDownButtonListener != null) {
             this.moveDownParameterButton.removeSelectionListener(this.moveDownButtonListener);
             this.moveDownButtonListener = null;
         }
-        
+
         if (this.removeButtonListener != null) {
             this.removeParameterButton.removeSelectionListener(this.removeButtonListener);
             this.removeParameterButton = null;
         }
-        
+
         if (this.addButtonListener != null) {
             this.addParameterButton.removeSelectionListener(this.addButtonListener);
             this.addButtonListener = null;
         }
-        
+
         if (this.stringTextListener != null) {
             this.addStringText.removeModifyListener(this.stringTextListener);
             this.addStringText.removeKeyListener(this.stringTextListener);
             this.stringTextListener = null;
         }
-        
+
         if (this.contentTableListener != null) {
             this.contentTable.removeSelectionChangedListener(this.contentTableListener);
             this.contentTable.getTable().removeKeyListener(this.contentTableListener);
             this.contentTable.getTable().removeControlListener(this.contentTableListener);
             this.contentTableListener = null;
         }
-        
+
         super.dispose();
-        
     }
 
 }

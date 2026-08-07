@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.objects;
 
 import java.util.ArrayList;
@@ -44,58 +43,58 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00068a7e-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnDataInputImpl extends BpmnItemAwareElementImpl implements BpmnDataInput {
-    @objid ("549d06c5-8d46-4514-994a-5ce6bed98aa4")
+    @objid ("7eb69652-9c43-4846-96f1-fdb6f93d3a67")
     @Override
     public boolean isIsCollection() {
         return (Boolean) getAttVal(((BpmnDataInputSmClass)getClassOf()).getIsCollectionAtt());
     }
 
-    @objid ("37c1cd19-328d-4de5-94e8-88c870275c64")
+    @objid ("6d2e9e91-d304-4d52-9505-b1dab736b433")
     @Override
     public void setIsCollection(boolean value) {
         setAttVal(((BpmnDataInputSmClass)getClassOf()).getIsCollectionAtt(), value);
     }
 
-    @objid ("86f58473-03db-42f9-95bd-9ddfd26f9977")
+    @objid ("d867d795-f262-435c-9215-c6895645b11a")
     @Override
     public BpmnMultiInstanceLoopCharacteristics getOwnerLoopCharacteristics() {
         Object obj = getDepVal(((BpmnDataInputSmClass)getClassOf()).getOwnerLoopCharacteristicsDep());
         return (obj instanceof BpmnMultiInstanceLoopCharacteristics)? (BpmnMultiInstanceLoopCharacteristics)obj : null;
     }
 
-    @objid ("59fd871e-4b29-4a39-bb93-7e2729dc089f")
+    @objid ("acc50441-0a5e-4754-88e0-295ac9cca6fd")
     @Override
     public void setOwnerLoopCharacteristics(BpmnMultiInstanceLoopCharacteristics value) {
         appendDepVal(((BpmnDataInputSmClass)getClassOf()).getOwnerLoopCharacteristicsDep(), (SmObjectImpl)value);
     }
 
-    @objid ("5ba37450-0163-4bb6-ac7f-e8fd9f4577cf")
+    @objid ("3d2f9d8c-eeb4-458c-beb5-7f8b3556aade")
     @Override
     public BpmnActivity getOwnerActivity() {
         Object obj = getDepVal(((BpmnDataInputSmClass)getClassOf()).getOwnerActivityDep());
         return (obj instanceof BpmnActivity)? (BpmnActivity)obj : null;
     }
 
-    @objid ("55780157-0b8c-4e35-a9d5-fc879df63f08")
+    @objid ("3388c101-cb86-4b09-a9a2-034a2f8076c7")
     @Override
     public void setOwnerActivity(BpmnActivity value) {
         appendDepVal(((BpmnDataInputSmClass)getClassOf()).getOwnerActivityDep(), (SmObjectImpl)value);
     }
 
-    @objid ("5372fd5d-cd1b-48ca-925e-1d8f02aab1e1")
+    @objid ("312b5071-1962-47fa-b818-042cdc0f51c2")
     @Override
     public BpmnThrowEvent getOwnerThrowEvent() {
         Object obj = getDepVal(((BpmnDataInputSmClass)getClassOf()).getOwnerThrowEventDep());
         return (obj instanceof BpmnThrowEvent)? (BpmnThrowEvent)obj : null;
     }
 
-    @objid ("32486de5-3e0d-43ca-8259-706d34ff8e1b")
+    @objid ("f43eedda-c953-49c6-b655-11f12c34d919")
     @Override
     public void setOwnerThrowEvent(BpmnThrowEvent value) {
         appendDepVal(((BpmnDataInputSmClass)getClassOf()).getOwnerThrowEventDep(), (SmObjectImpl)value);
     }
 
-    @objid ("e5557029-bc90-4e40-87e0-f61a49b00c46")
+    @objid ("20c8e0e9-3807-4dde-b3fd-891e8dda07d7")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -115,32 +114,32 @@ public class BpmnDataInputImpl extends BpmnItemAwareElementImpl implements BpmnD
         return super.getCompositionOwner();
     }
 
-    @objid ("cec356bf-c47a-4c56-84b5-e0465cf79852")
+    @objid ("0480eeea-472d-4343-96cc-665dea9e3c9c")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // OwnerLoopCharacteristics
         dep = ((BpmnDataInputSmClass)getClassOf()).getOwnerLoopCharacteristicsDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         // OwnerActivity
         dep = ((BpmnDataInputSmClass)getClassOf()).getOwnerActivityDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         // OwnerThrowEvent
         dep = ((BpmnDataInputSmClass)getClassOf()).getOwnerThrowEventDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("8e032e7a-c34c-4a99-a440-2ce9f96d84dc")
+    @objid ("6bc7e9d8-8596-4023-a0f0-980006bd64f3")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitBpmnDataInput(this);

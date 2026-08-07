@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -45,58 +44,58 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00083b94-c4bf-1fd8-97fe-001ec947cd2a")
 public class ElementImportImpl extends UmlModelElementImpl implements ElementImport {
-    @objid ("1f8b98ae-fb43-49a0-baed-757ec4e77b66")
+    @objid ("351db84a-c47c-4e3c-a54f-9516fcbdbcd0")
     @Override
     public VisibilityMode getVisibility() {
         return (VisibilityMode) getAttVal(((ElementImportSmClass)getClassOf()).getVisibilityAtt());
     }
 
-    @objid ("2ab2c1c4-bda4-46d6-9ced-13b96179d03c")
+    @objid ("2708097f-b376-4e1a-8bb4-560d2e1e1436")
     @Override
     public void setVisibility(VisibilityMode value) {
         setAttVal(((ElementImportSmClass)getClassOf()).getVisibilityAtt(), value);
     }
 
-    @objid ("ddd74cee-d4a8-4263-b3b9-700e76ec370b")
+    @objid ("4bfa20b8-3dbb-40a8-91f1-c04c9f8af553")
     @Override
     public NameSpace getImportingNameSpace() {
         Object obj = getDepVal(((ElementImportSmClass)getClassOf()).getImportingNameSpaceDep());
         return (obj instanceof NameSpace)? (NameSpace)obj : null;
     }
 
-    @objid ("1cb5fed7-54cb-4396-8a66-f7c34cbc6187")
+    @objid ("fdd7fa62-fc20-4d0a-acf7-1198f430eefb")
     @Override
     public void setImportingNameSpace(NameSpace value) {
         appendDepVal(((ElementImportSmClass)getClassOf()).getImportingNameSpaceDep(), (SmObjectImpl)value);
     }
 
-    @objid ("80b9d71b-c736-47a4-9667-49c0c1be2886")
+    @objid ("2755211d-811c-42e7-baf9-ea17be63e84f")
     @Override
     public NameSpace getImportedElement() {
         Object obj = getDepVal(((ElementImportSmClass)getClassOf()).getImportedElementDep());
         return (obj instanceof NameSpace)? (NameSpace)obj : null;
     }
 
-    @objid ("f07611d6-9a1c-4edd-867c-d6cbf3168cca")
+    @objid ("0498c608-1323-42a7-92a7-5528e9c9aa65")
     @Override
     public void setImportedElement(NameSpace value) {
         appendDepVal(((ElementImportSmClass)getClassOf()).getImportedElementDep(), (SmObjectImpl)value);
     }
 
-    @objid ("b4bcab4f-3bcf-42eb-aa4a-08edf6f98592")
+    @objid ("a7b73259-ed34-45b9-97cc-03235b502525")
     @Override
     public Operation getImportingOperation() {
         Object obj = getDepVal(((ElementImportSmClass)getClassOf()).getImportingOperationDep());
         return (obj instanceof Operation)? (Operation)obj : null;
     }
 
-    @objid ("f138d659-3b2d-45c2-bdae-7a9e04cc8074")
+    @objid ("59e99637-e868-4581-b2e0-24711c742387")
     @Override
     public void setImportingOperation(Operation value) {
         appendDepVal(((ElementImportSmClass)getClassOf()).getImportingOperationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("da824f61-6cdf-4146-9f4a-946d92da968a")
+    @objid ("53e130c8-0d0b-4a5b-9b9c-9db0d6d0fd68")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -112,27 +111,27 @@ public class ElementImportImpl extends UmlModelElementImpl implements ElementImp
         return super.getCompositionOwner();
     }
 
-    @objid ("3aa30c78-0f4b-49ab-8777-ceb41280852d")
+    @objid ("72e4dff8-c63a-4690-a1f5-b6005a17c3d1")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // ImportingNameSpace
         dep = ((ElementImportSmClass)getClassOf()).getImportingNameSpaceDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         // ImportingOperation
         dep = ((ElementImportSmClass)getClassOf()).getImportingOperationDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("08deab10-7e77-47d0-aa49-f7047a8c2580")
+    @objid ("2611a17a-ff74-443e-a73f-1b6416d7f988")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitElementImport(this);

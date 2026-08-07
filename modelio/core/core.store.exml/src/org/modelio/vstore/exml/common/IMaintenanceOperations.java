@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.exml.common;
 
@@ -30,6 +30,7 @@ import org.modelio.vbasic.progress.IModelioProgress;
 public interface IMaintenanceOperations {
     /**
      * Rebuild the indexes.
+     *
      * @param monitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call done()
      * on the given monitor. Accepts null, indicating that no progress should be reported and that the operation cannot
      * be cancelled.
@@ -40,6 +41,7 @@ public interface IMaintenanceOperations {
 
     /**
      * Compress the indexes.
+     *
      * @param monitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call done()
      * on the given monitor. Accepts null, indicating that no progress should be reported and that the operation cannot
      * be cancelled.
@@ -50,6 +52,7 @@ public interface IMaintenanceOperations {
 
     /**
      * Delete the indexes.
+     *
      * @param monitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call done()
      * on the given monitor. Accepts null, indicating that no progress should be reported and that the operation cannot
      * be cancelled.
@@ -60,6 +63,7 @@ public interface IMaintenanceOperations {
 
     /**
      * Save the repository format versions.
+     *
      * @throws IOException on failure.
      */
     @objid ("f6d10f1a-5889-4cbf-8be5-3f80cedbc4fb")
@@ -67,9 +71,10 @@ public interface IMaintenanceOperations {
 
     /**
      * Save the metamodel descriptor.
+     *
      * @throws IOException on failure.
      */
     @objid ("a719e924-a65d-4593-ae11-4aafd631e64b")
     void writeMetamodelDescriptor() throws IOException;
-}
 
+}

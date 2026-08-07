@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -48,23 +48,23 @@ public class EObjectFlow extends EActivityEdge {
     }
 
     @objid ("14a6000a-9f1f-4880-9de6-48d6ebbcdf72")
-    public  EObjectFlow(org.eclipse.uml2.uml.ObjectFlow element) {
+    public EObjectFlow(org.eclipse.uml2.uml.ObjectFlow element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("c53f7f98-6a5c-4261-837c-64d58473bde8")
     @Override
     public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);        
+        super.setProperties(objingElt);
         // Properties of IObjectFlows:
         setEffectEAnnotation((ObjectFlow) objingElt);
         setMultiCast((ObjectFlow) objingElt);
         setMultiReceive((ObjectFlow) objingElt);
         setSelectionBehavior((ObjectFlow) objingElt);
         setTransformationBehavior((ObjectFlow) objingElt);
-        
+
     }
 
     @objid ("ba1d90c2-8d80-4da3-8f95-4e36f1863536")
@@ -82,7 +82,7 @@ public class EObjectFlow extends EActivityEdge {
             flow.setEffect(ObjectFlowEffectKind.UPDATEFLOW);
         else
             flow.setEffect(ObjectFlowEffectKind.READFLOW);
-        
+
     }
 
     @objid ("a4eb618a-d28e-4815-90fa-8cbcd0d49d35")
@@ -109,7 +109,7 @@ public class EObjectFlow extends EActivityEdge {
             if (behaviorName != null)
                 flow.setSelectionBehavior(behaviorName);
         }
-        
+
     }
 
     @objid ("2907253e-496b-4ef3-a6bb-a8f984823914")
@@ -126,7 +126,7 @@ public class EObjectFlow extends EActivityEdge {
             if (behaviorName != null)
                 flow.setTransformationBehavior(behaviorName);
         }
-        
+
     }
 
 }

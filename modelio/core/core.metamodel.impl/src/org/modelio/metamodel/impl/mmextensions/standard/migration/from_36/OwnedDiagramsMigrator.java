@@ -1,29 +1,29 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.mmextensions.standard.migration.from_36;
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.vcore.model.spi.mm.IMigrationReporter.IMigrationLogger;
 import org.modelio.vcore.model.spi.mm.IMofSession;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.meta.mof.MofSmObjectImpl;
@@ -41,21 +41,20 @@ class OwnedDiagramsMigrator {
     private final MM mm;
 
     @objid ("bca8ccdf-d277-49c7-9310-c3ccceee71d0")
-    public  OwnedDiagramsMigrator(MM mm) {
+    public OwnedDiagramsMigrator(MM mm) {
         this.mm = mm;
     }
 
     @objid ("7573ab6b-cdc3-413e-942d-e8f5ebf1301b")
     public void run(IMofSession mofSession, MofSmObjectImpl owner, MofSmObjectImpl collaboration) {
-        @SuppressWarnings ("resource")
-        PrintWriter logger = mofSession.getReport().getLogger();
+        IMigrationLogger logger = mofSession.getReport().getLogger();
         List<MofSmObjectImpl> wProcessDiagrams = owner.getDep("Product");
-        
+
         logger.format("    Migrating diagrams under %s ...\n", owner);
-        
+
         for (MofSmObjectImpl diagram : new ArrayList<>(wProcessDiagrams)) {
             boolean isBpmnDiagram = this.mm.bpmnProcessCollaborationDiagramMC.isInstance(diagram);
-        
+
             MofSmObjectImpl representedProcess = getDiagramRepresentedProcess(diagram);
             logger.format("     - %s displays elements from %s\n", diagram, representedProcess != null ? representedProcess : " no or many BPMN Processes");
             if (Objects.equals(owner, representedProcess)) {
@@ -96,13 +95,13 @@ class OwnedDiagramsMigrator {
                 }
             }
         }
-        
+
     }
 
     @objid ("b5dd4af0-7856-4855-b12d-33ec37f10663")
     private MofSmObjectImpl getDiagramRepresentedProcess(MofSmObjectImpl diagram) {
         MofSmObjectImpl proc = null;
-        
+
         for (MofSmObjectImpl el : diagram.getDep("Represented")) {
             MofSmObjectImpl elProc = getProcessOwner(el, 0);
             if (proc == null) {
@@ -126,7 +125,7 @@ class OwnedDiagramsMigrator {
         } else {
             throw new IllegalArgumentException("Cycle in ownership tree of " + bpmnEl);
         }
-        
+
     }
 
 }

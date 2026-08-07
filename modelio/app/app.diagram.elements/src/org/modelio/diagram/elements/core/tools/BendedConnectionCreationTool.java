@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.tools;
 
@@ -63,23 +63,25 @@ public class BendedConnectionCreationTool extends AbstractConnectionCreationTool
      * Default Constructor.
      */
     @objid ("80df7a78-1dec-11e2-8cad-001ec947c8cc")
-    public  BendedConnectionCreationTool() {
+    public BendedConnectionCreationTool() {
         setUnloadWhenFinished(false);
     }
 
     /**
      * Constructs a new ConnectionCreationTool with the given factory.
+     *
      * @param factory the creation factory
      */
     @objid ("80df7a7b-1dec-11e2-8cad-001ec947c8cc")
-    public  BendedConnectionCreationTool(CreationFactory factory) {
+    public BendedConnectionCreationTool(CreationFactory factory) {
         setFactory(factory);
         setUnloadWhenFinished(false);
-        
+
     }
 
     /**
      * Scrolling can happen either in the {@link AbstractTool#STATE_INITIAL initial} state or once the source of the connection has been {@link AbstractConnectionCreationTool#STATE_CONNECTION_STARTED identified}.
+     *
      * @see org.eclipse.gef.Tool#mouseWheelScrolled(org.eclipse.swt.widgets.Event, org.eclipse.gef.EditPartViewer)
      */
     @objid ("80df7a81-1dec-11e2-8cad-001ec947c8cc")
@@ -88,7 +90,7 @@ public class BendedConnectionCreationTool extends AbstractConnectionCreationTool
         if (isInState(AbstractTool.STATE_INITIAL | AbstractConnectionCreationTool.STATE_CONNECTION_STARTED)) {
             performViewerMouseWheel(event, viewer);
         }
-        
+
     }
 
     /**
@@ -118,14 +120,14 @@ public class BendedConnectionCreationTool extends AbstractConnectionCreationTool
         if (provider == null) {
             return false;
         }
-        
+
         List<?> list;
         if (isInState(AbstractTool.STATE_ACCESSIBLE_DRAG_IN_PROGRESS)) {
             list = provider.getTargetAnchorLocations();
         } else {
             list = provider.getSourceAnchorLocations();
         }
-        
+
         Point start = getLocation();
         int distance = Integer.MAX_VALUE;
         Point next = null;
@@ -140,7 +142,7 @@ public class BendedConnectionCreationTool extends AbstractConnectionCreationTool
                 next = p;
             }
         }
-        
+
         if (next != null) {
             placeMouseInViewer(next);
             return true;
@@ -157,25 +159,25 @@ public class BendedConnectionCreationTool extends AbstractConnectionCreationTool
         if (isInState(AbstractTool.STATE_TERMINAL)) {
             return null;
         }
-        
+
         if (isInState(AbstractConnectionCreationTool.STATE_CONNECTION_STARTED)) {
             final Command command = getCurrentCommand();
             if (command == null || !command.canExecute()) {
                 return getDisabledCursor();
             }
-        
+
             AbstractTool.Input input = getCurrentInput();
             if (!input.isControlKeyDown() || getTargetRequest().getType() == CreateLinkConstants.REQ_CONNECTION_ADD_BENDPOINT) {
                 return SharedCursors2.CURSOR_LINK_BENDPOINT;
             }
-        
+
             if (getFactory() instanceof UserChoiceLinkCreationFactory) {
                 return SharedCursors2.CURSOR_LINK_END_MENU;
             }
-        
+
             return getDefaultCursor();
         }
-        
+
         if (isInState(AbstractTool.STATE_INITIAL)) {
             return getDefaultCursor();
         }
@@ -200,13 +202,14 @@ public class BendedConnectionCreationTool extends AbstractConnectionCreationTool
         } else {
             return RequestConstants.REQ_CONNECTION_START;
         }
-        
+
     }
 
     /**
      * Get the current routing mode.
      * <p>
      * The routing mode is lazily initialized here.
+     *
      * @return the the current routing mode.
      */
     @objid ("80e1dcfc-1dec-11e2-8cad-001ec947c8cc")
@@ -225,7 +228,7 @@ public class BendedConnectionCreationTool extends AbstractConnectionCreationTool
 
     /**
      * Process "Mouse down" events. The left (button 1) and right (button 3) buttons are used.
-     * 
+     *
      * <ol>
      * <li>STATE_INITIAL: NO connection has been started yet</li>
      * <ul>
@@ -239,9 +242,10 @@ public class BendedConnectionCreationTool extends AbstractConnectionCreationTool
      * <li>right button click => terminates the connection using a special REQ_CONNECTION_CREATE_LINK_CHOOSENODE request that can be processed by specific policies to create both a node and a link. Note that the tool removes the viewer menu in order to
      * avoid the right click to pop it up which is unexpected here. The menu is restored when the interaction ends.</li>
      * </ul>
-     * 
-     * 
+     *
+     *
      * </ol>
+     *
      * @param button the button that was pressed
      * @return <code>true</code> if the button down was processed
      */
@@ -249,7 +253,7 @@ public class BendedConnectionCreationTool extends AbstractConnectionCreationTool
     @Override
     protected boolean handleButtonDown(int button) {
         AbstractTool.Input input = getCurrentInput();
-        
+
         if (isInState(AbstractConnectionCreationTool.STATE_CONNECTION_STARTED)) {
             if (button == 1) {
                 CreateBendedConnectionRequest r = getTargetRequest();
@@ -264,7 +268,7 @@ public class BendedConnectionCreationTool extends AbstractConnectionCreationTool
                 }
             }
         }
-        
+
         if (isInState(AbstractTool.STATE_INITIAL) && button == 1) {
             // Call inherited behavior if nothing was already done
             super.handleButtonDown(button);
@@ -275,7 +279,7 @@ public class BendedConnectionCreationTool extends AbstractConnectionCreationTool
             // Call inherited behavior if nothing was already done
             super.handleButtonDown(button);
         }
-        
+
         if (isInState(AbstractConnectionCreationTool.STATE_CONNECTION_STARTED)) {
             // Fake a drag to cause feedback to be displayed immediately on mouse down.
             handleDrag();
@@ -285,6 +289,7 @@ public class BendedConnectionCreationTool extends AbstractConnectionCreationTool
 
     /**
      * Cleans up feedback and resets the tool when focus is lost.
+     *
      * @return <code>true</code> if this focus lost event was processed
      */
     @objid ("80e1dd0d-1dec-11e2-8cad-001ec947c8cc")
@@ -301,6 +306,7 @@ public class BendedConnectionCreationTool extends AbstractConnectionCreationTool
 
     /**
      * Processes the arrow keys (to move the cursor to nearby anchor locations) and the enter key (to start or complete a connections).
+     *
      * @param event the key event
      * @return <code>true</code> if this key down event was processed
      */
@@ -323,7 +329,7 @@ public class BendedConnectionCreationTool extends AbstractConnectionCreationTool
                 direction = isCurrentViewerMirrored2() ? PositionConstants.EAST : PositionConstants.WEST;
                 break;
             }
-        
+
             boolean consumed = false;
             if (direction != 0 && event.stateMask == 0) {
                 consumed = navigateNextAnchor(direction);
@@ -343,7 +349,7 @@ public class BendedConnectionCreationTool extends AbstractConnectionCreationTool
                 }
             }
         }
-        
+
         if (event.character == '/' || event.character == '\\') {
             event.stateMask |= SWT.CONTROL;
             if (getCurrentViewer().getKeyHandler().keyPressed(event)) {
@@ -351,7 +357,7 @@ public class BendedConnectionCreationTool extends AbstractConnectionCreationTool
                 return true;
             }
         }
-        
+
         if (acceptConnectionStart(event)) {
             Command command = getCommand();
             if (command != null && command.canExecute()) {
@@ -363,7 +369,7 @@ public class BendedConnectionCreationTool extends AbstractConnectionCreationTool
             }
             return true;
         }
-        
+
         if (acceptConnectionFinish(event)) {
             Command command = getCommand();
             if (command != null && command.canExecute()) {
@@ -376,13 +382,13 @@ public class BendedConnectionCreationTool extends AbstractConnectionCreationTool
             }
             return true;
         }
-        
+
         if (acceptSwapRoutingMode(event)) {
             swapRoutingMode();
-        
+
             updateTargetRequest();
             showSourceFeedback();
-        
+
             return true;
         }
         return super.handleKeyDown(event);
@@ -393,16 +399,17 @@ public class BendedConnectionCreationTool extends AbstractConnectionCreationTool
     protected boolean handleKeyUp(final KeyEvent e) {
         if (acceptSwapRoutingMode(e)) {
             swapRoutingMode();
-        
+
             updateTargetRequest();
             showSourceFeedback();
-        
+
             return true;
         }
         return super.handleKeyUp(e);
     }
 
     /**
+     *
      * @see org.eclipse.gef.tools.TargetingTool#updateTargetRequest()
      */
     @objid ("80e1dd21-1dec-11e2-8cad-001ec947c8cc")
@@ -412,7 +419,7 @@ public class BendedConnectionCreationTool extends AbstractConnectionCreationTool
         request.setLocation(getLocation());
         request.getData().setLastPoint(new Point(getLocation()));
         request.getData().setRoutingMode(getCurrentRoutingMode());
-        
+
     }
 
     @objid ("80e1dd25-1dec-11e2-8cad-001ec947c8cc")
@@ -420,21 +427,21 @@ public class BendedConnectionCreationTool extends AbstractConnectionCreationTool
     protected boolean updateTargetUnderMouse() {
         if (!isTargetLocked()) {
             String requestType = getCommandName();
-        
+
             EditPart editPart = findTargetUnderMouse(requestType);
-        
+
             if (editPart == null && isInState(AbstractConnectionCreationTool.STATE_CONNECTION_STARTED)) {
                 // If the target cannot end the link, ask him to add a bendpoint
                 requestType = CreateLinkConstants.REQ_CONNECTION_ADD_BENDPOINT;
                 editPart = findTargetUnderMouse(requestType);
             }
-        
+
             return updateTargetEditPart(editPart, requestType);
-        
+
         } else {
             return false;
         }
-        
+
     }
 
     @objid ("80e43f26-1dec-11e2-8cad-001ec947c8cc")
@@ -444,6 +451,7 @@ public class BendedConnectionCreationTool extends AbstractConnectionCreationTool
 
     /**
      * Get the alternate connection routing mode that is activated when pressing &lt;shift>.
+     *
      * @return the alternate connection routing mode.
      */
     @objid ("80e43f2c-1dec-11e2-8cad-001ec947c8cc")
@@ -456,13 +464,14 @@ public class BendedConnectionCreationTool extends AbstractConnectionCreationTool
         default:
             return ConnectionRouterId.BENDPOINT;
         }
-        
+
     }
 
     /**
      * Get the primary routing mode.
      * <p>
      * The primary routing mode is lazily initialized from the routing mode style key.
+     *
      * @return the primary routing mode.
      */
     @objid ("80e43f30-1dec-11e2-8cad-001ec947c8cc")
@@ -475,7 +484,7 @@ public class BendedConnectionCreationTool extends AbstractConnectionCreationTool
                 this.primaryRoutingMode = gmDiagram.getDisplayedStyle().getProperty(routingModeKey);
             }
         }
-        
+
         if (this.primaryRoutingMode == null) {
             this.primaryRoutingMode = ConnectionRouterId.ORTHOGONAL;
         }
@@ -486,29 +495,31 @@ public class BendedConnectionCreationTool extends AbstractConnectionCreationTool
      * Find the target editpart and returns it.
      * <p>
      * The target is searched by using the target conditional and the target request temporarily modified to the given request type.
+     *
      * @param requestType The request type to try.
      * @return the edit part that can handle the request under the mouse.
      */
     @objid ("80e43f35-1dec-11e2-8cad-001ec947c8cc")
     protected EditPart findTargetUnderMouse(Object requestType) {
         CreateBendedConnectionRequest targetRequest = getTargetRequest();
-        
+
         Object savedType = targetRequest.getType();
         targetRequest.setType(requestType);
-        
+
         EditPart editPart = getCurrentViewer().findObjectAtExcluding(getLocation(),
                 getExclusionSet(),
                 getTargetingConditional());
         if (editPart != null) {
             editPart = editPart.getTargetEditPart(targetRequest);
         }
-        
+
         targetRequest.setType(savedType);
         return editPart;
     }
 
     /**
      * Method that is called when the gesture to create an intermediate point has been received. Returns <code>true</code> to indicate that the point creation succeeded.
+     *
      * @return <code>true</code> if the connection point was performed
      */
     @objid ("80e43f3c-1dec-11e2-8cad-001ec947c8cc")
@@ -517,7 +528,7 @@ public class BendedConnectionCreationTool extends AbstractConnectionCreationTool
         if (endCommand != null) {
             final CreateBendedConnectionRequest r = getTargetRequest();
             final Point newPoint = r.getData().getLastPoint();
-        
+
             r.getData().getPath().add(newPoint);
             setCurrentCommand(endCommand);
             showSourceFeedback();
@@ -538,11 +549,12 @@ public class BendedConnectionCreationTool extends AbstractConnectionCreationTool
         } else {
             this.currentRoutingMode = getPrimaryRoutingMode();
         }
-        
+
     }
 
     /**
      * Same as {@link org.eclipse.gef.tools.TargetingTool#setTargetEditPart(EditPart) setTargetEditPart(EditPart)} but returns whether a change was done or not.
+     *
      * @param requestType the new request
      * @param editPart The new edit part, may be null
      * @return true if the edit part was changed, false if it is still the same.
@@ -551,17 +563,17 @@ public class BendedConnectionCreationTool extends AbstractConnectionCreationTool
     protected final boolean updateTargetEditPart(EditPart editPart, Object newRequestType) {
         EditPart oldTargetEditPart = getTargetEditPart();
         boolean changed = oldTargetEditPart != editPart;
-        
+
         setTargetEditPart(editPart);
-        
+
         CreateBendedConnectionRequest targetRequest = getTargetRequest();
-        
+
         if (targetRequest.getType() != newRequestType) {
             eraseTargetFeedback();
             // don't call eraseSourceFeedback();
-        
+
             targetRequest.setType(newRequestType);
-        
+
             showSourceFeedback();
             showTargetFeedback();
         }
@@ -586,7 +598,7 @@ public class BendedConnectionCreationTool extends AbstractConnectionCreationTool
         if (models == null || models.isEmpty() || viewer == null) {
             return;
         }
-        
+
         viewer.flush();
         viewer.deselectAll();
         for (Object model : models) {
@@ -596,7 +608,7 @@ public class BendedConnectionCreationTool extends AbstractConnectionCreationTool
                 viewer.appendSelection(editpart);
             }
         }
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.conf.dialog;
 
@@ -70,12 +70,12 @@ public final class ProjectConfigurationDialog extends ModelioDialog {
     protected TabFolder tabFolder;
 
     @objid ("a7410968-33f6-11e2-a514-002564c97630")
-    public  ProjectConfigurationDialog(final MApplication application, final IGProject openedProject, final Shell parentShell) {
+    public ProjectConfigurationDialog(final MApplication application, final IGProject openedProject, final Shell parentShell) {
         super(parentShell);
         this.application = application;
         this.model = new ProjectModel(openedProject);
         this.toolkit = new FormToolkit(parentShell.getDisplay());
-        
+
     }
 
     @objid ("a741096d-33f6-11e2-a514-002564c97630")
@@ -89,11 +89,11 @@ public final class ProjectConfigurationDialog extends ModelioDialog {
                 }
             }
         });
-        
+
         this.tabFolder = new TabFolder(parent, SWT.NONE);
         this.tabFolder.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         // no layout to add on the tab folder.
-        
+
         addPages();
         return null;
     }
@@ -106,7 +106,7 @@ public final class ProjectConfigurationDialog extends ModelioDialog {
         getShell().setText(AppProjectConf.I18N.getString("ProjectConfiguration.BoxTitle")); //$NON-NLS-1$
         setTitle(AppProjectConf.I18N.getString("ProjectConfiguration.Title")); //$NON-NLS-1$
         setMessage(AppProjectConf.I18N.getString("ProjectConfiguration.Subtitle")); //$NON-NLS-1$
-        
+
     }
 
     @objid ("a7410977-33f6-11e2-a514-002564c97630")
@@ -120,12 +120,13 @@ public final class ProjectConfigurationDialog extends ModelioDialog {
         for (final IConfigurationElement e : new ExtensionPointContributionManager(ProjectConfigurationDialog.CONFPAGE_EXTENSION_ID).getExtensions("confpage")) {
             parseConfPage(this, e);
         }
-        
+
     }
 
     /**
      * Select a specific page in the project configurator.
      * See constants for available page names.
+     *
      * @param page the page to select.
      */
     @objid ("ae61a48e-4381-11e2-b513-002564c97630")
@@ -146,15 +147,15 @@ public final class ProjectConfigurationDialog extends ModelioDialog {
         Object page;
         try {
             page = elt.createExecutableExtension("page");
-        
+
             if (page instanceof IProjectConfPage) {
                 dlg.createConfPage(label, name, (IProjectConfPage) page);
             }
-        
+
         } catch (final CoreException | NoClassDefFoundError e) {
             AppProjectConf.LOG.error(e);
         }
-        
+
     }
 
     @objid ("d838070f-b8f3-4e34-8176-7446b4ae5d91")
@@ -168,7 +169,7 @@ public final class ProjectConfigurationDialog extends ModelioDialog {
         if (name.equals(this.pageToSelect)) {
             this.tabFolder.setSelection(tabItem);
         }
-        
+
     }
 
     @objid ("5aa0afb4-6d15-4926-847c-62d2aba7e950")
@@ -179,7 +180,7 @@ public final class ProjectConfigurationDialog extends ModelioDialog {
             if (tabIdx != -1) {
                 TabItem tab = this.tabFolder.getItem(tabIdx);
                 IProjectConfPage page = (IProjectConfPage) tab.getData();
-        
+
                 String topic = page.getHelpTopic();
                 if (topic != null && !topic.isEmpty()) {
                     return topic;

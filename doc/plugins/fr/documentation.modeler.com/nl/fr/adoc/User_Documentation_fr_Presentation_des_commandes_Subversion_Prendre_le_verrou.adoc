@@ -1,0 +1,50 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= La commande "Prendre le verrou"
+
+
+
+===== Description
+
+La commande "Prendre le verrou" vous permet d'indiquer que un ou plusieurs <<User_Documentation_fr_Introduction_aux_modeles_de_travail_SVN_Grains_SVN.adoc#,grains>> sont verrouillés, et qu'ils sont en mode lecture-écriture et peuvent être modifiés localement.
+
+Cette commande DOIT être utilisée lors de la configuration du modèle de travail en " <<User_Documentation_fr_Introduction_aux_modeles_de_travail_SVN_Modes_de_verrouillage.adoc#,mode verrouillé>> ". Autrement, son utilisation est optionnelle.
+
+Seul un utilisateur du groupe de travail peut verrouiller un élément donné à un moment donné. Donc, si un autre utilisateur essaie de verrouiller un élément déjà verrouillé, la commande "Prendre le verrou" échouera. [[Conditions-et-restrictions]]
+
+
+===== Conditions et restrictions
+
+* La commande "Prendre le verrou" n'est disponible que sur les <<User_Documentation_fr_Introduction_aux_modeles_de_travail_SVN_Grains_SVN.adoc#,grains>> en mode lecture seule.
+* La commande "Prendre le verrou" échouera si les éléments à verrouiller ne sont pas à jour. Vous devez alors lancer <<User_Documentation_fr_Presentation_des_commandes_Subversion_Mettre_a_jour.adoc#,la commande Mettre à jour>> avant de relancer la commande "Prendre le verrou". [[Interface-utilisateur]]
+
+
+===== Interface utilisateur
+
+La commande "Prendre le verrou" ouvre la fenêtre suivante :
+
+.La fenêtre "Prendre le verrou"
+image::images/attachment/modeliocom41/User_Documentation_fr/Presentation_des_commandes_Subversion/Prendre_le_verrou/TW_004_example_getlock.png[TW_004_example_getlock.png]
+
+
+Cette fenêtre propose une option "Récursif" (voir le paragraphe "Comportement" pour plus de détails), ainsi qu'un champ de texte multi-ligne ("Commentaire pour le verrouillage"), où vous pouvez saisir des informations sur vos intentions lors du verrouillage. Par exemple, vous pouvez indiquer un identifiant de tâche venu du système de gestion du projet, ou bien le numéro d'une fiche d'anomalie liée à la raison pour laquelle vous êtes sur le point de modifier l'élément verrouillé.
+
+*Note* : Il n'est pas obligatoire de saisir un commentaire dans la zone "Commentaire pour le verrouillage".
+
+
+===== Comportement
+
+L'option "Récursif" dans la fenêtre "Prendre le verrou" modifie le comportement de la commande. L'élément ET tous ses sous-éléments seront verrouillés par la commande (par exemple, un package et toutes ses classes).
+
+Notez que la case à cocher "Récursif" est cochée par défaut, car la plupart du temps l'activation de cette option est souhaitée. En revanche, n'oubliez pas que si l'option "Récursif" est appliquée à un élément de très haut niveau, comme un package de niveau supérieur ou même le projet lui-même, la commande "Prendre le verrou" verrouillera une partie énorme du modèle. Ceci peut être problématique pour les autres utilisateurs, qui ne pourront modifier aucun des nombreux éléments verrouillés.
+
+En règle générale, vous devriez toujours essayer de minimiser le nombre d'éléments que vous verrouillez, alors n'hésitez pas à décocher la case "Récursif" là où c'est nécessaire. Par exemple, plutôt que de verrouiller un package complet afin de modifier une seule classe contenue dans celui-ci, pourquoi ne pas verrouiller uniquement la classe ?
+
+*Note :* Lorsque la commande "Prendre le verrou" est lancée en mode récursif, si certains éléments sur lesquels la commande s'appliquera sont déjà verrouillés par un autre utilisateur, la commande n'échouera pas, mais indiquera simplement que ces éléments déjà verrouillés ne peuvent pas être verrouillés localement.
+
+*Utilisateurs de Modelio 2* : Dans Modelio 4, la commande "Prendre le verrou" ne lance plus une opération de <<User_Documentation_fr_Presentation_des_commandes_Subversion_Mettre_a_jour.adoc#,mise à jour>>. La commande "Prendre le verrou" échouera si les éléments à verrouiller ne sont pas à jour.

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.drawings.note;
 
@@ -65,7 +65,7 @@ public class NoteDrawingEditPart extends NodeDrawingEditPart {
         } else {
             super.performRequest(req);
         }
-        
+
     }
 
     @objid ("609f9894-27d2-4807-b709-72b66c54cb79")
@@ -78,7 +78,7 @@ public class NoteDrawingEditPart extends NodeDrawingEditPart {
         } else {
             super.propertyChange(evt);
         }
-        
+
     }
 
     @objid ("d9170c96-0032-4c04-9e28-fade5e26eccb")
@@ -87,7 +87,7 @@ public class NoteDrawingEditPart extends NodeDrawingEditPart {
         super.createEditPolicies();
         installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new NoteDrawingDirectEditPolicy());
         installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new NoteDrawingDirectEditPolicy());
-        
+
     }
 
     @objid ("98c88758-1b70-4e19-a70b-8b194ed8f0e0")
@@ -95,11 +95,11 @@ public class NoteDrawingEditPart extends NodeDrawingEditPart {
     protected IFigure createFigure() {
         // Create the figure
         NoteDrawingFigure figure1 = new NoteDrawingFigure();
-        
+
         // Set style independent properties
         // figure1.setSize(100, 50);
         figure1.setOpaque(true);
-        
+
         // Set style dependent properties
         refreshFromStyle(figure1, getModelStyle());
         // Return the created figure
@@ -108,6 +108,7 @@ public class NoteDrawingEditPart extends NodeDrawingEditPart {
 
     /**
      * Get the note figure.
+     *
      * @return The note figure.
      */
     @objid ("2daaa177-1fdb-4bb5-a9cb-650571c96bea")
@@ -117,6 +118,7 @@ public class NoteDrawingEditPart extends NodeDrawingEditPart {
 
     /**
      * Refresh this EditPart's visuals.
+     *
      * @see org.eclipse.gef.editparts.AbstractEditPart#refreshVisuals()
      */
     @objid ("d7bf602e-6d21-45a4-bb36-974fcb7af3ca")
@@ -124,14 +126,14 @@ public class NoteDrawingEditPart extends NodeDrawingEditPart {
     protected void refreshVisuals() {
         final NoteDrawingFigure NoteDrawingFigure = (NoteDrawingFigure) getFigure();
         final GmNoteDrawing noteModel = (GmNoteDrawing) getModel();
-        
+
         // Set the layout constraint
         NoteDrawingFigure.getParent().setConstraint(NoteDrawingFigure, noteModel.getLayoutData());
-        
+
         // Set the note contents
         String label = noteModel.getLabel();
         NoteDrawingFigure.setContents(label);
-        
+
     }
 
     @objid ("85956e2c-e32a-40de-8923-de88c18fa5e6")
@@ -143,7 +145,7 @@ public class NoteDrawingEditPart extends NodeDrawingEditPart {
     @objid ("e94c0ad6-4811-42e1-b510-a34d3a4cf721")
     private static final class HtmlTextEditManager extends DirectEditManager2 {
         @objid ("3bf7044d-84bf-4c8c-9c18-f0ece7d55330")
-         HtmlTextEditManager(GraphicalEditPart source, CellEditorLocator locator) {
+        HtmlTextEditManager(GraphicalEditPart source, CellEditorLocator locator) {
             super(source, HtmlTextCellEditor.class, locator);
         }
 
@@ -152,16 +154,16 @@ public class NoteDrawingEditPart extends NodeDrawingEditPart {
         protected void initCellEditor() {
             final HtmlTextCellEditor textEdit = (HtmlTextCellEditor) getCellEditor();
             textEdit.setValue(((GmNodeDrawing) getEditPart().getModel()).getLabel());
-            
+
             final Control textControl = textEdit.getControl();
             textEdit.performSelectAll();
-            
+
             textControl.setBackground(ColorConstants.white);
             textControl.setForeground(ColorConstants.blue);
             textControl.setFont(((NoteDrawingFigure) getEditPart().getFigure()).getTextFont());
-            
+
             super.initCellEditor();
-            
+
         }
 
     }
@@ -185,7 +187,7 @@ public class NoteDrawingEditPart extends NodeDrawingEditPart {
         private Rectangle lastBounds = new Rectangle();
 
         @objid ("3d7fd8f0-e42d-4c9c-8683-8a92bf2d5cb0")
-        public  NoteDrawingFigureMoveListener(NoteDrawingEditPart NoteDrawingEditPart) {
+        public NoteDrawingFigureMoveListener(NoteDrawingEditPart NoteDrawingEditPart) {
             this.NoteDrawingEditPart = NoteDrawingEditPart;
         }
 
@@ -201,7 +203,7 @@ public class NoteDrawingEditPart extends NodeDrawingEditPart {
                 NoteDrawingFigure.setAnchoringBorderPosition(direction);
                 this.lastBounds.setBounds(connectionFigureBounds);
             }
-            
+
         }
 
     }

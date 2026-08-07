@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.statediagram;
 
@@ -45,9 +45,9 @@ class StateDiagramElementDropEditPolicy extends DiagramElementDropEditPolicy {
     @Override
     protected Command getSmartDropCommand(ModelElementDropRequest request) {
         final CompoundCommand command = new CompoundCommand();
-        
+
         Point dropLocation = request.getDropLocation();
-        
+
         for (final MObject toUnmask : request.getDroppedElements()) {
             if (toUnmask instanceof InternalTransition) {
                 // Unmask InternalTransition as nodes instead of links
@@ -99,14 +99,33 @@ class StateDiagramElementDropEditPolicy extends DiagramElementDropEditPolicy {
         @objid ("36841290-1510-409f-8682-c5bf22bbd35c")
         @Override
         public Point resolveAnchorRef(AbstractGraphicalEditPart sourceEditPart, AbstractGraphicalEditPart targetEditPart, MObject linkElement) {
+            Rectangle sourceBounds = sourceEditPart.getFigure().getBounds().getCopy();
+            Rectangle targetBounds = targetEditPart.getFigure().getBounds().getCopy();
+
+            sourceEditPart.getFigure().translateToAbsolute(sourceBounds);
+            targetEditPart.getFigure().translateToAbsolute(targetBounds);
+
+
+            if(Math.max(sourceBounds.x, targetBounds.x) - Math.min(sourceBounds.x + sourceBounds.width, targetBounds.x + targetBounds.width) < 0) {
+                return getAbsoluteXCommonSegmentCenter(sourceBounds, targetBounds);
+            }else if(Math.max(sourceBounds.y, targetBounds.y) - Math.min(sourceBounds.y + sourceBounds.height, targetBounds.y + targetBounds.height) < 0) {
+                return getAbsoluteYCommonSegmentCenter(sourceBounds, targetBounds);
+            }
+
+
+            return getDefaultAncor(sourceEditPart, targetEditPart);
+        }
+
+        @objid ("2d9d1efe-b479-45a6-89bb-23701996cb81")
+        private Point getDefaultAncor(AbstractGraphicalEditPart sourceEditPart, AbstractGraphicalEditPart targetEditPart) {
             IFigure sourceFig = sourceEditPart.getFigure();
             sourceFig.getUpdateManager().performValidation();
             Rectangle sourceBounds = sourceFig.getBounds();
-            
+
             IFigure targetFig = targetEditPart.getFigure();
             targetFig.getUpdateManager().performValidation();
             Rectangle targetBounds = targetFig.getBounds();
-            
+
             final Point ret;
             if (sourceBounds.right() > targetBounds.x() && sourceBounds.y() > targetBounds.bottom()) {
                 ret = sourceBounds.getTop();
@@ -115,9 +134,62 @@ class StateDiagramElementDropEditPolicy extends DiagramElementDropEditPolicy {
             } else {
                 ret = sourceBounds.getRight();
             }
-            
+
             sourceFig.translateToAbsolute(ret);
             return ret;
+        }
+
+        @objid ("cb39d731-7c75-4019-ad66-1b3cde390f5d")
+        private Point getAbsoluteYCommonSegmentCenter(Rectangle sb, Rectangle tb) {
+            Point p = new Point();
+            if(sb.y < tb.y) {
+                if(sb.y+ sb.height < tb.y + tb.height) {
+                    p.y = tb.y + (sb.y + sb.height - tb.y) / 2;
+                }else {
+                    p.y = tb.y + tb.height / 2;
+                }
+
+            } else {
+                if(sb.y+ sb.height > tb.y+ tb.height) {
+                    p.y = sb.y + (tb.y + tb.height - sb.y) / 2;
+                } else {
+                    p.y = sb.y + sb.height / 2;
+                }
+            }
+
+            if(sb.x < tb.x) {
+                p.x = sb.x + sb.width;
+            } else {
+                p.x =sb.x;
+            }
+            return p;
+        }
+
+        @objid ("14f62ae4-9c91-488d-8534-6ca21c6e2319")
+        private Point getAbsoluteXCommonSegmentCenter(Rectangle sb, Rectangle tb) {
+            Point p = new Point();
+
+            if(sb.x < tb.x) {
+                if(sb.x+ sb.width < tb.x + tb.width) {
+                    p.x = tb.x + (sb.x + sb.width - tb.x) / 2;
+                }else {
+                    p.x = tb.x + tb.width / 2;
+                }
+
+            } else {
+                if(sb.x+ sb.width > tb.x+ tb.width) {
+                    p.x = sb.x + (tb.x + tb.width - sb.x) / 2;
+                } else {
+                    p.x = sb.x + sb.width / 2;
+                }
+            }
+
+            if(sb.y < tb.y) {
+                p.y = sb.y + sb.height;
+            } else {
+                p.y = sb.y;
+            }
+            return p;
         }
 
     }
@@ -130,14 +202,33 @@ class StateDiagramElementDropEditPolicy extends DiagramElementDropEditPolicy {
         @objid ("2e842459-1529-4272-97f3-5ddab467a5dd")
         @Override
         public Point resolveAnchorRef(AbstractGraphicalEditPart sourceEditPart, AbstractGraphicalEditPart targetEditPart, MObject linkElement) {
+            Rectangle sourceBounds = sourceEditPart.getFigure().getBounds().getCopy();
+            Rectangle targetBounds = targetEditPart.getFigure().getBounds().getCopy();
+
+            sourceEditPart.getFigure().translateToAbsolute(sourceBounds);
+            targetEditPart.getFigure().translateToAbsolute(targetBounds);
+
+
+            if(Math.max(sourceBounds.x, targetBounds.x) - Math.min(sourceBounds.x + sourceBounds.width, targetBounds.x + targetBounds.width) < 0) {
+                return getAbsoluteXCommonSegmentCenter(sourceBounds, targetBounds);
+            }else if(Math.max(sourceBounds.y, targetBounds.y) - Math.min(sourceBounds.y + sourceBounds.height, targetBounds.y + targetBounds.height) < 0) {
+                return getAbsoluteYCommonSegmentCenter(sourceBounds, targetBounds);
+            }
+
+
+            return getDefaultAncor(sourceEditPart, targetEditPart);
+        }
+
+        @objid ("ae694261-31b4-4bdb-a670-3c0b27c65295")
+        private Point getDefaultAncor(AbstractGraphicalEditPart sourceEditPart, AbstractGraphicalEditPart targetEditPart) {
             IFigure sourceFig = sourceEditPart.getFigure();
             sourceFig.getUpdateManager().performValidation();
             Rectangle sourceBounds = sourceFig.getBounds();
-            
+
             IFigure targetFig = targetEditPart.getFigure();
             targetFig.getUpdateManager().performValidation();
             Rectangle targetBounds = targetFig.getBounds();
-            
+
             final Point ret;
             if (sourceBounds.right() > targetBounds.x() && sourceBounds.y() > targetBounds.bottom()) {
                 ret = targetBounds.getBottom();
@@ -146,9 +237,62 @@ class StateDiagramElementDropEditPolicy extends DiagramElementDropEditPolicy {
             } else {
                 ret = targetBounds.getLeft();
             }
-            
+
             targetFig.translateToAbsolute(ret);
             return ret;
+        }
+
+        @objid ("738c7a02-fbe0-4f4c-b45c-a95ade206d13")
+        private Point getAbsoluteYCommonSegmentCenter(Rectangle sb, Rectangle tb) {
+            Point p = new Point();
+            if(sb.y < tb.y) {
+                if(sb.y+ sb.height < tb.y + tb.height) {
+                    p.y = tb.y + (sb.y + sb.height - tb.y) / 2;
+                }else {
+                    p.y = tb.y + tb.height / 2;
+                }
+
+            } else {
+                if(sb.y+ sb.height > tb.y+ tb.height) {
+                    p.y = sb.y + (tb.y + tb.height - sb.y) / 2;
+                } else {
+                    p.y = sb.y + sb.height / 2;
+                }
+            }
+
+            if(sb.x < tb.x) {
+                p.x = sb.x + sb.width;
+            } else {
+                p.x =sb.x;
+            }
+            return p;
+        }
+
+        @objid ("fbba9a83-14ec-411a-9af2-5096e13f6c73")
+        private Point getAbsoluteXCommonSegmentCenter(Rectangle sb, Rectangle tb) {
+            Point p = new Point();
+
+            if(sb.x < tb.x) {
+                if(sb.x+ sb.width < tb.x + tb.width) {
+                    p.x = tb.x + (sb.x + sb.width - tb.x) / 2;
+                }else {
+                    p.x = tb.x + tb.width / 2;
+                }
+
+            } else {
+                if(sb.x+ sb.width > tb.x+ tb.width) {
+                    p.x = sb.x + (tb.x + tb.width - sb.x) / 2;
+                } else {
+                    p.x = sb.x + sb.width / 2;
+                }
+            }
+
+            if(sb.y < tb.y) {
+                p.y = sb.y + sb.height;
+            } else {
+                p.y = sb.y;
+            }
+            return p;
         }
 
     }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.gmdbg;
 
@@ -51,14 +51,14 @@ public class FigureView {
     private TableViewer figureProps;
 
     @objid ("4437763e-a988-4646-894e-6c51b00d2645")
-    public  FigureView(Composite parent) {
+    public FigureView(Composite parent) {
         this.figureProps = new TableViewer(parent, SWT.V_SCROLL);
-        
+
         final Table table = this.figureProps.getTable();
         table.setHeaderVisible(true);
         table.setLinesVisible(true);
-        
-        
+
+
         TableViewerColumn colKey = new TableViewerColumn(this.figureProps, SWT.NONE);
         colKey.getColumn().setWidth(200);
         colKey.getColumn().setText("Figure Property");
@@ -68,13 +68,13 @@ public class FigureView {
             public String getText(Object element) {
                 return ((Entry<String, String>) element).getKey();
             }
-        
+
             @Override
             public Font getFont(Object element) {
                 return getText(element).startsWith(" ") ? null : UIFont.NORMALB;
             }
         });
-        
+
         TableViewerColumn colValue = new TableViewerColumn(this.figureProps, SWT.NONE);
         colValue.getColumn().setWidth(200);
         colValue.getColumn().setText("Value");
@@ -84,15 +84,15 @@ public class FigureView {
             public String getText(Object element) {
                 return ((Entry<String, String>) element).getValue();
             }
-        
+
             @Override
             public Font getFont(Object element) {
                 return ((Entry<String, String>) element).getKey().startsWith(" ") ? null : UIFont.NORMALB;
             }
         });
-        
+
         this.figureProps.setContentProvider(new FigureContentProvider());
-        
+
     }
 
     @objid ("a545ec63-44b5-42a7-b7d3-7ae459102bbc")
@@ -120,24 +120,24 @@ public class FigureView {
         @Override
         public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
             this.properties = new ArrayList<>();
-            
+
             if (newInput == null) {
                 return;
             }
-            
+
             // Connection figures are special
             if (newInput instanceof AbstractConnectionEditPart) {
                 AbstractConnectionEditPart ep = (AbstractConnectionEditPart) newInput;
-            
+
                 Connection connectionFigure = ep.getConnectionFigure();
                 this.properties.add(new XEntry("Type", connectionFigure.getClass().getSimpleName()));
-            
+
                 ConnectionRouter router = connectionFigure.getConnectionRouter();
                 this.properties.add(new XEntry("    router", router.getClass().getSimpleName()));
-            
+
                 this.properties.add(new XEntry("Path", ""));
-            
-            
+
+
                 ConnectionAnchor sourceAnchor = connectionFigure.getSourceAnchor();
                 if (sourceAnchor != null) {
                     this.properties.add(new XEntry("    source anchor", sourceAnchor.getClass().getSimpleName()));
@@ -146,7 +146,7 @@ public class FigureView {
                     this.properties.add(new XEntry("    source anchor", "<null>"));
                     this.properties.add(new XEntry("        ref point", "<null>"));
                 }
-            
+
                 ConnectionAnchor targetAnchor = connectionFigure.getTargetAnchor();
                 if (targetAnchor != null) {
                     this.properties.add(new XEntry("    target anchor", targetAnchor.getClass().getSimpleName()));
@@ -155,20 +155,20 @@ public class FigureView {
                     this.properties.add(new XEntry("    target anchor", "<null>"));
                     this.properties.add(new XEntry("        ref point", "<null>"));
                 }
-            
+
                 Object routingConstraint = router.getConstraint(connectionFigure);
                 this.properties.add(new XEntry("    route constraint", Formatter.toString(routingConstraint)));
-            
+
                 this.properties.add(new XEntry("Points", ""));
                 PointList points = connectionFigure.getPoints();
                 for (int i=0; i<points.size(); i++) {
                     this.properties.add(new XEntry("    pt"+i, points.getPoint(i).toString()));
                 }
-            
-            
+
+
             } else if (newInput instanceof AbstractGraphicalEditPart) {
                 AbstractGraphicalEditPart ep = (AbstractGraphicalEditPart) newInput;
-            
+
                 IFigure figure = ep.getFigure();
                 Rectangle absBounds = figure.getBounds().getCopy();
                 figure.translateToAbsolute(absBounds);
@@ -178,25 +178,25 @@ public class FigureView {
                 this.properties.add(new XEntry("    insets", Formatter.toString(figure.getInsets())));
                 this.properties.add(new XEntry("    client area", Formatter.toString(figure.getClientArea())));
                 this.properties.add(new XEntry("    size", Formatter.toString(figure.getSize())));
-            
+
                 this.properties.add(new XEntry("    min size", Formatter.toString(figure.getMinimumSize())));
                 this.properties.add(new XEntry("    preferred size", Formatter.toString(figure.getPreferredSize())));
                 this.properties.add(new XEntry("    max size", Formatter.toString(figure.getMaximumSize())));
-            
+
                 this.properties.add(new XEntry("    border", Formatter.toString(figure.getBorder())));
-            
+
                 this.properties.add(new XEntry("    background", Formatter.toString(figure.getBackgroundColor())));
                 this.properties.add(new XEntry("    foreground", Formatter.toString(figure.getForegroundColor())));
                 this.properties.add(new XEntry("    font", Formatter.toString(figure.getFont())));
-            
+
                 this.properties.add(new XEntry("    layout", formatLayoutManager(figure)));
                 this.properties.add(new XEntry("    layout constraint", formatLayoutConstraint(figure)));
-            
+
                 this.properties.add(new XEntry("    parent", (figure.getParent() != null) ? figure.getParent().getClass().getSimpleName() : "<null>"));
                 this.properties.add(new XEntry("    parent layout", formatLayoutManager(figure.getParent())));
-            
+
             }
-            
+
         }
 
         @objid ("5276551c-a508-4d05-a125-eecf46030453")
@@ -204,7 +204,7 @@ public class FigureView {
             IFigure parent = figure.getParent();
             if (parent == null)
                 return "N/A";
-            
+
             LayoutManager layoutManager = parent.getLayoutManager();
             if (layoutManager == null)
                 return "N/A";
@@ -215,21 +215,21 @@ public class FigureView {
         private String formatLayoutManager(IFigure figure) {
             if (figure == null)
                 return "N/A";
-            
+
             LayoutManager layoutManager = figure.getLayoutManager();
             if (layoutManager == null)
                 return "<null>";
-            
+
             if (! (layoutManager instanceof ChainedLayout))
                 return layoutManager.getClass().getSimpleName();
-            
+
             StringBuilder s = new StringBuilder();
             while (layoutManager instanceof ChainedLayout) {
                 s.append(layoutManager.getClass().getSimpleName());
                 s.append(" > ");
                 layoutManager = ((ChainedLayout) layoutManager).getChained();
             }
-            
+
             if (layoutManager == null)
                 s.append("<null>");
             else

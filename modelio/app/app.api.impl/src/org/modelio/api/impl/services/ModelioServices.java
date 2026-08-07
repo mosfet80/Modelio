@@ -1,28 +1,30 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.api.impl.services;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Execute;
@@ -80,7 +82,7 @@ import org.modelio.platform.project.services.IProjectService;
  * instance declared in Modelio mda.infra plugin.
  * The mda.infra module loader uses this ModuleContextFactoryImpl factory to
  * create IModuleContext instances for modules.
- * 
+ *
  * @author phv
  */
 @objid ("93a2d68f-02f0-4698-978d-413380676c25")
@@ -122,19 +124,19 @@ public class ModelioServices implements IModelioServices, IModelioServicesRegist
     @Execute
     void initialize(final IEclipseContext context) {
         this.eclipseContext = context;
-        
+
         // This constructor must be called only once, this is ok here
         new ModuleContextFactoryImpl(this.eclipseContext).register();
-        
+
         // Singleton instance
         ModelioServices.instance = this;
-        
+
         // Register singleton into the context
         this.eclipseContext.set(IModelioServicesRegistry.class, this);
-        
     }
 
     /**
+     *
      * @return the singleton instance.
      */
     @objid ("16f688ee-bc5c-492c-ad5d-85e5e1ebdeb7")
@@ -221,7 +223,7 @@ public class ModelioServices implements IModelioServices, IModelioServicesRegist
     }
 
     @objid ("e8affc4c-f612-498e-8736-8cb9ea6dd3a0")
-    @SuppressWarnings ("unchecked")
+    @SuppressWarnings("unchecked")
     @Override
     public synchronized <I> I getService(final Class<I> serviceInterface) {
         if (!this.servicesInitialized) {
@@ -232,6 +234,7 @@ public class ModelioServices implements IModelioServices, IModelioServicesRegist
 
     /**
      * On project closed , clear the service cache
+     *
      * @param closedProject = null
      */
     @objid ("6b190cd8-644a-4e6b-8d3b-3e938d0a282b")
@@ -243,6 +246,7 @@ public class ModelioServices implements IModelioServices, IModelioServicesRegist
 
     /**
      * Create a shared session and register it in the ModelingSessionRegistry.
+     *
      * @param project the project being opened.
      */
     @objid ("928b6c61-a101-443d-b643-7c6fc440654f")
@@ -252,18 +256,18 @@ public class ModelioServices implements IModelioServices, IModelioServicesRegist
         this.servicesInitialized = false;
         this.gProject = project;
         this.coreSessionId = project.getSession().hashCode();
-        
+
         // Prepare a SharedModelingSession instance for the mda session given to modules.
         IModelingSession sharedModelingSession = new SharedModelingSession(project, this.eclipseContext.get(IMModelServices.class));
         this.serviceMap.put(IModelingSession.class, sharedModelingSession);
-        
+
         // Register the core session / mda session association in the registry
         ModelingSessionRegistry.register(this.coreSessionId, sharedModelingSession);
-        
     }
 
     /**
      * On project opening clear the service cache
+     *
      * @param newProject the project being opened.
      */
     @objid ("9c59d5ce-bfdd-4e4c-a938-e6123da56fb4")
@@ -283,77 +287,75 @@ public class ModelioServices implements IModelioServices, IModelioServicesRegist
      * C'tor to forbid external instantiation
      */
     @objid ("312c325d-fe5a-4eba-abbc-6c42585b898b")
-     ModelioServices() {
-        
+    ModelioServices() {
+
     }
 
     @objid ("781a9455-b78c-484e-8072-1ec07d733a5b")
     private void endServices() {
         this.servicesInitialized = false;
-        
+
         // Remove services
         this.serviceMap = new HashMap<>();
-        
-        
+
+
         // Detach from project, detach session
         ModelingSessionRegistry.unregister(this.coreSessionId);
         this.coreSessionId = null;
         this.gProject = null;
-        
     }
 
     @objid ("611abdc6-6a92-48c4-879b-5203115f3efa")
     private void initializeServices() {
         final IProjectService projectService = this.eclipseContext.get(IProjectService.class);
         final org.modelio.platform.mda.infra.service.IModuleManagementService coreModuleService = this.eclipseContext.get(org.modelio.platform.mda.infra.service.IModuleManagementService.class);
-        
+
         IAuditService auditService = new AuditService(this.eclipseContext.get(ModelShield.class), this.eclipseContext.get(org.modelio.audit.service.IAuditService.class));
         this.serviceMap.put(IAuditService.class, auditService);
-        
+
         IDiagramService diagramService = new DiagramService(this.eclipseContext);
         this.serviceMap.put(IDiagramService.class, diagramService);
-        
+
         IEditionService editionService = new EditionService(this.eclipseContext.get(IModelioEventService.class), this.eclipseContext);
         this.serviceMap.put(IEditionService.class, editionService);
-        
+
         IExchangeService exchangeService = new ExchangeService(this.eclipseContext, this.gProject.getSession().getMetamodel());
         this.serviceMap.put(IExchangeService.class, exchangeService);
-        
+
         IImageService imageService = new ImageService(this.gProject.getSession().getMetamodel());
         this.serviceMap.put(IImageService.class, imageService);
-        
+
         ILogService logService = new LogService(null);
         this.serviceMap.put(ILogService.class, logService);
-        
+
         IModelManipulationService modelManipulationService = new ModelManipulationService();
         this.serviceMap.put(IModelManipulationService.class, modelManipulationService);
-        
+
         INavigationService navigationService = ContextInjectionFactory.make(NavigationService.class, this.eclipseContext);
         this.serviceMap.put(INavigationService.class, navigationService);
-        
+
         IPickingService pickingService = new PickingService(this.eclipseContext.get(IModelioPickingService.class));
         this.serviceMap.put(IPickingService.class, pickingService);
-        
+
         IModelComponentService modelComponentService = new ModelComponentService(projectService, this.gProject, this.eclipseContext.get(org.modelio.platform.mda.infra.service.IModuleService.class));
         this.serviceMap.put(IModelComponentService.class, modelComponentService);
-        
+
         IScriptService scriptService = new ScriptService(coreModuleService, projectService);
         this.serviceMap.put(IScriptService.class, scriptService);
-        
+
         IModuleService moduleService = new ModuleService(coreModuleService);
         this.serviceMap.put(IModuleService.class, moduleService);
-        
+
         IPatternService patternService = new PatternService(this.eclipseContext);
         this.serviceMap.put(IPatternService.class, patternService);
-        
+
         IMetamodelService metamodelService = new MetamodelService(this.gProject.getSession().getMetamodel());
         this.serviceMap.put(IMetamodelService.class, metamodelService);
-        
+
         IUiToolkit uiToolkit = new UiToolkit(this, this.gProject, this.eclipseContext );
         this.serviceMap.put(IUiToolkit.class, uiToolkit);
-        
+
         this.servicesInitialized = true;
-        
     }
 
     @objid ("a8c35b3b-7e0b-4a66-b629-ff31278242c8")
@@ -366,6 +368,12 @@ public class ModelioServices implements IModelioServices, IModelioServicesRegist
     @Override
     public synchronized <I> void unregisterService(final Class<I> serviceInterface) {
         this.serviceMap.remove(serviceInterface);
+    }
+
+    @objid ("94786dc2-bd4e-49bd-bc34-83edf0b4cd87")
+    @Override
+    public void saveProject(IProgressMonitor progress) throws IOException {
+        this.eclipseContext.get(IProjectService.class).saveProject(progress);
     }
 
 }

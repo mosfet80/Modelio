@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.instancelink;
 
@@ -105,34 +105,35 @@ public class GmInstanceLink extends GmLink {
      * Constructor for deserialization.
      */
     @objid ("355a2566-55b7-11e2-877f-002564c97630")
-    public  GmInstanceLink() {
+    public GmInstanceLink() {
         // Nothing to do.
     }
 
     /**
      * Creates a GmLink.
+     *
      * @param diagram The diagram containing the link.
      * @param theRole The represented element.
      * @param roleRef The represented role reference. May not be null.
      * @param linkRef The represented link reference. May not be null.
      */
     @objid ("355a2569-55b7-11e2-877f-002564c97630")
-    public  GmInstanceLink(IGmDiagram diagram, LinkEnd theRole, MRef roleRef, MRef linkRef) {
+    public GmInstanceLink(IGmDiagram diagram, LinkEnd theRole, MRef roleRef, MRef linkRef) {
         super(diagram, linkRef);
-        
+
         this.roleEl = theRole;
         this.roleRef = roleRef;
-        
+
         if (theRole != null) {
             this.oppositeRole = theRole.getOpposite();
-        
+
             // initialize fields
             updateNavigability();
-        
+
             // Create extensions
             GmFractionalConnectionLocator constraint;
             final MRef oppositeRoleRef = new MRef(this.oppositeRole);
-        
+
             // source side extensions
             addExtension(ExtensionLocation.TargetNW, GmInstanceLink.ROLE_TARGET_MAIN, new GmLinkRoleNameLabel(diagram, theRole, roleRef));
             addExtension(ExtensionLocation.TargetSE, GmInstanceLink.ROLE_TARGET_CARD, new GmLinkRoleCardinalityLabel(diagram, theRole, roleRef));
@@ -140,7 +141,7 @@ public class GmInstanceLink extends GmLink {
             addExtension(new GmInfoFlowsGroup(diagram, oppositeRoleRef), GmInstanceLink.ROLE_SRC_INFOFLOW_GRP, constraint);
             constraint = new GmFractionalConnectionLocator(0.25, 0, 0, false);
             addExtension(new GmInformationFlowArrow(diagram, oppositeRoleRef), GmInstanceLink.ROLE_SRC_INFOFLOW_ARROW, constraint);
-        
+
             // Target side extensions
             addExtension(ExtensionLocation.SourceNW, GmInstanceLink.ROLE_SRC_MAIN, new GmLinkRoleNameLabel(diagram, this.oppositeRole, oppositeRoleRef));
             addExtension(ExtensionLocation.SourceSE, GmInstanceLink.ROLE_SRC_CARD, new GmLinkRoleCardinalityLabel(diagram, this.oppositeRole, oppositeRoleRef));
@@ -148,12 +149,12 @@ public class GmInstanceLink extends GmLink {
             addExtension(new GmInfoFlowsGroup(diagram, roleRef), GmInstanceLink.ROLE_TARGET_INFOFLOW_GRP, constraint);
             constraint = new GmFractionalConnectionLocator(0.75, 0, 0, true);
             addExtension(new GmInformationFlowArrow(diagram, roleRef), GmInstanceLink.ROLE_TARGET_INFOFLOW_ARROW, constraint);
-        
+
             // Middle extensions
             addExtension(ExtensionLocation.MiddleSE, IGmLink.ROLE_MAIN_LABEL, new GmLinkLabel(diagram, linkRef));
-        
+
         }
-        
+
     }
 
     @objid ("355a2578-55b7-11e2-877f-002564c97630")
@@ -178,15 +179,16 @@ public class GmInstanceLink extends GmLink {
     @Override
     public void refreshFromObModel() {
         super.refreshFromObModel();
-        
+
         updateNavigability();
-        
+
         // post change event
         firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, null, this);
-        
+
     }
 
     /**
+     *
      * @return the opposite role of the represented role, or null if none (model broken)
      */
     @objid ("355a2595-55b7-11e2-877f-002564c97630")
@@ -196,6 +198,7 @@ public class GmInstanceLink extends GmLink {
 
     /**
      * Get the source side navigability.
+     *
      * @return true if the source side is navigable.
      */
     @objid ("355babf9-55b7-11e2-877f-002564c97630")
@@ -205,6 +208,7 @@ public class GmInstanceLink extends GmLink {
 
     /**
      * Get the target side navigability.
+     *
      * @return true if the target side of the link is navigable.
      */
     @objid ("355babfe-55b7-11e2-877f-002564c97630")
@@ -217,7 +221,7 @@ public class GmInstanceLink extends GmLink {
     public Instance getFromElement() {
         if (this.roleEl != null && this.roleEl.getSource() != null)
             return this.roleEl.getSource();
-        
+
         if (this.oppositeRole == null)
             return null;
         return this.oppositeRole.getTarget();
@@ -228,7 +232,7 @@ public class GmInstanceLink extends GmLink {
     public Instance getToElement() {
         if (this.roleEl != null && this.roleEl.getTarget() != null)
             return this.roleEl.getTarget();
-        
+
         if (this.oppositeRole == null)
             return null;
         return this.oppositeRole.getSource();
@@ -239,14 +243,15 @@ public class GmInstanceLink extends GmLink {
     public void write(IDiagramWriter out) {
         super.write(out);
         out.writeProperty("representedRole", this.roleRef);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmInstanceLink.", GmInstanceLink.MINOR_VERSION);
-        
+
     }
 
     /**
      * Get the represented link role.
+     *
      * @return the link role.
      */
     @objid ("355bac28-55b7-11e2-877f-002564c97630")
@@ -275,7 +280,7 @@ public class GmInstanceLink extends GmLink {
             this.fromNavigable = false;
             this.toNavigable = false;
         }
-        
+
     }
 
     @objid ("eee8ce21-1a32-451e-a590-2ded2bc75706")
@@ -302,7 +307,7 @@ public class GmInstanceLink extends GmLink {
             break;
         }
         }
-        
+
     }
 
     @objid ("4262e390-8259-46a0-8381-72364232c272")
@@ -310,7 +315,7 @@ public class GmInstanceLink extends GmLink {
     protected void read_GmLinkV0_roles() {
         for (GmNodeModel n : getExtensions()) {
             boolean isMainRole = n.getRepresentedRef().equals(this.roleRef);
-        
+
             if (n instanceof GmLinkRoleNameLabel) {
                 if (isMainRole) {
                     n.setRoleInComposition(GmInstanceLink.ROLE_TARGET_MAIN);
@@ -337,11 +342,11 @@ public class GmInstanceLink extends GmLink {
                 } else {
                     n.setRoleInComposition(GmInstanceLink.ROLE_SRC_INFOFLOW_ARROW);
                 }
-        
+
             }
-        
+
         }
-        
+
     }
 
     /**
@@ -351,7 +356,7 @@ public class GmInstanceLink extends GmLink {
     @objid ("d4f28602-c0d9-4cd1-9898-f16627290e01")
     private void read_0(IDiagramReader in) {
         read_1(in);
-        
+
         // Look for an Link label to migrate... there should be one
         GmDefaultModelElementHeader oldLabel = null;
         for (GmNodeModel extension : this.getExtensions()) {
@@ -360,18 +365,18 @@ public class GmInstanceLink extends GmLink {
                 oldLabel = (GmDefaultModelElementHeader) extension;
             }
         }
-        
+
         if (oldLabel != null) {
             // Create a new label, with the appropriate Gm
             final GmLinkLabel newLabel = new GmLinkLabel(getDiagram(), getRepresentedRef());
             addExtension(ExtensionLocation.MiddleSE, IGmLink.ROLE_MAIN_LABEL, newLabel);
             newLabel.setLayoutData(oldLabel.getLayoutData());
-        
+
             // Delete the old association label
             removeExtension(oldLabel);
             oldLabel.delete();
         }
-        
+
     }
 
     /**
@@ -381,7 +386,7 @@ public class GmInstanceLink extends GmLink {
     @objid ("902783b0-87ba-4f27-a6b0-3385291fabdd")
     private void read_1(IDiagramReader in) {
         read_2(in);
-        
+
         for (GmNodeModel n : getExtensions()) {
             String role = n.getRoleInComposition();
             if (role.equals(GmInstanceLink.ROLE_SRC_CARD) ||
@@ -395,14 +400,14 @@ public class GmInstanceLink extends GmLink {
                 }
             }
         }
-        
+
     }
 
     @objid ("355bac11-55b7-11e2-877f-002564c97630")
     protected void read_2(IDiagramReader in) {
         this.roleRef = (MRef) in.readProperty("representedRole");
         this.roleEl = (LinkEnd) resolveRef(this.roleRef);
-        
+
         if (this.roleEl != null) {
             this.oppositeRole = this.roleEl.getOpposite();
             updateNavigability();
@@ -410,7 +415,7 @@ public class GmInstanceLink extends GmLink {
             this.fromNavigable = false;
             this.toNavigable = true;
         }
-        
+
     }
 
 }

@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.vcore.session.impl;
 
@@ -57,22 +76,23 @@ public class SmFactory {
      * Package private constructor.
      * <p>
      * <code>SmFactory</code> is built by the {@link CoreSession} only.
+     *
      * @param kid the kernel id
      * @param metaObject the default meta object for new model objects.
      * @param modelFinder a model object finder.
      */
     @objid ("0054e2dc-6f75-1f22-8c06-001ec947cd2a")
-     SmFactory(final short kid, final IMetaOf metaObject, final IModel modelFinder, ISmObjectDataCache dataCache, IRepository shellRepository) {
+    SmFactory(final short kid, final IMetaOf metaObject, final IModel modelFinder, ISmObjectDataCache dataCache, IRepository shellRepository) {
         this.kid = kid;
         this.metaObject = metaObject;
         this.modelFinder = modelFinder;
         this.dataCache = dataCache;
         this.shellRepository = shellRepository;
-        
     }
 
     /**
      * Create a new model object.
+     *
      * @param metaclass the model class .
      * @param repository the repository to attach the object
      * @return the new object
@@ -86,6 +106,7 @@ public class SmFactory {
      * Create a model object with a given String.
      * <p>
      * To be used by the model import.
+     *
      * @param metaclass the model class .
      * @param repository the repository to attach the object
      * @param forcedUuid the object identifier. If null an object identifier will be allocated and the object will be considered as new in
@@ -95,7 +116,7 @@ public class SmFactory {
     @objid ("000846ca-eb1c-1f22-8c06-001ec947cd2a")
     public SmObjectImpl createObject(final SmClass metaclass, final IRepository repository, final String forcedUuid) {
         String uuid = forcedUuid;
-        
+
         if (forcedUuid != null) {
             // First look for an existing object.
             SmObjectImpl ret = (SmObjectImpl) this.modelFinder.findById(metaclass, forcedUuid);
@@ -104,14 +125,12 @@ public class SmFactory {
                 if (ret.hasStatus(IRStatus.SHELL)) {
                     // Set the shell object as resolved and move it to the right repository
                     ret.getData().setRFlags(0, IRStatus.SHELL, 0);
-        
+
                     if (ret.getRepositoryObject().getRepositoryId() != repository.getRepositoryId()) {
                         ret.getRepositoryObject().detach(ret);
                         repository.addObject(ret);
-                        long liveId = SmLiveId.make(this.kid, repository.getRepositoryId(), metaclass.getId());
-                        ret.init(forcedUuid, liveId);
                     }
-        
+
                     return ret;
                 } else {
                     // Duplicate object found: refuse the operation
@@ -122,47 +141,46 @@ public class SmFactory {
             // Allocate a new UUId and convert it to String.
             uuid = UUID.randomUUID().toString();
         }
-        
+
         // No existing object, create a new one
         {
             boolean isNewInWorld = forcedUuid == null;
-        
+
             // Create the object
             ISmObjectData data = metaclass.getObjectFactory().createData();
             SmObjectImpl newObject = metaclass.getObjectFactory().createImpl();
             newObject.initData(data);
-        
+
             // Set the object SmIdentifier (a new value from the identAllocator)
             long liveId = SmLiveId.make(this.kid, repository.getRepositoryId(), metaclass.getId());
             newObject.init(uuid, liveId);
-        
+
             // initialize the status
             SmStatusFactory.resetRStatus(data);
             SmStatusFactory.resetPStatus(data);
-        
+
             // Set a meta object (SeHandle for transaction management)
             newObject.setMetaOf(this.metaObject);
-        
+
             // Add to data cache before 'data' is out of scope
             this.dataCache.putDataToCache(data);
-        
+
             if (isNewInWorld) {
                 // Add to the repository
                 repository.addCreatedObject(newObject);
-        
+
                 // Triggers the meta object
                 this.metaObject.createObject(newObject);
             } else {
                 // Add to the repository
                 repository.addObject(newObject);
-        
+
                 // Triggers the meta object
                 this.metaObject.importObject(newObject);
             }
-        
+
             return newObject;
         }
-        
     }
 
     /**
@@ -172,6 +190,7 @@ public class SmFactory {
      * returned.
      * <p>
      * To be used by the model import.
+     *
      * @param metaclass The object metaclass
      * @param uuid the object identifier
      * @param name the object name, may be <code>null</code>
@@ -188,6 +207,7 @@ public class SmFactory {
 
     /**
      * Create a shell object.
+     *
      * @param metaclass The object metaclass
      * @param repository The repository containing the object
      * @param uuid the object identifier
@@ -200,29 +220,29 @@ public class SmFactory {
         ISmObjectData data = metaclass.getObjectFactory().createData();
         SmObjectImpl newObject = metaclass.getObjectFactory().createImpl();
         newObject.initData(data);
-        
+
         // Set the object SmIdentifier (a new value from the identAllocator)
         long liveId = SmLiveId.make(this.kid, repository.getRepositoryId(), metaclass.getId());
         newObject.init(uuid, liveId);
-        
+
         // Set the object name if given (before marking it shell)
         // also bypasses the metaobject
         if (name != null) {
             newObject.getClassOf().getAttributeDef("Name").setValue(data, name);
         }
-        
+
         // Set a meta object (SeHandle for transaction management)
         newObject.setMetaOf(this.metaObject);
-        
+
         // Add to data cache before 'data' is out of scope
         this.dataCache.putDataToCache(data);
-        
+
         // Add the object to the repository
         repository.addObject(newObject);
-        
+
         // Triggers the meta object
         this.metaObject.importObject(newObject);
-        
+
         // Mark it shell
         data.setRFlags(IRStatus.SHELL, 0, 0);
         return newObject;

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.naryassoc;
 
@@ -56,7 +56,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * EditPart for the {@link GmNAssocNode}.
- * 
+ *
  * @author cmarin
  */
 @objid ("35cc9650-55b7-11e2-877f-002564c97630")
@@ -83,7 +83,7 @@ public class NAssocNodeEditPart extends AbstractNodeEditPart {
     protected void refreshVisuals() {
         final GmAbstractObject model = this.getModel();
         getFigure().getParent().setConstraint(getFigure(), model.getLayoutData());
-        
+
     }
 
     @objid ("35cc9662-55b7-11e2-877f-002564c97630")
@@ -107,26 +107,26 @@ public class NAssocNodeEditPart extends AbstractNodeEditPart {
         if (aFigure instanceof ShapedBorderedFigure) {
             final GmNodeModel gmModel = getModel();
             final RepresentationMode askedMode = gmModel.getRepresentationMode();
-        
+
             if (askedMode != RepresentationMode.IMAGE || !switchRepresentationMode()) {
                 super.refreshFromStyle(aFigure, style);
-        
+
             }
         }
-        
+
     }
 
     @objid ("35cc9678-55b7-11e2-877f-002564c97630")
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         // Do not show the smart link creation handle in the diamond which is too small to display them properly.
         installEditPolicy(UserChoiceCreateLinkEditPolicy.class, new UserChoiceCreateLinkEditPolicy(new PaletteActionProvider(this, PaletteActionProvider.IS_LINK_TOOL), false));
-        
+
         // Allow links
         installEditPolicy(EditPolicy.NODE_ROLE, new DefaultCreateLinkEditPolicy());
-        
+
     }
 
     @objid ("35cc967b-55b7-11e2-877f-002564c97630")
@@ -160,7 +160,7 @@ public class NAssocNodeEditPart extends AbstractNodeEditPart {
             // Refresh the branches, look for missing branches
             GmNodeModel gmModel = getModel();
             List<NaryAssociationEnd> newbranches = getMissingBranches(gmModel);
-        
+
             Point dropLocation = getFigure().getBounds().getBottomRight();
             getFigure().translateToAbsolute(dropLocation);
             for (NaryAssociationEnd b : newbranches) {
@@ -177,10 +177,10 @@ public class NAssocNodeEditPart extends AbstractNodeEditPart {
                 return;
             }
         }
-        
+
         // In any case apply the super routine.
         super.propertyChange(evt);
-        
+
     }
 
     /**
@@ -199,19 +199,19 @@ public class NAssocNodeEditPart extends AbstractNodeEditPart {
             }
             return newbranches;
         }
-        
+
     }
 
     @objid ("35ce1d05-55b7-11e2-877f-002564c97630")
     private void createMissingLinkForElement(final NaryAssociationEnd b, final Point dropLocation) {
         final GmNodeModel gmModel = getModel();
         GmLink link = new GmNAssocEndLink(gmModel.getDiagram(), b, new MRef(b));
-        
+
         UnmaskLinkCommand cmd = new UnmaskLinkCommand(link,
                 (AbstractDiagramEditPart) getRoot().getContents(),
                 dropLocation);
         cmd.execute();
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.deploymentdiagram.editor.plugin;
 
@@ -55,13 +55,13 @@ public class DeploymentProcessor extends AbstractDiagramInitializationProcessor 
     @Override
     protected void declareFactories(DiagramFactoryRegistry factoryRegistry) {
         factoryRegistry.registerDiagramFactories(DeploymentDiagram.MNAME, new DeploymentGmNodeFactory(), new DeploymentGmLinkFactory(), new DeploymentEditPartFactory());
-        
+
         // Static elements should be usable in Deployment diagram
         factoryRegistry.registerExtensions(DeploymentDiagram.MNAME, StaticDiagram.MNAME);
-        
+
         // Deployment elements should be usable in every Static diagram
         factoryRegistry.registerExtensions(StaticDiagram.MNAME, DeploymentDiagram.MNAME);
-        
+
     }
 
     @objid ("ec00b501-5bf2-11e2-a156-00137282c51b")
@@ -73,20 +73,20 @@ public class DeploymentProcessor extends AbstractDiagramInitializationProcessor 
         factoryStyle.declareProvider(GmArtifactStructuredStyleKeys.Inner);
         factoryStyle.declareProvider(GmArtifactStructuredStyleKeys.InternalStructure);
         factoryStyle.declareProvider(GmArtifactStructuredStyleKeys.Operation);
-        
+
         // Node
         factoryStyle.declareProvider(GmNodeStructuredStyleKeys.class);
         factoryStyle.declareProvider(GmNodeStructuredStyleKeys.Attribute);
         factoryStyle.declareProvider(GmNodeStructuredStyleKeys.Inner);
         factoryStyle.declareProvider(GmNodeStructuredStyleKeys.InternalStructure);
         factoryStyle.declareProvider(GmNodeStructuredStyleKeys.Operation);
-        
+
         // Manifestation
         factoryStyle.declareProvider(GmManifestationStyleKeys.class);
-        
+
         // Deployment Diagram
         factoryStyle.declareProvider(GmDeploymentDiagramStyleKeys.class);
-        
+
     }
 
     @objid ("ec00b503-5bf2-11e2-a156-00137282c51b")
@@ -96,11 +96,11 @@ public class DeploymentProcessor extends AbstractDiagramInitializationProcessor 
         StyleLoader loader = new StyleLoader();
         BundleContext bundle = DiagramEditorDeployment.getContext();
         URL url = FileLocator.find(bundle.getBundle(), new Path("res/factory.settings"), null);
-        
+
         loader.load(url);
-        
+
         factoryStyle.injectDefaultValues(loader.getStyleProperties());
-        
+
     }
 
 }

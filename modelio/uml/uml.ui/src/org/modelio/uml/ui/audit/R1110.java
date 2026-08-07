@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -55,7 +55,7 @@ public class R1110 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -74,20 +74,20 @@ public class R1110 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         plan.registerRule(CallBehaviorAction.MQNAME, this,
                 AuditTrigger.UPDATE);
-        
+
         // IBehaviour
         plan.registerRule(Activity.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         // The following Behaviour can't have Parameters in Modelio!
         plan.registerRule(BehaviorParameter.MQNAME, this,
                 AuditTrigger.CREATE | AuditTrigger.MOVE | AuditTrigger.UPDATE);
-        
+
         // Pin
         plan.registerRule(OutputPin.MQNAME, this, AuditTrigger.UPDATE
                 | AuditTrigger.CREATE | AuditTrigger.MOVE);
         plan.registerRule(InputPin.MQNAME, this, AuditTrigger.UPDATE
                 | AuditTrigger.CREATE | AuditTrigger.MOVE);
-        
+
     }
 
     /**
@@ -121,14 +121,14 @@ public class R1110 extends AbstractUmlRule {
      * Default constructor for R1110
      */
     @objid ("08417c97-7b22-4423-bf7b-f17ee9ffa1d4")
-    public  R1110() {
+    public R1110() {
         this.checkerInstance = new CheckR1110(this);
     }
 
     @objid ("725ca2c9-c061-4091-8500-f3ac8ec1f8c7")
     private static class CheckR1110 extends AbstractControl {
         @objid ("12962898-0496-4273-b4d1-82808650f015")
-        public  CheckR1110(IRule rule) {
+        public CheckR1110(IRule rule) {
             super(rule);
         }
 
@@ -157,6 +157,7 @@ public class R1110 extends AbstractUmlRule {
 
         /**
          * UML 2.3, CallBehaviorAction, Constraints [1] & [2]
+         *
          * @param callBehaviorAction The CallBehaviorAction to check.
          * @return An audit entry.
          */
@@ -164,24 +165,24 @@ public class R1110 extends AbstractUmlRule {
         private IAuditEntry checkR1110(CallBehaviorAction callBehaviorAction) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(),
                     AuditSeverity.AuditSuccess, callBehaviorAction, null);
-            
+
             if (callBehaviorAction.getCalled() == null) {
                 return auditEntry;
             }
-            
+
             Behavior behavior = callBehaviorAction.getCalled();
-            
+
             // We create a list of parameters, input pins and output pins, and
             // each time we will match a parameter to a pin, we removed the
             // corresponding element from the lists.
-            
+
             List<BehaviorParameter> parameters = new ArrayList<>(
                     behavior.getParameter());
             List<InputPin> inputPins = new ArrayList<>(
                     callBehaviorAction.getInput());
             List<OutputPin> outputPins = new ArrayList<>(
                     callBehaviorAction.getOutput());
-            
+
             for (BehaviorParameter parameter : behavior.getParameter()) {
                 if (parameter.getParameterPassing() == PassingMode.IN) {
                     for (InputPin inputPin : inputPins) {
@@ -192,9 +193,9 @@ public class R1110 extends AbstractUmlRule {
                         }
                     }
                 } else if (parameter.getParameterPassing() == PassingMode.INOUT) {
-            
+
                     boolean found = false;
-            
+
                     for (InputPin inputPin : inputPins) {
                         if (parameter.equals(inputPin.getMatched())) {
                             inputPins.remove(inputPin);
@@ -222,13 +223,13 @@ public class R1110 extends AbstractUmlRule {
                     }
                 }
             }
-            
+
             if (!parameters.isEmpty() || !inputPins.isEmpty()
                     || !outputPins.isEmpty()) {
-            
+
                 // The rule failed since one of the list wasn't empty, so either
                 // a parameter or a pin wasn't matched.
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(callBehaviorAction);
@@ -255,6 +256,7 @@ public class R1110 extends AbstractUmlRule {
 
         /**
          * A Pin was either created, moved or updated, we need to check if this Pin belong to a CallBehaviorAction and check it if it does.
+         *
          * @param pin The Pin to check.
          * @return An audit entry.
          */
@@ -269,6 +271,7 @@ public class R1110 extends AbstractUmlRule {
 
         /**
          * A BehaviorParameter was either created, moved, or updated, wee need to check the Behavior it belongs to.
+         *
          * @param parameter The parameter to check.
          * @return A list of audit entries.
          */
@@ -279,13 +282,14 @@ public class R1110 extends AbstractUmlRule {
 
         /**
          * A Behavior was updated, we need to check if it has registered callers and check the rule on these CallBehaviorAction.
+         *
          * @param behavior The Behavior to check.
          * @return A list of audit entries.
          */
         @objid ("3d024766-1941-4380-b224-e8eb358708ee")
         private List<IAuditEntry> checkR1110(Behavior behavior) {
             List<IAuditEntry> auditEntries = new ArrayList<>();
-            
+
             for (CallBehaviorAction callBehaviorAction : behavior.getCaller()) {
                 auditEntries
                         .add(checkR1110(callBehaviorAction));

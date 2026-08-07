@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.enumeration;
 
@@ -42,7 +42,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Specialization of the {@link GmPortContainer} class for {@link Class}.
- * 
+ *
  * @author fpoyer
  */
 @objid ("34d8724a-55b7-11e2-877f-002564c97630")
@@ -76,21 +76,22 @@ public class GmEnum extends GmTemplateContainer {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram in which the class is unmasked.
      * @param el the unmasked class.
      * @param ref a reference to the unmasked class.
      */
     @objid ("34d8725c-55b7-11e2-877f-002564c97630")
-    public  GmEnum(IGmDiagram diagram, Enumeration el, MRef ref) {
+    public GmEnum(IGmDiagram diagram, Enumeration el, MRef ref) {
         super(diagram, new GmEnumPrimaryNode(diagram, ref), ref);
         this.element = el;
-        
+
         GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(diagram, ref);
         imageModeHeader.setRoleInComposition(GmEnum.IMAGE_LABEL_ROLE);
         imageModeHeader.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
-        
+
         super.addChild(imageModeHeader);
-        
+
     }
 
     @objid ("34d87268-55b7-11e2-877f-002564c97630")
@@ -112,12 +113,12 @@ public class GmEnum extends GmTemplateContainer {
         if (ret != null) {
             return ret;
         }
-        
+
         ret = GmEnum.SIMPLE_KEYS.getStyleKey(metakey);
         if (ret != null) {
             return ret;
         }
-        
+
         ret = GmEnum.IMAGE_KEYS.getStyleKey(metakey);
         return ret;
     }
@@ -137,14 +138,14 @@ public class GmEnum extends GmTemplateContainer {
         default:
             return Collections.emptyList();
         }
-        
+
     }
 
     /**
      * Empty constructor needed for deserialization.
      */
     @objid ("34d9f8e8-55b7-11e2-877f-002564c97630")
-    public  GmEnum() {
+    public GmEnum() {
         // Nothing specific to do.
     }
 
@@ -169,7 +170,7 @@ public class GmEnum extends GmTemplateContainer {
             break;
         }
         }
-        
+
     }
 
     @objid ("34d9f8f1-55b7-11e2-877f-002564c97630")
@@ -188,23 +189,23 @@ public class GmEnum extends GmTemplateContainer {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmEnum.", GmEnum.MINOR_VERSION);
-        
+
     }
 
     @objid ("34d9f905-55b7-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (Enumeration) resolveRef(getRepresentedRef());
-        
+
         GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(getDiagram(), getRepresentedRef());
         imageModeHeader.setRoleInComposition(GmEnum.IMAGE_LABEL_ROLE);
         imageModeHeader.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
-        
+
         super.addChild(imageModeHeader, 1);
-        
+
     }
 
     @objid ("34d9f90a-55b7-11e2-877f-002564c97630")
@@ -217,7 +218,7 @@ public class GmEnum extends GmTemplateContainer {
     private void read_1(final IDiagramReader in) {
         super.read(in);
         this.element = (Enumeration) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("34db7f7b-55b7-11e2-877f-002564c97630")
@@ -238,7 +239,7 @@ public class GmEnum extends GmTemplateContainer {
             default: {
                 break;
             }
-        
+
             }
         }
         return ret;
@@ -246,6 +247,7 @@ public class GmEnum extends GmTemplateContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */
@@ -256,11 +258,12 @@ public class GmEnum extends GmTemplateContainer {
         return "body content as satellite".equals(childNode.getRoleInComposition())
                                                 || GmPortContainer.SATELLITE_ROLE.equals(role)
                                                 || GmEnum.IMAGE_LABEL_ROLE.equals(role);
-        
+
     }
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */

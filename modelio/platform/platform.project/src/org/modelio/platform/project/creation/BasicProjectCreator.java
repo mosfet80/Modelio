@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.project.creation;
 
@@ -71,17 +71,17 @@ public class BasicProjectCreator implements IProjectCreatorDelegate {
     public void createProject(IProjectCreationData creationData, IGProjectEnv configuration, IModelioProgress monitor) throws IOException {
         BasicProjectCreationDataModel data = (BasicProjectCreationDataModel) creationData;
         SubProgress mon = SubProgress.convert(monitor, 10);
-        
+
         String name = data.getProjectName();
         Path projectPath = data.workspace.resolve(name);
-        
+
         // Create an empty IGProject, open it
         GProjectDescriptor projectDescriptor = GProjectCreator.buildEmptyProject(name, projectPath);
-        
+
         // Create and register at least one local fragment named from the project name
         GProjectPartDescriptor localModelFragmentDescriptor = new GProjectPartDescriptor(GProjectPartType.EXMLFRAGMENT, name, null, DefinitionScope.LOCAL);
         projectDescriptor.getPartDescriptors().add(localModelFragmentDescriptor);
-        
+
         // Register modules
         for (IModuleHandle mh : data.getModuleHandles()) {
             GProjectPartDescriptor module = new GProjectPartDescriptor(GProjectPartType.MODULE, mh.getName(), mh.getVersion(), DefinitionScope.LOCAL);
@@ -89,18 +89,18 @@ public class BasicProjectCreator implements IProjectCreatorDelegate {
             projectDescriptor.getPartDescriptors().add(localModelFragmentDescriptor);
             mon.setWorkRemaining((1 + data.getModuleHandles().size()) * 2);
         }
-        
+
         IGProject project = GProject.newBuilder(projectDescriptor).withEnvironment(configuration).build(monitor);
-        
+
         // Add project description
         project.getProperties().setProperty(BasicProjectCreator.INFO_DESCRIPTION, data.getProjectDescription(), DefinitionScope.LOCAL);
-        
+
         // Create a initial model
         project.open(monitor);
         createInitialModel(project, name);
         project.save(mon);
         project.close();
-        
+
     }
 
     @objid ("cde8bf09-9636-49a5-8113-d98f394c07c4")
@@ -111,17 +111,18 @@ public class BasicProjectCreator implements IProjectCreatorDelegate {
                     .filter((f) -> {
                         return Objects.equals(f.getId(), localfragmentName);
                     }).findFirst().get();
-        
+
             if (fragment != null) {
                 MTools.get(session).getPopulator().populate(localfragmentName, session, fragment.getRepository());
             }
             t.commit();
         }
-        
+
     }
 
     /**
      * Return the diagrams that ought to be opened when first opening the project right after its creation
+     *
      * @return the diagrams to open.
      */
     @objid ("8716539d-59a0-4e88-8366-8d78d836652f")
@@ -131,6 +132,7 @@ public class BasicProjectCreator implements IProjectCreatorDelegate {
 
     /**
      * Find the ModelerModule, if not found : abort as this module is mandatory.
+     *
      * @param moduleCache the modules cache
      * @param monitor a progress monitor
      * @return the ModelerModule handle

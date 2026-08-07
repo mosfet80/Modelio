@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.styles.editingsupport.color;
 
@@ -42,7 +42,7 @@ public class ColorLabelProvider extends ColumnLabelProvider implements IOwnerDra
     private final ColumnViewer viewer;
 
     @objid ("859183e0-1926-11e2-92d2-001ec947c8cc")
-    public  ColorLabelProvider(ColumnViewer viewer) {
+    public ColorLabelProvider(ColumnViewer viewer) {
         this.viewer = viewer;
     }
 
@@ -81,18 +81,18 @@ public class ColorLabelProvider extends ColumnLabelProvider implements IOwnerDra
         } else {
             bounds = ((TreeItem) event.item).getTextBounds(event.index);
         }
-        
+
         Color oldBackground = event.gc.getBackground();
         Color oldForeground = event.gc.getForeground();
-        
+
         event.gc.setBackground(getColorValue(element));
         event.gc.setForeground(event.display.getSystemColor(SWT.COLOR_WIDGET_BORDER));
         event.gc.fillRectangle(bounds.x + 2, bounds.y + 2, bounds.width - 6, bounds.height - 6);
         event.gc.drawRectangle(bounds.x + 2, bounds.y + 2, bounds.width - 6, bounds.height - 6);
-        
+
         event.gc.setBackground(oldBackground);
         event.gc.setForeground(oldForeground);
-        
+
     }
 
     @objid ("7c076d1c-cb61-499c-97a7-15d31778393a")
@@ -103,7 +103,7 @@ public class ColorLabelProvider extends ColumnLabelProvider implements IOwnerDra
         } else {
             return null;
         }
-        
+
     }
 
 }

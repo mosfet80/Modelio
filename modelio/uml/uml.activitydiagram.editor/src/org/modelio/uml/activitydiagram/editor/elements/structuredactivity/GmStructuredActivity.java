@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.structuredactivity;
 
@@ -44,7 +44,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Specialization of the {@link GmPinContainer} class for {@link IStructuredActivityNode}.
- * 
+ *
  * @author fpoyer
  */
 @objid ("2b51499a-55b6-11e2-877f-002564c97630")
@@ -78,32 +78,33 @@ public class GmStructuredActivity extends GmPinContainer {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram in which the structuredActivity is unmasked.
      * @param el the unmasked structuredActivity.
      * @param ref a reference to the unmasked structuredActivity.
      */
     @objid ("2b5149b2-55b6-11e2-877f-002564c97630")
-    public  GmStructuredActivity(IGmDiagram diagram, StructuredActivityNode el, MRef ref) {
+    public GmStructuredActivity(IGmDiagram diagram, StructuredActivityNode el, MRef ref) {
         super(diagram, ref);
         this.element = el;
-        
+
         GmStructuredActivityPrimaryNode mainNode = new GmStructuredActivityPrimaryNode(diagram, ref);
         mainNode.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
-        
+
         GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(diagram, ref);
         imageModeHeader.setRoleInComposition(GmStructuredActivity.IMAGE_LABEL_ROLE);
         imageModeHeader.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
-        
+
         super.addChild(mainNode);
         super.addChild(imageModeHeader);
-        
+
     }
 
     /**
      * Empty constructor needed for deserialisation.
      */
     @objid ("2b5149be-55b6-11e2-877f-002564c97630")
-    public  GmStructuredActivity() {
+    public GmStructuredActivity() {
         // Nothing specific to do.
     }
 
@@ -119,7 +120,7 @@ public class GmStructuredActivity extends GmPinContainer {
         return ((InputPin.class.isAssignableFrom(el.getClass()) ||
                         ValuePin.class.isAssignableFrom(el.getClass()) || OutputPin.class.isAssignableFrom(el.getClass())) &&
                         el.isValid() && el.getCompositionOwner().equals(this.element));
-        
+
     }
 
     @objid ("2b52d039-55b6-11e2-877f-002564c97630")
@@ -183,7 +184,7 @@ public class GmStructuredActivity extends GmPinContainer {
             break;
         }
         }
-        
+
     }
 
     @objid ("2b52d052-55b6-11e2-877f-002564c97630")
@@ -202,23 +203,23 @@ public class GmStructuredActivity extends GmPinContainer {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmStructuredActivity.", GmStructuredActivity.MINOR_VERSION);
-        
+
     }
 
     @objid ("2b52d066-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (StructuredActivityNode) resolveRef(getRepresentedRef());
-        
+
         GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(getDiagram(), getRepresentedRef());
         imageModeHeader.setRoleInComposition(GmStructuredActivity.IMAGE_LABEL_ROLE);
         imageModeHeader.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
-        
+
         super.addChild(imageModeHeader, 1);
-        
+
     }
 
     @objid ("2b52d06b-55b6-11e2-877f-002564c97630")
@@ -231,7 +232,7 @@ public class GmStructuredActivity extends GmPinContainer {
     private void read_1(final IDiagramReader in) {
         super.read(in);
         this.element = (StructuredActivityNode) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("2b52d076-55b6-11e2-877f-002564c97630")
@@ -252,7 +253,7 @@ public class GmStructuredActivity extends GmPinContainer {
             default: {
                 break;
             }
-        
+
             }
         }
         return ret;
@@ -260,6 +261,7 @@ public class GmStructuredActivity extends GmPinContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */
@@ -269,11 +271,12 @@ public class GmStructuredActivity extends GmPinContainer {
         String role = childNode.getRoleInComposition();
         return GmPortContainer.SATELLITE_ROLE.equals(role)
                         || GmStructuredActivity.IMAGE_LABEL_ROLE.equals(role);
-        
+
     }
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */

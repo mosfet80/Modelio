@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("003337d6-c4bf-1fd8-97fe-001ec947cd2a")
 public class FlowFinalNodeImpl extends FinalNodeImpl implements FlowFinalNode {
-    @objid ("f85e1a98-9f58-4740-b48f-82eec224569e")
+    @objid ("504950cb-ad1b-4226-ac20-89861b601203")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -49,17 +48,17 @@ public class FlowFinalNodeImpl extends FinalNodeImpl implements FlowFinalNode {
         return super.getCompositionOwner();
     }
 
-    @objid ("df03aa39-a8a6-4a29-9546-2148d87980b9")
+    @objid ("a04f98bb-9a87-4b4a-8d26-1bfd739ddb22")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("860d1817-01b2-4ef6-af22-be9d411068fe")
+    @objid ("22120e55-8208-4dd2-a816-d7afd83bfc64")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitFlowFinalNode(this);

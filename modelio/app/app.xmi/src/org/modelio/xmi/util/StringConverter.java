@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.util;
 
@@ -50,7 +50,7 @@ public class StringConverter {
         } catch (Exception e) {
             return null;
         }
-        
+
     }
 
     @objid ("9344b4e1-bc16-4cdf-980f-06abe4d13f14")
@@ -62,7 +62,7 @@ public class StringConverter {
         } catch (Exception e) {
             return null;
         }
-        
+
     }
 
     @objid ("3c171e41-23a4-4b75-8b9a-3147913569d7")
@@ -74,7 +74,7 @@ public class StringConverter {
         } catch (Exception e) {
             return null;
         }
-        
+
     }
 
     @objid ("a5b970d9-0faf-43c7-9558-f1e0d9d91352")
@@ -84,7 +84,7 @@ public class StringConverter {
         } catch (Exception e) {
             return null;
         }
-        
+
     }
 
 }

@@ -1,25 +1,24 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.mmextensions.standard.migration.from_36;
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -27,6 +26,7 @@ import java.util.regex.Pattern;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vbasic.progress.SubProgress;
+import org.modelio.vcore.model.spi.mm.IMigrationReporter.IMigrationLogger;
 import org.modelio.vcore.model.spi.mm.IMofRepositoryMigrator;
 import org.modelio.vcore.model.spi.mm.IMofSession;
 import org.modelio.vcore.model.spi.mm.MetamodelChangeDescriptor;
@@ -60,7 +60,7 @@ import org.modelio.vcore.smkernel.meta.mof.MofSmObjectImpl;
  * <li>BpmnParticipant must be created for each "Pool" owned by the BpmnCollaboration</li>
  * <li>the diagram must be moved to the BpmnBehavior and changed to a collaboration diagram</li>
  * </ul>
- * 
+ *
  * @author cma
  * @since 3.7
  */
@@ -79,10 +79,10 @@ public class StandardMm200Migrator implements IMofRepositoryMigrator {
     private MM mm;
 
     @objid ("323c3e28-d377-46f7-b8ab-c85d608e8d7b")
-    public  StandardMm200Migrator(MetamodelVersionDescriptor sourceMetamodel, MetamodelVersionDescriptor targetMetamodel) {
+    public StandardMm200Migrator(MetamodelVersionDescriptor sourceMetamodel, MetamodelVersionDescriptor targetMetamodel) {
         this.sourceMetamodel = sourceMetamodel;
         this.targetMetamodel = targetMetamodel;
-        
+
     }
 
     @objid ("8fedbe21-5c38-4a9e-9028-e28d820f8bfd")
@@ -105,6 +105,7 @@ public class StandardMm200Migrator implements IMofRepositoryMigrator {
 
     /**
      * Modify the metamodel so that it can read the source repository.
+     *
      * @param metamodel the metamodel at the final state
      * @throws MofMigrationException on fatal failure preventing migration
      */
@@ -112,54 +113,55 @@ public class StandardMm200Migrator implements IMofRepositoryMigrator {
     @Override
     public void prepareMetamodel(MofMetamodel metamodel) throws MofMigrationException {
         this.mm = new MM(metamodel);
-        
+
         // Merge Modelio 3.6 BPMN metamodel into the current one.
         try (MofBuilder b = metamodel.builder().setTemporary(true);) {
             // Restore BpmnProcess.LaneSet cardinality to '*'
             MofSmDependency laneSetDep = (MofSmDependency) this.mm.processMclass.getDependency("LaneSet");
             laneSetDep.setCardinality(0, -1);
-        
+
             // Make BpmnProcessCollaborationDiagram concrete again
             this.mm.bpmnProcessCollaborationDiagramMC.setAbstract(false);
         }
-        
+
     }
 
     @objid ("6adf9533-e227-431f-8243-b1aed06deed6")
     @Override
     public void run(IModelioProgress monitor, IMofSession mofSession) throws MofMigrationException {
         SubProgress mon = SubProgress.convert(monitor, 6);
-        
+
         try {
-        
+
             new BpmnLanePartitionMigrator(mofSession).run(mon.newChild(1));
-        
+
             final Collection<MofSmObjectImpl> existingBpmn = new ArrayList<>(mofSession.findByClass(this.mm.bpmnBehaviorMClass, false));
             mon.worked(1);
             mon.setWorkRemaining(existingBpmn.size() + 1);
-        
+
             for (MofSmObjectImpl bpmnBehavior : existingBpmn) {
                 migrateBpmnBehavior(mofSession, bpmnBehavior);
-        
+
                 mon.worked(1);
             }
-        
+
             new DataAssociationFixer(mofSession, this.mm).run();
             mon.worked(1);
-        
+
             transmuteRemainingDiagrams(mofSession);
             mon.worked(1);
-        
+
         } catch (MetaclassNotFoundException e) {
             throw new MofMigrationException(e.getLocalizedMessage(), e);
         }
-        
+
     }
 
     /**
      * Transmute all remaining diagrams to process design diagrams.
      * <p>
      * These diagrams are usually orphans.
+     *
      * @param mofSession the migration session
      */
     @objid ("c3aaffe7-5b6d-4371-91f8-c4c513c853b9")
@@ -167,18 +169,16 @@ public class StandardMm200Migrator implements IMofRepositoryMigrator {
         final Collection<MofSmObjectImpl> remainingDiags = mofSession.findByClass(this.mm.bpmnProcessCollaborationDiagramMC, false);
         if (remainingDiags.isEmpty())
             return;
-        
-        @SuppressWarnings ("resource")
-        PrintWriter logger = mofSession.getReport().getLogger();
-        @SuppressWarnings ("resource")
-        PrintWriter reporter = mofSession.getReport().getResultReporter();
-        
+
+        IMigrationLogger logger = mofSession.getReport().getLogger();
+        IMigrationLogger reporter = mofSession.getReport().getResultReporter();
+
         for (MofSmObjectImpl diag : new ArrayList<>(remainingDiags)) {
             logger.format("Orphan BPMN diagram found: %s . It will be transmuted to a 'Process design diagram'.%n", diag);
             reporter.format("Orphan BPMN diagram found: %s . It will be transmuted to a 'Process design diagram'.%n", diag);
             mofSession.transmute(diag, this.mm.bpmnProcessDesignDiagramMC);
         }
-        
+
     }
 
     @objid ("0af1cc3c-774f-4a41-8b87-760bfa75e514")
@@ -189,6 +189,7 @@ public class StandardMm200Migrator implements IMofRepositoryMigrator {
 
     /**
      * Get a MDependency content then empty it.
+     *
      * @param obj the dep source
      * @param depName the dep name
      * @return the dependency content.
@@ -203,6 +204,7 @@ public class StandardMm200Migrator implements IMofRepositoryMigrator {
 
     /**
      * Transmute all elements in the list whose metaclass is exactly the given one.
+     *
      * @param mofSession a MOF session
      * @param dep the elements to transmute
      * @param srcClass the metaclass the element must have to be transmuted
@@ -215,30 +217,30 @@ public class StandardMm200Migrator implements IMofRepositoryMigrator {
                 mofSession.transmute(obj, targetClass);
             }
         }
-        
+
     }
 
     @objid ("83ecd9a4-4003-4fa3-a406-91440696ef6c")
     private void migrateBpmnBehavior(IMofSession mofSession, MofSmObjectImpl bpmnBehavior) throws MetaclassNotFoundException {
         final List<MofSmObjectImpl> rootElements = new ArrayList<>(bpmnBehavior.getDep("RootElement"));
-        
-        
+
+
         // Delete all Collaborations Participants: they are not used and bother us
         for (MofSmObjectImpl rootEl : rootElements) {
             MClass rootMc = rootEl.getMClass();
             if (rootMc == this.mm.bpmnCollaboMC) {
                 getAndClearDep(rootEl, "Participants").forEach(o -> o.delete());
-        
+
                 // If the BPMN Collaboration has no meaningful name, rename it to the BPMNBehavior name
                 if (StandardMm200Migrator.collabDummyName.matcher(rootEl.getName()).matches()) {
                     rootEl.setName(bpmnBehavior.getName());
                 }
-        
+
                 // Transmute all BpmnProcessCollaborationDiagram to BpmnCollaborationDiagram
                 transmuteAll(mofSession, bpmnBehavior.getDep("Product"), this.mm.bpmnProcessCollaborationDiagramMC, this.mm.bpmnCollaborationDiagramMC);
             }
         }
-        
+
         // Migrate each contained BPMN Process
         ProcessMigrator m = new ProcessMigrator(mofSession, this.mm);
         for (MofSmObjectImpl rootEl : rootElements) {
@@ -247,7 +249,7 @@ public class StandardMm200Migrator implements IMofRepositoryMigrator {
                 m.runOnProcess(rootEl);
             }
         }
-        
+
         List<MofSmObjectImpl> collaborations = new ArrayList<>();
         List<MofSmObjectImpl> messages = new ArrayList<>();
         for (MofSmObjectImpl rootEl : new ArrayList<>(bpmnBehavior.getDep("RootElement"))) {
@@ -257,29 +259,29 @@ public class StandardMm200Migrator implements IMofRepositoryMigrator {
                 collaborations.add(rootEl);
             }
         }
-        
+
         // Keep only one collaboration containing participants and messages
         MofSmObjectImpl firstCollab = null;
         for (MofSmObjectImpl rootEl : new ArrayList<>(collaborations)) {
             List<MofSmObjectImpl> participants = rootEl.getDep("Participants");
-        
+
             // Delete empty Collaborations except the last one if there are messages
             if (participants.isEmpty() && (messages.isEmpty() || collaborations.size() > 1)) {
                 mofSession.getReport().getLogger().format(" Deleting empty %s \n", rootEl);
-        
+
                 // Move diagrams on the BpmnBehavior
                 List<MofSmObjectImpl> elDiagrams = rootEl.getDep("Product");
                 for (MofSmObjectImpl diag : new ArrayList<>(elDiagrams)) {
                     elDiagrams.remove(diag);
                     bpmnBehavior.getDep("Product").add(diag);
                 }
-        
+
                 collaborations.remove(rootEl);
                 rootEl.delete();
             } else if (firstCollab == null) {
                 // First collaboration having participants
                 firstCollab = rootEl;
-        
+
                 if (!messages.isEmpty()) {
                     // Move messages into it
                     mofSession.getReport().getLogger().format(" Moving messages from %s into %s \n", bpmnBehavior, firstCollab);
@@ -294,10 +296,10 @@ public class StandardMm200Migrator implements IMofRepositoryMigrator {
                 participants.clear();
             }
         }
-        
+
         // Migrates owned diagrams.
         new OwnedDiagramsMigrator(this.mm).run(mofSession, bpmnBehavior, firstCollab);
-        
+
     }
 
 }

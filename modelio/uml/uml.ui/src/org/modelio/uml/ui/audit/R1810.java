@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -49,7 +49,7 @@ public class R1810 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -68,7 +68,7 @@ public class R1810 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         plan.registerRule(Gate.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(InteractionUse.MQNAME, this, AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -102,14 +102,14 @@ public class R1810 extends AbstractUmlRule {
      * Default constructor for R1810
      */
     @objid ("16842687-60c4-4fc0-9938-026297e4c1ec")
-    public  R1810() {
+    public R1810() {
         this.checkerInstance = new CheckR1810(this);
     }
 
     @objid ("59771e41-dc1a-43a9-a6d8-4233978e887b")
     private static class CheckR1810 extends AbstractControl {
         @objid ("0020f339-ecd0-4e69-bbf5-69a10203c2dd")
-        public  CheckR1810(IRule rule) {
+        public CheckR1810(IRule rule) {
             super(rule);
         }
 
@@ -134,16 +134,16 @@ public class R1810 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     gate,
                     null);
-            
+
             Gate formal = gate.getFormal();
             InteractionUse interactionUse = gate.getOwnerUse();
-            
+
             if (formal != null && interactionUse != null) {
                 Interaction interaction = interactionUse.getRefersTo();
                 if (interaction != null && !interaction.equals(formal.getOwnerInteraction())) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(gate);

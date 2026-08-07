@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.conf.dialog.workmodel.local;
 
@@ -90,22 +90,23 @@ public class LocalModelSection {
     private Button renameFragment;
 
     @objid ("7d61a042-3adc-11e2-916e-002564c97630")
-    public  LocalModelSection(IEclipseContext applicationContext) {
+    public LocalModelSection(IEclipseContext applicationContext) {
         this.applicationContext = applicationContext;
     }
 
     /**
      * Update() is called by the project infos view when the project to be displayed changes or need contents refresh
+     *
      * @param selectedProject the project selected in the workspace tree view
      */
     @objid ("7d61a045-3adc-11e2-916e-002564c97630")
     public void setInput(ProjectModel selectedProject) {
         this.projectAdapter = selectedProject;
-        
+
         if (selectedProject != null) {
             boolean isOneFragmentSelected = this.viewer.getStructuredSelection().size() == 1;
             boolean isFragmentSelected = !this.viewer.getSelection().isEmpty();
-        
+
             this.viewer.setInput(selectedProject.getLocalFragments());
             this.addFragment.setEnabled(this.projectAdapter.isLocalProject());
             this.renameFragment.setEnabled(isOneFragmentSelected && this.projectAdapter.isLocalProject());
@@ -116,11 +117,11 @@ public class LocalModelSection {
             this.renameFragment.setEnabled(false);
             this.removeFragment.setEnabled(false);
         }
-        
+
         for (TableColumn col : this.viewer.getTable().getColumns()) {
             col.pack();
         }
-        
+
     }
 
     @objid ("7d61a049-3adc-11e2-916e-002564c97630")
@@ -130,37 +131,37 @@ public class LocalModelSection {
         section.setText(AppProjectConf.I18N.getString("LocalModelSection.SectionText")); //$NON-NLS-1$
         section.setDescription(AppProjectConf.I18N.getString("LocalModelSection.SectionDescription")); //$NON-NLS-1$
         section.setExpanded(true);
-        
+
         Composite composite = toolkit.createComposite(section, SWT.WRAP);
         GridLayout layout = new GridLayout();
         layout.numColumns = 2;
         composite.setLayout(layout);
-        
+
         Table table = toolkit.createTable(composite, SWT.BORDER | SWT.FULL_SELECTION);
         table.setLinesVisible(true);
         table.setHeaderVisible(true);
         this.viewer = new TableViewer(table);
-        
+
         GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
         table.setLayoutData(gd);
-        
+
         this.viewer.setContentProvider(new ArrayContentProvider());
         ColumnViewerToolTipSupport.enableFor(this.viewer);
-        
+
         // Name column
         @SuppressWarnings ("unused")
         TableViewerColumn nameColumn = ColumnHelper.createFragmentNameColumn(this.viewer);
-        
+
         // Scope column
         @SuppressWarnings ("unused")
         TableViewerColumn scopeColumn = ColumnHelper.createFragmentScopeColumn(this.viewer);
-        
+
         // Metamodel version column
         @SuppressWarnings ("unused")
         TableViewerColumn mmVer = ColumnHelper.createFragmentMmVersionColumn(this.viewer);
-        
+
         this.viewer.setInput(null);
-        
+
         this.viewer.addSelectionChangedListener(new ISelectionChangedListener() {
             @Override
             public void selectionChanged(SelectionChangedEvent event) {
@@ -168,12 +169,12 @@ public class LocalModelSection {
                 setInput(getProjectAdapter());
             }
         });
-        
+
         // The buttons composite
         Composite panel = toolkit.createComposite(composite, SWT.NONE);
         GridData gd2 = new GridData(SWT.FILL, SWT.FILL, false, false);
         panel.setLayoutData(gd2);
-        
+
         RowLayout rowLayout = new RowLayout();
         rowLayout.wrap = false;
         rowLayout.pack = false;
@@ -184,22 +185,22 @@ public class LocalModelSection {
         rowLayout.marginRight = 2;
         rowLayout.marginBottom = 2;
         rowLayout.spacing = 1;
-        
+
         panel.setLayout(rowLayout);
-        
+
         // The add button
         this.addFragment = toolkit.createButton(panel, AppProjectConf.I18N.getString("LocalModelSection.AddLocalModel"), SWT.PUSH); //$NON-NLS-1$
         this.addFragment.addSelectionListener(new AddFragmentButtonListener());
-        
+
         // The rename button
         this.renameFragment = toolkit.createButton(panel, AppProjectConf.I18N.getString("LocalModelSection.RenameLocalModel"), SWT.PUSH); //$NON-NLS-1$
         this.renameFragment.addSelectionListener(new RenameFragmentButtonListener());
-        
+
         // The delete button
         this.removeFragment = toolkit.createButton(panel, AppProjectConf.I18N.getString("LocalModelSection.Delete"), SWT.PUSH); //$NON-NLS-1$
         this.removeFragment.setEnabled(false);
         this.removeFragment.addSelectionListener(new RemoveFragmentButtonListener());
-        
+
         toolkit.paintBordersFor(composite);
         section.setClient(composite);
         return section;
@@ -226,24 +227,24 @@ public class LocalModelSection {
         @Override
         public void widgetSelected(SelectionEvent e) {
             AppProjectConf.LOG.debug("add exml fragment"); //$NON-NLS-1$
-            
+
             Shell shell = getViewer().getControl().getShell();
             AddLocalModelDialog dlg = new AddLocalModelDialog(shell, getProjectAdapter().getFragmentIdList());
             dlg.open();
-            
+
             final GProjectPartDescriptor fragmentDescriptor = dlg.getFragmentDescriptor();
             if (fragmentDescriptor != null) {
-            
+
                 IRunnableWithProgress runnable = new IRunnableWithProgress() {
-            
+
                     @Override
                     public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                         try {
                             IGProject openedProject = getProjectAdapter().getOpenedProject();
-            
+
                             // Instantiate the part
                             final IGPart newFragment = GPartFactory.getInstance().instantiate(fragmentDescriptor);
-            
+
                             // Add new fragment to project, permanent mount
                             openedProject.addGPart(newFragment, true);
                         } catch (GPartException ex) {
@@ -251,7 +252,7 @@ public class LocalModelSection {
                         }
                     }
                 };
-            
+
                 try {
                     new ProgressMonitorDialog(shell).run(true, false, runnable);
                     refresh();
@@ -261,13 +262,13 @@ public class LocalModelSection {
                 } catch (InterruptedException ex) {
                     // nothing
                 }
-            
+
             }
-            
+
         }
 
         @objid ("7d61a05e-3adc-11e2-916e-002564c97630")
-         AddFragmentButtonListener() {
+        AddFragmentButtonListener() {
             // empty
         }
 
@@ -276,7 +277,7 @@ public class LocalModelSection {
     @objid ("7d61a060-3adc-11e2-916e-002564c97630")
     private class RemoveFragmentButtonListener extends SelectionAdapter {
         @objid ("7d61a065-3adc-11e2-916e-002564c97630")
-         RemoveFragmentButtonListener() {
+        RemoveFragmentButtonListener() {
             // empty
         }
 
@@ -284,14 +285,14 @@ public class LocalModelSection {
         @Override
         public void widgetSelected(SelectionEvent e) {
             AppProjectConf.LOG.debug("rename exml fragment"); //$NON-NLS-1$
-            
+
             if (getViewer().getSelection().isEmpty()) {
                 return;
             }
-            
+
             boolean confirm = MessageDialog.openQuestion(null, AppProjectConf.I18N.getString("LocalModelRemoval.Confirm.Title"),
                     AppProjectConf.I18N.getString("LocalModelRemoval.Confirm.Message"));
-            
+
             if (confirm) {
                 IGProject openedProject = getProjectAdapter().getOpenedProject();
                 IStructuredSelection selection = (IStructuredSelection) getViewer().getSelection();
@@ -306,7 +307,7 @@ public class LocalModelSection {
                 }
             }
             refresh();
-            
+
         }
 
     }
@@ -319,11 +320,11 @@ public class LocalModelSection {
             if (getViewer().getSelection().isEmpty()) {
                 return;
             }
-            
+
             Shell shell = getViewer().getControl().getShell();
             RenameLocalModelDialog dlg = new RenameLocalModelDialog(shell, getProjectAdapter().getFragmentIdList());
             dlg.open();
-            
+
             if (dlg.getResult() != null) {
                 IStructuredSelection selection = getViewer().getStructuredSelection();
                 IGModelFragment obj = (IGModelFragment) selection.getFirstElement();
@@ -341,11 +342,11 @@ public class LocalModelSection {
                 }
             }
             refresh();
-            
+
         }
 
         @objid ("53cfc348-9451-409b-8c3b-57687e177fd4")
-         RenameFragmentButtonListener() {
+        RenameFragmentButtonListener() {
             // empty
         }
 

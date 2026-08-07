@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.parts.data.texticon;
 
@@ -94,6 +94,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 public class TextIconDisplayAdapter {
     /**
      * Convert a String value to an actual object.
+     *
      * @param type value's class type. Might be <code>null</code>, using String
      * as default type.
      * @param value the value to convert. Might be <code>null</code>.
@@ -114,7 +115,7 @@ public class TextIconDisplayAdapter {
         } else {
             realType = type;
         }
-        
+
         // Conversion based on the base type of the property definition
         switch (realType.getSimpleName()) {
         case "Boolean":
@@ -171,13 +172,13 @@ public class TextIconDisplayAdapter {
         case "String":
         default:
             return value;
-        
+
         }
-        
     }
 
     /**
      * Convert an object to a String representation.
+     *
      * @param type value's class type. Might be <code>null</code>, using
      * <code>value.getClass()</code> as default type.
      * @param value the value to convert. Might be <code>null</code>.
@@ -189,14 +190,14 @@ public class TextIconDisplayAdapter {
         if (value == null) {
             return "";
         }
-        
+
         // Get effective type to convert. The reason why we have to compute an
         // effective type is that it might occur that 'value' is not of the kind
         // given by 'type', this situation is probably a mistake from the caller
         // but we do want a solid fail safe conversion.
-        
+
         Class<?> realType;
-        
+
         if (type == null) {
             realType = value.getClass();
         } else if (type.isAssignableFrom(value.getClass())) {
@@ -214,7 +215,7 @@ public class TextIconDisplayAdapter {
                 realType = value.getClass();
             }
         }
-        
+
         switch (realType.getSimpleName()) {
         case "Boolean":
             return Boolean.toString((Boolean) value);
@@ -244,7 +245,6 @@ public class TextIconDisplayAdapter {
                 return value.toString();
             }
         }
-        
     }
 
 }

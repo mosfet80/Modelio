@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.association;
 
@@ -47,7 +47,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Represents an {@link Association} link.
- * 
+ *
  * @author cmarin
  */
 @objid ("33e8e24a-55b7-11e2-877f-002564c97630")
@@ -122,41 +122,42 @@ public class GmAssociation extends GmLink {
      * Constructor for deserialization only.
      */
     @objid ("33ea68bf-55b7-11e2-877f-002564c97630")
-    public  GmAssociation() {
+    public GmAssociation() {
         // Nothing to do.
     }
 
     /**
      * Creates a GmAssociation.
+     *
      * @param diagram The diagram
      * @param role The represented association role, may be null
      * @param roleRef The represented association role reference, must not be null
      * @param associationRef The represented association reference, must not be null
      */
     @objid ("33ea68c2-55b7-11e2-877f-002564c97630")
-    public  GmAssociation(IGmDiagram diagram, AssociationEnd role, MRef roleRef, MRef associationRef) {
+    public GmAssociation(IGmDiagram diagram, AssociationEnd role, MRef roleRef, MRef associationRef) {
         super(diagram, associationRef);
         this.roleRef = roleRef;
         this.sourceRole = role;
-        
+
         if (role != null) {
             this.oppositeRole = role.getOpposite();
-        
+
             // initialize fields
             updateNavigability();
-        
+
             this.toAggregation = this.oppositeRole != null ? this.oppositeRole.getAggregation() : AggregationKind.KINDISASSOCIATION;
             this.fromAggregation = role.getAggregation();
-        
+
             // Create extensions
             final MRef oppositeRoleRef = new MRef(this.oppositeRole);
             GmFractionalConnectionLocator constraint;
-        
+
             // Qualifier extensions
             // The location is not given here, the edit part handles it directly.
             addExtension(new GmQualifierGroup(diagram, roleRef, role), GmAssociation.ROLE_TARGET_QUALIF, null);
             addExtension(new GmQualifierGroup(diagram, oppositeRoleRef, this.oppositeRole), GmAssociation.ROLE_SRC_QUALIF, null);
-        
+
             // source side extensions
             addExtension(ExtensionLocation.TargetNW, GmAssociation.ROLE_TARGET_MAIN, new GmRoleNameLabel(diagram, role, roleRef));
             addExtension(ExtensionLocation.TargetSE, GmAssociation.ROLE_TARGET_CARD, new GmRoleCardinalityLabel(diagram, role, roleRef));
@@ -164,7 +165,7 @@ public class GmAssociation extends GmLink {
             addExtension(new GmInfoFlowsGroup(diagram, oppositeRoleRef), GmAssociation.ROLE_SRC_INFOFLOW_GRP, constraint);
             constraint = new GmFractionalConnectionLocator(0.25, 0, 0, false);
             addExtension(new GmInformationFlowArrow(diagram, oppositeRoleRef), GmAssociation.ROLE_SRC_INFOFLOW_ARROW, constraint);
-        
+
             // Target side extensions
             addExtension(ExtensionLocation.SourceNW, GmAssociation.ROLE_SRC_MAIN, new GmRoleNameLabel(diagram, this.oppositeRole, oppositeRoleRef));
             addExtension(ExtensionLocation.SourceSE, GmAssociation.ROLE_SRC_CARD, new GmRoleCardinalityLabel(diagram, this.oppositeRole, oppositeRoleRef));
@@ -172,15 +173,16 @@ public class GmAssociation extends GmLink {
             addExtension(new GmInfoFlowsGroup(diagram, roleRef), GmAssociation.ROLE_TARGET_INFOFLOW_GRP, constraint);
             constraint = new GmFractionalConnectionLocator(0.75, 0, 0, true);
             addExtension(new GmInformationFlowArrow(diagram, roleRef), GmAssociation.ROLE_TARGET_INFOFLOW_ARROW, constraint);
-        
+
             // Middle extensions
             addExtension(ExtensionLocation.MiddleSE, IGmLink.ROLE_MAIN_LABEL, new GmAssociationLabel(diagram, associationRef));
-        
+
         }
-        
+
     }
 
     /**
+     *
      * @return the source side aggregation kind.
      */
     @objid ("33ea68d1-55b7-11e2-877f-002564c97630")
@@ -195,7 +197,7 @@ public class GmAssociation extends GmLink {
         if (sourceClass != null) {
             return sourceClass;
         }
-        
+
         if (this.oppositeRole == null) {
             return null;
         }
@@ -218,6 +220,7 @@ public class GmAssociation extends GmLink {
      * Get the represented association role.
      * <p>
      * Returns null if the represented role is not in the model.
+     *
      * @return the represented association role.
      */
     @objid ("33ea68ed-55b7-11e2-877f-002564c97630")
@@ -238,6 +241,7 @@ public class GmAssociation extends GmLink {
     }
 
     /**
+     *
      * @return the target side aggregation kind.
      */
     @objid ("33ebef62-55b7-11e2-877f-002564c97630")
@@ -256,6 +260,7 @@ public class GmAssociation extends GmLink {
     }
 
     /**
+     *
      * @return the source side navigability.
      */
     @objid ("33ebef70-55b7-11e2-877f-002564c97630")
@@ -264,6 +269,7 @@ public class GmAssociation extends GmLink {
     }
 
     /**
+     *
      * @return the target side navigability.
      */
     @objid ("33ebef75-55b7-11e2-877f-002564c97630")
@@ -275,20 +281,20 @@ public class GmAssociation extends GmLink {
     @Override
     public void refreshFromObModel() {
         super.refreshFromObModel();
-        
+
         if (this.oppositeRole != null && this.oppositeRole.isValid()) {
             this.toAggregation = this.oppositeRole.getAggregation();
         }
-        
+
         if (this.sourceRole != null && this.sourceRole.isValid()) {
             this.fromAggregation = this.sourceRole.getAggregation();
         }
-        
+
         updateNavigability();
-        
+
         // post change event
         firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, null, this);
-        
+
     }
 
     @objid ("33ebef7d-55b7-11e2-877f-002564c97630")
@@ -296,12 +302,13 @@ public class GmAssociation extends GmLink {
     public void write(IDiagramWriter out) {
         super.write(out);
         out.writeProperty("representedRole", this.roleRef);
-        
+
         writeMinorVersion(out, "GmAssociation.", GmAssociation.MINOR_VERSION);
-        
+
     }
 
     /**
+     *
      * @return the opposite association role.
      */
     @objid ("33ebef83-55b7-11e2-877f-002564c97630")
@@ -333,11 +340,12 @@ public class GmAssociation extends GmLink {
             break;
         }
         }
-        
+
     }
 
     /**
      * Get the represented association role reference.
+     *
      * @return the represented association role reference.
      */
     @objid ("33ebef8f-55b7-11e2-877f-002564c97630")
@@ -360,7 +368,7 @@ public class GmAssociation extends GmLink {
             this.fromNavigable = false;
             this.toNavigable = false;
         }
-        
+
     }
 
     /**
@@ -370,7 +378,7 @@ public class GmAssociation extends GmLink {
     @objid ("90d6879f-3fca-4073-830e-cd8449644688")
     private void read_0(IDiagramReader in) {
         read_1(in);
-        
+
         // Look for an Association lable to migrate... there should be one
         GmDefaultModelElementLabel oldLabel = null;
         for (GmNodeModel extension : this.getExtensions()) {
@@ -379,18 +387,18 @@ public class GmAssociation extends GmLink {
                 break;
             }
         }
-        
+
         if (oldLabel != null) {
             // Create a new label, with the appropriate Gm
             final GmAssociationLabel newLabel = new GmAssociationLabel(getDiagram(), oldLabel.getRepresentedRef());
             addExtension(ExtensionLocation.MiddleSE, IGmLink.ROLE_MAIN_LABEL, newLabel);
             newLabel.setLayoutData(oldLabel.getLayoutData());
-        
+
             // Delete the old association label
             removeExtension(oldLabel);
             oldLabel.delete();
         }
-        
+
     }
 
     /**
@@ -400,7 +408,7 @@ public class GmAssociation extends GmLink {
     @objid ("d4a4f2e1-631c-4582-b525-38f412e71997")
     private void read_1(IDiagramReader in) {
         read_2(in);
-        
+
         for (GmNodeModel n : getExtensions()) {
             String role = n.getRoleInComposition();
             if (role.equals(GmAssociation.ROLE_SRC_CARD) ||
@@ -414,14 +422,14 @@ public class GmAssociation extends GmLink {
                 }
             }
         }
-        
+
     }
 
     @objid ("ffe53908-abd2-4f03-818a-26bd78bf09c6")
     private void read_2(IDiagramReader in) {
         this.roleRef = (MRef) in.readProperty("representedRole");
         this.sourceRole = (AssociationEnd) resolveRef(this.roleRef);
-        
+
         if (this.sourceRole != null) {
             this.oppositeRole = this.sourceRole.getOpposite();
             if (this.oppositeRole != null) {
@@ -429,17 +437,17 @@ public class GmAssociation extends GmLink {
             } else {
                 this.fromAggregation = AggregationKind.KINDISASSOCIATION;
             }
-        
+
             this.toAggregation = this.sourceRole.getAggregation();
-        
+
         } else {
             this.oppositeRole = null;
             this.toAggregation = AggregationKind.KINDISASSOCIATION;
             this.fromAggregation = AggregationKind.KINDISASSOCIATION;
         }
-        
+
         updateNavigability();
-        
+
     }
 
     @objid ("f06bf161-85c7-4290-9590-26149bf2be5a")
@@ -447,7 +455,7 @@ public class GmAssociation extends GmLink {
     protected void read_GmLinkV0_roles() {
         for (GmNodeModel n : getExtensions()) {
             boolean isMainRole = n.getRepresentedRef().equals(this.roleRef);
-        
+
             if (n instanceof GmRoleNameLabel) {
                 if (isMainRole) {
                     n.setRoleInComposition(GmAssociation.ROLE_TARGET_MAIN);
@@ -474,7 +482,7 @@ public class GmAssociation extends GmLink {
                 } else {
                     n.setRoleInComposition(GmAssociation.ROLE_SRC_INFOFLOW_ARROW);
                 }
-        
+
             } else if (n instanceof GmQualifierGroup) {
                 if (isMainRole) {
                     n.setRoleInComposition(GmAssociation.ROLE_TARGET_QUALIF);
@@ -482,9 +490,9 @@ public class GmAssociation extends GmLink {
                     n.setRoleInComposition(GmAssociation.ROLE_SRC_QUALIF);
                 }
             }
-        
+
         }
-        
+
     }
 
 }

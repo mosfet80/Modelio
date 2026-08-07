@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.commonBehaviors;
 
 import java.util.List;
@@ -32,44 +31,44 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 
 @objid ("0042606c-c4bf-1fd8-97fe-001ec947cd2a")
 public class SignalData extends GeneralClassData {
-    @objid ("ee113fb4-92c0-4163-ae2d-90dcaf0280d4")
+    @objid ("1b954941-40a3-4e1c-92df-3c698639f69b")
     Object mIsEvent = false;
 
-    @objid ("accf73ae-718d-43f9-866a-02f5cf6bd61a")
+    @objid ("18eca889-52fd-4e8a-905d-8dd9bdd9a32d")
     Object mIsException = false;
 
-    @objid ("8e1a0746-db71-4ab6-8749-8626d53147d5")
+    @objid ("18b65c3c-efd2-4276-9c03-328188a4cd15")
     List<SmObjectImpl> mSender = null;
 
-    @objid ("d1a24b78-c9dc-4792-a050-57083ac88e0c")
+    @objid ("4bd2ad97-ff9b-4830-817e-bdc59bf9997d")
     List<SmObjectImpl> mUsage = null;
 
-    @objid ("920bb889-5988-4b58-96ce-0d6cbc11e8fd")
+    @objid ("ed4a2e54-e5c9-44cb-a10b-333a393a1389")
     List<SmObjectImpl> mSends = null;
 
-    @objid ("b8829aeb-69ea-424c-87b4-6b8181a3d6bf")
+    @objid ("b798b8c4-edb9-4469-a015-10731c481958")
     SmObjectImpl mPBase;
 
-    @objid ("f7df43dd-f272-4f24-aeb7-929b745b3741")
+    @objid ("da95f3c0-e49e-4b57-a164-af151007e548")
     SmObjectImpl mOBase;
 
-    @objid ("2ae61296-090c-47d3-a323-60d9c33ae95a")
+    @objid ("168f12e7-d21c-4e82-a9dc-66f0d6d60ee7")
     List<SmObjectImpl> mCommunicationUsage = null;
 
-    @objid ("30e326fc-fed1-4c49-8e2e-cc192271a173")
+    @objid ("585fb1f1-9619-4243-8878-0e6a6bff4dc1")
     List<SmObjectImpl> mDOccurence = null;
 
-    @objid ("21c18dfd-b2b2-4db3-9989-6da48e1beed3")
+    @objid ("7e4b50ae-a192-48e3-bdd2-6f068e7b5157")
     List<SmObjectImpl> mEOccurence = null;
 
-    @objid ("ebc8a0cd-f053-463e-9741-9bce0d316040")
+    @objid ("eb547144-d34a-41e4-a39c-8c3e2d455238")
     SmObjectImpl mBase;
 
-    @objid ("b7abfc4c-f8be-4214-8547-1a05da422f20")
+    @objid ("d210444e-eb3c-4cb2-9e77-7462a2d73e5e")
     List<SmObjectImpl> mReceiver = null;
 
-    @objid ("fd7adc4d-7930-42f7-8e1a-64508faafd8f")
-    public  SignalData(SignalSmClass smClass) {
+    @objid ("df32ec92-0be5-4365-840d-3496f38c4fbd")
+    public SignalData(SignalSmClass smClass) {
         super(smClass);
     }
 

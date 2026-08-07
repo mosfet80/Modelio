@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.deploymentdiagram.editor.elements.factories;
 
@@ -52,7 +52,7 @@ public final class DeploymentGmNodeFactory implements IGmNodeFactory {
         if (parent instanceof GmGroup) {
             // Use the label factory visitor
             final GmLabelFactoryVisitor v = new GmLabelFactoryVisitor(diagram, initialLayoutData);
-        
+
             final GmNodeModel child = (GmNodeModel) newElement.accept(v);
             if (child != null) {
                 parent.addChild(child);
@@ -61,7 +61,7 @@ public final class DeploymentGmNodeFactory implements IGmNodeFactory {
         }
         // else Use the node factory visitor
         final NodeFactoryVisitor v = new NodeFactoryVisitor(diagram, initialLayoutData);
-        
+
         final GmNodeModel child = (GmNodeModel) newElement.accept(v);
         if (child != null) {
             parent.addChild(child);
@@ -73,9 +73,9 @@ public final class DeploymentGmNodeFactory implements IGmNodeFactory {
     @Override
     public Class<? extends IPersistent> resolveClass(String namespace) {
         try {
-        
+
             String fixedNamespace = migrateNamespace(namespace);
-        
+
             if (fixedNamespace.startsWith("org.modelio.uml.deploymentdiagram.editor")) {
                 Class<?> clazz = Class.forName(fixedNamespace);
                 if (clazz != null) {
@@ -93,7 +93,7 @@ public final class DeploymentGmNodeFactory implements IGmNodeFactory {
     public Class<? extends IPersistentMigrator> resolveMigratorClass(String classNamespace) {
         try {
             String fixedNamespace = migrateNamespace(classNamespace);
-        
+
             Class<?> clazz = Class.forName(fixedNamespace);
             if (clazz != null) {
                 return clazz.asSubclass(IPersistentMigrator.class);
@@ -109,7 +109,7 @@ public final class DeploymentGmNodeFactory implements IGmNodeFactory {
     public Class<? extends Enum<?>> resolveEnumClass(String enumNamespace) {
         try {
             String fixedNamespace = migrateNamespace(enumNamespace);
-        
+
             Class<?> clazz = Class.forName(fixedNamespace);
             if (clazz != null && clazz.isEnum()) {
                 return (Class<? extends Enum<?>>) clazz;
@@ -141,10 +141,10 @@ public final class DeploymentGmNodeFactory implements IGmNodeFactory {
         private Object initialLayoutData;
 
         @objid ("972e33f1-55b6-11e2-877f-002564c97630")
-        public  GmLabelFactoryVisitor(IGmDiagram diagram, Object initialLayoutData) {
+        public GmLabelFactoryVisitor(IGmDiagram diagram, Object initialLayoutData) {
             this.diagram = diagram;
             this.initialLayoutData = initialLayoutData;
-            
+
         }
 
     }
@@ -161,10 +161,10 @@ public final class DeploymentGmNodeFactory implements IGmNodeFactory {
         private Object initialLayoutData;
 
         @objid ("972cad7c-55b6-11e2-877f-002564c97630")
-        public  NodeFactoryVisitor(IGmDiagram diagram, Object initialLayoutData) {
+        public NodeFactoryVisitor(IGmDiagram diagram, Object initialLayoutData) {
             this.diagram = diagram;
             this.initialLayoutData = initialLayoutData;
-            
+
         }
 
         @objid ("972e33d9-55b6-11e2-877f-002564c97630")

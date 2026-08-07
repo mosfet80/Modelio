@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.vstore.jdbm.index;
 
@@ -54,13 +73,14 @@ class CrossRefsIndex {
 
     /**
      * Initialize the index.
+     *
      * @param db the JDBM database.
      * @param symbolTable the string symbols table
      * @throws IOException if the index is broken
      */
     @objid ("ce809f78-5eb3-46ee-983d-a6f234e041b9")
     @SuppressWarnings("unchecked")
-    public  CrossRefsIndex(final RecordManager db, StringTable symbolTable) throws IOException {
+    public CrossRefsIndex(final RecordManager db, StringTable symbolTable) throws IOException {
         this.symbolTable = symbolTable;
         try {
             UseEntrySerializer keySerializer = new UseEntrySerializer();
@@ -70,31 +90,36 @@ class CrossRefsIndex {
         } catch (IOError e) {
             throw new IOException(e);
         }
-        
     }
 
     @objid ("c55306ae-2b8a-44c3-8a79-da22f94bf57c")
     public Collection<MRef> getSources(String depName, final MRef targetObjId) throws IOException {
         try {
-            Long depId = this.symbolTable.findKey(depName);
-            if (depId==null) {
+            Long depId ;
+            if (depName == null) {
+                depId = -1L;
+            } else {
+                depId = this.symbolTable.findKey(depName);
+            }
+
+            if (depId == null) {
                 return Collections.emptyList();
             }
-            
+
             //Note: don't use isEmpty() or size() on 'found', they iterate the whole map
             SortedMap<UseEntry, Boolean> found = subMap(this.users, targetObjId, depId);
-            
+
             if (! found.entrySet().iterator().hasNext()) {
                 return Collections.emptyList();
-            } 
-        
+            }
+
             Collection<MRef> ret = new ArrayList<>();
             found.forEach((k,v) -> {
                 ret.add(k.srcCmsNodeId);
             } );
-            
+
             return ret;
-            
+
         } catch (InternalError e) {
             throw new IOException(e);
         } catch (IOError e) {
@@ -103,41 +128,38 @@ class CrossRefsIndex {
             dumpUsers(System.err);
             throw e;
         }
-        
     }
 
     @objid ("3ba2dbe1-c0fe-445a-9b44-7c32f8739151")
     public void addUse(final MRef sourceRef, String depName, final MRef targetRef) throws IOException {
         try {
             long depLid = this.symbolTable.getOrAddKey(depName);
-            
+
             this.users.put(new UseEntry(sourceRef, depLid, targetRef), Boolean.TRUE);
         } catch (InternalError e) {
             throw new IOException(e);
         } catch (IOError e) {
             throw new IOException(e);
         }
-        
     }
 
     @objid ("30bc64a2-094d-4756-b871-3bba6dc353c0")
     private void dumpUsers(final PrintStream out) {
         /*
-        out.println("Users CMS nodes index dump:");
-        for (Entry<UseEntry, Boolean>  en: this.users.entrySet()) {
-            UseEntry k = en.getKey();
-            out.println(" - "+k+" used by:");
-            for (MRef  user: en.getValue().get(this.db, this.idCollSerializer)) {
-                out.println("   - "+user);
-            }
-        }*/
-        
+                out.println("Users CMS nodes index dump:");
+                for (Entry<UseEntry, Boolean>  en: this.users.entrySet()) {
+                    UseEntry k = en.getKey();
+                    out.println(" - "+k+" used by:");
+                    for (MRef  user: en.getValue().get(this.db, this.idCollSerializer)) {
+                        out.println("   - "+user);
+                    }
+                }*/
     }
 
     @objid ("a73e1b02-9067-4c58-9980-26bba945084e")
     private static SortedMap<UseEntry, Boolean> subMap(SortedMap<UseEntry, Boolean> from, MRef nodeId, long depId) {
         SortedMap<UseEntry, Boolean> ret = from.subMap(
-                new UseEntry(UseEntry.MIN, (depId == -1 ? Long.MIN_VALUE : depId), nodeId), 
+                new UseEntry(UseEntry.MIN, (depId == -1 ? Long.MIN_VALUE : depId), nodeId),
                 new UseEntry(UseEntry.MAX, (depId == -1 ? Long.MAX_VALUE : depId), nodeId));
         return ret;
     }
@@ -154,7 +176,6 @@ class CrossRefsIndex {
         } catch (IOError e) {
             throw new IOException(e);
         }
-        
     }
 
     /**
@@ -164,6 +185,7 @@ class CrossRefsIndex {
      * from the source object to the target.
      * <p>
      * UseEntry are sorted in order by: the target then the dependency id then the source.
+     *
      * @author cma
      * @since 3.6.1
      */
@@ -200,13 +222,12 @@ class CrossRefsIndex {
         public static final MRef MAX = new MRef(String.valueOf(Character.MAX_VALUE), String.valueOf(Character.MAX_VALUE), String.valueOf(Character.MAX_VALUE));
 
         @objid ("204d0b90-17cb-4d5b-95fb-8869774b28e7")
-        public  UseEntry(MRef srcId, long depId, MRef targetId) {
+        public UseEntry(MRef srcId, long depId, MRef targetId) {
             super();
-            
+
             this.srcCmsNodeId = srcId;
             this.depId = depId;
             this.targetObjectId = targetId;
-            
         }
 
         @objid ("1c00436f-da19-4e54-bf90-404170d995d6")
@@ -263,11 +284,11 @@ class CrossRefsIndex {
         @Override
         public int compareTo(UseEntry o2) {
             int c = compare(this.targetObjectId , o2.targetObjectId);
-            
+
             if (c==0) {
                 c = Long.compare(this.depId , o2.depId);
             }
-            
+
             if (c==0) {
                 c = compare(this.srcCmsNodeId , o2.srcCmsNodeId);
             }
@@ -291,11 +312,10 @@ class CrossRefsIndex {
             assert (obj.srcCmsNodeId!=UseEntry.MAX);
             assert (obj.targetObjectId!=UseEntry.MIN);
             assert (obj.targetObjectId!=UseEntry.MAX);
-            
+
             MRefSerializer.instance.serialize(out, obj.srcCmsNodeId);
             out.writeLong(obj.depId);
             MRefSerializer.instance.serialize(out, obj.targetObjectId);
-            
         }
 
         @objid ("f75369dd-54a7-4f30-a3b2-4114a78bddc1")

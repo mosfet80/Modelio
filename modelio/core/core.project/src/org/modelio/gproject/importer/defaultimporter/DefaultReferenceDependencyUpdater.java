@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.importer.defaultimporter;
 
@@ -47,17 +47,18 @@ public class DefaultReferenceDependencyUpdater implements IDependencyUpdater {
     private final IObjectFinder objectFinder;
 
     /**
+     *
      * @param brokenDependencyHandler the broken link objects handler
      * @param objectFinder the object finder
      * @param localSession the local session
      */
     @objid ("008c9128-e7d6-1090-8d81-001ec947cd2a")
-    public  DefaultReferenceDependencyUpdater(IBrokenDependencyHandler brokenDependencyHandler, IObjectFinder objectFinder, ICoreSession localSession) {
+    public DefaultReferenceDependencyUpdater(IBrokenDependencyHandler brokenDependencyHandler, IObjectFinder objectFinder, ICoreSession localSession) {
         super();
         this.brokenDependencyHandler = brokenDependencyHandler;
         this.objectFinder = objectFinder;
         this.localSession = localSession;
-        
+
     }
 
     @objid ("007be2b0-d3aa-108f-8d81-001ec947cd2a")
@@ -67,17 +68,17 @@ public class DefaultReferenceDependencyUpdater implements IDependencyUpdater {
         if (localDep != null) {
             // Get the dep values in the reference model
             List<MObject> refValues = refObject.mGet(smDep);
-        
+
             // Find the equivalent values in the local model
             List<SmObjectImpl> equivalentLocalValues = getEquivalentLocalValues(refValues);
-        
+
             // If some values could not be found locally, the dependency will be 'broken' after the import and will require some
             // repairing...
             if (equivalentLocalValues.size() != refValues.size()) {
                 // Publish the broken dep values
                 fireBrokenDepValues(refObject, refValues, smDep, localObject, equivalentLocalValues);
             }
-        
+
             // Update the local dep values according to the reference values
             updateDependency(localObject, localDep, equivalentLocalValues, refValues);
         } else {
@@ -89,7 +90,7 @@ public class DefaultReferenceDependencyUpdater implements IDependencyUpdater {
     @objid ("007c8238-d3aa-108f-8d81-001ec947cd2a")
     protected List<SmObjectImpl> getEquivalentLocalValues(List<MObject> refValues) {
         List<SmObjectImpl> equivalentLocalValues = new ArrayList<>();
-        
+
         // Get new dependencies values and find them in the destination model
         for (MObject refDepVal : refValues) {
             if (refDepVal != null) {
@@ -114,27 +115,27 @@ public class DefaultReferenceDependencyUpdater implements IDependencyUpdater {
         if (!setEqual(refValues, localValues, localDep.isOrdered())) {
             // Clean old content
             localValues.clear();
-        
+
             // Replace by values from the reference model
             for (SmObjectImpl obj : equivalentLocalValues) {
                 localObject.appendDepVal(localDep, obj);
             }
         }
-        
+
     }
 
     @objid ("008cfec4-e7d6-1090-8d81-001ec947cd2a")
     private void fireBrokenDepValues(SmObjectImpl refObject, List<MObject> refValues, SmDependency smDep, SmObjectImpl localObject, List<SmObjectImpl> equivalentLocalValues) {
         // SmDependency localDep = this.objectFinder.getSameDependency(smDep);
-        
+
         for (MObject refVal : refValues) {
             if (!equivalentLocalValues.contains(refVal)) {
                 this.brokenDependencyHandler.handleBrokenDep(new BrokenDepReport(refObject, localObject, smDep,
                         (SmObjectImpl) refVal));
-        
+
             }
         }
-        
+
     }
 
     @objid ("007c2e50-d3aa-108f-8d81-001ec947cd2a")
@@ -142,7 +143,7 @@ public class DefaultReferenceDependencyUpdater implements IDependencyUpdater {
         if (a.size() != b.size()) {
             return false;
         }
-        
+
         if (!ordered) {
             // Ordering does not matter
             for (Object object : a) {

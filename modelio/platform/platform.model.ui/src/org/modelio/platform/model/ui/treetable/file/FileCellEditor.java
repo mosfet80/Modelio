@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.treetable.file;
 
@@ -42,21 +42,20 @@ public class FileCellEditor extends EditableDialogCellEditor {
     private String[] filterExtensions;
 
     @objid ("e061b9b3-8dd1-42f2-bdf1-661b95299d7b")
-    public  FileCellEditor(Composite parent, String[] filterNames, String[] filterExtensions) {
+    public FileCellEditor(Composite parent, String[] filterNames, String[] filterExtensions) {
         super(parent);
         this.filterNames = filterNames;
         this.filterExtensions = filterExtensions;
-        
     }
 
     @objid ("70d2adc3-04bb-43a6-ae38-1f25b42409aa")
     @Override
     protected Object openDialogBox(Control cellEditorWindow) {
         FileDialog dialog = new FileDialog(Display.getDefault().getActiveShell(), SWT.OPEN);
-        
+
         dialog.setFilterNames(this.filterNames);
         dialog.setFilterExtensions(this.filterExtensions);
-        
+
         String file = dialog.open();
         return file;
     }
@@ -78,7 +77,6 @@ public class FileCellEditor extends EditableDialogCellEditor {
     protected void configureText(Composite parent, Text text) {
         super.configureText(parent, text);
         text.setEditable(true);
-        
     }
 
 }

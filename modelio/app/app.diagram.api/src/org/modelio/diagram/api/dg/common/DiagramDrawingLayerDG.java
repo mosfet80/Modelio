@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.api.dg.common;
 
@@ -50,14 +50,15 @@ public class DiagramDrawingLayerDG extends DiagramAbstractNode implements IDiagr
 
     /**
      * C'tor
+     *
      * @param diagramHandle the diagram handle
      * @param gm the graphic model
      */
     @objid ("7b402cfd-4d0e-4b82-baf0-f9f8a9f8a621")
-    public  DiagramDrawingLayerDG(DiagramHandle diagramHandle, IGmDrawingLayer gm) {
+    public DiagramDrawingLayerDG(DiagramHandle diagramHandle, IGmDrawingLayer gm) {
         super(diagramHandle);
         this.gm = gm;
-        
+
     }
 
     @objid ("95c2f64f-3e3f-446e-8985-4e88a9f1ec39")
@@ -133,11 +134,11 @@ public class DiagramDrawingLayerDG extends DiagramAbstractNode implements IDiagr
     @Override
     public String getName() {
         final IGmDiagram diagram = this.gm.getDiagram();
-        
+
         if (this.gm == diagram.getBackgroundDrawingLayer()) {
             return IDiagramDrawingsLayer.BACKGROUND;
         }
-        
+
         final List<IGmDrawingLayer> layers = diagram.getDrawingLayers();
         final int indexOf = layers.indexOf(this.gm);
         if (!layers.isEmpty() && indexOf == layers.size() - 1) {
@@ -182,7 +183,7 @@ public class DiagramDrawingLayerDG extends DiagramAbstractNode implements IDiagr
         default:
             return Collections.emptyList();
         }
-        
+
     }
 
 }

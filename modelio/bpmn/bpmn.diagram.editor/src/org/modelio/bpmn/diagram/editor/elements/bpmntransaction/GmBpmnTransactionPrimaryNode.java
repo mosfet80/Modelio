@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmntransaction;
 
@@ -79,34 +79,35 @@ public class GmBpmnTransactionPrimaryNode extends GmNoStyleCompositeNode impleme
 
     /**
      * Default constructor.
+     *
      * @param diagram the diagram in which this gm is unmasked.
      * @param relatedRef ref
      */
     @objid ("61dc4d20-55b6-11e2-877f-002564c97630")
-    public  GmBpmnTransactionPrimaryNode(IGmDiagram diagram, MRef relatedRef) {
+    public GmBpmnTransactionPrimaryNode(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
         this.header = new GmBpmnNodeHeader(diagram, relatedRef, false);
         this.footer = new GmBpmnNodeFooter(diagram, relatedRef);
-        
+
         this.header.setRoleInComposition(GmBpmnSubProcessPrimaryNode.ROLE_HEADER);
         this.footer.setRoleInComposition(GmBpmnSubProcessPrimaryNode.ROLE_FOOTER);
-        
+
         super.addChild(this.header);
-        
+
         this.body = createBody();
         if (this.body != null) {
             super.addChild(this.body);
         }
-        
+
         super.addChild(this.footer);
-        
+
     }
 
     /**
      * Empty constructor, needed for serialisation.
      */
     @objid ("61ddd386-55b6-11e2-877f-002564c97630")
-    public  GmBpmnTransactionPrimaryNode() {
+    public GmBpmnTransactionPrimaryNode() {
         // empty constructor for the serialization
     }
 
@@ -118,7 +119,7 @@ public class GmBpmnTransactionPrimaryNode extends GmNoStyleCompositeNode impleme
         } else {
             super.addChild(child);
         }
-        
+
     }
 
     @objid ("61ddd389-55b6-11e2-877f-002564c97630")
@@ -149,6 +150,7 @@ public class GmBpmnTransactionPrimaryNode extends GmNoStyleCompositeNode impleme
     }
 
     /**
+     *
      * @return the structured inner zone.
      */
     @objid ("61df5a28-55b6-11e2-877f-002564c97630")
@@ -186,7 +188,7 @@ public class GmBpmnTransactionPrimaryNode extends GmNoStyleCompositeNode impleme
         default:
             return super.getVisibleChildren();
         }
-        
+
     }
 
     @objid ("61ddd3b6-55b6-11e2-877f-002564c97630")
@@ -210,39 +212,39 @@ public class GmBpmnTransactionPrimaryNode extends GmNoStyleCompositeNode impleme
             break;
         }
         }
-        
+
     }
 
     @objid ("61df5a1c-55b6-11e2-877f-002564c97630")
     @Override
     public void refreshFromObModel() {
         super.refreshFromObModel();
-        
+
         if (this.body == null) {
             this.body = createBody();
             if (this.body != null) {
                 super.addChild(this.body);
             }
         }
-        
+
         String oldLabel = this.header.getMainLabel();
         this.header.refreshFromObModel();
         if (getRelatedElement() != null && getRelatedElement().isValid()) {
             firePropertyChange(IGmObject.PROPERTY_LABEL, oldLabel, this.header.getMainLabel());
             firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, null, getRelatedElement().isTriggeredByEvent());
-        
+
             if (getRelatedElement().isIsForCompensation()) {
                 this.footer.setCompensation(true);
             } else {
                 this.footer.setCompensation(false);
             }
-        
+
             if (getRelatedElement().getLoopCharacteristics() instanceof BpmnStandardLoopCharacteristics) {
                 this.footer.setLoop(true);
             } else {
                 this.footer.setLoop(false);
             }
-        
+
             if (getRelatedElement().getLoopCharacteristics() instanceof BpmnMultiInstanceLoopCharacteristics) {
                 BpmnMultiInstanceLoopCharacteristics loop = (BpmnMultiInstanceLoopCharacteristics) getRelatedElement().getLoopCharacteristics();
                 if (loop.isIsSequencial()) {
@@ -260,28 +262,28 @@ public class GmBpmnTransactionPrimaryNode extends GmNoStyleCompositeNode impleme
         this.footer.refreshFromObModel();
         // forcing visual refresh in case Image changed
         firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("5bc5bea1-f0ca-4d8a-8a32-a44db4dc6f52")
     @Override
     public void styleChanged(StyleKey property, Object newValue) {
         super.styleChanged(property, newValue);
-        
+
         if (GmBpmnSubProcessStructuredStyleKeys.SHOWCONTENT.equals(property)) {
             fireChildVisibilityChanged(getFirstChild(GmBpmnSubProcessPrimaryNode.ROLE_BODY));
         }
-        
+
     }
 
     @objid ("61df5a38-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmBpmnTransactionPrimaryNode.", GmBpmnTransactionPrimaryNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("2695db02-0130-49e3-b37c-7d233d9d5fc5")
@@ -304,12 +306,12 @@ public class GmBpmnTransactionPrimaryNode extends GmNoStyleCompositeNode impleme
         super.read(in);
         this.header = (GmBpmnNodeHeader) getFirstChild(GmBpmnSubProcessPrimaryNode.ROLE_HEADER);
         this.footer = (GmBpmnNodeFooter) getFirstChild(GmBpmnSubProcessPrimaryNode.ROLE_FOOTER);
-        
+
         GmDefaultModelElementLabel imageModeHeader = (GmDefaultModelElementLabel) this.getChildren().get(3);
         imageModeHeader.delete();
-        
+
         this.body = (GmBpmnSubProcessContent) getFirstChild(GmBpmnSubProcessPrimaryNode.ROLE_BODY);
-        
+
     }
 
     @objid ("61df5a48-55b6-11e2-877f-002564c97630")
@@ -318,7 +320,7 @@ public class GmBpmnTransactionPrimaryNode extends GmNoStyleCompositeNode impleme
         this.header = (GmBpmnNodeHeader) getFirstChild(GmBpmnSubProcessPrimaryNode.ROLE_HEADER);
         this.footer = (GmBpmnNodeFooter) getFirstChild(GmBpmnSubProcessPrimaryNode.ROLE_FOOTER);
         this.body = (GmBpmnSubProcessContent) getFirstChild(GmBpmnSubProcessPrimaryNode.ROLE_BODY);
-        
+
     }
 
 }

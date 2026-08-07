@@ -1,32 +1,34 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.browser.view.handlers.create;
 
+import java.io.IOException;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.services.IServiceConstants;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.modelio.metamodel.mmextensions.infrastructure.ElementNotUniqueException;
 import org.modelio.metamodel.mmextensions.standard.services.IMModelServices;
@@ -37,8 +39,13 @@ import org.modelio.model.browser.view.plugin.BrowserViewActivator;
 import org.modelio.platform.model.ui.swt.SelectionHelper;
 import org.modelio.platform.project.services.IProjectService;
 import org.modelio.platform.ui.panel.IPanelProvider;
+import org.modelio.platform.ui.swt.DefaultShellProvider;
+import org.modelio.vbasic.files.FileUtils;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.transactions.ITransaction;
+import org.modelio.vcore.session.api.transactions.TransactionException;
+import org.modelio.vcore.smkernel.AccessDeniedException;
+import org.modelio.vcore.smkernel.IllegalModelManipulationException;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MDependency;
 import org.modelio.vcore.smkernel.mapi.MObject;
@@ -61,24 +68,24 @@ public abstract class AbstractCreateElementHandler {
         if (this.projectService.getSession() == null) {
             return false;
         }
-        
+
         // Find metaclass
         MClass metaclass = getMetaclass(metaclassName);
         if (metaclass == null) {
             return false;
         }
-        
+
         MObject selectedOwner = getNewElementOwner(selection, metaclass, mmServices);
         if (selectedOwner == null) {
             return false;
         }
-        
+
         // Find dependency
         MDependency dependency = getDependency(dependencyName, selectedOwner);
         if (dependency == null) {
             return false;
         }
-        
+
         // Find stereotype
         Stereotype stereotype = null;
         if (stereotypeName != null && !stereotypeName.isEmpty()) {
@@ -102,27 +109,27 @@ public abstract class AbstractCreateElementHandler {
         if (this.projectService.getSession() == null) {
             return;
         }
-        
+
         // Find metaclass
         MClass metaclass = getMetaclass(metaclassName);
         if (metaclass == null) {
             return;
         }
-        
+
         MObject selectedOwner = getNewElementOwner(selection, metaclass, mmServices);
         if (selectedOwner == null) {
             return;
         }
-        
+
         // Find dependency
         MDependency dependency = getDependency(dependencyName, selectedOwner);
         if (dependency == null) {
             return;
         }
-        
+
         // Find stereotype
         Stereotype stereotype = null;
-        
+
         final ICoreSession session = this.projectService.getSession();
         if (stereotypeName != null && !stereotypeName.isEmpty()) {
             try {
@@ -133,9 +140,9 @@ public abstract class AbstractCreateElementHandler {
             }
         }
         try (ITransaction t = session.getTransactionSupport().createTransaction("create " + metaclassName)) {
-        
+
             MObject newElement = doCreate(selectedOwner, metaclass, dependency, stereotype, mmServices);
-        
+
             if (newElement != null) {
                 postCreationStep(newElement, mmServices);
                 t.commit();
@@ -143,11 +150,13 @@ public abstract class AbstractCreateElementHandler {
                 AbstractCreateElementHandler.selectAndEditInBrowser(part, newElement);
             } else {
                 logFailure(metaclassName, dependencyName, selectedOwner, null);
+                displayFailure(metaclassName, dependencyName, selectedOwner, new IllegalStateException("The creation service returned no element."));
             }
         } catch (Exception e) {
             logFailure(metaclassName, dependencyName, selectedOwner, e);
+            displayFailure(metaclass.getName(), dependencyName, selectedOwner, e);
+
         }
-        
     }
 
     @objid ("00667542-9025-1006-9c1d-001ec947cd2a")
@@ -175,6 +184,7 @@ public abstract class AbstractCreateElementHandler {
      * May return <code>null</code> in which case the command is not available.
      * <p>
      * Default implementation returns the selected element. May be redefined by sub classes.
+     *
      * @param selection the E4 selection. By default only {@link MObject} and {@link IStructuredSelection} are supported.
      * @param metaclass the metaclass of the element to create
      * @return the element that must be the owner of the created element
@@ -193,12 +203,11 @@ public abstract class AbstractCreateElementHandler {
     @objid ("0067631c-9025-1006-9c1d-001ec947cd2a")
     private static void selectAndEditInBrowser(MPart part, MObject elementToSelect) {
         assert (part.getObject() instanceof BrowserView) : "Handler used on a part other than BrowserView!";
-        
+
         IPanelProvider view = ((BrowserView) part.getObject()).getContributedPanel();
         if (view instanceof IElementNameEditor) {
             ((IElementNameEditor) view).edit(elementToSelect);
         }
-        
     }
 
     @objid ("00677cb2-9025-1006-9c1d-001ec947cd2a")
@@ -217,7 +226,35 @@ public abstract class AbstractCreateElementHandler {
         if (exception != null) {
             BrowserViewActivator.LOG.error(exception);
         }
-        
+    }
+
+    @objid ("5f89ba80-1905-472f-8640-a3faac4d18e9")
+    private void displayFailure(final String metaclassName, final String dependencyName, MObject selectedOwner, Throwable exception) {
+        String excMessage ;
+
+        try {
+            throw exception;
+        } catch (IOException e) {
+            excMessage = FileUtils.getLocalizedMessage(e);
+        } catch (AccessDeniedException | TransactionException e) {
+            excMessage = e.getLocalizedMessage();
+        } catch (IllegalModelManipulationException e) {
+            // The model shield dialog has already been displayed.
+            return;
+        } catch (RuntimeException e) {
+            // Don't display technical exceptions to users, but log them instead.
+            excMessage = null;
+        } catch (Throwable e) {
+            excMessage = e.getLocalizedMessage();
+        }
+
+        if (excMessage == null || excMessage.isEmpty()) {
+            excMessage = BrowserViewActivator.I18N.getMessage("AbstractCreateElementHandler.unexpectedError");
+        }
+
+        MessageDialog.openError(DefaultShellProvider.getBestParentShell(),
+                BrowserViewActivator.I18N.getMessage("AbstractCreateElementHandler.creationFailed.title"),
+                BrowserViewActivator.I18N.getMessage("AbstractCreateElementHandler.creationFailed.message", metaclassName, selectedOwner.getName(), excMessage));
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.creation.wizard.dialog.treeview;
 
@@ -50,10 +50,10 @@ public class ContributorCategoryModel {
     private static final Image DEFAULT_MATRIX_IMAGE = ContributorCategoryModel.getCategoryIcon("icons/matrix.png");
 
     @objid ("d151760b-f7b5-4c6b-accf-971100c3416b")
-    public  ContributorCategoryModel(Map<ContributorCategory, List<IWizardContributor>> contributorsMap) {
+    public ContributorCategoryModel(Map<ContributorCategory, List<IWizardContributor>> contributorsMap) {
         super();
         this.categories = createCategories(contributorsMap);
-        
+
     }
 
     @objid ("3a322dc8-4d3d-4531-8376-3e57387ffa17")
@@ -61,14 +61,14 @@ public class ContributorCategoryModel {
         this.categories = new ArrayList<>();
         for (Map.Entry<ContributorCategory, List<IWizardContributor>> entry : contributorsMap.entrySet()) {
             ContributorCategory key = entry.getKey();
-        
+
             // Build a new category, or reuse an existing one having the same label
             Category category = getCategoryByLabel(this.categories, key.getLabel());
             if (category == null) {
                 category = new Category(key.getLabel(), key.getIcon());
                 this.categories.add(category);
             }
-        
+
             category.getContributors().addAll(entry.getValue());
         }
         return this.categories;

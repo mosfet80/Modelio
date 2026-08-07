@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.decisionmerge;
 
@@ -27,7 +27,7 @@ import org.modelio.diagram.elements.common.portcontainer.PortContainerFigure;
 
 /**
  * Specialization of the {@link PortContainerFigure} that draws a dash line between the Input Behaviour figure (when it is present) and the main node.
- * 
+ *
  * @author fpoyer
  */
 @objid ("2a3b45bb-55b6-11e2-877f-002564c97630")
@@ -50,7 +50,7 @@ public class DecisionMergePortContainerFigure extends PortContainerFigure {
             graphics.drawLine(this.inputBehaviourFigure.getBounds().getCenter(),
                     this.mainNodeFigure.getBounds().getCenter());
         }
-        
+
     }
 
     @objid ("2a3b45c5-55b6-11e2-877f-002564c97630")
@@ -74,7 +74,7 @@ public class DecisionMergePortContainerFigure extends PortContainerFigure {
     public void setMainNodeFigure(IFigure mainNodeFigure) {
         super.setMainNodeFigure(mainNodeFigure);
         this.mainNodeFigure = mainNodeFigure;
-        
+
     }
 
 }

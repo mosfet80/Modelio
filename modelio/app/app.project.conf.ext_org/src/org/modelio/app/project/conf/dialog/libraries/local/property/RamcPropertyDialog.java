@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.conf.dialog.libraries.local.property;
 
@@ -46,12 +46,12 @@ public class RamcPropertyDialog extends ModelioDialog {
     private final ProjectModel projectAdapter;
 
     @objid ("ad3c4972-106a-4134-912a-d5acbc6863d9")
-    public  RamcPropertyDialog(final Shell parentShell, final IModelComponentInfos fragmentInfos, final ProjectModel projectAdapter) {
+    public RamcPropertyDialog(final Shell parentShell, final IModelComponentInfos fragmentInfos, final ProjectModel projectAdapter) {
         super(parentShell);
         this.fragmentInfos = fragmentInfos;
         this.projectAdapter = projectAdapter;
         setShellStyle(SWT.MODELESS | SWT.DIALOG_TRIM | SWT.RESIZE);
-        
+
     }
 
     @objid ("4d7ee709-7b44-4618-89b2-7edd1aebc843")
@@ -61,7 +61,7 @@ public class RamcPropertyDialog extends ModelioDialog {
                 IDialogConstants.CANCEL_ID,
                 AppProjectConfExt.I18N.getString("RamcPropertyDialog.Close"),
                 true);
-        
+
     }
 
     @objid ("965579fc-5106-414f-931b-8ac45f16c2db")
@@ -70,7 +70,7 @@ public class RamcPropertyDialog extends ModelioDialog {
         final Composite area = new Composite(parent, SWT.NONE);
         area.setLayoutData(new GridData(GridData.FILL_BOTH));
         area.setLayout(new FillLayout());
-        
+
         new RamcPropertyComposite(area, SWT.NONE, this.fragmentInfos, this.projectAdapter);
         return area;
     }
@@ -79,17 +79,17 @@ public class RamcPropertyDialog extends ModelioDialog {
     @Override
     public void init() {
         setLogoImage(null);
-        
+
         getShell().setText(AppProjectConfExt.I18N.getString("RamcPropertyDialog.ViewRamcDialogTitle"));
         setTitle(AppProjectConfExt.I18N.getString("RamcPropertyDialog.ViewRamcDialogTitle"));
         this.setMessage(AppProjectConfExt.I18N.getString("RamcPropertyDialog.ViewRamcMessage"));
-        
+
         final Point parentLocation = getShell().getParent().getLocation();
-        
+
         getShell().setLocation(parentLocation.x + 300, parentLocation.y + 200);
         getShell().setSize(600, 800);
         getShell().setMinimumSize(500, 550);
-        
+
     }
 
     @objid ("c39397bf-0851-4346-8141-741cede1c291")

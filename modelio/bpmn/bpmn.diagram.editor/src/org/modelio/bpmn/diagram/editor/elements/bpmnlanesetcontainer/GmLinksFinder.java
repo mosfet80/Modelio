@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnlanesetcontainer;
 
@@ -42,6 +42,7 @@ import org.modelio.diagram.elements.core.node.GmNodeModel;
 @objid ("0c1beb8e-ce2d-4796-8144-4904d8ee2e3e")
 class GmLinksFinder {
     /**
+     *
      * @param nodes a collection containing node models
      * @return the set that will be filled with found links
      */
@@ -61,22 +62,22 @@ class GmLinksFinder {
                 graphWalker.accept(child);
             }
         }
-        
+
         List<IGmLink> links = ep.getStartingLinks();
         for (IGmLink link : links) {
             if (isLinkToInclude(link, operationSet) && linkEditParts.add(link)) {
                 graphWalker.accept(link);
             }
         }
-        
+
         links = ep.getEndingLinks();
         for (IGmLink link : links) {
             if (isLinkToInclude(link, operationSet) && linkEditParts.add(link)) {
                 graphWalker.accept(link);
             }
-        
+
         }
-        
+
     }
 
     @objid ("9ac2f239-ab88-4424-8ac9-7266b290b739")
@@ -84,7 +85,7 @@ class GmLinksFinder {
         // initialize a current roots list from the passed root elements
         final Set<A> traversed = new HashSet<>();
         final Deque<A> queue = new ArrayDeque<>(roots);
-        
+
         // Loop until there is no root nodes
         while (!queue.isEmpty()) {
             A o = queue.poll();
@@ -93,9 +94,9 @@ class GmLinksFinder {
                     queue.add(n);
                 }
             });
-        
+
         }
-        
+
     }
 
     @objid ("978fe165-44ed-453a-8a21-1c0c2e528146")
@@ -108,7 +109,7 @@ class GmLinksFinder {
                     linkSource);
             boolean targetInSet = linkTarget == null || isAncestorContainedIn(operationSet,
                     linkTarget);
-        
+
             if (sourceInSet && targetInSet) {
                 return true;
             }
@@ -120,7 +121,7 @@ class GmLinksFinder {
     private static boolean isAncestorContainedIn(Collection<? extends IGmLinkable> operationSet, IGmLinkable linkTarget) {
         if (operationSet.contains(linkTarget))
             return true;
-        
+
         if (linkTarget instanceof GmModel) {
             GmModel parent = ((GmModel) linkTarget).getParent();
             if (parent instanceof IGmLinkable)

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -37,23 +37,23 @@ public class ODataFlow extends OModelElement {
     }
 
     @objid ("e49cd970-f4f8-4d38-9ac0-ec4e9aeeae4b")
-    public  ODataFlow(DataFlow element) {
+    public ODataFlow(DataFlow element) {
         super(element);
         this.objingElement = element;
-        
+
     }
 
     @objid ("c030afdd-d20f-45e2-9c75-7321cfe3643c")
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
-                
+
         NameSpace objingOrigin = this.objingElement.getOrigin();
-                
+
         if (objingOrigin != null) {
             org.eclipse.uml2.uml.NamedElement ecoreOrigin = (org.eclipse.uml2.uml.NamedElement) genProp
                     .getMappedElement(objingOrigin);
-                
+
             if (ecoreOrigin != null) {
                 org.eclipse.uml2.uml.Package ecorePkg = ecoreOrigin.getNearestPackage();
                 ecorePkg.getPackagedElements().add((org.eclipse.uml2.uml.PackageableElement)ecoreElt);
@@ -61,7 +61,7 @@ public class ODataFlow extends OModelElement {
                         ecoreOrigin);
             }
         }
-        
+
     }
 
     @objid ("6629e907-efba-46b6-aa79-571088b87615")
@@ -69,24 +69,24 @@ public class ODataFlow extends OModelElement {
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
         setDestinationElement((org.eclipse.uml2.uml.InformationFlow) ecoreElt);
-        
+
     }
 
     @objid ("938e776c-2d35-4e0c-b4ba-a6b885a977ad")
     private void setDestinationElement(org.eclipse.uml2.uml.InformationFlow ecoreIF) {
         GenerationProperties genProp = GenerationProperties.getInstance();
-                
+
         NameSpace objingDestination = this.objingElement.getDestination();
-                
+
         if (objingDestination != null) {
             org.eclipse.uml2.uml.NamedElement ecoreDestination = (org.eclipse.uml2.uml.NamedElement) genProp
                     .getMappedElement(objingDestination);
-                
+
             if (ecoreDestination != null)
                 ecoreIF.getInformationTargets().add(
                         ecoreDestination);
         }
-        
+
     }
 
 }

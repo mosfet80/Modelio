@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -33,11 +33,11 @@ public class OComponentRealization extends OModelElement {
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE
                                         .createComponentRealization();
-        
+
     }
 
     @objid ("19f86469-22e0-4cba-8358-94250fa18a32")
-    public  OComponentRealization(ComponentRealization element) {
+    public OComponentRealization(ComponentRealization element) {
         super(element);
     }
 
@@ -45,19 +45,19 @@ public class OComponentRealization extends OModelElement {
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
-        
+
         Component objingComp = getObjingElement().getAbstraction();
         Classifier objingClass = getObjingElement().getRealizingClassifier();
-        
+
         if ((objingComp != null) && (objingClass != null)) {
             // Gets or creates the ecore implementer org.eclipse.uml2.uml.Namespace:
             org.eclipse.uml2.uml.Element ecoreComp =  genProp
                     .getMappedElement(objingComp);
-        
+
             // Gets or creates the ecore implemented org.eclipse.uml2.uml.Interface:
             org.eclipse.uml2.uml.Element ecoreClass = genProp
                     .getMappedElement(objingClass);
-        
+
             if ((ecoreComp instanceof org.eclipse.uml2.uml.Component)
                     && (ecoreClass instanceof org.eclipse.uml2.uml.Classifier)) {
                 org.eclipse.uml2.uml.ComponentRealization ecoreItfReal = (org.eclipse.uml2.uml.ComponentRealization) ecoreElt;
@@ -65,7 +65,7 @@ public class OComponentRealization extends OModelElement {
                 ecoreItfReal.getRealizingClassifiers().add((org.eclipse.uml2.uml.Classifier) ecoreClass);
             }
         }
-        
+
     }
 
     @objid ("dccd06d5-719d-4da6-a04d-384454f49ee3")

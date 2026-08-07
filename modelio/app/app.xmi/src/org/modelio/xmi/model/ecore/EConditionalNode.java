@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -37,10 +37,10 @@ public class EConditionalNode extends EStructuredActivityNode {
     }
 
     @objid ("0835a3c8-60e6-48df-ad26-f7cc7058452a")
-    public  EConditionalNode(org.eclipse.uml2.uml.ConditionalNode element) {
+    public EConditionalNode(org.eclipse.uml2.uml.ConditionalNode element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("78b70c48-55c9-4dfa-ba27-5843d4ca6e3b")
@@ -49,11 +49,11 @@ public class EConditionalNode extends EStructuredActivityNode {
         super.setProperties(objingElt);
         // Part of the Properties are setted when mapping the super type
         // (org.eclipse.uml2.uml.StructuredActivityNode)
-                
+
         // Properties specific to org.eclipse.uml2.uml.ConditionalNodes:
         setIsAssured((ConditionalNode) objingElt);
         setDeterminate((ConditionalNode) objingElt);
-        
+
     }
 
     @objid ("1d42cc49-2dfb-4767-afdf-4684e44caa46")

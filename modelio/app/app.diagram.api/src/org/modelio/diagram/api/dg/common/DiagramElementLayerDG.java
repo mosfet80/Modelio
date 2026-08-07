@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.api.dg.common;
 
@@ -48,14 +48,15 @@ public class DiagramElementLayerDG extends DiagramAbstractNode implements IDiagr
 
     /**
      * C'tor
+     *
      * @param diagramHandle the diagram handle
      * @param model the graphic model
      */
     @objid ("0eda5c41-e23f-4fb5-bba3-40ef4eb6db56")
-    public  DiagramElementLayerDG(DiagramHandle diagramHandle, GmAbstractDiagram model) {
+    public DiagramElementLayerDG(DiagramHandle diagramHandle, GmAbstractDiagram model) {
         super(diagramHandle);
         this.model = model;
-        
+
     }
 
     @objid ("6d5a99f9-57ad-4bbe-8770-2e53f8244150")
@@ -122,7 +123,7 @@ public class DiagramElementLayerDG extends DiagramAbstractNode implements IDiagr
     @Override
     public List<IDiagramLink> getElementLinks() {
         List<IDiagramLink> links = new ArrayList<>();
-        
+
         for (GmModel gm : this.model.getDiagram().getAllModels()) {
             if (gm instanceof IGmLink) {
                 IDiagramGraphic diagramLink = DGFactory.getInstance().getDiagramGraphic(this.diagramHandle, gm);
@@ -164,7 +165,7 @@ public class DiagramElementLayerDG extends DiagramAbstractNode implements IDiagr
         default:
             return Collections.emptyList();
         }
-        
+
     }
 
 }

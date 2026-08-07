@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -48,7 +48,7 @@ public class OLink extends OModelElement {
         } else if (this.linkOwner != null) {
             return UMLFactory.eINSTANCE.createInstanceSpecification();
         }
-              
+
         String message = Xmi.I18N.getMessage("logFile.warning.unsupportedExport",
                 getObjingElement().getName(),
                 getObjingElement().getClass().getSimpleName());
@@ -57,11 +57,11 @@ public class OLink extends OModelElement {
     }
 
     @objid ("d6197858-76be-4945-8e5a-ba275cd5cb03")
-    public  OLink(Link element) {
+    public OLink(Link element) {
         super(element);
         this.linkOwner = AbstractObjingModelNavigation.getLinkOwner(element);
         this.connectorOwner = AbstractObjingModelNavigation.getConnectorOwner(element);
-        
+
     }
 
     @objid ("90e3aeec-c2d1-44fa-8a41-25583b2d5bb6")
@@ -74,7 +74,7 @@ public class OLink extends OModelElement {
                 attachInstanceSpecification((InstanceSpecification) ecoreElt);
             }
         }
-        
+
     }
 
     @objid ("147fed30-0d7e-4d69-b283-3bc74bd0a288")
@@ -90,7 +90,7 @@ public class OLink extends OModelElement {
                 ObjingEAnnotation.isLink(ecoreElt);
             }
         }
-        
+
     }
 
     @objid ("08c3c5a7-37c0-4d26-b939-ce16df0a330d")
@@ -99,20 +99,20 @@ public class OLink extends OModelElement {
         if (AbstractObjingModelNavigation.isNotNullOrEmpty(eltName)) {
             connector.setName(eltName);
         }
-        
+
     }
 
     @objid ("a528125d-1d14-4a40-9137-f4e6a45c1b26")
     private void setBase(InstanceSpecification connector) {
         Association base = getObjingElement().getModel();
-        
+
         if (base != null) {
             org.eclipse.uml2.uml.Element type = GenerationProperties.getInstance().getMappedElement(base);
             if (type instanceof org.eclipse.uml2.uml.Classifier) {
                 connector.getClassifiers().add((org.eclipse.uml2.uml.Classifier) type);
             }
         }
-        
+
     }
 
     @objid ("a0d79b2e-46bf-4349-90a6-20d375b54e9c")
@@ -121,7 +121,7 @@ public class OLink extends OModelElement {
         if (ecoreOwner != null) {
             // Components and Nodes are handled as Class
             // (they inherit from Class)
-        
+
             // Class, Component, Node
             if (ecoreOwner instanceof org.eclipse.uml2.uml.StructuredClassifier) {
                 org.eclipse.uml2.uml.StructuredClassifier ownerIsClass = (org.eclipse.uml2.uml.StructuredClassifier) ecoreOwner;
@@ -133,18 +133,18 @@ public class OLink extends OModelElement {
                         + ") Not Found");
             }
         }
-        
+
     }
 
     @objid ("b6dc4ed5-6b77-4d2c-9bf6-998548d134b7")
     private void attachInstanceSpecification(InstanceSpecification ecoreElt) {
         org.eclipse.uml2.uml.Element ecoreOwner = GenerationProperties.getInstance().getMappedElement(this.linkOwner);
-        
+
         if (ecoreOwner != null) {
             if (ecoreOwner instanceof org.eclipse.uml2.uml.Package) {
                 org.eclipse.uml2.uml.Package ownerIsPkg = (org.eclipse.uml2.uml.Package) ecoreOwner;
                 ownerIsPkg.getPackagedElements().add(ecoreElt);
-        
+
             } else if (ecoreOwner instanceof org.eclipse.uml2.uml.Component) {
                 org.eclipse.uml2.uml.Component ownerIsCmpnt = (org.eclipse.uml2.uml.Component) ecoreOwner;
                 ownerIsCmpnt.getPackagedElements().add(ecoreElt);
@@ -153,7 +153,7 @@ public class OLink extends OModelElement {
                 GenerationProperties.getInstance().addWarning(message, getObjingElement());
             }
         }
-        
+
     }
 
     @objid ("45d7a5b3-1159-450a-b867-e709848b8549")
@@ -169,9 +169,9 @@ public class OLink extends OModelElement {
             if (ecoreType instanceof org.eclipse.uml2.uml.Association) {
                 ecoreElt.setType((org.eclipse.uml2.uml.Association) ecoreType);
             }
-        
+
         }
-        
+
     }
 
     @objid ("6118497a-87e2-43a2-afe3-86bf89738dd1")

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -42,33 +41,33 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("008e0fa8-c4be-1fd8-97fe-001ec947cd2a")
 public class SubstitutionImpl extends UmlModelElementImpl implements Substitution {
-    @objid ("83249e87-87bb-40e1-a43b-6efa422c5971")
+    @objid ("fd2a74c4-e8e4-4ae3-bf7b-41bc5377aa7f")
     @Override
     public Classifier getContract() {
         Object obj = getDepVal(((SubstitutionSmClass)getClassOf()).getContractDep());
         return (obj instanceof Classifier)? (Classifier)obj : null;
     }
 
-    @objid ("e2821b93-a2d9-4fad-a320-d8f6596a93e7")
+    @objid ("a0defe50-b062-4ee5-9413-67a57aa264bf")
     @Override
     public void setContract(Classifier value) {
         appendDepVal(((SubstitutionSmClass)getClassOf()).getContractDep(), (SmObjectImpl)value);
     }
 
-    @objid ("6338c62d-7682-40a0-816a-530f37909082")
+    @objid ("8ba763cb-bdcc-4ecd-a384-1c998a094a8b")
     @Override
     public Classifier getSubstitutingClassifier() {
         Object obj = getDepVal(((SubstitutionSmClass)getClassOf()).getSubstitutingClassifierDep());
         return (obj instanceof Classifier)? (Classifier)obj : null;
     }
 
-    @objid ("e71eb455-e195-4c33-b2ce-74e1f026e88f")
+    @objid ("d97e6727-9f30-44f7-a337-c100ac937e00")
     @Override
     public void setSubstitutingClassifier(Classifier value) {
         appendDepVal(((SubstitutionSmClass)getClassOf()).getSubstitutingClassifierDep(), (SmObjectImpl)value);
     }
 
-    @objid ("c40b8a73-63d0-4a60-8601-6d20e1dbc4d7")
+    @objid ("f57f3318-8553-47d2-a6fc-31fe240d87af")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -80,22 +79,22 @@ public class SubstitutionImpl extends UmlModelElementImpl implements Substitutio
         return super.getCompositionOwner();
     }
 
-    @objid ("853ff196-a7c4-44cd-9c3f-48e437c5f0be")
+    @objid ("f3406265-5bfb-4149-8087-432ba092c473")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // SubstitutingClassifier
         dep = ((SubstitutionSmClass)getClassOf()).getSubstitutingClassifierDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("432c1377-c6e7-454f-8dec-787a12f1642a")
+    @objid ("3917f576-00bc-4086-a38a-9b682042c6e4")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitSubstitution(this);

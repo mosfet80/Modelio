@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -48,7 +48,7 @@ public class R2430 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -67,13 +67,13 @@ public class R2430 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         // This cover the case of moving or deleting a StateMachine, which triggers an UPDATE on the old parent.
         plan.registerRule(Operation.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         // This cover the case of [creating|moving] a StateMachine [under|to] a new parent.
         // It also covers the case of renaming a StateMachine.
         plan.registerRule(StateMachine.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -107,14 +107,14 @@ public class R2430 extends AbstractUmlRule {
      * Default constructor for R2430
      */
     @objid ("f19fdfdb-928b-4f16-992b-21e2ddbc6c19")
-    public  R2430() {
+    public R2430() {
         this.checkerInstance = new CheckR2430(this);
     }
 
     @objid ("e5443d50-af9b-4a26-8a28-31492f108ccc")
     private static class CheckR2430 extends AbstractControl {
         @objid ("38bacc04-29a3-4419-aee0-4883952e5d71")
-        public  CheckR2430(IRule rule) {
+        public CheckR2430(IRule rule) {
             super(rule);
         }
 
@@ -141,18 +141,18 @@ public class R2430 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     operation,
                     null);
-            
+
             if (operation.getOwnedBehavior().size() > 1) {
-            
+
                 List<String> smNames = new ArrayList<>();
-            
+
                 for (StateMachine sm : operation.getOwnedBehavior(StateMachine.class)) {
                     String name = sm.getName();
-            
+
                     if (smNames.contains(name)) {
-            
+
                         // Rule failed
-            
+
                         auditEntry.setSeverity(this.rule.getSeverity());
                         List<Object> linkedObjects = new ArrayList<>();
                         linkedObjects.add(operation);

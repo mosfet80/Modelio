@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package com.sun.star.lib.connections.pipe;
 
@@ -33,11 +33,11 @@ import com.sun.star.lib.util.NativeLibraryLoader;
  * The PipeConnection implements the <code>XConnection</code> interface and is uses by the <code>PipeConnector</code>
  * and the <code>PipeAcceptor</code>. This class is not part of the provided <code>api</code>.
  * <p>
- * 
+ *
  * <i>Copied without modification from ridl.jar to help debugging.</i>
- * 
- * @version $Revision: 1.7 $ $ $Date: 2008-04-11 11:13:00 $
+ *
  * @author Kay Ramme
+ * @version $Revision: 1.7 $ $ $Date: 2008-04-11 11:13:00 $
  * @see com.sun.star.comp.connections.PipeAcceptor
  * @see com.sun.star.comp.connections.PipeConnector
  * @see com.sun.star.connections.XConnection
@@ -67,18 +67,18 @@ public class PipeConnection implements XConnection, XConnectionBroadcaster {
     /**
      * Constructs a new <code>PipeConnection</code>.
      * <p>
-     * @param pipe
-     * the pipe of the connection
+     *
+     * @param pipe the pipe of the connection
      * @param description the description of the connection
      */
     @objid ("9a772359-aa8f-4f5d-aff0-e76da20b1d28")
-    public  PipeConnection(final String description) throws IOException {
+    public PipeConnection(final String description) throws IOException {
         if (DEBUG)
             System.err.println("##### " + getClass().getName() + " - instantiated " + description);
-        
+
         this._aListeners = new Vector<>();
         this._bFirstRead = true;
-        
+
         // get pipe name from pipe descriptor
         String aPipeName = null;
         StringTokenizer aTokenizer = new StringTokenizer(description, ",");
@@ -86,14 +86,14 @@ public class PipeConnection implements XConnection, XConnectionBroadcaster {
             String aConnType = aTokenizer.nextToken();
             if (!aConnType.equals("pipe"))
                 throw new RuntimeException("invalid pipe descriptor: does not start with 'pipe,'");
-        
+
             String aPipeNameParam = aTokenizer.nextToken();
             if (!aPipeNameParam.substring(0, 5).equals("name="))
                 throw new RuntimeException("invalid pipe descriptor: no 'name=' parameter found");
             aPipeName = aPipeNameParam.substring(5);
         } else
             throw new RuntimeException("invalid or empty pipe descriptor");
-        
+
         // create the pipe
         try {
             createJNI(aPipeName);
@@ -104,7 +104,7 @@ public class PipeConnection implements XConnection, XConnectionBroadcaster {
         } catch (java.lang.Exception aE) {
             throw new IOException(aE.getMessage());
         }
-        
+
     }
 
     @objid ("b7868338-95b3-4451-ad84-3f5ea1415ea5")
@@ -126,7 +126,7 @@ public class PipeConnection implements XConnection, XConnectionBroadcaster {
             XStreamListener xStreamListener = elements.nextElement();
             xStreamListener.started();
         }
-        
+
     }
 
     @objid ("c0747758-cbf5-4ccd-ae9d-7996a2136a90")
@@ -136,7 +136,7 @@ public class PipeConnection implements XConnection, XConnectionBroadcaster {
             XStreamListener xStreamListener = elements.nextElement();
             xStreamListener.closed();
         }
-        
+
     }
 
     @objid ("b6ce95fe-c9c0-40ca-9eeb-3d880f8115d9")
@@ -146,7 +146,7 @@ public class PipeConnection implements XConnection, XConnectionBroadcaster {
             XStreamListener xStreamListener = elements.nextElement();
             xStreamListener.error(exception);
         }
-        
+
     }
 
     /**
@@ -182,18 +182,18 @@ public class PipeConnection implements XConnection, XConnectionBroadcaster {
     /**
      * Read the required number of bytes.
      * <p>
-     * @param aReadBytes
-     * the outparameter, where the bytes have to be placed
-     * @see com.sun.star.connections.XConnection#read
+     *
+     * @param aReadBytes the outparameter, where the bytes have to be placed
      * @param nBytesToRead the number of bytes to read
      * @return the number of bytes read
+     * @see com.sun.star.connections.XConnection#read
      */
     @objid ("59c2d7cf-d945-4b49-86fd-79ea45da561d")
     @Override
     public int read(final byte[][] bytes, final int nBytesToRead) throws com.sun.star.io.IOException, com.sun.star.uno.RuntimeException {
         if (this._bFirstRead) {
             this._bFirstRead = false;
-        
+
             notifyListeners_open();
         }
         return readJNI(bytes, nBytesToRead);
@@ -202,8 +202,9 @@ public class PipeConnection implements XConnection, XConnectionBroadcaster {
     /**
      * Write bytes.
      * <p>
-     * @see com.sun.star.connections.XConnection#write
+     *
      * @param aData the bytes to write
+     * @see com.sun.star.connections.XConnection#write
      */
     @objid ("e1d44d1a-8d7e-4cdc-b58f-502182e37709")
     @Override
@@ -214,6 +215,7 @@ public class PipeConnection implements XConnection, XConnectionBroadcaster {
     /**
      * Flushes the buffer.
      * <p>
+     *
      * @see com.sun.star.connections.XConnection#flush
      */
     @objid ("3dc565b8-465a-4908-877e-8a330b8fea40")
@@ -225,6 +227,7 @@ public class PipeConnection implements XConnection, XConnectionBroadcaster {
     /**
      * Closes the connection.
      * <p>
+     *
      * @see com.sun.star.connections.XConnection#close
      */
     @objid ("c81b24bd-b009-4543-bf14-89c108d7e2d5")
@@ -236,14 +239,15 @@ public class PipeConnection implements XConnection, XConnectionBroadcaster {
         notifyListeners_close();
         if (DEBUG)
             System.out.println("done");
-        
+
     }
 
     /**
      * Gives a description of the connection.
      * <p>
-     * @see com.sun.star.connections.XConnection#getDescription
+     *
      * @return the description
+     * @see com.sun.star.connections.XConnection#getDescription
      */
     @objid ("12aeadf7-8f5b-4266-9f5e-3af6d66ec0a4")
     @Override
@@ -255,5 +259,5 @@ static {
             // load shared library for JNI code
             NativeLibraryLoader.loadLibrary(PipeConnection.class.getClassLoader(), "jpipe");
         }
-    
+
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.model.api;
 
@@ -30,7 +30,7 @@ import org.modelio.vcore.smkernel.mapi.services.MetamodelExtensionPoint;
  * <p>
  * Use this service to get the model factory matching a metamodel.
  * You may get an instance of this service with {@link MTools#getModelFactories()}.
- * 
+ *
  * @author cmarin
  * @since 3.6
  */
@@ -40,6 +40,7 @@ public interface IModelFactoryService extends IModelFactory {
      * Get the model factory metamodel extension point.
      * <p>
      * To be used by metamodel extensions to register themselves to this service.
+     *
      * @return this service metamodel extension point.
      */
     @objid ("050b9b7f-9049-4492-9174-cdf568f9fd1e")
@@ -48,6 +49,7 @@ public interface IModelFactoryService extends IModelFactory {
     /**
      * Get a specific model factory.
      * <p>
+     *
      * @param factoryCls the model factory interface class.
      * @return the matching model factory
      * @throws IllegalArgumentException if there is no model factory implementing the class or interface.
@@ -57,6 +59,7 @@ public interface IModelFactoryService extends IModelFactory {
 
     /**
      * Get the model factory for the given metamodel
+     *
      * @param mmf a metamodel fragment.
      * @return the matching model factory.
      */
@@ -65,10 +68,11 @@ public interface IModelFactoryService extends IModelFactory {
 
     /**
      * Get the model factory for the given metaclass metamodel.
+     *
      * @param mc a metaclass.
      * @return the matching model factory.
      */
     @objid ("96f9893c-1851-44ee-ab49-42e5426bde2b")
     IModelFactory getFactory(MClass mc);
-}
 
+}

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.drawings.line;
 
@@ -38,17 +38,18 @@ public class GmLineDrawing extends GmAbstractLinkDrawing {
      * Deserialization only constructor.
      */
     @objid ("20280cc7-5d55-4161-9bf0-f0b14f79c23c")
-    public  GmLineDrawing() {
+    public GmLineDrawing() {
         super();
     }
 
     /**
      * Default constructor.
+     *
      * @param diagram the owner diagram.
      * @param identifier drawing identifier, must be unique in the diagram.
      */
     @objid ("b80e1074-cd61-499c-8683-72055dc619e4")
-    public  GmLineDrawing(IGmDiagram diagram, String identifier) {
+    public GmLineDrawing(IGmDiagram diagram, String identifier) {
         super(diagram, identifier);
     }
 

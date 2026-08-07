@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.libreoffice.preferences;
 
@@ -41,12 +41,12 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
             LibreOfficeEditors.PREFERENCES.setDefault(P_OOOPATH, path);
             LibreOfficeEditors.LOG.info("Found LibreOffice at '%s'", path);
         }
-        
+
         // 3.8 -> 4.0 Migration :
         // LibreOffice plugin now uses its own preference node instead of 'app.preferences' one.
         // copy any existing value to our own preference node.
         migrateTo40(path);
-        
+
     }
 
     /**
@@ -54,18 +54,19 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
      * <p>
      * LibreOffice plugin now uses its own preference node instead of 'app.preferences' one.
      * copy any existing value to our own preference node.
+     *
      * @param foundOooPath The found LibreOffice path
      */
     @objid ("c580d862-316c-4516-98dd-7be6fe852f81")
     private void migrateTo40(String foundOooPath) {
         IPersistentPreferenceStore appPrefPreferences = Preferences.getPreferences();
-        
+
         if (appPrefPreferences.contains(P_OOOPATH)) {
             String appPrefValue = appPrefPreferences.getString(P_OOOPATH);
             LibreOfficeEditors.LOG.debug("Found 'app.pref' '%s' key = '%s'", P_OOOPATH, appPrefValue);
             if (! Objects.equals(appPrefValue, foundOooPath)) {
                 LibreOfficeEditors.LOG.info("Migrating 'app.pref' '%s' key = '%s'", P_OOOPATH, appPrefValue);
-        
+
                 // copy to our node
                 LibreOfficeEditors.PREFERENCES.setValue(P_OOOPATH, appPrefValue);
                 // remove from previous
@@ -73,7 +74,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
                 appPrefPreferences.setToDefault(P_OOOPATH);
             }
         }
-        
+
     }
 
 }

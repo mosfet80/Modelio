@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.mmextensions.standard.modelshield.standardcheckers;
 
@@ -74,17 +74,17 @@ public class E252Checker extends TypeChecker {
         addRequiredType(smMetamodel.getMClass(Signal.class));
         addRequiredType(smMetamodel.getMClass(AssociationEnd.class));
         addRequiredType(smMetamodel.getMClass(Enumeration.class));
-        
+
         // trigger=create, metaclass=Attribute, feature=null
         plan.registerChecker(this, smMetamodel.getMClass(Attribute.class), TriggerType.Create, null);
-        
+
         // trigger=move, metaclass=Attribute, feature=
         plan.registerChecker(this, smMetamodel.getMClass(Attribute.class), TriggerType.Move, null);
-        
+
     }
 
     @objid ("0086f056-8c25-1f70-90c1-001ec947cd2a")
-    public  E252Checker() {
+    public E252Checker() {
         super(ERRORID);
     }
 

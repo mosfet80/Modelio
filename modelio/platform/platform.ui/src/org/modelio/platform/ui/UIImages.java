@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.ui;
 
@@ -150,6 +150,7 @@ public class UIImages {
 
     /**
      * Generic 24x24 icon used to indicate an "Open properties" action.
+     *
      * @since 5.2
      */
     @objid ("71bb3e89-9ced-4a9d-a484-9b049e8098fb")
@@ -268,14 +269,15 @@ public class UIImages {
 
     /**
      * Generic 24x24 icon used for Modelio itself.
+     *
      * @since 5.2
      */
     @objid ("e3a6b6a1-bff0-4e34-866e-d5dcb89f8dbd")
     public static final Image MODELIO = UIImages.getImage("icons/modelio.png");
 
     @objid ("e507fdf4-3f36-4f39-8351-82a02b963917")
-    private  UIImages() {
-        
+    private UIImages() {
+
     }
 
     @objid ("165b4af5-07f9-4a23-93e2-c53c9917a9ee")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.common.editpart;
 
@@ -50,10 +50,10 @@ public class BpmnPortContainerEditPolicy extends PortContainerEditPolicy {
     protected Command getCreateCommand(CreateRequest request) {
         MObject hostElement = getHostElement();
         Object requestConstraint = getConstraintFor(request);
-        
+
         final ModelioCreationContext ctx = ModelioCreationContext.fromRequest(request);
         MObject elementToUnmask = ctx.getElementToUnmask();
-        
+
         if (elementToUnmask != null) {
             // Unmasking an existing element
             if (getHostCompositeNode().canUnmask(elementToUnmask)) {
@@ -71,7 +71,7 @@ public class BpmnPortContainerEditPolicy extends PortContainerEditPolicy {
                 return new DefaultEditCreatedElementCommand(new BpmnActivityCreateBoundaryEventCommand(hostElement, getHostCompositeNode(), ctx, requestConstraint),getHost().getRoot().getViewer().getEditPartRegistry());
             }
         }
-        
+
     }
 
     @objid ("6078c568-55b6-11e2-877f-002564c97630")
@@ -88,7 +88,7 @@ public class BpmnPortContainerEditPolicy extends PortContainerEditPolicy {
     private EditPart getTargetEditPart(CreateRequest createRequest) {
         final ModelioCreationContext ctx = ModelioCreationContext.lookRequest(createRequest);
         if (ctx != null) {
-        
+
             if (ctx.getElementToUnmask() != null) {
                 if (getHostCompositeNode().canUnmask(ctx.getElementToUnmask())) {
                     return getHost();
@@ -96,11 +96,11 @@ public class BpmnPortContainerEditPolicy extends PortContainerEditPolicy {
                     return null;
                 }
             }
-        
+
             if (canHandle(ctx.getMetaclass(), ctx.getDependencyName())) {
                 return getHost();
             }
-        
+
         }
         return null;
     }
@@ -120,7 +120,7 @@ public class BpmnPortContainerEditPolicy extends PortContainerEditPolicy {
         else {
             return ((GmCompositeNode) getHost().getModel()).canCreate(metaclass.getJavaInterface());
         }
-        
+
     }
 
     @objid ("6078c57b-55b6-11e2-877f-002564c97630")
@@ -128,7 +128,7 @@ public class BpmnPortContainerEditPolicy extends PortContainerEditPolicy {
     protected Command createAddCommand(ChangeBoundsRequest request, EditPart child, Object constraint) {
         GmNodeModel gmmodel = (GmNodeModel) child.getModel();
         MObject element = gmmodel.getRelatedElement();
-        
+
         if (element instanceof BpmnBoundaryEvent) {
             return new BpmnBoundaryEventReparentElementCommand(getHostElement(),
                     getHostCompositeNode(),
@@ -145,7 +145,7 @@ public class BpmnPortContainerEditPolicy extends PortContainerEditPolicy {
                     (GmNodeModel) child.getModel(),
                     constraint);
         }
-        
+
     }
 
 }

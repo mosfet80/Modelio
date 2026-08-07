@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.expert.standard.links.impl.ends;
 
@@ -115,7 +115,7 @@ public class ChangeSourceVisitor extends DefaultModelVisitor {
      * Constructor
      */
     @objid ("49084747-4e0c-4e3e-a229-8635449688eb")
-    public  ChangeSourceVisitor() {
+    public ChangeSourceVisitor() {
         this(new InfraVisitor());
     }
 
@@ -138,7 +138,7 @@ public class ChangeSourceVisitor extends DefaultModelVisitor {
         } else {
             return visitAssociationEnd(ends.get(0));
         }
-        
+
     }
 
     @objid ("99495ef0-bd9a-4849-a91b-bec1f1194a54")
@@ -150,21 +150,21 @@ public class ChangeSourceVisitor extends DefaultModelVisitor {
             opposite = session.getModel().getGenericFactory().create(AssociationEnd.class, theAssociationEnd);
             theAssociationEnd.setOpposite(opposite);
             opposite.setOpposite(theAssociationEnd);
-        
+
             // The association is incomplete, force the current end to be navigable by setting a temporary wrong target.
             theAssociationEnd.setTarget((Classifier) this.newSource);
         }
-        
+
         Association association = theAssociationEnd.getAssociation();
         if (association == null) {
             ICoreSession session = CoreSession.getSession(theAssociationEnd);
             association = session.getModel().getGenericFactory().create(Association.class, theAssociationEnd);
         }
-        
+
         // Make sure the association is referenced by both ends
         theAssociationEnd.setAssociation(association);
         opposite.setAssociation(association);
-        
+
         if (opposite.isNavigable()) {
             opposite.setTarget((Classifier) this.newSource, true);
         } else {
@@ -197,7 +197,7 @@ public class ChangeSourceVisitor extends DefaultModelVisitor {
         theBpmnDataAssociation.getSourceRef().clear();
         theBpmnDataAssociation.setEndingEvent(null);
         theBpmnDataAssociation.setStartingActivity(null);
-        
+
         // Fill appropriate relationship
         if (this.newSource instanceof BpmnActivity) {
             theBpmnDataAssociation.setStartingActivity((BpmnActivity) this.newSource);
@@ -265,7 +265,7 @@ public class ChangeSourceVisitor extends DefaultModelVisitor {
         } else {
             return visitConnectorEnd((ConnectorEnd) ends.get(0));
         }
-        
+
     }
 
     @objid ("2fa32e86-4737-41dc-ad3b-7b8876d6fce4")
@@ -277,21 +277,21 @@ public class ChangeSourceVisitor extends DefaultModelVisitor {
             opposite = session.getModel().getGenericFactory().create(ConnectorEnd.class, theConnectorEnd);
             theConnectorEnd.setOpposite(opposite);
             opposite.setOpposite(theConnectorEnd);
-        
+
             // The connector is incomplete, force the current end to be navigable by setting a temporary wrong target.
             theConnectorEnd.setTarget((Instance) this.newSource);
         }
-        
+
         Connector connector = (Connector) theConnectorEnd.getLink();
         if (connector == null) {
             ICoreSession session = CoreSession.getSession(theConnectorEnd);
             connector = session.getModel().getGenericFactory().create(Connector.class, theConnectorEnd);
         }
-        
+
         // Make sure the connector is referenced by both ends
         theConnectorEnd.setLink(connector);
         opposite.setLink(connector);
-        
+
         if (theConnectorEnd.getOpposite().isNavigable()) {
             theConnectorEnd.getOpposite().setTarget((Instance) this.newSource, true);
         } else {
@@ -338,7 +338,7 @@ public class ChangeSourceVisitor extends DefaultModelVisitor {
     @Override
     public Object visitInformationFlow(InformationFlow theInformationFlow) {
         theInformationFlow.getInformationSource().clear();
-        
+
         theInformationFlow.getInformationSource().add((UmlModelElement) this.newSource);
         return null;
     }
@@ -362,7 +362,7 @@ public class ChangeSourceVisitor extends DefaultModelVisitor {
         } else {
             return visitLinkEnd(ends.get(0));
         }
-        
+
     }
 
     @objid ("bc5f01c5-5c89-4158-bf9c-6933270293a0")
@@ -374,21 +374,21 @@ public class ChangeSourceVisitor extends DefaultModelVisitor {
             opposite = session.getModel().getGenericFactory().create(LinkEnd.class, theLinkEnd);
             theLinkEnd.setOpposite(opposite);
             opposite.setOpposite(theLinkEnd);
-        
+
             // The link is incomplete, force the current end to be navigable by setting a temporary wrong target.
             theLinkEnd.setTarget((Instance) this.newSource);
         }
-        
+
         Link link = theLinkEnd.getLink();
         if (link == null) {
             ICoreSession session = CoreSession.getSession(theLinkEnd);
             link = session.getModel().getGenericFactory().create(Link.class, theLinkEnd);
         }
-        
+
         // Make sure the link is referenced by both ends
         theLinkEnd.setLink(link);
         opposite.setLink(link);
-        
+
         if (theLinkEnd.getOpposite().isNavigable()) {
             theLinkEnd.getOpposite().setTarget((Instance) this.newSource, true);
         } else {
@@ -507,10 +507,10 @@ public class ChangeSourceVisitor extends DefaultModelVisitor {
     }
 
     @objid ("c8396bcf-eca2-40e1-be5e-1d6cabe34ee4")
-    private  ChangeSourceVisitor(InfraVisitor infraVisitor) {
+    private ChangeSourceVisitor(InfraVisitor infraVisitor) {
         super(infraVisitor);
         infraVisitor.csv = this;
-        
+
     }
 
     @objid ("6bac39c0-866a-49dc-867e-eb50689a167e")
@@ -519,8 +519,8 @@ public class ChangeSourceVisitor extends DefaultModelVisitor {
         private ChangeSourceVisitor csv;
 
         @objid ("7b2fa9f5-f41b-4001-87e1-b6848f796f60")
-        public  InfraVisitor() {
-            
+        public InfraVisitor() {
+
         }
 
         @objid ("100478f0-c09d-4274-bf4a-eb6c15b027e3")

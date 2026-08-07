@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -44,66 +43,65 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("173bd08a-e974-4c88-8f4b-06b784f080b2")
 public class CallOperationActionSmClass extends CallActionSmClass {
-    @objid ("79b9266f-832f-4b5c-bb0c-ece8f0e4bb09")
+    @objid ("b6ba6c18-8670-4d57-960d-85926c0d3fcd")
     private SmDependency calledDep;
 
-    @objid ("06a007a8-5152-452a-905a-f9d0092c123a")
-    public  CallOperationActionSmClass(ISmMetamodelFragment origin) {
+    @objid ("56637cbd-b956-4e49-8bf2-3ce394a9af76")
+    public CallOperationActionSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("12cd9a11-0fb7-4397-8394-28fdb380feca")
+    @objid ("5a112271-34a6-4558-8bac-9eb4de73319a")
     @Override
     public String getName() {
         return "CallOperationAction";
-        
+
     }
 
-    @objid ("4b0f629b-3955-4f25-b458-f493dadc4d6d")
+    @objid ("268ee22b-46c0-4178-9a5b-c10ca750a24f")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("1f3c5f93-bab1-446a-ab93-86a6a4c5ce26")
+    @objid ("1028e8ec-f487-4264-953b-517092541132")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return CallOperationAction.class;
-        
+
     }
 
-    @objid ("f807aad4-36bb-4f15-9dd6-6a9b2cd51873")
+    @objid ("23bc2f8e-d441-4e18-89b9-46821d57131b")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("6222ce74-17ed-492e-9edd-ff33691cd819")
+    @objid ("e05e79a8-325e-4719-aceb-f942e3b1d666")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("aab09e3d-728a-4f4f-9a67-853dcf0e9a7d")
+    @objid ("ac3511b2-aa6b-4091-9669-b82cd0edf8cf")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(CallAction.MQNAME);
         this.registerFactory(new CallOperationActionObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
         this.calledDep = new CalledSmDependency();
-        this.calledDep.init("Called", this, metamodel.getMClass(Operation.MQNAME), 1, 1 , SmDirective.SMCDPARTOF);
+        this.calledDep.init("Called", this, metamodel.getMClass(Operation.MQNAME), 0, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.calledDep);
-        
-        
+
     }
 
-    @objid ("2fb23f82-c525-4664-b6ae-c4084f55c0e9")
+    @objid ("578069d9-6a5a-478d-9d00-fd95b40d5258")
     public SmDependency getCalledDep() {
         if (this.calledDep == null) {
         	this.calledDep = this.getDependencyDef("Called");
@@ -113,21 +111,21 @@ public class CallOperationActionSmClass extends CallActionSmClass {
 
     @objid ("eb16de6c-34a6-493f-b939-aaafef78e9f8")
     private static class CallOperationActionObjectFactory implements ISmObjectFactory {
-        @objid ("06fc4898-1f33-40f6-b3e1-636735cf87d5")
+        @objid ("c9241cda-96df-416d-90f3-5515ba10039d")
         private CallOperationActionSmClass smClass;
 
-        @objid ("71be897e-c944-480d-aa4e-af4d24370a35")
-        public  CallOperationActionObjectFactory(CallOperationActionSmClass smClass) {
+        @objid ("0bc0d61e-d89a-4077-8d43-927d9d717f3a")
+        public CallOperationActionObjectFactory(CallOperationActionSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("0e071ad5-9ec6-4d3c-8808-26de4c4bda53")
+        @objid ("380b733c-2e4c-41e1-a269-87fb1a2d34fa")
         @Override
         public ISmObjectData createData() {
             return new CallOperationActionData(this.smClass);
         }
 
-        @objid ("48d3a50e-3418-45ab-9556-7c890d254153")
+        @objid ("deafb384-a459-4b4e-87a6-28eb5a5bb836")
         @Override
         public SmObjectImpl createImpl() {
             return new CallOperationActionImpl();
@@ -137,29 +135,29 @@ public class CallOperationActionSmClass extends CallActionSmClass {
 
     @objid ("058f71fd-ad1c-412e-ad7f-cc1438245f20")
     public static class CalledSmDependency extends SmSingleDependency {
-        @objid ("9a87279d-b462-4090-8e1a-29c16e0e382d")
+        @objid ("adb23d5c-c8f6-498e-b6d2-dfe41dcdb14d")
         private SmDependency symetricDep;
 
-        @objid ("eff2bdfa-2605-4b8a-937f-8665c5557c86")
+        @objid ("f4d1dad7-fc2d-456d-a10c-34843deaf93d")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((CallOperationActionData) data).mCalled;
         }
 
-        @objid ("8844cee8-88d6-4eaa-a927-31422bc06a09")
+        @objid ("49b286f3-ef7b-4ff4-bc0c-282802605d3a")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((CallOperationActionData) data).mCalled = value;
         }
 
-        @objid ("578cbd21-2a3f-4880-89a5-e560a3e96835")
+        @objid ("42c75f66-0815-43e1-9b50-576107a4d91e")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((OperationSmClass)this.getTarget()).getCallingActionDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

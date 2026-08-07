@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.associationclass;
 
@@ -34,7 +34,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Represents a {@link ClassAssociation} link.
- * 
+ *
  * @author cmarin
  */
 @objid ("33f51728-55b7-11e2-877f-002564c97630")
@@ -56,24 +56,25 @@ public class GmClassAssociationLink extends GmLink {
 
     /**
      * Create a generalization link model.
+     *
      * @param diagram The diagram
      * @param generalization The represented ClassAssociation, may be null
      * @param ref The represented generalization reference, may not be null
      */
     @objid ("33f51736-55b7-11e2-877f-002564c97630")
-    public  GmClassAssociationLink(IGmDiagram diagram, ClassAssociation generalization, MRef ref) {
+    public GmClassAssociationLink(IGmDiagram diagram, ClassAssociation generalization, MRef ref) {
         super(diagram, ref);
         this.element = generalization;
-        
+
         //addExtension(ExtensionLocation.MiddleSE, new GmDefaultModelElementHeader(diagram, ref));
-        
+
     }
 
     /**
      * Constructor for deserialization only.
      */
     @objid ("33f51742-55b7-11e2-877f-002564c97630")
-    public  GmClassAssociationLink() {
+    public GmClassAssociationLink() {
         // Nothing to do.
     }
 
@@ -122,17 +123,17 @@ public class GmClassAssociationLink extends GmLink {
     protected void readLink(IDiagramReader in) {
         super.readLink(in);
         this.element = (ClassAssociation) resolveRef(this.getRepresentedRef());
-        
+
     }
 
     @objid ("33f69dd5-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmClassAssociationLink.", GmClassAssociationLink.MINOR_VERSION);
-        
+
     }
 
     @objid ("33f69ddb-55b7-11e2-877f-002564c97630")

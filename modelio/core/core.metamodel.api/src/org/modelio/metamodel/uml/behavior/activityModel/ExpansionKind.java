@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
@@ -26,19 +26,18 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * ExpansionKind v0.0.9054
- * 
- * 
+ *
+ *
  * null
- * 
- * 
+ *
  */
 @objid ("007f0dd2-91e0-1f74-804b-001ec947cd2a")
 public enum ExpansionKind {
-    @objid ("f7c3d397-0fb2-4b86-8214-d1ac2c7d14fe")
+    @objid ("3676d34e-1612-469d-b313-e6643a1de69a")
     PARALLEL(0, "Parallel", "Parallel"),
-    @objid ("362c480b-c55e-4a82-ae89-f19ec9a1c5eb")
+    @objid ("a8172d49-24b5-4ff7-8b38-5c2402efa76c")
     ITERATIVE(1, "Iterative", "Iterative"),
-    @objid ("4ceefecd-5d08-4937-a4bd-333c1f34c84d")
+    @objid ("d22ba6f0-56a6-4332-9bde-bf71431b9603")
     STREAM(2, "Stream", "Stream");
 
 public static final int PARALLEL_VALUE = 0;
@@ -98,5 +97,5 @@ public static final int PARALLEL_VALUE = 0;
     public String toString() {
        return literal;
     }
-    
+
 }

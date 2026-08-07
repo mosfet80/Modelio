@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.vbasic.oidc.flows;
 
@@ -26,6 +45,7 @@ import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
@@ -37,6 +57,8 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import com.nimbusds.jwt.JWT;
 import com.nimbusds.oauth2.sdk.AuthorizationCode;
@@ -61,9 +83,13 @@ import com.nimbusds.openid.connect.sdk.Nonce;
 import com.nimbusds.openid.connect.sdk.OIDCScopeValue;
 import com.nimbusds.openid.connect.sdk.op.ReadOnlyOIDCProviderMetadata;
 import com.nimbusds.openid.connect.sdk.token.OIDCTokens;
+import org.apache.http.HttpRequest;
+import org.apache.http.HttpResponse;
+import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.bootstrap.HttpServer;
 import org.apache.http.impl.bootstrap.ServerBootstrap;
+import org.apache.http.protocol.HttpContext;
 import org.modelio.vbasic.files.FileUtils;
 import org.modelio.vbasic.log.Log;
 import org.modelio.vbasic.net.HttpErrorMapper;
@@ -71,11 +97,16 @@ import org.modelio.vbasic.net.UriAuthenticationException;
 import org.modelio.vbasic.oidc.IOidcAuthenticationFlow;
 import org.modelio.vbasic.oidc.IOidcAuthenticationFlow.AuthResponse;
 import org.modelio.vbasic.oidc.IOidcWebBrowser;
+import org.modelio.vbasic.oidc.IOidcWebBrowser.BasicHttpResponse;
+import org.modelio.vbasic.oidc.IOidcWebBrowser.IHttpResponse;
 import org.modelio.vbasic.oidc.OidcBrowserFlowBuilder;
 
 @objid ("90dff099-af82-4b41-9d27-8af9cf46b7d3")
-@SuppressWarnings ("restriction")
+@SuppressWarnings("restriction")
 public class OidcBrowserFlow implements IOidcAuthenticationFlow {
+    @objid ("4ce4f485-2754-418b-997b-58462752cacc")
+    private final String loginHint;
+
     @objid ("abcb820d-177f-466d-9df6-ff3f497c87dd")
     private final ReadOnlyOIDCProviderMetadata metadata;
 
@@ -84,9 +115,6 @@ public class OidcBrowserFlow implements IOidcAuthenticationFlow {
 
     @objid ("ca55047a-933c-4d52-a41a-d1ff4959ee5d")
     private final Secret clientSecret;
-
-    @objid ("4ce4f485-2754-418b-997b-58462752cacc")
-    private final String loginHint;
 
     @objid ("854d0079-0e22-4f0b-8ea9-febc5b417089")
     private JWT idTokenHint;
@@ -124,23 +152,22 @@ public class OidcBrowserFlow implements IOidcAuthenticationFlow {
     }
 
     @objid ("2f5866c8-ca9e-4978-a58b-1e65a6f491fd")
-    public  OidcBrowserFlow(ReadOnlyOIDCProviderMetadata metadata, ClientID clientId, Secret clientSecret, IOidcWebBrowser webBrowser, OIDCTokens startTokens) {
+    public OidcBrowserFlow(ReadOnlyOIDCProviderMetadata metadata, ClientID clientId, Secret clientSecret, IOidcWebBrowser webBrowser, OIDCTokens startTokens) {
         this.metadata = metadata;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.webBrowser = webBrowser;
         this.idTokenHint = startTokens != null ? startTokens.getIDToken() : null;
         this.loginHint = null;
-        
     }
 
     @objid ("38ae02d0-a423-42ea-96a3-f5709b5f11f0")
-    public  OidcBrowserFlow(ReadOnlyOIDCProviderMetadata metadata, ClientID clientId, Secret clientSecret, IOidcWebBrowser webBrowser) {
+    public OidcBrowserFlow(ReadOnlyOIDCProviderMetadata metadata, ClientID clientId, Secret clientSecret, IOidcWebBrowser webBrowser) {
         this(metadata, clientId, clientSecret, webBrowser, null);
     }
 
     @objid ("979c845a-9fe1-428b-a893-653efc658cdf")
-    public  OidcBrowserFlow(ReadOnlyOIDCProviderMetadata providerMetadata, OidcBrowserFlowBuilder cmd) throws IOException {
+    public OidcBrowserFlow(ReadOnlyOIDCProviderMetadata providerMetadata, OidcBrowserFlowBuilder cmd) throws IOException {
         this.metadata =  providerMetadata;
         this.clientId = new ClientID(cmd.getClientId());
         this.clientSecret = cmd.getSecret() == null ? null : new Secret(cmd.getSecret());
@@ -152,11 +179,11 @@ public class OidcBrowserFlow implements IOidcAuthenticationFlow {
         } else {
             this.idTokenHint = null;
         }
-        
     }
 
     /**
      * Parse the redirect URI HTTP request received by our local server and extract the authentication authorization code.
+     *
      * @param requestURL the called URI
      * @param state the authentication flow state
      * @return the authorization code
@@ -174,23 +201,23 @@ public class OidcBrowserFlow implements IOidcAuthenticationFlow {
             throw new UriAuthenticationException(e, requestURL.toString(), e.getLocalizedMessage());
             //throw new IOException("Failed parsing '"+requestURL+"' : "+e.getLocalizedMessage(), e);
         }
-        
+
         if (authResp instanceof AuthenticationErrorResponse) {
-          ErrorObject error = authResp.toErrorResponse().getErrorObject();
-          throw HttpErrorMapper.create(error.getHTTPStatusCode(), this.metadata.getAuthorizationEndpointURI().toString(), error.getDescription(), null);
-          //throw new IOException("Server refused: "+error.getCode()+" "+error.getDescription());
+            ErrorObject error = authResp.toErrorResponse().getErrorObject();
+            throw HttpErrorMapper.create(error.getHTTPStatusCode(), this.metadata.getAuthorizationEndpointURI().toString(), error.getDescription(), null);
+            //throw new IOException("Server refused: "+error.getCode()+" "+error.getDescription());
         }
-        
+
         AuthenticationSuccessResponse successResponse = authResp.toSuccessResponse();
-        
+
         /* Don't forget to check the state!
-         * The state in the received authentication response must match the state
-         * specified in the previous outgoing authentication request.
-        */
+                         * The state in the received authentication response must match the state
+                         * specified in the previous outgoing authentication request.
+                         */
         if (successResponse.getState() != null && ! Objects.equals(successResponse.getState(), state)) {
             throw new UriAuthenticationException("Request state does not match response state, May indicate man in the middle attack!");
         }
-        
+
         AuthorizationCode authCode = successResponse.getAuthorizationCode();
         return authCode;
     }
@@ -199,21 +226,18 @@ public class OidcBrowserFlow implements IOidcAuthenticationFlow {
     private URI computeAuthcodeRequest(URI redirectUri, State state, CodeVerifier codeVerifier, Nonce nonce) throws IOException {
         // Specify scope
         Scope scope = new Scope(OIDCScopeValue.OPENID);
-        
-        
+
         CodeChallengeMethod codeChallengeMethod = chooseCodeChallengeMethod();
-        
+
         AuthenticationRequest authReq = new AuthenticationRequest.Builder(ResponseType.CODE, scope, this.clientId, redirectUri)
-        .nonce(nonce)
-        .state(state)
-        .endpointURI(this.metadata.getAuthorizationEndpointURI())
-        //.display(Display.getDefault())
-        //.prompt(new Prompt(Prompt.Type.LOGIN))
-        .loginHint(this.idTokenHint == null ? this.loginHint : null)
-        .idTokenHint(this.idTokenHint)
-        .responseMode(this.metadata.getResponseModes().get(0))
-        .codeChallenge(codeVerifier, codeChallengeMethod)
-        .build();
+                .nonce(nonce)
+                .state(state)
+                .endpointURI(this.metadata.getAuthorizationEndpointURI())
+                .loginHint(this.idTokenHint == null ? this.loginHint : null)
+                .idTokenHint(this.idTokenHint)
+                .responseMode(this.metadata.getResponseModes().get(0))
+                .codeChallenge(codeVerifier, codeChallengeMethod)
+                .build();
         return authReq.toURI();
     }
 
@@ -221,7 +245,7 @@ public class OidcBrowserFlow implements IOidcAuthenticationFlow {
     private CodeChallengeMethod chooseCodeChallengeMethod() throws IOException {
         List<CodeChallengeMethod> methods = this.metadata.getCodeChallengeMethods();
         CodeChallengeMethod codeChallengeMethod = methods.get(methods.size()-1);
-        
+
         if (methods.contains(CodeChallengeMethod.S256)) {
             codeChallengeMethod = CodeChallengeMethod.S256;
         } else if (methods.contains(CodeChallengeMethod.PLAIN)) {
@@ -232,39 +256,73 @@ public class OidcBrowserFlow implements IOidcAuthenticationFlow {
         return codeChallengeMethod;
     }
 
+    @objid ("047cc54c-da9f-4b64-811f-b84db32e057d")
+    private void handleLocalServerRequest(HttpRequest req, HttpResponse resp, HttpContext context, Predicate<IHttpResponse> filter, Supplier<IHttpResponse> defResponse) {
+        try {
+            URI uri = URI.create(req.getRequestLine().getUri());
+
+            IHttpResponse redRes = Optional.ofNullable(this.webBrowser.getOidcRedirectServer())
+                    .map(s -> s.serve(uri.getPath()))
+                    .filter(filter != null ? filter : r -> r != null )
+                    .orElseGet(defResponse);
+
+            @SuppressWarnings ("resource")
+            InputStreamEntity entity = new InputStreamEntity(redRes.getContent());
+            entity.setContentType(redRes.getContentType());
+
+            resp.setEntity(entity);
+            resp.setStatusCode(redRes.getStatusCode());
+        } catch (RuntimeException e) {
+            Log.error(e);
+            String content = "Unexpected failure, send Modelio log to support team.";
+            resp.setEntity(new StringEntity(content, StandardCharsets.UTF_8.name()));
+            resp.setStatusCode(500);
+        }
+    }
+
     @objid ("dc991b38-4891-4671-9c7b-0e30b865ecb7")
     private HttpServer startLocalServer(State state, CompletableFuture<AuthorizationCode> futureAuthCode) throws IOException {
         InetAddress loopbackAddress = InetAddress.getLoopbackAddress();
-        
-        
-        HttpServer server = ServerBootstrap
-              .bootstrap()
-              .setListenerPort(0)
-              .setLocalAddress(loopbackAddress)
-              .registerHandler("/", (req, resp, context) -> {
+
+
+        ServerBootstrap serverBuilder = ServerBootstrap.bootstrap()
+            .setListenerPort(0)
+            .setLocalAddress(loopbackAddress)
+            .registerHandler("/", (HttpRequest req, HttpResponse resp, HttpContext context) -> {
                 String uri = req.getRequestLine().getUri();
-        
+
                 try {
+                    // use the received Auth code
                     AuthorizationCode authCode = parseAuthenticationResponse(uri, state);
                     NimbusDumper.logTrace(this, "Auth code received by local server. ");
                     futureAuthCode.complete(authCode);
-        
-                    String content = "<center><h1>Authentication successful</h1><p>Just wait for the browser to close.</p></center> ";
-                    StringEntity stringEntity = new StringEntity(content, StandardCharsets.UTF_8.name());
-                    stringEntity.setContentType("text/html");
-                    resp.setEntity(stringEntity);
-                    resp.setStatusCode(200);
+
+                    // Display a temporary page while the browser is still open
+                    handleLocalServerRequest(req, resp, context,
+                            r -> r != null && r.getStatusCode() >= 200 && r.getStatusCode() < 400,
+                            () -> BasicHttpResponse.ofString(200, "<center><h1>Authentication successful</h1><p>Just wait for the browser to close.</p></center> "));
+
                 } catch (IOException e) {
                     futureAuthCode.completeExceptionally(e);
-        
-                    String content = "Failure : "+ FileUtils.getLocalizedMessage(e);
+
+                    String content = "Unexpected failure : "+ FileUtils.getLocalizedMessage(e);
                     resp.setEntity(new StringEntity(content, StandardCharsets.UTF_8.name()));
                     resp.setStatusCode(500);
                     Log.error(e);
                 }
-              })
-              .create();
-          server.start();
+            });
+
+        if (this.webBrowser.getOidcRedirectServer() != null) {
+            serverBuilder.registerHandler("*", (req, resp, context) -> {
+                handleLocalServerRequest(req, resp, context,
+                        r -> r != null,
+                        () -> BasicHttpResponse.ofString(404, "<center><h1>Authentication successful</h1><p>Path not found</p></center>"));
+
+            });
+        }
+
+        HttpServer server = serverBuilder.create();
+        server.start();
         return server;
     }
 
@@ -274,7 +332,7 @@ public class OidcBrowserFlow implements IOidcAuthenticationFlow {
         // Ensure only one authentication is running at once.
         // If one is already running, wait for it to end and return its answer.
         CompletableFuture<AuthResponse> flowEnded = getOrCreateBrowserProcess();
-        
+
         try {
             // Wait for the login process to end
             return flowEnded.get();
@@ -294,10 +352,9 @@ public class OidcBrowserFlow implements IOidcAuthenticationFlow {
                 // Our timeout was triggered
                 msg = "Authentication time out elapsed.";
             }
-        
+
             throw new UriAuthenticationException(e, this.metadata.getAuthorizationEndpointURI().toString(), msg);
         }
-        
     }
 
     /**
@@ -305,6 +362,7 @@ public class OidcBrowserFlow implements IOidcAuthenticationFlow {
      * <p>
      * Ensures only one authentication is running at once.
      * If one is already running, return it directly.
+     *
      * @return a future that will be completed when the user login process ends.
      * @throws IOException on failure creating the login process.
      */
@@ -316,7 +374,7 @@ public class OidcBrowserFlow implements IOidcAuthenticationFlow {
             if (flowEnded == null) {
                 flowEnded = createBrowserProcess();
                 this.runningAuthFlow = flowEnded;
-        
+
                 flowEnded.whenComplete((r,t) -> {
                     synchronized(this.runningAuthFlowGuard) {
                         this.runningAuthFlow = null;
@@ -329,6 +387,7 @@ public class OidcBrowserFlow implements IOidcAuthenticationFlow {
 
     /**
      * Create a new browser login process.
+     *
      * @return a future that will be completed when the user login process ends.
      * @throws IOException on failure creating the login process.
      */
@@ -336,25 +395,25 @@ public class OidcBrowserFlow implements IOidcAuthenticationFlow {
     private CompletableFuture<AuthResponse> createBrowserProcess() throws IOException {
         // Generate nonce
         Nonce nonce = new Nonce();
-        
+
         // Generate random state string for pairing the response to the request
         State state = new State();
-        
+
         // Start an ephemeral local web server that will receive auth code
         // This future is completed by the ephemeral HTTP server
         CompletableFuture<AuthorizationCode> futureAuthCode = new CompletableFuture<>();
-        
+
         HttpServer server = startLocalServer(state, futureAuthCode);
         URI embeddedServerUri = computeServerUri(server);
         NimbusDumper.logTrace(this, "Server listening on: %s", embeddedServerUri);
-        
+
         CodeVerifier codeVerifier = new CodeVerifier();
-        
+
         // Compute Keycloak request URL
         URI reqUri = this.computeAuthcodeRequest(embeddedServerUri, state, codeVerifier, nonce);
-        
+
         // Setup async process
-        
+
         CompletableFuture<AuthResponse> flowEnded = futureAuthCode
                 .thenApply(code -> {
                     NimbusDumper.logTrace(this, "OIDC Authorization code received. ");
@@ -372,19 +431,19 @@ public class OidcBrowserFlow implements IOidcAuthenticationFlow {
                         throw new CompletionException(e);
                     }
                 });
-        
-        
+
+
         addTimeout(flowEnded);
-        
+
         flowEnded.whenCompleteAsync((t,e) -> {
             NimbusDumper.logTrace(this, "Requesting browser close.");
             this.webBrowser.closeBrowser();
-        
+
             NimbusDumper.logTrace(this, "Stopping server: %s", embeddedServerUri);
             server.shutdown(5, TimeUnit.SECONDS);
             NimbusDumper.logTrace(this, "Stopped server: %s", embeddedServerUri);
         });
-        
+
         // Launch login process
         NimbusDumper.logTrace(this, "Open browser toward: %s..." , reqUri.resolve(reqUri.getRawPath())); // Redact URI request parameters in logs
         this.webBrowser.browse(reqUri, () -> {
@@ -403,6 +462,7 @@ public class OidcBrowserFlow implements IOidcAuthenticationFlow {
      * <p>
      * This method will be obsolete once Java 11 is enforced everywhere ,
      * {@link CompletableFuture#completeOnTimeout(Object, long, TimeUnit)} will be used instead.
+     *
      * @param browserFlow a process to time out
      * @return a future that will complete either when the given process end or when the time out is triggered.
      */
@@ -413,12 +473,13 @@ public class OidcBrowserFlow implements IOidcAuthenticationFlow {
             NimbusDumper.logTrace(this, "Time out waiting for login to end.");
             return browserFlow.completeExceptionally(new TimeoutException());
         }, 10, TimeUnit.MINUTES);
-        
+
         // Cancel the time out if the process ends before
         return browserFlow.whenComplete((res,err) -> wasTimedOut.cancel(true));
     }
 
     /**
+     *
      * @param server the embedded HTTP server
      * @return the embedded HTTP server URI.
      * @throws IOException if unable to compute an URI, should never happen
@@ -447,8 +508,8 @@ public class OidcBrowserFlow implements IOidcAuthenticationFlow {
                     this.clientId,
                     new AuthorizationCodeGrant(authCode, redirectURI, codeVeririer));
         }
-        
-        
+
+
         AuthResponse oidcTokens = NimbusHelper.requestOidcTokens(this.metadata, tokenReq);
         return oidcTokens;
     }

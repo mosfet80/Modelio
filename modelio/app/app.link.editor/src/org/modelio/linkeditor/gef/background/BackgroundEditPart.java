@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.linkeditor.gef.background;
 
@@ -74,7 +93,7 @@ public class BackgroundEditPart extends AbstractGraphicalEditPart implements Pro
     @objid ("ee8aded0-6e2a-413f-b3ef-9c38b7d5772f")
     public static final String VIEWERPROP_SWITCH_EDIT_MODE = "switchEditModeRunnable";
 
-    @objid ("53d7c013-11e3-43ab-87c5-be0d5aa5fb6a")
+    @objid ("85835a59-0cbb-41ec-820c-009d0193d78d")
     private final IEclipseContext context;
 
     @objid ("1b87bbf7-5e33-11e2-b81d-002564c97630")
@@ -83,7 +102,6 @@ public class BackgroundEditPart extends AbstractGraphicalEditPart implements Pro
         super.activate();
         getModel().addPropertyChangeListener(this);
         getViewer().addPropertyChangeListener(this);
-        
     }
 
     @objid ("1b87bbfa-5e33-11e2-b81d-002564c97630")
@@ -92,7 +110,6 @@ public class BackgroundEditPart extends AbstractGraphicalEditPart implements Pro
         getModel().removePropertyChangeListener(this);
         getViewer().removePropertyChangeListener(this);
         super.deactivate();
-        
     }
 
     @objid ("1b87bbfd-5e33-11e2-b81d-002564c97630")
@@ -105,14 +122,13 @@ public class BackgroundEditPart extends AbstractGraphicalEditPart implements Pro
     @Override
     public void performRequest(final Request req) {
         if (RequestConstants.REQ_OPEN.equals(req.getType())) {
-        
+
             ((Runnable) getViewer().getProperty(VIEWERPROP_SWITCH_EDIT_MODE)).run();
-        
+
             getModel().fireContentChanged();
         } else {
             super.performRequest(req);
         }
-        
     }
 
     @objid ("1b87bc09-5e33-11e2-b81d-002564c97630")
@@ -122,20 +138,19 @@ public class BackgroundEditPart extends AbstractGraphicalEditPart implements Pro
         if (evt.getPropertyName().equals(BackgroundModel.CONTENT)) {
             // Compute the layout offsets based on the nodes size for horizontal layout.
             BackgroundEditPart.HORIZONTAL_LAYOUT_RANK_BASE = GraphNode.WIDTH * 75 / 100;
-            BackgroundEditPart.HORIZONTAL_LAYOUT_OFFSET_SPACING = GraphNode.HEIGHT * 175 / 100;
-        
+            BackgroundEditPart.HORIZONTAL_LAYOUT_OFFSET_SPACING = GraphNode.HEIGHT * 125 / 100;
+
             // Compute the layout offsets based on the nodes size for vertical layout.
-            BackgroundEditPart.VERTICAL_LAYOUT_RANK_BASE = -GraphNode.HEIGHT * 125 / 100;
+            BackgroundEditPart.VERTICAL_LAYOUT_RANK_BASE = -GraphNode.HEIGHT * 75 / 100;
             BackgroundEditPart.VERTICAL_LAYOUT_OFFSET_SPACING = GraphNode.WIDTH * 125 / 100;
-        
+
             refreshChildren();
             refreshVisuals();
         }
-        
+
         if (evt.getPropertyName().equals(EDIT_MODE)) {
             refreshVisuals();
         }
-        
     }
 
     @objid ("1b87bc0e-5e33-11e2-b81d-002564c97630")
@@ -144,7 +159,6 @@ public class BackgroundEditPart extends AbstractGraphicalEditPart implements Pro
         IFigure child = ((GraphicalEditPart) childEditPart).getFigure();
         Node model = (Node) childEditPart.getModel();
         getContentPane().add(child, new Rectangle(model.x, model.y, model.width, model.height), index);
-        
     }
 
     @objid ("1b87bc17-5e33-11e2-b81d-002564c97630")
@@ -169,7 +183,7 @@ public class BackgroundEditPart extends AbstractGraphicalEditPart implements Pro
     protected List<?> getModelChildren() {
         BackgroundModel directedGraph = getModel();
         boolean vertical = isVerticalLayout();
-        
+
         Node center = directedGraph.getCenter();
         if (center != null) {
             // "blank" layout
@@ -194,7 +208,7 @@ public class BackgroundEditPart extends AbstractGraphicalEditPart implements Pro
                 EdgeBus edgeBus = (EdgeBus) node;
                 int min = Integer.MAX_VALUE;
                 int max = Integer.MIN_VALUE;
-        
+
                 for (Object incomingEdge : edgeBus.incoming) {
                     Node source = ((Edge) incomingEdge).source;
                     if (vertical) {
@@ -207,7 +221,7 @@ public class BackgroundEditPart extends AbstractGraphicalEditPart implements Pro
                         max = Math.max(max, dy + source.height / 4);
                     }
                 }
-        
+
                 for (Object outgoingEdge : edgeBus.outgoing) {
                     Node target = ((Edge) outgoingEdge).target;
                     if (vertical) {
@@ -220,7 +234,7 @@ public class BackgroundEditPart extends AbstractGraphicalEditPart implements Pro
                         max = Math.max(max, dy + target.height / 4);
                     }
                 }
-        
+
                 if (vertical) {
                     edgeBus.x = min;
                     edgeBus.width = max - min;
@@ -230,13 +244,13 @@ public class BackgroundEditPart extends AbstractGraphicalEditPart implements Pro
                 }
             }
         }
-        
     }
 
     /**
      * Get the size of the control showing the viewer .
      * <p>
      * Scroll bars are deduced from the view size.
+     *
      * @return the visible view size.
      */
     @objid ("1b87bc2e-5e33-11e2-b81d-002564c97630")
@@ -251,7 +265,7 @@ public class BackgroundEditPart extends AbstractGraphicalEditPart implements Pro
                 Point p = control.getSize();
                 controlSize.x = p.x;
                 controlSize.y = p.y;
-        
+
                 if (control instanceof Scrollable) {
                     Scrollable c = (Scrollable) control;
                     ScrollBar b = c.getHorizontalBar();
@@ -270,8 +284,8 @@ public class BackgroundEditPart extends AbstractGraphicalEditPart implements Pro
 
     /**
      * Layout a node, ie set its position.
-     * @param goLeft
-     * - the direction of the graph navigation.
+     *
+     * @param goLeft - the direction of the graph navigation.
      * @param node - the node to layout
      * @param rank - the tree depth coordinate where to layout the node.<br/>
      * For vertical layout rank is the Y coordinate, for horizontal layout rank is the X coordinate.
@@ -284,16 +298,16 @@ public class BackgroundEditPart extends AbstractGraphicalEditPart implements Pro
     private int layout(final Node node, final int rank, final int offset, final boolean vertical, final boolean direct) {
         int rankSpacing = vertical ? BackgroundEditPart.VERTICAL_LAYOUT_RANK_BASE : BackgroundEditPart.HORIZONTAL_LAYOUT_RANK_BASE;
         int offsetSpacing = (vertical ? BackgroundEditPart.VERTICAL_LAYOUT_OFFSET_SPACING : BackgroundEditPart.HORIZONTAL_LAYOUT_OFFSET_SPACING);
-        
+
         int newOffset = offset;
-        
+
         EdgeList edges = direct ? node.outgoing : node.incoming;
-        
+
         // Start by layouting children
         for (Object edgeObj : edges) {
             Edge edge = (Edge) edgeObj;
             Node nextNode = direct ? edge.target : edge.source;
-        
+
             int rankIncrement;
             if (node instanceof EdgeBus) {
                 // after a edgebus 2 rank spacing units
@@ -305,16 +319,16 @@ public class BackgroundEditPart extends AbstractGraphicalEditPart implements Pro
                 // otherwise 2 rank spacing units
                 rankIncrement = rankSpacing * 2;
             }
-        
+
             int nextRank = direct ? rank + rankIncrement : rank - rankIncrement;
-        
+
             newOffset = offsetSpacing + layout(nextNode, nextRank, newOffset, vertical, direct);
         }
-        
+
         if (edges.size() > 0) {
             newOffset -= offsetSpacing;
         }
-        
+
         // Now layout node
         if (vertical) {
             // vertical layout
@@ -330,6 +344,7 @@ public class BackgroundEditPart extends AbstractGraphicalEditPart implements Pro
 
     /**
      * Align the center node on the center of the view or one of its border depending on the edges existence.
+     *
      * @param directedGraph the model graph
      */
     @objid ("1b87bc43-5e33-11e2-b81d-002564c97630")
@@ -338,31 +353,30 @@ public class BackgroundEditPart extends AbstractGraphicalEditPart implements Pro
         // Get the size of the control showing the viewer (this has to be done
         // in the display thread to avoid InvalidThreadAccessException).
         final Point controlSize = getViewAreaSize();
-        
+
         if (controlSize.x <= 0 || controlSize.y <= 0) {
             // FIXME We were called too early, SWT not yet ready
             return;
         }
-        
+
         final GraphNode centerNode = directedGraph.getCenter();
-        
+
         // Compute the vector to align the nodes.
         int xDelta;
         int yDelta;
         xDelta = (controlSize.x / 2) - (centerNode.x + (centerNode.width / 2));
         yDelta = (controlSize.y / 2) - (centerNode.y + (centerNode.height / 2));
-        
+
         // Move all nodes
         for (Object nodeObj : directedGraph.nodes) {
             Node node = (Node) nodeObj;
             node.x += xDelta;
             node.y += yDelta;
         }
-        
     }
 
     @objid ("e5f57cc7-5efd-11e2-a8be-00137282c51b")
-    public  BackgroundEditPart(IEclipseContext context) {
+    public BackgroundEditPart(IEclipseContext context) {
         this.context = context;
     }
 
@@ -385,10 +399,9 @@ public class BackgroundEditPart extends AbstractGraphicalEditPart implements Pro
     @Override
     protected void refreshVisuals() {
         super.refreshVisuals();
-        
+
         Color swtColor = isEditMode() ? UIColor.TEXT_WRITABLE_BG : UIColor.POSTIT_YELLOW;
         getFigure().setBackgroundColor(swtColor);
-        
     }
 
 }

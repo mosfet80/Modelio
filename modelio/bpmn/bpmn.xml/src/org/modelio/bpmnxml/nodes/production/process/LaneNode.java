@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.process;
 
@@ -59,12 +59,12 @@ public class LaneNode implements IProductionNode<BpmnLane, TLane> {
                     return modelioLan;
                 } else if (modelioLan.getChildLaneSet() != null) {
                     BpmnLane result = findUMLElement(modelioLan.getChildLaneSet(), jaxbElement);
-        
+
                     if (result != null)
                         return result;
                 }
             }
-        
+
         }
         return null;
     }
@@ -72,12 +72,12 @@ public class LaneNode implements IProductionNode<BpmnLane, TLane> {
     @objid ("83eea93c-a4a1-4fc3-8852-dfcfd31fa87f")
     @Override
     public BpmnLane createUMLElement(MObject context, TLane jaxbElement, BpmnImportFactory factory, boolean keepId) {
-        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {  
+        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {
             return factory.createWithId(BpmnLane.class, context,jaxbElement.getId());
         } else {
             return factory.create(BpmnLane.class, context);
         }
-        
+
     }
 
     @objid ("6bf12e6a-dd80-4c0a-877a-f946d92829ce")
@@ -87,7 +87,7 @@ public class LaneNode implements IProductionNode<BpmnLane, TLane> {
         if (modelioElement.getLaneSet() == null && context instanceof BpmnLaneSet) {
             modelioElement.setLaneSet((BpmnLaneSet) context);
         }
-        
+
         // set properties
         for (JAXBElement<Object> jaxFlow : jaxbElement.getFlowNodeRef()) {
             if (jaxFlow.getValue() instanceof TBaseElement) {
@@ -97,7 +97,7 @@ public class LaneNode implements IProductionNode<BpmnLane, TLane> {
                 }
             }
         }
-        
+
         if (jaxbElement.getName() != null) {
             modelioElement.setName(StringConvertor.imports(jaxbElement.getName()));
         }else{
@@ -111,13 +111,13 @@ public class LaneNode implements IProductionNode<BpmnLane, TLane> {
     public TLane createJaxbElement(Object context, BpmnLane modelioElement) {
         // Create JaxbElement
         TLane jaxElement = new TLane();
-        
+
         // Add to context
         if (context instanceof TLaneSet) {
             TLaneSet jaxLanSet = (TLaneSet) context;
             jaxLanSet.getLane().add(jaxElement);
         }
-        
+
         jaxElement.setId(IDUtils.formatJaxbID(modelioElement));
         return jaxElement;
     }
@@ -128,7 +128,7 @@ public class LaneNode implements IProductionNode<BpmnLane, TLane> {
         if (!"".equals(modelioElement.getName())) {
             jaxbElement.setName(modelioElement.getName());
         }
-        
+
         for (BpmnFlowElement modelioflow : modelioElement.getFlowElementRef()) {
             if(modelioflow instanceof BpmnActivity || modelioflow instanceof BpmnGateway || modelioflow instanceof BpmnEvent){
                    Object jaxRef = this.elementsMap.get(modelioflow.getUuid());
@@ -136,7 +136,7 @@ public class LaneNode implements IProductionNode<BpmnLane, TLane> {
                        ObjectFactory factory = new ObjectFactory();
                        jaxbElement.getFlowNodeRef().add(factory.createTLaneFlowNodeRef(jaxRef));
                    }
-            }     
+            }
         }
         return jaxbElement;
     }

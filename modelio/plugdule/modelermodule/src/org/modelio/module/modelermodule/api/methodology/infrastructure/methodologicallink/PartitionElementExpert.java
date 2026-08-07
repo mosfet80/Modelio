@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -53,7 +53,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * <tr><td>BpmnLane</td><td>Class</td></tr>
  * <tr><td>BpmnLane</td><td>Node</td></tr>
  * <tr><td>BpmnLane</td><td>ApplicationComponent</td></tr>
- * 
+ *
  * </table>
  */
 @objid ("4db80c7c-ad0f-452f-80b3-0d024ff66c60")
@@ -92,7 +92,7 @@ public class PartitionElementExpert implements IMdaExpert {
         (toMetaclass.hasBase(metamodel.getMClass("Standard.Node"))) ||
         (toMetaclass.hasBase(metamodel.getMClass("Archimate.ApplicationComponent")))||
         (toMetaclass.hasBase(metamodel.getMClass("Archimate.BusinessCollaboration")));
-        
+
     }
 
     @objid ("511f4526-103c-4132-80e4-541aa43061c9")
@@ -108,7 +108,7 @@ public class PartitionElementExpert implements IMdaExpert {
         (toElement.getMClass().hasBase(metamodel.getMClass("Standard.Node"))) ||
         (toElement.getMClass().hasBase(metamodel.getMClass("Archimate.ApplicationComponent"))) ||
         (toElement.getMClass().hasBase(metamodel.getMClass("Archimate.BusinessCollaboration")));
-        
+
     }
 
     @objid ("6fa4d784-8929-4a9b-b848-95f2143bc391")
@@ -124,7 +124,7 @@ public class PartitionElementExpert implements IMdaExpert {
         ((fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnLane"))) && (toMetaclass.hasBase(metamodel.getMClass("Standard.Node")))) ||
         ((fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnLane"))) && (toMetaclass.hasBase(metamodel.getMClass("Archimate.ApplicationComponent"))))||
         ((fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnLane"))) && (toMetaclass.hasBase(metamodel.getMClass("Archimate.BusinessCollaboration"))));
-        
+
     }
 
     @objid ("800c2e9e-e9d5-4f09-aa18-68216e65fe52")
@@ -140,7 +140,7 @@ public class PartitionElementExpert implements IMdaExpert {
         ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnLane"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Standard.Node")))) ||
         ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnLane"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Archimate.ApplicationComponent")))) ||
         ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnLane"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Archimate.BusinessCollaboration"))));
-        
+
     }
 
     @objid ("064d571f-5ad6-4100-8401-e191c29e5543")

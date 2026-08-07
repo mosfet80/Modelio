@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.mmextensions.standard.facilities;
 
@@ -65,15 +65,17 @@ public class CompositionInitializer extends DefaultModelVisitor {
 
     /**
      * Instantiate a composition initializer.
+     *
      * @param parent the new composition parent where elements will be initialized.
      */
     @objid ("01f40498-0000-7682-0000-000000000000")
-    public  CompositionInitializer(final SmObjectImpl parent) {
+    public CompositionInitializer(final SmObjectImpl parent) {
         this.parent = parent;
     }
 
     /**
      * Attach the given element to the parent element.
+     *
      * @param obj the element to attach
      * @param dep optional, the metamodel dependency to use to attach the element.
      * @return <code>true</code> if the object was successfully attached, <code>false</code> if it
@@ -84,7 +86,7 @@ public class CompositionInitializer extends DefaultModelVisitor {
         if (obj == null) {
             return false;
         }
-        
+
         if (dep != null && this.parent != null) {
             SmDependency effectiveDep;
             if (this.parent.getMClass().hasBase(dep.getSource()) && obj.getMClass().hasBase(dep.getTarget())) {
@@ -95,14 +97,14 @@ public class CompositionInitializer extends DefaultModelVisitor {
                     effectiveDep = effectiveDep.getSymetric();
                 }
             }
-        
+
             // Try a generic approach
             List<MObject> mGet = obj.mGet(effectiveDep);
             if (mGet != null) {
                 return mGet.add(parent);
             }
         }
-        
+
         Object ret = obj.accept(this);
         return ret != null ? (boolean) ret : false;
     }
@@ -125,7 +127,7 @@ public class CompositionInitializer extends DefaultModelVisitor {
         } else {
             return visitUmlModelElement(theActivityNode);
         }
-        
+
     }
 
     @objid ("01f40498-0000-7312-0000-000000000000")
@@ -137,7 +139,7 @@ public class CompositionInitializer extends DefaultModelVisitor {
         } else {
             return visitActivityGroup(theActivityPartition);
         }
-        
+
     }
 
     @objid ("01f40498-0000-6f22-0000-000000000000")
@@ -162,7 +164,7 @@ public class CompositionInitializer extends DefaultModelVisitor {
         } else {
             return visitUmlModelElement(theConstraint);
         }
-        
+
     }
 
     @objid ("01f40498-0000-6eba-0000-000000000000")
@@ -207,7 +209,7 @@ public class CompositionInitializer extends DefaultModelVisitor {
         } else {
             return visitModelTree(thePackage);
         }
-        
+
     }
 
     @objid ("01f40498-0000-7032-0000-000000000000")

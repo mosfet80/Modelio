@@ -1,0 +1,23 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Joining a Modelio Server project
+
+
+Once your Modelio Server servers have been configured in the workspace (See 'Modelio Server' section of the <<User_Documentation_en_Managing_projects_workspace.adoc#,Managing projects workspace>> chapter) you can join the projects appearing under them.
+
+image::images/attachment/modeliocom41/User_Documentation_en/Join_a_Constellation_project/JoinConstellationProject.png[JoinConstellationProject.png]
+
+*Steps:*
+
+1. Select a Modelio Server Server.
+2. Select the project to join.
+3. Launch the *Join project*... command.
+
+Non joined Modelio Server projects appears in grey with a generic icon image:images/attachment/modeliocom41/User_Documentation_en/Join_a_Constellation_project/closedconstellationproject.png[closedconstellationproject.png],
+
+Joined projects can be opened like any other local projects in the workspace _._
+
+*Note:* Accessible projects are the *Active* and *Frozen* projects in which the user has been enrolled. *New* and *Closed* projects won't be visible.

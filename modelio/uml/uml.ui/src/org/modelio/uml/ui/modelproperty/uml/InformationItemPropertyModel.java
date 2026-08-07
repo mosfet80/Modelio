@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -61,15 +61,17 @@ public class InformationItemPropertyModel extends AbstractPropertyModel<Informat
     /**
      * Create a new <i>InformationItem</i> data model from an
      * <i>InformationItem</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("3a3780c4-6fff-4bce-907c-0008a3478575")
-    public  InformationItemPropertyModel(InformationItem theEditedElement) {
+    public InformationItemPropertyModel(InformationItem theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("16480ed6-cb31-4931-b366-b16a6ac506f0")
@@ -80,6 +82,7 @@ public class InformationItemPropertyModel extends AbstractPropertyModel<Informat
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("a62caa02-eeac-47e2-ac6d-ecf4eafab769")
@@ -92,6 +95,7 @@ public class InformationItemPropertyModel extends AbstractPropertyModel<Informat
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -125,7 +129,7 @@ public class InformationItemPropertyModel extends AbstractPropertyModel<Informat
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -135,6 +139,7 @@ public class InformationItemPropertyModel extends AbstractPropertyModel<Informat
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -169,13 +174,14 @@ public class InformationItemPropertyModel extends AbstractPropertyModel<Informat
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -201,7 +207,7 @@ public class InformationItemPropertyModel extends AbstractPropertyModel<Informat
                 for (Classifier s : new ArrayList<>(this.theEditedElement.getRepresented())) {
                     this.theEditedElement.getRepresented().remove(s);
                 }
-        
+
                 List<Classifier> newcontent = (List<Classifier>) value;
                 for (Classifier s : newcontent) {
                     this.theEditedElement.getRepresented().add(s);
@@ -225,7 +231,7 @@ public class InformationItemPropertyModel extends AbstractPropertyModel<Informat
         default:
             return;
         }
-        
+
     }
 
 }

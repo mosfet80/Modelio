@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class UML2ReturnInformation {
      * Tells whether a {@link UML2ReturnInformation proxy} can be instantiated from a {@link MObject} checking it is a {@link Pin} stereotyped << UML2ReturnInformation >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,7 +73,7 @@ public class UML2ReturnInformation {
 
     /**
      * Create a new {@link Pin} stereotyped << UML2ReturnInformation >> then instantiate a {@link UML2ReturnInformation} proxy.
-     * 
+     *
      * @return a {@link UML2ReturnInformation} proxy on the created {@link Pin}.
      */
     @objid ("ea58d8ea-4874-4746-9a71-f15ea2130242")
@@ -83,9 +84,10 @@ public class UML2ReturnInformation {
     }
 
     /**
-     * Tries to instantiate a {@link UML2ReturnInformation} proxy from a {@link Pin} stereotyped << UML2ReturnInformation >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2ReturnInformation} proxy from a {@link Pin} stereotyped << UML2ReturnInformation >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a Pin
      * @return a {@link UML2ReturnInformation} proxy or <i>null</i>.
      */
@@ -95,9 +97,10 @@ public class UML2ReturnInformation {
     }
 
     /**
-     * Tries to instantiate a {@link UML2ReturnInformation} proxy from a {@link Pin} stereotyped << UML2ReturnInformation >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2ReturnInformation} proxy from a {@link Pin} stereotyped << UML2ReturnInformation >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link Pin}
      * @return a {@link UML2ReturnInformation} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -127,7 +130,8 @@ public class UML2ReturnInformation {
     }
 
     /**
-     * Get the underlying {@link Pin}. 
+     * Get the underlying {@link Pin}.
+     *
      * @return the Pin represented by this proxy, never null.
      */
     @objid ("4672a4ca-6cba-4e75-be99-f26409ab1fcd")
@@ -139,11 +143,11 @@ public class UML2ReturnInformation {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("3f071a70-8334-4d0d-9037-e971654c5c4f")
-    protected  UML2ReturnInformation(Pin elt) {
+    protected UML2ReturnInformation(Pin elt) {
         this.elt = elt;
     }
 
@@ -163,7 +167,7 @@ public class UML2ReturnInformation {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "0936024c-9d51-4bc0-99b5-e8f72ae60007");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -171,7 +175,7 @@ public class UML2ReturnInformation {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.service.impl;
 
@@ -30,6 +30,7 @@ import org.modelio.platform.mda.infra.service.IRTModule;
 public interface IModuleRegistryAccess extends IModuleRegistry {
     /**
      * Adds a module to the list of the projects modules
+     *
      * @param module the module.
      */
     @objid ("1e6375ee-edc3-11e1-88ee-001ec947c8cc")
@@ -37,6 +38,7 @@ public interface IModuleRegistryAccess extends IModuleRegistry {
 
     /**
      * Adds a module to the list of started modules
+     *
      * @param module the started module.
      */
     @objid ("1e6375e8-edc3-11e1-88ee-001ec947c8cc")
@@ -44,6 +46,7 @@ public interface IModuleRegistryAccess extends IModuleRegistry {
 
     /**
      * Remove a module from the list of started modules.
+     *
      * @param module the stopped module.
      */
     @objid ("1e6375eb-edc3-11e1-88ee-001ec947c8cc")
@@ -51,6 +54,7 @@ public interface IModuleRegistryAccess extends IModuleRegistry {
 
     /**
      * Remove a module from the list of loaded modules.
+     *
      * @param module the unloaded module.
      */
     @objid ("1e6375f5-edc3-11e1-88ee-001ec947c8cc")
@@ -64,9 +68,10 @@ public interface IModuleRegistryAccess extends IModuleRegistry {
 
     /**
      * Set the registry project name for debugging.
+     *
      * @param name the project name
      */
     @objid ("8dea9875-0273-4e2d-81f1-66b880c3ddba")
     void setProjectName(String name);
-}
 
+}

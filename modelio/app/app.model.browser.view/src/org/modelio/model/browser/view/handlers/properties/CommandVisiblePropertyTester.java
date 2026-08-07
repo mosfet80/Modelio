@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.browser.view.handlers.properties;
 
@@ -34,7 +34,7 @@ public class CommandVisiblePropertyTester extends PropertyTester {
      * Default constructor.
      */
     @objid ("318f4023-36db-48f4-bfa3-3b87eccae663")
-    public  CommandVisiblePropertyTester() {
+    public CommandVisiblePropertyTester() {
         // nothing
     }
 
@@ -44,8 +44,8 @@ public class CommandVisiblePropertyTester extends PropertyTester {
         if (!(receiver instanceof IStructuredSelection)) {
             return false;
         }
-        
-        final IStructuredSelection selection = (IStructuredSelection) receiver;        
+
+        final IStructuredSelection selection = (IStructuredSelection) receiver;
         Object element = selection.getFirstElement();
         Object[] elements = selection.toArray();
         switch (property) {
@@ -64,7 +64,7 @@ public class CommandVisiblePropertyTester extends PropertyTester {
             default:
                 throw new IllegalArgumentException(property + " property not supported by " + getClass().getSimpleName());
         }
-        
+
     }
 
 }

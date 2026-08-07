@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.module.command.standard;
 
@@ -44,14 +44,14 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * <li>{@value #PATTERNPARAM_SEL_NAME} : the selected element name
  * <li>{@value #PATTERNPARAM_MODULE} : the current module
  * </ul>
- * 
+ *
  * Used handler parameters:
  * <ul>
  * <li> {@value #COMMANDPARAM_PATTERN_NAME} : the pattern name. Used to set a pattern parameter with the pattern
  * name as key and the Modelio selected element as value
  * <li> {@value #COMMANDPARAM_PATTERN_PATH} : the pattern file path relative to the module resources directory.
  * </ul>
- * 
+ *
  * @since 3.4
  */
 @objid ("87443439-418d-46e1-8a8f-3c8a5d15ae2f")
@@ -94,23 +94,23 @@ public class ApplyPatternStandardHandler extends DefaultModuleCommandHandler {
         Shell current = Display.getCurrent().getActiveShell();
         IModelioServices modelioServices = module.getModuleContext().getModelioServices();
         IPatternService svc = modelioServices.getPatternService();
-        
+
         String patternRelPath = getParameters().get(COMMANDPARAM_PATTERN_PATH);
-        
+
         try (ITransaction tr = module.getModuleContext().getModelingSession().createTransaction("Apply "+patternRelPath+" pattern")){
             Map<String, Object> pattParams = configure(selectedElements, module);
-        
+
             Path patternPath = module.getModuleContext().getConfiguration().getModuleResourcesPath().resolve(patternRelPath);
-        
+
             svc.applyPattern(patternPath, pattParams);
-        
+
             postConfigure(selectedElements, module);
-        
+
             tr.commit();
         } catch (PatternException e) {
             MessageDialog.openError(current, module.getLabel(), e.getLocalizedMessage());
         }
-        
+
     }
 
     /**
@@ -123,6 +123,7 @@ public class ApplyPatternStandardHandler extends DefaultModuleCommandHandler {
      * <li>selection : the selectedElements selection
      * <li>module : the IModule.
      * </ul>
+     *
      * @param selectedElements the current selection in Modelio
      * @param module the module owning the command handler.
      */
@@ -130,7 +131,7 @@ public class ApplyPatternStandardHandler extends DefaultModuleCommandHandler {
     protected Map<String, Object> configure(List<MObject> selectedElements, IModule module) {
         // Copy command parameters to pattern parameters
         Map<String, Object> pattParams = new HashMap<>(getParameters());
-        
+
         // add selected element, its name and the module
         pattParams.put(getParameter(COMMANDPARAM_PATTERN_NAME), selectedElements.get(0));
         pattParams.put(PATTERNPARAM_SEL, selectedElements.get(0));
@@ -143,6 +144,7 @@ public class ApplyPatternStandardHandler extends DefaultModuleCommandHandler {
      * Hook called once the pattern is applied and before the transaction is committed.
      * <p>
      * Does nothing by default. Sub classes may redefine this method to make additional modifications.
+     *
      * @param selectedElements the current selection in Modelio
      * @param module the module owning the command handler.
      */

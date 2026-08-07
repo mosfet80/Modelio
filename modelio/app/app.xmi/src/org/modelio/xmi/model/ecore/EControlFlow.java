@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -39,16 +39,16 @@ public class EControlFlow extends EActivityEdge {
             Object objingSource = ReverseProperties.getInstance().getMappedElement(ecoreSource);
             if ((objingSource != null) &&  (objingSource instanceof ActivityNode))
                 return ReverseProperties.getInstance().getMModelServices().getModelFactory().getFactory(IStandardModelFactory.class).createControlFlow();
-        
+
         }
         return null;
     }
 
     @objid ("5e6149a4-37a8-4e66-ba8e-2ee2b1aedf25")
-    public  EControlFlow(org.eclipse.uml2.uml.ControlFlow element) {
+    public EControlFlow(org.eclipse.uml2.uml.ControlFlow element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
 }

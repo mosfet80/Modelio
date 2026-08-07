@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.swt.selectmetaclass;
 
@@ -72,16 +72,16 @@ public class MetaclassSelector {
     @objid ("39748845-4a64-4592-aa89-514a9e5b99ca")
     private static final char[] AUTO_ACTIVATION_CHARS = "ABCDEFGHIJKLMNOPQRSTUVW".toCharArray();
 
-    @objid ("d09e8cc1-d770-4ba5-90f5-7012e7394c8e")
-    private final List<IMetaclassSelectorListener> listeners = new ArrayList<>(1);
-
     /**
      * The wrapped Text widget
      */
-    @objid ("8131eff2-a12f-4966-be7f-139c9f6eafb9")
+    @objid ("e4777036-c5c9-42d8-83c7-dbcfc4831b33")
     private final Text text;
 
-    
+    @objid ("d09e8cc1-d770-4ba5-90f5-7012e7394c8e")
+    private final List<IMetaclassSelectorListener> listeners = new ArrayList<>(1);
+
+
     @mdl.prop
     @objid ("92660e38-1c61-4ab5-a65b-b92b11819618")
     public IMetaclassSelectorFilter metaclassFilter;
@@ -102,16 +102,15 @@ public class MetaclassSelector {
     private MMetamodel metamodel;
 
     @objid ("1768c632-1189-4bf3-a171-f30f159d1b13")
-    public  MetaclassSelector(Composite parent, int style, MMetamodel metamodel) {
+    public MetaclassSelector(Composite parent, int style, MMetamodel metamodel) {
         this(parent, style, metamodel, null);
     }
 
     @objid ("4473cd28-07c5-44dd-93c9-e4df3526b9fc")
-    public  MetaclassSelector(Composite parent, int style, MMetamodel metamodel, IMetaclassSelectorFilter filter) {
+    public MetaclassSelector(Composite parent, int style, MMetamodel metamodel, IMetaclassSelectorFilter filter) {
         this.text = createControl(parent, style);
         this.metaclassFilter = filter;
         this.metamodel = metamodel;
-        
     }
 
     @objid ("b01e5868-3de8-4767-af72-8c8ba9eccb59")
@@ -132,7 +131,6 @@ public class MetaclassSelector {
     public MClass getSelected() {
         return ((MClass) this.text.getData());
         // return this.metamodel.getMClass(MetaclassSelector.this.text.getData());
-        
     }
 
     @objid ("bf8a7608-a95f-4185-8c38-60729d5de25f")
@@ -149,44 +147,43 @@ public class MetaclassSelector {
             this.text.setData(null);
             this.text.setText("");
         }
-        
     }
 
     @objid ("5660494b-17d2-4f1a-b525-9e74de48ade9")
     private Text createControl(Composite parent, int style) {
         final Text wrappedText = new Text(parent, style);
-        
+
         // create the decoration for the text component
         final ControlDecoration deco = new ControlDecoration(wrappedText, SWT.CENTER | SWT.RIGHT);
-        
+
         // set description and image
         deco.setDescriptionText(CoreUi.I18N.getString("MetaclassSelector.assist.tooltip"));
         deco.setImage(UIImages.ASSIST);
-        
+
         // always show decoration
         deco.setShowOnlyOnFocus(true);
-        
+
         try {
             KeyStroke k = KeyStroke.getInstance("CTRL+SPACE");
             ContentProposalAdapter adapter = new ContentProposalAdapter(wrappedText, new TextContentAdapter(),
                     new SelectMetaclassContentProposalProvider(this), k, MetaclassSelector.AUTO_ACTIVATION_CHARS);
-        
+
             adapter.setProposalAcceptanceStyle(ContentProposalAdapter.PROPOSAL_REPLACE);
-        
+
             adapter.setLabelProvider(new LabelProvider() {
                 @Override
                 public Image getImage(Object element) {
                     MClass mclass = ((MetaclassProposal) element).getMClass();
                     return MetamodelImageService.getIcon(mclass);
                 }
-        
+
                 @Override
                 public String getText(Object element) {
                     MetaclassProposal p = (MetaclassProposal) element;
                     return p.getLabel() + " (" + p.getMClass().getOrigin().getName() + ")";
                 }
             });
-        
+
             adapter.addContentProposalListener(new IContentProposalListener() {
                 @Override
                 public void proposalAccepted(IContentProposal proposal) {
@@ -195,7 +192,7 @@ public class MetaclassSelector {
                     MetaclassSelector.this.text.traverse(SWT.TRAVERSE_TAB_NEXT);
                 }
             });
-        
+
             wrappedText.addFocusListener(new FocusListener() {
                 @Override
                 public void focusLost(FocusEvent e) {
@@ -204,20 +201,20 @@ public class MetaclassSelector {
                         fireSelection();
                     }
                 }
-        
+
                 @Override
                 public void focusGained(FocusEvent e) {
                     // Nothing to do
                 }
             });
             wrappedText.addSelectionListener(new SelectionListener() {
-        
+
                 @Override
                 public void widgetSelected(SelectionEvent e) {
                     // Nothing to do
-        
+
                 }
-        
+
                 @Override
                 public void widgetDefaultSelected(SelectionEvent e) {
                     // Called on ENTER
@@ -225,7 +222,7 @@ public class MetaclassSelector {
                     fireSelection();
                 }
             });
-        
+
             wrappedText.addModifyListener(new ModifyListener() {
                 @Override
                 public void modifyText(ModifyEvent e) {
@@ -245,26 +242,24 @@ public class MetaclassSelector {
         for (final IMetaclassSelectorListener listener : this.listeners) {
             listener.selectMetaclass(mClass);
         }
-        
     }
 
     @objid ("816c8d8e-37b4-4698-8113-f5b2d2c30205")
     private void showMetaclassValidity() {
         String metaclassName = MetaclassSelector.this.text.getText();
-        
+
         final MClass mClass = (MClass)this.text.getData();
         if (mClass != null) {
             MetaclassSelector.this.text.setForeground(MetaclassSelector.this.text.getDisplay().getSystemColor(SWT.COLOR_DARK_GREEN));
         } else {
             MetaclassSelector.this.text.setForeground(MetaclassSelector.this.text.getDisplay().getSystemColor(SWT.COLOR_RED));
         }
-        
+
         // We have to check the data's name before replacing it, to handle metaclasses having the same name
         Object currentData = this.text.getData();
         if (currentData == null || !((MClass) currentData).getName().equals(metaclassName)) {
             this.text.setData(mClass);
         }
-        
     }
 
     @objid ("14efd48a-82a1-4d99-8c1a-ae0e3aafcec8")
@@ -273,7 +268,7 @@ public class MetaclassSelector {
         private MClass mClass;
 
         @objid ("5208c5f6-6558-48ab-83bf-e744d3332084")
-        public  MetaclassProposal(MClass mClass) {
+        public MetaclassProposal(MClass mClass) {
             this.mClass = mClass;
         }
 
@@ -322,9 +317,9 @@ public class MetaclassSelector {
             if (this.metaclasses == null) {
                 initMetaclasses();
             }
-            
+
             final IMetaclassSelectorFilter filter = this.metaclassSelector.getMetaclassFilter();
-            
+
             List<IContentProposal> list = new ArrayList<>();
             for (MClass mc : this.metaclasses) {
                 if (filter == null || filter.accept(mc)) {
@@ -346,11 +341,10 @@ public class MetaclassSelector {
                     return o1.getName().compareTo(o2.getName());
                 }
             });
-            
         }
 
         @objid ("5c328c18-63a1-4c8b-9b2c-df5dd7f07f6d")
-        public  SelectMetaclassContentProposalProvider(MetaclassSelector metaclassSelector) {
+        public SelectMetaclassContentProposalProvider(MetaclassSelector metaclassSelector) {
             this.metaclassSelector = metaclassSelector;
         }
 

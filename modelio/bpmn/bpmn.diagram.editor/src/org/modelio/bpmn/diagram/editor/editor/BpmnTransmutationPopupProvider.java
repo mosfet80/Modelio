@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.editor;
 
@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.di.AboutToHide;
 import org.eclipse.e4.ui.di.AboutToShow;
@@ -83,6 +83,7 @@ public class BpmnTransmutationPopupProvider {
     /**
      * Fills a dynamic creation menu with selection-compatible contributions before display. <br/>
      * Called by the rcp platform through injection.
+     *
      * @param items the item list to fill.
      */
     @objid ("68c430ea-7812-4c4d-99f5-e374c0243a59")
@@ -95,7 +96,7 @@ public class BpmnTransmutationPopupProvider {
             // add menu items
             items.add(createMenu(entries));
         }
-        
+
     }
 
     @objid ("16659ef9-a5df-4b3e-8cf2-5ac225aab786")
@@ -117,6 +118,7 @@ public class BpmnTransmutationPopupProvider {
     }
 
     /**
+     *
      * @return the currently selected elements.
      */
     @objid ("463a1bb6-255a-45d9-85d5-eda9e7dce039")
@@ -128,6 +130,7 @@ public class BpmnTransmutationPopupProvider {
 
     /**
      * Compute a contributor id from a bundle.
+     *
      * @return a contributor id.
      */
     @objid ("45137d19-a403-49cf-b33e-d0cde257a113")
@@ -137,6 +140,7 @@ public class BpmnTransmutationPopupProvider {
 
     /**
      * Create a new handled menu item from a popup entry descriptor.
+     *
      * @param entry the descriptor to convert.
      * @return a new menu elements.
      */
@@ -147,25 +151,25 @@ public class BpmnTransmutationPopupProvider {
         final MCommand command = getCommand(entry);
         item.setCommand(command);
         item.setElementId(entry.i18nKey);
-        
+
         // compute label, tooltip and icon
         final BundledMessages i18nBundle = DiagramEditorBpmn.I18N;
         item.setLabel(i18nBundle.getString(entry.i18nKey + ".label"));
         item.setTooltip(i18nBundle.getString(entry.i18nKey + ".tooltip"));
-        
+
         final String baseIcon = i18nBundle.getString(entry.i18nKey + ".icon");
         if (!baseIcon.contains("!")) {
             item.setIconURI(MetamodelImageService.getIconCompletePath(baseIcon));
         }
-        
+
         // make the item visible
         item.setEnabled(true);
         item.setToBeRendered(true);
         item.setVisible(true);
-        
+
         // bind the item to the contributing plugin
         item.setContributorURI(contributorId);
-        
+
         final MParameter p = MCommandsFactory.INSTANCE.createParameter();
         p.setContributorURI(contributorId);
         p.setName("transformerindex");
@@ -176,6 +180,7 @@ public class BpmnTransmutationPopupProvider {
 
     /**
      * Get the MCommand defined in the application having a specific id.
+     *
      * @param commandId the element id of the MCommand to find.
      * @return a MCommand, or <code>null</code> if the id is not found.
      */
@@ -201,22 +206,22 @@ public class BpmnTransmutationPopupProvider {
     @objid ("fa05d584-3e7e-4747-90ca-e25ce21787e9")
     private MMenu createMenu(final List<ModelTransformerCommand> commands) {
         final String contributorId = getContributorId(DiagramEditorBpmn.getContext().getBundle());
-        
+
         // create a new menu
         final MMenu elementCreationMenu = MMenuFactory.INSTANCE.createMenu();
         elementCreationMenu.setLabel(DiagramEditorBpmn.I18N.getString("TransformWizard.label"));
         elementCreationMenu.setTooltip(DiagramEditorBpmn.I18N.getString("TransformWizard.tooltip"));
-        
+
         // make the menu visible
         elementCreationMenu.setEnabled(true);
         elementCreationMenu.setToBeRendered(true);
         elementCreationMenu.setVisible(true);
-        
+
         // bound the menu to the contributing plugin
         elementCreationMenu.setContributorURI(contributorId);
-        
+
         final List<MMenuElement> menuChildren = elementCreationMenu.getChildren();
-        
+
         // add transform commands
         for (final ModelTransformerCommand command : commands) {
             menuChildren.add(createMenuItem(command, contributorId));

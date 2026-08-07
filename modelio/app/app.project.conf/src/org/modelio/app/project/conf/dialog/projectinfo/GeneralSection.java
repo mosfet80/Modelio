@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.conf.dialog.projectinfo;
 
@@ -128,10 +128,11 @@ class GeneralSection {
 
     /**
      * C'tor
+     *
      * @param msgManager message manager to report validation errors
      */
     @objid ("a7459d5d-33f6-11e2-a514-002564c97630")
-    public  GeneralSection(IMessageManager msgManager) {
+    public GeneralSection(IMessageManager msgManager) {
         this.msgManager = msgManager;
     }
 
@@ -140,35 +141,35 @@ class GeneralSection {
         Section section = toolkit.createSection(parent, ExpandableComposite.TITLE_BAR | ExpandableComposite.TWISTIE);
         section.setText(AppProjectConf.I18N.getString("GeneralSection.SectionText")); //$NON-NLS-1$
         section.setExpanded(true);
-        
+
         section.addDisposeListener(new DisposeListener() {
-        
+
             @Override
             public void widgetDisposed(DisposeEvent e) {
                 dispose();
             }
         });
-        
+
         Composite composite = toolkit.createComposite(section, SWT.WRAP);
         GridLayout layout = new GridLayout();
         layout.numColumns = 2;
         layout.makeColumnsEqualWidth = false;
         composite.setLayout(layout);
-        
+
         // Project name
         Label nameLabel = toolkit.createLabel(composite, AppProjectConf.I18N.getString("GeneralSection.Name"), SWT.NONE); //$NON-NLS-1$
         nameLabel.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, false, true));
-        
+
         this.projectName = toolkit.createText(composite, "", SWT.NONE); //$NON-NLS-1$
         this.projectName.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         this.projectName.setEditable(false);
         this.projectName.addModifyListener(new GeneralModificationListener());
         this.projectName.setForeground(UIColor.LABEL_TIP_FG);
-        
+
         // Project image (logo and icon)
         Label leftLogoLabel = toolkit.createLabel(composite, AppProjectConf.I18N.getString("GeneralSection.ProjectImages"), SWT.NONE); //$NON-NLS-1$
         leftLogoLabel.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, false, false));
-        
+
         Composite imageComposite = toolkit.createComposite(composite, SWT.WRAP);
         GridData imageCompositeGd = new GridData(SWT.FILL, SWT.FILL, true, true);
         imageComposite.setLayoutData(imageCompositeGd);
@@ -184,27 +185,27 @@ class GeneralSection {
         ImageData iconPlaceholderData = UIImages.PLACEHOLDER.getImageData();
         this.projectIconPreviewLabel = createSelectImageField(toolkit, imageComposite, imagePlaceholderData.width, imagePlaceholderData.height, GeneralSection.INFO_PROJECT_ICON_NAME, "GeneralSection.SelectProjectIcon",
                 iconPlaceholderData.width + " * " + iconPlaceholderData.height);
-        
+
         // Project contact
         Label contactLabel = toolkit.createLabel(composite, AppProjectConf.I18N.getString("GeneralSection.Contact"), SWT.NULL); //$NON-NLS-1$
         contactLabel.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, false, true));
-        
+
         this.projectContact = toolkit.createText(composite, "", SWT.NONE); //$NON-NLS-1$
         this.projectContact.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         this.projectContact.setEditable(true);
         this.projectContact.addModifyListener(new GeneralModificationListener());
-        
+
         // Project description
         Label descriptionLabel = toolkit.createLabel(composite, AppProjectConf.I18N.getString("GeneralSection.Description"), SWT.NULL); //$NON-NLS-1$
         descriptionLabel.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, false, true));
-        
+
         this.projectDescription = toolkit.createText(composite, "", SWT.BORDER | SWT.MULTI | SWT.WRAP | SWT.V_SCROLL); //$NON-NLS-1$
         GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
         gd.heightHint = 100; // fix the height of project description text area, or the height will depend on the text
         this.projectDescription.setLayoutData(gd);
         this.projectDescription.setEditable(true);
         this.projectDescription.addModifyListener(new GeneralModificationListener());
-        
+
         toolkit.paintBordersFor(composite);
         section.setClient(composite);
         return section;
@@ -213,19 +214,19 @@ class GeneralSection {
     @objid ("a7459d68-33f6-11e2-a514-002564c97630")
     public void setInput(ProjectModel projectAdapter) {
         this.displayedProject = projectAdapter;
-        
+
         if (projectAdapter == null) {
             clearFields();
         } else {
             fillFields(projectAdapter);
         }
-        
+
     }
 
     @objid ("a745c449-33f6-11e2-a514-002564c97630")
     private void fillFields(ProjectModel projectAdapter) {
         final boolean editable = projectAdapter.isLocalProject();
-        
+
         this.projectName.setText(projectAdapter.getName());
         this.projectName.setEnabled(editable);
         this.projectDescription.setText(projectAdapter.getProperties().getValue("info.description", "").replace("\\n", "\n")); //$NON-NLS-1$ //$NON-NLS-2$
@@ -234,12 +235,12 @@ class GeneralSection {
         this.projectContact.setEnabled(editable);
         createAndDisplayImage(GeneralSection.INFO_PROJECT_LOGO_NAME);
         createAndDisplayImage(GeneralSection.INFO_PROJECT_ICON_NAME);
-        
+
         this.deleteProjectLogoBtn.setEnabled(this.projectLogo != null && isPropertyModifiable(GeneralSection.INFO_PROJECT_LOGO_NAME));
         this.deleteProjectIconBtn.setEnabled(this.projectIcon != null && isPropertyModifiable(GeneralSection.INFO_PROJECT_ICON_NAME));
         this.selectProjectLogoBtn.setEnabled(isPropertyModifiable(GeneralSection.INFO_PROJECT_LOGO_NAME));
         this.selectProjectIconBtn.setEnabled(isPropertyModifiable(GeneralSection.INFO_PROJECT_ICON_NAME));
-        
+
     }
 
     @objid ("a745c44c-33f6-11e2-a514-002564c97630")
@@ -250,11 +251,12 @@ class GeneralSection {
         this.projectDescription.setEnabled(false);
         this.projectContact.setText(""); //$NON-NLS-1$
         this.projectContact.setEnabled(false);
-        
+
     }
 
     /**
      * Loads and display the icon matching a project property.
+     *
      * @param propertyName a project property name
      */
     @objid ("fdfe9f7b-571a-4ef2-9d8f-faeb39461f3f")
@@ -274,12 +276,13 @@ class GeneralSection {
                 this.deleteProjectLogoBtn.setEnabled(true);
             }
         }
-        
+
         setImageToLabel(label, image);
-        
+
     }
 
     /**
+     *
      * @return the created project icon
      */
     @objid ("119828bc-3dfc-4a3c-aa72-00cf9fc26ea4")
@@ -287,7 +290,7 @@ class GeneralSection {
         if (this.projectIcon != null && !this.projectIcon.isDisposed()) {
             this.projectIcon.dispose();
         }
-        
+
         Image originalImage = createProjectImage(GeneralSection.INFO_PROJECT_ICON_NAME);
         if (originalImage != null) {
             ImageData imagePlaceholderData = UIImages.PLACEHOLDER.getImageData();
@@ -301,11 +304,11 @@ class GeneralSection {
     @objid ("9466229c-a676-46af-b15f-e8f891c7f043")
     private void setImageToLabel(Label iconLabel, Image aIcon) {
         if (iconLabel != null && !iconLabel.isDisposed()) {
-        
+
             iconLabel.setImage(aIcon);
             iconLabel.setVisible(aIcon != null);
         }
-        
+
     }
 
     @objid ("7f5308ca-d826-400c-9ebc-e6f91b48316d")
@@ -331,7 +334,7 @@ class GeneralSection {
         GridLayout panelGl = new GridLayout();
         panelGl.numColumns = 1;
         panel.setLayout(panelGl);
-        
+
         // create image with buttons panel (image on the left and the two add/delete button on the right)
         Composite imageButtonPanel = toolkit.createComposite(panel, SWT.NONE);
         GridLayout imageButtonPanelGl = new GridLayout();
@@ -345,7 +348,7 @@ class GeneralSection {
         imageLabelGd.heightHint = height;
         imageLabelGd.widthHint = width + 10; // add 10 as space between the btnPanel
         imageLabel.setLayoutData(imageLabelGd);
-        
+
         // The buttons composite on the right
         Composite btnPanel = toolkit.createComposite(imageButtonPanel, SWT.NONE);
         GridData btnPanelGd = new GridData(SWT.FILL, SWT.FILL, false, false);
@@ -357,7 +360,7 @@ class GeneralSection {
         // two buttons with vertical layout
         createSelectImageButton(toolkit, btnPanel, propertyName, AppProjectConf.I18N.getString(dialogTitleKey));
         createDeleteImageButton(toolkit, btnPanel, propertyName);
-        
+
         // label at the bottom
         Label sizeLabel = toolkit.createLabel(panel, sizeString, SWT.NONE);
         GridData sizeLabelGd = new GridData(SWT.CENTER, SWT.CENTER, false, false);
@@ -375,20 +378,20 @@ class GeneralSection {
         gd.heightHint = GeneralSection.SMALL_BUTTON_HEIGHT;
         deleteImageBtn.setLayoutData(gd);
         deleteImageBtn.addSelectionListener(new SelectionListener() {
-        
+
             @Override
             public void widgetSelected(SelectionEvent e) {
                 // delete image
                 deleteImage(propertyName);
             }
-        
+
             @Override
             public void widgetDefaultSelected(SelectionEvent e) {
                 // nothing to do
             }
-        
+
         });
-        
+
         if (propertyName.equals(GeneralSection.INFO_PROJECT_LOGO_NAME)) {
             this.deleteProjectLogoBtn = deleteImageBtn;
         } else {
@@ -401,9 +404,9 @@ class GeneralSection {
     protected void deleteImage(String propertyName) {
         Path imagePath = getProjectImagePath(propertyName);
         String failMsg = null;
-        
+
         this.msgManager.removeMessage(propertyName);
-        
+
         if (imagePath != null) {
             try {
                 Files.deleteIfExists(imagePath);
@@ -413,32 +416,32 @@ class GeneralSection {
                 AppProjectConf.LOG.debug(e);
             }
         }
-        
+
         if (propertyName.equals(GeneralSection.INFO_PROJECT_ICON_NAME)) {
             if (failMsg != null) {
                 this.msgManager.addMessage(propertyName, failMsg, null, IMessageProvider.WARNING, this.projectIconPreviewLabel);
             }
-        
+
             setImageToLabel(this.projectIconPreviewLabel, UIImages.PLACEHOLDER);
-        
+
             if (this.deleteProjectIconBtn != null) {
                 this.deleteProjectIconBtn.setEnabled(false);
             }
-        
+
         } else if (propertyName.equals(GeneralSection.INFO_PROJECT_LOGO_NAME)) {
             if (failMsg != null) {
                 this.msgManager.addMessage(propertyName, failMsg, null, IMessageProvider.WARNING, this.projectLogoPreviewLabel);
             }
-        
+
             setImageToLabel(this.projectLogoPreviewLabel, UIImages.PLACEHOLDER_64);
-        
+
             if (this.deleteProjectLogoBtn != null) {
                 this.deleteProjectLogoBtn.setEnabled(false);
             }
         }
-        
+
         this.displayedProject.getProperties().remove(propertyName);
-        
+
     }
 
     @objid ("19efde6b-b55e-4ede-8782-90540bb904ec")
@@ -448,16 +451,16 @@ class GeneralSection {
         gd.widthHint = GeneralSection.SMALL_BUTTON_WIDTH;
         gd.heightHint = GeneralSection.SMALL_BUTTON_HEIGHT;
         selectImageBtn.setLayoutData(gd);
-        
+
         if (propertyName.equals(GeneralSection.INFO_PROJECT_LOGO_NAME)) {
             this.selectProjectLogoBtn = selectImageBtn;
         } else {
             this.selectProjectIconBtn = selectImageBtn;
         }
-        
+
         selectImageBtn.setImage(UIImages.FILECHOOSE);
         selectImageBtn.addSelectionListener(new SelectionListener() {
-        
+
             @Override
             public void widgetSelected(SelectionEvent e) {
                 FileDialog fd = new FileDialog(Display.getDefault().getActiveShell(), SWT.SELECTED);
@@ -486,10 +489,10 @@ class GeneralSection {
                         AppProjectConf.LOG.error("Error when copy the project icon to data file: " + FileUtils.getLocalizedMessage(e1));
                         AppProjectConf.LOG.debug(e1);
                     }
-        
+
                 }
             }
-        
+
             /**
              * Deletes the file matching the given project property name if it exists.
              */
@@ -504,17 +507,18 @@ class GeneralSection {
                     AppProjectConf.LOG.debug(e);
                 }
             }
-        
+
             @Override
             public void widgetDefaultSelected(SelectionEvent e) {
                 // nothing to do
             }
-        
+
         });
-        
+
     }
 
     /**
+     *
      * @return the new project logo image, scaled to 64x64
      */
     @objid ("ad71b2ad-114b-428a-bcaa-8fee9c5aa839")
@@ -522,7 +526,7 @@ class GeneralSection {
         if (this.projectLogo != null && !this.projectLogo.isDisposed()) {
             this.projectLogo.dispose();
         }
-        
+
         Image originalImage = createProjectImage(GeneralSection.INFO_PROJECT_LOGO_NAME);
         if (originalImage != null) {
             ImageData imagePlaceholderData = UIImages.PLACEHOLDER_64.getImageData();
@@ -546,7 +550,7 @@ class GeneralSection {
             this.projectIcon.dispose();
             this.projectIcon = null;
         }
-        
+
     }
 
     @objid ("7aae0861-481f-4404-a61b-d120c4b426e5")
@@ -571,14 +575,14 @@ class GeneralSection {
         if (imageName == null) {
             return null;
         }
-        
+
         final Path path = resolveProjectImagePath(imageName);
         if (path != null) {
             return new Image(null, path.toString());
         } else {
             return createImageFromUrl(imageName);
         }
-        
+
     }
 
     @objid ("f0b7b07e-e796-4a52-95cb-e08de1fc0a08")
@@ -590,7 +594,7 @@ class GeneralSection {
             // ignore exception and return null
             return null;
         }
-        
+
     }
 
     /**
@@ -603,6 +607,7 @@ class GeneralSection {
      * <li>the resolved path matches an existing file.
      * </ul>
      * Returns <i>null</i> in all other cases.
+     *
      * @param propertyName a project property name
      * @return the image path if found, else <i>null</i>.
      */
@@ -614,7 +619,7 @@ class GeneralSection {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("d1069c82-e62b-48be-85cd-04810bcf7d29")
@@ -626,7 +631,7 @@ class GeneralSection {
     @objid ("8b8c5b38-3ec5-11e2-8121-002564c97630")
     private class GeneralModificationListener implements ModifyListener {
         @objid ("8b8c5b39-3ec5-11e2-8121-002564c97630")
-        public  GeneralModificationListener() {
+        public GeneralModificationListener() {
             // Empty constructor
         }
 
@@ -638,7 +643,7 @@ class GeneralSection {
             } else if (e.widget == GeneralSection.this.projectContact) {
                 GeneralSection.this.displayedProject.getProperties().setProperty(GeneralSection.INFO_CONTACT, GeneralSection.this.projectContact.getText(), DefinitionScope.LOCAL);
             }
-            
+
         }
 
     }

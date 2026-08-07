@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.parts;
 
@@ -35,6 +35,7 @@ import org.modelio.vcore.model.spi.mm.IMigrationStepDescription;
 public interface IGModelFragmentMigrator {
     /**
      * Run the migration
+     *
      * @param monitor the progress monitor to use for reporting progress to the user.
      * It is the caller's responsibility to call {@link IModelioProgress#done() done()} on the given monitor.
      * Accepts <i>null</i>, indicating that no progress should be reported and that the operation cannot be cancelled.
@@ -49,11 +50,12 @@ public interface IGModelFragmentMigrator {
             proc.migrateModel(mon.newChild(1));
             proc.finish(mon.newChild(1));
         }
-        
+
     }
 
     /**
      * Get an optional a detailed message to warn to the user telling what he needs to do.
+     *
      * @return a migration detail message.
      */
     @objid ("cf5e28af-ac8f-4ce9-a3a9-503c1144b005")
@@ -63,6 +65,7 @@ public interface IGModelFragmentMigrator {
      * Start a migration process on which you have some control.
      * <p>
      * See {@link IMigrationProcess} documentation for usage.
+     *
      * @param monitor the progress monitor to use for reporting progress to the user.
      * It is the caller's responsibility to call {@link IModelioProgress#done() done()} on the given monitor.
      * Accepts <i>null</i>, indicating that no progress should be reported and that the operation cannot be cancelled.
@@ -76,6 +79,7 @@ public interface IGModelFragmentMigrator {
     IMigrationProcess start(IModelioProgress monitor, IMigrationReporter reporter) throws FragmentAuthenticationException, MigrationFailedException;
 
     /**
+     *
      * @return the description of the migration steps.
      * @since 3.7.1
      */
@@ -100,6 +104,7 @@ public interface IGModelFragmentMigrator {
      * the implementation may completely cancel the migration of the fragment and restore it to its previous version, by calling {@link #abort(IModelioProgress)}
      * You don't need to call this method if you are using this interface in a <i>try-with-resource</i> statement.
      * </ol>
+     *
      * @author cma
      * @since 3.7
      */
@@ -109,6 +114,7 @@ public interface IGModelFragmentMigrator {
          * Migrate the model objects.
          * <p>
          * When this method return the fragment may be mount.
+         *
          * @param monitor the progress monitor to use for reporting progress to the user.
          * It is the caller's responsibility to call {@link IModelioProgress#done() done()} on the given monitor.
          * Accepts <i>null</i>, indicating that no progress should be reported and that the operation cannot be cancelled.
@@ -119,6 +125,7 @@ public interface IGModelFragmentMigrator {
 
         /**
          * Finish and commit the migration process.
+         *
          * @param monitor the progress monitor to use for reporting progress to the user.
          * It is the caller's responsibility to call {@link IModelioProgress#done() done()} on the given monitor.
          * Accepts <i>null</i>, indicating that no progress should be reported and that the operation cannot be cancelled.
@@ -131,6 +138,7 @@ public interface IGModelFragmentMigrator {
          * Abort the migration process.
          * <p>
          * The implementation should completely cancel the migration of the fragment and restore it to its previous version.
+         *
          * @param monitor the progress monitor to use for reporting progress to the user.
          * It is the caller's responsibility to call {@link IModelioProgress#done() done()} on the given monitor.
          * Accepts <i>null</i>, indicating that no progress should be reported and that the operation cannot be cancelled.
@@ -151,7 +159,7 @@ public interface IGModelFragmentMigrator {
         @objid ("02777abc-a9ba-433c-9d83-85df95e56eba")
         @Override
         void close() throws MigrationFailedException;
-}
-    
-}
 
+    }
+
+}

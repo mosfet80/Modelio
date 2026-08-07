@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -43,16 +43,16 @@ public class EInterfaceRealization extends ENamedElement {
         else if (((this.ecoreElement.getClients().size() > 0) && (this.ecoreElement.getClients().get(0) instanceof Interface))
                 || (this.ecoreElement.getContract() != null))
             return factory.createInterfaceRealization();
-        else 
+        else
             return null;
-        
+
     }
 
     @objid ("266b5e3b-8a9a-492e-8b73-6acc8272ce7d")
-    public  EInterfaceRealization(org.eclipse.uml2.uml.InterfaceRealization element) {
+    public EInterfaceRealization(org.eclipse.uml2.uml.InterfaceRealization element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("4985b7f6-8122-451e-b72b-7308055900d9")
@@ -62,14 +62,14 @@ public class EInterfaceRealization extends ENamedElement {
         org.eclipse.uml2.uml.Interface ecoreContract = this.ecoreElement.getContract();
         org.eclipse.uml2.uml. BehavioredClassifier ecoreClassifier = this.ecoreElement
         .getImplementingClassifier();
-        
+
         boolean attached = false;
         if (ecoreContract != null && ecoreClassifier != null) {
             Interface objingContract = (Interface) ReverseProperties.getInstance()
             .getMappedElement(ecoreContract);
             NameSpace objingClassifier = (NameSpace) ReverseProperties.getInstance()
             .getMappedElement(ecoreClassifier);
-        
+
             //  set to the objingElt Imported Importing previousely find
             if (objingContract != null && objingClassifier != null) {
                 InterfaceRealization objingRImport = (InterfaceRealization) objingElt;
@@ -78,7 +78,7 @@ public class EInterfaceRealization extends ENamedElement {
                 attached = true;
             }
         }
-        
+
         if ((this.ecoreElement.getClients().get(0) instanceof org.eclipse.uml2.uml.Port)){
             Port objPort = (Port) ReverseProperties.getInstance().getMappedElement(this.ecoreElement.getClients().get(0));
             objPort.getProvided().add((ProvidedInterface)objingElt);
@@ -91,17 +91,17 @@ public class EInterfaceRealization extends ENamedElement {
             }
             attached = true;
         }
-        
+
         if ((!attached)  && (this.ecoreElement.getSuppliers().get(0) instanceof org.eclipse.uml2.uml.Interface)
                 && (this.ecoreElement.getClients().get(0) instanceof org.eclipse.uml2.uml. BehavioredClassifier)){
             ecoreContract = (org.eclipse.uml2.uml.Interface) this.ecoreElement.getSuppliers().get(0);
             ecoreClassifier = (org.eclipse.uml2.uml.BehavioredClassifier) this.ecoreElement.getClients().get(0);
-        
+
             Interface objingContract = (Interface) ReverseProperties.getInstance()
             .getMappedElement(ecoreContract);
             NameSpace objingClassifier = (NameSpace) ReverseProperties.getInstance()
             .getMappedElement(ecoreClassifier);
-        
+
             //  set to the objingElt Imported Importing previousely find
             if (objingContract != null && objingClassifier != null) {
                 InterfaceRealization objingRImport = (InterfaceRealization) objingElt;
@@ -109,7 +109,7 @@ public class EInterfaceRealization extends ENamedElement {
                 objingRImport.setImplemented(objingContract);
             }
         }
-        
+
     }
 
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Configuration id="Archimate" xmlns="urn:modelio.audit.configuration" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="auditconfiguration.xsd">
+	<Category id="Archimate">
+		<Rule id="R4000" class="org.modelio.archimate.ui.audit.R4000" status="enabled" severity="error" />
+		<Rule id="R4010" class="org.modelio.archimate.ui.audit.R4010" status="enabled" severity="error" />
+		<Rule id="R4020" class="org.modelio.archimate.ui.audit.R4020" status="enabled" severity="error" />
+		<Rule id="R4030" class="org.modelio.archimate.ui.audit.R4030" status="enabled" severity="error" />
+		<Rule id="R4040" class="org.modelio.archimate.ui.audit.R4040" status="enabled" severity="error" />
+		<Rule id="R4050" class="org.modelio.archimate.ui.audit.R4050" status="enabled" severity="error" />
+	</Category>
+</Configuration>

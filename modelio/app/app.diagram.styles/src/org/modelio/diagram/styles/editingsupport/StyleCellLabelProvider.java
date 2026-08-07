@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.styles.editingsupport;
 
@@ -66,13 +66,14 @@ public class StyleCellLabelProvider extends OwnerDrawLabelProvider {
 
     /**
      * C'tor.
+     *
      * @param treeViewer the viewer.
      */
     @objid ("85b2e4a5-1926-11e2-92d2-001ec947c8cc")
-    public  StyleCellLabelProvider(ColumnViewer treeViewer, boolean tableMode, Supplier<ISymbolViewModel> modelSupplier) {
+    public StyleCellLabelProvider(ColumnViewer treeViewer, boolean tableMode, Supplier<ISymbolViewModel> modelSupplier) {
         this.tableMode = tableMode;
         this.modelSupplier = modelSupplier;
-        
+
         // Note: to add an owner draw label provider, do not subclass it from OwnerDrawLabelProvider,
         // make it implement IOwnerDrawLabelProvider instead.
         this.providers.put(Boolean.class, new CheckboxLabelProvider(treeViewer));
@@ -81,7 +82,7 @@ public class StyleCellLabelProvider extends OwnerDrawLabelProvider {
         this.providers.put(Integer.class, new TextLabelProvider(treeViewer));
         this.providers.put(Font.class, new FontLabelProvider(treeViewer));
         this.providers.put(Enum.class, new EnumComboBoxLabelProvider(treeViewer));
-        
+
     }
 
     @objid ("85b2e4a8-1926-11e2-92d2-001ec947c8cc")
@@ -92,12 +93,12 @@ public class StyleCellLabelProvider extends OwnerDrawLabelProvider {
         if (provider != null) {
             provider.update(cell);
         }
-        
+
         if (this.tableMode && !this.modelSupplier.get().getChildren(item).isEmpty()) {
             // gray out cell
             cell.setBackground(UIColor.TABLE_HEADER_BG);
         }
-        
+
     }
 
     @objid ("85b2e4ac-1926-11e2-92d2-001ec947c8cc")
@@ -109,7 +110,7 @@ public class StyleCellLabelProvider extends OwnerDrawLabelProvider {
             if (tooltip != null) {
                 return tooltip;
             }
-            
+
             if (provider instanceof ILabelProvider) {
                 return ((ILabelProvider) provider).getText(element);
             }
@@ -118,6 +119,7 @@ public class StyleCellLabelProvider extends OwnerDrawLabelProvider {
     }
 
     /**
+     *
      * @param element Item in the symbol view model.
      * @return <ul>
      * <li>null : there is no value to edit
@@ -138,7 +140,7 @@ public class StyleCellLabelProvider extends OwnerDrawLabelProvider {
                 return columnLabelProvider != null ? columnLabelProvider : StyleCellLabelProvider.DEFAULT_PROVIDER;
             }
         }
-        
+
     }
 
     @objid ("8f965a39-a342-406d-b7bb-776663fbe5f6")
@@ -148,7 +150,7 @@ public class StyleCellLabelProvider extends OwnerDrawLabelProvider {
         if (provider != StyleCellLabelProvider.DEFAULT_PROVIDER && provider instanceof IOwnerDrawLabelProvider) {
             ((IOwnerDrawLabelProvider) provider).measure(event, element);
         }
-        
+
     }
 
     @objid ("025cbc39-c851-47f0-b7b0-c449be4a41ca")
@@ -158,7 +160,7 @@ public class StyleCellLabelProvider extends OwnerDrawLabelProvider {
         if (provider != StyleCellLabelProvider.DEFAULT_PROVIDER && provider instanceof IOwnerDrawLabelProvider) {
             ((IOwnerDrawLabelProvider) provider).paint(event, element);
         }
-        
+
     }
 
 }

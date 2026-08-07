@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.activityfinal;
 
@@ -51,11 +51,12 @@ public class GmActivityFinalPrimaryNode extends GmNoStyleSimpleNode implements I
 
     /**
      * Initializes a simple node.
+     *
      * @param diagram The diagram owning the node.
      * @param relatedRef related element reference, must not be <code>null</code>.
      */
     @objid ("29aa5079-55b6-11e2-877f-002564c97630")
-    public  GmActivityFinalPrimaryNode(IGmDiagram diagram, MRef relatedRef) {
+    public GmActivityFinalPrimaryNode(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -63,7 +64,7 @@ public class GmActivityFinalPrimaryNode extends GmNoStyleSimpleNode implements I
      * For deserialization only.
      */
     @objid ("29aa5082-55b6-11e2-877f-002564c97630")
-    public  GmActivityFinalPrimaryNode() {
+    public GmActivityFinalPrimaryNode() {
         // for the serialization
     }
 
@@ -87,13 +88,13 @@ public class GmActivityFinalPrimaryNode extends GmNoStyleSimpleNode implements I
                     public String getText() {
                         return getRelatedElement().getName();
                     }
-        
+
                     @Override
                     public void setText(String text) {
                         getRelatedElement().setName(text);
                     }
                 };
-        
+
     }
 
     @objid ("29abd6fe-55b6-11e2-877f-002564c97630")
@@ -123,7 +124,7 @@ public class GmActivityFinalPrimaryNode extends GmNoStyleSimpleNode implements I
         }
         // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("29abd714-55b6-11e2-877f-002564c97630")
@@ -143,17 +144,17 @@ public class GmActivityFinalPrimaryNode extends GmNoStyleSimpleNode implements I
             break;
         }
         }
-        
+
     }
 
     @objid ("29abd71a-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmActivityFinalPrimaryNode.", GmActivityFinalPrimaryNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("29abd720-55b6-11e2-877f-002564c97630")

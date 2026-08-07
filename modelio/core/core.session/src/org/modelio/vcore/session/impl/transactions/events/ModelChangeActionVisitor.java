@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.impl.transactions.events;
 
@@ -42,10 +42,10 @@ class ModelChangeActionVisitor implements IActionVisitor {
     private StatusChangeEvent statusEvent;
 
     @objid ("00d00074-0000-08b7-0000-000000000000")
-    public  ModelChangeActionVisitor(ModelChangeEvent event, StatusChangeEvent statusEvent) {
+    public ModelChangeActionVisitor(ModelChangeEvent event, StatusChangeEvent statusEvent) {
         this.event = event;
         this.statusEvent = statusEvent;
-        
+
     }
 
     @objid ("00d00074-0000-089b-0000-000000000000")
@@ -55,27 +55,27 @@ class ModelChangeActionVisitor implements IActionVisitor {
         for (IAction a : tr.getActions()) {
             a.accept(this);
         }
-        
+
     }
 
     @objid ("00d00074-0000-089f-0000-000000000000")
     @Override
     public void visitCreateElementAction(final CreateElementAction action) {
         SmObjectImpl created = action.getRefered();
-        
+
         // assert(! refered.isTobeDeleted());
-        
+
         // A created element cannot have already been created, thereby
         // permitting the new object to be stored without test
         this.event.createdElements.add(created);
-        
+
     }
 
     @objid ("00d00074-0000-08a3-0000-000000000000")
     @Override
     public void visitDeleteElementAction(final DeleteElementAction action) {
         SmObjectImpl deleted = action.getRefered();
-        
+
         // Get the old parent that can be found in the erase list
         MObject oldParent = this.event.erasedElements.get(deleted);
         if (oldParent != null) {
@@ -87,32 +87,32 @@ class ModelChangeActionVisitor implements IActionVisitor {
                 this.event.deletedRootElements.add(deleted);
             }
         }
-        
+
     }
 
     @objid ("00d00074-0000-08a7-0000-000000000000")
     @Override
     public void visitSetAttributeAction(final SetAttributeAction action) {
         SmObjectImpl refered = action.getRefered();
-        
+
         // Forget created then deleted elements
         if (refered.isDeleted()) {
             return;
         }
-        
+
         // If the element is already in the list of created elements, it has not
         // to be added
         if (this.event.createdElements.contains(refered)) {
             return;
         }
-        
+
         if (action.getAtt() == refered.getClassOf().statusAtt()) {
             // populate the status change event
             long oldStatus = (long) action.getOldValue();
             long newStatus = (Long) refered.getAttVal(action.getAtt());
-        
+
             this.statusEvent.add(refered, oldStatus, newStatus);
-        
+
         } else {
             // If the element is already in the list of updated elements, it has
             // not to be added
@@ -124,7 +124,7 @@ class ModelChangeActionVisitor implements IActionVisitor {
                 }
             }
         }
-        
+
     }
 
     @objid ("00d00074-0000-08ab-0000-000000000000")
@@ -133,9 +133,9 @@ class ModelChangeActionVisitor implements IActionVisitor {
         SmObjectImpl owner = action.getRefered();
         SmObjectImpl value = action.getRef();
         //SmDependency dep = action.getDep();
-        
+
         // Semantic: 'value' has been removed from 'dep' on the object 'owner'
-        
+
         // Only composition dependencies are managed
         if (isComponentDependency(action.getDep()) && value != null) {
             // If the element is in the created element list, that means it has
@@ -144,7 +144,7 @@ class ModelChangeActionVisitor implements IActionVisitor {
             if (this.event.createdElements.contains(value)) {
                 return;
             }
-        
+
             // If the element already is in the erase relation, that means the
             // element has been moved
             // under another element (in the same transaction)..., which has not
@@ -155,7 +155,7 @@ class ModelChangeActionVisitor implements IActionVisitor {
             if (this.event.erasedElements.get(value) != null) {
                 return;
             }
-        
+
             // If the element has been removed then re-added to the same owner, consider
             // that the dep was reordered.
             if (value.isValid() && value.getCompositionOwner() == owner) {
@@ -172,7 +172,7 @@ class ModelChangeActionVisitor implements IActionVisitor {
                 // to the old/current owner
                 // of this element
                 this.event.erasedElements.put(value, owner);
-        
+
                 // It can be a move, so the movedElements list is filled with
                 // the old owner.
                 this.event.movedElements.put(value, owner);
@@ -180,7 +180,7 @@ class ModelChangeActionVisitor implements IActionVisitor {
         } else if (action.getDep().isPartOf() && owner != null) {
             this.event.updatedElements.add(owner);
         }
-        
+
     }
 
     @objid ("00d00074-0000-08af-0000-000000000000")
@@ -189,43 +189,43 @@ class ModelChangeActionVisitor implements IActionVisitor {
         SmObjectImpl owner = action.getRefered();
         SmObjectImpl value = action.getRef();
         SmDependency dep = action.getDep();
-        
+
         // Semantic: 'value' has been appended to 'dep' on the object 'owner'
-        
+
         // Forget operations on deleted elements
         if (owner == null || value == null || value.isDeleted() || owner.isDeleted()) {
             return;
         }
-        
+
         if (dep.isPartOf()) {
-        
+
             // If the element is already in the list of created elements, it has
             // not to be added
             if (this.event.createdElements.contains(owner)) {
                 return;
             }
-        
+
             this.event.updatedElements.add(owner);
         }
-        
+
     }
 
     @objid ("00d00074-0000-08b3-0000-000000000000")
     @Override
     public void visitMoveDependencyAction(final MoveDependencyAction theMoveDependencyAction) {
         SmObjectImpl refered = theMoveDependencyAction.getRefered();
-        
+
         // Forget operations on deleted elements
         if (refered.isDeleted()) {
             return;
         }
-        
+
         // If the element is already in the list of created elements, it has not
         // to be added
         if (this.event.createdElements.contains(refered)) {
             return;
         }
-        
+
         // If the element already is in the list of updated elements, it has not
         // to be added
         if (this.event.updatedElements.contains(refered)) {
@@ -235,7 +235,7 @@ class ModelChangeActionVisitor implements IActionVisitor {
                 this.event.updatedElements.add(refered);
             }
         }
-        
+
     }
 
     @objid ("01f42120-0000-1ee0-0000-000000000000")

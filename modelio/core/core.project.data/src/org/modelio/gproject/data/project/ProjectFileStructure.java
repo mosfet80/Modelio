@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.data.project;
 
@@ -31,14 +31,14 @@ import org.modelio.vbasic.version.Version;
  * href="https://forge-modelio.softeam.com/projects/modelio-phoenix/wiki/Project_space_structure"
  * >https://forge-modelio.softeam.com/projects/modelio-phoenix/wiki/Project_space_structure</a>.
  * <p>
- * 
+ *
  * @Since 3.8.1
  */
 @objid ("b3350d05-7724-4234-baee-a81afb6e922f")
 public class ProjectFileStructure {
     /**
      * Sub directory name relative to the 'data' directory where project configuration data are stored.
-     * 
+     *
      * Files in this directory are good candidates for synchronization with a shared resources repository (Constellation).
      */
     @objid ("6549c8af-e752-420f-86f6-6123b78bc199")
@@ -73,12 +73,13 @@ public class ProjectFileStructure {
     private final Path projectPath;
 
     @objid ("4010eea1-f4dc-446a-b349-774442a8817f")
-    public  ProjectFileStructure(Path path) {
+    public ProjectFileStructure(Path path) {
         this.projectPath = path;
     }
 
     /**
      * Get the path to a .jmdac file stored locally in the project.
+     *
      * @param moduleName the module name.
      * @param version the module version.
      * @return the module .jmdac file path
@@ -91,6 +92,7 @@ public class ProjectFileStructure {
 
     /**
      * Get the path where a .jmdac file is stored locally in the project for a module.
+     *
      * @param moduleName the module name.
      * @return a directory containing .jmdac files
      * @throws IOException the the file couldn't be retrieved.
@@ -119,6 +121,7 @@ public class ProjectFileStructure {
      * Get the directory where the project data are managed by Modelio (model, fragments modules and so on). The internal structure
      * of this directory is left to its users (fragments, modules, CMS tools ...) User generated data like source code,
      * documentation are never stored there.
+     *
      * @return the path where the 'data' directory resides.
      */
     @objid ("fabd4f37-0593-4a7b-aa15-604c6417251e")

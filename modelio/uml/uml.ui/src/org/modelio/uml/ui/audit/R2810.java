@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -51,7 +51,7 @@ public class R2810 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -71,7 +71,7 @@ public class R2810 extends AbstractUmlRule {
         plan.registerRule(Transition.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE | AuditTrigger.MOVE);
         plan.registerRule(DeepHistoryPseudoState.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(ShallowHistoryPseudoState.MQNAME, this, AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -105,14 +105,14 @@ public class R2810 extends AbstractUmlRule {
      * Default constructor for R2810
      */
     @objid ("7262a150-c12d-4d83-ae75-63fbc05b16b4")
-    public  R2810() {
+    public R2810() {
         this.checkerInstance = new CheckR2810(this);
     }
 
     @objid ("825b4495-4d94-4e32-8530-20cfe2a2d05e")
     private static class CheckR2810 extends AbstractControl {
         @objid ("d9cd5fa7-86ae-4a84-8804-e3febc90dd13")
-        public  CheckR2810(IRule rule) {
+        public CheckR2810(IRule rule) {
             super(rule);
         }
 
@@ -135,7 +135,7 @@ public class R2810 extends AbstractUmlRule {
         @objid ("9dd18d2c-09cc-4989-ace6-2610a87f8547")
         private IAuditEntry checkR2810(AbstractPseudoState state) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, state, null);
-            
+
             List<Transition> outgoings = state.getOutGoing();
             if (outgoings.size() > 1) {
                 auditEntry.setSeverity(this.rule.getSeverity());

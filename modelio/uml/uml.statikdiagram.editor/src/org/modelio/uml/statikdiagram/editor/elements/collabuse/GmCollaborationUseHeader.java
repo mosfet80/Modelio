@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.collabuse;
 
@@ -51,20 +51,21 @@ public class GmCollaborationUseHeader extends GmDefaultModelElementHeader {
      * Constructor for deserialization only.
      */
     @objid ("3479d7a3-55b7-11e2-877f-002564c97630")
-    public  GmCollaborationUseHeader() {
+    public GmCollaborationUseHeader() {
         init();
     }
 
     /**
      * Initialize a classifier header
+     *
      * @param diagram the owning diagram.
      * @param relatedRef a reference to the element this GmModel is related to, must not be null.
      */
     @objid ("3479d7a6-55b7-11e2-877f-002564c97630")
-    public  GmCollaborationUseHeader(IGmDiagram diagram, MRef relatedRef) {
+    public GmCollaborationUseHeader(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
         init();
-        
+
     }
 
     @objid ("3479d7af-55b7-11e2-877f-002564c97630")
@@ -79,9 +80,9 @@ public class GmCollaborationUseHeader extends GmDefaultModelElementHeader {
         if (updateMainLabelFromObModel()) {
             firePropertyChange(IGmObject.PROPERTY_LABEL, this, null);
         }
-        
+
         super.styleChanged(changedStyle);
-        
+
     }
 
     @objid ("3479d7bc-55b7-11e2-877f-002564c97630")
@@ -92,9 +93,9 @@ public class GmCollaborationUseHeader extends GmDefaultModelElementHeader {
                 firePropertyChange(IGmObject.PROPERTY_LABEL, this, null);
             }
         }
-        
+
         super.styleChanged(property, newValue);
-        
+
     }
 
     @objid ("347b5e1c-55b7-11e2-877f-002564c97630")
@@ -114,13 +115,14 @@ public class GmCollaborationUseHeader extends GmDefaultModelElementHeader {
             case SIMPLE:
             default:
                 return computeSimpleLabel(c);
-        
+
         }
-        
+
     }
 
     /**
      * Qualified label : return only the name and the type
+     *
      * @param c A collaboration use
      * @return The collaboration use label
      */
@@ -132,13 +134,14 @@ public class GmCollaborationUseHeader extends GmDefaultModelElementHeader {
 
     /**
      * Qualified label : return only the name and the type
+     *
      * @param c A collaboration use
      * @return The collaboration use label
      */
     @objid ("347b5e28-55b7-11e2-877f-002564c97630")
     private String computeQualifiedLabel(CollaborationUse c) {
         String stype = "";
-        
+
         final Collaboration type = c.getType();
         if (type != null) {
             stype = type.getName();
@@ -148,6 +151,7 @@ public class GmCollaborationUseHeader extends GmDefaultModelElementHeader {
 
     /**
      * Simple label : return only the name
+     *
      * @param c A collaboration use
      * @return The collaboration use label
      */
@@ -178,17 +182,17 @@ public class GmCollaborationUseHeader extends GmDefaultModelElementHeader {
                 break;
             }
         }
-        
+
     }
 
     @objid ("347b5e40-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0.
         writeMinorVersion(out, "GmCollaborationUseHeader.", Integer.valueOf(GmCollaborationUseHeader.MINOR_VERSION));
-        
+
     }
 
     @objid ("347b5e46-55b7-11e2-877f-002564c97630")

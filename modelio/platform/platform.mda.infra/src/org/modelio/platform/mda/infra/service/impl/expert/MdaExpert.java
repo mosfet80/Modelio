@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.service.impl.expert;
 
@@ -47,10 +47,11 @@ public class MdaExpert implements IMdaExpert {
 
     /**
      * C'tor.
+     *
      * @param iModuleRegistry module registry to access {@link IRTModule} instances.
      */
     @objid ("00964c31-d071-4f34-9457-45b11a1e0b0f")
-    public  MdaExpert(IModuleRegistry iModuleRegistry) {
+    public MdaExpert(IModuleRegistry iModuleRegistry) {
         this.mdaRegistry = new MdaExpertRegistry(iModuleRegistry);
     }
 
@@ -94,7 +95,7 @@ public class MdaExpert implements IMdaExpert {
         if (!stereotypeExpert.canLink(linkStereotype, linkMetaclass, from, to)) {
             return false;
         }
-        
+
         // Check metaclass expert
         MExpert linkExpert = linkMetaclass.getMetamodel().getMExpert();
         return linkExpert.canLink(linkMetaclass, from, to);
@@ -108,7 +109,7 @@ public class MdaExpert implements IMdaExpert {
         if (!expert.canLink(linkStereotype, linkMetaclass, fromMetaclass, toMetaclass)) {
             return false;
         }
-        
+
         // Check metaclass expert
         MExpert linkExpert = linkMetaclass.getMetamodel().getMExpert();
         return linkExpert.canLink(linkMetaclass, fromMetaclass, toMetaclass);
@@ -201,6 +202,7 @@ public class MdaExpert implements IMdaExpert {
          * <p>
          * An <i>abstract</i> or <i>invalid</i> stereotype results in an expert always answering <code>false</code>.
          * </p>
+         *
          * @param el a stereotype. Might be <code>null</code>.
          * @return the matching creation expert, never <i>null</i>.
          */
@@ -211,14 +213,14 @@ public class MdaExpert implements IMdaExpert {
             } else if (el.isIsAbstract() || !el.isValid()) {
                 return NoMdaExpert.INSTANCE;
             }
-            
+
             // Go for the cache
             String key = computeKey(el);
             IMdaExpert expert = this.EXPERTS.get(key);
             if (expert == null) {
                 // Look for an expert in the module registry
                 expert = getModuleExpert(el);
-            
+
                 // Store expert in cache
                 this.EXPERTS.put(key, expert);
             }
@@ -227,6 +229,7 @@ public class MdaExpert implements IMdaExpert {
 
         /**
          * Register a stereotyped element creation expert.
+         *
          * @param ste The stereotype
          * @param expert The creation expert.
          */
@@ -237,6 +240,7 @@ public class MdaExpert implements IMdaExpert {
 
         /**
          * Remove the creation expert registered for the given stereotype.
+         *
          * @param ste The stereotype to forget.
          */
         @objid ("3211a091-b5a7-4343-b7bc-842e35d5539c")
@@ -246,10 +250,11 @@ public class MdaExpert implements IMdaExpert {
 
         /**
          * This class has no instances.
+         *
          * @param IModuleRegistry the module registry.
          */
         @objid ("cf802fb8-6abd-49d5-bdab-4e58b4057b51")
-        public  MdaExpertRegistry(IModuleRegistry IModuleRegistry) {
+        public MdaExpertRegistry(IModuleRegistry IModuleRegistry) {
             this.IModuleRegistry = IModuleRegistry;
         }
 
@@ -262,12 +267,13 @@ public class MdaExpert implements IMdaExpert {
          * Get the {@link IMdaExpert} matching the stereotype in the module registry.
          * <p>
          * If none is found return the {@link YesMdaExpert} singleton.
+         *
          * @param el @return
          */
         @objid ("5d0f5de5-cac0-4215-8ad3-1a9964141b5a")
         private IMdaExpert getModuleExpert(final Stereotype el) {
             ModuleComponent moduleComponent = el.getModule();
-            
+
             if (moduleComponent != null) {
                 for (IRTModule module : this.IModuleRegistry.getStartedModules()) {
                     if (moduleComponent.equals(module.getModel())) {
@@ -287,7 +293,7 @@ public class MdaExpert implements IMdaExpert {
      * MDA Expert that always answer yes.
      * <p>
      * Please note that it does not even check the metaclasses.
-     * 
+     *
      * @author cma
      * @since 3.8
      */
@@ -362,7 +368,7 @@ public class MdaExpert implements IMdaExpert {
      * MDA Expert that always answer no.
      * <p>
      * Please note that it does not even check the metaclasses.
-     * 
+     *
      * @since 3.8
      */
     @objid ("4f618944-eaf6-4f39-91fe-b8cf1bbbe35a")

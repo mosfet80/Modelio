@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnlanesetcontainer.v0;
 
@@ -66,22 +66,23 @@ public class GmBpmnLaneSetContainerV0 extends GmNoStyleCompositeNode {
     private BpmnLaneSet element;
 
     /**
+     *
      * @param diagram the diagram in which this partition container is used.
      * @param theLaneSet the element, may be null
      * @param relatedRef the related element reference, must not be null.
      */
     @objid ("b9952089-9e70-4585-a93c-3174d9c07d2a")
-    public  GmBpmnLaneSetContainerV0(IGmDiagram diagram, BpmnLaneSet theLaneSet, MRef relatedRef) {
+    public GmBpmnLaneSetContainerV0(IGmDiagram diagram, BpmnLaneSet theLaneSet, MRef relatedRef) {
         super(diagram, relatedRef);
         this.element = theLaneSet;
-        
+
     }
 
     /**
      * Empty constructor needed for serialization.
      */
     @objid ("9bb182c3-107e-446a-83ef-be0529e19b25")
-    public  GmBpmnLaneSetContainerV0() {
+    public GmBpmnLaneSetContainerV0() {
         // Nothing to do.
     }
 
@@ -89,30 +90,30 @@ public class GmBpmnLaneSetContainerV0 extends GmNoStyleCompositeNode {
     @Override
     public void addChild(final GmNodeModel child) {
         if (child instanceof GmBpmnLane) {
-        
+
             GmBpmnLane lane = (GmBpmnLane) child;
-        
+
             for (GmModel ownedNode : getChildren()) {
                 if (ownedNode.getRelatedElement() instanceof BpmnFlowElement) {
                     // GM side
                     removeChild((GmNodeModel) ownedNode);
                     lane.getCompositeFor(ownedNode.getRelatedElement().getClass()).addChild((GmNodeModel) ownedNode);
-        
+
                     // OB Side
                     BpmnFlowElement flowElement = (BpmnFlowElement) ownedNode.getRelatedElement();
-        
+
                     for (BpmnLane elane : new ArrayList<>(flowElement.getLane())) {
                         flowElement.getLane().remove(elane);
                     }
-        
+
                     flowElement.getLane().add((BpmnLane) lane.getRelatedElement());
                 }
             }
-        
+
         }
-        
+
         super.addChild(child);
-        
+
     }
 
     @objid ("88cbe977-7d50-4278-ac2c-34df464f34fb")
@@ -126,7 +127,7 @@ public class GmBpmnLaneSetContainerV0 extends GmNoStyleCompositeNode {
     public boolean canUnmask(MObject el) {
         return (BpmnLane.class.isAssignableFrom(el.getClass()) && el.getCompositionOwner()
                                         .equals(getRelatedElement()));
-        
+
     }
 
     @objid ("6871a0bc-d677-48ef-9375-3f7d162c1e8c")
@@ -146,6 +147,7 @@ public class GmBpmnLaneSetContainerV0 extends GmNoStyleCompositeNode {
 
     /**
      * Get the contained {@link GmBpmnLaneV0} nodes.
+     *
      * @return a list of {@link GmBpmnLaneV0} nodes.
      */
     @objid ("108c69cc-4785-46eb-ade3-dd25926f7eae")
@@ -192,7 +194,7 @@ public class GmBpmnLaneSetContainerV0 extends GmNoStyleCompositeNode {
             break;
         }
         }
-        
+
     }
 
     @objid ("1013469f-e48d-49cd-8b44-568000c07469")
@@ -203,7 +205,7 @@ public class GmBpmnLaneSetContainerV0 extends GmNoStyleCompositeNode {
         if (!hasChildren() && child instanceof GmBpmnLane) {
             delete();
         }
-        
+
     }
 
     @objid ("0552dfa0-a730-45d8-b504-b1a5354d1e69")
@@ -212,14 +214,14 @@ public class GmBpmnLaneSetContainerV0 extends GmNoStyleCompositeNode {
         super.write(out);
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmBpmnLaneSetContainer.", GmBpmnLaneSetContainerV0.MINOR_VERSION);
-        
+
     }
 
     @objid ("aa84ba66-e7bf-499a-b561-a7c6f00d50de")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (BpmnLaneSet) resolveRef(getRepresentedRef());
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -35,7 +35,7 @@ public class OAcceptSignalAction extends OActivityNode {
     }
 
     @objid ("0cff6ca0-b0fe-4f13-bff2-c1d9420677ab")
-    public  OAcceptSignalAction(AcceptSignalAction element) {
+    public OAcceptSignalAction(AcceptSignalAction element) {
         super(element);
     }
 
@@ -51,7 +51,7 @@ public class OAcceptSignalAction extends OActivityNode {
         super.setProperties(ecoreElt);
         setAccepted( (org.eclipse.uml2.uml.AcceptEventAction) ecoreElt);
         setSignal( (org.eclipse.uml2.uml.AcceptEventAction) ecoreElt);
-        
+
     }
 
     @objid ("88a57a71-7731-4bde-bfe4-de8d7a37755f")
@@ -65,7 +65,7 @@ public class OAcceptSignalAction extends OActivityNode {
                 action.getTriggers().add(trigger);
                 trigger.setEvent(signalEvent);
                 signalEvent.setSignal( (org.eclipse.uml2.uml.Signal) ecoreSignal);
-        
+
                 // Attach the  org.eclipse.uml2.uml.Event to the model via composition relation:
                 org.eclipse.uml2.uml.Package nearestPkg = action.getNearestPackage();
                 if (nearestPkg != null)
@@ -74,7 +74,7 @@ public class OAcceptSignalAction extends OActivityNode {
                     signalEvent.destroy();
             }
         }
-        
+
     }
 
     @objid ("e2b9fc36-a6be-4a86-be32-1b8c4aa9d461")
@@ -82,7 +82,7 @@ public class OAcceptSignalAction extends OActivityNode {
         if (GenerationProperties.getInstance().isRoundtripEnabled()){
             ObjingEAnnotation.setSignal(ecoreElt, "signal");
         }
-        
+
     }
 
     @objid ("ea0444c4-1a2a-4b2e-9361-76bd4a9b443f")

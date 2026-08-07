@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.bpmn.objects;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -32,106 +31,97 @@ import org.modelio.metamodel.bpmn.events.BpmnCatchEvent;
 
 /**
  * BpmnDataOutput v0.0.9054
- * 
- * 
+ *
+ *
  * Activities and Processes often required data in order to execute. In addition they may produce data during or as a result of execution. Data that is produced is captured using Data Outputs
- * 
+ *
  * A DataOutput belong either to a process or to an activity.
- * 
- * 
+ *
  */
 @objid ("0005b81a-c4c0-1fd8-97fe-001ec947cd2a")
 public interface BpmnDataOutput extends BpmnItemAwareElement {
     /**
      * The metaclass simple name.
      */
-    @objid ("0c5871b3-3e50-4354-81a3-e7ad5428e989")
+    @objid ("78946cec-4a11-4448-859a-41ae8753a18b")
     public static final String MNAME = "BpmnDataOutput";
 
     /**
      * The metaclass qualified name.
      */
-    @objid ("863c77b3-fcd9-41af-b71d-38ce7eb81858")
+    @objid ("412d3118-b094-4978-bf90-de34cc0e33cc")
     public static final String MQNAME = "Standard.BpmnDataOutput";
 
     /**
      * Getter for attribute 'BpmnDataOutput.IsCollection'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("66f38417-2ce9-44a0-983f-60dab30e86d0")
+    @objid ("b746a3d7-b3ca-403a-aa80-9905d41475fc")
     boolean isIsCollection();
 
     /**
      * Setter for attribute 'BpmnDataOutput.IsCollection'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("d4232db7-2263-4ea9-99f4-7c84362f794a")
+    @objid ("a59e2c24-87c0-463e-afc9-7bdd37dd2619")
     void setIsCollection(boolean value);
 
     /**
      * Getter for relation 'BpmnDataOutput->OwnerActivity'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("7fd15da4-5d9b-4e66-b1c4-4f9385d2c43b")
+    @objid ("b2179a20-050c-465b-bc84-f3f379d3c6ff")
     BpmnActivity getOwnerActivity();
 
     /**
      * Setter for relation 'BpmnDataOutput->OwnerActivity'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("d28dd805-59e4-4826-961d-9008da5bce14")
+    @objid ("bc64efd5-385b-472e-a6c4-90bc948b7bf9")
     void setOwnerActivity(BpmnActivity value);
 
     /**
      * Getter for relation 'BpmnDataOutput->Catched'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("5cef40b7-d01e-4e27-ae6c-cfe82663d16f")
+    @objid ("5eccd97a-d7a6-440e-b1d7-2734325170c0")
     BpmnCatchEvent getCatched();
 
     /**
      * Setter for relation 'BpmnDataOutput->Catched'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("a485b34a-eae6-4461-afe9-37a6d826dae0")
+    @objid ("35fc5883-f8fe-444a-8ec4-975a10d37c4b")
     void setCatched(BpmnCatchEvent value);
 
     /**
      * Getter for relation 'BpmnDataOutput->OwnerLoopCharacteristics'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("9af6d1d8-3249-4686-917e-60020b5a663f")
+    @objid ("04da0bff-9cdd-48e0-a855-916ff93bec0a")
     BpmnMultiInstanceLoopCharacteristics getOwnerLoopCharacteristics();
 
     /**
      * Setter for relation 'BpmnDataOutput->OwnerLoopCharacteristics'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("ed178778-72fa-42b1-9ac0-35e3cae5629d")
+    @objid ("d098d1f2-942c-4db7-be56-6cbb3704461c")
     void setOwnerLoopCharacteristics(BpmnMultiInstanceLoopCharacteristics value);
-}
 
+}

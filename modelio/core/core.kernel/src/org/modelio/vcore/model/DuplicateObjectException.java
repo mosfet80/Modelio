@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.model;
 
@@ -69,22 +69,23 @@ public class DuplicateObjectException extends Exception {
 
     /**
      * Initialize the exception.
+     *
      * @param oid the common UUID
      * @param origObj the original object
      * @param dupObj the duplicate object
      */
     @objid ("f53b838d-08b1-11e2-b33c-001ec947ccaf")
-    public  DuplicateObjectException(String oid, SmObjectImpl origObj, SmObjectImpl dupObj) {
+    public DuplicateObjectException(String oid, SmObjectImpl origObj, SmObjectImpl dupObj) {
         this.oid = oid;
         this.dupObj = dupObj;
         this.dupData = dupObj.getData();
         this.origObj = origObj;
         this.origData = origObj.getData();
-        
+
         if (WITH_THREAD_DUMP) {
             this.threadDump = Thread.getAllStackTraces();
         }
-        
+
     }
 
     @objid ("f53b8393-08b1-11e2-b33c-001ec947ccaf")
@@ -95,20 +96,21 @@ public class DuplicateObjectException extends Exception {
         } else {
             final IRepositoryObject origRepo = this.origObj != null ? this.origObj.getRepositoryObject() : null;
             final IRepositoryObject dupRepo = this.dupObj != null ? this.dupObj.getRepositoryObject() : null;
-            return ("Duplicate '" + this.oid 
-                    + "' objects detected:\n - original:  " 
-                    + this.origObj 
+            return ("Duplicate '" + this.oid
+                    + "' objects detected:\n - original:  "
+                    + this.origObj
                     + " in "+ origRepo
-                    + "\n - new: " 
+                    + "\n - new: "
                     + this.dupObj
                     + " in "+ dupRepo
                     + ".\n\n"
                     + getThreadDump());
         }
-        
+
     }
 
     /**
+     *
      * @return the duplicate object.
      */
     @objid ("f53b8398-08b1-11e2-b33c-001ec947ccaf")
@@ -117,6 +119,7 @@ public class DuplicateObjectException extends Exception {
     }
 
     /**
+     *
      * @return the original object.
      */
     @objid ("f53b839d-08b1-11e2-b33c-001ec947ccaf")
@@ -125,6 +128,7 @@ public class DuplicateObjectException extends Exception {
     }
 
     /**
+     *
      * @return the UUID of both objects.
      */
     @objid ("f53b83a2-08b1-11e2-b33c-001ec947ccaf")
@@ -134,6 +138,7 @@ public class DuplicateObjectException extends Exception {
 
     /**
      * Get the stack trace of all threads at the time where the exception was created.
+     *
      * @return all threads stack trace.
      */
     @objid ("eba19efc-e22a-44d6-a83a-f103ddffd956")
@@ -155,7 +160,7 @@ public class DuplicateObjectException extends Exception {
         } else {
             return "";
         }
-        
+
     }
 
 }

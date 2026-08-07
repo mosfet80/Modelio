@@ -1,27 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.ramcs.handlers;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.eclipse.core.commands.ParameterizedCommand;
 import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
@@ -58,7 +58,7 @@ public class CreateRamcHandler {
         if (selection.size() == 1 && selection.getFirstElement() instanceof Package) {
             Package rootPackage = (Package) selection.getFirstElement();
             Artifact artifact = RamcCreator.create(rootPackage);
-        
+
             if (artifact != null) {
                 this.navigationService.fireNavigate(artifact);
                 final ParameterizedCommand cmd = CreateRamcHandler.this.commandService.createCommand("app.ramcs.command.packageramc", null);
@@ -72,12 +72,12 @@ public class CreateRamcHandler {
                     public void run() {
                         CreateRamcHandler.this.handlerService.executeHandler(cmd);
                     }
-        
+
                 });
-        
+
             }
         }
-        
+
     }
 
     @objid ("86b64d81-b2d1-413f-bcfe-fadd767c5d6c")
@@ -88,7 +88,7 @@ public class CreateRamcHandler {
         } else {
             return false;
         }
-        
+
     }
 
 }

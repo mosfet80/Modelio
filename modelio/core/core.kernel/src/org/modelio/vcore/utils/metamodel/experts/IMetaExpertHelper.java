@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.utils.metamodel.experts;
 
@@ -37,8 +37,8 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public interface IMetaExpertHelper {
     /**
      * Tells whether the owner can own the given composed element using the given dependency name.
-     * @param dependency
-     * optional: The name of the dependency on the owner used to add the composed.
+     *
+     * @param dependency optional: The name of the dependency on the owner used to add the composed.
      * @param owner The owner node, must not be null.
      * @param composed The composed element, must not be null
      * @return true if the composed can be added, else false.
@@ -48,8 +48,8 @@ public interface IMetaExpertHelper {
 
     /**
      * Tells whether the owner can own an instance of the given metaclass using the given dependency name.
-     * @param dependency
-     * optional: The name of the dependency on the owner used to add the composed.
+     *
+     * @param dependency optional: The name of the dependency on the owner used to add the composed.
      * @param owner The owner node, must not be null.
      * @param composed The metaclass of the composed element, must not be null
      * @return true if the composed can be added, else false.
@@ -59,8 +59,8 @@ public interface IMetaExpertHelper {
 
     /**
      * Tells whether the owner can own the given composed element using the given dependency name.
-     * @param dependency
-     * optional: The name of the dependency on the owner used to add the composed.
+     *
+     * @param dependency optional: The name of the dependency on the owner used to add the composed.
      * @param owner The owner node, must not be null.
      * @param composed The composed element, must not be null
      * @return true if the composed can be added, else false.
@@ -71,6 +71,7 @@ public interface IMetaExpertHelper {
     /**
      * Whether or not a dependency 'dep' can be established between the 'source' object and an instance of 'target' metaclass based
      * on their metaclass and stereotypes.
+     *
      * @param source
      * @param target
      * @param dep @return
@@ -80,6 +81,7 @@ public interface IMetaExpertHelper {
 
     /**
      * Whether or not a dependency 'dep' exists between 'source' and 'target' metaclass.
+     *
      * @param source
      * @param target
      * @param dep @return
@@ -90,11 +92,12 @@ public interface IMetaExpertHelper {
     /**
      * Whether or not a dependency 'dep' can be established between the 'source' and 'target' objects based on their metaclass and
      * stereotypes.
+     *
      * @param source
      * @param target
      * @param dep @return
      */
     @objid ("ac5b78c5-a98e-4a55-87d2-b3134b0aaa30")
     boolean canDep(MObject source, MObject target, String dep);
-}
 
+}

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.utils.metamodel.experts.links;
 
@@ -48,13 +48,14 @@ public class RuleBasedLinkExpertHelper implements ILinkExpertHelper {
     private final MMetamodel mm;
 
     /**
+     *
      * @param mm the metamodel
      */
     @objid ("6f84bdc8-8e27-435d-bbf2-d1d559fefa87")
-    public  RuleBasedLinkExpertHelper(MMetamodel mm) {
+    public RuleBasedLinkExpertHelper(MMetamodel mm) {
         this.mm = mm;
         this.RULES = new MetamodelRules(mm);
-        
+
     }
 
     @objid ("e58b5438-ed76-4b04-81ce-32cb3659fe3b")
@@ -95,6 +96,7 @@ public class RuleBasedLinkExpertHelper implements ILinkExpertHelper {
 
     /**
      * Add an allowed rule.
+     *
      * @param mcD link metaclass
      * @param mcX source metaclass
      * @param mcY target metaclass
@@ -106,6 +108,7 @@ public class RuleBasedLinkExpertHelper implements ILinkExpertHelper {
 
     /**
      * Add an allowed rule with subclasses if asked for.
+     *
      * @param mcD link metaclass
      * @param mcX source metaclass
      * @param xRec with subclasses
@@ -119,6 +122,7 @@ public class RuleBasedLinkExpertHelper implements ILinkExpertHelper {
 
     /**
      * Get a model link source
+     *
      * @param aLink a model link.
      * @return the link source
      */
@@ -126,7 +130,7 @@ public class RuleBasedLinkExpertHelper implements ILinkExpertHelper {
     @Override
     public MObject getSource(MObject aLink) {
         AssocData data = getData(aLink);
-        
+
         for (MDependency dep : data.sources) {
             List<MObject> vals = aLink.mGet(dep);
             if (!vals.isEmpty()) {
@@ -138,6 +142,7 @@ public class RuleBasedLinkExpertHelper implements ILinkExpertHelper {
 
     /**
      * Get a model link target.
+     *
      * @param aLink a model link.
      * @return the link target.
      */
@@ -145,7 +150,7 @@ public class RuleBasedLinkExpertHelper implements ILinkExpertHelper {
     @Override
     public MObject getTarget(MObject aLink) {
         AssocData data = getData(aLink);
-        
+
         for (MDependency dep : data.targets) {
             List<MObject> vals = aLink.mGet(dep);
             if (!vals.isEmpty()) {
@@ -156,6 +161,7 @@ public class RuleBasedLinkExpertHelper implements ILinkExpertHelper {
     }
 
     /**
+     *
      * @param metaclass a metamodel class
      * @return true if the metaclass is a relationship metaclasses.
      */
@@ -166,6 +172,7 @@ public class RuleBasedLinkExpertHelper implements ILinkExpertHelper {
 
     /**
      * Change a model link target.
+     *
      * @param link a model link.
      * @param oldTarget the old target.
      * @param newTarget the new target.
@@ -176,11 +183,11 @@ public class RuleBasedLinkExpertHelper implements ILinkExpertHelper {
     public void setTarget(MObject link, MObject oldTarget, MObject newTarget) throws IllegalArgumentException {
         AssocData data = getData(link);
         MDependency found = null;
-        
+
         for (MDependency dep : data.targets) {
             List<MObject> vals = link.mGet(dep);
             vals.retainAll(Collections.singletonList(newTarget));
-        
+
             if (newTarget != null
                     && newTarget.getMClass().hasBase(dep.getTarget())
                     && !vals.contains(newTarget)) {
@@ -199,15 +206,16 @@ public class RuleBasedLinkExpertHelper implements ILinkExpertHelper {
                 found = dep;
             }
         }
-        
+
         if (found == null && newTarget != null) {
             throw new IllegalArgumentException(newTarget.toString());
         }
-        
+
     }
 
     /**
      * Change a model link source.
+     *
      * @param link a model link.
      * @param oldSource the old source.
      * @param newSource the new source.
@@ -218,11 +226,11 @@ public class RuleBasedLinkExpertHelper implements ILinkExpertHelper {
     public void setSource(MObject link, MObject oldSource, MObject newSource) throws IllegalArgumentException {
         AssocData data = getData(link);
         MDependency found = null;
-        
+
         for (MDependency dep : data.sources) {
             List<MObject> vals = link.mGet(dep);
             vals.retainAll(Collections.singletonList(newSource));
-        
+
             if (newSource != null
                     && newSource.getMClass().hasBase(dep.getTarget())
                     && !vals.contains(newSource)) {
@@ -241,15 +249,16 @@ public class RuleBasedLinkExpertHelper implements ILinkExpertHelper {
                 found = dep;
             }
         }
-        
+
         if (found == null && newSource != null) {
             throw new IllegalArgumentException(newSource.toString());
         }
-        
+
     }
 
     /**
      * Register a source dependency
+     *
      * @param depClass the link metaclass interface
      * @param srcDepName the dependency name
      * @throws IllegalArgumentException on input mistake.
@@ -257,36 +266,37 @@ public class RuleBasedLinkExpertHelper implements ILinkExpertHelper {
     @objid ("6d98708e-9ede-4e7d-a7e2-0836eb86e871")
     public void addSourceDep(Class<? extends MObject> depClass, String srcDepName) throws IllegalArgumentException {
         MClass mClass = getMClass(depClass);
-        
+
         AssocData data = this.associations.get(mClass);
         if (data == null) {
             data = new AssocData();
             this.associations.put(mClass, data);
         }
-        
+
         MDependency dep = mClass.getDependency(srcDepName);
         if (dep == null) {
             throw new IllegalArgumentException(String.format("'%s' metaclass has no '%s' dependency.", depClass, srcDepName));
         }
-        
+
         data.sources.add(dep);
-        
+
     }
 
     /**
      * Register a link metaclass.
+     *
      * @param linkMetaclassInterface a link metaclass name.
      */
     @objid ("ee7c9185-dfcf-4ee1-b642-f7fe4e1f9613")
     public void addLinkMetaclass(Class<? extends MObject> linkMetaclassInterface) {
         MClass mClass = getMClass(linkMetaclassInterface);
-        
+
         AssocData data = this.associations.get(mClass);
         if (data == null) {
             data = new AssocData();
             this.associations.put(mClass, data);
         }
-        
+
     }
 
     @objid ("8be4ba63-dfbe-4ceb-b4e2-6e67386b134f")
@@ -300,6 +310,7 @@ public class RuleBasedLinkExpertHelper implements ILinkExpertHelper {
 
     /**
      * Register a target dependency.
+     *
      * @param depClass the link metaclass interface
      * @param depName the dependency name
      * @throws IllegalArgumentException on input mistake.
@@ -307,20 +318,20 @@ public class RuleBasedLinkExpertHelper implements ILinkExpertHelper {
     @objid ("ff79561a-ded9-4bf8-bd90-6295e769e823")
     public void addTargetDep(Class<? extends MObject> depClass, String depName) throws IllegalArgumentException {
         MClass mClass = getMClass(depClass);
-        
+
         AssocData data = this.associations.get(mClass);
         if (data == null) {
             data = new AssocData();
             this.associations.put(mClass, data);
         }
-        
+
         MDependency dep = mClass.getDependency(depName);
         if (dep == null) {
             throw new IllegalArgumentException(String.format("'%s' metaclass has no '%s' dependency.", depClass, depName));
         }
-        
+
         data.targets.add(dep);
-        
+
     }
 
     @objid ("807c87b3-feec-4a29-9819-5d3d780963b0")
@@ -363,12 +374,13 @@ public class RuleBasedLinkExpertHelper implements ILinkExpertHelper {
         private final Set<RuleKey> canTargetRules = new HashSet<>();
 
         @objid ("761727f5-3a09-4810-96bd-80ef81651c1a")
-        public  MetamodelRules(MMetamodel mm) {
+        public MetamodelRules(MMetamodel mm) {
             this.mm = mm;
         }
 
         /**
          * Tells whether a link of the given metaclass can have another metaclass as source.
+         *
          * @param linkMetaclass The link metaclass
          * @param fromMetaclass The source metaclass
          * @return true if the creation is possible, false otherwise.
@@ -382,6 +394,7 @@ public class RuleBasedLinkExpertHelper implements ILinkExpertHelper {
 
         /**
          * Tells whether a link of the given metaclass can be created between the 2 other metaclasses.
+         *
          * @param linkMetaclass The link metaclass
          * @param fromMetaclass The Source metaclass
          * @param toMetaclass The destination metaclass
@@ -397,6 +410,7 @@ public class RuleBasedLinkExpertHelper implements ILinkExpertHelper {
 
         /**
          * Returns whether this metaclass is known or not.
+         *
          * @param linkMetaclass The link metaclass
          * @param toMetaclass The target metaclass
          * @return true if the creation is possible, false otherwise.
@@ -410,6 +424,7 @@ public class RuleBasedLinkExpertHelper implements ILinkExpertHelper {
 
         /**
          * Add an allowed rule.
+         *
          * @param mcD link metaclass
          * @param mcX source metaclass
          * @param mcY target metaclass
@@ -421,6 +436,7 @@ public class RuleBasedLinkExpertHelper implements ILinkExpertHelper {
 
         /**
          * Add an allowed rule.
+         *
          * @param mcD link metaclass
          * @param mcX source metaclass
          * @param xRec with subclasses
@@ -431,31 +447,32 @@ public class RuleBasedLinkExpertHelper implements ILinkExpertHelper {
         protected void addRule(Class<? extends MObject> mcD, Class<? extends MObject> mcX, boolean xRec, Class<? extends MObject> mcY, boolean yRec) {
             // Add 'canSource' rules
             this.canSourceRules.add(key(mcD, mcX, null));
-            
+
             // Add 'canLink' rules
             this.directRules.add(key(mcD, mcX, mcY));
-            
+
             // Add 'canTarget' rules
             this.canTargetRules.add(key(mcD, null, mcY));
-            
+
             if (xRec) {
                 MClass mx = this.mm.getMClass(mcX);
                 for (MClass xsub : mx.getSub(false)) {
                     addRule(mcD, xsub.getJavaInterface(), true, mcY, yRec);
                 }
             }
-            
+
             if (yRec) {
                 MClass my = this.mm.getMClass(mcY);
                 for (MClass ysub : my.getSub(false)) {
                     addRule(mcD, mcX, xRec, ysub.getJavaInterface(), true);
                 }
             }
-            
+
         }
 
         /**
          * Create a rule key from metaclass java interfaces.
+         *
          * @param link link metaclass
          * @param source source metaclass
          * @param target target metaclass
@@ -480,12 +497,12 @@ public class RuleBasedLinkExpertHelper implements ILinkExpertHelper {
             public final MClass target;
 
             @objid ("6d7acb60-e63a-4646-8b15-843da45a2676")
-            public  RuleKey(MClass link, MClass source, MClass target) {
+            public RuleKey(MClass link, MClass source, MClass target) {
                 super();
                 this.link = link;
                 this.source = source;
                 this.target = target;
-                
+
             }
 
             @objid ("1ade9953-0405-44b8-9f89-be764cfcb3e5")

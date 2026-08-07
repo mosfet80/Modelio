@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /**
  *
@@ -46,6 +46,7 @@ import org.osgi.framework.FrameworkUtil;
 
 /**
  * Loader that will find LibreOffice installation and create a class loader that can load OOoBean.
+ *
  * @author cmarin
  */
 @objid ("f28f20b3-95ef-496d-b780-659455efce1c")
@@ -64,6 +65,7 @@ public class LibreOfficeLoader {
      * <p>
      * This loader will find LibreOffice installation and can load OOoBean.
      * Returns <code>null</code> if LibreOffice or OpenOffice is not installed.
+     *
      * @return the LibreOffice class loader or <code>null</code>.
      * @throws IOException if the LibreOffice/OpenOffice installation is broken or incomplete.
      */
@@ -78,12 +80,12 @@ public class LibreOfficeLoader {
     @objid ("b241c7c8-ab81-4db6-a4a1-e5d6b1347f8b")
     private static void createClassLoader() throws IOException {
         findInstallPathFromPreferences();
-        
+
         // Get LibreOffice class loader
         List<URL> ooClassPath = Loader.getUnoClassPath();
-        
+
         if (ooClassPath != null) {
-        
+
             // Look for:
             // - officebean.jar an put in in officebeanJarUrl
             // - soffice.exe and put its directory in UNO_PATH env variable
@@ -95,7 +97,7 @@ public class LibreOfficeLoader {
                         // dir = new File(new URI("file", url.getFile(),null )).getParentFile();
                         dir = new File(new URI(url.toString())).getParentFile();
                         // System.out.println("debug: *"+dir+" classpath.");
-        
+
                         if (InstallationFinder.isOooPathValid(dir)) {
                             // System.out.println("debug: **"+f+" found.");
                             // Set UNO_PATH env path to soffice.exe executable path.
@@ -103,39 +105,39 @@ public class LibreOfficeLoader {
                             System.setProperty("UNO_PATH", programDir.getAbsolutePath());
                             programUrl = programDir.toURI().toURL();
                         }
-        
+
                     } catch (URISyntaxException e) {
                         LibreOfficeEditors.LOG.warning(e);
                     } catch (MalformedURLException e) {
                         LibreOfficeEditors.LOG.warning(e);
                     }
-        
+
                 }
             }
-        
+
             if (programUrl == null) {
                 throw getFileNotFoundIn("OpenOffice installation directory not found in:\n", ooClassPath);
             } else {
                 // Add the 'runtime/bin' plugin directory to class path
                 Bundle bundle = FrameworkUtil.getBundle(LibreOfficeLoader.class);
                 URL secondBinUrl = FileLocator.find(bundle, new Path("runtime/bin"), null);
-        
+
                 if (secondBinUrl == null) {
                     throw new UnsatisfiedLinkError("Cannot find runtime/bin directory in '" + bundle.getSymbolicName() + "' bundle.");
                 }
-        
+
                 ArrayList<URL> urls = new ArrayList<>();
-        
+
                 // Add the 'runtime/bin' and program dir plugin directory to class path
                 urls.add(secondBinUrl);
                 urls.add(programUrl);
-        
+
                 // Add officebean.dll directory
                 if (needOfficeBeanLib()) {
                     URL officeBeanLibUrl = lookForOfficeBeanLib(ooClassPath);
                     urls.add(officeBeanLibUrl);
                 }
-        
+
                 // Add officebean.jar
                 if (needOfficeBeanJar()) {
                     URL officebeanJarUrl = lookForOfficeBeanJar(ooClassPath);
@@ -145,19 +147,19 @@ public class LibreOfficeLoader {
                         urls.add(officebeanJarUrl);
                     }
                 }
-        
+
                 // Add UNO jars
                 urls.addAll(ooClassPath);
-        
+
                 // Build our composite class loader
                 final ClassLoader pluginClassLoader = LibreOfficeLoader.class.getClassLoader();
-        
+
                 LibreOfficeLoader.oooClassLoader = new LibreOfficeInternalClassLoader(urls.toArray(new URL[urls.size()]), pluginClassLoader);
-        
+
                 installPreferenceListener();
             }
         }
-        
+
     }
 
     @objid ("e372b30f-d6dc-40bd-b3cd-bc572254e0dc")
@@ -173,6 +175,7 @@ public class LibreOfficeLoader {
     }
 
     /**
+     *
      * @return <code>true</code> if the OS is Windows, else <code>false</code>.
      */
     @objid ("f26d4c07-4e48-4adb-9ad1-fdcd252fdc5e")
@@ -194,6 +197,7 @@ public class LibreOfficeLoader {
      * <li>file:/usr/lib/libreoffice/program/../basis-link/program/classes/unoil.jar,
      * <li>file:/usr/lib/libreoffice/program/
      * </ul>
+     *
      * @param urls The directory URLS to search
      * @return the found library path.
      * @throws FileNotFoundException if the library was not found.
@@ -204,13 +208,13 @@ public class LibreOfficeLoader {
         if (ret == null) {
             ret = tryLookForLibFile("officebeanlo", urls);
         }
-        
+
         if (ret != null) {
             return ret;
         } else {
             throw getFileNotFoundIn("officebean native library not found in the class path:\n", urls);
         }
-        
+
     }
 
     /**
@@ -227,13 +231,14 @@ public class LibreOfficeLoader {
      * <li>file:/usr/lib/libreoffice/program/../basis-link/program/classes/unoil.jar,
      * <li>file:/usr/lib/libreoffice/program/
      * </ul>
+     *
      * @param ooClassPath The directory URLS to search
      * @return the found library path or NULL.
      */
     @objid ("8d6cac31-93ee-453e-9cb1-64805b415b74")
     private static URL lookForOfficeBeanJar(final List<URL> ooClassPath) {
         final String libFileName = "officebean.jar";
-        
+
         for (URL url : ooClassPath) {
             if (url.getProtocol().equals("file")) {
                 try {
@@ -242,13 +247,13 @@ public class LibreOfficeLoader {
                     if (!dir.isDirectory()) {
                         dir = dir.getParentFile();
                     }
-        
+
                     while (dir != null && dir.isDirectory()) {
                         File f = new File(dir, libFileName);
                         if (f.isFile()) {
                             return f.toURI().toURL();
                         }
-        
+
                         dir = dir.getParentFile();
                     }
                 } catch (URISyntaxException e) {
@@ -268,7 +273,7 @@ public class LibreOfficeLoader {
     @objid ("57bf3617-4fc7-42b4-a108-fc3c497c6911")
     private static void installPreferenceListener() {
         LibreOfficeEditors.PREFERENCES.addPropertyChangeListener(new IPropertyChangeListener() {
-        
+
             @SuppressWarnings ("synthetic-access")
             @Override
             public void propertyChange(PropertyChangeEvent event) {
@@ -283,7 +288,7 @@ public class LibreOfficeLoader {
                 }
             }
         });
-        
+
     }
 
     /**
@@ -298,7 +303,7 @@ public class LibreOfficeLoader {
         if (installPath != null && InstallationFinder.isProgramPathValid(new File(installPath))) {
             System.setProperty(InstallationFinder.SYSPROP_NAME, installPath);
         }
-        
+
     }
 
     @objid ("7042d344-614e-4624-9553-f5e45c23cbc7")
@@ -329,13 +334,14 @@ public class LibreOfficeLoader {
      * <li>file:/usr/lib/libreoffice/program/../basis-link/program/classes/unoil.jar,
      * <li>file:/usr/lib/libreoffice/program/
      * </ul>
+     *
      * @param urls The directory URLS to search
      * @return the found library path or <code>null</code>.
      */
     @objid ("20ab7c34-2e8c-4c7a-b7de-52b1307d6c22")
     private static URL tryLookForLibFile(final String libName, final List<URL> urls) {
         final String libFileName = System.mapLibraryName(libName);
-        
+
         for (URL url : urls) {
             if (url.getProtocol().equals("file")) {
                 try {
@@ -344,13 +350,13 @@ public class LibreOfficeLoader {
                     if (!dir.isDirectory()) {
                         dir = dir.getParentFile();
                     }
-        
+
                     while (dir != null && dir.isDirectory()) {
                         File f = new File(dir, libFileName);
                         if (f.isFile()) {
                             return dir.toURI().toURL();
                         }
-        
+
                         dir = dir.getParentFile();
                     }
                 } catch (URISyntaxException e) {
@@ -366,6 +372,7 @@ public class LibreOfficeLoader {
     /**
      * Get the {@link IEditedDocumentViewer} implementation class in the
      * OpenOffice class loader space.
+     *
      * @return the {@link IEditedDocumentViewer} implementation class.
      * @throws IOException if the LibreOffice/OpenOffice installation is broken or incomplete.
      */
@@ -373,22 +380,22 @@ public class LibreOfficeLoader {
     @SuppressWarnings ("unchecked")
     public static Class<? extends IEditedDocumentViewer> getDocumentViewerClass() throws IOException {
         ClassLoader officeClassLoader = LibreOfficeLoader.getClassLoader();
-        
+
         String className;
         if (LibreOfficeLoader.isWindows()) {
             className = LibreOfficeLoader.WIN_DOCUMENT_VIEWER_CLASS;
         } else {
             className = LibreOfficeLoader.LINUX_DOCUMENT_VIEWER_CLASS;
         }
-        
+
         Class<?> cl;
         try {
             cl = officeClassLoader.loadClass(className);
-        
+
         } catch (ClassNotFoundException e) {
             throw new IOException("'" + className + "' not found.", e);
         }
-        
+
         if (!IEditedDocumentViewer.class.isAssignableFrom(cl)) {
             throw new IOException("'" + className + "' class does not implement IEditedDocumentViewer.");
         }
@@ -405,6 +412,7 @@ public class LibreOfficeLoader {
      * <p>
      * Works around Eclipse building bug that includes wrongly the 'runtime/bin' directory
      * to the plugin class path.
+     *
      * @author cma
      * @since 3.6
      */
@@ -414,10 +422,10 @@ public class LibreOfficeLoader {
         private final ClassLoader fallBackClassLoader;
 
         @objid ("01acd189-67c1-4a97-a8f7-9fd2242b2d94")
-        private  LibreOfficeInternalClassLoader(URL[] urls, ClassLoader fallbackClassLoader) {
+        private LibreOfficeInternalClassLoader(URL[] urls, ClassLoader fallbackClassLoader) {
             super(urls);
             this.fallBackClassLoader = fallbackClassLoader;
-            
+
         }
 
         @objid ("ce7073b4-4d04-4c10-bc48-40b358fedb3e")
@@ -434,7 +442,7 @@ public class LibreOfficeLoader {
                     throw e;
                 }
             }
-            
+
         }
 
         @objid ("25e74062-0f31-4a76-a74b-de6ffd76e7ed")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.activitydiagram;
 
@@ -78,15 +78,16 @@ public class GmActivityDiagram extends GmAbstractDiagram {
 
     /**
      * Default constructor.
+     *
      * @param manager the manager needed make the link between the Ob and Gm models.
      * @param theActivityDiagram the diagram itself.
      * @param diagramRef a reference to the diagram.
      */
     @objid ("29936d03-55b6-11e2-877f-002564c97630")
-    public  GmActivityDiagram(IModelManager manager, ActivityDiagram theActivityDiagram, MRef diagramRef) {
+    public GmActivityDiagram(IModelManager manager, ActivityDiagram theActivityDiagram, MRef diagramRef) {
         super(manager, diagramRef);
         this.obDiagram = theActivityDiagram;
-        
+
     }
 
     @objid ("29936d12-55b6-11e2-877f-002564c97630")
@@ -149,11 +150,12 @@ public class GmActivityDiagram extends GmAbstractDiagram {
             break;
         }
         }
-        
+
     }
 
     /**
      * Returns true if the given metaclass is supported.
+     *
      * @param metaclass the metaclass to create
      * @return true if the given metaclass is supported.
      */
@@ -173,7 +175,7 @@ public class GmActivityDiagram extends GmAbstractDiagram {
                 Document.class.isAssignableFrom(metaclass) ||
                 Note.class.isAssignableFrom(metaclass) ||
                 Constraint.class.isAssignableFrom(metaclass));
-        
+
     }
 
     @objid ("2994f3b4-55b6-11e2-877f-002564c97630")
@@ -190,6 +192,7 @@ public class GmActivityDiagram extends GmAbstractDiagram {
 
     /**
      * Returns true if the given metaclass is supported.
+     *
      * @param metaclass the metaclass to unmask
      * @return true if the given metaclass is supported.
      */
@@ -198,33 +201,33 @@ public class GmActivityDiagram extends GmAbstractDiagram {
         return acceptCreateMetaclass(metaclass) ||
                 Pin.class.isAssignableFrom(metaclass) ||
                 ExpansionNode.class.isAssignableFrom(metaclass);
-        
+
     }
 
     @objid ("2994f3cb-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmActivityDiagram.", GmActivityDiagram.MINOR_VERSION);
-        
+
     }
 
     @objid ("2994f3d1-55b6-11e2-877f-002564c97630")
     private void read_1(IDiagramReader in) {
         super.read(in);
         this.obDiagram = (ActivityDiagram) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("8667d82f-684f-4623-bc62-730e0f108a9c")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.obDiagram = (ActivityDiagram) resolveRef(getRepresentedRef());
-        
+
         OrthoLinkDiagramMigrationHelper.migrate(this);
-        
+
     }
 
     @objid ("2994f3d6-55b6-11e2-877f-002564c97630")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.usecasediagram.editor.elements.actor;
 
@@ -40,7 +40,7 @@ public class GmActorUserImageStyleKeys extends UseCaseAbstractStyleKeyProvider {
 
     @objid ("37cbd9dd-d460-4012-85ca-07c8c7afa897")
     public static final StyleKey SHOWSTEREOTYPES = createStyleKey("ACTOR_SHOWSTEREOTYPES",
-                                                                      MetaKey.SHOWSTEREOTYPES);
+                                                                          MetaKey.SHOWSTEREOTYPES);
 
     @objid ("4ed60861-05d3-4b33-bf90-0e525f39eb81")
     public static final StyleKey SHOWTAGS = createStyleKey("ACTOR_SHOWTAGS", MetaKey.SHOWTAGS);

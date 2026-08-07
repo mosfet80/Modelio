@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel;
 
@@ -37,7 +37,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
  * This list reflects the content of a dependency on a object.
  * Modifying this list content does modify the represented object through
  * the {@link SmObjectImpl} API.
- * 
+ *
  * @param <T> the type of the dependency
  */
 @objid ("005d71f4-fd81-1f1f-85a5-001ec947cd2a")
@@ -56,14 +56,15 @@ public class SmList<T> extends AbstractList<T> implements EList<T> {
 
     /**
      * Instantiate the SmList.
+     *
      * @param owner the represented model object
      * @param dep the represented model dependency
      */
     @objid ("005d6aa6-fd81-1f1f-85a5-001ec947cd2a")
-    public  SmList(final SmObjectImpl owner, final SmDependency dep) {
+    public SmList(final SmObjectImpl owner, final SmDependency dep) {
         this.owner = owner;
         this.dep = dep;
-        
+
     }
 
     @objid ("005d043a-fd81-1f1f-85a5-001ec947cd2a")
@@ -88,7 +89,7 @@ public class SmList<T> extends AbstractList<T> implements EList<T> {
         for (SmObjectImpl obj : toArray(new SmObjectImpl[size()])) {
             this.owner.eraseDepVal(this.dep, obj);
         }
-        
+
     }
 
     @objid ("005d6420-fd81-1f1f-85a5-001ec947cd2a")
@@ -125,15 +126,15 @@ public class SmList<T> extends AbstractList<T> implements EList<T> {
     @Override
     public void move(int newPosition, T object) {
         int oldPosition = indexOf(object);
-        
+
         this.owner.getMetaOf().moveObjDepVal(
                 this.owner,
                 this.dep,
                 (SmObjectImpl) object,
                 realIndex(newPosition) - realIndex(oldPosition));
-        
+
         setModified();
-        
+
     }
 
     @objid ("001508a6-3493-1f35-b94f-001ec947cd2a")
@@ -145,7 +146,7 @@ public class SmList<T> extends AbstractList<T> implements EList<T> {
                 this.dep,
                 (SmObjectImpl) object,
                 realIndex(newPosition) - realIndex(oldPosition));
-        
+
         setModified();
         return object;
     }
@@ -169,7 +170,7 @@ public class SmList<T> extends AbstractList<T> implements EList<T> {
     @Override
     public boolean retainAll(final Collection<?> values) {
         List<Object> toRemove = new ArrayList<>();
-        
+
         for (T obj : getDelegateList()) {
             if (!values.contains(obj)) {
                 toRemove.add(obj);
@@ -199,17 +200,17 @@ public class SmList<T> extends AbstractList<T> implements EList<T> {
         //  at java.util.List.sort(List.java:481)
         T[] a = (T[]) this.toArray();
         Arrays.sort(a, c);
-        
+
         for (int i = 0; i < a.length; i++) {
             SmObjectImpl expect = (SmObjectImpl) a[i];
             T current = get(i);
-            
+
             if (expect != current) {
                 this.owner.eraseDepVal(this.dep, expect);
                 this.owner.appendDepVal(this.dep, expect, i);
             }
         }
-        
+
     }
 
     @objid ("005d2596-fd81-1f1f-85a5-001ec947cd2a")
@@ -236,7 +237,7 @@ public class SmList<T> extends AbstractList<T> implements EList<T> {
             // drop the delegate list that must be recomputed
             this.delegateList = null;
         }
-        
+
     }
 
     @objid ("005d2f50-fd81-1f1f-85a5-001ec947cd2a")
@@ -244,12 +245,12 @@ public class SmList<T> extends AbstractList<T> implements EList<T> {
     private List<T> getDelegateList() {
         if (this.delegateList == null) {
             this.hasFakes = false;
-        
+
             Object ret = this.owner.getDepVal(this.dep);
-        
+
             if (ret instanceof List) {
                 this.delegateList = (List<T>) ret;
-        
+
                 if (hasFakeObjects(this.delegateList)) {
                     // The original list contains fake objects,
                     // instantiate a filtered list that sees only legal objects.
@@ -274,16 +275,16 @@ public class SmList<T> extends AbstractList<T> implements EList<T> {
     @SuppressWarnings("unchecked")
     private List<T> getDelegateList0() {
         Object ret = this.owner.getDepVal(this.dep);
-        
+
         if (ret instanceof List) {
             return (List<T>) ret;
-        
+
         } else if (ret == null) {
             return Collections.emptyList();
         } else {
             return Collections.singletonList((T) ret);
         }
-        
+
     }
 
     @objid ("502822c3-89f1-4c4e-beae-05c52e7b612e")
@@ -305,7 +306,7 @@ public class SmList<T> extends AbstractList<T> implements EList<T> {
         } else {
             return i;
         }
-        
+
     }
 
     /**
@@ -315,10 +316,10 @@ public class SmList<T> extends AbstractList<T> implements EList<T> {
      * This list records the original list and the indexes of the accepted elements.
      * <p>
      * It currently does not accept modifications but could later.
+     *
      * @author cmarin
-     * @since 3.4
-     * 
      * @param <T> the type of the elements
+     * @since 3.4
      */
     @objid ("4c4b6674-6dc6-47fd-af69-f16fa26da00a")
     protected static class FilteredList<T> extends AbstractList<T> {
@@ -332,7 +333,7 @@ public class SmList<T> extends AbstractList<T> implements EList<T> {
         private int size;
 
         @objid ("5a2a5153-1b30-4171-bb21-e2d195dc5b53")
-        public  FilteredList(List<?> realList) {
+        public FilteredList(List<?> realList) {
             this.realList = realList;
         }
 
@@ -387,11 +388,11 @@ public class SmList<T> extends AbstractList<T> implements EList<T> {
         private final SmObjectImpl owner;
 
         @objid ("6692b03a-ce17-43c4-9a25-7290cb54e4e9")
-        public  UnaryList(SmObjectImpl owner, SmDependency dep) {
+        public UnaryList(SmObjectImpl owner, SmDependency dep) {
             super();
             this.dep = dep;
             this.owner = owner;
-            
+
         }
 
         @objid ("2a37e58f-bde8-4829-8734-42e71e04b043")

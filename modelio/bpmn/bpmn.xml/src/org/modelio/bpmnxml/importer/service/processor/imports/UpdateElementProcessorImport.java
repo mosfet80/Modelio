@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.importer.service.processor.imports;
 
@@ -49,12 +49,12 @@ public class UpdateElementProcessorImport implements IBPMNImportProcessor {
     private AbstractDiagram diagram;
 
     @objid ("256042e5-9b7b-4861-8e7d-b54eb0351bde")
-    public  UpdateElementProcessorImport(ICoreSession session, IDiagramService diagramService, Map<String, Object> elementsMap) {
+    public UpdateElementProcessorImport(ICoreSession session, IDiagramService diagramService, Map<String, Object> elementsMap) {
         this.session = session;
         this.diagramService = diagramService;
         this.elementsMap = elementsMap;
         this.factory = new ProductionFactory();
-        
+
     }
 
     @objid ("de862a4a-3608-4cc6-9586-5564290748e4")
@@ -63,16 +63,16 @@ public class UpdateElementProcessorImport implements IBPMNImportProcessor {
         IProduction node = this.factory.getImportProductionNode(jaxbElement);
         if(node != null){
             node.setElements(this.elementsMap);
-        
+
             MObject modelioElement = (MObject)this.elementsMap.get(IDUtils.getJaxbId(context,jaxbElement));
-        
+
             if(modelioElement != null){
                 if (node instanceof IProductionNode) {
                     try{
                         modelioElement = ((IProductionNode) node).updateUMLElement(context,modelioElement, jaxbElement);
                     }catch(Exception e){
                         e.printStackTrace();
-                    }     
+                    }
                 }
             }
             return modelioElement;

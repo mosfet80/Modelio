@@ -1,0 +1,17 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Links Editor
+
+== Introduction
+
+The Links Editor is a particular view of Modelio dedicated to visualizing, exploring and editing links in the model. Like any other view in Modelio, it can be shown/hidden at any moment.
+
+The Links Editor is an all-in-one visualization, exploration and edition tool specialized in model links.
+
+*  <<User_Documentation_en_Link_Editor_Concepts.adoc#,Concepts>>
+*  <<User_Documentation_en_Link_Editor_The_Link_Editor_view.adoc#,Links Editor view>>
+*  <<User_Documentation_en_Link_Editor_Link_Editor_configuration.adoc#,Links Editor configuration>>
+*  <<User_Documentation_en_Link_Editor_Editing_links.adoc#,Editing links>>

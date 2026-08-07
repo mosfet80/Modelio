@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -48,7 +48,7 @@ public class R2190 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -67,7 +67,7 @@ public class R2190 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         plan.registerRule(NameSpace.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Generalization.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE | AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -101,14 +101,14 @@ public class R2190 extends AbstractUmlRule {
      * Default constructor for R2190
      */
     @objid ("1d1a3728-6df2-46a6-913a-43fcecb69a8d")
-    public  R2190() {
+    public R2190() {
         this.checkerInstance = new CheckR2190(this);
     }
 
     @objid ("7a5f11fe-7dba-47cb-b0ff-9e13c4328606")
     private static class CheckR2190 extends AbstractControl {
         @objid ("8ae6db59-6a28-4c87-b915-3c3355990980")
-        public  CheckR2190(IRule rule) {
+        public CheckR2190(IRule rule) {
             super(rule);
         }
 
@@ -132,21 +132,21 @@ public class R2190 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     nameSpace,
                     null);
-            
+
             List<NameSpace> nameSpaceNames = new ArrayList<>();
-            
+
             for (Generalization gen : nameSpace.getParent()) {
                 NameSpace ns = gen.getSuperType();
                 if (nameSpaceNames.contains(ns)) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(nameSpace);
                     linkedObjects.add(ns);
                     auditEntry.setLinkedInfos(linkedObjects);
-            
+
                 } else {
                     nameSpaceNames.add(ns);
                 }

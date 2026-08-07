@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.valuepin;
 
@@ -38,7 +38,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Specialization of the GmPortContainer class for initial node.
- * 
+ *
  * @author fpoyer
  */
 @objid ("2b682cfa-55b6-11e2-877f-002564c97630")
@@ -69,24 +69,25 @@ public class GmValuePin extends GmPortContainer {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram in which the valuePin is unmasked.
      * @param el the unmasked valuePin.
      * @param ref a reference to the unmasked valuePin.
      */
     @objid ("2b69b399-55b6-11e2-877f-002564c97630")
-    public  GmValuePin(IGmDiagram diagram, ValuePin el, MRef ref) {
+    public GmValuePin(IGmDiagram diagram, ValuePin el, MRef ref) {
         super(diagram, ref);
-        
+
         GmValuePinPrimaryNode mainNode = new GmValuePinPrimaryNode(diagram, ref);
         mainNode.setRoleInComposition(MAIN_NODE_ROLE);
         this.addChild(mainNode);
-        
+
         this.element = el;
         GmNameLabel label = new GmNameLabel(diagram, ref);
         label.setRoleInComposition(GmPortContainer.SATELLITE_ROLE);
         label.setLayoutData(Integer.valueOf(PositionConstants.EAST));
         this.addChild(label);
-        
+
     }
 
     @objid ("2b69b3a5-55b6-11e2-877f-002564c97630")
@@ -145,7 +146,7 @@ public class GmValuePin extends GmPortContainer {
      * Empty constructor needed for deserialisation.
      */
     @objid ("2b69b3c8-55b6-11e2-877f-002564c97630")
-    public  GmValuePin() {
+    public GmValuePin() {
         // Nothing specific to do.
     }
 
@@ -166,7 +167,7 @@ public class GmValuePin extends GmPortContainer {
             break;
         }
         }
-        
+
     }
 
     @objid ("2b69b3d1-55b6-11e2-877f-002564c97630")
@@ -185,17 +186,17 @@ public class GmValuePin extends GmPortContainer {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmValuePin.", GmValuePin.MINOR_VERSION);
-        
+
     }
 
     @objid ("2b6b3a40-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (ValuePin) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("2b6b3a45-55b6-11e2-877f-002564c97630")
@@ -206,6 +207,7 @@ public class GmValuePin extends GmPortContainer {
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */
@@ -217,6 +219,7 @@ public class GmValuePin extends GmPortContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -38,10 +38,10 @@ public class EForkNode extends EActivityNode {
     }
 
     @objid ("78748afc-0fac-4636-a4c6-55d597e22cca")
-    public  EForkNode(org.eclipse.uml2.uml.ForkNode element) {
+    public EForkNode(org.eclipse.uml2.uml.ForkNode element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("4eee6c5c-cf47-4c85-8cf5-7b97ad8eb4b9")
@@ -50,21 +50,21 @@ public class EForkNode extends EActivityNode {
         super.setProperties(objingElt);
         setJoinSpec((ForkJoinNode) objingElt);
         setCombineDuplicate((ForkJoinNode) objingElt);
-        
+
     }
 
     @objid ("83bc8c39-ea9c-4438-b30a-9b057c5a12ee")
     private void setCombineDuplicate(ForkJoinNode node) {
         if (ReverseProperties.getInstance().isRoundtripEnabled())
             node.setIsCombineDuplicate(ObjingEAnnotation.isCombineDuplicate(this.ecoreElement));
-        
+
     }
 
     @objid ("693d8b4f-3b57-407e-8351-82fc3d6ddbfe")
     private void setJoinSpec(ForkJoinNode node) {
         if (ReverseProperties.getInstance().isRoundtripEnabled())
         node.setJoinSpec(ObjingEAnnotation.getJoinSpec(this.ecoreElement));
-        
+
     }
 
 }

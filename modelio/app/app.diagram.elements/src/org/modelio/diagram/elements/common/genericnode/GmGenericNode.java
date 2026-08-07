@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.genericnode;
 
@@ -66,27 +66,28 @@ public class GmGenericNode extends GmCompositeNode {
      * Constructor for deserialization only.
      */
     @objid ("f4f77505-9dde-4b21-a5f1-5034131a2c6e")
-    public  GmGenericNode() {
+    public GmGenericNode() {
         super();
     }
 
     /**
      * Initializes the node.
+     *
      * @param diagram The diagram owning the node.
      * @param elt the represented model element.
      * @param relatedRef a reference to the element this GmModel is related to.
      */
     @objid ("a98f17e2-1bde-4447-875b-7a1ec7684a52")
-    public  GmGenericNode(IGmDiagram diagram, ModelElement elt, MRef relatedRef) {
+    public GmGenericNode(IGmDiagram diagram, ModelElement elt, MRef relatedRef) {
         super(diagram, relatedRef);
         this.elt = elt;
-        
+
         this.header = new GmDefaultModelElementHeader(diagram, relatedRef);
         this.header.setRoleInComposition(GmGenericNode.HEADER);
         this.header.setShowMetaclassIcon(true);
-        
+
         super.addChild(this.header);
-        
+
     }
 
     @objid ("37e4ab6d-7193-473c-844c-2960faa30519")
@@ -117,11 +118,11 @@ public class GmGenericNode extends GmCompositeNode {
     @Override
     public void refreshFromObModel() {
         super.refreshFromObModel();
-        
+
         String oldLabel = this.header.getMainLabel();
         this.header.refreshFromObModel();
         firePropertyChange(IGmObject.PROPERTY_LABEL, oldLabel, this.header.getMainLabel());
-        
+
     }
 
     @objid ("6e884843-e6ec-4b88-b82e-7b26938561c6")
@@ -165,26 +166,26 @@ public class GmGenericNode extends GmCompositeNode {
         break;
         }
         }
-        
+
     }
 
     @objid ("a1c9f5df-8483-4316-9158-175b4922119c")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmGenericNode.", GmGenericNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("98f42de9-f0a9-4619-81e5-9e7afe4cd6f2")
     private void read_0(IDiagramReader in) {
         super.read(in);
-        
+
         this.elt = (ModelElement) resolveRef(getRepresentedRef());
         this.header = (GmModelElementHeader) getFirstChild(GmGenericNode.HEADER);
-        
+
     }
 
     @objid ("45aa8165-b2bd-486a-ac96-b5cbb9588776")

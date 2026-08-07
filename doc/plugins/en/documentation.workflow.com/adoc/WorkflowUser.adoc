@@ -1,0 +1,42 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+// Hightlight code source and add the line number
+:source-highlighter: coderay
+:coderay-linenums-mode: table
+
+= Workflow User
+
+The Workflow User feature is used to manage the workflow states of a model element.
+
+== Activating Workflow User in a server project
+
+See the <<ActivateWorkflowFeature.adoc#,activate the Workflow features in a Modelio Server project>> page.
+
+== Commands
+
+Once activated Workflow User provides the following commands:
+
+*  <<CreateInstance.adoc#,Create a workflow instance...>>
+*  <<Subscribe.adoc#,Subscribe...>>
+*  <<Unsubscribe.adoc#,Unsubscribe...>>
+*  <<ChangeState.adoc#,Change state...>>
+*  <<AddComment.adoc#,Add a comment...>>
+*  <<EditLastComment.adoc#,Edit last comment...>>
+*  <<CreateReportMatrix.adoc#,Create a report...>>
+*  <<CreateSynthesisMatrix.adoc#,Create a synthesis...>>
+*  <<GenerateProgressReport.adoc#,Generate a progress report...>>
+
+
+== Workflow view
+
+The <<WorkflowUserPropertyView.adoc#,Workflow property view>> shows the state and history of the selected element in regards with the various workflows deployed in the project.
+This view is synchronized in real time with the selected element.
+
+== Workflow browser
+
+The <<WorkflowExplorer.adoc#,Workflows browser>> shows the instances of workflows with their states and the elements in these states.
+It also allow to <<CreateInstance.adoc#,create new workflow instances>>, <<CreateSynthesisMatrix.adoc#,create an instance synthesis>> and <<GenerateProgressReport.adoc#,generate an instance progress report>>.
+

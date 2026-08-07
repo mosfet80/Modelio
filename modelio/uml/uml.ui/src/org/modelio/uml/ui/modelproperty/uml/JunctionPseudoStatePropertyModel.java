@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -50,15 +50,17 @@ public class JunctionPseudoStatePropertyModel extends AbstractPropertyModel<Junc
     /**
      * Create a new <i>JunctionPseudoState</i> data model from an
      * <i>JunctionPseudoState</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("4847e0dd-305d-4506-95cb-8705b8ed01dc")
-    public  JunctionPseudoStatePropertyModel(JunctionPseudoState theEditedElement) {
+    public JunctionPseudoStatePropertyModel(JunctionPseudoState theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("b5a34492-6ea0-412c-ba59-35dc34cd99fe")
@@ -69,6 +71,7 @@ public class JunctionPseudoStatePropertyModel extends AbstractPropertyModel<Junc
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("2d775f63-66e2-4e31-8247-38866e57ad3c")
@@ -81,6 +84,7 @@ public class JunctionPseudoStatePropertyModel extends AbstractPropertyModel<Junc
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -102,7 +106,7 @@ public class JunctionPseudoStatePropertyModel extends AbstractPropertyModel<Junc
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -112,6 +116,7 @@ public class JunctionPseudoStatePropertyModel extends AbstractPropertyModel<Junc
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -134,13 +139,14 @@ public class JunctionPseudoStatePropertyModel extends AbstractPropertyModel<Junc
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -165,7 +171,7 @@ public class JunctionPseudoStatePropertyModel extends AbstractPropertyModel<Junc
         default:
             return;
         }
-        
+
     }
 
 }

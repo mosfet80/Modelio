@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.uml.behavior.interactionModel;
 
@@ -26,21 +26,20 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * RelativeTime v0.0.9054
- * 
- * 
+ *
+ *
  * null
- * 
- * 
+ *
  */
 @objid ("0096910a-91e0-1f74-804b-001ec947cd2a")
 public enum RelativeTime {
-    @objid ("e64ebe15-c008-4636-98a8-1ed36c7c08cb")
+    @objid ("8ec017ef-ba9a-4d56-9d4e-46414341a9f0")
     BEFORE(0, "Before", "Before"),
-    @objid ("9786fe83-a52c-47b7-b5a9-833a72b6bec1")
+    @objid ("969b8eea-fbd8-4e44-9c1b-b1da088cb413")
     DURING(1, "During", "During"),
-    @objid ("74c3e969-eaef-4ce5-a65b-c737ca77b009")
+    @objid ("6cee8040-141e-4a95-a8f9-3c9700656b13")
     AFTER(2, "After", "After"),
-    @objid ("7c115d99-fb46-4d44-822f-b89c4b7856e2")
+    @objid ("505e3eac-e46e-4aef-931d-f252702de23a")
     ON(3, "On", "On");
 
 public static final int BEFORE_VALUE = 0;
@@ -103,5 +102,5 @@ public static final int BEFORE_VALUE = 0;
     public String toString() {
        return literal;
     }
-    
+
 }

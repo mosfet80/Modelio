@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.finaliser.subplan;
 
@@ -48,12 +48,12 @@ public class ParticipantPlan {
     private BPMNPlane jaxPlan;
 
     @objid ("8693efae-f233-4188-b4ad-0264259c591a")
-    public  ParticipantPlan(BpmnProcessDesignDiagram diagram, Bounds bounds) {
+    public ParticipantPlan(BpmnProcessDesignDiagram diagram, Bounds bounds) {
         this.diagram = diagram;
         this.jaxPlan = new BPMNPlane();
         this.bounds = bounds;
         this.transposition = new PrecisionPoint(bounds.getX(), bounds.getY());
-        
+
     }
 
     @objid ("2752e3ff-581f-421f-a7d5-dd3c8a56ae64")
@@ -66,7 +66,7 @@ public class ParticipantPlan {
         if (x < this.bounds.getX() || x > this.bounds.getX() + this.bounds.getWidth()) {
             return false;
         }
-        
+
         if (y < this.bounds.getY() || y > this.bounds.getY() + this.bounds.getHeight()) {
             return false;
         }
@@ -90,15 +90,15 @@ public class ParticipantPlan {
     @objid ("754e31b6-d868-40c9-b636-30de4418890f")
     public void addShape(BPMNShape jaxShape) {
         jaxShape.setBounds(transpose(jaxShape.getBounds()));
-        
+
         BPMNLabel jaxLabel = jaxShape.getBPMNLabel();
         if (jaxLabel != null && jaxLabel.getBounds() != null) {
             jaxLabel.setBounds(transpose(jaxLabel.getBounds()));
         }
-        
+
         ObjectFactory factory = new ObjectFactory();
         this.jaxPlan.getDiagramElement().add(factory.createBPMNShape(jaxShape));
-        
+
     }
 
     @objid ("db665e07-c476-4026-a7a1-e350fe34447d")
@@ -109,15 +109,15 @@ public class ParticipantPlan {
         }
         jaxEdge.getWaypoint().clear();
         jaxEdge.getWaypoint().addAll(newPoints);
-        
+
         BPMNLabel jaxLabel = jaxEdge.getBPMNLabel();
         if (jaxLabel != null && jaxLabel.getBounds() != null) {
             jaxLabel.setBounds(transpose(jaxLabel.getBounds()));
         }
-        
+
         ObjectFactory factory = new ObjectFactory();
         this.jaxPlan.getDiagramElement().add(factory.createBPMNEdge(jaxEdge));
-        
+
     }
 
     @objid ("eb127d1f-9eb1-4431-9426-826849af5ab2")

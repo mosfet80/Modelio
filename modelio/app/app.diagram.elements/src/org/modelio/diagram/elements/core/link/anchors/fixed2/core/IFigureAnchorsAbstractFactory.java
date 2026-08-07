@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.anchors.fixed2.core;
 
@@ -31,6 +31,7 @@ import org.eclipse.gef.GraphicalEditPart;
  * <li>Return a cached instance. Beware of complexity !
  * <li>Return the same instance with local state updated. Beware of balance of CPU, memory, GC, and complexity !
  * </ul>
+ *
  * @author cmarin
  * @since 5.3.1
  */
@@ -49,6 +50,7 @@ public interface IFigureAnchorsAbstractFactory {
      * <li>Return a cached instance. Beware of complexity !
      * <li>Return the same instance with local state updated. Beware of complexity !
      * </ul>
+     *
      * @param anEditPart a node edit part
      * @param aFigure a node figure
      * @return an implementation of {@link IFigureAnchorsFactory}
@@ -58,5 +60,5 @@ public interface IFigureAnchorsAbstractFactory {
 
     @objid ("75985b24-1a33-4f0f-b5db-2bf50744390d")
     String getAlgorithmId();
-}
 
+}

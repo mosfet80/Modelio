@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.gui;
 
@@ -35,6 +35,7 @@ import org.modelio.xmi.util.XMIFileUtils;
 
 /**
  * The thread of XMI model export
+ *
  * @author ebrosse
  */
 @objid ("53dcd90c-35a3-4d31-a25f-32dcbfd24b02")
@@ -47,19 +48,19 @@ public class ExportThread extends AbstractXMIThread implements IRunnableWithProg
     public void run(IProgressMonitor localMonitor) {
         GenerationProperties genProp = GenerationProperties.getInstance();
         genProp.setReportModel(ReportManager.getNewReport());
-        
+
         this.progressBar.setNumberElement(this.service
                 .countModelTrees(genProp.getRootElements()) * 2);
         this.progressBar.setLabel(Xmi.I18N.getString("progressBar.content.export.XMIFileInit"));
-        
+
         try {
-        
+
             this.service.createEcoreModel(this.progressBar);
-        
+
             FormatExport versionExport = genProp.getExportVersion();
             if (!versionExport.equals(FormatExport.EMF300))
                 XMIFileUtils.changeToUML(genProp.getFilePath());
-        
+
             this.progressBar.addFinalValue();
         } catch (AbortProcessException e) {
             Xmi.LOG.error(e);
@@ -73,20 +74,21 @@ public class ExportThread extends AbstractXMIThread implements IRunnableWithProg
             TotalExportMap.getInstance().clear();
             PartialExportMap.getInstance().clear();
         }
-        
+
     }
 
     /**
+     *
      * @param shell the current shell
      * @param progressBar the progress bar of the XMI dialog
      */
     @objid ("6b6bf18c-e2e7-4102-a463-862e6b2743be")
-    public  ExportThread(Shell shell, ProgressBarComposite progressBar) {
+    public ExportThread(Shell shell, ProgressBarComposite progressBar) {
         super();
         this.service = new ExportServices(shell);
         this.progressBar = progressBar;
         this.shell = shell;
-        
+
     }
 
 }

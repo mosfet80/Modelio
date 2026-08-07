@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.text;
 
@@ -40,7 +40,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Represents a multiline text.
- * 
+ *
  * @author cmarin
  */
 @objid ("7f28c9c2-1dec-11e2-8cad-001ec947c8cc")
@@ -61,16 +61,17 @@ public abstract class GmElementText extends GmSimpleNode {
      * Constructor for deserialization only.
      */
     @objid ("7f28c9ca-1dec-11e2-8cad-001ec947c8cc")
-    public  GmElementText() {
+    public GmElementText() {
         // empty for the serialization
     }
 
     /**
      * Creates a text node.
+     *
      * @param diagram The diagram
      */
     @objid ("7f28c9cd-1dec-11e2-8cad-001ec947c8cc")
-    public  GmElementText(IGmDiagram diagram, MRef relatedRef) {
+    public GmElementText(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -78,6 +79,7 @@ public abstract class GmElementText extends GmSimpleNode {
      * Get the label to display.
      * <p>
      * If the label is not initialized yet, calls {@link #refreshFromObModel()}.
+     *
      * @return The label to display.
      */
     @objid ("7f28c9d2-1dec-11e2-8cad-001ec947c8cc")
@@ -118,7 +120,7 @@ public abstract class GmElementText extends GmSimpleNode {
         if (updateTextFromModel()) {
             firePropertyChange(IGmObject.PROPERTY_LABEL, null, this.label);
         }
-        
+
     }
 
     @objid ("7f28c9ec-1dec-11e2-8cad-001ec947c8cc")
@@ -128,13 +130,14 @@ public abstract class GmElementText extends GmSimpleNode {
             getPersistedStyle().setCascadedStyle(parentLink.getPersistedStyle());
         }
         super.setParentLink(parentLink);
-        
+
     }
 
     /**
      * Computes the displayed element symbol.
      * <p>
      * This method is called by {@link #refreshFromObModel()}.
+     *
      * @return the displayed main label.
      */
     @objid ("7f28c9f0-1dec-11e2-8cad-001ec947c8cc")
@@ -150,13 +153,13 @@ public abstract class GmElementText extends GmSimpleNode {
     @Override
     protected void setParent(GmCompositeNode newParent) throws IllegalStateException {
         final GmModel oldParent = getParent();
-        
+
         super.setParent(newParent);
-        
+
         if (newParent != null && oldParent != newParent) {
             getPersistedStyle().setCascadedStyle(newParent.getPersistedStyle());
         }
-        
+
     }
 
     /**
@@ -165,8 +168,8 @@ public abstract class GmElementText extends GmSimpleNode {
      * To be called by {@link #refreshFromObModel()}.
      * <p>
      * Do not fire property change event.
-     * @param newLabel
-     * The new label, must not be null.
+     *
+     * @param newLabel The new label, must not be null.
      */
     @objid ("7f2b2c1b-1dec-11e2-8cad-001ec947c8cc")
     private boolean updateTextFromModel() {
@@ -175,7 +178,7 @@ public abstract class GmElementText extends GmSimpleNode {
             if (newLabel.equals(this.label)) {
                 return false;
             }
-        
+
             this.label = newLabel;
             return true;
         }
@@ -203,17 +206,17 @@ public abstract class GmElementText extends GmSimpleNode {
                 break;
             }
         }
-        
+
     }
 
     @objid ("7f2b2c27-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmElementText.", MINOR_VERSION);
-        
+
     }
 
     @objid ("7f2b2c2b-1dec-11e2-8cad-001ec947c8cc")

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="com.modeliosoft.modelio.saas.lp.nl_fr"
+      label="LP fr - SaaS"
+      version="4.0.0"
+      provider-name="Modeliosoft">
+
+      <copyright>
+      Copyright 2019 Modeliosoft
+All information contained herein is, and remains the property of Modeliosoft.
+The intellectual and technical concepts contained herein are proprietary
+to Modeliosoft and may be covered by French and Foreign Patents, patents
+in process, and are protected by trade secret or copyright law.
+Dissemination of this information or reproduction of this material
+is strictly forbidden unless prior written permission is obtained
+from Modeliosoft.
+       </copyright>
+
+       <license url="">
+         Commercial
+       </license>
+
+       <url>
+          <discovery label="Modeliosoft" url="http://www.modeliosoft.com/"/>
+       </url>
+
+       <plugin id="org.eclipse.jface.nl_fr"               download-size="6" install-size="8" version="4.10.0.v20190126060001" unpack="false"/>
+       <plugin id="org.eclipse.ui.net.nl_fr"              download-size="2" install-size="3" version="4.10.0.v20190126060001" unpack="false"/>
+       <plugin id="org.eclipse.core.net.nl_fr"            download-size="2" install-size="1" version="4.10.0.v20190126060001" unpack="false"/>
+       <plugin id="org.eclipse.ui.nl_fr"                  download-size="6" install-size="22" version="4.10.0.v20190126060001" unpack="false"/>
+       <plugin id="org.eclipse.ui.ide.nl_fr"              download-size="39" install-size="132" version="4.10.0.v20190126060001" unpack="false"/>
+       <plugin id="org.eclipse.ui.ide.application.nl_fr"  download-size="1" install-size="2" version="4.10.0.v20190126060001" unpack="false"/>
+       <plugin id="org.eclipse.ui.forms.nl_fr"            download-size="2" install-size="2" version="4.10.0.v20190126060001" unpack="false"/>
+       <plugin id="org.eclipse.ui.intro.nl_fr"            download-size="3" install-size="5" version="4.10.0.v20190126060001" unpack="false"/>
+       <plugin id="org.eclipse.ui.intro.quicklinks.nl_fr" download-size="1" install-size="1" version="4.10.0.v20190126060001" unpack="false"/>
+       <plugin id="org.eclipse.ui.browser.nl_fr"          download-size="3" install-size="5" version="4.10.0.v20190126060001" unpack="false"/>
+       <plugin id="org.eclipse.ui.editors.nl_fr"          download-size="14" install-size="34" version="4.10.0.v20190126060001" unpack="false"/>
+       <plugin id="org.eclipse.ui.workbench.nl_fr"        download-size="29" install-size="71" version="4.10.0.v20190126060001" unpack="false"/>
+
+       <includes id="com.modeliosoft.modelio.saas.application.core.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.application.plugdule.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.application.preferences.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.application.project.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.application.services.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.application.ui.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.application.welcome.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.diagrams.auto.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.diagrams.core.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.documentation.modeler.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.formalism.analyst.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.formalism.archimate.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.formalism.bpmn.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.formalism.uml.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.functions.admintool.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.functions.audit.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.functions.bundlefiles.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.functions.documents.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.functions.editors.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.functions.elementedition.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.functions.expertise.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.functions.fle.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.functions.impact.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.functions.license.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.functions.matrix.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.functions.methodology.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.functions.modelbrowser.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.functions.modules.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.functions.patterns.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.functions.refine.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.functions.script.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.functions.search.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.functions.svn.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.functions.update.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.functions.workflow.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.functions.xmi.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.platform.libraries.nl_fr" version="4.0.0" />
+       <includes id="com.modeliosoft.modelio.saas.platform.nl_fr.feature" version="4.0.0" />
+</feature>

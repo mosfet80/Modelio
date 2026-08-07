@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.umlcommon.usage;
 
@@ -38,7 +38,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Graphic model for {@link Usage}.
- * 
+ *
  * @author sbe
  */
 @objid ("412c176f-a7f6-418a-889c-2bda2ab4bd10")
@@ -63,18 +63,19 @@ public class GmUsage extends GmLink {
 
     /**
      * Initialize a control flow graphic model.
+     *
      * @param diagram The owning diagram
      * @param dependency The reference flow, may be null
      * @param ref The referenced flow reference, may not be null
      */
     @objid ("d723cdcd-97ca-45c4-b950-b5b2cf2e5442")
-    public  GmUsage(IGmDiagram diagram, Usage dependency, MRef ref) {
+    public GmUsage(IGmDiagram diagram, Usage dependency, MRef ref) {
         super(diagram, ref);
         this.dependency = dependency;
-        
+
         final GmUsageHeader header = new GmUsageHeader(diagram, ref);
         addExtension(ExtensionLocation.MiddleNW, IGmLink.ROLE_MAIN_LABEL, header);
-        
+
     }
 
     @objid ("df7b8940-e6e8-4bc7-826c-814ba8745b44")
@@ -93,15 +94,15 @@ public class GmUsage extends GmLink {
      * For deserialization only.
      */
     @objid ("4c2c34af-0164-4c40-9384-58ca5471fc3b")
-    public  GmUsage() {
-        
+    public GmUsage() {
+
     }
 
     @objid ("a161ad01-50ff-48de-83c0-48bfaa560158")
     @Override
     protected void readLink(IDiagramReader in) {
         super.readLink(in);
-        
+
         int readVersion = readMinorVersion(in, "GmUsage.");
         switch (readVersion) {
         case 0: {
@@ -119,7 +120,7 @@ public class GmUsage extends GmLink {
             break;
         }
         }
-        
+
     }
 
     @objid ("57c41311-31fe-4cd8-afb0-b34b115ccb83")
@@ -154,9 +155,9 @@ public class GmUsage extends GmLink {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         writeMinorVersion(out, "GmUsage.", GmUsage.MINOR_VERSION);
-        
+
     }
 
     @objid ("87f7a6d4-342e-4f74-be0e-dee00802c6dc")
@@ -178,14 +179,14 @@ public class GmUsage extends GmLink {
     @objid ("c7f6b5d8-7c47-4dac-85b9-01a541d92bd9")
     private void read_0(IDiagramReader in) {
         read_1(in);
-        
+
         IStyle style = getPersistedStyle();
         StyleKey styleKey = GmUsage.styleKeyProvider.getStyleKey(MetaKey.CONNECTIONROUTER);
         if (styleKey != null && !style.isLocal(styleKey)) {
             // Before 3.7.1, default value was "orthogonal router"
             style.setProperty(styleKey, ConnectionRouterId.ORTHOGONAL);
         }
-        
+
     }
 
     /**

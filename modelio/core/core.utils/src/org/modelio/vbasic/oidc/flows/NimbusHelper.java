@@ -1,32 +1,51 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.vbasic.oidc.flows;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.MessageFormat;
+import java.text.ParseException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.concurrent.TimeUnit;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.jwk.source.RemoteJWKSet;
@@ -37,8 +56,8 @@ import com.nimbusds.jwt.JWT;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.JWTParser;
 import com.nimbusds.jwt.proc.DefaultJWTProcessor;
+import com.nimbusds.jwt.util.DateUtils;
 import com.nimbusds.oauth2.sdk.ErrorObject;
-import com.nimbusds.oauth2.sdk.ParseException;
 import com.nimbusds.oauth2.sdk.SerializeException;
 import com.nimbusds.oauth2.sdk.TokenErrorResponse;
 import com.nimbusds.oauth2.sdk.TokenRequest;
@@ -64,13 +83,22 @@ import org.modelio.vbasic.oidc.IOidcAuthenticationFlow.AuthResponse;
  */
 @objid ("d27ac78e-ca2b-47c3-83d6-6c52fc0568e0")
 public class NimbusHelper {
+    /**
+     * Allow one minute between client and server clocks.
+     * <p>
+     * Note : an Access Token lifespan is usually 5 minutes.
+     */
+    @objid ("f0f8447a-0793-4850-918f-04b3b631cf77")
+    private static final int maxClockSkewSeconds = 60 * 1;
+
     @objid ("d07b72e6-f1bb-4c45-9834-f6a869f86213")
-    private  NimbusHelper() {
+    private NimbusHelper() {
         // No instance (except for NimbusDumper.logTrace)
     }
 
     /**
      * Send an OIDC token request, wait and decode HTTP response.
+     *
      * @param metadata OIDC provider metadatas
      * @param tokenReq the token request
      * @return the received OIDC tokens
@@ -90,20 +118,20 @@ public class NimbusHelper {
         } catch (IOException e) {
             throw new IOException("Failed sending token request: "+FileUtils.getLocalizedMessage(e), e);
         }
-        
+
         // Parse and check response
         TokenResponse tokenResponse = null;
         try {
             //System.out.println("Parsing response "+OidcDumper.dump(tokenHTTPResp));
-        
+
             tokenResponse = OIDCTokenResponseParser.parse(tokenHTTPResp);
-        } catch (ParseException e) {
+        } catch (com.nimbusds.oauth2.sdk.ParseException e) {
             throw HttpErrorMapper.create(tokenHTTPResp.getStatusCode(),
                     tokenReq.getEndpointURI().toString(),
                     MessageFormat.format("HTTP {0} {1}: non parseable: {2}", tokenHTTPResp.getStatusCode(), tokenHTTPResp.getStatusMessage(), tokenHTTPResp.getContent()),
                     e);
         }
-        
+
         if (tokenResponse instanceof TokenErrorResponse) {
             ErrorObject error = tokenResponse.toErrorResponse().getErrorObject();
             throw HttpErrorMapper.create(tokenHTTPResp.getStatusCode(),
@@ -111,23 +139,22 @@ public class NimbusHelper {
                     MessageFormat.format("HTTP {0}: {1}", error.getHTTPStatusCode(), NimbusDumper.prettyPrint(error.toJSONObject())),
                     null);
         }
-        
+
         OIDCTokenResponse accessTokenResponse = (OIDCTokenResponse) tokenResponse;
         OIDCTokens oidcTokens = accessTokenResponse.getOIDCTokens();
-        
+
         try {
             return createAuthResponse(metadata, oidcTokens);
         } catch (java.text.ParseException | BadJOSEException | JOSEException e) {
             throw new HttpUriAuthenticationException(0, e, tokenReq.getEndpointURI().toString(), e.getLocalizedMessage());
         }
-        
     }
 
     @objid ("ab4eb787-e379-4a78-9000-69d3c0dfdd8e")
     private static DefaultJWTProcessor<SecurityContext> createJwtProcessor(ReadOnlyOIDCProviderMetadata metadata) throws MalformedURLException {
         DefaultJWTProcessor<SecurityContext> jwtProcessor = new DefaultJWTProcessor<>();
         RemoteJWKSet<SecurityContext> jwkSet = new RemoteJWKSet<>(metadata.getJWKSetURI().toURL());
-        
+
         jwtProcessor.setJWSKeySelector(new JWSVerificationKeySelector<>(new HashSet<>(metadata.getAuthorizationJWSAlgs()), jwkSet));
         jwtProcessor.setJWEKeySelector(null);
         return jwtProcessor;
@@ -138,9 +165,8 @@ public class NimbusHelper {
         JWT idToken = tokens.getIDToken();
         if (idToken != null) {
             try {
-                int maxClockSkewSeconds = (int) TimeUnit.MINUTES.toSeconds(5);
                 IDTokenClaimsVerifier verifier = new IDTokenClaimsVerifier(metadata.getIssuer(), clientId, nonce, maxClockSkewSeconds);
-        
+
                 DefaultJWTProcessor<SecurityContext> jwtProcessor = createJwtProcessor(metadata);
                 jwtProcessor.setJWTClaimsSetVerifier(verifier);
                 jwtProcessor.process(idToken, null);
@@ -150,34 +176,43 @@ public class NimbusHelper {
                 throw new IOException(e.getLocalizedMessage(), e);
             }
         }
-        
     }
 
     /**
      * Validate OIDC tokens and find expiration time from access token claims, ID token or access token response.
-     * @throws BadJOSEException  If the JWT is rejected.
-     * @throws JOSEException  If an internal processing exception is encountered.
+     *
      * @param metadata OIDC provider metadatas
      * @param tokens OIDC tokens
      * @return the tokens with the computed
-     * @throws java.text.ParseException on failure parsing access token
+     * @throws BadJOSEException If the JWT is rejected.
+     * @throws JOSEException If an internal processing exception is encountered.
      * @throws MalformedURLException should not happen, means server URL is not valid
+     * @throws ParseException on failure parsing access token
      */
     @objid ("f33937a8-4179-4665-8980-7e1b62bbcfa7")
-    private static AuthResponse createAuthResponse(ReadOnlyOIDCProviderMetadata metadata, OIDCTokens tokens) throws java.text.ParseException, MalformedURLException, BadJOSEException, JOSEException {
+    private static AuthResponse createAuthResponse(ReadOnlyOIDCProviderMetadata metadata, OIDCTokens tokens) throws ParseException, MalformedURLException, BadJOSEException, JOSEException {
         Log.trace("NimbusHelper: Validating OIDC tokens...");
         Instant expiration = null;
+        Instant now = Instant.now();
+
         DefaultJWTProcessor<SecurityContext> jwtProcessor = createJwtProcessor(metadata);
-        
+
         if (tokens.getIDToken() != null) {
             JWTClaimsSet claimset = jwtProcessor.process(tokens.getIDToken(), null);
             Date expirationTime = claimset.getExpirationTime();
             if (expirationTime != null) {
-                Log.trace("NimbusHelper: Expiration found in ID token: %s", expirationTime);
+                Log.trace("NimbusHelper: Expiration time found in ID token: %s", expirationTime);
                 expiration = expirationTime.toInstant();
             }
+
+            Date issueTime = claimset.getIssueTime();
+            if (issueTime != null && ! DateUtils.isWithin(issueTime, Date.from(now), maxClockSkewSeconds)) {
+                Log.error("NimbusHelper: Client and server system clocks are not synchronized:");
+                Log.error("NimbusHelper:  ID Token issued at %s", issueTime);
+                Log.error("NimbusHelper:  Reception date %s", Date.from(now));
+            }
         }
-        
+
         AccessToken accessToken = tokens.getAccessToken();
         if (accessToken != null) {
             JWTClaimsSet claimset = jwtProcessor.process(accessToken.getValue(), null);
@@ -188,21 +223,29 @@ public class NimbusHelper {
             } else {
                 long lifetime = accessToken.getLifetime();
                 if (lifetime > 0) {
-                    Log.trace("NimbusHelper: Lifetime found in Access token: %s", expirationTime);
-                    expiration = Instant.now().plusSeconds(lifetime);
+                    Log.trace("NimbusHelper: Lifetime found in Access token: %s seconds", expirationTime);
+                    expiration = now.plusSeconds(lifetime);
                 }
             }
+
+            Date issueTime = claimset.getIssueTime();
+            if (issueTime != null && ! DateUtils.isWithin(issueTime, Date.from(now), maxClockSkewSeconds)) {
+                Log.error("NimbusHelper: Client and server system clocks are not synchronized:");
+                Log.error("NimbusHelper:  Access Token issued at %s", issueTime);
+                Log.error("NimbusHelper:  Reception date %s", Date.from(now));
+            }
         }
-        
+
         if (expiration == null) {
             Log.warning("NimbusHelper: No expiration information found either in Id token, access token claims or access token response, default to 5 minutes");
-            expiration = Instant.now().plus(5, ChronoUnit.MINUTES);
+            expiration = now.plus(5, ChronoUnit.MINUTES);
         }
         return new AuthResponse(tokens, expiration);
     }
 
     /**
      * Look for the subject either in the ID token or in the access token.
+     *
      * @param tokens the OIDC tokens
      * @return the tokens subject
      * @throws IOException on failure
@@ -216,26 +259,26 @@ public class NimbusHelper {
                 throw new IOException("ID token is not valid JWT: "+e.getLocalizedMessage(), e);
             }
         }
-        
+
         AccessToken accessToken = tokens.getAccessToken();
-        
+
         if (accessToken != null) {
             try {
                 JWT jwt = JWTParser.parse(accessToken.getValue());
-        
+
                 JWTClaimsSet claimset = jwt.getJWTClaimsSet();
                 return claimset.getSubject();
             } catch (java.text.ParseException e) {
                 throw new IOException("Access token is not a valid JWT: "+e.getLocalizedMessage(), e);
             }
         }
-        
+
         throw new IOException("No ID token nor access token");
-        
     }
 
     /**
      * Look for the JWT claims in the ID token or in the access token.
+     *
      * @param tokens the OIDC tokens
      * @return the JWT claims
      * @throws IOException on failure
@@ -249,9 +292,9 @@ public class NimbusHelper {
                 throw new IOException("ID token is not valid JWT: "+e.getLocalizedMessage(), e);
             }
         }
-        
+
         AccessToken accessToken = tokens.getAccessToken();
-        
+
         if (accessToken != null) {
             try {
                 return JWTParser.parse(accessToken.getValue()).getJWTClaimsSet();
@@ -259,9 +302,8 @@ public class NimbusHelper {
                 throw new IOException("Access token is not a valid JWT: "+e.getLocalizedMessage(), e);
             }
         }
-        
+
         throw new IOException("No ID token nor access token");
-        
     }
 
 }

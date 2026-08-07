@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -64,7 +64,7 @@ public class R1090 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -84,7 +84,7 @@ public class R1090 extends AbstractUmlRule {
         // Activity
         plan.registerRule(ActivityPartition.MQNAME, this,
                 AuditTrigger.MOVE | AuditTrigger.UPDATE);
-        
+
         // Classifier
         plan.registerRule(InformationItem.MQNAME, this,
                 AuditTrigger.MOVE);
@@ -101,7 +101,7 @@ public class R1090 extends AbstractUmlRule {
         plan.registerRule(UseCase.MQNAME, this, AuditTrigger.MOVE);
         plan.registerRule(Artifact.MQNAME, this, AuditTrigger.MOVE);
         plan.registerRule(Node.MQNAME, this, AuditTrigger.MOVE);
-        
+
     }
 
     /**
@@ -135,14 +135,14 @@ public class R1090 extends AbstractUmlRule {
      * Default constructor for R1090
      */
     @objid ("81c0e61b-9e6b-4be4-8200-c209366a9624")
-    public  R1090() {
+    public R1090() {
         this.checkerInstance = new CheckR1090(this);
     }
 
     @objid ("077bccd0-618b-46e1-aacf-093f54ce132a")
     private static class CheckR1090 extends AbstractControl {
         @objid ("4ac3a25b-32e7-405c-8d43-48003938e3c7")
-        public  CheckR1090(IRule rule) {
+        public CheckR1090(IRule rule) {
             super(rule);
         }
 
@@ -162,6 +162,7 @@ public class R1090 extends AbstractUmlRule {
 
         /**
          * UML2.3, ActivityPartition, Constraints [3]
+         *
          * @param partition The partition to check.
          * @return The audit entry result.
          */
@@ -169,7 +170,7 @@ public class R1090 extends AbstractUmlRule {
         private IAuditEntry checkR1090(ActivityPartition partition) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(),
                     AuditSeverity.AuditSuccess, partition, null);
-            
+
             // If the partition is external, or if it's not represented by a
             // classifier or if it does not have a super partition, the rule
             // does not apply
@@ -178,14 +179,14 @@ public class R1090 extends AbstractUmlRule {
                     || partition.getSuperPartition() == null) {
                 return auditEntry;
             }
-            
+
             if (partition.getSuperPartition().getRepresented() instanceof Classifier) {
-            
+
                 Classifier superClassifier = (Classifier) partition
                         .getSuperPartition().getRepresented();
                 Classifier classifier = (Classifier) partition
                         .getRepresented();
-            
+
                 // Checking if the partition represented classifier is
                 // nested in the super partition represented classifier
                 if (superClassifier.getOwnedElement().contains(classifier)) {
@@ -200,9 +201,9 @@ public class R1090 extends AbstractUmlRule {
                     }
                 }
             }
-            
+
             // At this point the rule failed
-            
+
             auditEntry.setSeverity(this.rule.getSeverity());
             List<Object> linkedObjects = new ArrayList<>();
             linkedObjects.add(partition.getSuperPartition());
@@ -214,13 +215,14 @@ public class R1090 extends AbstractUmlRule {
 
         /**
          * If a Classifier was updated, wee need to check if it is represented in any Partition. If it is, we check the rule on this partition.
+         *
          * @param classifier The updated Classifier.
          * @return A list of audit entry for each partition that was checked.
          */
         @objid ("a640c3f1-4b38-4f0c-8bd2-a9612feef064")
         private List<IAuditEntry> checkR1090(Classifier classifier) {
             ArrayList<IAuditEntry> auditEntries = new ArrayList<>();
-            
+
             for (ActivityPartition partition : ((UmlModelElement) classifier)
                     .getRepresentingPartition()) {
                 auditEntries.add(checkR1090(partition));
@@ -230,16 +232,17 @@ public class R1090 extends AbstractUmlRule {
 
         /**
          * When a partition is updated or moved, we need to check if it satisfies the rule, but in the case it is updated, we also need to check if its sub partitions, if any, satisfy the rule or not.
+         *
          * @param partition The updated partition.
          * @return A list of audit entry for each concerned partition.
          */
         @objid ("fb68f115-0e6f-4335-90a2-485d87e7c9e0")
         private List<IAuditEntry> checkAllPartitions(ActivityPartition partition) {
             ArrayList<IAuditEntry> auditEntries = new ArrayList<>();
-            
+
             // Checking itself
             auditEntries.add(checkR1090(partition));
-            
+
             // Checking its sub partitions if any
             for (ActivityPartition subPartition : partition.getSubPartition()) {
                 auditEntries.add(checkR1090(subPartition));

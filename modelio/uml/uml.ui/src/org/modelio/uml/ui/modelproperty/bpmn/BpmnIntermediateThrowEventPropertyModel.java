@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.bpmn;
 
@@ -63,21 +63,23 @@ public class BpmnIntermediateThrowEventPropertyModel extends AbstractPropertyMod
 
     /**
      * Create a new <i>BpmnIntermediateThrowEvent</i> data model from an <i>BpmnIntermediateThrowEvent</i>.
+     *
      * @param definitionPropertyModel
      * @param theEditedElement the model to edit.
      * @param modelService the model service needed to find elements.
      */
     @objid ("a784bf35-218a-46b9-98f1-ff25de6b8fa1")
-    public  BpmnIntermediateThrowEventPropertyModel(BpmnIntermediateThrowEvent theEditedElement, IMModelServices modelService, UmlPropertyModelVisitor umlPropertyModelVisitor) {
+    public BpmnIntermediateThrowEventPropertyModel(BpmnIntermediateThrowEvent theEditedElement, IMModelServices modelService, UmlPropertyModelVisitor umlPropertyModelVisitor) {
         super(theEditedElement);
         this.modelService = modelService;
         this.umlPropertyModelVisitor = umlPropertyModelVisitor;
         updateFieldsLists();
-        
+
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("8dc62747-5c60-4b08-a51e-130110d24ff9")
@@ -93,6 +95,7 @@ public class BpmnIntermediateThrowEventPropertyModel extends AbstractPropertyMod
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("db5b016e-96ed-465b-bbd8-25828dd4c5ba")
@@ -108,6 +111,7 @@ public class BpmnIntermediateThrowEventPropertyModel extends AbstractPropertyMod
      * This type will be used to choose an editor and a renderer for each cell of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -120,13 +124,14 @@ public class BpmnIntermediateThrowEventPropertyModel extends AbstractPropertyMod
         } else {
             return this.fieldList.get(row);
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -166,9 +171,9 @@ public class BpmnIntermediateThrowEventPropertyModel extends AbstractPropertyMod
                     }
                 }
             }
-        
+
         }
-        
+
     }
 
     @objid ("893de830-c6e1-4402-b477-2db714b95d54")
@@ -178,16 +183,16 @@ public class BpmnIntermediateThrowEventPropertyModel extends AbstractPropertyMod
         for (BpmnEventDefinition definition : this.theEditedElement.getEventDefinitions()) {
             this.delegatedPropertyModel.add((AbstractPropertyModel<BpmnEventDefinition>) definition.accept(this.umlPropertyModelVisitor));
         }
-        
+
         this.labelList = new ArrayList<>();
         this.fieldList = new ArrayList<>();
-        
+
         this.labelList.add(new DefaultStringNatValue(getPropertyI18n(AbstractPropertyModel.PROPERTY_ID), false)); // Header
         this.fieldList.add(new DefaultStringNatValue(getPropertyI18n(AbstractPropertyModel.VALUE_ID), false)); // Header
-        
+
         this.labelList.add(new DefaultStringNatValue(getPropertyI18n("Name"), false)); // Name
         this.fieldList.add(new DefaultStringNatValue(this.theEditedElement.getName(), false)); // Name
-        
+
         for (EventType evt : EventType.values()) {
             AbstractPropertyModel<BpmnEventDefinition> tdef = null;
             for (AbstractPropertyModel<BpmnEventDefinition> def : this.delegatedPropertyModel) {
@@ -207,7 +212,7 @@ public class BpmnIntermediateThrowEventPropertyModel extends AbstractPropertyMod
                 }
             }
         }
-        
+
     }
 
     @objid ("57485120-5c7d-4d8c-b395-ee7300bb8733")
@@ -216,7 +221,7 @@ public class BpmnIntermediateThrowEventPropertyModel extends AbstractPropertyMod
         BpmnEventDefinition event_definition = (BpmnEventDefinition) modelFactory.createElement(EventType.getMetaclass(evt));
         event_definition.setName(this.modelService.getElementNamer().getBaseName(event_definition.getMClass()));
         event_definition.setDefined(this.theEditedElement);
-        
+
     }
 
     @objid ("c2de2d78-b7e8-4c71-a517-28545c0a08ef")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.panels.scope;
 
@@ -85,7 +85,7 @@ public class ScopeEditionPanel implements IPanelProvider {
     private final PanelControler controler;
 
     @objid ("e0a9c2b2-79db-4853-bcdf-865742c7ed94")
-    public  ScopeEditionPanel(ICoreSession session) {
+    public ScopeEditionPanel(ICoreSession session) {
         this.controler = new PanelControler(session);
     }
 
@@ -138,7 +138,7 @@ public class ScopeEditionPanel implements IPanelProvider {
     }
 
     @objid ("4f349367-3371-4bce-a633-af3af3e8c0a3")
-    @SuppressWarnings ("unchecked")
+    @SuppressWarnings("unchecked")
     @Override
     public void setInput(Object input) {
         if (input instanceof List<?>) {
@@ -146,7 +146,6 @@ public class ScopeEditionPanel implements IPanelProvider {
         } else {
             this.controler.setData(null);
         }
-        
     }
 
     @objid ("18939feb-c923-4307-8875-6aed6459b883")
@@ -166,10 +165,10 @@ public class ScopeEditionPanel implements IPanelProvider {
         @objid ("04cd5e26-d9d7-4587-9948-8825328fc06b")
         private boolean isEditable = true;
 
-        @objid ("316d4f9f-6025-47e0-818c-b5e5f4d260a0")
+        @objid ("b1025836-7da7-4453-9cb7-821f708e864b")
         private Image inheritIcon;
 
-        @objid ("d7c79966-53f6-48a5-971b-76f532065c66")
+        @objid ("be383672-7a14-4053-bea9-d413965f3040")
         private Image noinheritIcon;
 
         @objid ("a1ec45f0-0763-4996-aa99-71b86b3a4ce8")
@@ -188,17 +187,15 @@ public class ScopeEditionPanel implements IPanelProvider {
         private ICoreSession session;
 
         @objid ("00d5b8ae-fbf5-40b9-a823-06c157e7e01c")
-        public  PanelControler(ICoreSession session) {
+        public PanelControler(ICoreSession session) {
             this.session = session;
             this.metamodel = session.getMetamodel();
-            
         }
 
         @objid ("29df7fe9-73c5-4b8d-ba42-050e5a822f42")
         public void setEnabled(boolean editable) {
             this.isEditable = editable;
             this.ui.update(this.data,this.isEditable);
-            
         }
 
         @objid ("08e76efe-8316-4757-8739-8afee00df9b3")
@@ -212,7 +209,6 @@ public class ScopeEditionPanel implements IPanelProvider {
             if (this.ui != null) {
                 this.ui.update(this.data,this.isEditable);
             }
-            
         }
 
         @objid ("6f825935-fe83-4beb-901d-8af36687fe60")
@@ -231,7 +227,6 @@ public class ScopeEditionPanel implements IPanelProvider {
         public void dispose() {
             this.ui.dispose();
             this.ui = null;
-            
         }
 
         @objid ("875ec98d-bd4a-4e71-8677-66224748fdc8")
@@ -245,7 +240,6 @@ public class ScopeEditionPanel implements IPanelProvider {
                 throw new IllegalArgumentException(l + " Listener already registered");
             }
             this.listeners.add(l);
-            
         }
 
         @objid ("9ab922d5-28dd-4c55-9d52-1e69e7538f64")
@@ -263,11 +257,11 @@ public class ScopeEditionPanel implements IPanelProvider {
             this.data.add(scope);
             this.ui.update(this.data,this.isEditable);
             fireListeners(this.data, true);
-            
         }
 
         /**
          * Called when the metaclass of a Scope from the list is modified.
+         *
          * @param scope the modified scope
          * @param value the modified metaclass
          */
@@ -279,23 +273,23 @@ public class ScopeEditionPanel implements IPanelProvider {
                 if (value != null && value.isAbstract()) {
                     scope.setWithSubClasses(true);
                 }
-            
+
                 if (scope.getStereotype() != null) {
                     Stereotype stereotype = scope.getStereotype();
-            
+
                     if (!isApplicableOn(stereotype, value)) {
                         scope.setStereotype(null);
                     }
                 }
-            
+
                 this.ui.update(this.data,this.isEditable);
             }
             fireListeners(this.data, true);
-            
         }
 
         /**
          * Called when one or several scopes are removed from the list.
+         *
          * @param selectedScopes the scopes being removed from the list.
          */
         @objid ("de9f605f-e34b-433e-b8e1-ad6ff52b633d")
@@ -303,7 +297,6 @@ public class ScopeEditionPanel implements IPanelProvider {
             this.data.removeAll(selectedScopes);
             this.ui.update(this.data,this.isEditable);
             fireListeners(this.data, true);
-            
         }
 
         /**
@@ -314,17 +307,17 @@ public class ScopeEditionPanel implements IPanelProvider {
             if(this.isEditable) {
                 this.ui.scopeRemoveButton.setEnabled(selectedScopes.size() > 0);
             }
-            
         }
 
         /**
          * Called when the sterotype value of a Scope from the list is modified.
+         *
          * @param value either a {@link String} or a {@link Stereotype}
          */
         @objid ("aba5c8b4-35fc-4ae9-b987-627ebaa44517")
         private void onScopeStereotypeChanged(MutableElementScope scope, Object value) {
             Stereotype stereotype = null;
-            
+
             if (value instanceof Stereotype) {
                 stereotype = (Stereotype) value;
             } else if (value instanceof String) {
@@ -333,13 +326,13 @@ public class ScopeEditionPanel implements IPanelProvider {
             } else {
                 throw new IllegalArgumentException(String.valueOf(value));
             }
-            
+
             if (stereotype != null) {
                 scope.setStereotype(stereotype);
                 if (stereotype.isIsAbstract()) {
                     scope.setWithSubStereotypes(true);
                 }
-            
+
                 if (!isApplicableOn(stereotype, scope.getMetaclass())) {
                     String baseMetaclass = stereotype.getBaseClassName();
                     MClass stereotypeMetaclass = this.metamodel.getMClass(baseMetaclass);
@@ -349,11 +342,10 @@ public class ScopeEditionPanel implements IPanelProvider {
                     }
                 }
             }
-            
+
             this.ui.update(this.data,this.isEditable);
-            
+
             fireListeners(this.data, true);
-            
         }
 
         @objid ("9b4a6fd7-7cde-47f3-89e6-5bae23e9a864")
@@ -377,7 +369,7 @@ public class ScopeEditionPanel implements IPanelProvider {
                             stereotype = stereo;
                         }
                     }
-            
+
                     if (stereotype == null) {
                         // retain as best match
                         stereotype = stereo;
@@ -391,84 +383,83 @@ public class ScopeEditionPanel implements IPanelProvider {
         private void onScopeChanged(MutableElementScope scope) {
             this.ui.update(this.data,this.isEditable);
             fireListeners(this.data, true);
-            
         }
 
     }
 
     @objid ("b2fdee21-c11e-4570-9d1f-7722d72b2111")
     private static class PanelUI {
-        @objid ("5f70b173-fbfb-4dfa-8285-1356fb934813")
+        @objid ("57c01fd4-17ad-4335-9f61-1bc25682cd22")
         private final Composite top;
 
-        @objid ("feb674bf-55c7-4408-88e4-638d1095016b")
+        @objid ("153d67e2-2e87-49e0-9e28-b1c279faf403")
         private TableViewerColumn metaclassCol;
 
-        @objid ("36eedb68-263e-4ec2-b4d9-9effaa4fc6fb")
+        @objid ("f23d468a-7790-4f59-a507-4d3918db6d5b")
         protected final Button scopeAddButton;
 
-        @objid ("ceffdf4f-af15-4eca-ab1c-c8c8c9d4bc1a")
+        @objid ("bc374d54-5b33-47a7-b69c-0764dc6f171a")
         protected final Button scopeRemoveButton;
 
-        @objid ("6a47bc91-fd8d-47f8-a92c-e29a36ebc2cf")
+        @objid ("bbc22713-5dd1-4ff1-9cfc-8c32cf8258b9")
         private TableViewer scopeTable;
 
-        @objid ("4eeb6852-ee80-459e-a1f2-0d83f6f8fed3")
+        @objid ("b96a80d6-a7f1-4e56-b831-5fc9961aa9f4")
         private TableViewerColumn stereotypeCol;
 
-        @objid ("730dae9f-cd84-41b8-945c-a743c93b7de4")
+        @objid ("8c72d7cb-0ef0-4957-adee-f5cb12e9f650")
         private TableViewerColumn withSubClassCol;
 
-        @objid ("3d8dc66a-9d47-4a47-ae90-bcc78ee39915")
+        @objid ("ec239bf4-feda-425c-99c4-ea6dab6788db")
         private TableViewerColumn withSubStereoCol;
 
-        @objid ("2c730e71-47d8-4e58-9936-565be32c87f3")
+        @objid ("6ccb989d-62ad-403a-ae4f-1879aa8d331f")
         private Image inheritIcon;
 
-        @objid ("ad2ebc1f-fd8d-4431-8ab7-dd98e459d5f8")
+        @objid ("243982a2-bbaf-4ddc-a72b-8ecea3bdfd38")
         private Image noinheritIcon;
 
         @objid ("162d0354-cbf4-4ed4-9202-9999cb5c5297")
         private final PanelControler controller;
 
         @objid ("7677ec01-d237-4b08-aa81-548a985ae62f")
-        public  PanelUI(Composite parent, PanelControler controller) {
+        public PanelUI(Composite parent, PanelControler controller) {
             this.inheritIcon = CoreUi.getImageDescriptor("icons/inherit.png").createImage();
             this.noinheritIcon = CoreUi.getImageDescriptor("icons/noinherit.png").createImage();
-            
+
             this.controller = controller;
-            
+
             this.top = new Composite(parent, SWT.NONE);
             final GridLayout topLayout = new GridLayout(2, false);
             topLayout.marginHeight = 0;topLayout.marginWidth = 0;
-            
+
             this.top.setLayout(topLayout);
-            
+
             // Scope table
             Composite tableComposite = new Composite(top, SWT.NONE);
             tableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-            
+
             TableColumnLayout tableLayout = new TableColumnLayout();
             tableComposite.setLayout(tableLayout);
-            
-            
+
+
             this.scopeTable = new TableViewer(tableComposite, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
             this.scopeTable.getTable().setHeaderVisible(true);
             this.scopeTable.getTable().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
             this.scopeTable.setContentProvider(new ArrayContentProvider());
             this.scopeTable.getTable().setHeaderBackground(UIColor.SWT_WIDGET_BACKGROUND);
-            
+
             this.scopeTable.addSelectionChangedListener(event -> {
                 List<MutableElementScope> selectedScopes = SelectionHelper.toList(this.scopeTable.getSelection(), MutableElementScope.class);
                 this.controller.onScopeSelected(selectedScopes);
             });
-            
-            
-            
+
+
+
             final PanelControler lcontroller = this.controller;
             final Table scopeSwtTable = this.scopeTable.getTable();
             ColumnViewerToolTipSupport.enableFor(this.scopeTable);
-            
+
             // Metaclass column
             this.metaclassCol = new TableViewerColumn(this.scopeTable, SWT.NONE);
             this.metaclassCol.getColumn().setText(CoreUi.I18N.getString("ScopeEditionPanel.metaclass.column"));
@@ -479,23 +470,23 @@ public class ScopeEditionPanel implements IPanelProvider {
                     MutableElementScope p = (MutableElementScope) element;
                     return p.getMetaclass().getName();
                 }
-            
+
                 @Override
                 public Image getImage(Object element) {
                     return MetamodelImageService.getIcon(((MutableElementScope) element).getMetaclass());
                 }
-            
+
                 @Override
                 public String getToolTipText(Object element) {
                     return CoreUi.I18N.getString("ScopeEditionPanel.metaclass.column.tooltip");
                 }
             });
             this.metaclassCol.getColumn().setWidth(200);
-            
-            
+
+
             tableLayout.setColumnData(this.metaclassCol.getColumn(), new ColumnWeightData(2, 30, true));
             this.metaclassCol.setEditingSupport(new MetaclassEditSupport(this.scopeTable, lcontroller, scopeSwtTable));
-            
+
             // With inherited metaclass column
             this.withSubClassCol = new TableViewerColumn(this.scopeTable, SWT.NONE);
             this.withSubClassCol.getColumn().setText(CoreUi.I18N.getString("ScopeEditionPanel.withSubClass.column"));
@@ -507,7 +498,7 @@ public class ScopeEditionPanel implements IPanelProvider {
                     MutableElementScope s = (MutableElementScope) cell.getElement();
                     cell.setImage((s.withSubClasses) ? PanelUI.this.inheritIcon : PanelUI.this.noinheritIcon);
                 }
-            
+
                 @Override
                 public String getToolTipText(Object element) {
                     MutableElementScope s = (MutableElementScope) element;
@@ -515,13 +506,13 @@ public class ScopeEditionPanel implements IPanelProvider {
                             : CoreUi.I18N.getString("ScopeEditionPanel.withSubClass.tooltip.no");
                 }
             });
-            
-            
+
+
             this.withSubClassCol.getColumn().setWidth(200);
             this.withSubClassCol.setEditingSupport(new WithSubClassesEditingSupport(this.scopeTable, controller));
-            
+
             tableLayout.setColumnData(this.withSubClassCol.getColumn(), new ColumnPixelData(24, false, true));
-            
+
             // Stereotype column
             this.stereotypeCol = new TableViewerColumn(this.scopeTable, SWT.NONE);
             this.stereotypeCol.getColumn().setText(CoreUi.I18N.getString("ScopeEditionPanel.stereotype.column"));
@@ -529,24 +520,24 @@ public class ScopeEditionPanel implements IPanelProvider {
             this.stereotypeCol.getColumn().setToolTipText(CoreUi.I18N.getString("ScopeEditionPanel.stereotype.column.tooltip"));
             this.stereotypeCol.setEditingSupport(
                     new StereotypeEditSupport(this.scopeTable, scopeSwtTable, lcontroller));
-            
+
             this.stereotypeCol.getColumn().setWidth(200);
-            
+
             tableLayout.setColumnData(this.stereotypeCol.getColumn(), new ColumnWeightData(2, 30, true));
-            
+
             // With sub stereotypes column
             this.withSubStereoCol = new TableViewerColumn(this.scopeTable, SWT.NONE);
             this.withSubStereoCol.getColumn().setText(CoreUi.I18N.getString("ScopeEditionPanel.withSubStereotypes.column"));
             this.withSubStereoCol.getColumn().setToolTipText(CoreUi.I18N.getString("ScopeEditionPanel.withSubStereotypes.tooltip"));
             this.withSubStereoCol.getColumn().setResizable(false);
-            
+
             this.withSubStereoCol.setLabelProvider(new CellLabelProvider() {
                 @Override
                 public void update(ViewerCell cell) {
                     MutableElementScope s = (MutableElementScope) cell.getElement();
                     cell.setImage((s.withSubStereotypes) ? PanelUI.this.inheritIcon : PanelUI.this.noinheritIcon);
                 }
-            
+
                 @Override
                 public String getToolTipText(Object element) {
                     MutableElementScope s = (MutableElementScope) element;
@@ -554,20 +545,20 @@ public class ScopeEditionPanel implements IPanelProvider {
                             : CoreUi.I18N.getString("ScopeEditionPanel.withSubStereotypes.tooltip.no");
                 }
             });
-            
+
             this.withSubStereoCol.setEditingSupport(new WithSubStereotypeEditSupport(this.scopeTable, controller));
             this.withSubStereoCol.getColumn().setWidth(200);
-            
+
             tableLayout.setColumnData(this.withSubStereoCol.getColumn(), new ColumnPixelData(24, false, true));
-            
+
             // Button composite
             Composite buttons = new Composite(top, SWT.NONE);
             final GridLayout buttonsLayout = new GridLayout(1, false);
             buttonsLayout.marginHeight = buttonsLayout.marginWidth = buttonsLayout.verticalSpacing = 0;
             buttons.setLayout(buttonsLayout);
-            
+
             buttons.setLayoutData(new GridData(SWT.FILL, SWT.TOP, false, false));
-            
+
             // Add scope
             this.scopeAddButton = new Button(buttons, SWT.FLAT);
             this.scopeAddButton.setImage(UIImages.ADD);
@@ -575,7 +566,7 @@ public class ScopeEditionPanel implements IPanelProvider {
             this.scopeAddButton.setEnabled(true);
             this.scopeAddButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false));
             this.scopeAddButton.addListener(SWT.Selection, event -> this.controller.onScopeAdded());
-            
+
             // Remove scope
             this.scopeRemoveButton = new Button(buttons, SWT.FLAT);
             this.scopeRemoveButton.setImage(UIImages.DELETE);
@@ -586,7 +577,6 @@ public class ScopeEditionPanel implements IPanelProvider {
                 List<MutableElementScope> selectedScopes = SelectionHelper.toList(this.scopeTable.getSelection(), MutableElementScope.class);
                 this.controller.onScopeRemoved(selectedScopes);
             });
-            
         }
 
         @objid ("3596190b-ced8-480f-8c1f-d084e8eabcd3")
@@ -596,11 +586,10 @@ public class ScopeEditionPanel implements IPanelProvider {
                 this.scopeTable.setInput(data);
                 this.scopeTable.refresh(true);
             }
-            
+
             this.scopeAddButton.setEnabled(editable);
             this.scopeRemoveButton.setEnabled(editable);
             this.scopeTable.getControl().setEnabled(editable);
-            
         }
 
         @objid ("2fbec8bb-40f3-453f-8a19-f5a3971f3f16")
@@ -610,7 +599,6 @@ public class ScopeEditionPanel implements IPanelProvider {
             if (this.noinheritIcon != null)
                 this.noinheritIcon.dispose();
             this.top.dispose();
-            
         }
 
         @objid ("b7e0ceae-285c-46aa-8ed1-f1b1b2152831")
@@ -631,8 +619,8 @@ public class ScopeEditionPanel implements IPanelProvider {
             }
 
             @objid ("ec194bff-d12d-46b0-aaa3-2b1cffda68a8")
-            public  StereotypeColumnLabelProvider() {
-                
+            public StereotypeColumnLabelProvider() {
+
             }
 
             @objid ("fc032aea-5775-48b2-95d1-f256dad2f0e1")
@@ -656,18 +644,17 @@ public class ScopeEditionPanel implements IPanelProvider {
 
         @objid ("123eaf60-6b18-4208-b11c-c774a9c955a7")
         private static final class StereotypeEditSupport extends EditingSupport {
-            @objid ("5513febc-28bb-4f93-9075-80ffba1a3048")
+            @objid ("b8171277-597d-4d45-956d-f126161baa74")
             private final Table scopeSwtTable;
 
             @objid ("3b4cd560-5354-4a69-b7dc-eae1e8ed9fa4")
             private final PanelControler lcontroller;
 
             @objid ("b4fa920b-0775-4df8-a4cb-d0b71230b55e")
-            private  StereotypeEditSupport(ColumnViewer viewer, Table scopeSwtTable, PanelControler lcontroller) {
+            private StereotypeEditSupport(ColumnViewer viewer, Table scopeSwtTable, PanelControler lcontroller) {
                 super(viewer);
                 this.scopeSwtTable = scopeSwtTable;
                 this.lcontroller = lcontroller;
-                
             }
 
             @objid ("d9cab2e5-5e1c-4dd3-b5d9-cd1f95cc7ceb")
@@ -681,7 +668,7 @@ public class ScopeEditionPanel implements IPanelProvider {
             protected Object getValue(Object element) {
                 MutableElementScope scope = (MutableElementScope) element;
                 Stereotype stereotype = scope.getStereotype();
-                
+
                 if (stereotype == null) {
                     return "";
                 }
@@ -692,14 +679,13 @@ public class ScopeEditionPanel implements IPanelProvider {
             @Override
             protected CellEditor getCellEditor(Object element) {
                 MClass metaclass = ((MutableElementScope) element).getMetaclass();
-                
+
                 Predicate<Stereotype> stereotypeFilter = (metaclass == null) ? null : (stereotype) -> isApplicableOn(stereotype, metaclass);
                 return new StereotypeCellEditor(
                         this.scopeSwtTable,
                         SWT.TOP | SWT.LEFT,
                         getAvailableStereotypes(),
                         stereotypeFilter);
-                
             }
 
             @objid ("fc71af2c-10c5-4f57-9193-85339ad3e07d")
@@ -717,18 +703,17 @@ public class ScopeEditionPanel implements IPanelProvider {
 
         @objid ("ec96e88c-839a-42bb-ae11-bd51724c69c7")
         private static final class MetaclassEditSupport extends EditingSupport {
-            @objid ("0ac97053-34b2-4aa2-b627-dc90dc43b1de")
+            @objid ("321013f7-3224-4a48-aac9-764c0ea3ba94")
             private final Table scopeSwtTable;
 
             @objid ("7a21ad24-b706-4075-b318-3ac901106f93")
             private final PanelControler lcontroller;
 
             @objid ("0bb5f386-7806-43c4-9c6b-65708a48a4a4")
-            private  MetaclassEditSupport(ColumnViewer viewer, PanelControler lcontroller, Table scopeSwtTable) {
+            private MetaclassEditSupport(ColumnViewer viewer, PanelControler lcontroller, Table scopeSwtTable) {
                 super(viewer);
                 this.lcontroller = lcontroller;
                 this.scopeSwtTable = scopeSwtTable;
-                
             }
 
             @objid ("71f28a71-232d-43dc-9999-b673608de08c")
@@ -763,10 +748,9 @@ public class ScopeEditionPanel implements IPanelProvider {
             private final PanelControler controller;
 
             @objid ("c745a95e-0e36-425a-81e8-32703a0305df")
-            private  WithSubStereotypeEditSupport(ColumnViewer viewer, PanelControler controller) {
+            private WithSubStereotypeEditSupport(ColumnViewer viewer, PanelControler controller) {
                 super(viewer);
                 this.controller = controller;
-                
             }
 
             @objid ("5c895dea-5fc9-4901-ac41-83373e2b0b47")
@@ -775,7 +759,6 @@ public class ScopeEditionPanel implements IPanelProvider {
                 MutableElementScope mutableScope = (MutableElementScope) element;
                 mutableScope.setWithSubStereotypes((boolean) value);
                 this.controller.onScopeChanged(mutableScope);
-                
             }
 
             @objid ("c660ab5d-8f64-463b-8bba-d43467fc7943")
@@ -806,10 +789,9 @@ public class ScopeEditionPanel implements IPanelProvider {
             private final PanelControler controller;
 
             @objid ("ca6a424b-a71c-4744-a4c2-6fb2657b4cc6")
-            private  WithSubClassesEditingSupport(ColumnViewer viewer, PanelControler controller) {
+            private WithSubClassesEditingSupport(ColumnViewer viewer, PanelControler controller) {
                 super(viewer);
                 this.controller = controller;
-                
             }
 
             @objid ("17f422e8-d91a-4164-a2bf-134d69275aac")
@@ -818,7 +800,6 @@ public class ScopeEditionPanel implements IPanelProvider {
                 MutableElementScope mutableScope = (MutableElementScope) element;
                 mutableScope.setWithSubClasses((boolean) value);
                 this.controller.onScopeChanged(mutableScope);
-                
             }
 
             @objid ("9621a3f4-44bd-4e26-8dd5-a38c33b0a14a")
@@ -845,12 +826,13 @@ public class ScopeEditionPanel implements IPanelProvider {
 
         /**
          * Workaround bug on Windows where room for images is always reserved on the column even if no item on the column has image.
-         * 
+         *
          * @author cma
          */
         @objid ("648116f7-dca5-4073-9618-6fd356cfddc9")
         private static abstract class WorkaroundColumnLabelProvider extends OwnerDrawLabelProvider implements IColorProvider {
             /**
+             *
              * @param element the represented element
              * @return the text to display
              */
@@ -865,7 +847,6 @@ public class ScopeEditionPanel implements IPanelProvider {
             protected void measure(Event event, Object element) {
                 Point size = event.gc.textExtent(getText(element));
                 event.setBounds(new Rectangle(event.x, event.y, size.x, size.y));
-                
             }
 
             /**
@@ -876,7 +857,6 @@ public class ScopeEditionPanel implements IPanelProvider {
             protected void paint(Event event, Object element) {
                 Rectangle bounds = event.getBounds();
                 event.gc.drawText(getText(element), bounds.x, bounds.y, true);
-                
             }
 
             @objid ("769163b4-c146-4eb0-9735-c4642a96bab3")

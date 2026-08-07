@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.state;
 
@@ -77,33 +77,34 @@ public class GmStatePrimaryNode extends GmNoStyleCompositeNode implements IImage
 
     /**
      * Default constructor.
+     *
      * @param diagram the diagram in which this gm is unmasked.
      * @param relatedRef a reference to the represented state.
      */
     @objid ("f582753a-55b6-11e2-877f-002564c97630")
-    public  GmStatePrimaryNode(IGmDiagram diagram, MRef relatedRef) {
+    public GmStatePrimaryNode(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
-        
+
         this.header = new GmStateLabel(diagram, relatedRef);
         this.header.setRoleInComposition("header");
         addChild(this.header);
-        
+
         this.internalTransitionsZone = new GmInternalTransitionsGroup(diagram, relatedRef);
         this.internalTransitionsZone.setRoleInComposition("transitions");
         addChild(this.internalTransitionsZone);
-        
+
         this.regionsGroup = new GmRegionsGroup(diagram, relatedRef);
         this.regionsGroup.setRoleInComposition("regions");
         this.regionsGroup.setVertical(true);
         addChild(this.regionsGroup);
-        
+
     }
 
     /**
      * Empty constructor needed for deserialization.
      */
     @objid ("f583fba1-55b6-11e2-877f-002564c97630")
-    public  GmStatePrimaryNode() {
+    public GmStatePrimaryNode() {
         // empty
     }
 
@@ -140,7 +141,7 @@ public class GmStatePrimaryNode extends GmNoStyleCompositeNode implements IImage
         } else {
             return this;
         }
-        
+
     }
 
     @objid ("f583fbbd-55b6-11e2-877f-002564c97630")
@@ -176,7 +177,7 @@ public class GmStatePrimaryNode extends GmNoStyleCompositeNode implements IImage
             break;
         }
         }
-        
+
     }
 
     @objid ("f583fbcf-55b6-11e2-877f-002564c97630")
@@ -184,7 +185,7 @@ public class GmStatePrimaryNode extends GmNoStyleCompositeNode implements IImage
     public void refreshFromObModel() {
         // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("f583fbd2-55b6-11e2-877f-002564c97630")
@@ -218,23 +219,23 @@ public class GmStatePrimaryNode extends GmNoStyleCompositeNode implements IImage
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0.
         writeMinorVersion(out, "GmStatePrimaryNode.", Integer.valueOf(GmStatePrimaryNode.MINOR_VERSION));
-        
+
     }
 
     @objid ("f5858240-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
-        
+
         this.header = (GmDefaultModelElementHeader) this.getFirstChild("header");
         this.internalTransitionsZone = (GmInternalTransitionsGroup) getFirstChild("transitions");
         this.regionsGroup = (GmRegionsGroup) getFirstChild("regions");
-        
+
         GmNodeModel imageModeHeader =  this.getChildren().get(3);
         imageModeHeader.delete();
-        
+
     }
 
     @objid ("f5858245-55b6-11e2-877f-002564c97630")
@@ -246,11 +247,11 @@ public class GmStatePrimaryNode extends GmNoStyleCompositeNode implements IImage
     @objid ("f585824a-55b6-11e2-877f-002564c97630")
     private void read_1(final IDiagramReader in) {
         super.read(in);
-        
+
         this.header = (GmDefaultModelElementHeader) this.getFirstChild("header");
         this.internalTransitionsZone = (GmInternalTransitionsGroup) getFirstChild("transitions");
         this.regionsGroup = (GmRegionsGroup) getFirstChild("regions");
-        
+
     }
 
     @objid ("f5858250-55b6-11e2-877f-002564c97630")
@@ -258,7 +259,7 @@ public class GmStatePrimaryNode extends GmNoStyleCompositeNode implements IImage
     public void styleChanged(IStyle changedStyle) {
         super.styleChanged(changedStyle);
         firePropertyChange(PROPERTY_CHILDREN, null, getVisibleChildren());
-        
+
     }
 
     @objid ("f5858256-55b6-11e2-877f-002564c97630")
@@ -266,7 +267,7 @@ public class GmStatePrimaryNode extends GmNoStyleCompositeNode implements IImage
     public void styleChanged(StyleKey property, Object newValue) {
         super.styleChanged(property, newValue);
         firePropertyChange(PROPERTY_CHILDREN, null, getVisibleChildren());
-        
+
     }
 
 }

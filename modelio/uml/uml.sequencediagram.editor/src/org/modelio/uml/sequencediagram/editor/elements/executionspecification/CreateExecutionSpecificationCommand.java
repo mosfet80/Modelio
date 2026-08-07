@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.executionspecification;
 
@@ -48,14 +48,15 @@ public class CreateExecutionSpecificationCommand extends Command {
 
     /**
      * C'tor.
+     *
      * @param parentNode the node into which the created execution should be unmasked.
      * @param initialLayoutData the initial layout data to use. X coordinate will be ignored, since it will be updated in the container's layout.
      */
     @objid ("d8e37de0-55b6-11e2-877f-002564c97630")
-    public  CreateExecutionSpecificationCommand(final GmCompositeNode parentNode, final Rectangle initialLayoutData) {
+    public CreateExecutionSpecificationCommand(final GmCompositeNode parentNode, final Rectangle initialLayoutData) {
         this.initialLayoutData = initialLayoutData;
         this.parentNode = parentNode;
-        
+
     }
 
     @objid ("d8e37de9-55b6-11e2-877f-002564c97630")
@@ -66,10 +67,10 @@ public class CreateExecutionSpecificationCommand extends Command {
         final IGmDiagram diagram = this.parentNode.getDiagram();
         IModelManager modelManager = diagram.getModelManager();
         final IStandardModelFactory modelFactory = modelManager.getModelFactory().getFactory(IStandardModelFactory.class);
-        
+
         Interaction interaction = null;
         Lifeline lifeline = null;
-        
+
         if (parentElement instanceof Lifeline) {
             lifeline = ((Lifeline) parentElement);
             interaction = lifeline.getOwner();
@@ -77,7 +78,7 @@ public class CreateExecutionSpecificationCommand extends Command {
             lifeline = ((ExecutionSpecification) parentElement).getCovered().get(0);
             interaction = lifeline.getOwner();
         }
-        
+
         if (lifeline != null) {
             // When a lifeline has a creation message, current layout data must be shifted to avoid triggering model shield
             for (InteractionFragment fragment : lifeline.getCoveredBy()) {
@@ -94,29 +95,29 @@ public class CreateExecutionSpecificationCommand extends Command {
                 }
             }
         }
-        
+
         // Use the collected elements to create and initialize the execution.
         ExecutionOccurenceSpecification startOccurence = modelFactory.createExecutionOccurenceSpecification();
         startOccurence.setEnclosingInteraction(interaction);
         startOccurence.getCovered().add(lifeline);
         startOccurence.setLineNumber(Math.max(1, this.initialLayoutData.y));
-        
+
         ExecutionOccurenceSpecification finishOccurence = modelFactory.createExecutionOccurenceSpecification();
         finishOccurence.setEnclosingInteraction(interaction);
         finishOccurence.getCovered().add(lifeline);
         finishOccurence.setLineNumber(this.initialLayoutData.bottom());
-        
+
         ExecutionSpecification newExecution = modelFactory.createExecutionSpecification();
         newExecution.setEnclosingInteraction(interaction);
         newExecution.getCovered().add(lifeline);
         newExecution.setStart(startOccurence);
         newExecution.setFinish(finishOccurence);
-        
+
         // Show the new element in the diagram (ie create its Gm )
         diagram.unmask(this.parentNode, startOccurence, this.initialLayoutData);
         diagram.unmask(this.parentNode, finishOccurence, this.initialLayoutData);
         diagram.unmask(this.parentNode, newExecution, this.initialLayoutData);
-        
+
     }
 
 }

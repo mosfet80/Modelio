@@ -1,0 +1,34 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Concepts
+
+
+
+== Un outil de visualisation
+
+L'éditeur de liens montre les liens qui existent entre les éléments de modèle dans un graphique orienté dont l'élément central est celui qui est sélectionné dans le modèle. A partir de cet élément central, la vue montre les liens entrants et sortants, c'est à dire les liens dont l'élément central est la cible ou la source.
+
+La vue est mise à jour automatiquement lorsque la sélection change, faisant de l'éditeur de liens une vue dynamique qui affiche immédiatement les liens du modèle qui "entourent" l'élément central.
+
+Tous les liens ne sont pas montrés en permanence, cela créerait un affichage peu clair et très dense. Pour cette raison, l'éditeur de liens peut être configuré. La configuration de l'éditeur de liens inclut entre autres le choix des liens qui seront affichés, basé sur la nature des liens (métaclasse ou stéréotype).
+
+
+== Un outil de navigation
+
+Par un simple clic, chaque élément représenté dans la vue peut être défini comme l'élément central du graphique.Les éléments représentés dans la vue son cliquables. Le contenu du graphique est alors automatiquement mis à jour. Ce mécanisme permet une navigation rapide dans le modèle en suivant les liens (entrants ou sortants) d'un élément.
+
+Cliquer sur un élément de modèle dans l'éditeur de liens permet non seulement d'en faire l'élément central du graphique, mais cela permet également de sélectionner l'élément au niveau de l'application. Les autres vues du modèle, celles qui permettent de visualiser l'élément en question, seront alors mises à jour pour montrer l'élément sélectionné dans l'éditeur de liens.
+
+Par exemple, l'utilisateur peut facilement explorer un graphique d'héritage profond en cliquant sur les classes parentes jusqu'à la racine. Une fois le parent recherché trouvé, la combinaison CRTL+Clic permet de le sélectionner dans l'arborescence de l'explorateur de modèle qui se déplie automatiquement.
+
+
+== Un outil d'édition
+
+L'éditeur de liens peut être utilisé pour créer de nouveaux liens.
+
+La création de liens dans l'éditeur de liens se fait par drag'n'drop d'éléments de modèle dans l'éditeur de liens. En fonction de l'endroit où l'élément est déposé, devant ou derrière l'élément central, le lien créé utilisera ce dernier comme cible ou source.
+
+Cette fonctionnalité d'édition repose sur une séquence d'actions précises qui est décrite en détail dans la page <<User_Documentation_fr_Editeur_de_liens_Editing_links.adoc#,Edition de liens>>.

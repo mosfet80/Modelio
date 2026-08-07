@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.vcore.model;
 
@@ -26,14 +45,17 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.CompletionException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.smkernel.DeadObjectException;
 import org.modelio.vcore.smkernel.SmObjectImpl;
+import org.modelio.vcore.smkernel.mapi.MAttribute;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
@@ -60,17 +82,18 @@ public class MObjectCache {
 
     /**
      * Creates a new cache.
+     *
      * @param metamodel the metamodel
      */
     @objid ("006e8a20-0d1e-1f20-85a5-001ec947cd2a")
-    public  MObjectCache(SmMetamodel metamodel) {
+    public MObjectCache(SmMetamodel metamodel) {
         this.metamodel = metamodel;
         this.caches = new ConcurrentHashMap<>(metamodel.getRegisteredMClasses().size()/2, 0.95f, 1);
-        
     }
 
     /**
      * Add an object to the cache.
+     *
      * @param obj the object to add
      * @throws DuplicateObjectException if another object with the same identifier is already in the cache.
      */
@@ -78,7 +101,7 @@ public class MObjectCache {
     public void addToCache(SmObjectImpl obj) throws DuplicateObjectException {
         String oid = obj.getUuid();
         IMClassCache mClassCache = getMClassCache(obj.getClassOf(), true);
-        
+
         // Put element to cache and check for duplicate identifiers
         SmObjectImpl oldObj = mClassCache.putIfAbsent(oid, obj);
         if (oldObj != null && oldObj != obj) {
@@ -88,12 +111,11 @@ public class MObjectCache {
             } catch (@SuppressWarnings ("unused") DeadObjectException e) {
                 // Either oldObj or obj is dead.
                 obj.getData(); // if obj is dead DeadObjectException will fire again, let it go.
-        
+
                 // Here we know oldObj is the dead object, replace oldObj by obj in the cache.
                 mClassCache.put(oid, obj);
             }
         }
-        
     }
 
     /**
@@ -102,22 +124,23 @@ public class MObjectCache {
      * The returned collection is a view on the cache and reflects all changes made on it.
      * The cache should not be modified while walking the returned collection to avoid unspecified
      * behavior.
-     * @see #stream()
+     *
      * @return all the cache content.
+     * @see #stream()
      */
     @objid ("f4aa154a-08b1-11e2-b33c-001ec947ccaf")
     public Collection<SmObjectImpl> asCollection() {
-        final Map<MClass, IMClassCache> theCaches = MObjectCache.this.caches;
+        final Map<MClass, IMClassCache> theCaches = this.caches;
         // ignore "Redundant specification of type arguments <SmObjectImpl>" :
         // Removing it makes tycho 2.2 fai with "'<>' cannot be used with anonymous classes" .
         @SuppressWarnings ("unused")
         AbstractCollection<SmObjectImpl> ret = new AbstractCollection<SmObjectImpl>() {
-        
+
             @Override
             public Iterator<SmObjectImpl> iterator() {
                 return getIterator();
             }
-        
+
             @Override
             public int size() {
                 int s = 0;
@@ -126,6 +149,32 @@ public class MObjectCache {
                 }
                 return s;
             }
+
+            @Override
+            public boolean isEmpty() {
+                return getIterator().hasNext();
+            }
+
+            @Override
+            public void clear() {
+                theCaches.clear();
+            }
+
+            @Override
+            public boolean contains(Object o) {
+                if (! (o instanceof SmObjectImpl)) {
+                    assert false : o;
+                    return false;
+                }
+
+                SmObjectImpl obj = (SmObjectImpl) o;
+                IMClassCache c = theCaches.get(obj.getMClass());
+                if (c==null)
+                    return false;
+
+                return c.containsKey(obj.getUuid());
+            }
+
         };
         return ret;
     }
@@ -135,6 +184,7 @@ public class MObjectCache {
      * <p>
      * The cache should not be modified while walking the returned Stream to avoid unspecified
      * behavior.
+     *
      * @return a Stream on all the cache content.
      * @since 5.4.1 - 23/10/2023
      */
@@ -145,6 +195,7 @@ public class MObjectCache {
 
     /**
      * Find model objects by a metaclass and an attribute value.
+     *
      * @param cls the metaclass.
      * @param withSubClasses if true will look into subclasses hierarchy too. Since 3.6
      * @param att the attribute to search
@@ -153,23 +204,41 @@ public class MObjectCache {
      */
     @objid ("006c8bd0-0d1e-1f20-85a5-001ec947cd2a")
     public void findByAtt(final MClass cls, boolean withSubClasses, final String att, Object val, final Collection<MObject> results) {
+        walkByAtt(cls, withSubClasses, att, val, o -> {results.add(o); return true;});
+    }
+
+    /**
+     * Find model objects by a metaclass and an attribute value.
+     * <p>
+     * Pass each of them to the given consumer. If the consumer returns false, stops the search and return immediately.
+     *
+     * @param cls the metaclass.
+     * @param withSubClasses if true will look into subclasses hierarchy too.
+     * @param att the attribute to search
+     * @param val the attribute value
+     * @param consumer If the consumer returns false, stops the search and return immediately.
+     * @since 6.0.1
+     */
+    @objid ("8aec8846-7de4-4052-b0b5-d50cfd4983b5")
+    public void walkByAtt(final MClass cls, boolean withSubClasses, final String att, Object val, final Predicate<MObject> consumer) {
         SmAttribute smAtt = (SmAttribute) cls.getAttribute(att);
-        
+
         // If 'att' does not exist, throw an exception
         if (smAtt == null) {
             throw new IllegalArgumentException("Unknown attribute \"" + att + "\"");
         }
-        
+
         // The search is first done for the metaclass itself
         for (SmObjectImpl obj : getMClassCache(cls, false).values()) {
             // Object attVal = smAtt.getValue(obj.getData());
             Object attVal = obj.getAttVal(smAtt);
             if (val.equals(attVal)) {
                 // Matched!
-                results.add(obj);
+                if (!consumer.test(obj))
+                    return;
             }
         }
-        
+
         // and then it must be carried out for all the metaclass derived
         // from 'cls'
         if (withSubClasses) {
@@ -179,16 +248,68 @@ public class MObjectCache {
                     Object attVal = obj.getAttVal(smAtt);
                     if (val.equals(attVal)) {
                         // Matched!
-                        results.add(obj);
+                        if (!consumer.test(obj))
+                            return;
                     }
                 }
             }
         }
-        
+    }
+
+    /**
+     * Find model objects by a metaclass and an attribute value.
+     * <p>
+     * The cache should not be modified while walking the returned Stream to avoid unspecified
+     * behavior.
+     *
+     * @param cls the metaclass.
+     * @param withSubClasses if true will look into subclasses hierarchy too. Since 3.6
+     * @param att the attribute to search
+     * @param val the attribute value
+     * @return results the found elements.
+     * @since 6.0.1
+     */
+    @objid ("1a32750b-08df-407e-8fda-f464a333802a")
+    public Stream<? extends MObject> streamByAtt(final MClass cls, boolean withSubClasses, final String att, Object val) {
+        MAttribute smAtt = cls.getAttribute(att);
+
+        // If 'att' does not exist, throw an exception
+        if (smAtt == null) {
+            throw new IllegalArgumentException("Unknown attribute \"" + att + "\"");
+        }
+
+        return streamByClass(cls, withSubClasses)
+                .filter(obj -> Objects.equals(obj.mGet(smAtt), val));
+    }
+
+    /**
+     * Find model objects by a metaclass .
+     * <p>
+     * The cache should not be modified while walking the returned Stream to avoid unspecified behavior.
+     *
+     * @param cls the metaclass.
+     * @param withSubClasses if true will look into subclasses hierarchy too.
+     * @return results the found elements.
+     * @since 6.0.1
+     */
+    @objid ("898de1ad-e799-46ac-849a-cfda56c68efe")
+    public Stream<? extends MObject> streamByClass(final MClass cls, boolean withSubClasses) {
+        if (! withSubClasses)
+            return getMClassCache(cls, false).values().stream();
+
+        // Sub metaclasses hierarchy requested
+        Stream<MClass> clsTreeStream = Stream.concat(Stream.of(cls), cls.getSub(true).stream()) ;
+
+        return clsTreeStream
+                .map(acls -> getMClassCache(cls, false))
+                .filter(clsCache -> ! clsCache.isEmpty()) // getMClassCache(...) return empty map when no instance for a metaclass
+                .flatMap(clsCache -> clsCache.values().stream())
+                ;
     }
 
     /**
      * Get all elements of a given class and the class descendants.
+     *
      * @param cls a metaclass.
      * @param withSubClasses if true look in sub classes hierarchy too.
      * @param result all elements of this class will be added here.
@@ -197,24 +318,24 @@ public class MObjectCache {
     public void findByClass(MClass cls, boolean withSubClasses, Collection<? super SmObjectImpl> result) {
         // The search is first done for the metaclass itself
         result.addAll(getMClassCache(cls, false).values());
-        
+
         // and then it must be carried out for all the metaclass derived from'cls'
         if (withSubClasses) {
             for (MClass mc : cls.getSub(true)) {
                 result.addAll(getMClassCache(mc, false).values());
             }
         }
-        
     }
 
     /**
      * Find a model object from its MClass and its identifier.
      * <p>
      * Looks in sub classes hierarchy too.
-     * @see #findById(MClass, String, boolean) to avoid looking in sub classes
+     *
      * @param cls a metaclass
      * @param siteIdentifier an UUID
      * @return the found element or <code>null</code>.
+     * @see #findById(MClass, String, boolean) to avoid looking in sub classes
      */
     @objid ("006c8d56-0d1e-1f20-85a5-001ec947cd2a")
     public SmObjectImpl findById(MClass cls, final String siteIdentifier) {
@@ -223,6 +344,7 @@ public class MObjectCache {
 
     /**
      * Find a model object from its MClass and its identifier.
+     *
      * @param cls a metaclass
      * @param siteIdentifier an UUID
      * @param lookInsubClasses if true look into subclasses if not found in the given one.
@@ -235,12 +357,12 @@ public class MObjectCache {
         if (obj != null) {
             return obj;
         }
-        
+
         if (lookInsubClasses) {
             // and then it must be carried out for all the metaclass derived from 'cls'
             for (MClass mc : cls.getSub(true)) {
                 obj = getMClassCache(mc, false).get(siteIdentifier);
-        
+
                 if (obj != null) {
                     return obj;
                 }
@@ -254,6 +376,7 @@ public class MObjectCache {
      * <p>
      * Returns <code>null</code> if no object with the given class and identifier is found, or
      * if the metaclass is unknown.
+     *
      * @param ref an element reference
      * @return the found element or <code>null</code>.
      */
@@ -265,7 +388,6 @@ public class MObjectCache {
         } else {
             return findById(cls, ref.uuid);
         }
-        
     }
 
     /**
@@ -273,6 +395,7 @@ public class MObjectCache {
      * <p>
      * The cache should not be modified while walking it to avoid unspecified
      * behavior.
+     *
      * @return all the cache content.
      */
     @objid ("bd96ad7d-92d7-11e1-81e9-001ec947ccaf")
@@ -285,6 +408,7 @@ public class MObjectCache {
      * <p>
      * The cache should not be modified while walking it to avoid unspecified
      * behavior.
+     *
      * @return all the cache content.
      */
     @objid ("bd96ad84-92d7-11e1-81e9-001ec947ccaf")
@@ -293,6 +417,7 @@ public class MObjectCache {
     }
 
     /**
+     *
      * @return the metamodel
      */
     @objid ("e56ff4bb-d54f-455e-a64f-e1fbf8e5ee5b")
@@ -303,17 +428,18 @@ public class MObjectCache {
     /**
      * Add an object to the cache without duplicate check.
      * <p>
+     *
      * @param obj the object to add
      */
     @objid ("f4aa1543-08b1-11e2-b33c-001ec947ccaf")
     public void putToCache(SmObjectImpl obj) {
         String oid = obj.getUuid();
         getMClassCache(obj.getClassOf(), true).put(oid, obj);
-        
     }
 
     /**
      * Remove a model object from the cache.
+     *
      * @param obj a model object.
      */
     @objid ("006c8f36-0d1e-1f20-85a5-001ec947cd2a")
@@ -323,6 +449,7 @@ public class MObjectCache {
 
     /**
      * Remove a model object from the cache using its identifier.
+     *
      * @param cls the metaclass
      * @param uuid the identifier
      * @since 3.6
@@ -335,13 +462,15 @@ public class MObjectCache {
     /**
      * If the specified key is not already associated with a value (or is mapped to null or a dead object),
      * attempts to compute its value using the given mapping function and enters it into this map unless null.
-     * 
+     *
      * If the mapping function returns null, no mapping is recorded.
      * If the mapping function itself throws an (unchecked) exception, the exception is rethrown, and no mapping is recorded
+     *
      * @param cls the metaclass
      * @param uuid the identifier
      * @param supplier the mapping function to supply an SmObjectImpl
      * @return the current (existing or computed) value associated with the specified uuid, or null if the computed value is null
+     * @throws DuplicateObjectException if the cache already contains an element with same identifier
      */
     @objid ("d795e499-617d-4484-ac7c-8cd7e3860577")
     public SmObjectImpl supplyIfAbsent(MClass cls, String uuid, SmObjectSupplier supplier) throws DuplicateObjectException {
@@ -364,12 +493,11 @@ public class MObjectCache {
                     throw new CompletionException(e);
                 }
             });
-        
+
             return ret;
         } catch (CompletionException e) {
             throw (DuplicateObjectException) e.getCause();
         }
-        
     }
 
     /**
@@ -380,6 +508,7 @@ public class MObjectCache {
      * returns a non modifiable empty cache.
      * <p>
      * Nearly all methods of this class should call this method to access the {@link #caches} member.
+     *
      * @param key a metamodel class
      * @param createMissing <code>true</code> to create a cache if missing, <code>false</code> to return a dummy one.
      * @return the metaclass cache.
@@ -391,7 +520,6 @@ public class MObjectCache {
         } else {
             return this.caches.getOrDefault(key, EmptyClassCache.INSTANCE);
         }
-        
     }
 
     /**
@@ -409,10 +537,9 @@ public class MObjectCache {
         private Iterator<SmObjectImpl> entryIt;
 
         @objid ("bd9b7233-92d7-11e1-81e9-001ec947ccaf")
-        public  ContentIterator(Iterator<IMClassCache> classCacheIt) {
+        public ContentIterator(Iterator<IMClassCache> classCacheIt) {
             this.cacheIt = classCacheIt;
             this.entryIt = null;
-            
         }
 
         @objid ("bd9b7235-92d7-11e1-81e9-001ec947ccaf")
@@ -430,13 +557,12 @@ public class MObjectCache {
             if (this.entryIt != null && this.entryIt.hasNext()) {
                 return this.entryIt.next();
             }
-            
+
             if (moveCacheIt()) {
                 return this.entryIt.next();
             } else {
                 throw new NoSuchElementException();
             }
-            
         }
 
         @objid ("bd9b723e-92d7-11e1-81e9-001ec947ccaf")
@@ -473,7 +599,7 @@ public class MObjectCache {
         static final IMClassCache INSTANCE = new EmptyClassCache();
 
         @objid ("b74871f8-9f04-421e-82e6-91a4c0112d61")
-        private  EmptyClassCache() {
+        private EmptyClassCache() {
             // noop
         }
 
@@ -564,13 +690,11 @@ public class MObjectCache {
     }
 
     /**
-     * Typedef to Map<UUID,SmObjectImpl> .
+     * Typedef to Map&lt;UUID,SmObjectImpl> .
      */
     @objid ("eeabc200-5921-48a9-9945-775681defcde")
     private interface IMClassCache extends ConcurrentMap<String, SmObjectImpl> {
-// nothing more
-        }
-    
+    }
 
     /**
      * Typedef to ConcurrentHashMap<UUID,SmObjectImpl> implementation of {@link IMClassCache}.
@@ -581,7 +705,7 @@ public class MObjectCache {
         private static final long serialVersionUID = 1L;
 
         @objid ("00287184-4fda-1f32-b43f-001ec947cd2a")
-        public  MClassCache() {
+        public MClassCache() {
             super(50, 0.8f, 1);
         }
 
@@ -592,7 +716,7 @@ public class MObjectCache {
     public interface SmObjectSupplier {
         @objid ("21964988-dbb5-4d98-a949-8224f72f7acc")
         SmObjectImpl get() throws DuplicateObjectException;
-}
-    
+
+    }
 
 }

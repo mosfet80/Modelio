@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.drawings.core;
 
@@ -39,12 +39,13 @@ public class MoveToLayerCommand extends Command {
      * Creates the command.
      */
     @objid ("a4daf866-77ae-4cd7-b5d7-c5709c9c6b8c")
-    public  MoveToLayerCommand() {
-        
+    public MoveToLayerCommand() {
+
     }
 
     /**
      * Add elements to move
+     *
      * @param els elements to move
      */
     @objid ("d76228d6-51fd-49d2-a8af-2f0fe349244d")
@@ -54,6 +55,7 @@ public class MoveToLayerCommand extends Command {
 
     /**
      * Set the target layer.
+     *
      * @param targetLayer the target layer.
      */
     @objid ("a8bd11f6-9468-461a-b08b-9b5a5f65532c")
@@ -75,14 +77,14 @@ public class MoveToLayerCommand extends Command {
                     link.getFrom().removeStartingDrawingLink(link);
                     this.targetLayer.addStartingDrawingLink(link);
                 }
-                
+
                 if (link.getTo() instanceof IGmDrawingLayer) {
                     link.getTo().removeEndingDrawingLink(link);
                     this.targetLayer.addEndingDrawingLink(link);
                 }
             }
         }
-        
+
     }
 
     @objid ("38a858ea-36b2-4b2c-ab97-e186d6afeb91")
@@ -90,9 +92,9 @@ public class MoveToLayerCommand extends Command {
     public boolean canExecute() {
         if (this.targetLayer == null)
             return false;
-        
+
         boolean somethingToDo = false;
-        
+
         for (IGmDrawing el : this.toMove ) {
             if (el.getLayer() != this.targetLayer) {
                 if (el instanceof IGmDrawingLink) {
@@ -100,7 +102,7 @@ public class MoveToLayerCommand extends Command {
                     IGmDrawingLink l = (IGmDrawingLink) el;
                     if (!(l.getFrom() instanceof IGmDrawingLayer))
                         return false;
-                    
+
                 }
                 somethingToDo = true;
             }

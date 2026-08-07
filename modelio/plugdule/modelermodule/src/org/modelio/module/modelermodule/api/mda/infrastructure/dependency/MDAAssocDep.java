@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -64,6 +64,7 @@ public class MDAAssocDep {
      * Tells whether a {@link MDAAssocDep proxy} can be instantiated from a {@link MObject} checking it is a {@link Dependency} stereotyped << MDAAssocDep >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -74,7 +75,7 @@ public class MDAAssocDep {
 
     /**
      * Create a new {@link Dependency} stereotyped << MDAAssocDep >> then instantiate a {@link MDAAssocDep} proxy.
-     * 
+     *
      * @return a {@link MDAAssocDep} proxy on the created {@link Dependency}.
      */
     @objid ("5bccf434-7b1a-491b-a8e9-1ef984120ec4")
@@ -85,9 +86,10 @@ public class MDAAssocDep {
     }
 
     /**
-     * Tries to instantiate a {@link MDAAssocDep} proxy from a {@link Dependency} stereotyped << MDAAssocDep >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link MDAAssocDep} proxy from a {@link Dependency} stereotyped << MDAAssocDep >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a Dependency
      * @return a {@link MDAAssocDep} proxy or <i>null</i>.
      */
@@ -97,9 +99,10 @@ public class MDAAssocDep {
     }
 
     /**
-     * Tries to instantiate a {@link MDAAssocDep} proxy from a {@link Dependency} stereotyped << MDAAssocDep >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link MDAAssocDep} proxy from a {@link Dependency} stereotyped << MDAAssocDep >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link Dependency}
      * @return a {@link MDAAssocDep} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -129,7 +132,8 @@ public class MDAAssocDep {
     }
 
     /**
-     * Get the underlying {@link Dependency}. 
+     * Get the underlying {@link Dependency}.
+     *
      * @return the Dependency represented by this proxy, never null.
      */
     @objid ("ce9140d1-2f36-410e-8302-c6fe1d9e8092")
@@ -151,7 +155,7 @@ public class MDAAssocDep {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     /**
@@ -165,7 +169,7 @@ public class MDAAssocDep {
     }
 
     @objid ("d4a76921-a8a5-411b-8bcb-0437c5a6922a")
-    protected  MDAAssocDep(Dependency elt) {
+    protected MDAAssocDep(Dependency elt) {
         this.elt = elt;
     }
 
@@ -189,7 +193,7 @@ public class MDAAssocDep {
             ROLE_TAGTYPE_ELT = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -197,7 +201,7 @@ public class MDAAssocDep {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

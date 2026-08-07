@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnlane.hibridcontainer;
 
@@ -91,12 +91,12 @@ class BodyHybridContainerDropEditPolicy extends AbstractEditPolicy {
      * C'tor.
      */
     @objid ("612e59a2-55b6-11e2-877f-002564c97630")
-    public  BodyHybridContainerDropEditPolicy() {
+    public BodyHybridContainerDropEditPolicy() {
         super();
         // Create an instance of both free zone and lane container policies.
         this.freeZonePolicy = new SmartDropEditPolicy();
         this.laneSetPolicy = new BpmnLaneSetDropEditPolicy();
-        
+
     }
 
     @objid ("612e59a5-55b6-11e2-877f-002564c97630")
@@ -123,7 +123,7 @@ class BodyHybridContainerDropEditPolicy extends AbstractEditPolicy {
             assert false : "Invalid behaviour : " + this.behaviour;
         }
         }
-        
+
     }
 
     @objid ("612e59a8-55b6-11e2-877f-002564c97630")
@@ -148,7 +148,7 @@ class BodyHybridContainerDropEditPolicy extends AbstractEditPolicy {
         }
         }
         super.deactivate();
-        
+
     }
 
     @objid ("612e59ab-55b6-11e2-877f-002564c97630")
@@ -175,7 +175,7 @@ class BodyHybridContainerDropEditPolicy extends AbstractEditPolicy {
             assert false : "Invalid behaviour : " + this.behaviour;
         }
         }
-        
+
     }
 
     @objid ("612e59b0-55b6-11e2-877f-002564c97630")
@@ -202,7 +202,7 @@ class BodyHybridContainerDropEditPolicy extends AbstractEditPolicy {
             assert false : "Invalid behaviour : " + this.behaviour;
         }
         }
-        
+
     }
 
     @objid ("612e59b5-55b6-11e2-877f-002564c97630")
@@ -265,7 +265,7 @@ class BodyHybridContainerDropEditPolicy extends AbstractEditPolicy {
         super.setHost(editpart);
         this.freeZonePolicy.setHost(editpart);
         this.laneSetPolicy.setHost(editpart);
-        
+
     }
 
     @objid ("612e59c8-55b6-11e2-877f-002564c97630")
@@ -291,7 +291,7 @@ class BodyHybridContainerDropEditPolicy extends AbstractEditPolicy {
             assert false : "Invalid behaviour : " + this.behaviour;
         }
         }
-        
+
     }
 
     @objid ("612e59cc-55b6-11e2-877f-002564c97630")
@@ -317,7 +317,7 @@ class BodyHybridContainerDropEditPolicy extends AbstractEditPolicy {
             assert false : "Invalid behaviour : " + this.behaviour;
         }
         }
-        
+
     }
 
     @objid ("612fe03b-55b6-11e2-877f-002564c97630")
@@ -347,6 +347,7 @@ class BodyHybridContainerDropEditPolicy extends AbstractEditPolicy {
 
     /**
      * Sets the behaviour to adopt.
+     *
      * @param value the new behaviour.
      */
     @objid ("612fe042-55b6-11e2-877f-002564c97630")
@@ -390,7 +391,7 @@ class BodyHybridContainerDropEditPolicy extends AbstractEditPolicy {
             }
             }
         }
-        
+
     }
 
     @objid ("612fe047-55b6-11e2-877f-002564c97630")
@@ -423,6 +424,7 @@ class BodyHybridContainerDropEditPolicy extends AbstractEditPolicy {
 
     /**
      * Returns the current behaviour.
+     *
      * @return the current behaviour.
      */
     @objid ("612fe056-55b6-11e2-877f-002564c97630")
@@ -451,17 +453,17 @@ class BodyHybridContainerDropEditPolicy extends AbstractEditPolicy {
             if (!(model instanceof GmModel)) {
                 return null;
             }
-            
+
             final GmModel gmModel = (GmModel) model;
             IGmDiagram gmDiagram = gmModel.getDiagram();
-            
+
             // If either of the dropped elements cannot be unmasked, return null.
             for (final MObject droppedElement : request.getDroppedElements()) {
                 if (!gmModel.canUnmask(droppedElement) && (!request.isSmart() || !isSmartDropTarget(droppedElement, gmDiagram))) {
                     return null;
                 }
             }
-            
+
             // All dropped elements understood: return host!
             return getHost();
         }
@@ -472,12 +474,12 @@ class BodyHybridContainerDropEditPolicy extends AbstractEditPolicy {
             if (!request.isSmart()) {
                 return null;
             }
-            
+
             final GmModel gmModel = (GmModel) getHost().getModel();
             IGmDiagram gmDiagram = gmModel.getDiagram();
-            
+
             final CompoundCommand command = new CompoundCommand();
-            
+
             BpmnLane lane = (BpmnLane) ((GmNodeModel) getHost().getModel()).getRelatedElement();
             for (MObject droppedElement : request.getDroppedElements()) {
                 if (droppedElement instanceof BpmnFlowElement) {
@@ -492,7 +494,7 @@ class BodyHybridContainerDropEditPolicy extends AbstractEditPolicy {
                     return getCreateDataObjectCommand(lane, droppedElement, request.getDropLocation());
                 }
             }
-            
+
             command.add(super.getDropCommand(request));
             return command.unwrap();
         }
@@ -508,7 +510,7 @@ class BodyHybridContainerDropEditPolicy extends AbstractEditPolicy {
                     public void execute() {
                         droppedElement.getLane().add(lane);
                     }
-            
+
                     @Override
                     public boolean canExecute() {
                         return droppedElement.isModifiable();
@@ -517,7 +519,7 @@ class BodyHybridContainerDropEditPolicy extends AbstractEditPolicy {
             } else {
                 return null;
             }
-            
+
         }
 
         @objid ("14dc2c99-6d6e-4996-8758-305636222af0")
@@ -554,7 +556,7 @@ class BodyHybridContainerDropEditPolicy extends AbstractEditPolicy {
             IMdaExpert mdaExpert = modelManager.getMdaExpert();
             return mdaExpert.canLink(Represents.MdaTypes.STEREOTYPE_ELT, linkMetaclass, sourceMetaclass, droppedElement.getMClass()) ||
                     mdaExpert.canLink(State.MdaTypes.STEREOTYPE_ELT, linkMetaclass, sourceMetaclass, droppedElement.getMClass());
-            
+
         }
 
         @objid ("22b53325-bd37-4785-b1c8-1730f2d803bb")

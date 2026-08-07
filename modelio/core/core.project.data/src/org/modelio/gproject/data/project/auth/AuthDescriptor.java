@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.data.project.auth;
 
@@ -58,7 +58,7 @@ public class AuthDescriptor {
      * It is a LOCAL scoped descriptor with null as authentication data.
      */
     @objid ("0ecb04fd-9323-4185-b529-906177335efd")
-    public  AuthDescriptor() {
+    public AuthDescriptor() {
         this.scope = DefinitionScope.LOCAL;
     }
 
@@ -68,18 +68,19 @@ public class AuthDescriptor {
      * Makes a shallow copy, the {@link #getData()} is not cloned.
      * <p>
      * If the argument is null, has the same effect as the empty constructor.
+     *
      * @param orig the original object. May be null.
      * @since 5.3.1
      */
     @objid ("72bcef62-0fd4-4413-ac0a-d9facbdbeb6f")
-    public  AuthDescriptor(AuthDescriptor orig) {
+    public AuthDescriptor(AuthDescriptor orig) {
         if (orig == null) {
             this.scope = DefinitionScope.LOCAL;
         } else {
             this.scope = orig.scope;
             this.data = orig.data;
         }
-        
+
     }
 
     /**
@@ -89,18 +90,20 @@ public class AuthDescriptor {
      * <p>
      * The given authentication data is retained with all its data and
      * will be returned by {@link #getData()}.
+     *
      * @param authData the data to serialize.
      * @param scope definition scope
      */
     @objid ("30873c26-3b9a-4b01-9baa-4a2dc716a686")
-    public  AuthDescriptor(IAuthData authData, DefinitionScope scope) {
+    public AuthDescriptor(IAuthData authData, DefinitionScope scope) {
         this.data = authData;
         this.scope = scope;
-        
+
     }
 
     /**
      * Get the authentication data.
+     *
      * @return the data
      */
     @objid ("7eec202e-f3e9-47ec-bd08-b8a1b1644d69")
@@ -109,6 +112,7 @@ public class AuthDescriptor {
     }
 
     /**
+     *
      * @return the definition scope
      */
     @objid ("eb9bdafb-c718-4010-9e55-78328f04cbb8")
@@ -120,6 +124,7 @@ public class AuthDescriptor {
      * Get the authentication scheme.
      * <p>
      * Returns <code>null</code> if no authentication is defined.
+     *
      * @return the authentication type.
      */
     @objid ("b4709ef9-4fdc-4951-9aed-7675d5abf270")
@@ -128,6 +133,7 @@ public class AuthDescriptor {
     }
 
     /**
+     *
      * @param scope the definition scope
      */
     @objid ("27a931e6-fce1-48ef-8fb8-702e28c72960")
@@ -154,14 +160,14 @@ public class AuthDescriptor {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        
+
         AuthDescriptor other = (AuthDescriptor) obj;
         if (this.data == null) {
             if (other.data != null)
                 return false;
         } else if (!this.data.equals(other.data))
             return false;
-        
+
         if (this.scope != other.scope)
             return false;
         return true;
@@ -169,6 +175,7 @@ public class AuthDescriptor {
 
     /**
      * Set the authentication properties.
+     *
      * @param newData the authentication properties.
      */
     @objid ("d7dcaabc-7738-4afa-ad3c-236ad46aab0c")
@@ -183,13 +190,14 @@ public class AuthDescriptor {
             return "auth: "+ this.data.getSchemeId()+ " ("+this.scope+")= "+ this.data;
         else
             return "auth: <undefined>";
-        
+
     }
 
     /**
      * Tells whether authentication is specified.
      * <p>
      * The authentication is specified if a scheme identifier is set, event to {@link NoneAuthData}
+     *
      * @return true if there is
      */
     @objid ("0a0957d7-aa24-4a3d-9952-4986f26576a8")

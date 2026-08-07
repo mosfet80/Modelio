@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.texteditors.rt;
 
@@ -32,7 +32,7 @@ public class RTDocument extends Document {
     IDocumentPartitioner currentPartitionner;
 
     @objid ("7b6a6587-2a77-11e2-9fb9-bc305ba4815c")
-    public  RTDocument(IDocumentPartitioner partitionner) {
+    public RTDocument(IDocumentPartitioner partitionner) {
         this.setCurrentPartionner(partitionner);
     }
 
@@ -47,7 +47,7 @@ public class RTDocument extends Document {
                 }
             }
         }
-        
+
         if (isWritablePosition(offset) && isWritablePosition(offset + 1)) {
             // setCurrentPartionner(replacePartitionner);
             super.replace(offset, length, text);
@@ -55,7 +55,7 @@ public class RTDocument extends Document {
         } else {
             Display.getDefault().beep();
         }
-        
+
     }
 
     @objid ("7b6a6590-2a77-11e2-9fb9-bc305ba4815c")
@@ -69,7 +69,7 @@ public class RTDocument extends Document {
                 }
             }
         }
-        
+
         if (isWritablePosition(offset) && isWritablePosition(offset + 1)) {
             // setCurrentPartionner(replacePartitionner);
             super.replace(offset, length, text, timestamp);
@@ -77,7 +77,7 @@ public class RTDocument extends Document {
         } else {
             Display.getDefault().beep();
         }
-        
+
     }
 
     @objid ("7b6a6597-2a77-11e2-9fb9-bc305ba4815c")
@@ -88,7 +88,7 @@ public class RTDocument extends Document {
             e.printStackTrace();
             return true;
         }
-        
+
     }
 
     @objid ("7b6a659b-2a77-11e2-9fb9-bc305ba4815c")
@@ -98,6 +98,7 @@ public class RTDocument extends Document {
 
     /**
      * Sets the partitioner to use for this document. If any previous partitioner was used, it is disconnected first.
+     *
      * @param partitionner the partitioner to use for this document.
      */
     @objid ("7b6a65a0-2a77-11e2-9fb9-bc305ba4815c")
@@ -108,7 +109,7 @@ public class RTDocument extends Document {
         this.currentPartitionner = partitionner;
         this.currentPartitionner.connect(this);
         this.setDocumentPartitioner(partitionner);
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.conf.dialog.libraries.local;
 
@@ -95,11 +95,11 @@ public final class AddLocalLibraryDialog extends ModelioDialog {
     private final ProjectModel projectAdapter;
 
     @objid ("7d5357f1-3adc-11e2-916e-002564c97630")
-    public  AddLocalLibraryDialog(final Shell parentShell, final ProjectModel projectAdapter) {
+    public AddLocalLibraryDialog(final Shell parentShell, final ProjectModel projectAdapter) {
         super(parentShell);
         this.projectAdapter = projectAdapter;
         this.existingFragmentIds = projectAdapter.getFragmentIdList();
-        
+
     }
 
     @objid ("7d5357f4-3adc-11e2-916e-002564c97630")
@@ -114,14 +114,14 @@ public final class AddLocalLibraryDialog extends ModelioDialog {
         layout.verticalSpacing = 1;
         this.area.setLayout(layout);
         this.area.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-        
-        
+
+
         // fragment type-specific panel
         this.panel = new RamcFragmentPanel(this.area, SWT.NONE);
         final GridData gd1 = new GridData(SWT.FILL, SWT.FILL, true, false);
         // gd1.horizontalSpan = 2;
         this.panel.setLayoutData(gd1);
-        
+
         // fragment properties composite
         final Group parametersGroup = new Group(this.area, SWT.NONE);
         parametersGroup.setText(AppProjectConfExt.I18N.getString("AddLocalLibraryDialog.Panel.title")); //$NON-NLS-1$
@@ -144,7 +144,7 @@ public final class AddLocalLibraryDialog extends ModelioDialog {
         createButton(parent, Window.CANCEL, IDialogConstants.CANCEL_LABEL, true);
         this.addBtn = createButton(parent, Window.OK, AppProjectConfExt.I18N.getString("AddLocalLibraryDialog.AddFragment"), true); //$NON-NLS-1$
         this.addBtn.setEnabled(false);
-        
+
     }
 
     @objid ("7d5357fe-3adc-11e2-916e-002564c97630")
@@ -154,11 +154,11 @@ public final class AddLocalLibraryDialog extends ModelioDialog {
         setTitle(AppProjectConfExt.I18N.getString("AddLocalLibraryDialog.Title")); //$NON-NLS-1$
         setMessage(AppProjectConfExt.I18N.getString("AddLocalLibraryDialog.Message")); //$NON-NLS-1$
         final Point parentLocation = getShell().getParent().getLocation();
-        
+
         getShell().setLocation(parentLocation.x + 100, parentLocation.y + 100);
         getShell().setSize(600, 700);
         getShell().setMinimumSize(600, 700);
-        
+
     }
 
     @objid ("7d535807-3adc-11e2-916e-002564c97630")
@@ -185,9 +185,9 @@ public final class AddLocalLibraryDialog extends ModelioDialog {
                     e.getLocalizedMessage()));
             return;
         }
-        
+
         super.okPressed();
-        
+
     }
 
     @objid ("7d53580a-3adc-11e2-916e-002564c97630")
@@ -208,7 +208,7 @@ public final class AddLocalLibraryDialog extends ModelioDialog {
             this.propertyComposite.refresh();
         }
         this.area.layout();
-        
+
     }
 
     @objid ("6fc7d5f2-6ed1-4536-8ec3-a49322fe7587")
@@ -236,7 +236,7 @@ public final class AddLocalLibraryDialog extends ModelioDialog {
                 setErrorMessage(AppProjectConfExt.I18N.getMessage("AddLocalLibraryDialog.ErrorMessage.AlreadyExist", fragmentId));
             }
         }
-        
+
         if (valid) {
             this.addBtn.setEnabled(true);
             this.panel.text.setForeground(this.panel.text.getDisplay().getSystemColor(SWT.COLOR_DARK_GREEN));
@@ -245,7 +245,7 @@ public final class AddLocalLibraryDialog extends ModelioDialog {
             this.addBtn.setEnabled(false);
             this.panel.text.setForeground(this.panel.text.getDisplay().getSystemColor(SWT.COLOR_RED));
         }
-        
+
     }
 
     @objid ("12aade3b-8453-4487-b8b1-d59d97e7b334")
@@ -264,33 +264,34 @@ public final class AddLocalLibraryDialog extends ModelioDialog {
 
         /**
          * Initialize the panel.
+         *
          * @param parent the parent composite.
          * @param style the style of widget to construct
          */
         @objid ("7d55b965-3adc-11e2-916e-002564c97630")
-        public  RamcFragmentPanel(final Composite parent, final int style) {
+        public RamcFragmentPanel(final Composite parent, final int style) {
             super(parent, style);
-            
+
             createContents(this);
-            
+
         }
 
         @objid ("7d55b96e-3adc-11e2-916e-002564c97630")
         private void createContents(final Composite parent) {
             final GridLayout layout = new GridLayout(3, false);
             setLayout(layout);
-            
+
             final Label label = new Label(this, SWT.NONE);
             label.setText(AppProjectConfExt.I18N.getString("AddLocalLibraryDialog.Panel.label")); //$NON-NLS-1$
-            
+
             this.text = new Text(this, SWT.BORDER);
             this.text.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-            
+
             final Button button = new Button(this, SWT.PUSH);
             button.setImage(UIImages.FILECHOOSE);
-            
+
             button.addSelectionListener(new SelectionListener() {
-            
+
                 @Override
                 public void widgetSelected(final SelectionEvent e) {
                     final FileDialog fd = new FileDialog(getShell(), SWT.OPEN);
@@ -305,12 +306,12 @@ public final class AddLocalLibraryDialog extends ModelioDialog {
                         isFragmentValid();
                     }
                 }
-            
+
                 @Override
                 public void widgetDefaultSelected(final SelectionEvent e) {
                     // nothing to do
                 }
-            
+
             });
             setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
             return;

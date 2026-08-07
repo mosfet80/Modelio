@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.mmextensions.standard.migration;
 
@@ -50,7 +50,7 @@ import org.modelio.vcore.smkernel.meta.mof.MofMetamodel;
 /**
  * Migration provider for the standard metamodel (,Analyst , Infrastructure and impact before 3.6).
  * <p>
- * 
+ *
  * @author cma
  * @since 3.6
  */
@@ -76,9 +76,9 @@ public class StandardMmMigrationProvider implements IMofRepositoryMigratorProvid
 
     @objid ("cf9e4a6f-afa5-49f6-88d3-1a6b3535265c")
     @Override
-    public IMofRepositoryMigrator getMigrator(MetamodelVersionDescriptor fromMetamodel, MetamodelVersionDescriptor toMetamodel) {
+    public IMofRepositoryMigrator getMigrator(MetamodelVersionDescriptor fromMetamodel, MetamodelVersionDescriptor targetMetamodel) {
         Version fromVersion = fromMetamodel.getVersion(StandardMetamodel.NAME);
-        
+
         if (fromVersion == null) {
             // standard metamodel absent, we are not involved
             return null;
@@ -87,6 +87,7 @@ public class StandardMmMigrationProvider implements IMofRepositoryMigratorProvid
             return null;
         } else if (LASTSTANDARDVERSION.isNewerBuildOf(fromVersion)) {
             // Older but build compatible
+
             return new NoopMofRepositoryMigrator(fromMetamodel, fromMetamodel
                     .copy()
                     .put(StandardMetamodel.NAME, LASTSTANDARDVERSION));
@@ -115,7 +116,7 @@ public class StandardMmMigrationProvider implements IMofRepositoryMigratorProvid
             Log.error(new IllegalStateException(String.format("No migrator to migrate from %s v%s to v%s ", StandardMetamodel.NAME, fromVersion, LASTSTANDARDVERSION)));
             return null;
         } else {
-        
+
             if (fromVersion.isNewerOrSameThan(MODELIO35X_MM9022)) {
                 // Migrate to 3.6
                 return new StandardMm9022Migrator(fromMetamodel, fromMetamodel
@@ -123,34 +124,36 @@ public class StandardMmMigrationProvider implements IMofRepositoryMigratorProvid
                         .put(StandardMetamodel.NAME, MODELIO36X_MM200)
                         .put(InfrastructureMetamodel.NAME, MODELIO36X_MM200)
                         .put("Analyst", MODELIO36X_MM200));
-        
+
             } else if (fromVersion.isNewerOrSameThan(new Version(1, 0, 9016))) {
                 /*
                  * Migrate to 9022 (Modelio 3.2): # BusinessRule, Goal, Requirement, Term, GenericAnalystElement are now CMS nodes
                  */
-                return new BasicMigrator(fromMetamodel,
-                        fromMetamodel
-                                .copy()
-                                .put(StandardMetamodel.NAME, MODELIO35X_MM9022)).setMetamodelChanges(
-                                        new MetamodelChangeDescriptor()
-                                                .newCmsNode(StandardMetamodel.NAME, "BusinessRule")
-                                                .newCmsNode(StandardMetamodel.NAME, "Goal")
-                                                .newCmsNode(StandardMetamodel.NAME, "Requirement")
-                                                .newCmsNode(StandardMetamodel.NAME, "Term")
-                                                .newCmsNode(StandardMetamodel.NAME, "GenericAnalystElement"));
+
+                MetamodelChangeDescriptor mmChangeDesc = new MetamodelChangeDescriptor()
+                        .newCmsNode(StandardMetamodel.NAME, "BusinessRule")
+                        .newCmsNode(StandardMetamodel.NAME, "Goal")
+                        .newCmsNode(StandardMetamodel.NAME, "Requirement")
+                        .newCmsNode(StandardMetamodel.NAME, "Term")
+                        .newCmsNode(StandardMetamodel.NAME, "GenericAnalystElement");
+                MetamodelVersionDescriptor toMm = fromMetamodel
+                        .copy()
+                        .put(StandardMetamodel.NAME, MODELIO35X_MM9022);
+
+                return new BasicMigrator(fromMetamodel, toMm).setMetamodelChanges(mmChangeDesc);
             } else {
                 // older: Not supported, a migrator is probably missing here
                 Log.trace("No migrator to migrate from %s v%s to v%s ", StandardMetamodel.NAME, fromVersion, LASTSTANDARDVERSION);
                 return null;
             }
         }
-        
+
     }
 
     @objid ("46379912-9c7d-458c-b35a-bece4192d919")
     public static MetamodelDescriptor loadMetamodel(MetamodelVersionDescriptor fromMetamodel) throws MofMigrationException {
         Version fromVersion = fromMetamodel.getVersion(StandardMetamodel.NAME);
-        
+
         // The version to load is the same or next version for which we have a descriptor file.
         Version toLoad = Stream.of("1.0.9017", "1.0.9018", "1.0.9019", "1.0.9020", "1.0.9021", "1.0.9022", "1.0.9023", "1.0.9024", "1.0.9025", "1.1.00", "2.0.00")
                 .map(s -> new Version(s))
@@ -158,20 +161,20 @@ public class StandardMmMigrationProvider implements IMofRepositoryMigratorProvid
                 .filter(v -> v.isOlderOrSameThan(fromVersion))
                 .findFirst()
                 .orElseThrow(() -> new MofMigrationException(String.format("No metamodel descriptor for version '%s'", fromVersion)));
-        
+
         String path = "/migration/metamodel_" + toLoad.toString() + ".xml";
         try (InputStream is = StandardMmMigrationProvider.class.getResourceAsStream(path)) {
             return MetamodelDescriptorReader.readFrom(is, path);
         } catch (IOException e) {
             throw new MofMigrationException(FileUtils.getLocalizedMessage(e), e);
         }
-        
+
     }
 
     @objid ("09d28a33-fe45-4750-ab4b-e226b68fc98b")
     private static class BasicMigrator extends AbstractMofRepositoryMigrator {
         @objid ("7a174947-d8eb-480d-810f-77283b909351")
-        public  BasicMigrator(MetamodelVersionDescriptor fromMetamodel, MetamodelVersionDescriptor targetMetamodel) {
+        public BasicMigrator(MetamodelVersionDescriptor fromMetamodel, MetamodelVersionDescriptor targetMetamodel) {
             super(fromMetamodel, targetMetamodel);
         }
 
@@ -179,16 +182,17 @@ public class StandardMmMigrationProvider implements IMofRepositoryMigratorProvid
         @Override
         public void prepareMetamodel(MofMetamodel metamodel) throws MofMigrationException {
             super.prepareMetamodel(metamodel);
-            
+
             MetamodelDescriptor srcMmDesc = loadMetamodel(getSourceMetamodel());
             // loadCmsNodeChanges(metamodel, srcMmDesc);
-            
+
             metamodel.merge(srcMmDesc);
-            
+
         }
 
         /**
          * Scan metamodel to look for CMS node metaclass differences.
+         *
          * @param metamodel the prepared metamodel
          * @param srcMmDesc the source metamodel descriptor
          * @deprecated Experimental begin of implementation
@@ -198,11 +202,11 @@ public class StandardMmMigrationProvider implements IMofRepositoryMigratorProvid
         private void loadCmsNodeChanges(MofMetamodel metamodel, MetamodelDescriptor srcMmDesc) {
             MetamodelChangeDescriptor changes = new MetamodelChangeDescriptor();
             // Map<String, MClassDescriptor> oldClasses = new HashMap<>();
-            
+
             for (MetamodelFragmentDescriptor fd : srcMmDesc.getFragments().values()) {
                 for (MClassDescriptor md : fd.getMetaclasses()) {
                     // oldClasses.put(fd.getName()+"."+md.getName(), md);
-            
+
                     SmClass existingMc = metamodel.getMClass(fd.getName() + "." + md.getName());
                     if (existingMc == null) {
                         changes.addClass(fd.getName(), md.getName());
@@ -211,9 +215,9 @@ public class StandardMmMigrationProvider implements IMofRepositoryMigratorProvid
                         }
                     }
                 }
-            
+
             }
-            
+
         }
 
     }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.swt.labelprovider;
 
@@ -25,10 +25,8 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * A Typed container for the model browser used to organize the browser contents out of the model composition standard form (ie artificially grouping elements)
- * 
- * 
+ *
  * @param <T>
- * 
  * @Since 3.8 the returned owner is an <code>java.lang.Object</code> instead of a <code>MObject</code> for more versability of the interface.
  */
 @objid ("010c8a6a-b90d-4f47-9c30-4540db2a10df")
@@ -44,5 +42,5 @@ public interface IModelContainer<T> {
 
     @objid ("c561fed5-8677-4479-a27c-de0840e0064d")
     List<T> getContents();
-}
 
+}

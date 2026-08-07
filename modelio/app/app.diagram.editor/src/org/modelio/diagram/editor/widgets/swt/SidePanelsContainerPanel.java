@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.diagram.editor.widgets.swt;
 
@@ -45,6 +64,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Sash;
+import org.modelio.platform.ui.UIColor;
 import org.modelio.platform.ui.UIFont;
 import org.modelio.platform.ui.panel.IPanelProvider;
 
@@ -52,37 +72,37 @@ import org.modelio.platform.ui.panel.IPanelProvider;
  * Panel containing a main panel and side panels that are resizeable with sashes.
  * <p>
  * A side panel may also be collapsed.
- * 
+ *
  * @author cma
  * @since 3.7
  */
 @objid ("ce1ef6b8-5e36-4f9d-a871-0d320d615b78")
 public class SidePanelsContainerPanel {
-    @objid ("29ec8c2e-53e0-4670-9937-7ed9f4e7a148")
+    @objid ("ff298f25-5416-4c69-b4aa-bf6c339f723b")
     private final Composite container;
 
-    @objid ("9909d946-c83a-4356-97cf-06fb63af2120")
+    @objid ("ab788639-9d6d-46f6-8cdd-c81a08e5c401")
     private final Composite mainPanel;
 
     @objid ("1152a5d2-c745-4ff3-8b9a-a2f05662de4a")
     private final List<FlyoutHolder> rightPanels;
 
     @objid ("8d020341-d196-4237-9102-1f9d000ac75b")
-    public  SidePanelsContainerPanel(Composite parent) {
+    public SidePanelsContainerPanel(Composite parent) {
         this.container = new Composite(parent, SWT.NONE);
         this.container.setLayout(new LLayout());
-        
+
         this.mainPanel = new Composite(this.container, SWT.NONE);
         this.mainPanel.setLayout(new FillLayout());
-        
+
         this.rightPanels = new ArrayList<>(3);
-        
     }
 
     /**
      * Get the main panel composite.
      * <p>
      * This composite is never collapsed.
+     *
      * @return the main panel.
      */
     @objid ("d4efd66f-f8ab-45bf-bd35-99fcc376041c")
@@ -92,6 +112,7 @@ public class SidePanelsContainerPanel {
 
     /**
      * Add a lateral panel.
+     *
      * @param panel the panel provider
      * @param title the panel title
      * @param icon an optional icon
@@ -100,11 +121,11 @@ public class SidePanelsContainerPanel {
     public void addFlyout(IPanelProvider panel, String title, Image icon) {
         FlyoutHolder holder = new FlyoutHolder(this.container, title, icon);
         panel.createPanel(holder.getClientComposite());
-        
+
         this.rightPanels.add(holder);
-        
+
         setHolderCollapsed(holder);
-        
+
         Listener listener = ev -> {
             switch (holder.getState()) {
             case collapsed:
@@ -119,20 +140,20 @@ public class SidePanelsContainerPanel {
                 break;
             default:
                 break;
-        
+
             }
-        
+
         };
         holder.getExpandButton().addListener(SWT.Selection, listener);
-        
+
         holder.getTitleBar().addMouseListener(new MouseAdapter() {
             boolean clicked;
-        
+
             @Override
             public void mouseDown(MouseEvent e) {
                 this.clicked = true;
             }
-        
+
             @Override
             public void mouseUp(MouseEvent e) {
                 if (this.clicked && e.widget == holder.getTitleBar()) {
@@ -141,13 +162,13 @@ public class SidePanelsContainerPanel {
                 this.clicked = false;
             }
         });
-        
+
         holder.getSash().addListener(SWT.Selection, ev -> onSashDragged(ev, holder));
-        
     }
 
     /**
      * Listener method called when dragging {@link Sash}.
+     *
      * @param event the drag event
      * @param holder the resized side pane.
      */
@@ -159,7 +180,6 @@ public class SidePanelsContainerPanel {
         d.width += shift;
         this.container.layout(true);
         holder.layout();
-        
     }
 
     @objid ("b6483945-3d06-46bd-ae3d-d95d8aae8042")
@@ -167,27 +187,24 @@ public class SidePanelsContainerPanel {
         if (holder.getState() == FlyoutState.collapsed) {
             setHolderExpanded(holder);
         }
-        
     }
 
     @objid ("22eb7cb1-e713-497c-a41b-fa42e848f147")
     private void setHolderCollapsed(FlyoutHolder holder) {
         holder.setState(FlyoutState.collapsed);
         this.container.layout(true);
-        
     }
 
     @objid ("e2d6a203-7853-46c3-a0d2-622317ace920")
     private void setHolderExpanded(FlyoutHolder holder) {
         holder.setState(FlyoutState.expanded);
         this.container.layout(true);
-        
     }
 
     @objid ("93afe354-680c-4307-bbc7-a6a4731ce645")
     private void onMouseExitFlyout(FlyoutHolder holder) {
-        Display display = getDisplay();
-        
+        final Display display = getDisplay();
+
         if (holder.getState() == FlyoutState.expanded) {
             display.timerExec(1000, new Runnable() {
                 @Override
@@ -208,7 +225,6 @@ public class SidePanelsContainerPanel {
                 }
             });
         }
-        
     }
 
     @objid ("a9fe8ad2-fc34-4ba1-aca7-61973821bbf1")
@@ -225,7 +241,7 @@ public class SidePanelsContainerPanel {
      * Layout manager for {@link SidePanelsContainerPanel}.
      * <p>
      * Layout the main panel, side panels and their {@link Sash}. Each side panels size is stored in {@link RowData} layout data. The main panel takes the remaining space.
-     * 
+     *
      * @author cma
      * @since 3.7
      */
@@ -238,7 +254,7 @@ public class SidePanelsContainerPanel {
             Point size = new Point(mainSize.x, mainSize.y);
             for (FlyoutHolder panel : SidePanelsContainerPanel.this.rightPanels) {
                 Point ps = panel.computeSize(-1, hHint, flushCache);
-            
+
                 if (panel.isOpen()) {
                     RowData d = (RowData) panel.getLayoutData();
                     if (d != null) {
@@ -247,14 +263,14 @@ public class SidePanelsContainerPanel {
                 } else {
                     ps.x = panel.getExpandButton().computeSize(wHint, hHint).x;
                 }
-            
+
                 size.x += ps.x;
                 size.y = Math.max(size.y, ps.y);
-            
+
                 // int sashWidth = 3;
                 Sash panelSash = panel.getSash();
                 int sashWidth = panelSash.computeSize(-1, hHint).x;
-            
+
                 size.x = +sashWidth;
             }
             size.x += composite.getBorderWidth();
@@ -283,21 +299,20 @@ public class SidePanelsContainerPanel {
                         panel.setLayoutData(new RowData(panelW, 0));
                     }
                 } else {
-                    panelW = panel.getExpandButton().computeSize(-1, -1).x;
+                    panelW = 24;
                 }
-            
+
                 Rectangle cbounds = new Rectangle(x - panelW, area.y, panelW, area.height);
                 panel.setBounds(cbounds);
                 x -= panelW;
-            
+
                 Sash panelSash = panel.getSash();
                 int sashWidth = panelSash.computeSize(-1, area.height).x;
                 panelSash.setBounds(x - sashWidth, 0, 3, area.height);
                 x -= sashWidth;
             }
-            
+
             SidePanelsContainerPanel.this.mainPanel.setBounds(area.x, area.y, x, area.height - 1);
-            
         }
 
     }
@@ -315,60 +330,59 @@ public class SidePanelsContainerPanel {
 
     @objid ("a01f107d-1afd-422c-80fa-df807dbac6a6")
     private static class FlyoutHolder extends Composite {
-        @objid ("be013111-95b6-4fb0-802e-1f52b23dba3f")
-        private FlyoutState state;
-
         @objid ("aff82137-bd2d-436a-ab21-35ce02faa587")
         private String title;
 
         @objid ("ef7408a2-2af5-4445-adb5-4935bbd475ce")
         private int expandButtonSizeHint;
 
-        @objid ("8c31bdb9-8469-4700-b2af-e4d161c0a410")
+        @objid ("be013111-95b6-4fb0-802e-1f52b23dba3f")
+        private FlyoutState state;
+
+        @objid ("785fd91a-269a-4927-802b-d1ba4012bbcd")
         private final Composite titleBar;
 
-        @objid ("ab26b050-3120-4114-8ceb-9a03d44cf63d")
+        @objid ("a24509e0-bb4e-4a47-bdcc-222a0d1d4485")
         private final Composite clientPane;
 
-        @objid ("ac0b73dd-b529-4dd2-a8c0-6d371b3d5dc7")
+        @objid ("036d23fd-b3fb-4cc1-a891-c79e6d699d83")
         private Sash sash;
 
         @objid ("ccbd31b8-d857-4ca4-84c6-0d0889feb56d")
         private ArrowButtonCanvas expandButton2;
 
         @objid ("5bab66ec-587c-44b8-b825-6692ac2f3e0a")
-        public  FlyoutHolder(Composite parent, String title, Image icon) {
+        public FlyoutHolder(Composite parent, String title, Image icon) {
             super(parent, SWT.NONE);
             this.state = FlyoutState.pinned;
             this.title = title;
-            
+
             GridLayoutFactory layoutFactory = GridLayoutFactory.fillDefaults().spacing(0, 2);
             layoutFactory.applyTo(this);
-            
+
             // sash : created , owned and handled by the PARENT
             this.sash = new Sash(parent, SWT.VERTICAL);
-            
+
             this.titleBar = new Composite(this, SWT.NONE);
             GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER).applyTo(this.titleBar);
             layoutFactory.spacing(3, 0).numColumns(3).applyTo(this.titleBar);
             this.titleBar.addListener(SWT.Paint, ev -> drawTitleBackground(ev.gc, this.titleBar));
-            
-            
-            setFont(UIFont.SMALL);
-            
+
+
+            setFont(UIFont.XLARGEB);
+
             this.expandButton2 = new ArrowButtonCanvas(this.titleBar);
             this.expandButton2.setDirection(PositionConstants.WEST);
-            
-            this.expandButtonSizeHint = 14;
+
+            this.expandButtonSizeHint = 24;
             GridDataFactory.swtDefaults()
                     .hint(this.expandButtonSizeHint, this.expandButtonSizeHint)
                     .applyTo(this.expandButton2);
-            
+
             // client pane
             this.clientPane = new Composite(this, SWT.NONE);
             GridDataFactory.fillDefaults().grab(true, true).applyTo(this.clientPane);
             this.clientPane.setLayout(new FillLayout());
-            
         }
 
         @objid ("0bad5a3e-7cd9-4bd9-8ca4-77eb322a8673")
@@ -384,7 +398,6 @@ public class SidePanelsContainerPanel {
                         .grab(true, true)
                         .applyTo(this.titleBar);
             }
-            
         }
 
         @objid ("931422ab-801a-4fbc-a537-7df5e863f5d1")
@@ -394,46 +407,42 @@ public class SidePanelsContainerPanel {
             int y = bounds.y;
             int width = bounds.width;
             int height = bounds.height;
-            
+
             Device display = gc.getDevice();
             Color backColor;
             Color backGradientColor;
             Color titleColor;
             if (isOpen()) {
-                // backColor = display.getSystemColor (SWT.COLOR_TITLE_BACKGROUND);
-                // backGradientColor = display.getSystemColor (SWT.COLOR_TITLE_BACKGROUND_GRADIENT);
-                backColor = display.getSystemColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND);
-                backGradientColor = display.getSystemColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT);
-                titleColor = display.getSystemColor(SWT.COLOR_WIDGET_FOREGROUND);
+                backColor = UIColor.COBALT_BACKGROUND; //display.getSystemColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND);
+                backGradientColor = UIColor.COBALT_BACKGROUND; //display.getSystemColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT);
+                titleColor = UIColor.COBALT_FOREGROUND ; //display.getSystemColor(SWT.COLOR_WIDGET_FOREGROUND);
             } else {
-                backColor = display.getSystemColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND);
-                backGradientColor = display.getSystemColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT);
-                titleColor = display.getSystemColor(SWT.COLOR_WIDGET_FOREGROUND);
-                // backColor = display.getSystemColor (SWT.COLOR_TITLE_BACKGROUND);
-                // backGradientColor = display.getSystemColor (SWT.COLOR_TITLE_BACKGROUND_GRADIENT);
-                // titleColor = display.getSystemColor (SWT.COLOR_TITLE_INACTIVE_FOREGROUND);
+                backColor = UIColor.COBALT_BACKGROUND; // display.getSystemColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND);
+                backGradientColor = UIColor.COBALT_BACKGROUND;  //display.getSystemColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT);
+                titleColor = UIColor.COBALT_FOREGROUND; // display.getSystemColor(SWT.COLOR_INFO_FOREGROUND);
             }
-            
+
             gc.setForeground(backColor);
             gc.setBackground(backGradientColor);
             gc.fillGradientRectangle(x, y, width, height, isOpen());
-            
+
             if (!isOpen()) {
                 Point btSize = getExpandButton().getSize();
                 Transform t = new Transform(display);
-                t.translate(btSize.x, btSize.y + 5);
+                t.translate(btSize.x, btSize.y + 10);
                 t.rotate(90);
                 gc.setTransform(t);
                 gc.setFont(getFont());
                 gc.setForeground(titleColor);
                 gc.drawText(this.title, 0, 0, true);
+                gc.setTransform(null);
+                t.dispose();
             } else {
                 Point btSize = getExpandButton().getSize();
                 gc.setForeground(titleColor);
                 gc.setFont(getFont());
                 gc.drawText(this.title, btSize.x + 5, 0, true);
             }
-            
         }
 
         @objid ("57ddbacc-524e-4abf-b97a-4d876bc401d8")
@@ -461,7 +470,6 @@ public class SidePanelsContainerPanel {
             default:
                 return true;
             }
-            
         }
 
         @objid ("9c964668-9467-473f-90fb-8dcd0638742e")
@@ -485,9 +493,8 @@ public class SidePanelsContainerPanel {
                 this.sash.setVisible(true);
                 break;
             }
-            
+
             updatePanelLayout(!isOpen());
-            
         }
 
         @objid ("0b92044c-698e-4703-8d6e-b63f67859d00")
@@ -497,6 +504,7 @@ public class SidePanelsContainerPanel {
 
         /**
          * Return the client area.
+         *
          * @return the panel that contain client SWT component.
          */
         @objid ("3aea081e-dd52-4c85-b762-0bbeebfc3e62")
@@ -509,7 +517,6 @@ public class SidePanelsContainerPanel {
         public String toString() {
             return getClass().getSimpleName() + "[state=" + this.state + ", layout=" +
                     getLayoutData() + "]";
-            
         }
 
     }

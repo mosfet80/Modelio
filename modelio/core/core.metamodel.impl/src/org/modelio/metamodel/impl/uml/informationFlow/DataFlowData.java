@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.informationFlow;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -31,20 +30,20 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 
 @objid ("0064a956-c4bf-1fd8-97fe-001ec947cd2a")
 public class DataFlowData extends UmlModelElementData {
-    @objid ("a40a4f51-4fdc-4412-ab5f-3827b7345afe")
+    @objid ("576094c5-faa6-47ee-a0c6-fba2ba4d0a2d")
     SmObjectImpl mDestination;
 
-    @objid ("263628a1-c0b2-4b95-8d22-f7af2c000d49")
+    @objid ("a35c6c4a-1aeb-4c3a-a9f5-eca42d022973")
     SmObjectImpl mOrigin;
 
-    @objid ("147bbe12-36d8-40e5-88e8-0f33f5f9600d")
+    @objid ("f66e57a9-b6d2-4261-94c9-e61ed935e511")
     SmObjectImpl mOwner;
 
-    @objid ("65b9e056-5de3-475c-a566-581a4f6e5dea")
+    @objid ("02766e9b-4a0c-4314-b17d-00688ea24d50")
     SmObjectImpl mSModel;
 
-    @objid ("32a0abee-b736-426b-9b4a-93a499b5fd9b")
-    public  DataFlowData(DataFlowSmClass smClass) {
+    @objid ("e0a9fa27-83de-4d13-ac9d-b02fbda0fba5")
+    public DataFlowData(DataFlowSmClass smClass) {
         super(smClass);
     }
 

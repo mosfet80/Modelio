@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -50,7 +50,7 @@ public class R1830 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -71,7 +71,7 @@ public class R1830 extends AbstractUmlRule {
         plan.registerRule(Message.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -105,14 +105,14 @@ public class R1830 extends AbstractUmlRule {
      * Default constructor for R1830
      */
     @objid ("c8722529-eb42-4b2c-8e5d-61513b1143a7")
-    public  R1830() {
+    public R1830() {
         this.checkerInstance = new CheckR1830(this);
     }
 
     @objid ("02c14873-95a9-4400-ab46-c3b8b88d9e7b")
     private static class CheckR1830 extends AbstractControl {
         @objid ("f0e667f4-6550-4ed9-bbfb-f0a402703465")
-        public  CheckR1830(IRule rule) {
+        public CheckR1830(IRule rule) {
             super(rule);
         }
 
@@ -131,7 +131,7 @@ public class R1830 extends AbstractUmlRule {
                             diagnostic.addEntry(checkR1830(partDecomposition));
                         }
                     }
-            
+
                 }
             } else if (element instanceof PartDecomposition) {
                 diagnostic.addEntry(checkR1830((PartDecomposition) element));
@@ -145,7 +145,7 @@ public class R1830 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     partDecomposition,
                     null);
-            
+
             for (MessageEnd messageEnd : partDecomposition.getDecomposed()
                     .getCoveredBy(MessageEnd.class)) {
                 Message receivedMessage = messageEnd.getReceivedMessage();
@@ -153,9 +153,9 @@ public class R1830 extends AbstractUmlRule {
                     MessageSort sort = receivedMessage.getSortOfMessage();
                     if (sort.equals(MessageSort.CREATEMESSAGE) ||
                             sort.equals(MessageSort.DESTROYMESSAGE)) {
-            
+
                         // Rule failed
-            
+
                         auditEntry.setSeverity(this.rule.getSeverity());
                         auditEntry.setLinkedInfos(Arrays.asList(partDecomposition, receivedMessage));
                     }

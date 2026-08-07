@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.diagramauto.diagram.creator;
 
@@ -80,7 +80,7 @@ public class ClassStructureDiagramTemplate extends AbstractDiagramTemplate {
      * Mandatory default c'tor needed by eclipse when loading the extension point.
      */
     @objid ("bb8cc562-0dc4-4705-9397-26f54eeac028")
-    public  ClassStructureDiagramTemplate() {
+    public ClassStructureDiagramTemplate() {
         super();
         this._topDgs = new ArrayList<>();
         this._bottomDgs = new ArrayList<>();
@@ -88,7 +88,7 @@ public class ClassStructureDiagramTemplate extends AbstractDiagramTemplate {
         this._rightDgs = new ArrayList<>();
         this._reflexiveLinksDgs = new ArrayList<>();
         this._unmasker = new NodeRollingUnmasker();
-        
+
     }
 
     @objid ("98fb4d8c-f14d-42fa-b81c-ce34186320dd")
@@ -109,19 +109,19 @@ public class ClassStructureDiagramTemplate extends AbstractDiagramTemplate {
         // Get rid of dumb case
         if (!(main instanceof Classifier))
             return;
-        
+
         Classifier classifier = (Classifier) main;
-        
+
         // Reset
         reset();
-        
+
         // the main element
         this._mainDG = this._unmasker.unmask(dh, classifier, 100, 100);
         if (this._mainDG != null) {
             this._mainDG.setRepresentationMode(1);
             initStyle(classifier, classifier, this._mainDG);
         }
-        
+
         // Unmask generalizations nodes
         for (Generalization g : classifier.getParent()) {
             // Unmask parent node
@@ -133,7 +133,7 @@ public class ClassStructureDiagramTemplate extends AbstractDiagramTemplate {
                 this._topDgs.add(node);
             }
         }
-        
+
         // Unmask realizations nodes
         for (InterfaceRealization ir : classifier.getRealized()) {
             // Unmask parent node
@@ -145,10 +145,10 @@ public class ClassStructureDiagramTemplate extends AbstractDiagramTemplate {
                 this._topDgs.add(node);
             }
         }
-        
+
         // unmask left nodes (incoming links)
         for (AssociationEnd a : classifier.getTargetingEnd()) {
-        
+
             if (a.getAggregation() != AggregationKind.KINDISASSOCIATION) {
                 Classifier source = a.getSource();
                 // Unmask left node
@@ -163,7 +163,7 @@ public class ClassStructureDiagramTemplate extends AbstractDiagramTemplate {
                 }
             }
         }
-        
+
         // unmask right nodes (outgoing links)
         for (AssociationEnd a : classifier.getOwnedEnd()) {
             AssociationEnd other = a.getOpposite();
@@ -176,14 +176,14 @@ public class ClassStructureDiagramTemplate extends AbstractDiagramTemplate {
                     if (node != null) {
                         // Add intern/extern style
                         initStyle(classifier, owner, node);
-        
+
                         this._rightDgs.add(node);
                     }
                 }
             }
-        
+
         }
-        
+
         // remove all inner elements from the diagram
         for (IDiagramNode innerNode : this._mainDG.getNodes()) {
             this._topDgs.remove(innerNode);
@@ -192,14 +192,14 @@ public class ClassStructureDiagramTemplate extends AbstractDiagramTemplate {
             this._rightDgs.remove(innerNode);
             innerNode.mask();
         }
-        
+
         // unmask attributes
         for (Attribute att : classifier.getOwnedAttribute()) {
             if (att.getVisibility() == VisibilityMode.PUBLIC || att.getChangeable() != KindOfAccess.ACCESNONE) {
                 dh.unmask(att, 0, 0);
             }
         }
-        
+
     }
 
     @objid ("1f13dec7-1609-49e7-9ce0-8599f7df529e")
@@ -213,7 +213,7 @@ public class ClassStructureDiagramTemplate extends AbstractDiagramTemplate {
         } else {
             node.setStyle(new DiagramStyleHandle(DiagramStyles.getStyleManager().getStyle(DiagramStyles.EXTERN_STYLE_NAME)));
         }
-        
+
     }
 
     @objid ("fa5e18d9-ed2a-44dc-855a-d451673e9e8b")
@@ -226,7 +226,7 @@ public class ClassStructureDiagramTemplate extends AbstractDiagramTemplate {
     @objid ("3c8dc91f-6012-4136-8231-21689eeadb7e")
     private ModelTree getOwnerPackage(final ModelTree elt) {
         ModelTree parent = elt.getOwner();
-        
+
         // Take parents for Inner elements
         while ((parent != null)) {
             if (parent instanceof Package) {
@@ -264,7 +264,7 @@ public class ClassStructureDiagramTemplate extends AbstractDiagramTemplate {
         this._rightDgs.clear();
         this._reflexiveLinksDgs.clear();
         this._unmasker = new NodeRollingUnmasker();
-        
+
     }
 
     @objid ("328efe0e-003a-4e15-87a5-a0f49144fae7")
@@ -272,36 +272,36 @@ public class ClassStructureDiagramTemplate extends AbstractDiagramTemplate {
         // Get rid of dumb case
         if (!(main instanceof Classifier))
             return;
-        
+
         Classifier classifier = (Classifier) main;
-        
+
         // unmask generalizations
         for (Generalization g : classifier.getParent()) {
             // Unmask link
             List<IDiagramGraphic> links = dh.unmask(g, 0, 0);
             if (!links.isEmpty()) {
                 IDiagramLink link = (IDiagramLink) links.get(0);
-        
+
                 if (link.getFrom().equals(link.getTo())) {
                     this._reflexiveLinksDgs.add(link);
                 }
             }
         }
-        
+
         // unmask realizations
         for (InterfaceRealization ir : classifier.getRealized()) {
-        
+
             // Unmask link
             List<IDiagramGraphic> links = dh.unmask(ir, 0, 0);
             if (!links.isEmpty()) {
                 IDiagramLink link = (IDiagramLink) links.get(0);
-        
+
                 if (link.getFrom().equals(link.getTo())) {
                     this._reflexiveLinksDgs.add(link);
                 }
             }
         }
-        
+
         // unmask left nodes and links (incoming)
         for (AssociationEnd a : classifier.getTargetingEnd()) {
             // Unmask incoming link
@@ -319,7 +319,7 @@ public class ClassStructureDiagramTemplate extends AbstractDiagramTemplate {
                 }
             }
         }
-        
+
         // unmask right nodes and links (outgoing links)
         for (AssociationEnd a : classifier.getOwnedEnd()) {
             ModelElement other = a.getTarget();
@@ -329,14 +329,14 @@ public class ClassStructureDiagramTemplate extends AbstractDiagramTemplate {
                 List<IDiagramGraphic> links = dh.unmask(a.getAssociation(), 0, 0);
                 if (!links.isEmpty()) {
                     IDiagramLink link = (IDiagramLink) links.get(0);
-        
+
                     if (link.getFrom().equals(link.getTo())) {
                         this._reflexiveLinksDgs.add(link);
                     }
                 }
             }
         }
-        
+
     }
 
     @objid ("be7c36ee-521c-45f0-a480-7193ea7d1b2d")
@@ -345,7 +345,7 @@ public class ClassStructureDiagramTemplate extends AbstractDiagramTemplate {
         // The 'FourGroupNodeLayout' used here implies that the node layout depends on the unmasked links (in order to place the nodes where links can be correctly routed).
         // At this stage the links are not unmasked yet and their DGs not existing,
         // therefore the node layout is postponed to the layoutLinks() call where we are sure that the link DGs are unmasked and accessible.
-        
+
     }
 
     @objid ("6487617e-f437-433b-965e-78b6e5f2ee67")
@@ -361,7 +361,7 @@ public class ClassStructureDiagramTemplate extends AbstractDiagramTemplate {
                 DiagramAuto.LOG.debug(e);
             }
         }
-        
+
     }
 
 }

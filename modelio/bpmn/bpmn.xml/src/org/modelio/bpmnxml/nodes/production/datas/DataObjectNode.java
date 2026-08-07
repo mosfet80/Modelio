@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.datas;
 
@@ -78,12 +78,12 @@ public class DataObjectNode implements IProductionNode<BpmnItemAwareElement, TDa
     @objid ("c33dfe96-e98b-4b2a-ba0f-a114afe0fd62")
     @Override
     public BpmnItemAwareElement createUMLElement(MObject context, TDataObjectReference jaxbElement, BpmnImportFactory factory, boolean keepId) {
-        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {  
+        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {
             return factory.createWithId(BpmnDataObject.class,context,jaxbElement.getId());
         }else{
             return factory.create(BpmnDataObject.class,context);
         }
-        
+
     }
 
     @objid ("ce5d11f9-53aa-49b0-a94a-58d6bc9ce4a5")
@@ -95,7 +95,7 @@ public class DataObjectNode implements IProductionNode<BpmnItemAwareElement, TDa
         } else if (context instanceof BpmnSubProcess) {
             ((BpmnSubProcess) context).getFlowElement().add(modelioElement);
         }
-        
+
         // Group
         if (jaxbElement.getCategoryValueRef() != null) {
             for (QName jaxGroupRef : jaxbElement.getCategoryValueRef()) {
@@ -105,7 +105,7 @@ public class DataObjectNode implements IProductionNode<BpmnItemAwareElement, TDa
                 }
             }
         }
-        
+
         // Set properties
         if (jaxbElement.getName() != null)
             modelioElement.setName(StringConvertor.imports(jaxbElement.getName()));
@@ -117,7 +117,7 @@ public class DataObjectNode implements IProductionNode<BpmnItemAwareElement, TDa
     public TDataObjectReference createJaxbElement(Object context, BpmnItemAwareElement modelioElement) {
         // Create JaxbElement
         TDataObjectReference jaxTask = new TDataObjectReference();
-        
+
         // Add to context
         ObjectFactory factory = new ObjectFactory();
         if (context instanceof TProcess) {
@@ -127,7 +127,7 @@ public class DataObjectNode implements IProductionNode<BpmnItemAwareElement, TDa
             List<JAXBElement<? extends TFlowElement>> jaxContent = ((TSubProcess) context).getFlowElement();
             jaxContent.add(factory.createDataObjectReference(jaxTask));
         }
-        
+
         jaxTask.setId(IDUtils.formatJaxbID(modelioElement));
         return jaxTask;
     }
@@ -136,12 +136,12 @@ public class DataObjectNode implements IProductionNode<BpmnItemAwareElement, TDa
     @Override
     public TDataObjectReference updateJaxbElement(Object context, TDataObjectReference jaxTask, BpmnItemAwareElement modelioElement) {
         jaxTask.setName(modelioElement.getName());
-        
+
         TDataObject jaxDataObject = new TDataObject();
-        
+
         jaxDataObject.setName(modelioElement.getName());
         jaxDataObject.setId("REF-" + IDUtils.formatJaxbID(modelioElement));
-        
+
         // Add to context
         ObjectFactory factory = new ObjectFactory();
         if (context instanceof TProcess) {
@@ -151,7 +151,7 @@ public class DataObjectNode implements IProductionNode<BpmnItemAwareElement, TDa
             List<JAXBElement<? extends TFlowElement>> jaxContent = ((TSubProcess) context).getFlowElement();
             jaxContent.add(0, factory.createDataObject(jaxDataObject));
         }
-        
+
         jaxTask.setDataObjectRef(jaxDataObject);
         return jaxTask;
     }

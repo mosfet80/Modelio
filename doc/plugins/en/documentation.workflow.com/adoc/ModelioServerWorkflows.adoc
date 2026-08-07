@@ -1,0 +1,16 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+// Hightlight code source and add the line number
+:source-highlighter: coderay
+:coderay-linenums-mode: table
+
+= Activation, deployment and authorization management in Modelio Server
+
+From Modelio Server, the project administrator can activate the Workflow features, add workflows and configure the authorizations and notifications on transitions.
+
+*  <<ActivateWorkflowFeature.adoc#,Activate the Workflow features in a Modelio Server project>>
+*  <<AddWorkflowToProject.adoc#,Add a workflow to a Modelio Server project>>
+*  <<NotificationsAndRightsConfiguration.adoc#,Notifications and rights configuration>>

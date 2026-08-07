@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.gateways;
 
 import java.util.ArrayList;
@@ -43,66 +42,66 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("b7157dbd-377c-40c8-8473-97ad79ef088f")
 public class BpmnGatewaySmClass extends BpmnFlowNodeSmClass {
-    @objid ("4ee987ba-71cf-4f42-9c28-f59f928e2aa1")
+    @objid ("e51d17f1-e4d7-4bed-8f65-cebdb3d5df01")
     private SmAttribute gatewayDirectionAtt;
 
-    @objid ("7a04f727-3200-4926-8c7c-1c57c213d138")
-    public  BpmnGatewaySmClass(ISmMetamodelFragment origin) {
+    @objid ("2a20e33e-8646-45ae-88ae-22543fb69051")
+    public BpmnGatewaySmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("1a7cf412-f9ae-4663-86be-55ec296c2c32")
+    @objid ("1aaafae4-01f4-4447-afc0-58175bd91879")
     @Override
     public String getName() {
         return "BpmnGateway";
-        
+
     }
 
-    @objid ("8a5251cf-68b2-433d-89a0-0d8ea08c3346")
+    @objid ("c22590ce-9716-419c-95d1-f187526dbe52")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("143f9a7e-85cb-421d-877e-98f9c951ff17")
+    @objid ("cf3b5972-2d3d-4e27-96d1-e060a28dc7a4")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return BpmnGateway.class;
-        
+
     }
 
-    @objid ("b2aa0495-60b3-479d-9687-30352de55d0c")
+    @objid ("375414f0-2371-4f65-aa76-bf244baa2970")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("f336c7e7-d978-40d5-9cb9-e8864d1daf84")
+    @objid ("129e981c-c527-478f-a8e4-1ed7e7cdf3c5")
     @Override
     public boolean isAbstract() {
         return true;
-        
+
     }
 
-    @objid ("c68ecf77-636e-4691-a1c0-c0fbec8d175e")
+    @objid ("726d4e1f-326b-44ea-9f13-b83f64473d11")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(BpmnFlowNode.MQNAME);
         this.registerFactory(new BpmnGatewayObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
         this.gatewayDirectionAtt = new GatewayDirectionSmAttribute();
         this.gatewayDirectionAtt.init("GatewayDirection", this, BpmnGatewayDirection.class );
         registerAttribute(this.gatewayDirectionAtt);
-        
-        
+
+
         // Initialize and register the SmDependency
-        
+
     }
 
-    @objid ("5c45f2ec-cab3-4d87-bcad-c889bfabcd12")
+    @objid ("a3980a76-a7e9-4b13-a136-18adbda84b35")
     public SmAttribute getGatewayDirectionAtt() {
         if (this.gatewayDirectionAtt == null) {
         	this.gatewayDirectionAtt = this.getAttributeDef("GatewayDirection");
@@ -112,21 +111,21 @@ public class BpmnGatewaySmClass extends BpmnFlowNodeSmClass {
 
     @objid ("eedd07aa-057b-4272-9bb8-e011f7d04534")
     private static class BpmnGatewayObjectFactory implements ISmObjectFactory {
-        @objid ("63bd5c93-a558-4450-b971-3b392eefbc26")
+        @objid ("7032d8d4-e6cc-4f6a-a874-ffcdd7fb44c6")
         private BpmnGatewaySmClass smClass;
 
-        @objid ("8726a9dc-8a62-412c-b1f1-8d3dcf2f7b76")
-        public  BpmnGatewayObjectFactory(BpmnGatewaySmClass smClass) {
+        @objid ("6e180818-c669-462c-8252-e02e77f5128f")
+        public BpmnGatewayObjectFactory(BpmnGatewaySmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("b381a207-e9a0-4aed-93e7-6a156803e11d")
+        @objid ("41501040-9c5f-4b90-95a4-833051db13d4")
         @Override
         public ISmObjectData createData() {
             throw new UnsupportedOperationException();
         }
 
-        @objid ("87134019-8757-4688-bd4d-2e4ac6bff4ab")
+        @objid ("0eda4a61-a154-4219-b787-b948e2e192fb")
         @Override
         public SmObjectImpl createImpl() {
             throw new UnsupportedOperationException();
@@ -136,12 +135,12 @@ public class BpmnGatewaySmClass extends BpmnFlowNodeSmClass {
 
     @objid ("bd15ebda-c1ed-4eb1-8bc6-a6c4a9f20043")
     public static class GatewayDirectionSmAttribute extends SmAttribute {
-        @objid ("9e3e451d-3404-4237-86ed-c4e6ca1fd579")
+        @objid ("2d8cf591-4d20-45db-8f6f-93e168a24473")
         public Object getValue(ISmObjectData data) {
             return ((BpmnGatewayData) data).mGatewayDirection;
         }
 
-        @objid ("524ec6e3-a255-41dc-a740-a1d1d9e22f7c")
+        @objid ("6d1aa830-1f30-472e-a8b8-a370965e0b89")
         public void setValue(ISmObjectData data, Object value) {
             ((BpmnGatewayData) data).mGatewayDirection = value;
         }

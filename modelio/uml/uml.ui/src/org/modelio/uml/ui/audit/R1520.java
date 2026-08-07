@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -63,7 +63,7 @@ public class R1520 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -83,7 +83,7 @@ public class R1520 extends AbstractUmlRule {
         plan.registerRule(BindableInstance.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.UPDATE |
                 AuditTrigger.MOVE);
-        
+
         // Namespaces.Classifiers
         plan.registerRule(InformationItem.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Artifact.MQNAME, this, AuditTrigger.UPDATE);
@@ -97,7 +97,7 @@ public class R1520 extends AbstractUmlRule {
         plan.registerRule(UseCase.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Node.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Component.MQNAME, this, AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -131,14 +131,14 @@ public class R1520 extends AbstractUmlRule {
      * Default constructor for R1520
      */
     @objid ("35724dbb-a351-4e93-b2ed-5c7445366cc4")
-    public  R1520() {
+    public R1520() {
         this.checkerInstance = new CheckR1520(this);
     }
 
     @objid ("cdc80e2a-a2af-4b4e-9dae-5800ed3f75c5")
     private static class CheckR1520 extends AbstractControl {
         @objid ("65d0d216-362d-467e-97af-5848c1d1d819")
-        public  CheckR1520(IRule rule) {
+        public CheckR1520(IRule rule) {
             super(rule);
         }
 
@@ -167,9 +167,9 @@ public class R1520 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     classifier,
                     null);
-            
+
             Map<String, List<BindableInstance>> duplicates = new HashMap<>();
-            
+
             for (BindableInstance bi : classifier.getInternalStructure()) {
                 String name = bi.getName();
                 if (!duplicates.containsKey(name)) {
@@ -177,12 +177,12 @@ public class R1520 extends AbstractUmlRule {
                 }
                 duplicates.get(bi.getName()).add(bi);
             }
-            
+
             for (Entry<String, List<BindableInstance>> entry : duplicates.entrySet()) {
                 if (entry.getValue().size() > 1) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(classifier);

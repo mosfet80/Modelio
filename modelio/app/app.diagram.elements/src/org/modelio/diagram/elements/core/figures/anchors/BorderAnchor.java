@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures.anchors;
 
@@ -41,12 +41,13 @@ public class BorderAnchor extends AbstractConnectionAnchor {
     private final int offset;
 
     /**
+     *
      * @param owner the node figure
      * @param border the border identifier. Use one {@link PositionConstants} constant.
      * @param offset the offset from the border top or left corner
      */
     @objid ("7f4eef67-1dec-11e2-8cad-001ec947c8cc")
-    public  BorderAnchor(final IFigure owner, final int border, final int offset) {
+    public BorderAnchor(final IFigure owner, final int border, final int offset) {
         super(owner);
         this.border = border;
         if (offset < 0) {
@@ -54,7 +55,7 @@ public class BorderAnchor extends AbstractConnectionAnchor {
         } else {
             this.offset = offset;
         }
-        
+
     }
 
     @objid ("7f4eef79-1dec-11e2-8cad-001ec947c8cc")
@@ -67,36 +68,37 @@ public class BorderAnchor extends AbstractConnectionAnchor {
     @Override
     public Point getReferencePoint() {
         final Rectangle rect = getOwner().getBounds();
-        
+
         Point ret;
-        
+
         switch (this.border) {
             case PositionConstants.NORTH:
                 ret = rect.getTopLeft().translate(this.offset, 0);
-        
+
                 break;
             case PositionConstants.SOUTH:
                 ret = rect.getBottomLeft().translate(this.offset, 0);
                 break;
-        
+
             case PositionConstants.EAST:
                 ret = rect.getTopRight().translate(0, this.offset);
                 break;
-        
+
             case PositionConstants.WEST:
                 ret = rect.getTopLeft().translate(0, this.offset);
                 break;
-        
+
             default:
                 throw new IllegalStateException("Unknow border:" + this.border);
         }
-        
+
         GeomUtils.forcePointInside(ret, rect);
         getOwner().translateToAbsolute(ret);
         return ret;
     }
 
     /**
+     *
      * @return the border constant
      */
     @objid ("7f4eef8b-1dec-11e2-8cad-001ec947c8cc")
@@ -105,6 +107,7 @@ public class BorderAnchor extends AbstractConnectionAnchor {
     }
 
     /**
+     *
      * @return the offset from the border top or left corner
      */
     @objid ("7f4eef8f-1dec-11e2-8cad-001ec947c8cc")
@@ -143,7 +146,7 @@ public class BorderAnchor extends AbstractConnectionAnchor {
                 Direction.fromPositionConstant(this.border, Direction.NONE),
                 this.offset,
                 getReferencePoint());
-        
+
     }
 
 }

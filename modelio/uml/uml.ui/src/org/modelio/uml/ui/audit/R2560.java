@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -48,7 +48,7 @@ public class R2560 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -67,7 +67,7 @@ public class R2560 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         plan.registerRule(Port.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(ProvidedInterface.MQNAME, this, AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -101,14 +101,14 @@ public class R2560 extends AbstractUmlRule {
      * Default constructor for R2560
      */
     @objid ("817d5f59-ab06-4cfb-8afc-c814ae7ebab2")
-    public  R2560() {
+    public R2560() {
         this.checkerInstance = new CheckR2560(this);
     }
 
     @objid ("63c95b27-0715-400c-9cb7-a45caca0b9f6")
     private static class CheckR2560 extends AbstractControl {
         @objid ("de0b8aa7-52b2-455d-8c09-50dba7eb238c")
-        public  CheckR2560(IRule rule) {
+        public CheckR2560(IRule rule) {
             super(rule);
         }
 
@@ -128,17 +128,17 @@ public class R2560 extends AbstractUmlRule {
         @objid ("0f8fd4ab-c855-4334-ad7d-32981a86a9e1")
         private IAuditEntry checkR2560(final Port port) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, port, null);
-            
+
             if (port.isIsBehavior()) {
-            
+
                 for (ProvidedInterface pi : port.getProvided()) {
                     if (!pi.getProvidedElement().isEmpty()) {
                         return auditEntry;
                     }
                 }
-            
+
                 // At this point the rule failed
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(port);

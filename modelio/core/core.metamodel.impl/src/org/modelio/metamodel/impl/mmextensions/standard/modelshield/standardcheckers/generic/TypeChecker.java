@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.mmextensions.standard.modelshield.standardcheckers.generic;
 
@@ -31,12 +31,12 @@ import org.modelio.vcore.smkernel.mapi.modelshield.spi.IChecker;
 /**
  * The TypeChecker checker can control the type of the owner of an object
  * against a list of metaclasses.<br>
- * 
+ *
  * An abstract method that returns the object whose type to check has to be
  * provided:
- * 
+ *
  * MObject getCheckedObject()
- * 
+ *
  * @author phv
  */
 @objid ("00960140-120f-1f6a-b3fb-001ec947cd2a")
@@ -62,24 +62,24 @@ public abstract class TypeChecker implements IChecker {
         if (object == null) {
             return;
         }
-        
+
         MObject checkedObject = getCheckedObject(object);
         if (checkedObject == null) {
             // the rule cannot complain about type when there is no object
             // the responsibility of checking null object is not here
             return;
         }
-        
+
         // The check is based on allowed metaclasses if at least one is defined
         // and on forbidden classes
         MClass checkedType = checkedObject.getMClass();
-        
+
         // condition for allowed metaclasses
         boolean ok = (this.allowedOwnerTypes.isEmpty() || this.allowedOwnerTypes.contains(checkedType));
-        
+
         // condition for forbidden metaclasses
         ok &= (this.forbiddenOwnerTypes.isEmpty() || !this.forbiddenOwnerTypes.contains(checkedType));
-        
+
         if (!ok) {
             List<Object> objects = new ArrayList<>();
             objects.add(checkedObject.getName());
@@ -90,7 +90,7 @@ public abstract class TypeChecker implements IChecker {
     }
 
     @objid ("00962684-120f-1f6a-b3fb-001ec947cd2a")
-    public  TypeChecker(final String errorId) {
+    public TypeChecker(final String errorId) {
         this.errorId = errorId;
     }
 

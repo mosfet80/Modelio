@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.ui.desktop;
 
@@ -35,13 +35,14 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  * it seems it crashes the VM on Linux if GTK 2 is absent.
  * <p>
  * Use {@link SystemOpener} as a replacement.
- * 
+ *
  * @since 4.0
  */
 @objid ("842e1c31-8cb0-4634-9193-d872e67be8d1")
 public class SystemOpener {
     /**
      * Open the file with the system configured editor.
+     *
      * @param file the file or directory to open
      * @throws IOException If an I/O error occurs
      */
@@ -50,7 +51,7 @@ public class SystemOpener {
         if (!Files.exists(file)) {
             throw new NoSuchFileException(file.toString());
         }
-        
+
         String currentOS = System.getProperty("os.name").toLowerCase();
         if (currentOS.contains("nix") || currentOS.contains("nux")) { // Linux flavours
             xdgOpen(file.toString());
@@ -59,18 +60,19 @@ public class SystemOpener {
         } else {
             desktopOpen(file.toFile());
         }
-        
+
     }
 
     /**
      * Open the system default browser on the given URI.
+     *
      * @param uri the URI to browse
      * @throws IOException If an I/O error occurs
      */
     @objid ("f932aa53-8032-4026-ae02-108b33ab061e")
     public static void browse(URI uri) throws IOException {
         String currentOS = System.getProperty("os.name").toLowerCase();
-        
+
         if (currentOS.contains("nix") || currentOS.contains("nux")) { // Linux flavours
             xdgOpen(uri.toString());
         } else if (currentOS.contains("mac")) { // Mac OS
@@ -78,7 +80,7 @@ public class SystemOpener {
         } else {
             desktopBrowse(uri);
         }
-        
+
     }
 
     /**
@@ -87,9 +89,10 @@ public class SystemOpener {
      * <p>
      * A mailto: URI can specify message fields including "to", "cc", "subject", "body", etc.
      * See The mailto URL scheme (RFC 2368) for the mailto: URI specification details.
-     * @see Desktop#mail(URI)
+     *
      * @param mailUri the specified mailto: URI
      * @throws IOException If an I/O error occurs
+     * @see Desktop#mail(URI)
      */
     @objid ("251a7ea5-da91-4290-9bf5-9aa891a471a2")
     public static void mailto(URI mailUri) throws IOException {
@@ -101,21 +104,21 @@ public class SystemOpener {
         } else {
             desktopMailto(mailUri);
         }
-        
+
     }
 
     @objid ("9f7f6081-c614-4792-99b0-e6ff1ce502ca")
     private static void xdgOpen(String toOpen) throws IOException {
         Runtime runtime = Runtime.getRuntime();
         runtime.exec(new String[]{"xdg-open" , toOpen});
-        
+
     }
 
     @objid ("e316441e-31da-4ac1-a840-04b0ea801f0d")
     private static void macOpen(String toOpen) throws IOException {
         Runtime runtime = Runtime.getRuntime();
         runtime.exec(new String[]{"open", toOpen});
-        
+
     }
 
     @objid ("d1ed3c4c-dacb-444f-a14b-d9dacfecfda9")
@@ -124,7 +127,7 @@ public class SystemOpener {
         if (desktop.isSupported(Desktop.Action.OPEN)) {
             desktop.open(file);
         }
-        
+
     }
 
     @objid ("2baa8794-07d7-48ed-9df2-c686802ef4f8")
@@ -135,7 +138,7 @@ public class SystemOpener {
                 desktop.browse(uri);
             }
         }
-        
+
     }
 
     @objid ("dac97154-d430-40d8-ae23-ef2c61dc105e")
@@ -146,7 +149,7 @@ public class SystemOpener {
                 desktop.mail(mailUri);
             }
         }
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.patterns.exporter.impl;
 
@@ -55,7 +55,7 @@ class ParameterManager {
     private PatternModelAnalysis report;
 
     @objid ("6b806399-debd-4df6-9cc1-550474f65c84")
-    public  ParameterManager(PatternModelAnalysis report) {
+    public ParameterManager(PatternModelAnalysis report) {
         this.report = report;
     }
 
@@ -63,7 +63,7 @@ class ParameterManager {
     @SuppressWarnings("deprecation")
     public String parameterFormater(ModelElement element) {
         this.report.addElementParameter(element);
-        
+
         // Look for corresponding parameter name, in case of renaming...
         ParameterModelData parameterData = ProfileUtils.getParameterData(element.getUuid().toString(), element);
         String name = element.getName();
@@ -72,7 +72,7 @@ class ParameterManager {
         } else {
             name = element.getTagValue(ProfileUtils.MODULE_NAME, PatternDesignerTagTypes.PATTERNPARAMETER_PATTERNPARAMETER_NAME);
         }
-        
+
         if (name == null || name.isEmpty()) {
             name = element.getName();
         }
@@ -83,15 +83,15 @@ class ParameterManager {
     public String parameterFormater(String initialValue, MObject element) {
         String value = escape(initialValue);
         String resultValue = "";
-        
+
         int valueIdx = 0;
         int startIdx = value.indexOf(ParameterManager.START_MARKER, 0);
-        
+
         while (startIdx != -1) {
             int endIdx = startIdx;
             String parameterName = "";
             StringBuilder modeSB = new StringBuilder();
-        
+
             for (endIdx = startIdx; endIdx < value.length(); endIdx++) {
                 if (value.charAt(endIdx) == ParameterManager.SEPARATOR_MARKER) {
                     for (endIdx = endIdx + 1; endIdx < value.length(); endIdx++) {
@@ -110,12 +110,12 @@ class ParameterManager {
                     parameterName = parameterName + value.charAt(endIdx);
                 }
             }
-        
+
             if (endIdx > startIdx) {
                 this.report.addStringParameter(parameterName, new MRef(element));
-        
+
                 resultValue = resultValue + value.substring(valueIdx, startIdx);
-        
+
                 String mode = modeSB.toString();
                 if (mode.equals(ParameterManager.UPPER)) {
                     resultValue = resultValue + "\" + ((String) this.parameters.get(\"" + parameterName + "\")).toUpperCase()+\"";
@@ -132,12 +132,12 @@ class ParameterManager {
                 } else {
                     resultValue = resultValue + "\" + (String) this.parameters.get(\"" + parameterName + "\")+\"";
                 }
-        
+
             }
             valueIdx = endIdx + 1;
             startIdx = value.indexOf(ParameterManager.START_MARKER, valueIdx);
         }
-        
+
         if (valueIdx < value.length()) {
             resultValue = resultValue + value.substring(valueIdx, value.length()) + "\" +\"";
         }

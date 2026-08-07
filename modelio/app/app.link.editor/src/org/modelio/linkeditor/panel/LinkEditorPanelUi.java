@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.linkeditor.panel;
 
@@ -61,34 +80,34 @@ import org.modelio.platform.ui.UIImages;
 
 @objid ("6c6ca579-ff3a-473c-b763-a78ba0e7bdb2")
 class LinkEditorPanelUi {
-    @objid ("b7f1960a-90f9-40a1-b035-acd4bdf10496")
-    private final LinkEditorPanelController controller;
-
-    @objid ("ffcf9a7f-65f1-4933-ade4-c7cf802613f4")
+    @objid ("638b3f95-2336-4cf9-893e-da97cf36d8ae")
     private final GraphicalViewer graphicalViewer;
 
-    @objid ("84847763-faca-4b8f-b9a8-f218204cac3d")
+    @objid ("0bb70b89-3c18-493e-af36-c608000adbf1")
     private final EditDomain editDomain = new EditDomain();
 
-    @objid ("98e7067f-70ec-463d-b179-a8d929be5b3c")
+    @objid ("4cf58936-fd9a-46dc-9b84-f414a089fbca")
     private final RootEditPart rootEditPart = new ScalableFreeformRootEditPart();
 
-    @objid ("7a0778fa-49ff-402a-8506-960df51bd3a9")
+    @objid ("b7dee60d-eb12-46db-b656-97a726214112")
     private SelectionSynchronizer synchronizer;
 
-    @objid ("fdc1b4ee-babe-442c-a829-cb52534ba0c6")
+    @objid ("988543fc-5a9b-444a-b19e-bbdcfb006817")
     private final Composite composite;
+
+    @objid ("0cebac8f-ac26-452a-9fc2-0023d7b34df1")
+    private ISelectionChangedListener viewerSelectionListener;
+
+    @objid ("b7f1960a-90f9-40a1-b035-acd4bdf10496")
+    private final LinkEditorPanelController controller;
 
     @objid ("964786b4-6e46-4e29-8671-e2b55a3e2024")
     private Runnable doubleClickListener;
 
-    @objid ("142396ef-0d8a-4855-9f09-eb82af0eee60")
-    private ISelectionChangedListener viewerSelectionListener;
-
     @objid ("07b83df0-febf-4dc8-a061-bbdc63818c26")
-     LinkEditorPanelUi(Composite parent, LinkEditorPanelController controller) {
+    LinkEditorPanelUi(Composite parent, LinkEditorPanelController controller) {
         this.controller = controller;
-        
+
         this.composite = new Composite(parent, SWT.NONE);
         GridLayout gl = new GridLayout(1, true);
         gl.horizontalSpacing = 0;
@@ -96,13 +115,13 @@ class LinkEditorPanelUi {
         gl.marginHeight = 0;
         gl.marginWidth = 0;
         this.composite.setLayout(gl);
-        
+
         // Add the GEF viewer on top
         this.graphicalViewer = createGraphicalViewer(this.composite, controller.getEclipseContext());
-        
+
         // Register viewer into the domain
         this.editDomain.addViewer(this.graphicalViewer);
-        
+
         // Set layout data for the viewer
         GridData viewerLayoutData = new GridData();
         viewerLayoutData.grabExcessHorizontalSpace = true;
@@ -110,12 +129,11 @@ class LinkEditorPanelUi {
         viewerLayoutData.horizontalAlignment = SWT.FILL;
         viewerLayoutData.verticalAlignment = SWT.FILL;
         this.graphicalViewer.getControl().setLayoutData(viewerLayoutData);
-        
+
         Font systemFont = this.composite.getDisplay().getSystemFont();
         org.eclipse.swt.graphics.Rectangle iconSize = UIImages.PLACEHOLDER.getBounds();
         GraphNode.WIDTH = GraphNode.MARGIN_WIDTH + iconSize.width + GraphNode.MARGIN_WIDTH + FigureUtilities.getStringExtents("abcdefghijklmnop...", systemFont).width() + GraphNode.MARGIN_WIDTH;
-        GraphNode.HEIGHT = GraphNode.MARGIN_HEIGHT + Math.max(iconSize.height, systemFont.getFontData()[0].getHeight()) + GraphNode.MARGIN_HEIGHT + 2;
-        
+        GraphNode.HEIGHT = GraphNode.MARGIN_HEIGHT + (Math.max(iconSize.height, systemFont.getFontData()[0].getHeight()) + GraphNode.MARGIN_HEIGHT + 2)*2;
     }
 
     @objid ("f551b973-c020-46b9-a640-6df2f17415ed")
@@ -126,16 +144,15 @@ class LinkEditorPanelUi {
     @objid ("3a239098-56a1-41f2-a272-156e0422edb4")
     public void setInput(BackgroundModel model) {
         this.graphicalViewer.setContents(model);
-        
+
         if (model.getCenter() != null) {
             this.graphicalViewer.setSelection(new StructuredSelection(this.graphicalViewer.getEditPartRegistry().get(model.getCenter())));
         }
-        
     }
 
     /**
      * Creates the GraphicalViewer on the specified <code>Composite</code>.
-     * @param ctx
+     *
      * @param parent the parent composite
      */
     @objid ("e62beecb-bd97-45fa-b0fd-fb15849ba901")
@@ -144,20 +161,20 @@ class LinkEditorPanelUi {
         // https://bugs.eclipse.org/bugs/show_bug.cgi?id=137786 )
         final GraphicalViewer viewer = new HackedScrollingGraphicalViewer();
         viewer.createControl(parent);
-        
+
         configureGraphicalViewer(viewer, ctx);
         hookGraphicalViewer(viewer);
         initializeGraphicalViewer(viewer);
-        
+
         viewer.addDropTargetListener(new LinkEditorDropTargetListener(viewer, this.controller.getProjectService()));
-        
+
         FocusListener focusListener = new FocusListener() {
-        
+
             @Override
             public void focusLost(FocusEvent e) {
                 NodeEditPart.hasFocus = false;
             }
-        
+
             @Override
             public void focusGained(FocusEvent e) {
                 NodeEditPart.hasFocus = true;
@@ -173,78 +190,77 @@ class LinkEditorPanelUi {
     @objid ("1ba6ade8-5e33-11e2-b81d-002564c97630")
     private void configureGraphicalViewer(final GraphicalViewer viewer, IEclipseContext ctx) {
         viewer.getControl().setBackground(ColorConstants.listBackground);
-        
+
         // Set the root edit part
         viewer.setRootEditPart(this.rootEditPart);
         viewer.setEditPartFactory(new LinkEditorEditPartFactory(ctx));
-        
+
         // Configure the edit domain
         // Set the active and default tool
         final SelectionTool selectionTool = new PanSelectionTool(this.controller.getNavigationService());
         this.editDomain.setActiveTool(selectionTool);
         this.editDomain.setDefaultTool(selectionTool);
-        
+
         viewer.setEditDomain(this.editDomain);
-        
+
         // Plug our own command stack that is bound to the Modelio transaction
         // manager
         this.editDomain.setCommandStack(new LinkEditorCommandStack(() -> this.controller.getProjectService().getSession()));
-        
+
         // Configure zoom levels: 32 levels in a geometric progression reason sqrt(sqrt(2)) ~ 1.18
         int nZoomLevels = 32;
         double zoomLevels[] = new double[nZoomLevels];
         double progression = Math.sqrt(Math.sqrt(2.0));
-        
+
         zoomLevels[nZoomLevels / 2] = 1.0;
-        
+
         // Zoomin levels
         for (int i = nZoomLevels / 2 + 1; i < nZoomLevels; i++) {
             zoomLevels[i] = zoomLevels[i - 1] * progression;
         }
-        
+
         // Zoom out levels
         for (int i = nZoomLevels / 2 - 1; i >= 0; i--) {
             zoomLevels[i] = zoomLevels[i + 1] / progression;
         }
-        
+
         ZoomManager zoomManager = ((ScalableFreeformRootEditPart) viewer.getRootEditPart()).getZoomManager();
         zoomManager.setZoomLevels(zoomLevels);
-        
+
         // Scroll-wheel Zoom
         viewer.setProperty(MouseWheelHandler.KeyGenerator.getKey(SWT.MOD1), MouseWheelZoomHandler.SINGLETON);
-        
+
         // Add the contextual menu
         this.controller.getMenuService().registerContextMenu(viewer.getControl(), ILinkEditorView.POPUPID);
-        
     }
 
     /**
      * Hooks the GraphicalViewer to the rest of the Editor.
      * <p>
      * By default, the viewer is added to the SelectionSynchronizer, which can be used to keep 2 or more EditPartViewers in sync.
+     *
      * @param viewer the GraphicalViewer
      */
     @objid ("5a77fee9-006e-4ca7-86f1-c94c1f4b0d24")
     protected void hookGraphicalViewer(GraphicalViewer viewer) {
         this.synchronizer = new SelectionSynchronizer();
         this.synchronizer.addViewer(viewer);
-        
+
         this.viewerSelectionListener = event -> this.controller.onEditorSelectionChanged(event.getSelection());
         viewer.addSelectionChangedListener(this.viewerSelectionListener);
-        
     }
 
     /**
      * Set the contents of the GraphicalViewer after it has been created.
-     * @see #createGraphicalViewer(Composite)
+     *
      * @param viewer the GraphicalViewer
+     * @see #createGraphicalViewer(Composite)
      */
     @objid ("6bbe997a-9b71-4528-8a30-02e2b4565c9e")
     private void initializeGraphicalViewer(GraphicalViewer viewer) {
         // Set the viewer content
         BackgroundModel backgroundModel = new BackgroundModel();
         viewer.setContents(backgroundModel);
-        
     }
 
     @objid ("efd5cf63-00bc-49cd-9844-7b4019ae6ab1")
@@ -261,14 +277,12 @@ class LinkEditorPanelUi {
     public void refresh() {
         this.graphicalViewer.getRootEditPart().getContents().refresh();
         this.graphicalViewer.getRootEditPart().refresh();
-        
     }
 
     @objid ("e5aa3a30-1833-4fbc-9511-330f24f99942")
     void setDoubleClickListener(Runnable listener) {
         this.doubleClickListener = listener;
         getGraphicalViewer().setProperty(BackgroundEditPart.VIEWERPROP_SWITCH_EDIT_MODE, this.doubleClickListener);
-        
     }
 
     /**
@@ -307,7 +321,7 @@ class LinkEditorPanelUi {
                                         // c.update();
                                         return null;
                                     }
-            
+
                                     @Override
                                     public void flushGraphics(Rectangle region) {
                                         // Nothing to do.

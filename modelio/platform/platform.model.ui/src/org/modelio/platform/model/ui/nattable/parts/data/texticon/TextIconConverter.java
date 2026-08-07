@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.parts.data.texticon;
 
@@ -35,15 +35,16 @@ import org.eclipse.swt.graphics.Image;
  */
 @objid ("399bec45-9190-4e24-9d40-32a9d464c363")
 public class TextIconConverter extends DisplayConverter {
-    @objid ("a3a328f9-ee72-49f1-b53f-c6ce4f0865e3")
+    @objid ("48b6a544-2e4a-4199-b1d3-9c3929f42f21")
     private final ILabelProvider labelProvider;
 
     /**
      * Create a new TextIconConverter.
+     *
      * @param labelProvider the label provider to use when converting to display.
      */
     @objid ("c4b569c8-6868-419a-9c13-3e2c3d69e3ab")
-    public  TextIconConverter(ILabelProvider labelProvider) {
+    public TextIconConverter(ILabelProvider labelProvider) {
         this.labelProvider = Objects.requireNonNull(labelProvider);
     }
 

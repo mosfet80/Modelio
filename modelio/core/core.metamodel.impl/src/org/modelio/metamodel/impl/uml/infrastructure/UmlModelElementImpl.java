@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -54,13 +53,13 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("c740c401-3304-4a68-b664-2705cd525890")
 public class UmlModelElementImpl extends ModelElementImpl implements UmlModelElement {
-    @objid ("6b1434f4-6aa2-47ee-8256-11c89eadb14d")
+    @objid ("c106a5da-db21-463f-986f-2281459dbc04")
     @Override
     public EList<TemplateParameterSubstitution> getTemplateSubstitution() {
         return new SmList<>(this, ((UmlModelElementSmClass)getClassOf()).getTemplateSubstitutionDep());
     }
 
-    @objid ("43299bd7-529b-402b-985b-8310df0af0ea")
+    @objid ("4c55d421-af08-4d2a-b1ad-c7609ce76f55")
     @Override
     public <T extends TemplateParameterSubstitution> List<T> getTemplateSubstitution(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -73,16 +72,16 @@ public class UmlModelElementImpl extends ModelElementImpl implements UmlModelEle
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("4ecb219e-780c-433d-a278-bab49545faad")
+    @objid ("4f1e0211-a0aa-45cc-a934-0867fab987ff")
     @Override
     public EList<TemplateParameter> getDefaultParametering() {
         return new SmList<>(this, ((UmlModelElementSmClass)getClassOf()).getDefaultParameteringDep());
     }
 
-    @objid ("e8863314-8850-4af4-8b29-46236e547473")
+    @objid ("5baffcf1-4b8e-4fa2-b76e-136691506a62")
     @Override
     public <T extends TemplateParameter> List<T> getDefaultParametering(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -95,16 +94,16 @@ public class UmlModelElementImpl extends ModelElementImpl implements UmlModelEle
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("ea561c6d-adc9-4725-9c62-c549da09af09")
+    @objid ("658ea4f6-1a4b-4722-aaf3-9f3d54f5e6cd")
     @Override
     public EList<Binding> getRepresents() {
         return new SmList<>(this, ((UmlModelElementSmClass)getClassOf()).getRepresentsDep());
     }
 
-    @objid ("90856b9f-41e6-43ec-9880-b79ec7c7b4c8")
+    @objid ("fa956f21-3405-4046-843e-c2c84c023d8a")
     @Override
     public <T extends Binding> List<T> getRepresents(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -117,29 +116,29 @@ public class UmlModelElementImpl extends ModelElementImpl implements UmlModelEle
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("a2c2a9d0-db2b-49fd-a946-67cc6ee0e225")
+    @objid ("15d039f8-931c-4498-967f-cfc8ab7c1b26")
     @Override
     public TemplateParameter getOwnerTemplateParameter() {
         Object obj = getDepVal(((UmlModelElementSmClass)getClassOf()).getOwnerTemplateParameterDep());
         return (obj instanceof TemplateParameter)? (TemplateParameter)obj : null;
     }
 
-    @objid ("b346c660-c259-4d74-bbc3-3b408832d261")
+    @objid ("81644d32-6043-47b6-b9b2-0b20dba32506")
     @Override
     public void setOwnerTemplateParameter(TemplateParameter value) {
         appendDepVal(((UmlModelElementSmClass)getClassOf()).getOwnerTemplateParameterDep(), (SmObjectImpl)value);
     }
 
-    @objid ("7d4476b4-9c11-40fd-906a-c863edbc458a")
+    @objid ("efc79775-63af-4215-96c0-612c0bda52a4")
     @Override
     public EList<ConnectorEnd> getRepresentingEnd() {
         return new SmList<>(this, ((UmlModelElementSmClass)getClassOf()).getRepresentingEndDep());
     }
 
-    @objid ("6afbadbc-9b42-4909-bc4d-bbff39fb5ba2")
+    @objid ("86f89af0-999d-42dc-9380-e2de773a8eb6")
     @Override
     public <T extends ConnectorEnd> List<T> getRepresentingEnd(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -152,16 +151,16 @@ public class UmlModelElementImpl extends ModelElementImpl implements UmlModelEle
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("5e27de32-53f8-4890-9f12-fe80df274b79")
+    @objid ("9f262328-8459-45dc-9d68-955c6a18a5dc")
     @Override
     public EList<ActivityPartition> getRepresentingPartition() {
         return new SmList<>(this, ((UmlModelElementSmClass)getClassOf()).getRepresentingPartitionDep());
     }
 
-    @objid ("d5571eb4-343f-4c9f-b8dd-c8a7c476a792")
+    @objid ("84f59ccf-c793-4bcd-8764-a45fcf844c0b")
     @Override
     public <T extends ActivityPartition> List<T> getRepresentingPartition(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -174,16 +173,16 @@ public class UmlModelElementImpl extends ModelElementImpl implements UmlModelEle
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("f395e0ce-e779-4d47-9b88-aac0535dc764")
+    @objid ("7a80688c-1b05-4ba6-81b9-9f625fce64a9")
     @Override
     public EList<Constraint> getConstraintDefinition() {
         return new SmList<>(this, ((UmlModelElementSmClass)getClassOf()).getConstraintDefinitionDep());
     }
 
-    @objid ("065de582-3261-4a26-8d3b-c25fee12a9bb")
+    @objid ("770b1fc4-d139-4a97-ac52-2df498089e46")
     @Override
     public <T extends Constraint> List<T> getConstraintDefinition(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -196,16 +195,16 @@ public class UmlModelElementImpl extends ModelElementImpl implements UmlModelEle
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("21dd3a1e-da68-4e2c-ab16-e66bbe1a72c0")
+    @objid ("cb57f690-49b0-459a-aa4a-773e3215502b")
     @Override
     public EList<TemplateParameter> getTypingParameter() {
         return new SmList<>(this, ((UmlModelElementSmClass)getClassOf()).getTypingParameterDep());
     }
 
-    @objid ("cf5f678e-340b-4370-b2f6-08ed83994fdf")
+    @objid ("607cb399-b91b-4510-ad0a-ff1087376e1a")
     @Override
     public <T extends TemplateParameter> List<T> getTypingParameter(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -218,16 +217,16 @@ public class UmlModelElementImpl extends ModelElementImpl implements UmlModelEle
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("363b8f85-d358-489d-9963-1c566a08257d")
+    @objid ("64fcbfc7-deb4-4372-8654-aed4d9fa5662")
     @Override
     public EList<Manifestation> getManifesting() {
         return new SmList<>(this, ((UmlModelElementSmClass)getClassOf()).getManifestingDep());
     }
 
-    @objid ("46e252c3-71fa-4538-92d2-fbf71415d145")
+    @objid ("f2901085-981f-479b-b9f6-8620dd02cfcc")
     @Override
     public <T extends Manifestation> List<T> getManifesting(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -240,16 +239,16 @@ public class UmlModelElementImpl extends ModelElementImpl implements UmlModelEle
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("275846d8-0758-482d-90ad-9f122a19f5b1")
+    @objid ("da2d53d1-a434-417e-a043-b9c950de797f")
     @Override
     public EList<BindableInstance> getRepresentingInstance() {
         return new SmList<>(this, ((UmlModelElementSmClass)getClassOf()).getRepresentingInstanceDep());
     }
 
-    @objid ("8377c599-8132-4bad-8004-b84476fd406a")
+    @objid ("b8962aea-930f-45ad-8826-fc38651a72ab")
     @Override
     public <T extends BindableInstance> List<T> getRepresentingInstance(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -262,16 +261,16 @@ public class UmlModelElementImpl extends ModelElementImpl implements UmlModelEle
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("dcbb1163-9fc2-4273-ad4d-0ca83a44b04b")
+    @objid ("4c1f7853-bde7-47d3-b76b-0b501063952b")
     @Override
     public EList<InformationFlow> getReceivedInfo() {
         return new SmList<>(this, ((UmlModelElementSmClass)getClassOf()).getReceivedInfoDep());
     }
 
-    @objid ("2acfefe7-75ea-4c2d-b3dc-769e8de62d63")
+    @objid ("31975d50-b75e-4b45-9e55-3f0953359d79")
     @Override
     public <T extends InformationFlow> List<T> getReceivedInfo(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -284,16 +283,16 @@ public class UmlModelElementImpl extends ModelElementImpl implements UmlModelEle
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("96a4682e-b615-4503-8548-d6f209d32bf1")
+    @objid ("73f8b998-23c8-4b7e-940f-0e5318077987")
     @Override
     public EList<InformationFlow> getSentInfo() {
         return new SmList<>(this, ((UmlModelElementSmClass)getClassOf()).getSentInfoDep());
     }
 
-    @objid ("6cd1aea5-ad65-4fc9-87e4-48722e0fe22f")
+    @objid ("64223811-113e-4457-872c-2c46816aa95b")
     @Override
     public <T extends InformationFlow> List<T> getSentInfo(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -306,16 +305,16 @@ public class UmlModelElementImpl extends ModelElementImpl implements UmlModelEle
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("03a6c570-2fcf-46ff-aaaf-5b494f465bfa")
+    @objid ("bb96461b-3278-4d6e-bc9d-11debe4d7fdf")
     @Override
     public EList<NaryConnector> getRepresentingConnector() {
         return new SmList<>(this, ((UmlModelElementSmClass)getClassOf()).getRepresentingConnectorDep());
     }
 
-    @objid ("96a4a0bf-dd27-409b-a871-4579b1a9e848")
+    @objid ("b34b72d9-c62d-41a8-a1a8-7ff43b8415ad")
     @Override
     public <T extends NaryConnector> List<T> getRepresentingConnector(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -328,10 +327,10 @@ public class UmlModelElementImpl extends ModelElementImpl implements UmlModelEle
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("170a7d36-33e9-4f61-9c59-9d8c47c4238e")
+    @objid ("85fe8614-bfb3-4074-98de-ff45a5f83522")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -343,22 +342,22 @@ public class UmlModelElementImpl extends ModelElementImpl implements UmlModelEle
         return super.getCompositionOwner();
     }
 
-    @objid ("73f2ea0d-c70f-4710-9713-7c17435a4522")
+    @objid ("417d7158-76ca-4a34-be14-c0abdfcad851")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // OwnerTemplateParameter
         dep = ((UmlModelElementSmClass)getClassOf()).getOwnerTemplateParameterDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("bba6a3f9-eb2d-48a3-a653-ddaf6966bcf8")
+    @objid ("3f222662-f79c-4aa1-8c71-d321d61e034c")
     @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
@@ -367,7 +366,7 @@ public class UmlModelElementImpl extends ModelElementImpl implements UmlModelEle
           return super.accept(v);
     }
 
-    @objid ("a65d48a9-637a-4303-8bf6-42c62b1fdef3")
+    @objid ("0e6fbf27-fe31-4742-9535-9f9c792a6897")
     public Object accept(IModelVisitor v) {
         return v.visitUmlModelElement(this);
     }

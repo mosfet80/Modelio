@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.ui;
 
@@ -71,7 +71,7 @@ import org.modelio.platform.ui.plugin.UI;
 
 /**
  * Version of eclipse's WizardDialog using ModelioDialog instead of TitleAreaDialog.
- * 
+ *
  * @see WizardDialog
  */
 @objid ("c1fc24d5-910f-11e0-9de7-002564c97630")
@@ -81,7 +81,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
      */
     @objid ("d6549436-910f-11e0-9de7-002564c97630")
     public static final String WIZ_IMG_ERROR = "dialog_title_error_image"; // $NON-NLS-1$
-    
+
 
     /**
      * The number of long running operation executed from the dialog.
@@ -94,7 +94,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
      * <p>
      * The value <code>-1</code> indicates that the traverse listener needs to be installed.
      * </p>
-     * 
+     *
      * @since 3.6
      */
     @objid ("d655096a-910f-11e0-9de7-002564c97630")
@@ -123,11 +123,11 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
 
     @objid ("d655ccb8-910f-11e0-9de7-002564c97630")
     private static final String FOCUS_CONTROL = "focusControl"; // $NON-NLS-1$
-    
+
 
     /**
      * A delay in milliseconds that reduces the risk that the user accidentally triggers a button by pressing the 'Enter' key immediately after a job has finished.
-     * 
+     *
      * @since 3.6
      */
     @objid ("d655f3c7-910f-11e0-9de7-002564c97630")
@@ -211,6 +211,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
 
     /**
      * About to start a long running operation triggered through the wizard. Shows the progress monitor and disables the wizard's buttons and controls.
+     *
      * @param enableCancelButton <code>true</code> if the Cancel button should be enabled, and <code>false</code> if it should be disabled
      * @return the saved UI state
      */
@@ -224,19 +225,19 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
                 focusControl = null;
             }
             boolean needsProgressMonitor = this.wizard.needsProgressMonitor();
-        
+
             // Set the busy cursor to all shells.
             Display d = getShell().getDisplay();
             this.waitCursor = new Cursor(d, SWT.CURSOR_WAIT);
             setDisplayCursor(this.waitCursor);
-        
+
             if (this.useCustomProgressMonitorPart) {
                 this.cancelButton.removeSelectionListener(this.cancelListener);
                 // Set the arrow cursor to the cancel component.
                 this.arrowCursor = new Cursor(d, SWT.CURSOR_ARROW);
                 this.cancelButton.setCursor(this.arrowCursor);
             }
-        
+
             // Deactivate shell
             savedState = saveUIState(this.useCustomProgressMonitorPart && needsProgressMonitor && enableCancelButton);
             if (focusControl != null) {
@@ -249,7 +250,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
                 }
                 this.progressMonitorPart.setVisible(true);
             }
-        
+
             // Install traverse listener once in order to implement 'Enter' and 'Space' key blocking
             if (this.timeWhenLastJobFinished == -1) {
                 this.timeWhenLastJobFinished = 0;
@@ -287,12 +288,12 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
             // should never happen since we have already visited the page
             return;
         }
-        
+
         // set flag to indicate that we are moving back
         this.isMovingToPreviousPage = true;
         // show the page
         showPage(page);
-        
+
     }
 
     @objid ("d657c887-910f-11e0-9de7-002564c97630")
@@ -320,7 +321,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
             // The Cancel button has a listener which calls cancelPressed directly
         }
         }
-        
+
     }
 
     @objid ("d65816a8-910f-11e0-9de7-002564c97630")
@@ -336,7 +337,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
         } else {
             this.cancelButton.setEnabled(false);
         }
-        
+
     }
 
     @objid ("d6583db6-910f-11e0-9de7-002564c97630")
@@ -364,7 +365,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
                 page.getControl().setVisible(false);
             }
         }
-        
+
     }
 
     /**
@@ -390,11 +391,12 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
             setReturnCode(Window.OK);
             hardClose();
         }
-        
+
     }
 
     /**
      * Closes this window.
+     *
      * @return <code>true</code> if the window is (or was already) closed, and <code>false</code> if it is still open
      */
     @objid ("d65afcd5-910f-11e0-9de7-002564c97630")
@@ -425,7 +427,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
         if (this.currentPage != null) {
             this.currentPage.performHelp();
         }
-        
+
     }
 
     /**
@@ -438,14 +440,15 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
             // something must have happened getting the next page
             return;
         }
-        
+
         // show the next page
         showPage(page);
-        
+
     }
 
     /**
      * Checks whether it is alright to close this wizard dialog and performed standard cancel processing. If there is a long running operation in progress, this method posts an alert message saying that the wizard cannot be closed.
+     *
      * @return <code>true</code> if it is alright to close this dialog, and <code>false</code> if it is not
      */
     @objid ("d65b7208-910f-11e0-9de7-002564c97630")
@@ -463,8 +466,9 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
 
     /**
      * Restores the enabled/disabled state of the wizard dialog's buttons and the tree of controls for the currently showing page.
-     * @see #saveUIState
+     *
      * @param state a map containing the saved state as returned by <code>saveUIState</code>
+     * @see #saveUIState
      */
     @objid ("d65be738-910f-11e0-9de7-002564c97630")
     private void restoreUIState(final Map<String, Object> state) {
@@ -477,14 +481,15 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
         if (pageValue != null) {
             ((ControlEnableState) pageValue).restore();
         }
-        
+
     }
 
     /**
      * Captures and returns the enabled/disabled state of the wizard dialog's buttons and the tree of controls for the currently showing page. All these controls are disabled in the process, with the possible exception of the Cancel button.
-     * @see #restoreUIState
+     *
      * @param keepCancelEnabled <code>true</code> if the Cancel button should remain enabled, and <code>false</code> if it should be disabled
      * @return a map containing the saved state suitable for restoring later with <code>restoreUIState</code>
+     * @see #restoreUIState
      */
     @objid ("d65c837a-910f-11e0-9de7-002564c97630")
     private Map<String, Object> saveUIState(final boolean keepCancelEnabled) {
@@ -502,29 +507,31 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
 
     /**
      * Sets the minimum page size used for the pages.
-     * @see #setMinimumPageSize(Point)
+     *
      * @param minWidth the minimum page width
      * @param minHeight the minimum page height
+     * @see #setMinimumPageSize(Point)
      */
     @objid ("d65cf8a5-910f-11e0-9de7-002564c97630")
     public void setMinimumPageSize(final int minWidth, final int minHeight) {
         Assert.isTrue(minWidth >= 0 && minHeight >= 0);
         this.pageContainerLayout.minimumWidth = minWidth;
         this.pageContainerLayout.minimumHeight = minHeight;
-        
+
     }
 
     /**
      * Sets the size of all pages. The given size takes precedence over computed sizes.
-     * @see #setPageSize(Point)
+     *
      * @param width the page width
      * @param height the page height
+     * @see #setPageSize(Point)
      */
     @objid ("d65d46c6-910f-11e0-9de7-002564c97630")
     public void setPageSize(final int width, final int height) {
         this.pageWidth = width;
         this.pageHeight = height;
-        
+
     }
 
     /**
@@ -550,13 +557,14 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
         this.currentPage.setVisible(true);
         // update the dialog controls
         update();
-        
+
     }
 
     /**
      * A long running operation triggered through the wizard was stopped either by user input or by normal end. Hides the progress monitor and restores the enable state wizard's buttons and controls.
-     * @see #aboutToStart
+     *
      * @param savedState the saved UI state as returned by <code>aboutToStart</code>
+     * @see #aboutToStart
      */
     @objid ("d65e3125-910f-11e0-9de7-002564c97630")
     private void stopped(final Object savedState) {
@@ -582,7 +590,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
                 focusControl.setFocus();
             }
         }
-        
+
     }
 
     /**
@@ -596,10 +604,10 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
         updateTitleBar();
         // Update the buttons
         updateButtons();
-        
+
         // Fires the page change event
         firePageChanged(new PageChangedEvent(this, getCurrentPage()));
-        
+
     }
 
     @objid ("d65e7f45-910f-11e0-9de7-002564c97630")
@@ -621,7 +629,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
         } else {
             getShell().setDefaultButton(this.finishButton);
         }
-        
+
     }
 
     /**
@@ -634,7 +642,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
     private void updateDescriptionMessage() {
         this.pageDescription = this.currentPage.getDescription();
         setMessage(this.pageDescription);
-        
+
     }
 
     @objid ("d65ecd65-910f-11e0-9de7-002564c97630")
@@ -643,7 +651,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
         if (this.currentPage == null) {
             return;
         }
-        
+
         String pageMessage = this.currentPage.getMessage();
         if (pageMessage != null && this.currentPage instanceof IMessageProvider) {
             this.pageMessageType = ((IMessageProvider) this.currentPage).getMessageType();
@@ -656,11 +664,12 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
             setMessage(pageMessage, this.pageMessageType);
         }
         setErrorMessage(this.currentPage.getErrorMessage());
-        
+
     }
 
     /**
      * Changes the shell size to the given size, ensuring that it is no larger than the display bounds.
+     *
      * @param width the shell width
      * @param height the shell height
      */
@@ -670,7 +679,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
         size.height = height;
         size.width = width;
         getShell().setBounds(getConstrainedShellBounds(size));
-        
+
     }
 
     @objid ("d65f90b5-910f-11e0-9de7-002564c97630")
@@ -695,7 +704,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
             updateDescriptionMessage();
         }
         updateMessage();
-        
+
     }
 
     @objid ("d6602cf5-910f-11e0-9de7-002564c97630")
@@ -710,7 +719,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
             title = ""; //$NON-NLS-1$
         }
         getShell().setText(title);
-        
+
     }
 
     @objid ("d6605405-910f-11e0-9de7-002564c97630")
@@ -725,16 +734,17 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
         ImageDescriptor imageDescriptor = UI.getImageDescriptor("images/headerleft110x50.png");
         Image image = imageDescriptor.createImage();
         setTitleLeftImage(image);
-        
+
     }
 
     /**
      * Creates a new wizard dialog for the given wizard.
+     *
      * @param parentShell the parent shell
      * @param newWizard the wizard this dialog is working on
      */
     @objid ("bc1825af-120f-11e2-b5c6-002564c97630")
-    public  ModelioWizardDialog(final Shell parentShell, final IWizard newWizard) {
+    public ModelioWizardDialog(final Shell parentShell, final IWizard newWizard) {
         super(parentShell);
         setShellStyle(SWT.CLOSE | SWT.MAX | SWT.TITLE | SWT.BORDER | SWT.APPLICATION_MODAL | SWT.RESIZE | getDefaultOrientation());
         setWizard(newWizard);
@@ -746,11 +756,12 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
                 cancelPressed();
             }
         };
-        
+
     }
 
     /**
      * Calculates the difference in size between the given page and the page container. A larger page results in a positive delta.
+     *
      * @param page the page
      * @return the size difference encoded as a <code>new Point(deltaWidth,deltaHeight)</code>
      */
@@ -782,7 +793,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
                 }
             }
         });
-        
+
     }
 
     @objid ("bc1a871c-120f-11e2-b5c6-002564c97630")
@@ -790,19 +801,20 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
     protected void setButtonLayoutData(final Button button) {
         GridData data = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
         int widthHint = convertHorizontalDLUsToPixels(IDialogConstants.BUTTON_WIDTH);
-        
+
         // On large fonts this can make this dialog huge
         widthHint = Math.min(widthHint, button.getDisplay().getBounds().width / 5);
         Point minSize = button.computeSize(SWT.DEFAULT, SWT.DEFAULT, true);
         data.widthHint = Math.max(widthHint, minSize.x);
-        
+
         button.setLayoutData(data);
-        
+
     }
 
     /**
      * Creates the Cancel button for this wizard dialog. Creates a standard (<code>SWT.PUSH</code>) button and registers for its selection events. Note that the number of columns in the button bar composite is incremented. The Cancel button is created
      * specially to give it a removeable listener.
+     *
      * @param parent the parent button bar
      * @return the new Cancel button
      */
@@ -821,6 +833,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
 
     /**
      * Return the cancel button if the id is a the cancel id.
+     *
      * @param id the button id
      * @return the button corresponding to the button id
      */
@@ -863,7 +876,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
         gd.heightHint = this.pageHeight;
         this.pageContainer.setLayoutData(gd);
         this.pageContainer.setFont(parent.getFont());
-        
+
         // Insert a progress monitor
         this.progressMonitorPart = createProgressMonitorPart(composite, new GridLayout());
         GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
@@ -875,7 +888,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
         // Build the separator line
         Label separator = new Label(composite, SWT.HORIZONTAL | SWT.SEPARATOR);
         separator.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        
+
         applyDialogFont(this.progressMonitorPart);
         return composite;
     }
@@ -885,6 +898,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
      * <p>
      * The default implementation creates a progress monitor with a stop button will be created.
      * </p>
+     *
      * @param composite the parent composite
      * @param pmlayout the layout
      * @return ProgressMonitorPart the progress monitor part
@@ -908,6 +922,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
     /**
      * Creates the Previous and Next buttons for this wizard dialog. Creates standard (<code>SWT.PUSH</code>) buttons and registers for their selection events. Note that the number of columns in the button bar composite is incremented. These buttons are
      * created specially to prevent any space between them.
+     *
      * @param parent the parent button bar
      * @return a composite containing the new buttons
      */
@@ -960,6 +975,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
 
     /**
      * Returns the progress monitor for this wizard dialog (if it has one).
+     *
      * @return the progress monitor, or <code>null</code> if this wizard dialog does not have one
      */
     @objid ("bc1f49ca-120f-11e2-b5c6-002564c97630")
@@ -969,6 +985,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
 
     /**
      * Returns the wizard this dialog is currently displaying.
+     *
      * @return the current wizard
      */
     @objid ("bc1f49cf-120f-11e2-b5c6-002564c97630")
@@ -978,6 +995,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
 
     /**
      * Notifies page changing listeners and returns result of page changing processing to the sender.
+     *
      * @return <code>true</code> if page changing listener completes successfully, <code>false</code> otherwise
      */
     @objid ("bc1f49d4-120f-11e2-b5c6-002564c97630")
@@ -991,10 +1009,11 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
 
     /**
      * Restores the enabled/disabled state of the given control.
-     * @see #saveEnableStateAndSet
+     *
      * @param w the control
      * @param h the map (key type: <code>String</code>, element type: <code>Boolean</code>)
      * @param key the key
+     * @see #saveEnableStateAndSet
      */
     @objid ("bc1f49db-120f-11e2-b5c6-002564c97630")
     private void restoreEnableState(final Control w, final Map<String, Object> h, final String key) {
@@ -1004,13 +1023,13 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
                 w.setEnabled(b.booleanValue());
             }
         }
-        
+
     }
 
     /**
      * This implementation of IRunnableContext#run(boolean, boolean, IRunnableWithProgress) blocks until the runnable has been run, regardless of the value of <code>fork</code>. It is recommended that <code>fork</code> is set to true in most cases. If
      * <code>fork</code> is set to <code>false</code>, the runnable will run in the UI thread and it is the runnable's responsibility to call <code>Display.readAndDispatch()</code> to ensure UI responsiveness.
-     * 
+     *
      * UI state is saved prior to executing the long-running operation and is restored after the long-running operation completes executing. Any attempt to change the UI state of the wizard in the long-running operation will be nullified when original UI
      * state is restored.
      */
@@ -1044,16 +1063,17 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
             }
             this.activeRunningOperations--;
         }
-        
+
     }
 
     /**
      * Saves the enabled/disabled state of the given control in the given map, which must be modifiable.
-     * @see #restoreEnableState(Control, Map, String)
+     *
      * @param w the control, or <code>null</code> if none
      * @param h the map (key type: <code>String</code>, element type: <code>Boolean</code>)
      * @param key the key
      * @param enabled <code>true</code> to enable the control, and <code>false</code> to disable it
+     * @see #restoreEnableState(Control, Map, String)
      */
     @objid ("bc21ab2c-120f-11e2-b5c6-002564c97630")
     private void saveEnableStateAndSet(final Control w, final Map<String, Object> h, final String key, final boolean enabled) {
@@ -1061,11 +1081,12 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
             h.put(key, w.getEnabled() ? Boolean.TRUE : Boolean.FALSE);
             w.setEnabled(enabled);
         }
-        
+
     }
 
     /**
      * Sets the given cursor for all shells currently active for this window's display.
+     *
      * @param c the cursor
      */
     @objid ("bc21ab3b-120f-11e2-b5c6-002564c97630")
@@ -1074,13 +1095,14 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
         for (int i = 0; i < shells.length; i++) {
             shells[i].setCursor(c);
         }
-        
+
     }
 
     /**
      * Sets the minimum page size used for the pages.
-     * @see #setMinimumPageSize(int,int)
+     *
      * @param size the page size encoded as <code>new Point(width,height)</code>
+     * @see #setMinimumPageSize(int,int)
      */
     @objid ("bc21ab40-120f-11e2-b5c6-002564c97630")
     public void setMinimumPageSize(final Point size) {
@@ -1089,8 +1111,9 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
 
     /**
      * Sets the size of all pages. The given size takes precedence over computed sizes.
-     * @see #setPageSize(int,int)
+     *
      * @param size the page size encoded as <code>new Point(width,height)</code>
+     * @see #setPageSize(int,int)
      */
     @objid ("bc21ab45-120f-11e2-b5c6-002564c97630")
     public void setPageSize(final Point size) {
@@ -1099,6 +1122,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
 
     /**
      * Sets the wizard this dialog is currently displaying.
+     *
      * @param newWizard the wizard
      */
     @objid ("bc21ab4a-120f-11e2-b5c6-002564c97630")
@@ -1130,7 +1154,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
                 this.nestedWizards.add(this.wizard);
             }
         }
-        
+
     }
 
     @objid ("bc21ab4f-120f-11e2-b5c6-002564c97630")
@@ -1139,19 +1163,19 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
         if (page == null || page == this.currentPage) {
             return;
         }
-        
+
         if (!this.isMovingToPreviousPage) {
             // remember my previous page.
             page.setPreviousPage(this.currentPage);
         } else {
             this.isMovingToPreviousPage = false;
         }
-        
+
         // If page changing evaluation unsuccessful, do not change the page
         if (!doPageChanging(page)) {
             return;
         }
-        
+
         // Update for the new page in a busy cursor if possible
         if (getContents() == null) {
             updateForPage(page);
@@ -1164,11 +1188,12 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
                 }
             });
         }
-        
+
     }
 
     /**
      * Update the receiver for the new page.
+     *
      * @param page the currentlt editer wizard page.
      */
     @objid ("bc21ab54-120f-11e2-b5c6-002564c97630")
@@ -1192,18 +1217,19 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
         // make the new page visible
         IWizardPage oldPage = this.currentPage;
         this.currentPage = page;
-        
+
         this.currentPage.setVisible(true);
         if (oldPage != null) {
             oldPage.setVisible(false);
         }
         // update the dialog controls
         update();
-        
+
     }
 
     /**
      * Computes the correct dialog size for the current page and resizes its shell if necessary. Also causes the container to refresh its layout.
+     *
      * @param page the wizard page to use to resize the dialog
      * @since 2.0
      */
@@ -1214,11 +1240,12 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
         }
         updateSizeForPage(page);
         this.pageContainerLayout.layoutPage(page.getControl());
-        
+
     }
 
     /**
      * Computes the correct dialog size for the given page and resizes its shell if necessary.
+     *
      * @param page the wizard page
      */
     @objid ("bc240c8f-120f-11e2-b5c6-002564c97630")
@@ -1232,11 +1259,12 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
             setShellSize(shellSize.x + delta.x, shellSize.y + delta.y);
             constrainShellSize();
         }
-        
+
     }
 
     /**
      * Computes the correct dialog size for the given wizard and resizes its shell if necessary.
+     *
      * @param sizingWizard the wizard
      */
     @objid ("bc240c94-120f-11e2-b5c6-002564c97630")
@@ -1255,7 +1283,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
             Point shellSize = shell.getSize();
             setShellSize(shellSize.x + delta.x, shellSize.y + delta.y);
         }
-        
+
     }
 
     @objid ("bc240c9a-120f-11e2-b5c6-002564c97630")
@@ -1272,10 +1300,10 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
 
     /**
      * Notifies any selection changed listeners that the selected page has changed. Only listeners registered at the time this method is called are notified.
-     * @see IPageChangedListener#pageChanged
-     * 
-     * @since 3.1
+     *
      * @param event a selection changed event
+     * @see IPageChangedListener#pageChanged
+     * @since 3.1
      */
     @objid ("bc266dec-120f-11e2-b5c6-002564c97630")
     protected void firePageChanged(final PageChangedEvent event) {
@@ -1289,11 +1317,12 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
                 }
             });
         }
-        
+
     }
 
     /**
      * Adds a listener for page changes to the list of page changing listeners registered for this dialog. Has no effect if an identical listener is already registered.
+     *
      * @param listener a page changing listener
      * @since 3.3
      */
@@ -1304,6 +1333,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
 
     /**
      * Removes the provided page changing listener from the list of page changing listeners registered for the dialog.
+     *
      * @param listener a page changing listener
      * @since 3.3
      */
@@ -1314,9 +1344,10 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
 
     /**
      * Notifies any page changing listeners that the currently selected dialog page is changing. Only listeners registered at the time this method is called are notified.
+     *
+     * @param event a selection changing event
      * @see IPageChangingListener#handlePageChanging(PageChangingEvent)
      * @since 3.3
-     * @param event a selection changing event
      */
     @objid ("bc266dfb-120f-11e2-b5c6-002564c97630")
     protected void firePageChanging(final PageChangingEvent event) {
@@ -1330,7 +1361,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
                 }
             });
         }
-        
+
     }
 
     /**
@@ -1338,6 +1369,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
      * <p>
      * The <code>WizardDialog</code> implementation of this framework method prevents the parent composite's columns from being made equal width in order to remove the margin between the Back and Next buttons.
      * </p>
+     *
      * @param parent the parent composite to contain the buttons
      */
     @objid ("bc266e00-120f-11e2-b5c6-002564c97630")
@@ -1352,13 +1384,13 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
         }
         this.finishButton = createButton(parent, IDialogConstants.FINISH_ID, IDialogConstants.FINISH_LABEL, true);
         this.cancelButton = createCancelButton(parent);
-        
+
         if (parent.getDisplay().getDismissalAlignment() == SWT.RIGHT) {
             // Make the default button the right-most button.
             // See also special code in org.eclipse.jface.dialogs.Dialog#initializeBounds()
             this.finishButton.moveBelow(null);
         }
-        
+
     }
 
     @objid ("bc266e05-120f-11e2-b5c6-002564c97630")
@@ -1398,18 +1430,19 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
 
         /**
          * Creates new layout object.
+         *
          * @param mw the margin width
          * @param mh the margin height
          * @param minW the minimum width
          * @param minH the minimum height
          */
         @objid ("d65668f7-910f-11e0-9de7-002564c97630")
-        public  PageContainerFillLayout(final int mw, final int mh, final int minW, final int minH) {
+        public PageContainerFillLayout(final int mw, final int mh, final int minW, final int minH) {
             this.marginWidth = mw;
             this.marginHeight = mh;
             this.minimumWidth = minW;
             this.minimumHeight = minH;
-            
+
         }
 
         @objid ("bc266e0c-120f-11e2-b5c6-002564c97630")
@@ -1446,6 +1479,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
 
         /**
          * Returns the client area for the given composite according to this layout.
+         *
          * @param c the composite
          * @return the client area rectangle
          */
@@ -1467,11 +1501,12 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
             for (int i = 0; i < children.length; i++) {
                 children[i].setBounds(rect);
             }
-            
+
         }
 
         /**
          * Lays outs the page according to this layout.
+         *
          * @param w the control
          */
         @objid ("bc28cf54-120f-11e2-b5c6-002564c97630")
@@ -1481,6 +1516,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
 
         /**
          * Sets the location of the page so that its origin is in the upper left corner.
+         *
          * @param w the control
          */
         @objid ("bc28cf59-120f-11e2-b5c6-002564c97630")
@@ -1502,7 +1538,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
             if (!ModelioWizardDialog.this.lockedUI) {
                 getBlockedHandler().clearBlocked();
             }
-            
+
         }
 
         @objid ("7afe288b-975f-11e0-bb39-002564c97630")
@@ -1510,7 +1546,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
         public void beginTask(final String name, final int totalWork) {
             super.beginTask(name, totalWork);
             this.currentTask = name;
-            
+
         }
 
         @objid ("7afe76a9-975f-11e0-bb39-002564c97630")
@@ -1518,7 +1554,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
         public void setTaskName(final String name) {
             super.setTaskName(name);
             this.currentTask = name;
-            
+
         }
 
         @objid ("7afe76ae-975f-11e0-bb39-002564c97630")
@@ -1530,11 +1566,11 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
             if (this.currentTask == null) {
                 this.currentTask = name;
             }
-            
+
         }
 
         @objid ("bc28cf5f-120f-11e2-b5c6-002564c97630")
-        public  MWDProgressMonitorPart(final Composite parent, final Layout layout, final boolean createStopButton) {
+        public MWDProgressMonitorPart(final Composite parent, final Layout layout, final boolean createStopButton) {
             super(parent, layout, createStopButton);
         }
 
@@ -1546,7 +1582,7 @@ public class ModelioWizardDialog extends ModelioDialog implements IWizardContain
                 getBlockedHandler().showBlocked(getShell(), this, reason,
                         this.currentTask);
             }
-            
+
         }
 
     }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.data.project;
 
@@ -39,9 +39,9 @@ import org.modelio.vbasic.version.Version;
  * Descriptors can be created either by reading from a file
  * with {@link GProjectDescriptorReader#read(Path, DefinitionScope)},
  * or by creating an empty one with {@link #createEmpty(String, Path, Version)}.
- * 
+ *
  * <h2>Warning</h2>
- * 
+ *
  * {@link #equals(Object)} and {@link #hashCode()} <b>use all fields</b>.
  * It is not suitable to put a {@link GProjectDescriptor} directly in a Set or as use it as Map key.
  */
@@ -148,17 +148,18 @@ public final class GProjectDescriptor implements Serializable {
      * Instantiate an empty project descriptor.
      */
     @objid ("b2716533-ea5e-49e0-b59e-27df74b6bfc5")
-    public  GProjectDescriptor() {
-        
+    public GProjectDescriptor() {
+
     }
 
     /**
      * Copy constructor.
+     *
      * @param orig the descriptor to copy.
      * @param withFragments if true fragment descriptors are copied too. If false the returned project has no fragment at all.
      */
     @objid ("3e7c68e7-de95-42f0-844e-2fe0cb8671ca")
-    public  GProjectDescriptor(GProjectDescriptor orig, boolean withFragments) {
+    public GProjectDescriptor(GProjectDescriptor orig, boolean withFragments) {
         setAuthDescriptor(new AuthDescriptor(orig.getAuthDescriptor().getData(), orig.getAuthDescriptor().getScope()));
         setFormatVersion(orig.getFormatVersion());
         setLockInfo(orig.getLockInfo());
@@ -168,28 +169,29 @@ public final class GProjectDescriptor implements Serializable {
         setProperties(new GProperties(orig.getProperties()));
         setRemoteLocation(orig.getRemoteLocation());
         setType(orig.getType());
-        
+
         ProjectFileStructure projectFileStructure = orig.getProjectFileStructure();
         if (projectFileStructure != null) {
             setPath(projectFileStructure.getProjectPath());
         }
-        
+
         if (withFragments) {
             for (GProjectPartDescriptor of : orig.getPartDescriptors()) {
                 getPartDescriptors().add(new GProjectPartDescriptor(of));
             }
         }
-        
+
     }
 
     /**
      * Remove incomplete module and fragment descriptors.
+     *
      * @return A report of all incomplete descriptors that were deleted.
      */
     @objid ("a872e58c-d35f-4cec-aea2-e4061c742e8f")
     public String cleanup() {
         StringBuilder sb = new StringBuilder();
-        
+
         Iterator<GProjectPartDescriptor> it = this.partDescriptors.iterator();
         while (it.hasNext()) {
             GProjectPartDescriptor d = it.next();
@@ -205,6 +207,7 @@ public final class GProjectDescriptor implements Serializable {
      * Create an empty local project descriptor.
      * <p>
      * Authorization data is set to none.
+     *
      * @param projectName the project name.
      * @param projectPath the project path.
      * @param modelioVersion the Modelio version
@@ -224,6 +227,7 @@ public final class GProjectDescriptor implements Serializable {
 
     /**
      * Get the authentication data descriptor.
+     *
      * @return the authentication data descriptor.
      */
     @objid ("933f2b9d-7e63-437c-9654-c27824411ce4")
@@ -233,8 +237,9 @@ public final class GProjectDescriptor implements Serializable {
 
     /**
      * Get the descriptor format version.
-     * @see #serialVersionUID
+     *
      * @return the descriptor format version.
+     * @see #serialVersionUID
      */
     @objid ("2cec15a5-5258-40a2-b8df-f0914cbd39e3")
     public long getFormatVersion() {
@@ -245,6 +250,7 @@ public final class GProjectDescriptor implements Serializable {
      * Get the fragment descriptors.
      * <p>
      * Returns the live list, <b>do not mess with it!</b>.
+     *
      * @return the fragments.
      */
     @objid ("dc91bad9-a971-49d4-95bc-8f8cea35af07")
@@ -256,6 +262,7 @@ public final class GProjectDescriptor implements Serializable {
 
     /**
      * Return the projects parts matching given type.
+     *
      * @param partType the searched type
      * @return the projects parts matching given type.
      */
@@ -264,11 +271,12 @@ public final class GProjectDescriptor implements Serializable {
         return getPartDescriptors().stream().filter(d -> {
             return d.getType() == partType;
         }).collect(Collectors.toList());
-        
+
     }
 
     /**
      * Get lock informations if the project is locked.
+     *
      * @return the lock informations or <i>null</i>.
      */
     @objid ("7c5ac14f-f313-4005-83f5-31ddd98ee919")
@@ -278,6 +286,7 @@ public final class GProjectDescriptor implements Serializable {
 
     /**
      * Get the version of Modelio used to write this project.
+     *
      * @return the Modelio version.
      */
     @objid ("956d5529-7502-45ab-b07a-885dec712590")
@@ -287,6 +296,7 @@ public final class GProjectDescriptor implements Serializable {
     }
 
     /**
+     *
      * @return the project name.
      */
     @objid ("067acf04-1ac7-441d-bc6f-13c5c370a95e")
@@ -296,6 +306,7 @@ public final class GProjectDescriptor implements Serializable {
 
     /**
      * Get the project space structure.
+     *
      * @return the project space structure. Might be <code>null</code> if this descriptor is not fully initialized.
      */
     @objid ("0e2631e8-048d-4a4d-8980-0ac9d5453454")
@@ -311,6 +322,7 @@ public final class GProjectDescriptor implements Serializable {
 
     /**
      * Get the project properties.
+     *
      * @return the project properties.
      */
     @objid ("60b9a99c-22ba-4cfa-b19f-428647583354")
@@ -322,6 +334,7 @@ public final class GProjectDescriptor implements Serializable {
      * Get the project remote location.
      * <p>
      * Returns <code>null</code> for local projects.
+     *
      * @return the project remote location.
      */
     @objid ("f693a692-ec04-45f2-9530-2bbf7562dcbc")
@@ -331,6 +344,7 @@ public final class GProjectDescriptor implements Serializable {
 
     /**
      * Find a part descriptor from its id.
+     *
      * @param id the part descriptor id
      * @return the found resource or <i>null</i>.
      */
@@ -348,6 +362,7 @@ public final class GProjectDescriptor implements Serializable {
      * Get the project type as a string.
      * <p>
      * The string value should match one of the {@link ProjectType} enumeration values.
+     *
      * @return the project type.
      */
     @objid ("ed8fbadb-b87b-48fd-8f3b-1638c20f8697")
@@ -357,6 +372,7 @@ public final class GProjectDescriptor implements Serializable {
 
     /**
      * set the authentication descriptor.
+     *
      * @param auth the authentication descriptor
      */
     @objid ("41936659-2deb-495d-8da5-370bcd22929c")
@@ -366,8 +382,9 @@ public final class GProjectDescriptor implements Serializable {
 
     /**
      * Set the descriptor format version.
-     * @see #serialVersionUID
+     *
      * @param formatVersion the descriptor format version.
+     * @see #serialVersionUID
      */
     @objid ("89457b78-b545-4c71-84f1-b12a2c356134")
     public void setFormatVersion(long formatVersion) {
@@ -376,6 +393,7 @@ public final class GProjectDescriptor implements Serializable {
 
     /**
      * Set lock informations if the project is locked.
+     *
      * @param lockInfo lock informations
      */
     @objid ("7d091e98-feee-4b45-b50b-6f821b73d959")
@@ -385,17 +403,19 @@ public final class GProjectDescriptor implements Serializable {
 
     /**
      * Set the version of Modelio used to write this project.
+     *
      * @param value the Modelio version.
      */
     @objid ("1447e9f1-f091-4637-865b-643d2d3f4a20")
     public void setModelioVersion(Version value) {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.modelioVersion = value;
-        
+
     }
 
     /**
      * Set the project name.
+     *
      * @param name the project name.
      */
     @objid ("9e830b99-92c5-4366-a2fe-0eefda2ce589")
@@ -405,6 +425,7 @@ public final class GProjectDescriptor implements Serializable {
 
     /**
      * Set the project path to initialize the project file structure.
+     *
      * @param projectPath the project path.
      */
     @objid ("1f4f4cb6-bf40-4230-a5d0-973fbafd7710")
@@ -416,13 +437,14 @@ public final class GProjectDescriptor implements Serializable {
     public void setProjectSpaceVersion(long value) {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.projectSpaceVersion = value;
-        
+
     }
 
     /**
      * Set the project properties.
      * <p>
      * Since Modelio 3.2 properties are initialized to an empty GProperties, you don't need to set one.
+     *
      * @param gProperties the project properties.
      */
     @objid ("c0b5e30d-0f41-42db-978b-417e2ba8788a")
@@ -432,6 +454,7 @@ public final class GProjectDescriptor implements Serializable {
 
     /**
      * Set the project remote location.
+     *
      * @param remoteLocation the project remote location.
      */
     @objid ("7c023531-3553-4653-9ca2-fd11ccb5eddd")
@@ -443,6 +466,7 @@ public final class GProjectDescriptor implements Serializable {
      * Set the project type.
      * <p>
      * The string value should match one of the {@link ProjectType} enumeration values.
+     *
      * @param type the project type.
      */
     @objid ("b3176431-d0f2-47ee-a751-66e481682f1f")
@@ -455,7 +479,7 @@ public final class GProjectDescriptor implements Serializable {
     public int hashCode() {
         return Objects.hash(this.auth, this.formatVersion, this.modelioVersion, this.name, this.partDescriptors,
                 this.projectSpaceVersion, this.properties, this.remoteLocation, this.type);
-        
+
     }
 
     /**
@@ -479,6 +503,7 @@ public final class GProjectDescriptor implements Serializable {
 
     /**
      * Makes a deep comparison with the other project descriptor.
+     *
      * @param other the other project descriptor.
      * @return true only if all projects fields and parts are exactly the same.
      */
@@ -500,7 +525,7 @@ public final class GProjectDescriptor implements Serializable {
                 && Objects.equals(this.remoteLocation, other.remoteLocation)
                 && this.projectSpaceVersion == other.projectSpaceVersion
                 && Objects.equals(myParts, otherParts);
-        
+
     }
 
 }

@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.audit.view;
 
@@ -74,31 +93,37 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener, IAudi
     private String jobId;
 
     @objid ("2d0198fb-6e14-4171-9f6b-ab2fcdfe711f")
-    private MApplication application;
+    private final MApplication application;
 
     @objid ("6da009ba-0c4c-4441-b07f-a6e469bdcc34")
-    private EModelService emService;
+    private final EModelService emService;
 
-    @objid ("5cd2be7d-c10a-493c-ae38-5d4e2ca675a2")
+    @objid ("85823602-d286-4ab6-850c-2f3157092d4a")
     private Composite area;
 
-    @objid ("daf0f8f7-40b8-40c9-8113-d2305260f685")
+    @objid ("2e001d4c-9dc1-40b8-b2cb-96adb9a00e7d")
     private TreeViewer auditTable;
 
-    @objid ("8076aa88-a1d2-44a9-ab1d-0b26507d25f9")
-    private List<TreeViewerColumn> columns;
+    @objid ("f45f7bfc-118d-4bbb-8ca0-dc1ba45f94f8")
+    private final List<TreeViewerColumn> columns;
+
+    /**
+     * Ensures a refresh is done 3 times a second maximum to avoid killing CPU
+     */
+    @objid ("b2288949-b196-4ba0-aa1d-e0dec4e0c336")
+    private Throttler redrawScheduler;
 
     @objid ("fa78603f-c9fc-4e62-918b-b9493b9b4440")
     private ICoreSession modelingSession;
 
     @objid ("cf28f2f1-cf87-4845-82ce-d9e22434eb59")
-    private IMModelServices modelService;
+    private final IMModelServices modelService;
 
     @objid ("4ed02965-590a-4f7d-b729-9b96161950ca")
     private AuditDiagnostic auditDiagnostic;
 
     @objid ("9411252a-40e4-4cc5-bf5a-9caecdc79a7a")
-    public IModelioNavigationService navigationService;
+    public final IModelioNavigationService navigationService;
 
     /**
      * Provider factory: uses a late-initialization pattern. Only access this attribute using {@link #getProviderFactory()}
@@ -107,30 +132,23 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener, IAudi
     private AuditProviderFactory providerFactory;
 
     @objid ("79d91f6c-6d12-4827-9176-0a0684101300")
-    private IAuditService auditService;
+    private final IAuditService auditService;
 
     @objid ("5282ac7b-7d88-4a09-ab65-082fdc4ce984")
     private List<MObject> scope;
 
-    /**
-     * Ensures a refresh is done 3 times a second maximum to avoid killing CPU
-     */
-    @objid ("ff450763-55fe-4e73-b65e-b1c04dc8e014")
-    private Throttler redrawScheduler;
-
     @objid ("89485182-43f9-4265-9401-27972fff1177")
-    public  AuditPanelProvider(IAuditService auditService, ICoreSession newModelingSession, IMModelServices newModelService, IModelioNavigationService newNavigationService, MApplication application, EModelService emService) {
+    public AuditPanelProvider(IAuditService auditService, ICoreSession newModelingSession, IMModelServices newModelService, IModelioNavigationService newNavigationService, MApplication application, EModelService emService) {
         this.modelingSession = newModelingSession;
         this.modelService = newModelService;
         this.navigationService = newNavigationService;
-        
+
         this.application = application;
         this.emService = emService;
         this.auditService = auditService;
-        
+
         this.jobId = ALL_JOBS;
         this.columns = new ArrayList<>();
-        
     }
 
     @objid ("ed7e239b-2e76-4505-a921-981c45e8d74f")
@@ -139,10 +157,10 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener, IAudi
         this.area = new Composite(parent, SWT.NO_REDRAW_RESIZE);
         final FormLayout layout = new FormLayout();
         this.area.setLayout(layout);
-        
+
         this.auditTable = createAuditTable(this.area);
         //this.auditStatus = createAuditStatus(this.area);
-        
+
         // attachments for audit table
         final FormData fd = new FormData();
         fd.left = new FormAttachment(0, 0);
@@ -150,14 +168,14 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener, IAudi
         fd.top = new FormAttachment(0, 0);
         fd.bottom = new FormAttachment(100/*this.auditStatus.getComposite()*/, 0);
         this.auditTable.getTree().setLayoutData(fd);
-        
+
         // attachments for audit status
         //        final FormData fd2 = new FormData();
         //        fd2.left = new FormAttachment(0, 0);
         //        fd2.right = new FormAttachment(100, 0);
         //        fd2.bottom = new FormAttachment(100, 0);
         //        this.auditStatus.getComposite().setLayoutData(fd2);
-        
+
         // Ensures a refresh is done 3 times a second maximum to avoid killing CPU
         this.redrawScheduler = new Throttler(parent.getDisplay(), Duration.ofMillis(333), () -> {
             if (! this.auditTable.getTree().isDisposed()) {
@@ -176,11 +194,12 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener, IAudi
     @objid ("91dc8ffb-d3b0-4a62-9fa0-cfc5d8b76997")
     @Override
     public void dispose() {
-        this.auditDiagnostic.removeAuditListener(this);
+        if (this.auditDiagnostic != null) {
+            this.auditDiagnostic.removeAuditListener(this);
+        }
         this.auditService.removeAuditMonitor(this);
         this.modelingSession = null;
         this.redrawScheduler = null;
-        
     }
 
     /**
@@ -200,7 +219,6 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener, IAudi
                 part.setIconURI("platform:/plugin/org.modelio.audit/" + path);
             }
         }
-        
     }
 
     @objid ("5a8f4d61-4e70-4eb9-9980-deabba7f244c")
@@ -212,21 +230,23 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener, IAudi
     @objid ("9111731f-af16-448e-971c-0e3c867670be")
     @Override
     public void setInput(Object input) {
+        if (this.auditDiagnostic == input)
+            return;
+
+        // Unplug the previous diagnostic
+        if (this.auditDiagnostic != null) {
+            this.auditDiagnostic.removeAuditListener(this);
+            this.auditService.removeAuditMonitor(this);
+            this.auditDiagnostic = null;
+        }
+
         if (input instanceof IAuditDiagnostic) {
-            // Unplug the previous diagnostic
-            if (this.auditDiagnostic != null) {
-                this.auditDiagnostic.removeAuditListener(this);
-                this.auditService.removeAuditMonitor(this);
-                this.auditDiagnostic = null;
-            }
-        
             // Plug in the new diagnostic
             this.auditDiagnostic = (AuditDiagnostic) input;
             this.auditDiagnostic.addAuditListener(this);
             this.auditService.addAuditMonitor(this);
             this.auditTable.setInput(this.auditDiagnostic);
         }
-        
     }
 
     @objid ("042aadf4-92de-4340-90cd-0f75b70ffe94")
@@ -246,10 +266,11 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener, IAudi
     @objid ("259e0471-abcb-4500-9f73-04c2feb8a2f8")
     @Override
     public void status(final AuditRunnerStatus status, final int queueSize) {
-        
+
     }
 
     /**
+     *
      * @param diagnostic unused
      * @deprecated Call {@link #scheduleRefresh()} instead.
      */
@@ -274,10 +295,10 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener, IAudi
         TreeViewer newTreeViewer = new TreeViewer(parent, SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
         newTreeViewer.getTree().setHeaderVisible(true);
         newTreeViewer.getTree().setLinesVisible(true);
-        
+
         AuditProviderFactory lproviderFactory = getProviderFactory();
         newTreeViewer.setContentProvider(lproviderFactory.getContentProvider());
-        
+
         for (int i = 0; i < lproviderFactory.getColumns(); i++) {
             TreeViewerColumn column = createTreeViewerColumn(
                     newTreeViewer,
@@ -286,7 +307,7 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener, IAudi
             column.setLabelProvider(lproviderFactory.getLabelProvider(i));
             this.columns.add(column);
         }
-        
+
         newTreeViewer.getTree().addListener(SWT.MouseDoubleClick, ev -> {
             TreeSelection selection = (TreeSelection) this.auditTable.getSelection();
             if (selection.getFirstElement() instanceof AuditEntry) {
@@ -333,11 +354,11 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener, IAudi
     public void printDiagnostic(PrintStream out) {
         ITreeContentProvider cp = (ITreeContentProvider) getProviderFactory().getContentProvider();
         AuditEntryLineFormatter formatter = new AuditEntryLineFormatter(this.auditService.getConfigurationModel().getAuditConfigurationPlan());
-        
+
         // Loop on top level elements returned by the current provider ensures the currently displayed structure and ordering.
         for (Object e : cp.getElements(this.getInput())) {
             Collection<IAuditEntry> entries;
-        
+
             // Sadly there are no 'smart' accessors to get the entries ...
             if (e instanceof AuditTypeModel)
                 entries = ((AuditTypeModel) e).entries;
@@ -349,23 +370,22 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener, IAudi
                 entries = Collections.singletonList((AuditEntry) e);
             else
                 entries = Collections.EMPTY_LIST;
-        
+
             // Produce output (text lines)
             for (IAuditEntry entry : entries) {
                 out.println(formatter.getText(e, entry));
             }
         }
-        
     }
 
     @objid ("b9c7f5b7-4396-4ede-b74d-7fa2e190c814")
     private void reconfigure() {
         this.auditTable.setContentProvider(getProviderFactory().getContentProvider());
-        
+
         while (this.auditTable.getTree().getColumnCount() > 0) {
             this.auditTable.getTree().getColumn(0).dispose();
         }
-        
+
         for (int i = 0; i < getProviderFactory().getColumns(); i++) {
             TreeViewerColumn column = createTreeViewerColumn(
                     this.auditTable,
@@ -373,9 +393,8 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener, IAudi
                     getProviderFactory().getDefaultColumnSize(i));
             column.setLabelProvider(getProviderFactory().getLabelProvider(i));
         }
-        
+
         scheduleRefresh();
-        
     }
 
     @objid ("61b574b0-1c0c-4e3c-bad8-13cd4d23da16")
@@ -388,11 +407,11 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener, IAudi
         } else {
             return String.format(Audit.I18N.getMessage("Audit.StatusBar.SelectedElements", this.scope.size()));
         }
-        
     }
 
     /**
      * Set the scope of the displayed audit results.
+     *
      * @param scope the list of elements that are in the scope of the displayed audit. <null> value means no scope ie global audit contents are displayed.
      * @param reqJobId only contents matching 'jobId' are displayed. Should be null when scope is null.
      */
@@ -404,32 +423,30 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener, IAudi
         } else {
             newJobId = ALL_JOBS;
         }
-        
-        boolean jobIdchanged = Objects.equals(newJobId, this.jobId);
+
+        boolean jobIdchanged = ! Objects.equals(newJobId, this.jobId);
         if (Objects.equals(scope, this.scope) && !jobIdchanged)
             return;
-        
+
         this.scope = scope;
         this.jobId = newJobId;
-        
+
         if (jobIdchanged) {
             getProviderFactory().setJobId(newJobId);
-            this.auditTable.setContentProvider(getProviderFactory().getContentProvider());
         }
-        
+        this.auditTable.setContentProvider(getProviderFactory().getContentProvider());
         scheduleRefresh();
-        
     }
 
     @objid ("5b6f27db-873e-4234-a37f-4138d858167f")
     public void setViewMode(AuditViewMode mode) {
         getProviderFactory().setViewMode(mode);
         reconfigure();
-        
     }
 
     /**
      * Lazy accessor to provider factory.
+     *
      * @return the initialized provider factory
      */
     @objid ("3e3e017a-d2e7-443d-a2e9-0ab330d09ad9")
@@ -449,7 +466,7 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener, IAudi
         private IAuditConfigurationPlan auditConfigurationPlan;
 
         @objid ("3ddb8c95-9b4a-434b-a9a0-62b9949f2902")
-        public  AuditEntryLineFormatter(IAuditConfigurationPlan auditConfigurationPlan) {
+        public AuditEntryLineFormatter(IAuditConfigurationPlan auditConfigurationPlan) {
             this.auditConfigurationPlan = auditConfigurationPlan;
         }
 
@@ -459,32 +476,31 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener, IAudi
             String severityString = entry.getSeverity().getLabel();
             String elementString = String.format("%-12s %-16s", entry.getElement().getMClass().getName(), "'" + entry.getElement().getName() + "'");
             String timeString = this.dateFormatter.format(entry.getTimestamp());
-            
+
             String pattern = this.auditConfigurationPlan.getMessage(entry.getRuleId());
             String messageString = MessageFormat.format(pattern, makeInfos(entry.getLinkedObjects()));
-            
+
             // Output line layout depends on displayed mode
             if (auditModel instanceof AuditTypeModel)
                 return String.format("%-8s %s %-7s %s", severityString, elementString, ruleIdString, messageString);
-            
+
             else if (auditModel instanceof AuditElementModel)
                 return String.format("%s %-8s %-8s %-7s %s", elementString, timeString, severityString, ruleIdString, messageString);
-            
+
             else if (auditModel instanceof AuditRuleModel)
                 return String.format("%-7s %-8s %-8s %s %s", ruleIdString, severityString, timeString, elementString, messageString);
-            
+
             else if (auditModel instanceof AuditEntry)
                 return String.format("%-8s %-8s %-7s %s %s", timeString, severityString, ruleIdString, elementString, messageString);
             else
                 return String.format("%s", entry.toString());
-            
         }
 
         @objid ("c8028a47-d03f-4149-a1a4-43f126491d7c")
         private Object[] makeInfos(List<Object> linkedObjects) {
             List<Object> infos = new ArrayList<>();
             for (Object o : linkedObjects) {
-            
+
                 if (o instanceof MObject) {
                     MObject element = (MObject) o;
                     infos.add(element.getName());

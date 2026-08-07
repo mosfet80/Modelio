@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -35,7 +35,7 @@ public class OGate extends OMessageEnd {
     }
 
     @objid ("92922b49-d388-4fe8-9178-8b638d0ae4ac")
-    public  OGate(Gate param) {
+    public OGate(Gate param) {
         super(param);
     }
 
@@ -49,19 +49,19 @@ public class OGate extends OMessageEnd {
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         Object ecoreOwner = GenerationProperties.getInstance().getMappedElement(((Gate)this.getObjingElement()).getCompositionOwner());
-        
-        if (ecoreOwner instanceof org.eclipse.uml2.uml.Interaction){    
+
+        if (ecoreOwner instanceof org.eclipse.uml2.uml.Interaction){
             ((org.eclipse.uml2.uml.Interaction)ecoreOwner).getFormalGates().add((org.eclipse.uml2.uml.Gate)ecoreElt);
-        
+
         }else if (ecoreOwner instanceof org.eclipse.uml2.uml.CombinedFragment){
             ( (org.eclipse.uml2.uml.CombinedFragment)ecoreOwner).getCfragmentGates().add((org.eclipse.uml2.uml.Gate)ecoreElt);
-        
+
         }else if (ecoreOwner instanceof org.eclipse.uml2.uml.InteractionUse){
             ((org.eclipse.uml2.uml.InteractionUse)ecoreOwner).getActualGates().add((org.eclipse.uml2.uml.Gate)ecoreElt);
         }else{
             ecoreElt.destroy();
         }
-        
+
     }
 
     @objid ("c5af3c53-df49-48b2-96fd-2d0dbb8146f2")

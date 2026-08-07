@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.preferences.ui;
 
@@ -80,17 +80,19 @@ public class AuditPreferenceUi {
 
     /**
      * Initialize the preference editor.
+     *
      * @param auditService the audit service
      */
     @objid ("b20b8808-ba8a-46d9-8367-6fe4544fd982")
-    public  AuditPreferenceUi(IAuditService auditService) {
+    public AuditPreferenceUi(IAuditService auditService) {
         this.auditService = auditService;
         this.preferences = this.auditService.getConfigurationModel();
-        
+
     }
 
     /**
      * Create the GUI
+     *
      * @param parent the parent composite where the content must be created.
      * @return the created root composite
      */
@@ -98,11 +100,11 @@ public class AuditPreferenceUi {
     public Control createContents(Composite parent) {
         Composite root = new Composite(parent, SWT.NONE);
         root.setLayout(new GridLayout(1, true));
-        
+
         this.treeViewer = new TreeViewer(root, SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
         this.treeViewer.getTree().setHeaderVisible(false);
         this.treeViewer.getTree().setLinesVisible(true);
-        
+
         // Layout the viewer
         GridData gridData = new GridData();
         gridData.verticalAlignment = GridData.FILL;
@@ -113,45 +115,45 @@ public class AuditPreferenceUi {
         gridData.minimumHeight = 400;
         gridData.minimumWidth = 900;
         this.treeViewer.getControl().setLayoutData(gridData);
-        
+
         // Create columns
         String[] columnTitles = { Audit.I18N.getString("Audit.PreferenceUI.Id"), Audit.I18N.getString("Audit.PreferenceUI.Activation"), Audit.I18N.getString("Audit.PreferenceUI.Severity"), Audit.I18N.getString("Audit.PreferenceUI.Summary") };
         int[] columnInitialWidths = { 150, 25, 25, 730 };
         EditingSupport[] editingSupport = { null, new AuditSeverityEditingSupport(this.treeViewer), new AuditActivationEditingSupport(this.treeViewer), null };
-        
+
         for (int i = 0; i < columnTitles.length; i++) {
             TreeViewerColumn column = createTreeViewerColumn(columnTitles[i], columnInitialWidths[i]);
             column.setLabelProvider(new AuditPropertyLabelProvider(this.preferences.getAuditConfigurationPlan()));
             column.setEditingSupport(editingSupport[i]);
         }
-        
+
         AuditPropertyContentProvider content = new AuditPropertyContentProvider();
         this.treeViewer.setContentProvider(content);
-        
+
         this.treeViewer.setInput(this.preferences);
-        
+
         // The save/restore/factory settings button bar
         Composite composite = new Composite(root, SWT.NONE);
         GridData dataComposite = new GridData(SWT.FILL, SWT.FILL, true, false);
         composite.setLayoutData(dataComposite);
         composite.setLayout(new RowLayout(SWT.HORIZONTAL));
-        
+
         this.exportToFile = new Button(composite, SWT.NONE);
         this.exportToFile.setText(Audit.I18N.getMessage("Preferences.Audit.Export.Label"));
         this.exportToFile.setToolTipText(Audit.I18N.getMessage("Preferences.Audit.Export.Tooltip"));
-        
+
         this.importFromFile = new Button(composite, SWT.NONE);
         this.importFromFile.setText(Audit.I18N.getMessage("Preferences.Audit.Import.Label"));
         this.importFromFile.setToolTipText(Audit.I18N.getMessage("Preferences.Audit.Import.Tooltip"));
-        
+
         this.factory = new Button(composite, SWT.NONE);
         this.factory.setText(Audit.I18N.getMessage("Preferences.Audit.Factory.Label"));
         this.factory.setToolTipText(Audit.I18N.getMessage("Preferences.Audit.Factory.Tooltip"));
-        
+
         this.save = new Button(composite, SWT.NONE);
         this.save.setText(Audit.I18N.getMessage("Audit.PreferenceUI.Save.Label"));
         this.save.setToolTipText(Audit.I18N.getMessage("Audit.PreferenceUI.Save.Tooltip"));
-        
+
         addListeners();
         return root;
     }
@@ -172,7 +174,7 @@ public class AuditPreferenceUi {
         this.importFromFile.addListener(SWT.Selection, e -> onImportConfiguration());
         this.factory.addListener(SWT.Selection, e -> onResetConfiguration());
         this.save.addListener(SWT.Selection, e -> onSaveConfiguration());
-        
+
     }
 
     @objid ("31e99d6a-2708-4a2a-9dd8-823ac0f8e17e")
@@ -184,16 +186,16 @@ public class AuditPreferenceUi {
         } else {
             message = e.getLocalizedMessage();
         }
-        
+
         MessageDialog.openError(parentShell, title, message);
-        
+
     }
 
     @objid ("ee8bdeac-b155-4b7c-a8ae-4e6f12392593")
     private void onSaveConfiguration() {
         // replace the current by the updated plan
         this.auditService.apply(this.preferences);
-        
+
     }
 
     @objid ("3720bb4a-09ea-45d9-bce4-5ca41bbe2df0")
@@ -201,7 +203,7 @@ public class AuditPreferenceUi {
         // use a configurator for factory settings
         this.preferences = this.auditService.getFactorySettings();
         this.treeViewer.setInput(this.preferences);
-        
+
     }
 
     @objid ("028925ef-2ed4-4fc9-a870-0c8922282da2")
@@ -214,25 +216,25 @@ public class AuditPreferenceUi {
         String result = dlg.open();
         if (result != null) { // Result is null when canceling
             File file = new File(dlg.getFilterPath(), dlg.getFileName());
-        
+
             // use a configurator for 'file' settings
             AuditModelController configurator = new AuditModelController(this.auditService.getConfigurationModel());
             try {
                 configurator.applyAuditConfiguration(file);
-        
+
                 this.preferences = configurator.getModel();
                 this.treeViewer.setInput(this.preferences);
             } catch (IOException e) {
                 reportError(Audit.I18N.getString("Preferences.Audit.Import.Error"), e);
             }
         }
-        
+
     }
 
     @objid ("de4899d9-7695-42af-b99c-6f14ce349f9e")
     private void onExportConfiguration() {
         // export current audit config to file
-        
+
         Shell parentShell = this.save.getShell();
         FileDialog dlg = new FileDialog(parentShell, SWT.SAVE);
         dlg.setFilterExtensions(new String[] { AuditPreferenceUi.AUDIT_CONF_FILTER });
@@ -240,26 +242,26 @@ public class AuditPreferenceUi {
         String result = dlg.open();
         if (result != null) { // Result is null when canceling
             File file = new File(dlg.getFilterPath(), dlg.getFileName());
-        
+
             if (file.getName().endsWith(AuditPreferenceUi.AUDIT_CONF_EXT) == false) {
                 file = new File(file.getAbsolutePath() + AuditPreferenceUi.AUDIT_CONF_EXT);
             }
-        
+
             try {
                 // copy original settings
                 Files.copy(this.auditService.getConfigurationFile().toPath(), file.toPath());
-        
+
                 // use a configurator
                 AuditModelController configurator = new AuditModelController(this.preferences);
-        
+
                 // save to the new file
                 configurator.writeConfiguration(file);
             } catch (IOException e) {
                 reportError(Audit.I18N.getString("Preferences.Audit.Export.Error"), e);
             }
-        
+
         }
-        
+
     }
 
 }

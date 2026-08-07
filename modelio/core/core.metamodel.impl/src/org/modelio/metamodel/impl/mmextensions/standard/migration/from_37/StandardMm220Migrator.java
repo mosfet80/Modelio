@@ -1,26 +1,28 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.mmextensions.standard.migration.from_37;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.bpmn.activities.BpmnCallActivity;
 import org.modelio.metamodel.bpmn.activities.BpmnReceiveTask;
@@ -36,6 +38,7 @@ import org.modelio.metamodel.bpmn.objects.BpmnItemAwareElement;
 import org.modelio.metamodel.bpmn.objects.BpmnItemDefinition;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnLane;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnParticipant;
+import org.modelio.metamodel.bpmn.rootElements.BpmnBaseElement;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Behavior;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 import org.modelio.metamodel.uml.infrastructure.MethodologicalLink;
@@ -92,9 +95,9 @@ import org.modelio.vcore.smkernel.meta.mof.MofSmObjectImpl;
  * <li>- BpmnReceiveTask.CalledOperation: Operation</li>
  * <li>- BpmnSendTask.CalledOperation: Operation</li>
  * <li>- BpmnServiceTask.CalledOperation: Operation</li>
- * 
+ *
  * </ul>
- * 
+ *
  * @since 3.8
  */
 @objid ("11b975f7-53ad-4685-9f32-a40135c19389")
@@ -150,6 +153,12 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
     @objid ("60c13098-f8e5-40bb-a0fd-1f381e1aa654")
     private MofSmClass methodologicalLinkMC;
 
+    @objid ("92adac13-6624-4407-91d7-ecf857e66155")
+    private MofSmClass umlBehaviorMC;
+
+    @objid ("0a6cd741-3bcf-46a8-83d5-87e102ed998f")
+    private MofSmClass bpmnBaseElementMC;
+
     @objid ("9c8ee5af-4e53-43f2-a536-ffb7f596eddd")
     private static final MRef called_methodologicallink_stereotype = new MRef(Stereotype.MQNAME, "c3862c6c-5983-4d1a-b0e2-58dd2685eda0", "Called");
 
@@ -172,10 +181,10 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
     private static final MRef state_methodologicallink_stereotype = new MRef(Stereotype.MQNAME, "c2d2a1ec-2c29-453c-a79c-19e4f2d27f13", "State");
 
     @objid ("12bb2e74-fe02-48eb-a47a-1261d3a5badc")
-    public  StandardMm220Migrator(MetamodelVersionDescriptor sourceMetamodel, MetamodelVersionDescriptor targetMetamodel) {
+    public StandardMm220Migrator(MetamodelVersionDescriptor sourceMetamodel, MetamodelVersionDescriptor targetMetamodel) {
         this.sourceMetamodel = sourceMetamodel;
         this.targetMetamodel = targetMetamodel;
-        
+
     }
 
     @objid ("daf685e4-fc5e-4c67-b6f5-e7ac38e13510")
@@ -198,6 +207,7 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
 
     /**
      * Modify the metamodel so that it can read the source repository.
+     *
      * @param metamodel the metamodel at the final state
      * @throws MofMigrationException on fatal failure preventing migration
      */
@@ -220,12 +230,15 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
         this.bpmnReceiveTaskMC = (MofSmClass) requireMClass(metamodel, BpmnReceiveTask.MQNAME);
         this.bpmnSendTaskMC = (MofSmClass) requireMClass(metamodel, BpmnSendTask.MQNAME);
         this.bpmnServiceTaskMC = (MofSmClass) requireMClass(metamodel, BpmnServiceTask.MQNAME);
-        
+
+        this.umlBehaviorMC = (MofSmClass) requireMClass(metamodel, Behavior.MQNAME);
+        this.bpmnBaseElementMC = (MofSmClass) requireMClass(metamodel, BpmnBaseElement.MQNAME);
+
         if (this.bpmnCallActivityMC.getDependency("CalledOperation") != null) {
             // Everything already present
             return;
         }
-        
+
         // Merge BPMN metamodel 2.2.0 into the current one.
         try (MofBuilder b = metamodel.builder().setTemporary(true);) {
             // Call activity
@@ -236,7 +249,7 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
                     .setPartOf()
                     .createOpposite("Caller", 0, -1)
                     .build();
-        
+
             b.createDep("CalledBehavior")
                     .setSource(this.bpmnCallActivityMC)
                     .setTarget(Behavior.MQNAME)
@@ -244,7 +257,7 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
                     .setPartOf()
                     .createOpposite("BpmnCaller", 0, -1)
                     .build();
-        
+
             // Data input
             b.createDep("RepresentedParameter")
                     .setSource(this.bpmnDataInputMC)
@@ -253,7 +266,7 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
                     .setPartOf()
                     .createOpposite("BpmnRepresentingDataInput", 0, -1)
                     .build();
-        
+
             // Data output
             b.createDep("RepresentedParameter")
                     .setSource(this.bpmnDataOutputMC)
@@ -262,7 +275,7 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
                     .setPartOf()
                     .createOpposite("BpmnRepresentingDataOutput", 0, -1)
                     .build();
-        
+
             // Data state
             b.createDep("UmlState")
                     .setSource(this.bpmnDataStateMC)
@@ -271,7 +284,7 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
                     .setPartOf()
                     .createOpposite("BpmnDataStateRefs", 0, -1)
                     .build();
-        
+
             // Interface
             b.createDep("ImplementationRef")
                     .setSource(this.bpmnInterfaceMC)
@@ -280,7 +293,7 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
                     .setPartOf()
                     .createOpposite("BpmnInterfaceRefs", 0, -1)
                     .build();
-        
+
             // Item Aware Element
             b.createDep("Type")
                     .setSource(this.bpmnItemAwareElementMC)
@@ -289,7 +302,7 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
                     .setPartOf()
                     .createOpposite("BpmnItemAwareRefs", 0, -1)
                     .build();
-        
+
             b.createDep("InState")
                     .setSource(this.bpmnItemAwareElementMC)
                     .setTarget(State.MQNAME)
@@ -297,7 +310,7 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
                     .setPartOf()
                     .createOpposite("RequiredStateOfBpmnItem", 0, -1)
                     .build();
-        
+
             b.createDep("RepresentedAssociationEnd")
                     .setSource(this.bpmnItemAwareElementMC)
                     .setTarget(AssociationEnd.MQNAME)
@@ -305,7 +318,7 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
                     .setPartOf()
                     .createOpposite("RepresentingItem", 0, -1)
                     .build();
-        
+
             b.createDep("RepresentedAttribute")
                     .setSource(this.bpmnItemAwareElementMC)
                     .setTarget(Attribute.MQNAME)
@@ -313,7 +326,7 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
                     .setPartOf()
                     .createOpposite("RepresentingItem", 0, -1)
                     .build();
-        
+
             b.createDep("RepresentedInstance")
                     .setSource(this.bpmnItemAwareElementMC)
                     .setTarget(Instance.MQNAME)
@@ -321,7 +334,7 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
                     .setPartOf()
                     .createOpposite("RepresentingItem", 0, -1)
                     .build();
-        
+
             // Item Definition
             b.createDep("StructureRef")
                     .setSource(this.bpmnItemDefinitionMC)
@@ -330,7 +343,7 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
                     .setPartOf()
                     .createOpposite("BpmnItemDefinitionRefs", 0, -1)
                     .build();
-        
+
             // Message
             b.createDep("Type")
                     .setSource(this.bpmnMessageMC)
@@ -339,7 +352,7 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
                     .setPartOf()
                     .createOpposite("BpmnMessageRefs", 0, -1)
                     .build();
-        
+
             b.createDep("InState")
                     .setSource(this.bpmnMessageMC)
                     .setTarget(State.MQNAME)
@@ -347,7 +360,7 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
                     .setPartOf()
                     .createOpposite("RequiredStateOfBpmnMessage", 0, -1)
                     .build();
-        
+
             // Lane
             b.createDep("PartitionElement")
                     .setSource(this.bpmnLaneMC)
@@ -356,7 +369,7 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
                     .setPartOf()
                     .createOpposite("BpmnLaneRefs", 0, -1)
                     .build();
-        
+
             // Operation
             b.createDep("ImplementationRef")
                     .setSource(this.bpmnOperationMC)
@@ -365,7 +378,7 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
                     .setPartOf()
                     .createOpposite("BpmnOperationRef", 0, -1)
                     .build();
-        
+
             // Participant
             b.createDep("Type")
                     .setSource(this.bpmnParticipantMC)
@@ -374,7 +387,7 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
                     .setPartOf()
                     .createOpposite("BpmnRepresents", 0, -1)
                     .build();
-        
+
             b.createDep("PackageRef")
                     .setSource(this.bpmnParticipantMC)
                     .setTarget(Package.MQNAME)
@@ -382,7 +395,7 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
                     .setPartOf()
                     .createOpposite("ParticipantRef", 0, -1)
                     .build();
-        
+
             // Receive task
             b.createDep("CalledOperation")
                     .setSource(this.bpmnReceiveTaskMC)
@@ -391,7 +404,7 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
                     .setPartOf()
                     .createOpposite("CallerReceiveTask", 0, -1)
                     .build();
-        
+
             // Send task
             b.createDep("CalledOperation")
                     .setSource(this.bpmnSendTaskMC)
@@ -400,7 +413,7 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
                     .setPartOf()
                     .createOpposite("CallerSendTask", 0, -1)
                     .build();
-        
+
             // Service task
             b.createDep("CalledOperation")
                     .setSource(this.bpmnServiceTaskMC)
@@ -410,14 +423,14 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
                     .createOpposite("CallerServiceTask", 0, -1)
                     .build();
         }
-        
+
     }
 
     @objid ("bc253f04-9362-4c45-b122-cc7438ad396c")
     @Override
     public void run(IModelioProgress monitor, IMofSession mofSession) throws MofMigrationException {
         SubProgress mon = SubProgress.convert(monitor, 7);
-        
+
         try {
             fixBpmnCallActivity(mon.newChild(1), mofSession);
             fixBpmnDataInput(mon.newChild(1), mofSession);
@@ -436,7 +449,7 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
         } catch (MetaclassNotFoundException e) {
             throw new MofMigrationException(e.getLocalizedMessage(), e);
         }
-        
+
     }
 
     @objid ("7cee4877-1baf-480a-974d-abf292e234ee")
@@ -456,7 +469,7 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
         MDependency dep = src.getDependency(name);
         assert (dep != null) : String.format("%s.%s : %s missing", src, name, target);
         assert (dep.getTarget() == target) : String.format("%s.%s : target should be %s.", src, dep, target);
-        
+
         MDependency opposite = dep.getSymetric();
         assert (opposite != null) : String.format("%s.%s has no opposite.", src, dep);
         assert (opposite.getName().equals(oppositeName)) : String.format("%s.%s opposite of %s.%s name should be '%s'.", opposite.getSource(), opposite, src, dep, oppositeName);
@@ -467,6 +480,7 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
 
     /**
      * Replace 'UmlState' metamodel dep with a <<State>> {@link MethodologicalLink}.
+     *
      * @param monitor a progress monitor
      * @param mofsession the migration session
      * @throws MetaclassNotFoundException should not occur
@@ -474,15 +488,16 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
     @objid ("10fd9503-ac5a-4ccc-9be5-f0675b70ddc3")
     private void fixBpmnDataState(IModelioProgress monitor, IMofSession mofsession) throws MetaclassNotFoundException {
         MofSmObjectImpl stateStereotype = mofsession.getObjectReference(StandardMm220Migrator.state_methodologicallink_stereotype);
-        
+
         for (MofSmObjectImpl bpmnElement : mofsession.findByClass(this.bpmnDataStateMC, true)) {
             createMethodologicalLink(mofsession, bpmnElement, "UmlState", stateStereotype);
         }
-        
+
     }
 
     /**
      * Replace 'RepresentedParameter' metamodel dep with a <<Represents>> {@link MethodologicalLink}.
+     *
      * @param monitor a progress monitor
      * @param mofsession the migration session
      * @throws MetaclassNotFoundException should not occur
@@ -490,15 +505,16 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
     @objid ("7bb3d7ed-f3dd-412d-85b2-d270d43bfdd6")
     private void fixBpmnDataOutput(IModelioProgress monitor, IMofSession mofsession) throws MetaclassNotFoundException {
         MofSmObjectImpl representsStereotype = mofsession.getObjectReference(StandardMm220Migrator.represents_methodologicallink_stereotype);
-        
+
         for (MofSmObjectImpl bpmnElement : mofsession.findByClass(this.bpmnDataOutputMC, true)) {
             createMethodologicalLink(mofsession, bpmnElement, "RepresentedParameter", representsStereotype);
         }
-        
+
     }
 
     /**
      * Replace 'RepresentedParameter' metamodel dep with a <<Represents>> {@link MethodologicalLink}.
+     *
      * @param monitor a progress monitor
      * @param mofsession the migration session
      * @throws MetaclassNotFoundException should not occur
@@ -506,15 +522,16 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
     @objid ("8ef8977b-d01c-4100-95c4-49c7b32eac2c")
     private void fixBpmnDataInput(IModelioProgress monitor, IMofSession mofsession) throws MetaclassNotFoundException {
         MofSmObjectImpl representsStereotype = mofsession.getObjectReference(StandardMm220Migrator.represents_methodologicallink_stereotype);
-        
+
         for (MofSmObjectImpl bpmnElement : mofsession.findByClass(this.bpmnDataInputMC, true)) {
             createMethodologicalLink(mofsession, bpmnElement, "RepresentedParameter", representsStereotype);
         }
-        
+
     }
 
     /**
      * Replace 'CalledOperation' and 'CalledBehavior' metamodel deps with a <<Called>> {@link MethodologicalLink}.
+     *
      * @param monitor a progress monitor
      * @param mofsession the migration session
      * @throws MetaclassNotFoundException should not occur
@@ -522,12 +539,12 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
     @objid ("8569a021-469f-497b-8be6-85dedad25129")
     private void fixBpmnCallActivity(IModelioProgress monitor, IMofSession mofsession) throws MetaclassNotFoundException {
         MofSmObjectImpl calledStereotype = mofsession.getObjectReference(StandardMm220Migrator.called_methodologicallink_stereotype);
-        
+
         for (MofSmObjectImpl bpmnElement : mofsession.findByClass(this.bpmnCallActivityMC, true)) {
             createMethodologicalLink(mofsession, bpmnElement, "CalledOperation", calledStereotype);
             createMethodologicalLink(mofsession, bpmnElement, "CalledBehavior", calledStereotype);
         }
-        
+
     }
 
     /**
@@ -541,16 +558,63 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
             newLink.getDep("Impacted").add(source);
             newLink.getDep("DependsOn").add(target);
             newLink.getDep("Extension").add(linkStereotype);
-        
+
             mofsession.getReport().getLogger().printf("    Replaced %s from %s to %s with a <<%s>> MethodologicalLink.\n", targetDep, source, target, linkStereotype);
         }
-        
+
         dep.clear();
-        
+
+    }
+
+    /**
+     * Replace a metamodel dep with a stereotyped {@link MethodologicalLink}.
+     * Version that replace only targets that match the filter.
+     */
+    @objid ("c1ae4941-f984-4dad-993f-8acb4675b9d5")
+    protected void createMethodologicalLinkFiltered(IMofSession mofsession, MofSmObjectImpl source, String targetDep, Predicate<MofSmObjectImpl> filter, MofSmObjectImpl linkStereotype) {
+        List<MofSmObjectImpl> dep = source.getDep(targetDep);
+        if (dep.isEmpty())
+            return;
+
+        for (MofSmObjectImpl target : new ArrayList<>(dep)) {
+            if (filter.test(target)) {
+                MofSmObjectImpl newLink = mofsession.createObject(this.methodologicalLinkMC);
+                newLink.getDep("Impacted").add(source);
+                newLink.getDep("DependsOn").add(target);
+                newLink.getDep("Extension").add(linkStereotype);
+
+                mofsession.getReport().getLogger().printf("    Replaced %s from %s to %s with a <<%s>> MethodologicalLink.\n", targetDep, source, target, linkStereotype);
+                dep.remove(target);
+            }
+        }
+
+    }
+
+    /**
+     * Transmute all owned Dependencies having the given name to a MethodologicalLink with given stereotype
+     *
+     * @param mofsession the session
+     * @param source the node
+     * @param depName the dependency name filter
+     * @param linkStereotype the stereotype to add
+     */
+    @objid ("7ad73f0d-c5b8-4e9a-97cc-8eac91320bef")
+    private void transmuteDependencies(IMofSession mofsession, MofSmObjectImpl source, String depName, MofSmObjectImpl linkStereotype) {
+        List<MofSmObjectImpl> deps = new ArrayList<>(source.getDep("DependsOnDependency"));
+        for (MofSmObjectImpl dep : deps) {
+            if (dep.getName().equals(depName)) {
+                Object target = dep.getDep("DependsOn");
+                mofsession.getReport().getLogger().printf("    Transmuting %s from %s toward %s to a <<%s>> MethodologicalLink...\n", dep, source, target, linkStereotype);
+                MofSmObjectImpl newLink = mofsession.transmute(dep, this.methodologicalLinkMC);
+                newLink.getDep("Extension").add(linkStereotype);
+            }
+        }
+
     }
 
     /**
      * Replace 'ImplementationRef' metamodel dep with a <<Reference>> {@link MethodologicalLink}.
+     *
      * @param monitor a progress monitor
      * @param mofsession the migration session
      * @throws MetaclassNotFoundException should not occur
@@ -558,15 +622,16 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
     @objid ("2434f02b-950b-4f27-ad91-eca0aa001278")
     private void fixBpmnInterface(IModelioProgress monitor, IMofSession mofsession) throws MetaclassNotFoundException {
         MofSmObjectImpl referenceStereotype = mofsession.getObjectReference(StandardMm220Migrator.reference_methodologicallink_stereotype);
-        
+
         for (MofSmObjectImpl bpmnElement : mofsession.findByClass(this.bpmnInterfaceMC, true)) {
             createMethodologicalLink(mofsession, bpmnElement, "ImplementationRef", referenceStereotype);
         }
-        
+
     }
 
     /**
      * Replace 'Type', 'RepresentedAssociationEnd', 'RepresentedAttribute' and 'RepresentedInstance' metamodel deps with a <<Represents>> {@link MethodologicalLink}. Replace 'InState' metamodel dep with a <<State>> {@link MethodologicalLink}.
+     *
      * @param monitor a progress monitor
      * @param mofsession the migration session
      * @throws MetaclassNotFoundException should not occur
@@ -575,7 +640,7 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
     private void fixBpmnItemAwareElement(IModelioProgress monitor, IMofSession mofsession) throws MetaclassNotFoundException {
         MofSmObjectImpl representsStereotype = mofsession.getObjectReference(StandardMm220Migrator.represents_methodologicallink_stereotype);
         MofSmObjectImpl stateStereotype = mofsession.getObjectReference(StandardMm220Migrator.state_methodologicallink_stereotype);
-        
+
         for (MofSmObjectImpl bpmnElement : mofsession.findByClass(this.bpmnItemAwareElementMC, true)) {
             createMethodologicalLink(mofsession, bpmnElement, "Type", representsStereotype);
             createMethodologicalLink(mofsession, bpmnElement, "RepresentedAssociationEnd", representsStereotype);
@@ -583,11 +648,12 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
             createMethodologicalLink(mofsession, bpmnElement, "RepresentedInstance", representsStereotype);
             createMethodologicalLink(mofsession, bpmnElement, "InState", stateStereotype);
         }
-        
+
     }
 
     /**
      * Replace 'StructureRef' metamodel dep with a <<Reference>> {@link MethodologicalLink}.
+     *
      * @param monitor a progress monitor
      * @param mofsession the migration session
      * @throws MetaclassNotFoundException should not occur
@@ -595,15 +661,16 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
     @objid ("2bfbf318-db04-484b-8637-aa0105c2e506")
     private void fixBpmnItemDefinition(IModelioProgress monitor, IMofSession mofsession) throws MetaclassNotFoundException {
         MofSmObjectImpl referenceStereotype = mofsession.getObjectReference(StandardMm220Migrator.reference_methodologicallink_stereotype);
-        
+
         for (MofSmObjectImpl bpmnElement : mofsession.findByClass(this.bpmnItemDefinitionMC, true)) {
             createMethodologicalLink(mofsession, bpmnElement, "StructureRef", referenceStereotype);
         }
-        
+
     }
 
     /**
      * Replace 'PartitionElement' metamodel dep with a <<PartitionElement>> {@link MethodologicalLink}.
+     *
      * @param monitor a progress monitor
      * @param mofsession the migration session
      * @throws MetaclassNotFoundException should not occur
@@ -611,16 +678,31 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
     @objid ("cd02e384-b1fc-493a-b353-56c62b60d4bd")
     private void fixBpmnLane(IModelioProgress monitor, IMofSession mofsession) throws MetaclassNotFoundException {
         MofSmObjectImpl partitionElementStereotype = mofsession.getObjectReference(StandardMm220Migrator.partitionelement_methodologicallink_stereotype);
-        
+
         for (MofSmObjectImpl bpmnElement : mofsession.findByClass(this.bpmnLaneMC, true)) {
             createMethodologicalLink(mofsession, bpmnElement, "PartitionElement", partitionElementStereotype);
+
+            // Some BpmnLane.PartitionElementRef wrongly point to BpmnProcess
+            createMethodologicalLinkFiltered(mofsession, bpmnElement, "BpmnPartitionElementRef", this::isBadPartitionElementRef, partitionElementStereotype);
+
+            // Some BpmnLane.PartitionElement have already been changed to simple Dependencies
+            // with "PartitionElement" as name in 3.6 -> 3.7 migration.
+            // See: org.modelio.metamodel.impl.mmextensions.standard.migration.from_36.BpmnLanePartitionMigrator.run(IModelioProgress).
+
+            transmuteDependencies(mofsession, bpmnElement, "PartitionElement", partitionElementStereotype);
         }
-        
+
+    }
+
+    @objid ("222e3fc2-5a6e-4db6-b027-66c6eab49de2")
+    private boolean isBadPartitionElementRef(MofSmObjectImpl target) {
+        return this.umlBehaviorMC.isInstance(target) || ! this.bpmnBaseElementMC.isInstance(target);
     }
 
     /**
      * Replace 'Type' metamodel dep with a <<Represents>> {@link MethodologicalLink}. <br/>
      * Replace 'InState' metamodel dep with a <<State>> {@link MethodologicalLink}.
+     *
      * @param monitor a progress monitor
      * @param mofsession the migration session
      * @throws MetaclassNotFoundException should not occur
@@ -629,16 +711,17 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
     private void fixBpmnMessage(IModelioProgress monitor, IMofSession mofsession) throws MetaclassNotFoundException {
         MofSmObjectImpl representsStereotype = mofsession.getObjectReference(StandardMm220Migrator.represents_methodologicallink_stereotype);
         MofSmObjectImpl stateStereotype = mofsession.getObjectReference(StandardMm220Migrator.state_methodologicallink_stereotype);
-        
+
         for (MofSmObjectImpl bpmnElement : mofsession.findByClass(this.bpmnMessageMC, true)) {
             createMethodologicalLink(mofsession, bpmnElement, "Type", representsStereotype);
             createMethodologicalLink(mofsession, bpmnElement, "InState", stateStereotype);
         }
-        
+
     }
 
     /**
      * Replace 'ImplementationRef' metamodel dep with a <<Reference>> {@link MethodologicalLink}.
+     *
      * @param monitor a progress monitor
      * @param mofsession the migration session
      * @throws MetaclassNotFoundException should not occur
@@ -646,16 +729,17 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
     @objid ("6f460638-7088-4fb2-8e5e-70dacf01de05")
     private void fixBpmnOperation(IModelioProgress monitor, IMofSession mofsession) throws MetaclassNotFoundException {
         MofSmObjectImpl referenceStereotype = mofsession.getObjectReference(StandardMm220Migrator.reference_methodologicallink_stereotype);
-        
+
         for (MofSmObjectImpl bpmnElement : mofsession.findByClass(this.bpmnOperationMC, true)) {
             createMethodologicalLink(mofsession, bpmnElement, "ImplementationRef", referenceStereotype);
         }
-        
+
     }
 
     /**
      * Replace 'Type' metamodel dep with a <<Represents>> {@link MethodologicalLink}. <br/>
      * Replace 'PackageRef' metamodel dep with a <<Reference>> {@link MethodologicalLink}.
+     *
      * @param monitor a progress monitor
      * @param mofsession the migration session
      * @throws MetaclassNotFoundException should not occur
@@ -664,16 +748,17 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
     private void fixBpmnParticipant(IModelioProgress monitor, IMofSession mofsession) throws MetaclassNotFoundException {
         MofSmObjectImpl representsStereotype = mofsession.getObjectReference(StandardMm220Migrator.represents_methodologicallink_stereotype);
         MofSmObjectImpl referenceStereotype = mofsession.getObjectReference(StandardMm220Migrator.reference_methodologicallink_stereotype);
-        
+
         for (MofSmObjectImpl bpmnElement : mofsession.findByClass(this.bpmnParticipantMC, true)) {
             createMethodologicalLink(mofsession, bpmnElement, "Type", representsStereotype);
             createMethodologicalLink(mofsession, bpmnElement, "PackageRef", referenceStereotype);
         }
-        
+
     }
 
     /**
      * Replace 'CalledOperation' metamodel dep with a <<Called>> {@link MethodologicalLink}.
+     *
      * @param monitor a progress monitor
      * @param mofsession the migration session
      * @throws MetaclassNotFoundException should not occur
@@ -681,15 +766,16 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
     @objid ("8baaef52-fe1c-418e-afe3-8ea080014780")
     private void fixBpmnReceiveTask(IModelioProgress monitor, IMofSession mofsession) throws MetaclassNotFoundException {
         MofSmObjectImpl calledStereotype = mofsession.getObjectReference(StandardMm220Migrator.called_methodologicallink_stereotype);
-        
+
         for (MofSmObjectImpl bpmnElement : mofsession.findByClass(this.bpmnReceiveTaskMC, true)) {
             createMethodologicalLink(mofsession, bpmnElement, "CalledOperation", calledStereotype);
         }
-        
+
     }
 
     /**
      * Replace 'CalledOperation' metamodel dep with a <<Called>> {@link MethodologicalLink}.
+     *
      * @param monitor a progress monitor
      * @param mofsession the migration session
      * @throws MetaclassNotFoundException should not occur
@@ -697,15 +783,16 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
     @objid ("df0218d8-1e7c-4ed4-9688-a0c881bb87ab")
     private void fixBpmnSendTask(IModelioProgress monitor, IMofSession mofsession) throws MetaclassNotFoundException {
         MofSmObjectImpl calledStereotype = mofsession.getObjectReference(StandardMm220Migrator.called_methodologicallink_stereotype);
-        
+
         for (MofSmObjectImpl bpmnElement : mofsession.findByClass(this.bpmnSendTaskMC, true)) {
             createMethodologicalLink(mofsession, bpmnElement, "CalledOperation", calledStereotype);
         }
-        
+
     }
 
     /**
      * Replace 'CalledOperation' metamodel dep with a <<Called>> {@link MethodologicalLink}.
+     *
      * @param monitor a progress monitor
      * @param mofsession the migration session
      * @throws MetaclassNotFoundException should not occur
@@ -713,11 +800,11 @@ public class StandardMm220Migrator implements IMofRepositoryMigrator {
     @objid ("b103ba15-569e-4603-8674-aed8c1d23e13")
     private void fixBpmnServiceTask(IModelioProgress monitor, IMofSession mofsession) throws MetaclassNotFoundException {
         MofSmObjectImpl calledStereotype = mofsession.getObjectReference(StandardMm220Migrator.called_methodologicallink_stereotype);
-        
+
         for (MofSmObjectImpl bpmnElement : mofsession.findByClass(this.bpmnServiceTaskMC, true)) {
             createMethodologicalLink(mofsession, bpmnElement, "CalledOperation", calledStereotype);
         }
-        
+
     }
 
 }

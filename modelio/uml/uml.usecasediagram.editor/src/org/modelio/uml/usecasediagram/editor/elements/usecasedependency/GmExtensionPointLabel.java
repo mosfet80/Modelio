@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.usecasediagram.editor.elements.usecasedependency;
 
@@ -38,12 +38,12 @@ public class GmExtensionPointLabel extends GmElementLabel {
     private static final int MAJOR_VERSION = 0;
 
     @objid ("5e7c8aa3-55b7-11e2-877f-002564c97630")
-    public  GmExtensionPointLabel() {
+    public GmExtensionPointLabel() {
         // serialization
     }
 
     @objid ("5e7c8aa6-55b7-11e2-877f-002564c97630")
-    public  GmExtensionPointLabel(final IGmDiagram diagram, final MRef relatedRef) {
+    public GmExtensionPointLabel(final IGmDiagram diagram, final MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -51,7 +51,7 @@ public class GmExtensionPointLabel extends GmElementLabel {
     @Override
     protected String computeLabel() {
         final UseCaseDependency useCaseDependency = (UseCaseDependency) getRelatedElement();
-        
+
         StringBuilder extLabel = new StringBuilder();
         List<ExtensionPoint> extensionLocation = useCaseDependency.getExtensionLocation();
         for (int i = 0; i < extensionLocation.size(); i++) {
@@ -80,17 +80,15 @@ public class GmExtensionPointLabel extends GmElementLabel {
                 break;
             }
         }
-        
     }
 
     @objid ("5e7c8abc-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmExtensionPointLabel.", GmExtensionPointLabel.MINOR_VERSION);
-        
     }
 
     @objid ("5e7c8ac2-55b7-11e2-877f-002564c97630")

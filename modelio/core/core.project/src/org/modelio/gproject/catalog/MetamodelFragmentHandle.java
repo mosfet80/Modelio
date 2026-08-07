@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.catalog;
 
@@ -44,22 +44,24 @@ class MetamodelFragmentHandle implements IMetamodelFragmentHandle {
     private Version version;
 
     /**
+     *
      * @param name the metamodel fragment name
      * @param version the metamodel fragment version for Modelio
      * @param vendor the vendor name this metamodel come from
      * @param vendorVersion the metamodel version from the vendor
      */
     @objid ("d516564e-1333-4234-8f5e-be39400b7a67")
-    public  MetamodelFragmentHandle(String name, Version version, String vendor, String vendorVersion, String mainClassName) {
+    public MetamodelFragmentHandle(String name, Version version, String vendor, String vendorVersion, String mainClassName) {
         this.name = name;
         this.version = version;
         this.vendor = vendor;
         this.vendorVersion = vendorVersion;
         this.mainClassName = mainClassName;
-        
+
     }
 
     /**
+     *
      * @return The metamodel version for the Vendor.
      */
     @objid ("681dc5df-15ea-4a49-b227-8cd1d000f9b4")
@@ -69,6 +71,7 @@ class MetamodelFragmentHandle implements IMetamodelFragmentHandle {
     }
 
     /**
+     *
      * @param vendorVersion The vendor metamodel version.
      */
     @objid ("5d5ab52b-e098-4b7b-a60a-3ddf2bfe7583")
@@ -77,6 +80,7 @@ class MetamodelFragmentHandle implements IMetamodelFragmentHandle {
     }
 
     /**
+     *
      * @return the fragment provider.
      */
     @objid ("37c1a8a2-8477-4927-aad5-e09a5fa10a7c")
@@ -86,6 +90,7 @@ class MetamodelFragmentHandle implements IMetamodelFragmentHandle {
     }
 
     /**
+     *
      * @param vendor the fragment provider.
      */
     @objid ("b763b9f0-3686-4fc1-8783-2ae3272e077a")

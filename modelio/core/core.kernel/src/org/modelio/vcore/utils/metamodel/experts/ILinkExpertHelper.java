@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.utils.metamodel.experts;
 
@@ -45,6 +45,7 @@ public interface ILinkExpertHelper {
 
     /**
      * Get a model link source
+     *
      * @param aLink a model link.
      * @return the link source
      */
@@ -53,6 +54,7 @@ public interface ILinkExpertHelper {
 
     /**
      * Get a model link target.
+     *
      * @param aLink a model link.
      * @return the link target.
      */
@@ -61,6 +63,7 @@ public interface ILinkExpertHelper {
 
     /**
      * Change a model link source.
+     *
      * @param link a model link.
      * @param oldSource the old source.
      * @param newSource the new source.
@@ -71,6 +74,7 @@ public interface ILinkExpertHelper {
 
     /**
      * Change a model link target.
+     *
      * @param link a model link.
      * @param oldTarget the old target.
      * @param newTarget the new target.
@@ -78,5 +82,5 @@ public interface ILinkExpertHelper {
      */
     @objid ("99932bc7-fd26-4404-9a76-a67b8fece59c")
     void setTarget(MObject link, MObject oldTarget, MObject newTarget) throws IllegalArgumentException;
-}
 
+}

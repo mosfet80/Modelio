@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.module.propertytab.propertytab;
 
@@ -24,8 +24,8 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.eclipse.core.expressions.EvaluationResult;
 import org.eclipse.core.expressions.Expression;
 import org.eclipse.core.expressions.ExpressionInfo;
@@ -132,7 +132,7 @@ public class ModulePropertyViewHandler {
     void execute(final IEclipseContext context) {
         // Create an instance and store it so it can listen to module events.
         ModulePropertyViewHandler.INSTANCE = this;
-        
+
     }
 
     /**
@@ -144,11 +144,11 @@ public class ModulePropertyViewHandler {
     void onModuleStarted(@UIEventTopic(ModelioEventTopics.MODULE_STARTED) final IRTModule module, final IProjectService projectService, final EModelService modelService) {
         for (IModulePropertyPanel propertyPage : module.getPropertyPanels()) {
             MPart mPart = createModulePart(module, propertyPage, modelService);
-        
+
             // Add the shared mPart to the window
             MTrimmedWindow trimmedWindow = modelService.findElements(this.mApplication, ModulePropertyViewHandler.WINDOW_ID, MTrimmedWindow.class, null).get(0);
             trimmedWindow.getSharedElements().add(mPart);
-        
+
             // Add a placeholder where the view needs to be added for each perspective
             List<MPerspectiveStack> perspectiveStacks = modelService.findElements(this.mApplication, ModulePropertyViewHandler.MPERSPECTIVESTACK_ID, MPerspectiveStack.class, null);
             for (MPerspective perspective : modelService.findElements(perspectiveStacks.get(0), null, MPerspective.class, null)) {
@@ -160,7 +160,7 @@ public class ModulePropertyViewHandler {
                 }
             }
         }
-        
+
     }
 
     /**
@@ -176,7 +176,7 @@ public class ModulePropertyViewHandler {
             mPart.setToBeRendered(false);
             trimmedWindow.getSharedElements().remove(mPart);
             mPart.setObject(null);
-        
+
             // Remove placeholder where the view needs to be added from each perspective
             List<MPerspectiveStack> perspectiveStacks = modelService.findElements(this.mApplication, ModulePropertyViewHandler.MPERSPECTIVESTACK_ID, MPerspectiveStack.class, null);
             for (MPerspective perspective : modelService.findElements(perspectiveStacks.get(0), null, MPerspective.class, null)) {
@@ -184,7 +184,7 @@ public class ModulePropertyViewHandler {
                     if (mPart.equals(placeholder.getRef())) {
                         // Store parent in this perspective
                         StatePersistenceHelper.saveState(projectService.getStatePreferences(), mPart.getElementId(), perspective.getElementId(), placeholder.getParent().getElementId());
-        
+
                         // Remove placeholder
                         placeholder.setParent(null);
                         placeholder.setRenderer(false);
@@ -192,7 +192,7 @@ public class ModulePropertyViewHandler {
                 }
             }
         }
-        
+
     }
 
     /**
@@ -218,7 +218,7 @@ public class ModulePropertyViewHandler {
                 }
             }
         }
-        
+
     }
 
     /**
@@ -235,7 +235,7 @@ public class ModulePropertyViewHandler {
                 refreshToolbar(modelService, toolbar);
             }
         }
-        
+
     }
 
     @objid ("c886c673-1eba-11e2-9382-bc305ba4815c")
@@ -249,7 +249,7 @@ public class ModulePropertyViewHandler {
         mHandler.setCommand(mCommand);
         // Define scope of this handler as the browser view.
         mPart.getHandlers().add(mHandler);
-        
+
         // If the mPart already have a context, it means the e4 model has already been read.
         // In this case, activate the handler "by hand" since this mPart of the model may not be read again.
         // Otherwise, the activation will be done automatically when the model is read.
@@ -271,18 +271,18 @@ public class ModulePropertyViewHandler {
         mPart.setElementId(module + "_" + propertyPage.getName());
         mPart.setContributorURI(ModulePropertyViewHandler.PLATFORM_PREFIX + FrameworkUtil.getBundle(ModulePropertyViewHandler.class).getSymbolicName());
         mPart.setContributionURI(ModulePropertyViewHandler.BUNDLE_PREFIX + FrameworkUtil.getBundle(ModulePropertyView.class).getSymbolicName() + ModulePropertyViewHandler.URI_SEPARATOR + ModulePropertyView.class.getName());
-        
+
         List<String> tags = mPart.getTags();
         tags.add(ModulePropertyViewHandler.MODULE_MPART_TAG);
         tags.add(module.getName());
         tags.add(propertyPage.getName());
-        
+
         mPart.setLabel(propertyPage.getLabel());
         Path iconPath = propertyPage.getIcon();
         if (iconPath != null) {
             mPart.setIconURI(iconPath.toUri().toString());
         }
-        
+
         // Create a toolbar if any mCommand is to be placed in it
         List<IModuleAction> actions = module.getActions(ActionLocation.property);
         if (actions != null && !actions.isEmpty()) {
@@ -299,14 +299,14 @@ public class ModulePropertyViewHandler {
         if (mPartStack != null) {
             final MPlaceholder placeholder = MAdvancedFactory.INSTANCE.createPlaceholder();
             placeholder.setRef(mPart);
-        
+
             mPartStack.getChildren().add(placeholder);
-        
+
             if (!mPartStack.isToBeRendered()) {
                 mPartStack.setToBeRendered(true);
             }
         }
-        
+
     }
 
     /**
@@ -322,23 +322,23 @@ public class ModulePropertyViewHandler {
             MCommand mCommand = ModuleCommandsRegistry.getCommand(module, action);
             // MHandler
             final MHandler handler = createAndActivateHandler(mPart, mCommand, module, action);
-        
+
             // MHandledItem
             MHandledToolItem item = createToolItem(action);
             // Bind to mCommand
             item.setCommand(mCommand);
-        
+
             Expression visWhen = new IsVisibleExpression(handler.getObject(), item);
             MCoreExpression isVisibleWhenExpression = MUiFactory.INSTANCE.createCoreExpression();
             isVisibleWhenExpression.setCoreExpressionId("programmatic.value");
             isVisibleWhenExpression.setCoreExpression(visWhen);
-        
+
             item.setVisibleWhen(isVisibleWhenExpression);
-        
+
             // Add to the toolbar
             toolbar.getChildren().add(item);
         }
-        
+
         refreshToolbar(modelService, toolbar);
         return toolbar;
     }
@@ -349,7 +349,7 @@ public class ModulePropertyViewHandler {
         String iconURI = bitmapPath != null ? bitmapPath.toUri().toString() : "";
         String label = action.getLabel();
         String tooltip = action.getTooltip();
-        
+
         // create a new item
         MHandledToolItem item = MMenuFactory.INSTANCE.createHandledToolItem();
         item.setLabel(label);
@@ -409,9 +409,9 @@ public class ModulePropertyViewHandler {
     @objid ("71222a89-ccd7-43fb-a95a-0552a97c6eb1")
     private void refreshToolbar(final EModelService modelService, final MToolBar toolbar) {
         List<MHandledToolItem> toolItems = modelService.findElements(toolbar, null, MHandledToolItem.class, Arrays.asList(ModulePropertyViewHandler.MODULE_MTOOLITEM_TAG));
-        
+
         final ExpressionContext expressionContext = new ExpressionContext(this.mApplication.getContext());
-        
+
         for (MHandledToolItem toolItem : toolItems) {
             IsVisibleExpression expression = (IsVisibleExpression) (((MCoreExpression) toolItem.getVisibleWhen()).getCoreExpression());
             if (expression != null) {
@@ -427,9 +427,9 @@ public class ModulePropertyViewHandler {
                 }
             }
         }
-        
+
         toolbar.setVisible(!toolItems.isEmpty());
-        
+
     }
 
     /**
@@ -445,7 +445,7 @@ public class ModulePropertyViewHandler {
             } else {
                 return null;
             }
-            
+
         }
 
         @objid ("e56c0714-9245-4367-99e6-3d262f76564f")
@@ -453,7 +453,7 @@ public class ModulePropertyViewHandler {
             if (prefs != null) {
                 prefs.setValue(StatePersistenceHelper.computeKey(partId, perspectiveId), parentId);
             }
-            
+
         }
 
         @objid ("b69739f5-b1f5-4fd0-a19c-f6f42c9f8861")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.swt.selectmetaclass.multiple;
 
@@ -39,7 +39,7 @@ public class MultipleMetaclassPanelProvider implements IPanelProvider {
     private MultiStringEditionComposite multiStringEditor;
 
     @objid ("d97775e7-c05d-437b-b4cd-a4e0b094e138")
-    public  MultipleMetaclassPanelProvider(List<? extends MClass> candidates) {
+    public MultipleMetaclassPanelProvider(List<? extends MClass> candidates) {
         this.candidates = candidates;
     }
 
@@ -86,7 +86,6 @@ public class MultipleMetaclassPanelProvider implements IPanelProvider {
         this.multiStringEditor.initContent(this.candidates.stream()
                                                           .map((mc) -> mc.getQualifiedName())
                                                           .collect(Collectors.toList()));
-        
     }
 
     @objid ("435c7406-cd14-491a-b404-ddc651ed134a")

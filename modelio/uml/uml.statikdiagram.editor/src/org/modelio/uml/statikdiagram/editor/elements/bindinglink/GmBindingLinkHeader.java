@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.bindinglink;
 
@@ -32,7 +32,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * {@link Binding} link role label.
- * 
+ *
  * @author cmarin
  */
 @objid ("34139bde-55b7-11e2-877f-002564c97630")
@@ -48,11 +48,12 @@ public class GmBindingLinkHeader extends GmDefaultModelElementLabel {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram
      * @param relatedRef a reference to the element this GmModel is related to, must not be null.
      */
     @objid ("3415223d-55b7-11e2-877f-002564c97630")
-    public  GmBindingLinkHeader(IGmDiagram diagram, MRef relatedRef) {
+    public GmBindingLinkHeader(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -60,8 +61,8 @@ public class GmBindingLinkHeader extends GmDefaultModelElementLabel {
      * For deserialization only.
      */
     @objid ("34152246-55b7-11e2-877f-002564c97630")
-    public  GmBindingLinkHeader() {
-        
+    public GmBindingLinkHeader() {
+
     }
 
     /**
@@ -86,7 +87,7 @@ public class GmBindingLinkHeader extends GmDefaultModelElementLabel {
     @Override
     protected String computeMainLabel() {
         final Binding el = (Binding) getRelatedElement();
-        
+
         ModelElement role = el.getRole();
         if (role == null) {
             role = el.getConnectorRole();
@@ -94,13 +95,13 @@ public class GmBindingLinkHeader extends GmDefaultModelElementLabel {
         if (role == null) {
             role = el.getConnectorEndRole();
         }
-        
+
         if (role == null) {
             return "<none>";
         } else {
             return role.getName();
         }
-        
+
     }
 
     @objid ("3416a8e5-55b7-11e2-877f-002564c97630")
@@ -120,17 +121,17 @@ public class GmBindingLinkHeader extends GmDefaultModelElementLabel {
                 break;
             }
         }
-        
+
     }
 
     @objid ("3416a8eb-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmBindingLinkHeader.", GmBindingLinkHeader.MINOR_VERSION);
-        
+
     }
 
     @objid ("3416a8f1-55b7-11e2-877f-002564c97630")

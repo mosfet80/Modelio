@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.looptypes;
 
@@ -59,12 +59,12 @@ public class MultiInstanceLoopNode implements IProductionNode<BpmnMultiInstanceL
     @objid ("8b4d73de-a2be-4d6a-80bf-7f84bcc6d731")
     @Override
     public BpmnMultiInstanceLoopCharacteristics createUMLElement(MObject context, TMultiInstanceLoopCharacteristics jaxbElement, BpmnImportFactory factory, boolean keepId) {
-        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {  
+        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {
             return factory.createWithId(BpmnMultiInstanceLoopCharacteristics.class, context,jaxbElement.getId());
         } else {
             return factory.create(BpmnMultiInstanceLoopCharacteristics.class, context);
         }
-        
+
     }
 
     @objid ("ce9ba144-7c65-4360-a2ed-aae794fc538b")
@@ -73,7 +73,7 @@ public class MultiInstanceLoopNode implements IProductionNode<BpmnMultiInstanceL
         if (context instanceof BpmnActivity) {
             modelioElement.setOwnerActivity((BpmnActivity)context);
         }
-        
+
         if (jaxbElement.getCompletionCondition() != null) {
             String condition = "";
             for (Serializable val : jaxbElement.getCompletionCondition().getContent()) {
@@ -81,7 +81,7 @@ public class MultiInstanceLoopNode implements IProductionNode<BpmnMultiInstanceL
             }
             modelioElement.setCompletionCondition(condition);
         }
-        
+
         if (jaxbElement.getLoopCardinality() != null) {
             String condition = "";
             for (Serializable val : jaxbElement.getLoopCardinality().getContent()) {
@@ -89,9 +89,9 @@ public class MultiInstanceLoopNode implements IProductionNode<BpmnMultiInstanceL
             }
             modelioElement.setLoopCardinality(condition);
         }
-        
+
         modelioElement.setIsSequencial(jaxbElement.isIsSequential());
-        
+
         // TODO : Link with BpmnEventDefinition
         return modelioElement;
     }
@@ -100,14 +100,14 @@ public class MultiInstanceLoopNode implements IProductionNode<BpmnMultiInstanceL
     @Override
     public TMultiInstanceLoopCharacteristics createJaxbElement(Object context, BpmnMultiInstanceLoopCharacteristics modelioElement) {
         TActivity jaxActivity = (TActivity) context;
-        
+
         // Create JaxbElement
         TMultiInstanceLoopCharacteristics jaxLoop = new TMultiInstanceLoopCharacteristics();
-        
+
         // Add to context
         ObjectFactory factory = new ObjectFactory();
         jaxActivity.setLoopCharacteristics(factory.createMultiInstanceLoopCharacteristics(jaxLoop));
-        
+
         jaxLoop.setId(IDUtils.formatJaxbID(modelioElement));
         return jaxLoop;
     }
@@ -116,13 +116,13 @@ public class MultiInstanceLoopNode implements IProductionNode<BpmnMultiInstanceL
     @Override
     public TMultiInstanceLoopCharacteristics updateJaxbElement(Object context, TMultiInstanceLoopCharacteristics jaxLoop, BpmnMultiInstanceLoopCharacteristics modelioElement) {
         jaxLoop.setIsSequential(modelioElement.isIsSequencial());
-        
+
         if (!"".equals(modelioElement.getCompletionCondition())) {
             TExpression exp = new TExpression();
             exp.getContent().add(modelioElement.getCompletionCondition());
             jaxLoop.setCompletionCondition(exp);
         }
-        
+
         if (!"".equals(modelioElement.getLoopCardinality())) {
             TExpression exp = new TExpression();
             exp.getContent().add(modelioElement.getLoopCardinality());

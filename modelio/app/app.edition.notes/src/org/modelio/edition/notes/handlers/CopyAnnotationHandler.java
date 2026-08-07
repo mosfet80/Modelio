@@ -1,26 +1,26 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.edition.notes.handlers;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
@@ -44,6 +44,7 @@ public class CopyAnnotationHandler {
 
     /**
      * Available only when the selected elements is not empty.
+     *
      * @param part the current active part.
      * @return true if the handler can be executed.
      */
@@ -53,28 +54,29 @@ public class CopyAnnotationHandler {
         if (part == null || !(part.getObject() instanceof NotesView)) {
             return false;
         }
-        
+
         // Sanity checks
         if (this.projectService.getSession() == null) {
             return false;
         }
-        
+
         NotesPanelProvider notesPanel = ((NotesView) part.getObject()).getNotesPanel();
         if (notesPanel == null) {
             return false;
         }
-        
+
         // Check focus
         if (!notesPanel.getTreeViewer().getControl().isFocusControl()) {
             return false;
         }
-        
+
         NotesPanelController controller = notesPanel.getController();
         return controller.canCopy();
     }
 
     /**
      * Copy the currently selected elements.
+     *
      * @param part the current active part.
      * @param currentDisplay the display Modelio runs into.
      */
@@ -84,7 +86,7 @@ public class CopyAnnotationHandler {
         NotesPanelProvider notesPanel = ((NotesView) part.getObject()).getNotesPanel();
         NotesPanelController controller = notesPanel.getController();
         controller.onCopy();
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.requiredinterface;
 
@@ -36,7 +36,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 /**
  * Edit Policy to put on {@link RequiredInterfaceLinkEditPart} to allow connecting a provided interface links to the
  * host required interface.
- * 
+ *
  * @author cmarin
  */
 @objid ("366e548b-55b7-11e2-877f-002564c97630")
@@ -47,10 +47,10 @@ public class ConnectProvToReqEditPolicy extends LinkToVoidFinishCreationEditPoli
         if (!isHandled(request)) {
             return null;
         }
-        
+
         final ProvidedInterfaceLinkEditPart provEditPart = (ProvidedInterfaceLinkEditPart) request.getConnectionEditPart();
         final RequiredInterfaceLinkEditPart reqEditPart = (RequiredInterfaceLinkEditPart) request.getTarget();
-        
+
         ConnectLollipopsCommand cmd = new ConnectLollipopsCommand(reqEditPart,
                 provEditPart,
                 request.getLocation());
@@ -65,7 +65,7 @@ public class ConnectProvToReqEditPolicy extends LinkToVoidFinishCreationEditPoli
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("366e549c-55b7-11e2-877f-002564c97630")
@@ -76,19 +76,20 @@ public class ConnectProvToReqEditPolicy extends LinkToVoidFinishCreationEditPoli
             if (isHandled(r)) {
                 return getLinkMoveTargetEditPart();
             }
-        
+
         } else if (REQ_LINKTOVOID_RECONNECT_TARGET.equals(request.getType())) {
             ReconnectRequest r = (ReconnectRequest) request;
             if (isHandled(r)) {
                 return getLinkMoveTargetEditPart();
             }
-        
+
         }
         return null;
     }
 
     /**
      * Return the lollipop edit part if the link is connected to one or the host.
+     *
      * @return the lollipop edit part or the host edit part.
      */
     @objid ("366e54a3-55b7-11e2-877f-002564c97630")
@@ -99,7 +100,7 @@ public class ConnectProvToReqEditPolicy extends LinkToVoidFinishCreationEditPoli
         } else {
             return getHost();
         }
-        
+
     }
 
     @objid ("366e54a7-55b7-11e2-877f-002564c97630")
@@ -111,7 +112,7 @@ public class ConnectProvToReqEditPolicy extends LinkToVoidFinishCreationEditPoli
         } else {
             return false;
         }
-        
+
     }
 
     @objid ("366e54ad-55b7-11e2-877f-002564c97630")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.microsoft.plugin;
 
@@ -52,9 +52,9 @@ public class MicrosoftRtfHtmlEditorProvider extends MicrosoftEditorProvider {
     @objid ("9cd8433d-d1d4-48f7-9c76-6b50437668c0")
     private boolean testWord() {
         final boolean[] ret = new boolean[] { true };
-        
+
         Display.getDefault().syncExec(new Runnable() {
-        
+
             @Override
             public void run() {
                 try {
@@ -65,9 +65,9 @@ public class MicrosoftRtfHtmlEditorProvider extends MicrosoftEditorProvider {
                             shell.setText("Looking for Microsoft Office version");
                         }
                     };
-        
+
                     service.run(false, false, new IRunnableWithProgress() {
-        
+
                         @Override
                         public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                             ret[0] = MicrosoftRtfHtmlEditorProvider.createWordApplicationClientSite(monitor);
@@ -85,6 +85,7 @@ public class MicrosoftRtfHtmlEditorProvider extends MicrosoftEditorProvider {
 
     /**
      * Create a Word.Application OLE client.
+     *
      * @param monitor a progress monitor.
      * @return true if Word found else false.
      */
@@ -92,17 +93,17 @@ public class MicrosoftRtfHtmlEditorProvider extends MicrosoftEditorProvider {
     static boolean createWordApplicationClientSite(IProgressMonitor monitor) {
         // Try all known MS Word versions starting with the latest
         final String[] names = new String[] { "Word.Application.14", "Word.Application.12", "Word.Application.8", "Word.Application.6", "Word.Application" };
-        
+
         monitor.beginTask("Look for Microsoft Word", names.length);
         for (String name : names) {
             Shell parent = new Shell();
             try {
                 monitor.subTask("Look for Microsoft Office '" + name + "' OLE class");
-        
+
                 OleClientSite newSite = new OleClientSite(new OleFrame(parent, 0), 0, name);
                 MicrosoftEditors.LOG.info("'" + name + "' OLE class found.");
                 newSite.dispose();
-        
+
                 return true;
             } catch (SWTException e) {
                 if (e.code == OLE.ERROR_CANNOT_CREATE_OBJECT) {
@@ -115,10 +116,10 @@ public class MicrosoftRtfHtmlEditorProvider extends MicrosoftEditorProvider {
             } finally {
                 parent.dispose();
             }
-        
+
             monitor.worked(1);
         }
-        
+
         monitor.done();
         return false;
     }

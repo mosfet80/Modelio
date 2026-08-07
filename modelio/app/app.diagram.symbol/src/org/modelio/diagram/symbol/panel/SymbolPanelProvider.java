@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.symbol.panel;
 
@@ -69,7 +69,7 @@ public class SymbolPanelProvider implements IPanelProvider, PropertyChangeListen
      * C'tor
      */
     @objid ("57f2f94b-b80e-44ff-8b98-4ffd298c5ac2")
-    public  SymbolPanelProvider() {
+    public SymbolPanelProvider() {
         this.styleEditPanel = StyleEditPanel.newTablePanel();
     }
 
@@ -83,39 +83,39 @@ public class SymbolPanelProvider implements IPanelProvider, PropertyChangeListen
         gl.marginLeft = gl.marginRight = gl.marginWidth = 0;
         gl.horizontalSpacing = gl.verticalSpacing = 0;
         this.top.setLayout(gl);
-        
+
         // The tool bar
         this.toolBarManager = new ToolBarManager(SWT.HORIZONTAL);
         ToolBar tb = this.toolBarManager.createControl(this.top);
         tb.setLayoutData(new GridData(SWT.RIGHT, SWT.TOP, true, false));
-        
+
         // The style edit panel
         this.styleEditPanel.createPanel(this.top);
-        
+
         ISymbolPanelModel access = new SymbolModel();
         ISymbolPanelController controller = new SymbolController();
-        
+
         SymbolContributionFactory menuContribs = new SymbolContributionFactory(controller, access);
         MenuManager contextualMenu = this.styleEditPanel.getContextualMenu();
         contextualMenu.add(menuContribs.extractStyleFromSelected);
         contextualMenu.add(menuContribs.updateStyleFromSelected);
         contextualMenu.addMenuListener(manager -> menuContribs.refresh());
-        
+
         this.toolbarContribs = new SymbolContributionFactory(controller, access);
         this.toolBarManager.add(this.toolbarContribs.reset);
         this.toolBarManager.add(this.toolbarContribs.extractStyleFromModified);
         this.toolBarManager.add(this.toolbarContribs.updateStyleFromAllModified);
         this.toolBarManager.add(this.toolbarContribs.showHelp);
-        
+
         this.styleEditPanel.addListener((changedData, isValidate) -> {
             updateToolbar();
         });
         this.styleEditPanel.getViewer().addSelectionChangedListener(ev -> {
             updateToolbar();
         });
-        
+
         this.styleEditPanel.getPanel().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-        
+
         this.top.addDisposeListener(ev -> dispose());
         return this.top;
     }
@@ -130,7 +130,7 @@ public class SymbolPanelProvider implements IPanelProvider, PropertyChangeListen
         if (this.selectedSymbol != null) {
             this.selectedSymbol.removePropertyChangeListener(this);
         }
-        
+
     }
 
     @objid ("9519e5a6-cba0-431e-91a5-9eaaac2d2371")
@@ -158,6 +158,7 @@ public class SymbolPanelProvider implements IPanelProvider, PropertyChangeListen
     }
 
     /**
+     *
      * @return <code>true</code> if the help panel is shown.
      */
     @objid ("c18e8a6b-c87c-46cc-b3ac-36b0e2b174a8")
@@ -172,12 +173,13 @@ public class SymbolPanelProvider implements IPanelProvider, PropertyChangeListen
      * <li>setting the cascaded style of the gmObject to the style of the owning diagram (unless the gmObject is the diagram itself)
      * <li>cleaning all local properties
      * </ul>
+     *
      * @param style the style to apply.
      */
     @objid ("ac5129ba-55b7-11e2-877f-002564c97630")
     public void onChangeStyle(IStyle style) {
         StyleEditorProxy se = new StyleEditorProxy(this.selectedSymbol);
-        
+
         if (style != null) {
             se.setCascadedStyle(style);
         } else {
@@ -189,9 +191,9 @@ public class SymbolPanelProvider implements IPanelProvider, PropertyChangeListen
                 se.setCascadedStyle(diagramStyle);
                 se.reset();
             }
-        
+
         }
-        
+
     }
 
     @objid ("30f573b7-abb4-4151-bc73-d342db1c0816")
@@ -210,7 +212,7 @@ public class SymbolPanelProvider implements IPanelProvider, PropertyChangeListen
                 setSelectedSymbol(getSelectedSymbol());
             }
         }
-        
+
     }
 
     /**
@@ -222,7 +224,7 @@ public class SymbolPanelProvider implements IPanelProvider, PropertyChangeListen
         IGmObject gmObject = SelectionHelper.getFirst((ISelection) input, IGmObject.class);
         setSelectedSymbol(gmObject);
         updateToolbar();
-        
+
     }
 
     @objid ("46210cc7-98e5-43cb-a146-b02be31ea1b6")
@@ -234,43 +236,43 @@ public class SymbolPanelProvider implements IPanelProvider, PropertyChangeListen
             // diagram reloading
             return;
         }
-        
+
         if (this.selectedSymbol != null) {
             this.selectedSymbol.removePropertyChangeListener(this);
         }
-        
+
         this.selectedSymbol = newlySelectedSymbol;
-        
+
         if (newlySelectedSymbol != null && !this.top.isDisposed()) {
             boolean isEditable = newlySelectedSymbol.isUserEditable();
             // Change the StyleViewer model provider
             // Instead of providing the symbol Style, we provide a StyleEditor
             // proxy that will be responsible for managing transactions in the model
             // in case of modifications
-        
+
             final StyleEditPanelUIData data = new StyleEditPanelUIData(
                     newlySelectedSymbol.getSymbolViewModel(),
                     new StyleEditorProxy(newlySelectedSymbol),
                     isEditable);
             IStyle baseStyle = newlySelectedSymbol.getPersistedStyle().getBaseStyle();
             IStyle diagramStyle = newlySelectedSymbol.getDiagram().getPersistedStyle();
-        
+
             if (baseStyle != diagramStyle) {
                 data.addCascadedStyle(baseStyle, null);
             } else {
                 NamedStyle diagramBaseStyle = (NamedStyle) diagramStyle.getBaseStyle();
-        
+
                 data.addCascadedStyle(new StyleEditorProxy(newlySelectedSymbol.getDiagram()), "Diagram");
                 if (!diagramBaseStyle.getName().equals("default")) {
                     data.addCascadedStyle(diagramBaseStyle, null);
                 }
             }
-        
+
             this.styleEditPanel.setInput(data);
             updateToolbar();
             // this.styleEditPanel.getTreeViewer().expandAll();
             this.styleEditPanel.getViewer().refresh();
-        
+
             // Set the listeners
             this.selectedSymbol.addPropertyChangeListener(this);
         } else {
@@ -278,7 +280,7 @@ public class SymbolPanelProvider implements IPanelProvider, PropertyChangeListen
             updateToolbar();
             // this.styleViewer.getTreeViewer().refresh();
         }
-        
+
     }
 
     @objid ("84f27aaf-780f-48be-a20d-d4437d8b811c")
@@ -288,7 +290,7 @@ public class SymbolPanelProvider implements IPanelProvider, PropertyChangeListen
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("866adac4-4d31-4a51-a28f-0b2f23f7fb4c")
@@ -299,7 +301,7 @@ public class SymbolPanelProvider implements IPanelProvider, PropertyChangeListen
             }
         }
         throw new IllegalArgumentException(String.format("%s style has no named style in its parent hierarchy.", s));
-        
+
     }
 
     @objid ("f30c960c-5b49-4713-9669-a425bb519d74")
@@ -317,7 +319,7 @@ public class SymbolPanelProvider implements IPanelProvider, PropertyChangeListen
         this.toolbarContribs.refresh();
         this.toolBarManager.update(true);
         this.top.layout(true, true);
-        
+
     }
 
     @objid ("8c2425de-9229-440e-906a-b3ee4d43acae")
@@ -365,7 +367,7 @@ public class SymbolPanelProvider implements IPanelProvider, PropertyChangeListen
         public void onShowHelp() {
             SymbolPanelProvider.this.showHelp = !SymbolPanelProvider.this.showHelp;
             getStyleEditPanel().showHelpPanel(SymbolPanelProvider.this.showHelp);
-            
+
         }
 
         @objid ("a9944eab-3fa6-49d8-8d16-319a58cab484")

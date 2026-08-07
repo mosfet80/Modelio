@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vbasic.files;
 
@@ -23,7 +23,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * Wraps a checked exception in stream processing.
- * 
+ *
  * @credits http://stackoverflow.com/a/36605641/1230870
  */
 @objid ("234a8363-5ce9-45c6-8e57-d69564f350dd")
@@ -32,10 +32,11 @@ public class StreamException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
     /**
+     *
      * @param wrapped the exception to wrap.
      */
     @objid ("8adb1976-6964-42ae-9221-b36980645ddc")
-    public  StreamException(Exception wrapped) {
+    public StreamException(Exception wrapped) {
         super(wrapped);
     }
 
@@ -54,6 +55,7 @@ public class StreamException extends RuntimeException {
 
     /**
      * Get the wrapped exception casted to the given type
+     *
      * @param cls the expected wrapped exception type
      * @return the wrapped exception
      * @throws ClassCastException if the wrapped exception does not match the type.
@@ -66,7 +68,7 @@ public class StreamException extends RuntimeException {
             e2.addSuppressed(getCause());
             throw e2;
         }
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.abstractdiagram;
 
@@ -44,7 +44,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Specific command that will unmask a note and the link between it and the annoted model element.
- * 
+ *
  * @author fpoyer
  */
 @objid ("7e29ae57-1dec-11e2-8cad-001ec947c8cc")
@@ -66,19 +66,20 @@ public class UnmaskNoteCommand extends Command {
 
     /**
      * C'tor.
+     *
      * @param theNote the note to unmask.
      * @param host the edit part of the diagram in which to unmask it.
      * @param initialLayoutData the initial layout data for the node part
      * @param dropLocation the drop location retreived from the request.
      */
     @objid ("7e2c1084-1dec-11e2-8cad-001ec947c8cc")
-    public  UnmaskNoteCommand(final Note theNote, final AbstractDiagramEditPart host, final Object initialLayoutData, final Point dropLocation) {
+    public UnmaskNoteCommand(final Note theNote, final AbstractDiagramEditPart host, final Object initialLayoutData, final Point dropLocation) {
         this.theNote = theNote;
         this.host = host;
         this.diagram = (IGmDiagram) host.getModel();
         this.constraint = initialLayoutData;
         this.dropLocation = dropLocation;
-        
+
     }
 
     @objid ("7e2c1091-1dec-11e2-8cad-001ec947c8cc")
@@ -86,7 +87,7 @@ public class UnmaskNoteCommand extends Command {
     public void execute() {
         // unmask the node part
         GmNodeModel targetModel = this.diagram.unmaskAsChild(this.theNote, this.constraint);
-        
+
         ModelElement subject = this.theNote.getSubject();
         if(!(subject instanceof AbstractDiagram) && !(subject instanceof BpmnProcess)){
             // Simulate creation of the link:
@@ -96,7 +97,7 @@ public class UnmaskNoteCommand extends Command {
             req.setSize(new Dimension(-1, -1));
             req.setFactory(new ModelioLinkCreationContext(this.theNote));
             req.setType(RequestConstants.REQ_CONNECTION_START);
-        
+
             // Look for edit part of subject element... If none found, unmask it.
             EditPart sourceEditPart = getEditPartFor(subject, req);
             if (sourceEditPart == null) {
@@ -114,7 +115,7 @@ public class UnmaskNoteCommand extends Command {
             targetModel.addEndingLink(link);
             sourceModel.addStartingLink(link);
         }
-        
+
     }
 
     @objid ("7e2c1094-1dec-11e2-8cad-001ec947c8cc")
@@ -148,7 +149,7 @@ public class UnmaskNoteCommand extends Command {
         if (command != null && command.canExecute()) {
             command.execute();
         }
-        
+
     }
 
     @objid ("7e2c10a8-1dec-11e2-8cad-001ec947c8cc")

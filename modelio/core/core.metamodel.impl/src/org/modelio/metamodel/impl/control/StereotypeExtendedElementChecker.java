@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.control;
 
@@ -36,28 +36,28 @@ public class StereotypeExtendedElementChecker extends AbstractDependencyTypeChec
      * C'tor
      */
     @objid ("11c09960-56cb-40a0-aff0-3f85b20e324c")
-    public  StereotypeExtendedElementChecker(SmMetamodel mm) {
+    public StereotypeExtendedElementChecker(SmMetamodel mm) {
         // Cached SmClass
         // none
-        
+
         // Direct checker
         register(mm.getMClass(Stereotype.class), "ExtendedElement");
-        
+
         // Symetric checker
         ModelElementExtensionChecker symetricChecker = new ModelElementExtensionChecker(this);
         symetricChecker.register(mm.getMClass(ModelElement.class), "Extension");
-        
+
     }
 
     @objid ("02ffc7f8-f027-11e1-8bdc-002564c97630")
     @Override
     public int doCheck(final SmObjectImpl obj, final SmObjectImpl value) {
         Stereotype stereo = (Stereotype) obj;
-        
+
         if (value != null && !stereo.isShell()) {
             SmClass cls = value.getClassOf();
             SmClass steClass = CoreSession.getSession(stereo).getMetamodel().getMClass(stereo.getBaseClassName());
-        
+
             return (steClass == null || cls.hasBase(steClass)) ? ControlErrorCodes.NO_ERROR : ControlErrorCodes.STEREOTYPE_INCOMPATIBLE_METACLASS;
         }
         return ControlErrorCodes.NO_ERROR;
@@ -72,7 +72,7 @@ public class StereotypeExtendedElementChecker extends AbstractDependencyTypeChec
         StereotypeExtendedElementChecker symetricChecker;
 
         @objid ("03014e9c-f027-11e1-8bdc-002564c97630")
-        public  ModelElementExtensionChecker(StereotypeExtendedElementChecker symetricChecker) {
+        public ModelElementExtensionChecker(StereotypeExtendedElementChecker symetricChecker) {
             this.symetricChecker = symetricChecker;
         }
 

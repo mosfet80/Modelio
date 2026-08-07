@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.libreoffice.runtime.editor;
 
@@ -52,6 +52,7 @@ import org.modelio.metamodel.uml.infrastructure.Document;
  * LibreOffice document viewer.
  * <p>
  * Loads LibreOffice and displays it in the provided SWT widget.
+ *
  * @author cmarin
  */
 @objid ("e351bbf2-8e07-47cc-82fa-716a54e919e0")
@@ -66,14 +67,14 @@ public class LibreOfficeSwtWinDocumentViewer implements IEditedDocumentViewer {
      * Constructor.
      */
     @objid ("7e4c1a0d-35d7-4b91-9276-66aa1ee965fd")
-    public  LibreOfficeSwtWinDocumentViewer() {
+    public LibreOfficeSwtWinDocumentViewer() {
         try {
             System.setProperty("sun.awt.noerasebackground", "true");
             System.setProperty("sun.awt.xembedserver", "true");
         } catch (NoSuchMethodError error) {
             // ignore
         }
-        
+
     }
 
     @objid ("f7971dfc-7ec5-4b84-8c66-a31457bb9ec2")
@@ -101,7 +102,7 @@ public class LibreOfficeSwtWinDocumentViewer implements IEditedDocumentViewer {
     @Override
     public void createDocument(final Document doc, RichNoteFormat format) throws IOException {
         this.aBean.setVisible(true);
-        
+
         /**
          * Create and open a new text document.
          * @param doc the document to create.
@@ -112,18 +113,18 @@ public class LibreOfficeSwtWinDocumentViewer implements IEditedDocumentViewer {
          * @throws java.io.IOException if an IO error occurs reading the resource specified by the URL.
          * @throws com.sun.star.comp.beans.SystemWindowException if no system window can be acquired.
          */
-        
+
         if (format.getData() == null || format.getData().isEmpty()) {
             throw new IOException("'" + format.getLabel() + "' rich notes cannot be created with OpenOffice.");
         }
-        
+
         try {
             this.aBean.getOOoConnection(); // Ensure native lib is loaded
             this.aBean.loadFromURL(format.getData(), null);
             Path p = this.fileManager.getNewRichNotePath(doc, format);
             this.aBean.storeAsURL(createUNOFileURL(p), null);
             this.fileManager.saveRichNote(doc, p);
-        
+
             this.aBean.layout(true); // workaround view invisible on new doc
         } catch (NoDocumentException e) {
             throw new IOException(e);
@@ -132,7 +133,7 @@ public class LibreOfficeSwtWinDocumentViewer implements IEditedDocumentViewer {
         } catch (NoConnectionException e) {
             throw new IOException(e);
         }
-        
+
     }
 
     @objid ("a1f62151-e3e0-4495-a0d4-21b7e33a7fa8")
@@ -140,7 +141,7 @@ public class LibreOfficeSwtWinDocumentViewer implements IEditedDocumentViewer {
     public void createPartControl(final Composite parent) {
         /* Create and setting up frame */
         this.aBean = new SwtWinOOoBean(parent, SWT.NONE);
-        
+
     }
 
     @objid ("3b55b2e8-5495-4821-b6cb-a9810df5a0ba")
@@ -151,28 +152,28 @@ public class LibreOfficeSwtWinDocumentViewer implements IEditedDocumentViewer {
             // - http://wiki.services.openoffice.org/wiki/Framework/Article/Filter/FilterList_OOo_3_0#FilterOption
             // - http://codesnippets.services.openoffice.org/Office/Office.ConvertDocuments.snip
             // - http://wiki.services.openoffice.org/wiki/Documentation/DevGuide/OfficeDev/Storing_Documents
-        
+
             String conversionFilter = getHtmlExportFilterName();
-        
+
             if (conversionFilter == null) {
                 throw new IOException("This document does not support HTML export.");
             }
-        
+
             // Set properties for conversions
             PropertyValue[] conversionProperties = new PropertyValue[3];
-        
+
             conversionProperties[0] = new PropertyValue();
             conversionProperties[0].Name = "Overwrite";
             conversionProperties[0].Value = new Boolean(true);
-        
+
             conversionProperties[1] = new PropertyValue();
             conversionProperties[1].Name = "FilterName";
             conversionProperties[1].Value = conversionFilter;
-        
+
             conversionProperties[2] = new PropertyValue();
             conversionProperties[2].Name = "CharacterSet";
             conversionProperties[2].Value = "UTF-8";
-        
+
             ByteArrayOutputStream stream = new ByteArrayOutputStream(20000);
             this.aBean.storeToStream(stream, conversionProperties);
             return stream.toString("UTF-8");
@@ -181,7 +182,7 @@ public class LibreOfficeSwtWinDocumentViewer implements IEditedDocumentViewer {
         } catch (NoDocumentException e) {
             throw new IOException(e);
         }
-        
+
     }
 
     @objid ("a2578190-675e-4ff8-8d6e-bbb52d4809b7")
@@ -195,11 +196,12 @@ public class LibreOfficeSwtWinDocumentViewer implements IEditedDocumentViewer {
         } catch (NoConnectionException e) {
             throw new IOException(e);
         }
-        
+
     }
 
     /**
      * Get the OpenOffice control.
+     *
      * @return the OpenOffice control.
      */
     @objid ("0d181df0-cbb3-4cc2-856b-a6487807a9f4")
@@ -214,7 +216,7 @@ public class LibreOfficeSwtWinDocumentViewer implements IEditedDocumentViewer {
             LibreOfficeEditors.LOG.warning(new IllegalStateException(this.aBean + " disposed, let's say it is not modified.").fillInStackTrace());
             return false;
         }
-        
+
         CallWatchThread watchDog = new CallWatchThread(1000, "LibreOfficeSwtDocumentViewer.isModified()");
         try {
             OfficeDocument doc = this.aBean.getDocument();
@@ -234,21 +236,21 @@ public class LibreOfficeSwtWinDocumentViewer implements IEditedDocumentViewer {
         } finally {
             watchDog.cancel();
         }
-        
+
     }
 
     @objid ("8cf617cc-731b-4fec-8138-8d0a695d9756")
     @Override
     public void openDocument(final InputStream stream, final boolean modifiable) throws IOException {
         try {
-        
+
             // Read only state
             com.sun.star.beans.PropertyValue args[] = new com.sun.star.beans.PropertyValue[] {
                     new com.sun.star.beans.PropertyValue("ReadOnly",
                             -1,
                             new Boolean(!modifiable),
                             com.sun.star.beans.PropertyState.DIRECT_VALUE) };
-        
+
             this.aBean.loadFromStream(stream, args);
             this.aBean.aquireSystemWindow();
         } catch (CloseVetoException e) {
@@ -258,7 +260,7 @@ public class LibreOfficeSwtWinDocumentViewer implements IEditedDocumentViewer {
         } catch (SystemWindowException e) {
             throw new IOException(e);
         }
-        
+
     }
 
     @objid ("9b56211c-3d9c-478a-9c87-c4db6cba3213")
@@ -266,7 +268,7 @@ public class LibreOfficeSwtWinDocumentViewer implements IEditedDocumentViewer {
     public void openDocument(final Path file, final boolean modifiable) throws IOException {
         try {
             String aURL = createUNOFileURL(file);
-        
+
             // Read only state
             com.sun.star.beans.PropertyValue args[] = new com.sun.star.beans.PropertyValue[] {
                     new com.sun.star.beans.PropertyValue(
@@ -279,7 +281,7 @@ public class LibreOfficeSwtWinDocumentViewer implements IEditedDocumentViewer {
                             new Boolean(!modifiable),
                             com.sun.star.beans.PropertyState.DIRECT_VALUE)
             };
-        
+
             this.aBean.loadFromURL(aURL, args);
             this.aBean.aquireSystemWindow();
         } catch (CloseVetoException e) {
@@ -291,7 +293,7 @@ public class LibreOfficeSwtWinDocumentViewer implements IEditedDocumentViewer {
         } catch (UnsatisfiedLinkError e) {
             throw new IOException(e);
         }
-        
+
     }
 
     @objid ("a5dad65c-ef89-42f5-831b-93103820507e")
@@ -304,7 +306,7 @@ public class LibreOfficeSwtWinDocumentViewer implements IEditedDocumentViewer {
         } catch (NoDocumentException e) {
             throw new IOException(e);
         }
-        
+
     }
 
     @objid ("3932852a-a978-46c2-8d95-a4c7680851d2")
@@ -323,10 +325,10 @@ public class LibreOfficeSwtWinDocumentViewer implements IEditedDocumentViewer {
             if (aDocument == null) {
                 throw new NoDocumentException();
             }
-        
+
             // start runtime timeout
             CallWatchThread aCallWatchThread = new CallWatchThread(10000, "storeToURL");
-        
+
             try {
                 // store the document
                 try {
@@ -345,7 +347,7 @@ public class LibreOfficeSwtWinDocumentViewer implements IEditedDocumentViewer {
         } catch (NoDocumentException e) {
             throw new IOException(e);
         }
-        
+
     }
 
     @objid ("77f274dc-8ca7-4742-aaf6-aee6934d8a60")
@@ -354,11 +356,12 @@ public class LibreOfficeSwtWinDocumentViewer implements IEditedDocumentViewer {
         if (this.aBean != null && !this.aBean.isDisposed()) {
             this.aBean.setFocus();
         }
-        
+
     }
 
     /**
      * closes the bean viewer and tries to terminate OOo.
+     *
      * @throws NoConnectionException if no connection is established.
      */
     @objid ("6ccfc0bd-1d56-4aea-ba39-5b55cdf9ce70")
@@ -370,12 +373,13 @@ public class LibreOfficeSwtWinDocumentViewer implements IEditedDocumentViewer {
         if (xDesktop != null) {
             xDesktop.terminate();
         }
-        
+
     }
 
     /**
      * Creating a correct File URL that OpenOffice can handle. This is
      * necessary to be platform independent.
+     *
      * @param newfile a file path
      * @return the OpenOffice compatible URL.
      * @throws NoConnectionException if not connected to OpenOffice
@@ -388,7 +392,7 @@ public class LibreOfficeSwtWinDocumentViewer implements IEditedDocumentViewer {
         } catch (MalformedURLException e) {
             throw new java.lang.IllegalArgumentException(e);
         }
-        
+
         XComponentContext xRemoteContext;
         try {
             xRemoteContext = this.aBean.getOOoConnection().getComponentContext();
@@ -400,11 +404,11 @@ public class LibreOfficeSwtWinDocumentViewer implements IEditedDocumentViewer {
         if (xRemoteContext == null) {
             throw new NoConnectionException();
         }
-        
+
         // Create a URL, which can be used by UNO
         String myUNOFileURL = com.sun.star.uri.ExternalUriReferenceTranslator
                 .create(xRemoteContext).translateToInternal(before.toExternalForm());
-        
+
         if (myUNOFileURL.isEmpty() && !newfile.toString().isEmpty()) {
             throw new IllegalArgumentException("'" + before.toString() +
                     "' URL conversion failed. Filelocation " +
@@ -419,6 +423,7 @@ public class LibreOfficeSwtWinDocumentViewer implements IEditedDocumentViewer {
      * <p>
      * The filter name depends on the document type.
      * Returns <code>null</code> if the document cannot be exported to HTML.
+     *
      * @return the HTML export filter name, or <code>null</code>.
      * @throws NoConnectionException if no connection to LibreOffice is established.
      */
@@ -427,7 +432,7 @@ public class LibreOfficeSwtWinDocumentViewer implements IEditedDocumentViewer {
         // Detect document type by asking XServiceInfo
         com.sun.star.lang.XServiceInfo xInfo = UnoRuntime.queryInterface(
                 com.sun.star.lang.XServiceInfo.class, this.aBean.getDocument());
-        
+
         // Determine suitable HTML filter name for export.
         if (xInfo != null) {
             if (xInfo.supportsService("com.sun.star.text.TextDocument")) {

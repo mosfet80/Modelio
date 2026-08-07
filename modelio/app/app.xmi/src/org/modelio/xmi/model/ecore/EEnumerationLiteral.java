@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -38,10 +38,10 @@ public class EEnumerationLiteral extends ENamedElement {
     }
 
     @objid ("487f30c5-c136-4252-94d8-ca33c791f200")
-    public  EEnumerationLiteral(org.eclipse.uml2.uml.EnumerationLiteral element) {
+    public EEnumerationLiteral(org.eclipse.uml2.uml.EnumerationLiteral element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("95e787d7-5de5-4290-bfff-d6df5e0cf417")
@@ -49,12 +49,12 @@ public class EEnumerationLiteral extends ENamedElement {
     public void attach(Element objingElt) {
         Object objingEnumeration = ReverseProperties.getInstance()
                 .getMappedElement(this.ecoreElement.getEnumeration());
-                
+
         if ((objingEnumeration != null) && (objingEnumeration instanceof Enumeration)) {
             EnumerationLiteral objingLiteral = (EnumerationLiteral) objingElt;
             objingLiteral.setValuated((Enumeration)objingEnumeration);
         }
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.monitor;
 
@@ -33,6 +33,7 @@ public class GProjectMonitorSupport {
     private List<IProjectMonitor> monitors = new ArrayList<>();
 
     /**
+     *
      * @param m a project monitor.
      */
     @objid ("6181ee58-08b6-11e2-b193-001ec947ccaf")
@@ -41,6 +42,7 @@ public class GProjectMonitorSupport {
     }
 
     /**
+     *
      * @param m a project monitor.
      */
     @objid ("6181ee5b-08b6-11e2-b193-001ec947ccaf")
@@ -50,6 +52,7 @@ public class GProjectMonitorSupport {
 
     /**
      * Fire a project event on all projects monitors.
+     *
      * @param ev a project event.
      */
     @objid ("6181ee5e-08b6-11e2-b193-001ec947ccaf")
@@ -59,7 +62,7 @@ public class GProjectMonitorSupport {
         else for (IProjectMonitor m : this.monitors) {
             m.handleProjectEvent(ev);
         }
-        
+
     }
 
     /**
@@ -91,7 +94,7 @@ public class GProjectMonitorSupport {
             default:
                 break;
             }
-            
+
         }
 
     }

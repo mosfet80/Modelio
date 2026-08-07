@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -55,7 +55,7 @@ public class EElement implements IEElement {
     @Override
     public void setStereotypes() {
         Object object = ReverseProperties.getInstance().getMappedElement(this.ecoreElt);
-        
+
         if (object != null) {
             if (object instanceof ModelElement) {
                 ModelElement modelElement = (ModelElement) object;
@@ -65,7 +65,7 @@ public class EElement implements IEElement {
                         setStereotype(modelElement, (org.eclipse.uml2.uml.Stereotype) stereo);
                     }
                 }
-        
+
             } else if (object instanceof List<?>) {
                 for (Object createdElt : (List<?>) object) {
                     if (createdElt instanceof ModelElement) {
@@ -135,11 +135,11 @@ public class EElement implements IEElement {
                 }
             }
         }
-        
+
     }
 
     @objid ("71e3b440-e139-4e19-adca-689a8fc4ec0e")
-    public  EElement(org.eclipse.uml2.uml.Element element) {
+    public EElement(org.eclipse.uml2.uml.Element element) {
         this.ecoreElt = element;
     }
 
@@ -147,30 +147,30 @@ public class EElement implements IEElement {
     private void setStereotype(ModelElement objElement, org.eclipse.uml2.uml.Stereotype stereotype) {
         ProfileUtils.createObjProfile(stereotype.getProfile());
         ProfileUtils.addExtension(objElement, stereotype);
-        
+
         List<Property> listStereotypeProperties = new ArrayList<>();
-        
+
         for (Object attribute : stereotype.getOwnedAttributes()) {
             if ((attribute instanceof Property) && (!(((Property) attribute).getAssociation() instanceof Extension))) {
                 listStereotypeProperties.add((Property) attribute);
             }
         }
-        
+
         for (Property property : listStereotypeProperties) {
             setProperties(objElement, stereotype, property);
         }
-        
+
     }
 
     @objid ("2b1ba68d-c450-4c48-b96e-868c1ceb7051")
     private void setProperties(ModelElement objModelElement, org.eclipse.uml2.uml.Stereotype stereotype, Property property) {
         String propertyName = property.getName();
         ProfileUtils.visitProperty(property);
-        
+
         IStandardModelFactory model = ReverseProperties.getInstance().getMModelServices().getModelFactory().getFactory(IStandardModelFactory.class);
         org.eclipse.uml2.uml.Type ecoreType = property.getType();
         TagType tagType = null;
-        
+
         Object mappedObject = TotalImportMap.getInstance().get(property);
         if (mappedObject instanceof TagType) {
             tagType = (TagType) mappedObject;
@@ -182,23 +182,23 @@ public class EElement implements IEElement {
                 }
             }
         }
-        
+
         if (tagType != null) {
-        
+
             Object value = this.ecoreElt.getValue(stereotype, propertyName);
-        
+
             if ((value != null) && (!value.equals(false))) {
-        
+
                 TaggedValue taggedValue = createTaggedValue(tagType, objModelElement);
-        
+
                 if (!value.equals(true) && (property.getType() != null)) {
-        
+
                     String currentEcoreTypeName = ecoreType.getName();
-        
+
                     if (currentEcoreTypeName == null) {
                         currentEcoreTypeName = ecoreType.eResource().getURI().fragment();
                     }
-        
+
                     if (currentEcoreTypeName.equals("String")) {
                         if (value instanceof String) {
                             model.createTagParameter((String) value, taggedValue);
@@ -209,43 +209,43 @@ public class EElement implements IEElement {
                                 }
                             }
                         }
-        
+
                     } else if ((ecoreType instanceof org.eclipse.uml2.uml.Class)
                             && (EcoreModelNavigation.isMetaclass((org.eclipse.uml2.uml.Class) ecoreType))
                             && (value instanceof org.eclipse.uml2.uml.Element)) {
-        
+
                         if (value instanceof org.eclipse.uml2.uml.NamedElement) {
                             model.createTagParameter(((org.eclipse.uml2.uml.NamedElement) value).getName(), taggedValue);
                         } else {
                             model.createTagParameter(value.toString(), taggedValue);
                         }
-        
+
                     } else if (value instanceof EnumerationLiteral) {
                         model.createTagParameter(((EnumerationLiteral) value).getName(), taggedValue);
                     } else {
                         model.createTagParameter(value.toString(), taggedValue);
                     }
                 }
-        
+
             }
-        
+
         }
-        
+
     }
 
     @objid ("3e3fd273-c599-4840-8309-a71216bf2f77")
     private void setStringProperty(ModelElement objModelElement, org.eclipse.uml2.uml.Stereotype stereotype, TagType tagType, final List<Property> listStereotypeProperties) {
         IStandardModelFactory model = ReverseProperties.getInstance().getMModelServices().getModelFactory().getFactory(IStandardModelFactory.class);
-        
+
         TaggedValue taggedValue = createTaggedValue(tagType, objModelElement);
         List<Property> toBeRemoved = new ArrayList<>();
-        
+
         // Qualifier
         for (Property attribute : listStereotypeProperties) {
             if (tagType.getName().equals(attribute.getName())) {
-        
+
                 Object value = this.ecoreElt.getValue(stereotype, attribute.getName());
-        
+
                 if ((value != null) && (!(value instanceof Boolean))) {
                     TagParameter tagParameter = model.createTagParameter();
                     taggedValue.setQualifier(tagParameter);
@@ -254,16 +254,16 @@ public class EElement implements IEElement {
                 toBeRemoved.add(attribute);
             }
         }
-        
+
         listStereotypeProperties.removeAll(toBeRemoved);
         toBeRemoved.clear();
-        
+
         // TagParameter
         for (Property attribute : listStereotypeProperties) {
             if (tagType.getName().equals(attribute.getName())) {
-        
+
                 Object value = this.ecoreElt.getValue(stereotype, attribute.getName());
-        
+
                 if ((value != null) && (!(value instanceof Boolean))) {
                     if (value instanceof EDataTypeUniqueEList<?>) {
                         EDataTypeUniqueEList<?> tabString = (EDataTypeUniqueEList<?>) value;
@@ -283,10 +283,10 @@ public class EElement implements IEElement {
                 }
             }
         }
-        
+
         listStereotypeProperties.removeAll(toBeRemoved);
         toBeRemoved.clear();
-        
+
     }
 
     // @objid ("08e39ae5-4583-11e0-b54c-00137279a832")
@@ -362,13 +362,13 @@ public class EElement implements IEElement {
     @objid ("001dcc78-d8a8-43dc-8202-808a5a6da379")
     @Override
     public void attach(Element objingElt) {
-        
+
     }
 
     @objid ("331fe3b9-69cd-4c6e-a4e1-edc146b11e34")
     @Override
     public void setProperties(Element objingElt) {
-        
+
     }
 
     @objid ("b9a5b8d8-4849-48fc-807e-a05e994c4410")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.executionspecification;
 
@@ -35,7 +35,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Reparent command that is specific to Execution. The ownership change might be graphic only (if not changing lifeline). Also the "times" of starting and ending links are updated.
- * 
+ *
  * @author fpoyer
  */
 @objid ("d8f1397e-55b6-11e2-877f-002564c97630")
@@ -60,26 +60,27 @@ public class ReparentExecutionSpecificationCommand extends Command {
 
     /**
      * Default C'tor.
+     *
      * @param newParent the composite node that will be the new parent of the reparented node.
      * @param reparentedChild the reparented node.
      * @param startTime the new "time" of the ExecutionOccurenceSpecification that starts the execution.
      * @param finishTime the new "time" of the ExecutionOccurenceSpecification that finishes the execution.
      */
     @objid ("d8f13988-55b6-11e2-877f-002564c97630")
-    public  ReparentExecutionSpecificationCommand(GmCompositeNode newParent, GmExecutionSpecification reparentedChild, final int startTime, final int finishTime) {
+    public ReparentExecutionSpecificationCommand(GmCompositeNode newParent, GmExecutionSpecification reparentedChild, final int startTime, final int finishTime) {
         super();
         this.newParentNode = newParent;
         this.reparentedChild = reparentedChild;
         this.startTime = startTime;
         this.finishTime = finishTime;
-        
+
     }
 
     @objid ("d8f13993-55b6-11e2-877f-002564c97630")
     @Override
     public boolean canExecute() {
         final ExecutionSpecification childElement = this.reparentedChild.getRelatedElement();
-        
+
         if (childElement == null || !childElement.getStatus().isModifiable()) {
             return false;
         }
@@ -91,20 +92,20 @@ public class ReparentExecutionSpecificationCommand extends Command {
         if (finish == null || !finish.getStatus().isModifiable()) {
             return false;
         }
-        
+
         MObject oldParent = getOldLifeline();
         MObject newParent = getNewLifeline();
         if (newParent == null) {
             return false;
         }
-        
+
         MMetamodel mm = childElement.getMClass().getMetamodel();
-        
+
         boolean sameParentInObModel = newParent.equals(oldParent);
         return sameParentInObModel
                         || (oldParent.getStatus().isModifiable() && newParent.getStatus().isModifiable() && mm.getMExpert().canCompose(
                                 newParent, childElement, ((SmObjectImpl) childElement).getCompositionRelation().dep.getName()));
-        
+
     }
 
     @objid ("d8f13998-55b6-11e2-877f-002564c97630")
@@ -139,7 +140,7 @@ public class ReparentExecutionSpecificationCommand extends Command {
         }
         if (!sameParentInObModel) {
             MMetamodel mm = childElement.getMClass().getMetamodel();
-        
+
             // attach the underlying {@link MObject element} to its new {@link
             // MObject#getCompositionOwner() composition owner},
             try {
@@ -172,7 +173,7 @@ public class ReparentExecutionSpecificationCommand extends Command {
         execution.getStart().setLineNumber(this.startTime);
         execution.setLineNumber(this.startTime);
         execution.getFinish().setLineNumber(this.finishTime);
-        
+
     }
 
     @objid ("d8f1399b-55b6-11e2-877f-002564c97630")
@@ -185,7 +186,7 @@ public class ReparentExecutionSpecificationCommand extends Command {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("d8f139a0-55b6-11e2-877f-002564c97630")
@@ -198,7 +199,7 @@ public class ReparentExecutionSpecificationCommand extends Command {
         } else {
             return null;
         }
-        
+
     }
 
 }

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -52,7 +51,7 @@ public class ConstraintImpl extends UmlModelElementImpl implements Constraint {
         } else {
             return list.get(0);
         }
-        
+
     }
 
     @objid ("006b90fe-4224-10bf-bd58-001ec947cd2a")
@@ -64,7 +63,7 @@ public class ConstraintImpl extends UmlModelElementImpl implements Constraint {
         } else {
             return new SmDepVal(((ConstraintSmClass) getClassOf()).getConstrainedElementDep(), list.get(0));
         }
-        
+
     }
 
     @objid ("dc0243f1-0d07-41a0-a075-8956cb67cd32")
@@ -78,58 +77,58 @@ public class ConstraintImpl extends UmlModelElementImpl implements Constraint {
                 // Note : this will trigger recursively the removal & addition of all other owners.
                 UmlModelElement r = remainingOwners.get(0);
                 r.getConstraintDefinition().remove(this);
-        
+
                 r.getConstraintDefinition().add(this);
             }
         }
-        
+
         super.afterEraseDepVal(dep, value);
-        
+
     }
 
-    @objid ("80772748-239b-41ab-a728-d44e6ba39f9f")
+    @objid ("0c0e5698-d05c-42d4-a92f-ec95b073c037")
     @Override
     public String getBaseClass() {
         return (String) getAttVal(((ConstraintSmClass)getClassOf()).getBaseClassAtt());
     }
 
-    @objid ("d2b01479-92e7-42a0-ba50-031b41baefa1")
+    @objid ("a2d141ae-e2f5-4e10-9cff-0ea9f21d689d")
     @Override
     public void setBaseClass(String value) {
         setAttVal(((ConstraintSmClass)getClassOf()).getBaseClassAtt(), value);
     }
 
-    @objid ("602db4a0-a738-4d82-a7d1-5006217cdcf6")
+    @objid ("c26f8752-6800-4dc3-aaf7-99959b74a2cb")
     @Override
     public String getBody() {
         return (String) getAttVal(((ConstraintSmClass)getClassOf()).getBodyAtt());
     }
 
-    @objid ("d75edb9a-19cb-43f1-8ae4-612aa2e186f9")
+    @objid ("42b24a4d-b4fd-4eca-87b2-49a73129f276")
     @Override
     public void setBody(String value) {
         setAttVal(((ConstraintSmClass)getClassOf()).getBodyAtt(), value);
     }
 
-    @objid ("57e9c310-87d0-4603-87e9-33fd3b7dd9f9")
+    @objid ("78c25a47-4369-431d-b159-acfb103c89df")
     @Override
     public String getLanguage() {
         return (String) getAttVal(((ConstraintSmClass)getClassOf()).getLanguageAtt());
     }
 
-    @objid ("c2801e6a-a666-4fad-8d9b-f52afe94d066")
+    @objid ("0d166057-1d02-4196-82fe-b2b720869607")
     @Override
     public void setLanguage(String value) {
         setAttVal(((ConstraintSmClass)getClassOf()).getLanguageAtt(), value);
     }
 
-    @objid ("62be6ade-e313-4e38-bcdf-91c379542bad")
+    @objid ("b5589e39-c7ea-4738-bed8-984a0e16f5c2")
     @Override
     public EList<UmlModelElement> getConstrainedElement() {
         return new SmList<>(this, ((ConstraintSmClass)getClassOf()).getConstrainedElementDep());
     }
 
-    @objid ("48ccde0c-14d8-4e5c-a4e5-7cfe29265080")
+    @objid ("2021d5d8-95a8-48d5-acd3-781f1728042f")
     @Override
     public <T extends UmlModelElement> List<T> getConstrainedElement(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -142,10 +141,10 @@ public class ConstraintImpl extends UmlModelElementImpl implements Constraint {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("d7208105-9508-405d-9579-dad06d3d70c4")
+    @objid ("5ecb31eb-2c76-4da6-ad85-26dc882122c9")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitConstraint(this);

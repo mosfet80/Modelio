@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -50,7 +50,7 @@ public class R2900 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -101,14 +101,14 @@ public class R2900 extends AbstractUmlRule {
      * Default constructor for R2900
      */
     @objid ("63538e18-5bfb-411d-b09e-408f2fd48cfb")
-    public  R2900() {
+    public R2900() {
         this.checkerInstance = new CheckR2900(this);
     }
 
     @objid ("f822fe04-88f9-423e-88ea-47ee1dc39703")
     private static class CheckR2900 extends AbstractControl {
         @objid ("f2cd50da-4801-44f0-a1b3-04f24efe1ab1")
-        public  CheckR2900(IRule rule) {
+        public CheckR2900(IRule rule) {
             super(rule);
         }
 
@@ -126,13 +126,13 @@ public class R2900 extends AbstractUmlRule {
         @objid ("4e65d14a-7232-42a3-a533-0cf48413ea2f")
         private IAuditEntry checkR2900(UseCaseDependency dependency) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, dependency, null);
-            
+
             boolean failed = false;
             if (dependency.isStereotyped("ModelerModule", R2900.UseCaseDependencyExtendKind) && dependency.getExtensionLocation().isEmpty()) {
                 // Rule failed
                 failed = true;
             }
-            
+
             if (failed) {
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();

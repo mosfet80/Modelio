@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /*
  *
@@ -41,7 +41,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.services.IServiceConstants;
@@ -58,6 +58,7 @@ import org.modelio.xmi.generation.GenerationProperties;
 import org.modelio.xmi.gui.SwtWizardExportProfile;
 
 /**
+ *
  * @author ebrosse
  */
 @objid ("089d4d3c-a60b-4bab-8045-a80237e4fa3b")
@@ -71,11 +72,11 @@ public class ExportProfile {
         GenerationProperties genProp = GenerationProperties.getInstance();
         genProp.initialize(modelServices, projectService.getSession().getMetamodel(), navigationService);
         genProp.setRootElements(this.selectedProfile);
-        
+
         SwtWizardExportProfile dialog = new SwtWizardExportProfile(activeShell, progressService, projectService);
         dialog.setSelectedElt(this.selectedProfile.get(0));
         dialog.open();
-        
+
     }
 
     @objid ("9421d2b7-89e4-4a45-9c30-8dbda32ff794")
@@ -86,7 +87,7 @@ public class ExportProfile {
         while(itr.hasNext()) {
             Object element = itr.next();
             if (element instanceof Profile){
-                this.selectedProfile.add((Profile) element);     
+                this.selectedProfile.add((Profile) element);
             }
         }
         return (!(this.selectedProfile.isEmpty()));
@@ -95,6 +96,7 @@ public class ExportProfile {
     /**
      * This methods authorizes a command to be displayed in a defined context. The commands are displayed, by default,
      * depending on the kind of metaclass on which the command has been launched.
+     *
      * @param selectedElements the selection
      * @return <code>true</code> to display the command, <code>false</code> to hide it.
      */

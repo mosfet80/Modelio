@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vbasic.net;
 
@@ -33,6 +33,7 @@ import org.modelio.vbasic.auth.IAuthData;
  * Same as {@link java.net.URLStreamHandlerFactory} but here we can add easily other stream handlers.
  * <p>
  * This is a work around for the too strict limitations of the java.net.URL API.
+ *
  * @see java.net.URLStreamHandlerFactory
  * @see java.net.URLConnection
  * @see URL#openConnection()
@@ -46,12 +47,13 @@ public class UriConnections {
      * Service class, no instance.
      */
     @objid ("7a113b9e-262a-439a-bd27-67f5187d9de5")
-    private  UriConnections() {
+    private UriConnections() {
         // no instance
     }
 
     /**
      * Same as {@link URL#openStream()}
+     *
      * @param uri an URI
      * @return an input stream for reading from the URI connection.
      * @throws MalformedURLException if the URI is not supported
@@ -66,6 +68,7 @@ public class UriConnections {
 
     /**
      * Same as {@link URL#openConnection()}.
+     *
      * @param uri an URI
      * @return a UriConnection linking to the URI.
      * @throws MalformedURLException if the URI is not supported or not absolute.
@@ -75,20 +78,21 @@ public class UriConnections {
     public static UriConnection createConnection(URI uri) throws MalformedURLException, IOException {
         if (! uri.isAbsolute())
             throw new MalformedURLException("'"+uri+ "' is not absolute.");
-        
+
         for (IUriConnectionFactory h : handlers) {
             if (h.supports(uri))
                 return h.createConnection(uri);
         }
-        
+
         throw new MalformedURLException(uri+" not supported.");
-        
+
     }
 
     /**
      * Add an URI connection handler.
      * <p>
      * The added handler takes priority from existing handlers.
+     *
      * @param handler a new URI handler.
      */
     @objid ("73150088-8f5d-4529-82ef-13515c6c4802")
@@ -98,6 +102,7 @@ public class UriConnections {
 
     /**
      * Same as {@link URL#openStream()}
+     *
      * @param uri an URI
      * @param authData authentication data.
      * @return an input stream for reading from the URI connection.
@@ -114,21 +119,21 @@ public class UriConnections {
 static {
             // Add handler for https URIs
             //handlers.add(new HttpsUriConnection.Factory());
-    
+
             // Add HTTP & HTTPS handler that uses Apache "httpclient" library.
             handlers.add(new ApacheUriConnection.ApacheUriConnectionFactory());
-            
+
             // Add the default URI handler that support already supported URL.
             handlers.add(new UrlUriHandler());
         }
-    
+
     /**
      * URI Handler for URIs that are supported as URL.
      */
     @objid ("187a3c30-b9bf-4e39-94ae-5f21cbee7d0f")
     private static final class UrlUriHandler implements IUriConnectionFactory {
         @objid ("292d7757-594b-4dfe-8a0e-94f3b674c419")
-         UrlUriHandler() {
+        UrlUriHandler() {
             // nothing
         }
 
@@ -138,7 +143,7 @@ static {
             // https is handled by another handler
             if ("https".equals(uri.getScheme()))
                 return false;
-            
+
             try {
                 // Test conversion to URL don't throw exception
                 @SuppressWarnings("unused")
@@ -148,7 +153,7 @@ static {
                 // Not supported
                 return false;
             }
-            
+
         }
 
         @objid ("3e7a96ae-dbde-4908-b710-0920b6583fd3")

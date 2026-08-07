@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.instanceinternalstructure;
 
@@ -42,7 +42,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  * Represents the {@link Instance} internal structure as a group of labels.
  * <p>
  * Handles auto unmasking of inner instances.
- * 
+ *
  * @author cmarin
  */
 @objid ("354f7732-55b7-11e2-877f-002564c97630")
@@ -58,22 +58,23 @@ public class GmInstanceInternalStructureGroup extends GmGroup {
 
     /**
      * Creates an internal structure group.
+     *
      * @param diagram The diagram.
      * @param relatedRef a reference to the element this GmModel is related to, must not be null.
      */
     @objid ("3550fd9a-55b7-11e2-877f-002564c97630")
-    public  GmInstanceInternalStructureGroup(IGmDiagram diagram, MRef relatedRef) {
+    public GmInstanceInternalStructureGroup(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
         refreshFromObModel();
-        
+
     }
 
     /**
      * Constructor for deserialization only.
      */
     @objid ("3550fda3-55b7-11e2-877f-002564c97630")
-    public  GmInstanceInternalStructureGroup() {
-        
+    public GmInstanceInternalStructureGroup() {
+
     }
 
     @objid ("3550fda6-55b7-11e2-877f-002564c97630")
@@ -107,7 +108,7 @@ public class GmInstanceInternalStructureGroup extends GmGroup {
     @Override
     public void refreshFromObModel() {
         super.refreshFromObModel();
-        
+
         final Instance instance = (Instance) getRelatedElement();
         if (instance != null && instance.isValid()) {
             final Boolean autoShow = this.getDisplayedStyle().getProperty(GmInstanceStructuredStyleKeys.InternalStructure.AUTOUNMASK);
@@ -118,7 +119,7 @@ public class GmInstanceInternalStructureGroup extends GmGroup {
                 }
             }
         }
-        
+
     }
 
     @objid ("3550fdc0-55b7-11e2-877f-002564c97630")
@@ -127,7 +128,7 @@ public class GmInstanceInternalStructureGroup extends GmGroup {
         // The visibility may have changed so fires a notification.
         fireVisibilityChanged();
         super.styleChanged(style);
-        
+
     }
 
     @objid ("3550fdc6-55b7-11e2-877f-002564c97630")
@@ -137,7 +138,7 @@ public class GmInstanceInternalStructureGroup extends GmGroup {
             fireVisibilityChanged();
         else
             super.styleChanged(property, newValue);
-        
+
     }
 
     @objid ("3550fdcd-55b7-11e2-877f-002564c97630")
@@ -149,7 +150,7 @@ public class GmInstanceInternalStructureGroup extends GmGroup {
         } else {
             getDisplayedStyle().setProperty(GmInstanceStructuredStyleKeys.INTERNALSVIEWMODE, InternalsViewMode.NONE);
         }
-        
+
     }
 
     @objid ("3550fdd1-55b7-11e2-877f-002564c97630")
@@ -158,7 +159,7 @@ public class GmInstanceInternalStructureGroup extends GmGroup {
         // Cannot unmask anything else than a valid instance
         if (!(el instanceof Instance) || !el.isValid())
             return false;
-        
+
         // Cannot unmask a foreign instance (not belonging to the class)
         if (!el.getCompositionOwner().equals(this.getRelatedElement()))
             return false;
@@ -172,13 +173,13 @@ public class GmInstanceInternalStructureGroup extends GmGroup {
         if (instance != null && instance.isValid()) {
             Boolean autoShow = this.getDisplayedStyle().getProperty(GmInstanceStructuredStyleKeys.InternalStructure.AUTOUNMASK);
             boolean hasHiddenFeature = false;
-        
+
             if (!autoShow) {
                 hasHiddenFeature = instance.getPart().size() != getChildren().size();
             }
             setHiddenFeature(hasHiddenFeature);
         }
-        
+
     }
 
     /**
@@ -207,17 +208,17 @@ public class GmInstanceInternalStructureGroup extends GmGroup {
                 break;
             }
         }
-        
+
     }
 
     @objid ("3552844a-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmInstanceInternalStructureGroup.", GmInstanceInternalStructureGroup.MINOR_VERSION);
-        
+
     }
 
     @objid ("35528450-55b7-11e2-877f-002564c97630")

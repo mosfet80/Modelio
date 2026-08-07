@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.parts.data.texticon;
 
@@ -56,16 +56,17 @@ public class TextIconPainter extends BackgroundPainter {
      * Create a new painter that doesn't underline the cell's contents.
      */
     @objid ("c6db16b3-cf29-4f5a-bfec-94d935ac54cd")
-    public  TextIconPainter() {
+    public TextIconPainter() {
         this(false);
     }
 
     /**
      * Create a new painter.
+     *
      * @param underline whether the painter should underline the cell's contents or not.
      */
     @objid ("cd3ffb0b-be4e-4b52-88ec-b11ed4007c6f")
-    public  TextIconPainter(boolean underline) {
+    public TextIconPainter(boolean underline) {
         this.underline = underline;
     }
 
@@ -74,7 +75,7 @@ public class TextIconPainter extends BackgroundPainter {
     public int getPreferredHeight(ILayerCell cell, GC gc, IConfigRegistry configRegistry) {
         final Image image = getImage(cell, configRegistry);
         final int imageHeight = (image != null) ? image.getBounds().height : 0;
-        
+
         setupGCFromConfig(gc, CellStyleUtil.getCellStyle(cell, configRegistry));
         int textHeight = gc.textExtent(convertDataType(cell, configRegistry).getText()).y;
         if (this.underline) {
@@ -88,12 +89,12 @@ public class TextIconPainter extends BackgroundPainter {
     public int getPreferredWidth(ILayerCell cell, GC gc, IConfigRegistry configRegistry) {
         final IStyle cellStyle = CellStyleUtil.getCellStyle(cell, configRegistry);
         setupGCFromConfig(gc, cellStyle);
-        
+
         final Image image = getImage(cell, configRegistry);
         final int imageWidth = (image != null) ? image.getBounds().width : 0;
-        
+
         final int textWidth = gc.textExtent(convertDataType(cell, configRegistry).getText()).x;
-        
+
         int spacing = 16;
         HorizontalAlignmentEnum horizontalAlignment = cellStyle.getAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT);
         if (horizontalAlignment == HorizontalAlignmentEnum.CENTER) {
@@ -107,32 +108,32 @@ public class TextIconPainter extends BackgroundPainter {
     public void paintCell(ILayerCell cell, GC gc, Rectangle bounds, IConfigRegistry configRegistry) {
         // Paint background
         super.paintCell(cell, gc, bounds, configRegistry);
-        
+
         final IStyle cellStyle = CellStyleUtil.getCellStyle(cell, configRegistry);
-        
+
         final TextIcon textIcon = convertDataType(cell, configRegistry);
         final String text = textIcon.getText();
         final Image icon = textIcon.getIcon();
         final Rectangle imageBounds = icon != null ? icon.getBounds() : new Rectangle(0, 0, 0, 0);
-        
+
         // Compute x padding
         String displayedText = text;
         setupGCFromConfig(gc, cellStyle);
-        
+
         int fontHeight = gc.getFontMetrics().getHeight();
         int textHeight = fontHeight * 1 /* one line */;
-        
+
         Point textExtent = gc.textExtent(displayedText);
         if (textExtent.x > bounds.width - imageBounds.width) {
             displayedText = truncateText(text, gc, bounds.width - imageBounds.width);
         }
-        
+
         int x = bounds.x + CellStyleUtil.getHorizontalAlignmentPadding(cellStyle, bounds, imageBounds.width + textExtent.x);
         int y = bounds.y + CellStyleUtil.getVerticalAlignmentPadding(cellStyle, bounds, imageBounds.height);
-        
+
         // If the content height is bigger than the available row height
         // we're extending the row height
-        
+
         // int contentHeight = textExtent.y + (this.lineSpacing * (numberOfNewLines - 1)) + (this.spacing * 2);
         int contentHeight = icon != null ? Math.max(icon.getBounds().height, textHeight) : textHeight;
         if (performRowResize(contentHeight, bounds)) {
@@ -141,17 +142,17 @@ public class TextIconPainter extends BackgroundPainter {
             layer.doCommand(
                     new RowResizeCommand(layer, cell.getRowPosition(), contentHeight + contentToCellDiff));
         }
-        
+
         // Paint Icon
         if (icon != null) {
             gc.drawImage(icon, x, y);
         }
-        
+
         // Paint Text
         x += imageBounds.width + 3;
         y = bounds.y + CellStyleUtil.getVerticalAlignmentPadding(cellStyle, bounds, textHeight);
         bounds.width -= imageBounds.width + 1;
-        
+
         gc.drawText(displayedText, x, y, SWT.DRAW_TRANSPARENT | SWT.DRAW_DELIMITER);
         if (this.underline) {
             // check and draw underline and strikethrough separately so it is
@@ -164,7 +165,6 @@ public class TextIconPainter extends BackgroundPainter {
                 gc.drawLine(x, underlineY, x + gc.textExtent(text).x, underlineY);
             }
         }
-        
     }
 
     @objid ("7eed7c00-04a0-43e3-a6ed-fc79a2038c72")
@@ -175,6 +175,7 @@ public class TextIconPainter extends BackgroundPainter {
 
     /**
      * Checks if the given text is bigger than the available space. If not the given text is simply returned without modification. If the text does not fit into the available space, it will be modified by cutting and adding three dots.
+     *
      * @param text the text to compute
      * @param gc the current GC
      * @param availableLength the available space
@@ -184,13 +185,13 @@ public class TextIconPainter extends BackgroundPainter {
     private String truncateText(String text, GC gc, int availableLength) {
         String trialText = text;
         int textWidth = gc.textExtent(trialText).x;
-        
+
         while (textWidth > availableLength) {
             // try an optimization: estimate average char width and adjust
             // accordingly
             final double avgCharWidth = textWidth / trialText.length();
             final int nbExtraChars = 1 + (int) ((textWidth - availableLength) / avgCharWidth);
-        
+
             final int newLength = trialText.length() - nbExtraChars;
             if (newLength > 0) {
                 trialText = trialText.substring(0, newLength);
@@ -204,6 +205,7 @@ public class TextIconPainter extends BackgroundPainter {
 
     /**
      * Checks if a row resize needs to be triggered.
+     *
      * @param contentHeight The necessary height to show the content completely
      * @param rectangle The available rectangle to render to
      * @return <code>true</code> if a row resize needs to be performed, <code>false</code> if not
@@ -220,24 +222,23 @@ public class TextIconPainter extends BackgroundPainter {
     protected TextIcon convertDataType(ILayerCell cell, IConfigRegistry configRegistry) {
         Object canonicalValue = cell.getDataValue();
         Object displayValue;
-        
+
         IDisplayConverter displayConverter = configRegistry.getConfigAttribute(
                 CellConfigAttributes.DISPLAY_CONVERTER,
                 cell.getDisplayMode(),
                 cell.getConfigLabels().getLabels());
-        
+
         if (displayConverter != null) {
             displayValue = displayConverter.canonicalToDisplayValue(cell, configRegistry, canonicalValue);
         } else {
             displayValue = canonicalValue;
         }
-        
+
         if (displayValue instanceof TextIcon) {
             return (TextIcon) displayValue;
         } else {
             return new TextIcon(String.valueOf(displayValue), null);
         }
-        
     }
 
     /**
@@ -248,13 +249,12 @@ public class TextIconPainter extends BackgroundPainter {
         final Color fg = cellStyle.getAttributeValue(CellStyleAttributes.FOREGROUND_COLOR);
         final Color bg = cellStyle.getAttributeValue(CellStyleAttributes.BACKGROUND_COLOR);
         final Font font = cellStyle.getAttributeValue(CellStyleAttributes.FONT);
-        
+
         gc.setAntialias(GUIHelper.DEFAULT_ANTIALIAS);
         gc.setTextAntialias(GUIHelper.DEFAULT_TEXT_ANTIALIAS);
         gc.setFont(font);
         gc.setForeground(fg != null ? fg : GUIHelper.COLOR_LIST_FOREGROUND);
         gc.setBackground(bg != null ? bg : GUIHelper.COLOR_LIST_BACKGROUND);
-        
     }
 
 }

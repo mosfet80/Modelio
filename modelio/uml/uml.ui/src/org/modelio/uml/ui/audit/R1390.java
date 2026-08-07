@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -48,7 +48,7 @@ public class R1390 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -67,7 +67,7 @@ public class R1390 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         plan.registerRule(Attribute.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(InputPin.MQNAME, this, AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -101,14 +101,14 @@ public class R1390 extends AbstractUmlRule {
      * Default constructor for R1390
      */
     @objid ("eef9020c-d759-4f6a-bfe4-011339b9f5fc")
-    public  R1390() {
+    public R1390() {
         this.checkerInstance = new CheckR1390(this);
     }
 
     @objid ("daea0ae0-3c49-4223-94e5-e12ea997d087")
     private static class CheckR1390 extends AbstractControl {
         @objid ("ba3c5701-fc33-4c2f-8ff5-6d60d51cc6cc")
-        public  CheckR1390(IRule rule) {
+        public CheckR1390(IRule rule) {
             super(rule);
         }
 
@@ -130,18 +130,18 @@ public class R1390 extends AbstractUmlRule {
         private IAuditEntry checkR1390(InputPin pin) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(),
                     AuditSeverity.AuditSuccess, pin, null);
-            
+
             Attribute attribute = null;
             if ((attribute = pin.getRepresentedAttribute()) == null) {
                 return auditEntry;
             }
-            
+
             if (attribute.getMultiplicityMax().equals(pin.getUpperBound())) {
                 return auditEntry;
             }
-            
+
             // Rule failed
-            
+
             auditEntry.setSeverity(this.rule.getSeverity());
             List<Object> linkedObjects = new ArrayList<>();
             linkedObjects.add(pin);
@@ -152,6 +152,7 @@ public class R1390 extends AbstractUmlRule {
 
         /**
          * If an Attribute is updated and this Attribute is represented in an InputPin, we need to check the rule on this InputPin.
+         *
          * @param attribute The updated Attribute.
          * @return A list of audit entry for each InputPin representing the Attribute.
          */

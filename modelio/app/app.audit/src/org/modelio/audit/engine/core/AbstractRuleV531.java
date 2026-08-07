@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.engine.core;
 
@@ -33,6 +33,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * <li>{@link #postMoveControls(IRuleControlPoster, IElementMovedEvent)}
  * <li>{@link #postDeleteControls(IRuleControlPoster, MObject, MObject)}
  * </ul>
+ *
  * @author cmarin
  * @since 5.3.1
  */
@@ -60,7 +61,7 @@ public abstract class AbstractRuleV531 implements IRule {
     public final void setSeverity(AuditSeverity value) {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.severity = value;
-        
+
     }
 
     /**
@@ -69,7 +70,7 @@ public abstract class AbstractRuleV531 implements IRule {
     @objid ("d9ecb513-cdba-46de-a706-8cc7d52c6181")
     @Override
     public void postDeleteControls(IRuleControlPoster poster, final MObject deletedElement, final MObject ownerElement) {
-        
+
     }
 
     /**
@@ -78,7 +79,7 @@ public abstract class AbstractRuleV531 implements IRule {
     @objid ("c5bfbba9-911c-48f4-b655-fe79ee31dbf3")
     @Override
     public void postCreateControls(IRuleControlPoster poster, final MObject createdElement) {
-        
+
     }
 
     /**
@@ -87,7 +88,7 @@ public abstract class AbstractRuleV531 implements IRule {
     @objid ("7defcc0a-7af1-4678-8af6-ea5a7b1ccb53")
     @Override
     public void postUpdateControls(IRuleControlPoster poster, final MObject updatedElement) {
-        
+
     }
 
     /**
@@ -96,14 +97,14 @@ public abstract class AbstractRuleV531 implements IRule {
     @objid ("491d0913-970b-4150-8e16-155786f0bb47")
     @Override
     public void postMoveControls(IRuleControlPoster poster, IElementMovedEvent moveEvent) {
-        
+
     }
 
     @objid ("750e05eb-0718-492f-a3b0-b5807e3abd64")
     @Override
     @Deprecated
     public final void postChildRemovedFromControls(IRuleControlPoster poster, MObject removedElement, MObject oldParent) {
-        
+
     }
 
 }

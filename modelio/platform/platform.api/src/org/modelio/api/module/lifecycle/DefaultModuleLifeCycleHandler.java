@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.module.lifecycle;
 
@@ -27,7 +27,7 @@ import org.modelio.vbasic.version.Version;
  * <p>
  * This default implementation may be inherited by the module developers in
  * order to simplify the code writing of the mdac session.
- * 
+ *
  * @since 3.5
  */
 @objid ("99a637ee-2eed-42d0-a26f-3698072278ac")
@@ -37,17 +37,19 @@ public class DefaultModuleLifeCycleHandler implements IModuleLifeCycleHandler {
 
     /**
      * C'tor initializing the module.
+     *
      * @param module the module being constructed.
      */
     @objid ("53dce8bc-1100-4612-b48b-7fa77a21e7a4")
-    public  DefaultModuleLifeCycleHandler(IModule module) {
+    public DefaultModuleLifeCycleHandler(IModule module) {
         this.module = module;
         this.module.getModuleContext().getConfiguration().addListener((pName, oldValue, newValue) -> configurationChanged(pName, oldValue, newValue));
-        
+
     }
 
     /**
      * Accepts the installation by default.
+     *
      * @param modelioPath the path of modelio application
      * @param installPath the path where the module archive contents have been expanded.
      * @return true if the module accepts to be installed false otherwise.

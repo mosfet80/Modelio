@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.extensions;
 
@@ -63,7 +63,7 @@ public class ConnectionEndpoinLocatorMoveEditPolicy extends ResizableEditPolicy 
         } else {
             return false;
         }
-        
+
     }
 
     @objid ("7ff5d426-1dec-11e2-8cad-001ec947c8cc")
@@ -73,24 +73,24 @@ public class ConnectionEndpoinLocatorMoveEditPolicy extends ResizableEditPolicy 
         final Connection connection = (Connection) extension.getParent();
         final Point moveDelta0 = request.getMoveDelta();
         final Dimension moveDelta = new Dimension(moveDelta0.x, moveDelta0.y);
-        
+
         final SidedConnectionEndpointLocator newLoc = f.getLocator(connection,
                 extension,
                 moveDelta,
                 request.getLocation());
-        
+
         final ChangeExtensionLocationCommand cmd = new ChangeExtensionLocationCommand();
-        
+
         final GmNodeModel gmExtension = (GmNodeModel) getHost().getModel();
         final IGmLocator oldGmLoc = gmExtension.getParentLink().getLayoutContraint(gmExtension);
-        
+
         GmConnectionEndpoinLocator newconstraint = new GmConnectionEndpoinLocator();
         newconstraint.setEnd(newLoc.isEnd());
         newconstraint.setUDistance(newLoc.getUDistance());
         newconstraint.setVDistance(newLoc.getVDistance());
         newconstraint.setWidthConstraint(oldGmLoc.getWidthConstraint());
         newconstraint.setHeightConstraint(oldGmLoc.getHeightConstraint());
-        
+
         cmd.setConstraint(newconstraint);
         cmd.setModel((GmNodeModel) getHost().getModel());
         return cmd;
@@ -100,12 +100,12 @@ public class ConnectionEndpoinLocatorMoveEditPolicy extends ResizableEditPolicy 
     @Override
     protected void showSelection() {
         super.showSelection();
-        
+
         final IFigure extension = ((GraphicalEditPart) getHost()).getFigure();
         final Connection connection = (Connection) extension.getParent();
         final SidedConnectionEndpointLocator loc = (SidedConnectionEndpointLocator) connection.getLayoutManager()
                 .getConstraint(extension);
-        
+
         this.focuslink = new PolylineConnection();
         this.focuslink.removeAllPoints();
         ConnectionAnchor srcAnchor = new ChopboxAnchor(extension);
@@ -114,7 +114,7 @@ public class ConnectionEndpoinLocatorMoveEditPolicy extends ResizableEditPolicy 
         this.focuslink.setTargetAnchor(targetAnchor);
         this.focuslink.setLineStyle(org.eclipse.swt.SWT.LINE_DOT);
         addFeedback(this.focuslink);
-        
+
     }
 
     @objid ("7ff83661-1dec-11e2-8cad-001ec947c8cc")
@@ -125,7 +125,7 @@ public class ConnectionEndpoinLocatorMoveEditPolicy extends ResizableEditPolicy 
             removeFeedback(this.focuslink);
             this.focuslink = null;
         }
-        
+
     }
 
     /**
@@ -139,18 +139,18 @@ public class ConnectionEndpoinLocatorMoveEditPolicy extends ResizableEditPolicy 
             IFigure feedback = getDragSourceFeedbackFigure();
             IFigure hostFigure = getHostFigure();
             ChangeExtensionSizeCommand.showFeedback(request, feedback, hostFigure);
-        
+
         } else {
             super.showChangeBoundsFeedback(request);
         }
-        
+
     }
 
     /**
      * Default constructor.
      */
     @objid ("eda7f155-66ed-4657-938f-4b5195de4cdd")
-    public  ConnectionEndpoinLocatorMoveEditPolicy() {
+    public ConnectionEndpoinLocatorMoveEditPolicy() {
         setResizeDirections(PositionConstants.EAST_WEST);
     }
 
@@ -161,7 +161,7 @@ public class ConnectionEndpoinLocatorMoveEditPolicy extends ResizableEditPolicy 
     @Override
     protected DragEditPartsTracker getDragTracker() {
         DragTracker dt = getHost().getDragTracker(new ChangeBoundsRequest(REQ_MOVE));
-        
+
         if (dt instanceof DragEditPartsTracker) {
             return (DragEditPartsTracker) dt;
         }
@@ -177,7 +177,7 @@ public class ConnectionEndpoinLocatorMoveEditPolicy extends ResizableEditPolicy 
                 .withMoveDragTracker(getDragTracker())
                 .addResizeableHandles()
                 .getHandles();
-        
+
     }
 
     /**
@@ -189,14 +189,14 @@ public class ConnectionEndpoinLocatorMoveEditPolicy extends ResizableEditPolicy 
         private FractionalConnectionLocator loc;
 
         @objid ("7ff8366a-1dec-11e2-8cad-001ec947c8cc")
-        public  LocatorAnchor(final IFigure owner, final SidedConnectionEndpointLocator loc) {
+        public LocatorAnchor(final IFigure owner, final SidedConnectionEndpointLocator loc) {
             super(owner);
             if (loc.isEnd()) {
                 this.loc = new FractionalConnectionLocator((Connection) owner, 0.9, false);
             } else {
                 this.loc = new FractionalConnectionLocator((Connection) owner, 0.1, false);
             }
-            
+
         }
 
         @objid ("7ff83672-1dec-11e2-8cad-001ec947c8cc")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.message;
 
@@ -33,7 +33,7 @@ import org.eclipse.draw2d.geometry.PointList;
 
 /**
  * Connection router that is specific to the sequence diagram and that is used to route Messages for which the start and end are on the same lifeline.
- * 
+ *
  * @author fpoyer
  */
 @objid ("d96b4b84-55b6-11e2-877f-002564c97630")
@@ -51,12 +51,13 @@ public class RecursiveMessageRouter extends BendpointConnectionRouter {
      * Private constructor to avoid unnecessary c'tor.
      */
     @objid ("d96b4b8c-55b6-11e2-877f-002564c97630")
-    private  RecursiveMessageRouter() {
-        
+    private RecursiveMessageRouter() {
+
     }
 
     /**
      * Returns the instance of this router.
+     *
      * @return the instance of this router.
      */
     @objid ("d96b4b8f-55b6-11e2-877f-002564c97630")
@@ -70,12 +71,12 @@ public class RecursiveMessageRouter extends BendpointConnectionRouter {
         final ConnectionAnchor sourceAnchor = conn.getSourceAnchor();
         final ConnectionAnchor targetAnchor = conn.getTargetAnchor();
         final List<Bendpoint> bendpoints = new ArrayList<>();
-        
+
         // Let's assume the first point is the source anchor reference point (This may be modified later).
         point1.setLocation(sourceAnchor.getReferencePoint());
         conn.translateToRelative(point1);
         bendpoints.add(new AbsoluteBendpoint(point1));
-        
+
         IFigure sourceFigure = sourceAnchor.getOwner();
         if (sourceFigure != null) {
             point1.setLocation(sourceFigure.getBounds().getLeft());
@@ -84,7 +85,7 @@ public class RecursiveMessageRouter extends BendpointConnectionRouter {
             point1.setLocation(sourceAnchor.getReferencePoint());
         }
         point1.translate(50, 0);
-        
+
         IFigure targetFigure = targetAnchor.getOwner();
         if (targetFigure != null) {
             point2.setLocation(targetFigure.getBounds().getLeft());
@@ -93,20 +94,20 @@ public class RecursiveMessageRouter extends BendpointConnectionRouter {
             point2.setLocation(targetAnchor.getReferencePoint());
         }
         point2.translate(50, 0);
-        
+
         int x = Math.max(point1.x, point2.x);
         point1.x = x;
         point2.x = x;
-        
+
         conn.translateToRelative(point1);
         bendpoints.add(new AbsoluteBendpoint(point1));
         conn.translateToRelative(point2);
         bendpoints.add(new AbsoluteBendpoint(point2));
-        
+
         point1.setLocation(targetAnchor.getReferencePoint());
         conn.translateToRelative(point1);
         bendpoints.add(new AbsoluteBendpoint(point1));
-        
+
         // Start by computing the actual location of the source anchor, based on the first bendpoint
         point1.setLocation(bendpoints.get(1).getLocation());
         conn.translateToAbsolute(point1);
@@ -114,7 +115,7 @@ public class RecursiveMessageRouter extends BendpointConnectionRouter {
         conn.translateToRelative(sourcePoint);
         // Use that value in the list, instead of the reference point.
         bendpoints.set(0, new AbsoluteBendpoint(sourcePoint));
-        
+
         // Now compute the actual location of the target anchor, based on the second bendpoint
         int index = bendpoints.size() - 1;
         point1.setLocation(bendpoints.get(index - 1).getLocation());
@@ -123,7 +124,7 @@ public class RecursiveMessageRouter extends BendpointConnectionRouter {
         conn.translateToRelative(targetPoint);
         // Use that value in the list, instead of the reference point.
         bendpoints.set(index, new AbsoluteBendpoint(targetPoint));
-        
+
         // Clear the old points list
         final PointList points = conn.getPoints();
         points.removeAllPoints();
@@ -131,9 +132,9 @@ public class RecursiveMessageRouter extends BendpointConnectionRouter {
             Bendpoint bp = bendpoints.get(i);
             points.addPoint(bp.getLocation());
         }
-        
+
         conn.setPoints(points);
-        
+
     }
 
 }

@@ -3,105 +3,52 @@
 // Path to the stylesheet files
 :stylesdir: .
 
-= Modelio search tools
+= Searching in Modelio
 
-Modelio provides two search tools: the fast search and the advanced search.
+Modelio provides several ways to search for one or more elements. You can perform:
 
-==== Fast search tool
+* A quick search using an element's name or identifier.
+* link:./Modeler-_modeler_handy_tools_simple_search.adoc[A simple search] that filters elements according to their name, type, and properties.
+* link:./Modeler-_modeler_handy_tools_notes_search.adoc[A notes search] that scans descriptions and documents associated with each element.
+* link:./Modeler-_modeler_handy_tools_analyst_search.adoc[An Analyst search] that filters elements based on the values of their properties.
+* link:./Modeler-_modeler_handy_tools_MQL_search.adoc[An *MQL* query search] that allows users to search, filter, and navigate through the model.
 
-The Modelio fast search tool is used to easily find elements in a model, based simply on their name.
-It only considers the most relevant elements of the model which are either:
+These different search types can be accessed through:
 
-* NameSpace for UML (packages, classes, datatypes...)
-* Concept for ArchiMate (node type elements)
-* AnalytItem for Analyst (containers and elements)
-* BpmnProcess and BpmnFlowNode for BPMN (tasks, events...)
+* The *Edit* menu:
 
-For these kind of elements the quick search is based on the following criteria:
+image::images/search_edition_menu.png[Edit Menu]
 
-* Elements whose name exactly matches what is entered in the search field.
-* Elements whose name corresponds to a regular expression (for example, "Training.*" will locate all elements starting with "Training").
+* The application's dedicated search toolbar:
 
-The *fast search*, runs simply by entering what you want to search for in the search field and
-*pressing enter*.
+image::images/search_tool_bar.png[Search Toolbar]
 
-If there is only one matching element, it is automatically selected in the browser and
- no additional dialog is popped. If there are zero or several matching elements, they are displayed
- in a dialog where you can further refine your search criteria.
+* And the *Search Results* view:
 
-The *fast search* also holds an history of the last searches so that they can be easily replayed at any moment.
+image::images/search_view.png[Search View]
 
-===== Running a fast search
-image::images/Modeler-_modeler_handy_tools_advanced_search_FastSearch1.png[2]
+Regardless of their origin, search results are always displayed in a dedicated view named *Search Results*.
 
-*Steps:*
+==== Quick Search
 
-. Enter the element name pattern that you want to search for and press <enter>.
-. Click on the arrow on the right of the fast search field to pop a list of the searches
- you have previously carried out. You can browse this list using the up/down keys on your
-  keyboard or using your mouse. To select an element to search for from this list,
-  just click on it to make it appear in the field and then execute search by pressing <enter>.
+Modelio's Quick Search tool makes it easy to find elements in a model using only their name or identifier.
 
+If no matching element is found, the link:./Modeler-_modeler_handy_tools_simple_search.adoc[Search dialog] is automatically opened.
 
-==== Advanced search tool
-The advanced search tool opens a configuration dialog called the *advanced search dialog* where you can refine the criteria used for
-the search.
+If exactly one matching element is found, it is automatically selected in the explorer.
 
-Depending on your project configuration, the *advanced search dialog* may also feature additional tabs specialized for some kind of search.
+If several matching elements are found, they are displayed in the *Search Results* view.
 
-For example the "Note" tab allows searching text in the note contents while the "Analyst" tab is
-specialized for searching requirements in the analyst model from their properties.
+The *Quick Search* feature also maintains a history of recent searches, allowing them to be easily executed again at any time.
 
 
-===== Running an advanced search in the model
-image::images/Modeler-_modeler_handy_tools_advanced_search_FastSearch1.png[2]
-
-*Steps:*
-
-. Optional: pre-enter a regular expression for the search.
-. Click on the advanced search tool button image:images/Modeler-_modeler_handy_tools_advanced_search_AdvancedSearchIcon.png[3] to open the advanced search dialog.
 
 
-The *advanced search dialog* appears:
-
-image::images/Modeler-_modeler_handy_tools_advanced_search_AdvancedSearch.png[4]
 
 
-*Steps:*
-
-. In the "Search" dialog, click on the "Model" tab.
-. Complete the relevant fields, as follows:
-* In the *Element name pattern* field, enter the name or expression you want to search for. The checkbox on the right of this field is used to specify whether or not you want your search to be case sensitive. By default, the search is not case sensitive.
-The field is pre-filled with the value entered in the fast search text.
-* In the *Metaclass filter* field, select the metaclass of the type of element you want to search for. Clicking in the field pops up a metaclass selector. You can choose several metaclasses for a more powerfull search.
-* Check or uncheck the *Include model components* checkbox, according to your preference.
-* In the *Stereotype filter* field, enter the name of the stereotype you want to use as a filter. Only elements stereotyped by the stereotype entered will then appear in the search results. Keep empty to ignore stereotypes.
-. Click on the *Run search* button to launch the search.
-. The bottom table of the *advanced search dialog* lists the results of the search.
 
 
-===== Running an advanced search in notes
-image::images/Modeler-_modeler_handy_tools_advanced_search_FastSearch1.png[2]
-
-*Steps:*
-1. Click on the advanced search tool button image:images/Modeler-_modeler_handy_tools_advanced_search_AdvancedSearchIcon.png[3] to open the advanced search dialog.
-
-The *advanced search dialog* appears:
-
-image::images/Modeler-_modeler_handy_tools_advanced_search_NoteSearch.png[5]
-
-*Steps:*
-
-1. In the "Search" dialog, click on the "Note" tab.
-2. Enter the text that you want to search for, and the type of note in which you want to search.
-3. Run the search.
-4. The bottom table of the *advanced search dialog* lists the results of the search.
 
 
-===== Using the search results table in the search dialog
 
-The found elements are listed in the results table at the bottom of the *advanced search dialog*.
-For each found element the table displays its type icon, name and location in the model
 
-* Click in the table column headers to sort the results on the column values
-* Double-clicking on a search result element in the results table selects and shows it in the model browser.

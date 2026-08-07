@@ -1,0 +1,410 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= Workbenches
+
+
+
+== Introduction
+
+Modelio is a multipurpose tool which supports several metamodels (UML, ArchiMate, etc.) and specifications. Modelio offers many features and therefore suits many projects in various business contexts.
+
+Thanks to a powerful configuration mechanism, Modelio allows its users to get only the commands and features that suit their business and context. This mechanism is based on the concepts of *expertise* and *workbenches*.
+
+
+=== Expertise
+
+An *expertise* defines what the user can see and do. An expertise impacts the GUI, the commands, and the modules:
+
+* *At GUI level, an expertise:*
+** filters the elements displayed in the model browser
+** filters the links displayed in the links editor
+** adjusts the audit rules
+** organizes the views (perspectives)
+* *At commands level, an expertise*
+** filters the context menu commands
+** filters the diagrams which creation is possible via the fast creation bar
+* *At modules level, an expertise*
+** activates the business-related modules
+** deactivates the modules which are not related to the business
+
+
+=== Workbench
+
+A *workbench* gathers several *expertises* by assembling (in the sense of the set theory's union concept) the display configurations, and expertise commands it supports.
+
+The mechanism which assembles *expertises* in a *workbench* takes account of the order in which the *expertises* are declared in the *workbench*. This order is used to solve the situations in which several supported *expertises* are in conflict over a configuration. In such cases, the first *expertise* prevails. The order of *expertises* in a *workbench* is important.
+
+
+=== Predefined expertises
+
+Modelio provides several predefined *expertises* :
+
+1.  *UML* : UML modeling oriented expertise. Activates in particular the whole UML metamodel
+2.  *Analyst* : Expertise oriented toward the analysis of needs and upstream phases
+3.  *ArchiMate* : Expertise which activates the whole ArchiMate metamodel
+4.  *BPMN* : Expertise which activates the BPMN metamodel in Modelio
+5.  *MDA* : Expertise used by modules or macro developers. Makes the MDA model visible (profile, stereotypes, etc.)
+
+The table below lists the configuration brought by each *expertise* :
+
+*Métier*
+
+ +
+
+*UML image:images/attachment/modeliocom41/User_Documentation_en/Workbenches_SaaS/WebHome/uml.png[uml.png]*
+
+*BPMN image:images/attachment/modeliocom41/User_Documentation_en/Workbenches_SaaS/WebHome/standard.bpmnprocess.png[standard.bpmnprocess.png]*
+
+*Analyste image:images/attachment/modeliocom41/User_Documentation_en/Workbenches_SaaS/WebHome/analyst.analystproject.png[analyst.analystproject.png]*
+
+*ArchiMate image:images/attachment/modeliocom41/User_Documentation_en/Workbenches_SaaS/WebHome/archimate.png[archimate.png]*
+
+*MDA image:images/attachment/modeliocom41/User_Documentation_en/Workbenches_SaaS/WebHome/mda.png[mda.png]*
+
+Perspective
+
+Selected perspective
+
+Model
+
+Model
+
+Model
+
+ArchiMate
+
+Model
+
+Model browser
+
+UML Model
+
+X
+
+ +
+
+ +
+
+ +
+
+ +
+
+BPMN Model
+
+ +
+
+X
+
+ +
+
+ +
+
+ +
+
+Analyst Model
+
+ +
+
+ +
+
+X
+
+ +
+
+ +
+
+ArchiMate Model
+
+ +
+
+ +
+
+ +
+
+X
+
+ +
+
+MDA Model
+
+ +
+
+ +
+
+ +
+
+ +
+
+X
+
+Diagrams
+
+UML diagrams
+
+X
+
+ +
+
+ +
+
+ +
+
+ +
+
+BPMN diagrams
+
+ +
+
+X
+
+ +
+
+ +
+
+ +
+
+Analyst diagrams
+
+ +
+
+ +
+
+X
+
+ +
+
+ +
+
+ArchiMate diagrams
+
+ +
+
+ +
+
+ +
+
+X
+
+ +
+
+Impact diagrams
+
+X
+
+X
+
+ +
+
+ +
+
+ +
+
+Automatic diagrams
+
+X
+
+ +
+
+ +
+
+ +
+
+ +
+
+Links editor
+
+Generalization links
+
+X
+
+ +
+
+ +
+
+ +
+
+ +
+
+Association links
+
+X
+
+ +
+
+ +
+
+ +
+
+ +
+
+Dependency links (all kinds)
+
+X
+
+ +
+
+ +
+
+ +
+
+ +
+
+BPMN flows
+
+ +
+
+X
+
+ +
+
+ +
+
+ +
+
+Analyst links
+
+ +
+
+ +
+
+X
+
+ +
+
+ +
+
+ArchiMate relationships (all kinds)
+
+ +
+
+ +
+
+ +
+
+X
+
+ +
+
+Dynamic ArchiMate relationships
+
+ +
+
+ +
+
+ +
+
+X
+
+ +
+
+Structural ArchiMate relationships
+
+ +
+
+ +
+
+ +
+
+X
+
+ +
+
+Dependency ArchiMate
+
+ +
+
+ +
+
+ +
+
+X
+
+ +
+
+Traceability links
+
+X
+
+X
+
+X
+
+X
+
+X
+
+Activated Modules
+
+Modeler Module
+
+X
+
+X
+
+X
+
+X
+
+X
+
+Document Publisher
+
+X
+
+X
+
+X
+
+X
+
+X
+
+Web Model Publisher
+
+X
+
+X
+
+X
+
+X
+
+X
+
+Excel Exchange
+
+ +
+
+ +
+
+X
+
+ +
+
+ +
+
+ArchiMate Architect
+
+ +
+
+ +
+
+ +
+
+X
+
+ +
+
+More *expertises* and *workbenches* can be brought by modules. For example, the Java Designer module adds a "Java" expertise which configures Modelio for a Java development context.
+
+*Workbenches* are defined at Modelio SaaS Server level. Modelio SaaS projects comes with the *workbenches* defined by the SaaS Project Administrator.
+
+ +
+ +
+
+ +

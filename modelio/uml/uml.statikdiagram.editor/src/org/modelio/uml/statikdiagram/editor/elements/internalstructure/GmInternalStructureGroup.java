@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.internalstructure;
 
@@ -44,7 +44,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Represents the {@link Classifier} or {@link NameSpace} internal structure as a group of labels.
- * 
+ *
  * @author cmarin
  */
 @objid ("358e06c0-55b7-11e2-877f-002564c97630")
@@ -60,11 +60,12 @@ public class GmInternalStructureGroup extends GmGroup {
 
     /**
      * Creates an internal structure group.
+     *
      * @param diagram The diagram.
      * @param relatedRef a reference to the element this GmModel is related to, must not be null.
      */
     @objid ("358e06c9-55b7-11e2-877f-002564c97630")
-    public  GmInternalStructureGroup(IGmDiagram diagram, MRef relatedRef) {
+    public GmInternalStructureGroup(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -72,8 +73,8 @@ public class GmInternalStructureGroup extends GmGroup {
      * Constructor for deserialization only.
      */
     @objid ("358e06d2-55b7-11e2-877f-002564c97630")
-    public  GmInternalStructureGroup() {
-        
+    public GmInternalStructureGroup() {
+
     }
 
     @objid ("358e06d5-55b7-11e2-877f-002564c97630")
@@ -113,20 +114,20 @@ public class GmInternalStructureGroup extends GmGroup {
     public void refreshFromObModel() {
         // Do clean obsolete nodes
         super.refreshFromObModel();
-        
+
         final MObject relatedIElement = getRelatedElement();
-        
+
         if (relatedIElement == null || !relatedIElement.isValid()) {
             return;
         }
-        
+
         StyleKey styleKey = getStyleKey(MetaKey.InternalGroup.INTAUTOUNMASK);
         if (styleKey == null) {
             return;
         }
         final Boolean mode = getDisplayedStyle().getProperty(styleKey);
         if (mode) {
-        
+
             if (relatedIElement instanceof Classifier) {
                 final Classifier classifier = (Classifier) relatedIElement;
                 // Bindable instances
@@ -136,7 +137,7 @@ public class GmInternalStructureGroup extends GmGroup {
                     }
                 }
             }
-        
+
             if (relatedIElement instanceof NameSpace) {
                 final NameSpace namespace = (NameSpace) relatedIElement;
                 // Instances
@@ -145,7 +146,7 @@ public class GmInternalStructureGroup extends GmGroup {
                         getDiagram().unmask(this, part, null);
                     }
                 }
-        
+
                 // Collaboration uses
                 for (CollaborationUse part : namespace.getOwnedCollaborationUse()) {
                     if (getChild(new MRef(part)) == null) {
@@ -154,7 +155,7 @@ public class GmInternalStructureGroup extends GmGroup {
                 }
             }
         }
-        
+
     }
 
     @objid ("358f8d48-55b7-11e2-877f-002564c97630")
@@ -163,7 +164,7 @@ public class GmInternalStructureGroup extends GmGroup {
         // The visibility may have changed so fires a notification.
         fireVisibilityChanged();
         super.styleChanged(style);
-        
+
     }
 
     @objid ("358f8d4e-55b7-11e2-877f-002564c97630")
@@ -174,7 +175,7 @@ public class GmInternalStructureGroup extends GmGroup {
         } else {
             super.styleChanged(property, newValue);
         }
-        
+
     }
 
     @objid ("358f8d55-55b7-11e2-877f-002564c97630")
@@ -186,7 +187,7 @@ public class GmInternalStructureGroup extends GmGroup {
         } else {
             getDisplayedStyle().setProperty(getViewModeStyleKey(), InternalsViewMode.NONE);
         }
-        
+
     }
 
     @objid ("358f8d59-55b7-11e2-877f-002564c97630")
@@ -196,7 +197,7 @@ public class GmInternalStructureGroup extends GmGroup {
         if (!el.isValid() || !canCreate(el.getClass())) {
             return false;
         }
-        
+
         // Cannot unmask a foreign instance (not belonging to the class)
         if (!el.getCompositionOwner().equals(getRelatedElement())) {
             return false;
@@ -215,7 +216,7 @@ public class GmInternalStructureGroup extends GmGroup {
             final Classifier classifier = (Classifier) relatedElement;
             final Boolean mode = getDisplayedStyle().getProperty(getStyleKeyStrict(MetaKey.InternalGroup.INTAUTOUNMASK));
             boolean hasHiddenFeature = false;
-        
+
             if (!mode) {
                 hasHiddenFeature = classifier.getInternalStructure().size() +
                         classifier.getDeclared().size() +
@@ -226,13 +227,13 @@ public class GmInternalStructureGroup extends GmGroup {
             final NameSpace namespace = (NameSpace) relatedElement;
             final Boolean mode = getDisplayedStyle().getProperty(getStyleKeyStrict(MetaKey.InternalGroup.INTAUTOUNMASK));
             boolean hasHiddenFeature = false;
-        
+
             if (!mode) {
                 hasHiddenFeature = namespace.getDeclared().size() + namespace.getOwnedCollaborationUse().size() != getChildren().size();
             }
             setHiddenFeature(hasHiddenFeature);
         }
-        
+
     }
 
     /**
@@ -269,17 +270,17 @@ public class GmInternalStructureGroup extends GmGroup {
             break;
         }
         }
-        
+
     }
 
     @objid ("359113da-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmInternalStructureGroup.", GmInternalStructureGroup.MINOR_VERSION);
-        
+
     }
 
     @objid ("359113e0-55b7-11e2-877f-002564c97630")

@@ -1,26 +1,26 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.contributor;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.modelio.api.ui.viewtemplate.IModelViewTemplate;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
@@ -48,7 +48,7 @@ public class SequenceDiagramTemplate implements IModelViewTemplate<AbstractDiagr
      * Mandatory default c'tor needed by eclipse when loading the extension point.
      */
     @objid ("533582a7-b421-49dd-85af-ee959697d4ad")
-    public  SequenceDiagramTemplate() {
+    public SequenceDiagramTemplate() {
         super();
     }
 
@@ -63,7 +63,7 @@ public class SequenceDiagramTemplate implements IModelViewTemplate<AbstractDiagr
     public AbstractDiagram createView(ModelElement base) {
         IStandardModelFactory modelFactory = this.mmServices.getModelFactory().getFactory(IStandardModelFactory.class);
         AbstractDiagram diagram = null;
-        
+
         if (base instanceof Interaction) {
             diagram = smartCreateForInteraction(modelFactory, (Interaction) base);
         } else if ((base instanceof Classifier) && !(base instanceof UseCase)) {
@@ -112,13 +112,13 @@ public class SequenceDiagramTemplate implements IModelViewTemplate<AbstractDiagr
         Interaction interaction = modelFactory.createInteraction();
         interaction.setOwner(parentClassifier);
         interaction.setName(this.mmServices.getElementNamer().getUniqueName(interaction));
-        
+
         // ensure 'locals' Collaboration
         Collaboration locals = ensureLocalCollaboration(modelFactory, interaction);
-        
+
         // create the sequence diagram
         SequenceDiagram diagram = createSequenceDiagram(modelFactory, interaction);
-        
+
         if (locals != null) {
             // Create this pointer, create the instance:
             BindableInstance instance = modelFactory.createBindableInstance();
@@ -126,7 +126,7 @@ public class SequenceDiagramTemplate implements IModelViewTemplate<AbstractDiagr
                 locals.getDeclared().add(instance);
                 instance.setName("this");
                 instance.setBase(parentClassifier);
-        
+
                 // Create the corresponding InstanceNode:
                 Lifeline lifeline = modelFactory.createLifeline();
                 if (lifeline != null) {
@@ -144,21 +144,21 @@ public class SequenceDiagramTemplate implements IModelViewTemplate<AbstractDiagr
         Interaction interaction = modelFactory.createInteraction();
         interaction.setOwnerOperation(parentOperation);
         interaction.setName(this.mmServices.getElementNamer().getUniqueName(interaction));
-        
+
         // ensure 'locals' Collaboration
         Collaboration locals = ensureLocalCollaboration(modelFactory, interaction);
-        
+
         // create the sequence diagram
         SequenceDiagram diagram = createSequenceDiagram(modelFactory, interaction);
         if (locals != null) {
             // Create the 'this' instance:
             BindableInstance instance = modelFactory.createBindableInstance();
-        
+
             if (instance != null) {
                 locals.getDeclared().add(instance);
                 instance.setName("this");
                 instance.setBase(parentOperation.getOwner());
-        
+
                 // Create the corresponding InstanceNode:
                 Lifeline lifeline = modelFactory.createLifeline();
                 if (lifeline != null) {
@@ -176,10 +176,10 @@ public class SequenceDiagramTemplate implements IModelViewTemplate<AbstractDiagr
         Interaction interaction = modelFactory.createInteraction();
         interaction.setOwner(parentNameSpace);
         interaction.setName(this.mmServices.getElementNamer().getUniqueName(interaction));
-        
+
         // ensure 'locals' Collaboration
         Collaboration locals = ensureLocalCollaboration(modelFactory, interaction);
-        
+
         // create the sequence diagram
         SequenceDiagram diagram = createSequenceDiagram(modelFactory, interaction);
         return diagram;
@@ -201,7 +201,7 @@ public class SequenceDiagramTemplate implements IModelViewTemplate<AbstractDiagr
             locals = collab;
             break;
         }
-        
+
         if (locals == null) {
             // Create the local Collaboration
             locals = modelFactory.createCollaboration();

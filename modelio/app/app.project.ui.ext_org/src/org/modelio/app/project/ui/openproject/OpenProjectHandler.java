@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.ui.openproject;
 
@@ -26,8 +26,8 @@ import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
@@ -72,18 +72,18 @@ public class OpenProjectHandler {
         if (selection == null || projectService.getOpenedProject() != null) {
             return false;
         }
-        
+
         List<GProjectDescriptor> projects = SelectionHelper.toList(selection, GProjectDescriptor.class);
         if (projects.size() != 1) {
             // refuse multiple and empty selection
             return false;
         }
-        
+
         // Do not authorize opening of constellation project
         if (projects.get(0).getRemoteLocation() != null && projects.get(0).getRemoteLocation().startsWith("constellation")) {
             return false;
         }
-        
+
         if (projects.get(0).getLockInfo() != null) {
             // refuse locked projects
             return false;
@@ -98,18 +98,18 @@ public class OpenProjectHandler {
         if (projectToOpen == null) {
             return;
         }
-        
+
         // Check that authentication data is complete, if not => prompt user
         IAuthData authData = checkProjectAuth(shell, projectToOpen);
-        
+
         if (authData == null) {
             // User cancelled => abort
             return;
         }
-        
+
         assert projectService.getOpenedProject() == null;
         AppProjectUiExt.LOG.info("Opening project '%s' ", projectToOpen.getName());
-        
+
         boolean more = true;
         while (more) {
             final IAuthData effectiveAuthData = authData;
@@ -118,14 +118,14 @@ public class OpenProjectHandler {
             try {
                 progressService.run(progressTitle, true, false, monitor -> {
                     SubMonitor mon = SubMonitor.convert(monitor, progressTaskName, 3);
-        
+
                     // Open the project
                     try {
                         projectService.openProject(projectToOpen, effectiveAuthData, mon.newChild(2));
                     } catch (IOException | GProjectAuthenticationException e1) {
                         throw new InvocationTargetException(e1, e1.getLocalizedMessage());
                     }
-        
+
                     // Update the descriptor lock infos
                     try {
                         projectToOpen.setLockInfo(GProjectDescriptorFactory.getLockInformations(projectToOpen));
@@ -162,18 +162,18 @@ public class OpenProjectHandler {
                 more = false;
             }
         }
-        
+
     }
 
     @objid ("a66fd3f1-603a-4541-9cdd-25cb6ad29b10")
     private IAuthData checkPartAuth(final Shell shell, IAuthData authToCheck, String name) {
         IAuthData authData = authToCheck;
-        
+
         if (authData == null || !authData.isComplete()) {
             if (authData == null) {
                 authData = new UserPasswordAuthData();
             }
-        
+
             do {
                 authData = promptAuthentication(shell, authData, name, null);
             } while (authData != null && !authData.isComplete());
@@ -183,6 +183,7 @@ public class OpenProjectHandler {
 
     /**
      * Check authentication data on the project and all fragments before the project is opened.
+     *
      * @param shell a SWT shell
      * @param projectToOpen a project descriptor
      * @return the project authentication data on success, <i>null</i> if the user aborts open.
@@ -192,7 +193,7 @@ public class OpenProjectHandler {
         String label = AppProjectUiExt.I18N.getMessage("OpenProjectHandler.Auth.ProjectLabel", projectToOpen.getName());
         IAuthData projAuthData = checkPartAuth(shell, projectToOpen.getAuthDescriptor().getData(), projectToOpen.getName()
                 + " project");
-        
+
         for (GProjectPartDescriptor f : projectToOpen.getPartDescriptors()) {
             IAuthData authData = f.getAuth().getData();
             if (needsAuthPrompt(authData, f.getLocation())) {
@@ -206,7 +207,7 @@ public class OpenProjectHandler {
                 }
             }
         }
-        
+
         for (GProjectPartDescriptor f : projectToOpen.getPartDescriptors(GProjectPartType.MODULE)) {
             IAuthData authData = f.getAuth().getData();
             if (needsAuthPrompt(authData, f.getLocation())) {
@@ -239,6 +240,7 @@ public class OpenProjectHandler {
 
     /**
      * A fragment needs authentication prompting if it is down with a {@link FragmentAuthenticationException} or a {@link AccessDeniedException}.
+     *
      * @param f the module to check
      * @return true if authentication needs to be prompted
      */
@@ -251,7 +253,7 @@ public class OpenProjectHandler {
         } else {
             return false;
         }
-        
+
     }
 
     @objid ("142732d3-04cf-4855-aca7-4c33220795c3")
@@ -259,9 +261,9 @@ public class OpenProjectHandler {
         if (authData != null || uri == null) {
             return false;
         }
-        
+
         final String scheme = uri.getScheme();
-        
+
         if (scheme == null || scheme.isEmpty()) {
             // relative path : no auth
             return false;
@@ -272,12 +274,13 @@ public class OpenProjectHandler {
             // file : no auth
             return false;
         }
-        
+
         // all other cases : auth needed
         return true;
     }
 
     /**
+     *
      * @param parent a SWT shell
      * @param authData the authentication to complete
      * @param name the project or fragment name to authenticate.
@@ -295,7 +298,7 @@ public class OpenProjectHandler {
         default:
             return null;
         }
-        
+
     }
 
 }

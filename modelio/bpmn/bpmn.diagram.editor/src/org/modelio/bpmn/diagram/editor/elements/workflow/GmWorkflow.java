@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.workflow;
 
@@ -96,11 +96,12 @@ public class GmWorkflow extends GmBodyFreeZone {
         };
 
     /**
+     *
      * @param diagram the diagram in which this workflow is used.
      * @param relatedRef ref
      */
     @objid ("61a9dd83-94a1-4a83-85c8-52008182a7b2")
-    public  GmWorkflow(IGmDiagram diagram, MRef relatedRef) {
+    public GmWorkflow(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -108,7 +109,7 @@ public class GmWorkflow extends GmBodyFreeZone {
      * Empty constructor needed for serialisation.
      */
     @objid ("4a84789b-ca11-4c57-a99d-2e08917af467")
-    public  GmWorkflow() {
+    public GmWorkflow() {
         // Nothing to do.
     }
 
@@ -124,7 +125,7 @@ public class GmWorkflow extends GmBodyFreeZone {
             child.setRoleInComposition(GmWorkflow.OWNED_NODE);
             super.addChild(child);
         }
-        
+
     }
 
     @objid ("089a308b-5c8a-429d-9aa9-67de5c7797e5")
@@ -150,7 +151,7 @@ public class GmWorkflow extends GmBodyFreeZone {
                 BpmnMessage.class.isAssignableFrom(type)) {
             return false;
         }
-        
+
         MObject workflowOwner = getDiagram().getRelatedElement().getOrigin();
         if (workflowOwner instanceof BpmnProcess) {
             BpmnLaneSet laneSet = ((BpmnProcess) workflowOwner).getLaneSet();
@@ -190,6 +191,7 @@ public class GmWorkflow extends GmBodyFreeZone {
     }
 
     /**
+     *
      * @return <code>true</code> when the workflow is embedded in a different Gm, <code>false</code> when the workflow should work as a diagram's background.
      */
     @objid ("3886c419-58c0-45e8-9e16-f61774795fde")
@@ -220,34 +222,34 @@ public class GmWorkflow extends GmBodyFreeZone {
             read_0(in);
             break;
         }
-        
+
     }
 
     @objid ("22572272-8266-4d24-b298-13c1dedcdb53")
     @Override
     public void refreshFromObModel() {
         super.refreshFromObModel();
-        
+
         MObject element = getRelatedElement();
         if (element == null || !element.isValid() || !(element instanceof AbstractDiagram)) {
             return;
         } else {
             element = ((AbstractDiagram) element).getOrigin();
         }
-        
+
         // Ask the edit part to refresh the model.
         firePropertyChange(GmModel.PROP_REFRESH_FROM_OBMODEL, null, this);
-        
+
     }
 
     @objid ("98b11b5d-3d0a-46df-8501-e83ade7c0bed")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, GmWorkflow.MINOR_PREFIX, GmWorkflow.MINOR_VERSION);
-        
+
     }
 
     @objid ("22cc3fc8-fa63-46f6-81b3-afc911b0d8fa")
@@ -261,7 +263,7 @@ public class GmWorkflow extends GmBodyFreeZone {
             }
             super.doSetVisible(visible);
         }
-        
+
     }
 
     @objid ("59299a81-0cfb-440b-b633-ed3bebdecb63")
@@ -286,10 +288,11 @@ public class GmWorkflow extends GmBodyFreeZone {
         } else {
             return false;
         }
-        
+
     }
 
     /**
+     *
      * @return <code>true</code> if the element belongs to the current workflow.
      */
     @objid ("31edb795-e14f-402e-b7be-24d961a66781")
@@ -301,7 +304,7 @@ public class GmWorkflow extends GmBodyFreeZone {
         } else {
             return isInWorkflow(elt.getCompositionOwner());
         }
-        
+
     }
 
     @objid ("a84da23b-c5e7-4258-a43c-c79951d9dbcb")
@@ -311,6 +314,7 @@ public class GmWorkflow extends GmBodyFreeZone {
 
     /**
      * Tells whether this workflow is embedded and contains Lanes.
+     *
      * @return true if this workflow is embedded and contains Lanes.
      */
     @objid ("c213ebd5-42e5-4f4e-b4f9-33915c603b39")
@@ -318,7 +322,7 @@ public class GmWorkflow extends GmBodyFreeZone {
         if (!isEmbedded()) {
             return false;
         }
-        
+
         final List<?> modelChildren = getVisibleChildren();
         if (modelChildren.isEmpty()) {
             return false;
@@ -336,14 +340,14 @@ public class GmWorkflow extends GmBodyFreeZone {
     @Override
     protected boolean isValidChild(GmNodeModel node) {
         ModelElement origin = getDiagram().getRelatedElement().getOrigin();
-        
+
         MObject el = node.getRepresentedElement();
         if (el instanceof BpmnLaneSet) {
             return Objects.equals(getProcess((BpmnLaneSet) el), origin);
         } else if (el instanceof BpmnFlowElement) {
-        
+
             BpmnFlowElement elt = (BpmnFlowElement) el;
-        
+
             if (elt.getSubProcess() != null) {
                 // 'elt' belongs to a subprocess that must be the same as 'this' workflow one.
                 return elt.getSubProcess().equals(origin);
@@ -358,7 +362,7 @@ public class GmWorkflow extends GmBodyFreeZone {
             // Right now, not sure what to decide here...
             return true;
         }
-        
+
     }
 
     @objid ("7519aec5-d056-46f3-8e96-abbbd728ce63")
@@ -370,7 +374,7 @@ public class GmWorkflow extends GmBodyFreeZone {
         } else {
             return ls.getSubProcess();
         }
-        
+
     }
 
     @objid ("24b34ebf-a18a-440c-b67f-ec1b331e8378")
@@ -390,8 +394,9 @@ public class GmWorkflow extends GmBodyFreeZone {
 
     /**
      * Add a filter that removes graphic nodes from the visible children.
-     * @see #REMOVE_ANNOTATIONS
+     *
      * @param filter a predicates that returns true to hide a child node. null to disable filtering.
+     * @see #REMOVE_ANNOTATIONS
      */
     @objid ("a1ef7fbb-6255-4d3f-b00f-1195eddef17f")
     public final void setHideChildrenFilter(Predicate<GmNodeModel> filter) {
@@ -399,7 +404,7 @@ public class GmWorkflow extends GmBodyFreeZone {
             this.hideChildrenFilter = filter;
             firePropertyChange(IGmObject.PROPERTY_CHILDREN, null, null);
         }
-        
+
     }
 
 }

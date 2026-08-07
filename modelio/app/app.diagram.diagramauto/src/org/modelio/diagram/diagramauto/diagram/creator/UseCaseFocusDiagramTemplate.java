@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.diagramauto.diagram.creator;
 
@@ -85,15 +85,15 @@ public class UseCaseFocusDiagramTemplate extends AbstractDiagramTemplate {
      * Mandatory default c'tor needed by eclipse when loading the extension point.
      */
     @objid ("6e4174f9-90bb-47d6-b944-e7e60dc502cf")
-    public  UseCaseFocusDiagramTemplate() {
+    public UseCaseFocusDiagramTemplate() {
         super();
-        
+
         this._actorsDgs = new ArrayList<>();
         this._linksDgs = new ArrayList<>();
         this._parentUseCaseDgs = new ArrayList<>();
         this._linkedUseCaseDgs = new ArrayList<>();
         this._unmasker = new NodeRollingUnmasker();
-        
+
     }
 
     @objid ("9f7e7dc8-a3c9-42bd-a042-026136719b2c")
@@ -115,14 +115,14 @@ public class UseCaseFocusDiagramTemplate extends AbstractDiagramTemplate {
         if (!(main instanceof UseCase)) {
             return;
         }
-        
+
         UseCase uc = (UseCase) main;
-        
-        
-        
+
+
+
         // The focused UseCase
         this._ucDG = this._unmasker.unmask(dh, uc, 100, 100);
-        
+
         // Unmask the "left" nodes : the actors associated to the use case
         // Need to explore both incoming and outgoing associations because orientation is completely ignored in use case diagrams
         // First, links from an Actor to the UseCase
@@ -134,16 +134,16 @@ public class UseCaseFocusDiagramTemplate extends AbstractDiagramTemplate {
                 if (node != null)
                     this._actorsDgs.add(node);
             }
-        
+
             // Unmask the link
             // List<IDiagramGraphic> linkDgs = dh.unmask(a.getAssociation(), 0, 0);
             // if ((linkDgs != null) && (linkDgs.size() > 0)) {
             // IDiagramLink link = (IDiagramLink) linkDgs.get(0);
             // this._linksDgs.add(link);
             // }
-        
+
         }
-        
+
         // Then, links from the UseCase to an Actor
         for (AssociationEnd a : uc.getOwnedEnd()) {
             Classifier e = a.isNavigable() ? a.getTarget() : a.getOpposite().getSource();
@@ -153,7 +153,7 @@ public class UseCaseFocusDiagramTemplate extends AbstractDiagramTemplate {
                 if (node != null)
                     this._actorsDgs.add(node);
             }
-        
+
             // Unmask the link
             // Association link = a.getAssociation();
             // List<IDiagramGraphic> linkDgs = dh.unmask(link, 0, 0);
@@ -161,9 +161,9 @@ public class UseCaseFocusDiagramTemplate extends AbstractDiagramTemplate {
             // IDiagramLink linkDg = (IDiagramLink) linkDgs.get(0);
             // this._linksDgs.add(linkDg);
             // }
-        
+
         }
-        
+
         // Unmask the 'top' nodes which are the inherited UseCases
         for (Generalization g : uc.getParent()) {
             // Unmask the node
@@ -177,7 +177,7 @@ public class UseCaseFocusDiagramTemplate extends AbstractDiagramTemplate {
             // this._linksDgs.add(link);
             // }
         }
-        
+
         // Unmask the 'left' nodes which are the included and extended UseCases
         for (UseCaseDependency d : uc.getUsed()) {
             // Unmask the node
@@ -191,7 +191,7 @@ public class UseCaseFocusDiagramTemplate extends AbstractDiagramTemplate {
             // this._linksDgs.add(link);
             // }
         }
-        
+
     }
 
     @objid ("1dae599f-a875-407a-a4ee-c6c1b3dcd3d7")
@@ -201,12 +201,12 @@ public class UseCaseFocusDiagramTemplate extends AbstractDiagramTemplate {
         if (!(main instanceof UseCase)) {
             return;
         }
-        
+
         UseCase uc = (UseCase) main;
-        
+
         // The focused UseCase
         this._ucDG = this._unmasker.unmask(dh, uc, 100, 100);
-        
+
         // Unmask the "left" nodes : the actors associated to the use case
         // Need to explore both incoming and outgoing associations because orientation is completely ignored in use case diagrams
         // First, links from an Actor to the UseCase
@@ -218,7 +218,7 @@ public class UseCaseFocusDiagramTemplate extends AbstractDiagramTemplate {
                 this._linksDgs.add(link);
             }
         }
-        
+
         // Then, links from the UseCase to an Actor
         for (AssociationEnd a : uc.getOwnedEnd()) {
             // Unmask the link
@@ -228,9 +228,9 @@ public class UseCaseFocusDiagramTemplate extends AbstractDiagramTemplate {
                 IDiagramLink linkDg = (IDiagramLink) linkDgs.get(0);
                 this._linksDgs.add(linkDg);
             }
-        
+
         }
-        
+
         // Unmask the 'top' nodes which are the inherited UseCases
         for (Generalization g : uc.getParent()) {
             // Unmask the link
@@ -240,7 +240,7 @@ public class UseCaseFocusDiagramTemplate extends AbstractDiagramTemplate {
                 this._linksDgs.add(link);
             }
         }
-        
+
         // Unmask the 'left' nodes which are the included and extended UseCases
         for (UseCaseDependency d : uc.getUsed()) {
             // Unmask the link
@@ -250,7 +250,7 @@ public class UseCaseFocusDiagramTemplate extends AbstractDiagramTemplate {
                 this._linksDgs.add(link);
             }
         }
-        
+
     }
 
     @objid ("116308bf-987f-4887-926a-b05cca2d2356")
@@ -263,7 +263,7 @@ public class UseCaseFocusDiagramTemplate extends AbstractDiagramTemplate {
     @objid ("64fde413-9ae4-4e9f-b0e9-bf8c34d70ced")
     private ModelTree getOwnerPackage(final ModelTree elt) {
         ModelTree parent = elt.getOwner();
-        
+
         // Take parents for Inner elements
         while ((parent != null)) {
             if (parent instanceof Package) {
@@ -287,7 +287,7 @@ public class UseCaseFocusDiagramTemplate extends AbstractDiagramTemplate {
                 DiagramAuto.LOG.debug(e);
             }
         }
-        
+
     }
 
     @objid ("5be8318f-0cf5-40a3-ae1e-987b50bdcbbe")
@@ -302,7 +302,7 @@ public class UseCaseFocusDiagramTemplate extends AbstractDiagramTemplate {
                 DiagramAuto.LOG.debug(e);
             }
         }
-        
+
     }
 
     @objid ("015232ce-21a9-4487-ac8b-ecbaf9264642")
@@ -330,7 +330,7 @@ public class UseCaseFocusDiagramTemplate extends AbstractDiagramTemplate {
         this._parentUseCaseDgs.clear();
         this._linkedUseCaseDgs.clear();
         this._unmasker = new NodeRollingUnmasker();
-        
+
     }
 
     @objid ("d37d0da0-c7c4-4bc6-ad5e-700fab4a7c82")
@@ -349,45 +349,45 @@ public class UseCaseFocusDiagramTemplate extends AbstractDiagramTemplate {
             DgNodeGroup leftGroup = new DgNodeGroup(actorsDgs);
             DgNodeGroup rightGroup = new DgNodeGroup(linkedUseCaseDgs);
             DgNodeGroup topGroup = new DgNodeGroup(parentUseCaseDgs);
-            
+
             // Layout Actors : left DGs
             leftGroup.vLayout(0, 0, NODE_V_SPACING);
-            
+
             // Layout linked UseCase: right DGs
             rightGroup.vLayout(0, 0, NODE_V_SPACING);
-            
+
             // Layout parent UseCases : topDgs
             topGroup.hLayout(0, 0, NODE_H_SPACING);
-            
+
             Rectangle leftBlock = leftGroup.getBounds();
             Rectangle rightBlock = rightGroup.getBounds();
             Rectangle topBLock = topGroup.getBounds();
-            
+
             // Position the focused UseCase
             ucDg.fitToContent();
             double xUc = leftBlock.preciseWidth() + max(topBLock.preciseWidth(), ucDg.getBounds().preciseWidth()) / 2;
             double yUc = topBLock.preciseHeight() + max(leftBlock.preciseHeight(), ucDg.getBounds().preciseWidth(), rightBlock.preciseHeight()) / 2;
             ucDg.setLocation((int) xUc, (int) yUc);
-            
+
             // Position the top block
             double xTop = ucDg.getBounds().preciseX() + ucDg.getBounds().preciseWidth() / 2 - topBLock.preciseWidth() / 2; // centered on focused UseCase
             double yTop = ucDg.getBounds().preciseY() - ucDg.getBounds().preciseHeight() / 2 -
                     max(leftBlock.preciseWidth(), ucDg.getBounds().preciseWidth(), rightBlock.preciseHeight()) / 2;
             topGroup.moveTo(xTop, yTop);
-            
+
             // Position the left block
             double xLeft = ucDg.getBounds().preciseX() + ucDg.getBounds().preciseWidth() / 2 -
                     max(ucDg.getBounds().preciseWidth(), topBLock.preciseWidth()) / 2 -
                     leftBlock.preciseWidth() - BLOCK_H_SPACING;
             double yLeft = ucDg.getBounds().preciseY() + ucDg.getBounds().preciseHeight() / 2 - leftBlock.preciseHeight() / 2;
             leftGroup.moveTo(xLeft, yLeft);
-            
+
             // Position the right block
             double xRight = ucDg.getBounds().preciseX() + ucDg.getBounds().preciseWidth() / 2 +
                     max(ucDg.getBounds().preciseWidth() / 2 + BLOCK_H_SPACING, topBLock.preciseWidth() / 2 + BLOCK_H_SPACING);
             double yRight = ucDg.getBounds().preciseY() + ucDg.getBounds().preciseHeight() / 2 - rightBlock.preciseHeight() / 2;
             rightGroup.moveTo(xRight, yRight);
-            
+
         }
 
         @objid ("6ccffc6f-6d59-473a-a8e2-b7fc3140faa9")
@@ -402,7 +402,7 @@ public class UseCaseFocusDiagramTemplate extends AbstractDiagramTemplate {
                     linkDg.setPath(points);
                 }
             }
-            
+
         }
 
         @objid ("e16c2008-ea7b-45f2-9adf-fbd4a5148b29")

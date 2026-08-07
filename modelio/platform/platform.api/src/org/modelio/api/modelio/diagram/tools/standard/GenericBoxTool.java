@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.modelio.diagram.tools.standard;
 
@@ -42,13 +42,13 @@ public class GenericBoxTool extends DefaultBoxTool {
     @Override
     public boolean acceptElement(final IDiagramHandle diagramHandle, final IDiagramGraphic targetNode) {
         ModelElement owner = null;
-        
+
         if (targetNode instanceof IDiagramDG) {
             owner = diagramHandle.getDiagram().getOrigin();
         } else {
             owner = (ModelElement) targetNode.getElement();
         }
-        
+
         for (ElementScope aScope : getSourceScopes()) {
             if (aScope.isMatching(owner)) {
                 return true;
@@ -61,45 +61,45 @@ public class GenericBoxTool extends DefaultBoxTool {
     @Override
     public void actionPerformed(final IDiagramHandle diagramHandle, final IDiagramGraphic graphic, final Rectangle rect) {
         IModelingSession session = getModule().getModuleContext().getModelingSession();
-        
+
         try (ITransaction tr = session.createTransaction("Create box")) {
             ModelElement parent = null;
-        
+
             if (graphic instanceof IDiagramDG) {
                 parent = diagramHandle.getDiagram().getOrigin();
             } else {
                 parent = (ModelElement) graphic.getElement();
             }
-        
+
             String metaclass = getParameter("metaclass");
             if (metaclass != null) {
                 IUmlModel modelFactory = session.getModel();
                 MObject newElement = modelFactory.createElement(metaclass);
-        
+
                 // Get dependency by name.
                 MDependency dependency = parent.getMClass().getDependency(getParameter("relation"));
                 if (dependency == null) {
                     dependency = parent.getMClass().getMetamodel().getMExpert().getDefaultCompositionDep(parent,
                             newElement);
                 }
-        
+
                 if (dependency != null) {
                     // Append new instance of said dependency
                     parent.mGet(dependency).add(newElement);
-        
+
                     if (newElement instanceof ModelElement) {
                         String relationParam = getParameters().get("relation");
                         if (relationParam != null) {
                             ((ModelElement) newElement).getExtension().add(session.getMetamodelExtensions()
                                     .getStereotype(relationParam, newElement.getMClass()));
                         }
-        
+
                         String stereotype = getParameter("stereotype");
                         Stereotype ster = findStereotypeFromSpec(newElement.getMClass(), stereotype);
                         if (ster != null) {
                             ((ModelElement) newElement).getExtension().add(ster);
                         }
-        
+
                         String name = getParameter("name");
                         if (name == null) {
                             name = getLabel();
@@ -107,34 +107,35 @@ public class GenericBoxTool extends DefaultBoxTool {
                         name = getModule().getModuleContext().getI18nSupport().getString(name);
                         modelFactory.getDefaultNameService().setDefaultName((ModelElement) newElement, name);
                     }
-        
+
                     List<IDiagramGraphic> graph = diagramHandle.unmask(newElement, rect.x, rect.y);
                     if (graph.size() > 0) {
                         ((IDiagramNode) graph.get(0)).setBounds(rect);
                     }
-        
+
                     postConfigure(diagramHandle, graphic, rect, parent, newElement, graph);
-        
+
                     diagramHandle.save();
                 } else {
                     getModule().getModuleContext().getLogService()
                             .error("Metamodel relation on '" + getParameter("metaclass)") + "' not found.");
                     newElement.delete();
                 }
-        
+
             }
-        
+
             tr.commit();
         } catch (RuntimeException e) {
             getModule().getModuleContext().getLogService().error(e);
         }
-        
+
     }
 
     /**
      * Hook called once the element is created, configured, unmasked and before the transaction is committed.
      * <p>
      * Does nothing by default. Sub classes may redefine this method to make additional modifications.
+     *
      * @param diagramHandle the diagram handle
      * @param parentGraphic the graphic under which the element was unmasked
      * @param rect the new graphic bounds.

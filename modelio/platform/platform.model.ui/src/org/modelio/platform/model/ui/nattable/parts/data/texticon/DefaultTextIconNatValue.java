@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.parts.data.texticon;
 
@@ -31,20 +31,22 @@ import org.modelio.platform.model.ui.nattable.parts.data.DefaultNatValue;
 public class DefaultTextIconNatValue extends DefaultNatValue implements ITextIconNatValue {
     /**
      * Creates a new instance.
+     *
      * @param value the text.
      * @param image the icon.
      */
     @objid ("bd76a36c-242c-41be-aa7c-91fad2afbdc8")
-    public  DefaultTextIconNatValue(String text, Image icon) {
+    public DefaultTextIconNatValue(String text, Image icon) {
         super(new TextIcon(text, icon), false);
     }
 
     /**
      * Copy constructor, creating a new instance with the same configuration as the other.
+     *
      * @param anotherInstance the instance to copy.
      */
     @objid ("69b5b162-bce9-4339-9940-769f6b1fc84f")
-    public  DefaultTextIconNatValue(DefaultTextIconNatValue anotherInstance) {
+    public DefaultTextIconNatValue(DefaultTextIconNatValue anotherInstance) {
         super(anotherInstance);
     }
 
@@ -61,7 +63,6 @@ public class DefaultTextIconNatValue extends DefaultNatValue implements ITextIco
             throw new InvalidParameterException("Value must be a TextIcon.");
         }
         super.setValue(value);
-        
     }
 
 }

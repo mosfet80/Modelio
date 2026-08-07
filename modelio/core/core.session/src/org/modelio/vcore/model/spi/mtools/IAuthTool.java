@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.model.spi.mtools;
 
@@ -30,6 +30,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public interface IAuthTool {
     /**
      * Tells whether an element of the given metaclass can be created inside the given parent element.
+     *
      * @param parentElement the owner element
      * @param metaclass the new element metaclass
      * @return true if a new object can be created
@@ -41,6 +42,7 @@ public interface IAuthTool {
 
     /**
      * Tells whether an element of the given metaclass can be created inside the given parent element.
+     *
      * @param parentElement the owner element
      * @param metaclass the new element metaclass
      * @return true if a new object can be created
@@ -51,6 +53,7 @@ public interface IAuthTool {
 
     /**
      * Tells whether an element of the given metaclass can be created inside the given parent element.
+     *
      * @param parentElement the owner element
      * @param metaclass the new element metaclass java interface
      * @return true if a new object can be created
@@ -75,5 +78,19 @@ public interface IAuthTool {
 
     @objid ("f1865eb0-2984-11e2-8460-002564c97630")
     boolean canRemoveFrom(MObject child, MObject parent);
-}
 
+    /**
+     * Tells whether {@code moved} can be moved under {@code destination}.
+     * <p>
+     * Returns {@code true} for local (non-CMS) projects when both elements are modifiable.
+     * CMS-aware implementations override this to enforce CMS lock/checkout constraints.
+     *
+     * @param moved the element being moved
+     * @param destination the proposed new parent
+     * @return true if the move is permitted
+     * @since 6.2
+     */
+    @objid ("c01f2876-f6f0-4f4e-81cf-4abbc2192ebc")
+    boolean canMove(MObject moved, MObject destination);
+
+}

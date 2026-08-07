@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.swt.textelement;
 
@@ -90,7 +90,7 @@ public class TextElement {
     /**
      * Indicates that this TextElement should accept and propose null value
      */
-    
+
     @mdl.prop
     @objid ("6fb3cc5f-ef1e-4821-91d2-55ad79ad0c47")
     private boolean acceptNullValue;
@@ -108,6 +108,15 @@ public class TextElement {
     }
 
     /**
+     * The wrapped Text widget
+     */
+    @objid ("bce3e8af-ad6e-45f6-af94-8d96a95c932b")
+    private final Text text;
+
+    @objid ("5333764b-a8d6-4355-95ed-bcc39198e138")
+    protected DefaultToolTip tooltip;
+
+    /**
      * Accepted metaclasses
      */
     @objid ("4b03fa46-5e62-4702-9641-554c53dec312")
@@ -118,12 +127,6 @@ public class TextElement {
      */
     @objid ("bd3e8559-a0cb-42e8-8abb-16bbc13a6b47")
     private IMObjectFilter filter;
-
-    /**
-     * The wrapped Text widget
-     */
-    @objid ("722565b9-052e-412e-b2f3-ce6d4f4aea3d")
-    private final Text text;
 
     /**
      * Current value of the editor, ie either the initial value or the lastly validated one
@@ -156,9 +159,6 @@ public class TextElement {
     @objid ("7f74a529-fdc9-4289-9ff7-6a0f1d834050")
     private PickingDriver pickingDriver = null;
 
-    @objid ("26395fe3-ba81-4470-845b-5884bbda2ad9")
-    protected DefaultToolTip tooltip;
-
     /**
      * Create a TextElement. The internal Text control is created with 'parent' and 'style'. The created TextElement:
      * <ul>
@@ -169,19 +169,15 @@ public class TextElement {
      * <li>does not support picking</li>
      * <li>does not support DnD</li>
      * </ul>
-     * @param parent
-     * @param style
      */
     @objid ("ac31aa48-ea31-407c-88c2-78c181314718")
-    public  TextElement(Composite parent, int style, boolean acceptNullValue) {
+    public TextElement(Composite parent, int style, boolean acceptNullValue) {
         this.text = createControl(parent, style);
         this.acceptNullValue = acceptNullValue;
-        
     }
 
     /**
      * Set a filter that will be used to accept (and propose) elements.
-     * @param filter
      */
     @objid ("6a997806-b01c-4b3c-b421-fc2737566547")
     public void setFilter(IMObjectFilter filter) {
@@ -207,7 +203,6 @@ public class TextElement {
 
     /**
      * Activate completion.
-     * @param session
      */
     @objid ("5ac28252-ae38-4ab5-a31f-42f731aecc58")
     public void activateCompletion(ICoreSession session) {
@@ -219,12 +214,10 @@ public class TextElement {
                 this.completionDriver = null;
             }
         }
-        
     }
 
     /**
      * Activate picking.
-     * @param pickingService
      */
     @objid ("8cbef902-e2aa-453d-a92e-df6203e2c565")
     public void activatePicking(IModelioPickingService pickingService) {
@@ -236,12 +229,10 @@ public class TextElement {
                 this.pickingDriver = null;
             }
         }
-        
     }
 
     /**
      * Activate drag and drop
-     * @param session
      */
     @objid ("8677f14c-9a83-4dfb-a068-63ae1f05b796")
     public void activateDragAndDrop(ICoreSession session) {
@@ -251,7 +242,6 @@ public class TextElement {
         DropTarget target = new DropTarget(this.text, operations);
         target.setTransfer(types);
         target.addDropListener(dropListener);
-        
     }
 
     @objid ("2a8ae7f7-6ac5-4c3e-bd18-9e112a3e5dc1")
@@ -263,7 +253,6 @@ public class TextElement {
     public void setValue(MObject value) {
         this.value = value;
         this.text.setText((value != null) ? value.getName() : "");
-        
     }
 
     @objid ("14b7ac79-01f0-496d-942c-eb508f6eb16e")
@@ -287,15 +276,14 @@ public class TextElement {
 
     /**
      * Create and configure the wrapped text control
-     * @param parent
-     * @param style
+     *
      * @return the configured Text control
      */
     @objid ("410d2704-bee0-49ea-946f-187b050fcfe1")
     private Text createControl(Composite parent, int style) {
         final Text wrappedText = new Text(parent, style);
         wrappedText.addPaintListener(new TextElementPaintListener());
-        
+
         this.tooltip = new DefaultToolTip(wrappedText) {
             @Override
             protected String getText(Event event) {
@@ -310,7 +298,6 @@ public class TextElement {
         for (final ITextElementSelectionListener listener : this.listeners) {
             listener.selectedElementChanged(oldElement, newElement);
         }
-        
     }
 
     /**
@@ -319,20 +306,20 @@ public class TextElement {
     @objid ("3abf6d3c-598d-4fd4-9df6-0c0184c0e5e4")
     private String getToolTipText() {
         final StringBuffer helpTooltip = new StringBuffer();
-        
+
         if (this.metaclasses.size() > 0) {
             helpTooltip.append(CoreUi.I18N.getString("TextElement.AcceptedTypes"));
-        
+
             helpTooltip.append("\n");
             for (final MClass clazz : this.metaclasses) {
                 helpTooltip.append("    ");
                 helpTooltip.append(clazz.getName());
                 helpTooltip.append("\n");
             }
-        
+
             helpTooltip.append("\n");
         }
-        
+
         if (this.completionDriver != null) {
             helpTooltip.append(CoreUi.I18N.getString("TextElement.CompletionUsage"));
         }
@@ -342,7 +329,7 @@ public class TextElement {
     @objid ("7995de33-581d-4d81-990d-204e08813663")
     private void setSelectedElement(MObject element) {
         this.selected = element;
-        
+
         // If the element is not null, display its name in the text field
         if (element != null) {
             String textString = element.getName();
@@ -353,10 +340,9 @@ public class TextElement {
             if (!this.text.isDisposed()) {
                 this.text.setText(textString);
             }
-        
+
         }
         validate(true);
-        
     }
 
     @objid ("b3760393-31e1-4d15-979b-850072a78afa")
@@ -367,18 +353,17 @@ public class TextElement {
             this.value = this.selected;
             fireSelectedElementChanged(oldElement, this.value);
         }
-        
+
         // Close the tooltip, to avoid an exception with the dispose of the text
         if (this.tooltip != null) {
             this.tooltip.hide();
             this.tooltip = null;
         }
-        
     }
 
     /**
      * Wrapped text decorator. Paints a blue border around the text along with an 'field assist' icon.
-     * 
+     *
      * @author phv
      */
     @objid ("1c74315a-50f5-4586-9fd2-8cf6f11c48b3")
@@ -388,14 +373,13 @@ public class TextElement {
         public void paintControl(PaintEvent e) {
             final GC gc = e.gc;
             final Rectangle clip = new Rectangle(e.x, e.y, e.width, e.height);
-            
+
             final Rectangle imageRect = UIImages.ASSIST.getBounds();
             gc.drawImage(UIImages.ASSIST, clip.x + clip.width - imageRect.width, clip.y);
-            
         }
 
         @objid ("cb8668ea-e904-44d4-919c-175e313a18d3")
-        public  TextElementPaintListener() {
+        public TextElementPaintListener() {
             // nothing to do
         }
 
@@ -403,11 +387,20 @@ public class TextElement {
 
     /**
      * Completion driver. Search model elements matching the current text and the configured completion criteria and propose them to user's choice.
-     * 
+     *
      * @author phv
      */
     @objid ("5906d77a-b077-4b9e-a4b8-a4b9036c419b")
     static class CompletionDriver {
+        @objid ("f8716663-725a-43e3-aeab-77429c577727")
+        private Text text;
+
+        @objid ("aaaec477-d5ab-422f-b65e-ea8ae38e1003")
+        private KeyListener keyListener;
+
+        @objid ("5732ff9e-2475-4402-ac8c-8a091fe8620f")
+        private DefaultToolTip tooltip;
+
         @objid ("b4abca67-1fbc-40e0-abb3-eb49b3e1dc82")
         private final ModelSearchCriteria searchCriteria;
 
@@ -417,27 +410,17 @@ public class TextElement {
         @objid ("1b4d896f-f22a-4fec-b96c-e3835ddf33e2")
         private CoreSession session;
 
-        @objid ("0a11e616-5465-40cc-b1b8-3203a8339391")
-        private Text text;
-
         @objid ("74164e24-0cdf-47ab-b099-9618f61e66fa")
         private TextElement textElement;
 
-        @objid ("447021c5-8b29-46b4-807c-9b87c9efe4cb")
-        private KeyListener keyListener;
-
-        @objid ("3c5081ca-61b6-4ea3-9d5c-ab02246cbe4e")
-        private DefaultToolTip tooltip;
-
         @objid ("65285751-2e8e-44fb-b0cf-20276c910abe")
-        public  CompletionDriver(final TextElement textElement, CoreSession session, DefaultToolTip tooltip) {
+        public CompletionDriver(final TextElement textElement, CoreSession session, DefaultToolTip tooltip) {
             this.searchCriteria = new ModelSearchCriteria();
             this.searcher = new ModelSearchEngine();
             this.textElement = textElement;
             this.text = textElement.getTextControl();
             this.tooltip = tooltip;
             connect(session);
-            
         }
 
         @objid ("dbc534c3-b241-43ce-9954-62ab692ed8ec")
@@ -448,13 +431,13 @@ public class TextElement {
                 this.searchCriteria.addMetaclass(mc);
             }
             this.searchCriteria.setFilter(this.textElement.getFilter());
-            
+
             final String expression = this.textElement.getTextControl().getText() + ".*";
-            
+
             this.searchCriteria.setExpression(expression);
-            
-            final List<Element> elements = this.searcher.search(this.session, this.searchCriteria);
-            
+
+            final List<Element> elements = this.searcher.search(this.session, this.searchCriteria).getResults();
+
             if (elements.isEmpty()) {
                 MessageDialog.openInformation(this.text.getShell(), CoreUi.I18N.getString("TextElement.NotFoundTitle"),
                         CoreUi.I18N.getString("TextElement.NotFoundMessage"));
@@ -466,15 +449,14 @@ public class TextElement {
                 if (this.tooltip != null) {
                     this.tooltip.hide();
                 }
-            
+
                 // We have several found elements
                 final PopupChooser rp = new PopupChooser(this.textElement.getTextControl(), elements,
                         this.textElement.isAcceptNullValue());
                 final ModelElement selected = (ModelElement) rp.getChoice(this.textElement.value);
-            
+
                 this.textElement.setSelectedElement(selected);
             }
-            
         }
 
         @objid ("2eb32355-fa64-4d05-9c87-bd30b6f9ae7d")
@@ -485,17 +467,17 @@ public class TextElement {
                 this.searchCriteria.addMetaclass(mc);
             }
             this.searchCriteria.setFilter(this.textElement.getFilter());
-            
+
             final String expression = this.text.getText();
             this.searchCriteria.setExpression(expression);
-            
-            List<Element> elements = this.searcher.search(this.session, this.searchCriteria);
-            
+
+            List<Element> elements = this.searcher.search(this.session, this.searchCriteria).getResults();
+
             if (elements.isEmpty()) {
                 // Retry with regular expression
                 this.searchCriteria.setExpression(expression + ".*");
-                elements = this.searcher.search(this.session, this.searchCriteria);
-            
+                elements = this.searcher.search(this.session, this.searchCriteria).getResults();
+
                 if (elements.isEmpty()) {
                     this.textElement.validate(false);
                 } else if (elements.size() == 1) {
@@ -505,7 +487,7 @@ public class TextElement {
                     if (this.tooltip != null) {
                         this.tooltip.hide();
                     }
-            
+
                     // We have several found elements
                     final PopupChooser rp = new PopupChooser(this.text, elements, this.textElement.isAcceptNullValue());
                     final ModelElement selected = (ModelElement) rp.getChoice(this.textElement.value);
@@ -518,7 +500,7 @@ public class TextElement {
                 if (this.tooltip != null) {
                     this.tooltip.hide();
                 }
-            
+
                 // We have several found elements
                 final PopupChooser rp = new PopupChooser(this.text, elements, this.textElement.isAcceptNullValue());
                 final ModelElement selected = (ModelElement) rp.getChoice(this.textElement.value);
@@ -537,7 +519,6 @@ public class TextElement {
          * <li>if no element is found, open the popup initialized by a regexp (current text + .*) and start the search immediately</li>
          * <li>validate the entry when the chooser popup returns</li>
          * </ul>
-         * @param e
          */
         @objid ("37fdaa3a-31c8-4715-b6d4-d246e4f9e404")
         void onKeyPressed(KeyEvent e) {
@@ -551,7 +532,6 @@ public class TextElement {
             } else if (e.character == SWT.ESC) {
                 this.textElement.validate(false);
             }
-            
         }
 
         @objid ("98079e41-fc99-4beb-b553-37d756175074")
@@ -559,13 +539,12 @@ public class TextElement {
             disconnect();
             this.textElement = null;
             this.text = null;
-            
         }
 
         @objid ("da2933f9-d5ba-405c-9d80-21834e9ab725")
         private void connect(CoreSession coreSession) {
             this.session = coreSession;
-            
+
             // Register a key listener on the wrapped text control
             this.keyListener = new KeyAdapter() {
                 @Override
@@ -578,9 +557,8 @@ public class TextElement {
                     }
                 }
             };
-            
+
             this.textElement.getTextControl().addKeyListener(this.keyListener);
-            
         }
 
         @objid ("556e862f-06ce-48f0-ab8f-8a476d1717b1")
@@ -590,34 +568,32 @@ public class TextElement {
             }
             this.keyListener = null;
             this.session = null;
-            
         }
 
     }
 
     @objid ("2ba901bc-9571-409a-96f6-26ab0493324b")
     static class PickingDriver implements IPickingClient {
+        @objid ("2273d2f4-b93b-441c-9242-431de328c8e3")
+        private FocusListener focusListener;
+
+        @objid ("c4a86f46-de0b-4662-b08c-2ca6e5ff563d")
+        private DisposeListener disposeListener;
+
         @objid ("71c794ed-61fc-4708-8b87-654567ee5875")
         private IModelioPickingService pickingService;
 
         @objid ("d9d6dc91-3877-44af-ba0f-e694f5e116b8")
         private TextElement textElement;
 
-        @objid ("5569468e-21d4-4d53-93b5-896dc2b65731")
-        private FocusListener focusListener;
-
         @objid ("cc247753-f1b1-4cc4-ad6a-49f7ff75ab39")
         private IPickingSession pickingSession;
 
-        @objid ("8a3c679d-ef77-4fe5-b977-ec3ecca387e0")
-        private DisposeListener disposeListener;
-
         @objid ("91485e7d-16ee-4ddf-8def-591e3d49afda")
-        public  PickingDriver(TextElement textElement, IModelioPickingService pickingService) {
+        public PickingDriver(TextElement textElement, IModelioPickingService pickingService) {
             this.textElement = textElement;
             this.pickingService = pickingService;
             connect();
-            
         }
 
         @objid ("7176fe97-535e-4630-8d57-8a34d065a50d")
@@ -625,7 +601,6 @@ public class TextElement {
             if (this.pickingSession == null) {
                 this.pickingSession = this.pickingService.startPicking(this);
             }
-            
         }
 
         @objid ("6e213995-21df-4ecb-a400-9ef6a38d8448")
@@ -634,7 +609,6 @@ public class TextElement {
                 this.pickingService.stopPicking(this.pickingSession);
                 this.pickingSession = null;
             }
-            
         }
 
         @objid ("003cef22-e939-4463-b9b2-559f6cabb9f5")
@@ -644,24 +618,23 @@ public class TextElement {
                 public void focusLost(FocusEvent e) {
                     PickingDriver.this.stopPicking();
                 }
-            
+
                 @Override
                 public void focusGained(FocusEvent e) {
                     PickingDriver.this.startPicking();
                 }
             };
             this.textElement.getTextControl().addFocusListener(this.focusListener);
-            
+
             this.disposeListener = new DisposeListener() {
-            
+
                 @Override
                 public void widgetDisposed(DisposeEvent e) {
                     PickingDriver.this.stopPicking();
-            
+
                 }
             };
             this.textElement.getTextControl().addDisposeListener(this.disposeListener);
-            
         }
 
         @objid ("4976289f-e257-482e-9df2-1e98abe0b7a6")
@@ -675,7 +648,6 @@ public class TextElement {
             if (this.pickingSession != null) {
                 this.pickingSession.abort();
             }
-            
         }
 
         /**
@@ -685,7 +657,6 @@ public class TextElement {
         void terminate() {
             disconnect();
             this.pickingService = null;
-            
         }
 
         @objid ("1228e614-8211-401d-92a6-2c4e83ae0d6a")
@@ -724,7 +695,6 @@ public class TextElement {
                 this.pickingSession = null;
             }
             this.textElement.validate(false);
-            
         }
 
     }
@@ -738,10 +708,9 @@ public class TextElement {
         private ICoreSession session;
 
         @objid ("3bd1ce00-f717-4424-ae0e-74cc65e5bb53")
-        public  DropListener(TextElement textElement, ICoreSession session) {
+        public DropListener(TextElement textElement, ICoreSession session) {
             this.textElement = textElement;
             this.session = session;
-            
         }
 
         @objid ("8ab7475b-970b-4489-990d-d9b4fd9a2dfd")
@@ -752,18 +721,16 @@ public class TextElement {
             if (!validateDroppedObjects(droppedObjects)) {
                 event.detail = DND.DROP_NONE;
             }
-            
         }
 
         @objid ("bc66ec5f-a3fd-4b5a-9dbc-12db769e3d10")
         @Override
         public void drop(DropTargetEvent event) {
             List<MObject> droppedObjects = getDroppedObjects(event);
-            
+
             if (validateDroppedObjects(droppedObjects)) {
                 this.textElement.setSelectedElement(droppedObjects.get(0));
             }
-            
         }
 
         @objid ("f4e12f1a-e280-41bd-9054-71d17dfe648f")
@@ -774,30 +741,29 @@ public class TextElement {
                 event.detail = DND.DROP_NONE;
                 return;
             }
-            
+
             List<MObject> droppedObjects = getDroppedObjects(event);
-            
+
             if (validateDroppedObjects(droppedObjects) == false) {
                 event.detail = DND.DROP_NONE;
                 event.feedback = DND.FEEDBACK_NONE;
                 return;
             }
-            
         }
 
         @objid ("f43822ed-895f-402c-9012-0f456f9620e2")
         private boolean validateDroppedObjects(List<MObject> droppedObjects) {
             // Validate dropped objects agains't the accepted metaclasses, a
             // possible null value, and the (optional) filter
-            
+
             List<MClass> acceptedMetaclasses = this.textElement.getAcceptedMetaclasses();
             IMObjectFilter filter = this.textElement.getFilter();
-            
+
             // Accept only one element
             if (droppedObjects.size() != 1) {
                 return false;
             }
-            
+
             MObject obj = droppedObjects.get(0);
             if (!acceptedMetaclasses.contains(obj.getMClass()) || (filter != null && !filter.accept(obj))) {
                 return false;
@@ -807,12 +773,12 @@ public class TextElement {
 
         /**
          * Extract the list of MObject being dropped, excluding 'deleted' objects.
-         * @param event @return
+         * @return
          */
         @objid ("73b024de-35de-47b2-9d2c-a62a32f7ff21")
         private List<MObject> getDroppedObjects(DropTargetEvent event) {
             ModelElementTransfer elementTransfer = ModelElementTransfer.getInstance();
-            
+
             // Convert the transfer data to MRefs.
             MRef[] refs = (MRef[]) elementTransfer.nativeToJava(event.currentDataType);
             if (refs != null) {
@@ -827,7 +793,6 @@ public class TextElement {
                 // getting the selection from LocalSelectionTransfer.
                 return getLocalDraggedElements();
             }
-            
         }
 
         /**
@@ -837,9 +802,9 @@ public class TextElement {
         @objid ("7f01ebe3-765b-4c83-b065-70db88276923")
         private List<MObject> getLocalDraggedElements() {
             List<MObject> selectedElements = new ArrayList<>();
-            
+
             ISelection selection = LocalSelectionTransfer.getTransfer().getSelection();
-            
+
             if (selection instanceof IStructuredSelection) {
                 IStructuredSelection structuredSelection = (IStructuredSelection) selection;
                 for (Iterator<?> i = structuredSelection.iterator(); i.hasNext();) {

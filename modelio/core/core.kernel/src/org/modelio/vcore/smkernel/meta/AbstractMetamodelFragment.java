@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel.meta;
 
@@ -61,25 +61,26 @@ public abstract class AbstractMetamodelFragment implements ISmMetamodelFragment 
     private Map<String, Object> dynamicBehaviors = new HashMap<>();
 
     /**
+     *
      * @param name the fragment name.
      * @param version the fragment version.
      * @param provider the provider name.
      * @param providerVersion the provider metamodel version. see {@link #getProviderVersion()}
      */
     @objid ("b5217eca-22f8-4927-89e8-8d665ffe9ec1")
-    public  AbstractMetamodelFragment(String name, Version version, String provider, String providerVersion) {
+    public AbstractMetamodelFragment(String name, Version version, String provider, String providerVersion) {
         this.name = name;
         this.version = version;
         this.provider = provider;
         this.providerVersion = providerVersion;
-        
+
         // compute hash code once
         final int prime = 31;
         int result = 1;
         result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
         result = prime * result + ((this.version == null) ? 0 : this.version.hashCode());
         this.hash = result;
-        
+
     }
 
     /**
@@ -94,11 +95,11 @@ public abstract class AbstractMetamodelFragment implements ISmMetamodelFragment 
         if (obj == null) {
             return false;
         }
-        
+
         if (getClass() != obj.getClass()) {
             return false;
         }
-        
+
         AbstractMetamodelFragment other = (AbstractMetamodelFragment) obj;
         if (this.name == null) {
             if (other.name != null) {
@@ -107,7 +108,7 @@ public abstract class AbstractMetamodelFragment implements ISmMetamodelFragment 
         } else if (!this.name.equals(other.name)) {
             return false;
         }
-        
+
         if (this.version == null) {
             if (other.version != null) {
                 return false;
@@ -134,6 +135,7 @@ public abstract class AbstractMetamodelFragment implements ISmMetamodelFragment 
      * Tells whether this metamodel fragment is an extension or a standard Modelio metamodel fragment.
      * <p>
      * Standard Modelio metamodel fragments are guaranteed to have no metaclass name collisions.
+     *
      * @return <i>true</i> if the fragment is an extension, <i>false</i> if it is a Modelio standard fragment.
      */
     @objid ("b0d2add3-0f63-42e2-9891-fd5b3699c800")

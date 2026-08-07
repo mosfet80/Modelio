@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.reverse;
 
@@ -40,38 +40,38 @@ public class ImportModel {
         PartialImportMap partialCreationMap = PartialImportMap.getInstance();
         TotalImportMap totalCreationMap = TotalImportMap.getInstance();
         boolean isNamespace = false;
-        
+
         org.eclipse.uml2.uml.Element ecoreElt = ieelem.getEcoreElement();
-        
+
         if (ecoreElt instanceof org.eclipse.uml2.uml.Namespace) {
             isNamespace = true;
         }
-        
+
         Object objingElt = totalCreationMap.get(ecoreElt);
-        
+
         if (objingElt == null) {
             objingElt = partialCreationMap.get(ecoreElt);
-        
+
             if (objingElt == null &&
                     isMapperOfCurrentElt(getCurrentClassName(ieelem), ieelem.getEcoreElement())) {
                 // Creation:
                 objingElt = ieelem.createObjingElt();
-        
+
                 if (objingElt != null) {
                     partialCreationMap.put(ecoreElt, objingElt);
                 }
-        
+
                 if (isNamespace && this.progressBar != null) {
                     this.progressBar.addValue();
                     this.progressBar.addElement();
                 }
             }
-        
+
             if (objingElt != null) {
-        
+
                 // Finish creation:
                 setMapping(objingElt, ieelem);
-        
+
                 partialCreationMap.remove(ecoreElt);
                 totalCreationMap.put(ecoreElt, objingElt);
                 if (this.progressBar != null) {
@@ -80,14 +80,14 @@ public class ImportModel {
                         this.progressBar.addValue();
                     }
                 }
-        
+
             }
         }
-        
+
     }
 
     @objid ("f0dee57d-50d6-4ed4-82ec-92fa258bd8ec")
-    public  ImportModel(ProgressBarComposite progressBar) {
+    public ImportModel(ProgressBarComposite progressBar) {
         this.progressBar = progressBar;
     }
 
@@ -106,7 +106,7 @@ public class ImportModel {
         } catch (RuntimeException e) {
             Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
         }
-        
+
     }
 
     @objid ("639792cb-a7ba-406c-9bd5-f04b88af727b")
@@ -116,8 +116,8 @@ public class ImportModel {
     }
 
     @objid ("03dacf2f-a1dd-45f8-a565-122237e57f35")
-    public  ImportModel() {
-        
+    public ImportModel() {
+
     }
 
     @objid ("2ba13eb0-048f-4946-912f-d6526f401aa5")
@@ -128,7 +128,7 @@ public class ImportModel {
     @objid ("0426c7f5-aea8-48a2-a12d-e930c65761d0")
     private void setEltMapping(Element objingElt, IEElement ieelem) {
         if  (objingElt.getStatus().isModifiable()) {
-        
+
             if (this.external) {
                 if (objingElt instanceof ModelTree) {
                     ((ModelTree) objingElt).setOwner(ReverseProperties.getInstance()
@@ -138,11 +138,11 @@ public class ImportModel {
             } else {
                 ieelem.attach(objingElt);
             }
-        
+
             ieelem.setProperties(objingElt);
             ieelem.setStereotypes();
         }
-        
+
     }
 
 }

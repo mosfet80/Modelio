@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor;
 
@@ -32,7 +32,8 @@ import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.platform.rcp.extensionpoint.ExtensionPointContributionManager;
 
 /**
- * OSGI context function dispatching the {@link DiagramEditorInput} instantiation to all {@link IDiagramEditorInputProvider} registered in the extension point. Fils all {@link DiagramEditorInput} injected references at runtime.
+ * OSGI context function dispatching the {@link DiagramEditorInput} instantiation to all {@link IDiagramEditorInputProvider} registered in the extension point.
+ * Fills all {@link DiagramEditorInput} injected references at runtime.
  */
 @objid ("82a32f6b-5a57-11e2-9c97-002564c97630")
 public class DiagramEditorInputProvider extends ContextFunction {
@@ -47,7 +48,9 @@ public class DiagramEditorInputProvider extends ContextFunction {
     public Object compute(final IEclipseContext context, final String contextKey) {
         final String diagramUID = context.get(MPart.class).getPersistedState().get("inputURI");
         final IModelManager modelManager = new ModelManager(context);
-        return createEditorInput(diagramUID, modelManager);
+        // Since 02/12/2024 : Look once for the related diagram element, avoid plenty expensive lookups on remote model fragments.
+        AbstractDiagram diagramEl = modelManager.getModelingSession().getModel().findById(AbstractDiagram.class, diagramUID);
+        return createEditorInput(diagramEl, modelManager);
     }
 
     /**
@@ -55,20 +58,15 @@ public class DiagramEditorInputProvider extends ContextFunction {
      * <p>
      * Scans the {@value #INPUTPROVIDER_ID}INPUTPROVIDER_ID extension point to find a contribution that is able to instantiate a {@link DiagramEditorInput}.
      * </p>
+     *
      * @param diagram The element to unmask
      * @param modelManager a diagram model manager
      * @return a diagram editor input for the given diagram. <code>null</code> if no contribution supports this diagram's kind.
      */
     @objid ("4c395f09-5c18-43d6-83f5-cbccb98c39f4")
     public static DiagramEditorInput createEditorInput(final AbstractDiagram diagram, final IModelManager modelManager) {
-        final String diagramUID = diagram.getUuid();
-        return createEditorInput(diagramUID, modelManager);
-    }
-
-    @objid ("a44bb2b0-1820-44e5-9c12-2f56073d042e")
-    private static DiagramEditorInput createEditorInput(final String diagramUID, final IModelManager modelManager) {
         IDiagramEditorInputProvider lastProvider = null;
-        
+
         for (final IConfigurationElement e : new ExtensionPointContributionManager(DiagramEditorInputProvider.INPUTPROVIDER_ID).getExtensions("inputprovider")) {
             try {
                 final Object o = e.createExecutableExtension("class");
@@ -78,7 +76,7 @@ public class DiagramEditorInputProvider extends ContextFunction {
                         // TODO 'static' editor should always be handled last, but checking the class name is kind of ugly
                         lastProvider = provider;
                     } else {
-                        final DiagramEditorInput input = provider.compute(diagramUID, modelManager);
+                        final DiagramEditorInput input = provider.compute(diagram, modelManager);
                         if (input != null) {
                             return input;
                         }
@@ -88,7 +86,7 @@ public class DiagramEditorInputProvider extends ContextFunction {
                 DiagramEditor.LOG.error(e1);
             }
         }
-        return lastProvider != null ? lastProvider.compute(diagramUID, modelManager) : null;
+        return lastProvider != null ? lastProvider.compute(diagram, modelManager) : null;
     }
 
 }

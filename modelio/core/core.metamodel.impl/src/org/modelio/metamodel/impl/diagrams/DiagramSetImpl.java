@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.diagrams;
 
 import java.util.ArrayList;
@@ -64,7 +63,7 @@ public class DiagramSetImpl extends ModelElementImpl implements DiagramSet {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
     @objid ("7d98f8c0-ef44-4e2a-9dc8-dce1b90bef6c")
@@ -99,7 +98,7 @@ public class DiagramSetImpl extends ModelElementImpl implements DiagramSet {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
     @objid ("8a7111b7-86c8-4f4a-951f-b3fec71a3c39")
@@ -137,17 +136,17 @@ public class DiagramSetImpl extends ModelElementImpl implements DiagramSet {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // Parent
         dep = ((DiagramSetSmClass)getClassOf()).getParentDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         // Owner
         dep = ((DiagramSetSmClass)getClassOf()).getOwnerDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 

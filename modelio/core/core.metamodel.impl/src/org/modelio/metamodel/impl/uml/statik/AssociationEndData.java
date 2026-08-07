@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.List;
@@ -32,41 +31,41 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 
 @objid ("0097b0da-c4be-1fd8-97fe-001ec947cd2a")
 public class AssociationEndData extends StructuralFeatureData {
-    @objid ("81dd7398-35b3-496e-945f-ed9318fcb287")
+    @objid ("693cf432-ef7b-472d-8259-2495bb3e4e93")
     Object mAggregation = AggregationKind.KINDISASSOCIATION;
 
-    @objid ("d058ebb8-ff1b-47b5-87a6-cdcc3d14bfb5")
+    @objid ("4d6f1ead-6591-4155-96ea-5cc309420cd8")
     Object mIsChangeable = true;
 
-    @objid ("6924d170-32ad-4f51-bb2b-d66db8dc5444")
+    @objid ("b36e4901-a0f6-465a-83e0-c8d942bd1091")
     SmObjectImpl mTarget;
 
-    @objid ("22c0cb57-fc0e-49d1-baa3-895f781e1166")
+    @objid ("0c9ad35b-6836-4414-886d-2917858c99e3")
     SmObjectImpl mOppositeOwner;
 
-    @objid ("68a1a394-7c2a-4ff9-9286-7e883259dbae")
+    @objid ("92de4899-e5ba-4296-8aa7-701c3e7a53c2")
     SmObjectImpl mSource;
 
-    @objid ("bd27e36d-f1c2-44b8-afc0-261058753fb0")
+    @objid ("fde707a4-f90d-408e-b235-0ad4797726c6")
     List<SmObjectImpl> mOccurence = null;
 
-    @objid ("3f127ad1-463a-4afa-b713-0609cfee9130")
+    @objid ("b13116e2-bfe8-40bd-9cc4-481b792f1bb6")
     List<SmObjectImpl> mSent = null;
 
-    @objid ("1403297f-26ad-4f00-9fc5-e2e8271e67cc")
+    @objid ("7879e182-ca88-4a41-8e74-efcdae37b7b4")
     List<SmObjectImpl> mQualifier = null;
 
-    @objid ("5adf7119-7e1b-4ba2-ae55-fce07ea8b5fc")
+    @objid ("b1a1a990-5f99-4816-ae93-f4a3ed868a72")
     SmObjectImpl mOpposite;
 
-    @objid ("e5d3eece-3f05-44a3-9000-226794e7eb11")
+    @objid ("bf9cb5b7-ad1d-4a7c-a800-6dd7698f8ba3")
     List<SmObjectImpl> mRepresentingObjectNode = null;
 
-    @objid ("1419bf00-a60c-46ad-8531-1119c27b57f3")
+    @objid ("49aed61b-2f07-4727-974d-9c1e40b46c58")
     SmObjectImpl mAssociation;
 
-    @objid ("8baa1f1c-b35d-4635-9d31-fa97028af4f9")
-    public  AssociationEndData(AssociationEndSmClass smClass) {
+    @objid ("5f292ef1-b7e0-44a1-a20d-a78d214baf70")
+    public AssociationEndData(AssociationEndSmClass smClass) {
         super(smClass);
     }
 

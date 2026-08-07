@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.linkeditor.gef.node;
 
@@ -33,12 +33,14 @@ import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.Handle;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.editpolicies.SelectionHandlesEditPolicy;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.modelio.linkeditor.gef.background.BackgroundEditPart;
+import org.modelio.linkeditor.gef.node.label.LabelumFigure;
 import org.modelio.linkeditor.panel.model.GraphNode;
 import org.modelio.linkeditor.plugin.LinkEditor;
 import org.modelio.metamodel.impact.ImpactLink;
@@ -63,28 +65,28 @@ public class NodeEditPart extends AbstractGraphicalEditPart implements org.eclip
      */
     @objid ("7de33482-931a-4674-8ab4-d2153e2c65a7")
     public static INodeColorizer colorizer = new INodeColorizer() {
-        	/**
-             * Set the color of the node figure (rectangle and text) according to its current state (readonly, selected).
-             * @param model
-             * @param rect
-             * @param label
-             */
-        	@Override
-        	public void colorize(GraphNode model, Figure rect, Label label, boolean focus) {
-                // The rectangle background color
-                rect.setBackgroundColor(model.isCentral() ? (focus ? ColorConstants.menuBackgroundSelected : ColorConstants.menuBackground) : ColorConstants.listBackground);
-                
-                // The rectangle border color (line)
-                ((LineBorder)rect.getBorder()).setColor(model.isCentral() ? (hasFocus ? ColorConstants.menuBackgroundSelected : ColorConstants.buttonDarker) : ColorConstants.menuBackground);
-                
-                // The text font color
-                if (model.getData() == null || model.getData().isShell()) {
-                    label.setForegroundColor(UIColor.SHELL_ELEMENT_FG);
-                } else {
-                    label.setForegroundColor(Display.getDefault().getSystemColor(model.isCentral() ? (focus ? SWT.COLOR_LIST_SELECTION_TEXT : SWT.COLOR_LIST_FOREGROUND) : SWT.COLOR_LIST_FOREGROUND));
-                }
-            }
-    	};
+                	/**
+                     * Set the color of the node figure (rectangle and text) according to its current state (readonly, selected).
+                     * @param model
+                     * @param rect
+                     * @param label
+                     */
+                	@Override
+                	public void colorize(GraphNode model, Figure rect, LabelumFigure label, boolean focus) {
+                        // The rectangle background color
+                        rect.setBackgroundColor(model.isCentral() ? (focus ? ColorConstants.menuBackgroundSelected : ColorConstants.menuBackground) : ColorConstants.listBackground);
+
+                        // The rectangle border color (line)
+                        ((LineBorder)rect.getBorder()).setColor(model.isCentral() ? (hasFocus ? ColorConstants.menuBackgroundSelected : ColorConstants.buttonDarker) : ColorConstants.menuBackground);
+
+                        // The text font color
+                        if (model.getData() == null || model.getData().isShell()) {
+                            label.setForegroundColor(UIColor.SHELL_ELEMENT_FG);
+                        } else {
+                            label.setForegroundColor(Display.getDefault().getSystemColor(model.isCentral() ? (focus ? SWT.COLOR_LIST_SELECTION_TEXT : SWT.COLOR_LIST_FOREGROUND) : SWT.COLOR_LIST_FOREGROUND));
+                        }
+                    }
+            	};;
 
     @objid ("a764c8b1-6133-4572-9627-87594d04db90")
     private static final UniversalLabelProvider labelprovider = new UniversalLabelProvider();
@@ -94,20 +96,20 @@ public class NodeEditPart extends AbstractGraphicalEditPart implements org.eclip
     protected IFigure createFigure() {
         Figure rectangleFigure = new Figure();
         rectangleFigure.setOpaque(true);
-        
+
         rectangleFigure.setBorder(new LineBorder(ColorConstants.lightGray, 1, SWT.LINE_SOLID));
-        
+
         GridLayout manager = new GridLayout(1, true);
         manager.marginHeight = GraphNode.MARGIN_HEIGHT;
         manager.marginWidth = GraphNode.MARGIN_WIDTH;
         manager.verticalSpacing = GraphNode.VERTICAL_SPACING;
         rectangleFigure.setLayoutManager(manager);
-        
-        Label label = new Label();
+
+        LabelumFigure label = new LabelumFigure();
         label.setLabelAlignment(PositionConstants.LEFT);
         label.setToolTip(new Label());
-        
-        
+
+
         GridData data = new GridData(PositionConstants.LEFT, PositionConstants.CENTER, true, true);
         rectangleFigure.add(label, data);
         return rectangleFigure;
@@ -118,29 +120,28 @@ public class NodeEditPart extends AbstractGraphicalEditPart implements org.eclip
     protected void createEditPolicies() {
         installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new SelectionHandlesEditPolicy() {
             @Override
-            protected List<?> createSelectionHandles() {
+            protected List<? extends Handle> createSelectionHandles() {
                 return Collections.emptyList();
             }
         });
-        
     }
 
     @objid ("1bb294b5-5e33-11e2-b81d-002564c97630")
     @Override
     protected void refreshVisuals() {
         super.refreshVisuals();
-        
+
         // update figure position and label
         GraphNode model = getModel();
-        
-        
+
+
         Figure fig = (Figure) getFigure();
-        Label  label = (Label) fig.getChildren().get(0);
+        LabelumFigure  label = (LabelumFigure) fig.getChildren().get(0);
         Label  tooltip = (Label) label.getToolTip();
-        
+
         colorizer.colorize(model, fig, label, hasFocus);
-        
-        
+
+
         if (model.getData() instanceof ImpactLink) {
             ImpactLink use = (ImpactLink) model.getData();
             String userName = use.getImpacted() != null ? use.getImpacted().getName() : "";
@@ -155,19 +156,18 @@ public class NodeEditPart extends AbstractGraphicalEditPart implements org.eclip
         } else if (model.getData() != null) {
             MObject mObj = model.getData();
             String nameText = labelprovider.getText(model.getData());
-            
+
             String tooltipString = nameText;
             if (mObj.getCompositionOwner() != null) {
                 tooltipString = tooltipString + "  (from " + mObj.getCompositionOwner().getName() + ")";
             }
-            
+
             label.setText(nameText);
             label.setIcon(ElementImageService.getIcon(model.getData()));
-            
+
             tooltip.setText(tooltipString);
-            
+
         }
-        
     }
 
     @objid ("1bb294b8-5e33-11e2-b81d-002564c97630")
@@ -213,18 +213,19 @@ public class NodeEditPart extends AbstractGraphicalEditPart implements org.eclip
     }
 
     @objid ("1bb294f7-5e33-11e2-b81d-002564c97630")
-    @SuppressWarnings("rawtypes")
     @Override
-    public Object getAdapter(final Class adapter) {
+    public <T> T getAdapter(final Class<T> adapter) {
         final Object model = getModel();
-        
+
         if (adapter.isInstance(model)) {
-            return model;
+            return adapter.cast(model);
         } else if (model instanceof GraphNode) {
-            if (adapter.isInstance(((GraphNode) model).data)) {
-                return ((GraphNode) model).data;
+            Object data = ((GraphNode) model).data;
+            if (adapter.isInstance(data)) {
+                return adapter.cast(data);
             }
         }
+
         return super.getAdapter(adapter);
     }
 
@@ -238,13 +239,10 @@ public class NodeEditPart extends AbstractGraphicalEditPart implements org.eclip
     public interface INodeColorizer {
         /**
          * Set the colors of the node figure (rectangle and text).
-         * @param model
-         * @param rect
-         * @param label
          */
         @objid ("9957d4a1-feaa-411b-9d96-a57b91a9ceda")
-        void colorize(GraphNode model, Figure rect, Label label, boolean focus);
-}
-    
+        void colorize(GraphNode model, Figure rect, LabelumFigure label, boolean focus);
+
+    }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.ramcs.edition;
 
@@ -45,18 +45,20 @@ public class RamcModel extends ModelComponent {
     private List<IModule> contributorCandidates;
 
     /**
+     *
      * @param projectPath the path of the project the ramc model comes from.
      * @param ramc the model component artifact.
      */
     @objid ("af33b675-81be-489f-88e8-bc5c79e22efd")
-    public  RamcModel(Path projectPath, Artifact ramc) {
+    public RamcModel(Path projectPath, Artifact ramc) {
         super(ramc);
         this.projectPath = projectPath;
-        
+
     }
 
     /**
      * Replace the current contributors.
+     *
      * @param contributorCandidates the module contributors to the model component packaging.
      */
     @objid ("2ca9927b-cda5-4edf-9835-4e3ad6a9b02d")
@@ -65,6 +67,7 @@ public class RamcModel extends ModelComponent {
     }
 
     /**
+     *
      * @return the possible module contributors to the model component packaging.
      */
     @objid ("d5d720a0-8946-4e52-9177-685f3a635394")
@@ -73,6 +76,7 @@ public class RamcModel extends ModelComponent {
     }
 
     /**
+     *
      * @return the path of the project the ramc model comes from.
      */
     @objid ("f12263bc-509d-40d1-8658-48dadde22e9b")
@@ -81,6 +85,7 @@ public class RamcModel extends ModelComponent {
     }
 
     /**
+     *
      * @return <code>true</code> if the ramc can be edited.
      */
     @objid ("1b294bb8-29f3-4abb-b8e0-008f2637da24")

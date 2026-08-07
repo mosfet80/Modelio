@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.anchors.fixed;
 
@@ -46,21 +46,22 @@ class SnapToGridAnchorProvider extends VariableFixedAnchorFactory {
 
     /**
      * C'tor.
+     *
      * @param algoId the algorithm identifier to serialize
      * @param editPart the node edit part
      */
     @objid ("d99186e2-3fd4-41cb-b71e-6756498b9c27")
-    public  SnapToGridAnchorProvider(String algoId, GraphicalEditPart editPart) {
+    public SnapToGridAnchorProvider(String algoId, GraphicalEditPart editPart) {
         super(algoId, getGridSpacing(editPart).width);
         this.editPart = editPart;
-        
+
     }
 
     @objid ("20f5cb69-e1bc-40d5-be52-38ea2b01bcfe")
     private static Dimension getGridSpacing(GraphicalEditPart editPart) {
         return (Dimension) editPart.getViewer().getProperty(
                 SnapToGrid.PROPERTY_GRID_SPACING);
-        
+
     }
 
     @objid ("c00fd4d3-ff24-4478-b2e1-495db0d18870")
@@ -75,10 +76,10 @@ class SnapToGridAnchorProvider extends VariableFixedAnchorFactory {
         private SnapToGrid snapToGrid;
 
         @objid ("506ddf93-e0d4-4805-9681-b93f580b7e10")
-        public  SnapToGridFixedAnchorLocator(IFixedAnchorLocator inner, SnapToGrid snapToGrid) {
+        public SnapToGridFixedAnchorLocator(IFixedAnchorLocator inner, SnapToGrid snapToGrid) {
             super(inner);
             this.snapToGrid = snapToGrid;
-            
+
         }
 
         @objid ("a87d5798-4b18-43ba-aeec-f557e078bd45")
@@ -86,10 +87,10 @@ class SnapToGridAnchorProvider extends VariableFixedAnchorFactory {
         public Point getReferencePoint(final FixedAnchor anchor) {
             // Call inner anchor
             PrecisionPoint referencePoint = new PrecisionPoint(super.getReferencePoint(anchor));
-            
+
             // Snap point to grid
             PrecisionPoint ret = new PrecisionPoint(referencePoint);
-            
+
             int snapDirections;
             switch (anchor.getFace()) {
             case FacesConstants.FACE_EAST:
@@ -101,7 +102,7 @@ class SnapToGridAnchorProvider extends VariableFixedAnchorFactory {
             default:
                 snapDirections = PositionConstants.WEST ;
             }
-            
+
             this.snapToGrid.snapPoint(null, snapDirections, referencePoint, ret);
             return ret;
         }

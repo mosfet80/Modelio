@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel;
 
@@ -38,10 +38,11 @@ class DummyRepositoryObject extends RepositoryObjectStub {
 
     /**
      * Private singleton constructor
+     *
      * @param data
      */
     @objid ("fca7a9d6-2cec-11e2-81f1-001ec947ccaf")
-    protected  DummyRepositoryObject() {
+    protected DummyRepositoryObject() {
         // nothing
     }
 
@@ -71,7 +72,7 @@ class DummyRepositoryObject extends RepositoryObjectStub {
         } else {
             return super.toString();
         }
-        
+
     }
 
     @objid ("d701c4da-e46d-413e-b5f0-b662f0f3e91e")
@@ -91,6 +92,7 @@ class DummyRepositoryObject extends RepositoryObjectStub {
      * <p>
      * Returns the DummyRepositoryObject singleton in normal run, a {@link DummyDebugRepositoryObject}
      * when assertions are enabled.
+     *
      * @param smObjectData
      * @return a dummy repository object.
      */
@@ -98,13 +100,13 @@ class DummyRepositoryObject extends RepositoryObjectStub {
     static IRepositoryObject getInstance(SmObjectData smObjectData) {
         boolean isassert = false;
         assert (isassert  = true); // intentional side effect
-        
+
         if (isassert) {
             return new DummyDebugRepositoryObject(smObjectData);
         } else {
             return instance;
         }
-        
+
     }
 
 }

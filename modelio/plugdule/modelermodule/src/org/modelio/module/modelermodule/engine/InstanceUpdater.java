@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.module.modelermodule.engine;
 
@@ -72,6 +72,7 @@ import org.modelio.module.modelermodule.impl.ModelerModuleModule;
 public class InstanceUpdater {
     /**
      * Create an attribute from an attribute link. If the class doesn't exists, it is also created.
+     *
      * @param session The modeling session
      * @param current The attribute link to create a new attribute from.
      * @return <code>true</code> when an attribute is created.
@@ -93,20 +94,20 @@ public class InstanceUpdater {
                     return false;
                 }
             }
-        
+
             // Is the base valid?
             if (inst.getBase() instanceof Classifier) {
                 Classifier base = (Classifier) inst.getBase();
-        
+
                 String attName = InputDialog.showInputDialog(ShellHelper.findActiveShell(),
                         I18nMessageService.getString("module.gui.process.attributeName"),
                         I18nMessageService.getString("module.gui.process.chooseName"),
                         aName);
-        
+
                 if (attName == null || attName.equals("")) {
                     return false;
                 }
-        
+
                 // Does the attribute already exists?
                 for (Attribute attribute : base.getOwnedAttribute()) {
                     if (attribute.getName().equals(attName)) {
@@ -122,14 +123,15 @@ public class InstanceUpdater {
                         I18nMessageService.getString("module.error.createAttribute.baseType",
                                 aName));
             }
-        
+
             return true;
         }
-        
+
     }
 
     /**
      * Create a classifier from an instance. Includes creation of: - ports from the instance ports. - attributes from attribute links. - operations from incoming messages.
+     *
      * @param session The modeling session
      * @param current The instance to create the classifier from.
      * @return <code>true</code> when a new classifier is created.
@@ -142,6 +144,7 @@ public class InstanceUpdater {
 
     /**
      * Update the internal structure of a class. Updates all parts from their base classifiers, and allows creation of all missing bases. It is also possible to reference an existing classifier.
+     *
      * @param session The modeling session
      * @param current The class to update.
      * @return <code>true</code> if the class has been modified.
@@ -152,7 +155,7 @@ public class InstanceUpdater {
         for (BindableInstance inst : new ArrayList<>(current.getInternalStructure())) {
             if (!(inst instanceof Port)) {
                 Classifier instanciedClass = null;
-        
+
                 // Is the part linked to a classifier?
                 if (inst.getBase() != null) {
                     if (inst.getBase() instanceof Classifier) {
@@ -174,7 +177,7 @@ public class InstanceUpdater {
                         instanciedClass = createClassifierWithOptions(session, inst, true);
                     }
                 }
-        
+
                 // Update the part from its base class
                 if (inst.getBase() != null) {
                     updatePartFromInstanciedClassifier(session, inst, instanciedClass);
@@ -190,16 +193,17 @@ public class InstanceUpdater {
 
     /**
      * Create an operation from a message. An Instance might be created in the process, or a Classifier.
-     * @see InstanceUpdater#createInstanceAndClassifier(IModelingSession, Lifeline)
+     *
      * @param session The modeling session
      * @param current The message to create the operation from.
      * @return <code>true</code> if a new operation is created.
      * @throws ModelerModuleException When an error happens during the creation.
+     * @see InstanceUpdater#createInstanceAndClassifier(IModelingSession, Lifeline)
      */
     @objid ("095908e4-edfa-4c57-9533-448fc5a11633")
     public boolean createOperation(final IModelingSession session, final Message current) throws ModelerModuleException {
         Operation op = current.getInvoked();
-        
+
         // Does the Operation already exist?
         if (op != null) {
             throw new ModelerModuleException(
@@ -209,15 +213,15 @@ public class InstanceUpdater {
             if (covered.size() != 1) {
                 return false;
             }
-        
+
             Lifeline lifeline = covered.get(0);
             Instance occurence = lifeline.getRepresented();
-        
+
             if (occurence == null) {
                 // Try to create the instance
                 createInstanceAndClassifier(session, lifeline);
                 occurence = lifeline.getRepresented();
-        
+
                 if (occurence == null) {
                     // No instance has been created, rollback & quit
                     return false;
@@ -226,9 +230,9 @@ public class InstanceUpdater {
                     return true;
                 }
             }
-        
+
             Classifier base = null;
-        
+
             // Get the base classifier
             if (occurence.getBase() == null) {
                 // No classifier, create one
@@ -251,7 +255,7 @@ public class InstanceUpdater {
                             I18nMessageService.getString("module.error.createOperation.baseType", occurence.getName()));
                 }
             }
-        
+
             // Create new operation
             if (current.getInvoked() == null) {
                 String opName = InputDialog.showInputDialog(ShellHelper.findActiveShell(),
@@ -265,11 +269,11 @@ public class InstanceUpdater {
                             break;
                         }
                     }
-        
+
                     if (op == null) {
                         op = session.getModel().createOperation(opName, base);
                     }
-        
+
                     current.setInvoked(op);
                 }
             }
@@ -279,22 +283,23 @@ public class InstanceUpdater {
 
     /**
      * Create an operation from a transition. An Instance might be created in the process, or a Classifier.
-     * @see InstanceUpdater#createInstanceAndClassifier(IModelingSession, Lifeline)
+     *
      * @param session The modeling session
      * @param current The transition to create the operation from.
      * @return <code>true</code> if a new transition is created.
      * @throws ModelerModuleException When an error happens during the creation.
+     * @see InstanceUpdater#createInstanceAndClassifier(IModelingSession, Lifeline)
      */
     @objid ("21fe25af-cd84-4264-a7c6-69a9f5a71616")
     public boolean createOperation(final IModelingSession session, final Transition current) throws ModelerModuleException {
         Operation op = current.getProcessed();
-        
+
         if (op != null) {
             throw new ModelerModuleException(
                     I18nMessageService.getString("module.error.createOperationFromTransition.existing", op.getName()));
         } else {
             NameSpace ret = getStateContainer(current);
-        
+
             Classifier base;
             if (ret instanceof Classifier) {
                 base = (Classifier) ret;
@@ -311,7 +316,7 @@ public class InstanceUpdater {
                     base = null;
                 }
             }
-        
+
             // Create new operation
             if (base != null) {
                 String opName = InputDialog.showInputDialog(ShellHelper.findActiveShell(),
@@ -325,14 +330,14 @@ public class InstanceUpdater {
                             break;
                         }
                     }
-        
+
                     if (op == null) {
                         op = session.getModel().createOperation(opName, base);
                     }
-        
+
                     current.setProcessed(op);
                     current.setEffect("");
-        
+
                     return true;
                 } else {
                     throw new ModelerModuleException(
@@ -345,6 +350,7 @@ public class InstanceUpdater {
 
     /**
      * Update a part contents from its base classifier. Allows creation of a new classifier if no base exists, or referencing an existing classifier.
+     *
      * @param session The modeling session.
      * @param current the instance to update.
      * @return <code>true</code> if the instance have been modified.
@@ -353,7 +359,7 @@ public class InstanceUpdater {
     @objid ("72bd3577-c749-433b-95de-8f38ffb457c6")
     public boolean updatePartFromInstanciedClassifier(final IModelingSession session, final Instance current) throws ModelerModuleException {
         Classifier base;
-        
+
         if (current.getBase() != null) {
             if (current.getBase() instanceof Classifier) {
                 base = (Classifier) current.getBase();
@@ -371,14 +377,14 @@ public class InstanceUpdater {
             if (className == null || className.equals("")) {
                 return false;
             }
-        
+
             // Get the package container
             Package container = getContainerPackage(current);
             if (container == null) {
                 throw new ModelerModuleException(
                         I18nMessageService.getString("module.error.updatePartFromInstanciedClass.rolePackage", current.getName()));
             }
-        
+
             List<ModelTree> cl = new ArrayList<>();
             for (ModelTree mt : container.getOwnedElement()) {
                 if (className.equals(mt.getName()) && mt instanceof Classifier) {
@@ -388,7 +394,7 @@ public class InstanceUpdater {
             if (cl.size() == 1) {
                 Classifier newClass = (Classifier) cl.get(0);
                 current.setBase(newClass);
-        
+
                 // Do the update
                 updatePartFromInstanciedClassifier(session, current, newClass);
             } else {
@@ -401,6 +407,7 @@ public class InstanceUpdater {
 
     /**
      * Create a classifier from a lifeline. Includes creation of: - an instance represented by the lifeline. - ports from the instance ports. - attributes from attribute links. - operations from incoming messages.
+     *
      * @param session The modeling session
      * @param current The lifeline to create the classifier from.
      * @return <code>true</code> when a new classifier is created.
@@ -414,7 +421,7 @@ public class InstanceUpdater {
                     I18nMessageService.getString("module.error.createInstanceAndClassifier.represented",
                             current.getRepresented().getName()));
         }
-        
+
         // Choose a name for the instance
         String instName = InputDialog.showInputDialog(ShellHelper.findActiveShell(),
                 I18nMessageService.getString("module.gui.process.instanceName"),
@@ -423,7 +430,7 @@ public class InstanceUpdater {
         if (instName == null || instName.equals("")) {
             return false;
         }
-        
+
         // Get local collaboration
         final Interaction owner = current.getOwner();
         Collaboration localCollaboration = getLocalCollaboration(owner);
@@ -433,7 +440,7 @@ public class InstanceUpdater {
             localCollaboration.setName("locals");
             owner.getOwnedCollaboration().add(localCollaboration);
         }
-        
+
         // Is the instance already existing ?
         List<Instance> cl = new ArrayList<>();
         for (Instance instance : localCollaboration.getDeclared()) {
@@ -441,7 +448,7 @@ public class InstanceUpdater {
                 cl.add(instance);
             }
         }
-        
+
         if (cl.size() > 0) {
             throw new ModelerModuleException(
                     I18nMessageService.getString("module.error.createInstanceAndClassifier.existing",
@@ -452,14 +459,15 @@ public class InstanceUpdater {
             newInst.setName(instName);
             newInst.setOwner(localCollaboration);
             current.setRepresented(newInst);
-        
+
             return createClassifier(session, newInst);
         }
-        
+
     }
 
     /**
      * Update a lifeline's represented instance contents from its base classifier. Allows creation of the instance, and of a new classifier if no base exists, or referencing an existing classifier.
+     *
      * @param session The modeling session
      * @param current The lifeline to update the classifier from.
      * @throws ModelerModuleException When an error happens during the update.
@@ -471,7 +479,7 @@ public class InstanceUpdater {
             throw new ModelerModuleException(
                     I18nMessageService.getString("module.error.createInstanceAndClassifier.represented", current.getRepresented().getName()));
         }
-        
+
         // Choose a name for the instance
         String instName = InputDialog.showInputDialog(ShellHelper.findActiveShell(),
                 I18nMessageService.getString("module.gui.process.instanceName"),
@@ -480,7 +488,7 @@ public class InstanceUpdater {
         if (instName == null || instName.equals("")) {
             return;
         }
-        
+
         // Get local collaboration
         final Interaction owner = current.getOwner();
         Collaboration localCollaboration = getLocalCollaboration(owner);
@@ -490,7 +498,7 @@ public class InstanceUpdater {
             localCollaboration.setName("locals");
             owner.getOwnedCollaboration().add(localCollaboration);
         }
-        
+
         // Is the instance already existing ?
         List<Instance> cl = new ArrayList<>();
         for (Instance instance : localCollaboration.getDeclared()) {
@@ -507,21 +515,22 @@ public class InstanceUpdater {
             newInst.setName(instName);
             newInst.setOwner(localCollaboration);
             current.setRepresented(newInst);
-        
+
             updatePartFromInstanciedClassifier(session, newInst);
         }
-        
+
     }
 
     /**
      * Update the contents of the body according to the classifier.
+     *
      * @param inst The instance to update.
      * @param instanciedClass The classifier used for update.
      */
     @objid ("dcbcf50d-02cc-434f-ae20-20e741957116")
     private void updatePartFromInstanciedClassifier(final IModelingSession session, final Instance inst, final Classifier instanciedClass) {
         if (!(inst instanceof Port)) {
-        
+
             // Each port on the class must be reported on the part
             for (Port sourcePort : new ArrayList<>(instanciedClass.getInternalStructure(Port.class))) {
                 Port targetPort = null;
@@ -535,24 +544,24 @@ public class InstanceUpdater {
                         }
                     }
                 }
-        
+
                 if (targetPort == null) {
                     // Create a port on the instance, from the class port.
                     targetPort = (Port) ModelerModuleModule.getInstance().getModuleContext().getModelioServices().getModelManipulationService().clone(sourcePort);
-        
+
                     // Change the owner
                     targetPort.setInternalOwner(null);
                     inst.getPart().add(targetPort);
-        
+
                     // Set the represented property
                     targetPort.setRepresentedFeature(sourcePort);
                 } else {
                     // Update port from the referenced one.
                     updatePortFromPort(session, targetPort, sourcePort);
                 }
-        
+
             }
-        
+
             // Delete existing ports not representing a port from the instanced class
             for (Port p : new ArrayList<>(inst.getPart(Port.class))) {
                 if (p.getRepresentedFeature() == null
@@ -560,7 +569,7 @@ public class InstanceUpdater {
                     p.delete();
                 }
             }
-        
+
             // Launch attribute creation wizard
             if (instanciedClass.getOwnedAttribute().size() > 0) {
                 AttributeCreationWizard window = new AttributeCreationWizard(ShellHelper.findActiveShell(), instanciedClass, inst);
@@ -571,11 +580,12 @@ public class InstanceUpdater {
                 }
             }
         }
-        
+
     }
 
     /**
      * Create a classifier from an instance. May include creation of: - ports from ports on the instance - attributes from attribute links - operations from incoming messages
+     *
      * @param current The instance to create a classifier from.
      * @param createContent Whether or not to update the class contents.
      * @return The created classifier.
@@ -583,25 +593,25 @@ public class InstanceUpdater {
     @objid ("918d6298-2a1f-4bc2-b667-2ffeb7e046c3")
     private Classifier createClassifierWithOptions(final IModelingSession session, final Instance current, final boolean createContent) throws ModelerModuleException {
         Classifier newClass = null;
-        
+
         // Does the instance already have a base?
         if (current.getBase() != null) {
             throw new ModelerModuleException(
                     I18nMessageService.getString("module.error.createClassWithOptions.baseType",
                             current.getBase().getName()));
         }
-        
+
         // Choose a name for the new classifier
         ClassifierCreationWizard diag = new ClassifierCreationWizard(ShellHelper.findActiveShell(), current);
         diag.open();
-        
+
         String className = diag.getChosenName();
         String toCreate = diag.getChosenClass();
-        
+
         if (className == null || className.equals("")) {
             return null;
         }
-        
+
         // Get package container
         Package container = getContainerPackage(current);
         if (container == null) {
@@ -609,7 +619,7 @@ public class InstanceUpdater {
                     I18nMessageService.getString("module.error.createClassWithOptions.container",
                             current.getName()));
         }
-        
+
         // Does the classifier already exist?
         List<ModelTree> cl = new ArrayList<>();
         for (ModelTree element : container.getOwnedElement(getClassifierTypeFromName(toCreate))) {
@@ -625,7 +635,7 @@ public class InstanceUpdater {
             // Create the classifier
             newClass = createClassifier(session, toCreate, className, container);
             current.setBase(newClass);
-        
+
             // Do we have to create the content?
             if (createContent) {
                 // Create operations from messages
@@ -636,7 +646,7 @@ public class InstanceUpdater {
                             Message msg = ((MessageEnd) inter).getReceivedMessage();
                             if (msg != null) {
                                 MessageSort sort = msg.getSortOfMessage();
-        
+
                                 if (sort != MessageSort.RETURNMESSAGE &&
                                         sort != MessageSort.ASYNCCALL &&
                                         sort != MessageSort.ASYNCSIGNAL) {
@@ -646,12 +656,12 @@ public class InstanceUpdater {
                         }
                     }
                 }
-        
+
                 // Create attributes from attribute links
                 for (Iterator<AttributeLink> iter = current.getSlot().iterator(); iter.hasNext();) {
                     createAttribute(session, iter.next());
                 }
-        
+
                 // All ports on the part must be reported on the class
                 for (Port sourcePort : current.getPart(Port.class)) {
                     Port port = createPortFromPort(session, newClass, sourcePort);
@@ -664,16 +674,17 @@ public class InstanceUpdater {
 
     /**
      * Get the closest package owning this instance. Follows composition in the model.
+     *
      * @param current the instance to get the corresponding parent package from.
      */
     @objid ("784c9c55-ebb7-460d-b44a-c2cee811f74d")
     private Package getContainerPackage(final Instance current) {
         ModelTree container;
-        
+
         if (current == null) {
             return null;
         }
-        
+
         container = current.getOwner();
         if (container != null) {
             while (!(container instanceof Package)) {
@@ -686,7 +697,7 @@ public class InstanceUpdater {
         } else {
             if (current instanceof BindableInstance) {
                 container = ((BindableInstance) current).getInternalOwner();
-        
+
                 if (!(container instanceof Package)) {
                     container = getContainerPackage(container);
                 }
@@ -705,12 +716,12 @@ public class InstanceUpdater {
         if (current == null) {
             return null;
         }
-        
+
         // In Modelio, a Collaboration belongs to a UseCase, a Class, a
         // Package, a Collaboration or an Operation.
-        
+
         ModelTree container = current.getOwner();
-        
+
         if (container == null) {
             if (current.getBRepresented() != null) {
                 container = current.getBRepresented().getOwner();
@@ -720,7 +731,7 @@ public class InstanceUpdater {
                 // container = current.get
             }
         }
-        
+
         if (!(container instanceof Package)) {
             container = getContainerPackage(container);
         }
@@ -729,6 +740,7 @@ public class InstanceUpdater {
 
     /**
      * Update all requires and provided interfaces on a port from another one.
+     *
      * @param current the port to update.
      * @param sourcePort the port being used as a reference.
      */
@@ -736,16 +748,16 @@ public class InstanceUpdater {
     private void completeRequiredProvided(final IModelingSession session, final Port current, final Port sourcePort) {
         ProvidedInterface pi = null;
         RequiredInterface ri = null;
-        
+
         // Update all Provided Interfaces
         for (Iterator<ProvidedInterface> iter = sourcePort.getProvided().iterator(); iter.hasNext();) {
             boolean destPortFound = false;
             ProvidedInterface cur = iter.next();
-        
+
             if (current.getProvided().contains(cur)) {
                 destPortFound = true;
             }
-        
+
             if (!destPortFound) {
                 pi = session.getModel().createProvidedInterface();
                 current.getProvided().add(pi);
@@ -754,16 +766,16 @@ public class InstanceUpdater {
                 }
             }
         }
-        
+
         // Update all Required Interfaces
         for (Iterator<RequiredInterface> iter = sourcePort.getRequired().iterator(); iter.hasNext();) {
             boolean destPortFound = false;
             RequiredInterface cur = iter.next();
-        
+
             if (current.getRequired().contains(cur)) {
                 destPortFound = true;
             }
-        
+
             if (!destPortFound) {
                 ri = session.getModel().createRequiredInterface();
                 current.getRequired().add(ri);
@@ -772,7 +784,7 @@ public class InstanceUpdater {
                 }
             }
         }
-        
+
     }
 
     /**
@@ -781,7 +793,7 @@ public class InstanceUpdater {
     @objid ("241e65d8-e613-429c-be18-468d536f2629")
     private NameSpace getStateContainer(final Transition current) {
         NameSpace o = null;
-        
+
         if (current instanceof InternalTransition) {
             o = getStateContainer((InternalTransition) current);
         } else {
@@ -799,7 +811,7 @@ public class InstanceUpdater {
     @objid ("c2abcc21-98ed-43d7-9eeb-fe92b5efb1ff")
     private NameSpace getStateContainer(final StateVertex current) {
         NameSpace o = null;
-        
+
         if (current instanceof State) {
             Region rep = ((State) current).getParent();
             if (rep != null) {
@@ -824,6 +836,7 @@ public class InstanceUpdater {
 
     /**
      * Create a new port on a classifier from an existing one.
+     *
      * @param current the classifier to create the port on.
      * @param sourcePort the port being used as a reference.
      */
@@ -836,6 +849,7 @@ public class InstanceUpdater {
 
     /**
      * Update a port from an existing one.
+     *
      * @param session the modeling session.
      * @param targetPort the port to update;
      * @param sourcePort the port being used as a reference.
@@ -850,13 +864,13 @@ public class InstanceUpdater {
         targetPort.setMultiplicityMin(sourcePort.getMultiplicityMin());
         targetPort.setMultiplicityMax(sourcePort.getMultiplicityMax());
         targetPort.setBase(sourcePort.getBase());
-        
+
         updateNotes(session, sourcePort, targetPort);
         updateStereotypes(sourcePort, targetPort);
         updateTaggedValues(session, sourcePort, targetPort);
         updateProvidedIntefaces(session, sourcePort, targetPort);
         updateRequiredIntefaces(session, sourcePort, targetPort);
-        
+
     }
 
     @objid ("1fab3d7d-fbfd-4cfe-9e91-592379fa1319")
@@ -877,12 +891,12 @@ public class InstanceUpdater {
     private void updateProvidedIntefaces(final IModelingSession session, final Port sourcePort, final Port targetPort) {
         ArrayList<ProvidedInterface> piSources = new ArrayList<>();
         piSources.addAll(sourcePort.getProvided());
-        
+
         for (ProvidedInterface piTarget : new ArrayList<>(targetPort.getProvided())) {
             // test if target provided interface already exist on source port
             boolean notExist = true;
             ProvidedInterface matchPI = null;
-        
+
             for (ProvidedInterface piSource : piSources) {
                 if (equals(piTarget, piSource)) {
                     notExist = false;
@@ -890,7 +904,7 @@ public class InstanceUpdater {
                     break;
                 }
             }
-        
+
             if (notExist) {
                 // delete none existing provided interface
                 piTarget.delete();
@@ -899,15 +913,15 @@ public class InstanceUpdater {
                 piSources.remove(matchPI);
             }
         }
-        
+
         ArrayList<ProvidedInterface> piTargets = new ArrayList<>();
         piSources.addAll(sourcePort.getProvided());
-        
+
         for (ProvidedInterface piSource : sourcePort.getProvided()) {
             // test if target provided interface already exist on source port
             boolean notExist = true;
             ProvidedInterface matchPI = null;
-        
+
             for (ProvidedInterface piTarget : piTargets) {
                 if (equals(piTarget, piSource)) {
                     notExist = false;
@@ -915,7 +929,7 @@ public class InstanceUpdater {
                     break;
                 }
             }
-        
+
             if (notExist) {
                 // create none existing provided interface
                 session.getModel().createProvidedInterface(targetPort, piSource.getProvidedElement());
@@ -923,19 +937,19 @@ public class InstanceUpdater {
                 piTargets.remove(matchPI);
             }
         }
-        
+
     }
 
     @objid ("1e82eb09-dc14-436c-abe5-bc0a6f2276f4")
     private void updateRequiredIntefaces(final IModelingSession session, final Port sourcePort, final Port targetPort) {
         ArrayList<RequiredInterface> riSources = new ArrayList<>();
         riSources.addAll(sourcePort.getRequired());
-        
+
         for (RequiredInterface riTarget : new ArrayList<>(targetPort.getRequired())) {
             // test if target required interface already exist on source port
             boolean notExist = true;
             RequiredInterface matchedRI = null;
-        
+
             for (RequiredInterface riSource : riSources) {
                 if (equals(riTarget, riSource)) {
                     notExist = false;
@@ -943,7 +957,7 @@ public class InstanceUpdater {
                     break;
                 }
             }
-        
+
             if (notExist) {
                 // delete none existing required interface
                 riTarget.delete();
@@ -951,15 +965,15 @@ public class InstanceUpdater {
                 riSources.remove(matchedRI);
             }
         }
-        
+
         ArrayList<RequiredInterface> riTargets = new ArrayList<>();
         riTargets.addAll(targetPort.getRequired());
-        
+
         for (RequiredInterface riSource : new ArrayList<>(sourcePort.getRequired())) {
             // test if target provided interface already exist on source port
             boolean notExist = true;
             RequiredInterface matchedRI = null;
-        
+
             for (RequiredInterface riTarget : riTargets) {
                 if (equals(riTarget, riSource)) {
                     notExist = false;
@@ -967,7 +981,7 @@ public class InstanceUpdater {
                     break;
                 }
             }
-        
+
             if (notExist) {
                 // create none existing provided interface
                 session.getModel().createRequiredInterface(targetPort, riSource.getRequiredElement());
@@ -975,7 +989,7 @@ public class InstanceUpdater {
                 riTargets.remove(matchedRI);
             }
         }
-        
+
     }
 
     @objid ("ee6a77ad-739a-46e5-8979-7076f5527640")
@@ -983,9 +997,9 @@ public class InstanceUpdater {
         for (TaggedValue tag : new ArrayList<>(targetPort.getTag())) {
             tag.delete();
         }
-        
+
         createTaggedValuesFromTaggedValues(session, sourcePort, targetPort);
-        
+
     }
 
     @objid ("2306f908-e78b-4ffd-b554-fe9ebdca62de")
@@ -993,9 +1007,9 @@ public class InstanceUpdater {
         for (Stereotype ster : new ArrayList<>(targetPort.getExtension())) {
             targetPort.getExtension().remove(ster);
         }
-        
+
         createStereotypesFromStereotypes(sourcePort, targetPort);
-        
+
     }
 
     @objid ("b117ad83-6e4b-4c0f-8bad-2387db7ea210")
@@ -1004,13 +1018,14 @@ public class InstanceUpdater {
         for (Note note : new ArrayList<>(targetPort.getDescriptor())) {
             note.delete();
         }
-        
+
         createNotesFromNotes(session, sourcePort, targetPort);
-        
+
     }
 
     /**
      * Create a classifier in a container.
+     *
      * @param toCreate type of classifier to create: Class, Component, Node or Interface.
      * @param className name of the element to create.
      * @param container the container to create the new classifier into.
@@ -1035,6 +1050,7 @@ public class InstanceUpdater {
 
     /**
      * Get a java class from a name.
+     *
      * @param chosenClass a type name: Class, Component, Node or Interface.
      * @return the java class corresponding to the name, or <code>null</code> if it isn't a valid name.
      */
@@ -1058,11 +1074,11 @@ public class InstanceUpdater {
     @objid ("e6f40101-41b3-4c06-abbc-cbf420966e75")
     private Package getContainerPackage(final ModelTree current) {
         ModelTree container;
-        
+
         if (current == null) {
             return null;
         }
-        
+
         container = current.getOwner();
         while (!(container instanceof Package)) {
             if (container instanceof Collaboration) {
@@ -1093,7 +1109,7 @@ public class InstanceUpdater {
             // Add the stereotype to the element
             newElt.getExtension().add(stereo);
         }
-        
+
     }
 
     @objid ("71022310-4d3d-4c8b-b753-ae27450dc986")
@@ -1102,9 +1118,9 @@ public class InstanceUpdater {
             try {
                 String n = tag.getDefinition().getName();
                 TaggedValue newTag = session.getModel().createTaggedValue("ModelerModule", n, newElt);
-        
+
                 newTag.setQualifier(tag.getQualifier());
-        
+
                 for (TagParameter param : tag.getActual()) {
                     session.getModel().createTagParameter(param.getValue(), newTag);
                 }
@@ -1113,7 +1129,7 @@ public class InstanceUpdater {
                 ModelerModuleModule.getInstance().getModuleContext().getLogService().error(e);
             }
         }
-        
+
     }
 
     @objid ("633e036e-0c38-43e8-8653-a9de9bf21db3")
@@ -1127,7 +1143,7 @@ public class InstanceUpdater {
                 ModelerModuleModule.getInstance().getModuleContext().getLogService().error(e);
             }
         }
-        
+
     }
 
 }

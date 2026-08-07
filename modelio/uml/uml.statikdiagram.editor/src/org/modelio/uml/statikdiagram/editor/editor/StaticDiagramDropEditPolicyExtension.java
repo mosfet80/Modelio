@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.editor;
 
@@ -64,7 +64,7 @@ public class StaticDiagramDropEditPolicyExtension extends AbstractDiagramElement
      * c'tor.
      */
     @objid ("7e11d6dd-1dec-11e2-8cad-001ec947c8cc")
-    public  StaticDiagramDropEditPolicyExtension() {
+    public StaticDiagramDropEditPolicyExtension() {
         super();
     }
 
@@ -94,12 +94,12 @@ public class StaticDiagramDropEditPolicyExtension extends AbstractDiagramElement
         MClass mClass = candidate.getMClass();
         boolean isUML = mClass.getOrigin().getName().equals(StandardMetamodel.NAME) && !mClass.getName().startsWith("Bpmn");
         boolean isSuperOk = super.isToBeAddedToHierarchy(context, hierarchy, candidate);
-        
+
         final MObject lastInHierarchy = hierarchy.peek();
         if (lastInHierarchy == null) {
             return isUML && isSuperOk;
         }
-        
+
         boolean isCurrentInstance = (lastInHierarchy.getMClass().getQualifiedName().equals(Instance.MQNAME));
         boolean isCurrentCollaboration = lastInHierarchy instanceof Collaboration;
         boolean isCurrentEnumeration = lastInHierarchy instanceof Enumeration;
@@ -117,10 +117,10 @@ public class StaticDiagramDropEditPolicyExtension extends AbstractDiagramElement
         private DiagramElementDropEditPolicy dropPolicy;
 
         @objid ("05030594-ad7e-4f2b-9dac-20f2fd7df187")
-        public  StandardVisitorImpl(DiagramElementDropEditPolicy dropPolicy, Point dropLocation) {
+        public StandardVisitorImpl(DiagramElementDropEditPolicy dropPolicy, Point dropLocation) {
             this.dropPolicy = dropPolicy;
             this.dropLocation = dropLocation;
-            
+
         }
 
         @objid ("7e11d6ed-1dec-11e2-8cad-001ec947c8cc")

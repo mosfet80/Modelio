@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="com.modeliosoft.modelio.documentation.modeler.feature"
+      label="%featureName"
+      version="6.2.0.qualifier"
+      provider-name="Docaposte">
+
+   <description url="">
+    All Modelio documentation
+   </description>
+
+   <copyright url="">
+    Modeliosoft
+   </copyright>
+
+   <license url="">
+    Commercial
+   </license>
+
+   <plugin
+         id="com.modeliosoft.modelio.documentation.copyright"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.modeliosoft.modelio.documentation.welcome"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.modeliosoft.modelio.documentation.welcome.ba"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.modeliosoft.modelio.documentation.welcome.sd"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.modeliosoft.modelio.documentation.analyst"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.modeliosoft.modelio.documentation.archimate"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.modelio.documentation.modeliomodeler"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.modelio.documentation.modeliomodeler.toc"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.modeliosoft.modelio.documentation.modeliomodeler"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.modeliosoft.modelio.documentation.modeliomodeler.toc"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.modeliosoft.modelio.documentation.modelioapi"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.modelio.documentation.vaudit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.modelio.documentation.bpmn"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.modelio.documentation.metamodel.archimate"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.modeliosoft.modelio.documentation.metamodel.analyst"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.modelio.documentation.metamodel.uml"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.modeliosoft.modelio.documentation.workflow"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+</feature>

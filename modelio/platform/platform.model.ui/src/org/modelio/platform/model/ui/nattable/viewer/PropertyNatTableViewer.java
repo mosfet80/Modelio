@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.viewer;
 
@@ -39,6 +39,7 @@ import org.eclipse.nebula.widgets.nattable.coordinate.Range;
 import org.eclipse.nebula.widgets.nattable.copy.command.CopyDataCommandHandler;
 import org.eclipse.nebula.widgets.nattable.data.IDataProvider;
 import org.eclipse.nebula.widgets.nattable.edit.config.DefaultEditBindings;
+import org.eclipse.nebula.widgets.nattable.edit.editor.ICellEditor;
 import org.eclipse.nebula.widgets.nattable.grid.GridRegion;
 import org.eclipse.nebula.widgets.nattable.grid.layer.ColumnHeaderLayer;
 import org.eclipse.nebula.widgets.nattable.layer.CompositeLayer;
@@ -73,27 +74,28 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  */
 @objid ("602e8df9-7fc9-46a9-bd3d-bb523abde06d")
 public class PropertyNatTableViewer extends Viewer {
+    @objid ("79ec46bc-a3f1-4723-9be3-fccd6397ebd7")
+    protected final NatTable natTable;
+
+    @objid ("756ff346-a4a4-48fa-bc43-e141c686a20e")
+    private SelectionLayer selectionLayer;
+
+    @objid ("b9fe2bfa-c4db-481a-ab1e-615cad2414b1")
+    private DataLayer bodyDataLayer;
+
     @objid ("68daacb4-5561-49ad-aa9a-9ec867827c4a")
     private PropertyTableDataModel dataModel;
 
     @objid ("8afb965a-ec98-417e-b496-34f9847a9a78")
     private INatTableViewerContext context;
 
-    @objid ("a3a15f07-d7d1-47cf-9334-c79edade2e66")
-    protected final NatTable natTable;
-
-    @objid ("63cb53c9-5bbe-4589-805c-4717eb65b6a5")
-    private SelectionLayer selectionLayer;
-
-    @objid ("1a40e77d-af1c-4532-9b03-cfdfcb1108b6")
-    private DataLayer bodyDataLayer;
-
     /**
      * Create a new instance of the table viewer.
+     *
      * @param parent widget for the table.
      */
     @objid ("de65eee9-4d54-44dd-a101-c2cb516bf1af")
-    public  PropertyNatTableViewer(final Composite parent) {
+    public PropertyNatTableViewer(final Composite parent) {
         this.natTable = new NatTable(parent, false);
     }
 
@@ -103,56 +105,56 @@ public class PropertyNatTableViewer extends Viewer {
     @objid ("da27472c-99f6-4288-9df9-78959507831b")
     private void setupTable() {
         final ILabelProvider elementLabelProvider = setupLabelProvider();
-        
+
         this.natTable.setData(this.dataModel);
-        
+
         // Data providers
         final IDataProvider bodyDataProvider = this.dataModel.getBodyDataProvider();
         final IDataProvider columnHeaderDataProvider = this.dataModel.getColumnHeaderDataProvider();
-        
+
         this.bodyDataLayer = new DataLayer(bodyDataProvider);
         this.bodyDataLayer.setDataProvider(bodyDataProvider);
         final DataLayer columnHeaderDataLayer = new DataLayer(columnHeaderDataProvider, 40, 10);
         final ModelioDefaultBodyLayerStack bodyLayer = new ModelioDefaultBodyLayerStack(this.bodyDataLayer);
-        
+
         // Selection
         this.selectionLayer = bodyLayer.getSelectionLayer();
         this.selectionLayer.clearConfiguration();
         this.selectionLayer.addConfiguration(new SelectionLayerConfiguration());
-        
+
         // Column headers
         final ColumnHeaderLayer columnHeaderLayer = new ColumnHeaderLayer(columnHeaderDataLayer, bodyLayer, this.selectionLayer, false);
         columnHeaderLayer.addConfiguration(new ColumnHeaderConfiguration(this.dataModel, columnHeaderDataLayer));
-        
+
         // General grid layer
         final CompositeLayer compositeLayer = new CompositeLayer(1, 2);
         compositeLayer.setChildLayer(GridRegion.BODY, bodyLayer, 0, 1);
         compositeLayer.setChildLayer(GridRegion.COLUMN_HEADER, columnHeaderLayer, 0, 0);
         compositeLayer.addConfiguration(new DefaultEditBindings());
         compositeLayer.addConfiguration(new GridLayerConfiguration(compositeLayer));
-        
+
         // NOTE: Register the accumulator on the body data layer.
         final CellByCellOverrideLabelAccumulator columnLabelAccumulator = new CellByCellOverrideLabelAccumulator(this.bodyDataLayer, this.dataModel);
         this.bodyDataLayer.setConfigLabelAccumulator(columnLabelAccumulator);
-        
+
         // Setup the global main layer on the table, here the assembly grid.
         this.natTable.setLayer(compositeLayer);
-        
+
         // Global configuration
         this.natTable.addConfiguration(new NatTableStyleConfiguration());
-        
+
         this.natTable.addConfiguration(new BodyConfiguration(this.dataModel, this.context, elementLabelProvider));
-        
+
         // Redefine copy handler to handle INatValue
         final CopyDataCommandHandler cdch = new CopyDataCommandHandler(bodyLayer.getSelectionLayer());
         cdch.setCopyFormattedText(true); // This will handle NatValue
         bodyLayer.registerCommandHandler(cdch);
         bodyLayer.getSelectionLayer().registerCommandHandler(cdch);
-        
+
         addExtensionConfigurations();
-        
+
         this.natTable.configure();
-        
+
         // Provides Selection management.
         this.natTable.addLayerListener(event -> {
             if (event instanceof CellSelectionEvent || event instanceof RowSelectionEvent) {
@@ -161,14 +163,13 @@ public class PropertyNatTableViewer extends Viewer {
                 fireSelectionChanged(e);
             }
         });
-        
+
         setupTooltip();
-        
+
         // Set column initial sizes
         setupColumnsSize(this.bodyDataLayer);
-        
+
         this.natTable.requestLayout();
-        
     }
 
     @objid ("47446000-63dd-44bd-9363-4df4a9a82936")
@@ -198,7 +199,7 @@ public class PropertyNatTableViewer extends Viewer {
     @Override
     public ISelection getSelection() {
         final List<Object> objects = new ArrayList<>();
-        
+
         final Set<Range> rowRanges = this.selectionLayer.getSelectedRowPositions();
         for (final Range rowRange : rowRanges) {
             for (int rowPosition = rowRange.start; rowPosition < rowRange.end; rowPosition++) {
@@ -212,7 +213,7 @@ public class PropertyNatTableViewer extends Viewer {
     @Override
     public void setSelection(final ISelection selection, final boolean reveal) {
         final IStructuredSelection s = (IStructuredSelection) selection;
-        
+
         this.selectionLayer.clear();
         for (final Object o : s.toList()) {
             final int row = this.dataModel.getRowIndex(o);
@@ -220,10 +221,10 @@ public class PropertyNatTableViewer extends Viewer {
                 this.selectionLayer.selectRow(0, row, false, true);
             }
         }
-        
     }
 
     /**
+     *
      * @return Whether or not the editor is currently focused.
      */
     @objid ("c2807a79-42cb-421f-b448-960111fcce30")
@@ -246,7 +247,6 @@ public class PropertyNatTableViewer extends Viewer {
         } else {
             throw new IllegalArgumentException(String.valueOf(input));
         }
-        
     }
 
     @objid ("30171529-5369-4afe-a792-887ec883c26c")
@@ -254,10 +254,9 @@ public class PropertyNatTableViewer extends Viewer {
         if (this.dataModel != null) {
             throw new UnsupportedOperationException("Changing input is not supported, dispose and recreate the viewer.");
         }
-        
+
         this.dataModel = input;
         setupTable();
-        
     }
 
     /**
@@ -271,25 +270,24 @@ public class PropertyNatTableViewer extends Viewer {
             try {
                 final IPropertyTableConfigurationProvider provider = (IPropertyTableConfigurationProvider) configEl.createExecutableExtension("class");
                 final IConfiguration configuration = provider.getConfiguration(this.context, this.dataModel);
-        
+
                 if (configuration == null) {
                     throw new NullPointerException(String.format("The '%s' from '%s' extension did not provide any %s .",
                             provider.getClass().getName(), configEl.getContributor().getName(), IConfiguration.class.getSimpleName()));
                 }
-        
+
                 this.natTable.addConfiguration(configuration);
             } catch (CoreException | RuntimeException e) {
                 CoreUi.LOG.error(e);
             }
         }
-        
     }
 
     @objid ("974ec0ef-8fd1-4a96-87e0-cab6313d7343")
     protected void setupColumnsSize(final DataLayer dataLayer) {
         dataLayer.setColumnPercentageSizing(0, true);
         dataLayer.setColumnWidthPercentageByPosition(0, 20);
-        
+
         final int columnCount = dataLayer.getColumnCount();
         if (columnCount == 2) {
             // 2 Columns
@@ -299,7 +297,7 @@ public class PropertyNatTableViewer extends Viewer {
             // 3 columns
             dataLayer.setColumnPercentageSizing(1, true);
             dataLayer.setColumnWidthPercentageByPosition(1, 40);
-        
+
             dataLayer.setColumnPercentageSizing(2, true);
             dataLayer.setColumnWidthPercentageByPosition(2, 40);
         } else {
@@ -308,7 +306,6 @@ public class PropertyNatTableViewer extends Viewer {
                 dataLayer.setColumnWidthPercentageByPosition(i, 80 / (columnCount - 1));
             }
         }
-        
     }
 
     /**
@@ -330,14 +327,14 @@ public class PropertyNatTableViewer extends Viewer {
             protected String getText(final Event event) {
                 final int col = this.natTable.getColumnPositionByX(event.x);
                 final int row = this.natTable.getRowPositionByY(event.y);
-        
+
                 final ILayerCell cell = this.natTable.getCellByPosition(col, row);
                 if (cell != null) {
                     // if the registered cell painter is the PasswordCellPainter, there
                     // will be no tooltip
                     final ICellPainter painter = this.natTable.getConfigRegistry().getConfigAttribute(CellConfigAttributes.CELL_PAINTER, DisplayMode.NORMAL, cell.getConfigLabels().getLabels());
                     if (isVisibleContentPainter(painter)) {
-        
+
                         if (painter instanceof IToolTipProvider) {
                             return ((IToolTipProvider) painter).getToolTipText(cell.getDataValue());
                         } else {
@@ -348,7 +345,6 @@ public class PropertyNatTableViewer extends Viewer {
                 return null;
             }
         };
-        
     }
 
     /**
@@ -365,22 +361,30 @@ public class PropertyNatTableViewer extends Viewer {
     /**
      * Refreshes this viewer completely with information freshly obtained from this
      * viewer's model.
+     *
      * @param forceConfiguration force a NatTable configuration.
      */
     @objid ("fd330ab2-9834-4e0d-b663-f5908d105edb")
     public void refresh(final boolean forceConfiguration) {
+        // Defer refresh until end of edition if editor is open
+        ICellEditor activeCellEditor = this.natTable.getActiveCellEditor();
+        if (activeCellEditor != null && ! activeCellEditor.isClosed()) {
+            activeCellEditor.getEditorControl().addDisposeListener((ev) -> refresh(forceConfiguration));
+            return;
+        }
+
         final PropertyTableDataModel model = getInput();
         if (model == null || forceConfiguration) {
             this.natTable.configure();
         }
-        
+
         if (model != null) {
             // Get old row/col counts
             final int nbRows = model.getRows().size();
             final int nbCols = this.natTable.getColumnCount();
-        
+
             model.rebuildData();
-        
+
             if (nbRows != model.getPropertyModel().getRowsNumber()) {
                 // Update the data model in order to refresh correctly the Nat table if the number of rows changed
                 model.getRows().clear();
@@ -388,14 +392,13 @@ public class PropertyNatTableViewer extends Viewer {
                     model.getRows().add(i);
                 }
             }
-        
+
             if (nbCols != model.getPropertyModel().getColumnNumber()) {
                 // Col count changed, update their respective sizes
                 setupColumnsSize(this.bodyDataLayer);
             }
         }
         this.natTable.refresh();
-        
     }
 
 }

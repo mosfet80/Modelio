@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package com.sun.star.comp.beans;
 
@@ -44,10 +44,11 @@ import org.modelio.platform.utils.log.writers.PluginLogger;
 
 /**
  * This class represents a local office window.
- * 
+ *
  * Other references:
- * 
+ *
  * https://github.com/LibreOffice/noa-libre/blob/master/src/ag/ion/bion/officelayer/internal/application/connection/LocalOfficeConnection.java
+ *
  * @since OOo 2.0.0
  */
 @objid ("03c810c8-7611-4dc8-8eaf-a76e75906aec")
@@ -69,19 +70,20 @@ class SwtLinuxOfficeWindow extends Composite implements XEventListener {
 
     /**
      * Constructor.
+     *
      * @param connection The office connection object the window
      * belongs to.
      * @param parent a widget which will be the parent of the new instance (cannot be null)
      */
     @objid ("ec3c6a91-5c95-4c38-9e32-7fb7b8ad9d2b")
-    protected  SwtLinuxOfficeWindow(final OfficeConnection connection, final Composite parent) {
+    protected SwtLinuxOfficeWindow(final OfficeConnection connection, final Composite parent) {
         super(parent, SWT.EMBEDDED | SWT.NO_BACKGROUND |SWT.NO_REDRAW_RESIZE | SWT.NO_MERGE_PAINTS);
-        
+
         this.mConnection = connection;
         this.mConnection.addEventListener(this);
-        
+
         addDisposeListener(new DisposeListener() {
-        
+
             /**
              * We make sure that the office window is notified that the parent
              * will be removed.
@@ -90,7 +92,7 @@ class SwtLinuxOfficeWindow extends Composite implements XEventListener {
             public void widgetDisposed(DisposeEvent ev) {
                 LOG.debug("SwtOfficeWindow.DisposeListener: SwtOfficeWindow disposed.");
                 removeDisposeListener(this);
-        
+
                 try {
                     releaseSystemWindow();
                 } catch (java.lang.Exception e) {
@@ -99,9 +101,9 @@ class SwtLinuxOfficeWindow extends Composite implements XEventListener {
                 }
             }
         });
-        
+
         addFocusListener(new FocusListener() {
-        
+
             @Override
             public void focusLost(FocusEvent e) {
                 LOG.debug("swt.FocusListener.focusLost: %s", e);
@@ -109,17 +111,18 @@ class SwtLinuxOfficeWindow extends Composite implements XEventListener {
                     SwtLinuxOfficeWindow.this.xWindow.setFocus();
                 }
             }
-        
+
             @Override
             public void focusGained(FocusEvent e) {
                 LOG.debug("swt.FocusListener.focusGained: %s", e);
             }
         });
-        
+
     }
 
     /**
      * Retrieves an UNO XWindowPeer object associated with the OfficeWindow.
+     *
      * @return The UNO XWindowPeer object associated with the OfficeWindow.
      */
     @objid ("3bb4520f-706b-4d1b-9792-e03797646afc")
@@ -127,17 +130,17 @@ class SwtLinuxOfficeWindow extends Composite implements XEventListener {
         if (this.xWindowPeer == null) {
             // some JNI functions will not work without this
             super.setVisible(true);
-        
+
             com.sun.star.awt.XToolkit xToolkit = queryAWTToolkit();
             com.sun.star.awt.XSystemChildFactory xFac = UnoRuntime.queryInterface(com.sun.star.awt.XSystemChildFactory.class, xToolkit);
-        
+
             byte[] lIgnoredProcessID = new byte[0];
             this.xWindowPeer = xFac.createSystemChild(getWrappedWindowHandle(),
                                                   lIgnoredProcessID,
                                                   OSDetect.getNativeWindowSystemType());
-        
+
             this.xWindow = UnoRuntime.queryInterface(com.sun.star.awt.XWindow2.class, this.xWindowPeer);
-        
+
             aquireSystemWindow();
             this.xWindow.setFocus();
         }
@@ -147,6 +150,7 @@ class SwtLinuxOfficeWindow extends Composite implements XEventListener {
     /**
      * Receives a notification about the connection has been closed.
      * This method has to set the connection to <code>null</code>.
+     *
      * @source The event object.
      */
     @objid ("841c830f-3d4a-4a0e-ace6-abc41df099ad")
@@ -156,7 +160,7 @@ class SwtLinuxOfficeWindow extends Composite implements XEventListener {
         this.xWindowPeer = null;
         this.xWindow = null;
         this.mConnection    = null;
-        
+
     }
 
     /**
@@ -178,7 +182,7 @@ class SwtLinuxOfficeWindow extends Composite implements XEventListener {
         } else {
             return null;
         }
-        
+
     }
 
     /**
@@ -188,19 +192,19 @@ class SwtLinuxOfficeWindow extends Composite implements XEventListener {
     private synchronized void aquireSystemWindow() {
         if ( !this.bPeer ) {
             checkWidget();
-        
+
             // set real parent
             XVclWindowPeer xVclWindowPeer = UnoRuntime.queryInterface(XVclWindowPeer.class, this.xWindowPeer);
             xVclWindowPeer.setProperty( "PluginParent", getWrappedWindowHandle());
-        
+
             this.bPeer = true;
-        
+
             // show document window
             this.xWindow.setVisible( true );
             this.xWindow.setEnable(true);
             //this.xWindow.setFocus();
         }
-        
+
     }
 
     /**
@@ -214,7 +218,7 @@ class SwtLinuxOfficeWindow extends Composite implements XEventListener {
                 if (this.xWindow != null) {
                     this.xWindow.setVisible( false );
                 }
-        
+
                 // set null parent
                 XVclWindowPeer xVclWindowPeer = UnoRuntime.queryInterface(XVclWindowPeer.class, this.xWindowPeer);
                 if (xVclWindowPeer != null) {
@@ -223,10 +227,10 @@ class SwtLinuxOfficeWindow extends Composite implements XEventListener {
             } catch ( com.sun.star.lang.DisposedException e) {
                 // Ignore
             }
-        
+
             this.bPeer = false;
         }
-        
+
     }
 
     /**
@@ -244,7 +248,7 @@ class SwtLinuxOfficeWindow extends Composite implements XEventListener {
             releaseSystemWindow();
             super.setVisible(b);
         }
-        
+
     }
 
     /**
@@ -257,14 +261,14 @@ class SwtLinuxOfficeWindow extends Composite implements XEventListener {
     protected Any getWrappedWindowHandle() {
         NamedValue window = new NamedValue("WINDOW", new Any(new Type(Long.class), new Long(OSDetect.getNativeWindow(this))));
         NamedValue xembed = new NamedValue("XEMBED", new Any(Type.BOOLEAN, Boolean.FALSE));
-        
+
         if (Boolean.parseBoolean(System.getProperty("sun.awt.xembedserver")))
         {
             xembed = new NamedValue("XEMBED", new Any(Type.BOOLEAN, Boolean.TRUE));
         }
         return new Any(new Type("[]com.sun.star.beans.NamedValue"),
                                         new NamedValue[] {window, xembed});
-        
+
     }
 
 }

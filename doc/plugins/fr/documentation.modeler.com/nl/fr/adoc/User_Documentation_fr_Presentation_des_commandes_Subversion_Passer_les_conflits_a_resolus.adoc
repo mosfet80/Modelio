@@ -1,0 +1,47 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= La commande "Passer les conflits à résolus"
+
+== Description
+
+La commande "Passer les conflits à résolus" résout les conflits pour les <<User_Documentation_fr_Introduction_aux_modeles_de_travail_SVN_Grains_SVN.adoc#,grains>>.
+
+
+== Conditions et restrictions
+
+Cette commande ne peut être lancée que sur les <<User_Documentation_fr_Introduction_aux_modeles_de_travail_SVN_Grains_SVN.adoc#,grains>> en conflit.
+
+
+== Comportement
+
+La commande "Passer les conflits à résolus" permet à l'utilisateur de résoudre tous les conflits en une seule opération, en sélectionnant une fois la version à retenir.
+
+La commande affiche alors la fenêtre suivante :
+
+.La fenêtre de la commande "Passer les conflits à résolus"
+image::images/attachment/modeliocom41/User_Documentation_fr/Presentation_des_commandes_Subversion/Passer_les_conflits_a_resolus/TW_009_revert.png[TW_009_revert.png]
+
+Cette fenêtre vous propose trois options :
+
+* *Garder la version du référentiel* : Tous les éléments en conflit qui sont sélectionnés seront remplacés par leur version du référentiel. +
+ Toutes les modifications locales seront perdues.
+
+*Attention :* Cette option est habituellement la plus sûre pour l'équipe, mais vous devez refaire votre travail depuis l'élément à jour.
+
+
+* *Garder la version courante* : Cette option vous permet de garder votre version locale. +
+La version du référentiel sera alors remplacée par la version locale lors de la prochaine livraison. +
+Toutes les modifications locales apportées aux éléments sélectionnés après leur entrée en conflit seront perdues, y compris les modifications de <<User_Documentation_fr_Presentation_des_commandes_Subversion_Resoudre_les_conflits.adoc#,résolution de conflits>>.
+
+*Attention :* Ceci n'est souvent pas la meilleure options, car les modifications apportées par d'autres utilisateurs seront perdues.
+
+
+* *Garder la version fusionnée* : Cette option garde le modèle tel qu'il est actuellement et passe les conflits à résolus.
+
+*Attention :* Vous ne devriez utiliser cette option qu'après avoir utilisé la <<User_Documentation_fr_Presentation_des_commandes_Subversion_Resoudre_les_conflits.adoc#,commande Résoudre les conflits>> sur les éléments en conflit.
+
+
+Lorsque vous validez votre choix dans cette fenêtre, les éléments sélectionnés seront remplacés par la version choisie et ne seront plus en conflit.

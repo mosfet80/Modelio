@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.api.services;
 
@@ -59,17 +59,19 @@ public abstract class DiagramLink extends DiagramAbstractLink {
 
     /**
      * Creates a diagram link.
+     *
      * @param diagramHandle The diagram manipulation class.
      * @param gmLink The gm link represented by this class.
      */
     @objid ("8f8c8cd7-50d2-4d76-aab8-ecb706ec5465")
-    public  DiagramLink(DiagramHandle diagramHandle, IGmLink gmLink) {
+    public DiagramLink(DiagramHandle diagramHandle, IGmLink gmLink) {
         super(diagramHandle);
         this.gmLink = gmLink;
-        
+
     }
 
     /**
+     *
      * @return the source DiagramGraphic of the current Link.
      */
     @objid ("08af9ed9-21aa-47ca-9075-d3ec79d3d097")
@@ -77,7 +79,7 @@ public abstract class DiagramLink extends DiagramAbstractLink {
     public IDiagramGraphic getFrom() {
         final IGmLinkable from = this.gmLink.getFrom();
         IDiagramGraphic ret = DGFactory.getInstance().getDiagramGraphic(this.diagramHandle, from);
-        
+
         if (ret == null &&
                 from instanceof GmNodeModel &&
                 ((GmNodeModel) from).getParent() instanceof GmPortContainer) {
@@ -88,6 +90,7 @@ public abstract class DiagramLink extends DiagramAbstractLink {
     }
 
     /**
+     *
      * @return the destination DiagramNode of the current Link.
      */
     @objid ("c84c3c0e-4d5d-4705-bca1-01b2463952cd")
@@ -95,7 +98,7 @@ public abstract class DiagramLink extends DiagramAbstractLink {
     public IDiagramGraphic getTo() {
         final IGmLinkable to = this.gmLink.getTo();
         IDiagramGraphic ret = DGFactory.getInstance().getDiagramGraphic(this.diagramHandle, to);
-        
+
         if (ret == null &&
                 to instanceof GmNodeModel &&
                 ((GmNodeModel) to).getParent() instanceof GmPortContainer) {
@@ -163,11 +166,12 @@ public abstract class DiagramLink extends DiagramAbstractLink {
         }
         this.gmLink.getDisplayedStyle()
                 .setProperty(styleKey, StyleKeyTypeConverter.convertFromString(styleKey, value));
-        
+
     }
 
     /**
      * Return the links that are starting (ie outgoing links) from this node.
+     *
      * @return A list of links in any case, possibly an empty one. Never returns null
      */
     @objid ("31b051d0-60de-4e90-96c5-2cd43816b021")
@@ -185,6 +189,7 @@ public abstract class DiagramLink extends DiagramAbstractLink {
 
     /**
      * Return the links that are ending (ie incoming links) at this node.
+     *
      * @return A list of links in any case, possibly an empty one. Never returns null
      */
     @objid ("71d2d2f0-0043-4476-8455-261ebf6fc10e")
@@ -202,6 +207,7 @@ public abstract class DiagramLink extends DiagramAbstractLink {
 
     /**
      * Return the name of this link.
+     *
      * @return the link name
      */
     @objid ("5a77b0d0-5e96-43e2-879c-0fe4701f7a4c")
@@ -209,7 +215,7 @@ public abstract class DiagramLink extends DiagramAbstractLink {
     public String getName() {
         return this.gmLink.getRelatedElement() != null ? this.gmLink.getRelatedElement().getName()
                 : this.gmLink.getGhostLabel();
-        
+
     }
 
     @objid ("82e6fac1-0d2b-42f7-b495-054138cd4529")
@@ -260,6 +266,7 @@ public abstract class DiagramLink extends DiagramAbstractLink {
 
     /**
      * Default implementation of {@link #getGmNodes(ExtensionRole)} to call for default behavior.
+     *
      * @param role the asked role
      * @return the found extension nodes.
      */
@@ -272,7 +279,7 @@ public abstract class DiagramLink extends DiagramAbstractLink {
         default:
             return Collections.emptyList();
         }
-        
+
     }
 
     @objid ("db68662f-53e9-43d7-a00a-e6a1331ccd49")
@@ -281,7 +288,7 @@ public abstract class DiagramLink extends DiagramAbstractLink {
         IGmObject newNode = ((DiagramGraphic) source).getModel();
         String type = RequestConstants.REQ_RECONNECT_SOURCE;
         reconnect(newNode, type);
-        
+
     }
 
     @objid ("28fe3b0a-8634-4354-a4d6-6389d5c6587b")
@@ -290,7 +297,7 @@ public abstract class DiagramLink extends DiagramAbstractLink {
         IGmObject newNode = ((DiagramGraphic) target).getModel();
         String type = RequestConstants.REQ_RECONNECT_TARGET;
         reconnect(newNode, type);
-        
+
     }
 
     @objid ("671f24c0-6084-41aa-8bad-9fefcbd0c750")
@@ -300,10 +307,10 @@ public abstract class DiagramLink extends DiagramAbstractLink {
             ReconnectRequest recoReq = new ReconnectRequest(type);
             recoReq.setConnectionEditPart((ConnectionEditPart) this.diagramHandle.getEditPart(this.gmLink));
             recoReq.setLocation(new Point(0, 0));
-        
+
             EditPart newMainNode = DiagramLink.findChildEditPartFor(this.diagramHandle.getEditPart(newNode), recoReq);
             recoReq.setTargetEditPart(newMainNode);
-        
+
             Command recoCommand = newMainNode.getCommand(recoReq);
             if (recoCommand == null || !recoCommand.canExecute()) {
                 throw new IllegalArgumentException("Reconnection is not supported");
@@ -311,7 +318,7 @@ public abstract class DiagramLink extends DiagramAbstractLink {
                 recoCommand.execute();
             }
         }
-        
+
     }
 
     @objid ("811e0083-0da4-4e4f-8dcd-f8616cf5c7fe")
@@ -320,16 +327,16 @@ public abstract class DiagramLink extends DiagramAbstractLink {
         if (targetEditPart != null) {
             return targetEditPart;
         }
-        
+
         for (EditPart e : (List<EditPart>) from.getChildren()) {
             targetEditPart = e.getTargetEditPart(req);
             if (targetEditPart != null) {
                 return targetEditPart;
             }
         }
-        
+
         throw new IllegalArgumentException("Reconnection is not supported");
-        
+
     }
 
 }

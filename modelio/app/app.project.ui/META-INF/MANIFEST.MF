@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Project Ui
 Bundle-SymbolicName: org.modelio.app.project.ui;singleton:=true
-Bundle-Version: 5.4.1.qualifier 
+Bundle-Version: 6.2.0.qualifier 
 Bundle-ClassPath: res/,
  .
 Bundle-Activator: org.modelio.app.project.ui.plugin.AppProjectUi
@@ -42,7 +42,7 @@ Require-Bundle: org.modelio.core.project,
  org.eclipse.e4.ui.workbench.renderers.swt,
  org.modelio.platform.preferences,
  org.modelio.core.project.data
-Import-Package: javax.annotation;version="1.1.0",
- javax.inject;version="1.0.0"
+Import-Package: jakarta.annotation;version="1.1.0",
+ jakarta.inject;version="1.0.0"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-21

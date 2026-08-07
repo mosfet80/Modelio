@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -50,10 +50,10 @@ public class OEvent extends OModelElement {
                     return UMLFactory.eINSTANCE.createChangeEvent();
             default:
                 return UMLFactory.eINSTANCE.createCallEvent();
-        
+
             }
         }
-        
+
         if (getObjingElement().isStereotyped(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2CREATIONEVENT)){
             return UMLFactory.eINSTANCE.createCreationEvent();
         }else if (getObjingElement().isStereotyped(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2DESTRUCTIONEVENT)){
@@ -65,7 +65,7 @@ public class OEvent extends OModelElement {
     }
 
     @objid ("bf3e02b6-5a4d-43d6-b1a4-a1a9198a66c5")
-    public  OEvent(Event event) {
+    public OEvent(Event event) {
         super(event);
     }
 
@@ -73,22 +73,22 @@ public class OEvent extends OModelElement {
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         Behavior oldOwner = getObjingElement().getComposed();
-        
+
         Package newOwner = AbstractObjingModelNavigation.getNearestPackage(oldOwner);
-        
+
         org.eclipse.uml2.uml.Element ecoreOwner = GenerationProperties.getInstance().getMappedElement(oldOwner);
-        
+
         if ((newOwner != null) &&
                 ((ecoreOwner != null) && ((ecoreOwner instanceof org.eclipse.uml2.uml.BehavioredClassifier) || (ecoreOwner instanceof  org.eclipse.uml2.uml.Transition)
                         || (ecoreOwner instanceof org.eclipse.uml2.uml.State) || (ecoreOwner instanceof  org.eclipse.uml2.uml.AcceptEventAction) ))){
-        
+
             org.eclipse.uml2.uml.Element newEcoreOwner = GenerationProperties.getInstance().getMappedElement(newOwner);
-        
+
             if ((newEcoreOwner != null) && (newEcoreOwner instanceof org.eclipse.uml2.uml.Package))
                 ((org.eclipse.uml2.uml.Package) newEcoreOwner).getPackagedElements().add((org.eclipse.uml2.uml.Event)ecoreElt);
-        
+
         }
-        
+
     }
 
     @objid ("72d42797-76b6-4b76-afa8-ebbd738404ef")
@@ -106,7 +106,7 @@ public class OEvent extends OModelElement {
                 setChangeProperties( (org.eclipse.uml2.uml.ChangeEvent) ecoreElt);
             }
         }
-        
+
     }
 
     @objid ("bb37a16f-8c94-409a-9666-49ad43fbe789")
@@ -118,7 +118,7 @@ public class OEvent extends OModelElement {
                      GenerationProperties.getInstance().getEcoreUMLTypes().getString(), literalString.eClass());
             ((org.eclipse.uml2.uml.LiteralString)ecoreValue).setValue(changeValue);
         }
-        
+
     }
 
     @objid ("e9d2c019-db10-45e9-ae88-a091e46a8663")
@@ -131,7 +131,7 @@ public class OEvent extends OModelElement {
             value.setValue(timeValue);
             ecoreValue.setExpr(value);
         }
-        
+
     }
 
     @objid ("851d63b8-9a35-4923-b93c-07c5a7d8b7a7")
@@ -142,7 +142,7 @@ public class OEvent extends OModelElement {
             if (ecoreSignal instanceof  org.eclipse.uml2.uml.Signal)
                 ecoreElt.setSignal( (org.eclipse.uml2.uml.Signal) ecoreSignal);
         }
-        
+
     }
 
     @objid ("36613bac-fe13-4431-b431-5a0e18f592f2")
@@ -153,7 +153,7 @@ public class OEvent extends OModelElement {
             if (ecoreOperation instanceof  org.eclipse.uml2.uml.Operation)
                 ecoreElt.setOperation( (org.eclipse.uml2.uml.Operation) ecoreOperation);
         }
-        
+
     }
 
     @objid ("ef84b970-79c5-4842-909b-3a1ade20a35b")

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -46,13 +45,13 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("001c7c58-c4bf-1fd8-97fe-001ec947cd2a")
 public class TemplateBindingImpl extends UmlModelElementImpl implements TemplateBinding {
-    @objid ("b96a9371-f29c-4b13-8a73-4273bc3cfb6f")
+    @objid ("60b5a931-77d8-478b-ac3c-e15ab3162de6")
     @Override
     public EList<TemplateParameterSubstitution> getParameterSubstitution() {
         return new SmList<>(this, ((TemplateBindingSmClass)getClassOf()).getParameterSubstitutionDep());
     }
 
-    @objid ("bd6a1da0-e93f-4193-83cd-efd9575a5dea")
+    @objid ("89394f50-2014-401a-8f22-882bf39dd245")
     @Override
     public <T extends TemplateParameterSubstitution> List<T> getParameterSubstitution(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -65,62 +64,62 @@ public class TemplateBindingImpl extends UmlModelElementImpl implements Template
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("b64690c3-745c-4a2c-b4dc-f2dc9bafcdb9")
+    @objid ("181df453-48b8-45c0-b78b-ef9692e8f574")
     @Override
     public Operation getBoundOperation() {
         Object obj = getDepVal(((TemplateBindingSmClass)getClassOf()).getBoundOperationDep());
         return (obj instanceof Operation)? (Operation)obj : null;
     }
 
-    @objid ("7a99d2a4-e9e8-4aad-905b-b87fd5149fae")
+    @objid ("89c55814-7199-436b-9062-d389b7e30aaa")
     @Override
     public void setBoundOperation(Operation value) {
         appendDepVal(((TemplateBindingSmClass)getClassOf()).getBoundOperationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("28e65e20-cccf-4688-a013-4920666255dd")
+    @objid ("8d7369ed-37a5-4540-9a55-f53ecbfbddcf")
     @Override
     public Operation getInstanciatedTemplateOperation() {
         Object obj = getDepVal(((TemplateBindingSmClass)getClassOf()).getInstanciatedTemplateOperationDep());
         return (obj instanceof Operation)? (Operation)obj : null;
     }
 
-    @objid ("a3f00604-9527-4ded-b1a1-a43b32c74a47")
+    @objid ("cfb4ded7-34da-4462-898b-b1fdc9919a8e")
     @Override
     public void setInstanciatedTemplateOperation(Operation value) {
         appendDepVal(((TemplateBindingSmClass)getClassOf()).getInstanciatedTemplateOperationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("e8c4db6a-78bc-4ca0-afbc-2beaf3ce2ab7")
+    @objid ("9b7b9dff-ec27-4c4a-b068-ffe9fb112578")
     @Override
     public NameSpace getInstanciatedTemplate() {
         Object obj = getDepVal(((TemplateBindingSmClass)getClassOf()).getInstanciatedTemplateDep());
         return (obj instanceof NameSpace)? (NameSpace)obj : null;
     }
 
-    @objid ("fa4547e6-17e0-4ef7-995f-56c28efe96c1")
+    @objid ("4e8870b1-3796-4911-b205-51d98bed4ff5")
     @Override
     public void setInstanciatedTemplate(NameSpace value) {
         appendDepVal(((TemplateBindingSmClass)getClassOf()).getInstanciatedTemplateDep(), (SmObjectImpl)value);
     }
 
-    @objid ("6533a059-7080-4f5e-91ee-48a28e481e97")
+    @objid ("5713f346-c169-44f0-b2f7-9d023924fe24")
     @Override
     public NameSpace getBoundElement() {
         Object obj = getDepVal(((TemplateBindingSmClass)getClassOf()).getBoundElementDep());
         return (obj instanceof NameSpace)? (NameSpace)obj : null;
     }
 
-    @objid ("14607d9c-8b58-415b-8ce2-f268583e8c07")
+    @objid ("d481aa7e-6ee0-4929-a486-2db9f18228ce")
     @Override
     public void setBoundElement(NameSpace value) {
         appendDepVal(((TemplateBindingSmClass)getClassOf()).getBoundElementDep(), (SmObjectImpl)value);
     }
 
-    @objid ("fd30f259-b77a-4746-af24-ccb495776fa7")
+    @objid ("79771873-de59-44b4-b20f-368a11c72030")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -136,27 +135,27 @@ public class TemplateBindingImpl extends UmlModelElementImpl implements Template
         return super.getCompositionOwner();
     }
 
-    @objid ("6a76fcfe-f4d7-4efd-be1c-b71d2267143c")
+    @objid ("9f7d5063-0e83-4604-b294-a3427388c8ab")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // BoundOperation
         dep = ((TemplateBindingSmClass)getClassOf()).getBoundOperationDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         // BoundElement
         dep = ((TemplateBindingSmClass)getClassOf()).getBoundElementDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("5d064fab-f296-4f87-9bd8-2201610531e1")
+    @objid ("84eeff68-7b05-432b-b6e4-d9e056ede4bf")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitTemplateBinding(this);

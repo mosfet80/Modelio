@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.handlers.link;
 
@@ -56,7 +56,7 @@ import org.modelio.diagram.styles.core.StyleKey.ConnectionRouterId;
  * Redraw Link tool for Modelio connections.
  * <p>
  * This tool will support bend points and orthogonal path.
- * 
+ *
  * @author fpoyer
  */
 @objid ("65be03e1-33f7-11e2-95fe-001ec947c8cc")
@@ -78,34 +78,36 @@ public class RedrawConnectionTool extends AbstractConnectionCreationTool {
 
     /**
      * Constructs a new RedrawConnectionTool to redraw the given {@link LinkEditPart}
+     *
      * @param linkEditPart the edit part of the link to redraw.
      */
     @objid ("65c0663d-33f7-11e2-95fe-001ec947c8cc")
-    public  RedrawConnectionTool(final LinkEditPart linkEditPart) {
+    public RedrawConnectionTool(final LinkEditPart linkEditPart) {
         super(new ModelioLinkCreationContext(linkEditPart.getModel().getRelatedElement()));
         // CreationFactory factory, final Connection oldConnection, final EditPart targetEditPart
         setUnloadWhenFinished(true);
-        
+
         IFigure ownerFigure = ((Connection) linkEditPart.getFigure()).getSourceAnchor().getOwner();
         Point ownerCenter = ownerFigure.getBounds().getCenter();
         ownerFigure.translateToAbsolute(ownerCenter);
         this.sourcePoint = ownerCenter;
         this.targetEditPart = linkEditPart.getTarget();
-        
+
         GmLink originalGmLink = linkEditPart.getModel();
         this.originalDiagram = originalGmLink.getDiagram();
-        
+
         StyleKey routerKey = originalGmLink.getStyleKey(MetaKey.CONNECTIONROUTER);
         if (routerKey != null) {
             this.currentRoutingMode = originalGmLink.getDisplayedStyle().getProperty(routerKey);
         }
-        
+
         originalGmLink.delete();
-        
+
     }
 
     /**
      * Scrolling can happen either in the {@link AbstractTool#STATE_INITIAL initial} state or once the source of the connection has been {@link AbstractConnectionCreationTool#STATE_CONNECTION_STARTED identified}.
+     *
      * @see org.eclipse.gef.Tool#mouseWheelScrolled(org.eclipse.swt.widgets.Event, org.eclipse.gef.EditPartViewer)
      */
     @objid ("65c06642-33f7-11e2-95fe-001ec947c8cc")
@@ -114,7 +116,7 @@ public class RedrawConnectionTool extends AbstractConnectionCreationTool {
         if (isInState(AbstractTool.STATE_INITIAL | AbstractConnectionCreationTool.STATE_CONNECTION_STARTED)) {
             performViewerMouseWheel(event, viewer);
         }
-        
+
     }
 
     @objid ("65c06648-33f7-11e2-95fe-001ec947c8cc")
@@ -135,14 +137,14 @@ public class RedrawConnectionTool extends AbstractConnectionCreationTool {
         if (provider == null) {
             return false;
         }
-        
+
         List<?> list;
         if (isInState(AbstractTool.STATE_ACCESSIBLE_DRAG_IN_PROGRESS)) {
             list = provider.getTargetAnchorLocations();
         } else {
             list = provider.getSourceAnchorLocations();
         }
-        
+
         Point start = getLocation();
         int distance = Integer.MAX_VALUE;
         Point next = null;
@@ -157,7 +159,7 @@ public class RedrawConnectionTool extends AbstractConnectionCreationTool {
                 next = p;
             }
         }
-        
+
         if (next != null) {
             placeMouseInViewer(next);
             return true;
@@ -174,7 +176,7 @@ public class RedrawConnectionTool extends AbstractConnectionCreationTool {
         if (isInState(AbstractTool.STATE_TERMINAL)) {
             return null;
         }
-        
+
         final Command command = getCurrentCommand();
         if (command == null || !command.canExecute()) {
             return getDisabledCursor();
@@ -199,13 +201,14 @@ public class RedrawConnectionTool extends AbstractConnectionCreationTool {
         } else {
             return RequestConstants.REQ_CONNECTION_START;
         }
-        
+
     }
 
     /**
      * Get the current routing mode.
      * <p>
      * The routing mode is lazily initialized here.
+     *
      * @return the the current routing mode.
      */
     @objid ("65c06666-33f7-11e2-95fe-001ec947c8cc")
@@ -224,6 +227,7 @@ public class RedrawConnectionTool extends AbstractConnectionCreationTool {
 
     /**
      * If the connections is already started, the second button down will call {@link AbstractConnectionCreationTool#handleCreateConnection()}. Otherwise, it attempts to start the connection.
+     *
      * @param button the button that was pressed
      * @return <code>true</code> if the button down was processed
      */
@@ -236,17 +240,17 @@ public class RedrawConnectionTool extends AbstractConnectionCreationTool {
                     return true;
                 }
             }
-        
+
             if (handleCreateConnection()) {
                 setState(AbstractTool.STATE_TERMINAL);
                 return true;
             }
         }
-        
+
         if (isInState(AbstractTool.STATE_INITIAL) && button == 1) {
             // Call inherited behavior if nothing was already done
             super.handleButtonDown(button);
-        
+
             if (getCurrentCommand() != null) {
                 getTargetRequest().getData().setSrcPoint(getLocation());
             }
@@ -254,7 +258,7 @@ public class RedrawConnectionTool extends AbstractConnectionCreationTool {
             // Call inherited behavior if nothing was already done
             super.handleButtonDown(button);
         }
-        
+
         if (isInState(AbstractConnectionCreationTool.STATE_CONNECTION_STARTED)) {
             // Fake a drag to cause feedback to be displayed immediately on mouse down.
             handleDrag();
@@ -264,6 +268,7 @@ public class RedrawConnectionTool extends AbstractConnectionCreationTool {
 
     /**
      * Cleans up feedback and resets the tool when focus is lost.
+     *
      * @return <code>true</code> if this focus lost event was processed
      */
     @objid ("65c06677-33f7-11e2-95fe-001ec947c8cc")
@@ -280,6 +285,7 @@ public class RedrawConnectionTool extends AbstractConnectionCreationTool {
 
     /**
      * Processes the arrow keys (to move the cursor to nearby anchor locations) and the enter key (to start or complete a connections).
+     *
      * @param event the key event
      * @return <code>true</code> if this key down event was processed
      */
@@ -302,7 +308,7 @@ public class RedrawConnectionTool extends AbstractConnectionCreationTool {
                 direction = isCurrentViewerMirrored2() ? PositionConstants.EAST : PositionConstants.WEST;
                 break;
             }
-        
+
             boolean consumed = false;
             if (direction != 0 && event.stateMask == 0) {
                 consumed = navigateNextAnchor(direction);
@@ -322,7 +328,7 @@ public class RedrawConnectionTool extends AbstractConnectionCreationTool {
                 }
             }
         }
-        
+
         if (event.character == '/' || event.character == '\\') {
             event.stateMask |= SWT.CONTROL;
             if (getCurrentViewer().getKeyHandler().keyPressed(event)) {
@@ -330,7 +336,7 @@ public class RedrawConnectionTool extends AbstractConnectionCreationTool {
                 return true;
             }
         }
-        
+
         if (acceptConnectionStart(event)) {
             Command command = getCommand();
             if (command != null && command.canExecute()) {
@@ -342,7 +348,7 @@ public class RedrawConnectionTool extends AbstractConnectionCreationTool {
             }
             return true;
         }
-        
+
         if (acceptConnectionFinish(event)) {
             Command command = getCommand();
             if (command != null && command.canExecute()) {
@@ -355,13 +361,13 @@ public class RedrawConnectionTool extends AbstractConnectionCreationTool {
             }
             return true;
         }
-        
+
         if (acceptSwapRoutingMode(event)) {
             swapRoutingMode();
-        
+
             updateTargetRequest();
             showSourceFeedback();
-        
+
             return true;
         }
         return super.handleKeyDown(event);
@@ -372,16 +378,17 @@ public class RedrawConnectionTool extends AbstractConnectionCreationTool {
     protected boolean handleKeyUp(final KeyEvent e) {
         if (acceptSwapRoutingMode(e)) {
             swapRoutingMode();
-        
+
             updateTargetRequest();
             showSourceFeedback();
-        
+
             return true;
         }
         return super.handleKeyUp(e);
     }
 
     /**
+     *
      * @see org.eclipse.gef.tools.TargetingTool#updateTargetRequest()
      */
     @objid ("65c2c89c-33f7-11e2-95fe-001ec947c8cc")
@@ -391,9 +398,9 @@ public class RedrawConnectionTool extends AbstractConnectionCreationTool {
         request.setLocation(getLocation());
         request.getData().setLastPoint(new Point(getLocation()));
         request.getData().setRoutingMode(getCurrentRoutingMode());
-        
+
         updateSourceAnchor();
-        
+
     }
 
     @objid ("65c2c8a0-33f7-11e2-95fe-001ec947c8cc")
@@ -402,19 +409,19 @@ public class RedrawConnectionTool extends AbstractConnectionCreationTool {
         if (!isTargetLocked()) {
             getTargetRequest().setType(getCommandName());
             EditPart editPart = getTargetUnderMouse();
-        
+
             if (editPart == null && isInState(AbstractConnectionCreationTool.STATE_CONNECTION_STARTED)) {
                 // If the target cannot end the link, ask him to add a bendpoint
                 getTargetRequest().setType(CreateLinkConstants.REQ_CONNECTION_ADD_BENDPOINT);
                 editPart = getTargetUnderMouse();
             }
-        
+
             return updateTargetEditPart(editPart);
-        
+
         } else {
             return false;
         }
-        
+
     }
 
     @objid ("65c2c8a4-33f7-11e2-95fe-001ec947c8cc")
@@ -424,6 +431,7 @@ public class RedrawConnectionTool extends AbstractConnectionCreationTool {
 
     /**
      * Get the alternate connection routing mode that is activated when pressing &lt;shift>.
+     *
      * @return the alternate connection routing mode.
      */
     @objid ("65c2c8aa-33f7-11e2-95fe-001ec947c8cc")
@@ -436,13 +444,14 @@ public class RedrawConnectionTool extends AbstractConnectionCreationTool {
         default:
             return ConnectionRouterId.BENDPOINT;
         }
-        
+
     }
 
     /**
      * Get the primary routing mode.
      * <p>
      * The primary routing mode is lazily initialized from the routing mode style key.
+     *
      * @return the primary routing mode.
      */
     @objid ("65c2c8ae-33f7-11e2-95fe-001ec947c8cc")
@@ -455,7 +464,7 @@ public class RedrawConnectionTool extends AbstractConnectionCreationTool {
                 this.primaryRoutingMode = gmDiagram.getDisplayedStyle().getProperty(routingModeKey);
             }
         }
-        
+
         if (this.primaryRoutingMode == null) {
             this.primaryRoutingMode = ConnectionRouterId.BENDPOINT;
         }
@@ -464,6 +473,7 @@ public class RedrawConnectionTool extends AbstractConnectionCreationTool {
 
     /**
      * Find the target editpart and returns it. The target is searched by using the target conditional and the target request.
+     *
      * @return the edit part that can handle the request under the mouse.
      */
     @objid ("65c2c8b3-33f7-11e2-95fe-001ec947c8cc")
@@ -479,6 +489,7 @@ public class RedrawConnectionTool extends AbstractConnectionCreationTool {
 
     /**
      * Method that is called when the gesture to create an intermediate point has been received. Returns <code>true</code> to indicate that the point creation succeeded.
+     *
      * @return <code>true</code> if the connection point was performed
      */
     @objid ("65c2c8b8-33f7-11e2-95fe-001ec947c8cc")
@@ -488,9 +499,9 @@ public class RedrawConnectionTool extends AbstractConnectionCreationTool {
             final CreateBendedConnectionRequest r = getTargetRequest();
             RawPathData rawData = r.getData();
             final Point newPoint = rawData.getLastPoint().getCopy();
-        
+
             rawData.getPath().add(newPoint);
-        
+
             setCurrentCommand(endCommand);
             showSourceFeedback();
             return true;
@@ -506,23 +517,23 @@ public class RedrawConnectionTool extends AbstractConnectionCreationTool {
             // There is at least one bend point, don't move the source anchor again
             return;
         }
-        
+
         NodeEditPart sourceEditPart = (NodeEditPart) request.getSourceEditPart();
-        
+
         if (sourceEditPart == null) {
             return;
         }
-        
+
         Point mouseLocation = new Point(getLocation());
-        
+
         // Draw a line between the source's center and the mouse to find the anchor reference point
         Point intersection = new ChopboxAnchor(sourceEditPart.getFigure()).getLocation(mouseLocation);
         rawData.setSrcPoint(intersection);
-        
+
         Point sourceRefPoint = sourceEditPart.getSourceConnectionAnchor(request).getReferencePoint();
-        
+
         rawData.getSrcPoint().setLocation(sourceRefPoint);
-        
+
     }
 
     @objid ("65c2c8bd-33f7-11e2-95fe-001ec947c8cc")
@@ -537,11 +548,12 @@ public class RedrawConnectionTool extends AbstractConnectionCreationTool {
         } else {
             this.currentRoutingMode = getPrimaryRoutingMode();
         }
-        
+
     }
 
     /**
      * Same as {@link org.eclipse.gef.tools.TargetingTool#setTargetEditPart(EditPart) setTargetEditPart(EditPart)} but returns whether a change was done or not.
+     *
      * @param editPart The new edit part, may be null
      * @return true if the edit part was changed, false if it is still the same.
      */
@@ -565,7 +577,7 @@ public class RedrawConnectionTool extends AbstractConnectionCreationTool {
             handleButtonDown(1);
             handleButtonUp(1);
         }
-        
+
     }
 
     /**
@@ -585,11 +597,12 @@ public class RedrawConnectionTool extends AbstractConnectionCreationTool {
             getTargetRequest().setTargetEditPart(tmpEP);
             getTargetRequest().setType(type);
         }
-        
+
     }
 
     /**
      * Hacked to erase the additional feedback shown on target edit part.
+     *
      * @see #showTargetFeedback()
      */
     @objid ("65c2c8d3-33f7-11e2-95fe-001ec947c8cc")
@@ -599,7 +612,7 @@ public class RedrawConnectionTool extends AbstractConnectionCreationTool {
         if (this.targetEditPart != null) {
             this.targetEditPart.eraseTargetFeedback(getTargetRequest());
         }
-        
+
     }
 
     @objid ("65c2c8d7-33f7-11e2-95fe-001ec947c8cc")
@@ -622,7 +635,7 @@ public class RedrawConnectionTool extends AbstractConnectionCreationTool {
         if (mustReload) {
             this.originalDiagram.load();
         }
-        
+
     }
 
 }

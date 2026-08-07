@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.update.repo;
 
@@ -46,6 +46,7 @@ public class UpdateDescriptor {
 
     /**
      * Constructor initializing all fields.
+     *
      * @param id the item's identifier.
      * @param label the item's label.
      * @param currentVersion the current version of the item.
@@ -54,7 +55,7 @@ public class UpdateDescriptor {
      * @param downloadLink the link to download the physical item.
      */
     @objid ("bc206c0a-b5fa-4647-868f-f97694094398")
-    public  UpdateDescriptor(String id, String label, String currentVersion, String newVersion, String documentationLink, String downloadLink) {
+    public UpdateDescriptor(String id, String label, String currentVersion, String newVersion, String documentationLink, String downloadLink) {
         super();
         this.id = id;
         this.label = label;
@@ -62,10 +63,11 @@ public class UpdateDescriptor {
         this.newVersion = newVersion;
         this.documentationLink = documentationLink;
         this.downloadLink = downloadLink;
-        
+
     }
 
     /**
+     *
      * @return the current version of the item.
      */
     @objid ("085ff909-4421-442e-8d46-cfbdc35f9e37")
@@ -74,6 +76,7 @@ public class UpdateDescriptor {
     }
 
     /**
+     *
      * @return a documentation web page link.
      */
     @objid ("b7902f65-26c7-476d-819d-336b28f436f4")
@@ -82,6 +85,7 @@ public class UpdateDescriptor {
     }
 
     /**
+     *
      * @return the link to download the physical item.
      */
     @objid ("0f42091c-9025-4087-993a-a2413c8bf5e0")
@@ -90,6 +94,7 @@ public class UpdateDescriptor {
     }
 
     /**
+     *
      * @return the item's identifier.
      */
     @objid ("b141f1ff-d099-4ccd-8a57-47ce0992bbc4")
@@ -98,6 +103,7 @@ public class UpdateDescriptor {
     }
 
     /**
+     *
      * @return the item's label.
      */
     @objid ("7963e7f0-c9f1-4515-9733-74d992126063")
@@ -106,6 +112,7 @@ public class UpdateDescriptor {
     }
 
     /**
+     *
      * @return the latest version available on the update site for this item.
      */
     @objid ("6ab2e1b8-9840-4447-9f70-f468b129e298")

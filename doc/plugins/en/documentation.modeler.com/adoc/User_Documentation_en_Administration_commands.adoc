@@ -1,0 +1,13 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= Administration commands
+
+
+*  <<User_Documentation_en_Administration_commands_Check_repository.adoc#,Check repository...>> : Checks the repository consistency.
+*  <<User_Documentation_en_Administration_commands_Check_tag.adoc#,Create a tag...>> : Creates a tag from the last version of the repository.
+*  <<User_Documentation_en_Administration_commands_Cleanup_working_copy.adoc#,Cleanup working copy>> : Clean up the working copy

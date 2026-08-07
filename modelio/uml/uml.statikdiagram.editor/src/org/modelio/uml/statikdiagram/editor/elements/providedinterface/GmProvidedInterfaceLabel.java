@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.providedinterface;
 
@@ -34,7 +34,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Label representing an {@link ProvidedInterface}.
- * 
+ *
  * @author cmarin
  */
 @objid ("3651569a-55b7-11e2-877f-002564c97630")
@@ -55,22 +55,23 @@ public class GmProvidedInterfaceLabel extends GmDefaultModelElementLabel {
      * Constructor for deserialization only.
      */
     @objid ("365156a6-55b7-11e2-877f-002564c97630")
-    public  GmProvidedInterfaceLabel() {
-        
+    public GmProvidedInterfaceLabel() {
+
     }
 
     /**
      * Constructor.
+     *
      * @param diagram The diagram
      * @param el The represented element, may be null.
      * @param ref The represented element reference, may not be null.
      */
     @objid ("365156a9-55b7-11e2-877f-002564c97630")
-    public  GmProvidedInterfaceLabel(IGmDiagram diagram, ProvidedInterface el, MRef ref) {
+    public GmProvidedInterfaceLabel(IGmDiagram diagram, ProvidedInterface el, MRef ref) {
         super(diagram, ref);
         this.element = el;
         init();
-        
+
     }
 
     @objid ("3652dd58-55b7-11e2-877f-002564c97630")
@@ -102,7 +103,7 @@ public class GmProvidedInterfaceLabel extends GmDefaultModelElementLabel {
                 break;
             }
         }
-        
+
     }
 
     @objid ("3652dd7e-55b7-11e2-877f-002564c97630")
@@ -110,19 +111,19 @@ public class GmProvidedInterfaceLabel extends GmDefaultModelElementLabel {
     protected void setParent(GmCompositeNode parent) {
         if (getParent() != parent) {
             super.setParent(parent);
-        
+
             if (parent != null)
                 getPersistedStyle().setCascadedStyle(parent.getPersistedStyle());
         }
-        
+
     }
 
     @objid ("365463dc-55b7-11e2-877f-002564c97630")
     private String computeSignature(ProvidedInterface att) {
         final List<Interface> types = att.getProvidedElement();
-        
+
         String typename = ""; //"<none>";
-        
+
         if (!types.isEmpty()) {
             StringBuilder s = new StringBuilder();
             for (Interface t : types) {
@@ -139,7 +140,7 @@ public class GmProvidedInterfaceLabel extends GmDefaultModelElementLabel {
     private void init() {
         setShowMetaclassKeyword(false);
         setShowMetaclassIcon(false);
-        
+
     }
 
     @objid ("365463e5-55b7-11e2-877f-002564c97630")
@@ -158,17 +159,17 @@ public class GmProvidedInterfaceLabel extends GmDefaultModelElementLabel {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmProvidedInterfaceLabel.", GmProvidedInterfaceLabel.MINOR_VERSION);
-        
+
     }
 
     @objid ("365463f7-55b7-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (ProvidedInterface) resolveRef(this.getRepresentedRef());
-        
+
     }
 
     @objid ("365463fc-55b7-11e2-877f-002564c97630")

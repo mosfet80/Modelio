@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -44,33 +43,33 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("001ab350-c4bf-1fd8-97fe-001ec947cd2a")
 public class RaisedExceptionImpl extends UmlModelElementImpl implements RaisedException {
-    @objid ("2eeb891b-21bd-4dc2-8490-c8842abe9099")
+    @objid ("cda0e6de-5516-4bee-be99-cdd4784a24bf")
     @Override
     public Classifier getThrownType() {
         Object obj = getDepVal(((RaisedExceptionSmClass)getClassOf()).getThrownTypeDep());
         return (obj instanceof Classifier)? (Classifier)obj : null;
     }
 
-    @objid ("752c38b8-7d58-4f3d-a0ff-033f5195fd78")
+    @objid ("3ee74545-b00a-4863-b7bf-d08bd34dec33")
     @Override
     public void setThrownType(Classifier value) {
         appendDepVal(((RaisedExceptionSmClass)getClassOf()).getThrownTypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("9bb3f9aa-0847-4a62-b66a-11c1a863e682")
+    @objid ("83dd28ea-df43-4506-91b3-2c1a669f89fc")
     @Override
     public Operation getThrower() {
         Object obj = getDepVal(((RaisedExceptionSmClass)getClassOf()).getThrowerDep());
         return (obj instanceof Operation)? (Operation)obj : null;
     }
 
-    @objid ("e65d63a3-4574-4d08-a67a-5be4ba1edece")
+    @objid ("00295f52-b7ff-4a75-937b-66a6d73e8f3f")
     @Override
     public void setThrower(Operation value) {
         appendDepVal(((RaisedExceptionSmClass)getClassOf()).getThrowerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("72f008b7-be20-4063-aa24-34cec938499b")
+    @objid ("6aa5a553-d984-4059-ac88-ddbff9267b75")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -82,22 +81,22 @@ public class RaisedExceptionImpl extends UmlModelElementImpl implements RaisedEx
         return super.getCompositionOwner();
     }
 
-    @objid ("de9ad780-1429-4cb0-95d3-427a510c5fb7")
+    @objid ("344329ef-09c2-4603-a2ad-53c52f4d8d0a")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // Thrower
         dep = ((RaisedExceptionSmClass)getClassOf()).getThrowerDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("1d55b7ec-f84d-4815-a450-fee7498b56b4")
+    @objid ("2c71ebbd-482f-499b-a60c-078fcf2af8ba")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitRaisedException(this);

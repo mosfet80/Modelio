@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.centralbuffer.v0;
 
@@ -89,12 +89,13 @@ public class _GmCentralBuffer extends GmCompositeNode implements IImageableNode 
 
     /**
      * Default constructor.
+     *
      * @param diagram the diagram in which this gm is unmasked.
      * @param theCentralBuffer the represented central buffer, may be null.
      * @param ref a reference to the represented central buffer.
      */
     @objid ("29f0813b-55b6-11e2-877f-002564c97630")
-    public  _GmCentralBuffer(IGmDiagram diagram, CentralBufferNode theCentralBuffer, MRef ref) {
+    public _GmCentralBuffer(IGmDiagram diagram, CentralBufferNode theCentralBuffer, MRef ref) {
         super(diagram, ref);
         this.element = theCentralBuffer;
         this.header = new GmActivityNodeHeader(diagram, ref);
@@ -104,14 +105,14 @@ public class _GmCentralBuffer extends GmCompositeNode implements IImageableNode 
         addChild(this.imageModeHeader);
         this.objectNodeStateLabel = new GmObjectNodeStateLabel(diagram, ref);
         addChild(this.objectNodeStateLabel);
-        
+
     }
 
     /**
      * Empty constructor, needed for serialisation.
      */
     @objid ("29f08147-55b6-11e2-877f-002564c97630")
-    public  _GmCentralBuffer() {
+    public _GmCentralBuffer() {
         // empty constructor for the serialization
     }
 
@@ -139,6 +140,7 @@ public class _GmCentralBuffer extends GmCompositeNode implements IImageableNode 
 
     /**
      * Get the stereotype image to display.
+     *
      * @return the stereotype image to display. Must not be <i>null</i>.
      */
     @objid ("29f207cb-55b6-11e2-877f-002564c97630")
@@ -160,12 +162,12 @@ public class _GmCentralBuffer extends GmCompositeNode implements IImageableNode 
         if (ret != null) {
             return ret;
         }
-        
+
         ret = SIMPLEKEYS.getStyleKey(metakey);
         if (ret != null) {
             return ret;
         }
-        
+
         ret = IMAGEKEYS.getStyleKey(metakey);
         return ret;
     }
@@ -186,7 +188,7 @@ public class _GmCentralBuffer extends GmCompositeNode implements IImageableNode 
         default:
             return Collections.emptyList();
         }
-        
+
     }
 
     @objid ("29f207ea-55b6-11e2-877f-002564c97630")
@@ -210,7 +212,7 @@ public class _GmCentralBuffer extends GmCompositeNode implements IImageableNode 
             break;
         }
         }
-        
+
     }
 
     @objid ("29f207f0-55b6-11e2-877f-002564c97630")
@@ -222,7 +224,7 @@ public class _GmCentralBuffer extends GmCompositeNode implements IImageableNode 
         firePropertyChange(PROPERTY_LABEL, oldLabel, this.header.getMainLabel());
         // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("29f207f3-55b6-11e2-877f-002564c97630")
@@ -263,10 +265,10 @@ public class _GmCentralBuffer extends GmCompositeNode implements IImageableNode 
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmCentralBuffer.", _GmCentralBuffer.MINOR_VERSION);
-        
+
     }
 
     @objid ("29f38e6e-55b6-11e2-877f-002564c97630")
@@ -274,10 +276,10 @@ public class _GmCentralBuffer extends GmCompositeNode implements IImageableNode 
         super.read(in);
         this.header = (GmActivityNodeHeader) this.getChildren().get(0);
         this.element = (CentralBufferNode) resolveRef(getRepresentedRef());
-        
+
         this.imageModeHeader = (GmDefaultModelElementLabel) this.getChildren().get(1);
         this.objectNodeStateLabel = (GmElementLabel) this.getChildren().get(2);
-        
+
     }
 
     @objid ("29f38e73-55b6-11e2-877f-002564c97630")
@@ -287,11 +289,11 @@ public class _GmCentralBuffer extends GmCompositeNode implements IImageableNode 
         super.read(in);
         this.header = (GmActivityNodeHeader) this.getChildren().get(0);
         this.element = (CentralBufferNode) resolveRef(getRepresentedRef());
-        
+
         this.imageModeHeader = (GmDefaultModelElementLabel) this.getChildren().get(1);
         this.objectNodeStateLabel = new GmObjectNodeStateLabel(getDiagram(), getRepresentedRef());
         addChild(this.objectNodeStateLabel);
-        
+
     }
 
     @objid ("29f38e78-55b6-11e2-877f-002564c97630")

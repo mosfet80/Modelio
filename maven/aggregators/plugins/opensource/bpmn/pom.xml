@@ -1,0 +1,23 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.modelio</groupId>
+    <artifactId>modelio-parent</artifactId>
+    <version>6.2.0-SNAPSHOT</version>
+    <relativePath>../../../../modelio-parent</relativePath>
+  </parent>
+
+  <artifactId>aggregator-modelio.bpmn-opensource</artifactId>
+  <packaging>pom</packaging>
+
+  <!-- BPMN modules for open-source build: base modules only (no ext_com, no ext_org for BPMN) -->
+  <modules>
+    <module>../../../../../modelio/bpmn/bpmn.diagram.editor</module>
+    <module>../../../../../modelio/bpmn/bpmn.metamodel.api</module>
+    <module>../../../../../modelio/bpmn/bpmn.metamodel.contribution</module>
+    <module>../../../../../modelio/bpmn/bpmn.metamodel.implementation</module>
+    <module>../../../../../modelio/bpmn/bpmn.ui</module>
+    <module>../../../../../modelio/bpmn/bpmn.xml</module>
+  </modules>
+</project>

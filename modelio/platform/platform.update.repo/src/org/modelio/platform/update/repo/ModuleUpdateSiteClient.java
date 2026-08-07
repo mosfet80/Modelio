@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.update.repo;
 
@@ -43,15 +43,15 @@ public class ModuleUpdateSiteClient {
     private final IAuthData authData;
 
     @objid ("11e97318-b155-4818-9659-3880da38ef2e")
-    public  ModuleUpdateSiteClient(String updateSite) {
+    public ModuleUpdateSiteClient(String updateSite) {
         this(updateSite, null);
     }
 
     @objid ("c40ae9f0-09d0-4155-b4e5-07f06cac372e")
-    public  ModuleUpdateSiteClient(String updateSite, IAuthData auth) {
+    public ModuleUpdateSiteClient(String updateSite, IAuthData auth) {
         this.updateSite = updateSite;
         this.authData = auth;
-        
+
     }
 
     @objid ("d3aa89b5-edb5-44b3-b2dd-8c5eb87cef8f")

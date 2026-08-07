@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.service.impl.common;
 
@@ -51,14 +51,15 @@ public final class ConfigurationImpl {
 
     /**
      * C'tor.
+     *
      * @param module the module this configuration is build for.
      * @param resourcesPath The module deployment path
      */
     @objid ("0a08a22e-ca53-439f-953f-bd183d5bb6b9")
-    public  ConfigurationImpl(GModule module, Path resourcesPath) {
+    public ConfigurationImpl(GModule module, Path resourcesPath) {
         this.module = module;
         this.resourcesPath = resourcesPath;
-        
+
     }
 
     @objid ("7b768f76-19fa-4492-b44c-9c4494e96b40")
@@ -78,12 +79,12 @@ public final class ConfigurationImpl {
     @objid ("58fb6dbc-0644-4e55-a17f-59ad3065092c")
     Map<String, String> getParameters(Predicate<ModuleParameter> visibilityTester) {
         Map<String, String> results = new HashMap<>();
-        
+
         GProperties gProperties = this.module.getProperties();
         ModuleComponent moduleElement = this.module.getModuleElement();
         if (moduleElement != null) {
             EList<ModuleParameter> configParams = moduleElement.getModuleParameter();
-        
+
             for (ModuleParameter configParam : configParams) {
                 if (visibilityTester.test(configParam)) {
                     results.put(configParam.getName(), gProperties.getValue(configParam.getName(), ""));
@@ -133,7 +134,7 @@ public final class ConfigurationImpl {
                 }
             }
         }
-        
+
     }
 
     @objid ("472b1d39-e105-4c9e-9963-97990500d935")

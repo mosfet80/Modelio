@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.preferences;
 
@@ -40,10 +40,10 @@ public class DiagramPreferencesPage extends FieldEditorPreferencePage {
      * Public constructor
      */
     @objid ("1a220966-8ed8-419f-84d2-d7ff8cda99bc")
-    public  DiagramPreferencesPage() {
+    public DiagramPreferencesPage() {
         super(GRID);
         init();
-        
+
     }
 
     @objid ("14137be1-5eeb-4d12-a42a-f02e2193ec5f")
@@ -54,21 +54,21 @@ public class DiagramPreferencesPage extends FieldEditorPreferencePage {
                 {DiagramEditor.I18N.getString("DiagramPreferences.DeleteMode.DELETE"), DeleteMode.DELETE.name()},
                 {DiagramEditor.I18N.getString("DiagramPreferences.DeleteMode.MASK"), DeleteMode.MASK.name()}
             };
-        
+
             RadioGroupFieldEditor radioGroupFieldEditor = new RadioGroupFieldEditor(DELETE_MODE_PREFKEY,
                     EMPTY,
                     1, // nb columns
                     logLevels, getFieldEditorParent(),
                     true);
             addField(radioGroupFieldEditor);
-        
+
     }
 
     @objid ("96589756-d683-4ac5-9131-bc3585aba6d7")
     private void init() {
         setPreferenceStore(Preferences.getPreferences());
         setDescription(DiagramEditor.I18N.getString("DiagramPreferences.DeleteMode.label"));
-        
+
     }
 
     @objid ("58a8520d-120a-41a6-af99-cd3e230c2cf5")

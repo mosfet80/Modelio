@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.linkeditor.gef.background.typeselection;
 
@@ -44,7 +63,7 @@ import org.modelio.platform.ui.UIColor;
  */
 @objid ("1b960462-5e33-11e2-b81d-002564c97630")
 class TypeSelectionLabelProvider extends LabelProvider implements IStyledLabelProvider {
-    @objid ("353539ef-4e10-4f40-b2a0-d07f701d486d")
+    @objid ("5160ac27-acb4-4cb2-ac0c-f2324bcc2974")
     private Styler auxStyler;
 
     @objid ("1b98658f-5e33-11e2-b81d-002564c97630")
@@ -63,7 +82,7 @@ class TypeSelectionLabelProvider extends LabelProvider implements IStyledLabelPr
     @objid ("1b98659c-5e33-11e2-b81d-002564c97630")
     private Image getModuleImage(final ModuleComponent moduleComponent) {
         Image icon = null;
-        
+
         // If it is valid, get the module image
         if (moduleComponent.isValid()) {
             icon = MdaResources.getModuleImage(moduleComponent);
@@ -74,7 +93,7 @@ class TypeSelectionLabelProvider extends LabelProvider implements IStyledLabelPr
     @objid ("1b9865a2-5e33-11e2-b81d-002564c97630")
     private Image getStereotypeImage(final Stereotype stereotype) {
         Image image = null;
-        
+
         // If it is valid, get the stereotype image
         if (stereotype.isValid()) {
             image = MdaResources.getIcon(stereotype);
@@ -83,10 +102,10 @@ class TypeSelectionLabelProvider extends LabelProvider implements IStyledLabelPr
     }
 
     @objid ("c3d57e8c-b3f6-49ca-99f5-e1e910df1fb2")
-    public  TypeSelectionLabelProvider(Viewer viewer) {
+    public TypeSelectionLabelProvider(Viewer viewer) {
         LocalResourceManager res = new LocalResourceManager(JFaceResources.getResources(), viewer.getControl());
         Font auxFont = res.createFont(FontDescriptor.createFrom(viewer.getControl().getFont()).withStyle(SWT.ITALIC));
-        
+
         this.auxStyler = new Styler() {
             @Override
             public void applyStyles(TextStyle textStyle) {
@@ -94,7 +113,6 @@ class TypeSelectionLabelProvider extends LabelProvider implements IStyledLabelPr
                 textStyle.foreground = UIColor.LABEL_TIP_FG;
             }
         };
-        
     }
 
     @objid ("77c4193b-4ede-40a4-87b3-79fc8edf7eda")
@@ -109,7 +127,6 @@ class TypeSelectionLabelProvider extends LabelProvider implements IStyledLabelPr
         } else {
             return new StyledString(element.toString());
         }
-        
     }
 
     @objid ("269f0a59-5d52-4cfb-b26d-35fce0f62749")
@@ -120,20 +137,20 @@ class TypeSelectionLabelProvider extends LabelProvider implements IStyledLabelPr
     @objid ("954190bf-a27e-45ad-b030-d9cad966deca")
     private StyledString getStyledText(LinkTypeDescriptor type) {
         StyledString result = new StyledString();
-        
+
         // If there is a stereotype use its name as the main text and complete it with the metaclass
         if (type.getStereotype() != null) {
             result.append("\u00AB ");
-        
+
             String label = MdaResources.getLabel(type.getStereotype());
             if (label == null || label.isEmpty()) {
                 label = type.getStereotype().getName();
             }
-        
+
             result.append(label);
             result.append(" \u00BB - ");
             result.append(type.getMClass().getQualifiedName(), this.auxStyler);
-        
+
         } else {
             // no stereotype, use the metaclass qualified name
             result.append(type.getMClass().getQualifiedName());
@@ -144,7 +161,7 @@ class TypeSelectionLabelProvider extends LabelProvider implements IStyledLabelPr
     @objid ("fa053c46-80bf-469d-a02a-9568508e73b9")
     private StyledString getModuleLabel(final ModuleComponent moduleComponent) {
         StyledString result = new StyledString();
-        
+
         // If it is valid, get the module image
         if (moduleComponent.isValid()) {
             result.append(MdaResources.getLabel(moduleComponent));

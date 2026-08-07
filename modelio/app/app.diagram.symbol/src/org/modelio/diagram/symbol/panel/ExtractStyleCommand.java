@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.symbol.panel;
 
@@ -42,10 +42,10 @@ class ExtractStyleCommand {
     private Shell shell;
 
     @objid ("ace8a2f6-0eac-4e11-a3f2-263ce1c2e110")
-    public  ExtractStyleCommand(ISymbolPanelModel model) {
+    public ExtractStyleCommand(ISymbolPanelModel model) {
         this.model = model;
         this.shell = model.getSwtShell();
-        
+
     }
 
     @objid ("5bfaf6a9-7470-47fc-943a-0bde7d17d9e7")
@@ -54,13 +54,13 @@ class ExtractStyleCommand {
         final IStyle editedStyle = this.model.getStyleInput();
         final NamedStyle parentStyle = ISymbolPanelModel.getNamedStyle(editedStyle);
         final ISelection selection = this.model.getPanelSelection().getSelection();
-        
+
         final boolean parentIsTheme = parentStyle.isTheme();
         final boolean createTheme = this.model.shouldCreateTheme();
-        
+
         String suffix = createTheme ? ".Theme" : ".Style";
         String parentKind = parentIsTheme ? I18N.getMessage("SymbolPanelProvider.isTheme") : I18N.getMessage("SymbolPanelProvider.isStyle");
-        
+
         final IInputValidator validator = (String newText) -> {
             // Check name is valid and unique
             if (!NamedStyle.isValidName(newText)) {
@@ -70,23 +70,23 @@ class ExtractStyleCommand {
             }
             return null;
         };
-        
+
         final ColoredInputDialog dlg = new ColoredInputDialog(this.shell,
                 I18N.getMessage("$ExtractStyle.Title" + suffix, parentStyle.getName(), parentKind),
                 I18N.getString("$ExtractStyle.Prompt" + suffix),
                 I18N.getString("$ExtractStyle.DefaultName" + suffix), validator);
-        
+
         dlg.open();
         final String name = dlg.getValue();
         if (name == null) {
             return;
         }
-        
+
         // Create the style
         final NamedStyle newStyle = DiagramStyles.getStyleManager().createStyle(name, parentStyle.getName(), createTheme);
         if (newStyle != null) {
             editedStyle.setBaseStyle(newStyle);
-        
+
             // Add local properties
             StyleKey[] styleKeysToExtract;
             if (allLocals) {
@@ -98,16 +98,16 @@ class ExtractStyleCommand {
                         .filter(key -> key != null && editedStyle.isLocal(key))
                         .toArray(StyleKey[]::new);
             }
-        
+
             for (StyleKey styleKey : styleKeysToExtract) {
                 newStyle.setProperty(styleKey, editedStyle.getProperty(styleKey));
                 editedStyle.normalize(styleKey);
             }
-        
+
             // Persist the style
             DiagramStyles.getStyleManager().save(newStyle);
         }
-        
+
     }
 
 }

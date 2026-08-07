@@ -1,0 +1,4 @@
+Bundle-SymbolicName: com.modeliosoft.modelio.documentation.metamodel.analyst;singleton=true
+Bundle-Version: 6.2.0.qualifier 
+Bundle-Name: Analyst Metamodel documentation
+Bundle-Vendor: Docaposte

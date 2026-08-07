@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.api.dg.common;
 
@@ -30,14 +30,14 @@ import org.modelio.diagram.elements.core.node.GmNodeModel;
 
 /**
  * implementation for DG that have no child node.
- * 
+ *
  * @author cmarin
  * @since 3.5
  */
 @objid ("143bee6b-7476-42c3-b64a-132446165033")
 public class LeafNodeDG extends DiagramNode {
     @objid ("14e005fc-d1b5-4b6c-bcf6-d51af93f2456")
-    public  LeafNodeDG(DiagramHandle diagramHandle, GmNodeModel gmNode) {
+    public LeafNodeDG(DiagramHandle diagramHandle, GmNodeModel gmNode) {
         super(diagramHandle, gmNode);
     }
 

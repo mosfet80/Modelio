@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.dg.statik;
 
@@ -40,11 +40,12 @@ import org.modelio.uml.statikdiagram.editor.elements.signal.GmSignalPrimaryNode;
 @objid ("ba664ce5-15c8-4b91-9039-08318b795c32")
 public class SignalDG extends PortContainerDG {
     /**
+     *
      * @param diagramHandle The diagram manipulation class.
      * @param node The gm node represented by this class.
      */
     @objid ("890f2579-65ec-4c3c-b621-6f020bff3606")
-    public  SignalDG(DiagramHandle diagramHandle, GmNodeModel node) {
+    public SignalDG(DiagramHandle diagramHandle, GmNodeModel node) {
         super(diagramHandle, node);
     }
 
@@ -52,28 +53,28 @@ public class SignalDG extends PortContainerDG {
     @Override
     protected List<IDiagramNode> getPrimaryChildrenNodes() {
         List<IDiagramNode> nodes = new ArrayList<>();
-        
+
         // Inner nodes
         GmSignalPrimaryNode mainNode = (GmSignalPrimaryNode) getPrimaryNode();
-        
+
         // Attributes
         GmCompositeNode attributeZone = mainNode.getCompositeFor(Attribute.class);
         if (attributeZone != null) {
             nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle, attributeZone.getVisibleChildren()));
         }
-        
+
         // CollaborationUse
         GmCompositeNode collabuseZone = mainNode.getCompositeFor(CollaborationUse.class);
         if (collabuseZone != null) {
             nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle, collabuseZone.getVisibleChildren()));
         }
-        
+
         // NameSpace
         GmCompositeNode namespaceZone = mainNode.getCompositeFor(NameSpace.class);
         if (namespaceZone != null) {
             nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle, namespaceZone.getVisibleChildren()));
         }
-        
+
         // Operations
         GmCompositeNode operationZone = mainNode.getCompositeFor(Operation.class);
         if (operationZone != null) {

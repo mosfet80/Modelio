@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel.meta.fake;
 
@@ -42,26 +42,28 @@ public class FakeSmDependency extends SmMultipleDependency {
     private SmDependency symetric;
 
     /**
+     *
      * @param srcClass the source class
      * @param dep_name the name
      */
     @objid ("c2281b9a-37a9-420f-8bc0-a9f7604d28cd")
-    public  FakeSmDependency(SmClass srcClass, String dep_name) {
+    public FakeSmDependency(SmClass srcClass, String dep_name) {
         init(dep_name, srcClass,
                 (SmClass)srcClass.getMetamodel().getMClass(MObject.class),
                 0, -1,
                 SmDirective.SMCDPARTOF);
-        
+
     }
 
     /**
      * Get or create a fake dependency from a dependency that existed on the metaclass before it was discarded.
      * <p>
+     *
      * @param srcClass the source fake metaclass
      * @param orig a dependency that existed on the metaclass before it becomes fake.
      */
     @objid ("553a7b47-211e-4567-b4cc-f58497c107ea")
-    public  FakeSmDependency(FakeSmClass srcClass, SmDependency orig) {
+    public FakeSmDependency(FakeSmClass srcClass, SmDependency orig) {
         init(orig.getName(), getOwner(), orig.getType(), orig.getMinCardinality(), orig.getMaxCardinality());
         setSymetric(orig.getSymetric());
         setFlag(SmDirective.SMCDCOMPONENT, orig.isComposition());
@@ -70,19 +72,19 @@ public class FakeSmDependency extends SmMultipleDependency {
         setFlag(SmDirective.SMCDTODELETE, orig.isToDelete());
         setFlag(SmDirective.SMCDDYNAMIC, orig.isDynamic());
         setFlag(SmDirective.SMCDTRANSIENT, orig.isTransient());
-        
+
     }
 
     @objid ("9bfb1765-8785-4b74-a2a7-580f97838ad6")
-    public  FakeSmDependency(FakeSmClass srcClass, MDependencyDescriptor desc) {
+    public FakeSmDependency(FakeSmClass srcClass, MDependencyDescriptor desc) {
         SmClass targetMClass = (SmClass)srcClass.getMetamodel().getMClass(desc.getTarget().getQualifiedName());
         init(desc.getName(),
                 srcClass,
                 targetMClass,
                 desc.getMin(),
                 desc.getMax());
-        
-        
+
+
         switch (desc.getAggregation()) {
         case Composition:
             setFlag(SmDirective.SMCDCOMPONENT, true);
@@ -95,9 +97,9 @@ public class FakeSmDependency extends SmMultipleDependency {
             setFlag(SmDirective.SMCDSHAREDCOMPONENT, true);
             break;
         }
-        
+
         setFlag(SmDirective.SMCD_KEEP_DELETED_ON_READONLY, desc.isWeakReference());
-        
+
         String oppName = desc.getOppositeName() ;
         if (oppName != null && !oppName.isEmpty()) {
             SmDependency oppDep = targetMClass.findDependencyDef(oppName);
@@ -105,7 +107,7 @@ public class FakeSmDependency extends SmMultipleDependency {
                 setSymetric(oppDep);
             }
         }
-        
+
     }
 
     @objid ("207809bc-7a98-4dbc-8a22-31438e14d536")
@@ -128,7 +130,7 @@ public class FakeSmDependency extends SmMultipleDependency {
             // Should not happen
             return l;
         }
-        
+
     }
 
     @objid ("458fb881-449b-496d-90a5-bc8f17b377e6")
@@ -141,10 +143,11 @@ public class FakeSmDependency extends SmMultipleDependency {
         } else {
             return SmMultipleDependency.EMPTY;
         }
-        
+
     }
 
     /**
+     *
      * @param symetric the opposite dependency
      */
     @objid ("e98da180-fc26-4d50-8b3c-e1973edd10aa")
@@ -170,7 +173,7 @@ public class FakeSmDependency extends SmMultipleDependency {
         } else {
             this.smFlags.remove(flag);
         }
-        
+
     }
 
 }

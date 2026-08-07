@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.parts.data.element.single;
 
@@ -43,28 +43,28 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  */
 @objid ("6dfa6d33-c68c-4ab2-a595-14fd0b8de3c2")
 public class ElementEditor extends AbstractCellEditor {
+    @objid ("12e343e9-1586-4013-9722-e4d14a224add")
+    private Text text;
+
     @objid ("861cca80-73c1-4cb6-9b27-c4dd07d8d02d")
     private final IModelioPickingService pickingService;
 
     @objid ("8ae77023-7c3f-40c1-bfcd-c050e49b6505")
     private final ICoreSession session;
 
-    @objid ("6cc85d9c-c6db-4e79-993e-7b7ac902c248")
-    private Text text;
-
     @objid ("f970801e-a1fb-4572-8c08-70b0c6eb289a")
     private TextElement textElement;
 
     /**
      * Build a new editor.
+     *
      * @param session a model session, needed to look for elements.
      * @param pickingService the picking service, to manually select an element in the model.
      */
     @objid ("96c3a426-0870-424c-b392-c4f4c63e04e5")
-    public  ElementEditor(ICoreSession session, IModelioPickingService pickingService) {
+    public ElementEditor(ICoreSession session, IModelioPickingService pickingService) {
         this.session = session;
         this.pickingService = pickingService;
-        
     }
 
     /**
@@ -79,7 +79,7 @@ public class ElementEditor extends AbstractCellEditor {
             // only add the focus and traverse listeners for inline mode
             // editorControl.addFocusListener(this.focusListener);
             // editorControl.addTraverseListener(this.traverseListener);
-        
+
             editorControl.addKeyListener(new KeyListener() {
                 @Override
                 public void keyReleased(KeyEvent e) {
@@ -87,7 +87,7 @@ public class ElementEditor extends AbstractCellEditor {
                         close();
                     }
                 }
-        
+
                 @Override
                 public void keyPressed(KeyEvent e) {
                     if (e.keyCode == SWT.ESC) {
@@ -96,7 +96,6 @@ public class ElementEditor extends AbstractCellEditor {
                 }
             });
         }
-        
     }
 
     @objid ("b01ef03e-6966-4bac-9d7d-f71076782c67")
@@ -118,7 +117,6 @@ public class ElementEditor extends AbstractCellEditor {
         // }
         this.textElement = null;
         super.close();
-        
     }
 
     @objid ("9791d923-ddfb-4edf-8b8d-574de2485dfc")
@@ -156,7 +154,6 @@ public class ElementEditor extends AbstractCellEditor {
             // editorControl.removeFocusListener(this.focusListener);
             // editorControl.removeTraverseListener(this.traverseListener);
         }
-        
     }
 
     /**
@@ -180,23 +177,22 @@ public class ElementEditor extends AbstractCellEditor {
         } else {
             this.textElement.setValue(null);
         }
-        
     }
 
     @objid ("a76a742c-9bff-4bd6-9f7a-e302337ac250")
     @Override
     protected Control activateCell(Composite parentComposite, Object originalCanonicalValue) {
         this.text = createEditorControl(parentComposite);
-        
+
         this.textElement.addListener(new ITextElementSelectionListener() {
             @Override
             public void selectedElementChanged(MObject oldElement, MObject newElement) {
                 commit(MoveDirectionEnum.NONE, true);
             }
         });
-        
+
         setEditorValue(originalCanonicalValue);
-        
+
         this.textElement.getTextControl().selectAll();
         this.textElement.getTextControl().setFocus();
         return this.text;

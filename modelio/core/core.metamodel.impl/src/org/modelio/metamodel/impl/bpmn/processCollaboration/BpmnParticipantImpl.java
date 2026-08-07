@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.processCollaboration;
 
 import java.util.ArrayList;
@@ -56,63 +55,63 @@ public class BpmnParticipantImpl extends BpmnBaseElementImpl implements BpmnPart
         return process != null && collab != null && Objects.equals(collab.getDefinedProcess(), process);
     }
 
-    @objid ("5395b26a-c8b1-4603-8068-a406ec9afb06")
+    @objid ("e245097b-8b0b-44b8-8d98-4c33e302d941")
     @Override
     public int getMultiplicityMin() {
         return (Integer) getAttVal(((BpmnParticipantSmClass)getClassOf()).getMultiplicityMinAtt());
     }
 
-    @objid ("6a0d2551-797f-45ab-94f4-23713b26ce68")
+    @objid ("490b63e6-ed82-41e4-bee8-a8dcf94bc2de")
     @Override
     public void setMultiplicityMin(int value) {
         setAttVal(((BpmnParticipantSmClass)getClassOf()).getMultiplicityMinAtt(), value);
     }
 
-    @objid ("d0f65cef-6953-4ee7-bec8-daf7d8d9b84d")
+    @objid ("074cbd63-3117-4d4b-9555-b4a97437c019")
     @Override
     public int getMultiplicityMax() {
         return (Integer) getAttVal(((BpmnParticipantSmClass)getClassOf()).getMultiplicityMaxAtt());
     }
 
-    @objid ("e101e5f4-81f9-4384-a7ba-653641e351b9")
+    @objid ("d648d19b-729b-4e02-bbab-9eaf51affd21")
     @Override
     public void setMultiplicityMax(int value) {
         setAttVal(((BpmnParticipantSmClass)getClassOf()).getMultiplicityMaxAtt(), value);
     }
 
-    @objid ("cdcd32b2-71ef-41aa-ac6f-a260af10baa9")
+    @objid ("5ddd00fa-b43b-40ae-9742-ae4e99e4b39d")
     @Override
     public BpmnProcess getProcess() {
         Object obj = getDepVal(((BpmnParticipantSmClass)getClassOf()).getProcessDep());
         return (obj instanceof BpmnProcess)? (BpmnProcess)obj : null;
     }
 
-    @objid ("97fc98db-d918-432c-b30f-f4a3f72e0e20")
+    @objid ("bb61767e-c680-408e-9475-ac42c26e2b38")
     @Override
     public void setProcess(BpmnProcess value) {
         appendDepVal(((BpmnParticipantSmClass)getClassOf()).getProcessDep(), (SmObjectImpl)value);
     }
 
-    @objid ("940b76a0-0b6b-4c8e-9046-5d11984780a6")
+    @objid ("140ae647-94e2-421a-abfe-162f16e3fb21")
     @Override
     public BpmnCollaboration getContainer() {
         Object obj = getDepVal(((BpmnParticipantSmClass)getClassOf()).getContainerDep());
         return (obj instanceof BpmnCollaboration)? (BpmnCollaboration)obj : null;
     }
 
-    @objid ("53eb965d-0d28-4696-aec5-fcfce9bdaca5")
+    @objid ("e46126a7-829d-4613-8399-46f496932549")
     @Override
     public void setContainer(BpmnCollaboration value) {
         appendDepVal(((BpmnParticipantSmClass)getClassOf()).getContainerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("0ce57be2-a8f7-4a4d-91aa-01e88fd7a3f6")
+    @objid ("8a332025-952d-40ef-a644-9028f5b13957")
     @Override
     public EList<BpmnEndPoint> getEndPointRefs() {
         return new SmList<>(this, ((BpmnParticipantSmClass)getClassOf()).getEndPointRefsDep());
     }
 
-    @objid ("37b99166-3dd5-41fe-8d9a-49f0921c11bd")
+    @objid ("cc9ad9e6-4eb6-4e2e-9979-bde3349be920")
     @Override
     public <T extends BpmnEndPoint> List<T> getEndPointRefs(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -125,16 +124,16 @@ public class BpmnParticipantImpl extends BpmnBaseElementImpl implements BpmnPart
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("1a410e19-491a-4fc9-a71d-b9228dbe76de")
+    @objid ("fedad0e4-cf43-4778-83d2-f62a1aca3e49")
     @Override
     public EList<BpmnInterface> getInterfaceRefs() {
         return new SmList<>(this, ((BpmnParticipantSmClass)getClassOf()).getInterfaceRefsDep());
     }
 
-    @objid ("3a441eb4-c5cb-46be-9150-bb6e1e91e169")
+    @objid ("6a713a07-0d84-4811-ac2b-72cb91dcd82e")
     @Override
     public <T extends BpmnInterface> List<T> getInterfaceRefs(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -147,10 +146,10 @@ public class BpmnParticipantImpl extends BpmnBaseElementImpl implements BpmnPart
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("8043a339-822a-4df8-8fad-a4018f6432f7")
+    @objid ("cb5240e0-225b-4828-835f-f55cb1d28e5b")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -162,22 +161,22 @@ public class BpmnParticipantImpl extends BpmnBaseElementImpl implements BpmnPart
         return super.getCompositionOwner();
     }
 
-    @objid ("35876fc9-defc-4d72-816b-a92668fa4163")
+    @objid ("2d52f810-aad7-4a61-bb14-948852b788ec")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // Container
         dep = ((BpmnParticipantSmClass)getClassOf()).getContainerDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("c5b98308-d39d-4b22-a8dc-dfc2b08f89e3")
+    @objid ("3cc3586c-75b0-450f-8fba-1c52f0dea37a")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitBpmnParticipant(this);

@@ -112,6 +112,7 @@
 == Handy tools
 
 * *<<Modeler-_modeler_handy_tools_advanced_search.adoc#,Modelio search tool>>*
+* *<<Modeler-_modeler_handy_tools_advanced_impact_analysis.adoc#,Impact analysis by query>>*
 * *<<Modeler-_modeler_handy_tools_model_audit.adoc#,Model audit>>*
 * *<<Modeler-_modeler_handy_tools_automatic_diagrams.adoc#,Automatic diagrams>>*
 * *<<Modeler-_modeler_handy_tools_modeling_wizard_patterns.adoc#,Modeling assistant>>*

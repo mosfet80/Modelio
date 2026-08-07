@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class ImplementationClass {
      * Tells whether a {@link ImplementationClass proxy} can be instantiated from a {@link MObject} checking it is a {@link Class} stereotyped << implementationClass >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,7 +73,7 @@ public class ImplementationClass {
 
     /**
      * Create a new {@link Class} stereotyped << implementationClass >> then instantiate a {@link ImplementationClass} proxy.
-     * 
+     *
      * @return a {@link ImplementationClass} proxy on the created {@link Class}.
      */
     @objid ("62145aea-4195-483d-91f0-6ed9c3ffe409")
@@ -83,9 +84,10 @@ public class ImplementationClass {
     }
 
     /**
-     * Tries to instantiate a {@link ImplementationClass} proxy from a {@link Class} stereotyped << implementationClass >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link ImplementationClass} proxy from a {@link Class} stereotyped << implementationClass >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a Class
      * @return a {@link ImplementationClass} proxy or <i>null</i>.
      */
@@ -95,9 +97,10 @@ public class ImplementationClass {
     }
 
     /**
-     * Tries to instantiate a {@link ImplementationClass} proxy from a {@link Class} stereotyped << implementationClass >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link ImplementationClass} proxy from a {@link Class} stereotyped << implementationClass >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link Class}
      * @return a {@link ImplementationClass} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -127,7 +130,8 @@ public class ImplementationClass {
     }
 
     /**
-     * Get the underlying {@link Class}. 
+     * Get the underlying {@link Class}.
+     *
      * @return the Class represented by this proxy, never null.
      */
     @objid ("f47ef29f-f6a3-4cee-bb01-6df184680e98")
@@ -139,11 +143,11 @@ public class ImplementationClass {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("a43c4f56-6cff-4949-8daf-38328881a0a8")
-    protected  ImplementationClass(Class elt) {
+    protected ImplementationClass(Class elt) {
         this.elt = elt;
     }
 
@@ -163,7 +167,7 @@ public class ImplementationClass {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "00bc0050-0000-006b-0000-000000000000");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -171,7 +175,7 @@ public class ImplementationClass {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

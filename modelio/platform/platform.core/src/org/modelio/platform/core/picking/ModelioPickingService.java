@@ -1,26 +1,26 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.core.picking;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.di.annotations.Creatable;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
@@ -55,7 +55,7 @@ public class ModelioPickingService implements IModelioPickingService {
         assert (this.currentSession == null);
         this.currentSession = new PickingSession(client);
         this.eventService.postAsyncEvent(this, ModelioEvent.PICKING_START, this.currentSession);
-        
+
         // Install a global key listener that will abort picking on ESC key
         Display.getCurrent().addFilter(SWT.KeyDown, this.displayEventFilter);
         return this.currentSession;
@@ -65,12 +65,12 @@ public class ModelioPickingService implements IModelioPickingService {
     @Override
     public void stopPicking(IPickingSession session) {
         assert (this.currentSession.equals(session));
-        
+
         Display.getCurrent().removeFilter(SWT.KeyDown, this.displayEventFilter);
-        
+
         this.eventService.postAsyncEvent(this, ModelioEvent.PICKING_STOP, this.currentSession);
         this.currentSession = null;
-        
+
     }
 
     @objid ("10ab6c36-4fc0-4f69-be68-eb2a8a16dd8c")
@@ -78,7 +78,7 @@ public class ModelioPickingService implements IModelioPickingService {
         if (ev.character==SWT.ESC) {
             this.currentSession.abort();
         }
-        
+
     }
 
     @objid ("008e6cbe-0592-106f-bbdd-001ec947cd2a")
@@ -87,7 +87,7 @@ public class ModelioPickingService implements IModelioPickingService {
         private final IPickingClient client;
 
         @objid ("008e92d4-0592-106f-bbdd-001ec947cd2a")
-        public  PickingSession(IPickingClient client) {
+        public PickingSession(IPickingClient client) {
             this.client = client;
         }
 

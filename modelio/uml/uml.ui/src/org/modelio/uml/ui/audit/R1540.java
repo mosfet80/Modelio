@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -48,7 +48,7 @@ public class R1540 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -99,14 +99,14 @@ public class R1540 extends AbstractUmlRule {
      * Default constructor for R1540
      */
     @objid ("f5b70a59-82d9-445d-82ec-874582e23020")
-    public  R1540() {
+    public R1540() {
         this.checkerInstance = new CheckR1540(this);
     }
 
     @objid ("71cb2b86-18cb-4b2f-995a-44880b22b7e8")
     private static class CheckR1540 extends AbstractControl {
         @objid ("43b1db6d-ed21-4c70-993b-ab2c8d0e29ae")
-        public  CheckR1540(IRule rule) {
+        public CheckR1540(IRule rule) {
             super(rule);
         }
 
@@ -125,12 +125,12 @@ public class R1540 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     bindableInstance,
                     null);
-            
+
             List<BindableInstance> cycleInstances = new ArrayList<>();
-            
+
             BindableInstance currentInstance = bindableInstance;
             boolean hasCycle = false;
-            
+
             while (currentInstance != null && !hasCycle) {
                 ModelElement repFeature = null;
                 if ((repFeature = currentInstance.getRepresentedFeature()) != null) {
@@ -147,7 +147,7 @@ public class R1540 extends AbstractUmlRule {
                     currentInstance = null;
                 }
             }
-            
+
             if (hasCycle) {
                 // Rule failed
                 auditEntry.setSeverity(this.rule.getSeverity());

@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.vstore.exml.resource.migration;
 
@@ -23,7 +42,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.DirectoryNotEmptyException;
 import java.nio.file.DirectoryStream;
@@ -52,6 +70,7 @@ import javax.xml.stream.events.XMLEvent;
 import org.modelio.vbasic.log.Log;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vbasic.progress.SubProgress;
+import org.modelio.vcore.model.spi.mm.IMigrationReporter.IMigrationLogger;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MMetamodel;
 import org.modelio.vcore.smkernel.mapi.MRef;
@@ -70,12 +89,15 @@ import org.modelio.vstore.exml.resource.IExmlRepositoryGeometry;
 
 /**
  * EXML repository format migrator from version 1 to 2.
- * 
+ *
  * @author cma
  * @since 3.6
  */
 @objid ("9148f9a2-c76c-47d6-bf6c-ff3aefa69a58")
-public class MigratorFrom1To2 {
+class MigratorFrom1To2 {
+    @objid ("7e86a727-10d9-4bf3-97ee-e275c7820b36")
+    private final int targetFormat;
+
     @objid ("112c71c6-cd82-46b8-872f-bb6059e1aa21")
     private ExmlFileAccess from;
 
@@ -89,29 +111,31 @@ public class MigratorFrom1To2 {
     private final MofMetamodel metamodel;
 
     @objid ("1176a95f-716e-4b9e-b9d4-e511af97e460")
-    private final PrintWriter logger;
+    private final IMigrationLogger logger;
 
     @objid ("24db66d9-9939-4f8c-99ad-d85219f93311")
     private Collection<Path> createdDirectories = new HashSet<>();
 
     /**
+     *
      * @param repositoryPath the repository path
      * @param metamodel the metamodel
      */
     @objid ("9526eeaa-8233-4b7e-9be2-f09fe0cf9312")
-    public  MigratorFrom1To2(Path repositoryPath, MMetamodel metamodel, PrintWriter logger) {
+    public MigratorFrom1To2(Path repositoryPath, MMetamodel metamodel, IMigrationLogger logger) {
         this.repositoryPath = repositoryPath;
         this.metamodel = new MofMetamodel();
         this.logger = logger;
+        this.targetFormat = 2;
         this.from = new ExmlFileAccess(repositoryPath.toFile(), new ExmlRepositoryGeometry1());
         this.to = new ExmlFileAccess(repositoryPath.toFile(), new ExmlRepositoryGeometry2());
-        
+
         this.metamodel.copy(metamodel);
-        
     }
 
     /**
      * Run the migration.
+     *
      * @param monitor a progress monitor
      * @throws IOException on failure.
      */
@@ -119,29 +143,31 @@ public class MigratorFrom1To2 {
     public void execute(IModelioProgress monitor) throws IOException {
         SubProgress mon = SubProgress.convert(monitor, 6);
         begin(mon.newChild(1));
-        
+
         File metamodelDescriptorFile = this.from.getMetamodelDescriptorFile();
         if (metamodelDescriptorFile.isFile()) {
-            MetamodelDescriptor mmDesc = MetamodelDescriptorReader.readFrom(Files.newInputStream(metamodelDescriptorFile.toPath()), metamodelDescriptorFile.toString());
-            this.metamodel.merge(mmDesc);
+            try (InputStream newInputStream = Files.newInputStream(metamodelDescriptorFile.toPath())) {
+                MetamodelDescriptor mmDesc = MetamodelDescriptorReader.readFrom(newInputStream, metamodelDescriptorFile.toString());
+                this.metamodel.merge(mmDesc);
+            }
         }
-        
+
         createMissingDirectories(mon.newChild(1));
         moveAllResources(mon.newChild(1));
         deleteObsoleteDirectories(mon.newChild(1));
-        
+
         new FilesRegenerator(this.to, this.metamodel, f -> fileModified(f)).run(mon.newChild(1));
-        
+
         saveFormatVersion(mon.newChild(1));
-        
+
         commit(mon.newChild(1));
-        
     }
 
     /**
      * Called at the end.
      * <p>
      * Does nothing by default.
+     *
      * @param monitor a progress monitor.
      * @throws IOException on failure.
      */
@@ -154,6 +180,7 @@ public class MigratorFrom1To2 {
      * Called at the beginning.
      * <p>
      * Does nothing by default.
+     *
      * @param monitor a progress monitor.
      * @throws IOException on failure.
      */
@@ -166,25 +193,23 @@ public class MigratorFrom1To2 {
     private void saveFormatVersion(IModelioProgress monitor) throws IOException {
         Path filePath = getFormatVersionFilePath();
         try (OutputStream out = Files.newOutputStream(filePath)) {
-        
-            RepositoryVersions format = new RepositoryVersions(RepositoryVersions.CURRENT_FORMAT, this.metamodel);
+            RepositoryVersions format = new RepositoryVersions(this.targetFormat, this.metamodel);
             format.write(out);
         }
-        
+
         filePath = getMetamodelDescriptorFilePath();
         try (OutputStream out = Files.newOutputStream(filePath)) {
             MetamodelDescriptor desc = this.metamodel.serialize();
             new MetamodelDescriptorWriter().write(desc, out);
         }
-        
     }
 
     @objid ("e4a4e33e-f3de-4fa6-8a74-10e575dfaab5")
     private void createMissingDirectories(IModelioProgress monitor) throws IOException {
         Collection<String> newDirs = this.to.getGeometry().getInitialDirectories(this.metamodel);
-        
+
         SubProgress mon = SubProgress.convert(monitor, newDirs.size());
-        
+
         for (String newDir : newDirs) {
             Path resolvedNewDir = this.repositoryPath.resolve(newDir);
             if (!Files.isDirectory(resolvedNewDir)) {
@@ -192,34 +217,33 @@ public class MigratorFrom1To2 {
             }
             mon.worked(1);
         }
-        
     }
 
     @objid ("3d4ce3ba-417c-4a6e-b833-640d00b80f5c")
     private void deleteObsoleteDirectories(IModelioProgress monitor) throws IOException {
         Collection<File> newDirs = this.to.getInitialDirectories(this.metamodel);
-        
+
         Path modelDir = this.repositoryPath.resolve(this.from.getGeometry().getModelPath());
         try (Stream<Path> entries = Files.list(modelDir)) {
             Collection<Path> oldDirs = entries.collect(Collectors.toList());
-        
+
             SubProgress mon = SubProgress.convert(monitor, oldDirs.size());
-        
+
             int i = 0;
             int count = oldDirs.size();
             for (Path oldDir : oldDirs) {
                 monitor.subTask(VStoreExml.I18N.getMessage("MigratorFrom1To2.deletingDirectories.progress", i, count));
-        
+
                 if (!newDirs.contains(oldDir.toFile()) && !this.createdDirectories.contains(oldDir)) {
                     deleteDirectory(oldDir);
                 }
                 mon.worked(1);
             }
         }
-        
     }
 
     /**
+     *
      * @param oldDir the directory path relative to the repository root.
      * @return true if a directory was deleted, false if it didn't exist.
      * @throws IOException on failure
@@ -239,11 +263,11 @@ public class MigratorFrom1To2 {
             }
             throw e;
         }
-        
     }
 
     /**
      * Create a new directory
+     *
      * @param newDir the directory path relative to the repository root.
      * @throws IOException on failure
      */
@@ -251,28 +275,27 @@ public class MigratorFrom1To2 {
     protected void createNewDirectory(Path newDir) throws IOException {
         Files.createDirectories(newDir);
         this.createdDirectories.add(newDir);
-        
     }
 
     @objid ("78dca872-b003-4af3-a169-fffd870b5881")
     private void moveAllResources(IModelioProgress aMonitor) throws IOException {
         SubProgress monitor = SubProgress.convert(aMonitor, VStoreExml.I18N.getMessage("MigratorFrom1To2.moveAllResources.task"), 10);
-        
+
         forEachExmlFile(this.from, new IFileOp() {
             private int count = 0;
             private int movedCount = 0;
             private final ExmlFileAccess fromAccess = MigratorFrom1To2.this.from;
             private final ExmlFileAccess toAccess = MigratorFrom1To2.this.to;
-        
+
             @Override
             public void run(Path fromPath) throws IOException {
                 File fromFile = fromPath.toFile();
-        
+
                 MRef ref = readFixedRef(this.fromAccess, fromFile);
                 if (ref != null) {
                     boolean isLocal = fromFile.getPath().endsWith(IExmlRepositoryGeometry.EXT_LOCAL_EXML);
                     Path targetFile = isLocal ? this.toAccess.getLocalExmlFile(ref).toPath() : this.toAccess.getExmlFile(ref).toPath();
-        
+
                     if (!fromPath.equals(targetFile)) {
                         ensureDirectoryExist(targetFile.getParent());
                         moveFile(fromPath, targetFile);
@@ -280,14 +303,13 @@ public class MigratorFrom1To2 {
                     }
                 }
                 this.count++;
-        
+
                 monitor.worked(1);
                 monitor.setWorkRemaining(10);
                 monitor.subTask(VStoreExml.I18N.getMessage("MigratorFrom1To2.moveAllResources.progress", this.count, this.movedCount));
-        
+
             }
         });
-        
     }
 
     @objid ("153fd3df-18ec-462d-9fe0-8c548cbde637")
@@ -306,7 +328,7 @@ public class MigratorFrom1To2 {
     }
 
     @objid ("6492ceaa-da20-441f-8acb-a1a5a04bb330")
-    protected final PrintWriter getLogger() {
+    protected final IMigrationLogger getLogger() {
         return this.logger;
     }
 
@@ -324,7 +346,7 @@ public class MigratorFrom1To2 {
                 this.logger.printf("  warn: %s: Unknown metaclass for '%s'.\n", fromFile, ret);
             } else if (!mc.getQualifiedName().equals(ret.mc)) {
                 this.logger.printf("  warn: %s: metaclass fixed to '%s' for '%s'.\n", fromFile, mc.getQualifiedName(), ret);
-                ret.mc = mc.getQualifiedName();
+                ret = new MRef(mc.getQualifiedName(), ret.uuid, ret.name);
             }
         }
         return ret;
@@ -335,7 +357,6 @@ public class MigratorFrom1To2 {
         if (!Files.isDirectory(dirPath)) {
             createNewDirectory(dirPath);
         }
-        
     }
 
     @objid ("7bca0e32-c0da-4b61-a1bc-6091f63df9f2")
@@ -354,11 +375,11 @@ public class MigratorFrom1To2 {
                 }
             }
         }
-        
     }
 
     /**
      * Report a file as modified.
+     *
      * @param modifiedFile the modified file
      * @throws IOException on hook failure.
      */
@@ -369,6 +390,7 @@ public class MigratorFrom1To2 {
 
     /**
      * EXML file regenerator that converts short metaclass names to qualified metaclass names.
+     *
      * @author cma
      * @since 3.7
      */
@@ -379,12 +401,12 @@ public class MigratorFrom1To2 {
 
         @objid ("4d5e034d-0b46-4fbe-8d37-b94250c307de")
         private static final Collection<String> tagsToConvert = new HashSet<>(Arrays.asList(
-                        ExmlTags.TAG_COMPID,
-                        ExmlTags.TAG_CMSNODE_PID,
-                        ExmlTags.TAG_DEPS_EXTID,
-                        ExmlTags.TAG_FOREIGNID,
-                        ExmlTags.TAG_ID,
-                        ExmlTags.TAG_PID));
+                                                                ExmlTags.TAG_COMPID,
+                                                                ExmlTags.TAG_CMSNODE_PID,
+                                                                ExmlTags.TAG_DEPS_EXTID,
+                                                                ExmlTags.TAG_FOREIGNID,
+                                                                ExmlTags.TAG_ID,
+                                                                ExmlTags.TAG_PID));
 
         @objid ("d0f9465b-1aaf-42f6-b36a-a7c57635a2e4")
         private final ExmlFileAccess exmlAccess;
@@ -399,31 +421,30 @@ public class MigratorFrom1To2 {
         private final XMLEventFactory eventFactory;
 
         @objid ("4628f041-1e96-4227-aece-fd0c25ce0fbf")
-        public  FilesRegenerator(ExmlFileAccess exmlAccess, MofMetamodel metamodel, IFileOp fileModifiedHook) {
+        public FilesRegenerator(ExmlFileAccess exmlAccess, MofMetamodel metamodel, IFileOp fileModifiedHook) {
             super();
             this.exmlAccess = exmlAccess;
             this.metamodel = metamodel;
             this.fileModifiedHook = fileModifiedHook;
             this.eventFactory = XMLEventFactory.newInstance();
-            
         }
 
         @objid ("5f1710b4-4241-4d91-9475-7ddb9853c0a4")
         public void run(IModelioProgress amonitor) throws IOException {
             SubProgress monitor = SubProgress.convert(amonitor, 5);
-            
+
             XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
             XMLInputFactory inputFactory = XMLInputFactory.newInstance();
-            
+
             forEachExmlFile(this.exmlAccess, exmlFile -> {
                 Path tmpFile = Files.createTempFile("", ".exml");
-            
+
                 try(InputStream is = Files.newInputStream(exmlFile);
                         OutputStream os = Files.newOutputStream(tmpFile);)
                 {
                     XMLEventReader evReader = inputFactory.createXMLEventReader(exmlFile.toString(), is);
                     XMLEventWriter evWriter = outputFactory.createXMLEventWriter(os, StandardCharsets.UTF_8.name());
-            
+
                     try (XmlCloser c1 = evReader::close; XmlCloser c2 = evWriter::close;)
                     {
                         rewriteResourceContent(evReader, evWriter);
@@ -431,18 +452,17 @@ public class MigratorFrom1To2 {
                 } catch (XMLStreamException e) {
                     throw new IOException(e.getLocalizedMessage(), e);
                 }
-            
+
                 // replace original by rewritten content
                 Files.copy(tmpFile, exmlFile, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
                 this.fileModifiedHook.run(exmlFile);
-            
+
                 Files.delete(tmpFile);
                 monitor.worked(1);
                 monitor.setWorkRemaining(5);
-            
+
                 monitor.subTask(VStoreExml.I18N.getMessage("FilesRegenerator.progress", ++this.count));
             });
-            
         }
 
         @objid ("3af8989b-3359-47b7-a429-a649720e3b56")
@@ -455,13 +475,12 @@ public class MigratorFrom1To2 {
                 }
                 writer.add(event);
             }
-            
         }
 
         @objid ("5a4d5959-73fc-4164-ba4a-6759b7a075f0")
         private XMLEvent convertIdTag(StartElement event) {
             List<Attribute> atts = new ArrayList<>(5);
-            
+
             for (Iterator<Attribute> it = event.getAttributes(); it.hasNext();) {
                 Attribute att = it.next();
                 if (att.getName().getLocalPart().equals(ExmlTags.ATT_ID_MC)) {
@@ -491,11 +510,12 @@ public class MigratorFrom1To2 {
     public interface IFileOp {
         @objid ("3fd2242c-72f4-433e-bcdc-ebebb5b96eb9")
         void run(Path p) throws IOException;
-}
-    
+
+    }
 
     /**
      * {@link AutoCloseable} function to close an {@link XMLEventReader} or {@link XMLEventWriter}.
+     *
      * @author cma
      * @since 3.7
      */
@@ -505,7 +525,7 @@ public class MigratorFrom1To2 {
         @objid ("817f247d-79a6-43b8-8b61-cef1cab25303")
         @Override
         void close() throws XMLStreamException;
-}
-    
+
+    }
 
 }

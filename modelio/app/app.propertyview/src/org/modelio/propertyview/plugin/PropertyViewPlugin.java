@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.propertyview.plugin;
 
@@ -32,7 +32,7 @@ import org.osgi.framework.ServiceReference;
 
 /**
  * PropertyView plugin main class.
- * 
+ *
  * Contains static services for log and i18n, as well as the plugin ID.
  */
 @objid ("dfda3753-6a14-4698-9d5d-3c9827571331")
@@ -57,7 +57,7 @@ public class PropertyViewPlugin implements BundleActivator {
         ExtendedLogService service = bundleContext.getService(ref);
         LOG = new PluginLogger(service.getLogger(bundleContext.getBundle(), PLUGIN_ID));
         I18N = new BundledMessages(LOG, ResourceBundle.getBundle("propertyview"));
-        
+
     }
 
     @objid ("87a79497-ce12-41b0-9d93-610a2f6584c8")
@@ -74,6 +74,7 @@ public class PropertyViewPlugin implements BundleActivator {
     /**
      * Returns an image descriptor for the image file at the given plug-in
      * relative path
+     *
      * @param path the path
      * @return the image descriptor
      */

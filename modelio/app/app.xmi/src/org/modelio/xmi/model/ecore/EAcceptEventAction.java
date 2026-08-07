@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -47,19 +47,19 @@ public class EAcceptEventAction extends EActivityNode {
     private boolean hasTimeEvent = false;
 
     @objid ("4891d5f1-a0f9-4f64-bffd-5a4df1a00c85")
-    public  EAcceptEventAction(org.eclipse.uml2.uml.AcceptEventAction element) {
+    public EAcceptEventAction(org.eclipse.uml2.uml.AcceptEventAction element) {
         super(element);
-        
+
         if (EcoreModelNavigation.hasSignalEvent(element)) {
             this.hasSignalEvent = true;
-        
+
         } else if (EcoreModelNavigation.hasChangeEvent(element)) {
             this.hasChangeEvent = true;
-        
+
         } else if (EcoreModelNavigation.hasTimeEvent(element)) {
             this.hasTimeEvent = true;
         }
-        
+
     }
 
     @objid ("0e493c8f-4c55-419f-985d-66a78515e3fd")
@@ -89,7 +89,7 @@ public class EAcceptEventAction extends EActivityNode {
                         return ReverseProperties.getInstance().getMModelServices().getModelFactory().getFactory(IStandardModelFactory.class).createAcceptCallEventAction();
                     }
                 }
-        
+
             }
         return ReverseProperties.getInstance().getMModelServices().getModelFactory().getFactory(IStandardModelFactory.class).createAcceptCallEventAction();
     }
@@ -106,7 +106,7 @@ public class EAcceptEventAction extends EActivityNode {
             setChangeExpression((AcceptChangeEventAction) objingElt);
         else if (this.hasTimeEvent)
             setTimeExpression((AcceptTimeEventAction) objingElt);
-        
+
     }
 
     @objid ("5a515adf-f2a9-458d-846a-e4189e1ca323")
@@ -126,7 +126,7 @@ public class EAcceptEventAction extends EActivityNode {
                 }
             }
         }
-        
+
     }
 
     @objid ("f59d1829-3b3c-484b-82ab-5924be545750")
@@ -142,7 +142,7 @@ public class EAcceptEventAction extends EActivityNode {
                 }
             }
         }
-        
+
     }
 
     @objid ("7b724d3f-f020-4af5-8d8b-4820fe1f503f")
@@ -161,7 +161,7 @@ public class EAcceptEventAction extends EActivityNode {
                 }
             }
         }
-        
+
     }
 
     @objid ("5417fa0e-7f8c-446e-b546-521279bb0d08")
@@ -179,7 +179,7 @@ public class EAcceptEventAction extends EActivityNode {
                 }
             }
         }
-        
+
     }
 
 }

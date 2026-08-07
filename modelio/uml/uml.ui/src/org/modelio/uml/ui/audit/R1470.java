@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -47,7 +47,7 @@ public class R1470 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(IElement)
      * @see AbstractRule#getUpdateControl(IElement)
      * @see AbstractRule#getMoveControl(IElementMovedEvent)
@@ -66,9 +66,9 @@ public class R1470 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         // This is necessary in case of a delete or move event, which trigger an update on the old parent
         plan.registerRule(AssociationEnd.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         plan.registerRule(Attribute.MQNAME, this, AuditTrigger.MOVE | AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -102,14 +102,14 @@ public class R1470 extends AbstractUmlRule {
      * Default constructor for R1470
      */
     @objid ("bba27e37-2246-49f1-9434-4a65d4d636ad")
-    public  R1470() {
+    public R1470() {
         this.checkerInstance = new CheckR1470(this);
     }
 
     @objid ("e296dffe-712f-4c05-9feb-9ca2db6b5c1e")
     private static class CheckR1470 extends AbstractControl {
         @objid ("b913db58-faa0-417f-96db-61a978f3fdc6")
-        public  CheckR1470(IRule rule) {
+        public CheckR1470(IRule rule) {
             super(rule);
         }
 
@@ -135,22 +135,22 @@ public class R1470 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     assocEnd,
                     null);
-            
+
             List<String> qualifierNames = new ArrayList<>();
-            
+
             for (Attribute qualifier : assocEnd.getQualifier()) {
                 String name = qualifier.getName();
                 if (qualifierNames.contains(name)) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(assocEnd);
                     linkedObjects.add(assocEnd.getSource() != null ? assocEnd.getSource() : assocEnd.getOpposite().getTarget());
                     linkedObjects.add(name);
                     auditEntry.setLinkedInfos(linkedObjects);
-            
+
                 } else {
                     qualifierNames.add(name);
                 }

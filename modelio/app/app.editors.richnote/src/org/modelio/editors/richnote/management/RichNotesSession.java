@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.management;
 
@@ -56,25 +56,26 @@ public class RichNotesSession implements IBlobChangeListener {
      * Initialize a new rich note modeling session.
      * <p>
      * Called by {@link RichNoteEditorsManager#onProjectOpen(IGProject)}.
+     *
      * @param project the project to handle.
      */
     @objid ("a491b067-18bd-4f2a-88a3-252b110a3fde")
-     RichNotesSession(IGProject project) {
+    RichNotesSession(IGProject project) {
         assert (project != null);
         assert (sessions.get(project) == null) : project;
-        
+
         sessions.put(project, this);
-        
+
         this.project = project;
         this.editors =  new EditorsRegistry();
         this.fileManager = new FileRepository(project, this.editors);
-        
+
         this.project.getSession().getBlobSupport().addBlobChangeListener(this);
-        
+
         // Add the model change handler
         IModelChangeListener aHandler = new RichNoteChangeHandler(project);
         project.getSession().getModelChangeSupport().addModelChangeListener(aHandler);
-        
+
     }
 
     @objid ("3b107441-ca78-47fc-8280-9ee53cb3326d")
@@ -87,15 +88,15 @@ public class RichNotesSession implements IBlobChangeListener {
                 token.editor.onOriginalDeleted(token.model);
             }
         }
-        
+
         for (IBlobInfo b : ev.getUpdatedBlobs()) {
-        
+
             RichNoteToken token = this.editors.getEditorToken(b.getRelatedElement());
             if (token != null) {
                 token.editor.onOriginalModified(token.model);
             }
         }
-        
+
     }
 
     /**
@@ -109,6 +110,7 @@ public class RichNotesSession implements IBlobChangeListener {
     }
 
     /**
+     *
      * @return the editors registry.
      */
     @objid ("e194f12d-6219-470b-a360-48645f2d0f1c")
@@ -117,6 +119,7 @@ public class RichNotesSession implements IBlobChangeListener {
     }
 
     /**
+     *
      * @return the rich notes files repository.
      */
     @objid ("61fe86ad-42b3-44fd-a43d-8188050beccf")
@@ -126,6 +129,7 @@ public class RichNotesSession implements IBlobChangeListener {
 
     /**
      * Get the rich note session matching a project.
+     *
      * @param openedProject a registered project.
      * @return the matching rich note session.
      */
@@ -136,6 +140,7 @@ public class RichNotesSession implements IBlobChangeListener {
 
     /**
      * Get the rich note session handling a model object.
+     *
      * @param obj a model object.
      * @return the matching rich note session.
      */

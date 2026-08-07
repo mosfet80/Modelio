@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.diagrams;
 
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("007319aa-c4bf-1fd8-97fe-001ec947cd2a")
 public class CompositeStructureDiagramImpl extends StaticDiagramImpl implements CompositeStructureDiagram {
-    @objid ("d27c71ed-2fd6-4d96-87ab-93125d6cc835")
+    @objid ("32c3e947-9a53-4c27-90f4-9b334b2054ce")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -49,17 +48,17 @@ public class CompositeStructureDiagramImpl extends StaticDiagramImpl implements 
         return super.getCompositionOwner();
     }
 
-    @objid ("96bd93bb-96db-4c12-9e13-d82f34618ea3")
+    @objid ("a03f8a58-7da6-4e6e-ad4a-efe3b7be4e60")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("537e1024-b0fe-49c8-954d-f4435c082229")
+    @objid ("2961f6e7-6650-4dbe-ae76-af268801505b")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitCompositeStructureDiagram(this);

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.util;
 
@@ -101,6 +101,7 @@ import org.modelio.xmi.reverse.ReverseProperties;
 
 /**
  * Services for the Modelio model navigation
+ *
  * @author ebrosse
  */
 @objid ("8e24e53e-1671-4da2-a0e7-d4d3a44e3859")
@@ -117,7 +118,7 @@ public abstract class AbstractObjingModelNavigation {
             IUMLTypes umlTypes = Modelio.getInstance().getModelingSession()
                     .getModel().getUmlTypes();
             DataType obBOOLEAN, obBYTE, obCHAR, obDATE, obDOUBLE, obFLOAT, obSHORT, obINTEGER, obLONG, obSTRING, obUNDEFINED;
-        
+
             obBOOLEAN = umlTypes.getBOOLEAN();
             obBYTE = umlTypes.getBYTE();
             obCHAR = umlTypes.getCHAR();
@@ -129,7 +130,7 @@ public abstract class AbstractObjingModelNavigation {
             obSHORT = umlTypes.getSHORT();
             obSTRING = umlTypes.getSTRING();
             obUNDEFINED = umlTypes.getUNDEFINED();
-        
+
             if ((obBOOLEAN != null) && (ecoreTypeName.equals(obBOOLEAN.getName()))){
                 return obBOOLEAN;
             }else if  ((obCHAR != null) &&(ecoreTypeName.equals(obCHAR.getName()))){
@@ -232,7 +233,7 @@ public abstract class AbstractObjingModelNavigation {
         if (objingClass != null) {
             ClassAssociation classAssocList = objingClass
                     .getLinkToAssociation();
-        
+
             return (classAssocList != null);
         }
         return false;
@@ -257,18 +258,18 @@ public abstract class AbstractObjingModelNavigation {
         if (ecoreElt != null){
             ecoreElt.destroy();
         }
-        
+
     }
 
     @objid ("fe3fec0d-ff09-4a77-acd7-f4292d535aab")
     public static boolean isManifestationMappable(Manifestation manif) {
         UmlModelElement objingUtilizedElt = manif.getUtilizedElement();
         if (objingUtilizedElt != null) {
-        
+
             // Gets the ecore utilized element:
             org.eclipse.uml2.uml.Element ecoreUtilizedElt = GenerationProperties.getInstance()
                     .getMappedElement(objingUtilizedElt);
-        
+
             return ecoreUtilizedElt instanceof PackageableElement;
         }
         return false;
@@ -281,11 +282,11 @@ public abstract class AbstractObjingModelNavigation {
         if (msgSort == MessageSort.SYNCCALL){
             isSynchronous = true;
         }
-        
+
         if (isSynchronous) {
             MessageEnd receiveEnd = message.getReceiveEvent();
             Lifeline coveredLL = receiveEnd.getCovered().get(0);
-        
+
             List<InteractionFragment> coveringFragments = coveredLL
                     .getCoveredBy();
             int index = coveringFragments.indexOf(receiveEnd);
@@ -296,7 +297,7 @@ public abstract class AbstractObjingModelNavigation {
                     && !(next instanceof ExecutionSpecification)) {
                 next = coveringFragments.get(++indexOfEOS);
             }
-        
+
             if (next instanceof ExecutionSpecification) {
                 ExecutionOccurenceSpecification finishEnd = ((ExecutionSpecification) next)
                         .getFinish();
@@ -323,7 +324,7 @@ public abstract class AbstractObjingModelNavigation {
             if (end == null){
                 end = ((Message) sequenceElt).getSendEvent();
             }
-        
+
             if (end != null){
                 connectedFragment = end;
             }
@@ -335,7 +336,7 @@ public abstract class AbstractObjingModelNavigation {
     public static Boolean IsInstanceOwner(final BindableInstance bindableInstance) {
         BindableInstance temp = bindableInstance;
         MObject owner = temp.getCompositionOwner();
-        
+
         while ((owner != null) && (owner instanceof BindableInstance)){
             temp = (BindableInstance) owner;
             owner = temp.getCompositionOwner();
@@ -360,7 +361,7 @@ public abstract class AbstractObjingModelNavigation {
     @objid ("41ce3b34-f738-4db0-952f-91e0c8b559d5")
     public static MObject getEnclosingElement(MObject child, MClass typeOfEnclosing) {
         MObject owner = child.getCompositionOwner();
-        
+
         while (owner != null) {
             if ((typeOfEnclosing.getSub(true).contains(owner.getMClass()) ||
                     typeOfEnclosing.equals(owner.getMClass()) )){
@@ -375,7 +376,7 @@ public abstract class AbstractObjingModelNavigation {
     @objid ("6d27627d-1f9a-436f-bdfc-3f100c36e148")
     public static List<Parameter> getRelatedParameters(ActivityAction objingOwner) {
         List<Parameter> paramList = new ArrayList<>();
-        
+
         if (objingOwner instanceof CallOperationAction) {
             Operation operation = ((CallOperationAction) objingOwner)
                     .getCalled();
@@ -385,7 +386,7 @@ public abstract class AbstractObjingModelNavigation {
                     paramList.add(operation.getReturn());
                 }
             }
-        
+
         } else if (objingOwner instanceof CallBehaviorAction) {
             Behavior behavior = ((CallBehaviorAction) objingOwner)
                     .getCalled();
@@ -445,13 +446,13 @@ public abstract class AbstractObjingModelNavigation {
         if (transition instanceof InternalTransition){
             return false;
         }
-        
+
         StateMachine sm =  (StateMachine) getEnclosingElement(transition, transition.getMClass().getMetamodel().getMClass("StateMachine"));
         return ((!(transition instanceof InternalTransition))
                                                                                         && (transition.getProcessed() != null)
                                                                                         && (sm != null)
                                                                                         && (sm.getKind().equals(KindOfStateMachine.PROTOCOL)));
-        
+
     }
 
     @objid ("1188e00d-1028-4b0b-ac54-9e7ab2b2079e")
@@ -496,7 +497,7 @@ public abstract class AbstractObjingModelNavigation {
         Profile profile =  obStereotype.getOwner();
         if (profile == null)
              return false;
-        
+
         if (profile.getOwnerModule().getName().equals(IModelerModulePeerModule.MODULE_NAME)
                 && profile.getName().equals("default")
                 && ((obStereotype.getName().equals(IModelerModuleStereotypes.EXTEND))
@@ -524,7 +525,7 @@ public abstract class AbstractObjingModelNavigation {
             return mustBeExported(tagType.getOwnerReference());
         }else
             return false;
-        
+
     }
 
     @objid ("f9980de4-ffbf-4000-a0c2-6e2b726618e3")
@@ -567,9 +568,9 @@ public abstract class AbstractObjingModelNavigation {
     @objid ("fca87529-f345-478a-8213-a5348c47961d")
     public static void attachPort(Element objingElt, org.eclipse.uml2.uml.Port ecoreElement) {
         ReverseProperties revProp = ReverseProperties.getInstance();
-        
+
         org.eclipse.uml2.uml.Element ecoreOwner = ecoreElement.getOwner();
-        
+
         if (revProp.isRoundtripEnabled() && (ObjingEAnnotation.getOwner(ecoreElement) != null)){
             String ownerId = ObjingEAnnotation.getOwner(ecoreElement);
             for (Object object : ( (org.eclipse.uml2.uml.Classifier)ecoreOwner).getAllAttributes()){
@@ -593,7 +594,7 @@ public abstract class AbstractObjingModelNavigation {
                 }
             }
         }
-        
+
         if (ecoreOwner != null) {
             Object objOwner = ReverseProperties.getInstance().getMappedElement(ecoreOwner);
             if (objOwner instanceof Classifier){
@@ -609,14 +610,14 @@ public abstract class AbstractObjingModelNavigation {
                     if (((BindableInstance) objingElt).getInternalOwner()== null){
                         ((Port) objingElt).setCluster((BindableInstance) objOwner);
                     }
-        
+
                 }
             }else{
                 objingElt.delete();
             }
-        
+
         }
-        
+
     }
 
     @objid ("9de45bba-9e96-4045-9886-718dbdb06716")
@@ -628,19 +629,19 @@ public abstract class AbstractObjingModelNavigation {
                 objingElt.setBase((NameSpace) base);
             }
         }
-        
+
     }
 
     @objid ("b4c778f4-45eb-4547-a966-b89ffacbeed4")
     public static void setRepresentedFeature(Instance objingElt, Property ecoreElt) {
         if (objingElt instanceof BindableInstance){
-        
+
             EList<?> listProperty =  ecoreElt.getRedefinedProperties();
-        
+
             if ((listProperty != null) && (listProperty.size() > 0) ){
                 Property represented = (Property) listProperty.get(0);
                 Object base = ReverseProperties.getInstance().getMappedElement(represented);
-        
+
                 if ((base instanceof UmlModelElement) && (!base.equals(objingElt)))
                     ((BindableInstance) objingElt).setRepresentedFeature((UmlModelElement) base);
                 else if (base instanceof List<?> ){
@@ -648,7 +649,7 @@ public abstract class AbstractObjingModelNavigation {
                 }
             }
         }
-        
+
     }
 
     @objid ("f4f1e091-2a1c-45ec-ae51-657e82eb6d1b")
@@ -662,7 +663,7 @@ public abstract class AbstractObjingModelNavigation {
         if ((value != null) && (!value.equals(""))){
             objingElt.setMultiplicityMax(value);
         }
-        
+
     }
 
     @objid ("f21a3ed2-f403-4118-a090-a28839845521")
@@ -671,7 +672,7 @@ public abstract class AbstractObjingModelNavigation {
         if ((value != null) && (!value.equals(""))){
             objingElt.setValue(value);
         }
-        
+
     }
 
     @objid ("e3f1c41a-14bc-415a-891a-9a36b8ce7be7")
@@ -680,22 +681,22 @@ public abstract class AbstractObjingModelNavigation {
         if ((value != null) && (!value.equals(""))){
             objingElt.setMultiplicityMin(value);
         }
-        
+
     }
 
     @objid ("ae2d9b02-a6f7-4daf-9fc0-341413564685")
     private static void setMultiplicity(Instance objingElt, Property ecoreElt) {
         String multMin = EcoreModelNavigation.getMultiplicityMin(ecoreElt);
         String multMax = EcoreModelNavigation.getMultiplicityMax(ecoreElt);
-        
+
         if (!("".equals(multMin))){
             objingElt.setMultiplicityMin(multMin);
         }
-        
+
         if (!("".equals(multMax))){
             objingElt.setMultiplicityMax(multMax);
         }
-        
+
     }
 
     @objid ("250bfce3-e043-43e6-981c-7c983449c2bf")
@@ -703,14 +704,14 @@ public abstract class AbstractObjingModelNavigation {
         setBase(objingElt, ecoreElt);
         setRepresentedFeature(objingElt, ecoreElt);
         setMultiplicity(objingElt, ecoreElt);
-        
+
         if (ReverseProperties.getInstance().isRoundtripEnabled()){
             setIsConstant(objingElt, ecoreElt);
             setValue(objingElt, ecoreElt);
             setMultiMax(objingElt, ecoreElt);
             setMultiMin(objingElt, ecoreElt);
         }
-        
+
     }
 
     @objid ("9fdf1064-c596-4149-90ec-c6d36af28906")
@@ -721,15 +722,15 @@ public abstract class AbstractObjingModelNavigation {
         String message = Xmi.I18N.getMessage("logFile.warning.unsupportedOwnerExport",
                         eltClassName, eltName, ownerClassName);
         GenerationProperties.getInstance().addError(message, objingElement);
-        
+
     }
 
     @objid ("ac25ba19-3f77-48df-821d-0c9127e45663")
     public static List<Interface> getAllProvidedInterface(final Port port) {
         List<Interface> result = new ArrayList<>();
-        
+
         NameSpace type = port.getBase();
-        
+
         if (type != null){
             if (type instanceof Interface){
                 result.add((Interface)type);
@@ -802,9 +803,9 @@ public abstract class AbstractObjingModelNavigation {
     @objid ("9aff0937-5212-4406-adf7-781371bf4a92")
     private static List<Interface> getAllProvidedInterfaces(final NameSpace parent) {
         List<Interface> result = new ArrayList<>();
-        
+
         result.addAll(getProvidedInterfaces(parent));
-        
+
         for (Generalization generalization : parent.getParent()){
             result.addAll(getAllProvidedInterfaces( generalization.getSuperType()));
         }
@@ -814,7 +815,7 @@ public abstract class AbstractObjingModelNavigation {
     @objid ("c7439776-0c37-455e-a907-dbc65fb57353")
     private static List<Interface> getProvidedInterfaces(final NameSpace parent) {
         List<Interface> result = new ArrayList<>();
-        
+
         for (InterfaceRealization interfaceRealization : parent.getRealized()){
             result.add(interfaceRealization.getImplemented());
         }
@@ -845,10 +846,10 @@ public abstract class AbstractObjingModelNavigation {
     @objid ("941be815-a318-4861-9d14-6d6128cad7a2")
     public static boolean isValidConnector(Link link) {
         MObject firstOwner = null;
-        
+
         for (LinkEnd connectorEnd : link.getLinkEnd()){
             MObject temp = getBindableInstanceOwner(connectorEnd.getOwner());
-        
+
             if (firstOwner == null){
                 firstOwner = temp;
             }else {
@@ -867,7 +868,7 @@ public abstract class AbstractObjingModelNavigation {
     public static boolean isValidLink(Link link) {
         for (LinkEnd connectorEnd : link.getLinkEnd()){
             MObject temp = getBindableInstanceOwner(connectorEnd.getOwner());
-        
+
             if ((temp != null) && (temp instanceof Package)){
                 return true;
             }
@@ -879,10 +880,10 @@ public abstract class AbstractObjingModelNavigation {
     public static MObject getConnectorOwner(Link connector) {
         MObject firstOwner = null;
         MObject secondOwner = null;
-        
+
         for (LinkEnd connectorEnd : connector.getLinkEnd()){
             secondOwner = getBindableInstanceOwner(connectorEnd.getOwner());
-        
+
             if (firstOwner == null){
                 firstOwner = secondOwner;
             }else {
@@ -901,7 +902,7 @@ public abstract class AbstractObjingModelNavigation {
         MObject owner = null;
         for (LinkEnd connectorEnd : link.getLinkEnd()){
             owner = connectorEnd.getOwner().getCompositionOwner();
-        
+
             if ((owner == null) || (!(owner instanceof Package))){
                 return null;
             }
@@ -914,16 +915,16 @@ public abstract class AbstractObjingModelNavigation {
         List<InteractionFragment> unsorted = new ArrayList<>(param.getFragment());
         List<InteractionFragment> result = new ArrayList<>();
         InteractionFragment temp = null;
-        
+
         while (unsorted.size() > 0){
             temp = unsorted.get(0);
-        
+
             for (InteractionFragment tested : unsorted){
                 if (temp.getLineNumber() > tested.getLineNumber()) {
                     temp = tested;
                 }
             }
-        
+
             unsorted.remove(temp);
             result.add(temp);
         }
@@ -955,10 +956,10 @@ public abstract class AbstractObjingModelNavigation {
     public static MObject getNaryConnectorOwner(NaryLink connector) {
         MObject firstOwner = null;
         MObject secondOwner = null;
-        
+
         for (NaryLinkEnd connectorEnd : connector.getNaryLinkEnd()){
             secondOwner = connectorEnd.getSource();
-        
+
             if (firstOwner == null){
                 firstOwner = secondOwner;
             }else {
@@ -975,10 +976,10 @@ public abstract class AbstractObjingModelNavigation {
     @objid ("17d5d6d3-1337-4ca7-bc41-1c3cfd8d2671")
     public static Package getNaryLinkOwner(NaryLink link) {
         MObject owner = null;
-        
+
         for (NaryLinkEnd connectorEnd : link.getNaryLinkEnd()){
             owner = connectorEnd.getCompositionOwner().getCompositionOwner();
-        
+
             if ((owner == null) || (!(owner instanceof Package))){
                 return null;
             }

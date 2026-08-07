@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.ui.gef;
 
@@ -33,7 +33,7 @@ import org.osgi.framework.Bundle;
 
 /**
  * An extension of the shared collection of Cursors.
- * 
+ *
  * @since 2.0
  */
 @objid ("92bf67da-1eae-11e2-8cad-001ec947c8cc")
@@ -112,22 +112,22 @@ public class SharedCursors2 extends SharedCursors {
     }
 
 static {
-    
+
             CURSOR_REPARENT = createCursor("cursors/reparent.bmp", //$NON-NLS-1$
                                            "cursors/reparent_mask.bmp", 1, 11); //$NON-NLS-1$
             CURSOR_REPARENT_NOT = createCursor("cursors/reparent_not.bmp", //$NON-NLS-1$
                                                "cursors/reparent_not_mask.bmp", 1, 11); //$NON-NLS-1$
-    
+
             CURSOR_PICKING = createCursor("cursors/picking_cursor32x32.png", 1, 11); //$NON-NLS-1$
             CURSOR_PICKING_YES = createCursor("cursors/picking_cursor_yes32x32.png", 1, 11); //$NON-NLS-1$
             CURSOR_PICKING_NO = createCursor("cursors/picking_cursor_no32x32.png", 1, 11); //$NON-NLS-1$
             CURSOR_CLONE_GRAPHIC_OPTIONS = createCursor("cursors/clone_graphic_options19x19.png", 1, 1); //$NON-NLS-1$
             CURSOR_CLONE_ALL_OPTIONS = createCursor("cursors/clone_all_options19x19.png", 1, 1); //$NON-NLS-1$
             CURSOR_GRAB_HAND = createCursor("cursors/grab_hand22x23.png",1, 11); //$NON-NLS-1$
-    
+
             CURSOR_LINK_END_MENU       = createCursor("cursors/link_end_menu32x32.png",1, 1); //$NON-NLS-1$
             CURSOR_LINK_BENDPOINT      = createCursor("cursors/link_bendpoint32x32.png",1, 1);//$NON-NLS-1$
-    
+
         }
-    
+
 }

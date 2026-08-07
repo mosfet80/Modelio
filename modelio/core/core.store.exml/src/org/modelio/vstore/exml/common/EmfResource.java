@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.exml.common;
 
@@ -47,10 +47,11 @@ public class EmfResource implements Resource {
 
     /**
      * Initialize the EXML adapter.
+     *
      * @param abstractExmlRepository the EXML repository.
      */
     @objid ("a654c25f-c064-11e1-b511-001ec947ccaf")
-    public  EmfResource(AbstractExmlRepository abstractExmlRepository) {
+    public EmfResource(AbstractExmlRepository abstractExmlRepository) {
         this.repo = abstractExmlRepository;
     }
 
@@ -72,7 +73,7 @@ public class EmfResource implements Resource {
         if (deliver) {
             throw new UnsupportedOperationException();
         }
-        
+
     }
 
     @objid ("a654c233-c064-11e1-b511-001ec947ccaf")
@@ -135,9 +136,9 @@ public class EmfResource implements Resource {
             SmObjectImpl smObj = (SmObjectImpl) eObject;
             return smObj.getClassOf().getName()+","+smObj.getUuid().toString();
         }
-        
+
         throw new IllegalArgumentException("object is not a SmObjectImpl");
-        
+
     }
 
     /**

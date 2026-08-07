@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ASCII"?>
+<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:commands="http://www.eclipse.org/ui/2010/UIModel/application/commands" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_YpRjUC1ZEeaklq_rgrI66Q">
+  <imports xsi:type="menu:Menu" xmi:id="_xFhIgC5FEea9mZv3ko1GqA" elementId="org.modelio.model.browser.view.menu.createroot"/>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_acemUC1ZEeaklq_rgrI66Q" featurename="children" parentElementId="org.modelio.model.browser.view.popupmenu" positionInList="before:org.modelio.popupmenu.cms">
+    <elements xsi:type="menu:DynamicMenuContribution" xmi:id="_EahnIGsiEem8WcPuyCq9Og" elementId="com.modeliosoft.modelio.archimate.menu.createelement.content" contributionURI="bundleclass://org.modelio.archimate.ui/org.modelio.archimate.ui.browser.context.ElementCreationDynamicMenuManager"/>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_yjSuEC5FEea9mZv3ko1GqA" featurename="children" parentElementId="org.modelio.model.browser.view.menu.createroot" positionInList="">
+    <elements xsi:type="menu:DirectMenuItem" xmi:id="_yjSuES5FEea9mZv3ko1GqA" elementId="com.modeliosoft.modelio.archimate.item.createarchimateproject" label="%CreateElementMenu.CreateArchimateProject.label" iconURI="platform:/plugin/org.modelio.archimate.ui/mmimages/archimate.archimateproject.png" tooltip="%CreateElementMenu.CreateArchimateProject.tooltip" contributionURI="bundleclass://org.modelio.archimate.ui/org.modelio.archimate.ui.browser.handlers.CreateArchimateProjectHandler"/>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_vohUsM1lEe2zeb-SEFRahA" featurename="handlers" parentElementId="org.modelio.model.browser.view.part">
+    <elements xsi:type="commands:Handler" xmi:id="_8qv04M1lEe2zeb-SEFRahA" elementId="org.modelio.model.browser.handler.create.archimate.model" contributionURI="bundleclass://org.modelio.archimate.ui/org.modelio.archimate.ui.browser.handlers.CreateArchimateModelHandler" command="_eqROYM1mEe2zeb-SEFRahA"/>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_W9_fMM1mEe2zeb-SEFRahA" featurename="commands" parentElementId="org.modelio.app.application">
+    <elements xsi:type="commands:Command" xmi:id="_eqROYM1mEe2zeb-SEFRahA" elementId="org.modelio.app.ui.command.create.archimate.model" commandName="Create Archimate Model Element">
+      <parameters xmi:id="_eqROYc1mEe2zeb-SEFRahA" elementId="metaclass" name="metaclass" optional="false"/>
+      <parameters xmi:id="_eqROYs1mEe2zeb-SEFRahA" elementId="dependency" name="dependency" optional="false"/>
+      <parameters xmi:id="_eqROY81mEe2zeb-SEFRahA" elementId="stereotype" name="stereotype"/>
+      <parameters xmi:id="_eqROZM1mEe2zeb-SEFRahA" elementId="i18nKey" name="i18nKey"/>
+    </elements>
+  </fragments>
+</fragment:ModelFragments>

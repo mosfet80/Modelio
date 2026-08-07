@@ -1,25 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vbasic.debug;
 
+import java.lang.management.LockInfo;
 import java.lang.management.ManagementFactory;
+import java.lang.management.MonitorInfo;
 import java.lang.management.ThreadInfo;
 import java.lang.management.ThreadMXBean;
 import java.util.Map.Entry;
@@ -28,7 +30,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * Debugging utility class that can dump thread stack traces with java locks informations.
- * 
+ *
  * @author cma
  * @since 3.6
  */
@@ -48,19 +50,20 @@ public class ThreadDumper {
 
     /**
      * Constructor.
+     *
      * @deprecated use {@link #get()} singleton instead.
      */
     @objid ("f3f2f5fb-f4d4-43dd-a0ae-7e67773c89d3")
     @Deprecated
-    public  ThreadDumper() {
+    public ThreadDumper() {
         this.mbean = ManagementFactory.getThreadMXBean();
         this.synchronizerUsageSupported = this.mbean.isSynchronizerUsageSupported();
         this.objectMonitorUsageSupported = this.mbean.isObjectMonitorUsageSupported();
-        
     }
 
     /**
      * Dump all thread stack trace with java lock informations if asked for.
+     *
      * @param withLocks dump monitor and Lock informations
      * @return the found thread informations.
      */
@@ -76,21 +79,22 @@ public class ThreadDumper {
      * Look for dead locked threads and dump their stack trace with java lock informations.
      * <p>
      * If no dead locked thread is found dump all threads .
+     *
      * @return the found thread informations.
      */
     @objid ("0b09375d-3ceb-41e4-afab-cd6a3fcb3edc")
     public Result getDeadLocks() {
-        long[] deadlockedThreadIds = this.synchronizerUsageSupported ? 
+        long[] deadlockedThreadIds = this.synchronizerUsageSupported ?
                 this.mbean.findDeadlockedThreads() : null;
-        
+
         ThreadInfo[] threadInfos;
         if (deadlockedThreadIds != null) {
             //System.err.println("Deadlock detected!");
             threadInfos = this.mbean.getThreadInfo(
-                    deadlockedThreadIds, 
+                    deadlockedThreadIds,
                     this.objectMonitorUsageSupported,
                     this.synchronizerUsageSupported);
-        
+
         } else {
             threadInfos = this.mbean.dumpAllThreads(
                     this.objectMonitorUsageSupported,
@@ -104,6 +108,7 @@ public class ThreadDumper {
      * <p>
      * The result contains no lock information and no thread state.
      * See {@link Thread#getAllStackTraces()} for more informations.
+     *
      * @return all threads stack trace.
      */
     @objid ("dd54edb8-f452-4f94-8b51-7426b99bb29e")
@@ -124,6 +129,7 @@ public class ThreadDumper {
     }
 
     /**
+     *
      * @return the singleton instance.
      */
     @objid ("fe3f9450-5931-4056-b28e-d9a11a673c62")
@@ -136,22 +142,106 @@ public class ThreadDumper {
     }
 
     /**
+     * Returns a string representation of the thread info.
+     * <p>
+     * This is a copy paste of {@link ThreadInfo#toString()} to dump more stack trace.
+     *
+     * @param info the thread info to dump
+     * @param maxFrames the max number of frames to dump for one stack trace.
+     * @return a string representation of the thread info.
+     */
+    @objid ("0a0e7213-68c8-4d2a-85a2-00092ec14e00")
+    public static String dumpThreadInfo(ThreadInfo info, int maxFrames) {
+        StringBuilder sb = new StringBuilder("\"" + info.getThreadName() + "\"" +
+                                             (info.isDaemon() ? " daemon" : "") +
+                                             " prio=" + info.getPriority() +
+                                             " Id=" + info.getThreadId() + " " +
+                                             info.getThreadState());
+        if (info.getLockName() != null) {
+            sb.append(" on " + info.getLockName());
+        }
+        if (info.getLockOwnerName() != null) {
+            sb.append(" owned by \"" + info.getLockOwnerName() +
+                      "\" Id=" + info.getLockOwnerId());
+        }
+        if (info.isSuspended()) {
+            sb.append(" (suspended)");
+        }
+        if (info.isInNative()) {
+            sb.append(" (in native)");
+        }
+        sb.append('\n');
+        StackTraceElement[] stackTrace = info.getStackTrace();
+        int i = 0;
+        for (; i < stackTrace.length && i < maxFrames; i++) {
+            StackTraceElement ste = stackTrace[i];
+            sb.append("\tat " + ste.toString());
+            sb.append('\n');
+            if (i == 0 && info.getLockInfo() != null) {
+                Thread.State ts = info.getThreadState();
+                switch (ts) {
+                    case BLOCKED:
+                        sb.append("\t-  blocked on " + info.getLockInfo());
+                        sb.append('\n');
+                        break;
+                    case WAITING:
+                        sb.append("\t-  waiting on " + info.getLockInfo());
+                        sb.append('\n');
+                        break;
+                    case TIMED_WAITING:
+                        sb.append("\t-  waiting on " + info.getLockInfo());
+                        sb.append('\n');
+                        break;
+                    default:
+                }
+            }
+
+            for (MonitorInfo mi : info.getLockedMonitors()) {
+                if (mi.getLockedStackDepth() == i) {
+                    sb.append("\t-  locked " + mi);
+                    sb.append('\n');
+                }
+            }
+        }
+        if (i < stackTrace.length) {
+           sb.append("\t...");
+           sb.append('\n');
+        }
+
+        LockInfo[] locks = info.getLockedSynchronizers();
+        if (locks.length > 0) {
+           sb.append("\n\tNumber of locked synchronizers = " + locks.length);
+           sb.append('\n');
+           for (LockInfo li : locks) {
+               sb.append("\t- " + li);
+               sb.append('\n');
+           }
+        }
+        sb.append('\n');
+        return sb.toString();
+    }
+
+    /**
      * Thread dump result.
-     * 
+     *
      * @author cma
      */
     @objid ("732fc3df-88e0-4d0e-be69-b27bb1932077")
     public static class Result {
+        @objid ("6415e167-ecd8-4161-ae36-76f72f21b07a")
+        private static final int MAX_FRAMES = 50;
+
         @objid ("3ac5d0b6-92f2-4a56-be9a-3234dda9251c")
         final ThreadInfo[] threads;
 
         @objid ("4107ed27-e946-4cc4-9e66-3450590a6a7f")
-         Result(ThreadInfo[] threads) {
+        Result(ThreadInfo[] threads) {
             this.threads = threads;
         }
 
         /**
          * Dump line by line.
+         *
          * @param lineConsumer a consumer that will receive all text lines
          */
         @objid ("952a0cda-cd19-4cc6-959f-4cbf13499637")
@@ -159,17 +249,17 @@ public class ThreadDumper {
             if (this.threads != null) {
                 for (ThreadInfo threadInfo : this.threads) {
                     if (threadInfo != null) {
-                        for(String s : threadInfo.toString().split("\n")) {
+                        for(String s : dumpThreadInfo(threadInfo, MAX_FRAMES).split("\n")) {
                             lineConsumer.accept(s);
                         }
                     }
                 }
             }
-            
         }
 
         /**
          * Add a suppressed exception for each thread
+         *
          * @param target the throwable to add suppressed exceptions to.
          * @return target for convenience
          */
@@ -177,7 +267,7 @@ public class ThreadDumper {
         public <T extends Throwable> T addAsSupressed(T target) {
             if (this.threads != null) {
                 for (ThreadInfo i : this.threads) {
-                    Throwable t = new Throwable(i.toString());
+                    Throwable t = new Throwable(dumpThreadInfo(i, MAX_FRAMES));
                     t.setStackTrace(new StackTraceElement[0]);
                     target.addSuppressed(t);
                 }
@@ -187,6 +277,7 @@ public class ThreadDumper {
 
         /**
          * Get the stack trace of all threads.
+         *
          * @return all threads stack trace.
          */
         @objid ("248b78bf-057e-48f0-a1f4-df06ea46e03c")
@@ -195,7 +286,7 @@ public class ThreadDumper {
             StringBuilder s = new StringBuilder(16000);
             s.append("Threads dump:\n");
             for (ThreadInfo i : this.threads) {
-                s.append(i.toString());
+                s.append(dumpThreadInfo(i, MAX_FRAMES));
                 s.append("\n");
             }
             return s.toString();

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2020 Modeliosoft
+ * Copyright 2013-2025 Docaposte
  *
  * This file is part of Modelio.
  *
@@ -31,13 +31,13 @@ public final class ModelioVersion {
      * Modelio version as a string.
      */
     @objid ("53a2d18d-300b-4607-9904-301d9723dcb4")
-    public static final String STR_VERSION = "5.4.1";
+    public static final String STR_VERSION = "6.2.0";
 
     /**
      * Modelio build ID
      */
     @objid ("1529cdd7-3f74-4c61-8fc8-40aa079c2611")
-    public static final String BUILDID = "DEV".toString();
+    public static final String BUILDID = "6.2.0-20260806".toString();
 
     /**
      * Modelio version as a {@link Version}.
@@ -58,13 +58,14 @@ public final class ModelioVersion {
      * No instance.
      */
     @objid ("f53a0942-7a4a-43bc-a017-3063e1cdc709")
-    private  ModelioVersion() {
+    private ModelioVersion() {
         // no instance
     }
 
     /**
      * Checks that the proposed version is compatible with this Modelio version.
      * Only Modelio MAJOR_MINOR is checked (build ignored).
+     *
      * @return false if versionToCheck is newer than Modelio.MAJOR_MINOR
      */
     @objid ("84f760a0-8779-4499-9409-eee9ccc87c77")

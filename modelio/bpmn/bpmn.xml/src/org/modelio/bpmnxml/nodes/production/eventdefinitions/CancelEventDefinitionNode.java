@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.eventdefinitions;
 
@@ -66,12 +66,12 @@ public class CancelEventDefinitionNode implements IProductionNode<BpmnCancelEven
     @objid ("c75c8e82-3be0-481e-bc63-ed6f2ad7b980")
     @Override
     public BpmnCancelEventDefinition createUMLElement(MObject context, TCancelEventDefinition jaxbElement, BpmnImportFactory factory, boolean keepId) {
-        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {  
+        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {
             return factory.createWithId(BpmnCancelEventDefinition.class,context,"EventDefinitions",jaxbElement.getId());
         }else{
             return factory.create(BpmnCancelEventDefinition.class,context,"EventDefinitions");
         }
-        
+
     }
 
     @objid ("8c7dcd03-4c4e-4ebb-a6f2-3d9e88516d12")
@@ -85,11 +85,11 @@ public class CancelEventDefinitionNode implements IProductionNode<BpmnCancelEven
     @Override
     public TCancelEventDefinition createJaxbElement(Object context, BpmnCancelEventDefinition modelioElement) {
         TEvent jaxEvent = (TEvent)context;
-        
+
         // Create JaxbElement
         TCancelEventDefinition jaxEventDefinition = new TCancelEventDefinition();
         this.elementsMap.put(modelioElement.getUuid(), jaxEventDefinition);
-        
+
         // Add to context
         List<JAXBElement<? extends TEventDefinition>> jaxContext = null;
         if(jaxEvent instanceof TThrowEvent){
@@ -102,7 +102,7 @@ public class CancelEventDefinitionNode implements IProductionNode<BpmnCancelEven
         }
         ObjectFactory factory = new ObjectFactory();
         jaxContext.add(factory.createCancelEventDefinition(jaxEventDefinition));
-        
+
         jaxEventDefinition.setId(IDUtils.getJaxbId(context,modelioElement));
         return jaxEventDefinition;
     }

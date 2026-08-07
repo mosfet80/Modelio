@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.importer.commands;
 
@@ -63,12 +63,12 @@ class BPMImportDialog extends ModelioDialog {
     private Button okButton;
 
     @objid ("7e9ce11a-7231-4bf3-884d-a80edd012bae")
-    public  BPMImportDialog(Shell parentShell, BPMImportModel model) {
+    public BPMImportDialog(Shell parentShell, BPMImportModel model) {
         super(parentShell);
         this.setShellStyle(SWT.APPLICATION_MODAL | SWT.DIALOG_TRIM | SWT.RESIZE | SWT.MAX);
         this.controller = new Controller(this, model);
         this.model = model;
-        
+
     }
 
     @objid ("b2a95830-940f-4bf3-92b4-59254522149b")
@@ -77,7 +77,7 @@ class BPMImportDialog extends ModelioDialog {
         this.okButton = createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
         this.okButton.setEnabled(false);
         createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
-        
+
     }
 
     @objid ("92b15b49-f7cd-4939-8029-fabef7f8fef8")
@@ -86,7 +86,7 @@ class BPMImportDialog extends ModelioDialog {
         this.composite = new Composite(parent, SWT.NONE);
         this.composite.setLayoutData(new GridData(GridData.FILL_BOTH));
         this.composite.setLayout(new GridLayout(3, false));
-        
+
         // Action group
         Composite generateGroup = createActionGroup(this.composite);
         generateGroup.setLayoutData(new GridData(GridData.FILL_BOTH));
@@ -107,7 +107,7 @@ class BPMImportDialog extends ModelioDialog {
             setMessage(BPMNXml.I18N.getMessage("ui.command.import.message"));
         }
         addListeners();
-        
+
     }
 
     @objid ("85c576b8-3e65-48b0-84d0-790b0a8dccdd")
@@ -118,7 +118,7 @@ class BPMImportDialog extends ModelioDialog {
         } else {
             this.okButton.setEnabled(false);
         }
-        
+
     }
 
     @objid ("b1211528-5292-46d9-9fb7-b8b80cdc020e")
@@ -135,20 +135,20 @@ class BPMImportDialog extends ModelioDialog {
                 BPMImportDialog.this.controller.onSelectKeepId(((Button) e.getSource()).getSelection());
             }
         });
-        
+
         this.selectFileButton.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 BPMImportDialog.this.controller.onSelectSelectFile();
             }
         });
-        
+
     }
 
     @objid ("0cd2016c-b859-4f52-ab60-6b85f8666197")
     private Composite createActionGroup(Composite parent) {
         GridData gd = null;
-        
+
         // Archive
         Label filePathLabel = new Label(parent, SWT.NONE);
         gd = new GridData(SWT.LEFT, SWT.CENTER, false, false);
@@ -156,20 +156,20 @@ class BPMImportDialog extends ModelioDialog {
         gd.minimumHeight = 200;
         filePathLabel.setLayoutData(gd);
         filePathLabel.setText(BPMNXml.I18N.getMessage("ui.command.import.selectfile.label"));
-        
+
         this.filePathText = new Text(parent, SWT.BORDER);
         gd = new GridData(SWT.FILL, SWT.FILL, true, false);
         gd.horizontalAlignment = GridData.FILL;
         this.filePathText.setLayoutData(gd);
         this.filePathText.setEditable(false);
-        
+
         this.selectFileButton = new Button(parent, SWT.FLAT);
         this.selectFileButton.setImage(UIImages.FILECHOOSE);
         gd = new GridData(SWT.FILL, SWT.FILL, false, false);
         gd.horizontalAlignment = GridData.FILL;
         this.selectFileButton.setLayoutData(gd);
         this.selectFileButton.setFocus();
-        
+
         // Build type
         this.keepIdCheckBox = new Button(parent, SWT.CHECK);
         gd = new GridData(SWT.FILL, SWT.FILL, false, false);
@@ -190,10 +190,10 @@ class BPMImportDialog extends ModelioDialog {
         private BPMImportModel model;
 
         @objid ("b02709c6-7a8a-4f6a-8065-61178edb9f80")
-        public  Controller(BPMImportDialog dlg, BPMImportModel model) {
+        public Controller(BPMImportDialog dlg, BPMImportModel model) {
             this.dlg = dlg;
             this.model = model;
-            
+
         }
 
         @objid ("43059de8-a65b-4bd1-a2e2-959e4cc0aa4a")
@@ -202,9 +202,9 @@ class BPMImportDialog extends ModelioDialog {
             dialog.setFilterExtensions(new String[] { "*.bpmn" });
             dialog.setFilterNames(new String[] { "*.bpmn" });
             dialog.setText(BPMNXml.I18N.getMessage("ui.command.import.description"));
-            
+
             String path = dialog.open();
-            
+
             if (path != null) {
                 File bpmnFile = new File(path);
                 if (bpmnFile.exists()) {
@@ -212,14 +212,14 @@ class BPMImportDialog extends ModelioDialog {
                 }
             }
             this.dlg.update();
-            
+
         }
 
         @objid ("5296ff2f-1cfe-44f8-aed8-29d4a4b568e8")
         public void onSelectKeepId(boolean keepIdCkeckbox) {
             this.model.setKeeyId(keepIdCkeckbox);
             this.dlg.update();
-            
+
         }
 
     }

@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -26,6 +45,7 @@ import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.PredefinedTypes;
 import org.modelio.metamodel.mda.ModuleComponent;
+import org.modelio.metamodel.mmextensions.standard.facilities.InterFragmentTester;
 import org.modelio.metamodel.uml.statik.AggregationKind;
 import org.modelio.metamodel.uml.statik.Association;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
@@ -50,15 +70,16 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class AssociationEnd2PropertyModel extends AbstractPropertyModel<AssociationEnd> {
     @objid ("c6fe8d74-2fae-4604-9aef-c43c8bb20118")
     private static final String[] PROPERTIES = new String[] { AbstractPropertyModel.PROPERTY_ID, "AssociationName",
-                "IsNavigable", "RoleName", "RoleTarget", "AssociationType", "MultiplicityMin", "MultiplicityMax",
-                "Visibility", "IsModifiable", "AccessMode", "IsAbstract", "IsClass", "IsOrdered", "IsUnique" };
+                        "IsNavigable", "RoleName", "RoleTarget", "AssociationType", "MultiplicityMin", "MultiplicityMax",
+                        "Visibility", "IsModifiable", "AccessMode", "IsAbstract", "IsClass", "IsOrdered", "IsUnique" };
 
     /**
      * Create a new <i>AssociationEnd</i> data model from an <i>AssociationEnd</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("3e51f67b-e5b3-4d14-a73c-daeef56b4963")
-    public  AssociationEnd2PropertyModel(AssociationEnd theEditedElement) {
+    public AssociationEnd2PropertyModel(AssociationEnd theEditedElement) {
         super(theEditedElement);
     }
 
@@ -78,18 +99,18 @@ public class AssociationEnd2PropertyModel extends AbstractPropertyModel<Associat
                 return null;
             }
         }
-        
+
         // Default value for non editable cells
         if (!isApplicableCell(row, associationEnd)) {
             return "N/A";
         }
-        
+
         switch (row) {
         case 0: // Title
             Classifier type = associationEnd.getTarget() != null ? associationEnd.getTarget()
                     : associationEnd.getOpposite() != null ? associationEnd.getOpposite().getSource()
                             : null;
-        
+
             if (type != null) {
                 if (associationEnd == this.theEditedElement) {
                     return MessageFormat.format(MetamodelLabels.getString("Title.to"), type.getName());
@@ -101,7 +122,7 @@ public class AssociationEnd2PropertyModel extends AbstractPropertyModel<Associat
                 if (type != null) {
                     return MessageFormat.format("broken " + MetamodelLabels.getString("Title.from"), type.getName());
                 }
-        
+
             }
             return "";
         case 1:
@@ -140,7 +161,6 @@ public class AssociationEnd2PropertyModel extends AbstractPropertyModel<Associat
         default:
             return null;
         }
-        
     }
 
     @objid ("57e62c17-43f2-4c20-abf2-b1e989ee65c7")
@@ -153,7 +173,7 @@ public class AssociationEnd2PropertyModel extends AbstractPropertyModel<Associat
     private Object getValue(int row, int col) {
         switch (col) {
         case 0: // col 0 is the property name
-        
+
             return getPropertyI18n(AssociationEnd2PropertyModel.PROPERTIES[row]);
         case 1:
             return getPropertyValue(row, this.theEditedElement.getOpposite());
@@ -165,94 +185,102 @@ public class AssociationEnd2PropertyModel extends AbstractPropertyModel<Associat
         default:
             return null;
         }
-        
     }
 
     @objid ("3b5d50d5-abb3-4d07-80a7-091e7efc7871")
     @Override
     public INatValue getValueAt(int row, int col) {
         // Non editable case
+        Object value = getValue(row, col);
         if ((col == 1 && !isApplicableCell(row, this.theEditedElement.getOpposite()))
                 || (col == 2 && !isApplicableCell(row, this.theEditedElement))) {
-            return new DefaultStringNatValue((String) getValue(row, col), false);
+                return new DefaultStringNatValue(value.toString(), false);
         }
-        
+
         // Get the standard types
         switch (col) {
         case 0: // col 0 is the property name
-            return new DefaultStringNatValue((String) getValue(row, col), false);
-        
+            return new DefaultStringNatValue((String) value, false);
+
         case 1:
         case 2:
             switch (row) {
             case 0: // Title
-                return new DefaultStringNatValue((String) getValue(row, col), false);
+                return new DefaultStringNatValue((String) value, false);
             case 1: // Association Name
-                return new DefaultStringNatValue((String) getValue(row, col), false);
+                return new DefaultStringNatValue((String) value, false);
             case 2: // Navigability
-                return new DefaultBooleanNatValue((Boolean) getValue(row, col));
+                return new DefaultBooleanNatValue((Boolean) value);
             case 3: // Role Name
-                return new DefaultStringNatValue((String) getValue(row, col), false);
+                return new DefaultStringNatValue((String) value, false);
             case 4: // Type
-                DefaultElementNatValue classifierType = new DefaultElementNatValue((MObject) getValue(row, col), false,
+                DefaultElementNatValue classifierType = new DefaultElementNatValue((MObject) value, false,
                         Collections.singletonList(Classifier.class));
                 classifierType.setElementFilter(new ClassifierTypeFilter());
                 return classifierType;
             case 5: // Kind
-                return new DefaultJavaEnumNatValue((Enum<?>) getValue(row, col), AggregationKind.class);
+                return new DefaultJavaEnumNatValue((Enum<?>) value, AggregationKind.class);
             case 6:
                 List<String> cardinalityMinValues = new ArrayList<>();
                 cardinalityMinValues.add("0");
                 cardinalityMinValues.add("1");
-                return new DefaultStringChoiceNatValue((String) getValue(row, col), true, cardinalityMinValues, true);
+                return new DefaultStringChoiceNatValue((String) value, true, cardinalityMinValues, true);
             case 7:
                 List<String> cardinalityMaxValues = new ArrayList<>();
                 cardinalityMaxValues.add("1");
                 cardinalityMaxValues.add("*");
-                return new DefaultStringChoiceNatValue((String) getValue(row, col), true, cardinalityMaxValues, true);
+                return new DefaultStringChoiceNatValue((String) value, true, cardinalityMaxValues, true);
             case 8:
-                return new DefaultJavaEnumNatValue((Enum<?>) getValue(row, col), VisibilityMode.class);
+                return new DefaultJavaEnumNatValue((Enum<?>) value, VisibilityMode.class);
             case 9:
-                return new DefaultBooleanNatValue((Boolean) getValue(row, col));
+                return new DefaultBooleanNatValue((Boolean) value);
             case 10:
-                return new DefaultJavaEnumNatValue((Enum<?>) getValue(row, col), KindOfAccess.class);
+                return new DefaultJavaEnumNatValue((Enum<?>) value, KindOfAccess.class);
             case 11:
-                return new DefaultBooleanNatValue((Boolean) getValue(row, col));
+                return new DefaultBooleanNatValue((Boolean) value);
             case 12:
-                return new DefaultBooleanNatValue((Boolean) getValue(row, col));
+                return new DefaultBooleanNatValue((Boolean) value);
             case 13:
-                return new DefaultBooleanNatValue((Boolean) getValue(row, col));
+                return new DefaultBooleanNatValue((Boolean) value);
             case 14:
-                return new DefaultBooleanNatValue((Boolean) getValue(row, col));
+                return new DefaultBooleanNatValue((Boolean) value);
             default:
                 return null;
             }
         default:
             return null;
         }
-        
     }
 
     @objid ("a2a55158-c3c2-4c97-b8a0-265367c394b2")
     @Override
     public boolean isEditable(int row, int col) {
         if (col == 0) {
-            // Labels are not editable
+            // Labels column are not editable
             return false;
         } else if (col == 1) {
             AssociationEnd oppositeEnd = this.theEditedElement.getOpposite();
-            if (isApplicableCell(row, oppositeEnd)) {
-                return oppositeEnd.isModifiable();
-            }
+
+            return isEditableCell(row, oppositeEnd);
         } else if (col == 2) {
             if (row == 1) {
                 return false; // Association name is only editable in the second
                               // column
-            } else if (isApplicableCell(row, this.theEditedElement)) {
-                return this.theEditedElement.isModifiable();
             }
+            return isEditableCell(row, this.theEditedElement);
         }
         return false;
+    }
+
+    @objid ("08d027c5-7c80-4cd6-8faf-8144b5752d3c")
+    private boolean isEditableCell(int row, AssociationEnd associationEnd) {
+        if (! isApplicableCell(row, associationEnd))
+            return false;
+
+        if (row == 2 || row == 4)
+            return ! InterFragmentTester.isAffected(associationEnd);
+
+        return associationEnd.isModifiable();
     }
 
     @objid ("458d5912-7e22-4275-be2b-f4ce4ca57a2b")
@@ -305,7 +333,6 @@ public class AssociationEnd2PropertyModel extends AbstractPropertyModel<Associat
         default:
             return;
         }
-        
     }
 
     @objid ("e6d3573b-a759-47db-9045-48ee77d2f99f")
@@ -323,7 +350,6 @@ public class AssociationEnd2PropertyModel extends AbstractPropertyModel<Associat
         default:
             return;
         }
-        
     }
 
     /**
@@ -340,7 +366,7 @@ public class AssociationEnd2PropertyModel extends AbstractPropertyModel<Associat
         @Override
         public boolean accept(MObject el) {
             Classifier type = (Classifier) el;
-            
+
             if (type.getUuid().equals(PredefinedTypes.UNDEFINED_UID)) {
                 return false;
             } else if (type instanceof ModuleComponent) {
@@ -348,7 +374,6 @@ public class AssociationEnd2PropertyModel extends AbstractPropertyModel<Associat
             } else {
                 return true;
             }
-            
         }
 
     }

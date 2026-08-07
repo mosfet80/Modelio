@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.deploymentdiagram.editor.editor;
 
@@ -34,15 +34,21 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 @objid ("ea20fbce-5a6e-11e2-9e33-00137282c51b")
 public class DeploymentDiagramEditorInputProvider implements IDiagramEditorInputProvider {
     @objid ("436dd5d4-5beb-11e2-9e33-00137282c51b")
-    public  DeploymentDiagramEditorInputProvider() {
+    public DeploymentDiagramEditorInputProvider() {
         super();
     }
 
     @objid ("436dd5d6-5beb-11e2-9e33-00137282c51b")
     @Override
     public DiagramEditorInput compute(String diagramUID, IModelManager modelManager) {
-        AbstractDiagram diagram = (AbstractDiagram) modelManager.getModelServices().findByRef(new MRef(DeploymentDiagram.MQNAME, diagramUID));
+        AbstractDiagram diagram = (AbstractDiagram) modelManager.getModelingSession().getModel().findByRef(new MRef(DeploymentDiagram.MQNAME, diagramUID));
         return diagram != null ? new DeploymentDiagramEditorInput(modelManager, diagram, getDiagramCreator()) : null;
+    }
+
+    @objid ("7649dd7d-bb19-41ca-96b3-eef7bc077321")
+    @Override
+    public DiagramEditorInput compute(AbstractDiagram diagram, IModelManager modelManager) {
+        return diagram instanceof DeploymentDiagram ? new DeploymentDiagramEditorInput(modelManager, diagram, getDiagramCreator()) : null;
     }
 
     @objid ("25caf93e-f324-40fa-8d58-94f5585633bf")

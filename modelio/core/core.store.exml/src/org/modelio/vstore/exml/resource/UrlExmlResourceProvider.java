@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.exml.resource;
 
@@ -38,6 +38,7 @@ import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.Base64;
 import java.util.Collection;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vbasic.files.FileUtils;
@@ -79,32 +80,32 @@ public class UrlExmlResourceProvider extends AbstractExmlResourceProvider {
 
     /**
      * Initialize the resource provider.
+     *
      * @param url the URL of the repository.
      * @param localDir a local directory to store the index.
      * @param user user name (optional)
      * @param passwd password (optional)
      */
     @objid ("bed4ba70-03f0-11e2-a7da-001ec947ccaf")
-    public  UrlExmlResourceProvider(URL url, Path localDir, String user, String passwd) {
+    public UrlExmlResourceProvider(URL url, Path localDir, String user, String passwd) {
         try {
             this.url = url;
             this.name = url.getFile();
-        
+
             this.modelUrl = new URL(url.toString()+ "/" + IExmlRepositoryGeometry.MODEL_DIRNAME);
             this.stampUrl = new URL(url.toString()+ "/" + IStampGeometry.STAMP_DIR_NAME+"/"+IStampGeometry.STAMP_FILE_NAME);
             this.versionUrl = new URL(url.toString()+ "/" + IExmlRepositoryGeometry.FORMAT_VERSION_PATH);
-        
+
             this.localIndexDir = localDir.resolve(IExmlRepositoryGeometry.INDEX_DIRNAME);
             this.localIndexStampPath = localDir.resolve(IStampGeometry.LOCAL_INDEX_STAMP_FILE);
-        
+
             if (url.getUserInfo() != null || (user != null && !user.isEmpty())) {
                 this.auth = computeHttpAuth(url, user, passwd);
             }
-        
+
         } catch (MalformedURLException e) {
             throw new IllegalArgumentException(e);
         }
-        
     }
 
     @objid ("cf2cb503-03e4-11e2-b5bf-001ec947ccaf")
@@ -114,27 +115,27 @@ public class UrlExmlResourceProvider extends AbstractExmlResourceProvider {
             checkLocalIndex();
         } catch (IndexOutdatedException e) {
             Log.trace(e);
-        
+
             String msg = "Retrieving '"+getName()+"' indexes from '"+this.url+"' ...";
-        
+
             Log.trace(msg);
             monitor.subTask(msg);
-        
+
             boolean isLocalDir = Files.isDirectory(this.localIndexDir);
             if (isLocalDir) {
                 FileUtils.delete(this.localIndexDir);
             }
-        
+
             Files.createDirectories(this.localIndexDir);
-        
+
             // Hard coded list of all files of a JDBM index
             final String[] files = new String[]{
                     "index.dbf.0", "index.dbf.t","index.dbr.0","index.dbr.t","index.idf.0","index.idf.t",
                     "index.idr.0", "index.idr.t"
             };
-        
+
             Files.createDirectories(this.localIndexDir);
-        
+
             for (String f : files) {
                 // Assume the indexes are stored in the repository directory.
                 URL indexUrl = new URL(this.url,IExmlRepositoryGeometry.INDEX_DIRNAME+"/"+f);
@@ -143,10 +144,9 @@ public class UrlExmlResourceProvider extends AbstractExmlResourceProvider {
                     Files.copy(is, target, StandardCopyOption.REPLACE_EXISTING );
                 }
             }
-        
+
             Files.write(this.localIndexStampPath, getStamp().getBytes(StandardCharsets.UTF_8));
         }
-        
     }
 
     @objid ("cf2cb50d-03e4-11e2-b5bf-001ec947ccaf")
@@ -171,12 +171,16 @@ public class UrlExmlResourceProvider extends AbstractExmlResourceProvider {
         } catch (IOException e) {
             return true;
         }
-        
     }
 
     @objid ("cf2cb513-03e4-11e2-b5bf-001ec947ccaf")
     @Override
     public Collection<ExmlResource> getAllResources(IModelioProgress aMonitor) throws IOException {
+        throw new AccessDeniedException(this.modelUrl.toString(),null, "Impossible to browse a distant repository.");
+    }
+
+    @objid ("ff8b91b1-9bc5-44a2-ad47-156cc4b1c66b")
+    public Collection<ExmlResource> getAllBlobs(IModelioProgress aMonitor) throws IOException {
         throw new AccessDeniedException(this.modelUrl.toString(),null, "Impossible to browse a distant repository.");
     }
 
@@ -201,7 +205,6 @@ public class UrlExmlResourceProvider extends AbstractExmlResourceProvider {
         } catch (MalformedURLException e) {
             throw new IllegalArgumentException(relativePath+": "+e.getLocalizedMessage(), e);
         }
-        
     }
 
     @objid ("55ec3008-195d-47e5-9e86-071952f1e2ff")
@@ -212,7 +215,6 @@ public class UrlExmlResourceProvider extends AbstractExmlResourceProvider {
         } catch (FileNotFoundException | NoSuchFileException e) {
             return "";
         }
-        
     }
 
     @objid ("cf2f1754-03e4-11e2-b5bf-001ec947ccaf")
@@ -223,7 +225,6 @@ public class UrlExmlResourceProvider extends AbstractExmlResourceProvider {
         } catch (URISyntaxException e) {
             throw new IllegalArgumentException(e);
         }
-        
     }
 
     @objid ("4cf39a56-787f-42db-a3b3-955fddcaab6c")
@@ -239,6 +240,7 @@ public class UrlExmlResourceProvider extends AbstractExmlResourceProvider {
     }
 
     /**
+     *
      * @param name the repository name
      */
     @objid ("cb34844c-7cca-4431-b038-3e9f59e53ad6")
@@ -264,7 +266,7 @@ public class UrlExmlResourceProvider extends AbstractExmlResourceProvider {
         if (! islocalDir) {
             throw new IndexOutdatedException(getName()+" indexes not yet copied in '"+this.localIndexDir+"'.");
         }
-        
+
         try {
             String localStamp = readLocalStamp();
             if (! localStamp.equals(getStamp())) {
@@ -277,7 +279,6 @@ public class UrlExmlResourceProvider extends AbstractExmlResourceProvider {
         } catch (IOException e) {
             throw new IndexOutdatedException("Failed reading '"+this.localIndexStampPath+"': "+e.toString(), e);
         }
-        
     }
 
     /**
@@ -285,6 +286,7 @@ public class UrlExmlResourceProvider extends AbstractExmlResourceProvider {
      * <p>
      * Look for user and password in the 'user' and 'pass' parameters.
      * If they are not filled, look at the URL itself.
+     *
      * @param url the URL to open
      * @param user the user login, may be null
      * @param pass the password, may be null
@@ -294,13 +296,13 @@ public class UrlExmlResourceProvider extends AbstractExmlResourceProvider {
     private static String computeHttpAuth(URL url, String user, String pass) {
         if (user != null && !user.isEmpty()) {
             String userInfo = user + ":" + (pass==null ? "" : pass);
-            return "Basic " + jakarta.xml.bind.DatatypeConverter.printBase64Binary(userInfo.getBytes());
+
+            return "Basic " + Base64.getEncoder().encodeToString(userInfo.getBytes());
         } else if (url.getUserInfo() != null) {
-            return "Basic " + jakarta.xml.bind.DatatypeConverter.printBase64Binary(url.getUserInfo().getBytes());
+            return "Basic " + Base64.getEncoder().encodeToString(url.getUserInfo().getBytes());
         } else {
             return null;
         }
-        
     }
 
     @objid ("e5315907-37d7-11e2-920a-001ec947ccaf")
@@ -326,7 +328,6 @@ public class UrlExmlResourceProvider extends AbstractExmlResourceProvider {
                 throw e;
             }
         }
-        
     }
 
     /**
@@ -341,10 +342,9 @@ public class UrlExmlResourceProvider extends AbstractExmlResourceProvider {
         private URL url;
 
         @objid ("cf2cb51e-03e4-11e2-b5bf-001ec947ccaf")
-        public  UrlResource(URL url, String auth) {
+        public UrlResource(URL url, String auth) {
             this.url = url;
             this.auth = auth;
-            
         }
 
         @objid ("cf2cb521-03e4-11e2-b5bf-001ec947ccaf")
@@ -356,11 +356,11 @@ public class UrlExmlResourceProvider extends AbstractExmlResourceProvider {
                 Log.warning(e.toString());
                 return null;
             }
-            
         }
 
         /**
          * Returns an output stream that writes to this resource.
+         *
          * @return an output stream that writes to this resource.
          * @exception  IOException              if an I/O error occurs while
          * creating the output stream.

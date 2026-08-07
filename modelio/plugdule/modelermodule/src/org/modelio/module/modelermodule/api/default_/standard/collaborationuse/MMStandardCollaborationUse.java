@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class MMStandardCollaborationUse {
      * Tells whether a {@link MMStandardCollaborationUse proxy} can be instantiated from a {@link MObject} checking it is a {@link CollaborationUse}.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -71,9 +72,10 @@ public class MMStandardCollaborationUse {
     }
 
     /**
-     * Tries to instantiate a {@link MMStandardCollaborationUse} proxy from a {@link CollaborationUse} checking its metaclass. 
+     * Tries to instantiate a {@link MMStandardCollaborationUse} proxy from a {@link CollaborationUse} checking its metaclass.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a CollaborationUse
      * @return a {@link MMStandardCollaborationUse} proxy or <i>null</i>.
      */
@@ -99,7 +101,8 @@ public class MMStandardCollaborationUse {
     }
 
     /**
-     * Get the underlying {@link CollaborationUse}. 
+     * Get the underlying {@link CollaborationUse}.
+     *
      * @return the CollaborationUse represented by this proxy, never null.
      */
     @objid ("2bf75b78-84fa-4b78-8d76-340f62a26011")
@@ -111,7 +114,7 @@ public class MMStandardCollaborationUse {
      * Getter for string property 'userDiagramImage'
      * <p>Property description:
      * <br/><i>Image file path to use in diagrams when unmasked in custom image mode.
-     * 
+     *
      * The file path must be either absolute or relative to the project path.</i></p>
      */
     @objid ("143d9fd1-48cb-4a83-a5c9-7d6ca67c4645")
@@ -123,14 +126,14 @@ public class MMStandardCollaborationUse {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     /**
      * Setter for string property 'userDiagramImage'
      * <p>Property description:
      * <br/><i>Image file path to use in diagrams when unmasked in custom image mode.
-     * 
+     *
      * The file path must be either absolute or relative to the project path.</i></p>
      */
     @objid ("55f52c12-e907-4bde-8bc8-b1578948ecd6")
@@ -139,7 +142,7 @@ public class MMStandardCollaborationUse {
     }
 
     @objid ("94f882af-3bd3-4e9f-9bc3-b1b6a5157a8e")
-    protected  MMStandardCollaborationUse(CollaborationUse elt) {
+    protected MMStandardCollaborationUse(CollaborationUse elt) {
         this.elt = elt;
     }
 
@@ -159,7 +162,7 @@ public class MMStandardCollaborationUse {
             USERDIAGRAMIMAGE_TAGTYPE_ELT = ctx.getModelingSession().findElementById(TagType.class, "885e070a-b0d2-4da8-92a5-8ecd396f4afe");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -167,7 +170,7 @@ public class MMStandardCollaborationUse {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -49,7 +49,7 @@ public class R1730 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -69,7 +69,7 @@ public class R1730 extends AbstractUmlRule {
         plan.registerRule(Generalization.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.UPDATE |
                 AuditTrigger.MOVE);
-        
+
     }
 
     /**
@@ -103,14 +103,14 @@ public class R1730 extends AbstractUmlRule {
      * Default constructor for R1730
      */
     @objid ("c4def138-13b5-48aa-85b5-ebd67ca0c4a6")
-    public  R1730() {
+    public R1730() {
         this.checkerInstance = new CheckR1730(this);
     }
 
     @objid ("261dfca4-4040-492b-93ef-024befe6a1c6")
     private static class CheckR1730 extends AbstractControl {
         @objid ("fa116cff-3667-4ba2-94b5-e27496b3e5e6")
-        public  CheckR1730(IRule rule) {
+        public CheckR1730(IRule rule) {
             super(rule);
         }
 
@@ -129,15 +129,15 @@ public class R1730 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     generalization,
                     null);
-            
+
             NameSpace superNS = generalization.getSuperType();
             NameSpace subNS = generalization.getSubType();
-            
+
             if (!((subNS instanceof Signal && superNS instanceof Class) || subNS.getMClass().getName()
                     .equals(superNS.getMClass().getName()))) {
-            
+
                 // Rule failed
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(generalization);

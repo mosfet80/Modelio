@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -47,7 +47,7 @@ public class R1450 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(IElement)
      * @see AbstractRule#getUpdateControl(IElement)
      * @see AbstractRule#getMoveControl(IElementMovedEvent)
@@ -98,14 +98,14 @@ public class R1450 extends AbstractUmlRule {
      * Default constructor for R1450
      */
     @objid ("65d4246b-a417-4578-87f8-9888f0514f40")
-    public  R1450() {
+    public R1450() {
         this.checkerInstance = new CheckR1450(this);
     }
 
     @objid ("47fc2dae-a12b-4e40-856d-8ebcca972eed")
     private static class CheckR1450 extends AbstractControl {
         @objid ("bf82ac7b-67ed-4687-beb9-63e98dff0e79")
-        public  CheckR1450(IRule rule) {
+        public CheckR1450(IRule rule) {
             super(rule);
         }
 
@@ -123,11 +123,11 @@ public class R1450 extends AbstractUmlRule {
         @objid ("fb20bba4-6ec9-4753-8294-19ccb11703df")
         private IAuditEntry checkR1450(final AssociationEnd assocEnd) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, assocEnd, null);
-            
+
             if (assocEnd.getAggregation().equals(AggregationKind.KINDISCOMPOSITION) && !assocEnd.getOpposite().getMultiplicityMax().equals("1")) {
-            
+
                 // Rule failed
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(assocEnd);

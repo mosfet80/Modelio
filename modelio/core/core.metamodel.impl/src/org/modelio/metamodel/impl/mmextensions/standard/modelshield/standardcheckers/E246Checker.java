@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.mmextensions.standard.modelshield.standardcheckers;
 
@@ -56,16 +56,16 @@ public class E246Checker implements IChecker {
     public void check(MObject object, final IErrorReport report) {
         AssociationEnd currentRole = (AssociationEnd) object;
         boolean currentNavigability = currentRole.isNavigable();
-        
+
         AssociationEnd otherRole = currentRole.getOpposite();
         if (otherRole == null) {
             // Invalid model, another rule will be triggered...
             return;
         }
         boolean otherNavigability = otherRole.isNavigable();
-        
+
         Classifier csource, cdest;
-        
+
         if (currentNavigability && !otherNavigability) { // THIS SIDE
             csource = currentRole.getSource();
             cdest = currentRole.getTarget();
@@ -77,7 +77,7 @@ public class E246Checker implements IChecker {
             csource = currentRole.getSource();
             cdest = otherRole.getSource();
         }
-        
+
         if (csource instanceof Actor) {
             if (!(cdest instanceof Actor) &&
                     !(cdest instanceof Class) &&
@@ -90,7 +90,7 @@ public class E246Checker implements IChecker {
                 return;
             }
         }
-        
+
     }
 
     @objid ("008ccee0-e472-1f69-b3fb-001ec947cd2a")
@@ -99,11 +99,11 @@ public class E246Checker implements IChecker {
         // trigger=update, metaclass=AssociationEnd, feature=Owner
         plan.registerChecker(this, smMetamodel.getMClass(AssociationEnd.class), TriggerType.Update, "Source");
         plan.registerChecker(this, smMetamodel.getMClass(AssociationEnd.class), TriggerType.Update, "Target");
-        
+
         // trigger=update, metaclass=AssociationEnd, feature=Owner
         plan.registerChecker(this, smMetamodel.getMClass(AssociationEnd.class), TriggerType.Create, "Source");
         plan.registerChecker(this, smMetamodel.getMClass(AssociationEnd.class), TriggerType.Create, "Target");
-        
+
     }
 
 }

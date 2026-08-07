@@ -1,0 +1,14 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= Vue Documents
+
+
+*  <<User_Documentation_fr_Vue_Documents_Documentation_items.adoc#,Eléments documentaires>>
+*  <<User_Documentation_fr_Vue_Documents_Model_documentation_guidelines.adoc#,Principes de la documentation des modèles>>
+*  <<User_Documentation_fr_Vue_Documents_Document_View.adoc#,Vue Document>>
+*  <<User_Documentation_fr_Vue_Documents_Using_the_Document_View.adoc#,Utilisation de la vue Document>>

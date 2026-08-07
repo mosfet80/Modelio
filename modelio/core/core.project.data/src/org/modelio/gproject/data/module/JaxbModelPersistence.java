@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.data.module;
 
@@ -49,6 +49,7 @@ import org.modelio.gproject.data.module.migration.Migrator;
 public class JaxbModelPersistence {
     /**
      * Load a JAXB model from a jmdac file.
+     *
      * @param modulePath the .jmdac file path
      * @return the JAXB module
      * @throws IOException in case of failure.
@@ -58,7 +59,7 @@ public class JaxbModelPersistence {
         URI uri = modulePath.toUri();
         try {
             uri = new URI("jar:" + uri.getScheme(), uri.getRawSchemeSpecificPart(), uri.getRawFragment());
-        
+
             try (FileSystem fs = FileSystems.newFileSystem(uri, Collections.<String, Object> emptyMap())) {
                 Path moduleDir = findModuleDir(fs);
                 Path moduleXmlFile = moduleDir.resolve("module.xml");
@@ -71,11 +72,12 @@ public class JaxbModelPersistence {
         } catch (URISyntaxException e) {
             throw new IOException(e.getLocalizedMessage(), e);
         }
-        
+
     }
 
     /**
      * Load a JAXB model
+     *
      * @param moduleXmlFile the module.xml file path
      * @return the JAXB module
      * @throws IOException in case of failure.
@@ -91,7 +93,7 @@ public class JaxbModelPersistence {
                 throw new IOException(e);
             }
         }
-        
+
     }
 
     @objid ("387c245a-4ad3-426e-880e-5f29c661cc91")
@@ -105,11 +107,12 @@ public class JaxbModelPersistence {
                 throw new IOException(e);
             }
         }
-        
+
     }
 
     /**
      * Save the JAXB model to a file.
+     *
      * @param module the JAXB module model to save.
      * @param moduleXmlFile the module.xml file path
      * @throws IOException in case of failure.
@@ -119,14 +122,14 @@ public class JaxbModelPersistence {
         try (OutputStream outputStream = Files.newOutputStream(moduleXmlFile)) {
             String packageName = JxbModule.class.getPackage().getName();
             JAXBContext jaxbContext = JAXBContext.newInstance(packageName, JxbModule.class.getClassLoader());
-        
+
             Marshaller marshaller = jaxbContext.createMarshaller();
-        
+
             marshaller.marshal(module, outputStream);
         } catch (JAXBException e) {
             throw new IOException(e);
         }
-        
+
     }
 
     @objid ("b9889f13-6e54-41da-9acb-51d8584999af")
@@ -141,7 +144,7 @@ public class JaxbModelPersistence {
             }
         }
         throw new NoSuchFileException("/*/module.xml");
-        
+
     }
 
     @objid ("c1bb102d-6b96-4c07-9012-14b93e046431")
@@ -150,12 +153,12 @@ public class JaxbModelPersistence {
             String packageName = Jxbv2Module.class.getPackage().getName();
             JAXBContext jaxbContext = JAXBContext.newInstance(packageName, JxbModule.class.getClassLoader());
             Marshaller marshaller = jaxbContext.createMarshaller();
-        
+
             marshaller.marshal(module, outputStream);
         } catch (JAXBException e) {
             throw new IOException(e);
         }
-        
+
     }
 
     /**
@@ -167,12 +170,12 @@ public class JaxbModelPersistence {
         try {
             Jxbv2Module module = loadJaxbModel(Paths.get(s));
             saveJaxbModel(module, Paths.get(s + ".v2"));
-        
+
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+
     }
 
     @objid ("0ec60d78-3c53-46fa-b761-3dbc16f619db")
@@ -180,7 +183,7 @@ public class JaxbModelPersistence {
         try (InputStream inputStream = Files.newInputStream(moduleXmlFile)) {
             return loadJaxbModelV1(inputStream);
         }
-        
+
     }
 
     @objid ("2eef80d4-b006-402c-9b78-d06729907e70")
@@ -197,7 +200,7 @@ public class JaxbModelPersistence {
         try (InputStream inputStream = Files.newInputStream(moduleXmlFile)) {
             return loadJaxbModelV2(inputStream);
         }
-        
+
     }
 
     @objid ("2696dcc3-4c10-4bc9-be80-e4a8451ef20a")

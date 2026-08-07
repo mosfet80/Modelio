@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.usecasediagram.editor.elements.factories;
 
@@ -61,7 +61,7 @@ public final class UseCaseGmNodeFactory implements IGmNodeFactory {
         if (parent instanceof GmGroup) {
             // Use the label factory visitor
             final GmLabelFactoryVisitor v = new GmLabelFactoryVisitor(diagram, initialLayoutData);
-        
+
             final GmNodeModel child = (GmNodeModel) newElement.accept(v);
             if (child != null) {
                 parent.addChild(child);
@@ -70,7 +70,7 @@ public final class UseCaseGmNodeFactory implements IGmNodeFactory {
         }
         // else Use the node factory visitor
         final NodeFactoryVisitor v = new NodeFactoryVisitor(diagram, initialLayoutData);
-        
+
         final GmNodeModel child = (GmNodeModel) newElement.accept(v);
         if (child != null) {
             parent.addChild(child);
@@ -84,13 +84,13 @@ public final class UseCaseGmNodeFactory implements IGmNodeFactory {
         String fixedNamespace = migrateNamespace(namespace);
         if (!fixedNamespace.startsWith(USECASE_NAMESPACE_ROOT))
             return null;
-        
+
         try {
             Class<?> clazz = Class.forName(fixedNamespace);
             if (clazz != null) {
                 return clazz.asSubclass(IPersistent.class);
             }
-        
+
         } catch (ClassNotFoundException | ClassCastException e) {
             // Class not found, return null
             DiagramEditorUseCase.LOG.debug("Failed looking for '%s' transformed to '%': %s", namespace, fixedNamespace, e);
@@ -105,7 +105,7 @@ public final class UseCaseGmNodeFactory implements IGmNodeFactory {
         String fixedNamespace = migrateNamespace(classNamespace);
         if (!fixedNamespace.startsWith(USECASE_NAMESPACE_ROOT))
             return null;
-        
+
         try {
             Class<?> clazz = Class.forName(fixedNamespace);
             if (clazz != null) {
@@ -125,7 +125,7 @@ public final class UseCaseGmNodeFactory implements IGmNodeFactory {
         String fixedNamespace = migrateNamespace(enumNamespace);
         if (!fixedNamespace.startsWith(USECASE_NAMESPACE_ROOT))
             return null;
-        
+
         try {
             Class<?> clazz = Class.forName(fixedNamespace);
             if (clazz != null && clazz.isEnum()) {
@@ -157,10 +157,9 @@ public final class UseCaseGmNodeFactory implements IGmNodeFactory {
         private Object initialLayoutData;
 
         @objid ("5e8eda3a-55b7-11e2-877f-002564c97630")
-        public  GmLabelFactoryVisitor(IGmDiagram diagram, Object initialLayoutData) {
+        public GmLabelFactoryVisitor(IGmDiagram diagram, Object initialLayoutData) {
             this.diagram = diagram;
             this.initialLayoutData = initialLayoutData;
-            
         }
 
         @objid ("5e8eda40-55b7-11e2-877f-002564c97630")
@@ -184,10 +183,9 @@ public final class UseCaseGmNodeFactory implements IGmNodeFactory {
         private Object initialLayoutData;
 
         @objid ("5e8eda1c-55b7-11e2-877f-002564c97630")
-        public  NodeFactoryVisitor(IGmDiagram diagram, Object initialLayoutData) {
+        public NodeFactoryVisitor(IGmDiagram diagram, Object initialLayoutData) {
             this.diagram = diagram;
             this.initialLayoutData = initialLayoutData;
-            
         }
 
         @objid ("5e8eda22-55b7-11e2-877f-002564c97630")

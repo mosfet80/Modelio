@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.umlcommon.externdocument;
 
@@ -72,24 +72,26 @@ public class GmExternDocument extends GmSimpleNode {
      * Constructor to use only for deserialization.
      */
     @objid ("81544df8-1dec-11e2-8cad-001ec947c8cc")
-    public  GmExternDocument() {
-        
+    public GmExternDocument() {
+
     }
 
     /**
      * Creates a GmExternDocument.
+     *
      * @param diagram The diagram owning the node
      * @param document The represented document element
      * @param ref The represented document reference
      */
     @objid ("8156b005-1dec-11e2-8cad-001ec947c8cc")
-    public  GmExternDocument(final IGmDiagram diagram, final Document document, final MRef ref) {
+    public GmExternDocument(final IGmDiagram diagram, final Document document, final MRef ref) {
         super(diagram, ref);
         this.document = document;
-        
+
     }
 
     /**
+     *
      * @return the external document name.
      */
     @objid ("8156b00e-1dec-11e2-8cad-001ec947c8cc")
@@ -99,10 +101,11 @@ public class GmExternDocument extends GmSimpleNode {
         } else {
             return "?";
         }
-        
+
     }
 
     /**
+     *
      * @return the external document content.
      */
     @objid ("8156b012-1dec-11e2-8cad-001ec947c8cc")
@@ -112,7 +115,7 @@ public class GmExternDocument extends GmSimpleNode {
         } else {
             return "?";
         }
-        
+
     }
 
     @objid ("8156b016-1dec-11e2-8cad-001ec947c8cc")
@@ -126,13 +129,13 @@ public class GmExternDocument extends GmSimpleNode {
                     public String getText() {
                         return GmExternDocument.this.getRepresentedElement().getName();
                     }
-        
+
                     @Override
                     public void setText(String text) {
                         GmExternDocument.this.getRepresentedElement().setName(text);
                     }
                 };
-        
+
     }
 
     @objid ("8156b01b-1dec-11e2-8cad-001ec947c8cc")
@@ -161,6 +164,7 @@ public class GmExternDocument extends GmSimpleNode {
 
     /**
      * Get the extern document type label.
+     *
      * @return the document type label.
      */
     @objid ("8156b033-1dec-11e2-8cad-001ec947c8cc")
@@ -168,7 +172,7 @@ public class GmExternDocument extends GmSimpleNode {
         if (this.document == null) {
             return "?";
         }
-        
+
         final ResourceType resourceType = this.document.getType();
         if (resourceType != null) {
             return !MdaResources.getLabel(resourceType).isEmpty() ? MdaResources.getLabel(resourceType) : resourceType.getName();
@@ -178,6 +182,7 @@ public class GmExternDocument extends GmSimpleNode {
 
     /**
      * Get the extern document type label.
+     *
      * @return the document type label.
      */
     @objid ("8156b038-1dec-11e2-8cad-001ec947c8cc")
@@ -202,7 +207,7 @@ public class GmExternDocument extends GmSimpleNode {
             break;
         }
         }
-        
+
     }
 
     @objid ("8156b042-1dec-11e2-8cad-001ec947c8cc")
@@ -210,10 +215,10 @@ public class GmExternDocument extends GmSimpleNode {
     public void refreshFromObModel() {
         if (this.document != null) {
             firePropertyChange(IGmObject.PROPERTY_LABEL, null, this.document.getAbstract());
-        
+
             refreshExternDocumentLink();
         }
-        
+
     }
 
     @objid ("8156b045-1dec-11e2-8cad-001ec947c8cc")
@@ -235,24 +240,24 @@ public class GmExternDocument extends GmSimpleNode {
             // the removed link represents the same element (the document) as this gm: delete self as well.
             delete();
         }
-        
+
     }
 
     @objid ("8156b04f-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmExternDocument.", GmExternDocument.MINOR_VERSION);
-        
+
     }
 
     @objid ("8159125f-1dec-11e2-8cad-001ec947c8cc")
     private void read_0(final IDiagramReader in) {
         super.read(in);
         this.document = (Document) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("81591263-1dec-11e2-8cad-001ec947c8cc")
@@ -273,13 +278,13 @@ public class GmExternDocument extends GmSimpleNode {
         if (relatedElement == null || !relatedElement.isValid() || getDiagram() == null) {
             return;
         }
-        
+
         ModelElement subject = relatedElement.getSubject();
         if (subject instanceof AbstractDiagram) {
             // Documents on diagrams do not have a link
             return;
         }
-        
+
         boolean found = false;
         // Start by scanning existing links
         for (IGmLink gmLink : new ArrayList<>(getEndingLinks())) {
@@ -295,12 +300,12 @@ public class GmExternDocument extends GmSimpleNode {
                 }
             }
         }
-        
+
         if (found) {
             // valid link found
             return;
         }
-        
+
         // Unmask missing link.
         if (subject != null) {
             Collection<GmModel> models = getDiagram().getAllGMRelatedTo(new MRef(subject));
@@ -312,7 +317,7 @@ public class GmExternDocument extends GmSimpleNode {
                 }
             }
         }
-        
+
     }
 
 }

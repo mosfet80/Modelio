@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.generation;
 
@@ -213,7 +213,7 @@ public class OwnershipMetamodelVisitor implements IDefaultModelVisitor, IDefault
     private IParseModelBehavior behavior;
 
     @objid ("9924fdd0-8475-4100-8b6c-17d59ffb6559")
-    public  OwnershipMetamodelVisitor(IParseModelBehavior behavior) {
+    public OwnershipMetamodelVisitor(IParseModelBehavior behavior) {
         this.behavior = behavior;
     }
 
@@ -285,7 +285,7 @@ public class OwnershipMetamodelVisitor implements IDefaultModelVisitor, IDefault
         for (OutputPin i : param.getOutput()) {
             i.accept(this);
         }
-        
+
         for (ExceptionHandler i : param.getHandler()) {
             i.accept(this);
         }
@@ -371,7 +371,7 @@ public class OwnershipMetamodelVisitor implements IDefaultModelVisitor, IDefault
         for (Attribute i : param.getQualifier()) {
             i.accept(this);
         }
-        
+
         AssociationEnd i = param.getOpposite();
         if ((i != null) && (i.getTarget() == null) && (param.getTarget() != null)) {
             i.accept(this);
@@ -499,15 +499,15 @@ public class OwnershipMetamodelVisitor implements IDefaultModelVisitor, IDefault
         for (AssociationEnd i : param.getOwnedEnd()) {
             i.accept(this);
         }
-        
+
         for (NaryAssociationEnd i : param.getOwnedNaryEnd()) {
             i.accept(this);
         }
-        
+
         for (Attribute i : param.getOwnedAttribute()) {
             i.accept(this);
         }
-        
+
         for (BindableInstance i : param.getInternalStructure()) {
             if (i instanceof Port) {
                 ((Port) i).accept(this);
@@ -572,7 +572,7 @@ public class OwnershipMetamodelVisitor implements IDefaultModelVisitor, IDefault
     public Object visitComponent(final Component param) {
         this.behavior.visitComponent(param);
         Object lObject = IDefaultModelVisitor.super.visitComponent(param);
-        
+
         for (ComponentRealization i : param.getRealization()) {
             i.accept(this);
         }
@@ -616,7 +616,7 @@ public class OwnershipMetamodelVisitor implements IDefaultModelVisitor, IDefault
     public Object visitConnectorEnd(final ConnectorEnd param) {
         this.behavior.visitConnectorEnd(param);
         Object lObject = IDefaultModelVisitor.super.visitConnectorEnd(param);
-        
+
         Link i = param.getLink();
         i.accept(this);
         return lObject;
@@ -822,7 +822,7 @@ public class OwnershipMetamodelVisitor implements IDefaultModelVisitor, IDefault
         for (ExpansionNode i : param.getInputElement()) {
             i.accept(this);
         }
-        
+
         for (ExpansionNode i : param.getOutputElement()) {
             i.accept(this);
         }
@@ -983,11 +983,11 @@ public class OwnershipMetamodelVisitor implements IDefaultModelVisitor, IDefault
                 i.accept(this);
             }
         }
-        
+
         for (AttributeLink i : param.getSlot()) {
             i.accept(this);
         }
-        
+
         for (LinkEnd i : param.getOwnedEnd()) {
             if (i instanceof ConnectorEnd) {
                 ((ConnectorEnd) i).accept(this);
@@ -995,7 +995,7 @@ public class OwnershipMetamodelVisitor implements IDefaultModelVisitor, IDefault
                 i.accept(this);
             }
         }
-        
+
         for (NaryLinkEnd i : param.getOwnedNaryEnd()) {
             if (i instanceof NaryConnectorEnd) {
                 ((NaryConnectorEnd) i).accept(this);
@@ -1018,13 +1018,13 @@ public class OwnershipMetamodelVisitor implements IDefaultModelVisitor, IDefault
     public Object visitInteraction(final Interaction param) {
         this.behavior.visitInteraction(param);
         Object lObject = IDefaultModelVisitor.super.visitInteraction(param);
-        
+
         List<InteractionFragment> fragments = AbstractObjingModelNavigation.getOrderedFragments(param);
-        
+
         for (InteractionFragment i : fragments) {
             i.accept(this);
         }
-        
+
         for (Lifeline i : param.getOwnedLine()) {
             i.accept(this);
         }
@@ -1125,10 +1125,10 @@ public class OwnershipMetamodelVisitor implements IDefaultModelVisitor, IDefault
     public Object visitLinkEnd(final LinkEnd param) {
         this.behavior.visitLinkEnd(param);
         Object lObject = IDefaultModelVisitor.super.visitLinkEnd(param);
-        
+
         Link link = param.getLink();
         link.accept(this);
-        
+
         LinkEnd i = param.getOpposite();
         if ((i != null) && (i.getTarget() == null) && (param.getTarget() != null)) {
             i.accept(this);
@@ -1326,7 +1326,7 @@ public class OwnershipMetamodelVisitor implements IDefaultModelVisitor, IDefault
     @Override
     public Object visitNaryLinkEnd(NaryLinkEnd param) {
         this.behavior.visitNaryLinkEnd(param);
-        
+
         NaryLink link = param.getNaryLink();
         if (link instanceof NaryConnector) {
             ((NaryConnector) link).accept(this);
@@ -1451,7 +1451,7 @@ public class OwnershipMetamodelVisitor implements IDefaultModelVisitor, IDefault
         for (PackageMerge i : param.getMerge()) {
             i.accept(this);
         }
-        
+
         // if (param.equals(ReverseProperties.getInstance().getMModelServices().getModelFactory().getRoot()))
         // ReverseProperties.getInstance().getMModelServices().getModelFactory().getUmlProject().accept(this);
         // IItem not supported... (param.getPart)
@@ -1595,9 +1595,9 @@ public class OwnershipMetamodelVisitor implements IDefaultModelVisitor, IDefault
     public Object visitRegion(final Region param) {
         this.behavior.visitRegion(param);
         Object lObject = IDefaultModelVisitor.super.visitRegion(param);
-        
+
         for (StateVertex pseudoState : param.getSub()) {
-        
+
             if (pseudoState instanceof FinalState) {
                 FinalState state = (FinalState) pseudoState;
                 state.accept(this);
@@ -1611,7 +1611,7 @@ public class OwnershipMetamodelVisitor implements IDefaultModelVisitor, IDefault
                 AbstractPseudoState abstractPseudoState = (AbstractPseudoState) pseudoState;
                 abstractPseudoState.accept(this);
             }
-        
+
         }
         return lObject;
     }
@@ -1669,15 +1669,15 @@ public class OwnershipMetamodelVisitor implements IDefaultModelVisitor, IDefault
         for (InternalTransition i : param.getInternal()) {
             i.accept(this);
         }
-        
+
         for (Region i : param.getOwnedRegion()) {
             i.accept(this);
         }
-        
+
         for (EntryPointPseudoState i : param.getEntryPoint()) {
             i.accept(this);
         }
-        
+
         for (ExitPointPseudoState i : param.getExitPoint()) {
             i.accept(this);
         }
@@ -1696,20 +1696,20 @@ public class OwnershipMetamodelVisitor implements IDefaultModelVisitor, IDefault
     public Object visitStateMachine(final StateMachine param) {
         this.behavior.visitStateMachine(param);
         Object lObject = IDefaultModelVisitor.super.visitStateMachine(param);
-        
+
         Region lTop = param.getTop();
         if (lTop != null) {
             lTop.accept(this);
         }
-        
+
         for (Event event : param.getEComponent()) {
             event.accept(this);
         }
-        
+
         for (EntryPointPseudoState entry : param.getEntryPoint()) {
             entry.accept(this);
         }
-        
+
         for (ExitPointPseudoState exit : param.getExitPoint()) {
             exit.accept(this);
         }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.script.engine.core.engine;
 
@@ -42,6 +42,7 @@ public class ScriptRunnerFactory {
 
     /**
      * Get the factory.
+     *
      * @return the factory.
      */
     @objid ("0075b64c-cbcd-1065-a2b8-001ec947cd2a")
@@ -53,18 +54,19 @@ public class ScriptRunnerFactory {
     }
 
     @objid ("0075a864-cbcd-1065-a2b8-001ec947cd2a")
-    private  ScriptRunnerFactory() {
+    private ScriptRunnerFactory() {
         this.scriptEngineManager = new ScriptEngineManager(ScriptEnginePlugin.class.getClassLoader());
-        
+
         for (ScriptEngineFactory ef : this.scriptEngineManager.getEngineFactories()) {
             ScriptEnginePlugin.LOG.debug("script engine : %s %S (%s %s)", ef.getLanguageName(), ef.getLanguageVersion(),
                     ef.getEngineName(), ef.getEngineVersion());
         }
-        
+
     }
 
     /**
      * Get a script runner
+     *
      * @param scriptingLanguage a script language
      * @return the script runner.
      */
@@ -75,18 +77,19 @@ public class ScriptRunnerFactory {
         case "jython":
             // Needed to load Jython 2.7-b3 engine.
             Options.importSite = false;
-        
+
             ScriptEngine engine = this.scriptEngineManager.getEngineByName("jython");
-        
+
             return (engine != null) ? new PythonRunner(engine) : null;
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Get a script runner that runs the scripts in a transaction.
+     *
      * @param scriptingLanguage a script language
      * @return the script runner.
      */

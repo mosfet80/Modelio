@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.wizard;
 
@@ -87,15 +87,15 @@ public abstract class AbstractElementTransmuter implements IModelTransformer {
         } else {
             gmPrimaryNodeToBeTransmuted = gmToBeTransmuted;
         }
-        
+
         // Unmask transmuted element
         GmNodeModel transmutedGm = gmToBeTransmuted.getDiagram().unmask((GmCompositeNode) gmToBeTransmuted.getParent(), transmutedElement, rec);
-        
+
         // Replace the transmuted element with its primary node
         if (!transmutedGm.getRoleInComposition().equals("MainNode") && transmutedGm instanceof GmPortContainer) {
             transmutedGm = ((GmPortContainer) transmutedGm).getMainNode();
         }
-        
+
         // Unmask links
         if (gmPrimaryNodeToBeTransmuted instanceof IGmLinkable) {
             for (IGmLink link : new ArrayList<>(((IGmLinkable) gmPrimaryNodeToBeTransmuted).getStartingLinks())) {
@@ -116,7 +116,7 @@ public abstract class AbstractElementTransmuter implements IModelTransformer {
                     diagram.unmaskLink(mLink, transmutedGm, to, path);
                 }
             }
-        
+
             for (IGmLink link : new ArrayList<>(((IGmLinkable) gmPrimaryNodeToBeTransmuted).getEndingLinks())) {
                 IGmDiagram diagram = link.getDiagram();
                 MObject mLink = link.getRelatedElement();
@@ -126,13 +126,13 @@ public abstract class AbstractElementTransmuter implements IModelTransformer {
                 diagram.unmaskLink(mLink, from, transmutedGm, path);
             }
         }
-        
+
         // Unmask bounday events
         if (gmToBeTransmuted instanceof GmPortContainer) {
             for (GmNodeModel child : ((GmPortContainer) gmToBeTransmuted).getChildren()) {
                 if (child instanceof GmBpmnBoundaryEvent) {
                     MObject boundaryEvent = child.getRelatedElement();
-        
+
                     // Get layout data
                     GmModel boundaryEventPrimaryNode = ((GmPortContainer) child).getMainNode();
                     Rectangle layoutData = ((PortConstraint) child.getLayoutData()).getRequestedBounds();
@@ -140,9 +140,9 @@ public abstract class AbstractElementTransmuter implements IModelTransformer {
                     layoutData.setHeight(((Rectangle) boundaryEventPrimaryNode.getLayoutData()).height);
                     layoutData.setX(layoutData.x + ((Rectangle) boundaryEventPrimaryNode.getLayoutData()).x);
                     layoutData.setY(layoutData.y + ((Rectangle) boundaryEventPrimaryNode.getLayoutData()).y);
-        
+
                     child.delete();
-        
+
                     transmutedGm.getDiagram().unmask((GmCompositeNode) transmutedGm.getParent(), boundaryEvent, layoutData);
                 }
             }
@@ -154,17 +154,17 @@ public abstract class AbstractElementTransmuter implements IModelTransformer {
     @Override
     public final List<MObject> transform(AbstractDiagram diagram, ISelection selection) {
         MObject elementToBeTransmuted = SelectionHelper.getFirst(selection, MObject.class);
-        
+
         // First, replace the element itself
         MModelServices mmService = new MModelServices(CoreSession.getSession(elementToBeTransmuted));
         MObject transmutedElement = transmuteElement(elementToBeTransmuted, mmService);
-        
+
         // If the selection is an edit part, replace the Gm shown in the diagram too
         EditPart selectedEditPart = SelectionHelper.getFirst(selection, EditPart.class);
         if (selectedEditPart != null) {
             transmuteGm(transmutedElement, (GmModel) selectedEditPart.getModel());
         }
-        
+
         // Delete old element
         elementToBeTransmuted.delete();
         return null;
@@ -177,12 +177,12 @@ public abstract class AbstractElementTransmuter implements IModelTransformer {
         if (SelectionHelper.size(selection) != 1) {
             return false;
         }
-        
+
         // In a BPMN diagram
         if (!(diagram instanceof BpmnSubProcessDiagram) && !(diagram instanceof BpmnProcessCollaborationDiagram)) {
             return false;
         }
-        
+
         MObject elt = SelectionHelper.getFirst(selection, MObject.class);
         return elt != null && !this.targetMetaclass.equals(elt.getMClass().getName());
     }
@@ -195,10 +195,11 @@ public abstract class AbstractElementTransmuter implements IModelTransformer {
 
     /**
      * Public constructor required by the {@link TransformerRegistry}.
+     *
      * @param targetMetaclass target metaclass of the transmutation
      */
     @objid ("2a06d727-fc3d-4d33-a47b-f591ee48bed8")
-    public  AbstractElementTransmuter(final String targetMetaclass) {
+    public AbstractElementTransmuter(final String targetMetaclass) {
         this.targetMetaclass = targetMetaclass;
     }
 

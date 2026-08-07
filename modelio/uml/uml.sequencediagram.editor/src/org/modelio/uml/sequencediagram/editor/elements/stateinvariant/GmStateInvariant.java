@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.stateinvariant;
 
@@ -55,24 +55,24 @@ public class GmStateInvariant extends GmCompositeNode {
 
     /**
      * Create an StateInvariant
+     *
      * @param diagram The owning diagram
      * @param element the represented StateInvariant, may be null
      * @param ref the represented StateInvariant reference, may not be null
      */
     @objid ("d9947e82-55b6-11e2-877f-002564c97630")
-    public  GmStateInvariant(IGmDiagram diagram, StateInvariant element, MRef ref) {
+    public GmStateInvariant(IGmDiagram diagram, StateInvariant element, MRef ref) {
         super(diagram, ref);
         this.element = element;
         GmStateInvariantBodyText body = new GmStateInvariantBodyText(diagram, ref);
         this.addChild(body);
-        
     }
 
     /**
      * For deserialization only
      */
     @objid ("d9947e8e-55b6-11e2-877f-002564c97630")
-    public  GmStateInvariant() {
+    public GmStateInvariant() {
         // Nothing to do
     }
 
@@ -141,7 +141,6 @@ public class GmStateInvariant extends GmCompositeNode {
             break;
         }
         }
-        
     }
 
     @objid ("d9978b99-55b6-11e2-877f-002564c97630")
@@ -151,24 +150,21 @@ public class GmStateInvariant extends GmCompositeNode {
         if (this.element != null && this.element.isValid()) {
             firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, this.getLayoutData(), null);
         }
-        
     }
 
     @objid ("d9978b9c-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmStateInvariant.", GmStateInvariant.MINOR_VERSION);
-        
     }
 
     @objid ("d9978ba2-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (StateInvariant) resolveRef(this.getRepresentedRef());
-        
     }
 
     @objid ("d9978ba7-55b6-11e2-877f-002564c97630")

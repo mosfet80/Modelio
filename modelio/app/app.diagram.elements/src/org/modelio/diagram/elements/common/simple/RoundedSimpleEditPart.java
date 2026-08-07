@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.simple;
 
@@ -48,6 +48,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 @objid ("7f1f4061-1dec-11e2-8cad-001ec947c8cc")
 public class RoundedSimpleEditPart extends AbstractNodeEditPart {
     /**
+     *
      * @see AbstractNodeEditPart#propertyChange(java.beans.PropertyChangeEvent)
      */
     @objid ("7f1f4063-1dec-11e2-8cad-001ec947c8cc")
@@ -59,7 +60,7 @@ public class RoundedSimpleEditPart extends AbstractNodeEditPart {
          * should be processed here. | Typical code fragment: | if (evt.getPropertyName().equals( "My Special Event Type") { | ...my special processing code... | } else super.propertyChange(evt); |
          */
         super.propertyChange(evt);
-        
+
     }
 
     /**
@@ -72,16 +73,16 @@ public class RoundedSimpleEditPart extends AbstractNodeEditPart {
          * | Create (new allocated object) the figure to be used as this part's visuals. | A fake implementation, a RectangleFigure, is coded below. | You are supposed to follow the proposed pattern which clearly distinguishes | between the graphic
          * properties that are controlled by the style and those which are | hard-coded
          */
-        
+
         // create the figure
         final RoundedSimpleFigure aFigure = new RoundedSimpleFigure();
-        
+
         // set style independent properties
         aFigure.setSize(100, 50); // TODO: remove/change fake code
-        
+
         // set style dependent properties
         refreshFromStyle(aFigure, getModelStyle());
-        
+
         // return the figure
         return aFigure;
     }
@@ -90,6 +91,7 @@ public class RoundedSimpleEditPart extends AbstractNodeEditPart {
      * Refresh the figure from the given style.
      * <p>
      * Often called in {@link #createFigure()} and after a style change.
+     *
      * @param figure The figure to update, should be {@link #getFigure()}.
      * @param style The style to update from, usually {
      * @link #getModelStyle()}
@@ -106,20 +108,21 @@ public class RoundedSimpleEditPart extends AbstractNodeEditPart {
             super.refreshFromStyle(aFigure, style);
             // SimpleFigure figure = (SimpleFigure)aFigure;
         }
-        
+
     }
 
     @objid ("7f21a2c3-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         installEditPolicy(EditPolicy.NODE_ROLE, new DefaultCreateLinkEditPolicy());
         installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new DefaultElementDirectEditPolicy());
-        
+
     }
 
     /**
+     *
      * @see org.eclipse.gef.editparts.AbstractEditPart#refreshVisuals()
      */
     @objid ("7f21a2c7-1dec-11e2-8cad-001ec947c8cc")
@@ -127,9 +130,9 @@ public class RoundedSimpleEditPart extends AbstractNodeEditPart {
     protected void refreshVisuals() {
         final GmNodeModel model = getModel();
         final RoundedSimpleFigure aFigure = (RoundedSimpleFigure) getFigure();
-        
+
         aFigure.getParent().setConstraint(aFigure, model.getLayoutData());
-        
+
         // Ugly we have to go to the Ob level ..
         final MObject e = model.getRelatedElement();
         if (e instanceof ModelElement) {
@@ -137,7 +140,7 @@ public class RoundedSimpleEditPart extends AbstractNodeEditPart {
         } else {
             aFigure.setLabel(e.toString());
         }
-        
+
     }
 
     /**
@@ -161,7 +164,7 @@ public class RoundedSimpleEditPart extends AbstractNodeEditPart {
                 final CellEditorLocator cellEditorLocator = new EditorLocatorForLabelFigure(
                         label,
                         (String s) -> label.setText(s));
-        
+
                 TextDirectEditManager manager = new TextDirectEditManager(
                         this,
                         cellEditorLocator,
@@ -169,13 +172,13 @@ public class RoundedSimpleEditPart extends AbstractNodeEditPart {
                         editableText.getText())
                                 .setMultiline(true)
                                 .setWrap(true);
-        
+
                 manager.show();
             }
         } else {
             super.performRequest(req);
         }
-        
+
     }
 
 }

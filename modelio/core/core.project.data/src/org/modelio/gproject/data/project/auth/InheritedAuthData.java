@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.data.project.auth;
 
@@ -42,8 +42,8 @@ public class InheritedAuthData extends AuthData {
      * Initialize the authentication data.
      */
     @objid ("22153524-abd3-48ec-a8dd-ce218ea8c7c1")
-    public  InheritedAuthData() {
-        
+    public InheritedAuthData() {
+
     }
 
     @objid ("23c62957-9a34-41f2-9fa0-6864c9ebb2b1")
@@ -66,6 +66,7 @@ public class InheritedAuthData extends AuthData {
 
     /**
      * Convenience method to test whether an authentication data is inherited.
+     *
      * @param d an authentication data
      * @return <i>true</i> if the data is inherited.
      */

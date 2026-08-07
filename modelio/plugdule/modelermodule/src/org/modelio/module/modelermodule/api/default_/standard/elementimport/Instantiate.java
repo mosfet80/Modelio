@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class Instantiate {
      * Tells whether a {@link Instantiate proxy} can be instantiated from a {@link MObject} checking it is a {@link ElementImport} stereotyped << instantiate >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,7 +73,7 @@ public class Instantiate {
 
     /**
      * Create a new {@link ElementImport} stereotyped << instantiate >> then instantiate a {@link Instantiate} proxy.
-     * 
+     *
      * @return a {@link Instantiate} proxy on the created {@link ElementImport}.
      */
     @objid ("57b7608e-edc8-44c6-8d6e-d435495dd717")
@@ -83,9 +84,10 @@ public class Instantiate {
     }
 
     /**
-     * Tries to instantiate a {@link Instantiate} proxy from a {@link ElementImport} stereotyped << instantiate >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link Instantiate} proxy from a {@link ElementImport} stereotyped << instantiate >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a ElementImport
      * @return a {@link Instantiate} proxy or <i>null</i>.
      */
@@ -95,9 +97,10 @@ public class Instantiate {
     }
 
     /**
-     * Tries to instantiate a {@link Instantiate} proxy from a {@link ElementImport} stereotyped << instantiate >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link Instantiate} proxy from a {@link ElementImport} stereotyped << instantiate >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link ElementImport}
      * @return a {@link Instantiate} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -127,7 +130,8 @@ public class Instantiate {
     }
 
     /**
-     * Get the underlying {@link ElementImport}. 
+     * Get the underlying {@link ElementImport}.
+     *
      * @return the ElementImport represented by this proxy, never null.
      */
     @objid ("2332d317-1644-423e-8287-51a4140088e2")
@@ -139,11 +143,11 @@ public class Instantiate {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("d672dcd5-fe23-459f-8c22-0c12edbbff1a")
-    protected  Instantiate(ElementImport elt) {
+    protected Instantiate(ElementImport elt) {
         this.elt = elt;
     }
 
@@ -163,7 +167,7 @@ public class Instantiate {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "00700680-0000-01e5-0000-000000000000");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -171,7 +175,7 @@ public class Instantiate {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.project;
 
@@ -60,6 +60,7 @@ import org.modelio.gproject.plugin.CoreProject;
 import org.modelio.vbasic.auth.IAuthData;
 import org.modelio.vbasic.collections.TopologicalSorter;
 import org.modelio.vbasic.collections.TopologicalSorter.CyclicDependencyException;
+import org.modelio.vbasic.files.CloseOnFail;
 import org.modelio.vbasic.log.Log;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vbasic.progress.NullProgress;
@@ -74,7 +75,7 @@ import org.modelio.version.ModelioVersion;
 
 /**
  * GProject new design
- * 
+ *
  * @since 5.2
  */
 @objid ("8299b20c-7440-401f-9e17-3d2c1925615d")
@@ -141,7 +142,7 @@ public class GProject extends AbstractGProject {
                     gPart.getType(), gPart.getId(), gPart.getVersion(),
                     existingPart.getType(), existingPart.getId(), existingPart.getVersion()));
         }
-        
+
     }
 
     @objid ("c4d5e08d-9906-40d2-bf70-1003074db21d")
@@ -152,24 +153,24 @@ public class GProject extends AbstractGProject {
             // Wrong state, throw programming error
             throw new IllegalStateException(String.format("Cannot add part %s when project is not opened (state=%s)...", gPart.getId(), s));
         }
-        
+
         checkDuplicatePart(gPart.getDescriptor());
-        
+
         // Add the part and mount it
         // Note: the gpart mount() method will manage the part state and fire proper project events
         this.gParts.add(gPart);
         SubProgress mon = SubProgress.convert(monitor, 5);
         gPart.install(this, mon.newChild(1));
         gPart.mount(mon.newChild(1));
-        
+
         if (permanent) {
             // Remove existing part with the same id
             //this.descriptor.getPartDescriptors().removeIf(d -> d.matches(gPart.getDescriptor()));
-        
+
             // Update the descriptor
             this.descriptor.getPartDescriptors().add(gPart.getDescriptor());
         }
-        
+
     }
 
     @objid ("091f8f15-5efb-4cee-834b-aa18af5c2e41")
@@ -196,16 +197,16 @@ public class GProject extends AbstractGProject {
         default:
             throw new IllegalStateException(String.format("Cannot add part %s when project is in state=%s...", newPartDesc.getId(), s));
         }
-        
+
     }
 
     @objid ("e4b84d7e-634a-4aba-ae90-068c0e791a7a")
     private void lockProject() throws IOException {
         Files.createDirectories(this.pfs.getProjectRuntimePath());
-        
+
         this.projectLock = ProjectLock.get(this.pfs.getProjectRuntimePath(), getName());
         this.projectLock.lock();
-        
+
     }
 
     /**
@@ -215,20 +216,20 @@ public class GProject extends AbstractGProject {
     @Override
     public void close() {
         final NullProgress aProgress = new NullProgress();
-        
+
         getState().sendClosing(aProgress);
-        
+
         // Unmount all parts
         unmountParts(aProgress);
-        
+
         // Close the session
         super.close();
-        
+
         // Release the lock
         releaseLock();
-        
+
         getState().sendClosed(aProgress);
-        
+
     }
 
     @objid ("3f5eae4e-d1e3-47f2-99f5-5baa7cba672b")
@@ -241,7 +242,7 @@ public class GProject extends AbstractGProject {
                 getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(this, e));
             }
         }
-        
+
     }
 
     @objid ("53b2e404-be0d-4ebe-bb06-17cd9b176db6")
@@ -254,6 +255,7 @@ public class GProject extends AbstractGProject {
      * Get this project descriptor.
      * <p>
      * <b>Note</b> The returned value is NOT a clone and that modifications should not be made in the returned instance !
+     *
      * @return this project descriptor.
      */
     @objid ("83563468-de7e-49e5-9f14-a95f5c4f848f")
@@ -276,6 +278,7 @@ public class GProject extends AbstractGProject {
 
     /**
      * Get the project's name.
+     *
      * @return the project's name.
      */
     @objid ("5ed45cf6-8553-4c95-b8bf-df3643f898ec")
@@ -286,6 +289,7 @@ public class GProject extends AbstractGProject {
 
     /**
      * Get the parts of exact type 'type'
+     *
      * @param <T> the requested parts type
      * @return the matching parts
      */
@@ -296,7 +300,7 @@ public class GProject extends AbstractGProject {
                 .filter(p -> type == null || type.isAssignableFrom(p.getClass()))
                 .map(type::cast)
                 .collect(Collectors.toList());
-        
+
     }
 
     @objid ("cc84ec32-f2c3-4074-ac70-417220d06bb3")
@@ -309,7 +313,7 @@ public class GProject extends AbstractGProject {
                 .map(partType::cast)
                 .findFirst()
                 .orElse(null);
-        
+
     }
 
     @objid ("92358812-00c9-4c87-844d-959f7e9af171")
@@ -326,6 +330,7 @@ public class GProject extends AbstractGProject {
 
     /**
      * Get the properties stored in the project.
+     *
      * @return the current set of properties.
      */
     @objid ("67e21b54-11c0-4816-a0cc-79c995f7cb1d")
@@ -338,6 +343,7 @@ public class GProject extends AbstractGProject {
      * Get the project remote location.
      * <p>
      * Returns <code>null</code> for local projects.
+     *
      * @return the project remote location.
      */
     @objid ("4ce3663a-a857-4d63-900a-a8ae9a923150")
@@ -357,6 +363,7 @@ public class GProject extends AbstractGProject {
      * Get the project type.
      * <p>
      * This method should be redefined by subclasses.
+     *
      * @return the project type.
      */
     @objid ("57204679-008e-4ebf-99c3-b6922ba601ae")
@@ -370,11 +377,12 @@ public class GProject extends AbstractGProject {
             Log.trace(e);
             return ProjectType.LOCAL;
         }
-        
+
     }
 
     /**
      * Indicates whether or not the project is opened.
+     *
      * @return true if the project is open.
      */
     @objid ("a67033a8-a777-40c4-8c8d-58813aea9499")
@@ -387,6 +395,7 @@ public class GProject extends AbstractGProject {
      * Instantiates a GProject builder.
      * <p>
      * Mandatory entry point to instantiate a {@link GProject}.
+     *
      * @param projectDescriptor the project descriptor
      * @return a builder
      */
@@ -398,6 +407,7 @@ public class GProject extends AbstractGProject {
     /**
      * Open the project.
      * <p>
+     *
      * @param aProgress a progress monitor
      * @throws IOException in case of I/O error preventing the project from being open.
      * @throws FileSystemException in case of file system I/O error preventing the project from being open.
@@ -406,10 +416,10 @@ public class GProject extends AbstractGProject {
     @Override
     public void open(IModelioProgress aProgress) throws IOException, FileSystemException {
         SubProgress progress = SubProgress.convert(aProgress, 80);
-        
+
         // Check project is not already opened
         checkNotOpen();
-        
+
         // Check Modelio version
         Version modelioVersion = this.descriptor.getModelioVersion();
         if (!ModelioVersion.isCompatible(modelioVersion)) {
@@ -431,54 +441,60 @@ public class GProject extends AbstractGProject {
             // Upgrade project version to current Modelio version
             setModelioVersion(ModelioVersion.MAJOR_MINOR);
         }
-        
+
         // lock the project
         lockProject();
-        
-        boolean ok = false;
-        try {
+
+        try (CloseOnFail rollbacker = new CloseOnFail(this::closeProjectOnOpenFail)){
             // Open the session
             this.session = new CoreSession();
             this.state.sendSessionUp(progress.newOptionalChild(10));
             progress.setWorkRemaining(60);
-        
+
             // Mount the metamodel fragments required by the project
             mountMetamodelFragments(this.session, this.projectEnvironment.getDefaultMetamodelExtensions());
             progress.worked(20);
-        
+
             // Mount the internally used default repository
             this.session.mountNSURepository(this.pfs.getNsUseRepositoryPath(), progress.newChild(20));
-        
+
             this.state.sendOpening(progress.newOptionalChild(10));
             progress.setWorkRemaining(50);
-        
+
             // Install the parts
             installParts(progress.newChild(20));
-        
+
             // Mount the project parts
             mountParts(progress.newChild(20));
-        
+
             this.state.sendOpened(progress.newOptionalChild(10));
-        
-            ok = true;
+
+            rollbacker.success();
         } catch (CyclicDependencyException e) {
             this.problems.add(new GProblem(getDescriptor(), e));
-        } finally {
-            if (!ok) {
-                if (this.session != null) {
-                    this.session.close();
-                    this.session = null;
-                }
-        
-                if (this.projectLock != null) try {
-                    this.projectLock.close();
-                    this.projectLock = null;
-                } catch (IOException | RuntimeException e) {
-                    Log.trace(e);
-                }
-            }
         }
-        
+
+    }
+
+    /**
+     * Clean {@link #open(IModelioProgress)} actions on failure.
+     *
+     * @since 5.4.1 20/11/2023
+     */
+    @objid ("c5927e9d-c861-456f-b111-7e45f90056c3")
+    private void closeProjectOnOpenFail() {
+        if (this.session != null) {
+            this.session.close();
+            this.session = null;
+        }
+
+        if (this.projectLock != null) try {
+            this.projectLock.close();
+            this.projectLock = null;
+        } catch (IOException | RuntimeException e) {
+            Log.trace(e);
+        }
+
     }
 
     @objid ("105f9117-37dc-4768-b287-ef8ed7b3e5f6")
@@ -487,11 +503,11 @@ public class GProject extends AbstractGProject {
         for (IGPart gPart : this.gParts) {
             try {
                 gPart.mount(progress.newChild(1));
-            } catch (GPartException e) {
+            } catch (GPartException | RuntimeException e) {
                 this.problems.add(new GProblem(gPart, e));
             }
         }
-        
+
     }
 
     @objid ("f26180d2-0114-4012-b3d4-01c6ddcee06e")
@@ -500,11 +516,11 @@ public class GProject extends AbstractGProject {
         for (IGPart gPart : this.gParts) {
             try {
                 gPart.install(this, progress.newChild(1));
-            } catch (GPartException e) {
+            } catch (GPartException | RuntimeException e) {
                 this.problems.add(new GProblem(gPart, e));
             }
         }
-        
+
     }
 
     @objid ("e6804393-a1ec-4ebd-a5f4-eee50254e100")
@@ -513,11 +529,11 @@ public class GProject extends AbstractGProject {
         for (IGPart gPart : this.gParts) {
             try {
                 gPart.unmount(mon.newChild(1));
-            } catch (GPartException e) {
+            } catch (GPartException | RuntimeException e) {
                 this.problems.add(new GProblem(gPart, e));
             }
         }
-        
+
     }
 
     @objid ("39422c62-8d34-4a71-ad1b-4bf91a58d04b")
@@ -536,7 +552,7 @@ public class GProject extends AbstractGProject {
             Log.error("Cannot remove part %s when project is not opened (state=%s)...", gPart.getId(), s);
             return;
         }
-        
+
         if (this.gParts.contains(gPart)) {
             SubProgress mon = SubProgress.convert(monitor, 2);
             gPart.unmount(mon.newChild(1));
@@ -544,7 +560,7 @@ public class GProject extends AbstractGProject {
             this.gParts.remove(gPart);
             this.descriptor.getPartDescriptors().remove(gPart.getDescriptor());
         }
-        
+
     }
 
     @objid ("48d37542-ecac-4b60-be04-379f1c2c4b84")
@@ -573,7 +589,7 @@ public class GProject extends AbstractGProject {
                     this.gParts.remove(existingPart);
                 }
             }
-        
+
             break;
         }
         case INITIAL:
@@ -582,15 +598,16 @@ public class GProject extends AbstractGProject {
             throw new IllegalStateException(String.format(
                     "Cannot remove part descriptor %s when project state is not 'new'd (state=%s)...", partDescriptor.getId(), s));
         }
-        
-        
+
+
         // Update the descriptor
         this.descriptor.getPartDescriptors().remove(partDescriptor);
-        
+
     }
 
     /**
      * Save the model and the project description.
+     *
      * @param progress a Modelio progress monitor
      * @throws IOException if a repository failed to save.
      */
@@ -601,10 +618,10 @@ public class GProject extends AbstractGProject {
         if (this.session != null) {
             this.session.save(progress);
         }
-        
+
         // Save the project.conf
         new GProjectDescriptorWriter().write(this.descriptor);
-        
+
     }
 
     /**
@@ -632,6 +649,7 @@ public class GProject extends AbstractGProject {
      * <li>To be called only by {@link GProjectConfigurer}.
      * <li>To be redefined by remote project implementations.
      * </ul>
+     *
      * @param remoteLocation the new project remote location.
      * @throws URISyntaxException if the given location is invalid
      */
@@ -646,7 +664,7 @@ public class GProject extends AbstractGProject {
         if (this.session != null) {
             throw new IllegalStateException("'" + getName() + "' project already open.");
         }
-        
+
     }
 
     /**
@@ -656,6 +674,7 @@ public class GProject extends AbstractGProject {
      * <p>
      * This method may be (and is) redefined to add other constraints on remote projects. Check the expected Modelio version with the current Modelio version.
      * <p>
+     *
      * @throws IOException if the Modelio version does not match.
      */
     @objid ("23b1c270-4a07-4d0c-84b9-cb8fb2fcfd55")
@@ -678,23 +697,23 @@ public class GProject extends AbstractGProject {
         }
         // If project expected Modelio version is compatible writes the current Modelio version in the descriptor (no migration)
         this.descriptor.setModelioVersion(version);
-        
+
     }
 
     @objid ("faea4736-313a-4c81-b5ca-30cf58de411c")
-    private  GProject(GProjectDescriptor descriptor) {
+    private GProject(GProjectDescriptor descriptor) {
         this.descriptor = descriptor;
         this.state = new GProjectState(this);
-        
+
     }
 
     @objid ("2f3b7bce-afb2-4f6f-928c-c6237c98f071")
     private void mountMetamodelFragments(CoreSession aSession, Collection<IGMetamodelExtension> mmExtensions) throws CyclicDependencyException {
         // Mount metamodel fragments
         // metamodel fragments have to be topologically sorted first to deal with their dependencies
-        
+
         List<IGMetamodelExtension> sortedExtensions = new GMetamodelExtensionTopologicalSorter<>(mmExtensions).sort();
-        
+
         for (IGMetamodelExtension mmExt : sortedExtensions) {
             // monitor.subTask(CoreProject.I18N.getMessage("GProject.mountingMetamodelFragment", mmF.getName()));
             // Add metamodel fragments to the metamodel
@@ -703,11 +722,12 @@ public class GProject extends AbstractGProject {
             // monitor.worked(1);
         }
         // monitor.done();
-        
+
     }
 
     /**
      * Get the metamodel extensions loaded in the project.
+     *
      * @return the metamodel extensions.
      * @since 3.6
      */
@@ -725,10 +745,10 @@ public class GProject extends AbstractGProject {
     }
 
 static {
-                            // Initialize MTools
-                            MTools.initializeMTools(new ModelTool(), new AuthTool());
-                        }
-    
+                                // Initialize MTools
+                                MTools.initializeMTools(new ModelTool(), new AuthTool());
+                            }
+
     // end class GProjectBuilder
     @objid ("75c225b9-2644-4398-9fbc-cfea6944b556")
     private static final class GMetamodelExtensionTopologicalSorter<T extends IGMetamodelExtension> extends TopologicalSorter<T> {
@@ -736,7 +756,7 @@ static {
         private Collection<T> extensions = Collections.EMPTY_LIST;
 
         @objid ("43f57251-970d-4dc5-a488-91fb5ea8d52d")
-        public  GMetamodelExtensionTopologicalSorter(Collection<T> mmExtensions) {
+        public GMetamodelExtensionTopologicalSorter(Collection<T> mmExtensions) {
             this.extensions = mmExtensions;
         }
 
@@ -762,10 +782,10 @@ static {
                         }
                     }
                 }
-            
+
                 return ret;
             }
-            
+
         }
 
     }
@@ -797,14 +817,16 @@ static {
         private Version expectedModelioVersion;
 
         /**
+         *
          * @param projectDescriptor the mandatory project descriptor
          */
         @objid ("375a45a2-aa01-49d3-a29d-d1167f667387")
-        public  GProject2Builder(GProjectDescriptor projectDescriptor) {
+        public GProject2Builder(GProjectDescriptor projectDescriptor) {
             this.projectDescriptor = projectDescriptor;
         }
 
         /**
+         *
          * @param auth optional authentication data
          * @return this builder to chain calls.
          */
@@ -815,6 +837,7 @@ static {
         }
 
         /**
+         *
          * @param metamodelExtensions metamodel extensions to add
          * @return this builder with new methods accessible.
          */
@@ -826,6 +849,7 @@ static {
 
         /**
          * Set the module catalog and the metamodel fragments from an existing project environment.
+         *
          * @param aProjectEnv an already configured project environment to copy.
          * @return this builder with new methods accessible.
          */
@@ -838,6 +862,7 @@ static {
         }
 
         /**
+         *
          * @param cache a modules catalog
          * @return this builder to chain calls.
          */
@@ -850,6 +875,7 @@ static {
         /**
          * Set a project monitor to add immediately on project creation. <br>
          * This monitor will receive events fired while opening the project. The monitor will remain once the project is open. If it is not your intended behavior you have to remove it from the project manually after having opened it.
+         *
          * @param anEventMonitor a project event monitor
          * @return this builder to chain calls.
          */
@@ -863,57 +889,59 @@ static {
          * Instantiates the project.
          * <p>
          * The project is not open, open it with {@link GProject#open(IModelioProgress)}
+         *
          * @param aMonitor a progress monitor
          * @return the instantiated project
          */
         @objid ("27e2f480-ff55-4a6b-b11f-a5e7899d58c8")
         public IGProject build(IModelioProgress aMonitor) {
             SubProgress progress = SubProgress.convert(aMonitor);
-            
+
             // Create new GProject instance
             GProject project = new GProject(this.projectDescriptor);
             project.projectEnvironment = new GProjectEnvironment();
-            
+
             // Migrate the project file structure if needed
             this.projectDescriptor = migrateProjectSpace(this.projectDescriptor, project.projectEnvironment);
             project.pfs = new ProjectFileStructure(this.projectDescriptor.getProjectFileStructure().getProjectPath());
-            
+
             // process 'withAuth' settings
             if (this.authData != null) {
                 this.projectDescriptor.setAuthDescriptor(new AuthDescriptor(this.authData, DefinitionScope.LOCAL));
             }
-            
+
             // process 'withEnvironment' settings
             project.projectEnvironment = this.projectEnv;
-            
+
             // Fix null module cache if null
             if (project.projectEnvironment.getModulesCache() == null) {
                 project.projectEnvironment.setModulesCache(EmptyModuleCache.getInstance());
             }
-            
+
             // process 'withEventMonitor' settings
             if (this.eventMonitor != null) {
                 project.monitorSupport.addMonitor(this.eventMonitor);
             }
-            
+
             // Instantiate the project parts.
             progress.setWorkRemaining(this.projectDescriptor.getPartDescriptors().size() + 2);
-            
+
             for (GProjectPartDescriptor partDescriptor : this.projectDescriptor.getPartDescriptors()) {
                 IGPart gPart = GPartFactory.getInstance().instantiate(partDescriptor);
                 progress.worked(1);
-            
+
                 project.gParts.add(gPart);
             }
-            
+
             project.getState().sendNew(progress.newOptionalChild(2));
-            
+
             progress.done();
             return project;
         }
 
         /**
          * Migrate the project space structure.
+         *
          * @param descriptor the current project
          * @param conf environment for the project.
          * @return the descriptor after migration.

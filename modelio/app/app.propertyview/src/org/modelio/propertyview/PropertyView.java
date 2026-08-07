@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.propertyview;
 
@@ -24,9 +24,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.InvalidRegistryObjectException;
@@ -39,6 +39,7 @@ import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.services.EMenuService;
 import org.eclipse.e4.ui.services.IServiceConstants;
+import org.eclipse.e4.ui.services.IStylingEngine;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -50,7 +51,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.modelio.gproject.core.IGProject;
 import org.modelio.metamodel.mmextensions.standard.services.IMModelServices;
@@ -59,12 +59,13 @@ import org.modelio.platform.core.activation.IActivationService;
 import org.modelio.platform.core.events.ModelioEventTopics;
 import org.modelio.platform.core.picking.IModelioPickingService;
 import org.modelio.platform.core.picking.IPickingSession;
+import org.modelio.platform.core.project.ICurrentProjectService;
 import org.modelio.platform.model.ui.swt.SelectionHelper;
 import org.modelio.platform.model.ui.swt.images.MetamodelImageService;
-import org.modelio.platform.project.services.IProjectService;
 import org.modelio.platform.rcp.extensionpoint.ExtensionPointContributionManager;
 import org.modelio.platform.ui.UIColor;
 import org.modelio.platform.ui.UIFont;
+import org.modelio.platform.ui.UIThreadRunner;
 import org.modelio.platform.ui.panel.IPanelProvider;
 import org.modelio.propertyview.plugin.PropertyViewPlugin;
 import org.modelio.propertyview.vtabfolder.VTabFolder;
@@ -124,10 +125,14 @@ public class PropertyView implements IModelChangeListener, IStatusChangeListener
     @objid ("9b78bf69-54b6-4f77-ad13-6b9b9c055eda")
     private MPart myPart;
 
-    @objid ("75eaf2ba-e8b4-44bd-ac07-5c7894ca58bb")
+    @objid ("7c52fa8d-f331-44e1-8d1c-4e5268c77824")
+    @Inject
+    private IStylingEngine styler;
+
+    @objid ("0beae7b3-a2f0-45b8-a95f-decae1981704")
     private CLabel header;
 
-    @objid ("bd052ea7-9aa4-44b5-8f17-0e694b1e0cd9")
+    @objid ("f44bbbe0-4657-430f-881e-72ed373e20f9")
     private Composite parentComposite;
 
     @objid ("416c04b4-33cb-48a8-bda1-e3413d4112a9")
@@ -147,7 +152,7 @@ public class PropertyView implements IModelChangeListener, IStatusChangeListener
 
     @objid ("64bc76e3-41c3-4158-910e-b6b83cb143aa")
     @Inject
-    private IProjectService projectService;
+    private ICurrentProjectService projectService;
 
     @objid ("a5ab841a-6383-4a7d-83de-8111ae86335e")
     private PropertyViewContributorsManager pvm;
@@ -157,6 +162,7 @@ public class PropertyView implements IModelChangeListener, IStatusChangeListener
 
     /**
      * Called by the framework to create the view and initialize it.
+     *
      * @param aProjectService the project service.
      * @param modelServices the model service.
      * @param modelioActivationService the activation service
@@ -168,28 +174,33 @@ public class PropertyView implements IModelChangeListener, IStatusChangeListener
      */
     @objid ("25234b53-7251-4fc7-88ea-d232f7c68d55")
     @PostConstruct
-    public void createControls(final IProjectService aProjectService, @Optional final IMModelServices modelServices, @Optional final IActivationService modelioActivationService, @Optional final IModelioPickingService modelioPickingService, final Composite parent, @Optional
-    @Named (IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection, @Optional final EMenuService theMenuService, @Optional final MPart propertyPart) {
+    public void createControls(final ICurrentProjectService aProjectService, @Optional final IMModelServices modelServices, @Optional final IActivationService modelioActivationService, @Optional final IModelioPickingService modelioPickingService, final Composite parent, @Optional
+    @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection, @Optional final EMenuService theMenuService, @Optional final MPart propertyPart) {
         this.parentComposite = parent;
-        
+
         // The property view contributors
         this.pvm = new PropertyViewContributorsManager(this.eclipseContext);
-        
+
         // Create the GUI
         createGui(this.parentComposite);
-        
+
         // Sometimes, the view is instantiated only after the project is opened
         if (aProjectService != null && aProjectService.getOpenedProject() != null) {
-            onProjectOpened(aProjectService.getOpenedProject(), modelServices, modelioPickingService,
-                    modelioActivationService, theMenuService, propertyPart);
+            onProjectOpened(
+                    aProjectService.getOpenedProject(),
+                    modelServices,
+                    modelioPickingService,
+                    modelioActivationService,
+                    theMenuService,
+                    propertyPart);
             if (selection != null) {
                 update(selection);
             }
         }
-        
     }
 
     /**
+     *
      * @param isShown whether hidden annotations should be displayed.
      */
     @objid ("16f6c234-c1d4-43e5-af75-b1f5fdf8bcac")
@@ -199,21 +210,22 @@ public class PropertyView implements IModelChangeListener, IStatusChangeListener
 
     /**
      * Updates the view for the given selection. Note that this might be called before the GUI has been created !
+     *
      * @param selection an Eclipse selection
      */
     @objid ("3247ccb8-e344-439b-8324-fbb7ed478b1e")
     @Optional
     @Inject
-    public void update(@Named (IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
+    public void update(@Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
         if (this.isPinned || this.projectService.getOpenedProject() == null) {
             return;
         }
-        
+
         // Update the header
         if (this.header != null) {
             this.header.setText(getTitleFor(selection));
             this.header.setImage(getImageFor(selection));
-        
+
             for (final PanelDescriptor desc : this.pvm.getPanels()) {
                 final IPanelProvider panel = desc.getPanel();
                 try {
@@ -228,16 +240,15 @@ public class PropertyView implements IModelChangeListener, IStatusChangeListener
                     PropertyViewPlugin.LOG.error(e);
                 }
             } // end for
-        
+
             if (this.tabFolder.getSelection() == null) {
                 this.tabFolder.setSelection(0);
             }
-        
+
             this.tabFolder.redraw();
-        
+
             this.currentSelection = selection;
         }
-        
     }
 
     @objid ("e02232af-4be2-4539-ba76-67264f7b3caf")
@@ -249,26 +260,23 @@ public class PropertyView implements IModelChangeListener, IStatusChangeListener
 
     @objid ("aec881e8-7bf3-47a0-8ba6-42d801e99aee")
     @Inject
-    @SuppressWarnings ("unused")
+    @SuppressWarnings("unused")
     @Optional
-    void onPickingSessionStop(@EventTopic (ModelioEventTopics.PICKING_STOP) final IPickingSession session) {
+    void onPickingSessionStop(@EventTopic(ModelioEventTopics.PICKING_STOP) final IPickingSession session) {
         // Unpin the view
         setIsPinned(false);
-        
+
         // Restore the selection
-        this.tabFolder.getDisplay().asyncExec(
-                () -> update(this.currentSelection));
-        
+        UIThreadRunner.asynExec(this.tabFolder, () -> update(this.currentSelection));
     }
 
     @objid ("7fb8f8ff-50d0-4c1d-aad8-a503b2b74a10")
     @Inject
     @Optional
-    @SuppressWarnings ("unused")
-    void onPickingStart(@EventTopic (ModelioEventTopics.PICKING_START) final IPickingSession session) {
+    @SuppressWarnings("unused")
+    void onPickingStart(@EventTopic(ModelioEventTopics.PICKING_START) final IPickingSession session) {
         // Temporary pin the view when picking is in progress
         setIsPinned(true);
-        
     }
 
     /**
@@ -277,7 +285,7 @@ public class PropertyView implements IModelChangeListener, IStatusChangeListener
     @objid ("0491f53a-ccde-42e4-95a3-60851039ff06")
     @Inject
     @Optional
-    void onProjectClosed(@EventTopic (ModelioEventTopics.PROJECT_CLOSED) final IGProject closedProject) {
+    void onProjectClosed(@EventTopic(ModelioEventTopics.PROJECT_CLOSED) final IGProject closedProject) {
         if (closedProject != null && closedProject == this.project) {
             final ICoreSession session = this.project.getSession();
             if (session != null) {
@@ -285,29 +293,30 @@ public class PropertyView implements IModelChangeListener, IStatusChangeListener
                 session.getModelChangeSupport().removeModelChangeListener(this);
                 session.getModelChangeSupport().removeStatusChangeListener(this);
             }
-        
         }
-        
-        Display.getDefault().asyncExec(new Runnable() {
-            @Override
-            public void run() {
-                if (header != null) {
-                    for (final PanelDescriptor desc : pvm.getPanels()) {
-                        final IPanelProvider panel = desc.getPanel();
-                        try {
-                            panel.setInput(null);
-                        } catch (final Throwable e) {
-                            PropertyViewPlugin.LOG.error(e);
-                        }
-                    } // end for
-                }
-            }
-        });
-        
-        
+
+        CLabel curHeader = this.header;
+        if (curHeader != null) {
+            UIThreadRunner.asynExec(curHeader, () -> {
+                for (final PanelDescriptor desc : this.pvm.getPanels()) {
+                    final IPanelProvider panel = desc.getPanel();
+                    try {
+                        panel.setInput(null);
+                    } catch (final RuntimeException e) {
+                        PropertyViewPlugin.LOG.error("Failed clearing %s panel (%s):", desc.getPanelLabel(), panel);
+                        PropertyViewPlugin.LOG.error(e);
+                    }
+                } // end for
+
+                curHeader.setText("");
+                curHeader.setImage(null);
+
+            });
+        }
+
+        this.currentSelection = null;
         this.project = null;
         this.modelService = null;
-        
     }
 
     /**
@@ -316,19 +325,18 @@ public class PropertyView implements IModelChangeListener, IStatusChangeListener
     @objid ("c0005f01-044c-43ac-ba06-74014bda209e")
     @Optional
     @Inject
-    void onProjectOpened(@EventTopic (ModelioEventTopics.PROJECT_OPENED) final IGProject openedProject, @Optional final IMModelServices mmService, @Optional final IModelioPickingService modelioPickingService, @Optional final IActivationService modelioActivationService, @Optional final EMenuService theMenuService, final MPart propertyPart) {
+    void onProjectOpened(@EventTopic(ModelioEventTopics.PROJECT_OPENED) final IGProject openedProject, @Optional final IMModelServices mmService, @Optional final IModelioPickingService modelioPickingService, @Optional final IActivationService modelioActivationService, @Optional final EMenuService theMenuService, final MPart propertyPart) {
         this.project = openedProject;
         this.modelService = mmService;
         this.pickingService = modelioPickingService;
         this.activationService = modelioActivationService;
         this.menuService = theMenuService;
         this.myPart = propertyPart;
-        
+
         if (this.project != null) {
             this.project.getSession().getModelChangeSupport().addModelChangeListener(this);
             this.project.getSession().getModelChangeSupport().addStatusChangeListener(this);
         }
-        
     }
 
     @objid ("32785abb-076a-46df-beae-14f9e7b04c89")
@@ -338,7 +346,6 @@ public class PropertyView implements IModelChangeListener, IStatusChangeListener
         // this.view.getPanel().setFocus();
         // }
         this.tabFolder.setFocus();
-        
     }
 
     @objid ("b4c3140d-d00a-415b-8f85-0afee14fa7e5")
@@ -346,7 +353,6 @@ public class PropertyView implements IModelChangeListener, IStatusChangeListener
         // Automatically generated method. Please delete this comment before
         // entering specific code.
         this.menuService = value;
-        
     }
 
     /**
@@ -362,36 +368,35 @@ public class PropertyView implements IModelChangeListener, IStatusChangeListener
         layout.horizontalSpacing = 0;
         layout.verticalSpacing = 0;
         comp.setLayout(layout);
-        
+
         comp.addDisposeListener(ev -> {
             for (final PanelDescriptor desc : this.pvm.getPanels()) {
                 desc.getPanel().dispose();
             }
             onProjectClosed(this.project);
         });
-        
+
         // The header
         this.header = new CLabel(comp, SWT.NONE);
-        
-        final Color[] colors = new Color[] { UIColor.WHITE, null };
+
+        /* final Color[] colors = new Color[] { UIColor.WHITE, null };
         final int[] percents = new int[] { 60 };
-        this.header.setBackground(colors, percents, true);
-        
+        this.header.setBackground(colors, percents, true);*/
+
         this.header.setFont(UIFont.LARGEB);
-        this.header.setForeground(UIColor.LABEL_TIP_FG);
-        
+        //this.header.setForeground(UIColor.LABEL_TIP_FG);
+
         GridData gd = new GridData(SWT.FILL, SWT.FILL, true, false);
         this.header.setLayoutData(gd);
-        
+
         // The tab folder, populated with contributors
-        this.tabFolder = new VTabFolder(comp, SWT.BORDER);
+        this.tabFolder = new VTabFolder(comp, SWT.BORDER/*,styler*/);
         gd = new GridData(SWT.FILL, SWT.FILL, true, true);
         this.tabFolder.setLayoutData(gd);
-        
+        this.tabFolder.setSelectionBackground(parent.getBackground());
         for (final PanelDescriptor desc : this.pvm.getPanels()) {
             desc.getPanel().createPanel(this.tabFolder);
         }
-        
     }
 
     @objid ("d2eddd1d-8432-4fd3-98f4-500f9cb03af6")
@@ -413,7 +418,7 @@ public class PropertyView implements IModelChangeListener, IStatusChangeListener
     private void hideTabFor(final IPanelProvider panel) {
         // if a tab item already exists for this panel, just dispose it
         final List<VTabItem> tabItemsToDispose = new ArrayList<>();
-        
+
         for (final VTabItem tabItem : this.tabFolder.getItems()) {
             if (Objects.equals(tabItem.getData(PropertyView.PANEL), panel)) {
                 tabItemsToDispose.add(tabItem);
@@ -425,7 +430,6 @@ public class PropertyView implements IModelChangeListener, IStatusChangeListener
             }
             tabItem.dispose();
         }
-        
     }
 
     @objid ("2175f01d-ebb8-4f31-91f3-a16bdba4a654")
@@ -441,49 +445,42 @@ public class PropertyView implements IModelChangeListener, IStatusChangeListener
                 return;
             }
         }
-        
+
         // Need to create a new tabItem at the proper position
         final VTabItem tabItem = new VTabItem(this.tabFolder, SWT.NULL);
         tabItem.setText(desc.getPanelLabel());
-        
+
         final ImageDescriptor iconDescriptor = desc.getIconDescriptor();
         if (iconDescriptor != null) {
             tabItem.setImage(iconDescriptor.createImage());
         }
-        
+
         final Control top = (Control) desc.getPanel().getPanel();
         tabItem.setControl(top);
         tabItem.setData(PropertyView.PANEL, desc.getPanel());
-        
     }
 
     @objid ("41df04a4-4616-4713-bca8-6bdd4ea526e6")
     @Override
     public void statusChanged(final IStatusChangeEvent event) {
-        this.tabFolder.getDisplay().asyncExec(() -> {
-            if (!this.tabFolder.isDisposed()) {
-                for (final VTabItem item : this.tabFolder.getItems()) {
-                    final IPanelProvider panel = (IPanelProvider) item.getData(PropertyView.PANEL);
-                    panel.setInput(this.currentSelection);
-                }
+        UIThreadRunner.asynExec(this.tabFolder, () -> {
+            for (final VTabItem item : this.tabFolder.getItems()) {
+                final IPanelProvider panel = (IPanelProvider) item.getData(PropertyView.PANEL);
+                panel.setInput(this.currentSelection);
             }
         });
-        
     }
 
     @objid ("0d359da7-9b33-4272-ad10-f5577e77453a")
     @Override
     public void modelChanged(final IModelChangeEvent event) {
-        this.tabFolder.getDisplay().asyncExec(() -> {
-            // Simplest strategy here : setInput on element Panel
-            if (!this.tabFolder.isDisposed()) {
-                for (final VTabItem item : this.tabFolder.getItems()) {
-                    final IPanelProvider panel = (IPanelProvider) item.getData(PropertyView.PANEL);
-                    panel.setInput(this.currentSelection);
-                }
+        // Simplest strategy here : setInput on element Panel
+        UIThreadRunner.asynExec(this.tabFolder, () -> {
+            for (final VTabItem item : this.tabFolder.getItems()) {
+                final IPanelProvider panel = (IPanelProvider) item.getData(PropertyView.PANEL);
+                panel.setInput(this.currentSelection);
             }
         });
-        
     }
 
     @objid ("eeab94d6-04e8-44b4-af2f-a0a05dde5025")
@@ -504,14 +501,14 @@ public class PropertyView implements IModelChangeListener, IStatusChangeListener
         private ArrayList<PanelDescriptor> panels;
 
         @objid ("a55baa94-cdec-4a81-a542-cd22ffbea3c4")
-        public  PropertyViewContributorsManager(final IEclipseContext eclipseContext) {
+        public PropertyViewContributorsManager(final IEclipseContext eclipseContext) {
             initializeExtensions(eclipseContext);
         }
 
         @objid ("93719a52-1331-4e37-bc63-be1a9b74bbf0")
         private void initializeExtensions(final IEclipseContext eclipseContext) {
             this.panels = new ArrayList<>();
-            
+
             // Sort contributions by id as a convention id are "org.modelio.propertyview.panels.panelXX" where XX is a number for ordering panels)
             // Contributors are invited to strictly follow the convention to benefit of ordering
             final List<IConfigurationElement> contributions = new ArrayList<>(new ExtensionPointContributionManager(PROPERTYVIEW_PANEL_EXTENSIONPOINT).getExtensions("panel"));
@@ -521,19 +518,19 @@ public class PropertyView implements IModelChangeListener, IStatusChangeListener
                     return o1.getAttribute("id").compareTo(o2.getAttribute("id"));
                 }
             });
-            
+
             for (final IConfigurationElement entry : contributions) {
                 try {
                     final IPanelProvider panel = (IPanelProvider) entry.createExecutableExtension("class");
                     ContextInjectionFactory.inject(panel, eclipseContext);
-            
+
                     ImageDescriptor iconDescriptor = null;
                     final String extendingPluginId = entry.getDeclaringExtension().getContributor().getName();
                     final String iconPath = entry.getAttribute("icon");
                     if (iconPath != null) {
                         iconDescriptor = AbstractUIPlugin.imageDescriptorFromPlugin(extendingPluginId, iconPath);
                     }
-            
+
                     this.panels.add(new PanelDescriptor(
                             entry.getAttribute("id"),
                             entry.getAttribute("label"),
@@ -544,7 +541,6 @@ public class PropertyView implements IModelChangeListener, IStatusChangeListener
                     PropertyViewPlugin.LOG.error(e);
                 }
             }
-            
         }
 
         @objid ("b52a04a4-275a-4c53-841b-f1b463c3f640")
@@ -562,7 +558,7 @@ public class PropertyView implements IModelChangeListener, IStatusChangeListener
         @objid ("ef7538be-212a-4ca1-bc45-30634ac106d9")
         public final boolean primary;
 
-        @objid ("0c9c36f3-48eb-47c0-9d98-e078a5648a77")
+        @objid ("23168b5f-7dec-4e9b-83ab-ce05f18685df")
         public final ImageDescriptor iconDescriptor;
 
         @objid ("8833fa33-fc97-4c02-ba91-a9fb2c1ffe32")
@@ -592,6 +588,7 @@ public class PropertyView implements IModelChangeListener, IStatusChangeListener
         }
 
         /**
+         *
          * @param id the panel id
          * @param label the panel label
          * @param iconDescriptor the tab icon ?
@@ -599,12 +596,11 @@ public class PropertyView implements IModelChangeListener, IStatusChangeListener
          * @param panel the panel implementation
          */
         @objid ("8546f493-f199-4449-bbdc-52a1269e25c0")
-        public  PanelDescriptor(final String id, final String label, final ImageDescriptor iconDescriptor, final boolean isPrimary, final IPanelProvider panel) {
+        public PanelDescriptor(final String id, final String label, final ImageDescriptor iconDescriptor, final boolean isPrimary, final IPanelProvider panel) {
             this.panelLabel = label != null ? label : "";
             this.primary = isPrimary;
             this.panel = panel;
             this.iconDescriptor = iconDescriptor;
-            
         }
 
     }

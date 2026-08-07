@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -36,7 +36,7 @@ public class ETemplateBinding extends EElement {
     }
 
     @objid ("2f8a7a64-fccf-459f-afc6-e547997bdf73")
-    public  ETemplateBinding(org.eclipse.uml2.uml.TemplateBinding element) {
+    public ETemplateBinding(org.eclipse.uml2.uml.TemplateBinding element) {
         super(element);
     }
 
@@ -44,7 +44,7 @@ public class ETemplateBinding extends EElement {
     @Override
     public void attach(Element objingElt) {
         Object objOwner = ReverseProperties.getInstance().getMappedElement(getEcoreElement().getOwner());
-        
+
         if (objOwner instanceof Operation){
             ((TemplateBinding)objingElt).setBoundOperation(((Operation) objOwner));
         }else if (objOwner instanceof NameSpace){
@@ -52,7 +52,7 @@ public class ETemplateBinding extends EElement {
         }else{
             objingElt.delete();
         }
-        
+
     }
 
     @objid ("bdbc3947-4a46-4681-b59e-866102932dc0")
@@ -67,10 +67,10 @@ public class ETemplateBinding extends EElement {
                 }else if (objTemplate instanceof NameSpace){
                     objingElt.setInstanciatedTemplate((NameSpace) objTemplate);
                 }
-        
+
             }
         }
-        
+
     }
 
     @objid ("882464a7-8356-4e81-927a-d267d985aa28")
@@ -78,7 +78,7 @@ public class ETemplateBinding extends EElement {
     public void setProperties(Element objingElt) {
         if (objingElt instanceof TemplateBinding)
             setTemplate((TemplateBinding) objingElt);
-        
+
     }
 
     @objid ("97218543-5a1a-4bb3-8608-e6b1f57b8a87")

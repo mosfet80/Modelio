@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.bpmncollaboration;
 
@@ -71,32 +71,33 @@ public class GmBpmnCollaboration extends GmPortContainer {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram in which the callBehavior is unmasked.
      * @param el the unmasked callBehavior.
      * @param ref a reference to the unmasked callBehavior.
      */
     @objid ("6acb1609-b7df-46cc-abfc-723ca77768ca")
-    public  GmBpmnCollaboration(final IGmDiagram diagram, final BpmnCollaboration el, final MRef ref) {
+    public GmBpmnCollaboration(final IGmDiagram diagram, final BpmnCollaboration el, final MRef ref) {
         super(diagram, ref);
         this.element = el;
-        
+
         GmBpmnCollaborationPrimaryNode mainNode = new GmBpmnCollaborationPrimaryNode(diagram, ref);
         mainNode.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
-        
+
         GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(diagram, ref);
         imageModeHeader.setRoleInComposition(GmBpmnCollaboration.IMAGE_LABEL_ROLE);
         imageModeHeader.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
-        
+
         super.addChild(mainNode);
         super.addChild(imageModeHeader);
-        
+
     }
 
     /**
      * Empty constructor needed for deserialisation.
      */
     @objid ("7383a840-8489-45b9-8a74-032e87e2dce8")
-    public  GmBpmnCollaboration() {
+    public GmBpmnCollaboration() {
         // Nothing specific to do.
     }
 
@@ -185,30 +186,30 @@ public class GmBpmnCollaboration extends GmPortContainer {
             break;
         }
         }
-        
+
     }
 
     @objid ("03472b29-7aff-4e81-9395-a405364bbae2")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmBpmnCollaboration.", GmBpmnCollaboration.MINOR_VERSION);
-        
+
     }
 
     @objid ("6178219b-c202-49cc-ba3a-8569f5c40c26")
     private void read_0(final IDiagramReader in) {
         super.read(in);
         this.element = (BpmnCollaboration) resolveRef(getRepresentedRef());
-        
+
         GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(getDiagram(), getRepresentedRef());
         imageModeHeader.setRoleInComposition(GmBpmnCollaboration.IMAGE_LABEL_ROLE);
         imageModeHeader.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
-        
+
         super.addChild(imageModeHeader, 1);
-        
+
     }
 
     @objid ("3a920db2-a70d-4f8f-9407-7b8baa2ef9da")
@@ -221,7 +222,7 @@ public class GmBpmnCollaboration extends GmPortContainer {
     private void read_1(final IDiagramReader in) {
         super.read(in);
         this.element = (BpmnCollaboration) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("88330b20-4ac7-44e5-8ef1-fbc90e62293e")
@@ -242,7 +243,7 @@ public class GmBpmnCollaboration extends GmPortContainer {
             default: {
                 break;
             }
-        
+
             }
         }
         return ret;
@@ -250,6 +251,7 @@ public class GmBpmnCollaboration extends GmPortContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */
@@ -259,11 +261,12 @@ public class GmBpmnCollaboration extends GmPortContainer {
         String role = childNode.getRoleInComposition();
         return GmPortContainer.SATELLITE_ROLE.equals(role)
                         || GmBpmnCollaboration.IMAGE_LABEL_ROLE.equals(role);
-        
+
     }
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */

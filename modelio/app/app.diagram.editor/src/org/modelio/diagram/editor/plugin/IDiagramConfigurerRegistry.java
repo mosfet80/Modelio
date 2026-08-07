@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.plugin;
 
@@ -26,6 +26,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 public interface IDiagramConfigurerRegistry {
     /**
      * Registers a {@link IDiagramConfigurer} for the given metaclass and stereotype.
+     *
      * @param metaclassName the name of the diagram metaclass the given IDiagramConfigurer is bound to. Must not be <code>null</code> nor
      * empty.
      * @param stereotype the stereotype the given IDiagramConfigurer is bound to. May be <code>null</code> or empty.
@@ -36,6 +37,7 @@ public interface IDiagramConfigurerRegistry {
 
     /**
      * Unregisters a {@link IDiagramConfigurer} for the given metaclass and stereotype.
+     *
      * @param metaclassName the name of the diagram metaclass the given IDiagramConfigurer is bound to. Must not be <code>null</code> nor
      * empty.
      * @param stereotype the stereotype the given IDiagramConfigurer is bound to. May be <code>null</code> or empty.
@@ -46,6 +48,7 @@ public interface IDiagramConfigurerRegistry {
 
     /**
      * Returns the {@link IDiagramConfigurer}s for the given metaclass and stereotypes if any, an empty list otherwise.
+     *
      * @param metaclassName the name of the diagram metaclass. Must not be <code>null</code> nor empty.
      * @param stereotypes the list of stereotypes. May be <code>null</code> or empty.
      */
@@ -54,9 +57,10 @@ public interface IDiagramConfigurerRegistry {
 
     /**
      * Returns the {@link IDiagramConfigurer}s for the given metaclass.
+     *
      * @param metaclassName the name of the diagram metaclass. Must not be <code>null</code> nor empty.
      */
     @objid ("667336a1-33f7-11e2-95fe-001ec947c8cc")
     IDiagramConfigurer getConfigurer(final String metaclassName);
-}
 
+}

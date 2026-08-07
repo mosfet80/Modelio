@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.usecasediagram.editor.elements.actor;
 
@@ -48,16 +48,16 @@ public class ActorEditPart extends AbstractNodeEditPart {
     @Override
     protected IFigure createFigure() {
         final GradientFigure actorFigure = new GradientFigure();
-        
+
         // Set style independent properties
         actorFigure.setOpaque(true);
-        
+
         final ToolbarLayoutWithGrab layout = new ToolbarLayoutWithGrab();
         layout.setHorizontal(false);
         layout.setStretchMinorAxis(true);
-        
+
         actorFigure.setLayoutManager(layout);
-        
+
         // Set style dependent properties
         refreshFromStyle(actorFigure, getModelStyle());
         return actorFigure;
@@ -67,14 +67,14 @@ public class ActorEditPart extends AbstractNodeEditPart {
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         installEditPolicy(ModelElementDropRequest.TYPE, new DefaultElementDropEditPolicy());
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new DeferringCreateNodePolicy());
         installEditPolicy(EditPolicy.NODE_ROLE, new SmartGeneralizationEditPolicy());
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START,
                 new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
-        
+
     }
 
     @objid ("5e34d348-55b7-11e2-877f-002564c97630")
@@ -83,12 +83,12 @@ public class ActorEditPart extends AbstractNodeEditPart {
         if (aFigure instanceof GradientFigure) {
             if (!switchRepresentationMode()) {
                 super.refreshFromStyle(aFigure, style);
-        
+
                 updateSeparations((GradientFigure) aFigure);
                 updateFigureBorder((GradientFigure) aFigure);
             }
         }
-        
+
     }
 
     @objid ("5e34d350-55b7-11e2-877f-002564c97630")
@@ -96,27 +96,27 @@ public class ActorEditPart extends AbstractNodeEditPart {
     protected void refreshVisuals() {
         GmActorPrimaryNode model = (GmActorPrimaryNode) getModel();
         getFigure().getParent().setConstraint(getFigure(), model.getLayoutData());
-        
+
     }
 
     @objid ("5e34d354-55b7-11e2-877f-002564c97630")
     @Override
     protected void addChildVisual(EditPart childEditPart, int index) {
         super.addChildVisual(childEditPart, index);
-        
+
         updateSeparations(getFigure());
         updateFigureBorder(getFigure());
-        
+
     }
 
     @objid ("5e34d359-55b7-11e2-877f-002564c97630")
     @Override
     protected void removeChildVisual(EditPart childEditPart) {
         super.removeChildVisual(childEditPart);
-        
+
         updateSeparations(getFigure());
         updateFigureBorder(getFigure());
-        
+
     }
 
     @objid ("5e34d35d-55b7-11e2-877f-002564c97630")
@@ -128,9 +128,9 @@ public class ActorEditPart extends AbstractNodeEditPart {
                 false,
                 true,
                 false);
-        
+
         ChildFigureLineSeparator.updateSeparation(aFigure, zoneBorder);
-        
+
     }
 
     @objid ("5e34d361-55b7-11e2-877f-002564c97630")
@@ -138,9 +138,9 @@ public class ActorEditPart extends AbstractNodeEditPart {
         final Border inner = new ZoomableLineBorder(aFigure.getLineColor(), aFigure.getLineWidth());
         final Border outer = new ShadowBorder(aFigure.getLineColor(), aFigure.getLineWidth());
         final CompoundBorder b = new CompoundBorder(outer, inner);
-        
+
         aFigure.setBorder(b);
-        
+
     }
 
     @objid ("5e34d364-55b7-11e2-877f-002564c97630")

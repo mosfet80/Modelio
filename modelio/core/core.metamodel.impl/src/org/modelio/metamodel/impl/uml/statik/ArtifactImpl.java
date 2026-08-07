@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -44,25 +43,25 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0096da48-c4be-1fd8-97fe-001ec947cd2a")
 public class ArtifactImpl extends ClassifierImpl implements Artifact {
-    @objid ("b7c062b4-5871-4ed9-a6f2-9e81802b0ca7")
+    @objid ("b710d9c9-a726-4d4e-94c5-f9ff73feecd6")
     @Override
     public String getFileName() {
         return (String) getAttVal(((ArtifactSmClass)getClassOf()).getFileNameAtt());
     }
 
-    @objid ("28abb645-c234-4444-a144-9b247fdf6ef7")
+    @objid ("da81056b-21df-4dab-b6e5-9e2953e989db")
     @Override
     public void setFileName(String value) {
         setAttVal(((ArtifactSmClass)getClassOf()).getFileNameAtt(), value);
     }
 
-    @objid ("e2192afd-f3ef-455b-b4ac-187d03e67a55")
+    @objid ("b3da780f-ab74-438b-add0-bd19de311bed")
     @Override
     public EList<Manifestation> getUtilized() {
         return new SmList<>(this, ((ArtifactSmClass)getClassOf()).getUtilizedDep());
     }
 
-    @objid ("7abceb6a-d0d5-4ebb-9d89-712f52267abf")
+    @objid ("5c57f891-1993-418b-85c5-242c611acd52")
     @Override
     public <T extends Manifestation> List<T> getUtilized(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -75,16 +74,16 @@ public class ArtifactImpl extends ClassifierImpl implements Artifact {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("35f43958-6743-43e6-9d8a-707417d93e5f")
+    @objid ("e273d902-6372-4165-bc9b-b94288f00ee2")
     @Override
     public EList<Node> getDeploymentLocation() {
         return new SmList<>(this, ((ArtifactSmClass)getClassOf()).getDeploymentLocationDep());
     }
 
-    @objid ("7130533c-9e7c-42cf-86dc-92cdf3960d89")
+    @objid ("f17fe3a2-f0fe-4bb3-a7c0-a04e73aa8733")
     @Override
     public <T extends Node> List<T> getDeploymentLocation(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -97,10 +96,10 @@ public class ArtifactImpl extends ClassifierImpl implements Artifact {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("eab586c0-de8d-41c5-b615-d5b82ed28551")
+    @objid ("73600b73-f790-4422-95b1-763a576d2c7f")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -108,17 +107,17 @@ public class ArtifactImpl extends ClassifierImpl implements Artifact {
         return super.getCompositionOwner();
     }
 
-    @objid ("c2f728a8-9da5-432e-9feb-236f26d1c45d")
+    @objid ("95083c31-ef70-44bc-b9df-a88bdfee5316")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("073871f9-5773-4ee5-b69a-335149d7011f")
+    @objid ("3da0b277-1fa9-44c3-95a1-d2f1fc5f1d6d")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitArtifact(this);

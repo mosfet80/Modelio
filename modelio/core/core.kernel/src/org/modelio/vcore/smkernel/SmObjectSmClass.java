@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel;
 
@@ -44,10 +44,11 @@ public class SmObjectSmClass extends SmClass {
 
     /**
      * Default constructor.
+     *
      * @param origin the owner metamodel fragment
      */
     @objid ("873f779f-a0f3-43b1-9e1a-f74b201574bf")
-    public  SmObjectSmClass(ISmMetamodelFragment origin) {
+    public SmObjectSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
@@ -74,13 +75,14 @@ public class SmObjectSmClass extends SmClass {
     public void load(SmMetamodel m) {
         this.pstatusAtt = new StatusSmAttribute();
         this.pstatusAtt.init("status", this, Long.class, SmDirective.SMCDPARTOF);
-        
+
         registerAttribute(this.pstatusAtt);
         registerFactory(new ObjectFactory());
-        
+
     }
 
     /**
+     *
      * @return the "status" meta attribute.
      */
     @objid ("00330090-702c-1f21-85a5-001ec947cd2a")
@@ -142,9 +144,9 @@ public class SmObjectSmClass extends SmClass {
         public void setValue(final ISmObjectData object, final Object value) {
             assert (value != null);
             long longVal = (long) value;
-            
+
             ((SmObjectData) object).replacePersistentFlags(longVal);
-            
+
         }
 
     }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.contributors;
 
@@ -63,9 +63,9 @@ public class DiagramMigrationContributor implements IFragmentMigrationContributo
             return;
         }
         ICoreSession coreSession = gproject.getSession();
-        
+
         migrateTo2_1_04(reporter, eclipseContext, monitor, coreSession, f);
-        
+
     }
 
     @objid ("bd45852f-5721-4f58-882b-b0abda4a93ca")
@@ -78,7 +78,6 @@ public class DiagramMigrationContributor implements IFragmentMigrationContributo
      * Migration from Modelio 5.3.1 to Modelio 5.4.0
      */
     @objid ("2ec3f935-e005-4b57-9f3d-5147ba96a5d7")
-    @SuppressWarnings ("resource")
     private void migrateTo2_1_04(IMigrationReporter reporter, IEclipseContext eclipseContext, IModelioProgress monitor, ICoreSession coreSession, IGModelFragment f) {
         // Find, open and save all diagrams to populate new JsStructure property
         IRepository repo = f.getRepository();
@@ -91,32 +90,32 @@ public class DiagramMigrationContributor implements IFragmentMigrationContributo
             SubProgress mon = SubProgress.convert(monitor, nbDiags * 2);
             for (AbstractDiagram diagram : allDiagrams) {
                 mon.subTask(DiagramEditor.I18N.getMessage("DiagramMigrationContributor.diagram",  ++i , nbDiags, VERSION));
-        
+
                 DiagramEditor.LOG.debug("DiagramMigrationContributor: Migrate %s to Modelio %s", diagram, VERSION) ;
                 try (ITransaction t = coreSession.getTransactionSupport().createTransaction(
                         String.format("DiagramMigrationContributor: Migrate %s to Modelio %s", diagram, VERSION))) {
-        
+
                     // Spare memory once commit() done
                     t.disableUndo();
-        
+
                     IModelManager manager = new ModelManager(eclipseContext);
                     migrateGmModel(diagram, manager, reporter);
                     mon.worked(1);
-        
+
                     while (display.readAndDispatch()); // We are running in the SWT thread and freezing GUI
-        
+
                     t.commit();
                     mon.worked(1);
-                } catch (RuntimeException e) {
+                } catch (RuntimeException | AssertionError | LinkageError e) {
                     reporter.getLogger().format("ERROR Migrating %s diagram : %s%n", diagram, e.getMessage());
-                    e.printStackTrace(reporter.getLogger());
+                    reporter.getLogger().printStackTrace(e);
                 }
-        
+
                 while (display.readAndDispatch()); // We are running in the SWT thread and freezing GUI
             }
-        
+
         });
-        
+
     }
 
     @objid ("a2e11bff-806a-419f-b45f-4969efdb3fed")
@@ -129,13 +128,13 @@ public class DiagramMigrationContributor implements IFragmentMigrationContributo
             handle.getCreationFactory().createDrawingNote(handle.getDiagramNode().getDrawingsLayer(IDiagramDrawingsLayer.TOP), "Migration", "Migration", 0, 0, 100, 50);
             handle.save();
         }
-        
+
         try (IDiagramHandle handle = Modelio.getInstance().getDiagramService().getDiagramHandle(diagram)) {
             handle.setBatchMode(true);
             handle.mask(handle.getDrawingGraphic("Migration"));
             handle.save();
         }
-        
+
     }
 
     @objid ("3802ec1b-78d3-4d9a-bd60-a5fe6918c245")

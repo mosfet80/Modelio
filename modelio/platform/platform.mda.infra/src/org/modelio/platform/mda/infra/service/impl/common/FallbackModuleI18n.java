@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.service.impl.common;
 
@@ -32,6 +32,7 @@ import org.modelio.metamodel.uml.infrastructure.properties.PropertyDefinition;
 
 /**
  * Fallback implementation of {@link I18nSupport} that makes best effort by looking at the model.
+ *
  * @author cma
  * @since Modelio 3.8 : merged many fallback implementations in this class.
  */
@@ -45,7 +46,7 @@ public final class FallbackModuleI18n implements I18nSupport {
     public String getLabel(Stereotype stereotype) {
         return stereotype.getLabelKey().isEmpty() ? stereotype.getName()
                                                                     : stereotype.getLabelKey();
-        
+
     }
 
     @objid ("f927f100-15a4-4338-94bf-3ba0782f9c60")
@@ -53,7 +54,7 @@ public final class FallbackModuleI18n implements I18nSupport {
     public String getLabel(TagType tagType) {
         return tagType.getLabelKey().isEmpty() ? tagType.getName() : tagType
                                                                     .getLabelKey();
-        
+
     }
 
     @objid ("74866ecd-9d1c-47a1-af90-2ecf0a85d2e3")
@@ -61,7 +62,7 @@ public final class FallbackModuleI18n implements I18nSupport {
     public String getLabel(NoteType noteType) {
         return noteType.getLabelKey().isEmpty() ? noteType.getName() : noteType
                                                                     .getLabelKey();
-        
+
     }
 
     @objid ("be530a58-bf62-4b60-bcad-28faf89a9199")
@@ -69,7 +70,7 @@ public final class FallbackModuleI18n implements I18nSupport {
     public String getLabel(ResourceType docType) {
         return docType.getLabelKey().isEmpty() ? docType.getName() : docType
                                                                     .getLabelKey();
-        
+
     }
 
     @objid ("3099982a-4de4-4b12-9dd3-3267afcb3fa1")

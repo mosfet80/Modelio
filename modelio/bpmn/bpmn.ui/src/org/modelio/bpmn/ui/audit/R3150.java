@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.ui.audit;
 
@@ -51,7 +51,7 @@ public class R3150 extends AbstractBpmnRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -65,7 +65,7 @@ public class R3150 extends AbstractBpmnRule {
         plan.registerRule(BpmnMessageFlow.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE);
-        
+
     }
 
     @objid ("b2cd320e-b6d0-464f-87b9-8329b6ebdc07")
@@ -105,7 +105,7 @@ public class R3150 extends AbstractBpmnRule {
      * Default constructor for R3150
      */
     @objid ("74df0014-35f2-47ac-9d4e-3c8dc27c5c62")
-    public  R3150() {
+    public R3150() {
         this.checkerInstance = new CheckR3150(this);
     }
 
@@ -116,10 +116,11 @@ public class R3150 extends AbstractBpmnRule {
     private static class CheckR3150 extends AbstractControl {
         /**
          * C'tor.
+         *
          * @param rule the rule to check.
          */
         @objid ("390d3a76-ca84-417f-ad59-bf4075ae4de8")
-        public  CheckR3150(final IRule rule) {
+        public CheckR3150(final IRule rule) {
             super(rule);
         }
 
@@ -140,10 +141,10 @@ public class R3150 extends AbstractBpmnRule {
                     AuditSeverity.AuditSuccess,
                     messageFlow,
                     null);
-            
+
             final BpmnBaseElement sourceRef = messageFlow.getSourceRef();
             final BpmnBaseElement targetRef = messageFlow.getTargetRef();
-            
+
             final List<BpmnLane> sourceLanes;
             if (sourceRef instanceof BpmnFlowElement) {
                 sourceLanes = ((BpmnFlowElement) sourceRef).getLane();
@@ -152,7 +153,7 @@ public class R3150 extends AbstractBpmnRule {
             } else {
                 return auditEntry;
             }
-            
+
             final List<BpmnLane> targetLanes;
             if (targetRef instanceof BpmnFlowElement) {
                 targetLanes = ((BpmnFlowElement) targetRef).getLane();
@@ -161,18 +162,18 @@ public class R3150 extends AbstractBpmnRule {
             } else {
                 return auditEntry;
             }
-            
+
             if (!sourceLanes.isEmpty() && !targetLanes.isEmpty()) {
                 BpmnLane topSourceLane = null;
                 BpmnLane topTargetLane = null;
-            
+
                 topSourceLane = getTopLane(sourceLanes.get(0));
                 topTargetLane = getTopLane(targetLanes.get(0));
-            
+
                 if (topSourceLane.equals(topTargetLane)) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(messageFlow);
@@ -184,19 +185,20 @@ public class R3150 extends AbstractBpmnRule {
 
         /**
          * Return the top-lane, starting from a lane.
+         *
          * @param lane The current lane.
          * @return The top-lane.
          */
         @objid ("1e6bf025-f132-4809-b34f-de2f1729fb9f")
         private BpmnLane getTopLane(final BpmnLane lane) {
             BpmnLane parentLane = lane.getLaneSet().getParentLane();
-            
+
             if (parentLane != null) {
                 return getTopLane(parentLane);
             } else {
                 return lane;
             }
-            
+
         }
 
     }

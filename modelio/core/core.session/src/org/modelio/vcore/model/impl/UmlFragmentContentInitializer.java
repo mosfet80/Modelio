@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.model.impl;
 
@@ -44,12 +44,13 @@ public class UmlFragmentContentInitializer implements IRepositoryContentInitiali
      * C'tor.
      */
     @objid ("49bc2adb-ab3f-11e1-8392-001ec947ccaf")
-    public  UmlFragmentContentInitializer() {
+    public UmlFragmentContentInitializer() {
         this.metamodelExtensionPoint = new MetamodelExtensionPoint<>();
     }
 
     /**
      * Populate the given repository using the given session.
+     *
      * @param fragmentName the fragment name
      * @param s the session to use
      * @param repository the repository to populate.
@@ -60,7 +61,7 @@ public class UmlFragmentContentInitializer implements IRepositoryContentInitiali
     public Collection<MObject> populate(String fragmentName, ICoreSession s, IRepository repository) {
         Collection<ISmMetamodelFragment> fragments = s.getMetamodel().getSortedFragments();
         Collection<MObject> ret = new ArrayList<>();
-        
+
         for (ISmMetamodelFragment f : fragments) {
             IRepositoryContentInitializer svc = this.metamodelExtensionPoint.getService(f);
             if (svc != null) {

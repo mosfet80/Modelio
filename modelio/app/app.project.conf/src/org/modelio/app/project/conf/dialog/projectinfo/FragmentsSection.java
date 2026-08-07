@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.conf.dialog.projectinfo;
 
@@ -60,28 +60,29 @@ class FragmentsSection {
     private TableViewer viewer;
 
     @objid ("a7459d3e-33f6-11e2-a514-002564c97630")
-    public  FragmentsSection(IEclipseContext applicationContext) {
+    public FragmentsSection(IEclipseContext applicationContext) {
         super();
     }
 
     /**
      * Update() is called by the project infos view when the project to be displayed changes or need contents refresh
+     *
      * @param selectedProject the project selected in the workspace tree view
      */
     @objid ("a7459d41-33f6-11e2-a514-002564c97630")
     public void setInput(ProjectModel selectedProject) {
         this.projectAdapter = selectedProject;
-        
+
         if (selectedProject != null) {
             this.viewer.setInput(selectedProject.getModels());
         } else {
             this.viewer.setInput(new Object[0]);
         }
-        
+
         for (TableColumn col : this.viewer.getTable().getColumns()) {
             col.pack();
         }
-        
+
     }
 
     @objid ("a7459d45-33f6-11e2-a514-002564c97630")
@@ -90,22 +91,22 @@ class FragmentsSection {
         section.setText(AppProjectConf.I18N.getString("FragmentsSection.SectionText")); //$NON-NLS-1$
         section.setDescription(AppProjectConf.I18N.getString("FragmentsSection.SectionDescription")); //$NON-NLS-1$
         section.setExpanded(true);
-        
+
         Composite composite = toolkit.createComposite(section, SWT.WRAP);
         GridLayout layout = new GridLayout();
         layout.numColumns = 2;
         composite.setLayout(layout);
-        
+
         Table table = toolkit.createTable(composite, SWT.BORDER);
         table.setHeaderVisible(true);
         table.setBackground(UIColor.TEXT_READONLY_BG);
         this.viewer = new TableViewer(table);
-        
+
         GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
         table.setLayoutData(gd);
-        
+
         this.viewer.setContentProvider(new ArrayContentProvider());
-        
+
         TableViewerColumn nameColumn = new TableViewerColumn(this.viewer, SWT.NONE);
         nameColumn.getColumn().setText(AppProjectConf.I18N.getString("FragmentsSection.NameColumn")); //$NON-NLS-1$
         nameColumn.getColumn().setWidth(120);
@@ -118,13 +119,13 @@ class FragmentsSection {
                 }
                 return ""; //$NON-NLS-1$
             }
-        
+
             @Override
             public Image getImage(Object element) {
                 return FragmentImageService.getImage((IGModelFragment) element);
             }
         });
-        
+
         TableViewerColumn statusColumn = new TableViewerColumn(this.viewer, SWT.NONE);
         statusColumn.getColumn().setText(AppProjectConf.I18N.getString("FragmentsSection.StatusColumn")); //$NON-NLS-1$
         statusColumn.getColumn().setWidth(120);
@@ -138,12 +139,12 @@ class FragmentsSection {
                     if (fragment.getState().getDownError() != null) {
                         str += ": " + fragment.getState().getDownError().getLocalizedMessage();
                     }
-        
+
                     return str;
                 }
                 return ""; //$NON-NLS-1$
             }
-        
+
             @Override
             public Image getImage(Object element) {
                 if (element instanceof IGModelFragment) {
@@ -153,7 +154,7 @@ class FragmentsSection {
                 return null;
             }
         });
-        
+
         TableViewerColumn uriColumn = new TableViewerColumn(this.viewer, SWT.NONE);
         uriColumn.getColumn().setText(AppProjectConf.I18N.getString("FragmentsSection.UriColumn")); //$NON-NLS-1$
         uriColumn.getColumn().setWidth(300);
@@ -170,15 +171,15 @@ class FragmentsSection {
                 }
                 return uri != null ? uri.toString().replaceAll("%20", " ") : ""; //$NON-NLS-1$
             }
-        
+
             @Override
             public Image getImage(Object element) {
                 return null;
             }
         });
-        
+
         this.viewer.setInput(null);
-        
+
         this.viewer.addSelectionChangedListener(new ISelectionChangedListener() {
             @Override
             public void selectionChanged(SelectionChangedEvent event) {
@@ -186,7 +187,7 @@ class FragmentsSection {
                 setInput(getProjectAdapter());
             }
         });
-        
+
         toolkit.paintBordersFor(composite);
         section.setClient(composite);
         return section;

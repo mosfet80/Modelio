@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.data.module.jaxbv2;
 
@@ -32,10 +32,10 @@ import jakarta.xml.bind.annotation.XmlType;
 /**
  * <p>
  * Java class for _Handler complex type.
- * 
+ *
  * <p>
  * The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="_Handler">
  * &lt;complexContent>
@@ -77,19 +77,19 @@ public class Jxbv2Handler {
 
     /**
      * Gets the value of the hParameter property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the hParameter
      * property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
-     * 
+     *
      * <pre>
      * getHParameter().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list {@link Jxbv2Handler.Jxbv2HParameter }
      */
@@ -103,6 +103,7 @@ public class Jxbv2Handler {
 
     /**
      * Gets the value of the clazz property.
+     *
      * @return possible object is {@link String }
      */
     @objid ("b33b8577-9b2e-4fe5-86e6-d552ce97a345")
@@ -112,6 +113,7 @@ public class Jxbv2Handler {
 
     /**
      * Sets the value of the clazz property.
+     *
      * @param value allowed object is {@link String }
      */
     @objid ("33f315ad-8aaa-4e58-9656-521e8796f16b")
@@ -122,10 +124,10 @@ public class Jxbv2Handler {
     /**
      * <p>
      * Java class for anonymous complex type.
-     * 
+     *
      * <p>
      * The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType>
      * &lt;complexContent>
@@ -151,6 +153,7 @@ public class Jxbv2Handler {
 
         /**
          * Gets the value of the name property.
+         *
          * @return possible object is {@link String }
          */
         @objid ("21062c30-0b0b-4c0f-9e1d-4bd075bdc688")
@@ -160,6 +163,7 @@ public class Jxbv2Handler {
 
         /**
          * Sets the value of the name property.
+         *
          * @param value allowed object is {@link String }
          */
         @objid ("434b07b3-d830-4538-90b7-347587bfbc25")
@@ -169,6 +173,7 @@ public class Jxbv2Handler {
 
         /**
          * Gets the value of the value property.
+         *
          * @return possible object is {@link String }
          */
         @objid ("a8fbc511-e414-4739-87ba-7fb600183ff1")
@@ -178,6 +183,7 @@ public class Jxbv2Handler {
 
         /**
          * Sets the value of the value property.
+         *
          * @param value allowed object is {@link String }
          */
         @objid ("24e2e402-8cba-4e4e-8cae-8a0c327e03dd")

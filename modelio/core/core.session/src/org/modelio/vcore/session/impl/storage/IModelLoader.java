@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.impl.storage;
 
@@ -41,6 +41,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 public interface IModelLoader extends AutoCloseable {
     /**
      * Create a model object that is being loaded.
+     *
      * @param classof The metaclass
      * @param id The identifier
      * @return the object ready to be to loaded
@@ -54,6 +55,7 @@ public interface IModelLoader extends AutoCloseable {
      * <p>
      * If the model object is found in a repository, return it. In the other case create
      * a shell model object and return it.
+     *
      * @param classof The metaclass
      * @param id The identifier
      * @param name The shell object name.
@@ -64,6 +66,7 @@ public interface IModelLoader extends AutoCloseable {
 
     /**
      * Load a dependency content.
+     *
      * @param obj The object to load
      * @param dep the dependency to load
      * @param newContent the new dependency content.
@@ -73,6 +76,7 @@ public interface IModelLoader extends AutoCloseable {
 
     /**
      * Load an attribute value.
+     *
      * @param obj The object to load
      * @param att the attribute to load.
      * @param newValue the attribute value.
@@ -81,6 +85,7 @@ public interface IModelLoader extends AutoCloseable {
     void loadAttribute(SmObjectImpl obj, SmAttribute att, Object newValue);
 
     /**
+     *
      * @return the metaobject each loaded object should have.
      */
     @objid ("7dbf9e3c-1c43-11e2-8eb9-001ec947ccaf")
@@ -88,6 +93,7 @@ public interface IModelLoader extends AutoCloseable {
 
     /**
      * Create a loaded model object from the given object data.
+     *
      * @param cls the object class
      * @param uuid the object String
      * @param d the object data
@@ -101,6 +107,7 @@ public interface IModelLoader extends AutoCloseable {
      * Create, initialize and set a new model object data for the given model object.
      * <p>
      * To be called when recovering a garbage collected model object data .
+     *
      * @param obj the model object to recover.
      * @return the new model object data.
      */
@@ -114,6 +121,7 @@ public interface IModelLoader extends AutoCloseable {
      * <p>
      * Use the constants defined in {@link IRStatus}.
      * No delete flag must be undefined, in the other case Modelio behavior is undefined.
+     *
      * @param obj the object to initialize
      * @param trueFlags a combination of flags to set.
      * @param falseFlags a combination of flags to unset.
@@ -129,6 +137,7 @@ public interface IModelLoader extends AutoCloseable {
      * <p>
      * Use the constants defined in {@link IPStatus}.
      * No delete flag must be undefined, in the other case Modelio behavior is undefined.
+     *
      * @param obj the object to initialize
      * @param trueFlags a combination of flags to set.
      * @param falseFlags a combination of flags to unset.
@@ -146,5 +155,5 @@ public interface IModelLoader extends AutoCloseable {
      */
     @objid ("bbdb3793-a7c1-4d56-af35-ad1f5a4ab2fa")
     void begin();
-}
 
+}

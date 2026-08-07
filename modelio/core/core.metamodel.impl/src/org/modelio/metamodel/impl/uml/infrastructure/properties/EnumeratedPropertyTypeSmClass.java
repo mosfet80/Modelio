@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure.properties;
 
 import java.util.ArrayList;
@@ -53,7 +52,7 @@ public class EnumeratedPropertyTypeSmClass extends PropertyTypeSmClass {
     private SmDependency occurenceConfigParamDep;
 
     @objid ("3897a2f0-0656-45cd-a39b-81d933dca210")
-    public  EnumeratedPropertyTypeSmClass(ISmMetamodelFragment origin) {
+    public EnumeratedPropertyTypeSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
@@ -61,7 +60,7 @@ public class EnumeratedPropertyTypeSmClass extends PropertyTypeSmClass {
     @Override
     public String getName() {
         return "EnumeratedPropertyType";
-        
+
     }
 
     @objid ("ae98a07c-4305-4f5b-8570-47046001cc60")
@@ -74,21 +73,21 @@ public class EnumeratedPropertyTypeSmClass extends PropertyTypeSmClass {
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return EnumeratedPropertyType.class;
-        
+
     }
 
     @objid ("c5eaad23-3d04-4df6-b6f9-668cd99e9c18")
     @Override
     public boolean isCmsNode() {
         return true;
-        
+
     }
 
     @objid ("667c6c85-bc45-4796-83cc-16df9bd20884")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
     @objid ("7ba101e5-2e7c-4a9c-9939-05cea30bc399")
@@ -96,20 +95,19 @@ public class EnumeratedPropertyTypeSmClass extends PropertyTypeSmClass {
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(PropertyType.MQNAME);
         this.registerFactory(new EnumeratedPropertyTypeObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
         this.litteralDep = new LitteralSmDependency();
         this.litteralDep.init("Litteral", this, metamodel.getMClass(PropertyEnumerationLitteral.MQNAME), 0, -1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.litteralDep);
-        
+
         this.occurenceConfigParamDep = new OccurenceConfigParamSmDependency();
         this.occurenceConfigParamDep.init("OccurenceConfigParam", this, metamodel.getMClass(ModuleParameter.MQNAME), 0, -1 , SmDirective.SMCDDYNAMIC);
         registerDependency(this.occurenceConfigParamDep);
-        
-        
+
     }
 
     @objid ("a7857d03-3867-4980-b19d-983ff6a777ca")
@@ -134,7 +132,7 @@ public class EnumeratedPropertyTypeSmClass extends PropertyTypeSmClass {
         private EnumeratedPropertyTypeSmClass smClass;
 
         @objid ("81de9bff-b062-43e4-ac96-4ec877a7a825")
-        public  EnumeratedPropertyTypeObjectFactory(EnumeratedPropertyTypeSmClass smClass) {
+        public EnumeratedPropertyTypeObjectFactory(EnumeratedPropertyTypeSmClass smClass) {
             this.smClass = smClass;
         }
 
@@ -167,7 +165,7 @@ public class EnumeratedPropertyTypeSmClass extends PropertyTypeSmClass {
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((EnumeratedPropertyTypeData) data).mLitteral = values;
-            
+
         }
 
         @objid ("67b619a4-7ac9-4811-b756-1eea09d852c3")
@@ -177,7 +175,7 @@ public class EnumeratedPropertyTypeSmClass extends PropertyTypeSmClass {
             	this.symetricDep = ((PropertyEnumerationLitteralSmClass)this.getTarget()).getOwnerDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -197,7 +195,7 @@ public class EnumeratedPropertyTypeSmClass extends PropertyTypeSmClass {
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((EnumeratedPropertyTypeData) data).mOccurenceConfigParam = values;
-            
+
         }
 
         @objid ("b2f23cb2-6acb-42ef-8454-9dcd5d90c641")
@@ -207,7 +205,7 @@ public class EnumeratedPropertyTypeSmClass extends PropertyTypeSmClass {
             	this.symetricDep = ((ModuleParameterSmClass)this.getTarget()).getEnumTypeDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

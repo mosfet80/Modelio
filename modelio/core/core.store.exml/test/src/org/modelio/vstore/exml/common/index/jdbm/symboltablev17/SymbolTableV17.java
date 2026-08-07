@@ -10,8 +10,9 @@ import org.modelio.vcore.utils.jdbm.LongSerializer;
 
 /**
  * Table to get a unique {@link Long} identifier for an object.
- * @param <T> the mapped object type
+ *
  * @author cma
+ * @param <T> the mapped object type
  * @since 3.6.1
  */
 @objid ("0d974f7a-b331-4d1e-b4d8-fbc02d44cc72")
@@ -32,13 +33,13 @@ public class SymbolTableV17<T> {
     private final JdbmNamedObject<Long> jdbmCounter;
 
     @objid ("f4d38442-2dc5-4046-a4e6-51229c7ee756")
-    public  SymbolTableV17(RecordManager db, String name, Serializer<T> serializer) throws IOException {
+    public SymbolTableV17(RecordManager db, String name, Serializer<T> serializer) throws IOException {
         this.serializer = serializer;
         this.table = db.hashMap(name, serializer, LongSerializer.instance);
         this.inverseTable = db.hashMap(name+"_inverse", LongSerializer.instance, serializer);
         this.jdbmCounter = new JdbmNamedObject<>(db, "", LongSerializer.instance);
         this.counter = this.jdbmCounter.read(1L);
-        
+
     }
 
     @objid ("fc785c12-d440-4b51-aa52-308ab167dee8")
@@ -53,23 +54,24 @@ public class SymbolTableV17<T> {
             if (found != null) {
                 return found;
             }
-            
+
             this.counter++;
-            
+
             while (this.inverseTable.put(this.counter, symbol) != null) {
                 this.counter++;
             }
             this.table.put(symbol, this.counter);
-            
+
             return this.counter;
-            
+
         } catch (IOError | InternalError e) {
             throw new IOException(e);
         }
-        
+
     }
 
     /**
+     *
      * @param symbol the symbol to find
      * @return the symbol ID or -1 if not found.
      * @throws IOError on JDBM failure

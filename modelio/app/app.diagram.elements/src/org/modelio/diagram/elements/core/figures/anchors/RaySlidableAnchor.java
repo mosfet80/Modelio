@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures.anchors;
 
@@ -33,7 +33,7 @@ import org.modelio.diagram.elements.core.figures.geometry.GeomUtils;
 /**
  * Provides the implementation of Slidable anchor whose reference point is relative to the top left corner of the
  * figure.
- * 
+ *
  * @author fpoyer
  */
 @objid ("7f5adb6e-1dec-11e2-8cad-001ec947c8cc")
@@ -43,11 +43,12 @@ public class RaySlidableAnchor extends NodeAnchor implements ISlidableAnchor {
 
     /**
      * Constructor.
+     *
      * @param f <code>IFigure</code> that this anchor is associated with.
      * @param relativePos the position that the anchor will initially attach to, <i>relative</i> to the node top left corner..
      */
     @objid ("7f5d3d7e-1dec-11e2-8cad-001ec947c8cc")
-    public  RaySlidableAnchor(IFigure f, Dimension relativePos) {
+    public RaySlidableAnchor(IFigure f, Dimension relativePos) {
         super(f, relativePos);
     }
 
@@ -55,6 +56,7 @@ public class RaySlidableAnchor extends NodeAnchor implements ISlidableAnchor {
      * Returns the location where the Connection should be anchored in absolute
      * coordinates. The anchor may use the given reference Point to calculate
      * this location.
+     *
      * @param reference The reference Point in absolute coordinates
      * @return The anchor's location
      */
@@ -70,10 +72,10 @@ public class RaySlidableAnchor extends NodeAnchor implements ISlidableAnchor {
             reduction = ownerBounds.height / 3;
         final Rectangle ownerAbsoluteBounds = ownerBounds.getExpanded(-reduction, -reduction);
         getOwner().translateToAbsolute(ownerAbsoluteBounds);
-        
+
         Point location = reference.getCopy();
         GeomUtils.forcePointInside(location, ownerAbsoluteBounds);
-        
+
         Direction direction = GeomUtils.getDirection(reference, ownerAbsoluteBounds);
         switch (direction) {
             case EAST:
@@ -91,7 +93,7 @@ public class RaySlidableAnchor extends NodeAnchor implements ISlidableAnchor {
             case NONE:
             default:
                 break;
-        
+
         }
         return location;
     }
@@ -101,16 +103,16 @@ public class RaySlidableAnchor extends NodeAnchor implements ISlidableAnchor {
     public Point getReferencePoint() {
         final Rectangle bounds = getOwner().getBounds();
         final Point ret = bounds.getLocation();
-        
+
         int reduction = RaySlidableAnchor.DEFAULT_EXCLUSION;
         if (getOwner() instanceof RoundedBoxFigure) {
             reduction = -((RoundedBoxFigure) getOwner()).getRadius();
         }
-        
+
         ret.translate(getOffset());
-        
+
         GeomUtils.forcePointInside(ret, bounds.getExpanded(reduction, reduction));
-        
+
         getOwner().translateToAbsolute(ret);
         return ret;
     }
@@ -119,17 +121,18 @@ public class RaySlidableAnchor extends NodeAnchor implements ISlidableAnchor {
     @Override
     public void setLocation(Point newAbsoluteLocation) {
         final Dimension d = newAbsoluteLocation.getDifference(getAbsoluteBox().getTopLeft());
-        
+
         //if (d.width < 0 || d.height < 0)
         //    throw new IllegalArgumentException("New reference is not inside the figure ");
-        
+
         getOwner().translateToRelative(d);
         setReference(d);
-        
+
     }
 
     /**
      * Gets the anchors associated figure's bounding box in absolute coordinates.
+     *
      * @return a <code>Rectangle</code> that is the bounding box of the owner figure in absolute coordinates
      */
     @objid ("7f5d3d9f-1dec-11e2-8cad-001ec947c8cc")
@@ -140,7 +143,7 @@ public class RaySlidableAnchor extends NodeAnchor implements ISlidableAnchor {
         } else {
             rBox = getOwner().getBounds();
         }
-        
+
         PrecisionRectangle box = new PrecisionRectangle(rBox);
         getOwner().translateToAbsolute(box);
         return box;
@@ -153,7 +156,7 @@ public class RaySlidableAnchor extends NodeAnchor implements ISlidableAnchor {
                 getClass().getSimpleName(),
                 getOffset(),
                 getReferencePoint());
-        
+
     }
 
 }

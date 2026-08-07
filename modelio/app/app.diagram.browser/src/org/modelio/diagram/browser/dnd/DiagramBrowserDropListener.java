@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.browser.dnd;
 
@@ -43,22 +43,22 @@ public class DiagramBrowserDropListener extends ViewerDropAdapter {
     private final TreeViewer viewer;
 
     @objid ("ce5c0117-b1db-45fc-9c5e-fd670b91c7d5")
-    public  DiagramBrowserDropListener(TreeViewer viewer, ICoreSession session) {
+    public DiagramBrowserDropListener(TreeViewer viewer, ICoreSession session) {
         super(viewer);
         this.viewer = viewer;
         this.session = session;
-        
+
     }
 
     @objid ("28afdfb5-c670-46dd-9408-00d1d83fafe9")
     @Override
     public boolean performDrop(final Object data) {
         if (data instanceof IStructuredSelection) {
-        
+
             IStructuredSelection selection = (IStructuredSelection) data;
             List<?> draggedObjects = selection.toList();
             perfromDrop(draggedObjects, getCurrentTarget());
-        
+
             return true;
         }
         return false;
@@ -67,7 +67,7 @@ public class DiagramBrowserDropListener extends ViewerDropAdapter {
     @objid ("a6a19a4c-629a-459c-a8a5-06722e3c6648")
     private void perfromDrop(List<?> draggedObjects, Object currentTarget) {
         DiagramSet targetSet = (DiagramSet) currentTarget;
-        
+
         for (Object source : draggedObjects) {
             if (source instanceof AbstractDiagram) {
                 if (!targetSet.getReferencedDiagram().contains(source)) {
@@ -88,18 +88,18 @@ public class DiagramBrowserDropListener extends ViewerDropAdapter {
                 }
             } else if (source instanceof DiagramRef) {
                 DiagramRef diagramRef = (DiagramRef) source;
-        
+
                 try (ITransaction tr = this.session.getTransactionSupport().createTransaction("CREATE DiagraRef")) {
-                    
+
                     diagramRef.getReferenceOwner().getReferencedDiagram().remove(diagramRef.getReferencedDiagram());
                     targetSet.getReferencedDiagram().add(diagramRef.getReferencedDiagram());
                     tr.commit();
                     this.viewer.refresh();
                 }
-        
+
             }
         }
-        
+
     }
 
     @objid ("1e0e48c4-2b22-4090-a82d-3bbdb5dc3e21")
@@ -133,7 +133,7 @@ public class DiagramBrowserDropListener extends ViewerDropAdapter {
                 if (dg instanceof AbstractDiagram || dg instanceof DiagramSet || dg instanceof DiagramRef) {
                     return true;
                 }
-        
+
             }
         }
         return false;

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.api.tools;
 
@@ -64,7 +64,7 @@ public class LinkTool extends BendedConnectionCreationTool {
      * C'tor, used by platform to instantiate the tool by reflexion.
      */
     @objid ("7e47695b-1980-441c-9115-9006327f1b80")
-    public  LinkTool() {
+    public LinkTool() {
         this.linkCommand = null;
     }
 
@@ -76,7 +76,7 @@ public class LinkTool extends BendedConnectionCreationTool {
             this.diagramHandle.close();
             this.diagramHandle = null;
         }
-        
+
     }
 
     @objid ("5d8a333a-5aa5-4a95-ac2a-289bf3a89c4e")
@@ -89,31 +89,31 @@ public class LinkTool extends BendedConnectionCreationTool {
             return;
         }
         super.applyProperty(key, value);
-        
+
     }
 
     @objid ("e38f67e9-9c66-4d72-9609-5d3f470c2f80")
     protected boolean doAccept(final EditPart editpart) {
         GmModel targetModel = (GmModel) editpart.getModel();
         initDiagramHandle(targetModel);
-        
+
         IDiagramGraphic dg = null;
         while (dg == null && targetModel != null) {
             dg = DGFactory.getInstance().getDiagramGraphic(this.diagramHandle, targetModel);
             targetModel = targetModel.getParent();
         }
-        
+
         if (dg == null) {
             return false;
         }
-        
+
         if (isInState(AbstractConnectionCreationTool.STATE_CONNECTION_STARTED | AbstractTool.STATE_ACCESSIBLE_DRAG_IN_PROGRESS)) {
             IDiagramGraphic sourceDg = findDgFromGm();
             return this.linkCommand.acceptSecondElement(this.diagramHandle, sourceDg, dg);
         } else {
             return this.linkCommand.acceptFirstElement(this.diagramHandle, dg);
         }
-        
+
     }
 
     @objid ("25eb4915-37a4-48d2-a7c8-d79b6fd47f9a")
@@ -122,36 +122,36 @@ public class LinkTool extends BendedConnectionCreationTool {
         if (getTargetEditPart() == null) {
             return;
         }
-        
+
         CreateBendedConnectionRequest request = getTargetRequest();
         EditPart targetEditPart = getTargetEditPart();
         GmModel targetModel = (GmModel) targetEditPart.getModel();
         initDiagramHandle(targetModel);
-        
+
         // Find the target DG.
         IDiagramGraphic dg = null;
         while (dg == null && targetModel != null) {
             dg = DGFactory.getInstance().getDiagramGraphic(this.diagramHandle, targetModel);
             targetModel = targetModel.getParent();
         }
-        
+
         // Additional step: add the optional bend points.
         // Create a "dummy" connection to translate the coordinates of points in the request (absolute) to relative to the connection layer
         PolylineConnection dummyConnection = new PolylineConnection();
         dummyConnection.removeAllPoints();
         ConnectionPolicyUtils.setupConnection(request, dummyConnection);
-        
+
         IConnectionHelper connPath = ConnectionPolicyUtils.getRoutingServices(targetEditPart)
                 .getConnectionHelperFactory()
                 .createFromRawData(request, dummyConnection);
         dummyConnection.setRoutingConstraint(connPath.getRoutingConstraint());
         dummyConnection.layout();
-        
+
         LinkRoute path = new LinkRoute(dummyConnection);
-        
+
         // the connection is not needed anymore
         dummyConnection.getParent().remove(dummyConnection);
-        
+
         // Delegate the execution to the linkCommand handler
         LinkRouterKind routerKind;
         switch (request.getData().getRoutingMode()) {
@@ -169,12 +169,12 @@ public class LinkTool extends BendedConnectionCreationTool {
             break;
         }
         }
-        
+
         IDiagramGraphic sourceDg = findDgFromGm();
         this.linkCommand.actionPerformed(this.diagramHandle, sourceDg, dg, routerKind, path);
-        
+
         setCurrentCommand(null);
-        
+
     }
 
     @objid ("f1561a77-728a-49ba-b922-cb9dcda57ca9")
@@ -186,26 +186,28 @@ public class LinkTool extends BendedConnectionCreationTool {
             }
             return false;
         };
-        
+
     }
 
     /**
      * Sets the tools state.
+     *
      * @param state the new state
      */
     @objid ("f5a26eb0-323d-45f7-9f17-fef60bf0eea0")
     @Override
     protected void setState(final int state) {
         super.setState(state);
-        
+
         if (state == AbstractConnectionCreationTool.STATE_CONNECTION_STARTED) {
             this.sourceGm = (GmModel) getTargetEditPart().getModel();
         }
-        
+
     }
 
     /**
      * Updates the target editpart and returns <code>true</code> if the target changes. The target is updated by using the target conditional and the target request. If the target has been locked, this method does nothing and returns <code>false</code>.
+     *
      * @return <code>true</code> if the target was changed
      */
     @objid ("edb15184-9ccb-4ff8-8d15-bbbf55aed856")
@@ -214,19 +216,19 @@ public class LinkTool extends BendedConnectionCreationTool {
         if (!isTargetLocked()) {
             getTargetRequest().setType(getCommandName());
             EditPart editPart = getTargetUnderMouse();
-        
+
             if (editPart == null && isInState(AbstractConnectionCreationTool.STATE_CONNECTION_STARTED)) {
                 // If the target cannot end the link, ask him to add a bendpoint
                 getTargetRequest().setType(CreateLinkConstants.REQ_CONNECTION_ADD_BENDPOINT);
                 editPart = getTargetUnderMouse();
             }
-        
+
             return updateTargetEditPart(editPart, getTargetRequest().getType());
-        
+
         } else {
             return false;
         }
-        
+
     }
 
     @objid ("7e8e7602-bf91-4e39-b770-0642b9814e79")
@@ -242,6 +244,7 @@ public class LinkTool extends BendedConnectionCreationTool {
 
     /**
      * Find the target editpart and returns it. The target is searched by using the target conditional and the target request.
+     *
      * @return the edit part that can handle the request under the mouse.
      */
     @objid ("7bdc4ca2-520d-4e1a-812c-a5e8c2bc1003")
@@ -268,10 +271,10 @@ public class LinkTool extends BendedConnectionCreationTool {
             // Create a diagram handle on the opened editor (there must be one: we are in one of its tools!).
             AbstractDiagram diagram = targetModel.getDiagram().getRelatedElement();
             IDiagramEditor editor = (IDiagramEditor) DiagramEditorsManager.getInstance().get(diagram).getObject();
-        
+
             this.diagramHandle = DiagramHandle.create(editor, true);
         }
-        
+
     }
 
 }

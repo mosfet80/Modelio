@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.calloperation;
 
@@ -43,7 +43,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Specialisation of the GmPortContainer class for CallOperation.
- * 
+ *
  * @author fpoyer
  */
 @objid ("29d1fcc3-55b6-11e2-877f-002564c97630")
@@ -77,25 +77,26 @@ public class GmCallOperation extends GmPinContainer {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram in which the callOperation is unmasked.
      * @param el the unmasked callOperation.
      * @param ref a reference to the unmasked callOperation.
      */
     @objid ("29d38341-55b6-11e2-877f-002564c97630")
-    public  GmCallOperation(IGmDiagram diagram, CallOperationAction el, MRef ref) {
+    public GmCallOperation(IGmDiagram diagram, CallOperationAction el, MRef ref) {
         super(diagram, ref);
         this.element = el;
-        
+
         GmCallOperationPrimaryNode mainNode = new GmCallOperationPrimaryNode(diagram, ref);
         mainNode.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
-        
+
         GmCallOperationFlatLabel imageModeHeader = new GmCallOperationFlatLabel(diagram, ref);
         imageModeHeader.setRoleInComposition(GmCallOperation.IMAGE_LABEL_ROLE);
         imageModeHeader.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
-        
+
         super.addChild(mainNode);
         super.addChild(imageModeHeader);
-        
+
     }
 
     @objid ("29d3834d-55b6-11e2-877f-002564c97630")
@@ -110,7 +111,7 @@ public class GmCallOperation extends GmPinContainer {
         return ((InputPin.class.isAssignableFrom(el.getClass()) ||
                         ValuePin.class.isAssignableFrom(el.getClass()) || OutputPin.class.isAssignableFrom(el.getClass())) && el.getCompositionOwner()
                                 .equals(this.element));
-        
+
     }
 
     @objid ("29d3835d-55b6-11e2-877f-002564c97630")
@@ -157,7 +158,7 @@ public class GmCallOperation extends GmPinContainer {
      * Empty constructor needed for deserialization.
      */
     @objid ("29d38370-55b6-11e2-877f-002564c97630")
-    public  GmCallOperation() {
+    public GmCallOperation() {
         // Nothing specific to do.
     }
 
@@ -182,7 +183,7 @@ public class GmCallOperation extends GmPinContainer {
             break;
         }
         }
-        
+
     }
 
     @objid ("29d509dc-55b6-11e2-877f-002564c97630")
@@ -201,23 +202,23 @@ public class GmCallOperation extends GmPinContainer {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmCallOperation.", GmCallOperation.MINOR_VERSION);
-        
+
     }
 
     @objid ("29d509f0-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (CallOperationAction) resolveRef(getRepresentedRef());
-        
+
         GmCallOperationFlatLabel imageModeHeader = new GmCallOperationFlatLabel(getDiagram(), getRepresentedRef());
         imageModeHeader.setRoleInComposition(GmCallOperation.IMAGE_LABEL_ROLE);
         imageModeHeader.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
-        
+
         super.addChild(imageModeHeader, 1);
-        
+
     }
 
     @objid ("29d509f5-55b6-11e2-877f-002564c97630")
@@ -230,7 +231,7 @@ public class GmCallOperation extends GmPinContainer {
     private void read_1(final IDiagramReader in) {
         super.read(in);
         this.element = (CallOperationAction) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("29d50a00-55b6-11e2-877f-002564c97630")
@@ -251,7 +252,7 @@ public class GmCallOperation extends GmPinContainer {
             default: {
                 break;
             }
-        
+
             }
         }
         return ret;
@@ -259,6 +260,7 @@ public class GmCallOperation extends GmPinContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */
@@ -268,11 +270,12 @@ public class GmCallOperation extends GmPinContainer {
         String role = childNode.getRoleInComposition();
         return GmPortContainer.SATELLITE_ROLE.equals(role)
                         || GmCallOperation.IMAGE_LABEL_ROLE.equals(role);
-        
+
     }
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */

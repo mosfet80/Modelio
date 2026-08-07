@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.abstractdiagram;
 
@@ -59,6 +59,7 @@ public class UnmaskLinkToVoidCommand extends Command {
 
     /**
      * C'tor.
+     *
      * @param link the link element to unmask.
      * @param from the source element
      * @param to the destination element (should usually be the diagram)
@@ -66,13 +67,13 @@ public class UnmaskLinkToVoidCommand extends Command {
      * @param dropLocation the drop location.
      */
     @objid ("7e274c06-1dec-11e2-8cad-001ec947c8cc")
-    public  UnmaskLinkToVoidCommand(final MObject link, final MObject from, final MObject to, final AbstractDiagramEditPart host, final Point dropLocation) {
+    public UnmaskLinkToVoidCommand(final MObject link, final MObject from, final MObject to, final AbstractDiagramEditPart host, final Point dropLocation) {
         this.linkElement = link;
         this.fromElement = from;
         this.toElement = to;
         this.dropLocation = dropLocation;
         this.host = host;
-        
+
     }
 
     @objid ("7e29ae23-1dec-11e2-8cad-001ec947c8cc")
@@ -81,7 +82,7 @@ public class UnmaskLinkToVoidCommand extends Command {
         if (this.fromElement == null || this.toElement == null) {
             return false;
         }
-        
+
         // the diagram must be modifiable
         return MTools.getAuthTool().canModify(((IGmDiagram) this.host.getModel()).getRelatedElement());
     }
@@ -96,7 +97,7 @@ public class UnmaskLinkToVoidCommand extends Command {
         req.setSize(new Dimension(-1, -1));
         req.setFactory(new ModelioCreationContext(this.linkElement));
         req.setType(LinkToVoidConstants.REQ_LINKTOVOID_START);
-        
+
         // Look for edit part of from element... If none found, unmask it.
         EditPart sourceEditPart = getEditPartFor(this.fromElement, req);
         boolean sourceMissing = false;
@@ -108,16 +109,16 @@ public class UnmaskLinkToVoidCommand extends Command {
                 return;
             }
         }
-        
+
         req.setSourceEditPart(sourceEditPart);
         req.setTargetEditPart(sourceEditPart);
         req.setLocation(getAbsoluteFigureCenter(sourceEditPart));
-        
+
         req.setStartCommand(sourceEditPart.getCommand(req));
-        
+
         // 2 - end the creation of the connection
         req.setType(LinkToVoidConstants.REQ_LINKTOVOID_END);
-        
+
         // Look for edit part of to element... if none found, unmask it.
         EditPart targetEditPart = getEditPartFor(this.toElement, req);
         if (targetEditPart == null) {
@@ -132,15 +133,15 @@ public class UnmaskLinkToVoidCommand extends Command {
             }
         }
         req.setTargetEditPart(targetEditPart);
-        
+
         req.setLocation(this.dropLocation);
         // req.setLocation(getAbsoluteFigureCenter(targetEditPart));
-        
+
         Command connectionCreationCommand = targetEditPart.getCommand(req);
         if (connectionCreationCommand != null && connectionCreationCommand.canExecute()) {
             connectionCreationCommand.execute();
         }
-        
+
     }
 
     @objid ("7e29ae2b-1dec-11e2-8cad-001ec947c8cc")
@@ -169,6 +170,7 @@ public class UnmaskLinkToVoidCommand extends Command {
     }
 
     /**
+     *
      * @param element the element to unmask
      * @param location the drop location
      */
@@ -177,17 +179,18 @@ public class UnmaskLinkToVoidCommand extends Command {
         ModelElementDropRequest dropRequest = new ModelElementDropRequest();
         dropRequest.setDroppedElements(new MObject[] { element });
         dropRequest.setLocation(location);
-        
+
         EditPart targetEditPart = getHost().getTargetEditPart(dropRequest);
         Command command = targetEditPart.getCommand(dropRequest);
         if (command != null && command.canExecute()) {
             command.execute();
         }
-        
+
     }
 
     /**
      * Get the center of te figure bounds in absolute coordinates.
+     *
      * @param editPart a figure edit part
      * @return the center of the figure.
      */

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.anchors.fixed;
 
@@ -68,14 +68,15 @@ class FixedConnectionAnchorFactory implements IFixedConnectionAnchorFactory {
 
     /**
      * Constructor for nodes that have a constant number of anchors per face.
+     *
      * @param nHorizontal number of anchors on horizontal faces
      * @param nVertical number of anchors on vertical faces
      */
     @objid ("6653078c-972b-4e71-99da-466af6024bce")
-    public  FixedConnectionAnchorFactory(String algorithmId, int nHorizontal, int nVertical) {
+    public FixedConnectionAnchorFactory(String algorithmId, int nHorizontal, int nVertical) {
         this.algorithmId = algorithmId;
         this.initAnchorCount= new Dimension(nHorizontal, nVertical);
-        
+
     }
 
     /**
@@ -84,10 +85,10 @@ class FixedConnectionAnchorFactory implements IFixedConnectionAnchorFactory {
      * Use {@link #fixed(int, int)} for nodes that have a fixed anchor count.
      */
     @objid ("63d946cc-8595-4149-ada7-e3d565f0ff8f")
-    protected  FixedConnectionAnchorFactory(String algorithmId) {
+    protected FixedConnectionAnchorFactory(String algorithmId) {
         this.algorithmId = algorithmId;
         this.initAnchorCount = null;
-        
+
     }
 
     @objid ("733f0294-57ed-40d0-89e0-5c48da70eed2")
@@ -98,6 +99,7 @@ class FixedConnectionAnchorFactory implements IFixedConnectionAnchorFactory {
 
     /**
      * <p>Create a draw2d anchor from a model anchor</p>
+     *
      * @param aNodeFigure the node figure the anchor is anchored to
      * @param gmAnchor the anchor model
      * @return the draw2d anchor
@@ -111,13 +113,14 @@ class FixedConnectionAnchorFactory implements IFixedConnectionAnchorFactory {
                 gmAnchor.getRank(),
                 gmAnchor.getTotalOnFace(),
                 getLocator(aNodeFigure));
-        
+
     }
 
     /**
      * Get the up to date computed state for the given node figure.
      * <p>
      * Calls {@link #createComputedState(IFigure)} and/or {@link ComputedState#update(IFigure)} if needed.
+     *
      * @param aNodeFigure a node figure
      * @return the up to date computations
      */
@@ -129,7 +132,7 @@ class FixedConnectionAnchorFactory implements IFixedConnectionAnchorFactory {
                 this.computedState.anchorsCount.setSize(this.initAnchorCount);
             }
         }
-        
+
         this.computedState.setLocator(getLocator(aNodeFigure));
         this.computedState.validate(aNodeFigure);
         return this.computedState;
@@ -139,6 +142,7 @@ class FixedConnectionAnchorFactory implements IFixedConnectionAnchorFactory {
      * Create a {@link ComputedState} for a node figure.
      * <p>
      * Must be redefined by sub classes that extends {@link ComputedState} .
+     *
      * @param aNodeFigure the node figure for which a state is needed.
      */
     @objid ("6affe61a-1ffa-4705-87dd-79a40bc96dea")
@@ -148,6 +152,7 @@ class FixedConnectionAnchorFactory implements IFixedConnectionAnchorFactory {
 
     /**
      * Return all possible anchors for the node and the connection routing mode.
+     *
      * @param aNodeFigure a node figure
      * @param routerId the connection routing mode
      * @return all possible anchors
@@ -168,13 +173,14 @@ class FixedConnectionAnchorFactory implements IFixedConnectionAnchorFactory {
         if (this.computedState != null) {
             this.computedState.invalidate();
         }
-        
+
     }
 
     /**
      * Get a {@link IFixedAnchorLocator} for the given node figure.
      * <p>
      * Return this by default. May be redefined by sub classes.
+     *
      * @param aNodeFigure a node figure.
      */
     @objid ("7c40b5cf-0e42-4b5a-b25c-f1ddadc7663c")
@@ -182,7 +188,7 @@ class FixedConnectionAnchorFactory implements IFixedConnectionAnchorFactory {
         if (this.commonLocator == null) {
             this.commonLocator = createCommonLocator( aNodeFigure);
         }
-        
+
         if (false && aNodeFigure instanceof ShapedFigure) {
             // Experimental anchors for  ShapedFigure
             return this.locators.compute(aNodeFigure, (k, v) ->
@@ -191,11 +197,12 @@ class FixedConnectionAnchorFactory implements IFixedConnectionAnchorFactory {
         } else {
             return this.commonLocator;
         }
-        
+
     }
 
     /**
      * Create the common locator.
+     *
      * @param aNodeFigure a figure in case of it is needed.
      * @return the common locator
      */
@@ -207,6 +214,7 @@ class FixedConnectionAnchorFactory implements IFixedConnectionAnchorFactory {
 
     /**
      * Embed (or not) the given locator into another that adjust its beahvior.
+     *
      * @param leafLoc a locator
      * @return the same or another.
      */
@@ -217,6 +225,7 @@ class FixedConnectionAnchorFactory implements IFixedConnectionAnchorFactory {
 
     /**
      * Create the real {@link IFixedAnchorLocator} for this factory.
+     *
      * @param aNodeFigure a figure in case of it is needed.
      * @return the anchor locator.
      */
@@ -268,13 +277,14 @@ class FixedConnectionAnchorFactory implements IFixedConnectionAnchorFactory {
          * Update computed properties from the node figure.
          * <p>
          * The node figure could be different from the original one if the edit part has been deactivated then activated again.
+         *
          * @param newNodeFigure the new node figure.
          * @return true if the state is now valid, false if {@link #update(IFigure)} should be called again next time.
          */
         @objid ("c5ccc433-e342-4cb3-b664-da3206e2a448")
         protected boolean update(IFigure newNodeFigure) {
             int newLen = 2 * (this.anchorsCount.width + this.anchorsCount.height);
-            
+
             if (! this.anchors.isEmpty() ) {
                 ConnectionAnchor a = this.anchors.iterator().next();
                 if (a.getOwner() == newNodeFigure) {
@@ -282,24 +292,24 @@ class FixedConnectionAnchorFactory implements IFixedConnectionAnchorFactory {
                     return true;
                 }
             }
-            
+
             this.anchors = new ArrayList<>(newLen);
             this.faceAnchors = null;
-            
+
             if (newLen > 0) {
                 IFixedAnchorLocator algo = getLocator(newNodeFigure);
-            
+
                 for (int i = 0; i < this.anchorsCount.width; i++) {
                     this.anchors.add(new FixedAnchor(newNodeFigure, FacesConstants.FACE_NORTH, i, this.anchorsCount.width, algo));
                     this.anchors.add(new FixedAnchor(newNodeFigure, FacesConstants.FACE_SOUTH, i, this.anchorsCount.width, algo));
                 }
-            
+
                 for (int i = 0; i < this.anchorsCount.height; i++) {
                     this.anchors.add(new FixedAnchor(newNodeFigure, FacesConstants.FACE_EAST, i, this.anchorsCount.height, algo));
                     this.anchors.add(new FixedAnchor(newNodeFigure, FacesConstants.FACE_WEST, i, this.anchorsCount.height, algo));
                 }
             }
-            
+
             this.previousAnchorCount.setSize(this.anchorsCount);
             return true;
         }
@@ -308,10 +318,10 @@ class FixedConnectionAnchorFactory implements IFixedConnectionAnchorFactory {
         public Collection<ConnectionAnchor> getAllAnchors(Integer face) {
             if (face == null)
                 return this.anchors;
-            
+
             if (face.intValue() == this.lastFace && this.faceAnchors != null)
                 return this.faceAnchors;
-            
+
             this.faceAnchors = new ArrayList<>();
             for (ConnectionAnchor a : this.anchors) {
                 if (((FixedAnchor) a).getFace() == face.intValue())
@@ -324,22 +334,24 @@ class FixedConnectionAnchorFactory implements IFixedConnectionAnchorFactory {
          * Ensure this instance computations are up to date.
          * <p>
          * Calls {@link #update(IFigure)} if needed.
+         *
          * @param aNodeFigure a node figure.
          */
         @objid ("0f3b739e-fc99-4a8d-877f-59543175b577")
         public final void validate(IFigure aNodeFigure) {
             if (isUpToDate(aNodeFigure))
                 return;
-            
+
             this.isUpToDate = update(aNodeFigure);
             this.previousFigure = aNodeFigure;
-            
+
         }
 
         /**
          * Get the anchor locator for the given figure.
          * <p>
          * Might be redefined by sub classes that wish to use different locator depending on anything.
+         *
          * @param aNodeFigure a node figure
          */
         @objid ("bb12eeac-6dd5-4083-b440-318b5a3ff04e")
@@ -349,6 +361,7 @@ class FixedConnectionAnchorFactory implements IFixedConnectionAnchorFactory {
 
         /**
          * Called by {@link FixedConnectionAnchorFactory#getState(IFigure)} to set the {@link IFixedAnchorLocator} as itself.
+         *
          * @param locator the anchor locator to use.
          */
         @objid ("a94b0622-ba62-4be5-8e6b-5e43962d993c")
@@ -365,7 +378,7 @@ class FixedConnectionAnchorFactory implements IFixedConnectionAnchorFactory {
         public final void invalidate() {
             this.isUpToDate = false;
             this.previousFigure = null;
-            
+
         }
 
         @objid ("190b4f3a-9750-4e23-95bc-2ddc1956bc11")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -63,7 +63,7 @@ public class R1640 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -83,11 +83,11 @@ public class R1640 extends AbstractUmlRule {
         plan.registerRule(ElementImport.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE);
-        
+
         // Namespace
         plan.registerRule(Package.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Collaboration.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         // Namespace.Classifier
         plan.registerRule(InformationItem.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Artifact.MQNAME, this, AuditTrigger.UPDATE);
@@ -101,9 +101,9 @@ public class R1640 extends AbstractUmlRule {
         plan.registerRule(UseCase.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Node.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Component.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         plan.registerRule(Operation.MQNAME, this, AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -137,14 +137,14 @@ public class R1640 extends AbstractUmlRule {
      * Default constructor for R1640
      */
     @objid ("c2d39d65-0f2a-4b07-9706-ad30792e0c9f")
-    public  R1640() {
+    public R1640() {
         this.checkerInstance = new CheckR1640(this);
     }
 
     @objid ("0cf552c3-8053-45d0-85c7-b36cf8cba535")
     private static class CheckR1640 extends AbstractControl {
         @objid ("f93f7a61-60ae-45f2-99a7-822a1186d5e7")
-        public  CheckR1640(IRule rule) {
+        public CheckR1640(IRule rule) {
             super(rule);
         }
 
@@ -166,13 +166,13 @@ public class R1640 extends AbstractUmlRule {
         @objid ("e7429418-de42-4d0e-8c15-dc3abd780284")
         private IAuditEntry checkR1640(final ElementImport elementImport) {
             NameSpace ns = elementImport.getImportingNameSpace();
-            
+
             if (ns != null) {
                 return checkR1640(ns);
             }
-            
+
             Operation op = elementImport.getImportingOperation();
-            
+
             if (op != null) {
                 return checkR1640(op);
             }
@@ -185,22 +185,22 @@ public class R1640 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     operation,
                     null);
-            
+
             List<NameSpace> foundNS = new ArrayList<>();
-            
+
             for (ElementImport ei : operation.getOwnedImport()) {
                 NameSpace ns = ei.getImportedElement();
                 if (foundNS.contains(ns)) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(operation);
                     linkedObjects.add(Operation.MQNAME);
                     linkedObjects.add(ns);
                     auditEntry.setLinkedInfos(linkedObjects);
-            
+
                     return auditEntry;
                 } else {
                     foundNS.add(ns);
@@ -215,22 +215,22 @@ public class R1640 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     nameSpace,
                     null);
-            
+
             List<NameSpace> foundNS = new ArrayList<>();
-            
+
             for (ElementImport ei : nameSpace.getOwnedImport()) {
                 NameSpace ns = ei.getImportedElement();
                 if (foundNS.contains(ns)) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(nameSpace);
                     linkedObjects.add(NameSpace.MQNAME);
                     linkedObjects.add(ns);
                     auditEntry.setLinkedInfos(linkedObjects);
-            
+
                     return auditEntry;
                 } else {
                     foundNS.add(ns);

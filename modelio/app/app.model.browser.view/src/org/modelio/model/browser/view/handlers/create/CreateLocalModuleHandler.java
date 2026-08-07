@@ -1,26 +1,26 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.browser.view.handlers.create;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.services.IServiceConstants;
@@ -44,6 +44,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class CreateLocalModuleHandler {
     /**
      * Creates a local ModuleComponent in the selected editable fragment.
+     *
      * @param selection the current platform selection.
      * @param projectService the project service, to get session and metamodel from.
      * @param selectionService the selection service, to update the platform selection with.
@@ -52,25 +53,26 @@ public class CreateLocalModuleHandler {
     @Execute
     public final void execute(@Named (IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection, IProjectService projectService, IModelioNavigationService selectionService) {
         IGModelFragment fragment = SelectionHelper.getFirst(selection, IGModelFragment.class);
-        
+
         final ICoreSession session = projectService.getSession();
         try (ITransaction t = session.getTransactionSupport().createTransaction("create Local Module")) {
             IInfrastructureModelFactory modelFactory = MTools.get(session).getModelFactory(IInfrastructureModelFactory.class);
-        
+
             ModuleComponent localModule = modelFactory.createModuleProject(fragment.getRepository());
             localModule.setName("LocalModule");
-        
+
             t.commit();
-        
+
             selectionService.fireNavigate(localModule);
         } catch (Exception e) {
             BrowserViewActivator.LOG.error("CreateLocalModuleHandler: \n\tCannot create a Local Module");
             BrowserViewActivator.LOG.error(e);
         }
-        
+
     }
 
     /**
+     *
      * @param selection the current platform selection.
      * @param projectService the project service, to get session and metamodel from.
      * @return <code>true</code> if the project can be created, <code>false</code> otherwise.
@@ -82,17 +84,17 @@ public class CreateLocalModuleHandler {
         if (projectService.getSession() == null) {
             return false;
         }
-        
+
         if (selection.size() != 1) {
             return false;
         }
-        
+
         // Fragment checks
         IGModelFragment fragment = SelectionHelper.getFirst(selection, IGModelFragment.class);
         if (! fragment.getAccessRights().isEditable()) {
             return false;
         }
-        
+
         for (MObject impactProject : fragment.getRepository().findByClass(projectService.getSession().getMetamodel().getMClass(ModuleComponent.class), true)) {
             if (impactProject.isValid()) {
                 return false;

@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<create-popups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="create-popups.xsd">
+  <!-- Popup for ArchimateProject -->
+  <popup metaclass="Archimate.ArchimateProject">
+    <command id="org.modelio.app.ui.command.create.archimate.model">
+      <parameter name="metaclass" value="Archimate.Model" />
+      <parameter name="dependency" value="model" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.ViewPoint" />
+      <parameter name="dependency" value="viewPoints" />
+    </command>
+  </popup>
+
+  <!-- Popup for BusinessFolder -->
+  <popup metaclass="Archimate.BusinessFolder">
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.BusinessFolder" />
+      <parameter name="dependency" value="folder" />
+    </command>
+    <separator />
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.BusinessActor" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.BusinessRole" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.BusinessCollaboration" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.BusinessInterface" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.BusinessProcess" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.BusinessFunction" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.BusinessInteraction" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.BusinessService" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.BusinessEvent" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.BusinessObject" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.Contract" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.Representation" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.Product" />
+      <parameter name="dependency" value="content" />
+    </command>
+  </popup>
+
+  <!-- Popup for MotivationFolder -->
+  <popup metaclass="Archimate.MotivationFolder">
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.MotivationFolder" />
+      <parameter name="dependency" value="folder" />
+    </command>
+    <separator />
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.Stakeholder" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.Driver" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.Assessment" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.Value" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.Meaning" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.Goal" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.Outcome" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.Principle" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.Requirement" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.Constraint" />
+      <parameter name="dependency" value="content" />
+    </command>
+  </popup>
+
+  <!-- Popup for ImplementationFolder -->
+  <popup metaclass="Archimate.ImplementationFolder">
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.ImplementationFolder" />
+      <parameter name="dependency" value="folder" />
+    </command>
+    <separator />
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.WorkPackage" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.ImplementationEvent" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.Deliverable" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.Plateau" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.Gap" />
+      <parameter name="dependency" value="content" />
+    </command>
+  </popup>
+
+  <!-- Popup for TechnologyFolder -->
+  <popup metaclass="Archimate.TechnologyFolder">
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.TechnologyFolder" />
+      <parameter name="dependency" value="folder" />
+    </command>
+    <separator />
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.Node" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.Device" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.SystemSoftware" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.TechnologyCollaboration" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.TechnologyInterface" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.TechnologyProcess" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.TechnologyFunction" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.TechnologyInteraction" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.TechnologyService" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.TechnologyEvent" />
+      <parameter name="dependency" value="content" />
+      </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.Artifact" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.CommunicationNetwork" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.Path" />
+      <parameter name="dependency" value="content" />
+    </command>
+  </popup>
+
+  <!-- Popup for ApplicationFolder -->
+  <popup metaclass="Archimate.ApplicationFolder">
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.ApplicationFolder" />
+      <parameter name="dependency" value="folder" />
+    </command>
+    <separator />
+     <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.ApplicationComponent" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.ApplicationCollaboration" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.ApplicationInterface" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.ApplicationProcess" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.ApplicationFunction" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.ApplicationInteraction" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.ApplicationService" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.ApplicationEvent" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.DataObject" />
+      <parameter name="dependency" value="content" />
+    </command>
+  </popup>
+
+  <!-- Popup for StrategyFolder -->
+  <popup metaclass="Archimate.StrategyFolder">
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.StrategyFolder" />
+      <parameter name="dependency" value="folder" />
+    </command>
+    <separator />
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.Resource" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.Capability" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.CourseOfAction" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.ValueStream" />
+      <parameter name="dependency" value="content" />
+    </command>
+  </popup>
+
+  <!-- Popup for PhysicalFolder -->
+  <popup metaclass="Archimate.PhysicalFolder">
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.PhysicalFolder" />
+      <parameter name="dependency" value="folder" />
+    </command>
+    <separator />
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.Facility" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.Equipment" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.Material" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.DistributionNetwork" />
+      <parameter name="dependency" value="content" />
+    </command>
+  </popup>
+
+  <!-- Popup for Model -->
+  <popup metaclass="Archimate.Model">
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.ApplicationFolder" />
+      <parameter name="dependency" value="folder" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.BusinessFolder" />
+      <parameter name="dependency" value="folder" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.ImplementationFolder" />
+      <parameter name="dependency" value="folder" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.MotivationFolder" />
+      <parameter name="dependency" value="folder" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.PhysicalFolder" />
+      <parameter name="dependency" value="folder" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.StrategyFolder" />
+      <parameter name="dependency" value="folder" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.TechnologyFolder" />
+      <parameter name="dependency" value="folder" />
+    </command>
+    <separator />
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.Grouping" />
+      <parameter name="dependency" value="content" />
+    </command>
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.Location" />
+      <parameter name="dependency" value="content" />
+    </command>
+  </popup>
+
+  <!-- Popup for ViewPoint -->
+  <popup metaclass="Archimate.ViewPoint">
+    <command id="org.modelio.app.ui.command.create.cmselement">
+      <parameter name="metaclass" value="Archimate.ViewPoint" />
+      <parameter name="dependency" value="child" />
+    </command>
+  </popup>
+</create-popups>

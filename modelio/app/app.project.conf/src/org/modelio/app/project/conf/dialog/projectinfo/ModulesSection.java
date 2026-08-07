@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.conf.dialog.projectinfo;
 
@@ -64,24 +64,24 @@ class ModulesSection {
     protected IModuleManagementService moduleService;
 
     @objid ("a745c460-33f6-11e2-a514-002564c97630")
-    public  ModulesSection(IEclipseContext applicationContext) {
+    public ModulesSection(IEclipseContext applicationContext) {
         this.moduleService = applicationContext.get(IModuleManagementService.class);
     }
 
     @objid ("a745c463-33f6-11e2-a514-002564c97630")
     public void setInput(ProjectModel projectAdapter) {
         this.displayedProject = projectAdapter;
-        
+
         if (projectAdapter != null) {
             this.modulesTable.setInput(projectAdapter.getModules());
         } else {
             this.modulesTable.setInput(new Object[0]);
         }
-        
+
         for (TableColumn col : this.modulesTable.getTable().getColumns()) {
             col.pack();
         }
-        
+
     }
 
     @objid ("a745c466-33f6-11e2-a514-002564c97630")
@@ -90,22 +90,22 @@ class ModulesSection {
         section.setText(AppProjectConf.I18N.getString("ModulesSection.SectionText")); //$NON-NLS-1$
         section.setDescription(AppProjectConf.I18N.getString("InformationPage.ModulesSection.SectionDescription")); //$NON-NLS-1$
         section.setExpanded(true);
-        
+
         Composite composite = toolkit.createComposite(section, SWT.WRAP);
         GridLayout layout = new GridLayout();
         layout.numColumns = 2;
         composite.setLayout(layout);
-        
+
         Table table = toolkit.createTable(composite, SWT.BORDER);
         table.setHeaderVisible(true);
         table.setBackground(UIColor.TEXT_READONLY_BG);
         this.modulesTable = new TableViewer(table);
-        
+
         GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
         table.setLayoutData(gd);
-        
+
         this.modulesTable.setContentProvider(new ArrayContentProvider());
-        
+
         TableViewerColumn labelColumn = new TableViewerColumn(this.modulesTable, SWT.NONE);
         labelColumn.getColumn().setText(AppProjectConf.I18N.getString("ModulesSection.NameColumn")); //$NON-NLS-1$
         labelColumn.getColumn().setWidth(50);
@@ -114,13 +114,13 @@ class ModulesSection {
             public String getText(Object element) {
                 return ModuleHelper.getLabel(element, ModulesSection.this.moduleService);
             }
-        
+
             @Override
             public Image getImage(Object element) {
                 return ModuleHelper.getIcon(element);
             }
         });
-        
+
         TableViewerColumn versionColumn = new TableViewerColumn(this.modulesTable, SWT.RIGHT);
         versionColumn.getColumn().setText(AppProjectConf.I18N.getString("ModulesSection.VersionColumn")); //$NON-NLS-1$
         versionColumn.getColumn().setWidth(20);
@@ -129,13 +129,13 @@ class ModulesSection {
             public String getText(Object element) {
                 return ModuleHelper.getVersion(element);
             }
-        
+
             @Override
             public Image getImage(Object element) {
                 return null;
             }
         });
-        
+
         TableViewerColumn statusColumn = new TableViewerColumn(this.modulesTable, SWT.LEFT);
         statusColumn.getColumn().setText(AppProjectConf.I18N.getString("ModulesSection.StatusColumn")); //$NON-NLS-1$
         statusColumn.getColumn().setWidth(100);
@@ -151,27 +151,27 @@ class ModulesSection {
                 }
                 return AppProjectConf.I18N.getString("ModulesSection.Broken"); //$NON-NLS-1$
             }
-        
+
             @Override
             public Image getImage(Object element) {
                 return null;
             }
         });
-        
+
         this.modulesTable.setInput(null);
-        
+
         this.modulesTable.addSelectionChangedListener(new ISelectionChangedListener() {
             @Override
             public void selectionChanged(SelectionChangedEvent event) {
                 setInput(ModulesSection.this.displayedProject);
             }
         });
-        
+
         // The buttons composite
         Composite panel = toolkit.createComposite(composite, SWT.NONE);
         GridData gd2 = new GridData(SWT.FILL, SWT.FILL, false, false);
         panel.setLayoutData(gd2);
-        
+
         RowLayout rowLayout = new RowLayout();
         rowLayout.wrap = false;
         rowLayout.pack = false;
@@ -182,9 +182,9 @@ class ModulesSection {
         rowLayout.marginRight = 2;
         rowLayout.marginBottom = 2;
         rowLayout.spacing = 1;
-        
+
         panel.setLayout(rowLayout);
-        
+
         toolkit.paintBordersFor(composite);
         section.setClient(composite);
         return section;

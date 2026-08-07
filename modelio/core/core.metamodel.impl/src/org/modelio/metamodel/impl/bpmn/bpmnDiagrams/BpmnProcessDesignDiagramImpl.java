@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.bpmnDiagrams;
 
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("4b3e54b4-bb15-4322-8f36-f65c7b375bf9")
 public class BpmnProcessDesignDiagramImpl extends BpmnProcessCollaborationDiagramImpl implements BpmnProcessDesignDiagram {
-    @objid ("7a716b15-1388-45b7-9897-dd1f4274edd8")
+    @objid ("2d7167f6-70c2-4176-97a6-444bc8d70e16")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -49,17 +48,17 @@ public class BpmnProcessDesignDiagramImpl extends BpmnProcessCollaborationDiagra
         return super.getCompositionOwner();
     }
 
-    @objid ("daa1d825-fdba-4604-8302-055f949bd808")
+    @objid ("91cc0cf9-3d12-497f-88e0-46cc7de5773e")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("09fd9110-a99f-40e8-a166-5a11421ac87b")
+    @objid ("37fcc8cf-d0d4-471d-ae72-d0276dc8df91")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitBpmnProcessDesignDiagram(this);

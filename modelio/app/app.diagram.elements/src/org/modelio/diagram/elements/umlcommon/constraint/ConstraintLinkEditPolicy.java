@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.umlcommon.constraint;
 
@@ -31,19 +31,20 @@ import org.modelio.metamodel.uml.infrastructure.UmlModelElement;
 
 /**
  * Default edit policy that should be installed on a node to make it accept constraint creation.
- * 
+ *
  * @author fpoyer
  */
 @objid ("811650af-1dec-11e2-8cad-001ec947c8cc")
 public class ConstraintLinkEditPolicy extends MultiPointCreationEditPolicy {
     /**
      * C'tor.
+     *
+     * @param isOpaque whether this policy is opaque or not.
      * @see MultiPointCreationEditPolicy#MultiPointCreationEditPolicy(boolean) for details on the effect of isOpaque
      * parameter.
-     * @param isOpaque whether this policy is opaque or not.
      */
     @objid ("811650b1-1dec-11e2-8cad-001ec947c8cc")
-    public  ConstraintLinkEditPolicy(final boolean isOpaque) {
+    public ConstraintLinkEditPolicy(final boolean isOpaque) {
         super(isOpaque);
     }
 
@@ -56,7 +57,7 @@ public class ConstraintLinkEditPolicy extends MultiPointCreationEditPolicy {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("811650be-1dec-11e2-8cad-001ec947c8cc")
@@ -84,7 +85,7 @@ public class ConstraintLinkEditPolicy extends MultiPointCreationEditPolicy {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("2385bd26-76db-4555-b484-51329b54398d")

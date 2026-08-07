@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.preferences.model;
 
@@ -37,21 +37,21 @@ public class AuditRule {
     private String implClass;
 
     @objid ("09bf2625-960a-456e-8575-5f12917db9e9")
-    public  AuditRule(String id, AuditSeverity severity, boolean enabled, String implClass) {
+    public AuditRule(String id, AuditSeverity severity, boolean enabled, String implClass) {
         this.id = id;
         this.severity = severity;
         this.enabled = enabled;
         this.implClass = implClass;
-        
+
     }
 
     @objid ("fa25e98e-e51f-4c0c-b934-1d242d38a43d")
-    public  AuditRule(AuditRule anotherRule) {
+    public AuditRule(AuditRule anotherRule) {
         this.id = anotherRule.id;
         this.severity = anotherRule.severity;
         this.enabled = anotherRule.enabled;
         this.implClass = anotherRule.implClass;
-        
+
     }
 
     @objid ("86be4dee-1ccc-4edf-928a-66845666c654")

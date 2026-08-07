@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.panel.data.standard.infrastructure;
 
@@ -50,15 +50,17 @@ public class EnumeratedPropertyTypePropertyModel extends AbstractPropertyModel<E
     /**
      * Create a new <i>EnumeratedPropertyType</i> data model from an
      * <i>EnumeratedPropertyType</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("da610113-7d5d-4b0e-b73e-88da3dcaee66")
-    public  EnumeratedPropertyTypePropertyModel(EnumeratedPropertyType theEditedElement) {
+    public EnumeratedPropertyTypePropertyModel(EnumeratedPropertyType theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("67eb25b0-8307-41d6-ba06-ceb970e35b06")
@@ -69,6 +71,7 @@ public class EnumeratedPropertyTypePropertyModel extends AbstractPropertyModel<E
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("aa7df62d-96dd-44b6-92c6-fce6ef8c24f3")
@@ -81,6 +84,7 @@ public class EnumeratedPropertyTypePropertyModel extends AbstractPropertyModel<E
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -102,7 +106,7 @@ public class EnumeratedPropertyTypePropertyModel extends AbstractPropertyModel<E
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -112,6 +116,7 @@ public class EnumeratedPropertyTypePropertyModel extends AbstractPropertyModel<E
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -134,13 +139,14 @@ public class EnumeratedPropertyTypePropertyModel extends AbstractPropertyModel<E
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -165,7 +171,7 @@ public class EnumeratedPropertyTypePropertyModel extends AbstractPropertyModel<E
         default:
             return;
         }
-        
+
     }
 
 }

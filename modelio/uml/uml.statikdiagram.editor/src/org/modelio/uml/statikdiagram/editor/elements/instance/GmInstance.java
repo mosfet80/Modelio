@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.instance;
 
@@ -39,7 +39,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Specialization of the {@link GmPortContainer} class for {@link Instance}.
- * 
+ *
  * @author fpoyer
  */
 @objid ("3530f2bb-55b7-11e2-877f-002564c97630")
@@ -70,24 +70,25 @@ public class GmInstance extends GmPortContainer {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram in which the class is unmasked.
      * @param el the unmasked class.
      * @param ref a reference to the unmasked class.
      */
     @objid ("35327926-55b7-11e2-877f-002564c97630")
-    public  GmInstance(IGmDiagram diagram, Instance el, MRef ref) {
+    public GmInstance(IGmDiagram diagram, Instance el, MRef ref) {
         super(diagram, ref);
         GmInstancePrimaryNode mainNode = new GmInstancePrimaryNode(diagram, ref);
         mainNode.setRoleInComposition(MAIN_NODE_ROLE);
         this.addChild(mainNode);
         this.element = el;
-        
+
         final GmImageInstanceLabel instanceLabel = new GmImageInstanceLabel(diagram, this.element, ref);
         instanceLabel.setRoleInComposition(SATELLITE_ROLE);
         instanceLabel.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
-        
+
         addChild(instanceLabel);
-        
+
     }
 
     @objid ("35327932-55b7-11e2-877f-002564c97630")
@@ -109,12 +110,12 @@ public class GmInstance extends GmPortContainer {
         if (ret != null) {
             return ret;
         }
-        
+
         ret = SIMPLE_KEYS.getStyleKey(metakey);
         if (ret != null) {
             return ret;
         }
-        
+
         ret = IMAGE_KEYS.getStyleKey(metakey);
         return ret;
     }
@@ -134,14 +135,14 @@ public class GmInstance extends GmPortContainer {
         default:
             return Collections.emptyList();
         }
-        
+
     }
 
     /**
      * Empty constructor needed for deserialization.
      */
     @objid ("35327954-55b7-11e2-877f-002564c97630")
-    public  GmInstance() {
+    public GmInstance() {
         // Nothing specific to do.
     }
 
@@ -162,7 +163,7 @@ public class GmInstance extends GmPortContainer {
             break;
         }
         }
-        
+
     }
 
     @objid ("3532795d-55b7-11e2-877f-002564c97630")
@@ -198,24 +199,24 @@ public class GmInstance extends GmPortContainer {
         default:
             return super.getVisibleChildren();
         }
-        
+
     }
 
     @objid ("3533ffd3-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmInstance.", GmInstance.MINOR_VERSION);
-        
+
     }
 
     @objid ("3533ffd9-55b7-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (Instance) resolveRef(this.getRepresentedRef());
-        
+
     }
 
     @objid ("3533ffde-55b7-11e2-877f-002564c97630")
@@ -226,6 +227,7 @@ public class GmInstance extends GmPortContainer {
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */
@@ -237,6 +239,7 @@ public class GmInstance extends GmPortContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */
@@ -254,7 +257,7 @@ public class GmInstance extends GmPortContainer {
         } else {
             super.addStartingLink(link);
         }
-        
+
     }
 
     @objid ("35358664-55b7-11e2-877f-002564c97630")
@@ -265,7 +268,7 @@ public class GmInstance extends GmPortContainer {
         } else {
             super.addEndingLink(link);
         }
-        
+
     }
 
     @objid ("66b9bf00-2d62-4c2f-9651-742b0ed10c6e")

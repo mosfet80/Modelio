@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.resizablegroup;
 
@@ -33,7 +33,7 @@ import org.modelio.diagram.elements.core.policies.LayoutConnectionsOrderedLayout
 
 /**
  * Base class for edit part of {@link GmResizableGroup}.
- * 
+ *
  * @author fpoyer
  */
 @objid ("7f0c2da4-1dec-11e2-8cad-001ec947c8cc")
@@ -57,7 +57,7 @@ public class ResizableGroupEditPart extends AbstractNodeEditPart {
             childModel.setLayoutData(Integer.valueOf(-1));
         }
         super.addChildVisual(childEditPart, index);
-        
+
     }
 
     @objid ("7f0e8fe7-1dec-11e2-8cad-001ec947c8cc")
@@ -65,11 +65,11 @@ public class ResizableGroupEditPart extends AbstractNodeEditPart {
     protected void createEditPolicies() {
         super.createEditPolicies();
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new ResizableGroupLayoutEditPolicy());
-        
+
         // Remove the default DIRECT_EDIT policy: we don't want the container to
         // delegate direct edit requests.
         removeEditPolicy(EditPolicy.DIRECT_EDIT_ROLE);
-        
+
     }
 
     @objid ("7f0c2da6-1dec-11e2-8cad-001ec947c8cc")
@@ -81,7 +81,7 @@ public class ResizableGroupEditPart extends AbstractNodeEditPart {
         ResizableGroupLayout layoutManager = new ResizableGroupLayout();
         layoutManager.setStretchMinorAxis(true);
         fig.setLayoutManager(layoutManager);
-        
+
         // Define properties specific to style
         refreshFromStyle(fig, getModelStyle());
         return fig;
@@ -102,11 +102,11 @@ public class ResizableGroupEditPart extends AbstractNodeEditPart {
         if (groupModel.getLayoutData() != null) {
             fig.getParent().setConstraint(getFigure(), groupModel.getLayoutData());
         }
-        
+
         // On the other hand, go read the "vertical" property to update the
         // layout.
         ((ToolbarLayout) fig.getLayoutManager()).setHorizontal(!groupModel.isVertical());
-        
+
     }
 
 }

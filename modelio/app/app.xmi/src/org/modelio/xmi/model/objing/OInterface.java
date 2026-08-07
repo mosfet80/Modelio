@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -39,20 +39,20 @@ public class OInterface extends ONameSpace {
     }
 
     @objid ("f7a98697-0a6f-4c53-aa48-f9e811a99169")
-    public  OInterface(Interface element) {
+    public OInterface(Interface element) {
         super(element);
         this.objingElement = element;
-        
+
     }
 
     @objid ("cc5d9103-f2d7-4358-9195-3dda125ed941")
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
-                
+
         ModelTree objingOwner = this.objingElement.getOwner();
         org.eclipse.uml2.uml.Element ecoreOwner = genProp.getMappedElement(objingOwner);
-                
+
         if (ecoreOwner != null) {
             if (ecoreOwner instanceof org.eclipse.uml2.uml.Package) {
                 org.eclipse.uml2.uml.Package ownerIsPkg = (org.eclipse.uml2.uml.Package) ecoreOwner;
@@ -80,20 +80,20 @@ public class OInterface extends ONameSpace {
             // create one through the
             // MMI (man-machine interface).
         }
-        
+
     }
 
     @objid ("da112940-e8e5-4b93-a77a-52db11ce7021")
     @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
-        
+
         setLeaf((org.eclipse.uml2.uml.Interface) ecoreElt);
-        
+
         if (GenerationProperties.getInstance().isRoundtripEnabled()) {
             setPrimitiveEAnnotation((org.eclipse.uml2.uml.Interface) ecoreElt);
         }
-        
+
     }
 
     @objid ("06417056-54e7-4afc-aea2-16ed12ac07f3")

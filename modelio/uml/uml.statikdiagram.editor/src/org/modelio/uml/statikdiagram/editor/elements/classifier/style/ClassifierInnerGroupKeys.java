@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.classifier.style;
 
@@ -26,7 +26,7 @@ import org.modelio.uml.statikdiagram.editor.style.StaticAbstractStyleKeyProvider
 
 /**
  * Style keys for all inner classifiers group members.
- * 
+ *
  * @author cmarin
  * @since 3.7
  */
@@ -77,11 +77,12 @@ public class ClassifierInnerGroupKeys extends StaticAbstractStyleKeyProvider {
 
     /**
      * Instantiates a Classifier inner group style key provider
+     *
      * @param prefix a prefix for style key names.
      * It is advised to use the upper case metaclass name as prefix.
      */
     @objid ("551640e5-4d24-48bc-b9bb-21189aea62f5")
-    public  ClassifierInnerGroupKeys(String prefix) {
+    public ClassifierInnerGroupKeys(String prefix) {
         this.TEXTCOLOR = createStyleKey(prefix+"_INNER_TEXTCOLOR", MetaKey.InnerGroup.INNERTEXTCOLOR);
         this.FONT = createStyleKey(prefix+"_INNER_FONT", MetaKey.InnerGroup.INNERFONT);
         this.SHOWNAME = createStyleKey(prefix+"_INNER_SHOWNAME", MetaKey.InnerGroup.INNERSHOWNAME);
@@ -90,7 +91,7 @@ public class ClassifierInnerGroupKeys extends StaticAbstractStyleKeyProvider {
         this.SHOWVISIBILITY = createStyleKey(prefix+"_INNER_SHOWVISIBILITY", MetaKey.InnerGroup.INNERSHOWVISIBILITY);
         this.INNERVIEWMODE = createStyleKey(prefix+"_INNERVIEWMODE",
                 MetaKey.InnerGroup.INNERVIEWMODE);
-        
+
     }
 
 }

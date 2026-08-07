@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.stateMachineModel;
 
 import java.util.ArrayList;
@@ -48,38 +47,38 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00543116-c4bf-1fd8-97fe-001ec947cd2a")
 public class StateMachineImpl extends BehaviorImpl implements StateMachine {
-    @objid ("6a88b38b-743a-48ec-a586-9aa2359ff183")
+    @objid ("4044d9f7-2387-4aea-8f06-51a8cd47fe8d")
     @Override
     public KindOfStateMachine getKind() {
         return (KindOfStateMachine) getAttVal(((StateMachineSmClass)getClassOf()).getKindAtt());
     }
 
-    @objid ("b4695090-13b2-4f46-b536-cfab600b205c")
+    @objid ("6526b043-c5a9-416a-bd26-d15c46826065")
     @Override
     public void setKind(KindOfStateMachine value) {
         setAttVal(((StateMachineSmClass)getClassOf()).getKindAtt(), value);
     }
 
-    @objid ("ef49969d-f77c-49a8-9d1c-ef8f7ad47b56")
+    @objid ("a50b92d7-b144-449d-9264-9a58d5823281")
     @Override
     public Region getTop() {
         Object obj = getDepVal(((StateMachineSmClass)getClassOf()).getTopDep());
         return (obj instanceof Region)? (Region)obj : null;
     }
 
-    @objid ("d5ee23e4-5444-4712-9d4c-2619a27f18eb")
+    @objid ("e5d5bc1f-2ad6-4504-b542-128f8bb79485")
     @Override
     public void setTop(Region value) {
         appendDepVal(((StateMachineSmClass)getClassOf()).getTopDep(), (SmObjectImpl)value);
     }
 
-    @objid ("9087eeb1-ca26-4e29-9b91-610630e1a046")
+    @objid ("198921dc-05b6-41b8-8b0c-7de100534e2c")
     @Override
     public EList<State> getSubmachineState() {
         return new SmList<>(this, ((StateMachineSmClass)getClassOf()).getSubmachineStateDep());
     }
 
-    @objid ("4d9f4643-c858-46cd-a5c5-6b0189dfb1d9")
+    @objid ("9f7477e9-0c24-4f14-ace3-75133ba7e0b5")
     @Override
     public <T extends State> List<T> getSubmachineState(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -92,16 +91,16 @@ public class StateMachineImpl extends BehaviorImpl implements StateMachine {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("10c8873e-c663-4645-856d-dccd1d1031c0")
+    @objid ("a6e61dae-dc93-4b19-8261-28eefcdfc5ec")
     @Override
     public EList<EntryPointPseudoState> getEntryPoint() {
         return new SmList<>(this, ((StateMachineSmClass)getClassOf()).getEntryPointDep());
     }
 
-    @objid ("73934074-7360-40e9-9697-d4c08283d870")
+    @objid ("bebd7209-9651-44d4-a748-c1212f4dc1de")
     @Override
     public <T extends EntryPointPseudoState> List<T> getEntryPoint(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -114,16 +113,16 @@ public class StateMachineImpl extends BehaviorImpl implements StateMachine {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("1edd9b0c-c3f9-44b9-9370-2221cab3c09e")
+    @objid ("0dcae5c4-b984-42cd-9a5b-156f8a48455e")
     @Override
     public EList<ExitPointPseudoState> getExitPoint() {
         return new SmList<>(this, ((StateMachineSmClass)getClassOf()).getExitPointDep());
     }
 
-    @objid ("3006b4bd-81cc-4603-a07e-135fec458c5b")
+    @objid ("f891743b-3d60-499f-97ce-a4ff919f9438")
     @Override
     public <T extends ExitPointPseudoState> List<T> getExitPoint(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -136,10 +135,10 @@ public class StateMachineImpl extends BehaviorImpl implements StateMachine {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("3286df78-89f3-4e48-9002-f5595fbb980e")
+    @objid ("67560eee-677e-4fd0-ac2a-00cbdfd95e27")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -147,17 +146,17 @@ public class StateMachineImpl extends BehaviorImpl implements StateMachine {
         return super.getCompositionOwner();
     }
 
-    @objid ("ff69f96c-f928-4ad1-8b98-3fef57cda4b5")
+    @objid ("a74e7932-2d96-46bc-8c36-136cb93bc788")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("2bf5692a-6444-4ceb-a132-a79944fb0103")
+    @objid ("c4a3728b-38ad-4da4-8336-a458f683221d")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitStateMachine(this);

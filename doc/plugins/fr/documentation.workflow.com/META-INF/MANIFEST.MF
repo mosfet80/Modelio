@@ -1,0 +1,5 @@
+Bundle-SymbolicName: com.modeliosoft.modelio.documentation.workflow.nl_fr;singleton=true
+Bundle-Version: 6.2.0.qualifier 
+Bundle-Name: Workflow documentation
+Bundle-Vendor: Docaposte
+Fragment-Host: com.modeliosoft.modelio.documentation.workflow

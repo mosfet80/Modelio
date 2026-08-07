@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.parts.data.string.single;
 
@@ -45,6 +45,7 @@ import org.eclipse.swt.widgets.Text;
 public class StringEditor extends TextCellEditor {
     /**
      * Build a new editor.
+     *
      * @param commitOnUpDown Flag to configure whether the editor should commit and move
      * the selection in the corresponding way if the up or down key
      * is pressed.
@@ -52,7 +53,7 @@ public class StringEditor extends TextCellEditor {
      * value was committed after pressing enter.
      */
     @objid ("ba4e1f82-5b6b-4a73-86d4-463f13e4b105")
-    public  StringEditor(boolean commitOnUpDown, boolean moveSelectionOnEnter) {
+    public StringEditor(boolean commitOnUpDown, boolean moveSelectionOnEnter) {
         super(commitOnUpDown, moveSelectionOnEnter);
     }
 
@@ -63,8 +64,8 @@ public class StringEditor extends TextCellEditor {
     @Override
     public Rectangle calculateControlBounds(Rectangle cellBounds) {
         Text text = getEditorControl();
-        
-        
+
+
         // add a listener that increases/decreases the size of the control if
         // the text is modified as the calculateControlBounds method is only
         // called in case of inline editing, this listener shouldn't hurt
@@ -78,7 +79,7 @@ public class StringEditor extends TextCellEditor {
                         StringEditor.this.layerCell.getRowPosition(),
                         new Rectangle(cellBounds.x, cellBounds.y,
                                 cellBounds.width, cellBounds.height));
-                
+
                 Point p = getEditorControl().getSize();
                 Point loc = getEditorControl().getLocation();
                 Rectangle newCellBounds = computeSize(editorBounds, text);
@@ -101,12 +102,12 @@ public class StringEditor extends TextCellEditor {
     private Rectangle computeSize(Rectangle cellBounds, Text text) {
         Rectangle cellRect = new Rectangle(cellBounds.x, cellBounds.y, cellBounds.width, cellBounds.height);
         Rectangle containerRect = text.getParent().getBounds();
-        
+
         // Get the text font height
         GC gc = new GC(text);
         Point stringSize = gc.stringExtent(text.getText());
         gc.dispose();
-        
+
         int HORIZONTAL_MARGIN = 0;
         int VERTICAL_MARGIN = 8;
         if (stringSize.x > cellRect.width) {
@@ -120,7 +121,7 @@ public class StringEditor extends TextCellEditor {
             }
             Double estimatedNumberOfLines = ((Math.ceil((float) stringSize.x / (cellRect.width - HORIZONTAL_MARGIN)))) + 1;
             int requiredHeight = estimatedNumberOfLines.intValue() * (stringSize.y + VERTICAL_MARGIN);
-        
+
             if (requiredHeight > cellRect.height) {
                 cellRect.width = Math.min(Math.max(cellRect.width, stringSize.x + 4), maxPossibleWidth);
                 // Wrapping

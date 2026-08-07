@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.extensions;
 
@@ -42,7 +42,7 @@ import org.eclipse.draw2d.geometry.Vector;
  * <li>Modelio < 3.4 : did inherit from {@link org.eclipse.draw2d.ConnectionEndpointLocator} to get access to {@link #isEnd()}
  * <li>Modelio 3.4 : is now a copy to handle size fixed in the locator model.
  * </ul>
- * 
+ *
  * @author cmarin
  */
 @objid ("800dab9e-1dec-11e2-8cad-001ec947c8cc")
@@ -89,20 +89,22 @@ public class SidedConnectionEndpointLocator implements IResizableFigureLocator {
      * . If <i>isEnd</i> is <code>true</code>, the location is relative to the
      * Connection's end (or target) point. If <i>isEnd</i> is <code>false</code>
      * , the location is relative to the Connection's start (or source) point.
+     *
      * @param c The Connection
      * @param isEnd <code>true</code> is location is relative to end point
      */
     @objid ("800daba4-1dec-11e2-8cad-001ec947c8cc")
-    public  SidedConnectionEndpointLocator(Connection c, boolean isEnd) {
+    public SidedConnectionEndpointLocator(Connection c, boolean isEnd) {
         this.end = isEnd;
         this.connection = c;
         this.uDistance = 14;
         this.vDistance = 4;
-        
+
     }
 
     /**
      * Return <i>true</i> if the figure is located at the target end, <i>false</i> if the figure is located at the source end.
+     *
      * @return <i>true</i> if the figure is located at the target end, <i>false</i> if the figure is located at the source end.
      */
     @objid ("800dabab-1dec-11e2-8cad-001ec947c8cc")
@@ -113,17 +115,18 @@ public class SidedConnectionEndpointLocator implements IResizableFigureLocator {
     /**
      * Returns an integer representing the side of the passed Rectangle that a
      * point lies on. 1 == Top, 2 == Right, 3 == Bottom, 4 == Left
+     *
      * @param loc The point that is to be located
      */
     @objid ("f5e0edee-7442-4318-b481-e8254e6edcba")
     static int calculateConnectionLocation(Point loc, Point topLeft, Point center) {
         double m1, m2 = 0;
         m1 = (double) (topLeft.y - center.y) / (double) (topLeft.x - center.x);
-        
+
         if (loc.x - center.x != 0) {
             m2 = (double) (loc.y - center.y) / (double) (loc.x - center.x);
         }
-        
+
         if (loc.x == center.x) {
             // Case where m2 is vertical
             if (loc.y < center.y) {
@@ -146,13 +149,14 @@ public class SidedConnectionEndpointLocator implements IResizableFigureLocator {
                 return QUANDRANT_TOP;
             }
         }
-        
+
     }
 
     /**
      * This method is used to calculate the "quadrant" value of a connection
      * that does not have an owner on its starting point.
      * 1 == Top 2 == Right 3 == Bottom 4 == Left
+     *
      * @param startPoint The starting point of the connection.
      * @param endPoint The end point of the connection.
      */
@@ -172,13 +176,14 @@ public class SidedConnectionEndpointLocator implements IResizableFigureLocator {
                 return QUANDRANT_BOTTOM;
             }
         }
-        
+
     }
 
     /**
      * Calculates 'tan' which is used as a factor for y adjustment when placing
      * the connection label. 'tan' is capped at 1.0 in the positive direction
      * and -1.0 in the negative direction.
+     *
      * @param startPoint The starting point of the connection.
      * @param endPoint The end point of the connection.
      * @since 2.0
@@ -232,6 +237,7 @@ public class SidedConnectionEndpointLocator implements IResizableFigureLocator {
 
     /**
      * Returns the distance in pixels from the anchor's owner.
+     *
      * @return the offset distance from the endpoint figure
      */
     @objid ("e16a78be-1b24-4455-9a7e-44ca40649f6c")
@@ -241,6 +247,7 @@ public class SidedConnectionEndpointLocator implements IResizableFigureLocator {
 
     /**
      * Returns the distance in pixels from the connection
+     *
      * @return the offset from the connection itself
      */
     @objid ("4b9626a7-fdd0-4624-87fb-d26c471b6ae5")
@@ -252,6 +259,7 @@ public class SidedConnectionEndpointLocator implements IResizableFigureLocator {
      * Relocates the given IFigure at either the source or target end of the
      * Connection, based on the <code>boolean</code> given in the constructor
      * {@link #SidedConnectionEndpointLocator(Connection, boolean)}.
+     *
      * @param figure The figure to relocate
      */
     @objid ("5630b531-5aaa-45b5-a4db-be3211ceb8b1")
@@ -260,22 +268,22 @@ public class SidedConnectionEndpointLocator implements IResizableFigureLocator {
         Connection conn = getConnection();
         PrecisionPoint startPoint = new PrecisionPoint();
         PrecisionPoint endPoint = new PrecisionPoint();
-        
+
         int startPointPosition = 0;
         int endPointPosition = 1;
         if (isEnd()) {
             startPointPosition = conn.getPoints().size() - 1;
             endPointPosition = startPointPosition - 1;
         }
-        
+
         conn.getPoints().getPoint(startPoint, startPointPosition);
         conn.getPoints().getPoint(endPoint, endPointPosition);
-        
-        
+
+
         if (false) {
             _relocate_chatgpt_way1(figure, startPoint, endPoint);
         } else {
-        
+
             IFigure connOwner = getConnectionOwner();
             int quadrant;
             if (connOwner != null) {
@@ -287,9 +295,9 @@ public class SidedConnectionEndpointLocator implements IResizableFigureLocator {
             } else {
                 quadrant = calculateConnectionLocation(startPoint, endPoint);
             }
-        
+
             this.transposer.setEnabled(false);
-        
+
             /*
              * Label placement calculations are done as if the connection point is
              * along the left or right side of the figure. If the connection point
@@ -298,50 +306,51 @@ public class SidedConnectionEndpointLocator implements IResizableFigureLocator {
             if (quadrant == QUANDRANT_TOP || quadrant == QUANDRANT_BOTTOM) {
                 this.transposer.setEnabled(true);
             }
-        
+
             int cos ;
             if (quadrant == QUANDRANT_RIGHT || quadrant == QUANDRANT_TOP) {
                 cos = 1;
             } else {
                 cos = -1;
             }
-        
+
             Dimension figureSize = this.transposer.t(computeFigureSize(figure));
-        
+
             startPoint = (PrecisionPoint) this.transposer.t(startPoint);
             endPoint = (PrecisionPoint) this.transposer.t(endPoint);
-        
+
             double tan = calculateTan(startPoint, endPoint);
-        
+
             int figureWidth = figureSize.width;
             int figureHeight = figureSize.height;
             int yShift = calculateYShift(figureWidth, figureHeight);
-        
+
             Point figurePoint = new Point(
                     startPoint.x + (this.uDistance * cos) + figureWidth * ((cos - 1) / 2),
                     (int) (startPoint.y + cos * this.uDistance * tan + this.vDistance + yShift));
-        
+
             Rectangle figureBounds = new Rectangle();
             figureBounds.setSize(this.transposer.t(figureSize));
             figureBounds.setLocation(this.transposer.t(figurePoint));
             figure.setBounds(figureBounds);
         }
-        
+
     }
 
     /**
      * Asked ChatGPT for:
-     * 
+     *
      * <pre>
      * J'ai un segment AB avec les points A et B connus: (startPoint, endPoint).
      * J'ai un segment AC avec les points A et C connus. (C is a point to make a segment on node figure bounds)
      * J'ai une distance v depuis la droite AB, qui forme une droite D parall�le � AB.
      * J'ai un vecteur u(ux, uy) depuis le point A, qui forme une droite E parall�le � AC.
-     * 
+     *
      * Il me faut un algorithme java pour calculer l'intersection entre D et E.
      * </pre>
-     * @deprecated does not work :-\
+     *
      * @author ChatGPT
+     * @deprecated does not work :-\
      */
     @objid ("0eaab1bc-8000-47b4-86f1-2d8af4f5e609")
     @Deprecated
@@ -371,44 +380,44 @@ public class SidedConnectionEndpointLocator implements IResizableFigureLocator {
             u.x = + this.uDistance;
             break;
         }
-        
-        
+
+
         // ChatGPT algo begins here
         // ========================
         // Calculer le vecteur AB et le vecteur AC
         Vector ab = new Vector(b.x - a.x, b.y - a.y);
         Vector ac = new Vector(c.x - a.x, c.y - a.y);
-        
+
         // Normaliser le vecteur AB
         ab = ab.getDivided(ab.getLength());
-        
+
         // Calculer la distance entre A et la droite D
         double distanceAD = ab.getCrossProduct(ac);
-        
+
         // Calculer le vecteur de translation pour projeter u sur la droite D
         Vector translation = ab.getMultiplied(u.getDotProduct(ab) / ab.getDotProduct(ab));
-        
+
         // Calculer le vecteur projet� de u sur la droite D
         Vector projectedU = u.getSubtracted(translation);
-        
+
         // Calculer la distance entre A et la droite E
         double distanceAE = ac.getCrossProduct(projectedU);
-        
+
         // Calculer le point d'intersection entre les droites D et E
         double t = distanceAE / (distanceAE - distanceAD);
         int v = this.vDistance;
         Point intersection = new PrecisionPoint(a.x + t * ab.x * v, a.y + t * ab.y * v);
-        
+
         PrecisionRectangle figureBounds = new PrecisionRectangle(intersection, computeFigureSize(figure));
-        
+
         if (a.x < 0)
             figureBounds.translate(-figureBounds.preciseWidth(), 0);
         if (a.y < 0)
             figureBounds.translate(0, -figureBounds.preciseHeight());
-        
+
         figure.setBounds(figureBounds);
         }
-        
+
     }
 
     @objid ("287d0f6a-81ad-49a1-ae47-8a77c22ad672")
@@ -418,23 +427,24 @@ public class SidedConnectionEndpointLocator implements IResizableFigureLocator {
 
     /**
      * Asked ChatGPT for:
-     * 
+     *
      * <pre>
      * J'ai un segment AB avec les points A et B connus: (startPoint, endPoint).
      * J'ai un segment AC avec les points A et C connus. (C is a point to make a segment on node figure bounds)
      * J'ai une distance v depuis la droite AB, qui forme une droite D parall�le � AB.
      * J'ai un vecteur u(ux, uy) depuis le point A, qui forme une droite E parall�le � AC.
-     * 
+     *
      * Il me faut un algorithme java pour calculer l'intersection entre D et E.
      * </pre>
-     * @deprecated does not work :-\
+     *
      * @author ChatGPT
+     * @deprecated does not work :-\
      */
     @objid ("63abc6bb-97e2-4d41-8ccf-ca967d7b9772")
     @Deprecated
     private void _relocate_chatgpt_way1(IFigure figure, PrecisionPoint startPoint, PrecisionPoint endPoint) {
         if (false) {
-        
+
         // Compute input for ChatGPT algo
         Vector A = new Vector(startPoint, endPoint);
         Vector u = new Vector(0, 0);
@@ -459,9 +469,9 @@ public class SidedConnectionEndpointLocator implements IResizableFigureLocator {
             u.x = + this.uDistance;
             break;
         }
-        
+
         int v = this.vDistance;
-        
+
         /*
          *   A       C
          *   +-------+
@@ -477,13 +487,13 @@ public class SidedConnectionEndpointLocator implements IResizableFigureLocator {
          */
         // ChatGPT algo begins here
         // ========================
-        
+
         Vector AB = B.getSubtracted(A);
         Vector AC = C.getSubtracted(A);
         Vector AB_norm = normalized(AB);
         Vector AC_norm = normalized(AC);
         Vector AP = AB_norm.getMultiplied(u.getDotProduct(AB_norm));
-        
+
         /*
          * Ensuite, nous allons calculer la projection du vecteur u sur la droite AB,
          * pour trouver le point P qui se situe sur la droite AB et le plus proche de u.
@@ -498,24 +508,25 @@ public class SidedConnectionEndpointLocator implements IResizableFigureLocator {
         //  Q = P + (v / D_norm . AC_norm) * AC_norm
         Vector Q = P.getAdded(AC_norm.getMultiplied(v / D_norm.getDotProduct(AC_norm)));
         Vector intersection = Q.getAdded(A);
-        
-        
+
+
         //Point intersection = new PrecisionPoint(a.x + t * ab.x * v, a.y + t * ab.y * v);
-        
+
         PrecisionRectangle figureBounds = new PrecisionRectangle(intersection.toPoint(), computeFigureSize(figure));
-        
+
         if (A.x < 0)
             figureBounds.translate(-figureBounds.preciseWidth(), 0);
         if (A.y < 0)
             figureBounds.translate(0, -figureBounds.preciseHeight());
-        
+
         figure.setBounds(figureBounds);
         }
-        
+
     }
 
     /**
      * Calculate the figure size from this locator
+     *
      * @param target the figure to relocate.
      * @return the figure size to set.
      */
@@ -526,6 +537,7 @@ public class SidedConnectionEndpointLocator implements IResizableFigureLocator {
 
     /**
      * Sets the distance in pixels from the Connection's owner.
+     *
      * @param distance Number of pixels to place the ConnectionEndpointLocator from
      * its owner.
      * @since 2.0
@@ -537,6 +549,7 @@ public class SidedConnectionEndpointLocator implements IResizableFigureLocator {
 
     /**
      * Sets the distance in pixels from the Connection.
+     *
      * @param distance Number of pixels to place the ConnectionEndpointLocator from
      * its Connection.
      * @since 2.0
@@ -550,6 +563,7 @@ public class SidedConnectionEndpointLocator implements IResizableFigureLocator {
      * Get the width constraint.
      * <p>
      * -1 means no constraint.
+     *
      * @return the width constraint.
      */
     @objid ("fd56bd88-b2a9-4809-a228-633443663d21")
@@ -562,6 +576,7 @@ public class SidedConnectionEndpointLocator implements IResizableFigureLocator {
      * Set the width constraint.
      * <p>
      * -1 means no constraint.
+     *
      * @param fixedWidth the width constraint.
      */
     @objid ("fc6b2254-5db2-42c7-89a4-c960f682f376")
@@ -574,6 +589,7 @@ public class SidedConnectionEndpointLocator implements IResizableFigureLocator {
      * Get the height constraint.
      * <p>
      * -1 means no constraint.
+     *
      * @return the height constraint.
      */
     @objid ("bdfe5240-7580-4f2e-9dc5-223d47615e76")
@@ -586,6 +602,7 @@ public class SidedConnectionEndpointLocator implements IResizableFigureLocator {
      * Set the height constraint.
      * <p>
      * -1 means no constraint.
+     *
      * @param fixedHeight the height constraint.
      */
     @objid ("280cc6a2-a9ed-4766-9f21-0d94b8363a2d")

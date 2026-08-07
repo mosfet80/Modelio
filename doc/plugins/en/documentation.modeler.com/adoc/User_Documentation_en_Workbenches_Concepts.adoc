@@ -1,0 +1,35 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= Concepts
+
+
+
+=== Expertise
+
+An *expertise* defines what the user can see and do. An expertise impacts the GUI, the commands, and the modules:
+
+* *At GUI level, an expertise:*
+** filters the elements displayed in the model browser
+** filters the links displayed in the links editor
+** adjusts the audit rules
+** organizes the views (perspectives)
+* *At commands level, an expertise*
+** filters the context menu commands
+** filters the diagrams which creation is possible via the fast creation bar
+* *At modules level, an expertise*
+** activates the business-related modules
+** deactivates the modules which are not related to the business
+
+
+=== Workbench
+
+A *workbench* gathers several *expertises* by assembling (in the sense of the set theory's union concept) the display configurations, and expertise commands it supports.
+
+The mechanism which assembles *expertises* in a *workbench* takes account of the order in which the *expertises* are declared in the *workbench*. This order is used to solve the situations in which several supported *expertises* are in conflict over a configuration. In such cases, the first *expertise* prevails. The order of *expertises* in a *workbench* is important.
+
+ +

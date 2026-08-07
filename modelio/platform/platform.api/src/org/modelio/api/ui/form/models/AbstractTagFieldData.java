@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.ui.form.models;
 
@@ -30,6 +30,7 @@ import org.modelio.vcore.smkernel.mapi.MMetamodel;
 
 /**
  * {@link IFormFieldData} for TaggedValue with one TagParameter.
+ *
  * @author cma
  * @since 3.7.1
  */
@@ -51,23 +52,23 @@ public abstract class AbstractTagFieldData implements IFormFieldData {
     protected final TagType tagType;
 
     @objid ("c8c540c8-3253-4f27-8c04-5fafafe3e140")
-    public  AbstractTagFieldData(IModelingSession session, ModelElement me, String moduleName, String tagTypeName) {
+    public AbstractTagFieldData(IModelingSession session, ModelElement me, String moduleName, String tagTypeName) {
         this.session = session;
         this.editedEl = me;
         this.moduleName = moduleName;
         this.tagTypeName = tagTypeName;
         this.tagType = resolveTagType(me, moduleName, tagTypeName);
-        
+
     }
 
     @objid ("7702979f-c6ef-438a-ac3a-7c50e4b575e3")
-    public  AbstractTagFieldData(IModelingSession session, ModelElement me, TagType tagType) {
+    public AbstractTagFieldData(IModelingSession session, ModelElement me, TagType tagType) {
         this.session = session;
         this.editedEl = me;
         this.moduleName = tagType.getModule().getName();
         this.tagTypeName = tagType.getName();
         this.tagType = tagType;
-        
+
     }
 
     @objid ("cc4d0f43-86db-4b82-a98b-1569e104044e")
@@ -92,7 +93,7 @@ public abstract class AbstractTagFieldData implements IFormFieldData {
         if (this.tagType == null) {
             return null;
         }
-        
+
         for (TaggedValue t : this.editedEl.getTag()) {
             if (Objects.equals(this.tagType, t.getDefinition())) {
                 return t;
@@ -104,15 +105,15 @@ public abstract class AbstractTagFieldData implements IFormFieldData {
     @objid ("d0ac302f-460a-4e4f-b183-6c42b61e0c8d")
     protected TagType resolveTagType(final ModelElement me, final String aModuleName, final String type) {
         final MMetamodel metamodel = me.getMClass().getMetamodel();
-        final Collection<TagType> elts = getModelingSession().findByAtt(TagType.class, "Name", type);
+        final Collection<TagType> elts = getModelingSession().findByName(TagType.class, true, type);
         final List<TagType> candidates = new ArrayList<>();
-        
+
         for (TagType o : elts) {
             if (aModuleName.equals(o.getModule().getName())) {
                 candidates.add(o);
             }
         }
-           
+
         // First loop: check strict metaclass equality
         for (final TagType nType : candidates) {
             if (nType.getOwnerReference() != null) {
@@ -129,7 +130,7 @@ public abstract class AbstractTagFieldData implements IFormFieldData {
                 continue;
             }
         }
-        
+
         // Second loop: if first one did not give any result, check metaclass compatibility
         for (final TagType nType : candidates) {
             if (nType.getOwnerReference() != null) {
@@ -176,10 +177,10 @@ public abstract class AbstractTagFieldData implements IFormFieldData {
         }
 
         @objid ("5c428fe2-a147-45bf-9e65-601d9ed8ada8")
-        public  TagFormFieldType(TagType type, String tagTypeName) {
+        public TagFormFieldType(TagType type, String tagTypeName) {
             this.type = type;
             this.tagTypeName = tagTypeName;
-            
+
         }
 
     }

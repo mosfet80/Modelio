@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.panel.data.standard.infrastructure;
 
@@ -50,15 +50,17 @@ public class MatrixValueDefinitionPropertyModel extends AbstractPropertyModel<Ma
     /**
      * Create a new <i>MatrixValueDefinition</i> data model from an
      * <i>MatrixValueDefinition</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("26c9a45a-c515-41b6-8b88-0b9e4fc5f029")
-    public  MatrixValueDefinitionPropertyModel(MatrixValueDefinition theEditedElement) {
+    public MatrixValueDefinitionPropertyModel(MatrixValueDefinition theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("7762958e-96b6-44b5-9e43-0fc70a2c1107")
@@ -69,6 +71,7 @@ public class MatrixValueDefinitionPropertyModel extends AbstractPropertyModel<Ma
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("29f021da-3563-44a3-8544-c05accd49f9f")
@@ -81,6 +84,7 @@ public class MatrixValueDefinitionPropertyModel extends AbstractPropertyModel<Ma
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -100,7 +104,7 @@ public class MatrixValueDefinitionPropertyModel extends AbstractPropertyModel<Ma
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -110,6 +114,7 @@ public class MatrixValueDefinitionPropertyModel extends AbstractPropertyModel<Ma
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -130,13 +135,14 @@ public class MatrixValueDefinitionPropertyModel extends AbstractPropertyModel<Ma
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -157,7 +163,7 @@ public class MatrixValueDefinitionPropertyModel extends AbstractPropertyModel<Ma
         default:
             return;
         }
-        
+
     }
 
 }

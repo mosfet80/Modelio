@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.looptypes;
 
@@ -60,12 +60,12 @@ public class StandardLoopNode implements IProductionNode<BpmnStandardLoopCharact
     @objid ("c908f326-a691-4295-ab40-48bfcfe345d1")
     @Override
     public BpmnStandardLoopCharacteristics createUMLElement(MObject context, TStandardLoopCharacteristics jaxbElement, BpmnImportFactory factory, boolean keepId) {
-        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {  
+        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {
             return factory.createWithId(BpmnStandardLoopCharacteristics.class, context,jaxbElement.getId());
         } else {
             return factory.create(BpmnStandardLoopCharacteristics.class, context);
         }
-        
+
     }
 
     @objid ("7fc306da-8e01-48c5-8bda-40b715812c27")
@@ -74,7 +74,7 @@ public class StandardLoopNode implements IProductionNode<BpmnStandardLoopCharact
         if (context instanceof BpmnActivity) {
             modelioElement.setOwnerActivity((BpmnActivity)context);
         }
-        
+
         if (jaxbElement.getLoopCondition() != null) {
             String condition = "";
             for (Serializable val : jaxbElement.getLoopCondition().getContent()) {
@@ -85,7 +85,7 @@ public class StandardLoopNode implements IProductionNode<BpmnStandardLoopCharact
             }
             modelioElement.setLoopCondition(condition);
         }
-        
+
         if (jaxbElement.getLoopMaximum() != null)
             modelioElement.setLoopMaximum(jaxbElement.getLoopMaximum().toString());
         modelioElement.setTestBefore(jaxbElement.isTestBefore());
@@ -96,10 +96,10 @@ public class StandardLoopNode implements IProductionNode<BpmnStandardLoopCharact
     @Override
     public TStandardLoopCharacteristics createJaxbElement(Object context, BpmnStandardLoopCharacteristics modelioElement) {
         TActivity jaxActivity = (TActivity) context;
-        
+
         // Create JaxbElement
         TStandardLoopCharacteristics jaxLoop = new TStandardLoopCharacteristics();
-        
+
         // // Add to context
         ObjectFactory factory = new ObjectFactory();
         jaxActivity.setLoopCharacteristics(factory.createStandardLoopCharacteristics(jaxLoop));
@@ -113,7 +113,7 @@ public class StandardLoopNode implements IProductionNode<BpmnStandardLoopCharact
     @Override
     public TStandardLoopCharacteristics updateJaxbElement(Object context, TStandardLoopCharacteristics jaxLoop, BpmnStandardLoopCharacteristics modelioElement) {
         jaxLoop.setTestBefore(modelioElement.isTestBefore());
-        
+
         if (!"".equals(modelioElement.getLoopCondition())) {
             if (modelioElement.getLoopCondition().contains(";")) {
                 String[] vals = modelioElement.getLoopCondition().split(";");
@@ -127,13 +127,13 @@ public class StandardLoopNode implements IProductionNode<BpmnStandardLoopCharact
                 exp.getContent().add(modelioElement.getLoopCondition());
                 jaxLoop.setLoopCondition(exp);
             }
-        
+
         }
-        
+
         try {
             jaxLoop.setLoopMaximum(new BigInteger(modelioElement.getLoopMaximum()));
         } catch (NumberFormatException e) {
-        
+
         }
         return jaxLoop;
     }

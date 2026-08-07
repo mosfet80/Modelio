@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -39,7 +39,7 @@ public class EActivity extends ENamedElement {
     }
 
     @objid ("c7d725e7-6d2d-4ac8-ae6d-44f1b1a145b5")
-    public  EActivity(org.eclipse.uml2.uml.Activity element) {
+    public EActivity(org.eclipse.uml2.uml.Activity element) {
         super(element);
     }
 
@@ -50,29 +50,29 @@ public class EActivity extends ENamedElement {
         org.eclipse.uml2.uml.Activity ecoreElement = (org.eclipse.uml2.uml.Activity) getEcoreElement();
         org.eclipse.uml2.uml.Element ecoreOwner = getEcoreElement().getOwner();
         Activity objingAct = (Activity) objingElt;
-        NameSpace objingOwner = null; 
-        
+        NameSpace objingOwner = null;
+
         if (ecoreOwner != null) {
             Element tempOwner = (Element) revProp.getMappedElement(ecoreOwner);
-        
+
             if (tempOwner != null) {
                 if (tempOwner instanceof NameSpace){
                     objingOwner = (NameSpace) tempOwner;
                 }else if (tempOwner instanceof State){
-        
+
                     objingOwner = EcoreModelNavigation.getNearestNameSpace(ecoreOwner);
-        
+
                     org.eclipse.uml2.uml. Behavior ent = ((org.eclipse.uml2.uml.State)ecoreOwner).getEntry();
                     org.eclipse.uml2.uml. Behavior exit = ((org.eclipse.uml2.uml.State)ecoreOwner).getExit();
                     org.eclipse.uml2.uml. Behavior doActivity = ((org.eclipse.uml2.uml.State)ecoreOwner).getDoActivity();
-        
+
                     IStandardModelFactory factory = ReverseProperties.getInstance().getMModelServices().getModelFactory().getFactory(IStandardModelFactory.class);
                     if ((ent != null) && (ent.equals(ecoreElement))){
                         InternalTransition transition = factory.createInternalTransition();
                         transition.setSComposed((State)tempOwner);
                         transition.setBehaviorEffect(objingAct);
                         transition.setReceivedEvents("Entry");
-                    }else if ((exit != null) && (exit.equals(ecoreElement))){    
+                    }else if ((exit != null) && (exit.equals(ecoreElement))){
                         InternalTransition transition = factory.createInternalTransition();
                         transition.setSComposed((State)tempOwner);
                         transition.setBehaviorEffect(objingAct);
@@ -83,21 +83,21 @@ public class EActivity extends ENamedElement {
                         transition.setBehaviorEffect(objingAct);
                         transition.setReceivedEvents("Do");
                     }
-                    
+
                 }else if (tempOwner instanceof Transition){
                     ((Transition)tempOwner).setBehaviorEffect(objingAct);
                     objingOwner = EcoreModelNavigation.getNearestNameSpace(ecoreOwner);
                 }
             }
-        
+
         }
-        
+
         if (objingOwner != null){
             objingAct.setOwner(objingOwner);
         }else {
             objingAct.setOwner(ReverseProperties.getInstance().getExternalPackage());
         }
-        
+
     }
 
     @objid ("442a4fde-9f46-44d5-95a8-3285c0cfc33c")
@@ -107,7 +107,7 @@ public class EActivity extends ENamedElement {
         setReadOnly((Activity) objingElt);
         setSingleExecution((Activity) objingElt);
         setReentrant((Activity) objingElt);
-        
+
     }
 
     @objid ("63111aa0-264d-403b-b4ca-bfdd6426557a")

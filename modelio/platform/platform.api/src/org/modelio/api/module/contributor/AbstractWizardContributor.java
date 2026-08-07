@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.module.contributor;
 
@@ -36,7 +36,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * Convenience class that provides an abstract implementation of IDiagramWizardContributor that only provides useful fields and their getters/setters.
- * 
+ *
  * <p><u>Note to contributor implementors:</u><br/>
  * By inheriting from this abstract class you only have to provide implementations for the two abstract methods:<ul>
  * <li>{@link #checkCanCreateIn(ModelElement)}</li>
@@ -44,6 +44,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * <li>{@link #dispose()}</li>
  * </ul>
  * </p>
+ *
  * @since 3.4.0
  */
 @objid ("f0b3883a-507d-40dd-a4f7-da6fd19ae296")
@@ -121,11 +122,11 @@ public abstract class AbstractWizardContributor implements IWizardContributor {
      * Default constructor that ensure {@link #getParameters()} and {@link #getScopes()} won't return null.
      */
     @objid ("21f46c96-013a-4b5c-b716-b0afdabb5ed3")
-    public  AbstractWizardContributor() {
+    public AbstractWizardContributor() {
         // Ensure non null containers
         this.parameters = new HashMap<>();
         this.scopes = new ArrayList<>();
-        
+
     }
 
     @objid ("63bb2c7d-fef1-4459-9d28-50f539c15de6")
@@ -189,6 +190,7 @@ public abstract class AbstractWizardContributor implements IWizardContributor {
     }
 
     /**
+     *
      * @return the wizard contribution parameters.
      */
     @objid ("0de23335-b2ac-47ff-a252-7912028c939f")
@@ -224,7 +226,7 @@ public abstract class AbstractWizardContributor implements IWizardContributor {
         if (main == null) {
             return false;
         }
-        
+
         if (checkCanCreateIn(main)) {
             for (ElementScope scope : getScopes()) {
                 if (scope.isMatching(main)) {
@@ -273,6 +275,7 @@ public abstract class AbstractWizardContributor implements IWizardContributor {
      * <li><i>module regex<b>#</b>stereotype regex</i>
      * </ul>
      * Returns <i>null</i> if the specification is <i>null</i> or the stereotype is not found.
+     *
      * @param metaclass the metaclass to look from
      * @param stereotypeSpec the stereotype specification
      * @return the found stereotype or <i>null</i>.
@@ -308,6 +311,7 @@ public abstract class AbstractWizardContributor implements IWizardContributor {
 
     /**
      * Called by {@link #accept(MObject)} to check whether the given object has sufficient rights to create the wizard new element.
+     *
      * @param owner the new element owner.
      * @return true if the operation is allowed else false.
      */

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.persistence;
 
@@ -39,7 +39,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Serialize a persistent element into an XML string.
- * 
+ *
  * @author cmarin
  */
 @objid ("cb7c35af-186f-11e2-92d2-001ec947c8cc")
@@ -58,21 +58,23 @@ public class XmlDiagramWriter implements IDiagramWriter {
 
     /**
      * Creates an XML serializer.
+     *
      * @throws PersistenceException in case of unexpected failure.
      */
     @objid ("cb7c35b8-186f-11e2-92d2-001ec947c8cc")
-    public  XmlDiagramWriter() throws PersistenceException {
+    public XmlDiagramWriter() throws PersistenceException {
         XMLOutputFactory f = XMLOutputFactory.newInstance();
         try {
             this.writer = f.createXMLStreamWriter(this.result);
         } catch (XMLStreamException e) {
             throw new PersistenceException(e);
         }
-        
+
     }
 
     /**
      * Get the serialized string.
+     *
      * @return the serialized string.
      */
     @objid ("cb7c35bb-186f-11e2-92d2-001ec947c8cc")
@@ -86,6 +88,7 @@ public class XmlDiagramWriter implements IDiagramWriter {
      * <p>
      * The root element is the element that was passed to
      * {@link #save(IPersistent)}.
+     *
      * @return the root element.
      */
     @objid ("cb7e97c1-186f-11e2-92d2-001ec947c8cc")
@@ -96,6 +99,7 @@ public class XmlDiagramWriter implements IDiagramWriter {
 
     /**
      * Save a root persistent element and all its relations.
+     *
      * @param diagram the element to save
      * @throws PersistenceException in case of unexpected error.
      */
@@ -111,7 +115,7 @@ public class XmlDiagramWriter implements IDiagramWriter {
         } catch (XMLStreamException e) {
             throw new PersistenceException(e);
         }
-        
+
     }
 
     @objid ("cb7e97ca-186f-11e2-92d2-001ec947c8cc")
@@ -128,7 +132,7 @@ public class XmlDiagramWriter implements IDiagramWriter {
     private void writeValue(AbsoluteBendpoint value) throws PersistenceException {
         final String v = value.x + ";" + value.y;
         this.writeValueTag("AbsoluteBendpoint", v);
-        
+
     }
 
     @objid ("cb7e97d8-186f-11e2-92d2-001ec947c8cc")
@@ -155,21 +159,21 @@ public class XmlDiagramWriter implements IDiagramWriter {
     private void writeValue(MRef value) throws PersistenceException {
         // write("<Att name='" + attName + "' type='MRef' value='" + +"'/>");
         this.writeValueTag("MRef", value.mc + " " + value.uuid);
-        
+
     }
 
     @objid ("cb7e97e9-186f-11e2-92d2-001ec947c8cc")
     private void writeValue(Rectangle value) throws PersistenceException {
         final String v = value.x + ";" + value.y + ";" + value.width + ";" + value.height;
         this.writeValueTag("Rectangle", v);
-        
+
     }
 
     @objid ("cb7e97ee-186f-11e2-92d2-001ec947c8cc")
     private void writeValue(Point value) throws PersistenceException {
         final String v = value.x + ";" + value.y;
         this.writeValueTag("Point", v);
-        
+
     }
 
     /**
@@ -178,6 +182,7 @@ public class XmlDiagramWriter implements IDiagramWriter {
      * An external element is an element that is not stored in this stream but
      * in another one. The provided ids must help the diagram reader to retrieve
      * the data where is stored the external element.
+     *
      * @param extObj The external element to reference.
      * @param dbId A "database" id that can be used to retrieve the location
      * where the element is stored
@@ -195,7 +200,7 @@ public class XmlDiagramWriter implements IDiagramWriter {
         } catch (XMLStreamException e) {
             throw new PersistenceException(e);
         }
-        
+
     }
 
     @objid ("cb7e97f9-186f-11e2-92d2-001ec947c8cc")
@@ -209,7 +214,7 @@ public class XmlDiagramWriter implements IDiagramWriter {
         } catch (XMLStreamException e) {
             throw new PersistenceException(e);
         }
-        
+
     }
 
     @objid ("cb7e97ff-186f-11e2-92d2-001ec947c8cc")
@@ -219,7 +224,7 @@ public class XmlDiagramWriter implements IDiagramWriter {
             for (Entry<K, V> e : map.entrySet()) {
                 // Write key
                 this.writeObjectValue(e.getKey());
-        
+
                 // Write value
                 this.writeObjectValue(e.getValue());
             }
@@ -227,13 +232,14 @@ public class XmlDiagramWriter implements IDiagramWriter {
         } catch (XMLStreamException e) {
             throw new PersistenceException(e);
         }
-        
+
     }
 
     /**
      * Write an attribute whose type is not determined.
      * <p>
      * Only types for which a writeAtt() method is available are supported.
+     *
      * @param attName
      * @param value
      * @throws PersistenceException in case of unexpected error.
@@ -244,14 +250,14 @@ public class XmlDiagramWriter implements IDiagramWriter {
         try {
             this.writer.writeStartElement(SchemaConstants.TAG_PROP);
             this.writer.writeAttribute(SchemaConstants.ATT_PROP_NAME, attName);
-        
+
             this.writeObjectValue(value);
-        
+
             this.writer.writeEndElement();
         } catch (XMLStreamException e) {
             throw new PersistenceException(e);
         }
-        
+
     }
 
     @objid ("cb7e980c-186f-11e2-92d2-001ec947c8cc")
@@ -270,9 +276,9 @@ public class XmlDiagramWriter implements IDiagramWriter {
     private void writeValue(Color value) {
         final String s = String.valueOf(value.getRed()) + ";" + String.valueOf(value.getGreen()) + ";"
                 + String.valueOf(value.getBlue());
-        
+
         this.writeValueTag("Color", s);
-        
+
     }
 
     @objid ("cb80fa1c-186f-11e2-92d2-001ec947c8cc")
@@ -280,9 +286,9 @@ public class XmlDiagramWriter implements IDiagramWriter {
         final FontData fontData = value.getFontData()[0];
         final String s = fontData.getName() + ";" + String.valueOf(fontData.getHeight()) + ";"
                 + String.valueOf(fontData.getStyle());
-        
+
         this.writeValueTag("Font", s);
-        
+
     }
 
     /**
@@ -293,6 +299,7 @@ public class XmlDiagramWriter implements IDiagramWriter {
      * <p>
      * This (bad) design (work in progress) is made to minimize the methods to
      * add to IPersistent.
+     *
      * @param c the external element.
      */
     @objid ("cb80fa1f-186f-11e2-92d2-001ec947c8cc")
@@ -303,20 +310,21 @@ public class XmlDiagramWriter implements IDiagramWriter {
     @objid ("cb80fa35-186f-11e2-92d2-001ec947c8cc")
     private void writePersistentObject(IPersistent i) throws XMLStreamException {
         final String objId = this.putId(i);
-        
+
         this.writer.writeStartElement(SchemaConstants.TAG_PERSISTENT);
         this.writer.writeAttribute(SchemaConstants.ATT_OBJECT_ID, objId);
         this.writer.writeAttribute(SchemaConstants.ATT_OBJECT_TYPE, i.getClass().getName());
         this.writer.writeAttribute(SchemaConstants.ATT_OBJECT_MAJOR_VERSION, Integer.toString(i.getMajorVersion()));
-        
+
         i.write(this);
-        
+
         this.writer.writeEndElement();
-        
+
     }
 
     /**
      * Write a reference to another XML node.
+     *
      * @param i the persistent object to reference.
      * @throws XMLStreamException in case of error
      */
@@ -324,7 +332,7 @@ public class XmlDiagramWriter implements IDiagramWriter {
     private void writeRef(IPersistent i) throws XMLStreamException {
         this.writer.writeEmptyElement(SchemaConstants.TAG_REF);
         this.writer.writeAttribute(SchemaConstants.ATT_OBJECT_ID, this.getId(i));
-        
+
     }
 
     @objid ("cb80fa3c-186f-11e2-92d2-001ec947c8cc")
@@ -369,7 +377,7 @@ public class XmlDiagramWriter implements IDiagramWriter {
                 throw new IllegalArgumentException(c.getSimpleName() + " is not handled.");
             }
         }
-        
+
     }
 
     @objid ("cb80fa3f-186f-11e2-92d2-001ec947c8cc")
@@ -386,15 +394,15 @@ public class XmlDiagramWriter implements IDiagramWriter {
         } catch (XMLStreamException e) {
             throw new PersistenceException(e);
         }
-        
+
     }
 
     /**
      * Write a {@link Boolean} attribute
+     *
      * @param attName
      * @param value
-     * @throws PersistenceException
-     * in case of unexpected error.
+     * @throws PersistenceException in case of unexpected error.
      */
     @objid ("cb80fa49-186f-11e2-92d2-001ec947c8cc")
     @Override
@@ -402,22 +410,22 @@ public class XmlDiagramWriter implements IDiagramWriter {
         try {
             this.writer.writeStartElement(SchemaConstants.TAG_PROP);
             this.writer.writeAttribute(SchemaConstants.ATT_PROP_NAME, attName);
-        
+
             this.writeValue(value);
-        
+
             this.writer.writeEndElement();
         } catch (XMLStreamException e) {
             throw new PersistenceException(e);
         }
-        
+
     }
 
     /**
      * Write a {@link Double} attribute
+     *
      * @param attName
      * @param value
-     * @throws PersistenceException
-     * in case of unexpected error.
+     * @throws PersistenceException in case of unexpected error.
      */
     @objid ("cb80fa4f-186f-11e2-92d2-001ec947c8cc")
     @Override
@@ -425,22 +433,22 @@ public class XmlDiagramWriter implements IDiagramWriter {
         try {
             this.writer.writeStartElement(SchemaConstants.TAG_PROP);
             this.writer.writeAttribute(SchemaConstants.ATT_PROP_NAME, attName);
-        
+
             this.writeValue(value);
-        
+
             this.writer.writeEndElement();
         } catch (XMLStreamException e) {
             throw new PersistenceException(e);
         }
-        
+
     }
 
     /**
      * Write a string attribute
+     *
      * @param attName
      * @param value
-     * @throws PersistenceException
-     * in case of unexpected error.
+     * @throws PersistenceException in case of unexpected error.
      */
     @objid ("cb80fa5c-186f-11e2-92d2-001ec947c8cc")
     @Override
@@ -448,18 +456,19 @@ public class XmlDiagramWriter implements IDiagramWriter {
         try {
             this.writer.writeStartElement(SchemaConstants.TAG_PROP);
             this.writer.writeAttribute(SchemaConstants.ATT_PROP_NAME, attName);
-        
+
             this.writeValue(value);
-        
+
             this.writer.writeEndElement();
         } catch (XMLStreamException e) {
             throw new PersistenceException(e);
         }
-        
+
     }
 
     /**
      * Write an integer attribute.
+     *
      * @param attName
      * @param value
      * @throws PersistenceException in case of unexpected error.
@@ -470,18 +479,19 @@ public class XmlDiagramWriter implements IDiagramWriter {
         try {
             this.writer.writeStartElement(SchemaConstants.TAG_PROP);
             this.writer.writeAttribute(SchemaConstants.ATT_PROP_NAME, attName);
-        
+
             this.writeValue(value);
-        
+
             this.writer.writeEndElement();
         } catch (XMLStreamException e) {
             throw new PersistenceException(e);
         }
-        
+
     }
 
     /**
      * Write a single object relation
+     *
      * @param relation a relation name to be fetched by readObject().
      * @param object the object to write.
      * @throws PersistenceException in case of unexpected error.
@@ -492,18 +502,19 @@ public class XmlDiagramWriter implements IDiagramWriter {
         try {
             this.writer.writeStartElement(SchemaConstants.TAG_PROP);
             this.writer.writeAttribute(SchemaConstants.ATT_PROP_NAME, relation);
-        
+
             this.writePersistentValue(object);
-        
+
             this.writer.writeEndElement();
         } catch (XMLStreamException e) {
             throw new PersistenceException(e);
         }
-        
+
     }
 
     /**
      * Write an {@link MRef} attribute.
+     *
      * @param attName
      * @param mRef a model element reference
      * @throws PersistenceException in case of unexpected error.
@@ -514,20 +525,21 @@ public class XmlDiagramWriter implements IDiagramWriter {
         try {
             this.writer.writeStartElement(SchemaConstants.TAG_PROP);
             this.writer.writeAttribute(SchemaConstants.ATT_PROP_NAME, attName);
-        
+
             this.writeValue(mRef);
-        
+
             this.writer.writeEndElement();
         } catch (XMLStreamException e) {
             throw new PersistenceException(e);
         }
-        
+
     }
 
     /**
      * Write a string attribute.
      * <p>
      * String attribute values are put in a text xml node to support line breaks.
+     *
      * @param attName attribute name
      * @param value attribute value
      * @throws PersistenceException in case of unexpected error.
@@ -538,19 +550,19 @@ public class XmlDiagramWriter implements IDiagramWriter {
         try {
             this.writer.writeStartElement(SchemaConstants.TAG_PROP);
             this.writer.writeAttribute(SchemaConstants.ATT_PROP_NAME, attName);
-        
+
             //this.writeValue(value);
             this.writer.writeStartElement(SchemaConstants.TAG_VALUE);
             this.writer.writeAttribute(SchemaConstants.ATT_VALUE_TYPE, "String");
             if (value != null)
                 this.writer.writeCharacters(value);
             this.writer.writeEndElement();
-        
+
             this.writer.writeEndElement();
         } catch (XMLStreamException e) {
             throw new PersistenceException(e);
         }
-        
+
     }
 
     @objid ("cb835c97-186f-11e2-92d2-001ec947c8cc")
@@ -564,14 +576,14 @@ public class XmlDiagramWriter implements IDiagramWriter {
         } catch (XMLStreamException e) {
             throw new PersistenceException(e);
         }
-        
+
     }
 
     @objid ("cb835ca2-186f-11e2-92d2-001ec947c8cc")
     private void writeValue(Dimension value) {
         final String v = value.width + ";" + value.height;
         this.writeValueTag("Dimension", v);
-        
+
     }
 
     @objid ("ed5de069-186f-11e2-92d2-001ec947c8cc")
@@ -580,14 +592,14 @@ public class XmlDiagramWriter implements IDiagramWriter {
         try {
             this.writer.writeStartElement(SchemaConstants.TAG_PROP);
             this.writer.writeAttribute(SchemaConstants.ATT_PROP_NAME, attName);
-        
+
             this.writeValue(value);
-        
+
             this.writer.writeEndElement();
         } catch (XMLStreamException e) {
             throw new PersistenceException(e);
         }
-        
+
     }
 
     @objid ("ed6042c4-186f-11e2-92d2-001ec947c8cc")
@@ -596,14 +608,14 @@ public class XmlDiagramWriter implements IDiagramWriter {
         try {
             this.writer.writeStartElement(SchemaConstants.TAG_PROP);
             this.writer.writeAttribute(SchemaConstants.ATT_PROP_NAME, attName);
-        
+
             this.writeValue(value);
-        
+
             this.writer.writeEndElement();
         } catch (XMLStreamException e) {
             throw new PersistenceException(e);
         }
-        
+
     }
 
     @objid ("ed62a517-186f-11e2-92d2-001ec947c8cc")
@@ -612,14 +624,14 @@ public class XmlDiagramWriter implements IDiagramWriter {
         try {
             this.writer.writeStartElement(SchemaConstants.TAG_PROP);
             this.writer.writeAttribute(SchemaConstants.ATT_PROP_NAME, attName);
-        
+
             this.writeValue(value);
-        
+
             this.writer.writeEndElement();
         } catch (XMLStreamException e) {
             throw new PersistenceException(e);
         }
-        
+
     }
 
     @objid ("ed62a51f-186f-11e2-92d2-001ec947c8cc")
@@ -628,14 +640,14 @@ public class XmlDiagramWriter implements IDiagramWriter {
         try {
             this.writer.writeStartElement(SchemaConstants.TAG_PROP);
             this.writer.writeAttribute(SchemaConstants.ATT_PROP_NAME, attName);
-        
+
             this.writeMap(value);
-        
+
             this.writer.writeEndElement();
         } catch (XMLStreamException e) {
             throw new PersistenceException(e);
         }
-        
+
     }
 
     @objid ("ed650779-186f-11e2-92d2-001ec947c8cc")
@@ -644,14 +656,14 @@ public class XmlDiagramWriter implements IDiagramWriter {
         try {
             this.writer.writeStartElement(SchemaConstants.TAG_PROP);
             this.writer.writeAttribute(SchemaConstants.ATT_PROP_NAME, attName);
-        
+
             this.writeList(value);
-        
+
             this.writer.writeEndElement();
         } catch (XMLStreamException e) {
             throw new PersistenceException(e);
         }
-        
+
     }
 
     @objid ("ed650781-186f-11e2-92d2-001ec947c8cc")
@@ -660,14 +672,14 @@ public class XmlDiagramWriter implements IDiagramWriter {
         try {
             this.writer.writeStartElement(SchemaConstants.TAG_PROP);
             this.writer.writeAttribute(SchemaConstants.ATT_PROP_NAME, attName);
-        
+
             this.writeValue(value);
-        
+
             this.writer.writeEndElement();
         } catch (XMLStreamException e) {
             throw new PersistenceException(e);
         }
-        
+
     }
 
     @objid ("ed6769d1-186f-11e2-92d2-001ec947c8cc")
@@ -676,14 +688,14 @@ public class XmlDiagramWriter implements IDiagramWriter {
         try {
             this.writer.writeStartElement(SchemaConstants.TAG_PROP);
             this.writer.writeAttribute(SchemaConstants.ATT_PROP_NAME, attName);
-        
+
             this.writeValue(value);
-        
+
             this.writer.writeEndElement();
         } catch (XMLStreamException e) {
             throw new PersistenceException(e);
         }
-        
+
     }
 
 }

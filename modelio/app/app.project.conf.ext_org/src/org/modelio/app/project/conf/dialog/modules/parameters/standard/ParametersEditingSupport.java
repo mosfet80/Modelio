@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.conf.dialog.modules.parameters.standard;
 
@@ -57,13 +57,14 @@ class ParametersEditingSupport extends EditingSupport {
 
     /**
      * Initialize the StylePropertyEditingSupport.
+     *
      * @param viewer The style viewer.
      */
     @objid ("024fa361-5ecb-4c61-85cb-9d0fe6995a15")
-    public  ParametersEditingSupport(TreeViewer viewer) {
+    public ParametersEditingSupport(TreeViewer viewer) {
         super(viewer);
         this.viewer = viewer;
-        
+
     }
 
     @objid ("ba5db310-fc5c-4cff-a7c6-c689b78f9676")
@@ -74,16 +75,16 @@ class ParametersEditingSupport extends EditingSupport {
         } else {
             return false;
         }
-        
+
     }
 
     @objid ("77ab43c7-9a74-4f82-a194-7aa1ae08720a")
     @Override
     protected CellEditor getCellEditor(Object element) {
         final Tree tree = this.viewer.getTree();
-        
+
         IParameterModel property = ((IParameterModel) element);
-        
+
         // Boolean
         if (property instanceof BoolParameterModel) {
             return new CheckboxCellEditor(tree);
@@ -112,7 +113,7 @@ class ParametersEditingSupport extends EditingSupport {
     @Override
     protected Object getValue(Object element) {
         IParameterModel property = ((IParameterModel) element);
-        
+
         // Boolean
         if (property instanceof BoolParameterModel) {
             return Boolean.valueOf(((ParameterModel) property).getStringValue());
@@ -140,14 +141,14 @@ class ParametersEditingSupport extends EditingSupport {
     @Override
     protected void setValue(Object element, Object value) {
         IParameterModel property = ((IParameterModel) element);
-        
+
         if (property instanceof EnumParameterModel) {
             property.setValue(((EnumParameterModel) element).getValue((String) value));
         } else {
             property.setValue(value);
         }
         this.viewer.refresh(element, true);
-        
+
     }
 
 }

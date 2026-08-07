@@ -1,0 +1,44 @@
+# Below, example of the Apache configuration site :
+
+<VirtualHost *:80>
+
+	####################################################################
+	#
+	#  On-line help (Eclipse information center) for Modelio SaaS
+	#
+	####################################################################
+
+	#
+	# Default language
+	#
+
+	<LocationMatch "/modeliosaas/help">
+		Header add Accept-Language "en"
+		RequestHeader set Accept-Language "en"
+		ProxyPass ajp://127.0.0.1:${MODELIOSERVER_AJP_PORT}/modeliosaas/help
+		Require all granted
+	</LocationMatch>
+
+	#
+	# Another languages
+	#
+
+	# proxy for all languages
+	ProxyPassMatch /modeliosaas/help/([0-9\.^/]+)/[a-z]{2}/(.*) ajp://127.0.0.1:${MODELIOSERVER_AJP_PORT}/modeliosaas/help/$1/$2
+
+	# French language
+	<LocationMatch "/modeliosaas/help/[0-9\.^/]+/fr/.*">
+		Header add Accept-Language "fr"
+		RequestHeader set Accept-Language "fr"
+		Require all granted
+	</LocationMatch>
+
+	# English language
+	<LocationMatch "/modeliosaas/help/[0-9\.^/]+/en/.*">
+		Header add Accept-Language "en"
+		RequestHeader set Accept-Language "en"
+		Require all granted
+	</LocationMatch>
+
+
+</VirtualHost>

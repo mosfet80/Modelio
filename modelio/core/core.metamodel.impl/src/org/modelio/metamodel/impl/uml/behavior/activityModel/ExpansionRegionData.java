@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.List;
@@ -32,17 +31,17 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 
 @objid ("00322346-c4bf-1fd8-97fe-001ec947cd2a")
 public class ExpansionRegionData extends StructuredActivityNodeData {
-    @objid ("df4e68e8-61e8-4909-a4af-812bfc2c6b22")
+    @objid ("17f9fa51-f965-4960-8dd9-f9e89e0189d6")
     Object mMode = ExpansionKind.ITERATIVE;
 
-    @objid ("e94e337d-45ed-464c-a557-287e1bcaa0c9")
+    @objid ("ad08e9f4-3e2a-49cb-a705-098ca90e72a2")
     List<SmObjectImpl> mOutputElement = null;
 
-    @objid ("742d9909-d315-4b81-be85-6b3c0ee3010d")
+    @objid ("09b63bcb-a96b-45f5-b9b5-9c3d271f8a4b")
     List<SmObjectImpl> mInputElement = null;
 
-    @objid ("8a85034e-6edb-430a-a92e-4d50ccacffec")
-    public  ExpansionRegionData(ExpansionRegionSmClass smClass) {
+    @objid ("5e415de3-876e-4d01-b301-c0c4db784a3b")
+    public ExpansionRegionData(ExpansionRegionSmClass smClass) {
         super(smClass);
     }
 

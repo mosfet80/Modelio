@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.modelio.diagram.tools.standard;
 
@@ -52,13 +52,13 @@ public class GenericMultiLinkTool extends DefaultMultiLinkTool {
     @Override
     public boolean acceptFirstElement(final IDiagramHandle diagramHandle, final IDiagramGraphic targetNode) {
         ModelElement owner = null;
-        
+
         if (targetNode instanceof IDiagramDG) {
             owner = diagramHandle.getDiagram().getOrigin();
         } else {
             owner = (ModelElement) targetNode.getElement();
         }
-        
+
         for (final ElementScope aScope : getSourceScopes()) {
             if (aScope.isMatching(owner)) {
                 return true;
@@ -76,7 +76,7 @@ public class GenericMultiLinkTool extends DefaultMultiLinkTool {
             try (ITransaction tr = session.createTransaction("Create "+metaclass+" multi link")) {
                 MObject newElement = null;
                 IUmlModel modelFactory = session.getModel();
-        
+
                 switch (metaclass) {
                 case NaryAssociation.MQNAME:
                 case NaryAssociation.MNAME:
@@ -85,7 +85,7 @@ public class GenericMultiLinkTool extends DefaultMultiLinkTool {
                     for (IDiagramGraphic node : otherNodes) {
                         classes.add((Classifier) node.getElement());
                     }
-        
+
                     newElement = modelFactory.createNaryAssociation(classes);
                     break;
                 case NaryConnector.MQNAME:
@@ -95,7 +95,7 @@ public class GenericMultiLinkTool extends DefaultMultiLinkTool {
                     for (IDiagramGraphic node : otherNodes) {
                         bindableInstances.add((BindableInstance) node.getElement());
                     }
-        
+
                     newElement = modelFactory.createNaryConnector(bindableInstances);
                     break;
                 case NaryLink.MQNAME:
@@ -105,20 +105,20 @@ public class GenericMultiLinkTool extends DefaultMultiLinkTool {
                     for (IDiagramGraphic node : otherNodes) {
                         instances.add((Instance) node.getElement());
                     }
-        
+
                     newElement = modelFactory.createNaryLink(instances);
                     break;
                 default:
                     getModule().getModuleContext().getLogService().error(new IllegalArgumentException("Invalid metaclass : " + metaclass));
                     break;
                 }
-        
+
                 if (newElement instanceof ModelElement) {
                     Stereotype ster = findStereotypeFromSpec(newElement.getMClass(), getParameter("stereotype"));
                     if (ster != null) {
                         ((ModelElement) newElement).getExtension().add(ster);
                     }
-        
+
                     String name = getParameter("name");
                     if (name == null) {
                         name = getLabel();
@@ -126,7 +126,7 @@ public class GenericMultiLinkTool extends DefaultMultiLinkTool {
                     name = getModule().getModuleContext().getI18nSupport().getString(name);
                     modelFactory.getDefaultNameService().setDefaultName((ModelElement) newElement, name);
                 }
-        
+
                 int i = 0;
                 List<IDiagramGraphic> graph = diagramHandle.unmask(newElement, 0, 0);
                 for (IDiagramGraphic iDiagramGraphic : graph) {
@@ -138,35 +138,35 @@ public class GenericMultiLinkTool extends DefaultMultiLinkTool {
                         if (i < paths.size()) {
                             link.setRoute(paths.get(i));
                         }
-        
+
                         i++;
                     }
                 }
                 diagramHandle.save();
-        
+
                 postConfigure(diagramHandle, lastNode, otherNodes, routerKinds, paths, rectangle, newElement, graph);
-        
+
                 diagramHandle.save();
                 tr.commit();
-        
+
             } catch (Exception e) {
                 getModule().getModuleContext().getLogService().error(e);
             }
         }
-        
+
     }
 
     @objid ("25fbfe41-d507-4251-a488-1a6cea4be8ff")
     @Override
     public boolean acceptAdditionalElement(IDiagramHandle diagramHandle, List<IDiagramGraphic> previousNodes, IDiagramGraphic targetNode) {
         ModelElement owner = null;
-        
+
         if (targetNode instanceof IDiagramDG) {
             owner = diagramHandle.getDiagram().getOrigin();
         } else {
             owner = (ModelElement) targetNode.getElement();
         }
-        
+
         for (ElementScope aScope : getSourceScopes()) {
             if (aScope.isMatching(owner)) {
                 return true;
@@ -179,13 +179,13 @@ public class GenericMultiLinkTool extends DefaultMultiLinkTool {
     @Override
     public boolean acceptLastElement(IDiagramHandle diagramHandle, List<IDiagramGraphic> otherNodes, IDiagramGraphic targetNode) {
         ModelElement owner = null;
-        
+
         if (targetNode instanceof IDiagramDG) {
             owner = diagramHandle.getDiagram().getOrigin();
         } else {
             owner = (ModelElement) targetNode.getElement();
         }
-        
+
         for (ElementScope aScope : getTargetScopes()) {
             if (aScope.isMatching(owner)) {
                 return true;
@@ -198,6 +198,7 @@ public class GenericMultiLinkTool extends DefaultMultiLinkTool {
      * Hook called once the element is created, configured, unmasked and before the transaction is committed.
      * <p>
      * Does nothing by default. Sub classes may redefine this method to make additional modifications.
+     *
      * @param diagramHandle the diagram handle
      * @param lastNode the last graphic node
      * @param otherNodes the other graphic nodes

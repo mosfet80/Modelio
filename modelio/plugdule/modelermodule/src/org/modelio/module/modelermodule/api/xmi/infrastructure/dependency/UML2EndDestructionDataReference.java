@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -64,6 +64,7 @@ public class UML2EndDestructionDataReference {
      * Tells whether a {@link UML2EndDestructionDataReference proxy} can be instantiated from a {@link MObject} checking it is a {@link Dependency} stereotyped << UML2EndDestructionDataReference >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -74,7 +75,7 @@ public class UML2EndDestructionDataReference {
 
     /**
      * Create a new {@link Dependency} stereotyped << UML2EndDestructionDataReference >> then instantiate a {@link UML2EndDestructionDataReference} proxy.
-     * 
+     *
      * @return a {@link UML2EndDestructionDataReference} proxy on the created {@link Dependency}.
      */
     @objid ("093d4b3a-7d19-46a8-894f-4d2cf3b36759")
@@ -85,9 +86,10 @@ public class UML2EndDestructionDataReference {
     }
 
     /**
-     * Tries to instantiate a {@link UML2EndDestructionDataReference} proxy from a {@link Dependency} stereotyped << UML2EndDestructionDataReference >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2EndDestructionDataReference} proxy from a {@link Dependency} stereotyped << UML2EndDestructionDataReference >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a Dependency
      * @return a {@link UML2EndDestructionDataReference} proxy or <i>null</i>.
      */
@@ -97,9 +99,10 @@ public class UML2EndDestructionDataReference {
     }
 
     /**
-     * Tries to instantiate a {@link UML2EndDestructionDataReference} proxy from a {@link Dependency} stereotyped << UML2EndDestructionDataReference >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2EndDestructionDataReference} proxy from a {@link Dependency} stereotyped << UML2EndDestructionDataReference >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link Dependency}
      * @return a {@link UML2EndDestructionDataReference} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -129,7 +132,8 @@ public class UML2EndDestructionDataReference {
     }
 
     /**
-     * Get the underlying {@link Dependency}. 
+     * Get the underlying {@link Dependency}.
+     *
      * @return the Dependency represented by this proxy, never null.
      */
     @objid ("6386e147-3e6d-4ef1-95c4-34f75a7afce3")
@@ -141,7 +145,7 @@ public class UML2EndDestructionDataReference {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     /**
@@ -168,7 +172,7 @@ public class UML2EndDestructionDataReference {
     }
 
     @objid ("16a9a864-3005-4023-9732-23e432908662")
-    protected  UML2EndDestructionDataReference(Dependency elt) {
+    protected UML2EndDestructionDataReference(Dependency elt) {
         this.elt = elt;
     }
 
@@ -192,7 +196,7 @@ public class UML2EndDestructionDataReference {
             ISDESTROYDUPLICATES_TAGTYPE_ELT = ctx.getModelingSession().findElementById(TagType.class, "6f99afff-df2d-11de-905b-001302895b2b");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -200,7 +204,7 @@ public class UML2EndDestructionDataReference {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

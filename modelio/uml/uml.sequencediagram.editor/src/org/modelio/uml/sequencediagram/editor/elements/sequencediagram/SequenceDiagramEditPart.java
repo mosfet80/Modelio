@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.sequencediagram;
 
@@ -38,7 +38,7 @@ import org.modelio.diagram.styles.core.IStyle;
 
 /**
  * EditPart for Sequence diagram background.
- * 
+ *
  * @author fpoyer
  */
 @objid ("d97c146d-55b6-11e2-877f-002564c97630")
@@ -64,7 +64,6 @@ public class SequenceDiagramEditPart extends AbstractDiagramEditPart {
         }
         IFigure child = ((GraphicalEditPart) childEditPart).getFigure();
         getContentPane().add(child, layoutData, index);
-        
     }
 
     @objid ("d97c1478-55b6-11e2-877f-002564c97630")
@@ -74,24 +73,23 @@ public class SequenceDiagramEditPart extends AbstractDiagramEditPart {
         // Policy to create notes
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_END,
                 new LinkedNodeFinishCreationEditPolicy());
-        
+
         // Layout policy specific to Sequen ce diagram.
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new SequenceDiagramLayoutPolicy());
-        
+
         // Policy to create Lost, Found and Creation messages.
         // installEditPolicy(EditPolicy.NODE_ROLE, new CreateLinkEditPolicy());
         installEditPolicy(ModelElementDropRequest.TYPE, new DiagramElementDropEditPolicy());
-        
     }
 
     @objid ("d97c147b-55b6-11e2-877f-002564c97630")
     @Override
     protected IFigure createFigure() {
         Figure diagramFigure = new SequenceDiagramFigure();
-        
+
         // Set style independent properties
         diagramFigure.setLayoutManager(new SequenceDiagramLayout());
-        
+
         // Set style dependent properties
         IStyle style = ((GmAbstractObject) this.getModel()).getDisplayedStyle();
         refreshFromStyle(diagramFigure, style);
@@ -103,11 +101,11 @@ public class SequenceDiagramEditPart extends AbstractDiagramEditPart {
     public void activate() {
         super.activate();
         ((IGmDiagram) this.getModel()).refreshAllFromObModel();
-        
     }
 
     /**
      * Disable inherited{@link #createLayoutPolicyDecorator(EditPolicy)} for sequence diagrams.
+     *
      * @param layoutPolicy the layout edit policy. expected to be a {@link ConstrainedLayoutEditPolicy} by default implementation.
      * @return the created policy.
      * @since 5.1.0

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.process;
 
@@ -61,7 +61,7 @@ public class ProcessNode implements IProductionNode<BpmnProcess, TProcess> {
     public BpmnProcess findUMLElement(MObject context, TProcess jaxbElement) {
         if (context instanceof BpmnProcess && (context.getName().equals(jaxbElement.getName()) || (jaxbElement.getName() == null && context.getName().equals(jaxbElement.getId())))) {
             return (BpmnProcess) context;
-        
+
         }
         return null;
     }
@@ -74,7 +74,7 @@ public class ProcessNode implements IProductionNode<BpmnProcess, TProcess> {
         } else {
             return factory.create(BpmnProcess.class, context);
         }
-        
+
     }
 
     @objid ("7010c7f5-33a8-476b-8a6b-05f62e3b78a7")
@@ -86,7 +86,7 @@ public class ProcessNode implements IProductionNode<BpmnProcess, TProcess> {
         } else if (context instanceof Operation) {
             ((Operation) context).getOwnedBehavior().add(modelioElement);
         }
-        
+
         // set properties
         if (jaxbElement.getName() != null) {
             modelioElement.setName(StringConvertor.imports(jaxbElement.getName()));
@@ -97,7 +97,7 @@ public class ProcessNode implements IProductionNode<BpmnProcess, TProcess> {
         } else {
             modelioElement.setName("Process");
         }
-        
+
         if (jaxbElement.getProcessType() != null) {
             if (jaxbElement.getProcessType() == TProcessType.NONE) {
                 modelioElement.setProcessType(BpmnProcessType.NONEPROCESS);
@@ -107,9 +107,9 @@ public class ProcessNode implements IProductionNode<BpmnProcess, TProcess> {
                 modelioElement.setProcessType(BpmnProcessType.PUBLICPROCESS);
             }
         }
-        
+
         modelioElement.setIsClosed(jaxbElement.isIsClosed());
-        
+
         if (jaxbElement.isIsExecutable() != null) {
             if (jaxbElement.isIsExecutable()) {
                 modelioElement.setIsExecutable(OptionalBoolean.OTRUE);
@@ -127,7 +127,7 @@ public class ProcessNode implements IProductionNode<BpmnProcess, TProcess> {
     public TProcess createJaxbElement(Object context, BpmnProcess modelioElement) {
         // Create JaxbElement
         TProcess process = new TProcess();
-        
+
         // Add to context
         TDefinitions jaxDefinition = (TDefinitions) context;
         List<JAXBElement<? extends TRootElement>> jaxContent = jaxDefinition.getRootElement();
@@ -136,7 +136,7 @@ public class ProcessNode implements IProductionNode<BpmnProcess, TProcess> {
         }
         ObjectFactory factory = new ObjectFactory();
         jaxContent.add(factory.createProcess(process));
-        
+
         process.setId(IDUtils.formatJaxbID(modelioElement));
         return process;
     }
@@ -145,7 +145,7 @@ public class ProcessNode implements IProductionNode<BpmnProcess, TProcess> {
     @Override
     public TProcess updateJaxbElement(Object context, TProcess process, BpmnProcess modelioElement) {
         process.setName(modelioElement.getName());
-        
+
         if (modelioElement.getProcessType() == BpmnProcessType.PRIVATEPROCESS) {
             process.setProcessType(TProcessType.PRIVATE);
         } else if (modelioElement.getProcessType() == BpmnProcessType.PUBLICPROCESS) {
@@ -153,9 +153,9 @@ public class ProcessNode implements IProductionNode<BpmnProcess, TProcess> {
         } else {
             process.setProcessType(TProcessType.NONE);
         }
-        
+
         process.setIsClosed(modelioElement.isIsClosed());
-        
+
         if (modelioElement.getIsExecutable() != null) {
             if (modelioElement.getIsExecutable() == OptionalBoolean.OTRUE) {
                 process.setIsExecutable(true);

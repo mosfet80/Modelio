@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.patterns.utils;
 
@@ -59,6 +59,7 @@ public class ImageRegistry {
 
     /**
      * Returns an {@link Image} encoded by the specified {@link InputStream}.
+     *
      * @param stream the {@link InputStream} encoding the image data
      * @return the {@link Image} encoded by the specified input stream
      */
@@ -74,6 +75,7 @@ public class ImageRegistry {
 
     /**
      * Returns an {@link Image} stored in the file at the specified path.
+     *
      * @param path the path to the image file
      * @return the {@link Image} stored in the file at the specified path
      */
@@ -103,6 +105,7 @@ public class ImageRegistry {
     }
 
     /**
+     *
      * @return the small {@link Image} that can be used as placeholder for
      * missing image.
      */
@@ -118,6 +121,7 @@ public class ImageRegistry {
 
     /**
      * Returns an {@link Image} stored in the file at the specified path.
+     *
      * @param path The file path as a string
      * @return the {@link Image} stored in the file at the specified path
      */

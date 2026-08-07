@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.admtool.plugin;
 
@@ -43,7 +43,7 @@ public class AdmTool extends AbstractUIPlugin {
      */
     @objid ("4a890383-81b5-4491-8712-d5579777f905")
     public static final String PLUGIN_ID = "org.modelio.app.admtool"; // $NON-NLS-1$
-    
+
 
     /**
      * {@value #PLUGIN_ID} plugin logger.
@@ -64,9 +64,9 @@ public class AdmTool extends AbstractUIPlugin {
         ExtendedLogService service = bundleContext.getService(ref);
         AdmTool.LOG = new PluginLogger(service.getLogger((String) null));
         AdmTool.I18N = new BundledMessages(AdmTool.LOG, ResourceBundle.getBundle("admtool"));
-        
+
         Preferences.getPreferences().addPropertyChangeListener(new LogLevelPreferenceListener());
-        
+
     }
 
     @objid ("a5fef189-2227-40b0-8d45-c67df88b2ee1")
@@ -81,7 +81,7 @@ public class AdmTool extends AbstractUIPlugin {
     @objid ("a6b15699-4f7a-4421-b141-41dc0b2e03c9")
     private static final class LogLevelPreferenceListener implements IPropertyChangeListener {
         @objid ("70b89178-1219-44b7-91fa-3aef99a25a46")
-        public  LogLevelPreferenceListener() {
+        public LogLevelPreferenceListener() {
             super();
         }
 
@@ -94,7 +94,7 @@ public class AdmTool extends AbstractUIPlugin {
                  */
                 LogLevelUpdater.setLogLevelFromPreferences();
             }
-            
+
         }
 
     }

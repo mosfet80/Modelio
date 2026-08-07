@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class UML2SetUp {
      * Tells whether a {@link UML2SetUp proxy} can be instantiated from a {@link MObject} checking it is a {@link ActivityNode} stereotyped << UML2SetUp >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,7 +73,7 @@ public class UML2SetUp {
 
     /**
      * Create a new {@link ActivityNode} stereotyped << UML2SetUp >> then instantiate a {@link UML2SetUp} proxy.
-     * 
+     *
      * @return a {@link UML2SetUp} proxy on the created {@link ActivityNode}.
      */
     @objid ("63d3464b-e10d-45ca-b2b9-f75c21179864")
@@ -83,9 +84,10 @@ public class UML2SetUp {
     }
 
     /**
-     * Tries to instantiate a {@link UML2SetUp} proxy from a {@link ActivityNode} stereotyped << UML2SetUp >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2SetUp} proxy from a {@link ActivityNode} stereotyped << UML2SetUp >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a ActivityNode
      * @return a {@link UML2SetUp} proxy or <i>null</i>.
      */
@@ -95,9 +97,10 @@ public class UML2SetUp {
     }
 
     /**
-     * Tries to instantiate a {@link UML2SetUp} proxy from a {@link ActivityNode} stereotyped << UML2SetUp >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2SetUp} proxy from a {@link ActivityNode} stereotyped << UML2SetUp >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link ActivityNode}
      * @return a {@link UML2SetUp} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -127,7 +130,8 @@ public class UML2SetUp {
     }
 
     /**
-     * Get the underlying {@link ActivityNode}. 
+     * Get the underlying {@link ActivityNode}.
+     *
      * @return the ActivityNode represented by this proxy, never null.
      */
     @objid ("7a085e11-b9eb-46cf-a605-9b6e3f35c713")
@@ -139,11 +143,11 @@ public class UML2SetUp {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("56b56ef2-2a55-4bb1-b7f7-2e5fb030e015")
-    protected  UML2SetUp(ActivityNode elt) {
+    protected UML2SetUp(ActivityNode elt) {
         this.elt = elt;
     }
 
@@ -163,7 +167,7 @@ public class UML2SetUp {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "86eada10-32d9-11e0-91f3-0027103f347c");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -171,7 +175,7 @@ public class UML2SetUp {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

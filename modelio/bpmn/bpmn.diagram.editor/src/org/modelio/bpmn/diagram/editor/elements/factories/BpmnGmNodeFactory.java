@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.factories;
 
@@ -112,7 +112,7 @@ public class BpmnGmNodeFactory implements IGmNodeFactory {
      * Constructor.
      */
     @objid ("620ea7a8-55b6-11e2-877f-002564c97630")
-    public  BpmnGmNodeFactory() {
+    public BpmnGmNodeFactory() {
         // Nothing to do.
     }
 
@@ -125,7 +125,7 @@ public class BpmnGmNodeFactory implements IGmNodeFactory {
         } else if (isInWorkflow(diagram, newElement)) {
             // Use the node factory visitor
             final NodeFactoryVisitor v = new NodeFactoryVisitor(diagram, parent, initialLayoutData);
-        
+
             final GmNodeModel child = (GmNodeModel) newElement.accept(v);
             if (child != null) {
                 parent.addChild(child);
@@ -134,16 +134,16 @@ public class BpmnGmNodeFactory implements IGmNodeFactory {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("620ea7a1-55b6-11e2-877f-002564c97630")
     @Override
     public Class<? extends IPersistent> resolveClass(String namespace) {
         try {
-        
+
             String fixedNamespace = migrateNamespace(namespace);
-        
+
             if (fixedNamespace.startsWith("org.modelio.bpmn.diagram.editor")) {
                 if ("org.modelio.bpmn.diagram.editor.elements.bpmnsubprocess.GmBpmnBodyFreeZone".equals(fixedNamespace)) {
                     return GmBpmnBodyFreeZone.class;
@@ -163,6 +163,7 @@ public class BpmnGmNodeFactory implements IGmNodeFactory {
      * Complete Rectangle layout data with the given dimensions if missing.
      * <p>
      * To be used to set default dimensions for a node.
+     *
      * @param layoutData a layout data
      * @param w the default width
      * @param h the default height
@@ -203,7 +204,7 @@ public class BpmnGmNodeFactory implements IGmNodeFactory {
     public Class<? extends IPersistentMigrator> resolveMigratorClass(String classNamespace) {
         try {
             String fixedNamespace = migrateNamespace(classNamespace);
-        
+
             if (fixedNamespace.startsWith("org.modelio.bpmn.diagram.editor")) {
                 if ("org.modelio.bpmn.diagram.editor.elements.bpmnsubprocess.GmBpmnBodyFreeZoneMigrator".equals(fixedNamespace)) {
                     return GmBpmnBodyFreeZoneMigrator.class;
@@ -220,6 +221,7 @@ public class BpmnGmNodeFactory implements IGmNodeFactory {
     }
 
     /**
+     *
      * @return <code>true</code> if the element belongs to the current workflow.
      */
     @objid ("516697ee-6f8b-4a08-a814-efc2c70e9cea")
@@ -233,7 +235,7 @@ public class BpmnGmNodeFactory implements IGmNodeFactory {
         } else {
             return isInWorkflow(diagram, elt.getCompositionOwner());
         }
-        
+
     }
 
     @objid ("f1080881-511f-4389-b386-1f4e468a5d52")
@@ -260,11 +262,11 @@ public class BpmnGmNodeFactory implements IGmNodeFactory {
         private final GmCompositeNode parent;
 
         @objid ("620ea7b6-55b6-11e2-877f-002564c97630")
-        public  NodeFactoryVisitor(IGmDiagram diagram, GmCompositeNode parent, Object initialLayoutData) {
+        public NodeFactoryVisitor(IGmDiagram diagram, GmCompositeNode parent, Object initialLayoutData) {
             this.diagram = diagram;
             this.parent = parent;
             this.initialLayoutData = initialLayoutData;
-            
+
         }
 
         @objid ("f7cd5b2a-5a3f-11e2-9e33-00137282c51b")
@@ -485,7 +487,7 @@ public class BpmnGmNodeFactory implements IGmNodeFactory {
             final GmBpmnLaneSetContainer instanceNode = new GmBpmnLaneSetContainer(this.diagram,
                     element,
                     new MRef(element));
-            
+
             instanceNode.setLayoutData(BpmnGmNodeFactory.fixRectangle(this.initialLayoutData, 500, 200));
             return instanceNode;
         }

@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.module.modelermodule.engine;
 
@@ -52,6 +52,7 @@ import org.modelio.vcore.smkernel.mapi.MMetamodel;
 public class InterfaceImplementer {
     /**
      * For all classifiers implementing this interface, synchronize all operation signatures. Missing operations are created.
+     *
      * @param session the current modeling session.
      * @param theInterface the interface to update operations from.
      * @return <code>true</code> if the model has been modified.
@@ -59,7 +60,7 @@ public class InterfaceImplementer {
     @objid ("24faa311-73e8-43d7-aa4d-3408067079ad")
     public boolean updateImplementingClassifiers(final IModelingSession session, final Interface theInterface) {
         boolean result = false;
-        
+
         for (InterfaceRealization theRealization : theInterface.getImplementedLink()) {
             NameSpace theNameSpace = theRealization.getImplementer();
             if (theNameSpace != null && theNameSpace instanceof Classifier) {
@@ -72,6 +73,7 @@ public class InterfaceImplementer {
 
     /**
      * Create Operations in the Class from those defined in the implemented Interfaces.
+     *
      * @param session the current modeling session.
      * @param futureOperationOwner The Class to create the Operations in.
      * @return <code>true</code> if the model has been modified.
@@ -82,7 +84,7 @@ public class InterfaceImplementer {
         // Take all Interfaces
         for (Iterator<InterfaceRealization> iter = futureOperationOwner.getRealized().iterator(); iter.hasNext();) {
             Interface itf = iter.next().getImplemented();
-        
+
             ret = ret && implementInterface(session, futureOperationOwner, itf);
         }
         return ret;
@@ -90,6 +92,7 @@ public class InterfaceImplementer {
 
     /**
      * Create Operations in the Class from those defined in the Interface.
+     *
      * @param futureOperationOwner The Class to create the Operations in.
      * @param itf The Interface containing the Operations to redefine.
      * @return <code>true</code> if the model has been modified.
@@ -100,7 +103,7 @@ public class InterfaceImplementer {
             // Take all Operations
             for (Feature element : itf.getOwnedOperation()) {
                 Operation interfacefOperation = (Operation) element;
-        
+
                 // Check if an existing operation matches
                 Operation implementingOperation = getImplementingOperation(interfacefOperation,
                         futureOperationOwner);
@@ -121,11 +124,12 @@ public class InterfaceImplementer {
         } catch (Exception e) {
             return false;
         }
-        
+
     }
 
     /**
      * Delete Operations in a Classifier from those defined in the implemented Interfaces.
+     *
      * @param current The Classifier to delete the Operations from.
      * @return <code>true</code> if the model has been modified.
      */
@@ -152,7 +156,7 @@ public class InterfaceImplementer {
     @objid ("8eec06fd-634a-41b5-b0e9-ff088bd07310")
     private boolean contentEquals(final Operation operationToFind, final Operation op) {
         boolean found = true;
-        
+
         // Check Operation name
         if (operationToFind.getName().equals(op.getName())) {
             // Check return Parameter
@@ -165,12 +169,12 @@ public class InterfaceImplementer {
                             found;) {
                         Parameter oldParam = iterator.next();
                         Parameter newParam = iterator2.next();
-        
+
                         if (!contentEquals(newParam, oldParam)) {
                             found = false;
                         }
                     }
-        
+
                     // Check exceptions
                     if (operationToFind.getThrown().size() == op.getThrown().size()) {
                         Iterator<RaisedException> itOldExcept = op.getThrown().iterator();
@@ -178,12 +182,12 @@ public class InterfaceImplementer {
                                 found;) {
                             RaisedException oldExcept = itOldExcept.next();
                             RaisedException newExcept = itNewExcept.next();
-        
+
                             if (!newExcept.getThrownType().equals(oldExcept.getThrownType())) {
                                 found = false;
                             }
                         }
-        
+
                         // If everything is identical, return true
                         if (found) {
                             return true;
@@ -201,23 +205,23 @@ public class InterfaceImplementer {
     @objid ("5b602fa0-19b7-49ad-be5d-fa4cbc054b50")
     private Operation getImplementingOperation(final Operation operationToMatch, final Classifier potentialParent) {
         String operationToMatchName = operationToMatch.getName();
-        
+
         // Check all redefine links
         for (Operation op : potentialParent.getOwnedOperation()) {
             if (operationToMatch.equals(op.getRedefines())) {
                 return op;
             }
         }
-        
+
         // If no redefine link is found, check signatures
         for (Operation op : potentialParent.getOwnedOperation()) {
             String opName = op.getName();
-        
+
             if (operationToMatchName.equals(opName)) {
                 if (contentEquals(operationToMatch, op)) {
                     // Add the redefine link
                     op.setRedefines(operationToMatch);
-        
+
                     return op;
                 }
             }
@@ -236,7 +240,7 @@ public class InterfaceImplementer {
                 return op;
             }
         }
-        
+
         // Check deeper to find a matching operation
         for (Operation op : potentialParent.getOwnedOperation()) {
             if (contentEquals(op, operationToMatch)) {
@@ -254,11 +258,12 @@ public class InterfaceImplementer {
         return ((p1 == null && p2 == null) // both null
                 || (p1 != null && p1.getType() == null && p2 != null && p2.getType() == null) // null type
                 || (p1 != null && p1.getType() != null && p1.getType().equals(p2.getType()))); // same type
-        
+
     }
 
     /**
      * Report all the content of the original Operation in the new Operation.
+     *
      * @param originalOperation The operation to copy.
      * @param newOperation The owner of the Operation to create.
      */
@@ -271,20 +276,20 @@ public class InterfaceImplementer {
         newOperation.setFinal(originalOperation.isFinal());
         copyImports(session, originalOperation, newOperation);
         copyNotes(session, originalOperation, newOperation);
-        
+
         // Update parameters
         List<Parameter> originalParameters = originalOperation.getIO();
         for (Parameter theParameter : new ArrayList<>(newOperation.getIO())) {
             theParameter.delete();
         }
-        
+
         for (Parameter oldParam : originalParameters) {
             Parameter newParam = session.getModel().createIOParameter("", null, newOperation);
             copyParameterContent(session, oldParam, newParam);
         }
-        
+
         newOperation.setPassing(originalOperation.getPassing());
-        
+
         if (originalOperation.getReturn() != null) {
             Parameter returnParam = session.getModel().createReturnParameter("", null, newOperation);
             copyParameterContent(session, originalOperation.getReturn(), returnParam);
@@ -294,11 +299,11 @@ public class InterfaceImplementer {
                 returnParam.delete();
             }
         }
-        
+
         copyStereotypes(session, originalOperation, newOperation);
         copyTaggedValues(session, originalOperation, newOperation);
         newOperation.setVisibility(originalOperation.getVisibility());
-        
+
     }
 
     @objid ("e769b115-c345-4cf5-a50c-7bef6465db7e")
@@ -308,17 +313,17 @@ public class InterfaceImplementer {
         for (RaisedException theParameter : new ArrayList<>(newOperation.getThrown())) {
             theParameter.delete();
         }
-        
+
         for (RaisedException oldException : originalExceptions) {
             RaisedException newException = session.getModel().createRaisedException();
             newException.setThrownType(oldException.getThrownType());
             newException.setThrower(newOperation);
-        
+
             copyNotes(session, oldException, newException);
             copyStereotypes(session, oldException, newException);
             copyTaggedValues(session, oldException, newException);
         }
-        
+
     }
 
     @objid ("173a91b3-258d-4170-a139-1c7e1cfa5ef5")
@@ -335,7 +340,7 @@ public class InterfaceImplementer {
                 }
             }
         }
-        
+
     }
 
     @objid ("3b0cebbb-0013-45cc-93b7-9f66e5568bfe")
@@ -345,37 +350,37 @@ public class InterfaceImplementer {
                 TagType oldTagType = oldTag.getDefinition();
                 if (oldTagType != null) {
                     String oldTagTypeName = oldTagType.getName();
-        
+
                     boolean exists = false;
                     // Check if the tag already exists
                     for (TaggedValue newTag : newElement.getTag()) {
                         TagType newTagType = newTag.getDefinition();
                         if (newTagType != null) {
                             String newTagTypeName = newTagType.getName();
-        
+
                             // If it exists, update its content
                             if (oldTagTypeName.equals(newTagTypeName)) {
                                 for (TagParameter param : new ArrayList<>(newTag.getActual())) {
                                     param.delete();
                                 }
                             }
-        
+
                             newTag.setQualifier(oldTag.getQualifier());
-        
+
                             for (TagParameter param : oldTag.getActual()) {
                                 session.getModel().createTagParameter(param.getValue(), newTag);
                             }
-        
+
                             exists = true;
                             break;
                         }
                     }
-        
+
                     // If it doesn't exists, create it
                     if (!exists) {
                         TaggedValue newTag = session.getModel().createTaggedValue("ModelerModule", oldTagTypeName, newElement);
                         newTag.setQualifier(oldTag.getQualifier());
-        
+
                         for (TagParameter param : oldTag.getActual()) {
                             session.getModel().createTagParameter(param.getValue(), newTag);
                         }
@@ -386,7 +391,7 @@ public class InterfaceImplementer {
                 ModelerModuleModule.getInstance().getModuleContext().getLogService().error(e);
             }
         }
-        
+
     }
 
     @objid ("a279b90f-452d-4884-956a-e5035d885454")
@@ -396,15 +401,15 @@ public class InterfaceImplementer {
                 NoteType oldNoteType = oldNote.getModel();
                 if (oldNoteType != null) {
                     String oldNoteTypeName = oldNoteType.getName();
-        
+
                     boolean exists = false;
-        
+
                     // Check if the note already exists on the target
                     for (Note newNote : newElement.getDescriptor()) {
                         NoteType newNoteType = newNote.getModel();
                         if (newNoteType != null) {
                             String newNoteTypeName = newNoteType.getName();
-        
+
                             // If the note is found, update its content
                             if (oldNoteTypeName.equals(newNoteTypeName)) {
                                 newNote.setContent(oldNote.getContent());
@@ -413,7 +418,7 @@ public class InterfaceImplementer {
                             }
                         }
                     }
-        
+
                     // Create the note if it doesn't exists
                     if (!exists) {
                         session.getModel().createNote("ModelerModule", oldNoteTypeName, newElement, oldNote.getContent());
@@ -424,22 +429,22 @@ public class InterfaceImplementer {
                 ModelerModuleModule.getInstance().getModuleContext().getLogService().error(e);
             }
         }
-        
+
     }
 
     @objid ("75fa3147-95a7-45fa-a7a2-ebbc73e10e93")
     private void copyParameterContent(final IModelingSession session, final Parameter originalParameter, final Parameter newParameter) {
         boolean isReturnParameter = (originalParameter.getReturned() != null);
-        
+
         newParameter.setMultiplicityMin(originalParameter.getMultiplicityMin());
         newParameter.setMultiplicityMax(originalParameter.getMultiplicityMax());
         newParameter.setTypeConstraint(originalParameter.getTypeConstraint());
         newParameter.setType(originalParameter.getType());
-        
+
         copyNotes(session, originalParameter, newParameter);
         copyStereotypes(session, originalParameter, newParameter);
         copyTaggedValues(session, originalParameter, newParameter);
-        
+
         if (!isReturnParameter) {
             newParameter.setName(originalParameter.getName());
             newParameter.setDefaultValue(originalParameter.getDefaultValue());
@@ -447,7 +452,7 @@ public class InterfaceImplementer {
         } else {
             newParameter.setParameterPassing(PassingMode.OUT);
         }
-        
+
     }
 
     @objid ("d8f79e7a-c89b-4d90-bbf3-b6cbad37ae3e")
@@ -466,20 +471,20 @@ public class InterfaceImplementer {
                     break;
                 }
             }
-        
+
             if (!exists) {
                 ElementImport newImport = session.getModel().createElementImport();
                 newImport.setName(originalImport.getName());
                 newImport.setVisibility(originalImport.getVisibility());
                 newImport.setImportingOperation(newOperation);
                 newImport.setImportedElement(originalImport.getImportedElement());
-        
+
                 copyNotes(session, originalImport, newImport);
                 copyStereotypes(session, originalImport, newImport);
                 copyTaggedValues(session, originalImport, newImport);
             }
         }
-        
+
         // PackageImports
         for (PackageImport originalImport : originalOperation.getOwnedPackageImport()) {
             boolean exists = false;
@@ -494,38 +499,39 @@ public class InterfaceImplementer {
                     break;
                 }
             }
-        
+
             if (!exists) {
                 PackageImport newImport = session.getModel().createPackageImport();
                 newImport.setName(originalImport.getName());
                 newImport.setVisibility(originalImport.getVisibility());
                 newImport.setImportingOperation(newOperation);
                 newImport.setImportedPackage(originalImport.getImportedPackage());
-        
+
                 copyNotes(session, originalImport, newImport);
                 copyStereotypes(session, originalImport, newImport);
                 copyTaggedValues(session, originalImport, newImport);
             }
         }
-        
+
     }
 
     /**
      * Checks all operations to remove redefine links bound to interfaces no more implemented.
+     *
      * @param operationsOwner The classifier owning the operations.
      * @return <code>true</code> if the model has been modified.
      */
     @objid ("903fb552-3977-489d-ba68-62dc53b3af71")
     public boolean updateRedefineLinks(final Classifier operationsOwner) {
         boolean hasDoneWork = false;
-        
+
         ArrayList<Interface> implementedInterfaces = new ArrayList<>();
         // Take all Interfaces
         for (Iterator<InterfaceRealization> iter = operationsOwner.getRealized().iterator(); iter.hasNext();) {
             Interface itf = iter.next().getImplemented();
             implementedInterfaces.add(itf);
         }
-        
+
         // Take all Operations
         for (Operation operation : operationsOwner.getOwnedOperation()) {
             Operation redefinedOperation = operation.getRedefines();

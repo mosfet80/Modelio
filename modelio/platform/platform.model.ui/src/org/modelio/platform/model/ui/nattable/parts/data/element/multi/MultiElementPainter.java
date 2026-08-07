@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.parts.data.element.multi;
 
@@ -59,16 +59,17 @@ public class MultiElementPainter extends AbstractCellPainter {
      * Create a new painter that doesn't underline the cell's contents.
      */
     @objid ("24161e43-0863-4e7d-806b-b173bc1bfa70")
-    public  MultiElementPainter() {
+    public MultiElementPainter() {
         this(false);
     }
 
     /**
      * Create a new painter.
+     *
      * @param underline whether the painter should underline the cell's contents or not.
      */
     @objid ("a28dad2b-6324-4845-a686-3340563851bd")
-    public  MultiElementPainter(boolean underline) {
+    public MultiElementPainter(boolean underline) {
         this.underline = underline;
     }
 
@@ -76,7 +77,7 @@ public class MultiElementPainter extends AbstractCellPainter {
     @Override
     public int getPreferredHeight(ILayerCell cell, GC gc, IConfigRegistry configRegistry) {
         setupGCFromConfig(gc, CellStyleUtil.getCellStyle(cell, configRegistry));
-        
+
         int height = 0;
         for (TextIcon textIcon : convertDataType(cell, configRegistry)) {
             final Image image = textIcon.getIcon();
@@ -84,7 +85,7 @@ public class MultiElementPainter extends AbstractCellPainter {
                 int imageHeight = image.getBounds().height;
                 height = Math.max(height, imageHeight);
             }
-        
+
             int textHeight = gc.textExtent(textIcon.getText()).y;
             if (this.underline) {
                 textHeight += (gc.getFontMetrics().getDescent() / 2) + 2;
@@ -99,13 +100,13 @@ public class MultiElementPainter extends AbstractCellPainter {
     public int getPreferredWidth(ILayerCell cell, GC gc, IConfigRegistry configRegistry) {
         final IStyle cellStyle = CellStyleUtil.getCellStyle(cell, configRegistry);
         setupGCFromConfig(gc, cellStyle);
-        
+
         int spacing = 16;
         HorizontalAlignmentEnum horizontalAlignment = cellStyle.getAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT);
         if (horizontalAlignment == HorizontalAlignmentEnum.CENTER) {
             spacing *= 2;
         }
-        
+
         int width = spacing;
         List<TextIcon> textIcons = convertDataType(cell, configRegistry);
         for (Iterator<TextIcon> iterator = textIcons.iterator(); iterator.hasNext();) {
@@ -115,7 +116,7 @@ public class MultiElementPainter extends AbstractCellPainter {
                 int imageWidth = image.getBounds().width;
                 width += imageWidth;
             }
-        
+
             String text = textIcon.getText();
             if (iterator.hasNext()) {
                 text += ", ";
@@ -131,51 +132,51 @@ public class MultiElementPainter extends AbstractCellPainter {
     public void paintCell(ILayerCell cell, GC gc, Rectangle bounds, IConfigRegistry configRegistry) {
         // Paint background
         paintBackground(cell, gc, bounds, configRegistry);
-        
+
         final IStyle cellStyle = CellStyleUtil.getCellStyle(cell, configRegistry);
         setupGCFromConfig(gc, cellStyle);
-        
+
         // 'running' variables for the loop
         int curX = bounds.x; // X cursor position for layout
         int curY = bounds.y; // Y cursor position for layout
         int neededRowHeight = bounds.height; // The needed height for the row to display icons and texts
-        
+
         List<TextIcon> textIcons = convertDataType(cell, configRegistry);
-        
+
         for (Iterator<TextIcon> iterator = textIcons.iterator(); iterator.hasNext();) {
             TextIcon textIcon = iterator.next();
-        
+
             String text = textIcon.getText();
             if (iterator.hasNext()) {
                 text += ", ";
             }
             final Image icon = textIcon.getIcon();
             final Rectangle iconBounds = icon != null ? icon.getBounds() : new Rectangle(0, 0, 0, 0);
-        
+
             // Compute x padding
             String displayedText = text;
-        
+
             int textHeight = gc.getFontMetrics().getHeight() * 1; // 1 because one line
-        
+
             neededRowHeight = Math.max(neededRowHeight, Math.max(textHeight, iconBounds.height));
-        
+
             if (gc.textExtent(displayedText).x > bounds.width - iconBounds.width) {
                 displayedText = truncateText(text, gc, bounds.width - iconBounds.width);
             }
-        
+
             int x = curX + CellStyleUtil.getHorizontalAlignmentPadding(cellStyle, bounds, iconBounds.width + gc.textExtent(displayedText).x);
             int y = curY + CellStyleUtil.getVerticalAlignmentPadding(cellStyle, bounds, iconBounds.height);
-        
+
             // Paint Icon
             if (icon != null) {
                 gc.drawImage(icon, x, y);
             }
-        
+
             // Paint Text
             x += iconBounds.width + 3;
             y = bounds.y + CellStyleUtil.getVerticalAlignmentPadding(cellStyle, bounds, textHeight);
             // bounds.width -= imageBounds.width + 1;
-        
+
             gc.drawText(displayedText, x, y, SWT.DRAW_TRANSPARENT | SWT.DRAW_DELIMITER);
             if (this.underline) {
                 // y = start y of text + font height
@@ -184,10 +185,10 @@ public class MultiElementPainter extends AbstractCellPainter {
                 final int underlineY = y + textHeight - (gc.getFontMetrics().getDescent() / 2);
                 gc.drawLine(x, underlineY, x + gc.textExtent(text).x, underlineY);
             }
-        
+
             curX = x + gc.textExtent(text).x + 3;
         } // end for
-        
+
         // Now consider a row resize
         if (neededRowHeight > bounds.height) {
             int contentToCellDiff = (cell.getBounds().height - bounds.height);
@@ -195,29 +196,28 @@ public class MultiElementPainter extends AbstractCellPainter {
             layer.doCommand(
                     new RowResizeCommand(layer, cell.getRowPosition(), neededRowHeight + contentToCellDiff));
         }
-        
     }
 
     /**
      * Convert the data value of the cell using the {@link IDisplayConverter} from the {@link IConfigRegistry}
      */
     @objid ("ad5f5ce4-b673-4abe-ac42-c918a068bab2")
-    @SuppressWarnings ("unchecked")
+    @SuppressWarnings("unchecked")
     protected List<TextIcon> convertDataType(ILayerCell cell, IConfigRegistry configRegistry) {
         Object canonicalValue = cell.getDataValue();
         Object displayValue;
-        
+
         IDisplayConverter displayConverter = configRegistry.getConfigAttribute(
                 CellConfigAttributes.DISPLAY_CONVERTER,
                 cell.getDisplayMode(),
                 cell.getConfigLabels().getLabels());
-        
+
         if (displayConverter != null) {
             displayValue = displayConverter.canonicalToDisplayValue(cell, configRegistry, canonicalValue);
         } else {
             displayValue = canonicalValue;
         }
-        
+
         if (displayValue instanceof TextIcon) {
             return Collections.singletonList((TextIcon) displayValue);
         } else if (displayValue instanceof List) {
@@ -225,7 +225,6 @@ public class MultiElementPainter extends AbstractCellPainter {
         } else {
             return Collections.singletonList(new TextIcon(String.valueOf(displayValue), null)); // $NON-NLS-1$
         }
-        
     }
 
     @objid ("562d0629-ecb6-497d-b157-1109bcbe335c")
@@ -242,7 +241,6 @@ public class MultiElementPainter extends AbstractCellPainter {
             gc.fillRectangle(bounds);
             gc.setBackground(originalBackground);
         }
-        
     }
 
     /**
@@ -253,17 +251,17 @@ public class MultiElementPainter extends AbstractCellPainter {
         final Color fg = cellStyle.getAttributeValue(CellStyleAttributes.FOREGROUND_COLOR);
         final Color bg = cellStyle.getAttributeValue(CellStyleAttributes.BACKGROUND_COLOR);
         final Font font = cellStyle.getAttributeValue(CellStyleAttributes.FONT);
-        
+
         gc.setAntialias(GUIHelper.DEFAULT_ANTIALIAS);
         gc.setTextAntialias(GUIHelper.DEFAULT_TEXT_ANTIALIAS);
         gc.setFont(font);
         gc.setForeground(fg != null ? fg : GUIHelper.COLOR_LIST_FOREGROUND);
         gc.setBackground(bg != null ? bg : GUIHelper.COLOR_LIST_BACKGROUND);
-        
     }
 
     /**
      * Checks if the given text is bigger than the available space. If not the given text is simply returned without modification. If the text does not fit into the available space, it will be modified by cutting and adding three dots.
+     *
      * @param text the text to compute
      * @param gc the current GC
      * @param availableLength the available space
@@ -273,13 +271,13 @@ public class MultiElementPainter extends AbstractCellPainter {
     private String truncateText(String text, GC gc, int availableLength) {
         String trialText = text;
         int textWidth = gc.textExtent(trialText).x;
-        
+
         while (textWidth > availableLength) {
             // try an optimization: estimate average char width and adjust
             // accordingly
             final double avgCharWidth = textWidth / trialText.length();
             final int nbExtraChars = 1 + (int) ((textWidth - availableLength) / avgCharWidth);
-        
+
             final int newLength = trialText.length() - nbExtraChars;
             if (newLength > 0) {
                 trialText = trialText.substring(0, newLength);

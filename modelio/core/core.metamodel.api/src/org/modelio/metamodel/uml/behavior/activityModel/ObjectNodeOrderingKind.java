@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
@@ -26,21 +26,20 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * ObjectNodeOrderingKind v0.0.9054
- * 
- * 
+ *
+ *
  * null
- * 
- * 
+ *
  */
 @objid ("007f536e-91e0-1f74-804b-001ec947cd2a")
 public enum ObjectNodeOrderingKind {
-    @objid ("d91895c8-5ad7-4a47-8710-36a77aed443a")
+    @objid ("9da36998-f597-4b71-a8da-45a7b86d2bad")
     UNORDERED(0, "Unordered", "Unordered"),
-    @objid ("3f8cb8e9-af65-4a6a-a61a-c012271b3fc2")
+    @objid ("bc1e4e8e-363b-4d05-81c8-0d941b00d8b4")
     ORDERED(1, "Ordered", "Ordered"),
-    @objid ("0c082a10-96e2-414f-9683-2dc43f5fbd79")
+    @objid ("c42a0385-4403-4776-abde-44677ad98c46")
     LIFO(2, "LIFO", "LIFO"),
-    @objid ("e66bd06e-9f7b-4168-aa01-f6f5939c6bbb")
+    @objid ("28779315-cb23-4577-8cb9-60de886ab3da")
     FIFO(3, "FIFO", "FIFO");
 
 public static final int UNORDERED_VALUE = 0;
@@ -103,5 +102,5 @@ public static final int UNORDERED_VALUE = 0;
     public String toString() {
        return literal;
     }
-    
+
 }

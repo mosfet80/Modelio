@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.drawings.layer;
 
@@ -80,7 +80,7 @@ public class DrawingLayerEditPart extends AbstractGraphicalEditPart implements P
      * Default constructor.
      */
     @objid ("5baf5d42-e5cb-473e-9eb3-b34f5b9301de")
-    public  DrawingLayerEditPart() {
+    public DrawingLayerEditPart() {
         super();
     }
 
@@ -104,19 +104,19 @@ public class DrawingLayerEditPart extends AbstractGraphicalEditPart implements P
         // 1) Creates the nodes layer
         this.nodesLayer = new FreeformLayer2();
         this.nodesLayer.setLayoutManager(new FreeformLayout());
-        
+
         // the figure must be kept transparent
         this.nodesLayer.setBackgroundColor(null);
         this.nodesLayer.setOpaque(false);
-        
+
         // 2) Create the connections layer
         this.connectionsLayer = new FreeformLayer2();
         this.connectionsLayer.setLayoutManager(new FreeformLayout());
-        
+
         // the figure must be kept transparent
         this.connectionsLayer.setBackgroundColor(null);
         this.connectionsLayer.setOpaque(false);
-        
+
         // 3) Aggregate the layers
         FreeformLayeredPane2 pane = new FreeformLayeredPane2();
         pane.add(this.nodesLayer);
@@ -139,10 +139,11 @@ public class DrawingLayerEditPart extends AbstractGraphicalEditPart implements P
      * so that drawing make a frame around them.
      * </ul>
      * </ul>
-     * @see IAdaptable#getAdapter(Class)
+     *
      * @param adapter the adapter class to look up
      * @return a object castable to the given class, or <code>null</code> if this object does not have an adapter for
      * the given class
+     * @see IAdaptable#getAdapter(Class)
      */
     @objid ("712eabe6-8158-47aa-b3a8-23733b076e8a")
     @Override
@@ -163,16 +164,16 @@ public class DrawingLayerEditPart extends AbstractGraphicalEditPart implements P
                     // Snap to graphic nodes bounds with an external margin
                     // so that drawing make a frame around them.
                     snapBuilder.addContainer(ep, 5);
-        
+
                     // What about a frame inside?
                     // snapBuilder.addContainer(ep, -5);
                 }
             }
-        
+
             return snapBuilder.getSnapToHelper();
         } else {
             final GmDrawingLayer model = getModel();
-        
+
             // Support IGmObject, GmModel and its subclasses
             if (adapter.isInstance(model)) {
                 return model;
@@ -180,7 +181,7 @@ public class DrawingLayerEditPart extends AbstractGraphicalEditPart implements P
                 return super.getAdapter(adapter);
             }
         }
-        
+
     }
 
     @objid ("64211158-3d86-4edd-9904-742bdf98840e")
@@ -188,7 +189,7 @@ public class DrawingLayerEditPart extends AbstractGraphicalEditPart implements P
     public void activate() {
         super.activate();
         getModel().addPropertyChangeListener(this);
-        
+
     }
 
     @objid ("c89b9b62-2b32-4782-ad33-aa5c3be781e3")
@@ -196,7 +197,7 @@ public class DrawingLayerEditPart extends AbstractGraphicalEditPart implements P
     public void deactivate() {
         super.deactivate();
         getModel().removePropertyChangeListener(this);
-        
+
     }
 
     @objid ("0f659c8f-1f71-404b-8a6b-405d8f2bdf5b")
@@ -218,7 +219,7 @@ public class DrawingLayerEditPart extends AbstractGraphicalEditPart implements P
         default:
             break;
         }
-        
+
     }
 
     @objid ("553f28ac-7866-4277-acf5-c0512ef9cec7")
@@ -233,10 +234,10 @@ public class DrawingLayerEditPart extends AbstractGraphicalEditPart implements P
     protected void createEditPolicies() {
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new DrawingContainerEditLayoutPolicy());
         installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new CreateDrawingLinkEditPolicy(true));
-        
+
         // Snap to Geometry feedback
         installEditPolicy("Snap Feedback", new SnapFeedbackPolicy()); //$NON-NLS-1$
-        
+
     }
 
     @objid ("cceeaaab-235c-4937-9602-2307787d9b61")
@@ -288,7 +289,7 @@ public class DrawingLayerEditPart extends AbstractGraphicalEditPart implements P
                 return (ConnectionAnchor) object;
             }
         }
-        
+
         if (request instanceof ReconnectRequest) {
             final Point p = ((ReconnectRequest) request).getLocation();
             return createAnchor(p);
@@ -297,11 +298,12 @@ public class DrawingLayerEditPart extends AbstractGraphicalEditPart implements P
             return createAnchor(p);
         }
         throw new IllegalArgumentException(request + " not handled.");
-        
+
     }
 
     /**
      * Create a XY anchor with the layer coordinates
+     *
      * @param absPoint an absolute point.
      * @return a XY anchor for the layer figure
      */
@@ -317,14 +319,14 @@ public class DrawingLayerEditPart extends AbstractGraphicalEditPart implements P
     public ConnectionAnchor getTargetConnectionAnchor(Request request) {
         if (request instanceof ReconnectRequest) {
             final Point p = ((ReconnectRequest) request).getLocation();
-        
+
             return createAnchor(p);
         } else if (request instanceof DropRequest) {
             final Point p = ((DropRequest) request).getLocation();
             return createAnchor(p);
         }
         throw new IllegalArgumentException(request + " not handled.");
-        
+
     }
 
     @objid ("d2710091-a984-4f89-a109-1dbcd99b4dbe")
@@ -333,7 +335,7 @@ public class DrawingLayerEditPart extends AbstractGraphicalEditPart implements P
         if (anchor instanceof PointAnchor) {
             PointAnchor pa = (PointAnchor) anchor;
             final Point refPoint = pa.getRelativeReferencePoint();
-        
+
             return new GmPointAnchor(new Dimension(refPoint.x, refPoint.y));
         }
         return RectangleNodeAnchorProvider.get().createAnchorModel(anchor);
@@ -343,15 +345,16 @@ public class DrawingLayerEditPart extends AbstractGraphicalEditPart implements P
      * Add a connection to the layer.
      * <p>
      * The connection is added to the connections sub layer.
+     *
      * @param connectionFigure a connection figure
      */
     @objid ("688b848e-599b-44f5-b3d1-ae78d4059316")
     public void addConnection(IFigure connectionFigure) {
         // Ensure the figures exist.
         getFigure();
-        
+
         this.connectionsLayer.add(connectionFigure);
-        
+
     }
 
     @objid ("474c542a-729a-4f90-812c-fbb652021d1a")

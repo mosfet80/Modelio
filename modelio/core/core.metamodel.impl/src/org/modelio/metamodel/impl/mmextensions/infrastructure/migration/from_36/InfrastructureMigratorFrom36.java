@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.mmextensions.infrastructure.migration.from_36;
 
@@ -69,6 +69,7 @@ import org.modelio.vcore.smkernel.meta.mof.MofSmObjectImpl;
 /**
  * Migrator from Modelio 3.6 to 3.7 .
  * <p>
+ *
  * @author cma
  * @since 3.7
  */
@@ -99,10 +100,9 @@ public class InfrastructureMigratorFrom36 implements IMofRepositoryMigrator {
     private final MetamodelVersionDescriptor targetMetamodel;
 
     @objid ("6acc15c0-ee50-4680-8de8-c4ea8eacab46")
-    public  InfrastructureMigratorFrom36(MetamodelVersionDescriptor sourceMetamodel, MetamodelVersionDescriptor targetMetamodel) {
+    public InfrastructureMigratorFrom36(MetamodelVersionDescriptor sourceMetamodel, MetamodelVersionDescriptor targetMetamodel) {
         this.sourceMetamodel = sourceMetamodel;
         this.targetMetamodel = targetMetamodel;
-        
     }
 
     @objid ("835af518-d0f1-488d-8ee5-b27fa1c26aa9")
@@ -125,6 +125,7 @@ public class InfrastructureMigratorFrom36 implements IMofRepositoryMigrator {
 
     /**
      * Modify the metamodel so that it can read the source repository.
+     *
      * @param metamodel the metamodel at the final state
      * @throws MofMigrationException on fatal failure preventing migration
      */
@@ -135,35 +136,34 @@ public class InfrastructureMigratorFrom36 implements IMofRepositoryMigrator {
         new MofMetamodelMerger(metamodel)
         .setTemporary(true)
         .merge(InfrastructureMmMigrationProvider.loadMetamodel(getSourceMetamodel()));
-        
+
         MofSmClass externDocMc = (MofSmClass) metamodel.getMClass(MCLASS_EXTERN_DOCUMENT);
         externDocMc.addAttribute(new MofSmAttribute(externDocMc, ATT_STORAGE_INFO));
-        
+
         // Recreate temporarly new dependencies on obsolete metaclasses so that transmutation don't loose data
         SmClass externDocTypeMc = metamodel.getMClass("Infrastructure.ExternDocumentType");
         try (MofBuilder b = metamodel.builder().setTemporary(true);) {
             MofSmClass resourceTypeMC = (MofSmClass) metamodel.getMClass("Infrastructure.ResourceType");
-        
+
             // this copies old dependency to new metaclass
             b.createDepCopy(externDocTypeMc.findDependencyDef("TypedDoc"), resourceTypeMC).build();
-        
+
         }
-        
+
         assert(metamodel.getMClass(MCLASS_EXTERN_DOCUMENT) != null);
         assert(metamodel.getMClass("Infrastructure.ModelElement").getDependency("Document") != null);
-        
-        
+
+
         // Process metaclasses renamings
         // Read renamed classes
         prepareMetaclassesRenaming(metamodel);
-        
     }
 
     @objid ("f76b2fc2-ef9d-4cb5-82e4-b9a12405fc0d")
     @Override
     public void run(IModelioProgress monitor, IMofSession mofSession) throws MofMigrationException {
         SubProgress mon = SubProgress.convert(monitor, 10);
-        
+
         try {
             deleteObsoleteObjects(mon.newChild(1), mofSession);
             migrateRichNotes(mon.newChild(1), mofSession);
@@ -173,7 +173,6 @@ public class InfrastructureMigratorFrom36 implements IMofRepositoryMigrator {
         } catch (MetaclassNotFoundException e) {
             throw new MofMigrationException(e.getLocalizedMessage(), e);
         }
-        
     }
 
     @objid ("9c7a53a9-8f2e-4dfe-b19e-1bbc9d0ed99b")
@@ -191,7 +190,6 @@ public class InfrastructureMigratorFrom36 implements IMofRepositoryMigrator {
             }
             mon.worked(1);
         }
-        
     }
 
     /**
@@ -200,6 +198,7 @@ public class InfrastructureMigratorFrom36 implements IMofRepositoryMigrator {
      * Use {@link #mcToTransmute} to rename old qualified names to new ones.
      * <p>
      * Requires the elements having been transmuted to the new metaclasses.
+     *
      * @param reporter the logger
      * @param monitor a progress monitor
      * @param mofsession the session
@@ -211,9 +210,9 @@ public class InfrastructureMigratorFrom36 implements IMofRepositoryMigrator {
         SmClass stereotypeMc = mofsession.getMetaclass(Stereotype.MQNAME);
         MAttribute baseClassAtt = stereotypeMc.getAttribute("BaseClassName");
         IMigrationReporter reporter = mofsession.getReport();
-        
+
         for (MofSmObjectImpl obj : mofsession.findByClass(stereotypeMc, true)) {
-            if (obj.isModifiable() && obj.isValid()) {
+            if (obj.getStatus().isModifiable() && obj.isValid()) {
                 String oldBase = (String) obj.mGet(baseClassAtt);
                 if (oldBase != null && ! oldBase.isEmpty()) {
                     String newBase = getNewBaseClassName(oldBase,mofsession);
@@ -226,13 +225,13 @@ public class InfrastructureMigratorFrom36 implements IMofRepositoryMigrator {
                 }
             }
         }
-        
+
         // MetaclassReference.ReferencedClassName
         stereotypeMc = mofsession.getMetaclass(MetaclassReference.MQNAME);
         baseClassAtt = stereotypeMc.getAttribute("ReferencedClassName");
-        
+
         for (MofSmObjectImpl obj : mofsession.findByClass(stereotypeMc, true)) {
-            if (obj.isModifiable() && obj.isValid()) {
+            if (obj.getStatus().isModifiable() && obj.isValid()) {
                 String oldBase = (String) obj.mGet(baseClassAtt);
                 if (oldBase != null) {
                     String newBase = getNewBaseClassName(oldBase,mofsession);
@@ -245,47 +244,46 @@ public class InfrastructureMigratorFrom36 implements IMofRepositoryMigrator {
                 }
             }
         }
-        
     }
 
     @objid ("cca4c6ed-d593-4978-8e30-99e3806534e6")
     private String getNewBaseClassName(String oldBase, IMofSession mofsession) {
         SmClass foundMetaclass = mofsession.getMetamodel().getMClass(oldBase);
         String nameToReplace = foundMetaclass != null ? foundMetaclass.getQualifiedName() : oldBase;
-        
+
         MofSmClass entry = this.mcRenamer.getNewMetaclass(nameToReplace);
         if (entry != null) {
             return entry.getQualifiedName();
         } else {
             return nameToReplace;
         }
-        
     }
 
     /**
      * Prepare the metamodel for metaclasses renaming.
+     *
      * @param metamodel the MOF metamodel.
      * @throws MofMigrationException on failure
      */
     @objid ("e4980c3d-b971-46da-a2b9-a47680383fff")
     private void prepareMetaclassesRenaming(MofMetamodel metamodel) throws MofMigrationException {
         this.mcRenamer = new MetaclassRenamer();
-        
+
         Properties properties = new Properties();
-        
-        
+
+
         try (InputStream inputStream = getClass().getResourceAsStream(renamingsFilePath)) {
             assert(inputStream != null);
-        
+
             properties.load(inputStream);
-        
+
             for (Entry<Object, Object> entry : properties.entrySet()) {
                 String oldQualifiedName = (String) entry.getKey();
                 String newQualifiedName = (String) entry.getValue();
-        
+
                 // Decode 3.6 qualified name
                 MClassRef oldMcRef = MClassRef.fromQualifiedName(oldQualifiedName);
-        
+
                 // Look for the 3.7 metaclass
                 MofSmClass newCls = (MofSmClass) metamodel.getMClass(newQualifiedName);
                 if (newCls == null) {
@@ -296,9 +294,9 @@ public class InfrastructureMigratorFrom36 implements IMofRepositoryMigrator {
                             newQualifiedName,
                             oldQualifiedName));
                 }
-        
+
                 //MofMetamodelFragment oldMmFragment = metamodel.getOrCreateFragment(oldMcRef.getFragmentName());
-        
+
                 MofSmClass oldCls = (MofSmClass) metamodel.getMClass(oldMcRef.getQualifiedName());
                 if (oldCls==null) {
                     //// Create a renamed copy of the metaclass
@@ -310,12 +308,11 @@ public class InfrastructureMigratorFrom36 implements IMofRepositoryMigrator {
                             newQualifiedName));
                 }
                 this.mcRenamer.addClassRenaming(oldCls, newCls);
-        
+
             }
         } catch (IOException e) {
             throw new MofMigrationException(FileUtils.getLocalizedMessage(e), e);
         }
-        
     }
 
     @objid ("a998a0ff-c061-4607-9197-cbe580241b63")
@@ -333,9 +330,9 @@ public class InfrastructureMigratorFrom36 implements IMofRepositoryMigrator {
         MAttribute newatt = mc.getAttribute(ATT_STORAGE_INFO);
         IRepository repo = mofSession.getTargetRepository();
         byte[] buf = new byte[4096];
-        
+
         for (MofSmObjectImpl obj : mofSession.findByClass(mc, true)) {
-            if (obj.isModifiable() && obj.isValid()) {
+            if (obj.getStatus().isModifiable() && obj.isValid()) {
                 String oldPath = (String) obj.mGet(att);
                 if (oldPath != null && ! oldPath.isEmpty()) {
                     try {
@@ -354,12 +351,11 @@ public class InfrastructureMigratorFrom36 implements IMofRepositoryMigrator {
                     } catch (IOException e) {
                         throw new MofMigrationException(FileUtils.getLocalizedMessage(e), e);
                     }
-        
+
                     obj.mSet(newatt, "blob:"+new File(oldPath).getName());
                 }
             }
         }
-        
     }
 
     @objid ("61b9f5f9-adf4-4c14-a7e7-9a808a660336")
@@ -367,7 +363,6 @@ public class InfrastructureMigratorFrom36 implements IMofRepositoryMigrator {
         renameDep(mofSession, ModelElement.MQNAME, "Document", "Attached");
         renameDep(mofSession, Stereotype.MQNAME, "DefinedExternDocumentType", "DefinedResourceType");
         renameDep(mofSession, MetaclassReference.MQNAME, "DefinedExternDocumentType", "DefinedResourceType");
-        
     }
 
     @objid ("77b2c1fa-b4a7-47f3-bc11-57f02b8b9d07")
@@ -375,12 +370,12 @@ public class InfrastructureMigratorFrom36 implements IMofRepositoryMigrator {
         SmClass mc;
         try {
             mc = mofSession.getMetaclass(mcName);
-        
+
             MDependency oldDep = Objects.requireNonNull(mc.getDependency(oldName), oldName);
             MDependency newDep = Objects.requireNonNull(mc.getDependency(newName), newName);
-        
+
             for (MofSmObjectImpl obj : mofSession.findByClass(mc, true)) {
-                if (obj.isModifiable() && obj.isValid()) {
+                if (obj.getStatus().isModifiable() && obj.isValid()) {
                     List<MObject> oldDepContent = obj.mGet(oldDep);
                     List<MObject> newDepContent = obj.mGet(newDep);
                     List<MObject> oldBase = new ArrayList<>(oldDepContent);
@@ -393,7 +388,6 @@ public class InfrastructureMigratorFrom36 implements IMofRepositoryMigrator {
         } catch (MetaclassNotFoundException | RuntimeException e) {
             throw new MofMigrationException(String.format("Moving %s.%s to %s.%s : %s", mcName, oldName, mcName, newName, e.getMessage()), e);
         }
-        
     }
 
     @objid ("a65f5d21-32a7-482b-9569-ee1e43b17773")

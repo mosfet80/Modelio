@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.policies;
 
@@ -52,6 +52,7 @@ import org.modelio.diagram.elements.core.model.IGmObject;
  * .getHandles();
  * }
  * </code></pre>
+ *
  * @author cma
  * @since 3.7
  */
@@ -82,21 +83,20 @@ public class SelectionHandlesBuilder {
     private DragTracker selectDragTracker;
 
     @objid ("b8031782-7279-4f02-b6c6-cef4737ffea3")
-    public  SelectionHandlesBuilder(GraphicalEditPart host) {
+    public SelectionHandlesBuilder(GraphicalEditPart host) {
         this.host = host;
         this.selectDragTracker = new SelectEditPartTracker(host);
         this.isUserEditable = isModelUserEditable(host);
         this.resizeDragTrackerProvider = direction -> new DefaultResizeTracker(host, direction);
         this.moveDragTracker = getHost().getDragTracker(null);
-        
+
     }
 
     /**
      * Fills the given List with handles at each corner of a figure.
-     * @param part
-     * the handles' GraphicalEditPart
-     * @param handles
-     * the List to add the four corner handles to
+     *
+     * @param part the handles' GraphicalEditPart
+     * @param handles the List to add the four corner handles to
      * @param tracker the handles' DragTracker
      * @param cursor the handles' Cursor
      */
@@ -111,19 +111,21 @@ public class SelectionHandlesBuilder {
 
     /**
      * Add handles for a non resizeable edit part.
+     *
      * @return this instance
      */
     @objid ("446b0295-8a08-44b6-a84f-3db8b83e9976")
     public SelectionHandlesBuilder addNonResizeableHandles() {
         DragTracker dragTracker = isUserEditable() ? this.moveDragTracker : getSelectTracker();
         Cursor      cursor      = this.dragAllowed  ? getHost().getFigure().getCursor() : Cursors.ARROW;
-        
+
         addCornerHandles(dragTracker, cursor);
         return this;
     }
 
     /**
      * Add a resize handle for one direction.
+     *
      * @param dir a direction in {@link PositionConstants} constants.
      * @return this instance
      * @since 3.7.1
@@ -136,22 +138,23 @@ public class SelectionHandlesBuilder {
 
     /**
      * Add the handles for a resizeable edit part.
+     *
      * @return this instance.
      */
     @objid ("fdd04b8a-4f6b-45fe-a4c4-eefe21bb47e8")
     public SelectionHandlesBuilder addResizeableHandles() {
         boolean modelUserEditable = isUserEditable();
-        
+
         DragTracker          dragTracker = modelUserEditable ? this.moveDragTracker : getSelectTracker();
         Cursor               figureCursor    = getHost().getFigure().getCursor();
-        
+
         if (this.resizeDirections == 0 || ! modelUserEditable) {
             //NonResizableHandleKit.addMoveHandle(host, list, hostDragTracker, figureCursor);
             addCornerHandles(dragTracker, figureCursor);
-        
+
         } else {
             //ResizableHandleKit.addMoveHandle(host, list, hostDragTracker, figureCursor);
-            
+
             addConditionalHandle(PositionConstants.EAST, dragTracker, figureCursor);
             addConditionalHandle(PositionConstants.SOUTH_EAST, dragTracker, figureCursor);
             addConditionalHandle(PositionConstants.SOUTH, dragTracker, figureCursor);
@@ -166,6 +169,7 @@ public class SelectionHandlesBuilder {
 
     /**
      * Disable the given handles if the edit part represents a non user editable graphic model.
+     *
      * @param host an edit part
      * @param handles the handle to process
      * @return the same handle list for convenience.
@@ -189,6 +193,7 @@ public class SelectionHandlesBuilder {
     }
 
     /**
+     *
      * @return the built handles.
      */
     @objid ("51522d81-0518-4a56-a485-c8f13838c511")
@@ -198,6 +203,7 @@ public class SelectionHandlesBuilder {
 
     /**
      * Set whether dragging is allowed.
+     *
      * @param allowed whether dragging is allowed
      * @return this instance
      */
@@ -208,6 +214,7 @@ public class SelectionHandlesBuilder {
     }
 
     /**
+     *
      * @param dragTracker a custom move drag tracker
      * @return this instance
      */
@@ -219,9 +226,10 @@ public class SelectionHandlesBuilder {
 
     /**
      * Set resize directions.
-     * @see PositionConstants PositionConstants for possible values
+     *
      * @param dir the directions
      * @return this instance
+     * @see PositionConstants PositionConstants for possible values
      */
     @objid ("1295ac2e-5d32-4d1a-8edc-ef5883186809")
     public SelectionHandlesBuilder withResizeDirections(int dir) {
@@ -233,6 +241,7 @@ public class SelectionHandlesBuilder {
      * Set a custom resize drag tracker provider.
      * <p>
      * The function will be provided resize direction.
+     *
      * @param provider a resize drag tracker provider.
      * @return this instance
      */
@@ -244,6 +253,7 @@ public class SelectionHandlesBuilder {
 
     /**
      * Add a resize handle if the figure is resizeable for the given direction, a move handle in the other case.
+     *
      * @param dir relative direction from the center of the owner figure
      * @param moveTracker the move drag tracker to use for non resizeable handle
      * @param moveCursor the move cursor to use for non resizeable handle
@@ -255,11 +265,12 @@ public class SelectionHandlesBuilder {
         } else {
             this.handles.add(createHandle(dir, moveTracker, moveCursor));
         }
-        
+
     }
 
     /**
      * Create a handle for the given direction with the givven drag rtacker and cursor.
+     *
      * @param direction relative direction from the center of the owner figure
      * @param tracker the drag tracker to use
      * @param cursor the mouse cursor
@@ -270,7 +281,7 @@ public class SelectionHandlesBuilder {
         ResizeHandle handle = new ResizeHandle(this.host, direction);
         handle.setCursor(cursor);
         handle.setDragTracker(tracker);
-        
+
         handle.setSize(10, 10);
         handle.setPreferredSize(9, 9);
         handle.setMaximumSize(new Dimension(9, 9));
@@ -282,7 +293,7 @@ public class SelectionHandlesBuilder {
     protected AbstractHandle createResizeHandle(int direction) {
         ResizeHandle handle = new ResizeHandle(this.host, direction);
         handle.setDragTracker(getResizeTracker(direction));
-        
+
         handle.setSize(10, 10);
         handle.setPreferredSize(9, 9);
         handle.setMaximumSize(new Dimension(9, 9));
@@ -307,6 +318,7 @@ public class SelectionHandlesBuilder {
 
     /**
      * Computes whether the user can edit the graphic model.
+     *
      * @param host an edit part
      * @return whether the user can edit the model.
      */

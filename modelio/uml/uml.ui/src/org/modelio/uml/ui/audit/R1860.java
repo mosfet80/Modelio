@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -51,7 +51,7 @@ public class R1860 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(IElement)
      * @see AbstractRule#getUpdateControl(IElement)
      * @see AbstractRule#getMoveControl(IElementMovedEvent)
@@ -70,14 +70,14 @@ public class R1860 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         // This cover the case of moving or deleting a Feature, which triggers an UPDATE on the old parent.
         plan.registerRule(Interface.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         // IFeature
         // This cover the case of moving a Feature under a new parent.
         // This also cover the case of updating a Feature visibility.
         plan.registerRule(Operation.MQNAME, this, AuditTrigger.MOVE | AuditTrigger.UPDATE);
         plan.registerRule(Attribute.MQNAME, this, AuditTrigger.MOVE | AuditTrigger.UPDATE);
         plan.registerRule(AssociationEnd.MQNAME, this, AuditTrigger.MOVE | AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -111,14 +111,14 @@ public class R1860 extends AbstractUmlRule {
      * Default constructor for R1860
      */
     @objid ("d9b3f3e4-4d86-461c-8640-4b19e6002a25")
-    public  R1860() {
+    public R1860() {
         this.checkerInstance = new CheckR1860(this);
     }
 
     @objid ("2db6bacd-ae82-4c95-9e2d-d78a3ea65eae")
     private static class CheckR1860 extends AbstractControl {
         @objid ("8e02dbf1-c631-40d4-b74e-1668ebfcb675")
-        public  CheckR1860(IRule rule) {
+        public CheckR1860(IRule rule) {
             super(rule);
         }
 
@@ -151,30 +151,30 @@ public class R1860 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     interfaze,
                     null);
-            
+
             List<Feature> nonPublicFeatures = new ArrayList<>();
-            
+
             for (Attribute feature : interfaze.getOwnedAttribute()) {
                 if (!feature.getVisibility().equals(VisibilityMode.PUBLIC) && !feature.getVisibility().equals(VisibilityMode.VISIBILITYUNDEFINED)) {
                     nonPublicFeatures.add(feature);
                 }
             }
-            
+
             for (Operation feature : interfaze.getOwnedOperation()) {
                 if (!feature.getVisibility().equals(VisibilityMode.PUBLIC) && !feature.getVisibility().equals(VisibilityMode.VISIBILITYUNDEFINED)) {
                     nonPublicFeatures.add(feature);
                 }
             }
-            
+
             for (AssociationEnd feature : interfaze.getOwnedEnd()) {
                 if (!feature.getVisibility().equals(VisibilityMode.PUBLIC) && !feature.getVisibility().equals(VisibilityMode.VISIBILITYUNDEFINED)) {
                     nonPublicFeatures.add(feature);
                 }
             }
-            
+
             if (!nonPublicFeatures.isEmpty()) {
                 // Rule failed
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(interfaze);

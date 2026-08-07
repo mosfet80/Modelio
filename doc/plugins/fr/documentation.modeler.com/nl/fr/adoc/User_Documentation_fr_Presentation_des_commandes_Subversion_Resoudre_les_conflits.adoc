@@ -1,0 +1,25 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= La commande "Résoudre les conflits"
+
+
+
+===== Description
+
+La commande "Résoudre les conflits" ouvre une fenêtre de <<User_Documentation_fr_Presentation_des_commandes_Subversion_Diff_Merge.adoc#,Diff/Merge>> afin de permettre à l'utilisateur de résoudre les conflits qui existent.
+
+A gauche se présente la version locale du modèle, tandis qu'à droite est présentée la version du référentiel récupérée lors de la dernière exécution de la commande <<User_Documentation_fr_Presentation_des_commandes_Subversion_Mettre_a_jour.adoc#,Mettre à jour>>. [[Valider-la-résolution-des-conflits]]
+
+
+===== Valider la résolution des conflits
+
+Lorsque vous validez la fenêtre de <<User_Documentation_fr_Presentation_des_commandes_Subversion_Diff_Merge.adoc#,Diff/Merge>> en appuyant sur le bouton "Appliquer" ou le bouton "OK", le statut "en conflit" sera enlevé de tous les grains SVN pour lesquels tous les conflits ont été résolus. Ces grains SVN seront marqués comme étant "modifiés" et pourront être livrés.
+
+Exemple : vous lancez la commande "Résoudre les conflits" sur un package qui contient deux classes en conflit, C1 et C2. Vous résolvez toutes les différences sur la classe C1 et vous cliquez sur OK. Le statut de C1 passe alors de "en conflit" à "modifié localement", tandis que le statut de C2 reste à "en conflit".
+
+Vous pouvez choisir plus tard de passer C2 à l'état "résolu", soit en lançant une nouvelle fois cette commande et en résolvant toutes les différences, soit en lançant la commande " <<User_Documentation_fr_Presentation_des_commandes_Subversion_Passer_les_conflits_a_resolus.adoc#,Passer les conflits à résolus>> " sur C2.

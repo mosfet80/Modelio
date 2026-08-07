@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.project.services;
 
@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.jar.JarFile;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PreDestroy;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -57,7 +57,7 @@ import org.modelio.platform.script.engine.core.engine.ScriptRunnerFactory;
 @objid ("f1d8087d-48cf-4072-8ccf-6ab2489a01f9")
 class JarRunner {
     @objid ("682328af-8225-4ffa-b777-d9135863e77d")
-    public  JarRunner() {
+    public JarRunner() {
         super();
     }
 
@@ -71,30 +71,30 @@ class JarRunner {
             System.exit(-1);
             return; // just to tell compiler mainClassName is never null.
         }
-        
+
         try {
             // Instantiate a ScriptRunner only to get its configured class loader
             final IScriptRunner scriptRunner = ScriptRunnerFactory.getInstance().getScriptRunner("jython");
             scriptRunner.addClassLoader(scriptRunner.getEngine().getClass().getClassLoader());
-        
+
             URL[] urls = new URL[]{scriptFile.toURI().toURL()};
             @SuppressWarnings("resource")
             URLClassLoader cl = new URLClassLoader(urls, scriptRunner.getEngine().getClass().getClassLoader());
             scriptRunner.addClassLoader(cl);
-        
+
             // Configure Eclipse 4 contexts
             IEclipseContext context = EclipseContextFactory.create(mainClassName);
             IEclipseContext staticContext = EclipseContextFactory.create(mainClassName+" static context");
-        
+
             staticContext.set(IGProject.class, openedProject);
             staticContext.set("parameters", params);
             for (Entry<String, String> p : params.entrySet())
                 staticContext.set(p.getKey(), p.getValue());
-        
+
             // Load class, inject contexts
             Class<?> clazz = cl.loadClass(mainClassName);
             Object object = ContextInjectionFactory.make(clazz, context, staticContext);
-        
+
             // invoke @PreDestroy if any
             ContextInjectionFactory.invoke(object, PreDestroy.class, staticContext, staticContext);
             context.dispose();
@@ -109,7 +109,7 @@ class JarRunner {
             AppProjectCore.LOG.error("Couldn't load '"+mainClassName+"' class from '"+scriptFile+"' : "+e.getLocalizedMessage());
             System.exit(-1);
         }
-        
+
     }
 
 }

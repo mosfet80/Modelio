@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.ui.newproject.gui;
 
@@ -44,29 +44,30 @@ public class ProjectCreationController implements Listener, ISelectionChangedLis
 
     /**
      * Initialize the controller.
+     *
      * @param dialog The project creation dialog
      * @param dataModel The data model
      */
     @objid ("0046d53e-cc35-1ff2-a7f4-001ec947cd2a")
-    public  ProjectCreationController(final ProjectCreationDialog dialog, final BasicProjectCreationDataModel dataModel, final IModuleStore moduleCatalog) {
+    public ProjectCreationController(final ProjectCreationDialog dialog, final BasicProjectCreationDataModel dataModel, final IModuleStore moduleCatalog) {
         this.dataModel = dataModel;
         this.dialog = dialog;
         this.moduleCatalog = moduleCatalog;
         this.dialog.getProjectPanel().addListener(this);
-        
+
     }
 
     @objid ("0046d5de-cc35-1ff2-a7f4-001ec947cd2a")
     @Override
     public void handleEvent(final Event event) {
         boolean isValid = validateData();
-        
+
         this.dataModel.setProjectName(this.dialog.getProjectPanel().getProjectName());
         this.dataModel.setProjectDescription(this.dialog.getProjectPanel().getProjectDescription());
-        
+
         this.dialog.getProjectPanel().invalidateProjectNameField(!isValid);
         this.dialog.updateButtons(isValid);
-        
+
     }
 
     @objid ("00463994-cc35-1ff2-a7f4-001ec947cd2a")
@@ -77,6 +78,7 @@ public class ProjectCreationController implements Listener, ISelectionChangedLis
 
     /**
      * Check the filled data validity.
+     *
      * @return true if the tab data is valid.
      */
     @objid ("00463a2a-cc35-1ff2-a7f4-001ec947cd2a")
@@ -95,7 +97,7 @@ public class ProjectCreationController implements Listener, ISelectionChangedLis
     public void updateDataModel() {
         this.dataModel.setProjectName(this.dialog.getProjectPanel().getProjectName());
         this.dataModel.setProjectDescription(this.dialog.getProjectPanel().getProjectDescription());
-        
+
     }
 
 }

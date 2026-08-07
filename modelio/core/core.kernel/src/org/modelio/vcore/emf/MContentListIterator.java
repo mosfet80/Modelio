@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.emf;
 
@@ -72,7 +72,7 @@ public class MContentListIterator implements FeatureListIterator<EObject> {
     public EObject next() {
         if (this.nextObj == null)
             throw new NoSuchElementException ();
-        
+
         EObject ret = this.nextObj;
         walkNext();
         this.curIndex++;
@@ -89,12 +89,13 @@ public class MContentListIterator implements FeatureListIterator<EObject> {
      * Initialize the iterator.
      * <p>
      * Shell objects are included.
+     *
      * @param includeShells true to include shells objects, false to skip them.
      * @param obj the object to scan
      * @param deps the dependencies to scan.
      */
     @objid ("109b19c8-bfa3-11e1-b511-001ec947ccaf")
-    public  MContentListIterator(SmObjectImpl obj, List<SmDependency> deps) {
+    public MContentListIterator(SmObjectImpl obj, List<SmDependency> deps) {
         this (obj, deps, true);
     }
 
@@ -113,7 +114,7 @@ public class MContentListIterator implements FeatureListIterator<EObject> {
                 return;
             }
         }
-        
+
     }
 
     @objid ("109b19d1-bfa3-11e1-b511-001ec947ccaf")
@@ -132,7 +133,7 @@ public class MContentListIterator implements FeatureListIterator<EObject> {
                 return;
             }
         }
-        
+
     }
 
     @objid ("109b19d4-bfa3-11e1-b511-001ec947ccaf")
@@ -152,7 +153,7 @@ public class MContentListIterator implements FeatureListIterator<EObject> {
     public EObject previous() {
         if (this.prevObj == null)
             throw new NoSuchElementException ();
-        
+
         EObject ret = this.prevObj;
         walkPrevious();
         this.curIndex--;
@@ -166,7 +167,7 @@ public class MContentListIterator implements FeatureListIterator<EObject> {
             return this.curIndex + 1;
         else
             return 0; // empty list.
-        
+
     }
 
     @objid ("109d7c1d-bfa3-11e1-b511-001ec947ccaf")
@@ -189,12 +190,13 @@ public class MContentListIterator implements FeatureListIterator<EObject> {
 
     /**
      * Initialize the iterator.
+     *
      * @param obj the object to scan
      * @param deps the dependencies to scan.
      * @param includeShells true to include shells objects, false to skip them.
      */
     @objid ("80d22164-bfa5-11e1-b511-001ec947ccaf")
-    public  MContentListIterator(SmObjectImpl obj, List<SmDependency> deps, boolean includeShells) {
+    public MContentListIterator(SmObjectImpl obj, List<SmDependency> deps, boolean includeShells) {
         this.obj = obj;
         this.depit = deps.listIterator();
         this.curFeature = this.depit.next();
@@ -202,9 +204,9 @@ public class MContentListIterator implements FeatureListIterator<EObject> {
         this.curIndex = 0;
         this.includeShells = includeShells;
         walkNext();
-        
+
         this.prevObj = null;
-        
+
     }
 
 }

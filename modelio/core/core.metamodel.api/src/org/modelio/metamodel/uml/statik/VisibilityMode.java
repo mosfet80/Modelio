@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.uml.statik;
 
@@ -26,23 +26,22 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * VisibilityMode v0.0.9054
- * 
- * 
+ *
+ *
  * null
- * 
- * 
+ *
  */
 @objid ("005a96aa-91e0-1f74-804b-001ec947cd2a")
 public enum VisibilityMode {
-    @objid ("2c96e15f-6c14-474b-b090-4d3ec12bd38e")
+    @objid ("24d8c471-1584-4e89-b3bb-9ca4e74f0ca6")
     PUBLIC(0, "Public", "Public"),
-    @objid ("958925e0-bb94-4b9a-8ad1-ac5b41688030")
+    @objid ("b821d30c-1202-435f-864a-0ba0a7cffb8a")
     PROTECTED(1, "Protected", "Protected"),
-    @objid ("c48e13b1-bbd1-46f2-b357-67990ef69bca")
+    @objid ("96132ddd-16ff-43af-bc53-0f23d646b0aa")
     PRIVATE(2, "Private", "Private"),
-    @objid ("36922722-aa4d-4ff9-aebf-86c3b7fd52db")
+    @objid ("ebf6ed32-3a17-4a09-b870-6c4fa32381eb")
     VISIBILITYUNDEFINED(3, "VisibilityUndefined", "VisibilityUndefined"),
-    @objid ("47b0e9b7-38b6-4694-bf0e-0db232f4bbb2")
+    @objid ("96010a75-11b2-4327-9c2e-1c135f07db3c")
     PACKAGEVISIBILITY(4, "PackageVisibility", "PackageVisibility");
 
 public static final int PUBLIC_VALUE = 0;
@@ -108,5 +107,5 @@ public static final int PUBLIC_VALUE = 0;
     public String toString() {
        return literal;
     }
-    
+
 }

@@ -1,0 +1,23 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= Analyser l'impact des modifications
+
+
+
+===== Présentation des outils d'analyse d'impact
+
+Modelio fournit des outils d'analyse d'impact puissants, qui vous apportent des informations critiques sur l'impact d'une éventuelle modification d'un élément sur le reste du modèle. Ces informations sont présentées sous forme de <<User_Documentation_fr_Analyse_d%27impact_Diagrammes_d%27impact.adoc#,diagramme>> ou de <<User_Documentation_fr_Analyse_d%27impact_Matrice_d%27impact.adoc#,matrice>>.
+
+Des modèles d'impacts différents peuvent être calculés pour un même modèle afin de représenter des aspects spécifiques du modèle en obtenir des analyses spécifiques.
+
+Lorsqu'un modèle d'impact est établit, son contenu peut être présenté avec des diagrammes ou des matrices.
+
+*  <<User_Documentation_fr_Analyse_d%27impact_Concepts_Analyse_Impact.adoc#,Concepts de l'Analyse d'Impact>> est le chapitre à lire en premier, il explique comment l'analyse d'impact de Modelio fonctionne..
+*  <<User_Documentation_fr_Analyse_d%27impact_Modeles_Impact.adoc#,Modèles d'Impact>> est un guide utilisateur sur les modèles d'impacts, comment les créer et comment les configurer.
+*  <<User_Documentation_fr_Analyse_d%27impact_Diagrammes_d%27impact.adoc#,Diagrammes d'Impacts>> est un guide utilisateur sur les diagrammes d'impacts, comment les configurer et les utiliser.
+*  <<User_Documentation_fr_Analyse_d%27impact_Matrice_d%27impact.adoc#,Matrice d'Impacts>> est un guide utilisateur sur les matrices d'impacts, comment les configurer et les utiliser.

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -46,7 +46,7 @@ public class R1760 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -88,14 +88,14 @@ public class R1760 extends AbstractUmlRule {
      * Default constructor for R1760
      */
     @objid ("3376d430-9e27-4f36-9728-24c590d601fb")
-    public  R1760() {
+    public R1760() {
         this.checkerInstance = new CheckR1760(this);
     }
 
     @objid ("55fc8a57-e673-42f1-87b3-7408fec6684e")
     private static class CheckR1760 extends AbstractControl {
         @objid ("d691ac74-8995-49d0-8cb3-6889905f412e")
-        public  CheckR1760(IRule rule) {
+        public CheckR1760(IRule rule) {
             super(rule);
         }
 
@@ -116,7 +116,7 @@ public class R1760 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     instance,
                     null);
-            
+
             try {
                 if ("*".equals(instance.getMultiplicityMin())) {
                     // min multiplicity cannot be "*"

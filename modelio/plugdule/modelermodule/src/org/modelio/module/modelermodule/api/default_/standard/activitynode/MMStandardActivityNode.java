@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class MMStandardActivityNode {
      * Tells whether a {@link MMStandardActivityNode proxy} can be instantiated from a {@link MObject} checking it is a {@link ActivityNode}.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -71,9 +72,10 @@ public class MMStandardActivityNode {
     }
 
     /**
-     * Tries to instantiate a {@link MMStandardActivityNode} proxy from a {@link ActivityNode} checking its metaclass. 
+     * Tries to instantiate a {@link MMStandardActivityNode} proxy from a {@link ActivityNode} checking its metaclass.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a ActivityNode
      * @return a {@link MMStandardActivityNode} proxy or <i>null</i>.
      */
@@ -99,7 +101,8 @@ public class MMStandardActivityNode {
     }
 
     /**
-     * Get the underlying {@link ActivityNode}. 
+     * Get the underlying {@link ActivityNode}.
+     *
      * @return the ActivityNode represented by this proxy, never null.
      */
     @objid ("b937bb08-b563-4be6-98c9-86fe6e3b81e2")
@@ -111,7 +114,7 @@ public class MMStandardActivityNode {
      * Getter for string property 'userDiagramImage'
      * <p>Property description:
      * <br/><i>Image file path to use in diagrams when unmasked in custom image mode.
-     * 
+     *
      * The file path must be either absolute or relative to the project path.</i></p>
      */
     @objid ("7e710e03-95f2-4a3b-b2f3-2d23e9ddd588")
@@ -123,14 +126,14 @@ public class MMStandardActivityNode {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     /**
      * Setter for string property 'userDiagramImage'
      * <p>Property description:
      * <br/><i>Image file path to use in diagrams when unmasked in custom image mode.
-     * 
+     *
      * The file path must be either absolute or relative to the project path.</i></p>
      */
     @objid ("3734bb05-7e72-49f9-bb02-5592aa2c526d")
@@ -139,7 +142,7 @@ public class MMStandardActivityNode {
     }
 
     @objid ("45c1a336-29ff-4166-b1d3-3d7c277e3223")
-    protected  MMStandardActivityNode(ActivityNode elt) {
+    protected MMStandardActivityNode(ActivityNode elt) {
         this.elt = elt;
     }
 
@@ -159,7 +162,7 @@ public class MMStandardActivityNode {
             USERDIAGRAMIMAGE_TAGTYPE_ELT = ctx.getModelingSession().findElementById(TagType.class, "c5770acc-29d9-49c6-9cd2-977b4474e48d");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -167,7 +170,7 @@ public class MMStandardActivityNode {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.semantic.browser.plugin;
 
@@ -39,7 +39,7 @@ public class SemanticBrowser extends AbstractUIPlugin {
      */
     @objid ("b015db44-359c-4b38-a0ca-3653b7b7cb8c")
     public static final String PLUGIN_ID = "org.modelio.app.semantic.browser"; // $NON-NLS-1$
-    
+
 
     @objid ("d3ff6416-148d-4347-9161-976344815356")
     public static BundledMessages I18N;
@@ -58,7 +58,7 @@ public class SemanticBrowser extends AbstractUIPlugin {
         ExtendedLogService service = bundleContext.getService(ref);
         SemanticBrowser.LOG = new PluginLogger(service.getLogger(bundleContext.getBundle(), SemanticBrowser.PLUGIN_ID));
         SemanticBrowser.I18N = new BundledMessages(SemanticBrowser.LOG, ResourceBundle.getBundle("semanticbrowser"));
-        
+
     }
 
     @objid ("9d1d7481-8aba-4578-867b-e3a1f7da90f3")
@@ -70,6 +70,7 @@ public class SemanticBrowser extends AbstractUIPlugin {
     /**
      * Returns an image descriptor for the image file at the given plug-in
      * relative path
+     *
      * @param path the path
      * @return the image descriptor
      */

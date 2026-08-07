@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.centralbuffer;
 
@@ -42,7 +42,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * PrimaryNode for GmCentralBuffer.
- * 
+ *
  * @author fpoyer
  */
 @objid ("29e75972-55b6-11e2-877f-002564c97630")
@@ -67,25 +67,26 @@ public class GmCentralBufferPrimaryNode extends GmNoStyleCompositeNode implement
 
     /**
      * Default constructor.
+     *
      * @param diagram the diagram in which this gm is unmasked.
      * @param ref a reference to the represented central buffer.
      */
     @objid ("29e75982-55b6-11e2-877f-002564c97630")
-    public  GmCentralBufferPrimaryNode(IGmDiagram diagram, MRef ref) {
+    public GmCentralBufferPrimaryNode(IGmDiagram diagram, MRef ref) {
         super(diagram, ref);
         this.header = new GmActivityNodeHeader(diagram, ref);
         this.header.setShowMetaclassIcon(true);
         super.addChild(this.header);
         this.objectNodeStateLabel = new GmObjectNodeStateLabel(diagram, ref);
         addChild(this.objectNodeStateLabel);
-        
+
     }
 
     /**
      * Empty constructor, needed for serialisation.
      */
     @objid ("29e7598b-55b6-11e2-877f-002564c97630")
-    public  GmCentralBufferPrimaryNode() {
+    public GmCentralBufferPrimaryNode() {
         // empty constructor for the serialization
     }
 
@@ -112,6 +113,7 @@ public class GmCentralBufferPrimaryNode extends GmNoStyleCompositeNode implement
 
     /**
      * Get the stereotype image to display.
+     *
      * @return the stereotype image to display. Must not be <i>null</i>.
      */
     @objid ("29e8e008-55b6-11e2-877f-002564c97630")
@@ -143,7 +145,7 @@ public class GmCentralBufferPrimaryNode extends GmNoStyleCompositeNode implement
             break;
         }
         }
-        
+
     }
 
     @objid ("29e8e01b-55b6-11e2-877f-002564c97630")
@@ -155,7 +157,7 @@ public class GmCentralBufferPrimaryNode extends GmNoStyleCompositeNode implement
         firePropertyChange(PROPERTY_LABEL, oldLabel, this.header.getMainLabel());
         // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("29e8e01e-55b6-11e2-877f-002564c97630")
@@ -181,10 +183,10 @@ public class GmCentralBufferPrimaryNode extends GmNoStyleCompositeNode implement
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmCentralBuffer.", GmCentralBufferPrimaryNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("29e8e02d-55b6-11e2-877f-002564c97630")
@@ -192,7 +194,7 @@ public class GmCentralBufferPrimaryNode extends GmNoStyleCompositeNode implement
         super.read(in);
         this.header = (GmActivityNodeHeader) this.getChildren().get(0);
         this.objectNodeStateLabel = (GmElementLabel) this.getChildren().get(1);
-        
+
     }
 
     @objid ("29e8e032-55b6-11e2-877f-002564c97630")
@@ -203,21 +205,22 @@ public class GmCentralBufferPrimaryNode extends GmNoStyleCompositeNode implement
 
     /**
      * Migration constructor.
+     *
      * @param oldVersionGm the instance to migrate from.
      */
     @objid ("29ea6699-55b6-11e2-877f-002564c97630")
-     GmCentralBufferPrimaryNode(final _GmCentralBuffer oldVersionGm) {
+    GmCentralBufferPrimaryNode(final _GmCentralBuffer oldVersionGm) {
         super(oldVersionGm.getDiagram(), oldVersionGm.getRepresentedRef());
-        
+
         this.header = oldVersionGm.getHeader();
         this.header.setShowMetaclassIcon(true);
         oldVersionGm.removeChild(this.header);
         super.addChild(this.header);
-        
+
         this.objectNodeStateLabel = oldVersionGm.getObjectNodeStateLabel();
         oldVersionGm.removeChild(this.objectNodeStateLabel);
         addChild(this.objectNodeStateLabel);
-        
+
     }
 
 }

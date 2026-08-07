@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.common.style;
 
@@ -35,6 +35,7 @@ import org.modelio.diagram.styles.core.StyleKey;
 public abstract class BpmnAbstractStyleKeyProvider extends AbstractStyleKeyProvider {
     /**
      * Creates a StyleKey based on a MetaKey.
+     *
      * @param key The style key.
      * @param metakey the base meta key.
      * @return a StyleKey with i18n informations filled.
@@ -46,11 +47,12 @@ public abstract class BpmnAbstractStyleKeyProvider extends AbstractStyleKeyProvi
                         metakey.getLabel(),
                         metakey.getTooltip(),
                         DiagramEditorBpmn.I18N.getMessage(AbstractStyleKeyProvider.STYLEKEY_PREFIX + key + AbstractStyleKeyProvider.CATEGORY_SUFFIX));
-        
+
     }
 
     /**
      * Creates a style key.
+     *
      * @param key The style key id.
      * @param type The type of the style key.
      * @return a StyleKey with i18n informations filled.
@@ -62,7 +64,7 @@ public abstract class BpmnAbstractStyleKeyProvider extends AbstractStyleKeyProvi
                         DiagramEditorBpmn.I18N.getMessage(AbstractStyleKeyProvider.STYLEKEY_PREFIX + key + AbstractStyleKeyProvider.LABEL_SUFFIX),
                         DiagramEditorBpmn.I18N.getMessage(AbstractStyleKeyProvider.STYLEKEY_PREFIX + key + AbstractStyleKeyProvider.TOOLTIP_SUFFIX),
                         DiagramEditorBpmn.I18N.getMessage(AbstractStyleKeyProvider.STYLEKEY_PREFIX + key + AbstractStyleKeyProvider.CATEGORY_SUFFIX));
-        
+
     }
 
 }

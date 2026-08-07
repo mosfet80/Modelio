@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.naryconnector;
 
@@ -31,7 +31,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Main class of the central node for a n-ary Connector.
- * 
+ *
  * @author cmarin
  */
 @objid ("35da51fd-55b7-11e2-877f-002564c97630")
@@ -49,18 +49,19 @@ public class GmNConnectorPrimaryNode extends GmNLinkPrimaryNode {
      * Empty c'tor for deserialization.
      */
     @objid ("35da5204-55b7-11e2-877f-002564c97630")
-    public  GmNConnectorPrimaryNode() {
+    public GmNConnectorPrimaryNode() {
         super();
     }
 
     /**
      * C'tor.
+     *
      * @param diagram the diagram in which this gm is created.
      * @param assoc the represented n-ary association. May be null.
      * @param relatedRef a reference to the represented n-ary association. Must Not be null.
      */
     @objid ("35da5207-55b7-11e2-877f-002564c97630")
-    public  GmNConnectorPrimaryNode(final IGmDiagram diagram, final NaryConnector assoc, final MRef relatedRef) {
+    public GmNConnectorPrimaryNode(final IGmDiagram diagram, final NaryConnector assoc, final MRef relatedRef) {
         super(diagram, assoc, relatedRef);
     }
 
@@ -87,17 +88,17 @@ public class GmNConnectorPrimaryNode extends GmNLinkPrimaryNode {
                 break;
             }
         }
-        
+
     }
 
     @objid ("35dbd888-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmNConnectorPrimaryNode.", GmNConnectorPrimaryNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("35dbd88e-55b7-11e2-877f-002564c97630")

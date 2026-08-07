@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.swt.images;
 
@@ -45,7 +45,7 @@ public class InfrastructureElementImageProvider implements IElementImageProvider
     @objid ("673b016c-1b2d-4433-8fac-c2b9f161c203")
     private static final String IMAGES_EXTENSION = ".png";
 
-    @objid ("ad7d7a8d-b18e-485d-9154-112708580fb4")
+    @objid ("d6079e63-901c-4ed2-824a-b04b51f7caa1")
     private static final ImageRegistry REGISTRY = new ImageRegistry();
 
     @objid ("3f0ecbe8-647c-4067-b033-55834dadcb57")
@@ -56,6 +56,7 @@ public class InfrastructureElementImageProvider implements IElementImageProvider
 
     /**
      * Get the icon for a metaclass and a flavor
+     *
      * @param metaclass a metaclass
      * @param flavor a flavor to concatenate to the lookup key.
      * @return the found icon or a default unknown icon.
@@ -75,6 +76,7 @@ public class InfrastructureElementImageProvider implements IElementImageProvider
 
     /**
      * Get the diagram big image for a metaclass and a flavor.
+     *
      * @param metaclass a metaclass
      * @param flavor a flavor to concatenate to the lookup key.
      * @return the found image or null.
@@ -87,10 +89,11 @@ public class InfrastructureElementImageProvider implements IElementImageProvider
     }
 
     /**
+     *
      * @return a flavor to concatenate to the lookup key. Might be <code>null</code>.
      */
     @objid ("ab04ba2c-e9fa-478d-bce3-2da76a3b2873")
-    private String getFlavor(@SuppressWarnings ("unused") MObject element) {
+    private String getFlavor(@SuppressWarnings("unused") MObject element) {
         return null;
     }
 
@@ -111,7 +114,6 @@ public class InfrastructureElementImageProvider implements IElementImageProvider
             keyBuffer.append(flavor);
             return keyBuffer.toString();
         }
-        
     }
 
     @objid ("5fd4ab28-abdb-403b-89e6-94aede9478d3")
@@ -138,6 +140,7 @@ public class InfrastructureElementImageProvider implements IElementImageProvider
 
     /**
      * Get the icon for a metaclass.
+     *
      * @param metaclassName a metaclass name.
      * @return the metaclass icon.
      */
@@ -184,7 +187,6 @@ public class InfrastructureElementImageProvider implements IElementImageProvider
         } else {
             return null;
         }
-        
     }
 
     @objid ("5d288c1c-899c-433b-aedf-086364532117")

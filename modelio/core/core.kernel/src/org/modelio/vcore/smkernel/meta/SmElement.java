@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel.meta;
 
@@ -28,9 +28,9 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 /**
  * Base element for the SmXXXX hierarchy.
  * A <pre>SmElement</pre> has a name.
- * 
+ *
  * The SmXXXX hierarchy is used to describe the metamodel metaclasses.
- * 
+ *
  * @author phv
  */
 @objid ("00843500-ed97-1f1f-85a5-001ec947cd2a")
@@ -42,6 +42,7 @@ public abstract class SmElement {
     protected final EnumSet<SmDirective> smFlags = EnumSet.noneOf(SmDirective.class);
 
     /**
+     *
      * @param flag a flag
      * @return whether the metamodel element has the given annotation.
      */
@@ -51,6 +52,7 @@ public abstract class SmElement {
     }
 
     /**
+     *
      * @return the meta element name.
      */
     @objid ("60f6f5d9-9b6a-11e1-94a3-001ec947ccaf")
@@ -62,6 +64,7 @@ public abstract class SmElement {
     }
 
     /**
+     *
      * @return the directive flags
      */
     @objid ("7da5b427-de77-4e5f-b1b3-f2fdf36a2355")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.service.impl.common;
 
@@ -41,10 +41,10 @@ class BrokenModuleLifecycleHandler implements IModuleLifeCycleHandler {
     private Throwable downError;
 
     @objid ("d7e4697e-c168-406b-add9-7da5723210a4")
-    public  BrokenModuleLifecycleHandler(IModule brokenModule, Throwable downError) {
+    public BrokenModuleLifecycleHandler(IModule brokenModule, Throwable downError) {
         this.brokenModule = brokenModule;
         this.downError = downError;
-        
+
     }
 
     @objid ("b369ef65-95c9-47bb-b16f-f5a25f1bbabe")
@@ -52,7 +52,7 @@ class BrokenModuleLifecycleHandler implements IModuleLifeCycleHandler {
     public boolean select() throws ModuleException {
         // refuse selection
         throw new ModuleException(getMessage());
-        
+
     }
 
     @objid ("c1b13e90-6179-4c65-b9c0-f9d707d98dc8")
@@ -60,7 +60,7 @@ class BrokenModuleLifecycleHandler implements IModuleLifeCycleHandler {
     public boolean start() throws ModuleException {
         // forbid start
         throw new ModuleException(getMessage());
-        
+
     }
 
     @objid ("9de2d0a1-2df2-4533-93cc-f900f7ea4e53")
@@ -87,7 +87,7 @@ class BrokenModuleLifecycleHandler implements IModuleLifeCycleHandler {
                         this.brokenModule.getName(),
                         this.brokenModule.getVersion(),
                         this.downError.getLocalizedMessage());
-        
+
     }
 
     @objid ("db0222b8-0dff-482b-925e-e7dd4a6bc733")

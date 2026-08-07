@@ -1,28 +1,28 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.module.commands;
 
 import java.util.HashMap;
 import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -67,11 +67,12 @@ public class ModuleCommandsRegistry {
     static void execute(IEclipseContext context) {
         // Create instance and put it in the context.
         context.set(ModuleCommandsRegistry.class, ContextInjectionFactory.make(ModuleCommandsRegistry.class, context));
-        
+
     }
 
     /**
      * Returns the {@link MCommand} with the given ID, creating it in not found in the application.
+     *
      * @param commandId ID of the requested command.
      * @return the MCommand with the given ID.
      */
@@ -116,8 +117,8 @@ public class ModuleCommandsRegistry {
 
     /**
      * Returns the {@link MCommand} corresponding to the given module/action pair, creating it in not found in the application.
-     * @param commandId
-     * ID of the requested command.
+     *
+     * @param commandId ID of the requested command.
      * @return the MCommand corresponding to the given module/action pair.
      */
     @objid ("4f5c55e8-1449-11e2-a678-001ec947c8cc")
@@ -140,7 +141,7 @@ public class ModuleCommandsRegistry {
                 createAndActivateHandler(command, module, action);
             }
         }
-        
+
     }
 
     @objid ("4f5eb83a-1449-11e2-a678-001ec947c8cc")
@@ -158,7 +159,7 @@ public class ModuleCommandsRegistry {
                 removeCommand(command);
             }
         }
-        
+
     }
 
     @objid ("4f5eb83f-1449-11e2-a678-001ec947c8cc")
@@ -175,7 +176,7 @@ public class ModuleCommandsRegistry {
         application.getHandlers().add(mHandler);
         // Put it in cache for faster access next time.
         defaultHandlersCache.put(command.getElementId(), mHandler);
-        
+
         // Activate the handler "by hand" since this part of the model may not be read again.
         EHandlerService handlerService = application.getContext().get(EHandlerService.class);
         handlerService.activateHandler(command.getElementId(), handler);
@@ -194,19 +195,19 @@ public class ModuleCommandsRegistry {
             handlerToRemove.setCommand(null);
             handlerToRemove.setObject(null);
         }
-        
+
     }
 
     @objid ("6446ee97-144c-11e2-a678-001ec947c8cc")
     protected static void removeCommand(MCommand command) {
         // In any case, remove it from cache
         commandCache.remove(command.getElementId());
-        
+
         // If this command was created by us, remove it from the application, otherwise leave it to whoever created it.
         if (command.getTags().contains(MODULE_COMMAND_TAG)) {
             application.getCommands().remove(command);
         }
-        
+
     }
 
 }

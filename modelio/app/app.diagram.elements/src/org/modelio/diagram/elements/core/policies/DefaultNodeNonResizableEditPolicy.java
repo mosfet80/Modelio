@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.policies;
 
@@ -43,7 +43,7 @@ import org.modelio.diagram.elements.core.model.IGmObject;
  * {@link RequestConstants#REQ_ORPHAN_CHILDREN} request. The parent's contribution is returned.<br>
  * <br>
  * Subclasses may override this method to supply a different EditPolicy.
- * 
+ *
  * @see org.eclipse.gef.editpolicies.ConstrainedLayoutEditPolicy#createChildEditPolicy(EditPart)
  * @see org.eclipse.gef.editpolicies.NonResizableEditPolicy#getMoveCommand
  */
@@ -53,20 +53,20 @@ public class DefaultNodeNonResizableEditPolicy extends NonResizableEditPolicy {
     @Override
     public void activate() {
         super.activate();
-        
+
         // Sales!!! Two policies for the price of one !
         EditPart host = getHost();
         host.installEditPolicy(LayoutNodeConnectionsEditPolicy.ROLE, new LayoutNodeConnectionsEditPolicy(host));
-        
+
     }
 
     @objid ("0a978f1f-1ec7-4a2d-8c94-25e3be174f2f")
     @Override
     public void deactivate() {
         getHost().removeEditPolicy(LayoutNodeConnectionsEditPolicy.ROLE);
-        
+
         super.deactivate();
-        
+
     }
 
     @objid ("80be19e2-1dec-11e2-8cad-001ec947c8cc")
@@ -76,7 +76,7 @@ public class DefaultNodeNonResizableEditPolicy extends NonResizableEditPolicy {
                 .withDragAllowed(isDragAllowed())
                 .addNonResizeableHandles()
                 .getHandles();
-        
+
     }
 
     @objid ("80c07be1-1dec-11e2-8cad-001ec947c8cc")
@@ -94,7 +94,7 @@ public class DefaultNodeNonResizableEditPolicy extends NonResizableEditPolicy {
     protected Command getOrphanCommand(Request request) {
         ChangeBoundsRequest req = new ChangeBoundsRequest(REQ_ORPHAN_CHILDREN);
         req.setEditParts(getHost());
-        
+
         ChangeBoundsRequest cbRequest = (ChangeBoundsRequest) request;
         req.setMoveDelta(cbRequest.getMoveDelta());
         req.setSizeDelta(cbRequest.getSizeDelta());

@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.ui.contributor;
 
@@ -54,7 +54,7 @@ public class DefaultWizardPreviewPanel implements IPanelProvider {
      * Default constructor.
      */
     @objid ("ae928eff-f2ec-4312-9d18-342a61540ad9")
-    public  DefaultWizardPreviewPanel() {
+    public DefaultWizardPreviewPanel() {
         this.controller = new WizardPreviewPanelController();
     }
 
@@ -90,7 +90,7 @@ public class DefaultWizardPreviewPanel implements IPanelProvider {
         } else {
             this.controller.setData(null);
         }
-        
+
     }
 
     @objid ("268d3210-0745-4c6b-bb04-85bb580d8ca5")
@@ -129,7 +129,7 @@ public class DefaultWizardPreviewPanel implements IPanelProvider {
         private Link detailsLink;
 
         @objid ("b16d844a-6e18-4bc0-834b-1e2e8bc53c14")
-        public  WizardPreviewPanelUI(WizardPreviewPanelController controller) {
+        public WizardPreviewPanelUI(WizardPreviewPanelController controller) {
             this.controller = controller;
         }
 
@@ -139,7 +139,7 @@ public class DefaultWizardPreviewPanel implements IPanelProvider {
             this.previewGroup.setText(Api.I18N.getMessage("Ui.CreationWizard.PreviewGroup.label"));
             this.previewGroup.setLayoutData(new GridData(GridData.FILL_BOTH));
             this.previewGroup.setLayout(new GridLayout(1, false));
-            
+
             this.previewImage = new Label(this.previewGroup, SWT.BORDER);
             this.previewImage.setSize(PREVIEW_WIDTH, PREVIEW_HEIGHT);
             GridData gd = new GridData();
@@ -147,19 +147,19 @@ public class DefaultWizardPreviewPanel implements IPanelProvider {
             gd.widthHint = PREVIEW_WIDTH;
             gd.horizontalAlignment = SWT.CENTER;
             this.previewImage.setLayoutData(gd);
-            
+
             this.detailsText = new StyledText(this.previewGroup, SWT.MULTI | SWT.WRAP);
             this.detailsText.setForeground(UIColor.LABEL_TIP_FG);
             this.detailsText.setEditable(false);
             this.detailsText.setBackground(this.previewGroup.getBackground());
-            
+
             GridData gd2 = new GridData(SWT.FILL, SWT.FILL, true, true);
             this.detailsText.setLayoutData(gd2);
-            
+
             this.detailsLink = new Link(this.previewGroup, SWT.NONE);
             GridData gd3 = new GridData(SWT.FILL, SWT.FILL, true, false);
             this.detailsLink.setLayoutData(gd3);
-            
+
             // Install listeners
             this.detailsLink.addSelectionListener(new SelectionAdapter() {
                 @SuppressWarnings("synthetic-access")
@@ -178,7 +178,7 @@ public class DefaultWizardPreviewPanel implements IPanelProvider {
                 this.previewImage.setImage(null);
             }
             this.previewGroup.dispose();
-            
+
         }
 
         @objid ("bc6c951f-483f-4eec-9cd5-f01d0f010489")
@@ -189,7 +189,7 @@ public class DefaultWizardPreviewPanel implements IPanelProvider {
                 this.previewImage.setImage(null);
                 img.dispose();
             }
-            
+
             // Create and setup the new preview image
             if (imageDescriptor != null) {
                 this.previewImage.setImage(imageDescriptor.createImage());
@@ -198,7 +198,7 @@ public class DefaultWizardPreviewPanel implements IPanelProvider {
                 URL imageUrl = FileLocator.find(bundle, new Path("images/noimagepreview400x300.png"), null);
                 this.previewImage.setImage(ImageDescriptor.createFromURL(imageUrl).createImage(true));
             }
-            
+
         }
 
         @objid ("c41a81f3-0baa-4a27-955d-895de9209d6d")
@@ -220,7 +220,7 @@ public class DefaultWizardPreviewPanel implements IPanelProvider {
                 this.detailsLink.setText("");
                 this.detailsLink.setData("url", null);
             }
-            
+
         }
 
     }
@@ -244,7 +244,7 @@ public class DefaultWizardPreviewPanel implements IPanelProvider {
             if (this.ui != null) {
                 this.ui.update(this.data);
             }
-            
+
         }
 
         @objid ("c95362fd-17f4-472e-b35b-fba1f6b73e2f")
@@ -265,7 +265,7 @@ public class DefaultWizardPreviewPanel implements IPanelProvider {
         public void dispose() {
             this.ui.dispose();
             this.ui = null;
-            
+
         }
 
         @objid ("f302f7aa-f840-447e-a03f-2764426d4612")
@@ -274,11 +274,11 @@ public class DefaultWizardPreviewPanel implements IPanelProvider {
                 BrowserDialog dialog = new BrowserDialog(getUi().getShell(), helpUrl);
                 dialog.open();
             }
-            
+
         }
 
         @objid ("507bcd09-60f1-41ba-85c1-0163c2b5a1d4")
-        public  WizardPreviewPanelController() {
+        public WizardPreviewPanelController() {
             super();
         }
 

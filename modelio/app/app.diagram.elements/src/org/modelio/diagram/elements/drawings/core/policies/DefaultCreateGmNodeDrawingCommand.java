@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.drawings.core.policies;
 
@@ -46,18 +46,19 @@ public class DefaultCreateGmNodeDrawingCommand extends Command {
 
     /**
      * Creates a node creation command.
+     *
      * @param layer The parent layer
      * @param newNodeType the node to create
      * @param drawingIdentifier the drawing identifier.
      * @param constraint The initial constraint of the created node.
      */
     @objid ("0f667fd0-6eaf-4672-b6c8-377503a43049")
-    public  DefaultCreateGmNodeDrawingCommand(IGmDrawingLayer layer, Class<? extends IGmNodeDrawing> newNodeType, String drawingIdentifier, Object constraint) {
+    public DefaultCreateGmNodeDrawingCommand(IGmDrawingLayer layer, Class<? extends IGmNodeDrawing> newNodeType, String drawingIdentifier, Object constraint) {
         this.layer = layer;
         this.newNodeType = newNodeType;
         this.drawingIdentifier = drawingIdentifier;
         this.constraint = constraint;
-        
+
     }
 
     @objid ("c1acf188-041a-4e05-b433-f7e5064a25e0")
@@ -72,6 +73,7 @@ public class DefaultCreateGmNodeDrawingCommand extends Command {
 
     /**
      * Get the initial layout constraint.
+     *
      * @return the initial layout constraint.
      */
     @objid ("77cc7a82-16fe-4563-b425-1d2e92d568bc")
@@ -92,7 +94,7 @@ public class DefaultCreateGmNodeDrawingCommand extends Command {
             // TODO : report in another way ?
             throw new RuntimeException(e.toString(), e);
         }
-        
+
     }
 
 }

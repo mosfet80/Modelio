@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.diagram.elements.core.figures;
 
@@ -34,7 +53,7 @@ import org.modelio.diagram.styles.core.StyleKey.LinePattern;
  * Figure class to display GmLinks.
  * <p>
  * It inherits from {@link PolylineConnection} and implements {@link IPenOptionsSupport}. This class may be used as is or redefined.
- * 
+ *
  * @author cmarin
  */
 @objid ("7fa7269a-1dec-11e2-8cad-001ec947c8cc")
@@ -101,7 +120,6 @@ public class LinkFigure extends PolylineConnection implements IPenOptionsSupport
         ZoomDrawer.setLineWidth(g, this.getLineWidth());
         configureAntialias(g);
         super.outlineShape(g);
-        
     }
 
     /**
@@ -109,15 +127,24 @@ public class LinkFigure extends PolylineConnection implements IPenOptionsSupport
      * <p>
      * This is done because anti-aliasing  on dashed lines with line width = 1px blurs too much dashes,
      * at least on windows.
+     *
      * @param g the graphics object
      */
     @objid ("be6c57ad-500a-4e4e-b78d-61cd3715dda9")
     protected void configureAntialias(Graphics g) {
-        if (g.getAntialias() != SWT.OFF && g.getLineWidth() <= 1 && g.getLineStyle() != SWT.LINE_SOLID) {
+        if (g.getAntialias() == SWT.OFF) {
+            return;
+        } else if (g.getXORMode()) {
+            // anti alias needs advanced graphics that are incompatible with XOR mode
+            g.setAntialias(SWT.OFF);
+            g.setAdvanced(false);
+        } else if ((g.getAbsoluteScale() * g.getLineWidth()) <= 1.0 && g.getLineStyle() != SWT.LINE_SOLID) {
             // Antialias on dashed lines with line width = 1 blurs too much dashes
             g.setAntialias(SWT.OFF);
+        } else {
+            g.setAdvanced(true);
+            g.setAntialias(SWT.ON);
         }
-        
     }
 
     @objid ("7fa988c9-1dec-11e2-8cad-001ec947c8cc")
@@ -136,16 +163,15 @@ public class LinkFigure extends PolylineConnection implements IPenOptionsSupport
      * Creates an instance of LinkFigure. The tolerance (used in {@link #containsPoint(int, int)}) is set to 3 (default from {@link Polyline} is 2).
      */
     @objid ("7fa988d2-1dec-11e2-8cad-001ec947c8cc")
-    public  LinkFigure() {
+    public LinkFigure() {
         super();
         setTolerance(3);
-        
+
         // Use a specific path as default points
         removeAllPoints();
         for (int i = 0; i < DEFAULT_POINTS.length - 1; i = i + 2) {
             addPoint(new Point(DEFAULT_POINTS[i], DEFAULT_POINTS[i + 1]));
         }
-        
     }
 
 }

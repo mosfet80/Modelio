@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.drawings.ellipse;
 
@@ -36,12 +36,12 @@ public class EllipseDrawingEditPart extends NodeDrawingWithLabelEditPart {
     @Override
     protected IFigure createFigure() {
         EllipseFigure f = new EllipseDrawingFigure();
-        
+
         // set style independent properties
-        
+
         // set style dependent properties
         refreshFromStyle(f, getModelStyle());
-        
+
         // return the figure
         return f;
     }
@@ -67,7 +67,7 @@ public class EllipseDrawingEditPart extends NodeDrawingWithLabelEditPart {
     @objid ("02236acb-33d0-43bf-9ec2-e3f60f1534d4")
     public static final class EllipseDrawingFigure extends EllipseFigure {
         @objid ("509b92da-7a84-4ec1-9f46-d46f821c4f20")
-        public  EllipseDrawingFigure() {
+        public EllipseDrawingFigure() {
             super();
         }
 
@@ -79,7 +79,7 @@ public class EllipseDrawingEditPart extends NodeDrawingWithLabelEditPart {
                     for (Object c : getChildren())
                         if (((IFigure)c).containsPoint(x, y))
                             return true;
-                        
+
                     return ! (getBounds().getShrinked(getInsets().getAdded(IDrawingConstants.TRANSPARENT_MARGIN)).contains(x, y));
                 }
                 return true;
@@ -92,8 +92,8 @@ public class EllipseDrawingEditPart extends NodeDrawingWithLabelEditPart {
         public Dimension getPreferredSize(int wHint, int hHint) {
             // Controls the one click creation size
             // Preferred size is the biggest of:
-            // - current size, 
-            // - layout computed preferred size 
+            // - current size,
+            // - layout computed preferred size
             // - and default size.
             final Dimension preferredSize = super.getPreferredSize(wHint, hHint);
             return IDrawingConstants.DEFAULT_SIZE.getUnioned(preferredSize).union(getSize());
@@ -104,8 +104,8 @@ public class EllipseDrawingEditPart extends NodeDrawingWithLabelEditPart {
         public Dimension getMinimumSize(int wHint, int hHint) {
             // Controls the "fit to content" size
             // Minimum size is the biggest of:
-            // - current size, 
-            // - layout computed minimum size 
+            // - current size,
+            // - layout computed minimum size
             // - and "fit to content" size.
             final Dimension lminSize = super.getMinimumSize(wHint, hHint);
             return IDrawingConstants.FIT_TO_CONTENT_MINSIZE.getUnioned(lminSize).union(getSize());

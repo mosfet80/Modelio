@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -39,7 +39,7 @@ public class OMessage extends OModelElement {
     }
 
     @objid ("2a231905-0674-42c5-982c-2488f27d910e")
-    public  OMessage(Message param) {
+    public OMessage(Message param) {
         super(param);
     }
 
@@ -49,13 +49,13 @@ public class OMessage extends OModelElement {
         // we need to take the interaction on the send event
         Interaction interaction = (Interaction) AbstractObjingModelNavigation.getEnclosingElement(getObjingElement(),
                 getObjingElement().getMClass().getMetamodel().getMClass(Interaction.class));
-        
-        
+
+
         Object ecoreInteraction =  GenerationProperties.getInstance().getMappedElement(interaction);
-        
+
         if ((ecoreInteraction != null) && (ecoreInteraction instanceof org.eclipse.uml2.uml.Interaction))
             ((org.eclipse.uml2.uml.Message) ecoreElt).setInteraction((org.eclipse.uml2.uml.Interaction)ecoreInteraction);
-        
+
     }
 
     @objid ("f4b27e6d-f577-4d41-8652-fa0b0dc38f13")
@@ -65,7 +65,7 @@ public class OMessage extends OModelElement {
         setMessageSort((org.eclipse.uml2.uml.Message) ecoreElt);
         setArgument((org.eclipse.uml2.uml.Message) ecoreElt);
         setConnector((org.eclipse.uml2.uml.Message) ecoreElt);
-        
+
     }
 
     @objid ("caddd578-6782-4aa3-b8d8-a9b6307ec1c1")
@@ -92,7 +92,7 @@ public class OMessage extends OModelElement {
         default:
             break;
         }
-        
+
     }
 
     @objid ("9eb99c2d-a480-473b-84ab-8919f584e88f")
@@ -104,33 +104,33 @@ public class OMessage extends OModelElement {
             valueSpecification.setValue(argument);
             ecoreElt.getArguments().add(valueSpecification);
         }
-        
+
     }
 
     @objid ("8758cd5f-2b99-421b-bfc3-0021c783f1d7")
     private void setConnector(org.eclipse.uml2.uml.Message ecoreElt) {
         Message objMessage = (Message) getObjingElement();
-        
+
         MessageEnd end1 = objMessage.getReceiveEvent();
         MessageEnd end2 = objMessage.getSendEvent();
-        
+
         if ((end1 != null )
                 && (end2 != null)
                 && (end1.getCovered().size() > 0)
                 &&  (end2.getCovered().size() > 0)) {
-        
+
             Instance instance1 = end1.getCovered().get(0).getRepresented();
             Instance instance2 = end2.getCovered().get(0).getRepresented();
-        
+
             if ((instance1 != null) && (instance2 != null)){
-        
+
                 for (LinkEnd linkEnd : instance1.getOwnedEnd()){
-        
+
                     Link link = linkEnd.getLink();
                     if (link != null){
-        
+
                         for (LinkEnd linkend2 : link.getLinkEnd()){
-        
+
                             if (linkend2.getOwner().equals(instance2)){
                                 //found the correct instance
                                 org.eclipse.uml2.uml.Element ecoreConnector = GenerationProperties.getInstance().getMappedElement(link);
@@ -141,13 +141,13 @@ public class OMessage extends OModelElement {
                             }
                         }
                     }
-        
+
                 }
-        
+
             }
-        
+
         }
-        
+
     }
 
 }

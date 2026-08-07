@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.styles.core;
 
@@ -51,7 +51,7 @@ public class StyleKey {
     /**
      * Unique identifier for the style key.
      */
-    
+
     @mdl.prop
     @objid ("27a31d9c-1927-11e2-92d2-001ec947c8cc")
     public String id;
@@ -65,7 +65,7 @@ public class StyleKey {
     /**
      * Label displayed in the GUI.
      */
-    
+
     @mdl.prop
     @objid ("27a7e24f-1927-11e2-92d2-001ec947c8cc")
     public String label;
@@ -79,7 +79,7 @@ public class StyleKey {
     /**
      * Tooltip displayable by the GUI.
      */
-    
+
     @mdl.prop
     @objid ("27a7e257-1927-11e2-92d2-001ec947c8cc")
     public String tooltip;
@@ -93,7 +93,7 @@ public class StyleKey {
     /**
      * Category that can be used to group style keys.
      */
-    
+
     @mdl.prop
     @objid ("27aca706-1927-11e2-92d2-001ec947c8cc")
     public String category;
@@ -122,7 +122,7 @@ public class StyleKey {
     /**
      * Type of the style key.
      */
-    
+
     @mdl.prop
     @objid ("de20fe3a-cbf5-4713-81d9-7463a386b6de")
     public Class<?> type;
@@ -135,6 +135,7 @@ public class StyleKey {
 
     /**
      * Return the StyleKey instance for a given string key.
+     *
      * @param key the key string value
      * @return the StyleKey for the given string key or null if none found.
      */
@@ -145,6 +146,7 @@ public class StyleKey {
 
     /**
      * Get all instances of StyleKey.
+     *
      * @return all created style keys.
      */
     @objid ("8580d356-1926-11e2-92d2-001ec947c8cc")
@@ -154,6 +156,7 @@ public class StyleKey {
 
     /**
      * Creates a style key.
+     *
      * @param id The style key id.
      * @param type The type of the style key.
      * @param label the key I18n label
@@ -161,7 +164,7 @@ public class StyleKey {
      * @param category the key I18n category
      */
     @objid ("8580d35d-1926-11e2-92d2-001ec947c8cc")
-    public  StyleKey(String id, Class<?> type, String label, String tooltip, String category) {
+    public StyleKey(String id, Class<?> type, String label, String tooltip, String category) {
         this.id = id;
         this.metakey = null;
         this.type = type;
@@ -169,11 +172,12 @@ public class StyleKey {
         this.tooltip = tooltip;
         this.category = category;
         instances.put(this.id, this);
-        
+
     }
 
     /**
      * Creates a StyleKey based on a MetaKey.
+     *
      * @param id The style id
      * @param metakey the base meta key.
      * @param label the key I18n label
@@ -181,7 +185,7 @@ public class StyleKey {
      * @param category the key I18n category
      */
     @objid ("8583359f-1926-11e2-92d2-001ec947c8cc")
-    public  StyleKey(String id, MetaKey metakey, String label, String tooltip, String category) {
+    public StyleKey(String id, MetaKey metakey, String label, String tooltip, String category) {
         this.id = id;
         this.metakey = metakey;
         this.type = metakey.getType();
@@ -189,7 +193,7 @@ public class StyleKey {
         this.tooltip = tooltip;
         this.category = category;
         instances.put(this.id, this);
-        
+
     }
 
     @objid ("858335a7-1926-11e2-92d2-001ec947c8cc")
@@ -217,6 +221,7 @@ public class StyleKey {
 
     /**
      * Get the meta key if any.
+     *
      * @return the meta key or null if the style key is not based on a meta key.
      */
     @objid ("858335ad-1926-11e2-92d2-001ec947c8cc")
@@ -238,6 +243,7 @@ public class StyleKey {
      * Compare this style key with the given one for matching.
      * <p>
      * The style keys match if they are the same or have the same meta key.
+     *
      * @param k The style key to compare with.
      * @return true if the style keys are the same or have the same meta key.
      */
@@ -257,6 +263,7 @@ public class StyleKey {
      * <p>
      * Throws an exception explaining the problem if the value is not valid.
      * The exception message may be directly displayed in the GUI so must be human readable.
+     *
      * @param value the style key value to check
      * @throws IllegalArgumentException if the value is not valid. The message tells why.
      */
@@ -266,13 +273,13 @@ public class StyleKey {
         if (value == null && getType() == MRef.class) {
             return;
         }
-        
+
         // Check the value type matches the style key type
         if (!getType().isInstance(value)) {
             String msg = DiagramStyles.I18N.getMessage("StyleKey.InvalidValue", String.valueOf(value), this.id, getType().getSimpleName());
             throw new IllegalArgumentException(msg);
         }
-        
+
     }
 
     /**
@@ -439,14 +446,14 @@ public class StyleKey {
 
     /**
      * Line pattern.
-     * 
+     *
      * @see org.eclipse.swt.SWT
      */
     @objid ("85859825-1926-11e2-92d2-001ec947c8cc")
     public enum LinePattern {
         /**
          * Line drawing style for solid lines
-         * 
+         *
          * @see org.eclipse.swt.SWT#LINE_SOLID
          */
         @objid ("85859827-1926-11e2-92d2-001ec947c8cc")
@@ -474,6 +481,7 @@ public class StyleKey {
 
         /**
          * Convert the enumerate to its {@link org.eclipse.swt.SWT} matching line style constant.
+         *
          * @return the SWT matching line style constant.
          */
         @objid ("85859831-1926-11e2-92d2-001ec947c8cc")
@@ -483,6 +491,7 @@ public class StyleKey {
 
         /**
          * Convert the given {@link org.eclipse.swt.SWT} constant to a LinePattern
+         *
          * @param i an SWT line style constant
          * @return The matching line pattern.
          */

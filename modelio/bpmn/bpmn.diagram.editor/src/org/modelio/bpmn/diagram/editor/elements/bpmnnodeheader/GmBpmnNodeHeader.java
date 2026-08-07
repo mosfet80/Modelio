@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnnodeheader;
 
@@ -61,11 +61,11 @@ public class GmBpmnNodeHeader extends GmModelElementHeader {
     private List<Image> images;
 
     @objid ("617c2b95-55b6-11e2-877f-002564c97630")
-    public  GmBpmnNodeHeader(IGmDiagram diagram, MRef relatedRef, boolean showIcone) {
+    public GmBpmnNodeHeader(IGmDiagram diagram, MRef relatedRef, boolean showIcone) {
         super(diagram, relatedRef);
         this.setStackedStereotypes(true);
         this.setShowMetaclassIcon(showIcone);
-        
+
     }
 
     /**
@@ -77,9 +77,9 @@ public class GmBpmnNodeHeader extends GmModelElementHeader {
         if (parent != null && getParent() != parent) {
             getPersistedStyle().setCascadedStyle(parent.getPersistedStyle());
         }
-        
+
         super.setParent(parent);
-        
+
     }
 
     @objid ("617c2ba5-55b6-11e2-877f-002564c97630")
@@ -147,7 +147,7 @@ public class GmBpmnNodeHeader extends GmModelElementHeader {
      * Empty c'tor for deserialisation.
      */
     @objid ("617db24b-55b6-11e2-877f-002564c97630")
-    public  GmBpmnNodeHeader() {
+    public GmBpmnNodeHeader() {
         // empty constructor for the serialization
     }
 
@@ -178,17 +178,17 @@ public class GmBpmnNodeHeader extends GmModelElementHeader {
             break;
         }
         }
-        
+
     }
 
     @objid ("617f38c3-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmBpmnNodeHeader.", MINOR_VERSION);
-        
+
     }
 
     @objid ("617f38c9-55b6-11e2-877f-002564c97630")

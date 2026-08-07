@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.exml.resource;
 
@@ -32,6 +32,7 @@ import org.modelio.vbasic.files.FileUtils;
 public class BlobGeometry {
     /**
      * Compute the path of a blob file.
+     *
      * @param blobKey the blob key
      * @return the blob file path relative to the repository path.
      */
@@ -40,7 +41,7 @@ public class BlobGeometry {
         StringBuilder sb = new StringBuilder(200);
         sb.append(IExmlRepositoryGeometry.BLOBS_DIRNAME);
         sb.append('/');
-        sb.append(String.format("%02x", Math.abs(blobKey.hashCode() % 255))); 
+        sb.append(String.format("%02x", Math.abs(blobKey.hashCode() % 255)));
         sb.append('/');
         FileUtils.encodeFileName(blobKey, sb);
         sb.append(IExmlRepositoryGeometry.EXT_BLOB);
@@ -49,6 +50,7 @@ public class BlobGeometry {
 
     /**
      * Decode the blob key from a blob file path.
+     *
      * @param file a blob file path.
      * @return the blob key.
      */
@@ -60,6 +62,7 @@ public class BlobGeometry {
 
     /**
      * Decode the blob key from a blob file path.
+     *
      * @param file a blob file path.
      * @return the blob key.
      */

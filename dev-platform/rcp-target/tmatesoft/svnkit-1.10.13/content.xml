@@ -1,0 +1,768 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?metadataRepository version='1.2.0'?>
+<repository name='file:////home/fferran/mtools/alouette/work/eclipse/dev-platform/rcp-target/tmatesoft/com.tmatesoft.svn_1.10.13.eclipse - metadata' type='org.eclipse.equinox.internal.p2.metadata.repository.LocalMetadataRepository' version='1'>
+  <properties size='2'>
+    <property name='p2.timestamp' value='1771603194029'/>
+    <property name='p2.compressed' value='false'/>
+  </properties>
+  <references size='2'>
+    <repository uri='https://eclipse.tmatesoft.com/1.10.x/' url='https://eclipse.tmatesoft.com/1.10.x/' type='1' options='0'/>
+    <repository uri='https://eclipse.tmatesoft.com/1.10.x/' url='https://eclipse.tmatesoft.com/1.10.x/' type='0' options='0'/>
+  </references>
+  <units size='3'>
+    <unit id='com.tmatesoft.svnkit.feature.jar' version='1.10.13.r10892'>
+      <properties size='6'>
+        <property name='org.eclipse.equinox.p2.name' value='SVNKit Library'/>
+        <property name='org.eclipse.equinox.p2.description' value='%description'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='https://svnkit.com/'/>
+        <property name='org.eclipse.equinox.p2.provider' value='TMate Software'/>
+        <property name='df_LT.license' value='The TMate Open Source License&#xA;&#xA;This license applies to all portions of TMate SVNKit library, which&#xA;are not externally-maintained libraries (e.g. Trilead SSH library).&#xA;&#xA;All the source code and compiled classes in package org.tigris.subversion.javahl&#xA;except SvnClient class are covered by the license in JAVAHL-LICENSE file&#xA;&#xA;Copyright (c) 2004-2025 TMate Software. All rights reserved.&#xA;&#xA;Redistribution and use in source and binary forms, with or without modification,&#xA;are permitted provided that the following conditions are met:&#xA;&#xA;* Redistributions of source code must retain the above copyright notice,&#xA;this list of conditions and the following disclaimer.&#xA;&#xA;* Redistributions in binary form must reproduce the above copyright notice,&#xA;this list of conditions and the following disclaimer in the documentation &#xA;and/or other materials provided with the distribution.&#xA;&#xA;* Redistributions in any form must be accompanied by information on how to&#xA;obtain complete source code for the software that uses SVNKit and any &#xA;accompanying software that uses the software that uses SVNKit. The source&#xA;code must either be included in the distribution or be available for no &#xA;more than the cost of distribution plus a nominal fee, and must be freely &#xA;redistributable under reasonable conditions. For an executable file, complete&#xA;source code means the source code for all modules it contains. It does not &#xA;include source code for modules or files that typically accompany the major &#xA;components of the operating system on which the executable file runs.&#xA;&#xA;* Redistribution in any form without redistributing source code for software&#xA;that uses SVNKit is possible only when such redistribution is explictly permitted&#xA;by TMate Software. Please, contact TMate Software at support@svnkit.com to &#xA;get such permission.&#xA;&#xA;THIS SOFTWARE IS PROVIDED BY TMATE SOFTWARE ``AS IS&apos;&apos; AND ANY EXPRESS OR IMPLIED&#xA;WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF &#xA;MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT, ARE&#xA;DISCLAIMED. &#xA;&#xA;IN NO EVENT SHALL TMATE SOFTWARE BE LIABLE FOR ANY DIRECT, INDIRECT,&#xA;INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT&#xA;LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR &#xA;PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF &#xA;LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE&#xA;OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF &#xA;ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.&#xA;&#xA;'/>
+        <property name='df_LT.description' value='SVNKit is a pure java Subversion client library that may be used through its own API or serve as a transparent replacement of native javahl bindings.'/>
+      </properties>
+      <provides size='3'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='com.tmatesoft.svnkit.feature.jar' version='1.10.13.r10892'/>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='feature' version='1.0.0'/>
+        <provided namespace='org.eclipse.update.feature' name='com.tmatesoft.svnkit' version='1.10.13.r10892'/>
+      </provides>
+      <filter>
+        (org.eclipse.update.install.features=true)
+      </filter>
+      <artifacts size='1'>
+        <artifact classifier='org.eclipse.update.feature' id='com.tmatesoft.svnkit' version='1.10.13.r10892'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='zipped'>
+            true
+          </instruction>
+        </instructions>
+      </touchpointData>
+      <licenses size='1'>
+        <license uri='https://svnkit.com/license.html' url='https://svnkit.com/license.html'>
+          %license
+        </license>
+      </licenses>
+      <copyright uri='https://svnkit.com/' url='https://svnkit.com/'>
+        (c) 2004-2025, TMate Software Ltd.
+      </copyright>
+    </unit>
+    <unit id='com.tmatesoft.svnkit.feature.group' version='1.10.13.r10892' singleton='false'>
+      <update id='com.tmatesoft.svnkit.feature.group' range='[0.0.0,1.10.13.r10892)' severity='0'/>
+      <properties size='7'>
+        <property name='org.eclipse.equinox.p2.name' value='SVNKit Library'/>
+        <property name='org.eclipse.equinox.p2.description' value='%description'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='https://svnkit.com/'/>
+        <property name='org.eclipse.equinox.p2.provider' value='TMate Software'/>
+        <property name='org.eclipse.equinox.p2.type.group' value='true'/>
+        <property name='df_LT.license' value='The TMate Open Source License&#xA;&#xA;This license applies to all portions of TMate SVNKit library, which&#xA;are not externally-maintained libraries (e.g. Trilead SSH library).&#xA;&#xA;All the source code and compiled classes in package org.tigris.subversion.javahl&#xA;except SvnClient class are covered by the license in JAVAHL-LICENSE file&#xA;&#xA;Copyright (c) 2004-2025 TMate Software. All rights reserved.&#xA;&#xA;Redistribution and use in source and binary forms, with or without modification,&#xA;are permitted provided that the following conditions are met:&#xA;&#xA;* Redistributions of source code must retain the above copyright notice,&#xA;this list of conditions and the following disclaimer.&#xA;&#xA;* Redistributions in binary form must reproduce the above copyright notice,&#xA;this list of conditions and the following disclaimer in the documentation &#xA;and/or other materials provided with the distribution.&#xA;&#xA;* Redistributions in any form must be accompanied by information on how to&#xA;obtain complete source code for the software that uses SVNKit and any &#xA;accompanying software that uses the software that uses SVNKit. The source&#xA;code must either be included in the distribution or be available for no &#xA;more than the cost of distribution plus a nominal fee, and must be freely &#xA;redistributable under reasonable conditions. For an executable file, complete&#xA;source code means the source code for all modules it contains. It does not &#xA;include source code for modules or files that typically accompany the major &#xA;components of the operating system on which the executable file runs.&#xA;&#xA;* Redistribution in any form without redistributing source code for software&#xA;that uses SVNKit is possible only when such redistribution is explictly permitted&#xA;by TMate Software. Please, contact TMate Software at support@svnkit.com to &#xA;get such permission.&#xA;&#xA;THIS SOFTWARE IS PROVIDED BY TMATE SOFTWARE ``AS IS&apos;&apos; AND ANY EXPRESS OR IMPLIED&#xA;WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF &#xA;MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT, ARE&#xA;DISCLAIMED. &#xA;&#xA;IN NO EVENT SHALL TMATE SOFTWARE BE LIABLE FOR ANY DIRECT, INDIRECT,&#xA;INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT&#xA;LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR &#xA;PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF &#xA;LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE&#xA;OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF &#xA;ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.&#xA;&#xA;'/>
+        <property name='df_LT.description' value='SVNKit is a pure java Subversion client library that may be used through its own API or serve as a transparent replacement of native javahl bindings.'/>
+      </properties>
+      <provides size='2'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='com.tmatesoft.svnkit.feature.group' version='1.10.13.r10892'/>
+        <provided namespace='org.eclipse.equinox.p2.localization' name='df_LT' version='1.0.0'/>
+      </provides>
+      <requires size='2'>
+        <required namespace='org.eclipse.equinox.p2.iu' name='com.tmatesoft.svnkit' range='[1.10.13.r10892,1.10.13.r10892]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='com.tmatesoft.svnkit.feature.jar' range='[1.10.13.r10892,1.10.13.r10892]'>
+          <filter>
+            (org.eclipse.update.install.features=true)
+          </filter>
+        </required>
+      </requires>
+      <touchpoint id='null' version='0.0.0'/>
+      <licenses size='1'>
+        <license uri='https://svnkit.com/license.html' url='https://svnkit.com/license.html'>
+          %license
+        </license>
+      </licenses>
+      <copyright uri='https://svnkit.com/' url='https://svnkit.com/'>
+        (c) 2004-2025, TMate Software Ltd.
+      </copyright>
+    </unit>
+    <unit id='com.tmatesoft.svnkit' version='1.10.13.r10892' singleton='false' generation='2'>
+      <update id='com.tmatesoft.svnkit' range='[0.0.0,1.10.13.r10892)' severity='0'/>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='SVNKit pure Java (tm) Subversion Library'/>
+        <property name='org.eclipse.equinox.p2.provider' value='TMate Software'/>
+      </properties>
+      <provides size='328'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='com.tmatesoft.svnkit' version='1.10.13.r10892'/>
+        <provided namespace='osgi.bundle' name='com.tmatesoft.svnkit' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.util.closeable' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.internal.weaving' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.sqljet.core.internal.pager' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.agent.unix' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.sqljet.core.internal.btree' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.internal.io.dav.http' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.internal.provisional.verifier' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.helpers' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.client.auth.keyboard' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.wc' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.core.runtime.jobs' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.internal.wc.patch' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.container.builders' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.osgi.framework.hooks.resolver' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.slf4j.spi' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.client.kex' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.trilead.ssh2.signature' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.sqljet.core.internal.schema' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.sqljet.core.internal' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.commons.logging.impl' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.server.command' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.service.localization' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.sqljet.core.internal.mutex' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.config' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.util.io.der' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.framework.eventmgr' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.config.keys.impl' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.client.channel.exit' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.wc2' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.sqljet.core.internal.db' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.trilead.ssh2' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.osgi.framework' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.client.auth.password' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.session' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.internal.wc.admin' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.global' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.sun.jna.platform.unix' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.server.kex' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.internal.container' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.antlr.runtime.debug' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.core.internal.preferences' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.osgi.framework.dto' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.storage.url.bundleentry' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.replicator' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.service.datalocation' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.internal.serviceregistry' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.kex.extension' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.equinox.app' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.core.internal.runtime' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.keyprovider' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.signature' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.trilead.ssh2.packets' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.mac' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.io' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.signedcontent' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.client.config' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.config.keys' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.commons.logging' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.sqljet.core.internal.table' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.util.io.functors' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.slf4j.event' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.internal.debug' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='de.regnis.q.sequence.line' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.service.resolver' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.client.global' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.storage.url' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.core.internal.content' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.server.auth.keyboard' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.core.runtime' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.internal.loader' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.container.namespaces' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.config.keys.loader' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.config.keys.loader.ssh2' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.sqljet.core.internal.fs' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.storage.bundlefile' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.server.x11' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.storage.url.reference' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.wc2.admin' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.slf4j' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.core.internal.registry.spi' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.javahl' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.sqljet.core.internal.vdbe' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.trilead.ssh2.auth' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.wc2.hooks' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.internal.io.svn.ssh.apache' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.util' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.sun.jna.win32' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.sun.jna' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.jcraft.jsch.agentproxy.usocket' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.server.auth.gss' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.osgi.service.condpermadmin' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.server.forward' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.util.buffer.keys' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.core.runtime.content' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.util' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.sqljet.core.internal.memory' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.sun.jna.platform.win32.COM' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.client.simple' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.sqljet.core.internal.map' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.sqljet.core.table.engine' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.core.internal.preferences.exchange' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.internal.io.svn.sasl' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.util.io.input' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.internal.service.security' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='de.regnis.q.sequence' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.util.buffer' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.osgi.service.url' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.sun.jna.internal' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.core.internal.registry' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.util' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.osgi.service.resolver' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.internal.wc' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.server.shell' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.config.keys.loader.pem' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.osgi.resource.dto' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.jcraft.jsch.agentproxy.connector' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.service.security' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.antlr.runtime' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.server.channel' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.core.internal.adapter' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.internal.util' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='net.jpountz.lz4' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.config.keys.u2f' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.server.session' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.trilead.ssh2.channel' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.osgi.framework.namespace' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.digest' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.internal.framework' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.osgi.framework.startlevel.dto' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.framework.console' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.sqljet.core.schema' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.future' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.internal.wc17.db.statement' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.agent.common' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.util.functors' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.slf4j.helpers' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.osgi.resource' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.osgi.service.log' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='de.regnis.q.sequence.line.simplifier' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.kex.dh' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.osgi.framework.hooks.service' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.javahl17' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.channel.throttle' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.server.global' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.osgi.framework.wiring' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.launch' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.service.urlconversion' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.util.io.resource' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.trilead.ssh2.sftp' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.osgi.dto' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tigris.subversion.javahl' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.trilead.ssh2.util' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.wc.xml' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.util.security.eddsa' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.session.helpers' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.sun.jna.platform.linux' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.subversion.javahl.callback' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.trilead.ssh2.crypto' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.internal.hooks' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.file.util' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.osgi.service.permissionadmin' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.file.nonefs' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.jcraft.jsch.agentproxy' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.kex.extension.parser' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.service.environment' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.sun.jna.platform.win32.COM.util' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.osgi.framework.launch' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.file' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.internal.io.svn.ssh' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.sqljet.core.map' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.channel.exception' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.util.io' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.client.auth.hostbased' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.core.internal.boot' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.internal.wc2.remote' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.config.keys.writer' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.util.security' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.internal.messages' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.client.auth' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.compression' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.sun.jna.platform.win32.COM.tlb' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.internal.wc2' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.trilead.ssh2.log' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.core.internal.preferences.legacy' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.core.runtime.dynamichelpers' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.service.debug' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.client.keyverifier' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.file.nativefs' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.internal.io.dav' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.wc.admin' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.sqljet.core.table' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.server.auth.hostbased' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.osgi.util.tracker' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.internal.io.fs.revprop' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.osgi.service.prefs' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.auth' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.file.virtualfs' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.internal.loader.buddy' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.internal.wc2.admin' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.internal.wc2.old' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.sqljet.core.internal.lang' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.subversion.javahl.remote' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.internal.delta' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.subversion.javahl.types' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.client.future' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.internal.framework.legacy' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.internal.hookregistry' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.cipher' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.internal.log' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.core.runtime.spi' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.internal.db' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.auth' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.sun.jna.platform.win32.COM.tlb.imp' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.kex' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.sun.jna.platform.win32.COM.util.annotation' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.framework.internal.reliablefile' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.sqljet.core' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.osgi.service.application' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.server.auth' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.sun.jna.platform.unix.solaris' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.internal.wc2.ng' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.util.security.bouncycastle' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.core.runtime.adaptor' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='net.jpountz.xxhash' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.server.jaas' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.container' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.internal.loader.sources' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.equinox.log' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.antlr.runtime.tree' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.client.config.hosts' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.internal.io.svn.ssh.trilead' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.core.runtime.preferences' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.osgi.framework.startlevel' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.service.runnable' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.storagemanager' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.client.session.forward' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.osgi.framework.hooks.weaving' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.osgi.service.packageadmin' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.sun.jna.platform.mac' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.internal.url' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.internal.wc2.compat' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.internal.permadmin' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.random' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.client' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.util.helper' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.osgi.service.startlevel' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.core' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.internal.wc17.db.statement17' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.channel' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.osgi.framework.wiring.dto' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.internal.io.fs' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.client.channel' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.storage' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.antlr.runtime.misc' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.internal.io.dav.handlers' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.config.keys.writer.openssh' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.trilead.ssh2.transport' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.internal.location' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='net.jpountz.util' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.framework.util' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.internal.wc17' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.server' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.server.auth.password' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.io.diff' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.client.subsystem' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.io.nio2' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.client.config.keys' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.trilead.ssh2.crypto.digest' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.internal.wc16' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.internal.io.fs.index' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.equinox.internal.app' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.config.keys.loader.openssh.kdf' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.server.auth.pubkey' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.core.runtime.internal.adaptor' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.internal.util' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.forward' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.util.logging' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.agent.local' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.sun.jna.platform.dnd' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.trilead.ssh2.crypto.cipher' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.sun.jna.platform' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.server.subsystem' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.util.net' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.service.pluginconversion' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.core.internal.registry.osgi' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.internal.provisional.service.security' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.server.config.keys' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.storage.url.bundleresource' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.internal.wc2.patch' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.trilead.ssh2.crypto.dh' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.felix.resolver' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.internal.wc17.db' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.internal.signedcontent' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.server.keyprovider' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.sqljet.core.internal.fs.util' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.sun.jna.ptr' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.equinox.events' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.subversion.javahl' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.agent' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.file.root' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.sun.jna.platform.wince' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.util.threads' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='com.sun.jna.platform.win32' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.report.resolution' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.internal.io.fs.repcache' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='de.regnis.q.sequence.line.diff' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.util.io.output' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.certificate' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.subversion.javahl.util' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.framework.log' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='de.regnis.q.sequence.core' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.config.keys.loader.openssh' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.osgi.internal.loader.classpath' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='de.regnis.q.sequence.media' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.internal.io.svn' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.client.auth.pubkey' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.common.io' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.eclipse.core.internal.jobs' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.client.session' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.tmatesoft.svn.core.internal.util.jna' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.apache.sshd.server.config' version='1.10.13.r10892'/>
+        <provided namespace='java.package' name='org.osgi.framework.hooks.bundle' version='1.10.13.r10892'/>
+        <provided namespace='osgi.identity' name='com.tmatesoft.svnkit' version='1.10.13.r10892'>
+          <properties size='1'>
+            <property name='type' value='osgi.bundle'/>
+          </properties>
+        </provided>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <requires size='326'>
+        <required namespace='osgi.bundle' name='org.eclipse.core.runtime' range='[3.0.0,4.0.0)'/>
+        <required namespace='java.package' name='org.apache.sshd.common.util.closeable' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.internal.weaving' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.sqljet.core.internal.pager' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.agent.unix' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.sqljet.core.internal.btree' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.internal.io.dav.http' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.internal.provisional.verifier' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.helpers' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.client.auth.keyboard' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.wc' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.core.runtime.jobs' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.internal.wc.patch' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.container.builders' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.osgi.framework.hooks.resolver' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.slf4j.spi' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.client.kex' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.trilead.ssh2.signature' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.sqljet.core.internal.schema' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.sqljet.core.internal' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.commons.logging.impl' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.server.command' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.service.localization' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.sqljet.core.internal.mutex' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.config' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.util.io.der' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.framework.eventmgr' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.config.keys.impl' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.client.channel.exit' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.wc2' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.sqljet.core.internal.db' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.trilead.ssh2' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.osgi.framework' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.client.auth.password' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.session' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.internal.wc.admin' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.global' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.sun.jna.platform.unix' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.server.kex' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.internal.container' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.antlr.runtime.debug' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.core.internal.preferences' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.osgi.framework.dto' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.storage.url.bundleentry' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.replicator' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.service.datalocation' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.internal.serviceregistry' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.kex.extension' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.equinox.app' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.core.internal.runtime' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.keyprovider' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.signature' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.trilead.ssh2.packets' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.mac' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.io' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.signedcontent' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.client.config' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.config.keys' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.commons.logging' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.sqljet.core.internal.table' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.util.io.functors' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.slf4j.event' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.internal.debug' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='de.regnis.q.sequence.line' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.service.resolver' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.client.global' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.storage.url' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.core.internal.content' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.server.auth.keyboard' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.core.runtime' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.internal.loader' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.container.namespaces' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.config.keys.loader' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.config.keys.loader.ssh2' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.sqljet.core.internal.fs' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.storage.bundlefile' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.server.x11' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.storage.url.reference' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.wc2.admin' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.slf4j' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.core.internal.registry.spi' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.javahl' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.sqljet.core.internal.vdbe' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.trilead.ssh2.auth' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.wc2.hooks' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.internal.io.svn.ssh.apache' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.util' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.sun.jna.win32' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.sun.jna' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.jcraft.jsch.agentproxy.usocket' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.server.auth.gss' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.osgi.service.condpermadmin' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.server.forward' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.util.buffer.keys' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.core.runtime.content' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.util' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.sqljet.core.internal.memory' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.sun.jna.platform.win32.COM' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.client.simple' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.sqljet.core.internal.map' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.sqljet.core.table.engine' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.core.internal.preferences.exchange' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.internal.io.svn.sasl' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.util.io.input' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.internal.service.security' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='de.regnis.q.sequence' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.util.buffer' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.osgi.service.url' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.sun.jna.internal' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.core.internal.registry' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.util' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.osgi.service.resolver' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.internal.wc' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.server.shell' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.config.keys.loader.pem' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.osgi.resource.dto' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.jcraft.jsch.agentproxy.connector' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.service.security' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.antlr.runtime' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.server.channel' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.core.internal.adapter' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.internal.util' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='net.jpountz.lz4' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.config.keys.u2f' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.server.session' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.trilead.ssh2.channel' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.osgi.framework.namespace' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.digest' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.internal.framework' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.osgi.framework.startlevel.dto' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.framework.console' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.sqljet.core.schema' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.future' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.internal.wc17.db.statement' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.agent.common' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.util.functors' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.slf4j.helpers' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.osgi.resource' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.osgi.service.log' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='de.regnis.q.sequence.line.simplifier' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.kex.dh' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.osgi.framework.hooks.service' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.javahl17' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.channel.throttle' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.server.global' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.osgi.framework.wiring' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.launch' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.service.urlconversion' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.util.io.resource' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.trilead.ssh2.sftp' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.osgi.dto' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tigris.subversion.javahl' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.trilead.ssh2.util' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.wc.xml' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.util.security.eddsa' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.session.helpers' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.sun.jna.platform.linux' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.subversion.javahl.callback' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.trilead.ssh2.crypto' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.internal.hooks' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.file.util' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.osgi.service.permissionadmin' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.file.nonefs' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.jcraft.jsch.agentproxy' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.kex.extension.parser' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.service.environment' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.sun.jna.platform.win32.COM.util' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.osgi.framework.launch' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.file' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.internal.io.svn.ssh' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.sqljet.core.map' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.channel.exception' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.util.io' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.client.auth.hostbased' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.core.internal.boot' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.internal.wc2.remote' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.config.keys.writer' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.util.security' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.internal.messages' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.client.auth' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.compression' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.sun.jna.platform.win32.COM.tlb' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.internal.wc2' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.trilead.ssh2.log' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.core.internal.preferences.legacy' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.core.runtime.dynamichelpers' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.service.debug' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.client.keyverifier' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.file.nativefs' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.internal.io.dav' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.wc.admin' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.sqljet.core.table' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.server.auth.hostbased' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.osgi.util.tracker' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.internal.io.fs.revprop' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.osgi.service.prefs' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.auth' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.file.virtualfs' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.internal.loader.buddy' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.internal.wc2.admin' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.internal.wc2.old' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.sqljet.core.internal.lang' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.subversion.javahl.remote' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.internal.delta' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.subversion.javahl.types' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.client.future' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.internal.framework.legacy' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.internal.hookregistry' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.cipher' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.internal.log' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.core.runtime.spi' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.internal.db' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.auth' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.sun.jna.platform.win32.COM.tlb.imp' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.kex' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.sun.jna.platform.win32.COM.util.annotation' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.framework.internal.reliablefile' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.sqljet.core' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.osgi.service.application' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.server.auth' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.sun.jna.platform.unix.solaris' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.internal.wc2.ng' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.util.security.bouncycastle' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.core.runtime.adaptor' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='net.jpountz.xxhash' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.server.jaas' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.container' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.internal.loader.sources' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.equinox.log' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.antlr.runtime.tree' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.client.config.hosts' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.internal.io.svn.ssh.trilead' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.core.runtime.preferences' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.osgi.framework.startlevel' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.service.runnable' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.storagemanager' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.client.session.forward' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.osgi.framework.hooks.weaving' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.osgi.service.packageadmin' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.sun.jna.platform.mac' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.internal.url' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.internal.wc2.compat' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.internal.permadmin' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.random' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.client' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.util.helper' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.osgi.service.startlevel' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.core' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.internal.wc17.db.statement17' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.channel' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.osgi.framework.wiring.dto' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.internal.io.fs' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.client.channel' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.storage' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.antlr.runtime.misc' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.internal.io.dav.handlers' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.config.keys.writer.openssh' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.trilead.ssh2.transport' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.internal.location' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='net.jpountz.util' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.framework.util' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.internal.wc17' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.server' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.server.auth.password' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.io.diff' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.client.subsystem' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.io.nio2' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.client.config.keys' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.trilead.ssh2.crypto.digest' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.internal.wc16' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.internal.io.fs.index' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.equinox.internal.app' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.config.keys.loader.openssh.kdf' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.server.auth.pubkey' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.core.runtime.internal.adaptor' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.internal.util' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.forward' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.util.logging' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.agent.local' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.sun.jna.platform.dnd' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.trilead.ssh2.crypto.cipher' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.sun.jna.platform' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.server.subsystem' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.util.net' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.service.pluginconversion' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.core.internal.registry.osgi' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.internal.provisional.service.security' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.server.config.keys' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.storage.url.bundleresource' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.internal.wc2.patch' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.trilead.ssh2.crypto.dh' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.felix.resolver' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.internal.wc17.db' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.internal.signedcontent' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.server.keyprovider' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.sqljet.core.internal.fs.util' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.sun.jna.ptr' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.equinox.events' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.subversion.javahl' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.agent' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.file.root' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.sun.jna.platform.wince' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.util.threads' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='com.sun.jna.platform.win32' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.report.resolution' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.internal.io.fs.repcache' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='de.regnis.q.sequence.line.diff' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.util.io.output' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.certificate' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.subversion.javahl.util' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.framework.log' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='de.regnis.q.sequence.core' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.config.keys.loader.openssh' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.osgi.internal.loader.classpath' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='de.regnis.q.sequence.media' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.internal.io.svn' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.client.auth.pubkey' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.common.io' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.eclipse.core.internal.jobs' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.client.session' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.tmatesoft.svn.core.internal.util.jna' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.apache.sshd.server.config' range='1.10.13.r10892'/>
+        <required namespace='java.package' name='org.osgi.framework.hooks.bundle' range='1.10.13.r10892'/>
+        <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(version=1.8))'>
+          <description>
+            com.tmatesoft.svnkit
+          </description>
+        </requiredProperties>
+      </requires>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='com.tmatesoft.svnkit' version='1.10.13.r10892'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: com.tmatesoft.svnkit&#xA;Bundle-Version: 1.10.13.r10892&#xA;
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+  </units>
+</repository>

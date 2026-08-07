@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.path;
 
@@ -29,7 +29,7 @@ import org.modelio.diagram.styles.core.StyleKey.ConnectionRouterId;
 
 /**
  * Path for connections in oblique/bendpoint mode.
- * 
+ *
  * @author cmarin
  */
 @objid ("80494675-1dec-11e2-8cad-001ec947c8cc")
@@ -51,11 +51,12 @@ public class ObliqueConnectionHelper implements IConnectionHelper {
     public void updateFrom(final RawPathData rawData) {
         this.bendPoints.clear();
         readRawPoints(rawData);
-        
+
     }
 
     /**
      * Get the path routing mode.
+     *
      * @return the path routing mode.
      */
     @objid ("8049468e-1dec-11e2-8cad-001ec947c8cc")
@@ -65,26 +66,28 @@ public class ObliqueConnectionHelper implements IConnectionHelper {
     }
 
     /**
+     *
      * @param rawData the raw data provided by the tool (expressed in absolute coordinates)
      * @param connection the connection for which this helper is created.
      */
     @objid ("804ba8a6-1dec-11e2-8cad-001ec947c8cc")
-    public  ObliqueConnectionHelper(final RawPathData rawData, final Connection connection) {
+    public ObliqueConnectionHelper(final RawPathData rawData, final Connection connection) {
         this.connection = connection;
         readRawPoints(rawData);
-        
+
     }
 
     /**
      * constructor from a list of points (in coordinates relative to the connection).
+     *
      * @param points the list of point.
      * @param connection the connection for which this helper is created.
      */
     @objid ("804ba8af-1dec-11e2-8cad-001ec947c8cc")
-    public  ObliqueConnectionHelper(final List<Point> points, final Connection connection) {
+    public ObliqueConnectionHelper(final List<Point> points, final Connection connection) {
         this.connection = connection;
         this.bendPoints = points;
-        
+
     }
 
     @objid ("548942b8-a0fa-4daf-8975-8a17be50f9be")
@@ -102,9 +105,9 @@ public class ObliqueConnectionHelper implements IConnectionHelper {
             this.connection.translateToRelative(p);
             this.bendPoints.add(p);
         }
-        
+
         this.bendPoints = BendPointUtils.draw2dPointsToModelConstraint(this.bendPoints);
-        
+
     }
 
     @objid ("2a569448-22ae-4092-830d-62ce8fcc88b0")

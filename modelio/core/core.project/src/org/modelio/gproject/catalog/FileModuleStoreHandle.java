@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.catalog;
 
@@ -75,6 +75,7 @@ public class FileModuleStoreHandle implements IModuleHandle, Comparable<Object> 
      * Public constructor.
      * <p>
      * This object takes ownership of all passed collections.
+     *
      * @param moduleCachePath the module cache path
      * @param name the module name
      * @param version the moduel version
@@ -89,13 +90,13 @@ public class FileModuleStoreHandle implements IModuleHandle, Comparable<Object> 
      * @param metamodelFragments the provided metamodel fragments
      */
     @objid ("2c9748ff-f37d-11e1-a3c7-002564c97630")
-     FileModuleStoreHandle(Path moduleCachePath, String name, Version version, String uid, String mainClassName, Version binaryVersion, List<VersionedItem<?>> dependencies, List<VersionedItem<?>> weakDependencies, List<Path> docPaths, List<Path> jarPaths, Map<String, Path> stylePaths, List<IMetamodelFragmentHandle> metamodelFragments) {
+    FileModuleStoreHandle(Path moduleCachePath, String name, Version version, String uid, String mainClassName, Version binaryVersion, List<VersionedItem<?>> dependencies, List<VersionedItem<?>> weakDependencies, List<Path> docPaths, List<Path> jarPaths, Map<String, Path> stylePaths, List<IMetamodelFragmentHandle> metamodelFragments) {
         this.moduleCachePath = moduleCachePath;
         this.name = name;
         this.version = version;
         this.uid = uid;
         this.mainClassName = mainClassName;
-        
+
         this.binaryVersion = binaryVersion;
         this.dependencies = dependencies;
         this.weakDependencies = weakDependencies;
@@ -103,7 +104,7 @@ public class FileModuleStoreHandle implements IModuleHandle, Comparable<Object> 
         this.jarPaths = jarPaths;
         this.stylePaths = stylePaths;
         this.metamodelFragments = metamodelFragments;
-        
+
     }
 
     @objid ("2c974914-f37d-11e1-a3c7-002564c97630")
@@ -196,6 +197,7 @@ public class FileModuleStoreHandle implements IModuleHandle, Comparable<Object> 
      * Get the root path where all module files are extracted or created.
      * <p>
      * This directory can be copied then a new handle can be created on the directory copy.
+     *
      * @return the module root path.
      */
     @objid ("44c6c46d-615b-470e-bead-2176e0d438fb")
@@ -214,7 +216,7 @@ public class FileModuleStoreHandle implements IModuleHandle, Comparable<Object> 
     public int compareTo(Object obj) {
         if (obj instanceof String) {
             return this.name.toString().compareTo((String) obj);
-        
+
         } else if (obj instanceof FileModuleStoreHandle) {
             return this.version.toString().compareTo(((FileModuleStoreHandle) obj).version.toString());
         }

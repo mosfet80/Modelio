@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.drawings.core.node;
 
@@ -54,25 +54,25 @@ public abstract class NodeDrawingWithLabelEditPart extends NodeDrawingEditPart {
     public void performRequest(Request req) {
         if (RequestConstants.REQ_DIRECT_EDIT.equals(req.getType())) {
             TextFigure label = getLabelFigure(getFigure());
-            final CellEditorLocator locator = 
+            final CellEditorLocator locator =
                     new EditorLocatorForLabelFigure(
-                            label, 
+                            label,
                             str -> label.setContents(str))
                     .setFontGetter(() -> label.getFont());
-        
+
             new TextDirectEditManager(
-                    this, 
-                    locator, 
-                    (HAlign) getModel().getDisplayedStyle().getProperty(getTextAlignKey()), 
+                    this,
+                    locator,
+                    (HAlign) getModel().getDisplayedStyle().getProperty(getTextAlignKey()),
                     getModel().getLabel())
             .setMultiline(true)
             .setWrap(true)
             .show();
-        
+
         } else {
             super.performRequest(req);
         }
-        
+
     }
 
     @objid ("f157f253-6e93-4603-bce7-d9656ca6e496")
@@ -86,43 +86,45 @@ public abstract class NodeDrawingWithLabelEditPart extends NodeDrawingEditPart {
         default:
             super.propertyChange(evt);
         }
-        
+
     }
 
     @objid ("48bf082e-81a1-4252-9b62-120fe3b576b0")
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new NodeLabelDirectEditPolicy());
-        
+
     }
 
     /**
      * Creates and ad the label figure to the edit part figure
+     *
      * @param mainFigure the edit part figure.
      */
     @objid ("ed72b732-79ed-4dda-a6d3-794a82a82fbd")
     protected void createLabelFigure(IFigure mainFigure) {
         // enforce the main figure layout
         mainFigure.setLayoutManager(new GridLayout(1,false));
-        
+
         this.textLabel = new TextFigure();
         this.textLabel.setMinimumSize(new Dimension(20,20));
         //this.textLabel.setContents("A");
-        
+
         GridData constraint = new GridData();
         constraint.horizontalAlignment = GridData.CENTER;
         constraint.verticalAlignment = GridData.CENTER;
         constraint.grabExcessHorizontalSpace = true;
         constraint.grabExcessVerticalSpace = true;
-        
+
         mainFigure.add(this.textLabel, constraint);
-        
+
     }
 
     /**
      * Get the label figure horizontal alignment style key.
+     *
      * @return the horizontal alignment style key.
      */
     @objid ("f1a435f3-4e2e-4dab-aa8b-fff29f6ca2e9")
@@ -132,6 +134,7 @@ public abstract class NodeDrawingWithLabelEditPart extends NodeDrawingEditPart {
      * Get the label figure.
      * <p>
      * Creates and add the label figure if it does not exist yet.
+     *
      * @param mainFigure the main figure
      * @return the label figure.
      */
@@ -145,6 +148,7 @@ public abstract class NodeDrawingWithLabelEditPart extends NodeDrawingEditPart {
 
     /**
      * Get the style key used to set the text alignment inside the label figure.
+     *
      * @return the text horizontal alignment style key.
      */
     @objid ("314a9911-9ec8-49e7-8e66-a56c450d2299")
@@ -152,6 +156,7 @@ public abstract class NodeDrawingWithLabelEditPart extends NodeDrawingEditPart {
 
     /**
      * Get the label figure vertical alignment style key.
+     *
      * @return the vertical alignment style key.
      */
     @objid ("65955dde-19b2-4c70-b6d7-427baf8f48b2")
@@ -164,13 +169,14 @@ public abstract class NodeDrawingWithLabelEditPart extends NodeDrawingEditPart {
     @Override
     protected void refreshFromStyle(IFigure aFigure, IStyle style) {
         super.refreshFromStyle(aFigure, style);
-        
+
         refreshLabelFromStyle(aFigure, style);
-        
+
     }
 
     /**
      * Refresh the label figure from the model style.
+     *
      * @param mainFigure the main figure
      * @param style the model style
      */
@@ -181,31 +187,31 @@ public abstract class NodeDrawingWithLabelEditPart extends NodeDrawingEditPart {
         constraint.verticalAlignment = ((VAlign) style.getProperty(getVAlignKey())).toSwt();
         constraint.grabExcessHorizontalSpace = true;
         constraint.grabExcessVerticalSpace = true;
-        
-        
+
+
         final TextFigure labelFigure = getLabelFigure(mainFigure);
         mainFigure.setConstraint(labelFigure, constraint);
-        
+
         final Font fontProperty = (Font) style.getProperty(getModel().getStyleKey(MetaKey.FONT));
-        
+
         labelFigure.setTextColor((Color) style.getProperty(getModel().getStyleKey(MetaKey.TEXTCOLOR)));
         labelFigure.setTextFont(fontProperty);
         labelFigure.setHorizontalAligment((HAlign) style.getProperty(getTextAlignKey()));
-        
+
     }
 
     @objid ("730116c0-dbce-4ead-a4c7-d6af0dd6505b")
     @Override
     protected void refreshVisuals() {
         super.refreshVisuals();
-        
+
         final IFigure fig = getFigure();
         final GmNodeDrawing model = getModel();
-        
+
         final TextFigure labelFigure = getLabelFigure(fig);
         labelFigure.setContents(model.getLabel());
         labelFigure.revalidate();
-        
+
     }
 
     /**
@@ -215,10 +221,10 @@ public abstract class NodeDrawingWithLabelEditPart extends NodeDrawingEditPart {
     @Override
     protected void setFigure(IFigure figure) {
         super.setFigure(figure);
-        
+
         // Ensure the label exists
         getLabelFigure(figure);
-        
+
     }
 
 }

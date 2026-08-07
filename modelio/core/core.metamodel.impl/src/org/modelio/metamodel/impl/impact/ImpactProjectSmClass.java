@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.impact;
 
 import java.util.ArrayList;
@@ -49,7 +48,7 @@ public class ImpactProjectSmClass extends AbstractProjectSmClass {
     private SmDependency modelDep;
 
     @objid ("05136748-93b8-408b-9a1b-e6e6d828927d")
-    public  ImpactProjectSmClass(ISmMetamodelFragment origin) {
+    public ImpactProjectSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
@@ -57,7 +56,7 @@ public class ImpactProjectSmClass extends AbstractProjectSmClass {
     @Override
     public String getName() {
         return "ImpactProject";
-        
+
     }
 
     @objid ("9b32f095-a75b-48fd-8431-61fa1e1c706b")
@@ -70,21 +69,21 @@ public class ImpactProjectSmClass extends AbstractProjectSmClass {
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return ImpactProject.class;
-        
+
     }
 
     @objid ("9f1d88ba-a03d-4032-8fc2-808dba7fb07c")
     @Override
     public boolean isCmsNode() {
         return true;
-        
+
     }
 
     @objid ("0458b8c5-64b8-41f5-b4e5-cb2988cc83b4")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
     @objid ("ea0478cc-5c95-494b-9a00-dc7fb4f79c91")
@@ -92,16 +91,15 @@ public class ImpactProjectSmClass extends AbstractProjectSmClass {
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(AbstractProject.MQNAME);
         this.registerFactory(new ImpactProjectObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
         this.modelDep = new ModelSmDependency();
         this.modelDep.init("model", this, metamodel.getMClass(ImpactModel.MQNAME), 0, -1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.modelDep);
-        
-        
+
     }
 
     @objid ("bf4949c3-c97a-484a-b5ce-0c811fbf0c36")
@@ -116,7 +114,7 @@ public class ImpactProjectSmClass extends AbstractProjectSmClass {
     @Override
     public boolean areOrphansAllowed() {
         return true;
-        
+
     }
 
     @objid ("69fdc5dd-733a-4fc8-ba42-f9540d8b3989")
@@ -125,7 +123,7 @@ public class ImpactProjectSmClass extends AbstractProjectSmClass {
         private ImpactProjectSmClass smClass;
 
         @objid ("85c2579b-0528-44aa-b514-ebda8bebc973")
-        public  ImpactProjectObjectFactory(ImpactProjectSmClass smClass) {
+        public ImpactProjectObjectFactory(ImpactProjectSmClass smClass) {
             this.smClass = smClass;
         }
 
@@ -158,7 +156,7 @@ public class ImpactProjectSmClass extends AbstractProjectSmClass {
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((ImpactProjectData) data).mModel = values;
-            
+
         }
 
         @objid ("5e807c09-8ac3-42b4-ba42-693ef254657f")
@@ -168,7 +166,7 @@ public class ImpactProjectSmClass extends AbstractProjectSmClass {
             	this.symetricDep = ((ImpactModelSmClass)this.getTarget()).getProjectDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

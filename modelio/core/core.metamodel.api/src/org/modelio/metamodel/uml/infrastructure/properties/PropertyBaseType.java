@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.uml.infrastructure.properties;
 
@@ -26,10 +26,10 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * PropertyBaseType v0.0.9054
- * 
- * 
+ *
+ *
  * Each literal value corresponds to the following  conversion table:
- *  
+ *
  * <table border='1'>
  * <th>Enum Type</th>
  * <th>Java Object type</th>
@@ -91,8 +91,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  * <td>the string itself</td>
  * </tr>
  * </table>
- * 
- * 
+ *
  */
 @objid ("0074c304-ec87-1098-b22e-001ec947cd2a")
 public enum PropertyBaseType {
@@ -210,5 +209,5 @@ public static final int STRING_VALUE = 0;
     public String toString() {
        return literal;
     }
-    
+
 }

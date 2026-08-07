@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures.routers;
 
@@ -73,7 +73,7 @@ class AutoOrthoState {
                 (List<MPoint>) aconnection.getRoutingConstraint(),
                 aconnection.getSourceAnchor(),
                 aconnection.getTargetAnchor());
-        
+
     }
 
     @objid ("621a45af-ee7c-4ff6-8256-4e442a518455")
@@ -82,7 +82,7 @@ class AutoOrthoState {
         this.sourceAnchor = asourceAnchor;
         this.targetAnchor = atargetAnchor;
         this.allPoints = null;
-        
+
         refreshAnchorBounds();
         computeInitialRoute(initialConstraint);
         refreshAnchorDirections();
@@ -95,7 +95,7 @@ class AutoOrthoState {
             return refreshAnchorBoundsSimple();
         else
             return refreshAnchorBoundsComplex();
-        
+
     }
 
     @objid ("74d7b4ab-ac9d-486d-b5b2-fac691fe58a8")
@@ -111,7 +111,7 @@ class AutoOrthoState {
         int lastIndex = this.allPoints.size() - 1;
         Point srcRefPoint;
         Point targetRefPoint;
-        
+
         if (lastIndex == 1) {
             // No bend point : use opposite anchor reference point
             srcRefPoint = this.targetAnchor.getReferencePoint();
@@ -122,7 +122,7 @@ class AutoOrthoState {
             this.connection.translateToAbsolute(targetRefPoint);
             this.connection.translateToAbsolute(srcRefPoint);
         }
-        
+
         this.anchorBounds.fromAnchors(this.sourceAnchor, srcRefPoint, this.targetAnchor, targetRefPoint)
                 .expand(1)
                 .toRelative(this.connection);
@@ -134,31 +134,31 @@ class AutoOrthoState {
         if (origBendpoints == null) {
             origBendpoints = Collections.emptyList();
         }
-        
+
         this.allPoints = new ArrayList<>(origBendpoints.size() + 2);
-        
+
         // Let's assume the first point is the source anchor reference point (This may be modified later).
         A_POINT.setLocation(this.sourceAnchor.getLocation(this.sourceAnchor.getReferencePoint()));
         this.connection.translateToRelative(A_POINT);
         this.allPoints.add(new MPoint(A_POINT, true));
-        
+
         // Now assume the given allPoints are good (we'll fix them later if needed)
         for (MPoint origBendpoint : origBendpoints) {
             this.allPoints.add(new MPoint(origBendpoint.getLocation(), origBendpoint.isFixed()));
         }
-        
+
         // End with the target anchor reference point
         A_POINT.setLocation(this.targetAnchor.getLocation(this.targetAnchor.getReferencePoint()));
         this.connection.translateToRelative(A_POINT);
         this.allPoints.add(new MPoint(A_POINT, true));
-        
+
         this.anchorBounds.trimContainedPoints(this.allPoints.subList(1, this.allPoints.size() - 1), false);
-        
+
         // Compute source and target anchor reference points the same way as BendPointConnectionRouter.
         int lastIndex = this.allPoints.size() - 1;
         PrecisionPoint srcRefPoint = new PrecisionPoint();
         PrecisionPoint targetRefPoint = new PrecisionPoint();
-        
+
         if (lastIndex == 1) {
             // No bend point : use opposite anchor reference point
             srcRefPoint.setLocation(this.targetAnchor.getReferencePoint());
@@ -169,13 +169,13 @@ class AutoOrthoState {
             this.connection.translateToAbsolute(targetRefPoint);
             this.connection.translateToAbsolute(srcRefPoint);
         }
-        
+
         // Now compute the actual location of the source anchor.
         A_POINT.setLocation(this.sourceAnchor.getLocation(srcRefPoint));
         this.connection.translateToRelative(A_POINT);
         // Use that value in the list, instead of the reference point.
         this.allPoints.set(0, new MPoint(A_POINT, true));
-        
+
         // Now compute the actual location of the target anchor.
         A_POINT.setLocation(this.targetAnchor.getLocation(targetRefPoint));
         this.connection.translateToRelative(A_POINT);
@@ -194,11 +194,12 @@ class AutoOrthoState {
         if (this.targetAnchorDir == Direction.NONE) {
             this.targetAnchorDir = guessBestDirectionFromPreviousSegments( this.allPoints.size() - 1);
         }
-        
+
     }
 
     /**
      * Guess a best "target direction" to pass to router algorithm from the previous segments, to minimize bendings at "wrong" place.
+     *
      * @param index the point index. Must be >=1 .
      * @return the best direction
      */
@@ -209,6 +210,7 @@ class AutoOrthoState {
 
     /**
      * Guess a best "target direction" to pass to router algorithm from the previous segments, to minimize bendings at "wrong" place.
+     *
      * @param sourceAnchorDirection a previous segment direction to use if index is < 2.
      * @param index the point index. Must be >=1 .
      * @return the best direction
@@ -229,7 +231,7 @@ class AutoOrthoState {
             // Only one segment
             previousSegDir = sourceAnchorDirection;
         }
-        
+
         curDirs.init(curLocation, prevLocation);
         if (curDirs.isOverlap()) {
             // Both points are equal, return previous opposite direction to avoid loops
@@ -259,7 +261,7 @@ class AutoOrthoState {
             return curDirs.minor();
         } else {
             // source and target in different directions
-        
+
             if (true && index + 1 < this.allPoints.size()) {
                 // Not last segment: look at the next segment
                 MPoint nextLoc = this.allPoints.get(index + 1);
@@ -275,14 +277,15 @@ class AutoOrthoState {
                     // return nextDirs.parallelOf(curDirs);
                 }
             }
-        
+
             return curDirs.major();
         }
-        
+
     }
 
     /**
      * Try to simplify the connection by asking the target anchor whether it can align to the before last bend point
+     *
      * @param stopIndex the smallest index where to stop simplification
      */
     @objid ("b909d487-334c-4790-8431-6ea914ae57b3")
@@ -290,7 +293,7 @@ class AutoOrthoState {
         int size = this.allPoints.size();
         PrecisionPoint piAbs = new PrecisionPoint();
         PrecisionPoint newTargetLoc = new PrecisionPoint();
-        
+
         int i = size - 3;
         while (i > stopIndex) {
             MPoint piRel = this.allPoints.get(i); // the bend point to align to
@@ -298,70 +301,71 @@ class AutoOrthoState {
             if ( pNext.isFixed()) {
                 return;
             }
-        
+
             piAbs.setLocation(piRel);
             this.connection.translateToAbsolute(piAbs);
-        
+
             newTargetLoc.setLocation(this.targetAnchor.getLocation(piAbs));
             this.connection.translateToRelative(newTargetLoc);
-        
+
             if (Direction.getOrtho(newTargetLoc, piRel) != this.targetAnchorDir) {
                 // the anchor does not align to next point, or it changes the segment direction
                 return;
             }
-        
+
             // the target anchor accept to align to this bend point i,
             // Record new target location
             MPoint newTarget = this.allPoints.get(size - 1);
             newTarget.setLocation(newTargetLoc);
-        
+
             // Remove the now useless next bend point : i+1
             this.allPoints.remove(i + 1);
             i--;
             size--;
-        
+
         }
-        
+
     }
 
     /**
      * Try to simplify the connection by asking the source anchor whether it can align to the second bend point
+     *
      * @param aLastIndex the last index to simplify
      */
     @objid ("b4d5cf81-36fd-4056-b5b0-49db4068ce4f")
     public void simplifyStartBendPoints(int aLastIndex) {
         PrecisionPoint piAbs = new PrecisionPoint();
         PrecisionPoint newSourceLoc = new PrecisionPoint();
-        
+
         int i = 2;
         int lastIndex = aLastIndex;
         while (i < lastIndex) {
             MPoint piRel = this.allPoints.get(i); // The bendpoint to align to
             MPoint pPrev = this.allPoints.get(i - 1); // The candidate for removal
-        
+
             if (pPrev.isFixed()) {
                 return;
             }
-        
+
             piAbs.setLocation(piRel);
             this.connection.translateToAbsolute(piAbs);
-        
+
             newSourceLoc.setLocation(this.sourceAnchor.getLocation(piAbs));
             this.connection.translateToRelative(newSourceLoc);
-        
+
             if (Direction.getOrtho(newSourceLoc, piRel) != this.sourceAnchorDir) {
                 // the anchor does not align to next point, or it changes the segment direction
                 return;
             }
-        
+
             // the source anchor accept to align to this bend point, remove the previous
             MPoint newSource = this.allPoints.get(0);
             newSource.setLocation(newSourceLoc);
-        
+
             this.allPoints.remove(i - 1);
             lastIndex--;
         }
-        
+
     }
 
 }

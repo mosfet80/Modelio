@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.communicationdiagram.editor.elements.communicationnode.v0;
 
@@ -85,12 +85,13 @@ public class _GmCommunicationNode extends GmCompositeNode implements IImageableN
 
     /**
      * Default constructor.
+     *
      * @param diagram the diagram in which this gm is unmasked.
      * @param theCommunicationNode the represented object node, may be null.
      * @param ref a reference to the represented object node.
      */
     @objid ("7a651f97-55b6-11e2-877f-002564c97630")
-    public  _GmCommunicationNode(IGmDiagram diagram, CommunicationNode theCommunicationNode, MRef ref) {
+    public _GmCommunicationNode(IGmDiagram diagram, CommunicationNode theCommunicationNode, MRef ref) {
         super(diagram, ref);
         this.communicationNode = theCommunicationNode;
         this.header = new GmCommunicationNodeHeader(diagram, ref);
@@ -98,14 +99,14 @@ public class _GmCommunicationNode extends GmCompositeNode implements IImageableN
         super.addChild(this.header);
         this.imageModeHeader = new GmCommunicationNodeFlatHeader(diagram, ref);
         addChild(this.imageModeHeader);
-        
+
     }
 
     /**
      * Empty constructor, needed for serialization.
      */
     @objid ("7a651fa3-55b6-11e2-877f-002564c97630")
-    public  _GmCommunicationNode() {
+    public _GmCommunicationNode() {
         // empty constructor for the serialization
     }
 
@@ -139,6 +140,7 @@ public class _GmCommunicationNode extends GmCompositeNode implements IImageableN
 
     /**
      * Get the stereotype image to display.
+     *
      * @return the stereotype image to display. Must not be <i>null</i>.
      */
     @objid ("7a66a624-55b6-11e2-877f-002564c97630")
@@ -169,7 +171,7 @@ public class _GmCommunicationNode extends GmCompositeNode implements IImageableN
         default:
             return null;
         }
-        
+
     }
 
     @objid ("7a66a63a-55b6-11e2-877f-002564c97630")
@@ -188,7 +190,7 @@ public class _GmCommunicationNode extends GmCompositeNode implements IImageableN
         default:
             return Collections.emptyList();
         }
-        
+
     }
 
     @objid ("7a66a642-55b6-11e2-877f-002564c97630")
@@ -208,7 +210,7 @@ public class _GmCommunicationNode extends GmCompositeNode implements IImageableN
             break;
         }
         }
-        
+
     }
 
     @objid ("7a66a648-55b6-11e2-877f-002564c97630")
@@ -216,7 +218,7 @@ public class _GmCommunicationNode extends GmCompositeNode implements IImageableN
     public void refreshFromObModel() {
         // forcing visual refresh in case Image changed
         firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("7a66a64b-55b6-11e2-877f-002564c97630")
@@ -251,10 +253,10 @@ public class _GmCommunicationNode extends GmCompositeNode implements IImageableN
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmCommunicationNode.", _GmCommunicationNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("7a682cbc-55b6-11e2-877f-002564c97630")
@@ -262,9 +264,9 @@ public class _GmCommunicationNode extends GmCompositeNode implements IImageableN
         super.read(in);
         this.header = (GmModelElementHeader) this.getChildren().get(0);
         this.communicationNode = (CommunicationNode) resolveRef(getRepresentedRef());
-        
+
         this.imageModeHeader = (GmModelElementLabel) this.getChildren().get(1);
-        
+
     }
 
     @objid ("7a682cc1-55b6-11e2-877f-002564c97630")

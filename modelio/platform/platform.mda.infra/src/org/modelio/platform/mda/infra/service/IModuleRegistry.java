@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.service;
 
@@ -43,6 +43,7 @@ public interface IModuleRegistry {
     /**
      * Get the started {@link IRTModule} corresponding to the given
      * {@link ModuleComponent}.
+     *
      * @param model the module model.
      * @return the matching started module or <i>null</i> if no started module
      * matches the <i>IRTModule</i>
@@ -53,6 +54,7 @@ public interface IModuleRegistry {
     /**
      * Get the {@link IRTModule} corresponding to the given
      * {@link GModule}.
+     *
      * @param model the module model.
      * @return the matching <code>IRTModule</code> or <i>null</i> if no module
      * matches the <i>GModule</i>
@@ -64,6 +66,7 @@ public interface IModuleRegistry {
      * Get the {@link IRTModule} which name correspond to the given
      * {@link ModuleId} name and which version is newer or equal to the given
      * version.
+     *
      * @param moduleId the Id of the searched module.
      * @return the matching module or <code>null</code> if no module
      * matches the ModuleId.
@@ -73,6 +76,7 @@ public interface IModuleRegistry {
 
     /**
      * Get the registered modules.
+     *
      * @return the registered modules.
      */
     @objid ("943a41cf-9a7a-406a-ae6a-f11d8c1eaa52")
@@ -82,6 +86,7 @@ public interface IModuleRegistry {
      * Get the started {@link IRTModule} which name correspond to the given
      * {@link ModuleId} name and which version is newer or equal to the given
      * version.
+     *
      * @param moduleId the Id of the searched module.
      * @return the matching started module or <code>null</code> if no started module
      * matches the ModuleId.
@@ -91,9 +96,10 @@ public interface IModuleRegistry {
 
     /**
      * Get the started modules.
+     *
      * @return The started modules.
      */
     @objid ("1e6375df-edc3-11e1-88ee-001ec947c8cc")
     List<IRTModule> getStartedModules();
-}
 
+}

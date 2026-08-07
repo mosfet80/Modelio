@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.module.catalog.catalog;
 
@@ -91,10 +91,10 @@ public class ModuleCatalogPanel implements IPanelProvider {
     private IModuleStore catalog;
 
     @objid ("e44ca7fd-7522-4921-86b4-bc5b1c9e8c0e")
-    public  ModuleCatalogPanel(IModuleStore catalog) {
+    public ModuleCatalogPanel(IModuleStore catalog) {
         super();
         this.catalog = catalog;
-        
+
     }
 
     @objid ("e53a50b6-ab02-4300-b9f6-0b2e2a199ad6")
@@ -104,20 +104,20 @@ public class ModuleCatalogPanel implements IPanelProvider {
         this.top = new Composite(parent, SWT.BORDER);
         this.top.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         this.top.setLayout(new FormLayout());
-        
+
         this.loading = new Label(this.top, SWT.CENTER);
         this.loading.setImage(ModuleCatalogPanel.LOADING_IMAGE);
-        
+
         // List of modules from catalog
         this.treeViewer = new TreeViewer(this.top, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL | SWT.MULTI | SWT.FULL_SELECTION);
         Tree tree = this.treeViewer.getTree();
         tree.setHeaderVisible(true);
         this.treeViewer.getTree().setLinesVisible(true);
-        
+
         // The first column displays the module name and version (or the
         // category)
         TreeViewerColumn col1 = new TreeViewerColumn(this.treeViewer, SWT.NONE);
-        
+
         col1.getColumn().setWidth(200);
         col1.getColumn().setText(AppModules.I18N.getString("ModuleCatalogPanel.Module.label"));
         col1.getColumn().setToolTipText(AppModules.I18N.getString("ModuleCatalogPanel.Module.tooltip"));
@@ -134,9 +134,9 @@ public class ModuleCatalogPanel implements IPanelProvider {
                     int totalNb = cp.getAllVersionsOfModule((String) element).size();
                     return element.toString() + " [" + totalNb + "]";
                 }
-        
+
             }
-        
+
             @Override
             public Image getImage(Object element) {
                 if (element instanceof IModuleHandle) {
@@ -146,7 +146,7 @@ public class ModuleCatalogPanel implements IPanelProvider {
                 }
             }
         });
-        
+
         // The second column display the minimal version of Modelio that is
         // required to run the module
         TreeViewerColumn col2 = new TreeViewerColumn(this.treeViewer, SWT.CENTER);
@@ -163,7 +163,7 @@ public class ModuleCatalogPanel implements IPanelProvider {
                 return "";
             }
         });
-        
+
         // The third column displays the predictable compatibility of the module
         // with the current Modelio version
         TreeViewerColumn col3 = new TreeViewerColumn(this.treeViewer, SWT.NONE);
@@ -190,7 +190,7 @@ public class ModuleCatalogPanel implements IPanelProvider {
                 }
                 return "";
             }
-        
+
             @Override
             public Color getForeground(Object element) {
                 if (element instanceof IModuleHandle) {
@@ -210,7 +210,7 @@ public class ModuleCatalogPanel implements IPanelProvider {
                 return super.getForeground(element);
             }
         });
-        
+
         // Option 'show only latest version'
         final Button latestOnly = new Button(this.top, SWT.CHECK);
         latestOnly.setText(AppModules.I18N.getString("ModuleCatalogPanel.ShowLatestVersions"));
@@ -219,13 +219,13 @@ public class ModuleCatalogPanel implements IPanelProvider {
             public void widgetSelected(SelectionEvent e) {
                 ModuleCatalogPanel.this.controller.onShowLatestOnly(latestOnly.getSelection());
             }
-        
+
             @Override
             public void widgetDefaultSelected(SelectionEvent e) {
                 //
             }
         });
-        
+
         // Option 'show only compatible versions'
         final Button compatibleOnly = new Button(this.top, SWT.CHECK);
         compatibleOnly.setText(AppModules.I18N.getString("ModuleCatalogPanel.ShowCompatibleVersions"));
@@ -234,13 +234,13 @@ public class ModuleCatalogPanel implements IPanelProvider {
             public void widgetSelected(SelectionEvent e) {
                 ModuleCatalogPanel.this.controller.onShowCompatibleOnly(compatibleOnly.getSelection());
             }
-        
+
             @Override
             public void widgetDefaultSelected(SelectionEvent e) {
                 //
             }
         });
-        
+
         // Carry out attachments (as the different widgets are attached
         // together, can only set their attachements here, when they all have
         // been created)
@@ -249,13 +249,13 @@ public class ModuleCatalogPanel implements IPanelProvider {
         fd.right = new FormAttachment(100, 0);
         fd.bottom = new FormAttachment(100, 0);
         compatibleOnly.setLayoutData(fd);
-        
+
         fd = new FormData();
         fd.left = new FormAttachment(0, 0);
         fd.bottom = new FormAttachment(compatibleOnly, 0, SWT.TOP);
         fd.right = new FormAttachment(100, 0);
         latestOnly.setLayoutData(fd);
-        
+
         fd = new FormData();
         fd.top = new FormAttachment(0, 0);
         fd.left = new FormAttachment(0, 0);
@@ -263,15 +263,15 @@ public class ModuleCatalogPanel implements IPanelProvider {
         fd.right = new FormAttachment(100, 0);
         tree.setLayoutData(fd);
         this.loading.setLayoutData(fd);
-        
+
         // GUI is available, init the contents
         this.controller = new ModuleCatalogPanelController(this, this.catalog);
         this.controller.init();
-        
+
         // Init checkbox states
         latestOnly.setSelection(this.controller.isShowLatestOnly());
         compatibleOnly.setSelection(this.controller.isShowCompatibleOnly());
-        
+
         this.treeViewer.getTree().setVisible(false);
         return this;
     }
@@ -289,7 +289,7 @@ public class ModuleCatalogPanel implements IPanelProvider {
             this.controller.setInput((IModuleStore) input);
             refresh(true, true);
         }
-        
+
     }
 
     @objid ("7b9e08c6-1668-4575-9c13-cfca5667a2a7")
@@ -307,13 +307,13 @@ public class ModuleCatalogPanel implements IPanelProvider {
     void refresh(boolean updateLabels, boolean packColumns) {
         this.treeViewer.refresh(updateLabels);
         this.treeViewer.expandToLevel(3);
-        
+
         if (packColumns) {
             for (TreeColumn tc : this.treeViewer.getTree().getColumns()) {
                 tc.pack();
             }
         }
-        
+
     }
 
     @objid ("836654f7-dbf0-4443-a99f-be30bb413ea0")
@@ -370,10 +370,10 @@ public class ModuleCatalogPanel implements IPanelProvider {
         private IPreferenceStore prefs;
 
         @objid ("2a400064-6431-4df7-bbe3-83b42bc05628")
-        public  ModuleCatalogPanelController(ModuleCatalogPanel dialog, IModuleStore catalog) {
+        public ModuleCatalogPanelController(ModuleCatalogPanel dialog, IModuleStore catalog) {
             this.dialog = dialog;
             this.catalog = catalog;
-            
+
         }
 
         @objid ("6ff78e30-b221-4b3a-8001-18be25212587")
@@ -386,22 +386,22 @@ public class ModuleCatalogPanel implements IPanelProvider {
             this.catalog = input;
             this.dialog.treeViewer.setInput(this.catalog);
             this.dialog.refresh(true, true);
-            
+
         }
 
         @objid ("b127bf2b-afed-4911-a4f4-67592d1a2bf4")
         public void init() {
             this.prefs = Preferences.getPreferences();
-            
+
             this.compatibleOnly = this.prefs.getBoolean(CatalogUpdatePreferencesPage.CATALOG_SHOW_COMPATIBLE);
             this.lastestOnly = this.prefs.getBoolean(CatalogUpdatePreferencesPage.CATALOG_SHOW_LATEST);
-            
+
             this.contentProvider = new CatalogModulesProvider(this.dialog, ModelioVersion.VERSION);
             this.dialog.treeViewer.setContentProvider(this.contentProvider);
             this.dialog.treeViewer.setInput(this.catalog);
-            
+
             this.dialog.refresh(true, true);
-            
+
         }
 
         @objid ("398a0633-5204-448d-906e-21b5ec0987f2")
@@ -410,7 +410,7 @@ public class ModuleCatalogPanel implements IPanelProvider {
             this.compatibleOnly = onOff;
             this.contentProvider.refreshModules();
             this.dialog.refresh(true, true);
-            
+
         }
 
         @objid ("f9d43c33-aa63-498b-9a01-b73308a4322c")
@@ -418,7 +418,7 @@ public class ModuleCatalogPanel implements IPanelProvider {
             this.prefs.setValue(CatalogUpdatePreferencesPage.CATALOG_SHOW_LATEST, onOff);
             this.lastestOnly = onOff;
             this.dialog.refresh(true, true);
-            
+
         }
 
         @objid ("92fd0ab2-5ed2-40a3-a347-9485099f40db")
@@ -449,7 +449,7 @@ public class ModuleCatalogPanel implements IPanelProvider {
      * of a given module (ie there is one category per module type). In
      * 'latestOnly' mode the datamodel does not define categories as there is
      * only one version for each module.
-     * 
+     *
      * @author phv
      */
     @objid ("6e22d92e-589f-4b9d-8e21-c4189d9a91da")
@@ -467,10 +467,10 @@ public class ModuleCatalogPanel implements IPanelProvider {
         TreeMap<String, List<IModuleHandle>> modules = new TreeMap<>();
 
         @objid ("3eeb6ede-175d-476f-97f2-13f986d45b1a")
-        public  CatalogModulesProvider(ModuleCatalogPanel panel, Version modelioVersion) {
+        public CatalogModulesProvider(ModuleCatalogPanel panel, Version modelioVersion) {
             this.panel = panel;
             this.modelioVersion = modelioVersion;
-            
+
         }
 
         @objid ("2057f28a-700b-4e17-aa86-8497379c2cae")
@@ -480,7 +480,7 @@ public class ModuleCatalogPanel implements IPanelProvider {
             } else {
                 return new ArrayList<>();
             }
-            
+
         }
 
         @objid ("0472384f-6821-419e-8b28-9e1954cfc6cd")
@@ -498,7 +498,7 @@ public class ModuleCatalogPanel implements IPanelProvider {
                 this.panel.refresh(true, true);
                 return;
             }
-            
+
             if (newInput instanceof IModuleStore) {
                 final IModuleStore catalog = (IModuleStore) newInput;
                 Thread loadingThread = new Thread(new Runnable() {
@@ -511,7 +511,7 @@ public class ModuleCatalogPanel implements IPanelProvider {
                             CatalogModulesProvider.this.allModules = new ArrayList<>();
                         }
                         CatalogModulesProvider.this.modules = computeModules();
-            
+
                         Display.getDefault().asyncExec(new Runnable() {
                             @Override
                             public void run() {
@@ -527,13 +527,13 @@ public class ModuleCatalogPanel implements IPanelProvider {
                 loadingThread.setPriority(Thread.MAX_PRIORITY);
                 loadingThread.start();
             }
-            
+
         }
 
         @objid ("413a2bd2-83c3-44e8-93e9-b86cc031cc2e")
         TreeMap<String, List<IModuleHandle>> computeModules() {
             TreeMap<String, List<IModuleHandle>> results = new TreeMap<>();
-            
+
             for (IModuleHandle mh : this.allModules) {
                 if (mh == null) {
                     continue;
@@ -543,7 +543,7 @@ public class ModuleCatalogPanel implements IPanelProvider {
                     // Skip it
                     continue;
                 }
-            
+
                 List<IModuleHandle> entries = results.get(mh.getName());
                 if (entries == null) {
                     entries = new ArrayList<>();
@@ -551,7 +551,7 @@ public class ModuleCatalogPanel implements IPanelProvider {
                 }
                 entries.add(mh);
             }
-            
+
             // Sort by descending version
             for (List<IModuleHandle> entries : results.values()) {
                 Collections.sort(entries, new ModuleComparator());
@@ -573,7 +573,7 @@ public class ModuleCatalogPanel implements IPanelProvider {
                 // return categories => the keys
                 return this.modules.keySet().toArray();
             }
-            
+
         }
 
         @objid ("df580f3b-1ac0-47d3-b562-169a4501763e")
@@ -623,11 +623,11 @@ public class ModuleCatalogPanel implements IPanelProvider {
             } else {
                 return 0;
             }
-            
+
         }
 
         @objid ("854c7c0e-45d3-4f2b-b468-7cb9a2c78aac")
-        public  ModuleComparator() {
+        public ModuleComparator() {
             // Empty constructor
         }
 

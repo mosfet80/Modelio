@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -43,37 +42,37 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("002d81b0-c4bf-1fd8-97fe-001ec947cd2a")
 public class ConditionalNodeImpl extends StructuredActivityNodeImpl implements ConditionalNode {
-    @objid ("59693787-4cab-45a8-8ead-0559629ab14a")
+    @objid ("cb24e55e-d53e-4f3a-94db-f77d5282e2fb")
     @Override
     public boolean isIsDeterminate() {
         return (Boolean) getAttVal(((ConditionalNodeSmClass)getClassOf()).getIsDeterminateAtt());
     }
 
-    @objid ("a49a53a3-1857-47bf-bece-7393bb5f252b")
+    @objid ("bd7a6fda-a5c4-4a67-bc64-2ab5d865e852")
     @Override
     public void setIsDeterminate(boolean value) {
         setAttVal(((ConditionalNodeSmClass)getClassOf()).getIsDeterminateAtt(), value);
     }
 
-    @objid ("329976f8-7cd0-4f06-9bd4-11efb6f0bf30")
+    @objid ("4be797bd-142d-455e-a481-1c2589e571e0")
     @Override
     public boolean isIsAssured() {
         return (Boolean) getAttVal(((ConditionalNodeSmClass)getClassOf()).getIsAssuredAtt());
     }
 
-    @objid ("9e452f5d-cc51-4c16-a663-ca94ecdbc267")
+    @objid ("6106d981-d23c-44f7-8cda-0183cdf698a8")
     @Override
     public void setIsAssured(boolean value) {
         setAttVal(((ConditionalNodeSmClass)getClassOf()).getIsAssuredAtt(), value);
     }
 
-    @objid ("8d3bfc37-dee5-478f-9e0f-6fb52f29eafa")
+    @objid ("8318dd76-9354-4a2a-8914-5f4a10dcd9fe")
     @Override
     public EList<Clause> getOwnedClause() {
         return new SmList<>(this, ((ConditionalNodeSmClass)getClassOf()).getOwnedClauseDep());
     }
 
-    @objid ("c67256b1-622b-447b-bdc0-c239c5bda427")
+    @objid ("84e815a6-1a9e-48e0-95a7-32fa26346bfe")
     @Override
     public <T extends Clause> List<T> getOwnedClause(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -86,10 +85,10 @@ public class ConditionalNodeImpl extends StructuredActivityNodeImpl implements C
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("34aaf6d5-1b17-4739-b0c0-33cd5ff751b5")
+    @objid ("5dd354be-f45d-4e38-8303-802d8abeb035")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -97,17 +96,17 @@ public class ConditionalNodeImpl extends StructuredActivityNodeImpl implements C
         return super.getCompositionOwner();
     }
 
-    @objid ("e12bc504-98b0-4d38-9c1c-f14dfadf704f")
+    @objid ("d57b0fc3-741d-467f-9416-bc81fcaed29b")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("2e30a182-b977-4e7c-a655-d254ba24505d")
+    @objid ("5249fc68-567c-47f9-81f6-d83c08e98f40")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitConditionalNode(this);

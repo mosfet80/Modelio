@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -54,7 +54,7 @@ public class R2540 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -76,7 +76,7 @@ public class R2540 extends AbstractUmlRule {
         plan.registerRule(InterfaceRealization.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE | AuditTrigger.UPDATE);
         plan.registerRule(Generalization.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE | AuditTrigger.UPDATE);
         plan.registerRule(Class.MQNAME, this, AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -110,7 +110,7 @@ public class R2540 extends AbstractUmlRule {
      * Default constructor for R2540
      */
     @objid ("1fbf8316-c1fb-424f-bbe0-1a7cf14619b1")
-    public  R2540() {
+    public R2540() {
         this.checkerInstance = new CheckR2540(this);
     }
 
@@ -123,19 +123,19 @@ public class R2540 extends AbstractUmlRule {
         private final ModelWalker<NameSpace> classAndSubClassesGetter;
 
         @objid ("671d451a-5219-461e-9db4-65b22fd4c41f")
-        public  CheckR2540(IRule rule) {
+        public CheckR2540(IRule rule) {
             super(rule);
-            
+
             this.implementedInterfacesGetter = new ModelWalker<NameSpace>()
                     .withCompositeTransition(NameSpace::getRealized, InterfaceRealization::getImplemented)
                     .withCompositeTransition(NameSpace::getParent, Generalization::getSuperType)
                     .withFilter(Interface.class::isInstance);
-            
+
             this.classAndSubClassesGetter = new ModelWalker<NameSpace>()
                     .withCompositeTransition(NameSpace::getSpecialization, Generalization::getSubType)
                     .withSourcesIncluded(true)
                     ;
-            
+
         }
 
         @objid ("ebb02ee0-c278-4d63-9d73-b97c34841252")
@@ -174,32 +174,32 @@ public class R2540 extends AbstractUmlRule {
         @objid ("c6afd558-1f6d-4003-a5bf-fc48bcf4ce5a")
         private IAuditEntry checkR2540(final Port port) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, port, null);
-            
+
             NameSpace ns = port.getBase();
             if (ns == null) {
                 return auditEntry;
             }
-            
+
             List<Interface> interfaces = new ArrayList<>();
-            
+
             // Fetches all .Interfaces provided by the port
             for (ProvidedInterface pi : port.getProvided()) {
                 interfaces.addAll(pi.getProvidedElement());
             }
-            
+
             if (interfaces.isEmpty()) {
                 // No Provided Interfaces found
                 return auditEntry;
             }
-            
+
             interfaces.removeAll(
                     this.implementedInterfacesGetter
                     .from(ns)
                     .getTraversed());
-            
+
             if (!interfaces.isEmpty()) {
                 // Rule failed
-                auditEntry.setSeverity(this.rule.getSeverity()); 
+                auditEntry.setSeverity(this.rule.getSeverity());
                 ArrayList<Object> linkedObjects = new ArrayList<>(3 + interfaces.size());
                 linkedObjects.add(port);
                 linkedObjects.add(ns);

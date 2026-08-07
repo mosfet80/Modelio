@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.policies;
 
@@ -42,7 +42,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * Allow creation of nodes on the link into zones that are not already displayed.
  * <p>
  * Defers the creation to the right {@link GmCompositeNode}.
- * 
+ *
  * @author cmarin
  */
 @objid ("80c540c0-1dec-11e2-8cad-001ec947c8cc")
@@ -78,15 +78,15 @@ public class DeferringCreateNodeOnLinkEditPolicy extends LayoutEditPolicy {
     protected EditPart getEditPartFor(final Class<? extends MObject> metaclass, final Point location) {
         final GmLink gmLink = (GmLink) getHost().getModel();
         final GmCompositeNode gmTargetChild = getExtensionFor(gmLink, metaclass, location);
-        
+
         if (gmTargetChild == null) {
             return null;
         }
-        
+
         if (!gmTargetChild.isVisible()) {
             return getHost();
         }
-        
+
         final EditPart p = (EditPart) getHost().getViewer().getEditPartRegistry().get(gmTargetChild);
         return p;
     }
@@ -97,6 +97,7 @@ public class DeferringCreateNodeOnLinkEditPolicy extends LayoutEditPolicy {
      * Looks for and return the first {@link GmCompositeNode} extension on the link.
      * <p>
      * Subclasses may override this method.
+     *
      * @param gmLink The model link
      * @param location The mouse location
      * @return The composite node where the label must be added.
@@ -182,7 +183,7 @@ public class DeferringCreateNodeOnLinkEditPolicy extends LayoutEditPolicy {
         if (policy != null) {
             child.installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, policy);
         }
-        
+
     }
 
     /**
@@ -210,15 +211,16 @@ public class DeferringCreateNodeOnLinkEditPolicy extends LayoutEditPolicy {
 
         /**
          * Create a deferred command.
+         *
          * @param req The creation request.
          * @param sender The edit part sending the request
          */
         @objid ("80ca0553-1dec-11e2-8cad-001ec947c8cc")
-        public  DeferredCreateCommand(final Request req, final EditPart sender) {
+        public DeferredCreateCommand(final Request req, final EditPart sender) {
             this.req = req;
             this.gmLink = (GmLink) sender.getModel();
             this.editPartRegistry = sender.getViewer().getEditPartRegistry();
-            
+
         }
 
         @objid ("80ca055e-1dec-11e2-8cad-001ec947c8cc")
@@ -227,7 +229,7 @@ public class DeferringCreateNodeOnLinkEditPolicy extends LayoutEditPolicy {
             if (!MTools.getAuthTool().canModify(this.gmLink.getDiagram().getRelatedElement())) {
                 return false;
             }
-            
+
             if (!MTools.getAuthTool().canModify(this.gmLink.getRelatedElement())) {
                 return false;
             }
@@ -241,36 +243,37 @@ public class DeferringCreateNodeOnLinkEditPolicy extends LayoutEditPolicy {
             if (cmd != null && cmd.canExecute()) {
                 cmd.execute();
             }
-            
+
         }
 
         @objid ("80ca0566-1dec-11e2-8cad-001ec947c8cc")
         private Command createCommand() {
             final GmCompositeNode gmTarget = getExtensionFor(this.gmLink, getMetaclass(), ((DropRequest) this.req).getLocation());
-            
+
             if (gmTarget == null) {
                 return null;
             }
-            
+
             if (!gmTarget.isVisible()) {
                 gmTarget.setVisible(true);
             }
-            
+
             final EditPart p = (EditPart) this.editPartRegistry.get(gmTarget);
             if (p == null) {
                 return null;
             }
-            
+
             final EditPart targetPart = p.getTargetEditPart(this.req);
             if (targetPart != null) {
                 return targetPart.getCommand(this.req);
             } else {
                 return null;
             }
-            
+
         }
 
         /**
+         *
          * @return the metaclass to create
          */
         @objid ("80ca056b-1dec-11e2-8cad-001ec947c8cc")
@@ -286,7 +289,7 @@ public class DeferringCreateNodeOnLinkEditPolicy extends LayoutEditPolicy {
      * <p>
      * The actual edit part is found by calling {@link GmCompositeNode#getCompositeFor(Class)} for all involved GmModel, then
      * looking for their edit part.
-     * 
+     *
      * @author cmarin
      */
     @objid ("80ca0572-1dec-11e2-8cad-001ec947c8cc")
@@ -302,15 +305,16 @@ public class DeferringCreateNodeOnLinkEditPolicy extends LayoutEditPolicy {
 
         /**
          * Create a deferred command.
+         *
          * @param req The creation request.
          * @param sender The edit part sending the request
          */
         @objid ("80cc67a4-1dec-11e2-8cad-001ec947c8cc")
-        public  DeferredChangeBoundsCommand(final ChangeBoundsRequest req, final EditPart sender) {
+        public DeferredChangeBoundsCommand(final ChangeBoundsRequest req, final EditPart sender) {
             this.req = req;
             this.gmLink = (GmLink) sender.getModel();
             this.editPartRegistry = sender.getViewer().getEditPartRegistry();
-            
+
         }
 
         @objid ("80cc67af-1dec-11e2-8cad-001ec947c8cc")
@@ -323,38 +327,39 @@ public class DeferringCreateNodeOnLinkEditPolicy extends LayoutEditPolicy {
         @Override
         public void execute() {
             final GmCompositeNode gmTarget = getGmTarget();
-            
+
             if (!gmTarget.isVisible()) {
                 gmTarget.setVisible(true);
             }
-            
+
             final EditPart p = (EditPart) this.editPartRegistry.get(gmTarget);
             if (p != null) {
                 p.getTargetEditPart(this.req).getCommand(this.req).execute();
             }
-            
+
         }
 
         /**
          * Get the node model where all the request must be handled or <tt>null</tt> if the request cannot be executed in a single
          * node (the selection is not homogeneous).
+         *
          * @return the node model where the request must be handled.
          */
         @objid ("80cc67b7-1dec-11e2-8cad-001ec947c8cc")
         private GmCompositeNode getGmTarget() {
             GmCompositeNode gmTarget = null;
-            
+
             for (Object o : this.req.getEditParts()) {
                 final EditPart part = (EditPart) o;
                 final GmModel model = (GmModel) part.getModel();
                 final Class<? extends MObject> metaclass = model.getRelatedMClass().getJavaInterface();
-            
+
                 final GmCompositeNode cont = getExtensionFor(this.gmLink, metaclass, this.req.getLocation());
-            
+
                 if (cont == null) {
                     return null;
                 }
-            
+
                 if (gmTarget == null) {
                     gmTarget = cont;
                 } else if (gmTarget != cont) {

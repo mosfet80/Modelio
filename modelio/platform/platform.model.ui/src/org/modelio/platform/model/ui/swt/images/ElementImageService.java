@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.swt.images;
 
@@ -46,6 +46,7 @@ public class ElementImageService {
      * <li>first stereotype icon found on the element. Note that 'first' is the order of the modules as returned by mda.infra, ie based on workbench</li>
      * <li>if no stereotype icon is found, return the metaclass icon</li>
      * </ul>
+     *
      * @param element a model object.
      * @return an 'application' icon for the element.
      */
@@ -61,6 +62,7 @@ public class ElementImageService {
      * <li>first stereotype image found on the element. Note that 'first' is the order of the modules as returned by mda.infra, ie based on workbench</li>
      * <li>if no stereotype image is found, return the metaclass image</li>
      * </ul>
+     *
      * @param element a model object.
      * @return an 'application' image for the element.
      */
@@ -83,17 +85,16 @@ public class ElementImageService {
             if (icon != null) {
                 return icon;
             }
-        
+
             IElementImageProvider svc = ElementImageService.extensionPoint.get(element);
             if (svc != null) {
                 return svc.getIcon(element);
             }
-        
+
             return MetamodelImageService.getQualifiedIcon(element.getMClass(), ElementImageService.getFlavor(element));
         } catch (DeadObjectException e) {
             return MetamodelImageService.getQualifiedIcon(element.getMClass(), null);
         }
-        
     }
 
     @objid ("662f9841-6a96-4b6e-a215-987a71e1a290")
@@ -104,17 +105,16 @@ public class ElementImageService {
             if (image != null) {
                 return image;
             }
-        
+
             IElementImageProvider svc = ElementImageService.extensionPoint.get(element);
             if (svc != null) {
                 return svc.getImage(element);
             }
-        
+
             return MetamodelImageService.getQualifiedImage(element.getMClass(), ElementImageService.getFlavor(element));
         } catch (DeadObjectException e) {
             return MetamodelImageService.getQualifiedImage(element.getMClass(), null);
         }
-        
     }
 
 }

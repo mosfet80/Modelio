@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.templatecontainer;
 
@@ -51,6 +51,7 @@ public abstract class GmTemplateContainer extends GmPortContainer {
 
     /**
      * Constructor.
+     *
      * @param diagram The diagram in which this port container will be unmasked.
      * @param mainNode The main node that will be decorated with ports. This node is automatically added as child of the port
      * container.
@@ -58,18 +59,18 @@ public abstract class GmTemplateContainer extends GmPortContainer {
      * should be accessed in {@link GmPortContainer#getMainNode()}.
      */
     @objid ("36e0c59f-55b7-11e2-877f-002564c97630")
-    public  GmTemplateContainer(final IGmDiagram diagram, final GmNodeModel mainNode, final MRef relatedRef) {
+    public GmTemplateContainer(final IGmDiagram diagram, final GmNodeModel mainNode, final MRef relatedRef) {
         super(diagram, relatedRef);
         mainNode.setRoleInComposition(MAIN_NODE_ROLE);
         addChild(mainNode);
-        
+
     }
 
     /**
      * Empty constructor for deserialization only.
      */
     @objid ("36e24c01-55b7-11e2-877f-002564c97630")
-    public  GmTemplateContainer() {
+    public GmTemplateContainer() {
         super();
     }
 
@@ -77,9 +78,9 @@ public abstract class GmTemplateContainer extends GmPortContainer {
     @Override
     public void refreshFromObModel() {
         super.refreshFromObModel();
-        
+
         refreshTemplateSignature();
-        
+
     }
 
     @objid ("36e24c07-55b7-11e2-877f-002564c97630")
@@ -99,7 +100,7 @@ public abstract class GmTemplateContainer extends GmPortContainer {
                 this.templateSignature = null;
             }
         }
-        
+
     }
 
     /**
@@ -111,6 +112,7 @@ public abstract class GmTemplateContainer extends GmPortContainer {
 
     /**
      * Tells whether the related element is a template.
+     *
      * @return true only if the related element has template parameters.
      */
     @objid ("36e24c0f-55b7-11e2-877f-002564c97630")
@@ -125,13 +127,13 @@ public abstract class GmTemplateContainer extends GmPortContainer {
     @Override
     public void write(final IDiagramWriter out) {
         super.write(out);
-        
+
         if (this.templateSignature != null)
             out.writeProperty("templateSignature", this.templateSignature);
-        
+
         // Write version of this Gm if different of 0.
         writeMinorVersion(out, "GmTemplateContainer.", Integer.valueOf(GmTemplateContainer.MINOR_VERSION));
-        
+
     }
 
     @objid ("36e24c1b-55b7-11e2-877f-002564c97630")
@@ -151,15 +153,15 @@ public abstract class GmTemplateContainer extends GmPortContainer {
                 break;
             }
         }
-        
+
     }
 
     @objid ("36e24c22-55b7-11e2-877f-002564c97630")
     private void read_0(final IDiagramReader in) {
         super.read(in);
-        
+
         this.templateSignature = (GmTemplateSignature) in.readProperty("templateSignature");
-        
+
     }
 
     @objid ("36e24c28-55b7-11e2-877f-002564c97630")
@@ -176,7 +178,7 @@ public abstract class GmTemplateContainer extends GmPortContainer {
         } else {
             super.addStartingLink(link);
         }
-        
+
     }
 
     @objid ("36e3d2a3-55b7-11e2-877f-002564c97630")
@@ -187,7 +189,7 @@ public abstract class GmTemplateContainer extends GmPortContainer {
         } else {
             super.addEndingLink(link);
         }
-        
+
     }
 
     @objid ("36e3d2aa-55b7-11e2-877f-002564c97630")

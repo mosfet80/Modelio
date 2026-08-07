@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.compositediagram.editor.editor;
 
@@ -34,7 +34,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 @objid ("a80425ba-5a44-11e2-9e33-00137282c51b")
 public class CompositeDiagramEditorInputProvider implements IDiagramEditorInputProvider {
     @objid ("b72410aa-5a44-11e2-9e33-00137282c51b")
-    public  CompositeDiagramEditorInputProvider() {
+    public CompositeDiagramEditorInputProvider() {
         super();
     }
 
@@ -43,6 +43,12 @@ public class CompositeDiagramEditorInputProvider implements IDiagramEditorInputP
     public DiagramEditorInput compute(String diagramUID, IModelManager modelManager) {
         AbstractDiagram diagram = (AbstractDiagram) modelManager.getModelServices().findByRef(new MRef(CompositeStructureDiagram.MQNAME, diagramUID));
         return diagram != null ? new CompositeDiagramEditorInput(modelManager, diagram, getDiagramCreator()) : null;
+    }
+
+    @objid ("7702a4b1-929d-44d3-8ad0-3ab00abfab64")
+    @Override
+    public DiagramEditorInput compute(AbstractDiagram diagram, IModelManager modelManager) {
+        return diagram instanceof CompositeStructureDiagram ? new CompositeDiagramEditorInput(modelManager, diagram, getDiagramCreator()) : null;
     }
 
     @objid ("cbb9e9f9-97c5-4e15-96a0-01dea584cdbf")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.api.impl.exchange;
 
@@ -58,16 +58,17 @@ public class ExchangeService implements IExchangeService {
 
     /**
      * C'tor.
+     *
      * @param eclipseContext the eclipse context to initialize services from.
      * @param metamodel the metamodel of the currently opened project.
      */
     @objid ("d982e768-b426-42c9-8813-7b97f3450322")
-    public  ExchangeService(final IEclipseContext eclipseContext, MMetamodel metamodel) {
+    public ExchangeService(final IEclipseContext eclipseContext, MMetamodel metamodel) {
         this.xmiservice = new XMIService();
         this.modelServices = eclipseContext.get(IMModelServices.class);
         this.navigationServices = eclipseContext.get(IModelioNavigationService.class);
         this.metamodel = metamodel;
-        
+
     }
 
     @objid ("8fb90118-1c5c-439c-9b53-45ce49a454f9")
@@ -79,7 +80,7 @@ public class ExchangeService implements IExchangeService {
         exportConf.setExportedAnotation(configuration.isExportAnnotations());
         exportConf.setVersionExport(FormatExport.valueOf(configuration.getVersionExport().name()));
         exportConf.setXmiFile(configuration.getXmiFile());
-        
+
         try {
             if (entryPoint instanceof Profile) {
                 this.xmiservice.exportXMIProfile(exportConf, monitor, this.modelServices, this.metamodel, this.navigationServices);
@@ -89,7 +90,7 @@ public class ExchangeService implements IExchangeService {
         } catch (Exception e) {
             throw new XmiException(e);
         }
-        
+
     }
 
     @objid ("8018f414-9ae1-4060-953d-7742aa67ffdb")
@@ -99,7 +100,7 @@ public class ExchangeService implements IExchangeService {
         MObject owner = configuration.getOwner();
         importConf.setOwner(owner);
         importConf.setXmiFile(configuration.getXmiFile());
-        
+
         try {
             if (owner instanceof ModuleComponent) {
                 this.xmiservice.importXMIProfile(importConf, monitor, this.modelServices, this.metamodel, this.navigationServices);
@@ -111,7 +112,7 @@ public class ExchangeService implements IExchangeService {
         } catch (Exception e) {
             throw new XmiException(e);
         }
-        
+
     }
 
 }

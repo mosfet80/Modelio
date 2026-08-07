@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.ui.audit;
 
@@ -107,7 +107,7 @@ public class R3320 extends AbstractBpmnRule {
      * Default constructor for R3250
      */
     @objid ("bea5acbb-f49c-4b7d-8105-f14ae39e6c72")
-    public  R3320() {
+    public R3320() {
         this.checkerInstance = new CheckR3320(this);
     }
 
@@ -118,10 +118,11 @@ public class R3320 extends AbstractBpmnRule {
     private static class CheckR3320 extends AbstractControl {
         /**
          * C'tor.
+         *
          * @param rule the rule to check.
          */
         @objid ("89ff8129-3641-492d-8bed-b189de6d8bfb")
-        public  CheckR3320(final IRule rule) {
+        public CheckR3320(final IRule rule) {
             super(rule);
         }
 
@@ -139,13 +140,13 @@ public class R3320 extends AbstractBpmnRule {
         @objid ("6be4ffbc-0129-4071-945a-7c96c5629c84")
         private IAuditEntry checkR3320(final BpmnMessageFlow messageFlow) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, messageFlow, null);
-            
+
             BpmnBaseElement source = messageFlow.getSourceRef();
             BpmnBaseElement target = messageFlow.getTargetRef();
-            
+
             boolean isFromExternalParticipant = source instanceof BpmnParticipant && ((BpmnParticipant) source).getProcess() == null;
             boolean isToExternalParticipant = target instanceof BpmnParticipant && ((BpmnParticipant) target).getProcess() == null;
-            
+
             boolean isSourceOk = isFromExternalParticipant || source instanceof BpmnIntermediateThrowEvent || source instanceof BpmnSendTask;
             if (source instanceof BpmnEndEvent ||source instanceof BpmnBoundaryEvent ) {
                 for (BpmnEventDefinition definition : ((BpmnEvent) source).getEventDefinitions()) {
@@ -154,9 +155,9 @@ public class R3320 extends AbstractBpmnRule {
                     }
                 }
             }
-            
-            
-            
+
+
+
             boolean isTargetOk = target instanceof BpmnIntermediateCatchEvent || target instanceof BpmnReceiveTask || isToExternalParticipant;
             if (target instanceof BpmnStartEvent) {
                 for (BpmnEventDefinition definition : ((BpmnStartEvent) target).getEventDefinitions()) {
@@ -165,7 +166,7 @@ public class R3320 extends AbstractBpmnRule {
                     }
                 }
             }
-            
+
             if (!(isSourceOk && isTargetOk)) {
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();

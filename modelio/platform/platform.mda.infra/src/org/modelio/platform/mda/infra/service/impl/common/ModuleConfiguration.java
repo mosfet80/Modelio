@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.service.impl.common;
 
@@ -61,16 +61,17 @@ public final class ModuleConfiguration implements IModuleUserConfiguration {
 
     /**
      * Unique constructor of a User parameter manager.
+     *
      * @param impl the actual instance accessing the module parameters.
      * @param docpath list of all files that should be loaded for documentation.
      * @param stylepath Map of all defined diagram named styles provided by the module.
      */
     @objid ("9709e7a4-f374-11e1-9458-001ec947c8cc")
-    public  ModuleConfiguration(ConfigurationImpl impl, final List<Path> docpath, final Map<String, Path> stylepath) {
+    public ModuleConfiguration(ConfigurationImpl impl, final List<Path> docpath, final Map<String, Path> stylepath) {
         this.impl = impl;
         this.docpath = docpath;
         this.stylepath = stylepath;
-        
+
     }
 
     @objid ("9709e77a-f374-11e1-9458-001ec947c8cc")
@@ -107,7 +108,7 @@ public final class ModuleConfiguration implements IModuleUserConfiguration {
     @Override
     public List<Path> getDocpath() {
         List<Path> realpath = new ArrayList<>();
-        
+
         for (Path path : this.docpath) {
             realpath.add(getModuleResourcesPath().resolve(path));
         }
@@ -136,7 +137,7 @@ public final class ModuleConfiguration implements IModuleUserConfiguration {
     @Override
     public Map<String, Path> getStylePath() {
         Map<String, Path> realpath = new HashMap<>();
-        
+
         for (Map.Entry<String, Path> entry : this.stylepath.entrySet()) {
             realpath.put(entry.getKey(), getModuleResourcesPath().resolve(entry.getValue()));
         }

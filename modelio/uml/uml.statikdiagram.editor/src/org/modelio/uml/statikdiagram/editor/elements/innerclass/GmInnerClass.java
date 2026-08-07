@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.innerclass;
 
@@ -76,52 +76,54 @@ public final class GmInnerClass extends GmNoStyleCompositeNode implements Proper
 
     /**
      * Creates an inner classes group.
+     *
      * @param gmDiagram The diagram.
      * @param relatedRef a reference to the element this GmModel is related to, must not be null.
      */
     @objid ("352029ad-55b7-11e2-877f-002564c97630")
-    public  GmInnerClass(final IGmDiagram gmDiagram, final MRef relatedRef) {
+    public GmInnerClass(final IGmDiagram gmDiagram, final MRef relatedRef) {
         super(gmDiagram, relatedRef);
-        
+
         this.innerZone = new GmInnerClassesZone(gmDiagram, relatedRef);
         this.innerZone.setRoleInComposition(ZONE);
         // Register as a property change listener for content synchronization in MANUAL unmask mode.
         this.innerZone.addPropertyChangeListener(this);
-        
+
         this.innerGroup = new GmInnerClassGroup(gmDiagram, relatedRef);
         this.innerGroup.setRoleInComposition(GROUP);
         // Register as a property change listener for content synchronization in MANUAL unmask mode.
         this.innerGroup.addPropertyChangeListener(this);
-        
+
         super.addChild(this.innerGroup);
         super.addChild(this.innerZone);
-        
+
     }
 
     /**
      * Creates an inner classes group from existing zone & group.
+     *
      * @param diagram The diagram.
      * @param relatedRef a reference to the element this GmModel is related to, must not be null.
      * @param zone an existing InnerClass zone.
      * @param group an existing InnerClass group.
      */
     @objid ("3521b042-55b7-11e2-877f-002564c97630")
-    public  GmInnerClass(final IGmDiagram diagram, final MRef relatedRef, final GmFreeZone zone, final GmGroup group) {
+    public GmInnerClass(final IGmDiagram diagram, final MRef relatedRef, final GmFreeZone zone, final GmGroup group) {
         super(diagram, relatedRef);
-        
+
         this.innerZone = zone;
         this.innerZone.setRoleInComposition(ZONE);
-        
+
         this.innerGroup = group;
         this.innerGroup.setRoleInComposition(GROUP);
-        
+
         super.addChild(this.innerGroup);
         super.addChild(this.innerZone);
-        
+
         // Register as a property change listener for content synchronization.
         this.innerZone.addPropertyChangeListener(this);
         this.innerGroup.addPropertyChangeListener(this);
-        
+
     }
 
     /**
@@ -156,29 +158,29 @@ public final class GmInnerClass extends GmNoStyleCompositeNode implements Proper
                 break;
             }
         }
-        
+
     }
 
     @objid ("3521b06f-55b7-11e2-877f-002564c97630")
     @Override
     public void write(final IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmInnerClass.", GmInnerClass.MINOR_VERSION);
-        
+
     }
 
     @objid ("3521b076-55b7-11e2-877f-002564c97630")
     private void read_0(final IDiagramReader in) {
         super.read(in);
-        
+
         this.innerZone = (GmFreeZone) getFirstChild(ZONE);
         this.innerZone.addPropertyChangeListener(this);
-        
+
         this.innerGroup = (GmGroup) getFirstChild(GROUP);
         this.innerGroup.addPropertyChangeListener(this);
-        
+
     }
 
     @objid ("352336d9-55b7-11e2-877f-002564c97630")
@@ -189,7 +191,7 @@ public final class GmInnerClass extends GmNoStyleCompositeNode implements Proper
         } else {
             return this.innerGroup;
         }
-        
+
     }
 
     @objid ("352336e3-55b7-11e2-877f-002564c97630")
@@ -200,7 +202,7 @@ public final class GmInnerClass extends GmNoStyleCompositeNode implements Proper
         } else {
             return this.innerGroup.canUnmask(el);
         }
-        
+
     }
 
     @objid ("352336eb-55b7-11e2-877f-002564c97630")
@@ -216,7 +218,7 @@ public final class GmInnerClass extends GmNoStyleCompositeNode implements Proper
         if (child == this.innerGroup || child == this.innerZone) {
             child.removePropertyChangeListener(this);
         }
-        
+
     }
 
     /**
@@ -238,13 +240,14 @@ public final class GmInnerClass extends GmNoStyleCompositeNode implements Proper
                 return;
             }
         }
-        
+
     }
 
     /**
      * Synchronize target's children according to the source's children.
      * Unwanted children are all masked.
      * Missing children are unmasked.
+     *
      * @param source the gm having the right children.
      * @param target the gm that might have unwanted/missing children.
      */
@@ -258,7 +261,7 @@ public final class GmInnerClass extends GmNoStyleCompositeNode implements Proper
                 sourceChildren.add(representedIElement);
             }
         }
-        
+
         // - Get elements unmasked in both source & target
         // - Remove unwanted gms
         Set<MObject> targetChildren = new HashSet<>();
@@ -273,21 +276,21 @@ public final class GmInnerClass extends GmNoStyleCompositeNode implements Proper
                 }
             }
         }
-        
+
         // Get all elements to unmask in target
         Set<MObject> toUnmask = new HashSet<>(sourceChildren);
         toUnmask.removeAll(targetChildren);
-        
+
         // Unmask them
         // TODO get a better layout
         int size = target.getChildren().size();
         final Rectangle constraint = new Rectangle(10 * size + 5, 10 * size + 5, -1, -1);
-        
+
         for (MObject elt : toUnmask) {
             getDiagram().unmask(target, elt, constraint.getCopy());
             constraint.translate(10, 10);
         }
-        
+
     }
 
     /**
@@ -302,7 +305,7 @@ public final class GmInnerClass extends GmNoStyleCompositeNode implements Proper
         } else {
             return true;
         }
-        
+
     }
 
     @objid ("3523370e-55b7-11e2-877f-002564c97630")
@@ -315,8 +318,8 @@ public final class GmInnerClass extends GmNoStyleCompositeNode implements Proper
      * Constructor for deserialization only.
      */
     @objid ("35233713-55b7-11e2-877f-002564c97630")
-    public  GmInnerClass() {
-        
+    public GmInnerClass() {
+
     }
 
     /**
@@ -353,7 +356,7 @@ public final class GmInnerClass extends GmNoStyleCompositeNode implements Proper
         if (visible) {
             getParent().getDisplayedStyle().setProperty(getStyleKey(MetaKey.REPMODE), RepresentationMode.STRUCTURED);
         }
-        
+
     }
 
     @objid ("3524bd8a-55b7-11e2-877f-002564c97630")
@@ -362,7 +365,7 @@ public final class GmInnerClass extends GmNoStyleCompositeNode implements Proper
         // The visibility may have changed so fires a notification.
         fireVisibilityChanged();
         super.styleChanged(style);
-        
+
     }
 
     @objid ("3524bd90-55b7-11e2-877f-002564c97630")
@@ -373,7 +376,7 @@ public final class GmInnerClass extends GmNoStyleCompositeNode implements Proper
         } else {
             super.styleChanged(property, newValue);
         }
-        
+
     }
 
 }

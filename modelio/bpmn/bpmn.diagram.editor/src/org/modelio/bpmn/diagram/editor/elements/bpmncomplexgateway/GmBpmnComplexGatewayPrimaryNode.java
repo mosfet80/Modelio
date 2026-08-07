@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmncomplexgateway;
 
@@ -51,11 +51,12 @@ public final class GmBpmnComplexGatewayPrimaryNode extends GmNoStyleSimpleNode i
 
     /**
      * Create a initial graphic node.
+     *
      * @param diagram The diagram
      * @param relatedRef The related element reference, may not be null.
      */
     @objid ("60a50584-55b6-11e2-877f-002564c97630")
-    public  GmBpmnComplexGatewayPrimaryNode(IGmDiagram diagram, MRef relatedRef) {
+    public GmBpmnComplexGatewayPrimaryNode(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -73,7 +74,7 @@ public final class GmBpmnComplexGatewayPrimaryNode extends GmNoStyleSimpleNode i
         }
         // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("60a50597-55b6-11e2-877f-002564c97630")
@@ -90,6 +91,7 @@ public final class GmBpmnComplexGatewayPrimaryNode extends GmNoStyleSimpleNode i
 
     /**
      * Get the parent model representation mode.
+     *
      * @return the parent representation mode or null if the node has still no parent.
      */
     @objid ("60a68bfb-55b6-11e2-877f-002564c97630")
@@ -109,26 +111,26 @@ public final class GmBpmnComplexGatewayPrimaryNode extends GmNoStyleSimpleNode i
     @Override
     public IEditableText getEditableText() {
         return new IEditableText() {
-                
+
                             @Override
                             public String getText() {
                                 return getRelatedElement().getName();
                             }
-                
+
                             @Override
                             public void setText(String text) {
                                 getRelatedElement().setName(text);
                             }
-                
+
                         };
-        
+
     }
 
     /**
      * Constructor for deserialization only.
      */
     @objid ("60a68c0f-55b6-11e2-877f-002564c97630")
-    public  GmBpmnComplexGatewayPrimaryNode() {
+    public GmBpmnComplexGatewayPrimaryNode() {
         // for the serialization
     }
 
@@ -149,17 +151,17 @@ public final class GmBpmnComplexGatewayPrimaryNode extends GmNoStyleSimpleNode i
             break;
         }
         }
-        
+
     }
 
     @objid ("60a68c18-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmBpmnComplexGatewayPrimaryNode.", MINOR_VERSION);
-        
+
     }
 
     @objid ("60a68c1e-55b6-11e2-877f-002564c97630")

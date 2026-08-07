@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.api.tools;
 
@@ -30,6 +30,7 @@ import org.modelio.api.modelio.diagram.tools.IDiagramTool;
 public class LinkToolEntry extends ConnectionCreationToolEntry {
     /**
      * Constructor for LinkToolEntry.
+     *
      * @param label the label
      * @param shortDesc the description
      * @param factory the CreationFactory
@@ -37,14 +38,14 @@ public class LinkToolEntry extends ConnectionCreationToolEntry {
      * @param iconLarge the large icon
      */
     @objid ("f252854d-fd68-42fc-87e7-58745bd00dcb")
-    public  LinkToolEntry(final String label, final String shortDesc, final CreationFactory factory, final ImageDescriptor iconSmall, final ImageDescriptor iconLarge, final IDiagramTool handler) {
+    public LinkToolEntry(final String label, final String shortDesc, final CreationFactory factory, final ImageDescriptor iconSmall, final ImageDescriptor iconLarge, final IDiagramTool handler) {
         super(label, shortDesc, factory, iconSmall, iconLarge);
         setToolClass(LinkTool.class);
         this.setToolProperty(LinkTool.PROPERTY_HANDLER, handler);
-        
+
         // Return to default selection tool after finished
         setToolProperty(AbstractTool.PROPERTY_UNLOAD_WHEN_FINISHED, Boolean.TRUE);
-        
+
     }
 
 }

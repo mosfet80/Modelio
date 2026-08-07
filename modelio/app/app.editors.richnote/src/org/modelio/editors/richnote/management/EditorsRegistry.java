@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.management;
 
@@ -33,7 +33,7 @@ class EditorsRegistry {
     private Map<MRef, RichNoteToken> openEditors = new HashMap<>();
 
     @objid ("494b9393-1cab-48e3-b098-bf036659da42")
-     EditorsRegistry() {
+    EditorsRegistry() {
         // nothing
     }
 
@@ -47,7 +47,7 @@ class EditorsRegistry {
     public void addEditor(MObject model, IRichNoteEditor editor) {
         RichNoteToken token = new RichNoteToken(model, editor);
         this.openEditors.put(new MRef(model), token);
-        
+
     }
 
     @objid ("12dc5faa-0959-435a-a9c1-259f3a45f24c")
@@ -56,6 +56,7 @@ class EditorsRegistry {
     }
 
     /**
+     *
      * @return all editors.
      */
     @objid ("f7f16b85-0abb-45ef-94a0-540786c52cda")
@@ -85,10 +86,10 @@ class EditorsRegistry {
         final IRichNoteEditor editor;
 
         @objid ("837648cd-cf9e-4ed5-bf58-baec4f1ac42c")
-        public  RichNoteToken(MObject model, IRichNoteEditor editor) {
+        public RichNoteToken(MObject model, IRichNoteEditor editor) {
             this.model = model;
             this.editor = editor;
-            
+
         }
 
     }

@@ -1,0 +1,36 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= Mise en place d'un modèle de travail partagé pour les activités de travail de groupe
+
+
+La préparation d'un modèle pour les activités de travail de groupe est bien évidemment la première opération à mener. Cette opération sera menée une seule fois pour chaque projet, directement depuis Modelio sur le poste de travail utilisateur.
+
+Les modèles de travail partagés sont gérés dans l'onglet des modèles de travail dans la fenêtre de configuration du projet.
+
+image::images/attachment/modeliocom41/User_Documentation_fr/Mise_en_place_un_modele_de_travail_SVN/TW_002_add_sharedmodel.png[TW_002_add_sharedmodel.png]
+
+On utilise la même procédure pour se connecter à un modèle partagé existant et pour créer un nouveau modèle partagé. La seule restriction concernant la création d'un nouveau modèle partagé dans le référentiel est que le répertoire doit déjà exister dans le référentiel (bien entendu l'utilisateur doit disposer des droits suffisants pour pouvoir créer un référentiel sur le serveur).
+
+Pour créer un nouveau modèle partagé :
+
+1.  Cliquez sur "Configuration / Modèles de travail".
++
+La fenêtre de configuration du projet s'ouvre alors et l'onglet "Modèles de travail" est présenté.
+2.  Dans la section "Modèles partagés", cliquez sur le bouton "Ajouter...".
++
+La fenêtre d'ajout de modèles partagés s'ouvre alors.
+3.  Complétez les champs de la fenêtre :
+* Donnez un nom au modèle.
+* Saisissez l'URL du modèle sur le serveur de travail de groupe.
++
+Modelio supporte les URLs _svn:_, _http:_ et _https:_ pour la connexion à un référentiel.
+* Saisissez les données d'authentification le cas échéant.
+* Cochez la case "Verrouillage nécessaire" pour forcer l'utilisation de verrous lors de la modification des éléments de modèle. Pour plus d'informations, voir <<User_Documentation_fr_Introduction_aux_modeles_de_travail_SVN_Modes_de_verrouillage.adoc#,Modes de verrouillage>>.
+* Validez la création.
+
+S'il n'existe pas encore de modèle de travail dans le référentiel, celui-ci sera alors initialisé avec un modèle vide. Dans le cas opposé, le modèle de travail du référentiel est importé dans le projet.

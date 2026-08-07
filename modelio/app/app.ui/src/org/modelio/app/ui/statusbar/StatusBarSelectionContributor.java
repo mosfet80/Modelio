@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.ui.statusbar;
 
@@ -23,8 +23,8 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
@@ -55,6 +55,7 @@ import org.modelio.platform.ui.UIThreadRunner;
 import org.modelio.vcore.session.api.model.change.IModelChangeEvent;
 import org.modelio.vcore.session.api.model.change.IModelChangeListener;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.vcore.smkernel.mapi.MStatus;
 
 /**
  * Status bar contributor for current selection.
@@ -74,16 +75,16 @@ public class StatusBarSelectionContributor implements IStatusBarContribution, IM
     @Inject
     ESelectionService selectionService;
 
-    @objid ("28bc880d-954f-41dd-93e9-473c773ef462")
+    @objid ("62f74192-2557-4427-9ae7-bce43e91d0c0")
     private CLabel selectionLabel;
 
     /**
      * Read/write status
      */
-    @objid ("2ffc71d8-6576-4c57-8358-7504d28e9e87")
+    @objid ("19387901-e07b-48b3-9a7e-d45001282e2b")
     private CLabel labelRW;
 
-    @objid ("9a6ccc52-223c-4460-b86c-299ad82350ae")
+    @objid ("d048c546-74a7-4e83-9d5b-752f453f45c6")
     private List<Control> allLabels = null;
 
     @objid ("16989cca-a62e-435f-8c31-3fef1a0452b7")
@@ -94,26 +95,26 @@ public class StatusBarSelectionContributor implements IStatusBarContribution, IM
     public Control createControl(Composite parent) {
         this.resources = new Resources();
         Composite container = new Composite(parent, SWT.NONE);
-        
+
         GridLayout gridLayout = new GridLayout(3, false);
         gridLayout.horizontalSpacing = 2;
         gridLayout.verticalSpacing = 0;
         gridLayout.marginHeight = 0;
         gridLayout.marginWidth = 0;
         container.setLayout(gridLayout);
-        
+
         this.selectionLabel = new CLabel(container, SWT.NONE);
         this.selectionLabel.setText("                ");
         this.selectionLabel.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-        
+
         Label sep = new Label(container, SWT.SEPARATOR);
         sep.setLayoutData(new GridData(SWT.DEFAULT, 16));
-        
+
         this.labelRW = new CLabel(container, SWT.NONE);
         this.labelRW.setImage(this.resources.emptyIcon);
         this.labelRW.setToolTipText(AppUi.I18N.getString("Statusbar.rwlabel.tooltip"));
         this.labelRW.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false));
-        
+
         this.allLabels = Arrays.asList(this.labelRW, this.selectionLabel);
         return container;
     }
@@ -121,28 +122,29 @@ public class StatusBarSelectionContributor implements IStatusBarContribution, IM
     @objid ("fd65ca02-3793-4223-bf56-26079dcb0b39")
     @Inject
     @Optional
-    void onProjectOpened(@UIEventTopic (ModelioEventTopics.PROJECT_OPENED) final IGProject project, IProjectService projectService) {
+    void onProjectOpened(@UIEventTopic(ModelioEventTopics.PROJECT_OPENED) final IGProject project, IProjectService projectService) {
         project.getSession().getModelChangeSupport().addModelChangeListener(this);
     }
 
     @objid ("4c9ca69a-f58a-4446-9ac1-2ae1d6f270a9")
     @Inject
     @Optional
-    private void onProjectClosing(@EventTopic (ModelioEventTopics.PROJECT_CLOSING) final IGProject project, IProjectService projectService) {
+    private void onProjectClosing(@EventTopic(ModelioEventTopics.PROJECT_CLOSING) final IGProject project, IProjectService projectService) {
         // Unregister as a model change listener.
         project.getSession().getModelChangeSupport().removeModelChangeListener(this);
-        updateSelectionLabel("", null);
-        
+
+        // This method may be called from another thread
+        UIThreadRunner.asynExec(this.selectionLabel, () -> updateSelectionLabel("", null));
     }
 
     @objid ("ce440632-616a-41aa-8fb8-1fcad5024c3a")
     @Inject
     @Optional
-    public void onSelectionChange(@Named (IServiceConstants.ACTIVE_SELECTION) IStructuredSelection selection) {
+    public void onSelectionChange(@Named(IServiceConstants.ACTIVE_SELECTION) IStructuredSelection selection) {
         if (this.selectionLabel == null || this.selectionLabel.isDisposed()) {
             return;
         }
-        
+
         List<MObject> elements = SelectionHelper.toList(selection, MObject.class);
         if (elements == null || elements.isEmpty()) {
             clear();
@@ -152,13 +154,16 @@ public class StatusBarSelectionContributor implements IStatusBarContribution, IM
             clear();
             updateSelectionLabel(String.format("%d selected", selection.size()), null);
         }
-        
     }
 
     @objid ("a75a5716-5d52-493c-912c-431eef5a6a50")
     private void updateRWLabel(MObject mObj) {
         if (mObj != null) {
-            if (mObj.getStatus().isModifiable()) {
+            MStatus status = mObj.getStatusLazy();
+            if (!status.isStatusFullyLoaded()) {
+                this.labelRW.setImage(this.resources.roIcon);
+                this.labelRW.setToolTipText(AppUi.I18N.getString("Statusbar.rwlabel.loading.tooltip"));
+            } else if (status.isModifiable()) {
                 this.labelRW.setImage(this.resources.rwIcon);
                 this.labelRW.setToolTipText(AppUi.I18N.getString("Statusbar.rwlabel.readwrite.tooltip"));
             } else {
@@ -168,7 +173,6 @@ public class StatusBarSelectionContributor implements IStatusBarContribution, IM
         } else {
             this.labelRW.setImage(this.resources.emptyIcon);
         }
-        
     }
 
     @objid ("48bfddff-c580-4f71-974f-b4f56d058d9d")
@@ -184,14 +188,12 @@ public class StatusBarSelectionContributor implements IStatusBarContribution, IM
         } else {
             clear();
         }
-        
     }
 
     @objid ("bbfbbd6e-fb4d-41da-9db3-cea83af78fd4")
     private void clear() {
         updateSelectionLabel("", null);
         updateRWLabel(null);
-        
     }
 
     @objid ("0101ac7c-2bfc-45f8-8ed1-56f688a69689")
@@ -205,7 +207,6 @@ public class StatusBarSelectionContributor implements IStatusBarContribution, IM
             this.selectionLabel.setImage(img != null && !img.isDisposed() ? img : null);
             fireStatusBarUpdate();
         }
-        
     }
 
     @objid ("0339e7e7-fa43-4b37-a50e-0137158527c2")
@@ -215,26 +216,24 @@ public class StatusBarSelectionContributor implements IStatusBarContribution, IM
             ISelection selection = (ISelection) this.selectionService.getSelection();
             update(SelectionHelper.getFirst(selection, MObject.class));
         });
-        
     }
 
     @objid ("282794b0-dd6e-459a-a738-bd3cc175db08")
     private static class Resources {
-        @objid ("cf3c41eb-aad0-4476-ae24-04ad81f28e46")
+        @objid ("15a80371-ff2d-468b-97b4-3ab45fa4a9c8")
         private Image rwIcon;
 
-        @objid ("378f60b5-33e8-41e3-86fe-4f2c0dc9b09d")
+        @objid ("cf5cd365-78d7-4c1e-85d7-890cedeb4a2e")
         private Image roIcon;
 
-        @objid ("3b634596-d54b-4b0c-a56d-64f5bd76ed92")
+        @objid ("600b29dd-91c3-4111-b86f-0528bb6b33e1")
         private Image emptyIcon;
 
         @objid ("597f60e2-4a74-42bb-9138-b4d35743d8ce")
-        public  Resources() {
+        public Resources() {
             this.rwIcon = createImageDescriptor("icons/rw-element.png").createImage();
             this.roIcon = createImageDescriptor("icons/ro-element.png").createImage();
             this.emptyIcon = createImageDescriptor("icons/empty.png").createImage();
-            
         }
 
         @objid ("1f0ae530-3642-4d98-b47b-0ebc7b352365")
@@ -251,11 +250,11 @@ public class StatusBarSelectionContributor implements IStatusBarContribution, IM
                 this.emptyIcon.dispose();
                 this.emptyIcon = null;
             }
-            
         }
 
         /**
          * Create an image descriptor from a path relative to the Audit plugin.
+         *
          * @param path a relative path.
          * @return the image descriptor.
          */

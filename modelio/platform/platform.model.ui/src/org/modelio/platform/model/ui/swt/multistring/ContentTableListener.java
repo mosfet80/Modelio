@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.swt.multistring;
 
@@ -37,7 +37,7 @@ class ContentTableListener implements ISelectionChangedListener, KeyListener, Co
     private MultiStringEditionComposite dialog = null;
 
     @objid ("8dc905ab-c068-11e1-8c0a-002564c97630")
-    public  ContentTableListener(MultiStringEditionComposite dialog) {
+    public ContentTableListener(MultiStringEditionComposite dialog) {
         this.dialog = dialog;
     }
 
@@ -52,10 +52,9 @@ class ContentTableListener implements ISelectionChangedListener, KeyListener, Co
     public void controlResized(ControlEvent e) {
         Table table = (Table)e.getSource();
         int tableWidth = table.getSize().x - 5;
-        
+
         TableColumn[] columns = table.getColumns();
         columns[0].setWidth(tableWidth);
-        
     }
 
     @objid ("8dc905b6-c068-11e1-8c0a-002564c97630")
@@ -81,20 +80,18 @@ class ContentTableListener implements ISelectionChangedListener, KeyListener, Co
             List<String> adapters = this.dialog.getSelectedAdapters();
             this.dialog.moveDown(adapters);
         }
-        
     }
 
     @objid ("8dc905be-c068-11e1-8c0a-002564c97630")
     @Override
     public void selectionChanged(SelectionChangedEvent event) {
         List<String> adapters = this.dialog.getSelectedAdapters();
-        
+
         boolean enable = adapters.size() > 0;
-        
+
         this.dialog.getMoveUpParameterButton().setEnabled(enable);
         this.dialog.getMoveDownParameterButton().setEnabled(enable);
         this.dialog.getRemoveParameterButton().setEnabled(enable);
-        
     }
 
 }

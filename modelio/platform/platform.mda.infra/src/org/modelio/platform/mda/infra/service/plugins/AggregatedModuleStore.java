@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.service.plugins;
 
@@ -33,7 +33,7 @@ import org.modelio.vbasic.progress.SubProgress;
 
 /**
  * Aggregate the plugins modules store and the modules store.
- * 
+ *
  * @author cma
  * @since 3.8
  */
@@ -46,10 +46,10 @@ public class AggregatedModuleStore implements IModuleStore {
     private final IModuleStore modulesStore;
 
     @objid ("034574ae-283a-47f6-95a6-19f13aae9668")
-    public  AggregatedModuleStore(IModuleStore pluginStore, IModuleStore modulesStore) {
+    public AggregatedModuleStore(IModuleStore pluginStore, IModuleStore modulesStore) {
         this.pluginStore = Objects.requireNonNull(pluginStore);
         this.modulesStore = Objects.requireNonNull(modulesStore);
-        
+
     }
 
     @objid ("a456d840-8d00-438e-8f62-3468e99a519e")
@@ -69,7 +69,7 @@ public class AggregatedModuleStore implements IModuleStore {
     public List<IModuleHandle> findAllModules(IModelioProgress monitor) throws FileSystemException, IOException {
         SubProgress mon = SubProgress.convert(monitor, 5);
         List<IModuleHandle> ret = new ArrayList<>();
-        
+
         ret.addAll(this.modulesStore.findAllModules(mon.newChild(4)));
         ret.addAll(this.pluginStore.findAllModules(mon.newChild(1)));
         return ret;
@@ -83,7 +83,7 @@ public class AggregatedModuleStore implements IModuleStore {
         if (ret != null) {
             return ret;
         }
-        
+
         ret = this.modulesStore.findModule(archivePath, monitor);
         return ret;
     }
@@ -96,7 +96,7 @@ public class AggregatedModuleStore implements IModuleStore {
         if (ret != null) {
             return ret;
         }
-        
+
         ret = this.modulesStore.findModule(moduleName, moduleVersion, monitor);
         return ret;
     }
@@ -109,7 +109,7 @@ public class AggregatedModuleStore implements IModuleStore {
         if (!ret.isEmpty()) {
             return ret;
         }
-        
+
         ret = this.modulesStore.findModule(moduleName, monitor);
         return ret;
     }

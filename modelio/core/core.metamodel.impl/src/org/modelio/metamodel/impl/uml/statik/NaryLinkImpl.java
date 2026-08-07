@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -56,7 +55,7 @@ public class NaryLinkImpl extends UmlModelElementImpl implements NaryLink {
             if (objOwner != this && objOwner != null) {
                 return obj;
             }
-        
+
         }
         return super.getCompositionOwner();
     }
@@ -88,18 +87,18 @@ public class NaryLinkImpl extends UmlModelElementImpl implements NaryLink {
                 r.setNaryLink(this);
             }
         }
-        
+
         super.afterEraseDepVal(dep, value);
-        
+
     }
 
-    @objid ("53a66505-f8b4-4085-97d1-bbc83e935809")
+    @objid ("7dd2fa82-0f06-48e2-9c3a-d029d7bf7945")
     @Override
     public EList<NaryLinkEnd> getNaryLinkEnd() {
         return new SmList<>(this, ((NaryLinkSmClass)getClassOf()).getNaryLinkEndDep());
     }
 
-    @objid ("675ed4ee-6bf9-421d-a84c-0058b4bde91a")
+    @objid ("467066b9-d35e-4525-837b-f7395f07f6d4")
     @Override
     public <T extends NaryLinkEnd> List<T> getNaryLinkEnd(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -112,29 +111,29 @@ public class NaryLinkImpl extends UmlModelElementImpl implements NaryLink {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("6ba73ec5-5f03-42b6-a68c-39c4dfd09358")
+    @objid ("82b88639-370d-44bb-a23e-7438adadef0a")
     @Override
     public NaryAssociation getModel() {
         Object obj = getDepVal(((NaryLinkSmClass)getClassOf()).getModelDep());
         return (obj instanceof NaryAssociation)? (NaryAssociation)obj : null;
     }
 
-    @objid ("5967b566-5038-49b2-9acb-c87c3b24028e")
+    @objid ("10e38250-55cf-4b8d-8743-0ebd34ebdf80")
     @Override
     public void setModel(NaryAssociation value) {
         appendDepVal(((NaryLinkSmClass)getClassOf()).getModelDep(), (SmObjectImpl)value);
     }
 
-    @objid ("5c858bcb-e099-4a7f-ad30-66d9f950dce3")
+    @objid ("e68c4511-e447-4ca2-950d-c207d31b67a9")
     @Override
     public EList<InformationFlow> getRealizedInformationFlow() {
         return new SmList<>(this, ((NaryLinkSmClass)getClassOf()).getRealizedInformationFlowDep());
     }
 
-    @objid ("7e427f6e-38a3-434f-8777-34179cb7def0")
+    @objid ("6d81e00d-a7ee-499f-ac94-19b4388c9e94")
     @Override
     public <T extends InformationFlow> List<T> getRealizedInformationFlow(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -147,16 +146,16 @@ public class NaryLinkImpl extends UmlModelElementImpl implements NaryLink {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("f0a3ea06-0e80-49b1-895f-5e9909462ff7")
+    @objid ("75a38a17-e0ee-4db6-a0c0-bf055e9e159c")
     @Override
     public EList<CommunicationChannel> getSent() {
         return new SmList<>(this, ((NaryLinkSmClass)getClassOf()).getSentDep());
     }
 
-    @objid ("fc861487-cb57-44ab-a727-4afbbf7cfec9")
+    @objid ("efb49957-2ca2-4d87-ba9a-e12a75178c95")
     @Override
     public <T extends CommunicationChannel> List<T> getSent(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -169,10 +168,10 @@ public class NaryLinkImpl extends UmlModelElementImpl implements NaryLink {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("ef7f9f2b-7278-4f05-a4a6-02f593dedb5a")
+    @objid ("35bbe805-0f77-4c07-a17f-efcf2318d196")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitNaryLink(this);

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.browser.contrib;
 
@@ -58,12 +58,12 @@ public class UmlContentProvider implements IModelioTreeContentProvider {
         if (parent instanceof IGModelFragment) {
             return getFragmentRoots((IGModelFragment) parent).toArray();
         }
-        
+
         // General case: MObject
         if (parent instanceof MObject) {
             return getChildren((MObject) parent);
         }
-        
+
         // No children
         return Collections.EMPTY_LIST.toArray();
     }
@@ -83,7 +83,7 @@ public class UmlContentProvider implements IModelioTreeContentProvider {
         if (child instanceof MObject) {
             return getParent((MObject) child);
         }
-        
+
         // No parent found
         return null;
     }
@@ -94,12 +94,12 @@ public class UmlContentProvider implements IModelioTreeContentProvider {
         if (parent instanceof IGModelFragment) {
             return hasChildren((IGModelFragment) parent);
         }
-        
+
         // General case: MObject
         if (parent instanceof MObject) {
             return hasChildren((MObject) parent);
         }
-        
+
         // Not expected, returning yes allows for next getChildren() call in any case, might help debugging :)
         return true;
     }
@@ -109,7 +109,7 @@ public class UmlContentProvider implements IModelioTreeContentProvider {
     public void inputChanged(final Viewer viewer, final Object oldInput, final Object newInput) {
         // This content provider being only a contributor to the browser model content provider
         // it does not deal with input => nothing to do
-        
+
     }
 
     /**
@@ -120,7 +120,7 @@ public class UmlContentProvider implements IModelioTreeContentProvider {
         // First collect elements
         List<Object> results = new ArrayList<>();
         results.addAll(UmlContentProvider.visitor.getElements(mObj));
-        
+
         // Second collect links. If there are links group them in a LinkContainer instance added to the results.
         List<MObject> links = UmlContentProvider.visitor.getLinks(mObj);
         if (!links.isEmpty()) {
@@ -138,7 +138,7 @@ public class UmlContentProvider implements IModelioTreeContentProvider {
         if (child instanceof BpmnBoundaryEvent && ((BpmnBoundaryEvent) child).getAttachedToRef() != null) {
             return ((BpmnBoundaryEvent) child).getAttachedToRef();
         }
-        
+
         if (child instanceof BpmnLane) {
             // Lane may belong to BpmnProcess BpmnRolesContainer or parent Lane
             BpmnLane l = (BpmnLane) child;
@@ -151,9 +151,9 @@ public class UmlContentProvider implements IModelioTreeContentProvider {
                 }
             }
         }
-        
+
         // General case: MObject
-        
+
         MObject owner = child.getCompositionOwner();
         if (owner != null) {
             // look for owner container
@@ -176,7 +176,7 @@ public class UmlContentProvider implements IModelioTreeContentProvider {
         } else if (!child.getMClass().areOrphansAllowed()) {
             UmlUi.LOG.warning("%s: Orphan %s discovered.", getClass().getSimpleName(), child);
         }
-        
+
         // No parent found
         return null;
     }
@@ -200,7 +200,7 @@ public class UmlContentProvider implements IModelioTreeContentProvider {
     @objid ("bd28830d-de7d-41f0-b597-33bf28f9a0da")
     private List<Object> getFragmentRoots(IGModelFragment fragment) {
         List<Object> ret = new ArrayList<>();
-        
+
         IRepository repository = fragment.getRepository();
         if (repository != null) {
             for (MObject root : fragment.getRoots()) {

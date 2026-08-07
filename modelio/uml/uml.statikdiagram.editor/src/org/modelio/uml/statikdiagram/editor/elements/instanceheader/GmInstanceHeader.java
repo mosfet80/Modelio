@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.instanceheader;
 
@@ -54,20 +54,21 @@ public class GmInstanceHeader extends GmDefaultModelElementHeader {
      * Constructor for deserialization only.
      */
     @objid ("3547d5e3-55b7-11e2-877f-002564c97630")
-    public  GmInstanceHeader() {
+    public GmInstanceHeader() {
         init();
     }
 
     /**
      * Initialize a classifier header
+     *
      * @param diagram the owning diagram.
      * @param relatedRef a reference to the element this GmModel is related to, must not be null.
      */
     @objid ("3547d5e6-55b7-11e2-877f-002564c97630")
-    public  GmInstanceHeader(IGmDiagram diagram, MRef relatedRef) {
+    public GmInstanceHeader(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
         init();
-        
+
     }
 
     @objid ("3547d5ef-55b7-11e2-877f-002564c97630")
@@ -76,9 +77,9 @@ public class GmInstanceHeader extends GmDefaultModelElementHeader {
         if (property == GmInstanceStructuredStyleKeys.SHOWNAME)
             if (updateMainLabelFromObModel())
                 firePropertyChange(IGmObject.PROPERTY_LABEL, this, null);
-        
+
         super.styleChanged(property, newValue);
-        
+
     }
 
     @objid ("3547d5f6-55b7-11e2-877f-002564c97630")
@@ -86,9 +87,9 @@ public class GmInstanceHeader extends GmDefaultModelElementHeader {
     public void styleChanged(IStyle changedStyle) {
         if (updateMainLabelFromObModel())
             firePropertyChange(IGmObject.PROPERTY_LABEL, this, null);
-        
+
         super.styleChanged(changedStyle);
-        
+
     }
 
     @objid ("3547d5fc-55b7-11e2-877f-002564c97630")
@@ -106,9 +107,9 @@ public class GmInstanceHeader extends GmDefaultModelElementHeader {
             case SIMPLE:
             default:
                 return InstanceSymbolProvider.computeSimpleLabel(c);
-        
+
         }
-        
+
     }
 
     @objid ("3547d600-55b7-11e2-877f-002564c97630")
@@ -131,9 +132,9 @@ public class GmInstanceHeader extends GmDefaultModelElementHeader {
         } else {
             setShowMetaclassIcon(false);
         }
-        
+
         super.refreshFromObModel();
-        
+
     }
 
     /**
@@ -149,7 +150,7 @@ public class GmInstanceHeader extends GmDefaultModelElementHeader {
         } else {
             return ElementImageService.getIcon(instance);
         }
-        
+
     }
 
     @objid ("35495c81-55b7-11e2-877f-002564c97630")
@@ -169,17 +170,17 @@ public class GmInstanceHeader extends GmDefaultModelElementHeader {
                 break;
             }
         }
-        
+
     }
 
     @objid ("35495c87-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmInstanceHeader.", GmInstanceHeader.MINOR_VERSION);
-        
+
     }
 
     @objid ("35495c8d-55b7-11e2-877f-002564c97630")

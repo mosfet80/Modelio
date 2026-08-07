@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class Invariant {
      * Tells whether a {@link Invariant proxy} can be instantiated from a {@link MObject} checking it is a {@link Constraint} stereotyped << invariant >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,7 +73,7 @@ public class Invariant {
 
     /**
      * Create a new {@link Constraint} stereotyped << invariant >> then instantiate a {@link Invariant} proxy.
-     * 
+     *
      * @return a {@link Invariant} proxy on the created {@link Constraint}.
      */
     @objid ("94c70b4c-1c6a-4aad-a73d-db2c7e330fa2")
@@ -83,9 +84,10 @@ public class Invariant {
     }
 
     /**
-     * Tries to instantiate a {@link Invariant} proxy from a {@link Constraint} stereotyped << invariant >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link Invariant} proxy from a {@link Constraint} stereotyped << invariant >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a Constraint
      * @return a {@link Invariant} proxy or <i>null</i>.
      */
@@ -95,9 +97,10 @@ public class Invariant {
     }
 
     /**
-     * Tries to instantiate a {@link Invariant} proxy from a {@link Constraint} stereotyped << invariant >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link Invariant} proxy from a {@link Constraint} stereotyped << invariant >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link Constraint}
      * @return a {@link Invariant} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -127,7 +130,8 @@ public class Invariant {
     }
 
     /**
-     * Get the underlying {@link Constraint}. 
+     * Get the underlying {@link Constraint}.
+     *
      * @return the Constraint represented by this proxy, never null.
      */
     @objid ("6e4274d3-e0db-40bc-aa4a-148465dbe1bf")
@@ -139,11 +143,11 @@ public class Invariant {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("eaa3a659-5a89-4ad4-a172-a9380595f1ab")
-    protected  Invariant(Constraint elt) {
+    protected Invariant(Constraint elt) {
         this.elt = elt;
     }
 
@@ -163,7 +167,7 @@ public class Invariant {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "00000000-0000-9c44-0000-000000000000");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -171,7 +175,7 @@ public class Invariant {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

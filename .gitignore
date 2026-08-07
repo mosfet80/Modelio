@@ -6,7 +6,7 @@ modelio/*/*/bin
 modelio/*/*/target
 modelio/*/*/runtime/bin
 features/*/*/target
-products/target
+products/opensource/target/*
 
 doc/plugins/*/*/target
 doc/plugins/*/*/html/*

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -48,7 +48,7 @@ public class R2400 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -68,13 +68,13 @@ public class R2400 extends AbstractUmlRule {
         // This cover the case of moving or deleting a Parameter, which triggers
         // an UPDATE on the old parent.
         plan.registerRule(Operation.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         // This cover the case of [creating|moving] a Parameter [under|to] a new
         // parent.
         // It also covers the case of renaming a Parameter.
         plan.registerRule(Parameter.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE
                 | AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -108,14 +108,14 @@ public class R2400 extends AbstractUmlRule {
      * Default constructor for R2400
      */
     @objid ("ee328220-a379-4af6-b68c-b4f19b8d94dc")
-    public  R2400() {
+    public R2400() {
         this.checkerInstance = new CheckR2400(this);
     }
 
     @objid ("d4197b8a-bf9f-4ef5-bd8c-260c669b598f")
     private static class CheckR2400 extends AbstractControl {
         @objid ("b69a5114-a97c-4c3b-ae9b-036e7650613c")
-        public  CheckR2400(IRule rule) {
+        public CheckR2400(IRule rule) {
             super(rule);
         }
 
@@ -139,14 +139,14 @@ public class R2400 extends AbstractUmlRule {
         @objid ("37eebab7-123d-43a8-9faf-b6fa3c462d43")
         private IAuditEntry checkR2400(final Operation operation) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, operation, null);
-            
+
             boolean failed = false;
             if (operation.isStereotyped("ModelerModule", "destroy")
                     && (operation.getReturn() != null || !operation.getIO().isEmpty())) {
                 // Rule failed
                 failed = true;
             }
-            
+
             if (failed) {
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.ui.application.quit;
 
@@ -46,16 +46,16 @@ public class QuitHandler {
         } else if (QuitHandler.canClose(shell, projectService, openedProject, progressService, statusReporter)) {
             // Close project before closing the workbench
             projectService.closeProject(openedProject, true);
-        
+
             workbench.close();
         }
-        
+
     }
 
     @objid ("22452f5c-486b-11e2-820c-002564c97630")
     private static boolean canClose(Shell shell, IProjectService projectService, IGProject openedProject, IModelioProgressService progressService, StatusReporter statusReporter) {
         AppProjectUi.LOG.info("Quit project '%s'", openedProject.getName());
-        
+
         if (projectService.isDirty()) {
             // Ask the user to save before quitting
             final String[] tab = { IDialogConstants.YES_LABEL, IDialogConstants.NO_LABEL,
@@ -66,10 +66,10 @@ public class QuitHandler {
                     MessageDialog.QUESTION, // image type
                     tab, // labels
                     IDialogConstants.YES_ID); // default answer
-        
+
             dialog.setBlockOnOpen(true);
             final int res = dialog.open();
-        
+
             if (res == -1 || tab[res] == IDialogConstants.CANCEL_LABEL) {
                 return false;
             } else if (tab[res] == IDialogConstants.YES_LABEL) {

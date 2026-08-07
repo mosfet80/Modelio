@@ -1,28 +1,28 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.browser.handlers;
 
 import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
@@ -43,7 +43,7 @@ import org.modelio.vcore.session.api.transactions.ITransaction;
  * This class deals with transaction management and selected element fetching.<br>
  * The real semantic of the handler is implemented by subclasses in their {@link #doExecute(ExecutionEvent, List, ICoreSession)
  * doExecute(...)} method.
- * 
+ *
  * @author pvlaemyn
  */
 @objid ("001c5b7e-0d4f-10c6-842f-001ec947cd2a")
@@ -52,23 +52,23 @@ public abstract class AbstractBrwModelHandler {
     @Execute
     public final Object execute(MPart part, IProjectService projectService, @Named(IServiceConstants.ACTIVE_SELECTION) IStructuredSelection selection) {
         IGProject openedProject = projectService.getOpenedProject();
-        
+
         final DiagramBrowserView browserView = (DiagramBrowserView) part.getObject();
-        
+
         // Get the modeling session and open a transaction
         ICoreSession session = openedProject.getSession();
-        
+
         try (ITransaction transaction = session.getTransactionSupport().createTransaction("Diagram browser action")) {
             // Delegate the main creation task.
             doExecute(browserView, getSelected(selection), session);
-        
+
             // Commit the transaction.
             transaction.commit();
         } catch (final Exception e) {
             // Something went wrong... Show an error box
             DiagramBrowser.LOG.warning(e.toString());
             String title = DiagramBrowser.I18N.getMessage("AbstractBrwModelHandler.Error.title");
-        
+
             MessageDialog.openError(null, title, e.getLocalizedMessage());
         }
         return null;
@@ -83,7 +83,7 @@ public abstract class AbstractBrwModelHandler {
     protected abstract void doExecute(DiagramBrowserView browserView, List<Object> selectedObjects, ICoreSession session);
 
     @objid ("c9f9b044-4b58-11e2-a4d3-002564c97630")
-    public  AbstractBrwModelHandler() {
+    public AbstractBrwModelHandler() {
         super();
     }
 

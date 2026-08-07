@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.parts.data.element.multi;
 
@@ -39,7 +39,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  */
 @objid ("36ef90bc-6353-4364-8277-f48987844bca")
 public class MultiElementDisplayConverter extends DisplayConverter {
-    @objid ("1e690bfb-5d1e-4969-aaf7-d54002a85686")
+    @objid ("549ef7a2-cd99-4ee5-ab5f-08d7906b880d")
     private ILabelProvider labelProvider;
 
     /**
@@ -75,10 +75,11 @@ public class MultiElementDisplayConverter extends DisplayConverter {
 
     /**
      * Create a new MultiElementDisplayConverter.
+     *
      * @param labelProvider the label provider to use when converting to display.
      */
     @objid ("cc2242af-4b79-4ee8-8094-c789a01b7b26")
-    public  MultiElementDisplayConverter(ILabelProvider labelProvider) {
+    public MultiElementDisplayConverter(ILabelProvider labelProvider) {
         this.labelProvider = Objects.requireNonNull(labelProvider);
     }
 

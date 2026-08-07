@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.uml.behavior.activityModel;
 
 import java.util.List;
@@ -31,86 +30,79 @@ import org.eclipse.emf.common.util.EList;
 
 /**
  * ExpansionRegion v0.0.9054
- * 
- * 
+ *
+ *
  * null
- * 
- * 
+ *
  */
 @objid ("0031bab4-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ExpansionRegion extends StructuredActivityNode {
     /**
      * The metaclass simple name.
      */
-    @objid ("6d4a21d6-cf2f-4757-a1f5-92c2e5559353")
+    @objid ("a74f065a-1d86-44b3-b33f-1a94bd1c0961")
     public static final String MNAME = "ExpansionRegion";
 
     /**
      * The metaclass qualified name.
      */
-    @objid ("d8030067-3ea1-46fc-a025-e47d62023af6")
+    @objid ("a3c6f23a-7d24-4002-a7c4-1fdf58869d49")
     public static final String MQNAME = "Standard.ExpansionRegion";
 
     /**
      * Getter for attribute 'ExpansionRegion.Mode'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("bb8b9e9c-4c85-469b-bdcf-6c927b87c468")
+    @objid ("d2cb9375-e9a8-4464-ab3e-4e6751c58522")
     ExpansionKind getMode();
 
     /**
      * Setter for attribute 'ExpansionRegion.Mode'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("222ca9fe-d242-4888-9654-baf02d991507")
+    @objid ("38a9a043-3f38-4048-a883-5ba5579209fc")
     void setMode(ExpansionKind value);
 
     /**
      * Getter for relation 'ExpansionRegion->OutputElement'
-     * 
+     *
      * Metamodel description:
-     * <i>An object node that accepts a separate element of the output collection during each of the multiple executions of the 
+     * <i>An object node that accepts a separate element of the output collection during each of the multiple executions of the
      * region. The values are formed into a collection that is available when the execution of the region is complete.</i>
-     * 
      */
-    @objid ("c543530f-3be7-4aaa-8d07-08a9d4646379")
+    @objid ("3919aab0-ca89-4c0a-8d6c-70fb5090294b")
     EList<ExpansionNode> getOutputElement();
 
     /**
      * Filtered Getter for relation 'ExpansionRegion->OutputElement'
-     * 
+     *
      * Metamodel description:
-     * <i>An object node that accepts a separate element of the output collection during each of the multiple executions of the 
+     * <i>An object node that accepts a separate element of the output collection during each of the multiple executions of the
      * region. The values are formed into a collection that is available when the execution of the region is complete.</i>
-     * 
      */
-    @objid ("052f2b1a-2bf2-4aac-a815-48921e89a3ed")
+    @objid ("41d5622d-28a0-4850-8a63-0888484c02f3")
     <T extends ExpansionNode> List<T> getOutputElement(java.lang.Class<T> filterClass);
 
     /**
      * Getter for relation 'ExpansionRegion->InputElement'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("123ae37b-acca-4f9a-ab47-3db4a5da67b7")
+    @objid ("b328d589-9bdc-4c9a-9dc3-e2e3f3d0aa10")
     EList<ExpansionNode> getInputElement();
 
     /**
      * Filtered Getter for relation 'ExpansionRegion->InputElement'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("9e29a494-90e9-482f-9b88-919eae7306cc")
+    @objid ("f2f9bd15-821a-47ca-9721-c4d1f1e9348d")
     <T extends ExpansionNode> List<T> getInputElement(java.lang.Class<T> filterClass);
-}
 
+}

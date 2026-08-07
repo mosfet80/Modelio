@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.objects;
 
 import java.util.List;
@@ -33,23 +32,23 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 
 @objid ("00080bd8-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnItemDefinitionData extends BpmnSharedElementData {
-    @objid ("df8de909-871b-4a43-b8af-9ef18fe30d28")
+    @objid ("39985864-4db9-4103-86c7-aa1b01a13104")
     Object mItemKind = BpmnItemKind.INFORMATION;
 
-    @objid ("b4b10a2e-460d-4919-9a0f-01ec06ea2ba8")
+    @objid ("ca72397f-63d0-4034-886f-e1fd9ee012ad")
     Object mIsCollection = false;
 
-    @objid ("0f7747fc-e792-4940-adca-2a7de1b90d0a")
+    @objid ("a589370a-e090-4934-ab0e-c8b260f844ad")
     List<SmObjectImpl> mTypedMessage = null;
 
-    @objid ("393bf8df-b146-4dc8-b9c2-7c2fd16e9975")
+    @objid ("dff2e736-4d99-4eea-96d0-e9f2e35c4fd7")
     List<SmObjectImpl> mTypedItem = null;
 
-    @objid ("eb7ad988-ca82-4e83-ba76-b1ea93e82b25")
+    @objid ("3f4ab10c-92c3-457f-9ee0-53ce99553d65")
     List<SmObjectImpl> mTypedResourceParameter = null;
 
-    @objid ("849d98e3-8681-4492-905d-7fdcb1f184cc")
-    public  BpmnItemDefinitionData(BpmnItemDefinitionSmClass smClass) {
+    @objid ("0a1cd745-a4e3-4735-91bc-0dd0453f66ba")
+    public BpmnItemDefinitionData(BpmnItemDefinitionSmClass smClass) {
         super(smClass);
     }
 

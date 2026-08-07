@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.linkeditor.gef.background;
 
@@ -49,15 +68,14 @@ public class LinkEditorDropTargetListener extends AbstractTransferDropTargetList
     private IProjectService projectService;
 
     @objid ("1ba1eb24-5e33-11e2-b81d-002564c97630")
-    public  LinkEditorDropTargetListener(final EditPartViewer viewer, IProjectService projectService) {
+    public LinkEditorDropTargetListener(final EditPartViewer viewer, IProjectService projectService) {
         super(viewer, ModelElementTransfer.getInstance());
         this.setEnablementDeterminedByCommand(true);
         this.projectService = projectService;
-        
     }
 
     @objid ("1ba1eb2a-5e33-11e2-b81d-002564c97630")
-    public  LinkEditorDropTargetListener(final EditPartViewer viewer, final Transfer xfer) {
+    public LinkEditorDropTargetListener(final EditPartViewer viewer, final Transfer xfer) {
         super(viewer, xfer);
     }
 
@@ -72,18 +90,17 @@ public class LinkEditorDropTargetListener extends AbstractTransferDropTargetList
     protected void updateTargetRequest() {
         this.getTargetRequest().setLocation(this.getDropLocation());
         this.setRequestDroppedElements(this.getCurrentEvent());
-        
     }
 
     /**
      * Get the elements dragged from the same instance of Modelio. Uses {@link LocalSelectionTransfer}.
-     * @see LocalSelectionTransfer
+     *
      * @return the dragged elements.
      */
     @objid ("1ba1eb3c-5e33-11e2-b81d-002564c97630")
     private MObject[] getLocalDraggedElements() {
         List<MObject> selectedElements = new ArrayList<>();
-        
+
         ISelection selection = LocalSelectionTransfer.getTransfer().getSelection();
         if (selection instanceof IStructuredSelection) {
             IStructuredSelection structuredSelection = (IStructuredSelection) selection;
@@ -111,6 +128,7 @@ public class LinkEditorDropTargetListener extends AbstractTransferDropTargetList
 
     /**
      * Updates the ModelElementDropRequest dragged elements.
+     *
      * @param event the event to get the infos from.
      */
     @objid ("1ba1eb4a-5e33-11e2-b81d-002564c97630")
@@ -118,7 +136,7 @@ public class LinkEditorDropTargetListener extends AbstractTransferDropTargetList
     private void setRequestDroppedElements(final DropTargetEvent event) {
         if (ModelElementTransfer.getInstance().isSupportedType(event.currentDataType)) {
             ICoreSession session = this.projectService.getSession();
-        
+
             MObject[] droppedElements = null;
             MRef[] refs = (MRef[]) event.data;
             if (refs != null) {
@@ -127,16 +145,15 @@ public class LinkEditorDropTargetListener extends AbstractTransferDropTargetList
                     droppedElements[i] = session.getModel().findByRef(refs[i], IModel.NODELETED);
                 }
             }
-        
+
             if (droppedElements == null) {
                 droppedElements = this.getLocalDraggedElements();
             }
             if (droppedElements != null) {
                 this.getTargetRequest().getExtendedData().put(LinkEditorDropTargetListener.DROPPED_ELEMENTS, droppedElements);
             }
-        
+
         }
-        
     }
 
 }

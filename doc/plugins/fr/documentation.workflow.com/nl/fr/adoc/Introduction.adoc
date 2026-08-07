@@ -1,0 +1,40 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+// Highlight code source and add the line number
+:source-highlighter: coderay
+:coderay-linenums-mode: table
+
+= Introduction
+
+De nombreuses méthodes de développement mettent peu ou prou en œuvre des cycles au cours desquels l'état de certains éléments, généralement de haut
+niveau, (documents, spécifications, API, composant techniques, etc.) doit pouvoir être suivi et géré rigoureusement.
+
+_Ainsi par exemple, dans le cadre d'un projet de définition d'un processus impliquant plusieurs acteurs : demandeur, développeur, décideur,
+il est possible de définir un workflow permettant le suivi du projet et prévoyant des états successifs comme "exigences prêtes, dev en cours, bon pour revue,
+approuvé, en production" correspondant au cycle de vie interne du projet et permettant d'en garantir un déroulement rigoureux._
+
+Modelio Workflow permet d'associer un état dit "état workflow" à des éléments de modèle et d'en contrôler l'évolution selon deux règles :
+
+1.  Existence d'une transition possible entre les deux états, défini par un graphe des états
+2.  Autorisation pour l’utilisateur courant de réaliser une transition d'état donnée grâce à une gestion des droits
+
+Dans l'offre Saas, Modelio Workflow est entièrement couplé avec Modelio Server, ce qui permet une configuration centrale du (ou des) workflow(s)
+pour chaque projet Modelio Server, tant du point de vue du Workflow à utiliser que des droits associés à chaque profil d'utilisateur.
+
+La solution Modelio Workgroup est constituée de deux outils complémentaires :
+
+- *Modelio Workflow Designer*, destiné aux concepteurs de workflow et qui sert à définir des workflows (i.e. graphe d'états)
+- *Modelio Workflow User*, destiné aux utilisateurs ordinaires et qui permet d'effectuer des transitions, de publier des documentations ou de consulter des matrices de synthèses
+
+== Comment lire cette documentation
+
+Cette documentation s'adresse :
+
+* Aux utilisateurs de *Modelio Workflow User*
+* Aux concepteurs de nouveaux workflow (*Modelio Workflow Designer*)
+* Aux administrateurs de projet dans Modelio Server.
+
+Dans tous les cas, il est fortement recommandé de lire au préalable la section link:Concepts.adoc[Concepts]  qui définit, comme son nom l'indique, les principaux concepts
+mis en oeuvre dans Modelio Workflow et fixe le vocabulaire utilisé dans cette documentation.

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.view.providers.byelement;
 
@@ -38,10 +38,10 @@ public class ByElementContentProvider extends AbstractDiagnosticContentProvider 
     private Map<MObject, AuditElementModel> elementsMap;
 
     @objid ("f481d599-3c86-45f1-acee-51a9c389e4a8")
-    public  ByElementContentProvider(String jobId) {
+    public ByElementContentProvider(String jobId) {
         this.jobId = jobId;
         this.elementsMap = new HashMap<>();
-        
+
     }
 
     @objid ("1c5a0474-e3f2-40a4-a1c7-ec39f0dd5eab")
@@ -49,7 +49,7 @@ public class ByElementContentProvider extends AbstractDiagnosticContentProvider 
     public void dispose() {
         super.dispose();
         this.elementsMap = null;
-        
+
     }
 
     @objid ("778261c4-cf91-4340-9305-2bc48aa25f8a")
@@ -63,28 +63,28 @@ public class ByElementContentProvider extends AbstractDiagnosticContentProvider 
     @Override
     protected void refreshFrom(IAuditDiagnostic input) {
         Collection<IAuditEntry> entries = input.getEntries(this.jobId);
-        
+
         this.elementsMap.clear();
-        
+
         for (IAuditEntry entry : entries) {
             AuditElementModel model = this.elementsMap.get(entry.getElement());
-        
+
             if (model == null) {
                 model = new AuditElementModel();
                 model.element = entry.getElement();
                 this.elementsMap.put(entry.getElement(), model);
             }
-        
+
             model.entries.add(entry);
         }
-        
+
     }
 
     @objid ("088b450a-eea1-47ac-bcca-e90bbce95712")
     @Override
     public Object[] getChildren(Object parentElement) {
         refreshFromInput();
-        
+
         if (parentElement instanceof AuditElementModel) {
             return ((AuditElementModel) parentElement).entries.toArray();
         }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.exml.resource;
 
@@ -38,7 +38,7 @@ import org.modelio.vstore.exml.resource.IExmlResourceProvider.ExmlResource;
  * Base implementation of {@link IExmlResourceProvider}.
  * <p>
  * All implementations of {@link IExmlResourceProvider} should inherit from this class.
- * 
+ *
  * @author cma
  * @since 3.6
  */
@@ -58,9 +58,8 @@ public abstract class AbstractExmlResourceProvider implements IExmlResourceProvi
     @objid ("e1a7d945-a475-4f2d-97eb-aeb2632ab31d")
     @Override
     public void createRepository(MMetamodel metamodel) throws IOException {
-        this.geometry = new ExmlRepositoryGeometry2();
+        this.geometry = ExmlRepositoryGeometries.ofLatest();
         doCreateRepository(metamodel);
-        
     }
 
     @objid ("bdb40586-18b8-45f4-b44f-e22437648ff4")
@@ -69,7 +68,6 @@ public abstract class AbstractExmlResourceProvider implements IExmlResourceProvi
         String blobPath = getGeometry().getBlobPath(blob);
         ExmlResource res = getRelativePathResource(blobPath);
         res.delete();
-        
     }
 
     @objid ("d7d93bce-5a26-4205-b5c5-fba2a71526e3")
@@ -83,7 +81,6 @@ public abstract class AbstractExmlResourceProvider implements IExmlResourceProvi
 
     /**
      * Redefine only if really necessary. Redefining {@link #getResource(String)} should be suffisient.
-     * @throws IOException
      */
     @objid ("bb3d84ce-1125-4c7d-ba3a-75a873d9b5ee")
     @Override
@@ -102,6 +99,7 @@ public abstract class AbstractExmlResourceProvider implements IExmlResourceProvi
 
     /**
      * Redefine only if really necessary. Redefining {@link #getResource(String)} should be suffisient.
+     *
      * @throws IOException in case of failure
      */
     @objid ("8901ae83-c450-468c-bc38-e074402ef419")
@@ -122,12 +120,15 @@ public abstract class AbstractExmlResourceProvider implements IExmlResourceProvi
     @objid ("f5e3c652-c17d-434e-9398-7ee41a22f785")
     @Override
     public void open() throws IOException {
+        // Nothing to do if already open
+        if (this.geometry != null)
+            return;
+
         if (! exists()) {
             throw new FileNotFoundException("The repository at '"+getURI()+"' does not exist.");
         }
-        
+
         this.geometry = readGeometry();
-        
     }
 
     @objid ("b45202ed-785e-48e6-8fa4-4c424f24f4a3")
@@ -141,7 +142,7 @@ public abstract class AbstractExmlResourceProvider implements IExmlResourceProvi
                 // consume the IBlobInfo stored first in the file.
                 @SuppressWarnings("unused")
                 IBlobInfo unused = BlobServices.readBlobInfo(is);
-        
+
                 c.success();
             }
         }
@@ -160,13 +161,13 @@ public abstract class AbstractExmlResourceProvider implements IExmlResourceProvi
                 return null;
             }
         }
-        
     }
 
     /**
      * Read the repository formats versions from {@link #getRepositoryVersionResource()}.
      * <p>
      * May return <i>null</i> if it is an old repository with no format version file.
+     *
      * @return the repository versions, null if none stored yet.
      * @throws IOException in case of error getting the versions
      */
@@ -182,7 +183,6 @@ public abstract class AbstractExmlResourceProvider implements IExmlResourceProvi
         } catch (FileNotFoundException| NoSuchFileException e) {
             return null;
         }
-        
     }
 
     /**
@@ -203,9 +203,9 @@ public abstract class AbstractExmlResourceProvider implements IExmlResourceProvi
     public final OutputStream writeBlob(IBlobInfo info) throws IOException {
         String blobPath = getGeometry().getBlobPath(info.getKey());
         ExmlResource res = getRelativePathResource(blobPath);
-        
+
         OutputStream os = res.bufferedWrite();
-        
+
         try (CloseOnFail c = new CloseOnFail(os)) {
             BlobServices.write(info, os);
             c.success();
@@ -218,6 +218,7 @@ public abstract class AbstractExmlResourceProvider implements IExmlResourceProvi
      * <p>
      * Subclasses must redefine this method to do something for {@link #createRepository(MMetamodel)}.
      * {@link #getGeometry()} works inside this method.
+     *
      * @param metamodel the metamodel
      * @throws IOException on failure.
      */
@@ -229,22 +230,17 @@ public abstract class AbstractExmlResourceProvider implements IExmlResourceProvi
      * <p>
      * Called by {@link #open()}.
      * Implementations may call {@link #readGeometry(File)}.
+     *
      * @return the repository geometry.
      * @throws IOException on non recoverable failure.
      */
     @objid ("b8c2b13a-b5e3-498f-b496-e0d3acab341f")
     protected IExmlRepositoryGeometry readGeometry() throws IOException {
         RepositoryVersions repositoryVersion = readRepositoryVersion();
-        
+
         int repoFormat = (repositoryVersion == null) ? 0 :repositoryVersion.getRepositoryFormat();
-        if (repoFormat < 2) {
-            return new ExmlRepositoryGeometry1();
-        } else if (repoFormat <= RepositoryVersions.CURRENT_FORMAT){
-            return new ExmlRepositoryGeometry2();
-        }
-                
-        throw new IOException(String.format("Unsupported repository format vers '%d'. Last known format is %d",repoFormat, RepositoryVersions.CURRENT_FORMAT));
-        
+
+        return ExmlRepositoryGeometries.ofFormat(repoFormat);
     }
 
 }

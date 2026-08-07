@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.module.browser.commands.plugin;
 
@@ -30,6 +30,7 @@ import org.osgi.framework.ServiceReference;
 
 /**
  * ModuleBrowserCommands plugin singleton class.
+ *
  * @author fpoyer
  */
 @objid ("f1a48d48-120c-11e2-8b3b-001ec947c8cc")
@@ -57,7 +58,7 @@ public class ModuleBrowserCommands implements BundleActivator {
         ExtendedLogService service = bundleContext.getService(ref);
         LOG = new PluginLogger(service.getLogger(bundleContext.getBundle(), PLUGIN_ID));
         I18N = new BundledMessages(LOG, ResourceBundle.getBundle("modulebrowsercommands"));
-        
+
     }
 
     @objid ("03e0e09d-120d-11e2-8b3b-001ec947c8cc")

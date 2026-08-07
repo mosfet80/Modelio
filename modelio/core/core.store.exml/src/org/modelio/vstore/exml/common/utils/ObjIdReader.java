@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.exml.common.utils;
 
@@ -32,7 +32,7 @@ import org.modelio.vstore.exml.common.model.ObjIdName;
  * {@link ObjId} factory from strings with missing metaclasses logging.
  * <p>
  * Creates a fake metaclass and log it when a metaclass is not in the metamodel.
- * 
+ *
  * @author cmarin
  * @since 3.5.1
  */
@@ -48,16 +48,17 @@ public class ObjIdReader {
     private final Supplier<String> logSuffixer;
 
     /**
+     *
      * @param metamodel the known metamodel
      * @param logPrefixer a log prefix provider used when fake metaclasses are created.
      * @param logSuffixer a log suffix provider used when fake metaclasses are created.
      */
     @objid ("d97f2f57-5101-4fd1-8154-aaf0eb7b692e")
-    public  ObjIdReader(SmMetamodel metamodel, Supplier<String> logPrefixer, Supplier<String> logSuffixer) {
+    public ObjIdReader(SmMetamodel metamodel, Supplier<String> logPrefixer, Supplier<String> logSuffixer) {
         this.metamodel = metamodel;
         this.logPrefixer = logPrefixer;
         this.logSuffixer = logSuffixer;
-        
+
     }
 
     @objid ("d7c8dde6-a6e8-4723-b531-56f4a3768ae1")
@@ -85,13 +86,13 @@ public class ObjIdReader {
             if (className == null || className.isEmpty()) {
                 throw new IllegalArgumentException(className);
             }
-            
+
             // Create fake metaclass
             mClass = this.metamodel.fakeClassBuilder().setQualifiedName(className).setCmsNode(isCmsNode).build();
-        
+
             // Log metaclass not found
             String message = String.format("%sCreating '%s' fake metaclass%s.", this.logPrefixer.get(), className, this.logSuffixer.get());
-            
+
             Log.warning(message);
             //Log.trace(new Throwable(message));
         }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnsequenceflow.insert;
 
@@ -66,7 +66,7 @@ public class InsertInFlowEditPolicy extends GraphicalEditPolicy {
             final ModelioCreationContext ctx = ModelioCreationContext.lookRequest(createRequest);
             if (ctx == null)
                 return null;
-        
+
             if (canInsertInFlow(ctx.getJavaClass(), ctx.getProperties()) || ctx.getElementToUnmask() instanceof BpmnMessage) {
                 return getHost();
             }
@@ -88,17 +88,17 @@ public class InsertInFlowEditPolicy extends GraphicalEditPolicy {
         if (ctx == null) {
             return null;
         }
-        
+
         // Node insertion, allowed cases:
         // - Any BpmnActivity
         // - Any BpmnGateway
         // - Any throw event excepted 'throw link'
         // - Any catch event excepted 'catch link'
-        
+
         if (! canInsertInFlow(ctx.getJavaClass(), ctx.getProperties())) {
             return null;
         }
-        
+
         LinkEditPart flowEp = getHostLinkEditPart();
         Point location = snapInsertLocation(request);
         EditPart backEp = flowEp.getViewer().findObjectAtExcluding(
@@ -108,28 +108,28 @@ public class InsertInFlowEditPolicy extends GraphicalEditPolicy {
                     EditPart targetEp = ep.getTargetEditPart(request);
                     return targetEp != null && targetEp != flowEp;
                 });
-        
+
         if (!isSameContext(backEp, getHost())) {
             return null;
         }
-        
+
         EditPart targetEditPart = backEp.getTargetEditPart(request);
         if (targetEditPart == flowEp || targetEditPart == null) {
             return null;
         }
-        
+
         int watchdog = (int) request.getExtendedData().merge(WATCHDOG, 1, (a,b) -> (int)a+1);
-        
+
         try {
             if( watchdog > 5) {
                 //DiagramEditorBpmn.LOG.warning(new IllegalStateException("infinite recursion"));
                 return null;
             }
-        
+
             Command nodeCmd = targetEditPart.getCommand(request);
             if (! (nodeCmd instanceof ICreationCommand))
                 return null;
-        
+
             @SuppressWarnings ("unchecked")
             ICreationCommand<GmNodeModel> gmNodeCreateCmd = (ICreationCommand<GmNodeModel>) nodeCmd;
             return nodeCmd
@@ -138,26 +138,27 @@ public class InsertInFlowEditPolicy extends GraphicalEditPolicy {
         } finally {
             request.getExtendedData().remove(WATCHDOG);
         }
-        
+
     }
 
     /**
      * Update the request's location to snap with the link's source or target if possible and avoid unwanted bendpoints.
+     *
      * @param request the link creation request.
      * @return the actual insert location to use.
      */
     @objid ("73731c39-eec9-47d2-a724-a15a93ec1931")
     private Point snapInsertLocation(CreateRequest request) {
         Point location = request.getLocation();
-        
+
         AbstractPointListShape flowFigure = (AbstractPointListShape) getHostFigure();
-        
+
         Point flowInStartPoint = flowFigure.getStart().getCopy();
         flowFigure.translateToAbsolute(flowInStartPoint);
-        
+
         Point flowOutEndPoint = flowFigure.getEnd().getCopy();
         flowFigure.translateToAbsolute(flowOutEndPoint);
-        
+
         if (Math.abs(location.x - flowInStartPoint.x) < 5) {
             // Align location with link's source
             location.x = flowInStartPoint.x;
@@ -182,22 +183,22 @@ public class InsertInFlowEditPolicy extends GraphicalEditPolicy {
         if (command == null || !command.canExecute()) {
             return;
         }
-        
+
         // If command is create show 'InsertInFlow' feedback
         if (RequestConstants.REQ_CREATE.equals(request.getType())) {
-        
+
             CreateRequest createRequest = (CreateRequest) request;
-        
+
             GmLink gm = getHostLinkEditPart().getModel();
             String metaclass = (String) createRequest.getNewObjectType();
             MClass mClass = gm.getRelatedElement().getMClass().getMetamodel().getMClass(metaclass);
-        
+
             if (this.feedback == null) {
                 this.feedback = new InsertInFlowFeedback(getFeedbackLayer(), (ZoomManager) getHost().getViewer().getProperty(ZoomManager.class.toString()));
             }
             this.feedback.show(getHostFigure(), snapInsertLocation(createRequest), BpmnNodeType.fromMClass(mClass));
         }
-        
+
     }
 
     @objid ("706e675d-c598-4790-8b4e-993e336d04e1")
@@ -207,7 +208,7 @@ public class InsertInFlowEditPolicy extends GraphicalEditPolicy {
             this.feedback.hide();
             this.feedback = null;
         }
-        
+
     }
 
     /**
@@ -218,6 +219,7 @@ public class InsertInFlowEditPolicy extends GraphicalEditPolicy {
      * <li>Any throw event excepted 'throw link'</li>
      * <li>Any catch event excepted 'catch link'</li>
      * </ul>
+     *
      * @return true if the insertion is allowed
      */
     @objid ("e0b0345b-b7fe-43ef-8361-e98252371940")
@@ -226,7 +228,7 @@ public class InsertInFlowEditPolicy extends GraphicalEditPolicy {
                 || BpmnGateway.class.isAssignableFrom(metaclass)
                 || BpmnIntermediateThrowEvent.class.isAssignableFrom(metaclass) && !"LINK".equals(properties.get("type"))
                 || BpmnIntermediateCatchEvent.class.isAssignableFrom(metaclass) && !"LINK".equals(properties.get("type"));
-        
+
     }
 
     @objid ("135ab48b-e430-4360-859a-9d6199995a18")
@@ -268,10 +270,10 @@ public class InsertInFlowEditPolicy extends GraphicalEditPolicy {
         final int height;
 
         @objid ("64645d12-a9e1-4f1d-b46e-9f9dc902a337")
-        private  BpmnNodeType(int width, int height) {
+        private BpmnNodeType(int width, int height) {
             this.width = width;
             this.height = height;
-            
+
         }
 
         @objid ("e0e17ba3-4a35-40bb-93cc-71109e0e8ffd")
@@ -285,7 +287,7 @@ public class InsertInFlowEditPolicy extends GraphicalEditPolicy {
             } else {
                 return OTHER;
             }
-            
+
         }
 
     }

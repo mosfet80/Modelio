@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.acceptsignal;
 
@@ -33,7 +33,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Specialisation of the header to handle the Signal icon showing when their is at least 1 signal accepted.
- * 
+ *
  * @author fpoyer
  */
 @objid ("29766f56-55b6-11e2-877f-002564c97630")
@@ -51,17 +51,18 @@ public class GmAcceptSignalHeader extends GmActivityNodeHeader {
      * Empty c'tor for deserialisation.
      */
     @objid ("fefa7f2b-ff0e-400a-a7df-e6e503ac75c6")
-    public  GmAcceptSignalHeader() {
+    public GmAcceptSignalHeader() {
         super();
     }
 
     /**
      * C'tor.
+     *
      * @param diagram the diagram in which this gm is unmasked.
      * @param relatedRef a reference to the accept signal node this gm is related to.
      */
     @objid ("2977f5bd-55b6-11e2-877f-002564c97630")
-    public  GmAcceptSignalHeader(final IGmDiagram diagram, final MRef relatedRef) {
+    public GmAcceptSignalHeader(final IGmDiagram diagram, final MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -99,17 +100,17 @@ public class GmAcceptSignalHeader extends GmActivityNodeHeader {
             break;
         }
         }
-        
+
     }
 
     @objid ("2977f5d8-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmAcceptSignalHeader.", GmAcceptSignalHeader.MINOR_VERSION);
-        
+
     }
 
     @objid ("2977f5de-55b6-11e2-877f-002564c97630")

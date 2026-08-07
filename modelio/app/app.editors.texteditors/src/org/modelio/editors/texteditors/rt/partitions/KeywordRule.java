@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.texteditors.rt.partitions;
 
@@ -38,11 +38,11 @@ public class KeywordRule implements IPredicateRule {
     private StringBuffer buffer;
 
     @objid ("7b6423ea-2a77-11e2-9fb9-bc305ba4815c")
-    public  KeywordRule(IToken keywordToken) {
+    public KeywordRule(IToken keywordToken) {
         this.keywordToken = keywordToken;
         this.buffer = new StringBuffer();
         this.keywords = new HashMap<>();
-        
+
     }
 
     @objid ("7b6423ed-2a77-11e2-9fb9-bc305ba4815c")
@@ -66,7 +66,7 @@ public class KeywordRule implements IPredicateRule {
     @Override
     public IToken evaluate(ICharacterScanner cscanner) {
         this.buffer.setLength(0);
-        
+
         if (cscanner.getColumn() != 0) {
             cscanner.unread();
             int previousChar = cscanner.read();
@@ -74,7 +74,7 @@ public class KeywordRule implements IPredicateRule {
                 return Token.UNDEFINED;
             }
         }
-        
+
         int c = cscanner.read();
         if (c != ICharacterScanner.EOF && Character.isLetter(c)) {
             do {
@@ -83,7 +83,7 @@ public class KeywordRule implements IPredicateRule {
             } while (c != ICharacterScanner.EOF && Character.isLetter(c));
         }
         cscanner.unread();
-        
+
         // Look up in the keyword table
         String word = this.buffer.toString();
         IToken token = this.keywords.get(word);
@@ -93,10 +93,10 @@ public class KeywordRule implements IPredicateRule {
                 cscanner.unread();
             }
             return Token.UNDEFINED;
-        
+
         } else
             return this.keywordToken;
-        
+
     }
 
 }

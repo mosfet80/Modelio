@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vbasic.net;
 
@@ -28,6 +28,7 @@ import org.modelio.vbasic.auth.IAuthData;
  * <li> the caller must first authenticate to the target using an {@link IAuthData}.
  * <li> that authentication data was not valid (wrong user/password).
  * </ul>
+ *
  * @author cmarin
  * @see HttpUriAuthenticationException since 4.0.1 for HTTP authentication errors
  */
@@ -37,23 +38,26 @@ public class UriAuthenticationException extends AccessDeniedException {
     private static final long serialVersionUID = 1L;
 
     /**
+     *
      * @param file the URI that needs authentication
      * @param reason a message
      */
     @objid ("e35d0231-1a0d-49ca-be15-e884d032bb93")
-    public  UriAuthenticationException(String file, String reason) {
+    public UriAuthenticationException(String file, String reason) {
         super(file, null, reason);
     }
 
     /**
+     *
      * @param file the file that needs authentication
      */
     @objid ("3702750a-5059-4cd5-b4cf-aa9ec22f0cbf")
-    public  UriAuthenticationException(String file) {
+    public UriAuthenticationException(String file) {
         super(file);
     }
 
     /**
+     *
      * @param cause the cause (which is saved for later retrieval by the
      * {@link #getCause()} method).  (A {@code null} value is permitted,
      * and indicates that the cause is nonexistent or unknown.)
@@ -62,13 +66,14 @@ public class UriAuthenticationException extends AccessDeniedException {
      * @since Wyrm 4.0.1
      */
     @objid ("ece5b1f5-ac99-4681-a179-15dc7b28d7a2")
-    public  UriAuthenticationException(Throwable cause, String file, String reason) {
+    public UriAuthenticationException(Throwable cause, String file, String reason) {
         super(file, null, reason);
         initCause(cause);
-        
+
     }
 
     /**
+     *
      * @param cause the cause (which is saved for later retrieval by the
      * {@link #getCause()} method).  (A {@code null} value is permitted,
      * and indicates that the cause is nonexistent or unknown.)
@@ -76,10 +81,10 @@ public class UriAuthenticationException extends AccessDeniedException {
      * @since Wyrm 4.0.1
      */
     @objid ("337d88db-c900-4a35-98f4-c68f98721a7a")
-    public  UriAuthenticationException(Throwable cause, String file) {
+    public UriAuthenticationException(Throwable cause, String file) {
         super(file);
         initCause(cause);
-        
+
     }
 
 }

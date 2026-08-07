@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -66,6 +66,7 @@ public class MMStandardAttribute {
      * Tells whether a {@link MMStandardAttribute proxy} can be instantiated from a {@link MObject} checking it is a {@link Attribute}.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -75,9 +76,10 @@ public class MMStandardAttribute {
     }
 
     /**
-     * Tries to instantiate a {@link MMStandardAttribute} proxy from a {@link Attribute} checking its metaclass. 
+     * Tries to instantiate a {@link MMStandardAttribute} proxy from a {@link Attribute} checking its metaclass.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a Attribute
      * @return a {@link MMStandardAttribute} proxy or <i>null</i>.
      */
@@ -103,7 +105,8 @@ public class MMStandardAttribute {
     }
 
     /**
-     * Get the underlying {@link Attribute}. 
+     * Get the underlying {@link Attribute}.
+     *
      * @return the Attribute represented by this proxy, never null.
      */
     @objid ("581402b5-3824-472a-a63f-8ef8f530816b")
@@ -125,7 +128,7 @@ public class MMStandardAttribute {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     /**
@@ -162,7 +165,7 @@ public class MMStandardAttribute {
     }
 
     @objid ("e42eeb2e-8c55-41b0-9822-da8ffb52f17b")
-    protected  MMStandardAttribute(Attribute elt) {
+    protected MMStandardAttribute(Attribute elt) {
         this.elt = elt;
     }
 
@@ -186,7 +189,7 @@ public class MMStandardAttribute {
             TYPE_TAGTYPE_ELT = ctx.getModelingSession().findElementById(TagType.class, "00000000-0000-3765-0000-000000000000");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -194,7 +197,7 @@ public class MMStandardAttribute {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -36,7 +36,7 @@ public class EOperation extends EBehavioralFeature {
     }
 
     @objid ("dfd8c873-1067-4802-9eba-3682a0f182be")
-    public  EOperation(org.eclipse.uml2.uml.Operation element) {
+    public EOperation(org.eclipse.uml2.uml.Operation element) {
         super(element);
     }
 
@@ -48,22 +48,22 @@ public class EOperation extends EBehavioralFeature {
         org.eclipse.uml2.uml.Element ecoreOwner = ecoreElement.getOwner();
         Element objingOwner = (Element) revProp
                 .getMappedElement(ecoreOwner);
-        
+
         if (objingOwner instanceof Classifier){
-            ((Operation) objingElt).setOwner((Classifier) objingOwner);       
+            ((Operation) objingElt).setOwner((Classifier) objingOwner);
         }else {
             objingElt.delete();
         }
-        
+
     }
 
     @objid ("4cf462dc-71c7-4903-bff5-f5ea644df464")
     @Override
     public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);        
+        super.setProperties(objingElt);
         setRedefines((Operation) objingElt);
         setPassingMode((Operation) objingElt);
-        
+
     }
 
     @objid ("9ff7f12a-9d07-4d0c-a5e0-3ce950cc526d")
@@ -74,7 +74,7 @@ public class EOperation extends EBehavioralFeature {
                 objingElt.setRedefines((Operation) objOperation);
             }
         }
-        
+
     }
 
     @objid ("ba81ad7a-abc3-4a03-aefb-1fb14f53649d")
@@ -83,7 +83,7 @@ public class EOperation extends EBehavioralFeature {
             objingElt.setPassing(MethodPassingMode.METHODIN);
         else
             objingElt.setPassing(MethodPassingMode.METHODOUT);
-        
+
     }
 
 }

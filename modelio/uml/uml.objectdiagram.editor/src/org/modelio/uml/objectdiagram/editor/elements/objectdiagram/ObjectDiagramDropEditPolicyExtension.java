@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.objectdiagram.editor.elements.objectdiagram;
 
@@ -101,7 +101,7 @@ public class ObjectDiagramDropEditPolicyExtension extends AbstractDiagramElement
             // what to do with it... return null
             return false;
         }
-        
+
         // All dropped elements understood: return host!
         return true;
     }
@@ -116,7 +116,7 @@ public class ObjectDiagramDropEditPolicyExtension extends AbstractDiagramElement
         if (lastInHierarchy == null) {
             return true;
         }
-        
+
         boolean isCurrentCollaboration = lastInHierarchy instanceof Collaboration;
         boolean isCurrentInstance = lastInHierarchy.getMClass().getQualifiedName().equals(Instance.MQNAME);
         boolean isCurrentBindableInstance = lastInHierarchy.getMClass().getQualifiedName().equals(BindableInstance.MQNAME);
@@ -127,7 +127,7 @@ public class ObjectDiagramDropEditPolicyExtension extends AbstractDiagramElement
     /**
      * Command used for smart unmask interactions: <br>
      * Creates an {@link Instance} or {@link BindableInstance} representing the dropped element.
-     * 
+     *
      * @author cma
      */
     @objid ("2579588f-1d79-42a0-8b33-45ee77af3c09")
@@ -148,19 +148,20 @@ public class ObjectDiagramDropEditPolicyExtension extends AbstractDiagramElement
         private Point location;
 
         /**
+         *
          * @param dropLocation the location where the ObjectNode is to be unmasked.
          * @param toUnmask the element that the ObjectNode will represent.
          * @param parentEditPart the edit part handling the unmasking
          * @param parentElement the element that will own the new ObjectNode
          */
         @objid ("fa8f54ba-704a-481a-a102-0d6876d80782")
-        public  SmartCreateInstanceCommand(final Point dropLocation, final NameSpace toUnmask, final EditPart parentEditPart, final MObject parentElement) {
+        public SmartCreateInstanceCommand(final Point dropLocation, final NameSpace toUnmask, final EditPart parentEditPart, final MObject parentElement) {
             this.location = dropLocation;
             this.toUnmask = toUnmask;
             this.parentEditPart = parentEditPart;
             this.parentElement = parentElement;
             this.viewer = parentEditPart.getViewer();
-            
+
         }
 
         @objid ("2b9d4259-07e9-498a-87e1-8f9065947d9c")
@@ -180,7 +181,7 @@ public class ObjectDiagramDropEditPolicyExtension extends AbstractDiagramElement
             GmModel gmModel = (GmModel) this.parentEditPart.getModel();
             IGmDiagram gmDiagram = gmModel.getDiagram();
             IStandardModelFactory factory = gmDiagram.getModelManager().getModelFactory().getFactory(IStandardModelFactory.class);
-            
+
             // Create the smart node
             Instance instanceNode;
             String namePattern;
@@ -194,11 +195,11 @@ public class ObjectDiagramDropEditPolicyExtension extends AbstractDiagramElement
                 instanceNode = factory.createBindableInstance();
                 namePattern = "i";
             }
-            
+
             // Attach to parent
             MMetamodel mm = instanceNode.getMClass().getMetamodel();
             final MDependency effectiveDependency = mm.getMExpert().getDefaultCompositionDep(this.parentElement, instanceNode);
-            
+
             if (effectiveDependency == null) {
                 StringBuilder msg = new StringBuilder();
                 msg.append("Cannot find a composition dependency to attach ");
@@ -208,21 +209,21 @@ public class ObjectDiagramDropEditPolicyExtension extends AbstractDiagramElement
                 throw new IllegalStateException(msg.toString());
             }
             this.parentElement.mGet(effectiveDependency).add(instanceNode);
-            
+
             // Attach to dropped element
             instanceNode.setBase(this.toUnmask);
             instanceNode.setName(gmDiagram.getModelManager().getModelServices().getElementNamer().getUniqueName(namePattern, instanceNode));
-            
+
             // Unmask the node
             unmaskElement(instanceNode);
-            
+
             // Handle ports if applicable
             if (this.toUnmask instanceof Classifier) {
                 Collection<Port> ports = createPorts(instanceNode);
                 if (!ports.isEmpty()) {
                     // Force graphical validation of parent to avoid some nasty side effects
                     ((GraphicalEditPart) this.parentEditPart).getFigure().getUpdateManager().performValidation();
-            
+
                     // Translate point to unmask port on the right
                     this.location.translate(100, 10);
                     Command cmd = UnmaskHelper.getUnmaskCommand(this.viewer, ports, this.location);
@@ -231,11 +232,12 @@ public class ObjectDiagramDropEditPolicyExtension extends AbstractDiagramElement
                     }
                 }
             }
-            
+
         }
 
         /**
          * Copy the Ports of the base class to the instance.
+         *
          * @param part the part where Ports are to be added.
          * @return the created ports.
          */
@@ -243,14 +245,14 @@ public class ObjectDiagramDropEditPolicyExtension extends AbstractDiagramElement
         private Collection<Port> createPorts(final Instance part) {
             final Classifier type = (Classifier) part.getBase();
             final Collection<Port> ret = new ArrayList<>(type.getInternalStructure().size());
-            
+
             for (Instance typePart : type.getInternalStructure()) {
                 if (typePart instanceof Port) {
                     final Port partPort = (Port) MTools.getModelTool().cloneElement(typePart);
                     partPort.setInternalOwner(null);
                     partPort.setCluster(part);
                     partPort.setRepresentedFeature(typePart);
-            
+
                     ret.add(partPort);
                 }
             }
@@ -260,17 +262,17 @@ public class ObjectDiagramDropEditPolicyExtension extends AbstractDiagramElement
         @objid ("9c594154-0e47-4c25-add3-1e7b74a62421")
         private void unmaskElement(final MObject el) {
             final ModelioCreationContext gmCreationContext = new ModelioCreationContext(el);
-            
+
             final CreateRequest creationRequest = new CreateRequest();
             creationRequest.setLocation(this.location);
             creationRequest.setSize(new Dimension(-1, -1));
             creationRequest.setFactory(gmCreationContext);
-            
+
             final Command cmd = this.parentEditPart.getTargetEditPart(creationRequest).getCommand(creationRequest);
             if (cmd != null && cmd.canExecute()) {
                 cmd.execute();
             }
-            
+
         }
 
     }
@@ -284,10 +286,10 @@ public class ObjectDiagramDropEditPolicyExtension extends AbstractDiagramElement
         private DiagramElementDropEditPolicy dropPolicy;
 
         @objid ("b1e48ca2-014c-4741-adda-f75c331b4493")
-        public  StandardVisitorImpl(DiagramElementDropEditPolicy dropPolicy, Point dropLocation) {
+        public StandardVisitorImpl(DiagramElementDropEditPolicy dropPolicy, Point dropLocation) {
             this.dropPolicy = dropPolicy;
             this.dropLocation = dropLocation;
-            
+
         }
 
         @objid ("3f9c6f63-7dc4-4a83-9b36-21992ea8405f")

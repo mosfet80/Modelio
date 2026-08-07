@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.panel.tree;
 
@@ -65,7 +65,7 @@ public class TreeContentProvider implements ITreeContentProvider {
             // first child is the element itself
             elements.add(((Element) object).getMClass());
         }
-        
+
         // for ModelElement add stereotypes and modules
         if (object instanceof ModelElement) {
             // then comes the modules
@@ -85,7 +85,7 @@ public class TreeContentProvider implements ITreeContentProvider {
     public void inputChanged(final Viewer viewer, final Object oldInput, final Object newInput) {
         // Nothing to do
         this.annotedElement = (ModelElement) (newInput instanceof ModelElement ? newInput : null);
-        
+
     }
 
     @objid ("8faeec55-c068-11e1-8c0a-002564c97630")
@@ -127,6 +127,7 @@ public class TreeContentProvider implements ITreeContentProvider {
      * <li>it defines at least one tagtype applicable on the model element</li>
      * <li>it is started</li>
      * </ul>
+     *
      * @return a collection of Modules
      */
     @objid ("8faeec69-c068-11e1-8c0a-002564c97630")
@@ -137,7 +138,7 @@ public class TreeContentProvider implements ITreeContentProvider {
                 return o1.getName().compareTo(o2.getName());
             }
         });
-        
+
         if (element.isValid()) {
             for (TagType tagType : findTagTypes(CoreSession.getSession(element), element.getMClass())) {
                 MetaclassReference ownerReference = tagType.getOwnerReference();
@@ -145,14 +146,14 @@ public class TreeContentProvider implements ITreeContentProvider {
                     modules.add(ownerReference.getOwnerProfile().getOwnerModule());
                 }
             }
-        
+
             for (PropertyTableDefinition tableDefinition : findPropertyTableDefinitions(CoreSession.getSession(element), element.getMClass())) {
                 MetaclassReference ownerReference = tableDefinition.getOwnerReference();
                 if (ownerReference != null) {
                     modules.add(ownerReference.getOwnerProfile().getOwnerModule());
                 }
             }
-        
+
             for (Stereotype stereotype : element.getExtension()) {
                 final ModuleComponent module = stereotype.getModule();
                 if (module != null) {
@@ -176,7 +177,7 @@ public class TreeContentProvider implements ITreeContentProvider {
     @objid ("419cf289-ec4b-4f14-9b1d-383eb3d06365")
     private MClass getBaseClass(ICoreSession session, String baseName) throws MetaclassNotFoundException {
         MClass smBase = session.getMetamodel().getMClass(baseName);
-        
+
         if (smBase == null) {
             throw new MetaclassNotFoundException(baseName);
         }

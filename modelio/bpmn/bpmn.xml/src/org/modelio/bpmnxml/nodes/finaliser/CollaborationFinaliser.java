@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.finaliser;
 
@@ -69,7 +69,7 @@ public class CollaborationFinaliser implements IFinaliseNode<BpmnCollaboration, 
                 }
             }
         }
-        
+
     }
 
     @objid ("16db0132-2d80-46a9-9307-3817b1f1d019")
@@ -83,7 +83,7 @@ public class CollaborationFinaliser implements IFinaliseNode<BpmnCollaboration, 
         if (modelioElement.getProduct().isEmpty()) {
             session.getModel().getGenericFactory().create(BpmnCollaborationDiagram.class, modelioElement, "Product");
         }
-        
+
     }
 
     @objid ("ce641aed-9354-4c69-8d5a-c9bcab3205b3")

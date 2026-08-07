@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.project;
 
@@ -53,14 +53,16 @@ public class GProjectState implements IGProjectState {
 
     /**
      * C'tor of a GProjectState controlling a given {@link IGPart}
+     *
      * @param project the project this state is attached to.
      */
     @objid ("114c9c9c-4d02-4327-a533-774b50b358e1")
-    public  GProjectState(IGProject project) {
+    public GProjectState(IGProject project) {
         this.project = project;
     }
 
     /**
+     *
      * @return the current state of the managed project.
      */
     @objid ("ae1fc95d-28b8-4f37-90d0-d2a8b5c38dff")
@@ -72,16 +74,17 @@ public class GProjectState implements IGProjectState {
     @objid ("762ec7fe-c35f-4c6b-83d3-93dd34aba111")
     private void setValue(IModelioProgress monitor, GProjectStateEnum newState) {
         this.currentState = newState;
-        
+
         // Fire event
         fireListeners(monitor);
-        
+
     }
 
     /**
      * Send 'New' transition.
-     * 
+     *
      * Transition: (INITIAL) => NEW
+     *
      * @return the resulting state in case of successful transition.
      * @throws IllegalStateException if transition was not legal.
      */
@@ -94,7 +97,7 @@ public class GProjectState implements IGProjectState {
             Log.trace(e);
             throw e;
         }
-        
+
         // Carry out the transition
         setValue(supplier, GProjectStateEnum.NEW);
         return this.currentState;
@@ -118,7 +121,7 @@ public class GProjectState implements IGProjectState {
             Log.trace(e);
             throw e;
         }
-        
+
         // Carry out the transition
         setValue(supplier, GProjectStateEnum.CLOSING);
         return this.currentState;
@@ -132,7 +135,7 @@ public class GProjectState implements IGProjectState {
             Log.trace(e);
             throw e;
         }
-        
+
         // Carry out the transition
         setValue(monitorSupplier, GProjectStateEnum.CLOSED);
         return this.currentState;
@@ -140,8 +143,9 @@ public class GProjectState implements IGProjectState {
 
     /**
      * Send 'SessionUp' transition.
-     * 
+     *
      * Transition: (NEW) => SESSIONUP
+     *
      * @return the resulting state in case of successful transition.
      * @throws IllegalStateException if transition was not legal.
      */
@@ -154,7 +158,7 @@ public class GProjectState implements IGProjectState {
             Log.trace(e);
             throw e;
         }
-        
+
         // Carry out the transition
         setValue(monitorSupplier, GProjectStateEnum.SESSIONUP);
         return this.currentState;
@@ -162,8 +166,9 @@ public class GProjectState implements IGProjectState {
 
     /**
      * Send 'Opening' transition.
-     * 
+     *
      * Transition: (SESSIONUP) => OPENING
+     *
      * @return the resulting state in case of successful transition.
      * @throws IllegalStateException if transition was not legal.
      */
@@ -176,7 +181,7 @@ public class GProjectState implements IGProjectState {
             Log.trace(e);
             throw e;
         }
-        
+
         // Carry out the transition
         setValue(monitorSupplier, GProjectStateEnum.OPENING);
         return this.currentState;
@@ -184,8 +189,9 @@ public class GProjectState implements IGProjectState {
 
     /**
      * Send 'Opened' transition.
-     * 
+     *
      * Transition: (OPENING) => OPENED
+     *
      * @return the resulting state in case of successful transition.
      * @throws IllegalStateException if transition was not legal.
      */
@@ -198,7 +204,7 @@ public class GProjectState implements IGProjectState {
             Log.trace(e);
             throw e;
         }
-        
+
         // Carry out the transition
         setValue(monitorSupplier, GProjectStateEnum.OPENED);
         return this.currentState;
@@ -210,7 +216,7 @@ public class GProjectState implements IGProjectState {
         for (IProjectStateChangeListener listener : this.listeners) {
             listener.stateChanged(mon.createChild(), this.currentState);
         }
-        
+
     }
 
     @objid ("6d21d8ee-181e-4285-ae70-a2536802bc8a")
@@ -234,7 +240,7 @@ public class GProjectState implements IGProjectState {
         private SubProgress subProgress;
 
         @objid ("0f6ef776-8a09-4186-8bea-18cd72c3fc31")
-        public  SubSubMonitorSupplier(IModelioProgress root) {
+        public SubSubMonitorSupplier(IModelioProgress root) {
             this.root = root;
         }
 
@@ -244,7 +250,7 @@ public class GProjectState implements IGProjectState {
             if (this.subProgress == null) {
                 this.subProgress = SubProgress.convert(this.root);
             }
-            
+
             this.subProgress.setWorkRemaining(4);
             return this.subProgress.newOptionalChild(1);
         }

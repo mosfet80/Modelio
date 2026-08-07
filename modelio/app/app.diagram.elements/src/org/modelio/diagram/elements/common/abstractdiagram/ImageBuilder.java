@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.abstractdiagram;
 
@@ -35,6 +35,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
+import org.modelio.diagram.elements.core.figures.ZoomDrawer;
 import org.modelio.diagram.elements.plugin.DiagramElements;
 
 /**
@@ -51,10 +52,10 @@ public class ImageBuilder {
     private static final int MARGIN = 10;
 
     @objid ("f4082e57-a12b-4409-a22a-462229d5ace0")
-    private final int maxWidth;
+    private int maxWidth;
 
     @objid ("c3c79d9f-3ab2-43fd-bc3e-477e0f7890dc")
-    private final int maxHeight;
+    private int maxHeight;
 
     @objid ("aec40530-c395-49f4-a742-10350ce976af")
     private final int margin;
@@ -71,28 +72,35 @@ public class ImageBuilder {
     @objid ("45955273-14d2-41d9-b518-3742e8ec513a")
     private int format;
 
-    @objid ("3e5e9368-894e-4b90-ae8b-2c6ff4414ae7")
+    @objid ("c7aa65b3-47dd-4f50-8b43-e47f654084b5")
     private Rectangle layerBounds;
 
+    /**
+     * Create a PNG image builder.
+     */
     @objid ("c2af8b06-cfc7-4d8a-b4a8-3583ccb8f5b4")
-    public  ImageBuilder() {
+    public ImageBuilder() {
         this(SWT.IMAGE_PNG);
     }
 
     /**
-     * @param format the image format : SWT.IMAGE_PNG, SWT.IMAGE_JPEG, SWT.IMAGE_GIF or SWT.IMAGE_BMP .
+     * Create an image builder with the specified image format.
+     *
+     * @param format the image format : {@link SWT#IMAGE_PNG}, {@link SWT#IMAGE_JPEG}, {@link SWT#IMAGE_GIF} or {@link SWT#IMAGE_BMP} .
      */
     @objid ("f00a3b84-d007-47e8-9c65-4d126d46ce41")
-    public  ImageBuilder(int format) {
+    public ImageBuilder(int format) {
         this(ImageBuilder.MARGIN, format);
     }
 
     /**
+     * Create an image builder with the specified margin and image format.
+     *
      * @param margin the margin around the image
-     * @param format the image format : SWT.IMAGE_PNG, SWT.IMAGE_JPEG, SWT.IMAGE_GIF or SWT.IMAGE_BMP .
+     * @param format the image format : {@link SWT#IMAGE_PNG}, {@link SWT#IMAGE_JPEG}, {@link SWT#IMAGE_GIF} or {@link SWT#IMAGE_BMP} .
      */
     @objid ("47b49445-29c8-49c8-b4b6-ba095a1bf39d")
-    public  ImageBuilder(int margin, int format) {
+    public ImageBuilder(int margin, int format) {
         switch (format) {
         case SWT.IMAGE_PNG:
         case SWT.IMAGE_JPEG:
@@ -108,7 +116,41 @@ public class ImageBuilder {
         }
         this.margin = margin;
         this.format = format;
-        
+    }
+
+    /**
+     * Set the maximum size of the produced image.
+     * <p>
+     * The real size may be lower if the requested dimensions exceed reasonable size.
+     *
+     * @param width the requested width
+     * @param height the requested height
+     * @return this instance to chain calls
+     */
+    @objid ("f8202396-590d-4417-b42d-80239e727206")
+    public ImageBuilder withMaxSize(int width, int height) {
+        long reqSize = (long) width * (long) height * 4;
+        int maxSize = 1_000_000_000;
+        if (reqSize < 0 || reqSize > maxSize) {
+            // Constraint max dimensions into 8192 x 8192 max
+            double scaleX = width  > this.maxWidth  ? (double) 8192 / (double) width  : (double) 1.0;
+            double scaleY = height > this.maxHeight ? (double) 8192 / (double) height : (double) 1.0;
+            this.scale = Math.min(scaleX, scaleY);
+
+            int effectiveWidth = (int) (width * this.scale);
+            int effectiveHeight = (int) (height * this.scale);
+
+            DiagramElements.LOG.warning(new IllegalArgumentException(String.format("ImageBuilder.withMaxSize(%d x %d) would exceed max size (%d bytes) !", width, height, maxSize)));
+            DiagramElements.LOG.warning("ImageBuilder.withMaxSize(): max size resized to %d x %d. ", effectiveWidth, effectiveHeight);
+
+            this.maxWidth = effectiveWidth;
+            this.maxHeight = effectiveHeight;
+        } else {
+            this.maxWidth = width;
+            this.maxHeight = height;
+        }
+
+        return this;
     }
 
     @objid ("d3118d79-4e32-4601-a1d4-7b54d98f1460")
@@ -120,6 +162,7 @@ public class ImageBuilder {
      * Builds an image from a gef diagram.
      * <p>
      * The returned image must be disposed by the caller when no longer in use.
+     *
      * @param rootEditPart the diagram root edit part
      * @return The returned image.
      */
@@ -127,7 +170,7 @@ public class ImageBuilder {
     public Image makeImage(RootEditPart rootEditPart) {
         // Temporarily add the background layer to the "printable layers" set so
         // that it is present in the saved image
-        
+
         final LayerManager lm = LayerManager.Helper.find(rootEditPart);
         final IFigure drawingLayers = lm.getLayer(AbstractDiagramEditPart.DRAWING_LAYER);
         this.layerBounds = drawingLayers.getBounds();
@@ -140,44 +183,42 @@ public class ImageBuilder {
             // Happens in embedded diagrams, see
             // org.modelio.diagram.elements.common.embeddeddiagram.EmbeddedDiagramRootEditPart.createBackgroundLayer()
         }
-        
-        // Compure the diagram figure
+
+        // Compute the diagram figure
         final AbstractDiagramFigure diagramFigure = getDiagramFigure(printableLayers);
-        
+
         // Make sure page boundaries are not displayed
         boolean oldShowBoundaries = diagramFigure.isShowPageBoundaries();
         diagramFigure.showPageBoundaries(false);
-        
-        // Scaling
+
+        // Compute Scaling
         final Rectangle contentsBounds = computeContentsBounds(diagramFigure, connectionLayer, drawingLayers);
         int width = contentsBounds.width + 2 * this.margin;
         int height = contentsBounds.height + 2 * this.margin;
-        
-        double scaleX = width > this.maxWidth ? (double) width / (double) this.maxWidth : (double) 1.0;
-        double scaleY = height > this.maxHeight ? (double) height / (double) this.maxHeight : (double) 1.0;
+
+        double scaleX = width  > this.maxWidth  ? (double) this.maxWidth  / (double) width  : (double) 1.0;
+        double scaleY = height > this.maxHeight ? (double) this.maxHeight / (double) height : (double) 1.0;
         this.scale = Math.min(scaleX, scaleY);
         int effectiveWidth = (int) (width * this.scale);
         int effectiveHeight = (int) (height * this.scale);
-        
+
         if (this.scale < 1.0) {
-            DiagramElements.LOG.debug("makeImage: %dx%d ?> %dx%d =>using scale %f, %dx%d", width, height, this.maxWidth, this.maxHeight, this.scale,
+            DiagramElements.LOG.debug("ImageBuilder.makeImage(): %dx%d > %dx%d maximum => using scale %f, resized to: %dx%d", width, height, this.maxWidth, this.maxHeight, this.scale,
                     effectiveWidth, effectiveHeight);
         }
-        
+
         // Protection agains't BMP image size being greater than 64Mb
         long totalSize = effectiveWidth * effectiveHeight * 4;
-        long max = 64 * 1024 * 1024;
+        long max = 64 *4048 * 4048;
         if (this.format == SWT.IMAGE_BMP && totalSize > max) {
-            DiagramElements.LOG.warning("Make image, size %d x %d would exced max size !", effectiveWidth, effectiveHeight);
+            DiagramElements.LOG.warning("ImageBuilder.makeImage(): size %d x %d would exceed max BMP size !", effectiveWidth, effectiveHeight);
             this.scale = Math.sqrt((double) max / (double) totalSize);
             effectiveWidth = (int) (effectiveWidth * this.scale);
             effectiveHeight = (int) (effectiveHeight * this.scale);
-            DiagramElements.LOG.warning("Make image, image resized to %d x %d  ", effectiveWidth, effectiveHeight);
+            DiagramElements.LOG.warning("ImageBuilder.makeImage(): image resized to %d x %d  ", effectiveWidth, effectiveHeight);
         }
-        
-        final Image img = new Image(Display.getDefault(), effectiveWidth, effectiveHeight);
-        final GC imageGC = new GC(img);
-        
+
+
         // prepare a translation and a scaling of the drawing
         // the role of the translation is to:
         // - compensate for the margin
@@ -185,37 +226,54 @@ public class ImageBuilder {
         // the role of the scaling is ... obvious
         this.deltaX = this.margin + -contentsBounds.x;
         this.deltaY = this.margin + -contentsBounds.y;
-        
+
+        final Image img = new Image(Display.getDefault(), effectiveWidth, effectiveHeight);
+        final GC imageGC = new GC(img);
         final Graphics graphics = new SWTGraphics(imageGC);
-        graphics.scale(this.scale);
-        graphics.translate(this.deltaX, this.deltaY);
-        graphics.setClip(contentsBounds);
-        
-        // draw
-        printableLayers.paint(graphics);
-        graphics.dispose();
-        imageGC.dispose();
-        
-        // Restore page boundaries
-        diagramFigure.showPageBoundaries(oldShowBoundaries);
-        
-        // Restore the background layer placement
-        if (backgroundLayer != null) {
-            printableLayers.remove(backgroundLayer);
-            final Layer scalableLayers = (Layer) lm.getLayer(LayerConstants.SCALABLE_LAYERS);
-            scalableLayers.add(backgroundLayer, "BACKGROUND_LAYER", 0);
+        boolean ok = false;
+        try {
+            if (scale != 1.0) {
+                graphics.scale(this.scale);
+                ZoomDrawer.onScaledGraphics(graphics, this.scale);
+            }
+            graphics.translate(this.deltaX, this.deltaY);
+            graphics.setClip(contentsBounds);
+
+            // draw
+            printableLayers.paint(graphics);
+
+            ok = true;
+
+            return img; // the caller is responsible for disposing the returned image
+        } finally {
+            graphics.dispose();
+            imageGC.dispose();
+            if (!ok) {
+                // If the image could not be built, dispose it
+                img.dispose();
+            }
+
+            // Restore page boundaries
+            diagramFigure.showPageBoundaries(oldShowBoundaries);
+
+            // Restore the background layer placement
+            if (backgroundLayer != null) {
+                printableLayers.remove(backgroundLayer);
+                final Layer scalableLayers = (Layer) lm.getLayer(LayerConstants.SCALABLE_LAYERS);
+                scalableLayers.add(backgroundLayer, "BACKGROUND_LAYER", 0);
+            }
         }
-        return img; // the caller is responsible for disposing the returned image
     }
 
     /**
      * Recurse through layers in order to find the DiagramFigure
+     *
      * @return the AbstractDiagramFigure or null (should not happen)
      */
     @objid ("65b21831-33f7-11e2-95fe-001ec947c8cc")
     private AbstractDiagramFigure getDiagramFigure(Layer layer) {
         AbstractDiagramFigure result = null;
-        
+
         for (final Object o : layer.getChildren()) {
             if (o instanceof AbstractDiagramFigure) {
                 return (AbstractDiagramFigure) o;
@@ -233,6 +291,7 @@ public class ImageBuilder {
      * Compute the minimum contents size of the diagram. This size is defined as
      * the union of the smallest bounding rectangle that encloses both all the
      * nodes and all the links
+     *
      * @param diagramFigure the diagram figure
      * @param connectionLayer the connection layer
      * @param drawingLayers the drawing layers pane
@@ -241,16 +300,16 @@ public class ImageBuilder {
     @objid ("65b21837-33f7-11e2-95fe-001ec947c8cc")
     private Rectangle computeContentsBounds(AbstractDiagramFigure diagramFigure, ConnectionLayer connectionLayer, IFigure drawingLayers) {
         Rectangle results = null;
-        
+
         // Compute for the nodes
         results = this.computeMinimumBounds(diagramFigure);
-        
+
         // Compute for drawing layers
         final Rectangle drawingsBounds = ((FreeformFigure) drawingLayers).getFreeformExtent();
         results.union(drawingsBounds);
-        
+
         // Compute for links
-        
+
         results.union(this.computeMinimumBounds(connectionLayer));
         return results;
     }
@@ -258,6 +317,7 @@ public class ImageBuilder {
     /**
      * Computes the minimum bounds of a connection layer. The returned rectangle
      * is the smallest rectangle enclosing all the links.
+     *
      * @return the minimum bounds of the connection layer
      */
     @objid ("65b2183e-33f7-11e2-95fe-001ec947c8cc")
@@ -266,24 +326,24 @@ public class ImageBuilder {
         int xMax = Integer.MIN_VALUE;
         int yMin = Integer.MAX_VALUE;
         int yMax = Integer.MIN_VALUE;
-        
+
         for (final Object o : connectionLayer.getChildren()) {
             final Rectangle b = ((Figure) o).getBounds();
-        
+
             if (b.x < xMin) {
                 xMin = b.x;
             }
             if (b.x + b.width > xMax) {
                 xMax = b.x + b.width;
             }
-        
+
             if (b.y < yMin) {
                 yMin = b.y;
             }
             if (b.y + b.height > yMax) {
                 yMax = b.y + b.height;
             }
-        
+
         }
         return new Rectangle(xMin, yMin, xMax - xMin, yMax - yMin);
     }
@@ -293,6 +353,7 @@ public class ImageBuilder {
      * is the smallest rectangle enclosing all the diagram nodes (note: the
      * computation does not take links into account which are laid in the
      * Connection layer)
+     *
      * @return the minimum bounds of the diagram figure
      */
     @objid ("65b21844-33f7-11e2-95fe-001ec947c8cc")
@@ -301,7 +362,7 @@ public class ImageBuilder {
         int xMax = Integer.MIN_VALUE;
         int yMin = Integer.MAX_VALUE;
         int yMax = Integer.MIN_VALUE;
-        
+
         for (final Object fig : figure.getChildren()) {
             final Rectangle b;
             if (fig instanceof FreeformFigure) {
@@ -311,25 +372,25 @@ public class ImageBuilder {
             } else {
                 b = ((Figure) fig).getBounds();
             }
-        
+
             if (b.isEmpty()) {
                 continue;
             }
-        
+
             if (b.x < xMin) {
                 xMin = b.x;
             }
             if (b.x + b.width > xMax) {
                 xMax = b.x + b.width;
             }
-        
+
             if (b.y < yMin) {
                 yMin = b.y;
             }
             if (b.y + b.height > yMax) {
                 yMax = b.y + b.height;
             }
-        
+
         }
         return new Rectangle(xMin, yMin, xMax - xMin, yMax - yMin);
     }
@@ -351,11 +412,10 @@ public class ImageBuilder {
         private final int deltaY;
 
         @objid ("bc1079ca-896b-46cf-aee9-248331425fae")
-        public  ImageTransformationData(int deltaX, int deltaY, double scale) {
+        public ImageTransformationData(int deltaX, int deltaY, double scale) {
             this.scale = scale;
             this.deltaX = deltaX;
             this.deltaY = deltaY;
-            
         }
 
         @objid ("4e48088a-9e42-469e-97b8-3c222cb0e0dd")

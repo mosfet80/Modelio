@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -70,23 +70,24 @@ public class MessagePropertyModel extends AbstractPropertyModel<Message> {
 
     /**
      * Create a new <i>Message</i> data model from an <i>Message</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("02177845-a005-4ccb-871e-5e0fb1bd3407")
-    public  MessagePropertyModel(Message theEditedElement) {
+    public MessagePropertyModel(Message theEditedElement) {
         super(theEditedElement);
     }
 
     @objid ("b7e71e00-8cca-4e37-91f9-7eb91f4bf2d9")
     private List<ModelElement> getAvailableOperations(Classifier classifier) {
         List<ModelElement> operationsList = new ArrayList<>();
-        
+
         if (classifier != null) {
             // Get operations from the classifier itself:
             for (Operation op : classifier.getOwnedOperation()) {
                 operationsList.add(op);
             }
-        
+
             // Get operations from parents:
             for (Generalization generalization : classifier.getParent()) {
                 NameSpace parentNameSpace = generalization.getSuperType();
@@ -94,13 +95,13 @@ public class MessagePropertyModel extends AbstractPropertyModel<Message> {
                     operationsList.addAll(getAvailableOperations((Classifier) parentNameSpace));
                 }
             }
-        
+
             // Get operations from realized interfaces:
             for (InterfaceRealization realization : classifier.getRealized()) {
                 Interface parentNameSpace = realization.getImplemented();
                 operationsList.addAll(getAvailableOperations(parentNameSpace));
             }
-        
+
             // Get operations from provided interfaces:
             for (BindableInstance bindableInstance : classifier.getInternalStructure()) {
                 NameSpace biNs = bindableInstance.getBase();
@@ -124,6 +125,7 @@ public class MessagePropertyModel extends AbstractPropertyModel<Message> {
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("e3d91e9d-4b0d-4b9e-ad31-78706e7f4248")
@@ -136,34 +138,34 @@ public class MessagePropertyModel extends AbstractPropertyModel<Message> {
     private INatValue getInvokedOperationType(Operation operation) {
         DefaultElementNatValue defaultInvokedType = new DefaultElementNatValue(operation, true,
                 Collections.singletonList(Operation.class));
-        
+
         MessageEnd message = this.theEditedElement.getReceiveEvent();
         if (message == null) {
             return defaultInvokedType;
         }
-        
+
         EList<Lifeline> lifelines = message.getCovered();
         if (lifelines.size() != 1) {
             return defaultInvokedType;
         }
-        
+
         Lifeline lifeline = lifelines.get(0);
         if (lifeline == null) {
             return defaultInvokedType;
         }
-        
+
         Instance instance = lifeline.getRepresented();
         if (instance == null) {
             return defaultInvokedType;
         }
-        
+
         NameSpace ns = instance.getBase();
         if (!(ns instanceof Classifier)) {
             return defaultInvokedType;
         }
-        
+
         Classifier classifier = (Classifier) ns;
-        
+
         List<ModelElement> availableOperations = getAvailableOperations(classifier);
         return new DefaultElementChoiceNatValue(operation, true, Collections.singletonList(Operation.class),
                                                 availableOperations);
@@ -171,6 +173,7 @@ public class MessagePropertyModel extends AbstractPropertyModel<Message> {
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("196ce8b4-7ccb-4a8f-8328-8ec57e9fc48e")
@@ -183,6 +186,7 @@ public class MessagePropertyModel extends AbstractPropertyModel<Message> {
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -210,7 +214,7 @@ public class MessagePropertyModel extends AbstractPropertyModel<Message> {
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -220,6 +224,7 @@ public class MessagePropertyModel extends AbstractPropertyModel<Message> {
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -248,13 +253,14 @@ public class MessagePropertyModel extends AbstractPropertyModel<Message> {
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -288,7 +294,7 @@ public class MessagePropertyModel extends AbstractPropertyModel<Message> {
         default:
             return;
         }
-        
+
     }
 
 }

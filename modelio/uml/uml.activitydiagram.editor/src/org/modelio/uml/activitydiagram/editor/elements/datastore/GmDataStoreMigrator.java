@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.datastore;
 
@@ -28,7 +28,7 @@ import org.modelio.uml.activitydiagram.editor.elements.datastore.v0._GmDataStore
 
 /**
  * Migrator class for GmDataStore.
- * 
+ *
  * @author fpoyer
  */
 @objid ("2a2a7cee-55b6-11e2-877f-002564c97630")
@@ -44,7 +44,7 @@ public class GmDataStoreMigrator implements IPersistentMigrator {
             return null;
         }
         }
-        
+
     }
 
     @objid ("2a2c037b-55b6-11e2-877f-002564c97630")
@@ -59,11 +59,11 @@ public class GmDataStoreMigrator implements IPersistentMigrator {
     @objid ("2a2c0386-55b6-11e2-877f-002564c97630")
     private IPersistent migrateFromV0(final _GmDataStore oldDataStore) {
         GmDataStore newDataStore = new GmDataStore(oldDataStore);
-        
+
         newDataStore.setLayoutData(oldDataStore.getLayoutData());
-        
+
         newDataStore.setRoleInComposition(oldDataStore.getRoleInComposition());
-        
+
         GmDataStorePrimaryNode newPrimaryNode = (GmDataStorePrimaryNode) newDataStore.getMainNode();
         for (IGmLink link : oldDataStore.getStartingLinks()) {
             oldDataStore.removeStartingLink(link);
@@ -73,12 +73,12 @@ public class GmDataStoreMigrator implements IPersistentMigrator {
             oldDataStore.removeEndingLink(link);
             newPrimaryNode.addEndingLink(link);
         }
-        
+
         newDataStore.getPersistedStyle().setCascadedStyle(oldDataStore.getPersistedStyle().getCascadedStyle());
         for (StyleKey key : oldDataStore.getPersistedStyle().getLocalKeys()) {
             newDataStore.getDisplayedStyle().setProperty(key, oldDataStore.getDisplayedStyle().getProperty(key));
         }
-        
+
         oldDataStore.delete();
         return newDataStore;
     }

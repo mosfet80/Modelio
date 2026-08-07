@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -45,46 +44,46 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0002efae-c4bf-1fd8-97fe-001ec947cd2a")
 public class ClassAssociationImpl extends UmlModelElementImpl implements ClassAssociation {
-    @objid ("eb86b4e2-7d85-40d4-9ee3-77ef5a33b3e5")
+    @objid ("41202e4e-c2a5-4afd-a254-748d9b4e4668")
     @Override
     public NaryAssociation getNaryAssociationPart() {
         Object obj = getDepVal(((ClassAssociationSmClass)getClassOf()).getNaryAssociationPartDep());
         return (obj instanceof NaryAssociation)? (NaryAssociation)obj : null;
     }
 
-    @objid ("32ea65b7-72a4-40fc-8453-237241183c53")
+    @objid ("9c1f7037-36c7-43fc-bcb0-c4c75df5dcd4")
     @Override
     public void setNaryAssociationPart(NaryAssociation value) {
         appendDepVal(((ClassAssociationSmClass)getClassOf()).getNaryAssociationPartDep(), (SmObjectImpl)value);
     }
 
-    @objid ("f17a6d36-d0f3-4ec3-b18d-257dbb22597f")
+    @objid ("271312df-7400-4312-948b-3bccd77bf9ca")
     @Override
     public Class getClassPart() {
         Object obj = getDepVal(((ClassAssociationSmClass)getClassOf()).getClassPartDep());
         return (obj instanceof Class)? (Class)obj : null;
     }
 
-    @objid ("84039135-c8b6-4749-b310-88119b9adfd4")
+    @objid ("fbdb576b-63c5-4eb6-b88e-2bf2801bc403")
     @Override
     public void setClassPart(Class value) {
         appendDepVal(((ClassAssociationSmClass)getClassOf()).getClassPartDep(), (SmObjectImpl)value);
     }
 
-    @objid ("67d01b29-9b3d-48b0-8992-02f16a46f7ef")
+    @objid ("48b6d40f-2dde-44b1-bf7f-8ffd9e3375d9")
     @Override
     public Association getAssociationPart() {
         Object obj = getDepVal(((ClassAssociationSmClass)getClassOf()).getAssociationPartDep());
         return (obj instanceof Association)? (Association)obj : null;
     }
 
-    @objid ("1219c590-6fa3-43f8-acdf-0ee9c3a43793")
+    @objid ("86fcbffd-1a7e-4903-80cf-312ca1545781")
     @Override
     public void setAssociationPart(Association value) {
         appendDepVal(((ClassAssociationSmClass)getClassOf()).getAssociationPartDep(), (SmObjectImpl)value);
     }
 
-    @objid ("6401abfb-66ff-4ac1-8777-dd2f504fd0c9")
+    @objid ("0bbc038c-875f-40d1-9341-7bedf75d80eb")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -100,27 +99,27 @@ public class ClassAssociationImpl extends UmlModelElementImpl implements ClassAs
         return super.getCompositionOwner();
     }
 
-    @objid ("9aae8b50-62ec-4bee-ac4b-5bb9751aaf96")
+    @objid ("c027d95f-6908-4e20-9fe0-cbafac0487c5")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // NaryAssociationPart
         dep = ((ClassAssociationSmClass)getClassOf()).getNaryAssociationPartDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         // AssociationPart
         dep = ((ClassAssociationSmClass)getClassOf()).getAssociationPartDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("8da01baf-97ba-4c48-ad98-81f75b347c6c")
+    @objid ("5c9edbf4-a2da-464c-9ad8-268d5b377e0d")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitClassAssociation(this);

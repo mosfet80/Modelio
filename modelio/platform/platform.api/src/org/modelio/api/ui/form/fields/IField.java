@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.ui.form.fields;
 
@@ -54,9 +54,10 @@ public interface IField {
 
     /**
      * Add a change listener to this field
-     * @see #PROP_VALUE
+     *
      * @param listener a listener
      * @since Valkyrie 3.8
+     * @see #PROP_VALUE
      */
     @objid ("7a0b27ca-7cd5-4b0e-9f47-b8428e182af8")
     void addPropertyChangeListener(PropertyChangeListener listener);
@@ -65,6 +66,7 @@ public interface IField {
      * Store the field value in the model.
      * <p>
      * May throw a runtime exception if the field value is not valid.
+     *
      * @since Valkyrie 3.8
      */
     @objid ("f2b0524b-d776-4f74-8610-3173ba35d593")
@@ -93,6 +95,7 @@ public interface IField {
      * <p>
      * Returns null when the value is valid.
      * Tells whether the value may be applied or it is invalid.
+     *
      * @return null if {@link #apply()} may be called safely, an error message in other cases.
      * @since Valkyrie 3.8
      */
@@ -123,6 +126,7 @@ public interface IField {
 
     /**
      * Remove a change listener
+     *
      * @param listener the listener to remove.
      * @since Valkyrie 3.8
      */
@@ -140,5 +144,5 @@ public interface IField {
 
     @objid ("70a9c4c0-736b-4aeb-8f63-439becf48f08")
     void setModel(IFormFieldData data);
-}
 
+}

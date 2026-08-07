@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.activities;
 
 import java.util.ArrayList;
@@ -40,75 +39,75 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("987f97c3-033b-4989-bec3-cb6d8b249f62")
 public class BpmnBusinessRuleTaskSmClass extends BpmnTaskSmClass {
-    @objid ("2c7dd471-314b-46f8-85bb-326804a1f96e")
-    public  BpmnBusinessRuleTaskSmClass(ISmMetamodelFragment origin) {
+    @objid ("060990d5-0a87-44aa-a82c-5a2ffc32ab80")
+    public BpmnBusinessRuleTaskSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("ae1cac3e-c07c-4691-8e23-de69a67ef630")
+    @objid ("3fb0deec-915d-4914-bcd0-d5ed9dfeb518")
     @Override
     public String getName() {
         return "BpmnBusinessRuleTask";
-        
+
     }
 
-    @objid ("8a4b200b-ade9-4322-ac5e-ac876b694ba0")
+    @objid ("6ee3a765-81b4-4791-bca5-83e3572f7586")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("5fd0a351-c55c-4f48-8eae-b3129805e264")
+    @objid ("3120574e-e2bb-49c1-b501-21af84316299")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return BpmnBusinessRuleTask.class;
-        
+
     }
 
-    @objid ("49d9ce8a-d8cd-49b3-a3c8-17477ab76426")
+    @objid ("ffb029a7-e53c-4d24-abfa-00daed26ed51")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("6bc0e213-23bc-4075-906f-68e2f8cc3c8f")
+    @objid ("9fd16eb8-2781-4145-9263-aeb6024f291c")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("aa97bad8-1a29-42de-aa1f-ae36c7218870")
+    @objid ("8572e0c2-e51f-4383-92ef-029bf73a02e6")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(BpmnTask.MQNAME);
         this.registerFactory(new BpmnBusinessRuleTaskObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
-        
+
     }
 
     @objid ("df3af54f-0897-4d05-bb9f-8deef870a92c")
     private static class BpmnBusinessRuleTaskObjectFactory implements ISmObjectFactory {
-        @objid ("d97589f5-896b-44bf-95ad-82ec03986846")
+        @objid ("579abd3d-9d33-42c8-b6e0-a66fb2abf917")
         private BpmnBusinessRuleTaskSmClass smClass;
 
-        @objid ("fb102bd0-36c2-4bb1-b731-196da4610229")
-        public  BpmnBusinessRuleTaskObjectFactory(BpmnBusinessRuleTaskSmClass smClass) {
+        @objid ("26f470ed-4541-483c-b294-817a9e29afcb")
+        public BpmnBusinessRuleTaskObjectFactory(BpmnBusinessRuleTaskSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("b977c502-6061-493f-b14d-a893c2cf90dc")
+        @objid ("13142a4c-3472-4440-870f-7a91a4e6d8f5")
         @Override
         public ISmObjectData createData() {
             return new BpmnBusinessRuleTaskData(this.smClass);
         }
 
-        @objid ("37008e1b-f702-4645-bdd1-2150c8eaf2ab")
+        @objid ("953cb812-c463-478e-9079-6de0a9b3701d")
         @Override
         public SmObjectImpl createImpl() {
             return new BpmnBusinessRuleTaskImpl();

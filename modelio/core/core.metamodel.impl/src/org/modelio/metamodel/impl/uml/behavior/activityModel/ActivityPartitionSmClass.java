@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -49,115 +48,114 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("4a14a4a5-a6b6-4222-990c-bf3308b3811e")
 public class ActivityPartitionSmClass extends ActivityGroupSmClass {
-    @objid ("0dce8df2-80e1-476f-998c-39312def39f3")
+    @objid ("9bef9e12-225e-4296-a966-713476f7ca76")
     private SmAttribute isDimensionAtt;
 
-    @objid ("54f7e6e3-afb4-408f-be13-806e91800f47")
+    @objid ("fea91bb3-dd4a-4904-8fb7-23242814e068")
     private SmAttribute isExternalAtt;
 
-    @objid ("1752217e-5f9c-4e8d-9536-3b4b3acfc3bf")
+    @objid ("248ae054-86de-4bfe-b9e6-f8b117b971e6")
     private SmDependency representedDep;
 
-    @objid ("c6bb66f5-50f7-481f-980c-3aefeec67043")
+    @objid ("402436dd-8ddd-4a7c-9ba7-db2d6751dde3")
     private SmDependency containedNodeDep;
 
-    @objid ("cf11efbd-32dd-4c25-908a-fd072eb8c047")
+    @objid ("a7cf5172-c162-4cd7-9827-1fc6381b4b86")
     private SmDependency outgoingDep;
 
-    @objid ("1bf06a51-0b19-433b-acab-9f82eaac41f5")
+    @objid ("de18a92c-0803-4d31-95f9-0129a7e2b439")
     private SmDependency superPartitionDep;
 
-    @objid ("58a0601d-eaaf-4fb8-9ab5-a18ca0daf681")
+    @objid ("cebabc43-6794-49cf-ac9e-b962f072bb11")
     private SmDependency subPartitionDep;
 
-    @objid ("5e6e4865-9a52-4f13-a623-c41f1d12aa9b")
+    @objid ("5628e5fa-73cd-4f1c-9d92-9e90b7ac60bb")
     private SmDependency incomingDep;
 
-    @objid ("eb355345-95dc-4839-8dc9-77e1b5ffb802")
-    public  ActivityPartitionSmClass(ISmMetamodelFragment origin) {
+    @objid ("5963e35f-52a6-4de0-b37a-cf01111fe3ba")
+    public ActivityPartitionSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("98080657-cee2-4805-bbe3-fdd59c1f5ca2")
+    @objid ("c673d018-61de-4495-80e9-6ab62c1cc845")
     @Override
     public String getName() {
         return "ActivityPartition";
-        
+
     }
 
-    @objid ("4a89855b-5472-45c6-9b95-73d0f7bcd308")
+    @objid ("cefaf815-5a49-47de-bd2a-2cde84e95dde")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("3bcba5cb-7b40-422b-991e-bb436cfa0c12")
+    @objid ("40431b37-2888-4129-8569-6f8f3d4b294a")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return ActivityPartition.class;
-        
+
     }
 
-    @objid ("23704778-aad8-49d1-be96-37e8937ae770")
+    @objid ("0dbfe382-ec76-4329-a57e-00a8bebafafe")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("4d9505f0-5786-45aa-9b9a-41dc4f8eee04")
+    @objid ("1764f75b-f264-4504-af62-63a9df2846e1")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("118b9a8d-5968-4eba-9f77-adf9f8ee6ebb")
+    @objid ("315d5ec9-2348-46e1-a1ab-3a92dc2592a7")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(ActivityGroup.MQNAME);
         this.registerFactory(new ActivityPartitionObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
         this.isDimensionAtt = new IsDimensionSmAttribute();
         this.isDimensionAtt.init("IsDimension", this, Boolean.class );
         registerAttribute(this.isDimensionAtt);
-        
+
         this.isExternalAtt = new IsExternalSmAttribute();
         this.isExternalAtt.init("IsExternal", this, Boolean.class );
         registerAttribute(this.isExternalAtt);
-        
-        
+
+
         // Initialize and register the SmDependency
         this.representedDep = new RepresentedSmDependency();
         this.representedDep.init("Represented", this, metamodel.getMClass(UmlModelElement.MQNAME), 0, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.representedDep);
-        
+
         this.containedNodeDep = new ContainedNodeSmDependency();
         this.containedNodeDep.init("ContainedNode", this, metamodel.getMClass(ActivityNode.MQNAME), 0, -1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.containedNodeDep);
-        
+
         this.outgoingDep = new OutgoingSmDependency();
         this.outgoingDep.init("Outgoing", this, metamodel.getMClass(MessageFlow.MQNAME), 0, -1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.outgoingDep);
-        
+
         this.superPartitionDep = new SuperPartitionSmDependency();
         this.superPartitionDep.init("SuperPartition", this, metamodel.getMClass(ActivityPartition.MQNAME), 0, 1 );
         registerDependency(this.superPartitionDep);
-        
+
         this.subPartitionDep = new SubPartitionSmDependency();
         this.subPartitionDep.init("SubPartition", this, metamodel.getMClass(ActivityPartition.MQNAME), 0, -1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.subPartitionDep);
-        
+
         this.incomingDep = new IncomingSmDependency();
         this.incomingDep.init("Incoming", this, metamodel.getMClass(MessageFlow.MQNAME), 0, -1 , SmDirective.SMCDTODELETE);
         registerDependency(this.incomingDep);
-        
-        
+
     }
 
-    @objid ("98fe2fe6-bf84-41b0-b1dc-defc09c73f64")
+    @objid ("80562ad8-ba40-4315-8ae0-205609d9d984")
     public SmAttribute getIsDimensionAtt() {
         if (this.isDimensionAtt == null) {
         	this.isDimensionAtt = this.getAttributeDef("IsDimension");
@@ -165,7 +163,7 @@ public class ActivityPartitionSmClass extends ActivityGroupSmClass {
         return this.isDimensionAtt;
     }
 
-    @objid ("c30c8820-820a-4e0d-99c6-54044c27a1ec")
+    @objid ("98e0e8a1-5c87-40dc-9849-5187db5b020b")
     public SmAttribute getIsExternalAtt() {
         if (this.isExternalAtt == null) {
         	this.isExternalAtt = this.getAttributeDef("IsExternal");
@@ -173,7 +171,7 @@ public class ActivityPartitionSmClass extends ActivityGroupSmClass {
         return this.isExternalAtt;
     }
 
-    @objid ("4e8f9472-76e1-47b0-9ebf-919cde7feab1")
+    @objid ("a61e5037-68ca-4043-8406-1a4597ecca2a")
     public SmDependency getRepresentedDep() {
         if (this.representedDep == null) {
         	this.representedDep = this.getDependencyDef("Represented");
@@ -181,7 +179,7 @@ public class ActivityPartitionSmClass extends ActivityGroupSmClass {
         return this.representedDep;
     }
 
-    @objid ("dd642f0a-0d55-490c-aaf2-46065cfdb9af")
+    @objid ("47b3d369-a24c-4735-bb72-0aae1a5a0d59")
     public SmDependency getContainedNodeDep() {
         if (this.containedNodeDep == null) {
         	this.containedNodeDep = this.getDependencyDef("ContainedNode");
@@ -189,7 +187,7 @@ public class ActivityPartitionSmClass extends ActivityGroupSmClass {
         return this.containedNodeDep;
     }
 
-    @objid ("d26f2858-2329-4300-af1b-ee4b2d669cd6")
+    @objid ("c520f1fa-19cd-40fd-92e3-09d7c852513b")
     public SmDependency getOutgoingDep() {
         if (this.outgoingDep == null) {
         	this.outgoingDep = this.getDependencyDef("Outgoing");
@@ -197,7 +195,7 @@ public class ActivityPartitionSmClass extends ActivityGroupSmClass {
         return this.outgoingDep;
     }
 
-    @objid ("ed891eaf-f772-4dc8-b01e-320df2bf87fb")
+    @objid ("bb792103-96d7-4b2b-a248-bb5490369442")
     public SmDependency getSuperPartitionDep() {
         if (this.superPartitionDep == null) {
         	this.superPartitionDep = this.getDependencyDef("SuperPartition");
@@ -205,7 +203,7 @@ public class ActivityPartitionSmClass extends ActivityGroupSmClass {
         return this.superPartitionDep;
     }
 
-    @objid ("64a69b8f-43f5-46a9-9012-56dbc41c4066")
+    @objid ("b381e4c5-a25e-41a2-af80-8f6c3755d659")
     public SmDependency getSubPartitionDep() {
         if (this.subPartitionDep == null) {
         	this.subPartitionDep = this.getDependencyDef("SubPartition");
@@ -213,7 +211,7 @@ public class ActivityPartitionSmClass extends ActivityGroupSmClass {
         return this.subPartitionDep;
     }
 
-    @objid ("861b20d3-55ff-4914-8dad-9faf66ae0be2")
+    @objid ("ad92cbe0-b3d0-444c-ac02-575319a8f2c1")
     public SmDependency getIncomingDep() {
         if (this.incomingDep == null) {
         	this.incomingDep = this.getDependencyDef("Incoming");
@@ -223,21 +221,21 @@ public class ActivityPartitionSmClass extends ActivityGroupSmClass {
 
     @objid ("fef78210-3c28-4e6e-9c85-72d28feea250")
     private static class ActivityPartitionObjectFactory implements ISmObjectFactory {
-        @objid ("b8ee4ad9-ae1e-47d5-918b-b06e3563c003")
+        @objid ("b074fd60-e0ab-4ec6-a6e5-efaaa1e3e1b2")
         private ActivityPartitionSmClass smClass;
 
-        @objid ("ea07c091-cc53-4358-bb6f-14b35f0ae265")
-        public  ActivityPartitionObjectFactory(ActivityPartitionSmClass smClass) {
+        @objid ("dce5b7b3-bed4-4e9b-95ed-bb1906fd52a1")
+        public ActivityPartitionObjectFactory(ActivityPartitionSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("6fdbabfb-cce4-4f02-a6f8-1bd9c27e8112")
+        @objid ("e77162ab-f017-4dd7-b97f-5aacf64224d5")
         @Override
         public ISmObjectData createData() {
             return new ActivityPartitionData(this.smClass);
         }
 
-        @objid ("af1652af-660f-44aa-82d9-6b772b23e4f2")
+        @objid ("76ae45fb-e92f-4fa6-a4df-1676ba2962b3")
         @Override
         public SmObjectImpl createImpl() {
             return new ActivityPartitionImpl();
@@ -247,12 +245,12 @@ public class ActivityPartitionSmClass extends ActivityGroupSmClass {
 
     @objid ("58335be6-9f7e-4fed-a885-a53d0193f45b")
     public static class IsDimensionSmAttribute extends SmAttribute {
-        @objid ("acb82bd1-d3d6-4b1c-869c-619b40cebcb5")
+        @objid ("04bfea41-51d6-4496-ae16-f367a092db71")
         public Object getValue(ISmObjectData data) {
             return ((ActivityPartitionData) data).mIsDimension;
         }
 
-        @objid ("dc9e6c63-7b12-456c-802e-d53399f8a5fa")
+        @objid ("b9767a94-4270-4cbf-b881-af1fb206dd55")
         public void setValue(ISmObjectData data, Object value) {
             ((ActivityPartitionData) data).mIsDimension = value;
         }
@@ -261,12 +259,12 @@ public class ActivityPartitionSmClass extends ActivityGroupSmClass {
 
     @objid ("481c0611-3e67-41fe-a303-90c0dd0349c5")
     public static class IsExternalSmAttribute extends SmAttribute {
-        @objid ("d6691914-c83e-423a-90e6-82a38521b431")
+        @objid ("35a7f9be-a9b8-4b46-8f01-409ff270df66")
         public Object getValue(ISmObjectData data) {
             return ((ActivityPartitionData) data).mIsExternal;
         }
 
-        @objid ("21b7ac3a-8228-4d77-a717-0ac1ce99d66b")
+        @objid ("2b12c7c6-f5e8-42dc-8611-43802fbe291a")
         public void setValue(ISmObjectData data, Object value) {
             ((ActivityPartitionData) data).mIsExternal = value;
         }
@@ -275,178 +273,178 @@ public class ActivityPartitionSmClass extends ActivityGroupSmClass {
 
     @objid ("d4f65f98-e800-4796-88e9-ef88146b59fe")
     public static class RepresentedSmDependency extends SmSingleDependency {
-        @objid ("ec0374df-faf0-4ca2-88a8-fad6cc847670")
+        @objid ("948915ab-2591-4922-a35e-a6d992e959c8")
         private SmDependency symetricDep;
 
-        @objid ("8ef925ad-0668-4b77-aa07-0b3178aae582")
+        @objid ("82c13b69-f448-4d5e-b45e-ae4637512fa0")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((ActivityPartitionData) data).mRepresented;
         }
 
-        @objid ("404b2f34-b60f-4baa-bc5f-41cbb0c99a4a")
+        @objid ("c6f38d88-0928-4219-b9c6-b2af047d3a15")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((ActivityPartitionData) data).mRepresented = value;
         }
 
-        @objid ("3581520e-e120-4ae7-9c32-af1ee36d511e")
+        @objid ("0913487f-e2e6-46fe-a559-164ba1a368f4")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((UmlModelElementSmClass)this.getTarget()).getRepresentingPartitionDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("7324f895-b7c3-4a93-9242-3ace9609561f")
     public static class ContainedNodeSmDependency extends SmMultipleDependency {
-        @objid ("7a8fa63c-5e5d-44c9-be45-a0b2645415ba")
+        @objid ("df9a67dc-fbea-4299-8232-5e082fe8b5fb")
         private SmDependency symetricDep;
 
-        @objid ("a362d6c2-71d6-4178-8eec-65592de48af6")
+        @objid ("1dea3f14-c5db-4e7a-9c51-91db345d44af")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((ActivityPartitionData)data).mContainedNode != null)? ((ActivityPartitionData)data).mContainedNode:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("920b2354-8edd-4fdd-b8b9-a0393dec1ce8")
+        @objid ("a273397e-00be-4b81-b7c1-1bb6e3c75a05")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((ActivityPartitionData) data).mContainedNode = values;
-            
+
         }
 
-        @objid ("8b3c59b9-6a38-4144-90e1-59d63417f13a")
+        @objid ("9d1ac59d-22b6-48bb-9c5c-90431bd1be78")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((ActivityNodeSmClass)this.getTarget()).getOwnerPartitionDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("7d9166de-3743-40dc-8349-520a825d6e80")
     public static class OutgoingSmDependency extends SmMultipleDependency {
-        @objid ("7bd23017-3ac6-49d9-b4e9-52b00b731b4d")
+        @objid ("b999ea49-ae81-4f96-9b10-f1e4c4e58571")
         private SmDependency symetricDep;
 
-        @objid ("ef6d1bd5-b864-42c6-af18-e6ec0108bf3e")
+        @objid ("7653dca6-59cb-43d9-b636-9ba3a0412ac5")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((ActivityPartitionData)data).mOutgoing != null)? ((ActivityPartitionData)data).mOutgoing:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("6159a9cc-ed9e-45a4-be1b-61850bba58bc")
+        @objid ("de355867-a512-4561-8ccf-a453bf2b5e89")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((ActivityPartitionData) data).mOutgoing = values;
-            
+
         }
 
-        @objid ("2553035a-ab6d-4cb0-97dc-a469f1747804")
+        @objid ("9995cb87-7b48-4ed8-9e33-02b5a69b202f")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((MessageFlowSmClass)this.getTarget()).getSourcePartitionDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("0f63c2e4-11a1-4541-8f1b-b419b9ddfbb4")
     public static class SuperPartitionSmDependency extends SmSingleDependency {
-        @objid ("551c9afa-06ed-4db0-a461-e2fe30721271")
+        @objid ("8a78fa2e-0c59-45ca-b1a6-880acb7a9b38")
         private SmDependency symetricDep;
 
-        @objid ("beb20ea8-ce3a-45bb-8c5e-df75aa351fec")
+        @objid ("e6dfa62a-e228-4cfe-a141-6a9e8f3ee0cd")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((ActivityPartitionData) data).mSuperPartition;
         }
 
-        @objid ("1fe5b197-de73-47d9-a6b9-667d4e96161d")
+        @objid ("7a30e49f-feed-4238-b45c-16303cc33ac3")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((ActivityPartitionData) data).mSuperPartition = value;
         }
 
-        @objid ("73fd45c3-14a3-4c21-bbe9-2b5420f4db15")
+        @objid ("016646c6-23c0-45b1-b1f9-fa943382db57")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((ActivityPartitionSmClass)this.getTarget()).getSubPartitionDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("970515b9-8e49-498e-9e52-c5eefb7e96bf")
     public static class SubPartitionSmDependency extends SmMultipleDependency {
-        @objid ("77c3f70c-f570-46da-be1a-8745bf4eef47")
+        @objid ("d993933d-e0db-4f8c-8d11-1a4221c3e1d7")
         private SmDependency symetricDep;
 
-        @objid ("555d9c23-e4f2-4153-9b3e-d99bab24b843")
+        @objid ("d9eb56d8-d20b-4db7-bb4a-fe4a6f9d964f")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((ActivityPartitionData)data).mSubPartition != null)? ((ActivityPartitionData)data).mSubPartition:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("c6d991c2-d0a5-4bd9-8070-42c17e6e83a2")
+        @objid ("a0ee3b04-4cdb-44c6-a292-f4348d491f1e")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((ActivityPartitionData) data).mSubPartition = values;
-            
+
         }
 
-        @objid ("e529e0e5-f7fa-404a-91c9-609ca7efa0fb")
+        @objid ("64d5b8da-7dc4-412f-865d-ee3136fd3df8")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((ActivityPartitionSmClass)this.getTarget()).getSuperPartitionDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("1c5dc013-54ad-41bf-a85c-aa94d0b4cefb")
     public static class IncomingSmDependency extends SmMultipleDependency {
-        @objid ("7ea1fb4a-301d-4b3b-a67e-60ef3d28c96d")
+        @objid ("e8a2c980-6bfd-467d-bf9a-1a7ac2a6f76f")
         private SmDependency symetricDep;
 
-        @objid ("febc6be7-bfb5-47d1-8b4a-2475ec43ee16")
+        @objid ("4362245e-2023-4f2c-839b-3317e2aa3e9c")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((ActivityPartitionData)data).mIncoming != null)? ((ActivityPartitionData)data).mIncoming:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("5a011d79-4e02-4b32-b00f-a7de039802d6")
+        @objid ("9265fc6f-1633-4c13-8b16-67508d6ffd21")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((ActivityPartitionData) data).mIncoming = values;
-            
+
         }
 
-        @objid ("5d3cd5cb-a907-49eb-a358-47d4d8ae2d3d")
+        @objid ("6e261182-a947-4eb3-826d-18a0c9384d3e")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((MessageFlowSmClass)this.getTarget()).getTargetPartitionDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

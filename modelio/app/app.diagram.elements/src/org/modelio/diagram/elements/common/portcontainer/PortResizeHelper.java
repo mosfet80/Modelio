@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.portcontainer;
 
@@ -29,7 +29,7 @@ import org.eclipse.gef.requests.ChangeBoundsRequest;
 
 /**
  * Helper methods for port container auto resizing.
- * 
+ *
  * @author cmarin
  * @since 3.4
  */
@@ -45,6 +45,7 @@ class PortResizeHelper {
      * put main node bounds in the request.
      * <p>
      * In case port container parent is a port container itself, it needs to know the modification of our main node bounds.
+     *
      * @param mainNodeConstraint the main node constraint to put, if different from current ones.
      * If <i>null</i> the current one will be used. Must be relative to layout origin.
      * @param containerEditPart the port container edit part
@@ -54,10 +55,9 @@ class PortResizeHelper {
     static void putMainNodeBounds(PortContainerEditPart containerEditPart, ChangeBoundsRequest req) {
         IFigure containerFigure = containerEditPart.getFigure();
         Rectangle newMainNodeBounds = getMainNodeBoundsFromConstraint((PortContainerFigure) containerFigure) ;
-        
+
         containerFigure.translateToAbsolute(newMainNodeBounds);
         req.getExtendedData().put(REQPROP_MAIN_NODE_BOUNDS, newMainNodeBounds);
-        
     }
 
     /**
@@ -66,6 +66,7 @@ class PortResizeHelper {
      * <li> the port container figure handle bounds.
      * </ol>
      * The returned rectangle is freely modifiable copy.
+     *
      * @param containerFigure the port container figure
      * @return the bounds the main node should have
      */
@@ -84,7 +85,7 @@ class PortResizeHelper {
     @objid ("20567f1c-43c3-40d3-a673-eabb17479597")
     public static Rectangle computeRequestedMainNodeBounds(PortContainerFigure containerFigure, ChangeBoundsRequest request) {
         Rectangle newHandleBounds = getMainNodeBoundsFromConstraint(containerFigure);
-        
+
         containerFigure.translateToAbsolute(newHandleBounds);
         newHandleBounds = request.getTransformedRectangle(newHandleBounds);
         //containerFigure.translateToRelative(newHandleBounds);
@@ -95,6 +96,7 @@ class PortResizeHelper {
      * Recursively dump the command and all its composition hierarchy to a string.
      * <p>
      * TODO : move this in a more general class.
+     *
      * @param cmd the command to dump
      * @return the string representation.
      */
@@ -112,18 +114,17 @@ class PortResizeHelper {
             String subIndent = indent.concat("  ");
             s.append(c.getClass().getSimpleName());
             s.append(" [");
-            for (Iterator<Command> iterator = c.getCommands().iterator(); iterator.hasNext();) {
+            for (Iterator<? extends Command> iterator = c.getCommands().iterator(); iterator.hasNext();) {
                 Command sub = iterator.next();
                 s.append("\n");
                 s.append(indent);
                 s.append(" - ");
                 dump(sub, s, subIndent);
             }
-        
+
         } else {
             s.append(String.valueOf(cmd).replace("\n", "\n"+indent));
         }
-        
     }
 
 }

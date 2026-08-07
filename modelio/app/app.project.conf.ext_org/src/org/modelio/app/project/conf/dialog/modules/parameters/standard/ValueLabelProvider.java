@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.conf.dialog.modules.parameters.standard;
 
@@ -53,7 +53,7 @@ class ValueLabelProvider extends ColumnLabelProvider {
         } else {
             return ""; //$NON-NLS-1$
         }
-        
+
     }
 
     @objid ("81d80e12-32ea-4c05-bcfc-514486127a45")
@@ -70,7 +70,7 @@ class ValueLabelProvider extends ColumnLabelProvider {
             // Default case
             return null;
         }
-        
+
     }
 
     @objid ("5ff22b6c-929d-416d-9361-fae3c6214df6")

@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -65,6 +65,7 @@ public class UML2PropertyType {
      * Tells whether a {@link UML2PropertyType proxy} can be instantiated from a {@link MObject} checking it is a {@link Attribute} stereotyped << UML2PropertyType >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -75,7 +76,7 @@ public class UML2PropertyType {
 
     /**
      * Create a new {@link Attribute} stereotyped << UML2PropertyType >> then instantiate a {@link UML2PropertyType} proxy.
-     * 
+     *
      * @return a {@link UML2PropertyType} proxy on the created {@link Attribute}.
      */
     @objid ("30799bf4-92ba-418f-93bb-63d3fc55518d")
@@ -86,9 +87,10 @@ public class UML2PropertyType {
     }
 
     /**
-     * Tries to instantiate a {@link UML2PropertyType} proxy from a {@link Attribute} stereotyped << UML2PropertyType >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2PropertyType} proxy from a {@link Attribute} stereotyped << UML2PropertyType >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a Attribute
      * @return a {@link UML2PropertyType} proxy or <i>null</i>.
      */
@@ -98,9 +100,10 @@ public class UML2PropertyType {
     }
 
     /**
-     * Tries to instantiate a {@link UML2PropertyType} proxy from a {@link Attribute} stereotyped << UML2PropertyType >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2PropertyType} proxy from a {@link Attribute} stereotyped << UML2PropertyType >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link Attribute}
      * @return a {@link UML2PropertyType} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -130,7 +133,8 @@ public class UML2PropertyType {
     }
 
     /**
-     * Get the underlying {@link Attribute}. 
+     * Get the underlying {@link Attribute}.
+     *
      * @return the Attribute represented by this proxy, never null.
      */
     @objid ("c8843c65-2fb7-4acb-b3bc-9186e4db9b3d")
@@ -152,7 +156,7 @@ public class UML2PropertyType {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     /**
@@ -166,7 +170,7 @@ public class UML2PropertyType {
     }
 
     @objid ("a328b37a-f039-429e-829f-c740ccae0d26")
-    protected  UML2PropertyType(Attribute elt) {
+    protected UML2PropertyType(Attribute elt) {
         this.elt = elt;
     }
 
@@ -190,7 +194,7 @@ public class UML2PropertyType {
             PROPERTYTYPE_TAGTYPE_ELT = ctx.getModelingSession().findElementById(TagType.class, "68c63e61-70d6-11e0-872f-0027103f347c");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -198,7 +202,7 @@ public class UML2PropertyType {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

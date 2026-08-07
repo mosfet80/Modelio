@@ -1,26 +1,29 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel;
 
 import java.util.concurrent.atomic.AtomicLongFieldUpdater;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.vcore.smkernel.mapi.MAttribute;
+import org.modelio.vcore.smkernel.mapi.MClass;
+import org.modelio.vcore.smkernel.meta.SmAttribute;
 
 /**
  * Data implementation of MObject.
@@ -54,7 +57,7 @@ public abstract class SmObjectData implements ISmObjectData {
     private volatile transient IMetaOf metaOf;
 
     @objid ("466990f4-0073-4364-aea7-a71fe83b6ef9")
-    private volatile transient IRepositoryObject repositoryObject = DummyRepositoryObject.getInstance(this);
+    private volatile transient IRepositoryObject repositoryObject;
 
     @objid ("bcd89f29-ba93-44d0-9ce5-371dbfb9fc1e")
     protected final SmObjectSmClass classof;
@@ -67,6 +70,7 @@ public abstract class SmObjectData implements ISmObjectData {
 
     /**
      * To be called before using the object.
+     *
      * @param uuid the identifier
      * @param liveId identifier for the object in memory.
      */
@@ -76,7 +80,6 @@ public abstract class SmObjectData implements ISmObjectData {
     public final void init(final String uuid, final long liveId) {
         this.liveId = liveId;
         this.uuid = uuid;
-        
     }
 
     @objid ("0030c6d6-702c-1f21-85a5-001ec947cd2a")
@@ -119,13 +122,13 @@ public abstract class SmObjectData implements ISmObjectData {
     @Override
     public final void setRepositoryObject(final IRepositoryObject repositoryObject) {
         assert (!(repositoryObject instanceof DummyRepositoryObject));
-        
+
         if (repositoryObject == null) {
             throw new NullPointerException("Repository object should never be null");
         }
-        
+
         this.repositoryObject = repositoryObject;
-        
+        this.liveId = SmLiveId.withRid(this.liveId, repositoryObject.getRepositoryId());
     }
 
     @objid ("00249ea6-fd1a-1f27-a7da-001ec947cd2a")
@@ -151,25 +154,25 @@ public abstract class SmObjectData implements ISmObjectData {
     public final void setRFlags(long flags, StatusState state) {
         // check flags only contains runtime flags
         checkInvalidFlags("setRFlags(...)", flags, SmStatus.RFLAGS);
-        
+
         // check no CMS flag is defined on non CMS node
         if (((flags & SmStatus.MASK_CMS) != 0) && state != StatusState.UNDEFINED && !getClassOf().isCmsNode()) {
             throw new IllegalArgumentException(String.format("setRFlags(%s, %s) : CMS flags cannot be defined on non CMS {%s} %s.",
                     SmStatus.flagsToString(flags), state,
                     this.uuid,  getClassOf().getQualifiedName()));
         }
-        
+
         long newStatus;
         long oldStatus;
         do {
             oldStatus = StatusAccessor.get(this);
             newStatus = SmStatus.setFlags(oldStatus, flags, state);
         } while (! StatusAccessor.compareAndSet(this, oldStatus, newStatus));
-        
     }
 
     /**
      * Set the given persistent flags state.
+     *
      * @param flags a combination of flags. Use the constants defined in {@link IRStatus}.
      * @param state the flags state
      */
@@ -178,41 +181,39 @@ public abstract class SmObjectData implements ISmObjectData {
     public final void setPFlags(long flags, StatusState state) {
         // check flags only contains runtime flags
         checkInvalidFlags("setPFlags(...)", flags, SmStatus.PFLAGS);
-        
+
         // check no CMS flag is defined on non CMS node
         if (((flags & SmStatus.MASK_CMS) != 0) && state != StatusState.UNDEFINED && !getClassOf().isCmsNode()) {
             throw new IllegalArgumentException(String.format("setPFlags(%s, %s) : CMS flags cannot be defined on non CMS {%s} %s.",
                     SmStatus.flagsToString(flags), state,
                     this.uuid,  getClassOf().getQualifiedName()));
         }
-        
+
         long newStatus;
         long oldStatus;
         do {
             oldStatus = StatusAccessor.get(this);
             newStatus = SmStatus.setFlags(oldStatus, flags, state);
         } while (! StatusAccessor.compareAndSet(this, oldStatus, newStatus));
-        
     }
 
     @objid ("b2afcd9d-eede-4915-bc19-1b396c51f985")
     private void checkInvalidFlags(String name, long flags, long allowedFlags) throws IllegalArgumentException {
         if ((flags & ~allowedFlags) == 0)
             return;
-        
+
         throw new IllegalArgumentException(String.format("%s: %s flag(s) not allowed on {%s} %s.",
                 name,
                 SmStatus.flagsToString(flags & ~allowedFlags),
                 this.uuid,
                 getClassOf().getQualifiedName()));
-        
     }
 
     @objid ("de75df49-41f6-4cc4-9a1f-1d21679a80a8")
     private void checkInvalidFlags(String name, long trueFlags, long falseFlags, long undefFlags, long allowedFlags) {
         if (((trueFlags| falseFlags| undefFlags) & ~allowedFlags) == 0)
             return;
-        
+
         throw new IllegalArgumentException(String.format("%s({%s}, {%s}, {%s}): %s flag(s) not allowed on {%s} %s.",
                 name,
                 SmStatus.flagsToString(trueFlags),
@@ -221,13 +222,13 @@ public abstract class SmObjectData implements ISmObjectData {
                 SmStatus.flagsToString((trueFlags| falseFlags| undefFlags) & ~allowedFlags),
                 this.uuid,
                 getClassOf().getQualifiedName()));
-        
     }
 
     /**
      * Set all persistent flags state at once.
      * <p>
      * Package private to avoid mess.
+     *
      * @param pFlags the new persistent flags
      */
     @objid ("5b6b368b-c462-400c-afa7-958504a3939e")
@@ -238,13 +239,13 @@ public abstract class SmObjectData implements ISmObjectData {
             oldStatus = StatusAccessor.get(this);
             newStatus = SmStatus.setPersistentPart(oldStatus, pFlags);
         } while (! StatusAccessor.compareAndSet(this, oldStatus, newStatus));
-        
     }
 
     /**
      * Set all persistent flags state at once.
      * <p>
      * Package private to avoid mess.
+     *
      * @param newStatus the new runtime and persistent persistent flags
      */
     @objid ("5eb4b655-c87f-4cac-8c3b-fd35dbf829f7")
@@ -257,7 +258,7 @@ public abstract class SmObjectData implements ISmObjectData {
     public final void setRFlags(long trueFlags, long falseFlags, long undefFlags) {
         // check flags only contains runtime flags
         checkInvalidFlags("setRFlags", trueFlags, falseFlags, undefFlags, SmStatus.RFLAGS);
-        
+
         // check no CMS flag is defined on non CMS node
         if ((((trueFlags| falseFlags) & SmStatus.MASK_CMS) != 0) && !getClassOf().isCmsNode()) {
             String msg = String.format("setRFlags(%s, %s, %s) : CMS flags cannot be defined on non CMS {%s} %s.",
@@ -265,17 +266,16 @@ public abstract class SmObjectData implements ISmObjectData {
                     this.uuid,  getClassOf().getQualifiedName());
             throw new IllegalArgumentException(msg);
         }
-        
+
         // debug
         //System.err.println("Set "+this.getUuid()+" "+this.getClassOf().getName()+" status from {"+SmStatus.toString(this.status)+ "} to {"+SmStatus.toString(newStatus)+"}");
-        
+
         long newStatus;
         long oldStatus;
         do {
             oldStatus = StatusAccessor.get(this);
             newStatus = SmStatus.setFlags(oldStatus, trueFlags, falseFlags, undefFlags);
         } while (! StatusAccessor.compareAndSet(this, oldStatus, newStatus));
-        
     }
 
     @objid ("3cd4ebe6-cea5-4c52-aa19-571f869b9ff3")
@@ -283,21 +283,20 @@ public abstract class SmObjectData implements ISmObjectData {
     public final void setPFlags(long trueFlags, long falseFlags, long undefFlags) {
         // check flags only contains persistent flags
         checkInvalidFlags("setRFlags", trueFlags, falseFlags, undefFlags, SmStatus.PFLAGS);
-        
+
         // check no CMS flag is defined on non CMS node
         if ((((trueFlags| falseFlags) & SmStatus.MASK_CMS) != 0) && !getClassOf().isCmsNode()) {
             throw new IllegalArgumentException(String.format("setPFlags(%s, %s, %s) : CMS flags cannot be defined on non CMS {%s} %s.",
                     SmStatus.flagsToString(trueFlags), SmStatus.flagsToString(falseFlags), SmStatus.flagsToString(undefFlags),
                     this.uuid,  getClassOf().getQualifiedName()));
         }
-        
+
         long newStatus;
         long oldStatus;
         do {
             oldStatus = StatusAccessor.get(this);
             newStatus = SmStatus.setFlags(oldStatus, trueFlags, falseFlags, undefFlags);
         } while (! StatusAccessor.compareAndSet(this, oldStatus, newStatus));
-        
     }
 
     @objid ("0623aa1b-a60d-4292-acb6-9b166adfd2cb")
@@ -314,11 +313,59 @@ public abstract class SmObjectData implements ISmObjectData {
 
     /**
      * Mandatory constructor
+     *
      * @param classof the object metaclass
      */
     @objid ("a9cc60f6-dbc2-43c6-94ab-069a4d0a3af4")
-    public  SmObjectData(SmObjectSmClass classof) {
+    public SmObjectData(SmObjectSmClass classof) {
         this.classof = classof;
+        this.repositoryObject = DummyRepositoryObject.getInstance(this);
+    }
+
+    @objid ("32f5c577-9998-456d-8be9-6538c953f03f")
+    @Override
+    public String toString() {
+        final StringBuilder s = new StringBuilder(80);
+        final MClass mClass = getClassOf();
+
+        try {
+            MAttribute nameAtt =  mClass.getNameAttribute();
+            if (nameAtt instanceof SmAttribute sma) {
+                String name =  (String) sma.getValue(this) ;
+                s.append('\'');
+                s.append(name);
+                s.append('\'');
+            }
+        } catch (RuntimeException | LinkageError | StackOverflowError | OutOfMemoryError e) {
+            // Replace the name by the load failure cause
+            s.append("!<");
+            s.append(e.toString());
+            s.append(">!");
+        }
+
+        s.append("{");
+        s.append(this.uuid);
+        s.append("} ");
+
+        // metaclass
+        if (mClass.isFake()) {
+            s.append(" *FAKE* ");
+            s.append(mClass.getQualifiedName());
+        } else {
+            s.append(mClass.getQualifiedName());
+        }
+
+        if(hasAnyStatus(IRStatus.SHELL) == StatusState.TRUE) {
+            s.append(" *Shell*");
+        }
+
+        if(hasAnyStatus(IRStatus.DELETED) == StatusState.TRUE) {
+            s.append(" *Deleted*");
+        } else if(hasAnyStatus(IRStatus.BEINGDELETED) == StatusState.TRUE) {
+            s.append(" *Being deleted*");
+        }
+
+        return s.toString();
     }
 
 }

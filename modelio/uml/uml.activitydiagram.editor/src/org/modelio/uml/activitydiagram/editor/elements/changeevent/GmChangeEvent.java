@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.changeevent;
 
@@ -45,7 +45,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Specialisation of the GmPortContainer class for ChangeEvent.
- * 
+ *
  * @author fpoyer
  */
 @objid ("29f69bb6-55b6-11e2-877f-002564c97630")
@@ -79,25 +79,26 @@ public class GmChangeEvent extends GmPinContainer {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram in which the changeEvent is unmasked.
      * @param el the unmasked changeEvent.
      * @param ref a reference to the unmasked changeEvent.
      */
     @objid ("29f69bce-55b6-11e2-877f-002564c97630")
-    public  GmChangeEvent(IGmDiagram diagram, AcceptChangeEventAction el, MRef ref) {
+    public GmChangeEvent(IGmDiagram diagram, AcceptChangeEventAction el, MRef ref) {
         super(diagram, ref);
         this.element = el;
-        
+
         GmChangeEventPrimaryNode mainNode = new GmChangeEventPrimaryNode(diagram, ref);
         mainNode.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
-        
+
         GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(diagram, ref);
         imageModeHeader.setRoleInComposition(GmChangeEvent.IMAGE_LABEL_ROLE);
         imageModeHeader.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
-        
+
         super.addChild(mainNode);
         super.addChild(imageModeHeader);
-        
+
     }
 
     @objid ("29f8223c-55b6-11e2-877f-002564c97630")
@@ -112,7 +113,7 @@ public class GmChangeEvent extends GmPinContainer {
         return ((InputPin.class.isAssignableFrom(el.getClass()) ||
                         ValuePin.class.isAssignableFrom(el.getClass()) || OutputPin.class.isAssignableFrom(el.getClass())) && el.getCompositionOwner()
                                 .equals(this.element));
-        
+
     }
 
     @objid ("29f8224c-55b6-11e2-877f-002564c97630")
@@ -159,7 +160,7 @@ public class GmChangeEvent extends GmPinContainer {
      * Empty constructor needed for deserialization.
      */
     @objid ("29f8225f-55b6-11e2-877f-002564c97630")
-    public  GmChangeEvent() {
+    public GmChangeEvent() {
         // Nothing specific to do.
     }
 
@@ -184,7 +185,7 @@ public class GmChangeEvent extends GmPinContainer {
             break;
         }
         }
-        
+
     }
 
     @objid ("29f82268-55b6-11e2-877f-002564c97630")
@@ -203,23 +204,23 @@ public class GmChangeEvent extends GmPinContainer {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmChangeEvent.", GmChangeEvent.MINOR_VERSION);
-        
+
     }
 
     @objid ("29f9a8da-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (AcceptChangeEventAction) resolveRef(getRepresentedRef());
-        
+
         GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(getDiagram(), getRepresentedRef());
         imageModeHeader.setRoleInComposition(GmChangeEvent.IMAGE_LABEL_ROLE);
         imageModeHeader.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
-        
+
         super.addChild(imageModeHeader, 1);
-        
+
     }
 
     @objid ("29f9a8df-55b6-11e2-877f-002564c97630")
@@ -232,7 +233,7 @@ public class GmChangeEvent extends GmPinContainer {
     private void read_1(final IDiagramReader in) {
         super.read(in);
         this.element = (AcceptChangeEventAction) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("29f9a8ea-55b6-11e2-877f-002564c97630")
@@ -253,7 +254,7 @@ public class GmChangeEvent extends GmPinContainer {
             default: {
                 break;
             }
-        
+
             }
         }
         return ret;
@@ -261,6 +262,7 @@ public class GmChangeEvent extends GmPinContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */
@@ -270,11 +272,12 @@ public class GmChangeEvent extends GmPinContainer {
         String role = childNode.getRoleInComposition();
         return GmPortContainer.SATELLITE_ROLE.equals(role)
                         || GmChangeEvent.IMAGE_LABEL_ROLE.equals(role);
-        
+
     }
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.activitydiagram;
 
@@ -46,7 +46,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Specific command that creates a PartitionContainer (embedded in an ActivityParameterNodeContainter) on the diagram background.
- * 
+ *
  * @author fpoyer
  */
 @objid ("2991e65f-55b6-11e2-877f-002564c97630")
@@ -71,6 +71,7 @@ public class CreatePartitionContainerCommand extends Command {
 
     /**
      * C'tor.
+     *
      * @param originalRequest the request that lead to this command.
      * @param parentDiagramEditPart the edit part of the diagram in which the partition container is to be created.
      * @param context the creation context.
@@ -78,14 +79,14 @@ public class CreatePartitionContainerCommand extends Command {
      * @param vertical whether this is a vertical container.
      */
     @objid ("2991e66c-55b6-11e2-877f-002564c97630")
-    public  CreatePartitionContainerCommand(CreateRequest originalRequest, ActivityDiagramEditPart parentDiagramEditPart, ModelioCreationContext context, Rectangle constraint, boolean vertical) {
+    public CreatePartitionContainerCommand(CreateRequest originalRequest, ActivityDiagramEditPart parentDiagramEditPart, ModelioCreationContext context, Rectangle constraint, boolean vertical) {
         this.originalRequest = originalRequest;
         this.editPartRegistry = parentDiagramEditPart.getViewer().getEditPartRegistry();
         this.parentDiagram = (GmActivityDiagram) parentDiagramEditPart.getModel();
         this.context = context;
         this.constraint = constraint;
         this.vertical = vertical;
-        
+
     }
 
     /**
@@ -113,7 +114,7 @@ public class CreatePartitionContainerCommand extends Command {
         } else {
             executeActualCreation(parentElement, this.parentDiagram.getModelManager());
         }
-        
+
     }
 
     @objid ("2991e67a-55b6-11e2-877f-002564c97630")
@@ -137,7 +138,7 @@ public class CreatePartitionContainerCommand extends Command {
         if (!models.isEmpty()) {
             // Already unmasked: just look for the edit part of its "body".
             topLevelBodyGm = ((GmCompositeNode) models.get(0)).getCompositeFor(ActivityPartition.class);
-        
+
         } else {
             // Not yet unmasked: unmask it and get the edit part of its "body".
             GmNodeModel createdModel = this.parentDiagram.unmask(this.parentDiagram, topLevelPartition, this.constraint);
@@ -147,12 +148,12 @@ public class CreatePartitionContainerCommand extends Command {
                 // vertical partitions, so the container must be horizontal!)
                 ((GmPartitionContainer) createdModel).setVertical(!this.vertical);
             }
-        
+
             // If the requested partition is the top level one, job is done.
             if (topLevelPartition == partition) {
                 return;
             }
-        
+
             // Watch out: returned node may not represent current candidate
             // (think: partition container on diagram background), in this case,
             // find a Gm that actually represents the topLevelPartition (there
@@ -163,7 +164,7 @@ public class CreatePartitionContainerCommand extends Command {
                 // and continue.
                 topLevelBodyGm = ((GmCompositeNode) models.get(0)).getCompositeFor(ActivityPartition.class);
             }
-        
+
         }
         // Now we should have a GmPartitionContainer, find the corresponding
         // edit part, and delegate the unmasking of subsequent children to it.
@@ -177,7 +178,7 @@ public class CreatePartitionContainerCommand extends Command {
         if (command != null && command.canExecute()) {
             command.execute();
         }
-        
+
     }
 
     @objid ("2991e683-55b6-11e2-877f-002564c97630")
@@ -186,7 +187,7 @@ public class CreatePartitionContainerCommand extends Command {
         final IStandardModelFactory modelFactory = this.parentDiagram.getModelManager().getModelFactory().getFactory(IStandardModelFactory.class);
         ActivityPartition partition1 = modelFactory.createActivityPartition();
         ActivityPartition partition2 = modelFactory.createActivityPartition();
-        
+
         // ... and attach them to the parent.
         try {
             final MDependency dependency = this.context.getDependency();
@@ -208,17 +209,17 @@ public class CreatePartitionContainerCommand extends Command {
                 return;
             }
         }
-        
+
         // Attach the stereotype if needed.
         if (this.context.getStereotype() != null) {
             ((ModelElement) partition1).getExtension().add(this.context.getStereotype());
             ((ModelElement) partition2).getExtension().add(this.context.getStereotype());
         }
-        
+
         IElementNamer elementNamer = modelManager.getModelServices().getElementNamer();
         partition1.setName(elementNamer.getUniqueName(partition1));
         partition2.setName(elementNamer.getUniqueName(partition2));
-        
+
         // Unmask the first partition
         GmPartitionContainer partitionContainer = (GmPartitionContainer) this.parentDiagram.unmask(this.parentDiagram, partition1,
                 this.constraint);
@@ -235,7 +236,7 @@ public class CreatePartitionContainerCommand extends Command {
         for (GmNodeModel gmPartition : partitionContainer.getChildren()) {
             gmPartition.setLayoutData(partitionConstraint);
         }
-        
+
     }
 
     @objid ("2991e689-55b6-11e2-877f-002564c97630")
@@ -244,7 +245,7 @@ public class CreatePartitionContainerCommand extends Command {
         if (!MTools.getAuthTool().canModify(this.parentDiagram.getRelatedElement())) {
             return false;
         }
-        
+
         MObject parentElement = this.parentDiagram.getRelatedElement().getOrigin();
         return (parentElement != null && parentElement.isValid() && parentElement.getStatus().isModifiable());
     }

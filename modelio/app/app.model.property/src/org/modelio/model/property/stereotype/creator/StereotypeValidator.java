@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.stereotype.creator;
 
@@ -52,16 +52,17 @@ public class StereotypeValidator implements ModifyListener, IMetaclassSelectorLi
 
     /**
      * Instantiates a new stereotype validator for this dialog and data model.
+     *
      * @param dialog the dialog containing the text to color red or green, and the button to enable/disable.
      * @param dataModel the data model of the dialog, to save the infos into.
      * @param mmServices model services
      */
     @objid ("23095ec1-2b3a-48e7-9f1a-1cdb829389d0")
-    public  StereotypeValidator(StereotypeEditionDialog dialog, StereotypeEditionDataModel dataModel, IMModelServices mmServices) {
+    public StereotypeValidator(StereotypeEditionDialog dialog, StereotypeEditionDataModel dataModel, IMModelServices mmServices) {
         this.dialog = dialog;
         this.dataModel = dataModel;
         this.mmServices = mmServices;
-        
+
     }
 
     @objid ("974c6017-3b97-4302-ba48-442baaf1c1ba")
@@ -75,7 +76,7 @@ public class StereotypeValidator implements ModifyListener, IMetaclassSelectorLi
     public void modifyText(ModifyEvent e) {
         MClass stereotypeMClass = this.dialog.getBaseClass();
         validate(stereotypeMClass);
-        
+
     }
 
     @objid ("c8de7fa7-bdc9-4153-afca-b997c2da78c0")
@@ -96,9 +97,9 @@ public class StereotypeValidator implements ModifyListener, IMetaclassSelectorLi
         } else  {
                 this.dialog.createButton.setEnabled(false);
         }
-        
+
         this.dataModel.setStereotypeName(stereotypeName);
-        
+
     }
 
     /**
@@ -107,7 +108,7 @@ public class StereotypeValidator implements ModifyListener, IMetaclassSelectorLi
     @objid ("6ca03d00-d66a-4ba6-950e-47dc079b5c0c")
     private boolean stereotypeNameExists(MClass stereotypeMetaclass, String stereotypeName) {
         List<Stereotype> stereotypes = this.mmServices.findStereotypes(".*",stereotypeName, stereotypeMetaclass);
-        
+
         stereotypes.remove(this.dataModel.getEditedStereotype());
         return ! stereotypes.isEmpty() ;
     }

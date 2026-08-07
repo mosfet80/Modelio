@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.viewer.model;
 
@@ -39,12 +39,12 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * Implementation of {@link INatTableViewerContext}, to use only if you have no {@link ICurrentProjectService} at hand (eg. the diff/merge dialog).
- * 
+ *
  * @since Valkyrie 3.8
  */
 @objid ("f578bd0e-e346-4e65-97ab-5fe6232b1628")
 public class NatTableViewerContext implements INatTableViewerContext {
-    
+
     @mdl.prop
     @objid ("3d6be7de-2fb1-4d99-8cd5-f0ab409da154")
     public final IActivationService activationService;
@@ -55,7 +55,7 @@ public class NatTableViewerContext implements INatTableViewerContext {
         return this.activationService;
     }
 
-    
+
     @mdl.prop
     @objid ("bfeeea0c-17d5-4052-9b29-532d52276722")
     public final IMModelServices modelService;
@@ -66,7 +66,7 @@ public class NatTableViewerContext implements INatTableViewerContext {
         return this.modelService;
     }
 
-    
+
     @mdl.prop
     @objid ("d7882aa3-ee09-40b2-9c82-6d89912eebb5")
     public final IModelioNavigationService navigationService;
@@ -77,7 +77,7 @@ public class NatTableViewerContext implements INatTableViewerContext {
         return this.navigationService;
     }
 
-    
+
     @mdl.prop
     @objid ("3c9f7766-d3f6-4021-82c1-f81c2a499068")
     public final IModelioPickingService pickingService;
@@ -88,12 +88,12 @@ public class NatTableViewerContext implements INatTableViewerContext {
         return this.pickingService;
     }
 
-    
+
     @mdl.prop
     @objid ("216d4e56-4a25-40fa-86f1-6120e6fcc633")
     public final ICurrentProjectService projectService;
 
-    
+
     @mdl.prop
     @objid ("bbad667c-0671-4a77-ae8f-d58925f71184")
     public IMdaExpert mdaExpert;
@@ -106,6 +106,7 @@ public class NatTableViewerContext implements INatTableViewerContext {
 
     /**
      * Constructor to use only if you have no {@link ICurrentProjectService} at hand (eg. the diff/merge dialog).
+     *
      * @param session the core session
      * @param modelService the model service
      * @param activationService the activation service to open the edition dialog
@@ -113,16 +114,15 @@ public class NatTableViewerContext implements INatTableViewerContext {
      * @param pickingService the picking service
      */
     @objid ("cd8c4245-bc68-4aa4-9ea7-2d2abb19cf13")
-    public  NatTableViewerContext(ICoreSession session, IMModelServices modelService, IActivationService activationService, IModelioNavigationService navigationService, IModelioPickingService pickingService) {
+    public NatTableViewerContext(ICoreSession session, IMModelServices modelService, IActivationService activationService, IModelioNavigationService navigationService, IModelioPickingService pickingService) {
         super();
-        
+
         this.projectService = new StubProjectService(session);
         this.modelService = modelService;
         this.activationService = activationService;
         this.navigationService = navigationService;
         this.pickingService = pickingService;
         this.mdaExpert = YesMdaExpert.INSTANCE;
-        
     }
 
     @objid ("53251e82-ec3e-43d1-9817-accbb1cf6f87")
@@ -153,17 +153,16 @@ public class NatTableViewerContext implements INatTableViewerContext {
      */
     @objid ("9556f894-7f4c-41df-9f99-1d8c2a9ea481")
     private static class StubProjectService implements ICurrentProjectService {
+        @objid ("e69f5bb7-b588-4977-9b95-1e96d1066598")
+        private final PreferenceStore preferenceStore;
+
         @objid ("0b8b3123-3de8-411d-b41c-5c4e78cc0cf1")
         private final ICoreSession coreSession;
 
-        @objid ("93372808-f267-4414-8284-120f4ff6496d")
-        private final PreferenceStore preferenceStore;
-
         @objid ("c72a0611-d3b4-4aee-9c50-35acf7aa885c")
-        public  StubProjectService(ICoreSession session) {
+        public StubProjectService(ICoreSession session) {
             this.coreSession = session;
             this.preferenceStore = new PreferenceStore();
-            
         }
 
         @objid ("c76a9965-4501-41fc-953b-280763cff8bf")

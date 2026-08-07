@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -50,7 +50,7 @@ public class R2510 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(IElement)
      * @see AbstractRule#getUpdateControl(IElement)
      * @see AbstractRule#getMoveControl(IElementMovedEvent)
@@ -101,14 +101,14 @@ public class R2510 extends AbstractUmlRule {
      * Default constructor for R2510
      */
     @objid ("bf5547ac-5387-4000-880b-6d44949a56cd")
-    public  R2510() {
+    public R2510() {
         this.checkerInstance = new CheckR2510(this);
     }
 
     @objid ("18ddb055-ff0d-47e7-82c6-19eff186fc3a")
     private static class CheckR2510 extends AbstractControl {
         @objid ("644bee05-7077-4a03-a99b-43b39d601e3a")
-        public  CheckR2510(IRule rule) {
+        public CheckR2510(IRule rule) {
             super(rule);
         }
 
@@ -129,26 +129,26 @@ public class R2510 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     link,
                     null);
-            
+
             org.modelio.metamodel.uml.statik.Class foundClass = null;
-            
+
             for (LinkEnd linkEnd : link.getLinkEnd()) {
                 Instance instance = linkEnd.getSource() != null ? linkEnd.getSource() : linkEnd.getOpposite().getTarget();
-            
+
                 if (instance instanceof Port) {
                     Classifier classifier = ((Port) instance).getInternalOwner();
                     if (classifier instanceof org.modelio.metamodel.uml.statik.Class) {
                         if (foundClass != null) {
-            
+
                             // Rule failed
-            
+
                             auditEntry.setSeverity(this.rule.getSeverity());
                             List<Object> linkedObjects = new ArrayList<>();
                             linkedObjects.add(instance);
                             linkedObjects.add(foundClass);
                             linkedObjects.add(classifier);
                             auditEntry.setLinkedInfos(linkedObjects);
-            
+
                         } else {
                             foundClass = (org.modelio.metamodel.uml.statik.Class) classifier;
                         }

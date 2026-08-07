@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.factories.generic;
 
@@ -41,8 +41,9 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 @objid ("d870ebfa-0c69-4ff8-ad4a-a6824b99a4f1")
 public class GenericGmFactory implements IGmNodeFactory, IGmLinkFactory {
     /**
-     * @see MClass#isLinkMetaclass()
+     *
      * @return a {@link GmGenericNode} for any {@link ModelElement} which metaclass is tagged as a node.
+     * @see MClass#isLinkMetaclass()
      */
     @objid ("dacefe91-521d-4a92-a593-3a58869381b1")
     @Override
@@ -55,19 +56,20 @@ public class GenericGmFactory implements IGmNodeFactory, IGmLinkFactory {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("d09cb95d-409d-43fc-8073-fe747b97a73d")
     private boolean isLinkMetaclass(final MObject toUnmask) {
         return toUnmask.getMClass().isLinkMetaclass()
                 || toUnmask instanceof BpmnDataAssociation; // BpmnDataAssociation is a mess: it is considered as a link in diagrams despite the metaclass not being tagged as a link
-        
+
     }
 
     /**
-     * @see MClass#isLinkMetaclass()
+     *
      * @return a {@link GmGenericLink} for any {@link ModelElement} which metaclass is tagged as a node.
+     * @see MClass#isLinkMetaclass()
      */
     @objid ("e78da893-6d3b-46b0-8878-d1e0529c13e7")
     @Override
@@ -77,7 +79,7 @@ public class GenericGmFactory implements IGmNodeFactory, IGmLinkFactory {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("4faf68ab-11c7-4a25-9dd7-d9cbd40241f8")

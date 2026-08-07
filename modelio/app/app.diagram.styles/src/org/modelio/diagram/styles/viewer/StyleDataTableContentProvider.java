@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.styles.viewer;
 
@@ -37,7 +37,7 @@ class StyleDataTableContentProvider implements ITreeContentProvider {
     private static final Object[] NO_OBJECTS = new Object[0];
 
     @objid ("dd52e01d-6e0f-44df-8a69-9c5e707344e0")
-    public  StyleDataTableContentProvider(StyleEditPanelUIData data) {
+    public StyleDataTableContentProvider(StyleEditPanelUIData data) {
         this.data = data;
     }
 
@@ -60,7 +60,7 @@ class StyleDataTableContentProvider implements ITreeContentProvider {
         if (this.data == null || this.data.getStyleData() == null) {
             return StyleDataTableContentProvider.NO_OBJECTS;
         }
-        
+
         ISymbolViewModel styleTreeModel = this.data.getStyleTreeModel();
         List<? extends ISymbolViewItem> elements = styleTreeModel != null ? styleTreeModel.getElements() : Collections.emptyList();
         return elements

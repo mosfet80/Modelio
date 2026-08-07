@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class UML2BroadcastSignalAction {
      * Tells whether a {@link UML2BroadcastSignalAction proxy} can be instantiated from a {@link MObject} checking it is a {@link SendSignalAction} stereotyped << UML2BroadcastSignalAction >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,7 +73,7 @@ public class UML2BroadcastSignalAction {
 
     /**
      * Create a new {@link SendSignalAction} stereotyped << UML2BroadcastSignalAction >> then instantiate a {@link UML2BroadcastSignalAction} proxy.
-     * 
+     *
      * @return a {@link UML2BroadcastSignalAction} proxy on the created {@link SendSignalAction}.
      */
     @objid ("f9f13343-b422-438c-8221-bc2edb6a47e2")
@@ -83,9 +84,10 @@ public class UML2BroadcastSignalAction {
     }
 
     /**
-     * Tries to instantiate a {@link UML2BroadcastSignalAction} proxy from a {@link SendSignalAction} stereotyped << UML2BroadcastSignalAction >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2BroadcastSignalAction} proxy from a {@link SendSignalAction} stereotyped << UML2BroadcastSignalAction >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a SendSignalAction
      * @return a {@link UML2BroadcastSignalAction} proxy or <i>null</i>.
      */
@@ -95,9 +97,10 @@ public class UML2BroadcastSignalAction {
     }
 
     /**
-     * Tries to instantiate a {@link UML2BroadcastSignalAction} proxy from a {@link SendSignalAction} stereotyped << UML2BroadcastSignalAction >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2BroadcastSignalAction} proxy from a {@link SendSignalAction} stereotyped << UML2BroadcastSignalAction >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link SendSignalAction}
      * @return a {@link UML2BroadcastSignalAction} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -127,7 +130,8 @@ public class UML2BroadcastSignalAction {
     }
 
     /**
-     * Get the underlying {@link SendSignalAction}. 
+     * Get the underlying {@link SendSignalAction}.
+     *
      * @return the SendSignalAction represented by this proxy, never null.
      */
     @objid ("6fb8e3ac-3cb3-4d20-86e6-4f85f6d9cdcd")
@@ -139,11 +143,11 @@ public class UML2BroadcastSignalAction {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("e2252180-565c-4d74-99b4-5c8e21d49663")
-    protected  UML2BroadcastSignalAction(SendSignalAction elt) {
+    protected UML2BroadcastSignalAction(SendSignalAction elt) {
         this.elt = elt;
     }
 
@@ -163,7 +167,7 @@ public class UML2BroadcastSignalAction {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "edc05471-5d08-11df-a996-001302895b2b");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -171,7 +175,7 @@ public class UML2BroadcastSignalAction {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

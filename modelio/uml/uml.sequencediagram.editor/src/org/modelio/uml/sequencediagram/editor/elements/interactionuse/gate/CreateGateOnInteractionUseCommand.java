@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.interactionuse.gate;
 
@@ -61,6 +61,7 @@ public class CreateGateOnInteractionUseCommand extends Command {
 
     /**
      * Creates a node creation command.
+     *
      * @param parentElement The parent InteractionUse of the Gate to create
      * @param parentNode The parent node
      * @param context Details on the MObject and/or the node to create
@@ -68,31 +69,30 @@ public class CreateGateOnInteractionUseCommand extends Command {
      * @param time the time of the gate.
      */
     @objid ("d91144a7-55b6-11e2-877f-002564c97630")
-    public  CreateGateOnInteractionUseCommand(InteractionUse parentElement, GmCompositeNode parentNode, ModelioCreationContext context, Object constraint, final int time) {
+    public CreateGateOnInteractionUseCommand(InteractionUse parentElement, GmCompositeNode parentNode, ModelioCreationContext context, Object constraint, final int time) {
         this.parentNode = parentNode;
         this.parentElement = parentElement;
         this.context = context;
         this.constraint = constraint;
         this.time = time;
-        
     }
 
     @objid ("d91144b6-55b6-11e2-877f-002564c97630")
     @Override
     public void execute() {
         final IGmDiagram diagram = this.parentNode.getDiagram();
-        
+
         Gate newElement = (Gate) this.context.getElementToUnmask();
-        
+
         if (newElement == null) {
             // Create the Element...
             IModelManager modelManager = diagram.getModelManager();
             final IStandardModelFactory modelFactory = modelManager.getModelFactory().getFactory(IStandardModelFactory.class);
             newElement = modelFactory.createGate();
-        
+
             final MDependency effectiveDependency = modelManager.getMetamodel().getMExpert()
                     .getDefaultCompositionDep(this.parentElement, newElement);
-        
+
             if (effectiveDependency == null) {
                 StringBuilder msg = new StringBuilder();
                 msg.append("Cannot find a composition dependency to attach ");
@@ -101,31 +101,31 @@ public class CreateGateOnInteractionUseCommand extends Command {
                 msg.append(this.parentElement.toString());
                 throw new IllegalStateException(msg.toString());
             }
-        
+
             this.parentElement.mGet(effectiveDependency).add(newElement);
-        
+
             // Attach the stereotype if needed.
             if (this.context.getStereotype() != null) {
                 ((ModelElement) newElement).getExtension().add(this.context.getStereotype());
             }
-        
+
             // Configure element from properties
             final IElementConfigurator elementConfigurer = modelManager.getModelServices().getElementConfigurer();
             elementConfigurer.configure(newElement, getContext().getProperties());
-        
+
             // Specific steps:
             newElement.setEnclosingInteraction(this.parentElement.getEnclosingInteraction());
             newElement.setLineNumber(this.time);
-        
+
         }
-        
+
         // Show the new element in the diagram (ie create its Gm )
         diagram.unmask(this.parentNode, newElement, this.constraint);
-        
     }
 
     /**
      * Get the initial layout constraint.
+     *
      * @return the initial layout constraint.
      */
     @objid ("d91144b9-55b6-11e2-877f-002564c97630")
@@ -135,6 +135,7 @@ public class CreateGateOnInteractionUseCommand extends Command {
 
     /**
      * Get the creation context (parent element, parent dependency, stereotype).
+     *
      * @return the creation context.
      */
     @objid ("d91144be-55b6-11e2-877f-002564c97630")
@@ -144,6 +145,7 @@ public class CreateGateOnInteractionUseCommand extends Command {
 
     /**
      * Get the parent model element.
+     *
      * @return the parent model element.
      */
     @objid ("d91144c5-55b6-11e2-877f-002564c97630")
@@ -153,6 +155,7 @@ public class CreateGateOnInteractionUseCommand extends Command {
 
     /**
      * Get the parent graphic node.
+     *
      * @return the parent graphic node.
      */
     @objid ("d91144cc-55b6-11e2-877f-002564c97630")

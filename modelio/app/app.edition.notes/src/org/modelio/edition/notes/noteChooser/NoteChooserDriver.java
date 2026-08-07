@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.edition.notes.noteChooser;
 
@@ -71,13 +71,13 @@ public class NoteChooserDriver implements IElementChooserDriver {
     protected NoteChooserSelectionListener noteSelectionListener = null;
 
     @objid ("26e1244a-186f-11e2-bc4e-002564c97630")
-    public  NoteChooserDriver(ICoreSession session, IMModelServices modelService) {
+    public NoteChooserDriver(ICoreSession session, IMModelServices modelService) {
         this.session = session;
         this.modelService = modelService;
         this.createdNote = null;
         this.initialContent = EditionNotes.I18N.getString("EnterNoteBody");
         this.noteSelectionListener = new NoteChooserSelectionListener();
-        
+
     }
 
     @objid ("26e1244e-186f-11e2-bc4e-002564c97630")
@@ -95,6 +95,7 @@ public class NoteChooserDriver implements IElementChooserDriver {
     /**
      * Get the note created after the user has selected the note type. This method will return null until the user has validated the
      * dialog box.
+     *
      * @return the created note if any.
      */
     @objid ("26e12454-186f-11e2-bc4e-002564c97630")
@@ -123,7 +124,7 @@ public class NoteChooserDriver implements IElementChooserDriver {
             this.leftViewer.setInput(this.leftModel);
             setExpandedState();
         }
-        
+
     }
 
     @objid ("26e12467-186f-11e2-bc4e-002564c97630")
@@ -138,14 +139,14 @@ public class NoteChooserDriver implements IElementChooserDriver {
         try (ITransaction transaction = this.session.getTransactionSupport().createTransaction(
                 EditionNotes.I18N.getString("AddNote"))) {
             IInfrastructureModelFactory factory = this.modelService.getModelFactory().getFactory(IInfrastructureModelFactory.class);
-        
+
             for (Object obj : selection) {
                 NoteType noteType = (NoteType) obj;
                 this.createdNote = factory.createNote(noteType, element, this.initialContent);
             }
             transaction.commit();
         }
-        
+
     }
 
     @objid ("26e12471-186f-11e2-bc4e-002564c97630")
@@ -165,7 +166,7 @@ public class NoteChooserDriver implements IElementChooserDriver {
     protected void finalize() throws Throwable {
         this.leftViewer.removeSelectionChangedListener(this.noteSelectionListener);
         super.finalize();
-        
+
     }
 
     @objid ("26e38580-186f-11e2-bc4e-002564c97630")
@@ -188,20 +189,20 @@ public class NoteChooserDriver implements IElementChooserDriver {
                 if (selection instanceof IStructuredSelection) {
                     IStructuredSelection structuredSelection = (IStructuredSelection) selection;
                     List<Object> selectedAdapters = structuredSelection.toList();
-            
+
                     List<NoteType> selectedNoteTypeAdapters = getNoteTypeAdapters(selectedAdapters);
-            
+
                     NoteChooserDriver.this.leftViewer.setSelection(new StructuredSelection(selectedNoteTypeAdapters));
                 }
                 this.enable = true;
             }
-            
+
         }
 
         @objid ("26e38588-186f-11e2-bc4e-002564c97630")
         private List<NoteType> getNoteTypeAdapters(List<Object> selectedAdapters) {
             List<NoteType> adapters = new ArrayList<>();
-            
+
             for (Object obj : selectedAdapters) {
                 if (obj instanceof NoteType) {
                     adapters.add((NoteType) obj);
@@ -211,8 +212,8 @@ public class NoteChooserDriver implements IElementChooserDriver {
         }
 
         @objid ("26e38591-186f-11e2-bc4e-002564c97630")
-         NoteChooserSelectionListener() {
-            
+        NoteChooserSelectionListener() {
+
         }
 
     }

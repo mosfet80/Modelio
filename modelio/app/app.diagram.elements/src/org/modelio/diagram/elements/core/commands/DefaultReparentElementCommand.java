@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.commands;
 
@@ -41,7 +41,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * </ul>
  * <br>
  * This <code>command</code> is ONLY meant to be used if both containers are {@link GmCompositeNode}
- * 
+ *
  * @author fpoyer
  * @see org.modelio.diagram.elements.core.node.GmCompositeNode
  */
@@ -73,34 +73,35 @@ public class DefaultReparentElementCommand extends Command {
 
     /**
      * Default C'tor.
+     *
      * @param newParentElement the MObject that will be the new parent of the element represented by the reparented node.
      * @param newParent the composite node that will be the new parent of the reparented node.
      * @param reparentedChild the reparented node.
      * @param newLayoutData the new layout data of the reparented node.
      */
     @objid ("7f397a6e-1dec-11e2-8cad-001ec947c8cc")
-    public  DefaultReparentElementCommand(MObject newParentElement, GmCompositeNode newParent, GmNodeModel reparentedChild, Object newLayoutData) {
+    public DefaultReparentElementCommand(MObject newParentElement, GmCompositeNode newParent, GmNodeModel reparentedChild, Object newLayoutData) {
         super();
         this.newParentElement = newParentElement;
         this.newParent = newParent;
         this.reparentedChild = reparentedChild;
         this.newLayoutData = newLayoutData;
-        
+
     }
 
     @objid ("7f3bdc95-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public boolean canExecute() {
         final MObject childElement = this.reparentedChild.getRelatedElement();
-        
+
         if (this.newParentElement == null || childElement == null) {
             return false;
         }
-        
+
         if (this.newParentElement.equals(childElement)) {
             return false;
         }
-        
+
         // The target parent composition path must not contain the moved element
         // 'i' is to shield against existing composition graph cycle.
         MObject p = this.newParentElement;
@@ -109,28 +110,28 @@ public class DefaultReparentElementCommand extends Command {
                 return false;
             }
         }
-        
+
         // The diagram must be valid and modifiable.
         IGmDiagram diagram = this.reparentedChild.getDiagram();
         if (diagram == null || !MTools.getAuthTool().canModify(diagram.getRelatedElement())) {
             return false;
         }
-        
+
         // The moved element must be modifiable.
         if (!childElement.getStatus().isModifiable()) {
             return false;
         }
-        
+
         // The old and new parent elements must be modifiable or
         // both must be CMS nodes.
         if (!MTools.getAuthTool().canAdd(this.newParentElement, childElement.getMClass())) {
             return false;
         }
-        
+
         if (!MTools.getAuthTool().canAdd(childElement.getCompositionOwner(), childElement.getMClass())) {
             return false;
         }
-        
+
         // Ask metamodel experts
         final MExpert expert = childElement.getMClass().getMetamodel().getMExpert();
         return expert.canCompose(this.newParentElement, childElement, null);
@@ -144,7 +145,7 @@ public class DefaultReparentElementCommand extends Command {
         final MObject childElement = this.reparentedChild.getRelatedElement();
         assert (childElement != null) : "cannot reparent: child element is null";
         final MObject oldParentElement = childElement.getCompositionOwner();
-        
+
         MDependency oldParentDependency = null;
         for (MDependency dep : oldParentElement.getMClass().getDependencies(true)) {
             if (oldParentElement.mGet(dep).contains(childElement)) {
@@ -153,14 +154,14 @@ public class DefaultReparentElementCommand extends Command {
             }
         }
         oldParentElement.mGet(oldParentDependency).remove(childElement);
-        
+
         // orphan the {@link GmNodeModel node} from its previous {@link
         // GmCompositeNode container},
         final GmModel oldParentModel = this.reparentedChild.getParent();
         assert (oldParentModel instanceof GmCompositeNode) : "This command should only be used if both old parent and new parent are instances of GmCompositeNode!";
         final GmCompositeNode oldParent = (GmCompositeNode) oldParentModel;
         oldParent.removeChild(this.reparentedChild);
-        
+
         // attach the underlying {@link MObject element} to its new {@link
         // MObject#getCompositionOwner() composition owner},
         try {
@@ -174,9 +175,9 @@ public class DefaultReparentElementCommand extends Command {
                 this.newParentElement.mGet(newParentDep).add(childElement);
             }
         }
-        
+
         this.reparentedChild.setLayoutData(this.newLayoutData);
-        
+
         if (this.newParent.canContain(this.reparentedChild.getClass())) {
             // and finally attach the {@link GmNodeModel node} to its new {@link
             // GmCompositeNode container}.
@@ -189,13 +190,13 @@ public class DefaultReparentElementCommand extends Command {
                 final Rectangle r = (Rectangle) this.newLayoutData;
                 this.newLayoutData = new Rectangle(r.x, r.y, -1, -1);
             }
-        
+
             this.newParent.getDiagram().unmask(this.newParent, this.reparentedChild.getRelatedElement(), this.newLayoutData);
-        
+
             // Delete the now unused child
             this.reparentedChild.delete();
         }
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.factories;
 
@@ -78,7 +78,7 @@ public class StateGmNodeFactory implements IGmNodeFactory {
         if (parent instanceof GmGroup) {
             // Use the group element factory visitor
             final GroupElementFactoryVisitor v = new GroupElementFactoryVisitor(diagram, initialLayoutData);
-        
+
             final GmNodeModel child = (GmNodeModel) newElement.accept(v);
             if (child != null) {
                 parent.addChild(child);
@@ -87,14 +87,14 @@ public class StateGmNodeFactory implements IGmNodeFactory {
         } else {
             // Use the node factory visitor
             final NodeFactoryVisitor v = new NodeFactoryVisitor(diagram, initialLayoutData);
-        
+
             final GmNodeModel child = (GmNodeModel) newElement.accept(v);
             if (child != null) {
                 parent.addChild(child);
             }
             return child;
         }
-        
+
     }
 
     @objid ("f53c4477-55b6-11e2-877f-002564c97630")
@@ -162,10 +162,10 @@ public class StateGmNodeFactory implements IGmNodeFactory {
         private Object initialLayoutData;
 
         @objid ("f540d836-55b6-11e2-877f-002564c97630")
-        public  GroupElementFactoryVisitor(IGmDiagram diagram, Object initialLayoutData) {
+        public GroupElementFactoryVisitor(IGmDiagram diagram, Object initialLayoutData) {
             this.diagram = diagram;
             this.initialLayoutData = initialLayoutData;
-            
+
         }
 
         @objid ("198972d2-0438-4c2c-b56a-c5ca14908819")
@@ -200,10 +200,10 @@ public class StateGmNodeFactory implements IGmNodeFactory {
         private Object initialLayoutData;
 
         @objid ("f53dcaf1-55b6-11e2-877f-002564c97630")
-        public  NodeFactoryVisitor(IGmDiagram diagram, Object initialLayoutData) {
+        public NodeFactoryVisitor(IGmDiagram diagram, Object initialLayoutData) {
             this.diagram = diagram;
             this.initialLayoutData = initialLayoutData;
-            
+
         }
 
         @objid ("f53dcaf7-55b6-11e2-877f-002564c97630")

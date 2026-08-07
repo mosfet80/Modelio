@@ -1,0 +1,41 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+// Hightlight code source and add the line number
+:source-highlighter: coderay
+:coderay-linenums-mode: table
+
+= Subscribe to workflow
+
+For an element to be managed by a workflow instance, it has to be first subscribed to the workflow instance.
+
+The subscribe to workflow operation is possible only if :
+* The selected element to be registered into the workflow has a type eligible for the intended workflow.
+* The current user has sufficient permissions  to perform the 'Subscription to workflow' transition that is used to can add an element to a workflow.
+* A <<CreateInstance.adoc#,workflow instance>> has been created on the project.
+
+=== Using the model browser popup menu command
+
+Select an eligible element in the model browser then execute the image:images/subscribeicon.png[subscribeicon.png] *Workflow > Subscribe...* command.
+       
+image::images/SubscribeCommand.png[SubscribeCommand.png]
+
+In the dialog carry out the following actions:
+
+1. Select the workflow instance to add the element to.
+2. Enter a comment. For example, the reason why the element has to be added to the workflow.
+3. Validate by clicking  on "OK".
+
+=== Using the <<WorkflowUserPropertyView.adoc#,Workflow property view>>
+
+Select an eligible element in the Workflow property view then click on the image:images/subscribeicon.png[subscribeicon.png] *Subscribe...* button.
+
+image::images/SubscribeButton.png[SubscribeButton.png]
+
+In the dialog carry out the following actions:
+
+1. Select the workflow instance to add the element to.
+2. Enter a comment. For example, the reason why the element has to be added to the workflow.
+3. Validate by clicking  on "OK".

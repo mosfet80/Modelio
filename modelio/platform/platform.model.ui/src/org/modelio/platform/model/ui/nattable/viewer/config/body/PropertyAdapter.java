@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.viewer.config.body;
 
@@ -56,6 +56,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 public class PropertyAdapter {
     /**
      * Get the property type as a java class.
+     *
      * @param pdef the property definition.
      * @param value the value to get the type of.
      * @return the property type as a java class.
@@ -67,7 +68,7 @@ public class PropertyAdapter {
         if (type == null || type.getBaseType() == null) {
             return new DefaultStringNatValue((String) value, false);
         }
-        
+
         switch (type.getBaseType()) {
         case BOOLEAN:
             Boolean booleanValue = value instanceof Boolean ? (Boolean) value : Boolean.parseBoolean(Objects.toString(value));
@@ -76,7 +77,7 @@ public class PropertyAdapter {
             if (type instanceof EnumeratedPropertyType) {
                 List<PropertyEnumerationLitteral> litterals = ((EnumeratedPropertyType) type).getLitteral();
                 List<String> values = new ArrayList<>(litterals.size());
-        
+
                 for (PropertyEnumerationLitteral l : litterals) {
                     values.add(l.getName());
                 }
@@ -111,12 +112,12 @@ public class PropertyAdapter {
         case ELEMENT:
         case RICHTEXT:
             DefaultElementNatValue elementNatValue = new DefaultElementNatValue((MObject) value, true, getAllowedMetaclasses(pdef));
-        
+
             Stereotype stereotype = getAllowedStereotype(pdef);
             if (stereotype != null) {
                 elementNatValue.setElementFilter(new StereotypeFilter(stereotype));
             }
-        
+
             return elementNatValue;
         case TIME:
             Date timeValue;
@@ -144,12 +145,12 @@ public class PropertyAdapter {
             return new DefaultDateNatValue(dateValue);
         case MULTIELEMENT:
             DefaultMultiElementNatValue multiElementNatValue = new DefaultMultiElementNatValue((List<MObject>) value, false, getAllowedMetaclasses(pdef));
-        
+
             stereotype = getAllowedStereotype(pdef);
             if (stereotype != null) {
                 multiElementNatValue.setElementFilter(new StereotypeFilter(stereotype));
             }
-        
+
             return multiElementNatValue;
         case MULTISTRING:
             return new DefaultMultiStringNatValue((List<String>) value, false);
@@ -158,7 +159,6 @@ public class PropertyAdapter {
         default:
             return new DefaultStringNatValue((String) value, false);
         }
-        
     }
 
     @objid ("bd98e95b-d5d5-4051-8255-05c8f4799b36")
@@ -193,7 +193,7 @@ public class PropertyAdapter {
         private Stereotype stereotype;
 
         @objid ("0b1491ee-de0f-4e00-9042-796da5a1feb2")
-        public  StereotypeFilter(Stereotype stereotype) {
+        public StereotypeFilter(Stereotype stereotype) {
             this.stereotype = stereotype;
         }
 

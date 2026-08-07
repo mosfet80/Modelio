@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.deploymentdiagram.editor.elements.deploymentdiagram;
 
@@ -61,15 +61,16 @@ public class GmDeploymentDiagram extends GmAbstractDiagram {
 
     /**
      * Initialize the diagram.
+     *
      * @param manager The model manager
      * @param theDeploymentDiagram the displayed diagram.
      * @param diagramRef the reference of the displayed diagram. Must reference a {@link IStaticDiagram}.
      */
     @objid ("972692c0-55b6-11e2-877f-002564c97630")
-    public  GmDeploymentDiagram(IModelManager manager, DeploymentDiagram theDeploymentDiagram, MRef diagramRef) {
+    public GmDeploymentDiagram(IModelManager manager, DeploymentDiagram theDeploymentDiagram, MRef diagramRef) {
         super(manager, diagramRef);
         this.element = theDeploymentDiagram;
-        
+
     }
 
     @objid ("972692cf-55b6-11e2-877f-002564c97630")
@@ -133,7 +134,7 @@ public class GmDeploymentDiagram extends GmAbstractDiagram {
             break;
         }
         }
-        
+
     }
 
     @objid ("97281960-55b6-11e2-877f-002564c97630")
@@ -158,26 +159,26 @@ public class GmDeploymentDiagram extends GmAbstractDiagram {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmDeploymentDiagram.", GmDeploymentDiagram.MINOR_VERSION);
-        
+
     }
 
     @objid ("97281977-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (DeploymentDiagram) this.resolveRef(this.getRepresentedRef());
-        
+
     }
 
     @objid ("34ef3ac8-e5a6-4083-be69-be207bb5b425")
     private void read_1(IDiagramReader in) {
         super.read(in);
         this.element = (DeploymentDiagram) this.resolveRef(this.getRepresentedRef());
-        
+
         OrthoLinkDiagramMigrationHelper.migrate(this);
-        
+
     }
 
     @objid ("9728197c-55b6-11e2-877f-002564c97630")

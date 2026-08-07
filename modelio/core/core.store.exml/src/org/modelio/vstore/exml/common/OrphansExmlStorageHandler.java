@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.vstore.exml.common;
 
@@ -24,12 +43,13 @@ import org.modelio.vbasic.log.Log;
 import org.modelio.vcore.smkernel.RepositoryObjectStub;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.meta.SmDependency;
+import org.modelio.vcore.smkernel.transaction.IRemoteTransactionManager;
 
 /**
  * Storage handler for orphan elements.
  * <p>
  * Used mainly to ease debugging of orphans/detached/duplicate objects.
- * 
+ *
  * @author cmarin
  */
 @objid ("085c1537-821d-4f5a-85af-f4c878ead258")
@@ -44,10 +64,15 @@ public class OrphansExmlStorageHandler extends RepositoryObjectStub {
     private final AbstractExmlRepository repository;
 
     @objid ("cd49f70a-f954-4bff-b589-5d1c71c3236d")
-    public  OrphansExmlStorageHandler(AbstractExmlRepository repository, String cause) {
+    public OrphansExmlStorageHandler(AbstractExmlRepository repository, String cause) {
         this.repository = repository;
         this.cause = cause;
-        
+    }
+
+    @objid ("a36fd914-d188-4ca1-81b1-7fb4faaa0936")
+    @Override
+    public IRemoteTransactionManager getTransactionManager() {
+        return this.repository.getRemoteTransactionManager();
     }
 
     @objid ("b879d591-9d31-409d-91d7-351ee4c9a260")
@@ -57,8 +82,8 @@ public class OrphansExmlStorageHandler extends RepositoryObjectStub {
             if (val.getRepositoryObject() != this) {
                 // Trigger again the repository object to ask him to propagate the handler
                 // We need this because:
-                // - ExmlStorageHandler.depValAppended indirectly uses on getCompositionOwner() 
-                // - getCompositionOwner() implementation on AssociationEnd depends 
+                // - ExmlStorageHandler.depValAppended indirectly uses on getCompositionOwner()
+                // - getCompositionOwner() implementation on AssociationEnd depends
                 //   on dependencies not yet set.
                 if (TRACE) {
                     String jclsName = getClass().getSimpleName();
@@ -78,12 +103,11 @@ public class OrphansExmlStorageHandler extends RepositoryObjectStub {
             }
         }
         /*if (dep.isPartOf() || dep.isComposition() || dep.isSharedComposition()) {
-            SmDependency opp = dep.getSymetric();
-            if (! opp.isComposition() || opp.isSharedComposition()) {
-                throw new IllegalStateException(String.format("%s.%s.append(%s): the source is %s.", obj, dep, val,this.cause));
-            }
-        }*/
-        
+                    SmDependency opp = dep.getSymetric();
+                    if (! opp.isComposition() || opp.isSharedComposition()) {
+                        throw new IllegalStateException(String.format("%s.%s.append(%s): the source is %s.", obj, dep, val,this.cause));
+                    }
+                }*/
     }
 
     @objid ("2cb533d0-d528-4f82-a8a4-e5c5f77196a7")

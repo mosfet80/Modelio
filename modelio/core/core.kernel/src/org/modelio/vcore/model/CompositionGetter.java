@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.model;
 
@@ -38,6 +38,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 public class CompositionGetter {
     /**
      * Get all composition children of the given objects recursively.
+     *
      * @param roots the model objects to iterate.
      * @return the set of all composition children.
      */
@@ -49,11 +50,12 @@ public class CompositionGetter {
                 return true;
             }
         });
-        
+
     }
 
     /**
      * Get all composition children of the given objects recursively.
+     *
      * @param roots the model objects to iterate.
      * @param filter a filter that can stop the iteration.
      * @return the set of all composition children.
@@ -67,6 +69,7 @@ public class CompositionGetter {
 
     /**
      * Get all composition children of the given objects recursively.
+     *
      * @param roots the model objects to iterate.
      * @param children a set where all composition children will be added.
      * @param filter a filter that can stop the iteration.
@@ -76,9 +79,9 @@ public class CompositionGetter {
         // initialize a current roots list from the passed root elements
         Collection<MObject> currentRoots = new ArrayList<>(roots);
         Collection<MObject> directChildren = new ArrayList<>();
-        
+
         CompositionDepWalker depWalker = new CompositionDepWalker();
-        
+
         // Loop until there is no root nodes
         while (!currentRoots.isEmpty()) {
             // Get direct childs of current roots into 'impl.list'
@@ -91,27 +94,27 @@ public class CompositionGetter {
                     }
                 }
             }
-        
+
             // Clear the current roots list
             // in order to rebuild it for next iteration
             currentRoots.clear();
-        
+
             // Add each new child to the result set and to the next roots list
             for (MObject child : directChildren) {
                 if (children.contains(child) == false && filter.accept(child)) {
                     // Add the child to the set
                     children.add(child);
-        
+
                     // Add the child to the next roots list
                     currentRoots.add(child);
                 }
             }
-        
+
             // Drop direct children list and create new one
             directChildren = new ArrayList<>();
-        
+
         }
-        
+
     }
 
     /**
@@ -122,13 +125,14 @@ public class CompositionGetter {
         /**
          * Tells for the given model object whether the iteration continues or it is skipped
          * with its children.
+         *
          * @param child a model object
          * @return true to continue the iteration, <code>false</code> to skip it and its child nodes.
          */
         @objid ("134d92a5-5bcb-11e1-a296-001ec947ccaf")
         boolean accept(final MObject child);
-}
-    
+
+    }
 
     @objid ("ce04bc46-8993-41c6-8dbb-6d7e64608734")
     private static class CompositionDepWalker {
@@ -137,6 +141,7 @@ public class CompositionGetter {
 
         /**
          * Get the metamodel relation to use as composition for a given object.
+         *
          * @param srcObject an object
          * @return the relations to use as composition.
          */
@@ -146,14 +151,14 @@ public class CompositionGetter {
             if (ret != null) {
                 return ret;
             }
-            
+
             ret = new ArrayList<>();
             for (MDependency dep : srcObject.getMClass().getDependencies(true)) {
                 if (dep.isComposition() || ((SmDependency) dep).isSharedComposition()) {
                     ret.add(dep);
                 }
             }
-            
+
             this.compositionDeps.put(srcObject.getMClass(), ret);
             return ret;
         }

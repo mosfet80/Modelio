@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.ui.audit;
 
@@ -35,10 +35,10 @@ public class BpmnConfigurationPlan implements IAuditConfigurationPlan {
     private List<AuditCategory> rootCategories;
 
     @objid ("3baea865-4957-44f5-8836-3587a6ba95bb")
-    public  BpmnConfigurationPlan(List<AuditCategory> rootCategories) {
+    public BpmnConfigurationPlan(List<AuditCategory> rootCategories) {
         super();
         this.rootCategories = rootCategories;
-        
+
     }
 
     @objid ("010d23af-c891-4c13-9797-6ca6db362fc0")

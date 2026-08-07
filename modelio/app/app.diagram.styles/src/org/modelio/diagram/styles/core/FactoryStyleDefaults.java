@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.styles.core;
 
@@ -36,7 +36,7 @@ import org.modelio.diagram.styles.plugin.DiagramStyles;
  * The implementation is based on initialized constants.
  * <p>
  * This implementation must be maintained when MetaKeys set of values is modified !
- * 
+ *
  * @author pvlaemyn
  */
 @objid ("8551243a-1926-11e2-92d2-001ec947c8cc")
@@ -94,18 +94,18 @@ public class FactoryStyleDefaults {
         Object value = getDefaultValue(sKey.getCategory(), sKey.id);
         if (value != null)
             return value;
-        
+
         if (sKey.getMetakey() != null) {
             return FactoryStyleDefaults.getDefaultValue(sKey.getMetakey());
         } else {
             return FactoryStyleDefaults.getDefaultValue(sKey.getType());
         }
-        
+
     }
 
     /**
      * Resolution by category and key.
-     * 
+     *
      * <p>
      * NOTE:<br/>
      * We have to use hard coded strings for key category and keyId instead of the defined constants in order to avoid
@@ -121,7 +121,7 @@ public class FactoryStyleDefaults {
         default:
             return null;
         }
-        
+
     }
 
     @objid ("85512454-1926-11e2-92d2-001ec947c8cc")
@@ -129,7 +129,7 @@ public class FactoryStyleDefaults {
         if (type == Font.class) {
             return FactoryStyleDefaults.DEFAULT_MEDIUMFONT;
         }
-        
+
         // Should not happen if factory.settings properly defined
         DiagramStyles.LOG.warning("FactoryStyleDefaults: cannot guess a default for type '%s'", type.getSimpleName());
         return null;
@@ -140,64 +140,64 @@ public class FactoryStyleDefaults {
         if (MetaKey.FILLCOLOR.equals(metaKey)) {
             return FactoryStyleDefaults.DEFAULT_FILLCOLOR;
         }
-        
+
         if (MetaKey.FILLMODE.equals(metaKey)) {
             return FactoryStyleDefaults.DEFAULT_FILLMODE;
         }
-        
+
         if (MetaKey.FONT.equals(metaKey)) {
             return FactoryStyleDefaults.DEFAULT_MEDIUMFONT;
         }
-        
+
         if (MetaKey.LINECOLOR.equals(metaKey)) {
             return FactoryStyleDefaults.DEFAULT_PENCOLOR;
         }
-        
+
         if (MetaKey.LINEWIDTH.equals(metaKey)) {
             return FactoryStyleDefaults.DEFAULT_LINEWIDTH;
         }
-        
+
         if (MetaKey.LINERADIUS.equals(metaKey)) {
             return FactoryStyleDefaults.DEFAULT_LINERADIUS;
         }
-        
+
         if (MetaKey.REPMODE.equals(metaKey)) {
             return FactoryStyleDefaults.DEFAULT_REPMODE;
         }
-        
+
         if (MetaKey.SHOWNAME.equals(metaKey)) {
             return FactoryStyleDefaults.DEFAULT_SHOWNAMEMODE;
         }
-        
+
         if (MetaKey.SHOWSTEREOTYPES.equals(metaKey)) {
             return FactoryStyleDefaults.DEFAULT_SHOWSTEREOTYPEMODE;
         }
-        
+
         if (MetaKey.SHOWTAGS.equals(metaKey)) {
             return FactoryStyleDefaults.DEFAULT_SHOWTAGSMODE;
         }
-        
+
         if (MetaKey.TEXTCOLOR.equals(metaKey)) {
             return FactoryStyleDefaults.DEFAULT_TEXTCOLOR;
         }
-        
+
         if (MetaKey.LINEPATTERN.equals(metaKey)) {
             return FactoryStyleDefaults.DEFAULT_LINEPATTERN;
         }
-        
+
         if (MetaKey.CONNECTIONROUTER.equals(metaKey)) {
             return FactoryStyleDefaults.DEFAULT_ROUTINGMODE;
         }
-        
+
         if (MetaKey.WRAPLABEL.equals(metaKey)) {
             return false;
         }
-        
+
         if (MetaKey.HYPERREFLINK.equals(metaKey)) {
             // No reference by default
             return null;
         }
-        
+
         // Should not happen
         DiagramStyles.LOG.warning("FactoryStyleDefaults(): cannot guess a default value for unknown metakey '%s'", metaKey);
         return null;

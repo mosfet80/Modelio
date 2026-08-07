@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.parts.data.image;
 
@@ -39,7 +39,7 @@ import org.eclipse.swt.graphics.Rectangle;
  */
 @objid ("b553a702-bd5b-4f35-8713-0cba55eeb38b")
 public class ImagePainter extends BackgroundPainter {
-    @objid ("f684680b-b9ae-44ae-8990-5f24c96b88c3")
+    @objid ("70460548-08ba-468b-abbc-ca8f95f6401f")
     private ResourceManager resources;
 
     @objid ("1ec4c05e-2abc-4206-96de-ef2320adbffb")
@@ -61,7 +61,6 @@ public class ImagePainter extends BackgroundPainter {
         } else {
             return null;
         }
-        
     }
 
     @objid ("3b12558b-8531-4316-b395-6d93f22991b9")
@@ -73,7 +72,6 @@ public class ImagePainter extends BackgroundPainter {
         } else {
             return 0;
         }
-        
     }
 
     @objid ("e1b56993-40fd-4ff0-bc2b-c5ffafbae245")
@@ -85,14 +83,13 @@ public class ImagePainter extends BackgroundPainter {
         } else {
             return 0;
         }
-        
     }
 
     @objid ("80f5a94e-97c8-420d-9f7a-ac75208ab68e")
     @Override
     public void paintCell(ILayerCell cell, GC gc, Rectangle bounds, IConfigRegistry configRegistry) {
         super.paintCell(cell, gc, bounds, configRegistry);
-        
+
         Image anImage = getImage(cell);
         if (anImage != null) {
             Rectangle imageBounds = anImage.getBounds();
@@ -104,7 +101,6 @@ public class ImagePainter extends BackgroundPainter {
         } else if (cell.getDataValue() != null) {
             gc.drawText(cell.getDataValue().toString(), bounds.x, bounds.y);
         }
-        
     }
 
     @objid ("5da9bc43-fd49-4054-9fd3-ef5f4137ef01")
@@ -123,7 +119,7 @@ public class ImagePainter extends BackgroundPainter {
             } else {
                 desc = ImageDescriptor.createFromFile(null, dataValue.toString());
             }
-            
+
             if (desc != null) {
                 try {
                     return (Image) this.resources.get(desc);
@@ -134,11 +130,10 @@ public class ImagePainter extends BackgroundPainter {
                 return null;
             }
         }
-        
     }
 
     @objid ("50a81190-f914-4627-9a65-8a09f9e60310")
-    public  ImagePainter(ResourceManager resources) {
+    public ImagePainter(ResourceManager resources) {
         this.resources = resources;
     }
 

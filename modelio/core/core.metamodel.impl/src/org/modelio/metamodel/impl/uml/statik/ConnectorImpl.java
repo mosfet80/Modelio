@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("4ae8a661-1aef-45be-9c0f-6d0a1c1e2ef4")
 public class ConnectorImpl extends LinkImpl implements Connector {
-    @objid ("85f024ca-b092-48bc-8553-458b43c4eec5")
+    @objid ("77f191d3-4b6c-43f0-ad7c-5bc3f71bd2e9")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -49,17 +48,17 @@ public class ConnectorImpl extends LinkImpl implements Connector {
         return super.getCompositionOwner();
     }
 
-    @objid ("ac347fc2-66e6-400c-8898-5dd0c9e1024e")
+    @objid ("170190e2-8cb1-42af-b6a7-cbb6b653a4bc")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("84cf06ca-d9c7-4c69-b65b-2eac0b06b237")
+    @objid ("f1a5ebdd-8fff-477b-b619-e6da37930065")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitConnector(this);

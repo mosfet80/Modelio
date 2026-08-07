@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -47,52 +46,52 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0004a754-c4bf-1fd8-97fe-001ec947cd2a")
 public class CollaborationUseImpl extends UmlModelElementImpl implements CollaborationUse {
-    @objid ("1338f7c8-10fb-4bc4-aca7-b0b95e44829d")
+    @objid ("a0deb8cf-2dbd-4ee8-88dd-2e2a8f5f49a1")
     @Override
     public Collaboration getType() {
         Object obj = getDepVal(((CollaborationUseSmClass)getClassOf()).getTypeDep());
         return (obj instanceof Collaboration)? (Collaboration)obj : null;
     }
 
-    @objid ("aabc465b-e02e-48dc-b5e8-f483852ac4b4")
+    @objid ("ad91d57f-93ee-4017-9e12-a138ffe60775")
     @Override
     public void setType(Collaboration value) {
         appendDepVal(((CollaborationUseSmClass)getClassOf()).getTypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("db8f27b4-299a-497c-8da0-3de5fee62e03")
+    @objid ("1a8d0bd4-841f-4ccc-926b-667204a375e9")
     @Override
     public NameSpace getNRepresented() {
         Object obj = getDepVal(((CollaborationUseSmClass)getClassOf()).getNRepresentedDep());
         return (obj instanceof NameSpace)? (NameSpace)obj : null;
     }
 
-    @objid ("3b298c0d-6f32-46bd-b421-7ea5da4253f5")
+    @objid ("95102a1a-7e50-48e2-b832-171210abf627")
     @Override
     public void setNRepresented(NameSpace value) {
         appendDepVal(((CollaborationUseSmClass)getClassOf()).getNRepresentedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("65853f24-452f-46fb-94cb-3df6b7db4a20")
+    @objid ("cf2860ae-edc6-4c76-b387-f915b0dfda03")
     @Override
     public Operation getORepresented() {
         Object obj = getDepVal(((CollaborationUseSmClass)getClassOf()).getORepresentedDep());
         return (obj instanceof Operation)? (Operation)obj : null;
     }
 
-    @objid ("cf23d55d-9033-4ed5-92a5-8ea17354d917")
+    @objid ("dd62b37c-cd50-4a27-9f2e-befaaacaed8a")
     @Override
     public void setORepresented(Operation value) {
         appendDepVal(((CollaborationUseSmClass)getClassOf()).getORepresentedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("50257c43-1d85-4ab2-ae0e-69a658a1d79a")
+    @objid ("83f9eb1a-b709-43e0-ad0c-89343d2bd009")
     @Override
     public EList<Binding> getRoleBinding() {
         return new SmList<>(this, ((CollaborationUseSmClass)getClassOf()).getRoleBindingDep());
     }
 
-    @objid ("c1ece42a-64fc-404b-bfaf-05be7119b350")
+    @objid ("d8f317b6-9511-43be-8377-820bf92f70b9")
     @Override
     public <T extends Binding> List<T> getRoleBinding(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -105,10 +104,10 @@ public class CollaborationUseImpl extends UmlModelElementImpl implements Collabo
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("d79bf93d-3b0f-43e4-9157-233789c93282")
+    @objid ("168f4df9-ee14-4678-8e13-e874c0aa9ad8")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -124,27 +123,27 @@ public class CollaborationUseImpl extends UmlModelElementImpl implements Collabo
         return super.getCompositionOwner();
     }
 
-    @objid ("7680ae3b-b33f-412a-82ba-a4cdc28f80ca")
+    @objid ("f3feb343-5480-41f3-9f5f-52adc3ee53dd")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // NRepresented
         dep = ((CollaborationUseSmClass)getClassOf()).getNRepresentedDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         // ORepresented
         dep = ((CollaborationUseSmClass)getClassOf()).getORepresentedDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("1b7a51d2-8e3f-499f-a50c-7ee9090b8bfd")
+    @objid ("39e83483-2f03-4fe0-af57-c04454b4eb37")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitCollaborationUse(this);

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.ortho.edit;
 
@@ -44,7 +44,7 @@ import org.modelio.diagram.elements.plugin.DiagramElements;
  * Helper to edit a {@link ConnectionState} wrapped in a {@link ConnectionView} for a {@link ConnectionEditPart}.
  * <p>
  * All input and output coordinates are absolute.
- * 
+ *
  * @since 5.0.2
  */
 @objid ("6fce6d88-3c0c-4f94-ac15-5f7b7d2911d8")
@@ -74,21 +74,22 @@ public class ConnectionEditor {
     public void applyStateToConnection() {
         // refresh anchor bounds
         this.view.refreshAnchorBounds();
-        
+
         // run this only in debug
         assert assertValidPath();
-        
+
         // Last resort check
         if (!getView().isValidPath()) {
             fixWithRouter(true);
         }
-        
+
         this.getView().getState().applyTo(this.getView().getConnection());
-        
+
     }
 
     /**
      * Dump a report and a stack trace if the connection path is not orthogonal.
+     *
      * @param c a Connection
      * @return true always true. Made to be put in "assert" statement.
      */
@@ -105,6 +106,7 @@ public class ConnectionEditor {
      * Make the connection orthogonal if it is not and remove useless points.
      * <p>
      * It calls the full router if anything is wrong.
+     *
      * @param cleanManualPoints ignored, it a disabled experiment and manual points are still cleaned.
      * To be deleted if no value is confirmed.
      */
@@ -112,19 +114,19 @@ public class ConnectionEditor {
     public void fixWithRouter(boolean cleanManualPoints) {
         // Ignore the parameter, it seems it is best to always clean fixed points.
         cleanManualPoints = true;
-        
+
         // refresh anchor bounds in case of they were changed
         this.view.refreshAnchorBounds();
-        
+
         PolylineConnection dummy = new PolylineConnection();
         dummy.setParent(getView().getConnection().getParent());
-        
+
         ConnectionState connState = getView().getState();
         connState.applyTo(dummy);
-        
+
         List<MPoint> initConstraint = connState.getMPoints();
         List<MPoint> newConstraint;
-        
+
         if ( !getView().isValidPath()) {
             AutoOrthogonalRouter router = new AutoOrthogonalRouter()
                     .setCleanupManualPoints(cleanManualPoints)
@@ -134,17 +136,18 @@ public class ConnectionEditor {
         } else {
             newConstraint = AutoOrthogonalRouter.getCleanedConstraint(dummy, connState, cleanManualPoints);
         }
-        
+
         if (!newConstraint.equals(initConstraint)) {
             connState.setConstraint(newConstraint);
         }
-        
+
         dummy.setParent(null);
         dummy.removeNotify();
-        
+
     }
 
     /**
+     *
      * @return the edited connection edit part
      */
     @objid ("aff83e3b-0657-4312-8407-da5596cab473")
@@ -153,6 +156,7 @@ public class ConnectionEditor {
     }
 
     /**
+     *
      * @return the edited connection state view
      */
     @objid ("26b93458-8aee-4191-b57e-59d9d606ff07")
@@ -162,6 +166,7 @@ public class ConnectionEditor {
 
     /**
      * Initialize this instance from an existing connection edit part.
+     *
      * @param anEditPart the connection edit part to edit
      * @return this instance
      */
@@ -174,6 +179,7 @@ public class ConnectionEditor {
 
     /**
      * Initialize this instance from an existing connection edit part and an initial state.
+     *
      * @param anEditPart the connection edit part to edit
      * @param state the initial state
      * @return this instance
@@ -187,6 +193,7 @@ public class ConnectionEditor {
 
     /**
      * Compute a new source anchor
+     *
      * @param reqLoc a location in absolute coordinates
      * @param sameFace if true request an anchor on the same face as the initial anchor
      * @return a new target anchor
@@ -198,11 +205,12 @@ public class ConnectionEditor {
                 .withLocation(reqLoc)
                 .withSameFaceAs(sameFaceAsAnchor)
                 .requestAnchor();
-        
+
     }
 
     /**
      * Compute a new target anchor
+     *
      * @param reqLoc a location in absolute coordinates
      * @param sameFace if true request an anchor on the same face as the initial anchor
      * @return a new target anchor
@@ -214,11 +222,12 @@ public class ConnectionEditor {
                 .withLocation(reqLoc)
                 .withSameFaceAs(sameFaceAsAnchor)
                 .requestAnchor();
-        
+
     }
 
     /**
      * Set the position of the point at the given index from the anchors and routing constraint.
+     *
      * @param index the index of the point to modify in the points list.<br>
      * <li><b>0</b> is the source anchor,
      * <li><b>1</b> is the first bend point and
@@ -234,7 +243,7 @@ public class ConnectionEditor {
         if (index < 0 || index > targetAnchorIndex) {
             throw new IllegalArgumentException(String.format("invalid index: %d not in [0..%d]", index, targetAnchorIndex));
         }
-        
+
         if (index == 0) {
             // Update source anchor.
             ConnectionAnchor newConnectionAnchor = requestSourceAnchor(absPoint, sameFace);
@@ -251,7 +260,7 @@ public class ConnectionEditor {
             }
             getView().setPoint(index, p);
         }
-        
+
     }
 
     @objid ("0eb9f1c7-8045-42cb-90b2-aa2f4ea3a797")
@@ -267,6 +276,7 @@ public class ConnectionEditor {
      * Create a dummy figure with same bounds than the given figure, parented to the connection layer.
      * <p>
      * The returned figure is independent from the original one. The figure is NOT added to its parent and is not expected to be displayed.
+     *
      * @param nodeFig a figure to copy
      * @return a dummy figure with same bounds as the original.
      */
@@ -279,12 +289,12 @@ public class ConnectionEditor {
             PolylineConnection dummy = new PolylineConnection();
             dummy.setParent(orig.getParent());
             dummy.setPoints(orig.getPoints().getCopy());
-        
+
             return dummy;
         } else {
             Figure dummyNode = new Figure();
             dummyNode.setParent(getView().getConnection().getParent());
-        
+
             // Directly hack the figure bounds to avoid firing listeners & validation
             Rectangle dummyBounds = dummyNode.getBounds();
             dummyBounds.setBounds(nodeFig.getBounds());
@@ -292,7 +302,7 @@ public class ConnectionEditor {
             dummyNode.translateToRelative(dummyBounds);
             return dummyNode;
         }
-        
+
     }
 
     /**
@@ -302,6 +312,7 @@ public class ConnectionEditor {
      * <p>
      * The returned state must be used only to make a safe backup of the connection state, it must NOT be applied to a live {@link Connection} figure because the anchors are attached to dummy figures that are not owned by their parents. You also risk
      * leaking the figure or ancestor listeners.
+     *
      * @return a "frozen" copy of the edited connection state.
      */
     @objid ("af218f76-e81b-4926-94ad-b03fed136faf")
@@ -309,7 +320,7 @@ public class ConnectionEditor {
         ConnectionView aview = getView();
         ConnectionState frozen = new ConnectionState();
         frozen.init(aview.getState());
-        
+
         IFigure srcFig = frozen.getSourceAnchor().getOwner();
         IFigure srcFreeze = createDummyFigure(srcFig);
         MPrecisionPoint sourceLocation = aview.getSourceLocation(TMP, true);
@@ -319,7 +330,7 @@ public class ConnectionEditor {
                 .withSameFaceAs(frozen.getSourceAnchor())
                 .withNodeFigure(srcFreeze)
                 .requestAnchor());
-        
+
         IFigure targetFig = frozen.getTargetAnchor().getOwner();
         IFigure targetFreeze = createDummyFigure(targetFig);
         frozen.setTargetAnchor(requestTargetAnchor()
@@ -335,6 +346,7 @@ public class ConnectionEditor {
      * Get a request builder to request a connection anchor.
      * <p>
      * The returned builder is a shared instance that must be used immediately then discarded.
+     *
      * @return a connection anchor request builder.
      */
     @objid ("c21125da-0221-4668-a4ca-3c720c42abf1")
@@ -347,6 +359,7 @@ public class ConnectionEditor {
      * Get a request builder to request a connection anchor
      * <p>
      * The returned builder is a shared instance that must be used immediately then discarded.
+     *
      * @return a connection anchor request builder.
      */
     @objid ("ec88be48-611b-4db3-9fac-4b9f314c5a49")
@@ -357,6 +370,7 @@ public class ConnectionEditor {
 
     /**
      * Helper to build {@link ReconnectRequest} to ask for connection anchors.
+     *
      * @author cma
      */
     @objid ("486e18fb-2ec9-45fc-87c9-08f725944f52")
@@ -372,6 +386,7 @@ public class ConnectionEditor {
 
         /**
          * Set a reference point to compute an anchor.
+         *
          * @param absLoc the desired anchor location in absolute coordinates
          * @return this instance to chain calls.
          */
@@ -383,6 +398,7 @@ public class ConnectionEditor {
 
         /**
          * Initialize the builder for a source anchor request.
+         *
          * @param connEp the connection edit part
          * @param nodeEditPart the new source edit part
          * @return this instance
@@ -397,6 +413,7 @@ public class ConnectionEditor {
 
         /**
          * Initialize the builder for a target anchor request.
+         *
          * @param connEp the connection edit part
          * @param nodeEditPart the new source edit part
          * @return this instance
@@ -413,6 +430,7 @@ public class ConnectionEditor {
          * Request the anchor to be on the same node face than the given anchor.
          * <p>
          * This is a hint that may be ignored by anchor providers not supporting this feature.
+         *
          * @param sameFace a connection anchor
          * @return this instance
          */
@@ -424,6 +442,7 @@ public class ConnectionEditor {
 
         /**
          * Request a discrete (sliding) anchor, contrary to fixed anchors whose position depend only from the node.
+         *
          * @param discrete true to request a discrete anchor
          * @return this instance.
          */
@@ -436,9 +455,10 @@ public class ConnectionEditor {
         /**
          * Request a discrete (sliding) anchor if the passed one is discrete.
          * <p>
-         * @see #withSliding(boolean)
+         *
          * @param as true to request a discrete anchor
          * @return this instance.
+         * @see #withSliding(boolean)
          */
         @objid ("769b65ec-f42b-4b80-81a1-f7d86dd1dd31")
         public AnchorReqBuilder withSameSliding(ConnectionAnchor as) {
@@ -451,6 +471,7 @@ public class ConnectionEditor {
          * Create the anchor on the given figure instead of the node edit part figure.
          * <p>
          * Used to create anchors on feedback figures.
+         *
          * @param nodeFigure a node figure
          * @return this instance
          */
@@ -465,6 +486,7 @@ public class ConnectionEditor {
         }
 
         /**
+         *
          * @return request a {@link ConnectionAnchor} for the wrapped request.
          */
         @objid ("cd41934d-f791-4840-a234-03796516cca6")
@@ -475,7 +497,7 @@ public class ConnectionEditor {
             } else {
                 return nodeEditPart.getSourceConnectionAnchor(this.reconnectRequest);
             }
-            
+
         }
 
     }

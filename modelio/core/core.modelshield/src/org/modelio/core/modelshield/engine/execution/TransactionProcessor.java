@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.core.modelshield.engine.execution;
 
@@ -40,7 +40,7 @@ public class TransactionProcessor {
     private final IModelShieldPlan plan;
 
     @objid ("006af504-13d2-1f62-8473-001ec947cd2a")
-    public  TransactionProcessor(final IModelShieldPlan plan) {
+    public TransactionProcessor(final IModelShieldPlan plan) {
         this.plan = plan;
     }
 
@@ -48,7 +48,7 @@ public class TransactionProcessor {
     public void check(final Transaction transaction, final ShieldContext context) {
         ActionVisitor visitor = new ActionVisitor(context, this.plan);
         visitor.visitTransaction(transaction);
-        
+
     }
 
     @objid ("006b2812-13d2-1f62-8473-001ec947cd2a")
@@ -65,7 +65,7 @@ public class TransactionProcessor {
             for (IAction action : theTransaction.getActions()) {
                 action.accept(this);
             }
-            
+
         }
 
         @objid ("00280c2c-0000-0491-0000-000000000000")
@@ -93,7 +93,7 @@ public class TransactionProcessor {
             if (action.getDep().isComponent() && action.getRef() != null) {
                 executeCheckersFor(action.getRef(), TriggerType.Move, null);
             }
-            
+
         }
 
         @objid ("00280c2c-0000-049f-0000-000000000000")
@@ -103,7 +103,7 @@ public class TransactionProcessor {
             if (action.getDep().isComponent() && action.getRef() != null) {
                 executeCheckersFor(action.getRef(), TriggerType.Move, null);
             }
-            
+
         }
 
         @objid ("00280c2c-0000-04a3-0000-000000000000")
@@ -113,10 +113,10 @@ public class TransactionProcessor {
         }
 
         @objid ("00280c2c-0000-04a6-0000-000000000000")
-        public  ActionVisitor(final ShieldContext context, final IModelShieldPlan plan) {
+        public ActionVisitor(final ShieldContext context, final IModelShieldPlan plan) {
             this.context = context;
             this.planExecutor = new PlanExecution(plan);
-            
+
         }
 
         @objid ("00280c2c-0000-04ae-0000-000000000000")
@@ -127,7 +127,7 @@ public class TransactionProcessor {
             this.planExecutor.process(this.context, obj, trigger, feature);
             // obj.accept(planExecutor);
             // }
-            
+
         }
 
     }

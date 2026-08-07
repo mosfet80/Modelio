@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.decoration;
 
@@ -37,7 +37,7 @@ import org.modelio.diagram.styles.core.StyleKey.LinePattern;
 
 /**
  * Decoration composed of the qualifier group and the arrow decoration.
- * 
+ *
  * @author cmarin
  */
 @objid ("33e2c7df-55b7-11e2-877f-002564c97630")
@@ -76,7 +76,7 @@ public class CompositeDecoration extends Figure implements IPenOptionsSupport, R
      * Initialize the figure and its layout manager.
      */
     @objid ("d7b1a856-0ce5-4c3b-903c-232571e83887")
-    public  CompositeDecoration() {
+    public CompositeDecoration() {
         setLayoutManager(new CompositeDecorationLayout());
     }
 
@@ -88,7 +88,7 @@ public class CompositeDecoration extends Figure implements IPenOptionsSupport, R
             this.rotationDirection = newDir;
             invalidate();
         }
-        
+
     }
 
     @objid ("b02f3383-0d76-49e3-b9c7-54c8ffee58f8")
@@ -98,11 +98,12 @@ public class CompositeDecoration extends Figure implements IPenOptionsSupport, R
             this.location.setLocation(p);
             invalidate();
         }
-        
+
     }
 
     /**
      * Get the location given to the last call to {@link #setLocation(Point)}.
+     *
      * @return this decoration location.
      */
     @objid ("f98d04f1-9fc9-4a62-b208-60580d75595f")
@@ -112,6 +113,7 @@ public class CompositeDecoration extends Figure implements IPenOptionsSupport, R
 
     /**
      * Set the qualifier group
+     *
      * @param qualifierGroup the qualifier group
      */
     @objid ("a56ba33c-77b7-4c27-a6e2-6c0366ab263e")
@@ -120,17 +122,18 @@ public class CompositeDecoration extends Figure implements IPenOptionsSupport, R
             return;
         if (this.qualifierGroup != null)
             remove(this.qualifierGroup);
-        
+
         this.qualifierGroup = qualifierGroup;
-        
+
         if (qualifierGroup != null) {
             add(qualifierGroup, CompositeDecoration.CONTAINER, -1);
         }
-        
+
     }
 
     /**
      * Set the arrow decoration.
+     *
      * @param deco the arrow decoration.
      */
     @objid ("519ecac8-f896-4cd4-a237-fb0cd1042e07")
@@ -139,12 +142,12 @@ public class CompositeDecoration extends Figure implements IPenOptionsSupport, R
             return;
         if (this.decoration != null)
             remove(this.decoration);
-        
+
         this.decoration = deco;
-        
+
         if (deco != null)
             add(deco, CompositeDecoration.DECO, -1);
-        
+
     }
 
     @objid ("6692461f-b950-43ae-8089-c35532c61c49")
@@ -160,6 +163,7 @@ public class CompositeDecoration extends Figure implements IPenOptionsSupport, R
 
     /**
      * Direction the arrow should be pointing FROM.
+     *
      * @return Direction the arrow should be pointing FROM.
      */
     @objid ("79eb9697-8b77-4732-8ccf-5cbc01a0a2bc")
@@ -174,7 +178,7 @@ public class CompositeDecoration extends Figure implements IPenOptionsSupport, R
             return ((IPenOptionsSupport) this.decoration).getLineColor();
         else
             return null;
-        
+
     }
 
     @objid ("0a82c1e6-c496-4f83-a407-880e2878d2d6")
@@ -184,7 +188,7 @@ public class CompositeDecoration extends Figure implements IPenOptionsSupport, R
             return ((IPenOptionsSupport) this.decoration).getLinePattern();
         else
             return null;
-        
+
     }
 
     @objid ("ad2e5d14-e1e0-4391-9d14-81ffe25e6810")
@@ -194,7 +198,7 @@ public class CompositeDecoration extends Figure implements IPenOptionsSupport, R
             return ((IPenOptionsSupport) this.decoration).getLineWidth();
         else
             return 0;
-        
+
     }
 
     @objid ("13b2a7dd-f7d5-452d-abe6-fd5552307960")
@@ -204,7 +208,7 @@ public class CompositeDecoration extends Figure implements IPenOptionsSupport, R
             return ((IPenOptionsSupport) this.decoration).getTextColor();
         else
             return null;
-        
+
     }
 
     @objid ("211dedbe-cd98-4538-8341-813f3dfbc307")
@@ -214,7 +218,7 @@ public class CompositeDecoration extends Figure implements IPenOptionsSupport, R
             return ((IPenOptionsSupport) this.decoration).getTextFont();
         else
             return null;
-        
+
     }
 
     @objid ("c9586178-0187-4142-9240-e8b37d61e223")
@@ -222,7 +226,7 @@ public class CompositeDecoration extends Figure implements IPenOptionsSupport, R
     public void setLineColor(final Color lineColor) {
         if (this.decoration instanceof IPenOptionsSupport)
             ((IPenOptionsSupport) this.decoration).setLineColor(lineColor);
-        
+
     }
 
     @objid ("42fb98d0-c8e3-4471-87e9-675d8983e1b9")
@@ -230,7 +234,7 @@ public class CompositeDecoration extends Figure implements IPenOptionsSupport, R
     public void setLinePattern(final LinePattern lineStyle) {
         if (this.decoration instanceof IPenOptionsSupport)
             ((IPenOptionsSupport) this.decoration).setLinePattern(lineStyle);
-        
+
     }
 
     @objid ("9e6e0710-0937-463b-abd5-35fa507a55e8")
@@ -238,7 +242,7 @@ public class CompositeDecoration extends Figure implements IPenOptionsSupport, R
     public void setLineWidth(final int lineWidth) {
         if (this.decoration instanceof IPenOptionsSupport)
             ((IPenOptionsSupport) this.decoration).setLineWidth(lineWidth);
-        
+
     }
 
     @objid ("793a990a-8e6f-4ade-9958-7fd3ba74f978")
@@ -246,7 +250,7 @@ public class CompositeDecoration extends Figure implements IPenOptionsSupport, R
     public void setTextColor(final Color textColor) {
         if (this.decoration instanceof IPenOptionsSupport)
             ((IPenOptionsSupport) this.decoration).setTextColor(textColor);
-        
+
     }
 
     @objid ("d5daec79-b94f-427e-8c25-16f6b0557ac8")
@@ -254,7 +258,7 @@ public class CompositeDecoration extends Figure implements IPenOptionsSupport, R
     public void setTextFont(final Font textFont) {
         if (this.decoration instanceof IPenOptionsSupport)
             ((IPenOptionsSupport) this.decoration).setTextFont(textFont);
-        
+
     }
 
     @objid ("89bd7f36-ae30-478e-9c75-fe2c9c11ca2c")
@@ -264,7 +268,7 @@ public class CompositeDecoration extends Figure implements IPenOptionsSupport, R
             return this.decoration.getBackgroundColor();
         else
             return super.getBackgroundColor();
-        
+
     }
 
     @objid ("ed914ae6-6f7f-4046-a5c8-821c0a941c78")
@@ -274,11 +278,12 @@ public class CompositeDecoration extends Figure implements IPenOptionsSupport, R
             this.decoration.setBackgroundColor(bg);
         else
             super.setBackgroundColor(bg);
-        
+
     }
 
     /**
      * Get the decoration part of the composite decoration.
+     *
      * @return the decoration part.
      */
     @objid ("9e0c643f-e971-487c-812a-84d2812d6a0e")
@@ -289,7 +294,7 @@ public class CompositeDecoration extends Figure implements IPenOptionsSupport, R
     @objid ("b8aa45d0-d2e0-4ea6-8e10-f449a80f1975")
     private class CompositeDecorationLayout extends AbstractLayout {
         @objid ("1262768f-7e90-4026-b85c-7a2853950735")
-        public  CompositeDecorationLayout() {
+        public CompositeDecorationLayout() {
             super();
         }
 
@@ -303,7 +308,7 @@ public class CompositeDecoration extends Figure implements IPenOptionsSupport, R
                 return DECO;
             else
                 return null;
-            
+
         }
 
         @objid ("d1f3d61b-751a-4bfa-adde-6f41ed6c7e8e")
@@ -314,7 +319,7 @@ public class CompositeDecoration extends Figure implements IPenOptionsSupport, R
                 IFigure c = (IFigure) o;
                 ret.union(c.getMinimumSize());
             }
-            
+
             ret.union(getBorderPreferredSize(container));
             return ret;
         }
@@ -325,7 +330,7 @@ public class CompositeDecoration extends Figure implements IPenOptionsSupport, R
         public void layout(final IFigure container) {
             if (qualifierGroup == null)
                 return;
-            
+
             // Get side of the 'location' relative to the node
             IFigure node = getParentConnectionExtremity();
             Direction side;
@@ -338,18 +343,19 @@ public class CompositeDecoration extends Figure implements IPenOptionsSupport, R
                 Rectangle nodeBounds = getRelativeBounds(node);
                 side = GeomUtils.getDirection(getDecorationLocation(), nodeBounds);
             }
-            
+
             // Put the qualifier on the side
             Rectangle qualifierBounds = calcQualifierBounds(side);
             qualifierGroup.setBounds(qualifierBounds);
-            
+
             // Move the decoration behind
             moveDecoration(qualifierBounds, side);
-            
+
         }
 
         /**
          * Get the given node bounds in the container figure coordinates.
+         *
          * @param node a figure
          * @return the figure bounds in the container coordinates.
          */
@@ -364,11 +370,12 @@ public class CompositeDecoration extends Figure implements IPenOptionsSupport, R
                 translateToRelative(nodeBounds);
                 return nodeBounds;
             }
-            
+
         }
 
         /**
          * Get the connection extremity this decoration is sticked on.
+         *
          * @return a node figure.
          */
         @objid ("4b88dc76-033b-45d2-a135-70444c98d312")
@@ -379,7 +386,7 @@ public class CompositeDecoration extends Figure implements IPenOptionsSupport, R
             } else {
                 return conn.getTargetAnchor().getOwner();
             }
-            
+
         }
 
         @objid ("480006f1-5b89-4fdc-a351-328e0a9fef68")
@@ -389,6 +396,7 @@ public class CompositeDecoration extends Figure implements IPenOptionsSupport, R
 
         /**
          * Place the decoration
+         *
          * @param r the qualifier bounds
          * @param side the side where to place the decoration
          */
@@ -400,11 +408,11 @@ public class CompositeDecoration extends Figure implements IPenOptionsSupport, R
                                                         r);
                 if (p == null)
                     p = r.getTopLeft(); //getSideCenter(r, side);
-            
+
                 CompositeDecoration.this.decoration.setLocation(p);
                 CompositeDecoration.this.decoration.setReferencePoint(p.getTranslated(getReferenceDirection()));
             }
-            
+
         }
 
         @objid ("f2820066-d829-4084-b501-bf32bc6032e6")
@@ -421,7 +429,7 @@ public class CompositeDecoration extends Figure implements IPenOptionsSupport, R
                 default:
                     throw new IllegalArgumentException(side + " is invalid side.");
             }
-            
+
         }
 
         @objid ("6c3da13c-b12f-43d0-8c83-df5de445b15c")

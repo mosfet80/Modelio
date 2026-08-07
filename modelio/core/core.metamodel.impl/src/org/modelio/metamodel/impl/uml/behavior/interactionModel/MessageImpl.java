@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
 import java.util.ArrayList;
@@ -49,113 +48,113 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00496c04-c4bf-1fd8-97fe-001ec947cd2a")
 public class MessageImpl extends UmlModelElementImpl implements Message {
-    @objid ("d752c107-14ac-43cd-95ab-041bd02b8fa8")
+    @objid ("d86ff97c-c53a-40da-9e2b-1758570c70bb")
     @Override
     public String getArgument() {
         return (String) getAttVal(((MessageSmClass)getClassOf()).getArgumentAtt());
     }
 
-    @objid ("409c033a-49f8-4b4f-ae45-fd5050b6d96e")
+    @objid ("df8b4423-18f5-40a2-8fe5-dae31172ce65")
     @Override
     public void setArgument(String value) {
         setAttVal(((MessageSmClass)getClassOf()).getArgumentAtt(), value);
     }
 
-    @objid ("3d257e14-c099-4179-a2e7-941f7bf72963")
+    @objid ("19ed74b4-fe38-4733-b2cd-793cd29f13f2")
     @Override
     public MessageKind getKindOfMessage() {
         return (MessageKind) getAttVal(((MessageSmClass)getClassOf()).getKindOfMessageAtt());
     }
 
-    @objid ("cba1ebb7-6149-4c6c-a7bc-02902a84585d")
+    @objid ("741d9fd0-3a0a-47a6-a38a-3c308d3b643b")
     @Override
     public void setKindOfMessage(MessageKind value) {
         setAttVal(((MessageSmClass)getClassOf()).getKindOfMessageAtt(), value);
     }
 
-    @objid ("3f4a020f-6f57-4024-b3c4-1c1cf344e354")
+    @objid ("00fac550-59d3-4ddd-89f2-24f7251f2f73")
     @Override
     public MessageSort getSortOfMessage() {
         return (MessageSort) getAttVal(((MessageSmClass)getClassOf()).getSortOfMessageAtt());
     }
 
-    @objid ("18607411-b7e7-4327-afe0-1aaf74dd9375")
+    @objid ("d2654518-dfcc-4df1-96fe-a77c0a6249e1")
     @Override
     public void setSortOfMessage(MessageSort value) {
         setAttVal(((MessageSmClass)getClassOf()).getSortOfMessageAtt(), value);
     }
 
-    @objid ("b3dfaa6f-0ece-4437-b283-a11aa31b6c1c")
+    @objid ("10ad417a-b4dc-4e0f-9758-d52d6ac9c8df")
     @Override
     public String getSequence() {
         return (String) getAttVal(((MessageSmClass)getClassOf()).getSequenceAtt());
     }
 
-    @objid ("1c5ef0ea-5963-4ee4-9fc7-a77845adcde0")
+    @objid ("c909d2bd-e9a0-417e-af72-221c6d8d893e")
     @Override
     public void setSequence(String value) {
         setAttVal(((MessageSmClass)getClassOf()).getSequenceAtt(), value);
     }
 
-    @objid ("ed66f7c1-9aa4-4a8e-b2db-925e1f916f29")
+    @objid ("f32985f9-3e89-4746-a0bc-51284d2a1fbd")
     @Override
     public Signal getSignalSignature() {
         Object obj = getDepVal(((MessageSmClass)getClassOf()).getSignalSignatureDep());
         return (obj instanceof Signal)? (Signal)obj : null;
     }
 
-    @objid ("b346900a-53ed-4070-879e-40823e6293ad")
+    @objid ("420e85b4-4c2c-443c-bff9-071e39a520c2")
     @Override
     public void setSignalSignature(Signal value) {
         appendDepVal(((MessageSmClass)getClassOf()).getSignalSignatureDep(), (SmObjectImpl)value);
     }
 
-    @objid ("4d3106bd-e081-4c2e-9c40-01d04c6920d5")
+    @objid ("43559162-d946-4da5-95af-67e5ca2ce49d")
     @Override
     public MessageEnd getReceiveEvent() {
         Object obj = getDepVal(((MessageSmClass)getClassOf()).getReceiveEventDep());
         return (obj instanceof MessageEnd)? (MessageEnd)obj : null;
     }
 
-    @objid ("f03c695f-1244-4709-bd4e-42a59e1a501d")
+    @objid ("049eb514-baa8-489a-a979-8ae7b24be3d9")
     @Override
     public void setReceiveEvent(MessageEnd value) {
         appendDepVal(((MessageSmClass)getClassOf()).getReceiveEventDep(), (SmObjectImpl)value);
     }
 
-    @objid ("bc782c7f-d44a-41d5-9aa4-09b1eeacc5be")
+    @objid ("61b0e566-76db-4982-ba0d-d5694f2e08f0")
     @Override
     public MessageEnd getSendEvent() {
         Object obj = getDepVal(((MessageSmClass)getClassOf()).getSendEventDep());
         return (obj instanceof MessageEnd)? (MessageEnd)obj : null;
     }
 
-    @objid ("699a1d06-bd11-47bc-a1df-501770bcd020")
+    @objid ("6bcc235d-4294-4fd9-bec6-4d17093f28f3")
     @Override
     public void setSendEvent(MessageEnd value) {
         appendDepVal(((MessageSmClass)getClassOf()).getSendEventDep(), (SmObjectImpl)value);
     }
 
-    @objid ("91ef6863-6bc1-479e-95b2-6f3dfbbae6ae")
+    @objid ("68f47d7c-64e5-4141-b5e1-556f48054faa")
     @Override
     public Operation getInvoked() {
         Object obj = getDepVal(((MessageSmClass)getClassOf()).getInvokedDep());
         return (obj instanceof Operation)? (Operation)obj : null;
     }
 
-    @objid ("8226109c-f2c3-43fe-9a3a-c17812d34a28")
+    @objid ("23e93b1c-b008-473a-b90f-ce1c82638cbf")
     @Override
     public void setInvoked(Operation value) {
         appendDepVal(((MessageSmClass)getClassOf()).getInvokedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("78679a4d-0b94-478c-9fdc-4ee900dab1d4")
+    @objid ("60bc75ac-33e1-4ebc-aea3-03b17cabd3da")
     @Override
     public EList<InformationFlow> getRealizedInformationFlow() {
         return new SmList<>(this, ((MessageSmClass)getClassOf()).getRealizedInformationFlowDep());
     }
 
-    @objid ("c9f835b6-ae6c-4ce0-957b-28b3ef921608")
+    @objid ("37126875-dc75-4724-8880-370041a529ef")
     @Override
     public <T extends InformationFlow> List<T> getRealizedInformationFlow(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -168,10 +167,10 @@ public class MessageImpl extends UmlModelElementImpl implements Message {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("f287570c-2d5e-4f8d-9c60-5952b53765c5")
+    @objid ("77df0631-7d02-49ec-8c86-a30e8824c282")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -183,22 +182,22 @@ public class MessageImpl extends UmlModelElementImpl implements Message {
         return super.getCompositionOwner();
     }
 
-    @objid ("3102fa1b-e9f2-47e8-8125-acea080aeead")
+    @objid ("a45006de-238f-4d26-af34-1e0073ea11b3")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // SendEvent
         dep = ((MessageSmClass)getClassOf()).getSendEventDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("8d97b6c0-7de9-4ca8-ad21-ea250b6afcfd")
+    @objid ("b1a744f3-281f-4eb2-94e0-c63e63cc4345")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitMessage(this);

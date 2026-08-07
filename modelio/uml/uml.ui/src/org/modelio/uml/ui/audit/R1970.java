@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -47,7 +47,7 @@ public class R1970 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -98,14 +98,14 @@ public class R1970 extends AbstractUmlRule {
      * Default constructor for R1970
      */
     @objid ("5686f879-63b6-4170-aa7e-2b4725d43d00")
-    public  R1970() {
+    public R1970() {
         this.checkerInstance = new CheckR1970(this);
     }
 
     @objid ("8a69ca11-bedc-4224-b8e2-1e78f34be54b")
     private static class CheckR1970 extends AbstractControl {
         @objid ("1d5e3b6b-6002-4352-b1a1-60c98885f5d8")
-        public  CheckR1970(IRule rule) {
+        public CheckR1970(IRule rule) {
             super(rule);
         }
 
@@ -123,11 +123,11 @@ public class R1970 extends AbstractUmlRule {
         @objid ("2f639380-bf6d-4060-9bca-6dceb761304f")
         private IAuditEntry checkR1970(final TemplateParameterSubstitution tps) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, tps, null);
-            
+
             if (tps.getFormalParameter() == null) {
-            
+
                 // Rule failed
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(tps);

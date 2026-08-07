@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.api.plugin;
 
@@ -57,30 +57,32 @@ public class DiagramApi implements BundleActivator {
 
     /**
      * (non-Javadoc)
+     *
      * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
      */
     @objid ("0caccc96-b6fa-4ff8-b840-8d1b4eb84b67")
     @Override
     public void start(BundleContext bundleContext) throws Exception {
         assert (bundleContext.getBundle().getSymbolicName().equals(DiagramApi.PLUGIN_ID));
-        
+
         DiagramApi.context = bundleContext;
         ServiceReference<ExtendedLogService> ref = bundleContext.getServiceReference(ExtendedLogService.class);
         ExtendedLogService service = bundleContext.getService(ref);
         DiagramApi.LOG = new PluginLogger(service.getLogger((String)null));
-        
+
         DiagramApi.I18N = new BundledMessages(DiagramApi.LOG, ResourceBundle.getBundle("diagramapi"));
-        
+
         DiagramApi.LOG.info("Modelio/Diagram API " +
                 DiagramApi.getContext().getBundle().getVersion() +
                 " - Copyright 2013-" +
                 Calendar.getInstance().get(Calendar.YEAR) +
                 " Modeliosoft.");
-        
+
     }
 
     /**
      * (non-Javadoc)
+     *
      * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
      */
     @objid ("fe663b14-2671-459e-a434-ed5b00253ac9")
@@ -90,6 +92,7 @@ public class DiagramApi implements BundleActivator {
     }
 
     /**
+     *
      * @return the {@value #PLUGIN_ID} plugin execution context.
      */
     @objid ("a2f72bff-cd41-40fb-a667-cbc522993acf")

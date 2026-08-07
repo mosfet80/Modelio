@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.activityfinal;
 
@@ -38,7 +38,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Specialisation of the GmPortContainer class for initial node.
- * 
+ *
  * @author fpoyer
  */
 @objid ("29a5bc9e-55b6-11e2-877f-002564c97630")
@@ -69,25 +69,26 @@ public class GmActivityFinal extends GmPortContainer {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram in which the timeEvent is unmasked.
      * @param el the unmasked timeEvent.
      * @param ref a reference to the unmasked timeEvent.
      */
     @objid ("29a5bcb0-55b6-11e2-877f-002564c97630")
-    public  GmActivityFinal(IGmDiagram diagram, ActivityFinalNode el, MRef ref) {
+    public GmActivityFinal(IGmDiagram diagram, ActivityFinalNode el, MRef ref) {
         super(diagram, ref);
-        
+
         GmActivityFinalPrimaryNode mainNode = new GmActivityFinalPrimaryNode(diagram, ref);
         mainNode.setRoleInComposition(MAIN_NODE_ROLE);
-        
+
         this.element = el;
         GmNameLabel label = new GmNameLabel(diagram, ref);
         label.setRoleInComposition(GmPortContainer.SATELLITE_ROLE);
         label.setLayoutData(Integer.valueOf(PositionConstants.EAST));
-        
+
         this.addChild(mainNode);
         this.addChild(label);
-        
+
     }
 
     @objid ("29a74322-55b6-11e2-877f-002564c97630")
@@ -146,7 +147,7 @@ public class GmActivityFinal extends GmPortContainer {
      * Empty constructor needed for deserialization.
      */
     @objid ("29a74345-55b6-11e2-877f-002564c97630")
-    public  GmActivityFinal() {
+    public GmActivityFinal() {
         // Nothing specific to do.
     }
 
@@ -167,7 +168,7 @@ public class GmActivityFinal extends GmPortContainer {
             break;
         }
         }
-        
+
     }
 
     @objid ("29a7434e-55b6-11e2-877f-002564c97630")
@@ -186,17 +187,17 @@ public class GmActivityFinal extends GmPortContainer {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmActivityFinal.", GmActivityFinal.MINOR_VERSION);
-        
+
     }
 
     @objid ("29a8c9c0-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (ActivityFinalNode) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("29a8c9c5-55b6-11e2-877f-002564c97630")
@@ -207,6 +208,7 @@ public class GmActivityFinal extends GmPortContainer {
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */
@@ -218,6 +220,7 @@ public class GmActivityFinal extends GmPortContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */

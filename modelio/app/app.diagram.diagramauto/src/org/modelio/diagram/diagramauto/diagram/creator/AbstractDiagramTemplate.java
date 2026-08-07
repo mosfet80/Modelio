@@ -1,27 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.diagramauto.diagram.creator;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.modelio.api.modelio.diagram.IDiagramGraphic;
 import org.modelio.api.modelio.diagram.IDiagramHandle;
@@ -46,8 +46,8 @@ import org.modelio.module.modelermodule.api.default_.infrastructure.abstractdiag
  * <li>Layout these links.</li>
  * </ol>
  * </p>
- * 
- * 
+ *
+ *
  * <p>
  * For implementers: how to implement
  * <ol>
@@ -70,7 +70,7 @@ import org.modelio.module.modelermodule.api.default_.infrastructure.abstractdiag
  * </ul>
  * </ol>
  * </p>
- * 
+ *
  * <p>
  * For Callers : how to use
  * <ol>
@@ -101,7 +101,7 @@ public abstract class AbstractDiagramTemplate implements IModelViewTemplate<Abst
         for (IDiagramNode node : dh.getDiagramNode().getNodes()) {
             node.mask();
         }
-        
+
     }
 
     @objid ("8128a926-bcfa-4a9b-889e-d25217dc22c8")
@@ -110,7 +110,7 @@ public abstract class AbstractDiagramTemplate implements IModelViewTemplate<Abst
         if (context == null) {
             return null;
         }
-        
+
         AbstractDiagram diagram = createDiagramElement();
         context.getProduct().add(diagram);
         diagram.setName(main.getName() + " (" + getId() + ")");
@@ -138,6 +138,7 @@ public abstract class AbstractDiagramTemplate implements IModelViewTemplate<Abst
 
     /**
      * Perform the initial link unmasking.
+     *
      * @param dh the edited diagram.
      * @param main the main node.
      * @since 5.1.1
@@ -147,6 +148,7 @@ public abstract class AbstractDiagramTemplate implements IModelViewTemplate<Abst
 
     /**
      * Perform the initial node unmasking.
+     *
      * @param dh the edited diagram.
      * @param main the main node.
      * @since 5.1.1
@@ -156,6 +158,7 @@ public abstract class AbstractDiagramTemplate implements IModelViewTemplate<Abst
 
     /**
      * Get an already existing diagram of this type for the element.
+     *
      * @return the diagram if it exists, <code>null</code> otherwise.
      */
     @objid ("bbbe495b-7957-486c-94ec-0fe2a0406fcc")
@@ -187,6 +190,7 @@ public abstract class AbstractDiagramTemplate implements IModelViewTemplate<Abst
 
     /**
      * Layout all links in the diagram.
+     *
      * @param dh the edited diagram.
      * @since 5.1.1
      */
@@ -195,6 +199,7 @@ public abstract class AbstractDiagramTemplate implements IModelViewTemplate<Abst
 
     /**
      * Layout all nodes in the diagram.
+     *
      * @param dh the edited diagram.
      * @since 5.1.1
      */
@@ -208,7 +213,7 @@ public abstract class AbstractDiagramTemplate implements IModelViewTemplate<Abst
     @Override
     public final void updateView(AbstractDiagram existingDiagram) {
         ModelElement main = getMainElement(existingDiagram);
-        
+
         // update diagram kind
         String kind = existingDiagram.getProperty("AutoDiagram", "Kind");
         if (getOldType().equals(kind)) {
@@ -217,22 +222,22 @@ public abstract class AbstractDiagramTemplate implements IModelViewTemplate<Abst
         } else if (!getId().equals(kind)) {
             throw new IllegalArgumentException("Incompatible diagram type, update is not possible for " + existingDiagram);
         }
-        
+
         try {
             reset();
             // get the diagram handle to work with
             try (IDiagramHandle dh = this.localModuleContext.getModelioServices().getDiagramService().getDiagramHandle(existingDiagram)) {
                 dh.setBatchMode(true);
-        
+
                 clearContent(dh);
-        
+
                 generateNodesContent(dh, main);
                 layoutNodes(dh);
-        
+
                 // Performance optimization: unmask links AFTER node layout to minimize routing calls
                 generateLinksContent(dh, main);
                 layoutLinks(dh);
-        
+
                 // open the resulting diagram
                 dh.setBatchMode(false);
                 dh.save();
@@ -242,7 +247,7 @@ public abstract class AbstractDiagramTemplate implements IModelViewTemplate<Abst
         } finally {
             reset();
         }
-        
+
     }
 
     @objid ("18d10845-f0d8-428a-814d-eedf5bfa578c")

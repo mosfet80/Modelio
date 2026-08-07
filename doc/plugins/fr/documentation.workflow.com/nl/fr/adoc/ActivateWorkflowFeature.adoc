@@ -1,0 +1,25 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+// Hightlight code source and add the line number
+:source-highlighter: coderay
+:coderay-linenums-mode: table
+
+= Activer les fonctionnalités Workflow sur un projet Modelio Server
+
+Les fonctionnalités Workflow peuvent être activées depuis la section *Fonctionnalités* de la page de configuration de projet.
+
+image::images/ModelioServerWorkflowFeatures.png[ModelioServerWorkflowFeatures.png]
+
+
+Pour les projets dédiés à la conception des workflows, les deux fonctionnalités <<WorkflowDesigner.adoc#,Modelio Workflow Designer>> et <<WorkflowUser.adoc#,Modelio Workflow User>> doivent être activées.
+
+Pour les projets dans lesquelles les workflows seront déployés, seule la fonctionnalité <<WorkflowUser.adoc#,Modelio Workflow User>> doit être activée.
+
+
+
+
+
+

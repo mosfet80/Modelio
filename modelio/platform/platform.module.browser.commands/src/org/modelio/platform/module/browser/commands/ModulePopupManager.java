@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.module.browser.commands;
 
@@ -52,31 +52,31 @@ public class ModulePopupManager {
     private static void createMenuEntriesForAction(IRTModule module, MMenu moduleMenu, MPart view) {
         // Map used to prevent slot multiplication
         Map<String, MMenu> slotMap = new HashMap<>();
-        
+
         // ask module for its IModuleAction that should be inserted into the
         // contextual menu and for each of them
         for (IModuleAction action : module.getActions(ActionLocation.contextualpopup)) {
             // Create the MHandler and MHandledItem for this action.
-        
+
             // MCommand
             MCommand command = ModuleCommandsRegistry.getCommand(module, action);
-        
+
             // MHandler
             final MHandler handler = createAndActivateHandler(command, module, action, view);
-        
+
             // MHandledItem
             MHandledMenuItem item = createAndInsertItem(moduleMenu, action, slotMap);
             // Bind to command
             item.setCommand(command);
-        
+
             Expression visWhen = new IsVisibleExpression(handler.getObject(), item);
             MCoreExpression isVisibleWhenExpression = MUiFactory.INSTANCE.createCoreExpression();
             isVisibleWhenExpression.setCoreExpressionId("programmatic.value");
             isVisibleWhenExpression.setCoreExpression(visWhen);
-        
+
             item.setVisibleWhen(isVisibleWhenExpression);
         }
-        
+
     }
 
     @objid ("491beea2-12dd-11e2-8549-001ec947c8cc")
@@ -109,7 +109,7 @@ public class ModulePopupManager {
             handlerToRemove.setCommand(null);
             handlerToRemove.setObject(null);
         }
-        
+
     }
 
     @objid ("9a6323bb-12ea-11e2-8549-001ec947c8cc")
@@ -117,20 +117,20 @@ public class ModulePopupManager {
         Path bitmapPath = action.getBitmapPath();
         String iconURI = bitmapPath != null ? bitmapPath.toUri().toString() : "";
         MHandledMenuItem item = createItem(action.getLabel(), action.getTooltip(), iconURI);
-        
+
         List<String> slots = action.getSlots();
         if (!slots.isEmpty()) {
             // Default owner is the module menu
             MMenu ownerMenu = moduleMenu;
             MMenu subMenu = moduleMenu;
-        
+
             String slotCompleteName = "";
             for (String slotSimpleName : slots) {
                 slotCompleteName += (slotCompleteName.isEmpty() ? "" : "|") + slotSimpleName;
-        
+
                 // Get slot from map
                 subMenu = slotMap.get(slotCompleteName);
-        
+
                 // Lazy creation
                 if (subMenu == null) {
                     subMenu = MMenuFactory.INSTANCE.createMenu();
@@ -144,7 +144,7 @@ public class ModulePopupManager {
                     slotMap.put(slotCompleteName, subMenu);
                     ownerMenu.getChildren().add(subMenu);
                 }
-        
+
                 ownerMenu = subMenu;
             }
             subMenu.getChildren().add(item);
@@ -177,7 +177,7 @@ public class ModulePopupManager {
         if (relativePath != null && !relativePath.isEmpty()) {
             final Path moduleDirectory = module.getConfiguration().getModuleResourcesPath();
             Path imageFile = moduleDirectory.resolve(relativePath.substring(1));
-        
+
             if (Files.isRegularFile(imageFile)) {
                 return imageFile.toUri().toString();
             }
@@ -214,7 +214,7 @@ public class ModulePopupManager {
         for (IModuleAction action : module.getActions(ActionLocation.contextualpopup)) {
             deactivateAndRemoveHandler(ModuleCommandsRegistry.getCommand(module, action), view);
         }
-        
+
     }
 
 }

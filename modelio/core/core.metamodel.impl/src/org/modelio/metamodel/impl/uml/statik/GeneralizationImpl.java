@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -43,45 +42,45 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("000cb930-c4bf-1fd8-97fe-001ec947cd2a")
 public class GeneralizationImpl extends UmlModelElementImpl implements Generalization {
-    @objid ("bf02ea68-03d3-4f6d-bbe5-f726f188cd1a")
+    @objid ("10310f9e-437a-4f86-8b3c-4cb72f948ab3")
     @Override
     public String getDiscriminator() {
         return (String) getAttVal(((GeneralizationSmClass)getClassOf()).getDiscriminatorAtt());
     }
 
-    @objid ("acb9a1fa-a6d0-4918-bd65-eeac0987f507")
+    @objid ("7bd926ae-575b-4ff9-820e-0007e12e0c87")
     @Override
     public void setDiscriminator(String value) {
         setAttVal(((GeneralizationSmClass)getClassOf()).getDiscriminatorAtt(), value);
     }
 
-    @objid ("97fde83e-6b13-4ec3-bc39-eeb4bec531ec")
+    @objid ("f82dc87f-7a59-46eb-8da0-c2f910126557")
     @Override
     public NameSpace getSuperType() {
         Object obj = getDepVal(((GeneralizationSmClass)getClassOf()).getSuperTypeDep());
         return (obj instanceof NameSpace)? (NameSpace)obj : null;
     }
 
-    @objid ("0015a515-eb35-445c-9ad6-c683548fb874")
+    @objid ("2f34782b-2eb7-4ac6-9862-d606c38f6170")
     @Override
     public void setSuperType(NameSpace value) {
         appendDepVal(((GeneralizationSmClass)getClassOf()).getSuperTypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("6272f020-7f3f-4366-a3b1-ac5789225ebf")
+    @objid ("46cc0eb8-76de-4bd8-823a-5c20d6d6b148")
     @Override
     public NameSpace getSubType() {
         Object obj = getDepVal(((GeneralizationSmClass)getClassOf()).getSubTypeDep());
         return (obj instanceof NameSpace)? (NameSpace)obj : null;
     }
 
-    @objid ("3f15d3f5-1b94-4758-94bc-022b2951c103")
+    @objid ("5a8843d1-02be-49d9-b949-395fd594fd68")
     @Override
     public void setSubType(NameSpace value) {
         appendDepVal(((GeneralizationSmClass)getClassOf()).getSubTypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("2bab307b-62f7-4374-999a-0fa86e8bb94a")
+    @objid ("bf5b99e2-01c7-4525-ad36-7bd147d910da")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -93,22 +92,22 @@ public class GeneralizationImpl extends UmlModelElementImpl implements Generaliz
         return super.getCompositionOwner();
     }
 
-    @objid ("d2882b5f-bb9e-45a9-bfe9-8525e15bafff")
+    @objid ("b8f48f8e-a57e-46c9-afd7-ef75b927b6f4")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // SubType
         dep = ((GeneralizationSmClass)getClassOf()).getSubTypeDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("15f996ef-f8fa-4e1b-8992-a0b503de64de")
+    @objid ("4822ed8d-709c-4b4e-8061-2e8eea56a9e6")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitGeneralization(this);

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.helpers.palapi;
 
@@ -75,24 +75,25 @@ public class PaletteActionProvider implements ICreationActionProvider {
     @objid ("9f95e194-5bb5-4e13-b76a-1f44c56ed353")
     public static final Predicate<PaletteEntry> IS_ACCEPTABLE_METACLASS(Collection<Class<? extends MObject>> metaclasses) {
         return entry -> {
-        
+
                     ModelioCreationContext nodeCtx = getNodeCreationContext(entry);
                     if (nodeCtx != null) {
                         return metaclasses.contains(nodeCtx.getJavaClass());
                     }
-        
+
                     ModelioLinkCreationContext linkCtx = getLinkCreationContext(entry);
                     if (linkCtx != null) {
                         return metaclasses.contains(linkCtx.getJavaClass());
                     }
-        
+
                     return false;
                 };
-        
+
     }
 
     /**
      * Convenience method proposed to PaleteActionProvider users to help them building 'filters'.
+     *
      * @param entry a palette entry
      * @return the metaclass of the object that this entry creates (whatever the tool kind: link or node, excepted module tools) , null otherwise.
      */
@@ -101,12 +102,12 @@ public class PaletteActionProvider implements ICreationActionProvider {
         if (entry.getClass().getName().startsWith("org.modelio.diagram.api.tools")) {
             return null;
         }
-        
+
         ModelioCreationContext nodeCtx = getNodeCreationContext(entry);
         if (nodeCtx != null) {
             return nodeCtx.getMetaclass();
         }
-        
+
         ModelioLinkCreationContext linkCtx = getLinkCreationContext(entry);
         if (linkCtx != null) {
             return linkCtx.getMetaclass();
@@ -116,6 +117,7 @@ public class PaletteActionProvider implements ICreationActionProvider {
 
     /**
      * Convenience method proposed to PaleteActionProvider users to help them building 'filters'.
+     *
      * @param entry a palette entry
      * @return the link creation context that this entry uses to create an object, null if the entry does not create a link
      */
@@ -133,6 +135,7 @@ public class PaletteActionProvider implements ICreationActionProvider {
 
     /**
      * Convenience method proposed to PaleteActionProvider users to help them building 'filters'.
+     *
      * @param entry a palette entry
      * @return the node creation context that this entry uses to create an object, null if the entry does not create a node
      */
@@ -148,15 +151,15 @@ public class PaletteActionProvider implements ICreationActionProvider {
     }
 
     @objid ("665c8658-cfb6-41d9-b08e-af344b5a0fa2")
-    public  PaletteActionProvider(EditPart editPart) {
+    public PaletteActionProvider(EditPart editPart) {
         this(editPart, null);
     }
 
     @objid ("ea5a4b66-8571-4f2e-90a9-b0ea9ad3785f")
-    public  PaletteActionProvider(EditPart editPart, Predicate<PaletteEntry> filter) {
+    public PaletteActionProvider(EditPart editPart, Predicate<PaletteEntry> filter) {
         this.editPart = editPart;
         this.filter = filter != null ? filter : e -> true;
-        
+
     }
 
     @objid ("6f56f15c-8fc5-4516-aa66-e10ed204cedf")
@@ -168,7 +171,7 @@ public class PaletteActionProvider implements ICreationActionProvider {
         return this.tools.stream()
                         .map(entry -> createAction(entry, this.editPart, req))
                         .filter(action -> action != null);
-        
+
     }
 
     @objid ("dd067cd7-a0bb-4de7-9e32-9bbc5a79c066")
@@ -176,7 +179,7 @@ public class PaletteActionProvider implements ICreationActionProvider {
         return getSubEntryRec(paletteContainer)
                         .map(entry -> createAction(entry, this.editPart, req))
                         .filter(action -> action != null);
-        
+
     }
 
     @objid ("08b892c0-361b-40e9-8858-10bafb37c0a4")
@@ -185,7 +188,7 @@ public class PaletteActionProvider implements ICreationActionProvider {
                         .getChildren()
                         .stream()
                         .flatMap(e -> (e instanceof PaletteContainer) ? getSubEntryRec((PaletteContainer) e) : Stream.of(e));
-        
+
     }
 
     @objid ("c93cb5e6-f3a6-4bb0-98cb-df9b6e9b7385")
@@ -196,12 +199,12 @@ public class PaletteActionProvider implements ICreationActionProvider {
         if (entry.getClass().getName().startsWith("org.modelio.diagram.api.tools")) {
             return null;
         }
-        
+
         ModelioLinkCreationContext linkCreationContext = getLinkCreationContext(entry);
         if (linkCreationContext != null) {
             return createLinkAction(entry, ep, req, linkCreationContext);
         }
-        
+
         ModelioCreationContext nodeCreationContext = getNodeCreationContext(entry);
         if (nodeCreationContext != null) {
             return createNodeAction(entry, ep, req, nodeCreationContext);
@@ -213,12 +216,12 @@ public class PaletteActionProvider implements ICreationActionProvider {
     private ConnectionRouterId getDefaultRoutingMode(EditPart ep, ModelioLinkCreationContext ctx) {
         IGmObject gmDiagram = (IGmObject) ep.getViewer().getContents().getModel();
         final StyleKey routingModeKey = ctx.getDefaultRoutingModeKey();
-        
+
         ConnectionRouterId primaryRoutingMode = null;
         if (routingModeKey != null) {
             primaryRoutingMode = gmDiagram.getDisplayedStyle().getProperty(routingModeKey);
         }
-        
+
         if (primaryRoutingMode == null) {
             primaryRoutingMode = ConnectionRouterId.ORTHOGONAL;
         }
@@ -238,7 +241,7 @@ public class PaletteActionProvider implements ICreationActionProvider {
                     .distinct()
                     .collect(Collectors.toList());
         }
-        
+
     }
 
     @objid ("b6003e8e-3690-4139-af2f-a61c71605e21")
@@ -257,7 +260,7 @@ public class PaletteActionProvider implements ICreationActionProvider {
         CreateBendedConnectionRequest createConReq = new CreateBendedConnectionRequest();
         RawPathData createConnReqData = createConReq.getData();
         Command finishCom = null;
-        
+
         switch ((String) req.getType()) {
         case RequestConstants.REQ_CONNECTION_START:
             createConReq.setType(req.getType());
@@ -270,19 +273,19 @@ public class PaletteActionProvider implements ICreationActionProvider {
             finishCom = ep.getCommand(createConReq);
             createConReq.setStartCommand(finishCom);
             break;
-        
+
         case RequestConstants.REQ_CONNECTION_END:
         case CreateLinkConstants.REQ_CONNECTION_CREATE_LINK_CHOOSENODE:
             // Branch both ends
             EditPart targetEditPart = req.getTargetEditPart();
             GraphicalEditPart srcEditPart = (GraphicalEditPart) req.getSourceEditPart();
-        
+
             CreateBendedConnectionRequest startRequest = new CreateBendedConnectionRequest();
             startRequest.setType(RequestConstants.REQ_CONNECTION_START);
             startRequest.setFactory(linkCreationContext);
             startRequest.setSourceEditPart(srcEditPart);
             startRequest.setTargetEditPart(srcEditPart);
-        
+
             final Point srcLoc;
             final RawPathData origData;
             if (req instanceof CreateBendedConnectionRequest) {
@@ -294,15 +297,15 @@ public class PaletteActionProvider implements ICreationActionProvider {
                 srcLoc = srcEditPart.getFigure().getBounds().getCenter();
                 srcEditPart.getFigure().translateToAbsolute(srcLoc);
             }
-        
+
             startRequest.setLocation(srcLoc);
             startRequest.getData().setSrcPoint(srcLoc);
             startRequest.getData().setRoutingMode(getDefaultRoutingMode(srcEditPart, linkCreationContext));
             startRequest.getData().setLastPoint(req.getLocation().getCopy());
-        
+
             Command startCmd = srcEditPart.getCommand(startRequest);
             startRequest = null; // get rid of it
-        
+
             // Now we have a valid startCommand
             // we can setup the final request to end the link creation
             createConReq.setType(req.getType());
@@ -320,7 +323,7 @@ public class PaletteActionProvider implements ICreationActionProvider {
                 createConnReqData.setRoutingMode(getDefaultRoutingMode(srcEditPart, linkCreationContext));
                 createConnReqData.setLastPoint(req.getLocation().getCopy());
             }
-        
+
             createConReq.setStartCommand(startCmd);
             if (startCmd != null && targetEditPart != null) {
                 finishCom = targetEditPart.getCommand(createConReq);

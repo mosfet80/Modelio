@@ -1,24 +1,44 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.naryassoc;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -41,7 +61,7 @@ import org.modelio.vcore.model.api.MTools;
 
 /**
  * Command that create a n-ary Association in Ob model, links it to several elements and then unmask it.
- * 
+ *
  * @author cmarin
  */
 @objid ("35bedace-55b7-11e2-877f-002564c97630")
@@ -66,6 +86,7 @@ public class CreateNAssocCommand extends Command {
 
     /**
      * Creates a n-ary association creation command.
+     *
      * @param editPart the edit part producing this command
      * @param sourceModels The models that are to be linked to the created association.
      * @param parentNode The parent node unmasking the "diamond" of the association.
@@ -73,28 +94,27 @@ public class CreateNAssocCommand extends Command {
      * @param constraint The initial layout constraint of the association diamond.
      */
     @objid ("35bedade-55b7-11e2-877f-002564c97630")
-    public  CreateNAssocCommand(final EditPart editPart, final List<IGmLinkable> sourceModels, final GmCompositeNode parentNode, final ModelioLinkCreationContext context, final Rectangle constraint) {
+    public CreateNAssocCommand(final EditPart editPart, final List<IGmLinkable> sourceModels, final GmCompositeNode parentNode, final ModelioLinkCreationContext context, final Rectangle constraint) {
         this.editPart = editPart;
         this.sourceModels = sourceModels;
         this.parentNode = parentNode;
         this.context = context;
         this.layoutConstraint = constraint;
-        
     }
 
     @objid ("35c0614c-55b7-11e2-877f-002564c97630")
     @Override
     public boolean canExecute() {
-        // the diagram must be modifiable 
+        // the diagram must be modifiable
         if (!MTools.getAuthTool().canModify(this.parentNode.getDiagram().getRelatedElement())) {
             return false;
         }
-        
+
         // Must have at least 3 ends
         if (this.sourceModels.size() < 3) {
             return false;
         }
-        
+
         // All sourceNodes must be modifiable.
         for (IGmLinkable sourceModel : this.sourceModels) {
             if (!MTools.getAuthTool().canModify(sourceModel.getRelatedElement())) {
@@ -104,54 +124,65 @@ public class CreateNAssocCommand extends Command {
         return true;
     }
 
+    @objid ("46714234-7cb1-455f-a168-d5348605a32b")
+    @Override
+    public String getLabel() {
+        String ret = super.getLabel();
+        if (ret != null)
+            return ret;
+
+        ret = MessageFormat.format("Create a n-ary association between {0} elements", this.sourceModels.size());
+        setLabel(ret);
+        return ret;
+    }
+
     @objid ("35c06151-55b7-11e2-877f-002564c97630")
     @Override
     public void execute() {
         final IGmDiagram diagram = this.parentNode.getDiagram();
-        
+
         NaryAssociation newAssoc = (NaryAssociation) this.context.getElementToUnmask();
         ArrayList<NaryAssociationEnd> createdAssocs = new ArrayList<>(this.sourceModels.size());
-        
+
         if (newAssoc == null) {
             IModelManager modelManager = diagram.getModelManager();
-        
+
             // Create the association node...
             final IStandardModelFactory modelFactory = modelManager.getModelFactory().getFactory(IStandardModelFactory.class);
             newAssoc = modelFactory.createNaryAssociation();
-        
+
             // Configure element from properties
             final IElementConfigurator elementConfigurer = modelManager.getModelServices().getElementConfigurer();
-        
+
             // ... and create all roles.
             for (IGmLinkable sourceModel : this.sourceModels) {
                 final Classifier el = (Classifier) sourceModel.getRelatedElement();
                 final NaryAssociationEnd role = modelFactory.createNaryAssociationEnd();
-        
+
                 role.setOwner(el);
                 role.setNaryAssociation(newAssoc);
                 createdAssocs.add(role);
                 elementConfigurer.configure(role, this.context.getProperties());
             }
-        
+
             // Attach the stereotype if needed.
             if (this.context.getStereotype() != null) {
                 newAssoc.getExtension().add(this.context.getStereotype());
             }
-        
+
             // Some additional initializing steps might be needed.
             elementConfigurer.configure(newAssoc, this.context.getProperties());
         }
-        
+
         // Show the new element in the diagram (ie create its Gm )
         diagram.unmask(this.parentNode, newAssoc, this.layoutConstraint);
-        
+
         // Unmask all roles
         EditPartViewer viewer = this.editPart.getViewer();
         for (NaryAssociationEnd r : createdAssocs) {
             Command cmd = UnmaskHelper.getUnmaskCommand(viewer, r, this.layoutConstraint.getCenter());
             cmd.execute();
         }
-        
     }
 
 }

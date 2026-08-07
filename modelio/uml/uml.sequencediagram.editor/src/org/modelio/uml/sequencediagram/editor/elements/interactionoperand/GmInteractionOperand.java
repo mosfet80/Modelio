@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.interactionoperand;
 
@@ -37,7 +37,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Main Gm for InteractionOperand.
- * 
+ *
  * @author fpoyer
  */
 @objid ("d9038905-55b6-11e2-877f-002564c97630")
@@ -61,25 +61,25 @@ public class GmInteractionOperand extends GmPortContainer {
      * Empty c'tor for deserialisation.
      */
     @objid ("d9038913-55b6-11e2-877f-002564c97630")
-    public  GmInteractionOperand() {
+    public GmInteractionOperand() {
         super();
     }
 
     /**
      * C'tor.
+     *
      * @param diagram the diagram in which this gm is created.
      * @param interactionOperand represented interaction operand.
      * @param relatedRef a reference to the represented interaction operand.
      */
     @objid ("d9038916-55b6-11e2-877f-002564c97630")
-    public  GmInteractionOperand(final IGmDiagram diagram, final InteractionOperand interactionOperand, final MRef relatedRef) {
+    public GmInteractionOperand(final IGmDiagram diagram, final InteractionOperand interactionOperand, final MRef relatedRef) {
         super(diagram, relatedRef);
         GmInteractionOperandPrimaryNode mainNode = new GmInteractionOperandPrimaryNode(diagram, relatedRef);
         mainNode.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
         addChild(mainNode);
-        
+
         this.interactionOperand = interactionOperand;
-        
     }
 
     @objid ("d9038925-55b6-11e2-877f-002564c97630")
@@ -107,7 +107,6 @@ public class GmInteractionOperand extends GmPortContainer {
         return el instanceof Gate &&
                         ((Gate) el).getOwnerFragment() != null &&
                         ((Gate) el).getOwnerFragment().equals(this.getRelatedElement().getOwnerFragment());
-        
     }
 
     @objid ("d9050fa3-55b6-11e2-877f-002564c97630")
@@ -139,7 +138,6 @@ public class GmInteractionOperand extends GmPortContainer {
             break;
         }
         }
-        
     }
 
     @objid ("d9050fb8-55b6-11e2-877f-002564c97630")
@@ -150,7 +148,6 @@ public class GmInteractionOperand extends GmPortContainer {
             int height = this.interactionOperand.getEndLineNumber() - this.interactionOperand.getLineNumber();
             firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, super.getLayoutData(), Integer.valueOf(height));
         }
-        
     }
 
     @objid ("d9050fbb-55b6-11e2-877f-002564c97630")
@@ -161,24 +158,21 @@ public class GmInteractionOperand extends GmPortContainer {
         } else {
             return super.getLayoutData();
         }
-        
     }
 
     @objid ("d9050fbf-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmInteractionOperand.", GmInteractionOperand.MINOR_VERSION);
-        
     }
 
     @objid ("d9050fc5-55b6-11e2-877f-002564c97630")
     private void read_0(final IDiagramReader in) {
         super.read(in);
         this.interactionOperand = (InteractionOperand) resolveRef(getRepresentedRef());
-        
     }
 
     @objid ("d9050fcb-55b6-11e2-877f-002564c97630")
@@ -189,6 +183,7 @@ public class GmInteractionOperand extends GmPortContainer {
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */
@@ -200,6 +195,7 @@ public class GmInteractionOperand extends GmPortContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */

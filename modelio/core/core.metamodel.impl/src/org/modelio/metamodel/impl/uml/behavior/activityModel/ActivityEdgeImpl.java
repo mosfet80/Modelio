@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -46,76 +45,76 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("002733be-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class ActivityEdgeImpl extends UmlModelElementImpl implements ActivityEdge {
-    @objid ("b6a88ef3-7bc8-4d8b-8173-3408788a94ea")
+    @objid ("86b99914-41ff-492c-abdc-2d4166109f51")
     @Override
     public String getGuard() {
         return (String) getAttVal(((ActivityEdgeSmClass)getClassOf()).getGuardAtt());
     }
 
-    @objid ("d982a727-b10d-4a42-a1e5-6c829d11c533")
+    @objid ("6e466423-a84c-460e-b077-2f46ebb08e8d")
     @Override
     public void setGuard(String value) {
         setAttVal(((ActivityEdgeSmClass)getClassOf()).getGuardAtt(), value);
     }
 
-    @objid ("b36e5c5e-0a78-4601-ae38-dd823ba28ac3")
+    @objid ("5cef03d7-650b-4409-adbd-74c46562a643")
     @Override
     public String getWeight() {
         return (String) getAttVal(((ActivityEdgeSmClass)getClassOf()).getWeightAtt());
     }
 
-    @objid ("73a8f841-2d4b-4b2a-8db6-0210f8d0a3f8")
+    @objid ("b311799c-cb92-48cc-9018-23cec9e2a674")
     @Override
     public void setWeight(String value) {
         setAttVal(((ActivityEdgeSmClass)getClassOf()).getWeightAtt(), value);
     }
 
-    @objid ("c5201c62-5269-47ea-a1d5-6c69339c685a")
+    @objid ("f0adb849-8881-40f6-9627-e93093a46853")
     @Override
     public ActivityNode getTarget() {
         Object obj = getDepVal(((ActivityEdgeSmClass)getClassOf()).getTargetDep());
         return (obj instanceof ActivityNode)? (ActivityNode)obj : null;
     }
 
-    @objid ("de7f1417-97f1-4dc0-b8fc-5b0d68aeb388")
+    @objid ("e65e9773-e502-497e-b992-71e64a437229")
     @Override
     public void setTarget(ActivityNode value) {
         appendDepVal(((ActivityEdgeSmClass)getClassOf()).getTargetDep(), (SmObjectImpl)value);
     }
 
-    @objid ("6de9334f-5aaa-4cae-a603-6f3e6fe5e0aa")
+    @objid ("02105075-4405-43bd-b88c-c22550a2c3b5")
     @Override
     public ActivityNode getSource() {
         Object obj = getDepVal(((ActivityEdgeSmClass)getClassOf()).getSourceDep());
         return (obj instanceof ActivityNode)? (ActivityNode)obj : null;
     }
 
-    @objid ("6a35d3b5-ba2c-43a5-8f2b-3902aa6d9723")
+    @objid ("cc1e9320-1a8d-4974-b2cc-d3b9ca0281d7")
     @Override
     public void setSource(ActivityNode value) {
         appendDepVal(((ActivityEdgeSmClass)getClassOf()).getSourceDep(), (SmObjectImpl)value);
     }
 
-    @objid ("934b87e5-0059-4f25-80b4-afbac218dd62")
+    @objid ("e1a126e3-9363-4800-a709-a1ddacc45032")
     @Override
     public InterruptibleActivityRegion getInterrupts() {
         Object obj = getDepVal(((ActivityEdgeSmClass)getClassOf()).getInterruptsDep());
         return (obj instanceof InterruptibleActivityRegion)? (InterruptibleActivityRegion)obj : null;
     }
 
-    @objid ("7d6e09c6-4c44-4afe-8cda-01e4bb9911ec")
+    @objid ("3b94864e-b7d1-4727-867a-b6a5b9b00b94")
     @Override
     public void setInterrupts(InterruptibleActivityRegion value) {
         appendDepVal(((ActivityEdgeSmClass)getClassOf()).getInterruptsDep(), (SmObjectImpl)value);
     }
 
-    @objid ("c7c97521-e4c8-402a-9820-1590d85678a1")
+    @objid ("9654926d-447e-4182-8651-798ba8088cad")
     @Override
     public EList<InformationFlow> getRealizedInformationFlow() {
         return new SmList<>(this, ((ActivityEdgeSmClass)getClassOf()).getRealizedInformationFlowDep());
     }
 
-    @objid ("0950e8f1-b4b6-4e9a-aa51-c34f455117e4")
+    @objid ("7bb4ae63-b156-4c5e-8b36-3e96a95ce3f2")
     @Override
     public <T extends InformationFlow> List<T> getRealizedInformationFlow(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -128,10 +127,10 @@ public abstract class ActivityEdgeImpl extends UmlModelElementImpl implements Ac
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("73438117-6a88-4b60-9291-62d21bb7ca3a")
+    @objid ("9af50646-3c18-4ba5-9d07-c9a1f01dcc3d")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -143,22 +142,22 @@ public abstract class ActivityEdgeImpl extends UmlModelElementImpl implements Ac
         return super.getCompositionOwner();
     }
 
-    @objid ("34ed2f32-caad-4c56-a067-12f752e04a13")
+    @objid ("b84e9e20-01da-4256-8e48-7aaef17f33d5")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // Source
         dep = ((ActivityEdgeSmClass)getClassOf()).getSourceDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("3eca0943-28bb-4b9b-ad79-279033b2feaa")
+    @objid ("963e0692-823e-46ef-bd27-82aa69e96507")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitActivityEdge(this);

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.bpmnprocess;
 
@@ -71,32 +71,33 @@ public class GmBpmnProcess extends GmPortContainer {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram in which the callBehavior is unmasked.
      * @param el the unmasked callBehavior.
      * @param ref a reference to the unmasked callBehavior.
      */
     @objid ("3425eb1f-55b7-11e2-877f-002564c97630")
-    public  GmBpmnProcess(final IGmDiagram diagram, final BpmnProcess el, final MRef ref) {
+    public GmBpmnProcess(final IGmDiagram diagram, final BpmnProcess el, final MRef ref) {
         super(diagram, ref);
         this.element = el;
-        
+
         GmBpmnProcessPrimaryNode mainNode = new GmBpmnProcessPrimaryNode(diagram, ref);
         mainNode.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
-        
+
         GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(diagram, ref);
         imageModeHeader.setRoleInComposition(GmBpmnProcess.IMAGE_LABEL_ROLE);
         imageModeHeader.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
-        
+
         super.addChild(mainNode);
         super.addChild(imageModeHeader);
-        
+
     }
 
     /**
      * Empty constructor needed for deserialisation.
      */
     @objid ("3425eb2e-55b7-11e2-877f-002564c97630")
-    public  GmBpmnProcess() {
+    public GmBpmnProcess() {
         // Nothing specific to do.
     }
 
@@ -185,30 +186,30 @@ public class GmBpmnProcess extends GmPortContainer {
             break;
         }
         }
-        
+
     }
 
     @objid ("342771c9-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmBpmnProcess.", GmBpmnProcess.MINOR_VERSION);
-        
+
     }
 
     @objid ("3428f85c-55b7-11e2-877f-002564c97630")
     private void read_0(final IDiagramReader in) {
         super.read(in);
         this.element = (BpmnProcess) resolveRef(getRepresentedRef());
-        
+
         GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(getDiagram(), getRepresentedRef());
         imageModeHeader.setRoleInComposition(GmBpmnProcess.IMAGE_LABEL_ROLE);
         imageModeHeader.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
-        
+
         super.addChild(imageModeHeader, 1);
-        
+
     }
 
     @objid ("3428f862-55b7-11e2-877f-002564c97630")
@@ -221,7 +222,7 @@ public class GmBpmnProcess extends GmPortContainer {
     private void read_1(final IDiagramReader in) {
         super.read(in);
         this.element = (BpmnProcess) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("3428f86d-55b7-11e2-877f-002564c97630")
@@ -242,7 +243,7 @@ public class GmBpmnProcess extends GmPortContainer {
             default: {
                 break;
             }
-        
+
             }
         }
         return ret;
@@ -250,6 +251,7 @@ public class GmBpmnProcess extends GmPortContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */
@@ -259,11 +261,12 @@ public class GmBpmnProcess extends GmPortContainer {
         String role = childNode.getRoleInComposition();
         return GmPortContainer.SATELLITE_ROLE.equals(role)
                         || GmBpmnProcess.IMAGE_LABEL_ROLE.equals(role);
-        
+
     }
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */

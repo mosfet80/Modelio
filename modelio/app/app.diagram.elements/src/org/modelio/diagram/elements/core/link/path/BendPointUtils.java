@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.path;
 
@@ -31,7 +31,7 @@ import org.modelio.diagram.elements.core.link.MPoint;
 
 /**
  * Utilities to convert draw2d connection bend point contraints to model constraint and reverse.
- * 
+ *
  * @author cma
  * @since 3.7
  */
@@ -41,12 +41,13 @@ public class BendPointUtils {
      * No instance
      */
     @objid ("915624b3-89ba-41a9-8ade-0a116f7d7e3c")
-    private  BendPointUtils() {
+    private BendPointUtils() {
         // no instance
     }
 
     /**
      * Make a deep copy of a complete routing constraint returns it.
+     *
      * @param fromConstraint the connection to rebuild a constraint for.
      * @return a copy of the constraint
      */
@@ -64,6 +65,7 @@ public class BendPointUtils {
      * <p>
      * Returns false for null, true for an empty list.
      * For all other cases test the first element.
+     *
      * @param routingConstraint an object usually used as connection routing constraint.
      * @return true if it looks like a MPoint list else false.
      */
@@ -71,14 +73,14 @@ public class BendPointUtils {
     public static boolean isMPointList(Object routingConstraint) {
         if (! (routingConstraint instanceof List))
             return false;
-        
+
         List<?> l = (List<?>) routingConstraint;
-        
+
         if (l.isEmpty()) {
             // le doute beneficie a l'accuse
             return true;
         }
-        
+
         Object o = l.get(0);
         return o instanceof MPoint;
     }
@@ -86,7 +88,7 @@ public class BendPointUtils {
     @objid ("4368d59c-afca-4472-b29e-013c552e3025")
     public static List<Point> draw2dPointsToModelConstraint(List<Point> draw2dPoints) {
         List<Point> points = new ArrayList<>(draw2dPoints.size());
-        
+
         for (Point p : draw2dPoints) {
             MPoint bp = new MPoint(p.x, p.y, p instanceof MPoint ? ((MPoint) p).isFixed() : true);
             points.add(bp);
@@ -95,13 +97,14 @@ public class BendPointUtils {
     }
 
     /**
+     *
      * @param draw2dConstraint a draw2d constraint
      * @return a list of Points containing {@link MPoint MPoints}
      */
     @objid ("df866947-e3d8-4fb5-bafe-7f83c18fcb1c")
     public static List<Point> draw2dConstraintToModelConstraint(List<Bendpoint> draw2dConstraint) {
         List<Point> points = new ArrayList<>(draw2dConstraint.size());
-        
+
         for (Bendpoint bendpoint : draw2dConstraint) {
             Point p = bendpoint.getLocation();
             MPoint bp = new MPoint(p.x, p.y, p instanceof MPoint ? ((MPoint) p).isFixed() : true);
@@ -111,6 +114,7 @@ public class BendPointUtils {
     }
 
     /**
+     *
      * @param modelConstraint a graphic model constraint
      * @return a list of Bendpoint containing {@link MPoint MPoints}
      */
@@ -126,6 +130,7 @@ public class BendPointUtils {
 
     /**
      * Get the connection points in a java standard list of points,.
+     *
      * @param connection a PolylineConnection figure.
      * @return a list of points in coordinates relative to the connection.
      */
@@ -142,6 +147,7 @@ public class BendPointUtils {
 
     /**
      * Get the position of the point at the given index from the anchors and routing constraint.
+     *
      * @param connection The connection to query.
      * @param constraint The routing constraint for convenience, avoid casts. It is expected to have the number of connection points - 2.
      * @param index the index of the point to modify in the points list.<br>
@@ -162,7 +168,7 @@ public class BendPointUtils {
                 ref = constraint.get(0).getCopy();
                 connection.translateToAbsolute(ref);
             }
-        
+
             Point ret = connection.getSourceAnchor().getLocation(ref).getCopy();
             connection.translateToRelative(ret);
             return ret;
@@ -175,21 +181,22 @@ public class BendPointUtils {
                 ref = constraint.get(constraint.size() - 1).getCopy();
                 connection.translateToAbsolute(ref);
             }
-        
+
             Point ret = connection.getTargetAnchor().getLocation(ref).getCopy();
             connection.translateToRelative(ret);
             return ret;
         } else {
             return constraint.get(index - 1);
         }
-        
+
     }
 
     /**
      * Get the position of the point at the given index from the anchors and routing constraint.
      * <p>
      * Fills output with the point location in relative coordinates. This method minimize the number of point allocations. {@link IMPoint#setFixed(boolean)} is called with true for manual bend points and anchors, false for automatic anchors.
-     * @param <P>           the type of the passed point
+     *
+     * @param <P> the type of the passed point
      * @param output the point that will receive the point location in relative coordinates.
      * @param connection The connection to query.
      * @param constraint The routing constraint for convenience, avoid casts. It is expected to have the number of connection points - 2.
@@ -213,11 +220,11 @@ public class BendPointUtils {
                 ref.setLocation(constraint.get(0));
                 connection.translateToAbsolute(ref);
             }
-        
+
             output.setLocation(connection.getSourceAnchor().getLocation(ref.asPoint()));
             output.setFixed(anchorIsfixed);
             connection.translateToRelative(output);
-        
+
             return output;
         } else if (index == constraint.size() + 1) {
             // Get target anchor.
@@ -229,22 +236,23 @@ public class BendPointUtils {
                 ref.setLocation(constraint.get(constraint.size() - 1));
                 connection.translateToAbsolute(ref);
             }
-        
+
             output.setLocation(connection.getTargetAnchor().getLocation(ref.asPoint()));
             output.setFixed(anchorIsfixed);
             connection.translateToRelative(output);
-        
+
             return output;
         } else {
             return output.setValues(constraint.get(index - 1));
         }
-        
+
     }
 
     /**
      * Build a MPoint list routing constraint from the Connection points.
      * <p>
      * The MPoints are all automatic.
+     *
      * @param connection a connection
      * @return a MPoint list routing constraint.
      */

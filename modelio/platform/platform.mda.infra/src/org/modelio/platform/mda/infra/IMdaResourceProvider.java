@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra;
 
@@ -32,8 +32,7 @@ import org.modelio.metamodel.uml.infrastructure.properties.PropertyDefinition;
 /**
  * Defines the contribution contract a MDA resource provider such as a module, a dynamic feature and so on.<br/>
  * The IMdaResourceProvider provides icons, images, translated labels and description for stereotypes and MDA extensions. The returned icons (or images) only represents the raw images (no additional decorations) and may be null.
- * 
- * 
+ *
  * @since 5.2
  */
 @objid ("6d682937-f781-433a-8e11-5acf8ead1fea")
@@ -58,6 +57,7 @@ public interface IMdaResourceProvider {
 
     /**
      * Get the icon provided by the module for a given stereotype. The life cycle of the returned image is handled by the module and the image should not be disposed.
+     *
      * @param stereotype a stereotype
      * @return the stereotype image, or <code>null</code> if the module provides none.
      */
@@ -66,6 +66,7 @@ public interface IMdaResourceProvider {
 
     /**
      * Get the image provided by the module for a given stereotype.The life cycle of the returned image is handled by the module and the image should not be disposed.
+     *
      * @param stereotype a stereotype
      * @return the stereotype image, or <code>null</code> if the module provides none.
      */
@@ -95,6 +96,7 @@ public interface IMdaResourceProvider {
 
     /**
      * Returns an Image for a module. The image life cycle is handled by the module.
+     *
      * @param moduleComponent the module to get the image from.
      * @return an Image for a module. Might be <code>null</code>.
      */
@@ -103,6 +105,7 @@ public interface IMdaResourceProvider {
 
     /**
      * Get the icon provided by the module for a given profile. The life cycle of the returned image is handled by the module and the image should not be disposed.
+     *
      * @param profile a profile
      * @return the profile image, or <code>null</code> if the module provides none.
      */
@@ -114,5 +117,5 @@ public interface IMdaResourceProvider {
 
     @objid ("61ce771f-fc16-4de6-bb83-396b4ebbea9c")
     Image getModuleIcon(ModuleComponent moduleComponent);
-}
 
+}

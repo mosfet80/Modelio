@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.conf.dialog.workmodel;
 
@@ -43,7 +43,7 @@ public class WorkModelPage implements IProjectConfPage {
     private ScrolledForm form;
 
     @objid ("cf7f56ad-1200-4379-8244-8bea63b3a916")
-    public  WorkModelPage() {
+    public WorkModelPage() {
         //
     }
 
@@ -54,7 +54,7 @@ public class WorkModelPage implements IProjectConfPage {
         this.form = toolkit.createScrolledForm(parent);
         this.form.getBody().setLayout(new GridLayout());
         GridDataFactory wrappedLayoutData = GridDataFactory.fillDefaults().grab(true, false).hint(50, SWT.DEFAULT);
-        
+
         // Local model Section
         this.localModelSection = new LocalModelSection(application.getContext());
         Section section = this.localModelSection.createControls(toolkit, this.form.getBody());
@@ -67,7 +67,7 @@ public class WorkModelPage implements IProjectConfPage {
     public void setInput(ProjectModel projectAdapter) {
         // update the different sections
         this.localModelSection.setInput(projectAdapter);
-        
+
     }
 
     @objid ("a1c8b842-af04-4d51-9c2c-374d8d834eb7")

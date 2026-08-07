@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.realization;
 
@@ -40,15 +40,15 @@ public class InterfaceRealizationEditPart extends LinkEditPart {
     @Override
     protected IFigure createFigure() {
         PolylineConnection connection = (PolylineConnection) super.createFigure();
-        
+
         // Arrow toward target
         DefaultPolygonDecoration arrow = new DefaultPolygonDecoration();
-        arrow.setTemplate(PolygonDecoration.TRIANGLE_TIP);        
+        arrow.setTemplate(PolygonDecoration.TRIANGLE_TIP);
         arrow.setScale(8, 5);
         arrow.setOpaque(true);
-        arrow.setFill(true);        
-        connection.setTargetDecoration(arrow);        
-        
+        arrow.setFill(true);
+        connection.setTargetDecoration(arrow);
+
         refreshFromStyle(connection, getModelStyle());
         return connection;
     }
@@ -57,11 +57,11 @@ public class InterfaceRealizationEditPart extends LinkEditPart {
     @Override
     protected void refreshFromStyle(IFigure aFigure, IStyle style) {
         final LinkFigure genFigure = (LinkFigure) aFigure;
-        
+
         super.refreshFromStyle(aFigure, style);
-        
+
         final GmModel gmModel = getModel();
-        
+
         if (genFigure.getTargetDecoration() != null && gmModel.getStyleKey(MetaKey.FILLCOLOR) != null)
             genFigure.getTargetDecoration()
                      .setBackgroundColor(style.getColor(gmModel.getStyleKey(MetaKey.FILLCOLOR)));
@@ -70,7 +70,7 @@ public class InterfaceRealizationEditPart extends LinkEditPart {
             if (arrow != null)
                 arrow.setLinePattern(LinePattern.LINE_SOLID);
         }
-        
+
     }
 
 }

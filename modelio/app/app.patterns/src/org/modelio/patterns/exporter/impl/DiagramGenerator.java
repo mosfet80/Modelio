@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.patterns.exporter.impl;
 
@@ -66,35 +66,35 @@ class DiagramGenerator {
                 }
             }
         });
-        
+
     }
 
     @objid ("db2638ec-4cf7-40ed-93cc-30e68e4cbdc1")
     private void generateIDiagramGraphic(FileWriterUtil filewriter, AbstractDiagram diagram) {
         try (IDiagramHandle rep = Modelio.getInstance().getDiagramService().getDiagramHandle(diagram)) {
-        
+
             generateMethodeOpener(filewriter, diagram);
-        
+
             IDiagramDG diagramNode = rep.getDiagramNode();
             filewriter.write("rep.getDiagramNode().setStyle(getIStyleHandleByName(\"" + diagramNode.getStyle().getName() + "\"));");
-        
+
             for (String property : diagramNode.getLocalPropertyNames()) {
                 String value = diagramNode.getProperty(property);
                 filewriter.write("rep.getDiagramNode().setProperty(\"" + property + "\",\"" + value + "\");");
             }
-        
+
             for (IDiagramNode graphic : diagramNode.getNodes()) {
                 generateGraphicNode(filewriter, graphic, diagram);
             }
             for (IDiagramLink graphic : diagramNode.getLinks()) {
                 generateGraphicLink(filewriter, graphic, diagram);
             }
-        
+
             geterateMethodeCloser(filewriter);
-        
+
             rep.close();
         }
-        
+
     }
 
     @objid ("fd579edc-3662-4241-b756-0fb27772d18c")
@@ -102,7 +102,7 @@ class DiagramGenerator {
         String nodeId = IdGenerator.getInstance().computeNextId();
         MObject element = graphic.getElement();
         if (element != null) {
-        
+
             elementCount++;
             if (elementCount > 100) {
                 this.methodIndex++;
@@ -110,15 +110,15 @@ class DiagramGenerator {
                 generateMethodeOpener(filewriter, diagram);
                 elementCount = 0;
             }
-        
+
             filewriter.write("try{");
             Rectangle bounds = graphic.getBounds();
             if (IdGenerator.getInstance().exists(element)) {
-        
+
                 String id = "this.elements.get(" + IdGenerator.getInstance().getId(element) + ")";
-        
+
                 filewriter.write("rep.unmask(" + id + ", " + bounds.x + "," + bounds.y + ");");
-        
+
                 filewriter.write("links = rep.getDiagramGraphics(" + id + ");");
                 filewriter.write("IDiagramNode " + nodeId + " = (IDiagramNode) links.get(0);");
                 filewriter.write("rec = new Rectangle(" + bounds.x + "," + bounds.y + ","
@@ -146,47 +146,47 @@ class DiagramGenerator {
                         + bounds.width + "," + bounds.height + ");");
                 filewriter.write(nodeId + ".setBounds(rec);");
             }
-        
+
             for (String property : graphic.getLocalPropertyNames()) {
                 String value = graphic.getProperty(property);
                 filewriter.write(nodeId + ".setProperty(\"" + property + "\",\"" + value + "\");");
             }
-        
+
             int index = 0;
             for (IDiagramNode child : graphic.getNodes(Role.SATELLITE)) {
                 Rectangle childBounds = child.getBounds();
                 filewriter.write(nodeId + ".getNodes().get(" + index++ + ").setBounds(new Rectangle(" + childBounds.x + "," + childBounds.y + "," + childBounds.width + "," + childBounds.height + "));");
             }
-        
+
             filewriter.write("}catch (Exception e) {   Patterns.LOG.debug(e); }");
             filewriter.write("");
-        
+
             // SubProcess diagrams are exported on their own, no need to duplicate the generated code
             if (!(diagram instanceof BpmnProcessDesignDiagram) || !(element instanceof BpmnSubProcess)) {
                 for (IDiagramNode child : graphic.getNodes(Role.INNER)) {
                     generateGraphicNode(filewriter, child, diagram);
                 }
             }
-        
+
             for (IDiagramNode child : graphic.getNodes(Role.PORT)) {
                 generateGraphicNode(filewriter, child, diagram);
             }
-        
+
             for (IDiagramLink child : graphic.getFromLinks()) {
                 generateGraphicLink(filewriter, child, diagram);
             }
-        
+
             for (IDiagramLink child : graphic.getToLinks()) {
                 generateGraphicLink(filewriter, child, diagram);
             }
         }
-        
+
     }
 
     @objid ("fd999cd2-08b1-43ba-956f-aa4ab1cf0ae2")
     private void generateGraphicLink(FileWriterUtil filewriter, IDiagramLink graphic, AbstractDiagram diagram) {
         if (IdGenerator.getInstance().exists(graphic.getElement())) {
-        
+
             elementCount++;
             if (elementCount > 100) {
                 this.methodIndex++;
@@ -194,16 +194,16 @@ class DiagramGenerator {
                 generateMethodeOpener(filewriter, diagram);
                 elementCount = 0;
             }
-        
+
             filewriter.write("try{");
             String id = "this.elements.get(" + IdGenerator.getInstance().getId(graphic.getElement()) + ")";
             String nodeId = IdGenerator.getInstance().computeNextId();
-        
+
             filewriter.write("links = rep.unmask(" + id + ", 0, 0);");
             filewriter.write("links = rep.getDiagramGraphics(" + id + ");");
             filewriter.write("if(links.size() >0 && links.get(0) instanceof IDiagramLink){");
             filewriter.write("IDiagramLink " + nodeId + " = (IDiagramLink)links.get(0);");
-        
+
             for (String property : graphic.getLocalPropertyNames()) {
                 String value = graphic.getProperty(property);
                 filewriter.write(nodeId + ".setProperty(\"" + property + "\",\"" + value + "\");");
@@ -213,13 +213,13 @@ class DiagramGenerator {
                     // Ignore error
                 }
             }
-        
+
             filewriter.write("points = new ArrayList<>();");
-        
+
             try {
                 ILinkPath path = graphic.getPath();
                 if (path != null) {
-        
+
                     for (Point point : path.getPoints()) {
                         filewriter.write("point = new Point(" + point.x + "," + point.y + ");");
                         filewriter.write("points.add(point);");
@@ -230,7 +230,7 @@ class DiagramGenerator {
                     filewriter.write("calculate(" + nodeId + ");");
                     filewriter.write("}");
                 }
-        
+
             } catch (Exception e) {
                 Patterns.LOG.debug(e);
             }
@@ -238,7 +238,7 @@ class DiagramGenerator {
             filewriter.write("}catch (Exception e) {   Patterns.LOG.debug(e); }");
             filewriter.write("");
         }
-        
+
     }
 
     @objid ("0a695566-2a4a-41b9-b6df-2ebc1c453df7")
@@ -251,14 +251,14 @@ class DiagramGenerator {
         filewriter.write("rep.save();");
         filewriter.write("rep.close();");
         filewriter.write("}");
-        
+
     }
 
     @objid ("fa811760-6136-4998-902a-62b7ae0b9e90")
     private void generateMethodeOpener(FileWriterUtil filewriter, AbstractDiagram diagram) {
         filewriter.write("private void createDiagram" + this.methodIndex + "()throws Exception {");
         filewriter.write("rep = Modelio.getInstance().getDiagramService().getDiagramHandle(" + "(AbstractDiagram) this.elements.get(" + IdGenerator.getInstance().getId(diagram) + "));");
-        
+
     }
 
 }

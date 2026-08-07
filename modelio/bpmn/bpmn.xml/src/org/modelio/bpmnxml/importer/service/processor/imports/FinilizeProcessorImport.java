@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.importer.service.processor.imports;
 
@@ -44,19 +44,19 @@ public class FinilizeProcessorImport implements IBPMNImportProcessor {
     private ICoreSession session;
 
     @objid ("4555f969-4d06-4d46-84dd-ff81641c276a")
-    public  FinilizeProcessorImport(ICoreSession session, IDiagramService diagramService, Map<String, Object> elementsMap) {
+    public FinilizeProcessorImport(ICoreSession session, IDiagramService diagramService, Map<String, Object> elementsMap) {
         this.diagramService = diagramService;
         this.elementsMap = elementsMap;
         this.session = session;
         this.factory = new ProductionFactory();
-        
+
     }
 
     @objid ("0af18cd6-b6ba-4e18-904d-f3d3c2b32556")
     @Override
     public MObject process(MObject context, Object jaxbElement) {
         IFinaliseNode node = this.factory.getImportFinalizationNode(jaxbElement);
-        
+
         if(node != null){
             node.setElements(this.elementsMap);
             Object modelioElement = this.elementsMap.get(IDUtils.getJaxbId(context, jaxbElement));

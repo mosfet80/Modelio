@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Archimate Extensions
+Bundle-SymbolicName: org.modelio.archimate.metamodel.contribution;singleton:=true
+Bundle-Localization: plugin
+Bundle-Version: 6.2.0.qualifier 
+Bundle-Vendor: modelio.org
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Bundle-ClassPath: .,
+ res/
+Bundle-ActivationPolicy: lazy
+Import-Package: jakarta.annotation;version="1.1.0",
+ jakarta.inject;version="1.0.0"
+Require-Bundle: org.modelio.archimate.metamodel.api,
+ org.modelio.archimate.metamodel.implementation,
+ org.modelio.platform.core,
+ org.modelio.platform.script.engine

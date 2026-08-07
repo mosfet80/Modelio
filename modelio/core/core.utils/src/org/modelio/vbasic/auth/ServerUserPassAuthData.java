@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vbasic.auth;
 
@@ -23,7 +23,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * The ServerUserPasswordAuthData is basically a UserPasswordAuthData with an additional property: the server this authentication data applies to.
- * 
+ *
  * Note that the server part may be null and that server is not required for a isComplete() authentication data.
  */
 @objid ("947c5dbc-8b3b-437a-97f6-399670bb73be")
@@ -37,27 +37,29 @@ public class ServerUserPassAuthData extends UserPasswordAuthData {
 
     /**
      * C'tor
+     *
      * @param server the server part of this authentication data
      * @param user the user part of this authentication data
      * @param pass the password part of this authentication data
      */
     @objid ("41e57eeb-4c6d-4b96-9e65-86587255481a")
-    public  ServerUserPassAuthData(String server, String user, String pass) {
+    public ServerUserPassAuthData(String server, String user, String pass) {
         super(user, pass, false);
         if (server != null)
             getData().put(ServerUserPassAuthData.TARGETSERVER, server);
-        
+
     }
 
     /**
      * C'tor default equivalent to ServerUserPasswordAuthData(null, "", "")
      */
     @objid ("a2d6eecc-130a-44fb-ab69-e417e5c79cdf")
-    public  ServerUserPassAuthData() {
+    public ServerUserPassAuthData() {
         super("", "", false);
     }
 
     /**
+     *
      * @return the "server" part of this authentication data. Can be null.
      */
     @objid ("d3b19cdf-ea29-4934-802b-a408fffe935a")
@@ -73,6 +75,7 @@ public class ServerUserPassAuthData extends UserPasswordAuthData {
 
     /**
      * Set the server part of this authentication data.
+     *
      * @param server the server. Can be null.
      */
     @objid ("98c71e4a-9390-4387-ae17-1c261be63d40")
@@ -82,7 +85,7 @@ public class ServerUserPassAuthData extends UserPasswordAuthData {
         } else {
             getData().put(ServerUserPassAuthData.TARGETSERVER, server);
         }
-        
+
     }
 
     @objid ("a995e366-ba87-496d-89b7-af823a6f17c8")

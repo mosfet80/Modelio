@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.modelio.mc;
 
@@ -37,6 +37,7 @@ import org.modelio.metamodel.uml.statik.Artifact;
 public interface IModelComponentService {
     /**
      * Delete a deployed model component from the model.
+     *
      * @param modelComponent The model component to remove.
      */
     @objid ("81ca27e1-6c30-11e0-b589-002564c97630")
@@ -44,6 +45,7 @@ public interface IModelComponentService {
 
     /**
      * Get the list of all model components already deployed in the model.
+     *
      * @return a list of {@link IModelComponentDescriptor}. Must not be <code>null</code>.
      */
     @objid ("df41e1ac-7ade-11e0-ac17-001ec947cd2a")
@@ -51,6 +53,7 @@ public interface IModelComponentService {
 
     /**
      * Deploy a model component in the model from the given file.
+     *
      * @param archive the file containing the model component to deploy (usually ending with ".ramc").
      * @param monitor a monitor for deployment infos. Might be <code>null</code>.
      */
@@ -61,6 +64,7 @@ public interface IModelComponentService {
      * Package a model component from the model into a file.<br>
      * Modules might contribute to a model component, adding model extensions (notes, tagged values, stereotypes) and/or files to
      * it.<br>
+     *
      * @param mc the model component to package.
      * @param peerModules a list of public interfaces from modules, indicating which module should add content into this model component.
      * @param targetFile the file to contain the model component (usually ending with ".ramc").
@@ -71,6 +75,7 @@ public interface IModelComponentService {
 
     /**
      * Get model component contributions for given model component corresponding to the peer modules.
+     *
      * @param mc the model component to package.
      * @param peerModules a list of public interfaces from modules, indicating which module should add content into this model component.
      * @return a list of {@link IModelComponentContributor}.
@@ -78,5 +83,5 @@ public interface IModelComponentService {
      */
     @objid ("457863fa-f5c7-422f-9178-7d62c1292345")
     List<IModelComponentContributor> getContributors(final Artifact mc, final Set<IPeerModule> peerModules);
-}
 
+}

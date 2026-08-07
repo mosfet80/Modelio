@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.lifeline;
 
@@ -43,6 +43,7 @@ import org.modelio.uml.sequencediagram.editor.elements.sequencediagram.Placement
 public class LifelineEditPart extends AbstractSequenceNodeEditPart implements IPlacementConstraintProvider {
     /**
      * Creates and returns a PlacementConstraint for the given model.
+     *
      * @param model the graphic model for which a constraint is to be created.
      * @param x the desired X coordinate in coordinates relative to the parent figure.
      * @param y the desired Y coordinate in coordinates relative to the parent figure.
@@ -59,7 +60,6 @@ public class LifelineEditPart extends AbstractSequenceNodeEditPart implements IP
                                 width,
                                 height,
                                 (GmSequenceDiagram) model.getDiagram());
-        
     }
 
     @objid ("d94b408d-55b6-11e2-877f-002564c97630")
@@ -77,17 +77,16 @@ public class LifelineEditPart extends AbstractSequenceNodeEditPart implements IP
             childModel.setLayoutData(BorderLayout.CENTER);
         }
         getContentPane().add(child, childModel.getLayoutData(), index);
-        
     }
 
     @objid ("d94b4092-55b6-11e2-877f-002564c97630")
     @Override
     protected IFigure createFigure() {
         LifelineFigure lifelineFigure = new LifelineFigure();
-        
+
         // Set style independent properties
         lifelineFigure.setLayoutManager(new BorderLayout());
-        
+
         // Set style dependent properties
         IStyle style = ((GmAbstractObject) getModel()).getDisplayedStyle();
         refreshFromStyle(lifelineFigure, style);
@@ -99,7 +98,6 @@ public class LifelineEditPart extends AbstractSequenceNodeEditPart implements IP
     protected void refreshVisuals() {
         GmLifeline lifelineModel = (GmLifeline) getModel();
         getFigure().getParent().setConstraint(getFigure(), lifelineModel.getLayoutData());
-        
     }
 
     /**
@@ -111,16 +109,14 @@ public class LifelineEditPart extends AbstractSequenceNodeEditPart implements IP
         IFigure childFigure = ((GraphicalEditPart) child).getFigure();
         super.reorderChild(child, index);
         setLayoutConstraint(child, childFigure, ((GmAbstractObject) child.getModel()).getLayoutData());
-        
     }
 
     @objid ("3f75c074-6fc1-41a5-9692-f14509f56479")
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new AutoExpandLayoutEditPolicy());
-        
     }
 
 }

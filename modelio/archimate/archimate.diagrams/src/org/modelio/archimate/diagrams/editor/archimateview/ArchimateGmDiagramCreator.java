@@ -1,0 +1,42 @@
+/*
+ * Copyright 2013-2025 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+package org.modelio.archimate.diagrams.editor.archimateview;
+
+import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.archimate.diagrams.elements.archimatediagram.GmArchimateDiagram;
+import org.modelio.archimate.metamodel.core.ArchimateView;
+import org.modelio.diagram.editor.IDiagramEditorInputProvider.GmDiagramCreator;
+import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
+import org.modelio.diagram.elements.core.model.IGmDiagram.IModelManager;
+import org.modelio.metamodel.diagrams.AbstractDiagram;
+import org.modelio.vcore.smkernel.mapi.MRef;
+
+@objid ("53f3c7a7-68fe-4065-b3d7-2dd1b7da813f")
+public final class ArchimateGmDiagramCreator implements GmDiagramCreator {
+    @objid ("6c296083-6956-4b14-9d66-79f501ea1c9e")
+    @Override
+    public GmAbstractDiagram createDiagram(IModelManager modelManager, AbstractDiagram diagram) {
+        if (diagram instanceof ArchimateView) {
+            return new GmArchimateDiagram(modelManager, (ArchimateView) diagram, new MRef(diagram));
+        }
+        return null;
+    }
+
+}

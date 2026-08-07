@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.factories;
 
@@ -55,8 +55,8 @@ public class BpmnGmLinkFactory implements IGmLinkFactory {
      * Creates the link factory for a diagram.
      */
     @objid ("620b9a40-55b6-11e2-877f-002564c97630")
-    public  BpmnGmLinkFactory() {
-        
+    public BpmnGmLinkFactory() {
+
     }
 
     @objid ("620b9a43-55b6-11e2-877f-002564c97630")
@@ -67,7 +67,7 @@ public class BpmnGmLinkFactory implements IGmLinkFactory {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("aec2b316-5acd-4591-8288-30e0e633bc5e")
@@ -75,7 +75,7 @@ public class BpmnGmLinkFactory implements IGmLinkFactory {
     public Class<? extends IPersistent> resolveClass(String namespace) {
         try {
             String fixedNamespace = migrateNamespacing(namespace);
-        
+
             if (fixedNamespace.startsWith("org.modelio.bpmn.diagram.editor")) {
                 Class<?> clazz = Class.forName(fixedNamespace);
                 if (clazz != null) {
@@ -93,7 +93,7 @@ public class BpmnGmLinkFactory implements IGmLinkFactory {
     public Class<? extends IPersistentMigrator> resolveMigratorClass(String classNamespace) {
         try {
             String fixedNamespace = migrateNamespacing(classNamespace);
-        
+
             Class<?> clazz = Class.forName(fixedNamespace);
             if (clazz != null) {
                 return clazz.asSubclass(IPersistentMigrator.class);
@@ -109,7 +109,7 @@ public class BpmnGmLinkFactory implements IGmLinkFactory {
     public Class<? extends Enum<?>> resolveEnumClass(String enumNamespace) {
         try {
             String fixedNamespace = migrateNamespacing(enumNamespace);
-        
+
             Class<?> clazz = Class.forName(fixedNamespace);
             if (clazz != null && clazz.isEnum()) {
                 return (Class<? extends Enum<?>>) clazz;
@@ -121,6 +121,7 @@ public class BpmnGmLinkFactory implements IGmLinkFactory {
     }
 
     /**
+     *
      * @return <code>true</code> if the element belongs to the current workflow.
      */
     @objid ("e7e508eb-e3d0-4a31-9cad-c870370ac835")
@@ -134,7 +135,7 @@ public class BpmnGmLinkFactory implements IGmLinkFactory {
         } else {
             return isInWorkflow(diagram, elt.getCompositionOwner());
         }
-        
+
     }
 
     @objid ("2f56e6b6-f40b-43a5-af7b-978cf125b459")
@@ -155,7 +156,7 @@ public class BpmnGmLinkFactory implements IGmLinkFactory {
         private IGmDiagram diagram;
 
         @objid ("620d20e1-55b6-11e2-877f-002564c97630")
-        public  ImplVisitor(IGmDiagram diagram) {
+        public ImplVisitor(IGmDiagram diagram) {
             this.diagram = diagram;
         }
 
@@ -176,7 +177,7 @@ public class BpmnGmLinkFactory implements IGmLinkFactory {
             if (!(topDiagram instanceof GmBpmnProcessCollaborationDiagram)) {
                 return null;
             }
-            
+
             final GmBpmnMessageFlow gm_object = new GmBpmnMessageFlow(topDiagram,
                     element,
                     new MRef(element));

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.edition.dialogs.dialog.panels.operation.params;
 
@@ -44,19 +44,19 @@ public class ParameterPropertyModel {
 
     /**
      * Default c'tor.
-     * @param model
-     * the parameter's owner operation model.
+     *
+     * @param model the parameter's owner operation model.
      */
     @objid ("d6c3565f-cba8-439b-8264-bff284934f3a")
-    public  ParameterPropertyModel() {
-        
+    public ParameterPropertyModel() {
+
     }
 
     @objid ("b3fed7df-5f5d-44c0-9097-80addf7086fe")
     private String getParameterCardinality(Parameter p) {
         final String multiplicityMin = p.getMultiplicityMin();
         final String multiplicityMax = p.getMultiplicityMax();
-        
+
         if (multiplicityMin.equals(multiplicityMax)) {
             return multiplicityMax;
         } else if (multiplicityMax.equals("*")) {
@@ -64,14 +64,14 @@ public class ParameterPropertyModel {
         } else {
             return multiplicityMin + ".." + multiplicityMax;
         }
-        
+
     }
 
     @objid ("bcc18b92-ce7c-47db-b7cd-939015f98efa")
-    public  ParameterPropertyModel(Parameter parameter, boolean isReturn) {
+    public ParameterPropertyModel(Parameter parameter, boolean isReturn) {
         this.parameter = parameter;
         this.isReturn = isReturn;
-        
+
     }
 
     @objid ("3813c3a8-f26d-45d8-95c8-8e24e6e06bea")
@@ -121,7 +121,7 @@ public class ParameterPropertyModel {
                 // Ignore error
             }
         }
-        
+
     }
 
     @objid ("fb2693a8-ffa2-4ed8-89c5-45dd50286ed2")
@@ -135,7 +135,7 @@ public class ParameterPropertyModel {
                 // Ignore error
             }
         }
-        
+
     }
 
     @objid ("d10684fc-ad39-4837-9f35-a2768fb424b7")
@@ -149,7 +149,7 @@ public class ParameterPropertyModel {
                 // Ignore error
             }
         }
-        
+
     }
 
     @objid ("c043d70f-3db9-4988-b217-658494ae36b0")
@@ -171,7 +171,7 @@ public class ParameterPropertyModel {
         } catch (final Exception e) {
             // Ignore error
         }
-        
+
     }
 
     @objid ("389cb65b-3eb6-4b08-a9b5-293ae2848ed4")
@@ -185,7 +185,7 @@ public class ParameterPropertyModel {
                 // Ignore error
             }
         }
-        
+
     }
 
     @objid ("2367eab8-acda-4a18-85f2-7489e1626093")

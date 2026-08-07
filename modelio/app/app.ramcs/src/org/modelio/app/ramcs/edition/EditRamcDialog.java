@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.ramcs.edition;
 
@@ -52,6 +52,7 @@ import org.modelio.app.ramcs.plugin.AppRamcs;
 import org.modelio.gproject.ramc.core.model.ModelComponent;
 import org.modelio.gproject.ramc.core.packaging.IModelComponentContributor.ExportedFileEntry;
 import org.modelio.metamodel.uml.infrastructure.Element;
+import org.modelio.platform.model.ui.swt.SelectionHelper;
 import org.modelio.platform.ui.UIColor;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.model.IModel;
@@ -72,11 +73,12 @@ public class EditRamcDialog extends ViewRamcDialog {
 
     /**
      * C'tor.
+     *
      * @param parentShell the parent shell, or <code>null</code> to create a top-level shell.
      * @param dataModel the data model of the ramc to be edited.
      */
     @objid ("0e4f1cd0-1389-4be0-8b2a-b9401232fcd9")
-    public  EditRamcDialog(Shell parentShell, RamcModel dataModel) {
+    public EditRamcDialog(Shell parentShell, RamcModel dataModel) {
         super(parentShell, dataModel);
     }
 
@@ -93,7 +95,7 @@ public class EditRamcDialog extends ViewRamcDialog {
             setReturnCode(IDialogConstants.FINISH_ID);
             this.close();
         });
-        
+
         // the 'apply changes' button (bound to PROCEED_ID)
         if (this.dataModel.isEditable()) {
             Button apply = createButton(parent, IDialogConstants.PROCEED_ID, AppRamcs.I18N.getString("EditRamcDialog.Modify"), true);
@@ -102,10 +104,9 @@ public class EditRamcDialog extends ViewRamcDialog {
                 setReturnCode(IDialogConstants.PROCEED_ID);
             });
         }
-        
+
         // The super method will add the cancel button
         super.addButtonsInButtonBar(parent);
-        
     }
 
     @objid ("c168bbd7-fcf8-4eaf-8158-8ceb445f0cb3")
@@ -120,32 +121,31 @@ public class EditRamcDialog extends ViewRamcDialog {
     private void reconfigureforEdition() {
         if (this.dataModel.isEditable()) {
             this.controller = new Controller(this, this.dataModel);
-        
+
             // Name text field
             reconfigureNameTextField();
-        
+
             // Ramc version field
             reconfigureVersionTextField();
-        
+
             // Description
             reconfigureDescriptionTextField();
-            
+
             // Provider
             reconfigureProviderTextField();
-            
+
             // Manifestation list field
             reconfigureManifestationsList();
-        
+
             // Dependencies list field
             reconfigureDependenciesList();
-        
+
             // Exported files field
             reconfigureFilesList();
-        
+
             // Reconfigure contributors list
             reconfigureContributorsList();
         }
-        
     }
 
     @objid ("7fcb2865-d1d0-4b20-8f9a-49800d770442")
@@ -159,7 +159,6 @@ public class EditRamcDialog extends ViewRamcDialog {
                 EditRamcDialog.this.controller.onModifyDescription(EditRamcDialog.this.ramcDescriptionText.getHtml());
             }
         });
-        
     }
 
     @objid ("1b086034-24c8-4baa-9aae-27c5a9db88f8")
@@ -173,7 +172,6 @@ public class EditRamcDialog extends ViewRamcDialog {
                 EditRamcDialog.this.controller.onModifyVersion(EditRamcDialog.this.ramcVersionText.getText());
             }
         });
-        
     }
 
     @objid ("f22264bd-2fe3-4887-946d-8368efccbc1b")
@@ -187,7 +185,6 @@ public class EditRamcDialog extends ViewRamcDialog {
                 EditRamcDialog.this.controller.onModifyName(EditRamcDialog.this.ramcNameText.getText());
             }
         });
-        
     }
 
     @objid ("5004bbb8-2947-4aab-a1ff-cd76077abb25")
@@ -196,18 +193,18 @@ public class EditRamcDialog extends ViewRamcDialog {
         this.manifestationsTable.getTable().setBackground(UIColor.TEXT_WRITABLE_BG);
         // Drop listener
         ICoreSession session = CoreSession.getSession(this.dataModel.getArtifact());
-        
+
         ManifestationsDropListener dropListener = new ManifestationsDropListener(this.manifestationsTable, this.controller,
                 session.getModel());
         this.manifestationsTable.addDropSupport(DND.DROP_MOVE, new Transfer[] { ModelElementTransfer.getInstance() }, dropListener);
-        
+
         // Del key to remove a manifestation
         this.manifestationsTable.getTable().addKeyListener(new KeyListener() {
             @Override
             public void keyPressed(KeyEvent e) {
                 //
             }
-        
+
             @Override
             public void keyReleased(KeyEvent e) {
                 if (e.keyCode == SWT.DEL) {
@@ -220,28 +217,27 @@ public class EditRamcDialog extends ViewRamcDialog {
                 EditRamcDialog.this.refresh();
             }
         });
-        
     }
 
     @objid ("34a5e65c-4537-4567-98f0-930b744b842d")
     private void reconfigureDependenciesList() {
         this.dependenciesTable.getTable().setForeground(UIColor.EDITOR_RWTEXT_FG);
         this.dependenciesTable.getTable().setBackground(UIColor.TEXT_WRITABLE_BG);
-        
+
         // Drop listener
         ICoreSession session = CoreSession.getSession(this.dataModel.getArtifact());
         DependenciesDropListener depDropListener = new DependenciesDropListener(this.dependenciesTable, this.controller,
                 session.getModel());
         this.dependenciesTable
                 .addDropSupport(DND.DROP_MOVE, new Transfer[] { ModelElementTransfer.getInstance() }, depDropListener);
-        
+
         // Del key to remove a dependency
         this.dependenciesTable.getTable().addKeyListener(new KeyListener() {
             @Override
             public void keyPressed(KeyEvent e) {
                 //
             }
-        
+
             @Override
             public void keyReleased(KeyEvent e) {
                 if (e.keyCode == SWT.DEL) {
@@ -254,18 +250,17 @@ public class EditRamcDialog extends ViewRamcDialog {
                 EditRamcDialog.this.refresh();
             }
         });
-        
     }
 
     @objid ("71126fd9-4965-45db-acf8-9e5267b6bc54")
     private void reconfigureFilesList() {
         this.ramcFilesList.getTable().setForeground(UIColor.EDITOR_RWTEXT_FG);
         this.ramcFilesList.getTable().setBackground(UIColor.TEXT_WRITABLE_BG);
-        
+
         final FileDialog filesChooser = new FileDialog(getShell(), SWT.OPEN | SWT.MULTI);
         final Path projectPath = this.dataModel.getProjectPath();
         filesChooser.setFilterPath(projectPath.toString());
-        
+
         this.addFilesButton.setEnabled(true);
         this.addFilesButton.addListener(SWT.Selection, e -> {
             filesChooser.open();
@@ -285,10 +280,10 @@ public class EditRamcDialog extends ViewRamcDialog {
                 }
                 this.dataModel.addExportedFile(new ExportedFileEntry(fileRelativeToProj, exportPath));
             }
-        
+
             refresh();
         });
-        
+
         this.removeFilesButton.setEnabled(true);
         this.removeFilesButton.addListener(SWT.Selection, e -> {
             Table table = this.ramcFilesList.getTable();
@@ -299,7 +294,7 @@ public class EditRamcDialog extends ViewRamcDialog {
             }
             refresh();
         });
-        
+
         this.relativizeFilesButton.setEnabled(true);
         this.relativizeFilesButton.addListener(SWT.Selection, e -> {
             Table table = this.ramcFilesList.getTable();
@@ -313,7 +308,7 @@ public class EditRamcDialog extends ViewRamcDialog {
             }
             refresh();
         });
-        
+
         this.resolveFilesButton.setEnabled(true);
         this.resolveFilesButton.addListener(SWT.Selection, e -> {
             Table table = this.ramcFilesList.getTable();
@@ -327,35 +322,32 @@ public class EditRamcDialog extends ViewRamcDialog {
             }
             refresh();
         });
-        
     }
 
     @objid ("a1fcf8fd-40d7-4b4c-b109-253f2924ec1d")
     private void reconfigureContributorsList() {
         this.contributorsTable.getTable().setForeground(UIColor.EDITOR_RWTEXT_FG);
         this.contributorsTable.getTable().setBackground(UIColor.TEXT_WRITABLE_BG);
-        
+
         this.contributorsTable.getTable().setEnabled(true);
         this.contributorsTable.addCheckStateListener(event -> {
             this.controller.onContributorChange(this.contributorsTable.getCheckedElements());
             this.contributorsTable.refresh(true);
         });
-        
     }
 
     @objid ("6e711dca-8e33-4809-baaa-a7b526e599e8")
     @Override
     public void init() {
         super.init();
-        
+
         // Put the messages in the banner area
         getShell().setText(AppRamcs.I18N.getString("EditRamcDialog.EditRamcDialogTitle"));
         setTitle(AppRamcs.I18N.getString("EditRamcDialog.EditRamcDialogTitle"));
         this.setMessage(AppRamcs.I18N.getString("EditRamcDialog.EditRamcMessage"));
-        
+
         this.ramcDescriptionText.setEditable(true);
         this.ramcDescriptionText.setEnabled(true);
-        
     }
 
     @objid ("e81c7f87-9184-4923-92c2-8cdf8d4749fa")
@@ -371,7 +363,6 @@ public class EditRamcDialog extends ViewRamcDialog {
         this.ramcProviderText.setBackground(UIColor.TEXT_WRITABLE_BG);
         this.ramcProviderText.addModifyListener(
                 e -> this.controller.onModifyProvider(this.ramcProviderText.getText()));
-        
     }
 
     @objid ("b81c0413-566c-44e8-b446-04c47d3aa097")
@@ -384,16 +375,16 @@ public class EditRamcDialog extends ViewRamcDialog {
 
         /**
          * C'tor.
+         *
          * @param viewer - the viewer this drop listener is attached to
          * @param controler - the edition controller.
          * @param model - access to the model in order to be able to find model element from their MRef
          */
         @objid ("39f417f7-0c9e-49ad-bca6-762fc8731436")
-        public  ManifestationsDropListener(Viewer viewer, Controller controler, IModel model) {
+        public ManifestationsDropListener(Viewer viewer, Controller controler, IModel model) {
             super(viewer);
             this.controler = controler;
             this.model = model;
-            
         }
 
         /**
@@ -401,6 +392,7 @@ public class EditRamcDialog extends ViewRamcDialog {
          * <p>
          * Metamodel rules are checked, as well as manipulation rights for both the target and dropped elements.
          * </p>
+         *
          * @param target the targeted element, must be a MObject.
          * @param operation the d&d operation, must be {@link DND#DROP_COPY} or {@link DND#DROP_MOVE}.
          * @param transferType the contents of data being dropped.
@@ -410,7 +402,7 @@ public class EditRamcDialog extends ViewRamcDialog {
         @Override
         public boolean validateDrop(Object target, int operation, TransferData transferType) {
             List<Element> dropedElements = null;
-            
+
             // Convert the transfer data to MRefs.
             ModelElementTransfer elementTransfer = ModelElementTransfer.getInstance();
             MRef[] refs = (MRef[]) elementTransfer.nativeToJava(transferType);
@@ -425,7 +417,7 @@ public class EditRamcDialog extends ViewRamcDialog {
                 // getting the selection from LocalSelectionTransfer.
                 dropedElements = getLocalDraggedElements();
             }
-            
+
             // Check the elements
             return checkDragged(dropedElements);
         }
@@ -450,20 +442,21 @@ public class EditRamcDialog extends ViewRamcDialog {
                     getViewer().refresh();
                     return true;
                 }
-            
+
             }
             return false;
         }
 
         /**
          * Check the given elements can be dragged.
+         *
          * @param elements The dragged elements
          * @return true if the given elements can be dragged.
          */
         @objid ("62867094-c70b-40e8-9888-a9d47cebcfa5")
         private boolean checkDragged(List<Element> elements) {
             for (Element element : elements) {
-                if (!element.isValid() || element.getStatus().isRamc() || !canBeExported(element)) {
+                if (!element.isValid() || element.getStatusLazy().isRamc() || !canBeExported(element)) {
                     return false;
                 }
             }
@@ -477,24 +470,8 @@ public class EditRamcDialog extends ViewRamcDialog {
 
         @objid ("e2bf87d6-8c4c-4117-b2c1-b5b003288631")
         private List<Element> getLocalDraggedElements() {
-            List<Element> selectedElements = new ArrayList<>();
             ISelection selection = LocalSelectionTransfer.getTransfer().getSelection();
-            if (selection instanceof IStructuredSelection) {
-                IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-                for (Iterator<?> i = structuredSelection.iterator(); i.hasNext();) {
-                    Object o = i.next();
-                    if (o instanceof IAdaptable) {
-                        IAdaptable adapter = (IAdaptable) o;
-                        Element element = adapter.getAdapter(Element.class);
-                        if (element != null) {
-                            selectedElements.add(element);
-                        }
-                    } else if (o instanceof Element) {
-                        selectedElements.add((Element) o);
-                    }
-                }
-            }
-            return selectedElements;
+            return SelectionHelper.toList(selection, Element.class);
         }
 
     }
@@ -510,16 +487,16 @@ public class EditRamcDialog extends ViewRamcDialog {
 
         /**
          * C'tor.
+         *
          * @param viewer the viewer this drop listener is attached to
          * @param controller the edition controller.
          * @param model access to the model in order to be able to find model element from their MRef.
          */
         @objid ("4352c32e-f82d-4590-b3ab-d60d9a5ada26")
-        public  DependenciesDropListener(Viewer viewer, Controller controller, IModel model) {
+        public DependenciesDropListener(Viewer viewer, Controller controller, IModel model) {
             super(viewer);
             this.controller = controller;
             this.model = model;
-            
         }
 
         /**
@@ -527,6 +504,7 @@ public class EditRamcDialog extends ViewRamcDialog {
          * <p>
          * Metamodel rules are checked, as well as manipulation rights for both the target and dropped elements.
          * </p>
+         *
          * @param target the targeted element, must be a MObject.
          * @param operation the d&d operation, must be {@link DND#DROP_COPY} or {@link DND#DROP_MOVE}.
          * @param transferType the contents of data being dropped.
@@ -536,7 +514,7 @@ public class EditRamcDialog extends ViewRamcDialog {
         @Override
         public boolean validateDrop(Object target, int operation, TransferData transferType) {
             List<Element> droppedElements = null;
-            
+
             // Convert the transfer data to MRefs.
             ModelElementTransfer elementTransfer = ModelElementTransfer.getInstance();
             MRef[] refs = (MRef[]) elementTransfer.nativeToJava(transferType);
@@ -551,7 +529,7 @@ public class EditRamcDialog extends ViewRamcDialog {
                 // getting the selection from LocalSelectionTransfer.
                 droppedElements = getLocalDraggedElements();
             }
-            
+
             // Check the elements, this will only check they are RAMC artifact
             // instances but will not care of dependency cycles.
             return checkDragged(droppedElements);
@@ -578,7 +556,7 @@ public class EditRamcDialog extends ViewRamcDialog {
                     getViewer().refresh();
                     return true;
                 }
-            
+
             }
             return false;
         }
@@ -589,6 +567,7 @@ public class EditRamcDialog extends ViewRamcDialog {
          * <li>Elements must be Artifact, stereotyped 'ModelComponentArchive'</li>
          * <li>Dropped ramcs must not cause a dependency cycle</li>
          * </ul>
+         *
          * @param elements The dragged elements
          * @return true if the given elements can be dragged.
          */

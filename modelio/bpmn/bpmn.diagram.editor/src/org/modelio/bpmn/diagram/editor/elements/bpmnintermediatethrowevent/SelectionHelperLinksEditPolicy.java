@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnintermediatethrowevent;
 
@@ -55,7 +55,7 @@ public abstract class SelectionHelperLinksEditPolicy extends GraphicalEditPolicy
         this.selectionListener = new SelectionListener(this);
         this.getHost().addEditPartListener(this.selectionListener);
         setSelectedState(getHost().getSelected() == EditPart.SELECTED || getHost().getSelected() == EditPart.SELECTED_PRIMARY);
-        
+
     }
 
     @objid ("7eaf47d1-9804-4acf-adf0-beb5df940124")
@@ -65,11 +65,12 @@ public abstract class SelectionHelperLinksEditPolicy extends GraphicalEditPolicy
         this.selectionListener = null;
         hideHelperLinks();
         super.deactivate();
-        
+
     }
 
     /**
      * Define this method to return the pairs of edit parts that have to be linked by a highlight link
+     *
      * @param from : the current edit part for which highlight linbks are to be computed
      * @return a map of edit part lists. Each 'key' edit part will be used a link origin for a set of links towards the edit part listed in the map value for the 'key'.
      */
@@ -91,14 +92,14 @@ public abstract class SelectionHelperLinksEditPolicy extends GraphicalEditPolicy
             removeFeedback(l);
         }
         this.focuslinks.clear();
-        
+
     }
 
     @objid ("5cbe53d3-f450-4514-b44a-7743b8c34222")
     public void showHelperLinks() {
         Map<EditPart, List<EditPart>> linkedParts = getLinkedParts(this.getHost());
         for (Entry<EditPart, List<EditPart>> entry : linkedParts.entrySet()) {
-        
+
             IFigure sourceFigure = ((GraphicalEditPart) entry.getKey()).getFigure();
             if (sourceFigure instanceof PortContainerFigure) {
                 List<?> children = ((PortContainerFigure) sourceFigure).getChildren();
@@ -108,7 +109,7 @@ public abstract class SelectionHelperLinksEditPolicy extends GraphicalEditPolicy
                 sourceFigure = (IFigure) children.get(0);
             }
             final ConnectionAnchor targetAnchor = new ChopboxAnchor(sourceFigure);
-        
+
             for (EditPart linkedPart : entry.getValue()) {
                 IFigure targetFigure = ((GraphicalEditPart) linkedPart).getFigure();
                 if (targetFigure instanceof PortContainerFigure) {
@@ -124,7 +125,7 @@ public abstract class SelectionHelperLinksEditPolicy extends GraphicalEditPolicy
                 this.focuslinks.add(focuslink);
             }
         }
-        
+
     }
 
     @objid ("82c61b83-3921-4f55-a616-38f6566d4435")
@@ -137,7 +138,7 @@ public abstract class SelectionHelperLinksEditPolicy extends GraphicalEditPolicy
                 hideHelperLinks();
             }
         }
-        
+
     }
 
     @objid ("b70f3bb2-1fda-42a3-ab8f-3b56d8dd54f2")
@@ -146,7 +147,7 @@ public abstract class SelectionHelperLinksEditPolicy extends GraphicalEditPolicy
         private SelectionHelperLinksEditPolicy policy;
 
         @objid ("c6303654-5b06-4ddf-9625-17a0f8b3fd6a")
-        public  SelectionListener(SelectionHelperLinksEditPolicy policy) {
+        public SelectionListener(SelectionHelperLinksEditPolicy policy) {
             this.policy = policy;
         }
 

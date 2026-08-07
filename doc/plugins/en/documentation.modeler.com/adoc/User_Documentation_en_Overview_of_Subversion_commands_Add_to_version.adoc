@@ -1,0 +1,49 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= The "Add to version" command
+
+
+
+===== Description
+
+The "Add to version" command puts a non versioned element under version management.
+
+When an element is initially added in a shared work model, it is purely local and is not put under the control of Subversion . It cannot be published and no Teamwork commands can be run on it except the "Add to version" command, which will declare the element as being managed. [[About-non-versioned-elements]]
+
+
+===== About non versioned elements
+
+In a shared work model, new model elements can be created at any time, even inside read-only elements, the only condition being that the element created is itself an atomic unit.
+
+For example, you can create a class inside a package, even though the package is not currently locked (read-write). However, you cannot add an operation under a read-only class, since an operation is not an atomic unit.
+
+So in other words, you can add a new atomic unit model element to your local project at any time, irrespective of whether or not the new element's parent element is locked. This makes shared work models very flexible, since you don't have to lock an element to add children elements to it, and will not therefore block other users during the operation. [[Conditions-and-restrictions]]
+
+
+===== Conditions and restrictions
+
+The "Add to version" command can be run on the following conditions:
+
+* The element is an <<User_Documentation_en_Introducing_SVN_work_models_Atomic_units.adoc#,Atomic unit>>.
+* The element is not currently under Teamwork control. [[User-interface]]
+
+
+===== User interface
+
+No associated window. [[Behavior]]
+
+
+===== Behavior
+
+When the "Add to version" command is run on a newly created element, its state is changed and it is shown with a specific blue arrow marker in the explorer. This means that the element is scheduled to be added to Subversion on next commit. the addition is therefore neither definitive nor available for other users.
+
+In order to make the addition definitive and available to other users, the "Commit" command must be run on the new element's parent.
+
+If the parent elements is read-only, it will be automatically be locked. This is because the declaration of a new element modifies the parent composition tree and therefore, like any model modification, requires a locked (read-write) parent.
+
+If the parent element locking fails, the initial element will stay in the non versioned state.

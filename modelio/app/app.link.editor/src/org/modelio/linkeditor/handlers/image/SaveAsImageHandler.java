@@ -1,26 +1,45 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.linkeditor.handlers.image;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.services.IServiceConstants;
@@ -35,6 +54,7 @@ import org.modelio.linkeditor.plugin.LinkEditor;
 import org.modelio.linkeditor.view.ILinkEditorView;
 
 /**
+ *
  * @author fpoyer
  */
 @objid ("1b477738-5e33-11e2-b81d-002564c97630")
@@ -52,8 +72,7 @@ public class SaveAsImageHandler {
     static String initialFilterPath = System.getenv("USERPROFILE");
 
     @objid ("1b477747-5e33-11e2-b81d-002564c97630")
-    static int initialFilterIndex = 0; // PNG
-    
+    static int initialFilterIndex = 0;
 
     @objid ("1b477749-5e33-11e2-b81d-002564c97630")
     @Execute
@@ -61,11 +80,11 @@ public class SaveAsImageHandler {
         if (!(part.getObject() instanceof ILinkEditorView)) {
             return null;
         }
-        
+
         ILinkEditor editor = ((ILinkEditorView) part.getObject()).getLinkEditor();
         SaveInfo saveInfo = getSaveInfo();
         if (saveInfo != null) {
-        
+
             Image img = editor.getImage();
             if (img != null) {
                 ImageLoader imgLoader = new ImageLoader();
@@ -88,15 +107,15 @@ public class SaveAsImageHandler {
         dlg.setFilterPath(initialFilterPath);
         dlg.setFileName("*" + filterExtensions[initialFilterIndex]);
         dlg.setOverwrite(true);
-        
+
         String saveLocation = dlg.open();
-        
+
         if (saveLocation == null)
             return null;
-        
+
         int filterIndex = dlg.getFilterIndex();
         saveLocation = normalizeFilename(saveLocation, filterExtensions[filterIndex]);
-        
+
         // for next usage...
         initialFilterIndex = filterIndex;
         initialFilterPath = dlg.getFilterPath();
@@ -109,7 +128,6 @@ public class SaveAsImageHandler {
             return saveLocation;
         else
             return saveLocation + fileExtension;
-        
     }
 
     @objid ("1b49d85a-5e33-11e2-b81d-002564c97630")
@@ -121,10 +139,9 @@ public class SaveAsImageHandler {
         public int format;
 
         @objid ("1b49d85d-5e33-11e2-b81d-002564c97630")
-        public  SaveInfo(final String location, final int format) {
+        public SaveInfo(final String location, final int format) {
             this.location = location;
             this.format = format;
-            
         }
 
     }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vbasic.oidc.registration;
 
@@ -62,19 +62,19 @@ class OidcClientRegistrator {
     @objid ("5a032877-c280-4d76-a4d5-1a9900150c67")
     private OIDCClientInformation registerClient(OIDCProviderMetadata providerMetadata, String registrationKey) throws IOException, ParseException {
         OIDCClientMetadata clientMetadata = createNewOidcClientMetadatas();
-        
+
         // Make registration request
         OIDCClientRegistrationRequest registrationRequest = new OIDCClientRegistrationRequest(
                 providerMetadata.getRegistrationEndpointURI(),
                 clientMetadata,
                 null /*new BearerAccessToken(registrationKey)*/);
-        
-        
+
+
         HTTPResponse httpResponse = registrationRequest.toHTTPRequest().send();
-        
+
         // Parse and check response
         ClientRegistrationResponse registrationResponse = OIDCClientRegistrationResponseParser.parse(httpResponse);
-        
+
         if (registrationResponse instanceof ClientRegistrationErrorResponse) {
             ErrorObject error = ((ClientRegistrationErrorResponse) registrationResponse).getErrorObject();
             throw new IOException(String.format("Client registration failed with HTTP %d %s : %s",
@@ -82,7 +82,7 @@ class OidcClientRegistrator {
                     httpResponse.getStatusMessage(),
                     httpResponse.getContent()));
         }
-        
+
         // Store client information from OP
         OIDCClientInformation clientInformation = ((OIDCClientInformationResponse)registrationResponse).getOIDCClientInformation();
         return clientInformation;
@@ -96,10 +96,10 @@ class OidcClientRegistrator {
             infos = registerClient(providerMetadata, registrationKey);
             System.out.println("Registration success:");
             System.out.println(NimbusDumper.prettyPrint(infos.toJSONObject()));
-        
+
             System.out.println("Registration access token: \n"+NimbusDumper.prettyPrint(infos.getRegistrationAccessToken()));
             System.out.println("");
-        
+
             try {
                 JWT jwt = JWTParser.parse(infos.getRegistrationAccessToken().getValue());
                 String s;
@@ -114,7 +114,7 @@ class OidcClientRegistrator {
             System.err.println("Registration Failed:");
             e.printStackTrace();
         }
-        
+
     }
 
 }

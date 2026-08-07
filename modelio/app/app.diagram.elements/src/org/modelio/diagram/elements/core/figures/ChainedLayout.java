@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures;
 
@@ -29,7 +29,7 @@ import org.eclipse.draw2d.geometry.Dimension;
  * <p>
  * This class is made to be extended. Then each method may be redefined to
  * make additional behavior.
- * 
+ *
  * @author cmarin
  * @since 3.4
  */
@@ -39,10 +39,11 @@ public abstract class ChainedLayout implements LayoutManager {
     private LayoutManager chained;
 
     /**
+     *
      * @param chained the layout to delegate to.
      */
     @objid ("86245b0b-5d80-42db-95ca-2c08a42bde22")
-    public  ChainedLayout(LayoutManager chained) {
+    public ChainedLayout(LayoutManager chained) {
         this.chained = chained;
     }
 
@@ -54,7 +55,7 @@ public abstract class ChainedLayout implements LayoutManager {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("f13f6bc1-fc61-4e27-86a9-0b78510e928a")
@@ -65,7 +66,7 @@ public abstract class ChainedLayout implements LayoutManager {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("39161151-a349-4c8b-abc1-157350e95578")
@@ -76,7 +77,7 @@ public abstract class ChainedLayout implements LayoutManager {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("1e4bed0b-5941-4d49-8fee-225ae01919a0")
@@ -85,7 +86,7 @@ public abstract class ChainedLayout implements LayoutManager {
         if (this.chained != null) {
             this.chained.invalidate();
         }
-        
+
     }
 
     @objid ("3663112a-3cc0-4cd1-9153-d1230770c3fb")
@@ -94,7 +95,7 @@ public abstract class ChainedLayout implements LayoutManager {
         if (this.chained != null) {
             this.chained.layout(container);
         }
-        
+
     }
 
     @objid ("dad8baf6-7a3a-4705-b899-12039bce8270")
@@ -103,7 +104,7 @@ public abstract class ChainedLayout implements LayoutManager {
         if (this.chained != null) {
             this.chained.remove(child);
         }
-        
+
     }
 
     @objid ("eef2a8d7-77b0-4c88-90b0-b5158ab098ff")
@@ -112,10 +113,11 @@ public abstract class ChainedLayout implements LayoutManager {
         if (this.chained != null) {
             this.chained.setConstraint(child, constraint);
         }
-        
+
     }
 
     /**
+     *
      * @return the layout to which operations are delegated.
      */
     @objid ("2d570851-4a34-46a8-8ad8-a66fa34008f5")
@@ -134,6 +136,7 @@ public abstract class ChainedLayout implements LayoutManager {
      * <p>
      * Works even if the layout manager is not a <code>ChainedLayout</code>
      * or no layout manager is set (returns <i>null</i>).
+     *
      * @param fig a figure
      * @return the root layout manager.
      */
@@ -144,6 +147,7 @@ public abstract class ChainedLayout implements LayoutManager {
 
     /**
      * Changes the chained layout.
+     *
      * @param chained the new layout.
      */
     @objid ("0d857713-4d64-4c34-9788-cdc2e6c00de9")
@@ -154,7 +158,7 @@ public abstract class ChainedLayout implements LayoutManager {
         } else {
             this.chained = chained;
         }
-        
+
     }
 
     /**
@@ -162,13 +166,14 @@ public abstract class ChainedLayout implements LayoutManager {
      * <p>
      * Works even if the layout manager is not a <code>ChainedLayout</code>
      * or layout manager is null (returns <i>null</i>).
+     *
      * @param alayout a layout manager.
      * @return the root layout manager.
      */
     @objid ("e463fa2b-75f2-4f22-af80-327a3886a6c1")
     public static LayoutManager getRootLayout(LayoutManager alayout) {
         LayoutManager layout = alayout;
-        
+
         while (layout instanceof ChainedLayout) {
             layout = ((ChainedLayout)layout).getChained();
         }
@@ -181,13 +186,14 @@ public abstract class ChainedLayout implements LayoutManager {
         for (LayoutManager l = last; l instanceof ChainedLayout; l = last.getChained()) {
             last = ((ChainedLayout) l);
         }
-            
+
         last.setChained(newRoot);
-        
+
     }
 
     /**
      * Find a layout of the given class in the layout chain of the figure
+     *
      * @param f a  figure
      * @param cls the layout class to find
      * @return the found layouter or null.
@@ -205,6 +211,7 @@ public abstract class ChainedLayout implements LayoutManager {
 
     /**
      * Remove the given layout from the chain.
+     *
      * @param f a figure
      * @param cls the layout class to remove.
      */
@@ -213,7 +220,7 @@ public abstract class ChainedLayout implements LayoutManager {
     public static <T extends ChainedLayout> T removeLayout(IFigure f, Class<T> cls) {
         LayoutManager l = f.getLayoutManager();
         ChainedLayout prev = null;
-        
+
         while ( l instanceof ChainedLayout) {
             ChainedLayout c = (ChainedLayout) l;
             if (cls.isInstance(c)) {

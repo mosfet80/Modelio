@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -42,26 +41,26 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0089574c-c4be-1fd8-97fe-001ec947cd2a")
 public abstract class ModelTreeImpl extends UmlModelElementImpl implements ModelTree {
-    @objid ("f6b63c9a-d487-4cfe-bae9-55827aca00d4")
+    @objid ("059d4273-93ae-4d09-96b9-1d6a4cd3ae33")
     @Override
     public ModelTree getOwner() {
         Object obj = getDepVal(((ModelTreeSmClass)getClassOf()).getOwnerDep());
         return (obj instanceof ModelTree)? (ModelTree)obj : null;
     }
 
-    @objid ("61953c5b-06e2-4dfb-a9ab-ebd87fc6a466")
+    @objid ("1a6f7e28-55fb-4a3b-932d-e4b8bd653b1b")
     @Override
     public void setOwner(ModelTree value) {
         appendDepVal(((ModelTreeSmClass)getClassOf()).getOwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("8e36cf6a-53a6-473b-8f7d-ab35eb6dad6e")
+    @objid ("de3b266d-3256-4e3a-85fb-20fca4306f56")
     @Override
     public EList<ModelTree> getOwnedElement() {
         return new SmList<>(this, ((ModelTreeSmClass)getClassOf()).getOwnedElementDep());
     }
 
-    @objid ("6f38ba38-fcb6-4500-a461-d97d25246450")
+    @objid ("155419d7-09c6-4071-89fc-b086816ede94")
     @Override
     public <T extends ModelTree> List<T> getOwnedElement(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -74,10 +73,10 @@ public abstract class ModelTreeImpl extends UmlModelElementImpl implements Model
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("99f7188e-6109-4808-a7ea-b2d58a0f7c29")
+    @objid ("2586b968-5f68-4ab5-8262-bcab3f454838")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -89,22 +88,22 @@ public abstract class ModelTreeImpl extends UmlModelElementImpl implements Model
         return super.getCompositionOwner();
     }
 
-    @objid ("591b1049-5ad4-4772-8c5e-d402fd00d27a")
+    @objid ("70c7742e-c60b-4eed-98b1-bc705e41b426")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // Owner
         dep = ((ModelTreeSmClass)getClassOf()).getOwnerDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("e81e4fbc-3fe5-49c6-a8c9-11bcd438d5f6")
+    @objid ("7390aae9-8107-4b21-9016-eadca004a184")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitModelTree(this);

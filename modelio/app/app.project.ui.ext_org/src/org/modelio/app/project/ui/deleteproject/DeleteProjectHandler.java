@@ -1,28 +1,28 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.ui.deleteproject;
 
 import java.io.IOException;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
@@ -46,7 +46,7 @@ public class DeleteProjectHandler {
     @Execute
     public void execute(final IProjectService projectService, @Named(IServiceConstants.ACTIVE_SHELL) final Shell shell, @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
         List<GProjectDescriptor> projectDescriptors = SelectionHelper.toList(selection, GProjectDescriptor.class);
-        
+
         StringBuilder nameList = new StringBuilder();
         for (GProjectDescriptor projectDescriptor : projectDescriptors) {
             nameList.append(" - ");
@@ -58,20 +58,20 @@ public class DeleteProjectHandler {
             for (GProjectDescriptor projectDescriptor : projectDescriptors) {
                 String projName = projectDescriptor.getName();
                 AppProjectUi.LOG.info("Deleting project '%s' ", projName);
-                
+
                 try {
                     projectService.deleteProject(projectDescriptor);
                 } catch (IOException e) {
                     AppProjectUi.LOG.error(FileUtils.getLocalizedMessage(e));
                     AppProjectUi.LOG.error(e);
-                    
+
                     MessageDialog.openError(shell,
-                            AppProjectUiExt.I18N.getMessage("DeleteProjectHandler.failed.title", projName) , 
+                            AppProjectUiExt.I18N.getMessage("DeleteProjectHandler.failed.title", projName) ,
                             AppProjectUiExt.I18N.getMessage("DeleteProjectHandler.failed.message", projName , FileUtils.getLocalizedMessage(e)));
-                }     
+                }
             }
         }
-        
+
     }
 
     @objid ("22628a89-8b02-48a7-a57c-8e615594b6e1")
@@ -81,7 +81,7 @@ public class DeleteProjectHandler {
         if (selection == null || selection.isEmpty()) {
             return false;
         }
-        
+
         for (GProjectDescriptor descriptor : SelectionHelper.toList(selection, GProjectDescriptor.class)) {
             // cannot delete currently opened project
             if (descriptor.getLockInfo() != null) {

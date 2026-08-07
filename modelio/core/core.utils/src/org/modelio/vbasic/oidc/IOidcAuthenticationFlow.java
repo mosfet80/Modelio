@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vbasic.oidc;
 
@@ -30,6 +30,7 @@ import org.modelio.vbasic.oidc.flows.NimbusHelper;
  * OIDC authentication process.
  * <p>
  * You may create an {@link OidcAuthData} from the instance, it will run the authentication process.
+ *
  * @author cmarin
  */
 @objid ("c6c57ffa-2086-41b9-9bee-556728d03b3e")
@@ -38,6 +39,7 @@ public interface IOidcAuthenticationFlow {
      * Run the process and get the {@link OIDCTokens OIDC tokens}.
      * <p>
      * This method is synchronous and may take a long time depending on the user.
+     *
      * @return the OIDC tokens
      * @throws IOException on authentication failure.
      */
@@ -48,6 +50,7 @@ public interface IOidcAuthenticationFlow {
      * Run the process and get an {@link OidcAuthData}.
      * <p>
      * This method is synchronous and may take a long time depending on the user.
+     *
      * @return the OIDC tokens
      * @throws IOException on authentication failure.
      */
@@ -59,7 +62,7 @@ public interface IOidcAuthenticationFlow {
             AuthResponse authResp2 = run();
             return authResp2.tokens.getAccessToken().getValue();
         }, subject);
-        
+
     }
 
     @objid ("e0f6a63a-6c40-45f0-8c37-65b32e79482f")
@@ -71,13 +74,13 @@ public interface IOidcAuthenticationFlow {
         public final Instant expiration;
 
         @objid ("94c4fe03-3258-4665-b827-72e8fc6dfffc")
-        public  AuthResponse(OIDCTokens tokens, Instant expiration) {
+        public AuthResponse(OIDCTokens tokens, Instant expiration) {
             super();
             this.tokens = tokens;
             this.expiration = expiration;
-            
+
         }
 
     }
-}
 
+}

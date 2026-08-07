@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.ui.audit;
 
@@ -49,7 +49,7 @@ public class R3190 extends AbstractBpmnRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -63,7 +63,7 @@ public class R3190 extends AbstractBpmnRule {
         plan.registerRule(BpmnDataAssociation.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE);
-        
+
     }
 
     @objid ("09ee2398-5e67-4ece-8cc8-b6b1bb0193b3")
@@ -103,7 +103,7 @@ public class R3190 extends AbstractBpmnRule {
      * Default constructor for R3190
      */
     @objid ("c4e9a535-7b3b-4dbf-92c3-e9a0974c97c1")
-    public  R3190() {
+    public R3190() {
         this.checkerInstance = new CheckR3190(this);
     }
 
@@ -114,10 +114,11 @@ public class R3190 extends AbstractBpmnRule {
     private static class CheckR3190 extends AbstractControl {
         /**
          * C'tor.
+         *
          * @param rule the rule to check.
          */
         @objid ("a0592a66-b45c-4108-899b-db4c6c6c61c8")
-        public  CheckR3190(final IRule rule) {
+        public CheckR3190(final IRule rule) {
             super(rule);
         }
 
@@ -138,7 +139,7 @@ public class R3190 extends AbstractBpmnRule {
                     AuditSeverity.AuditSuccess,
                     dataAssoc,
                     null);
-            
+
             if (getFromElement(dataAssoc) instanceof BpmnDataOutput || getToElement(dataAssoc) instanceof BpmnDataInput) {
                 // Rule failed
                 auditEntry.setSeverity(this.rule.getSeverity());

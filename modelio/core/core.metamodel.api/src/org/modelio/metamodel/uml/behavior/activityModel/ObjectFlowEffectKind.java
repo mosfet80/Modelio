@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
@@ -26,23 +26,22 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * ObjectFlowEffectKind v0.0.9054
- * 
- * 
+ *
+ *
  * null
- * 
- * 
+ *
  */
 @objid ("007f30c8-91e0-1f74-804b-001ec947cd2a")
 public enum ObjectFlowEffectKind {
-    @objid ("aa717119-0e97-4f60-b9f3-93dde5f3d57e")
+    @objid ("21f0ae74-8af5-493f-9a44-7d4ab7cc9957")
     CREATEFLOW(0, "CreateFlow", "CreateFlow"),
-    @objid ("5cd1f06b-e5f0-47b9-b166-7cb8ffea3c9e")
+    @objid ("ff7ce838-2ede-4300-9e1b-57496e287f50")
     READFLOW(1, "ReadFlow", "ReadFlow"),
-    @objid ("35f4b1dd-f672-4b64-9138-265e742c2590")
+    @objid ("fbd4dd44-c4b4-4fe3-87c8-859c8a05f1a4")
     UPDATEFLOW(2, "Updateflow", "Updateflow"),
-    @objid ("bda24f33-bc8c-45d5-bfd2-a62681a476eb")
+    @objid ("8c198fbb-1076-400d-8850-0cee4847c094")
     DELETEFLOW(3, "DeleteFlow", "DeleteFlow"),
-    @objid ("97ac7677-63b5-4fa8-9e3f-f6f633a6c8ae")
+    @objid ("3fe38cda-3602-46c8-89dd-30c91ae68776")
     EXCEPTIONFLOW(4, "ExceptionFlow", "ExceptionFlow");
 
 public static final int CREATEFLOW_VALUE = 0;
@@ -108,5 +107,5 @@ public static final int CREATEFLOW_VALUE = 0;
     public String toString() {
        return literal;
     }
-    
+
 }

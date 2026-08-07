@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.model;
 
@@ -39,7 +39,7 @@ import org.modelio.diagram.styles.core.view.LegacyStyleKeyProviderSymbolViewMode
  * Abstract class for all graphic models.
  * <p>
  * All graphic models should inherit from this class instead of directly implementing {@link IGmObject}.
- * 
+ *
  * @author cmarin
  */
 @objid ("8078f557-1dec-11e2-8cad-001ec947c8cc")
@@ -87,20 +87,21 @@ public abstract class GmAbstractObject implements IGmObject, IStyleChangeListene
 
     /**
      * Creates an instance ready to be used.
+     *
      * @param diagram the diagram where the object will be.
      */
     @objid ("8078f568-1dec-11e2-8cad-001ec947c8cc")
-    public  GmAbstractObject(IGmDiagram diagram) {
+    public GmAbstractObject(IGmDiagram diagram) {
         this.diagram = diagram;
         this.listeners = new PropertyChangeSupport(this);
-        
+
     }
 
     /**
      * Creates an empty {@link GmAbstractObject} that will be deserialized.
      */
     @objid ("8078f56c-1dec-11e2-8cad-001ec947c8cc")
-    public  GmAbstractObject() {
+    public GmAbstractObject() {
         this.listeners = new PropertyChangeSupport(this);
     }
 
@@ -108,9 +109,9 @@ public abstract class GmAbstractObject implements IGmObject, IStyleChangeListene
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         assert !Arrays.asList(this.listeners.getPropertyChangeListeners()).contains(listener) : this + " contains " + Arrays.toString(this.listeners.getPropertyChangeListeners());
-        
+
         this.listeners.addPropertyChangeListener(listener);
-        
+
     }
 
     /**
@@ -126,19 +127,20 @@ public abstract class GmAbstractObject implements IGmObject, IStyleChangeListene
             this.style.dispose();
             this.style = null;
         }
-        
+
         if (this.diagram != null) {
             this.diagram.removeGraphicModel(this);
             // since 3.7, nullify the diagram to invalidate the model
             removedFromDiagram();
         }
-        
+
     }
 
     /**
      * Get the diagram containing this element.
      * <p>
      * May return <i>null</i> if the graphic model is not valid anymore.
+     *
      * @return the diagram.
      */
     @objid ("8078f577-1dec-11e2-8cad-001ec947c8cc")
@@ -193,7 +195,7 @@ public abstract class GmAbstractObject implements IGmObject, IStyleChangeListene
             break;
         }
         }
-        
+
     }
 
     @objid ("8078f593-1dec-11e2-8cad-001ec947c8cc")
@@ -208,7 +210,7 @@ public abstract class GmAbstractObject implements IGmObject, IStyleChangeListene
         Object oldData = this.layoutData;
         this.layoutData = layoutData;
         firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, oldData, layoutData);
-        
+
     }
 
     /**
@@ -244,9 +246,9 @@ public abstract class GmAbstractObject implements IGmObject, IStyleChangeListene
     public void write(IDiagramWriter out) {
         out.writeProperty("layoutData", getLayoutData());
         out.writeProperty("Style", this.style);
-        
+
         writeMinorVersion(out, "GmAbstractObject.", GmAbstractObject.MINOR_VERSION);
-        
+
     }
 
     /**
@@ -269,6 +271,7 @@ public abstract class GmAbstractObject implements IGmObject, IStyleChangeListene
 
     /**
      * Helper to read the graphic model minor version from the {@value #MINOR_VERSION_PROPERTY} property.
+     *
      * @param in a reader to read the version from.
      * @param prefix the prefix : usually the simple name of java class calling this method + ".".
      * @return the read version, defaults to 0 if not found
@@ -283,6 +286,7 @@ public abstract class GmAbstractObject implements IGmObject, IStyleChangeListene
 
     /**
      * Helper method to write the graphic model minor version.
+     *
      * @param out the writer to use
      * @param prefix the prefix to use. Usually the java simple name of the class calling this method. Use the same as the matching {@link #readMinorVersion(IDiagramReader, String)}.
      * @param theMinorVersion the minor version to write
@@ -293,7 +297,7 @@ public abstract class GmAbstractObject implements IGmObject, IStyleChangeListene
         if (theMinorVersion != 0) {
             out.writeProperty(prefix + GmAbstractObject.MINOR_VERSION_PROPERTY, Integer.valueOf(theMinorVersion));
         }
-        
+
     }
 
     @objid ("807b57ce-1dec-11e2-8cad-001ec947c8cc")
@@ -301,11 +305,11 @@ public abstract class GmAbstractObject implements IGmObject, IStyleChangeListene
         this.layoutData = in.readProperty("layoutData");
         this.style = (IStyle) in.readProperty("Style");
         this.diagram = (IGmDiagram) in.getRoot();
-        
+
         if (this.style != null) {
             this.style.addListener(this);
         }
-        
+
     }
 
     /**
@@ -316,6 +320,7 @@ public abstract class GmAbstractObject implements IGmObject, IStyleChangeListene
      * <p>
      * Defined final to make sure that lazy initialization is used.
      * </p>
+     *
      * @return the graphical element style.
      */
     @objid ("599433eb-53d0-4c57-8474-9a84537c38c1")
@@ -364,6 +369,7 @@ public abstract class GmAbstractObject implements IGmObject, IStyleChangeListene
      * Look by reflection for a java field with the given name typed {@link AbstractStyleKeyProvider}
      * <p>
      * If no field with the given name is found, look for any field typed {@link AbstractStyleKeyProvider}.
+     *
      * @param name the field name
      * @return the found field value , or any {@link AbstractStyleKeyProvider} field value.
      * @deprecated for 3.6- compatibility only
@@ -388,7 +394,7 @@ public abstract class GmAbstractObject implements IGmObject, IStyleChangeListene
                     // ignore
                 }
             }
-        
+
         }
         return any;
     }
@@ -398,6 +404,7 @@ public abstract class GmAbstractObject implements IGmObject, IStyleChangeListene
      * <p>
      * A graphic model is usable if its diagram field has not been nullified.
      * </p>
+     *
      * @return <code>true</code> if the graphic model is valid, <code>false</code> otherwise.
      * @since Modelio 3.7
      */
@@ -410,42 +417,46 @@ public abstract class GmAbstractObject implements IGmObject, IStyleChangeListene
      * Change the diagram containing this element.
      * <p>
      * This method should be called only when this graphic model is moved in another diagram. In this case the caller must ensure owned graphic model are moved too.
-     * @see #updateDiagram()
+     *
      * @param newDiagram the diagram.
+     * @see #updateDiagram()
      */
     @objid ("a8abb3cf-11bf-4538-9f73-456ae00e8a53")
     protected final void moveToDiagram(IGmDiagram newDiagram) {
-        final IGmDiagram oldDiagram = getDiagram();
-        
-        if (oldDiagram == newDiagram) {
+        // This may wrongly happen when delete() is called on a parent, triggering funny updates
+        if (newDiagram == null)
             return;
-        }
-        
+
+        final IGmDiagram oldDiagram = getDiagram();
+
+        if (oldDiagram == newDiagram)
+            return;
+
         oldDiagram.removeGraphicModel(this);
         this.diagram = newDiagram;
         newDiagram.addGraphicModel(this);
-        
+
         IGmDiagram oldRoot = IGmDiagram.getRoot(oldDiagram);
         oldRoot.refreshAllGmReferences();
-        
+
         IGmDiagram newRoot = IGmDiagram.getRoot(newDiagram);
         if (newRoot != oldRoot) {
             newRoot.refreshAllGmReferences();
         }
-        
+
     }
 
     @objid ("8fa7846b-2ce8-4f91-8d2f-6704ee084c28")
     @Override
     public final void removedFromDiagram() {
         this.diagram = null;
-        
+
         // Since 5.4.1 27/10/2023 : also dispose the style to avoid memory leaks
         if (this.style != null) {
             this.style.dispose();
             this.style = null;
         }
-        
+
     }
 
 }

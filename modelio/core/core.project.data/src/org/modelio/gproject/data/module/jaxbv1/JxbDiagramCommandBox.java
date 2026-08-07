@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.data.module.jaxbv1;
 
@@ -31,9 +31,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for diagram-command-box complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="diagram-command-box">
  * &lt;complexContent>
@@ -87,8 +87,8 @@ public class JxbDiagramCommandBox {
 
     /**
      * Gets the value of the name property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("caee7631-d6ff-11e1-9f03-001ec947ccaf")
@@ -98,6 +98,7 @@ public class JxbDiagramCommandBox {
 
     /**
      * Sets the value of the name property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -108,8 +109,8 @@ public class JxbDiagramCommandBox {
 
     /**
      * Gets the value of the label property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("caee75cb-d6ff-11e1-9f03-001ec947ccaf")
@@ -119,6 +120,7 @@ public class JxbDiagramCommandBox {
 
     /**
      * Sets the value of the label property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -129,8 +131,8 @@ public class JxbDiagramCommandBox {
 
     /**
      * Gets the value of the tooltip property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("caee75cd-d6ff-11e1-9f03-001ec947ccaf")
@@ -140,6 +142,7 @@ public class JxbDiagramCommandBox {
 
     /**
      * Sets the value of the tooltip property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -150,8 +153,8 @@ public class JxbDiagramCommandBox {
 
     /**
      * Gets the value of the image property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("caee7613-d6ff-11e1-9f03-001ec947ccaf")
@@ -161,6 +164,7 @@ public class JxbDiagramCommandBox {
 
     /**
      * Sets the value of the image property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -171,8 +175,8 @@ public class JxbDiagramCommandBox {
 
     /**
      * Gets the value of the group property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("cae9b311-d6ff-11e1-9f03-001ec947ccaf")
@@ -182,6 +186,7 @@ public class JxbDiagramCommandBox {
 
     /**
      * Sets the value of the group property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -192,20 +197,20 @@ public class JxbDiagramCommandBox {
 
     /**
      * Gets the value of the scopeOrHandler property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the scopeOrHandler property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      * getScopeOrHandler().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link JxbHandler }

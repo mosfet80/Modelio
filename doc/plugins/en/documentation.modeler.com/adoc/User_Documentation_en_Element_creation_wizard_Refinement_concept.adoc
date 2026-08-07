@@ -1,0 +1,91 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Refinement concept
+
+
+
+= Introduction
+
+*Modelio Refinement* is a feature that allows to derive model elements from different formalism in the same model.
+
+Since version 3.6, Modelio supports several modeling formalism (UML, ArchiMate, Analyst...), coexisting as different sub-projects within the project.
+
+The refinement process is used to transform a model element from one sub-project into one or several model elements in another sub-project, preserving the semantics of the model elements across their different formalism. In each situation, Modelio suggests preferred and recommended transformations.
+
+Refinement is typically used to convert existing abstract or high-level model parts into more concrete elements while keeping a traceability link (the refine link) that keeps a trace of the design processus.
+
+For example, take an existing ArchiMate Requirement and refine it into several more detailed Analyst Requirement. These Analyst Requirement can even be further refined into UML Use Cases !
+
+The refinement tool provides:
+
+* smart recommendations about which transformation to apply, letting the user choose between several options when needed
+* automatic creation of the refined elements
+* automatic registering of the traceability data in the form of "refine" dependency linked (automatically created and maintained)
+
+Modelio distinguishes between three refinement scenarios.
+
+1.   <<User_Documentation_en_Element_creation_wizard_Refine_element.adoc#,refine a single element>> using the refinement tool by creating one or several new elements.
+2.   <<User_Documentation_en_Element_creation_wizard_Populate_by_refinement.adoc#,refine several elements>> in a unique operation using the refinement tool by creating one or several new elements.
+3.   <<#HManuallyaddingrefinements,manually establish a "refine">> traceability link between two arbitrary existing elements (no new element creation)
+
+The two first scenarios are supported by the refinement tool and strictly respect the <<#HModeliorefinementrules#,Modelio refinement rules>>.
+
+The third manual scenario does not force any rule and allow the user to establish "refine" links between any elements he might wish to associate.
+
+
+= Manually adding refinements
+
+The heart of the refinement process is the existence of «refine» Dependencies_ between each created element and the element it was refined from.
+
+This makes traceability analysis easy using the Link Editor, but it also makes it possible to manually trace refinements between already existing model elements, or even between elements that do not follow the standard Modelio refinement rules.
+
+
+= Modelio refinement rules
+
+Here is a list of refinements currently available in the refinement wizards:
+
+[cols=",",options="header",]
+|=======================================================================================================================================================================================================================================================
+|Element to refine |Possible refinements
+|Access (ArchiMate) |Usage (UML)
+|Aggregation (ArchiMate) |Aggregation (UML)
+|ApplicationCollaboration (ArchiMate) |Collaboration (UML)
+|ApplicationComponent (ArchiMate) |Component (UML)
+|ApplicationInteraction (ArchiMate) |Interaction (UML)
+|ApplicationInterface (ArchiMate) |Interface (UML)
+|ApplicationProcess (ArchiMate) |BpmnProcess (BPMN)
+|Artifact (ArchiMate) |Artifact (UML)
+|Association (ArchiMate) |Association (UML)
+|BusinessActor (ArchiMate) |Actor (UML)
+|BusinessCollaboration (ArchiMate) |Collaboration (UML), UseCaseDiagram (UML)
+|BusinessInteraction (ArchiMate) |Interaction (UML), BpmnProcess (BPMN)
+|BusinessObject (ArchiMate) |Interface (UML), Class (UML)
+|BusinessProcess (ArchiMate) |BpmnProcess (BPMN)
+|BusinessRole (ArchiMate) |Actor (UML)
+|BusinessRule (Analyst) |Activity (UML), BusinessRule (Analyst), Goal (Analyst), Operation (UML), Requirement (Analyst), UseCase (UML)
+|Composition (ArchiMate) |Composition (UML)
+|DataObject (ArchiMate) |Class (UML)
+|Device (ArchiMate) |Node (UML)
+|Driver (ArchiMate) |Goal (Analyst)
+|Equipment (ArchiMate) |Node (UML)
+|Facility (ArchiMate) |Node (UML)
+|Flow (ArchiMate) |InformationFlow (UML), InformationItem (UML)
+|Goal (Analyst) |Activity (UML), BusinessRule (Analyst), Goal (Analyst), Requirement (Analyst), Signal (UML), UseCase (UML)
+|Goal (Analyst) (ArchiMate) |Goal (Analyst)
+|Meaning (ArchiMate) |Term (Analyst)
+|Node (ArchiMate) |Node (UML)
+|Principle (ArchiMate) |Requirement (Analyst), BusinessRule (Analyst)
+|Realization (ArchiMate) |InterfaceRealization (UML)
+|Requirement (Analyst) |Activity (UML), BusinessRule (Analyst), Goal (Analyst), Operation (UML), Requirement (Analyst), UseCase (UML)
+|Requirement (ArchiMate) |Requirement (Analyst)
+|Serving (ArchiMate) |Usage (UML)
+|Specialization (ArchiMate) |Generalization (UML)
+|Stakeholder (ArchiMate) |Actor (UML)
+|SystemSoftware (ArchiMate) |Node (UML)
+|TechnologyObject (ArchiMate) |Class (UML)
+|TechnologyProcess (ArchiMate) |BpmnProcess (BPMN)
+|Term (Analyst) |Activity (UML), Actor (UML), Attribute (UML), BusinessRule (Analyst), Class (UML), Component (UML), DataType (UML), Goal (Analyst), Interface (UML), Operation (UML), Package (UML), Requirement (Analyst), Signal (UML), UseCase (UML)
+|=======================================================================================================================================================================================================================================================

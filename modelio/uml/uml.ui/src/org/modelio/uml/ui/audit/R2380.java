@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -46,7 +46,7 @@ public class R2380 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -97,14 +97,14 @@ public class R2380 extends AbstractUmlRule {
      * Default constructor for R2380
      */
     @objid ("cb78f44b-923f-4129-b676-157c8e6e5ef6")
-    public  R2380() {
+    public R2380() {
         this.checkerInstance = new CheckR2380(this);
     }
 
     @objid ("c7a3aea8-a375-4a52-bdfa-0b08d9ee526a")
     private static class CheckR2380 extends AbstractControl {
         @objid ("ef7c2570-0a5f-486c-a634-44a199377752")
-        public  CheckR2380(IRule rule) {
+        public CheckR2380(IRule rule) {
             super(rule);
         }
 
@@ -120,15 +120,15 @@ public class R2380 extends AbstractUmlRule {
         @objid ("d91f600a-91ce-4f08-a585-8eb91731ab88")
         private IAuditEntry checkR2380(final Operation operation) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, operation, null);
-            
+
             if (operation.isIsAbstract()) {
-            
+
                 Operation redefined = operation.getRedefines();
-            
+
                 if (redefined != null && !redefined.isIsAbstract()) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(operation);

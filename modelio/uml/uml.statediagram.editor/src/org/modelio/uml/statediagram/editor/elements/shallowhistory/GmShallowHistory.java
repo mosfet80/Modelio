@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.shallowhistory;
 
@@ -38,7 +38,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Specialization of the {@link GmPortContainer} class for {@link ShallowHistoryPseudoState}.
- * 
+ *
  * @author fpoyer
  */
 @objid ("f56d183a-55b6-11e2-877f-002564c97630")
@@ -69,25 +69,26 @@ public class GmShallowHistory extends GmPortContainer {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram in which the timeEvent is unmasked.
      * @param el the unmasked timeEvent.
      * @param ref a reference to the unmasked timeEvent.
      */
     @objid ("f56e9ee1-55b6-11e2-877f-002564c97630")
-    public  GmShallowHistory(IGmDiagram diagram, ShallowHistoryPseudoState el, MRef ref) {
+    public GmShallowHistory(IGmDiagram diagram, ShallowHistoryPseudoState el, MRef ref) {
         super(diagram, ref);
-        
+
         GmShallowHistoryPrimaryNode mainNode = new GmShallowHistoryPrimaryNode(diagram, ref);
         mainNode.setRoleInComposition(MAIN_NODE_ROLE);
-        
+
         this.element = el;
         GmNameLabel label = new GmNameLabel(diagram, ref);
         label.setRoleInComposition(GmPortContainer.SATELLITE_ROLE);
         label.setLayoutData(Integer.valueOf(PositionConstants.EAST));
-        
+
         this.addChild(mainNode);
         this.addChild(label);
-        
+
     }
 
     @objid ("f56e9eed-55b6-11e2-877f-002564c97630")
@@ -146,7 +147,7 @@ public class GmShallowHistory extends GmPortContainer {
      * Empty constructor needed for deserialisation.
      */
     @objid ("f56e9f10-55b6-11e2-877f-002564c97630")
-    public  GmShallowHistory() {
+    public GmShallowHistory() {
         // Nothing specific to do.
     }
 
@@ -167,7 +168,7 @@ public class GmShallowHistory extends GmPortContainer {
             break;
         }
         }
-        
+
     }
 
     @objid ("f56e9f19-55b6-11e2-877f-002564c97630")
@@ -186,17 +187,17 @@ public class GmShallowHistory extends GmPortContainer {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmShallowHistory.", GmShallowHistory.MINOR_VERSION);
-        
+
     }
 
     @objid ("f5702587-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (ShallowHistoryPseudoState) resolveRef(this.getRepresentedRef());
-        
+
     }
 
     @objid ("f570258c-55b6-11e2-877f-002564c97630")
@@ -207,6 +208,7 @@ public class GmShallowHistory extends GmPortContainer {
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */
@@ -218,6 +220,7 @@ public class GmShallowHistory extends GmPortContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */

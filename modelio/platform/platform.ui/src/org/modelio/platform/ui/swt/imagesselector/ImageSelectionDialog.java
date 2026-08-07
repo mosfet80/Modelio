@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.ui.swt.imagesselector;
 
@@ -73,10 +73,10 @@ public class ImageSelectionDialog extends ModelioDialog {
     private Font galleryFont;
 
     @objid ("9c3cd5ee-4c23-4cf6-86ec-2052646b42dd")
-    public  ImageSelectionDialog(Shell parentShell, final ImageLibrary imagesLibrary) {
+    public ImageSelectionDialog(Shell parentShell, final ImageLibrary imagesLibrary) {
         super(parentShell);
         this.imagesLibrary = imagesLibrary;
-        
+
     }
 
     @objid ("2507e83f-58bf-442f-982c-bb38149d668c")
@@ -90,7 +90,7 @@ public class ImageSelectionDialog extends ModelioDialog {
     protected Control createContentArea(Composite parent) {
         Composite composite = new Composite(parent, SWT.NONE);
         composite.setLayout(new GridLayout(2, false));
-        
+
         this.searchText = new Text(composite, SWT.BORDER);
         this.searchText.setLayoutData(GridDataFactory.fillDefaults().grab(true, false).create());
         this.searchText.addTraverseListener((TraverseEvent e) -> {
@@ -100,39 +100,39 @@ public class ImageSelectionDialog extends ModelioDialog {
                 e.doit = false;
             }
         });
-        
+
         this.searchText.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent event) {
                 onFilterItems(ImageSelectionDialog.this.searchText.getText());
             }
         });
-        
+
         Label searchImage = new Label(composite, SWT.NONE);
         searchImage.setImage(UIImages.SEARCH);
-        
+
         this.rm = new LocalResourceManager(JFaceResources.getResources());
         this.gallery = new Gallery(composite, SWT.V_SCROLL | SWT.VIRTUAL);
-        
+
         // Renderers
         DefaultGalleryGroupRenderer gr = new DefaultGalleryGroupRenderer();
         gr.setMinMargin(2);
         gr.setAutoMargin(false);
         gr.setAnimation(false);
         this.gallery.setGroupRenderer(gr);
-        
+
         DefaultGalleryItemRenderer ir = new DefaultGalleryItemRenderer();
         ir.setShowLabels(true);
-        
+
         this.galleryFont = new FontBuilder().from(this.gallery.getFont()).scale((float) 0.8).withAllocator(this.rm).build();
         ir.setFont(this.galleryFont);
         this.gallery.setFont(this.galleryFont);
         this.gallery.setItemRenderer(ir);
-        
+
         show(null);
-        
+
         this.gallery.setLayoutData(GridDataFactory.fillDefaults().grab(true, true).span(2, 1).create());
-        
+
         composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         return composite;
     }
@@ -142,7 +142,7 @@ public class ImageSelectionDialog extends ModelioDialog {
     protected void init() {
         setTitle(UI.I18N.getString("ImageSelectionDialog.title"));
         setMessage(UI.I18N.getMessage("ImageSelectionDialog.subtitle", this.imagesLibrary.getName()));
-        
+
     }
 
     @objid ("871c2f38-ad40-4094-b004-0060240392da")
@@ -150,7 +150,7 @@ public class ImageSelectionDialog extends ModelioDialog {
     protected void configureShell(Shell newShell) {
         super.configureShell(newShell);
         newShell.setText(UI.I18N.getString("ImageSelectionDialog.title"));
-        
+
     }
 
     @objid ("a804e14b-cf68-4c79-b879-c2e95ba3d2a4")
@@ -165,13 +165,13 @@ public class ImageSelectionDialog extends ModelioDialog {
     public void onFilterItems(String filter) {
         if (!filter.equals(this.gallery.getData("filter"))) {
             this.gallery.setData("filter", filter);
-        
+
             this.gallery.removeAll();
             show(filter);
-        
+
             this.gallery.redraw();
         }
-        
+
     }
 
     @objid ("64294844-4392-46fc-82bf-0d73121e8074")
@@ -183,14 +183,14 @@ public class ImageSelectionDialog extends ModelioDialog {
                 GalleryItem group = new GalleryItem(this.gallery, SWT.NONE);
                 group.setText(category); // $NON-NLS-1$
                 group.setExpanded(true);
-        
+
                 for (String imageId : this.imagesLibrary.getImages(category)) {
                     String label = this.imagesLibrary.getLabel(imageId);
                     if(filter == null || "".equals(filter)  || (label.toLowerCase() != null && label.contains(filter.toLowerCase()))) {
                         // One Gallery item per image
                         GalleryItem item = new GalleryItem(group, SWT.NONE);
                         URL url = this.imagesLibrary.getImageThumbnail(imageId);
-        
+
                         Image thumbnailImage = this.thumbnailsCache.get(url.toString());
                         if (thumbnailImage == null) {
                             thumbnailImage = ImageDescriptor.createFromURL(url).createImage();
@@ -199,17 +199,17 @@ public class ImageSelectionDialog extends ModelioDialog {
                         item.setImage(thumbnailImage);
                         item.setText(label); // $NON-NLS-1$
                         item.setData(imageId);
-        
-        
+
+
                     }
-        
+
                 }
                 itemList.add(group);
-        
+
             }
             this.gallery.update();
         });
-        
+
     }
 
     @objid ("a13f091a-e96a-480b-803c-0eff5dbb9835")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.edition.notes.panelprovider.tree;
 
@@ -65,7 +65,7 @@ public class NoteViewTreeLabelProvider extends UniversalLabelProvider2 {
         } else {
             return super.getImage(element);
         }
-        
+
     }
 
     @objid ("6fd1fd28-ef88-48ff-8b92-77475605a66b")
@@ -109,17 +109,17 @@ public class NoteViewTreeLabelProvider extends UniversalLabelProvider2 {
         if ((name != null) && !name.isEmpty()) {
             return new StyledString(name, ElementStyler.getStyler(constraint));
         }
-        
+
         // try first stereotype name
         final List<Stereotype> stereotypes = constraint.getExtension();
         if (stereotypes.size() > 0) {
             final Stereotype stereotype = NoteViewTreeLabelProvider.getFirstSelected(stereotypes);
-        
+
             if (stereotype != null) {
                 return new StyledString(MdaResources.getLabel(stereotype), ElementStyler.getStyler(constraint));
             }
         }
-        
+
         // use constant value
         return new StyledString(EditionNotes.I18N.getString("Constraint"), ElementStyler.getStyler(constraint));
     }
@@ -135,21 +135,21 @@ public class NoteViewTreeLabelProvider extends UniversalLabelProvider2 {
         String name = note.getName();
         String type = (note.getModel() != null) ? MdaResources.getLabel(note.getModel()) : EditionNotes.I18N.getString("Note");
         String mime = checkNoteMimeType(note, "html") ? " [html]" : checkNoteMimeType(note, "jython") ? " [py]" : "";
-        
+
         StyledString result = new StyledString();
-        
+
         Styler standardStyler = ElementStyler.getStyler(note);
-        
+
         // name
         if (!name.isEmpty() && !name.equals(Note.MNAME)) {
             result.append("'");
             result.append(name, standardStyler);
             result.append("' ");
         }
-        
+
         // use type
         result.append(type, standardStyler);
-        
+
         // mime type
         if (!mime.isEmpty()) {
             result.append(mime, this.mimeStyler);
@@ -168,7 +168,7 @@ public class NoteViewTreeLabelProvider extends UniversalLabelProvider2 {
     }
 
     @objid ("cd7477b7-1752-462b-95a6-8b260e091f56")
-    public  NoteViewTreeLabelProvider(Viewer viewer) {
+    public NoteViewTreeLabelProvider(Viewer viewer) {
         this.mimeStyler = new Styler() {
             @Override
             public void applyStyles(TextStyle textStyle) {
@@ -176,7 +176,7 @@ public class NoteViewTreeLabelProvider extends UniversalLabelProvider2 {
                 textStyle.foreground = UIColor.LABEL_TIP_FG;
             }
         };
-        
+
         this.missingResourceStyler = new Styler() {
             @Override
             public void applyStyles(TextStyle textStyle) {
@@ -184,7 +184,7 @@ public class NoteViewTreeLabelProvider extends UniversalLabelProvider2 {
                 textStyle.foreground = UIColor.SHELL_ELEMENT_FG;
             }
         };
-        
+
     }
 
     /**
@@ -200,24 +200,24 @@ public class NoteViewTreeLabelProvider extends UniversalLabelProvider2 {
     private StyledString getTextForDocument(Document document) {
         StyledString result = new StyledString();
         Styler standardStyler = ElementStyler.getStyler(document);
-        
+
         String name = document.getName();
         if (!name.isEmpty()) {
             result.append(name, standardStyler);
         } else {
             result.append(EditionNotes.I18N.getString("NotesPanel.Document"), standardStyler);
         }
-        
+
         final ResourceType resourceType = document.getType();
         if (resourceType != null) {
             final String type = !MdaResources.getLabel(resourceType).isEmpty() ? MdaResources.getLabel(resourceType) : resourceType.getName();
-        
+
             Styler typeStyler = ElementStyler.getStyler(resourceType);
             result.append(" [", typeStyler);
             result.append(type, typeStyler);
             result.append("]", typeStyler);
         }
-        
+
         IResourceHandle handle = document.getHandle();
         if (handle != null && !document.isEmbedded()) {
             try {

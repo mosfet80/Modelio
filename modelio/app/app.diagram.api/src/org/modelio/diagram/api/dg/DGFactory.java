@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.api.dg;
 
@@ -82,11 +82,12 @@ public class DGFactory implements IDGFactory {
         };
 
     @objid ("dbe693bf-71c0-4df6-ad31-7324ef842dd5")
-    private  DGFactory() {
-        
+    private DGFactory() {
+
     }
 
     /**
+     *
      * @return the singleton instance.
      */
     @objid ("a6b65b4c-8083-4347-b1d9-d40d1a81dd50")
@@ -96,6 +97,7 @@ public class DGFactory implements IDGFactory {
 
     /**
      * Returns a DiagramGraphic for the given model. Can be either a DiagramNode or a DiagramLink.
+     *
      * @param diagramHandle a handle to the diagram
      * @param gmModel the model.
      * @return a {@link DiagramGraphic}
@@ -105,11 +107,11 @@ public class DGFactory implements IDGFactory {
         if (gmModel instanceof GmNodeModel) {
             return this.getDiagramNode(diagramHandle, (GmNodeModel) gmModel);
         }
-        
+
         if (gmModel instanceof IGmLink) {
             return this.getDiagramLink(diagramHandle, (IGmLink) gmModel);
         }
-        
+
         if (gmModel instanceof IGmDrawing) {
             return getDiagramDrawingGraphic(diagramHandle, (IGmDrawing) gmModel);
         }
@@ -118,6 +120,7 @@ public class DGFactory implements IDGFactory {
 
     /**
      * Return a list of DiagramGraphics for each given model. Can be mixed {@link DiagramNode}s and {@link DiagramLink}s
+     *
      * @param diagramHandle a handle to the diagram
      * @param models the models
      * @return a list of {@link DiagramGraphic}
@@ -154,14 +157,14 @@ public class DGFactory implements IDGFactory {
         if (!gmNodeModel.isVisible()) {
             return null;
         }
-        
+
         Object editPart = ((DiagramHandle) diagramHandle).getEditPart(gmNodeModel);
         if (editPart == null) {
             // A Gm model may have no edit part if it is inside a ghost edit part
             DiagramApi.LOG.debug("DGFactory.getDiagramNode(): %s graphic model has no edit part, it's parent is probably a ghost node. Produce no IDiagramNode.", gmNodeModel);
             return null;
         }
-        
+
         IDiagramNode ret = null;
         for (Iterator<IDGFactory> iterator = extensionPoint.getAll().stream().sorted(DEFAULT_FACTORY_COMPARATOR).iterator(); iterator.hasNext();) {
             IDGFactory factory = iterator.next();
@@ -175,6 +178,7 @@ public class DGFactory implements IDGFactory {
 
     /**
      * Return a list of DiagramNode for each given model.
+     *
      * @param diagramHandle a handle to the diagram
      * @param models the models
      * @return a list of {@link DiagramNode}
@@ -193,6 +197,7 @@ public class DGFactory implements IDGFactory {
 
     /**
      * Returns a DiagramGraphic for the given model. Can be either a DiagramNode or a DiagramLink.
+     *
      * @param diagramHandle a handle to the diagram
      * @param gmModel the model.
      * @return a {@link DiagramGraphic}
@@ -203,24 +208,24 @@ public class DGFactory implements IDGFactory {
         if (gmModel instanceof GmLineDrawing) {
             return getDiagramLink(diagramHandle, (IGmDrawingLink) gmModel);
         }
-        
+
         // Drawing nodes
         if (gmModel instanceof GmEllipseDrawing) {
             return new DiagramDrawingNodeDG((DiagramHandle) diagramHandle, (IGmNodeDrawing) gmModel);
         }
-        
+
         if (gmModel instanceof GmRectangleDrawing) {
             return new DiagramDrawingNodeDG((DiagramHandle) diagramHandle, (IGmNodeDrawing) gmModel);
         }
-        
+
         if (gmModel instanceof GmTextDrawing) {
             return new DiagramDrawingNodeDG((DiagramHandle) diagramHandle, (IGmNodeDrawing) gmModel);
         }
-        
+
         if (gmModel instanceof GmNoteDrawing) {
             return new DiagramDrawingNodeDG((DiagramHandle) diagramHandle, (IGmNodeDrawing) gmModel);
         }
-        
+
         if (gmModel instanceof IGmDrawingLayer) {
             return new DiagramDrawingLayerDG((DiagramHandle) diagramHandle, (IGmDrawingLayer) gmModel);
         }
@@ -229,6 +234,7 @@ public class DGFactory implements IDGFactory {
 
     /**
      * Return a list of {@link IDiagramLayer} for each given model.
+     *
      * @param diagramHandle a handle to the diagram
      * @param models the models
      * @return a list of {@link IDiagramLayer}
@@ -247,6 +253,7 @@ public class DGFactory implements IDGFactory {
 
     /**
      * Returns a {@link IDiagramLayer} for the given model.
+     *
      * @param diagramHandle the diagram in which the model is shown.
      * @param gm the model.
      * @return a {@link IDiagramLayer}
@@ -258,6 +265,7 @@ public class DGFactory implements IDGFactory {
 
     /**
      * Returns a {@link IDiagramLink} for the given drawing link model.
+     *
      * @param diagramHandle the diagram in which the model is shown.
      * @param gmLinkModel the drawing link model.
      * @return a {@link IDiagramLink}

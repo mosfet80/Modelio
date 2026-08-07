@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.module.catalog.catalog.update;
 
@@ -40,10 +40,10 @@ class ModuleUpdateDialog extends ModelioDialog {
     private UpdatePanel panel;
 
     @objid ("cc78bdff-9021-4b14-aa0a-f2826efbd913")
-    public  ModuleUpdateDialog(Shell parentShell, UpdatePanelDataModel model) {
+    public ModuleUpdateDialog(Shell parentShell, UpdatePanelDataModel model) {
         super(parentShell);
         this.model = model;
-        
+
     }
 
     @objid ("67e6c5f5-995f-4cb8-9b21-0337980af059")
@@ -51,11 +51,11 @@ class ModuleUpdateDialog extends ModelioDialog {
     public Control createContentArea(Composite parent) {
         this.panel = new UpdatePanel();
         Control compo = this.panel.createPanel(parent);
-        
+
         final GridData layoutData = new GridData(SWT.FILL, SWT.FILL, true, true);
         layoutData.minimumHeight = 150;
         compo.setLayoutData(layoutData);
-        
+
         this.panel.setInput(this.model);
         return compo;
     }
@@ -65,7 +65,7 @@ class ModuleUpdateDialog extends ModelioDialog {
     public void addButtonsInButtonBar(Composite parent) {
         createButton(parent, OK, AppModules.I18N.getString("ModuleUpdateDialog.Update"), true);
         createButton(parent, CANCEL, AppModules.I18N.getString("ModuleUpdateDialog.Close"), true);
-        
+
     }
 
     @objid ("4a98a9b5-8949-4c2e-8a42-63a1dfa29c29")
@@ -73,19 +73,19 @@ class ModuleUpdateDialog extends ModelioDialog {
     public void init() {
         getShell().setText(AppModules.I18N.getString("ModuleUpdateDialog.ShellTitle")); //$NON-NLS-1$ );
         setTitle(AppModules.I18N.getString("ModuleUpdateDialog.Title")); //$NON-NLS-1$
-        
+
         setMessage(AppModules.I18N.getMessage("ModuleUpdateDialog.Message")); //$NON-NLS-1$
-        
+
         // Position and resize dialog shell
         final int width = 1100;
         final int height = 800;
-        
+
         final Rectangle refBounds = getShell().getParent().getBounds();
         getShell().setMinimumSize(width, height);
         getShell().layout(true);
-        
+
         getShell().setBounds(refBounds.x + ((refBounds.width - width) / 2), refBounds.y + ((refBounds.height - height) / 2), width, height);
-        
+
     }
 
     @objid ("0644d8db-b0f6-40a2-93f6-19f5ff0dcf7a")

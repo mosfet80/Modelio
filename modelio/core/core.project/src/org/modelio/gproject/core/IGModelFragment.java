@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.core;
 
@@ -36,17 +36,18 @@ import org.modelio.vcore.smkernel.mapi.MetamodelVersionDescriptor;
 
 /**
  * This interface adds specific features of model fragments in a Modelio project.
- * 
+ *
  * <p>
  * A project model fragment may contain model elements and files. Its content may be available locally or be located on a distant server. A model fragment must be mounted in order for its content to be accessible.
  * <p>
  * This interface should not be directly implemented. Extends {@link AbstractGModelFragment} instead.
- * 
+ *
  * @since 5.2
  */
 @objid ("f2766b2b-7300-497a-bdd4-677329e46acc")
 public interface IGModelFragment extends IGPart {
     /**
+     *
      * @return the model repository
      */
     @objid ("a2cef7d7-d904-4438-b228-97806aba0c72")
@@ -54,6 +55,7 @@ public interface IGModelFragment extends IGPart {
 
     /**
      * Get the root elements of the fragment.
+     *
      * @return the root elements of the fragment.
      */
     @objid ("74579da3-490e-42a5-b22b-ba52fd8895af")
@@ -61,6 +63,7 @@ public interface IGModelFragment extends IGPart {
 
     /**
      * Get the service that will migrate the fragment to the current metamodel version.
+     *
      * @param targetMetamodel the target metamodel
      * @return the fragment migration service.
      * @throws IOException if migration fails.
@@ -72,6 +75,7 @@ public interface IGModelFragment extends IGPart {
      * Reconfigure the fragment from the given descriptor.
      * <p>
      * The given fragment will have the same ID and type. It may have a different URI. The fragment may choose to update, unmount and remount or even to remove itself and install a new one.
+     *
      * @param fd the new fragment configuration
      * @param monitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call <code>done()</code> on the given monitor. Accepts <code>null</code>, indicating that no progress should be reported and that the
      * operation cannot be cancelled.
@@ -82,6 +86,7 @@ public interface IGModelFragment extends IGPart {
 
     /**
      * Rename the fragment, including the part on the disk.
+     *
      * @param name the new fragment name. If equals to the current id, calling this method does nothing.
      * @param monitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call <code>done()</code> on the given monitor. Accepts <code>null</code>, indicating that no progress should be reported and that the
      * operation cannot be cancelled.
@@ -93,6 +98,7 @@ public interface IGModelFragment extends IGPart {
 
     /**
      * Get the fragment informations such as the version, the description...
+     *
      * @return the fragment informations.
      * @throws IOException in case of I/O failure.
      */
@@ -101,6 +107,7 @@ public interface IGModelFragment extends IGPart {
 
     /**
      * Get the fragment required metamodel as a descriptor.
+     *
      * @return the required metamodel fragments.
      * @throws IOException in case of I/O failure reading the version
      */
@@ -111,6 +118,7 @@ public interface IGModelFragment extends IGPart {
      * Get the fragment runtime directory.
      * <p>
      * The runtime directory contains files that can be deleted at any time without breaking the fragment.
+     *
      * @return the fragment runtime directory.
      */
     @objid ("3f4a5079-792e-4a40-9aa1-aec625454bf2")
@@ -120,6 +128,7 @@ public interface IGModelFragment extends IGPart {
      * Get the fragment data directory.
      * <p>
      * The data directory contains files that are mandatory for the fragment.
+     *
      * @return the fragment data directory.
      */
     @objid ("60c7505e-22c0-46c4-81a9-9896e352748a")
@@ -127,10 +136,11 @@ public interface IGModelFragment extends IGPart {
 
     /**
      * Get the fragment access rights.
+     *
      * @return the fragment access rights.
      * @since 5.5 - 29/08/2023
      */
     @objid ("b8a72a5d-1a74-4980-bdd6-55f8050a2090")
     IGAccessRights getAccessRights();
-}
 
+}

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.eventdefinitions;
 
@@ -72,12 +72,12 @@ public class MessageEventDefinitionNode implements IProductionNode<BpmnMessageEv
     @objid ("feb49180-f524-48fc-8de5-6514265e8c5d")
     @Override
     public BpmnMessageEventDefinition createUMLElement(MObject context, TMessageEventDefinition jaxbElement, BpmnImportFactory factory, boolean keepId) {
-        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {  
+        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {
             return factory.createWithId(BpmnMessageEventDefinition.class, context, "EventDefinitions", jaxbElement.getId());
         } else {
             return factory.create(BpmnMessageEventDefinition.class, context, "EventDefinitions");
         }
-        
+
     }
 
     @objid ("df9b0930-c640-4f3c-85ff-f7863f4e63d6")
@@ -89,7 +89,7 @@ public class MessageEventDefinitionNode implements IProductionNode<BpmnMessageEv
                 modelioElement.setMessageRef(modelioMessage);
             }
         }
-        
+
         if (jaxbElement.getOperationRef() != null) {
             BpmnOperation modelioOperation = (BpmnOperation) this.elementsMap.get(jaxbElement.getOperationRef().getLocalPart());
             if (modelioOperation != null) {
@@ -103,11 +103,11 @@ public class MessageEventDefinitionNode implements IProductionNode<BpmnMessageEv
     @Override
     public TMessageEventDefinition createJaxbElement(Object context, BpmnMessageEventDefinition modelioElement) {
         TEvent jaxEvent = (TEvent) context;
-        
+
         // Create JaxbElement
         TMessageEventDefinition jaxEventDefinition = new TMessageEventDefinition();
         this.elementsMap.put(modelioElement.getUuid(), jaxEventDefinition);
-        
+
         // Add to context
         List<JAXBElement<? extends TEventDefinition>> jaxContext = null;
         if (jaxEvent instanceof TThrowEvent) {
@@ -120,7 +120,7 @@ public class MessageEventDefinitionNode implements IProductionNode<BpmnMessageEv
         }
         ObjectFactory factory = new ObjectFactory();
         jaxContext.add(factory.createMessageEventDefinition(jaxEventDefinition));
-        
+
         jaxEventDefinition.setId(IDUtils.getJaxbId(context, modelioElement));
         return jaxEventDefinition;
     }
@@ -129,14 +129,14 @@ public class MessageEventDefinitionNode implements IProductionNode<BpmnMessageEv
     @Override
     public TMessageEventDefinition updateJaxbElement(Object context, TMessageEventDefinition jaxEventDefinition, BpmnMessageEventDefinition modelioElement) {
         // Edit Properties
-        
+
         if (modelioElement.getMessageRef() != null) {
             TMessage jaxMessage = (TMessage) this.elementsMap.get(modelioElement.getMessageRef().getUuid());
             if (jaxMessage != null) {
                 jaxEventDefinition.setMessageRef(new QName(jaxMessage.getId()));
             }
         }
-        
+
         if (modelioElement.getOperationRef() != null) {
             TBaseElement jaxOperation = (TBaseElement) this.elementsMap.get(modelioElement.getUuid());
             if (jaxOperation instanceof TOperation) {

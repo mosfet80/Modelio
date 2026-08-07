@@ -1,0 +1,25 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.modelio</groupId>
+    <artifactId>modelio-parent</artifactId>
+    <version>6.2.0-SNAPSHOT</version>
+    <relativePath>../../../../modelio-parent</relativePath>
+  </parent>
+
+  <artifactId>aggregator-modelio.archimate-opensource</artifactId>
+  <packaging>pom</packaging>
+
+  <!-- ArchiMate modules for open-source build:
+       base + ext_org + extensions (no ext_com, no diagrams.svg.com, no extensions.com) -->
+  <modules>
+    <module>../../../../../modelio/archimate/archimate.diagrams</module>
+    <module>../../../../../modelio/archimate/archimate.exchange</module>
+    <module>../../../../../modelio/archimate/archimate.extensions</module>
+    <module>../../../../../modelio/archimate/archimate.metamodel.api</module>
+    <module>../../../../../modelio/archimate/archimate.metamodel.impl</module>
+    <module>../../../../../modelio/archimate/archimate.ui</module>
+    <module>../../../../../modelio/archimate/archimate.ui.ext_org</module>
+  </modules>
+</project>

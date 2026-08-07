@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.classifier;
 
@@ -76,13 +76,13 @@ public class ClassifierEditPart extends AbstractNodeEditPart {
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new DeferringCreateNodePolicy());
         installEditPolicy(EditPolicy.NODE_ROLE, new SmartGeneralizationEditPolicy());
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START,
                 new LinkedNodeStartCreationEditPolicy());
         installEditPolicy("Constraint creation", new ConstraintLinkEditPolicy(false));
-        
+
         GmNodeModel model = getModel();
         // FIXME : Some Gm that don't represent a Classifier use this edit part
         // only to have the separation line between the zones.
@@ -92,10 +92,10 @@ public class ClassifierEditPart extends AbstractNodeEditPart {
         } else {
             installEditPolicy(ModelElementDropRequest.TYPE, new DefaultElementDropEditPolicy());
         }
-        
+
         // Add specific policy to handle requests to redraw composition links.
         installEditPolicy("RedrawCompositionLinkEditPolicy", new RedrawCompositionLinkEditPolicy());
-        
+
     }
 
     @objid ("3430998b-55b7-11e2-877f-002564c97630")
@@ -103,18 +103,18 @@ public class ClassifierEditPart extends AbstractNodeEditPart {
     protected IFigure createFigure() {
         // Create the figure
         final GradientFigure classFigure = new GradientFigure();
-        
+
         // Set style independent properties
         classFigure.setOpaque(true);
-        
+
         final ToolbarLayoutWithGrab layout = new ToolbarLayoutWithGrab();
         layout.setHorizontal(false);
         layout.setStretchMinorAxis(true);
-        
+
         classFigure.setLayoutManager(layout);
-        
+
         MinimumSizeLayout.apply(classFigure, 100, 80);
-        
+
         // Set style dependent properties
         refreshFromStyle(classFigure, getModelStyle());
         return classFigure;
@@ -152,14 +152,14 @@ public class ClassifierEditPart extends AbstractNodeEditPart {
                     }
                 }
             }
-        
+
             if (!switchRepresentationMode()) {
                 super.refreshFromStyle(aFigure, style);
-        
+
                 updateFigureBorder((GradientFigure) aFigure);
             }
         }
-        
+
     }
 
     @objid ("34322019-55b7-11e2-877f-002564c97630")
@@ -167,9 +167,9 @@ public class ClassifierEditPart extends AbstractNodeEditPart {
     protected void refreshVisuals() {
         final IFigure fig = getFigure();
         final GmNodeModel gm = getModel();
-        
+
         fig.getParent().setConstraint(fig, gm.getLayoutData());
-        
+
     }
 
     @objid ("3432201c-55b7-11e2-877f-002564c97630")
@@ -177,9 +177,9 @@ public class ClassifierEditPart extends AbstractNodeEditPart {
         final Border inner = new ZoomableLineBorder(classFig.getLineColor(), classFig.getLineWidth());
         final Border outer = new ShadowBorder(classFig.getLineColor(), classFig.getLineWidth());
         final CompoundBorder b = new CompoundBorder(outer, inner);
-        
+
         classFig.setBorder(b);
-        
+
     }
 
 }

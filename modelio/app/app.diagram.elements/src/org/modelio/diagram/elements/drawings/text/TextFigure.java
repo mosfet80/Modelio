@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.drawings.text;
 
@@ -43,21 +43,22 @@ public class TextFigure extends GradientFigure {
     private TextFlow contentsText;
 
     @objid ("04f2b629-2353-4d13-ad57-9ed7b5ac04a4")
-    public  TextFigure() {
+    public TextFigure() {
         this.contents = new FlowPage();
         this.contentsText = new TextFlow();
         this.contents.add(this.contentsText);
         // this.contents.setBorder(new MarginBorder(2));
         this.contents.setOpaque(false);
         this.contents.setHorizontalAligment(PositionConstants.LEFT);
-        
+
         add(this.contents);
         setLayoutManager(new FlowLayout());
-        
+
     }
 
     /**
      * Set the note text.
+     *
      * @param contents the note text.
      */
     @objid ("1eba2f53-d756-4b0b-8068-320b37cab86f")
@@ -67,6 +68,7 @@ public class TextFigure extends GradientFigure {
 
     /**
      * Set the text horizontal alignment.
+     *
      * @param align the text horizontal alignment.
      */
     @objid ("5af96411-fc97-406c-a73e-1377427ba276")
@@ -86,11 +88,11 @@ public class TextFigure extends GradientFigure {
             ialign = PositionConstants.CENTER;
             break;
         }
-        
+
         if (this.contents.getHorizontalAligment() != ialign) {
             this.contents.setHorizontalAligment(ialign);
         }
-        
+
     }
 
     @objid ("498e45af-c321-418b-a5d1-0e1cff56a7f4")
@@ -98,7 +100,7 @@ public class TextFigure extends GradientFigure {
     public void setTextColor(Color textColor) {
         this.contents.setForegroundColor(textColor);
         super.setTextColor(textColor);
-        
+
     }
 
     @objid ("acbe7fe6-89f3-49ee-9480-c2809b2e06dd")
@@ -106,7 +108,7 @@ public class TextFigure extends GradientFigure {
     public void setTextFont(Font textFont) {
         this.contents.setFont(textFont);
         super.setTextFont(textFont);
-        
+
     }
 
     @objid ("d7bdf996-db4d-46a2-b74e-6ba87c8d7b49")

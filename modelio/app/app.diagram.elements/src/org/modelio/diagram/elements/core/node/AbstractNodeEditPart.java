@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.node;
 
@@ -99,7 +99,7 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
 
     /**
      * Change bounds request property to specify the previous {@link #getTrimmedBounds()}.
-     * 
+     *
      * @since 3.4.1
      */
     @objid ("7f1477d0-c5d3-4392-bc89-0da32fceab9d")
@@ -107,7 +107,7 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
 
     /**
      * Change bounds request property to specify requested {@link #getTrimmedBounds()}.
-     * 
+     *
      * @since 3.4.1
      */
     @objid ("7703cc3b-32fa-4cc1-8b6a-20a2e0b43733")
@@ -123,10 +123,10 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
      * Constructor.
      */
     @objid ("8090cd0b-1dec-11e2-8cad-001ec947c8cc")
-    public  AbstractNodeEditPart() {
+    public AbstractNodeEditPart() {
         super();
         this.dragTrackerProvider = new DefaultDragTrackerProvider(this);
-        
+
     }
 
     @objid ("8090cd0e-1dec-11e2-8cad-001ec947c8cc")
@@ -134,11 +134,12 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
     public void activate() {
         super.activate();
         getModel().addPropertyChangeListener(this);
-        
+
     }
 
     /**
      * Changes the custom image on the element.
+     *
      * @param gmModel the selected gmModel
      * @param imageUrl URL to the new image
      */
@@ -149,7 +150,7 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
             TagType tagType = gmModel.getDiagram().getModelManager().getModelServices().getTagType("ModelerModule", ".*", "userDiagramImage", obElement.getMClass());
             if (tagType == null)
                 return;
-        
+
             if (obElement instanceof ModelElement) {
                 ModelElement el = (ModelElement) obElement;
                 if (imageUrl != null) {
@@ -157,15 +158,16 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
                     gmModel.obElementsUpdated();
                 }
             }
-        
+
         } catch (ElementNotUniqueException e) {
             DiagramElements.LOG.error(e);
         }
-        
+
     }
 
     /**
      * Create a serializable anchor model from the given anchor.
+     *
      * @param anchor a figure anchor
      * @return an anchor model.
      */
@@ -180,27 +182,28 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
     public void deactivate() {
         super.deactivate();
         getModel().removePropertyChangeListener(this);
-        
+
     }
 
     /**
      * Returns an object which is an instance of the given class associated with this object. Returns <code>null</code> if no such object can be found.
      * <p>
      * Extends {@link AbstractGraphicalEditPart#getAdapter(Class)} to support {@link MObject}, {@link IGmObject}, {@link GmModel} and their subclasses.
-     * @see IAdaptable#getAdapter(Class)
+     *
      * @param adapter the adapter class to look up
      * @return a object castable to the given class, or <code>null</code> if this object does not have an adapter for the given class
+     * @see IAdaptable#getAdapter(Class)
      */
     @objid ("8090cd1e-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public Object getAdapter(Class adapter) {
         final GmNodeModel gmModel = getModel();
-        
+
         // Support IGmObject, GmModel and its subclasses
         if (adapter.isInstance(gmModel)) {
             return gmModel;
         }
-        
+
         // Support ObElement & subclasses
         if (gmModel != null) {
             final MObject obElement = gmModel.getRelatedElement();
@@ -208,7 +211,7 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
                 return obElement;
             }
         }
-        
+
         // Support AccessibleAnchorProvider, INodeAnchorProvider and IFixedNodeAnchorProvider
         INodeAnchorProvider anchorProvider = getNodeAnchorProvider();
         if (AccessibleAnchorProvider.class.isAssignableFrom(adapter)) {
@@ -223,13 +226,14 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
 
     /**
      * Open a dialog to select an image from an imageLibrary.
+     *
      * @return the selected image. Might be <code>null</code>.
      */
     @objid ("70b5762d-fcb2-459d-8651-ee0f1660b428")
     public URL getCustomImageUrl() {
         IModelioEnvService context = getModel().getDiagram().getModelManager().getService(IModelioEnvService.class);
         ImageSelectionDialog imageSelctionDialog = new ImageSelectionDialog((Display.getCurrent().getActiveShell()), context.getImageLibrary());
-        
+
         if (imageSelctionDialog.open() == IDialogConstants.OK_ID) {
             return imageSelctionDialog.getSelectedItem();
         }
@@ -245,9 +249,9 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
     @objid ("8f781d53-cf90-4d4d-aebe-9b8ad9888406")
     public List<EditPolicy> getInstalledPolicies() {
         List<EditPolicy> policies = new ArrayList<>();
-        
+
         EditPolicyIterator it = getEditPolicyIterator();
-        
+
         while (it.hasNext()) {
             policies.add(it.next());
         }
@@ -267,6 +271,7 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
      * <p>
      * If this node has no specific needs, it can return <code>null</code> which indicates to the parent that the default behavior should be used.
      * </p>
+     *
      * @param requestType the type of request the returned policy must handle.
      * @return a policy able to handle the passed type of request or <code>null</code>.
      */
@@ -305,6 +310,7 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
      * Get the bounds that may be used by the parent container layouter.
      * <p>
      * Returns usually the figure {@link IFigure#getBounds()}. May be redefined by subclasses to return a different (smaller) rectangle that may make the layout have a better look.
+     *
      * @return the figure trimmed bounds.
      * @since 3.4.1
      */
@@ -317,6 +323,7 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
      * Redefined to encapsulate :<ul>
      * <li>layout edit policies into {@link #createLayoutPolicyDecorator(EditPolicy)}.
      * <li>primary drag policies into {@link #createPrimaryDragPolicyDecorator(EditPolicy)}.
+     *
      * @see #createLayoutPolicyDecorator(EditPolicy)
      * @see #createPrimaryDragPolicyDecorator(EditPolicy)
      * @since 5.1.0
@@ -334,7 +341,7 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
         } else {
             super.installEditPolicy(key, editPolicy);
         }
-        
+
     }
 
     /**
@@ -351,24 +358,24 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
         if (NavigationRequest.TYPE.equals(req.getType())) {
             final GmNodeModel gm = getModel();
             final MObject relatedEl = gm.getRelatedElement();
-        
+
             IModelioNavigationService service = gm.getDiagram().getModelManager().getNavigationService();
             service.fireNavigate(relatedEl);
-        
+
             getViewer().setSelection(new StructuredSelection(this));
         } else if (RequestConstants.REQ_OPEN.equals(req.getType())) {
             final GmNodeModel gm = getModel();
             final MObject relatedEl = gm.getRelatedElement();
-        
+
             IActivationService service = gm.getDiagram().getModelManager().getActivationService();
             service.activateMObject(relatedEl);
-        
+
         } else if (RequestConstants.REQ_DIRECT_EDIT.equals(req.getType())) {
             performDirectEditRequest(req);
         }
-        
+
         super.performRequest(req);
-        
+
     }
 
     /**
@@ -376,6 +383,7 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
      * <p>
      * Default implementation the request forwards to all children edit parts until one understand it,
      * and then said child edit part is asked to perform the request.
+     *
      * @param req the direct edit request
      * @since 5.1.0
      */
@@ -384,9 +392,9 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
         if (req instanceof LocationRequest) {
             // Give the request to the child where the request is located
             final Point reqLocation = ((LocationRequest) req).getLocation();
-        
+
             for (Object childEditPartObj : getChildren()) {
-        
+
                 final GraphicalEditPart childEditPart = (GraphicalEditPart) childEditPartObj;
                 if (childEditPart.understandsRequest(req) &&
                         containsAbsolutePoint(childEditPart, reqLocation)) {
@@ -403,14 +411,14 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
                 }
             }
         }
-        
+
     }
 
     @objid ("80932f62-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         String propName = evt.getPropertyName();
-        
+
         switch (propName) {
         case IGmObject.PROPERTY_LINK_SOURCE:
             refreshSourceConnections();
@@ -428,7 +436,7 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
             refreshFromStyle(getFigure(), (IStyle) evt.getNewValue());
             break;
         }
-        
+
     }
 
     @objid ("809591cb-1dec-11e2-8cad-001ec947c8cc")
@@ -446,22 +454,24 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
             }
         }
         super.removeNotify();
-        
+
     }
 
     /**
      * Select a custom image for the element from Modelio's image library.
+     *
      * @param gmModel the selected gmModel
      */
     @objid ("2d6b58ef-8a05-422e-9e4a-0d837d912af1")
     public void selectCustomImage(final GmNodeModel gmModel) {
         URL itemurl = getCustomImageUrl();
         changeCustomImage(gmModel, itemurl);
-        
+
     }
 
     /**
      * Changes the current {@link IDragTrackerProvider} used by this edit part.
+     *
      * @param value the new {@link IDragTrackerProvider} to be used by this edit part.
      */
     @objid ("80932f66-1dec-11e2-8cad-001ec947c8cc")
@@ -469,34 +479,34 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
         // Automatically generated method. Please delete this comment before
         // entering specific code.
         this.dragTrackerProvider = value;
-        
+
     }
 
     @objid ("80932f6a-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void setModel(final Object model) {
         super.setModel(model);
-        
+
         // Set the initial representation mode
         GmNodeModel gmAbstractObject = (GmNodeModel) model;
         this.initialRepMode = gmAbstractObject.getRepresentationMode();
         if (this.initialRepMode == null) {
             throw new IllegalStateException("No initial representation mode on" + gmAbstractObject);
         }
-        
+
     }
 
     @objid ("ed1a83b6-6745-467c-8462-f838feb49769")
     @Override
     public String toString() {
         Rectangle bounds = this.figure != null ? this.figure.getBounds() : null;
-        
+
         if (isActive()) {
             return String.format("%s [model=%s, bounds=%s]", getClass().getSimpleName(), getModel(), bounds);
         } else {
             return String.format("inactive %s [model=%s]", getClass().getSimpleName(), getModel());
         }
-        
+
     }
 
     /**
@@ -511,6 +521,7 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
 
     /**
      * Launches a {@link FitToMinSizeCommand} after a {@link RepresentationMode} switch.
+     *
      * @param newEditPart the new edit part being created.
      */
     @objid ("809591ba-1dec-11e2-8cad-001ec947c8cc")
@@ -519,25 +530,25 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
         final ChangeBoundsRequest req = new ChangeBoundsRequest(RequestConstants.REQ_RESIZE);
         req.setEditParts(newEditPart);
         req.setSizeDelta(new Dimension(-1, -1));
-        
+
         EditPart editPart = newEditPart;
         while (editPart != null && !editPart.understandsRequest(req)) {
             editPart = editPart.getParent();
             req.setEditParts(newEditPart);
         }
-        
+
         if (editPart != null) {
             final GraphicalEditPart graphicEditPart = (GraphicalEditPart) editPart;
-        
+
             // Force layout so that child figures on Port container have valid bounds needed by
             // XYLayoutEditPolicy.getConstraintFor(ChangeBoundsRequest , GraphicalEditPart ) .
             graphicEditPart.refresh();
             graphicEditPart.getFigure().getUpdateManager().performValidation();
-        
+
             // Run fit to content to the found edit part.
             new FitToMinSizeCommand(graphicEditPart).execute();
         }
-        
+
     }
 
     /**
@@ -556,18 +567,18 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
         installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new DelegatingDirectEditionEditPolicy());
         installEditPolicy(EditPolicy.COMPONENT_ROLE, new DefaultDeleteNodeEditPolicy());
         installEditPolicy(ModelElementDropRequest.TYPE, new DefaultElementDropEditPolicy());
-        
+
         installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new ReadOnlyHoverFeedbackEditPolicy());
-        
+
         // Edit policy that refreshes the graphic model from model changes.
         // Deletes the graphic model when the model element is deleted.
         installEditPolicy(DefaultRefreshFromModelEditPolicy.ROLE, new DefaultRefreshFromModelEditPolicy());
-        
+
         INodeAnchorProvider anchorProvider = getNodeAnchorProvider();
         if (anchorProvider instanceof IFixedNodeAnchorProvider) {
             installEditPolicy(AnchorsFeedbackEditPolicy.class, new AnchorsFeedbackEditPolicy((IFixedNodeAnchorProvider) anchorProvider));
         }
-        
+
     }
 
     @objid ("80932f72-1dec-11e2-8cad-001ec947c8cc")
@@ -580,6 +591,7 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
      * Encapsulate layout edit policies into another EditPolicy.
      * <p>
      * May be redefined by sub classes.
+     *
      * @param layoutPolicy the layout edit policy.
      * @return the created policy.
      * @since 5.1.0
@@ -591,13 +603,14 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
         } else {
             return layoutPolicy;
         }
-        
+
     }
 
     /**
      * Encapsulate primary drag edit policies into another EditPolicy.
      * <p>
      * May be redefined by sub classes.
+     *
      * @param dragPolicy the layout edit policy.
      * @return the created policy.
      * @since 5.1.0
@@ -611,7 +624,7 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
     @Override
     protected List<?> getModelChildren() {
         final GmNodeModel gmNodeModel = getModel();
-        
+
         // Only visible composite nodes have children
         if (gmNodeModel.isVisible() && gmNodeModel instanceof GmCompositeNode) {
             // Filter visible children
@@ -619,7 +632,7 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
         } else {
             return Collections.emptyList();
         }
-        
+
     }
 
     @objid ("80959195-1dec-11e2-8cad-001ec947c8cc")
@@ -630,6 +643,7 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
 
     /**
      * Convenience method to retrieve the model style.
+     *
      * @return the model style.
      */
     @objid ("8095919b-1dec-11e2-8cad-001ec947c8cc")
@@ -645,6 +659,7 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
 
     /**
      * Tells whether this node is owned directly or indirectly by a {@link ConnectionEditPart} (a link).
+     *
      * @return <i>true</i> if this node is owned by a link else <i>false</i>.
      */
     @objid ("63c6c6d3-3101-4af6-91a9-e40e1958eda0")
@@ -662,6 +677,7 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
 
     /**
      * Tells whether this edit part has a related model element and whether it is valid: non shell, non deleted.
+     *
      * @return true if this edit part is related to a valid living modele element.
      */
     @objid ("fb1df387-e1fa-42a7-a2af-931230c9c671")
@@ -670,16 +686,17 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
         if (gmModel == null) {
             return false;
         }
-        
+
         MObject relatedElement = gmModel.getRelatedElement();
         return (relatedElement != null
                 && !relatedElement.isDeleted()
                 && !relatedElement.isShell());
-        
+
     }
 
     /**
      * Tells whether the representation mode needs to be switched.
+     *
      * @return true if the representation mode needs to be switched.
      */
     @objid ("c7362413-5291-4fab-9135-558992283ff1")
@@ -689,7 +706,7 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
             return false;
         }
         final GmNodeModel gmModel = getModel();
-        
+
         final RepresentationMode askedMode = gmModel.getRepresentationMode();
         return (askedMode != this.initialRepMode);
     }
@@ -698,13 +715,14 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
      * Refresh the figure from the given style. This implementation updates pen and brush properties if applicable. StyleKey are looked up by MetaKey.
      * <p>
      * Often called in {@link #createFigure()} and after a style change.
+     *
      * @param aFigure The figure to update, should be {@link #getFigure()}.
      * @param style The style to update from, usually {@link #getModelStyle()}
      */
     @objid ("809591a6-1dec-11e2-8cad-001ec947c8cc")
     protected void refreshFromStyle(IFigure aFigure, IStyle style) {
         final GmNodeModel gmModel = getModel();
-        
+
         // Set pen properties where applicable
         if (aFigure instanceof IPenOptionsSupport) {
             final IPenOptionsSupport pen = (IPenOptionsSupport) aFigure;
@@ -725,15 +743,15 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
                 pen.setLinePattern(linePattern);
             }
         }
-        
+
         // Set brush properties where applicable
         if (aFigure instanceof IBrushOptionsSupport) {
             final IBrushOptionsSupport brush = (IBrushOptionsSupport) aFigure;
-        
+
             if (gmModel.getStyleKey(MetaKey.FILLCOLOR) != null) {
                 brush.setFillColor(style.getColor(gmModel.getStyleKey(MetaKey.FILLCOLOR)));
             }
-        
+
             if (gmModel.getStyleKey(MetaKey.FILLMODE) != null) {
                 switch ((FillMode) style.getProperty(gmModel.getStyleKey(MetaKey.FILLMODE))) {
                 case SOLID:
@@ -750,13 +768,14 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
                 }
             }
         }
-        
+
     }
 
     /**
      * Implementation of {@link #isSelectable()} that makes the node selectable only if one of its parent node is already selected.
      * <p>
      * To be called from {@link #isSelectable()}.
+     *
      * @return true if the parent node or this node is already selected else false.
      */
     @objid ("ed497043-f62d-4b0d-b68a-1324bf1dab76")
@@ -765,7 +784,7 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
         if (getViewer().getSelectedEditParts().contains(this)) {
             return true;
         }
-        
+
         // Allow selection only if the composition parent was already selected
         EditPart parent = getParent();
         while (parent != null) {
@@ -782,6 +801,7 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
      * <p>
      * It switches the representation by removing and adding again the gm element from its parent.<br>
      * Doing this makes the EditPart killing itself and call the {@link StandardEditPartFactory}.
+     *
      * @return true if the representation was swapped, false if it didn't change.
      */
     @objid ("809591ad-1dec-11e2-8cad-001ec947c8cc")
@@ -790,13 +810,13 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
             // Fast exit
             return false;
         }
-        
+
         Command layoutConnectionsCommand = LayoutChildrenNodeConnectionsHelper.forRequest(null)
         .addEditPart(this)
         .createCommands(new CompoundCommand());
-        
+
         beforeSwitchRepresentationMode();
-        
+
         final EditPart parentEditPart = getParent();
         final GmNodeModel gmModel = getModel();
         final GmCompositeNode parentNode = gmModel.getParentNode();
@@ -816,28 +836,28 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
                 // This will restore the GM model to its original state and invoke the ModelioEditPartFactory that will create another edit part.
                 parentNode.addChild(gmModel, index);
             }
-        
+
             newEditPart = (EditPart) parentEditPart.getViewer()
                     .getEditPartRegistry()
                     .get(gmModel);
-        
+
             autoSizeNode(newEditPart);
-        
+
         } else if (parentLink != null) {
             final IGmLocator constraint = parentLink.getLayoutContraint(gmModel);
-        
+
             // This will "delete" the current edit part.
             parentLink.removeExtension(gmModel);
-        
+
             // This will invoke the ModelioEditPartFactory that will
             // create another edit part.
             parentLink.addExtension(gmModel, gmModel.getRoleInComposition(), constraint);
-        
+
             newEditPart = (EditPart) parentEditPart.getViewer()
                     .getEditPartRegistry()
                     .get(gmModel);
         }
-        
+
         // Custom image mode selected
         if (gmModel.getRepresentationMode() == RepresentationMode.USER_IMAGE) {
             MObject obElement = gmModel.getRelatedElement();
@@ -846,11 +866,11 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
             }
             autoSizeNode(newEditPart);
         }
-        
+
         if (newEditPart instanceof AbstractNodeEditPart) {
             ((AbstractNodeEditPart) newEditPart).afterSwitchRepresentationMode();
         }
-        
+
         // since 5.1.0: layout connections
         if (layoutConnectionsCommand!= null && layoutConnectionsCommand.canExecute())
             layoutConnectionsCommand.execute();
@@ -863,11 +883,12 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
         if (getViewer() != null) {
             super.unregisterVisuals();
         }
-        
+
     }
 
     /**
      * Tells whether the figure of the given edit part contains the given point.
+     *
      * @param editPart A graphic edit part
      * @param aPoint a point in absolute coordinates
      * @return <i>true</i> if the edit part figure contains the point, else <i>false</i>
@@ -891,6 +912,7 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
      * May be redefined to use another service.
      * <li> 5.3.1 : Default implementation is now the default fixed anchor provider .
      * </ul>
+     *
      * @return the service used to produce connection anchors from ConnectionEditPart of Request.
      * @since 5.0.2
      */
@@ -905,6 +927,7 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
 
     /**
      * Create the {@link IFixedNodeAnchorProvider} for this edit part.
+     *
      * @return the created anchor provider.
      * @since 5.3.1
      */
@@ -915,6 +938,7 @@ public abstract class AbstractNodeEditPart extends AbstractGraphicalEditPart imp
 
     /**
      * Here just to forbid compilation of sub classes defining this method with wrong signature.
+     *
      * @param figure not used anymore
      * @deprecated implement {@link #createAnchorProvider()} instead.
      * @since 5.3.1

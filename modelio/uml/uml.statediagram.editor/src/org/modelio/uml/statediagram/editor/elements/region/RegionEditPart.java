@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.region;
 
@@ -32,7 +32,7 @@ import org.modelio.diagram.styles.core.IStyle;
 
 /**
  * EditPart for a Region.
- * 
+ *
  * @author fpoyer
  */
 @objid ("f56b91c4-55b6-11e2-877f-002564c97630")
@@ -49,13 +49,13 @@ public class RegionEditPart extends FreeZoneEditPart {
         GradientFigure fig = new GradientFigure();
         final FreeZoneLayout layout = new FreeZoneLayout();
         fig.setLayoutManager(layout);
-        
+
         // Style independent properties
         fig.setOpaque(true);
         fig.setBorder(new MarginBorder(3, 2, 3, 2));
         MinimumSizeLayout.apply(fig, 50, 50);
-        
-        
+
+
         // Set style dependent properties
         refreshFromStyle(fig, getModelStyle());
         return fig;
@@ -67,7 +67,7 @@ public class RegionEditPart extends FreeZoneEditPart {
         if (!switchRepresentationMode()) {
             super.refreshFromStyle(aFigure, style);
         }
-        
+
     }
 
     @objid ("f56b91d9-55b6-11e2-877f-002564c97630")
@@ -77,7 +77,7 @@ public class RegionEditPart extends FreeZoneEditPart {
         GmAbstractObject model = getModel();
         IFigure fig = getFigure();
         fig.getParent().setConstraint(fig, model.getLayoutData());
-        
+
     }
 
     @objid ("f56b91dc-55b6-11e2-877f-002564c97630")
@@ -86,7 +86,7 @@ public class RegionEditPart extends FreeZoneEditPart {
         super.createEditPolicies();
         // Unlike most nodes, the region is not meant to be masked: un-install the default masking policy.
         installEditPolicy(EditPolicy.COMPONENT_ROLE, null);
-        
+
     }
 
 }

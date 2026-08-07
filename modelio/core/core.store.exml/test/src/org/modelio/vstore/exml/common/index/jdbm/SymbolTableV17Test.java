@@ -17,6 +17,7 @@ import org.modelio.vstore.exml.common.model.ObjId;
 
 /**
  * {@link SymbolTable} unit test.
+ *
  * @author cma
  */
 @objid ("dd909a0d-9f80-4b12-a13b-9ace18d4f47f")
@@ -35,15 +36,15 @@ public class SymbolTableV17Test {
         RecordManager db = RecordManagerFactory.createRecordManager(folder.getRoot().toString()+"/index1");
         try {
             SymbolTable<String> tbl = new SymbolTable<>(db, "StringSymbol", UTFSerializer.INSTANCE);
-        
+
             long a = tbl.getOrAddKey("A");
             assert (a > 0);
-        
+
             assert (tbl.findKey("A") == a);
         } finally {
             db.close();
         }
-        
+
     }
 
     @objid ("567f25d3-7d16-47b8-ac0d-f9fc8c40c32a")
@@ -51,38 +52,38 @@ public class SymbolTableV17Test {
     public void testObjIdSymbolTable() throws IOException {
         TestMetamodel mm = new TestMetamodel();
         Chronometer chrono = new Chronometer();
-        
-        
-        
+
+
+
         final String indexPath = folder.getRoot().toString()+"/index1";
         RecordManager db = RecordManagerFactory.createRecordManager(indexPath);
         try {
             SymbolTable<ObjId> tbl = new SymbolTable<>(db, "ObjIdSymbol", new ObjIdSerializer(mm.mm));
-        
+
             int i = 0;
             for (i = 0; i < COUNT; i++) {
                 ObjId oa = new ObjId(mm.classCls, "UUID-"+i);
                 long a = tbl.getOrAddKey(oa);
                 assert (a > 0);
-        
+
                 assert (tbl.findKey(oa) == a);
                 assert (tbl.getValue(a).equals(oa));
             }
             chrono.logNext("1- Added "+COUNT+" elements");
-            
+
             db.commit();
             chrono.logNext("1- Commit");
         } finally {
             db.close();
         }
         chrono.logTotal("1- Total");
-        
+
         chrono = new Chronometer();
         // reopen base and test it
         db = RecordManagerFactory.createRecordManager(indexPath);
         try {
             SymbolTable<ObjId> tbl = new SymbolTable<>(db, "ObjIdSymbol", new ObjIdSerializer(mm.mm));
-        
+
             ObjId val = new ObjId(mm.classCls, "UUID-"+1);
             long i = 0;
             long lid = 0;
@@ -100,7 +101,7 @@ public class SymbolTableV17Test {
             db.close();
         }
         chrono.logTotal("2- Total");
-        
+
     }
 
     @objid ("b57c611c-8726-408f-80f4-30cbd731232b")
@@ -108,23 +109,23 @@ public class SymbolTableV17Test {
     public void testObjIdSymbolTableV16() throws IOException {
         TestMetamodel mm = new TestMetamodel();
         Chronometer chrono = new Chronometer();
-        
+
         String indexPath = folder.getRoot().toString()+"/indexv16";
         RecordManager db = RecordManagerFactory.createRecordManager(indexPath);
         try {
             SymbolTableV17<ObjId> tbl = new SymbolTableV17<>(db, "ObjIdSymbol", new ObjIdSerializer(mm.mm));
-        
+
             int i = 0;
             for (i = 0; i < COUNT; i++) {
                 ObjId oa = new ObjId(mm.classCls, "UUID-"+i);
                 long a = tbl.getOrAddKey(oa);
                 assert (a > 0);
-        
+
                 assert (tbl.findKey(oa) == a);
                 assert (tbl.getValue(a).equals(oa));
             }
             chrono.logNext("V16 - 1- Added "+i+" elements");
-        
+
             tbl.commit();
             db.commit();
             chrono.logNext("V16 - 1- Commit");
@@ -132,13 +133,13 @@ public class SymbolTableV17Test {
             db.close();
         }
         chrono.logTotal("V16 - 1- Total");
-        
+
         // reopen base and test it
         chrono = new Chronometer();
         db = RecordManagerFactory.createRecordManager(indexPath);
         try {
             SymbolTable<ObjId> tbl = new SymbolTable<>(db, "ObjIdSymbol", new ObjIdSerializer(mm.mm));
-        
+
             ObjId val = new ObjId(mm.classCls, "UUID-"+1);
             long i = 0;
             long lid = 0;
@@ -152,16 +153,17 @@ public class SymbolTableV17Test {
             }
             chrono.logNext("V16 - 2- Read "+i+" elements");
             assert (i == COUNT) : i;
-            
+
         } finally {
             db.close();
         }
         chrono.logTotal("V16 - 2- Total");
-        
+
     }
 
     /**
      * Small MOF test metamodel.
+     *
      * @author cma
      */
     @objid ("c4f9f5e1-41c4-4472-bab3-80c7f0a7bf49")
@@ -176,12 +178,12 @@ public class SymbolTableV17Test {
         public final MofMetamodel mm;
 
         @objid ("435ec11b-5007-45d2-8166-30aeca81b00a")
-        public  TestMetamodel() {
+        public TestMetamodel() {
             this.mm = new MofMetamodel();
             try (MofBuilder mmBuilder = this.mm.builder();) {
                 this.classCls = mmBuilder.createClass("Class", "mmFrag1", true).build();
                 this.attCls = mmBuilder.createClass("Att", "mmFrag1", false).build();
-            
+
                 mmBuilder.createDep("OwnedAtt")
                 .setSource(this.classCls)
                 .setTarget(this.attCls)
@@ -189,7 +191,7 @@ public class SymbolTableV17Test {
                 .setComposition()
                 .createOpposite("Owner", 1, 1)
                 .build();
-            
+
                 mmBuilder.createDep("OwnedClass")
                 .setSource(this.classCls)
                 .setTarget(this.classCls)
@@ -197,7 +199,7 @@ public class SymbolTableV17Test {
                 .setComposition()
                 .createOpposite("Owner", 0, 1)
                 .build();
-            
+
                 mmBuilder.createDep("Type")
                 .setSource(this.classCls)
                 .setTarget(this.attCls)
@@ -209,7 +211,7 @@ public class SymbolTableV17Test {
                 })
                 .build();
             }
-            
+
         }
 
     }

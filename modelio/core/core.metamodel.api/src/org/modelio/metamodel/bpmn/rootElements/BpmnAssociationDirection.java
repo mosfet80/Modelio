@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.bpmn.rootElements;
 
@@ -26,22 +26,21 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * BpmnAssociationDirection v0.0.9054
- * 
- * 
- * Defines whether or not the Association shows any directionality with an arrowhead. 
- * The default is None (no arrowhead). 
- * A value of One means that the arrowhead SHALL be at the Target Object. 
+ *
+ *
+ * Defines whether or not the Association shows any directionality with an arrowhead.
+ * The default is None (no arrowhead).
+ * A value of One means that the arrowhead SHALL be at the Target Object.
  * A value of Both means that there SHALL be an arrowhead at both ends of the Association line.
- * 
- * 
+ *
  */
 @objid ("00409336-91e1-1f74-804b-001ec947cd2a")
 public enum BpmnAssociationDirection {
-    @objid ("3fb83394-3834-4385-a99c-e8162f2247db")
+    @objid ("0207524b-b331-45e4-8ae8-e13c9bb3dabd")
     NONEDIRECTION(0, "NoneDirection", "NoneDirection"),
-    @objid ("0c58c487-e777-4483-9478-1113c21eef70")
+    @objid ("a5ab74c0-d0e1-48f8-945c-f4e7bd70d6fd")
     ONEDIRECTION(1, "OneDirection", "OneDirection"),
-    @objid ("87fc44c9-1c8c-42be-a583-5b8586cc5759")
+    @objid ("95d282b7-60f3-4409-9363-f39061cb641d")
     BOTHDIRECTION(2, "BothDirection", "BothDirection");
 
 public static final int NONEDIRECTION_VALUE = 0;
@@ -101,5 +100,5 @@ public static final int NONEDIRECTION_VALUE = 0;
     public String toString() {
        return literal;
     }
-    
+
 }

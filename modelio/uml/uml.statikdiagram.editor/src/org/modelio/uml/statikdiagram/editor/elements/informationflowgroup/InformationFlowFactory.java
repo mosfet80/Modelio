@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.informationflowgroup;
 
@@ -45,7 +45,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * Factory that creates an information flow realized by a given link.
  * <p>
  * The source and destination of the information flow will be those of the given link. The information flow will be owned by the namespace owning both source and destination.
- * 
+ *
  * @author cmarin
  */
 @objid ("81734c69-1dec-11e2-8cad-001ec947c8cc")
@@ -61,18 +61,20 @@ class InformationFlowFactory {
 
     /**
      * Constructor.
+     *
      * @param modelFactory a model factory. Can be get on the GmDiagram.
      */
     @objid ("81734c6e-1dec-11e2-8cad-001ec947c8cc")
-    public  InformationFlowFactory(final IStandardModelFactory modelFactory) {
+    public InformationFlowFactory(final IStandardModelFactory modelFactory) {
         this.modelFactory = modelFactory;
         this.impl = new CreateVisitor();
         this.canCreateImpl = new CanCreateVisitor();
-        
+
     }
 
     /**
      * Create an information flow realizing the given link.
+     *
      * @param realizingLink a model link or a model link end.
      * @return the created information flow.
      */
@@ -99,7 +101,7 @@ class InformationFlowFactory {
             final ArrayList<UmlModelElement> dests = new ArrayList<>(1);
             srcs.add(theEdge.getSource());
             dests.add(theEdge.getTarget());
-            
+
             final InformationFlow ret = createInformationFlow(srcs, dests);
             ret.getRealizingActivityEdge().add(theEdge);
             return ret;
@@ -112,7 +114,7 @@ class InformationFlowFactory {
             final List<UmlModelElement> dests = new ArrayList<>(1);
             srcs.add(role.getOwner());
             dests.add(role.getOpposite().getOwner());
-            
+
             InformationFlow ret = createInformationFlow(srcs, dests);
             ret.getRealizingFeature().add(role);
             return ret;
@@ -123,7 +125,7 @@ class InformationFlowFactory {
         public Object visitCommunicationMessage(final CommunicationMessage theMessage) {
             final ArrayList<UmlModelElement> srcs = new ArrayList<>(1);
             final ArrayList<UmlModelElement> dests = new ArrayList<>(1);
-            
+
             CommunicationChannel channel = theMessage.getChannel();
             if (channel != null) {
                 srcs.add(channel.getStart());
@@ -133,7 +135,7 @@ class InformationFlowFactory {
                 dests.add(channel.getStart());
                 srcs.add(channel.getEnd());
             }
-            
+
             final InformationFlow ret = createInformationFlow(srcs, dests);
             ret.getRealizingCommunicationMessage().add(theMessage);
             return ret;
@@ -146,7 +148,7 @@ class InformationFlowFactory {
             final List<UmlModelElement> dests = new ArrayList<>(1);
             srcs.add(role.getOwner());
             dests.add(role.getOpposite().getOwner());
-            
+
             InformationFlow ret = createInformationFlow(srcs, dests);
             ret.getRealizingLink().add(role);
             return ret;
@@ -157,16 +159,16 @@ class InformationFlowFactory {
         public Object visitMessage(final Message theMessage) {
             final EList<Lifeline> srcs = theMessage.getSendEvent().getCovered();
             final EList<Lifeline> dests = theMessage.getReceiveEvent().getCovered();
-            
+
             InformationFlow ret = createInformationFlow(srcs, dests);
-            
+
             ret.getRealizingMessage().add(theMessage);
             return ret;
         }
 
         @objid ("8175aebf-1dec-11e2-8cad-001ec947c8cc")
-         CreateVisitor() {
-            
+        CreateVisitor() {
+
         }
 
         /**
@@ -175,6 +177,7 @@ class InformationFlowFactory {
          * Sets its owner to the namespace owning all sources and targets.
          * <p>
          * The only remaining work is to add realizing links.
+         *
          * @param srcs The sources
          * @param dests The targets
          * @return The created information flow.
@@ -182,24 +185,25 @@ class InformationFlowFactory {
         @objid ("81734c7a-1dec-11e2-8cad-001ec947c8cc")
         InformationFlow createInformationFlow(final Collection<? extends UmlModelElement> srcs, final Collection<? extends UmlModelElement> dests) {
             InformationFlow ret = InformationFlowFactory.this.modelFactory.createInformationFlow();
-            
+
             for (UmlModelElement e : srcs) {
                 ret.getInformationSource().add(e);
             }
-            
+
             for (UmlModelElement e : dests) {
                 ret.getInformationTarget().add(e);
             }
-            
+
             Collection<MObject> c = new ArrayList<>(srcs);
             c.addAll(dests);
-            
+
             ret.setOwner(getCommonNameSpace(c));
             return ret;
         }
 
         /**
          * Get the namespace in the composition hierarchy that owns all the given elements.
+         *
          * @param elements The elements to search
          * @return The common namespace owning them.
          */
@@ -207,7 +211,7 @@ class InformationFlowFactory {
         @SuppressWarnings ("unchecked")
         private NameSpace getCommonNameSpace(final Collection<MObject> elements) {
             final List<MObject>[] paths = new ArrayList[elements.size()];
-            
+
             int i = 0;
             for (MObject el : elements) {
                 paths[i] = new ArrayList<>();
@@ -218,7 +222,7 @@ class InformationFlowFactory {
                 }
                 i++;
             }
-            
+
             int max = paths[0].size();
             for (List<MObject> l : paths) {
                 Collections.reverse(l);
@@ -226,7 +230,7 @@ class InformationFlowFactory {
                     max = l.size();
                 }
             }
-            
+
             NameSpace ret = null;
             i = 0;
             do {
@@ -243,12 +247,12 @@ class InformationFlowFactory {
                     return ret;
                 }
                 i++;
-            
+
             } while (i < max);
-            
+
             // Should never reach this point.
             throw new IllegalArgumentException("No common namespace between " + elements);
-            
+
         }
 
     }
@@ -256,7 +260,7 @@ class InformationFlowFactory {
     @objid ("8175aee4-1dec-11e2-8cad-001ec947c8cc")
     private class CanCreateVisitor extends DefaultModelVisitor {
         @objid ("8175aee5-1dec-11e2-8cad-001ec947c8cc")
-        public  CanCreateVisitor() {
+        public CanCreateVisitor() {
             // nothing
         }
 
@@ -265,7 +269,7 @@ class InformationFlowFactory {
         public Object visitActivityEdge(final ActivityEdge theEdge) {
             final ArrayList<UmlModelElement> srcs = new ArrayList<>(1);
             final ArrayList<UmlModelElement> dests = new ArrayList<>(1);
-            
+
             srcs.add(theEdge.getSource());
             dests.add(theEdge.getTarget());
             return (MTools.getAuthTool().canModify(theEdge) && canCreateInformationFlow(srcs, dests));
@@ -277,7 +281,7 @@ class InformationFlowFactory {
             if (!MTools.getAuthTool().canModify(role.getSource())) {
                 return false;
             }
-            
+
             final List<UmlModelElement> srcs = new ArrayList<>(1);
             final List<UmlModelElement> dests = new ArrayList<>(1);
             srcs.add(role.getOwner());
@@ -291,17 +295,17 @@ class InformationFlowFactory {
             if (!MTools.getAuthTool().canModify(theMessage)) {
                 return false;
             }
-            
+
             final List<UmlModelElement> srcs = new ArrayList<>(1);
             final List<UmlModelElement> dests = new ArrayList<>(1);
-            
+
             CommunicationChannel channel = theMessage.getChannel();
             if (channel != null) {
                 srcs.add(channel.getStart());
                 dests.add(channel.getEnd());
             } else {
                 channel = theMessage.getInvertedChannel();
-            
+
                 dests.add(channel.getStart());
                 srcs.add(channel.getEnd());
             }
@@ -314,7 +318,7 @@ class InformationFlowFactory {
             if (!MTools.getAuthTool().canModify(role.getSource())) {
                 return false;
             }
-            
+
             final List<UmlModelElement> srcs = new ArrayList<>(1);
             final List<UmlModelElement> dests = new ArrayList<>(1);
             srcs.add(role.getOwner());
@@ -336,6 +340,7 @@ class InformationFlowFactory {
          * <p>
          * Check that the namespace owning all sources and targets is modifiable.
          * <p>
+         *
          * @param srcs The sources
          * @param dests The targets
          * @return true if an information flow can be created, else false.
@@ -349,6 +354,7 @@ class InformationFlowFactory {
 
         /**
          * Get the namespace in the composition hierarchy that owns all the given elements.
+         *
          * @param elements The elements to search
          * @return The common namespace owning them.
          */
@@ -356,7 +362,7 @@ class InformationFlowFactory {
         @SuppressWarnings ("unchecked")
         private NameSpace getCommonNameSpace(final Collection<MObject> elements) {
             final List<MObject>[] paths = new ArrayList[elements.size()];
-            
+
             int i = 0;
             for (MObject el : elements) {
                 paths[i] = new ArrayList<>();
@@ -367,7 +373,7 @@ class InformationFlowFactory {
                 }
                 i++;
             }
-            
+
             int max = paths[0].size();
             for (List<MObject> l : paths) {
                 Collections.reverse(l);
@@ -375,7 +381,7 @@ class InformationFlowFactory {
                     max = l.size();
                 }
             }
-            
+
             NameSpace ret = null;
             i = 0;
             do {
@@ -392,12 +398,12 @@ class InformationFlowFactory {
                     return ret;
                 }
                 i++;
-            
+
             } while (i < max);
-            
+
             // Should never reach this point.
             throw new IllegalArgumentException("No common namespace between " + elements);
-            
+
         }
 
     }

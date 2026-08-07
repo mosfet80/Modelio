@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.linkednode;
 
@@ -43,7 +43,7 @@ import org.modelio.diagram.elements.plugin.DiagramElements;
 
 /**
  * Edit policy that allow a linked node to be unmasked inside the host.
- * 
+ *
  * @author cmarin
  */
 @objid ("7ebb1de0-1dec-11e2-8cad-001ec947c8cc")
@@ -65,13 +65,13 @@ public class LinkedNodeFinishCreationEditPolicy extends AbstractLinkedNodeCreati
     @Override
     protected void eraseTargetConnectionFeedback(final DropRequest dropRequest) {
         super.eraseTargetConnectionFeedback(dropRequest);
-        
+
         // Only creation finish is handled
         final Request request = (Request) dropRequest;
         if (!LinkedNodeRequestConstants.REQ_LINKEDNODE_END.equals(request.getType())) {
             return;
         }
-        
+
         // Additional feedback: outline the Node.
         GraphicalEditPolicy delegatePolicy = getDelegateFeedbackPolicy((CreateConnectionRequest) dropRequest, false);
         if (delegatePolicy != null) {
@@ -86,7 +86,7 @@ public class LinkedNodeFinishCreationEditPolicy extends AbstractLinkedNodeCreati
                 }
             }
         }
-        
+
     }
 
     @objid ("7ebd7ffb-1dec-11e2-8cad-001ec947c8cc")
@@ -94,7 +94,7 @@ public class LinkedNodeFinishCreationEditPolicy extends AbstractLinkedNodeCreati
     protected Command getConnectionCompleteCommand(CreateConnectionRequest request) {
         AbstractNodeEditPart nodeEditPart = (AbstractNodeEditPart) getHost();
         CreateLinkedNodeCommand startCommand = (CreateLinkedNodeCommand) request.getStartCommand();
-        
+
         startCommand.setDestinationNode((GmCompositeNode) nodeEditPart.getModel());
         Point p = new Point(request.getLocation());
         getHostFigure().translateToRelative(p);
@@ -119,43 +119,44 @@ public class LinkedNodeFinishCreationEditPolicy extends AbstractLinkedNodeCreati
     @Override
     protected void showTargetConnectionFeedback(DropRequest request) {
         super.showTargetConnectionFeedback(request);
-        
+
         final CreateConnectionRequest req = (CreateConnectionRequest) request;
         if (LinkedNodeRequestConstants.REQ_LINKEDNODE_END != req.getType()) {
             return;
         }
-        
+
         if (! isUserEditable()) {
             return;
         }
-        
+
         final IFigure feedbackLayer = getFeedbackLayer();
-        
+
         GraphicalEditPolicy feedbackPolicy = getDelegateFeedbackPolicy(req, true);
         if (feedbackPolicy != null) {
             feedbackPolicy.showTargetFeedback(req);
         } else {
             // Additional feedback: highlight the node.
             RectangleFigure highlight = (RectangleFigure) req.getExtendedData().get(HIGHLIGHTKEY);
-        
+
             if (highlight == null) {
                 highlight = createFeedBackFigure(req);
-        
+
                 feedbackLayer.add(highlight);
                 ((Request) request).getExtendedData().put(HIGHLIGHTKEY, highlight);
             }
-        
+
             Point location = req.getLocation().getCopy();
             feedbackLayer.translateToRelative(location);
             highlight.setBounds(new Rectangle(location, new Dimension(50, 50)));
         }
-        
+
     }
 
     /**
      * Create the feed back figure.
      * <p>
      * Should create a ghost node to display where the node will be unmasked.
+     *
      * @param req The create linked node request
      */
     @objid ("7ebd8015-1dec-11e2-8cad-001ec947c8cc")
@@ -168,6 +169,7 @@ public class LinkedNodeFinishCreationEditPolicy extends AbstractLinkedNodeCreati
 
     /**
      * Returns the <i>host</i> for the appropriate <code>Requests</code>. Returns <code>null</code> otherwise.
+     *
      * @see org.eclipse.gef.EditPolicy#getTargetEditPart(Request)
      */
     @objid ("7ebd801f-1dec-11e2-8cad-001ec947c8cc")
@@ -191,6 +193,7 @@ public class LinkedNodeFinishCreationEditPolicy extends AbstractLinkedNodeCreati
      * on link creation.
      * <p>
      * Then a note figure could be displayed when creating a linked note.
+     *
      * @param req the connection creation request
      * @param createMissing if <code>true</code>, instantiate the edit policy if not already done.
      * @return the found feedback policy or <code>null</code> if none found.
@@ -199,13 +202,13 @@ public class LinkedNodeFinishCreationEditPolicy extends AbstractLinkedNodeCreati
     @SuppressWarnings("unchecked")
     protected GraphicalEditPolicy getDelegateFeedbackPolicy(final CreateConnectionRequest req, final boolean createMissing) {
         GraphicalEditPolicy ret = null;
-        
+
         // Look for the cached policy in the map
         final Map<Object, Object> data = req.getExtendedData();
         if (data.containsKey(FINISHPOLICYKEY)) {
             return (GraphicalEditPolicy) data.get(FINISHPOLICYKEY);
         }
-        
+
         // Instantiate the edit policy if class name is specified
         if (createMissing) {
             final ModelioCreationContext context = (ModelioCreationContext) req.getNewObject();
@@ -221,7 +224,7 @@ public class LinkedNodeFinishCreationEditPolicy extends AbstractLinkedNodeCreati
                     DiagramElements.LOG.error(e);
                 }
             }
-        
+
             data.put(FINISHPOLICYKEY, ret);
         }
         return ret;

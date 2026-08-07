@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.header;
 
@@ -98,7 +98,7 @@ public class FlatHeaderFigure extends GradientFigure implements IHeaderFigure {
      * Creates a ModelElementLabelFigure.
      */
     @objid ("7ea0e3b8-1dec-11e2-8cad-001ec947c8cc")
-    public  FlatHeaderFigure() {
+    public FlatHeaderFigure() {
         // The header figure is a horizontal toolbar layouted container.
         // There are plenty children ordered from left to right:
         //   - the left icons
@@ -108,10 +108,10 @@ public class FlatHeaderFigure extends GradientFigure implements IHeaderFigure {
         //   - the right labels
         //   - the right icons
         // Children are transparent without borders.
-        
+
         BorderLayout borderLayout = new BorderLayout();
         setLayoutManager(borderLayout);
-        
+
         // Left icons container
         // an horizontal toolbar layouted container, right aligned
         this.leftIconsContainer = new Figure();
@@ -121,9 +121,9 @@ public class FlatHeaderFigure extends GradientFigure implements IHeaderFigure {
         this.leftIconsContainer.setLayoutManager(leftIconAreaLayout);
         this.leftIconsContainer.setOpaque(false);
         this.add(this.leftIconsContainer, BorderLayout.LEFT);
-        
+
         Figure labelsArea = new Figure();
-        
+
         FlowLayout flowLayout = new FlowLayout();
         flowLayout.setMajorSpacing(-1); // negative space between lines
         flowLayout.setMinorSpacing(2);
@@ -131,15 +131,15 @@ public class FlatHeaderFigure extends GradientFigure implements IHeaderFigure {
         flowLayout.setObserveVisibility(true);
         labelsArea.setLayoutManager(flowLayout);
         this.add(labelsArea, BorderLayout.CENTER);
-        
+
         // Left stereotypes label
         this.leftLabel = new LabelumFigure();
         this.leftLabel.setLabelAlignment(PositionConstants.LEFT);
         this.leftLabel.setIconAlignment(PositionConstants.LEFT);
         this.leftLabel.setTextMinorAlignment(PositionConstants.CENTER);
         labelsArea.add(this.leftLabel);
-        
-        
+
+
         // Fourth child: the main label area
         this.mainLabel = new LabelumFigure();
         this.mainLabel.setLabelAlignment(PositionConstants.LEFT);
@@ -148,8 +148,8 @@ public class FlatHeaderFigure extends GradientFigure implements IHeaderFigure {
         //debug: this.mainLabel.setBorder(new LineBorder(Display.getCurrent().getSystemColor(SWT.COLOR_CYAN), 1));
         //GridData centerLayoutData = new GridData(SWT.BEGINNING, SWT.CENTER, false, true);
         labelsArea.add(this.mainLabel);
-        
-        
+
+
         // Right tags label
         this.rightLabel = new LabelumFigure();
         this.rightLabel.setLabelAlignment(PositionConstants.RIGHT);
@@ -157,7 +157,7 @@ public class FlatHeaderFigure extends GradientFigure implements IHeaderFigure {
         this.rightLabel.setTextMinorAlignment(PositionConstants.CENTER);
         //GridData rightLLayoutData = new GridData(SWT.BEGINNING, SWT.CENTER, false, true);
         labelsArea. add(this.rightLabel);
-        
+
         // Right icons container
         // an horizontal toolbar layouted container, right aligned
         this.rightIconsContainer = new Figure();
@@ -166,10 +166,10 @@ public class FlatHeaderFigure extends GradientFigure implements IHeaderFigure {
         righIconAreaLayout.setSpacing(1);
         this.rightIconsContainer.setLayoutManager(righIconAreaLayout);
         this.rightIconsContainer.setOpaque(false);
-        
+
         //GridData rightLayoutData = new GridData(SWT.BEGINNING, SWT.CENTER, false, true);
         add(this.rightIconsContainer, BorderLayout.RIGHT);
-        
+
     }
 
     @objid ("7ea0e3bb-1dec-11e2-8cad-001ec947c8cc")
@@ -177,7 +177,7 @@ public class FlatHeaderFigure extends GradientFigure implements IHeaderFigure {
     public void addNotify() {
         super.addNotify();
         setTextFont(getFont());
-        
+
     }
 
     @objid ("7ea0e3be-1dec-11e2-8cad-001ec947c8cc")
@@ -194,6 +194,7 @@ public class FlatHeaderFigure extends GradientFigure implements IHeaderFigure {
 
     /**
      * Get the main label figure.
+     *
      * @return the main label figure.
      */
     @objid ("7ea0e3fe-1dec-11e2-8cad-001ec947c8cc")
@@ -216,6 +217,7 @@ public class FlatHeaderFigure extends GradientFigure implements IHeaderFigure {
 
     /**
      * Tells whether the header will wrap if it does not fit horizontally.
+     *
      * @return whether the header will wrap if it does not fit horizontally.
      */
     @objid ("56cd637c-2110-48dd-b818-382c145a7f76")
@@ -226,6 +228,7 @@ public class FlatHeaderFigure extends GradientFigure implements IHeaderFigure {
 
     /**
      * Set the right text.
+     *
      * @param value the right text.
      */
     @objid ("7ea0e3f2-1dec-11e2-8cad-001ec947c8cc")
@@ -233,16 +236,16 @@ public class FlatHeaderFigure extends GradientFigure implements IHeaderFigure {
     public void setBottomLabel(String value) {
         if (value != null && value.equals(this.tagText))
             return;
-        
+
         // The text should never be null
         if (value == null) {
             this.tagText = "";
         } else {
             this.tagText = value;
         }
-        
+
         updateLabels();
-        
+
     }
 
     @objid ("7ea3461a-1dec-11e2-8cad-001ec947c8cc")
@@ -250,19 +253,20 @@ public class FlatHeaderFigure extends GradientFigure implements IHeaderFigure {
     public void setFont(final Font textFont) {
         super.setFont(textFont);
         updateDerivedFonts(textFont);
-        
+
         if (this.leftLabel != null)
             this.leftLabel.setFont(this.stereotypeFont);
-        
+
         this.mainLabel.setTextFont(textFont);
-        
+
         if (this.rightLabel != null)
             this.rightLabel.setTextFont(this.tagFont);
-        
+
     }
 
     /**
      * Set the keyword labels.
+     *
      * @param value the keyword label.
      */
     @objid ("7ea34616-1dec-11e2-8cad-001ec947c8cc")
@@ -270,16 +274,16 @@ public class FlatHeaderFigure extends GradientFigure implements IHeaderFigure {
     public void setKeywordLabel(String value) {
         if (value != null && value.equals(this.keywordText))
             return;
-        
+
         // The text should never be null
         if (value == null) {
             this.keywordText = "";
         } else {
             this.keywordText = value;
         }
-        
+
         updateLabels();
-        
+
     }
 
     @objid ("45c5e817-da20-4548-89e9-43ca6e864157")
@@ -292,7 +296,7 @@ public class FlatHeaderFigure extends GradientFigure implements IHeaderFigure {
             ImageFigure imgFigure = new ImageFigure(img);
             this.leftIconsContainer.add(imgFigure);
         }
-        
+
     }
 
     @objid ("7ea0e3e0-1dec-11e2-8cad-001ec947c8cc")
@@ -311,6 +315,7 @@ public class FlatHeaderFigure extends GradientFigure implements IHeaderFigure {
      * Set the main label.
      * <p>
      * The main label is usually the element name with its signature.
+     *
      * @param s The new main label
      */
     @objid ("7ea0e3e8-1dec-11e2-8cad-001ec947c8cc")
@@ -318,11 +323,12 @@ public class FlatHeaderFigure extends GradientFigure implements IHeaderFigure {
     public void setMainLabel(String s) {
         this.mainText = s;
         updateLabels();
-        
+
     }
 
     /**
      * Set the right icons.
+     *
      * @param icons the right icons.
      */
     @objid ("7ea0e3ec-1dec-11e2-8cad-001ec947c8cc")
@@ -330,17 +336,18 @@ public class FlatHeaderFigure extends GradientFigure implements IHeaderFigure {
     public void setRightIcons(List<Image> icons) {
         // remove existing icons
         this.rightIconsContainer.removeAll();
-        
+
         // add new image figures
         for (Image img : icons) {
             ImageFigure imgFigure = new ImageFigure(img);
             this.rightIconsContainer.add(imgFigure);
         }
-        
+
     }
 
     /**
      * Set whether the main label is stroked through.
+     *
      * @param strikeThrough true to strike the label
      */
     @objid ("7ea34624-1dec-11e2-8cad-001ec947c8cc")
@@ -360,11 +367,12 @@ public class FlatHeaderFigure extends GradientFigure implements IHeaderFigure {
     public void setTextFont(Font textFont) {
         //this.mainLabel.setFont(textFont);
         this.setFont(textFont);
-        
+
     }
 
     /**
      * Set the stereotype labels.
+     *
      * @param value the stereotype label.
      */
     @objid ("7ea0e3dc-1dec-11e2-8cad-001ec947c8cc")
@@ -372,20 +380,21 @@ public class FlatHeaderFigure extends GradientFigure implements IHeaderFigure {
     public void setTopLabel(String value) {
         if (value != null && value.equals(this.stereotypeText))
             return;
-        
+
         // The text should never be null
         if (value == null) {
             this.stereotypeText = "";
         } else {
             this.stereotypeText = value;
         }
-        
+
         updateLabels();
-        
+
     }
 
     /**
      * Set whether the main label is underlined.
+     *
      * @param underline true to underline the main label
      */
     @objid ("7ea3461f-1dec-11e2-8cad-001ec947c8cc")
@@ -396,6 +405,7 @@ public class FlatHeaderFigure extends GradientFigure implements IHeaderFigure {
 
     /**
      * Set whether the header will wrap on other lines if to small horizontally.
+     *
      * @param val <i>true</i> to wrap, <i>false</i> to truncate/shrink...
      * @return <i>true</i> only if the wrapping mode changed.
      */
@@ -410,9 +420,9 @@ public class FlatHeaderFigure extends GradientFigure implements IHeaderFigure {
                 flowLayout.setMinorSpacing(2);
                 flowLayout.setMinorAlignment(OrderedLayout.ALIGN_CENTER);
                 flowLayout.setObserveVisibility(true);
-        
+
                 labelsArea.setLayoutManager(flowLayout);
-        
+
                 getMainLabelFigure().setTextLayouter(NativeTextLayouter.INSTANCE);
             } else {
                 // no wrap
@@ -420,7 +430,7 @@ public class FlatHeaderFigure extends GradientFigure implements IHeaderFigure {
                 layout.setSpacing(2);
                 layout.setMinorAlignment(OrderedLayout.ALIGN_CENTER);
                 labelsArea.setLayoutManager(layout);
-        
+
                 getMainLabelFigure().setTextLayouter(NoBreakTextLayouter.INSTANCE);
             }
             return true;
@@ -429,6 +439,7 @@ public class FlatHeaderFigure extends GradientFigure implements IHeaderFigure {
     }
 
     /**
+     *
      * @return the labels area.
      */
     @objid ("b92e33eb-1417-42b6-87ac-cad28b669578")
@@ -441,10 +452,10 @@ public class FlatHeaderFigure extends GradientFigure implements IHeaderFigure {
     private void updateDerivedFonts(Font baseFont) {
         if (this.mainLabel.getFont() == baseFont && this.tagFont != null && this.stereotypeFont != null)
             return;
-        
+
         this.stereotypeFont = FigureUtilities2.getSmallerFont(baseFont);
         this.tagFont = CoreFontRegistry.getModifiedFont(this.stereotypeFont, SWT.ITALIC, 1);
-        
+
     }
 
     /**
@@ -454,33 +465,33 @@ public class FlatHeaderFigure extends GradientFigure implements IHeaderFigure {
     private void updateLabels() {
         StringBuilder labelText = new StringBuilder();
         StringBuilder leftText = new StringBuilder();
-        
+
         if (this.keywordText != null && !this.keywordText.isEmpty()) {
             leftText.append(this.keywordText);
             leftText.append(" ");
         }
-        
+
         if (this.stereotypeText != null && !this.stereotypeText.isEmpty()) {
             leftText.append(this.stereotypeText);
             leftText.append(" ");
         }
-        
+
         if (this.mainText != null && !this.mainText.isEmpty()) {
             labelText.append(this.mainText);
             labelText.append(" ");
         }
-        
+
         //        if (this.tagText != null && !this.tagText.isEmpty()) {
         //            labelText.append(this.tagText);
         //        }
-        
+
         this.leftLabel.setText(leftText.toString().trim());
         this.mainLabel.setText(labelText.toString().trim());
         this.rightLabel.setText(this.tagText.trim());
-        
+
         //GridData centerLayoutData = (GridData) getLayoutManager().getConstraint(mainLabel);
         //centerLayoutData.widthHint = mainLabel.getPreferredSize(getSize().width, -1).width();
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.label.base;
 
@@ -39,8 +39,8 @@ public class NonEditableItalicLabelEditPart extends ElementLabelEditPart {
      * Default constructor.
      */
     @objid ("7e9295c6-1dec-11e2-8cad-001ec947c8cc")
-    public  NonEditableItalicLabelEditPart() {
-        
+    public NonEditableItalicLabelEditPart() {
+
     }
 
     @objid ("7e9295c9-1dec-11e2-8cad-001ec947c8cc")
@@ -54,10 +54,10 @@ public class NonEditableItalicLabelEditPart extends ElementLabelEditPart {
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         // operation label isn't meant to be editable
         removeEditPolicy(EditPolicy.DIRECT_EDIT_ROLE);
-        
+
     }
 
     @objid ("7e9295d3-1dec-11e2-8cad-001ec947c8cc")
@@ -73,18 +73,18 @@ public class NonEditableItalicLabelEditPart extends ElementLabelEditPart {
     protected void refreshFromStyle(IFigure aFigure, IStyle style) {
         // Standard update from style
         super.refreshFromStyle(aFigure, style);
-        
+
         // Force font to be italic.
         Font curFont = aFigure.getFont();
-        
+
         FontDescriptor origFontDesc = FontDescriptor.createFrom(curFont);
         FontDescriptor italicDesc = origFontDesc.withStyle(SWT.ITALIC);
-        
+
         if (!italicDesc.equals(origFontDesc)) {
             Font newFont = (Font) getViewer().getResourceManager().get(italicDesc);
             aFigure.setFont(newFont);
         }
-        
+
     }
 
     @objid ("7e9295e1-1dec-11e2-8cad-001ec947c8cc")

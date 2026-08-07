@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class Scenario {
      * Tells whether a {@link Scenario proxy} can be instantiated from a {@link MObject} checking it is a {@link Interaction} stereotyped << scenario >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,7 +73,7 @@ public class Scenario {
 
     /**
      * Create a new {@link Interaction} stereotyped << scenario >> then instantiate a {@link Scenario} proxy.
-     * 
+     *
      * @return a {@link Scenario} proxy on the created {@link Interaction}.
      */
     @objid ("52428967-c61a-4898-9c98-f6d1a1ad7bc0")
@@ -83,9 +84,10 @@ public class Scenario {
     }
 
     /**
-     * Tries to instantiate a {@link Scenario} proxy from a {@link Interaction} stereotyped << scenario >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link Scenario} proxy from a {@link Interaction} stereotyped << scenario >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a Interaction
      * @return a {@link Scenario} proxy or <i>null</i>.
      */
@@ -95,9 +97,10 @@ public class Scenario {
     }
 
     /**
-     * Tries to instantiate a {@link Scenario} proxy from a {@link Interaction} stereotyped << scenario >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link Scenario} proxy from a {@link Interaction} stereotyped << scenario >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link Interaction}
      * @return a {@link Scenario} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -127,7 +130,8 @@ public class Scenario {
     }
 
     /**
-     * Get the underlying {@link Interaction}. 
+     * Get the underlying {@link Interaction}.
+     *
      * @return the Interaction represented by this proxy, never null.
      */
     @objid ("26a93c11-39dd-451a-bee0-079d65983f9d")
@@ -139,11 +143,11 @@ public class Scenario {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("c82c8200-9f6d-4426-8f86-b1f20effa4e1")
-    protected  Scenario(Interaction elt) {
+    protected Scenario(Interaction elt) {
         this.elt = elt;
     }
 
@@ -163,7 +167,7 @@ public class Scenario {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "01ec1ac4-0000-2eff-0000-000000000000");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -171,7 +175,7 @@ public class Scenario {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.finaliser.subplan;
 
@@ -47,7 +47,7 @@ public class SubProcessPlanFinder {
     private Map<String, Object> elementsMap;
 
     @objid ("3cf91bb9-2a53-490c-a4b0-b1aab8e83e28")
-    public  SubProcessPlanFinder(Map<String, Object> elementsMap) {
+    public SubProcessPlanFinder(Map<String, Object> elementsMap) {
         this.elementsMap = elementsMap;
     }
 
@@ -61,10 +61,10 @@ public class SubProcessPlanFinder {
                 if(jaxShape.getBpmnElement() != null) {
                     MObject modelioNode = (MObject) this.elementsMap.get(jaxShape.getBpmnElement().getLocalPart());
                     if (modelioNode instanceof BpmnCallActivity && (Called.getTarget((BpmnCallActivity) modelioNode) != null) || modelioNode instanceof BpmnSubProcess) {
-        
+
                         // Find Diagram
                         SubProcessActivityPlan ct = new SubProcessActivityPlan(findDiagram((ModelElement) modelioNode), jaxShape.getBounds());
-        
+
                         // Find Node contained in Call activity and add it into the CallActivity plan
                         extractNodesFromPlan(jaxShape.getBounds(), plane, ct);
                         callActivities.add(ct);
@@ -84,7 +84,7 @@ public class SubProcessPlanFinder {
                 node = process;
             }
         }
-        
+
         for (AbstractDiagram diag : node.getProduct()) {
             if (diag instanceof BpmnProcessDesignDiagram || diag instanceof BpmnSubProcessDiagram) {
                 return (BehaviorDiagram) diag;
@@ -98,16 +98,16 @@ public class SubProcessPlanFinder {
         for (JAXBElement<? extends DiagramElement> jaxDiag : new ArrayList<>(plane.getDiagramElement())) {
             if (jaxDiag.getValue() instanceof BPMNShape) {
                 BPMNShape jaxShape = (BPMNShape) jaxDiag.getValue();
-        
+
                 if (isInBounds(activityBounds, jaxShape.getBounds().getX(), jaxShape.getBounds().getY()) &&
                         isInBounds(activityBounds, jaxShape.getBounds().getX() + jaxShape.getBounds().getWidth(), jaxShape.getBounds().getY() + jaxShape.getBounds().getHeight())) {
                     plane.getDiagramElement().remove(jaxDiag);
                     ct.addShape(jaxShape);
-        
+
                 }
             }
         }
-        
+
         for (JAXBElement<? extends DiagramElement> jaxDiag : new ArrayList<>(plane.getDiagramElement())) {
             if (jaxDiag.getValue() instanceof BPMNEdge) {
                 BPMNEdge jaxEdge = (BPMNEdge) jaxDiag.getValue();
@@ -117,7 +117,7 @@ public class SubProcessPlanFinder {
                 }
             }
         }
-        
+
     }
 
     @objid ("4e7b6ece-5539-4851-9796-ba8ffb2b1799")
@@ -128,7 +128,7 @@ public class SubProcessPlanFinder {
         if (x >= activityBounds.getX() + activityBounds.getWidth()) {
             return false;
         }
-        
+
         if (y <= activityBounds.getY()) {
             return false;
         }

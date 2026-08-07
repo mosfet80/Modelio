@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.service.contributions;
 
@@ -67,15 +67,17 @@ public class ContributionReader {
     private final IRTModule module;
 
     /**
+     *
      * @param module the module being loaded.
      */
     @objid ("c05fee6a-cbac-4f81-a2ce-42b2bc598a42")
-    public  ContributionReader(final IRTModule module) {
+    public ContributionReader(final IRTModule module) {
         this.module = module;
     }
 
     /**
      * Reads {@link Jxbv2Scope} as {@link ElementScope}.
+     *
      * @param scopes the scopes to read
      * @return the read scopes.
      */
@@ -83,7 +85,7 @@ public class ContributionReader {
     public List<ElementScope> readScopes(final List<Jxbv2Scope> scopes) {
         final MMetamodel metamodel = this.module.getGModule().getProject()
                 .getSession().getMetamodel();
-        
+
         final List<ElementScope> targetScopes = new ArrayList<>(scopes.size());
         for (final Jxbv2Scope scope : scopes) {
             final MClass mClass = metamodel.getMClass(scope.getMetaclass());
@@ -109,6 +111,7 @@ public class ContributionReader {
      * <li><i>module regex<b>#</b>stereotype name</i>
      * <li><i>module regex<b>#</b>stereotype regex</i>
      * </ul>
+     *
      * @param metaclass the metaclass to look from
      * @param stereotypeSpec the stereotype specification
      * @return the found stereotype or null.
@@ -123,7 +126,7 @@ public class ContributionReader {
                     stereotypeSpec.indexOf("#"));
             final String stereotypeName = stereotypeSpec.substring(
                     stereotypeSpec.indexOf("#") + 1, stereotypeSpec.length());
-        
+
             return this.module.getIModule().getModuleContext().getModelingSession()
                     .getMetamodelExtensions()
                     .getStereotype(moduleName, stereotypeName, metaclass);
@@ -132,11 +135,12 @@ public class ContributionReader {
                     .getMetamodelExtensions()
                     .getStereotype(stereotypeSpec, metaclass);
         }
-        
+
     }
 
     /**
      * Instantiate a handler from a verb or a class name.
+     *
      * @param contributionType the contribution element type to look for in the extensions
      * registry. See the {@value #HANDLER_PROVIDER_EXTENSION_ID}
      * extension point schema for valid values.
@@ -148,7 +152,7 @@ public class ContributionReader {
     @objid ("9b7da7a4-402c-4995-b52c-9de997990b8f")
     public <T> T createHandler(final String contributionType, final String verb, final Class<T> handlerInterface) throws IOException {
         assert verb != null;
-        
+
         // Look for known verbs
         for (final IConfigurationElement elt : new ExtensionPointContributionManager(ContributionReader.HANDLER_PROVIDER_EXTENSION_ID).getExtensions(contributionType)) {
             if (elt.getAttribute(ContributionReader.HANDLER_PROVIDER_VERB).equals(verb)) {
@@ -157,29 +161,29 @@ public class ContributionReader {
                     final
                     T obj = (T) elt
                     .createExecutableExtension(ContributionReader.HANDLER_PROVIDER_CLASS);
-        
+
                     if (!handlerInterface.isInstance(obj)) {
                         // should not happen
                         throw new IOException(MdaInfra.I18N.getMessage("CommandBuilder.BadVerbHandlerClass", obj.getClass(), handlerInterface, contributionType, verb));
                     }
-        
+
                     return obj;
                 } catch (final CoreException e) {
                     throw new IOException(e.getLocalizedMessage(), e);
                 }
             }
         }
-        
+
         // 'verb' is not a known verb, handle it as a java class name
         try {
             return createCustomHandler(contributionType, verb, handlerInterface);
         } catch (final ClassNotFoundException e) {
             // verb is not a class name either.
             final String msg = MdaInfra.I18N.getMessage("CommandBuilder.ClassNotFoundException", verb, e.toString(), contributionType);
-        
+
             throw new IOException(msg, e);
         }
-        
+
     }
 
     @objid ("e89777c7-59ad-47d1-b9e0-81df3ee64da2")
@@ -190,26 +194,27 @@ public class ContributionReader {
             final ClassLoader loader = this.module.getIModule().getClass()
                     .getClassLoader();
             final Class<?> handlerClass = loader.loadClass(className);
-        
+
             @SuppressWarnings("unchecked")
             final
             T handler = (T) handlerClass.newInstance();
-        
+
             if (!type.isInstance(handler)) {
                 throw new IOException(MdaInfra.I18N.getMessage("CommandBuilder.BadHandlerClass", handler.getClass(), type, contributionType));
             }
-        
+
             return handler;
         } catch (InstantiationException | IllegalAccessException | LinkageError e) {
             throw new IOException(MdaInfra.I18N.getMessage("CommandBuilder.InvalidHandler", className, e.toString(), contributionType), e);
         } catch (final RuntimeException e) {
             throw new IOException(e.toString(), e);
         }
-        
+
     }
 
     /**
      * Converts a list of {@link Jxbv2HParameter} to a String map.
+     *
      * @param hParameter the JAXB handler parameters
      * @return the string parameters map.
      */

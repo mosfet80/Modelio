@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -31,6 +31,7 @@ import org.modelio.xmi.util.ObjingEAnnotation;
 
 /**
  * This class manages the export of InformationItem
+ *
  * @author ebrosse
  */
 @objid ("b1e6fad1-29ea-4a11-ad94-33065f12013a")
@@ -49,13 +50,14 @@ public class OInformationItem extends ONameSpace {
 
     /**
      * Constructor
+     *
      * @param param : the exported Modelio InformationItem
      */
     @objid ("093d257d-bb01-4aa5-b297-240a23e81dff")
-    public  OInformationItem(final InformationItem param) {
+    public OInformationItem(final InformationItem param) {
         super(param);
         this.objElement = param;
-        
+
     }
 
     @objid ("df033634-8835-482a-ae67-eefb67676a66")
@@ -63,7 +65,7 @@ public class OInformationItem extends ONameSpace {
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         Element objOwner = this.objElement.getOwner();
         org.eclipse.uml2.uml.Element ecoreOwner = this.genProp.getMappedElement(objOwner);
-        
+
         if (ecoreOwner instanceof org.eclipse.uml2.uml.Package){
             ((org.eclipse.uml2.uml.Package) ecoreOwner).getPackagedElements().add((org.eclipse.uml2.uml.InformationItem)ecoreElt);
         }else if (ecoreOwner instanceof org.eclipse.uml2.uml.Component){
@@ -75,23 +77,23 @@ public class OInformationItem extends ONameSpace {
         }else{
             AbstractObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(objOwner, this.objElement, ecoreElt);
         }
-        
+
     }
 
     @objid ("3e630334-980c-450e-86f8-f933344f11ae")
     @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
-        
+
         //UML Properties
         setRepresented((org.eclipse.uml2.uml.InformationItem) ecoreElt);
-        
+
         //Modelio Properties
         if (this.genProp.isRoundtripEnabled()){
             setLeaf((org.eclipse.uml2.uml.InformationItem) ecoreElt);
-            setRoot((org.eclipse.uml2.uml.InformationItem) ecoreElt);         
+            setRoot((org.eclipse.uml2.uml.InformationItem) ecoreElt);
         }
-        
+
     }
 
     @objid ("d101f29c-dc8e-42e0-b057-30a5a3e97376")
@@ -121,7 +123,7 @@ public class OInformationItem extends ONameSpace {
                 GenerationProperties.getInstance().addWarning(message, this.objElement, description);
             }
         }
-        
+
     }
 
 }

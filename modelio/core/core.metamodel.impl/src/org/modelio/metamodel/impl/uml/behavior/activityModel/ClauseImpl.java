@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -45,25 +44,25 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("002cec14-c4bf-1fd8-97fe-001ec947cd2a")
 public class ClauseImpl extends UmlModelElementImpl implements Clause {
-    @objid ("8ecf9531-8588-41a0-b8cf-46af301007d7")
+    @objid ("9440858c-6213-4b5b-957a-aeeac1defdbc")
     @Override
     public String getTest() {
         return (String) getAttVal(((ClauseSmClass)getClassOf()).getTestAtt());
     }
 
-    @objid ("542b5928-0b31-4969-a9d5-b7c98601ace8")
+    @objid ("ac6d2ea6-d6c3-496d-9e9b-5ffdb5ec0309")
     @Override
     public void setTest(String value) {
         setAttVal(((ClauseSmClass)getClassOf()).getTestAtt(), value);
     }
 
-    @objid ("41a014d1-42fa-4f9a-9b0d-d449ae65ff6e")
+    @objid ("4df3c07c-2a59-4071-9249-13862723321c")
     @Override
     public EList<ActivityNode> getBody() {
         return new SmList<>(this, ((ClauseSmClass)getClassOf()).getBodyDep());
     }
 
-    @objid ("67270b8f-cbde-43f8-8c76-7f68d865a55e")
+    @objid ("fe482d83-cd71-4f7b-b2b5-d8e4c6727691")
     @Override
     public <T extends ActivityNode> List<T> getBody(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -76,23 +75,23 @@ public class ClauseImpl extends UmlModelElementImpl implements Clause {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("f1ecde1b-30ee-4595-9979-ee1b81e1fc43")
+    @objid ("d5e5db66-8633-41f1-9aaa-504e40d758de")
     @Override
     public ConditionalNode getOwner() {
         Object obj = getDepVal(((ClauseSmClass)getClassOf()).getOwnerDep());
         return (obj instanceof ConditionalNode)? (ConditionalNode)obj : null;
     }
 
-    @objid ("1eb48a9a-554c-4dad-8cb8-e77168cd33ac")
+    @objid ("9cff4835-2755-4697-a501-2dce032b4c73")
     @Override
     public void setOwner(ConditionalNode value) {
         appendDepVal(((ClauseSmClass)getClassOf()).getOwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("2fffb01e-bae1-49f1-9039-bbe8260a670a")
+    @objid ("af5da8a5-1a0a-47a6-ac2b-9bb41345a708")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -104,22 +103,22 @@ public class ClauseImpl extends UmlModelElementImpl implements Clause {
         return super.getCompositionOwner();
     }
 
-    @objid ("90cd15e2-52fc-4b10-b7e4-ddad56281b4f")
+    @objid ("58316846-8561-451d-ba37-571e0aba69bc")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // Owner
         dep = ((ClauseSmClass)getClassOf()).getOwnerDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("60670164-5643-49f2-9773-c1762b8b91d8")
+    @objid ("a850e3b5-04e9-46ce-93c6-0083a165d00b")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitClause(this);

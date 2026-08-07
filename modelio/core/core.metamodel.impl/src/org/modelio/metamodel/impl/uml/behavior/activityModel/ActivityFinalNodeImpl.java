@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0027b7ee-c4bf-1fd8-97fe-001ec947cd2a")
 public class ActivityFinalNodeImpl extends FinalNodeImpl implements ActivityFinalNode {
-    @objid ("68f9c4a1-a4d8-4c41-a939-d4571ff4cb23")
+    @objid ("240378db-dedc-4685-b752-a033de161b43")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -49,17 +48,17 @@ public class ActivityFinalNodeImpl extends FinalNodeImpl implements ActivityFina
         return super.getCompositionOwner();
     }
 
-    @objid ("58472192-2fbb-4931-8c4f-64053b8f79be")
+    @objid ("545059ee-de99-4246-b18d-a9415615ba2b")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("27b8ee52-4443-45fc-9ccc-e905396c33bb")
+    @objid ("f50ca99b-682c-42d1-829d-c8fd0b395a74")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitActivityFinalNode(this);

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.model;
 
@@ -24,7 +24,7 @@ import org.modelio.diagram.persistence.PersistenceException;
 
 /**
  * Service to use to load and save diagram in the model
- * 
+ *
  * @author cma
  * @since 3.7
  */
@@ -32,6 +32,7 @@ import org.modelio.diagram.persistence.PersistenceException;
 public interface IDiagramPersister {
     /**
      * Save the diagram in the model.
+     *
      * @param withEmbeddeddiagrams if true, modifiable embedded diagrams will be saved too.
      * @throws PersistenceException on failure
      */
@@ -40,9 +41,10 @@ public interface IDiagramPersister {
 
     /**
      * Load the diagram from the model.
+     *
      * @throws PersistenceException on failure
      */
     @objid ("7f9f6dae-ce28-4d97-a1e8-61068a68a4da")
     void load() throws PersistenceException;
-}
 
+}

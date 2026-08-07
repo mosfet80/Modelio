@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.engine.core;
 
@@ -26,7 +26,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * Abstract base implementation of IRule used on Modelio 5.3.0 and before.
- * 
+ *
  * @deprecated implement {@link AbstractRuleV531} instead.
  */
 @objid ("ef11eaf1-c4ec-462c-8c03-4ef2d9d345bb")
@@ -43,6 +43,7 @@ public abstract class AbstractRule implements IRule {
 
     /**
      * Get the {@link IControl} to run to validate the rule when the given element is created.
+     *
      * @param element the created element.
      * @return the {@link IControl} to run to validate the rule.
      * @deprecated Implement {@link #postCreateControls(IRuleControlPoster, MObject)} instead
@@ -54,6 +55,7 @@ public abstract class AbstractRule implements IRule {
     }
 
     /**
+     *
      * @deprecated Implement {@link #postMoveControls(IRuleControlPoster, IElementMovedEvent)}
      */
     @objid ("1dcf90a4-255c-4a46-b4ef-1977fbb0c180")
@@ -64,6 +66,7 @@ public abstract class AbstractRule implements IRule {
 
     /**
      * Get the {@link IControl} to run to validate the rule when the given element is modified.
+     *
      * @param element the modified element.
      * @return the {@link IControl} to run to validate the rule.
      * @deprecated Implement {@link #postUpdateControls(IRuleControlPoster, MObject)} ,  {@link #postDeleteControls(IRuleControlPoster, MObject, MObject)},
@@ -96,13 +99,14 @@ public abstract class AbstractRule implements IRule {
     public final void setSeverity(AuditSeverity value) {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.severity = value;
-        
+
     }
 
     /**
      * Get the {@link IControl} to run to validate the rule when an audited element is deleted.
      * <h2>Important:</h2>
      * The passed element is the <b>composition parent</b> of the deleted element.
+     *
      * @param deletedElementOwner the <b>composition parent</b> of the deleted element.
      * @return the {@link IControl} to run to validate the rule.
      * @deprecated since 5.3.1, implement {@link #postDeleteControls(IRuleControlPoster, MObject, MObject)} instead.
@@ -117,6 +121,7 @@ public abstract class AbstractRule implements IRule {
      * Get the {@link IControl} to run to validate the rule when an audited element is deleted.
      * <p>
      * The control will be run on the 'ownerElement'.
+     *
      * @param poster the service to use to post audit checks on elements
      * @param deletedElement the <b>deleted</b>element.
      * @param ownerElement the <b>composition parent</b> of the deleted element.
@@ -132,6 +137,7 @@ public abstract class AbstractRule implements IRule {
      * Get the {@link IControl} to run to validate the rule when an audited element is deleted.
      * <p>
      * The control will be run on the 'ownerElement'.
+     *
      * @param poster the service to use to post audit checks on elements
      * @param createdElement the <b>deleted</b>element.
      * @since 5.3.1
@@ -146,6 +152,7 @@ public abstract class AbstractRule implements IRule {
      * Get the {@link IControl} to run to validate the rule when an audited element is deleted.
      * <p>
      * The control will be run on the 'ownerElement'.
+     *
      * @param poster the service to use to post audit checks on elements
      * @param updatedElement the <b>deleted</b>element.
      * @since 5.3.1
@@ -158,6 +165,7 @@ public abstract class AbstractRule implements IRule {
 
     /**
      * Post the {@link IControl} to run to validate the rule when an audited element moved.
+     *
      * @param poster the service to use to post audit checks on elements
      * @param moveEvent the move event.
      * @since 5.3.1

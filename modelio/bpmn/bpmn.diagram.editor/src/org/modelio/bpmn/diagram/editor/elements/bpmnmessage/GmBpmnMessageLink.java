@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnmessage;
 
@@ -55,17 +55,18 @@ public class GmBpmnMessageLink extends GmLink implements IGmNodeLink {
      * Constructor that must be used for deserialization only.
      */
     @objid ("61623b18-55b6-11e2-877f-002564c97630")
-    public  GmBpmnMessageLink() {
+    public GmBpmnMessageLink() {
         // Nothing to do.
     }
 
     /**
      * Creates a new GmNoteLink
+     *
      * @param diagram The diagram containing the link.
      * @param relatedRef a reference to the represented Note.
      */
     @objid ("6163c179-55b6-11e2-877f-002564c97630")
-    public  GmBpmnMessageLink(final IGmDiagram diagram, final MRef relatedRef) {
+    public GmBpmnMessageLink(final IGmDiagram diagram, final MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -73,17 +74,17 @@ public class GmBpmnMessageLink extends GmLink implements IGmNodeLink {
     @Override
     public BpmnMessage getRelatedElement() {
         final IGmLinkable lfrom = getFrom();
-        
+
         assert (lfrom != this);
-        
+
         if (lfrom != null && lfrom.getRelatedElement() instanceof BpmnMessage) {
             return (BpmnMessage) lfrom.getRelatedElement();
         }
-        
+
         final IGmLinkable lto = getTo();
-        
+
         assert (lto != this);
-        
+
         if (lto != null && lto.getRelatedElement() instanceof BpmnMessage) {
             return (BpmnMessage) lto.getRelatedElement();
         }
@@ -118,7 +119,7 @@ public class GmBpmnMessageLink extends GmLink implements IGmNodeLink {
     @Override
     public BpmnMessageFlow getToElement() {
         final BpmnMessage relatedElement = getRelatedElement();
-        
+
         if (relatedElement != null && !relatedElement.getMessageFlow().isEmpty()) {
             return relatedElement.getMessageFlow().get(0);
         }
@@ -127,6 +128,7 @@ public class GmBpmnMessageLink extends GmLink implements IGmNodeLink {
 
     /**
      * Updates the proxy style to point to the given node style.
+     *
      * @param ref the reference node, may be null.
      */
     @objid ("6163c1b7-55b6-11e2-877f-002564c97630")
@@ -137,7 +139,7 @@ public class GmBpmnMessageLink extends GmLink implements IGmNodeLink {
         } else {
             getPersistedStyle().setCascadedStyle(getDiagram().getPersistedStyle());
         }
-        
+
     }
 
     @objid ("6165481b-55b6-11e2-877f-002564c97630")
@@ -147,7 +149,7 @@ public class GmBpmnMessageLink extends GmLink implements IGmNodeLink {
         if (to instanceof GmAbstractObject) {
             refreshStyle((GmAbstractObject) to);
         }
-        
+
     }
 
     @objid ("61654822-55b6-11e2-877f-002564c97630")
@@ -157,17 +159,17 @@ public class GmBpmnMessageLink extends GmLink implements IGmNodeLink {
         if (getTo() instanceof GmAbstractObject) {
             refreshStyle((GmAbstractObject) getTo());
         }
-        
+
     }
 
     @objid ("61654829-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmBpmnMessageLink.", GmBpmnMessageLink.MINOR_VERSION);
-        
+
     }
 
     @objid ("6165482f-55b6-11e2-877f-002564c97630")

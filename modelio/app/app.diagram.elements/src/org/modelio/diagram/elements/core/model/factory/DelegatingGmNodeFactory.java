@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.model.factory;
 
@@ -48,10 +48,11 @@ public final class DelegatingGmNodeFactory implements IGmNodeFactory {
 
     /**
      * Instantiate the factory.
+     *
      * @param factoryIds identifier of the cascaded factories needed to call the {@link DiagramFactoryRegistry}.
      */
     @objid ("6ea497f0-0ee7-4e63-952a-3fd82a01b2a0")
-    public  DelegatingGmNodeFactory(List<String> factoryIds) {
+    public DelegatingGmNodeFactory(List<String> factoryIds) {
         this.cascadedFactories = new ArrayList<>();
         for (String factoryId : factoryIds) {
             IGmNodeFactory cascadedFactory = DiagramFactoryRegistry.getInstance().getNodeFactory(factoryId);
@@ -59,7 +60,7 @@ public final class DelegatingGmNodeFactory implements IGmNodeFactory {
                 this.cascadedFactories.add(cascadedFactory);
             }
         }
-        
+
     }
 
     @objid ("6cfe3f0e-f6cf-46d0-b23e-21db3a624342")
@@ -116,6 +117,7 @@ public final class DelegatingGmNodeFactory implements IGmNodeFactory {
 
     /**
      * Register a cascaded factory.
+     *
      * @param factory the node factory extension.
      */
     @objid ("90116ded-837a-4861-871c-1930dacdaa81")
@@ -123,11 +125,12 @@ public final class DelegatingGmNodeFactory implements IGmNodeFactory {
         if (factory != null && !this.cascadedFactories.contains(factory)) {
             this.cascadedFactories.add(factory);
         }
-        
+
     }
 
     /**
      * Remove a registered cascaded factory.
+     *
      * @param factory the node factory extension.
      */
     @objid ("fa8bc1c2-a1b0-4716-bf75-c92346381c90")
@@ -137,13 +140,14 @@ public final class DelegatingGmNodeFactory implements IGmNodeFactory {
 
     /**
      * Instantiate the factory.
+     *
      * @param factory a cascaded factory.
      */
     @objid ("07312c92-6313-412b-9c6a-a434322bd5eb")
-    public  DelegatingGmNodeFactory(IGmNodeFactory factory) {
+    public DelegatingGmNodeFactory(IGmNodeFactory factory) {
         this.cascadedFactories = new ArrayList<>();
         this.cascadedFactories.add(factory);
-        
+
     }
 
 }

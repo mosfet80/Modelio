@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.libreoffice.preferences;
 
@@ -53,10 +53,10 @@ public class LibreOfficePreferencePage extends FieldEditorPreferencePage {
      * Constructor.
      */
     @objid ("3045c142-9083-4026-b30f-370eee13654e")
-    public  LibreOfficePreferencePage() {
+    public LibreOfficePreferencePage() {
         super(GRID);
         init();
-        
+
     }
 
     /**
@@ -73,16 +73,16 @@ public class LibreOfficePreferencePage extends FieldEditorPreferencePage {
         this.installPathField = new OooDirFieldEditor(PreferenceConstants.P_OOOPATH,
                 LibreOfficeEditors.I18N.getString("preferences.installpath"),
                 getFieldEditorParent());
-        
+
         addField(this.installPathField);
-        
+
     }
 
     @objid ("da547746-6994-4c4d-a3f3-6d8525fd7b1c")
     private void init() {
         setPreferenceStore(LibreOfficeEditors.PREFERENCES);
         setDescription(LibreOfficeEditors.I18N.getString("preferences.page.description"));
-        
+
     }
 
     @objid ("65dfa4d0-6c59-4f4c-9f05-c737e4607de5")
@@ -92,13 +92,13 @@ public class LibreOfficePreferencePage extends FieldEditorPreferencePage {
         if (event.getProperty().equals(FieldEditor.VALUE)) {
             checkState();
         }
-        
+
     }
 
     @objid ("4dba4bc1-c052-4f61-842a-a2d22f74aabf")
     private static class OooDirFieldEditor extends DirectoryFieldEditor {
         @objid ("a6f43255-9b42-4cb3-b0db-df6a098d1e5d")
-        public  OooDirFieldEditor(final String name, final String labelText, final Composite parent) {
+        public OooDirFieldEditor(final String name, final String labelText, final Composite parent) {
             super(name, labelText,parent);
         }
 
@@ -115,11 +115,11 @@ public class LibreOfficePreferencePage extends FieldEditorPreferencePage {
         @Override
         public boolean doCheckState() {
             final String installDir = getStringValue();
-            
+
             if (installDir==null || installDir.trim().isEmpty()) {
                 return true;
             }
-            
+
             boolean ret = InstallationFinder.isProgramPathValid(new File(installDir));
             if (! ret) {
                 setErrorMessage(LibreOfficeEditors.I18N.getMessage("preferences.installPathNotValid", installDir));

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.plugin;
 
@@ -58,6 +58,7 @@ public class MdaInfra implements BundleActivator {
     private static BundleContext context;
 
     /**
+     *
      * @return the bundle context.
      */
     @objid ("b34c58d3-f11c-11e1-af52-001ec947c8cc")
@@ -67,6 +68,7 @@ public class MdaInfra implements BundleActivator {
 
     /**
      * Get the image descriptor for an image stored in this plugin.
+     *
      * @param path a path relative to the plugin
      * @return the image descriptor.
      */
@@ -83,7 +85,7 @@ public class MdaInfra implements BundleActivator {
         ExtendedLogService service = bundleContext.getService(ref);
         MdaInfra.LOG = new MdaInfraLogger(service.getLogger(bundleContext.getBundle(), MdaInfra.PLUGIN_ID));
         MdaInfra.I18N = new BundledMessages(MdaInfra.LOG, ResourceBundle.getBundle("mdainfra"));
-        
+
     }
 
     @objid ("b349f6b2-f11c-11e1-af52-001ec947c8cc")
@@ -94,7 +96,7 @@ public class MdaInfra implements BundleActivator {
 
     /**
      * Logger with indentation.
-     * 
+     *
      * @author cmarin
      */
     @objid ("a66938a4-8ac6-41ef-89a5-277439d3787c")
@@ -103,10 +105,11 @@ public class MdaInfra implements BundleActivator {
         private static String indent = "";
 
         /**
+         *
          * @param logger the eclipse logger.
          */
         @objid ("15744642-d6d3-464a-b02a-58c5bca056a8")
-        public  MdaInfraLogger(Logger logger) {
+        public MdaInfraLogger(Logger logger) {
             super(logger);
         }
 

@@ -1,0 +1,164 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Les grains
+
+
+Un "grain" est la quantité minimum d'informations que l'on peut verrouiller à un moment donné. Les commandes du Travail de groupe ne peuvent être lancées que sur ces "grains".
+
+D'autres types d'éléments de modèle (les attributs, les opérations, les instances, ...) attachés aux grains sont gérés avec le grain auquel ils appartiennent. Par exemple, les opérations ou les attributs d'une classe sont des informations attachées à celle-ci. Pour modifier ou ajouter une opération à une classe, la classe en question doit être en lecture-écriture. Lors de la publication de la classe, tous les attributs et opérations qui ont été modifiés sont également automatiquement publiés.
+
+Pour supprimer un grain, le grain lui-même, ainsi que son parent (l'élément qui le contient), doivent être en lecture-écriture. Par conséquent, l'élément parent est modifié, car son lien de composition a changé.
+
+Les grains sont des instances des méta-classes suivantes :
+
+
+==== Infrastructure 
+
+* DiagramSet
+* Document
+* EnumeratedPropertyType
+* GraphDiagram
+* ImpactDiagram
+* ImpactModel
+* ImpactProject
+* LocalPropertyTable
+* MetaclassReference
+* ModuleComponent
+* Profile
+* PropertyTableDefinition
+* PropertyType
+* Resource
+* Stereotype
+ 
+==== UML-BPMN 
+ 
+* Activity
+* ActivityDiagram
+* Actor
+* Artifact
+* BpmnCollaboration
+* BpmnCollaborationDiagram
+* BpmnProcess
+* BpmnProcessDesignDiagram
+* BpmnSharedDefinitions
+* BpmnSubProcessDiagram
+* Class
+* ClassDiagram
+* CommunicationDiagram
+* CommunicationInteraction
+* Component
+* CompositeStructureDiagram
+* DataType
+* DeploymentDiagram
+* Interaction
+* Interface
+* Node
+* ObjectDiagram
+* OpaqueBehavior
+* Package
+* Project
+* SequenceDiagram
+* Signal
+* StateMachine
+* StateMachineDiagram
+* StaticDiagram
+* UseCase
+* UseCaseDiagram
+
+==== ArchiMate 
+
+* ApplicationCollaboration
+* ApplicationComponent
+* ApplicationEvent
+* ApplicationFolder
+* ApplicationFunction
+* ApplicationInteraction
+* ApplicationInterface
+* ApplicationProcess
+* ApplicationService
+* ArchimateProject
+* ArchimateView
+* Artifact
+* Assessment
+* BusinessActor
+* BusinessCollaboration
+* BusinessEvent
+* BusinessFolder
+* BusinessFunction
+* BusinessInteraction
+* BusinessInterface
+* BusinessObject
+* BusinessProcess
+* BusinessRole
+* BusinessService
+* Capability
+* CommunicationNetwork
+* Constraint
+* Contract
+* CourseOfAction
+* DataObject
+* Deliverable
+* Device
+* DistributionNetwork
+* Driver
+* Equipment
+* Facility
+* Gap
+* Goal
+* Grouping
+* ImplementationEvent
+* ImplementationFolder
+* Location
+* Material
+* Meaning
+* Model
+* MotivationFolder
+* Node
+* Outcome
+* Path
+* PhysicalFolder
+* Plateau
+* Principle
+* Product
+* Representation
+* Requirement
+* Resource
+* Stakeholder
+* StrategyFolder
+* SystemSoftware
+* TechnologyCollaboration
+* TechnologyEvent
+* TechnologyFolder
+* TechnologyFunction
+* TechnologyInteraction
+* TechnologyInterface
+* TechnologyProcess
+* TechnologyService
+* Value
+* ValueStream
+* ViewPoint
+* ViewPointDiagram
+* WorkPackage
+
+==== Analyste
+
+* AnalystProject
+* BusinessRule
+* BusinessRuleContainer
+* Dictionary
+* GenericAnalystContainer
+* GenericAnalystElement
+* Goal
+* GoalContainer
+* KPI
+* KPIContainer
+* Requirement
+* RequirementContainer
+* Risk
+* RiskContainer
+* Term
+* Test
+* TestContainer

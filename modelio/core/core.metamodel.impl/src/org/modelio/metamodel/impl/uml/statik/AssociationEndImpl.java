@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -51,6 +50,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 public class AssociationEndImpl extends StructuralFeatureImpl implements AssociationEnd {
     /**
      * Compute the association navigability from all roles construction.
+     *
      * @return the association navigability.
      */
     @objid ("779babaf-b95e-442f-9c0d-af9c01f610c7")
@@ -64,40 +64,40 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
     public void setNavigable(final boolean isNavigable) {
         AssociationEnd opposite = getOpposite();
         boolean otherNavigable = opposite.isNavigable();
-        
+
         // The source classifier is the current source or the opposite end's target according to the old navigability
         Classifier source = getSource() != null ? getSource() : opposite.getTarget();
-        
+
         // The target classifier is the opposite end's source or the current target according to the old navigability
         Classifier target = opposite.getSource() != null ? opposite.getSource() : getTarget();
-        
+
         if (isNavigable && !otherNavigable) { // THIS SIDE
             this.setSource(source);
             this.setTarget(target);
-        
+
             opposite.setSource(null);
             opposite.setTarget(null);
         } else if (!isNavigable && otherNavigable) { // OTHER SIDE
             this.setSource(null);
             this.setTarget(null);
-        
+
             opposite.setSource(target);
             opposite.setTarget(source);
         } else if (isNavigable && otherNavigable) { // BOTH SIDES
             this.setSource(source);
             this.setTarget(target);
-        
+
             opposite.setSource(target);
             opposite.setTarget(source);
         } else if (!isNavigable && !otherNavigable) { // NONE
             this.setSource(source);
             this.setTarget(null);
-        
+
             opposite.setSource(target);
             opposite.setTarget(null);
-        
+
         }
-        
+
     }
 
     @objid ("0019e09c-22ac-1080-943a-001ec947cd2a")
@@ -105,44 +105,44 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
     public void setSource(final Classifier value, boolean fixModel) {
         if (fixModel) {
             boolean isNavigable = isNavigable();
-        
+
             AssociationEnd opposite = getOpposite();
             boolean otherNavigable = opposite.isNavigable();
-        
+
             Classifier source = value;
-        
+
             // The target classifier is the opposite end's source or the current target according to the old navigability
             Classifier target = opposite.getSource() != null ? opposite.getSource() : getTarget();
-        
+
             if (isNavigable && !otherNavigable) { // THIS SIDE
                 this.setSource(source);
                 this.setTarget(target);
-        
+
                 opposite.setSource(null);
                 opposite.setTarget(null);
             } else if (!isNavigable && otherNavigable) { // OTHER SIDE
                 this.setSource(source);
                 this.setTarget(target);
-        
+
                 opposite.setSource(target);
                 opposite.setTarget(source);
             } else if (isNavigable && otherNavigable) { // BOTH SIDES
                 this.setSource(source);
                 this.setTarget(target);
-        
+
                 opposite.setSource(target);
                 opposite.setTarget(source);
             } else if (!isNavigable && !otherNavigable) { // NONE
                 this.setSource(source);
                 this.setTarget(null);
-        
+
                 opposite.setSource(target);
                 opposite.setTarget(null);
             }
         } else {
             setSource(value);
         }
-        
+
     }
 
     @objid ("001b2470-22ac-1080-943a-001ec947cd2a")
@@ -150,51 +150,51 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
     public void setTarget(final Classifier value, boolean fixModel) {
         if (fixModel) {
             boolean isNavigable = isNavigable();
-        
+
             AssociationEnd opposite = getOpposite();
             boolean otherNavigable = opposite.isNavigable();
-        
+
             // The source classifier is the current source or the opposite end's target according to the old navigability
             Classifier source = getSource() != null ? getSource() : opposite.getTarget();
-        
+
             Classifier target = value;
-        
+
             if (isNavigable && !otherNavigable) { // THIS SIDE
                 this.setSource(source);
                 this.setTarget(target);
-        
+
                 opposite.setSource(null);
                 opposite.setTarget(null);
             } else if (!isNavigable && otherNavigable) { // OTHER SIDE
                 this.setSource(source);
                 this.setTarget(target);
-        
+
                 opposite.setSource(target);
                 opposite.setTarget(source);
             } else if (isNavigable && otherNavigable) { // BOTH SIDES
                 this.setSource(source);
                 this.setTarget(target);
-        
+
                 opposite.setSource(target);
                 opposite.setTarget(source);
             } else if (!isNavigable && !otherNavigable) { // NONE
                 this.setSource(source);
                 this.setTarget(target);
-        
+
                 opposite.setSource(null);
                 opposite.setTarget(null);
             }
         } else {
             setTarget(value);
         }
-        
+
     }
 
     @objid ("007041ee-1a19-10a1-88a0-001ec947cd2a")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl ret = (SmObjectImpl) getSource();
-        
+
         if (ret != null) {
             return ret;
         } else {
@@ -209,17 +209,17 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
                 return null;
             }
         }
-        
+
     }
 
     @objid ("6f0ba97d-5b41-11e2-90ce-002564c97630")
     @Override
     public List<SmObjectImpl> getCompositionChildren() {
         final List<SmObjectImpl> compositionChildren = super.getCompositionChildren();
-        
-        
+
+
         // Avoid composition loops...
-        // Do not use 'OppositeOwner' role, it is the wrong way and using it may have 
+        // Do not use 'OppositeOwner' role, it is the wrong way and using it may have
         // horrible consequences in repository handle initializations.
         AssociationEnd opp = getOpposite();
         if (opp != null && opp.getSource() != null) {
@@ -238,17 +238,17 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
         if (obj != null) {
             return new SmDepVal(dep, obj);
         }
-        
+
         // Return the 'opposite' role only if it has a source:
         // Avoid cycle if both ends have no source.
         AssociationEnd opp = getOpposite();
-        
+
         if (opp != null && opp.getSource() != null) {
             return new SmDepVal(((AssociationEndSmClass) getClassOf()).getOppositeOwnerDep(), opp);
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("7d321404-ca63-4d7b-93d6-9eeaed9fe01f")
@@ -261,14 +261,14 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
             AssociationEnd opposite = getOpposite();
             return opposite != null ? opposite.getTarget() : null;
         }
-        
+
     }
 
     @objid ("de5ce14b-fc8c-4ab5-a0b9-2b41683ce4db")
     @Override
     public void afterEraseDepVal(SmDependency dep, SmObjectImpl value) {
         super.afterEraseDepVal(dep, value);
-        
+
         if (dep == ((AssociationEndSmClass) getClassOf()).getSourceDep()) {
             // Workaround bug where the storage handle is not updated
             AssociationEnd opposite = getOpposite();
@@ -282,81 +282,81 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
                     opposite.setOpposite(this);
                 }
             }
-        
+
         }
-        
+
     }
 
-    @objid ("5695fde3-3d4a-426b-9260-1a82a3ff91cd")
+    @objid ("eed482b7-b9b0-4e91-9221-7c6f54d506bd")
     @Override
     public AggregationKind getAggregation() {
         return (AggregationKind) getAttVal(((AssociationEndSmClass)getClassOf()).getAggregationAtt());
     }
 
-    @objid ("fe1157e6-e2ff-406b-b3e5-a4b3d33fec91")
+    @objid ("e7d155ea-3032-4a9e-89e3-eeb41e350529")
     @Override
     public void setAggregation(AggregationKind value) {
         setAttVal(((AssociationEndSmClass)getClassOf()).getAggregationAtt(), value);
     }
 
-    @objid ("c22008c1-c4ef-4c6f-bfdd-923d322c05c7")
+    @objid ("0fc9c1d4-12d1-4f15-99f0-97089ac9ec6b")
     @Override
     public boolean isIsChangeable() {
         return (Boolean) getAttVal(((AssociationEndSmClass)getClassOf()).getIsChangeableAtt());
     }
 
-    @objid ("5df73f13-932b-4fe4-ac68-d40f71537b8e")
+    @objid ("f31331ef-98d7-4ae0-99ab-28a3b9c98971")
     @Override
     public void setIsChangeable(boolean value) {
         setAttVal(((AssociationEndSmClass)getClassOf()).getIsChangeableAtt(), value);
     }
 
-    @objid ("f08c877b-7800-4bbd-bac7-6295a23ec552")
+    @objid ("956eb6e8-b9c3-4c0e-b9fe-8f10b90079df")
     @Override
     public Classifier getTarget() {
         Object obj = getDepVal(((AssociationEndSmClass)getClassOf()).getTargetDep());
         return (obj instanceof Classifier)? (Classifier)obj : null;
     }
 
-    @objid ("43d2ed9c-ee7f-4c6a-9fd6-2ea90a3b1342")
+    @objid ("811e1ee0-9939-4694-9181-c713f89e4935")
     @Override
     public void setTarget(Classifier value) {
         appendDepVal(((AssociationEndSmClass)getClassOf()).getTargetDep(), (SmObjectImpl)value);
     }
 
-    @objid ("e83a6859-852c-4714-91aa-7947fe26b2f0")
+    @objid ("fe55dcf5-2376-403e-af47-50d40f33e55f")
     @Override
     public AssociationEnd getOppositeOwner() {
         Object obj = getDepVal(((AssociationEndSmClass)getClassOf()).getOppositeOwnerDep());
         return (obj instanceof AssociationEnd)? (AssociationEnd)obj : null;
     }
 
-    @objid ("cb734a59-b49f-4f28-a42a-0cd0ed63c7b4")
+    @objid ("8aa3adaf-61b7-4af2-9c10-a23cdecb9270")
     @Override
     public void setOppositeOwner(AssociationEnd value) {
         appendDepVal(((AssociationEndSmClass)getClassOf()).getOppositeOwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("3fa607b9-f2f6-4e77-b009-f2fe66cd20f2")
+    @objid ("90905b34-724e-4895-ba0f-e292ea392f76")
     @Override
     public Classifier getSource() {
         Object obj = getDepVal(((AssociationEndSmClass)getClassOf()).getSourceDep());
         return (obj instanceof Classifier)? (Classifier)obj : null;
     }
 
-    @objid ("b7ddbadc-f140-46f0-b96a-d6d5da349d7b")
+    @objid ("c8d1c017-84f0-442e-8cf2-d4ad13aef53b")
     @Override
     public void setSource(Classifier value) {
         appendDepVal(((AssociationEndSmClass)getClassOf()).getSourceDep(), (SmObjectImpl)value);
     }
 
-    @objid ("c1414f63-d5c1-407d-8d4e-9330d3ae826a")
+    @objid ("55a4ed7a-093c-428e-82ed-74254a2ae058")
     @Override
     public EList<LinkEnd> getOccurence() {
         return new SmList<>(this, ((AssociationEndSmClass)getClassOf()).getOccurenceDep());
     }
 
-    @objid ("814b16c2-289a-4f73-bc06-db49b47b9125")
+    @objid ("b611b173-09a1-4d7f-89f8-e3b6fe5e0c0b")
     @Override
     public <T extends LinkEnd> List<T> getOccurence(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -369,16 +369,16 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("339a1888-3c60-4558-8579-0d81fba26db8")
+    @objid ("6aa23fa9-7517-427d-9541-05ea1047a860")
     @Override
     public EList<InformationFlow> getSent() {
         return new SmList<>(this, ((AssociationEndSmClass)getClassOf()).getSentDep());
     }
 
-    @objid ("c564e324-c87f-4964-bd9a-fab4c7d1f76b")
+    @objid ("eb9d1a32-eed1-48dd-b101-9a71e4aea29f")
     @Override
     public <T extends InformationFlow> List<T> getSent(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -391,16 +391,16 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("6be33a45-a359-4549-a0f8-8286f4f975f9")
+    @objid ("2d8c4f0b-55ce-435b-8474-dcda82812334")
     @Override
     public EList<Attribute> getQualifier() {
         return new SmList<>(this, ((AssociationEndSmClass)getClassOf()).getQualifierDep());
     }
 
-    @objid ("5532c248-d8a7-4dab-80c4-5ae484c7d400")
+    @objid ("20679547-1d33-41ac-a8f0-b779fc729658")
     @Override
     public <T extends Attribute> List<T> getQualifier(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -413,29 +413,29 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("098d56cf-660b-4d11-971f-28d7d92c9a0f")
+    @objid ("121dbbb8-305b-4488-bb35-e062c6476786")
     @Override
     public AssociationEnd getOpposite() {
         Object obj = getDepVal(((AssociationEndSmClass)getClassOf()).getOppositeDep());
         return (obj instanceof AssociationEnd)? (AssociationEnd)obj : null;
     }
 
-    @objid ("c63e1b6b-d2b7-48c5-bf00-c893d2b69471")
+    @objid ("215277ef-b7a0-4d51-989b-fef0100dd500")
     @Override
     public void setOpposite(AssociationEnd value) {
         appendDepVal(((AssociationEndSmClass)getClassOf()).getOppositeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("e153368d-0370-4da3-b2bf-b8eef4f37f3e")
+    @objid ("28721faf-985c-4c07-bcb0-b7c8b8008200")
     @Override
     public EList<ObjectNode> getRepresentingObjectNode() {
         return new SmList<>(this, ((AssociationEndSmClass)getClassOf()).getRepresentingObjectNodeDep());
     }
 
-    @objid ("256c5f07-b01a-42b4-9516-e54a8305c9ba")
+    @objid ("1e8e99c2-0931-4273-9201-4f5c70a79fe0")
     @Override
     public <T extends ObjectNode> List<T> getRepresentingObjectNode(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -448,23 +448,23 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("c9e63e4e-7f4e-49ec-bf0d-61d8b6ca6d3d")
+    @objid ("0397aba0-18a2-43fd-b8c9-f111583001f2")
     @Override
     public Association getAssociation() {
         Object obj = getDepVal(((AssociationEndSmClass)getClassOf()).getAssociationDep());
         return (obj instanceof Association)? (Association)obj : null;
     }
 
-    @objid ("33c3a4d4-4d0b-4b88-8961-25c5cb134129")
+    @objid ("d866e79d-bbdf-40b1-a917-791130954074")
     @Override
     public void setAssociation(Association value) {
         appendDepVal(((AssociationEndSmClass)getClassOf()).getAssociationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("4e2d1bd7-6b74-49d2-9a9c-1c7c18d394ff")
+    @objid ("a3e5f175-d8d1-4819-b3ff-0c75ecfa55ae")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitAssociationEnd(this);

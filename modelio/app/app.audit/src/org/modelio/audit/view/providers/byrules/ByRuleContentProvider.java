@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.view.providers.byrules;
 
@@ -37,19 +37,19 @@ public class ByRuleContentProvider extends AbstractDiagnosticContentProvider {
     private Map<String, AuditRuleModel> elementsMap;
 
     @objid ("0c3d56ce-b71c-45d1-8cfe-6cc3e097db70")
-    public  ByRuleContentProvider(String jobId) {
+    public ByRuleContentProvider(String jobId) {
         this.jobId = jobId;
         this.elementsMap = new HashMap<>();
-        
+
     }
 
     @objid ("50cb486a-67bc-46f2-a0a7-3b0bd190cc72")
     @Override
     public void dispose() {
         super.dispose();
-        
+
         this.elementsMap = null;
-        
+
     }
 
     @objid ("0c1f4072-892e-45cc-8a3b-80d8850abd28")
@@ -64,25 +64,25 @@ public class ByRuleContentProvider extends AbstractDiagnosticContentProvider {
     protected void refreshFrom(IAuditDiagnostic diagnostic) {
         final Collection<IAuditEntry> newEntries = diagnostic.getEntries(this.jobId);
         this.elementsMap = new HashMap<>(newEntries.size());
-        
+
         for (IAuditEntry entry : newEntries) {
             AuditRuleModel model = this.elementsMap.get(entry.getRuleId());
-        
+
             if (model == null) {
                 model = new AuditRuleModel(entry.getRuleId(), entry.getSeverity());
                 this.elementsMap.put(entry.getRuleId(), model);
             }
-        
+
             model.addEntry(entry);
         }
-        
+
     }
 
     @objid ("5896405d-c418-4808-947b-8e896d8746f5")
     @Override
     public Object[] getChildren(Object parentElement) {
         refreshFromInput();
-        
+
         if (parentElement instanceof AuditRuleModel) {
             return ((AuditRuleModel) parentElement).entries.toArray();
         }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.bpmn;
 
@@ -49,15 +49,17 @@ public class BpmnLaneSetPropertyModel extends AbstractPropertyModel<BpmnLaneSet>
 
     /**
      * Create a new <i>BpmnLaneSet</i> data model from an <i>BpmnLaneSet</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("2858c56d-31a1-4a73-8f58-996ea0b5ad6f")
-    public  BpmnLaneSetPropertyModel(BpmnLaneSet theEditedElement) {
+    public BpmnLaneSetPropertyModel(BpmnLaneSet theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("ebaab30d-8248-4ac4-a818-92e9d49407b8")
@@ -68,6 +70,7 @@ public class BpmnLaneSetPropertyModel extends AbstractPropertyModel<BpmnLaneSet>
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("cfb04a94-8331-4c06-8d67-a638c5de70fe")
@@ -80,6 +83,7 @@ public class BpmnLaneSetPropertyModel extends AbstractPropertyModel<BpmnLaneSet>
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -101,7 +105,7 @@ public class BpmnLaneSetPropertyModel extends AbstractPropertyModel<BpmnLaneSet>
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -111,6 +115,7 @@ public class BpmnLaneSetPropertyModel extends AbstractPropertyModel<BpmnLaneSet>
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -133,13 +138,14 @@ public class BpmnLaneSetPropertyModel extends AbstractPropertyModel<BpmnLaneSet>
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -164,7 +170,7 @@ public class BpmnLaneSetPropertyModel extends AbstractPropertyModel<BpmnLaneSet>
         default:
             return;
         }
-        
+
     }
 
 }

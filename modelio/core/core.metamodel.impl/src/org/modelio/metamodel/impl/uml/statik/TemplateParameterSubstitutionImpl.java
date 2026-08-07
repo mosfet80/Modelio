@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -45,58 +44,58 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("001e4902-c4bf-1fd8-97fe-001ec947cd2a")
 public class TemplateParameterSubstitutionImpl extends UmlModelElementImpl implements TemplateParameterSubstitution {
-    @objid ("b201c9fc-fdd5-4a86-b9b4-7331c0aac0af")
+    @objid ("fbbd223b-a161-46e5-848e-556bd3ecd63c")
     @Override
     public String getValue() {
         return (String) getAttVal(((TemplateParameterSubstitutionSmClass)getClassOf()).getValueAtt());
     }
 
-    @objid ("0d2e2f09-096d-4dd7-9187-e533ab9ecc6c")
+    @objid ("2183c1b7-c0fa-4dda-9531-35362fcbe16f")
     @Override
     public void setValue(String value) {
         setAttVal(((TemplateParameterSubstitutionSmClass)getClassOf()).getValueAtt(), value);
     }
 
-    @objid ("e2812f9f-c48d-4109-ab1a-33abbf6f0447")
+    @objid ("686a107e-3fd0-49f5-a633-1d02646e1298")
     @Override
     public TemplateBinding getOwner() {
         Object obj = getDepVal(((TemplateParameterSubstitutionSmClass)getClassOf()).getOwnerDep());
         return (obj instanceof TemplateBinding)? (TemplateBinding)obj : null;
     }
 
-    @objid ("47c9ef88-9329-43f3-b11a-a7367d769212")
+    @objid ("459e2a8f-3d2e-4e3c-8c7d-93f977e43665")
     @Override
     public void setOwner(TemplateBinding value) {
         appendDepVal(((TemplateParameterSubstitutionSmClass)getClassOf()).getOwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("9adbb333-7060-4b97-b733-3b726330b725")
+    @objid ("b1d57d64-fa33-4e04-9e19-e449833a0993")
     @Override
     public UmlModelElement getActual() {
         Object obj = getDepVal(((TemplateParameterSubstitutionSmClass)getClassOf()).getActualDep());
         return (obj instanceof UmlModelElement)? (UmlModelElement)obj : null;
     }
 
-    @objid ("310c22c1-c1e0-4432-981f-23e6bded9069")
+    @objid ("3c16a9e2-b6bc-4b6f-8cc8-a06fc9f7cda4")
     @Override
     public void setActual(UmlModelElement value) {
         appendDepVal(((TemplateParameterSubstitutionSmClass)getClassOf()).getActualDep(), (SmObjectImpl)value);
     }
 
-    @objid ("16cad655-d317-43bc-9c46-78c88afaa754")
+    @objid ("8bceac78-5ae9-4f26-97ff-05c719c4a49f")
     @Override
     public TemplateParameter getFormalParameter() {
         Object obj = getDepVal(((TemplateParameterSubstitutionSmClass)getClassOf()).getFormalParameterDep());
         return (obj instanceof TemplateParameter)? (TemplateParameter)obj : null;
     }
 
-    @objid ("ef667eaa-c31b-4f4e-ab5a-aa0f09eb1bc0")
+    @objid ("cf8dffc4-afef-45b5-99ec-a4eaa349f0af")
     @Override
     public void setFormalParameter(TemplateParameter value) {
         appendDepVal(((TemplateParameterSubstitutionSmClass)getClassOf()).getFormalParameterDep(), (SmObjectImpl)value);
     }
 
-    @objid ("0cfd8a1d-2126-4a11-aa13-22dc947df649")
+    @objid ("8590fa89-a91f-4062-8899-db4dcc621a5a")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -108,22 +107,22 @@ public class TemplateParameterSubstitutionImpl extends UmlModelElementImpl imple
         return super.getCompositionOwner();
     }
 
-    @objid ("440b1676-e433-4279-8577-762ce1bb5f5e")
+    @objid ("247f6d38-d7ef-4d2f-bd5c-761589132a2d")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // Owner
         dep = ((TemplateParameterSubstitutionSmClass)getClassOf()).getOwnerDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("6446e747-9250-4e16-9452-624dfbdc2000")
+    @objid ("0b4650b1-3bdc-44be-b3ab-8df4e8430f33")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitTemplateParameterSubstitution(this);

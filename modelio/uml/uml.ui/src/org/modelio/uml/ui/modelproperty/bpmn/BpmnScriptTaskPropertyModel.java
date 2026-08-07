@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.bpmn;
 
@@ -53,19 +53,21 @@ public class BpmnScriptTaskPropertyModel extends AbstractPropertyModel<BpmnScrip
 
     /**
      * Create a new <i>BpmnScriptTask</i> data model from an <i>BpmnScriptTask</i>.
+     *
      * @param theEditedElement the model to edit.
      * @param modelService the model service needed to find elements.
      */
     @objid ("d2addbad-2ab1-4a05-8070-930407bb4950")
-    public  BpmnScriptTaskPropertyModel(BpmnScriptTask theEditedElement, IMModelServices modelService) {
+    public BpmnScriptTaskPropertyModel(BpmnScriptTask theEditedElement, IMModelServices modelService) {
         super(theEditedElement);
         this.modelService = modelService;
         initPropertyModel();
-        
+
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("f62b8302-84ef-4715-8b2f-9812983eb9bf")
@@ -76,6 +78,7 @@ public class BpmnScriptTaskPropertyModel extends AbstractPropertyModel<BpmnScrip
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("39a0f049-e689-462f-a885-061b819064ca")
@@ -90,6 +93,7 @@ public class BpmnScriptTaskPropertyModel extends AbstractPropertyModel<BpmnScrip
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -100,7 +104,7 @@ public class BpmnScriptTaskPropertyModel extends AbstractPropertyModel<BpmnScrip
         if (col == 0) {
             return getPropertyI18n(this.properties.get(row));
         }
-        
+
         // else
         if (col == 1) // col 1 is the property value
         {
@@ -157,6 +161,7 @@ public class BpmnScriptTaskPropertyModel extends AbstractPropertyModel<BpmnScrip
      * This type will be used to choose an editor and a renderer for each cell of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -168,7 +173,7 @@ public class BpmnScriptTaskPropertyModel extends AbstractPropertyModel<BpmnScrip
         if (col == 0) {
             return new DefaultStringNatValue((String) getValue(row, col), false);
         }
-        
+
         // else
         if (col == 1) // col 1 is the property value
         {
@@ -228,7 +233,7 @@ public class BpmnScriptTaskPropertyModel extends AbstractPropertyModel<BpmnScrip
         this.properties.add("ScriptLanguage");
         this.properties.add("Script");
         this.properties.add("LoopCharacteristics");
-        
+
         LoopType type = LoopType.getType(this.theEditedElement);
         if (type == LoopType.Standard) {
             this.properties.add("TestBefore");
@@ -240,13 +245,14 @@ public class BpmnScriptTaskPropertyModel extends AbstractPropertyModel<BpmnScrip
             this.properties.add("CompletionCondition");
             this.properties.add("EventDefinition");
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -258,7 +264,7 @@ public class BpmnScriptTaskPropertyModel extends AbstractPropertyModel<BpmnScrip
         if (col == 0) {
             return;
         }
-        
+
         if (col == 1) // col 1 is the property value
         {
             if (row == 0) {
@@ -306,7 +312,7 @@ public class BpmnScriptTaskPropertyModel extends AbstractPropertyModel<BpmnScrip
                 }
             }
         }
-        
+
     }
 
 }

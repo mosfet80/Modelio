@@ -1,26 +1,26 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.namespacinglink.redraw;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.services.IServiceConstants;
@@ -43,7 +43,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 /**
  * Handler for the "Redraw link" contextual command. Simply sets the current tool to a custom tool with a custom made
  * creation factory.
- * 
+ *
  * @author fpoyer
  */
 @objid ("35bbcd70-55b7-11e2-877f-002564c97630")
@@ -53,7 +53,7 @@ public class RedrawLinkHandler {
     public Object execute(@Named(IServiceConstants.ACTIVE_SELECTION) IStructuredSelection selection) {
         // First get the current selection
         AbstractConnectionEditPart selectedLink = getLinkToProcess(selection);
-        
+
         // Now instantiate the tool.
         EditDomain editDomain = selectedLink.getViewer().getEditDomain();
         AbstractConnectionCreationTool redrawTool = null;
@@ -77,24 +77,24 @@ public class RedrawLinkHandler {
         if (selectedLink == null) {
             return false;
         }
-        
+
         // At least one link must support changing router
-        if (selectedLink instanceof LinkEditPart) {            
+        if (selectedLink instanceof LinkEditPart) {
             final GmLink link = (GmLink) selectedLink.getModel();
-            
+
             if (! link.isUserEditable()) {
                 return false;
             }
-            
-            // Deactivate command on Naries...            
+
+            // Deactivate command on Naries...
             MObject relatedEl = link.getRelatedElement();
-            if (relatedEl instanceof NaryAssociationEnd 
-                    || relatedEl instanceof NaryLinkEnd 
+            if (relatedEl instanceof NaryAssociationEnd
+                    || relatedEl instanceof NaryLinkEnd
                     || relatedEl instanceof ImpactLink
                     || relatedEl instanceof Constraint) {
                 return false;
             }
-            
+
             final StyleKey styleKey = link.getStyleKey(MetaKey.CONNECTIONROUTER);
             if (styleKey != null) {
                 return true;

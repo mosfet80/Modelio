@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.path;
 
@@ -27,13 +27,14 @@ import org.modelio.diagram.elements.core.figures.routers.ConnectionState;
 
 /**
  * Service to modify a connection path consistently with its routing mode.
- * 
+ *
  * @since 5.0.2
  */
 @objid ("779f9da4-14fa-476b-aabd-10fe31685c68")
 public interface ILinkPathEditor {
     /**
      * Move a connection segment.
+     *
      * @param pointIndex the index of the segment first point in the connection point list. Must satisfy 0 <= pointIndex < connection.size() - 1
      * 0 is the source anchor point.
      * @param newLocation the point new location in absolute coordinates
@@ -44,6 +45,7 @@ public interface ILinkPathEditor {
 
     /**
      * Move a connection bend point.
+     *
      * @param pointIndex the point index in the connection point list. Must satisfy 0 < pointIndex < connection.size()-1
      * @param newLocation the point new location in absolute coordinates
      * @return the new editor to chain calls
@@ -68,6 +70,7 @@ public interface ILinkPathEditor {
      * <li> a parent of the target node
      * <li> the connection
      * </ul>
+     *
      * @param request the move/resize request
      * @param isSimulation if true, assume the source and target nodes are still at their initial location. If false
      * assume source and target nodes already moved.
@@ -78,6 +81,7 @@ public interface ILinkPathEditor {
 
     /**
      * Backup the connection anchors and routing constraint in a data object.
+     *
      * @return the backup data
      */
     @objid ("be594f6f-8d84-413a-84a9-5ab30d6d79ee")
@@ -85,6 +89,7 @@ public interface ILinkPathEditor {
 
     /**
      * Restore the connection anchors and routing constraint from a data object.
+     *
      * @param backup the backup data
      */
     @objid ("9646741f-d957-4ac1-b0c7-8e437329e656")
@@ -92,6 +97,7 @@ public interface ILinkPathEditor {
 
     /**
      * Get the resulting state.
+     *
      * @return the current state
      */
     @objid ("d142d519-2845-485e-8b26-6d2cec7e3433")
@@ -111,5 +117,5 @@ public interface ILinkPathEditor {
      */
     @objid ("2e8b9ba1-17eb-4f28-91ab-dd666b620fab")
     ILinkPathEditor createFrozenStateCopy();
-}
 
+}

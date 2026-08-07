@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.styles.core;
 
@@ -76,14 +76,15 @@ public class StyleLoader {
      * Constructor.
      */
     @objid ("85859858-1926-11e2-92d2-001ec947c8cc")
-    public  StyleLoader() {
+    public StyleLoader() {
         this.fontMap = new HashMap<>();
         this.colorMap = new HashMap<>();
-        
+
     }
 
     /**
      * Load property values from the default settings resource file.
+     *
      * @param url the url of the file to load the style from.
      */
     @objid ("8587fa4f-1926-11e2-92d2-001ec947c8cc")
@@ -93,7 +94,7 @@ public class StyleLoader {
         } catch (IOException e) {
             DiagramStyles.LOG.error(e);
         }
-        
+
     }
 
     @objid ("d7bf0029-bbd1-4301-bcd3-188be6616c7a")
@@ -103,13 +104,14 @@ public class StyleLoader {
 
     /**
      * Load property values from the default settings resource file.
+     *
      * @param source the InputStream to load the style from.
      */
     @objid ("0f01ff96-9443-43d4-89fd-8f2ea17d4765")
     private void load(Reader source) {
         this.styleProperties = new HashMap<>();
         this.adminProperties = new HashMap<>();
-        
+
         // Colors and Fonts loading need to be done in the SWT thread.
         Display.getDefault().syncExec(() -> {
             final Properties loadedValues = new Properties();
@@ -118,7 +120,7 @@ public class StyleLoader {
             } catch (IOException e) {
                 DiagramStyles.LOG.error(e);
             }
-        
+
             // Process raw properties to dispatch StyleKey versus non-StyleKey (ie admin) values
             for (Object entry : loadedValues.keySet()) {
                 String k = (String) entry;
@@ -137,12 +139,13 @@ public class StyleLoader {
                 }
             }
         });
-        
+
     }
 
     /**
      * This method tries to extract a value for the StyleKey 'sKey' from the raw properties 'loadedValues' that have been read from a property file.<br>
      * When no value can directly be extracted from 'loadedValue' the method tries to analyze 'sKey' as a MetaKey to guess a reasonable default value (asking the defaults provider if some). If nothing work, it returns null.
+     *
      * @param loadedValues the raw loaded values from the property file
      * @param sKey the StyleKey for which the method is expected to fetch a value
      * @return the value for 'sKey' or null if none.
@@ -151,20 +154,20 @@ public class StyleLoader {
     @objid ("8587fa53-1926-11e2-92d2-001ec947c8cc")
     private static Object loadValue(Properties loadedValues, StyleKey sKey) throws IOException {
         String data = loadedValues.getProperty(sKey.getId(), null);
-        
+
         // if the fetched value is a variable, resolve it
         if (data != null && data.startsWith("$")) {
             data = loadedValues.getProperty(data.trim());
         }
-        
+
         MetaKey metaKey = sKey.getMetakey();
-        
+
         // When there is no data value, we try to use a default value resolved
         // by analyzing the metakey as the metakey holds the key semantic
         // allowing for a guess of the default value.
         // However, if there is no metakey, no guess is possible and an
         // exception is thrown.
-        
+
         if (data != null) {
             Class<?> type;
             if (metaKey != null) {
@@ -174,7 +177,7 @@ public class StyleLoader {
                 // Parse data using the style key type.
                 type = sKey.getType();
             }
-        
+
             try {
                 return StyleLoader.parseData(data, type);
             } catch (RuntimeException e) {
@@ -190,12 +193,12 @@ public class StyleLoader {
                 throw new IOException(msg.toString(), e);
             }
         } else {
-        
+
             // May happen when loading a 'complement' property file,
             // ie a property file that do not define all possible values
             return null;
         }
-        
+
     }
 
     @objid ("8587fa59-1926-11e2-92d2-001ec947c8cc")
@@ -204,7 +207,7 @@ public class StyleLoader {
         final int red = Integer.valueOf(vals[0]).intValue();
         final int green = Integer.valueOf(vals[1]).intValue();
         final int blue = Integer.valueOf(vals[2]).intValue();
-        
+
         RGB rgb = new RGB(red, green, blue);
         return CoreColorRegistry.getColor(rgb);
     }
@@ -212,19 +215,19 @@ public class StyleLoader {
     @objid ("8587fa5e-1926-11e2-92d2-001ec947c8cc")
     private static Object makeFont(String data) {
         final String[] vals = data.split(",");
-        
+
         if (vals.length == 3) {
             final String name = vals[0].trim();
             final int height = Integer.valueOf(vals[1].trim()).intValue();
             final int style = Integer.valueOf(vals[2].trim()).intValue();
-        
+
             FontData fd = new FontData(name, height, style);
-        
+
             return CoreFontRegistry.getFont(fd);
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("8587fa62-1926-11e2-92d2-001ec947c8cc")
@@ -239,15 +242,15 @@ public class StyleLoader {
         if (type == Boolean.class) {
             return new Boolean(data);
         }
-        
+
         if (type == Integer.class) {
             return new Integer(data);
         }
-        
+
         if (type == String.class) {
             return data;
         }
-        
+
         if (type == MRef.class) {
             if (data.trim().isEmpty()) {
                 return null;
@@ -255,11 +258,11 @@ public class StyleLoader {
                 return new MRef(data);
             }
         }
-        
+
         if (type.isEnum()) {
             return Enum.valueOf((Class<? extends Enum>) type, data.trim());
         }
-        
+
         DiagramStyles.LOG.warning("StyleLoader.parseData()  missing converter for '%s'", type.getName());
         return null;
     }

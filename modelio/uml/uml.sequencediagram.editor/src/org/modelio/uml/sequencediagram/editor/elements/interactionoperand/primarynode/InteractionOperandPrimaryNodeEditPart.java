@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.interactionoperand.primarynode;
 
@@ -46,7 +46,7 @@ import org.modelio.uml.sequencediagram.editor.elements.common.node.AbstractSeque
 
 /**
  * EditPart for primary node of interation operand.
- * 
+ *
  * @author fpoyer
  */
 @objid ("d90cb0d2-55b6-11e2-877f-002564c97630")
@@ -78,7 +78,6 @@ public class InteractionOperandPrimaryNodeEditPart extends AbstractSequenceNodeE
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START,
                 new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
-        
     }
 
     @objid ("d90cb0de-55b6-11e2-877f-002564c97630")
@@ -86,7 +85,6 @@ public class InteractionOperandPrimaryNodeEditPart extends AbstractSequenceNodeE
     protected void refreshVisuals() {
         super.refreshVisuals();
         getFigure().getParent().setConstraint(getFigure(), ((GmAbstractObject) getModel()).getLayoutData());
-        
     }
 
     @objid ("d90cb0e1-55b6-11e2-877f-002564c97630")
@@ -96,7 +94,6 @@ public class InteractionOperandPrimaryNodeEditPart extends AbstractSequenceNodeE
         IFigure child = ((GraphicalEditPart) childEditPart).getFigure();
         ((GmAbstractObject) childEditPart.getModel()).setLayoutData(BorderLayout.TOP);
         getContentPane().add(child, BorderLayout.TOP, index);
-        
     }
 
     @objid ("d90cb0e8-55b6-11e2-877f-002564c97630")
@@ -111,7 +108,7 @@ public class InteractionOperandPrimaryNodeEditPart extends AbstractSequenceNodeE
         Command command = super.getCommand(request);
         if (RequestConstants.REQ_RESIZE.equals(request.getType())) {
             Command updateModelCommand = new UpdateInteractionOperandHeightCommand((ChangeBoundsRequest) request);
-            
+
             command = updateModelCommand.chain(command);
         }
         return command;
@@ -123,7 +120,7 @@ public class InteractionOperandPrimaryNodeEditPart extends AbstractSequenceNodeE
         private final ChangeBoundsRequest request;
 
         @objid ("25840fe0-fa65-4698-bbc0-257435504cc4")
-        private  UpdateInteractionOperandHeightCommand(ChangeBoundsRequest request) {
+        private UpdateInteractionOperandHeightCommand(ChangeBoundsRequest request) {
             this.request = request;
         }
 
@@ -132,11 +129,11 @@ public class InteractionOperandPrimaryNodeEditPart extends AbstractSequenceNodeE
         public void execute() {
             IFigure intOpPrimNodeFigure = getFigure();
             GmInteractionOperandPrimaryNode model = (GmInteractionOperandPrimaryNode) getModel();
-            
+
             if( ! model.getDiagram().getModelManager().getModelingSession().getTransactionSupport().hasCurrentTransaction()) {
                 return;
             }
-            
+
             InteractionOperand operand = (InteractionOperand) model.getRelatedElement();
             int newStartTime = intOpPrimNodeFigure.getBounds().y + this.request.getMoveDelta().y;
             int newEndTime = intOpPrimNodeFigure
@@ -144,7 +141,7 @@ public class InteractionOperandPrimaryNodeEditPart extends AbstractSequenceNodeE
                     .bottom() +
                     this.request.getMoveDelta().y +
                     this.request.getSizeDelta().height;
-                  
+
             CombinedFragment combinedFragment = operand.getOwnerFragment();
             List<InteractionOperand> allOperands = combinedFragment.getOperand();
             int index = allOperands.indexOf(operand);
@@ -166,7 +163,6 @@ public class InteractionOperandPrimaryNodeEditPart extends AbstractSequenceNodeE
                 }
                 operand.setEndLineNumber(newEndTime);
             }
-            
         }
 
     }

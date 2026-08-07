@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.controlflow;
 
@@ -42,7 +42,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Graphic model for {@link ControlFlow}.
- * 
+ *
  * @author sbe
  */
 @objid ("2a1e47ea-55b6-11e2-877f-002564c97630")
@@ -76,33 +76,34 @@ public class GmControlFlow extends GmLink {
 
     /**
      * Initialize a control flow graphic model.
+     *
      * @param diagram The owning diagram
      * @param controlflow The reference flow, may be null
      * @param ref The referenced flow reference, may not be null
      */
     @objid ("2a1e47f8-55b6-11e2-877f-002564c97630")
-    public  GmControlFlow(IGmDiagram diagram, ControlFlow controlflow, MRef ref) {
+    public GmControlFlow(IGmDiagram diagram, ControlFlow controlflow, MRef ref) {
         super(diagram, ref);
-        
+
         this.element = controlflow;
         addExtension(ExtensionLocation.MiddleNW, IGmLink.ROLE_MAIN_LABEL, new GmDefaultModelElementLabel(diagram, ref));
         addExtension(ExtensionLocation.TargetNW, GmControlFlow.ROLE_GUARD, new GmActivityEdgeGuard(diagram, ref));
         addExtension(ExtensionLocation.TargetSE, GmControlFlow.ROLE_WEIGHT, new GmActivityEdgeWeight(diagram, ref));
-        
+
         // Information flows
         GmFractionalConnectionLocator constraint = new GmFractionalConnectionLocator(0.75, 0, -10);
         addExtension(new GmInfoFlowsGroup(diagram, ref), GmControlFlow.ROLE_INFOFLOW_GROUP, constraint);
-        
+
         constraint = new GmFractionalConnectionLocator(0.75, 0, 0, true);
         addExtension(new GmInformationFlowArrow(diagram, ref), GmControlFlow.ROLE_INFOFLOW_ARROW, constraint);
-        
+
     }
 
     /**
      * For deserialization only.
      */
     @objid ("2a1e4804-55b6-11e2-877f-002564c97630")
-    public  GmControlFlow() {
+    public GmControlFlow() {
         // Nothing to do.
     }
 
@@ -123,7 +124,7 @@ public class GmControlFlow extends GmLink {
     protected void readLink(IDiagramReader in) {
         super.readLink(in);
         this.element = (ControlFlow) resolveRef(this.getRepresentedRef());
-        
+
     }
 
     @objid ("2a1fce91-55b6-11e2-877f-002564c97630")
@@ -154,10 +155,10 @@ public class GmControlFlow extends GmLink {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmControlFlow.", GmControlFlow.MINOR_VERSION);
-        
+
     }
 
     @objid ("2a1fceb3-55b6-11e2-877f-002564c97630")
@@ -181,9 +182,9 @@ public class GmControlFlow extends GmLink {
             } else if (n instanceof GmInformationFlowArrow) {
                 n.setRoleInComposition(GmControlFlow.ROLE_INFOFLOW_ARROW);
             }
-        
+
         }
-        
+
     }
 
 }

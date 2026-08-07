@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.createhandle;
 
@@ -54,7 +54,7 @@ import org.modelio.diagram.elements.plugin.DiagramElements;
  * Connection creation edit policy that scans the diagram palette for all connection tools and propose valid ones in a popup menu when the command is executed.
  * <p>
  * This edit policy may be installed on edit parts already allowing connections.
- * 
+ *
  * @author cma
  * @since 3.6
  */
@@ -76,14 +76,14 @@ public class UserChoiceCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
     private IFigure highlight;
 
     @objid ("76d355ac-db20-4709-8ab8-ab460b60f906")
-    public  UserChoiceCreateLinkEditPolicy(ICreationActionProvider actionProvider, boolean useSmartLinkHandle) {
+    public UserChoiceCreateLinkEditPolicy(ICreationActionProvider actionProvider, boolean useSmartLinkHandle) {
         if (actionProvider == null) {
             throw new IllegalArgumentException("Action provider cannot be null");
         }
-        
+
         this.actionProvider = actionProvider;
         this.useSmartLinkHandle = useSmartLinkHandle;
-        
+
     }
 
     @objid ("fccf568d-1f95-4fd4-8948-32526e26d555")
@@ -105,17 +105,17 @@ public class UserChoiceCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
     @Override
     public Command getCommand(Request request) {
         if (isRequestHandled(request)) {
-        
+
             CreateConnectionRequest createReq = (CreateConnectionRequest) request;
-        
+
             if (RequestConstants.REQ_CONNECTION_START.equals(createReq.getType())) {
                 UserChoiceCreationCommand cmd = new UserChoiceCreationCommand(getHost().getViewer(), getActionProvider());
                 createReq.setStartCommand(cmd);
                 return cmd;
-        
+
             } else if (RequestConstants.REQ_CONNECTION_END.equals(createReq.getType())) {
                 ICreationActionDescriptor a = getRequestAction(createReq);
-        
+
                 /*
                  * Optional<Action> anyAction = getPaletteActions(getHost(), createReq) .filter(action -> action.finishCommand != null && action.finishCommand.canExecute()) .findAny();
                  */
@@ -126,12 +126,12 @@ public class UserChoiceCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
                     return cmd;
                 }
             }
-        
+
             return null;
         } else {
             return super.getCommand(request);
         }
-        
+
     }
 
     @objid ("192d1583-b95c-4506-8fad-199c41116587")
@@ -141,17 +141,17 @@ public class UserChoiceCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
             // do nothing, DefaultCreateLinkEditPolicy should handle it
             return;
         }
-        
+
         if (CreateLinkConstants.REQ_CONNECTION_ADD_BENDPOINT.equals(request.getType())) {
             showCreationFeedback((CreateConnectionRequest) request);
-        
+
         } else {
             ICreationActionDescriptor a = getRequestAction(request);
             if (a != null) {
                 showCreationFeedback((CreateConnectionRequest) request);
             }
         }
-        
+
     }
 
     @objid ("080dfbfb-e944-46f5-a87b-7c08a587ec61")
@@ -161,7 +161,7 @@ public class UserChoiceCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
             // do nothing, DefaultCreateLinkEditPolicy should handle it
             return;
         }
-        
+
         if (CreateLinkConstants.REQ_CONNECTION_ADD_BENDPOINT.equals(request.getType())) {
             eraseCreationFeedback((CreateConnectionRequest) request);
         } else {
@@ -170,7 +170,7 @@ public class UserChoiceCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
                 eraseCreationFeedback((CreateConnectionRequest) request);
             }
         }
-        
+
     }
 
     @objid ("145a9243-5b33-432f-a856-10ad64c82b67")
@@ -180,7 +180,7 @@ public class UserChoiceCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
             // do nothing, DefaultCreateLinkEditPolicy should handle it
             return;
         }
-        
+
         if (CreateLinkConstants.REQ_CONNECTION_ADD_BENDPOINT.equals(request.getType())) {
             showTargetConnectionFeedback((DropRequest) request);
         } else {
@@ -189,7 +189,7 @@ public class UserChoiceCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
                 super.showTargetFeedback(request);
             }
         }
-        
+
     }
 
     @objid ("b450b4f5-eaa0-4b4d-9746-a4b7b72a96d1")
@@ -199,7 +199,7 @@ public class UserChoiceCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
             // do nothing, DefaultCreateLinkEditPolicy should handle it
             return;
         }
-        
+
         if (CreateLinkConstants.REQ_CONNECTION_ADD_BENDPOINT.equals(request.getType())) {
             eraseTargetConnectionFeedback((DropRequest) request);
         } else {
@@ -208,7 +208,7 @@ public class UserChoiceCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
                 super.eraseTargetFeedback(request);
             }
         }
-        
+
     }
 
     @objid ("ceae8a4b-396f-4f83-910e-4083c3bef5a0")
@@ -231,14 +231,14 @@ public class UserChoiceCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
     @Override
     protected void eraseTargetConnectionFeedback(DropRequest request) {
         super.eraseTargetConnectionFeedback(request);
-        
+
         // Additional feedback: outline the Node.
         if (this.highlight != null) {
             final IFigure feedbackLayer = getFeedbackLayer();
             feedbackLayer.remove(this.highlight);
             this.highlight = null;
         }
-        
+
     }
 
     @objid ("0389d3d7-d8ca-49e5-897d-ca0a761241cd")
@@ -268,14 +268,14 @@ public class UserChoiceCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
     @objid ("0aa4057d-f329-42bf-a0e8-402e596ec97d")
     protected ICreationActionDescriptor getRequestAction(Request request) {
         final CreateConnectionRequest req = (CreateConnectionRequest) request;
-        
+
         ICreationActionDescriptor a = (ICreationActionDescriptor) request.getExtendedData().get(ICreationActionDescriptor.class);
-        
+
         if (a == null) {
             // No action yet, put one
             a = getDefaultAction(req);
             request.getExtendedData().put(ICreationActionDescriptor.class, a);
-        
+
             if (a != null && a.getRequest() instanceof CreateBendedConnectionRequest) {
                 CreateBendedConnectionRequest createBendedConnectionRequest = (CreateBendedConnectionRequest) a.getRequest();
                 createBendedConnectionRequest.setTargetEditPart(req.getTargetEditPart());
@@ -286,12 +286,12 @@ public class UserChoiceCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
                 // Target edit part changed, replace existing action
                 a = getDefaultAction(req);
                 request.getExtendedData().put(ICreationActionDescriptor.class, a);
-        
+
                 createBendedConnectionRequest.setTargetEditPart(req.getTargetEditPart());
             } else {
                 // Update cached request from last data
                 a.getRequest().getLocation().setLocation(req.getLocation());
-        
+
                 createBendedConnectionRequest.getData().getLastPoint().setLocation(req.getLocation());
             }
         } else {
@@ -306,44 +306,45 @@ public class UserChoiceCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
     protected void showCreationFeedback(CreateConnectionRequest request) {
         if (request instanceof CreateBendedConnectionRequest) {
             final CreateBendedConnectionRequest req = (CreateBendedConnectionRequest) request;
-        
+
             // Call the method to force creation of the connection feedback
             getFeedbackHelper(request);
-        
+
             // Set/update the router
             final ConnectionRouter router = ConnectionPolicyUtils.getRoutingServices(getHost()).getCreationRouter(req.getData().getRoutingMode());
             this.connectionFeedback.setConnectionRouter(router);
-        
+
             // Set/update the anchors
             final ConnectionAnchor srcAnchor = getSourceConnectionAnchor(req);
             this.connectionFeedback.setSourceAnchor(srcAnchor);
-        
+
             ConnectionAnchor targetAnchor = getTargetConnectionAnchor(req);
             if (targetAnchor == null) {
                 // No target yet to provide an anchor, use a dummy positioned at the mouse tip.
                 this.dummyAnchor.setLocation(request.getLocation());
                 targetAnchor = this.dummyAnchor;
             }
-        
+
             this.connectionFeedback.setTargetAnchor(targetAnchor);
-        
+
             // Set/update the routing constraint.
             IConnectionHelper connHelper = getUpdatedConnectionHelper(req, this.connectionFeedback);
-        
+
             List<Point> constraint = (List<Point>) connHelper.getRoutingConstraint();
             this.connectionFeedback.setRoutingConstraint(constraint);
-        
+
             // Debug code that display intermediate points
             showIntermediatePoints(constraint);
-        
+
         } else {
             super.showCreationFeedback(request);
         }
-        
+
     }
 
     /**
      * display intermediate points during link creation
+     *
      * @param constraint the current routing constraint
      */
     @objid ("d8f884ca-8e3b-4875-80e2-45116cbf2bda")
@@ -351,11 +352,11 @@ public class UserChoiceCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
         for (IFigure f : new ArrayList<IFigure>(this.connectionFeedback.getChildren())) {
             this.connectionFeedback.remove(f);
         }
-        
+
         if (constraint == null) {
             return;
         }
-        
+
         for (int i = 0; i < constraint.size(); i++) {
             Point cp = constraint.get(i);
             if (!(cp instanceof MPoint) || ((MPoint) cp).isFixed()) {
@@ -363,7 +364,7 @@ public class UserChoiceCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
                 this.connectionFeedback.add(pinFig, pinFig.getLocator());
             }
         }
-        
+
         if (false) {
             final int rect_size = 10;
             // Debug code that display intermediate points
@@ -378,8 +379,8 @@ public class UserChoiceCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
                         this.connectionFeedback.add(r);
                 }
             }
-        
-        
+
+
             for (int i = 0; i < this.connectionFeedback.getPoints().size(); i++) {
                 final Figure r = new RectangleFigure();
                 r.setBackgroundColor(org.eclipse.draw2d.ColorConstants.blue);
@@ -389,7 +390,7 @@ public class UserChoiceCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
                 this.connectionFeedback.add(r);
             }
         }
-        
+
     }
 
     @objid ("07b614bc-5e1d-46b6-88ab-c8c3c0fa9958")
@@ -406,7 +407,7 @@ public class UserChoiceCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
         } else {
             hightlightType = FigureUtilities2.HighlightType.WARNING;
         }
-        
+
         // create a highlight figure if it does not exist
         if (this.highlight == null) {
             // create a highlight figure
@@ -417,7 +418,7 @@ public class UserChoiceCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
             // configure the highlight figure
             FigureUtilities2.updateHighlightType(this.highlight, hightlightType);
         }
-        
+
     }
 
     /**
@@ -436,11 +437,12 @@ public class UserChoiceCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
         } else {
             return null;
         }
-        
+
     }
 
     /**
      * Get or create the updated connection helper for the given connection creation request.
+     *
      * @param req a bended connection creation request
      * @return the connection helper.
      */
@@ -453,13 +455,13 @@ public class UserChoiceCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
     private boolean isRequestHandled(Request request) {
         if (! isASupportedCreateLinkRequest(request))
             return false;
-        
+
         // Allow only the border of the host figure
         IFigure hostFigure = getHostFigure();
         Rectangle innerBounds = hostFigure.getClientArea();
         hostFigure.translateToAbsolute(innerBounds);
         innerBounds.shrink(20, 20);
-        
+
         CreateConnectionRequest req = (CreateConnectionRequest) request;
         Point reqLoc = req.getLocation();
         if (innerBounds.isEmpty())
@@ -471,7 +473,7 @@ public class UserChoiceCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
     private boolean isASupportedCreateLinkRequest(Request request) {
         return request instanceof CreateConnectionRequest
                 && ((CreateConnectionRequest) request).getNewObjectType() == UserChoiceLinkCreationFactory.class;
-        
+
     }
 
     @objid ("0a0e9c05-3b25-4e41-8b13-7f5b857ecad2")
@@ -479,7 +481,7 @@ public class UserChoiceCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
     protected Connection createDummyConnection(Request req) {
         final PolylineConnection ret = new PolylineConnection();
         ret.removeAllPoints();
-        
+
         // Add an arrow
         final PolylineDecoration arrow = new PolylineDecoration();
         arrow.setTemplate(PolylineDecoration.TRIANGLE_TIP);
@@ -487,7 +489,7 @@ public class UserChoiceCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
         arrow.setOpaque(false);
         arrow.setBackgroundColor(null);
         arrow.setFill(false);
-        
+
         ret.setTargetDecoration(arrow);
         return ret;
     }

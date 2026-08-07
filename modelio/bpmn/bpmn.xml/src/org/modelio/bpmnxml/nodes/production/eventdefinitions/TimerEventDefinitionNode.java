@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.eventdefinitions;
 
@@ -67,12 +67,12 @@ public class TimerEventDefinitionNode implements IProductionNode<BpmnTimerEventD
     @objid ("dd1534c9-7a65-4d78-ad08-25ee92dc7e1c")
     @Override
     public BpmnTimerEventDefinition createUMLElement(MObject context, TTimerEventDefinition jaxbElement, BpmnImportFactory factory, boolean keepId) {
-        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {  
+        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {
             return factory.createWithId(BpmnTimerEventDefinition.class, context, "EventDefinitions", jaxbElement.getId());
         } else {
             return factory.create(BpmnTimerEventDefinition.class, context, "EventDefinitions");
         }
-        
+
     }
 
     @objid ("75ed98cf-df7e-4e1f-9ed2-a4ecef67bab0")
@@ -85,7 +85,7 @@ public class TimerEventDefinitionNode implements IProductionNode<BpmnTimerEventD
             }
             modelioElement.setTimeCycle(condition);
         }
-        
+
         if (jaxbElement.getTimeDate() != null) {
             String condition = "";
             for (Serializable val : jaxbElement.getTimeDate().getContent()) {
@@ -93,7 +93,7 @@ public class TimerEventDefinitionNode implements IProductionNode<BpmnTimerEventD
             }
             modelioElement.setTimeDate(condition);
         }
-        
+
         if (jaxbElement.getTimeDuration() != null) {
             String condition = "";
             for (Serializable val : jaxbElement.getTimeDuration().getContent()) {
@@ -108,11 +108,11 @@ public class TimerEventDefinitionNode implements IProductionNode<BpmnTimerEventD
     @Override
     public TTimerEventDefinition createJaxbElement(Object context, BpmnTimerEventDefinition modelioElement) {
         TEvent jaxEvent = (TEvent) context;
-        
+
         // Create JaxbElement
         TTimerEventDefinition jaxEventDefinition = new TTimerEventDefinition();
         this.elementsMap.put(modelioElement.getUuid(), jaxEventDefinition);
-        
+
         // Add to context
         List<JAXBElement<? extends TEventDefinition>> jaxContext = null;
         if (jaxEvent instanceof TThrowEvent) {
@@ -125,7 +125,7 @@ public class TimerEventDefinitionNode implements IProductionNode<BpmnTimerEventD
         }
         ObjectFactory factory = new ObjectFactory();
         jaxContext.add(factory.createTimerEventDefinition(jaxEventDefinition));
-        
+
         // Edit Properties
         return jaxEventDefinition;
     }
@@ -138,13 +138,13 @@ public class TimerEventDefinitionNode implements IProductionNode<BpmnTimerEventD
             exp.getContent().add(modelioElement.getTimeCycle());
             jaxEventDefinition.setTimeCycle(exp);
         }
-        
+
         if (!"".equals(modelioElement.getTimeDate())) {
             TExpression exp = new TExpression();
             exp.getContent().add(modelioElement.getTimeDate());
             jaxEventDefinition.setTimeDate(exp);
         }
-        
+
         if (!"".equals(modelioElement.getTimeDuration())) {
             TExpression exp = new TExpression();
             exp.getContent().add(modelioElement.getTimeDuration());

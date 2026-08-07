@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.workflow;
 
@@ -82,7 +82,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  * <li>dropping an {@link Event}-compatible element creates a {@link BpmnIntermediateCatchEvent}</li>
  * <li>dropping a {@link PartitionElement}-compatible element creates a {@link BpmnLane}</li>
  * </ul>
- * 
+ *
  * Warning: available smart interactions depends on which BPMN diagram type is opened.
  * </p>
  */
@@ -95,16 +95,16 @@ public class WorkflowDropEditPolicy extends DefaultElementDropEditPolicy {
         if (!(model instanceof GmModel)) {
             return null;
         }
-        
+
         final GmModel gmModel = (GmModel) model;
-        
+
         // If either of the dropped elements cannot be unmasked, return null.
         for (final MObject droppedElement : request.getDroppedElements()) {
             if (!gmModel.canUnmask(droppedElement) && (!request.isSmart() || !isSmartDropTarget(droppedElement))) {
                 return null;
             }
         }
-        
+
         // All dropped elements understood: return host!
         return getHost();
     }
@@ -115,7 +115,7 @@ public class WorkflowDropEditPolicy extends DefaultElementDropEditPolicy {
         if (!request.isSmart()) {
             return null;
         }
-        
+
         Point dropLocation = request.getDropLocation();
         CompoundCommand command = new CompoundCommand();
         for (MObject droppedElement : request.getDroppedElements()) {
@@ -131,15 +131,15 @@ public class WorkflowDropEditPolicy extends DefaultElementDropEditPolicy {
             } else {
                 subCmd = createDropCommandForElement(dropLocation, droppedElement);
             }
-        
+
             if (subCmd != null) {
                 command.add(subCmd);
-        
+
                 // Introduce some offset, so that all elements are not totally
                 // on top of each other.
                 dropLocation = dropLocation.getTranslated(20, 20);
             }
-        
+
         }
         return command.unwrap();
     }
@@ -148,7 +148,7 @@ public class WorkflowDropEditPolicy extends DefaultElementDropEditPolicy {
     private boolean isSmartDropTarget(MObject droppedElement) {
         final GmModel gmModel = (GmModel) getHost().getModel();
         IGmDiagram gmDiagram = gmModel.getDiagram();
-        
+
         if (isSmartCallActivity(droppedElement, gmDiagram)) {
             return gmModel.canCreate(BpmnCallActivity.class);
         } else if (isSmartServiceTask(droppedElement, gmDiagram)) {
@@ -168,7 +168,7 @@ public class WorkflowDropEditPolicy extends DefaultElementDropEditPolicy {
         final GmModel gmModel = (GmModel) getHost().getModel();
         IGmDiagram gmDiagram = gmModel.getDiagram();
         final AbstractDiagram diagram = gmDiagram.getRelatedElement();
-        
+
         if (isSmartCallActivity(droppedElement, gmDiagram)) {
             return getCreateCallActivityCommand(diagram.getOrigin(), droppedElement, dropLocation);
         } else if (isSmartServiceTask(droppedElement, gmDiagram)) {
@@ -217,7 +217,7 @@ public class WorkflowDropEditPolicy extends DefaultElementDropEditPolicy {
         IMdaExpert mdaExpert = modelManager.getMdaExpert();
         return mdaExpert.canLink(Represents.MdaTypes.STEREOTYPE_ELT, linkMetaclass, sourceMetaclass, droppedElement.getMClass()) ||
                 mdaExpert.canLink(State.MdaTypes.STEREOTYPE_ELT, linkMetaclass, sourceMetaclass, droppedElement.getMClass());
-        
+
     }
 
     @objid ("b6ff151b-d34f-4609-93ff-ab800f3df27c")
@@ -225,7 +225,7 @@ public class WorkflowDropEditPolicy extends DefaultElementDropEditPolicy {
         if (!(gmDiagram.getRelatedElement() instanceof BpmnProcessDesignDiagram)) {
             return false;
         }
-        
+
         IModelManager modelManager = gmDiagram.getModelManager();
         MMetamodel metamodel = modelManager.getMetamodel();
         MClass sourceMetaclass = metamodel.getMClass(BpmnLane.MQNAME);
@@ -296,18 +296,19 @@ public class WorkflowDropEditPolicy extends DefaultElementDropEditPolicy {
 
         /**
          * Initialize the command.
+         *
          * @param dropLocation The location of the element in the diagram
          * @param partitionElement element to be referenced by the {@link BpmnLane} as a 'partitionElement'.
          * @param editPart The destination edit part that will own the lane.
          * @param parentElement The process owing the lane.
          */
         @objid ("61f94aea-55b6-11e2-877f-002564c97630")
-        public  CreateLaneCommand(final Point dropLocation, final MObject partitionElement, final EditPart editPart, final BpmnProcess parentElement) {
+        public CreateLaneCommand(final Point dropLocation, final MObject partitionElement, final EditPart editPart, final BpmnProcess parentElement) {
             this.partitionElement = partitionElement;
             this.dropLocation = dropLocation;
             this.editPart = editPart;
             this.parentElement = parentElement;
-            
+
         }
 
         @objid ("61f94af9-55b6-11e2-877f-002564c97630")
@@ -317,7 +318,7 @@ public class WorkflowDropEditPolicy extends DefaultElementDropEditPolicy {
             final IGmDiagram gmDiagram = gmModel.getDiagram();
             final IModelManager modelManager = gmDiagram.getModelManager();
             final IStandardModelFactory modelFactory = modelManager.getModelFactory().getFactory(IStandardModelFactory.class);
-            
+
             BpmnLane newElement = modelFactory.createBpmnLane();
             BpmnLaneSet laneSet = this.parentElement.getLaneSet();
             if (laneSet == null) {
@@ -327,10 +328,10 @@ public class WorkflowDropEditPolicy extends DefaultElementDropEditPolicy {
             newElement.setLaneSet(laneSet);
             newElement.setName(modelManager.getModelServices().getElementNamer().getUniqueName(newElement));
             PartitionElement.setTarget(newElement, (ModelElement) this.partitionElement);
-            
+
             // Show the new elements in the diagram (ie create their Gm )
             unmaskLane(gmDiagram, newElement, laneSet);
-            
+
         }
 
         @objid ("61f94b02-55b6-11e2-877f-002564c97630")
@@ -340,14 +341,14 @@ public class WorkflowDropEditPolicy extends DefaultElementDropEditPolicy {
                     this.parentElement.isValid() &&
                     this.parentElement.getStatus().isModifiable() &&
                     (this.partitionElement == null || this.partitionElement instanceof ModelElement);
-            
+
         }
 
         @objid ("6a11eb25-885e-4331-8ff6-4e31529cdbcf")
         private void unmaskLane(final IGmDiagram diagram, final BpmnLane lane, final BpmnLaneSet laneSet) {
             Rectangle laneConstraint = null;
             final List<GmNodeModel> nodesToRelocateInTheLane;
-            
+
             // OwnedNode to relocate in the new Lane ?
             final GmCompositeNode parentNode = (GmCompositeNode) this.editPart.getModel();
             nodesToRelocateInTheLane = parentNode.getChildren(GmWorkflow.OWNED_NODE);
@@ -358,19 +359,19 @@ public class WorkflowDropEditPolicy extends DefaultElementDropEditPolicy {
                     laneConstraint.union(r);
                 }
             }
-            
+
             boolean isHorizontalLaneOrientation = diagram.getDisplayedStyle().getProperty(GmBpmnDiagramStyleKeys.HORIZONTAL_LANES);
             int laneLayoutConstraint = -1;
             if (laneConstraint == null) {
                 laneConstraint = new Rectangle(0, 0, 100, 100);
             }
-            
+
             if (isHorizontalLaneOrientation) {
                 laneLayoutConstraint = laneConstraint.height + 25;
             } else {
                 laneLayoutConstraint = laneConstraint.width + 25;
             }
-            
+
             GmBpmnLaneSetContainer gmLaneSet;
             if (!diagram.getAllGMRepresenting(new MRef(laneSet)).isEmpty()) {
                 gmLaneSet = (GmBpmnLaneSetContainer) diagram.getAllGMRepresenting(new MRef(laneSet)).get(0);
@@ -381,11 +382,11 @@ public class WorkflowDropEditPolicy extends DefaultElementDropEditPolicy {
                     gmLaneSet = (GmBpmnLaneSetContainer) diagram.unmask(parentNode, laneSet, new Rectangle(this.dropLocation.x, this.dropLocation.y, laneConstraint.width + 25, laneConstraint.height + 50));
                 }
             }
-            
+
             // Show the new elements in the diagram (ie create their Gm )
-            
+
             GmBpmnLane newLaneGm = (GmBpmnLane) diagram.unmask(gmLaneSet, lane, laneLayoutConstraint);
-            
+
             for (GmNodeModel n : nodesToRelocateInTheLane) {
                 // Update the OB model
                 if (n.getRelatedElement() instanceof BpmnFlowElement) {
@@ -395,17 +396,17 @@ public class WorkflowDropEditPolicy extends DefaultElementDropEditPolicy {
                     }
                     flowElement.getLane().add(lane);
                 }
-            
+
                 Rectangle r = (Rectangle) n.getLayoutData();
-            
+
                 Rectangle r2 = new Rectangle(r);
                 r2.translate(laneConstraint.getTopLeft().getNegated());
                 n.setLayoutData(r2);
-            
+
                 n.getParentNode().removeChild(n);
                 newLaneGm.addChild(n);
             }
-            
+
         }
 
     }

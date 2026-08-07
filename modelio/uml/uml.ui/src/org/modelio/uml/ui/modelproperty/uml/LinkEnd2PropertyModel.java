@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -24,6 +43,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.metamodel.mmextensions.standard.facilities.InterFragmentTester;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.metamodel.uml.statik.LinkEnd;
@@ -56,15 +76,16 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
      */
     @objid ("f637da7a-03fa-4f50-8ccf-cfa39fc0a22f")
     private static final String[] PROPERTIES = new String[] { AbstractPropertyModel.PROPERTY_ID, "LinkName",
-    			"Link.Base", "Linked", "Name", "MultiplicityMin", "MultiplicityMax", "IsNavigable", "IsOrdered",
-    			"IsUnique" };
+        			"Link.Base", "Linked", "Name", "MultiplicityMin", "MultiplicityMax", "IsNavigable", "IsOrdered",
+        			"IsUnique" };
 
     /**
      * Create a new <i>LinkEnd</i> data model from an <i>LinkEnd</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("ca2c16a9-9e80-4d47-b400-743d8ae9b9b0")
-    public  LinkEnd2PropertyModel(LinkEnd theEditedElement) {
+    public LinkEnd2PropertyModel(LinkEnd theEditedElement) {
         super(theEditedElement);
     }
 
@@ -100,7 +121,7 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
         if (!isApplicableCell(row, aLinkEnd)) {
             return "N/A";
         }
-        
+
         switch (row) {
         case 0: // Title
             Instance type = aLinkEnd.getTarget() != null ? aLinkEnd.getTarget() : aLinkEnd.getOpposite().getSource();
@@ -138,7 +159,6 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
         default:
             return null;
         }
-        
     }
 
     @objid ("b1a68ce6-8d27-4501-a964-613250cf3b16")
@@ -152,10 +172,10 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
         if (row == 1) {
             return getLinkPropertyValue(row, col);
         }
-        
+
         // LinkEnd rows
         switch (col) {
-        
+
         case 0: // col 0 is the property name
             if (row == 0) {
                 return MessageFormat.format(MetamodelLabels.getString("Title.LinkEnd"),
@@ -163,7 +183,7 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
             }
             // else
             return getPropertyI18n(PROPERTIES[row]);
-        
+
         case 1:
             LinkEnd relatedEnd = this.theEditedElement.getOpposite();
             if (relatedEnd != null) {
@@ -179,7 +199,6 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
         default:
             return null;
         }
-        
     }
 
     @objid ("1bfa24e5-1ad3-4919-bce3-dbe940ef3e8a")
@@ -190,11 +209,11 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
                 || (col == 2 && !isApplicableCell(row, this.theEditedElement))) {
             return new DefaultStringNatValue((String) getValue(row, col), false);
         }
-        
+
         switch (col) {
         case 0: // col 0 is the property name
             return new DefaultStringNatValue((String) getValue(row, col), false);
-        
+
         case 1:
             switch (row) {
             case 2: // Link base Association
@@ -238,7 +257,6 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
         default:
             return null;
         }
-        
     }
 
     @objid ("fafb4ddf-fb47-4cdc-b2ae-59c676286cc3")
@@ -306,7 +324,6 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
         default:
             return;
         }
-        
     }
 
     @objid ("a1eba032-9c49-4f29-a22b-256a90394596")
@@ -327,7 +344,6 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
         default:
             return;
         }
-        
     }
 
     /**
@@ -335,7 +351,16 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
      */
     @objid ("87c92c8d-e600-4788-978a-6ce75521c0d1")
     private boolean isApplicableCell(int row, LinkEnd linkEnd) {
-        return row <= 7 || linkEnd.isNavigable();
+        if (! linkEnd.isModifiable())
+            return false;
+
+        if (row > 7 && ! linkEnd.isNavigable())
+            return false;
+
+        if ((row == 0 || row == 2 || row == 7) && InterFragmentTester.isAffected(linkEnd))
+            return false;
+
+        return true;
     }
 
 }

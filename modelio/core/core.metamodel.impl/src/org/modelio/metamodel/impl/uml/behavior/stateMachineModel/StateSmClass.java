@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.stateMachineModel;
 
 import java.util.ArrayList;
@@ -54,115 +53,114 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("0a274c48-b40b-4380-aa10-8a641668c3b0")
 public class StateSmClass extends StateVertexSmClass {
-    @objid ("a5339f64-7627-408f-ac63-9950f2188828")
+    @objid ("8ad9dbda-07fa-4cfc-843f-0d3816a99abf")
     private SmDependency exitPointDep;
 
-    @objid ("3db1a7a6-ecc7-43fa-b015-d50fef1fea74")
+    @objid ("ca79bda6-1786-4dc2-b340-2f85ef4bc3cc")
     private SmDependency defferedDep;
 
-    @objid ("b4511e7d-b768-4270-8906-72a133994080")
+    @objid ("18094824-9f79-48a8-9c45-c6ad8f21cf6a")
     private SmDependency internalDep;
 
-    @objid ("a5138667-4605-42cc-ac74-7a39b21bac53")
+    @objid ("8fd48955-cb0a-4ee5-9cd4-a9bef27e880d")
     private SmDependency entryPointDep;
 
-    @objid ("3e770e92-4d64-422b-a824-a42e2eb5fabf")
+    @objid ("730f957e-7fa7-4898-96d6-12986571301d")
     private SmDependency ownedRegionDep;
 
-    @objid ("9004913c-626d-46a6-8dad-a4dc281d7f4e")
+    @objid ("296f2dc9-5e30-4c07-838b-b4dc05b54e1a")
     private SmDependency requiredStateOfDep;
 
-    @objid ("53c69e6a-1fc9-4fc3-abd2-0e7c2b7f4513")
+    @objid ("85af3855-44c5-47fa-af26-4459c387ca7f")
     private SmDependency connectionDep;
 
-    @objid ("7a04dd04-1282-4f12-9ed4-a26373869394")
+    @objid ("7ef5c74a-9d8c-43aa-b9b3-0f0a4aab9a15")
     private SmDependency subMachineDep;
 
-    @objid ("0f518efd-8e12-404e-9d77-ce5c9881492b")
-    public  StateSmClass(ISmMetamodelFragment origin) {
+    @objid ("009f3e1e-ad48-4584-af2a-28f307d4d564")
+    public StateSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("78047d7a-d42e-48c9-a4ac-935c03cab1f2")
+    @objid ("6f46aa40-85bf-4fae-8263-8a2668ada6c3")
     @Override
     public String getName() {
         return "State";
-        
+
     }
 
-    @objid ("a6c436f5-9f48-4c22-aec8-6e96513af3a6")
+    @objid ("f833e22c-502e-4cbe-9dd0-68ce980e79ce")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("0232947c-0562-440e-b1d3-eeec92d59c3b")
+    @objid ("c48e0efe-7152-4d4a-b712-fd3af0987b23")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return State.class;
-        
+
     }
 
-    @objid ("614f33d3-34ae-4c75-aa4c-f95cd04fbac1")
+    @objid ("277e2cba-a02d-4b37-bde9-1767789ff188")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("a4ed183a-0454-4634-8c8f-08d87229ad1c")
+    @objid ("5eb7c269-cd41-417d-9b46-0e37d20b5935")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("ebb03eb5-c6a7-4272-b1e1-45834d9aabe5")
+    @objid ("bd190843-e188-4014-8e07-bffb073513b9")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(StateVertex.MQNAME);
         this.registerFactory(new StateObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
         this.exitPointDep = new ExitPointSmDependency();
         this.exitPointDep.init("ExitPoint", this, metamodel.getMClass(ExitPointPseudoState.MQNAME), 0, -1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.exitPointDep);
-        
+
         this.defferedDep = new DefferedSmDependency();
         this.defferedDep.init("Deffered", this, metamodel.getMClass(Event.MQNAME), 0, -1 , SmDirective.SMCDPARTOF);
         registerDependency(this.defferedDep);
-        
+
         this.internalDep = new InternalSmDependency();
         this.internalDep.init("Internal", this, metamodel.getMClass(InternalTransition.MQNAME), 0, -1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.internalDep);
-        
+
         this.entryPointDep = new EntryPointSmDependency();
         this.entryPointDep.init("EntryPoint", this, metamodel.getMClass(EntryPointPseudoState.MQNAME), 0, -1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.entryPointDep);
-        
+
         this.ownedRegionDep = new OwnedRegionSmDependency();
         this.ownedRegionDep.init("OwnedRegion", this, metamodel.getMClass(Region.MQNAME), 0, -1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.ownedRegionDep);
-        
+
         this.requiredStateOfDep = new RequiredStateOfSmDependency();
         this.requiredStateOfDep.init("RequiredStateOf", this, metamodel.getMClass(ObjectNode.MQNAME), 0, -1 );
         registerDependency(this.requiredStateOfDep);
-        
+
         this.connectionDep = new ConnectionSmDependency();
         this.connectionDep.init("Connection", this, metamodel.getMClass(ConnectionPointReference.MQNAME), 0, -1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.connectionDep);
-        
+
         this.subMachineDep = new SubMachineSmDependency();
         this.subMachineDep.init("SubMachine", this, metamodel.getMClass(StateMachine.MQNAME), 0, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.subMachineDep);
-        
-        
+
     }
 
-    @objid ("e16e61cb-7af7-4210-90ca-7bbe4dc4db9f")
+    @objid ("932b9553-41c5-4dfc-a6ca-d1f74c3b24c2")
     public SmDependency getExitPointDep() {
         if (this.exitPointDep == null) {
         	this.exitPointDep = this.getDependencyDef("ExitPoint");
@@ -170,7 +168,7 @@ public class StateSmClass extends StateVertexSmClass {
         return this.exitPointDep;
     }
 
-    @objid ("0951aa71-64f9-4dbf-8f39-2499c320af58")
+    @objid ("d2b0b079-74e8-4769-9e62-f93e1066ceb8")
     public SmDependency getDefferedDep() {
         if (this.defferedDep == null) {
         	this.defferedDep = this.getDependencyDef("Deffered");
@@ -178,7 +176,7 @@ public class StateSmClass extends StateVertexSmClass {
         return this.defferedDep;
     }
 
-    @objid ("15a3ba23-cfe4-45f4-a632-bd1b5d5c418d")
+    @objid ("dd619876-8de5-4d0a-97ae-4443a6c83dab")
     public SmDependency getInternalDep() {
         if (this.internalDep == null) {
         	this.internalDep = this.getDependencyDef("Internal");
@@ -186,7 +184,7 @@ public class StateSmClass extends StateVertexSmClass {
         return this.internalDep;
     }
 
-    @objid ("03c8b268-6532-429e-95a6-f4a6a684b71c")
+    @objid ("0754bd2c-c8fe-4fa4-b475-ff730ac7178f")
     public SmDependency getEntryPointDep() {
         if (this.entryPointDep == null) {
         	this.entryPointDep = this.getDependencyDef("EntryPoint");
@@ -194,7 +192,7 @@ public class StateSmClass extends StateVertexSmClass {
         return this.entryPointDep;
     }
 
-    @objid ("8003690b-cbec-4739-9adf-aaa46d372adb")
+    @objid ("9385acd5-4029-44d1-8c22-6e5f1f9ecfaa")
     public SmDependency getOwnedRegionDep() {
         if (this.ownedRegionDep == null) {
         	this.ownedRegionDep = this.getDependencyDef("OwnedRegion");
@@ -202,7 +200,7 @@ public class StateSmClass extends StateVertexSmClass {
         return this.ownedRegionDep;
     }
 
-    @objid ("43633d89-4151-476a-b5fc-39c25d457317")
+    @objid ("e2ab3464-e7ac-432f-a606-5c805f487a2b")
     public SmDependency getRequiredStateOfDep() {
         if (this.requiredStateOfDep == null) {
         	this.requiredStateOfDep = this.getDependencyDef("RequiredStateOf");
@@ -210,7 +208,7 @@ public class StateSmClass extends StateVertexSmClass {
         return this.requiredStateOfDep;
     }
 
-    @objid ("275a5b68-3503-4c55-ae0d-73f16dd74c4a")
+    @objid ("bf532adf-f3a1-4669-8567-46752f9e4fea")
     public SmDependency getConnectionDep() {
         if (this.connectionDep == null) {
         	this.connectionDep = this.getDependencyDef("Connection");
@@ -218,7 +216,7 @@ public class StateSmClass extends StateVertexSmClass {
         return this.connectionDep;
     }
 
-    @objid ("7cdc77aa-3af9-4e14-b962-2b4baa4ae995")
+    @objid ("7a1f65c8-31eb-4b95-be65-8ee30640728c")
     public SmDependency getSubMachineDep() {
         if (this.subMachineDep == null) {
         	this.subMachineDep = this.getDependencyDef("SubMachine");
@@ -228,21 +226,21 @@ public class StateSmClass extends StateVertexSmClass {
 
     @objid ("09c173a5-9ba1-47af-9a5d-db77a82751ed")
     private static class StateObjectFactory implements ISmObjectFactory {
-        @objid ("f8b4ffe4-bcd9-4918-a2bf-728345e91eba")
+        @objid ("946316b8-ddcf-4a4e-b6ee-4487ea4b53cd")
         private StateSmClass smClass;
 
-        @objid ("040043c9-3332-4d6e-9a96-539a351e378d")
-        public  StateObjectFactory(StateSmClass smClass) {
+        @objid ("054c2b87-6577-4151-acfe-920a182951d6")
+        public StateObjectFactory(StateSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("70ada9aa-82f2-4f21-a804-426aaa6c9447")
+        @objid ("2179e8da-a2fe-42ee-b5f1-26658ac5cccc")
         @Override
         public ISmObjectData createData() {
             return new StateData(this.smClass);
         }
 
-        @objid ("166ab5ba-b4dc-412e-89e5-9f0ef9de6d4e")
+        @objid ("1dcc0f72-aea6-4749-a871-e2f03e65ca32")
         @Override
         public SmObjectImpl createImpl() {
             return new StateImpl();
@@ -252,239 +250,239 @@ public class StateSmClass extends StateVertexSmClass {
 
     @objid ("69336a78-c8c1-4663-89d6-5965a131036d")
     public static class ExitPointSmDependency extends SmMultipleDependency {
-        @objid ("3c476e8a-a59f-4434-84cf-64d3f008f270")
+        @objid ("3f297515-107e-48b7-93c7-efb2ccba54c7")
         private SmDependency symetricDep;
 
-        @objid ("6ebf809b-5a7b-4226-b7d0-5f8530f372c8")
+        @objid ("ef19b9dc-b690-44f2-8324-27314de9f8af")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((StateData)data).mExitPoint != null)? ((StateData)data).mExitPoint:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("fa4a2b5d-8b01-4851-82c6-7be07adf589a")
+        @objid ("07f4b550-0d55-49c2-a9b7-90c9c1a70885")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((StateData) data).mExitPoint = values;
-            
+
         }
 
-        @objid ("32c48930-3d05-46fd-9c27-518d1c85e125")
+        @objid ("d30487dd-37d6-4df5-81de-8ab1f6f0cc16")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((ExitPointPseudoStateSmClass)this.getTarget()).getExitOfDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("32a104ce-51c0-4a5d-8c02-bc14bb195e23")
     public static class DefferedSmDependency extends SmMultipleDependency {
-        @objid ("31d7796f-29c9-4e73-8227-e70d34d86bbd")
+        @objid ("72e00c18-8475-414f-9cf3-0f36778813f9")
         private SmDependency symetricDep;
 
-        @objid ("0d7ced9b-7f4c-4938-8295-256a66fceae6")
+        @objid ("dd11b99b-9230-4d51-acf7-0da5f7de856b")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((StateData)data).mDeffered != null)? ((StateData)data).mDeffered:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("ae2e75d5-1c99-493d-b8d4-adb5f26b652e")
+        @objid ("19995ff7-fd2f-4e34-a079-8c1f1f8de7f0")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((StateData) data).mDeffered = values;
-            
+
         }
 
-        @objid ("d89f2629-3e9b-453c-9356-dcaeea8dc5c0")
+        @objid ("fe23a0dd-509d-4a36-ac10-cd50b469e37f")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((EventSmClass)this.getTarget()).getOriginDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("9b4c56b5-76a8-4166-8801-faab70ebb9a4")
     public static class InternalSmDependency extends SmMultipleDependency {
-        @objid ("b59309e9-459a-4cc1-9109-2047aadbd195")
+        @objid ("36ac8800-d027-4c36-80ce-a5e442e4833c")
         private SmDependency symetricDep;
 
-        @objid ("04895621-cad2-4c5c-a745-03b74480208c")
+        @objid ("91fa1925-34bc-4c44-9f73-13d61d9bc741")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((StateData)data).mInternal != null)? ((StateData)data).mInternal:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("a3c9da7e-b174-4309-a9cc-0c3074a91441")
+        @objid ("4e7d6f31-60ce-4c9c-b52f-9d6aa6a8c941")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((StateData) data).mInternal = values;
-            
+
         }
 
-        @objid ("5bdc90e3-502e-4e6d-b0f0-a44978907f78")
+        @objid ("9d698be8-abe0-4065-bfb8-af1e6fe6890c")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((InternalTransitionSmClass)this.getTarget()).getSComposedDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("4eacd3b7-6f46-417b-80ea-0e6b54de9da2")
     public static class EntryPointSmDependency extends SmMultipleDependency {
-        @objid ("734a6af5-5cf3-4eea-8040-fd7666127938")
+        @objid ("e13f1a56-7170-4f6c-aab1-10cc3060fb02")
         private SmDependency symetricDep;
 
-        @objid ("58ecb122-b5a0-45ac-ac7b-871d02341152")
+        @objid ("cef6ea9f-33e4-4387-8ac6-c8f361f076d9")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((StateData)data).mEntryPoint != null)? ((StateData)data).mEntryPoint:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("dade60cb-8909-4fde-8278-55cf8b51defe")
+        @objid ("3c969293-52cb-4998-b3d5-0717b9b2b728")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((StateData) data).mEntryPoint = values;
-            
+
         }
 
-        @objid ("6c68ab27-c185-49cc-b092-c4861047e8b1")
+        @objid ("e12e58b1-7ddf-45e2-bac6-d15dd6ce8e18")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((EntryPointPseudoStateSmClass)this.getTarget()).getEntryOfDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("be860d05-553e-45ce-94a4-db7f75460ef1")
     public static class OwnedRegionSmDependency extends SmMultipleDependency {
-        @objid ("18149cd5-0441-4f97-8c0a-68753d92b047")
+        @objid ("f39a032f-6f57-4148-9436-8564f38f4ed6")
         private SmDependency symetricDep;
 
-        @objid ("aa59e0b8-00c0-427a-9d2e-05809de08933")
+        @objid ("42c24486-9da0-4cc4-ad52-4dcfb6c27690")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((StateData)data).mOwnedRegion != null)? ((StateData)data).mOwnedRegion:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("c5b83470-6057-4aa0-9d03-b77b84e7534e")
+        @objid ("1995840c-3ca6-4a70-bfec-37e5cd718e28")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((StateData) data).mOwnedRegion = values;
-            
+
         }
 
-        @objid ("4ec76474-0704-4c71-aec5-144d0a2807f8")
+        @objid ("561c89d4-7085-4371-8e45-75e1d836dc6d")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((RegionSmClass)this.getTarget()).getParentDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("29e4844f-1e65-4af6-b50c-30fe147e3a8d")
     public static class RequiredStateOfSmDependency extends SmMultipleDependency {
-        @objid ("99e344cb-741f-4f0e-9c61-42dc5e4c4d81")
+        @objid ("85bcec33-f67f-4510-ac8c-947615b12d41")
         private SmDependency symetricDep;
 
-        @objid ("c08fc696-e5d4-4085-b0e1-95cb15f5c027")
+        @objid ("a65d6a7d-09ba-4ad0-8cad-b8c1c485e28b")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((StateData)data).mRequiredStateOf != null)? ((StateData)data).mRequiredStateOf:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("fa8ca1d6-b6aa-424d-8947-1640dfd52851")
+        @objid ("d89400bc-946b-46a6-9f78-96b7722d97bd")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((StateData) data).mRequiredStateOf = values;
-            
+
         }
 
-        @objid ("f4c0c9ae-c20e-4bfe-8f52-15eca50a3e98")
+        @objid ("74e2bd37-1f67-4b3c-a054-efadb5945bf6")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((ObjectNodeSmClass)this.getTarget()).getInStateDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("a8b94ba3-b077-4589-8243-e24d8f5e7010")
     public static class ConnectionSmDependency extends SmMultipleDependency {
-        @objid ("0d73ab61-659a-4807-a739-6e9300f7f348")
+        @objid ("0415cb51-505c-4847-a8ab-5fbb0bdff86c")
         private SmDependency symetricDep;
 
-        @objid ("ef4cf67d-aeb3-4ff8-af8e-c4b9eb8ad515")
+        @objid ("2259eabf-5a7c-47e1-bd87-4bfe62197b52")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((StateData)data).mConnection != null)? ((StateData)data).mConnection:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("d808d1b8-36c0-4086-aff2-92c97cd8b042")
+        @objid ("5cb072aa-2354-4152-91bd-9181d912de5a")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((StateData) data).mConnection = values;
-            
+
         }
 
-        @objid ("3da5b230-fce3-415c-8779-9b5b50f84ea1")
+        @objid ("39629c32-4089-4ea0-be4a-1ba2616f73eb")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((ConnectionPointReferenceSmClass)this.getTarget()).getOwnerStateDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("5263e945-55d3-4d52-9810-884911578057")
     public static class SubMachineSmDependency extends SmSingleDependency {
-        @objid ("358bf6c0-bec4-4add-9a25-64db8664e8c0")
+        @objid ("e511bc8d-6bac-4abb-8469-06b7103fd708")
         private SmDependency symetricDep;
 
-        @objid ("b59d93ad-7b2a-4a7c-acee-ea7eb71e6568")
+        @objid ("7c63cdd3-a89b-439f-a74d-cb976ce2ea04")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((StateData) data).mSubMachine;
         }
 
-        @objid ("a45d08af-9239-4fd8-90b4-2701deb00e15")
+        @objid ("9afb7e30-4a2b-4e9b-af5e-ffd21bd28357")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((StateData) data).mSubMachine = value;
         }
 
-        @objid ("9e1a561c-041e-4a01-bae0-eb519d35e576")
+        @objid ("42f7914b-abb8-46c6-8e6b-a161cb6a62d7")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((StateMachineSmClass)this.getTarget()).getSubmachineStateDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

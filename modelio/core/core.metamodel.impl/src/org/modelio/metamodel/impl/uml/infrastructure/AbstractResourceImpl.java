@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -51,6 +50,7 @@ public class AbstractResourceImpl extends ModelElementImpl implements AbstractRe
      * Get access to the represented resource.
      * <p>
      * Returns null if the element is not yet initialized.
+     *
      * @return an access to the represented resource.
      */
     @objid ("1660e785-cba2-44d2-b6e7-c6e9e0ddd351")
@@ -64,13 +64,14 @@ public class AbstractResourceImpl extends ModelElementImpl implements AbstractRe
         } else {
             return new UriResourceHandle(this);
         }
-        
+
     }
 
     /**
      * Initialize the element to embed a resource.
      * <p>
      * Use the returned handle to store the resource content.
+     *
      * @param fileName a file name that will be used in case of file extraction.
      * @return a handle to write the resource content.
      */
@@ -80,7 +81,7 @@ public class AbstractResourceImpl extends ModelElementImpl implements AbstractRe
         if (getHandle() != null) {
             throw new IllegalStateException(String.format("%s is already initialized.", this));
         }
-        
+
         setStorageInfo(EMBEDDED_PREFIX+fileName);
         return new BlobResourceHandle(this);
     }
@@ -91,7 +92,7 @@ public class AbstractResourceImpl extends ModelElementImpl implements AbstractRe
         if (getHandle() != null) {
             throw new IllegalStateException(String.format("%s is already initialized.", this));
         }
-        
+
         setStorageInfo(resourceLocation);
         return new UriResourceHandle(this);
     }
@@ -170,12 +171,12 @@ public class AbstractResourceImpl extends ModelElementImpl implements AbstractRe
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // Subject
         dep = ((AbstractResourceSmClass)getClassOf()).getSubjectDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -32,11 +32,11 @@ public class OEnumerationLiteral extends OModelElement {
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE
                                         .createEnumerationLiteral();
-        
+
     }
 
     @objid ("b9edea2a-3b05-403f-8c05-59951b05b7ad")
-    public  OEnumerationLiteral(EnumerationLiteral element) {
+    public OEnumerationLiteral(EnumerationLiteral element) {
         super(element);
     }
 
@@ -44,18 +44,18 @@ public class OEnumerationLiteral extends OModelElement {
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
-        
+
         Enumeration objingEnum =  getObjingElement().getValuated();
-        
+
         if (objingEnum != null) {
             org.eclipse.uml2.uml.Enumeration ecoreEnum = (org.eclipse.uml2.uml.Enumeration) genProp
             .getMappedElement(objingEnum);
-        
+
             if (ecoreEnum != null) {
                 ecoreEnum.getOwnedLiterals().add((org.eclipse.uml2.uml.EnumerationLiteral)ecoreElt);
             }
         }
-        
+
     }
 
     @objid ("d11e713a-d26c-4675-8c58-6621b191ddd0")

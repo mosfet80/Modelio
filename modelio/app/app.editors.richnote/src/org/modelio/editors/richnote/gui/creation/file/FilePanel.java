@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.gui.creation.file;
 
@@ -33,7 +33,7 @@ class FilePanel implements IPanelProvider {
     private FilePanelController controller;
 
     @objid ("8ecba590-9afe-463b-8bfa-4b3003b073a7")
-    public  FilePanel() {
+    public FilePanel() {
         this.controller = new FilePanelController();
     }
 
@@ -93,7 +93,7 @@ class FilePanel implements IPanelProvider {
         } else {
             this.controller.setData(null);
         }
-        
+
     }
 
     @objid ("ab7b49b3-da1f-4e92-82f2-6d597cd888e6")

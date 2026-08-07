@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class UML2ReduceAction {
      * Tells whether a {@link UML2ReduceAction proxy} can be instantiated from a {@link MObject} checking it is a {@link OpaqueAction} stereotyped << UML2ReduceAction >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,7 +73,7 @@ public class UML2ReduceAction {
 
     /**
      * Create a new {@link OpaqueAction} stereotyped << UML2ReduceAction >> then instantiate a {@link UML2ReduceAction} proxy.
-     * 
+     *
      * @return a {@link UML2ReduceAction} proxy on the created {@link OpaqueAction}.
      */
     @objid ("682b98ba-4b15-426b-b507-e39d5ffac37c")
@@ -83,9 +84,10 @@ public class UML2ReduceAction {
     }
 
     /**
-     * Tries to instantiate a {@link UML2ReduceAction} proxy from a {@link OpaqueAction} stereotyped << UML2ReduceAction >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2ReduceAction} proxy from a {@link OpaqueAction} stereotyped << UML2ReduceAction >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a OpaqueAction
      * @return a {@link UML2ReduceAction} proxy or <i>null</i>.
      */
@@ -95,9 +97,10 @@ public class UML2ReduceAction {
     }
 
     /**
-     * Tries to instantiate a {@link UML2ReduceAction} proxy from a {@link OpaqueAction} stereotyped << UML2ReduceAction >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2ReduceAction} proxy from a {@link OpaqueAction} stereotyped << UML2ReduceAction >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link OpaqueAction}
      * @return a {@link UML2ReduceAction} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -127,7 +130,8 @@ public class UML2ReduceAction {
     }
 
     /**
-     * Get the underlying {@link OpaqueAction}. 
+     * Get the underlying {@link OpaqueAction}.
+     *
      * @return the OpaqueAction represented by this proxy, never null.
      */
     @objid ("26847a53-6bc1-4124-8d89-a121c63068c3")
@@ -139,11 +143,11 @@ public class UML2ReduceAction {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("3760109e-57b7-41e1-828f-4c420ea0053d")
-    protected  UML2ReduceAction(OpaqueAction elt) {
+    protected UML2ReduceAction(OpaqueAction elt) {
         this.elt = elt;
     }
 
@@ -163,7 +167,7 @@ public class UML2ReduceAction {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "2eb4ec1b-c2fd-11de-8ac8-001302895b2b");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -171,7 +175,7 @@ public class UML2ReduceAction {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

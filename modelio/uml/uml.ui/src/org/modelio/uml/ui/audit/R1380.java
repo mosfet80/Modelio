@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -50,7 +50,7 @@ public class R1380 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -71,7 +71,7 @@ public class R1380 extends AbstractUmlRule {
         plan.registerRule(Signal.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Attribute.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE);
         plan.registerRule(InputPin.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE | AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -105,14 +105,14 @@ public class R1380 extends AbstractUmlRule {
      * Default constructor for R1380
      */
     @objid ("414dfef5-e2c9-4d2b-afc9-ee74eece9930")
-    public  R1380() {
+    public R1380() {
         this.checkerInstance = new CheckR1380(this);
     }
 
     @objid ("48d980c2-7f06-417c-a045-91b149db3e01")
     private static class CheckR1380 extends AbstractControl {
         @objid ("e205c44b-e9ce-4752-8ee0-a12e34e9b3b7")
-        public  CheckR1380(IRule rule) {
+        public CheckR1380(IRule rule) {
             super(rule);
         }
 
@@ -142,38 +142,38 @@ public class R1380 extends AbstractUmlRule {
             // The number and order of argument pins must be the same as the
             // number and order of attributes in the signal.
             // The type, ordering, and multiplicity of an argument pin must be the same as the corresponding attribute of the signal.
-            
+
             // In Modelio, there is no way to differentiate 'arguments pins' from normal InputPins on the action. We consider all InputPin are 'argument pins'.
-            
+
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, action, null);
-            
+
             Signal signal = null;
-            
+
             if ((signal = action.getSent()) == null) {
                 return auditEntry;
             }
-            
+
             // We create a list of the Signal's Attributes and of the
             // SendSignalAction's InputPins
-            
+
             List<Attribute> attributes = new ArrayList<>(signal.getOwnedAttribute());
             List<InputPin> inputPins = new ArrayList<>(action.getInput());
-            
+
             // Each time an Attribute is matched to an InputPin, both element
             // are removed from their respective list.
-            
+
             for (Attribute attribute : signal.getOwnedAttribute()) {
                 for (InputPin input : action.getInput()) {
                     Attribute pinRepresentedAttribute = input.getRepresentedAttribute();
                     if (attribute.equals(pinRepresentedAttribute)
                             && attribute.getType().equals(input.getType())
-            
+
                             // Cannot check ordering because you can't change ordering on a Pin in Modelio
                             // && (input.getOrdering().equals(ObObjectNodeOrderingKindEnum.ORDERED) && attribute.isOrdered())
-            
+
                             // Since Modelio Pins don't have a LowerBound value, minimum multiplicity cannot be checked.
                             // && input.getLowerBound().equals(attribute.getMultiplicityMin())
-            
+
                             && input.getUpperBound().equals(attribute.getMultiplicityMax())) {
                         attributes.remove(attribute);
                         inputPins.remove(input);
@@ -181,12 +181,12 @@ public class R1380 extends AbstractUmlRule {
                     }
                 }
             }
-            
+
             if (!attributes.isEmpty() || !inputPins.isEmpty()) {
-            
+
                 // The rule failed since one of the list is not empty, either
                 // an Attribute or an InputPin is not matched.
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(action);
@@ -208,6 +208,7 @@ public class R1380 extends AbstractUmlRule {
 
         /**
          * If an attribute was created or moved under a Signal, we need to check the rule on the Signal.
+         *
          * @param attribute The created or moved attribute.
          * @return A list of audit entry for each SendSignalAction concerned by the attribute.
          */
@@ -223,6 +224,7 @@ public class R1380 extends AbstractUmlRule {
 
         /**
          * If an InputPin was created or moved, and if it now belongs to a SendSignalAction, we need to check the rule on the SendSignalAction. If an InputPin was updated and belongs to a SendSignalAction, it's represented attribute potentially changed and we need to check the rule on the SendSignalAction.
+         *
          * @param pin The InputPin that was either created, moved of updated.
          * @return An audit entry for the SendSignalAction if the InputPin belongs to one, null otherwise.
          */
@@ -237,6 +239,7 @@ public class R1380 extends AbstractUmlRule {
 
         /**
          * If a Signal is modified, Attributes were potentially added or removed, and we need to check the rule on any SendSignalAction which is a sender of the Signal.
+         *
          * @param signal The Signal that was updated.
          * @return A list of audit entry for any concerned SendSignalAction.
          */

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.events;
 
 import java.util.ArrayList;
@@ -45,26 +44,26 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("008d76e2-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class BpmnEventDefinitionImpl extends BpmnBaseElementImpl implements BpmnEventDefinition {
-    @objid ("479c66af-454c-4645-a763-7ac9fed5f612")
+    @objid ("a4ccb12f-f6c0-493d-9df4-6afd3ea6b02b")
     @Override
     public BpmnEvent getDefined() {
         Object obj = getDepVal(((BpmnEventDefinitionSmClass)getClassOf()).getDefinedDep());
         return (obj instanceof BpmnEvent)? (BpmnEvent)obj : null;
     }
 
-    @objid ("bb96d196-e7f1-4b6f-b199-4faa7b23d3e8")
+    @objid ("59bc0dd9-e6af-4f76-9fe2-2c95ee0ead76")
     @Override
     public void setDefined(BpmnEvent value) {
         appendDepVal(((BpmnEventDefinitionSmClass)getClassOf()).getDefinedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("90373e51-59c2-4e95-97cc-6e6a3508fbbe")
+    @objid ("e718d555-8c7b-44c3-863a-709bb287a000")
     @Override
     public EList<BpmnMultiInstanceLoopCharacteristics> getLoopRef() {
         return new SmList<>(this, ((BpmnEventDefinitionSmClass)getClassOf()).getLoopRefDep());
     }
 
-    @objid ("e923b89c-2743-4d24-b9b0-438581ba91f7")
+    @objid ("6e058fdd-1244-4a3f-8e13-e94c61140c08")
     @Override
     public <T extends BpmnMultiInstanceLoopCharacteristics> List<T> getLoopRef(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -77,10 +76,10 @@ public abstract class BpmnEventDefinitionImpl extends BpmnBaseElementImpl implem
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("2b79544c-6cef-4a0e-b6f1-ea76574d7923")
+    @objid ("b52b29a5-fb7d-46f6-80bf-1ca0153af1b5")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -92,22 +91,22 @@ public abstract class BpmnEventDefinitionImpl extends BpmnBaseElementImpl implem
         return super.getCompositionOwner();
     }
 
-    @objid ("57a78df0-c1ed-43f2-9080-d4baca2e41d2")
+    @objid ("8e523493-d193-464f-986d-7855610c7344")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // Defined
         dep = ((BpmnEventDefinitionSmClass)getClassOf()).getDefinedDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("2b2c289a-fd07-48ff-9ed1-0827c810b1ca")
+    @objid ("198d28ac-eb10-443d-aba8-3ea8895d07cc")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitBpmnEventDefinition(this);

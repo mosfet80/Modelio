@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -47,7 +47,7 @@ public class R1820 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -98,14 +98,14 @@ public class R1820 extends AbstractUmlRule {
      * Default constructor for R1820
      */
     @objid ("b153d2bd-5ba7-428d-bd5d-93b0f8e641f0")
-    public  R1820() {
+    public R1820() {
         this.checkerInstance = new CheckR1820(this);
     }
 
     @objid ("9fa8b2a6-3287-4de4-bd29-9aa4a1b8766d")
     private static class CheckR1820 extends AbstractControl {
         @objid ("a241948b-24e6-45a2-8576-922aff579410")
-        public  CheckR1820(IRule rule) {
+        public CheckR1820(IRule rule) {
             super(rule);
         }
 
@@ -126,11 +126,11 @@ public class R1820 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     gate,
                     null);
-            
+
             if (gate.getCovered().size() != 0) {
-            
+
                 // Rule failed
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(gate);

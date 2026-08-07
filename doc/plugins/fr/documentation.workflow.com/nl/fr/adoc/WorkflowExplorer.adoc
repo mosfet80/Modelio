@@ -1,0 +1,29 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+// Hightlight code source and add the line number
+:source-highlighter: coderay
+:coderay-linenums-mode: table
+
+= Explorateur de workflows
+
+Modelio Workflow fournit une vue dédiée qui peut être activée depuis le menu Modelio *Vues* :
+
+image::images/WorkflowBrowserMenu.png[]
+
+L'explorateur de workflow affiche toutes les instances de workflow du projet :
+
+image::images/WorkflowBrowser.png[WorkflowBrowser.png]
+
+1. Les éléments racine de l'arborescence sont les différentes instances de workflow du projet.
+2. Le dépliage d'une instance de workflow affiche ses états possibles.
+3. Le dépliage d'un état affiche les éléments de modèle qui sont actuellement dans cet état particulier.
+4. <<CreateInstance.adoc#,Créer une nouvelle instance de workflow...>>
+5. <<CreateSynthesisMatrix.adoc#,Créer une matrice de synthèse...>>
+6. <<GenerateProgressReport.adoc#,Générer un rapport d'avancement...>>
+7. Afficher le diagramme de workflow.
+
+
+

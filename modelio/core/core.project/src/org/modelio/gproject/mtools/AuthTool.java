@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.mtools;
 
@@ -45,20 +45,20 @@ public class AuthTool implements IAuthTool {
         if (parentElement == null) {
             return false;
         }
-        
-        final MStatus parentStatus = parentElement.getStatus();
+
+        final MStatus parentStatus = parentElement.getStatusLazy();
         if (parentStatus.isModifiable()) {
             return true;
         }
-        
+
         if (!parentStatus.isUserWrite()) {
             return false;
         }
-        
+
         // Parent is CMS locked here.
         // Both parent and child must be CMS node.
         SmMetamodel mm = CoreSession.getSession(parentElement).getMetamodel();
-        
+
         SmClass mClass = mm.getMClass(metaclass);
         if (mClass == null) {
             // don't know what we add
@@ -73,16 +73,16 @@ public class AuthTool implements IAuthTool {
         if (parentElement == null) {
             return false;
         }
-        
-        final MStatus parentStatus = parentElement.getStatus();
+
+        final MStatus parentStatus = parentElement.getStatusLazy();
         if (parentStatus.isModifiable()) {
             return true;
         }
-        
+
         if (!parentStatus.isUserWrite()) {
             return false;
         }
-        
+
         // Parent is CMS locked here.
         // Both parent and child must be CMS node.
         return (parentElement.getMClass().isCmsNode() && metaclass.isCmsNode());
@@ -91,29 +91,29 @@ public class AuthTool implements IAuthTool {
     @objid ("f1865eb6-2984-11e2-8460-002564c97630")
     @Override
     public boolean canAddTo(MObject child, MObject parent) {
-        MStatus cs = child.getStatus();
+        MStatus cs = child.getStatusLazy();
         if (!cs.isModifiable()) {
             return false;
         }
-        
+
         if (parent == null) {
             return false;
         }
-        
-        MStatus ps = parent.getStatus();
+
+        MStatus ps = parent.getStatusLazy();
         return ps.isModifiable() || (child.getMClass().isCmsNode() && !cs.isCmsManaged() && !cs.isRamc());
     }
 
     @objid ("620e36e0-272e-11e2-a9d1-002564c97630")
     @Override
     public boolean canCreateLink(Class<? extends MObject> toCreate, MObject srcElement, MObject targetEl) {
-        if (!srcElement.getStatus().isModifiable()) {
+        if (!srcElement.getStatusLazy().isModifiable()) {
             return false;
         }
-        
+
         if (InformationFlow.class.isAssignableFrom(toCreate)) {
             NameSpace ns = getCommonNameSpace(srcElement, targetEl);
-            if (ns == null || !ns.getStatus().isModifiable()) {
+            if (ns == null || !ns.getStatusLazy().isModifiable()) {
                 return false;
             }
         }
@@ -124,19 +124,19 @@ public class AuthTool implements IAuthTool {
     @Override
     public boolean canCreateLinkFrom(Class<? extends MObject> toCreate, MObject srcElement) {
         // The source must be modifiable
-        if (!srcElement.getStatus().isModifiable()) {
+        if (!srcElement.getStatusLazy().isModifiable()) {
             return false;
         }
-        
+
         if (InformationFlow.class.isAssignableFrom(toCreate)) {
             // For information flow, at least one parent NameSpace must be modifiable.
             MObject parent = srcElement.getCompositionOwner();
-        
-            while (parent != null && !(parent instanceof NameSpace && parent.getStatus().isModifiable())) {
+
+            while (parent != null && !(parent instanceof NameSpace && parent.getStatusLazy().isModifiable())) {
                 parent = parent.getCompositionOwner();
             }
-        
-            return parent != null && parent.getStatus().isModifiable();
+
+            return parent != null && parent.getStatusLazy().isModifiable();
         }
         return true;
     }
@@ -144,46 +144,56 @@ public class AuthTool implements IAuthTool {
     @objid ("620e36d9-272e-11e2-a9d1-002564c97630")
     @Override
     public boolean canModify(final MObject el) {
-        return (el != null && !el.isShell() && !el.isDeleted() && el.getStatus().isModifiable());
+        return (el != null && !el.isShell() && !el.isDeleted() && el.getStatusLazy().isModifiable());
     }
 
     @objid ("f188c004-2984-11e2-8460-002564c97630")
     @Override
     public boolean canRemoveFrom(MObject child, MObject parent) {
         // child must be modifiable, exception: allow deleting shell object
-        MStatus cs = child.getStatus();
+        MStatus cs = child.getStatusLazy();
         if (!cs.isModifiable() && !cs.isShell()) {
             return false;
         }
-        
+
         if (parent == null) {
             return false;
         }
-        
-        MStatus ps = parent.getStatus();
+
+        MStatus ps = parent.getStatusLazy();
         return ps.isModifiable() || (child.getMClass().isCmsNode() && !cs.isCmsManaged() && !cs.isRamc());
+    }
+
+    @objid ("d8bf3a04-723d-4c41-9557-d2728be18440")
+    @Override
+    public boolean canMove(MObject moved, MObject destination) {
+        if (moved == null || destination == null) {
+            return false;
+        }
+        return moved.getStatusLazy().isModifiable()
+            && destination.getStatusLazy().isModifiable();
     }
 
     @objid ("6210982c-272e-11e2-a9d1-002564c97630")
     private NameSpace getCommonNameSpace(final MObject aSource, final MObject aTarget) {
         final ArrayList<MObject> l1 = new ArrayList<>(20);
         final ArrayList<MObject> l2 = new ArrayList<>(20);
-        
+
         MObject el = aSource;
         while (el != null) {
             l1.add(el);
             el = el.getCompositionOwner();
         }
-        
+
         el = aTarget;
         while (el != null) {
             l2.add(el);
             el = el.getCompositionOwner();
         }
-        
+
         Collections.reverse(l1);
         Collections.reverse(l2);
-        
+
         MObject ret = null;
         int i = 0;
         final int max = Math.min(l1.size(), l2.size());
@@ -202,9 +212,9 @@ public class AuthTool implements IAuthTool {
                 return (NameSpace) ret;
             }
             i++;
-        
+
         } while (i < max);
-        
+
         // Reaching this point means aSource == aTarget
         if (ret != null) {
             return (NameSpace) ret;

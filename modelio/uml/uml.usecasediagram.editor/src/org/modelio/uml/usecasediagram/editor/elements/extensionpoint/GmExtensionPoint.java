@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.usecasediagram.editor.elements.extensionpoint;
 
@@ -50,22 +50,22 @@ public class GmExtensionPoint extends GmDefaultModelElementLabel {
      * Deserialization constructor.
      */
     @objid ("5e4722c6-55b7-11e2-877f-002564c97630")
-    public  GmExtensionPoint() {
-        
+    public GmExtensionPoint() {
+
     }
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram model.
      * @param el the represented element, may be <i>null</i>.
      * @param ref the represented element reference, must not be <i>null</i>.
      */
     @objid ("5e4722c9-55b7-11e2-877f-002564c97630")
-    public  GmExtensionPoint(IGmDiagram diagram, ExtensionPoint el, MRef ref) {
+    public GmExtensionPoint(IGmDiagram diagram, ExtensionPoint el, MRef ref) {
         super(diagram, ref);
         this.theExtensionPoint = el;
         init();
-        
     }
 
     @objid ("5e4a301c-55b7-11e2-877f-002564c97630")
@@ -124,17 +124,15 @@ public class GmExtensionPoint extends GmDefaultModelElementLabel {
                 break;
             }
         }
-        
     }
 
     @objid ("5e4a3011-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmExtensionPoint.", GmExtensionPoint.MINOR_VERSION);
-        
     }
 
     @objid ("5e4a2ffc-55b7-11e2-877f-002564c97630")
@@ -169,14 +167,12 @@ public class GmExtensionPoint extends GmDefaultModelElementLabel {
     private void init() {
         setShowMetaclassKeyword(false);
         setShowMetaclassIcon(false);
-        
     }
 
     @objid ("5e4a3017-55b7-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.theExtensionPoint = (ExtensionPoint) resolveRef(getRepresentedRef());
-        
     }
 
 }

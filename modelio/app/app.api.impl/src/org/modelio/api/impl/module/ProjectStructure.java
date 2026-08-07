@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.api.impl.module;
 
@@ -53,13 +53,13 @@ public class ProjectStructure implements IProjectStructure {
     private List<IFragmentStructure> fragments = new ArrayList<>();
 
     @objid ("8320d3e3-eab6-4349-ba2a-36cf6b0b272e")
-     ProjectStructure(IGProject project) {
+    ProjectStructure(IGProject project) {
         if (project != null) {
             this.name = project.getName();
             this.type = project.getType().toString();
             this.pfs = project.getPfs();
             this.remoteLocation = project.getRemoteLocation();
-        
+
             // Modules
             for (GModule gm : project.getParts(GModule.class)) {
                 this.modules.add(new ModuleDescriptorImpl(
@@ -67,13 +67,13 @@ public class ProjectStructure implements IProjectStructure {
                         gm.getVersion(),
                         String.valueOf(gm.getDescriptor().getLocation())));
             }
-        
+
             // Fragments
             for (IGModelFragment f : project.getParts(IGModelFragment.class)) {
                 this.fragments.add(new FragmentStructure(f));
             }
         }
-        
+
     }
 
     @objid ("55033493-bb26-4f4e-a9b7-ddd3d1acc5a1")
@@ -124,11 +124,11 @@ public class ProjectStructure implements IProjectStructure {
         private final Version version;
 
         @objid ("c5619bd4-31c6-42f8-95ee-023eecbe4042")
-        public  ModuleDescriptorImpl(String name, Version version, String archive) {
+        public ModuleDescriptorImpl(String name, Version version, String archive) {
             this.name = name;
             this.version = version;
             this.archive = archive;
-            
+
         }
 
         @objid ("4c8d1268-413a-4a1a-a1b2-a0a927f4e2a8")

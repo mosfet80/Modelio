@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.text;
 
@@ -34,7 +34,7 @@ import org.modelio.diagram.elements.core.figures.ToolbarLayoutWithGrab;
 /**
  * Multi-line text figure.
  * <p>
- * 
+ *
  * @author cmarin
  */
 @objid ("7f2d8e82-1dec-11e2-8cad-001ec947c8cc")
@@ -47,12 +47,13 @@ public class MultilineTextFigure extends GradientFigure {
 
     /**
      * Default constructor.
+     *
      * @param text The initial text content.
      */
     @objid ("7f2d8e8a-1dec-11e2-8cad-001ec947c8cc")
-    public  MultilineTextFigure(String text) {
+    public MultilineTextFigure(String text) {
         setLayoutManager(new MultilineTextLayout());
-        
+
         // In the scroll: the note text, a FlowPage + a TextFlow
         //
         this.contents = new FlowPage();
@@ -62,9 +63,9 @@ public class MultilineTextFigure extends GradientFigure {
         //this.contents.setBorder(new MarginBorder(2));
         this.contents.setOpaque(false);
         this.contents.setHorizontalAligment(PositionConstants.LEFT);
-        
+
         add(this.contents, BorderLayout.CENTER);
-        
+
     }
 
     @objid ("7f2d8e8e-1dec-11e2-8cad-001ec947c8cc")
@@ -90,6 +91,7 @@ public class MultilineTextFigure extends GradientFigure {
      * <LI>{@link PositionConstants#ALWAYS_LEFT} - Left, irrespective of orientation</LI>
      * <LI>{@link PositionConstants#ALWAYS_RIGHT} - Right, irrespective of orientation</LI>
      * </UL>
+     *
      * @param value the alignment
      */
     @objid ("7f2d8e98-1dec-11e2-8cad-001ec947c8cc")
@@ -111,6 +113,7 @@ public class MultilineTextFigure extends GradientFigure {
 
     /**
      * Set the displayed text.
+     *
      * @param text The text to display.
      */
     @objid ("7f2d8ea4-1dec-11e2-8cad-001ec947c8cc")
@@ -132,7 +135,7 @@ public class MultilineTextFigure extends GradientFigure {
     @objid ("7f2d8ea8-1dec-11e2-8cad-001ec947c8cc")
     private static final class MultilineTextLayout extends ToolbarLayoutWithGrab {
         @objid ("7f2d8eab-1dec-11e2-8cad-001ec947c8cc")
-         MultilineTextLayout() {
+        MultilineTextLayout() {
             super(false);
         }
 
@@ -170,6 +173,7 @@ public class MultilineTextFigure extends GradientFigure {
 
         /**
          * Calculate the minimum size a note should be.
+         *
          * @param container the note figure
          * @param wHint the width hint (the desired width of the container)
          * @param hHint the height hint (the desired height of the container)
@@ -178,7 +182,7 @@ public class MultilineTextFigure extends GradientFigure {
         @objid ("7f2ff0d2-1dec-11e2-8cad-001ec947c8cc")
         private Dimension calculateMinSize(final IFigure container, final int wHint, final int hHint) {
             Dimension ret = super.calculateMinimumSize(container, wHint, hHint);
-            
+
             if (ret.height > 0 && ret.width / ret.height > 4) {
                 ret = super.calculateMinimumSize(container, ret.height * 4, hHint);
             }
@@ -187,6 +191,7 @@ public class MultilineTextFigure extends GradientFigure {
 
         /**
          * Compute the ideal size of the note.
+         *
          * @param container the note figure
          * @param wHint the width hint (the desired width of the container)
          * @param hHint the height hint (the desired height of the container)
@@ -195,7 +200,7 @@ public class MultilineTextFigure extends GradientFigure {
         @objid ("7f2ff0e1-1dec-11e2-8cad-001ec947c8cc")
         private Dimension calculateIdealSize(final IFigure container, final int wHint, final int hHint) {
             Dimension ret = super.calculatePreferredSize(container, wHint, hHint);
-            
+
             if (ret.height > 0 && ret.width / ret.height > 4) {
                 ret = super.calculatePreferredSize(container, ret.height * 4, hHint);
             }

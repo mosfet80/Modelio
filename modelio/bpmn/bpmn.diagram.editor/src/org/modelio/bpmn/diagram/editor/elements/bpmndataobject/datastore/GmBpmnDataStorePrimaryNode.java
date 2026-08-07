@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmndataobject.datastore;
 
@@ -61,11 +61,12 @@ public final class GmBpmnDataStorePrimaryNode extends GmNoStyleSimpleNode implem
 
     /**
      * Create a initial graphic node.
+     *
      * @param diagram The diagram
      * @param relatedRef The related element reference, may not be null.
      */
     @objid ("60d145b9-55b6-11e2-877f-002564c97630")
-    public  GmBpmnDataStorePrimaryNode(final IGmDiagram diagram, final MRef relatedRef) {
+    public GmBpmnDataStorePrimaryNode(final IGmDiagram diagram, final MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -80,11 +81,11 @@ public final class GmBpmnDataStorePrimaryNode extends GmNoStyleSimpleNode implem
     public void refreshFromObModel() {
         if (getRelatedElement() != null) {
             firePropertyChange(IGmObject.PROPERTY_LABEL, null, getRelatedElement().getName());
-        
+
             // forcing visual refresh in case Image changed
             firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
         }
-        
+
     }
 
     @objid ("60d2cc25-55b6-11e2-877f-002564c97630")
@@ -101,6 +102,7 @@ public final class GmBpmnDataStorePrimaryNode extends GmNoStyleSimpleNode implem
 
     /**
      * Get the parent model representation mode.
+     *
      * @return the parent representation mode or null if the node has still no parent.
      */
     @objid ("60d2cc37-55b6-11e2-877f-002564c97630")
@@ -120,26 +122,26 @@ public final class GmBpmnDataStorePrimaryNode extends GmNoStyleSimpleNode implem
     @Override
     public IEditableText getEditableText() {
         return new IEditableText() {
-        
+
             @Override
             public String getText() {
                 return getRelatedElement().getName();
             }
-        
+
             @Override
             public void setText(String text) {
                 getRelatedElement().setName(text);
             }
-        
+
         };
-        
+
     }
 
     /**
      * Constructor for deserialization only.
      */
     @objid ("60d2cc4b-55b6-11e2-877f-002564c97630")
-    public  GmBpmnDataStorePrimaryNode() {
+    public GmBpmnDataStorePrimaryNode() {
         // for the serialization
     }
 
@@ -150,7 +152,7 @@ public final class GmBpmnDataStorePrimaryNode extends GmNoStyleSimpleNode implem
         if (showrepresented) {
             ModelElement represented = Represents.getTarget(getRelatedElement());
             ModelElement state = State.getTarget(getRelatedElement());
-        
+
             if (represented != null) {
                 res.add(ElementImageService.getIcon(represented));
             } else if (state != null) {
@@ -185,17 +187,17 @@ public final class GmBpmnDataStorePrimaryNode extends GmNoStyleSimpleNode implem
             break;
         }
         }
-        
+
     }
 
     @objid ("60d452bd-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmBpmnDataStorePrimaryNode.", GmBpmnDataStorePrimaryNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("60d452c3-55b6-11e2-877f-002564c97630")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.util;
 
@@ -29,11 +29,11 @@ import org.modelio.vcore.smkernel.mapi.MMetamodel;
 
 /**
  * This class give access to UML types managed by Modelio.
- * 
+ *
  * <p>
  * The accessible types are boolean, char, integer, real, string, undefined.
  * </p>
- * 
+ *
  * <p>
  * undefined type is used to set a type to property when the real type of the property is not known. (A property should not be left
  * without type)
@@ -48,10 +48,10 @@ public class ModelioTypes implements IUMLTypes {
     private final MClass dataTypeMClass;
 
     @objid ("475f738a-91a0-48e4-bb8f-17156a7a3fbd")
-    public  ModelioTypes(IMModelServices mmServices, MMetamodel metamodel) {
+    public ModelioTypes(IMModelServices mmServices, MMetamodel metamodel) {
         this.mmServices = mmServices;
         this.dataTypeMClass = metamodel.getMClass(DataType.class);
-        
+
     }
 
     @objid ("54fee4f6-0e45-450a-a9c3-bf045fa67c4a")

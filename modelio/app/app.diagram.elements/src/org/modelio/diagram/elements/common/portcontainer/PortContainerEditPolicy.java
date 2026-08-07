@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.portcontainer;
 
@@ -48,7 +48,7 @@ import org.modelio.diagram.elements.core.policies.ProgrammaticOnlyDragPolicy;
 
 /**
  * Try 2 of edit policy for port container.
- * 
+ *
  * @author fpoyer
  */
 @objid ("7ef45653-1dec-11e2-8cad-001ec947c8cc")
@@ -68,35 +68,35 @@ public class PortContainerEditPolicy extends BaseFreeZoneLayoutEditPolicy {
                 // This code is reached when the main node edit part has a preferred drag edit policy.
                 ChangeBoundsRequest newReq = RequestHelper.deepCopy(request);
                 newReq.setEditParts(pcHost);
-        
+
                 PortContainerFigure pcHostFigure = (PortContainerFigure) getHostFigure();
                 Rectangle mainBounds = PortResizeHelper.computeRequestedMainNodeBounds(pcHostFigure, request);
                 newReq.getExtendedData().put(PortResizeHelper.REQPROP_MAIN_NODE_BOUNDS, mainBounds);
-        
+
                 Rectangle trimmedBounds = pcHost.computeTrimmedBounds(movedEditPart, constraint).getCopy();
                 pcHostFigure.translateToAbsolute(trimmedBounds);
                 newReq.getExtendedData().put(AbstractNodeEditPart.REQPROP_TRIMMED_BOUNDS, trimmedBounds);
-        
+
                 // Ask directly to parent to avoid infinite recursion
                 return pcHost.getParent().getCommand(newReq);
             }
         }
-        
+
         // if child is a 'node' it usually can be resized and/or moved
         if (movedEditPart instanceof AbstractNodeEditPart) {
             // Create the command to resize/move child
             NodeChangeLayoutCommand resizeChildCommand = new NodeChangeLayoutCommand();
             resizeChildCommand.setModel(movedEditPart.getModel());
             resizeChildCommand.setConstraint(constraint);
-        
+
             // If needed, resize the container.
             Command resizeContainerCommand = new LastMinuteContainerAutoResizeCommand(pcHost);
-        
+
             // combine both.
             CompoundCommand command = new CompoundCommand();
             command.add(resizeChildCommand);
             command.add(resizeContainerCommand);
-        
+
             // Embed all in a PostLayoutCommand to allow post layout operations.
             return new PostLayoutCommand(command.unwrap(), request);
         }
@@ -162,16 +162,16 @@ public class PortContainerEditPolicy extends BaseFreeZoneLayoutEditPolicy {
                 return super.getConstraintFor(request, child);
             }
         }
-        
+
         // else: Ports use PortConstraints.
         PortConstraint newConstraint = new PortConstraint();
         newConstraint.setRequestedBounds((Rectangle) super.getConstraintFor(request, child));
-        
+
         Rectangle mainNodeBounds = (Rectangle) request.getExtendedData().get(PortResizeHelper.REQPROP_MAIN_NODE_BOUNDS);
         if (mainNodeBounds == null && child.getFigure() instanceof PortContainerFigure) {
             mainNodeBounds = PortResizeHelper.computeRequestedMainNodeBounds((PortContainerFigure) child.getFigure(), request);
         }
-        
+
         if (mainNodeBounds != null) {
             // Port is itself a PortContainer and gave us the evolution of its
             // main node bounds: this main node bounds must be "fixed" to one border,
@@ -181,7 +181,7 @@ public class PortContainerEditPolicy extends BaseFreeZoneLayoutEditPolicy {
             requestedCentre.translate(getLayoutOrigin().getNegated());
             newConstraint.setRequestedCenter(requestedCentre);
         }
-        
+
         // let layout determine the new reference border.
         PortContainerLayout layout = getPortContainerLayout();
         layout.determineReferenceBorder(getHostFigure(), newConstraint);
@@ -202,7 +202,7 @@ public class PortContainerEditPolicy extends BaseFreeZoneLayoutEditPolicy {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("7ef6b887-1dec-11e2-8cad-001ec947c8cc")
@@ -222,7 +222,7 @@ public class PortContainerEditPolicy extends BaseFreeZoneLayoutEditPolicy {
         GraphicalEditPart childPart;
         Object constraint;
         Rectangle r;
-        
+
         for (int i = 0; i < editParts.size(); i++) {
             childPart = (GraphicalEditPart) editParts.get(i);
             if (childPart instanceof ConnectionEditPart) {
@@ -236,7 +236,7 @@ public class PortContainerEditPolicy extends BaseFreeZoneLayoutEditPolicy {
                 } else {
                     r = ((PortConstraint) constraint).getRequestedBounds();
                 }
-        
+
                 r.translate(getLayoutOrigin());
                 // convert r from relative to childPart figure to absolute
                 childPart.getFigure().translateToAbsolute(r);
@@ -274,7 +274,7 @@ public class PortContainerEditPolicy extends BaseFreeZoneLayoutEditPolicy {
         } else {
             return hostFigure;
         }
-        
+
     }
 
     @objid ("702123c6-e56b-4990-a97e-1f0d6949e37a")

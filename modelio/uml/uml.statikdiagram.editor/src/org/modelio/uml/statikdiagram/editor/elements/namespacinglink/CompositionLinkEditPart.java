@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.namespacinglink;
 
@@ -83,7 +83,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Edit part for the GmCompositionLink
- * 
+ *
  * @author fpoyer
  */
 @objid ("35a670c0-55b7-11e2-877f-002564c97630")
@@ -94,7 +94,7 @@ public class CompositionLinkEditPart extends AbstractConnectionEditPart implemen
     @objid ("35a670c5-55b7-11e2-877f-002564c97630")
     protected void refreshFromStyle(final IFigure aFigure, final IStyle style) {
         final GmLink gmModel = getModel();
-        
+
         // Set pen properties where applicable
         if (aFigure instanceof IPenOptionsSupport) {
             IPenOptionsSupport pen = (IPenOptionsSupport) aFigure;
@@ -115,21 +115,21 @@ public class CompositionLinkEditPart extends AbstractConnectionEditPart implemen
                 pen.setLinePattern(pattern);
             }
         }
-        
+
         if (aFigure instanceof LinkFigure) {
             // Refresh decorations
             refreshDecorationsPenOptionsFromStyle((LinkFigure) aFigure, style);
-        
+
             // Refresh rounded line radius.
             if (aFigure instanceof RoundedLinkFigure) {
                 final RoundedLinkFigure roundedLinkFigure = (RoundedLinkFigure) aFigure;
-        
+
                 // Line corner radius
                 final StyleKey radiusStyleKey = gmModel.getStyleKey(MetaKey.LINERADIUS);
                 if (radiusStyleKey != null) {
                     roundedLinkFigure.setRadius(style.getInteger(radiusStyleKey));
                 }
-        
+
                 // Enable bridges on segment crossings
                 final StyleKey bridgeStyleKey = gmModel.getStyleKey(MetaKey.DRAWLINEBRIDGES);
                 if (bridgeStyleKey != null) {
@@ -137,10 +137,9 @@ public class CompositionLinkEditPart extends AbstractConnectionEditPart implemen
                 }
             }
         }
-        
+
         refreshRouterFromStyle((Connection) aFigure, style, gmModel);
         refreshDecorationFromStyle((LinkFigure) aFigure, style);
-        
     }
 
     @objid ("35a7f73c-55b7-11e2-877f-002564c97630")
@@ -154,9 +153,8 @@ public class CompositionLinkEditPart extends AbstractConnectionEditPart implemen
             pennable.setLineColor(style.getColor(model.getStyleKey(MetaKey.LINECOLOR)));
             final IBrushOptionsSupport brushable = (IBrushOptionsSupport) decoration;
             brushable.setFillColor(style.getColor(model.getStyleKey(MetaKey.FILLCOLOR)));
-        
+
         }
-        
     }
 
     @objid ("35a7f746-55b7-11e2-877f-002564c97630")
@@ -174,10 +172,9 @@ public class CompositionLinkEditPart extends AbstractConnectionEditPart implemen
     @Override
     public void activate() {
         super.activate();
-        
+
         final GmLink gmLink = getModel();
         gmLink.addPropertyChangeListener(this);
-        
     }
 
     @objid ("35a7f74e-55b7-11e2-877f-002564c97630")
@@ -190,12 +187,12 @@ public class CompositionLinkEditPart extends AbstractConnectionEditPart implemen
     @Override
     public Object getAdapter(final Class adapter) {
         final Object model = getModel();
-        
+
         // Support IGmObject, GmModel and its subclasses
         if (adapter.isInstance(model)) {
             return model;
         }
-        
+
         // Support MObject & subclasses
         if (model instanceof GmModel) {
             final GmModel gmModel = (GmModel) model;
@@ -218,7 +215,7 @@ public class CompositionLinkEditPart extends AbstractConnectionEditPart implemen
     public List<Object> getModelChildren() {
         final ArrayList<Object> ret = new ArrayList<>(8);
         final GmLink link = getModel();
-        
+
         ret.addAll(link.getVisibleExtensions());
         ret.addAll(super.getModelChildren());
         return ret;
@@ -255,15 +252,15 @@ public class CompositionLinkEditPart extends AbstractConnectionEditPart implemen
             if (req instanceof LocationRequest) {
                 // Give the request to the child where the request is located
                 final Point reqLocation = ((LocationRequest) req).getLocation();
-        
+
                 for (Object childEditPartObj : getChildren()) {
-        
+
                     final GraphicalEditPart childEditPart = (GraphicalEditPart) childEditPartObj;
                     if (childEditPart.understandsRequest(req) &&
                             containsAbsolutePoint(childEditPart, reqLocation)) {
                         childEditPart.performRequest(req);
                     }
-        
+
                 }
             } else {
                 // Give the request to the first child that understand it
@@ -273,26 +270,25 @@ public class CompositionLinkEditPart extends AbstractConnectionEditPart implemen
                         childEditPart.performRequest(req);
                         return;
                     }
-        
+
                 }
             }
         }
         super.performRequest(req);
-        
     }
 
     @objid ("35a97ded-55b7-11e2-877f-002564c97630")
     @Override
     public void propertyChange(final PropertyChangeEvent evt) {
         final String propName = evt.getPropertyName();
-        
+
         if (propName.equals(IGmObject.PROPERTY_LAYOUTDATA)) {
             // Link layout (bendpoints) update
-        
+
             refreshSourceAnchor();
             refreshTargetAnchor();
             refreshVisuals();
-        
+
         } else if (propName.equals(IGmObject.PROPERTY_CHILDREN)) {
             refreshChildren();
         } else if (propName.equals(IGmObject.PROPERTY_STYLE)) {
@@ -301,26 +297,26 @@ public class CompositionLinkEditPart extends AbstractConnectionEditPart implemen
             refreshChildren();
         } else if (propName.equals(GmLink.PROP_SOURCE_EL)) {
             // If notified that the source changed.
-        
+
             if (evt.getNewValue() instanceof MObject) {
                 // Build a reconnection request, that will be passed to edit
                 // parts that might accept it.
                 ReconnectRequest request = new ReconnectRequest(RequestConstants.REQ_RECONNECT_SOURCE);
                 request.setConnectionEditPart(this);
                 request.setLocation(new Point(0, 0));
-        
+
                 swapEnd((MObject) evt.getNewValue(), request);
             }
         } else if (propName.equals(GmLink.PROP_TARGET_EL)) {
             // If notified that the target changed.
-        
+
             if (evt.getNewValue() instanceof MObject) {
                 // Build a reconnection request, that will be passed to edit
                 // parts that might accept it.
                 ReconnectRequest request = new ReconnectRequest(RequestConstants.REQ_RECONNECT_TARGET);
                 request.setConnectionEditPart(this);
                 request.setLocation(new Point(0, 0));
-        
+
                 swapEnd((MObject) evt.getNewValue(), request);
             }
         } else if (propName.equals(IGmObject.PROPERTY_LINK_SOURCE)) {
@@ -330,28 +326,26 @@ public class CompositionLinkEditPart extends AbstractConnectionEditPart implemen
             // Links were added/removed from the link
             refreshTargetConnections();
         }
-        
     }
 
     @objid ("35a97df2-55b7-11e2-877f-002564c97630")
     @Override
     protected void addChildVisual(final EditPart childEditPart, final int index) {
         final IFigure childFigure = ((GraphicalEditPart) childEditPart).getFigure();
-        
+
         final PolylineConnection connection = (PolylineConnection) getFigure();
-        
+
         ((AbstractNodeEditPart) childEditPart).setDragTrackerProvider(new SatelliteDragTrackerProvider(childEditPart));
-        
+
         connection.add(childFigure, index);
-        
+
         final GmLink gmlink = getModel();
         final IGmObject childModel = (IGmObject) childEditPart.getModel();
         final Locator constraint = LocatorFactory.getInstance()
                 .getLocator(connection,
                         gmlink.getLayoutContraint(childModel));
-        
+
         this.figure.setConstraint(childFigure, constraint);
-        
     }
 
     @objid ("35a97df9-55b7-11e2-877f-002564c97630")
@@ -360,11 +354,10 @@ public class CompositionLinkEditPart extends AbstractConnectionEditPart implemen
         installEditPolicy(EditPolicy.CONNECTION_ROLE, new DefaultDeleteLinkEditPolicy());
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new GmLinkLayoutEditPolicy());
         installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new DelegatingDirectEditionEditPolicy());
-        
+
         if (getRoutingMode().routingStyle != null) {
             updateRouterDependentEditPolicies(getRoutingMode());
         }
-        
     }
 
     @objid ("35a97e02-55b7-11e2-877f-002564c97630")
@@ -397,12 +390,12 @@ public class CompositionLinkEditPart extends AbstractConnectionEditPart implemen
     @objid ("35ab0487-55b7-11e2-877f-002564c97630")
     protected void refreshDecorationsPenOptionsFromStyle(final LinkFigure connection, final IStyle style) {
         GmLink model = getModel();
-        
+
         // Get style values
         int lineWidth = 1;
         LinePattern lineStyle = LinePattern.LINE_SOLID;
         Color lineColor = null;
-        
+
         if (model.getStyleKey(MetaKey.LINECOLOR) != null) {
             lineColor = style.getColor(model.getStyleKey(MetaKey.LINECOLOR));
         }
@@ -412,7 +405,7 @@ public class CompositionLinkEditPart extends AbstractConnectionEditPart implemen
         if (model.getStyleKey(MetaKey.LINEPATTERN) != null) {
             lineStyle = style.getProperty(model.getStyleKey(MetaKey.LINEPATTERN));
         }
-        
+
         // Source decoration
         RotatableDecoration decoration = connection.getSourceDecoration();
         if (decoration instanceof IPenOptionsSupport) {
@@ -421,7 +414,7 @@ public class CompositionLinkEditPart extends AbstractConnectionEditPart implemen
             pennable.setLinePattern(lineStyle);
             pennable.setLineWidth(lineWidth);
         }
-        
+
         // Target decoration
         decoration = connection.getTargetDecoration();
         if (decoration instanceof IPenOptionsSupport) {
@@ -430,20 +423,19 @@ public class CompositionLinkEditPart extends AbstractConnectionEditPart implemen
             pennable.setLinePattern(lineStyle);
             pennable.setLineWidth(lineWidth);
         }
-        
     }
 
     @objid ("35ab0491-55b7-11e2-877f-002564c97630")
     @Override
     protected void refreshVisuals() {
         super.refreshVisuals();
-        
+
         final GmLink gmLink = getLinkModel();
         final PolylineConnection conn = (PolylineConnection) getFigure();
-        
+
         // Update the connection router & Refresh route
         updateConnectionRoute(conn);
-        
+
         // Refresh children constraint
         for (Object c : getChildren()) {
             final GraphicalEditPart childPart = (GraphicalEditPart) c;
@@ -454,7 +446,6 @@ public class CompositionLinkEditPart extends AbstractConnectionEditPart implemen
                 conn.setConstraint(childPart.getFigure(), loc);
             }
         }
-        
     }
 
     @objid ("35ab0494-55b7-11e2-877f-002564c97630")
@@ -468,19 +459,17 @@ public class CompositionLinkEditPart extends AbstractConnectionEditPart implemen
         if (layout != null) {
             constraint = layout.getConstraint(childFigure);
         }
-        
+
         // super.reorderChild(child, index);
         // Copy of AbstractEditPart#reorderChild(EditPart, int)
         removeChildVisual(child);
-        List<Object> lchildren = getChildren();
-        lchildren.remove(child);
-        lchildren.add(index, child);
+        this.children.remove(child);
+        this.children.add(index, child);
         addChildVisual(child, index);
-        
+
         if (constraint != null) {
             setLayoutConstraint(child, childFigure, constraint);
         }
-        
     }
 
     @objid ("35ab049b-55b7-11e2-877f-002564c97630")
@@ -493,7 +482,7 @@ public class CompositionLinkEditPart extends AbstractConnectionEditPart implemen
         boolean foundUnmaskedEnd = false;
         for (GmModel model : models) {
             // For each gm, search the corresponding edit part
-            EditPart editPart = (EditPart) getViewer().getEditPartRegistry().get(model);
+            EditPart editPart = getViewer().getEditPartRegistry().get(model);
             if (editPart != null) {
                 foundUnmaskedEnd = true;
                 // See if this edit part accepts the reconnection request
@@ -517,7 +506,7 @@ public class CompositionLinkEditPart extends AbstractConnectionEditPart implemen
         models = getModel().getDiagram().getAllGMRelatedTo(new MRef(newEndElement));
         for (GmModel model : models) {
             // For each gm, search the corresponding edit part
-            EditPart editPart = (EditPart) getViewer().getEditPartRegistry().get(model);
+            EditPart editPart = getViewer().getEditPartRegistry().get(model);
             if (editPart != null) {
                 // See if this edit part accepts the reconnection request
                 EditPart targetEditPart = editPart.getTargetEditPart(request);
@@ -532,7 +521,6 @@ public class CompositionLinkEditPart extends AbstractConnectionEditPart implemen
                 }
             }
         }
-        
     }
 
     @objid ("35ab04a3-55b7-11e2-877f-002564c97630")
@@ -553,7 +541,7 @@ public class CompositionLinkEditPart extends AbstractConnectionEditPart implemen
             if (styleRouter != oldRouter) {
                 final GmPath newPath = new GmPath(gmLink.getPath());
                 newPath.setRouterKind(styleRouter);
-        
+
                 IConnectionHelperFactory connectionHelperFactory = ConnectionPolicyUtils.getRoutingServices(this).getConnectionHelperFactory();
                 IConnectionHelper oldHelper = connectionHelperFactory.createFromSerializedData(oldRouter,
                         this,
@@ -561,27 +549,26 @@ public class CompositionLinkEditPart extends AbstractConnectionEditPart implemen
                 IConnectionHelper newHelper = connectionHelperFactory.convert(oldHelper,
                         styleRouter,
                         connectionFigure);
-        
+
                 newPath.setPathData(newHelper.getModelPathData());
-        
+
                 gmLink.setLayoutData(newPath);
             }
         }
-        
     }
 
     /**
      * Update edit policies that depend on the connection routing mode.
+     *
      * @param mode the new routing mode
      */
     @objid ("35ac8b1b-55b7-11e2-877f-002564c97630")
     private void updateRouterDependentEditPolicies(final RoutingMode mode) {
         IRouterDependentEditPolicyFactory editPoliciesFactory = ConnectionPolicyUtils.getRoutingServices(this).getEditPoliciesFactory();
-        
+
         // Note : installEditPolicy(...) removes cleanly the existing policy if any
         installEditPolicy(EditPolicy.CONNECTION_BENDPOINTS_ROLE, editPoliciesFactory.createBendPointsPolicy(mode));
         installEditPolicy(EditPolicy.CONNECTION_ENDPOINTS_ROLE, editPoliciesFactory.createEndPointsPolicy(mode));
-        
     }
 
     @objid ("35ac8b1f-55b7-11e2-877f-002564c97630")
@@ -589,29 +576,29 @@ public class CompositionLinkEditPart extends AbstractConnectionEditPart implemen
         // Refresh anchors
         refreshSourceAnchor();
         refreshTargetAnchor();
-        
+
         final IGmLink gmLink = getLinkModel();
         final RoutingMode newRoutingMode = new RoutingMode(gmLink.getPath());
         final RoutingMode oldRoutingMode = getRoutingMode();
-        
+
         // Change connection router if the rake mode changes or there is no rake and the style changes
         ConnectionRoutingServices routingServices = ConnectionPolicyUtils.getRoutingServices(this);
         if (oldRoutingMode.routingStyle != newRoutingMode.routingStyle) {
             // Set the connection router
             cnx.setConnectionRouter(routingServices.getDisplayRouter(newRoutingMode.routingStyle));
-        
+
             // Set the new constraint
             IConnectionHelper helper = routingServices.getConnectionHelperFactory().createFromSerializedData(
                     newRoutingMode.routingStyle,
                     this,
                     cnx);
             cnx.setRoutingConstraint(helper.getRoutingConstraint());
-        
+
             // Update edit policy
             updateRouterDependentEditPolicies(newRoutingMode);
-        
+
             this.currentRoutingMode = newRoutingMode;
-        
+
         } else {
             IConnectionHelper helper = routingServices.getConnectionHelperFactory().createFromSerializedData(
                     newRoutingMode.routingStyle,
@@ -619,7 +606,6 @@ public class CompositionLinkEditPart extends AbstractConnectionEditPart implemen
                     cnx);
             cnx.setRoutingConstraint(helper.getRoutingConstraint());
         }
-        
     }
 
     @objid ("35ac8b23-55b7-11e2-877f-002564c97630")
@@ -648,7 +634,7 @@ public class CompositionLinkEditPart extends AbstractConnectionEditPart implemen
         dropRequest.setLocation(dropPoint);
         GmCompositeNode gmCompositeForUnmasking = getModel().getDiagram()
                 .getCompositeFor(newEndElement.getClass());
-        EditPart compositeEditPartForUnmasking = (EditPart) getViewer().getEditPartRegistry()
+        EditPart compositeEditPartForUnmasking = getViewer().getEditPartRegistry()
                 .get(gmCompositeForUnmasking);
         if (compositeEditPartForUnmasking == null) {
             return;
@@ -659,7 +645,6 @@ public class CompositionLinkEditPart extends AbstractConnectionEditPart implemen
             return;
         }
         command.execute();
-        
     }
 
     @objid ("27144bde-8793-4eca-a4e7-8eb70755f313")
@@ -673,23 +658,23 @@ public class CompositionLinkEditPart extends AbstractConnectionEditPart implemen
     public void deactivate() {
         final GmLink gmLink = getModel();
         gmLink.removePropertyChangeListener(this);
-        
+
         super.deactivate();
-        
     }
 
     /**
      * {@inheritDoc}
      * <p>
      * Redefined to set the collections of all diagram connections on the {@link RoundedLinkFigure}. This collection is used to find intersections to draw bridges.
-     * @since 3.7
+     *
      * @see RoundedLinkFigure#setAllDiagramConnections(Collection)
+     * @since 3.7
      */
     @objid ("160e7879-fc42-4565-b5e8-f5d0d76e9b69")
     @Override
     protected void activateFigure() {
         super.activateFigure();
-        
+
         IFigure fig = getFigure();
         if (fig instanceof RoundedLinkFigure) {
             // Set the collections of all diagram connections.
@@ -697,7 +682,6 @@ public class CompositionLinkEditPart extends AbstractConnectionEditPart implemen
             Collection<Connection> allDiagramConnections = ConnectionPolicyUtils.getAllDiagramConnectionsCollector(this);
             ((RoundedLinkFigure) fig).setAllDiagramConnections(allDiagramConnections);
         }
-        
     }
 
 }

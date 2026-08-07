@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -57,7 +56,7 @@ public class AbstractResourceSmClass extends ModelElementSmClass {
     private SmDependency subjectDep;
 
     @objid ("9de31bc4-a70c-4d0b-84aa-c2ec6c33d77b")
-    public  AbstractResourceSmClass(ISmMetamodelFragment origin) {
+    public AbstractResourceSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
@@ -65,7 +64,7 @@ public class AbstractResourceSmClass extends ModelElementSmClass {
     @Override
     public String getName() {
         return "AbstractResource";
-        
+
     }
 
     @objid ("0e7560f2-c06c-49c4-ac6a-83e4f97166f3")
@@ -78,21 +77,21 @@ public class AbstractResourceSmClass extends ModelElementSmClass {
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return AbstractResource.class;
-        
+
     }
 
     @objid ("b7656f4a-e8e7-4d0b-985b-1ef9172a50e5")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
     @objid ("e40f6249-6d81-4beb-a3f8-4d9453bb266d")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
     @objid ("cd3a194d-95c2-44b6-b0de-f8139b851f62")
@@ -100,28 +99,27 @@ public class AbstractResourceSmClass extends ModelElementSmClass {
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(ModelElement.MQNAME);
         this.registerFactory(new AbstractResourceObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
         this.mimeTypeAtt = new MimeTypeSmAttribute();
         this.mimeTypeAtt.init("MimeType", this, String.class );
         registerAttribute(this.mimeTypeAtt);
-        
+
         this.storageInfoAtt = new StorageInfoSmAttribute();
         this.storageInfoAtt.init("StorageInfo", this, String.class );
         registerAttribute(this.storageInfoAtt);
-        
-        
+
+
         // Initialize and register the SmDependency
         this.typeDep = new TypeSmDependency();
         this.typeDep.init("Type", this, metamodel.getMClass(ResourceType.MQNAME), 1, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.typeDep);
-        
+
         this.subjectDep = new SubjectSmDependency();
         this.subjectDep.init("Subject", this, metamodel.getMClass(ModelElement.MQNAME), 0, 1 );
         registerDependency(this.subjectDep);
-        
-        
+
     }
 
     @objid ("1ee7df00-c4c3-4a7f-aa89-6afb9c758f14")
@@ -162,7 +160,7 @@ public class AbstractResourceSmClass extends ModelElementSmClass {
         private AbstractResourceSmClass smClass;
 
         @objid ("1eea3e27-edce-40cc-a17e-8a643a06349f")
-        public  AbstractResourceObjectFactory(AbstractResourceSmClass smClass) {
+        public AbstractResourceObjectFactory(AbstractResourceSmClass smClass) {
             this.smClass = smClass;
         }
 
@@ -218,7 +216,7 @@ public class AbstractResourceSmClass extends ModelElementSmClass {
             	this.symetricDep = ((ResourceTypeSmClass)this.getTarget()).getTypedResourceDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -247,7 +245,7 @@ public class AbstractResourceSmClass extends ModelElementSmClass {
             	this.symetricDep = ((ModelElementSmClass)this.getTarget()).getAttachedDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

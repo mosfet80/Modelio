@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.api.blob;
 
@@ -44,53 +44,57 @@ public class BlobInfo implements IBlobInfo {
     private final MRef relatedRef;
 
     /**
+     *
      * @param key the blob key
      * @param label the blob label - not used anymore
      * @deprecated since 3.7 use {@link #BlobInfo(String)}
      */
     @objid ("6fb9e474-0e38-4091-b91e-e91dfa4bfa74")
     @Deprecated
-    public  BlobInfo(String key, String label) {
+    public BlobInfo(String key, String label) {
         this(key);
     }
 
     /**
      * Copy constructor
+     *
      * @param other the blob info to copy.
      */
     @objid ("7228adb5-b5b3-4ef3-b33e-00093ffd7258")
-    public  BlobInfo(BlobInfo other) {
+    public BlobInfo(BlobInfo other) {
         this.key = other.getKey();
         this.relatedRef = other.getRelatedElement();
         this.localName = other.localName;
-        
+
     }
 
     /**
      * Constructs a global blob info.
+     *
      * @param key the blob key
      * @since 3.7
      */
     @objid ("56bd9a32-1a20-46d5-86a2-d7fcce5053cb")
-    public  BlobInfo(String key) {
+    public BlobInfo(String key) {
         this.key = Objects.requireNonNull(key, "key is null");
         this.relatedRef = null;
         this.localName = null;
-        
+
     }
 
     /**
+     *
      * @param label a user friendly label.
-     * @since 3.7
      * @param owner the owner model element
      * @param localName an string to identify this blob in the blobs owned by the owned element. Will be used to compute the blob key.
+     * @since 3.7
      */
     @objid ("8de2fa4c-58f4-40bd-9ed3-1134c96801ed")
-    public  BlobInfo(MRef owner, String localName) {
+    public BlobInfo(MRef owner, String localName) {
         this.relatedRef = Objects.requireNonNull(owner);
         this.localName = Objects.requireNonNull(localName);
         this.key = computeKey(this.relatedRef,localName);
-        
+
     }
 
     /**
@@ -98,6 +102,7 @@ public class BlobInfo implements IBlobInfo {
      * <p>
      * If the MRef is null the local name is returned.
      * If the local name is null a prefix string is returned.
+     *
      * @param ref a model object reference
      * @param localName a local name.
      * @return the computed key or key prefix.
@@ -113,7 +118,7 @@ public class BlobInfo implements IBlobInfo {
         } else {
             return ref.uuid + "-" + localName;
         }
-        
+
     }
 
     /**
@@ -121,6 +126,7 @@ public class BlobInfo implements IBlobInfo {
      * <p>
      * If the MObject is null the local name is returned.
      * If the local name is null a prefix string is returned.
+     *
      * @param obj a model object
      * @param localName a local name.
      * @return the computed key or key prefix.
@@ -136,7 +142,7 @@ public class BlobInfo implements IBlobInfo {
         } else {
             return obj.getUuid() + "-" + localName;
         }
-        
+
     }
 
     @objid ("934a1d77-d941-4049-8391-d8e6edea1d5b")

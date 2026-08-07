@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.diagramauto.diagram.creator;
 
@@ -77,12 +77,12 @@ public class ActorFocusDiagramTemplate extends AbstractDiagramTemplate {
      * Mandatory default c'tor needed by eclipse when loading the extension point.
      */
     @objid ("a596718a-fdaf-437c-8d2b-d04770c5d963")
-    public  ActorFocusDiagramTemplate() {
+    public ActorFocusDiagramTemplate() {
         super();
         this._linksDgs = new ArrayList<>();
         this._linkedUseCaseDgs = new ArrayList<>();
         this._unmasker = new NodeRollingUnmasker();
-        
+
     }
 
     @objid ("a9ea0071-c9b6-4fa4-8e3e-cf7ea8ed1de6")
@@ -103,18 +103,18 @@ public class ActorFocusDiagramTemplate extends AbstractDiagramTemplate {
         // Dumb case 'main' is not a UML Actor
         if (!(main instanceof Actor))
             return;
-        
+
         Actor actor = (Actor) main;
-        
+
         // The focused UseCase
         this._actorDG = this._unmasker.unmask(dh, actor);
         if (this._actorDG != null) {
             this._actorDG.fitToContent();
         }
-        
+
         // Unmask the "right side" nodes : the usecase associated to the actor
         // Need to explore both incoming and outgoing associations because orientation is completely ignored in use case diagrams
-        
+
         // First, follow links from an Actor to the UseCase
         for (AssociationEnd a : actor.getTargetingEnd()) {
             Classifier e = a.getSource();
@@ -126,20 +126,20 @@ public class ActorFocusDiagramTemplate extends AbstractDiagramTemplate {
                 }
             }
         }
-        
+
         // Then, links from the UseCase to an Actor
         for (AssociationEnd a : actor.getOwnedEnd()) {
             Classifier e = a.isNavigable() ? a.getTarget() : a.getOpposite().getSource();
             if (e != null && e instanceof UseCase) {
                 // Unmask use case
-        
+
                 IDiagramNode node = this._unmasker.unmask(dh, e);
                 if (node != null) {
                     this._linkedUseCaseDgs.add(node);
                 }
             }
         }
-        
+
     }
 
     @objid ("1a52cff6-f300-4ec5-bcfb-02498cc00cee")
@@ -148,9 +148,9 @@ public class ActorFocusDiagramTemplate extends AbstractDiagramTemplate {
         // Dumb case 'main' is not a UML Actor
         if (!(main instanceof Actor))
             return;
-        
+
         Actor actor = (Actor) main;
-        
+
         // Need to explore both incoming and outgoing associations because orientation is completely ignored in use case diagrams
         // First, follow links from an Actor to the UseCase
         for (AssociationEnd a : actor.getTargetingEnd()) {
@@ -162,10 +162,10 @@ public class ActorFocusDiagramTemplate extends AbstractDiagramTemplate {
                     IDiagramLink link = (IDiagramLink) linkDgs.get(0);
                     this._linksDgs.add(link);
                 }
-        
+
             }
         }
-        
+
         // Then, links from the UseCase to an Actor
         for (AssociationEnd a : actor.getOwnedEnd()) {
             Classifier e = a.isNavigable() ? a.getTarget() : a.getOpposite().getSource();
@@ -179,7 +179,7 @@ public class ActorFocusDiagramTemplate extends AbstractDiagramTemplate {
                 }
             }
         }
-        
+
     }
 
     @objid ("8b8edf06-0436-45c9-954c-fa68a1fa54ce")
@@ -194,7 +194,7 @@ public class ActorFocusDiagramTemplate extends AbstractDiagramTemplate {
                 DiagramAuto.LOG.debug(e);
             }
         }
-        
+
     }
 
     @objid ("2a137b81-8e46-4d40-86d1-ff97e24c54f5")
@@ -209,7 +209,7 @@ public class ActorFocusDiagramTemplate extends AbstractDiagramTemplate {
                 DiagramAuto.LOG.debug(e);
             }
         }
-        
+
     }
 
     @objid ("33273501-f12d-4b2c-8254-3692e0873ae1")
@@ -222,7 +222,7 @@ public class ActorFocusDiagramTemplate extends AbstractDiagramTemplate {
     @objid ("aad0ea87-f760-403c-b531-c003868e1df8")
     private ModelTree getOwnerPackage(final ModelTree elt) {
         ModelTree parent = elt.getOwner();
-        
+
         // Take parents for Inner elements
         while ((parent != null)) {
             if (parent instanceof Package) {
@@ -257,7 +257,7 @@ public class ActorFocusDiagramTemplate extends AbstractDiagramTemplate {
         this._linksDgs.clear();
         this._linkedUseCaseDgs.clear();
         this._unmasker = new NodeRollingUnmasker();
-        
+
     }
 
     @objid ("2bd596c0-5f7f-4050-ba17-730349b95e93")
@@ -274,23 +274,23 @@ public class ActorFocusDiagramTemplate extends AbstractDiagramTemplate {
         @objid ("862fe199-c9b4-4934-b45b-05ad4859fa95")
         public void layoutNodes(IDiagramNode actorDg, List<IDiagramNode> linkedUseCaseDgs) {
             DgNodeGroup rightGroup = new DgNodeGroup(linkedUseCaseDgs);
-            
+
             // Layout Actors : right DGs
             rightGroup.vLayout(0, 0, NODE_V_SPACING);
-            
+
             Rectangle rightBlock = rightGroup.getBounds();
-            
+
             // Position the focused Actor
             actorDg.fitToContent();
             double xUc = 0;
             double yUc = max(rightBlock.preciseHeight(), actorDg.getBounds().preciseHeight()) / 2;
             actorDg.setLocation((int) xUc, (int) yUc);
-            
+
             // Position the right block
             double xRight = actorDg.getBounds().preciseX() + actorDg.getBounds().preciseWidth() + BLOCK_H_SPACING;
             double yRight = actorDg.getBounds().preciseY() + actorDg.getBounds().preciseHeight() / 2 - rightBlock.preciseHeight() / 2;
             rightGroup.moveTo(xRight, yRight);
-            
+
         }
 
         @objid ("f17f7af4-df99-42ad-8df1-409bb8ee4243")
@@ -298,16 +298,16 @@ public class ActorFocusDiagramTemplate extends AbstractDiagramTemplate {
             // Route links
             for (IDiagramLink linkDg : linksDgs) {
                 if (linkDg.getFrom() instanceof IDiagramNode && linkDg.getTo() instanceof IDiagramNode) {
-            
+
                     linkDg.setRouterKind(LinkRouterKind.DIRECT);
-            
+
                     IDiagramNode from = (IDiagramNode) linkDg.getFrom();
                     IDiagramNode to = (IDiagramNode) linkDg.getTo();
                     List<Point> points = Arrays.asList(new Point(from.getBounds().getCenter()), new Point(to.getBounds().getCenter()));
                     linkDg.setPath(points);
                 }
             }
-            
+
         }
 
         @objid ("652a4bb0-a30b-4c64-864b-e965b336b855")

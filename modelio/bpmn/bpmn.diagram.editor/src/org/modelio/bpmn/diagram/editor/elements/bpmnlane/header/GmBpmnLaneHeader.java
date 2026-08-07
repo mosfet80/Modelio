@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnlane.header;
 
@@ -58,16 +58,17 @@ public class GmBpmnLaneHeader extends GmDefaultModelElementHeader {
      * C'tor without args for deserialization.
      */
     @objid ("6129c5e8-55b6-11e2-877f-002564c97630")
-    public  GmBpmnLaneHeader() {
+    public GmBpmnLaneHeader() {
         // Nothing to do.
     }
 
     /**
      * C'tor.
+     *
      * @param diagram the owning diagram.
      */
     @objid ("6129c5eb-55b6-11e2-877f-002564c97630")
-    public  GmBpmnLaneHeader(IGmDiagram diagram, MRef relatedRef) {
+    public GmBpmnLaneHeader(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -88,7 +89,7 @@ public class GmBpmnLaneHeader extends GmDefaultModelElementHeader {
             break;
         }
         }
-        
+
     }
 
     @objid ("612b4c65-55b6-11e2-877f-002564c97630")
@@ -97,7 +98,7 @@ public class GmBpmnLaneHeader extends GmDefaultModelElementHeader {
         super.write(out);
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmBpmnLaneHeader.", GmBpmnLaneHeader.MINOR_VERSION);
-        
+
     }
 
     @objid ("612b4c6b-55b6-11e2-877f-002564c97630")
@@ -119,9 +120,9 @@ public class GmBpmnLaneHeader extends GmDefaultModelElementHeader {
                 setShowMetaclassIcon(false);
             }
         }
-        
+
         super.refreshFromObModel();
-        
+
     }
 
     @objid ("612b4c6e-55b6-11e2-877f-002564c97630")
@@ -129,7 +130,7 @@ public class GmBpmnLaneHeader extends GmDefaultModelElementHeader {
     public Image getMetaclassIcon() {
         if (getRelatedElement() instanceof BpmnLane) {
             BpmnLane lane = (BpmnLane) getRelatedElement();
-        
+
             ModelElement type = PartitionElement.getTarget(lane);
             if (type != null) {
                 return ElementImageService.getIcon(type);
@@ -139,7 +140,7 @@ public class GmBpmnLaneHeader extends GmDefaultModelElementHeader {
         } else {
             return ElementImageService.getIcon(getRelatedElement());
         }
-        
+
     }
 
     @objid ("612b4c72-55b6-11e2-877f-002564c97630")
@@ -181,16 +182,17 @@ public class GmBpmnLaneHeader extends GmDefaultModelElementHeader {
          * Empty c'tor needed for deserialization.
          */
         @objid ("dda7d924-f57c-407a-a5fd-81ea639cd969")
-        public  GmPartitionHeaderStyle() {
+        public GmPartitionHeaderStyle() {
             super();
         }
 
         /**
          * C'tor.
+         *
          * @param cascadedStyle the style this style should cascade on.
          */
         @objid ("70dc37a2-6215-4109-97ee-edc0be18a6da")
-        public  GmPartitionHeaderStyle(IStyle cascadedStyle) {
+        public GmPartitionHeaderStyle(IStyle cascadedStyle) {
             super(cascadedStyle);
         }
 

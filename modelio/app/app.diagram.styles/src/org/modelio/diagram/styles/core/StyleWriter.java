@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.styles.core;
 
@@ -62,7 +62,7 @@ public class StyleWriter {
     @objid ("8587fa95-1926-11e2-92d2-001ec947c8cc")
     private static String formatValue(StyleKey sKey, Object value) {
         Class<?> type = sKey.getType();
-        
+
         if (type == Color.class) {
             RGB rgb = ((Color) value).getRGB();
             return rgb.red + " " + rgb.green + " " + rgb.blue;
@@ -87,11 +87,11 @@ public class StyleWriter {
                 return ((MRef) value).toString();
             }
         }
-        
+
         if (type.isEnum()) {
             return value.toString();
         }
-        
+
         DiagramStyles.LOG.warning("StyleWriter.formatValue(): missing converter for type '%s'", type.getName());
         return "not supported type " + type;
     }
@@ -99,30 +99,30 @@ public class StyleWriter {
     @objid ("a6dd9bbe-8e55-4c5a-89da-811fc11c8e57")
     private Properties generateProperties(NamedStyle style) {
         final Properties properties = new Properties();
-        
+
         // Write admin properties
-        
+
         // style basestyle (optional)
         if (!style.getApplicability().isEmpty()) {
             properties.setProperty(NamedStyle.BASESTYLE_ADMINKEY,
                     style.getApplicability().stream().collect(Collectors.joining(",")));
         }
-        
+
         // style basestyle (optional)
         if (style.getCascadedStyle() instanceof NamedStyle) {
             properties.setProperty(NamedStyle.BASESTYLE_ADMINKEY, ((NamedStyle) style.getCascadedStyle()).getName());
         }
-        
+
         // style provider (optional)
         if (style.getProvider() != null && !style.getProvider().isEmpty()) {
             properties.setProperty(NamedStyle.PROVIDER_ADMINKEY, style.getProvider());
         }
         // style name (mandatory)
         properties.setProperty(NamedStyle.STYLENAME_ADMINKEY, style.getName());
-        
+
         // is theme (mandatory)
         properties.setProperty(NamedStyle.THEME_ADMINKEY, Boolean.toString(style.isTheme()));
-        
+
         // Write style definition properties
         for (StyleKey skey : style.getLocalKeys()) {
             String key = skey.getId();
@@ -133,12 +133,13 @@ public class StyleWriter {
     }
 
     /**
+     *
      * @param style the style to save.
      */
     @objid ("b636bc76-53dd-47e0-8f1e-87a5b88781a7")
     public void saveAsFile(NamedStyle style, Path aFile) {
         final Properties properties = generateProperties(style);
-        
+
         // Write the output file
         try {
             Files.createDirectories(aFile.getParent());
@@ -148,7 +149,7 @@ public class StyleWriter {
         } catch (IOException e) {
             DiagramStyles.LOG.error(e);
         }
-        
+
     }
 
 }

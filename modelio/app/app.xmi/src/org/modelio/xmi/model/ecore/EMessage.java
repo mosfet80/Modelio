@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -23,6 +23,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.mmextensions.standard.factory.IStandardModelFactory;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
 import org.modelio.metamodel.uml.behavior.interactionModel.Message;
+import org.modelio.metamodel.uml.behavior.interactionModel.MessageEnd;
 import org.modelio.metamodel.uml.behavior.interactionModel.MessageKind;
 import org.modelio.metamodel.uml.behavior.interactionModel.MessageSort;
 import org.modelio.metamodel.uml.infrastructure.Element;
@@ -36,11 +37,17 @@ public class EMessage extends ENamedElement {
     @objid ("e6fe54fc-18f2-4cf9-94c7-4c6e100977a1")
     @Override
     public Element createObjingElt() {
-        return ReverseProperties.getInstance().getMModelServices().getModelFactory().getFactory(IStandardModelFactory.class).createMessage();
+        org.eclipse.uml2.uml.Message ecoreElement = (org.eclipse.uml2.uml.Message) getEcoreElement();
+        org.eclipse.uml2.uml.MessageEnd receive = ecoreElement.getReceiveEvent();
+        org.eclipse.uml2.uml.MessageEnd send = ecoreElement.getSendEvent();
+        if ((receive != null) && (send != null)) {
+            return ReverseProperties.getInstance().getMModelServices().getModelFactory().getFactory(IStandardModelFactory.class).createMessage();
+        }
+        return null;
     }
 
     @objid ("b1b41ab9-dfa8-4789-bea6-4206027f5ba8")
-    public  EMessage(org.eclipse.uml2.uml.Message element) {
+    public EMessage(org.eclipse.uml2.uml.Message element) {
         super(element);
     }
 
@@ -48,24 +55,25 @@ public class EMessage extends ENamedElement {
     @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
+
         if (objingElt instanceof Message) {
-            org.eclipse.uml2.uml.Message ecoreElement = (org.eclipse.uml2.uml.Message) getEcoreElement();            
+            org.eclipse.uml2.uml.Message ecoreElement = (org.eclipse.uml2.uml.Message) getEcoreElement();
             setKindOfMessage((Message) objingElt, ecoreElement);
             setSortOfMessage((Message) objingElt, ecoreElement);
             setSignature((Message) objingElt, ecoreElement);
+
             if (!ReverseProperties.getInstance().isRoundtripEnabled()){
                 setLineNumbers((Message) objingElt);
             }
         }
-        
     }
 
     @objid ("f5ba587c-e1aa-44ca-b379-c8efe4698c6c")
     private void setSignature(Message message, org.eclipse.uml2.uml.Message ecoreMesasge) {
         ReverseProperties revProp = ReverseProperties.getInstance();
-        
+
         org.eclipse.uml2.uml.NamedElement signature = ecoreMesasge.getSignature();
-        
+
         if (signature != null) {
             ModelElement objingSignature = (ModelElement) revProp
                     .getMappedElement(signature);
@@ -76,7 +84,6 @@ public class EMessage extends ENamedElement {
                 message.setInvoked((Operation) objingSignature);
             }
         }
-        
     }
 
     @objid ("e5e6ca84-53ee-42be-9ab3-5b53114d4608")
@@ -96,7 +103,7 @@ public class EMessage extends ENamedElement {
             message.setKindOfMessage(MessageKind.UNKNOWNKIND);
             break;
         }
-        
+
         // The getMessageKind() method is not reliable for LOST and FOUND
         // messages ...
         if (EcoreModelNavigation.isFoundMessage(ecoreMessage)) {
@@ -104,7 +111,6 @@ public class EMessage extends ENamedElement {
         } else if (EcoreModelNavigation.isLostMessage(ecoreMessage)) {
             message.setKindOfMessage(MessageKind.LOSTKIND);
         }
-        
     }
 
     @objid ("aa38b881-68a4-4600-8084-d873493fdd46")
@@ -133,12 +139,13 @@ public class EMessage extends ENamedElement {
             message.setSortOfMessage(MessageSort.ASYNCCALL);
             break;
         }
-        
     }
 
     @objid ("bb082897-d74d-424a-aca8-cf86b50a91d8")
     private void setLineNumbers(Message objingElt) {
-        objingElt.getReceiveEvent().setLineNumber(objingElt.getSendEvent().getLineNumber());
+        MessageEnd sendEvent = objingElt.getSendEvent();
+        if (sendEvent != null)
+            objingElt.getReceiveEvent().setLineNumber(sendEvent.getLineNumber());
     }
 
 }

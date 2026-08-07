@@ -1,47 +1,45 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.module.report;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
- * A Report is a sequence of ReportEntry records.
- * 
+ * A Report is a sequence of {@link ReportEntry} records.
+ * <p>
  * Beside storing the recorded ReportEntry instances, this class mainly provides several convenience methods to add errors, warnings tips and infos to the report.
- * 
- * See @link {@link Report#addError(int, String, MObject...)} and similar methods.
- * 
- * 
+ *
+ * See {@link Report#addError(int, String, MObject...)} and similar methods.
+ *
  * <p>
  * Note about the use of <code>varargs</code> for the related MObject objects:
- * 
+ *
  * <pre>
  * // To add objects obj1, obj2 and obj3, simply pass the objects to the addXXX() call
  * addError(1001, "My formatted message with three related objects", obj1, obj2 obj3);
- * 
+ *
  * // For 'no objects' , do not pass 'null' but rather pass nothing
  * addError(1001, "My formatted message with no related objects");
  * </pre>
  * </p>
- * 
+ *
  * @since 4.1
  */
 @objid ("5b591047-7ca3-4845-9549-41fe2b282e35")
@@ -59,7 +57,10 @@ public class Report {
      * The ReportEntries stored in the order of their occurrence.
      */
     @objid ("e648d6ca-9d30-4e3a-ba13-afb30e6dfa47")
-    private List<ReportEntry> entries = new ArrayList<>();
+    private final List<ReportEntry> entries = new ArrayList<>();
+
+    @objid ("b6342339-0a51-4ea6-a571-a58661ebc7b3")
+    private final Object lock = new Object();
 
     @objid ("9a1ad478-f168-4997-88cf-65434d247e12")
     @Deprecated
@@ -68,7 +69,10 @@ public class Report {
     }
 
     /**
-     * Adds an WARNING message to the Report. The added warning message has no category and no help topic.
+     * Adds a WARNING message to the Report.
+     * <p>
+     * The added warning message has no category and no help topic.
+     *
      * @param code - the message code (mandatory)
      * @param message - the formatted message, with I18n and parameter substitution already done.
      * @param mObjects - the model elements related to this entry. By convention the first one is the 'main' element where the warning occured or was detected.
@@ -80,20 +84,25 @@ public class Report {
 
     /**
      * Adds an INFO message to the Report.
+     *
      * @param message - the formatted message, with I18n and parameter substitution already done.
      */
     @objid ("6156407d-367e-459e-84bd-b8498e9063f2")
     public void addInfo(String message) {
-        this.entries.add(new ReportEntry(EntryKind.INFO, "", null, null, message, null));
+        synchronized (this.lock) {
+            this.entries.add(new ReportEntry(EntryKind.INFO, "", null, null, message, null));
+        }
     }
 
     @objid ("2c7b8859-877f-4827-9e3c-b85f62e45029")
     public List<ReportEntry> getEntries() {
-        return Collections.unmodifiableList(this.entries);
+        synchronized (this.lock) {
+            return new ArrayList<>(this.entries);
+        }
     }
 
     @objid ("11281deb-865a-42d9-a1d7-054b0975a304")
-    public  Report(String title) {
+    public Report(String title) {
         this.title = title;
     }
 
@@ -104,6 +113,7 @@ public class Report {
 
     /**
      * Adds an TIP message to the Report. The added tip message has no category and no help topic.
+     *
      * @param code - the message code (mandatory)
      * @param message - the formatted message, with I18n and parameter substitution already done.
      * @param mObjects - the model elements related to this entry. By convention the first one is the 'main' element where the tip was identified.
@@ -122,13 +132,15 @@ public class Report {
     @objid ("93b299b4-316b-4e41-9094-e74d23cfc09d")
     @Deprecated
     public void addError(int code, String category, String helpUrl, String message, MObject... mObjects) {
-        this.entries.add(new ReportEntry(EntryKind.ERROR, code, category, helpUrl, message, mObjects));
-        this.nErrors++;
-        
+        synchronized (this.lock) {
+            this.entries.add(new ReportEntry(EntryKind.ERROR, code, category, helpUrl, message, mObjects));
+            this.nErrors++;
+        }
     }
 
     /**
      * Adds an WARNING message to the Report. The added warning message has no help topic.
+     *
      * @param code - the message code (mandatory)
      * @param category - the message category (may be <code>null</code>)
      * @param message - the formatted message, with I18n and parameter substitution already done.
@@ -141,6 +153,7 @@ public class Report {
 
     /**
      * Adds an WARNING message to the Report.
+     *
      * @param code - the message code (mandatory)
      * @param category - the message category (may be <code>null</code>)
      * @param helpUrl - the message help topic in the Modelio Help (may be <code>null</code>)
@@ -149,13 +162,15 @@ public class Report {
      */
     @objid ("aad39478-07cc-4230-8831-b49949bc9cd3")
     public void addWarning(String code, String category, String helpUrl, String message, MObject... mObjects) {
-        this.entries.add(new ReportEntry(EntryKind.WARNING, code, category, helpUrl, message, mObjects));
-        this.nWarnings++;
-        
+        synchronized (this.lock) {
+            this.entries.add(new ReportEntry(EntryKind.WARNING, code, category, helpUrl, message, mObjects));
+            this.nWarnings++;
+        }
     }
 
     /**
      * Adds an TIP message to the Report. The added tip message has no help topic.
+     *
      * @param code - the message code (mandatory)
      * @param category - the message category (may be <code>null</code>)
      * @param message - the formatted message, with I18n and parameter substitution already done.
@@ -168,6 +183,7 @@ public class Report {
 
     /**
      * Adds an TIP message to the Report.
+     *
      * @param code - the message code (mandatory)
      * @param category - the message category (may be <code>null</code>)
      * @param helpUrl - the message help topic in the Modelio Help (may be <code>null</code>)
@@ -176,11 +192,14 @@ public class Report {
      */
     @objid ("e2f2733e-9e1d-4d4e-9884-1e25cc44b130")
     public void addTip(String code, String category, String helpUrl, String message, MObject... mObjects) {
-        this.entries.add(new ReportEntry(EntryKind.TIP, code, category, helpUrl, message, mObjects));
+        synchronized (this.lock) {
+            this.entries.add(new ReportEntry(EntryKind.TIP, code, category, helpUrl, message, mObjects));
+        }
     }
 
     /**
      * Adds an ERROR message to the Report. The added error message has no category and no help topic.
+     *
      * @param code - the message code (mandatory)
      * @param message - the formatted message, with I18n and parameter substitution already done.
      * @param mObjects - the model elements related to this entry. By convention the first one is the 'main' element where the error occured or was detected.
@@ -192,6 +211,7 @@ public class Report {
 
     /**
      * Adds an ERROR message to the Report. The added error message has no help topic.
+     *
      * @param code - the message code (mandatory)
      * @param category - the message category (may be <code>null</code>)
      * @param message - the formatted message, with I18n and parameter substitution already done.
@@ -204,6 +224,7 @@ public class Report {
 
     /**
      * Adds an ERROR message to the Report.
+     *
      * @param code - the message code (mandatory)
      * @param category - the message category (may be <code>null</code>)
      * @param helpUrl - the message help topic in the Modelio Help (may be <code>null</code>)
@@ -212,9 +233,10 @@ public class Report {
      */
     @objid ("7d62f11c-e00f-4c35-9855-4486498efd94")
     public void addError(String code, String category, String helpUrl, String message, MObject... mObjects) {
-        this.entries.add(new ReportEntry(EntryKind.ERROR, code, category, helpUrl, message, mObjects));
-        this.nErrors++;
-        
+        synchronized (this.lock) {
+            this.entries.add(new ReportEntry(EntryKind.ERROR, code, category, helpUrl, message, mObjects));
+            this.nErrors++;
+        }
     }
 
     @objid ("4e6e6f34-4c1e-483e-a8b1-6fcc451d7ac9")
@@ -250,33 +272,41 @@ public class Report {
     @objid ("763e1d39-967e-45d4-b785-7be71034c31f")
     @Deprecated
     public void addWarning(int code, String category, String helpUrl, String message, MObject... mObjects) {
-        this.entries.add(new ReportEntry(EntryKind.WARNING, code, category, helpUrl, message, mObjects));
-        this.nWarnings++;
-        
+        synchronized (this.lock) {
+            this.entries.add(new ReportEntry(EntryKind.WARNING, code, category, helpUrl, message, mObjects));
+            this.nWarnings++;
+        }
     }
 
     /**
+     *
      * @return true if this report contains at least one ERROR entry
      */
     @objid ("61959192-b570-409c-99e9-2079100c5313")
     public boolean hasErrors() {
-        return this.nErrors != 0;
+        synchronized (this.lock) {
+            return this.nErrors != 0;
+        }
     }
 
     /**
+     *
      * @return true if this report contains at least one WARNING entry
      */
     @objid ("cfbe5b0f-e426-42e8-989f-e470604299d7")
     public boolean hasWarnings() {
-        return this.nWarnings != 0;
+        synchronized (this.lock) {
+            return this.nWarnings != 0;
+        }
     }
 
     @objid ("951a306e-09a1-4f7c-ab47-b676f49f9849")
     public void clear() {
-        this.entries.clear();
-        this.nErrors=0;
-        this.nWarnings=0;
-        
+        synchronized (this.lock) {
+            this.entries.clear();
+            this.nErrors=0;
+            this.nWarnings=0;
+        }
     }
 
 }

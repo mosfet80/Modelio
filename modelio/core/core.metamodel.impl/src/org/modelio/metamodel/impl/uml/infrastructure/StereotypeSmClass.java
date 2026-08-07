@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -94,7 +93,7 @@ public class StereotypeSmClass extends ModelElementSmClass {
     private SmDependency extendedElementDep;
 
     @objid ("3fe14ff2-8120-4325-9097-4ad3e8c9453a")
-    public  StereotypeSmClass(ISmMetamodelFragment origin) {
+    public StereotypeSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
@@ -102,7 +101,7 @@ public class StereotypeSmClass extends ModelElementSmClass {
     @Override
     public String getName() {
         return "Stereotype";
-        
+
     }
 
     @objid ("aa2567e6-913f-4574-bace-2eaf450c75d1")
@@ -115,21 +114,21 @@ public class StereotypeSmClass extends ModelElementSmClass {
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return Stereotype.class;
-        
+
     }
 
     @objid ("cfafdfec-44c5-4c2c-a170-b09ae83c7b83")
     @Override
     public boolean isCmsNode() {
         return true;
-        
+
     }
 
     @objid ("92a408cf-972f-4944-9977-83528adf8fb0")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
     @objid ("053361cc-29ae-46f1-a3d2-d5ccd0e310af")
@@ -137,68 +136,67 @@ public class StereotypeSmClass extends ModelElementSmClass {
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(ModelElement.MQNAME);
         this.registerFactory(new StereotypeObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
         this.imageAtt = new ImageSmAttribute();
         this.imageAtt.init("Image", this, String.class );
         registerAttribute(this.imageAtt);
-        
+
         this.iconAtt = new IconSmAttribute();
         this.iconAtt.init("Icon", this, String.class );
         registerAttribute(this.iconAtt);
-        
+
         this.isHiddenAtt = new IsHiddenSmAttribute();
         this.isHiddenAtt.init("IsHidden", this, Boolean.class );
         registerAttribute(this.isHiddenAtt);
-        
+
         this.isAbstractAtt = new IsAbstractSmAttribute();
         this.isAbstractAtt.init("IsAbstract", this, Boolean.class );
         registerAttribute(this.isAbstractAtt);
-        
+
         this.labelKeyAtt = new LabelKeySmAttribute();
         this.labelKeyAtt.init("LabelKey", this, String.class );
         registerAttribute(this.labelKeyAtt);
-        
+
         this.baseClassNameAtt = new BaseClassNameSmAttribute();
         this.baseClassNameAtt.init("BaseClassName", this, String.class );
         registerAttribute(this.baseClassNameAtt);
-        
-        
+
+
         // Initialize and register the SmDependency
         this.definedTableDep = new DefinedTableSmDependency();
         this.definedTableDep.init("DefinedTable", this, metamodel.getMClass(PropertyTableDefinition.MQNAME), 0, 1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.definedTableDep);
-        
+
         this.definedResourceTypeDep = new DefinedResourceTypeSmDependency();
         this.definedResourceTypeDep.init("DefinedResourceType", this, metamodel.getMClass(ResourceType.MQNAME), 0, -1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.definedResourceTypeDep);
-        
+
         this.ownerDep = new OwnerSmDependency();
         this.ownerDep.init("Owner", this, metamodel.getMClass(Profile.MQNAME), 0, 1 );
         registerDependency(this.ownerDep);
-        
+
         this.parentDep = new ParentSmDependency();
         this.parentDep.init("Parent", this, metamodel.getMClass(Stereotype.MQNAME), 0, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.parentDep);
-        
+
         this.definedTagTypeDep = new DefinedTagTypeSmDependency();
         this.definedTagTypeDep.init("DefinedTagType", this, metamodel.getMClass(TagType.MQNAME), 0, -1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.definedTagTypeDep);
-        
+
         this.childDep = new ChildSmDependency();
         this.childDep.init("Child", this, metamodel.getMClass(Stereotype.MQNAME), 0, -1 );
         registerDependency(this.childDep);
-        
+
         this.definedNoteTypeDep = new DefinedNoteTypeSmDependency();
         this.definedNoteTypeDep.init("DefinedNoteType", this, metamodel.getMClass(NoteType.MQNAME), 0, -1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.definedNoteTypeDep);
-        
+
         this.extendedElementDep = new ExtendedElementSmDependency();
         this.extendedElementDep.init("ExtendedElement", this, metamodel.getMClass(ModelElement.MQNAME), 0, -1 );
         registerDependency(this.extendedElementDep);
-        
-        
+
     }
 
     @objid ("ea896513-c0dd-43b2-98c9-9105d5370f62")
@@ -319,7 +317,7 @@ public class StereotypeSmClass extends ModelElementSmClass {
         private StereotypeSmClass smClass;
 
         @objid ("be9b4d9e-11a0-4e66-84ca-3ea2960358ad")
-        public  StereotypeObjectFactory(StereotypeSmClass smClass) {
+        public StereotypeObjectFactory(StereotypeSmClass smClass) {
             this.smClass = smClass;
         }
 
@@ -431,7 +429,7 @@ public class StereotypeSmClass extends ModelElementSmClass {
             	this.symetricDep = ((PropertyTableDefinitionSmClass)this.getTarget()).getOwnerStereotypeDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -451,7 +449,7 @@ public class StereotypeSmClass extends ModelElementSmClass {
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((StereotypeData) data).mExtendedElement = values;
-            
+
         }
 
         @objid ("52616999-144a-48ba-bc76-a45fb016ca09")
@@ -461,7 +459,7 @@ public class StereotypeSmClass extends ModelElementSmClass {
             	this.symetricDep = ((ModelElementSmClass)this.getTarget()).getExtensionDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -490,7 +488,7 @@ public class StereotypeSmClass extends ModelElementSmClass {
             	this.symetricDep = ((ProfileSmClass)this.getTarget()).getDefinedStereotypeDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -519,7 +517,7 @@ public class StereotypeSmClass extends ModelElementSmClass {
             	this.symetricDep = ((StereotypeSmClass)this.getTarget()).getChildDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -539,7 +537,7 @@ public class StereotypeSmClass extends ModelElementSmClass {
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((StereotypeData) data).mDefinedTagType = values;
-            
+
         }
 
         @objid ("5254543d-a0b6-4db7-b6a3-64f637ed2f84")
@@ -549,7 +547,7 @@ public class StereotypeSmClass extends ModelElementSmClass {
             	this.symetricDep = ((TagTypeSmClass)this.getTarget()).getOwnerStereotypeDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -569,7 +567,7 @@ public class StereotypeSmClass extends ModelElementSmClass {
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((StereotypeData) data).mChild = values;
-            
+
         }
 
         @objid ("71a28ecf-fef9-4248-9298-0bfb3f95486f")
@@ -579,7 +577,7 @@ public class StereotypeSmClass extends ModelElementSmClass {
             	this.symetricDep = ((StereotypeSmClass)this.getTarget()).getParentDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -599,7 +597,7 @@ public class StereotypeSmClass extends ModelElementSmClass {
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((StereotypeData) data).mDefinedNoteType = values;
-            
+
         }
 
         @objid ("469e50ee-4ae1-435f-8cd1-4c22b9b17b1e")
@@ -609,7 +607,7 @@ public class StereotypeSmClass extends ModelElementSmClass {
             	this.symetricDep = ((NoteTypeSmClass)this.getTarget()).getOwnerStereotypeDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -629,7 +627,7 @@ public class StereotypeSmClass extends ModelElementSmClass {
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((StereotypeData) data).mDefinedResourceType = values;
-            
+
         }
 
         @objid ("a75c984c-2bb6-4eb5-928d-fd5a2f1155b7")
@@ -639,7 +637,7 @@ public class StereotypeSmClass extends ModelElementSmClass {
             	this.symetricDep = ((ResourceTypeSmClass)this.getTarget()).getOwnerStereotypeDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

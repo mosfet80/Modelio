@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.patterns.properties;
 
@@ -42,7 +42,7 @@ public class DefaultProperty implements IPropertyContent {
         } else if (row == 2) {
             setRootStereotype(element);
         }
-        
+
     }
 
     @objid ("90668832-8b84-4305-ad1e-cd49c3e9feb0")
@@ -50,7 +50,7 @@ public class DefaultProperty implements IPropertyContent {
     public void update(ModelElement element, IModulePropertyTable table) {
         table.addProperty(Patterns.I18N.getString("PropertyDefinition.IsPatternParameter"), element.isStereotyped(ProfileUtils.MODULE_NAME,PatternDesignerStereotypes.PATTERNPARAMETER));
         table.addProperty(Patterns.I18N.getString("PropertyDefinition.IsPatternRoot"), element.isStereotyped(ProfileUtils.MODULE_NAME,PatternDesignerStereotypes.PATTERNROOT));
-        
+
     }
 
     @objid ("538f1ad3-8b62-4670-83bd-9a579e86574a")
@@ -58,13 +58,13 @@ public class DefaultProperty implements IPropertyContent {
         try {
             List<ModelElement> roots = new ArrayList<>();
             roots.add(element);
-        
+
             ModelElement owner = (ModelElement) element.getCompositionOwner();
             while (owner != null && !owner.isStereotyped(ProfileUtils.MODULE_NAME,PatternDesignerStereotypes.PATTERN)) {
                 roots.add(owner);
                 owner = (ModelElement) owner.getCompositionOwner();
             }
-        
+
             if (owner != null) {
                 for (ModelElement sub : roots) {
                     sub.addStereotype(ProfileUtils.MODULE_NAME,PatternDesignerStereotypes.PATTERNROOT);
@@ -73,7 +73,7 @@ public class DefaultProperty implements IPropertyContent {
         } catch (Exception e) {
             Patterns.LOG.debug(e);
         }
-        
+
     }
 
 }

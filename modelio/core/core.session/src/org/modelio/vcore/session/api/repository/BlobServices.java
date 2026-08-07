@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.api.repository;
 
@@ -48,19 +48,20 @@ public class BlobServices {
      * <li> added related element
      * <li> added local id.
      * </ul>
-     * 
+     *
      * </ul>
      */
     @objid ("91add287-813d-4b85-b6fa-09369fd97713")
     private static final int VERSION = 2;
 
     @objid ("f8635a30-31b9-4132-af24-f363f3b0852e")
-    private  BlobServices() {
+    private BlobServices() {
         // no instance
     }
 
     /**
      * Read the blob info from an input stream.
+     *
      * @param is an input stream.
      * @return the read blob information.
      * @throws IOException in case of failure
@@ -86,13 +87,13 @@ public class BlobServices {
                 String refname = dis.readUTF();
                 String localId = dis.readUTF();
                 MRef ref = new MRef(mc, uuid, refname);
-        
+
                 return new BlobInfo(ref, localId);
             }
         } else {
             throw new UnsupportedOperationException(rversion + " BlobInfo version not supported");
         }
-        
+
     }
 
     /**
@@ -101,6 +102,7 @@ public class BlobServices {
      * If some blobs cannot be read for any reason, a blob information is created
      * with its key and the error message as label. A warning is also fired
      * to the repository error listeners.
+     *
      * @param blobKeys the blob keys to read
      * @param repo the repository where blobs are stored
      * @return the read blob information.
@@ -119,7 +121,7 @@ public class BlobServices {
                 BlobInfo info = new BlobInfo(key, "<"+FileUtils.getLocalizedMessage(e)+">");
                 infos.add(info);
                 repo.getErrorSupport().fireWarning(e);
-        
+
             } catch (IOException e) {
                 BlobInfo info = new BlobInfo(key, "<"+e.getLocalizedMessage()+">");
                 infos.add(info);
@@ -133,6 +135,7 @@ public class BlobServices {
      * Serialize a blob information implementing {@link IBlobInfo} in the given output stream.
      * <p>
      * The blob information will be readable as by using {@link #readBlobInfo(InputStream)}.
+     *
      * @param info a blob information
      * @param os an output stream.
      * @throws IOException in case of I/O error
@@ -140,7 +143,7 @@ public class BlobServices {
     @objid ("fbf396f3-fc2e-4fae-b936-9647f6c64e79")
     public static void write(IBlobInfo info, OutputStream os) throws IOException {
         DataOutputStream dos = new DataOutputStream(os);
-        
+
         dos.writeInt(VERSION);
         MRef relatedElement = info.getRelatedElement();
         if (relatedElement == null) {
@@ -152,7 +155,7 @@ public class BlobServices {
             dos.writeUTF(relatedElement.name);
             dos.writeUTF(info.getLocalName());
         }
-        
+
     }
 
 }

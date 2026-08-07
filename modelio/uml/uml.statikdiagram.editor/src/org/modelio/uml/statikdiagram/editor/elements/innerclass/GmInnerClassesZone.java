@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.innerclass;
 
@@ -58,17 +58,18 @@ public final class GmInnerClassesZone extends GmFreeZone {
      * For deserialization only.
      */
     @objid ("3524bdb1-55b7-11e2-877f-002564c97630")
-    public  GmInnerClassesZone() {
+    public GmInnerClassesZone() {
         // Nothing to do.
     }
 
     /**
      * Creates the inner class zone.
+     *
      * @param gmDiagram the diagram
      * @param relatedRef a reference to the element this GmModel is related to, must not be null.
      */
     @objid ("3524bdb4-55b7-11e2-877f-002564c97630")
-    public  GmInnerClassesZone(IGmDiagram gmDiagram, MRef relatedRef) {
+    public GmInnerClassesZone(IGmDiagram gmDiagram, MRef relatedRef) {
         super(gmDiagram, relatedRef);
     }
 
@@ -85,7 +86,7 @@ public final class GmInnerClassesZone extends GmFreeZone {
         if (!(el instanceof NameSpace) || (el instanceof TemplateParameter)) {
             return false;
         }
-        
+
         // Cannot unmask a foreign class (not belonging to the class)
         if (!el.getCompositionOwner().equals(getRelatedElement())) {
             return false;
@@ -119,7 +120,7 @@ public final class GmInnerClassesZone extends GmFreeZone {
         // The visibility may have changed so fires a notification.
         fireVisibilityChanged();
         super.styleChanged(style);
-        
+
     }
 
     @objid ("35264431-55b7-11e2-877f-002564c97630")
@@ -130,7 +131,7 @@ public final class GmInnerClassesZone extends GmFreeZone {
         } else {
             super.styleChanged(property, newValue);
         }
-        
+
     }
 
     @objid ("35264438-55b7-11e2-877f-002564c97630")
@@ -142,18 +143,18 @@ public final class GmInnerClassesZone extends GmFreeZone {
         } else {
             getDisplayedStyle().setProperty(getViewModeStyleKey(), InternalsViewMode.NONE);
         }
-        
+
     }
 
     @objid ("3526443c-55b7-11e2-877f-002564c97630")
     @Override
     protected boolean isValidChild(GmNodeModel node) {
         final MObject el = node.getRelatedElement();
-        
+
         if (el != null && !isValidElement(el)) {
             return false;
         }
-        
+
         // Cannot unmask if the element is already displayed
         final GmNodeModel sameChild = getChild(node.getRepresentedRef());
         return sameChild == null || sameChild == node;
@@ -184,17 +185,17 @@ public final class GmInnerClassesZone extends GmFreeZone {
             break;
         }
         }
-        
+
     }
 
     @objid ("35264451-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0.
         GmAbstractObject.writeMinorVersion(out, "GmInnerClassesZone.", Integer.valueOf(GmInnerClassesZone.MINOR_VERSION));
-        
+
     }
 
     @objid ("35264457-55b7-11e2-877f-002564c97630")
@@ -218,13 +219,13 @@ public final class GmInnerClassesZone extends GmFreeZone {
     public void refreshFromObModel() {
         // Do clean obsolete nodes
         super.refreshFromObModel();
-        
+
         final NameSpace classifier = (NameSpace) getRelatedElement();
         if (classifier != null && classifier.isValid()) {
             // TODO upgrade layout...
             int size = this.getChildren().size();
             final Rectangle constraint = new Rectangle(10 * size + 5, 10 * size + 5, -1, -1);
-        
+
             // Auto unmask
             StyleKey unmaskFilterStyleKey = getUnmaskFilterStyleKey();
             if (unmaskFilterStyleKey != null) {
@@ -238,7 +239,7 @@ public final class GmInnerClassesZone extends GmFreeZone {
                         }
                     }
                     break;
-        
+
                 case ALL_PUBLIC:
                     for (ModelTree part : classifier.getOwnedElement(NameSpace.class)) {
                         if (((NameSpace) part).getVisibility() == VisibilityMode.PUBLIC) {
@@ -249,7 +250,7 @@ public final class GmInnerClassesZone extends GmFreeZone {
                         }
                     }
                     break;
-        
+
                 case ALL_NON_PRIVATE:
                     for (ModelTree part : classifier.getOwnedElement(NameSpace.class)) {
                         if (((NameSpace) part).getVisibility() != VisibilityMode.PRIVATE) {
@@ -266,7 +267,7 @@ public final class GmInnerClassesZone extends GmFreeZone {
                 }
             }
         }
-        
+
     }
 
     @objid ("3527cac5-55b7-11e2-877f-002564c97630")
@@ -275,14 +276,14 @@ public final class GmInnerClassesZone extends GmFreeZone {
         if (!(el instanceof NameSpace) || !(el.isValid())) {
             return false;
         }
-        
+
         // Cannot unmask a foreign namespace (not belonging to the class)
         if (el.getCompositionOwner() == null || !el.getCompositionOwner().equals(getRelatedElement())) {
             return false;
         }
-        
+
         final NameSpace att = (NameSpace) el;
-        
+
         // Cannot unmask an namespace whose visibility does not match the current visualization options.
         final StyleKey.UmaskByVisibilityStragegy unmaskmode = getDisplayedStyle().getProperty(getUnmaskFilterStyleKey());
         switch (unmaskmode) {
@@ -302,7 +303,7 @@ public final class GmInnerClassesZone extends GmFreeZone {
             return false;
         }
         }
-        
+
     }
 
 }

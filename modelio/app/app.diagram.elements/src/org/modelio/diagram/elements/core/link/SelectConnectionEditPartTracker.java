@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link;
 
@@ -24,6 +24,7 @@ import java.util.Collection;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.Cursors;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
@@ -56,7 +57,7 @@ import org.modelio.diagram.elements.core.requests.NavigationRequest;
  * point along a line or on the line itself, this is interpreted as either a
  * <code>RequestConstants.REQ_MOVE_BENDPOINT</code> request
  * or a <code>RequestConstants.REQ_CREATE_BENDPOINT</code> request respectively.
- * 
+ *
  * @author cma
  */
 @objid ("806aa75e-1dec-11e2-8cad-001ec947c8cc")
@@ -77,7 +78,7 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
     private String type;
 
     @objid ("806aa771-1dec-11e2-8cad-001ec947c8cc")
-    private Collection<Object> exclusionSet;
+    private Collection<IFigure> exclusionSet;
 
     @objid ("651be283-1e83-11e2-8cad-001ec947c8cc")
     private Point originalLocation = null;
@@ -90,17 +91,17 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
 
     /**
      * Initialize the tracker.
+     *
      * @param owner Connection edit part that creates and owns the tracker object
      */
     @objid ("806aa774-1dec-11e2-8cad-001ec947c8cc")
-    public  SelectConnectionEditPartTracker(ConnectionEditPart owner) {
+    public SelectConnectionEditPartTracker(ConnectionEditPart owner) {
         super(owner);
         if (SWT.getPlatform().equals("carbon")) {
             this.MODIFIER_NO_SNAPPING = SWT.CTRL;
         } else {
             this.MODIFIER_NO_SNAPPING = SWT.ALT;
         }
-        
     }
 
     @objid ("806aa77a-1dec-11e2-8cad-001ec947c8cc")
@@ -112,7 +113,6 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
         }
         this.sourceRequest = null;
         super.deactivate();
-        
     }
 
     @objid ("806aa785-1dec-11e2-8cad-001ec947c8cc")
@@ -127,6 +127,7 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
     }
 
     /**
+     *
      * @see org.eclipse.gef.tools.AbstractTool#createOperationSet()
      */
     @objid ("806d0993-1dec-11e2-8cad-001ec947c8cc")
@@ -139,12 +140,13 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
 
     /**
      * Creates the source request that is activated when the drag operation occurs.
+     *
      * @return a <code>Request</code> that is the newly created source request
      */
     @objid ("806d099d-1dec-11e2-8cad-001ec947c8cc")
     protected Request createSourceRequest() {
         final String t = getType();
-        
+
         if (t.equals(REQ_CREATE_BENDPOINT) || t.equals(REQ_MOVE_BENDPOINT)) {
             final BendpointRequest request = new BendpointRequest();
             request.setType(getType());
@@ -159,14 +161,13 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
         } else {
             throw new IllegalStateException("Unknow request type:" + t);
         }
-        
     }
 
     @objid ("806d09a8-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected final Command getCommand() {
         final Request r = getSourceRequest();
-        
+
         if (r instanceof TargetRequest) {
             if (getTargetEditPart() != null) {
                 return getTargetEditPart().getCommand(r);
@@ -176,7 +177,6 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
         } else {
             return getSourceEditPart().getCommand(r);
         }
-        
     }
 
     @objid ("806d09a3-1dec-11e2-8cad-001ec947c8cc")
@@ -186,6 +186,7 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
     }
 
     /**
+     *
      * @return the <code>LinkFigure</code> that is referenced by the connection edit part.
      */
     @objid ("806d09e5-1dec-11e2-8cad-001ec947c8cc")
@@ -195,7 +196,6 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
 
     /**
      * Method getConnectionEditPart.
-     * @return ConnectionEditPart
      */
     @objid ("806d09de-1dec-11e2-8cad-001ec947c8cc")
     protected final ConnectionEditPart getConnectionEditPart() {
@@ -210,7 +210,7 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
 
     @objid ("806f6c18-1dec-11e2-8cad-001ec947c8cc")
     @Override
-    protected final Collection<?> getExclusionSet() {
+    protected final Collection<IFigure> getExclusionSet() {
         if (this.exclusionSet == null) {
             this.exclusionSet = new ArrayList<>();
             this.exclusionSet.add(getConnection());
@@ -220,7 +220,6 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
 
     /**
      * Gets the current line segment index that the user clicked on to activate the drag tracker.
-     * @return int
      */
     @objid ("806d09b3-1dec-11e2-8cad-001ec947c8cc")
     protected final int getIndex() {
@@ -235,7 +234,6 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
 
     /**
      * Determines the type of request that will be created for the drag operation.
-     * @return Object
      */
     @objid ("806d09b8-1dec-11e2-8cad-001ec947c8cc")
     protected final String getType() {
@@ -248,18 +246,18 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
         if (isNavigateEvent(button)) {
             return handleNavigationEvent();
         }
-        
+
         if (!super.handleButtonDown(button)) {
             return false;
         }
-        
+
         final LinkFigure connection = getConnection();
-        
+
         final Point p = getLocation();
         connection.translateToRelative(p);
-        
+
         final PointList points = connection.getPoints();
-        
+
         if (connection.getSourceDecoration() != null && connection.getSourceDecoration().containsPoint(p)) {
             handleButtonDownOnSource(button);
         } else if (connection.getTargetDecoration() != null &&
@@ -269,13 +267,13 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
             // look for a bend point
             final Dimension size = new Dimension(9, 9);
             connection.translateToRelative(size);
-        
+
             for (int i = 0; i < points.size(); i++) {
                 final Point ptCenter = points.getPoint(i);
                 final Rectangle rect = new Rectangle(ptCenter.x - size.width / 2,
                         ptCenter.y - size.height / 2,
                         size.width, size.height);
-        
+
                 if (rect.contains(p)) {
                     if (i == 0) {
                         handleButtonDownOnSource(button);
@@ -286,7 +284,7 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
                     }
                 }
             }
-        
+
             if (getIndex() == -1) {
                 // Mouse is not on a bendpoint, look for a segment
                 final int segmentIndex = PointListUtilities.findNearestLineSegIndexOfPoint(
@@ -300,6 +298,7 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
 
     /**
      * Handle mouse button down on the given connection point.
+     *
      * @param button the mouse button
      * @param pointIndex the index of the point in the point list
      * @param points the connection points list.
@@ -316,38 +315,37 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
             setType(RequestConstants.REQ_MOVE_BENDPOINT);
             setIndex(pointIndex - 1);
         }
-        
     }
 
     /**
      * Handle mouse button down on the source end point.
+     *
      * @param button the mouse button.
      */
     @objid ("806f6c07-1dec-11e2-8cad-001ec947c8cc")
     protected void handleButtonDownOnSource(final int button) {
         setType(RequestConstants.REQ_RECONNECT_SOURCE);
         setIndex(0);
-        
     }
 
     /**
      * Handle mouse button down on the target end point.
+     *
      * @param button the mouse button.
      */
     @objid ("806f6c0c-1dec-11e2-8cad-001ec947c8cc")
     protected void handleButtonDownOnTarget(final int button) {
         setType(RequestConstants.REQ_RECONNECT_TARGET);
         setIndex(0);
-        
     }
 
     @objid ("806d09c3-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected final boolean handleButtonUp(int button) {
         boolean bExecuteDrag = isInState(STATE_DRAG_IN_PROGRESS) && shouldAllowDrag();
-        
+
         boolean bRet = super.handleButtonUp(button);
-        
+
         if (bExecuteDrag) {
             eraseSourceFeedback();
             eraseTargetFeedback();
@@ -382,6 +380,7 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
 
     /**
      * Sets the current line segment index based on the location the user clicked on the connection.
+     *
      * @param i int representing the line segment index in the connection.
      */
     @objid ("806aa77d-1dec-11e2-8cad-001ec947c8cc")
@@ -391,6 +390,7 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
 
     /**
      * Sets the type of request that will be created for the drag operation.
+     *
      * @param type the <code>String</code> that represents the type of request.
      */
     @objid ("806aa781-1dec-11e2-8cad-001ec947c8cc")
@@ -400,6 +400,7 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
 
     /**
      * Determines if the the connection should be dragged or not.
+     *
      * @return <code>boolean</code> <code>true</code> if dragging can occur, <code>false</code> otherwise.
      */
     @objid ("806d09d3-1dec-11e2-8cad-001ec947c8cc")
@@ -413,19 +414,19 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
          * @see org.eclipse.gef.tools.SimpleDragTracker#updateSourceRequest()
          */
         LocationRequest request = (LocationRequest) getSourceRequest();
-        
+
         if (this.originalLocation == null) {
             this.originalLocation = getStartLocation().getCopy();
         }
-        
+
         Dimension delta = getDragMoveDelta();
-        
+
         if (getCurrentInput().isShiftKeyDown()) {
             float ratio = 0;
             if (delta.width != 0) {
                 ratio = (float) delta.height / (float) delta.width;
             }
-        
+
             ratio = Math.abs(ratio);
             if (ratio > 0.5 && ratio < 1.5) {
                 if (Math.abs(delta.height) > Math.abs(delta.width)) {
@@ -449,15 +450,15 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
                 }
             }
         }
-        
+
         Point moveDelta = new Point(delta.width, delta.height);
         SnapToHelper snapToHelper = getConnectionEditPart().getAdapter(SnapToHelper.class);
-        
+
         Rectangle rect = new Rectangle(this.originalLocation.x, this.originalLocation.y, 1, 1);
         if (this.sourceRectangle == null) {
             this.sourceRectangle = new PrecisionRectangle(rect);
         }
-        
+
         if (snapToHelper != null && !getCurrentInput().isModKeyDown(this.MODIFIER_NO_SNAPPING)) {
             PrecisionRectangle baseRect = this.sourceRectangle.getPreciseCopy();
             baseRect.translate(moveDelta);
@@ -471,7 +472,6 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
         } else {
             request.setLocation(getLocation());
         }
-        
     }
 
     /**
@@ -483,18 +483,18 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
             return;
         }
         setShowingFeedback(false);
-        
-        final List<EditPart> editParts = getOperationSet();
+
+        final List<? extends EditPart> editParts = getOperationSet();
         for (EditPart editPart : editParts) {
             editPart.eraseSourceFeedback(getSourceRequest());
         }
-        
     }
 
     /**
      * Source request getter.
      * <p>
      * Lazily creates the request if needed.
+     *
      * @return the source request.
      */
     @objid ("806d09ea-1dec-11e2-8cad-001ec947c8cc")
@@ -506,6 +506,7 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
     }
 
     /**
+     *
      * @return boolean true if feedback is being displayed, false otherwise.
      */
     @objid ("806f6bf0-1dec-11e2-8cad-001ec947c8cc")
@@ -515,6 +516,7 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
 
     /**
      * Method setShowingFeedback.
+     *
      * @param bSet boolean to set the feedback flag on or off.
      */
     @objid ("806f6bf5-1dec-11e2-8cad-001ec947c8cc")
@@ -532,7 +534,6 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
             editPart.showSourceFeedback(getSourceRequest());
         }
         setShowingFeedback(true);
-        
     }
 
     @objid ("6f4beb00-277d-4085-a5d0-140acc64043e")
@@ -550,6 +551,7 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
     }
 
     /**
+     *
      * @param button the mouse button
      * @param segmentIndex the segement index
      */
@@ -557,7 +559,6 @@ public class SelectConnectionEditPartTracker extends SelectEditPartTracker {
     protected void handleButtonDownOnSegment(int button, int segmentIndex) {
         setIndex(segmentIndex - 1);
         setType(RequestConstants.REQ_CREATE_BENDPOINT);
-        
     }
 
 }

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.commonBehaviors;
 
 import java.util.ArrayList;
@@ -50,38 +49,38 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0040c504-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class BehaviorImpl extends UmlModelElementImpl implements Behavior {
-    @objid ("0beaf822-a267-487d-83c9-510db6116b8d")
+    @objid ("264a3bcb-1cad-4936-ab57-7fad415290fd")
     @Override
     public boolean isIsReentrant() {
         return (Boolean) getAttVal(((BehaviorSmClass)getClassOf()).getIsReentrantAtt());
     }
 
-    @objid ("2fbd6a64-41a1-4fac-bcb8-4a551913fdaa")
+    @objid ("cd79fd39-f0a2-437a-8780-eb4fa3f68b82")
     @Override
     public void setIsReentrant(boolean value) {
         setAttVal(((BehaviorSmClass)getClassOf()).getIsReentrantAtt(), value);
     }
 
-    @objid ("d48df1fa-e8f9-4546-a09b-6a2f8e589172")
+    @objid ("94e78da4-33c3-4d78-8d22-c2c5f05fac16")
     @Override
     public NameSpace getOwner() {
         Object obj = getDepVal(((BehaviorSmClass)getClassOf()).getOwnerDep());
         return (obj instanceof NameSpace)? (NameSpace)obj : null;
     }
 
-    @objid ("f9552f55-1328-4c8e-837c-1b4567b95d99")
+    @objid ("42938ce5-f13a-49a9-a734-c98896b97e61")
     @Override
     public void setOwner(NameSpace value) {
         appendDepVal(((BehaviorSmClass)getClassOf()).getOwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("3c756c2d-7284-40d5-8016-bb4aaddec7f9")
+    @objid ("8e9b24f6-880b-4fa7-8b04-75b4c01b8411")
     @Override
     public EList<BehaviorParameter> getParameter() {
         return new SmList<>(this, ((BehaviorSmClass)getClassOf()).getParameterDep());
     }
 
-    @objid ("fb369975-be90-4ab9-b2ec-7791969d3eef")
+    @objid ("734ad345-d09e-4d44-8530-64339ef3ded0")
     @Override
     public <T extends BehaviorParameter> List<T> getParameter(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -94,29 +93,29 @@ public abstract class BehaviorImpl extends UmlModelElementImpl implements Behavi
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("ffca9587-e046-4d0a-b2fb-4133c3efd163")
+    @objid ("11d08ab5-cba2-41e1-9ba8-7f167d0c1092")
     @Override
     public Operation getOwnerOperation() {
         Object obj = getDepVal(((BehaviorSmClass)getClassOf()).getOwnerOperationDep());
         return (obj instanceof Operation)? (Operation)obj : null;
     }
 
-    @objid ("46e25049-f887-45e8-abed-96882440df0c")
+    @objid ("3c0e5392-fdca-418f-a528-2fd54823c380")
     @Override
     public void setOwnerOperation(Operation value) {
         appendDepVal(((BehaviorSmClass)getClassOf()).getOwnerOperationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("b35f1baf-21b9-4719-9874-8e77698eb347")
+    @objid ("e872eceb-9e69-49e1-b3c4-9f795f397f14")
     @Override
     public EList<Collaboration> getOwnedCollaboration() {
         return new SmList<>(this, ((BehaviorSmClass)getClassOf()).getOwnedCollaborationDep());
     }
 
-    @objid ("bbfe3931-f376-4be5-a204-5fc8ae528797")
+    @objid ("e03482e2-4e46-45ed-b1b4-52ab89150a8c")
     @Override
     public <T extends Collaboration> List<T> getOwnedCollaboration(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -129,16 +128,16 @@ public abstract class BehaviorImpl extends UmlModelElementImpl implements Behavi
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("4bdf1d95-93e1-457b-ba8d-b5b30150496e")
+    @objid ("31fbea05-0a7d-4b7a-8595-20cfae3da897")
     @Override
     public EList<CallBehaviorAction> getCaller() {
         return new SmList<>(this, ((BehaviorSmClass)getClassOf()).getCallerDep());
     }
 
-    @objid ("f953fca6-7008-4e26-a96f-db73e089749c")
+    @objid ("1c7ed5f9-d3dd-4d93-b9fa-1665d211e435")
     @Override
     public <T extends CallBehaviorAction> List<T> getCaller(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -151,16 +150,16 @@ public abstract class BehaviorImpl extends UmlModelElementImpl implements Behavi
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("aff3bb23-201e-4268-a207-9b537e3e953b")
+    @objid ("66a6595e-5532-4415-86ef-76100e400d69")
     @Override
     public EList<Event> getEComponent() {
         return new SmList<>(this, ((BehaviorSmClass)getClassOf()).getEComponentDep());
     }
 
-    @objid ("4a4149fe-52a3-4b48-90df-89e719e309ca")
+    @objid ("12976a68-4ce9-46a5-b891-b2a6a28b9576")
     @Override
     public <T extends Event> List<T> getEComponent(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -173,16 +172,16 @@ public abstract class BehaviorImpl extends UmlModelElementImpl implements Behavi
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("cb16d660-657d-4d18-bcbd-40cfb81bd55f")
+    @objid ("f85caea7-7069-4005-a63e-d57d1ad2c706")
     @Override
     public EList<Transition> getEffectOf() {
         return new SmList<>(this, ((BehaviorSmClass)getClassOf()).getEffectOfDep());
     }
 
-    @objid ("19f857fe-d811-4f69-ab68-64ed37c3ae7a")
+    @objid ("11b8b7c3-ef34-45ee-ae85-29f680bf5675")
     @Override
     public <T extends Transition> List<T> getEffectOf(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -195,10 +194,10 @@ public abstract class BehaviorImpl extends UmlModelElementImpl implements Behavi
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("8b821d23-e937-4a55-84c9-8b443ff551fc")
+    @objid ("0447bce6-4e03-49ef-80fb-0a28097af1f8")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -214,27 +213,27 @@ public abstract class BehaviorImpl extends UmlModelElementImpl implements Behavi
         return super.getCompositionOwner();
     }
 
-    @objid ("30b86ebf-d38b-4ced-8cb4-90f7f8574330")
+    @objid ("e23d4ad6-91b4-4d3f-bc07-391b2c823f3e")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // Owner
         dep = ((BehaviorSmClass)getClassOf()).getOwnerDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         // OwnerOperation
         dep = ((BehaviorSmClass)getClassOf()).getOwnerOperationDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("318683c0-3b1a-4994-a4b6-c08d37b845dd")
+    @objid ("118b28d0-6c3e-4cfe-9c86-d4e7b8b1ccdd")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitBehavior(this);

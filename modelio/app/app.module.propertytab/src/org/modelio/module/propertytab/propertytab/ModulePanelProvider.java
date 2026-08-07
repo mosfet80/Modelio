@@ -1,28 +1,28 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.module.propertytab.propertytab;
 
 import java.util.Arrays;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWT;
@@ -82,8 +82,8 @@ public class ModulePanelProvider implements IPanelProvider {
      * Constructor.
      */
     @objid ("c8831cf0-1eba-11e2-9382-bc305ba4815c")
-    public  ModulePanelProvider() {
-        
+    public ModulePanelProvider() {
+
     }
 
     @objid ("c8831cf3-1eba-11e2-9382-bc305ba4815c")
@@ -101,14 +101,14 @@ public class ModulePanelProvider implements IPanelProvider {
         if (this.propertyPanel != null) {
             this.propertyPanel.setFocus();
         }
-        
+
     }
 
     @objid ("c8836b11-1eba-11e2-9382-bc305ba4815c")
     @Override
     public SashForm createPanel(Composite parent) {
         this.parentComposite = parent;
-        
+
         this.shform = new SashForm(parent, SWT.HORIZONTAL);
         this.shform.setLayout(new FillLayout());
         this.propertyPanel = PropertyPanelFactory.createStandardPanel(this.shform, null);
@@ -121,8 +121,9 @@ public class ModulePanelProvider implements IPanelProvider {
     /**
      * Makes this view editable. <code>modelingSession</code> and <code>modelService</code> are mandatory otherwise edition cannot
      * be supported.
-     * 
+     *
      * To deactivate edition, call <code>activateEdition(null, null, null)</code>
+     *
      * @param newModelingSession the current edited modeling session.
      */
     @objid ("c8839221-1eba-11e2-9382-bc305ba4815c")
@@ -143,17 +144,18 @@ public class ModulePanelProvider implements IPanelProvider {
                 this.modelChangeListener = null;
                 this.modelingSession = null;
             }
-        
+
             if (this.shform != null) {
                 setInput(null);
                 this.propertyPanel.stop();
             }
         }
-        
+
     }
 
     /**
      * Get the current element displayed by the view.
+     *
      * @return the model element whose notes are currently listed in the tree panel. May be null.
      */
     @objid ("c883b933-1eba-11e2-9382-bc305ba4815c")
@@ -164,6 +166,7 @@ public class ModulePanelProvider implements IPanelProvider {
 
     /**
      * Set the current element displayed by the view.
+     *
      * @param input the model element whose note are to be listed in the tree panel. May be null, a single element or a list of elements.
      */
     @objid ("c8840750-1eba-11e2-9382-bc305ba4815c")
@@ -172,7 +175,7 @@ public class ModulePanelProvider implements IPanelProvider {
         if (this.shform == null) {
             return;
         }
-        
+
         List<?> selectedElements = null;
         if (input instanceof ISelection) {
             selectedElements = SelectionHelper.toList((ISelection) input, MObject.class);
@@ -181,7 +184,7 @@ public class ModulePanelProvider implements IPanelProvider {
         } else {
             selectedElements = Arrays.asList(input);
         }
-        
+
         //---------------------------------------------------------------------
         boolean valid = true;
         for (Object selected : selectedElements) {
@@ -190,14 +193,14 @@ public class ModulePanelProvider implements IPanelProvider {
                 break;
             }
         }
-        
+
         if (valid == false) {
             // Consider this is an empty selection
             this.currentElement = null;
             this.propertyPanel.setInput(this.pickingService, null);
             return;
         }
-        
+
         @SuppressWarnings("unchecked")
         List<MObject> elList = (List<MObject>)selectedElements;
         this.currentElement = new ModulePropertyModel(this.modelingSession,this.propertyPage, elList);
@@ -215,7 +218,7 @@ public class ModulePanelProvider implements IPanelProvider {
             if (control==null || control.isDisposed()) {
                 return;
             }
-        
+
             if (this.currentElement != null) {
                 this.currentElement.clearTable();
                 this.propertyPanel.setInput( this.pickingService, this.currentElement);
@@ -224,11 +227,11 @@ public class ModulePanelProvider implements IPanelProvider {
                 this.propertyPanel.setInput(this.pickingService, null);
             }
         }
-        
+
     }
 
     @objid ("c8845570-1eba-11e2-9382-bc305ba4815c")
-    public  ModulePanelProvider(IModulePropertyPage propertyPage) {
+    public ModulePanelProvider(IModulePropertyPage propertyPage) {
         this.propertyPage = propertyPage;
     }
 
@@ -246,11 +249,11 @@ public class ModulePanelProvider implements IPanelProvider {
         } else {
             return false;
         }
-        
+
         if (selection.isEmpty()) {
             return false;
         }
-        
+
         ModulePropertyModel property = new ModulePropertyModel(CoreSession.getSession(selection.get(0)), this.propertyPage, selection);
         return !property.getProperties().isEmpty();
     }
@@ -273,7 +276,7 @@ public class ModulePanelProvider implements IPanelProvider {
         protected ModulePanelProvider moduleView;
 
         @objid ("c8847c80-1eba-11e2-9382-bc305ba4815c")
-        public  ModelChangeListener(final ModulePanelProvider moduleView) {
+        public ModelChangeListener(final ModulePanelProvider moduleView) {
             this.moduleView = moduleView;
         }
 
@@ -290,7 +293,7 @@ public class ModulePanelProvider implements IPanelProvider {
                     }
                 });
             }
-            
+
         }
 
         @objid ("c884a393-1eba-11e2-9382-bc305ba4815c")
@@ -306,7 +309,7 @@ public class ModulePanelProvider implements IPanelProvider {
                     }
                 });
             }
-            
+
         }
 
     }

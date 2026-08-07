@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.model.factory;
 
@@ -33,6 +33,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public interface IGmLinkFactory {
     /**
      * Creates a graphic link representing the given link element.
+     *
      * @param diagram the diagram in which the gm is to be created
      * @param linkElement The model element to display
      * @return the created graphic link
@@ -45,6 +46,7 @@ public interface IGmLinkFactory {
      * <p>
      * Implementers should use this method when a Gm class is moved or renamed in order for the diagram persistence to properly instantiate persisted objects.
      * </p>
+     *
      * @param namespace The class name
      * @return The matching class or <i>null</i> if none was found.
      */
@@ -56,6 +58,7 @@ public interface IGmLinkFactory {
      * <p>
      * Implementers should use this method when a Gm class is moved or renamed in order for the diagram persistence to properly instantiate these objects.
      * </p>
+     *
      * @param namespace The class name
      * @return The matching class or <i>null</i> if none was found.
      */
@@ -67,6 +70,7 @@ public interface IGmLinkFactory {
      * <p>
      * Implementers should use this method when an enumeration class is moved or renamed in order for the diagram persistence to properly instantiate these objects.
      * </p>
+     *
      * @param namespace The class name
      * @return The matching class or <i>null</i> if none was found.
      */
@@ -77,5 +81,5 @@ public interface IGmLinkFactory {
     default String migrateNamespacing(String namespace) {
         return namespace;
     }
-}
 
+}

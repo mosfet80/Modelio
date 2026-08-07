@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2020 Modeliosoft
+ * Copyright 2013-2025 Docaposte
  *
  * This file is part of Modelio.
  *
@@ -39,11 +39,12 @@ public class GProjectPreferenceNode implements IGProjectPreferenceStore {
     private GProjectPreferenceStore store;
 
     /**
+     *
      * @param prefsStore - the underlying concrete preference store
      * @param nodeId - the prefix to prepend to keys before calling the concrete store
      */
     @objid ("0bf3fd04-1c41-4a37-93ff-64f61bbb7d35")
-    public  GProjectPreferenceNode(GProjectPreferenceStore prefsStore, String nodeId) {
+    public GProjectPreferenceNode(GProjectPreferenceStore prefsStore, String nodeId) {
         this.store = prefsStore;
         this.prefix = nodeId + "/";
 

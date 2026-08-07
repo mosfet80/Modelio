@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -43,19 +42,19 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0084cc0e-c4be-1fd8-97fe-001ec947cd2a")
 public class AbstractionImpl extends DependencyImpl implements Abstraction {
-    @objid ("b6236118-e35b-4b93-89fa-6e90c1eaaf59")
+    @objid ("cae67989-80c3-47e0-8885-5a1dd12d227a")
     @Override
     public String getMapping() {
         return (String) getAttVal(((AbstractionSmClass)getClassOf()).getMappingAtt());
     }
 
-    @objid ("42aa0798-d57f-4d5a-a1a6-73fc092b8657")
+    @objid ("cdf0777e-5783-4ce3-ad58-26295b1edf04")
     @Override
     public void setMapping(String value) {
         setAttVal(((AbstractionSmClass)getClassOf()).getMappingAtt(), value);
     }
 
-    @objid ("19c40654-4d86-4113-af0a-bd990967895e")
+    @objid ("d3d59ba1-8ba5-4956-a0db-6e01c61356d6")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -63,17 +62,17 @@ public class AbstractionImpl extends DependencyImpl implements Abstraction {
         return super.getCompositionOwner();
     }
 
-    @objid ("776caa72-9598-4d93-a219-33d77280cf86")
+    @objid ("3d5c6bac-0a21-4272-a380-00c01bc13eee")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("33183fa1-0204-4971-9172-3d2fe0aaf2ff")
+    @objid ("0acd02b6-8084-4d80-912e-ed333a04f320")
     @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
@@ -82,7 +81,7 @@ public class AbstractionImpl extends DependencyImpl implements Abstraction {
           return super.accept(v);
     }
 
-    @objid ("91b5f566-0cdd-4100-9d9d-8dd4f6bdd9f1")
+    @objid ("791c135c-90fb-4ff9-aff4-08e256af400e")
     public Object accept(IModelVisitor v) {
         return v.visitAbstraction(this);
     }

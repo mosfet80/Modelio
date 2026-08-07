@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.connectionpoint;
 
@@ -39,7 +39,7 @@ import org.modelio.uml.statediagram.editor.elements.connectionpoint.ConnectionPo
 
 /**
  * EditPart for a connection point reference in structured representation mode.
- * 
+ *
  * @author fpoyer
  */
 @objid ("f4f920ba-55b6-11e2-877f-002564c97630")
@@ -58,13 +58,13 @@ public class ConnectionPointEditPart extends AbstractNodeEditPart implements IPo
     protected IFigure createFigure() {
         // create the figure
         ConnectionPointFigure fig = new ConnectionPointFigure();
-        
+
         // set style independent properties
         fig.setSize(20, 20);
-        
+
         // set style dependent properties
         refreshFromStyle(fig, getModelStyle());
-        
+
         // return the figure
         return fig;
     }
@@ -75,7 +75,7 @@ public class ConnectionPointEditPart extends AbstractNodeEditPart implements IPo
         if (aFigure instanceof ConnectionPointFigure && !switchRepresentationMode()) {
             super.refreshFromStyle(aFigure, style);
         }
-        
+
     }
 
     @objid ("f4f920d2-55b6-11e2-877f-002564c97630")
@@ -86,7 +86,7 @@ public class ConnectionPointEditPart extends AbstractNodeEditPart implements IPo
         fig.getParent().setConstraint(fig, model.getLayoutData());
         // refresh the figure corresponding to the referenced element
         refreshFigureOfReference((ConnectionPointReference) model.getRelatedElement(), fig);
-        
+
     }
 
     @objid ("f4f920d5-55b6-11e2-877f-002564c97630")
@@ -98,30 +98,31 @@ public class ConnectionPointEditPart extends AbstractNodeEditPart implements IPo
         } else {
             fig.setReference(ReferencedConnectionPoint.NOREF);
         }
-        
+
     }
 
     @objid ("f4faa759-55b6-11e2-877f-002564c97630")
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         // Link creation & modification edit policy
         installEditPolicy(EditPolicy.NODE_ROLE, new DefaultCreateLinkEditPolicy());
-        
+
         // Note creation
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START,
                 new LinkedNodeStartCreationEditPolicy());
-        
+
         // Constraint creation
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
-        
+
         installEditPolicy(AnchorsFeedbackEditPolicy.class, new AnchorsFeedbackEditPolicy(getNodeAnchorProvider()));
-        
+
     }
 
     /**
      * Create the {@link IFixedNodeAnchorProvider} for this edit part.
+     *
      * @return the created anchor provider.
      */
     @objid ("48b40fe2-0f06-4f91-8f1a-791e1dc7b2d0")

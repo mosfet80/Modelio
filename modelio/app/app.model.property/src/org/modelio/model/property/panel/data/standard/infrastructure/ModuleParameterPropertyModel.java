@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.panel.data.standard.infrastructure;
 
@@ -42,10 +42,11 @@ public class ModuleParameterPropertyModel extends AbstractPropertyModel<ModulePa
 
     /**
      * Instantiate the profile properties view.
+     *
      * @param theEditedElement the current profile.
      */
     @objid ("dc294bb5-5fa5-4900-8819-189c9017a704")
-    public  ModuleParameterPropertyModel(ModuleParameter theEditedElement) {
+    public ModuleParameterPropertyModel(ModuleParameter theEditedElement) {
         super(theEditedElement);
     }
 
@@ -84,7 +85,7 @@ public class ModuleParameterPropertyModel extends AbstractPropertyModel<ModulePa
         default:
             return null;
         }
-        
+
     }
 
     @objid ("2cd2691e-aa14-43d1-948f-eec48a51dab7")
@@ -112,7 +113,7 @@ public class ModuleParameterPropertyModel extends AbstractPropertyModel<ModulePa
         default:
             return null;
         }
-        
+
     }
 
     @objid ("ea78491a-c96a-443a-b6b2-c49be1e01bed")
@@ -143,7 +144,7 @@ public class ModuleParameterPropertyModel extends AbstractPropertyModel<ModulePa
         default:
             return;
         }
-        
+
     }
 
 }

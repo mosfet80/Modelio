@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -63,6 +63,7 @@ public class MMStandardUseCase {
      * Tells whether a {@link MMStandardUseCase proxy} can be instantiated from a {@link MObject} checking it is a {@link UseCase}.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -75,6 +76,7 @@ public class MMStandardUseCase {
      * Tries to instantiate a {@link MMStandardUseCase} proxy from a {@link UseCase} checking its metaclass.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a UseCase
      * @return a {@link MMStandardUseCase} proxy or <i>null</i>.
      */
@@ -111,6 +113,7 @@ public class MMStandardUseCase {
 
     /**
      * Get the underlying {@link UseCase}.
+     *
      * @return the UseCase represented by this proxy, never null.
      */
     @objid ("16a4be06-0e7b-487c-925d-5332ad29d4ff")
@@ -215,7 +218,7 @@ public class MMStandardUseCase {
     }
 
     @objid ("5193f1ab-431f-4e16-8a3d-9ae72b6e6c20")
-    protected  MMStandardUseCase(UseCase elt) {
+    protected MMStandardUseCase(UseCase elt) {
         this.elt = elt;
     }
 
@@ -251,7 +254,7 @@ public class MMStandardUseCase {
             PRECONDITION_NOTETYPE_ELT = ctx.getModelingSession().findElementById(NoteType.class, "00bc0b8c-0000-2515-0000-000000000000");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 static {
@@ -259,7 +262,7 @@ static {
                     init(ModelerModuleModule.getInstance().getModuleContext());
                 }
             }
-        
+
     }
 
 }

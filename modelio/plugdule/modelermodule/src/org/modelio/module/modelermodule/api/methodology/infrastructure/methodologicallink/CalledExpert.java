@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -55,7 +55,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * <tr><td>BpmnSendTask</td><td>Operation</td></tr>
  * <tr><td>BpmnServiceTask</td><td>Operation</td></tr>
  * <tr><td>BpmnServiceTask</td><td>BusinessService</td></tr>
- * 
+ *
  * </table>
  */
 @objid ("c3a412dc-e6d9-4373-9d46-a48ce82c078d")
@@ -64,9 +64,9 @@ public class CalledExpert implements IMdaExpert {
     @Override
     public boolean canSource(Stereotype linkStereotype, MClass linkMetaclass, MClass fromMetaclass) {
         MMetamodel metamodel = linkMetaclass.getMetamodel();
-        return (fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnCallActivity"))) || 
-        (fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnReceiveTask"))) || 
-        (fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnSendTask"))) || 
+        return (fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnCallActivity"))) ||
+        (fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnReceiveTask"))) ||
+        (fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnSendTask"))) ||
         (fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnServiceTask")));
     }
 
@@ -74,9 +74,9 @@ public class CalledExpert implements IMdaExpert {
     @Override
     public boolean canSource(Stereotype linkStereotype, MObject linkElement, MObject fromElement) {
         MMetamodel metamodel = linkElement.getMClass().getMetamodel();
-        return (fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnCallActivity"))) || 
-        (fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnReceiveTask"))) || 
-        (fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnSendTask"))) || 
+        return (fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnCallActivity"))) ||
+        (fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnReceiveTask"))) ||
+        (fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnSendTask"))) ||
         (fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnServiceTask")));
     }
 
@@ -84,9 +84,9 @@ public class CalledExpert implements IMdaExpert {
     @Override
     public boolean canSource(ElementScope linkScope, MObject fromElement) {
         MMetamodel metamodel = linkScope.getMetaclass().getMetamodel();
-        return (fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnCallActivity"))) || 
-        (fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnReceiveTask"))) || 
-        (fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnSendTask"))) || 
+        return (fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnCallActivity"))) ||
+        (fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnReceiveTask"))) ||
+        (fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnSendTask"))) ||
         (fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnServiceTask")));
     }
 
@@ -94,10 +94,10 @@ public class CalledExpert implements IMdaExpert {
     @Override
     public boolean canTarget(Stereotype linkStereotype, MClass linkMetaclass, MClass toMetaclass) {
         MMetamodel metamodel = linkMetaclass.getMetamodel();
-        return (toMetaclass.hasBase(metamodel.getMClass("Archimate.ApplicationProcess"))) || 
-        (toMetaclass.hasBase(metamodel.getMClass("Archimate.BusinessProcess"))) || 
-        (toMetaclass.hasBase(metamodel.getMClass("Standard.Operation"))) || 
-        (toMetaclass.hasBase(metamodel.getMClass("Standard.Behavior"))) || 
+        return (toMetaclass.hasBase(metamodel.getMClass("Archimate.ApplicationProcess"))) ||
+        (toMetaclass.hasBase(metamodel.getMClass("Archimate.BusinessProcess"))) ||
+        (toMetaclass.hasBase(metamodel.getMClass("Standard.Operation"))) ||
+        (toMetaclass.hasBase(metamodel.getMClass("Standard.Behavior"))) ||
         (toMetaclass.hasBase(metamodel.getMClass("Archimate.BusinessService")));
     }
 
@@ -105,10 +105,10 @@ public class CalledExpert implements IMdaExpert {
     @Override
     public boolean canTarget(Stereotype linkStereotype, MObject linkElement, MObject toElement) {
         MMetamodel metamodel = linkElement.getMClass().getMetamodel();
-        return (toElement.getMClass().hasBase(metamodel.getMClass("Archimate.ApplicationProcess"))) || 
-        (toElement.getMClass().hasBase(metamodel.getMClass("Archimate.BusinessProcess"))) || 
-        (toElement.getMClass().hasBase(metamodel.getMClass("Standard.Operation"))) || 
-        (toElement.getMClass().hasBase(metamodel.getMClass("Standard.Behavior"))) || 
+        return (toElement.getMClass().hasBase(metamodel.getMClass("Archimate.ApplicationProcess"))) ||
+        (toElement.getMClass().hasBase(metamodel.getMClass("Archimate.BusinessProcess"))) ||
+        (toElement.getMClass().hasBase(metamodel.getMClass("Standard.Operation"))) ||
+        (toElement.getMClass().hasBase(metamodel.getMClass("Standard.Behavior"))) ||
         (toElement.getMClass().hasBase(metamodel.getMClass("Archimate.BusinessService")));
     }
 
@@ -116,13 +116,13 @@ public class CalledExpert implements IMdaExpert {
     @Override
     public boolean canLink(Stereotype linkStereotype, MClass linkMetaclass, MClass fromMetaclass, MClass toMetaclass) {
         MMetamodel metamodel = linkMetaclass.getMetamodel();
-        return ((fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnCallActivity"))) && (toMetaclass.hasBase(metamodel.getMClass("Archimate.ApplicationProcess")))) || 
-        ((fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnCallActivity"))) && (toMetaclass.hasBase(metamodel.getMClass("Archimate.BusinessProcess")))) || 
-        ((fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnCallActivity"))) && (toMetaclass.hasBase(metamodel.getMClass("Standard.Operation")))) || 
-        ((fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnCallActivity"))) && (toMetaclass.hasBase(metamodel.getMClass("Standard.Behavior")))) || 
-        ((fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnReceiveTask"))) && (toMetaclass.hasBase(metamodel.getMClass("Standard.Operation")))) || 
-        ((fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnSendTask"))) && (toMetaclass.hasBase(metamodel.getMClass("Standard.Operation")))) || 
-        ((fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnServiceTask"))) && (toMetaclass.hasBase(metamodel.getMClass("Standard.Operation")))) || 
+        return ((fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnCallActivity"))) && (toMetaclass.hasBase(metamodel.getMClass("Archimate.ApplicationProcess")))) ||
+        ((fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnCallActivity"))) && (toMetaclass.hasBase(metamodel.getMClass("Archimate.BusinessProcess")))) ||
+        ((fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnCallActivity"))) && (toMetaclass.hasBase(metamodel.getMClass("Standard.Operation")))) ||
+        ((fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnCallActivity"))) && (toMetaclass.hasBase(metamodel.getMClass("Standard.Behavior")))) ||
+        ((fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnReceiveTask"))) && (toMetaclass.hasBase(metamodel.getMClass("Standard.Operation")))) ||
+        ((fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnSendTask"))) && (toMetaclass.hasBase(metamodel.getMClass("Standard.Operation")))) ||
+        ((fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnServiceTask"))) && (toMetaclass.hasBase(metamodel.getMClass("Standard.Operation")))) ||
         ((fromMetaclass.hasBase(metamodel.getMClass("Standard.BpmnServiceTask"))) && (toMetaclass.hasBase(metamodel.getMClass("Archimate.BusinessService"))));
     }
 
@@ -130,13 +130,13 @@ public class CalledExpert implements IMdaExpert {
     @Override
     public boolean canLink(Stereotype linkStereotype, MClass linkMetaclass, MObject fromElement, MObject toElement) {
         MMetamodel metamodel = linkMetaclass.getMetamodel();
-        return ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnCallActivity"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Archimate.ApplicationProcess")))) || 
-        ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnCallActivity"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Archimate.BusinessProcess")))) || 
-        ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnCallActivity"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Standard.Operation")))) || 
-        ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnCallActivity"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Standard.Behavior")))) || 
-        ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnReceiveTask"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Standard.Operation")))) || 
-        ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnSendTask"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Standard.Operation")))) || 
-        ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnServiceTask"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Standard.Operation")))) || 
+        return ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnCallActivity"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Archimate.ApplicationProcess")))) ||
+        ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnCallActivity"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Archimate.BusinessProcess")))) ||
+        ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnCallActivity"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Standard.Operation")))) ||
+        ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnCallActivity"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Standard.Behavior")))) ||
+        ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnReceiveTask"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Standard.Operation")))) ||
+        ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnSendTask"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Standard.Operation")))) ||
+        ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnServiceTask"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Standard.Operation")))) ||
         ((fromElement.getMClass().hasBase(metamodel.getMClass("Standard.BpmnServiceTask"))) && (toElement.getMClass().hasBase(metamodel.getMClass("Archimate.BusinessService"))));
     }
 

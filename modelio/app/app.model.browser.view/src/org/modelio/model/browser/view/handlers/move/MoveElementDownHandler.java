@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.browser.view.handlers.move;
 
@@ -23,8 +23,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
@@ -61,12 +61,13 @@ public class MoveElementDownHandler {
     private MetamodelExtensionPoint<IModelioTreeContentProvider> contentProviderExtensions;
 
     @objid ("04133e1a-31b9-492a-ae7e-e483b8ce1783")
-    public  MoveElementDownHandler() {
+    public MoveElementDownHandler() {
         this.contentProviderExtensions = new MetamodelExtensionPoint<>(BrowserView.CONTENTPROVIDER_EXTENSION_POINT_ID);
     }
 
     /**
      * Available only when the selection contains only one modifiable element.
+     *
      * @param selection the current modelio selection.
      * @return true if the handler can be executed.
      */
@@ -77,34 +78,34 @@ public class MoveElementDownHandler {
         if (this.projectService.getSession() == null) {
             return false;
         }
-        
+
         // Must have at least an element
         List<SmObjectImpl> toClone = MoveElementDownHandler.getSelectedElements(selection);
-        
+
         SmObjectImpl dest = MoveElementDownHandler.getPasteTarget(toClone);
         if (dest == null) {
             return false;
         }
-        
+
         for(IModelioTreeContentProvider tp : this.contentProviderExtensions.getAll()) {
             if(!tp.canReorder(toClone.get(0))) {
                 return false;
             }
         }
-        
+
         List<? extends MObject> listToReorder = getListToMove(toClone.get(0), dest);
-        
+
         // Check the elements to clone can be added to dest
         for (SmObjectImpl moved : toClone) {
-        
+
             if (MoveElementDownHandler.computeNewIndex(moved, listToReorder) == -1) {
                 return false;
             }
-        
+
             if (moved.equals(listToReorder.get(listToReorder.size() - 1))) {
                 return false;
             }
-        
+
             if (!MTools.getAuthTool().canAdd(dest, moved.getMClass())) {
                 return false;
             }
@@ -116,7 +117,7 @@ public class MoveElementDownHandler {
     private static SmObjectImpl getPasteTarget(List<SmObjectImpl> toClone) {
         SmObjectImpl ret = null;
         for (SmObjectImpl obj : toClone) {
-        
+
             SmObjectImpl compositionOwner = null;
             // Specific Treatment for BPMN Objects in Lanes
             if (obj instanceof BpmnBoundaryEvent) {
@@ -133,7 +134,7 @@ public class MoveElementDownHandler {
                 // All elements to clone must have the same parent
                 compositionOwner = obj.getCompositionOwner();
             }
-        
+
             if (ret != null && ret != compositionOwner) {
                 return null;
             } else {
@@ -168,6 +169,7 @@ public class MoveElementDownHandler {
 
     /**
      * Cut the currently selected elements.
+     *
      * @param selection the current modelio selection.
      * @param currentDisplay the display Modelio runs into.
      */
@@ -175,52 +177,52 @@ public class MoveElementDownHandler {
     @Execute
     public final void execute(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, Display currentDisplay) {
         ICoreSession session = this.projectService.getSession();
-        
+
         // Sanity checks
         if (session == null) {
             return;
         }
-        
+
         final List<SmObjectImpl> selectedElements = MoveElementDownHandler.getSelectedElements(selection);
         SmObjectImpl targetElement = MoveElementDownHandler.getPasteTarget(selectedElements);
         if (targetElement == null) {
             return;
         }
-        
+
         // No elements to move
         if (selectedElements.isEmpty()) {
             return;
         }
-        
+
         try (ITransaction transaction = session.getTransactionSupport()
                 .createTransaction("Move element down")) {
             int nbToMove = 0;
-        
+
             // We first move down the Last selected element of the list; This
             // way the positions of other
             // selected elements are not affected by the move of the current
             // element.
             for (int i = selectedElements.size() - 1; i >= 0; --i) {
                 SmObjectImpl element = selectedElements.get(i);
-        
+
                 List listToReorder = getListToMove(element, targetElement);
-        
+
                 // Retrieve the new index of the element
                 int index = MoveElementDownHandler.computeNewIndex(element, listToReorder);
-        
+
                 if (index == -1) {
                     // Invalid case, just exit
                     transaction.rollback();
                     return;
                 }
-        
+
                 // Move the element in the list
                 nbToMove++;
                 listToReorder.remove(element);
                 listToReorder.add(index, element);
-        
+
             }
-        
+
             if (nbToMove > 0) {
                 transaction.commit();
             } else {
@@ -232,13 +234,13 @@ public class MoveElementDownHandler {
             // is not a RuntimeException.
             MoveElementDownHandler.reportException(e);
         }
-        
+
     }
 
     @objid ("25481845-43a4-11e2-b513-002564c97630")
     private static int computeNewIndex(SmObjectImpl element, List<? extends MObject> listToReorder) {
         int index = listToReorder.indexOf(element) + 1;
-        
+
         // Specific Treatment for BPMN Objects
         if (element instanceof BpmnFlowElement) {
             while (index < listToReorder.size() && !(listToReorder.get(index) instanceof BpmnFlowElement)) {
@@ -254,7 +256,7 @@ public class MoveElementDownHandler {
                 index++;
             }
         }
-        
+
         // If that would move outside of the list, that means element is already
         // the last one.
         if (index >= listToReorder.size()) {
@@ -267,11 +269,11 @@ public class MoveElementDownHandler {
     static void reportException(Exception e) {
         // Show an error box
         String title = BrowserViewActivator.I18N.getMessage("CannotPasteClipboard");
-        
+
         MessageDialog.openError(null, title, e.getLocalizedMessage());
-        
+
         BrowserViewActivator.LOG.error(e);
-        
+
     }
 
     @objid ("c5c9f34f-9753-4816-8905-d9a1c93b0b3b")

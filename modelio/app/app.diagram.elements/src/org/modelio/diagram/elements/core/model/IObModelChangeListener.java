@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.model;
 
@@ -31,6 +31,7 @@ public interface IObModelChangeListener {
      * Called when the represented element that was previously absent from the model is now present in the model.
      * <p>
      * The Gm element should then refresh itself from the element.
+     *
      * @param resolvedElement The now present element.
      */
     @objid ("8084e168-1dec-11e2-8cad-001ec947c8cc")
@@ -51,5 +52,5 @@ public interface IObModelChangeListener {
      */
     @objid ("2a18db6c-e141-47b1-a5ce-e7e58b8dc5d1")
     void obElementDeleted();
-}
 
+}

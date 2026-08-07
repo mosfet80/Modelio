@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.datastore.v0;
 
@@ -89,12 +89,13 @@ public class _GmDataStore extends GmCompositeNode implements IImageableNode {
 
     /**
      * Default constructor.
+     *
      * @param diagram the diagram in which this gm is unmasked.
      * @param theDataStore the represented data store, may be null.
      * @param ref a reference to the represented data store.
      */
     @objid ("2a352b63-55b6-11e2-877f-002564c97630")
-    public  _GmDataStore(IGmDiagram diagram, DataStoreNode theDataStore, MRef ref) {
+    public _GmDataStore(IGmDiagram diagram, DataStoreNode theDataStore, MRef ref) {
         super(diagram, ref);
         this.element = theDataStore;
         this.header = new GmActivityNodeHeader(diagram, ref);
@@ -104,14 +105,14 @@ public class _GmDataStore extends GmCompositeNode implements IImageableNode {
         addChild(this.imageModeHeader);
         this.objectNodeStateLabel = new GmObjectNodeStateLabel(diagram, ref);
         addChild(this.objectNodeStateLabel);
-        
+
     }
 
     /**
      * Empty constructor, needed for serialisation.
      */
     @objid ("2a352b6f-55b6-11e2-877f-002564c97630")
-    public  _GmDataStore() {
+    public _GmDataStore() {
         // empty constructor for the serialization
     }
 
@@ -139,6 +140,7 @@ public class _GmDataStore extends GmCompositeNode implements IImageableNode {
 
     /**
      * Get the stereotype image to display.
+     *
      * @return the stereotype image to display. Must not be <i>null</i>.
      */
     @objid ("2a36b1f0-55b6-11e2-877f-002564c97630")
@@ -160,12 +162,12 @@ public class _GmDataStore extends GmCompositeNode implements IImageableNode {
         if (ret != null) {
             return ret;
         }
-        
+
         ret = SIMPLEKEYS.getStyleKey(metakey);
         if (ret != null) {
             return ret;
         }
-        
+
         ret = IMAGEKEYS.getStyleKey(metakey);
         return ret;
     }
@@ -186,7 +188,7 @@ public class _GmDataStore extends GmCompositeNode implements IImageableNode {
         default:
             return Collections.emptyList();
         }
-        
+
     }
 
     @objid ("2a36b20f-55b6-11e2-877f-002564c97630")
@@ -210,7 +212,7 @@ public class _GmDataStore extends GmCompositeNode implements IImageableNode {
             break;
         }
         }
-        
+
     }
 
     @objid ("2a36b215-55b6-11e2-877f-002564c97630")
@@ -222,7 +224,7 @@ public class _GmDataStore extends GmCompositeNode implements IImageableNode {
         firePropertyChange(PROPERTY_LABEL, oldLabel, this.header.getMainLabel());
         // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("2a36b218-55b6-11e2-877f-002564c97630")
@@ -263,10 +265,10 @@ public class _GmDataStore extends GmCompositeNode implements IImageableNode {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmDataStore.", _GmDataStore.MINOR_VERSION);
-        
+
     }
 
     @objid ("2a383891-55b6-11e2-877f-002564c97630")
@@ -274,10 +276,10 @@ public class _GmDataStore extends GmCompositeNode implements IImageableNode {
         super.read(in);
         this.header = (GmActivityNodeHeader) this.getChildren().get(0);
         this.element = (DataStoreNode) resolveRef(getRepresentedRef());
-        
+
         this.imageModeHeader = (GmDefaultModelElementLabel) this.getChildren().get(1);
         this.objectNodeStateLabel = (GmElementLabel) this.getChildren().get(2);
-        
+
     }
 
     @objid ("2a383896-55b6-11e2-877f-002564c97630")
@@ -287,11 +289,11 @@ public class _GmDataStore extends GmCompositeNode implements IImageableNode {
         super.read(in);
         this.header = (GmActivityNodeHeader) this.getChildren().get(0);
         this.element = (DataStoreNode) resolveRef(getRepresentedRef());
-        
+
         this.imageModeHeader = (GmDefaultModelElementLabel) this.getChildren().get(1);
         this.objectNodeStateLabel = new GmObjectNodeStateLabel(getDiagram(), getRepresentedRef());
         addChild(this.objectNodeStateLabel);
-        
+
     }
 
     @objid ("2a38389b-55b6-11e2-877f-002564c97630")

@@ -1,30 +1,28 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vbasic.files;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InterruptedIOException;
-import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
@@ -48,6 +46,7 @@ import org.apache.commons.compress.compressors.CompressorException;
 import org.apache.commons.compress.compressors.CompressorStreamFactory;
 import org.apache.commons.compress.utils.IOUtils;
 import org.modelio.vbasic.log.Log;
+import org.modelio.vbasic.plugin.CoreUtils;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vbasic.progress.SubProgress;
 
@@ -72,24 +71,26 @@ public class Unzipper {
      * Default c'tor using a ZIP archiver and no compressor.
      */
     @objid ("b8d4c55e-caf4-4234-8cfb-b6d705cf474c")
-    public  Unzipper() {
+    public Unzipper() {
         this(ArchiveStreamFactory.ZIP, null);
     }
 
     /**
      * C'tor using a specific archiver and compressor.
+     *
      * @param archiverName the archive name, i.e. "ar", "arj", "zip", "tar", "jar", "cpio", "dump" or "7z".
      * @param compressorName the compressor name, i.e. "gz", "bzip2", "xz", "lzma", "pack200", "snappy-raw", "snappy-framed", "z", "lz4-block", "lz4-framed", "zstd", "deflate64" or "deflate". Might also be <code>null</code>.
      */
     @objid ("850684f0-765e-425b-a3d0-7a21dc47d4a0")
-    public  Unzipper(final String archiverName, final String compressorName) {
+    public Unzipper(final String archiverName, final String compressorName) {
         this.archiverName = archiverName;
         this.compressorName = compressorName;
-        
+
     }
 
     /**
      * Unzip the archive in the given folder.
+     *
      * @param archive the archive to extract
      * @param folder the target folder
      * @param monitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility
@@ -101,12 +102,13 @@ public class Unzipper {
     @objid ("00590c36-b821-1ffa-8e11-001ec947cd2a")
     public void unzip(final Path archive, final Path folder, IModelioProgress monitor) throws IOException, InterruptedIOException {
         SubProgress subMonitor = SubProgress.convert(monitor, 100000);
-        
+        Path normalizedOutFolder = folder.normalize();
+
         int entriesNumber = countEntries(archive, subMonitor.newChild(10000));
-        
+
         // Recalibrate the monitor
         subMonitor.setWorkRemaining(entriesNumber);
-        
+
         int cpt = 1;
         try (ArchiveInputStream ais = createInputStream(archive)) {
             ArchiveEntry entry;
@@ -114,30 +116,34 @@ public class Unzipper {
                 if (subMonitor.isCanceled()) {
                     throw new InterruptedIOException();
                 }
-        
+
                 if (entry.getName().equals("/")) {
                     // useless entry that made us doing a "rm -rf / "...
                     cpt++;
                     continue;
                 }
-        
+
                 subMonitor.subTask(getProgressMonitorLabel(cpt, entriesNumber));
                 cpt++;
-        
-                final Path target = folder.resolve(asRelativePath(entry.getName()));
-        
+
+                final Path target = normalizedOutFolder.resolve(asRelativePath(entry.getName()));
+                if (! target.normalize().startsWith(normalizedOutFolder)) {
+                    // ALARM !!! Zip Slip attack ! (https://github.com/snyk/zip-slip-vulnerability)
+                    IOException ex = new IOException(CoreUtils.I18N.getMessage("Unzipper.evil.entry", entry.getName(), archive, folder));
+                    // Ensure the problem is logged at least once.
+                    Log.error(ex);
+                    throw ex;
+                }
+
                 // directory
                 if (entry.isDirectory()) {
                     Files.createDirectories(target);
                 } else {
                     Files.createDirectories(target.getParent());
-        
+
                     // Extract
-                    try (OutputStream out = new FileOutputStream(target.toFile())) {
-                        IOUtils.copy(ais, out);
-                        out.close();
-                    }
-        
+                    Files.copy(ais, target, StandardCopyOption.REPLACE_EXISTING);
+
                     // Preserve permissions with TAR archiver only
                     if (entry instanceof TarArchiveEntry) {
                         PosixFileAttributeView attributeView = Files.getFileAttributeView(target, PosixFileAttributeView.class);
@@ -146,7 +152,7 @@ public class Unzipper {
                         }
                     }
                 }
-        
+
                 // Preserve modification date
                 try {
                     Files.setLastModifiedTime(target, FileTime.fromMillis(entry.getLastModifiedDate().getTime()));
@@ -158,7 +164,7 @@ public class Unzipper {
             }
             ais.close();
         }
-        
+
     }
 
     /**
@@ -178,7 +184,7 @@ public class Unzipper {
             }
             throw e;
         }
-        
+
     }
 
     @objid ("0058e62a-b821-1ffa-8e11-001ec947cd2a")
@@ -196,6 +202,7 @@ public class Unzipper {
 
     /**
      * Find entries in an archive that matches the given regular expression.
+     *
      * @param archive an archive.
      * @param regexp a regular expression.
      * @return entries matching the given pattern. Might be empty but never {@link NullPointerException}.
@@ -204,10 +211,10 @@ public class Unzipper {
     @objid ("0059a268-b821-1ffa-8e11-001ec947cd2a")
     public ArchiveEntry[] findEntry(File archive, String regexp) throws IOException {
         List<ArchiveEntry> entries = new ArrayList<>();
-        
+
         try (ArchiveInputStream ais = createInputStream(archive.toPath())){
             ArchiveEntry ze = null;
-        
+
             Pattern p = Pattern.compile((regexp != null) ? regexp : ".*", Pattern.CASE_INSENSITIVE);
             while ((ze = ais.getNextEntry()) != null) {
                 if (p.matcher(ze.getName()).matches()) {
@@ -225,7 +232,7 @@ public class Unzipper {
             boolean ok = false;
             try {
                 ArchiveInputStream archiveStream;
-        
+
                 // Note : "ok=true;return ..." are not factorized so that compiler sees 'is' resource
                 // is correctly managed.
                 if (this.archiverName == null) {
@@ -253,11 +260,12 @@ public class Unzipper {
         } catch (ArchiveException | CompressorException e) {
             throw new IOException(e.getMessage(), e);
         }
-        
+
     }
 
     /**
      * Computes the progress monitor label.
+     *
      * @param currentCount the count of extracted files
      * @param entriesNumber the total number of entries in the archive.
      * @return the progress monitor label to display.
@@ -265,7 +273,7 @@ public class Unzipper {
     @objid ("69d77935-0723-4f8a-9091-6204de73246a")
     protected String getProgressMonitorLabel(int currentCount, int entriesNumber) {
         StringBuffer s = new StringBuffer();
-        
+
         if (this.progressPrefix != null && !this.progressPrefix.isEmpty()) {
             if (this.progressPrefix.length() > 80) {
                 // append first 80 chars to leave room
@@ -276,13 +284,14 @@ public class Unzipper {
             }
             s.append(" ");
         }
-        
+
         progressFormat.format(new Object[]{currentCount, entriesNumber}, s, null);
         return s.toString();
     }
 
     /**
      * Set the progress monitor sub task label prefix that will be displayed just before the counters.
+     *
      * @param labelPrefix the monitor label prefix
      * @return this zipper to chain calls.
      */
@@ -294,6 +303,7 @@ public class Unzipper {
 
     /**
      * Remove all '/' and '\' on the beginning to ensure the path is a relative one.
+     *
      * @param name a zip entry name
      * @return an normalized name.
      */
@@ -302,12 +312,12 @@ public class Unzipper {
         if (name.isEmpty()) {
             return name;
         }
-        
+
         char c = name.charAt(0);
         if (c != '/' && c != '\\') {
             return name;
         }
-        
+
         int i = 0;
         int l = name.length();
         while (c == '/' || c == '\\') {
@@ -315,7 +325,7 @@ public class Unzipper {
             if (i >= l) {
                 return "";
             }
-        
+
             c = name.charAt(i);
         }
         return name.substring(i);
@@ -327,7 +337,7 @@ public class Unzipper {
     @objid ("4b38d121-1faa-4de6-a095-245046443338")
     private static Set<PosixFilePermission> getPosixFilePermissions(int mode) {
         Set<PosixFilePermission> result = EnumSet.noneOf(PosixFilePermission.class);
-        
+
         if ((mode & 0400) != 0) {
             result.add(PosixFilePermission.OWNER_READ);
         }

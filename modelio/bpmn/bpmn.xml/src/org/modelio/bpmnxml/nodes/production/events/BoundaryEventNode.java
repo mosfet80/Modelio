@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.events;
 
@@ -75,12 +75,12 @@ public class BoundaryEventNode implements IProductionNode<BpmnBoundaryEvent, TBo
     @objid ("9494ee49-5665-4bbd-98c2-479f5e4d3395")
     @Override
     public BpmnBoundaryEvent createUMLElement(MObject context, TBoundaryEvent jaxbElement, BpmnImportFactory factory, boolean keepId) {
-        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {  
+        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {
             return factory.createWithId(BpmnBoundaryEvent.class, context,jaxbElement.getId());
         } else {
             return factory.create(BpmnBoundaryEvent.class, context);
         }
-        
+
     }
 
     @objid ("90b29606-1a1f-4935-bf3f-e913587eb8c2")
@@ -92,19 +92,19 @@ public class BoundaryEventNode implements IProductionNode<BpmnBoundaryEvent, TBo
         }else if(context instanceof BpmnSubProcess){
             ((BpmnSubProcess) context).getFlowElement().add(modelioElement);
         }
-        
+
         if (jaxbElement.getName() != null)
                             modelioElement.setName(StringConvertor.imports(jaxbElement.getName()));
-        
+
         modelioElement.setParallelMultiple(jaxbElement.isParallelMultiple());
-        
+
         if(jaxbElement.getAttachedToRef() != null){
             BpmnActivity activity = (BpmnActivity)this.elementsMap.get(jaxbElement.getAttachedToRef().getLocalPart());
             if(activity != null){
                 modelioElement.setAttachedToRef(activity);
             }
         }
-        
+
         modelioElement.setCancelActivity(jaxbElement.isCancelActivity());
         return modelioElement;
     }
@@ -114,7 +114,7 @@ public class BoundaryEventNode implements IProductionNode<BpmnBoundaryEvent, TBo
     public TBoundaryEvent createJaxbElement(Object context, BpmnBoundaryEvent modelioElement) {
         // Create JaxbElement
         TBoundaryEvent jaxEvent = new TBoundaryEvent();
-        
+
         // Add to context
         ObjectFactory factory = new ObjectFactory();
         if(context instanceof TProcess){
@@ -135,7 +135,7 @@ public class BoundaryEventNode implements IProductionNode<BpmnBoundaryEvent, TBo
         jaxEvent.setParallelMultiple(modelioElement.isParallelMultiple());
         jaxEvent.setCancelActivity(modelioElement.isCancelActivity());
         jaxEvent.setName(modelioElement.getName());
-        
+
         if(modelioElement.getAttachedToRef() != null){
             TActivity activity = (TActivity) this.elementsMap.get(modelioElement.getAttachedToRef().getUuid());
             if(activity != null){

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.policies;
 
@@ -41,7 +41,7 @@ import org.modelio.diagram.elements.plugin.DiagramElements;
  * This policy computes the new container size by asking its figure layout manager for the
  * new preferred size, after having forced the resized figure preferred size to conform
  * the resize request.
- * 
+ *
  * @author cmarin
  * @since 3.7
  */
@@ -60,7 +60,7 @@ public class AutoExpandEditPolicy extends GraphicalEditPolicy {
     @Override
     public Command getCommand(final Request request) {
         final Object reqType = request.getType();
-        
+
         if (REQ_RESIZE_CHILDREN.equals(reqType) ||
                 REQ_MOVE_CHILDREN.equals(reqType)) {
             return getExpandContainerCommand((ChangeBoundsRequest) request);
@@ -69,6 +69,7 @@ public class AutoExpandEditPolicy extends GraphicalEditPolicy {
     }
 
     /**
+     *
      * @param request a REQ_RESIZE_CHILDREN request
      * @return the container resize command.
      */
@@ -81,16 +82,17 @@ public class AutoExpandEditPolicy extends GraphicalEditPolicy {
      * Called by an edit part listener when a child edit part is added.
      * <p>
      * Try to expand the container to fit all children.
+     *
      * @param child the added edit part
      */
     @objid ("ab42772c-e03e-4f28-866c-3789253bbaff")
     protected void onChildAdded(EditPart child) {
         ChangeBoundsRequest request = new ChangeBoundsRequest(REQ_RESIZE);
         request.setEditParts(child);
-        
+
         // The child figure has just been added but not yet layouted, force layout now to avoid strange effects.
         getHostFigure().getUpdateManager().performValidation();
-        
+
         Command cmd = getExpandContainerCommand(request);
         if (cmd != null && cmd.canExecute()) {
             cmd.execute();
@@ -98,7 +100,7 @@ public class AutoExpandEditPolicy extends GraphicalEditPolicy {
             DiagramElements.LOG.debug("%s.onChildAdded(%s) : unable to expand <%s>. Command = <%s>",
                     getClass().getSimpleName(), child, getHost(), cmd);
         }
-        
+
     }
 
     /**
@@ -108,16 +110,16 @@ public class AutoExpandEditPolicy extends GraphicalEditPolicy {
     @Override
     public void activate() {
         super.activate();
-        
+
         this.listener = new EditPartListener.Stub() {
             @Override
             public void childAdded(EditPart child, int index) {
                 onChildAdded(child);
             }
         };
-        
+
         getHost().addEditPartListener(this.listener );
-        
+
     }
 
     @objid ("6c53c486-18aa-489d-a95f-9f98e9b3f44e")
@@ -125,9 +127,9 @@ public class AutoExpandEditPolicy extends GraphicalEditPolicy {
     public void deactivate() {
         getHost().removeEditPartListener(this.listener );
         this.listener = null;
-        
+
         super.deactivate();
-        
+
     }
 
 }

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -54,7 +53,7 @@ public class TagParameterSmClass extends ElementSmClass {
     private SmDependency qualifiedDep;
 
     @objid ("276e2ff1-14c4-4765-a7e0-9bb1f78b2939")
-    public  TagParameterSmClass(ISmMetamodelFragment origin) {
+    public TagParameterSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
@@ -62,7 +61,7 @@ public class TagParameterSmClass extends ElementSmClass {
     @Override
     public String getName() {
         return "TagParameter";
-        
+
     }
 
     @objid ("7e28ca04-cfb3-401d-ad07-07f7a6126cc0")
@@ -75,21 +74,21 @@ public class TagParameterSmClass extends ElementSmClass {
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return TagParameter.class;
-        
+
     }
 
     @objid ("dccc5abd-00a6-4ee0-ae72-c598107bad78")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
     @objid ("5f748d2d-459d-4459-98ca-548723c732e4")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
     @objid ("ec8bb827-3b04-4bcf-a947-c33c1d7bc3f6")
@@ -97,24 +96,23 @@ public class TagParameterSmClass extends ElementSmClass {
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(Element.MQNAME);
         this.registerFactory(new TagParameterObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
         this.valueAtt = new ValueSmAttribute();
         this.valueAtt.init("Value", this, String.class );
         registerAttribute(this.valueAtt);
-        
-        
+
+
         // Initialize and register the SmDependency
         this.annotedDep = new AnnotedSmDependency();
         this.annotedDep.init("Annoted", this, metamodel.getMClass(TaggedValue.MQNAME), 0, 1 );
         registerDependency(this.annotedDep);
-        
+
         this.qualifiedDep = new QualifiedSmDependency();
         this.qualifiedDep.init("Qualified", this, metamodel.getMClass(TaggedValue.MQNAME), 0, 1 );
         registerDependency(this.qualifiedDep);
-        
-        
+
     }
 
     @objid ("a25f5beb-bf88-4915-91f7-012446481156")
@@ -147,7 +145,7 @@ public class TagParameterSmClass extends ElementSmClass {
         private TagParameterSmClass smClass;
 
         @objid ("bfeca077-8867-47de-b5c4-61258499737f")
-        public  TagParameterObjectFactory(TagParameterSmClass smClass) {
+        public TagParameterObjectFactory(TagParameterSmClass smClass) {
             this.smClass = smClass;
         }
 
@@ -203,7 +201,7 @@ public class TagParameterSmClass extends ElementSmClass {
             	this.symetricDep = ((TaggedValueSmClass)this.getTarget()).getActualDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -232,7 +230,7 @@ public class TagParameterSmClass extends ElementSmClass {
             	this.symetricDep = ((TaggedValueSmClass)this.getTarget()).getQualifierDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

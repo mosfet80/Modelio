@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.bpmn.objects;
 
@@ -26,17 +26,16 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * BpmnItemKind v0.0.9054
- * 
- * 
+ *
+ *
  * Items can be either physical items, such as the mechanical part of a vehicle, or information items such the catalog of the mechanical parts of a vehicle.
- * 
- * 
+ *
  */
 @objid ("006f680a-91e1-1f74-804b-001ec947cd2a")
 public enum BpmnItemKind {
-    @objid ("7a32dd9f-f75c-4dec-a32a-ef59b6a81062")
+    @objid ("05dbc868-6c9b-4a1e-9ba3-18c91d045a4c")
     PHYSICAL(0, "physical", "physical"),
-    @objid ("79f2a457-0702-45eb-bce7-5f1dc6b01bd6")
+    @objid ("b23ce0e5-2c7b-4d7b-a9e8-185e610f4a88")
     INFORMATION(1, "information", "information");
 
 public static final int PHYSICAL_VALUE = 0;
@@ -93,5 +92,5 @@ public static final int PHYSICAL_VALUE = 0;
     public String toString() {
        return literal;
     }
-    
+
 }

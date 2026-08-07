@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package com.sun.star.comp.beans;
 
@@ -48,29 +48,31 @@ public class CallWatchThread extends Thread {
 
     /**
      * Initialize and starts the thread watcher.
+     *
      * @param nTimeout timeout in milliseconds
      */
     @objid ("9b990e2b-8f71-4303-be52-ded6feffa29b")
-    public  CallWatchThread(final long nTimeout) {
+    public CallWatchThread(final long nTimeout) {
         this(nTimeout, "");
     }
 
     /**
      * Initialize and starts the thread watcher.
+     *
      * @param nTimeout timeout in milliseconds
      * @param aTag name of the watcher for debug.
      */
     @objid ("03595517-79e5-44ed-9db3-331423c7f050")
-    public  CallWatchThread(final long nTimeout, final String aTag) {
+    public CallWatchThread(final long nTimeout, final String aTag) {
         super(CallWatchThread.class.getSimpleName() + ": " + aTag);
         this.aWatchedThread = Thread.currentThread();
         this.nTimeout = nTimeout;
-        
+
         this.aTag = aTag;
         setDaemon(true);
         dbgPrint(CallWatchThread.class.getSimpleName() + "(" + this + ").start(" + aTag + ")");
         start();
-        
+
     }
 
     /**
@@ -82,13 +84,14 @@ public class CallWatchThread extends Thread {
         if (this.aWatchedThread != null && this.aWatchedThread != Thread.currentThread()) {
             throw new IllegalMonitorStateException("wrong thread");
         }
-        
+
         this.aWatchedThread = null;
-        
+
     }
 
     /**
      * Reset the counter and watch the thread again.
+     *
      * @throws InterruptedException if the thread was interrupted.
      */
     @objid ("d69e6950-4b51-44c1-ab7a-0fa52ab8fc9e")
@@ -96,14 +99,14 @@ public class CallWatchThread extends Thread {
         if (this.aWatchedThread != null && this.aWatchedThread != Thread.currentThread()) {
             throw new IllegalMonitorStateException("wrong thread");
         }
-        
+
         this.bAlive = true;
-        
+
         if (interrupted()) {
             throw new InterruptedException();
         }
         notifyAll();
-        
+
     }
 
     @objid ("d02567fa-b5f6-482f-8dbc-0ab782f95f9e")
@@ -119,20 +122,20 @@ public class CallWatchThread extends Thread {
                 } catch (@SuppressWarnings ("unused") java.lang.InterruptedException aExc) {
                     this.bAlive = false;
                 }
-        
+
                 if (!this.bAlive && this.aWatchedThread != null) {
                     // cancel() or restart() not called.
                     // ==> watched thread seems to be dead (not answering)?
                     dbgPrint(CallWatchThread.class.getSimpleName() + "(" + this + ").run(" + this.aTag + ") interrupting");
-        
+
                     this.aWatchedThread.interrupt();
                     this.aWatchedThread = null;
                 }
             }
         }
-        
+
         dbgPrint(CallWatchThread.class.getSimpleName() + "(" + this + ").run(" + this.aTag + ") terminated");
-        
+
     }
 
     @objid ("31db19c3-e1c4-4f34-b5c4-5cdfce16e4ba")
@@ -140,7 +143,7 @@ public class CallWatchThread extends Thread {
         if (CallWatchThread.DEBUG) {
             System.err.println("OOoBean: " + aMessage);
         }
-        
+
     }
 
 }

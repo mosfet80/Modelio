@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.group;
 
@@ -38,9 +38,9 @@ import org.modelio.diagram.styles.core.IStyle;
  * It may be redefined to add behavior specific to a subclass of GmGroup.
  * <p>
  * Creates a <code>{@link GroupFigure}</code> as this part's <i>visuals</i>.
- * 
- * @see GmGroup
+ *
  * @author cmarin
+ * @see GmGroup
  */
 @objid ("7e56fafb-1dec-11e2-8cad-001ec947c8cc")
 public class GroupEditPart extends AbstractNodeEditPart {
@@ -70,30 +70,30 @@ public class GroupEditPart extends AbstractNodeEditPart {
     public void propertyChange(PropertyChangeEvent evt) {
         // Call inherited
         super.propertyChange(evt);
-        
+
         if (evt.getPropertyName().equals(IGmObject.PROPERTY_CHILDREN)) {
             // Update the incomplete indicator.
             final GmGroup gmGroup = (GmGroup) getModel();
             final GroupFigure aFigure = (GroupFigure) getFigure();
             aFigure.showIncompleteIndicator(gmGroup.hasHiddenFeatures());
         }
-        
+
     }
 
     @objid ("7e595d2d-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new DefaultGroupLayoutEditPolicy());
-        
+
         // Allow group to self resize vertically, and horizontally if it is a link extension.
         boolean isInLink = getParent().getModel() instanceof IGmLink;
         installEditPolicy(AutoFitToContentEditPolicy.ROLE, new AutoFitToContentEditPolicy(isInLink, true));
-        
+
         // Draw rectangle on hover
         installEditPolicy("hover", new HoverFeedbackEditPolicy());
-        
+
     }
 
     @objid ("7e595d30-1dec-11e2-8cad-001ec947c8cc")
@@ -102,11 +102,11 @@ public class GroupEditPart extends AbstractNodeEditPart {
         final GmGroup gmGroup = (GmGroup) getModel();
         // Create GroupFigure
         GroupFigure groupFigure = new GroupFigure(gmGroup.stretchLastChild());
-        
+
         // Set style independent properties
         groupFigure.setBackgroundColor(null);
         groupFigure.setOpaque(false);
-        
+
         // Set style dependent properties
         refreshFromStyle(groupFigure, getModelStyle());
         return groupFigure;
@@ -116,13 +116,14 @@ public class GroupEditPart extends AbstractNodeEditPart {
     @Override
     protected void refreshFromStyle(IFigure aFigure, IStyle style) {
         super.refreshFromStyle(aFigure, style);
-        
+
         updateVisibility((GroupFigure) aFigure);
-        
+
     }
 
     /**
      * Show or hide the group figure depending on {@link GmNodeModel#isVisible()} result.
+     *
      * @return <i>true</i> if the group is visible, <i>false</i> in the other case.
      */
     @objid ("7e595d3e-1dec-11e2-8cad-001ec947c8cc")
@@ -130,11 +131,11 @@ public class GroupEditPart extends AbstractNodeEditPart {
         final boolean oldVisible = (aFigure.isVisible());
         final GmGroup gmGroup = (GmGroup) getModel();
         final boolean newVisible = gmGroup.isVisible();
-        
+
         if (oldVisible == newVisible) {
             return oldVisible;
         }
-        
+
         if (newVisible) {
             aFigure.setVisible(true);
             aFigure.showIncompleteIndicator(gmGroup.hasHiddenFeatures());

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.parts.corner;
 
@@ -40,22 +40,22 @@ public class SplittedCornerPainter extends BackgroundPainter {
     @objid ("e84950be-4e8d-46a6-afa3-d26d1e4255f6")
     private boolean showRightImage;
 
-    @objid ("496dd62a-9dbc-4931-a717-0a9ab0f5e07c")
+    @objid ("60dc72ce-df2b-486e-ba99-32e754080cbf")
     private static final Image bottomImage = CoreUi.getImageDescriptor("icons/bottomcorner.png").createImage();
 
-    @objid ("8e20570b-fbb2-4762-9107-5e474404eb49")
+    @objid ("88114c4b-249a-4606-b872-18c069a7a648")
     private static final Image rightImage = CoreUi.getImageDescriptor("icons/rightcorner.png").createImage();
 
     /**
      * Build a new corner painter.
+     *
      * @param showBottomImage Flag to configure whether the image on the bottom should be shown or not.
      * @param showRightImage Flag to configure whether the image on the right should be shown or not.
      */
     @objid ("4058875b-6fff-4967-87ad-e27527dbc5d1")
-    public  SplittedCornerPainter(boolean showBottomImage, boolean showRightImage) {
+    public SplittedCornerPainter(boolean showBottomImage, boolean showRightImage) {
         this.showBottomImage = showBottomImage;
         this.showRightImage = showRightImage;
-        
     }
 
     @objid ("b96ad195-8e79-45bf-9090-e7da250852ba")
@@ -68,19 +68,18 @@ public class SplittedCornerPainter extends BackgroundPainter {
     @Override
     public void paintCell(ILayerCell cell, GC gc, Rectangle bounds, IConfigRegistry configRegistry) {
         super.paintCell(cell, gc, bounds, configRegistry);
-        
+
         if (SplittedCornerPainter.bottomImage != null && this.showBottomImage) {
             Rectangle bottomImageBounds = SplittedCornerPainter.bottomImage.getBounds();
             gc.drawImage(SplittedCornerPainter.bottomImage, bounds.x, bounds.height + bounds.y - bottomImageBounds.height);
         }
-        
+
         if (SplittedCornerPainter.rightImage != null && this.showRightImage) {
             Rectangle rightImageBounds = SplittedCornerPainter.rightImage.getBounds();
             gc.drawImage(SplittedCornerPainter.rightImage, bounds.x + bounds.width - rightImageBounds.width, bounds.y);
         }
-        
+
         gc.drawLine(bounds.x, bounds.y, bounds.x + bounds.width, bounds.y + bounds.height);
-        
     }
 
 }

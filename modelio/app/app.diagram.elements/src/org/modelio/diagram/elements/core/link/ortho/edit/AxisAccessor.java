@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.ortho.edit;
 
@@ -31,6 +31,7 @@ import org.modelio.diagram.elements.plugin.DiagramElements;
 
 /**
  * Service to access X or Y coordinates of geometry objects depending on the orthogonal orientation.
+ *
  * @since 5.0.2
  */
 @objid ("1ab39e87-1d9d-4021-9209-e651f2601081")
@@ -76,6 +77,7 @@ public class AxisAccessor {
 
     /**
      * Bounce the given point outside the given rectangle if it is inside
+     *
      * @param editedLoc the point to bounce back
      * @param rectToBounce the rectangle to not cross
      * @return true if the point was bounced, false if nothing was done.
@@ -103,6 +105,7 @@ public class AxisAccessor {
 
     /**
      * Test coordinates on both points for equality.
+     *
      * @param p1 a point
      * @param p2 another point
      * @return true if their coordinate on the axis are equals.
@@ -114,11 +117,12 @@ public class AxisAccessor {
         } else {
             return p1.y() == p2.y();
         }
-        
+
     }
 
     /**
      * Enforce minimum distance between 2 points that are supposed to be on the same horizontal or vertical line.
+     *
      * @param editedLocation the edited new location
      * @param startLocation the initial location to guess in which direction the point will be bounced back if both point equals
      * @param other the location from which a min distance must be kept
@@ -127,7 +131,7 @@ public class AxisAccessor {
     @objid ("3f260fdd-5214-475d-9cd8-a595cc762532")
     public boolean enforceMinDistance(Point editedLocation, Point startLocation, Point other) {
         int d = getCoord(other) - getCoord(editedLocation);
-        
+
         if (d > -MIN_DIST && d < MIN_DIST) {
             // enforce minimal distance
             if (d == 0) {
@@ -151,13 +155,14 @@ public class AxisAccessor {
             return H;
         if (o==Orientation.VERTICAL)
             return V;
-        
+
         throw new IllegalArgumentException(String.valueOf(o));
-        
+
     }
 
     /**
      * Accessors for the given point relative to the given rectangle.
+     *
      * @param p a point
      * @param r a rectangle
      * @return the matching accessors
@@ -171,6 +176,7 @@ public class AxisAccessor {
      * Get the accessor for a segment.
      * <p>
      * This method logs a warning if the segment is not orthogonal.
+     *
      * @param p1 the first point
      * @param p2 the second point
      * @return the matching accessors
@@ -181,20 +187,21 @@ public class AxisAccessor {
             return V;
         if (Math.abs(p1.y() - p2.y()) < 2)
             return H;
-        
+
         DiagramElements.LOG.warning(new IllegalArgumentException(String.format("Non orthogonal segment: %s - %s", p1, p2)));
         if (Direction.getMajor(p1, p2).orientation() == Orientation.VERTICAL) {
             return V;
         } else {
             return H;
         }
-        
+
     }
 
     /**
      * Get the accessor for an orthogonal segment.
      * <p>
      * Returns null if the segment is not orthogonal.
+     *
      * @param p1 the first point
      * @param p2 the second point
      * @return the matching accessors
@@ -209,6 +216,7 @@ public class AxisAccessor {
     }
 
     /**
+     *
      * @param p a point
      * @return X or Y coordinate
      */
@@ -219,11 +227,12 @@ public class AxisAccessor {
         } else {
             return p.y();
         }
-        
+
     }
 
     /**
      * Get the point half way between p1 and p2, using only X or Y coordinates.
+     *
      * @param p1 a point
      * @param p2 another point
      * @return the point half way between p1 and p2.
@@ -235,7 +244,7 @@ public class AxisAccessor {
         } else {
             return p1.y() + (p2.y() - p1.y()) / 2;
         }
-        
+
     }
 
     @objid ("b6b05d4f-1d71-4915-be96-2311a7d2e655")
@@ -247,6 +256,7 @@ public class AxisAccessor {
     }
 
     /**
+     *
      * @return the perpendicular axis accessor
      */
     @objid ("e09c27f9-d8d0-49de-8ce2-48be816e2dd5")
@@ -255,11 +265,12 @@ public class AxisAccessor {
             return Y;
         else
             return X;
-        
+
     }
 
     /**
      * Align the edited point with the value.
+     *
      * @param edited the edited point
      * @param val the point to align to
      * @return the edited point for convenience
@@ -295,12 +306,13 @@ public class AxisAccessor {
     }
 
     @objid ("1e42cece-16f0-4902-b6f7-93c63e26d63f")
-    private  AxisAccessor(final boolean xcoord) {
+    private AxisAccessor(final boolean xcoord) {
         this.xcoord = xcoord;
     }
 
     /**
      * Holder for accessors along and across an orthogonal line/segment.
+     *
      * @since 5.0.2
      */
     @objid ("0bcf4079-ffb8-4fe8-96c3-ce560288e910")
@@ -324,11 +336,11 @@ public class AxisAccessor {
         public final AxisAccessor across;
 
         @objid ("bdb8d3fa-6acb-4c6b-8340-92fd44bafd40")
-        protected  OrientedAccessors(Orientation orientation, AxisAccessor along, AxisAccessor accross) {
+        protected OrientedAccessors(Orientation orientation, AxisAccessor along, AxisAccessor accross) {
             this.orientation = orientation;
             this.along = along;
             this.across = accross;
-            
+
         }
 
     }

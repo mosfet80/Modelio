@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -57,7 +56,7 @@ public class NoteSmClass extends ModelElementSmClass {
     private SmDependency subjectDep;
 
     @objid ("182160c0-dc08-4d49-8776-887d2318c554")
-    public  NoteSmClass(ISmMetamodelFragment origin) {
+    public NoteSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
@@ -65,7 +64,7 @@ public class NoteSmClass extends ModelElementSmClass {
     @Override
     public String getName() {
         return "Note";
-        
+
     }
 
     @objid ("17147b4f-f6a2-4c7a-956e-ec45fe623325")
@@ -78,21 +77,21 @@ public class NoteSmClass extends ModelElementSmClass {
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return Note.class;
-        
+
     }
 
     @objid ("33914322-626b-4ef6-96bf-090d65343db6")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
     @objid ("fb11cc47-72b9-4c69-a085-4531d85f30cd")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
     @objid ("ce748da5-08ee-47b3-a731-074d91235d94")
@@ -100,28 +99,27 @@ public class NoteSmClass extends ModelElementSmClass {
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(ModelElement.MQNAME);
         this.registerFactory(new NoteObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
         this.contentAtt = new ContentSmAttribute();
         this.contentAtt.init("Content", this, String.class );
         registerAttribute(this.contentAtt);
-        
+
         this.mimeTypeAtt = new MimeTypeSmAttribute();
         this.mimeTypeAtt.init("MimeType", this, String.class );
         registerAttribute(this.mimeTypeAtt);
-        
-        
+
+
         // Initialize and register the SmDependency
         this.modelDep = new ModelSmDependency();
         this.modelDep.init("Model", this, metamodel.getMClass(NoteType.MQNAME), 1, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.modelDep);
-        
+
         this.subjectDep = new SubjectSmDependency();
         this.subjectDep.init("Subject", this, metamodel.getMClass(ModelElement.MQNAME), 0, 1 );
         registerDependency(this.subjectDep);
-        
-        
+
     }
 
     @objid ("f360b730-bbb7-4e7b-9e75-ae794fe05062")
@@ -162,7 +160,7 @@ public class NoteSmClass extends ModelElementSmClass {
         private NoteSmClass smClass;
 
         @objid ("945031cd-3df6-456d-bd39-e9697540ee8c")
-        public  NoteObjectFactory(NoteSmClass smClass) {
+        public NoteObjectFactory(NoteSmClass smClass) {
             this.smClass = smClass;
         }
 
@@ -232,7 +230,7 @@ public class NoteSmClass extends ModelElementSmClass {
             	this.symetricDep = ((NoteTypeSmClass)this.getTarget()).getElementDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -261,7 +259,7 @@ public class NoteSmClass extends ModelElementSmClass {
             	this.symetricDep = ((ModelElementSmClass)this.getTarget()).getDescriptorDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

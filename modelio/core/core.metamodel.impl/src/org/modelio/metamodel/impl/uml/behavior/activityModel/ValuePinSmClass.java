@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -41,66 +40,66 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("98107046-2d5a-42a3-b331-c129a966ac08")
 public class ValuePinSmClass extends InputPinSmClass {
-    @objid ("02af7c42-44ce-4ce1-8c77-72c92697b645")
+    @objid ("ed5afbc7-91cf-4dbb-acec-ad5a5165a5fe")
     private SmAttribute valueAtt;
 
-    @objid ("ef5d2cbb-1d31-45bc-bda5-6d1057edea16")
-    public  ValuePinSmClass(ISmMetamodelFragment origin) {
+    @objid ("81c7a882-3e1b-499c-af3e-01b6a9207cf3")
+    public ValuePinSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("a630188e-10c6-4251-8627-0822146d207d")
+    @objid ("90be5c01-3bff-4ca8-83a6-f9983b88aed2")
     @Override
     public String getName() {
         return "ValuePin";
-        
+
     }
 
-    @objid ("65a6ef8f-d8b3-4deb-a01a-a80adf812c86")
+    @objid ("fbc81eca-bb54-4fe7-8d3a-725adfa5cd65")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("e0817ef5-81f4-4587-8a44-f217faf0727d")
+    @objid ("9fedab29-908a-4f4a-ab4c-35e1eefb5654")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return ValuePin.class;
-        
+
     }
 
-    @objid ("02d04c14-0143-495f-8ef3-4dad54eee99f")
+    @objid ("913906ae-2600-44b8-bdad-5ce3c3e73616")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("02d6776e-220e-4c09-a267-d076975d529d")
+    @objid ("285dc85b-4e0f-4a2f-9250-b19656300eab")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("a55e8318-e2d9-4828-b16a-d19af6c925b5")
+    @objid ("e587b7f2-0623-4f12-b10b-b981e62df652")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(InputPin.MQNAME);
         this.registerFactory(new ValuePinObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
         this.valueAtt = new ValueSmAttribute();
         this.valueAtt.init("Value", this, String.class );
         registerAttribute(this.valueAtt);
-        
-        
+
+
         // Initialize and register the SmDependency
-        
+
     }
 
-    @objid ("d2879e24-1509-4030-8839-f4a27020c36e")
+    @objid ("d22f1279-0089-428f-890c-dcca486d47bf")
     public SmAttribute getValueAtt() {
         if (this.valueAtt == null) {
         	this.valueAtt = this.getAttributeDef("Value");
@@ -110,21 +109,21 @@ public class ValuePinSmClass extends InputPinSmClass {
 
     @objid ("7430f22a-c585-4726-b32d-6f1a6e36d27d")
     private static class ValuePinObjectFactory implements ISmObjectFactory {
-        @objid ("491f74c8-6f1f-4b0d-9976-a6e8103746aa")
+        @objid ("78ce6632-1d47-41da-ab04-fdb220bb751e")
         private ValuePinSmClass smClass;
 
-        @objid ("b68c11c0-bcc5-40c2-80c7-ee28adf87b05")
-        public  ValuePinObjectFactory(ValuePinSmClass smClass) {
+        @objid ("e944db54-4801-4f47-98bc-caba20356b39")
+        public ValuePinObjectFactory(ValuePinSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("afcf3b09-0b60-4c55-aee2-ef3b1f55e47f")
+        @objid ("ef27a8d3-4734-428e-a117-174b2b700efd")
         @Override
         public ISmObjectData createData() {
             return new ValuePinData(this.smClass);
         }
 
-        @objid ("6d9d104c-bcec-4fa9-9c58-a9cb4e33fccd")
+        @objid ("addeed39-6b89-4da5-8e0f-c20e9d1376b4")
         @Override
         public SmObjectImpl createImpl() {
             return new ValuePinImpl();
@@ -134,12 +133,12 @@ public class ValuePinSmClass extends InputPinSmClass {
 
     @objid ("7d66b098-9f50-470d-b899-feb171527565")
     public static class ValueSmAttribute extends SmAttribute {
-        @objid ("c1886382-1e92-4af2-aedb-cffa2bf2c151")
+        @objid ("6941a0d8-a6f0-48c5-ba39-f1554d819f1c")
         public Object getValue(ISmObjectData data) {
             return ((ValuePinData) data).mValue;
         }
 
-        @objid ("8e18e043-288f-41a7-ae06-d7a577dbcd51")
+        @objid ("2d453059-0554-46f8-b0bd-0fa05f3ca15f")
         public void setValue(ISmObjectData data, Object value) {
             ((ValuePinData) data).mValue = value;
         }

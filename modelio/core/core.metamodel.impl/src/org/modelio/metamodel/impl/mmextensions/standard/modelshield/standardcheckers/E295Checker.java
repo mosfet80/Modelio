@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.mmextensions.standard.modelshield.standardcheckers;
 
@@ -51,21 +51,21 @@ public class E295Checker implements IChecker {
     public void register(final IModelShieldRegistry plan, MMetamodel smMetamodel) {
         // trigger=create, metaclass=AssociationEnd, feature=null
         plan.registerChecker(this, smMetamodel.getMClass(AssociationEnd.class), TriggerType.Create, null);
-        
+
         // trigger=create, metaclass=AssociationEnd, feature=Association
         plan.registerChecker(this, smMetamodel.getMClass(AssociationEnd.class), TriggerType.Update, DEPNAME);
-        
+
     }
 
     @objid ("e5cee3d8-584a-4c5f-9470-99d767e15cfd")
     @Override
     public void check(MObject object, final IErrorReport report) {
         AssociationEnd end = (AssociationEnd) object;
-        
+
         if (end.getAssociation() == null) {
             report.addEntry(new ModelError(ERRORID, object, Arrays.<Object>asList(end)));
         }
-        
+
     }
 
 }

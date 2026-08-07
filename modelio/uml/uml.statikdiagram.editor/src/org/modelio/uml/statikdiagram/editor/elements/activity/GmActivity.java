@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.activity;
 
@@ -71,32 +71,33 @@ public class GmActivity extends GmPortContainer {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram in which the activity is unmasked.
      * @param el the unmasked activity.
      * @param ref a reference to the unmasked activity.
      */
     @objid ("33d81956-55b7-11e2-877f-002564c97630")
-    public  GmActivity(final IGmDiagram diagram, final Activity el, final MRef ref) {
+    public GmActivity(final IGmDiagram diagram, final Activity el, final MRef ref) {
         super(diagram, ref);
         this.element = el;
-        
+
         GmActivityPrimaryNode mainNode = new GmActivityPrimaryNode(diagram, ref);
         mainNode.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
-        
+
         GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(diagram, ref);
         imageModeHeader.setRoleInComposition(GmActivity.IMAGE_LABEL_ROLE);
         imageModeHeader.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
-        
+
         super.addChild(mainNode);
         super.addChild(imageModeHeader);
-        
+
     }
 
     /**
      * Empty constructor needed for deserialisation.
      */
     @objid ("33d81965-55b7-11e2-877f-002564c97630")
-    public  GmActivity() {
+    public GmActivity() {
         // Nothing specific to do.
     }
 
@@ -185,30 +186,30 @@ public class GmActivity extends GmPortContainer {
             break;
         }
         }
-        
+
     }
 
     @objid ("33d99ffb-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmActivity.", GmActivity.MINOR_VERSION);
-        
+
     }
 
     @objid ("33d9a001-55b7-11e2-877f-002564c97630")
     private void read_0(final IDiagramReader in) {
         super.read(in);
         this.element = (Activity) resolveRef(getRepresentedRef());
-        
+
         GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(getDiagram(), getRepresentedRef());
         imageModeHeader.setRoleInComposition(GmActivity.IMAGE_LABEL_ROLE);
         imageModeHeader.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
-        
+
         super.addChild(imageModeHeader, 1);
-        
+
     }
 
     @objid ("33d9a007-55b7-11e2-877f-002564c97630")
@@ -221,14 +222,14 @@ public class GmActivity extends GmPortContainer {
     private void read_1(final IDiagramReader in) {
         super.read(in);
         this.element = (Activity) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("33d9a012-55b7-11e2-877f-002564c97630")
     @Override
     public List<GmNodeModel> getVisibleChildren() {
         List<GmNodeModel> children = super.getVisibleChildren();
-        
+
         RepresentationMode mode = getMainNodeRepresentationMode();
         if (mode == RepresentationMode.SIMPLE || mode == RepresentationMode.STRUCTURED) {
             // Hide "image" labels
@@ -239,6 +240,7 @@ public class GmActivity extends GmPortContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */
@@ -251,6 +253,7 @@ public class GmActivity extends GmPortContainer {
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */

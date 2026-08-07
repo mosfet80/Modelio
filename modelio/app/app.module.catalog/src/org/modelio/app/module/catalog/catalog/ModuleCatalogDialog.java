@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.module.catalog.catalog;
 
@@ -88,17 +88,18 @@ public class ModuleCatalogDialog extends ModelioDialog {
     private Image updateCatalogImage = AppModules.getImageDescriptor("icons/updatecatalog.png").createImage();
 
     /**
+     *
      * @param parentShell a SWT shell
      * @param moduleCatalog the module catalog.
      * @param progressService a progress service.
      */
     @objid ("6cfffb59-1769-4820-8416-4db028b5bdd1")
-    public  ModuleCatalogDialog(Shell parentShell, IModuleStore moduleCatalog, IModelioProgressService progressService) {
+    public ModuleCatalogDialog(Shell parentShell, IModuleStore moduleCatalog, IModelioProgressService progressService) {
         super(parentShell);
         this.controller = new Controller(this);
         this.panel = new ModuleCatalogPanel(moduleCatalog);
         this.progressService = progressService;
-        
+
     }
 
     @objid ("32b61d9a-27a5-4958-ba01-5b29a8498a38")
@@ -113,17 +114,17 @@ public class ModuleCatalogDialog extends ModelioDialog {
         getShell().setText(AppModules.I18N.getString("ModuleCatalogDialog.ShellTitle")); //$NON-NLS-1$ );
         setTitle(AppModules.I18N.getString("ModuleCatalogDialog.Title")); //$NON-NLS-1$
         setMessage(AppModules.I18N.getString("ModuleCatalogDialog.Message")); //$NON-NLS-1$
-        
+
         // Position and resize dialog shell
         int width = 800;
         int height = 600;
-        
+
         Rectangle refBounds = getShell().getParent().getBounds();
         getShell().setMinimumSize(width, height);
         getShell().layout(true);
-        
+
         getShell().setBounds(refBounds.x + ((refBounds.width - width) / 2), refBounds.y + ((refBounds.height - height) / 2), width, height);
-        
+
     }
 
     @objid ("789b01b9-e296-4aa2-808e-89ad5bcfa5c8")
@@ -133,9 +134,9 @@ public class ModuleCatalogDialog extends ModelioDialog {
         Composite top = new Composite(parent, SWT.NULL);
         top.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         top.setLayout(new FormLayout());
-        
+
         FormData fd = null;
-        
+
         // List of modules from catalog: use a ModuleCatalogPanel
         this.panel.createPanel(top);
         Composite panelComposite = (Composite) this.panel.getPanel();
@@ -145,7 +146,7 @@ public class ModuleCatalogDialog extends ModelioDialog {
         fd.bottom = new FormAttachment(80, 0);
         fd.right = new FormAttachment(100, -4);
         panelComposite.setLayoutData(fd);
-        
+
         this.panel.getViewer().addSelectionChangedListener(new ISelectionChangedListener() {
             @Override
             public void selectionChanged(SelectionChangedEvent event) {
@@ -153,7 +154,7 @@ public class ModuleCatalogDialog extends ModelioDialog {
                 ModuleCatalogDialog.this.controller.onModuleSelection(selection);
             }
         });
-        
+
         Composite buttonLine = new Composite(top, SWT.NONE);
         fd = new FormData();
         fd.top = new FormAttachment(panelComposite, 10, SWT.BOTTOM);
@@ -164,62 +165,62 @@ public class ModuleCatalogDialog extends ModelioDialog {
         layout.marginWidth = 5;
         buttonLine.setLayout(layout);
         buttonLine.setLayoutData(fd);
-        
+
         // Install mdac file button
         this.addButton = new Button(buttonLine, SWT.PUSH);
         this.addButton.setText(AppModules.I18N.getString("ModuleCatalogDialog.Add"));
         this.addButton.setImage(this.addToCatalogImage);
-        
+
         this.addButton.addSelectionListener(new SelectionListener() {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 final List<File> mdacs = ModuleCatalogDialog.promptUserForFiles();
                 ModuleCatalogDialog.this.controller.onAddModule(mdacs);
             }
-        
+
             @Override
             public void widgetDefaultSelected(SelectionEvent e) {
                 //
             }
         });
-        
+
         // Delete mdac file button
         this.deleteButton = new Button(buttonLine, SWT.PUSH);
         this.deleteButton.setText(AppModules.I18N.getString("ModuleCatalogDialog.Delete"));
         this.deleteButton.setImage(this.removeFromCatalogImage);
-        
+
         this.deleteButton.addSelectionListener(new SelectionListener() {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 IStructuredSelection selection = (IStructuredSelection) ModuleCatalogDialog.this.panel.getViewer().getSelection();
                 ModuleCatalogDialog.this.controller.onDeleteModule(selection);
             }
-        
+
             @Override
             public void widgetDefaultSelected(SelectionEvent e) {
                 // Nothing to do
             }
         });
-        
+
         this.updateButton = new Button(buttonLine, SWT.PUSH);
         this.updateButton.setText(AppModules.I18N.getString("ModuleCatalogDialog.CheckUpdate"));
-        
+
         this.updateButton.setImage(this.updateCatalogImage);
         this.updateButton.addSelectionListener(new SelectionListener() {
-        
+
             @Override
             public void widgetSelected(SelectionEvent evt) {
                 final IModuleStore catalog = ModuleCatalogDialog.this.panel.getInput();
                 new ModuleUpdater().updateModule(catalog, getShell(), ModuleCatalogDialog.this.progressService);
-        
+
                 // Update catalog list
                 ModuleCatalogDialog.this.panel.setInput(catalog);
             }
-        
+
             @Override
             public void widgetDefaultSelected(SelectionEvent e) {
                 // Nothing to do
-        
+
             }
         });
         this.controller.init();
@@ -229,21 +230,21 @@ public class ModuleCatalogDialog extends ModelioDialog {
     @objid ("efe0bcc1-1d0c-42af-8897-b08ecd8c4f68")
     protected static List<File> promptUserForFiles() {
         List<File> returnedFiles = new ArrayList<>();
-        
+
         Shell parentShell = Display.getDefault().getActiveShell();
         FileDialog dialog = new FileDialog(parentShell, SWT.OPEN | SWT.MULTI);
-        
+
         // Find out the module store path
         File moduleStore = new File(Platform.getInstallLocation().getURL().getFile(), "modules"); //$NON-NLS-1$
-        
+
         // Configure the dialog
         dialog.setFilterPath(moduleStore.getAbsolutePath());
         dialog.setFilterNames(new String[] { AppModules.I18N.getString("MDAComponents") }); //$NON-NLS-1$
         dialog.setFilterExtensions(new String[] { "*.jmdac" }); //$NON-NLS-1$
-        
+
         // Open the dialog and get the answer
         String firstFile = dialog.open();
-        
+
         if (firstFile != null) {
             String path = (new File(firstFile)).getParent();
             for (String fname : dialog.getFileNames()) {
@@ -285,7 +286,7 @@ public class ModuleCatalogDialog extends ModelioDialog {
         private final ModuleCatalogDialog dlg;
 
         @objid ("e5cf273a-bd49-442d-b527-9cdcae5bc088")
-        public  Controller(ModuleCatalogDialog dlg) {
+        public Controller(ModuleCatalogDialog dlg) {
             this.dlg = dlg;
         }
 
@@ -303,14 +304,14 @@ public class ModuleCatalogDialog extends ModelioDialog {
                 }
             }
             this.dlg.deleteButton.setEnabled(!selectedModules.isEmpty());
-            
+
         }
 
         @objid ("a7c63e2e-2d9a-42a6-9bb1-ee2e04e21f15")
         public void onAddModule(final List<File> modules) {
             final IModuleStore catalog = this.dlg.panel.getInput();
             IRunnableWithProgress runnable = new IRunnableWithProgress() {
-            
+
                 @Override
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                     monitor.beginTask(AppModules.I18N.getString("ModuleCatalogDialog.AddModulesProgressTitle"), modules.size() * 3);
@@ -336,7 +337,7 @@ public class ModuleCatalogDialog extends ModelioDialog {
             } catch (InvocationTargetException | InterruptedException e) {
                 AppModules.LOG.error(e);
             }
-            
+
         }
 
         @objid ("e912f6d4-c4c9-47b5-8067-a8952552f828")
@@ -344,7 +345,7 @@ public class ModuleCatalogDialog extends ModelioDialog {
             final IModuleStore catalog = this.dlg.panel.getInput();
             final boolean isShowLatestOnly = this.dlg.panel.isShowLatestOnly();
             IRunnableWithProgress runnable = new IRunnableWithProgress() {
-            
+
                 @Override
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                     monitor.beginTask(AppModules.I18N.getString("ModuleCatalogDialog.RemoveModulesProgressTitle"), selection.size() * 3);
@@ -352,7 +353,7 @@ public class ModuleCatalogDialog extends ModelioDialog {
                     for (Object obj : selection.toList()) {
                         if (obj instanceof IModuleHandle) {
                             modules.add((IModuleHandle) obj);
-            
+
                         }
                     }
                     for (int i = 0; i < modules.size(); i++) {
@@ -383,7 +384,7 @@ public class ModuleCatalogDialog extends ModelioDialog {
             } catch (InvocationTargetException | InterruptedException e) {
                 AppModules.LOG.error(e);
             }
-            
+
         }
 
     }

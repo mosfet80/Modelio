@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnsequenceflow;
 
@@ -48,7 +48,7 @@ public class SequenceFlowLinkLayoutEditPolicy extends GmLinkLayoutEditPolicy {
                     return getHost();
                 }
             }
-        
+
         }
         return super.getTargetEditPart(request);
     }
@@ -72,17 +72,17 @@ public class SequenceFlowLinkLayoutEditPolicy extends GmLinkLayoutEditPolicy {
         if (command == null || !command.canExecute()) {
             return;
         }
-        
+
         // If command is create show 'InsertInFlow' feedback
         if (RequestConstants.REQ_CREATE.equals(request.getType()) && command instanceof CreateBpmnDataObjectCommand) {
             CreateRequest createRequest = (CreateRequest) request;
-        
+
             if (this.feedback == null) {
                 this.feedback = new DataObjectCreationFeedback(getFeedbackLayer(), (ZoomManager) getHost().getViewer().getProperty(ZoomManager.class.toString()));
             }
             this.feedback.show(getHostFigure(), createRequest.getLocation());
         }
-        
+
     }
 
     @objid ("19e05681-f361-4b18-8e13-1840abeedc68")
@@ -92,7 +92,7 @@ public class SequenceFlowLinkLayoutEditPolicy extends GmLinkLayoutEditPolicy {
             this.feedback.hide();
             this.feedback = null;
         }
-        
+
     }
 
 }

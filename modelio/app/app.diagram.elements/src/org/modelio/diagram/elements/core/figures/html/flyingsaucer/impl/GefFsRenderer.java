@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures.html.flyingsaucer.impl;
 
@@ -71,7 +71,7 @@ import org.xml.sax.InputSource;
 
 /**
  * Figure that renders XML+CSS .
- * 
+ *
  * @author cmarin
  */
 @objid ("d9c342c6-f94a-44af-8a8f-40988eb30516")
@@ -85,6 +85,12 @@ public class GefFsRenderer extends Figure implements UserInterface, FSCanvas {
 
     @objid ("a6f696f9-417f-4b4c-815e-63d69b3030f4")
     private float _minFontScale = 0.50F;
+
+    @objid ("39483525-0ed3-4c31-bc2e-08e04446f8e8")
+    private BlockBox _rootBox = null;
+
+    @objid ("6197a563-c48d-435d-adca-c2dd9665717a")
+    private final SharedContext _sharedContext;
 
     @objid ("4c160091-adcb-4f73-9e82-babcc276e5cf")
     private Element _active_element = null;
@@ -107,28 +113,24 @@ public class GefFsRenderer extends Figure implements UserInterface, FSCanvas {
     @objid ("c5e54ffa-4ad2-4052-9564-df23c80851ed")
     private final Display display;
 
-    @objid ("ac9fa87c-c432-4d3f-8b82-753481f6d7bc")
-    private BlockBox _rootBox = null;
-
-    @objid ("fcbca8bb-4634-44f7-82d1-d2105c1eaae3")
-    private final SharedContext _sharedContext;
-
     /**
      * Construct the GefFsRenderer.
+     *
      * @param swtComposite a SWT control to allow placing SWT controls inside, not yet used.
      */
     @objid ("447bd77a-cb4a-4e2e-940f-0cc1cab7b89b")
-    public  GefFsRenderer(Composite swtComposite) {
+    public GefFsRenderer(Composite swtComposite) {
         this(swtComposite, new NaiveUserAgent(swtComposite != null ? swtComposite.getDisplay() : Display.getDefault()));
     }
 
     /**
      * Construct the GefFsRenderer.
+     *
      * @param swtComposite a SWT control to allow placing SWT controls inside, not yet used.
      * @param uac user agent using the panel.
      */
     @objid ("2eff6df1-39c1-4801-a2d9-7e1ab9a85446")
-    public  GefFsRenderer(Composite swtComposite, UserAgentCallback uac) {
+    public GefFsRenderer(Composite swtComposite, UserAgentCallback uac) {
         // Make sure the display is not null, it happens with silent editors.
         this.display = swtComposite != null ? swtComposite.getDisplay() : Display.getDefault();
         this._sharedContext = new SharedContext(uac,
@@ -136,11 +138,19 @@ public class GefFsRenderer extends Figure implements UserInterface, FSCanvas {
                 new NoReplacedElementFactory(), // new SWTXhtmlReplacedElementFactory()
                 new GefFsTextRenderer(),
                 this.display.getDPI().y);
-        
+
         this._sharedContext.setCanvas(this);
-        
         setLayoutManager(new SfLayoutManager());
-        
+    }
+
+    /**
+     * Empty the font cache to avoid SWT Font leaks
+     */
+    @objid ("37314d1e-9e3c-4d7e-a6b8-5cc2213c293a")
+    @Override
+    public void removeNotify() {
+        this._sharedContext.flushFonts();
+        super.removeNotify();
     }
 
     /**
@@ -257,11 +267,10 @@ public class GefFsRenderer extends Figure implements UserInterface, FSCanvas {
             this._offscreen.dispose();
             this._offscreen = null;
         }
-        
+
         this._docOrigin = null;
-        
+
         super.invalidate();
-        
     }
 
     @objid ("4b9cb983-d992-4412-b413-7b5fa09017f0")
@@ -313,17 +322,16 @@ public class GefFsRenderer extends Figure implements UserInterface, FSCanvas {
         } else {
             this._sharedContext.getCss().flushAllStyleSheets();
         }
-        
+
         setCursor(null);
         this._sharedContext.reset();
         if (this._offscreen != null) {
             this._offscreen.dispose();
             this._offscreen = null;
         }
-        
+
         revalidate();
         repaint();
-        
     }
 
     /**
@@ -334,7 +342,6 @@ public class GefFsRenderer extends Figure implements UserInterface, FSCanvas {
     public void resetFontSize() {
         getSharedContext().getTextRenderer().setFontScale(1f);
         reload();
-        
     }
 
     @objid ("52aa77e2-b890-4b3a-b999-cf77b0b6a842")
@@ -346,25 +353,25 @@ public class GefFsRenderer extends Figure implements UserInterface, FSCanvas {
     public void setDocument(Document doc, URL url, NamespaceHandler nsh) {
         this._rootBox = null;
         this._doc = doc;
-        
+
         this._active_element = null;
         this._hovered_element = null;
         this._focus_element = null;
-        
+
         // have to do this first
         if (Configuration.isTrue("xr.cache.stylesheets", true)) {
             this._sharedContext.getCss().flushStyleSheets();
         } else {
             this._sharedContext.getCss().flushAllStyleSheets();
         }
-        
+
         setCursor(null);
         this._sharedContext.reset();
         if (this._offscreen != null) {
             this._offscreen.dispose();
             this._offscreen = null;
         }
-        
+
         if (doc == null) {
             //this._drawnSize = new Point(1, 1);
         } else {
@@ -373,18 +380,16 @@ public class GefFsRenderer extends Figure implements UserInterface, FSCanvas {
             this._sharedContext.getCss().setDocumentContext(this._sharedContext,
                     this._sharedContext.getNamespaceHandler(), doc, this);
         }
-        
+
         revalidate();
         repaint();
-        
     }
 
     @objid ("1d2ec814-bec5-4f36-a340-aee4a3a5daa6")
     public void setDocument(InputStream stream, URL url, NamespaceHandler nsh) {
         Document dom = XMLResource.load(stream).getDocument();
-        
+
         setDocument(dom, url, nsh);
-        
     }
 
     @objid ("c3e2d1bd-d547-43fa-8e40-0bdbc283a1c6")
@@ -411,9 +416,8 @@ public class GefFsRenderer extends Figure implements UserInterface, FSCanvas {
     public void setDocumentFromString(String content, URL url, NamespaceHandler nsh) {
         InputSource is = new InputSource(new BufferedReader(new StringReader(content)));
         Document dom = XMLResource.load(is).getDocument();
-        
+
         setDocument(dom, url, nsh);
-        
     }
 
     @objid ("add8bbc3-9b83-42d4-8031-45f9e814ad11")
@@ -441,15 +445,15 @@ public class GefFsRenderer extends Figure implements UserInterface, FSCanvas {
 
     /**
      * Only our layout manager is allowed.
+     *
      * @param manager our SfLayoutManager.
      */
     @objid ("09499821-8e1d-4597-b6b4-44059d7faf81")
     @Override
     public final void setLayoutManager(LayoutManager manager) {
         assert (manager instanceof SfLayoutManager);
-        
+
         super.setLayoutManager(manager);
-        
     }
 
     /**
@@ -478,13 +482,13 @@ public class GefFsRenderer extends Figure implements UserInterface, FSCanvas {
         this._sharedContext.setInteractive(!print);
         this._sharedContext.getReplacedElementFactory().reset();
         reload();
-        
     }
 
     /**
      * Calculates the preferred size of the figure, using width and height hints.
      * <p>
      * Called by the figure layout manager.
+     *
      * @param wHint The width hint
      * @param hHint The height hint
      * @return the preferred size
@@ -495,42 +499,41 @@ public class GefFsRenderer extends Figure implements UserInterface, FSCanvas {
         if (this._doc == null) {
             return new Dimension(getInsets().getWidth(), getInsets().getHeight());
         }
-        
+
         try {
             long start = System.currentTimeMillis();
             LayoutContext layout_context = newLayoutContext();
-        
+
             if (this._rootBox != null) {
                 this._rootBox.reset(layout_context);
             } else {
                 this._rootBox = BoxBuilder.createRootBox(layout_context, this._doc);
             }
-        
+
             java.awt.Rectangle awtRect = new java.awt.Rectangle(wHint, hHint);
             if (wHint > 0 )
                 awtRect.width -= getInsets().getWidth();
-        
+
             if (hHint > 0)
                 awtRect.height -= getInsets().getHeight();
-        
-        
+
+
             this._rootBox.setContainingBlock(new ViewportBox(awtRect));
             this._rootBox.layout(layout_context);
-        
+
             long end = System.currentTimeMillis();
             XRLog.layout(Level.INFO, "calculatePreferredSize(...) took " + (end - start) + "ms");
-        
+
             Layer rootLayer = this._rootBox.getLayer();
             java.awt.Dimension pref_size = rootLayer.getPaintingDimension(layout_context);
-        
+
             return new PrecisionDimension(pref_size.getWidth(), pref_size.getHeight())
                     .expand(getInsets().getWidth(), getInsets().getHeight());
-        
+
         } catch (Exception e) {
             DiagramElements.LOG.debug(e);
             return new Dimension(100, 100);
         }
-        
     }
 
     /**
@@ -543,18 +546,18 @@ public class GefFsRenderer extends Figure implements UserInterface, FSCanvas {
         if (this._doc == null) {
             return;
         }
-        
+
         LayoutContext layout_context = newLayoutContext();
-        
+
         try {
             long start = System.currentTimeMillis();
-        
+
             if (this._rootBox != null ) {
                 this._rootBox.reset(layout_context);
             } else {
                 this._rootBox = BoxBuilder.createRootBox(layout_context, this._doc);
             }
-        
+
             Rectangle size = getClientArea();
             if (size.width() == 0 && size.height() == 0) {
                 size.width = 1;
@@ -562,17 +565,16 @@ public class GefFsRenderer extends Figure implements UserInterface, FSCanvas {
             }
             java.awt.Rectangle awtRect = new java.awt.Rectangle(size.width(), size.height());
             this._rootBox.setContainingBlock(new ViewportBox(awtRect));
-        
+
             this._rootBox.layout(layout_context);
             this._docOrigin = calcDocumentOrigin(layout_context);
-        
+
             long end = System.currentTimeMillis();
             //DiagramElements.LOG.debug("%s: Layout took %d ms.", getClass().getSimpleName(), end - start);
         } catch (Exception e) {
             DiagramElements.LOG.warning(getClass().getSimpleName()+":  "+e.toString());
             DiagramElements.LOG.debug(e);
         }
-        
     }
 
     @objid ("25d1c221-6a68-4b60-b0a4-6bba6a2163e2")
@@ -580,7 +582,7 @@ public class GefFsRenderer extends Figure implements UserInterface, FSCanvas {
         Box box = getRootBox();
         if (box == null)
             return new Point(0,0);
-        
+
         if (box.getStyle().isInline()) {
             return new Point(box.getAbsX() , box.getAbsY());
         } else {
@@ -589,7 +591,6 @@ public class GefFsRenderer extends Figure implements UserInterface, FSCanvas {
                     box.getAbsX() + (int) margin.left() ,
                     box.getAbsY() + (int) margin.top());
         }
-        
     }
 
     @objid ("36a36ac7-2c1d-4ab7-8795-428c7432bb6d")
@@ -598,7 +599,7 @@ public class GefFsRenderer extends Figure implements UserInterface, FSCanvas {
             long start = System.currentTimeMillis();
             //this._sharedContext.setDebug_draw_boxes(false);
             this._rootBox.getLayer().paint(c);
-        
+
             long after = System.currentTimeMillis();
             if (Configuration.isTrue("xr.incremental.repaint.print-timing", false)) {
                 Uu.p("repaint took ms: " + (after - start));
@@ -608,7 +609,6 @@ public class GefFsRenderer extends Figure implements UserInterface, FSCanvas {
             DiagramElements.LOG.debug(e);
         }
         ((GefFsOutputDevice) c.getOutputDevice()).clean();
-        
     }
 
     @objid ("26080035-3b40-485c-af5f-a960f078d627")
@@ -616,7 +616,7 @@ public class GefFsRenderer extends Figure implements UserInterface, FSCanvas {
     protected void finalize() {
         // dispose used fonts
         this._sharedContext.flushFonts();
-        
+
         // clean ReplacedElementFactory
         ReplacedElementFactory ref = this._sharedContext.getReplacedElementFactory();
         if (ref instanceof SWTReplacedElementFactory) {
@@ -627,13 +627,12 @@ public class GefFsRenderer extends Figure implements UserInterface, FSCanvas {
         if (uac instanceof NaiveUserAgent) {
             ((NaiveUserAgent) uac).disposeCache();
         }
-        
+
         // dispose offscreen image
         if (this._offscreen != null) {
             this._offscreen.dispose();
             this._offscreen = null;
         }
-        
     }
 
     @objid ("771f69c7-1aca-4eba-91df-3be3631c4abd")
@@ -658,28 +657,30 @@ public class GefFsRenderer extends Figure implements UserInterface, FSCanvas {
     }
 
     /**
+     *
      * @return a new {@link LayoutContext}
      */
     @objid ("feb47d96-65c0-4deb-958a-b46190528ee8")
     protected LayoutContext newLayoutContext() {
         LayoutContext result = this._sharedContext.newLayoutContextInstance();
-        
+
         result.setFontContext(new GefFsFontContext());
         this._sharedContext.getTextRenderer().setup(result.getFontContext());
         return result;
     }
 
     /**
+     *
      * @param gc the draw2d GC
      * @return a new {@link RenderingContext}
      */
     @objid ("f1ebe230-0a61-4422-9068-daf514dee18d")
     protected RenderingContext newRenderingContext(Graphics graphics) {
         RenderingContext result = this._sharedContext.newRenderingContextInstance();
-        
+
         result.setFontContext(new GefFsFontContext());
         result.setOutputDevice(new GefFsOutputDevice(graphics, this.display));
-        
+
         this._sharedContext.getTextRenderer().setup(result.getFontContext());
         return result;
     }
@@ -691,7 +692,7 @@ public class GefFsRenderer extends Figure implements UserInterface, FSCanvas {
             // just draw background
             graphics.fillRectangle(getClientArea());
         }
-        
+
         // if this is the first time painting this document, then calc layout
         Layer root = getRootLayer();
         if (root == null) {
@@ -703,7 +704,7 @@ public class GefFsRenderer extends Figure implements UserInterface, FSCanvas {
                 this._offscreen = null;
             }
         }
-        
+
         if (root == null) {
             XRLog.render(Level.FINE, "skipping the actual painting");
         } else {
@@ -712,17 +713,17 @@ public class GefFsRenderer extends Figure implements UserInterface, FSCanvas {
             RenderingContext c = newRenderingContext(graphics);
             graphics.translate(getClientArea().getLocation());
             graphics.translate(getDocumentOrigin().negate());
-        
+
             doRender(c);
-        
+
             /*} else {
                 // Use an off-screen image
                 Rectangle size = getClientArea();
-        
+
                 if (this._offscreen != null) {
                     // Check whether off-screen image is big enough
                     org.eclipse.swt.graphics.Rectangle offBounds = this._offscreen.getBounds();
-        
+
                     if (offBounds.width < size.width() || offBounds.height < size.height()) {
                         if (this._offscreen != null) { // full redraw
                             this._offscreen.dispose();
@@ -730,33 +731,32 @@ public class GefFsRenderer extends Figure implements UserInterface, FSCanvas {
                         }
                     }
                 }
-        
+
                 // remake off-screen if needed
                 if (this._offscreen == null) {
-        
+
                     // initialize Image, SWT GC, draw2d Graphics and HTML renderer
                     this._offscreen = createTransparentImage(size);
                     GC gc = new GC(this._offscreen);
                     SWTGraphics gefGc = new SWTGraphics(gc);
                     RenderingContext c = newRenderingContext(gefGc);
-        
+
                     doRender(c);
-        
+
                     gefGc.dispose();
                     gc.dispose();
                 }
-        
+
                 // draw on screen
                 graphics.drawImage(this._offscreen, getClientArea().getLocation());
             }*/
         }
-        
     }
 
     /**
      * Sets the new current document, where the new document is located
      * relative, e.g using a relative URL.
-     * @throws MalformedURLException
+     *
      * @param filename The new document to load
      */
     @objid ("621f42a6-c71f-4dfc-9dd7-47ac612a8ad9")
@@ -779,11 +779,10 @@ public class GefFsRenderer extends Figure implements UserInterface, FSCanvas {
                 return;
             }
         }
-        
+
         final URL url = new URL(surl);
         Document dom = loadDocument(url);
         setDocument(dom, url);
-        
     }
 
     @objid ("59885e2e-b896-4d78-acd3-e8158876f80f")
@@ -809,7 +808,6 @@ public class GefFsRenderer extends Figure implements UserInterface, FSCanvas {
         }
         tr.setFontScale(fs);
         reload();
-        
     }
 
     /**

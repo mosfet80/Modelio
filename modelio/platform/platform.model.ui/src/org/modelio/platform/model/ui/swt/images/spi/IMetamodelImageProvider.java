@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.swt.images.spi;
 
@@ -25,7 +25,7 @@ import org.modelio.vcore.smkernel.mapi.MClass;
 
 /**
  * Interface to be implemented by a metamodel fragment related extension point to provide images for its metaclasses.
- * 
+ *
  * @author cmarin
  * @since 3.6
  */
@@ -33,6 +33,7 @@ import org.modelio.vcore.smkernel.mapi.MClass;
 public interface IMetamodelImageProvider {
     /**
      * Get the icon for a metaclass and a flavor
+     *
      * @param mClass a metaclass.
      * @param flavor a flavor to concatenate to the lookup key.
      * @return the metaclass browser icon.
@@ -42,6 +43,7 @@ public interface IMetamodelImageProvider {
 
     /**
      * Get the image for a metaclass and a flavor
+     *
      * @param mClass a metaclass.
      * @param flavor a flavor to concatenate to the lookup key.
      * @return the metaclass diagram image.
@@ -51,6 +53,7 @@ public interface IMetamodelImageProvider {
 
     /**
      * Get the icon for a metaclass.
+     *
      * @param metaclassName a metaclass name.
      * @return the metaclass icon.
      * @deprecated this method is not fully compatible with metamodel extensions, use {@link #getIcon(MClass, String)} instead.
@@ -64,6 +67,7 @@ public interface IMetamodelImageProvider {
      * <p>
      * Usually needed when programmatically building e4 contributions.
      * </p>
+     *
      * @param metaclassName name of a metaclass
      * @return path to the found icon or <code>null</code>.
      * @since 3.8
@@ -76,11 +80,12 @@ public interface IMetamodelImageProvider {
      * <p>
      * Usually needed when programmatically building e4 contributions.
      * </p>
+     *
      * @param metaclass a metaclass
      * @return path to the found icon or <code>null</code>.
      * @since 3.8
      */
     @objid ("8702e56b-c3e6-42f9-94d0-091c9a2db50a")
     String getIconCompletePath(MClass metaclass);
-}
 
+}

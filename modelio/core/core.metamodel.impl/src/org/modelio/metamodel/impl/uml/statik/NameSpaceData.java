@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.List;
@@ -33,71 +32,71 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 
 @objid ("0011d8de-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class NameSpaceData extends ModelTreeData {
-    @objid ("8dfc1181-8797-456d-ae31-3c83fa5abb6c")
+    @objid ("4c366a2c-cf98-4933-9ef3-090d3e2117ac")
     Object mIsAbstract = false;
 
-    @objid ("60d36a84-f508-4483-bdf5-b10d76b8fa46")
+    @objid ("4c6d5dc8-073b-4c05-a151-7cfa1414a483")
     Object mIsLeaf = false;
 
-    @objid ("abb42799-0c0a-4e16-af6c-f79694010698")
+    @objid ("932b2dbb-939c-4010-8c43-6cb5e09c6ab2")
     Object mIsRoot = false;
 
-    @objid ("d48a2372-1067-4acb-bb5d-bd1e9388e5ac")
+    @objid ("1d17b7eb-3966-4cb2-8c0f-1ee6c242d665")
     Object mVisibility = VisibilityMode.PUBLIC;
 
-    @objid ("5788ef01-f407-4625-9294-b5fc22af575b")
+    @objid ("c08d2272-c17a-44e0-85b2-93c9d03ef85b")
     List<SmObjectImpl> mParent = null;
 
-    @objid ("1951947e-e76e-4d08-850d-60d5b0bbfe02")
+    @objid ("06589377-3041-4a18-89ca-a307381955fb")
     List<SmObjectImpl> mTemplateInstanciation = null;
 
-    @objid ("83f8b57e-d8b7-4229-b5a1-865d08bf1aa7")
+    @objid ("65d3f327-598e-4bf1-a874-fa2340d8c9dd")
     List<SmObjectImpl> mRepresenting = null;
 
-    @objid ("07105857-97dd-44a2-b40f-f6d458b31376")
+    @objid ("6305b92a-fbcb-4b56-9dea-aa1250c1f0fa")
     List<SmObjectImpl> mOwnedBehavior = null;
 
-    @objid ("1583a430-605c-4f04-9088-58c796e5ec78")
+    @objid ("640cbeab-d1c3-4141-bd5c-0158487579df")
     List<SmObjectImpl> mReceived = null;
 
-    @objid ("65aa8973-2864-4c1a-b142-bd4a1bfcd66a")
+    @objid ("8b1aa487-f629-462c-97e8-4ade7e545f54")
     List<SmObjectImpl> mOwnedInformationFlow = null;
 
-    @objid ("59c194dd-aeef-4c42-ab06-8539bfe252f7")
+    @objid ("3a9e3462-2f55-4b8c-9d61-3763baf209ca")
     List<SmObjectImpl> mImporting = null;
 
-    @objid ("b8fa5f55-8fc1-48dd-86b8-bf1de08c235c")
+    @objid ("9d11a955-c138-478a-97c8-0cadaef0dc84")
     List<SmObjectImpl> mSent = null;
 
-    @objid ("f5eeba6a-50ec-461f-abba-731f9d182a77")
+    @objid ("426c71f0-81bc-4996-8d5e-bb5036c75667")
     List<SmObjectImpl> mOwnedDataFlow = null;
 
-    @objid ("6cf040e9-1835-4836-b8ab-241ed72e6d49")
+    @objid ("09d6a6c4-5992-4643-80be-828a79e6ba64")
     List<SmObjectImpl> mOwnedCollaborationUse = null;
 
-    @objid ("b55d02af-e227-4845-87f9-c33ebb4592c8")
+    @objid ("1d50993e-8e10-4248-808f-bd4052c1bdfb")
     List<SmObjectImpl> mOwnedPackageImport = null;
 
-    @objid ("eb731475-74c1-4ff0-9129-ce0d0f55731a")
+    @objid ("7228f81b-e95c-48e3-891a-bb4b2a8bd791")
     List<SmObjectImpl> mTemplate = null;
 
-    @objid ("8b4b2be5-8fb1-471c-ab45-5107f85ec164")
+    @objid ("67532f8b-b0b0-49a2-8164-4013b1e92e7a")
     List<SmObjectImpl> mSpecialization = null;
 
-    @objid ("561958e4-a1b6-4f3f-b781-0994ec4a8899")
+    @objid ("781a54aa-d1ed-4d79-ac33-ced15ffe9834")
     List<SmObjectImpl> mRealized = null;
 
-    @objid ("566edf0b-ee92-45be-bb14-b95518d7ed04")
+    @objid ("fdc940d8-752c-488d-a681-edc8d6892d42")
     List<SmObjectImpl> mDeclared = null;
 
-    @objid ("82d5c6d1-e65f-407d-a0f3-e672eda29b08")
+    @objid ("33e22c74-8dfa-488a-8167-7fc7a66b5db4")
     List<SmObjectImpl> mInstanciatingBinding = null;
 
-    @objid ("3594f332-3395-4bfc-80ca-1a5e4d4fded3")
+    @objid ("ab541c7e-6516-44ef-85c5-ed54401664ff")
     List<SmObjectImpl> mOwnedImport = null;
 
-    @objid ("0ebdba0b-5580-4898-a20f-befd41ec2634")
-    public  NameSpaceData(NameSpaceSmClass smClass) {
+    @objid ("df956165-1ae0-4645-a48d-1a840d6b77c0")
+    public NameSpaceData(NameSpaceSmClass smClass) {
         super(smClass);
     }
 

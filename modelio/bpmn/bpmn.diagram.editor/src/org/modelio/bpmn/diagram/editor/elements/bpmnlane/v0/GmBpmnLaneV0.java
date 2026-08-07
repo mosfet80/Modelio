@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnlane.v0;
 
@@ -59,7 +59,7 @@ public class GmBpmnLaneV0 extends GmCompositeNode {
     private BpmnBaseElement element;/*
      * // BpmnLane or BpmnParticipant
      */
-    
+
 
     @objid ("cd4b586f-172d-4eff-85cb-1125b279a122")
     private static GmBpmnLaneStructuredStyleKeysV0 STRUCTKEYS = new GmBpmnLaneStructuredStyleKeysV0();
@@ -78,19 +78,20 @@ public class GmBpmnLaneV0 extends GmCompositeNode {
 
     /**
      * Default constructor.
+     *
      * @param diagram the diagram in which this partition will be unmasked.
      * @param theLane the unmasked partition (can be null).
      * @param ref a reference to the unmasked partition (cannot be null).
      */
     @objid ("170d23e5-bdc8-4bcc-8b43-83cdaaa1c866")
-    public  GmBpmnLaneV0(IGmDiagram diagram, BpmnLane theLane, MRef ref) {
+    public GmBpmnLaneV0(IGmDiagram diagram, BpmnLane theLane, MRef ref) {
         super(diagram, ref);
         this.element = theLane;
         this.header = new GmBpmnLaneHeader(diagram, ref);
         this.body = new GmBodyHybridContainer(diagram, ref);
         super.addChild(this.header);
         super.addChild(this.body);
-        
+
     }
 
     @objid ("31bc6f96-e21a-4fa2-a3dd-57d2b87ab549")
@@ -150,7 +151,7 @@ public class GmBpmnLaneV0 extends GmCompositeNode {
      * Empty constructor needed for serialisation.
      */
     @objid ("4c17bb08-59ec-4fef-bc36-df251f31b4cd")
-    public  GmBpmnLaneV0() {
+    public GmBpmnLaneV0() {
         // Nothing to do.
     }
 
@@ -171,10 +172,11 @@ public class GmBpmnLaneV0 extends GmCompositeNode {
             break;
         }
         }
-        
+
     }
 
     /**
+     *
      * @return The partition content area.
      */
     @objid ("6d9605c4-a383-4438-b5f8-6d535823b6a2")
@@ -188,6 +190,7 @@ public class GmBpmnLaneV0 extends GmCompositeNode {
      * This method should return true only if it is consistent to display the given metaclass elements inside this graphic element.
      * <p>
      * <b>eg:</b> IAttributes can be displayed in a GmClass .
+     *
      * @param type The metaclass to unmask.
      * @return true only if it is consistent to display elements of the given metaclass inside this graphic element, false in the other cases.
      */
@@ -199,7 +202,7 @@ public class GmBpmnLaneV0 extends GmCompositeNode {
         if (this.body.getChildren(GmBodyHybridContainer.SUB_LANE).isEmpty()) {
             accept = BpmnFlowElement.class.isAssignableFrom(type);
         }
-        
+
         // We can always accept sub partitions: if things come to the worst, all
         // inner nodes and edges will be transfered to the first subpartition.
         accept = accept || BpmnLaneSet.class.isAssignableFrom(type);
@@ -213,7 +216,7 @@ public class GmBpmnLaneV0 extends GmCompositeNode {
         super.write(out);
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmBpmnLane.", MINOR_VERSION);
-        
+
     }
 
     @objid ("844f1f05-98d9-42a4-99e4-0ad1cd69d75c")
@@ -234,7 +237,7 @@ public class GmBpmnLaneV0 extends GmCompositeNode {
         this.header = (GmBpmnLaneHeader) this.getChildren().get(0);
         this.body = (GmBodyHybridContainer) this.getChildren().get(1);
         this.element = (BpmnBaseElement) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("a0216dad-2763-4075-b8e9-e5141e2c0e48")

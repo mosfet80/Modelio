@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.operation;
 
@@ -40,7 +40,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  * Represents an {@link Operation} label.
  * <p>
  * Extends {@link GmModelElementLabel}.
- * 
+ *
  * @author cmarin
  */
 @objid ("35f74fba-55b7-11e2-877f-002564c97630")
@@ -62,16 +62,17 @@ public class GmOperation extends GmDefaultModelElementHeader {
 
     /**
      * Creates a GmMethod.
+     *
      * @param diagram the owning diagram
      * @param op the represented operation, may be <tt>null</tt>.
      * @param ref the represented operation reference, may not be <tt>null</tt>.
      */
     @objid ("35f74fc6-55b7-11e2-877f-002564c97630")
-    public  GmOperation(IGmDiagram diagram, Operation op, MRef ref) {
+    public GmOperation(IGmDiagram diagram, Operation op, MRef ref) {
         super(diagram, ref);
         this.element = op;
         init();
-        
+
     }
 
     @objid ("35f74fd2-55b7-11e2-877f-002564c97630")
@@ -79,28 +80,28 @@ public class GmOperation extends GmDefaultModelElementHeader {
         if (p == null) {
             return "void";
         }
-        
+
         final GeneralClass type = p.getType();
         if (type != null) {
             return type.getName();
         } else {
             return "<no type>";
         }
-        
+
     }
 
     @objid ("35f74fd8-55b7-11e2-877f-002564c97630")
     private String getParameterCard(final Parameter theParameter) {
         StringBuilder multiplicity = new StringBuilder();
-        
+
         String multiplicityMinStr = theParameter.getMultiplicityMin();
         String multiplicityMaxStr = theParameter.getMultiplicityMax();
         String separator = "";
-        
+
         if (multiplicityMinStr.equals("1") && multiplicityMaxStr.equals("1")) {
             return multiplicity.toString();
         }
-        
+
         if (!multiplicityMinStr.equals("") || !multiplicityMaxStr.equals("")) {
             multiplicity.append(" [");
             // multiplicity.append("[");
@@ -112,7 +113,7 @@ public class GmOperation extends GmDefaultModelElementHeader {
                 if (!multiplicityMinStr.equals("") && !multiplicityMaxStr.equals("")) {
                     separator = "..";
                 }
-        
+
                 multiplicity.append(multiplicityMinStr);
                 multiplicity.append(separator);
                 multiplicity.append(multiplicityMaxStr);
@@ -131,7 +132,7 @@ public class GmOperation extends GmDefaultModelElementHeader {
         if (getParent() != null) {
             final String svis = computeVisibility(op);
             final boolean showSig = getDisplayedStyle().getBoolean(getStyleKey(MetaKey.OperationGroup.OPSHOWSIGNATURE));
-        
+
             if (showSig) {
                 s.append(svis);
                 s.append(' ');
@@ -161,19 +162,19 @@ public class GmOperation extends GmDefaultModelElementHeader {
     @Override
     public IEditableText getEditableText() {
         return new IEditableText() {
-        
+
                     @Override
                     public String getText() {
                         return getRelatedElement().getName();
                     }
-        
+
                     @Override
                     public void setText(String text) {
                         getRelatedElement().setName(text);
                     }
-        
+
                 };
-        
+
     }
 
     @objid ("35f8d66d-55b7-11e2-877f-002564c97630")
@@ -192,14 +193,14 @@ public class GmOperation extends GmDefaultModelElementHeader {
         } else {
             return GmOperation.OPERATION_KEYS.getStyleKey(metakey);
         }
-        
+
     }
 
     /**
      * constructor to be used only for deserialization
      */
     @objid ("35f8d676-55b7-11e2-877f-002564c97630")
-    public  GmOperation() {
+    public GmOperation() {
         init();
     }
 
@@ -216,7 +217,7 @@ public class GmOperation extends GmDefaultModelElementHeader {
     private void init() {
         setShowMetaclassKeyword(false);
         setShowMetaclassIcon(false);
-        
+
     }
 
     @objid ("35fa5d04-55b7-11e2-877f-002564c97630")
@@ -242,11 +243,12 @@ public class GmOperation extends GmDefaultModelElementHeader {
             break;
         }
         }
-        
+
     }
 
     /**
      * Compute the operation signature and append it to the given string builder.
+     *
      * @param op the operation
      * @param s the string builder
      */
@@ -259,7 +261,7 @@ public class GmOperation extends GmDefaultModelElementHeader {
             } else {
                 s.append(", ");
             }
-        
+
             s.append(CharSeqBreakTextLayouter.ZERO_WIDTH_SPACE);
             s.append(getParameterPassing(p));
             s.append(p.getName());
@@ -267,13 +269,14 @@ public class GmOperation extends GmDefaultModelElementHeader {
             s.append(getParameterTypeName(p));
             s.append(getParameterCard(p));
         }
-        
+
     }
 
     /**
      * Compute and return the visibility symbol of the operation.
      * <p>
      * Returns empty string if visibility display is disabled.
+     *
      * @param op an operation
      * @return the visibility symbol
      */
@@ -284,7 +287,7 @@ public class GmOperation extends GmDefaultModelElementHeader {
         if (styleKey == null) {
             return "";
         }
-        
+
         boolean property = getDisplayedStyle().getProperty(styleKey);
         if (property) {
             switch (op.getVisibility()) {
@@ -326,17 +329,17 @@ public class GmOperation extends GmDefaultModelElementHeader {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmOperation.", GmOperation.MINOR_VERSION);
-        
+
     }
 
     @objid ("35fa5d31-55b7-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (Operation) resolveRef(this.getRepresentedRef());
-        
+
     }
 
     @objid ("35fa5d36-55b7-11e2-877f-002564c97630")

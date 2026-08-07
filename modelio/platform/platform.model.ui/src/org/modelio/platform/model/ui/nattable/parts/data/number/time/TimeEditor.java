@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.parts.data.number.time;
 
@@ -42,7 +42,7 @@ import org.modelio.platform.model.ui.nattable.parts.data.number.date.CDateTime2;
  */
 @objid ("945bdce3-3743-44f9-8a41-1803ef9a36ad")
 public class TimeEditor extends AbstractCellEditor {
-    @objid ("5a315bad-799b-4ad6-8f05-2c96804c9a89")
+    @objid ("44164af0-0e50-42de-a751-ad293f5e8559")
     private CDateTime cdt;
 
     @objid ("51cbe2aa-dda6-49ed-9347-889844999771")
@@ -59,7 +59,6 @@ public class TimeEditor extends AbstractCellEditor {
     public void close() {
         super.close();
         this.cdt = null;
-        
     }
 
     @objid ("66279a48-6e4d-4d29-b18a-ef304c1f1744")

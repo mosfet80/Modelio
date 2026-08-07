@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -37,10 +37,10 @@ public class EDecisionNode extends EActivityNode {
     }
 
     @objid ("2ca4905e-c8f9-4499-86ed-430a01143c18")
-    public  EDecisionNode(org.eclipse.uml2.uml.DecisionNode element) {
+    public EDecisionNode(org.eclipse.uml2.uml.DecisionNode element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("0d7722ee-e9df-417e-9033-62cd7a19b594")
@@ -48,7 +48,7 @@ public class EDecisionNode extends EActivityNode {
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setDecisionInput((DecisionMergeNode) objingElt);
-        
+
     }
 
     @objid ("6a0f1d33-3be5-4ab8-a0bd-25b04fde46e1")
@@ -62,7 +62,7 @@ public class EDecisionNode extends EActivityNode {
                 }
             }
         }
-        
+
     }
 
 }

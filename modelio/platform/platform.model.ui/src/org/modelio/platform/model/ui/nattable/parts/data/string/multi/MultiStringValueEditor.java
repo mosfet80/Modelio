@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.parts.data.string.multi;
 
@@ -45,7 +45,6 @@ public class MultiStringValueEditor extends AbstractCellEditor {
     public void close() {
         super.close();
         this.cdt = null;
-        
     }
 
     @objid ("9da4d783-f273-4777-b612-9070db9cc8d2")
@@ -73,7 +72,7 @@ public class MultiStringValueEditor extends AbstractCellEditor {
     }
 
     @objid ("d5500f37-5b1b-4ec7-aea6-4098aead140b")
-    @SuppressWarnings ("unchecked")
+    @SuppressWarnings("unchecked")
     @Override
     public void setEditorValue(Object value) {
         this.cdt.initContent((List<String>) value);
@@ -91,7 +90,7 @@ public class MultiStringValueEditor extends AbstractCellEditor {
     @Override
     public boolean commit(MoveDirectionEnum direction, boolean closeAfterCommit, boolean skipValidation) {
         boolean commit = super.commit(direction, closeAfterCommit, skipValidation);
-        
+
         if (commit) {
             this.layerCell.getLayer().doCommand(new SelectCellCommand(
                     this.layerCell.getLayer(),

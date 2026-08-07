@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.parts.fragment;
 
@@ -71,15 +71,17 @@ public class GRamcFragment extends AbstractGModelFragment {
 
     /**
      * Initialize the RAMC fragment.
+     *
      * @param desc the part descriptor
      */
     @objid ("71e6517c-26f5-44e5-a689-7268eb027926")
-    public  GRamcFragment(GProjectPartDescriptor desc) {
+    public GRamcFragment(GProjectPartDescriptor desc) {
         super(desc);
     }
 
     /**
      * Get the model component informations such as the version, the description, the dependencies...
+     *
      * @return the model component description.
      * @throws IOException in case of I/O failure.
      */
@@ -102,16 +104,16 @@ public class GRamcFragment extends AbstractGModelFragment {
         // Look for a local path and create the directory if needed
         final Path runtimePath = getRuntimeDirectory();
         Files.createDirectories(runtimePath);
-        
+
         // Copy the RAMC into the data directory if needed
         final Path localUri = extractRamcToLocal(aMonitor);
-        
+
         // The RAMC model is in a "model" sub directory.
         this.modelLocation = localUri.resolve("model");
-        
+
         // Instantiate the repository.
         final LocalExmlResourceProvider resProvider = new LocalExmlResourceProvider(this.modelLocation, this.modelLocation, getId());
-        
+
         this.repository = new ExmlBase(resProvider);
         return this.repository;
     }
@@ -127,7 +129,6 @@ public class GRamcFragment extends AbstractGModelFragment {
         if (this.repository == null) {
             throw new IllegalStateException("The '" + getId() + "' fragment is not mount.");
         }
-        
     }
 
     @objid ("b883cc12-b4e5-4d18-adc0-a09a6af6e423")
@@ -135,7 +136,7 @@ public class GRamcFragment extends AbstractGModelFragment {
     protected List<MObject> doGetRoots() throws IOException {
         if (this.roots == null) {
             this.roots = new ArrayList<>();
-        
+
             final IModelComponentInfos infos = ModelComponentArchive.getRamcDirectoryInfos(getContentDirectory());
             for (final ModelRef mref : infos.getRoots()) {
                 final MObject obj = getRepository().findById(getProjectMetamodel().getMClass(mref.mc), mref.uuid);
@@ -167,17 +168,17 @@ public class GRamcFragment extends AbstractGModelFragment {
         } catch (final IOException e) {
             project.getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(this, e));
         }
-        
     }
 
     /**
      * Copy the RAMC file into the fragment data directory if the URI is not relative to the data directory.
-     * 
+     *
      * To ensure that the ramc contents are updated in case of version change while avoiding useless costly zip extractions, a tag file is used as follows:<ul>
      * <li> each time the ramc "content" is unzipped a tag file named T_V.R.C is created where V.R.C represents the RAMC version</li>
      * <li> when the extract method is called again the existence of the proper tag file is first checked. If present then no extraction is carried out and the existing path and content are returned</li>
      * <li> when a new version is required, obviously the tagfile does not exist (the existing tagfile does not match) and a new extraction is carried out</li>
      * </ul>
+     *
      * @param monitor a progress monitor
      * @return the local ramc file location
      * @throws IOException in case of failure.
@@ -186,43 +187,43 @@ public class GRamcFragment extends AbstractGModelFragment {
     private Path extractRamcToLocal(final IModelioProgress monitor) throws IOException {
         final Path ramcContentDir = getContentDirectory();
         final Path tagFile = ramcContentDir.resolve(getDescriptor().getVersion().toString("T_V.R.C"));
-        
-        if (Files.isDirectory(ramcContentDir) && Files.exists(ramcContentDir.resolve(tagFile))) {
+
+        if (Files.isDirectory(ramcContentDir) && Files.exists(tagFile)) {
             // Content is present and up-to-date, fast exit
             return ramcContentDir;
         }
-        
+
         // Here we have to copy the RAMC to local dir.
-        
+
         // Delete any previous content
         FileUtils.delete(ramcContentDir);
         Files.createDirectories(ramcContentDir);
-        
+
         // Resolve RAMC archive location
-        // Note : the .ramc may be directly in the RAMC data directory (getDataDirectory() ).
         URI uri = getDescriptor().getLocation();
         if (!uri.isAbsolute()) {
+            // the .ramc may be directly in the RAMC data directory (getDataDirectory() ).
             uri = getProject().getPfs().getProjectPath().toUri().resolve(uri);
         }
-        
+
         // Open an access to the archive, downloading it if remote.
         try (UriPathAccess acc = new UriPathAccess(uri, resolveAuthData())) {
             final SubProgress mon = SubProgress.convert(monitor, 2);
             final String progressLabel = CoreProject.I18N.getMessage("RamcFileFragment.ExtractRamcFrom", getId(), uri);
             mon.subTask(progressLabel);
-        
+
             // Unzip the archive
             new Unzipper()
             .setProgressLabelPrefix(progressLabel)
             .unzip(acc.getPath(), ramcContentDir, mon.newChild(1));
-        
+
             // Deploy exported files
             mon.subTask(CoreProject.I18N.getMessage("RamcFileFragment.DeployRamcFiles", getId(), uri));
             new ModelComponentArchive(ramcContentDir, false).installExportedFiles(getProject().getPfs().getProjectPath(), mon.newChild(1));
-        
+
             // Create the tag file
             Files.createFile(tagFile);
-        
+
             return ramcContentDir;
         } catch (final MalformedURLException e1) {
             final String msg = CoreProject.I18N.getMessage("RamcFileFragment.InvalidUri", uri, e1.getLocalizedMessage());
@@ -231,11 +232,11 @@ public class GRamcFragment extends AbstractGModelFragment {
             final String msg = CoreProject.I18N.getMessage("RamcFileFragment.InvalidUri", uri, e1.getLocalizedMessage());
             throw new IOException(msg, e1);
         }
-        
     }
 
     /**
      * Delete other files deployed with the RAMC such as extern libraries or source files.
+     *
      * @param monitor a progress monitor
      * @throws IOException in case of failure.
      */
@@ -243,14 +244,14 @@ public class GRamcFragment extends AbstractGModelFragment {
     private void removeExportedFilesOfFragment(IGProject project, final IModelioProgress monitor) throws IOException {
         Path contentDirectory = project.getPfs().getProjectDataPath().resolve(FRAGMENTS_SUBDIR).resolve(this.encodedDirectoryName).resolve("content");
         Path deploymentPath = project.getPfs().getProjectPath();
-        
+
         final ModelComponentArchive modelComponentArchive = new ModelComponentArchive(contentDirectory, false);
         modelComponentArchive.removeExportedFiles(deploymentPath, monitor);
-        
     }
 
     /**
      * Get the directory where the RAMC archive is extracted.
+     *
      * @return the extracted RAMC directory.
      */
     @objid ("18919eca-1964-4dfa-8408-5853594708ba")
@@ -262,14 +263,14 @@ public class GRamcFragment extends AbstractGModelFragment {
     @Override
     public MetamodelVersionDescriptor getRequiredMetamodelDescriptor() throws IOException {
         final MetamodelVersionDescriptor mmDesc = new MetamodelVersionDescriptor();
-        
+
         boolean found = false;
         for (final VersionedItem<?> versionedItem : getInformations().getRequiredMetamodelFragments()) {
             final VersionedItem<Void> v = new VersionedItem<>(versionedItem.getName(), versionedItem.getVersion());
             mmDesc.addDescriptor(v);
             found = true;
         }
-        
+
         if (!found) {
             // Old RAMC with no metamodel version info.
             // Try to guess from file presence.
@@ -292,7 +293,7 @@ public class GRamcFragment extends AbstractGModelFragment {
                 // Set to Modelio 2.0 by default
                 v = VersionHelper.convert(8000);
             }
-        
+
             mmDesc.addDescriptor(new VersionedItem<Void>(StandardMetamodel.NAME, v));
         }
         return mmDesc;

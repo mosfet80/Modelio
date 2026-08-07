@@ -1,17 +1,38 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: org.modelio.platform.search.engine.plugin.SearchEngine
+Bundle-ClassPath: res/,
+ .
 Bundle-Name: Model Search Engine
 Bundle-SymbolicName: org.modelio.platform.search.engine;singleton:=true
-Bundle-Version: 5.4.1.qualifier 
+Bundle-Version: 6.2.0.qualifier 
 Bundle-Vendor: modelio.org
-Bundle-RequiredExecutionEnvironment: JavaSE-11
-Require-Bundle: org.eclipse.core.runtime,
- org.modelio.core.session,
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Require-Bundle: org.modelio.core.session,
  org.modelio.platform.utils,
  org.modelio.core.metamodel.api,
- org.modelio.core.kernel
-Export-Package: org.modelio.platform.search.engine,
+ org.modelio.core.kernel,
+ org.eclipse.core.runtime,
+ com.fasterxml.jackson.core.jackson-core,
+ com.fasterxml.jackson.core.jackson-databind,
+ com.fasterxml.jackson.core.jackson-annotations
+Export-Package: org.modelio.platform.search.engine.searchers.query.api,
+ org.modelio.platform.search.engine.searchers.query.api.model,
+ org.modelio.platform.search.engine.searchers.query.api.model.frozen,
+ org.modelio.platform.search.engine.searchers.query.api.model.frozen.jackson,
+ org.modelio.platform.search.engine.searchers.query.api.model.query,
+ org.modelio.platform.search.engine.searchers.query.api.model.resolved,
+ org.modelio.platform.search.engine.searchers.query.api.model.resolved.expr,
+ org.modelio.platform.search.engine.searchers.query.api.model.result,
+ org.modelio.platform.search.engine.api,
+ org.modelio.platform.search.engine.plugin,
+ org.modelio.platform.search.engine.searchers.query,
+ org.modelio.platform.search.engine.searchers.query.api,
+ org.modelio.platform.search.engine.searchers.query.api.model.query,
+ org.modelio.platform.search.engine.searchers.query.api.model.resolved,
+ org.modelio.platform.search.engine.searchers.query.api.model.result,
  org.modelio.platform.search.engine.searchers.inherit,
  org.modelio.platform.search.engine.searchers.model,
- org.modelio.platform.search.engine.searchers.note
-Bundle-ActivationPolicy: lazy
+ org.modelio.platform.search.engine.searchers.note,
+ org.modelio.platform.search.engine.searchers.query.api.model.query

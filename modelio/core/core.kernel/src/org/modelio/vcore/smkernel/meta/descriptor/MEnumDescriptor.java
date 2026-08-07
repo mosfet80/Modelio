@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel.meta.descriptor;
 
@@ -27,12 +27,13 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * Metamodel enumeration descriptor.
+ *
  * @author cma
  * @since 3.6
  */
 @objid ("90afe5fc-ba42-450f-aa2b-21b56ac5df1e")
 public class MEnumDescriptor implements Serializable {
-    
+
     @mdl.prop
     @objid ("45b4ae73-27a8-4191-abc4-8dc9e90d8d42")
     public final List<String> values = new ArrayList<> ();
@@ -43,7 +44,7 @@ public class MEnumDescriptor implements Serializable {
         return this.values;
     }
 
-    
+
     @mdl.prop
     @objid ("94c63b4e-6c2d-41a1-9b67-1bc2a892c626")
     public String name;
@@ -70,7 +71,7 @@ public class MEnumDescriptor implements Serializable {
         if (obj==null) {
             return false;
         }
-        
+
         if (this == obj) {
             return true;
         }

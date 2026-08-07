@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.embeddeddiagram;
 
@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.AccessibleEditPart;
 import org.eclipse.gef.EditDomain;
@@ -55,12 +56,12 @@ import org.eclipse.swt.widgets.Control;
  * <li>it instantiate its own edit part registry with a local layer manager.
  * <li>some setters that should not be called throw {@link UnsupportedOperationException}.
  * </ul>
- * 
+ *
  * @author cma
  * @since 3.7
  */
 @objid ("c2077e4e-67b5-4534-bddd-c8b4d1b97f84")
-@SuppressWarnings ("deprecation")
+@SuppressWarnings("deprecation")
 class EmbeddedEditPartViewer implements GraphicalViewer {
     @objid ("e041b9fe-0ff7-4028-9a90-87b1c97566ae")
     private final EmbeddedEditPartRegistry editPartRegistry;
@@ -69,12 +70,17 @@ class EmbeddedEditPartViewer implements GraphicalViewer {
     private final GraphicalViewer parentViewer;
 
     @objid ("d07a4bdf-712f-4e2a-899a-80272d5d3fed")
-    public  EmbeddedEditPartViewer(EmbeddedDiagramRootEditPart rootEp) {
+    public EmbeddedEditPartViewer(EmbeddedDiagramRootEditPart rootEp) {
         Objects.requireNonNull(rootEp);
-        
+
         this.parentViewer = (GraphicalViewer) Objects.requireNonNull(rootEp.getParent().getRoot().getViewer());
         this.editPartRegistry = new EmbeddedEditPartRegistry(this.parentViewer.getEditPartRegistry(), new EmbeddedLayerManager(rootEp));
-        
+    }
+
+    @objid ("7e868208-401b-4a59-9049-dba11277dd88")
+    @Override
+    public EditPart getEditPartForModel(Object model) {
+        return this.editPartRegistry.get(model);
     }
 
     @objid ("6778bac8-98fb-4553-9f43-e62bb9a90e88")
@@ -151,13 +157,13 @@ class EmbeddedEditPartViewer implements GraphicalViewer {
 
     @objid ("192467f7-5e71-4f6b-98bc-de48beb3461b")
     @Override
-    public EditPart findObjectAtExcluding(Point location, Collection exclusionSet) {
+    public EditPart findObjectAtExcluding(Point location, Collection<IFigure> exclusionSet) {
         return getParentViewer().findObjectAtExcluding(location, exclusionSet);
     }
 
     @objid ("d5f9f7c4-d5a1-4f91-b942-7d01eb931ae4")
     @Override
-    public EditPart findObjectAtExcluding(Point location, Collection exclusionSet, Conditional conditional) {
+    public EditPart findObjectAtExcluding(Point location, Collection<IFigure> exclusionSet, Conditional conditional) {
         return getParentViewer().findObjectAtExcluding(location, exclusionSet, conditional);
     }
 
@@ -199,7 +205,7 @@ class EmbeddedEditPartViewer implements GraphicalViewer {
 
     @objid ("c4c34558-5890-4758-9234-2a31fb65e035")
     @Override
-    public Map getEditPartRegistry() {
+    public Map<Object, EditPart> getEditPartRegistry() {
         return this.editPartRegistry;
     }
 
@@ -240,7 +246,7 @@ class EmbeddedEditPartViewer implements GraphicalViewer {
 
     @objid ("92aa1e21-2d70-4e03-9b37-145edfd0917f")
     @Override
-    public List getSelectedEditParts() {
+    public List<? extends EditPart> getSelectedEditParts() {
         return getParentViewer().getSelectedEditParts();
     }
 

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.common.policies;
 
@@ -63,18 +63,19 @@ public class CreateCallActivityCommand extends Command {
 
     /**
      * Initialize the command.
+     *
      * @param dropLocation The location of the element in the diagram
      * @param elementToBeCalled The element to be 'called'.
      * @param editPart The destination edit part that will own the call activity.
      * @param parentElement The element that will own the call activity.
      */
     @objid ("2307b808-2f7a-4926-9602-3397d30b46c5")
-    public  CreateCallActivityCommand(final Point dropLocation, final MObject elementToBeCalled, final EditPart editPart, final MObject parentElement) {
+    public CreateCallActivityCommand(final Point dropLocation, final MObject elementToBeCalled, final EditPart editPart, final MObject parentElement) {
         this.elementToBeCalled = elementToBeCalled;
         this.dropLocation = dropLocation;
         this.editPart = editPart;
         this.parentElement = parentElement;
-        
+
     }
 
     @objid ("388dc21a-bdfb-4fe0-96fd-a914519c999c")
@@ -84,13 +85,13 @@ public class CreateCallActivityCommand extends Command {
         final IGmDiagram gmDiagram = gmModel.getDiagram();
         final IModelManager modelManager = gmDiagram.getModelManager();
         final IStandardModelFactory modelFactory = modelManager.getModelFactory().getFactory(IStandardModelFactory.class);
-        
+
         // Create the smart node
         final BpmnCallActivity newElement = modelFactory.createBpmnCallActivity();
-        
+
         // Set default name
         newElement.setName(modelManager.getModelServices().getElementNamer().getUniqueName(newElement));
-        
+
         // In a BpmnLane, replace the parent with a BpmnProcess or BpmnSubProcess
         if (this.parentElement instanceof BpmnLane) {
             BpmnLane lane = (BpmnLane) this.parentElement;
@@ -101,14 +102,14 @@ public class CreateCallActivityCommand extends Command {
                 this.parentElement = lane.getLaneSet().getSubProcess();
             }
         }
-        
+
         // Attach parent
         if (this.parentElement instanceof BpmnProcess) {
             newElement.setContainer((BpmnProcess) this.parentElement);
         } else if (this.parentElement instanceof BpmnSubProcess) {
             newElement.setSubProcess((BpmnSubProcess) this.parentElement);
         }
-        
+
         if (newElement.getCompositionOwner() == null) {
             // The new element must be attached to its parent using the composition dependency
             // provided by the context.
@@ -126,10 +127,10 @@ public class CreateCallActivityCommand extends Command {
                 throw new IllegalStateException(msg.toString());
             }
         }
-        
+
         // Set called
         Called.setTarget(newElement, (ModelElement) this.elementToBeCalled);
-        
+
         // If called element is a non-process behavior, relate its diagrams
         if (this.elementToBeCalled instanceof Behavior) {
             Behavior behavior = (Behavior) this.elementToBeCalled;
@@ -143,34 +144,35 @@ public class CreateCallActivityCommand extends Command {
                 }
             }
         }
-        
+
         unmaskElement(newElement);
-        
+
     }
 
     /**
      * Unmask the given element in the destination edit part.
+     *
      * @param el The element to unmask
      */
     @objid ("4751a712-2962-4026-8129-a5e4438537ab")
     private void unmaskElement(final MObject el) {
         final ModelioCreationContext gmCreationContext = new ModelioCreationContext(el);
-        
+
         final CreateRequest creationRequest = new CreateRequest();
         creationRequest.setLocation(this.dropLocation);
         creationRequest.setSize(new Dimension(-1, -1));
         creationRequest.setFactory(gmCreationContext);
-        
+
         EditPart targetEditPart = this.editPart.getTargetEditPart(creationRequest);
         if (targetEditPart == null) {
             throw new IllegalStateException(String.format("%s: No target edit part to unmask %s under %s", getClass().getSimpleName(), el, this.editPart));
         }
-        
+
         final Command cmd = targetEditPart.getCommand(creationRequest);
         if (cmd != null && cmd.canExecute()) {
             cmd.execute();
         }
-        
+
     }
 
     @objid ("5562e248-4deb-479c-8618-b6ea2f55049c")
@@ -180,7 +182,7 @@ public class CreateCallActivityCommand extends Command {
                 this.parentElement.isValid() &&
                 this.parentElement.getStatus().isModifiable() &&
                 (this.elementToBeCalled == null || this.elementToBeCalled instanceof ModelElement);
-        
+
     }
 
 }

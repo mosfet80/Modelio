@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.astyle;
 
@@ -53,6 +53,7 @@ public final class AStyle {
 
     /**
      * Call the AStyleMain function in Artistic Style.
+     *
      * @param textIn A string containing the source code to be formatted.
      * @param options A string of options to Artistic Style.
      * @return A String containing the formatted source from Artistic Style, or an empty string on error.
@@ -66,11 +67,12 @@ public final class AStyle {
         } else {
             return textOut;
         }
-        
+
     }
 
     /**
      * Call the AStyleMain function in Artistic Style.
+     *
      * @param inputFile A file containing the source code to be formatted.
      * @param outputFile The file which will contain the formatted source from Artistic Style, or an empty string on error.
      * @param options A string of options to Artistic Style.
@@ -80,17 +82,17 @@ public final class AStyle {
     public static void format(final File inputFile, final File outputFile, final String options) throws IOException {
         String textIn = readFile(inputFile);
         String textOut = format(textIn, options);
-        
+
         writeFile(textOut, outputFile);
-        
+
     }
 
     /**
      * This is a pure service class, it can't be instanciated.
      */
     @objid ("005dfb38-13d7-1f63-9ca6-001e4fea2d8b")
-    private  AStyle() {
-        
+    private AStyle() {
+
     }
 
     @objid ("005e1488-13d7-1f63-9ca6-001e4fea2d8b")
@@ -99,7 +101,7 @@ public final class AStyle {
         int readSize = BUFFERSIZE;
         StringBuffer bufferIn = new StringBuffer(readSize);
         char fileIn[] = new char[readSize];
-        
+
         // read file data
         try (BufferedReader in = new BufferedReader(new FileReader(inputFile))) {
             // use read to preserve the current line endings
@@ -114,14 +116,14 @@ public final class AStyle {
 
     @objid ("005e30c6-13d7-1f63-9ca6-001e4fea2d8b")
     private static void writeFile(final String textOut, final File outFile) throws IOException {
-        if (outFile.exists()) 
+        if (outFile.exists())
             outFile.delete(); // remove existing file
-        
+
         // write the output file
         try (BufferedWriter out = new BufferedWriter(new FileWriter(outFile))) {
             out.write(textOut, 0, textOut.length());
         }
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.bpmn;
 
@@ -63,21 +63,23 @@ public class BpmnServiceTaskPropertyModel extends AbstractPropertyModel<BpmnServ
 
     /**
      * Create a new <i>BpmnServiceTask</i> data model from an <i>BpmnServiceTask</i>.
+     *
      * @param theEditedElement the model to edit.
      * @param modelService the model service needed to find elements.
      * @param mdaExpert the MDA expert to handle Methodological links.
      */
     @objid ("bcd01578-115a-4348-89a6-33ca1bd1b31b")
-    public  BpmnServiceTaskPropertyModel(BpmnServiceTask theEditedElement, IMModelServices modelService, IMdaExpert mdaExpert) {
+    public BpmnServiceTaskPropertyModel(BpmnServiceTask theEditedElement, IMModelServices modelService, IMdaExpert mdaExpert) {
         super(theEditedElement);
         this.modelService = modelService;
         this.mdaExpert = mdaExpert;
         initPropertyModel();
-        
+
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("9dfa31ed-423e-4054-891d-6a0696fc3f24")
@@ -88,6 +90,7 @@ public class BpmnServiceTaskPropertyModel extends AbstractPropertyModel<BpmnServ
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("43c5d48c-5f06-4139-89ad-524fd14155b6")
@@ -102,6 +105,7 @@ public class BpmnServiceTaskPropertyModel extends AbstractPropertyModel<BpmnServ
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -112,7 +116,7 @@ public class BpmnServiceTaskPropertyModel extends AbstractPropertyModel<BpmnServ
         if (col == 0) {
             return getPropertyI18n(this.properties.get(row));
         }
-        
+
         // else
         if (col == 1) // col 1 is the property value
         {
@@ -169,6 +173,7 @@ public class BpmnServiceTaskPropertyModel extends AbstractPropertyModel<BpmnServ
      * This type will be used to choose an editor and a renderer for each cell of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -180,7 +185,7 @@ public class BpmnServiceTaskPropertyModel extends AbstractPropertyModel<BpmnServ
         if (col == 0) {
             return new DefaultStringNatValue((String) getValue(row, col), false);
         }
-        
+
         // else
         if (col == 1) // col 1 is the property value
         {
@@ -203,7 +208,7 @@ public class BpmnServiceTaskPropertyModel extends AbstractPropertyModel<BpmnServ
                         .map(mc -> mc.getJavaInterface())
                         .collect(Collectors.toList());
                 DefaultElementNatValue elementNatValue = new DefaultElementNatValue((MObject) getValue(row, col), true, allowedTargets);
-        
+
                 MClass linkMetaclass = this.theEditedElement.getMClass().getMetamodel().getMClass(MethodologicalLink.class);
                 elementNatValue.setElementFilter(new IMObjectFilter() {
                     @Override
@@ -252,7 +257,7 @@ public class BpmnServiceTaskPropertyModel extends AbstractPropertyModel<BpmnServ
         this.properties.add("Implementation");
         this.properties.add("Operation");
         this.properties.add("LoopCharacteristics");
-        
+
         LoopType type = LoopType.getType(this.theEditedElement);
         if (type == LoopType.Standard) {
             this.properties.add("TestBefore");
@@ -264,13 +269,14 @@ public class BpmnServiceTaskPropertyModel extends AbstractPropertyModel<BpmnServ
             this.properties.add("CompletionCondition");
             this.properties.add("EventDefinition");
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -282,7 +288,7 @@ public class BpmnServiceTaskPropertyModel extends AbstractPropertyModel<BpmnServ
         if (col == 0) {
             return;
         }
-        
+
         if (col == 1) // col 1 is the property value
         {
             if (row == 0) {
@@ -330,7 +336,7 @@ public class BpmnServiceTaskPropertyModel extends AbstractPropertyModel<BpmnServ
                 }
             }
         }
-        
+
     }
 
 }

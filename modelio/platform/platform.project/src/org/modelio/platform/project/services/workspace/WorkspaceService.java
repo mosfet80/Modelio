@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.project.services.workspace;
 
@@ -58,7 +58,7 @@ public class WorkspaceService implements IWorkspaceService {
     private Path workspace;
 
     @objid ("28bbf1b8-8b77-4484-8291-3b1a14723032")
-    public  WorkspaceService(Path initialWorkspace) {
+    public WorkspaceService(Path initialWorkspace) {
         this.workspace = initialWorkspace;
     }
 
@@ -87,7 +87,7 @@ public class WorkspaceService implements IWorkspaceService {
                 throw new IllegalArgumentException("Invalid workspace path: " + workspacePath);
             }
         }
-        
+
     }
 
     @objid ("44289020-da16-41da-ba85-823c5f2e42c5")
@@ -101,13 +101,14 @@ public class WorkspaceService implements IWorkspaceService {
     public void deleteProject(final GProjectDescriptor projectToDelete) throws IOException, FileSystemException {
         // TODO this is a quite naive implementation
         // should deal with project path for delegating project
-        
+
         FileUtils.delete(projectToDelete.getProjectFileStructure().getProjectPath());
         refreshWorkspace(null);
-        
+
     }
 
     /**
+     *
      * @throws IOException in case of I/O failure.
      */
     @objid ("0089fb8e-8c65-103c-a520-001ec947cd2a")
@@ -115,17 +116,17 @@ public class WorkspaceService implements IWorkspaceService {
     public void exportProject(final GProjectDescriptor projectToExport, final Path archivePath, final IModelioProgress monitor) throws IOException {
         final Zipper zipper = new Zipper(archivePath);
         final List<PathMatcher> skipDirectoryMatchers = new ArrayList<>();
-        
+
         // do not export .runtime/modules directory
         skipDirectoryMatchers.add(FileSystems.getDefault().getPathMatcher(("glob:**" + projectToExport.getProjectFileStructure().getProjectRuntimePath().resolve("modules")).replace("\\", "\\\\")));
-        
+
         // do not export .DS_Store directory (MacOs)
         skipDirectoryMatchers.add(FileSystems.getDefault().getPathMatcher("glob:**.DS_Store"));
-        
+
         zipper.compress(projectToExport.getProjectFileStructure().getProjectPath(), skipDirectoryMatchers, null, monitor, null);
-        
+
         AppProjectCore.LOG.info("Exported archive '%s' %,d bytes.", archivePath, Files.size(archivePath));
-        
+
     }
 
     @objid ("0080f426-acc2-103b-a520-001ec947cd2a")
@@ -138,6 +139,7 @@ public class WorkspaceService implements IWorkspaceService {
     }
 
     /**
+     *
      * @param projectToSelect the project to select after refresh, can be null
      */
     @objid ("008118fc-acc2-103b-a520-001ec947cd2a")
@@ -147,7 +149,7 @@ public class WorkspaceService implements IWorkspaceService {
         if (projectToSelect != null) {
             this.projectServiceAccess.postAsyncEvent(ModelioEvent.WORKSPACE_NAVIGATE, projectToSelect);
         }
-        
+
     }
 
     @objid ("ddfed9a9-bcb8-4683-9326-13ed63566396")
@@ -155,20 +157,20 @@ public class WorkspaceService implements IWorkspaceService {
     public void renameProject(final GProjectDescriptor projectDescriptor, final String name) throws IOException {
         final Path oldPath = projectDescriptor.getProjectFileStructure().getProjectPath();
         final Path newPath = oldPath.resolveSibling(name);
-        
+
         // Move the project directory itself
         Files.move(oldPath, newPath, StandardCopyOption.ATOMIC_MOVE);
-        
+
         // Change the project name and project space path
         projectDescriptor.setName(name);
         projectDescriptor.setPath(newPath);
-        
+
         // Write the new project conf
         new GProjectDescriptorWriter().write(projectDescriptor);
-        
+
         // Notify workspace for refresh
         refreshWorkspace(name);
-        
+
     }
 
     /**
@@ -177,12 +179,13 @@ public class WorkspaceService implements IWorkspaceService {
      * <li>use the last used workspace as saved in the preferences</li>
      * <li>default to user's home directory otherwise</li>
      * </ol>
+     *
      * @return the workspace path
      */
     @objid ("0035c4b0-7baa-10b3-9941-001ec947cd2a")
     private Path readPreferedWorkspace() {
         final IEclipsePreferences prefs = InstanceScope.INSTANCE.getNode(AppProjectCore.PLUGIN_ID);
-        
+
         final String lastUsed = prefs.get(WorkspaceService.LAST_USED_WORKSPACE_PREFERENCE_KEY, null);
         if (lastUsed != null) {
             final Path lastPath = Paths.get(lastUsed);
@@ -203,13 +206,14 @@ public class WorkspaceService implements IWorkspaceService {
 
     /**
      * Write the workspace preferences
+     *
      * @param workspace the workspace path
      */
     @objid ("0035eddc-7baa-10b3-9941-001ec947cd2a")
     private void writePreferedWorkspace(final Path workspace) {
         if (workspace != null) {
             final IEclipsePreferences prefs = InstanceScope.INSTANCE.getNode(AppProjectCore.PLUGIN_ID);
-        
+
             prefs.put(WorkspaceService.LAST_USED_WORKSPACE_PREFERENCE_KEY, workspace.toString());
             try {
                 prefs.flush();
@@ -217,12 +221,12 @@ public class WorkspaceService implements IWorkspaceService {
                 AppProjectCore.LOG.error(e);
             }
         }
-        
+
     }
 
     @objid ("849dd81c-478d-48a1-9588-6afd796b0995")
-    public  WorkspaceService() {
-        
+    public WorkspaceService() {
+
     }
 
 }

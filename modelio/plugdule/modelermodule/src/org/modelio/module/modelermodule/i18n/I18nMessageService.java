@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.module.modelermodule.i18n;
 
@@ -41,10 +41,10 @@ public class I18nMessageService {
      * Constructor.
      */
     @objid ("07afc650-a6d6-49a3-b4ac-177cfb5b7ae4")
-    private  I18nMessageService() {
+    private I18nMessageService() {
         Locale locale = Locale.getDefault();
         this.messageResource = ResourceBundle.getBundle(FILE_NAME_MESSAGES, locale);
-        
+
     }
 
     /**
@@ -59,6 +59,7 @@ public class I18nMessageService {
     }
 
     /**
+     *
      * @return the messageResource
      */
     @objid ("b610120d-efba-47d4-bd6f-1a420fb9867f")
@@ -68,6 +69,7 @@ public class I18nMessageService {
 
     /**
      * Get message value from key.
+     *
      * @param key the key for the desired string.
      * @return the string for the given key.
      */
@@ -78,6 +80,7 @@ public class I18nMessageService {
 
     /**
      * Get list of messages values from key with parameters.
+     *
      * @param key the key for the desired string.
      * @param params an array of objects to be formatted and substituted.
      * @return the string for the given key.

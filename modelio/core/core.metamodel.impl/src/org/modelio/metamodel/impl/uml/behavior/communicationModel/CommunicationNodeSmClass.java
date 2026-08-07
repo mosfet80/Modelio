@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.communicationModel;
 
 import java.util.ArrayList;
@@ -50,94 +49,93 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("56558095-d704-48b2-8db0-7279fe43bfa4")
 public class CommunicationNodeSmClass extends UmlModelElementSmClass {
-    @objid ("f789ee58-432e-4d2a-a131-4cbd17deb9f6")
+    @objid ("4fbe59b8-9b0e-44c5-84e3-379887b9b305")
     private SmAttribute selectorAtt;
 
-    @objid ("873cfcfd-2e9a-4479-b47d-4feeb47dca8a")
+    @objid ("613603b7-1de0-4168-8a7e-4c767b591b3e")
     private SmDependency ownerDep;
 
-    @objid ("4e554240-7234-4de4-af62-37b1d6e717b8")
+    @objid ("bab110a4-db72-49f9-8e2d-0eb2c51da4fd")
     private SmDependency representedDep;
 
-    @objid ("33b0020b-d043-4608-bdfa-c08c03dbfb88")
+    @objid ("d3760767-d825-49ea-8ed3-f67104b057c2")
     private SmDependency startedDep;
 
-    @objid ("36b29270-dd1f-4a84-990e-7a839895a8a3")
+    @objid ("9c5cd2c6-81dc-4fbf-aa08-ae0030462b46")
     private SmDependency endedDep;
 
-    @objid ("efacf42a-c0d8-413f-adef-d408f5d6ac6e")
-    public  CommunicationNodeSmClass(ISmMetamodelFragment origin) {
+    @objid ("ac5bac4c-8e9f-4544-8ee2-e7f1fb385687")
+    public CommunicationNodeSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("f5ea5fd7-6965-430a-831d-40b176c5d3fb")
+    @objid ("365a02be-4a42-4917-8bcb-993fd8e34798")
     @Override
     public String getName() {
         return "CommunicationNode";
-        
+
     }
 
-    @objid ("e1495814-9285-45dd-aec4-866dd8dd6598")
+    @objid ("414aead4-7365-4651-b559-4fb2bb13c31f")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("621b3819-d32f-4062-a652-0d6f35af6397")
+    @objid ("22a8609a-0779-411f-8cdd-4d873d4b8f29")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return CommunicationNode.class;
-        
+
     }
 
-    @objid ("9c215267-e021-446e-85c3-377cbd9cb064")
+    @objid ("4ba4999f-de7d-4ad5-a0d5-9b41c2c76c09")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("1c91b9b8-2c0c-46bb-8257-3f5a36941d5e")
+    @objid ("7cd453db-0f31-4ee4-87e2-e4e087fa8e6c")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("973ce7e2-b108-4617-9576-ee23f6ff03a1")
+    @objid ("e1d41f9b-f47d-431a-a480-f2dba0de062a")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(UmlModelElement.MQNAME);
         this.registerFactory(new CommunicationNodeObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
         this.selectorAtt = new SelectorSmAttribute();
         this.selectorAtt.init("Selector", this, String.class );
         registerAttribute(this.selectorAtt);
-        
-        
+
+
         // Initialize and register the SmDependency
         this.ownerDep = new OwnerSmDependency();
         this.ownerDep.init("Owner", this, metamodel.getMClass(CommunicationInteraction.MQNAME), 0, 1 );
         registerDependency(this.ownerDep);
-        
+
         this.representedDep = new RepresentedSmDependency();
         this.representedDep.init("Represented", this, metamodel.getMClass(Instance.MQNAME), 0, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.representedDep);
-        
+
         this.startedDep = new StartedSmDependency();
         this.startedDep.init("Started", this, metamodel.getMClass(CommunicationChannel.MQNAME), 0, -1 , SmDirective.SMCDCOMPONENT, SmDirective.SMCDTODELETE);
         registerDependency(this.startedDep);
-        
+
         this.endedDep = new EndedSmDependency();
         this.endedDep.init("Ended", this, metamodel.getMClass(CommunicationChannel.MQNAME), 0, -1 , SmDirective.SMCDTODELETE);
         registerDependency(this.endedDep);
-        
-        
+
     }
 
-    @objid ("2163fac9-e384-40b1-a29c-dbcb30b553f3")
+    @objid ("184c74bd-f19c-48d6-9f36-f600512f2e74")
     public SmAttribute getSelectorAtt() {
         if (this.selectorAtt == null) {
         	this.selectorAtt = this.getAttributeDef("Selector");
@@ -145,7 +143,7 @@ public class CommunicationNodeSmClass extends UmlModelElementSmClass {
         return this.selectorAtt;
     }
 
-    @objid ("125b6915-c1d8-4797-a62f-13f6359028e0")
+    @objid ("9173a9b4-dc08-4a69-9ccd-e860b26df55b")
     public SmDependency getOwnerDep() {
         if (this.ownerDep == null) {
         	this.ownerDep = this.getDependencyDef("Owner");
@@ -153,7 +151,7 @@ public class CommunicationNodeSmClass extends UmlModelElementSmClass {
         return this.ownerDep;
     }
 
-    @objid ("0d8ced35-9b49-4683-a87a-0263e7536f1c")
+    @objid ("16c8d205-b67c-4873-8ae3-cfde121b901b")
     public SmDependency getRepresentedDep() {
         if (this.representedDep == null) {
         	this.representedDep = this.getDependencyDef("Represented");
@@ -161,7 +159,7 @@ public class CommunicationNodeSmClass extends UmlModelElementSmClass {
         return this.representedDep;
     }
 
-    @objid ("6fd8374c-03b8-4dc6-969d-4ed489d2c4a7")
+    @objid ("43fafb73-fa0b-49fa-9c4c-ee588f5f42d5")
     public SmDependency getStartedDep() {
         if (this.startedDep == null) {
         	this.startedDep = this.getDependencyDef("Started");
@@ -169,7 +167,7 @@ public class CommunicationNodeSmClass extends UmlModelElementSmClass {
         return this.startedDep;
     }
 
-    @objid ("107dda31-0f6b-4330-93c8-e545cb26267a")
+    @objid ("47834db3-df60-447d-9fd3-7d8683f742d7")
     public SmDependency getEndedDep() {
         if (this.endedDep == null) {
         	this.endedDep = this.getDependencyDef("Ended");
@@ -179,21 +177,21 @@ public class CommunicationNodeSmClass extends UmlModelElementSmClass {
 
     @objid ("c0884110-3fd3-4da7-86eb-f6b34fc8e63c")
     private static class CommunicationNodeObjectFactory implements ISmObjectFactory {
-        @objid ("809d71a9-3f58-4098-8085-a043d4404cc3")
+        @objid ("86ca550f-4c63-4850-91fb-e757b4d2bb58")
         private CommunicationNodeSmClass smClass;
 
-        @objid ("434cfc93-9d75-4716-b11e-8a429b712598")
-        public  CommunicationNodeObjectFactory(CommunicationNodeSmClass smClass) {
+        @objid ("52d3c0dd-cff1-4dbf-97ab-393fe4e75260")
+        public CommunicationNodeObjectFactory(CommunicationNodeSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("9f953708-5d3b-415a-a9b3-074b0ea3b2b2")
+        @objid ("006f5238-3426-4ac5-b8e9-6b2ef053e81e")
         @Override
         public ISmObjectData createData() {
             return new CommunicationNodeData(this.smClass);
         }
 
-        @objid ("3c1125ef-de90-4f89-999b-fa9c7c99f13d")
+        @objid ("7034a3e8-7544-4080-b1bc-904cb5cae167")
         @Override
         public SmObjectImpl createImpl() {
             return new CommunicationNodeImpl();
@@ -203,12 +201,12 @@ public class CommunicationNodeSmClass extends UmlModelElementSmClass {
 
     @objid ("fee409d4-004c-49fd-8645-9e7778a471b3")
     public static class SelectorSmAttribute extends SmAttribute {
-        @objid ("e29a6cf4-3fd7-46c6-b8fd-70ce492a22a0")
+        @objid ("2e9d2fa7-e431-43b0-9210-95ba68246815")
         public Object getValue(ISmObjectData data) {
             return ((CommunicationNodeData) data).mSelector;
         }
 
-        @objid ("05f0977f-175b-4560-8c41-dd84f439ef3b")
+        @objid ("b2580642-f532-4bde-b295-4b5948c55179")
         public void setValue(ISmObjectData data, Object value) {
             ((CommunicationNodeData) data).mSelector = value;
         }
@@ -217,118 +215,118 @@ public class CommunicationNodeSmClass extends UmlModelElementSmClass {
 
     @objid ("f3b5abb7-378a-4bdd-ae5c-a328e83f964d")
     public static class OwnerSmDependency extends SmSingleDependency {
-        @objid ("3875772a-97f1-4408-9e18-378a66633f90")
+        @objid ("ed6632b8-a5d7-4f9d-a721-4932c4284f99")
         private SmDependency symetricDep;
 
-        @objid ("b54d0743-fa72-42bc-90ad-cd1eed3ec5ad")
+        @objid ("78992c3f-a302-41da-8742-f367b3caa0b7")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((CommunicationNodeData) data).mOwner;
         }
 
-        @objid ("43524e4e-1e0e-4836-8157-bca5c621ac33")
+        @objid ("d8a051c5-18a0-460a-a691-e356a208b597")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((CommunicationNodeData) data).mOwner = value;
         }
 
-        @objid ("f14295e6-5b76-48bc-bf39-da28d837f1ca")
+        @objid ("a3f34178-ae20-4799-b47e-d9459ff1b645")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((CommunicationInteractionSmClass)this.getTarget()).getOwnedDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("20818289-f575-46b1-b85f-5135e82d0819")
     public static class RepresentedSmDependency extends SmSingleDependency {
-        @objid ("943c21d6-8058-4ba8-aae2-3ce0cfd4ed5c")
+        @objid ("3034d236-96e2-480e-aaa5-538a646434f1")
         private SmDependency symetricDep;
 
-        @objid ("7ee8b087-0bee-4309-883b-c251b8a4c8ce")
+        @objid ("3f8ddb1e-167b-4079-9573-a639c1d44fd5")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((CommunicationNodeData) data).mRepresented;
         }
 
-        @objid ("d455f9e1-0ff7-4aef-a550-95e4d897c3d6")
+        @objid ("fac51855-86f1-4589-8250-31817b01f905")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((CommunicationNodeData) data).mRepresented = value;
         }
 
-        @objid ("b7f1415a-8c96-4e91-88ec-906f57b38ff7")
+        @objid ("09eda9a9-ea7c-41fe-8540-6306e3bb2a71")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((InstanceSmClass)this.getTarget()).getRepresentedCommunicationNodeDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("8a197959-d3f1-407f-9794-3e565d155a07")
     public static class StartedSmDependency extends SmMultipleDependency {
-        @objid ("ac53a773-547e-4be8-87d3-0d12449e4d70")
+        @objid ("6c3e50c4-c3c4-4507-b739-315cccac6d8a")
         private SmDependency symetricDep;
 
-        @objid ("b8813c31-cbfd-4d19-9d01-89ac51ba86cc")
+        @objid ("39840f1a-f0bd-4ad5-a9dd-932816788ecf")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((CommunicationNodeData)data).mStarted != null)? ((CommunicationNodeData)data).mStarted:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("e6b18c45-27e8-4a48-aefd-56651a0e7cc1")
+        @objid ("d3afac24-cc26-4bfc-88c0-2511c1e1c92a")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((CommunicationNodeData) data).mStarted = values;
-            
+
         }
 
-        @objid ("4a10f825-dd22-4e4b-b8fa-5cb1a26ffdcd")
+        @objid ("26b50fce-a61d-417f-8652-f7d3a86cef4a")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((CommunicationChannelSmClass)this.getTarget()).getStartDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("8a240d7e-6b99-4f87-9e38-4bace844fe87")
     public static class EndedSmDependency extends SmMultipleDependency {
-        @objid ("ec7f99aa-17bf-470f-8a3f-66c0c4649cbc")
+        @objid ("548a575b-6659-4049-a603-f0ed86eba15b")
         private SmDependency symetricDep;
 
-        @objid ("60727768-6b97-4625-b632-405e8b559a21")
+        @objid ("7ac01f5c-bc90-4e6c-acbb-80ec6ddc40a5")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((CommunicationNodeData)data).mEnded != null)? ((CommunicationNodeData)data).mEnded:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("7967b236-15c6-44d6-b2ec-a8d770836844")
+        @objid ("9cd4c3ec-2259-4bde-8443-ae6287a10033")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((CommunicationNodeData) data).mEnded = values;
-            
+
         }
 
-        @objid ("9fbc60e4-3a9e-4450-b82e-9aa7eb8ff793")
+        @objid ("125cf95f-19d9-4834-b52f-6e81e4b365bb")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((CommunicationChannelSmClass)this.getTarget()).getEndDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

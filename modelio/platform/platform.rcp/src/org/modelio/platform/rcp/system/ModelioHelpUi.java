@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.rcp.system;
 
@@ -36,20 +36,20 @@ import org.modelio.platform.rcp.plugin.CoreRcp;
 
 @objid ("7aafb1f9-8193-4526-ac6f-e8811139860d")
 public class ModelioHelpUi {
-    @objid ("8236e2ae-04f2-48c2-8fdf-44019cb590ae")
-    private static ModelioHelpUi instance;
-
-    @objid ("377f3775-0e99-4112-adf3-c3fdd9edb892")
+    @objid ("527b54a7-7457-4cef-8d85-76fb55c9abfe")
     private Browser browser;
 
-    @objid ("da85e7dd-6d43-4a06-9849-1d4983270756")
+    @objid ("decf53ed-0df0-4774-b64f-9944a3201a31")
     private Shell shellWindow;
+
+    @objid ("8236e2ae-04f2-48c2-8fdf-44019cb590ae")
+    private static ModelioHelpUi instance;
 
     /**
      * Constructor.
      */
     @objid ("94dcc31c-55ee-461e-8e80-5e858a730079")
-    public  ModelioHelpUi() {
+    public ModelioHelpUi() {
         ModelioHelpUi.instance = this;
     }
 
@@ -58,11 +58,11 @@ public class ModelioHelpUi {
         if (this.shellWindow == null || this.browser.isDisposed()) {
             createGui();
         }
-        
+
         if (this.shellWindow.getMinimized()) {
             this.shellWindow.setMinimized(false);
         }
-        
+
         this.shellWindow.forceActive();
         return this.browser;
     }
@@ -83,7 +83,7 @@ public class ModelioHelpUi {
         } else {
             CoreRcp.LOG.debug("help resource not found: " + "../index.jsp");
         }
-        
+
     }
 
     /**
@@ -101,7 +101,7 @@ public class ModelioHelpUi {
         } else {
             CoreRcp.LOG.debug("help resource not found: " + href);
         }
-        
+
     }
 
     @objid ("4946cad6-70a3-4919-b07b-e72a037dc768")
@@ -118,30 +118,29 @@ public class ModelioHelpUi {
         }
         this.shellWindow.setText(CoreRcp.I18N.getString("HelpWindow.title"));
         this.shellWindow.setLayout(new GridLayout());
-        
         this.browser = new Browser(this.shellWindow, SWT.BORDER);
         this.browser.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         this.shellWindow.addDisposeListener(new DisposeListener() {
-        
+
             @Override
             public void widgetDisposed(DisposeEvent e) {
                 ModelioHelpUi.this.browser = null;
                 ModelioHelpUi.this.shellWindow = null;
-        
+
             }
         });
-        
+
         this.shellWindow.setSize(800, 600);
         Monitor primary = this.shellWindow.getDisplay().getPrimaryMonitor();
         Rectangle bounds = primary.getBounds();
         Rectangle rect = this.shellWindow.getBounds();
-        
+
         int x = bounds.x + (bounds.width - rect.width) / 2;
         int y = bounds.y + (bounds.height - rect.height) / 2;
-        
+
         this.shellWindow.setLocation(x, y);
         this.shellWindow.open();
-        
+
     }
 
 }

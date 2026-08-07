@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.abstractdiagram;
 
@@ -36,7 +36,7 @@ import org.modelio.diagram.elements.core.figures.freeform.FreeformLayer2;
 
 /**
  * Figure to represent a diagram.
- * 
+ *
  * @author phv
  */
 @objid ("7e05eb34-1dec-11e2-8cad-001ec947c8cc")
@@ -54,17 +54,17 @@ public class AbstractDiagramFigure extends FreeformLayer2 {
      * Constructor
      */
     @objid ("7e084d40-1dec-11e2-8cad-001ec947c8cc")
-    public  AbstractDiagramFigure() {
+    public AbstractDiagramFigure() {
         super();
-        
+
         setBounds(new Rectangle(new Point(0, 0), this.pageBoundaries));
         setLayoutManager(new AbstractDiagramLayout());
-        
+
         // the abstract diagram figure must be kept transparent in order
         // for the grid and the background to be displayed
         setBackgroundColor(null);
         setOpaque(false);
-        
+
     }
 
     @objid ("7e084d43-1dec-11e2-8cad-001ec947c8cc")
@@ -76,17 +76,19 @@ public class AbstractDiagramFigure extends FreeformLayer2 {
 
     /**
      * Set page boundary dimensions.
+     *
      * @param size the page boundary dimensions.
      */
     @objid ("7e084d4a-1dec-11e2-8cad-001ec947c8cc")
     public void setPageBoundaries(Dimension size) {
         this.pageBoundaries = size;
         repaint();
-        
+
     }
 
     /**
      * Set the working area bounds.
+     *
      * @param r The new work area bounds.
      */
     @objid ("7e084d50-1dec-11e2-8cad-001ec947c8cc")
@@ -94,14 +96,15 @@ public class AbstractDiagramFigure extends FreeformLayer2 {
         if (r.equals(this.workarea)) {
             return;
         }
-        
+
         this.workarea = r;
         fireExtentChanged();
-        
+
     }
 
     /**
      * Toggle display of page boundaries.
+     *
      * @param onOff true to display page boundaries, false to hide them.
      */
     @objid ("7e084d56-1dec-11e2-8cad-001ec947c8cc")
@@ -110,7 +113,7 @@ public class AbstractDiagramFigure extends FreeformLayer2 {
             this.showPageBoundaries = onOff;
             repaint();
         }
-        
+
     }
 
     @objid ("7e084d5a-1dec-11e2-8cad-001ec947c8cc")
@@ -121,11 +124,11 @@ public class AbstractDiagramFigure extends FreeformLayer2 {
             graphics.setBackgroundColor(ColorConstants.blue);
             graphics.setLineStyle(SWT.LINE_DASH);
             Rectangle r = getBounds().getCopy();
-        
+
             Rectangle min = computeMinimumBounds();
             r.setLocation(min.getLocation());
             r.translate(-5, -5);
-        
+
             if (this.pageBoundaries.width > 0) {
                 int i = r.x;
                 while (i < r.width) {
@@ -133,7 +136,7 @@ public class AbstractDiagramFigure extends FreeformLayer2 {
                     i += this.pageBoundaries.width;
                 }
             }
-        
+
             if (this.pageBoundaries.height > 0) {
                 int j = r.y;
                 while (j < r.height) {
@@ -141,13 +144,14 @@ public class AbstractDiagramFigure extends FreeformLayer2 {
                     j += this.pageBoundaries.height;
                 }
             }
-        
+
         }
-        
+
     }
 
     /**
      * Overridden to disable Layer implementation that refuse to return this figure if transparent .
+     *
      * @see Layer#findFigureAt(int, int, TreeSearch)
      */
     @objid ("a1e0f29a-dfea-412a-9229-7ae1e4df6392")
@@ -156,14 +160,14 @@ public class AbstractDiagramFigure extends FreeformLayer2 {
         if (!isEnabled()) {
             return null;
         }
-        
+
         if (!containsPoint(x, y)) {
             return null;
         }
         if (search.prune(this)) {
             return null;
         }
-        
+
         IFigure child = findDescendantAtExcluding(x, y, search);
         if (child != null) {
             return child;
@@ -175,6 +179,7 @@ public class AbstractDiagramFigure extends FreeformLayer2 {
     }
 
     /**
+     *
      * @return <code>true</code> when page boundaries are displayed, <code>false</code> if they are hidden.
      */
     @objid ("c5d74632-64e4-4c68-a385-cdf424d95353")
@@ -192,24 +197,24 @@ public class AbstractDiagramFigure extends FreeformLayer2 {
         int xMax = Integer.MIN_VALUE;
         int yMin = Integer.MAX_VALUE;
         int yMax = Integer.MIN_VALUE;
-        
+
         for (final Object o : connectionLayer.getChildren()) {
             final Rectangle b = ((Figure) o).getBounds();
-        
+
             if (b.x < xMin) {
                 xMin = b.x;
             }
             if (b.x + b.width > xMax) {
                 xMax = b.x + b.width;
             }
-        
+
             if (b.y < yMin) {
                 yMin = b.y;
             }
             if (b.y + b.height > yMax) {
                 yMax = b.y + b.height;
             }
-        
+
         }
         return new Rectangle(xMin, yMin, xMax - xMin, yMax - yMin);
     }
@@ -225,7 +230,7 @@ public class AbstractDiagramFigure extends FreeformLayer2 {
         int xMax = Integer.MIN_VALUE;
         int yMin = Integer.MAX_VALUE;
         int yMax = Integer.MIN_VALUE;
-        
+
         for (final Object fig : getChildren()) {
             final Rectangle b;
             if (fig instanceof FreeformFigure) {
@@ -235,25 +240,25 @@ public class AbstractDiagramFigure extends FreeformLayer2 {
             } else {
                 b = ((Figure) fig).getBounds();
             }
-        
+
             if (b.isEmpty()) {
                 continue;
             }
-        
+
             if (b.x < xMin) {
                 xMin = b.x;
             }
             if (b.x + b.width > xMax) {
                 xMax = b.x + b.width;
             }
-        
+
             if (b.y < yMin) {
                 yMin = b.y;
             }
             if (b.y + b.height > yMax) {
                 yMax = b.y + b.height;
             }
-        
+
         }
         return new Rectangle(xMin, yMin, xMax - xMin, yMax - yMin);
     }

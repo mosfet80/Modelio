@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.abstraction;
 
@@ -28,7 +28,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * MObject import header displayed on the node link.
- * 
+ *
  * @author cmarin
  */
 @objid ("43a128a5-5353-493d-ae7e-31b037c14379")
@@ -44,11 +44,12 @@ public class GmAbstractionHeader extends GmDefaultModelElementHeader {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram
      * @param relatedRef a reference to the element this GmModel is related to, must not be null.
      */
     @objid ("384dbae0-b51c-418d-a612-f24db0c610b2")
-    public  GmAbstractionHeader(IGmDiagram diagram, MRef relatedRef) {
+    public GmAbstractionHeader(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -56,8 +57,8 @@ public class GmAbstractionHeader extends GmDefaultModelElementHeader {
      * For deserialization only.
      */
     @objid ("901ff967-e4c6-4953-ac33-5d5c03be56f1")
-    public  GmAbstractionHeader() {
-        
+    public GmAbstractionHeader() {
+
     }
 
     @objid ("18080172-15c6-4846-8cbb-4a6ad15335cf")
@@ -77,17 +78,17 @@ public class GmAbstractionHeader extends GmDefaultModelElementHeader {
                 break;
             }
         }
-        
+
     }
 
     @objid ("240aa6c4-0a07-4d21-84e0-184901cb6a7e")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmAbstractionHeader.", GmAbstractionHeader.MINOR_VERSION);
-        
+
     }
 
     @objid ("5a853233-3f17-42cd-b65e-16d94ab1d466")

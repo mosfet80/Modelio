@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.browser.view.panel;
 
@@ -25,7 +25,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
@@ -160,6 +160,7 @@ public class ModelBrowserPanelProvider implements IPanelProvider, IElementNameEd
 
     /**
      * Makes this view editable. <code>modelingSession</code> is mandatory otherwise edition cannot be supported. To deactivate edition, call <code>activateEdition(null)</code>
+     *
      * @param newModelingSession the current edited modeling session.
      */
     @objid ("1fc49987-1de3-11e2-bcbe-002564c97630")
@@ -171,35 +172,36 @@ public class ModelBrowserPanelProvider implements IPanelProvider, IElementNameEd
                 if (subContentProvider != null) {
                     this.contentProvider.registerExtension(fragment, subContentProvider);
                 }
-        
+
                 IModelioElementLabelProvider subLabelProvider = this.labelProviderExtensions.get(fragment);
                 if (subLabelProvider != null) {
                     this.baseProvider.registerExtension(fragment.getName(), subLabelProvider);
                 }
             }
         }
-        
+
         if (this.treeViewer != null) {
             this.nameModifier = new ElementNameCellModifier();
             this.treeViewer.setCellModifier(this.nameModifier);
-        
+
             if (this.dragListener == null) {
                 this.dragListener = new MObjectViewerDragProvider(this.treeViewer);
                 this.treeViewer.addDragSupport(DND.DROP_MOVE | DND.DROP_COPY, new Transfer[] { ModelElementTransfer.getInstance() }, this.dragListener);
             }
-        
+
             if (this.dropListener == null) {
                 this.dropListener = new MObjectViewerDropListener(this.treeViewer);
                 this.treeViewer.addDropSupport(DND.DROP_MOVE | DND.DROP_COPY, new Transfer[] { ModelElementTransfer.getInstance() }, this.dropListener);
             }
-        
+
             this.treeViewer.refresh(true);
         }
-        
+
     }
 
     /**
      * Called to create the view and initialize it.
+     *
      * @return the browser tree viewer.
      */
     @objid ("57ccc2d7-d023-11e1-9020-002564c97630")
@@ -207,11 +209,11 @@ public class ModelBrowserPanelProvider implements IPanelProvider, IElementNameEd
     public TreeViewer createPanel(Composite parent) {
         this.treeViewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
         this.treeViewer.setUseHashlookup(true);
-        
+
         configureTreeviewer();
-        
+
         initEditor();
-        
+
         this.treeViewer.setInput(null);
         return this.treeViewer;
     }
@@ -230,6 +232,7 @@ public class ModelBrowserPanelProvider implements IPanelProvider, IElementNameEd
 
     /**
      * Get the current element displayed by the view.
+     *
      * @return the model element whose content is listed in the model tree. May be null.
      */
     @objid ("57ccc2e3-d023-11e1-9020-002564c97630")
@@ -267,6 +270,7 @@ public class ModelBrowserPanelProvider implements IPanelProvider, IElementNameEd
 
     /**
      * Set the current element displayed by the view.
+     *
      * @param input the model element whose content is listed in the model tree panel. May be null.
      */
     @objid ("57ccc2e9-d023-11e1-9020-002564c97630")
@@ -278,7 +282,7 @@ public class ModelBrowserPanelProvider implements IPanelProvider, IElementNameEd
         } else if (input instanceof IGProject) {
             activateEdition(((IGProject) input).getSession());
         }
-        
+
     }
 
     @objid ("002b00ca-78e3-107d-a016-001ec947cd2a")
@@ -295,7 +299,7 @@ public class ModelBrowserPanelProvider implements IPanelProvider, IElementNameEd
     public void setSelection(List<?> elements) {
         final IStructuredSelection treeSelection = new StructuredSelection(elements);
         this.treeViewer.setSelection(treeSelection);
-        
+
         // Check each asked element is displayed in the browser.
         // For each element not displayed in the browser, look for a parent element to select instead.
         List<?> requestedSel = elements;
@@ -316,35 +320,35 @@ public class ModelBrowserPanelProvider implements IPanelProvider, IElementNameEd
                     }
                 }
             }
-        
+
             this.treeViewer.setSelection(new StructuredSelection(req2));
             requestedSel = req2;
             obtainedSel = SelectionHelper.toList(this.treeViewer.getStructuredSelection(), Object.class);
         }
-        
+
         if (this.partService != null) {
             // Make the browser view active to trigger its "selection provider"
             this.partService.showPart(this.mpart, PartState.ACTIVATE);
         }
-        
+
     }
 
     @objid ("72459266-4540-11e2-aeb7-002564c97630")
     public void setShowModuleFragments(boolean showModuleFragments) {
         this.contentProvider.setShowModuleFragments(showModuleFragments);
         this.treeViewer.refresh(true);
-        
+
     }
 
     @objid ("19e55b6a-cb92-4f35-8714-626d958de77c")
     private void configureTreeviewer() {
         this.baseProvider = new BrowserLabelProvider();
-        
+
         // Keep configuration before switching content provider
         if (this.contentProvider != null) {
             boolean showModuleFragments = this.contentProvider.isShowModuleFragments();
             List<Object> localRoots = this.contentProvider.getLocalRoots();
-        
+
             this.contentProvider = new BrowserContentProvider();
             if (this.modelingSession != null) {
                 for (MMetamodelFragment fragment : this.modelingSession.getMetamodel().getFragments()) {
@@ -352,41 +356,41 @@ public class ModelBrowserPanelProvider implements IPanelProvider, IElementNameEd
                     if (subContentProvider != null) {
                         this.contentProvider.registerExtension(fragment, subContentProvider);
                     }
-        
+
                     IModelioElementLabelProvider subLabelProvider = this.labelProviderExtensions.get(fragment);
                     if (subLabelProvider != null) {
                         this.baseProvider.registerExtension(fragment.getName(), subLabelProvider);
                     }
                 }
             }
-        
+
             // Restore configuration
             this.contentProvider.setShowModuleFragments(showModuleFragments);
             this.contentProvider.setLocalRoots(localRoots);
         } else {
             this.contentProvider = new BrowserContentProvider();
         }
-        
+
         this.treeViewer.setContentProvider(this.contentProvider);
-        
+
         this.treeViewer.setLabelProvider(new ElementDecoratedStyledLabelProvider(this.baseProvider, true, true));
-        
+
         // Add tooltip support
         ColumnViewerToolTipSupport.enableFor(this.treeViewer);
-        
+
         // Add the contextual menu
         if (this.menuService != null) {
             this.menuService.registerContextMenu(this.treeViewer.getTree(), BrowserView.POPUP_ID);
         }
-        
+
         // Add the selection provider
         this.treeViewer.addSelectionChangedListener(
                 event -> onSelectionChanged(event.getSelection()));
-        
+
         // Edit object on double click
         this.treeViewer.addDoubleClickListener(
                 event -> onDoubleClickActivation(event.getSelection()));
-        
+
         // Navigate to target on <ctrl>+<alt>+click
         this.treeViewer.getTree().addMouseListener(new MouseAdapter() {
             @Override
@@ -398,7 +402,7 @@ public class ModelBrowserPanelProvider implements IPanelProvider, IElementNameEd
                 }
             }
         });
-        
+
     }
 
     @objid ("1fc4998b-1de3-11e2-bcbe-002564c97630")
@@ -407,7 +411,7 @@ public class ModelBrowserPanelProvider implements IPanelProvider, IElementNameEd
         final TextCellEditor[] cellEditors = new TextCellEditor[1];
         final TextCellEditor editor = new TextCellEditor(this.treeViewer.getTree(), SWT.NONE) {
             private Collection<String> activeContexts;
-        
+
             @SuppressWarnings ("synthetic-access")
             @Override
             public void activate() {
@@ -421,10 +425,10 @@ public class ModelBrowserPanelProvider implements IPanelProvider, IElementNameEd
                     getContextService().deactivateContext(contextId);
                 }
                 ModelBrowserPanelProvider.this.contentProvider.isEditorActive = true;
-        
+
                 super.activate();
             }
-        
+
             @SuppressWarnings ("synthetic-access")
             @Override
             public void deactivate() {
@@ -437,20 +441,20 @@ public class ModelBrowserPanelProvider implements IPanelProvider, IElementNameEd
                     }
                     ModelBrowserPanelProvider.this.contentProvider.isEditorActive = false;
                     ModelBrowserPanelProvider.this.treeViewer.refresh(true);
-        
+
                     this.activeContexts = null;
                 }
-        
+
                 super.deactivate();
             }
         };
-        
+
         editor.getControl().addKeyListener(new KeyListener() {
             @Override
             public void keyPressed(KeyEvent event) {
                 // Nothing to do.
             }
-        
+
             @Override
             public void keyReleased(KeyEvent event) {
                 if (((event.stateMask &= SWT.MOD1) != 0) && (event.keyCode == 'a')) {
@@ -464,19 +468,19 @@ public class ModelBrowserPanelProvider implements IPanelProvider, IElementNameEd
         });
         cellEditors[0] = editor;
         this.treeViewer.setCellEditors(cellEditors);
-        
+
         // Define column properties
         final String[] properties = new String[1];
         properties[0] = "name";
         this.treeViewer.setColumnProperties(properties);
-        
+
         // Define editor activation strategy
         this.activationSupport = new EditorActivationStrategy(this.treeViewer);
-        
+
         TreeViewerEditor.create(this.treeViewer, null, this.activationSupport, ColumnViewerEditor.TABBING_HORIZONTAL
                 | ColumnViewerEditor.TABBING_MOVE_TO_ROW_NEIGHBOR | ColumnViewerEditor.TABBING_VERTICAL
                 | ColumnViewerEditor.KEYBOARD_ACTIVATION);
-        
+
     }
 
     @objid ("9ce5023e-92ec-4172-9125-1f7321fa2d8b")
@@ -519,7 +523,7 @@ public class ModelBrowserPanelProvider implements IPanelProvider, IElementNameEd
         if (this.selectionService != null) {
             this.selectionService.setSelection(selection);
         }
-        
+
     }
 
     /**
@@ -532,7 +536,7 @@ public class ModelBrowserPanelProvider implements IPanelProvider, IElementNameEd
             this.treeViewer.expandToLevel(elementToEdit, 0);
             this.treeViewer.editElement(elementToEdit, 0);
         }
-        
+
     }
 
     /**
@@ -546,14 +550,14 @@ public class ModelBrowserPanelProvider implements IPanelProvider, IElementNameEd
             final MObject selectedObject = SelectionHelper.getFirst(selection, MObject.class);
             this.activationService.activateMObject(selectedObject);
         }
-        
+
     }
 
     @objid ("30f53473-4d1c-4d77-924a-d1336380e42b")
     private void onNavigateToTarget(final Object obj) {
         if (obj instanceof MObject) {
             final MObject mObj = (MObject) obj;
-        
+
             // Compute 'smart' selection target
             final MObject target;
             MExpert expert = mObj.getMClass().getMetamodel().getMExpert();
@@ -573,13 +577,13 @@ public class ModelBrowserPanelProvider implements IPanelProvider, IElementNameEd
                     target = null;
                 }
             }
-        
+
             // Change selection in the view in display thread
             if (target != null) {
                 Display.getDefault().asyncExec(() -> setSelection(Arrays.asList(target)));
             }
         }
-        
+
     }
 
     @objid ("9f61fe2c-05ba-457b-802f-c6926cc192be")
@@ -587,7 +591,7 @@ public class ModelBrowserPanelProvider implements IPanelProvider, IElementNameEd
         if (this.treeViewer != null && !this.treeViewer.getTree().isDisposed()) {
             this.treeViewer.collapseAll();
         }
-        
+
     }
 
     @objid ("f1151833-4e5e-4266-a973-3d2088422740")
@@ -595,7 +599,7 @@ public class ModelBrowserPanelProvider implements IPanelProvider, IElementNameEd
         if (this.treeViewer != null && !this.treeViewer.getTree().isDisposed()) {
             this.treeViewer.refresh(true);
         }
-        
+
     }
 
     @objid ("be9b5597-f318-4e4d-b127-8e86188b98d5")
@@ -606,7 +610,7 @@ public class ModelBrowserPanelProvider implements IPanelProvider, IElementNameEd
             this.pickingManager = new BrowserPickingManager(this, session);
             this.pickingManager.beginPicking();
         }
-        
+
     }
 
     @objid ("93e50294-3605-4f74-977e-83169f3a95dd")
@@ -617,7 +621,7 @@ public class ModelBrowserPanelProvider implements IPanelProvider, IElementNameEd
             this.pickingManager.endPicking();
             this.pickingManager = null;
         }
-        
+
     }
 
     @objid ("e6118f56-0d6b-4200-9df0-a3e2a819420d")
@@ -652,11 +656,11 @@ public class ModelBrowserPanelProvider implements IPanelProvider, IElementNameEd
         private TreeItem[] pickingStartSelection;
 
         @objid ("733d45fd-d4f6-4256-8e29-5efa0bbe935b")
-        public  BrowserPickingManager(ModelBrowserPanelProvider view, IPickingSession pickingSession) {
+        public BrowserPickingManager(ModelBrowserPanelProvider view, IPickingSession pickingSession) {
             this.view = view;
             this.pickingSession = pickingSession;
             this.defaultCursor = view.getPanel().getCursor();
-            
+
         }
 
         @objid ("80e1c5d4-e957-4a37-bedb-573f101ea356")
@@ -674,11 +678,11 @@ public class ModelBrowserPanelProvider implements IPanelProvider, IElementNameEd
         @objid ("6817eacb-73ad-403c-a177-6ee44e567a54")
         private static Element getPickedElement(MouseEvent e) {
             Object source = e.getSource();
-            
+
             if (source instanceof Tree) {
                 Tree tree = (Tree) source;
                 TreeItem item = tree.getItem(new Point(e.x, e.y));
-            
+
                 if (item != null) {
                     Object data = item.getData();
                     if (data instanceof Element) {
@@ -698,7 +702,7 @@ public class ModelBrowserPanelProvider implements IPanelProvider, IElementNameEd
                     this.pickingSession.pick(selectedElement);
                 }
             }
-            
+
         }
 
         @objid ("15f3ab91-6f53-482b-a0b4-f2d88b3a2048")
@@ -724,10 +728,10 @@ public class ModelBrowserPanelProvider implements IPanelProvider, IElementNameEd
             this.view.getPanel().addMouseListener(this);
             this.view.getPanel().addMouseTrackListener(this);
             this.view.getPanel().addMouseMoveListener(this);
-            
+
             // Store the current selection to restore it when the picking ends
             this.pickingStartSelection = this.view.getPanel().getSelection();
-            
+
         }
 
         @objid ("d7ba0c1a-ee8f-402d-b192-cb7c76e603ad")
@@ -736,26 +740,26 @@ public class ModelBrowserPanelProvider implements IPanelProvider, IElementNameEd
             this.view.getPanel().removeMouseListener(this);
             this.view.getPanel().removeMouseTrackListener(this);
             this.view.getPanel().removeMouseMoveListener(this);
-            
+
             this.view.getPanel().setCursor(this.defaultCursor);
-            
+
             // Restore old selection
             this.view.getPanel().setSelection(this.pickingStartSelection);
             this.pickingStartSelection = null;
-            
+
         }
 
         @objid ("9bfe623c-c731-41cc-aa4a-102f1b4342c7")
         @Override
         public void mouseMove(MouseEvent e) {
             Element element = null;
-            
+
             Object source = e.getSource();
-            
+
             if (source instanceof Tree) {
                 Tree tree = (Tree) source;
                 TreeItem item = tree.getItem(new Point(e.x, e.y));
-            
+
                 if (item != null) {
                     Object data = item.getData();
                     if (data instanceof Element) {
@@ -763,7 +767,7 @@ public class ModelBrowserPanelProvider implements IPanelProvider, IElementNameEd
                     }
                 }
             }
-            
+
             if (element != null) {
                 if (this.pickingSession.hover(element)) {
                     this.view.getPanel().setCursor(SharedCursors2.CURSOR_PICKING_YES);
@@ -773,7 +777,7 @@ public class ModelBrowserPanelProvider implements IPanelProvider, IElementNameEd
             } else {
                 this.view.getPanel().setCursor(SharedCursors2.CURSOR_PICKING);
             }
-            
+
         }
 
     }

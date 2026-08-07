@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -59,7 +58,7 @@ public class TaggedValueSmClass extends ModelElementSmClass {
     private SmDependency annotedDep;
 
     @objid ("bff13ac9-3913-4f04-b297-cc3671c3e656")
-    public  TaggedValueSmClass(ISmMetamodelFragment origin) {
+    public TaggedValueSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
@@ -67,7 +66,7 @@ public class TaggedValueSmClass extends ModelElementSmClass {
     @Override
     public String getName() {
         return "TaggedValue";
-        
+
     }
 
     @objid ("8813bf56-f82d-4380-b1c1-caf70ec7c604")
@@ -80,21 +79,21 @@ public class TaggedValueSmClass extends ModelElementSmClass {
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return TaggedValue.class;
-        
+
     }
 
     @objid ("f43a1f0a-bf7e-4741-bc67-ac9d3e3fee55")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
     @objid ("87f89b61-0cd1-4cb3-958a-7699a8c69cfc")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
     @objid ("c68b7229-45c0-43c0-8361-2f5107317216")
@@ -102,28 +101,27 @@ public class TaggedValueSmClass extends ModelElementSmClass {
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(ModelElement.MQNAME);
         this.registerFactory(new TaggedValueObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
         this.actualDep = new ActualSmDependency();
         this.actualDep.init("Actual", this, metamodel.getMClass(TagParameter.MQNAME), 0, -1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.actualDep);
-        
+
         this.qualifierDep = new QualifierSmDependency();
         this.qualifierDep.init("Qualifier", this, metamodel.getMClass(TagParameter.MQNAME), 0, 1 , SmDirective.SMCDCOMPONENT);
         registerDependency(this.qualifierDep);
-        
+
         this.definitionDep = new DefinitionSmDependency();
         this.definitionDep.init("Definition", this, metamodel.getMClass(TagType.MQNAME), 1, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.definitionDep);
-        
+
         this.annotedDep = new AnnotedSmDependency();
         this.annotedDep.init("Annoted", this, metamodel.getMClass(ModelElement.MQNAME), 0, 1 );
         registerDependency(this.annotedDep);
-        
-        
+
     }
 
     @objid ("4f83f205-afb0-4d25-89af-542664438048")
@@ -164,7 +162,7 @@ public class TaggedValueSmClass extends ModelElementSmClass {
         private TaggedValueSmClass smClass;
 
         @objid ("1d5244bd-54bd-460a-8067-beef32cd50aa")
-        public  TaggedValueObjectFactory(TaggedValueSmClass smClass) {
+        public TaggedValueObjectFactory(TaggedValueSmClass smClass) {
             this.smClass = smClass;
         }
 
@@ -206,7 +204,7 @@ public class TaggedValueSmClass extends ModelElementSmClass {
             	this.symetricDep = ((ModelElementSmClass)this.getTarget()).getTagDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -226,7 +224,7 @@ public class TaggedValueSmClass extends ModelElementSmClass {
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((TaggedValueData) data).mActual = values;
-            
+
         }
 
         @objid ("d33a937b-cb89-4255-9b35-618035ee70ee")
@@ -236,7 +234,7 @@ public class TaggedValueSmClass extends ModelElementSmClass {
             	this.symetricDep = ((TagParameterSmClass)this.getTarget()).getAnnotedDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -265,7 +263,7 @@ public class TaggedValueSmClass extends ModelElementSmClass {
             	this.symetricDep = ((TagParameterSmClass)this.getTarget()).getQualifiedDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
@@ -294,7 +292,7 @@ public class TaggedValueSmClass extends ModelElementSmClass {
             	this.symetricDep = ((TagTypeSmClass)this.getTarget()).getTagOccurenceDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

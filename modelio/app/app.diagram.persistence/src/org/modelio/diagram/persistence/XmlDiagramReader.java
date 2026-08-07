@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.persistence;
 
@@ -55,7 +55,7 @@ import org.xml.sax.SAXParseException;
 
 /**
  * Reads a diagram from an XML string.
- * 
+ *
  * @author cmarin
  */
 @objid ("cb750e6e-186f-11e2-92d2-001ec947c8cc")
@@ -77,20 +77,22 @@ public class XmlDiagramReader implements IDiagramReader {
 
     /**
      * Creates a diagram reader
+     *
      * @param instanceFactory An instance factory
      * @param extRefResolver An external reference resolver
      */
     @objid ("cb7770b8-186f-11e2-92d2-001ec947c8cc")
-    public  XmlDiagramReader(IInstanceFactory instanceFactory, IExtReferenceResolver extRefResolver) {
+    public XmlDiagramReader(IInstanceFactory instanceFactory, IExtReferenceResolver extRefResolver) {
         this.instanceFactory = instanceFactory;
         this.extRefResolver = extRefResolver;
-        
+
     }
 
     /**
      * Get the root object being read.
      * <p>
      * The root object is the persistent object passed to {@link #readDiagram(String, IPersistent)}.
+     *
      * @return the root object being read.
      */
     @objid ("cb7770bd-186f-11e2-92d2-001ec947c8cc")
@@ -101,6 +103,7 @@ public class XmlDiagramReader implements IDiagramReader {
 
     /**
      * Read all attributes at once.
+     *
      * @param attName The attribute name
      * @return a map with the attribute name as key and the attribute value as value.
      */
@@ -109,10 +112,10 @@ public class XmlDiagramReader implements IDiagramReader {
     public Map<String, Object> readAllProperties() throws PersistenceException {
         final Map<String, Object> ret = new HashMap<>();
         final NodeList childrenNodes = this.currentDomElement.getChildNodes();
-        
+
         for (int i = 0; i < childrenNodes.getLength(); i++) {
             final Node n = childrenNodes.item(i);
-        
+
             if (n.getNodeName().equals(SchemaConstants.TAG_PROP)) {
                 final Element attElement = (Element) n;
                 final String attName = attElement.getAttribute(SchemaConstants.ATT_PROP_NAME);
@@ -124,6 +127,7 @@ public class XmlDiagramReader implements IDiagramReader {
 
     /**
      * Read an attribute whose type is not constant.
+     *
      * @param attName The attribute name
      * @return The attribute value or <tt>null</tt> if the attribute has no value.
      */
@@ -136,7 +140,7 @@ public class XmlDiagramReader implements IDiagramReader {
         } else {
             return readPropertyElement(el);
         }
-        
+
     }
 
     @objid ("cb79d30f-186f-11e2-92d2-001ec947c8cc")
@@ -148,7 +152,7 @@ public class XmlDiagramReader implements IDiagramReader {
     @objid ("cb79d316-186f-11e2-92d2-001ec947c8cc")
     private static Color convertToColor(String val) {
         final String[] vals = val.split(";");
-        
+
         final int red = Integer.parseInt(vals[0]);
         final int green = Integer.parseInt(vals[1]);
         final int blue = Integer.parseInt(vals[2]);
@@ -163,6 +167,7 @@ public class XmlDiagramReader implements IDiagramReader {
 
     /**
      * Convert the given string value to the given enumeration type.
+     *
      * @param enumType The enumeration type
      * @param val the string value to convert
      * @return the enumeration value
@@ -177,6 +182,7 @@ public class XmlDiagramReader implements IDiagramReader {
 
     /**
      * Returns the enum constant of the specified enum type with the specified name. The name must match exactly an identifier used to declare an enum constant in this type. (Extraneous whitespace characters are not permitted.)
+     *
      * @param enumType the <tt>Class</tt> object of the enum type from which to return a constant
      * @param val the name of the constant to return
      * @return the enum constant of the specified enum type with the specified name
@@ -195,7 +201,7 @@ public class XmlDiagramReader implements IDiagramReader {
     @objid ("cb79d339-186f-11e2-92d2-001ec947c8cc")
     private static Font convertToFont(String val) {
         final String[] vals = val.split(";");
-        
+
         final String name = vals[0];
         final int height = Integer.parseInt(vals[1]);
         final int style = Integer.parseInt(vals[2]);
@@ -221,16 +227,17 @@ public class XmlDiagramReader implements IDiagramReader {
                 Integer.valueOf(vals[1]),
                 Integer.valueOf(vals[2]),
                 Integer.valueOf(vals[3]));
-        
+
     }
 
     /**
      * Return an instance of the given class for the given DOM element.
      * <p>
      * This method can create a new instance or return an existing one.
+     *
      * @param nodeType The java class
      * @return The created instance.
-     * 
+     *
      * @exception PersistenceException if the class can't be instantiated.
      */
     @objid ("cb79d351-186f-11e2-92d2-001ec947c8cc")
@@ -246,15 +253,15 @@ public class XmlDiagramReader implements IDiagramReader {
     @objid ("cb79d35c-186f-11e2-92d2-001ec947c8cc")
     private Element getPropertyElement(String attName) {
         NodeList childrenNodes = this.currentDomElement.getChildNodes();
-        
+
         for (int i = 0; i < childrenNodes.getLength(); i++) {
             Node n = childrenNodes.item(i);
-        
+
             if (n.getNodeName().equals(SchemaConstants.TAG_PROP)) {
                 Element subEl = (Element) n;
                 if (subEl.getAttribute(SchemaConstants.ATT_PROP_NAME).equals(attName)) {
                     return subEl;
-        
+
                 }
             }
         }
@@ -263,6 +270,7 @@ public class XmlDiagramReader implements IDiagramReader {
 
     /**
      * Read an external reference.
+     *
      * @param domElement a {@link SchemaConstants#TAG_EXTREF} DOM Element.
      * @return The read external reference
      */
@@ -273,25 +281,26 @@ public class XmlDiagramReader implements IDiagramReader {
         final String extRefId = domElement.getAttribute(SchemaConstants.ATT_EXTREF_EXTID);
         final String nodeId = domElement.getAttribute(SchemaConstants.ATT_OBJECT_ID);
         Element oldCurrentDomElement = this.currentDomElement;
-        
+
         this.currentDomElement = domElement;
-        
+
         try {
             final IPersistent ret = this.extRefResolver.resolveReference(nodeType, extDbId, extRefId);
-        
+
             if (ret != null && nodeId != null && !nodeId.isEmpty()) {
                 this.readObjects.put(nodeId, ret);
             }
-        
+
             return ret;
         } finally {
             this.currentDomElement = oldCurrentDomElement;
         }
-        
+
     }
 
     /**
      * Completely read a {@link List} from the given DOM element.
+     *
      * @param subEl DOM Element of type {@link SchemaConstants#TAG_LIST}
      * @return a list of persistent elements
      * @throws PersistenceException in case of error.
@@ -301,7 +310,7 @@ public class XmlDiagramReader implements IDiagramReader {
     private <T> List<T> readListElement(Element subEl) throws PersistenceException {
         final NodeList compNodes2 = subEl.getChildNodes();
         final List<T> ret = new ArrayList<>(compNodes2.getLength());
-        
+
         for (int i2 = 0; i2 < compNodes2.getLength(); i2++) {
             final Node compNode = compNodes2.item(i2);
             if (compNode instanceof Element) {
@@ -317,6 +326,7 @@ public class XmlDiagramReader implements IDiagramReader {
 
     /**
      * Completely read a {@link Map} from the given DOM element.
+     *
      * @param domElement DOM Element of type {@link SchemaConstants#TAG_MAP}
      * @return the read map
      * @throws PersistenceException in case of unexpected error.
@@ -326,15 +336,15 @@ public class XmlDiagramReader implements IDiagramReader {
     private <K, V> Map<K, V> readMapElement(Element domElement) throws PersistenceException {
         final Map<K, V> ret = new HashMap<>();
         final NodeList childrenNodes = domElement.getChildNodes();
-        
+
         K entryKey = null;
-        
+
         for (int i = 0; i < childrenNodes.getLength(); i++) {
             final Node n = childrenNodes.item(i);
             if (n instanceof Element) {
                 final Element mapElement = (Element) n;
                 Object o = readObjectElement(mapElement);
-        
+
                 if (entryKey == null) {
                     entryKey = (K) o;
                 } else {
@@ -348,6 +358,7 @@ public class XmlDiagramReader implements IDiagramReader {
 
     /**
      * Read the given element and return the read Object.
+     *
      * @param compElement a DOM Element.
      * @return the read Object
      * @throws PersistenceException in case of error
@@ -370,11 +381,12 @@ public class XmlDiagramReader implements IDiagramReader {
         } else {
             throw new PersistenceException("<" + tagName + "> tag not handled.");
         }
-        
+
     }
 
     /**
      * Read the 'Ref' tag value and return the matching persistent object.
+     *
      * @param compNode DOM Element of type {@link SchemaConstants#TAG_REF}
      * @return The read referenced persistent object.
      */
@@ -387,6 +399,7 @@ public class XmlDiagramReader implements IDiagramReader {
 
     /**
      * Completely read an object from the given DOM element.
+     *
      * @param domElement DOM Element of type {@link SchemaConstants#TAG_PERSISTENT}
      * @return the read object. Might be null in some migration cases.
      * @throws PersistenceException in case of unexpected error.
@@ -397,10 +410,10 @@ public class XmlDiagramReader implements IDiagramReader {
         final String majorVersionAtt = domElement.getAttribute(SchemaConstants.ATT_OBJECT_MAJOR_VERSION);
         final int majorVersionRead = majorVersionAtt.equals("") ? 0 : Integer.parseInt(majorVersionAtt);
         final String nodeId = domElement.getAttribute(SchemaConstants.ATT_OBJECT_ID);
-        
+
         final Element oldCurrentDomElement = this.currentDomElement;
         this.currentDomElement = domElement;
-        
+
         try {
             // Create a new instance
             IPersistent persistentObject = createInstance(nodeType);
@@ -419,11 +432,11 @@ public class XmlDiagramReader implements IDiagramReader {
                     throw new PersistenceException("Unable to find '" + migratorType + "' class");
                 }
                 // Ask for a version of the object that fits the read version
-                persistentObject = migrator.createInstanceOfMajorVersion(majorVersionRead);
+                persistentObject = migrator.createInstanceOfMajorVersion(majorVersionRead, this);
                 if (persistentObject == null) {
                     throw new PersistenceException("Unable to instanciate '" + nodeType + "' class with a major version of " + majorVersionRead);
                 }
-        
+
                 // this object can read the serialized data
                 persistentObject.read(this);
                 // Ask for a migration of that object to the most recent version
@@ -437,11 +450,12 @@ public class XmlDiagramReader implements IDiagramReader {
         } finally {
             this.currentDomElement = oldCurrentDomElement;
         }
-        
+
     }
 
     /**
      * Read the 'Property' tag value and convert it to the right type.
+     *
      * @param el DOM Element of type {@link SchemaConstants#TAG_PROP}
      * @return The read property value.
      * @throws PersistenceException in case of error
@@ -449,7 +463,7 @@ public class XmlDiagramReader implements IDiagramReader {
     @objid ("cb7c3584-186f-11e2-92d2-001ec947c8cc")
     private Object readPropertyElement(Element el) throws PersistenceException {
         NodeList childrenNodes = el.getChildNodes();
-        
+
         for (int i = 0; i < childrenNodes.getLength(); i++) {
             Node n = childrenNodes.item(i);
             if (n instanceof Element) {
@@ -462,6 +476,7 @@ public class XmlDiagramReader implements IDiagramReader {
 
     /**
      * Read the 'Value' tag value and convert it to the right type.
+     *
      * @param el DOM Element of type {@link SchemaConstants#TAG_VALUE}
      * @return The read value
      * @throws NumberFormatException in case of number conversion error
@@ -471,7 +486,7 @@ public class XmlDiagramReader implements IDiagramReader {
     private Object readValueElement(Element el) throws NumberFormatException, PersistenceException {
         final String type = el.getAttribute(SchemaConstants.ATT_VALUE_TYPE);
         final String val = el.getAttribute(SchemaConstants.ATT_VALUE_VALUE);
-        
+
         if (type.equals("null")) {
             return null;
         } else if (type.equals("Rectangle")) {
@@ -516,14 +531,14 @@ public class XmlDiagramReader implements IDiagramReader {
         } else {
             throw new PersistenceException("'" + val + "' of " + type + " type is not handled.");
         }
-        
+
     }
 
     @objid ("ed4acd97-186f-11e2-92d2-001ec947c8cc")
     @Override
     public void readDiagram(String rawData, IPersistent root) throws PersistenceException {
         this.rootObject = root;
-        
+
         String data;
         if (rawData.startsWith("<?xml")) {
             // old uncompressed format
@@ -531,7 +546,7 @@ public class XmlDiagramReader implements IDiagramReader {
         } else {
             data = org.modelio.vcore.utils.UUBase64Compressor.decompress(rawData);
         }
-        
+
         try {
             // Create a DocumentBuilderFactory
             final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -540,31 +555,31 @@ public class XmlDiagramReader implements IDiagramReader {
             dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, false);
             dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, ""); // XML parsers should not be vulnerable to XXE attacks (java:S2755)
             dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, ""); // XML parsers should not be vulnerable to XXE attacks (java:S2755)
-        
-        
+
+
             // Create a DocumentBuilder
             final DocumentBuilder db = dbf.newDocumentBuilder();
             db.setErrorHandler(new LocalErrorHandler());
-        
+
             // Parse
             final Document xmlDoc = db.parse(new InputSource(new StringReader(data)));
-        
+
             // DocumentElement is the root <Object> tag
             this.currentDomElement = xmlDoc.getDocumentElement();
-        
+
             // Register the root object
             final String nodeId = this.currentDomElement.getAttribute(SchemaConstants.ATT_OBJECT_ID);
             this.readObjects.put(nodeId, this.rootObject);
-        
+
             // Deserialize the root object
             this.rootObject.read(this);
-        
+
         } catch (ParserConfigurationException | SAXException | RuntimeException e) {
             throw new PersistenceException(e);
         } catch (IOException e) {
             throw new PersistenceException(FileUtils.getLocalizedMessage(e), e);
         }
-        
+
     }
 
     @objid ("ed4d2fed-186f-11e2-92d2-001ec947c8cc")
@@ -584,14 +599,14 @@ public class XmlDiagramReader implements IDiagramReader {
         } else {
             return Collections.emptyList();
         }
-        
+
     }
 
     @objid ("83462b50-099f-43ca-b903-0cb155e015d9")
     private String getTextNodes(Element el) {
         NodeList childrenNodes = el.getChildNodes();
         StringBuilder s = new StringBuilder();
-        
+
         for (int i = 0; i < childrenNodes.getLength(); i++) {
             Node n = childrenNodes.item(i);
             if (n.getNodeType() == Node.TEXT_NODE || n.getNodeType() == Node.CDATA_SECTION_NODE) {
@@ -608,14 +623,14 @@ public class XmlDiagramReader implements IDiagramReader {
 
     /**
      * XML error handler that logs errors to the given writer.
-     * 
+     *
      * @author cmarin
      */
     @objid ("cb7c358f-186f-11e2-92d2-001ec947c8cc")
     private static class LocalErrorHandler implements ErrorHandler {
         @objid ("cb7c3593-186f-11e2-92d2-001ec947c8cc")
-        public  LocalErrorHandler() {
-            
+        public LocalErrorHandler() {
+
         }
 
         @objid ("cb7c3597-186f-11e2-92d2-001ec947c8cc")
@@ -629,7 +644,7 @@ public class XmlDiagramReader implements IDiagramReader {
         public void fatalError(final SAXParseException exception) throws SAXException {
             print(exception);
             throw exception;
-            
+
         }
 
         @objid ("cb7c35a1-186f-11e2-92d2-001ec947c8cc")
@@ -646,11 +661,11 @@ public class XmlDiagramReader implements IDiagramReader {
                     exception.getLineNumber(),
                     exception.getColumnNumber(),
                     exception.getLocalizedMessage());
-            
+
             if (exception.getException() != null) {
                 DiagramPersistence.LOG.warning(exception.getException());
             }
-            
+
         }
 
     }

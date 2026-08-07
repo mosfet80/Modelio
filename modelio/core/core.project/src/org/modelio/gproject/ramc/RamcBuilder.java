@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.gproject.ramc;
 
@@ -110,13 +129,13 @@ public class RamcBuilder {
     private final Collection<IGMetamodelExtension> metamodelExtensions;
 
     /**
+     *
      * @param loadedModule the module JAXB model
      */
     @objid ("8e8bdc7f-7d4f-4d31-a8a4-57292f9848e7")
-    public  RamcBuilder(Collection<IGMetamodelExtension> metamodelExtensions, Jxbv2Module loadedModule) {
+    public RamcBuilder(Collection<IGMetamodelExtension> metamodelExtensions, Jxbv2Module loadedModule) {
         this.metamodelExtensions = metamodelExtensions;
         this.loadedModule = loadedModule;
-        
     }
 
     /**
@@ -127,6 +146,7 @@ public class RamcBuilder {
      * <li>package the model component containing this module</li>
      * <li>close the temporary project and delete it.</li>
      * </ol>
+     *
      * @param ramcPath the path to package the ramc into.
      * @param monitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call <code>done()</code> on the given monitor. Accepts <code>null</code>, indicating that no progress should be reported and that the
      * operation cannot be cancelled.
@@ -135,25 +155,25 @@ public class RamcBuilder {
     @objid ("2c95c269-f37d-11e1-a3c7-002564c97630")
     public void createRamc(Path ramcPath, IModelioProgress monitor) throws IOException {
         SubProgress mon = SubProgress.convert(monitor, 60);
-        
+
         Path tempDirectory = Files.createTempDirectory("ModelioCatalog");
-        
+
         Files.createDirectories(ramcPath.getParent());
-        
+
         GProjectDescriptor projectDescriptor = GProjectCreator.buildEmptyProject(this.loadedModule.getId(), tempDirectory, ModelioVersion.VERSION);
-        
-        
+
+
         IGProject gproject = GProject.newBuilder(projectDescriptor)
                 .withMetamodelExtensions(this.metamodelExtensions)
                 .build(mon.newChild(10));
-        
+
         gproject.open(mon.newChild(10));
-        
-        
-        
+
+
+
         try {
             IModelComponentContributor contributor = new DescriptionContributor((CoreSession) gproject.getSession());
-        
+
             Artifact artifact = createRamcModel(gproject, mon.newChild(10));
             // Run packaging
             RamcPackager packager = new RamcPackager(gproject, artifact, ramcPath, Arrays.asList(contributor));
@@ -166,7 +186,7 @@ public class RamcBuilder {
         } finally {
             gproject.close();
         }
-        
+
         // TODO this is a quite naive implementation, it should deal with
         // project path for delegating project
         try {
@@ -174,7 +194,6 @@ public class RamcBuilder {
         } catch (IOException e) {
             Log.warning(e);
         }
-        
     }
 
     @objid ("a2ff7b65-45ed-4732-ad44-ce82cb54afe2")
@@ -205,11 +224,11 @@ public class RamcBuilder {
     @objid ("fa6406a5-03d1-4875-ae65-d18110d36136")
     private Profile createProfile(ModelFactory modelfactory, Jxbv2Profile loadedProfile, ModuleComponent module) {
         Profile profile = modelfactory.createProfile(loadedProfile, module);
-        
+
         for (Jxbv2Stereotype loadedStereotype : loadedProfile.getStereotype()) {
             createStereotype(modelfactory, loadedStereotype, profile);
         }
-        
+
         for (Jxbv2MetaclassReference loadedRef : loadedProfile.getMetaclassReference()) {
             createMetaclassReference(modelfactory, loadedRef, profile);
         }
@@ -219,14 +238,14 @@ public class RamcBuilder {
     @objid ("6b4a6f4b-99aa-4e43-b1c7-e96f31534596")
     private Artifact createRamcModel(IGProject gproject, IModelioProgress monitor) throws IOException {
         ICoreSession session = gproject.getSession();
-        
+
         // Create a temporary memory repository
         IRepository repo = new MemoryRepository();
         session.getRepositorySupport().connectRepository(repo, new BasicAccessManager(), monitor);
-        
+
         // Configure a dedicated model factory in the repository
         ModelFactory modelfactory = new ModelFactory(session, repo);
-        
+
         // Create the RAMC model
         try (ITransaction t = session.getTransactionSupport().createTransaction("Create " + this.loadedModule.getId() + " module RAMC")) {
             // Create a project to model the ramc
@@ -234,29 +253,29 @@ public class RamcBuilder {
             Project ramcProject = gf.create(Project.class, repo);
             Package ramcProjectRoot = gf.create(Package.class, repo);
             ramcProject.getModel().add(ramcProjectRoot);
-        
+
             // Create the module itself
             ModuleComponent module = modelfactory.createModule(this.loadedModule);
-        
+
             // First create the propertyTypes
             if (this.loadedModule.getPropertyTypes() != null) {
                 for (Jxbv2PropertyType loadedPropertyType : this.loadedModule.getPropertyTypes().getPropertyType()) {
                     modelfactory.createPropertyType(loadedPropertyType, module);
                 }
             }
-        
+
             // For performance reasons set up a cache of all known property types
             for (PropertyType pType : session.getModel().findByClass(PropertyType.class)) {
                 this.propertyTypeCache.put(pType.getName(), pType);
             }
-        
+
             // Import Profiles, Stereotypes, TagTypes and so on.
             if (this.loadedModule.getProfiles() != null) {
                 for (Jxbv2Profile loadedProfile : this.loadedModule.getProfiles().getProfile()) {
                     createProfile(modelfactory, loadedProfile, module);
                 }
             }
-        
+
             // Import parameters
             if (this.loadedModule.getParameters() != null) {
                 for (Jxbv2Module.Jxbv2Parameters.Jxbv2Parameter loadedParam : this.loadedModule
@@ -264,7 +283,7 @@ public class RamcBuilder {
                     modelfactory.createConfigParam(loadedParam, module);
                 }
             }
-        
+
             // Post processing
             // Establish inheritance links between stereotypes
             if (this.loadedModule.getProfiles() != null) {
@@ -273,39 +292,38 @@ public class RamcBuilder {
                         String parentStereotypeId = stereotypeDesc.getOwnerStereotype();
                         if (parentStereotypeId != null && !parentStereotypeId.isEmpty()) {
                             Stereotype current = session.getModel().findById(Stereotype.class, stereotypeDesc.getUid());
-        
+
                             // Set the new parent
                             current.setParent(modelfactory.getStereotype(session, parentStereotypeId));
                         }
                     }
                 }
             }
-        
+
             // Define RAMC packaging.
             // Generate the RAMC Artifact
             Artifact ramcArtifact = gf.create(Artifact.class, ramcProjectRoot);
             ramcProjectRoot.getOwnedElement().add(ramcArtifact);
             ramcArtifact.setName(this.loadedModule.getId());
-        
+
             ModelComponent ramcFact = new ModelComponent(ramcArtifact);
             ramcFact.setRamcName(this.loadedModule.getId());
             ramcFact.setRamcVersion(new Version(this.loadedModule.getVersion()));
             ramcFact.setProvider("Module " + this.loadedModule.getId());
             ramcFact.getExportedElements().add(module);
             ramcFact.updateArtifact();
-        
+
             t.commit();
-        
+
             return ramcArtifact;
-        
+
         }
-        
     }
 
     @objid ("560948bf-7c0d-490c-a1d3-2fc8ec0456d8")
     private Stereotype createStereotype(ModelFactory modelfactory, Jxbv2Stereotype loadedStereotype, Profile profile) {
         Stereotype stereotype = modelfactory.createStereotype(loadedStereotype, profile);
-        
+
         if (loadedStereotype.getTagTypes() != null) {
             for (Jxbv2TagType loadedTagType : loadedStereotype.getTagTypes().getTagType()) {
                 modelfactory.createTagType(loadedTagType, stereotype);
@@ -331,10 +349,10 @@ public class RamcBuilder {
     @objid ("6e1a628d-abf4-4bcf-af5d-4971fcd09032")
     private void createTableType(ModelFactory modelfactory, Jxbv2PropertyTableDefinition loadedTableType, Element owner) {
         PropertyTableDefinition tableType = modelfactory.createTableType(loadedTableType, owner);
-        
+
         for (Jxbv2PropertyDefinition loadedPropertyDefinition : loadedTableType.getPropertyDefinition()) {
             PropertyType pType;
-        
+
             String refId = loadedPropertyDefinition.getTypeRef().getId();
             if (refId.startsWith("mref#")) {
                 MRef ref = new MRef(refId.substring(5));
@@ -342,10 +360,9 @@ public class RamcBuilder {
             } else {
                 pType = modelfactory.getObjectReference(PropertyType.class, (refId), "");
             }
-        
+
             modelfactory.createPropertyDefinition(loadedPropertyDefinition, tableType, pType);
         }
-        
     }
 
     /**
@@ -364,22 +381,22 @@ public class RamcBuilder {
 
         /**
          * Constructor.
+         *
          * @param session the core modeling session.
          * @param repo the repository where elements will be created.
          */
         @objid ("2c915573-f37d-11e1-a3c7-002564c97630")
-        public  ModelFactory(final ICoreSession session, IRepository repo) {
+        public ModelFactory(final ICoreSession session, IRepository repo) {
             this.model = ((CoreSession) session).getSmFactory();
             this.repo = repo;
             this.metamodel = session.getMetamodel();
-            
         }
 
         @objid ("2c917c83-f37d-11e1-a3c7-002564c97630")
         public ModuleParameter createConfigParam(final org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Parameters.Jxbv2Parameter loadedParameter, final ModuleComponent owner) {
             ModuleParameter moduleParam = (ModuleParameter) this.model.createObject(getClass(ModuleParameter.class), this.repo,
                     (loadedParameter.getUid()));
-            
+
             // Set parameter type
             final String type = loadedParameter.getType();
             switch (type != null ? type : "String") {
@@ -409,24 +426,24 @@ public class RamcBuilder {
                 moduleParam.setType(ModuleParameterType.TYPE_PARAM_STRING);
                 break;
             }
-            
+
             // Create enumeration typing the parameter
             if (loadedParameter.getEnumeration() != null) {
                 EnumeratedPropertyType e = (EnumeratedPropertyType) this.model.createObject(getClass(EnumeratedPropertyType.class), this.repo);
-            
+
                 // Create literals
                 for (Jxbv2Literal literal : loadedParameter.getEnumeration().getLiteral()) {
                     PropertyEnumerationLitteral l = (PropertyEnumerationLitteral) this.model.createObject(getClass(PropertyEnumerationLitteral.class), this.repo);
-            
+
                     e.getLitteral().add(l);
                     l.setName(literal.getValue());
                 }
-            
+
                 e.setName(loadedParameter.getId());
                 e.setModuleOwner(owner);
                 moduleParam.setEnumType(e);
             }
-            
+
             moduleParam.setDefaultValue(loadedParameter.getDefaultValue() != null ? loadedParameter.getDefaultValue() : "");
             moduleParam.setName(loadedParameter.getId());
             moduleParam.setOwner(owner);
@@ -437,20 +454,20 @@ public class RamcBuilder {
         public ResourceType createResourceType(final Jxbv2ExternDocumentType loadedResourceType, final Element owner) {
             ResourceType element = (ResourceType) this.model.createObject(getClass(ResourceType.class),
                     this.repo, (loadedResourceType.getUid()));
-            
+
             element.setName(loadedResourceType.getName());
-            
+
             if (loadedResourceType.getIsHidden() != null) {
                 element.setIsHidden(loadedResourceType.getIsHidden().equals("true"));
             }
             element.setLabelKey(loadedResourceType.getLabel() != null ? loadedResourceType.getLabel() : loadedResourceType.getName());
-            
+
             if (owner instanceof Stereotype) {
                 element.setOwnerStereotype((Stereotype) owner);
             } else if (owner instanceof MetaclassReference) {
                 element.setOwnerReference((MetaclassReference) owner);
             }
-            
+
             // Handle extensions
             if (loadedResourceType.getExtensions() != null) {
                 applyStereotypeRefs(element, loadedResourceType.getExtensions().getStereotypeRef());
@@ -461,7 +478,7 @@ public class RamcBuilder {
         @objid ("5694c9d2-8618-4335-84b3-f5c046b26b23")
         public PropertyTableDefinition createTableType(Jxbv2PropertyTableDefinition loadedTableType, Element owner) {
             PropertyTableDefinition element = (PropertyTableDefinition) this.model.createObject(getClass(PropertyTableDefinition.class), this.repo, (loadedTableType.getUid()));
-            
+
             if (owner instanceof Stereotype) {
                 element.setOwnerStereotype((Stereotype) owner);
                 if (element.getOwnerReference() != null) {
@@ -473,9 +490,9 @@ public class RamcBuilder {
                     element.setOwnerStereotype(null);
                 }
             }
-            
+
             element.setName(loadedTableType.getId());
-            
+
             // Handle extensions
             if (loadedTableType.getExtensions() != null) {
                 applyStereotypeRefs(element, loadedTableType.getExtensions().getStereotypeRef());
@@ -487,7 +504,7 @@ public class RamcBuilder {
         public MetaclassReference createMetaclassReference(final org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2MetaclassReference loadedMetaclassReference, final Profile owner) {
             MetaclassReference element = (MetaclassReference) this.model.createObject(getClass(MetaclassReference.class),
                     this.repo, (loadedMetaclassReference.getUid()));
-            
+
             element.setReferencedClassName(loadedMetaclassReference.getMetaclass());
             element.setOwnerProfile(owner);
             return element;
@@ -495,6 +512,7 @@ public class RamcBuilder {
 
         /**
          * Create a module.
+         *
          * @param loadedModule entry in .xml file
          * @return the created module.
          */
@@ -502,12 +520,12 @@ public class RamcBuilder {
         public ModuleComponent createModule(final Jxbv2Module loadedModule) {
             ModuleComponent element = (ModuleComponent) this.model.createObject(getClass(ModuleComponent.class), this.repo,
                     (loadedModule.getUid()));
-            
+
             Version version = new Version(loadedModule.getVersion());
             element.setMajVersion(version.getMajorVersion());
             element.setMinVersion(version.getMinorVersion());
             element.setMinMinVersion(Integer.toString(version.getBuildVersion()));
-            
+
             element.setName(loadedModule.getId());
             element.setJavaClassName(loadedModule.getClazz());
             return element;
@@ -517,21 +535,21 @@ public class RamcBuilder {
         public NoteType createNoteType(final Jxbv2NoteType loadedNoteType, final Element owner) {
             NoteType element = (NoteType) this.model.createObject(getClass(NoteType.class), this.repo,
                     loadedNoteType.getUid());
-            
+
             element.setName(loadedNoteType.getName());
-            
+
             if (loadedNoteType.getIsHidden() != null) {
                 element.setIsHidden(loadedNoteType.getIsHidden().equals("true"));
             }
-            
+
             if (loadedNoteType.getMimeType() != null) {
                 element.setMimeType(loadedNoteType.getMimeType());
             } else {
                 element.setMimeType("text/plain");
             }
-            
+
             element.setLabelKey(loadedNoteType.getLabel() != null ? loadedNoteType.getLabel() : loadedNoteType.getName());
-            
+
             if (owner instanceof Stereotype) {
                 element.setOwnerStereotype((Stereotype) owner);
                 if (element.getOwnerReference() != null) {
@@ -543,7 +561,7 @@ public class RamcBuilder {
                     element.setOwnerStereotype(null);
                 }
             }
-            
+
             // Handle extensions
             if (loadedNoteType.getExtensions() != null) {
                 applyStereotypeRefs(element, loadedNoteType.getExtensions().getStereotypeRef());
@@ -555,10 +573,10 @@ public class RamcBuilder {
         public Profile createProfile(final Jxbv2Profile loadedProfile, final ModuleComponent owner) {
             Profile element = (Profile) this.model.createObject(getClass(Profile.class), this.repo,
                     (loadedProfile.getUid()));
-            
+
             element.setName(loadedProfile.getId());
             element.setOwnerModule(owner);
-            
+
             // Handle extensions
             if (loadedProfile.getExtensions() != null) {
                 applyStereotypeRefs(element, loadedProfile.getExtensions().getStereotypeRef());
@@ -567,6 +585,7 @@ public class RamcBuilder {
         }
 
         /**
+         *
          * @param loadedStereotype XML node
          * @param owner the project
          * @return the created stereotype.
@@ -575,30 +594,30 @@ public class RamcBuilder {
         public Stereotype createStereotype(final org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Profiles.Jxbv2Profile.Jxbv2Stereotype loadedStereotype, final Profile owner) {
             Stereotype element = (Stereotype) this.model.createObject(getClass(Stereotype.class), this.repo, (loadedStereotype.getUid()));
             element.setIsAbstract(loadedStereotype.isIsAbstract());
-            
+
             element.setName(loadedStereotype.getName());
             element.setOwner(owner);
-            
+
             Jxbv2Icon icon = loadedStereotype.getIcon();
             if (icon != null && icon.getPath() != null) {
                 element.setIcon(icon.getPath());
             }
-            
+
             Jxbv2Image image = loadedStereotype.getImage();
             if (image != null && image.getPath() != null) {
                 element.setImage(image.getPath());
             }
-            
+
             if (loadedStereotype.getIsHidden() != null) {
                 element.setIsHidden(loadedStereotype.getIsHidden().equals("true"));
             }
-            
+
             if (loadedStereotype.getMetaclass() != null) {
                 element.setBaseClassName(loadedStereotype.getMetaclass());
             }
-            
+
             element.setLabelKey(loadedStereotype.getLabel() != null ? loadedStereotype.getLabel() : loadedStereotype.getName());
-            
+
             // Handle extensions
             if (loadedStereotype.getExtensions() != null) {
                 applyStereotypeRefs(element, loadedStereotype.getExtensions().getStereotypeRef());
@@ -609,23 +628,23 @@ public class RamcBuilder {
         @objid ("2c92b506-f37d-11e1-a3c7-002564c97630")
         public TagType createTagType(final Jxbv2TagType loadedTagType, final Element owner) {
             TagType element = (TagType) this.model.createObject(getClass(TagType.class), this.repo, (loadedTagType.getUid()));
-            
+
             element.setName(loadedTagType.getName());
-            
+
             if (loadedTagType.getIsHidden() != null) {
                 element.setIsHidden(loadedTagType.getIsHidden().equals("true"));
             }
-            
+
             element.setLabelKey(loadedTagType.getLabel() != null ? loadedTagType.getLabel() : loadedTagType.getName());
-            
+
             if (loadedTagType.getParameterCard() != null) {
                 element.setParamNumber(loadedTagType.getParameterCard());
             }
-            
+
             if (loadedTagType.getIsSigned() != null) {
                 element.setBelongToPrototype(loadedTagType.getIsSigned().equals("true"));
             }
-            
+
             if (owner instanceof Stereotype) {
                 element.setOwnerStereotype((Stereotype) owner);
                 if (element.getOwnerReference() != null) {
@@ -637,7 +656,7 @@ public class RamcBuilder {
                     element.setOwnerStereotype(null);
                 }
             }
-            
+
             // Handle extensions
             if (loadedTagType.getExtensions() != null) {
                 applyStereotypeRefs(element, loadedTagType.getExtensions().getStereotypeRef());
@@ -649,17 +668,17 @@ public class RamcBuilder {
         public PropertyDefinition createPropertyDefinition(Jxbv2PropertyDefinition loadedPropertyDefinition, PropertyTableDefinition owner, PropertyType pType) {
             PropertyDefinition element = (PropertyDefinition) this.model.createObject(getClass(PropertyDefinition.class),
                     this.repo, (loadedPropertyDefinition.getUid()));
-            
+
             element.setName(loadedPropertyDefinition.getId());
             element.setDefaultValue(loadedPropertyDefinition.getDefaultValue());
             element.setIsEditable(loadedPropertyDefinition.isIsEditable());
             element.setType(pType);
             element.setOwner(owner);
-            
+
             if (loadedPropertyDefinition.getDescription() != null && !loadedPropertyDefinition.getDescription().isEmpty()) {
                 createDescriptionNote(element, loadedPropertyDefinition.getDescription());
             }
-            
+
             for (Jxbv2Parameter parameter : loadedPropertyDefinition.getParameter()) {
                 element.setProperty("Constraints", parameter.getName(), parameter.getValue());
             }
@@ -674,18 +693,18 @@ public class RamcBuilder {
             } catch (@SuppressWarnings ("unused") IllegalArgumentException | NullPointerException e) {
                 baseType = PropertyBaseType.TEXT;
             }
-            
+
             PropertyType element;
             if (baseType == PropertyBaseType.ENUMERATE) {
                 element = createEnumeratedPropertyType(loadedPropertyType, owner);
             } else {
                 element = createPropertyType(owner, loadedPropertyType, baseType);
             }
-            
+
             if (loadedPropertyType.getDescription() != null && !loadedPropertyType.getDescription().isEmpty()) {
                 createDescriptionNote(element, loadedPropertyType.getDescription());
             }
-            
+
             // Handle extensions
             if (loadedPropertyType.getExtensions() != null) {
                 applyStereotypeRefs(element, loadedPropertyType.getExtensions().getStereotypeRef());
@@ -707,15 +726,15 @@ public class RamcBuilder {
         private PropertyType createEnumeratedPropertyType(Jxbv2PropertyType loadedPropertyType, ModuleComponent owner) {
             EnumeratedPropertyType element = (EnumeratedPropertyType) this.model.createObject(getClass(EnumeratedPropertyType.class), this.repo,
                     (loadedPropertyType.getUid()));
-            
+
             element.setName(loadedPropertyType.getId());
             element.setModuleOwner(owner);
             element.setBaseType(PropertyBaseType.ENUMERATE);
-            
+
             for (Jxbv2Literal loadedLiteral : loadedPropertyType.getEnumeration().getLiteral()) {
                 createPropertyEnumerationLitteral(loadedLiteral, element);
             }
-            
+
             // Handle extensions
             if (loadedPropertyType.getExtensions() != null) {
                 applyStereotypeRefs(element, loadedPropertyType.getExtensions().getStereotypeRef());
@@ -728,7 +747,7 @@ public class RamcBuilder {
             PropertyEnumerationLitteral litteral = (PropertyEnumerationLitteral) this.model.createObject(getClass(PropertyEnumerationLitteral.class), this.repo);
             litteral.setName(loadedLiteral.getValue());
             litteral.setOwner(element);
-            
+
             // Handle extensions
             if (loadedLiteral.getExtensions() != null) {
                 applyStereotypeRefs(element, loadedLiteral.getExtensions().getStereotypeRef());
@@ -740,7 +759,7 @@ public class RamcBuilder {
         private PropertyType createPropertyType(ModuleComponent owner, Jxbv2PropertyType loadedPropertyType, PropertyBaseType baseType) {
             PropertyType element = (PropertyType) this.model.createObject(getClass(PropertyType.class), this.repo,
                     (loadedPropertyType.getUid()));
-            
+
             element.setName(loadedPropertyType.getId());
             element.setModuleOwner(owner);
             element.setBaseType(baseType);
@@ -756,13 +775,12 @@ public class RamcBuilder {
             descriptionNote.setMimeType("text/plain");
             // ModelerModule might not be deployed, reference description NoteType from its UUID
             descriptionNote.setModel(getObjectReference(NoteType.class, "00000000-0000-3e81-0000-000000000000", "description"));
-            
         }
 
         @objid ("f8e1ceb9-6cfa-4ef7-9670-c691a0cf1d0e")
         private void applyStereotypeRefs(ModelElement element, List<Jxbv2StereotypeRef> refs) {
             ICoreSession session = CoreSession.getSession(element);
-            
+
             for (Jxbv2StereotypeRef stereotypeRef : refs) {
                 String uuid = stereotypeRef.getUid();
                 if (uuid != null && !uuid.isEmpty()) {
@@ -770,7 +788,6 @@ public class RamcBuilder {
                     element.getExtension().add(getStereotype(session, uuid));
                 }
             }
-            
         }
 
         @objid ("40fe22a3-0225-4281-bdb8-e51d7f0229aa")
@@ -782,7 +799,7 @@ public class RamcBuilder {
                 stereotype = getObjectReference(Stereotype.class, ref.uuid, ref.name);
             } else {
                 // Find stereotype by name
-                Collection<Stereotype> owners = session.getModel().findByAtt(Stereotype.class, "Name", uuid);
+                Collection<Stereotype> owners = session.getModel().findByName(Stereotype.class, true, uuid);
                 if (!owners.isEmpty()) {
                     stereotype = owners.iterator().next();
                 } else {
@@ -804,7 +821,7 @@ public class RamcBuilder {
         private CoreSession session;
 
         @objid ("af520571-5d01-4c8b-a0e7-289ac09e2c62")
-        public  DescriptionContributor(CoreSession session) {
+        public DescriptionContributor(CoreSession session) {
             this.session = session;
         }
 

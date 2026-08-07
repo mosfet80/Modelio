@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -24,6 +43,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.metamodel.mmextensions.standard.facilities.InterFragmentTester;
 import org.modelio.metamodel.uml.infrastructure.UmlModelElement;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.Attribute;
@@ -60,15 +80,16 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
      */
     @objid ("34842d8b-d56c-4e85-811d-2291c343be17")
     private static final String[] PROPERTIES = new String[] { AbstractPropertyModel.PROPERTY_ID, "LinkName", "Base",
-    			"Linked", "Name", "ConnectorEndRepresentedFeature", "MultiplicityMin", "MultiplicityMax", "IsNavigable",
-    			"IsOrdered", "IsUnique" };
+            			"Linked", "Name", "ConnectorEndRepresentedFeature", "MultiplicityMin", "MultiplicityMax", "IsNavigable",
+            			"IsOrdered", "IsUnique" };
 
     /**
      * Create a new <i>LinkEnd</i> data model from an <i>LinkEnd</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("2a85870d-8ebd-421b-8e73-f7204fbe5680")
-    public  ConnectorEnd2PropertyModel(ConnectorEnd theEditedElement) {
+    public ConnectorEnd2PropertyModel(ConnectorEnd theEditedElement) {
         super(theEditedElement);
     }
 
@@ -97,7 +118,6 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
             // else
             return null; // Link base Association
         }
-        
     }
 
     @objid ("5f5d159a-6f38-4619-893a-29542cd5a00e")
@@ -106,7 +126,7 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
         if (!isApplicableCell(row, aLinkEnd)) {
             return "N/A";
         }
-        
+
         switch (row) {
         case 0: // Title
             Instance type = aLinkEnd.getTarget() != null ? aLinkEnd.getTarget() : aLinkEnd.getOpposite().getSource();
@@ -143,7 +163,6 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
         default:
             return null;
         }
-        
     }
 
     @objid ("ba2920fc-bb72-4a5c-98f9-777488a73237")
@@ -157,27 +176,26 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
         if (row == 1 || row == 2) {
             return getLinkPropertyValue(row, col);
         }
-        
+
         // LinkEnd rows
         switch (col) {
-        
+
         case 0: // col 0 is the property name
             if (row == 0) {
                 return this.theEditedElement.getName() + " association";
             }
             // else
             return getPropertyI18n(PROPERTIES[row]);
-        
+
         case 1:
             return getPropertyValue(row, this.theEditedElement.getOpposite());
-        
+
         case 2:
             return getPropertyValue(row, this.theEditedElement);
-        
+
         default:
             return null;
         }
-        
     }
 
     @objid ("c084db3b-b595-4c13-98b9-417b710f7735")
@@ -189,10 +207,10 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
             return new DefaultStringNatValue((String) getValue(row, col), false);
         }
         switch (col) {
-        
+
         case 0: // col 0 is the property name
             return new DefaultStringNatValue((String) getValue(row, col), false);
-        
+
         case 1:
             switch (row) {
             case 2: // Link base Association
@@ -243,7 +261,6 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
         default:
             return null;
         }
-        
     }
 
     @objid ("d0c19d1d-2d65-4faf-a861-d618b087a47c")
@@ -254,14 +271,13 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
             return false;
         } else if (col == 1) {
             LinkEnd oppositeEnd = this.theEditedElement.getOpposite();
-            if (isApplicableCell(row, oppositeEnd)) {
-                return oppositeEnd.isModifiable();
-            }
+            return (isEditableCell(row, oppositeEnd)) ;
+
         } else if (col == 2) {
             if (row == 1 || row == 2) {
                 return false;
-            } else if (isApplicableCell(row, this.theEditedElement)) {
-                return this.theEditedElement.isModifiable();
+            } else {
+                return isEditableCell(row, this.theEditedElement);
             }
         }
         return false;
@@ -314,7 +330,6 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
         default:
             return;
         }
-        
     }
 
     @objid ("6be899dc-716b-4986-aded-ae400d28cb22")
@@ -332,7 +347,20 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
         default:
             return;
         }
-        
+    }
+
+    @objid ("f0dbff52-47dd-4bea-8663-3b86bcd2af1a")
+    private boolean isEditableCell(int row, LinkEnd linkEnd) {
+        if (! isApplicableCell(row, linkEnd))
+            return false;
+
+        if (! linkEnd.isModifiable())
+            return false;
+
+        if ((row ==4 || row == 8) && InterFragmentTester.isAffected(linkEnd))
+            return false;
+
+        return true;
     }
 
     /**

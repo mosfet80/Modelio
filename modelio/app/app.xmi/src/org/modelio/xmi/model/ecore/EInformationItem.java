@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -44,10 +44,10 @@ public class EInformationItem extends ENamedElement {
     }
 
     @objid ("b1d90dc5-6170-4024-9813-2ab4ad11709f")
-    public  EInformationItem(org.eclipse.uml2.uml.InformationItem element) {
+    public EInformationItem(org.eclipse.uml2.uml.InformationItem element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("6ccbba8e-2914-440f-9d87-e0a6f0e8c310")
@@ -55,7 +55,7 @@ public class EInformationItem extends ENamedElement {
     public void attach(Element objingElt) {
         org.eclipse.uml2.uml.Element ecoreOwner = this.ecoreElement.getOwner();
         Object objOwner = ReverseProperties.getInstance().getMappedElement(ecoreOwner);
-        
+
         if (objOwner instanceof Profile){
              ((InformationItem) objingElt).setOwner(ReverseProperties.getInstance().getExternalPackage());
         }else if (objOwner instanceof ModelTree){
@@ -65,7 +65,7 @@ public class EInformationItem extends ENamedElement {
             ((InformationItem) objingElt).setOwner(ReverseProperties.getInstance().getExternalPackage());
         }else
              ((InformationItem) objingElt).setOwner(ReverseProperties.getInstance().getExternalPackage());
-        
+
     }
 
     @objid ("12bc6c35-4fa0-411f-b620-6525dc2fb5c0")
@@ -79,14 +79,14 @@ public class EInformationItem extends ENamedElement {
             setRoot((InformationItem) objingElt);
             setEAVisibility((InformationItem) objingElt);
         }
-        
+
     }
 
     @objid ("69fdae02-79f8-474e-900d-316bb9bd3b20")
     private void setEAVisibility(InformationItem objingElt) {
         int literal = ObjingEAnnotation.getVisibility(this.ecoreElement);
         objingElt.setVisibility(VisibilityMode.values()[literal]);
-        
+
     }
 
     @objid ("469e33e1-af65-4e69-b4b9-caa6f0929e66")
@@ -111,7 +111,7 @@ public class EInformationItem extends ENamedElement {
             if (objRepresented instanceof Classifier)
                 objingElt.getRepresented().add((Classifier) objRepresented);
         }
-        
+
     }
 
 }

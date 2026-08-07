@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.preferences.model;
 
@@ -43,27 +43,27 @@ public class AuditCategoryBuilder {
         try {
             final DocumentBuilder builder = factory.newDocumentBuilder();
             final Document document = builder.parse(xmlFile);
-        
+
             // Get the configuration
             final Element configurationElement = document.getDocumentElement();
             if (configurationElement.getNodeType() != Node.ELEMENT_NODE || !configurationElement.getNodeName().equals("Configuration")) {
                 return null;
             }
-        
+
             final NodeList rootNodes = configurationElement.getChildNodes();
             for (int i = 0; i < rootNodes.getLength(); i++) {
                 Node item = rootNodes.item(i);
                 if (item.getNodeType() == Node.ELEMENT_NODE && item.getNodeName().equals("Category")) {
                     final Element categoryElement = (Element) item;
                     String categoryId = categoryElement.getAttribute("id");
-        
+
                     AuditCategory subCategory = new AuditCategory(categoryId);
                     rootCategories.add(subCategory);
-        
+
                     NodeList rules = categoryElement.getElementsByTagName("Rule");
                     for (int j = 0; j < rules.getLength(); j++) {
                         final Element ruleElement = (Element) rules.item(j);
-        
+
                         String ruleId = ruleElement.getAttribute("id");
                         AuditSeverity severity = AuditSeverity.fromIdentifier(ruleElement.getAttribute("severity"));
                         boolean enabled = "enabled".equals(ruleElement.getAttribute("status"));
@@ -73,7 +73,7 @@ public class AuditCategoryBuilder {
                     }
                 }
             }
-        
+
         } catch (final ParserConfigurationException e) {
             e.printStackTrace();
         } catch (final SAXException e) {

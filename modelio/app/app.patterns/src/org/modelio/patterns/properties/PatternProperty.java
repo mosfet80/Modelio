@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.patterns.properties;
 
@@ -48,26 +48,26 @@ public class PatternProperty implements IPropertyContent {
         } catch (Exception e) {
             Patterns.LOG.debug(e);
         }
-        
+
     }
 
     @objid ("51ee05f9-7467-4ca8-bdd8-bc56e076896c")
     @Override
     public void update(ModelElement element, IModulePropertyTable table) {
         table.addProperty(Patterns.I18N.getString("PropertyDefinition.Name"), element.getName());
-        
+
         String version = element.getTagValue(ProfileUtils.MODULE_NAME, PatternDesignerTagTypes.PATTERN_TEMPLATE_VERSION);
         if (version == null || version.equals("")) {
             version = "1.0.00";
         }
         table.addProperty(Patterns.I18N.getString("PropertyDefinition.Version"), version);
-        
+
         String image = element.getTagValue(ProfileUtils.MODULE_NAME, PatternDesignerTagTypes.PATTERN_TEMPLATE_IMAGE);
         if (image == null) {
             image = "";
         }
         table.addProperty(Patterns.I18N.getString("PropertyDefinition.Image"), image);
-        
+
     }
 
 }

@@ -1,0 +1,14 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Local Project
+
+*  <<User_Documentation_en_LocalProject_SaaS_Configuring_project_information_SaaS.adoc#,Configuring project information>>
+*  <<User_Documentation_en_LocalProject_SaaS_Configuring_project_work_models_SaaS.adoc#,Configuring project work models>>
+*  <<User_Documentation_en_LocalProject_SaaS_Configuring_project_modules_SaaS.adoc#,Configuring project modules>>
+*  <<User_Documentation_en_LocalProject_SaaS_Configuring_project_libraries_SaaS.adoc#,Configuring project libraries>>
+*  <<User_Documentation_en_LocalProject_SaaS_Configuring_project_audit_SaaS.adoc#,Configuring project audit>>
+*  <<User_Documentation_en_LocalProject_SaaS_Configuring_project_preferences_SaaS.adoc#,Configuring project preferences>>
+*  <<User_Documentation_en_LocalProject_SaaS_Projects__work_models_and_sub-projects_SaaS.adoc#,Projects, work models and sub-projects>>

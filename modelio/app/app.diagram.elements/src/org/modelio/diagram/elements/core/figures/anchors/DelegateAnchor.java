@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures.anchors;
 
@@ -30,7 +30,7 @@ import org.eclipse.draw2d.geometry.Point;
  * Anchor that delegates all the work to another anchor.
  * <p>
  * The delegate anchor can be changed at any time.
- * 
+ *
  * @author cmarin
  */
 @objid ("7f4eef9a-1dec-11e2-8cad-001ec947c8cc")
@@ -43,16 +43,17 @@ public class DelegateAnchor extends ConnectionAnchorBase implements ISlidableAnc
     public void anchorMoved(ConnectionAnchor anchor) {
         // fires own listeners when the delgate anchor changes.
         fireAnchorMoved();
-        
+
     }
 
     @objid ("cbb6aeea-3eef-4666-86ec-c9cf3e08d764")
-    public  DelegateAnchor(ConnectionAnchor delegate) {
+    public DelegateAnchor(ConnectionAnchor delegate) {
         this.delegate = delegate;
     }
 
     /**
      * Get the real anchor that does the work.
+     *
      * @return the real anchor.
      */
     @objid ("7f5151c3-1dec-11e2-8cad-001ec947c8cc")
@@ -81,6 +82,7 @@ public class DelegateAnchor extends ConnectionAnchorBase implements ISlidableAnc
 
     /**
      * Set the connection anchor that does the real work.
+     *
      * @param delegate the new real anchor.
      */
     @objid ("7f5151e2-1dec-11e2-8cad-001ec947c8cc")
@@ -88,16 +90,16 @@ public class DelegateAnchor extends ConnectionAnchorBase implements ISlidableAnc
         // Do nothing if old and new anchors are equivalent.
         if (delegate != null && delegate.equals(this.delegate))
             return;
-        
+
         if (this.delegate != null)
             this.delegate.removeAnchorListener(this);
-        
+
         this.delegate = delegate;
-        
+
         if (this.delegate != null) {
             this.delegate.addAnchorListener(this);
         }
-        
+
     }
 
     @objid ("7f5151e8-1dec-11e2-8cad-001ec947c8cc")
@@ -106,7 +108,7 @@ public class DelegateAnchor extends ConnectionAnchorBase implements ISlidableAnc
         if (this.delegate instanceof ISlidableAnchor) {
             ((ISlidableAnchor) this.delegate).setLocation(newlocation);
         }
-        
+
     }
 
 }

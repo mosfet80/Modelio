@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link;
 
@@ -43,6 +43,7 @@ import org.modelio.diagram.styles.core.StyleKey.ConnectionRouterId;
 public class RoutingModeGetter {
     /**
      * Get the routing mode from a connection edit part.
+     *
      * @param ep an edit part
      * @return the connection routing mode
      */
@@ -57,6 +58,7 @@ public class RoutingModeGetter {
 
     /**
      * Get the routing mode a reconnect request.
+     *
      * @param req a GEF request
      * @return the connection routing mode
      */
@@ -67,6 +69,7 @@ public class RoutingModeGetter {
 
     /**
      * Get the routing mode a reconnect request.
+     *
      * @param req a GEF request
      * @return the connection routing mode
      */
@@ -77,6 +80,7 @@ public class RoutingModeGetter {
 
     /**
      * Guess the routing mode from any request.
+     *
      * @param req a GEF request
      * @return the connection routing mode
      */
@@ -90,19 +94,20 @@ public class RoutingModeGetter {
             return ConnectionRouterId.ORTHOGONAL;
         } else {
             // default case
-        
+
             // debug trace
             if (DiagramElements.LOG.isDebugEnabled())
                 DiagramElements.LOG.debug(new IllegalArgumentException(RequestHelper.toString(req)));
-        
+
             return ConnectionRouterId.ORTHOGONAL;
         }
-        
+
     }
 
     /**
      * Get the routing mode from the connection figure.
      * <p>
+     *
      * @param conn the connection figure
      * @return the connection routing mode
      * @deprecated does not work with new auto orthogonal routing
@@ -120,7 +125,7 @@ public class RoutingModeGetter {
         } else {
             throw new IllegalArgumentException(router + " not handled.");
         }
-        
+
     }
 
 }

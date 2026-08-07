@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.vstore.exml.common.index;
 
@@ -24,6 +43,7 @@ import java.util.stream.Stream;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vbasic.files.StreamException;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vstore.exml.common.model.IndexElement;
 import org.modelio.vstore.exml.common.model.ObjId;
 import org.modelio.vstore.exml.common.model.ObjIdName;
 
@@ -40,6 +60,7 @@ import org.modelio.vstore.exml.common.model.ObjIdName;
 public interface ICmsNodeIndex {
     /**
      * Add a known CMS node.
+     *
      * @param id a CMS node ID.
      * @throws IndexException in case of I/O error.
      */
@@ -48,6 +69,7 @@ public interface ICmsNodeIndex {
 
     /**
      * Register an object contained by a CMS node.
+     *
      * @param cmsNodeId ID of the CMS node containing the model object
      * @param objectId the contained object ID.
      * @throws IndexException in case of I/O error
@@ -56,9 +78,34 @@ public interface ICmsNodeIndex {
     void addObject(final ObjId cmsNodeId, final ObjIdName objectId) throws IndexException;
 
     /**
+     * Find an element with only its identifier, whatever its metaclass.
+     *
+     * @param uuid the identifier
+     * @return the found element and its CMS node or null.
+     * @throws IndexException in case of I/O error
+     * @since 5.5
+     */
+    @objid ("badd3b3e-15bb-40e4-ad4e-1c6fae973d7a")
+    IndexElement findById(String uuid) throws IndexException;
+
+    /**
+     * Get all model objects of the given metaclass with the given name.
+     * <p>
+     * Does not return child metaclasses nodes.
+     *
+     * @param cls a metaclass.
+     * @param name the name to search
+     * @return all objects whose name match the given one.
+     * @throws IndexException in case of I/O error
+     */
+    @objid ("3733d68b-d673-439c-97a3-66f507df93a5")
+    Collection<IndexElement> findByName(final SmClass cls, String name) throws IndexException;
+
+    /**
      * Get all model objects of the given metaclass.
      * <p>
      * Does not return child metaclasses nodes.
+     *
      * @param cls a metaclass.
      * @return all CMS node IDs.
      * @throws IndexException in case of I/O error
@@ -70,6 +117,7 @@ public interface ICmsNodeIndex {
      * Get the CMS node containing the object.
      * <p>
      * If the object is a stored CMS node, return itself.
+     *
      * @param id the object to find
      * @return the CMS node ID.
      * @throws IndexException in case of I/O error
@@ -79,6 +127,7 @@ public interface ICmsNodeIndex {
 
     /**
      * Get the name of the given model object.
+     *
      * @param id the model object identifier.
      * @return the object name.
      * @throws IndexException in case of I/O error
@@ -88,6 +137,7 @@ public interface ICmsNodeIndex {
 
     /**
      * Get the parent CMS node of the given CMS node.
+     *
      * @param id a CMS node
      * @return its parent CMS node.
      * @throws IndexException in case of I/O error.
@@ -96,6 +146,7 @@ public interface ICmsNodeIndex {
     ObjId getParentNodeOf(final ObjId id) throws IndexException;
 
     /**
+     *
      * @return <code>true</code> if the index is empty.
      * @throws IndexException in case of I/O error.
      */
@@ -104,6 +155,7 @@ public interface ICmsNodeIndex {
 
     /**
      * Tells whether the given model object is stored in the repository.
+     *
      * @param id a model object ID.
      * @return <code>true</code> if the object is in the repository else false.
      * @throws IndexException in case of I/O error
@@ -115,6 +167,7 @@ public interface ICmsNodeIndex {
      * Remove the given object from all indexes.
      * <p>
      * If the object is a CMS node removes all its content too.
+     *
      * @param id the object id
      * @throws IndexException in case of error updating the indexes.
      */
@@ -122,18 +175,13 @@ public interface ICmsNodeIndex {
     void removeObj(final ObjId id) throws IndexException;
 
     /**
-     * Registers 2 CMS nodes parent relationship.
-     * @param cmsNodeId the child CMS node.
-     * @param parentId the parent CMS node.
-     * @throws IndexException in case of I/O error.
-     */
-    @objid ("32311d3e-5c7b-11e1-863f-001ec947ccaf")
-    void setParent(final ObjId cmsNodeId, final ObjId parentId) throws IndexException;
-
-    /**
      * Get all model objects identifiers with their name for the given metaclass.
      * <p>
      * Does not return child metaclasses nodes.
+     * <p>
+     * The returned stream <b>must be used in a try-with-resources construct </b> to ensure that the stream's close method is invoked after the stream operations are completed.
+     * The returned stream may encapsulate an {@link AutoCloseable} resource depending on the implementation.
+     *
      * @param cls a metaclass.
      * @return all CMS node IDs.
      * @throws IndexException in case of I/O error
@@ -144,11 +192,22 @@ public interface ICmsNodeIndex {
 
     /**
      * Get all objects contained by a CMS node
+     *
      * @param cmsNodeId the CMS node id
      * @return its content
      * @throws IndexException in case of I/O error
      */
     @objid ("3f2444b5-f7ef-4ae1-a65e-cde6e2cc04c5")
-    Iterable<ObjId> getCmsNodeContent(ObjId cmsNodeId) throws IndexException;
-}
+    Collection<ObjId> getCmsNodeContent(ObjId cmsNodeId) throws IndexException;
 
+    /**
+     * Registers 2 CMS nodes parent relationship.
+     *
+     * @param cmsNodeId the child CMS node.
+     * @param parentId the parent CMS node.
+     * @throws IndexException in case of I/O error.
+     */
+    @objid ("32311d3e-5c7b-11e1-863f-001ec947ccaf")
+    void setParent(final ObjId cmsNodeId, final ObjId parentId) throws IndexException;
+
+}

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.bindinglink;
 
@@ -56,28 +56,29 @@ public class GmBindingLink extends GmLink {
      * Constructor for deserialization.
      */
     @objid ("34121524-55b7-11e2-877f-002564c97630")
-    public  GmBindingLink() {
+    public GmBindingLink() {
         // Nothing to do.
     }
 
     /**
      * Creates a GmElementImport.
+     *
      * @param diagram The diagram containing the link.
      * @param role The represented element.
      * @param ref The represented element reference. May not be null.
      */
     @objid ("34121527-55b7-11e2-877f-002564c97630")
-    public  GmBindingLink(IGmDiagram diagram, Binding role, MRef ref) {
+    public GmBindingLink(IGmDiagram diagram, Binding role, MRef ref) {
         super(diagram, ref);
-        
+
         this.element = role;
-        
+
         if (role != null) {
             // Create extensions
-        
+
             addExtension(ExtensionLocation.TargetNW, ROLE_MAIN_LABEL, new GmBindingLinkHeader(diagram, ref));
         }
-        
+
     }
 
     @objid ("34121533-55b7-11e2-877f-002564c97630")
@@ -125,17 +126,17 @@ public class GmBindingLink extends GmLink {
     protected void readLink(IDiagramReader in) {
         super.readLink(in);
         this.element = (Binding) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("34139bc8-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmBindingLink.", GmBindingLink.MINOR_VERSION);
-        
+
     }
 
     @objid ("34139bce-55b7-11e2-877f-002564c97630")

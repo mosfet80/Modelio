@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.api.dg.infra;
 
@@ -51,17 +51,17 @@ public class InfrastructureDGFactory implements IDGFactory {
         if (gmLink instanceof GmDependency) {
             return new DependencyDG((DiagramHandle) diagramHandle, gmLink);
         }
-        
+
         // GmImpactLink
         if (gmLink instanceof GmNamespaceUse) {
             return new ImpactLinkDG((DiagramHandle) diagramHandle, gmLink);
         }
-        
+
         // GmUsage
         if (gmLink instanceof GmUsage) {
             return new UsageDG((DiagramHandle) diagramHandle, gmLink);
         }
-        
+
         // GmGenericLink
         if (gmLink instanceof GmGenericLink) {
             return new GenericLinkDG((DiagramHandle) diagramHandle, gmLink);
@@ -76,27 +76,27 @@ public class InfrastructureDGFactory implements IDGFactory {
         if (gmNodeModel instanceof GmNote) {
             return new NoteDG((DiagramHandle) diagramHandle, gmNodeModel);
         }
-        
+
         // GmDiagramView
         if (gmNodeModel instanceof GmDiagramView) {
             return new DiagramHolderDG((DiagramHandle) diagramHandle, gmNodeModel);
         }
-        
+
         // Generic labels
         if (gmNodeModel instanceof GmModelElementHeader) {
             return new LabelDG((DiagramHandle) diagramHandle, gmNodeModel);
         }
-        
+
         // GmElementLabel
         if (gmNodeModel instanceof GmElementLabel) {
             return new LabelDG((DiagramHandle) diagramHandle, gmNodeModel);
         }
-        
+
         // GmGenericNode
         if (gmNodeModel instanceof GmGenericNode) {
             return new GenericNodeDG((DiagramHandle) diagramHandle, gmNodeModel);
         }
-        
+
         // GmGraphDiagram
         if (gmNodeModel.getRelatedElement() instanceof GraphDiagram) {
             return new GraphDiagramDG((DiagramHandle) diagramHandle, gmNodeModel);

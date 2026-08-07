@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?artifactRepository version='1.1.0'?>
+<repository name='file:////home/fferran/mtools/alouette/work/eclipse/dev-platform/rcp-target/tmatesoft/com.tmatesoft.svn_1.10.13.eclipse - artifacts' type='org.eclipse.equinox.p2.artifact.repository.simpleRepository' version='1'>
+  <properties size='2'>
+    <property name='p2.timestamp' value='1771603194028'/>
+    <property name='p2.compressed' value='false'/>
+  </properties>
+  <mappings size='3'>
+    <rule filter='(&amp; (classifier=osgi.bundle))' output='${repoUrl}/plugins/${id}_${version}.jar'/>
+    <rule filter='(&amp; (classifier=binary))' output='${repoUrl}/binary/${id}_${version}'/>
+    <rule filter='(&amp; (classifier=org.eclipse.update.feature))' output='${repoUrl}/features/${id}_${version}.jar'/>
+  </mappings>
+  <artifacts size='2'>
+    <artifact classifier='osgi.bundle' id='com.tmatesoft.svnkit' version='1.10.13.r10892'>
+      <properties size='6'>
+        <property name='artifact.size' value='12945804'/>
+        <property name='download.size' value='12945804'/>
+        <property name='download.md5' value='f1a4045e255133aaad1b040e45b165e2'/>
+        <property name='download.checksum.sha-512' value='ecf0aec9744b4ed2270ad13da2d31bd73df4b8e86b869c1a7721716744f66bf3ff77cb88cf427bf752f83af0b65fff5a5fdefb19b745e2dee99ddd6a189625b3'/>
+        <property name='download.checksum.md5' value='f1a4045e255133aaad1b040e45b165e2'/>
+        <property name='download.checksum.sha-256' value='4ca85ee39e849888402299359bcf13cc9f98402e8121c82f2560d990f83b1042'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='com.tmatesoft.svnkit' version='1.10.13.r10892'>
+      <properties size='7'>
+        <property name='artifact.size' value='2178'/>
+        <property name='download.size' value='2178'/>
+        <property name='download.md5' value='517d2cf5383c02bf8ef6e50986af7406'/>
+        <property name='download.checksum.sha-512' value='bf1093146684616233e8177465d05b1378cef1ca3b382fa7c0b5ee4b4918e76c345e9937e8ee8a8a2daeee1dd09d236a8b28e22011a91a523a9edab151793b79'/>
+        <property name='download.checksum.md5' value='517d2cf5383c02bf8ef6e50986af7406'/>
+        <property name='download.checksum.sha-256' value='c99fe286adbcfcdedbbefa882cf0f59c5b3dd9c79b08ab5aa4b1670f372d3d09'/>
+        <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+  </artifacts>
+</repository>

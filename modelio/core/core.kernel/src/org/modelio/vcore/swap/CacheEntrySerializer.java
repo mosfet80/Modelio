@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.swap;
 
@@ -59,18 +59,18 @@ class CacheEntrySerializer implements Serializer<JdbmSwap.CacheEntry> {
     public void serialize(SerializerOutput out, org.modelio.vcore.swap.JdbmSwap.CacheEntry entry) throws IOException {
         out.writeInt(entry.metaId);
         out.writeInt(entry.storeHandleId);
-        
+
         SmObjectData obj = entry.data;
         out.writeLong(obj.getLiveId());
         writeUuid(out, obj.getUuid());
-        
+
         out.writeLong(obj.getStatus());
-        
+
         SmClass cls = obj.getClassOf();
         for (SmAttribute att : cls.getAllAttDef()) {
             writeAttribute(out, obj, att);
         }
-        
+
         for (SmDependency  d: cls.getAllDepDef()) {
             if (d.isMultiple()) {
                 writeMultipleDep(out, obj, d);
@@ -78,33 +78,33 @@ class CacheEntrySerializer implements Serializer<JdbmSwap.CacheEntry> {
                 writeSimpleDep(out, obj, (SmSingleDependency)d);
             }
         }
-        
+
     }
 
     @objid ("dcbe878b-493b-11e2-91c9-001ec947ccaf")
     @Override
     public org.modelio.vcore.swap.JdbmSwap.CacheEntry deserialize(SerializerInput in) throws ClassNotFoundException, IOException {
         JdbmSwap.CacheEntry ret = new JdbmSwap.CacheEntry();
-        
+
         ret.metaId = in.readInt();
         ret.storeHandleId = in.readInt();
-        
+
         final long liveId = in.readLong();
         final String uuid = readUuid(in);
-        
+
         final short clsid = SmLiveId.getClassId(liveId);
         final SmClass cls = this.metamodel.getMClass(clsid);
-        
+
         final SmObjectData data = (SmObjectData) cls.getObjectFactory().createData();
         data.init(uuid, liveId);
         ret.data = data;
-        
+
         SmStatusFactory.deserializeStatuses(data, in.readLong());
-        
+
         for (SmAttribute att : cls.getAllAttDef()) {
             readAttribute(in, data, att);
         }
-        
+
         for (SmDependency  d: cls.getAllDepDef()) {
             if (d.isMultiple()) {
                 readMultipleDep(in, data, d);
@@ -124,7 +124,7 @@ class CacheEntrySerializer implements Serializer<JdbmSwap.CacheEntry> {
             for (int i=0; i < len; i++) {
                 s.append(in.readChar());
             }
-        
+
             att.setValue(data, s.toString());
         } else if (type == Integer.class) {
             att.setValue(data, in.readInt());
@@ -144,7 +144,7 @@ class CacheEntrySerializer implements Serializer<JdbmSwap.CacheEntry> {
         } else {
             throw new UnsupportedOperationException(type+" "+att+" attribute not supported.");
         }
-        
+
     }
 
     @objid ("dcc0e9a7-493b-11e2-91c9-001ec947ccaf")
@@ -172,7 +172,7 @@ class CacheEntrySerializer implements Serializer<JdbmSwap.CacheEntry> {
         } else {
             throw new UnsupportedOperationException(type+" "+val+" "+att+" attribute not supported.");
         }
-        
+
     }
 
     @objid ("dcc0e9ae-493b-11e2-91c9-001ec947ccaf")
@@ -184,7 +184,7 @@ class CacheEntrySerializer implements Serializer<JdbmSwap.CacheEntry> {
             out.writeByte(1);
             writeRef(out, content);
         }
-        
+
     }
 
     @objid ("dcc0e9b5-493b-11e2-91c9-001ec947ccaf")
@@ -195,40 +195,40 @@ class CacheEntrySerializer implements Serializer<JdbmSwap.CacheEntry> {
         } else {
             assert (flag == 0) : (d.getName()+" flag is " + flag);
         }
-        
+
     }
 
     @objid ("dcc0e9bc-493b-11e2-91c9-001ec947ccaf")
     private static void writeMultipleDep(DataOutput out, SmObjectData obj, SmDependency md) throws IOException {
         Collection<SmObjectImpl> content = md.getValueAsCollection(obj);
-        
+
         out.writeInt(content.size());
-        
+
         for (SmObjectImpl val : content) {
             writeRef(out, val);
         }
-        
+
     }
 
     @objid ("dcc0e9c3-493b-11e2-91c9-001ec947ccaf")
     private void readMultipleDep(DataInput in, ISmObjectData obj, SmDependency d) throws IOException {
         final int size = in.readInt();
-        
+
         for (int i=0; i<size; i++) {
             final SmObjectImpl depVal = readRef(in);
             d.add(obj, depVal);
         }
-        
+
     }
 
     @objid ("dcc0e9ca-493b-11e2-91c9-001ec947ccaf")
     private SmObjectImpl readRef(DataInput in) throws IOException {
         long liveId = in.readLong();
         String uuid = readUuid(in);
-        
+
         short clsid = SmLiveId.getClassId(liveId);
         SmClass cls = this.metamodel.getMClass(clsid);
-        
+
         SmObjectImpl obj = cls.getObjectFactory().createImpl();
         obj.init(uuid, liveId);
         return obj;
@@ -237,14 +237,15 @@ class CacheEntrySerializer implements Serializer<JdbmSwap.CacheEntry> {
     @objid ("dcc0e9d1-493b-11e2-91c9-001ec947ccaf")
     private static void writeRef(DataOutput out, SmObjectImpl val) throws IOException {
         out.writeLong(val.getLiveId());
-        
+
         final String uuid = val.getUuid();
         writeUuid(out, uuid);
-        
+
     }
 
     /**
      * Get all possible enumeration values of an enumerate type.
+     *
      * @param type a enumerate class.
      * @return all possible values, ordered.
      */
@@ -262,7 +263,7 @@ class CacheEntrySerializer implements Serializer<JdbmSwap.CacheEntry> {
     private static String readUuid(DataInput in) throws IOException {
         //        long most = in.readLong();
         //        long least = in.readLong();
-        //        
+        //
         //        UUID uuid = new UUID(most, least);
         return in.readUTF();
     }
@@ -272,11 +273,11 @@ class CacheEntrySerializer implements Serializer<JdbmSwap.CacheEntry> {
         out.writeUTF(uuid);
         //        out.writeLong(uuid.getMostSignificantBits());
         //        out.writeLong(uuid.getLeastSignificantBits());
-        
+
     }
 
     @objid ("7e212a92-3f65-41ef-b379-68dd4d8670f8")
-    public  CacheEntrySerializer(SmMetamodel metamodel) {
+    public CacheEntrySerializer(SmMetamodel metamodel) {
         this.metamodel = metamodel;
     }
 

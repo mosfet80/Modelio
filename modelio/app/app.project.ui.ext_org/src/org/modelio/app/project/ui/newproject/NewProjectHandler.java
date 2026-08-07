@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.ui.newproject;
 
@@ -25,7 +25,7 @@ import java.nio.file.FileSystemException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -69,7 +69,7 @@ public class NewProjectHandler {
     @Execute
     void execute(final IEclipseContext context, IModuleStore moduleCatalog, final IProjectService projectService, @Named (IServiceConstants.ACTIVE_SHELL) final Shell shell, IModelioProgressService progressSvc, StatusReporter statusReporter) {
         AppProjectUiExt.LOG.info("New project..");
-        
+
         // Check if the directory is writable
         if (!Files.isWritable(projectService.getWorkspace())) {
             MessageDialog.openError(new Shell(),
@@ -77,16 +77,16 @@ public class NewProjectHandler {
                     AppProjectUiExt.I18N.getMessage("AccessWorkspaceWrite.failed.message", projectService.getWorkspace().toString()));
             return;
         }
-        
+
         // Check for an already opened project prompt the user for closing
         if (!promptSaveBeforeClose(projectService, shell, progressSvc, statusReporter)) {
             return;
         }
-        
+
         try {
             // Prompt the user for the new project data
             BasicProjectCreationDataModel dataModel = promptUser(shell, projectService, moduleCatalog);
-        
+
             if (dataModel != null) {
                 // Open the new project
                 final BasicProjectCreator projectCreator = createOpenProject(projectService, dataModel, progressSvc);
@@ -94,14 +94,14 @@ public class NewProjectHandler {
                     // If project creation failed, do not try to open
                     return;
                 }
-        
+
                 final ICoreSession session = projectService.getOpenedProject().getSession();
                 // The project creator should have created an initial model in
                 // the new project made of model element(s) and diagram(s)
                 // Here we try to open those diagrams...
                 final IActivationService evs = context.get(IActivationService.class);
                 final IModelioNavigationService navs = context.get(IModelioNavigationService.class);
-        
+
                 shell.getDisplay().asyncExec(new Runnable() {
                     @Override
                     public void run() {
@@ -117,7 +117,7 @@ public class NewProjectHandler {
                         }
                     }
                 });
-        
+
             }
             // Open the project configurator if asked
             // FIXME: today 23/1/2013 there is no known and satisfying means of
@@ -135,7 +135,7 @@ public class NewProjectHandler {
         } catch (InterruptedException e) {
             AppProjectUiExt.LOG.error(e);
         }
-        
+
     }
 
     @objid ("0046f8d4-cc35-1ff2-a7f4-001ec947cd2a")
@@ -144,33 +144,33 @@ public class NewProjectHandler {
         return projectService != null; // &&
         // (projectService.getOpenedProject()
         // == null);
-        
+
     }
 
     @objid ("0046f96a-cc35-1ff2-a7f4-001ec947cd2a")
     private BasicProjectCreationDataModel promptUser(final Shell parentShell, final IProjectService projectService, IModuleStore moduleCatalog) throws IOException {
         BasicProjectCreationDataModel dataModel = new BasicProjectCreationDataModel(projectService.getWorkspace());
         ProjectCreationDialog dialog = new ProjectCreationDialog(parentShell, dataModel, moduleCatalog);
-        
+
         // Compute a default name for the project
         String defaultName = computeDefaultName(projectService.getWorkspace());
         dataModel.setProjectName(defaultName);
-        
+
         // Open the main window
         // Don't return from open() until dialog window closes
         dialog.setBlockOnOpen(true);
         int code = dialog.open();
-        
+
         if (code == IDialogConstants.OK_ID) {
-        
+
             // Checks that the project does not exist yet with the same name.
             final Path projectDir = projectService.getWorkspace().resolve(dataModel.getProjectName());
             if (Files.exists(projectDir)) {
-        
+
                 boolean answer = MessageDialog.openQuestion(parentShell,
                         AppProjectUiExt.I18N.getMessage("ProjectAlreadyExistsTitle"),
                         AppProjectUiExt.I18N.getMessage("ProjectAlreadyExistsDesc"));
-        
+
                 if (answer) {
                     // The user ask for deletion of the existing project
                     GProjectDescriptor projectToDelete = GProjectDescriptorFactory.readProjectDirectory(projectDir);
@@ -180,7 +180,7 @@ public class NewProjectHandler {
                     // Prompt the user again for another name
                     return promptUser(parentShell, projectService, moduleCatalog);
                 }
-        
+
             }
             // The dialog has matched the entered project name agains't a set of
             // legal characters.
@@ -189,11 +189,11 @@ public class NewProjectHandler {
             // This is because the name has to be used for naming a directory
             // It consists currently in removing trailing blanks or dot chars.
             String normalizedName = dataModel.getProjectName();
-        
+
             while (normalizedName.endsWith(" ") || normalizedName.endsWith(".")) {
                 normalizedName = normalizedName.substring(0, normalizedName.length() - 1);
             }
-        
+
             dataModel.setProjectName(normalizedName);
             return dataModel;
         }
@@ -216,17 +216,17 @@ public class NewProjectHandler {
         if (openedProject == null) {
             return true;
         }
-        
+
         String[] buttonLabels = { AppProjectUiExt.I18N.getString("SaveAndClose"),
                 AppProjectUiExt.I18N.getString("CloseNoSave"), AppProjectUiExt.I18N.getString("Cancel") };
-        
+
         final String title = AppProjectUiExt.I18N.getString("NewProjectCloseConfirmTitle");
         MessageDialog dlg = new MessageDialog(shell, title, null,
                 AppProjectUiExt.I18N.getString("NewProjectCloseConfirmMsg"), MessageDialog.QUESTION, buttonLabels, 0);
-        
+
         dlg.setBlockOnOpen(true);
         int answer = dlg.open();
-        
+
         // Deal with saving and closing before continuing
         switch (answer) {
         case 0:
@@ -234,7 +234,7 @@ public class NewProjectHandler {
             if (!SaveProjectHandler.saveProject(title, projectService, progressSvc, statusReporter)) {
                 return false;
             }
-        
+
             projectService.closeProject(openedProject);
             return true;
         case 1:
@@ -245,24 +245,24 @@ public class NewProjectHandler {
         default:
             // Cancel
             return false;
-        
+
         }
-        
+
     }
 
     @objid ("8aa5dc99-8e60-40ab-baa0-e4563e1d1abc")
     private BasicProjectCreator createOpenProject(final IProjectService projectService, final BasicProjectCreationDataModel dataModel, IModelioProgressService progressSvc) throws InvocationTargetException, InterruptedException {
         final BasicProjectCreator projectCreator = new BasicProjectCreator();
         IRunnableWithProgress runnable = new IRunnableWithProgress() {
-        
+
             @Override
             public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                 SubMonitor mon = SubMonitor.convert(monitor, 10);
-        
+
                 try {
                     projectService.createProject(projectCreator, dataModel, mon.newChild(4));
                     projectService.openProject(dataModel.getProjectName(), null, mon.newChild(6));
-        
+
                 } catch (GProjectAuthenticationException e) {
                     throw new InvocationTargetException(e, e.getLocalizedMessage());
                 } catch (FileSystemException e) {
@@ -272,7 +272,7 @@ public class NewProjectHandler {
                 }
             }
         };
-        
+
         progressSvc.run(true, true, runnable);
         return projectCreator;
     }

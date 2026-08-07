@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.parts.fragment;
 
@@ -37,13 +37,14 @@ import org.modelio.version.ModelioVersionGuesser;
 
 /**
  * Metamodel versions conveniences.
- * 
+ *
  * @author cmarin
  */
 @objid ("3b8ea3f2-bc2b-4a6d-8209-ca6e136e4fb5")
 public class VersionHelper {
     /**
      * Convert an old metamodel version to the new format
+     *
      * @param mmVersion the old metamodel version
      * @return the metamodel version with the new format.
      */
@@ -54,13 +55,14 @@ public class VersionHelper {
 
     /**
      * Convert a potential pre Modelio 3.4 metamodel descriptor.
+     *
      * @param input the source descriptor
      * @return another converted one.
      */
     @objid ("d1feb0ff-3fca-4f51-9f38-0d054cf039ae")
     public static MetamodelVersionDescriptor convert(MetamodelVersionDescriptor input) {
         MetamodelVersionDescriptor out = new MetamodelVersionDescriptor();
-        
+
         for (VersionedItem<?> item : input) {
             // Pre Modelio 3.4 compatibility
             if (item.getName().equals("Modelio")) {
@@ -84,6 +86,7 @@ public class VersionHelper {
 
     /**
      * Build a {@link MetamodelVersionDescriptor} from an old metamodel version.
+     *
      * @param oldMmVersion an old Modelio metamodel version.
      * @return the matching VersionDescriptors
      */
@@ -95,13 +98,14 @@ public class VersionHelper {
 
     /**
      * Build a {@link MetamodelVersionDescriptor} from a metamodel .
+     *
      * @param mm a metamodel
      * @return its descriptor
      */
     @objid ("747b6fce-bc43-4797-918b-46db5b00b4d9")
     public static MetamodelVersionDescriptor getDescriptors(MMetamodel mm) {
         MetamodelVersionDescriptor desc = new MetamodelVersionDescriptor();
-        
+
         for (MMetamodelFragment mmFragment : mm.getFragments()) {
             VersionedItem<Void> v = new VersionedItem<>(mmFragment.getName(), mmFragment.getVersion());
             desc.addDescriptor(v);
@@ -110,13 +114,14 @@ public class VersionHelper {
     }
 
     @objid ("6d743e8f-b92b-48f6-9337-82845fb9a1a2")
-    private  VersionHelper() {
+    private VersionHelper() {
         // no instance
     }
 
     /**
      * Guess the Modelio version of a loaded project from the loaded (but not opened) project.
      * The guess consists in analysing the parts to determine the Modelio version.
+     *
      * @param projDesc the project descriptor
      * @return the guessed Modelio version
      */
@@ -165,7 +170,7 @@ public class VersionHelper {
                     break;
                 }
             }
-        
+
             if (lastRamcVersion != null) {
                 return ModelioVersionGuesser.guessFromStandardMmVersion(lastRamcVersion);
             } else if (lastWorkVersion != null) {
@@ -173,12 +178,12 @@ public class VersionHelper {
             } else {
                 return null;
             }
-        
+
         } catch (IOException|GPartException e) {
             // A part version could not be read => the overall guess is considered as failed.
             return null;
         }
-        
+
     }
 
 }

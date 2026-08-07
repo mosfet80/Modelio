@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.communicationdiagram.editor.elements.communicationnode;
 
@@ -34,7 +34,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * {@link ICommunicationNode} link header displayed on the node.
- * 
+ *
  * @author cmarin
  */
 @objid ("7a576416-55b6-11e2-877f-002564c97630")
@@ -50,11 +50,12 @@ public class GmCommunicationNodeHeader extends GmDefaultModelElementHeader {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram
      * @param relatedRef a reference to the element this GmModel is related to, must not be null.
      */
     @objid ("7a58ea7b-55b6-11e2-877f-002564c97630")
-    public  GmCommunicationNodeHeader(final IGmDiagram diagram, final MRef relatedRef) {
+    public GmCommunicationNodeHeader(final IGmDiagram diagram, final MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -62,8 +63,8 @@ public class GmCommunicationNodeHeader extends GmDefaultModelElementHeader {
      * For deserialization only.
      */
     @objid ("7a58ea86-55b6-11e2-877f-002564c97630")
-    public  GmCommunicationNodeHeader() {
-        
+    public GmCommunicationNodeHeader() {
+
     }
 
     @objid ("7a58ea89-55b6-11e2-877f-002564c97630")
@@ -85,7 +86,7 @@ public class GmCommunicationNodeHeader extends GmDefaultModelElementHeader {
             setShowMetaclassIcon(false);
         }
         super.refreshFromObModel();
-        
+
     }
 
     @objid ("7a58ea91-55b6-11e2-877f-002564c97630")
@@ -118,17 +119,17 @@ public class GmCommunicationNodeHeader extends GmDefaultModelElementHeader {
             break;
         }
         }
-        
+
     }
 
     @objid ("7a58ea9c-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmCommunicationNodeHeader.", GmCommunicationNodeHeader.MINOR_VERSION);
-        
+
     }
 
     @objid ("7a58eaa2-55b6-11e2-877f-002564c97630")
@@ -149,21 +150,21 @@ public class GmCommunicationNodeHeader extends GmDefaultModelElementHeader {
                     @Override
                     public String getText() {
                         final CommunicationNode theInstanceNode = (CommunicationNode) getRelatedElement();
-        
+
                         Instance instance = theInstanceNode.getRepresented();
-        
+
                         if (instance != null) {
                             return instance.getName();
                         } else {
                             return theInstanceNode.getName();
                         }
                     }
-        
+
                     @Override
                     public void setText(String text) {
                         final CommunicationNode theInstanceNode = (CommunicationNode) getRelatedElement();
                         Instance instance = theInstanceNode.getRepresented();
-        
+
                         if (instance != null) {
                             instance.setName(text);
                             theInstanceNode.setName(text);
@@ -172,7 +173,7 @@ public class GmCommunicationNodeHeader extends GmDefaultModelElementHeader {
                         }
                     }
                 };
-        
+
     }
 
 }

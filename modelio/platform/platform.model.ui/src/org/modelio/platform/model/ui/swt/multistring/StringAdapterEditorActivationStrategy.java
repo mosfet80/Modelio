@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.swt.multistring;
 
@@ -35,7 +35,7 @@ class StringAdapterEditorActivationStrategy extends ColumnViewerEditorActivation
     String selectedElement = null;
 
     @objid ("8dca8c6b-c068-11e1-8c0a-002564c97630")
-    public  StringAdapterEditorActivationStrategy(ColumnViewer viewer) {
+    public StringAdapterEditorActivationStrategy(ColumnViewer viewer) {
         super(viewer);
     }
 
@@ -50,7 +50,7 @@ class StringAdapterEditorActivationStrategy extends ColumnViewerEditorActivation
             // Retrieve selected element:
             //---------------------------
             String sourceElement = null;
-        
+
             Object eventSource = event.getSource();
             if (eventSource instanceof ViewerCell) {
                 ViewerCell sourceCell = (ViewerCell) eventSource;
@@ -59,18 +59,18 @@ class StringAdapterEditorActivationStrategy extends ColumnViewerEditorActivation
                     sourceElement = (String)sourceObject;
                 }
             }
-        
+
             if (sourceElement == null) {
                 return false;
             }
-        
+
             if (this.time == 0) {
                 this.time = event.time;
                 this.selectedElement = sourceElement;
                 return false;
             } else {
                 int delta = event.time - this.time;
-        
+
                 if (delta > 300 && delta < 1000 && this.selectedElement == sourceElement) {
                     this.time = 0;
                     this.selectedElement = sourceElement;

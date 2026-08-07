@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.stateMachineModel;
 
 import java.util.ArrayList;
@@ -45,13 +44,13 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0054c0ea-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class StateVertexImpl extends UmlModelElementImpl implements StateVertex {
-    @objid ("83e4b8ea-de32-4212-92cc-2cb662a328eb")
+    @objid ("c2b11910-f5ea-4012-8e2c-c0eb2b0657ba")
     @Override
     public EList<Transition> getOutGoing() {
         return new SmList<>(this, ((StateVertexSmClass)getClassOf()).getOutGoingDep());
     }
 
-    @objid ("b5f191e7-22e8-4943-a41a-3c50e5c77175")
+    @objid ("f6b73abe-3957-44c1-826e-a38a21cfd305")
     @Override
     public <T extends Transition> List<T> getOutGoing(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -64,16 +63,16 @@ public abstract class StateVertexImpl extends UmlModelElementImpl implements Sta
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("920f2746-67fe-4563-b699-8cb42525e600")
+    @objid ("222c04a0-d80f-4897-b2c4-86ff4baf9d17")
     @Override
     public EList<Transition> getIncoming() {
         return new SmList<>(this, ((StateVertexSmClass)getClassOf()).getIncomingDep());
     }
 
-    @objid ("1c09d651-26f6-40f9-aa4f-42788eeccc59")
+    @objid ("d825bfb2-3e60-4b7b-864f-163f95362bdc")
     @Override
     public <T extends Transition> List<T> getIncoming(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -86,23 +85,23 @@ public abstract class StateVertexImpl extends UmlModelElementImpl implements Sta
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("dcf3e4fd-4b24-436f-9aa8-f0b26a6766b6")
+    @objid ("57b2f301-47b9-4b8b-9369-b834f7c0bd06")
     @Override
     public Region getParent() {
         Object obj = getDepVal(((StateVertexSmClass)getClassOf()).getParentDep());
         return (obj instanceof Region)? (Region)obj : null;
     }
 
-    @objid ("23356494-4f3e-4341-b4e0-d3ac9e0035e5")
+    @objid ("b61870b5-3c91-4f0c-8fe3-b1c0ad95ab4b")
     @Override
     public void setParent(Region value) {
         appendDepVal(((StateVertexSmClass)getClassOf()).getParentDep(), (SmObjectImpl)value);
     }
 
-    @objid ("989a3990-6cab-49c6-b4c0-040c864309fd")
+    @objid ("558eac15-5799-437c-b7dc-8e5ec3ed973e")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -114,22 +113,22 @@ public abstract class StateVertexImpl extends UmlModelElementImpl implements Sta
         return super.getCompositionOwner();
     }
 
-    @objid ("43de63e3-ada5-40b4-9517-a4dcf5ca6a00")
+    @objid ("f351705b-d5c6-46ee-acc1-a84657036fce")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // Parent
         dep = ((StateVertexSmClass)getClassOf()).getParentDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("46bdce0e-54fb-49ef-a345-237b0d9c2bf2")
+    @objid ("129d5746-43aa-4a69-b24e-9daf9aba061c")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitStateVertex(this);

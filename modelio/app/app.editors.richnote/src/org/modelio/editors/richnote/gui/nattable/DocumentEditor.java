@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.gui.nattable;
 
@@ -91,14 +91,15 @@ public class DocumentEditor extends AbstractCellEditor {
 
     /**
      * Build a new instance of this editor.
+     *
      * @param context the table project context
      */
     @objid ("c6016fef-e782-45fd-87eb-c61eeb7e09a9")
-    public  DocumentEditor(INatTableViewerContext context) {
+    public DocumentEditor(INatTableViewerContext context) {
         this.activationService = context.getActivationService();
         this.session = context.getSession();
         this.preferenceStore = context.getProjectPreferences(ProjectPreferencesKeys.NODE_ID);
-        
+
     }
 
     /**
@@ -108,17 +109,17 @@ public class DocumentEditor extends AbstractCellEditor {
     @Override
     protected Control activateCell(Composite parentComposite, Object originalCanonicalValue) {
         setEditorValue(originalCanonicalValue);
-        
+
         this.canvas = createEditorControl(parentComposite);
-        
+
         commit(MoveDirectionEnum.NONE, false);
-        
+
         if (this.editMode == EditModeEnum.INLINE) {
             // Close editor so will react to subsequent clicks on the cell
             if (this.canvas != null && !this.canvas.isDisposed()) {
                 this.canvas.getDisplay().asyncExec(() -> {
                     close();
-        
+
                     // Open the rich note editor
                     if (this.activationService != null) {
                         this.activationService.activateMObject(this.value);
@@ -137,8 +138,9 @@ public class DocumentEditor extends AbstractCellEditor {
 
     /**
      * Get the selected mime type from the project's preferences.
-     * @see ProjectPreferencesKeys#RICHNOTE_DEFAULT_TYPE_PREFKEY
+     *
      * @return a mime type value.
+     * @see ProjectPreferencesKeys#RICHNOTE_DEFAULT_TYPE_PREFKEY
      */
     @objid ("69d6c9d1-e420-4aad-9f14-c072780ebfba")
     private String getSelectedMimeType() {
@@ -146,14 +148,14 @@ public class DocumentEditor extends AbstractCellEditor {
         if (mimeType != null && !mimeType.isEmpty()) {
             return mimeType;
         }
-        
+
         // No mime type in preferences, use a default value
         if (System.getProperty("os.name").equals("Linux")) {
             return "application/vnd.oasis.opendocument.text";
         } else {
             return "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
         }
-        
+
     }
 
     @objid ("c0b6d699-7157-47e1-9004-2fce516a611c")
@@ -172,14 +174,14 @@ public class DocumentEditor extends AbstractCellEditor {
         } else if (value != null) {
             final MRef mRef = (MRef) value;
             final IModel imodel = this.session.getModel();
-        
+
             MObject referencedElement = imodel.findByRef(mRef, IModel.NODELETED);
             if (mRef.mc.equals(Document.MQNAME)) {
                 this.value = (Document) referencedElement;
             } else {
                 // Find the selected element to create the rich note...
                 ModelElement owner = (ModelElement) imodel.findByRef(mRef);
-        
+
                 String mimeType = getSelectedMimeType();
                 if (isValidMimeType(mimeType)) {
                     this.value = createDocument(owner, mimeType);
@@ -190,11 +192,12 @@ public class DocumentEditor extends AbstractCellEditor {
                     EditorsRichNote.I18N.getMessage("ScopeRichTextCellEditor.InvalidValue"),
                     EditorsRichNote.I18N.getMessage("ScopeRichTextCellEditor.InvalidValueDetails"));
         }
-        
+
     }
 
     /**
      * Create an {@link Document} on the element, with a default type.
+     *
      * @param element the element to create the {@link Document} on.
      * @param mimeType indicates the type of physical document to create.
      * @return the created rich note.
@@ -202,25 +205,25 @@ public class DocumentEditor extends AbstractCellEditor {
     @objid ("132abd39-a545-40f4-8535-7469b3e33e65")
     protected Document createDocument(final ModelElement element, final String mimeType) {
         String docTypeName = getDefaultResourceTypeName(element);
-        
+
         try (ITransaction transaction = this.session.getTransactionSupport().createTransaction("Create '" + mimeType + "' " + docTypeName + "rich note")) {
             IMModelServices modelSvc = new MModelServices(this.session);
             IInfrastructureModelFactory f = modelSvc.getModelFactory().getFactory(IInfrastructureModelFactory.class);
-        
+
             ResourceType docType = modelSvc.getResourceType(DocumentEditor.MODELER_MODULE, ".*", docTypeName, element.getMClass());
             if (docType == null) {
                 throw new FileNotFoundException("'" + docTypeName + "' rich note type not found in '" + DocumentEditor.MODELER_MODULE + "' module.");
             }
-        
+
             Document externDoc = f.resourceBuilder()
                     .withOwner(element)
                     .withMimeType(mimeType)
                     .withRole(docType)
                     .createEmbeddedDocument();
             externDoc.setName(element.getName());
-        
+
             transaction.commit();
-        
+
             return externDoc;
         } catch (ElementNotUniqueException e) {
             // many rich note types with same name
@@ -284,11 +287,12 @@ public class DocumentEditor extends AbstractCellEditor {
         } else {
             return true;
         }
-        
+
     }
 
     /**
      * Get the name of the default {@link ResourceType} according to the element's metaclass.
+     *
      * @param element the element to create the extern document on.
      * @return the name of an {@link ResourceType} belonging to ModelerModule.
      */
@@ -318,15 +322,16 @@ public class DocumentEditor extends AbstractCellEditor {
 
     /**
      * Build a new instance of this editor.
+     *
      * @param projectService project services
      * @param activationService activation service
      */
     @objid ("9c60cd60-f466-4552-8907-bdbe1b422cc3")
-    public  DocumentEditor(IProjectService projService, IActivationService activationService) {
+    public DocumentEditor(IProjectService projService, IActivationService activationService) {
         this.session = projService.getSession();
         this.activationService = activationService;
         this.preferenceStore = projService.getProjectPreferences(ProjectPreferencesKeys.NODE_ID);
-        
+
     }
 
 }

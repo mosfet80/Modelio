@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -43,13 +42,13 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0009bc1c-c4bf-1fd8-97fe-001ec947cd2a")
 public class EnumerationImpl extends GeneralClassImpl implements Enumeration {
-    @objid ("dd0685bf-79be-4988-8980-850c1c7c9d8d")
+    @objid ("fb43ad94-4c55-4cf7-9a31-650989cb6e3f")
     @Override
     public EList<EnumerationLiteral> getValue() {
         return new SmList<>(this, ((EnumerationSmClass)getClassOf()).getValueDep());
     }
 
-    @objid ("9cf1f893-900d-48b3-92d3-4e05049a7170")
+    @objid ("f3060430-87c3-4642-a116-8d7c8eeaab94")
     @Override
     public <T extends EnumerationLiteral> List<T> getValue(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -62,10 +61,10 @@ public class EnumerationImpl extends GeneralClassImpl implements Enumeration {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("a297584c-669a-48ce-a3ca-5bebaeeb0b5f")
+    @objid ("5fbf8452-fb67-4fd3-a496-7ce524bea65b")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -73,17 +72,17 @@ public class EnumerationImpl extends GeneralClassImpl implements Enumeration {
         return super.getCompositionOwner();
     }
 
-    @objid ("e294c867-8a98-401f-9569-0d7e354a3fca")
+    @objid ("f571a0e3-9097-4604-bd9e-7b17186a6357")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("6d96e924-d754-4c3f-a16b-9f0e6575404b")
+    @objid ("08416b2a-401e-4dbb-9f76-46543900de07")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitEnumeration(this);

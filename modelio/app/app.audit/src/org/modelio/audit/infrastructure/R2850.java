@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.infrastructure;
 
@@ -46,7 +46,7 @@ public class R2850 extends AbstractInfrastructureRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -97,14 +97,14 @@ public class R2850 extends AbstractInfrastructureRule {
      * Default constructor for R2850
      */
     @objid ("52accdba-74fb-4f62-8567-a4ccaa143a9d")
-    public  R2850() {
+    public R2850() {
         this.checkerInstance = new CheckR2850(this);
     }
 
     @objid ("3057bdae-bf56-4f12-932d-e0438dd8ccbf")
     private static class CheckR2850 extends AbstractControl {
         @objid ("d87174c7-ebcf-4a33-9ee1-d63d9b19634f")
-        public  CheckR2850(IRule rule) {
+        public CheckR2850(IRule rule) {
             super(rule);
         }
 
@@ -120,16 +120,16 @@ public class R2850 extends AbstractInfrastructureRule {
         @objid ("6472270d-9e25-4ba7-b930-2828ff706245")
         private IAuditEntry checkR2850(final Usage usage) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, usage, null);
-            
+
             if (usage.getImpacted().equals(usage.getDependsOn())) {
-            
+
                 // Rule failed
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(usage.getImpacted());
                 auditEntry.setLinkedInfos(linkedObjects);
-            
+
             }
             return auditEntry;
         }

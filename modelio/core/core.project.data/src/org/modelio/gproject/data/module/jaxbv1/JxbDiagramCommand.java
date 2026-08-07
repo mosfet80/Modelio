@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.data.module.jaxbv1;
 
@@ -28,9 +28,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for diagram-command complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="diagram-command">
  * &lt;complexContent>
@@ -80,8 +80,8 @@ public class JxbDiagramCommand {
 
     /**
      * Gets the value of the handler property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link JxbHandler }
      */
     @objid ("caee7620-d6ff-11e1-9f03-001ec947ccaf")
@@ -91,6 +91,7 @@ public class JxbDiagramCommand {
 
     /**
      * Sets the value of the handler property.
+     *
      * @param value allowed object is
      * {@link JxbHandler }
      */
@@ -101,8 +102,8 @@ public class JxbDiagramCommand {
 
     /**
      * Gets the value of the name property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("caee75f9-d6ff-11e1-9f03-001ec947ccaf")
@@ -112,6 +113,7 @@ public class JxbDiagramCommand {
 
     /**
      * Sets the value of the name property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -122,8 +124,8 @@ public class JxbDiagramCommand {
 
     /**
      * Gets the value of the label property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("caee762e-d6ff-11e1-9f03-001ec947ccaf")
@@ -133,6 +135,7 @@ public class JxbDiagramCommand {
 
     /**
      * Sets the value of the label property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -143,8 +146,8 @@ public class JxbDiagramCommand {
 
     /**
      * Gets the value of the tooltip property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("caee7630-d6ff-11e1-9f03-001ec947ccaf")
@@ -154,6 +157,7 @@ public class JxbDiagramCommand {
 
     /**
      * Sets the value of the tooltip property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -164,8 +168,8 @@ public class JxbDiagramCommand {
 
     /**
      * Gets the value of the image property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("caee7634-d6ff-11e1-9f03-001ec947ccaf")
@@ -175,6 +179,7 @@ public class JxbDiagramCommand {
 
     /**
      * Sets the value of the image property.
+     *
      * @param value allowed object is
      * {@link String }
      */
@@ -185,8 +190,8 @@ public class JxbDiagramCommand {
 
     /**
      * Gets the value of the group property.
-     * @return
-     * possible object is
+     *
+     * @return possible object is
      * {@link String }
      */
     @objid ("caee7621-d6ff-11e1-9f03-001ec947ccaf")
@@ -196,6 +201,7 @@ public class JxbDiagramCommand {
 
     /**
      * Sets the value of the group property.
+     *
      * @param value allowed object is
      * {@link String }
      */

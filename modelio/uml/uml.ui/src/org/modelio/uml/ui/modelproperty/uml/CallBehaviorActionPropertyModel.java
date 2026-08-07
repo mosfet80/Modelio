@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -52,15 +52,17 @@ public class CallBehaviorActionPropertyModel extends AbstractPropertyModel<CallB
 
     /**
      * Create a new <i>CallBehaviorAction</i> data model from an <i>CallBehaviorAction</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("35eb9445-9c16-4034-ad45-fb3dc9a4c985")
-    public  CallBehaviorActionPropertyModel(CallBehaviorAction theEditedElement) {
+    public CallBehaviorActionPropertyModel(CallBehaviorAction theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("1a9b2d0b-f04b-457c-a7c2-c1af8a9d8158")
@@ -71,6 +73,7 @@ public class CallBehaviorActionPropertyModel extends AbstractPropertyModel<CallB
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("98526867-9870-4b58-a553-b5a96ad2bff5")
@@ -83,6 +86,7 @@ public class CallBehaviorActionPropertyModel extends AbstractPropertyModel<CallB
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -108,7 +112,7 @@ public class CallBehaviorActionPropertyModel extends AbstractPropertyModel<CallB
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -117,6 +121,7 @@ public class CallBehaviorActionPropertyModel extends AbstractPropertyModel<CallB
      * This type will be used to choose an editor and a renderer for each cell of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -144,13 +149,14 @@ public class CallBehaviorActionPropertyModel extends AbstractPropertyModel<CallB
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -181,7 +187,7 @@ public class CallBehaviorActionPropertyModel extends AbstractPropertyModel<CallB
         default:
             return;
         }
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -44,20 +44,20 @@ public class ETemplateSignature extends EElement {
         if (!ObjingEAnnotation.isDeleted(this.ecoreElement)){
             org.eclipse.uml2.uml.Element ecoreOwner = this.ecoreElement.getOwner();
             Object objingOwner =  ReverseProperties.getInstance().getMappedElement(ecoreOwner);
-        
-            if ((objingOwner instanceof Classifier)  
+
+            if ((objingOwner instanceof Classifier)
                     && !(objingOwner instanceof Enumeration)){
-        
+
                 IMModelServices mmServices = ReverseProperties.getInstance().getMModelServices();
-        
+
                 Operation result = mmServices.getModelFactory().getFactory(IStandardModelFactory.class).createOperation();
-        
+
                 try {
                     result.getExtension().add(mmServices.getStereotype(IModelerModulePeerModule.MODULE_NAME, IModelerModuleStereotypes.UML2TEMPLATESIGNATURE, result.getMClass()));
                 } catch (ElementNotUniqueException e) {
                     Xmi.LOG.warning(e);
                 }
-        
+
                 return result;
             }
         }
@@ -65,10 +65,10 @@ public class ETemplateSignature extends EElement {
     }
 
     @objid ("3aadecd8-a551-4b9f-a38f-a7247d60d739")
-    public  ETemplateSignature(org.eclipse.uml2.uml.TemplateSignature element) {
+    public ETemplateSignature(org.eclipse.uml2.uml.TemplateSignature element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
 }

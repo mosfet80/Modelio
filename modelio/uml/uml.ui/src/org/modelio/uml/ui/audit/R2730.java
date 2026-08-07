@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -64,7 +64,7 @@ public class R2730 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -85,11 +85,11 @@ public class R2730 extends AbstractUmlRule {
                 AuditTrigger.UPDATE |
                 AuditTrigger.MOVE);
         plan.registerRule(TemplateParameter.MQNAME, this, AuditTrigger.CREATE);
-        
+
         // Namespace
         plan.registerRule(Package.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Collaboration.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         // Namespace.Classifier
         plan.registerRule(InformationItem.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Artifact.MQNAME, this, AuditTrigger.UPDATE);
@@ -103,9 +103,9 @@ public class R2730 extends AbstractUmlRule {
         plan.registerRule(UseCase.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Node.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Component.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         plan.registerRule(Operation.MQNAME, this, AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -139,14 +139,14 @@ public class R2730 extends AbstractUmlRule {
      * Default constructor for R2730
      */
     @objid ("83f384c3-1b43-418f-93a1-a362ffde38b4")
-    public  R2730() {
+    public R2730() {
         this.checkerInstance = new CheckR2730(this);
     }
 
     @objid ("5960ef93-0176-4c3c-9c52-79892ed6146f")
     private static class CheckR2730 extends AbstractControl {
         @objid ("50151a4f-2189-4768-a33f-ad84efe636d0")
-        public  CheckR2730(IRule rule) {
+        public CheckR2730(IRule rule) {
             super(rule);
         }
 
@@ -188,29 +188,29 @@ public class R2730 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     tBinding,
                     null);
-            
+
             NameSpace instanciatedNs = tBinding.getInstanciatedTemplate();
             Operation instanciatedOp = tBinding.getInstanciatedTemplateOperation();
-            
+
             List<TemplateParameter> params = new ArrayList<>();
-            
+
             if (instanciatedNs != null) {
                 params.addAll(instanciatedNs.getTemplate());
             } else if (instanciatedOp != null) {
                 params.addAll(instanciatedOp.getTemplate());
             }
-            
+
             List<TemplateParameterSubstitution> substitutions = tBinding.getParameterSubstitution();
-            
+
             boolean ruleFailed = false;
-            
+
             // Checks that the number of substitutions is not superior to the number of parameters.
             if ((substitutions.size() > params.size())) {
                 ruleFailed = true;
             } else {
-            
+
                 int index = 0;
-            
+
                 for (TemplateParameterSubstitution tps : substitutions) {
                     boolean found = false;
                     while (!found) {
@@ -229,7 +229,7 @@ public class R2730 extends AbstractUmlRule {
                         }
                     }
                 }
-            
+
                 // When we get out of the loop, we checked if all substitutions were matched...
                 // Now we check if there is any Parameter that was not matched
                 if (!ruleFailed) {
@@ -241,11 +241,11 @@ public class R2730 extends AbstractUmlRule {
                     }
                 }
             }
-            
+
             if (ruleFailed) {
-            
+
                 // Rule failed
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(tBinding);

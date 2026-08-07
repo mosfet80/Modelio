@@ -1,0 +1,5 @@
+Bundle-Name: Analyst documentation FR
+Bundle-Vendor: Docaposte
+Bundle-SymbolicName:  com.modeliosoft.modelio.documentation.archimate.nl_fr;singleton:=true
+Bundle-Version: 6.2.0.qualifier 
+Fragment-Host: com.modeliosoft.modelio.documentation.archimate

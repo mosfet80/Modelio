@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.state;
 
@@ -32,7 +32,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Specialization of the resizable group for regions in a state.
- * 
+ *
  * @author fpoyer
  */
 @objid ("f5794d7c-55b6-11e2-877f-002564c97630")
@@ -51,11 +51,12 @@ public class GmRegionsGroup extends GmResizableGroup {
 
     /**
      * C'tor.
+     *
      * @param diagram the diagram in which this gm is created.
      * @param relatedRef a reference to the element this gm is related to.
      */
     @objid ("f57ad3dd-55b6-11e2-877f-002564c97630")
-    public  GmRegionsGroup(IGmDiagram diagram, MRef relatedRef) {
+    public GmRegionsGroup(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -63,8 +64,8 @@ public class GmRegionsGroup extends GmResizableGroup {
      * Empty c'tor for deserialization.
      */
     @objid ("f57ad3e6-55b6-11e2-877f-002564c97630")
-    public  GmRegionsGroup() {
-        
+    public GmRegionsGroup() {
+
     }
 
     @objid ("f57ad3e9-55b6-11e2-877f-002564c97630")
@@ -85,7 +86,7 @@ public class GmRegionsGroup extends GmResizableGroup {
         return Region.class.isAssignableFrom(el.getClass()) &&
                                                                         el.isValid() &&
                                                                         el.getCompositionOwner().equals(this.getRelatedElement());
-        
+
     }
 
     @objid ("f57ad401-55b6-11e2-877f-002564c97630")
@@ -107,7 +108,7 @@ public class GmRegionsGroup extends GmResizableGroup {
         if (this.getChildren().isEmpty()) {
             setVisible(false);
         }
-        
+
     }
 
     @objid ("f57ad419-55b6-11e2-877f-002564c97630")
@@ -117,7 +118,7 @@ public class GmRegionsGroup extends GmResizableGroup {
             setVisible(true);
         }
         super.addChild(child);
-        
+
     }
 
     @objid ("f57c5a79-55b6-11e2-877f-002564c97630")
@@ -137,7 +138,7 @@ public class GmRegionsGroup extends GmResizableGroup {
             break;
         }
         }
-        
+
     }
 
     @objid ("f57c5a7f-55b6-11e2-877f-002564c97630")
@@ -145,17 +146,17 @@ public class GmRegionsGroup extends GmResizableGroup {
     public void write(IDiagramWriter out) {
         super.write(out);
         out.writeProperty("isVisible", this.isVisible);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmRegionsGroup.", GmRegionsGroup.MINOR_VERSION);
-        
+
     }
 
     @objid ("f57c5a85-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.isVisible = ((Boolean) in.readProperty("isVisible")).booleanValue();
-        
+
     }
 
     @objid ("f57c5a8a-55b6-11e2-877f-002564c97630")

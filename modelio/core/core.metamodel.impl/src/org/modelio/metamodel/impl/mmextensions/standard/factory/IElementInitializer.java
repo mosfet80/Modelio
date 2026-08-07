@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.mmextensions.standard.factory;
 
@@ -31,8 +31,8 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 interface IElementInitializer {
     /**
      * Initialize the given element.
-     * @param modelFactory
-     * the model creation factory.
+     *
+     * @param modelFactory the model creation factory.
      * @param element The element to initialize.
      */
     @objid ("3d379920-fe53-4c13-8e13-3fd8d81ecd4d")
@@ -40,5 +40,5 @@ interface IElementInitializer {
 
     @objid ("430e26d9-521f-4c04-b65d-8d329142c15e")
     void setDefaultValue(String key, Object value);
-}
 
+}

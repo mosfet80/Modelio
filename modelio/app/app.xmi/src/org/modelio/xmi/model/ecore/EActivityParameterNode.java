@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -42,7 +42,7 @@ public class EActivityParameterNode extends EActivityNode {
     }
 
     @objid ("fadd7ee0-e83f-4fa9-9b21-9e60c856debe")
-    public  EActivityParameterNode(org.eclipse.uml2.uml.ActivityParameterNode element) {
+    public EActivityParameterNode(org.eclipse.uml2.uml.ActivityParameterNode element) {
         super(element);
     }
 
@@ -50,7 +50,7 @@ public class EActivityParameterNode extends EActivityNode {
     @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
-        
+
         setControlType((ActivityParameterNode) objingElt);
         setOrdering((ActivityParameterNode) objingElt);
         setSelectionBehavior((ActivityParameterNode) objingElt);
@@ -58,7 +58,7 @@ public class EActivityParameterNode extends EActivityNode {
         setType((ActivityParameterNode) objingElt);
         setRepresentedRealParameter((ActivityParameterNode) objingElt);
         setState((ActivityParameterNode) objingElt);
-        
+
     }
 
     @objid ("b5173f45-9e48-44ad-b406-351d5dc0ce46")
@@ -70,8 +70,8 @@ public class EActivityParameterNode extends EActivityNode {
     private void setOrdering(ActivityParameterNode node) {
         org.eclipse.uml2.uml.ActivityParameterNode ecoreElement    = ((org.eclipse.uml2.uml.ActivityParameterNode)getEcoreElement());
            switch (ecoreElement.getOrdering().getValue()) {
-          
-         
+
+
            case ObjectNodeOrderingKind.LIFO:
                node.setOrdering(org.modelio.metamodel.uml.behavior.activityModel.ObjectNodeOrderingKind.LIFO);
                break;
@@ -84,7 +84,7 @@ public class EActivityParameterNode extends EActivityNode {
            default:
                node.setOrdering(org.modelio.metamodel.uml.behavior.activityModel.ObjectNodeOrderingKind.FIFO);
            }
-        
+
     }
 
     @objid ("f8667b90-8f06-464f-83cc-99f38262a958")
@@ -101,7 +101,7 @@ public class EActivityParameterNode extends EActivityNode {
             if (behaviorName != null)
                 node.setSelectionBehavior(behaviorName);
         }
-        
+
     }
 
     @objid ("e6343791-d0e5-4986-92a8-36bf76946b07")
@@ -112,16 +112,16 @@ public class EActivityParameterNode extends EActivityNode {
            if (stringValue != null)
                node.setUpperBound(stringValue);
                 }
-        
+
     }
 
     @objid ("15f77a08-d749-4f20-b902-025225ccdb3f")
     private void setType(ActivityParameterNode node) {
         org.eclipse.uml2.uml.Type ecoreType = ((org.eclipse.uml2.uml.ActivityParameterNode)getEcoreElement()).getType();
         if (ecoreType != null) {
-            node.setType((GeneralClass) ReverseProperties.getInstance().getMappedElement(ecoreType)); 
+            node.setType((GeneralClass) ReverseProperties.getInstance().getMappedElement(ecoreType));
         }
-        
+
     }
 
     @objid ("5dac0ad1-4f33-4597-8b2e-123190e1e303")
@@ -137,24 +137,24 @@ public class EActivityParameterNode extends EActivityNode {
                     .getMappedElement(ecoreActivity);
                     if (objingActivity instanceof Activity) {
                         BehaviorParameter objingBehaviorParam = null;
-                
+
                         if (objingParam instanceof BehaviorParameter)
                             objingBehaviorParam = (BehaviorParameter) objingParam;
                         else
                             objingBehaviorParam = ReverseProperties.getInstance().getMModelServices().getModelFactory().getFactory(IStandardModelFactory.class).createBehaviorParameter();
-                
+
                         objingBehaviorParam.setOwner((Activity) objingActivity);
-                
+
                         String name = ecoreParam.getName();
                         if (EcoreModelNavigation.isNotNull(name))
                             objingBehaviorParam.setName(name);
-                        else 
+                        else
                             objingBehaviorParam.setName("");
-                
+
                         objingBehaviorParam
                         .setMapped((Parameter) objingParam);
                         node.setRepresentedRealParameter(objingBehaviorParam);
-                
+
                         org.eclipse.uml2.uml.Type ecoreType = ecoreParam.getType();
                         if (ecoreType != null) {
                             Object objingType =  ReverseProperties.getInstance()
@@ -167,7 +167,7 @@ public class EActivityParameterNode extends EActivityNode {
                 }
             }
         }
-        
+
     }
 
     @objid ("394b8d1d-0cc6-4571-b9a5-9fb4b9c753d2")
@@ -181,7 +181,7 @@ public class EActivityParameterNode extends EActivityNode {
                     node.setInState((State) objingState);
             }
         }
-        
+
     }
 
 }

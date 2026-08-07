@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.policies;
 
@@ -58,13 +58,13 @@ public class DisplayAnchorFeedbackHelper {
     private final IFigure hostFigure;
 
     @objid ("c75e6c61-d411-40e7-a055-6a16134dc290")
-    public  DisplayAnchorFeedbackHelper(EditPart host, IFigure hostFigure, IFixedNodeAnchorProvider anchorProvider, IFigure feedbackLayer) {
+    public DisplayAnchorFeedbackHelper(EditPart host, IFigure hostFigure, IFixedNodeAnchorProvider anchorProvider, IFigure feedbackLayer) {
         super();
         this.host = (GraphicalEditPart) host;
         this.hostFigure = hostFigure;
         this.anchorProvider = anchorProvider;
         this.feedbackLayer = feedbackLayer;
-        
+
     }
 
     @objid ("251dd530-503d-4edb-be8c-7c202d73fed3")
@@ -73,28 +73,28 @@ public class DisplayAnchorFeedbackHelper {
             for (IFigure f : this.feedbacks) {
                 this.feedbackLayer.remove(f);
             }
-        
+
             this.feedbacks = null;
         }
-        
+
     }
 
     @objid ("a3fc6a34-8636-4a4c-8f27-2eb0266da163")
     public void showTargetFeedback(Request request) {
         ConnectionRouterId routingMode = RoutingModeGetter.fromRequest(request);
         Collection<ConnectionAnchor> allanchors = this.anchorProvider.getAnchorFactoryFor(this.host, this.hostFigure).getAllAnchors( routingMode, null);
-        
+
         if (this.feedbacks != null && this.feedbacks.length != allanchors.size()) {
             removeAllFeedbacks();
         }
-        
+
         if (this.feedbacks == null) {
             this.feedbacks = createFeedbackFigures(allanchors);
             for (IFigure f : this.feedbacks) {
                 this.feedbackLayer.add(f);
             }
         }
-        
+
         // compute highlight type
         final FigureUtilities2.HighlightType hightlightType;
         if(request.getType().equals(RequestConstants.REQ_RESIZE)) {
@@ -109,11 +109,11 @@ public class DisplayAnchorFeedbackHelper {
                 hightlightType = FigureUtilities2.HighlightType.WARNING;
             }
         }
-        
+
         int i=0;
         for (ConnectionAnchor anchor : allanchors) {
             IFigure fb = this.feedbacks[i++];
-        
+
             FigureUtilities2.updateHighlightType(fb, hightlightType);
             if (true) {
                 new TranslatedAnchorLocator(anchor).relocate(fb);
@@ -122,17 +122,18 @@ public class DisplayAnchorFeedbackHelper {
                 Rectangle bounds = new Rectangle();
                 bounds.setLocation(ref);
                 bounds.expand(FixedAnchor.ANCHOR_RADIUS, FixedAnchor.ANCHOR_RADIUS);
-        
+
                 fb.translateToRelative(bounds);
                 fb.setBounds(bounds);
                 fb.validate();
             }
         }
-        
+
     }
 
     /**
      * Create the hover feedback figures.
+     *
      * @param allanchors all anchors for which a feedback is wanted
      * @return the hover feedback figure.
      */
@@ -141,7 +142,7 @@ public class DisplayAnchorFeedbackHelper {
         int size = allanchors.size();
         IFigure[] ret = new IFigure[size];
         int i=0;
-        
+
         for (ConnectionAnchor anchor : allanchors) {
             if (false) {
                 AnchorHandle fb;
@@ -160,7 +161,7 @@ public class DisplayAnchorFeedbackHelper {
                 }
                 ret[i++] = fb;
             }
-        
+
         }
         return ret;
     }

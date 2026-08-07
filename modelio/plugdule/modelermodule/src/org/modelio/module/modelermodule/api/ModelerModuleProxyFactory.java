@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -288,6 +288,7 @@ public class ModelerModuleProxyFactory {
      * Instantiates the right proxy class the given element.
      * <br/>The model element must be stereotyped by a 'ModelerModule' module stereotype.
      * <br/>In the other case the method will return <i>null</i>.
+     *
      * @param e A model element
      * @return the right proxy or <i>null</i>.
      */
@@ -306,6 +307,7 @@ public class ModelerModuleProxyFactory {
      * Instantiates the right proxy class the given element with a stereotype name.
      * The stereotype must be one of the 'ModelerModule' module stereotypes.
      * In the other case the method will return <i>null</i>.
+     *
      * @param e A model element.
      * @param stName A stereotype name.
      * @return the right proxy or <i>null</i>.
@@ -324,6 +326,7 @@ public class ModelerModuleProxyFactory {
         /**
          * Get the visitor to delegate to when a {@link IInfrastructureVisitor} is needed.
          * <p>If null is returned the caller will return null.
+         *
          * @return the {@link IInfrastructureVisitor} visitor or <i>null</i>.
          */
         @objid ("ad09e419-93b7-4116-ba28-4a4ce6761b17")

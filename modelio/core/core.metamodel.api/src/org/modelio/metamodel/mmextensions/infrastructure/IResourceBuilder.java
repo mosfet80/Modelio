@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.mmextensions.infrastructure;
 
@@ -35,13 +35,14 @@ import org.modelio.vbasic.auth.IAuthData;
  * Attached resource element builder.
  * <p>
  * Builds {@link Document} and {@link Resource} elements.
- * 
+ *
  * @author cma
  * @since 3.7
  */
 @objid ("7fe5ebe1-8a3c-45c2-b0c5-43a4f9a1acf2")
 public interface IResourceBuilder {
     /**
+     *
      * @return the created document.
      */
     @objid ("ef0a41eb-e205-43eb-bccc-d15acc87a92e")
@@ -49,6 +50,7 @@ public interface IResourceBuilder {
 
     /**
      * Creates the embedded document.
+     *
      * @return the created document.
      * @throws IOException if embedding fails with an I/O error.
      */
@@ -57,6 +59,7 @@ public interface IResourceBuilder {
 
     /**
      * Creates the embedded resource.
+     *
      * @return the created resource.
      * @throws IOException if embedding fails with an I/O error.
      */
@@ -64,12 +67,14 @@ public interface IResourceBuilder {
     Resource createEmbeddedResource() throws IOException;
 
     /**
+     *
      * @return the created resource.
      */
     @objid ("480f6e70-b166-476e-a341-393409a779c7")
     Resource createResourceReference();
 
     /**
+     *
      * @param file the represented file path
      * @return this builder.
      */
@@ -77,6 +82,7 @@ public interface IResourceBuilder {
     IResourceBuilder withFile(Path file);
 
     /**
+     *
      * @param mimeType the resource MIME type.
      * @return
      */
@@ -84,6 +90,7 @@ public interface IResourceBuilder {
     IResourceBuilder withMimeType(String mimeType);
 
     /**
+     *
      * @param name The resource title.
      * @return this instance.
      */
@@ -95,6 +102,7 @@ public interface IResourceBuilder {
 
     /**
      * Set the resource role.
+     *
      * @param moduleName the module name or regex pattern
      * @param ownerName the name of the {@link Stereotype} or {@link MetaclassReference} owning the type. Cannot be <code>null</code>.
      * @param typeName the role name
@@ -106,6 +114,7 @@ public interface IResourceBuilder {
     IResourceBuilder withRole(String moduleName, String ownerName, String typeName) throws ExtensionNotFoundException, IllegalStateException;
 
     /**
+     *
      * @param type the resource role.
      * @return this instance.
      */
@@ -113,6 +122,7 @@ public interface IResourceBuilder {
     IResourceBuilder withRole(ResourceType type);
 
     /**
+     *
      * @param uri the represented resource URI.
      * @return this instance.
      */
@@ -123,11 +133,12 @@ public interface IResourceBuilder {
      * use the given authentication data to at least probe the content type.
      * <p>
      * The password will never be stored in any case. The current implementation does not store the authentication data.
+     *
      * @param auth authentication data.
      * @return this builder.
      * @since 3.7.1
      */
     @objid ("51e9618c-14ea-44ec-bf7b-71d7a52a3445")
     IResourceBuilder withAuthData(IAuthData auth);
-}
 
+}

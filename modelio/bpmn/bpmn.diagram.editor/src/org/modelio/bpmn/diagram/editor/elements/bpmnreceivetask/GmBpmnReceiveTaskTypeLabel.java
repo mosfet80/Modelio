@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnreceivetask;
 
@@ -49,7 +49,7 @@ public class GmBpmnReceiveTaskTypeLabel extends GmDefaultModelElementHeader {
     private static final int MAJOR_VERSION = 0;
 
     @objid ("f48d6405-e4ad-40a2-a127-cc993e9749f9")
-    public  GmBpmnReceiveTaskTypeLabel(IGmDiagram diagram, MRef relatedRef) {
+    public GmBpmnReceiveTaskTypeLabel(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -57,7 +57,7 @@ public class GmBpmnReceiveTaskTypeLabel extends GmDefaultModelElementHeader {
      * Empty c'tor for deserialisation.
      */
     @objid ("00179a62-6d54-47fa-9f2b-de91e15419bd")
-    public  GmBpmnReceiveTaskTypeLabel() {
+    public GmBpmnReceiveTaskTypeLabel() {
         // empty constructor for the serialization
     }
 
@@ -78,17 +78,17 @@ public class GmBpmnReceiveTaskTypeLabel extends GmDefaultModelElementHeader {
             break;
         }
         }
-        
+
     }
 
     @objid ("b08c4c70-ecfe-484c-91b4-3e2a42822018")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmBpmnTaskTypeLabel.", GmBpmnReceiveTaskTypeLabel.MINOR_VERSION);
-        
+
     }
 
     @objid ("b7551221-e74a-4e5e-b951-117744aca0e8")
@@ -128,9 +128,9 @@ public class GmBpmnReceiveTaskTypeLabel extends GmDefaultModelElementHeader {
                 firePropertyChange(IGmObject.PROPERTY_LABEL, this, null);
             }
         }
-        
+
         super.styleChanged(property, newValue);
-        
+
     }
 
     @objid ("1c1e2c9a-6d5b-4968-bb40-d64eea215714")
@@ -139,9 +139,9 @@ public class GmBpmnReceiveTaskTypeLabel extends GmDefaultModelElementHeader {
         if (updateMainLabelFromObModel()) {
             firePropertyChange(IGmObject.PROPERTY_LABEL, this, null);
         }
-        
+
         super.styleChanged(changedStyle);
-        
+
     }
 
     @objid ("ff2e87eb-081d-4f35-b3be-7a61e4d64960")

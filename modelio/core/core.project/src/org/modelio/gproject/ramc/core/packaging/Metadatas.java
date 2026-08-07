@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.ramc.core.packaging;
 
@@ -44,7 +44,7 @@ import org.modelio.version.ModelioVersion;
 /**
  * Used to store and write the contents of the metadata.xml file of a
  * ModelComponent
- * 
+ *
  * @author phv
  */
 @objid ("aa3687e8-7908-41f1-9c19-eff0d2ab45c3")
@@ -63,15 +63,17 @@ class Metadatas {
 
     /**
      * initialize the meta datas.
+     *
      * @param ramc the model component representation.
      */
     @objid ("154faeef-56c6-4de9-85db-0e9deb66ef4b")
-    public  Metadatas(IModelComponent ramc) {
+    public Metadatas(IModelComponent ramc) {
         this.ramc = ramc;
     }
 
     /**
      * Add a file to export.
+     *
      * @param fileEntry the entry telling where the file must be deployed.
      * @param archiveFileName the file name in the archive
      */
@@ -81,6 +83,7 @@ class Metadatas {
     }
 
     /**
+     *
      * @param root a model element to include
      */
     @objid ("92e4ce92-4d49-4975-be1b-d04b09e09640")
@@ -95,20 +98,21 @@ class Metadatas {
 
     /**
      * Writes the "metadatas.xml" file.
+     *
      * @param exportPath the directory where "metadatas.xml" file will be written.
      * @throws IOException on failure
      */
     @objid ("9ffcedf6-e353-4f69-a321-1d35164be6e2")
     public void write(Path exportPath) throws IOException {
         final Path metadataFile = exportPath.resolve("metadatas.xml");
-        
+
         try (OutputStream metadataWriter = Files.newOutputStream(metadataFile)) {
             ManifestWriter w = new ManifestWriter();
             IModelComponentInfos manifest = asModelComponentInfos();
-        
+
             w.write(manifest, metadataWriter);
         }
-        
+
     }
 
     @objid ("aa085837-52e2-4ad0-ad5c-39b0a4ae6426")
@@ -118,13 +122,14 @@ class Metadatas {
 
     /**
      * Adapt this instance to {@link IModelComponentInfos} interface.
+     *
      * @return the adapter
      */
     @objid ("d40d8002-1dac-40a6-b4e3-c9543e9d8671")
     private IModelComponentInfos asModelComponentInfos() {
         List<IModelComponentInfos.ExportedFile> exportedFiles = new ArrayList<>(this.files);
         exportedFiles.sort(Comparator.comparing(t -> t.getNameInArchive()));
-        
+
         IModelComponentInfos manifest = new IModelComponentInfos() {
             @Override
             public String getProvider() {
@@ -134,48 +139,48 @@ class Metadatas {
             public Version getVersion() {
                 return Metadatas.this.ramc.getVersion();
             }
-        
+
             @Override
             public Version getModelioVersion() {
                 return ModelioVersion.VERSION;
             }
-        
+
             @Override
             public List<ModelRef> getRoots() {
                 return Metadatas.this.roots.stream()
                         .map(ref -> new ModelRef(ref.mc, ref.uuid, ref.name))
                         .collect(Collectors.toList());
             }
-        
+
             @Override
             public List<VersionedItem<?>> getRequiredModelComponents() {
                 return Metadatas.this.ramc.getRequiredModelComponents().stream()
                         .map(mc -> new VersionedItem<>(mc.getName(), mc.getVersion()))
                         .collect(Collectors.toList());
             }
-        
+
             @Override
             public List<VersionedItem<?>> getRequiredMetamodelFragments() {
                 return Metadatas.this.mmFragments.stream()
                         .map(mc -> new VersionedItem<>(mc.getName(), mc.getVersion()))
                         .collect(Collectors.toList());
             }
-        
+
             @Override
             public String getName() {
                 return Metadatas.this.ramc.getName();
             }
-        
+
             @Override
             public List<ExportedFile> getExportedFiles() {
                 return exportedFiles;
             }
-        
+
             @Override
             public String getDescription() {
                 return Metadatas.this.ramc.getDescription();
             }
-        
+
             @Override
             public List<VersionedItem<?>> getContributingModules() {
                 return Metadatas.this.ramc.getContributingModules()

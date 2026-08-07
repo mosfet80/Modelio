@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.edition.notes.panelprovider;
 
@@ -84,6 +84,9 @@ public class NotesPanelController {
     @objid ("5822cfbd-65ab-40bb-9c78-03e86c564ff9")
     private boolean isAutoLayout;
 
+    @objid ("b6629e61-8bea-4791-88ad-eb26a325f8a0")
+    private IEclipseContext eclipseContext;
+
     @objid ("d18af8cb-7225-4954-9aa2-139d7d0ebb5d")
     private IActivationService activationService;
 
@@ -96,16 +99,12 @@ public class NotesPanelController {
     @objid ("0b0cafb2-7cda-4be2-a248-5cb7800f2e17")
     private ModelElement currentSelection;
 
-    @objid ("e25ce4d2-7b3c-4f91-9fab-1b4e9809f9b2")
-    private IEclipseContext eclipseContext;
-
     @objid ("92bd4f31-1163-4fbe-a7e6-10f13d1b2340")
     private IMModelServices modelServices;
 
     @objid ("5e9d40c8-a46c-4700-8893-09e068daf384")
     private ICoreSession session;
 
-    // // private final EContextService contextService;
     @objid ("65a57137-17bb-4fe8-8339-8ad5b161bab6")
     private NotesPanelView view;
 
@@ -113,7 +112,7 @@ public class NotesPanelController {
      * Constructor.
      */
     @objid ("bf0c5ca6-f12e-4cf8-98ef-ef3d1dcf86e7")
-    public  NotesPanelController(IEclipseContext context) {
+    public NotesPanelController(IEclipseContext context) {
         this.eclipseContext = context;
     }
 
@@ -132,7 +131,7 @@ public class NotesPanelController {
         if (this.currentInput == null || !this.currentInput.isModifiable()) {
             return false;
         }
-        
+
         final List<ModelElement> selectedItems = this.view.getSelectedNotes();
         return selectedItems.size() == 1 && selectedItems.get(0).isModifiable();
     }
@@ -143,17 +142,17 @@ public class NotesPanelController {
         if (this.session == null) {
             return false;
         }
-        
+
         // Check focus
         if (!this.view.getTreeViewer().getControl().isFocusControl()) {
             return false;
         }
-        
+
         // Check selected element
-        if (this.currentInput == null || !this.currentInput.getStatus().isModifiable()) {
+        if (this.currentInput == null || !this.currentInput.getStatusLazy().isModifiable()) {
             return false;
         }
-        
+
         // Check selected notes/constraints/documents
         List<ModelElement> selectedItems = this.view.getSelectedNotes();
         for (ModelElement me : selectedItems) {
@@ -170,17 +169,17 @@ public class NotesPanelController {
         if (this.session == null) {
             return false;
         }
-        
+
         // Check focus
         if (!this.view.getTreeViewer().getControl().isFocusControl()) {
             return false;
         }
-        
+
         // Check selected element
-        if (this.currentInput == null || !this.currentInput.getStatus().isModifiable()) {
+        if (this.currentInput == null || !this.currentInput.getStatusLazy().isModifiable()) {
             return false;
         }
-        
+
         // Check selected notes/constraints/documents
         List<ModelElement> selectedItems = this.view.getSelectedNotes();
         for (ModelElement me : selectedItems) {
@@ -204,11 +203,11 @@ public class NotesPanelController {
                 return false;
             }
         }
-        
     }
 
     /**
-     * Check that the currently selected note can be executed as a Jython script. conditions are:
+     * Check that the currently selected note can be executed as a Jython script.
+     * conditions are:
      * <ul>
      * <li>selected note unique and non null</li>
      * <li>mime type python</li>
@@ -228,7 +227,6 @@ public class NotesPanelController {
         } else {
             return false;
         }
-        
     }
 
     @objid ("582b3276-c5b0-4f98-89db-093afe12d0b1")
@@ -247,17 +245,17 @@ public class NotesPanelController {
         if (this.session == null) {
             return false;
         }
-        
+
         // Check focus
         if (!this.view.getTreeViewer().getControl().isFocusControl()) {
             return false;
         }
-        
+
         // Check selected element
-        if (this.currentInput == null || !this.currentInput.getStatus().isModifiable()) {
+        if (this.currentInput == null || !this.currentInput.getStatusLazy().isModifiable()) {
             return false;
         }
-        
+
         Clipboard clipboard = new Clipboard(this.view.getComposite().getDisplay());
         final PasteElementObject pastedObject = (PasteElementObject) clipboard
                 .getContents(PasteElementTransfer.getInstance());
@@ -265,9 +263,9 @@ public class NotesPanelController {
         if (pastedObject == null) {
             return false;
         }
-        
+
         MExpert expert = this.session.getMetamodel().getMExpert();
-        
+
         final List<TransferItem> items = pastedObject.getTransferedItems();
         List<MObject> pastedElements = new ArrayList<>();
         for (TransferItem item : items) {
@@ -275,7 +273,7 @@ public class NotesPanelController {
             MObject transferedElement = this.session.getModel().findByRef(transferedElementRef);
             pastedElements.add(transferedElement);
         }
-        
+
         for (MObject pasted : pastedElements) {
             switch (pastedObject.getPasteType()) {
             case CUT:
@@ -316,6 +314,7 @@ public class NotesPanelController {
 
     /**
      * Creates the views in the given composite
+     *
      * @param parent a SWT Composite
      * @return the created panel view
      */
@@ -335,10 +334,10 @@ public class NotesPanelController {
         this.currentInput = null;
         this.currentSelection = null;
         this.view = null;
-        
     }
 
     /**
+     *
      * @return the activation service
      */
     @objid ("f7d4c954-c3aa-4cb8-ad93-58b3baea5949")
@@ -383,10 +382,9 @@ public class NotesPanelController {
         dialog.setBlockOnOpen(true);
         // Open the main window
         dialog.open();
-        
+
         final Constraint constraint = driver.getCreatedConstraint();
         setInputs(this.currentInput, constraint);
-        
     }
 
     /**
@@ -396,9 +394,11 @@ public class NotesPanelController {
     public void onAddDescription() {
         final AddNoteHelper handler = new AddNoteHelper(this.session, this.modelServices);
         final Shell parentShell = this.view.getComposite().getShell();
-        
-        try (ITransaction transaction = this.session.getTransactionSupport().createTransaction("Move annotation up")) {
-            final Note note = handler.execute(parentShell, this.currentInput, "ModelerModule", ModelElement.MQNAME, "description");
+
+        try (ITransaction transaction = this.session.getTransactionSupport()
+                .createTransaction("Add description note")) {
+            final Note note = handler.execute(parentShell, this.currentInput, "ModelerModule", ModelElement.MQNAME,
+                    "description");
             if (note != null) {
                 transaction.commit();
             } else {
@@ -411,7 +411,6 @@ public class NotesPanelController {
             // is not a RuntimeException.
             NotesPanelController.reportException(e);
         }
-        
     }
 
     /**
@@ -421,8 +420,8 @@ public class NotesPanelController {
     public void onAddNote() {
         final AddNoteHelper handler = new AddNoteHelper(this.session, this.modelServices);
         final Shell parentShell = this.view.getComposite().getShell();
-        
-        try (ITransaction transaction = this.session.getTransactionSupport().createTransaction("Move annotation up")) {
+
+        try (ITransaction transaction = this.session.getTransactionSupport().createTransaction("Add note")) {
             final Note note = handler.execute(parentShell, this.currentInput, null, null, null);
             if (note != null) {
                 transaction.commit();
@@ -436,14 +435,12 @@ public class NotesPanelController {
             // is not a RuntimeException.
             NotesPanelController.reportException(e);
         }
-        
     }
 
     @objid ("b1b16c90-a49a-4a19-9ae2-7bbac4e55419")
     public void onAutomaticLayout() {
         this.view.enableAutoLayout();
         this.isAutoLayout = true;
-        
     }
 
     /**
@@ -460,26 +457,24 @@ public class NotesPanelController {
             } else {
                 transaction.rollback();
             }
-        
+
         } catch (final Exception e) {
             EditionNotes.LOG.error(EditionNotes.PLUGIN_ID, e);
         }
-        
     }
 
     @objid ("7fefaad1-03c3-4ab5-90d9-e77b3228443c")
     public void onCopy() {
         List<ModelElement> selectedElements = this.view.getSelectedNotes();
-        
+
         PasteElementObject toCopy = new PasteElementObject(PasteType.COPY);
-        
+
         for (MObject element : selectedElements) {
             toCopy.addTransferedItems(new TransferItem(element, element.getCompositionOwner()));
         }
-        
+
         Clipboard clipboard = new Clipboard(this.view.getComposite().getDisplay());
         clipboard.setContents(new Object[] { toCopy }, new Transfer[] { PasteElementTransfer.getInstance() });
-        
     }
 
     @objid ("4681f3be-8886-45bc-8d3e-2e280a8c779b")
@@ -491,7 +486,6 @@ public class NotesPanelController {
         }
         Clipboard clipboard = new Clipboard(this.view.getComposite().getDisplay());
         clipboard.setContents(new Object[] { toCopy }, new Transfer[] { PasteElementTransfer.getInstance() });
-        
     }
 
     @objid ("2dc8ac0f-8a13-491a-91c6-3e30f5a586a6")
@@ -499,13 +493,12 @@ public class NotesPanelController {
         this.view.setHorizontalLayout();
         this.view.disableAutoLayout();
         this.isAutoLayout = false;
-        
     }
 
     @objid ("2f0cd7b0-272e-40cb-8eff-3eba28443499")
     public void onHtmlConvert() {
         final List<ModelElement> noteItems = this.view.getSelectedNotes();
-        
+
         if (noteItems.get(0) instanceof Note) {
             final Note note = (Note) noteItems.get(0);
             try (ITransaction t = this.session.getTransactionSupport().createTransaction("Switch Html/Text type")) {
@@ -517,11 +510,11 @@ public class NotesPanelController {
                 t.commit();
             }
         }
-        
     }
 
     /**
      * Called when the end-user double-clicks a Note or a Constraint in the tree
+     *
      * @param selection the double clicked selection
      */
     @objid ("6366391a-5686-4c22-a3fa-75e965dc0393")
@@ -536,11 +529,11 @@ public class NotesPanelController {
                 }
             }
         }
-        
     }
 
     /**
      * Called when the end-user selects a Note or a Constraint in the tree
+     *
      * @param selection the new selection
      */
     @objid ("32b038c3-5263-42ae-b6df-d71135247543")
@@ -549,23 +542,23 @@ public class NotesPanelController {
             final IStructuredSelection structuredSelection = (IStructuredSelection) selection;
             final Object object = structuredSelection.getFirstElement();
             if (object != null && object instanceof ModelElement) {
-        
+
                 if (object.equals(this.currentSelection)) {
                     // do nothing
                 } else {
                     this.currentSelection = (ModelElement) object;
                     setInputs(this.currentInput, (ModelElement) object);
                 }
-        
+
             } else {
                 setInputs(this.currentInput, null);
             }
         }
-        
     }
 
     /**
-     * Executes the currently selected note as a Jython script in the Modelio script view.
+     * Executes the currently selected note as a Jython script in the Modelio script
+     * view.
      */
     @objid ("d83c5b6f-2c9e-4546-a96e-9dfee7dafab2")
     public void onJyExec() {
@@ -574,38 +567,38 @@ public class NotesPanelController {
         if (!(o instanceof Note) || !isJythonNote((Note) o)) {
             return;
         }
-        
+
         Note note = (Note) o;
-        
+
         // Get the script from the note
         String script = note.getContent();
-        
+
         // Get the script view
-        
+
         ScriptView scriptView = getScriptView();
         if (scriptView == null) {
             EditionNotes.LOG.error("Execute Jython note: could not find script view.");
             return;
         }
-        
+
         // Get the script runner from the script view
         IScriptRunner scriptRunner = scriptView.getScriptRunner();
         if (scriptRunner == null) {
             EditionNotes.LOG.error("Execute Jython note: could not get a Jython runner from script view.");
             return;
         }
-        
+
         // JyExec
         // Execute code
-        try (ITransaction t = CoreSession.getSession(note).getTransactionSupport().createTransaction("Execute Jython note")) {
+        try (ITransaction t = CoreSession.getSession(note).getTransactionSupport()
+                .createTransaction("Execute Jython note")) {
             ScriptViewSelectionGetter selectionGetter = scriptView.getSelectionGetter();
             scriptRunner.runScript(script, selectionGetter.getSelection(), selectionGetter.getSelectedElements());
             t.commit();
         } catch (ScriptException e) {
-            EditionNotes.LOG.error("Execute Jython note failed");
+            EditionNotes.LOG.error("Execute Jython note failed: " + e.getMessage());
             EditionNotes.LOG.debug(e);
         }
-        
     }
 
     /**
@@ -615,7 +608,8 @@ public class NotesPanelController {
     public void onMoveDown() {
         final MoveDownHelper handler = new MoveDownHelper();
         final List<ModelElement> selectedNotes = this.view.getSelectedNotes();
-        try (ITransaction transaction = this.session.getTransactionSupport().createTransaction("Move annotation up")) {
+        try (ITransaction transaction = this.session.getTransactionSupport()
+                .createTransaction("Move annotation down")) {
             if (handler.execute(this.currentInput, selectedNotes)) {
                 transaction.commit();
                 setInputs(this.currentInput, selectedNotes.get(0));
@@ -628,7 +622,6 @@ public class NotesPanelController {
             // is not a RuntimeException.
             NotesPanelController.reportException(e);
         }
-        
     }
 
     /**
@@ -651,7 +644,6 @@ public class NotesPanelController {
             // is not a RuntimeException.
             NotesPanelController.reportException(e);
         }
-        
     }
 
     @objid ("dae10c4c-ede8-4c79-b87f-812ea45ccb4b")
@@ -659,7 +651,7 @@ public class NotesPanelController {
         Clipboard clipboard = new Clipboard(this.view.getComposite().getDisplay());
         final PasteElementObject pastedObject = (PasteElementObject) clipboard
                 .getContents(PasteElementTransfer.getInstance());
-        
+
         final List<TransferItem> items = pastedObject.getTransferedItems();
         List<MObject> pastedElements = new ArrayList<>();
         for (TransferItem item : items) {
@@ -667,18 +659,18 @@ public class NotesPanelController {
             MObject transferedElement = this.session.getModel().findByRef(transferedElementRef);
             pastedElements.add(transferedElement);
         }
-        
+
         MExpert expert = this.session.getMetamodel().getMExpert();
         for (MObject element : pastedElements) {
             if (!expert.canCompose(this.currentInput, element, null)) {
                 return;
             }
         }
-        
+
         if (pastedObject.getPasteType() == PasteType.COPY) {
             try (ITransaction transaction = this.session.getTransactionSupport().createTransaction("Paste")) {
                 List<MObject> copyResult = new ArrayList<>();
-        
+
                 if (pastedElements.size() > 0) {
                     copyResult.addAll(MTools.getModelTool().copyElements(pastedElements, this.currentInput));
                 }
@@ -697,8 +689,8 @@ public class NotesPanelController {
                     return;
                 }
             }
-        
-            try (ITransaction transaction = this.session.getTransactionSupport().createTransaction("Cut")) {
+
+            try (ITransaction transaction = this.session.getTransactionSupport().createTransaction("Cut and paste")) {
                 for (TransferItem item : items) {
                     MRef oldParentRef = item.getOldParentRef();
                     MObject oldParent = this.session.getModel().findByRef(oldParentRef);
@@ -706,10 +698,10 @@ public class NotesPanelController {
                         MTools.getModelTool().moveElements(pastedElements, this.currentInput, oldParent);
                     }
                 }
-        
+
                 transaction.commit();
                 setInputs(this.currentInput, (ModelElement) pastedElements.get(0));
-        
+
                 // Keep the elements in the clipboard, but as a copy
                 pastedObject.setPasteType(PasteType.COPY);
                 clipboard.setContents(new Object[] { pastedObject },
@@ -718,7 +710,6 @@ public class NotesPanelController {
                 NotesPanelController.reportException(e);
             }
         }
-        
     }
 
     /**
@@ -727,16 +718,16 @@ public class NotesPanelController {
     @objid ("efab7576-34fd-47c5-bbed-8040689cf738")
     public void onRemoveAnnotation() {
         final List<ModelElement> noteItems = this.view.getSelectedNotes();
-        try (ITransaction transaction = this.session.getTransactionSupport().createTransaction("NoteDeletion")) {
+        try (ITransaction transaction = this.session.getTransactionSupport().createTransaction("Delete note")) {
             for (final ModelElement noteItem : noteItems) {
                 noteItem.delete();
             }
             transaction.commit();
         } catch (final Exception e) {
             EditionNotes.LOG.error(EditionNotes.PLUGIN_ID, e);
+            NotesPanelController.reportException(e);
         }
         setInputs(this.currentInput, null);
-        
     }
 
     @objid ("7992016b-84ab-4482-92d1-d08fabbe70a7")
@@ -744,11 +735,11 @@ public class NotesPanelController {
         this.view.setVerticalLayout();
         this.view.disableAutoLayout();
         this.isAutoLayout = false;
-        
     }
 
     /**
      * Set the activation service.
+     *
      * @param activationService the activation service.
      */
     @objid ("0a377ddb-5843-4e2c-bcd4-62fcc9b153a2")
@@ -758,10 +749,15 @@ public class NotesPanelController {
 
     /**
      * The NotesPanelComposite has to be driven for two inputs:
-     * <li>the edited element which is the element whose notes and constraints are currently being edited,
-     * <li>and the current selection which is the note or constraint currently being displayed.
-     * @param elt the note item whose contents is to be displayed in the content panel. May be null Refresh the whole notes view. Clean up the content of the currently selected note Set the note item object (Note or Constraint) currently displayed in the
-     * content panel.
+     * <li>the edited element which is the element whose notes and constraints are
+     * currently being edited,
+     * <li>and the current selection which is the note or constraint currently being
+     * displayed.
+     *
+     * @param elt the note item whose contents is to be displayed in the content
+     * panel. May be null Refresh the whole notes view. Clean up the
+     * content of the currently selected note Set the note item object
+     * (Note or Constraint) currently displayed in the content panel.
      * @param select the currently selected notes/constraints in the view
      */
     @objid ("7785731d-8ccd-4279-b9f9-cd782d218628")
@@ -775,19 +771,22 @@ public class NotesPanelController {
                 this.currentSelection = null;
             }
         }
-        
+
         // If the current element is not null and the passed elt is the same as
         // the current element
         // we are only refreshing the view (mostly because of a model or status
         // change event
         // We'd better try to preserve the selected item for end-user's comfort
         if (this.currentInput != null && this.currentInput.isValid() && this.currentInput.equals(elt)) {
-            this.currentSelection = select;
-            this.view.setSelected(select);
+
+            if (select != null && !select.equals(this.currentSelection)) {
+                this.currentSelection = select;
+                this.view.setSelected(select);
+            }
             refreshInputs();
             return;
         }
-        
+
         // If we were passed a null or invalid element we cannot go further
         if (elt == null || !elt.isValid()) {
             this.currentInput = null;
@@ -800,7 +799,7 @@ public class NotesPanelController {
             this.modelServices = null;
             return;
         } else {
-        
+
             CoreSession newSess = CoreSession.getSession(elt);
             if (newSess != this.session) {
                 this.session = newSess;
@@ -811,10 +810,10 @@ public class NotesPanelController {
                     this.modelServices = null;
                 }
             }
-        
+
             this.currentInput = elt;
             this.view.setInput(elt);
-        
+
             // Drive the current selection
             if (this.currentSelection != null && this.currentSelection.equals(select)) {
                 // Do nothing to avoid selecting already selected item
@@ -823,31 +822,32 @@ public class NotesPanelController {
                 this.view.setSelected(select);
             }
         }
-        
     }
 
     @objid ("0cd4271f-ce9b-46dc-bb1c-7c26d91806f0")
     static void reportException(Exception e) {
+        // First log the exception
+        EditionNotes.LOG.error(e);
+
         // Show an error box
         final String title = EditionNotes.I18N.getMessage("CannotPasteClipboard");
         MessageDialog.openError(null, title, e.getLocalizedMessage());
-        EditionNotes.LOG.error(e);
-        
     }
 
     /**
-     * Find the Jython script view of the application, possibly activating it if necessary.
+     * Find the Jython script view of the application, possibly activating it if
+     * necessary.
      * @return
      */
     @objid ("e9a32459-69a5-4064-ac6f-0d18affac463")
     private ScriptView getScriptView() {
         EPartService partService = this.eclipseContext.get(EPartService.class);
         MWindow window = this.eclipseContext.get(MWindow.class);
-        
+
         if (window == null) {
             return null;
         }
-        
+
         MPart part = partService.findPart(ScriptView.PARTID);
         // If the part is not found try to browse the shared elements to find
         // the script part
@@ -870,10 +870,10 @@ public class NotesPanelController {
                 // Force the activation of the script view
                 partService.showPart(part, PartState.ACTIVATE);
             }
-        
+
             // Activate the part to give it focus
             partService.activate(part);
-        
+
             return (ScriptView) part.getObject();
         }
         return null;
@@ -894,17 +894,18 @@ public class NotesPanelController {
     }
 
     /**
-     * Returns true if parentCandidate is in the composition tree of element. (recursive search).
+     * Returns true if parentCandidate is in the composition tree of element.
+     * (recursive search).
      * @return
      */
     @objid ("5c1fb019-2e06-43ad-a44e-52d6cf9df239")
     private boolean isParentOf(MObject parentCandidate, MObject element) {
         MObject parent = element.getCompositionOwner();
-        
+
         if (parent == null) {
             return false;
         }
-        
+
         if (parentCandidate.equals(parent)) {
             return true;
         }
@@ -915,7 +916,6 @@ public class NotesPanelController {
     private void refreshInputs() {
         this.view.setInput(this.currentInput);
         this.view.setSelected(this.currentSelection);
-        
     }
 
     /**
@@ -924,8 +924,8 @@ public class NotesPanelController {
     @objid ("e60633c9-31fa-42f8-b466-b5c0aa681f84")
     public void onAddRichNote() {
         final Shell parentShell = this.view.getComposite().getShell();
-        
-        try (ITransaction transaction = this.session.getTransactionSupport().createTransaction("AddDocument")) {
+
+        try (ITransaction transaction = this.session.getTransactionSupport().createTransaction("Add Document")) {
             Document doc = AddEmbeddedDocumentHelper.execute(parentShell, this.currentInput, this.modelServices);
             if (doc != null) {
                 transaction.commit();
@@ -939,7 +939,6 @@ public class NotesPanelController {
             // is not a RuntimeException.
             reportException(e);
         }
-        
     }
 
     @objid ("b8a8a38a-8664-4e38-9eb6-8fa9134edc6f")
@@ -947,13 +946,18 @@ public class NotesPanelController {
         if (editedElement instanceof ModelElement) {
             ModelElement modelElement = (ModelElement) editedElement;
             if (!modelElement.getName().equals(value)) {
-                try (ITransaction t = CoreSession.getSession(modelElement).getTransactionSupport().createTransaction("Rename a " + modelElement.getMClass().getName())) {
+                try (ITransaction t = CoreSession.getSession(modelElement).getTransactionSupport()
+                        .createTransaction("Rename a " + modelElement.getMClass().getName() + " to '" + value + "'")) {
                     modelElement.setName(value);
                     t.commit();
                 }
             }
         }
-        
+    }
+
+    @objid ("1298ce8e-9d40-4970-8fd1-3e875ef0e063")
+    public boolean canAddDocument() {
+        return AddEmbeddedDocumentHelper.canExecute(this.currentInput);
     }
 
     /**
@@ -966,7 +970,7 @@ public class NotesPanelController {
         protected NotesPanelProvider notesView;
 
         @objid ("c551ab51-d847-46e3-8071-ca88f28a4a92")
-        public  ModelChangeListener(final NotesPanelProvider notesView) {
+        public ModelChangeListener(final NotesPanelProvider notesView) {
             this.notesView = notesView;
         }
 
@@ -983,7 +987,6 @@ public class NotesPanelController {
                     }
                 });
             }
-            
         }
 
         @objid ("eae571b9-3141-4573-8283-7cfce9349ec9")
@@ -999,7 +1002,6 @@ public class NotesPanelController {
                     }
                 });
             }
-            
         }
 
     }

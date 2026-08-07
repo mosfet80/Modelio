@@ -2,7 +2,8 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Project
 Bundle-SymbolicName: org.modelio.core.project;singleton:=true
-Bundle-Version: 5.4.1.qualifier 
+Bundle-Version: 6.2.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Require-Bundle: org.modelio.core.store.exml,
  org.modelio.core.session,
  org.modelio.core.metamodel.api,
@@ -26,6 +27,7 @@ Export-Package: org.modelio.gproject,
  org.modelio.gproject.migration,
  org.modelio.gproject.module,
  org.modelio.gproject.monitor,
+ org.modelio.gproject.mtools,
  org.modelio.gproject.mtools.merge,
  org.modelio.gproject.parts,
  org.modelio.gproject.parts.feature,
@@ -41,6 +43,4 @@ Export-Package: org.modelio.gproject,
  org.modelio.gproject.rtcache
 Bundle-ClassPath: res/,
  .
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Vendor: modelio.org
-Import-Package: org.modelio.gproject.module

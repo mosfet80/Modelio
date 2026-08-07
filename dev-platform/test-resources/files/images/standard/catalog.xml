@@ -1,0 +1,1186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Library name="standard" version="1.0" date="2020/10/06">
+	<category name="Docaposte">
+
+		<image file="medecine-cardiaque.png">
+			<label lang="default">medecine-cardiaque</label>
+			<label lang="en">medecine-cardiaque</label>
+			<label lang="fr">medecine-cardiaque</label>
+		</image>
+		<image file="encaissement.png">
+			<label lang="default">encaissement</label>
+			<label lang="en">encaissement</label>
+			<label lang="fr">encaissement</label>
+		</image>
+		<image file="compte-rendu.png">
+			<label lang="default">compte-rendu</label>
+			<label lang="en">compte-rendu</label>
+			<label lang="fr">compte-rendu</label>
+		</image>
+		<image file="presentation.png">
+			<label lang="default">presentation</label>
+			<label lang="en">presentation</label>
+			<label lang="fr">presentation</label>
+		</image>
+		<image file="traitement-paiement.png">
+			<label lang="default">traitement-paiement</label>
+			<label lang="en">traitement-paiement</label>
+			<label lang="fr">traitement-paiement</label>
+		</image>
+		<image file="recherche.png">
+			<label lang="default">recherche</label>
+			<label lang="en">recherche</label>
+			<label lang="fr">recherche</label>
+		</image>
+		<image file="prerequis.png">
+			<label lang="default">prerequis</label>
+			<label lang="en">prerequis</label>
+			<label lang="fr">prerequis</label>
+		</image>
+		<image file="relation_locataire.png">
+			<label lang="default">relation locataire</label>
+			<label lang="en">relation locataire</label>
+			<label lang="fr">relation locataire</label>
+		</image>
+		<image file="management.png">
+			<label lang="default">management</label>
+			<label lang="en">management</label>
+			<label lang="fr">management</label>
+		</image>
+		<image file="flux.png">
+			<label lang="default">flux</label>
+			<label lang="en">flux</label>
+			<label lang="fr">flux</label>
+		</image>
+		<image file="chantier-internes.png">
+			<label lang="default">chantier-internes</label>
+			<label lang="en">chantier-internes</label>
+			<label lang="fr">chantier-internes</label>
+		</image>
+		<image file="document.png">
+			<label lang="default">document</label>
+			<label lang="en">document</label>
+			<label lang="fr">document</label>
+		</image>
+		<image file="delegation-de-service.png">
+			<label lang="default">delegation-de-service</label>
+			<label lang="en">delegation-de-service</label>
+			<label lang="fr">delegation-de-service</label>
+		</image>
+		<image file="documents-collectes.png">
+			<label lang="default">documents-collectes</label>
+			<label lang="en">documents-collectes</label>
+			<label lang="fr">documents-collectes</label>
+		</image>
+		<image file="geolocalisation.png">
+			<label lang="default">geolocalisation</label>
+			<label lang="en">geolocalisation</label>
+			<label lang="fr">geolocalisation</label>
+		</image>
+		<image file="signature-electronique.png">
+			<label lang="default">signature-electronique</label>
+			<label lang="en">signature-electronique</label>
+			<label lang="fr">signature-electronique</label>
+		</image>
+		<image file="experience-client.png">
+			<label lang="default">experience-client</label>
+			<label lang="en">experience-client</label>
+			<label lang="fr">experience-client</label>
+		</image>
+		<image file="portefeuil.png">
+			<label lang="default">portefeuil</label>
+			<label lang="en">portefeuil</label>
+			<label lang="fr">portefeuil</label>
+		</image>
+		<image file="Interface.png">
+			<label lang="default">Interface</label>
+			<label lang="en">Interface</label>
+			<label lang="fr">Interface</label>
+		</image>
+		<image file="24h24-7J7.png">
+			<label lang="default">24h24-7J7</label>
+			<label lang="en">24h24-7J7</label>
+			<label lang="fr">24h24-7J7</label>
+		</image>
+		<image file="bullet_check.png">
+			<label lang="default">bullet check</label>
+			<label lang="en">bullet check</label>
+			<label lang="fr">bullet check</label>
+		</image>
+		<image file="operateur.png">
+			<label lang="default">operateur</label>
+			<label lang="en">operateur</label>
+			<label lang="fr">operateur</label>
+		</image>
+		<image file="encaissement-en-ligne.png">
+			<label lang="default">encaissement-en-ligne</label>
+			<label lang="en">encaissement-en-ligne</label>
+			<label lang="fr">encaissement-en-ligne</label>
+		</image>
+		<image file="cible_2.png">
+			<label lang="default">cible 2</label>
+			<label lang="en">cible 2</label>
+			<label lang="fr">cible 2</label>
+		</image>
+		<image file="support-client.png">
+			<label lang="default">support-client</label>
+			<label lang="en">support-client</label>
+			<label lang="fr">support-client</label>
+		</image>
+		<image file="paiement-en-ligne.png">
+			<label lang="default">paiement-en-ligne</label>
+			<label lang="en">paiement-en-ligne</label>
+			<label lang="fr">paiement-en-ligne</label>
+		</image>
+		<image file="retour-experience.png">
+			<label lang="default">retour-experience</label>
+			<label lang="en">retour-experience</label>
+			<label lang="fr">retour-experience</label>
+		</image>
+		<image file="reunion.png">
+			<label lang="default">reunion</label>
+			<label lang="en">reunion</label>
+			<label lang="fr">reunion</label>
+		</image>
+		<image file="certification-2.png">
+			<label lang="default">certification-2</label>
+			<label lang="en">certification-2</label>
+			<label lang="fr">certification-2</label>
+		</image>
+		<image file="positif.png">
+			<label lang="default">positif</label>
+			<label lang="en">positif</label>
+			<label lang="fr">positif</label>
+		</image>
+		<image file="email-notification.png">
+			<label lang="default">email-notification</label>
+			<label lang="en">email-notification</label>
+			<label lang="fr">email-notification</label>
+		</image>
+		<image file="gerer-archiver-securiser.png">
+			<label lang="default">gerer-archiver-securiser</label>
+			<label lang="en">gerer-archiver-securiser</label>
+			<label lang="fr">gerer-archiver-securiser</label>
+		</image>
+		<image file="fax.png">
+			<label lang="default">fax</label>
+			<label lang="en">fax</label>
+			<label lang="fr">fax</label>
+		</image>
+		<image file="imprimante.png">
+			<label lang="default">imprimante</label>
+			<label lang="en">imprimante</label>
+			<label lang="fr">imprimante</label>
+		</image>
+		<image file="appel-tel.png">
+			<label lang="default">appel-tel</label>
+			<label lang="en">appel-tel</label>
+			<label lang="fr">appel-tel</label>
+		</image>
+		<image file="archivage-securise.png">
+			<label lang="default">archivage-securise</label>
+			<label lang="en">archivage-securise</label>
+			<label lang="fr">archivage-securise</label>
+		</image>
+		<image file="mairie_2.png">
+			<label lang="default">mairie 2</label>
+			<label lang="en">mairie 2</label>
+			<label lang="fr">mairie 2</label>
+		</image>
+		<image file="processus.png">
+			<label lang="default">processus</label>
+			<label lang="en">processus</label>
+			<label lang="fr">processus</label>
+		</image>
+		<image file="equipes.png">
+			<label lang="default">equipes</label>
+			<label lang="en">equipes</label>
+			<label lang="fr">equipes</label>
+		</image>
+		<image file="valider.png">
+			<label lang="default">valider</label>
+			<label lang="en">valider</label>
+			<label lang="fr">valider</label>
+		</image>
+		<image file="lettre-timbree-2.png">
+			<label lang="default">lettre-timbree-2</label>
+			<label lang="en">lettre-timbree-2</label>
+			<label lang="fr">lettre-timbree-2</label>
+		</image>
+		<image file="automatisation.png">
+			<label lang="default">automatisation</label>
+			<label lang="en">automatisation</label>
+			<label lang="fr">automatisation</label>
+		</image>
+		<image file="valorisation.png">
+			<label lang="default">valorisation</label>
+			<label lang="en">valorisation</label>
+			<label lang="fr">valorisation</label>
+		</image>
+		<image file="versionning.png">
+			<label lang="default">versionning</label>
+			<label lang="en">versionning</label>
+			<label lang="fr">versionning</label>
+		</image>
+		<image file="simplicite.png">
+			<label lang="default">simplicite</label>
+			<label lang="en">simplicite</label>
+			<label lang="fr">simplicite</label>
+		</image>
+		<image file="collaborateur.png">
+			<label lang="default">collaborateur</label>
+			<label lang="en">collaborateur</label>
+			<label lang="fr">collaborateur</label>
+		</image>
+		<image file="accuse-reception.png">
+			<label lang="default">accuse-reception</label>
+			<label lang="en">accuse-reception</label>
+			<label lang="fr">accuse-reception</label>
+		</image>
+		<image file="archivage-cloud.png">
+			<label lang="default">archivage-cloud</label>
+			<label lang="en">archivage-cloud</label>
+			<label lang="fr">archivage-cloud</label>
+		</image>
+		<image file="benefices.png">
+			<label lang="default">benefices</label>
+			<label lang="en">benefices</label>
+			<label lang="fr">benefices</label>
+		</image>
+		<image file="bullet_satisfaction.png">
+			<label lang="default">bullet satisfaction</label>
+			<label lang="en">bullet satisfaction</label>
+			<label lang="fr">bullet satisfaction</label>
+		</image>
+		<image file="tablette.png">
+			<label lang="default">tablette</label>
+			<label lang="en">tablette</label>
+			<label lang="fr">tablette</label>
+		</image>
+		<image file="lancement-offre.png">
+			<label lang="default">lancement-offre</label>
+			<label lang="en">lancement-offre</label>
+			<label lang="fr">lancement-offre</label>
+		</image>
+		<image file="budget.png">
+			<label lang="default">budget</label>
+			<label lang="en">budget</label>
+			<label lang="fr">budget</label>
+		</image>
+		<image file="rendez-vous.png">
+			<label lang="default">rendez-vous</label>
+			<label lang="en">rendez-vous</label>
+			<label lang="fr">rendez-vous</label>
+		</image>
+		<image file="options-envoi-.png">
+			<label lang="default">options-envoi-</label>
+			<label lang="en">options-envoi-</label>
+			<label lang="fr">options-envoi-</label>
+		</image>
+		<image file="travail-collaboratif.png">
+			<label lang="default">travail-collaboratif</label>
+			<label lang="en">travail-collaboratif</label>
+			<label lang="fr">travail-collaboratif</label>
+		</image>
+		<image file="serveurs.png">
+			<label lang="default">serveurs</label>
+			<label lang="en">serveurs</label>
+			<label lang="fr">serveurs</label>
+		</image>
+		<image file="carte-bleue.png">
+			<label lang="default">carte-bleue</label>
+			<label lang="en">carte-bleue</label>
+			<label lang="fr">carte-bleue</label>
+		</image>
+		<image file="si.png">
+			<label lang="default">si</label>
+			<label lang="en">si</label>
+			<label lang="fr">si</label>
+		</image>
+		<image file="colis.png">
+			<label lang="default">colis</label>
+			<label lang="en">colis</label>
+			<label lang="fr">colis</label>
+		</image>
+		<image file="opportunites.png">
+			<label lang="default">opportunites</label>
+			<label lang="en">opportunites</label>
+			<label lang="fr">opportunites</label>
+		</image>
+		<image file="stethoscope.png">
+			<label lang="default">stethoscope</label>
+			<label lang="en">stethoscope</label>
+			<label lang="fr">stethoscope</label>
+		</image>
+		<image file="en-cours-de-validation.png">
+			<label lang="default">en-cours-de-validation</label>
+			<label lang="en">en-cours-de-validation</label>
+			<label lang="fr">en-cours-de-validation</label>
+		</image>
+		<image file="fusee.png">
+			<label lang="default">fusee</label>
+			<label lang="en">fusee</label>
+			<label lang="fr">fusee</label>
+		</image>
+		<image file="experience-prospect.png">
+			<label lang="default">experience-prospect</label>
+			<label lang="en">experience-prospect</label>
+			<label lang="fr">experience-prospect</label>
+		</image>
+		<image file="documents.png">
+			<label lang="default">documents</label>
+			<label lang="en">documents</label>
+			<label lang="fr">documents</label>
+		</image>
+		<image file="relation-client.png">
+			<label lang="default">relation-client</label>
+			<label lang="en">relation-client</label>
+			<label lang="fr">relation-client</label>
+		</image>
+		<image file="http.png">
+			<label lang="default">http</label>
+			<label lang="en">http</label>
+			<label lang="fr">http</label>
+		</image>
+		<image file="cloud-securise_2.png">
+			<label lang="default">cloud-securise 2</label>
+			<label lang="en">cloud-securise 2</label>
+			<label lang="fr">cloud-securise 2</label>
+		</image>
+		<image file="mandat-sepa-traite.png">
+			<label lang="default">mandat-sepa-traite</label>
+			<label lang="en">mandat-sepa-traite</label>
+			<label lang="fr">mandat-sepa-traite</label>
+		</image>
+		<image file="api.png">
+			<label lang="default">api</label>
+			<label lang="en">api</label>
+			<label lang="fr">api</label>
+		</image>
+		<image file="satisfaction-Client.png">
+			<label lang="default">satisfaction-Client</label>
+			<label lang="en">satisfaction-Client</label>
+			<label lang="fr">satisfaction-Client</label>
+		</image>
+		<image file="parametres.png">
+			<label lang="default">parametres</label>
+			<label lang="en">parametres</label>
+			<label lang="fr">parametres</label>
+		</image>
+		<image file="cible.png">
+			<label lang="default">cible</label>
+			<label lang="en">cible</label>
+			<label lang="fr">cible</label>
+		</image>
+		<image file="bien-etre-travail.png">
+			<label lang="default">bien-etre-travail</label>
+			<label lang="en">bien-etre-travail</label>
+			<label lang="fr">bien-etre-travail</label>
+		</image>
+		<image file="note-de-frais.png">
+			<label lang="default">note-de-frais</label>
+			<label lang="en">note-de-frais</label>
+			<label lang="fr">note-de-frais</label>
+		</image>
+		<image file="sepa.png">
+			<label lang="default">sepa</label>
+			<label lang="en">sepa</label>
+			<label lang="fr">sepa</label>
+		</image>
+		<image file="conforme-cse.png">
+			<label lang="default">conforme-cse</label>
+			<label lang="en">conforme-cse</label>
+			<label lang="fr">conforme-cse</label>
+		</image>
+		<image file="entreprise.png">
+			<label lang="default">entreprise</label>
+			<label lang="en">entreprise</label>
+			<label lang="fr">entreprise</label>
+		</image>
+		<image file="delai-traitement-notification.png">
+			<label lang="default">delai-traitement-notification</label>
+			<label lang="en">delai-traitement-notification</label>
+			<label lang="fr">delai-traitement-notification</label>
+		</image>
+		<image file="acquisition.png">
+			<label lang="default">acquisition</label>
+			<label lang="en">acquisition</label>
+			<label lang="fr">acquisition</label>
+		</image>
+		<image file="pv-recette.png">
+			<label lang="default">pv-recette</label>
+			<label lang="en">pv-recette</label>
+			<label lang="fr">pv-recette</label>
+		</image>
+		<image file="carte-identite.png">
+			<label lang="default">carte-identite</label>
+			<label lang="en">carte-identite</label>
+			<label lang="fr">carte-identite</label>
+		</image>
+		<image file="smartphone.png">
+			<label lang="default">smartphone</label>
+			<label lang="en">smartphone</label>
+			<label lang="fr">smartphone</label>
+		</image>
+		<image file="reseau.png">
+			<label lang="default">reseau</label>
+			<label lang="en">reseau</label>
+			<label lang="fr">reseau</label>
+		</image>
+		<image file="innovation-1.png">
+			<label lang="default">innovation-1</label>
+			<label lang="en">innovation-1</label>
+			<label lang="fr">innovation-1</label>
+		</image>
+		<image file="binomes.png">
+			<label lang="default">binomes</label>
+			<label lang="en">binomes</label>
+			<label lang="fr">binomes</label>
+		</image>
+		<image file="lettre.png">
+			<label lang="default">lettre</label>
+			<label lang="en">lettre</label>
+			<label lang="fr">lettre</label>
+		</image>
+		<image file="acceptation-cgs.png">
+			<label lang="default">acceptation-cgs</label>
+			<label lang="en">acceptation-cgs</label>
+			<label lang="fr">acceptation-cgs</label>
+		</image>
+		<image file="applications.png">
+			<label lang="default">applications</label>
+			<label lang="en">applications</label>
+			<label lang="fr">applications</label>
+		</image>
+		<image file="certification.png">
+			<label lang="default">certification</label>
+			<label lang="en">certification</label>
+			<label lang="fr">certification</label>
+		</image>
+		<image file="bulletin-paie-electronique.png">
+			<label lang="default">bulletin-paie-electronique</label>
+			<label lang="en">bulletin-paie-electronique</label>
+			<label lang="fr">bulletin-paie-electronique</label>
+		</image>
+		<image file="infographie.png">
+			<label lang="default">infographie</label>
+			<label lang="en">infographie</label>
+			<label lang="fr">infographie</label>
+		</image>
+		<image file="serveur.png">
+			<label lang="default">serveur</label>
+			<label lang="en">serveur</label>
+			<label lang="fr">serveur</label>
+		</image>
+		<image file="mail.png">
+			<label lang="default">mail</label>
+			<label lang="en">mail</label>
+			<label lang="fr">mail</label>
+		</image>
+		<image file="tracabilite.png">
+			<label lang="default">tracabilite</label>
+			<label lang="en">tracabilite</label>
+			<label lang="fr">tracabilite</label>
+		</image>
+		<image file="cloud-securise.png">
+			<label lang="default">cloud-securise</label>
+			<label lang="en">cloud-securise</label>
+			<label lang="fr">cloud-securise</label>
+		</image>
+		<image file="contrat.png">
+			<label lang="default">contrat</label>
+			<label lang="en">contrat</label>
+			<label lang="fr">contrat</label>
+		</image>
+		<image file="confiance-1.png">
+			<label lang="default">confiance-1</label>
+			<label lang="en">confiance-1</label>
+			<label lang="fr">confiance-1</label>
+		</image>
+		<image file="banque-et-assurance.png">
+			<label lang="default">banque-et-assurance</label>
+			<label lang="en">banque-et-assurance</label>
+			<label lang="fr">banque-et-assurance</label>
+		</image>
+		<image file="formulaire-contact.png">
+			<label lang="default">formulaire-contact</label>
+			<label lang="en">formulaire-contact</label>
+			<label lang="fr">formulaire-contact</label>
+		</image>
+		<image file="bon-de-commande.png">
+			<label lang="default">bon-de-commande</label>
+			<label lang="en">bon-de-commande</label>
+			<label lang="fr">bon-de-commande</label>
+		</image>
+		<image file="ca_dollar.png">
+			<label lang="default">ca dollar</label>
+			<label lang="en">ca dollar</label>
+			<label lang="fr">ca dollar</label>
+		</image>
+		<image file="delai.png">
+			<label lang="default">delai</label>
+			<label lang="en">delai</label>
+			<label lang="fr">delai</label>
+		</image>
+		<image file="chaine-de-confiance.png">
+			<label lang="default">chaine-de-confiance</label>
+			<label lang="en">chaine-de-confiance</label>
+			<label lang="fr">chaine-de-confiance</label>
+		</image>
+		<image file="proposition.png">
+			<label lang="default">proposition</label>
+			<label lang="en">proposition</label>
+			<label lang="fr">proposition</label>
+		</image>
+		<image file="symetrie-des-attentions.png">
+			<label lang="default">symetrie-des-attentions</label>
+			<label lang="en">symetrie-des-attentions</label>
+			<label lang="fr">symetrie-des-attentions</label>
+		</image>
+		<image file="cheque.png">
+			<label lang="default">cheque</label>
+			<label lang="en">cheque</label>
+			<label lang="fr">cheque</label>
+		</image>
+		<image file="analyser.png">
+			<label lang="default">analyser</label>
+			<label lang="en">analyser</label>
+			<label lang="fr">analyser</label>
+		</image>
+		<image file="outils.png">
+			<label lang="default">outils</label>
+			<label lang="en">outils</label>
+			<label lang="fr">outils</label>
+		</image>
+		<image file="confiance.png">
+			<label lang="default">confiance</label>
+			<label lang="en">confiance</label>
+			<label lang="fr">confiance</label>
+		</image>
+		<image file="conseil.png">
+			<label lang="default">conseil</label>
+			<label lang="en">conseil</label>
+			<label lang="fr">conseil</label>
+		</image>
+		<image file="dossier.png">
+			<label lang="default">dossier</label>
+			<label lang="en">dossier</label>
+			<label lang="fr">dossier</label>
+		</image>
+		<image file="partage.png">
+			<label lang="default">partage</label>
+			<label lang="en">partage</label>
+			<label lang="fr">partage</label>
+		</image>
+		<image file="courrier.png">
+			<label lang="default">courrier</label>
+			<label lang="en">courrier</label>
+			<label lang="fr">courrier</label>
+		</image>
+		<image file="conforme-helios.png">
+			<label lang="default">conforme-helios</label>
+			<label lang="en">conforme-helios</label>
+			<label lang="fr">conforme-helios</label>
+		</image>
+		<image file="certification-3.png">
+			<label lang="default">certification-3</label>
+			<label lang="en">certification-3</label>
+			<label lang="fr">certification-3</label>
+		</image>
+		<image file="technologie.png">
+			<label lang="default">technologie</label>
+			<label lang="en">technologie</label>
+			<label lang="fr">technologie</label>
+		</image>
+		<image file="porte-parole.png">
+			<label lang="default">porte-parole</label>
+			<label lang="en">porte-parole</label>
+			<label lang="fr">porte-parole</label>
+		</image>
+		<image file="affranchissement.png">
+			<label lang="default">affranchissement</label>
+			<label lang="en">affranchissement</label>
+			<label lang="fr">affranchissement</label>
+		</image>
+		<image file="etablissement_2.png">
+			<label lang="default">etablissement 2</label>
+			<label lang="en">etablissement 2</label>
+			<label lang="fr">etablissement 2</label>
+		</image>
+		<image file="europe.png">
+			<label lang="default">europe</label>
+			<label lang="en">europe</label>
+			<label lang="fr">europe</label>
+		</image>
+		<image file="designer.png">
+			<label lang="default">designer</label>
+			<label lang="en">designer</label>
+			<label lang="fr">designer</label>
+		</image>
+		<image file="semence.png">
+			<label lang="default">semence</label>
+			<label lang="en">semence</label>
+			<label lang="fr">semence</label>
+		</image>
+		<image file="documents-certifies.png">
+			<label lang="default">documents-certifies</label>
+			<label lang="en">documents-certifies</label>
+			<label lang="fr">documents-certifies</label>
+		</image>
+		<image file="livre-blanc.png">
+			<label lang="default">livre-blanc</label>
+			<label lang="en">livre-blanc</label>
+			<label lang="fr">livre-blanc</label>
+		</image>
+		<image file="reception-email.png">
+			<label lang="default">reception-email</label>
+			<label lang="en">reception-email</label>
+			<label lang="fr">reception-email</label>
+		</image>
+		<image file="commercial.png">
+			<label lang="default">commercial</label>
+			<label lang="en">commercial</label>
+			<label lang="fr">commercial</label>
+		</image>
+		<image file="carte.png">
+			<label lang="default">carte</label>
+			<label lang="en">carte</label>
+			<label lang="fr">carte</label>
+		</image>
+		<image file="aide-en-ligne.png">
+			<label lang="default">aide-en-ligne</label>
+			<label lang="en">aide-en-ligne</label>
+			<label lang="fr">aide-en-ligne</label>
+		</image>
+		<image file="transaction-signee.png">
+			<label lang="default">transaction-signee</label>
+			<label lang="en">transaction-signee</label>
+			<label lang="fr">transaction-signee</label>
+		</image>
+		<image file="Chronometre.png">
+			<label lang="default">Chronometre</label>
+			<label lang="en">Chronometre</label>
+			<label lang="fr">Chronometre</label>
+		</image>
+		<image file="en-ligne-securise.png">
+			<label lang="default">en-ligne-securise</label>
+			<label lang="en">en-ligne-securise</label>
+			<label lang="fr">en-ligne-securise</label>
+		</image>
+		<image file="indicateurs.png">
+			<label lang="default">indicateurs</label>
+			<label lang="en">indicateurs</label>
+			<label lang="fr">indicateurs</label>
+		</image>
+		<image file="enveloppe-1.png">
+			<label lang="default">enveloppe-1</label>
+			<label lang="en">enveloppe-1</label>
+			<label lang="fr">enveloppe-1</label>
+		</image>
+		<image file="reseau-2.png">
+			<label lang="default">reseau-2</label>
+			<label lang="en">reseau-2</label>
+			<label lang="fr">reseau-2</label>
+		</image>
+		<image file="carte_id.png">
+			<label lang="default">carte id</label>
+			<label lang="en">carte id</label>
+			<label lang="fr">carte id</label>
+		</image>
+		<image file="page-numerisee.png">
+			<label lang="default">page-numerisee</label>
+			<label lang="en">page-numerisee</label>
+			<label lang="fr">page-numerisee</label>
+		</image>
+		<image file="traitement.png">
+			<label lang="default">traitement</label>
+			<label lang="en">traitement</label>
+			<label lang="fr">traitement</label>
+		</image>
+		<image file="Courrier_securise.png">
+			<label lang="default">Courrier securise</label>
+			<label lang="en">Courrier securise</label>
+			<label lang="fr">Courrier securise</label>
+		</image>
+		<image file="gestion-contrats.png">
+			<label lang="default">gestion-contrats</label>
+			<label lang="en">gestion-contrats</label>
+			<label lang="fr">gestion-contrats</label>
+		</image>
+		<image file="relation-collaborateurs.png">
+			<label lang="default">relation-collaborateurs</label>
+			<label lang="en">relation-collaborateurs</label>
+			<label lang="fr">relation-collaborateurs</label>
+		</image>
+		<image file="vision.png">
+			<label lang="default">vision</label>
+			<label lang="en">vision</label>
+			<label lang="fr">vision</label>
+		</image>
+		<image file="gestion.png">
+			<label lang="default">gestion</label>
+			<label lang="en">gestion</label>
+			<label lang="fr">gestion</label>
+		</image>
+		<image file="banque.png">
+			<label lang="default">banque</label>
+			<label lang="en">banque</label>
+			<label lang="fr">banque</label>
+		</image>
+		<image file="Destop.png">
+			<label lang="default">Destop</label>
+			<label lang="en">Destop</label>
+			<label lang="fr">Destop</label>
+		</image>
+		<image file="fiche.png">
+			<label lang="default">fiche</label>
+			<label lang="en">fiche</label>
+			<label lang="fr">fiche</label>
+		</image>
+		<image file="classement.png">
+			<label lang="default">classement</label>
+			<label lang="en">classement</label>
+			<label lang="fr">classement</label>
+		</image>
+		<image file="souscription-contrat.png">
+			<label lang="default">souscription-contrat</label>
+			<label lang="en">souscription-contrat</label>
+			<label lang="fr">souscription-contrat</label>
+		</image>
+		<image file="objectifs.png">
+			<label lang="default">objectifs</label>
+			<label lang="en">objectifs</label>
+			<label lang="fr">objectifs</label>
+		</image>
+		<image file="documents-personnels-scan.png">
+			<label lang="default">documents-personnels-scan</label>
+			<label lang="en">documents-personnels-scan</label>
+			<label lang="fr">documents-personnels-scan</label>
+		</image>
+		<image file="coffre-fort.png">
+			<label lang="default">coffre-fort</label>
+			<label lang="en">coffre-fort</label>
+			<label lang="fr">coffre-fort</label>
+		</image>
+		<image file="dossier_pharmaceutique.png">
+			<label lang="default">dossier pharmaceutique</label>
+			<label lang="en">dossier pharmaceutique</label>
+			<label lang="fr">dossier pharmaceutique</label>
+		</image>
+		<image file="horodatage.png">
+			<label lang="default">horodatage</label>
+			<label lang="en">horodatage</label>
+			<label lang="fr">horodatage</label>
+		</image>
+		<image file="devices.png">
+			<label lang="default">devices</label>
+			<label lang="en">devices</label>
+			<label lang="fr">devices</label>
+		</image>
+		<image file="paiement-apres-signature.png">
+			<label lang="default">paiement-apres-signature</label>
+			<label lang="en">paiement-apres-signature</label>
+			<label lang="fr">paiement-apres-signature</label>
+		</image>
+		<image file="workflow.png">
+			<label lang="default">workflow</label>
+			<label lang="en">workflow</label>
+			<label lang="fr">workflow</label>
+		</image>
+		<image file="page-web.png">
+			<label lang="default">page-web</label>
+			<label lang="en">page-web</label>
+			<label lang="fr">page-web</label>
+		</image>
+		<image file="ged.png">
+			<label lang="default">ged</label>
+			<label lang="en">ged</label>
+			<label lang="fr">ged</label>
+		</image>
+		<image file="achat.png">
+			<label lang="default">achat</label>
+			<label lang="en">achat</label>
+			<label lang="fr">achat</label>
+		</image>
+		<image file="envoi-postal.png">
+			<label lang="default">envoi-postal</label>
+			<label lang="en">envoi-postal</label>
+			<label lang="fr">envoi-postal</label>
+		</image>
+		<image file="bulletins-paie-securise.png">
+			<label lang="default">bulletins-paie-securise</label>
+			<label lang="en">bulletins-paie-securise</label>
+			<label lang="fr">bulletins-paie-securise</label>
+		</image>
+		<image file="destinataires.png">
+			<label lang="default">destinataires</label>
+			<label lang="en">destinataires</label>
+			<label lang="fr">destinataires</label>
+		</image>
+		<image file="notification.png">
+			<label lang="default">notification</label>
+			<label lang="en">notification</label>
+			<label lang="fr">notification</label>
+		</image>
+		<image file="vote-hybride.png">
+			<label lang="default">vote-hybride</label>
+			<label lang="en">vote-hybride</label>
+			<label lang="fr">vote-hybride</label>
+		</image>
+		<image file="bulletin-paie.png">
+			<label lang="default">bulletin-paie</label>
+			<label lang="en">bulletin-paie</label>
+			<label lang="fr">bulletin-paie</label>
+		</image>
+		<image file="tampon-valide.png">
+			<label lang="default">tampon-valide</label>
+			<label lang="en">tampon-valide</label>
+			<label lang="fr">tampon-valide</label>
+		</image>
+		<image file="devices-2.png">
+			<label lang="default">devices-2</label>
+			<label lang="en">devices-2</label>
+			<label lang="fr">devices-2</label>
+		</image>
+		<image file="parcours.png">
+			<label lang="default">parcours</label>
+			<label lang="en">parcours</label>
+			<label lang="fr">parcours</label>
+		</image>
+		<image file="controlej.png">
+			<label lang="default">controlej</label>
+			<label lang="en">controlej</label>
+			<label lang="fr">controlej</label>
+		</image>
+		<image file="correspondance.png">
+			<label lang="default">correspondance</label>
+			<label lang="en">correspondance</label>
+			<label lang="fr">correspondance</label>
+		</image>
+		<image file="digiposte.png">
+			<label lang="default">digiposte</label>
+			<label lang="en">digiposte</label>
+			<label lang="fr">digiposte</label>
+		</image>
+		<image file="expertise.png">
+			<label lang="default">expertise</label>
+			<label lang="en">expertise</label>
+			<label lang="fr">expertise</label>
+		</image>
+		<image file="mandat-sepa.png">
+			<label lang="default">mandat-sepa</label>
+			<label lang="en">mandat-sepa</label>
+			<label lang="fr">mandat-sepa</label>
+		</image>
+		<image file="mandat-sepa-gestion.png">
+			<label lang="default">mandat-sepa-gestion</label>
+			<label lang="en">mandat-sepa-gestion</label>
+			<label lang="fr">mandat-sepa-gestion</label>
+		</image>
+		<image file="input.png">
+			<label lang="default">input</label>
+			<label lang="en">input</label>
+			<label lang="fr">input</label>
+		</image>
+		<image file="personnalisation.png">
+			<label lang="default">personnalisation</label>
+			<label lang="en">personnalisation</label>
+			<label lang="fr">personnalisation</label>
+		</image>
+		<image file="flashcode.png">
+			<label lang="default">flashcode</label>
+			<label lang="en">flashcode</label>
+			<label lang="fr">flashcode</label>
+		</image>
+		<image file="telechargement.png">
+			<label lang="default">telechargement</label>
+			<label lang="en">telechargement</label>
+			<label lang="fr">telechargement</label>
+		</image>
+		<image file="signature.png">
+			<label lang="default">signature</label>
+			<label lang="en">signature</label>
+			<label lang="fr">signature</label>
+		</image>
+		<image file="cahier-des-charges.png">
+			<label lang="default">cahier-des-charges</label>
+			<label lang="en">cahier-des-charges</label>
+			<label lang="fr">cahier-des-charges</label>
+		</image>
+		<image file="note.png">
+			<label lang="default">note</label>
+			<label lang="en">note</label>
+			<label lang="fr">note</label>
+		</image>
+		<image file="demande-validee.png">
+			<label lang="default">demande-validee</label>
+			<label lang="en">demande-validee</label>
+			<label lang="fr">demande-validee</label>
+		</image>
+		<image file="hopital.png">
+			<label lang="default">hopital</label>
+			<label lang="en">hopital</label>
+			<label lang="fr">hopital</label>
+		</image>
+		<image file="formulaire.png">
+			<label lang="default">formulaire</label>
+			<label lang="en">formulaire</label>
+			<label lang="fr">formulaire</label>
+		</image>
+		<image file="rse.png">
+			<label lang="default">rse</label>
+			<label lang="en">rse</label>
+			<label lang="fr">rse</label>
+		</image>
+		<image file="telechargement-document.png">
+			<label lang="default">telechargement-document</label>
+			<label lang="en">telechargement-document</label>
+			<label lang="fr">telechargement-document</label>
+		</image>
+		<image file="vote-electronique.png">
+			<label lang="default">vote-electronique</label>
+			<label lang="en">vote-electronique</label>
+			<label lang="fr">vote-electronique</label>
+		</image>
+		<image file="Dossier-securise.png">
+			<label lang="default">Dossier-securise</label>
+			<label lang="en">Dossier-securise</label>
+			<label lang="fr">Dossier-securise</label>
+		</image>
+		<image file="juridique.png">
+			<label lang="default">juridique</label>
+			<label lang="en">juridique</label>
+			<label lang="fr">juridique</label>
+		</image>
+		<image file="suivi-espace-client.png">
+			<label lang="default">suivi-espace-client</label>
+			<label lang="en">suivi-espace-client</label>
+			<label lang="fr">suivi-espace-client</label>
+		</image>
+		<image file="facture-depot.png">
+			<label lang="default">facture-depot</label>
+			<label lang="en">facture-depot</label>
+			<label lang="fr">facture-depot</label>
+		</image>
+		<image file="documents-personnels.png">
+			<label lang="default">documents-personnels</label>
+			<label lang="en">documents-personnels</label>
+			<label lang="fr">documents-personnels</label>
+		</image>
+		<image file="reception.png">
+			<label lang="default">reception</label>
+			<label lang="en">reception</label>
+			<label lang="fr">reception</label>
+		</image>
+		<image file="vehicule-la-poste.png">
+			<label lang="default">vehicule-la-poste</label>
+			<label lang="en">vehicule-la-poste</label>
+			<label lang="fr">vehicule-la-poste</label>
+		</image>
+		<image file="famille.png">
+			<label lang="default">famille</label>
+			<label lang="en">famille</label>
+			<label lang="fr">famille</label>
+		</image>
+		<image file="livraison.png">
+			<label lang="default">livraison</label>
+			<label lang="en">livraison</label>
+			<label lang="fr">livraison</label>
+		</image>
+		<image file="souscrire.png">
+			<label lang="default">souscrire</label>
+			<label lang="en">souscrire</label>
+			<label lang="fr">souscrire</label>
+		</image>
+		<image file="archivage.png">
+			<label lang="default">archivage</label>
+			<label lang="en">archivage</label>
+			<label lang="fr">archivage</label>
+		</image>
+		<image file="pages-archives.png">
+			<label lang="default">pages-archives</label>
+			<label lang="en">pages-archives</label>
+			<label lang="fr">pages-archives</label>
+		</image>
+		<image file="en-cours-d-envoi.png">
+			<label lang="default">en-cours-d-envoi</label>
+			<label lang="en">en-cours-d-envoi</label>
+			<label lang="fr">en-cours-d-envoi</label>
+		</image>
+		<image file="utilisateur.png">
+			<label lang="default">utilisateur</label>
+			<label lang="en">utilisateur</label>
+			<label lang="fr">utilisateur</label>
+		</image>
+		<image file="courbe.png">
+			<label lang="default">courbe</label>
+			<label lang="en">courbe</label>
+			<label lang="fr">courbe</label>
+		</image>
+		<image file="horloge.png">
+			<label lang="default">horloge</label>
+			<label lang="en">horloge</label>
+			<label lang="fr">horloge</label>
+		</image>
+		<image file="assemblage.png">
+			<label lang="default">assemblage</label>
+			<label lang="en">assemblage</label>
+			<label lang="fr">assemblage</label>
+		</image>
+		<image file="etudiants_diplomes.png">
+			<label lang="default">etudiants diplomes</label>
+			<label lang="en">etudiants diplomes</label>
+			<label lang="fr">etudiants diplomes</label>
+		</image>
+		<image file="Dialoguer.png">
+			<label lang="default">Dialoguer</label>
+			<label lang="en">Dialoguer</label>
+			<label lang="fr">Dialoguer</label>
+		</image>
+		<image file="plaquette.png">
+			<label lang="default">plaquette</label>
+			<label lang="en">plaquette</label>
+			<label lang="fr">plaquette</label>
+		</image>
+		<image file="cheques-traites.png">
+			<label lang="default">cheques-traites</label>
+			<label lang="en">cheques-traites</label>
+			<label lang="fr">cheques-traites</label>
+		</image>
+		<image file="circuit-signature.png">
+			<label lang="default">circuit-signature</label>
+			<label lang="en">circuit-signature</label>
+			<label lang="fr">circuit-signature</label>
+		</image>
+		<image file="facture.png">
+			<label lang="default">facture</label>
+			<label lang="en">facture</label>
+			<label lang="fr">facture</label>
+		</image>
+		<image file="relation-sociale.png">
+			<label lang="default">relation-sociale</label>
+			<label lang="en">relation-sociale</label>
+			<label lang="fr">relation-sociale</label>
+		</image>
+		<image file="satisfaction.png">
+			<label lang="default">satisfaction</label>
+			<label lang="en">satisfaction</label>
+			<label lang="fr">satisfaction</label>
+		</image>
+		<image file="Agenda.png">
+			<label lang="default">Agenda</label>
+			<label lang="en">Agenda</label>
+			<label lang="fr">Agenda</label>
+		</image>
+		<image file="formation-1.png">
+			<label lang="default">formation-1</label>
+			<label lang="en">formation-1</label>
+			<label lang="fr">formation-1</label>
+		</image>
+		<image file="output.png">
+			<label lang="default">output</label>
+			<label lang="en">output</label>
+			<label lang="fr">output</label>
+		</image>
+		<image file="ca_euros.png">
+			<label lang="default">ca euros</label>
+			<label lang="en">ca euros</label>
+			<label lang="fr">ca euros</label>
+		</image>
+		<image file="facture-en-ligne.png">
+			<label lang="default">facture-en-ligne</label>
+			<label lang="en">facture-en-ligne</label>
+			<label lang="fr">facture-en-ligne</label>
+		</image>
+		<image file="codes-acces.png">
+			<label lang="default">codes-acces</label>
+			<label lang="en">codes-acces</label>
+			<label lang="fr">codes-acces</label>
+		</image>
+		<image file="cible-3.png">
+			<label lang="default">cible-3</label>
+			<label lang="en">cible-3</label>
+			<label lang="fr">cible-3</label>
+		</image>
+		<image file="recommandation.png">
+			<label lang="default">recommandation</label>
+			<label lang="en">recommandation</label>
+			<label lang="fr">recommandation</label>
+		</image>
+		<image file="service-client.png">
+			<label lang="default">service-client</label>
+			<label lang="en">service-client</label>
+			<label lang="fr">service-client</label>
+		</image>
+		<image file="savoir-faire.png">
+			<label lang="default">savoir-faire</label>
+			<label lang="en">savoir-faire</label>
+			<label lang="fr">savoir-faire</label>
+		</image>
+		<image file="paiement-apres-facture.png">
+			<label lang="default">paiement-apres-facture</label>
+			<label lang="en">paiement-apres-facture</label>
+			<label lang="fr">paiement-apres-facture</label>
+		</image>
+		<image file="pdf.png">
+			<label lang="default">pdf</label>
+			<label lang="en">pdf</label>
+			<label lang="fr">pdf</label>
+		</image>
+		<image file="fqb-renseignee.png">
+			<label lang="default">fqb-renseignee</label>
+			<label lang="en">fqb-renseignee</label>
+			<label lang="fr">fqb-renseignee</label>
+		</image>
+		<image file="paiement-apres-commande.png">
+			<label lang="default">paiement-apres-commande</label>
+			<label lang="en">paiement-apres-commande</label>
+			<label lang="fr">paiement-apres-commande</label>
+		</image>
+		<image file="compatible-cpa.png">
+			<label lang="default">compatible-cpa</label>
+			<label lang="en">compatible-cpa</label>
+			<label lang="fr">compatible-cpa</label>
+		</image>
+		<image file="factures.png">
+			<label lang="default">factures</label>
+			<label lang="en">factures</label>
+			<label lang="fr">factures</label>
+		</image>
+		<image file="monnaie.png">
+			<label lang="default">monnaie</label>
+			<label lang="en">monnaie</label>
+			<label lang="fr">monnaie</label>
+		</image>
+		<image file="organismes-connectes.png">
+			<label lang="default">organismes-connectes</label>
+			<label lang="en">organismes-connectes</label>
+			<label lang="fr">organismes-connectes</label>
+		</image>
+		<image file="euro.png">
+			<label lang="default">euro</label>
+			<label lang="en">euro</label>
+			<label lang="fr">euro</label>
+		</image>
+		<image file="sites.png">
+			<label lang="default">sites</label>
+			<label lang="en">sites</label>
+			<label lang="fr">sites</label>
+		</image>
+		<image file="mise-sous-pli.png">
+			<label lang="default">mise-sous-pli</label>
+			<label lang="en">mise-sous-pli</label>
+			<label lang="fr">mise-sous-pli</label>
+		</image>
+		<image file="portable.png">
+			<label lang="default">portable</label>
+			<label lang="en">portable</label>
+			<label lang="fr">portable</label>
+		</image>
+		<image file="securite.png">
+			<label lang="default">securite</label>
+			<label lang="en">securite</label>
+			<label lang="fr">securite</label>
+		</image>
+	</category>
+</Library>

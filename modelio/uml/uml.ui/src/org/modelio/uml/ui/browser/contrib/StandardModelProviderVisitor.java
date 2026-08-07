@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.uml.ui.browser.contrib;
 
@@ -92,7 +111,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * Visitor implementation covering UML and Bpmn content providing. Used by UmlContentProvider.
- * 
+ *
  * Visitor used to get tree node children.
  * <p>
  * <h3>Implementation note:</h3> If {@link #includeLinks} is <code>true</code>, the implementation should use {@link #addResults(List)} so that children tree nodes are linked to the container. <br/>
@@ -125,7 +144,7 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
 
     /**
      * Get the 'links' under parent, links are those elements intended to appear in the 'link' container in the browser
-     * @param parent @return
+     * @return
      */
     @objid ("4fa114c7-d916-43c0-b6e0-7746dbf11b21")
     public List<MObject> getLinks(final MObject parent) {
@@ -134,7 +153,7 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
 
     /**
      * Get the 'elements' under parent.
-     * @param parent @return
+     * @return
      */
     @objid ("4e9d9580-087e-490f-9ab0-ad8b8fe940f9")
     public List<Object> getElements(final MObject parent) {
@@ -148,7 +167,7 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
             final List<ActivityGroup> ownedGroups = new ArrayList<>(theActivity.getOwnedGroup());
             Collections.sort(ownedGroups, this.standardSorter);
             addResults(ownedGroups);
-        
+
             final List<ActivityNode> ownedNodes = new ArrayList<>(theActivity.getOwnedNode());
             Collections.sort(ownedNodes, this.standardSorter);
             addResults(ownedNodes);
@@ -163,13 +182,13 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
         if (this.includeElements) {
             // InputPin
             addResults(theActivityAction.getInput());
-        
+
             // OutputPin
             addResults(theActivityAction.getOutput());
-        
+
             // ExceptionHandler
             addResults(theActivityAction.getHandler());
-        
+
         }
         super.visitActivityAction(theActivityAction);
         return null;
@@ -193,11 +212,11 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
         if (this.includeElements) {
             // ControlFlow
             addResults(theActivityPartition.getSubPartition());
-        
+
             List<ActivityNode> nodes = new ArrayList<>(theActivityPartition.getContainedNode());
             Collections.sort(nodes, this.standardSorter);
             addResults(nodes);
-        
+
             // MessageFlow
             addResults(theActivityPartition.getOutgoing());
         }
@@ -231,7 +250,7 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
     public Object visitAssociationEnd(AssociationEnd theAssociationEnd) {
         if (this.includeElements) {
             addResults(theAssociationEnd.getQualifier());
-        
+
             addResult(theAssociationEnd.getAssociation());
         }
         super.visitAssociationEnd(theAssociationEnd);
@@ -244,10 +263,10 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
         if (this.includeElements) {
             // BehaviorParameter
             addResults(theBehavior.getParameter());
-        
+
             // Event
             addResults(theBehavior.getEComponent());
-        
+
             // Collaboration
             addResults(theBehavior.getOwnedCollaboration());
         }
@@ -261,10 +280,10 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
         if (this.includeElements) {
             // BpmnDataInput
             addResults(theBpmnActivity.getInputSpecification());
-        
+
             // BpmnDataOutput
             addResults(theBpmnActivity.getOutputSpecification());
-        
+
             // BpmnBoundaryEvent
             addResults(theBpmnActivity.getBoundaryEventRef());
         }
@@ -301,7 +320,7 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
                 addResult(theBpmnCatchEvent.getDataOutput());
             }
         }
-        
+
         super.visitBpmnCatchEvent(theBpmnCatchEvent);
         return null;
     }
@@ -319,22 +338,22 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
     public Object visitBpmnCollaboration(final BpmnCollaboration theBpmnCollaboration) {
         if (this.includeElements) {
             BpmnMessageFlowContainer flows = new BpmnMessageFlowContainer(theBpmnCollaboration, new ArrayList<>());
-        
+
             // Participants
             for (BpmnParticipant p : theBpmnCollaboration.getParticipants()) {
                 addResult(p);
             }
-        
+
             // MessageFlows
             flows.getContents().addAll(theBpmnCollaboration.getMessageFlow());
-        
+
             // Messages
             flows.getContents().addAll(theBpmnCollaboration.getMessages());
-        
+
             if (!flows.getContents().isEmpty()) {
                 addResult(flows);
             }
-        
+
         }
         super.visitBpmnCollaboration(theBpmnCollaboration);
         return null;
@@ -375,7 +394,7 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
     @Override
     public Object visitBpmnInterface(final BpmnInterface theBpmnInterface) {
         if (this.includeElements) {
-        
+
             // BpmnOperation
             addResults(theBpmnInterface.getOperation());
         }
@@ -387,7 +406,7 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
     @Override
     public Object visitBpmnItemAwareElement(final BpmnItemAwareElement theBpmnItemAwareElement) {
         if (this.includeElements) {
-        
+
             // BpmnDataState
             if (theBpmnItemAwareElement.getDataState() != null) {
                 addResult(theBpmnItemAwareElement.getDataState());
@@ -406,7 +425,7 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
                 addResults(theBpmnLane.getChildLaneSet().getLane());
             }
         }
-        
+
         super.visitBpmnLane(theBpmnLane);
         return null;
     }
@@ -430,12 +449,12 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
             if (theBpmnMultiInstanceLoopCharacteristics.getLoopDataInput() != null) {
                 addResult(theBpmnMultiInstanceLoopCharacteristics.getLoopDataInput());
             }
-        
+
             // BpmnDataOutput
             if (theBpmnMultiInstanceLoopCharacteristics.getLoopDataOutputRef() != null) {
                 addResult(theBpmnMultiInstanceLoopCharacteristics.getLoopDataOutputRef());
             }
-        
+
             // BpmnComplexBehaviorDefinition
             addResults(theBpmnMultiInstanceLoopCharacteristics.getComplexBehaviorDefinition());
         }
@@ -445,7 +464,7 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
 
     /**
      * Process
-     * 
+     *
      * <ol>
      * <li>Tasks container containing the process activities</li>
      * <li>Events container containing the process events</li>
@@ -462,7 +481,7 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
             if (!tasks.getContents().isEmpty()) {
                 addResult(tasks);
             }
-        
+
             // Collect events (any BpmnEvent excepted BPMNBoundaryEvents which are displayed under they owning activity)
             List<BpmnEvent> allEvents = theProcess.getFlowElement(BpmnEvent.class).stream()
                     .filter(e -> !(e instanceof BpmnBoundaryEvent))
@@ -471,7 +490,7 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
                 BpmnEventsContainer events = new BpmnEventsContainer(theProcess, allEvents);
                 addResult(events);
             }
-        
+
             // Collect roles
             BpmnRolesContainer roles = new BpmnRolesContainer(theProcess, new ArrayList<>());
             if (theProcess.getLaneSet() != null) {
@@ -480,15 +499,15 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
             if (!roles.getContents().isEmpty()) {
                 addResult(roles);
             }
-        
+
             // Collect data objects
             BpmnDataObjectsContainer dataobjects = new BpmnDataObjectsContainer(theProcess, theProcess.getFlowElement(BpmnItemAwareElement.class));
             if (!dataobjects.getContents().isEmpty()) {
                 addResult(dataobjects);
             }
-        
+
             // Gateways are part of the flow model and should NOT be shown
-        
+
             // Collaborations
             addResult(theProcess.getDefinitionalCollaboration());
         }
@@ -500,7 +519,7 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
     @Override
     public Object visitBpmnResource(final BpmnResource theBpmnResource) {
         if (this.includeElements) {
-        
+
             // BpmnResourceParameter
             addResults(theBpmnResource.getParameter());
         }
@@ -512,7 +531,7 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
     @Override
     public Object visitBpmnResourceRole(final BpmnResourceRole theBpmnResourceRole) {
         if (this.includeElements) {
-        
+
             // BpmnResourceParameterBinding
             addResults(theBpmnResourceRole.getResourceParameterBinding());
         }
@@ -531,16 +550,16 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
     @Override
     public Object visitBpmnSubProcess(final BpmnSubProcess theSubProcess) {
         if (this.includeElements) {
-        
+
             // BpmnBoundaryEvent
             addResults(theSubProcess.getBoundaryEventRef());
-        
+
             // Collect tasks
             BpmnTasksContainer tasks = new BpmnTasksContainer(theSubProcess, theSubProcess.getFlowElement(BpmnActivity.class));
             if (!tasks.getContents().isEmpty()) {
                 addResult(tasks);
             }
-        
+
             // Collect events (any BpmnEvent excepted BPMNBoundaryEvents which are displayed under they owning activity)
             List<BpmnEvent> allEvents = theSubProcess.getFlowElement(BpmnEvent.class).stream()
                     .filter(e -> !(e instanceof BpmnBoundaryEvent))
@@ -549,7 +568,7 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
             if (!events.getContents().isEmpty()) {
                 addResult(events);
             }
-        
+
             // Collect roles
             BpmnRolesContainer roles = new BpmnRolesContainer(theSubProcess, new ArrayList<>());
             if (theSubProcess.getLaneSet() != null) {
@@ -558,13 +577,13 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
             if (!roles.getContents().isEmpty()) {
                 addResult(roles);
             }
-        
+
             // Collect data objects
             BpmnDataObjectsContainer dataobjects = new BpmnDataObjectsContainer(theSubProcess, theSubProcess.getFlowElement(BpmnItemAwareElement.class));
             if (!dataobjects.getContents().isEmpty()) {
                 addResult(dataobjects);
             }
-        
+
             // Gateways are part of the flow model and should NOT be shown
         }
         return null;
@@ -587,46 +606,47 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
     @Override
     public Object visitClassifier(Classifier theClassifier) {
         if (this.includeElements) {
-        
+
             // Generalization
             addResults(theClassifier.getParent());
-        
+
             // InterfaceRealization
             addResults(theClassifier.getRealized());
-        
+
             // TemplateParameter
             addResults(theClassifier.getTemplate());
-        
+
             // TemplateBinding
             addResults(theClassifier.getTemplateInstanciation());
-        
+
             // Attribute
             addResults(theClassifier.getOwnedAttribute());
-        
+
             // AssociationEnd
             for (final AssociationEnd end : theClassifier.getOwnedEnd()) {
                 if (end.isNavigable() || (end.getOpposite() != null && !end.getOpposite().isNavigable())) {
                     addResult(end);
                 }
             }
-        
+
             // NaryAssociationEnd
             addResults(theClassifier.getOwnedNaryEnd());
-        
+
             // Operation
             addResults(theClassifier.getOwnedOperation());
-        
+
             List<BindableInstance> internalStructure = new ArrayList<>(theClassifier.getInternalStructure());
             Collections.sort(internalStructure, this.standardSorter);
             addResults(internalStructure);
         }
-        
+
         if (this.includeLinks) {
             // Substitutions
             addResults(theClassifier.getSubstitued());
-        
+
             // Component realizations
-            addResults(theClassifier.getRealizedComponent());
+            // > 28/05/2024: disabled for 6.0.0 CONFERENCE fragments : too slow, accesses inverse indexes
+            //addResults(theClassifier.getRealizedComponent());
         }
         super.visitClassifier(theClassifier);
         return null;
@@ -650,17 +670,17 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
         if (this.includeElements) {
             // Generalization
             addResults(theCollaboration.getParent());
-        
+
             // InterfaceRealization
             addResults(theCollaboration.getRealized());
-        
+
             // TemplateParameter
             addResults(theCollaboration.getTemplate());
-        
+
             // TemplateBinding
             addResults(theCollaboration.getTemplateInstanciation());
         }
-        
+
         super.visitCollaboration(theCollaboration);
         return null;
     }
@@ -749,14 +769,14 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
             List<BindableInstance> part = new ArrayList<>(theInstance.getPart());
             Collections.sort(part, this.standardSorter);
             addResults(part);
-        
+
             // AttributeLink
             addResults(theInstance.getSlot());
-        
+
             List<LinkEnd> ownedEnd = new ArrayList<>(theInstance.getOwnedEnd());
             Collections.sort(ownedEnd, this.standardSorter);
             addResults(ownedEnd);
-        
+
             // NaryLinkEnd
             addResults(theInstance.getOwnedNaryEnd());
         }
@@ -792,32 +812,32 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
         if (this.includeLinks) {
             // ElementImport
             addResults(theNameSpace.getOwnedImport());
-        
+
             // PackageImport
             addResults(theNameSpace.getOwnedPackageImport());
-        
+
             // InformationFlow
             addResults(theNameSpace.getOwnedInformationFlow());
         }
-        
+
         if (this.includeElements) {
             // NOTE: Generalization, InterfaceRealization,
             // TemplateParameter, TemplateBinding are processed by
             // subclasses Collaboration, Classifier, Package in order to
             // control the ordering of elements in the browser.
-        
+
             // Declared instances
             List<Instance> declared = new ArrayList<>(theNameSpace.getDeclared());
             Collections.sort(declared, this.standardSorter);
             addResults(declared);
-        
+
             // CollaborationUse
             addResults(theNameSpace.getOwnedCollaborationUse());
-        
+
             List<Behavior> behavior = new ArrayList<>(theNameSpace.getOwnedBehavior());
             Collections.sort(behavior, this.standardSorter);
             addResults(behavior);
-        
+
             // DataFlow
             addResults(theNameSpace.getOwnedDataFlow());
         }
@@ -847,40 +867,40 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
         if (this.includeLinks) {
             // ElementImport
             addResults(theOperation.getOwnedImport());
-        
+
             // PackageImport
             addResults(theOperation.getOwnedPackageImport());
         }
-        
+
         if (this.includeElements) {
             // ReturnParameter
             final Parameter returnParameter = theOperation.getReturn();
             if (returnParameter != null) {
                 addResult(returnParameter);
             }
-        
+
             // IOParameter
             addResults(theOperation.getIO());
-        
+
             // RaisedException
             addResults(theOperation.getThrown());
-        
+
             // TemplateParameter
             addResults(theOperation.getTemplate());
-        
+
             // TemplateBinding
             addResults(theOperation.getTemplateInstanciation());
-        
+
             // Collaboration
             addResults(theOperation.getExample());
-        
+
             // CollaborationUse
             addResults(theOperation.getOwnedCollaborationUse());
-        
+
             List<Behavior> behavior = new ArrayList<>(theOperation.getOwnedBehavior());
             Collections.sort(behavior, this.standardSorter);
             addResults(behavior);
-        
+
         }
         super.visitOperation(theOperation);
         return null;
@@ -892,16 +912,16 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
         if (this.includeLinks) {
             // Generalization
             addResults(thePackage.getParent());
-        
+
             // InterfaceRealization
             addResults(thePackage.getRealized());
-        
+
             // TemplateParameter
             addResults(thePackage.getTemplate());
-        
+
             // TemplateBinding
             addResults(thePackage.getTemplateInstanciation());
-        
+
             // PackageMerge
             addResults(thePackage.getMerge());
         }
@@ -915,7 +935,7 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
         if (this.includeElements) {
             // ProvidedInterface
             addResults(thePort.getProvided());
-        
+
             // RequiredInterface
             addResults(thePort.getRequired());
         }
@@ -951,14 +971,14 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
         if (this.includeElements) {
             // Region
             addResults(theState.getOwnedRegion());
-        
+
             // Entry and Exit Point
             addResults(theState.getEntryPoint());
             addResults(theState.getExitPoint());
-        
+
             // InternalTransition
             addResults(theState.getInternal());
-        
+
             // ConnectionPointReference
             addResults(theState.getConnection());
         }
@@ -970,17 +990,17 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
     @Override
     public Object visitStateMachine(StateMachine theStateMachine) {
         if (this.includeElements) {
-        
+
             // Entry and Exit point are directly on the StateMachine
             addResults(theStateMachine.getEntryPoint());
             addResults(theStateMachine.getExitPoint());
-        
+
             // the visible children of the StateMachine are the children of
             // its
             // Top State
             final Region theRegion = theStateMachine.getTop();
             addResults(theRegion.getSub());
-        
+
         }
         super.visitStateMachine(theStateMachine);
         return null;
@@ -1041,7 +1061,7 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
         if (this.includeElements) {
             // ExtensionPoint
             addResults(theUseCase.getOwnedExtension());
-        
+
             addResults(theUseCase.getUsed());
         }
         super.visitUseCase(theUseCase);
@@ -1050,6 +1070,7 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
 
     /**
      * Avoid having a duplicated element in the result, but preserves order unlike a Set.
+     *
      * @param elt the element to add.
      */
     @objid ("9603c2d1-df56-4ed0-8090-7c9734bb87ec")
@@ -1057,11 +1078,11 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
         if (elt != null && !this.result.contains(elt)) {
             this.result.add(elt);
         }
-        
     }
 
     /**
      * Avoid having duplicated elements in the result, but preserves order unlike a Set.
+     *
      * @param objects the element to add.
      */
     @objid ("2d1c1b40-a3d9-442a-b7cc-6e5baec7a3b3")
@@ -1069,11 +1090,11 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
         for (Object elt : objects) {
             addResult(elt);
         }
-        
     }
 
     /**
      * Get the children to display into the given element. The method configure the visitor (setting with elements/links options) and call the accept() method.
+     *
      * @param parent the element where children will be looked for
      * @return The children to display when expanding the tree node.
      */
@@ -1081,13 +1102,13 @@ class StandardModelProviderVisitor extends DefaultModelVisitor {
     private List<Object> getChildren(final MObject parent, boolean withElements, boolean withLinks) {
         this.includeElements = withElements;
         this.includeLinks = withLinks;
-        
+
         // Clear the collecting list
         this.result = new ArrayList<>();
-        
+
         // Start the 'visit'
         parent.accept(this);
-        
+
         // Return results
         List<Object> localList = this.result;
         this.result = null; // Makes garbaging of the list more likely to happen

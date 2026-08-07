@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.layout;
 
@@ -39,23 +39,23 @@ public class Layouter {
     private LayoutModel layout;
 
     @objid ("a6bf637c-5089-495b-87f5-f4024efb479a")
-    public  Layouter(IDiagramHandle dh) {
+    public Layouter(IDiagramHandle dh) {
         this.dh = dh;
-        
+
         this.layout = new LayoutModel();
-        
+
         loadDiagram();
-        
+
     }
 
     @objid ("d831eed2-51b7-4e03-a3d3-d680a043aed2")
     public LayoutModel layout() {
         // System.out.printf("Graph.layout() (%d nodes)\n", this.layout.getNodeNumber());
         this.dh.setBatchMode(true);
-        
+
         // Layouting nodes
         layoutNodes();
-        
+
         // Layouting links
         layoutLinks();
         return this.layout;
@@ -64,17 +64,17 @@ public class Layouter {
     @objid ("817317cf-45b3-4108-af65-eba190b10fd7")
     private void doLayout(ILayoutableNode diagramNode, int col, int row, Set<ILayoutableNode> processed, String indent) {
         // System.out.printf("%s doLayout(%s -> %d,%d)\n", indent, diagramNode.getName(), row, col);
-        
+
         if (processed.contains(diagramNode)) {
             return;
         }
         diagramNode.setCol(col);
         diagramNode.setRow(row);
-        
+
         this.layout.setNode(row, col, diagramNode);
-        
+
         processed.add(diagramNode);
-        
+
         // Find (not yet processed) successors and sort them on right depth (higher depth first)
         List<ILayoutableNode> nextNodes = new ArrayList<>();
         for (ILayoutableNode succ : diagramNode.getSuccessors()) {
@@ -82,20 +82,20 @@ public class Layouter {
                 nextNodes.add(succ);
             }
         }
-        
+
         nextNodes.sort(new Comparator<ILayoutableNode>() {
             @Override
             public int compare(ILayoutableNode e1, ILayoutableNode e2) {
                 return -Integer.compare(e1.getRightDepth(), e2.getRightDepth());
             }
         });
-        
+
         int r = row;
         for (ILayoutableNode nn : nextNodes) {
             doLayout(nn, col + 1, r, processed, indent + "  ");
             r = r + 1;
         }
-        
+
     }
 
     @objid ("bb3b6702-285c-451b-ab5c-b8d5a3b26cae")
@@ -117,10 +117,10 @@ public class Layouter {
     @objid ("8017cf65-b6f3-4eda-b69c-9218520f30be")
     private List<ILayoutableNode> getRootNodes() {
         List<ILayoutableNode> startnodes = new ArrayList<>();
-        
+
         // List<ILayoutableNode> nodes = new ArrayList<>(this.nodesLayout.values());
         List<ILayoutableNode> nodes = this.layout.getNodes();
-        
+
         // Sort nodes by predecessors (lower values first) and than by right depth (higher values first)
         nodes.sort(new Comparator<ILayoutableNode>() {
             @Override
@@ -129,14 +129,14 @@ public class Layouter {
                 return (r != 0) ? r : -Integer.compare(e1.getRightDepth(), e2.getRightDepth());
             }
         });
-        
+
         // nodes.sort(new Comparator<ILayoutableNode>() {
         // @Override
         // public int compare(ILayoutableNode n1, ILayoutableNode n2) {
         // return Integer.compare(n1.getPredecessors().size(), n2.getPredecessors().size());
         // }
         // });
-        
+
         if (!nodes.isEmpty()) {
             int card = nodes.get(0).getPredecessors().size();
             for (ILayoutableNode n : nodes) {
@@ -154,7 +154,7 @@ public class Layouter {
         for (IDiagramNode n : this.dh.getDiagramNode().getNodes()) {
             this.layout.add(n, new SimpleLayoutableNode(n));
         }
-        
+
         // Load links
         for (IDiagramNode n : this.dh.getDiagramNode().getNodes()) {
             ILayoutableNode lNode = this.layout.get(n);
@@ -169,13 +169,13 @@ public class Layouter {
                 this.layout.add(link, new LayoutableLink(link, lNode, toLNode));
             }
         }
-        
+
         // Compute right depth
         for (ILayoutableNode lNode : this.layout.getNodes()) {
             lNode.setRightDepth(computeRightDepth(lNode, new HashSet<ILayoutableNode>()));
             // System.out.printf("loadDiagram(): max right depth of '%s' = %d\n", lNode.getName(), lNode.getRightDepth());
         }
-        
+
     }
 
     // Logical layout of the links, consists in determining them in the (row, col) logical table
@@ -185,7 +185,7 @@ public class Layouter {
         for (ILayoutableLink link : this.layout.getLinks()) {
             routeLink(link);
         }
-        
+
     }
 
     // end routeHorizontalLink
@@ -193,11 +193,11 @@ public class Layouter {
     @objid ("36f61962-3252-420a-aa37-1f7f79cfba51")
     private void layoutNodes() {
         // this.nodeTable = new NodeTable();
-        
+
         Set<ILayoutableNode> processed = new HashSet<>();
         int row = 0;
         int col = 0;
-        
+
         List<ILayoutableNode> roots = this.getRootNodes();
         // Sort roots on right depth (higher first)
         roots.sort(new Comparator<ILayoutableNode>() {
@@ -206,12 +206,12 @@ public class Layouter {
                 return -Integer.compare(e1.getRightDepth(), e2.getRightDepth());
             }
         });
-        
+
         for (ILayoutableNode nld : this.getRootNodes()) {
             this.doLayout(nld, col, row, processed, "  ");
             row++;
         }
-        
+
     }
 
     @objid ("34d94f98-86ae-40d8-aec0-5f0851c21840")
@@ -219,17 +219,17 @@ public class Layouter {
         if (link.isSelected()) {
             // System.out.println("Graph.routeLink() selected: " + link);
         }
-        
+
         ILayoutableNode source = link.getFrom();
         int sourceCol = source.getCol();
         int sourceRow = source.getRow();
-        
+
         ILayoutableNode target = link.getTo();
         int targetCol = target.getCol();
         int targetRow = target.getRow();
-        
+
         // System.out.println("Graph.routeLink() " + source + " => " + target);
-        
+
         if (sourceRow == targetRow) {
             // source and target on the same row
             routeHorizontalLink(link, sourceRow, sourceCol, targetCol);
@@ -238,13 +238,13 @@ public class Layouter {
         } else {
             routeQuadrantLink(link, sourceRow, sourceCol, targetRow, targetCol);
         }
-        
+
         // Register layoutable links by anchor direction
         source.getOutLinks(link.getSourceAnchor()).add(link);
         target.getInLinks(link.getTargetAnchor()).add(link);
-        
+
         // System.out.println(" link = " + link.toString());
-        
+
     }
 
     /**
@@ -258,7 +258,7 @@ public class Layouter {
         // 1 | 2
         // --S--
         // 3 | 4
-        
+
         if (sourceCol < targetCol) {
             // source is on the left of target
             if (sourceRow < targetRow) {
@@ -310,11 +310,12 @@ public class Layouter {
                 }
             }
         }
-        
+
     }
 
     // end routeQuadrantLink()
     /**
+     *
      * @return true if a corner route could be defined for the link. The link has been configured (kind and anchors) with proper values.
      */
     @objid ("cf32cf32-f6f2-4daa-93de-c39584b8238e")
@@ -348,7 +349,7 @@ public class Layouter {
             link.setSourceAnchor(sourceAnchor);
             link.setTargetAnchor(targetAnchor);
             return true;
-        
+
         case West:
             // Cells on the right between ]sourceCol,targetCol] must be empty on the sourceRow
             for (int j = sourceCol - 1; j >= targetCol; j--) {
@@ -356,7 +357,7 @@ public class Layouter {
                     return false;
                 }
             }
-        
+
             // Cells below or above the target must be free for the target column
             if (targetAnchor == ILayoutableLink.AnchorDirection.North) {
                 // Landing on target North, cells above target between [sourceRow, targetRow[ must be free
@@ -378,7 +379,7 @@ public class Layouter {
             link.setSourceAnchor(sourceAnchor);
             link.setTargetAnchor(targetAnchor);
             return true;
-        
+
         case North:
             // Cells above between ]sourceRow, targetRow] must be empty on the sourceCol
             for (int i = sourceRow - 1; i >= targetRow; i--) {
@@ -386,7 +387,7 @@ public class Layouter {
                     return false;
                 }
             }
-        
+
             // Cells on the left or on the right of the target must be free for the target row
             if (targetAnchor == ILayoutableLink.AnchorDirection.East) {
                 // Landing on target East, cells on the left of the target between [sourceCol, targetCol[ must be free
@@ -408,7 +409,7 @@ public class Layouter {
             link.setSourceAnchor(sourceAnchor);
             link.setTargetAnchor(targetAnchor);
             return true;
-        
+
         case South:
             // Cells below between sourceRow+1 and targetRow must be empty on the sourceCol
             for (int i = sourceRow + 1; i <= targetRow; i++) {
@@ -437,11 +438,11 @@ public class Layouter {
             link.setSourceAnchor(sourceAnchor);
             link.setTargetAnchor(targetAnchor);
             return true;
-        
+
         default:
             return false;
         }
-        
+
     }
 
     @objid ("13a1eb5a-03a3-484f-a835-87a28ebe926b")
@@ -454,7 +455,7 @@ public class Layouter {
 
     /**
      * Source and target on the same column.
-     * 
+     *
      * <ol>
      * <li>=> VerticalDirect if source and target are neighbours on the row</li>
      * <li>=> VerticalBridge if source and target are separated by at least one non empty row cell</li>
@@ -473,13 +474,13 @@ public class Layouter {
             link.setSourceAnchor(downward ? ILayoutableLink.AnchorDirection.South : ILayoutableLink.AnchorDirection.North);
             link.setTargetAnchor(downward ? ILayoutableLink.AnchorDirection.North : ILayoutableLink.AnchorDirection.South);
         }
-        
+
     }
 
     // end routeVerticalLink
     /**
      * Source and target on the same row.
-     * 
+     *
      * <ol>
      * <li>=> HorizontalDirect if source and target are neighbours on the row</li>
      * <li>=> HorizontalBridge if source and target are separated by at least one non empty column cell</li>
@@ -498,7 +499,7 @@ public class Layouter {
             link.setSourceAnchor(forward ? ILayoutableLink.AnchorDirection.East : ILayoutableLink.AnchorDirection.West);
             link.setTargetAnchor(forward ? ILayoutableLink.AnchorDirection.West : ILayoutableLink.AnchorDirection.East);
         }
-        
+
     }
 
 }

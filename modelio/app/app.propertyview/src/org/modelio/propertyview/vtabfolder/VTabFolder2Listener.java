@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.propertyview.vtabfolder;
 
@@ -34,10 +34,9 @@ import org.eclipse.swt.internal.SWTEventListener;
  * events occurs in a CTabFolder the appropriate method
  * will be invoked.
  * </p>
- * 
+ *
  * @see CTabFolder2Adapter
  * @see VTabFolderEvent
- * 
  * @since 3.0
  */
 @objid ("a7a0e343-a16f-45e8-b318-64e89fc39040")
@@ -49,6 +48,7 @@ public interface VTabFolder2Listener extends SWTEventListener {
      * When the CTabItem is closed, it is disposed.  The contents of the
      * CTabItem (see CTabItem.setControl) will be made not visible when
      * the CTabItem is closed.
+     *
      * @param event an event indicating the item being closed
      */
     @objid ("61dec5ea-4753-4bb9-a8c1-87416412af94")
@@ -59,10 +59,11 @@ public interface VTabFolder2Listener extends SWTEventListener {
      * The state of the CTabFolder does not change automatically - it
      * is up to the application to change the state of the CTabFolder
      * in response to this event using CTabFolder.setMinimized(true).
+     *
+     * @param event an event containing information about the minimize
      * @see CTabFolder#getMinimized()
      * @see CTabFolder#setMinimized(boolean)
      * @see CTabFolder#setMinimizeVisible(boolean)
-     * @param event an event containing information about the minimize
      */
     @objid ("741f11db-eb34-4758-b017-6573742c68df")
     void minimize(VTabFolderEvent event);
@@ -72,10 +73,11 @@ public interface VTabFolder2Listener extends SWTEventListener {
      * The state of the CTabFolder does not change automatically - it
      * is up to the application to change the state of the CTabFolder
      * in response to this event using CTabFolder.setMaximized(true).
+     *
+     * @param event an event containing information about the maximize
      * @see CTabFolder#getMaximized()
      * @see CTabFolder#setMaximized(boolean)
      * @see CTabFolder#setMaximizeVisible(boolean)
-     * @param event an event containing information about the maximize
      */
     @objid ("50cb4d17-5495-444e-871b-eb5cacd9dc4f")
     void maximize(VTabFolderEvent event);
@@ -90,13 +92,14 @@ public interface VTabFolder2Listener extends SWTEventListener {
      * is up to the application to change the state of the CTabFolder
      * in response to this event using CTabFolder.setMaximized(false)
      * or CTabFolder.setMinimized(false).
+     *
+     * @param event an event containing information about the restore
      * @see CTabFolder#getMinimized()
      * @see CTabFolder#getMaximized()
      * @see CTabFolder#setMinimized(boolean)
      * @see CTabFolder#setMinimizeVisible(boolean)
      * @see CTabFolder#setMaximized(boolean)
      * @see CTabFolder#setMaximizeVisible(boolean)
-     * @param event an event containing information about the restore
      */
     @objid ("63a7efb8-912a-4406-9d29-54438d0009ee")
     void restore(VTabFolderEvent event);
@@ -110,10 +113,11 @@ public interface VTabFolder2Listener extends SWTEventListener {
      * CTabFolder provides a list of all the items that are not currently
      * visible, however, the application can provide its own list by setting
      * the event.doit field to <code>false</code> and displaying a selection list.
-     * @see CTabFolder#setSelection(CTabItem)
+     *
      * @param event an event containing information about the show list
+     * @see CTabFolder#setSelection(CTabItem)
      */
     @objid ("ca58b2d5-67c7-4444-a7e1-bcbbfeff9cc8")
     void showList(VTabFolderEvent event);
-}
 
+}

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -65,7 +64,7 @@ public class ProfileImpl extends ModelElementImpl implements Profile {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
     @objid ("10be11a5-889c-4617-a34f-c7041c6a0318")
@@ -87,7 +86,7 @@ public class ProfileImpl extends ModelElementImpl implements Profile {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
     @objid ("69ff308a-82b8-4bb6-be4e-e2a76d298b08")
@@ -122,7 +121,7 @@ public class ProfileImpl extends ModelElementImpl implements Profile {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
     @objid ("6e6e690f-e89a-40a9-afc4-568d4132b1ef")
@@ -143,12 +142,12 @@ public class ProfileImpl extends ModelElementImpl implements Profile {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // OwnerModule
         dep = ((ProfileSmClass)getClassOf()).getOwnerModuleDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 

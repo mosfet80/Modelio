@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.importer.service.processor.update;
 
@@ -44,12 +44,12 @@ public class FinilizeProcessorUpdate implements IBPMNImportProcessor {
     private ICoreSession session;
 
     @objid ("78b07c7f-7180-465d-8f4b-cde5c479db6e")
-    public  FinilizeProcessorUpdate(ICoreSession session, IDiagramService diagramService, Map<String, Object> elementsMap) {
+    public FinilizeProcessorUpdate(ICoreSession session, IDiagramService diagramService, Map<String, Object> elementsMap) {
         this.diagramService = diagramService;
         this.elementsMap = elementsMap;
         this.session = session;
         this.factory = new ProductionFactory();
-        
+
     }
 
     @objid ("efb02b93-7bce-4159-8e06-a68c56a9451d")

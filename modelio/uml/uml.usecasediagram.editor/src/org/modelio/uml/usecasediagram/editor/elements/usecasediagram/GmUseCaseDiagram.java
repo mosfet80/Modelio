@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.usecasediagram.editor.elements.usecasediagram;
 
@@ -77,15 +77,15 @@ public class GmUseCaseDiagram extends GmAbstractDiagram {
 
     /**
      * Default constructor.
+     *
      * @param manager the manager needed make the link between the Ob and Gm models.
      * @param theUseCaseDiagram the diagram itself.
      * @param diagramRef a reference to the diagram.
      */
     @objid ("5e82a529-55b7-11e2-877f-002564c97630")
-    public  GmUseCaseDiagram(IModelManager manager, UseCaseDiagram theUseCaseDiagram, MRef diagramRef) {
+    public GmUseCaseDiagram(IModelManager manager, UseCaseDiagram theUseCaseDiagram, MRef diagramRef) {
         super(manager, diagramRef);
         this.element = theUseCaseDiagram;
-        
     }
 
     @objid ("5e82a538-55b7-11e2-877f-002564c97630")
@@ -153,7 +153,6 @@ public class GmUseCaseDiagram extends GmAbstractDiagram {
             break;
         }
         }
-        
     }
 
     @objid ("5e842be7-55b7-11e2-877f-002564c97630")
@@ -169,6 +168,7 @@ public class GmUseCaseDiagram extends GmAbstractDiagram {
     }
 
     /**
+     *
      * @return the system boundaries.
      */
     @objid ("5e842bf5-55b7-11e2-877f-002564c97630")
@@ -197,7 +197,6 @@ public class GmUseCaseDiagram extends GmAbstractDiagram {
         // or System is set "not visible" by the style,
         // or use case doesn't belong to system's element
         super.addChild(child);
-        
     }
 
     @objid ("5e85b25d-55b7-11e2-877f-002564c97630")
@@ -207,18 +206,16 @@ public class GmUseCaseDiagram extends GmAbstractDiagram {
         if (child == this.system) {
             this.system = null;
         }
-        
     }
 
     @objid ("5e85b264-55b7-11e2-877f-002564c97630")
     @Override
     public void styleChanged(final IStyle changedStyle) {
         super.styleChanged(changedStyle);
-        
+
         if (getSystem() != null) {
             fireChildVisibilityChanged(getSystem());
         }
-        
     }
 
     @objid ("5e85b26b-55b7-11e2-877f-002564c97630")
@@ -239,33 +236,29 @@ public class GmUseCaseDiagram extends GmAbstractDiagram {
         } else {
             super.styleChanged(property, newValue);
         }
-        
     }
 
     @objid ("5e85b274-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmUseCaseDiagram.", GmUseCaseDiagram.MINOR_VERSION);
-        
     }
 
     @objid ("5e85b27a-55b7-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         read_1(in);
-        
+
         initStyleKeys(getPersistedStyle());
-        
     }
 
     @objid ("bdd659e6-14d9-4cf3-ac33-a3b85e45b209")
     private void read_1(IDiagramReader in) {
         read_2(in);
-        
+
         OrthoLinkDiagramMigrationHelper.migrate(this);
-        
     }
 
     @objid ("12e3b787-fa10-481f-8ac0-fbb3f9301f7e")
@@ -277,7 +270,6 @@ public class GmUseCaseDiagram extends GmAbstractDiagram {
                 this.system = (GmSystem) child;
             }
         }
-        
     }
 
     @objid ("5e85b27f-55b7-11e2-877f-002564c97630")
@@ -313,7 +305,6 @@ public class GmUseCaseDiagram extends GmAbstractDiagram {
         style.setProperty(GmAssocStructuredStyleKeys.SHOWNAVIGABILITY, false);
         style.setProperty(GmAssocStructuredStyleKeys.SHOWROLES, false);
         style.setProperty(GmAssocStructuredStyleKeys.CONNECTIONROUTER, ConnectionRouterId.DIRECT);
-        
     }
 
     @objid ("fab01c4c-add5-4b79-a2e2-0c5baaf3f901")

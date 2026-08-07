@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.combinedfragment.primarynode;
 
@@ -42,7 +42,7 @@ import org.modelio.uml.sequencediagram.editor.elements.interactionoperand.Create
 
 /**
  * Specialisation of the {@link ResizableGroupLayoutEditPolicy} policy to handle the ObModel additionally.
- * 
+ *
  * @author fpoyer
  */
 @objid ("d8d12e68-55b6-11e2-877f-002564c97630")
@@ -60,7 +60,6 @@ public class InteractionOperandContainerLayoutEditPolicy extends ResizableGroupL
         } else {
             return null;
         }
-        
     }
 
     @objid ("d8d12e73-55b6-11e2-877f-002564c97630")
@@ -133,7 +132,7 @@ public class InteractionOperandContainerLayoutEditPolicy extends ResizableGroupL
                     sizeDelta.width = 0;
                 }
                 resizeContainerRequest.setSizeDelta(sizeDelta);
-        
+
                 Command parentCommand = getHost().getParent().getCommand(resizeContainerRequest);
                 compound.add(parentCommand);
             }
@@ -157,7 +156,7 @@ public class InteractionOperandContainerLayoutEditPolicy extends ResizableGroupL
         // Add "null" at the end, indicating there is no neighbour on the right
         // of last child.
         nextChildren.add(null);
-        
+
         for (Object childObj : getHost().getChildren()) {
             GraphicalEditPart child = (GraphicalEditPart) childObj;
             if (child.equals(resizedChild)) {
@@ -179,7 +178,7 @@ public class InteractionOperandContainerLayoutEditPolicy extends ResizableGroupL
                 }
                 // else
                 return null;
-        
+
             }
             // Update the nextChildren list by removing current child (note that
             // first element of nextChildren may NOT be current child, since we
@@ -189,11 +188,10 @@ public class InteractionOperandContainerLayoutEditPolicy extends ResizableGroupL
                 nextChildren.remove(0);
                 previousChild = child;
             }
-        
+
         }
         // Not found, something is wrong here
         throw new IllegalArgumentException(resizedChild + " edit part is not a child of current container " + getHost());
-        
     }
 
 }

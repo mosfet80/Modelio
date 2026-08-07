@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2020 Modeliosoft
+ * Copyright 2013-2025 Docaposte
  *
  * This file is part of Modelio.
  *
@@ -60,14 +60,14 @@ public class MultipleMetaclassSelector {
     @objid ("d8d5cabc-8d54-4d39-9f8b-2e18386906aa")
     private static final char[] AUTO_ACTIVATION_CHARS = "ABCDEFGHIJKLMNOPQRSTUVW".toCharArray();
 
-    @objid ("0b801f53-198c-47cb-a2b6-3365a02d6138")
-    private final List<IMultipleMetaclassSelectorListener> listeners = new ArrayList<>(1);
-
     /**
      * The wrapped Text widget
      */
-    @objid ("bd145d57-38e7-43a6-9828-e751a2d245dd")
+    @objid ("eb90a4c3-9b8b-4eb0-b9ba-d13653c27f62")
     private final Text text;
+
+    @objid ("0b801f53-198c-47cb-a2b6-3365a02d6138")
+    private final List<IMultipleMetaclassSelectorListener> listeners = new ArrayList<>(1);
 
 
     @mdl.prop
@@ -93,12 +93,12 @@ public class MultipleMetaclassSelector {
     private List<MClass> selectedMetaclasses = new ArrayList<>();
 
     @objid ("298a9718-ba1a-476c-98e8-f2e7668eb47d")
-    public  MultipleMetaclassSelector(Composite parent, int style, MMetamodel metamodel) {
+    public MultipleMetaclassSelector(Composite parent, int style, MMetamodel metamodel) {
         this(parent, style, metamodel, null);
     }
 
     @objid ("145af9db-a480-4912-95cf-2e166eb052f2")
-    public  MultipleMetaclassSelector(Composite parent, int style, MMetamodel metamodel, IMetaclassSelectorFilter filter) {
+    public MultipleMetaclassSelector(Composite parent, int style, MMetamodel metamodel, IMetaclassSelectorFilter filter) {
         this.text = createControl(parent, style);
         this.metaclassFilter = filter;
 
@@ -109,7 +109,6 @@ public class MultipleMetaclassSelector {
                 return o1.getName().compareTo(o2.getName());
             }
         });
-
     }
 
     @objid ("6c2c2d5f-a9db-49fe-aad6-ce42b9128366")
@@ -143,7 +142,6 @@ public class MultipleMetaclassSelector {
             this.selectedMetaclasses.addAll(mClasses);
         }
         refreshMetaclassesText();
-
     }
 
     @objid ("90cdf83f-17ba-4903-8f95-8324da47c14f")
@@ -151,7 +149,7 @@ public class MultipleMetaclassSelector {
         final Text wrappedText = new Text(parent, style | SWT.READ_ONLY);
 
         // create the decoration for the text component
-        final ControlDecoration deco = new ControlDecoration(wrappedText, SWT.CENTER | SWT.RIGHT);
+        final ControlDecoration deco = new ControlDecoration(wrappedText, SWT.RIGHT | SWT.TOP);
 
         // set description and image
         deco.setDescriptionText(CoreUi.I18N.getString("MultipleMetaclassSelector.assist.tooltip"));
@@ -190,7 +188,6 @@ public class MultipleMetaclassSelector {
                 .map((mc)->mc.getQualifiedName())
                 .sorted()
                 .collect(Collectors.joining("\n")));
-
     }
 
     @objid ("bc07f8f3-4033-4ead-8443-eb7b5fef6149")
@@ -200,14 +197,13 @@ public class MultipleMetaclassSelector {
         for (IMultipleMetaclassSelectorListener l : this.listeners) {
             l.selectMetaclasses(getSelected());
         }
-
     }
 
     @objid ("2470b32e-153a-4abd-80f0-75dc50ae3488")
     private void showProposals() {
         IMetaclassSelectorFilter filter = this.metaclassFilter != null ? this.metaclassFilter : (o) -> true;
 
-        Supplier<List<MClass>> candidatesProvider = new Supplier<List<MClass>>() {
+        Supplier<List<MClass>> candidatesProvider = new Supplier<>() {
             @Override
             public List<MClass> get() {
                 return MultipleMetaclassSelector.this.allMetaclasses.stream()
@@ -243,7 +239,6 @@ public class MultipleMetaclassSelector {
 
         poppingPanel.open();
         poppingPanel.getPanelProvider().setInput(this.selectedMetaclasses);
-
     }
 
 }

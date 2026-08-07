@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.usecaseModel;
 
 import java.util.ArrayList;
@@ -47,80 +46,79 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("c0c422fc-6fa7-44af-bc45-b6db86732826")
 public class UseCaseDependencySmClass extends UmlModelElementSmClass {
-    @objid ("41e5820f-e5b2-467f-a284-964fe2bf9014")
+    @objid ("866a2f56-e7b8-40ce-8649-84aa3e18601c")
     private SmDependency originDep;
 
-    @objid ("d47eb89f-a9bd-4027-b3d3-7045db68a2a7")
+    @objid ("ee938084-3332-4df3-a693-7151d02a434b")
     private SmDependency extensionLocationDep;
 
-    @objid ("8373694b-9ba5-4b24-8372-5da03b862c6b")
+    @objid ("7b539b68-bdf3-435f-8621-397a40bc8ccc")
     private SmDependency targetDep;
 
-    @objid ("fce16ebb-c284-4519-b42b-88b9a3aaa301")
-    public  UseCaseDependencySmClass(ISmMetamodelFragment origin) {
+    @objid ("1ed22609-51b1-4f7c-96a5-59008276db1c")
+    public UseCaseDependencySmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("07a4a2b6-7741-46d5-8095-72e3c02c03b4")
+    @objid ("b5748aa6-e2c5-4255-81ec-e5a15acd1256")
     @Override
     public String getName() {
         return "UseCaseDependency";
-        
+
     }
 
-    @objid ("523a7fe9-e334-4d2f-8db8-7746b2f35c53")
+    @objid ("430cf1ea-aa22-4b41-8783-2d0742a780b5")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("3264574c-104f-46e5-85a0-1d7767d1f342")
+    @objid ("b19a20f1-a55a-45ab-bba0-de56b9013141")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return UseCaseDependency.class;
-        
+
     }
 
-    @objid ("8cb0b65a-7f16-4144-bb67-0304e90c4093")
+    @objid ("8c853429-823b-4ec5-9f0b-b4d7a75ca4fb")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("9a2dab36-d017-45be-a554-1451c8defd51")
+    @objid ("78550802-7d00-4e12-96d7-c42a7db42344")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("5e5c580d-15ca-420a-a9cb-632bca210163")
+    @objid ("88754884-f4e7-4a34-99c9-de8d086d4604")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(UmlModelElement.MQNAME);
         this.registerFactory(new UseCaseDependencyObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
         this.originDep = new OriginSmDependency();
         this.originDep.init("Origin", this, metamodel.getMClass(UseCase.MQNAME), 1, 1 , SmDirective.SMCDLINKSOURCE);
         registerDependency(this.originDep);
-        
+
         this.extensionLocationDep = new ExtensionLocationSmDependency();
         this.extensionLocationDep.init("ExtensionLocation", this, metamodel.getMClass(ExtensionPoint.MQNAME), 0, -1 , SmDirective.SMCDPARTOF);
         registerDependency(this.extensionLocationDep);
-        
+
         this.targetDep = new TargetSmDependency();
         this.targetDep.init("Target", this, metamodel.getMClass(UseCase.MQNAME), 1, 1 , SmDirective.SMCDLINKTARGET, SmDirective.SMCDPARTOF);
         registerDependency(this.targetDep);
-        
-        
+
     }
 
-    @objid ("323ff11d-67e9-4b71-aff1-34b9f65989ba")
+    @objid ("1aa4a912-8266-41c7-9ffb-a1e988e60e48")
     public SmDependency getOriginDep() {
         if (this.originDep == null) {
         	this.originDep = this.getDependencyDef("Origin");
@@ -128,7 +126,7 @@ public class UseCaseDependencySmClass extends UmlModelElementSmClass {
         return this.originDep;
     }
 
-    @objid ("b9174b01-069d-4ce3-8dd6-d98af5ffd418")
+    @objid ("54729094-9854-4f80-89ca-9cc316e83a10")
     public SmDependency getExtensionLocationDep() {
         if (this.extensionLocationDep == null) {
         	this.extensionLocationDep = this.getDependencyDef("ExtensionLocation");
@@ -136,7 +134,7 @@ public class UseCaseDependencySmClass extends UmlModelElementSmClass {
         return this.extensionLocationDep;
     }
 
-    @objid ("d72e58ae-f307-4092-8165-e07006a00a39")
+    @objid ("7c3f2e10-9dd3-4888-b94d-dcb9a1b1f68d")
     public SmDependency getTargetDep() {
         if (this.targetDep == null) {
         	this.targetDep = this.getDependencyDef("Target");
@@ -144,30 +142,30 @@ public class UseCaseDependencySmClass extends UmlModelElementSmClass {
         return this.targetDep;
     }
 
-    @objid ("244d54d4-8022-421f-a4bc-fd3f548d7d81")
+    @objid ("536baab1-dae7-46db-9b35-74dcabb23354")
     @Override
     public boolean isLinkMetaclass() {
         return true;
-        
+
     }
 
     @objid ("e795a442-7b92-4e69-b212-79986facf6aa")
     private static class UseCaseDependencyObjectFactory implements ISmObjectFactory {
-        @objid ("4743d399-18d1-4f79-a2f7-a3916c6aaf4f")
+        @objid ("1953d15c-b58b-47bf-b8fa-ddeb581ceb5e")
         private UseCaseDependencySmClass smClass;
 
-        @objid ("c738799a-a685-432e-808c-73db838ce85a")
-        public  UseCaseDependencyObjectFactory(UseCaseDependencySmClass smClass) {
+        @objid ("db6ccfd6-67f6-40c1-802d-235f749c26b0")
+        public UseCaseDependencyObjectFactory(UseCaseDependencySmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("10a791c4-00c3-4682-81d3-49eebcf72ea6")
+        @objid ("0e5b2d4a-e929-4a61-9cb6-212975ad5925")
         @Override
         public ISmObjectData createData() {
             return new UseCaseDependencyData(this.smClass);
         }
 
-        @objid ("0dcba4f2-76e2-4801-92ca-1894122716d0")
+        @objid ("f962933d-ef66-4ee9-88b5-dbc2d1b2d0cf")
         @Override
         public SmObjectImpl createImpl() {
             return new UseCaseDependencyImpl();
@@ -177,88 +175,88 @@ public class UseCaseDependencySmClass extends UmlModelElementSmClass {
 
     @objid ("c6404859-d9a0-4e98-b3ca-8bc4f656db68")
     public static class OriginSmDependency extends SmSingleDependency {
-        @objid ("88741b23-4555-4c57-a248-ab8d33146133")
+        @objid ("0b51ca9c-7903-4b04-a76e-6ffc659f175d")
         private SmDependency symetricDep;
 
-        @objid ("51229d56-ac91-482d-b63f-d6daf3630f14")
+        @objid ("f4aa8b09-6d94-489c-bf17-7223902adf70")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((UseCaseDependencyData) data).mOrigin;
         }
 
-        @objid ("01323905-e0f9-49b8-874b-626f907b2a02")
+        @objid ("20e0ef95-41f5-415e-b9c7-891305221874")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((UseCaseDependencyData) data).mOrigin = value;
         }
 
-        @objid ("10a0b52b-31fd-4f60-837a-d6207e9ac25e")
+        @objid ("18ba0929-fc6a-44c7-91d1-79b1d023e62d")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((UseCaseSmClass)this.getTarget()).getUsedDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("aa39cc73-77c4-449e-aa30-cfb993b2c60b")
     public static class ExtensionLocationSmDependency extends SmMultipleDependency {
-        @objid ("31b420e5-d0fc-4edc-9bfe-c6752577e3da")
+        @objid ("0f24ccd3-32a6-479b-95ff-b480334da504")
         private SmDependency symetricDep;
 
-        @objid ("bd97c57e-b401-4d91-8313-de45b3bedb02")
+        @objid ("8946d8d7-596a-4294-858c-8dfd3d88446d")
         @Override
         public List<SmObjectImpl> getValueList(ISmObjectData data) {
             return (((UseCaseDependencyData)data).mExtensionLocation != null)? ((UseCaseDependencyData)data).mExtensionLocation:SmMultipleDependency.EMPTY;
         }
 
-        @objid ("51953042-2570-4d3c-a575-f59c8fa6f130")
+        @objid ("537ae90d-3317-40e2-9b5a-baae991d8817")
         @Override
         protected void initValueList(ISmObjectData data, List<SmObjectImpl> values) {
             ((UseCaseDependencyData) data).mExtensionLocation = values;
-            
+
         }
 
-        @objid ("8b706001-fbec-4935-894a-26dfe5023cef")
+        @objid ("98d478fd-8500-4a42-802e-89eb09cd5816")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((ExtensionPointSmClass)this.getTarget()).getExtendedDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }
 
     @objid ("92a1bca4-bf13-4346-b01d-0d2ef036f44b")
     public static class TargetSmDependency extends SmSingleDependency {
-        @objid ("3c2ef791-c1dd-4389-957d-ee071a87c6a1")
+        @objid ("295781da-1e01-4c31-87c3-525e92c0d6f4")
         private SmDependency symetricDep;
 
-        @objid ("3e8e3c62-b857-4a71-ae18-4a5657d2ffd3")
+        @objid ("29877075-44b6-43fa-a39a-e5c19f07986c")
         @Override
         public SmObjectImpl getValue(ISmObjectData data) {
             return ((UseCaseDependencyData) data).mTarget;
         }
 
-        @objid ("974b3280-7b4e-4b15-b4ca-879f43d2bd9a")
+        @objid ("33bfde3a-c663-42d4-8ae0-c477be73ba02")
         @Override
         public void setValue(ISmObjectData data, SmObjectImpl value) {
             ((UseCaseDependencyData) data).mTarget = value;
         }
 
-        @objid ("141b65c9-5539-42fd-aa35-66eee7180f2f")
+        @objid ("0e8ef09d-535b-4af2-b53a-cd8d1e709d56")
         @Override
         public SmDependency getSymetric() {
             if (this.symetricDep == null) {
             	this.symetricDep = ((UseCaseSmClass)this.getTarget()).getUserDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

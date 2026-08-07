@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.control;
 
@@ -59,7 +59,7 @@ public class RaisedExceptionThrownTypeChecker extends AbstractDependencyTypeChec
      * C'tor
      */
     @objid ("bf20913b-3d79-4983-8da7-7a0f5a9716fb")
-    public  RaisedExceptionThrownTypeChecker(SmMetamodel mm) {
+    public RaisedExceptionThrownTypeChecker(SmMetamodel mm) {
         // Cached SmClass
         this.enumerationID = mm.getMClass(Enumeration.class);
         this.templateParameterID = mm.getMClass(TemplateParameter.class);
@@ -67,14 +67,14 @@ public class RaisedExceptionThrownTypeChecker extends AbstractDependencyTypeChec
         this.componentID = mm.getMClass(Component.class);
         this.classID = mm.getMClass(Class.class);
         this.interfaceID = mm.getMClass(Interface.class);
-        
+
         // Direct checker
         register(mm.getMClass(RaisedException.class), "ThrownType");
-        
+
         // Symetric checker
         ClassifierThrowingChecker symetricChecker = new ClassifierThrowingChecker(this);
         symetricChecker.register(mm.getMClass(Classifier.class), "Throwing");
-        
+
     }
 
     @objid ("b3b12278-ec6f-11e1-91c5-002564c97630")
@@ -82,7 +82,7 @@ public class RaisedExceptionThrownTypeChecker extends AbstractDependencyTypeChec
     public int doCheck(final SmObjectImpl obj, final SmObjectImpl value) {
         if (value != null) {
             SmClass valueTypeID = value.getClassOf();
-        
+
             // A RaisedException type must be to a Class, a Component, an
             // Interface, a DataType, a TemplateParameter or an Enumeration.
             return (valueTypeID.extEquals(this.classID) || valueTypeID.extEquals(this.componentID)
@@ -102,7 +102,7 @@ public class RaisedExceptionThrownTypeChecker extends AbstractDependencyTypeChec
         RaisedExceptionThrownTypeChecker symetricChecker;
 
         @objid ("b3b2a898-ec6f-11e1-91c5-002564c97630")
-        public  ClassifierThrowingChecker(RaisedExceptionThrownTypeChecker symetricChecker) {
+        public ClassifierThrowingChecker(RaisedExceptionThrownTypeChecker symetricChecker) {
             this.symetricChecker = symetricChecker;
         }
 

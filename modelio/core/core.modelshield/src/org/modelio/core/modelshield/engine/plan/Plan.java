@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.core.modelshield.engine.plan;
 
@@ -41,17 +41,17 @@ public class Plan implements IModelShieldRegistry, IModelShieldPlan {
     @Override
     public void registerChecker(final IChecker checker, final MClass mc, final TriggerType trigger, final String feature) {
         MetaclassPlan mcPlan = getMetaclassPlan(mc);
-        
+
         // register the rule for the given metaclass (if not abstract)...
         if (!mc.isAbstract()) {
             mcPlan.registerRule(checker, trigger, feature);
         }
-        
+
         // ... and for all its subclasses
         for (MClass sc : mc.getSub(false)) {
             registerChecker(checker, sc, trigger, feature);
         }
-        
+
     }
 
     @objid ("00446bf0-f904-1f61-8473-001ec947cd2a")
@@ -85,7 +85,7 @@ public class Plan implements IModelShieldRegistry, IModelShieldPlan {
             assert (false);
             return metaclassPlan.getAllCheckers();
         }
-        
+
     }
 
     @objid ("0044c6fe-f904-1f61-8473-001ec947cd2a")
@@ -111,7 +111,7 @@ public class Plan implements IModelShieldRegistry, IModelShieldPlan {
         @objid ("0045593e-f904-1f61-8473-001ec947cd2a")
         public void registerRule(final IChecker checker, final TriggerType trigger, final String feature) {
             this.allCheckers.add(checker);
-            
+
             switch (trigger) {
             case Create:
                 this.createCheckers.add(checker);
@@ -150,7 +150,7 @@ public class Plan implements IModelShieldRegistry, IModelShieldPlan {
             default:
                 // Do nothing, we should not be here.
             }
-            
+
         }
 
         @objid ("000d7834-0abf-1f62-8473-001ec947cd2a")
@@ -181,7 +181,7 @@ public class Plan implements IModelShieldRegistry, IModelShieldPlan {
             } else {
                 return this.updateCheckers.get(feature);
             }
-            
+
         }
 
         @objid ("33e89de6-e980-423b-9789-e851b6c8592b")

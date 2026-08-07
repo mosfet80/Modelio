@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -53,10 +53,10 @@ public class EPort extends EFeature {
     }
 
     @objid ("93dd9be2-74f3-4860-a5f3-6fb860b89187")
-    public  EPort(org.eclipse.uml2.uml.Port element) {
+    public EPort(org.eclipse.uml2.uml.Port element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("7b04dc9d-5e18-462e-9801-9fc079157078")
@@ -69,7 +69,7 @@ public class EPort extends EFeature {
     @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
-        
+
         setBehavior((Port) objingElt);
         setService((Port) objingElt);
         setRequiredInterfaces((Port) objingElt);
@@ -77,12 +77,12 @@ public class EPort extends EFeature {
         setType((Port) objingElt);
         setEnd((Port) objingElt);
         setRedefinedPort((Port)objingElt);
-        
+
         if (ReverseProperties.getInstance().isRoundtripEnabled()){
             setInterfaces((Port) objingElt);
             setPortDirection((Port) objingElt);
         }
-        
+
     }
 
     @objid ("97fac66e-4f7a-4845-bca5-c7d6ff63baa3")
@@ -92,27 +92,27 @@ public class EPort extends EFeature {
             Element objType = (Element) ReverseProperties.getInstance().getMappedElement(type);
             if (objType instanceof NameSpace)
                 objingElt.setBase((NameSpace) objType);
-        
-        
+
+
             if (type instanceof Interface){
-                boolean found = false; 
+                boolean found = false;
                 for (ProvidedInterface provided : objingElt.getProvided()){
                     if ((provided.getProvidedElement().size() == 1) && (provided.getProvidedElement().get(0).equals(objType))){
                         found = true;
                     }
                 }
-        
+
                 if (!found) {
                     ProvidedInterface provider =  ReverseProperties.getInstance().getMModelServices().getModelFactory().getFactory(IStandardModelFactory.class).createProvidedInterface();
-        
+
                     objingElt.getProvided().add(provider);
                     provider.setProviding(objingElt);
                     provider.getProvidedElement().add((Interface)type);
-        
+
                 }
             }
         }
-        
+
     }
 
     @objid ("f627d573-5a3a-4330-a4f2-08b6c425d906")
@@ -123,14 +123,14 @@ public class EPort extends EFeature {
             providedInterface.setProviding(objingElt);
             objingElt.getProvided().add(providedInterface);
         }
-        
+
         temp = ObjingEAnnotation.getNumberRequiredInterface(this.ecoreElement);
         for (int i = 0; i < temp; i++){
             RequiredInterface requiredInterface = ReverseProperties.getInstance().getMModelServices().getModelFactory().getFactory(IStandardModelFactory.class).createRequiredInterface();
             requiredInterface.setRequiring(objingElt);
             objingElt.getRequired().add(requiredInterface);
         }
-        
+
     }
 
     @objid ("d2525799-cea9-4920-85d2-44747c2460a0")
@@ -154,9 +154,9 @@ public class EPort extends EFeature {
                     createProvidedInterface(objingElt, (Interface) temp);
                 }
             }
-        
+
         }
-        
+
     }
 
     @objid ("dd5aac85-cde4-404d-a72a-d2555202e16e")
@@ -170,7 +170,7 @@ public class EPort extends EFeature {
                 }
             }
         }
-        
+
     }
 
     @objid ("e760697d-85ac-4e4c-918b-6f45c419f2f0")
@@ -179,7 +179,7 @@ public class EPort extends EFeature {
             if (object instanceof org.eclipse.uml2.uml.Usage){
                 org.eclipse.uml2.uml.Usage usage = (org.eclipse.uml2.uml.Usage) object;
                 List<UmlModelElement> usages = new ArrayList<>();
-        
+
                 for (Object supplier : usage.getSuppliers()){
                     Object objSupplier =  ReverseProperties.getInstance().getMappedElement((org.eclipse.uml2.uml.Element)supplier);
                     if (objSupplier instanceof Interface){
@@ -190,12 +190,12 @@ public class EPort extends EFeature {
                         usages.add(requiredInterface);
                     }
                 }
-        
+
                 TotalImportMap.getInstance().put(usage, usages);
             }
-        
+
         }
-        
+
     }
 
     @objid ("e91d10dd-665b-4372-866b-a9adb3f8828f")
@@ -206,14 +206,14 @@ public class EPort extends EFeature {
                 Property prop = connectorEnd.getPartWithPort();
                 if ( prop != null ){
                     Port portClone = clonePort(objingElt, prop);
-        
+
                     Object objConnectorEnd =  ReverseProperties.getInstance().getMappedElement(connectorEnd);
                     if (objConnectorEnd instanceof ConnectorEnd)
                         portClone.getOwnedEnd().add((ConnectorEnd)objConnectorEnd);
                 }
             }
         }
-        
+
     }
 
     @objid ("a421f23b-0683-4ae3-a7af-4c4747dd8a4f")
@@ -221,16 +221,16 @@ public class EPort extends EFeature {
         Port result = ReverseProperties.getInstance().getMModelServices().getModelFactory().getFactory(IStandardModelFactory.class).createPort();
         result.setRepresentedFeature(objingElt);
         attachClone(result, prop);
-        
+
         //        IModelTool modelTool = MTools.getModelTool();
         //        for(ProvidedInterface provided : objingElt.getProvided()){
         //            result.getProvided().add((ProvidedInterface) modelTool.cloneElement(provided) );
         //        }
-        //        
+        //
         //        for(RequiredInterface required : objingElt.getRequired()){
         //            result.getRequired().add((RequiredInterface)   modelTool.cloneElement(required) );
         //        }
-        
+
         result.setIsBehavior(objingElt.isIsBehavior());
         result.setIsService(objingElt.isIsService());
         result.setName(objingElt.getName());
@@ -239,7 +239,7 @@ public class EPort extends EFeature {
         result.setValue(objingElt.getValue());
         result.setMultiplicityMax(objingElt.getMultiplicityMax());
         result.setMultiplicityMin(objingElt.getMultiplicityMin());
-        
+
         result.setIsConstant(objingElt.isIsConstant());
         return result;
     }
@@ -247,14 +247,14 @@ public class EPort extends EFeature {
     @objid ("7c77f175-566d-4ab5-95d7-ccceeaa4ec88")
     private void setRedefinedPort(final Port objingElt) {
         EList<org.eclipse.uml2.uml.Port> redefinedPorts = this.ecoreElement.getRedefinedPorts();
-        
+
         if ((redefinedPorts != null) && (redefinedPorts.size() > 0)){
             Object redefinedPort = ReverseProperties.getInstance().getMappedElement(redefinedPorts.get(0));
             if (redefinedPort instanceof UmlModelElement){
                 objingElt.setRepresentedFeature((UmlModelElement) redefinedPort);
             }
         }
-        
+
     }
 
     @objid ("ae38753d-6bac-47c0-b0e8-f87f685b1f5e")
@@ -274,7 +274,7 @@ public class EPort extends EFeature {
         }catch(IllegalArgumentException e){
             Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
         }
-        
+
     }
 
     @objid ("84b38f51-e6d8-416d-a0d8-49b67cff782a")
@@ -283,23 +283,23 @@ public class EPort extends EFeature {
         providedInterface.setProviding(port);
         providedInterface.getProvidedElement().add(inter);
         port.getProvided().add(providedInterface);
-        
+
     }
 
     @objid ("c54eaed4-f976-4fab-8ac9-2451b0e2c678")
     private void attachClone(Port portClone, Property prop) {
         Object objOwner =  ReverseProperties.getInstance().getMappedElement(prop);
-        
-        if (objOwner instanceof Instance) {       
+
+        if (objOwner instanceof Instance) {
             ((Instance) objOwner).getPart().add(portClone);
         }else if (objOwner instanceof List<?>){
-        
+
             for (Object objElt : (List<?>) objOwner){
                 if (objElt instanceof Instance)
                     ((Instance) objElt).getPart().add(portClone);
-            }       
+            }
         }
-        
+
     }
 
 }

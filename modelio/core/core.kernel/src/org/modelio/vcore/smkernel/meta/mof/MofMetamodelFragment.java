@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel.meta.mof;
 
@@ -46,7 +46,7 @@ public class MofMetamodelFragment implements ISmMetamodelFragment {
     @objid ("07ade684-18c8-40f6-9fe6-99e8c2319962")
     private final boolean isExtension;
 
-    
+
     @mdl.prop
     @objid ("5b189c86-a805-46f5-acc5-a74132da5cc2")
     public boolean temporary;
@@ -104,6 +104,7 @@ public class MofMetamodelFragment implements ISmMetamodelFragment {
 
     /**
      * Create the metaclasses.
+     *
      * @return the metaclasses.
      */
     @objid ("6247bde4-af88-4f8a-8e7d-3b455046a2f4")
@@ -137,18 +138,19 @@ public class MofMetamodelFragment implements ISmMetamodelFragment {
      * or a standard Modelio metamodel fragment.
      * <p>
      * Standard Modelio metamodel fragments are guaranteed to have no metaclass name collisions.
+     *
      * @param name the metamodel fragment name.
      * @param version the metamodel fragment version.
      * @param isExtension <i>true</i> if the fragment is an extension, <i>false</i> if it is a Modelio standard fragment.
      */
     @objid ("5dcd6596-5669-4212-ae9f-9cf41a987a55")
-    public  MofMetamodelFragment(String name, Version version, boolean isExtension) {
+    public MofMetamodelFragment(String name, Version version, boolean isExtension) {
         this.name = name;
         this.version = version;
         this.isExtension = isExtension;
         this.provider = "Modeliosoft MOF service";
         this.providerVersion = "";
-        
+
     }
 
     @objid ("5de343b8-b854-43ba-9637-52b66a0b7fa6")
@@ -160,20 +162,22 @@ public class MofMetamodelFragment implements ISmMetamodelFragment {
 
     /**
      * Creates a metamodel fragment with 1.0.0 as version.
+     *
      * @param name the metamodel fragment name.
      */
     @objid ("adb267f6-8ada-4ed5-ba0f-7933df10ff63")
-     MofMetamodelFragment(String name) {
+    MofMetamodelFragment(String name) {
         this.name = name;
         this.version = new Version(1,0,0);
         this.isExtension = true;
         this.provider = "Modeliosoft MOF service";
         this.providerVersion = "";
-        
+
     }
 
     /**
      * Set the provider.
+     *
      * @param provider the provider.
      * @return this instance.
      */
@@ -184,6 +188,7 @@ public class MofMetamodelFragment implements ISmMetamodelFragment {
     }
 
     /**
+     *
      * @param providerVersion the provider version
      * @return this instance.
      */

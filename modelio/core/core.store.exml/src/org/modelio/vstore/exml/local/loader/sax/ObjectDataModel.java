@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vstore.exml.local.loader.sax;
 
@@ -23,11 +23,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.vcore.model.DuplicateObjectException;
 import org.modelio.vcore.session.impl.storage.IModelLoader;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.meta.SmDependency;
+import org.modelio.vstore.exml.common.ILoadHelper;
+import org.modelio.vstore.exml.common.index.IndexException;
 import org.modelio.vstore.exml.common.model.DependencyNotFoundException;
+import org.modelio.vstore.exml.common.model.IllegalReferenceException;
+import org.modelio.vstore.exml.common.model.ObjIdName;
 import org.modelio.vstore.exml.common.utils.ExmlUtils;
 import org.modelio.vstore.exml.local.loader.sax.IDependencyContentHook.Content;
 
@@ -42,6 +48,9 @@ final class ObjectDataModel implements IObjectDataModel {
      */
     @objid ("67e4dcb0-2a7f-4cc6-b908-b492bd9b8b12")
     private final boolean isNew;
+
+    @objid ("2b7af921-55ba-48a3-a46a-98f1dec9ad63")
+    private boolean currentDepTargetsInSameRepository;
 
     /**
      * Already read dependencies while loading a model object.
@@ -95,14 +104,13 @@ final class ObjectDataModel implements IObjectDataModel {
                             if (moreContent == null) {
                                 moreContent = DataModel.EMPTY_DEP;
                             }
-        
+
                             theModelLoader.loadDependency(this.current, dep,  moreContent);
                         }
                     }
                 }
             }
         }
-        
     }
 
     @objid ("2af79289-3faf-11e2-87cb-001ec947ccaf")
@@ -122,9 +130,9 @@ final class ObjectDataModel implements IObjectDataModel {
     public void updateCurrentDependency() {
         if (this.currentDep != null) {
             if (this.dataModel.depContentHook!=null) {
-                List<SmObjectImpl> moreContent = this.dataModel.depContentHook.getContent(this.current, 
+                List<SmObjectImpl> moreContent = this.dataModel.depContentHook.getContent(this.current,
                         this.currentDep);
-        
+
                 if (moreContent != null) {
                     if (this.currentDepContent == DataModel.EMPTY_DEP) {
                         this.currentDepContent = moreContent;
@@ -133,46 +141,75 @@ final class ObjectDataModel implements IObjectDataModel {
                     }
                 }
             }
-        
-            this.dataModel.modelLoader.loadDependency(this.current, 
-                    this.currentDep, 
+
+            this.dataModel.modelLoader.loadDependency(this.current,
+                    this.currentDep,
                     this.currentDepContent);
             this.readDeps.add(this.currentDep);
         }
-        
+
         this.currentDepContent = DataModel.EMPTY_DEP;
         this.currentDep = null;
-        
     }
 
     @objid ("2af79292-3faf-11e2-87cb-001ec947ccaf")
     @Override
     public void beginDependency(String depName) throws DependencyNotFoundException {
         this.currentDep = findDependencyDef(this.current, depName);
-        
+
         if (this.currentDep == null) {
             throw new DependencyNotFoundException("'"+depName + "' dependency not found for "+this.current);
         }
-        
+
+        this.currentDepTargetsInSameRepository = ExmlUtils.areTargetsAlwaysInSameRepository(this.currentDep);
+    }
+
+    @objid ("cef6961d-4fb0-45b3-b681-7a6bedb5a85e")
+    @Override
+    public void addRefToDep(ObjIdName ref) throws DuplicateObjectException, IllegalReferenceException, IndexException {
+        Objects.requireNonNull(ref);
+        if (this.currentDep == null) throw new IllegalStateException("No current dependency");
+
+        SmObjectImpl obj = findDepRef(ref);
+        if (obj == null)
+            return;
+
+        addToDep(obj);
+    }
+
+    @objid ("daa4a9bb-d508-4c6f-a7a5-2eaa6ffcd22b")
+    private SmObjectImpl findDepRef(ObjIdName ref) throws DuplicateObjectException, IllegalReferenceException, IndexException {
+        ILoadHelper loadHelper = this.dataModel.loadHelper;
+
+        SmObjectImpl obj = loadHelper.getLoadedObject(ref.toObjId());
+        if (obj != null)
+            return obj;
+
+        if (this.currentDepTargetsInSameRepository) {
+            return loadHelper.createStubObject(this.dataModel.modelLoader, ref, true);
+        } else {
+            return loadHelper.getRefObject(this.dataModel.modelLoader, ref);
+        }
     }
 
     @objid ("2af79295-3faf-11e2-87cb-001ec947ccaf")
     @Override
     public void addToDep(SmObjectImpl obj) {
         assert (obj != null);
-        
+        assert (this.currentDep != null);
+
         if (this.currentDepContent == DataModel.EMPTY_DEP) {
             this.currentDepContent = new ArrayList<>(3);
         }
-        
+
         this.currentDepContent.add(obj);
-        
     }
 
     /**
      * Find the SmDependency from its name.
      * <p>
      * Modelio 2 compatibility : convert to camel case if not found
+     *
      * @param object an object
      * @param relation the relation name
      * @return the found dependency or <code>null</code>.
@@ -180,7 +217,7 @@ final class ObjectDataModel implements IObjectDataModel {
     @objid ("2af79298-3faf-11e2-87cb-001ec947ccaf")
     private SmDependency findDependencyDef(SmObjectImpl object, final String relation) {
         SmDependency smdep = object.getClassOf().getDependencyDef(relation);
-        
+
         if (smdep == null ){
             // Modelio compatibility : convert to camel case
             String rel2 = relation.substring(0, 1).toLowerCase(Locale.ROOT)+relation.substring(1);
@@ -203,16 +240,16 @@ final class ObjectDataModel implements IObjectDataModel {
 
     /**
      * Initialize the object data model
+     *
      * @param dataModel TODO
      * @param obj the loaded object
      * @param isNew <code>true</code> if the object didn't exist in memory.
      */
     @objid ("0e2ec301-3fc4-11e2-87cb-001ec947ccaf")
-    public  ObjectDataModel(DataModel dataModel, SmObjectImpl obj, boolean isNew) {
+    public ObjectDataModel(DataModel dataModel, SmObjectImpl obj, boolean isNew) {
         this.dataModel = dataModel;
         this.current = obj;
         this.isNew = isNew;
-        
     }
 
 }

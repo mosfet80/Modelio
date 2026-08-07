@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.swt.hybridtext;
 
@@ -81,7 +81,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  * <li>dropping of an element from the model</li>
  * </ul>
  * Each of these supported features has to be activated explicitly.
- * 
+ *
  * The TextElement can be configured to accept (and propose) only certain
  * elements on the following criteria:
  * <ul>
@@ -89,7 +89,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  * <li>accept only certain metaclasses</i>
  * <li>accept only elements matching a given filter</li>
  * </ul>
- * 
+ *
  * Note: TextElement wraps a SWT Text because inheriting from Text is not
  * possible. Therefore the getTextControl() method is available to reach the
  * inner Text field, typically for layout purposes.
@@ -99,7 +99,7 @@ public class HybridTextElement {
     /**
      * Indicates that this TextElement should accept and propose null value
      */
-    
+
     @mdl.prop
     @objid ("9e3e5488-78b8-4047-a758-a47f849fb216")
     public boolean acceptNullValue;
@@ -120,6 +120,15 @@ public class HybridTextElement {
     private boolean acceptStringValue;
 
     /**
+     * The wrapped Text widget
+     */
+    @objid ("01cc76bd-333b-4e55-ae57-fa695689ee68")
+    private final Text text;
+
+    @objid ("39488922-9b32-45e0-90bd-a81cd3792767")
+    protected DefaultToolTip tooltip;
+
+    /**
      * Accepted metaclasses
      */
     @objid ("b0dec2ad-70c5-442d-bad2-e7949be769d0")
@@ -130,12 +139,6 @@ public class HybridTextElement {
      */
     @objid ("70d23691-4156-4085-bda7-262c4efa3a9e")
     private IMObjectFilter filter;
-
-    /**
-     * The wrapped Text widget
-     */
-    @objid ("591b258f-7c3b-4eba-bbeb-9a5676e59fcf")
-    private final Text text;
 
     /**
      * Current value of the editor, ie either the initial value or the lastly
@@ -151,9 +154,6 @@ public class HybridTextElement {
      */
     @objid ("89199cca-7839-4d05-b680-d8fe03db06f8")
     private Object selected;
-
-    @objid ("924507ea-7111-41fe-9043-4916dbdf68ad")
-    protected DefaultToolTip tooltip;
 
     /**
      * The TextElement registered listeners
@@ -184,19 +184,15 @@ public class HybridTextElement {
      * <li>does not support picking</li>
      * <li>does not support DnD</li>
      * </ul>
-     * @param parent
-     * @param style
      */
     @objid ("a9c26260-49a6-4087-bbf4-ad2371ed002a")
-    public  HybridTextElement(Composite parent, int style) {
+    public HybridTextElement(Composite parent, int style) {
         this.text = createControl(parent, style);
         this.acceptNullValue = true;
-        
     }
 
     /**
      * Set a filter that will be used to accept (and propose) elements.
-     * @param filter
      */
     @objid ("4fd910a6-30fa-41a6-97b6-bf57eca7708a")
     public void setFilter(IMObjectFilter filter) {
@@ -204,6 +200,7 @@ public class HybridTextElement {
     }
 
     /**
+     *
      * @return the current filter
      */
     @objid ("fa832618-93f1-44e5-8c15-b0607317c00d")
@@ -233,12 +230,10 @@ public class HybridTextElement {
                 this.completionDriver = null;
             }
         }
-        
     }
 
     /**
      * Activate picking.
-     * @param pickingService
      */
     @objid ("42ed7f66-4015-447b-8cdf-ae4034eacbc8")
     public void activatePicking(IModelioPickingService pickingService) {
@@ -250,12 +245,10 @@ public class HybridTextElement {
                 this.pickingDriver = null;
             }
         }
-        
     }
 
     /**
      * Activate drag and drop
-     * @param session
      */
     @objid ("643741f1-d7b7-427b-9f42-ae0b9c63189a")
     public void activateDragAndDrop(ICoreSession session) {
@@ -265,7 +258,6 @@ public class HybridTextElement {
         DropTarget target = new DropTarget(this.text, operations);
         target.setTransfer(types);
         target.addDropListener(dropListener);
-        
     }
 
     @objid ("d0841f11-82de-4267-b3f6-adad8dcf6e44")
@@ -283,7 +275,6 @@ public class HybridTextElement {
         } else {
             this.text.setText(value.toString());
         }
-        
     }
 
     @objid ("4b7ef2df-e5a0-4926-978e-4a45bd62a8c3")
@@ -307,15 +298,14 @@ public class HybridTextElement {
 
     /**
      * Create and configure the wrapped text control
-     * @param parent
-     * @param style
+     *
      * @return the configured Text control
      */
     @objid ("a029aab4-253d-44ce-a3f8-3818cbd9ebdc")
     private Text createControl(Composite parent, int style) {
         final Text wrappedText = new Text(parent, style);
         wrappedText.addPaintListener(new HybridTextElementPaintListener());
-        
+
         this.tooltip = new DefaultToolTip(wrappedText) {
             @Override
             protected String getText(Event event) {
@@ -330,7 +320,6 @@ public class HybridTextElement {
         for (final IHybridTextElementSelectionListener listener : this.listeners) {
             listener.selectedElementChanged(oldElement, newElement);
         }
-        
     }
 
     /**
@@ -339,20 +328,20 @@ public class HybridTextElement {
     @objid ("aed20851-0af1-45b1-b71a-1528554e05fc")
     private String getToolTipText() {
         final StringBuffer helpTooltip = new StringBuffer();
-        
+
         final String indent = "\n    ";
         helpTooltip.append(CoreUi.I18N.getString("TextElement.AcceptedTypes"));
-        
+
         if (this.acceptStringValue) {
             helpTooltip.append(indent);
             helpTooltip.append("String");
         }
-        
+
         for (final MClass clazz : this.metaclasses) {
             helpTooltip.append(indent);
             helpTooltip.append(clazz.getName());
         }
-        
+
         if (this.completionDriver != null) {
             helpTooltip.append("\n\n");
             helpTooltip.append(CoreUi.I18N.getString("TextElement.CompletionUsage"));
@@ -363,7 +352,7 @@ public class HybridTextElement {
     @objid ("2ed167e8-64ef-44fb-89ad-d0d69a44f816")
     protected void setSelectedElement(Object value) {
         this.selected = value;
-        
+
         // If the element is not null, display its name in the text field
         if (value instanceof MObject) {
             MObject element = (MObject) value;
@@ -380,7 +369,6 @@ public class HybridTextElement {
             return;
         }
         validate(true);
-        
     }
 
     @objid ("90bbe68a-a373-4e4a-add2-ab921fab7589")
@@ -391,13 +379,12 @@ public class HybridTextElement {
             this.value = this.selected;
             fireSelectedElementChanged(oldElement, this.value);
         }
-        
+
         // Close the tooltip, to avoid an exception with the dispose of the text
         if (this.tooltip != null) {
             this.tooltip.hide();
             this.tooltip = null;
         }
-        
     }
 
     @objid ("997793ce-91ed-4294-8e43-e51fa9abb834")
@@ -418,7 +405,7 @@ public class HybridTextElement {
     /**
      * Wrapped text decorator. Paints a blue border around the text along with
      * an 'field assist' icon.
-     * 
+     *
      * @author phv
      */
     @objid ("b4f166cd-1212-4c16-a940-8c6a4b6f7523")
@@ -434,7 +421,7 @@ public class HybridTextElement {
             textBounds.y = 1;
             textBounds.height = textBounds.height - 2;
             textBounds.width = textBounds.width - 2;
-            
+
             if (((Text) e.getSource()).isFocusControl()) {
                 final Color color = Display.getCurrent().getSystemColor(SWT.COLOR_BLUE);
                 gc.setForeground(color);
@@ -442,15 +429,14 @@ public class HybridTextElement {
                 gc.drawRectangle(textBounds);
                 gc.setClipping(oldClip);
             }
-            
-            
+
+
             final Rectangle imageRect = UIImages.ASSIST.getBounds();
             gc.drawImage(UIImages.ASSIST, textBounds.x + textBounds.width - imageRect.width, textBounds.y);
-            
         }
 
         @objid ("797dd9cc-a936-4d66-a234-d55ffd603a43")
-        public  HybridTextElementPaintListener() {
+        public HybridTextElementPaintListener() {
             // nothing to do
         }
 
@@ -459,11 +445,14 @@ public class HybridTextElement {
     /**
      * Completion driver. Search model elements matching the current text and
      * the configured completion criteria and propose them to user's choice.
-     * 
+     *
      * @author phv
      */
     @objid ("b604d638-8561-4bf5-b8c0-b662b1c44682")
     private class HybridCompletionDriver {
+        @objid ("140c880d-c02d-4e7e-b4fc-5d77ce4f5ebe")
+        private KeyListener keyListener;
+
         @objid ("15752b1c-0a1f-4dc7-92ad-37831a052180")
         private final ModelSearchCriteria searchCriteria;
 
@@ -476,16 +465,12 @@ public class HybridTextElement {
         @objid ("87b752c9-08b4-4a3b-8395-93c6e9005ff3")
         private HybridTextElement textElement;
 
-        @objid ("3e35591d-a36c-4cbc-ad32-a9010f9aec1a")
-        private KeyListener keyListener;
-
         @objid ("02a1e894-6ef7-4ba1-8b1e-2ca69530aa37")
-        public  HybridCompletionDriver(final HybridTextElement textElement, CoreSession session) {
+        public HybridCompletionDriver(final HybridTextElement textElement, CoreSession session) {
             this.searchCriteria = new ModelSearchCriteria();
             this.searcher = new ModelSearchEngine();
             this.textElement = textElement;
             connect(session);
-            
         }
 
         @objid ("381e74a7-a8c6-4572-bfe4-3bed7090b326")
@@ -496,19 +481,19 @@ public class HybridTextElement {
                 this.searchCriteria.addMetaclass(mc);
             }
             this.searchCriteria.setFilter(this.textElement.getFilter());
-            
+
             final String expression = this.textElement.getTextControl().getText() + ".*";
-            
+
             this.searchCriteria.setExpression(expression);
-            
-            final List<Element> elements = this.searcher.search(this.session, this.searchCriteria);
-            
+
+            final List<Element> elements = this.searcher.search(this.session, this.searchCriteria).getResults();
+
             if (elements.isEmpty()) {
                 // Close the other tooltip, to avoid an exception with the dispose of the text
                 if (getTooltip() != null) {
                     getTooltip().hide();
                 }
-            
+
                 MessageDialog.openInformation(this.textElement.getTextControl().getShell(),
                         CoreUi.I18N.getString("TextElement.NotFoundTitle"),
                         CoreUi.I18N.getString("TextElement.NotFoundMessage"));
@@ -520,22 +505,21 @@ public class HybridTextElement {
                 if (getTooltip() != null) {
                     getTooltip().hide();
                 }
-            
+
                 // We have several found elements
                 final PopupChooser rp = new PopupChooser(
                         this.textElement.getTextControl(),
                         elements,
                         this.textElement.isAcceptNullValue());
-            
+
                 this.textElement.setSelectedElement(rp.getChoice(getMObjectValue()));
             }
-            
         }
 
         @objid ("bb5b1de0-f110-4667-b396-0df42c6cd814")
         private void onEnter() {
             final String expression = this.textElement.getTextControl().getText();
-            
+
             if (expression.isEmpty()) {
                 if (this.textElement.isAcceptStringValue()) {
                     // Set as empty string
@@ -545,11 +529,11 @@ public class HybridTextElement {
                 } else {
                     this.textElement.validate(false);
                 }
-                
-                // Exit 
+
+                // Exit
                 return;
             }
-            
+
             // Reconfigure search criteria
             this.searchCriteria.reset();
             for (final MClass mc : this.textElement.getAcceptedMetaclasses()) {
@@ -557,15 +541,15 @@ public class HybridTextElement {
             }
             this.searchCriteria.setFilter(this.textElement.getFilter());
             this.searchCriteria.setExpression(expression);
-            
-            List<Element> elements = this.searcher.search(this.session, this.searchCriteria);
-            
+
+            List<Element> elements = this.searcher.search(this.session, this.searchCriteria).getResults();
+
             if (elements.isEmpty()) {
                 // Retry with regular expression
                 this.searchCriteria.setExpression(expression + ".*");
-                elements = this.searcher.search(this.session, this.searchCriteria);
+                elements = this.searcher.search(this.session, this.searchCriteria).getResults();
             }
-            
+
             if (elements.isEmpty()) {
                 if (isAcceptStringValue()) {
                     this.textElement.setSelectedElement(expression);
@@ -579,13 +563,13 @@ public class HybridTextElement {
                 if (getTooltip() != null) {
                     getTooltip().hide();
                 }
-            
+
                 // We have several found elements
                 final PopupChooser rp = new PopupChooser(
-                        this.textElement.getTextControl(), 
-                        elements, 
+                        this.textElement.getTextControl(),
+                        elements,
                         this.textElement.isAcceptNullValue());
-                
+
                 MObject choice = rp.getChoice(getMObjectValue());
                 this.textElement.setSelectedElement(choice);
             }
@@ -604,7 +588,6 @@ public class HybridTextElement {
          * (current text + .*) and start the search immediately</li>
          * <li>validate the entry when the chooser popup returns</li>
          * </ul>
-         * @param e
          */
         @objid ("812e67ff-9d23-4585-acf2-d6aa61636f1a")
         void onKeyPressed(KeyEvent e) {
@@ -618,20 +601,18 @@ public class HybridTextElement {
             } else if (e.character == SWT.ESC) {
                 this.textElement.validate(false);
             }
-            
         }
 
         @objid ("5f6960d0-4671-4ab5-8af6-857c9732de89")
         public void terminate() {
             disconnect();
             this.textElement = null;
-            
         }
 
         @objid ("ebe10b75-ac2a-46d1-82cf-89d2f11ce2a3")
         private void connect(CoreSession coreSession) {
             this.session = coreSession;
-            
+
             // Register a key listener on the wrapped text control
             this.keyListener = KeyListener.keyPressedAdapter(e -> {
                 try {
@@ -641,9 +622,8 @@ public class HybridTextElement {
                     // Do nothing
                 }
             });
-            
+
             this.textElement.getTextControl().addKeyListener(this.keyListener);
-            
         }
 
         @objid ("738a3740-f90c-4d1e-86e5-c6445c98b792")
@@ -653,7 +633,6 @@ public class HybridTextElement {
             }
             this.keyListener = null;
             this.session = null;
-            
         }
 
         @objid ("935f8b3f-b5f4-4edf-ba17-f61aa9a22088")
@@ -668,27 +647,26 @@ public class HybridTextElement {
 
     @objid ("c9c550bb-c8cd-474e-aac9-9496a0fe5d8f")
     static class HybridPickingDriver implements IPickingClient {
+        @objid ("1213d43c-2396-4e83-8b7b-8ac3f659406a")
+        private FocusListener focusListener;
+
+        @objid ("c5ace8da-7c40-4133-8667-a677f638af66")
+        private DisposeListener disposeListener;
+
         @objid ("804c1699-5fb2-47a9-a12e-5cbdadf11a92")
         private IModelioPickingService pickingService;
 
         @objid ("c0b461d6-7f23-4522-beea-a5c7d084bc4a")
         private HybridTextElement textElement;
 
-        @objid ("1a17c84d-ee13-4e7c-a477-f12bef097b0e")
-        private FocusListener focusListener;
-
         @objid ("a76a6c1b-eedb-42f8-8a7e-b96418547703")
         private IPickingSession pickingSession;
 
-        @objid ("90a37983-94d4-440f-af0a-0c663a75b880")
-        private DisposeListener disposeListener;
-
         @objid ("63e871c1-570d-4928-b7b0-4b3358318111")
-        public  HybridPickingDriver(HybridTextElement textElement, IModelioPickingService pickingService) {
+        public HybridPickingDriver(HybridTextElement textElement, IModelioPickingService pickingService) {
             this.textElement = textElement;
             this.pickingService = pickingService;
             connect();
-            
         }
 
         @objid ("3735e5b4-3909-4ae6-96ed-200d9ac2f8f4")
@@ -696,7 +674,6 @@ public class HybridTextElement {
             if (this.pickingSession == null) {
                 this.pickingSession = this.pickingService.startPicking(this);
             }
-            
         }
 
         @objid ("84e6300c-6f54-4a5e-ac06-b1117b4dd885")
@@ -705,7 +682,6 @@ public class HybridTextElement {
                 this.pickingService.stopPicking(this.pickingSession);
                 this.pickingSession = null;
             }
-            
         }
 
         @objid ("8e85845b-eb87-40eb-ab7f-ffec217e46c2")
@@ -715,24 +691,23 @@ public class HybridTextElement {
                 public void focusLost(FocusEvent e) {
                     HybridPickingDriver.this.stopPicking();
                 }
-            
+
                 @Override
                 public void focusGained(FocusEvent e) {
                     HybridPickingDriver.this.startPicking();
                 }
             };
             this.textElement.getTextControl().addFocusListener(this.focusListener);
-            
+
             this.disposeListener = new DisposeListener() {
-            
+
                 @Override
                 public void widgetDisposed(DisposeEvent e) {
                     HybridPickingDriver.this.stopPicking();
-            
+
                 }
             };
             this.textElement.getTextControl().addDisposeListener(this.disposeListener);
-            
         }
 
         @objid ("2a880c4e-1f58-4d05-a05e-29c71c65733f")
@@ -746,7 +721,6 @@ public class HybridTextElement {
             if (this.pickingSession != null) {
                 this.pickingSession.abort();
             }
-            
         }
 
         /**
@@ -757,7 +731,6 @@ public class HybridTextElement {
         void terminate() {
             disconnect();
             this.pickingService = null;
-            
         }
 
         @objid ("59318994-dcb2-44d8-962f-10496d20267c")
@@ -796,7 +769,6 @@ public class HybridTextElement {
                 this.pickingSession = null;
             }
             this.textElement.validate(false);
-            
         }
 
     }
@@ -810,10 +782,9 @@ public class HybridTextElement {
         private ICoreSession session;
 
         @objid ("ccb62b4c-9630-426d-95bc-bbf8626a9aa3")
-        public  HybridDropListener(HybridTextElement textElement, ICoreSession session) {
+        public HybridDropListener(HybridTextElement textElement, ICoreSession session) {
             this.textElement = textElement;
             this.session = session;
-            
         }
 
         @objid ("d9d2642f-079e-4915-ad62-6d640caddd09")
@@ -824,18 +795,16 @@ public class HybridTextElement {
             if (!validateDroppedObjects(droppedObjects)) {
                 event.detail = DND.DROP_NONE;
             }
-            
         }
 
         @objid ("d99ac7d3-1a14-41d7-baba-7ca8cac4880c")
         @Override
         public void drop(DropTargetEvent event) {
             List<MObject> droppedObjects = getDroppedObjects(event);
-            
+
             if (validateDroppedObjects(droppedObjects)) {
                 this.textElement.setSelectedElement(droppedObjects.get(0));
             }
-            
         }
 
         @objid ("b441e6ac-a3fd-44d4-bcf7-e257e2ba8dcb")
@@ -846,30 +815,29 @@ public class HybridTextElement {
                 event.detail = DND.DROP_NONE;
                 return;
             }
-            
+
             List<MObject> droppedObjects = getDroppedObjects(event);
-            
+
             if (validateDroppedObjects(droppedObjects) == false) {
                 event.detail = DND.DROP_NONE;
                 event.feedback = DND.FEEDBACK_NONE;
                 return;
             }
-            
         }
 
         @objid ("bde18faa-6060-43e1-b933-19186c6aabbf")
         private boolean validateDroppedObjects(List<MObject> droppedObjects) {
             // Validate dropped objects agains't the accepted metaclasses, a
             // possible null value, and the (optional) filter
-            
+
             List<MClass> acceptedMetaclasses = this.textElement.getAcceptedMetaclasses();
             IMObjectFilter filter = this.textElement.getFilter();
-            
+
             // Accept only one element
             if (droppedObjects.size() != 1) {
                 return false;
             }
-            
+
             MObject obj = droppedObjects.get(0);
             if (!acceptedMetaclasses.contains(obj.getMClass()) || (filter != null && !filter.accept(obj))) {
                 return false;
@@ -880,12 +848,12 @@ public class HybridTextElement {
         /**
          * Extract the list of MObject being dropped, excluding 'deleted'
          * objects.
-         * @param event @return
+         * @return
          */
         @objid ("56de3403-dc04-4318-9135-fe39f8df5cfc")
         private List<MObject> getDroppedObjects(DropTargetEvent event) {
             ModelElementTransfer elementTransfer = ModelElementTransfer.getInstance();
-            
+
             // Convert the transfer data to MRefs.
             MRef[] refs = (MRef[]) elementTransfer.nativeToJava(event.currentDataType);
             if (refs != null) {
@@ -900,7 +868,6 @@ public class HybridTextElement {
                 // getting the selection from LocalSelectionTransfer.
                 return getLocalDraggedElements();
             }
-            
         }
 
         /**
@@ -911,9 +878,9 @@ public class HybridTextElement {
         @objid ("49a3163a-584c-4cda-bbc6-719b8c6b251a")
         private List<MObject> getLocalDraggedElements() {
             List<MObject> selectedElements = new ArrayList<>();
-            
+
             ISelection selection = LocalSelectionTransfer.getTransfer().getSelection();
-            
+
             if (selection instanceof IStructuredSelection) {
                 IStructuredSelection structuredSelection = (IStructuredSelection) selection;
                 for (Iterator<?> i = structuredSelection.iterator(); i.hasNext();) {

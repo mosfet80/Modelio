@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -49,7 +49,7 @@ public class R1040 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -70,7 +70,7 @@ public class R1040 extends AbstractUmlRule {
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE);
         plan.registerRule(BehaviorParameter.MQNAME, this, AuditTrigger.MOVE);
-        
+
     }
 
     /**
@@ -104,14 +104,14 @@ public class R1040 extends AbstractUmlRule {
      * Default constructor for R1040
      */
     @objid ("097d783d-ad2c-4968-9dd4-9513d1450538")
-    public  R1040() {
+    public R1040() {
         this.checkerInstance = new CheckR1040(this);
     }
 
     @objid ("22bb55ff-52d9-47a7-b1a2-d3b8f59a8c45")
     private static class CheckR1040 extends AbstractControl {
         @objid ("febfb9c2-99e5-4db8-bd4c-eab273893a5a")
-        public  CheckR1040(IRule rule) {
+        public CheckR1040(IRule rule) {
             super(rule);
         }
 
@@ -137,9 +137,9 @@ public class R1040 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     parameterNode,
                     null);
-            
+
             Activity owner = parameterNode.getOwner();
-            
+
             if (owner != null) {
                 BehaviorParameter bp = parameterNode.getRepresentedRealParameter();
                 if (bp == null || !owner.equals(bp.getOwner())) {

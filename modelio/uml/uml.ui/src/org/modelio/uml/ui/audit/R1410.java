@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -48,7 +48,7 @@ public class R1410 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(IElement)
      * @see AbstractRule#getUpdateControl(IElement)
      * @see AbstractRule#getMoveControl(IElementMovedEvent)
@@ -99,14 +99,14 @@ public class R1410 extends AbstractUmlRule {
      * Default constructor for R1410
      */
     @objid ("7b6a0f1b-2717-4bfb-bae6-8cc12aac4554")
-    public  R1410() {
+    public R1410() {
         this.checkerInstance = new CheckR1410(this);
     }
 
     @objid ("bd453698-3c36-42d9-a9ad-e8c45633bc46")
     private static class CheckR1410 extends AbstractControl {
         @objid ("c5cd3883-4a6a-4766-b40a-6c1033b76d29")
-        public  CheckR1410(IRule rule) {
+        public CheckR1410(IRule rule) {
             super(rule);
         }
 
@@ -124,7 +124,7 @@ public class R1410 extends AbstractUmlRule {
         @objid ("eb94c137-560d-4d73-b127-f01903bba227")
         private IAuditEntry checkR1410(final Association association) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, association, null);
-            
+
             int nbComposition = 0;
             for (AssociationEnd end : association.getEnd()) {
                 if (end.getAggregation().equals(AggregationKind.KINDISAGGREGATION)
@@ -132,7 +132,7 @@ public class R1410 extends AbstractUmlRule {
                     nbComposition++;
                 }
             }
-            
+
             if (nbComposition > 1) {
                 // Rule failed
                 auditEntry.setSeverity(this.rule.getSeverity());

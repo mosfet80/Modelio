@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -48,7 +48,7 @@ public class R1800 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -99,14 +99,14 @@ public class R1800 extends AbstractUmlRule {
      * Default constructor for R1800
      */
     @objid ("afa9b61f-9074-4fda-96cb-c0436f358a70")
-    public  R1800() {
+    public R1800() {
         this.checkerInstance = new CheckR1800(this);
     }
 
     @objid ("5b3a99d0-c619-46b6-a76c-807f89d755a0")
     private static class CheckR1800 extends AbstractControl {
         @objid ("7d2316d8-c571-43fd-a9ef-c2835e83d7e5")
-        public  CheckR1800(IRule rule) {
+        public CheckR1800(IRule rule) {
             super(rule);
         }
 
@@ -124,15 +124,15 @@ public class R1800 extends AbstractUmlRule {
         @objid ("f21237d4-7825-4aed-80ba-8f6b4f86f6e3")
         private IAuditEntry checkR1800(final CombinedFragment combinedFragment) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, combinedFragment, null);
-            
+
             InteractionOperator operator = combinedFragment.getOperator();
             if ((operator.equals(InteractionOperator.OPTOP) || operator.equals(InteractionOperator.LOOPOP) || operator.equals(InteractionOperator.BREAKOP) || operator.equals(InteractionOperator.NEGOP)) && combinedFragment.getOperand().size() > 1) {
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(combinedFragment);
                 auditEntry.setLinkedInfos(linkedObjects);
-            
+
             }
             return auditEntry;
         }

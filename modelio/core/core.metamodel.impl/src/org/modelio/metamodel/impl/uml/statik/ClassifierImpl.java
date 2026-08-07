@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -52,13 +51,13 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00039a6c-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class ClassifierImpl extends NameSpaceImpl implements Classifier {
-    @objid ("80669e77-2580-4550-b6df-996ab890898a")
+    @objid ("f97e8d4c-ae8a-45b4-ba92-3104813d1965")
     @Override
     public EList<Operation> getOwnedOperation() {
         return new SmList<>(this, ((ClassifierSmClass)getClassOf()).getOwnedOperationDep());
     }
 
-    @objid ("984c08a0-06d0-41aa-9095-fb9313f43343")
+    @objid ("ab58396e-0470-473d-a0b3-6e05eab0ae5b")
     @Override
     public <T extends Operation> List<T> getOwnedOperation(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -71,16 +70,16 @@ public abstract class ClassifierImpl extends NameSpaceImpl implements Classifier
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("e9bc5bd7-d2a7-41ae-8ea7-b671805ea489")
+    @objid ("e7238a61-a0a7-439d-bc2b-020a196138af")
     @Override
     public EList<InformationItem> getRepresentation() {
         return new SmList<>(this, ((ClassifierSmClass)getClassOf()).getRepresentationDep());
     }
 
-    @objid ("c646fda7-e0be-427e-a02e-1a31b5e1a327")
+    @objid ("dee19d2f-ab41-4cce-a317-b8b32e86c933")
     @Override
     public <T extends InformationItem> List<T> getRepresentation(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -93,16 +92,16 @@ public abstract class ClassifierImpl extends NameSpaceImpl implements Classifier
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("7281463c-1784-4bcf-a590-c93e381de08c")
+    @objid ("e280bbcd-33a9-4944-9b04-3029452a4160")
     @Override
     public EList<Substitution> getSubstitued() {
         return new SmList<>(this, ((ClassifierSmClass)getClassOf()).getSubstituedDep());
     }
 
-    @objid ("a89a5608-74bb-4186-a8cc-5a372ea779f9")
+    @objid ("4b0e22c2-ba92-4558-95b7-bbe6e1521abf")
     @Override
     public <T extends Substitution> List<T> getSubstitued(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -115,16 +114,16 @@ public abstract class ClassifierImpl extends NameSpaceImpl implements Classifier
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("e559edb4-d6a2-400c-bce3-118258e3048d")
+    @objid ("0b5fd464-0723-4108-8bcb-bb5296f3dac4")
     @Override
     public EList<Attribute> getOwnedAttribute() {
         return new SmList<>(this, ((ClassifierSmClass)getClassOf()).getOwnedAttributeDep());
     }
 
-    @objid ("3ce967fa-500c-467b-810c-26ef86be8e50")
+    @objid ("c24ee146-3d85-446e-9d19-5e517c457e7c")
     @Override
     public <T extends Attribute> List<T> getOwnedAttribute(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -137,16 +136,16 @@ public abstract class ClassifierImpl extends NameSpaceImpl implements Classifier
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("2047b117-a012-4a15-9fb3-e142616cc170")
+    @objid ("4e6f21e2-8cea-4815-86e5-babfa2b7b316")
     @Override
     public EList<NaryAssociationEnd> getOwnedNaryEnd() {
         return new SmList<>(this, ((ClassifierSmClass)getClassOf()).getOwnedNaryEndDep());
     }
 
-    @objid ("49cbc0d5-8fd8-4920-bb2d-9d797fcc7754")
+    @objid ("158805a7-7c55-4179-8a19-977db10cc94e")
     @Override
     public <T extends NaryAssociationEnd> List<T> getOwnedNaryEnd(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -159,16 +158,16 @@ public abstract class ClassifierImpl extends NameSpaceImpl implements Classifier
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("8f7d9ef1-1e3a-4ca0-8687-8eca5ce6b683")
+    @objid ("f8a3a831-d7a4-420e-8e98-212ef093cf32")
     @Override
     public EList<InformationFlow> getConveyer() {
         return new SmList<>(this, ((ClassifierSmClass)getClassOf()).getConveyerDep());
     }
 
-    @objid ("396c1caf-e831-487d-b62f-dd71ceea2c01")
+    @objid ("e0f52184-ec0d-416e-97f3-8556f57f6272")
     @Override
     public <T extends InformationFlow> List<T> getConveyer(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -181,16 +180,16 @@ public abstract class ClassifierImpl extends NameSpaceImpl implements Classifier
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("952bb6fa-703e-4a7c-afbb-be881494e3f9")
+    @objid ("90dcd773-453b-4b1f-b027-66c25ef252e8")
     @Override
     public EList<Substitution> getSubstitutingSubstitution() {
         return new SmList<>(this, ((ClassifierSmClass)getClassOf()).getSubstitutingSubstitutionDep());
     }
 
-    @objid ("0dcb4810-734d-44f7-b5eb-7e25806bc215")
+    @objid ("1bd82383-558c-4e1d-845f-ec622654de5e")
     @Override
     public <T extends Substitution> List<T> getSubstitutingSubstitution(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -203,16 +202,16 @@ public abstract class ClassifierImpl extends NameSpaceImpl implements Classifier
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("d1cb60bc-5bd3-418c-a47e-76bded53986a")
+    @objid ("750105a5-a67a-43a9-bfc4-c9efe206083a")
     @Override
     public EList<AssociationEnd> getTargetingEnd() {
         return new SmList<>(this, ((ClassifierSmClass)getClassOf()).getTargetingEndDep());
     }
 
-    @objid ("c1433062-cbb2-4361-a9dd-9a7756c52203")
+    @objid ("00d3d91a-a714-43e0-9474-0c5c4c37d76a")
     @Override
     public <T extends AssociationEnd> List<T> getTargetingEnd(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -225,16 +224,16 @@ public abstract class ClassifierImpl extends NameSpaceImpl implements Classifier
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("0f29c135-32e5-4019-b578-296c7b58910f")
+    @objid ("700d6c75-bc49-4d32-b952-3399f45f1a05")
     @Override
     public EList<AssociationEnd> getOwnedEnd() {
         return new SmList<>(this, ((ClassifierSmClass)getClassOf()).getOwnedEndDep());
     }
 
-    @objid ("555b5699-d5a3-43c2-b160-3ef221c16cba")
+    @objid ("57e7e435-77d8-4062-b7db-01e23a46d635")
     @Override
     public <T extends AssociationEnd> List<T> getOwnedEnd(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -247,16 +246,16 @@ public abstract class ClassifierImpl extends NameSpaceImpl implements Classifier
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("6c460c1e-9694-4b93-9adc-2cf1a3409720")
+    @objid ("8fc9533d-d1db-420d-98d7-58124e504cc4")
     @Override
     public EList<RaisedException> getThrowing() {
         return new SmList<>(this, ((ClassifierSmClass)getClassOf()).getThrowingDep());
     }
 
-    @objid ("801bb4e6-a2cd-4162-b405-888570922b9c")
+    @objid ("7d9c2d13-febf-4cf3-8929-38dc4d27c8d2")
     @Override
     public <T extends RaisedException> List<T> getThrowing(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -269,16 +268,16 @@ public abstract class ClassifierImpl extends NameSpaceImpl implements Classifier
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("f2d8907e-7d69-4aa4-930e-f542a9fd09d7")
+    @objid ("87f02eb2-17ec-41bf-ae5a-86924e0b164a")
     @Override
     public EList<BindableInstance> getInternalStructure() {
         return new SmList<>(this, ((ClassifierSmClass)getClassOf()).getInternalStructureDep());
     }
 
-    @objid ("91f3b141-1a36-42af-bae6-c7878ab7d751")
+    @objid ("b075d7ea-3648-490d-895e-968ebfae6186")
     @Override
     public <T extends BindableInstance> List<T> getInternalStructure(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -291,16 +290,16 @@ public abstract class ClassifierImpl extends NameSpaceImpl implements Classifier
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("b11a1d87-dbf0-44e6-aa67-e15f90370c51")
+    @objid ("eae2b4da-9361-4813-8df2-d1c464bf0c0f")
     @Override
     public EList<ComponentRealization> getRealizedComponent() {
         return new SmList<>(this, ((ClassifierSmClass)getClassOf()).getRealizedComponentDep());
     }
 
-    @objid ("665aea07-4a74-45c7-9a2c-6cef2a99400d")
+    @objid ("6a21701c-8c08-4b64-8660-d31b086a36c0")
     @Override
     public <T extends ComponentRealization> List<T> getRealizedComponent(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -313,10 +312,10 @@ public abstract class ClassifierImpl extends NameSpaceImpl implements Classifier
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("843a7941-c1c3-4aca-952b-e32c925ac402")
+    @objid ("1d7c1080-febe-4ee0-ab50-2670bae80951")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -324,17 +323,17 @@ public abstract class ClassifierImpl extends NameSpaceImpl implements Classifier
         return super.getCompositionOwner();
     }
 
-    @objid ("98ceb074-6ee5-45c5-b68d-2d041e466dd2")
+    @objid ("f902ecb8-0f3d-4e58-9ade-71139c7c4a7f")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("e973f512-8f62-418b-8d2e-d081d59d27e9")
+    @objid ("894c54d9-b132-4512-9d45-2c393a321edf")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitClassifier(this);

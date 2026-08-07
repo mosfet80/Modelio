@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.collab;
 
@@ -43,7 +43,7 @@ import org.modelio.diagram.styles.core.StyleKey.LinePattern;
 
 /**
  * EditPart for a {@link GmCollaborationPrimaryNode}.
- * 
+ *
  * @author cma
  */
 @objid ("344c10ba-55b7-11e2-877f-002564c97630")
@@ -53,20 +53,20 @@ public class CollaborationEditPart extends AbstractNodeEditPart {
     protected IFigure createFigure() {
         // UseCaseFigure
         final EllipseFigure classFigure = new EllipseFigure();
-        
+
         // Set style independent properties
         final ToolbarLayoutWithGrab layout = new ToolbarLayoutWithGrab();
         layout.setHorizontal(false);
         layout.setStretchMinorAxis(true);
-        
+
         classFigure.setLayoutManager(layout);
-        
+
         classFigure.setOpaque(true);
         classFigure.setLinePattern(LinePattern.LINE_DASH);
-        
+
         // Set default size
         MinimumSizeLayout.apply(classFigure, 200, 75);
-        
+
         // Set style dependent properties
         refreshFromStyle(classFigure, getModelStyle());
         return classFigure;
@@ -78,7 +78,7 @@ public class CollaborationEditPart extends AbstractNodeEditPart {
         if (!switchRepresentationMode()) {
             super.refreshFromStyle(aFigure, style);
         }
-        
+
     }
 
     @objid ("344c10ca-55b7-11e2-877f-002564c97630")
@@ -91,7 +91,7 @@ public class CollaborationEditPart extends AbstractNodeEditPart {
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new DeferringCreateNodePolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
         installEditPolicy(ModelElementDropRequest.TYPE, new CollaborationElementDropEditPolicy());
-        
+
     }
 
     @objid ("344c10cd-55b7-11e2-877f-002564c97630")
@@ -99,29 +99,30 @@ public class CollaborationEditPart extends AbstractNodeEditPart {
     protected void refreshVisuals() {
         final GmAbstractObject model = getModel();
         getFigure().getParent().setConstraint(getFigure(), model.getLayoutData());
-        
+
     }
 
     @objid ("344c10d0-55b7-11e2-877f-002564c97630")
     @Override
     protected void addChildVisual(EditPart childEditPart, int index) {
         super.addChildVisual(childEditPart, index);
-        
+
         updateSeparations(getFigure());
-        
+
     }
 
     @objid ("344c10d5-55b7-11e2-877f-002564c97630")
     @Override
     protected void removeChildVisual(EditPart childEditPart) {
         super.removeChildVisual(childEditPart);
-        
+
         updateSeparations(getFigure());
-        
+
     }
 
     /**
      * Update the separation lines between zones.
+     *
      * @param aFigure the composite figure to update.
      */
     @objid ("344d975b-55b7-11e2-877f-002564c97630")
@@ -134,10 +135,10 @@ public class CollaborationEditPart extends AbstractNodeEditPart {
                                                      false,
                                                      true,
                                                      false);
-        
+
         zoneBorder.setStyle(Graphics.LINE_DASH);
         ChildFigureLineSeparator.updateSeparation(fig, zoneBorder);
-        
+
     }
 
     @objid ("344d975f-55b7-11e2-877f-002564c97630")

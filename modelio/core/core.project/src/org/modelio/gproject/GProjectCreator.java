@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject;
 
@@ -33,7 +33,7 @@ import org.modelio.version.ModelioVersion;
 
 /**
  * Builds a new empty project in a directory.
- * 
+ *
  * @author cmarin
  */
 @objid ("2d913552-ab32-11e1-8392-001ec947ccaf")
@@ -45,6 +45,7 @@ public class GProjectCreator {
      * <p>
      * The <i>projectPath</i> can then be given to
      * {@link GProjectFactory#openProject GProjectFactory.openProject()} to obtain a {@link GProject}.
+     *
      * @param projectName the project name.
      * @param projectPath the project path. Must be a directory that should be empty or
      * does not exist yet.
@@ -63,6 +64,7 @@ public class GProjectCreator {
      * <p>
      * The <i>projectPath</i> can then be given to
      * {@link GProjectFactory#openProject GProjectFactory.openProject()} to obtain a {@link GProject}.
+     *
      * @param projectName the project name.
      * @param projectPath the project path. Must be a directory that should be empty or
      * does not exist yet.
@@ -75,12 +77,12 @@ public class GProjectCreator {
     public static GProjectDescriptor buildEmptyProject(final String projectName, final Path projectPath, Version modelioVersion) throws IOException {
         // Create directory and the 'project.conf' file.
         Files.createDirectories(projectPath);
-        
+
         Path confFilePath = new ProjectFileStructure(projectPath).getProjectConfFile();
         if (Files.isRegularFile(confFilePath)) {
             throw new FileAlreadyExistsException(confFilePath.toString(), null, "A project already exists here.");
         }
-        
+
         GProjectDescriptor desc = GProjectDescriptor.createEmpty(projectName, projectPath, modelioVersion);
         new GProjectDescriptorWriter().write(desc);
         return desc;

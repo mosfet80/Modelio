@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.mmextensions.standard.modelshield;
 
@@ -107,10 +107,11 @@ import org.modelio.vcore.smkernel.mapi.modelshield.spi.ICheckerFactory;
 public class StandardCheckerFactory implements ICheckerFactory {
     /**
      * Create and register the model shield checkers.
+     *
      * @param plan the model shield registry where checkers must be registered.
      * @param metamodel the current metamodel.
      */
-    @objid ("84f4ccb5-ac80-4619-ac25-99c8723ff407")
+    @objid ("9f97c9ce-adfe-4aa7-b425-2c50cfc6d861")
     @Override
     public void createCheckers(final IModelShieldRegistry plan, MMetamodel metamodel) {
         new E200Checker().register(plan,metamodel);
@@ -192,7 +193,7 @@ public class StandardCheckerFactory implements ICheckerFactory {
         new E294Checker().register(plan,metamodel);
         new E295Checker().register(plan,metamodel);
         new E296Checker().register(plan,metamodel);
-        
+
     }
 
 }

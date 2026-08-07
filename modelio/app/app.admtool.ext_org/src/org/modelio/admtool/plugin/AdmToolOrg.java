@@ -1,14 +1,14 @@
-/* 
- * Copyright 2013-2020 Modeliosoft - www.modeliosoft.com 
- * 
- * All information contained herein is, and remains the property of Modeliosoft.
- * The intellectual and technical concepts contained herein are proprietary 
- * to Modeliosoft and may be covered by French and Foreign Patents, patents
+/*
+ * Copyright 2013-2025 Docaposte
+ *
+ * All information contained herein is, and remains the property of Docaposte.
+ * The intellectual and technical concepts contained herein are proprietary
+ * to Docaposte and may be covered by French and Foreign Patents, patents
  * in process, and are protected by trade secret or copyright law.
  * Dissemination of this information or reproduction of this material
  * is strictly forbidden unless prior written permission is obtained
- * from Modeliosoft.
- * 
+ * from Docaposte.
+ *
  */
 package org.modelio.admtool.plugin;
 
@@ -25,7 +25,7 @@ import org.osgi.framework.ServiceReference;
 public class AdmToolOrg extends AbstractUIPlugin {
     @objid ("cc5dd3c4-0200-41d2-ad76-44fca7d2488e")
     public static final String PLUGIN_ID = "org.modelio.app.admtool.ext_org"; // $NON-NLS-1$
-    
+
 
     @objid ("e015a7d3-b5fe-4416-a62e-7e6a9785b7a8")
     public static PluginLogger LOG;
@@ -40,7 +40,7 @@ public class AdmToolOrg extends AbstractUIPlugin {
         ExtendedLogService service = bundleContext.getService(ref);
         AdmToolOrg.LOG = new PluginLogger(service.getLogger((String) null));
         AdmToolOrg.I18N = new BundledMessages(AdmToolOrg.LOG, ResourceBundle.getBundle("admtoolorg"));
-        
+
     }
 
     @objid ("be471244-cbaa-4e4f-843b-9b5fdef7f867")

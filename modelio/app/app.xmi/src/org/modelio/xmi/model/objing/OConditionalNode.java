@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -32,7 +32,7 @@ public class OConditionalNode extends OElement implements IOElement {
     }
 
     @objid ("7d6848ec-cbe7-4724-a0b3-6f44651ebd07")
-    public  OConditionalNode(ConditionalNode element) {
+    public OConditionalNode(ConditionalNode element) {
         super(element);
     }
 
@@ -47,7 +47,7 @@ public class OConditionalNode extends OElement implements IOElement {
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         setIsAssured((org.eclipse.uml2.uml.ConditionalNode) ecoreElt);
         setDeterminate((org.eclipse.uml2.uml.ConditionalNode) ecoreElt);
-        
+
     }
 
     @objid ("4fb63d44-4343-4cae-ad04-a1fe2968a1f5")

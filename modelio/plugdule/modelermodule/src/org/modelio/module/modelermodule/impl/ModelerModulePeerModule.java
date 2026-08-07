@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.module.modelermodule.impl;
 
@@ -61,14 +61,15 @@ public class ModelerModulePeerModule implements IModelerModulePeerModule {
     private IModuleAPIConfiguration peerConfiguration;
 
     @objid ("a4d64196-cd60-4470-866b-7b1525d6666a")
-    public  ModelerModulePeerModule(final ModelerModuleModule statModuleModule, final IModuleAPIConfiguration peerConfiguration) {
+    public ModelerModulePeerModule(final ModelerModuleModule statModuleModule, final IModuleAPIConfiguration peerConfiguration) {
         super();
         this.module = statModuleModule;
         this.peerConfiguration = peerConfiguration;
-        
+
     }
 
     /**
+     *
      * @see org.modelio.api.module.IPeerModule#getConfiguration()
      */
     @objid ("b7135dfc-f383-4e90-b3ed-a505a522fab4")
@@ -78,6 +79,7 @@ public class ModelerModulePeerModule implements IModelerModulePeerModule {
     }
 
     /**
+     *
      * @see org.modelio.api.module.IPeerModule#getDescription()
      */
     @objid ("ae4fed1b-a982-4d01-a1f6-4ef9c0d72c6e")
@@ -87,6 +89,7 @@ public class ModelerModulePeerModule implements IModelerModulePeerModule {
     }
 
     /**
+     *
      * @see org.modelio.api.module.IPeerModule#getName()
      */
     @objid ("ae244e3a-f8af-475e-93b3-dbb4d613dbff")
@@ -96,6 +99,7 @@ public class ModelerModulePeerModule implements IModelerModulePeerModule {
     }
 
     /**
+     *
      * @see org.modelio.api.module.IPeerModule#getVersion()
      */
     @objid ("9f021401-3424-4289-8b6f-5470c0903b1a")
@@ -106,6 +110,7 @@ public class ModelerModulePeerModule implements IModelerModulePeerModule {
 
     /**
      * Create an attribute from an attribute link. If the class doesn't exists, it is also created.
+     *
      * @param attr The attribute link to create a new attribute from.
      * @return <code>true</code> when an attribute is created.
      * @throws ModelerModuleException when the attribute already exists, or when the base of the instance isn't a classifier.
@@ -114,9 +119,9 @@ public class ModelerModulePeerModule implements IModelerModulePeerModule {
     @Override
     public boolean createAttribute(final AttributeLink attr) throws ModelerModuleException {
         IModelingSession session = this.module.getModuleContext().getModelingSession();
-        
+
         boolean result = false;
-        
+
         try (ITransaction transaction = session.createTransaction("CreateAttribute")) {
             InstanceUpdater p = new InstanceUpdater();
             result = p.createAttribute(session, attr);
@@ -131,6 +136,7 @@ public class ModelerModulePeerModule implements IModelerModulePeerModule {
      * - ports from the instance ports.
      * - attributes from attribute links.
      * - operations from incoming messages.
+     *
      * @param inst The instance to create the classifier from.
      * @return <code>true</code> when a new classifier is created.
      * @throws ModelerModuleException When an error happens during creation.
@@ -139,14 +145,14 @@ public class ModelerModulePeerModule implements IModelerModulePeerModule {
     @Override
     public boolean createClassifier(final Instance inst) throws ModelerModuleException {
         IModelingSession session = this.module.getModuleContext().getModelingSession();
-        
+
         boolean result = false;
-        
+
         try (ITransaction transaction = session.createTransaction("CreateClassifierByLifeline")) {
-        
+
             InstanceUpdater p = new InstanceUpdater();
             result = p.createClassifier(session, inst);
-        
+
             transaction.commit();
         }
         return result;
@@ -159,6 +165,7 @@ public class ModelerModulePeerModule implements IModelerModulePeerModule {
      * - ports from the instance ports.
      * - attributes from attribute links.
      * - operations from incoming messages.
+     *
      * @param ll The lifeline to create the classifier from.
      * @return <code>true</code> when a new classifier is created.
      * @throws ModelerModuleException When an error happens during creation.
@@ -167,17 +174,17 @@ public class ModelerModulePeerModule implements IModelerModulePeerModule {
     @Override
     public boolean createClassifierByLifeline(final Lifeline ll) throws ModelerModuleException {
         IModelingSession session = this.module.getModuleContext().getModelingSession();
-        
+
         boolean result = false;
         try (ITransaction transaction = session.createTransaction("CreateClassifierByLifeline")) {
             InstanceUpdater p = new InstanceUpdater();
             Instance inst = ll.getRepresented();
-        
+
             if (inst != null) {
                 result = p.createClassifier(session, inst);
             } else {
                 result = p.createInstanceAndClassifier(session, ll);
-            }            
+            }
             transaction.commit();
         }
         return result;
@@ -186,6 +193,7 @@ public class ModelerModulePeerModule implements IModelerModulePeerModule {
     /**
      * Create an operation from a message.
      * An Instance might be created in the process, or a Classifier.
+     *
      * @param message The message to create the operation from.
      * @return <code>true</code> if a new operation is created.
      * @throws ModelerModuleException When an error happens during the creation.
@@ -194,13 +202,13 @@ public class ModelerModulePeerModule implements IModelerModulePeerModule {
     @Override
     public boolean createOperationFromMessage(final Message message) throws ModelerModuleException {
         IModelingSession session = this.module.getModuleContext().getModelingSession();
-        
+
         boolean result = false;
-        
+
         try (ITransaction transaction = session.createTransaction("CreateOperationFromMessage")) {
             InstanceUpdater p = new InstanceUpdater();
             result = p.createOperation(session, message);
-        
+
             transaction.commit();
         }
         return result;
@@ -209,6 +217,7 @@ public class ModelerModulePeerModule implements IModelerModulePeerModule {
     /**
      * Create an operation from a transition.
      * An Instance might be created in the process, or a Classifier.
+     *
      * @param transition The transition to create the operation from.
      * @return <code>true</code> if a new transition is created.
      * @throws ModelerModuleException When an error happens during the creation.
@@ -217,13 +226,13 @@ public class ModelerModulePeerModule implements IModelerModulePeerModule {
     @Override
     public boolean createOperationFromTransition(final Transition transition) throws ModelerModuleException {
         IModelingSession session = this.module.getModuleContext().getModelingSession();
-        
+
         boolean result = false;
-        
+
         try (ITransaction transaction = session.createTransaction("CreateOperationFromTransition")) {
             InstanceUpdater p = new InstanceUpdater();
             result = p.createOperation(session, transition);
-        
+
             transaction.commit();
         }
         return result;
@@ -231,6 +240,7 @@ public class ModelerModulePeerModule implements IModelerModulePeerModule {
 
     /**
      * Create a sub state machine from a state having entry and exit points.
+     *
      * @param state the state to create the sub state machine from.
      * @return the create sub state machine.
      */
@@ -238,12 +248,12 @@ public class ModelerModulePeerModule implements IModelerModulePeerModule {
     @Override
     public StateMachine createSubStateMachineFromCompositeState(final State state) {
         IModelingSession session = this.module.getModuleContext().getModelingSession();
-        
+
         StateMachine result = null;
         try (ITransaction transaction = session.createTransaction("CreateStateMachineFromState")) {
             StateUpdater stateWizard = new StateUpdater();
             result = stateWizard.createSubStateMachineFromCompositeState(session, state);
-        
+
             transaction.commit();
         }
         return result;
@@ -251,6 +261,7 @@ public class ModelerModulePeerModule implements IModelerModulePeerModule {
 
     /**
      * Create Operations in those Classifiers from those defined in their implemented Interfaces.
+     *
      * @param classifiers The Classifiers to create the Operations in.
      */
     @objid ("e9eb9c44-826e-4f3f-8385-5159592284f3")
@@ -258,27 +269,28 @@ public class ModelerModulePeerModule implements IModelerModulePeerModule {
     public void implementInterfaces(final List<Classifier> classifiers) {
         InterfaceImplementer interfaceManager = new InterfaceImplementer();
         IModelingSession session = this.module.getModuleContext().getModelingSession();
-        
+
         try (ITransaction transaction = session.createTransaction("Update class from interfaces")) {
             boolean hasDoneWork = false;
             for (Element theElement : classifiers) {
                 Classifier theClassifier = (Classifier) theElement;
-        
+
                 boolean newResult = interfaceManager.implementInterfaces(session, theClassifier);
                 hasDoneWork = hasDoneWork || newResult;
             }
-        
+
             if (hasDoneWork) {
                 transaction.commit();
             } else {
                 transaction.rollback();
             }
         }
-        
+
     }
 
     /**
      * Delete Operations in Classifiers from those defined in their implemented Interfaces.
+     *
      * @param classifiers The Classifiers to remove the Operations from.
      */
     @objid ("0b6b5453-4f0b-45f5-9de1-69e2821fad8a")
@@ -286,26 +298,27 @@ public class ModelerModulePeerModule implements IModelerModulePeerModule {
     public void unimplementInterfaces(final List<Classifier> classifiers) {
         InterfaceImplementer interfaceManager = new InterfaceImplementer();
         IModelingSession session = this.module.getModuleContext().getModelingSession();
-        
+
         try (ITransaction transaction = session.createTransaction("Unimplement Interfaces in class")) {
             boolean hasDoneWork = false;
             for (Classifier theClassifier : classifiers) {
                 boolean newResult = interfaceManager.unImplementInterfaces(theClassifier);
                 hasDoneWork = hasDoneWork || newResult;
             }
-        
+
             if (hasDoneWork) {
                 transaction.commit();
             } else {
                 transaction.rollback();
             }
         }
-        
+
     }
 
     /**
      * For all classifiers implementing those interfaces, synchronize all operation signatures.
      * Missing operations are created.
+     *
      * @param interfaces the interfaces to update operations from.
      */
     @objid ("53d5c32d-d61b-4851-bc60-e712b6444f70")
@@ -313,27 +326,28 @@ public class ModelerModulePeerModule implements IModelerModulePeerModule {
     public void updateClassesFromInterface(final List<Interface> interfaces) {
         InterfaceImplementer interfaceManager = new InterfaceImplementer();
         IModelingSession session = this.module.getModuleContext().getModelingSession();
-        
+
         try (ITransaction transaction = session.createTransaction("Update classes from interface")) {
             boolean hasDoneWork = false;
             for ( Interface theInterface : interfaces) {
-        
+
                 boolean newResult = interfaceManager.updateImplementingClassifiers(session, theInterface);
                 hasDoneWork = hasDoneWork || newResult;
             }
-        
+
             if (hasDoneWork) {
                 transaction.commit();
             } else {
                 transaction.rollback();
             }
         }
-        
+
     }
 
     /**
      * Update a part contents from its base classifier.
      * Allows creation of a new classifier if no base exists, or referencing an existing classifier.
+     *
      * @param inst the instance to update.
      * @throws ModelerModuleException when an error occurs during the update.
      */
@@ -341,19 +355,20 @@ public class ModelerModulePeerModule implements IModelerModulePeerModule {
     @Override
     public void updateInstanceFromClassifier(final Instance inst) throws ModelerModuleException {
         IModelingSession session = this.module.getModuleContext().getModelingSession();
-        
+
         try (ITransaction transaction = session.createTransaction("UpdateFromClassifier")) {
             InstanceUpdater p = new InstanceUpdater();
             p.updatePartFromInstanciedClassifier(session, inst);
-        
+
             transaction.commit();
         }
-        
+
     }
 
     /**
      * Update a lifeline's represented instance contents from its base classifier.
      * Allows creation of the instance, and of a new classifier if no base exists, or referencing an existing classifier.
+     *
      * @param ll the lifeline to update.
      * @throws ModelerModuleException when an error occurs during the update.
      */
@@ -361,27 +376,28 @@ public class ModelerModulePeerModule implements IModelerModulePeerModule {
     @Override
     public void updateFromClassifierByLifeline(final Lifeline ll) throws ModelerModuleException {
         IModelingSession session = this.module.getModuleContext().getModelingSession();
-        
+
         try (ITransaction transaction = session.createTransaction("UpdateFromClassifierByLifeline")) {
-        
+
             InstanceUpdater p = new InstanceUpdater();
             Instance inst = ll.getRepresented();
-        
+
             if (inst != null) {
                 p.updatePartFromInstanciedClassifier(session, inst);
             } else {
                 p.updateInstanceAndClassifier(session, ll);
             }
-        
+
             transaction.commit();
         }
-        
+
     }
 
     /**
      * Update the internal structure of a class.
      * Updates all parts from their base classifiers, and allows creation of all missing bases.
      * It is also possible to reference an existing classifier.
+     *
      * @param classToUpdate The class to update.
      * @throws ModelerModuleException When an error happens during the update.
      */
@@ -389,32 +405,33 @@ public class ModelerModulePeerModule implements IModelerModulePeerModule {
     @Override
     public void updateInternalStructure(final Class classToUpdate) throws ModelerModuleException {
         IModelingSession session = this.module.getModuleContext().getModelingSession();
-        
+
         try (ITransaction transaction = session.createTransaction("UpdateInternalStructure")) {
             InstanceUpdater p = new InstanceUpdater();
             p.updateInternalStructure(session, classToUpdate);
-        
+
             transaction.commit();
         }
-        
+
     }
 
     /**
      * Updates a state machine from a sub state machine. (entry, exit points)
+     *
      * @param state the state to update.
      */
     @objid ("d5c469b0-6f73-4336-b366-0da6363234bd")
     @Override
     public void updateStateFromStateMachine(final State state) throws ModelerModuleException {
         IModelingSession session = this.module.getModuleContext().getModelingSession();
-        
+
         try (ITransaction transaction = session.createTransaction("UpdateStateFromStateMachine")) {
             StateUpdater updater = new StateUpdater();
             updater.updateStateFromStateMachine(session, state);
-        
+
             transaction.commit();
         }
-        
+
     }
 
     @objid ("260c5256-6d64-41b1-b7c0-1aa461202cb0")
@@ -423,7 +440,7 @@ public class ModelerModulePeerModule implements IModelerModulePeerModule {
         if (!fileArtifact.isStereotyped(MODULE_NAME, IModelerModuleStereotypes.FILE)) {
             throw new InvalidParameterException("Artifact must have the " + IModelerModuleStereotypes.FILE + " stereotype.");
         }
-        
+
         List<String> ownerPaths = new ArrayList<>();
         ModelTree owner = fileArtifact.getOwner();
         while (owner instanceof Artifact && owner.isStereotyped(MODULE_NAME, IModelerModuleStereotypes.DIRECTORY)) {
@@ -431,7 +448,7 @@ public class ModelerModulePeerModule implements IModelerModulePeerModule {
             owner = owner.getOwner();
         }
         ownerPaths.add(fileArtifact.getFileName());
-        
+
         String first = ownerPaths.remove(0);
         return Paths.get(first, ownerPaths.toArray(new String[0]));
     }

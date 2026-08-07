@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.copy;
 
@@ -36,6 +36,7 @@ class DiagramsCopier {
      * <p>
      * The given map contains pairs of elements: the original element and its
      * copy.
+     *
      * @param localDiagram the diagram to modify
      * @param pairs pairs of {source, dest} elements.
      */
@@ -47,15 +48,15 @@ class DiagramsCopier {
         } else {
             content = org.modelio.vcore.utils.UUBase64Compressor.decompress(content);
         }
-        
+
         for (Entry<SmObjectImpl, SmObjectImpl> pair : pairs.entrySet()) {
             SmObjectImpl refElt = pair.getKey();
             SmObjectImpl localElt = pair.getValue();
             content = content.replace(refElt.getUuid().toString(), localElt.getUuid().toString());
         }
-        
+
         localDiagram.setUiData(org.modelio.vcore.utils.UUBase64Compressor.compress(content));
-        
+
     }
 
 }

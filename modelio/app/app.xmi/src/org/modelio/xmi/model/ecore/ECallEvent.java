@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -45,10 +45,10 @@ public class ECallEvent extends ENamedElement {
     }
 
     @objid ("8eae270c-1178-4279-bacb-894ec81174fe")
-    public  ECallEvent(org.eclipse.uml2.uml.CallEvent element) {
+    public ECallEvent(org.eclipse.uml2.uml.CallEvent element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("b7f9ff28-8134-409e-8079-8f3a744d52c9")
@@ -63,7 +63,7 @@ public class ECallEvent extends ENamedElement {
                 objingElt.delete();
             }
         }
-        
+
     }
 
     @objid ("4664265f-c75a-4ad6-a778-36edc21b9532")
@@ -71,7 +71,7 @@ public class ECallEvent extends ENamedElement {
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setOperation(objingElt);
-        
+
     }
 
     @objid ("f453a4d4-18dc-4888-9038-81ddef56e546")
@@ -83,7 +83,7 @@ public class ECallEvent extends ENamedElement {
                ((Event) objingElt).setCalled((Operation) objOperation);
            }
                 }
-        
+
     }
 
 }

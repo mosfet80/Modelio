@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.api.transactions;
 
@@ -58,6 +58,7 @@ public class ConcurrentTransactionException extends TransactionCreationException
 
     /**
      * Initialize the exception.
+     *
      * @param trName the failed transaction name
      * @param runningTransaction the still running transaction
      * @param otherTread the thread already running a transaction
@@ -66,33 +67,33 @@ public class ConcurrentTransactionException extends TransactionCreationException
      * @param unit the waited time unit.
      */
     @objid ("5d681c4f-a473-42f3-8f2d-35c0ae4b36bf")
-    public  ConcurrentTransactionException(String trName, ITransaction runningTransaction, Thread otherTread, Throwable concurrentTransactionCreation, long timeout, TimeUnit unit) {
+    public ConcurrentTransactionException(String trName, ITransaction runningTransaction, Thread otherTread, Throwable concurrentTransactionCreation, long timeout, TimeUnit unit) {
         super(null);
-        
+
         this.failedName = trName;
         this.runningTransaction = runningTransaction;
         this.waitedTime = timeout;
         this.waitedTimeUnit = unit;
         this.concurrentThread = otherTread;
         StackTraceElement[] runningStack = this.concurrentThread.getStackTrace();
-        
-        String msg = VCoreSession.I18N.getMessage("ConcurrentTransactionException.st", 
-                runningTransaction.getName(), 
+
+        String msg = VCoreSession.I18N.getMessage("ConcurrentTransactionException.st",
+                runningTransaction.getName(),
                 otherTread.getName());
         Throwable t = new Throwable(msg);
         t.setStackTrace(runningStack);
-        
+
         addSuppressed(t);
         addSuppressed(concurrentTransactionCreation);
-        
+
     }
 
     @objid ("fabc1e53-9c6e-4db2-95a6-c110aefb3211")
     @Override
     public String getMessage() {
-        String msg = VCoreSession.I18N.getMessage("ConcurrentTransactionException", 
-                this.failedName, 
-                this.waitedTime, 
+        String msg = VCoreSession.I18N.getMessage("ConcurrentTransactionException",
+                this.failedName,
+                this.waitedTime,
                 this.waitedTimeUnit, this.concurrentThread, this.runningTransaction.getName() );
         /*String msg = "Failed creating "+this.failedName+" transaction after having waited "
                 + this.waitedTime + " " + this.waitedTimeUnit + "."
@@ -103,6 +104,7 @@ public class ConcurrentTransactionException extends TransactionCreationException
 
     /**
      * Get the name of the transaction that couldn't be created.
+     *
      * @return the unborn transaction name.
      */
     @objid ("779f7b75-c194-4143-a601-72cab3ae8731")
@@ -112,6 +114,7 @@ public class ConcurrentTransactionException extends TransactionCreationException
 
     /**
      * Get the running transaction that prevents this thread from creating a transaction.
+     *
      * @return the concurrent thread.
      */
     @objid ("5e968d38-1c5a-4406-b06e-8e0e84b1d1b8")
@@ -120,6 +123,7 @@ public class ConcurrentTransactionException extends TransactionCreationException
     }
 
     /**
+     *
      * @return the time waited before throwing this exception.
      */
     @objid ("a35f0cad-f147-4b7b-bb41-bd327886e73b")
@@ -128,6 +132,7 @@ public class ConcurrentTransactionException extends TransactionCreationException
     }
 
     /**
+     *
      * @return the time unit of {@link #getWaitedTime()}.
      */
     @objid ("3368c9b0-2fd4-4729-bbb1-1b92dac92670")
@@ -137,6 +142,7 @@ public class ConcurrentTransactionException extends TransactionCreationException
 
     /**
      * Get the concurrent transaction running the blocking {@link #getRunningTransaction() transaction}.
+     *
      * @return the concurrent transaction.
      */
     @objid ("a8a50c15-f67d-4671-8eff-ae8571b6180f")

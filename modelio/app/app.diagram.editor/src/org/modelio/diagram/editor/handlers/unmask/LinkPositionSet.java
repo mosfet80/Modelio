@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.handlers.unmask;
 
@@ -86,15 +86,16 @@ public class LinkPositionSet {
 
     /**
      * Constructor building the position set from a root element.
+     *
      * @param theRoot The element to compute the links from.
      * @param unmaskStructuringLink Whether or not the computed links must be structural.
      * @param unmaskedElements Each computed link must start or target an element from this list. A <code>null</code>value indicates no restrictions: all links related to theRoot are accepted.
      */
     @objid ("65f0154d-33f7-11e2-95fe-001ec947c8cc")
-    public  LinkPositionSet(final MObject theRoot, final boolean unmaskStructuringLink, final Set<MObject> unmaskedElements) {
+    public LinkPositionSet(final MObject theRoot, final boolean unmaskStructuringLink, final Set<MObject> unmaskedElements) {
         this.visitor = new LinkFinderVisitor(unmaskStructuringLink, unmaskedElements);
         theRoot.accept(this.visitor);
-        
+
     }
 
     @objid ("65f01558-33f7-11e2-95fe-001ec947c8cc")
@@ -138,7 +139,7 @@ public class LinkPositionSet {
         protected Set<MObject> bottomLinks = new HashSet<>();
 
         @objid ("65f01577-33f7-11e2-95fe-001ec947c8cc")
-        public  LinkFinderVisitor(final boolean unmaskStructuringLink, final Set<MObject> unmaskedElements) {
+        public LinkFinderVisitor(final boolean unmaskStructuringLink, final Set<MObject> unmaskedElements) {
             super();
             this.infrastructureVisitor = new DefaultInfrastructureVisitor() {
                 @objid ("66379be2-33f7-11e2-95fe-001ec947c8cc")
@@ -155,7 +156,7 @@ public class LinkPositionSet {
             };
             this.unmaskStructuringLink = unmaskStructuringLink;
             this.unmaskedElements = unmaskedElements;
-            
+
         }
 
         @objid ("65f0157f-33f7-11e2-95fe-001ec947c8cc")
@@ -165,7 +166,7 @@ public class LinkPositionSet {
                     this.leftLinks.add(elt);
                 }
             }
-            
+
         }
 
         @objid ("65f01585-33f7-11e2-95fe-001ec947c8cc")
@@ -175,7 +176,7 @@ public class LinkPositionSet {
                     this.rightLinks.add(elt);
                 }
             }
-            
+
         }
 
         @objid ("65f0158b-33f7-11e2-95fe-001ec947c8cc")
@@ -185,7 +186,7 @@ public class LinkPositionSet {
                     this.topLinks.add(elt);
                 }
             }
-            
+
         }
 
         @objid ("65f01591-33f7-11e2-95fe-001ec947c8cc")
@@ -195,7 +196,7 @@ public class LinkPositionSet {
                     this.bottomLinks.add(elt);
                 }
             }
-            
+
         }
 
         @objid ("65f277e5-33f7-11e2-95fe-001ec947c8cc")
@@ -238,11 +239,11 @@ public class LinkPositionSet {
                 for (BpmnMessageFlow i : child.getOutgoingFlow()) {
                     addRight(i, i.getTargetRef());
                 }
-            
+
                 for (BpmnMessageFlow i : child.getIncomingFlow()) {
                     addLeft(i, i.getSourceRef());
                 }
-            
+
             }
             return super.visitBpmnBaseElement(child);
         }
@@ -276,7 +277,7 @@ public class LinkPositionSet {
                 for (BpmnSequenceFlow i : child.getOutgoing()) {
                     addRight(i, i.getTargetRef());
                 }
-            
+
                 for (BpmnSequenceFlow i : child.getIncoming()) {
                     addLeft(i, i.getSourceRef());
                 }
@@ -302,15 +303,15 @@ public class LinkPositionSet {
                 for (AssociationEnd i : child.getTargetingEnd()) {
                     addLeft(i, i.getTarget());
                 }
-            
+
                 for (AssociationEnd i : child.getOwnedEnd()) {
                     addRight(i, i.getTarget());
                 }
-            
+
                 for (NaryAssociationEnd i : child.getOwnedNaryEnd()) {
                     addRight(i, i.getOwner());
                 }
-            
+
                 for (ComponentRealization i : child.getRealizedComponent()) {
                     addTop(i, i.getAbstraction());
                 }
@@ -340,7 +341,7 @@ public class LinkPositionSet {
                 for (CommunicationChannel i : child.getStarted()) {
                     addRight(i, i.getEnd());
                 }
-            
+
                 for (CommunicationChannel i : child.getEnded()) {
                     addLeft(i, i.getStart());
                 }
@@ -385,38 +386,38 @@ public class LinkPositionSet {
                     addTop(i, i.getSuperType());
                 }
             }
-            
+
             if (this.unmaskStructuringLink) {
                 for (Generalization i : child.getSpecialization()) {
                     addBottom(i, i.getSubType());
                 }
             }
-            
+
             if (this.unmaskStructuringLink) {
                 for (InterfaceRealization i : child.getRealized()) {
                     addTop(i, i.getImplemented());
                 }
             }
-            
+
             if (!this.unmaskStructuringLink) {
                 for (DataFlow i : child.getOwnedDataFlow()) {
                     addRight(i, i.getDestination());
                 }
             }
-            
+
             if (!this.unmaskStructuringLink) {
                 for (PackageImport i : child.getOwnedPackageImport()) {
                     addRight(i, i.getImportingNameSpace());
                     addRight(i, i.getImportingOperation());
                 }
             }
-            
+
             if (!this.unmaskStructuringLink) {
                 for (ElementImport i : child.getOwnedImport()) {
                     addRight(i, i.getImportedElement());
                 }
             }
-            
+
             if (this.unmaskStructuringLink) {
                 for (TemplateBinding i : child.getTemplateInstanciation()) {
                     addRight(i, i.getInstanciatedTemplate());
@@ -434,19 +435,19 @@ public class LinkPositionSet {
                     addRight(i, i.getImportedElement());
                 }
             }
-            
+
             if (!this.unmaskStructuringLink) {
                 for (PackageImport i : child.getOwnedPackageImport()) {
                     addRight(i, i.getImportedPackage());
                 }
             }
-            
+
             if (this.unmaskStructuringLink) {
                 for (RaisedException i : child.getThrown()) {
                     addRight(i, i.getThrownType());
                 }
             }
-            
+
             if (this.unmaskStructuringLink) {
                 for (TemplateBinding i : child.getTemplateInstanciation()) {
                     addRight(i, i.getInstanciatedTemplate());
@@ -475,18 +476,18 @@ public class LinkPositionSet {
                     addRight(i, i);
                 }
             }
-            
+
             if (this.unmaskStructuringLink) {
                 for (RequiredInterface i : child.getRequired()) {
                     addRight(i, i);
                 }
             }
-            
+
             if (this.unmaskStructuringLink) {
                 for (LinkEnd i : child.getTargetingEnd()) {
                     addLeft(i, i.getTarget());
                 }
-            
+
                 for (LinkEnd i : child.getOwnedEnd()) {
                     addRight(i, i.getTarget());
                 }

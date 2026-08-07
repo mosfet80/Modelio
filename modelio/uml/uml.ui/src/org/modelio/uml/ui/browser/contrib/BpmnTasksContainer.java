@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.browser.contrib;
 
@@ -29,7 +29,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 @objid ("80944ed5-d72c-4ea3-b936-bb03a03bb716")
 public class BpmnTasksContainer extends AbstractContainer<BpmnActivity> {
     @objid ("cf1f05ac-a039-4697-b57d-59b64913e7ef")
-    public  BpmnTasksContainer(MObject owner, List<BpmnActivity> contents) {
+    public BpmnTasksContainer(MObject owner, List<BpmnActivity> contents) {
         super(owner, contents);
     }
 

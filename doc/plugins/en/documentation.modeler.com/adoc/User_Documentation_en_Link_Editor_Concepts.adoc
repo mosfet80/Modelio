@@ -1,0 +1,36 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= Concepts
+
+
+
+== A visualization tool
+
+The Links Editor View displays the links that exist between model elements as an oriented graph whose central element is the model element currently selected in the model. From the central element, the view shows both incoming (upstream) and outgoing (downstream) links, ie the links where the central element is the link target and those where the central element is the link source.
+
+The view is automatically refreshed when the selection changes, this makes of the Links Editor View a dynamic view that immediately displays the links of the model "surrounding" the central element.
+
+Not all the links are permanently shown in the Links Editor View as this would lead to dense and unclear content display. This is why the Links Editor View has been made highly configurable. The configuration, among other things, allows to choose which links are to be displayed, based on the link nature (link meta class and stereotype).
+
+
+== A navigation tool
+
+In the view, the represented elements can be left-clicked at an moment, this operation defines the clicked element as the new central element of the Links Editor View displayed graph. The graph contents is automatically updated. This mechanism allows a quick navigation in a model by following the links (either incoming or outgoing) of a model element.
+
+Furthermore, a CTRL left-click on a represented element will set this element as the new central element of the Links Editor View, but will additionally select this element at the application level. Other views, capable of visualizing this element will update their displayed content in order to show this selected element.
+
+For example, the user can easily explore a deep inheritance graph (one of the configurable mode of the Links Editor View) just by clicking on parent classes potentially up to the root of the tree. Once the searched parent is found, a CTRL-click on it will order the model browser to unfold its tree so that the searched parent becomes the currently shown and selected element.
+
+
+== An edition tool
+
+The Links Editor View can be used to create new links.
+
+Right now just say that links can be created in the Links Editor View by dragging elements from the browser or a diagram into the Links Editor View. Depending on the drop position, either before of after the central element, the created link will use the central element either as the link target or as the link source.
+
+This editing feature requires a precise action sequence which is fully described <<User_Documentation_en_Link_Editor_Editing_links.adoc#,Editing links>>.

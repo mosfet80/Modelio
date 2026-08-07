@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.events;
 
@@ -78,12 +78,12 @@ public class ImplicitThrowEventNode implements IProductionNode<BpmnImplicitThrow
     @objid ("fa35deb9-ab02-47a8-a194-3601180afb86")
     @Override
     public BpmnImplicitThrowEvent createUMLElement(MObject context, TImplicitThrowEvent jaxbElement, BpmnImportFactory factory, boolean keepId) {
-        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {  
+        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {
             return factory.createWithId(BpmnImplicitThrowEvent.class, context,jaxbElement.getId());
         } else {
             return factory.create(BpmnImplicitThrowEvent.class, context);
         }
-        
+
     }
 
     @objid ("915b6bc6-c619-4a62-a0a8-53343120e338")
@@ -97,7 +97,7 @@ public class ImplicitThrowEventNode implements IProductionNode<BpmnImplicitThrow
         } else if (context instanceof BpmnComplexBehaviorDefinition) {
             ((BpmnComplexBehaviorDefinition) context).setEvent(modelioElement);
         }
-        
+
         if (jaxbElement.getName() != null)
             modelioElement.setName(StringConvertor.imports(jaxbElement.getName()));
         return modelioElement;
@@ -108,7 +108,7 @@ public class ImplicitThrowEventNode implements IProductionNode<BpmnImplicitThrow
     public TImplicitThrowEvent createJaxbElement(Object context, BpmnImplicitThrowEvent modelioElement) {
         // Create JaxbElement
         TImplicitThrowEvent jaxEndEvent = new TImplicitThrowEvent();
-        
+
         // Add to context
         ObjectFactory factory = new ObjectFactory();
         if (context instanceof TProcess) {
@@ -120,7 +120,7 @@ public class ImplicitThrowEventNode implements IProductionNode<BpmnImplicitThrow
         } else if (context instanceof TComplexBehaviorDefinition) {
             ((TComplexBehaviorDefinition) context).setEvent(jaxEndEvent);
         }
-        
+
         jaxEndEvent.setId(IDUtils.formatJaxbID(modelioElement));
         return jaxEndEvent;
     }

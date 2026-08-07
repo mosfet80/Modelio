@@ -1,45 +1,42 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.checker;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
-import org.eclipse.jface.action.IMenuListener;
-import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
-import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.resource.LocalResourceManager;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.Tree;
 import org.modelio.audit.checker.actions.AuditSeverityAction;
 import org.modelio.audit.checker.actions.DisableRuleHandlerAction;
 import org.modelio.audit.checker.actions.SelectInExplorerAction;
@@ -50,13 +47,16 @@ import org.modelio.audit.view.AuditPanelProvider;
 import org.modelio.audit.view.providers.AuditProviderFactory.AuditViewMode;
 import org.modelio.metamodel.mmextensions.standard.services.IMModelServices;
 import org.modelio.platform.core.navigate.IModelioNavigationService;
-import org.modelio.platform.model.ui.swt.SelectionHelper;
+import org.modelio.platform.model.ui.swt.InputHelper;
 import org.modelio.platform.project.services.IProjectService;
 import org.modelio.platform.ui.panel.IPanelProvider;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("d109acb9-8b82-49bc-ad6c-1ffe1897d4e2")
 public class CheckerPanelProvider implements IPanelProvider {
+    @objid ("68a5e4bb-9868-46d4-8af1-a1d0d04cba5f")
+    private String jobId;
+
     @objid ("e1b1c580-b265-4add-b9ef-7ebb35a9e36c")
     @Inject
     @Optional
@@ -67,22 +67,19 @@ public class CheckerPanelProvider implements IPanelProvider {
     @Optional
     private EModelService emService;
 
-    @objid ("68a5e4bb-9868-46d4-8af1-a1d0d04cba5f")
-    private String jobId;
-
-    @objid ("d0f30f82-789c-4193-9f77-a18f1529759e")
+    @objid ("2484da5b-5821-427f-b213-ae679e64da06")
     private Button byElementButton;
 
-    @objid ("2dfb629c-7881-4d4f-bf49-a0754f62e96c")
+    @objid ("5177f627-65c3-4ed7-9a06-956558edb95b")
     private Button byListButton;
 
-    @objid ("79194d11-bf00-4729-90f9-29aabf3295c1")
+    @objid ("bd6cb92f-8c50-4f3f-9f8d-2c0ea5ab4764")
     private Button byRuleButton;
 
-    @objid ("48f3215d-47cf-4c65-8f95-f7c71842e463")
+    @objid ("660ef593-4b65-4b9f-9e3a-113930c614f4")
     private Button byTypeButton;
 
-    @objid ("336bb503-b306-4417-a331-a64ff88faaac")
+    @objid ("a13332f3-94cb-4f63-b14e-fdc90df69f14")
     private Composite rootComposite;
 
     @objid ("6e220856-42cc-43c8-bd0f-909f5924e0f3")
@@ -94,7 +91,7 @@ public class CheckerPanelProvider implements IPanelProvider {
     private IAuditService auditService;
 
     @objid ("b300eafd-8ea4-4289-b3f4-97a8d6096886")
-    private Object input;
+    private List<MObject> input;
 
     @objid ("3186ae38-056b-40f1-972b-a0e417dbe8d5")
     @Inject
@@ -112,16 +109,21 @@ public class CheckerPanelProvider implements IPanelProvider {
     private IProjectService projectService;
 
     @objid ("106b1506-22a7-4fae-ba45-39f2736da135")
-    public  CheckerPanelProvider() {
-        this.jobId = UUID.randomUUID().toString();
+    public CheckerPanelProvider() {
+
     }
 
     @objid ("44301568-bd03-4fd8-acef-96576f6c51ea")
     @Override
     public Object createPanel(Composite parent) {
-        this.auditPanel = new AuditPanelProvider(this.auditService, this.projectService.getSession(), this.modelService,
+        // This will dispose the images when closing the panel
+        LocalResourceManager resMan = new LocalResourceManager(JFaceResources.getResources(parent.getDisplay()), parent);
+
+        this.jobId = UUID.randomUUID().toString();
+        this.auditPanel = new AuditPanelProvider(
+                this.auditService, this.projectService.getSession(), this.modelService,
                 this.navigationService, this.application, this.emService);
-        
+
         this.rootComposite = new Composite(parent, SWT.NONE);
         GridData gd = new GridData();
         gd.horizontalAlignment = SWT.FILL;
@@ -130,93 +132,52 @@ public class CheckerPanelProvider implements IPanelProvider {
         gd.grabExcessVerticalSpace = true;
         this.rootComposite.setLayoutData(gd);
         this.rootComposite.setLayout(new GridLayout(4, false));
-        
+
         this.byTypeButton = new Button(this.rootComposite, SWT.TOGGLE);
-        this.byTypeButton.setImage(Audit.getImageDescriptor("icons/layoutbytype.png").createImage());
-        
-        this.byTypeButton.addSelectionListener(new SelectionListener() {
-        
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                CheckerPanelProvider.this.auditPanel.setViewMode(AuditViewMode.BYTYPE);
-                CheckerPanelProvider.this.byRuleButton.setSelection(false);
-                CheckerPanelProvider.this.byElementButton.setSelection(false);
-                CheckerPanelProvider.this.byListButton.setSelection(false);
-            }
-        
-            @Override
-            public void widgetDefaultSelected(SelectionEvent e) {
-             // Ignore
-        
-            }
+        this.byTypeButton.setImage(resMan.get(Audit.getImageDescriptor("icons/layoutbytype.png")));
+
+        this.byTypeButton.addListener(SWT.Selection, ev -> {
+            this.auditPanel.setViewMode(AuditViewMode.BYTYPE);
+            this.byRuleButton.setSelection(false);
+            this.byElementButton.setSelection(false);
+            this.byListButton.setSelection(false);
+
         });
         this.byTypeButton.setSelection(true);
-        
+
         this.byRuleButton = new Button(this.rootComposite, SWT.TOGGLE);
-        this.byRuleButton.setImage(Audit.getImageDescriptor("icons/layoutbyrule.png").createImage());
-        
-        this.byRuleButton.addSelectionListener(new SelectionListener() {
-        
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                CheckerPanelProvider.this.auditPanel.setViewMode(AuditViewMode.BYRULE);
-                CheckerPanelProvider.this.byTypeButton.setSelection(false);
-                CheckerPanelProvider.this.byElementButton.setSelection(false);
-                CheckerPanelProvider.this.byListButton.setSelection(false);
-            }
-        
-            @Override
-            public void widgetDefaultSelected(SelectionEvent e) {
-                // Ignore
-        
-            }
-        
+        this.byRuleButton.setImage(resMan.get(Audit.getImageDescriptor("icons/layoutbyrule.png")));
+
+        this.byRuleButton.addListener(SWT.Selection, ev -> {
+            this.auditPanel.setViewMode(AuditViewMode.BYRULE);
+            this.byTypeButton.setSelection(false);
+            this.byElementButton.setSelection(false);
+            this.byListButton.setSelection(false);
         });
-        
-        
-        
+
+
         this.byElementButton = new Button(this.rootComposite, SWT.TOGGLE);
-        this.byElementButton.setImage(Audit.getImageDescriptor("icons/layoutbyelement.png").createImage());
-        
-        this.byElementButton.addSelectionListener(new SelectionListener() {
-        
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                CheckerPanelProvider.this.auditPanel.setViewMode(AuditViewMode.BYELEMENT);
-                CheckerPanelProvider.this.byTypeButton.setSelection(false);
-                CheckerPanelProvider.this.byRuleButton.setSelection(false);
-                CheckerPanelProvider.this.byListButton.setSelection(false);
-            }
-        
-            @Override
-            public void widgetDefaultSelected(SelectionEvent e) {
-                // Ignore
-        
-            }
+        this.byElementButton.setImage(resMan.get(Audit.getImageDescriptor("icons/layoutbyelement.png")));
+
+        this.byElementButton.addListener(SWT.Selection, ev -> {
+            this.auditPanel.setViewMode(AuditViewMode.BYELEMENT);
+            this.byTypeButton.setSelection(false);
+            this.byRuleButton.setSelection(false);
+            this.byListButton.setSelection(false);
         });
-        
+
         this.byListButton = new Button(this.rootComposite, SWT.TOGGLE);
-        this.byListButton.setImage(Audit.getImageDescriptor("icons/layoutflat.png").createImage());
-        
-        this.byListButton.addSelectionListener(new SelectionListener() {
-        
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                CheckerPanelProvider.this.auditPanel.setViewMode(AuditViewMode.FLAT);
-                CheckerPanelProvider.this.byTypeButton.setSelection(false);
-                CheckerPanelProvider.this.byRuleButton.setSelection(false);
-                CheckerPanelProvider.this.byElementButton.setSelection(false);
-            }
-        
-            @Override
-            public void widgetDefaultSelected(SelectionEvent e) {
-                // Ignore
-        
-            }
+        this.byListButton.setImage(resMan.get(Audit.getImageDescriptor("icons/layoutflat.png")));
+
+        this.byListButton.addListener(SWT.Selection, ev -> {
+            this.auditPanel.setViewMode(AuditViewMode.FLAT);
+            this.byTypeButton.setSelection(false);
+            this.byRuleButton.setSelection(false);
+            this.byElementButton.setSelection(false);
         });
-        
-        
-        
+
+
+
         this.auditPanel.createPanel(this.rootComposite);
         gd = new GridData();
         gd.horizontalSpan = 6;
@@ -225,9 +186,9 @@ public class CheckerPanelProvider implements IPanelProvider {
         gd.verticalAlignment = SWT.FILL;
         gd.grabExcessVerticalSpace = true;
         this.auditPanel.getPanel().setLayoutData(gd);
-        
+
         this.auditPanel.setInput(this.auditService.getAuditEngine().getAuditDiagnostic());
-        
+
         initContextMenu();
         return this.rootComposite;
     }
@@ -237,7 +198,6 @@ public class CheckerPanelProvider implements IPanelProvider {
     public void dispose() {
         this.auditService.interuptCheck(this.jobId);
         this.auditPanel.dispose();
-        
     }
 
     @objid ("a83365ee-8848-4ff9-b3c5-18efaa1f82e9")
@@ -266,7 +226,7 @@ public class CheckerPanelProvider implements IPanelProvider {
     @objid ("e374641e-7342-40b6-9ccb-e86a2053bf49")
     @Override
     public boolean isRelevantFor(Object obj) {
-        return (obj instanceof ISelection) || (obj instanceof MObject) || (obj instanceof List);
+        return InputHelper.contains(obj, MObject.class);
     }
 
     @objid ("64278a24-d758-439c-a27f-05a78a249a7b")
@@ -287,22 +247,23 @@ public class CheckerPanelProvider implements IPanelProvider {
     @objid ("a695f1ee-e0e2-4295-87cf-050d99488846")
     @Override
     public void setInput(Object input) {
-        Object newInput = input instanceof ISelection ? SelectionHelper.getFirst((ISelection) input, MObject.class) : input;
-        
+        List<MObject> newInput = InputHelper.toList(input, MObject.class);
+
         // Because set input launches a background asynchronous process, better to avoid launching several instances for the same input.
         // Furthermore, in the case of the checker panel the audit process can fire a status change event which in turn will re-set
         // this input leading to a loop without the guard coded below.
         if (Objects.equals(this.input, newInput)) {
             return;
         }
-        
+
         this.input = newInput;
-        if (newInput instanceof MObject) {
-            this.auditService.checkElementTree(Arrays.asList((MObject) newInput), this.jobId);
-        } else if (newInput instanceof List) {
-            this.auditService.checkElementTree((List<MObject>) newInput, this.jobId);
+        this.auditPanel.setScope(newInput, this.jobId);
+
+        if (! newInput.isEmpty()) {
+            this.auditService.checkElementTree(newInput, this.jobId);
+        } else {
+            this.auditService.interuptCheck(this.jobId);
         }
-        
     }
 
     @objid ("b2171e31-c1e5-46f3-b01c-ff6fcdde325e")
@@ -322,29 +283,23 @@ public class CheckerPanelProvider implements IPanelProvider {
 
     @objid ("6b242d1d-b598-463a-a0e2-f62417c51b33")
     private void initContextMenu() {
-        // initalize the context menu
+        // initialize the context menu
         MenuManager menuMgr = new MenuManager("#PopupMenu"); //$NON-NLS-1$
         menuMgr.setRemoveAllWhenShown(true);
-        menuMgr.addMenuListener(new IMenuListener() {
-            @Override
-            public void menuAboutToShow(IMenuManager manager) {
-                manager.add(new SelectInExplorerAction(CheckerPanelProvider.this.navigationService,
-                        CheckerPanelProvider.this.auditPanel.getTreeViewer()));
-                manager.add(new ShowDetailsAction(CheckerPanelProvider.this.auditService, CheckerPanelProvider.this.projectService,
-                        CheckerPanelProvider.this.navigationService, CheckerPanelProvider.this.auditPanel.getTreeViewer()));
-                manager.add(new AuditSeverityAction("AuditAdvice", CheckerPanelProvider.this.auditService,
-                        CheckerPanelProvider.this.auditPanel.getTreeViewer().getTree()));
-                manager.add(new AuditSeverityAction("AuditWarning", CheckerPanelProvider.this.auditService,
-                        CheckerPanelProvider.this.auditPanel.getTreeViewer().getTree()));
-                manager.add(new AuditSeverityAction("AuditError", CheckerPanelProvider.this.auditService,
-                        CheckerPanelProvider.this.auditPanel.getTreeViewer().getTree()));
-                manager.add(new DisableRuleHandlerAction(CheckerPanelProvider.this.auditService,
-                        CheckerPanelProvider.this.auditPanel.getTreeViewer().getTree()));
-            }
+        menuMgr.addMenuListener(manager -> {
+            TreeViewer treeViewer = this.auditPanel.getTreeViewer();
+            Tree swtTree = treeViewer.getTree();
+
+            manager.add(new SelectInExplorerAction(this.navigationService, treeViewer));
+            manager.add(new ShowDetailsAction(this.auditService, this.projectService, this.navigationService, treeViewer));
+            manager.add(new AuditSeverityAction("AuditAdvice",  this.auditService, swtTree));
+            manager.add(new AuditSeverityAction("AuditWarning", this.auditService, swtTree));
+            manager.add(new AuditSeverityAction("AuditError",   this.auditService, swtTree));
+            manager.add(new DisableRuleHandlerAction(this.auditService, swtTree));
         });
-        Menu menu = menuMgr.createContextMenu(this.auditPanel.getTreeViewer().getTree());
-        this.auditPanel.getTreeViewer().getTree().setMenu(menu);
-        
+
+        Tree swtTree = this.auditPanel.getTreeViewer().getTree();
+        swtTree.setMenu(menuMgr.createContextMenu(swtTree));
     }
 
 }

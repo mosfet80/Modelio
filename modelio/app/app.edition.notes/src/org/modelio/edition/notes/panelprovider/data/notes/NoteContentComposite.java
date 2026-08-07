@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.edition.notes.panelprovider.data.notes;
 
@@ -40,38 +40,60 @@ import org.modelio.vcore.session.impl.CoreSession;
 
 @objid ("dc74c63a-cd25-4dc9-97bf-1d117a5b5bcd")
 public class NoteContentComposite extends AbstractContentComposite {
+    @objid ("49e813e0-c7d5-408c-aa0b-52402d205e66")
+    private boolean focus = false;
+
+    @objid ("81173c29-4b40-496e-a55d-8e44120c01b5")
+    private final Text text;
+
     @objid ("a8222f19-4d44-4419-b684-d982c9d2b6f8")
     private Note note = null;
-
-    @objid ("53ecbd06-f30f-4204-aa17-b6297d3f7e32")
-    private final Text text;
 
     @objid ("452b46b8-16ef-4329-98c3-46efba1d8549")
     private final Controller controler;
 
     @objid ("c34ed728-a126-4a4d-989e-a5a37b41f3f4")
-    public  NoteContentComposite(Composite parentComposite, int style, EContextService contextService) {
+    public NoteContentComposite(Composite parentComposite, int style, EContextService contextService) {
         super(parentComposite, style, contextService);
-        
+
         setLayout(new FillLayout());
         this.text = new Text(this, SWT.BORDER | SWT.BORDER | SWT.V_SCROLL | SWT.WRAP);
         this.controler = new Controller(this);
         this.text.addFocusListener(this.controler);
         this.text.addKeyListener(this.controler);
-        
+    }
+
+    @objid ("c835ab65-bd9e-4e84-a595-b7b04ad1c4a8")
+    public void setFocus(Boolean focus) {
+        this.focus = focus;
     }
 
     @objid ("6f0754d2-84e3-432d-8017-8309a6248917")
     @Override
     public void setInput(final ModelElement aNote) {
+        if(focus) {
+        return;
+        }
+
         this.note = (Note) aNote;
         if (this.note != null) {
             this.text.setText(this.note.getContent());
+
+            boolean isEditable = this.note.isModifiable();
+
+            ModelElement subject = this.note.getSubject();
+            if (subject != null && !subject.isModifiable()) {
+                isEditable = false;
+            }
+
+            this.text.setEditable(isEditable);
+            this.text.setEnabled(true);
         } else {
             this.text.setText("");
+            this.text.setEditable(false);
+            this.text.setEnabled(false);
         }
         leaveEdition();
-        
     }
 
     @objid ("d7551a0b-e4e2-4d69-acf2-a7017dce32b3")
@@ -91,7 +113,6 @@ public class NoteContentComposite extends AbstractContentComposite {
     public void dispose() {
         this.text.dispose();
         super.dispose();
-        
     }
 
     @objid ("18539c95-f1df-424a-a920-adac1ddf07b7")
@@ -102,7 +123,6 @@ public class NoteContentComposite extends AbstractContentComposite {
         } else {
             this.text.setBackground(UIColor.TEXT_READONLY_BG);
         }
-        
     }
 
     @objid ("8f5e6031-bc00-44b6-8a3a-860cf8fcec6e")
@@ -113,7 +133,6 @@ public class NoteContentComposite extends AbstractContentComposite {
             this.text.setBackground(UIColor.TEXT_READONLY_BG);
         }
         reactivateContexts();
-        
     }
 
     @objid ("0201b08c-2af5-4767-85e6-c2effd9e98ce")
@@ -122,7 +141,7 @@ public class NoteContentComposite extends AbstractContentComposite {
         private final NoteContentComposite view;
 
         @objid ("02ad5bad-a71f-4fd0-9777-973edc86f5ab")
-        public  Controller(NoteContentComposite view) {
+        public Controller(NoteContentComposite view) {
             this.view = view;
         }
 
@@ -139,7 +158,6 @@ public class NoteContentComposite extends AbstractContentComposite {
                     transaction.commit();
                 }
             }
-            
         }
 
         /**
@@ -148,22 +166,22 @@ public class NoteContentComposite extends AbstractContentComposite {
         @objid ("30a3269d-ef09-4981-aebe-c2e3c9d04b33")
         @Override
         public void focusGained(FocusEvent e) {
+            this.view.setFocus(true);
             final Text text = (Text) e.getSource();
             final Note editedNote = this.view.getNoteElement();
             if (editedNote != null && editedNote.getStatus().isModifiable()) {
                 this.view.enterEdition();
             }
-            
         }
 
         @objid ("e06f8ee5-f2f2-491f-8d14-bfc55d745242")
         @Override
         public void focusLost(FocusEvent e) {
+            this.view.setFocus(false);
             final Text text = (Text) e.getSource();
             final Note editedNote = this.view.getNoteElement();
             changeContent(editedNote, text.getText());
             this.view.leaveEdition();
-            
         }
 
         @objid ("b496bd50-eedc-4754-814a-f6bf934ae1ec")
@@ -172,7 +190,6 @@ public class NoteContentComposite extends AbstractContentComposite {
             if ((e.stateMask &= SWT.MOD1) != 0 && e.keyCode == SWT.CR) {
                 e.doit = false;
             }
-            
         }
 
         @objid ("fe7f2ca2-d0ab-47a6-83d4-0419761929bf")
@@ -193,7 +210,6 @@ public class NoteContentComposite extends AbstractContentComposite {
                 // CTRL A
                 text.selectAll();
             }
-            
         }
 
     }

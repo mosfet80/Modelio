@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.api.services;
 
@@ -63,7 +63,7 @@ class DiagramGraphicFactory implements IDiagramGraphicFactory {
     private DiagramHandle diagramHandle;
 
     @objid ("34d389c1-6d7f-4f28-9b79-cccdcae8e5e4")
-    public  DiagramGraphicFactory(DiagramHandle diagramHandle) {
+    public DiagramGraphicFactory(DiagramHandle diagramHandle) {
         this.diagramHandle = diagramHandle;
     }
 
@@ -79,24 +79,24 @@ class DiagramGraphicFactory implements IDiagramGraphicFactory {
         if (p == null) {
             return null;
         }
-        
+
         String drawingIdentifier;
         if (initialDrawingIdentifier == null) {
             drawingIdentifier = UUID.randomUUID().toString();
         } else {
             drawingIdentifier = initialDrawingIdentifier;
         }
-        
+
         // Adapt the given coordinates if necessary
         final Point newLocation = new Point(x, y);
         final Dimension size = new Dimension(w, h);
-        
+
         final IFigure rootFigure = ((GraphicalEditPart) p.getViewer().getRootEditPart()).getFigure();
         rootFigure.translateToParent(newLocation);
         rootFigure.translateToParent(size);
-        
+
         DrawingObjectFactory creationFactory = new DrawingObjectFactory(gmClass, drawingIdentifier);
-        
+
         final CreateRequest req = new CreateRequest();
         req.setType(RequestConstants.REQ_CREATE);
         req.setLocation(newLocation);
@@ -110,7 +110,7 @@ class DiagramGraphicFactory implements IDiagramGraphicFactory {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("90cd95da-5e01-4706-9cc3-5bb01dfaf2ae")
@@ -156,59 +156,59 @@ class DiagramGraphicFactory implements IDiagramGraphicFactory {
             DiagramApi.LOG.debug("DiagramGraphicFactory.createDrawingConnection(): no edit part found for %s layer", layer);
             return null;
         }
-        
+
         String drawingIdentifier;
         if (initialDrawingIdentifier == null) {
             drawingIdentifier = UUID.randomUUID().toString();
         } else {
             drawingIdentifier = initialDrawingIdentifier;
         }
-        
+
         // Adapt the given coordinates if necessary
         final Point p1 = new Point(x, y);
         final Point p2 = new Point(x2, y2);
-        
+
         final GraphicalViewer viewer = (GraphicalViewer) layerPart.getViewer();
         final IFigure rootFigure = ((GraphicalEditPart) viewer.getRootEditPart()).getFigure();
         rootFigure.translateToParent(p1);
         rootFigure.translateToParent(p2);
-        
+
         DrawingObjectFactory creationFactory = new DrawingObjectFactory(gmClass, drawingIdentifier);
-        
+
         // First point
         // -----------
         final CreateConnectionRequest req = new CreateConnectionRequest();
         req.setType(RequestConstants.REQ_CONNECTION_START);
         req.setLocation(p1);
         req.setFactory(creationFactory);
-        
+
         EditPart targetEditPart = layerPart;
-        
+
         req.setTargetEditPart(targetEditPart);
         Command com = targetEditPart.getCommand(req);
-        
+
         if (com == null || !com.canExecute()) {
             DiagramApi.LOG.debug("DiagramGraphicFactory.createDrawingConnection(): %s refuses to start connection at (%d; %d)", targetEditPart, x, y);
             return null;
         }
-        
+
         // Second point
         // -----------
         req.setType(RequestConstants.REQ_CONNECTION_END);
         req.setLocation(p2);
         // req.getData().setRoutingMode(ConnectionRouterId.BENDPOINT);
-        
+
         req.setStartCommand(com);
         req.setSourceEditPart(targetEditPart);
         req.setTargetEditPart(targetEditPart);
-        
+
         com = targetEditPart.getCommand(req);
-        
+
         if (com == null || !com.canExecute()) {
             DiagramApi.LOG.debug("DiagramGraphicFactory.createDrawingConnection(): %s refuses to end connection at (%d; %d)", targetEditPart, x2, y2);
             return null;
         }
-        
+
         viewer.getEditDomain().getCommandStack().execute(com);
         layerPart.getFigure().getUpdateManager().performValidation();
         return (IDiagramDrawingLink) this.diagramHandle.getDrawingGraphic((String) creationFactory.getNewObject());
@@ -222,47 +222,47 @@ class DiagramGraphicFactory implements IDiagramGraphicFactory {
         }
         List<IDiagramGraphic> existingGraphics = this.diagramHandle.getDiagramGraphics(element);
         List<GmModel> existingGMs = this.diagramHandle.getDiagramGraphicModels(element);
-        
+
         GraphicalEditPart diagramEditPart = this.diagramHandle.getEditPart(this.diagramHandle.getDiagramEditorInput().getGmDiagram());
         GraphicalViewer viewer = (GraphicalViewer) diagramEditPart.getViewer();
         Point dropLocation = new Point(x, y);
-        
+
         final ModelElementDropRequest req = new ModelElementDropRequest();
         req.setDroppedElements(new MObject[] { element });
         req.setLocation(dropLocation);
         req.setSmart(false);
-        
+
         /*
          * Fix size of Root Figure ( diagram ) at least at the size of the unmasked element
          * in order to be able to find potential parent figure of unmasked figure.
          * Instead, if the unmasked element is out of the scope of Root Figure,
          * the algorithm which find the parent figure return always null
          */
-        
+
         // Calcul min bounds
         Rectangle rootBounds = ((GraphicalEditPart) viewer.getRootEditPart()).getFigure().getBounds();
         if (rootBounds.x + rootBounds.width < x) {
             rootBounds.width = x - rootBounds.x + 10;
         }
-        
+
         if (rootBounds.y + rootBounds.height < y) {
             rootBounds.height = y - rootBounds.y + 10;
         }
-        
+
         // Set min bounds to diagram figure
         ((GraphicalEditPart) viewer.getRootEditPart()).getFigure().setBounds(rootBounds);
         ((GraphicalEditPart) viewer.getRootEditPart()).getFigure().getParent().setBounds(rootBounds);
         ((GraphicalEditPart) viewer.getRootEditPart()).getFigure().revalidate();
-        
+
         EditPart targetEditPart = viewer.findObjectAtExcluding(dropLocation, Collections.EMPTY_LIST, new Conditional(req));
-        
+
         targetEditPart = targetEditPart.getTargetEditPart(req);
         if (targetEditPart != null) {
-        
+
             Command com = targetEditPart.getCommand(req);
             if (com != null && com.canExecute()) {
                 targetEditPart.getViewer().getEditDomain().getCommandStack().execute(com);
-        
+
                 List<IDiagramGraphic> allGraphics = this.diagramHandle.getDiagramGraphics(element);
                 List<IDiagramGraphic> results = new ArrayList<>();
                 for (IDiagramGraphic dg : allGraphics) {
@@ -270,7 +270,7 @@ class DiagramGraphicFactory implements IDiagramGraphicFactory {
                         results.add(dg);
                     }
                 }
-        
+
                 List<GmModel> allGMs = this.diagramHandle.getDiagramGraphicModels(element);
                 for (GmModel dg : allGMs) {
                     if (!existingGMs.contains(dg)) {
@@ -280,7 +280,7 @@ class DiagramGraphicFactory implements IDiagramGraphicFactory {
                         }
                     }
                 }
-        
+
                 return results;
             }
         }
@@ -293,7 +293,7 @@ class DiagramGraphicFactory implements IDiagramGraphicFactory {
         private final Request req;
 
         @objid ("9a7b81dd-4cfc-4524-8bc8-6ca003a55c60")
-        public  Conditional(final Request req) {
+        public Conditional(final Request req) {
             this.req = req;
         }
 

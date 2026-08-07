@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.creation.wizard.dialog.treeview;
 
@@ -59,7 +59,7 @@ public class ContributorTreeLabelProvider extends StyledCellLabelProvider {
     private ImageRegistry registry = new ImageRegistry();
 
     @objid ("1932b109-fe4c-4b87-b378-909aa84cb76d")
-    public  ContributorTreeLabelProvider(ModelElement context) {
+    public ContributorTreeLabelProvider(ModelElement context) {
         this.context = context;
     }
 
@@ -68,7 +68,7 @@ public class ContributorTreeLabelProvider extends StyledCellLabelProvider {
     public void update(ViewerCell cell) {
         Object element = cell.getElement();
         StyledString text = new StyledString();
-        
+
         if (element instanceof Category) {
             Category category = (Category) element;
             text.append(category.getLabel());
@@ -88,7 +88,7 @@ public class ContributorTreeLabelProvider extends StyledCellLabelProvider {
         cell.setText(text.getString());
         cell.setStyleRanges(text.getStyleRanges());
         super.update(cell);
-        
+
     }
 
     @objid ("502f648a-1d17-4602-af18-049e1dc7d80f")
@@ -117,9 +117,9 @@ public class ContributorTreeLabelProvider extends StyledCellLabelProvider {
             this.registry.dispose();
             this.registry = null;
         }
-        
+
         super.dispose();
-        
+
     }
 
 }

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -43,80 +42,80 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("13761dd9-9bc8-4c3f-a387-24f38b54c85e")
 public class FeatureSmClass extends UmlModelElementSmClass {
-    @objid ("276b2e1b-7ce0-40fb-aaa0-b5ab42e76606")
+    @objid ("4c1fbb49-49ea-4af0-b2c0-002742b8f30a")
     private SmAttribute visibilityAtt;
 
-    @objid ("f6447f67-c48f-4b63-9050-80fe84923e2a")
+    @objid ("7354491d-678a-4acf-ae30-7e5091fea5e8")
     private SmAttribute isClassAtt;
 
-    @objid ("a2ee31a6-dfcc-42a9-a432-cbb26f9aa60a")
+    @objid ("869e86c1-135e-4527-a720-4b0daaadfe73")
     private SmAttribute isAbstractAtt;
 
-    @objid ("f542718d-e7bb-4c22-8794-1b823de4fa91")
-    public  FeatureSmClass(ISmMetamodelFragment origin) {
+    @objid ("358aa7f5-a8ee-4208-bca7-c4d363a7afe3")
+    public FeatureSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("b728a591-bf89-4bca-82d7-f8dce2eff791")
+    @objid ("6b4ea864-ae40-4fb9-bfd9-75859b5b6c67")
     @Override
     public String getName() {
         return "Feature";
-        
+
     }
 
-    @objid ("6ecbdd03-d673-4ee7-9af3-db0e1f93db71")
+    @objid ("52b75dcd-4dac-424c-8538-70980d5af108")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("7bd6a92a-4d5a-41c8-948d-a235973c4873")
+    @objid ("98c42445-c41b-4a9f-9426-d5b354234d88")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return Feature.class;
-        
+
     }
 
-    @objid ("a7eac96d-7125-4653-a948-72b6ed6062e0")
+    @objid ("b0777148-acdf-4160-9717-a2852cd7029a")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("d3d08b57-4455-45ea-a197-07e0565387d5")
+    @objid ("fe3ca43e-0efa-43a9-82b9-a06445865914")
     @Override
     public boolean isAbstract() {
         return true;
-        
+
     }
 
-    @objid ("b7f1ccb2-b2d8-48e1-885b-9e5d8a15e29d")
+    @objid ("8c997680-bd2b-4628-ab2e-ea9bf82ab269")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(UmlModelElement.MQNAME);
         this.registerFactory(new FeatureObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
         this.visibilityAtt = new VisibilitySmAttribute();
         this.visibilityAtt.init("Visibility", this, VisibilityMode.class );
         registerAttribute(this.visibilityAtt);
-        
+
         this.isClassAtt = new IsClassSmAttribute();
         this.isClassAtt.init("IsClass", this, Boolean.class );
         registerAttribute(this.isClassAtt);
-        
+
         this.isAbstractAtt = new IsAbstractSmAttribute();
         this.isAbstractAtt.init("IsAbstract", this, Boolean.class );
         registerAttribute(this.isAbstractAtt);
-        
-        
+
+
         // Initialize and register the SmDependency
-        
+
     }
 
-    @objid ("8860fb8e-5887-41d5-ad11-3dfaadd832d8")
+    @objid ("a9c19a9a-5bc7-4c82-a8a6-bba9e3ddd9ba")
     public SmAttribute getVisibilityAtt() {
         if (this.visibilityAtt == null) {
         	this.visibilityAtt = this.getAttributeDef("Visibility");
@@ -124,7 +123,7 @@ public class FeatureSmClass extends UmlModelElementSmClass {
         return this.visibilityAtt;
     }
 
-    @objid ("5eddf621-e6e7-429b-85fb-6140cd0bc12f")
+    @objid ("c2b1a2c7-7f67-4635-b3fa-d15ba7a259f2")
     public SmAttribute getIsClassAtt() {
         if (this.isClassAtt == null) {
         	this.isClassAtt = this.getAttributeDef("IsClass");
@@ -132,7 +131,7 @@ public class FeatureSmClass extends UmlModelElementSmClass {
         return this.isClassAtt;
     }
 
-    @objid ("11df34c2-93bd-496e-af18-bfd69190d99b")
+    @objid ("58f732a9-9fd1-494e-9d3f-2ad3d1c79f04")
     public SmAttribute getIsAbstractAtt() {
         if (this.isAbstractAtt == null) {
         	this.isAbstractAtt = this.getAttributeDef("IsAbstract");
@@ -142,21 +141,21 @@ public class FeatureSmClass extends UmlModelElementSmClass {
 
     @objid ("b13141e1-fccc-40b7-82c4-9dedd2b9e651")
     private static class FeatureObjectFactory implements ISmObjectFactory {
-        @objid ("73a0e821-9f3a-4f61-a23e-83d070599050")
+        @objid ("d9e42bbf-687d-4d3c-8366-09a93dbef463")
         private FeatureSmClass smClass;
 
-        @objid ("a767a010-8977-4861-b2bb-f1e046aa414d")
-        public  FeatureObjectFactory(FeatureSmClass smClass) {
+        @objid ("cac1082c-4593-4156-8e2f-3de2e3b5a505")
+        public FeatureObjectFactory(FeatureSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("c5e3a790-1f92-4609-b188-b1984bc4d3da")
+        @objid ("3b9157bb-0491-4eb5-aace-a42440e30a8f")
         @Override
         public ISmObjectData createData() {
             throw new UnsupportedOperationException();
         }
 
-        @objid ("93b95857-bcb4-4bbc-9d99-2b6cc3368b3c")
+        @objid ("214ea29d-9261-4799-b410-ea7e2219c4bc")
         @Override
         public SmObjectImpl createImpl() {
             throw new UnsupportedOperationException();
@@ -166,12 +165,12 @@ public class FeatureSmClass extends UmlModelElementSmClass {
 
     @objid ("460bdf9f-498e-4579-b162-13a69df27b38")
     public static class VisibilitySmAttribute extends SmAttribute {
-        @objid ("e4706388-977c-4c91-a2bd-5c48e4dc5779")
+        @objid ("6e2adb5d-5a8d-40cc-b7b6-435d410966a0")
         public Object getValue(ISmObjectData data) {
             return ((FeatureData) data).mVisibility;
         }
 
-        @objid ("36209c02-8f3d-41d8-82e0-368da49421c6")
+        @objid ("7699f769-723f-4fec-bc5e-3dda9b1246e6")
         public void setValue(ISmObjectData data, Object value) {
             ((FeatureData) data).mVisibility = value;
         }
@@ -180,12 +179,12 @@ public class FeatureSmClass extends UmlModelElementSmClass {
 
     @objid ("2b9d64a2-d96d-41ae-8445-51ba590746bb")
     public static class IsClassSmAttribute extends SmAttribute {
-        @objid ("c97ae267-f2ae-4d1f-ac1e-f1d0617331fd")
+        @objid ("7fa2a0b0-a90f-4b08-8642-2d88f8ef3d9b")
         public Object getValue(ISmObjectData data) {
             return ((FeatureData) data).mIsClass;
         }
 
-        @objid ("be4075e1-01c4-4973-8d99-5ba913747e0d")
+        @objid ("65f168f5-012a-4a70-9cc6-24ac84546871")
         public void setValue(ISmObjectData data, Object value) {
             ((FeatureData) data).mIsClass = value;
         }
@@ -194,12 +193,12 @@ public class FeatureSmClass extends UmlModelElementSmClass {
 
     @objid ("2f8a2ec0-bab3-43cb-a646-6702d5ab16f3")
     public static class IsAbstractSmAttribute extends SmAttribute {
-        @objid ("0318b460-5cdb-47b7-8d21-d7aef6038d01")
+        @objid ("b7315494-be7c-4ad3-b9ba-79c14d389af3")
         public Object getValue(ISmObjectData data) {
             return ((FeatureData) data).mIsAbstract;
         }
 
-        @objid ("3c54ef6d-db08-492d-9a3c-d05891208a8b")
+        @objid ("a10ce933-be92-4779-abaf-ad410cc64fad")
         public void setValue(ISmObjectData data, Object value) {
             ((FeatureData) data).mIsAbstract = value;
         }

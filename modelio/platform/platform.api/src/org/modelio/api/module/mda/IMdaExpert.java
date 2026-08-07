@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.module.mda;
 
@@ -37,7 +37,7 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 /**
  * The MDA expert tool can answer questions about dependencies between stereotyped metaclass or elements.
  * </p>
- * 
+ *
  * @since 3.4
  */
 @objid ("80a74076-5cc9-4ff8-b25e-d33002d0fe7c")
@@ -49,6 +49,7 @@ public interface IMdaExpert {
     boolean canLink(Stereotype linkStereotype, MClass linkMetaclass, final MClass fromMetaclass, final MClass toMetaclass);
 
     /**
+     *
      * @since 3.8
      */
     @objid ("0fd78025-ebf4-4232-96bd-43949b1c78d1")
@@ -63,6 +64,7 @@ public interface IMdaExpert {
     boolean canSource(Stereotype linkStereotype, MObject linkMetaclass, MObject from);
 
     /**
+     *
      * @since 3.8
      */
     @objid ("1ce65f2c-de71-4d49-9867-53fe6a4020c0")
@@ -72,6 +74,7 @@ public interface IMdaExpert {
     }
 
     /**
+     *
      * @since 3.8
      */
     @objid ("c28f143a-bc18-4c75-997a-772e78d3b282")
@@ -86,6 +89,7 @@ public interface IMdaExpert {
     boolean canTarget(Stereotype linkStereotype, MObject linkMetaclass, MObject to);
 
     /**
+     *
      * @since 3.8
      */
     @objid ("85425659-4004-46e0-a3fe-fda7d674b4db")
@@ -98,6 +102,7 @@ public interface IMdaExpert {
      * <p>
      * Default value is <code>true</code>.
      * </p>
+     *
      * @param linkStereotype a Stereotype defined on {@link MethodologicalLink}.
      * @return <code>true</code> if several instances can be used, <code>false</code> otherwise.
      * @since 3.8
@@ -109,6 +114,7 @@ public interface IMdaExpert {
 
     /**
      * Get the possible target metaclasses of a stereotyped link.
+     *
      * @param linkStereotype a stereotype applicable on a link metaclass. Must not be <code>null</code>.
      * @param sourceMetaclass the source of the link. Must not be <code>null</code>.
      * @return a list of metaclass that can be used as target for the link in this configuration.
@@ -125,11 +131,12 @@ public interface IMdaExpert {
                 .map(dep -> dep.getTarget())
                 .filter(targetMetaclass -> mExpert.canLink(linkMetaclass, sourceMetaclass, targetMetaclass))
                 .collect(Collectors.<MClass> toList());
-        
+
     }
 
     /**
      * Get the possible source metaclasses of a stereotyped link.
+     *
      * @param linkStereotype a stereotype applicable on a link metaclass. Must not be <code>null</code>.
      * @param targetMetaclass the target of the link. Must not be <code>null</code>.
      * @return a list of metaclass that can be used as source for the link in this configuration.
@@ -146,11 +153,12 @@ public interface IMdaExpert {
                 .map(dep -> dep.getTarget())
                 .filter(sourceMetaclass -> mExpert.canLink(linkMetaclass, sourceMetaclass, targetMetaclass))
                 .collect(Collectors.<MClass> toList());
-        
+
     }
 
     /**
      * Get the possible source/target combinations for a stereotyped link.
+     *
      * @param linkStereotype a stereotype applicable on a link metaclass. Must not be <code>null</code>.
      * @return a map of scopes, where each key is a possible source and its associated values the possible targets.
      * @since 3.8
@@ -160,34 +168,34 @@ public interface IMdaExpert {
         MMetamodel metamodel = linkStereotype.getMClass().getMetamodel();
         MExpert mExpert = metamodel.getMExpert();
         MClass linkMetaclass = metamodel.getMClass(linkStereotype.getBaseClassName());
-        
+
         List<MClass> possibleSources = linkMetaclass.getDependencies(true)
                 .stream()
                 .filter(dep -> ((SmDependency) dep).hasDirective(SmDirective.SMCDLINKSOURCE))
                 .map(dep -> dep.getTarget())
                 .collect(Collectors.<MClass> toList());
-        
+
         List<MClass> possibleTargets = linkMetaclass.getDependencies(true)
                 .stream()
                 .filter(dep -> ((SmDependency) dep).hasDirective(SmDirective.SMCDLINKTARGET))
                 .map(dep -> dep.getTarget())
                 .collect(Collectors.<MClass> toList());
-        
+
         Map<ElementScope, List<ElementScope>> ret = new HashMap<>();
         for (MClass possibleSource : possibleSources) {
             List<ElementScope> validTargets = new ArrayList<>();
-        
+
             for (MClass possibleTarget : possibleTargets) {
                 if (mExpert.canLink(linkMetaclass, possibleSource, possibleTarget)) {
                     validTargets.add(new ElementScope(possibleTarget, true, null, true));
                 }
             }
-        
+
             if (!validTargets.isEmpty()) {
                 ret.put(new ElementScope(possibleSource, true, null, true), validTargets);
             }
         }
         return ret;
     }
-}
 
+}

@@ -1,29 +1,29 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.patterns.apply;
 
 import java.io.IOException;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.services.IServiceConstants;
@@ -66,6 +66,7 @@ public class ApplyPatternHandler {
 
     /**
      * Apply a pattern on the selection.
+     *
      * @param pickingService
      * @param selection the current modelio selection.
      * @param patternService the pattern service.
@@ -75,9 +76,9 @@ public class ApplyPatternHandler {
     @Execute
     public final void execute(@Named(IServiceConstants.ACTIVE_SHELL) final Shell activeShell, @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection, IPatternService patternService, @Named(APPLY_PATTERN_NAME) final String patternName, IModelioPickingService pickingService) {
         IPatternRepository repository = patternService.getCatalog();
-        
+
         final ModelElement selectedElement = (ModelElement) SelectionHelper.getFirst(selection, MObject.class);
-        
+
         CoreSession session = CoreSession.getSession(selectedElement);
         try (ITransaction transaction = session.getTransactionSupport().createTransaction("Apply Pattern")) {
             // Run apply from an existing pattern
@@ -99,12 +100,13 @@ public class ApplyPatternHandler {
             Patterns.LOG.debug(e);
             MessageDialog.openError(activeShell, Patterns.I18N.getString("Gui.ErrorTitle"), e.getMessage());
         }
-        
+
     }
 
     /**
      * Available only when the selection contains only a ModelElement that is neither a project, nor a <<Pattern>> Package.
      * Pattern name must be neither empty nor null.
+     *
      * @param selection the current modelio selection.
      * @return true if the handler can be executed.
      */
@@ -112,7 +114,7 @@ public class ApplyPatternHandler {
     @CanExecute
     public final boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection, @Named(APPLY_PATTERN_NAME) final String patternName) {
         final List<MObject> selectedElements = SelectionHelper.toList(selection, MObject.class);
-        
+
         if (selectedElements.size() == 1) {
             final MObject selectedElement = selectedElements.get(0);
             return selectedElement instanceof ModelElement

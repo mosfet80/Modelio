@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -43,10 +43,10 @@ public class EManifestation extends ENamedElement {
     }
 
     @objid ("78ad4974-a577-45e7-9659-048c5245fcbe")
-    public  EManifestation(org.eclipse.uml2.uml.Manifestation element) {
+    public EManifestation(org.eclipse.uml2.uml.Manifestation element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("04862d70-e9b8-4c2b-a0fd-f3e02420826e")
@@ -54,29 +54,29 @@ public class EManifestation extends ENamedElement {
         List<Manifestation> objingElts = new ArrayList<>();
         EList<?> clientList = this.ecoreElement.getClients();
         EList<?> supplierList = this.ecoreElement.getSuppliers();
-        
+
         for (Object eClient : clientList) {
             if (eClient instanceof org.eclipse.uml2.uml.NamedElement) {
                 org.eclipse.uml2.uml.NamedElement ecoreClient = (org.eclipse.uml2.uml.NamedElement) eClient;
-        
+
                 Object objingClient = ReverseProperties.getInstance().getMappedElement(ecoreClient);
-        
+
                 if ((objingClient != null) && (objingClient instanceof Artifact)) {
-                    
+
                     for (Object eSupplier : supplierList) {
                         if (eSupplier instanceof org.eclipse.uml2.uml.NamedElement) {
                             org.eclipse.uml2.uml.NamedElement ecoreSupplier = (org.eclipse.uml2.uml.NamedElement) eSupplier;
                             Object objingSupplier = ReverseProperties.getInstance().getMappedElement(ecoreSupplier);
-        
+
                             if (objingSupplier != null){
                                 // Warning : unlike in UML2, in Objing,
                                 // org.eclipse.uml2.uml.Manifestation does no inherit from org.eclipse.uml2.uml.Dependency
                                 Manifestation objingTypeOfDependency = createManifestation(
                                         (Artifact) objingClient, (UmlModelElement) objingSupplier);
-        
+
                                 if (objingTypeOfDependency != null
                                         && !objingElts.contains(objingTypeOfDependency))
-        
+
                                     objingElts.add(objingTypeOfDependency);
                             }
                         }
@@ -90,11 +90,11 @@ public class EManifestation extends ENamedElement {
     @objid ("6b992a7f-5df0-432e-aa22-149ea71fa9d2")
     private Manifestation createManifestation(Artifact objingClient, UmlModelElement objingSupplier) {
         Manifestation manif = ReverseProperties.getInstance().getMModelServices().getModelFactory().getFactory(IStandardModelFactory.class).createManifestation();
-        
+
         String name = this.ecoreElement.getName();
         if (EcoreModelNavigation.isNotNull(name))
             manif.setName(name);
-        
+
         manif.setOwner(objingClient);
         manif.setUtilizedElement(objingSupplier);
         return manif;

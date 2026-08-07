@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vbasic.log;
 
@@ -26,7 +26,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  * at compilation time, leaving absolutely no overhead in the code. Inspired by:
  * "MinLog: A low overhead, lightweight logging system." by Nathan Sweet
  * <misc@n4te.com>
- * 
+ *
  * Usage:
  * <pre>
  * if (Log.ENABLED) Log.error("An error message...");
@@ -34,8 +34,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  * <br><b>
  * IMPORTANT NOTE: <br>To benefit from the absence of overhead when ENABLED is compiled to 'false', any logging statement MUST be guarded by a 'if (Log.ENABLED)' condition.
  * </b><br>
- * 
- * 
+ *
  * @author phv
  */
 @objid ("00534e22-da4a-1f33-b94f-001ec947cd2a")
@@ -52,6 +51,7 @@ public class Log {
 
     /**
      * The logging methods
+     *
      * @param message the message
      */
     @objid ("000bfba8-e3a3-1f33-b94f-001ec947cd2a")
@@ -60,6 +60,7 @@ public class Log {
     }
 
     /**
+     *
      * @param format see {@link String#format(String, Object...)}
      * @param args format arguments
      */
@@ -70,6 +71,7 @@ public class Log {
 
     /**
      * Log an exception with its stack trace as error.
+     *
      * @param ex the exception
      */
     @objid ("000c842e-e3a3-1f33-b94f-001ec947cd2a")
@@ -79,6 +81,7 @@ public class Log {
 
     /**
      * Log a warning message.
+     *
      * @param message the message
      */
     @objid ("000c96e4-e3a3-1f33-b94f-001ec947cd2a")
@@ -87,6 +90,7 @@ public class Log {
     }
 
     /**
+     *
      * @param format see {@link String#format(String, Object...)}
      * @param args format arguments
      */
@@ -97,6 +101,7 @@ public class Log {
 
     /**
      * Log an exception with its stack trace as warning.
+     *
      * @param ex the exception
      */
     @objid ("000cddca-e3a3-1f33-b94f-001ec947cd2a")
@@ -106,6 +111,7 @@ public class Log {
 
     /**
      * Log a trace message
+     *
      * @param message the message
      */
     @objid ("000cf198-e3a3-1f33-b94f-001ec947cd2a")
@@ -114,6 +120,7 @@ public class Log {
     }
 
     /**
+     *
      * @param format see {@link String#format(String, Object...)}
      * @param args format arguments
      */
@@ -124,6 +131,7 @@ public class Log {
 
     /**
      * Log an exception with its stack trace as trace.
+     *
      * @param ex the exception
      */
     @objid ("000d3a9a-e3a3-1f33-b94f-001ec947cd2a")
@@ -132,19 +140,20 @@ public class Log {
     }
 
     @objid ("000d6cf4-e3a3-1f33-b94f-001ec947cd2a")
-    private  Log() {
-        
+    private Log() {
+
     }
 
     /**
      * Set the service used to log messages.
+     *
      * @param value the logging service.
      */
     @objid ("63967127-59d8-471f-a406-dd9ea8bb6787")
     public static void setLogger(IBasicLogger value) {
         // Automatically generated method. Please delete this comment before entering specific code.
         logger = value;
-        
+
     }
 
     @objid ("c093f537-ec73-4608-82ca-fedd1296a756")

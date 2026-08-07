@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.view.providers.bytype;
 
@@ -50,15 +50,15 @@ public class ByTypeContentProvider implements ITreeContentProvider, IAuditListen
     private IAuditDiagnostic input;
 
     @objid ("cd375493-a4fe-4dfd-ab76-73fa63b33792")
-    public  ByTypeContentProvider(String jobId) {
+    public ByTypeContentProvider(String jobId) {
         this.jobId = jobId;
-        
+
         this.error = new AuditTypeModel(AuditSeverity.AuditError);
         this.warning = new AuditTypeModel(AuditSeverity.AuditWarning);
         this.infos = new AuditTypeModel(AuditSeverity.AuditAdvice);
-        
+
         this.outdated = true;
-        
+
     }
 
     @objid ("4bde8283-11dd-417e-9580-1547296aa33e")
@@ -73,7 +73,7 @@ public class ByTypeContentProvider implements ITreeContentProvider, IAuditListen
         if (auditDiagnostic == this.input) {
             this.outdated = true;
         }
-        
+
     }
 
     @objid ("79e4dd1a-66b4-40ec-980b-fcb2f986ac74")
@@ -82,14 +82,14 @@ public class ByTypeContentProvider implements ITreeContentProvider, IAuditListen
         if (this.input != null && this.input != newInput) {
             this.input.removeAuditListener(this);
         }
-        
+
         this.input = (IAuditDiagnostic) newInput;
         if (newInput != null) {
             this.input.addAuditListener(this);
         }
-        
+
         this.outdated = true;
-        
+
     }
 
     @objid ("96605a13-1fc3-4e65-9dc0-154be54564a3")
@@ -103,20 +103,20 @@ public class ByTypeContentProvider implements ITreeContentProvider, IAuditListen
     private void refreshFromInput() {
         if (! this.outdated)
             return;
-        
+
         this.outdated = false;
         refreshFrom(this.input);
-        
+
     }
 
     @objid ("2de59b2f-e577-4444-a91b-7eb2f8389740")
     private void refreshFrom(IAuditDiagnostic diagnostic) {
         Collection<IAuditEntry> entries = diagnostic.getEntries(this.jobId);
-        
+
         this.error.clear();
         this.warning.clear();
         this.infos.clear();
-        
+
         for (IAuditEntry entry : entries) {
             switch (entry.getSeverity()) {
             case AuditError:
@@ -132,14 +132,14 @@ public class ByTypeContentProvider implements ITreeContentProvider, IAuditListen
                 break;
             }
         }
-        
+
     }
 
     @objid ("12e7416d-4b59-4607-9e64-fd39b96dcf35")
     @Override
     public Object[] getChildren(Object parentElement) {
         refreshFromInput();
-        
+
         if (parentElement instanceof AuditTypeModel) {
             return ((AuditTypeModel) parentElement).entries.toArray();
         }

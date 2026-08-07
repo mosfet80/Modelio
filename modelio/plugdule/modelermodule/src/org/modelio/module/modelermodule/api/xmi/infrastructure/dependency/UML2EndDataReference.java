@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -61,6 +61,7 @@ public class UML2EndDataReference {
      * Tells whether a {@link UML2EndDataReference proxy} can be instantiated from a {@link MObject} checking it is a {@link Dependency} stereotyped << UML2EndData_Reference >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -71,7 +72,7 @@ public class UML2EndDataReference {
 
     /**
      * Create a new {@link Dependency} stereotyped << UML2EndData_Reference >> then instantiate a {@link UML2EndDataReference} proxy.
-     * 
+     *
      * @return a {@link UML2EndDataReference} proxy on the created {@link Dependency}.
      */
     @objid ("15e7f58c-a7c2-40ff-8112-6b30db538bf4")
@@ -82,9 +83,10 @@ public class UML2EndDataReference {
     }
 
     /**
-     * Tries to instantiate a {@link UML2EndDataReference} proxy from a {@link Dependency} stereotyped << UML2EndData_Reference >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2EndDataReference} proxy from a {@link Dependency} stereotyped << UML2EndData_Reference >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a Dependency
      * @return a {@link UML2EndDataReference} proxy or <i>null</i>.
      */
@@ -94,9 +96,10 @@ public class UML2EndDataReference {
     }
 
     /**
-     * Tries to instantiate a {@link UML2EndDataReference} proxy from a {@link Dependency} stereotyped << UML2EndData_Reference >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2EndDataReference} proxy from a {@link Dependency} stereotyped << UML2EndData_Reference >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link Dependency}
      * @return a {@link UML2EndDataReference} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -126,7 +129,8 @@ public class UML2EndDataReference {
     }
 
     /**
-     * Get the underlying {@link Dependency}. 
+     * Get the underlying {@link Dependency}.
+     *
      * @return the Dependency represented by this proxy, never null.
      */
     @objid ("09d2aab4-db9f-4a34-be22-9d33f5d35bcb")
@@ -138,11 +142,11 @@ public class UML2EndDataReference {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("7122a4ec-5849-4eea-b62d-4c85e1a56646")
-    protected  UML2EndDataReference(Dependency elt) {
+    protected UML2EndDataReference(Dependency elt) {
         this.elt = elt;
     }
 
@@ -162,7 +166,7 @@ public class UML2EndDataReference {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "5d167c0f-df53-11de-b2b1-001302895b2b");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -170,7 +174,7 @@ public class UML2EndDataReference {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

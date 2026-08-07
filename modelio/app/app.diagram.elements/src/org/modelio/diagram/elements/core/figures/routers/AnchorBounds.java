@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures.routers;
 
@@ -36,6 +36,7 @@ import org.modelio.diagram.elements.core.figures.geometry.GeomUtils;
 
 /**
  * Holder for both connection source and target figures bounds.
+ *
  * @since 5.0.2
  */
 @objid ("2a183de1-d064-407d-9561-c56862fdb463")
@@ -65,6 +66,7 @@ public final class AnchorBounds implements Translatable {
      * <p>
      * If the anchor is not attached to a figure or attached to a {@link Connection},
      * returns a a 3x3 sized rectangle centered at the anchor reference point.
+     *
      * @param out the rectangle to fill with the node bounds. a PrecisionRectangle is needed to avoid precision loss on lower zooms levels.
      * @param anchor The anchor.
      * @return out for convenience. Contains the anchor owner bounds.
@@ -79,6 +81,7 @@ public final class AnchorBounds implements Translatable {
      * <p>
      * If the anchor is not attached to a figure or attached to a {@link Connection},
      * returns a 3x3 sized rectangle centered at the anchor location computed with refPoint.
+     *
      * @param out the rectangle to fill with the node bounds. a PrecisionRectangle is needed to avoid precision loss on lower zooms levels.
      * @param anchor The anchor.
      * @param refPoint a reference point in absolute coordinates to call {@link ConnectionAnchor#getLocation(Point)} when anchor is not attached to a node figure.
@@ -108,19 +111,20 @@ public final class AnchorBounds implements Translatable {
             Rectangle usedBounds = f instanceof HandleBounds
                     ? ((HandleBounds) f).getHandleBounds()
                     : f.getBounds();
-        
+
             out.setBounds(usedBounds);
-        
+
             f.translateToAbsolute(out);
             return out;
         }
-        
+
     }
 
     /**
      * Initialize source and target bounds from the given anchors.
      * <p>
      * The bounds will be in absolute coordinates.
+     *
      * @param srcAnchor the source anchor
      * @param targetAnchor the target anchor
      * @return this instance to chain calls
@@ -136,6 +140,7 @@ public final class AnchorBounds implements Translatable {
      * Initialize source and target bounds from the given anchors.
      * <p>
      * The bounds will be in absolute coordinates.
+     *
      * @param srcAnchor the source anchor
      * @param srcRef a source reference point in absolute coordinates to call {@link ConnectionAnchor#getLocation(Point)}.
      * @param targetAnchor the target anchor
@@ -153,6 +158,7 @@ public final class AnchorBounds implements Translatable {
      * Initialize source and target bounds from the given connection.
      * <p>
      * The bounds will be in absolute coordinates.
+     *
      * @param c the connection to use
      * @return this instance to chain calls
      */
@@ -165,6 +171,7 @@ public final class AnchorBounds implements Translatable {
      * Initialize source and target bounds from the given node figures.
      * <p>
      * The bounds will be in absolute coordinates.
+     *
      * @param srcNode the source node figure
      * @param targetNode the target node figure
      * @return this instance to chain calls
@@ -182,6 +189,7 @@ public final class AnchorBounds implements Translatable {
      * Copy constructor from another {@link AnchorBounds}.
      * <p>
      * The bounds will be in same coordinates as the other.
+     *
      * @param other the object to copy
      * @return this instance to chain calls
      */
@@ -194,6 +202,7 @@ public final class AnchorBounds implements Translatable {
 
     /**
      * Convert both bounds to coordinates relative to the given figure.
+     *
      * @param c the figure to use convert coordinates
      * @return this instance
      */
@@ -205,6 +214,7 @@ public final class AnchorBounds implements Translatable {
 
     /**
      * Convert both bounds to coordinates relative to the given figure.
+     *
      * @param c the figure to use convert coordinates
      * @return this instance
      */
@@ -221,16 +231,17 @@ public final class AnchorBounds implements Translatable {
                 "AnchorBounds [source=%s, target=%s]",
                 GeomUtils.toString(this.source),
                 GeomUtils.toString(this.target));
-        
+
     }
 
     /**
      * Expands both bounds by the given delta.
      * <p>
      * The bounds center will stay the same
-     * @see Rectangle#expand(int, int)
+     *
      * @param delta the expansio delta
      * @return this instance
+     * @see Rectangle#expand(int, int)
      */
     @objid ("e3b85764-4bd7-459f-b2b0-910cb51297a0")
     public AnchorBounds expand(int delta) {
@@ -244,7 +255,7 @@ public final class AnchorBounds implements Translatable {
     public void performTranslate(int dx, int dy) {
         this.source.performTranslate(dx, dy);
         this.target.performTranslate(dx, dy);
-        
+
     }
 
     @objid ("dd6aa845-8d36-4640-9355-381ca9287764")
@@ -252,11 +263,12 @@ public final class AnchorBounds implements Translatable {
     public void performScale(double factor) {
         this.target.performScale(factor);
         this.source.performScale(factor);
-        
+
     }
 
     /**
      * Remove from the given points list first at last points that are contained in either the source or target bounds.
+     *
      * @param <T> the type of the elements in the list.
      * @param bendpoints the list to trim
      * @param andTrimFirstLast if true, always remove first point unless link is reflexive, and removes the last point if any
@@ -268,6 +280,7 @@ public final class AnchorBounds implements Translatable {
 
     /**
      * Remove from the given points list first at last points that are contained in either the source or target bounds.
+     *
      * @param <T> the type of the elements in the list.
      * @param bendpoints the list to trim
      * @param locGetter a function to convert a T to a {@link Point}
@@ -284,7 +297,7 @@ public final class AnchorBounds implements Translatable {
             // Remove the first point unless the link is reflexive
             bendpoints.remove(0);
         }
-        
+
         if (!this.target.contains(this.source)) {
             // Remove from the end of the list all points until the first outside the target bounds.
             for (int lastIdx = bendpoints.size() - 1; lastIdx >= 0 && this.target.contains(locGetter.apply(bendpoints.get(lastIdx))); lastIdx--) {
@@ -293,11 +306,12 @@ public final class AnchorBounds implements Translatable {
         } else if (andTrimFirstLast && !bendpoints.isEmpty()) {
             bendpoints.remove(0);
         }
-        
+
     }
 
     /**
      * Remove from the given points list first at last points that are contained in either the source or target bounds.
+     *
      * @param bendpoints the list to trim
      * @param andTrimFirstLast if true, always remove first point unless link is reflexive, and removes the last point if any
      */

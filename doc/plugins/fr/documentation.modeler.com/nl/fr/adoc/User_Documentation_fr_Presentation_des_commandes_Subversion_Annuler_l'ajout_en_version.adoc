@@ -1,0 +1,35 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= La commande "Annuler l'ajout en version"
+
+
+
+===== Description
+
+La commande "Annuler l'ajout en version" annule une commande "Ajouter en version" déjà exécutée, enlevant ainsi l'élément sur lequel elle est lancée de la gestion du travail de groupe. [[Conditions-et-restrictions]]
+
+
+===== Conditions et restrictions
+
+Voici les conditions qui gèrent le lancement de la commande "Annuler l'ajout en version" :
+
+* L'élément doit être un <<User_Documentation_fr_Introduction_aux_modeles_de_travail_SVN_Grains_SVN.adoc#,grain>> ,
+* L'élément a été ajouté en version à travers la commande "Ajouter en version",
+* La commande "Ajouter en version" déjà lancée sur l'élément n'a pas encore été publiée . [[Interface-utilisateur]]
+
+
+===== Interface utilisateur
+
+Aucune fenêtre associée.
+
+
+===== Comportement
+
+L'élément est simplement non-géré par le travail de groupe. Lors de la prochaine opération de livraison, il ne sera pas ajouté en version. Son symbole de statut lui est enlevé dans l'explorateur.
+
+L'élément devient un élément purement local.

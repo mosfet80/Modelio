@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.view.providers.commons;
 
@@ -30,6 +30,7 @@ import org.modelio.audit.plugin.Audit;
  * Base implementation for content providers based on a {@link IAuditDiagnostic} input.
  * <p>
  * It handle registration of itself as an {@link IAuditListener}.
+ *
  * @author cmarin
  * @since 5.4.1
  */
@@ -49,7 +50,7 @@ public abstract class AbstractDiagnosticContentProvider implements IAuditListene
         } else {
             Audit.LOG.debug(new IllegalArgumentException("received notif for a different diagnostic"));
         }
-        
+
     }
 
     @objid ("0e93df8e-f1b8-4bbc-a57a-fd3a8549e1e8")
@@ -59,7 +60,7 @@ public abstract class AbstractDiagnosticContentProvider implements IAuditListene
             this.input.removeAuditListener(this);
             this.input = null;
         }
-        
+
     }
 
     @objid ("80540ec1-a354-41ee-8cb0-4f44cfa37baa")
@@ -69,25 +70,25 @@ public abstract class AbstractDiagnosticContentProvider implements IAuditListene
             if (this.input != null) {
                 this.input.removeAuditListener(this);
             }
-        
+
             this.input = (IAuditDiagnostic) newInput;
             if (newInput != null) {
                 this.input.addAuditListener(this);
             }
         }
-        
+
         this.outdated = true;
-        
+
     }
 
     @objid ("0624673b-48fd-4e5d-a76a-bfa86cae4ab7")
     protected final void refreshFromInput() {
         if (! this.outdated)
             return;
-        
+
         this.outdated = false;
         refreshFrom(this.input);
-        
+
     }
 
     @objid ("1beed9ab-93b1-48ab-b68b-5154855a5475")

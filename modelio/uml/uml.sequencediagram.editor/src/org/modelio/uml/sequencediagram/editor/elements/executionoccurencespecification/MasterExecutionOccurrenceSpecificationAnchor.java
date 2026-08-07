@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.executionoccurencespecification;
 
@@ -26,7 +26,7 @@ import org.eclipse.draw2d.geometry.Point;
 
 /**
  * Anchor defined specifically to handle correct placement of MessageEnds in sequence diagrams.
- * 
+ *
  * @author fpoyer
  */
 @objid ("d8deea32-55b6-11e2-877f-002564c97630")
@@ -39,13 +39,13 @@ class MasterExecutionOccurrenceSpecificationAnchor extends AbstractConnectionAnc
 
     /**
      * C'tor.
+     *
      * @param owner the owner figure on which bounds this anchor will be placed.
      */
     @objid ("d8deea36-55b6-11e2-877f-002564c97630")
-    public  MasterExecutionOccurrenceSpecificationAnchor(IFigure owner) {
+    public MasterExecutionOccurrenceSpecificationAnchor(IFigure owner) {
         super(owner);
         this.lastValidLocation = owner.getBounds().getCenter();
-        
     }
 
     @objid ("d8deea3a-55b6-11e2-877f-002564c97630")
@@ -92,7 +92,6 @@ class MasterExecutionOccurrenceSpecificationAnchor extends AbstractConnectionAnc
             this.lastValidLocation = location.getCopy();
         }
         super.ancestorMoved(figure);
-        
     }
 
 }

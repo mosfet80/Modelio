@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.bpmnDiagrams;
 
 import java.util.ArrayList;
@@ -42,7 +41,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("000cb9c6-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnSubProcessDiagramImpl extends BehaviorDiagramImpl implements BpmnSubProcessDiagram {
-    @objid ("b397be5f-5943-40d6-b54c-f5c730d760d4")
+    @objid ("a91ef974-539b-4b62-a430-3d298385e7d5")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -50,17 +49,17 @@ public class BpmnSubProcessDiagramImpl extends BehaviorDiagramImpl implements Bp
         return super.getCompositionOwner();
     }
 
-    @objid ("195e38b5-4392-420a-b008-683a98a52779")
+    @objid ("7abc0dfe-d2e2-4831-a87e-f9c3c7dafd59")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("90e14e30-101d-4bdd-a4ed-8eb6e23c074f")
+    @objid ("f148a257-cdc0-4286-9e83-ea541f2bfa4a")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitBpmnSubProcessDiagram(this);

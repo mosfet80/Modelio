@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure.properties;
 
 import java.util.ArrayList;
@@ -47,7 +46,7 @@ public class TypedPropertyTableSmClass extends PropertyTableSmClass {
     private SmDependency typeDep;
 
     @objid ("4e36b137-b0d4-484a-a543-871b56c28448")
-    public  TypedPropertyTableSmClass(ISmMetamodelFragment origin) {
+    public TypedPropertyTableSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
@@ -55,7 +54,7 @@ public class TypedPropertyTableSmClass extends PropertyTableSmClass {
     @Override
     public String getName() {
         return "TypedPropertyTable";
-        
+
     }
 
     @objid ("4947598b-832f-4820-9c49-8af5c38368e1")
@@ -68,21 +67,21 @@ public class TypedPropertyTableSmClass extends PropertyTableSmClass {
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return TypedPropertyTable.class;
-        
+
     }
 
     @objid ("8192725a-e47d-4696-8b34-95879b582681")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
     @objid ("a5edd7b7-2a2d-4c74-8d78-59a5ef6b4e39")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
     @objid ("9e4df250-d434-42be-8b9d-239603bbbe5c")
@@ -90,16 +89,15 @@ public class TypedPropertyTableSmClass extends PropertyTableSmClass {
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(PropertyTable.MQNAME);
         this.registerFactory(new TypedPropertyTableObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
-        
+
         // Initialize and register the SmDependency
         this.typeDep = new TypeSmDependency();
         this.typeDep.init("Type", this, metamodel.getMClass(PropertyTableDefinition.MQNAME), 1, 1 , SmDirective.SMCDPARTOF);
         registerDependency(this.typeDep);
-        
-        
+
     }
 
     @objid ("65868714-b035-4ace-beda-f7a08f803277")
@@ -116,7 +114,7 @@ public class TypedPropertyTableSmClass extends PropertyTableSmClass {
         private TypedPropertyTableSmClass smClass;
 
         @objid ("6027065e-7655-45c7-84a6-cdbafe053e33")
-        public  TypedPropertyTableObjectFactory(TypedPropertyTableSmClass smClass) {
+        public TypedPropertyTableObjectFactory(TypedPropertyTableSmClass smClass) {
             this.smClass = smClass;
         }
 
@@ -158,7 +156,7 @@ public class TypedPropertyTableSmClass extends PropertyTableSmClass {
             	this.symetricDep = ((PropertyTableDefinitionSmClass)this.getTarget()).getTypedTableDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

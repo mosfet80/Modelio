@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.ports;
 
@@ -37,7 +37,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Represents a {@link Port}.
- * 
+ *
  * @author phv
  */
 @objid ("363f071a-55b7-11e2-877f-002564c97630")
@@ -65,24 +65,25 @@ public class GmPort extends GmPortContainer {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram in which the Port is unmasked.
      * @param el the unmasked Port.
      * @param ref a reference to the unmasked Port.
      */
     @objid ("36408dbf-55b7-11e2-877f-002564c97630")
-    public  GmPort(IGmDiagram diagram, Port el, MRef ref) {
+    public GmPort(IGmDiagram diagram, Port el, MRef ref) {
         super(diagram,  ref);
         this.element = el;
-        
+
         GmPortPrimaryNode mainNode = new GmPortPrimaryNode(diagram, ref);
         mainNode.setRoleInComposition(MAIN_NODE_ROLE);
         this.addChild(mainNode);
-        
+
         GmPortLabel label = new GmPortLabel(diagram, ref);
         label.setRoleInComposition(GmPortContainer.SATELLITE_ROLE);
         label.setLayoutData(Integer.valueOf(PositionConstants.EAST));
         this.addChild(label);
-        
+
     }
 
     @objid ("36408dcb-55b7-11e2-877f-002564c97630")
@@ -127,7 +128,7 @@ public class GmPort extends GmPortContainer {
      * Empty constructor needed for deserialisation.
      */
     @objid ("36408dde-55b7-11e2-877f-002564c97630")
-    public  GmPort() {
+    public GmPort() {
         super();
     }
 
@@ -148,7 +149,7 @@ public class GmPort extends GmPortContainer {
             break;
         }
         }
-        
+
     }
 
     @objid ("36408de7-55b7-11e2-877f-002564c97630")
@@ -179,17 +180,17 @@ public class GmPort extends GmPortContainer {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmPort.", MINOR_VERSION);
-        
+
     }
 
     @objid ("3642146e-55b7-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (Port) resolveRef(this.getRepresentedRef());
-        
+
     }
 
     @objid ("36421473-55b7-11e2-877f-002564c97630")
@@ -200,6 +201,7 @@ public class GmPort extends GmPortContainer {
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */
@@ -211,6 +213,7 @@ public class GmPort extends GmPortContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */

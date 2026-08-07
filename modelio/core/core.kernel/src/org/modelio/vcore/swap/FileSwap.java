@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.swap;
 
@@ -55,15 +55,16 @@ public class FileSwap implements ISwap {
     private SmMetamodel metamodel;
 
     /**
+     *
      * @param metamodel the metamodel
      * @param swapPath the swap directory
      */
     @objid ("3f1af8fc-7e46-11e1-bee3-001ec947ccaf")
-    public  FileSwap(SmMetamodel metamodel, final File swapPath) {
+    public FileSwap(SmMetamodel metamodel, final File swapPath) {
         this.metamodel = metamodel;
         this.swapPath = swapPath.getAbsolutePath();
         //        Log.trace("Swap initialized to:"+swapPath);
-        
+
     }
 
     @objid ("17df7294-84b6-11e1-b644-001ec947ccaf")
@@ -75,7 +76,7 @@ public class FileSwap implements ISwap {
             Log.warning("Failed to clean the swap space on "+this.swapPath+":");
             Log.warning(e);
         }
-        
+
     }
 
     @objid ("004681ba-702c-1f21-85a5-001ec947cd2a")
@@ -85,16 +86,16 @@ public class FileSwap implements ISwap {
         if (! fileName.isFile()) {
             return null;
         }
-        
+
         try (ObjectInputStream s = new ObjectInputStream(new FileInputStream(fileName))){
-        
+
             SmObjectData data = (SmObjectData) s.readObject();
-        
+
         //            Log.trace("Swap restoring: "+data.getClassOf().getName()+ " "+data.getUuid());
-        
+
             data.setRepositoryObject(this.storeIndex.getObject(s.readInt()));
             data.setMetaOf(this.metaObjectIndex.getObject(s.readInt()));
-        
+
             return data;
         } catch (FileNotFoundException e) {
             throw new IOError(e);
@@ -105,7 +106,7 @@ public class FileSwap implements ISwap {
         } finally {
             //new File(getFileName(id)).delete();
         }
-        
+
     }
 
     @objid ("004649d4-702c-1f21-85a5-001ec947cd2a")
@@ -120,7 +121,7 @@ public class FileSwap implements ISwap {
                     Log.error(e);
                     throw new IOError(e);
                 }
-        
+
     }
 
     @objid ("00465cee-702c-1f21-85a5-001ec947cd2a")
@@ -132,7 +133,7 @@ public class FileSwap implements ISwap {
      * Index that assigns an unique integer to an object and can retrieve one from the other.
      * <p>
      * The objects are all stored by weak reference.
-     * 
+     *
      * @param <T> the type of the elements to index.
      */
     @objid ("3edcfc76-7e46-11e1-bee3-001ec947ccaf")
@@ -161,7 +162,7 @@ public class FileSwap implements ISwap {
         @objid ("3f1af8f0-7e46-11e1-bee3-001ec947ccaf")
         public synchronized T getObject(final int index) {
             WeakReference<T> ref = this.idToObjectMap.get(Integer.valueOf(index));
-            
+
             if (ref == null) {
                 throw new Error(index+" repository object not in map.");
             }
@@ -172,8 +173,8 @@ public class FileSwap implements ISwap {
         }
 
         @objid ("dd913d00-cb55-11e1-87f1-001ec947ccaf")
-        public  Index() {
-            
+        public Index() {
+
         }
 
     }

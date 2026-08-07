@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.activities;
 
 import java.util.ArrayList;
@@ -45,13 +44,13 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00845b16-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnSubProcessImpl extends BpmnActivityImpl implements BpmnSubProcess {
-    @objid ("f0aa1fc8-d41a-4afd-a5c2-54984ab9f00d")
+    @objid ("86cc49c2-95fd-4fda-a1e3-f156f503fc8d")
     @Override
     public EList<BpmnArtifact> getArtifact() {
         return new SmList<>(this, ((BpmnSubProcessSmClass)getClassOf()).getArtifactDep());
     }
 
-    @objid ("a28c4475-00f6-468f-82f5-61f6a23d3112")
+    @objid ("4ad5cdeb-c09f-4485-80b4-629960382b76")
     @Override
     public <T extends BpmnArtifact> List<T> getArtifact(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -64,16 +63,16 @@ public class BpmnSubProcessImpl extends BpmnActivityImpl implements BpmnSubProce
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("5116bfa4-2fb4-4cbd-8552-a02a79b778ef")
+    @objid ("2fa27c79-cd72-435b-8f83-75db362fef27")
     @Override
     public EList<BpmnFlowElement> getFlowElement() {
         return new SmList<>(this, ((BpmnSubProcessSmClass)getClassOf()).getFlowElementDep());
     }
 
-    @objid ("05a70c63-b76d-4de8-a897-7cf569ad27c6")
+    @objid ("6914fc59-cf17-41fd-9df2-54572d8daf1a")
     @Override
     public <T extends BpmnFlowElement> List<T> getFlowElement(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -86,23 +85,23 @@ public class BpmnSubProcessImpl extends BpmnActivityImpl implements BpmnSubProce
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("59ca1f4e-b7c6-40ab-95a0-284461a99cfc")
+    @objid ("6410988a-7e0b-45b4-b7ec-630684651b1e")
     @Override
     public BpmnLaneSet getLaneSet() {
         Object obj = getDepVal(((BpmnSubProcessSmClass)getClassOf()).getLaneSetDep());
         return (obj instanceof BpmnLaneSet)? (BpmnLaneSet)obj : null;
     }
 
-    @objid ("0ad8f51d-cf50-4a4e-ad6c-3092eec9e066")
+    @objid ("79569eb4-42e5-4c82-93eb-db330c12bdeb")
     @Override
     public void setLaneSet(BpmnLaneSet value) {
         appendDepVal(((BpmnSubProcessSmClass)getClassOf()).getLaneSetDep(), (SmObjectImpl)value);
     }
 
-    @objid ("d9cdd8e6-0a0c-48b7-b7cd-bd31f5568a87")
+    @objid ("4bf2994e-fa13-4cb6-ab30-a469169f3403")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -110,17 +109,17 @@ public class BpmnSubProcessImpl extends BpmnActivityImpl implements BpmnSubProce
         return super.getCompositionOwner();
     }
 
-    @objid ("3b77c78a-a73f-4820-8050-69b13247f3e9")
+    @objid ("6e7a2a29-78b0-40b2-8a6a-d8cb018df879")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("6f5a900f-ed44-403d-bdda-929d1eed932d")
+    @objid ("6ee3cbdc-41b8-44d4-8392-eb49c5d692f5")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitBpmnSubProcess(this);

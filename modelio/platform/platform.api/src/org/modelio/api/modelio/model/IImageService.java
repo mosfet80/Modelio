@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.modelio.model;
 
@@ -31,6 +31,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public interface IImageService {
     /**
      * Get the small icon (16x16 pixels) representing the given metaclass.
+     *
      * @param metaclass Java interface of a metamodel metaclass.
      * @return The representing icon.
      * @since 3.7.1
@@ -43,6 +44,7 @@ public interface IImageService {
      * <p>
      * This method return the standard icon of the model object ignoring the stereotypes owned by the object.
      * </p>
+     *
      * @param element the model object for which the icon must be displayed.
      * @return the icon corresponding to the model element.
      * @since 3.7.1
@@ -61,6 +63,7 @@ public interface IImageService {
      * If no such stereotype is found, the method returns the UML image for this element.</li>
      * </ul>
      * </p>
+     *
      * @param element the element for which the image must be returned.
      * @param filter the module to use as filter.
      * @return the image or <code>null</code>.
@@ -71,6 +74,7 @@ public interface IImageService {
 
     /**
      * Get the small icon (16x16 pixels) representing the given metaclass.
+     *
      * @param metaclass A metamodel metaclass.
      * @return The representing icon.
      * @since 4.0
@@ -80,6 +84,7 @@ public interface IImageService {
 
     /**
      * Get the image (32x32 pixels) representing the given metaclass.
+     *
      * @param metaclass Java interface of a metamodel metaclass.
      * @return The representing image.
      * @since 3.7.1
@@ -92,6 +97,7 @@ public interface IImageService {
      * <p>
      * This method return the standard image of the model object ignoring the stereotypes owned by the object.
      * </p>
+     *
      * @param element the model object for which the image must be displayed.
      * @return the image corresponding to the model element.
      * @since 3.7.1
@@ -110,6 +116,7 @@ public interface IImageService {
      * If no such stereotype is found, the method returns the UML image for this element.</li>
      * </ul>
      * </p>
+     *
      * @param element the element for which the image must be returned.
      * @param filter the module to use as filter.
      * @return the image or <code>null</code>.
@@ -120,6 +127,7 @@ public interface IImageService {
 
     /**
      * Get the image (32x32 pixels) representing the given metaclass.
+     *
      * @param metaclass A metamodel metaclass.
      * @return The representing image.
      * @since 4.0
@@ -129,6 +137,7 @@ public interface IImageService {
 
     /**
      * Get the small icon (16x16 pixels) representing the given metaclass.
+     *
      * @param metaclass Java interface of a metamodel metaclass.
      * @return The representing icon.
      * @deprecated use {@link #getIcon(Class) } instead
@@ -153,6 +162,7 @@ public interface IImageService {
      * <p>
      * Note that the concept of first stereotype depends on the Modelio tool configuration especially the current workbench/expertises.
      * </p>
+     *
      * @param element the element for which the image must be returned.
      * @param filter the module to use as filter.
      * @return the image or <code>null</code>.
@@ -163,6 +173,7 @@ public interface IImageService {
 
     /**
      * Get the small icon (16x16 pixels) representing the given metaclass as a {@link QualifiedImage}.
+     *
      * @param metaclass A metamodel metaclass.
      * @return The representing icon.
      * @since 4.0
@@ -183,6 +194,7 @@ public interface IImageService {
      * <p>
      * Note that the concept of first stereotype depends on the Modelio tool configuration especially the current workbench/expertises.
      * </p>
+     *
      * @param element the element for which the image must be returned.
      * @param filter the module to use as filter.
      * @return the image or <code>null</code>.
@@ -193,6 +205,7 @@ public interface IImageService {
 
     /**
      * Get the image (32x32 pixels) representing the given metaclass as a {@link QualifiedImage}.
+     *
      * @param metaclass A metamodel metaclass.
      * @return The representing image.
      * @since 4.0
@@ -205,6 +218,7 @@ public interface IImageService {
      * <p>
      * The life cycle of the returned image is handled by the owner module and the image should not be disposed.
      * </p>
+     *
      * @param stereotype a stereotype
      * @return the stereotype image, or <i>null</i> if the module provides none.
      * @since 3.7.1
@@ -217,6 +231,7 @@ public interface IImageService {
      * <p>
      * The life cycle of the returned image is handled by the owner module and the image should not be disposed.
      * </p>
+     *
      * @param stereotype a stereotype
      * @return the stereotype image, or <i>null</i> if the module provides none.
      * @since 3.7.1
@@ -235,6 +250,7 @@ public interface IImageService {
      * If no such stereotype is found, the method returns the UML image for this element.</li>
      * </ul>
      * </p>
+     *
      * @param element the element for which the image must be returned.
      * @param filter the module to use as filter.
      * @param useCmsDecoration this parameter is no longer used.
@@ -252,6 +268,7 @@ public interface IImageService {
      * <p>
      * This method return the standard icon of the model object ignoring the stereotypes owned by the object.
      * </p>
+     *
      * @param element the model object for which the icon must be displayed.
      * @param useCmsDecoration this parameter is no longer used.
      * @return the icon corresponding to the model element.
@@ -262,5 +279,5 @@ public interface IImageService {
     default Image getUmlImage(MObject element, final boolean useCmsDecoration) {
         return getIcon(element);
     }
-}
 
+}

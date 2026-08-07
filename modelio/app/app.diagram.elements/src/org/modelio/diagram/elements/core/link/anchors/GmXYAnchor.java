@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.anchors;
 
@@ -28,7 +28,7 @@ import org.modelio.diagram.persistence.IPersistent;
 
 /**
  * Represents a {@link org.eclipse.draw2d.XYAnchor}
- * 
+ *
  * @author cmarin
  */
 @objid ("7fe2c160-1dec-11e2-8cad-001ec947c8cc")
@@ -41,10 +41,11 @@ public class GmXYAnchor implements IPersistent {
 
     /**
      * Constructor
+     *
      * @param ref the position of the reference point in absolute coordinates.
      */
     @objid ("7fe2c167-1dec-11e2-8cad-001ec947c8cc")
-    public  GmXYAnchor(final Point ref) {
+    public GmXYAnchor(final Point ref) {
         this.ref = ref;
     }
 
@@ -52,12 +53,13 @@ public class GmXYAnchor implements IPersistent {
      * For deserialization.
      */
     @objid ("7fe2c16e-1dec-11e2-8cad-001ec947c8cc")
-    public  GmXYAnchor() {
-        
+    public GmXYAnchor() {
+
     }
 
     /**
      * Get the anchor location.
+     *
      * @return the position of the anchor in absolute coordinates.
      */
     @objid ("7fe2c171-1dec-11e2-8cad-001ec947c8cc")
@@ -79,6 +81,7 @@ public class GmXYAnchor implements IPersistent {
 
     /**
      * Set the anchor location.
+     *
      * @param ref the position of the anchor in absolute coordinates.
      */
     @objid ("7fe2c180-1dec-11e2-8cad-001ec947c8cc")
@@ -108,10 +111,10 @@ public class GmXYAnchor implements IPersistent {
     @Override
     public boolean equals(Object obj) {
         // Automatically generated method.Please delete this comment before entering specific code.
-        
+
         if (this == obj) return true;
         if (this.getClass() != obj.getClass()) return false;
-        
+
         GmXYAnchor other = (GmXYAnchor)obj;
         if (!Objects.equals(this.ref, other.ref)) return false;
         return true;

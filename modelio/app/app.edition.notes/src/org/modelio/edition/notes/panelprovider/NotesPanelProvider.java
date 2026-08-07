@@ -1,28 +1,28 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.edition.notes.panelprovider;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
@@ -103,24 +103,24 @@ public class NotesPanelProvider implements IPanelProvider {
      * For E4 injection only, use #NotesPanelProvider(IEclipseContext, IActivationService) instead.
      */
     @objid ("0e8d446f-569f-4968-8a2e-87edfb1f527e")
-    public  NotesPanelProvider() {
+    public NotesPanelProvider() {
         // Empty
     }
 
     /**
      * Constructor to use if you don't use Eclipse E4 injection.
+     *
      * @param context the E4 context, <i>null</i> allowed and means read only panel.
      * @param theActivationService Activate the 'double-click' activation by setting 'activationService' to a not <i>null</i> value.<br/>
      * De-activate the 'double-click' activation by setting 'activationService' to a <i>null</i> value.
      */
     @objid ("83c641c1-d2bc-4f66-99bd-cabf3df48b2c")
-    public  NotesPanelProvider(IEclipseContext context, @Optional IActivationService theActivationService) {
+    public NotesPanelProvider(IEclipseContext context, @Optional IActivationService theActivationService) {
         if (context != null) {
             ContextInjectionFactory.inject(this, context);
         }
-        
+
         postConstruct(context, theActivationService);
-        
     }
 
     /**
@@ -141,7 +141,6 @@ public class NotesPanelProvider implements IPanelProvider {
     public void dispose() {
         this.controller.dispose();
         // do not drop the controller reference: it is never instantiated again.
-        
     }
 
     @objid ("e9a7ce14-a3c6-4829-b389-681aacaf9110")
@@ -171,6 +170,7 @@ public class NotesPanelProvider implements IPanelProvider {
     }
 
     /**
+     *
      * @return the selected notes/tags/stereotypes ...
      */
     @objid ("60b95b64-f852-44a9-8233-9af68f8e744c")
@@ -179,6 +179,7 @@ public class NotesPanelProvider implements IPanelProvider {
     }
 
     /**
+     *
      * @return the notes panel tree viewer.
      */
     @objid ("5b61359c-a02c-4547-aadc-8b0907cfd0ff")
@@ -194,7 +195,6 @@ public class NotesPanelProvider implements IPanelProvider {
         } else {
             return obj instanceof ModelElement;
         }
-        
     }
 
     /**
@@ -202,6 +202,7 @@ public class NotesPanelProvider implements IPanelProvider {
      * rich note.
      * <p>
      * Other elements are ignored.
+     *
      * @param target the element to set as input
      */
     @objid ("7806c658-7cea-4bed-b493-f50aabbdb666")
@@ -213,7 +214,6 @@ public class NotesPanelProvider implements IPanelProvider {
                 setInput(target);
             }
         }
-        
     }
 
     /**
@@ -221,6 +221,7 @@ public class NotesPanelProvider implements IPanelProvider {
      * a not <i>null</i> value.<br/>
      * De-activate the 'double-click' activation by setting 'activationService'
      * to a <i>null</i> value.
+     *
      * @param activationService the activation service or null
      */
     @objid ("2f41c272-9cf6-4699-948b-786aadaa030e")
@@ -228,9 +229,8 @@ public class NotesPanelProvider implements IPanelProvider {
         if (this.controller == null) {
             throw new IllegalStateException(); // call postConstruct() or use other constructor
         }
-        
+
         this.controller.setActivationService(activationService);
-        
     }
 
     /**
@@ -241,11 +241,11 @@ public class NotesPanelProvider implements IPanelProvider {
         if (this.view != null) {
             this.view.getComposite().setFocus();
         }
-        
     }
 
     /**
      * Set the current element displayed by the view.
+     *
      * @param input the ISelection whose notes are to be listed in the tree panel.
      * May be empty or null.
      */
@@ -260,7 +260,7 @@ public class NotesPanelProvider implements IPanelProvider {
         } else {
             me = null;
         }
-        
+
         if (this.controller == null) {
             if (me != null) {
                 // Activate the controller
@@ -276,11 +276,11 @@ public class NotesPanelProvider implements IPanelProvider {
                 this.controller.setInputs(getInput(), null);
             }
         }
-        
     }
 
     /**
      * Select the given annotation element.
+     *
      * @param select the annotation to select
      */
     @objid ("ec2d1ce6-37fd-4a68-b4ec-afbeacefe999")
@@ -292,6 +292,7 @@ public class NotesPanelProvider implements IPanelProvider {
      * Called after injection completed.
      * <p>
      * Initialize the activation service
+     *
      * @param theActivationService the activation service (optional)
      */
     @objid ("142683ee-5e90-4a89-bc57-fb3196e519a3")
@@ -299,10 +300,10 @@ public class NotesPanelProvider implements IPanelProvider {
     void postConstruct(IEclipseContext context, @Optional IActivationService theActivationService) {
         this.controller = new NotesPanelController(context);
         setActivationService(theActivationService);
-        
     }
 
     /**
+     *
      * @param project the edited project
      */
     @objid ("891e9a63-b807-4914-bf0a-887f7045de2b")
@@ -311,11 +312,10 @@ public class NotesPanelProvider implements IPanelProvider {
         if (this.session != null) {
             deactivatePanel();
         }
-        
+
         // Set up for new project
         this.session = project.getSession();
         this.modelServices = new MModelServices(this.session);
-        
     }
 
     @objid ("1b4bf2b3-b7dd-483b-a9c2-736b21d5f5bb")
@@ -323,10 +323,9 @@ public class NotesPanelProvider implements IPanelProvider {
         if (this.controller != null) {
             setInput(null);
         }
-        
+
         this.modelServices = null;
         this.session = null;
-        
     }
 
 }

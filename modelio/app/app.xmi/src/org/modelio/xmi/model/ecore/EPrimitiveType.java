@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -46,10 +46,10 @@ public class EPrimitiveType extends ENamedElement {
     }
 
     @objid ("c0fae08b-dcd5-4656-bfea-2f9903c1190e")
-    public  EPrimitiveType(org.eclipse.uml2.uml.PrimitiveType element) {
+    public EPrimitiveType(org.eclipse.uml2.uml.PrimitiveType element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("afa84d8e-4259-45d2-8f56-659653530dff")
@@ -57,21 +57,21 @@ public class EPrimitiveType extends ENamedElement {
     public void attach(Element objingElt) {
         if (!EcorePrimitiveTypeMapper.isPredefinedType(this.ecoreElement)){
             ReverseProperties revProp = ReverseProperties.getInstance();
-        
+
             // we get the owner
             org.eclipse.uml2.uml.Element ecoreOwner = this.ecoreElement.getOwner();
-        
+
             Object objingOwner =  revProp.getMappedElement(ecoreOwner);
-        
-            if ((objingOwner != null) 
-                    &&  (objingOwner instanceof ModelTree) 
+
+            if ((objingOwner != null)
+                    &&  (objingOwner instanceof ModelTree)
                     && ! (objingOwner instanceof Profile)){
                 ((GeneralClass)objingElt).setOwner((ModelTree)objingOwner);
             }else
-                ((GeneralClass)objingElt).setOwner(ReverseProperties.getInstance().getExternalPackage());      
-        
+                ((GeneralClass)objingElt).setOwner(ReverseProperties.getInstance().getExternalPackage());
+
         }
-        
+
     }
 
     @objid ("c1dbea71-c4f0-4407-ba1e-5016f0dd1f85")
@@ -82,19 +82,19 @@ public class EPrimitiveType extends ENamedElement {
             if (objingElt instanceof GeneralClass){
                 setVisibility((GeneralClass)objingElt);
             }
-        
+
             if (objingElt instanceof DataType) {
                 setAbstract((DataType) objingElt);
                 setLeaf((DataType) objingElt);
-        
+
                 if (ReverseProperties.getInstance().isRoundtripEnabled()) {
                     setPrimitiveEAnnotation((DataType) objingElt);
                     setRootEAnnotation((DataType) objingElt);
                 }
-        
+
             }
         }
-        
+
     }
 
     @objid ("23a7ef13-5c2b-4bff-9298-1a57ee0a8a69")
@@ -135,11 +135,11 @@ public class EPrimitiveType extends ENamedElement {
         default:
             objingElt.setVisibility(VisibilityMode.PUBLIC);
         }
-        
+
         if (ObjingEAnnotation.isUndefined(this.ecoreElement))
             objingElt
             .setVisibility(VisibilityMode.VISIBILITYUNDEFINED);
-        
+
     }
 
 }

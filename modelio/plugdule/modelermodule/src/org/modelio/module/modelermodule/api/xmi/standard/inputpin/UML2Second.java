@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class UML2Second {
      * Tells whether a {@link UML2Second proxy} can be instantiated from a {@link MObject} checking it is a {@link InputPin} stereotyped << UML2Second >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,7 +73,7 @@ public class UML2Second {
 
     /**
      * Create a new {@link InputPin} stereotyped << UML2Second >> then instantiate a {@link UML2Second} proxy.
-     * 
+     *
      * @return a {@link UML2Second} proxy on the created {@link InputPin}.
      */
     @objid ("b5038207-9424-455e-8377-e18b321638c0")
@@ -83,9 +84,10 @@ public class UML2Second {
     }
 
     /**
-     * Tries to instantiate a {@link UML2Second} proxy from a {@link InputPin} stereotyped << UML2Second >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2Second} proxy from a {@link InputPin} stereotyped << UML2Second >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a InputPin
      * @return a {@link UML2Second} proxy or <i>null</i>.
      */
@@ -95,9 +97,10 @@ public class UML2Second {
     }
 
     /**
-     * Tries to instantiate a {@link UML2Second} proxy from a {@link InputPin} stereotyped << UML2Second >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2Second} proxy from a {@link InputPin} stereotyped << UML2Second >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link InputPin}
      * @return a {@link UML2Second} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -127,7 +130,8 @@ public class UML2Second {
     }
 
     /**
-     * Get the underlying {@link InputPin}. 
+     * Get the underlying {@link InputPin}.
+     *
      * @return the InputPin represented by this proxy, never null.
      */
     @objid ("abf3e376-c3e4-4f21-9d6a-d162311b897a")
@@ -139,11 +143,11 @@ public class UML2Second {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("5d126106-e358-4fa0-b6d5-96a9e9b2a7ca")
-    protected  UML2Second(InputPin elt) {
+    protected UML2Second(InputPin elt) {
         this.elt = elt;
     }
 
@@ -163,7 +167,7 @@ public class UML2Second {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "3f03c5f1-c308-11de-8ac8-001302895b2b");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -171,7 +175,7 @@ public class UML2Second {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

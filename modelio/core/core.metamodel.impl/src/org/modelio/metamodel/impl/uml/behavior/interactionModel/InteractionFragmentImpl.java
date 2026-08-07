@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
 import java.util.ArrayList;
@@ -46,51 +45,51 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00473c54-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class InteractionFragmentImpl extends UmlModelElementImpl implements InteractionFragment {
-    @objid ("8e1600f9-e8a2-4ac9-bf64-059e2eda8a6e")
+    @objid ("076dd329-3525-4d1e-8d59-278d7b5dfe49")
     @Override
     public int getLineNumber() {
         return (Integer) getAttVal(((InteractionFragmentSmClass)getClassOf()).getLineNumberAtt());
     }
 
-    @objid ("9a1cf0ab-1128-4bac-8c3b-c51589f0d73c")
+    @objid ("0dcabd4b-4006-4fc4-bc36-4e2c54b57bf7")
     @Override
     public void setLineNumber(int value) {
         setAttVal(((InteractionFragmentSmClass)getClassOf()).getLineNumberAtt(), value);
     }
 
-    @objid ("775e1794-c2c2-4c7f-8cc5-718ac4083620")
+    @objid ("3689587c-d9f8-45a1-a3a9-8e74ead3ec56")
     @Override
     public InteractionOperand getEnclosingOperand() {
         Object obj = getDepVal(((InteractionFragmentSmClass)getClassOf()).getEnclosingOperandDep());
         return (obj instanceof InteractionOperand)? (InteractionOperand)obj : null;
     }
 
-    @objid ("f98f6c78-a9ce-443d-963a-ddf3189db45e")
+    @objid ("75fd5c76-b0ee-4efa-8371-47f1a4a474c1")
     @Override
     public void setEnclosingOperand(InteractionOperand value) {
         appendDepVal(((InteractionFragmentSmClass)getClassOf()).getEnclosingOperandDep(), (SmObjectImpl)value);
     }
 
-    @objid ("d4a12932-ebef-4289-a94c-e4bce4f7dcad")
+    @objid ("4d758b78-ddb0-480b-9a2b-dd2626d81c28")
     @Override
     public Interaction getEnclosingInteraction() {
         Object obj = getDepVal(((InteractionFragmentSmClass)getClassOf()).getEnclosingInteractionDep());
         return (obj instanceof Interaction)? (Interaction)obj : null;
     }
 
-    @objid ("7f8925d4-a28c-47dd-87e7-ed6cf2e5e5c4")
+    @objid ("e3696fbd-5884-4151-9fb0-c050e4a7e499")
     @Override
     public void setEnclosingInteraction(Interaction value) {
         appendDepVal(((InteractionFragmentSmClass)getClassOf()).getEnclosingInteractionDep(), (SmObjectImpl)value);
     }
 
-    @objid ("4ca1a84c-3127-41cb-9bad-a467aaec89b9")
+    @objid ("98a6cacb-6be0-4bf1-a47f-933a4ec3b264")
     @Override
     public EList<Lifeline> getCovered() {
         return new SmList<>(this, ((InteractionFragmentSmClass)getClassOf()).getCoveredDep());
     }
 
-    @objid ("5c125070-91ab-43bf-b8ee-640b89fa1fe7")
+    @objid ("62b5448e-1585-4ae1-b428-d285909d1d88")
     @Override
     public <T extends Lifeline> List<T> getCovered(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -103,10 +102,10 @@ public abstract class InteractionFragmentImpl extends UmlModelElementImpl implem
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("a28c3117-b548-4faf-8560-03b8532b6abc")
+    @objid ("7cfb490c-5e65-4392-872d-0806a9a6bcf5")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -122,27 +121,27 @@ public abstract class InteractionFragmentImpl extends UmlModelElementImpl implem
         return super.getCompositionOwner();
     }
 
-    @objid ("53c818fe-6e1a-4faf-b15d-2491e5d863fb")
+    @objid ("658008b0-57f4-4f08-9de2-c43e6b114c12")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // EnclosingOperand
         dep = ((InteractionFragmentSmClass)getClassOf()).getEnclosingOperandDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         // EnclosingInteraction
         dep = ((InteractionFragmentSmClass)getClassOf()).getEnclosingInteractionDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("3ed4df47-46e8-4065-ad13-3d936c0a97dc")
+    @objid ("cf52bacc-1de5-4322-9e92-9e2e2a945a12")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitInteractionFragment(this);

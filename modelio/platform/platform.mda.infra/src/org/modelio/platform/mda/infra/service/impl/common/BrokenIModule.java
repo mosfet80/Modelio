@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.mda.infra.service.impl.common;
 
@@ -48,7 +48,7 @@ import org.modelio.vbasic.version.Version;
 
 /**
  * {@link IModule} Implementation for broken modules.
- * 
+ *
  * @author cmarin
  */
 @objid ("c5296d3c-bad5-49e6-bfa7-069c449b30df")
@@ -69,19 +69,20 @@ public class BrokenIModule implements IModule {
     private Image moduleImage;
 
     /**
+     *
      * @param gmodule the GModule
      * @param userConfiguration the module configuration
      * @param downError the broken cause
      */
     @objid ("1b98cff1-630d-4ae2-a93d-b75d2dcf20d5")
-    public  BrokenIModule(GModule gmodule, IModuleUserConfiguration userConfiguration, Throwable downError) {
+    public BrokenIModule(GModule gmodule, IModuleUserConfiguration userConfiguration, Throwable downError) {
         this.gModule = gmodule;
         this.moduleComponent = gmodule.getModuleElement();
         this.moduleConfiguration = userConfiguration;
         this.downError = downError;
-        
+
         loadModuleImage();
-        
+
     }
 
     @objid ("d83e8454-ccdb-47b2-9da0-44721c7a240c")
@@ -89,13 +90,13 @@ public class BrokenIModule implements IModule {
     public String getDescription() {
         final StringWriter sw = new StringWriter();
         final PrintWriter sb = new PrintWriter(sw);
-        
+
         Throwable cause = this.downError;
         if (cause != null) {
             String scause = cause.getLocalizedMessage();
             sb.println(MdaInfra.I18N.getMessage("BrokenModule.desc", getName(),
                     getVersion(), scause));
-        
+
             sb.println(MdaInfra.I18N.getMessage("BrokenModule.cause"));
             sb.println();
             cause.printStackTrace(sb);
@@ -185,7 +186,7 @@ public class BrokenIModule implements IModule {
                         .getModuleResourcesPath();
                 Path imageFile = moduleDirectory.resolve(relativePath
                         .substring(1));
-        
+
                 if (Files.isRegularFile(imageFile)) {
                     this.moduleImage = new Image(null, imageFile.toFile()
                             .getAbsolutePath());
@@ -194,7 +195,7 @@ public class BrokenIModule implements IModule {
         } catch (Exception e) {
             MdaInfra.LOG.error(e.getMessage());
         }
-        
+
     }
 
     @objid ("d559bc44-c49b-40dd-b5b3-7b68355e9e37")

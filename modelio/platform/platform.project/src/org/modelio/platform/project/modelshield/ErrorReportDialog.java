@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.project.modelshield;
 
@@ -35,6 +35,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.modelio.platform.project.plugin.AppProjectCore;
+import org.modelio.platform.ui.swt.BrowserConfigurator;
 import org.modelio.vcore.smkernel.mapi.modelshield.api.IErrorReport;
 import org.modelio.vcore.smkernel.mapi.modelshield.api.IModelError;
 
@@ -56,14 +57,14 @@ public class ErrorReportDialog extends IconAndMessageDialog {
     private String htmlErrorReport;
 
     @objid ("4fc27ce6-7554-4419-aa90-99f8fdeb90cb")
-    protected  ErrorReportDialog(Shell parentShell, String dialogTitle, String message, String htmlErrorReport) {
+    protected ErrorReportDialog(Shell parentShell, String dialogTitle, String message, String htmlErrorReport) {
         super(parentShell);
         setShellStyle(getShellStyle() | SWT.RESIZE);
-        
+
         this.title = (dialogTitle == null) ? "" : dialogTitle;
         this.message = (message == null) ? "" : message;
         this.htmlErrorReport = htmlErrorReport;
-        
+
     }
 
     @objid ("14f04041-5563-4339-9548-9ee647cc9931")
@@ -77,14 +78,14 @@ public class ErrorReportDialog extends IconAndMessageDialog {
     protected Control createDialogArea(Composite parent) {
         createMessageArea(parent);
         getShell().setText(this.title);
-        
-        Browser browser = new Browser(parent, SWT.BORDER);
+
+        Browser browser = BrowserConfigurator.newBrowser(parent, SWT.BORDER);
         GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
         gd.horizontalSpan = 2;
         gd.widthHint = 600;
         gd.heightHint = 350;
         browser.setLayoutData(gd);
-        
+
         // Fill contents
         browser.setText(this.htmlErrorReport);
         return parent;
@@ -114,6 +115,7 @@ public class ErrorReportDialog extends IconAndMessageDialog {
      * Open an audit report dialog.
      * <p>
      * The method returns immediately and the dialog is not modal.
+     *
      * @param dialogTitle dialog title
      * @param message dialog message displayed just before the report.
      * @param errorReport the audit report to display.
@@ -121,18 +123,18 @@ public class ErrorReportDialog extends IconAndMessageDialog {
     @objid ("5b7d7cd0-a738-44d2-a4a4-b8341db3912b")
     public static void open(final String dialogTitle, final String message, final IErrorReport errorReport) {
         Display display = Display.getDefault();
-        
+
         display.syncExec(() -> {
             // Build the HTMl before the transaction is rollbacked:
             // After roll back objects loose the modification that made them
             // invalid,
             // created objects become deleted and have no name, ...
             final String htmlReport = ErrorReportDialog.buildHtmlReport(errorReport);
-        
+
             // The report dialog can open later
             display.asyncExec(() -> new ErrorReportDialog(display.getActiveShell(), dialogTitle, message, htmlReport).open());
         });
-        
+
     }
 
     @objid ("4fc80fb1-3f2e-46b2-9369-33fbf1dc35bd")
@@ -142,18 +144,18 @@ public class ErrorReportDialog extends IconAndMessageDialog {
             msg.append("<head><style>");
             msg.append(ErrorReportDialog.getInlineCSS());
             msg.append("</style></head>");
-        
+
             msg.append("<p>");
             msg.append("<div id = \"what\">");
             msg.append(error.getRuleId() + ": ");
             msg.append(ErrorFormatter.getWhat(error));
             msg.append("</div>");
-        
+
             msg.append("<br/><span id=\"desc\">");
             msg.append(ErrorFormatter.getDescription(error));
             msg.append("</span>");
             msg.append("</p>");
-        
+
         }
         return msg.toString();
     }
@@ -182,7 +184,7 @@ public class ErrorReportDialog extends IconAndMessageDialog {
                 AppProjectCore.LOG.warning("Missing i18n for " + key);
                 return "!" + key + "!";
             }
-            
+
         }
 
         @objid ("6e89096d-6b66-440f-a4c4-e8d3505dfe54")
@@ -194,7 +196,7 @@ public class ErrorReportDialog extends IconAndMessageDialog {
                 AppProjectCore.LOG.warning("Missing i18n for " + key);
                 return "!" + key + "!";
             }
-            
+
         }
 
         @objid ("9def5e99-268d-40e3-8525-0a1b2eec0399")

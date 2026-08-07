@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -65,7 +65,7 @@ public class R1780 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -85,7 +85,7 @@ public class R1780 extends AbstractUmlRule {
         // Namespaces
         plan.registerRule(Package.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Collaboration.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         // Namespaces.Classifiers
         plan.registerRule(InformationItem.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Artifact.MQNAME, this, AuditTrigger.UPDATE);
@@ -99,9 +99,9 @@ public class R1780 extends AbstractUmlRule {
         plan.registerRule(UseCase.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Node.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Component.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         plan.registerRule(Instance.MQNAME, this, AuditTrigger.UPDATE | AuditTrigger.MOVE | AuditTrigger.CREATE);
-        
+
     }
 
     /**
@@ -135,14 +135,14 @@ public class R1780 extends AbstractUmlRule {
      * Default constructor for R1780
      */
     @objid ("489438ce-f70b-4646-a7ea-fd504f23f021")
-    public  R1780() {
+    public R1780() {
         this.checkerInstance = new CheckR1780(this);
     }
 
     @objid ("33d54c9a-511d-4ad0-9cdb-edb505f82dac")
     private static class CheckR1780 extends AbstractControl {
         @objid ("a3f7b6d8-9452-4121-a2f8-ffabe2d8606b")
-        public  CheckR1780(IRule rule) {
+        public CheckR1780(IRule rule) {
             super(rule);
         }
 
@@ -171,9 +171,9 @@ public class R1780 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     nameSpace,
                     null);
-            
+
             Map<String, List<Instance>> duplicates = new HashMap<>();
-            
+
             for (Instance me : nameSpace.getDeclared()) {
                 String name = me.getName();
                 if (!duplicates.containsKey(name)) {
@@ -181,12 +181,12 @@ public class R1780 extends AbstractUmlRule {
                 }
                 duplicates.get(me.getName()).add(me);
             }
-            
+
             for (Entry<String, List<Instance>> entry : duplicates.entrySet()) {
                 if (entry.getValue().size() > 1) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(nameSpace);

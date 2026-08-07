@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.modelio.diagram;
 
@@ -36,7 +36,7 @@ import org.eclipse.draw2d.geometry.Point;
  * .finishVerticalThenHorizontal(false)
  * .apply();
  * </code></pre>
- * 
+ *
  * @since 5.1.0
  */
 @objid ("3f3ae2f5-9ccd-41fd-a8ca-cc0845bb53f6")
@@ -45,6 +45,7 @@ public interface ILinkRouteBuilder {
      * Request to anchor the connection source point at a given location.
      * <p>
      * The real anchor location may be different from the requested one.
+     *
      * @param loc the point location
      * @param sliding true to request a sliding anchor, false to request a fixed anchor.
      * @return the route builder to use for next steps.
@@ -56,6 +57,7 @@ public interface ILinkRouteBuilder {
      * Request to anchor the connection source point on the middle of a given face.
      * <p>
      * The real anchor location may be different from the requested one.
+     *
      * @param face the desired false
      * @param sliding true to request a sliding anchor, false to request a fixed anchor.
      * @return the route builder to use for next steps.
@@ -65,6 +67,7 @@ public interface ILinkRouteBuilder {
 
     /**
      * Request to anchor the connection source point on the nearst face toward target node.
+     *
      * @param sliding true to request a sliding anchor, false to request a fixed anchor.
      * @return the route builder to use for next steps.
      */
@@ -77,6 +80,7 @@ public interface ILinkRouteBuilder {
      * Depending on the face the fraction starts on the left or from the top.
      * <p>
      * The real anchor location may be different from the requested one.
+     *
      * @param face the desired false
      * @param numerator the fraction numerator. 0 means top or left, 'denominator' means bottom or right.
      * @param denominator the fraction denominator.
@@ -98,7 +102,7 @@ public interface ILinkRouteBuilder {
             .addHorizontalSegment(200, false)
             .finishVerticalThenHorizontal(false)
             .apply();
-            
+
         }
 
     }
@@ -107,7 +111,7 @@ public interface ILinkRouteBuilder {
      * {@link ILinkRouteBuilder} at target anchor state.
      * <p>
      * Choose a target anchor to get further.
-     * 
+     *
      * @since 5.1.0
      */
     @objid ("82ddead6-fd80-4d0b-96e9-7c4c3755910d")
@@ -116,6 +120,7 @@ public interface ILinkRouteBuilder {
          * Request to anchor the connection target point at a given location.
          * <p>
          * The real anchor location may be different from the requested one.
+         *
          * @param loc the point location
          * @param sliding true to request a sliding anchor, false to request a fixed anchor.
          * @return the route builder to use for next steps.
@@ -127,6 +132,7 @@ public interface ILinkRouteBuilder {
          * Request to anchor the connection target point on the middle of a given face.
          * <p>
          * The real anchor location may be different from the requested one.
+         *
          * @param face the desired false
          * @param sliding true to request a sliding anchor, false to request a fixed anchor.
          * @return the route builder to use for next steps.
@@ -136,6 +142,7 @@ public interface ILinkRouteBuilder {
 
         /**
          * Request to anchor the connection target point on the nearest face toward source node.
+         *
          * @param sliding true to request a sliding anchor, false to request a fixed anchor.
          * @return the route builder to use for next steps.
          */
@@ -148,6 +155,7 @@ public interface ILinkRouteBuilder {
          * Depending on the face the fraction starts on the left or from the top.
          * <p>
          * The real anchor location may be different from the requested one.
+         *
          * @param face the desired false
          * @param numerator the fraction numerator. 0 means top or left, 'denominator' means bottom or right.
          * @param denominator the fraction denominator.
@@ -156,8 +164,8 @@ public interface ILinkRouteBuilder {
          */
         @objid ("82be7418-07a4-4eee-9768-1bbd740676a6")
         BendPoints setTargetAnchor(LinkAnchorFace face, int numerator, int denominator, boolean sliding);
-}
-    
+
+    }
 
     /**
      * {@link ILinkRouteBuilder} at bend points state.
@@ -165,7 +173,7 @@ public interface ILinkRouteBuilder {
      * User may add bend points or fixed bend points using the helper methods.
      * <p>
      * Finish and apply the route with {@link #apply()}.
-     * 
+     *
      * @since 5.1.0
      */
     @objid ("3c003dfc-a481-40c8-b132-fb7ab76fb956")
@@ -176,6 +184,7 @@ public interface ILinkRouteBuilder {
          * The returned list is a direct reference, modifying it modifies the {@link ILinkRoute}.
          * It does not modify the connection from which this path was built.
          * The path must be applied to the {@link IDiagramLink#setRoute(ILinkRoute)}.
+         *
          * @return the points in coordinates relative to the diagram.
          */
         @objid ("89f0f506-a09e-4f4f-89cc-5acbc20dfe35")
@@ -183,6 +192,7 @@ public interface ILinkRouteBuilder {
 
         /**
          * Create a new bend point.
+         *
          * @param loc the point location
          * @return the route builder to use for next steps.
          */
@@ -191,6 +201,7 @@ public interface ILinkRouteBuilder {
 
         /**
          * Create a new fixed bend point.
+         *
          * @param loc the point location
          * @return the route builder to use for next steps.
          */
@@ -199,6 +210,7 @@ public interface ILinkRouteBuilder {
 
         /**
          * Add one horizontal segment with y aligned with previous point.
+         *
          * @param nextBendPointX the bend point X position.
          * @param fixed true to make the bend point is fixed.
          * @return this route instance
@@ -208,6 +220,7 @@ public interface ILinkRouteBuilder {
 
         /**
          * Add one vertical segment with x aligned with previous point.
+         *
          * @param nextBendPointY the bend point Y position.
          * @param fixed true to make the bend point is fixed.
          * @return this route instance
@@ -220,6 +233,7 @@ public interface ILinkRouteBuilder {
          * one vertical with x aligned with target anchor.
          * <p>
          * You should call {@link #apply()} after this method.
+         *
          * @param fixed true to make the bend point is fixed.
          * @return this route instance
          */
@@ -231,6 +245,7 @@ public interface ILinkRouteBuilder {
          * one horizontal with y aligned with target anchor.
          * <p>
          * You should call {@link #apply()} after this method.
+         *
          * @param fixed true to make the bend point is fixed.
          * @return this route instance
          */
@@ -245,6 +260,7 @@ public interface ILinkRouteBuilder {
 
         /**
          * Add many bend points at once.
+         *
          * @param points the bend points locations.
          * @return this route instance
          */
@@ -258,6 +274,7 @@ public interface ILinkRouteBuilder {
 
         /**
          * Add many fixed bend points at once.
+         *
          * @param points the bend points locations.
          * @return this route instance
          */
@@ -268,7 +285,7 @@ public interface ILinkRouteBuilder {
             }
             return this;
         }
-}
-    
-}
 
+    }
+
+}

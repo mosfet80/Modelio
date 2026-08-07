@@ -1,0 +1,32 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+// Hightlight code source and add the line number
+:source-highlighter: coderay
+:coderay-linenums-mode: table
+
+= Désinscrire un élément du workflow
+
+Cette commande n'est applicable que sur les éléments inscrits dans un workflow.
+
+Seul un utilisateur ayant la permission au niveau du projet Modelio Server d'effectuer la transition "Inscription au workflow" peut désinscrire un élément.
+
+=== Depuis l'explorateur de modèle
+
+Sélectionnez un élément éligible puis lancez la commande *image:images/workflowicon.png[]Workflow > image:images/unsubscribeicon.png[]Désinscrire...* :
+
+image::images/SubscribeCommand.png[]
+
+1.  Sélectionnez l'instance de workflow de laquelle désinscrire l'élément.
+2.  Cliquez sur "OK".
+
+=== Depuis la <<WorkflowUserPropertyView.adoc#,vue Workflow>>
+
+Sélectionnez un élément éligible puis cliquez sur le bouton *image:images/unsubscribeicon.png[]Désinscrire...* :
+
+image::images/UnsubscribeButton[]
+
+1.  Sélectionnez l'instance de workflow de laquelle désinscrire l'élément.
+2.  Cliquez sur "OK".

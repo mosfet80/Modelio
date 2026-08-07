@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.association;
 
@@ -49,21 +49,22 @@ public class GmAssociationLabel extends GmDefaultModelElementLabel {
      * Constructor for deserialization only.
      */
     @objid ("50cfdc54-e0a5-43ab-a988-ed14c9df3c74")
-    public  GmAssociationLabel() {
+    public GmAssociationLabel() {
         // Nothing to do.
     }
 
     /**
      * Creates an association name label.
+     *
      * @param assoc The represented assoc, may be null.
      * @param ref the represented assoc reference, must not be null.
      * @param gmDiagram the owning diagram.
      */
     @objid ("e58e6b69-ac38-44fc-8dfe-77e12dbb68ed")
-    public  GmAssociationLabel(IGmDiagram gmDiagram, MRef assocRef) {
+    public GmAssociationLabel(IGmDiagram gmDiagram, MRef assocRef) {
         super(gmDiagram, assocRef);
         this.assoc = (Association) resolveRef(assocRef);
-        
+
     }
 
     @objid ("6264f1c1-d9ab-4b07-8c58-806d1958e8b8")
@@ -95,7 +96,7 @@ public class GmAssociationLabel extends GmDefaultModelElementLabel {
                 break;
             }
         }
-        
+
     }
 
     @objid ("4e8d5a1e-39bc-4f33-95a3-4a6b3f9a262a")
@@ -108,17 +109,17 @@ public class GmAssociationLabel extends GmDefaultModelElementLabel {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmAssociationLabel.", GmAssociationLabel.MINOR_VERSION);
-        
+
     }
 
     @objid ("54ec8c26-f889-470e-b9e6-af664d5c290b")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.assoc = (Association) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("c4025796-e9bc-4226-a9b2-2d9ec2f0a1b2")

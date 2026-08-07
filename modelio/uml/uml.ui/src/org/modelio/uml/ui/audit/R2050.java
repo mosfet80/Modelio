@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -79,7 +79,7 @@ public class R2050 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(IElement)
      * @see AbstractRule#getUpdateControl(IElement)
      * @see AbstractRule#getMoveControl(IElementMovedEvent)
@@ -124,7 +124,7 @@ public class R2050 extends AbstractUmlRule {
         plan.registerRule(StateMachine.MNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Stereotype.MNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(TagType.MNAME, this, AuditTrigger.UPDATE);
-        
+
         // Diagram.Behavior
         plan.registerRule(ActivityDiagram.MNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(BpmnProcessCollaborationDiagram.MNAME, this, AuditTrigger.UPDATE);
@@ -132,13 +132,13 @@ public class R2050 extends AbstractUmlRule {
         plan.registerRule(CommunicationDiagram.MNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(SequenceDiagram.MNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(StateMachineDiagram.MNAME, this, AuditTrigger.UPDATE);
-        
+
         // Diagram.Static
         plan.registerRule(ClassDiagram.MNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(DeploymentDiagram.MNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(ObjectDiagram.MNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(UseCaseDiagram.MNAME, this, AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -172,14 +172,14 @@ public class R2050 extends AbstractUmlRule {
      * Default constructor for R2050
      */
     @objid ("5984f1e3-b743-4be8-a913-890a77cd8443")
-    public  R2050() {
+    public R2050() {
         this.checkerInstance = new CheckR2050(this);
     }
 
     @objid ("c10a5bba-6986-474d-bb36-b758d7e82916")
     static class CheckR2050 extends AbstractControl {
         @objid ("573bf6bf-04a3-4670-b2c0-a48961a5e03a")
-        public  CheckR2050(IRule rule) {
+        public CheckR2050(IRule rule) {
             super(rule);
         }
 
@@ -196,12 +196,12 @@ public class R2050 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     element,
                     null);
-            
+
             // Case to ignore return parameters which don't have a name.
             if (element instanceof Parameter && ((Parameter) element).getReturned() != null) {
                 return auditEntry;
             }
-            
+
             if (element.getName().equals("")) {
                 auditEntry.setSeverity(this.rule.getSeverity());
                 ArrayList<Object> linkedObjects = new ArrayList<>();

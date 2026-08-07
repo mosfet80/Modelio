@@ -1,28 +1,28 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.handlers;
 
 import java.net.URL;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.services.IServiceConstants;
@@ -46,7 +46,7 @@ public class ChangeCustomImageHandler {
     public void execute(@Named (IServiceConstants.ACTIVE_SELECTION) ISelection selection) {
         List <AbstractNodeEditPart> editParts = SelectionHelper.toList(selection, AbstractNodeEditPart.class);
         URL itemUrl = editParts.get(0).getCustomImageUrl();
-        
+
         for (AbstractNodeEditPart editPart : editParts) {
             GmNodeModel gmModel = editPart.getModel();
             MObject obElement = gmModel.getRelatedElement();
@@ -56,7 +56,7 @@ public class ChangeCustomImageHandler {
                 t.commit();
             }
         }
-        
+
     }
 
     @objid ("34380b82-309a-467b-ada8-36e8078a72d8")
@@ -68,7 +68,7 @@ public class ChangeCustomImageHandler {
             MObject obElement = gmModel.getRelatedElement();
             if (obElement == null)
                 return false;
-        
+
             TagType tagType;
             try {
                 tagType = gmModel.getDiagram().getModelManager().getModelServices().getTagType("ModelerModule", ".*", "userDiagramImage", obElement.getMClass());

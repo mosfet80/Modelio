@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.panel.data.standard.infrastructure;
 
@@ -39,15 +39,17 @@ public class ExternElementPropertyModel extends AbstractPropertyModel<ExternElem
 
     /**
      * Instantiate the externElement properties view.
+     *
      * @param theEditedElement the current note type.
      */
     @objid ("104ccb69-44cc-4490-a149-40ac148b8e0d")
-    public  ExternElementPropertyModel(ExternElement theEditedElement) {
+    public ExternElementPropertyModel(ExternElement theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * (non-Javadoc)
+     *
      * @see IPropertyModel#getColumnNumber()
      */
     @objid ("cd9c70c5-2444-40d3-a82d-bb04b165acad")
@@ -58,6 +60,7 @@ public class ExternElementPropertyModel extends AbstractPropertyModel<ExternElem
 
     /**
      * (non-Javadoc)
+     *
      * @see IPropertyModel#getRowsNumber()
      */
     @objid ("35de676b-d791-4d0d-bdc7-c09c2db33a5e")
@@ -68,8 +71,8 @@ public class ExternElementPropertyModel extends AbstractPropertyModel<ExternElem
 
     /**
      * (non-Javadoc)
-     * @see IPropertyModel#getValueAt(int,
-     * int)
+     *
+     * @see IPropertyModel#getValueAt(int, int)
      */
     @objid ("1149e674-4ed2-45ee-81fb-a98498f585ad")
     private Object getValue(int row, int col) {
@@ -92,13 +95,13 @@ public class ExternElementPropertyModel extends AbstractPropertyModel<ExternElem
         default:
             return null;
         }
-        
+
     }
 
     /**
      * (non-Javadoc)
-     * @see IPropertyModel#getValueAt(int,
-     * int)
+     *
+     * @see IPropertyModel#getValueAt(int, int)
      */
     @objid ("a0f224e7-3489-4edc-9f0e-f5996274d52b")
     @Override
@@ -122,13 +125,13 @@ public class ExternElementPropertyModel extends AbstractPropertyModel<ExternElem
         default:
             return null;
         }
-        
+
     }
 
     /**
      * (non-Javadoc)
-     * @see IPropertyModel#setValueAt(int,
-     * int, java.lang.Object)
+     *
+     * @see IPropertyModel#setValueAt(int, int, java.lang.Object)
      */
     @objid ("4f7a26e1-ef6a-410b-aa3d-b0d32c17ff85")
     @Override
@@ -155,7 +158,7 @@ public class ExternElementPropertyModel extends AbstractPropertyModel<ExternElem
         default:
             return;
         }
-        
+
     }
 
     @objid ("033b1e6c-5312-4f90-8265-bb8d81cc0032")

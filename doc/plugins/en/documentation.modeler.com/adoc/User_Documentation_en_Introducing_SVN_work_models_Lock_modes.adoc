@@ -1,0 +1,44 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Lock modes
+
+=== Two different locks modes
+
+* The *No lock* mode: All elements can be modified. +
+If two users modify and commit the same element, the second user will fail delivering his modifications. +
+He will have to run an Update first. The update command will set the modified element has conflicted. He will then have to resolve the conflict using 'Solve conflicts and/or Set conflicts' as resolved before being able to publish the modified elements.
+
+* The *Need locks* mode : +
+A read-only/read-write status is added to the elements of the shared work model. shared work models are configured to allow modifying only locked elements. A read-only element cannot be modified, while a read-write element can be locally modified. Using Teamwork commands, the current status of the element can be changed from read-only to read-write and vice versa.
+
+The locking mode is chosen in the shared work model configuration dialog. [[Element-state-representation]]
+
+=== Element state representation
+
+Modelio graphically represents the Teamwork state of model elements using overlays on the element icon:
+
+.Overlays in Modelio
+image::images/attachment/modeliocom41/User_Documentation_en/Introducing_SVN_work_models/Lock_modes/TW_003_locks.png[TW_003_locks.png]
+
+The following overlays are used:
+
+*In 'Need Locks' mode:*
+
+* _(no overlay)_ – Non versioned element
+* image:images/attachment/modeliocom41/User_Documentation_en/Introducing_SVN_work_models/Lock_modes/CMS_READONLY.png[CMS_READONLY.png] – Read-only element
+* image:images/attachment/modeliocom41/User_Documentation_en/Introducing_SVN_work_models/Lock_modes/CMS_READWRITE.png[CMS_READWRITE.png] – Read-write locked element
+* image:images/attachment/modeliocom41/User_Documentation_en/Introducing_SVN_work_models/Lock_modes/CMS_MODIFIED.png[CMS_MODIFIED.png] – Modified element
+* image:images/attachment/modeliocom41/User_Documentation_en/Introducing_SVN_work_models/Lock_modes/CMS_TOADD.png[CMS_TOADD.png] – To be added to version
+* image:images/attachment/modeliocom41/User_Documentation_en/Introducing_SVN_work_models/Lock_modes/CMS_CONFLICT.png[CMS_CONFLICT.png] – Conflicted element (usually doesn't occur in the 'needs lock' mode unless locks have been broken)
+
+*In 'No Lock' mode:*
+
+* _(none)_ – Non versioned element
+* image:images/attachment/modeliocom41/User_Documentation_en/Introducing_SVN_work_models/Lock_modes/CMS_READWRITE.nolock.png[CMS_READWRITE.nolock.png] – Read-write element
+* image:images/attachment/modeliocom41/User_Documentation_en/Introducing_SVN_work_models/Lock_modes/CMS_MODIFIED.nolock.png[CMS_MODIFIED.nolock.png] – Modified element
+* image:images/attachment/modeliocom41/User_Documentation_en/Introducing_SVN_work_models/Lock_modes/CMS_READWRITE.png[CMS_READWRITE.png] – Read-write locked element
+* image:images/attachment/modeliocom41/User_Documentation_en/Introducing_SVN_work_models/Lock_modes/CMS_TOADD.png[CMS_TOADD.png] – To be added to version
+* image:images/attachment/modeliocom41/User_Documentation_en/Introducing_SVN_work_models/Lock_modes/TCMS_CONFLICT.png[CMS_CONFLICT.png] – Conflicted element

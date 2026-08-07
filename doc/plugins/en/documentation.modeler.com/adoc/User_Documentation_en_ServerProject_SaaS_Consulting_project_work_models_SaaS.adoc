@@ -1,0 +1,19 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+= Consulting project work models
+
+
+In a Modelio project, a *work model* is a modifiable model. +
+To get details regarding the work models of the project, open the *Work models* tab of the *Project configurator* window:
+
+image::images/attachment/modeliocom41/User_Documentation_en/Project_SaaS/Consulting_project_work_models_SaaS/ConsultingProjectWorkModels_001.png[ConsultingProjectWorkModels_001.png]
+
+*Keys:*
+
+1. Click on the image:images/attachment/modeliocom41/User_Documentation_en/Project_SaaS/Consulting_project_work_models_SaaS/ConsultingProjectInformation_002.png[ConsultingProjectInformation_002.png] ('Project configurator') button in the toobar +
+2. Open the 'Work models' tab +
+3. The page gives information regarding the work models of the project

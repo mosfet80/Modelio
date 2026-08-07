@@ -1,25 +1,24 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnadhocsubprocess;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.IFigure;
@@ -53,19 +52,19 @@ public class BpmnAdHocSubProcessEditPart extends AbstractBpmnNodeEditPart {
         // create the figure
         RoundedBoxFigure fig = new RoundedBoxFigure();
         fig.setLayoutManager(new BorderLayout());
-        
+
         // set style independent properties
         MinimumSizeLayout.apply(fig, 100, 60);
         fig.setRadius(5);
-        
+
         // Required for CallActivity reprsentation
         fig.setLineWidth(1);
-        
+
         fig.setLinePattern(LinePattern.LINE_SOLID);
-        
+
         // set style dependent properties
         refreshFromStyle(fig, getModelStyle());
-        
+
         // return the figure
         return fig;
     }
@@ -78,7 +77,6 @@ public class BpmnAdHocSubProcessEditPart extends AbstractBpmnNodeEditPart {
         installEditPolicy(EditPolicy.NODE_ROLE, new BpmnSubProcessLinkEditPolicy());
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START, new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
-        
     }
 
     @objid ("607a4be6-55b6-11e2-877f-002564c97630")
@@ -86,13 +84,12 @@ public class BpmnAdHocSubProcessEditPart extends AbstractBpmnNodeEditPart {
     protected void refreshVisuals() {
         GmBpmnAdHocSubProcessPrimaryNode calloperationModel = (GmBpmnAdHocSubProcessPrimaryNode) getModel();
         getFigure().getParent().setConstraint(getFigure(), calloperationModel.getLayoutData());
-        
+
         if (calloperationModel.getRelatedElement().isTriggeredByEvent()) {
             ((RoundedBoxFigure) getFigure()).setLinePattern(LinePattern.LINE_DOT);
         } else {
             ((RoundedBoxFigure) getFigure()).setLinePattern(LinePattern.LINE_SOLID);
         }
-        
     }
 
     @objid ("607a4be9-55b6-11e2-877f-002564c97630")
@@ -108,7 +105,6 @@ public class BpmnAdHocSubProcessEditPart extends AbstractBpmnNodeEditPart {
         if (((GmNodeModel) childEditPart.getModel()).getRoleInComposition().equals(GmBpmnSubProcessPrimaryNode.ROLE_FOOTER)) {
             getFigure().add(child, BorderLayout.BOTTOM, index);
         }
-        
     }
 
     @objid ("607a4bee-55b6-11e2-877f-002564c97630")
@@ -125,7 +121,7 @@ public class BpmnAdHocSubProcessEditPart extends AbstractBpmnNodeEditPart {
                 super.refreshFromStyle(aFigure, style);
             }
         }
-        
+
         GmBpmnAdHocSubProcessPrimaryNode model = (GmBpmnAdHocSubProcessPrimaryNode) getModel();
         Boolean showcontent = getModelStyle().getProperty(GmBpmnSubProcessStructuredStyleKeys.SHOWCONTENT);
         GmBpmnNodeFooter gmBpmnNodeFooter = (GmBpmnNodeFooter) model.getFirstChild(GmBpmnSubProcessPrimaryNode.ROLE_FOOTER);
@@ -138,18 +134,17 @@ public class BpmnAdHocSubProcessEditPart extends AbstractBpmnNodeEditPart {
                 gmBpmnNodeFooter.setNonEmptySubProcess(false);
             }
         }
-        
     }
 
     @objid ("607bd27e-55b6-11e2-877f-002564c97630")
     @Override
     protected void reorderChild(final EditPart child, final int index) {
         removeChildVisual(child);
-        List<EditPart> c = getChildren();
-        c.remove(child);
-        c.add(index, child);
+
+        this.children.remove(child);
+        this.children.add(index, child);
+
         addChildVisual(child, index);
-        
     }
 
 }

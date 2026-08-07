@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.script.engine.core.engine;
 
@@ -56,10 +56,10 @@ public class ScriptClassLoader extends URLClassLoader {
     private final List<ClassLoader> parents = new ArrayList<>();
 
     @objid ("007706dc-bf95-1069-96f6-001ec947cd2a")
-    public  ScriptClassLoader() {
+    public ScriptClassLoader() {
         super(new URL[0]);
         addContributingPluginClassLoaders();
-        
+
     }
 
     @objid ("007225f4-c5d9-1069-96f6-001ec947cd2a")
@@ -89,7 +89,7 @@ public class ScriptClassLoader extends URLClassLoader {
             tmp[i] = parent.getResources(name);
             i++;
         }
-        
+
         tmp[i] = super.findResources(name);
         return new CompoundEnumeration<>(tmp);
     }
@@ -99,6 +99,7 @@ public class ScriptClassLoader extends URLClassLoader {
      * includes: - the parent class loaders URLs - the original list of URLs
      * specified to the constructor, - along with any URLs subsequently appended
      * by the addURL() method.
+     *
      * @return the search path of URLs for loading classes and resources.
      */
     @objid ("0076debe-bf95-1069-96f6-001ec947cd2a")
@@ -123,6 +124,7 @@ public class ScriptClassLoader extends URLClassLoader {
      * path. Any URLs referring to JAR files are loaded and opened as needed
      * until the class is found. Looks for classes first in parents class
      * loaders
+     *
      * @param name the name of the class
      * @return the resulting class
      * @exception ClassNotFoundException
@@ -136,7 +138,7 @@ public class ScriptClassLoader extends URLClassLoader {
         if (name.endsWith("__path__")) {
             throw new ClassNotFoundException(name);
         }
-        
+
         for (final ClassLoader parent : this.parents) {
             try {
                 return parent.loadClass(name);
@@ -152,7 +154,7 @@ public class ScriptClassLoader extends URLClassLoader {
         if (p != null) {
             this.parents.add(p);
         }
-        
+
     }
 
     /**
@@ -176,14 +178,13 @@ public class ScriptClassLoader extends URLClassLoader {
                 }
             }
         });
-        
+
     }
 
     /**
      * A useful utility class that will enumerate over an array of enumerations.
-     * 
-     * @param <E>
-     * The type of enumerated elements
+     *
+     * @param <E> The type of enumerated elements
      */
     @objid ("00770808-bf95-1069-96f6-001ec947cd2a")
     public class CompoundEnumeration<E> implements Enumeration<E> {
@@ -194,7 +195,7 @@ public class ScriptClassLoader extends URLClassLoader {
         private final Enumeration<E>[] enums;
 
         @objid ("00770772-bf95-1069-96f6-001ec947cd2a")
-        public  CompoundEnumeration(final Enumeration<E>[] enums) {
+        public CompoundEnumeration(final Enumeration<E>[] enums) {
             this.enums = enums;
         }
 

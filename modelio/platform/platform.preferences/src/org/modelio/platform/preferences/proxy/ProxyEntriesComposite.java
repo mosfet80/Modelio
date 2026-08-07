@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.preferences.proxy;
 
@@ -77,35 +77,35 @@ public class ProxyEntriesComposite extends Composite {
     private List<ProxyData> proxyEntries = new ArrayList<>();
 
     @objid ("86d31e4a-cdb0-4a7c-afab-bedb61b68288")
-     ProxyEntriesComposite(Composite parent, int style) {
+    ProxyEntriesComposite(Composite parent, int style) {
         super(parent, style);
         createWidgets();
-        
+
     }
 
     @objid ("cae687a8-b4e3-4deb-ac1e-783eb07da32d")
     protected void createWidgets() {
         setLayout(new GridLayout(2, false));
-        
+
         this.entriesLabel = new Label(this, SWT.NONE);
         this.entriesLabel.setText(NetUIMessages.ProxyPreferencePage_1);
         this.entriesLabel.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER,
                 false, false, 2, 1));
-        
+
         Table entriesTable = new Table(this, SWT.BORDER | SWT.V_SCROLL
                 | SWT.H_SCROLL | SWT.MULTI | SWT.FULL_SELECTION | SWT.CHECK);
         entriesTable.setHeaderVisible(true);
         entriesTable.setLinesVisible(true);
         entriesTable.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true,
                 1, 3));
-        
+
         this.entriesViewer = new CheckboxTableViewer(entriesTable);
         ProxyEntriesLabelProvider labelProvider = new ProxyEntriesLabelProvider();
         ProxyEntriesContentProvider contentProvider = new ProxyEntriesContentProvider();
         labelProvider.createColumns(this.entriesViewer);
         this.entriesViewer.setContentProvider(contentProvider);
         this.entriesViewer.setLabelProvider(labelProvider);
-        
+
         TableLayout tableLayout = new TableLayout();
         tableLayout.addColumnData(new ColumnPixelData(24));
         tableLayout.addColumnData(new ColumnWeightData(20, 50, true));
@@ -115,13 +115,13 @@ public class ProxyEntriesComposite extends Composite {
         tableLayout.addColumnData(new ColumnWeightData(20, 50, true));
         tableLayout.addColumnData(new ColumnWeightData(50, 50, true));
         tableLayout.addColumnData(new ColumnWeightData(50, 50, true));
-        
+
         entriesTable.setLayout(tableLayout);
-        
+
         // addButton = createButton(NetUIMessages.ProxyPreferencePage_9);
         this.editButton = createButton(NetUIMessages.ProxyPreferencePage_10);
         this.removeButton = createButton(NetUIMessages.ProxyPreferencePage_11);
-        
+
         this.entriesViewer
                 .addSelectionChangedListener(new ISelectionChangedListener() {
                     @Override
@@ -158,10 +158,10 @@ public class ProxyEntriesComposite extends Composite {
                 removeSelection();
             }
         });
-        
+
         initializeValues();
         enableButtons();
-        
+
     }
 
     @objid ("dfd17225-2a2d-47cc-aa9b-e866fb3856ec")
@@ -176,7 +176,7 @@ public class ProxyEntriesComposite extends Composite {
             this.editButton.setEnabled(false);
             this.removeButton.setEnabled(false);
         }
-        
+
     }
 
     @objid ("27b904d4-05de-4052-bd78-023972ddee6a")
@@ -220,7 +220,7 @@ public class ProxyEntriesComposite extends Composite {
             this.proxyEntries.add(0, data);
             this.entriesViewer.refresh();
         }
-        
+
     }
 
     @objid ("a07ac32d-e7d7-4168-bda0-5a006cea82d8")
@@ -274,7 +274,7 @@ public class ProxyEntriesComposite extends Composite {
         if (data != null) {
             this.entriesViewer.refresh();
         }
-        
+
     }
 
     @objid ("9eccee93-f409-408a-bc33-7ef32f5974c2")
@@ -290,7 +290,7 @@ public class ProxyEntriesComposite extends Composite {
             data.setPassword(null);
         }
         this.entriesViewer.refresh();
-        
+
     }
 
     @objid ("a13feb32-7e2a-4e84-be11-58a63013c5b2")
@@ -309,7 +309,7 @@ public class ProxyEntriesComposite extends Composite {
         }
         this.entriesViewer.setInput(this.proxyEntries);
         setProvider(ProxySelector.getDefaultProvider());
-        
+
     }
 
     @objid ("0dadf171-489c-4f00-bb98-05f18f046f68")
@@ -328,7 +328,7 @@ public class ProxyEntriesComposite extends Composite {
             }
         }
         this.entriesViewer.setCheckedElements(checked.toArray(new ProxyData[0]));
-        
+
     }
 
     @objid ("6edaa134-615b-460f-b7d2-c5fb2c458870")
@@ -344,12 +344,12 @@ public class ProxyEntriesComposite extends Composite {
         }
         ProxyData data[] = proxies.toArray(new ProxyData[0]);
         ProxySelector.setProxyData(provider, data);
-        
+
     }
 
     @objid ("92ca10e2-ceb0-407e-9285-8eaddb244a35")
     public void refresh() {
-        String provider = getEditableProvider();    
+        String provider = getEditableProvider();
         Iterator<ProxyData> it = this.proxyEntries.iterator();
         ArrayList<ProxyData> natives = new ArrayList<>();
         while (it.hasNext()) {
@@ -367,7 +367,7 @@ public class ProxyEntriesComposite extends Composite {
         }
         this.entriesViewer.refresh();
         setProvider(this.currentProvider);
-        
+
     }
 
     @objid ("55abc228-ae4b-4ffd-8b90-2affdd667f50")

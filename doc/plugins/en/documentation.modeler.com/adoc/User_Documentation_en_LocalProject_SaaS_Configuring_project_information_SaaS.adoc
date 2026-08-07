@@ -1,0 +1,18 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Configuring project information
+
+To get information about the opened project, open the 'Project configurator':
+
+image::images/attachment/modeliocom41/User_Documentation_en/Project_SaaS/Consulting_project_information_SaaS/ConsultingProjectInformation_001.png[ConsultingProjectInformation_001.png]
+
+*Keys:*
+
+. Click on the image:images/attachment/modeliocom41/User_Documentation_en/Project_SaaS/Consulting_project_information_SaaS/ConsultingProjectInformation_002.png[ConsultingProjectInformation_002.png] ('Project configurator') button in the toobar
+. General information about the project. The contact information, project description and images can be changed.
+. Physical storage information about the project
+. Summary of models in the project
+. Summary of modules in the project

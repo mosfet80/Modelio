@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.plugin;
 
@@ -25,13 +25,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.EventTopic;
 import org.eclipse.e4.ui.di.UIEventTopic;
+import org.eclipse.e4.ui.model.application.ui.MElementContainer;
+import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -93,21 +95,20 @@ public class DiagramEditorsManager {
         ContextInjectionFactory.inject(newInstance, context);
         context.set(DiagramEditorsManager.class, newInstance);
         context.set(ToolRegistry.class, ContextInjectionFactory.make(ToolRegistry.class, context));
-        
     }
 
     @objid ("6670d448-33f7-11e2-95fe-001ec947c8cc")
     @Inject
     @Optional
-    void onEditElement(@EventTopic (ModelioEventTopics.EDIT_ELEMENT) MObject mObject, IDiagramConfigurerRegistry configurerRegistry, final IInputPartService inputPartService, final DiagramEditorsManager manager) {
+    void onEditElement(@EventTopic(ModelioEventTopics.EDIT_ELEMENT) MObject mObject, IDiagramConfigurerRegistry configurerRegistry, final IInputPartService inputPartService, final DiagramEditorsManager manager) {
         // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
-        
+
         // Only handle activation requests for diagrams.
         if (!(mObject instanceof AbstractDiagram) || !mObject.isValid()) {
             return;
         }
         final AbstractDiagram diagram = (AbstractDiagram) mObject;
-        
+
         // Get the configurers associated with the metaclass/stereotypes.
         String metaclassName = diagram.getMClass().getName();
         List<String> stereotypes = new ArrayList<>();
@@ -125,29 +126,33 @@ public class DiagramEditorsManager {
             DiagramEditor.LOG.error("No IDiagramConfigurer in the IDiagramConfigurerRegistry for '%s' diagram metaclass.", metaclassName);
             return;
         }
-        
+
         final String finalEditorId = editorId;
-        
+
         Display.getDefault().asyncExec(() -> {
             // Request the opening (or re-activation/bring-to-top/get-focus) of a Diagram Editor
-            String inputUri = diagram.getUuid();
-            MPart openedPart = inputPartService.showInputPart(finalEditorId, inputUri, PartState.ACTIVATE);
-            if (openedPart == null) {
-                DiagramEditor.LOG.error("No MPart returned to open a '%s' editor for %s", finalEditorId, diagram);
-                return;
-            }
-        
-            manager.put(diagram, openedPart);
-        
-            String label = diagram.getName();
-            openedPart.setLabel(label);
-        
-            Note descNote = diagram.getNote("ModelerModule", ModelElement.MQNAME, "description");
-            if (descNote != null) {
-                String desc = descNote.getContent();
-                if (descNote.getMimeType().equals(MimeServices.MimeType.HTML.toEncodingString()))
-                    desc = MimeServices.html2text(desc);
-                openedPart.setTooltip(desc);
+            try {
+                String inputUri = diagram.getUuid();
+                MPart openedPart = inputPartService.showInputPart(finalEditorId, inputUri, PartState.ACTIVATE);
+                if (openedPart == null) {
+                    DiagramEditor.LOG.error("No MPart returned to open a '%s' editor for %s", finalEditorId, diagram);
+                    return;
+                }
+
+                manager.put(diagram, openedPart);
+
+                String label = diagram.getName();
+                openedPart.setLabel(label);
+
+                Note descNote = diagram.getNote("ModelerModule", ModelElement.MQNAME, "description");
+                if (descNote != null) {
+                    String desc = descNote.getContent();
+                    if (descNote.getMimeType().equals(MimeServices.MimeType.HTML.toEncodingString()))
+                        desc = MimeServices.html2text(desc);
+                    openedPart.setTooltip(desc);
+                }
+            } catch (RuntimeException e) {
+                DiagramEditor.LOG.error(e);
             }
         });
         return;
@@ -156,28 +161,26 @@ public class DiagramEditorsManager {
     @objid ("86dead11-89b7-41ba-b6e9-6b7241d5b7de")
     @Inject
     @Optional
-    void onProjectClosing(@UIEventTopic (ModelioEventTopics.PROJECT_CLOSING) final IGProject project, final IProjectService projectService, final IInputPartService inputPartService) {
+    void onProjectClosing(@UIEventTopic(ModelioEventTopics.PROJECT_CLOSING) final IGProject project, final IProjectService projectService, final IInputPartService inputPartService) {
         // Save opened diagrams list
         IPreferenceStore statePrefs = projectService.getStatePreferences();
         StatePersistenceHelper.saveState(statePrefs, this);
-        
+
         // Close all diagram editors when closing the project
         for (MPart editor : new ArrayList<>(this.editors.values())) {
             // close the editor.
             inputPartService.hideInputPart(editor, true);
         }
         this.editors.clear();
-        
     }
 
     @objid ("6f12a531-b16a-428a-b079-a86c9bc0f687")
     @Inject
     @Optional
-    void onProjectOpened(@UIEventTopic (ModelioEventTopics.PROJECT_OPENED) final IGProject openedProject, IProjectService projectService, IModelioEventService eventService) {
+    void onProjectOpened(@UIEventTopic(ModelioEventTopics.PROJECT_OPENED) final IGProject openedProject, IProjectService projectService, IModelioEventService eventService) {
         // Reload saved opened diagrams
         IPreferenceStore statePrefs = projectService.getStatePreferences();
         StatePersistenceHelper.restoreState(statePrefs, openedProject, eventService);
-        
     }
 
     /**
@@ -201,30 +204,35 @@ public class DiagramEditorsManager {
                 }
                 i++;
             }
-            
+        }
+
+        @objid ("2941c8a2-fcf9-4bf0-bd9a-d73e7b48a9db")
+        private static int getDiagramPartIndex(AbstractDiagram d, DiagramEditorsManager manager) {
+            MPart p = manager.editors.get(d);
+            MElementContainer<MUIElement> parent = p.getParent();
+            if (parent==null) {
+                DiagramEditor.LOG.warning(new IllegalStateException(String.format("StatePersistenceHelper.saveState(...): %s part to edit %s diagram is orphan, putting it in last position.", p, d)));
+                return Integer.MAX_VALUE;
+            }
+            return parent.getChildren().indexOf(p);
         }
 
         @objid ("fa19566f-4c3a-455c-947c-18ed4c85ca94")
         public static void saveState(IPreferenceStore prefs, DiagramEditorsManager manager) {
             StatePersistenceHelper.clean(prefs);
-            
+
             List<AbstractDiagram> diagrams = new ArrayList<>(manager.editors.keySet());
-            diagrams.sort(new Comparator<AbstractDiagram>() {
-                @Override
-                public int compare(AbstractDiagram d1, AbstractDiagram d2) {
-                    MPart p1 = manager.editors.get(d1);
-                    MPart p2 = manager.editors.get(d2);
-                    return Integer.compare(p1.getParent().getChildren().indexOf(p1), p2.getParent().getChildren().indexOf(p2));
-                }
-            });
-            
+
+            diagrams.sort(Comparator.comparing((AbstractDiagram d) -> getDiagramPartIndex(d, manager) )
+                    .thenComparing(d -> d.getName())
+                    .thenComparing(d -> d.getUuid()));
+
             int i = 0;
             for (AbstractDiagram diagram : diagrams) {
                 String key = StatePersistenceHelper.OPENED_DIAGRAM_CONFIG_KEY + i;
                 prefs.setValue(key, new MRef(diagram).toString());
                 i++;
             }
-            
         }
 
         @objid ("bbf0855d-eef7-49f7-8ae4-aeef80fb6dc0")
@@ -239,7 +247,6 @@ public class DiagramEditorsManager {
                     }
                 }, ModelioEvent.EDIT_ELEMENT, diagram);
             }
-            
         }
 
         @objid ("54183ca0-23f3-40e0-baf3-1ea362757dff")
@@ -255,7 +262,6 @@ public class DiagramEditorsManager {
                 }
                 i++;
             }
-            
         }
 
     }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -40,28 +40,28 @@ public class EExtensionPoint extends ENamedElement {
     }
 
     @objid ("8350fdb9-5b91-4bff-9545-2c999b37aaa9")
-    public  EExtensionPoint(org.eclipse.uml2.uml.ExtensionPoint element) {
+    public EExtensionPoint(org.eclipse.uml2.uml.ExtensionPoint element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("e2459a24-bbb4-4336-95ff-314b276d370a")
     @Override
     public void attach(Element objingElt) {
         ReverseProperties revProp = ReverseProperties.getInstance();
-                
+
         ExtensionPoint currentObjingElt = (ExtensionPoint) objingElt;
-                
+
         org.eclipse.uml2.uml.UseCase ecoreOwner = (org.eclipse.uml2.uml.UseCase) this.ecoreElement.getOwner();
-                
+
         UseCase objingOwner = (UseCase) revProp
                 .getMappedElement(ecoreOwner);
-                
+
         if (objingOwner != null) {
             currentObjingElt.setOwner(objingOwner);
         }
-        
+
     }
 
     @objid ("3d7e1c9d-ec0f-477e-bf47-15ace26cb85d")
@@ -69,7 +69,7 @@ public class EExtensionPoint extends ENamedElement {
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setVisibility((ExtensionPoint) objingElt);
-        
+
     }
 
     @objid ("f4f3805a-eca9-4882-876c-3427b77835c3")
@@ -90,11 +90,11 @@ public class EExtensionPoint extends ENamedElement {
         default:
             objingElt.setVisibility(VisibilityMode.PUBLIC);
         }
-        
+
         if (ObjingEAnnotation.isUndefined(this.ecoreElement))
             objingElt
             .setVisibility(VisibilityMode.VISIBILITYUNDEFINED);
-        
+
     }
 
 }

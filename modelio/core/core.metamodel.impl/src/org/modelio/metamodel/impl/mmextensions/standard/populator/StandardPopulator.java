@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.mmextensions.standard.populator;
 
@@ -40,6 +40,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class StandardPopulator implements IRepositoryContentInitializer {
     /**
      * Populate the given repository using the given session.
+     *
      * @param fragmentName the fragment name
      * @param s the session to use
      * @param repository the repository to populate.
@@ -50,24 +51,24 @@ public class StandardPopulator implements IRepositoryContentInitializer {
     public Collection<MObject> populate(String fragmentName, ICoreSession s, IRepository repository) {
         Collection<MObject> ret = new ArrayList<>();
         GenericFactory gf = s.getModel().getGenericFactory();
-        
+
         // Create project and root package
         Project proj = gf.create(Project.class, repository);
         Package root = gf.create(Package.class, repository);
         proj.getModel().add(root);
-        
+
         proj.setName(fragmentName);
         root.setName(fragmentName.toLowerCase());
-        
+
         ret.add(proj);
         ret.add(root);
-        
+
         // Create analyst project
         DiagramSet dgRootSet = gf.create(DiagramSet.class, repository);
         proj.setDiagramRoot(dgRootSet);
-        
+
         ret.add(dgRootSet);
-        
+
         dgRootSet.setName(fragmentName);
         return ret;
     }

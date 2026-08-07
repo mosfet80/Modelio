@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.edition.notes.panelprovider.data.documents;
 
@@ -69,19 +69,20 @@ public class DocumentContentComposite extends Composite implements INoteContent 
 
     /**
      * Constructor
+     *
      * @param parentComposite the parent composite
      * @param style style bits
      * @param activationService Modelio activation service
      */
     @objid ("b208600d-4f46-446c-bd9e-78a4e7cea5ee")
-    public  DocumentContentComposite(Composite parentComposite, int style, IActivationService activationService) {
+    public DocumentContentComposite(Composite parentComposite, int style, IActivationService activationService) {
         super(parentComposite, style);
-        
+
         this.activationService = activationService;
-        
+
         GridLayout layout = new GridLayout(1, true);
         setLayout(layout);
-        
+
         this.text = new Text(this, SWT.BORDER | SWT.BORDER | SWT.V_SCROLL | SWT.WRAP);
         this.noteModifier = new DocumentContentModifier();
         GridData gdText = new GridData();
@@ -90,30 +91,30 @@ public class DocumentContentComposite extends Composite implements INoteContent 
         gdText.grabExcessVerticalSpace = true;
         gdText.verticalAlignment = SWT.FILL;
         this.text.setLayoutData(gdText);
-        
+
         this.editButton = new Button(this, SWT.PUSH);
-        
+
         GridData gdButton = new GridData();
         gdButton.grabExcessHorizontalSpace = true;
         gdButton.horizontalAlignment = SWT.FILL;
         this.editButton.setLayoutData(gdButton);
         this.editButton.setText(EditionNotes.I18N.getString("EditDocumentButton.label"));
         this.editButton.setToolTipText(EditionNotes.I18N.getString("EditDocumentButton.tooltip"));
-        
+
         this.editButton.addSelectionListener(new SelectionListener() {
-        
+
             @Override
             public void widgetSelected(SelectionEvent e) {
                 if (getActivationService() != null)
                     getActivationService().activateMObject(DocumentContentComposite.this.xdoc);
             }
-        
+
             @Override
             public void widgetDefaultSelected(SelectionEvent e) {
                 // nothing to do
             }
         });
-        
+
     }
 
     @objid ("019bfe33-5cbc-49ba-9e8f-2de8e1b1517a")
@@ -136,7 +137,7 @@ public class DocumentContentComposite extends Composite implements INoteContent 
             this.text.setBackground(UIColor.TEXT_READONLY_BG);
             stop();
         }
-        
+
     }
 
     @objid ("4cea44d2-7154-4498-b730-025a04d8ed0b")
@@ -144,7 +145,7 @@ public class DocumentContentComposite extends Composite implements INoteContent 
         this.modelingSession = session;
         this.text.addFocusListener(this.noteModifier);
         this.text.addKeyListener(this.noteModifier);
-        
+
     }
 
     @objid ("e1cd799e-6b35-40ca-9c2c-d1daf705edc4")
@@ -152,7 +153,7 @@ public class DocumentContentComposite extends Composite implements INoteContent 
         this.text.removeFocusListener(this.noteModifier);
         this.text.removeKeyListener(this.noteModifier);
         this.modelingSession = null;
-        
+
     }
 
     @objid ("b65c2a0b-c91f-40ce-910f-ec06024ddcbd")
@@ -175,8 +176,8 @@ public class DocumentContentComposite extends Composite implements INoteContent 
     @objid ("b1eb78a9-eb2d-4711-8eb7-05eefcfe8df0")
     private class DocumentContentModifier implements FocusListener, KeyListener {
         @objid ("c7c64601-5696-4f2a-be69-b6f832f2d7b2")
-        public  DocumentContentModifier() {
-            
+        public DocumentContentModifier() {
+
         }
 
         @objid ("f4a5402a-36f8-4e3e-9385-53c77c6ee8a5")
@@ -184,7 +185,7 @@ public class DocumentContentComposite extends Composite implements INoteContent 
         public void focusGained(final FocusEvent event) {
             Text docText = (Text) event.getSource();
             Document doc = (Document) docText.getData();
-            
+
             if (doc != null) {
                 if (doc.getStatus().isModifiable()) {
                     docText.setBackground(UIColor.TEXT_WRITABLE_BG);
@@ -192,7 +193,7 @@ public class DocumentContentComposite extends Composite implements INoteContent 
                     docText.getShell().setFocus();
                 }
             }
-            
+
         }
 
         @objid ("9c14eb75-b647-487c-8239-88bbadda1829")
@@ -207,7 +208,7 @@ public class DocumentContentComposite extends Composite implements INoteContent 
             if ((event.stateMask &= SWT.MOD1) != 0 && event.keyCode == SWT.CR) {
                 event.doit = false;
             }
-            
+
         }
 
         @objid ("81b40f57-f5bb-4b1b-ad01-94579ef79c14")
@@ -215,7 +216,7 @@ public class DocumentContentComposite extends Composite implements INoteContent 
         public void keyReleased(final KeyEvent event) {
             Text docText = (Text) event.getSource();
             Document note = (Document) docText.getData();
-            
+
             if (event.keyCode == SWT.ESC) {
                 // restore content from note
                 docText.setText(note.getAbstract());
@@ -226,17 +227,17 @@ public class DocumentContentComposite extends Composite implements INoteContent 
             } else if ((event.stateMask &= SWT.MOD1) != 0 && event.keyCode == 'a') {
                 docText.selectAll();
             }
-            
+
         }
 
         @objid ("4cfe9e52-4fe6-4382-acee-e04458a1075b")
         private void validate(final TypedEvent event) {
             Text docText = (Text) event.getSource();
             Document note = (Document) docText.getData();
-            
+
             if (note != null && note.getStatus().isModifiable()) {
                 String s = docText.getText();
-            
+
                 if (!s.equals(note.getAbstract())) {
                     try (ITransaction transaction = DocumentContentComposite.this.modelingSession.getTransactionSupport()
                             .createTransaction(EditionNotes.I18N.getString("UpdateDescriptionNote"))) {
@@ -245,14 +246,14 @@ public class DocumentContentComposite extends Composite implements INoteContent 
                         transaction.commit();
                     }
                 }
-            
+
                 if (note.isModifiable()) {
                     docText.setBackground(UIColor.POSTIT_YELLOW);
                 } else {
                     docText.setBackground(UIColor.TEXT_READONLY_BG);
                 }
             }
-            
+
         }
 
     }

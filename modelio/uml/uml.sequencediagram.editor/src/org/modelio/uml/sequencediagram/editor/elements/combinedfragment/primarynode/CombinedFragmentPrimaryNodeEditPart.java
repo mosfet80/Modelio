@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.combinedfragment.primarynode;
 
@@ -46,7 +46,7 @@ import org.modelio.uml.sequencediagram.editor.elements.common.node.AbstractSeque
 
 /**
  * EditPart for primary node of InteractionUse.
- * 
+ *
  * @author fpoyer
  */
 @objid ("d8c98d3a-55b6-11e2-877f-002564c97630")
@@ -69,7 +69,7 @@ public class CombinedFragmentPrimaryNodeEditPart extends AbstractSequenceNodeEdi
                                 .getChildren()
                                 .get(1)).getBounds().y +
                                 ((ChangeBoundsRequest) request).getMoveDelta().y;
-        
+
                         int newSize = ((IFigure) CombinedFragmentPrimaryNodeEditPart.this.getFigure()
                                 .getChildren()
                                 .get(1)).getBounds().height +
@@ -81,9 +81,9 @@ public class CombinedFragmentPrimaryNodeEditPart extends AbstractSequenceNodeEdi
                                 actualFragmentSize += operand.getEndLineNumber() - operand.getLineNumber();
                             }
                             --actualFragmentSize;
-        
+
                         }
-        
+
                         // Make sure a transaction is active before fixing invalid line numbers in the model
                         boolean isModelModifiable = model.getDiagram().getModelManager().getModelingSession().getTransactionSupport().hasCurrentTransaction();
                         if (isModelModifiable) {
@@ -130,7 +130,6 @@ public class CombinedFragmentPrimaryNodeEditPart extends AbstractSequenceNodeEdi
             getFigure().invalidate();
         }
         super.propertyChange(evt);
-        
     }
 
     @objid ("d8c98d50-55b6-11e2-877f-002564c97630")
@@ -142,7 +141,7 @@ public class CombinedFragmentPrimaryNodeEditPart extends AbstractSequenceNodeEdi
         fig.setBorder(((CompoundBorder) fig.getBorder()).getOuterBorder());
         // Define properties not specific to style.
         fig.setLayoutManager(new BorderLayout());
-        
+
         // Define properties specific to style
         refreshFromStyle(fig, getModelStyle());
         return fig;
@@ -153,7 +152,6 @@ public class CombinedFragmentPrimaryNodeEditPart extends AbstractSequenceNodeEdi
     protected void refreshVisuals() {
         super.refreshVisuals();
         getFigure().getParent().setConstraint(getFigure(), ((GmAbstractObject) getModel()).getLayoutData());
-        
     }
 
     @objid ("d8c98d58-55b6-11e2-877f-002564c97630")
@@ -166,7 +164,6 @@ public class CombinedFragmentPrimaryNodeEditPart extends AbstractSequenceNodeEdi
             IFigure child = ((GraphicalEditPart) childEditPart).getFigure();
             getContentPane().add(child, BorderLayout.CENTER, index);
         }
-        
     }
 
     @objid ("d8c98d5f-55b6-11e2-877f-002564c97630")
@@ -178,7 +175,6 @@ public class CombinedFragmentPrimaryNodeEditPart extends AbstractSequenceNodeEdi
                 new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new AutoFitToContentEditPolicy(true, true));
-        
     }
 
 }

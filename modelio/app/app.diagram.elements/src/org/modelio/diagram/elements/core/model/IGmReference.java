@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.model;
 
@@ -25,7 +25,7 @@ import org.modelio.diagram.persistence.IPersistent;
 
 /**
  * Represents a reference toward a {@link IGmObject} in another diagram.
- * 
+ *
  * @param <T> the type of the referenced graphic model
  * @since 3.7
  */
@@ -48,12 +48,14 @@ public interface IGmReference<T extends IGmObject> extends IPersistent {
      * <p>
      * Returns <i>null</i> if the reference is not valid: the target diagram does not exist or
      * the referenced graphic model does not exist anymore.
+     *
      * @return the referenced graphic model or <i>null</i>.
      */
     @objid ("6aa722cf-e095-4339-b7f2-4ca258875183")
     T getReferencedModel();
 
     /**
+     *
      * @return true only if the reference resolves to a valid graphic model.
      */
     @objid ("f43a84ec-10e6-4b3d-8df3-1e8d992c7154")
@@ -75,11 +77,12 @@ public interface IGmReference<T extends IGmObject> extends IPersistent {
             t.delete();
         }
         releaseGmReference();
-        
+
     }
 
     /**
      * Shortcut for {@link IGmReference#getReferencedModel()} that avoids having to test <i>ref</i> for <i>null</i>.
+     *
      * @param ref a reference, may be null.
      * @return the referenced element or <i>null</i>.
      */
@@ -90,23 +93,25 @@ public interface IGmReference<T extends IGmObject> extends IPersistent {
         } else {
             return ref.getReferencedModel();
         }
-        
+
     }
 
     /**
      * Add a listener that is fired when the reference is resolved.
+     *
+     * @param listener a property change listener.
      * @see #PROP_REFERENCE_RESOLVED
      * @see #PROP_REFERENCE_BROKEN
-     * @param listener a property change listener.
      */
     @objid ("96bcc603-659d-4908-9c9e-f3de1638bd1d")
     void addReferenceResolvedListener(PropertyChangeListener listener);
 
     /**
      * Remove a reference change listener.
+     *
+     * @param listener a property change listener.
      * @see #PROP_REFERENCE_RESOLVED
      * @see #PROP_REFERENCE_BROKEN
-     * @param listener a property change listener.
      */
     @objid ("dcdfd540-0770-4052-89d1-871dcc3af605")
     void removeReferenceChangeListener(PropertyChangeListener listener);
@@ -121,9 +126,10 @@ public interface IGmReference<T extends IGmObject> extends IPersistent {
 
     /**
      * Add a listener that is fired when the reference is broken.
+     *
+     * @param listener a property change listener.
      * @see #PROP_REFERENCE_RESOLVED
      * @see #PROP_REFERENCE_BROKEN
-     * @param listener a property change listener.
      */
     @objid ("cd8c9d0e-5170-4620-a5ea-58884710a802")
     void addReferenceBrokenListener(PropertyChangeListener listener);
@@ -133,5 +139,5 @@ public interface IGmReference<T extends IGmObject> extends IPersistent {
      */
     @objid ("4022d480-076b-4758-8f33-276fcd65c729")
     void refresh();
-}
 
+}

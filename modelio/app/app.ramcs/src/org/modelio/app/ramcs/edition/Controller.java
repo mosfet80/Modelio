@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.ramcs.edition;
 
@@ -54,10 +54,10 @@ class Controller {
     private RamcModel model;
 
     @objid ("75d8f3d8-6190-4c00-af79-46446fc6e72f")
-    public  Controller(EditRamcDialog dialog, RamcModel model) {
+    public Controller(EditRamcDialog dialog, RamcModel model) {
         this.dialog = dialog;
         this.model = model;
-        
+
     }
 
     @objid ("31e1acd2-d7d2-4659-8183-376e0535be18")
@@ -67,7 +67,7 @@ class Controller {
             this.model.setRamcName(value);
         }
         this.dialog.invalidateRamcName(!valid);
-        
+
     }
 
     @objid ("b7432b87-8c7a-4dd1-bf68-6e8b50c7a3b7")
@@ -77,7 +77,7 @@ class Controller {
             this.model.setRamcVersion(new Version(value));
         }
         this.dialog.invalidateRamcVersion(!valid);
-        
+
     }
 
     @objid ("5a896a06-8a07-44b4-9c5a-55ce5a382514")
@@ -99,7 +99,7 @@ class Controller {
         } catch (NumberFormatException e) {
             return false;
         }
-        
+
     }
 
     @objid ("b06f3bf7-d017-463c-aa12-9dc86aa2a345")
@@ -107,7 +107,7 @@ class Controller {
         if (path == null || path.isEmpty()) {
             return false;
         }
-        
+
         File file = new File(path);
         try {
             // Test file validity
@@ -115,13 +115,13 @@ class Controller {
         } catch (@SuppressWarnings ("unused") IOException e) {
             return false;
         }
-        
+
         if (path.endsWith(Controller.RAMC_FILE_EXTENSION)) {
             return true;
         } else {
             return false;
         }
-        
+
     }
 
     @objid ("1d55f0ab-9ff4-40db-b5fe-e7da7a35d78d")
@@ -132,11 +132,11 @@ class Controller {
             Version v = this.model.getVersion();
             v = new Version(v.getMajorVersion(), v.getMinorVersion(), v.getBuildVersion());
             this.model.setRamcVersion(v);
-        
+
             this.model.updateArtifact();
             t.commit();
         }
-        
+
     }
 
     @objid ("c08a3bcb-8271-4f36-98b7-8a1c321eb6c1")
@@ -159,10 +159,10 @@ class Controller {
                 } else {
                     this.model.getRequiredModelComponents().add(new RamcModel(this.model.getProjectPath(), (Artifact) e));
                 }
-        
+
             }
         }
-        
+
     }
 
     @objid ("9045efc4-e5af-46f1-b5c5-b3c4c0cf77fc")
@@ -175,7 +175,7 @@ class Controller {
         return (e.isValid()
                 && ModelComponentArchive.canInstantiate(e)
                 && !causeCycle((Artifact) e));
-        
+
     }
 
     @objid ("f44df655-1e0c-494d-a51c-dbd66535d9be")
@@ -183,14 +183,14 @@ class Controller {
         return (e.isValid()
                 && (ModelComponentArchive.canInstantiate(e))
                 && ((Artifact) e).isStereotyped(ModelComponentArchive.MdaTypes.STEREOTYPE_ELT));
-        
+
     }
 
     @objid ("34d1d26a-e95d-4f1e-87b1-603c5004d06a")
     private boolean causeCycle(Artifact artifact) {
         List<ElementImport> elementImports = artifact.getOwnedImport();
         NameSpace importedNamespace = null;
-        
+
         for (ElementImport elementImport : elementImports) {
             importedNamespace = elementImport.getImportedElement();
             if (isRamcArtifact(importedNamespace)) {
@@ -208,7 +208,7 @@ class Controller {
     public void onContributorChange(Object[] checkedElements) {
         // Synchronize contributing modules from checked elements
         Map<String, String> contributingModules = this.model.getContributingModules();
-        
+
         // Add new checked elements to the map
         List<String> checkedContributors = new ArrayList<>();
         for (Object o : checkedElements) {
@@ -219,14 +219,14 @@ class Controller {
             }
             checkedContributors.add(moduleName);
         }
-        
+
         // Remove unchecked elements from the map
         for (String moduleName : new ArrayList<>(contributingModules.keySet())) {
             if (!checkedContributors.contains(moduleName)) {
                 contributingModules.remove(moduleName);
             }
         }
-        
+
     }
 
     @objid ("f3f6fe93-b854-4d81-a18c-343e2883ebff")

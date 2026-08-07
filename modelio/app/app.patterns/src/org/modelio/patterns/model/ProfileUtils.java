@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.patterns.model;
 
@@ -50,7 +50,7 @@ public class ProfileUtils {
     @objid ("ddcdd259-30b7-42c8-bff7-a9f70f1cad10")
     public static Package createPattern(Package owner, IPatternRepository patternCatalog) throws ExtensionNotFoundException {
         IStandardModelFactory factory = MTools.get(owner).getModelFactory(IStandardModelFactory.class);
-        
+
         Package pattern = factory.createPackage("Pattern", owner, ProfileUtils.MODULE_NAME, PatternDesignerStereotypes.PATTERN);
         factory.createTaggedValue(ProfileUtils.MODULE_NAME, ModelElement.MQNAME, "nocode", pattern);
         return pattern;
@@ -61,13 +61,13 @@ public class ProfileUtils {
         // Create new pattern
         final Package rootPackage = getRoot(topElement);
         Package target = createPattern(rootPackage, patternCatalog);
-        
+
         // Name the pattern from the model top element name
         target.setName(topElement.getName());
-        
+
         // FIXME: when elements are not part of a ModelTree, it should also copy the composition parents up to the nearest NameSpace
         // and add <<PatternRoot>> on these not selected elements.
-        
+
         // Add elements into the new pattern
         MTools.getModelTool().copyElements(Arrays.asList(topElement), target);
         return target;
@@ -76,42 +76,42 @@ public class ProfileUtils {
     @objid ("1f3888f3-76e5-4529-be15-98c72141d549")
     public static void updatePatternModel(Package patternModel, RuntimePattern information) throws ExtensionNotFoundException {
         patternModel.setName(information.getInfos().getName());
-        
+
         patternModel.putTagValue(ProfileUtils.MODULE_NAME, PatternDesignerTagTypes.PATTERN_TEMPLATE_VERSION, information.getInfos().getVersion());
-        
+
         patternModel.putTagValue(ProfileUtils.MODULE_NAME, PatternDesignerTagTypes.PATTERN_TEMPLATE_IMAGE, information.getInfos().getImage());
-        
+
         patternModel.putNoteContent(ProfileUtils.MODULE_NAME, "description", information.getInfos().getDescription());
-        
+
         List<Category> categories = information.getCategories();
         if (!categories.isEmpty()) {
             List<String> params = patternModel.getTagValues(ProfileUtils.MODULE_NAME, PatternDesignerTagTypes.PATTERN_TEMPLATE_CATEGORIES);
-        
+
             if (params == null) {
                 params = new ArrayList<>();
             }
-        
+
             if (params.size() > 1) {
                 params.set(0, categories.get(0).getName());
             } else {
                 params.add(categories.get(0).getName());
             }
-        
+
             for (int i = 1; i < 3; i++) {
                 if (params.size() <= i) {
                     params.add("");
                 }
             }
-        
+
             patternModel.putTagValues(ProfileUtils.MODULE_NAME, PatternDesignerTagTypes.PATTERN_TEMPLATE_CATEGORIES, params);
         } else {
             patternModel.removeTags(ProfileUtils.MODULE_NAME, PatternDesignerTagTypes.PATTERN_TEMPLATE_CATEGORIES);
         }
-        
+
         // Clean tags before adding new ones
         patternModel.removeTags(ProfileUtils.MODULE_NAME, PatternDesignerTagTypes.PATTERN_TEMPLATE_PARAMETERS);
         patternModel.removeTags(ProfileUtils.MODULE_NAME, PatternDesignerTagTypes.PATTERN_TEMPLATE_STRINGPARAMETERS);
-        
+
         ICoreSession session = CoreSession.getSession(patternModel);
         IModel model = session.getModel();
         for (Parameter param : information.getParameters()) {
@@ -123,9 +123,9 @@ public class ProfileUtils {
                     saveParameterInModel(patternModel, param);
                 }
             }
-        
+
         }
-        
+
     }
 
     /**
@@ -161,14 +161,14 @@ public class ProfileUtils {
         } else {
             return getPatternModel(element.getCompositionOwner());
         }
-        
+
     }
 
     /**
      * Private c'tor to prevent class instantiation.
      */
     @objid ("de972673-a0f8-412b-885f-70639b59eb20")
-    private  ProfileUtils() {
+    private ProfileUtils() {
         // Empty
     }
 
@@ -178,7 +178,7 @@ public class ProfileUtils {
         String name = param.getName();
         String label = param.getLabel();
         String description = param.getDescription();
-        
+
         if (patternModel != null) {
             boolean found = false;
             List<String> params = patternModel.getTagValues(ProfileUtils.MODULE_NAME, PatternDesignerTagTypes.PATTERN_TEMPLATE_PARAMETERS);
@@ -203,7 +203,7 @@ public class ProfileUtils {
             }
             patternModel.putTagValues(ProfileUtils.MODULE_NAME, PatternDesignerTagTypes.PATTERN_TEMPLATE_PARAMETERS, params);
         }
-        
+
     }
 
     /**
@@ -222,7 +222,7 @@ public class ProfileUtils {
                 }
             }
         }
-        
+
         // No label found, return name
         return name;
     }
@@ -252,8 +252,8 @@ public class ProfileUtils {
 
         @objid ("979ee21d-fb58-4c28-a6de-a5c47a461e5d")
         public static final String PATTERNPARAMETER = "PatternParameter";
-}
-    
+
+    }
 
     @objid ("d9d7404c-2a74-4b94-a538-19616afe3ed7")
     public interface PatternDesignerTagTypes {
@@ -280,8 +280,8 @@ public class ProfileUtils {
 
         @objid ("746e9efa-e7a3-4231-a593-7858a00f8b1f")
         public static final String PATTERN_TEMPLATE_PARAMETERS = "Template.Parameters";
-}
-    
+
+    }
 
     /**
      * Simple data structure used when parsing parameter-related information from the model.

@@ -1,0 +1,50 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.modelio</groupId>
+		<artifactId>modelio-parent</artifactId>
+		<version>6.2.0-SNAPSHOT</version>
+		<relativePath>../../../maven/modelio-parent</relativePath>
+	</parent>
+
+	<groupId>org.modelio</groupId>
+	<artifactId>org.modelio.archimate.metamodel.implementation</artifactId>
+	<packaging>eclipse-plugin</packaging>
+
+	<build>
+		<defaultGoal>install</defaultGoal>
+		<plugins>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
+				<configuration>
+					<fork>true</fork>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-compiler-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<source>${tycho.compiler.source}</source>
+					<target>${tycho.compiler.target}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+					<useJDK>BREE</useJDK>
+					<extraClasspathElements>
+						<extraClasspathElement>
+							<groupId>org.modelio</groupId>
+							<artifactId>javadesigner</artifactId>
+							<version>2.2.0</version>
+						</extraClasspathElement>
+					</extraClasspathElements>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -48,7 +48,7 @@ public class R1400 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -67,7 +67,7 @@ public class R1400 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         plan.registerRule(ActivityParameterNode.MQNAME, this,
                 AuditTrigger.CREATE | AuditTrigger.MOVE);
-        
+
     }
 
     /**
@@ -101,14 +101,14 @@ public class R1400 extends AbstractUmlRule {
      * Default constructor for R1400
      */
     @objid ("98c0f03f-2012-4881-af72-fa0a3719c98c")
-    public  R1400() {
+    public R1400() {
         this.checkerInstance = new CheckR1400(this);
     }
 
     @objid ("ab4a23d3-5b67-43de-b561-c59c70ffbde5")
     private static class CheckR1400 extends AbstractControl {
         @objid ("5447a411-f09e-4655-b826-d7094d5f85f8")
-        public  CheckR1400(IRule rule) {
+        public CheckR1400(IRule rule) {
             super(rule);
         }
 
@@ -129,15 +129,15 @@ public class R1400 extends AbstractUmlRule {
         private IAuditEntry checkR1400(ActivityParameterNode node) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(),
                     AuditSeverity.AuditSuccess, node, null);
-            
+
             MObject owner = node.getCompositionOwner();
-            
+
             if (owner instanceof Activity) {
                 return auditEntry;
             }
-            
+
             // Rule failed
-            
+
             auditEntry.setSeverity(this.rule.getSeverity());
             List<Object> linkedObjects = new ArrayList<>();
             linkedObjects.add(node);

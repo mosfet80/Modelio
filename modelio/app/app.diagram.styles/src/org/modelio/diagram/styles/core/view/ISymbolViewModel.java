@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.styles.core.view;
 
@@ -25,6 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * Content provider for the symbol view that allow edition of the element style.
+ *
  * @author cma
  * @since 3.7
  */
@@ -38,6 +39,7 @@ public interface ISymbolViewModel {
 
     /**
      * Get children entry of the given entry.
+     *
      * @param entry a symbol view item
      * @return the children items, never null.
      */
@@ -46,6 +48,7 @@ public interface ISymbolViewModel {
 
     /**
      * Get the root symbol items.
+     *
      * @param input the current selection
      * @return the root items
      */
@@ -53,12 +56,14 @@ public interface ISymbolViewModel {
     List<? extends ISymbolViewItem> getElements();
 
     /**
+     *
      * @return a label that describe the edited element.
      */
     @objid ("e61b216b-fe94-433f-9995-e050f0a648c6")
     String getLabel();
 
     /**
+     *
      * @param entry a symbol view item.
      * @return the parent item, null if the entry is a root one.
      */
@@ -67,6 +72,7 @@ public interface ISymbolViewModel {
 
     /**
      * Get only visible children entry of the given entry.
+     *
      * @param entry a symbol view item
      * @return the visible children items, never null.
      */
@@ -106,5 +112,5 @@ public interface ISymbolViewModel {
         }
 
     }
-}
 
+}

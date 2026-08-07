@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.importer.service.processor.update;
 
@@ -52,12 +52,12 @@ public class UpdateElementProcessorUpdate implements IBPMNImportProcessor {
     }
 
     @objid ("125799c3-9309-4855-be83-3d7e1b104247")
-    public  UpdateElementProcessorUpdate(ICoreSession session, IDiagramService diagramService, Map<String, Object> elementsMape) {
+    public UpdateElementProcessorUpdate(ICoreSession session, IDiagramService diagramService, Map<String, Object> elementsMape) {
         this.session = session;
         this.diagramService = diagramService;
         this.elementsMap = elementsMape;
         this.factory = new ProductionFactory();
-        
+
     }
 
     /**
@@ -69,9 +69,9 @@ public class UpdateElementProcessorUpdate implements IBPMNImportProcessor {
         IProduction node = this.factory.getImportProductionNode(jaxbElement);
         if (node != null) {
             node.setElements(this.elementsMap);
-        
+
             MObject modelioElement = (MObject) this.elementsMap.get(IDUtils.getJaxbId(context, jaxbElement));
-        
+
             if (node instanceof IProductionNode) {
                 modelioElement = ((IProductionNode) node).updateUMLElement(context, modelioElement, jaxbElement);
             }

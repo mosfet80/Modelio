@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.gui.creation.doctype;
 
@@ -31,8 +31,8 @@ import org.modelio.platform.model.ui.swt.images.MetamodelImageService;
 @objid ("a3cb7538-b1f7-4732-a51f-75adf160af91")
 class DocTypeChooserLabelProvider extends LabelProvider {
     @objid ("7517f40a-6c59-426d-b61b-2359b2ac1133")
-    public  DocTypeChooserLabelProvider() {
-        
+    public DocTypeChooserLabelProvider() {
+
     }
 
     @objid ("eb6134dc-e852-4cd7-8d86-061dc74ee8bf")
@@ -46,19 +46,19 @@ class DocTypeChooserLabelProvider extends LabelProvider {
         } else if (element instanceof AdapterRichNoteType) {
             // It is a rich note type
             ResourceType docType = ((AdapterRichNoteType) element).getDocType();
-        
+
             return getDocumentTypeImage(docType);
         } else if (element instanceof AdapterStereotype) {
             // It is a stereotype
             AdapterStereotype stereotypeAdapter = (AdapterStereotype) element;
             Stereotype stereotype = stereotypeAdapter.getStereotype();
-        
+
             Image image = MdaResources.getIcon(stereotype);
-        
+
             if (image == null) {
                 image = MetamodelImageService.getIcon(stereotype.getMClass());
             }
-        
+
             return image;
         }
         return null;
@@ -69,24 +69,24 @@ class DocTypeChooserLabelProvider extends LabelProvider {
     public String getText(Object element) {
         if (element instanceof AdapterModule) {
             AdapterModule adapter = (AdapterModule) element;
-        
+
             return MdaResources.getLabel(adapter.getMdac());
         } else if (element instanceof AdapterRichNoteType) {
             StringBuilder noteTypeLabel = new StringBuilder();
             AdapterRichNoteType adapter = (AdapterRichNoteType) element;
-        
+
             String label = MdaResources.getLabel(adapter.getDocType());
             if (!label.isEmpty()) {
                 noteTypeLabel.append(label);
             } else {
                 noteTypeLabel.append(adapter.getDocType().getName());
             }
-        
+
             return noteTypeLabel.toString();
         } else if (element instanceof AdapterStereotype) {
             StringBuilder noteTypeLabel = new StringBuilder();
             AdapterStereotype adapter = (AdapterStereotype) element;
-        
+
             noteTypeLabel.append("<<");
             String label = MdaResources.getLabel(adapter.getStereotype());
             if (!"".equals(label)) {
@@ -95,16 +95,17 @@ class DocTypeChooserLabelProvider extends LabelProvider {
                 noteTypeLabel.append(adapter.getStereotype().getName());
             }
             noteTypeLabel.append(">>");
-        
+
             return noteTypeLabel.toString();
         } else {
             return element.toString();
         }
-        
+
     }
 
     /**
      * Get the icon the the rich note type.
+     *
      * @param docType the rich note type
      */
     @objid ("9885814f-a09e-4000-ae07-cf2e1893dd8a")
@@ -117,13 +118,13 @@ class DocTypeChooserLabelProvider extends LabelProvider {
     @objid ("2703ad18-26d0-4050-9b5f-e2a7916a55e4")
     private Image getModuleImage(ModuleComponent moduleModel) {
         Image moduleImage = MdaResources.getModuleImage(moduleModel);
-        
+
         if (moduleImage != null) {
             return moduleImage;
         } else {
             return MetamodelImageService.getIcon(moduleModel.getMClass());
         }
-        
+
     }
 
 }

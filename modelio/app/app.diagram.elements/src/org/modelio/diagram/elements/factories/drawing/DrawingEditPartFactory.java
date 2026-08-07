@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.factories.drawing;
 
@@ -51,43 +51,43 @@ public class DrawingEditPartFactory implements EditPartFactory {
             editPart.setModel(model);
             return editPart;
         }
-        
+
         if (model instanceof GmEllipseDrawing) {
             final EllipseDrawingEditPart editPart = new EllipseDrawingEditPart();
             editPart.setModel(model);
             return editPart;
         }
-        
+
         if (model instanceof GmDrawingLayer) {
             DrawingLayerEditPart p = new DrawingLayerEditPart();
             p.setModel(model);
             return p;
         }
-        
+
         if (model instanceof GmTextDrawing) {
             TextDrawingEditPart p = new TextDrawingEditPart();
             p.setModel(model);
             return p;
         }
-        
+
         if (model instanceof GmNoteDrawing) {
             NoteDrawingEditPart p = new NoteDrawingEditPart();
             p.setModel(model);
             return p;
         }
-        
+
         if (model instanceof GmImageDrawing) {
             ImageDrawingEditPart p = new ImageDrawingEditPart();
             p.setModel(model);
             return p;
         }
-        
+
         if (model instanceof GmLineDrawing) {
             LineDrawingEditPart p = new LineDrawingEditPart();
             p.setModel(model);
             return p;
         }
-        
+
         if (model instanceof GmDrawing || model instanceof GmDrawingLayer) {
             throw new IllegalArgumentException(model + " drawing is not supported.");
         }

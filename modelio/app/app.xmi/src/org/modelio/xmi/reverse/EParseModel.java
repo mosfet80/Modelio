@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.reverse;
 
@@ -47,11 +47,11 @@ public class EParseModel extends UMLSwitch<Object> {
     private Map<Object, Object> visitorMap;
 
     @objid ("e14b41d9-cb7f-4a91-aa4b-fec920ff805c")
-    public  EParseModel(XMIImportBehavior behavior, Package ecoreRootModel) {
+    public EParseModel(XMIImportBehavior behavior, Package ecoreRootModel) {
         this.behavior = behavior;
         this.visitorMap = new HashMap<>();
         this.visitorMap.put(ecoreRootModel, ecoreRootModel);
-        
+
     }
 
     @objid ("9567c8a5-a176-49f9-8128-36ddf784ad30")
@@ -61,7 +61,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputAbstraction, inputAbstraction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -83,7 +83,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputAcceptCallAction, inputAcceptCallAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -106,7 +106,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputAcceptEventAction, inputAcceptEventAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -154,7 +154,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputActionExecutionSpecification,
                     inputActionExecutionSpecification);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -178,7 +178,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputActionInputPin, inputActionInputPin);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -200,7 +200,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputActivity, inputActivity);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -262,7 +262,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputActivityFinalNode, inputActivityFinalNode);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -330,7 +330,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputActivityParameterNode,
                     inputActivityParameterNode);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -353,7 +353,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputActivityPartition, inputActivityPartition);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -386,7 +386,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputActor, inputActor);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -407,7 +407,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputAddStructuralFeatureValueAction,
                     inputAddStructuralFeatureValueAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -433,7 +433,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputAddVariableValueAction,
                     inputAddVariableValueAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -456,7 +456,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputAnyReceiveEvent, inputAnyReceiveEvent);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -477,7 +477,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputArtifact, inputArtifact);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -510,7 +510,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputAssociation, inputAssociation);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -544,7 +544,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputAssociationClass, inputAssociationClass);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -590,7 +590,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputBehaviorExecutionSpecification,
                     inputBehaviorExecutionSpecification);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -659,7 +659,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputBroadcastSignalAction,
                     inputBroadcastSignalAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -692,7 +692,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputCallBehaviorAction, inputCallBehaviorAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -714,7 +714,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputCallEvent, inputCallEvent);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -736,7 +736,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputCallOperationAction, inputCallOperationAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -759,7 +759,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputCentralBufferNode, inputCentralBufferNode);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -780,7 +780,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputChangeEvent, inputChangeEvent);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -802,7 +802,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputClass, inputClass);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -885,7 +885,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputClassifierTemplateParameter,
                     inputClassifierTemplateParameter);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -901,7 +901,7 @@ public class EParseModel extends UMLSwitch<Object> {
                     .getParameteredElement());
             this.doSwitch(inputClassifierTemplateParameter
                     .getDefault());
-        
+
             for (EObject constrainingClassifier : inputClassifierTemplateParameter
                     .getConstrainingClassifiers()) {
                 this.doSwitch(constrainingClassifier);
@@ -917,7 +917,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputClause, inputClause);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -954,7 +954,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputClearAssociationAction,
                     inputClearAssociationAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -980,7 +980,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputClearStructuralFeatureAction,
                     inputClearStructuralFeatureAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1003,7 +1003,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputClearVariableAction, inputClearVariableAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1024,7 +1024,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputCollaboration, inputCollaboration);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1049,7 +1049,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputCollaborationUse, inputCollaborationUse);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1074,7 +1074,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputCombinedFragment, inputCombinedFragment);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1102,7 +1102,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputComment, inputComment);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1125,7 +1125,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputCommunicationPath, inputCommunicationPath);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1146,7 +1146,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputComponent, inputComponent);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1180,7 +1180,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap
             .put(inputComponentRealization, inputComponentRealization);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1192,7 +1192,7 @@ public class EParseModel extends UMLSwitch<Object> {
             theResult = super
             .caseComponentRealization(inputComponentRealization);
             this.doSwitch(inputComponentRealization.getAbstraction());
-        
+
             for (EObject realization : inputComponentRealization.getRealizingClassifiers()) {
                 this.doSwitch(realization);
             }
@@ -1207,7 +1207,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputConditionalNode, inputConditionalNode);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1248,7 +1248,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputConnectableElementTemplateParameter,
                     inputConnectableElementTemplateParameter);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1274,7 +1274,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputConnectionPointReference,
                     inputConnectionPointReference);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1304,7 +1304,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputConnector, inputConnector);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1336,7 +1336,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputConnectorEnd, inputConnectorEnd);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1361,7 +1361,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputConsiderIgnoreFragment,
                     inputConsiderIgnoreFragment);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1386,7 +1386,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputConstraint, inputConstraint);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1413,7 +1413,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputContinuation, inputContinuation);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1434,7 +1434,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputControlFlow, inputControlFlow);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1461,7 +1461,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputCreateLinkAction, inputCreateLinkAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1486,7 +1486,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputCreateLinkObjectAction,
                     inputCreateLinkObjectAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1509,7 +1509,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputCreateObjectAction, inputCreateObjectAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1532,7 +1532,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputCreationEvent, inputCreationEvent);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1553,7 +1553,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputDataStoreNode, inputDataStoreNode);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1574,7 +1574,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputDataType, inputDataType);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1601,7 +1601,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputDecisionNode, inputDecisionNode);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1623,7 +1623,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputDependency, inputDependency);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1656,7 +1656,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputDeployment, inputDeployment);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1686,7 +1686,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputDeploymentSpecification,
                     inputDeploymentSpecification);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1724,7 +1724,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputDestroyLinkAction, inputDestroyLinkAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1748,7 +1748,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputDestroyObjectAction, inputDestroyObjectAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1770,7 +1770,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputDestructionEvent, inputDestructionEvent);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1791,7 +1791,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputDevice, inputDevice);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1825,7 +1825,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputDuration, inputDuration);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1850,7 +1850,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputDurationConstraint, inputDurationConstraint);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1872,7 +1872,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputDurationInterval, inputDurationInterval);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1895,7 +1895,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputDurationIservation, inputDurationIservation);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1933,7 +1933,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputElementImport, inputElementImport);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1967,7 +1967,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputEnumeration, inputEnumeration);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -1991,7 +1991,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputEnumerationLiteral, inputEnumerationLiteral);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2019,7 +2019,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputExceptionHandler, inputExceptionHandler);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2058,7 +2058,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap
             .put(inputExecutionEnvironment, inputExecutionEnvironment);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2080,7 +2080,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputExecutionEvent, inputExecutionEvent);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2103,7 +2103,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputExecutionOccurrenceSpecification,
                     inputExecutionOccurrenceSpecification);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2138,7 +2138,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputExpansionNode, inputExpansionNode);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2161,7 +2161,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputExpansionRegion, inputExpansionRegion);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2189,7 +2189,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputExpression, inputExpression);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2213,7 +2213,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputExtend, inputExtend);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2239,7 +2239,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputExtension, inputExtension);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2265,7 +2265,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputExtensionEnd, inputExtensionEnd);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2287,7 +2287,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputExtensionPoint, inputExtensionPoint);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2326,7 +2326,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputFinalState, inputFinalState);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2347,7 +2347,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputFlowFinalNode, inputFlowFinalNode);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2368,7 +2368,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputForkNode, inputForkNode);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2389,7 +2389,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputFunctionBehavior, inputFunctionBehavior);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2410,7 +2410,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputGate, inputGate);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2430,7 +2430,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputGeneralOrdering, inputGeneralOrdering);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2453,7 +2453,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputGeneralization, inputGeneralization);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2480,7 +2480,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputGeneralizationSet, inputGeneralizationSet);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2506,7 +2506,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputImage, inputImage);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2526,7 +2526,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputInclude, inputInclude);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2548,7 +2548,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputInformationFlow, inputInformationFlow);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2595,7 +2595,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputInformationItem, inputInformationItem);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2619,7 +2619,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputInitialNode, inputInitialNode);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2640,7 +2640,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputInputPin, inputInputPin);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2662,7 +2662,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputInstanceSpecification,
                     inputInstanceSpecification);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2693,7 +2693,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputInstanceValue, inputInstanceValue);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2715,7 +2715,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputInteraction, inputInteraction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2752,7 +2752,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputInteractionConstraint,
                     inputInteractionConstraint);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2794,7 +2794,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputInteractionOperand, inputInteractionOperand);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2819,7 +2819,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputInteractionUse, inputInteractionUse);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2847,7 +2847,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputInterface, inputInterface);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2887,7 +2887,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap
             .put(inputInterfaceRealization, inputInterfaceRealization);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2913,7 +2913,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputInterruptibleActivityRegion,
                     inputInterruptibleActivityRegion);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2943,7 +2943,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputInterval, inputInterval);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2966,7 +2966,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputIntervalConstraint, inputIntervalConstraint);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -2999,7 +2999,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputJoinNode, inputJoinNode);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3021,7 +3021,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputLifeline, inputLifeline);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3062,7 +3062,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputLinkEndCreationData, inputLinkEndCreationData);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3084,7 +3084,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputLinkEndData, inputLinkEndData);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3111,7 +3111,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputLinkEndDestructionData,
                     inputLinkEndDestructionData);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3134,7 +3134,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputLiteralBoolean, inputLiteralBoolean);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3155,7 +3155,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputLiteralInteger, inputLiteralInteger);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3176,7 +3176,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputLiteralNull, inputLiteralNull);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3205,7 +3205,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputLiteralString, inputLiteralString);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3227,7 +3227,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputLiteralUnlimitedNatural,
                     inputLiteralUnlimitedNatural);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3249,7 +3249,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputLoopNode, inputLoopNode);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3293,7 +3293,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputManifestation, inputManifestation);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3315,7 +3315,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputMergeNode, inputMergeNode);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3336,7 +3336,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputMessage, inputMessage);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3379,7 +3379,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputMessageOccurrenceSpecification,
                     inputMessageOccurrenceSpecification);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3402,7 +3402,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputModel, inputModel);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3473,7 +3473,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputNode, inputNode);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3496,7 +3496,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputObjectFlow, inputObjectFlow);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3538,7 +3538,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputOccurrenceSpecification,
                     inputOccurrenceSpecification);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3571,7 +3571,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputOpaqueAction, inputOpaqueAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3598,7 +3598,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputOpaqueBehavior, inputOpaqueBehavior);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3619,7 +3619,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputOpaqueExpression, inputOpaqueExpression);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3642,7 +3642,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputOperation, inputOperation);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3686,7 +3686,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputOperationTemplateParameter,
                     inputOperationTemplateParameter);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3711,7 +3711,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputOutputPin, inputOutputPin);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3732,10 +3732,10 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputPackage, inputPackage);
         }
-        
+
         if (inputPackage instanceof org.eclipse.uml2.uml.Model)
             return theResult;
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3772,7 +3772,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputPackageImport, inputPackageImport);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3795,7 +3795,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputPackageMerge, inputPackageMerge);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3826,7 +3826,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputParameter, inputParameter);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3852,7 +3852,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputParameterSet, inputParameterSet);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3891,7 +3891,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputPartDecomposition, inputPartDecomposition);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3912,7 +3912,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputPin, inputPin);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3932,7 +3932,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputPort, inputPort);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3962,7 +3962,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputPrimitiveType, inputPrimitiveType);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -3983,7 +3983,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputProfile, inputProfile);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4014,7 +4014,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputProfileApplication, inputProfileApplication);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4040,7 +4040,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputProperty, inputProperty);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4079,7 +4079,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputProtocolConformance, inputProtocolConformance);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4105,7 +4105,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap
             .put(inputProtocolStateMachine, inputProtocolStateMachine);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4131,7 +4131,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputProtocolTransition, inputProtocolTransition);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4157,7 +4157,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputPseudostate, inputPseudostate);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4180,7 +4180,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputQualifierValue, inputQualifierValue);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4204,7 +4204,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap
             .put(inputRaiseExceptionAction, inputRaiseExceptionAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4227,7 +4227,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputReadExtentAction, inputReadExtentAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4251,7 +4251,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputReadIsClassifiedObjectAction,
                     inputReadIsClassifiedObjectAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4280,7 +4280,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputReadLinkAction, inputReadLinkAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4303,7 +4303,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputReadLinkObjectEndAction,
                     inputReadLinkObjectEndAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4330,7 +4330,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputReadLinkObjectEndQualifierAction,
                     inputReadLinkObjectEndQualifierAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4359,7 +4359,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputReadSelfAction, inputReadSelfAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4382,7 +4382,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputReadStructuralFeatureAction,
                     inputReadStructuralFeatureAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4407,7 +4407,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputReadVariableAction, inputReadVariableAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4429,7 +4429,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputRealization, inputRealization);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4451,7 +4451,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputReceiveOperationEvent,
                     inputReceiveOperationEvent);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4474,7 +4474,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputReceiveSignalEvent, inputReceiveSignalEvent);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4496,7 +4496,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputReception, inputReception);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4519,7 +4519,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputReclassifyObjectAction,
                     inputReclassifyObjectAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4567,7 +4567,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputRedefinableTemplateSignature,
                     inputRedefinableTemplateSignature);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4600,7 +4600,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputReduceAction, inputReduceAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4624,7 +4624,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputRegion, inputRegion);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4670,7 +4670,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputRemoveStructuralFeatureValueAction,
                     inputRemoveStructuralFeatureValueAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4696,7 +4696,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputRemoveVariableValueAction,
                     inputRemoveVariableValueAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4721,7 +4721,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputReplyAction, inputReplyAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4747,7 +4747,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputSendObjectAction, inputSendObjectAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4770,7 +4770,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputSendOperationEvent, inputSendOperationEvent);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4792,7 +4792,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputSendSignalAction, inputSendSignalAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4815,7 +4815,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputSequenceNode, inputSequenceNode);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4839,7 +4839,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputSignal, inputSignal);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4862,7 +4862,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputSignalEvent, inputSignalEvent);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4884,7 +4884,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputSlot, inputSlot);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4910,7 +4910,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputStartClassifierBehaviorAction,
                     inputStartClassifierBehaviorAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4935,7 +4935,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputState, inputState);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -4978,7 +4978,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputStateInvariant, inputStateInvariant);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -5004,7 +5004,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputStateMachine, inputStateMachine);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -5040,7 +5040,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputStereotype, inputStereotype);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -5064,7 +5064,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputStringExpression, inputStringExpression);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -5110,7 +5110,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputStructuredActivityNode,
                     inputStructuredActivityNode);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -5164,7 +5164,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputSubstitution, inputSubstitution);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -5188,7 +5188,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputTemplateBinding, inputTemplateBinding);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -5215,7 +5215,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputTemplateParameter, inputTemplateParameter);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -5244,7 +5244,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputTemplateParameterSubstitution,
                     inputTemplateParameterSubstitution);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -5260,11 +5260,11 @@ public class EParseModel extends UMLSwitch<Object> {
                     .getFormal());
             this.doSwitch(inputTemplateParameterSubstitution
                     .getTemplateBinding());
-        
+
             this.doSwitch(inputTemplateParameterSubstitution.getActual());
-        
+
             this.doSwitch( inputTemplateParameterSubstitution.getOwnedActual());
-        
+
         }
         return theResult;
     }
@@ -5276,7 +5276,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputTemplateSignature, inputTemplateSignature);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -5319,7 +5319,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputTestIdentityAction, inputTestIdentityAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -5343,7 +5343,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputTimeConstraint, inputTimeConstraint);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -5365,7 +5365,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputTimeEvent, inputTimeEvent);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -5387,7 +5387,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputTimeExpression, inputTimeExpression);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -5412,7 +5412,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputTimeInterval, inputTimeInterval);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -5435,7 +5435,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputTimeObservation, inputTimeObservation);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -5457,7 +5457,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputTransition, inputTransition);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -5492,7 +5492,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputTrigger, inputTrigger);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -5532,7 +5532,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputUnmarshallAction, inputUnmarshallAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -5558,7 +5558,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputUsage, inputUsage);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -5578,7 +5578,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputUseCase, inputUseCase);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -5610,7 +5610,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputValuePin, inputValuePin);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -5639,7 +5639,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputValueSpecificationAction,
                     inputValueSpecificationAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -5664,7 +5664,7 @@ public class EParseModel extends UMLSwitch<Object> {
         if (theResult == null) {
             this.visitorMap.put(inputVariable, inputVariable);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the
@@ -5733,7 +5733,7 @@ public class EParseModel extends UMLSwitch<Object> {
             return super.doSwitch(inputElement);
         else
             return null;
-        
+
     }
 
     @objid ("52d6a4f4-2a29-49cd-a2c7-99807f4de4d8")
@@ -5744,7 +5744,7 @@ public class EParseModel extends UMLSwitch<Object> {
             this.visitorMap.put(inputStartObjectBehaviorAction,
                     inputStartObjectBehaviorAction);
         }
-        
+
         // In particular case of this concrete element is inherited by another
         // concrete element, it
         // shall be in the this.visitorMap. Also do call the treatment defined at the

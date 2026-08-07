@@ -1,31 +1,32 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.mmextensions.standard.migration.from_36;
 
-import java.io.PrintWriter;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.vcore.model.spi.mm.IMigrationReporter.IMigrationLogger;
 import org.modelio.vcore.model.spi.mm.IMofSession;
 import org.modelio.vcore.smkernel.meta.mof.MofSmObjectImpl;
 
 /**
  * Fixes BpmnDataAssociation 'SourceRef' and 'TargetRef' that are swapped in some cases.
+ *
  * @author cma
  */
 @objid ("ca7c3694-05a1-42d7-b300-4e1949a50409")
@@ -37,14 +38,14 @@ class DataAssociationFixer {
     private final MM mm;
 
     @objid ("63809094-5c53-4203-abe1-ce3c3174d8f5")
-    private PrintWriter logger;
+    private IMigrationLogger logger;
 
     @objid ("845e51a8-8121-455b-aa9a-cccdf68b7e34")
-    public  DataAssociationFixer(IMofSession mofSession, MM mm) {
+    public DataAssociationFixer(IMofSession mofSession, MM mm) {
         this.mofSession = mofSession;
         this.mm = mm;
         this.logger = mofSession.getReport().getLogger();
-        
+
     }
 
     @objid ("0569f997-bf6e-4d21-ad68-969caeb06a5c")
@@ -57,7 +58,7 @@ class DataAssociationFixer {
             dataAssoc.getSingleDep("EndingEvent");
             MofSmObjectImpl SourceRef = dataAssoc.getSingleDep("SourceRef");
             MofSmObjectImpl TargetRef = dataAssoc.getSingleDep("TargetRef");
-            
+
             if (StartingActivity != null && SourceRef != null) {
                 this.logger.format("    Fixing %s : Setting %s source as target.\n", dataAssoc, SourceRef);
                 dumpDataAssociation(dataAssoc);
@@ -74,7 +75,7 @@ class DataAssociationFixer {
             }
         }
         this.logger.println("  Fixing BpmnDataAssociations done.");
-        
+
     }
 
     @objid ("6ea88221-8cd5-4964-8585-05f06b526746")
@@ -83,7 +84,7 @@ class DataAssociationFixer {
         MofSmObjectImpl EndingActivity = dataAssoc.getSingleDep("EndingActivity");
         MofSmObjectImpl SourceRef = dataAssoc.getSingleDep("SourceRef");
         MofSmObjectImpl TargetRef = dataAssoc.getSingleDep("TargetRef");
-        
+
         this.logger.format("      %s dump:\n", dataAssoc);
         this.logger.format("         - StartingActivity : %s .\n",  StartingActivity);
         this.logger.format("         - EndingActivity : %s .\n",  EndingActivity);
@@ -91,7 +92,7 @@ class DataAssociationFixer {
         this.logger.format("         - EndingEvent : %s .\n",  dataAssoc.getSingleDep("EndingEvent"));
         this.logger.format("         - SourceRef : %s .\n",  SourceRef);
         this.logger.format("         - TargetRef : %s .\n",  TargetRef);
-        
+
     }
 
 }

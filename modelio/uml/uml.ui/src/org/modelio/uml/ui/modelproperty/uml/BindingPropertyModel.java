@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -66,12 +66,12 @@ public class BindingPropertyModel extends AbstractPropertyModel<Binding> {
         if (ret != null) {
             return ret;
         }
-        
+
         ret = el.getConnectorRole();
         if (ret != null) {
             return ret;
         }
-        
+
         ret = el.getRole();
         return ret;
     }
@@ -102,7 +102,7 @@ public class BindingPropertyModel extends AbstractPropertyModel<Binding> {
                 }
             }
         }
-        
+
         if (value != null) {
             // Set new value
             if (ConnectorEnd.class.isAssignableFrom(value.getClass())) {
@@ -113,20 +113,22 @@ public class BindingPropertyModel extends AbstractPropertyModel<Binding> {
                 theEditedElement.setRole((BindableInstance) value);
             }
         }
-        
+
     }
 
     /**
      * Create a new <i>Binding</i> data model from an <i>Binding</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("7cd13029-2b04-42ab-b919-c5a9577a83a5")
-    public  BindingPropertyModel(Binding theEditedElement) {
+    public BindingPropertyModel(Binding theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("d0107a3e-6106-45a8-852e-e791cd71acd5")
@@ -137,6 +139,7 @@ public class BindingPropertyModel extends AbstractPropertyModel<Binding> {
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("5a4dd633-a520-4e45-b67f-07ebee91d6f5")
@@ -149,6 +152,7 @@ public class BindingPropertyModel extends AbstractPropertyModel<Binding> {
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -172,7 +176,7 @@ public class BindingPropertyModel extends AbstractPropertyModel<Binding> {
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -182,6 +186,7 @@ public class BindingPropertyModel extends AbstractPropertyModel<Binding> {
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -210,20 +215,21 @@ public class BindingPropertyModel extends AbstractPropertyModel<Binding> {
                 representingTypes.add(NaryAssociation.class);
                 representingTypes.add(LinkEnd.class);
                 return new DefaultElementNatValue((MObject) getValue(row, col), false, representingTypes);
-        
+
             default:
                 return null;
             }
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -251,7 +257,7 @@ public class BindingPropertyModel extends AbstractPropertyModel<Binding> {
         default:
             return;
         }
-        
+
     }
 
 }

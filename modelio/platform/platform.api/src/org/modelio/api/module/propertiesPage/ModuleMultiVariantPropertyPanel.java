@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.module.propertiesPage;
 
@@ -45,8 +45,9 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * </ul>
  * {@link IPanelProvider} instances are registered along with their applicability conditions in a map where they are looked up for when the {@link ModuleMultiVariantPropertyPanel#setInput(Object)} is called. The ModuleMultiVariantPropertyPanel chooses the
  * first condition matching {@link IPanelProvider} which becomes the {@link #activePanelProvider} that is in charge of displaying the element properties.
- * 
- * When no matching {@link IPanelProvider} is found a statically predefined "empty" panel provider is used {@link #EMPTYPANELPROVIDER} that simply display an empty GUI.
+ *
+ * When no matching {@link IPanelProvider} is found a statically predefined "empty" panel provider is used {@link #emptyPanelProvider} that simply display an empty GUI.
+ *
  * @since 4.1
  */
 @objid ("1ee8619c-ca92-46f5-92a1-b3093a2483ba")
@@ -58,56 +59,19 @@ public class ModuleMultiVariantPropertyPanel implements IModulePropertyCustomPan
     private String name;
 
     /**
-     * The EMPTYPANELPROVIDER instance. Provides a fallback provider when no matching entry can be found in {@link #registeredPanels}. The EMPTYPANELPROVIDER displays an empty GUI.
+     * The EMPTYPANELPROVIDER instance.
+     * <p>
+     * Provides a fallback provider when no matching entry can be found in {@link #registeredPanels}.
+     * The EMPTYPANELPROVIDER displays an empty GUI.
      */
     @objid ("84128088-6e78-447a-9d87-f7c4fbb1feef")
-    private static final IPanelProvider EMPTYPANELPROVIDER = new IPanelProvider() {
-            private Composite top;
-            private Object input;
-            @Override
-            public void setInput(Object input) {
-                // Nothing special to do here, the EMPTYPANELPROVIDER does not display anything dependent on the current input.
-                // Just store the current input to provide a coherent implementation of getInput()
-                this.input = input;
-            }
-            @Override
-            public boolean isRelevantFor(@SuppressWarnings ("hiding") Object input) {
-                // EMPTYPANELPROVIDER is relevant for any element
-                return true;
-            }
-            @Override
-            public Object getPanel() {
-                return this.top;
-            }
-            @Override
-            public Object getInput() {
-                return this.input;
-            }
-            @Override
-            public String getHelpTopic() {
-                return null;
-            }
-            @Override
-            public void dispose() {
-            }
-            @Override
-            public Object createPanel(Composite parent) {
-                this.top = new Composite(parent, SWT.NONE);
-                this.top.setBackground(UIColor.LIGHTGRAY);
-                return this.top;
-            }
-        };
+    private final IPanelProvider emptyPanelProvider = new EmptyPanelProvider();
 
     /**
      * A YES to any element filter used as a fallback when no filter has been set in a VariantEntry.
      */
     @objid ("d6357326-b4f1-4e6a-a320-c566929efef4")
-    private static final IElementFilter YES_FILTER = new IElementFilter() {
-            @Override
-            public boolean accept(MObject element) {
-                return true;
-            }
-        };
+    private static final IElementFilter YES_FILTER = element -> true;
 
     @objid ("69ba0307-c647-497e-9c55-9b7117f4effb")
     private IPanelProvider activePanelProvider;
@@ -119,7 +83,7 @@ public class ModuleMultiVariantPropertyPanel implements IModulePropertyCustomPan
     private IModule module;
 
     @objid ("66975b21-c8c2-41ea-9d52-e127e2274728")
-    private List<VariantEntry> registeredPanels = new ArrayList<>();
+    private final List<VariantEntry> registeredPanels = new ArrayList<>();
 
     @objid ("88d57af4-24e4-4e26-83cc-f2971d799274")
     private Composite stackComposite;
@@ -128,28 +92,29 @@ public class ModuleMultiVariantPropertyPanel implements IModulePropertyCustomPan
     private StackLayout stackLayout;
 
     @objid ("ab193898-b23f-41a7-9b59-d3219beffc5b")
-    private Path icon;
+    private final Path icon;
 
     /**
      * Constructors of this property page.
+     *
      * @param module module that is associated to the property page
      * @param name the name of the property page.
      * @param label the label of the property page.
      * @param icon a relative path to the image to display for the property page.
      */
     @objid ("666a43ce-2009-41c7-acb3-3f0d828b722d")
-    public  ModuleMultiVariantPropertyPanel(IModule module, String name, String label, String icon) {
+    public ModuleMultiVariantPropertyPanel(IModule module, String name, String label, String icon) {
         this.module = module;
         this.name = name;
         this.label = label;
         this.icon = icon == null || icon.isEmpty() ? null : module.getModuleContext().getConfiguration().getModuleResourcesPath().resolve(icon);
-        
+
     }
 
     /**
-     * From interface IPanelProvider
-     * 
-     * Create the GUI for the ModuleMultiVariantPropertyPanel. The GUI is mainly a Composite using a stack layout to switch between the different registered panels.
+     * Create the GUI for the ModuleMultiVariantPropertyPanel.
+     * <p>
+     * The GUI is mainly a Composite using a stack layout to switch between the different registered panels.
      */
     @objid ("a7a1941c-14d4-4817-817c-1f8cef782222")
     @Override
@@ -157,29 +122,29 @@ public class ModuleMultiVariantPropertyPanel implements IModulePropertyCustomPan
         // stackComposite level container
         this.stackComposite = new Composite(parent, SWT.NONE);
         //this.stackComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-        
+
         this.stackLayout = new StackLayout();
-        
+
         this.stackComposite.setLayout(this.stackLayout);
-        
+
         // Make the EMPTYPANELPROVIDER the initial provider to start with.
-        EMPTYPANELPROVIDER.createPanel(this.stackComposite);
-        this.stackLayout.topControl = (Control) EMPTYPANELPROVIDER.getPanel();
+        this.emptyPanelProvider.createPanel(this.stackComposite);
+        this.stackLayout.topControl = (Control) this.emptyPanelProvider.getPanel();
         return this.stackComposite;
     }
 
-    /**
-     * From IPanelProvider
-     */
     @objid ("a3c9bb0a-5327-47cb-aea4-9469931988fa")
     @Override
     public void dispose() {
-        this.activePanelProvider = EMPTYPANELPROVIDER;
+        this.activePanelProvider = this.emptyPanelProvider;
         for (VariantEntry variantEntry : this.registeredPanels) {
             variantEntry.panelProvider.dispose();
         }
         this.registeredPanels.clear();
-        
+
+        this.activePanelProvider.dispose();
+        this.stackComposite.dispose();
+
     }
 
     /**
@@ -238,7 +203,7 @@ public class ModuleMultiVariantPropertyPanel implements IModulePropertyCustomPan
 
     /**
      * From interface IPanelProvider.
-     * 
+     *
      * The resolution of isRelevantFor() consists in:
      * <ol>
      * <li>get the proper IPanelProvider for the input</li>
@@ -259,6 +224,7 @@ public class ModuleMultiVariantPropertyPanel implements IModulePropertyCustomPan
 
     /**
      * Register an {@link IPanelProvider} for the given scope.
+     *
      * @param panelProvider the {@link IPanelProvider} to register. Cannot be null.
      * @param scope the scope for which the panel provider is applicable. Cannot be null.
      */
@@ -269,6 +235,7 @@ public class ModuleMultiVariantPropertyPanel implements IModulePropertyCustomPan
 
     /**
      * Register an {@link IPanelProvider} for the given scope and under the additional filter condition.
+     *
      * @param panelProvider the {@link IPanelProvider} to register. Cannot be null.
      * @param scope the scope for which the panel provider is applicable. Cannot be null.
      * @param filter the additional filter the element must pass once its scope has been approved. Cannot be null.
@@ -280,7 +247,7 @@ public class ModuleMultiVariantPropertyPanel implements IModulePropertyCustomPan
 
     /**
      * From interface IPanelProvider.
-     * 
+     *
      * Switch the currently activated panel to the proper panel for proposed input and pass the input to this new activated panel.
      */
     @objid ("d14ab560-4631-4194-bd51-5003013606ef")
@@ -305,13 +272,15 @@ public class ModuleMultiVariantPropertyPanel implements IModulePropertyCustomPan
             mobj = (MObject) input;
         }
         this.input = mobj;
-        
+
         switchActivePanelProvider(mobj);
-        
+
         this.activePanelProvider.setInput(mobj);
-        ((Composite) this.activePanelProvider.getPanel()).layout(true, true);
-        ((Composite) this.activePanelProvider.getPanel()).redraw();
-        
+
+        Composite activeComposite = (Composite) this.activePanelProvider.getPanel();
+        activeComposite.layout(true, true);
+        activeComposite.redraw();
+
     }
 
     /**
@@ -348,24 +317,25 @@ public class ModuleMultiVariantPropertyPanel implements IModulePropertyCustomPan
      * <li>Make it the new active panel provider</li>
      * <li>get the panel composite of the new activated panel provider and make it the stackComposite displayed done on the stacklayout</li>
      * <li>if the panel composite has not been created yet (first use of the panel provider) create it and sets its input</li>
-     * 
+     *
      * </ol>
      */
     @objid ("6d956b61-c1ae-4ce4-ab12-90c7bc14e533")
     private void switchActivePanelProvider(MObject mobj) {
         IPanelProvider pp = getPanelProviderFor(mobj);
         this.activePanelProvider = pp;
-        
+
         if (this.activePanelProvider.getPanel() == null) {
             this.activePanelProvider.createPanel(this.stackComposite);
         }
         this.stackLayout.topControl = (Control) this.activePanelProvider.getPanel();
         this.stackComposite.layout(true, true);
-        
+
     }
 
     /**
      * If no proper panel can be guessed for the input, use the EMPTYPANELPROVIDER that displays nothing.
+     *
      * @return the proper panel provider for mObj or the EMPTYPANELPROVIDER
      */
     @objid ("a6c9cddf-c0f4-4c74-9f32-bdec484e6a53")
@@ -378,7 +348,7 @@ public class ModuleMultiVariantPropertyPanel implements IModulePropertyCustomPan
                 }
             }
         }
-        return EMPTYPANELPROVIDER;
+        return this.emptyPanelProvider;
     }
 
     @objid ("d08d252d-6d06-4582-bcf7-eb3d136fd435")
@@ -404,11 +374,76 @@ public class ModuleMultiVariantPropertyPanel implements IModulePropertyCustomPan
         public final IPanelProvider panelProvider;
 
         @objid ("a19d58f7-a4cf-4bc2-ad88-762d28fef7a4")
-        public  VariantEntry(IPanelProvider panelProvider, ElementScope scope, IElementFilter filter) {
+        public VariantEntry(IPanelProvider panelProvider, ElementScope scope, IElementFilter filter) {
             this.panelProvider = panelProvider;
             this.scope = scope;
             this.filter = filter;
-            
+
+        }
+
+    }
+
+    /**
+     * The EmptyPanelProvider displays an empty GUI.
+     */
+    @objid ("9f3b4762-194d-40b6-b5b6-7f20d61b443b")
+    private static final class EmptyPanelProvider implements IPanelProvider {
+        @objid ("5ad84c41-91ed-4a24-b16a-a7f61c3e7273")
+        private Composite top;
+
+        @objid ("56c1090b-bb2c-4ccf-9459-ab4be5d2f251")
+        private Object input;
+
+        @objid ("9a695135-13e0-46cc-bfe0-e0e472af6b11")
+        @Override
+        public void setInput(Object input) {
+            // Nothing special to do here, the EMPTYPANELPROVIDER does not display anything dependent on the current input.
+            // Just store the current input to provide a coherent implementation of getInput()
+            this.input = input;
+
+        }
+
+        @objid ("3c889063-fab0-4984-822a-95d25a1a5301")
+        @Override
+        public boolean isRelevantFor(@SuppressWarnings ("hiding") Object input) {
+            // EMPTYPANELPROVIDER is relevant for any element
+            return true;
+        }
+
+        @objid ("a18bb206-0f6e-4d81-9dae-146a3d88893c")
+        @Override
+        public Object getPanel() {
+            return this.top;
+        }
+
+        @objid ("ebba5ccd-34af-46fc-a75c-a0d68b01d78f")
+        @Override
+        public Object getInput() {
+            return this.input;
+        }
+
+        @objid ("35067002-b3fd-46d1-af24-a70e6ea67f0e")
+        @Override
+        public String getHelpTopic() {
+            return null;
+        }
+
+        @objid ("ff99fd2b-ec1e-4efe-ab0f-bf79154d14de")
+        @Override
+        public void dispose() {
+            if (this.top != null) {
+                this.top.dispose();
+                this.top = null;
+            }
+
+        }
+
+        @objid ("247c0a68-d490-4d5c-9480-968d5abbc3a8")
+        @Override
+        public Object createPanel(Composite parent) {
+            this.top = new Composite(parent, SWT.NONE);
+            this.top.setBackground(UIColor.LIGHTGRAY);
+            return this.top;
         }
 
     }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.providedinterface;
 
@@ -55,9 +55,9 @@ public class ProvidedInterfaceLinkEditPart extends LinkToVoidEditPart {
     @Override
     protected IFigure createFigure() {
         LinkFigure conn = (LinkFigure) super.createFigure();
-        
+
         addTargetDecoration(conn);
-        
+
         // Set style dependent properties
         refreshFromStyle(conn, getModelStyle());
         return conn;
@@ -67,9 +67,9 @@ public class ProvidedInterfaceLinkEditPart extends LinkToVoidEditPart {
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         installEditPolicy(EditPolicy.NODE_ROLE, new ConnectReqToProvEditPolicy());
-        
+
     }
 
     /**
@@ -109,28 +109,28 @@ public class ProvidedInterfaceLinkEditPart extends LinkToVoidEditPart {
     @objid ("3657715d-55b7-11e2-877f-002564c97630")
     private void addTargetDecoration(final LinkFigure conn) {
         final CircleDeco dec = new CircleDeco();
-        
+
         conn.setTargetDecoration(dec);
-        
+
         // Set style independent properties
         dec.setOpaque(true);
         dec.setSize(LOLLIPOP_DIAM, LOLLIPOP_DIAM);
-        
+
         // Set style dependent properties
         refreshFromStyle(conn, getModelStyle());
-        
+
     }
 
     @objid ("3658f7ba-55b7-11e2-877f-002564c97630")
     @Override
     public void propertyChange(final PropertyChangeEvent evt) {
         super.propertyChange(evt);
-        
+
         // Add or remove the decoration when the target change, depending on the target
         if (evt.getPropertyName().equals(GmLink.PROP_TARGET_GM)) {
             refreshDecoration();
         }
-        
+
     }
 
     @objid ("3658f7bf-55b7-11e2-877f-002564c97630")
@@ -138,7 +138,7 @@ public class ProvidedInterfaceLinkEditPart extends LinkToVoidEditPart {
     public void refresh() {
         super.refresh();
         refreshDecoration();
-        
+
     }
 
     /**
@@ -149,7 +149,7 @@ public class ProvidedInterfaceLinkEditPart extends LinkToVoidEditPart {
     @objid ("3658f7c2-55b7-11e2-877f-002564c97630")
     private void refreshDecoration() {
         final LinkFigure conn = (LinkFigure) getFigure();
-        
+
         if (getTarget() != null && getTarget().getModel() instanceof GmLollipopConnection) {
             // Remove the lollipop decoration if connected to a GmLollipop
             conn.setTargetDecoration(null);
@@ -159,14 +159,14 @@ public class ProvidedInterfaceLinkEditPart extends LinkToVoidEditPart {
                 addTargetDecoration(conn);
             }
         }
-        
+
     }
 
     @objid ("3658f7c5-55b7-11e2-877f-002564c97630")
     private static class CircleDeco extends EllipseFigure implements RotatableDecoration {
         @objid ("3658f7c9-55b7-11e2-877f-002564c97630")
-        public  CircleDeco() {
-            
+        public CircleDeco() {
+
         }
 
         @objid ("3658f7cb-55b7-11e2-877f-002564c97630")
@@ -180,7 +180,7 @@ public class ProvidedInterfaceLinkEditPart extends LinkToVoidEditPart {
         public void setLocation(final Point p) {
             Dimension dim = getBounds().getSize().scale(0.5);
             super.setLocation(new Point(p.x - dim.width, p.y - dim.height));
-            
+
         }
 
     }

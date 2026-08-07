@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -42,20 +41,20 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("002b2028-c4bf-1fd8-97fe-001ec947cd2a")
 public class CallBehaviorActionImpl extends CallActionImpl implements CallBehaviorAction {
-    @objid ("998750ba-9d82-4a83-8fd2-fe11d3ae25d0")
+    @objid ("31aa23e9-236f-45fc-a304-39db694a948f")
     @Override
     public Behavior getCalled() {
         Object obj = getDepVal(((CallBehaviorActionSmClass)getClassOf()).getCalledDep());
         return (obj instanceof Behavior)? (Behavior)obj : null;
     }
 
-    @objid ("1a863485-9823-4cab-a85b-fef798f20ef6")
+    @objid ("663635b9-3e81-48c3-bc85-b78a22838b55")
     @Override
     public void setCalled(Behavior value) {
         appendDepVal(((CallBehaviorActionSmClass)getClassOf()).getCalledDep(), (SmObjectImpl)value);
     }
 
-    @objid ("9beb1b40-5843-45f4-ad4e-d36c62d62640")
+    @objid ("d1be2d1e-1e10-45bb-be6a-b5c6e26e277d")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -63,17 +62,17 @@ public class CallBehaviorActionImpl extends CallActionImpl implements CallBehavi
         return super.getCompositionOwner();
     }
 
-    @objid ("4f9c64aa-685c-48a1-bed3-f4e4cc293a31")
+    @objid ("0685606e-1af5-433a-b98a-cf888d443392")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("d8d55603-2cec-48ac-ad35-a55552280e49")
+    @objid ("2b5b3e3e-138b-4e46-82e4-a99aa3aa1029")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitCallBehaviorAction(this);

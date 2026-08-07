@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.browser.view.plugin;
 
@@ -35,7 +35,7 @@ public class BrowserViewActivator extends AbstractUIPlugin {
      */
     @objid ("a1490720-2c5b-4ab0-8728-4022b8c81dd8")
     public static final String PLUGIN_ID = "org.modelio.app.model.browser.view"; // $NON-NLS-1$
-    
+
 
     @objid ("976b51e6-b6ef-4d2c-8754-7d1a43a0cc94")
     public static BundledMessages I18N;
@@ -54,7 +54,7 @@ public class BrowserViewActivator extends AbstractUIPlugin {
         ExtendedLogService service = bundleContext.getService(ref);
         BrowserViewActivator.LOG = new PluginLogger(service.getLogger(bundleContext.getBundle(), BrowserViewActivator.PLUGIN_ID));
         BrowserViewActivator.I18N = new BundledMessages(BrowserViewActivator.LOG, ResourceBundle.getBundle("browserview"));
-        
+
     }
 
     @objid ("d808f0e7-f68e-46a0-9c38-1163c8f6a8b0")

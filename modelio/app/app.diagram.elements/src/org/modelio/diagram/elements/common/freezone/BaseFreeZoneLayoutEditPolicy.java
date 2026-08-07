@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.freezone;
 
@@ -93,30 +93,29 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
      */
     @objid ("459ba26d-b74f-4506-a2a1-61d0ed308424")
     private Object intersectionsRemoverKey = new Object() {
-                    @Override
-                    public String toString() {
-                        return "Intersection remover for " + BaseFreeZoneLayoutEditPolicy.this.toString();
-                    }
-                };
+                        @Override
+                        public String toString() {
+                            return "Intersection remover for " + BaseFreeZoneLayoutEditPolicy.this.toString();
+                        }
+                    };
 
     @objid ("7e333790-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void eraseTargetFeedback(Request request) {
         if (RequestConstants.REQ_ADD.equals(request.getType()) || RequestConstants.REQ_CREATE.equals(request.getType()) || RequestTypes.UNMASK_OR_CREATE_CHILDREN.equals(request.getType())) {
-        
+
             if (this.highlight != null) {
                 removeFeedback(this.highlight);
                 this.highlight = null;
             }
         }
-        
+
         // Workaround GEF bug in super() where REQ_RESIZE_CHILDREN is tested instead of REQ_RESIZE
         if (RequestConstants.REQ_RESIZE.equals(request.getType())) {
             eraseLayoutTargetFeedback(request);
         }
-        
+
         super.eraseTargetFeedback(request);
-        
     }
 
     @objid ("7e333796-1dec-11e2-8cad-001ec947c8cc")
@@ -147,7 +146,7 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
     @Override
     public void showTargetFeedback(Request request) {
         if (RequestConstants.REQ_ADD.equals(request.getType()) || RequestConstants.REQ_CREATE.equals(request.getType()) || RequestTypes.UNMASK_OR_CREATE_CHILDREN.equals(request.getType())) {
-        
+
             // compute highlight type
             final Command c = getHost().getCommand(request);
             FigureUtilities2.HighlightType hightlightType = null;
@@ -158,7 +157,7 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
             } else {
                 hightlightType = FigureUtilities2.HighlightType.WARNING;
             }
-        
+
             // create the highlight figure if it does not exists
             if (this.highlight == null) {
                 // create a highlight figure
@@ -169,19 +168,19 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
             // configure the highlight figure
             FigureUtilities2.updateHighlightType(this.highlight, hightlightType);
         }
-        
+
         // Workaround GEF bug in super() where REQ_RESIZE_CHILDREN is tested instead of REQ_RESIZE
         if (RequestConstants.REQ_RESIZE.equals(request.getType())) {
             showLayoutTargetFeedback(request);
         }
-        
+
         super.showTargetFeedback(request);
-        
     }
 
     /**
      * Returns whether this edit policy can handle this metaclass (either through simple or smart behavior). Default behavior is to accept any metaclass that can be child (in the CreationExpert's understanding) of the host's metaclass This method should be
      * overridden by subclasses to add specific the behavior.
+     *
      * @param metaclass the metaclass to handle.
      * @return true if this policy can handle the metaclass.
      */
@@ -196,6 +195,7 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
     }
 
     /**
+     *
      * @deprecated Don't call or override, see {@link #createAddCommand(ChangeBoundsRequest, EditPart, Object)} instead.
      */
     @objid ("7e3337ae-1dec-11e2-8cad-001ec947c8cc")
@@ -206,6 +206,7 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
     }
 
     /**
+     *
      * @deprecated Don't call or override, see {@link #createChangeConstraintCommand(ChangeBoundsRequest, EditPart, Object)} instead.
      */
     @objid ("7e3337b9-1dec-11e2-8cad-001ec947c8cc")
@@ -238,15 +239,15 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
     @Override
     protected Command getAddCommand(final Request genericReq) {
         ChangeBoundsRequest request = (ChangeBoundsRequest) genericReq;
-        List<GraphicalEditPart> editParts = request.getEditParts();
+        List<? extends EditPart> editParts = request.getEditParts();
         CompoundCommand command = new CompoundCommand();
         command.setDebugLabel("Add in " + getClass().getSimpleName());//$NON-NLS-1$
-        
-        for (GraphicalEditPart child : editParts) {
+
+        for (EditPart child : editParts) {
             if (child instanceof ConnectionEditPart) {
                 command.add(child.getCommand(genericReq));
             } else {
-                command.add(createAddCommand(request, child, translateToModelConstraint(getConstraintFor(request, child))));
+                command.add(createAddCommand(request, child, translateToModelConstraint(getConstraintFor(request, (GraphicalEditPart) child))));
             }
         }
         return command.unwrap();
@@ -258,7 +259,7 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
         if (getHost().getModel() instanceof GmCompositeNode) {
             MObject targetElement = getHostElement();
             MExpert metaUtils = targetElement.getMClass().getMetamodel().getMExpert();
-        
+
             final GmCompositeNode hostModel = getHostCompositeNode();
             final CompoundCommand command = new CompoundCommand();
             for (final Object editPartObj : request.getEditParts()) {
@@ -278,6 +279,7 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
      * Called by {@link #getCloneCommand(ChangeBoundsRequest)} to create a command for a edit part to clone.
      * <p>
      * May be redefined by sub classes to make a special command.
+     *
      * @param request the {@link RequestConstants#REQ_CLONE} request
      * @param metaUtils the metamodel expert for the host element
      * @param hostElement the host model element
@@ -311,7 +313,7 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
     @Override
     protected Object getConstraintFor(final CreateRequest request) {
         Object constraint = super.getConstraintFor(request);
-        
+
         // Just making sure that the constraint doesn't violate the "min size".
         if (constraint instanceof Rectangle) {
             Rectangle rectConstraint = (Rectangle) constraint;
@@ -342,7 +344,7 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
                 }
             } else if (hostElement != null) {
                 MClass metaclassToCreate = ctx.getMetaclass();
-        
+
                 if (gmParentNode.canCreate(metaclassToCreate.getJavaInterface())) {
                     MExpert expert = metaclassToCreate.getMetamodel().getMExpert();
                     if (expert.canCompose(hostElement.getMClass(), metaclassToCreate, ctx.getDependencyName())) {
@@ -359,6 +361,7 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
      * Retrieves the child's current constraint from the {@link #getLayoutContainer() layout container} <code>LayoutManager</code>.
      * <p>
      * The returned constraint may be a reference and must not be modified.
+     *
      * @param child the child
      * @return the current constraint by reference.
      */
@@ -367,7 +370,7 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
     protected Rectangle getCurrentConstraintFor(GraphicalEditPart child) {
         IFigure fig = child.getFigure();
         IFigure parentFig = getLayoutContainer();
-        
+
         if (parentFig != null) {
             LayoutManager parentLayout = parentFig.getLayoutManager();
             if (parentLayout != null) {
@@ -381,6 +384,7 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
     }
 
     /**
+     *
      * @return the {@link GmCompositeNode} model of the host edit part.
      */
     @objid ("7e3599ec-1dec-11e2-8cad-001ec947c8cc")
@@ -389,6 +393,7 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
     }
 
     /**
+     *
      * @return the element represented.
      */
     @objid ("7e3599f1-1dec-11e2-8cad-001ec947c8cc")
@@ -408,6 +413,7 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
 
     /**
      * Return the host edit part if this policy can handle the metaclass involved in the request.
+     *
      * @param createRequest the request.
      * @return the host editpart if the metaclass involved in the request can be handled by this policy, <code>null</code> otherwise.
      */
@@ -422,7 +428,7 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
                     return null;
                 }
             }
-        
+
             if (canHandle(ctx.getMetaclass(), ctx.getDependencyName())) {
                 return getHost();
             }
@@ -432,13 +438,14 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
 
     /**
      * Return the host edit part if this policy can handle all edit parts involved in the request.
+     *
      * @param changeBoundsRequest the request, can be CLONE or ADD.
      * @return the host edit part if all edit parts involved in the request can be handled by this policy, <code>null</code> otherwise.
      */
     @objid ("7e359a0b-1dec-11e2-8cad-001ec947c8cc")
     private EditPart getTargetEditPart(ChangeBoundsRequest changeBoundsRequest) {
         for (final Object editPartObj : changeBoundsRequest.getEditParts()) {
-        
+
             final EditPart editPart = (EditPart) editPartObj;
             if (editPart.getModel() instanceof GmModel) {
                 final GmModel gmModel = (GmModel) editPart.getModel();
@@ -448,7 +455,7 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
                         && !(editPart instanceof ConnectionEditPart)) {
                     return null;
                 }
-        
+
             } else {
                 // This is not a GmModel (maybe a drawing): not handled
                 return null;
@@ -480,6 +487,7 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
 
     /**
      * Build the commands to avoid new nodes and links intersections based on the intersections remover.
+     *
      * @param helper the intersections remover.
      * @param finalCommand the compound command the built ones will be added to.
      */
@@ -487,23 +495,22 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
     protected void createLayoutAssistantCommands(ILayoutAssistant helper, CompoundCommand finalCommand) {
         Collection<ChangeBoundsRequest> requests = helper.getNodeRequests();
         Collection<BendpointRequest> bpRequests = helper.getBendPointRequests();
-        
+
         // build commands for initial and added requests
         for (ChangeBoundsRequest pushRequest : requests) {
             // call inherited ConstrainedLayoutEditPolicy behavior to avoid infinite loops
             Command cmd = super.getChangeConstraintCommand(pushRequest);
             helper.addCommand(cmd);
         }
-        
+
         // build commands for moved bend points
         for (BendpointRequest bpRequest : bpRequests) {
             // No risk for infinite loops on bend points: they are not owned by the container
             Command cmd = bpRequest.getSource().getCommand(bpRequest);
             helper.addCommand(cmd);
         }
-        
+
         finalCommand.add(helper.createExecuteCommand());
-        
     }
 
     /**
@@ -513,29 +520,30 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
      * <p>
      * The NewIntersectionsRemover is put in requests extended data and passed to request created from initial requests. Each container having a BaseFreeZoneLayoutEditPolicy may have its own NewIntersectionsRemover in the request. This allows using the
      * same remover for all moved elements edit part on multiple selection moves.
+     *
      * @param request the request to parse.
      * @return the host intersection remover.
      */
     @objid ("676595f3-30f4-4a95-98da-7645ff3401c3")
     protected ILayoutAssistant getLayoutAssistant(ChangeBoundsRequest request) {
         List<?> involved = request.getEditParts();
-        
+
         // first look for existing helper for this container
         ILayoutAssistant helper = (ILayoutAssistant) request.getExtendedData().get(this.intersectionsRemoverKey);
-        
+
         // Helper not found, create one
         if (helper == null) {
             helper = createLayoutAssistant(involved, !request.getSizeDelta().equals(0, 0));
-        
+
             request.getExtendedData().put(this.intersectionsRemoverKey, helper);
         }
-        
+
         if (helper != NoopLayoutAssistant.instance) {
             Point layoutOrigin = getLayoutOrigin();
             for (int i = 0; i < involved.size(); i++) {
                 if (involved.get(i) instanceof AbstractNodeEditPart) {
                     AbstractNodeEditPart movedEp = (AbstractNodeEditPart) involved.get(i);
-        
+
                     Rectangle cachedOldRect = (Rectangle) request.getExtendedData().get(AbstractNodeEditPart.REQPROP_OLD_TRIMMED_BOUNDS);
                     PrecisionRectangle oldRect;
                     if (cachedOldRect == null) {
@@ -545,9 +553,9 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
                         // convert Rectangle to PrecisionRectangle
                         oldRect = new PrecisionRectangle(cachedOldRect);
                     }
-        
+
                     PrecisionRectangle newRect = getNewAbsTrimmedBounds(request, layoutOrigin, movedEp);
-        
+
                     helper.addBoundsChange(movedEp, oldRect, newRect);
                 }
             }
@@ -557,6 +565,7 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
 
     /**
      * Compute the bounds of the given edit part after having applied the request.
+     *
      * @param request the request to apply
      * @param layoutOrigin the container layout origin. see {@link #getLayoutOrigin()}
      * @param child the moved/resized edit part
@@ -573,19 +582,20 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
             if (constraint.width() == -1) {
                 constraint.width = childPrefSize.width();
             }
-        
+
             if (constraint.height() == -1) {
                 constraint.height = childPrefSize.height();
             }
         }
         constraint.translate(layoutOrigin);
-        
+
         childFigure.translateToAbsolute(constraint);
         return constraint;
     }
 
     /**
      * Redefined to handle {@link ChainedLayout} layout managers.
+     *
      * @return the {@link XYLayout} layout manager set on the {@link LayoutEditPolicy#getLayoutContainer() container}
      */
     @objid ("54dcf5ad-90db-45e0-8558-c1e4917cad1c")
@@ -600,6 +610,7 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
 
     /**
      * Used by {@link #showTargetFeedback(Request)} to know which figure must be highlighted.
+     *
      * @param request the request sent to {@link #showTargetFeedback(Request)}
      * @return the figure to highlight.
      */
@@ -616,7 +627,6 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
         } else {
             return null;
         }
-        
     }
 
     @objid ("ae931583-dba3-4778-aad1-9399f482e27b")
@@ -625,12 +635,12 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
         // if child is a 'node' it usually can be resized and/or moved
         if (movedEditPart instanceof AbstractNodeEditPart || movedEditPart.getModel() instanceof GmDrawing) {
             final CompoundCommand command = new CompoundCommand();
-        
+
             final NodeChangeLayoutCommand layoutCommand = new NodeChangeLayoutCommand();
             layoutCommand.setModel(movedEditPart.getModel());
             layoutCommand.setConstraint(constraint);
             command.add(layoutCommand);
-        
+
             return new PostLayoutCommand(command, request);
         }
         return null;
@@ -638,11 +648,12 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
 
     /**
      * Compute the trimmed bounds of the given edit part after having applied the request.
-     * @see AbstractNodeEditPart#getTrimmedBounds()
+     *
      * @param request the request to apply
      * @param layoutOrigin the container layout origin. see {@link #getLayoutOrigin()}
      * @param child the moved/resized edit part
      * @return the new child bounds in absolute coordinates
+     * @see AbstractNodeEditPart#getTrimmedBounds()
      */
     @objid ("4be16133-debe-40d8-a4b0-858d134cb7ce")
     protected PrecisionRectangle getNewAbsTrimmedBounds(ChangeBoundsRequest request, Point layoutOrigin, AbstractNodeEditPart child) {
@@ -659,54 +670,53 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
                 if (constraint.width() == -1) {
                     constraint.width = childPrefSize.width();
                 }
-        
+
                 if (constraint.height() == -1) {
                     constraint.height = childPrefSize.height();
                 }
             }
             constraint.translate(layoutOrigin);
-        
+
             // ugly: Temporarily change figure bounds to have exact figure trimmed ones.
             Rectangle oldBounds = childFigure.getBounds().getCopy();
             childFigure.setBounds(constraint);
             PrecisionRectangle ret = new PrecisionRectangle(child.getTrimmedBounds());
             childFigure.setBounds(oldBounds); // restore figure bounds
-        
+
             childFigure.translateToAbsolute(ret);
             return ret;
         }
-        
     }
 
     @objid ("5be2830f-6ab7-4108-ac90-f937b30d92a6")
     protected ILayoutAssistant createLayoutAssistant(List<?> toExclude, boolean forResize) {
         IGmObject gm = (IGmObject) getHost().getModel();
         IStyle gmStyle = gm.getDisplayedStyle();
-        
+
         boolean disabledInViewer = isLayoutAssistantDisabledInViewer();
         boolean enabled = gmStyle.getProperty(LayoutAssistantStyleKeys.ENABLED);
-        
+
         if (disabledInViewer || !enabled) {
             return NoopLayoutAssistant.instance;
         } else {
             DefaultLayoutAssistant helper = new DefaultLayoutAssistant();
-        
+
             boolean keepSameDist = forResize && gmStyle.getBoolean(LayoutAssistantStyleKeys.KEEP_DIST_ON_RESIZE);
             helper.setKeepSameDistance(keepSameDist);
-        
+
             int minDist = gmStyle.getInteger(LayoutAssistantStyleKeys.MINDIST);
             if (minDist < 0) {
                 minDist = gmStyle.getInteger(GmAbstractDiagramStyleKeys.GRIDSPACING) + minDist;
             }
-        
+
             Dimension dminDist = new PrecisionDimension(minDist, minDist);
             getHostFigure().translateToAbsolute(dminDist);
             helper.setMinDist(dminDist.preciseWidth());
-        
+
             helper.setAvoidBendPoints(gmStyle.getBoolean(LayoutAssistantStyleKeys.AVOIDBENDDPOINTS));
-        
+
             // Populate the helper
-            List<GraphicalEditPart> children = getHost().getChildren();
+            List<? extends GraphicalEditPart> children = getHost().getChildren();
             for (GraphicalEditPart child : children) {
                 if (child instanceof AbstractNodeEditPart) {
                     if (!toExclude.contains(child)) {
@@ -719,13 +729,13 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
             }
             return helper;
         }
-        
     }
 
     /**
      * Tells whether the layout assistant is disabled in the viewer properties.
      * <p>
      * The layout assistant may be disabled temporarily (without modifying the model) by setting {@link ILayoutAssistant#VIEWPROP_ENABLED} property id to <i>false</i>.
+     *
      * @return whether the layout assistant is disabled in the viewer properties.
      */
     @objid ("3747901a-8367-4ae2-8517-fdef8c35365c")
@@ -758,7 +768,7 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
                 }
             } else if (hostElement != null) {
                 MClass metaclassToCreate = ctx.getMetaclass();
-        
+
                 if (gmParentNode.canCreate(metaclassToCreate.getJavaInterface())) {
                     MExpert expert = metaclassToCreate.getMetamodel().getMExpert();
                     if (expert.canCompose(hostElement.getMClass(), metaclassToCreate, ctx.getDependencyName())) {

@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.module.modelermodule.engine;
 
@@ -31,6 +31,7 @@ import org.modelio.module.modelermodule.i18n.I18nMessageService;
 public class LinkUpdater {
     /**
      * Update a link from its base association.
+     *
      * @param current the link to update.
      * @return <code>true</code> if the link has been modified.
      * @throws ModelerModuleException when an error occurs during the update.
@@ -49,7 +50,7 @@ public class LinkUpdater {
     @objid ("3c3939c9-f438-4458-9b50-abb6840c808f")
     private void updateLinkFromAssociation(Link current, Association model) throws ModelerModuleException {
         current.setName(model.getName());
-        
+
         for (final LinkEnd le : current.getLinkEnd()) {
             final AssociationEnd endModel = le.getModel();
             if (endModel != null) {
@@ -59,7 +60,7 @@ public class LinkUpdater {
                     continue;
                 }
             }
-        
+
             // Invalid model, try finding the right one
             for (final AssociationEnd ae : model.getEnd()) {
                 if (le.getName().equals(ae.getName())) {
@@ -67,11 +68,11 @@ public class LinkUpdater {
                     continue;
                 }
             }
-        
+
             // No matching end found
             throw new ModelerModuleException(I18nMessageService.getString("module.error.updateLinkFromAssociation.end", le.getName()));
         }
-        
+
     }
 
     /**
@@ -84,7 +85,7 @@ public class LinkUpdater {
         current.setIsOrdered(model.isIsOrdered());
         current.setIsUnique(model.isIsUnique());
         current.setNavigable(model.isNavigable());
-        
+
     }
 
 }

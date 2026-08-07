@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.panel.data.standard.common;
 
@@ -32,6 +32,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class NoElementPropertyModel extends AbstractPropertyModel<MObject> {
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("1156ff45-d99f-41f7-aa33-59caa807452d")
@@ -42,6 +43,7 @@ public class NoElementPropertyModel extends AbstractPropertyModel<MObject> {
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("0c2cbd7e-ab98-40a4-9658-ffc8c815a3d8")
@@ -54,6 +56,7 @@ public class NoElementPropertyModel extends AbstractPropertyModel<MObject> {
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -78,7 +81,7 @@ public class NoElementPropertyModel extends AbstractPropertyModel<MObject> {
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -88,6 +91,7 @@ public class NoElementPropertyModel extends AbstractPropertyModel<MObject> {
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -108,7 +112,7 @@ public class NoElementPropertyModel extends AbstractPropertyModel<MObject> {
         default:
             return null;
         }
-        
+
     }
 
     @objid ("91761533-766a-4066-95f3-7e7bb5163864")
@@ -121,6 +125,7 @@ public class NoElementPropertyModel extends AbstractPropertyModel<MObject> {
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -141,14 +146,14 @@ public class NoElementPropertyModel extends AbstractPropertyModel<MObject> {
         default:
             return;
         }
-        
+
     }
 
     /**
      * Create a new data model from any MObject.
      */
     @objid ("de047fe0-cae4-464f-b6e2-a00daabf143c")
-    public  NoElementPropertyModel() {
+    public NoElementPropertyModel() {
         super(null);
     }
 

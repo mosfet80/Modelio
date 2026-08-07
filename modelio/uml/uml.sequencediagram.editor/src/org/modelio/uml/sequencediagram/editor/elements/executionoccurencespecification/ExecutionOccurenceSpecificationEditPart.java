@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.executionoccurencespecification;
 
@@ -53,7 +53,7 @@ import org.modelio.uml.sequencediagram.editor.elements.sequencediagram.Placement
 
 /**
  * Edit part for the GmExecutionOccurenceSpecification class.
- * 
+ *
  * @author fpoyer
  */
 @objid ("d8d74900-55b6-11e2-877f-002564c97630")
@@ -85,7 +85,6 @@ public class ExecutionOccurenceSpecificationEditPart extends AbstractSequenceNod
                 new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
         installEditPolicy("hover", new EosSelectionEditPolicy());
-        
     }
 
     @objid ("d8d7490d-55b6-11e2-877f-002564c97630")
@@ -96,6 +95,7 @@ public class ExecutionOccurenceSpecificationEditPart extends AbstractSequenceNod
 
     /**
      * Creates and returns a PlacementConstraint for the given model.
+     *
      * @param model the graphic model for which a constraint is to be created.
      * @param x the desired X coordinate in coordinates relative to the parent figure.
      * @param y the desired Y coordinates relative to the parent figure.
@@ -112,7 +112,6 @@ public class ExecutionOccurenceSpecificationEditPart extends AbstractSequenceNod
                                 width,
                                 height,
                                 (GmSequenceDiagram) model.getDiagram());
-        
     }
 
     @objid ("d8d8cf82-55b6-11e2-877f-002564c97630")
@@ -188,7 +187,6 @@ public class ExecutionOccurenceSpecificationEditPart extends AbstractSequenceNod
             fig.setDrawX(false);
         }
         fig.getParent().setConstraint(fig, model.getLayoutData());
-        
     }
 
     /**
@@ -198,15 +196,15 @@ public class ExecutionOccurenceSpecificationEditPart extends AbstractSequenceNod
     @Override
     protected void refreshFromStyle(final IFigure aFigure, final IStyle style) {
         final GmModel gmModel = getModel();
-        
+
         // Set brush properties where applicable
         if (aFigure instanceof IBrushOptionsSupport) {
             final IBrushOptionsSupport brush = (IBrushOptionsSupport) aFigure;
-        
+
             if (gmModel.getStyleKey(MetaKey.FILLCOLOR) != null) {
                 brush.setFillColor(style.getColor(gmModel.getStyleKey(MetaKey.FILLCOLOR)));
             }
-        
+
             if (gmModel.getStyleKey(MetaKey.FILLMODE) != null) {
                 switch ((FillMode) style.getProperty(gmModel.getStyleKey(MetaKey.FILLMODE))) {
                 case GRADIENT:
@@ -223,7 +221,6 @@ public class ExecutionOccurenceSpecificationEditPart extends AbstractSequenceNod
                 }
             }
         }
-        
     }
 
     @objid ("d8d8cfab-55b6-11e2-877f-002564c97630")
@@ -236,7 +233,6 @@ public class ExecutionOccurenceSpecificationEditPart extends AbstractSequenceNod
         } else {
             return super.createAnchorModel(anchor);
         }
-        
     }
 
 }

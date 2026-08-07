@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.util;
 
@@ -70,38 +70,38 @@ public class UMLMetamodel {
     private static Model load(final URI uriModel) {
         Model result = null;
         try {
-        
+
             Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
-        
+
             final Bundle bundle = Platform.getBundle("org.eclipse.uml2.uml.resources");
-        
+
             IPath libraries = new Path("/libraries");
             IPath metamodels = new Path("/metamodels");
             IPath profile = new Path("/profiles");
-        
-        
+
+
             URI uriLibraries = URI.createURI(FileLocator.find(bundle, libraries, null).toExternalForm());
             URI uriMetamodels = URI.createURI(FileLocator.find(bundle, metamodels, null).toExternalForm());
             URI uriProfiles = URI.createURI(FileLocator.find(bundle, profile, null).toExternalForm());
-        
+
             URIConverter.URI_MAP.put(URI.createURI(UMLResource.LIBRARIES_PATHMAP), uriLibraries);
-        
+
             URIConverter.URI_MAP.put(URI.createURI(UMLResource.METAMODELS_PATHMAP), uriMetamodels);
-        
+
             URIConverter.URI_MAP.put(URI.createURI(UMLResource.PROFILES_PATHMAP), uriProfiles);
-        
+
             ResourceSet resoureSet = new ResourceSetImpl();
             Resource resource = resoureSet.getResource(uriModel, true);
             result = (Model) EcoreUtil.getObjectByType(resource.getContents(), UMLPackage.Literals.PACKAGE);
         } catch (WrappedException we) {
-            Xmi.LOG.error(Xmi.PLUGIN_ID, we);       
+            Xmi.LOG.error(Xmi.PLUGIN_ID, we);
         }
         return result;
     }
 
     @objid ("338abb04-cc6d-4cec-8617-1d9b9b963112")
-    private  UMLMetamodel() {
-        
+    private UMLMetamodel() {
+
     }
 
     @objid ("9483ea34-680e-4e81-9f2f-64806208d8e8")
@@ -116,5 +116,5 @@ static{
             umlLibrary = load(URI.createURI(UMLResource.UML_PRIMITIVE_TYPES_LIBRARY_URI));
             ecoreLibrary = load(URI.createURI(UMLResource.ECORE_PRIMITIVE_TYPES_LIBRARY_URI));
         }
-    
+
 }

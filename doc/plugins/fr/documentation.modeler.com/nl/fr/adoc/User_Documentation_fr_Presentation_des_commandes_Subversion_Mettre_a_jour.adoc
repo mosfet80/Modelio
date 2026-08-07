@@ -1,0 +1,40 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= La commande "Mettre à jour"
+
+
+
+===== Description
+
+La commande "Mettre à jour" met à jour l'élément par rapport au contenu présent dans le référentiel. Elle sert à récupérer toutes les modifications apportées à un élément et publiées par d'autres membres de l'équipe. [[Conditions-et-restrictions]]
+
+
+===== Conditions et restrictions
+
+Cette commande n'est disponible que sur les grains non modifiés localement. [[Interface-utilisateur]]
+
+
+===== Interface utilisateur
+
+La commande "Mettre à jour" ouvre la fenêtre suivante :
+
+.La fenêtre "Mise à jour du projet"
+image::images/attachment/modeliocom41/User_Documentation_fr/Presentation_des_commandes_Subversion/Mettre_a_jour/TW_008_revert.png[TW_008_revert.png]
+
+
+
+===== Comportement
+
+Le "Mode de mise à jour" modifie le comportement de la commande :
+
+* *Modèle de travail* *partagé courant* : +
+Met à jour tous les éléments du modèle partagé qui ont été modifiés dans le référentiel. Notez que seuls les éléments qui ont été modifiés dans le référentiel sont physiquement importés.
+* *Tous les modèles de travail* *partagés du projet* : +
+Met à jour tous les éléments de tout les modèles partagés du projet qui ont été modifiés dans le référentiel. Notez que seuls les éléments qui ont été modifiés dans le référentiel sont physiquement importés.
+
+Notez que la commande "Mettre à jour" ne modifiera jamais les éléments qui sont actuellement verrouillés dans votre modèle. Elle ne modifiera pas non plus les éléments non versionnés dans votre modèle.

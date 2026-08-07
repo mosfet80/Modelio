@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -50,7 +50,7 @@ public class R2520 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(IElement)
      * @see AbstractRule#getUpdateControl(IElement)
      * @see AbstractRule#getMoveControl(IElementMovedEvent)
@@ -71,7 +71,7 @@ public class R2520 extends AbstractUmlRule {
         plan.registerRule(Link.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -105,14 +105,14 @@ public class R2520 extends AbstractUmlRule {
      * Default constructor for R2520
      */
     @objid ("dea5d723-af70-4e95-8451-ce420450aa14")
-    public  R2520() {
+    public R2520() {
         this.checkerInstance = new CheckR2520(this);
     }
 
     @objid ("f6504cdb-f26a-440e-912c-b99240dfbacf")
     private static class CheckR2520 extends AbstractControl {
         @objid ("b750df82-886c-414e-ba4a-8021325cd40f")
-        public  CheckR2520(IRule rule) {
+        public CheckR2520(IRule rule) {
             super(rule);
         }
 
@@ -122,7 +122,7 @@ public class R2520 extends AbstractUmlRule {
             if (element instanceof Link) {
                 for (LinkEnd linkEnd : ((Link) element).getLinkEnd()) {
                     Instance instance = linkEnd.getSource() != null ? linkEnd.getSource() : linkEnd.getOpposite().getTarget();
-            
+
                     if (instance != null && instance instanceof Port) {
                         diagnostic.addEntry(checkR2520((Port) instance));
                     }
@@ -141,12 +141,12 @@ public class R2520 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     port,
                     null);
-            
+
             for (LinkEnd ce : port.getOwnedEnd()) {
-            
+
                 LinkEnd oposite = ce.getOpposite();
                 Instance instance = oposite.getSource() != null ? oposite.getSource() : oposite.getOpposite().getTarget();
-            
+
                 if (instance instanceof BindableInstance) {
                     if (port.getProvided().isEmpty()) {
                         // Rule failed

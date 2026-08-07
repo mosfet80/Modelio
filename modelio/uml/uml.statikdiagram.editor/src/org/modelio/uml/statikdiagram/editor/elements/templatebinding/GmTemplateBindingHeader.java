@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.templatebinding;
 
@@ -30,7 +30,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * MObject import header displayed on the node link.
- * 
+ *
  * @author cmarin
  */
 @objid ("36d79dc2-55b7-11e2-877f-002564c97630")
@@ -46,11 +46,12 @@ public class GmTemplateBindingHeader extends GmDefaultModelElementLabel {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram
      * @param relatedRef a reference to the element this GmModel is related to, must not be null.
      */
     @objid ("36d79dcb-55b7-11e2-877f-002564c97630")
-    public  GmTemplateBindingHeader(IGmDiagram diagram, MRef relatedRef) {
+    public GmTemplateBindingHeader(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -58,8 +59,8 @@ public class GmTemplateBindingHeader extends GmDefaultModelElementLabel {
      * For deserialization only.
      */
     @objid ("36d79dd4-55b7-11e2-877f-002564c97630")
-    public  GmTemplateBindingHeader() {
-        
+    public GmTemplateBindingHeader() {
+
     }
 
     @objid ("36d79dd7-55b7-11e2-877f-002564c97630")
@@ -92,17 +93,17 @@ public class GmTemplateBindingHeader extends GmDefaultModelElementLabel {
                 break;
             }
         }
-        
+
     }
 
     @objid ("36d92477-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmTemplateBindingHeader.", GmTemplateBindingHeader.MINOR_VERSION);
-        
+
     }
 
     @objid ("36d9247d-55b7-11e2-877f-002564c97630")

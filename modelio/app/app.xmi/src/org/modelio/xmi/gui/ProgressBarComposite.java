@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.gui;
 
@@ -34,6 +34,7 @@ import org.modelio.xmi.util.AbortProcessException;
 
 /**
  * SWT composite containing a SWT progress bar
+ *
  * @author ebrosse
  */
 @objid ("1c559c5e-5f0f-4906-adbf-d35d9a1e90e5")
@@ -72,6 +73,7 @@ public class ProgressBarComposite extends Composite {
     private Group group;
 
     /**
+     *
      * @return the progress bar
      */
     @objid ("ec30ef2f-ab26-48d5-af1f-4fbb486f4bc1")
@@ -80,6 +82,7 @@ public class ProgressBarComposite extends Composite {
     }
 
     /**
+     *
      * @return the progress bar label
      */
     @objid ("d32633c8-428f-41ee-a839-b2d6dbc9a466")
@@ -95,10 +98,10 @@ public class ProgressBarComposite extends Composite {
         if (AbstractSwtWizardWindow.isCancelation()) {
             abortProcess();
         }
-        
+
         if (Display.getDefault().isDisposed())
             return;
-        
+
         Display.getDefault().asyncExec(new Runnable() {
             @Override
             public void run() {
@@ -113,7 +116,7 @@ public class ProgressBarComposite extends Composite {
                 }
             }
         });
-        
+
     }
 
     /**
@@ -123,7 +126,7 @@ public class ProgressBarComposite extends Composite {
     public void addFinalValue() {
         if (Display.getDefault().isDisposed())
             return;
-        
+
         Display.getDefault().asyncExec(new Runnable() {
             @Override
             public void run() {
@@ -132,10 +135,11 @@ public class ProgressBarComposite extends Composite {
                 ProgressBarComposite.this.progressBar.setSelection(ProgressBarComposite.this.max);
             }
         });
-        
+
     }
 
     /**
+     *
      * @param value set the Progress bar label
      */
     @objid ("d5345c0b-d5a6-4b04-bbb1-0416eba542c4")
@@ -143,7 +147,7 @@ public class ProgressBarComposite extends Composite {
         final String v = value;
         if (Display.getDefault().isDisposed())
             return;
-        
+
         Display.getDefault().asyncExec(new Runnable() {
             @Override
             public void run() {
@@ -152,7 +156,7 @@ public class ProgressBarComposite extends Composite {
                 setTextGroup(v, true);
             }
         });
-        
+
     }
 
     /**
@@ -164,10 +168,10 @@ public class ProgressBarComposite extends Composite {
             abortProcess();
         }
         this.totalElement++;
-        
+
         if (Display.getDefault().isDisposed())
             return;
-        
+
         Display.getDefault().asyncExec(new Runnable() {
             @Override
             public void run() {
@@ -179,10 +183,11 @@ public class ProgressBarComposite extends Composite {
                     setTextGroup(Xmi.I18N.getMessage("progressBar.setValueSingular", String.valueOf(ProgressBarComposite.this.totalElement)), true);
             }
         });
-        
+
     }
 
     /**
+     *
      * @return the current number of treated element
      */
     @objid ("da4d456f-98ba-4661-a600-47f9b789e5f2")
@@ -191,20 +196,21 @@ public class ProgressBarComposite extends Composite {
     }
 
     /**
+     *
      * @param numberElement the number of treated element
      */
     @objid ("b6f9ede0-645d-427c-a39b-ae614d75066c")
     public void setNumberElement(int numberElement) {
         this.numberElement = numberElement;
         this.incrementation = (numberElement) / this.max;
-        
+
     }
 
     @objid ("e6f03ef8-195c-479f-8b08-b28ab17ac70d")
     private void abortProcess() throws AbortProcessException {
         AbstractSwtWizardWindow.setCancellation(true);
         throw new AbortProcessException();
-        
+
     }
 
     @objid ("a19b603f-3cf0-4a3f-841f-836e4389e7a7")
@@ -214,7 +220,7 @@ public class ProgressBarComposite extends Composite {
         } else {
             this.group.setText(" " + this.title + " : " + text + " ");
         }
-        
+
     }
 
     @objid ("4f7fc5e0-6169-4bcf-a047-6302d81fcb34")
@@ -223,11 +229,12 @@ public class ProgressBarComposite extends Composite {
     }
 
     /**
+     *
      * @param parent The parent Composite
      * @param style The SWT style
      */
     @objid ("47f013dd-9e9b-404a-86ab-e3bea85b4cfe")
-    public  ProgressBarComposite(Composite parent, int style) {
+    public ProgressBarComposite(Composite parent, int style) {
         super(parent, style);
         setLayout(new FormLayout());
         this.group = new Group(this, SWT.NONE);
@@ -237,21 +244,21 @@ public class ProgressBarComposite extends Composite {
         fd_group.top = new FormAttachment(0, 0);
         fd_group.right = new FormAttachment(100, 0);
         fd_group.left = new FormAttachment(0, 0);
-        
+
         this.group.setLayoutData(fd_group);
         setTextGroup(this.title);
-        
+
         this.progressBar = new ProgressBar(this.group, SWT.NONE);
         final FormData fd_progressBar = new FormData();
         fd_progressBar.right = new FormAttachment(100, -5);
         fd_progressBar.left = new FormAttachment(0, 5);
         fd_progressBar.bottom = new FormAttachment(100, -5);
         fd_progressBar.top = new FormAttachment(0, 5);
-               
-        
+
+
         this.progressBar.setLayoutData(fd_progressBar);
         this.max = this.progressBar.getMaximum();
-        
+
     }
 
     /**
@@ -261,7 +268,7 @@ public class ProgressBarComposite extends Composite {
     public void setInitialValue() {
         if (Display.getDefault().isDisposed())
             return;
-        
+
         Display.getDefault().asyncExec(new Runnable() {
             @Override
             public void run() {
@@ -270,7 +277,7 @@ public class ProgressBarComposite extends Composite {
                 ProgressBarComposite.this.progressBar.setSelection(0);
             }
         });
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnbusinessruletask;
 
@@ -76,25 +76,26 @@ public class GmBpmnBusinessRuleTask extends GmPortContainer {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram in which the BpmnBusinessRuleTask is unmasked.
      * @param element the unmasked BpmnBusinessRuleTask.
      * @param ref a reference to the unmasked callOperation.
      */
     @objid ("608e2237-55b6-11e2-877f-002564c97630")
-    public  GmBpmnBusinessRuleTask(IGmDiagram diagram, BpmnBusinessRuleTask element, MRef ref) {
+    public GmBpmnBusinessRuleTask(IGmDiagram diagram, BpmnBusinessRuleTask element, MRef ref) {
         super(diagram, ref);
         this.element = element;
-        
+
         GmBpmnBusinessRuleTaskPrimaryNode mainNode = new GmBpmnBusinessRuleTaskPrimaryNode(diagram, ref);
         mainNode.setRoleInComposition(GmPortContainer.MAIN_NODE_ROLE);
-        
+
         GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(diagram, ref);
         imageModeHeader.setRoleInComposition(GmBpmnBusinessRuleTask.IMAGE_LABEL_ROLE);
         imageModeHeader.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
-        
+
         super.addChild(mainNode);
         super.addChild(imageModeHeader);
-        
+
     }
 
     @objid ("608fa89f-55b6-11e2-877f-002564c97630")
@@ -133,7 +134,7 @@ public class GmBpmnBusinessRuleTask extends GmPortContainer {
         default:
             return null;
         }
-        
+
     }
 
     @objid ("608fa8b8-55b6-11e2-877f-002564c97630")
@@ -151,14 +152,14 @@ public class GmBpmnBusinessRuleTask extends GmPortContainer {
         default:
             return Collections.emptyList();
         }
-        
+
     }
 
     /**
      * Empty constructor needed for deserialisation.
      */
     @objid ("608fa8c0-55b6-11e2-877f-002564c97630")
-    public  GmBpmnBusinessRuleTask() {
+    public GmBpmnBusinessRuleTask() {
         // Nothing specific to do.
     }
 
@@ -183,7 +184,7 @@ public class GmBpmnBusinessRuleTask extends GmPortContainer {
             break;
         }
         }
-        
+
     }
 
     @objid ("608fa8c9-55b6-11e2-877f-002564c97630")
@@ -202,23 +203,23 @@ public class GmBpmnBusinessRuleTask extends GmPortContainer {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmBpmnBusinessRuleTask.", GmBpmnBusinessRuleTask.MINOR_VERSION);
-        
+
     }
 
     @objid ("608fa8dd-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (BpmnBusinessRuleTask) resolveRef(getRepresentedRef());
-        
+
         GmDefaultModelElementLabel imageModeHeader = new GmDefaultModelElementLabel(getDiagram(), getRepresentedRef());
         imageModeHeader.setRoleInComposition(GmBpmnBusinessRuleTask.IMAGE_LABEL_ROLE);
         imageModeHeader.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
-        
+
         super.addChild(imageModeHeader, 1);
-        
+
     }
 
     @objid ("60912f3c-55b6-11e2-877f-002564c97630")
@@ -231,7 +232,7 @@ public class GmBpmnBusinessRuleTask extends GmPortContainer {
     private void read_1(final IDiagramReader in) {
         super.read(in);
         this.element = (BpmnBusinessRuleTask) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("60912f47-55b6-11e2-877f-002564c97630")
@@ -252,7 +253,7 @@ public class GmBpmnBusinessRuleTask extends GmPortContainer {
             default: {
                 break;
             }
-        
+
             }
         }
         return ret;
@@ -260,6 +261,7 @@ public class GmBpmnBusinessRuleTask extends GmPortContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */
@@ -269,11 +271,12 @@ public class GmBpmnBusinessRuleTask extends GmPortContainer {
         String role = childNode.getRoleInComposition();
         return GmPortContainer.SATELLITE_ROLE.equals(role)
                         || GmBpmnBusinessRuleTask.IMAGE_LABEL_ROLE.equals(role);
-        
+
     }
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */

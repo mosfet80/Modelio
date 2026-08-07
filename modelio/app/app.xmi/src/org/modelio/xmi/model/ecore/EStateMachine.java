@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -43,17 +43,17 @@ public class EStateMachine extends ENamedElement {
     }
 
     @objid ("cf4053f0-7a12-4805-b119-262fc2dd62eb")
-    public  EStateMachine(org.eclipse.uml2.uml.StateMachine element) {
+    public EStateMachine(org.eclipse.uml2.uml.StateMachine element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("b2f936ab-07a0-4d32-8f4d-27f0ff1f757c")
     @Override
     public void attach(Element objingElt) {
         org.eclipse.uml2.uml.Element ecoreOwner = this.ecoreElement.getOwner();
-        
+
         Element objingOwner = (Element) ReverseProperties.getInstance()
                 .getMappedElement(ecoreOwner);
         if (ecoreOwner != null) {
@@ -63,16 +63,16 @@ public class EStateMachine extends ENamedElement {
                 ((Behavior) objingElt).setOwnerOperation((Operation)objingOwner);
             }else{
                 objingOwner = EcoreModelNavigation.getNearestStateMachineOwner(this.ecoreElement);
-        
+
                 if (objingOwner instanceof NameSpace){
                     ((Behavior) objingElt).setOwner((NameSpace)objingOwner);
                 }else if (objingOwner instanceof Operation){
                     ((Behavior) objingElt).setOwnerOperation((Operation)objingOwner);
                 }
-        
+
             }
         }
-        
+
     }
 
     @objid ("cb08ebb3-f8b6-4316-a078-21646403330c")
@@ -82,7 +82,7 @@ public class EStateMachine extends ENamedElement {
         setKind((StateMachine) objingElt);
         if (ReverseProperties.getInstance().isRoundtripEnabled())
             setReentrant((StateMachine) objingElt);
-        
+
     }
 
     @objid ("9f91b136-a542-4e34-98ab-61905eec13f0")
@@ -96,7 +96,7 @@ public class EStateMachine extends ENamedElement {
             machine.setKind(KindOfStateMachine.PROTOCOL);
         else
             machine.setKind(KindOfStateMachine.DYNAMIC);
-        
+
     }
 
 }

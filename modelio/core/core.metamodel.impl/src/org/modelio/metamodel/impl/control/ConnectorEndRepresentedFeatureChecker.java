@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.control;
 
@@ -47,19 +47,19 @@ public class ConnectorEndRepresentedFeatureChecker extends AbstractDependencyTyp
      * C'tor
      */
     @objid ("22a666b3-d789-493c-9e5c-9dfccdcfc2f9")
-    public  ConnectorEndRepresentedFeatureChecker(SmMetamodel mm) {
+    public ConnectorEndRepresentedFeatureChecker(SmMetamodel mm) {
         // Cached SmClass
         this.associationEndID = mm.getMClass(AssociationEnd.class);
         this.attributeID = mm.getMClass(Attribute.class);
         this.linkEndID = mm.getMClass(LinkEnd.class);
-        
+
         // Direct checker
         this.register(mm.getMClass(ConnectorEnd.class), "RepresentedFeature");
-        
+
         // Symetric checker
         ModelElementRepresentedEndChecker symetricChecker = new ModelElementRepresentedEndChecker(this);
         symetricChecker.register(mm.getMClass(UmlModelElement.class), "RepresentingEnd");
-        
+
     }
 
     @objid ("ea2282f0-ec70-11e1-91c5-002564c97630")
@@ -67,7 +67,7 @@ public class ConnectorEndRepresentedFeatureChecker extends AbstractDependencyTyp
     public int doCheck(final SmObjectImpl obj, final SmObjectImpl value) {
         if (value != null) {
             SmClass valueTypeID = value.getClassOf();
-        
+
             // A ConnectorEnd type must represent an Attribute, an
             // AssociationEnd or a LinkEnd
             return (valueTypeID.extEquals(this.attributeID) || valueTypeID.extEquals(this.associationEndID) || valueTypeID
@@ -86,7 +86,7 @@ public class ConnectorEndRepresentedFeatureChecker extends AbstractDependencyTyp
         ConnectorEndRepresentedFeatureChecker symetricChecker;
 
         @objid ("ea2282f2-ec70-11e1-91c5-002564c97630")
-        public  ModelElementRepresentedEndChecker(ConnectorEndRepresentedFeatureChecker symetricChecker) {
+        public ModelElementRepresentedEndChecker(ConnectorEndRepresentedFeatureChecker symetricChecker) {
             this.symetricChecker = symetricChecker;
         }
 

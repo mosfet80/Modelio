@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.node;
 
@@ -52,11 +52,12 @@ public abstract class GmNoStyleSimpleNode extends GmSimpleNode {
 
     /**
      * Create a no style composite node.
+     *
      * @param diagram The diagram.
      * @param relatedRef a reference to the element this GmModel is related to.
      */
     @objid ("809f1afa-1dec-11e2-8cad-001ec947c8cc")
-    public  GmNoStyleSimpleNode(IGmDiagram diagram, MRef relatedRef) {
+    public GmNoStyleSimpleNode(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -64,7 +65,7 @@ public abstract class GmNoStyleSimpleNode extends GmSimpleNode {
      * Constructor for deserialization only.
      */
     @objid ("809f1aff-1dec-11e2-8cad-001ec947c8cc")
-    public  GmNoStyleSimpleNode() {
+    public GmNoStyleSimpleNode() {
         super();
     }
 
@@ -88,12 +89,12 @@ public abstract class GmNoStyleSimpleNode extends GmSimpleNode {
     public void setParentLink(final GmLink parentLink) throws IllegalStateException {
         if (getParent() != parentLink) {
             super.setParentLink(parentLink);
-        
+
             if (parentLink != null) {
                 getPersistedStyle().setCascadedStyle(parentLink.getPersistedStyle());
             }
         }
-        
+
     }
 
     @objid ("809f1b14-1dec-11e2-8cad-001ec947c8cc")
@@ -107,12 +108,12 @@ public abstract class GmNoStyleSimpleNode extends GmSimpleNode {
     protected void setParent(final GmCompositeNode parent) throws IllegalStateException {
         if (getParent() != parent) {
             super.setParent(parent);
-        
+
             if (parent != null) {
                 getPersistedStyle().setCascadedStyle(parent.getPersistedStyle());
             }
         }
-        
+
     }
 
     @objid ("809f1b1f-1dec-11e2-8cad-001ec947c8cc")
@@ -132,17 +133,17 @@ public abstract class GmNoStyleSimpleNode extends GmSimpleNode {
                 break;
             }
         }
-        
+
     }
 
     @objid ("809f1b23-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmNoStyleSimpleNode.", MINOR_VERSION);
-        
+
     }
 
     @objid ("809f1b27-1dec-11e2-8cad-001ec947c8cc")

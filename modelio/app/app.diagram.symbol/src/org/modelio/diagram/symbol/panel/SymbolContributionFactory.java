@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.symbol.panel;
 
@@ -41,7 +41,7 @@ import org.modelio.platform.model.ui.swt.contribitem.SwtContributionItem.Style;
  * The caller may then add instantiated contribution items individually to a menu manager or a toolbar manager.
  * <p>
  * The instantiated contribution items may be added to only one manager, you have to instantiate a factory for each menu and toolbar .
- * 
+ *
  * @author cma
  * @since 3.7
  */
@@ -72,27 +72,27 @@ class SymbolContributionFactory {
     private final ISymbolPanelModel symbolModel;
 
     @objid ("128d38ef-e4df-44fc-8f1c-822138f1dcfd")
-    public  SymbolContributionFactory(ISymbolPanelController controller, ISymbolPanelModel symbolModel) {
+    public SymbolContributionFactory(ISymbolPanelController controller, ISymbolPanelModel symbolModel) {
         this.symbolController = controller;
         this.symbolModel = symbolModel;
-        
+
         this.extractStyleFromSelected = new SwtContributionItem();
         this.extractStyleFromModified = new SwtContributionItem();
         this.updateStyleFromSelected = new SwtContributionItem();
         this.updateStyleFromAllModified = new SwtContributionItem();
         this.reset = new SwtContributionItem();
         this.showHelp = new SwtContributionItem(Style.AS_CHECK_BOX);
-        
+
         this.extractStyleFromSelected.setAction(() -> onExtractStyle(false));
         this.extractStyleFromModified.setAction(() -> onExtractStyle(true));
         this.updateStyleFromSelected.setAction(this::onUpdateStyleFromSelectedProps);
         this.updateStyleFromAllModified.setAction(this::onUpdateStyleFromModifiedProps);
-        
+
         this.reset.setText(DiagramSymbol.I18N.getMessage("Reset.label"));
         this.reset.setTooltipText(DiagramSymbol.I18N.getMessage("Reset.tooltip"));
         this.reset.setImageDescriptor(getImage(DiagramSymbol.I18N.getMessage("Reset.image")));
         this.reset.setAction(this::onResetStyle);
-        
+
         this.showHelp.setText(DiagramSymbol.I18N.getMessage("ShowSymbolHelp.label"));
         this.showHelp.setTooltipText(DiagramSymbol.I18N.getMessage("ShowSymbolHelp.tooltip"));
         this.showHelp.setImageDescriptor(getImage(DiagramSymbol.I18N.getMessage("ShowSymbolHelp.image")));
@@ -102,7 +102,7 @@ class SymbolContributionFactory {
             this.showHelp.setChecked(symbolModel.isShowHelp());
             this.showHelp.update();
         });
-        
+
     }
 
     /**
@@ -112,19 +112,19 @@ class SymbolContributionFactory {
     public void refresh() {
         final StyleEditPanelSelection panelSelection = this.symbolModel.getPanelSelection();
         final IStyle editedStyle = this.symbolModel.getStyleInput();
-        
+
         if (editedStyle == null || panelSelection == null) {
             this.extractStyleFromSelected.setVisible(false);
             this.updateStyleFromSelected.setVisible(false);
-        
+
             this.extractStyleFromModified.setVisible(false);
             this.updateStyleFromAllModified.setVisible(false);
             return;
         }
-        
+
         final ISelection sel = panelSelection.getSelection();
         final boolean containsModifiedProperties = panelSelection.containsModifiedProperties();
-        
+
         final int nbModified = editedStyle.getLocalKeys().size();
         final NamedStyle parentStyle = getNamedStyle(editedStyle);
         final String parentStyleName = parentStyle.getName();
@@ -132,58 +132,59 @@ class SymbolContributionFactory {
         final String styleOrTheme = parentStyle.isTheme() ? DiagramSymbol.I18N.getMessage("SymbolPanelProvider.isTheme") : DiagramSymbol.I18N.getMessage("SymbolPanelProvider.isStyle");
         final boolean shouldCreateTheme = this.symbolModel.shouldCreateTheme();
         final String createStyleOrTheme = shouldCreateTheme ? DiagramSymbol.I18N.getMessage("SymbolPanelProvider.isTheme") : DiagramSymbol.I18N.getMessage("SymbolPanelProvider.isStyle");
-        
+
         if (containsModifiedProperties) {
             ISymbolViewItem firstProp = SelectionHelper.getFirst(sel, ISymbolViewItem.class);
             String firstLabel = firstProp.getLabel();
             String escFirstLabel = escapeMnemonics(firstLabel);
             String allLabels = SelectionHelper.toStream(sel, ISymbolViewItem.class).map(i -> " - " + i.getLabel()).collect(Collectors.joining("\n"));
-        
+
             int size = SelectionHelper.size(sel);
             this.extractStyleFromSelected.setText(DiagramSymbol.I18N.getMessage("SymbolPanelProvider.ExtractStyleFromSelectedCommand.label", size, escFirstLabel, escParentStyleName, styleOrTheme, allLabels, createStyleOrTheme));
             this.extractStyleFromSelected.setTooltipText(DiagramSymbol.I18N.getMessage("SymbolPanelProvider.ExtractStyleFromSelectedCommand.tooltip", size, firstLabel, parentStyleName, styleOrTheme, allLabels, createStyleOrTheme));
-        
+
             this.updateStyleFromSelected.setText(DiagramSymbol.I18N.getMessage("SymbolPanelProvider.UpdateStyleFromSelectedCommand.label", size, escFirstLabel, escParentStyleName, styleOrTheme, allLabels));
             this.updateStyleFromSelected.setTooltipText(DiagramSymbol.I18N.getMessage("SymbolPanelProvider.UpdateStyleFromSelectedCommand.tooltip", size, firstLabel, parentStyleName, styleOrTheme, allLabels));
         }
-        
+
         if (nbModified > 0) {
             String firstLabel = editedStyle.getLocalKeys().iterator().next().getLabel();
             String escFirstLabel = escapeMnemonics(firstLabel);
             String allLabels = editedStyle.getLocalKeys().stream().map(i -> " - " + i.getLabel()).collect(Collectors.joining("\n"));
             this.extractStyleFromModified.setText(DiagramSymbol.I18N.getMessage("SymbolPanelProvider.ExtractStyleFromModifiedCommand.label", nbModified, escFirstLabel, allLabels, createStyleOrTheme));
             this.extractStyleFromModified.setTooltipText(DiagramSymbol.I18N.getMessage("SymbolPanelProvider.ExtractStyleFromModifiedCommand.tooltip", nbModified, firstLabel, parentStyleName, styleOrTheme, allLabels, createStyleOrTheme));
-        
+
             this.updateStyleFromAllModified.setText(DiagramSymbol.I18N.getMessage("SymbolPanelProvider.UpdateStyleFromModifiedCommand.label", nbModified, escFirstLabel, escParentStyleName, styleOrTheme, allLabels));
             this.updateStyleFromAllModified.setTooltipText(DiagramSymbol.I18N.getMessage("SymbolPanelProvider.UpdateStyleFromModifiedCommand.tooltip", nbModified, firstLabel, parentStyleName, styleOrTheme, allLabels));
         }
-        
+
         ImageDescriptor createImage = getImage(shouldCreateTheme ? DiagramSymbol.I18N.getMessage("SymbolPanelProvider.create.theme.image") : DiagramSymbol.I18N.getMessage("SymbolPanelProvider.create.style.image"));
         this.extractStyleFromSelected.setImageDescriptor(createImage);
         this.extractStyleFromModified.setImageDescriptor(createImage);
-        
+
         ImageDescriptor updateImage = getImage(parentStyle.isTheme() ? DiagramSymbol.I18N.getMessage("SymbolPanelProvider.update.theme.image") : DiagramSymbol.I18N.getMessage("SymbolPanelProvider.update.style.image"));
         this.updateStyleFromSelected.setImageDescriptor(updateImage);
         this.updateStyleFromAllModified.setImageDescriptor(updateImage);
-        
+
         this.extractStyleFromModified.setVisible(nbModified > 0);
         this.updateStyleFromAllModified.setVisible(nbModified > 0);
-        
+
         this.extractStyleFromSelected.setVisible(containsModifiedProperties);
         this.updateStyleFromSelected.setVisible(containsModifiedProperties);
-        
+
         this.showHelp.setChecked(this.symbolModel.isShowHelp());
-        
+
         this.extractStyleFromModified.update();
         this.extractStyleFromSelected.update();
         this.updateStyleFromAllModified.update();
         this.updateStyleFromSelected.update();
         this.showHelp.update();
-        
+
     }
 
     /**
      * Escape mnemonics from the given string
+     *
      * @param s a string
      * @return a string where all '&' are escaped to '&&'.
      */
@@ -205,7 +206,7 @@ class SymbolContributionFactory {
             }
         }
         throw new IllegalArgumentException(String.format("%s style has no named style in its parent hierarchy.", s));
-        
+
     }
 
     /**
@@ -214,9 +215,9 @@ class SymbolContributionFactory {
     @objid ("725e2ef8-f8e3-45f9-860e-72f181a36a31")
     private void onUpdateStyleFromModifiedProps() {
         new UpdateStyleFromModifiedPropsCommand(this.symbolModel).execute();
-        
+
         this.symbolController.refreshView();
-        
+
     }
 
     /**
@@ -225,9 +226,9 @@ class SymbolContributionFactory {
     @objid ("a22c948e-7238-46a1-a554-52a00a75e743")
     private void onUpdateStyleFromSelectedProps() {
         new UpdateStyleFromSelectedPropsCommand(this.symbolModel).execute();
-        
+
         this.symbolController.refreshView();
-        
+
     }
 
     @objid ("a6997258-b273-4d15-a17d-976760dc71c2")
@@ -236,19 +237,20 @@ class SymbolContributionFactory {
         if (gm != null) {
             new StyleEditorProxy(gm).reset();
         }
-        
+
     }
 
     /**
      * Command that extract a style from modified style keys
+     *
      * @param allLocals if true, use all modified style keys, if false use only selected style keys.
      */
     @objid ("74c042c5-7415-4b78-8ad0-f36038ed1a14")
     private void onExtractStyle(boolean allLocals) {
         new ExtractStyleCommand(this.symbolModel).execute(allLocals);
-        
+
         this.symbolController.refreshView();
-        
+
     }
 
 }

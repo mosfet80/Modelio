@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnlane;
 
@@ -55,10 +55,10 @@ public class BpmnLaneEditPart extends AbstractNodeEditPart {
     protected IFigure createFigure() {
         final MObject relatedElement = ((GmBpmnLane) getModel()).getRelatedElement();
         BpmnLaneFigure fig = null;
-        
+
         if (relatedElement instanceof BpmnLane) {
             BpmnLane lane = (BpmnLane) relatedElement;
-        
+
             if (lane.getLaneSet() == null || lane.getLaneSet().getProcess() != null) {
                 fig = new BpmnLaneFigure();
                 fig.setLayoutManager(new BorderLayout());
@@ -73,13 +73,13 @@ public class BpmnLaneEditPart extends AbstractNodeEditPart {
             fig.setLayoutManager(new BorderLayout());
             MinimumSizeLayout.apply(fig, 10, 10);
         }
-        
+
         // set style independent properties
         fig.setOpaque(true);
-        
+
         // set style dependent properties
         refreshFromStyle(fig, getModelStyle());
-        
+
         // return the figure
         return fig;
     }
@@ -88,12 +88,12 @@ public class BpmnLaneEditPart extends AbstractNodeEditPart {
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         // Add auto expand edit policy.
         installEditPolicy(AutoExpandEditPolicy.class, new AutoExpandEditPolicy());
-        
+
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START, new LinkedNodeStartCreationEditPolicy());
-        
+
         installEditPolicy(EditPolicy.COMPONENT_ROLE, new DefaultDeleteNodeEditPolicy() {
             @Override
             protected Command getDeleteCommand(GroupRequest request) {
@@ -104,13 +104,14 @@ public class BpmnLaneEditPart extends AbstractNodeEditPart {
             }
         });
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
-        
+
         // Needed to allow unmasking notes
         installEditPolicy(EditPolicy.NODE_ROLE, new DefaultCreateLinkEditPolicy(false));
     }
 
     /**
      * Refresh this EditPart's visuals.
+     *
      * @see org.eclipse.gef.editparts.AbstractEditPart#refreshVisuals()
      */
     @objid ("6115efb6-55b6-11e2-877f-002564c97630")
@@ -118,7 +119,7 @@ public class BpmnLaneEditPart extends AbstractNodeEditPart {
     protected void refreshVisuals() {
         GmBpmnLane partitionModel = (GmBpmnLane) getModel();
         getFigure().getParent().setConstraint(getFigure(), partitionModel.getLayoutData());
-        
+
     }
 
     @objid ("6115efba-55b6-11e2-877f-002564c97630")
@@ -136,7 +137,7 @@ public class BpmnLaneEditPart extends AbstractNodeEditPart {
                 child.setBorder(new TLBRBorder(false, false, true, false));
                 getContentPane().add(child, BorderLayout.TOP);
             }
-        
+
             // refresh style for the new border
             refreshFromStyle(child, getModelStyle());
         } else if (index == 1) {
@@ -145,7 +146,7 @@ public class BpmnLaneEditPart extends AbstractNodeEditPart {
         } else {
             throw new IllegalArgumentException("Unexpected child");
         }
-        
+
     }
 
     @objid ("6115efbf-55b6-11e2-877f-002564c97630")
@@ -154,7 +155,7 @@ public class BpmnLaneEditPart extends AbstractNodeEditPart {
         if (aFigure instanceof BpmnLaneFigure) {
             if (!switchRepresentationMode()) {
                 super.refreshFromStyle(aFigure, style);
-        
+
                 final GmModel gmModel = getModel();
                 if (aFigure.getChildren().size() > 0) {
                     IFigure headerFigure = (IFigure) aFigure.getChildren().get(0);
@@ -164,7 +165,7 @@ public class BpmnLaneEditPart extends AbstractNodeEditPart {
         } else {
             super.refreshFromStyle(aFigure, style);
         }
-        
+
     }
 
     @objid ("6115efc6-55b6-11e2-877f-002564c97630")
@@ -174,6 +175,7 @@ public class BpmnLaneEditPart extends AbstractNodeEditPart {
     }
 
     /**
+     *
      * @return whether lanes should be displayed horizontally or vertically.
      */
     @objid ("e871f7c7-63c4-4a0c-921c-ae2d0d395f4a")

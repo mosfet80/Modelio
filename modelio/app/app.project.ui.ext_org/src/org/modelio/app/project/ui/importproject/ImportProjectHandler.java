@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.ui.importproject;
 
@@ -23,7 +23,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
@@ -53,9 +53,9 @@ public class ImportProjectHandler {
                     AppProjectUiExt.I18N.getMessage("CannotImportOpenedProjectMsg"));
             return;
         }
-        
+
         // Importing a project consists in un-zipping its archive contents into a directory.
-        
+
         // Prompt the user for the archive file path and name.
         Path archiveFile = promptUserForFile(shell, projectService.getWorkspace());
         if (archiveFile != null) {
@@ -68,7 +68,7 @@ public class ImportProjectHandler {
             } catch (@SuppressWarnings ("unused") InterruptedException e) {
                 AppProjectUi.LOG.info("Export aborted by user.");
             }
-        
+
         } else {
             AppProjectUi.LOG.info("Import aborted by user.");
         }
@@ -84,14 +84,14 @@ public class ImportProjectHandler {
     @objid ("fb852359-a966-41f9-ab9a-ef89bf80b95d")
     protected Path promptUserForFile(Shell parentShell, Path workspace) {
         FileDialog dialog = new FileDialog(parentShell, SWT.OPEN);
-        
+
         dialog.setFilterNames(new String[] { AppProjectUiExt.I18N.getString("ProjectArchive") });
         dialog.setFilterExtensions(new String[] { "*.zip;" });
-        
+
         dialog.setFileName("");
-        
+
         dialog.setFilterPath(workspace.toString());
-        
+
         String sfilePath = dialog.open();
         if (sfilePath != null) {
             return Paths.get(sfilePath);

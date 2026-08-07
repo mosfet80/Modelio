@@ -1,0 +1,164 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+= Atomic units
+
+
+An atomic unit is the minimum amount of information which can be locked, published or reverted. Subversion commands can only be run on atomic units.
+
+Other types of model element (attributes, operations, instances, ...) attached to atomic units are managed along with the atomic unit they belong to. For example, class operations or attributes are information attached to the class. To modify or add an operation to a class, the class in question must be read-write. When the class itself is published, any attributes and operations which may have been modified are also automatically published.
+
+To delete an atomic unit, the unit itself, as well as its embedding (or parent) unit, must be read-write. As a consequence, the embedding unit is modified, since its composition link has been altered.
+
+Atomic units are instances of the following metaclasses:
+
+==== Infrastructure 
+
+* DiagramSet
+* Document
+* EnumeratedPropertyType
+* GraphDiagram
+* ImpactDiagram
+* ImpactModel
+* ImpactProject
+* LocalPropertyTable
+* MetaclassReference
+* ModuleComponent
+* Profile
+* PropertyTableDefinition
+* PropertyType
+* Resource
+* Stereotype
+ 
+==== UML-BPMN  
+ 
+* Activity
+* ActivityDiagram
+* Actor
+* Artifact
+* BpmnCollaboration
+* BpmnCollaborationDiagram
+* BpmnProcess
+* BpmnProcessDesignDiagram
+* BpmnSharedDefinitions
+* BpmnSubProcessDiagram
+* Class
+* ClassDiagram
+* CommunicationDiagram
+* CommunicationInteraction
+* Component
+* CompositeStructureDiagram
+* DataType
+* DeploymentDiagram
+* Interaction
+* Interface
+* Node
+* ObjectDiagram
+* OpaqueBehavior
+* Package
+* Project
+* SequenceDiagram
+* Signal
+* StateMachine
+* StateMachineDiagram
+* StaticDiagram
+* UseCase
+* UseCaseDiagram
+
+==== ArchiMate 
+
+* ApplicationCollaboration
+* ApplicationComponent
+* ApplicationEvent
+* ApplicationFolder
+* ApplicationFunction
+* ApplicationInteraction
+* ApplicationInterface
+* ApplicationProcess
+* ApplicationService
+* ArchimateProject
+* ArchimateView
+* Artifact
+* Assessment
+* BusinessActor
+* BusinessCollaboration
+* BusinessEvent
+* BusinessFolder
+* BusinessFunction
+* BusinessInteraction
+* BusinessInterface
+* BusinessObject
+* BusinessProcess
+* BusinessRole
+* BusinessService
+* Capability
+* CommunicationNetwork
+* Constraint
+* Contract
+* CourseOfAction
+* DataObject
+* Deliverable
+* Device
+* DistributionNetwork
+* Driver
+* Equipment
+* Facility
+* Gap
+* Goal
+* Grouping
+* ImplementationEvent
+* ImplementationFolder
+* Location
+* Material
+* Meaning
+* Model
+* MotivationFolder
+* Node
+* Outcome
+* Path
+* PhysicalFolder
+* Plateau
+* Principle
+* Product
+* Representation
+* Requirement
+* Resource
+* Stakeholder
+* StrategyFolder
+* SystemSoftware
+* TechnologyCollaboration
+* TechnologyEvent
+* TechnologyFolder
+* TechnologyFunction
+* TechnologyInteraction
+* TechnologyInterface
+* TechnologyProcess
+* TechnologyService
+* Value
+* ValueStream
+* ViewPoint
+* ViewPointDiagram
+* WorkPackage
+
+==== Analyst
+
+* AnalystProject
+* BusinessRule
+* BusinessRuleContainer
+* Dictionary
+* GenericAnalystContainer
+* GenericAnalystElement
+* Goal
+* GoalContainer
+* KPI
+* KPIContainer
+* Requirement
+* RequirementContainer
+* Risk
+* RiskContainer
+* Term
+* Test
+* TestContainer

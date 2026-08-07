@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.communicationdiagram.editor.elements.communicationdiagram;
 
@@ -68,15 +68,16 @@ public class GmCommunicationDiagram extends GmAbstractDiagram {
 
     /**
      * Initialize the diagram.
+     *
      * @param manager The model manager
      * @param theCommunicationDiagram the displayed diagram.
      * @param diagramRef the reference of the displayed diagram. Must reference a {@link CommunicationDiagram}.
      */
     @objid ("7a299d3e-55b6-11e2-877f-002564c97630")
-    public  GmCommunicationDiagram(IModelManager manager, CommunicationDiagram theCommunicationDiagram, MRef diagramRef) {
+    public GmCommunicationDiagram(IModelManager manager, CommunicationDiagram theCommunicationDiagram, MRef diagramRef) {
         super(manager, diagramRef);
         this.element = theCommunicationDiagram;
-        
+
     }
 
     @objid ("7a299d4d-55b6-11e2-877f-002564c97630")
@@ -94,7 +95,7 @@ public class GmCommunicationDiagram extends GmAbstractDiagram {
                 (el instanceof Document)) {
             return true;
         }
-        
+
         if ((el instanceof CommunicationChannel)) {
             return canUnmask(el.getCompositionOwner());
         }
@@ -150,7 +151,7 @@ public class GmCommunicationDiagram extends GmAbstractDiagram {
             break;
         }
         }
-        
+
     }
 
     @objid ("7a2b23e2-55b6-11e2-877f-002564c97630")
@@ -175,17 +176,17 @@ public class GmCommunicationDiagram extends GmAbstractDiagram {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmCommunicationDiagram.", GmCommunicationDiagram.MINOR_VERSION);
-        
+
     }
 
     @objid ("7a2b23f9-55b6-11e2-877f-002564c97630")
     private void read_1(IDiagramReader in) {
         super.read(in);
         this.element = (CommunicationDiagram) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("23761009-aa23-4308-8c0d-1c42350fb10b")
@@ -193,7 +194,7 @@ public class GmCommunicationDiagram extends GmAbstractDiagram {
         super.read(in);
         this.element = (CommunicationDiagram) resolveRef(getRepresentedRef());
         OrthoLinkDiagramMigrationHelper.migrate(this);
-        
+
     }
 
     @objid ("7a2caa59-55b6-11e2-877f-002564c97630")

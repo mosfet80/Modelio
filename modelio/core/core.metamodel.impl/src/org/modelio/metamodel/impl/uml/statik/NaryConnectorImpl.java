@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -44,13 +43,13 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00060c52-c4bf-1fd8-97fe-001ec947cd2a")
 public class NaryConnectorImpl extends NaryLinkImpl implements NaryConnector {
-    @objid ("80476f80-c8fb-4a92-826c-329ea850b8fa")
+    @objid ("1ca3e577-68e9-42b6-a563-ac4e1c19fbc1")
     @Override
     public EList<Binding> getRepresentation() {
         return new SmList<>(this, ((NaryConnectorSmClass)getClassOf()).getRepresentationDep());
     }
 
-    @objid ("72ccfd35-d776-4a65-9c9d-498efa3ecd53")
+    @objid ("5f6cf81a-10af-4bd8-8be4-08c6009a1484")
     @Override
     public <T extends Binding> List<T> getRepresentation(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -63,23 +62,23 @@ public class NaryConnectorImpl extends NaryLinkImpl implements NaryConnector {
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("1e4fc50b-513a-4856-a8de-5cea3ba8ceb7")
+    @objid ("4de79a94-e28e-400b-89ee-7a13a20405bd")
     @Override
     public UmlModelElement getRepresentedFeature() {
         Object obj = getDepVal(((NaryConnectorSmClass)getClassOf()).getRepresentedFeatureDep());
         return (obj instanceof UmlModelElement)? (UmlModelElement)obj : null;
     }
 
-    @objid ("f7f434a8-85dd-4619-8944-896c1202959d")
+    @objid ("a1e7b55c-e95a-4b12-b6a5-e134cff6f145")
     @Override
     public void setRepresentedFeature(UmlModelElement value) {
         appendDepVal(((NaryConnectorSmClass)getClassOf()).getRepresentedFeatureDep(), (SmObjectImpl)value);
     }
 
-    @objid ("8bb4273d-db32-4f00-9c8e-5a35ab842c1b")
+    @objid ("a0be50a4-c1f0-410a-bc84-a18573e7996c")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -87,17 +86,17 @@ public class NaryConnectorImpl extends NaryLinkImpl implements NaryConnector {
         return super.getCompositionOwner();
     }
 
-    @objid ("d136015c-ba86-4ab1-9cd5-f7b095b4b140")
+    @objid ("9019a63d-d1cc-4133-9323-328a0480c513")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("c65f14ab-9d84-413d-b86d-4f43970962a1")
+    @objid ("4365ce93-ec9f-4935-8065-6b32bffeeb90")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitNaryConnector(this);

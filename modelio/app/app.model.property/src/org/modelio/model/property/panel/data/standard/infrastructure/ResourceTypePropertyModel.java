@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.panel.data.standard.infrastructure;
 
@@ -39,15 +39,17 @@ public class ResourceTypePropertyModel extends AbstractPropertyModel<ResourceTyp
 
     /**
      * Instantiate the note type properties view.
+     *
      * @param theEditedElement the current note type.
      */
     @objid ("a1b34859-3b58-4162-8e64-fb6ab1cdf078")
-    public  ResourceTypePropertyModel(ResourceType theEditedElement) {
+    public ResourceTypePropertyModel(ResourceType theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * (non-Javadoc)
+     *
      * @see IPropertyModel#getColumnNumber()
      */
     @objid ("12ef96b0-1492-4c61-adc0-c8a6000adac8")
@@ -58,6 +60,7 @@ public class ResourceTypePropertyModel extends AbstractPropertyModel<ResourceTyp
 
     /**
      * (non-Javadoc)
+     *
      * @see IPropertyModel#getRowsNumber()
      */
     @objid ("c373b0b9-1055-4dee-9fbc-60f178649ac3")
@@ -68,6 +71,7 @@ public class ResourceTypePropertyModel extends AbstractPropertyModel<ResourceTyp
 
     /**
      * (non-Javadoc)
+     *
      * @see IPropertyModel#getValueAt(int, int)
      */
     @objid ("6badfe5f-5a04-4bd5-8b6a-32588c59021d")
@@ -91,11 +95,12 @@ public class ResourceTypePropertyModel extends AbstractPropertyModel<ResourceTyp
         default:
             return null;
         }
-        
+
     }
 
     /**
      * (non-Javadoc)
+     *
      * @see IPropertyModel#getValueAt(int, int)
      */
     @objid ("c9ff45f0-b56e-464f-b7ad-ffd4f567c998")
@@ -120,11 +125,12 @@ public class ResourceTypePropertyModel extends AbstractPropertyModel<ResourceTyp
         default:
             return null;
         }
-        
+
     }
 
     /**
      * (non-Javadoc)
+     *
      * @see IPropertyModel#setValueAt(int, int, java.lang.Object)
      */
     @objid ("ae280919-a769-42f7-814b-12f44a41db6b")
@@ -152,7 +158,7 @@ public class ResourceTypePropertyModel extends AbstractPropertyModel<ResourceTyp
         default:
             return;
         }
-        
+
     }
 
 }

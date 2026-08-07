@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.uml.infrastructure;
 
@@ -36,6 +36,7 @@ public interface IResourceHandle {
      * Open a read stream.
      * <p>
      * The caller has to close the stream, usually with a try-with-resource statement.
+     *
      * @return the read stream.
      * @throws IOException on I/O failure.
      */
@@ -46,6 +47,7 @@ public interface IResourceHandle {
      * Open a write stream on the resource.
      * <p>
      * The caller has to close the stream, usually with a try-with-resource statement.
+     *
      * @return the writing stream.
      * @throws IOException on I/O failure.
      */
@@ -54,6 +56,7 @@ public interface IResourceHandle {
 
     /**
      * Set the authentication data that may be needed to access the resource.
+     *
      * @param auth the authentication data.
      */
     @objid ("7bea46b3-ae84-422f-b0e5-9e7cf4855209")
@@ -61,6 +64,7 @@ public interface IResourceHandle {
 
     /**
      * Copy the resource in a file in the given directory.
+     *
      * @param dir the target directory.
      * @return the file containing the resource.
      * @throws IOException the created file.
@@ -69,10 +73,17 @@ public interface IResourceHandle {
     Path extractInto(Path dir) throws IOException;
 
     /**
+     * Delete the resource
+     */
+    @objid ("0f6cfedc-4007-479b-89e4-375ca8180a12")
+    void delete() throws IOException;
+
+    /**
      * Copy the attached resource content between 2 model objects.
      * <p>
      * Beware the target resource content will be overwritten, even if it
      * the resource was an external reference.
+     *
      * @param src the source resource handle.
      * @param target the target resource handle.
      * @throws IOException on I/O failure
@@ -81,23 +92,23 @@ public interface IResourceHandle {
     static void copy(IResourceHandle src, IResourceHandle target) throws IOException {
         try (InputStream is = src.read();
                 OutputStream os = target.write();) {
-        
+
             byte[] buf = new byte[4096];
             int read = 0;
             while((read = is.read(buf)) > 0) {
                 os.write(buf, 0, read);
             }
         }
-        
     }
 
     /**
      * Get the location of the resource.
      * <p>
      * Returns null for an embedded resource.
+     *
      * @return the location of the resource.
      */
     @objid ("dbb373fa-e595-41bc-8a98-51897dbe96d7")
     URI getLocation();
-}
 
+}

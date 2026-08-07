@@ -1,29 +1,29 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.script.view;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.e4.core.di.annotations.Creatable;
 import org.eclipse.e4.core.di.annotations.Optional;
@@ -61,13 +61,13 @@ public class ScriptViewSelectionGetter {
         if (newSelection == null) {
             return;
         }
-        
+
         this.selection = newSelection;
-        
+
         if (newSelection instanceof IStructuredSelection) {
             final IStructuredSelection structuredSelection = (IStructuredSelection) newSelection;
             this.selectedElements = new ArrayList<>(structuredSelection.size());
-        
+
             for (Object selectionElement : structuredSelection.toList()) {
                 Element el = null;
                 if (selectionElement instanceof Element) {
@@ -75,13 +75,13 @@ public class ScriptViewSelectionGetter {
                 } else if (selectionElement instanceof IAdaptable) {
                     el = ((IAdaptable) selectionElement).getAdapter(Element.class);
                 }
-        
+
                 if (el != null) {
                     this.selectedElements.add(el);
                 }
             }
         }
-        
+
     }
 
     @objid ("003cf3de-9861-1069-96f6-001ec947cd2a")
@@ -91,7 +91,7 @@ public class ScriptViewSelectionGetter {
     void onProjectClose(@EventTopic(ModelioEventTopics.PROJECT_CLOSED) IGProject project) {
         this.selectedElements = new ArrayList<>();
         this.selection = null;
-        
+
     }
 
 }

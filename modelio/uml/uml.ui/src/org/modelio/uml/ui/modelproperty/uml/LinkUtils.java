@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -37,7 +37,7 @@ import org.modelio.platform.model.ui.nattable.parts.data.element.choice.DefaultE
 
 /**
  * Utilities for {@link LinkEnd} related property models.
- * 
+ *
  * @author cmarin
  */
 @objid ("dfab3116-b36a-49e1-a8a0-5d54de9bde85")
@@ -46,11 +46,11 @@ class LinkUtils {
     private static List<AssociationEnd> getAllOwnedEnd(NameSpace sourceBase) {
         List<AssociationEnd> ret = new ArrayList<>();
         ret.addAll(((Classifier) sourceBase).getOwnedEnd());
-        
+
         for (Generalization g : sourceBase.getParent()) {
             ret.addAll(getAllOwnedEnd(g.getSuperType()));
         }
-        
+
         for (InterfaceRealization r : sourceBase.getRealized()) {
             ret.addAll(getAllOwnedEnd(r.getImplemented()));
         }
@@ -61,11 +61,11 @@ class LinkUtils {
     private static List<AssociationEnd> getAllTargetingEnd(NameSpace sourceBase) {
         List<AssociationEnd> ret = new ArrayList<>();
         ret.addAll(((Classifier) sourceBase).getTargetingEnd());
-        
+
         for (Generalization g : sourceBase.getParent()) {
             ret.addAll(getAllTargetingEnd(g.getSuperType()));
         }
-        
+
         for (InterfaceRealization r : sourceBase.getRealized()) {
             ret.addAll(getAllTargetingEnd(r.getImplemented()));
         }
@@ -75,7 +75,7 @@ class LinkUtils {
     @objid ("4f2b26f9-258a-44ff-9219-3b547e175db7")
     public static INatValue getBaseAssociationType(LinkEnd editedEnd) {
         List<ModelElement> availableEnds = new ArrayList<>();
-        
+
         Instance source = editedEnd.getOwner();
         Instance target = editedEnd.getOpposite().getOwner();
         NameSpace sourceBase = source.getBase();
@@ -89,7 +89,7 @@ class LinkUtils {
                     }
                 }
             }
-        
+
             for (AssociationEnd end : getAllTargetingEnd(sourceBase)) {
                 if (isSubTypeOf(targetBase, end.getOwner())) {
                     if (!availableEnds.contains(end.getOpposite())) {
@@ -104,6 +104,7 @@ class LinkUtils {
 
     /**
      * Tells whether child is same or sub type of 'parent'.
+     *
      * @param child a namespace
      * @param parent a namespace potentially parent of child
      * @return whether child is same or sub type of 'parent'.
@@ -116,13 +117,13 @@ class LinkUtils {
         if (child.equals(parent)) {
             return true;
         }
-        
+
         for (Generalization g : child.getParent()) {
             if (isSubTypeOf(g.getSuperType(), parent)) {
                 return true;
             }
         }
-        
+
         if (parent instanceof Interface) {
             for (InterfaceRealization r : child.getRealized()) {
                 if (isSubTypeOf(r.getImplemented(), parent)) {

@@ -3,9 +3,9 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Browser
 Bundle-Localization: plugin
 Bundle-SymbolicName: org.modelio.app.diagram.browser;singleton:=true
-Bundle-Version: 5.4.1.qualifier 
+Bundle-Version: 6.2.0.qualifier 
 Bundle-Vendor: modelio.org
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.modelio.platform.utils,
  org.eclipse.ui,
@@ -29,5 +29,5 @@ Require-Bundle: org.modelio.platform.utils,
 Bundle-ClassPath: res/,
  .
 Bundle-Activator: org.modelio.diagram.browser.plugin.DiagramBrowser
-Import-Package: javax.annotation;version="1.1.0",
- javax.inject;version="1.0.0"
+Import-Package: jakarta.annotation;version="1.1.0",
+ jakarta.inject;version="1.0.0"

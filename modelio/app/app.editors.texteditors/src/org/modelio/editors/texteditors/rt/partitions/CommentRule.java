@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.texteditors.rt.partitions;
 
@@ -31,10 +31,10 @@ public class CommentRule extends EndOfLineRule {
     private RTPartitionScanner _scanner;
 
     @objid ("7b6423d1-2a77-11e2-9fb9-bc305ba4815c")
-    public  CommentRule(String startSequence, IToken commentToken, RTPartitionScanner scanner) {
+    public CommentRule(String startSequence, IToken commentToken, RTPartitionScanner scanner) {
         super(startSequence, commentToken);
         this._scanner = scanner;
-        
+
     }
 
     @objid ("7b6423d6-2a77-11e2-9fb9-bc305ba4815c")
@@ -53,7 +53,7 @@ public class CommentRule extends EndOfLineRule {
             swallowedCharNb++;
         }
         scanner.unread();
-                
+
         IToken token = super.evaluate(scanner, resume);
         if (token == this.fToken) {
             return token;
@@ -63,7 +63,7 @@ public class CommentRule extends EndOfLineRule {
             scanner.unread();
             return Token.UNDEFINED;
         }
-        
+
     }
 
     @objid ("7b6423db-2a77-11e2-9fb9-bc305ba4815c")
@@ -82,7 +82,7 @@ public class CommentRule extends EndOfLineRule {
             swallowedCharNb++;
         }
         scanner.unread();
-                
+
         IToken token = super.evaluate(scanner);
         if (token == this.fToken) {
             return token;
@@ -92,7 +92,7 @@ public class CommentRule extends EndOfLineRule {
             scanner.unread();
             return Token.UNDEFINED;
         }
-        
+
     }
 
     @objid ("7b6423df-2a77-11e2-9fb9-bc305ba4815c")

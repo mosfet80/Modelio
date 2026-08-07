@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.linkeditor.gef;
 
@@ -38,10 +57,11 @@ public class LinkEditorCommandStack extends CommandStack {
 
     /**
      * Initialize the command stack.
+     *
      * @param session a modeling session
      */
     @objid ("1b9f89e5-5e33-11e2-b81d-002564c97630")
-    public  LinkEditorCommandStack(Supplier<ICoreSession> session) {
+    public LinkEditorCommandStack(Supplier<ICoreSession> session) {
         this.sessionGetter = () -> Optional.ofNullable(session.get());
     }
 
@@ -62,7 +82,7 @@ public class LinkEditorCommandStack extends CommandStack {
     @Override
     public void undo() {
         Command command = null;
-        
+
         notifyListeners(command, PRE_UNDO);
         try {
             this.sessionGetter.get().get().getTransactionSupport().undo();
@@ -70,7 +90,6 @@ public class LinkEditorCommandStack extends CommandStack {
         } finally {
             notifyListeners(command, POST_UNDO);
         }
-        
     }
 
     @objid ("1b9f89f6-5e33-11e2-b81d-002564c97630")
@@ -88,7 +107,6 @@ public class LinkEditorCommandStack extends CommandStack {
         } finally {
             notifyListeners(command, POST_REDO);
         }
-        
     }
 
     @objid ("1b9f89f9-5e33-11e2-b81d-002564c97630")
@@ -116,12 +134,12 @@ public class LinkEditorCommandStack extends CommandStack {
         if (command == null || !command.canExecute()) {
             return;
         }
-        
+
         notifyListeners(command, PRE_EXECUTE);
-        
+
         try {
             final ICoreSession transactionManager = this.sessionGetter.get().get();
-            
+
             try(ITransaction t = transactionManager.getTransactionSupport().createTransaction(command.getLabel())) {
                 command.execute();
                 t.commit();
@@ -132,7 +150,6 @@ public class LinkEditorCommandStack extends CommandStack {
         } finally {
             notifyListeners(command, POST_EXECUTE);
         }
-        
     }
 
     @objid ("1b9f8a0c-5e33-11e2-b81d-002564c97630")

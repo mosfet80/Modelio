@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor;
 
@@ -31,7 +31,7 @@ import org.modelio.metamodel.diagrams.AbstractDiagram;
  * <p>
  * This class is to be extended when implementing a specific diagram type.
  * </p>
- * 
+ *
  * @see IDiagramEditorInputProvider
  */
 @objid ("65931995-33f7-11e2-95fe-001ec947c8cc")
@@ -46,22 +46,23 @@ public abstract class DiagramEditorInput {
      * Initialize the editor input.
      * <p>
      * Creates the diagram graphic model and load it from the diagram model element.
+     *
      * @param diagram the diagram to edit.
      * @param modelManager the link between the Gm model and the Ob model.
      * @param gmDiagramCreator a small factory to instanciate the Gm diagram itself.
      */
     @objid ("65931999-33f7-11e2-95fe-001ec947c8cc")
-    public  DiagramEditorInput(AbstractDiagram diagram, IModelManager modelManager, GmDiagramCreator gmDiagramCreator) {
+    public DiagramEditorInput(AbstractDiagram diagram, IModelManager modelManager, GmDiagramCreator gmDiagramCreator) {
         this.diagram = diagram;
         this.model = gmDiagramCreator.createDiagram(modelManager, diagram);
         if (this.model != null) {
             // Make the diagram visible at GM level.
             this.model.setVisible(true);
-        
+
             // Load from the persistence.
             this.model.load();
         }
-        
+
     }
 
     @objid ("659319b8-33f7-11e2-95fe-001ec947c8cc")
@@ -97,6 +98,7 @@ public abstract class DiagramEditorInput {
     }
 
     /**
+     *
      * @return the edited diagram.
      */
     @objid ("65957bea-33f7-11e2-95fe-001ec947c8cc")
@@ -122,10 +124,11 @@ public abstract class DiagramEditorInput {
             this.model.dispose();
             this.model = null;
         }
-        
+
     }
 
     /**
+     *
      * @return the edited diagram graphic model.
      */
     @objid ("65957c08-33f7-11e2-95fe-001ec947c8cc")
@@ -135,6 +138,7 @@ public abstract class DiagramEditorInput {
 
     /**
      * Get the editor ID this input is destined to.
+     *
      * @return the e4xmi ID of a diagram editor.
      */
     @objid ("f258f912-3996-43fc-9fdf-cb5cb5321893")

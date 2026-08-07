@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.edition.notes.panelprovider.tree;
 
@@ -41,17 +41,17 @@ public class NoteViewTreeContentProvider implements ITreeContentProvider {
     @Override
     public Object[] getElements(Object object) {
         List<Object> objects = new ArrayList<>();
-        
+
         if (object instanceof ModelElement) {
             ModelElement me = (ModelElement) object;
-        
+
             // Notes
             for (Note note : me.getDescriptor()) {
                 if (note.getModel() != null && !note.getModel().isIsHidden()) {
                     objects.add(note);
                 }
             }
-        
+
             // Constraints
             if (me instanceof UmlModelElement) {
                 for (Constraint constraint : ((UmlModelElement) me).getConstraintDefinition()) {
@@ -62,7 +62,7 @@ public class NoteViewTreeContentProvider implements ITreeContentProvider {
                                 objects.add(constraint);
                                 break;
                             }
-        
+
                         }
                     } else {
                         // not stereotype => visible constraint
@@ -70,7 +70,7 @@ public class NoteViewTreeContentProvider implements ITreeContentProvider {
                     }
                 }
             }
-            
+
             // Documents
             for (Document ex : me.getAttached(Document.class)) {
                 if (!ex.getType().isIsHidden()) {
@@ -107,7 +107,7 @@ public class NoteViewTreeContentProvider implements ITreeContentProvider {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("69ed0706-5bad-46c4-9b98-2740f5be9b93")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnsubprocess;
 
@@ -44,13 +44,14 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class CreateBpmnSubProcessCommand extends DefaultCreateElementCommand {
     /**
      * Creates a node creation command.
+     *
      * @param parentElement the element that lead to this command.
      * @param parentNode The parent editPart
      * @param context Details on the MObject and/or the node to create
      * @param requestConstraint Request Constraint
      */
     @objid ("0257512e-5dc4-4aef-8bcc-bc0e895d23b9")
-    public  CreateBpmnSubProcessCommand(MObject parentElement, GmCompositeNode parentNode, ModelioCreationContext context, Object requestConstraint) {
+    public CreateBpmnSubProcessCommand(MObject parentElement, GmCompositeNode parentNode, ModelioCreationContext context, Object requestConstraint) {
         super(parentElement, parentNode, context, requestConstraint);
     }
 
@@ -59,23 +60,23 @@ public class CreateBpmnSubProcessCommand extends DefaultCreateElementCommand {
     protected MObject createElement(IGmDiagram diagram) {
         // Call initial behavior
         final BpmnSubProcess subProcess = (BpmnSubProcess) super.createElement(diagram);
-        
+
         // Add the subprocess to the current lane if needed
         MObject relatedElement = this.parentNode.getRelatedElement();
         if (relatedElement instanceof BpmnLane) {
             subProcess.getLane().add((BpmnLane) relatedElement);
         }
-        
+
         // Create the BpmnSubProcessDiagram
-        
+
         MTools mTools = MTools.get(subProcess);
         IStandardModelFactory modelFactory = mTools.getModelFactory(IStandardModelFactory.class);
         IElementNamerService namer = mTools.getNamer();
-        
+
         BpmnSubProcessDiagram subDiagram = modelFactory.createBpmnSubProcessDiagram();
         subDiagram.setOrigin(subProcess);
         subDiagram.setName(namer.getUniqueName(subDiagram));
-        
+
         if (!(subProcess instanceof BpmnAdHocSubProcess)) {
             populateDiagram(subProcess, modelFactory, namer, subDiagram);
         }
@@ -94,7 +95,7 @@ public class CreateBpmnSubProcessCommand extends DefaultCreateElementCommand {
      */
     @objid ("c09d0edf-609e-4a25-9df0-ca580d437fe5")
     private void populateDiagram(BpmnSubProcess subProcess, IStandardModelFactory modelFactory, IElementNamerService namer, BpmnSubProcessDiagram diagram) {
-        
+
     }
 
 }

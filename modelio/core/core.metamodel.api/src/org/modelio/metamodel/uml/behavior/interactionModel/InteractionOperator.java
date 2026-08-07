@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.uml.behavior.interactionModel;
 
@@ -26,37 +26,36 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * InteractionOperator v0.0.9054
- * 
- * 
+ *
+ *
  * null
- * 
- * 
+ *
  */
 @objid ("00964254-91e0-1f74-804b-001ec947cd2a")
 public enum InteractionOperator {
-    @objid ("7bae722f-beab-4260-92a3-8bb5e8027507")
+    @objid ("4e9be41d-832a-4bb5-8f88-75b2fc760115")
     SEQOP(0, "SeqOp", "SeqOp"),
-    @objid ("a259bb6c-66f3-4e8b-b95f-9674d27848d8")
+    @objid ("2ef0534d-0326-4013-b11e-2e40b178e801")
     ALTOP(1, "AltOp", "AltOp"),
-    @objid ("eed590b2-410f-4e4f-9a85-62feebcfcfa2")
+    @objid ("8a4bb6bd-4977-4c9a-9981-20f924522888")
     OPTOP(2, "OptOp", "OptOp"),
-    @objid ("04cb1992-29ab-4c74-ad92-66843d230aa0")
+    @objid ("d78baddc-cd9b-4edf-9bea-1e8444c6dda0")
     BREAKOP(3, "BreakOp", "BreakOp"),
-    @objid ("ba86b08c-9c5b-4be1-b991-ea482cc81c79")
+    @objid ("cda41601-5227-4834-aabb-fde7493032ec")
     PAROP(4, "ParOp", "ParOp"),
-    @objid ("35fd29a4-ba53-4259-9664-fadb651668da")
+    @objid ("d2d6fcb8-663d-459c-9815-9ef6a57a0304")
     STRICTOP(5, "StrictOp", "StrictOp"),
-    @objid ("ed25d124-b820-4b16-9735-61b2875681c7")
+    @objid ("49c21c93-0868-49d2-a397-54eb246aa645")
     LOOPOP(6, "LoopOp", "LoopOp"),
-    @objid ("4866c05c-3da4-4171-9b4d-ba6abe3b3e4d")
+    @objid ("3c71b55b-3c3c-400d-9640-203e0e927b85")
     CRITICALOP(7, "CriticalOp", "CriticalOp"),
-    @objid ("40bfd856-b202-459a-840b-f20ff6f2e726")
+    @objid ("48df53c8-47d7-47d0-b926-2503004b76fa")
     NEGOP(8, "NegOp", "NegOp"),
-    @objid ("133ef3ac-4333-439e-b350-0514b43d606d")
+    @objid ("ccf3253b-3477-4100-a638-ba1efa70db97")
     ASSERTOP(9, "AssertOp", "AssertOp"),
-    @objid ("3d7540c0-e601-4a3b-ac01-60c3bc263ce4")
+    @objid ("f64fb77d-852c-47c6-977a-e43e579e5fd6")
     IGNOREOP(10, "IgnoreOp", "IgnoreOp"),
-    @objid ("5ae9e203-7ac8-4217-bb54-66becdb5bf87")
+    @objid ("2789f377-ce02-4732-9668-afb77a16c63c")
     CONSIDEROP(11, "ConsiderOp", "ConsiderOp");
 
 public static final int SEQOP_VALUE = 0;
@@ -143,5 +142,5 @@ public static final int SEQOP_VALUE = 0;
     public String toString() {
        return literal;
     }
-    
+
 }

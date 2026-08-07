@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.module;
 
@@ -52,6 +52,7 @@ import org.modelio.vbasic.version.Version;
 public interface IModule {
     /**
      * Used to return the module description.
+     *
      * @return The module description
      */
     @objid ("01f40414-0000-32b2-0000-000000000000")
@@ -61,6 +62,7 @@ public interface IModule {
      * Get the image provided by the module for a given stereotype. The module
      * should return an image if the stereotype is provided by itself, null in
      * the other case. The image life cycle must be handled by the module.
+     *
      * @param stereotype a stereotype
      * @param type the image type
      * @return the stereotype image, or null if the module provides none.
@@ -72,6 +74,7 @@ public interface IModule {
      * Get the image provided by the module for a given profile. The module
      * should return an image if the profile is provided by itself, null in
      * the other case. The image life cycle must be handled by the module.
+     *
      * @param type the image type
      * @param profile a profile
      * @return the profile image, or null if the module provides none.
@@ -93,6 +96,7 @@ public interface IModule {
 
     /**
      * Return the life cycle handler of a module.
+     *
      * @since 3.5
      */
     @objid ("04ee760e-04d7-4fb7-8262-8fb871294feb")
@@ -101,6 +105,7 @@ public interface IModule {
     /**
      * Get an expert for a stereotype belonging to this module. <br/>
      * Might return <code>null</code>.
+     *
      * @param st a stereotype owned by the current module.
      * @since 3.4
      */
@@ -111,9 +116,10 @@ public interface IModule {
 
     /**
      * Get the ModelComponent contributor associated to this module.
-     * @see IModelComponentContributor
+     *
      * @param mc the Model component being built.
      * @return the module configuration.
+     * @see IModelComponentContributor
      */
     @objid ("1f42ee4a-65e6-11e0-9853-001ec947cd2a")
     default IModelComponentContributor getModelComponentContributor(IModelComponent mc) {
@@ -122,6 +128,7 @@ public interface IModule {
 
     /**
      * Return the context of a module, to access Modelio services.
+     *
      * @since 3.5
      */
     @objid ("699a64b6-f12a-4f40-9355-6bbfec7b7d1f")
@@ -129,6 +136,7 @@ public interface IModule {
 
     /**
      * Returns an Image for this module.
+     *
      * @return an Image for this module. Might be <code>null</code>.
      */
     @objid ("9567ce16-8bc1-11dd-ad20-0014222a9f79")
@@ -136,6 +144,7 @@ public interface IModule {
 
     /**
      * Get the path to the image representing the module.
+     *
      * @return a path relative to the module's resource path.
      */
     @objid ("0bf45a9b-8afe-42fd-b7d0-06cd1a0421d0")
@@ -147,6 +156,7 @@ public interface IModule {
      * <p>
      * The module name corresponds to the name of the module, as defined in the
      * <i>MDA Designer<i> tool.
+     *
      * @return The module name
      */
     @objid ("01f40414-0000-32ae-0000-000000000000")
@@ -155,6 +165,7 @@ public interface IModule {
     /**
      * Get the parameters model as it must be shown in the module parameters
      * edition dialog.
+     *
      * @return The parameters edition model.
      */
     @objid ("f8cddd33-8f94-11dd-bbe0-001ec947ccaf")
@@ -165,6 +176,7 @@ public interface IModule {
     /**
      * Define a custom panel for module parameter edition. Input will be an set
      * as an {@link IParameterEditionModel}.
+     *
      * @return a {@link IPanelProvider}. Might be <code>null</code> to use the
      * standard Modelio implementation.
      */
@@ -178,6 +190,7 @@ public interface IModule {
      * <p>
      * The peer module represents the public services of this current module.
      * </p>
+     *
      * @return The associated peer module
      */
     @objid ("01f40414-0000-32c3-0000-000000000000")
@@ -186,6 +199,7 @@ public interface IModule {
     /**
      * Returns the minimum Modelio version that authorize the Module to be
      * activated.
+     *
      * @return The minimum Modelio version
      */
     @objid ("45f75358-65cd-11e0-b0ca-001ec947cd2a")
@@ -193,6 +207,7 @@ public interface IModule {
 
     /**
      * Used to return the module version.
+     *
      * @return The module version
      */
     @objid ("01f40414-0000-32b6-0000-000000000000")
@@ -222,6 +237,7 @@ public interface IModule {
 
     /**
      * Reserved for compatibility M3.4 M3.5. Not intended for use.
+     *
      * @param moduleContext the module's context.
      */
     @objid ("81a06395-bf2b-4ccc-9d9d-aeae3946cf1b")
@@ -233,6 +249,7 @@ public interface IModule {
      * <p>
      * It might be manually modified later.
      * </p>
+     *
      * @param model The parameters edition model.
      */
     @objid ("8e427dd6-3cd8-4ce1-aacd-439bfa71bbbe")
@@ -266,5 +283,5 @@ public interface IModule {
         IMAGE;
 
     }
-}
 
+}

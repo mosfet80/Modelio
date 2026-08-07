@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.preferences;
 
@@ -35,7 +35,7 @@ import org.modelio.gproject.data.project.GProperties.Entry;
 
 /**
  * Provides a PreferenceStore which persists the values in the properties of a GProject
- * 
+ *
  * @author phv
  */
 @objid ("23467dd5-3fbd-48be-94a1-f9dfc5137a1e")
@@ -56,12 +56,12 @@ public class GProjectPreferenceStore extends EventManager implements IGProjectPr
     List<IPropertyChangeListener> listeners = new ArrayList<>();
 
     @objid ("72a2fec7-bb26-4608-80c4-e0989af69dc6")
-    public  GProjectPreferenceStore(IGProject gProject) {
+    public GProjectPreferenceStore(IGProject gProject) {
         assert (gProject != null);
-        
+
         this.project = gProject;
         this.subSet = "";
-        
+
     }
 
     @objid ("cac3ea84-fe37-45a0-9b64-5c05e02fe9eb")
@@ -92,7 +92,7 @@ public class GProjectPreferenceStore extends EventManager implements IGProjectPr
                 });
             }
         }
-        
+
     }
 
     @objid ("702af4bf-36f8-41d3-9942-84676595a0eb")
@@ -105,7 +105,7 @@ public class GProjectPreferenceStore extends EventManager implements IGProjectPr
                 return Boolean.parseBoolean(v);
             }
         }
-        
+
         // No subset property defined, get the property 'name'
         String v = this.project.getProperties().getValue(name);
         if (v == null) {
@@ -113,7 +113,7 @@ public class GProjectPreferenceStore extends EventManager implements IGProjectPr
         } else {
             return Boolean.parseBoolean(v);
         }
-        
+
     }
 
     @objid ("e3f65795-9c79-4bae-9c75-8a93476b6611")
@@ -166,7 +166,7 @@ public class GProjectPreferenceStore extends EventManager implements IGProjectPr
                 }
             }
         }
-        
+
         // No subset property defined, get the property 'name'
         String v = this.project.getProperties().getValue(name);
         if (v == null) {
@@ -178,7 +178,7 @@ public class GProjectPreferenceStore extends EventManager implements IGProjectPr
                 return DOUBLE_DEFAULT_DEFAULT;
             }
         }
-        
+
     }
 
     @objid ("c41545cb-b5f2-476f-9a55-c321c930b4e3")
@@ -195,7 +195,7 @@ public class GProjectPreferenceStore extends EventManager implements IGProjectPr
                 }
             }
         }
-        
+
         // No subset property defined, get the property 'name'
         String v = this.project.getProperties().getValue(name);
         if (v == null) {
@@ -207,7 +207,7 @@ public class GProjectPreferenceStore extends EventManager implements IGProjectPr
                 return FLOAT_DEFAULT_DEFAULT;
             }
         }
-        
+
     }
 
     @objid ("1e6b4ddb-c747-4429-8de7-3b0ca3fad8c1")
@@ -224,7 +224,7 @@ public class GProjectPreferenceStore extends EventManager implements IGProjectPr
                 }
             }
         }
-        
+
         // No subset property defined, get the property 'name'
         String v = this.project.getProperties().getValue(name);
         if (v == null) {
@@ -236,7 +236,7 @@ public class GProjectPreferenceStore extends EventManager implements IGProjectPr
                 return INT_DEFAULT_DEFAULT;
             }
         }
-        
+
     }
 
     @objid ("17d974d2-c9f3-41d8-82b9-c17ada711e98")
@@ -253,7 +253,7 @@ public class GProjectPreferenceStore extends EventManager implements IGProjectPr
                 }
             }
         }
-        
+
         // No subset property defined, get the property 'name'
         String v = this.project.getProperties().getValue(name);
         if (v == null) {
@@ -265,7 +265,7 @@ public class GProjectPreferenceStore extends EventManager implements IGProjectPr
                 return LONG_DEFAULT_DEFAULT;
             }
         }
-        
+
     }
 
     @objid ("52cc6607-544b-4a89-8629-4652e93078d6")
@@ -278,7 +278,7 @@ public class GProjectPreferenceStore extends EventManager implements IGProjectPr
                 return v;
             }
         }
-        
+
         // No subset property defined, get the property 'name'
         String v = this.project.getProperties().getValue(name);
         return (v == null) ? STRING_DEFAULT_DEFAULT : v;
@@ -300,20 +300,20 @@ public class GProjectPreferenceStore extends EventManager implements IGProjectPr
     @Override
     public void putValue(String baseName, String value) {
         String name = this.subSet.isEmpty() ? baseName : getPrefixedName(baseName);
-        
+
         Entry old = this.project.getProperties().getProperty(name);
         DefinitionScope scope = (old != null) ? old.getScope() : DefinitionScope.LOCAL;
-        
+
         if (scope == DefinitionScope.SHARED)
             return;
-        
+
         String oldValue = (old != null) ? old.getValue() : null;
         if (oldValue == null || !oldValue.equals(value)) {
             this.project.getProperties().setProperty(name, value, scope);
             this.dirty = true;
             firePropertyChangeEvent(name, oldValue, value);
         }
-        
+
     }
 
     @objid ("18427025-4060-4815-a3fe-2971511e6a99")
@@ -367,13 +367,13 @@ public class GProjectPreferenceStore extends EventManager implements IGProjectPr
             Entry val = properties.getProperty(name);
             Object oldValue = (val != null)? val.getValue() : null;
             String defaultValue = def.getValue();
-        
+
             properties.setProperty(name, defaultValue, def.getScope());
             this.dirty = true;
-        
+
             firePropertyChangeEvent(name, oldValue, defaultValue);
         }
-        
+
     }
 
     @objid ("11e7e77f-b6f3-41d3-85a1-8096cd821c70")
@@ -417,7 +417,7 @@ public class GProjectPreferenceStore extends EventManager implements IGProjectPr
     public void save() throws IOException {
         // not supported . Effective persistence  in under the responsibility of the project/project service
         // so do not call super and do NOT set this.dirty to false here !
-        
+
     }
 
     @objid ("e49b5f1a-73f4-436a-ab7a-007aa6b55f2b")

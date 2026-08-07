@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.panel.tree;
 
@@ -73,19 +73,19 @@ public class TreeLabelProvider extends LabelProvider {
             stereotypeLabel.append(" \u00BB"); // " ?" : ' >>'
             return stereotypeLabel.toString();
         }
-        
+
         // Module
         if (element instanceof ModuleComponent) {
             return MdaResources.getLabel((ModuleComponent) element);
         }
-        
+
         // PropertyTableDefinition
         if (element instanceof PropertyTableDefinition) {
             final PropertyTableDefinition table = (PropertyTableDefinition) element;
             // FIXME i18n
             return table.getName();
         }
-        
+
         // Others (Element)
         if (element instanceof MClass) {
             MClass mClass = (MClass) element;
@@ -100,18 +100,18 @@ public class TreeLabelProvider extends LabelProvider {
         } else {
             return "?" + element.toString();
         }
-        
+
     }
 
     @objid ("8faeec89-c068-11e1-8c0a-002564c97630")
     private Image getStereotypeIcon(Stereotype stereotype) {
         Image icon = null;
-        
+
         // If it is valid, get the stereotype image
         if (stereotype.isValid()) {
             icon = MdaResources.getIcon(stereotype);
         }
-        
+
         // If null, use the default stereotype icon
         if (icon == null) {
             icon = UIImages.DOT;
@@ -123,7 +123,7 @@ public class TreeLabelProvider extends LabelProvider {
      * Constructor creating the images.
      */
     @objid ("8faeec90-c068-11e1-8c0a-002564c97630")
-    public  TreeLabelProvider() {
+    public TreeLabelProvider() {
         this.moduleDefaultIcon = ModelProperty.getImageDescriptor("icons/moduleproptable.png").createImage();
     }
 
@@ -134,20 +134,20 @@ public class TreeLabelProvider extends LabelProvider {
             this.moduleDefaultIcon.dispose();
             this.moduleDefaultIcon = null;
         }
-        
+
         super.dispose();
-        
+
     }
 
     @objid ("c374c119-3e17-11e2-b901-002564c97630")
     private Image getModuleIcon(ModuleComponent moduleComponent) {
         Image icon = null;
-        
+
         // If it is valid, get the module image
         if (moduleComponent.isValid()) {
             icon = MdaResources.getModuleIcon(moduleComponent);
         }
-        
+
         // If null, use the default module icon
         if (icon == null) {
             icon = this.moduleDefaultIcon;

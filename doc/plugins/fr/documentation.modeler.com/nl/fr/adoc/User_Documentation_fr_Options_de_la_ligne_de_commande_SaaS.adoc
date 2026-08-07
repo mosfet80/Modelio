@@ -1,0 +1,121 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Options de la ligne de commande
+
+=== Modelio en ligne de commande
+
+Pour exécuter Modelio en ligne de commande, vous devez lancer :
+
+* Sous Windows : +
+L'exécutable modelio.exe qui se trouve dans le répertoire où est installé Modelio.
+* Sous Linux : +
+L'exécutable modelio.sh qui se trouve dans le répertoire où est installé Modelio.
+* Sous MacOSX : +
+L'exécutable modelio qui se trouve dans le sous-répertoire Contents/MacOS où est installé Modelio.
+
+Plus loin dans cette page, nous appellerons $\{MODELIO_EXE} l'exécutable de Modelio avec tout son chemin (par exemple : C:\Program Files\Modelio\modelio.exe)
+
+=== Liste des options
+
+Modelio peut être lancé avec les options suivantes :
+
+*-workspace* _workspacePath_ +
+Définit le chemin de l'espace de travail.
+
+Par exemple :
+
+* Ouvrir Modelio en ayant pour espace de travail le répertoire C:\Users\user\myWorkspace : +
+$\{MODELIO_EXE} *-workspace* _C:\Users\user\myWorkspace_
+
+*-mserver* saasServerUrl +
+Utilisé comme serveur par défaut dans la fenêtre de connexion.
+
+Par exemple :
+
+* Ouvrir Modelio avec l'adresse de serveur  _\https://modelioserver.mycompany.com/_ . +
+$\{MODELIO_EXE} *-mserver* _\https://modelioserver.mycompany.com/_
+
+*-muser* _login_ +
+Utilisé comme identifiant par défaut dans la fenêtre de connexion.
+
+Par exemple :
+
+* Ouvrir Modelio SaaS en tant que User1. +
+$\{MODELIO_EXE} *-muser* _User1_
+
+//*-create* _projectName_ +
+//Créé un projet ayant pour nom _projectName_ dans l'espace de travail. Cette option est incompatible avec "-project". +
+//Par exemple :
+//
+//* Créer un nouveau projet nommé "MyNewProject" : +
+//$\{MODELIO_EXE} *-create* _MyNewProject_
+//* Créer un nouveau projet nommé "AnotherNewProject" dans l'espace de travail C:\Users\user\myWorkspace : +
+//$\{MODELIO_EXE} *-workspace* _C:\Users\user\myWorkspace_ *-create* _MyNewProject_
+//
+//*-template* _templateName_ +
+//Cette option est à utiliser avec l'option "-create". Elle permet de spécifier le type de projet qui sera utilisé pour la création du nouveau projet. +
+//_templateName_ peut être soit un chemin complet vers le fichier type de projet (ayant pour extension .template) soit juste le nom du type de projet. Dans le dernier cas, le fichier type de projet doit être présent dans le répertoire "templates" de l'installation de Modelio. +
+//Par exemple :
+//
+//* Créer un nouveau projet nommé "MyProject" en utilisant le type de projet "UML" présent dans l'installation de Modelio: +
+//$\{MODELIO_EXE} *-create* _MyProject_ *-template* _UML_
+//* Créer un nouveau projet nommé "MyNewProject" en utilisant le type de projet C:\Users\user\myTemplate.template : +
+//$\{MODELIO_EXE} *-create* _MyNewProject_ *-template* _C:\Users\user\myTemplate.template_
+
+*-project* _projectName_ or *-open* _projectName_ +
+Définit le projet à ouvrir dans l'espace de travail. +
+//Cette option est incompatible avec "-create". +
+Il est nécessaire de spécifier un identifiant et un jeton, voir l'exemple ci-dessous.
+
+Par exemple :
+
+* Ouvrir un projet Modelio local nommé "MyProject" : +
+$\{MODELIO_EXE} *-project* _MyProject_
+* Ouvrir un project local nommé "AnotherProject" dans l'espace de travail C:\Users\user\myWorkspace : +
+$\{MODELIO_EXE} *-workspace* _C:\Users\user\myWorkspace_ *-project* _AnotherProject_
+
+*-join* _projectID_ +
+Rejoint le projet ayant comme ID _projectID_.
+Il est nécessaire de spécifier un identifiant et un jeton, voir l'exemple plus loin.
+
+Pour récupérer l'identifiant du projet :
+
+. se connecter au serveur depuis Modelio
+. cliquer sur le projet pour afficher ses détails
+. chercher la propriété _'Identifiant du projet'_
+
+*-musertoken* _token_ +
+Utiliser ce jeton combiné à l'option *-muser* pour ouvrir ou rejoindre un projet sur Modelio Server.
+
+Pour recupérer ce jeton :
+
+. se connecter à Modelio Server depuis un navigateur web
+. en haut à droite, éditer les informations utilisateur
+. générer un jeton si nécessaire
+. utiliser le bouton _'sauvegarder le jeton'_ pour télécharger le jeton
+
+Exemple :
+
+* Rejoindre un projet Modelio Server en tant que "user1" +
+$\{MODELIO_EXE} *-join* _12_ *-mserver* _\https://modelioserver.mycompany.com/_ *-muser* _user1_ *-musertoken* _user1_token_
+* Ouvrir un projet Modelio Server nommé "MyProject" en tant que "user1". +
+$\{MODELIO_EXE} *-project* _MyProject_ *-muser* _user1_ *-musertoken* _user1_token_
+
+*-batch* _scriptFile_ +
+Définit un script Jython. Le script Jython sera automatiquement lancé sur le projet ouvert. Après son exécution, Modelio se fermera automatiquement. Cette option doit être utilisée avec "-project" ou "-create".
+
+Par exemple :
+
+* Exécuter le script Jython "C:\Users\user\myscript.py" sur le projet "MyProject". +
+$\{MODELIO_EXE} *-project* _MyProject_ *-batch* _C:\Users\user\myscript.py_
+
+*-param* _key val_ +
+Créé une variable key contenant la valeur val . Cette variable est disponible dans les scripts Jython.
+
+Par exemple :
+
+* Exécuter le script Jython "C:\Users\user\myscript.py" sur le projet "MyProject" et déclarant deux variables "myVar1" et "myVar2" ayant respectivement pour valeur "the value1" et "the value2" : +
+$\{MODELIO_EXE} *-project* _MyProject_ *-batch* _C:\Users\user\myscript.py_ *-param* _myVar1_ " _the value1_ " *-param* _myVar2_ " _the value2_ "

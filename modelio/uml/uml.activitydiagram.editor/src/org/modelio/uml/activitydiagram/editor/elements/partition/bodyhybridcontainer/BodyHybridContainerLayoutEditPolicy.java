@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.partition.bodyhybridcontainer;
 
@@ -43,7 +43,7 @@ import org.modelio.uml.activitydiagram.editor.elements.partitioncontainer.Partit
 
 /**
  * Very specific hybrid edit policy that behave either like a default free zone layout edit policy OR like a partition container layout edit policy, depending on the nature of the current children of the Gm.
- * 
+ *
  * @author fpoyer
  */
 @objid ("2af87b5b-55b6-11e2-877f-002564c97630")
@@ -70,7 +70,7 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
      * C'tor.
      */
     @objid ("2af87b65-55b6-11e2-877f-002564c97630")
-    public  BodyHybridContainerLayoutEditPolicy() {
+    public BodyHybridContainerLayoutEditPolicy() {
         super();
         // Create an instance of both DefaultFreeZoneLayoutEditPolicy and
         // PartitionContainerLayoutEditPolicy.
@@ -85,7 +85,7 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
                 resizeContainerRequest.setLocation(request.getLocation());
                 resizeContainerRequest.setResizeDirection(request.getResizeDirection());
                 RequestHelper.addSharedEditParts(resizeContainerRequest, request);
-        
+
                 Dimension sizeDelta = resizeContainerRequest.getSizeDelta();
                 sizeDelta.setSize(constraintDelta);
                 // Only ask to be resized in the "major" axis.
@@ -94,17 +94,17 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
                 } else {
                     sizeDelta.width = 0;
                 }
-        
+
                 Point moveDelta = resizeContainerRequest.getMoveDelta();
                 moveDelta.setLocation(
                         (int) Math.signum(moveDelta.x) * Math.abs(constraintDelta.width),
                         (int) Math.signum(moveDelta.y) * Math.abs(constraintDelta.height));
-        
+
                 Command parentCommand = getHost().getParent().getCommand(resizeContainerRequest);
                 compound.add(parentCommand);
             }
         };
-        
+
     }
 
     @objid ("2af87b68-55b6-11e2-877f-002564c97630")
@@ -128,7 +128,7 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
             break;
         }
         }
-        
+
     }
 
     @objid ("2af87b6b-55b6-11e2-877f-002564c97630")
@@ -150,7 +150,7 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
         }
         }
         super.deactivate();
-        
+
     }
 
     @objid ("2af87b6e-55b6-11e2-877f-002564c97630")
@@ -174,7 +174,7 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
             break;
         }
         }
-        
+
     }
 
     @objid ("2af87b72-55b6-11e2-877f-002564c97630")
@@ -198,7 +198,7 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
             break;
         }
         }
-        
+
     }
 
     @objid ("2af87b76-55b6-11e2-877f-002564c97630")
@@ -255,7 +255,7 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
         super.setHost(editpart);
         this.freeZonePolicy.setHost(editpart);
         this.partitionContainerPolicy.setHost(editpart);
-        
+
     }
 
     @objid ("2afa01e7-55b6-11e2-877f-002564c97630")
@@ -278,7 +278,7 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
             break;
         }
         }
-        
+
     }
 
     @objid ("2afa01eb-55b6-11e2-877f-002564c97630")
@@ -301,7 +301,7 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
             break;
         }
         }
-        
+
     }
 
     @objid ("2afa01ef-55b6-11e2-877f-002564c97630")
@@ -328,6 +328,7 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
 
     /**
      * Sets the behaviour to adopt.
+     *
      * @param value the new behaviour.
      */
     @objid ("2afa01f5-55b6-11e2-877f-002564c97630")
@@ -368,7 +369,7 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
             }
             }
         }
-        
+
     }
 
     @objid ("2afa01f9-55b6-11e2-877f-002564c97630")
@@ -430,7 +431,7 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
         } else {
             return this.freeZonePolicy;
         }
-        
+
     }
 
     /**
@@ -456,7 +457,7 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
                 return null;
             }
         }
-        
+
         if (allPartitions == null) {
             // no edit part in the request
             return null;
@@ -464,11 +465,12 @@ public class BodyHybridContainerLayoutEditPolicy extends AbstractEditPolicy {
             // Everything of the same type, return corresponding policy.
             return allPartitions == Boolean.TRUE ? this.partitionContainerPolicy : this.freeZonePolicy;
         }
-        
+
     }
 
     /**
      * Returns the current behaviour.
+     *
      * @return the current behaviour.
      */
     @objid ("2afa020a-55b6-11e2-877f-002564c97630")

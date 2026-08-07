@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.panel.data.standard.infrastructure;
 
@@ -51,15 +51,17 @@ public class StereotypePropertyModel extends AbstractPropertyModel<Stereotype> {
 
     /**
      * Instantiate the stereotype properties view. element finder structure.
+     *
      * @param theEditedElement the current stereotype.
      */
     @objid ("5d692088-108a-4d04-aa45-5fd64f86e6b4")
-    public  StereotypePropertyModel(Stereotype theEditedElement) {
+    public StereotypePropertyModel(Stereotype theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * (non-Javadoc)
+     *
      * @see AbstractPropertyModel#getColumnNumber()
      */
     @objid ("7cb8192c-14a2-42ce-a3b1-711c3cb61a80")
@@ -70,6 +72,7 @@ public class StereotypePropertyModel extends AbstractPropertyModel<Stereotype> {
 
     /**
      * (non-Javadoc)
+     *
      * @see AbstractPropertyModel#getRowsNumber()
      */
     @objid ("6e55d915-85da-4799-93df-b626d8306dda")
@@ -80,6 +83,7 @@ public class StereotypePropertyModel extends AbstractPropertyModel<Stereotype> {
 
     /**
      * (non-Javadoc)
+     *
      * @see AbstractPropertyModel#getValueAt(int, int)
      */
     @objid ("dab6ddbb-0ada-4f52-b6a3-e998bf31f3f1")
@@ -113,11 +117,12 @@ public class StereotypePropertyModel extends AbstractPropertyModel<Stereotype> {
         default:
             return null;
         }
-        
+
     }
 
     /**
      * (non-Javadoc)
+     *
      * @see AbstractPropertyModel#getValueAt(int, int)
      */
     @objid ("2458b0bf-5e64-4151-a7cb-b46b9c3d03bb")
@@ -137,13 +142,13 @@ public class StereotypePropertyModel extends AbstractPropertyModel<Stereotype> {
             case 3:
                 List<String> metaclasses = new ArrayList<>();
                 metaclasses.add(ModelElement.MQNAME);
-        
+
                 // Get all metaclasses inheriting ModelElement
                 for (MClass metaclass : this.theEditedElement.getMClass().getMetamodel().getMClass(ModelElement.class)
                         .getSub(true)) {
                     metaclasses.add(metaclass.getQualifiedName());
                 }
-        
+
                 // Remove a few specific metaclass we do not want to appear
                 metaclasses.remove(ModuleComponent.MQNAME);
                 metaclasses.remove(Profile.MQNAME);
@@ -152,9 +157,9 @@ public class StereotypePropertyModel extends AbstractPropertyModel<Stereotype> {
                 metaclasses.remove(NoteType.MQNAME);
                 metaclasses.remove(Stereotype.MQNAME);
                 metaclasses.remove(ModuleParameter.MQNAME);
-        
+
                 Collections.sort(metaclasses);
-        
+
                 return new DefaultStringChoiceNatValue((String) getValue(row, col), false, metaclasses, false);
             case 4:
             case 5:
@@ -171,11 +176,12 @@ public class StereotypePropertyModel extends AbstractPropertyModel<Stereotype> {
         default:
             return null;
         }
-        
+
     }
 
     /**
      * (non-Javadoc)
+     *
      * @see AbstractPropertyModel#setValueAt(int, int, java.lang.Object)
      */
     @objid ("0d126d2b-5b28-41dc-a81e-1c5c76bdbb8c")
@@ -218,7 +224,7 @@ public class StereotypePropertyModel extends AbstractPropertyModel<Stereotype> {
         default:
             return;
         }
-        
+
     }
 
 }

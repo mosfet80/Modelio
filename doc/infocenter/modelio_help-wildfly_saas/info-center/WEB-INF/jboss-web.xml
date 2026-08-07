@@ -1,0 +1,4 @@
+<jboss-web>
+	<context-root>/modeliosaas/help/6.2</context-root>
+	<security-domain>other</security-domain>
+</jboss-web>

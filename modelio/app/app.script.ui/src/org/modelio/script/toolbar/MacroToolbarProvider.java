@@ -1,29 +1,29 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.script.toolbar;
 
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.services.IServiceConstants;
@@ -71,12 +71,13 @@ public class MacroToolbarProvider extends TrimBarComponent {
     private IProjectService projectService;
 
     @objid ("4d380049-a0e9-4700-b6c8-6251ed111daf")
-    public  MacroToolbarProvider() {
+    public MacroToolbarProvider() {
         super(Script.I18N.getString("MacroToolbarProvider.MacrosZone.label"));
     }
 
     /**
      * Initialize the SWT control.
+     *
      * @param parent a widget which will be the parent of the new SWT components.
      */
     @objid ("86a0b24e-5c5f-4caa-9fa2-e2c79c974a0b")
@@ -99,11 +100,12 @@ public class MacroToolbarProvider extends TrimBarComponent {
         for (ToolItem item : getControl().getItems()) {
             deleteToolItem(item);
         }
-        
+
     }
 
     /**
      * Create a new tool item from a macro.
+     *
      * @param entry the macro to create the tool item from.
      * @return a new toolbar item.
      */
@@ -111,7 +113,7 @@ public class MacroToolbarProvider extends TrimBarComponent {
     private ToolItem createToolItem(final Macro entry) {
         // create a new handled item
         ToolItem item = new ToolItem(getControl(), SWT.PUSH);
-        
+
         // compute label, tooltip and icon
         item.setToolTipText(entry.getDescription());
         if (entry.getIconPath() != null) {
@@ -126,17 +128,17 @@ public class MacroToolbarProvider extends TrimBarComponent {
             // no image, set the text instead
             item.setText(entry.getName());
         }
-        
+
         // Set the macro as data
         item.setData(entry);
-        
+
         item.addSelectionListener(new SelectionListener() {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 RunMacroHandler runner = new RunMacroHandler();
                 runner.execute(MacroToolbarProvider.this.partService, MacroToolbarProvider.this.application.getSelectedElement(), entry.getScriptPath().toString());
             }
-        
+
             @Override
             public void widgetDefaultSelected(SelectionEvent e) {
                 // Nothing to do
@@ -153,7 +155,7 @@ public class MacroToolbarProvider extends TrimBarComponent {
             image.dispose();
         }
         item.dispose();
-        
+
     }
 
     /**
@@ -161,6 +163,7 @@ public class MacroToolbarProvider extends TrimBarComponent {
      * <p>
      * Only macros shown in the toolbar are returned.
      * </p>
+     *
      * @param entries the macros to build the toolbar.
      * @return a list of menu elements.
      */
@@ -184,10 +187,10 @@ public class MacroToolbarProvider extends TrimBarComponent {
         if (getControl() != null) {
             // Clean up tool items
             clearToolbar();
-        
+
             // Build new tool items
             List<ToolItem> items = fillToolbar(this.macroService.getMacros(SelectionHelper.toList(selection, MObject.class)));
-        
+
             // Make sure the toolbar is visible only if not empty
             boolean newIsVisible = !items.isEmpty();
             if (isVisible() && newIsVisible) {
@@ -196,7 +199,7 @@ public class MacroToolbarProvider extends TrimBarComponent {
                 setVisible(newIsVisible);
             }
         }
-        
+
     }
 
 }

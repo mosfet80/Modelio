@@ -1,26 +1,26 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.communicationdiagram.editor.contributor;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.modelio.api.ui.viewtemplate.IModelViewTemplate;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
@@ -55,7 +55,7 @@ public class CommunicationDiagramTemplate implements IModelViewTemplate<Abstract
     public AbstractDiagram createView(ModelElement base) {
         IStandardModelFactory modelFactory = this.mmServices.getModelFactory().getFactory(IStandardModelFactory.class);
         CommunicationDiagram diagram = null;
-        
+
         if (base instanceof CommunicationInteraction) {
             diagram = smartCreateForCommunicationInteraction(modelFactory, (CommunicationInteraction) base);
         } else if (base instanceof Operation) {
@@ -70,6 +70,7 @@ public class CommunicationDiagramTemplate implements IModelViewTemplate<Abstract
 
     /**
      * Create a Communication diagram under 'interaction' and sets its default name.
+     *
      * @return the created Communication diagram or null in case of problems.
      */
     @objid ("9b0b5ed4-b556-4ccc-b533-1dd92babc462")
@@ -92,21 +93,21 @@ public class CommunicationDiagramTemplate implements IModelViewTemplate<Abstract
         CommunicationInteraction interaction = modelFactory.createCommunicationInteraction();
         interaction.setOwnerOperation(parentOperation);
         interaction.setName(this.mmServices.getElementNamer().getUniqueName(interaction));
-        
+
         // Ensure 'locals' Collaboration
         Collaboration locals = ensureLocalCollaboration(modelFactory, interaction);
-        
+
         // Create the communication diagram
         CommunicationDiagram diagram = createCommunicationDiagram(modelFactory, interaction);
-        
+
         // Create the 'this' instance:
         BindableInstance instance = modelFactory.createBindableInstance();
-        
+
         if (instance != null) {
             locals.getDeclared().add(instance);
             instance.setName("this");
             instance.setBase(parentOperation.getOwner());
-        
+
             // Create the corresponding CommunicationNode:
             CommunicationNode node = modelFactory.createCommunicationNode();
             if (node != null) {
@@ -123,20 +124,20 @@ public class CommunicationDiagramTemplate implements IModelViewTemplate<Abstract
         CommunicationInteraction interaction = modelFactory.createCommunicationInteraction();
         interaction.setOwner(parentClassifier);
         interaction.setName(this.mmServices.getElementNamer().getUniqueName(interaction));
-        
+
         // Ensure 'locals' Collaboration
         Collaboration locals = ensureLocalCollaboration(modelFactory, interaction);
-        
+
         // Create the communication diagram
         CommunicationDiagram diagram = createCommunicationDiagram(modelFactory, interaction);
-        
+
              // Create this pointer, create the instance:
         BindableInstance instance = modelFactory.createBindableInstance();
         if (instance != null) {
             locals.getDeclared().add(instance);
             instance.setName("this");
             instance.setBase(parentClassifier);
-        
+
             // Create the corresponding CommunicationNode:
             CommunicationNode node = modelFactory.createCommunicationNode();
             if (node != null) {
@@ -153,10 +154,10 @@ public class CommunicationDiagramTemplate implements IModelViewTemplate<Abstract
         CommunicationInteraction interaction = modelFactory.createCommunicationInteraction();
         interaction.setOwner(parent);
         interaction.setName(this.mmServices.getElementNamer().getUniqueName(interaction));
-        
+
         // Ensure 'locals' Collaboration
         Collaboration locals = ensureLocalCollaboration(modelFactory, interaction);
-        
+
         // Create the communication diagram
         CommunicationDiagram diagram = createCommunicationDiagram(modelFactory, interaction);
         return diagram;
@@ -195,7 +196,7 @@ public class CommunicationDiagramTemplate implements IModelViewTemplate<Abstract
             locals = collab;
             break;
         }
-        
+
         if (locals == null) {
             // Create the local Collaboration
             locals = modelFactory.createCollaboration();
@@ -209,7 +210,7 @@ public class CommunicationDiagramTemplate implements IModelViewTemplate<Abstract
      * Mandatory default c'tor needed by eclipse when loading the extension point.
      */
     @objid ("fc50f9e1-b49f-4d00-957e-84271987c998")
-    public  CommunicationDiagramTemplate() {
+    public CommunicationDiagramTemplate() {
         super();
     }
 

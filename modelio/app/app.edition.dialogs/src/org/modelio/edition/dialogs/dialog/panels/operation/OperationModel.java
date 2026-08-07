@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.edition.dialogs.dialog.panels.operation;
 
@@ -44,7 +44,7 @@ public class OperationModel implements IOperationPropertyModel {
     private Operation operation = null;
 
     @objid ("e7433068-11cc-4952-9416-9518368060e2")
-    public  OperationModel(Operation theOperation) {
+    public OperationModel(Operation theOperation) {
         this.operation = theOperation;
     }
 
@@ -60,14 +60,14 @@ public class OperationModel implements IOperationPropertyModel {
         if (this.operation != null) {
             if (!getName().equals(name)) {
                 final ICoreSession session = CoreSession.getSession(this.operation);
-        
+
                 try (ITransaction t = session.getTransactionSupport().createTransaction("Update operation Name")) {
                     this.operation.setName(name);
                     t.commit();
                 }
             }
         }
-        
+
     }
 
     @objid ("6c8e3b1d-0ffb-4c72-afe8-8a4aa6e09d8b")
@@ -112,7 +112,7 @@ public class OperationModel implements IOperationPropertyModel {
                 // Ignore error
             }
         }
-        
+
     }
 
     @objid ("4ce4bbfd-51c4-4db9-af9b-94f849c7cbe9")
@@ -120,7 +120,7 @@ public class OperationModel implements IOperationPropertyModel {
     public void setClass(Boolean value) {
         if (isClass() != value) {
             final ICoreSession session = CoreSession.getSession(this.operation);
-        
+
             try (ITransaction t = session.getTransactionSupport().createTransaction("Update operation Class")) {
                 this.operation.setIsClass(value);
                 t.commit();
@@ -128,7 +128,7 @@ public class OperationModel implements IOperationPropertyModel {
                 // Ignore error
             }
         }
-        
+
     }
 
     @objid ("27b97735-06af-4280-90eb-f39ad2ede119")
@@ -143,7 +143,7 @@ public class OperationModel implements IOperationPropertyModel {
                 // Ignore error
             }
         }
-        
+
     }
 
     @objid ("431c400d-3645-4e3d-9a80-4c7d282cf408")
@@ -151,14 +151,14 @@ public class OperationModel implements IOperationPropertyModel {
     public void setPassing(MethodPassingMode value) {
         final ICoreSession session = CoreSession.getSession(this.operation);
         try (ITransaction t = session.getTransactionSupport().createTransaction("Update operation Passing")) {
-        
+
             this.operation.setPassing(value);
             t.commit();
-        
+
         } catch (final Exception e) {
             // Ignore error
         }
-        
+
     }
 
     @objid ("b3da4c90-1457-4af9-aaef-4ca821d0162d")
@@ -171,7 +171,7 @@ public class OperationModel implements IOperationPropertyModel {
         } catch (final Exception e) {
             // Ignore error
         }
-        
+
     }
 
     @objid ("08e520a9-393d-4be8-8b71-86500dbad3cb")
@@ -234,9 +234,9 @@ public class OperationModel implements IOperationPropertyModel {
             } catch (final Exception e) {
                 // Ignore error
             }
-        
+
         }
-        
+
     }
 
     @objid ("dc5354c6-e5b0-4869-ab78-313384b2238b")
@@ -252,7 +252,7 @@ public class OperationModel implements IOperationPropertyModel {
                 // Ignore error
             }
         }
-        
+
     }
 
     @objid ("7e93349a-7ffa-4dd1-ac30-5025ad7268b4")
@@ -268,7 +268,7 @@ public class OperationModel implements IOperationPropertyModel {
                 // Ignore error
             }
         }
-        
+
     }
 
     @objid ("515b1c9c-e7b7-46cc-93a5-d010cc79348a")
@@ -284,7 +284,7 @@ public class OperationModel implements IOperationPropertyModel {
                 // Ignore error
             }
         }
-        
+
     }
 
     @objid ("8863f8fd-b3fa-4536-a6d1-e81a147c6166")
@@ -300,7 +300,7 @@ public class OperationModel implements IOperationPropertyModel {
                 // Ignore error
             }
         }
-        
+
     }
 
     @objid ("3e7efc42-a9ad-4561-b216-54bced32a53f")
@@ -323,7 +323,7 @@ public class OperationModel implements IOperationPropertyModel {
                 // Ignore error
             }
         }
-        
+
     }
 
     @objid ("39129fb6-0c19-4c46-ae45-5b7bc70211bf")
@@ -347,7 +347,7 @@ public class OperationModel implements IOperationPropertyModel {
             return returnParameter.getMultiplicityMax();
         else
             return "";
-        
+
     }
 
     @objid ("e6a7016e-6848-46b4-9ac9-1429459ec588")
@@ -358,7 +358,7 @@ public class OperationModel implements IOperationPropertyModel {
             return returnParameter.getMultiplicityMin();
         else
             return "";
-        
+
     }
 
     @objid ("9739264e-9ab7-4589-b8e3-61e05bd55d22")
@@ -369,7 +369,7 @@ public class OperationModel implements IOperationPropertyModel {
             return returnParameter.getType();
         else
             return null;
-        
+
     }
 
     @objid ("4ef3ea5e-bbcf-4b50-8e00-2a9773b468a2")
@@ -385,7 +385,7 @@ public class OperationModel implements IOperationPropertyModel {
                 // Ignore error
             }
         }
-        
+
     }
 
     @objid ("afe7dcce-55d6-48a1-9d62-10bbb2535de7")
@@ -401,7 +401,7 @@ public class OperationModel implements IOperationPropertyModel {
                 // Ignore error
             }
         }
-        
+
     }
 
     @objid ("f9ff1ab5-540f-4fb1-8120-6bca2534bb74")
@@ -409,7 +409,7 @@ public class OperationModel implements IOperationPropertyModel {
     public void setReturnParameterType(GeneralClass type) {
         final Parameter returnParameter = this.operation.getReturn();
         final ICoreSession session = CoreSession.getSession(this.operation);
-        
+
         try (ITransaction t = session.getTransactionSupport().createTransaction("Set return parameter")) {
             if (type == null) {
                 if (returnParameter != null) {
@@ -425,7 +425,7 @@ public class OperationModel implements IOperationPropertyModel {
             }
             t.commit();
         }
-        
+
     }
 
     @objid ("c6266378-be65-4334-9785-9526da044744")
@@ -437,12 +437,12 @@ public class OperationModel implements IOperationPropertyModel {
             final Parameter parameter = factory.createParameter();
             parameter.setName("p" + Integer.toString(this.operation.getIO().size() + 1));
             this.operation.getIO().add(parameter);
-        
+
             t.commit();
         } catch (final Exception e) {
             // Ignore error
         }
-        
+
     }
 
     @objid ("2a6ba0a4-ee16-4084-a479-c6d085ca1c7f")
@@ -457,7 +457,7 @@ public class OperationModel implements IOperationPropertyModel {
         } catch (final Exception e) {
             // Ignore error
         }
-        
+
     }
 
     @objid ("3415125c-9107-4362-82eb-bef35ff4b6d3")
@@ -474,7 +474,7 @@ public class OperationModel implements IOperationPropertyModel {
         final int pos = this.operation.getIO().indexOf(p);
         if ((pos == -1) || (pos == (this.operation.getIO().size() - 1)))
             return false;
-        
+
         // Important note:
         // Collections.swap(parameters, pos, pos - 1) CANNOT be used directly on
         // the list returned by this.operation.getIO()
@@ -498,7 +498,7 @@ public class OperationModel implements IOperationPropertyModel {
             }
             t.commit();
         }
-        
+
     }
 
     /**
@@ -509,7 +509,7 @@ public class OperationModel implements IOperationPropertyModel {
         final int pos = this.operation.getIO().indexOf(p);
         if ((pos == -1) || (pos == 0))
             return false;
-        
+
         // Important note:
         // Collections.swap(parameters, pos, pos - 1) CANNOT be used directly on
         // the list returned by this.operation.getIO()
@@ -533,7 +533,7 @@ public class OperationModel implements IOperationPropertyModel {
             }
             t.commit();
         }
-        
+
     }
 
     @objid ("8a7a275b-65d8-4965-bd86-e947c50f97a6")
@@ -548,12 +548,12 @@ public class OperationModel implements IOperationPropertyModel {
     @objid ("90130ff2-ae83-424b-834f-74de270f9230")
     private int getIndexDown(Parameter parameter, List<Parameter> list) {
         int index = list.indexOf(parameter);
-        
+
         if (index == -1)
             return -1;
-        
+
         index++;
-        
+
         if (index >= list.size())
             return -1;
         return index;
@@ -583,7 +583,7 @@ public class OperationModel implements IOperationPropertyModel {
         // Avoid useless transactions
         if (type.equals(this.getOperationType()))
             return;
-        
+
         final ICoreSession session = CoreSession.getSession(this.operation);
         try (ITransaction t = session.getTransactionSupport().createTransaction("Add parameter")) {
             if (type.equals("Constructor")) {
@@ -591,7 +591,7 @@ public class OperationModel implements IOperationPropertyModel {
                     this.operation.removeStereotypes("ModelerModule", "destroy");
                 }
                 if (!this.operation.isStereotyped("ModelerModule", "create")) {
-        
+
                     this.operation.addStereotype("ModelerModule", "create");
                 }
             } else if (type.equals("Destructor")) {
@@ -613,7 +613,7 @@ public class OperationModel implements IOperationPropertyModel {
         } catch (final ExtensionNotFoundException e) {
             EditionDialogs.LOG.error(e);
         }
-        
+
     }
 
     @objid ("1c6e9b24-5b98-4f56-9032-b6998d4aec3e")
@@ -625,7 +625,7 @@ public class OperationModel implements IOperationPropertyModel {
             return "Destructor";
         else
             return "Operation";
-        
+
     }
 
     @objid ("953c69ca-a84e-48cb-970c-3f232b17347e")
@@ -643,19 +643,19 @@ public class OperationModel implements IOperationPropertyModel {
                 // Ignore error
             }
         }
-        
+
     }
 
     @objid ("24481ec3-b763-4c78-92ac-f123471a8d50")
     @Override
     public List<ParameterPropertyModel> getParameters() {
         List<ParameterPropertyModel> results = new ArrayList<>();
-        
+
         Parameter returnParameter = this.operation.getReturn();
         if (returnParameter != null) {
             results.add(new ParameterPropertyModel(returnParameter, true));
         }
-        
+
         for (Parameter p : this.operation.getIO()) {
             results.add(new ParameterPropertyModel(p, false));
         }

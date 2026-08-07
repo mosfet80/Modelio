@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.edition.notes.constraintChooser;
 
@@ -62,7 +62,7 @@ public class ConstraintChooserContentProvider implements ITreeContentProvider {
     @Override
     public Object[] getChildren(Object parent) {
         Set<Object> ret = new HashSet<>();
-        
+
         if (parent instanceof ConstraintChooserModel) {
             ConstraintChooserModel m = (ConstraintChooserModel) parent;
             return m.getRoots().toArray();
@@ -92,7 +92,7 @@ public class ConstraintChooserContentProvider implements ITreeContentProvider {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("26d53d89-186f-11e2-bc4e-002564c97630")
@@ -103,10 +103,11 @@ public class ConstraintChooserContentProvider implements ITreeContentProvider {
 
     /**
      * Constructor initializing the model service.
+     *
      * @param modelService the model service needed to find elements.
      */
     @objid ("868017bb-1924-11e2-bc4e-002564c97630")
-    public  ConstraintChooserContentProvider(IMModelServices modelService) {
+    public ConstraintChooserContentProvider(IMModelServices modelService) {
         this.modelService = modelService;
     }
 

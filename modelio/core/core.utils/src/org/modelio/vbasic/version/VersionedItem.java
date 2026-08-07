@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vbasic.version;
 
@@ -30,9 +30,8 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  * Only these fields are used for equality and comparisons.
  * <p>
  * The represented object or any other data may be attached by the {@link #setObject(Object)} relation.
- * 
+ *
  * @author cmarin
- * 
  * @param <T> the attached data type.
  */
 @objid ("0dcc1d73-db82-4a65-8bd8-bea3275a4eca")
@@ -50,25 +49,27 @@ public class VersionedItem<T> implements Comparable<VersionedItem<?>>, Serializa
     private final Version version;
 
     /**
+     *
      * @param name the item name
      * @param version the item version
      * @param object the represented object
      */
     @objid ("5ab48a8b-64b5-4f94-95ef-846b2dc91ea1")
-    public  VersionedItem(String name, Version version, T object) {
+    public VersionedItem(String name, Version version, T object) {
         super();
         this.name = name;
         this.version = version;
         this.object = object;
-        
+
     }
 
     /**
+     *
      * @param name the name
      * @param version the version
      */
     @objid ("2e7c59c9-a161-43d7-8395-6746188541c1")
-    public  VersionedItem(String name, Version version) {
+    public VersionedItem(String name, Version version) {
         this(name, version , null);
     }
 
@@ -78,7 +79,7 @@ public class VersionedItem<T> implements Comparable<VersionedItem<?>>, Serializa
         if (o == null) {
             return 1;
         }
-        
+
         int c = nullCompare(getName(),o.getName());
         if (c == 0) {
             return nullCompare(getVersion(),o.getVersion());
@@ -98,7 +99,7 @@ public class VersionedItem<T> implements Comparable<VersionedItem<?>>, Serializa
         if (getClass() != obj.getClass()) {
             return false;
         }
-        
+
         VersionedItem<?> other = (VersionedItem<?>) obj;
         if (this.name == null) {
             if (other.name != null) {
@@ -119,6 +120,7 @@ public class VersionedItem<T> implements Comparable<VersionedItem<?>>, Serializa
 
     /**
      * Convenience to find a versioned item by name in a generic collection.
+     *
      * @param name the name to look for
      * @param coll the collection to look into
      * @return the found item or <i>null</i>.
@@ -134,6 +136,7 @@ public class VersionedItem<T> implements Comparable<VersionedItem<?>>, Serializa
     }
 
     /**
+     *
      * @return the name
      */
     @objid ("d94909f4-8d05-43fe-8921-9e67f0f3c8b9")
@@ -143,6 +146,7 @@ public class VersionedItem<T> implements Comparable<VersionedItem<?>>, Serializa
 
     /**
      * Get the represented object, or any data attached.
+     *
      * @return the object
      */
     @objid ("b6245d28-9c01-4886-864c-0d1dc153bf1a")
@@ -151,6 +155,7 @@ public class VersionedItem<T> implements Comparable<VersionedItem<?>>, Serializa
     }
 
     /**
+     *
      * @return the version
      */
     @objid ("80d8be81-8e9f-46b7-bb8a-079e85b78382")
@@ -172,6 +177,7 @@ public class VersionedItem<T> implements Comparable<VersionedItem<?>>, Serializa
 
     /**
      * Attach the represented object or any other data.
+     *
      * @param object the object to attach.
      */
     @objid ("98d2a4cd-1031-4160-a7d1-3d257bda7a7e")
@@ -192,7 +198,7 @@ public class VersionedItem<T> implements Comparable<VersionedItem<?>>, Serializa
         } else {
             return a.compareTo(b);
         }
-        
+
     }
 
     @objid ("609c3374-e846-4c41-a4ad-41d199ff4405")

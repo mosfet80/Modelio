@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.communicationdiagram.editor.elements.communicationchannel;
 
@@ -83,39 +83,40 @@ public class GmCommunicationChannel extends GmLink {
      * For deserialization only.
      */
     @objid ("7a21fc16-55b6-11e2-877f-002564c97630")
-    public  GmCommunicationChannel() {
-        
+    public GmCommunicationChannel() {
+
     }
 
     /**
      * Initialize a control flow graphic model.
+     *
      * @param diagram The owning diagram
      * @param communicationchannel The reference flow, may be null
      * @param ref The referenced flow reference, may not be null
      */
     @objid ("7a21fc19-55b6-11e2-877f-002564c97630")
-    public  GmCommunicationChannel(IGmDiagram diagram, CommunicationChannel communicationchannel, MRef ref) {
+    public GmCommunicationChannel(IGmDiagram diagram, CommunicationChannel communicationchannel, MRef ref) {
         super(diagram, ref);
-        
+
         this.theCommunicationChannel = communicationchannel;
-        
+
         addExtension(ExtensionLocation.MiddleSE, IGmLink.ROLE_MAIN_LABEL, new GmDefaultModelElementLabel(diagram, ref));
-        
+
         GmFractionalConnectionLocator constraint;
         // Sent messages
         constraint = new GmFractionalConnectionLocator(0.25, -10, -25);
         addExtension(new GmCommunicationSentMessageGroup(diagram, ref), GmCommunicationChannel.ROLE_FORWARD_MSG_GROUP, constraint);
-        
+
         constraint = new GmFractionalConnectionLocator(0.30, 0, 40, false);
         addExtension(new GmCommunicationSentMessageArrow(diagram, ref), GmCommunicationChannel.ROLE_FORWARD_ARROW, constraint);
-        
+
         // Reverse direction
         constraint = new GmFractionalConnectionLocator(0.75, 20, 25);
         addExtension(new GmCommunicationInvertedMessageGroup(diagram, ref), GmCommunicationChannel.ROLE_BACKWARD_MSG_GROUP, constraint);
-        
+
         constraint = new GmFractionalConnectionLocator(0.70, 0, 40, true);
         addExtension(new GmCommunicationInvertedMessageArrow(diagram, ref), GmCommunicationChannel.ROLE_BACKWARD_ARROW, constraint);
-        
+
     }
 
     @objid ("7a21fc25-55b6-11e2-877f-002564c97630")
@@ -140,9 +141,9 @@ public class GmCommunicationChannel extends GmLink {
     @Override
     protected void readLink(IDiagramReader in) {
         super.readLink(in);
-        
+
         this.theCommunicationChannel = (CommunicationChannel) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("7a23829d-55b6-11e2-877f-002564c97630")
@@ -173,10 +174,10 @@ public class GmCommunicationChannel extends GmLink {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmCommunicationChannel.", GmCommunicationChannel.MINOR_VERSION);
-        
+
     }
 
     @objid ("7a2382c0-55b6-11e2-877f-002564c97630")
@@ -201,7 +202,7 @@ public class GmCommunicationChannel extends GmLink {
                 n.setRoleInComposition(GmCommunicationChannel.ROLE_BACKWARD_ARROW);
             }
         }
-        
+
     }
 
 }

@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.activities;
 
 import java.util.ArrayList;
@@ -43,45 +42,45 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0082b734-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnSendTaskImpl extends BpmnTaskImpl implements BpmnSendTask {
-    @objid ("b44cdf69-45ce-49e7-865e-def00af966e9")
+    @objid ("8fdf71cf-572f-4b21-93f7-3969f3b058a9")
     @Override
     public String getImplementation() {
         return (String) getAttVal(((BpmnSendTaskSmClass)getClassOf()).getImplementationAtt());
     }
 
-    @objid ("ca56f169-919c-442d-8596-5bf9d8f66bc5")
+    @objid ("24cb69b0-c668-4705-a0da-58609e2ff74c")
     @Override
     public void setImplementation(String value) {
         setAttVal(((BpmnSendTaskSmClass)getClassOf()).getImplementationAtt(), value);
     }
 
-    @objid ("ce364edb-5b64-4428-b695-0ce31c19fe9f")
+    @objid ("b67ea75a-b003-4c7a-b4b1-df66ecd7ff2b")
     @Override
     public BpmnMessage getMessageRef() {
         Object obj = getDepVal(((BpmnSendTaskSmClass)getClassOf()).getMessageRefDep());
         return (obj instanceof BpmnMessage)? (BpmnMessage)obj : null;
     }
 
-    @objid ("3d053230-9d24-4f1d-b3a5-f7a18cafa2cb")
+    @objid ("6c947db4-f66e-4196-b71d-2c70627be031")
     @Override
     public void setMessageRef(BpmnMessage value) {
         appendDepVal(((BpmnSendTaskSmClass)getClassOf()).getMessageRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("97fb6889-9d55-4cf6-9d19-5802c2e3337e")
+    @objid ("34c7e85a-9b5e-4f08-a5e4-8f7adff40d7e")
     @Override
     public BpmnOperation getOperationRef() {
         Object obj = getDepVal(((BpmnSendTaskSmClass)getClassOf()).getOperationRefDep());
         return (obj instanceof BpmnOperation)? (BpmnOperation)obj : null;
     }
 
-    @objid ("919e8433-aeea-46f0-9280-ae4b3a257e7c")
+    @objid ("2aa477be-0a7e-48c2-87ae-e3a97d1b3d04")
     @Override
     public void setOperationRef(BpmnOperation value) {
         appendDepVal(((BpmnSendTaskSmClass)getClassOf()).getOperationRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("51ff1d08-11c9-46ea-bb07-9e90478a4622")
+    @objid ("8dbad436-a437-472b-81c3-e9830bafe0aa")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -89,17 +88,17 @@ public class BpmnSendTaskImpl extends BpmnTaskImpl implements BpmnSendTask {
         return super.getCompositionOwner();
     }
 
-    @objid ("a472f381-b3c0-4f6d-aea8-96afae457d9f")
+    @objid ("562d070d-a87c-4697-a00a-9ed4a5d4e9f4")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("2925f475-4474-436a-baf3-2b8f80c542fd")
+    @objid ("d292e1ca-f165-40f5-98db-de322a85f699")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitBpmnSendTask(this);

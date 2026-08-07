@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.classifier;
 
@@ -45,7 +45,7 @@ import org.modelio.uml.statikdiagram.editor.elements.packaze.SimpleModeOwnedElem
 /**
  * Overloading of the {@link NonSelectableSimpleEditPart} to handle satellite children transfer back into body when
  * leaving simple mode.
- * 
+ *
  * @author fpoyer
  */
 @objid ("3433a6d7-55b7-11e2-877f-002564c97630")
@@ -69,7 +69,7 @@ public class ClassifierSimpleEditPart extends NonSelectableSimpleEditPart {
         if (!this.alreadyRefreshing) {
             this.alreadyRefreshing = true;
             GmCompositeNode model = (GmCompositeNode) getModel();
-        
+
             if (model.getRepresentationMode() == RepresentationMode.STRUCTURED) {
                 GmNodeModel firstChild = model.getFirstChild("");
                 if (firstChild instanceof GmResizableGroup) {
@@ -101,12 +101,12 @@ public class ClassifierSimpleEditPart extends NonSelectableSimpleEditPart {
                         }
                     }
                 }
-        
+
             }
-        
+
             if (!switchRepresentationMode()) {
                 super.refreshFromStyle(aFigure, style);
-        
+
                 // Switch the font to Italic when the classifier is Abstract
                 if (model.getRelatedElement() instanceof Classifier) {
                     final Classifier classifier = (Classifier) model.getRelatedElement();
@@ -120,7 +120,7 @@ public class ClassifierSimpleEditPart extends NonSelectableSimpleEditPart {
             }
             this.alreadyRefreshing = false;
         }
-        
+
     }
 
     @objid ("3433a6ea-55b7-11e2-877f-002564c97630")
@@ -130,7 +130,7 @@ public class ClassifierSimpleEditPart extends NonSelectableSimpleEditPart {
         // Add specific policy to handle requests to redraw composition links.
         installEditPolicy("RedrawCompositionLinkEditPolicy", new RedrawCompositionLinkEditPolicy());
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new SimpleModeOwnedElementCreationEditPolicy());
-        
+
         // FIXME : Some Gm that don't represent a Classifier use this edit part
         // only to have the separation line between the zones.
         GmCompositeNode model = (GmCompositeNode) getModel();
@@ -138,7 +138,7 @@ public class ClassifierSimpleEditPart extends NonSelectableSimpleEditPart {
             installEditPolicy("N-ary assoc", new AcceptNAssocEditPolicy(true));
             installEditPolicy(ModelElementDropRequest.TYPE, new ClassifierElementDropEditPolicy());
         }
-        
+
     }
 
 }

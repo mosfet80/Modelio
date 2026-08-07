@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.bpmn;
 
@@ -56,19 +56,21 @@ public class BpmnTransactionPropertyModel extends AbstractPropertyModel<BpmnTran
     /**
      * Create a new <i>BpmnTransaction</i> data model from an
      * <i>BpmnTransaction</i>.
+     *
      * @param theEditedElement the model to edit.
      * @param modelService the model service needed to find elements.
      */
     @objid ("f8234f19-809f-44be-8e5a-2ae9458185df")
-    public  BpmnTransactionPropertyModel(BpmnTransaction theEditedElement, IMModelServices modelService) {
+    public BpmnTransactionPropertyModel(BpmnTransaction theEditedElement, IMModelServices modelService) {
         super(theEditedElement);
         this.modelService = modelService;
         initPropertyModel();
-        
+
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("32d20ac6-dfb0-4876-9180-e26fced0c276")
@@ -79,6 +81,7 @@ public class BpmnTransactionPropertyModel extends AbstractPropertyModel<BpmnTran
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("876308dd-860e-4d45-b239-7aa99ec3d713")
@@ -93,6 +96,7 @@ public class BpmnTransactionPropertyModel extends AbstractPropertyModel<BpmnTran
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -103,7 +107,7 @@ public class BpmnTransactionPropertyModel extends AbstractPropertyModel<BpmnTran
         if (col == 0) {
             return getPropertyI18n(this.properties.get(row));
         }
-        
+
         // else
         if (col == 1) // col 1 is the property value
         {
@@ -159,6 +163,7 @@ public class BpmnTransactionPropertyModel extends AbstractPropertyModel<BpmnTran
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -170,7 +175,7 @@ public class BpmnTransactionPropertyModel extends AbstractPropertyModel<BpmnTran
         if (col == 0) {
             return new DefaultStringNatValue((String) getValue(row, col), false);
         }
-        
+
         // else
         if (col == 1) // col 1 is the property value
         {
@@ -227,7 +232,7 @@ public class BpmnTransactionPropertyModel extends AbstractPropertyModel<BpmnTran
         this.properties.add("TriggeredByEvent");
         this.properties.add("Method");
         this.properties.add("LoopCharacteristics");
-        
+
         LoopType type = LoopType.getType(this.theEditedElement);
         if (type == LoopType.Standard) {
             this.properties.add("TestBefore");
@@ -239,13 +244,14 @@ public class BpmnTransactionPropertyModel extends AbstractPropertyModel<BpmnTran
             this.properties.add("CompletionCondition");
             this.properties.add("EventDefinition");
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -257,7 +263,7 @@ public class BpmnTransactionPropertyModel extends AbstractPropertyModel<BpmnTran
         if (col == 0) {
             return;
         }
-        
+
         if (col == 1) // col 1 is the property value
         {
             if (row == 0) {
@@ -303,7 +309,7 @@ public class BpmnTransactionPropertyModel extends AbstractPropertyModel<BpmnTran
                 }
             }
         }
-        
+
     }
 
 }

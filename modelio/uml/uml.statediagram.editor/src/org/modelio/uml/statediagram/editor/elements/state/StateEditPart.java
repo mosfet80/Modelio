@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.state;
 
@@ -47,7 +47,7 @@ import org.modelio.uml.statediagram.editor.plugin.DiagramEditorState;
 
 /**
  * EditPart for a State Node.
- * 
+ *
  * @author fpoyer
  */
 @objid ("f58a1626-55b6-11e2-877f-002564c97630")
@@ -68,10 +68,10 @@ public class StateEditPart extends AbstractStateEditPart {
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         // Link creation & modification edit policy
         installEditPolicy(EditPolicy.NODE_ROLE, new DefaultCreateLinkEditPolicy());
-        
+
         // Allow creation of regions
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new StateCreateNodeEditPolicy());
         // Allow creation of notes.
@@ -79,7 +79,7 @@ public class StateEditPart extends AbstractStateEditPart {
                 new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
         installEditPolicy(AnchorsFeedbackEditPolicy.class, new AnchorsFeedbackEditPolicy(getNodeAnchorProvider()));
-        
+
     }
 
     @objid ("f58a1634-55b6-11e2-877f-002564c97630")
@@ -90,21 +90,21 @@ public class StateEditPart extends AbstractStateEditPart {
         fig.setLayoutManager(new BorderLayout());
         final GradientFigure container = new GradientFigure();
         container.setFillColor(null);
-        
+
         final ToolbarLayoutWithGrab layoutWithGrab = new ToolbarLayoutWithGrab();
         layoutWithGrab.setHorizontal(false);
         layoutWithGrab.setStretchMinorAxis(true);
-        
+
         container.setLayoutManager(layoutWithGrab);
-        
+
         fig.add(container, BorderLayout.CENTER);
-        
+
         // set style independent properties
         MinimumSizeLayout.apply(fig, 100, 50);
-        
+
         // set style dependent properties
         refreshFromStyle(fig, getModelStyle());
-        
+
         // return the figure
         return fig;
     }
@@ -115,7 +115,7 @@ public class StateEditPart extends AbstractStateEditPart {
         if (!switchRepresentationMode()) {
             super.refreshFromStyle(aFigure, style);
         }
-        
+
     }
 
     @objid ("f58a1640-55b6-11e2-877f-002564c97630")
@@ -133,17 +133,17 @@ public class StateEditPart extends AbstractStateEditPart {
                 getFigure().remove(this.label);
             }
         }
-        
+
     }
 
     @objid ("f58a1643-55b6-11e2-877f-002564c97630")
-    public  StateEditPart() {
+    public StateEditPart() {
         super();
         this.label = new Label();
         this.label.setIcon(StateEditPart.compositeIcon);
         this.label.setBorder(new MarginBorder(0, 0, 3, 3));
         this.label.setLabelAlignment(PositionConstants.RIGHT);
-        
+
     }
 
     @objid ("f58a1645-55b6-11e2-877f-002564c97630")
@@ -164,5 +164,5 @@ static {
                     StateEditPart.compositeIcon = AbstractUIPlugin.imageDescriptorFromPlugin(DiagramEditorState.PLUGIN_ID,
                             "icons/composite.png").createImage();
                 }
-    
+
 }

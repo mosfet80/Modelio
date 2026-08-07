@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.preferences;
 
@@ -64,27 +64,29 @@ public class AuditModelController {
      * Initialize a new controller for a new model.
      */
     @objid ("9845f1b0-12d0-4a05-a341-f4d154f7f65b")
-    public  AuditModelController() {
+    public AuditModelController() {
         this.auditExtensions = loadAuditExtensions();
         this.model = new AuditConfigurationModel(new AuditMasterConfigurationPlan(getSubConfigurationPlans()));
         this.defaultConf = new Properties();
-        
+
     }
 
     /**
      * Creates a new controller that handles an existing model.
+     *
      * @param model the model to handle.
      */
     @objid ("3dc46443-0cf9-4c55-a673-a59a8f2215fc")
-    public  AuditModelController(final AuditConfigurationModel model) {
+    public AuditModelController(final AuditConfigurationModel model) {
         this.auditExtensions = loadAuditExtensions();
         this.model = model;
         this.defaultConf = new Properties();
-        
+
     }
 
     /**
      * Get the controlled audit model.
+     *
      * @return the audit model.
      */
     @objid ("d60d9e45-6cbc-45b8-aaad-8120a90adf9b")
@@ -97,6 +99,7 @@ public class AuditModelController {
      * <p>
      * If the given properties default already contain the same configuration for a rule,
      * the given properties are not updated.
+     *
      * @param ret rules configuration.
      */
     @objid ("ff208ef8-0091-4256-bef9-dbfa30a090df")
@@ -112,7 +115,7 @@ public class AuditModelController {
                 Audit.LOG.debug(ruleEntry.getId() + " incomplete: driver=" + ruleEntry.getImplClass() + ", severity=" + ruleEntry.getSeverity() + ", enabled=" + ruleEntry.isEnabled());
             }
         }
-        
+
     }
 
     @objid ("4e1956b2-07e6-414a-ac21-85717e4fb848")
@@ -120,40 +123,42 @@ public class AuditModelController {
         try (final BufferedInputStream is = new BufferedInputStream(new FileInputStream(f));) {
             ret.load(is);
         }
-        
+
     }
 
     /**
      * Writes the audit model configuration in the configuration file.
      * <p>
      * Rules that have the default configuration are not written in the file.
+     *
      * @param file the configuration file.
      * @throws IOException in case of I/O error.
      */
     @objid ("c811d837-5e37-4f7e-b6a0-aa830c69569f")
     public void writeConfiguration(final File file) throws IOException {
         final Properties ret = new Properties(this.defaultConf);
-        
+
         writeConfiguration(ret);
-        
+
         // Make sure the parent directory exists
         if (!file.getParentFile().isDirectory()) {
             file.getParentFile().mkdirs();
         }
-        
+
         // Write configuration file
         try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file));) {
             ret.store(out, "Audit configuration file.\nFormat: ruleid = enabled|disabled|obsolete,tip|warning|error");
         }
-        
+
     }
 
     /**
      * Read an audit configuration from a property table with the following format:
-     * 
+     *
      * <pre>
      * ruleid = enabled|disabled|obsolete,tip|warning|error
      * </pre>
+     *
      * @param conf the configuration
      */
     @objid ("a356e9ef-97f4-46f4-b600-1eb4d9e39b31")
@@ -161,14 +166,14 @@ public class AuditModelController {
         for (final Entry<Object, Object> entry : conf.entrySet()) {
             final String ruleId = (String) entry.getKey();
             final String[] v = ((String) entry.getValue()).split(",");
-        
+
             if (v.length == 2) {
                 AuditRule rule = this.model.get(ruleId);
                 if (rule == null) {
                     rule = new AuditRule(ruleId, null, false, null);
                     this.model.add(rule);
                 }
-        
+
                 try {
                     final String sstate = v[0];
                     final String sseverity = v[1];
@@ -178,11 +183,11 @@ public class AuditModelController {
                     Audit.LOG.warning("Invalid rule configuration:" + entry.toString());
                 }
             } else {
-        
+
                 Audit.LOG.warning("Invalid rule configuration:" + entry.toString());
             }
         }
-        
+
     }
 
     /**
@@ -190,6 +195,7 @@ public class AuditModelController {
      * <p>
      * The default configuration is used on save to avoid writing the default configuration
      * in the target file.
+     *
      * @param defaultConfFile the default configuration file.
      * @throws IOException in case of I/O error
      */
@@ -197,7 +203,7 @@ public class AuditModelController {
     public void addDefaultConf(final File defaultConfFile) throws IOException {
         load(defaultConfFile, this.defaultConf);
         applyAuditConfiguration(this.defaultConf);
-        
+
     }
 
     /**
@@ -206,6 +212,7 @@ public class AuditModelController {
      * <p>
      * Rules present in the given configuration and absent in this configuration are added to this configuration.
      * Rules absent in the given configuration are kept as is.
+     *
      * @param auditConfiguration the configuration to apply.
      */
     @objid ("8c9154eb-2c0e-43c8-92e2-7e0e9a7bdff9")
@@ -219,11 +226,12 @@ public class AuditModelController {
                 target.setSeverity(r.getSeverity());
             }
         }
-        
+
     }
 
     /**
      * Applies the given audit configuration file.
+     *
      * @param file an audit configuration file.
      * @throws IOException in case of I/O error
      */
@@ -231,16 +239,16 @@ public class AuditModelController {
     public void applyAuditConfiguration(final File file) throws IOException {
         final Properties props = new Properties();
         load(file, props);
-        
+
         applyAuditConfiguration(props);
-        
+
     }
 
     @objid ("ed65ce4a-f49c-4ddf-89f4-e636511f42ea")
     public IAuditExecutionPlan createPlan() {
         // Always build a new plan
         final AuditMasterExecutionPlan masterPlan = new AuditMasterExecutionPlan(getSubExecutionPlans());
-        
+
         // Update severity on runtime rules
         // FIXME this is awful...
         for (final IRule rule : masterPlan.getAllRules()) {
@@ -256,12 +264,13 @@ public class AuditModelController {
 
     /**
      * Read the audit rules definitions from a property table with the following format:
-     * 
+     *
      * <pre>
      * ruleid = category,driver.class.name
      * </pre>
      * <p>
      * The description bundle must contain rules description in keys formatted as <code>'ruleid.description'</code>
+     *
      * @param rulesFile the configuration
      * @param descBundle the rule description bundle
      * @throws java.io.IOException in case of I/O failure

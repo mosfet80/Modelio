@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.editor;
 
@@ -23,6 +23,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.diagram.editor.DiagramEditorInput;
 import org.modelio.diagram.editor.IDiagramEditorInputProvider;
 import org.modelio.diagram.editor.IDiagramEditorInputProvider.GmDiagramCreator;
+import org.modelio.diagram.elements.core.model.IGmDiagram.IModelManager;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.diagrams.ClassDiagram;
 import org.modelio.metamodel.diagrams.StaticDiagram;
@@ -38,18 +39,18 @@ public class StaticDiagramEditorInputProvider implements IDiagramEditorInputProv
      * Initialize the provider.
      */
     @objid ("6557991c-5bd5-11e2-9e33-00137282c51b")
-    public  StaticDiagramEditorInputProvider() {
+    public StaticDiagramEditorInputProvider() {
         super();
     }
 
     @objid ("6557991e-5bd5-11e2-9e33-00137282c51b")
     @Override
     public DiagramEditorInput compute(String diagramUID, org.modelio.diagram.elements.core.model.IGmDiagram.IModelManager modelManager) {
-        AbstractDiagram diagram = (AbstractDiagram) modelManager.getModelServices().findByRef(new MRef(StaticDiagram.MQNAME, diagramUID));
+        AbstractDiagram diagram = (AbstractDiagram) modelManager.getModelingSession().getModel().findByRef(new MRef(StaticDiagram.MQNAME, diagramUID));
         if (diagram == null) {
             return null;
         }
-        
+
         Class<? extends MObject> mClass = diagram.getMClass().getJavaInterface();
         if (mClass == ClassDiagram.class) {
             return new StaticDiagramEditorInput(modelManager, diagram, getDiagramCreator());
@@ -57,6 +58,19 @@ public class StaticDiagramEditorInputProvider implements IDiagramEditorInputProv
             return new StaticDiagramEditorInput(modelManager, diagram, getDiagramCreator());
         }
         return null;
+    }
+
+    @objid ("5057de1a-cfa0-4423-a3bf-8e68deec6920")
+    @Override
+    public DiagramEditorInput compute(AbstractDiagram diagram, IModelManager modelManager) {
+        // Accept only exact metaclass, not sub metaclasses.
+        switch (diagram.getMClass().getQualifiedName()) {
+        case ClassDiagram.MQNAME:
+        case StaticDiagram.MQNAME:
+            return new StaticDiagramEditorInput(modelManager, diagram, getDiagramCreator());
+        default :
+            return null;
+        }
     }
 
     @objid ("63073220-602b-47a2-b92d-a35169df22fb")

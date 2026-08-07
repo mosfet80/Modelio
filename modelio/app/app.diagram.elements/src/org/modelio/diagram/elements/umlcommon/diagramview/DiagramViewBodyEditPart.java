@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.umlcommon.diagramview;
 
@@ -54,40 +54,40 @@ public class DiagramViewBodyEditPart extends AbstractNodeEditPart {
     @Override
     protected void refreshVisuals() {
         ResizableImageFigure fig = getFigure();
-        
+
         updatePreviewImage(fig);
-        
+
     }
 
     @objid ("8db7c96a-e8d2-45e7-a556-4a2e878ad05d")
     private void updatePreviewImage(ResizableImageFigure fig) {
         GmDiagramViewBody node = getModel();
-        
+
         // Make sure there is preview data
         AbstractDiagram viewedDiagram = node.getRelatedElement();
         if (viewedDiagram == null || viewedDiagram.getPreviewData() == null) {
             return;
         }
-        
+
         // Check if this image is already loaded
         int viewedDiagramVersion = viewedDiagram.getUiDataVersion();
         if (viewedDiagramVersion == this.uiDataVersion) {
             return;
         }
-        
+
         String previewData = viewedDiagram.getPreviewData().replace("data:image/png;base64,", "");
         if (previewData.isEmpty()) {
             return;
         }
-        
+
         ByteArrayInputStream bais = new ByteArrayInputStream(Base64.getDecoder().decode(previewData));
         ImageLoader imgLoader = new ImageLoader();
         ImageData imageData = imgLoader.load(bais)[0];
-        
+
         // Make the background transparent
         Color color = UIColor.WHITE;
         int pixelColor = (color.getRed() << 16) + (color.getGreen() << 8) + color.getBlue();
-        
+
         if (true) {
             // Try to boost performances by using bulk ImageData methods
             // and operating directly in the array.
@@ -113,13 +113,13 @@ public class DiagramViewBodyEditPart extends AbstractNodeEditPart {
                 }
             }
         }
-        
+
         Image previousImage = fig.getImage();
         fig.setImage(new Image(null, imageData));
         if (previousImage != null) {
             previousImage.dispose();
         }
-        
+
     }
 
     @objid ("ba674edc-576b-49ea-8b78-8757af84dfcd")
@@ -129,9 +129,9 @@ public class DiagramViewBodyEditPart extends AbstractNodeEditPart {
         if (previousImage != null) {
             previousImage.dispose();
         }
-        
+
         super.deactivate();
-        
+
     }
 
     @objid ("31c7dd04-e573-4f12-b52f-acf4eee73c9b")

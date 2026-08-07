@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmndataobject.datastore;
 
@@ -58,14 +58,14 @@ public class BpmnDataStoreSimpleEditPart extends AbstractBpmnSmallNodeEditPart {
     protected IFigure createFigure() {
         // create the figure
         final BpmnDataStoreFigure fig = new BpmnDataStoreFigure();
-        
+
         // set style independent properties
         MinimumSizeLayout.apply(fig, 40, 55);
         fig.setMinimumSize(new Dimension(40, 55));
-        
+
         // set style dependent properties
         refreshFromStyle(fig, getModelStyle());
-        
+
         // return the figure
         return fig;
     }
@@ -76,19 +76,19 @@ public class BpmnDataStoreSimpleEditPart extends AbstractBpmnSmallNodeEditPart {
         super.refreshVisuals();
         GmAbstractObject model = getModel();
         getFigure().getParent().setConstraint(getFigure(), model.getLayoutData());
-        
+
     }
 
     @objid ("08514022-89ab-432b-af4f-53ecfe605fb5")
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         installEditPolicy(EditPolicy.NODE_ROLE, new BpmnCreateLinkEditPolicy());
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START, new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
         installEditPolicy(ModelElementDropRequest.TYPE, new BpmnItemAwareElementElementDropEditPolicy());
-        
+
     }
 
     @objid ("177f8de5-df01-4f4b-a9d0-b0ac6c80da92")
@@ -99,7 +99,7 @@ public class BpmnDataStoreSimpleEditPart extends AbstractBpmnSmallNodeEditPart {
                 super.refreshFromStyle(aFigure, style);
             }
         }
-        
+
     }
 
     @objid ("df5ddcb3-d3f1-4d6c-b420-f67892e2bbcb")
@@ -120,36 +120,36 @@ public class BpmnDataStoreSimpleEditPart extends AbstractBpmnSmallNodeEditPart {
          * Default c'tor building an opaque figure using a {@link ToolbarLayoutWithGrab}.
          */
         @objid ("0182247e-86e0-4bd3-8ebf-172bcc494e00")
-        public  BpmnDataStoreFigure() {
+        public BpmnDataStoreFigure() {
             super(new BpmnDataStoreShaper());
             final ToolbarLayoutWithGrab layout = new ToolbarLayoutWithGrab();
             layout.setHorizontal(false);
             layout.setStretchMinorAxis(true);
             this.setLayoutManager(layout);
-            
+
             this.setOpaque(true);
             this.shapedBorder = new ShapedBorder(this.penOptions.lineColor, this.penOptions.lineWidth, this.shaper);
             setBorder(new CompoundBorder(this.shapedBorder, new MarginBorder(1)));
-            
+
         }
 
         @objid ("ff65f4fe-36b5-403e-9a11-4a7cf0c956ae")
         @Override
         protected void paintFigure(Graphics graphics) {
             super.paintFigure(graphics);
-            
+
             Rectangle shapeBounds = getBounds();
-            
+
             graphics.pushState();
             graphics.setForegroundColor(this.penOptions.lineColor);
             graphics.setLineWidth(this.penOptions.lineWidth);
-            
+
             int offset = BpmnDataStoreShaper.computeOffset(shapeBounds);
             graphics.drawArc(shapeBounds.x, shapeBounds.y, shapeBounds.width, offset * 2, 0, -180);
             graphics.drawArc(shapeBounds.x, shapeBounds.y + (shapeBounds.height / 4), shapeBounds.width, offset * 2, 0, -180);
-            
+
             graphics.popState();
-            
+
         }
 
         @objid ("5241f273-fad8-4ebe-a6b1-2530d87be046")
@@ -159,7 +159,7 @@ public class BpmnDataStoreSimpleEditPart extends AbstractBpmnSmallNodeEditPart {
                 super.setLineColor(lineColor);
                 this.shapedBorder.setColor(lineColor);
             }
-            
+
         }
 
         @objid ("04380aef-bb0e-4980-aea2-019d4415cf63")
@@ -169,13 +169,13 @@ public class BpmnDataStoreSimpleEditPart extends AbstractBpmnSmallNodeEditPart {
                 super.setLineWidth(lineWidth);
                 this.shapedBorder.setWidth(lineWidth);
             }
-            
+
         }
 
         @objid ("4dd73ae2-a981-4dee-bbd2-e740d35d5961")
         private static class BpmnDataStoreShaper implements IShaper {
             @objid ("f823d257-45ce-492d-a557-39530855e574")
-            public  BpmnDataStoreShaper() {
+            public BpmnDataStoreShaper() {
                 super();
             }
 
@@ -183,7 +183,7 @@ public class BpmnDataStoreSimpleEditPart extends AbstractBpmnSmallNodeEditPart {
             @Override
             public Path createShapePath(Rectangle shapeBounds) {
                 Path path = new Path(Display.getCurrent());
-                
+
                 int offset = computeOffset(shapeBounds);
                 path.addArc(shapeBounds.x, shapeBounds.y, shapeBounds.width, offset * 2, 0, 180);
                 path.moveTo(shapeBounds.x + shapeBounds.width, shapeBounds.y + offset);

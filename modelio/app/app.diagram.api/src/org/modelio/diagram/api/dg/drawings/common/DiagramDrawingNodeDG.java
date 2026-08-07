@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.api.dg.drawings.common;
 
@@ -121,18 +121,20 @@ public class DiagramDrawingNodeDG extends DiagramAbstractNode implements IDiagra
 
     /**
      * Creates a drawing node.
+     *
      * @param diagramHandle the diagram handle
      * @param gmNode the node model
      */
     @objid ("d888129b-e36a-43d0-9280-3c5b4f8c49c6")
-    public  DiagramDrawingNodeDG(DiagramHandle diagramHandle, IGmNodeDrawing gmNode) {
+    public DiagramDrawingNodeDG(DiagramHandle diagramHandle, IGmNodeDrawing gmNode) {
         super(diagramHandle);
         this.gmNode = gmNode;
-        
+
     }
 
     /**
      * Set the node label.
+     *
      * @param label the node label.
      */
     @objid ("9bbb8e56-eedd-4eea-acbd-6f1593894c35")
@@ -153,13 +155,13 @@ public class DiagramDrawingNodeDG extends DiagramAbstractNode implements IDiagra
         if (! (newLayer instanceof DiagramDrawingLayerDG)) {
             throw new IllegalArgumentException(" new layer must be a drawing layer.");
         }
-        
+
         DiagramDrawingLayerDG castedLayer = (DiagramDrawingLayerDG) newLayer;
         IGmDrawingLayer gmNewLayer = (IGmDrawingLayer) castedLayer.getModel();
-        
+
         this.gmNode.getLayer().removeChild(this.gmNode);
         gmNewLayer.addChild(this.gmNode);
-        
+
     }
 
     @objid ("1b5300cb-681b-4b29-a302-10fd47aa4ebd")

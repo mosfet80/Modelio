@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -57,15 +57,17 @@ public class ManifestationPropertyModel extends AbstractPropertyModel<Manifestat
     /**
      * Create a new <i>Manifestation</i> data model from an <i>Manifestation</i>
      * .
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("6eac8d55-1238-4061-9a21-0a398687d560")
-    public  ManifestationPropertyModel(Manifestation theEditedElement) {
+    public ManifestationPropertyModel(Manifestation theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("320c1164-b929-4a78-b481-dd2568a467dd")
@@ -76,6 +78,7 @@ public class ManifestationPropertyModel extends AbstractPropertyModel<Manifestat
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("5d22475f-9516-4dab-9f86-e8d029fa37e9")
@@ -88,6 +91,7 @@ public class ManifestationPropertyModel extends AbstractPropertyModel<Manifestat
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -109,7 +113,7 @@ public class ManifestationPropertyModel extends AbstractPropertyModel<Manifestat
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -119,6 +123,7 @@ public class ManifestationPropertyModel extends AbstractPropertyModel<Manifestat
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -144,13 +149,14 @@ public class ManifestationPropertyModel extends AbstractPropertyModel<Manifestat
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -175,7 +181,7 @@ public class ManifestationPropertyModel extends AbstractPropertyModel<Manifestat
         default:
             return;
         }
-        
+
     }
 
     @objid ("582b9c68-1190-4f47-8d43-1ab53a9fee5a")
@@ -185,7 +191,7 @@ public class ManifestationPropertyModel extends AbstractPropertyModel<Manifestat
         public boolean accept(final MObject element) {
             if (element instanceof UmlModelElement) {
                 UmlModelElement type = (UmlModelElement) element;
-            
+
                 if (type instanceof Project) {
                     return false;
                 } else if (type.getName().equals(PredefinedTypes.UNDEFINED_NAME)) {

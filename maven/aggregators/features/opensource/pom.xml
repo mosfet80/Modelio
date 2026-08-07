@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.modelio</groupId>
 		<artifactId>modelio-parent</artifactId>
-		<version>5.4.1-SNAPSHOT</version>
+		<version>6.2.0-SNAPSHOT</version>
 		<relativePath>../../../modelio-parent</relativePath>
 	</parent>
 
@@ -23,7 +23,6 @@
 		<module>../../../../features/opensource/org.modelio.diagrams.auto</module>
 		<module>../../../../features/opensource/org.modelio.diagrams.core</module>
 		<module>../../../../features/opensource/org.modelio.documentation.modeler</module>
-		<module>../../../../features/opensource/org.modelio.e4.rcp</module>
 		<module>../../../../features/opensource/org.modelio.formalism.archimate</module>
 		<module>../../../../features/opensource/org.modelio.formalism.bpmn</module>
 		<module>../../../../features/opensource/org.modelio.formalism.uml</module>
@@ -43,7 +42,8 @@
 		<module>../../../../features/opensource/org.modelio.functions.update</module>
 		<module>../../../../features/opensource/org.modelio.functions.xmi</module>
 		<module>../../../../features/opensource/org.modelio.platform.feature</module>
-		<module>../../../../features/opensource/org.modelio.platform.libraries</module>
 		<module>../../../../features/opensource/org.modelio.rcp</module>
+		<module>../../../../features/opensource/org.modelio.e4.rcp</module>
+		<module>../../../../features/opensource/org.modelio.platform.libraries</module>
 	</modules>
 </project>

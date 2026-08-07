@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -33,6 +33,7 @@ import org.modelio.xmi.util.NotFoundException;
 
 /**
  * This class manages the NAryAssociation elements
+ *
  * @author ebrosse
  */
 @objid ("cae3a5ab-0d2e-40cf-9f88-d2b837d60ba5")
@@ -53,7 +54,7 @@ public class ONaryAssociation extends OModelElement {
             }
         }else
            return getOrCreateEcoreAssociationClass();
-        
+
     }
 
     @objid ("2e3a34e7-639f-4d6f-aa0a-22c692080d14")
@@ -62,7 +63,7 @@ public class ONaryAssociation extends OModelElement {
         // Gets or creates the Ecore org.eclipse.uml2.uml.AssociationClass:
         return  (org.eclipse.uml2.uml.AssociationClass) genProp
                                                  .getMappedElement(getObjingElement());
-        
+
     }
 
     @objid ("d8f56553-1b1f-417c-9762-4b634a4d8cc4")
@@ -73,30 +74,31 @@ public class ONaryAssociation extends OModelElement {
     /**
      * Constructor of OAssociation.
      * it takes the exported Modelio org.eclipse.uml2.uml.Association as parameter
+     *
      * @param element : the exported Modelio org.eclipse.uml2.uml.Association
      */
     @objid ("15bdd97c-f9ff-48a1-a5c7-2c1556b46e60")
-    public  ONaryAssociation(final NaryAssociation element) {
+    public ONaryAssociation(final NaryAssociation element) {
         super(element);
         this.isIsClassAssociation = AbstractObjingModelNavigation.isIsClassAssociation(element);
-        
+
     }
 
     @objid ("84d39e31-9968-432b-ae56-555c67728fea")
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         if (!AbstractObjingModelNavigation.isOwnedByActor(getObjingElement())) {
-        
+
             if (!this.isIsClassAssociation)
                 linkEcoreAssociation((org.eclipse.uml2.uml.Association) ecoreElt);
         }else{
             String message = Xmi.I18N.getMessage("logFile.warning.unexportedAssociationCauseOwnerTypeActor",
                                                  getObjingElement().getName());
             GenerationProperties.getInstance().addWarning(message,  getObjingElement());
-        
+
             ecoreElt.destroy();
         }
-        
+
     }
 
     @objid ("444d675c-0920-4325-b3d7-48f9ae4c90b5")
@@ -108,7 +110,7 @@ public class ONaryAssociation extends OModelElement {
     @objid ("be022814-b7b5-4aaa-85c7-5287a9aa9d8f")
     private void linkEcoreAssociation(org.eclipse.uml2.uml.Association ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
-        
+
         org.eclipse.uml2.uml.Classifier ecoreOwner = null;
         for (NaryAssociationEnd assocEnd : getObjingElement().getNaryEnd()) {
             // Links the org.eclipse.uml2.uml.Association to the OwnerClassifNaryier of one of the
@@ -120,7 +122,7 @@ public class ONaryAssociation extends OModelElement {
                 if (ecoreOwner != null) {
                     // Components and Nodes are handled as Class
                     // (they inherit from Class)
-        
+
                     // Class, Component, Node
                     if (ecoreOwner instanceof org.eclipse.uml2.uml.Class) {
                         EcoreModelNavigation.attachAssocToNearestPkg(assocEnd
@@ -149,7 +151,7 @@ public class ONaryAssociation extends OModelElement {
                 }
             }
         }
-        
+
     }
 
     @objid ("2f47fdca-cb49-4026-afe9-69aa7737127d")

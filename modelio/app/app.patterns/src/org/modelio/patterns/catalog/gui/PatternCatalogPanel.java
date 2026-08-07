@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.patterns.catalog.gui;
 
@@ -105,7 +105,7 @@ public class PatternCatalogPanel implements IPanelProvider {
         } else {
             this.controller.setData(null);
         }
-        
+
     }
 
     @objid ("a10c86a1-4e98-43ed-a8a3-1c58dea88548")
@@ -127,7 +127,7 @@ public class PatternCatalogPanel implements IPanelProvider {
     }
 
     @objid ("d5434e9e-9974-4135-be31-a4f55749fbc2")
-    public  PatternCatalogPanel() {
+    public PatternCatalogPanel() {
         this.controller = new PatternCatalogController();
     }
 
@@ -161,7 +161,7 @@ public class PatternCatalogPanel implements IPanelProvider {
         private Button installButton;
 
         @objid ("81561aab-944e-48f3-a15d-294fbccd7c13")
-        public  PatternCatalogPanelUI(PatternCatalogController controller) {
+        public PatternCatalogPanelUI(PatternCatalogController controller) {
             this.controller = controller;
         }
 
@@ -169,24 +169,24 @@ public class PatternCatalogPanel implements IPanelProvider {
         public Control createUI(Composite parent) {
             this.composite = new Composite(parent, SWT.NONE);
             this.composite.setLayoutData(new GridData(GridData.FILL_BOTH));
-            
+
             GridLayout layout = new GridLayout(3, false);
             layout.marginHeight = 5;
             layout.marginWidth = 5;
             layout.verticalSpacing = 5;
             layout.horizontalSpacing = 0;
             this.composite.setLayout(layout);
-            
+
             this.patternTree = createPatternTree(this.composite);
             this.patternTree.getTree().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-            
+
             Composite toolbar = new Composite(this.composite, SWT.NONE);
             toolbar.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false));
             toolbar.setLayout(new RowLayout(SWT.VERTICAL));
-            
+
             this.idPanel = createIdentificationPanel(this.composite);
             this.idPanel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 2));
-            
+
             this.deleteButton = new Button(toolbar, SWT.PUSH);
             this.deleteButton.setImage(UIImages.DELETE);
             this.deleteButton.setToolTipText(Patterns.I18N.getString("PatternCatalogPanel.DeletePattern.button"));
@@ -195,13 +195,13 @@ public class PatternCatalogPanel implements IPanelProvider {
                 public void widgetSelected(SelectionEvent e) {
                     PatternCatalogPanelUI.this.controller.onDeletePattern(SelectionHelper.getFirst(PatternCatalogPanelUI.this.patternTree.getSelection(), RuntimePattern.class));
                 }
-            
+
                 @Override
                 public void widgetDefaultSelected(SelectionEvent e) {
                     // Nothing to do
                 }
             });
-            
+
             this.installButton = new Button(this.composite, SWT.PUSH);
             this.installButton.setText(Patterns.I18N.getString("PatternCatalogPanel.InstallPattern.button.label"));
             this.installButton.setToolTipText(Patterns.I18N.getString("PatternCatalogPanel.InstallPattern.button.tooltip"));
@@ -210,7 +210,7 @@ public class PatternCatalogPanel implements IPanelProvider {
                 public void widgetSelected(SelectionEvent e) {
                     PatternCatalogPanelUI.this.controller.onInstallPattern();
                 }
-            
+
                 @Override
                 public void widgetDefaultSelected(SelectionEvent e) {
                     // Nothing to do
@@ -226,26 +226,26 @@ public class PatternCatalogPanel implements IPanelProvider {
                 Object[] oldExpanded = this.patternTree.getExpandedElements();
                 this.patternTree.setInput(data.getRepository());
                 this.patternTree.setExpandedElements(oldExpanded);
-            
+
                 RuntimePattern selectedPattern = data.getSelectedPattern();
                 if (selectedPattern != null) {
                     this.idPanel.setVisible(true);
-            
+
                     this.nameText.setText(selectedPattern.getName());
                     this.versionText.setText(selectedPattern.getVersion());
                     this.descriptionText.setText(selectedPattern.getDescription());
                     //this.iconPreviewLabel.setImage(selectedPattern.getIcon());
-            
+
                     this.deleteButton.setEnabled(true);
                 } else {
                     this.idPanel.setVisible(false);
-            
+
                     this.deleteButton.setEnabled(false);
                 }
             } else {
                 this.patternTree.setInput(Collections.emptyList());
             }
-            
+
         }
 
         @objid ("bc1f4a17-710e-4f88-8d63-2817bc97517b")
@@ -261,12 +261,12 @@ public class PatternCatalogPanel implements IPanelProvider {
                 public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
                     // Nothing to do
                 }
-            
+
                 @Override
                 public void dispose() {
                     // Nothing to dispose
                 }
-            
+
                 @Override
                 public boolean hasChildren(Object element) {
                     if (element instanceof CategoryData) {
@@ -274,7 +274,7 @@ public class PatternCatalogPanel implements IPanelProvider {
                     }
                     return false;
                 }
-            
+
                 @Override
                 public Object getParent(Object element) {
                     if (element instanceof RuntimePattern) {
@@ -285,7 +285,7 @@ public class PatternCatalogPanel implements IPanelProvider {
                     }
                     return null;
                 }
-            
+
                 @Override
                 public Object[] getElements(Object inputElement) {
                     if (inputElement instanceof IPatternRepository) {
@@ -293,7 +293,7 @@ public class PatternCatalogPanel implements IPanelProvider {
                     }
                     return Collections.emptyList().toArray();
                 }
-            
+
                 @Override
                 public Object[] getChildren(Object parentElement) {
                     if (parentElement instanceof CategoryData) {
@@ -312,7 +312,7 @@ public class PatternCatalogPanel implements IPanelProvider {
                     }
                     return super.getText(element);
                 }
-            
+
                 @Override
                 public Image getImage(Object element) {
                     if (element instanceof CategoryData) {
@@ -324,7 +324,7 @@ public class PatternCatalogPanel implements IPanelProvider {
                 }
             });
             patternTree.addSelectionChangedListener(new ISelectionChangedListener() {
-            
+
                 @Override
                 public void selectionChanged(SelectionChangedEvent event) {
                     PatternCatalogPanelUI.this.controller.onPatternChange(SelectionHelper.getFirst(event.getSelection(), RuntimePattern.class));
@@ -338,37 +338,37 @@ public class PatternCatalogPanel implements IPanelProvider {
             Group contents = new Group(parent, SWT.NONE);
             contents.setLayout(new GridLayout(2, false));
             contents.setText(Patterns.I18N.getString("PatternCatalogPanel.Group.label"));
-            
+
             Label nameLabel = new Label(contents, SWT.NONE);
             nameLabel.setText(Patterns.I18N.getString("PatternCatalogPanel.Name.label"));
             nameLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false));
-            
+
             this.nameText = new Text(contents, SWT.BORDER);
             this.nameText.setEnabled(false);
             this.nameText.setBackground(UIColor.TEXT_READONLY_BG);
             this.nameText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
             this.nameText.setToolTipText(Patterns.I18N.getString("PatternCatalogPanel.Name.tooltip"));
-            
+
             Label versionLabel = new Label(contents, SWT.NONE);
             versionLabel.setText(Patterns.I18N.getString("PatternCatalogPanel.Version.label"));
             versionLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false));
-            
+
             this.versionText = new Text(contents, SWT.BORDER);
             this.versionText.setEnabled(false);
             this.versionText.setBackground(UIColor.TEXT_READONLY_BG);
             this.versionText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
             this.versionText.setToolTipText(Patterns.I18N.getString("PatternCatalogPanel.Version.tooltip"));
-            
+
             //Label iconLabel = new Label(contents, SWT.NONE);
             //iconLabel.setText(Patterns.I18N.getString("PatternCatalogPanel.Icon.label"));
             //iconLabel.setLayoutData(new GridData(SWT.FILL, SWT.TOP, false, false));
-            
+
             //this.iconPreviewLabel = new Label(contents, SWT.NONE);
-            
+
             Label descriptionLabel = new Label(contents, SWT.NONE);
             descriptionLabel.setText(Patterns.I18N.getString("PatternCatalogPanel.Description.label"));
             descriptionLabel.setLayoutData(new GridData(SWT.FILL, SWT.TOP, false, false));
-            
+
             this.descriptionText = new Text(contents, SWT.BORDER | SWT.MULTI);
             this.descriptionText.setEnabled(false);
             this.descriptionText.setBackground(UIColor.TEXT_READONLY_BG);
@@ -380,12 +380,12 @@ public class PatternCatalogPanel implements IPanelProvider {
         @objid ("af731c67-3b30-4035-8f8a-8b0dc039867e")
         public Path selectPattern() {
             FileDialog dialog = new FileDialog(this.composite.getShell(), SWT.OPEN);
-            
+
             String[] extensions = { "*.umlt" }; //$NON-NLS-1$
             dialog.setFilterExtensions(extensions);
             dialog.setFilterNames(extensions);
             String selectFilename = dialog.open();
-            
+
             if (selectFilename != null) {
                 return Paths.get(selectFilename);
             }
@@ -416,7 +416,7 @@ public class PatternCatalogPanel implements IPanelProvider {
             if (this.ui != null) {
                 this.ui.update(this.data);
             }
-            
+
         }
 
         @objid ("c36027ef-77eb-412c-9d71-b42f26d51b10")
@@ -436,7 +436,7 @@ public class PatternCatalogPanel implements IPanelProvider {
         public void dispose() {
             this.ui.dispose();
             this.ui = null;
-            
+
         }
 
         @objid ("cb65c187-c9e0-4283-ac8c-d7e908bf49a9")
@@ -455,7 +455,7 @@ public class PatternCatalogPanel implements IPanelProvider {
                 throw new InvalidParameterException("Listener already registered");
             }
             this.listeners.add(l);
-            
+
         }
 
         @objid ("b1f81060-f77a-4f52-99c9-9e979793508a")
@@ -466,7 +466,7 @@ public class PatternCatalogPanel implements IPanelProvider {
                 this.ui.update(this.data);
                 fireListeners(this.data, true);
             }
-            
+
         }
 
         @objid ("6286c769-667f-4036-bef4-1ae9bcab1bd5")
@@ -478,7 +478,7 @@ public class PatternCatalogPanel implements IPanelProvider {
                 this.ui.update(this.data);
                 fireListeners(this.data, true);
             }
-            
+
         }
 
         @objid ("976b3230-d3f1-4571-acb6-c2ad8ad81f06")
@@ -495,7 +495,7 @@ public class PatternCatalogPanel implements IPanelProvider {
                 this.ui.update(this.data);
                 fireListeners(this.data, true);
             }
-            
+
         }
 
     }

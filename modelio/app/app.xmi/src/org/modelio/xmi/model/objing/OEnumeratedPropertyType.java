@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -35,7 +35,7 @@ public class OEnumeratedPropertyType extends OElement implements IOElement {
         String metaClassName = this.getClass().getSimpleName();
         // String packagingStr = "org.modelio.xmi.model.objing";
         metaClassName = metaClassName.substring(1);
-                
+
         String message = Xmi.I18N.getMessage("logFile.warning.elementNotMapped",
                         metaClassName);
         GenerationProperties.getInstance().addInfo(message, getObjingElement());
@@ -43,7 +43,7 @@ public class OEnumeratedPropertyType extends OElement implements IOElement {
     }
 
     @objid ("1f9b6cfa-bff4-43cc-b8d7-2e8217fdbb8c")
-    public  OEnumeratedPropertyType(EnumeratedPropertyType param) {
+    public OEnumeratedPropertyType(EnumeratedPropertyType param) {
         super(param);
     }
 

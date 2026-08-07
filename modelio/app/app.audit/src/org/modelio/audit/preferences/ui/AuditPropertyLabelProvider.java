@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.preferences.ui;
 
@@ -34,7 +34,7 @@ public class AuditPropertyLabelProvider extends ColumnLabelProvider {
     private ColumnLabelProvider[] providers;
 
     @objid ("767289e3-e0dc-4edd-b1c4-376aa353b754")
-    public  AuditPropertyLabelProvider(IAuditConfigurationPlan configurationPlan) {
+    public AuditPropertyLabelProvider(IAuditConfigurationPlan configurationPlan) {
         this.providers = new ColumnLabelProvider[] { new FirstLabelProvider(configurationPlan), new SeverityLabelProvider(), new StatusLabelProvider(), new SummaryLabelProvider(configurationPlan) };
     }
 

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.browser.view;
 
@@ -33,10 +33,10 @@ public class DiagramBrowserModelChangeListener implements IModelChangeListener, 
     private final DiagramBrowserPanelProvider view;
 
     @objid ("000ffd8e-0d4f-10c6-842f-001ec947cd2a")
-    public  DiagramBrowserModelChangeListener(DiagramBrowserPanelProvider view) {
+    public DiagramBrowserModelChangeListener(DiagramBrowserPanelProvider view) {
         super();
         this.view = view;
-        
+
     }
 
     @objid ("001011b6-0d4f-10c6-842f-001ec947cd2a")
@@ -46,7 +46,7 @@ public class DiagramBrowserModelChangeListener implements IModelChangeListener, 
         if (this.view.getPanel().getContentProvider() instanceof IModelChangeListener) {
             ((IModelChangeListener) this.view.getPanel().getContentProvider()).modelChanged(event);
         }
-        
+
         // Re enter the UI thread
         Display display = Display.getDefault();
         display.asyncExec(new Runnable() {
@@ -55,7 +55,7 @@ public class DiagramBrowserModelChangeListener implements IModelChangeListener, 
                 updateNavigatorView();
             }
         });
-        
+
     }
 
     @objid ("001055e0-0d4f-10c6-842f-001ec947cd2a")
@@ -65,7 +65,7 @@ public class DiagramBrowserModelChangeListener implements IModelChangeListener, 
         if (this.view.getPanel().getContentProvider() instanceof IStatusChangeListener) {
             ((IStatusChangeListener) this.view.getPanel().getContentProvider()).statusChanged(event);
         }
-        
+
         // Re enter the UI thread
         Display display = Display.getDefault();
         display.asyncExec(new Runnable() {
@@ -74,7 +74,7 @@ public class DiagramBrowserModelChangeListener implements IModelChangeListener, 
                 updateNavigatorView();
             }
         });
-        
+
     }
 
     @objid ("00108e16-0d4f-10c6-842f-001ec947cd2a")
@@ -84,7 +84,7 @@ public class DiagramBrowserModelChangeListener implements IModelChangeListener, 
         }
         this.view.getPanel().setSelection(new StructuredSelection());
         this.view.getPanel().refresh(true);
-        
+
     }
 
 }

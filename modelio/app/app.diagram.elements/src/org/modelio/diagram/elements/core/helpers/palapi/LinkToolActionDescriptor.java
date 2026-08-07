@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.helpers.palapi;
 
@@ -39,12 +39,12 @@ class LinkToolActionDescriptor implements ICreationActionDescriptor {
     private final Command finishCommand;
 
     @objid ("5c442f51-edbc-40a5-8d07-7ab3204fc032")
-    public  LinkToolActionDescriptor(PaletteEntry tool, CreateBendedConnectionRequest request, Command finishCommand) {
+    public LinkToolActionDescriptor(PaletteEntry tool, CreateBendedConnectionRequest request, Command finishCommand) {
         super();
         this.tool = tool;
         this.request = request;
         this.finishCommand = finishCommand;
-        
+
     }
 
     @objid ("77cc7de7-8c59-4ecc-94dd-415a4dc4dc66")
@@ -90,7 +90,7 @@ class LinkToolActionDescriptor implements ICreationActionDescriptor {
         if (this.finishCommand != null && this.finishCommand.canExecute()) {
             viewer.getEditDomain().getCommandStack().execute(this.finishCommand);
         }
-        
+
     }
 
 }

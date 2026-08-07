@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class MMStandardGeneralClass {
      * Tells whether a {@link MMStandardGeneralClass proxy} can be instantiated from a {@link MObject} checking it is a {@link GeneralClass}.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -71,9 +72,10 @@ public class MMStandardGeneralClass {
     }
 
     /**
-     * Tries to instantiate a {@link MMStandardGeneralClass} proxy from a {@link GeneralClass} checking its metaclass. 
+     * Tries to instantiate a {@link MMStandardGeneralClass} proxy from a {@link GeneralClass} checking its metaclass.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a GeneralClass
      * @return a {@link MMStandardGeneralClass} proxy or <i>null</i>.
      */
@@ -99,7 +101,8 @@ public class MMStandardGeneralClass {
     }
 
     /**
-     * Get the underlying {@link GeneralClass}. 
+     * Get the underlying {@link GeneralClass}.
+     *
      * @return the GeneralClass represented by this proxy, never null.
      */
     @objid ("22356090-4f11-45b3-9cee-a52ad5577cb8")
@@ -111,7 +114,7 @@ public class MMStandardGeneralClass {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     /**
@@ -138,7 +141,7 @@ public class MMStandardGeneralClass {
     }
 
     @objid ("b8e536b0-4052-4a22-ae1a-507f5d1a4109")
-    protected  MMStandardGeneralClass(GeneralClass elt) {
+    protected MMStandardGeneralClass(GeneralClass elt) {
         this.elt = elt;
     }
 
@@ -158,7 +161,7 @@ public class MMStandardGeneralClass {
             NOCODE_TAGTYPE_ELT = ctx.getModelingSession().findElementById(TagType.class, "00000000-0000-36bc-0000-000000000000");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -166,7 +169,7 @@ public class MMStandardGeneralClass {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

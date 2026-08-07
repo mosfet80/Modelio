@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -53,6 +53,7 @@ public class Represents {
      * Tells whether a {@link Represents proxy} can be instantiated from a {@link MObject} checking it is a {@link MethodologicalLink} stereotyped << Represents >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -63,6 +64,7 @@ public class Represents {
 
     /**
      * Create a new {@link MethodologicalLink} stereotyped << Represents >> then instantiate a {@link Represents} proxy.
+     *
      * @return a {@link Represents} proxy on the created {@link MethodologicalLink}.
      */
     @objid ("32339d7b-7cae-4011-92de-0efbe9dbb5ed")
@@ -76,6 +78,7 @@ public class Represents {
      * Tries to instantiate a {@link Represents} proxy from a {@link MethodologicalLink} stereotyped << Represents >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a MethodologicalLink
      * @return a {@link Represents} proxy or <i>null</i>.
      */
@@ -88,6 +91,7 @@ public class Represents {
      * Tries to instantiate a {@link Represents} proxy from a {@link MethodologicalLink} stereotyped << Represents >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link MethodologicalLink}
      * @return a {@link Represents} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -98,7 +102,7 @@ public class Represents {
             return new Represents(obj);
         else
             throw new IllegalArgumentException("Represents: Cannot instantiate "+obj+": wrong element type or stereotype");
-        
+
     }
 
     /**
@@ -116,9 +120,9 @@ public class Represents {
     @objid ("85a28a48-571f-47ac-b1b3-7f5fb1f27c90")
     public static void setTarget(ModelElement source, ModelElement target) {
         preloadStereotype(source);
-        
+
         AbstractMethodologicalLink.setTarget(source, MdaTypes.STEREOTYPE_ELT, target);
-        
+
     }
 
     @objid ("28348dd3-b54a-4dfd-a94b-182de139d1da")
@@ -139,6 +143,7 @@ public class Represents {
 
     /**
      * Get the underlying {@link MethodologicalLink}.
+     *
      * @return the MethodologicalLink represented by this proxy, never null.
      */
     @objid ("87570b45-03bf-459b-8340-6ec23eba1bef")
@@ -153,7 +158,7 @@ public class Represents {
     }
 
     @objid ("221886f8-93e7-4dfd-a672-5935b1737418")
-    protected  Represents(MethodologicalLink elt) {
+    protected Represents(MethodologicalLink elt) {
         this.elt = elt;
     }
 
@@ -162,8 +167,9 @@ public class Represents {
      * <p>
      * {@link MdaTypes#STEREOTYPE_ELT} may be null when called while doing metamodel migration on model fragments.
      * In this case modules are not yet loaded and MDA proxies are not initialized.
-     * 
+     *
      * WARNING: Manual method. Do not use ModelioStudio 2.0.xx API generator on ModelerModule otherwise the method will be cancelled. Need an evolution od ModelioStudio.
+     *
      * @param source a model element to guess the {@link CoreSession} .
      * @since 5.4.1 25/10/2023
      */
@@ -177,7 +183,7 @@ public class Represents {
                     "f5d2927d-46d6-4d87-9cf2-adb4a47ca929",
                     STEREOTYPE_NAME);
         }
-        
+
     }
 
     @objid ("d9896322-b59f-496b-99be-d10d51513d32")
@@ -196,7 +202,7 @@ public class Represents {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "f5d2927d-46d6-4d87-9cf2-adb4a47ca929");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 static {
@@ -204,7 +210,7 @@ static {
                         init(ModelerModuleModule.getInstance().getModuleContext());
                     }
                 }
-        
+
     }
 
 }

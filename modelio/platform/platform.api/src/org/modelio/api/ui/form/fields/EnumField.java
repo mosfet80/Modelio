@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.ui.form.fields;
 
@@ -42,7 +42,7 @@ public class EnumField extends AbstractField {
     private ComboViewer comboViewer;
 
     @objid ("c6e112b9-a881-4c93-b885-dccedfd228a1")
-    public  EnumField(FormToolkit toolkit, Composite parent, IFormFieldData model) {
+    public EnumField(FormToolkit toolkit, Composite parent, IFormFieldData model) {
         super(toolkit, parent, model);
     }
 
@@ -58,7 +58,7 @@ public class EnumField extends AbstractField {
         if (!Objects.equals(selectedType, getModel().getValue())) {
             getModel().setValue(selectedType);
         }
-        
+
     }
 
     /**
@@ -84,18 +84,18 @@ public class EnumField extends AbstractField {
             }
         });
         this.combo = this.comboViewer.getCombo();
-        
+
         toolkit.adapt(this.comboViewer.getControl(), false, false);
-        
+
         // Initialize values
         getLabel().setText(getModel().getName());
-        
+
         // FIXME: shouldn't use a UniversalLabelProvider ?
         this.comboViewer.setLabelProvider(new LabelProvider());
         this.comboViewer.setInput(getModel().getType().getEnumeratedValues());
-        
+
         refresh();
-        
+
         // Install Listeners
         this.comboViewer.addSelectionChangedListener(event -> {
             fireValueChanged(null, getLocalValue());
@@ -106,7 +106,7 @@ public class EnumField extends AbstractField {
     @objid ("4fa8e761-b406-462f-8627-684c4ed11ce6")
     public Object getLocalValue() {
         final StructuredSelection selection = (StructuredSelection) this.comboViewer.getSelection();
-        
+
         if (!selection.isEmpty()) {
             return selection.getFirstElement();
         }
@@ -120,11 +120,11 @@ public class EnumField extends AbstractField {
     @Override
     public void refresh() {
         final Object value = getModel().getValue();
-        
+
         if (value != null && !"".equals(value)) {
             this.comboViewer.setSelection(new StructuredSelection(value));
         }
-        
+
     }
 
     @objid ("4b7e9e94-1463-416e-a8cf-828b609f2a27")

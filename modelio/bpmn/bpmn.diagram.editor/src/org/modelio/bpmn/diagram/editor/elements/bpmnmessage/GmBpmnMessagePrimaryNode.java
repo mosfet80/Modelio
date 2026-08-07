@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnmessage;
 
@@ -65,11 +65,12 @@ public final class GmBpmnMessagePrimaryNode extends GmNoStyleSimpleNode implemen
 
     /**
      * Create a initial graphic node.
+     *
      * @param diagram The diagram
      * @param relatedRef The related element reference, may not be null.
      */
     @objid ("6165484e-55b6-11e2-877f-002564c97630")
-    public  GmBpmnMessagePrimaryNode(final IGmDiagram diagram, final MRef relatedRef) {
+    public GmBpmnMessagePrimaryNode(final IGmDiagram diagram, final MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -77,7 +78,7 @@ public final class GmBpmnMessagePrimaryNode extends GmNoStyleSimpleNode implemen
      * Constructor for deserialization only.
      */
     @objid ("6166cee4-55b6-11e2-877f-002564c97630")
-    public  GmBpmnMessagePrimaryNode() {
+    public GmBpmnMessagePrimaryNode() {
         // for the serialization
     }
 
@@ -97,19 +98,19 @@ public final class GmBpmnMessagePrimaryNode extends GmNoStyleSimpleNode implemen
     @Override
     public IEditableText getEditableText() {
         return new IEditableText() {
-        
+
             @Override
             public String getText() {
                 return getRelatedElement().getName();
             }
-        
+
             @Override
             public void setText(String text) {
                 getRelatedElement().setName(text);
             }
-        
+
         };
-        
+
     }
 
     @objid ("6166ced8-55b6-11e2-877f-002564c97630")
@@ -132,6 +133,7 @@ public final class GmBpmnMessagePrimaryNode extends GmNoStyleSimpleNode implemen
 
     /**
      * Get the parent model representation mode.
+     *
      * @return the parent representation mode or null if the node has still no parent.
      */
     @objid ("6166ced0-55b6-11e2-877f-002564c97630")
@@ -158,7 +160,7 @@ public final class GmBpmnMessagePrimaryNode extends GmNoStyleSimpleNode implemen
             break;
         }
         }
-        
+
     }
 
     @objid ("61654860-55b6-11e2-877f-002564c97630")
@@ -168,14 +170,14 @@ public final class GmBpmnMessagePrimaryNode extends GmNoStyleSimpleNode implemen
         if (relatedIElement == null || !relatedIElement.isValid()) {
             return;
         }
-        
+
         firePropertyChange(IGmObject.PROPERTY_LABEL, null, relatedIElement.getName());
-        
+
         // forcing visual refresh in case Image changed
         firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
         refreshMessageLinks();
-        
+
     }
 
     @objid ("615da71f-55b6-11e2-877f-002564c97630")
@@ -191,17 +193,17 @@ public final class GmBpmnMessagePrimaryNode extends GmNoStyleSimpleNode implemen
             // last link is gone, delete the message itself.
             getParent().delete();
         }
-        
+
     }
 
     @objid ("6166cef3-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmBpmnMessagePrimaryNode.", GmBpmnMessagePrimaryNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("6166cee7-55b6-11e2-877f-002564c97630")
@@ -245,9 +247,9 @@ public final class GmBpmnMessagePrimaryNode extends GmNoStyleSimpleNode implemen
         if (relatedElement == null || !relatedElement.isValid()) {
             return;
         }
-        
+
         List<BpmnMessageFlow> messageFlows = new ArrayList<>(relatedElement.getMessageFlow());
-        
+
         // Start by scanning existing links
         for (IGmLink link : new ArrayList<>(getStartingLinks())) {
             if (link instanceof GmBpmnMessageLink) {
@@ -261,7 +263,7 @@ public final class GmBpmnMessagePrimaryNode extends GmNoStyleSimpleNode implemen
                 }
             }
         }
-        
+
         // unmask remaining links.
         for (BpmnMessageFlow messageFlow : messageFlows) {
             Collection<GmModel> models = getDiagram().getAllGMRelatedTo(new MRef(messageFlow));
@@ -273,7 +275,7 @@ public final class GmBpmnMessagePrimaryNode extends GmNoStyleSimpleNode implemen
                 }
             }
         }
-        
+
     }
 
 }

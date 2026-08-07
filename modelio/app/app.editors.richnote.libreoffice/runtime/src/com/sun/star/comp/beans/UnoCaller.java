@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package com.sun.star.comp.beans;
 
@@ -39,9 +39,9 @@ import org.eclipse.swt.widgets.Display;
 /**
  * Used to call a task in the OpenOffice main thread.
  * <p>
- * 
+ *
  * Table of OpenOffice callbacks requirements:
- * 
+ *
  * <pre>
  * Method                             Needs   Needs      Listener
  * Callback Listener
@@ -67,10 +67,10 @@ import org.eclipse.swt.widgets.Display;
  * ?? OnSaveDone
  * ?? OnSaveAsDone
  * ?? OnSaveFinished
- * 
+ *
  * XCloseable.close                     ?       O  lang.XEventListener
  * XComponent.dispose                   ?       O  lang.XEventListener
- * 
+ *
  * UnoRuntime.queryInterface            N       N
  * XComponent.addEventListener          N       N
  * XComponentContext.getServiceManager  N       N
@@ -93,11 +93,9 @@ import org.eclipse.swt.widgets.Display;
  * XTextDocument.getText                N       N
  * XText.createTextCursor               N       N
  * </pre>
- * 
- * 
+ *
  * @author cma
- * @param <T>
- * the type of the result returned by the task.
+ * @param <T> the type of the result returned by the task.
  * @see Callable
  * @see <a href="http://wiki.services.openoffice.org/wiki/Framework/Article/Asynchronous_Callback_Service">OpenOffice Asynchronous callback service</a>
  * @see <a href="http://www.mail-archive.com/dev@api.openoffice.org/msg08705.html">[api-dev] Do all calls into Office require the XCallback</a>
@@ -120,15 +118,16 @@ public final class UnoCaller {
      */
     @objid ("37255090-3cf9-46ee-b784-11f0f9826f54")
     private static final ExecutorService unoThreadExecutor = ForkJoinPool.commonPool(); // Executors.newCachedThreadPool();
-    
+
 
     /**
      * Call synchronously an operation in the OpenOffice main thread.
      * <p>
      * If called from the SWT Display thread, run an inner event loop while waiting.
-     * @throws com.sun.star.uno.RuntimeException if the task couldn't be scheduled.
+     *
      * @param r the task to call
      * @return the result of the task.
+     * @throws com.sun.star.uno.RuntimeException if the task couldn't be scheduled.
      * @throws InvocationTargetException if the task thrown an exception, it is encapsulated in this exception.
      */
     @objid ("4053a2ed-cbf9-466a-abc7-7db2852d6c36")
@@ -145,7 +144,7 @@ public final class UnoCaller {
             while (Display.getCurrent().readAndDispatch()) {
             }
         }
-        
+
     }
 
     /**
@@ -155,20 +154,21 @@ public final class UnoCaller {
      * <p>
      * Necessary because it seems OpenOffice fails answering calls launched from the SWT thread on Windows OS.
      * It also seems that the SWT thread must be able to answer windows event.
+     *
      * @param t the operation to call. The operation may return an IOException if it fails.
      * @throws IOException in case of failure.
      */
     @objid ("5887bbf4-d274-48f7-8c9d-da98cb2bb8d5")
     public static void callOtherThread(final Callable<IOException> t) throws IOException {
         // Calls must be done in a thread INDEPENDENT from the SWT thread.
-        
+
         // Launch the call
         Future<IOException> res = UnoCaller.unoThreadExecutor.submit(t);
-        
+
         try {
             // Wait while refreshing GUI if in GUI thread
             final Display display = Display.getCurrent();
-        
+
             if (display != null) {
                 while (!res.isDone()) {
                     if (!display.readAndDispatch()) {
@@ -176,29 +176,30 @@ public final class UnoCaller {
                     }
                 }
             }
-        
+
             // Process the result
             IOException error = res.get();
             if (error != null) {
                 throw error;
             }
-        
+
         } catch (InterruptedException e) {
             throw new IOException(e.getLocalizedMessage(), e);
         } catch (ExecutionException e) {
             throw new IOException(e.getCause().getLocalizedMessage(), e);
         }
-        
+
     }
 
     /**
      * Call synchronously an operation in the OpenOffice main thread.
      * <p>
      * If called from the SWT Display thread, run an inner event loop while waiting.
-     * @throws com.sun.star.uno.RuntimeException if the task couldn't be scheduled.
+     *
      * @param r the task to call
      * @param refreshDisplay if <code>true</code> and called from the SWT Display thread, run an inner event loop while waiting.
      * @return the result of the task.
+     * @throws com.sun.star.uno.RuntimeException if the task couldn't be scheduled.
      * @throws InvocationTargetException if the task thrown an exception, it is encapsulated in this exception.
      */
     @objid ("7e9f7fb6-e456-4870-bd73-a1fedc0a3344")
@@ -206,13 +207,13 @@ public final class UnoCaller {
         if (this.disposed) {
             throw new IllegalStateException("Disposed");
         }
-        
+
         XMultiComponentFactory xFactory = this.xContext.getServiceManager();
-        
+
         if (xFactory == null) {
             throw new com.sun.star.uno.RuntimeException("Cannot get XMultiComponentFactory from the XComponentContext.");
         }
-        
+
         UnoCallback<T> aExecutor = new UnoCallback<>(r);
         try {
             XRequestCallback xRequest = UnoRuntime.queryInterface(XRequestCallback.class,
@@ -225,7 +226,7 @@ public final class UnoCaller {
                     }
                     Thread.yield();
                 } while (!aExecutor.res.isDone() && !this.disposed);
-        
+
                 if (!aExecutor.res.isDone()) {
                     aExecutor.res.cancel(true);
                 }
@@ -233,7 +234,7 @@ public final class UnoCaller {
         } catch (com.sun.star.uno.Exception e) {
             throw (com.sun.star.uno.RuntimeException) new com.sun.star.uno.RuntimeException().initCause(e);
         }
-        
+
         try {
             return aExecutor.res.get();
         } catch (InterruptedException e) {
@@ -241,14 +242,15 @@ public final class UnoCaller {
         } catch (ExecutionException e) {
             throw new InvocationTargetException(e);
         }
-        
+
     }
 
     /**
+     *
      * @param xContext the OpenOffice context.
      */
     @objid ("4e31db6c-d804-42b1-a2c9-455a23c01dad")
-    public  UnoCaller(XComponentContext xContext) {
+    public UnoCaller(XComponentContext xContext) {
         this.xContext = xContext;
     }
 
@@ -261,6 +263,7 @@ public final class UnoCaller {
     }
 
     /**
+     *
      * @return whether the service is disposed.
      */
     @objid ("ffbd4aa7-57d1-4db1-a0fa-d4402db18249")
@@ -271,27 +274,28 @@ public final class UnoCaller {
     /**
      * Call asynchronously an operation in the OpenOffice main thread.
      * <p>
-     * @throws com.sun.star.uno.RuntimeException if the task couldn't be scheduled.
+     *
      * @param r the task to submit
      * @return the future result of the task.
+     * @throws com.sun.star.uno.RuntimeException if the task couldn't be scheduled.
      */
     @objid ("46cae9d8-b418-45bf-97af-6f553a4c9ab3")
     public <T> CompletableFuture<T> callAsync(final Callable<T> r) throws com.sun.star.uno.RuntimeException {
         if (r == null) {
             return CompletableFuture.completedFuture(null);
         }
-        
+
         if (this.isDisposed()) {
             throw new IllegalStateException("disposed");
         }
-        
+
         XMultiComponentFactory xFactory = this.xContext.getServiceManager();
         if (xFactory == null) {
             throw new com.sun.star.uno.RuntimeException("Cannot get XMultiComponentFactory from the XComponentContext.");
         }
-        
+
         UnoCallback<T> aExecutor = new UnoCallback<>(r);
-        
+
         try {
             XRequestCallback xRequest = UnoRuntime.queryInterface(XRequestCallback.class,
                     xFactory.createInstanceWithContext("com.sun.star.awt.AsyncCallback", this.xContext));
@@ -314,14 +318,15 @@ public final class UnoCaller {
         private final Callable<T> callable;
 
         @objid ("fdd4738f-f464-4702-9673-e313b7676519")
-        protected  UnoCallback(final Callable<T> r) {
+        protected UnoCallback(final Callable<T> r) {
             this.callable = r;
             this.res = new CompletableFuture<>();
-            
+
         }
 
         /**
          * notifies the callback implementation
+         *
          * @param aData private data which was provided when the callback was requested.
          */
         @objid ("7e4ff865-6604-4499-8b14-f6b9062f3d33")
@@ -335,7 +340,7 @@ public final class UnoCaller {
                     this.res.completeExceptionally(t);
                 }
             }
-            
+
         }
 
     }

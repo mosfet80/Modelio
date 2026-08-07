@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+
+<toc label="Analyste" topic="html/User_Documentation_fr.html">
+	<topic comment="entry" href="html/User_Documentation_fr_Introduction.html" label="Introduction"></topic>
+	<topic comment="entry" href="html/User_Documentation_fr_Modele_Analyste.html" label="Modèle analyste"></topic>
+	<topic comment="entry" href="html/User_Documentation_fr_Editeur_Analyste.html" label="Editeur analyste"></topic>
+	<topic comment="entry" href="html/User_Documentation_fr_Diagrammes_Analyste.html" label="Diagrammes analyste"></topic>
+	<topic comment="sub_start" href="html/User_Documentation_fr_Import_et_Export.html" label="Import et export">		<topic comment="entry" href="html/User_Documentation_fr_Import_et_Export_Import_et_Export_ReqIF.html" label="Import et export ReqIF"></topic>
+		<topic comment="entry" href="html/User_Documentation_fr_Import_et_Export_Import_et_export_XML.html" label="Import et export XML"></topic>
+		<topic comment="entry" href="html/User_Documentation_fr_Import_et_Export_Importer_des_Requirements_depuis_un_server_HPQC.html" label="Import HPQC"></topic>
+
+	</topic>
+	<topic comment="entry" href="html/User_Documentation_fr_Pont_MS_Word.html" label="Pont MS Word"></topic>
+	<topic comment="entry" href="html/User_Documentation_fr_Archivage.html" label="Archivage"></topic>
+</toc>

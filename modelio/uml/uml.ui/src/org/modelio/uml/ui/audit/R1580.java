@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -48,7 +48,7 @@ public class R1580 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(IElement)
      * @see AbstractRule#getUpdateControl(IElement)
      * @see AbstractRule#getMoveControl(IElementMovedEvent)
@@ -68,7 +68,7 @@ public class R1580 extends AbstractUmlRule {
         plan.registerRule(Attribute.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
         plan.registerRule(AssociationEnd.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
         plan.registerRule(Operation.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -102,14 +102,14 @@ public class R1580 extends AbstractUmlRule {
      * Default constructor for R1580
      */
     @objid ("c17540d1-e3e2-4814-9429-f69ea627be35")
-    public  R1580() {
+    public R1580() {
         this.checkerInstance = new CheckR1580(this);
     }
 
     @objid ("50e9dfb4-e92f-43ac-aa24-6e53e53fe18a")
     private static class CheckR1580 extends AbstractControl {
         @objid ("cd4e446d-663a-45ea-8017-ffb15791f788")
-        public  CheckR1580(IRule rule) {
+        public CheckR1580(IRule rule) {
             super(rule);
         }
 

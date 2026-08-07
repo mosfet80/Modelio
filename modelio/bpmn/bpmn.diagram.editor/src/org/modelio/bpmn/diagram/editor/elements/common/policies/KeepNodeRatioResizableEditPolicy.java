@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.common.policies;
 
@@ -50,11 +50,12 @@ public class KeepNodeRatioResizableEditPolicy extends DefaultNodeResizableEditPo
         } else {
             super.showChangeBoundsFeedback(request);
         }
-        
+
     }
 
     /**
      * Update the modified request from the original request so that the node respect aspect ratio.
+     *
      * @param modifiedReq the modified request
      * @param fromRequest the original request
      */
@@ -62,11 +63,11 @@ public class KeepNodeRatioResizableEditPolicy extends DefaultNodeResizableEditPo
     protected ChangeBoundsRequest updateModifiedRequest(ChangeBoundsRequest modifiedReq, ChangeBoundsRequest fromRequest) {
         modifiedReq.setEditParts(getHost());
         modifiedReq.setMoveDelta(fromRequest.getMoveDelta());
-        
+
         int dimension = 0;
         int x = fromRequest.getSizeDelta().height;
         int y = fromRequest.getSizeDelta().width;
-        
+
         if (x >= 0 && y >= 0) {
             if (x > y) {
                 dimension = x;
@@ -80,7 +81,7 @@ public class KeepNodeRatioResizableEditPolicy extends DefaultNodeResizableEditPo
                 dimension = y;
             }
         }
-        
+
         modifiedReq.setSizeDelta(new Dimension(dimension, dimension));
         modifiedReq.setLocation(fromRequest.getLocation());
         modifiedReq.setResizeDirection(fromRequest.getResizeDirection());

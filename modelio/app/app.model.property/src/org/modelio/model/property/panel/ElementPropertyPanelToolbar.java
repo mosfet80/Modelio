@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.panel;
 
@@ -81,10 +81,11 @@ public class ElementPropertyPanelToolbar implements IPanelProvider {
 
     /**
      * C'Tor
+     *
      * @param controller the toolbar's controller.
      */
     @objid ("54e6101d-c84c-4aac-9bf7-80791e5b9aa9")
-    public  ElementPropertyPanelToolbar(ElementPropertyController controller) {
+    public ElementPropertyPanelToolbar(ElementPropertyController controller) {
         this.controller = controller;
     }
 
@@ -103,10 +104,10 @@ public class ElementPropertyPanelToolbar implements IPanelProvider {
         gl.marginHeight = gl.marginTop = gl.marginBottom = -1;
         gl.marginLeft = gl.marginRight = gl.marginWidth = 0;
         this.tbComp.setLayout(gl);
-        
+
         this.toolbar = new ToolBar(this.tbComp, SWT.HORIZONTAL);
         this.toolbar.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, false, false));
-        
+
         this.addStereotype = createToolButton(this.toolbar, SWT.PUSH, AppUi.getImageDescriptor("icons/addstereotype.png"), "$AddStereotype.tooltip");
         this.addStereotype.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -114,7 +115,7 @@ public class ElementPropertyPanelToolbar implements IPanelProvider {
                 ElementPropertyPanelToolbar.this.controller.onAddStereotype();
             }
         });
-        
+
         this.removeStereotype = createToolButton(this.toolbar, SWT.PUSH, AppUi.getImageDescriptor("icons/removestereotype.png"), "$RemoveStereotype.tooltip");
         this.removeStereotype.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -122,7 +123,7 @@ public class ElementPropertyPanelToolbar implements IPanelProvider {
                 ElementPropertyPanelToolbar.this.controller.onRemoveStereotype();
             }
         });
-        
+
         this.moveStereotypeUp = createToolButton(this.toolbar, SWT.PUSH, UI.getImageDescriptor("icons/uparrow.png"), "$MoveStereotypeUp.tooltip");
         this.moveStereotypeUp.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -130,7 +131,7 @@ public class ElementPropertyPanelToolbar implements IPanelProvider {
                 ElementPropertyPanelToolbar.this.controller.onMoveStereotypeUp();
             }
         });
-        
+
         this.moveStereotypeDown = createToolButton(this.toolbar, SWT.PUSH, UI.getImageDescriptor("icons/downarrow.png"), "$MoveStereotypeDown.tooltip");
         this.moveStereotypeDown.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -138,11 +139,11 @@ public class ElementPropertyPanelToolbar implements IPanelProvider {
                 ElementPropertyPanelToolbar.this.controller.onMoveStereotypeDown();
             }
         });
-        
+
         // Drop down menu to select layout mode
         final ToolItem dropDown = new ToolItem(this.toolbar, SWT.DROP_DOWN);
         final Menu menu = new Menu(this.toolbar.getShell(), SWT.POP_UP);
-        
+
         this.autoLayout = createMenuItem(menu, SWT.RADIO, UI.getImageDescriptor("icons/automaticorientation.png"), "$SetAutoLayout.label",
                 "$SetAutoLayout.tooltip");
         this.autoLayout.addSelectionListener(new SelectionAdapter() {
@@ -151,7 +152,7 @@ public class ElementPropertyPanelToolbar implements IPanelProvider {
                 ElementPropertyPanelToolbar.this.controller.onAutoLayout();
             }
         });
-        
+
         this.horizontalLayout = createMenuItem(menu, SWT.RADIO, UI.getImageDescriptor("icons/horizontalorientation.png"), "$SetHorizontalLayout.label", "$SetHorizontalLayout.tooltip");
         this.horizontalLayout.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -166,7 +167,7 @@ public class ElementPropertyPanelToolbar implements IPanelProvider {
                 ElementPropertyPanelToolbar.this.controller.onVerticalLayout();
             }
         });
-        
+
         dropDown.addListener(SWT.Selection, event -> {
             if (event.detail == SWT.ARROW) {
                 Rectangle rect = dropDown.getBounds();
@@ -209,11 +210,11 @@ public class ElementPropertyPanelToolbar implements IPanelProvider {
         this.removeStereotype.setEnabled(this.controller.canRemoveStereotype());
         this.moveStereotypeDown.setEnabled(this.controller.canMoveStereotypeDown());
         this.moveStereotypeUp.setEnabled(this.controller.canMoveStereotypeUp());
-        
+
         this.horizontalLayout.setSelection(this.controller.isHorizontalLayout());
         this.verticalLayout.setSelection(this.controller.isVerticalLayout());
         this.autoLayout.setSelection(this.controller.isAutoLayout());
-        
+
         if (this.controller.isAdminMode()) {
             // A button to show/hide the hidden MDA properties (visible only in
             // show administration command mode)
@@ -234,11 +235,12 @@ public class ElementPropertyPanelToolbar implements IPanelProvider {
             }
             this.showHidden = null;
         }
-        
+
     }
 
     /**
      * Helper function to create tool item
+     *
      * @param parent the parent toolbar
      * @param style the SWT style of tool item to create
      * @param iconDescriptor the image to display on the tool item
@@ -247,7 +249,7 @@ public class ElementPropertyPanelToolbar implements IPanelProvider {
     @objid ("41fb6253-ee03-454e-959b-5290776ae02f")
     private ToolItem createToolButton(ToolBar parent, int style, ImageDescriptor iconDescriptor, String tooltip) {
         ToolItem item = new ToolItem(parent, style);
-        
+
         // Get the icon and setup a listener for disposal
         if (iconDescriptor != null) {
             final Image icon = iconDescriptor.createImage();
@@ -259,7 +261,7 @@ public class ElementPropertyPanelToolbar implements IPanelProvider {
                 }
             });
         }
-        
+
         item.setToolTipText(ModelProperty.I18N.getString(tooltip));
         return item;
     }
@@ -272,6 +274,7 @@ public class ElementPropertyPanelToolbar implements IPanelProvider {
 
     /**
      * Helper function to create tool item
+     *
      * @param parent the parent toolbar
      * @param style the SWT style of tool item to create
      * @param iconDescriptor the image to display on the tool item
@@ -281,12 +284,12 @@ public class ElementPropertyPanelToolbar implements IPanelProvider {
     @objid ("99c84219-4d31-410c-810e-517b397785f9")
     private MenuItem createMenuItem(Menu parent, int style, ImageDescriptor iconDescriptor, String label, String tooltip) {
         MenuItem item = new MenuItem(parent, style);
-        
+
         // Get the icon and setup a listener for disposal
         if (iconDescriptor != null) {
             final Image icon = iconDescriptor.createImage();
             item.setImage(icon);
-        
+
             parent.addDisposeListener(new DisposeListener() {
                 @Override
                 public void widgetDisposed(DisposeEvent e) {

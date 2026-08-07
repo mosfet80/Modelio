@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.util;
 
@@ -44,7 +44,7 @@ public class XMIEAnnotation {
             EAnnotation ea = ecoreElt.getEAnnotation(eaName);
             if (ea == null)
                 ea = ecoreElt.createEAnnotation(eaName);
-        
+
             // Gets or creates the Property
             Property prop = null;
             for (Object content : ea.getContents()) {
@@ -60,13 +60,13 @@ public class XMIEAnnotation {
                 prop = UMLFactory.eINSTANCE.createProperty();
                 prop.setName(fieldName);
             }
-        
+
             // Sets the field's content and adds the Property to the
             // EAnnotation:
             prop.setDefault(fieldContent);
             ea.getContents().add(prop);
         }
-        
+
     }
 
     @objid ("43202b11-4d06-4895-94c2-b2059f0b97d9")
@@ -78,15 +78,15 @@ public class XMIEAnnotation {
                 for (Object content : ea.getContents()) {
                     if (content instanceof Property) {
                         Property prop = (Property) content;
-                        if (fieldName.equals(prop.getName())) {                               
-                            strContent = prop.getDefault();    
+                        if (fieldName.equals(prop.getName())) {
+                            strContent = prop.getDefault();
                             break;
                         }
                     }
                 }
             }
         }
-        
+
         if (strContent == null){
             return "";
         }
@@ -142,7 +142,7 @@ public class XMIEAnnotation {
             EAnnotation ea = ecoreElt.getEAnnotation(eaName);
             if (ea == null)
                 ea = ecoreElt.createEAnnotation(eaName);
-        
+
             // Gets or creates the Property:
             Property prop = null;
             for (Object content : ea.getContents()) {
@@ -158,10 +158,10 @@ public class XMIEAnnotation {
                 prop = UMLFactory.eINSTANCE.createProperty();
                 prop.setName(fieldName);
             }
-        
+
             ea.getContents().add(prop);
         }
-        
+
     }
 
     @objid ("600e457f-e0b9-412a-b1aa-b96113cf2631")
@@ -170,7 +170,7 @@ public class XMIEAnnotation {
             // Gets or creates the EAnnotation:
             EAnnotation ea = ecoreElt.getEAnnotation(eaName);
             if (ea != null){
-        
+
                 Property field = null;
                 for (Object content : ea.getContents()) {
                     if (content instanceof Property) {
@@ -181,18 +181,18 @@ public class XMIEAnnotation {
                         }
                     }
                 }
-        
+
                 if (field != null){
                     ea.getContents().remove(field);
                     if (ea.getContents().size() == 0){
                         ecoreElt.getEAnnotations().remove(ea);
                     }
                 }
-        
+
             }
-        
+
         }
-        
+
     }
 
     @objid ("21371758-af13-4138-8b64-31c194d3b813")
@@ -205,8 +205,8 @@ public class XMIEAnnotation {
                     if (content instanceof Property) {
                         Property prop = (Property) content;
                         if (fieldName.equals(prop.getName())) {
-        
-                            strContent = prop.getDefault();    
+
+                            strContent = prop.getDefault();
                             ea.getContents().remove(prop);
                             prop.destroy();
                             break;
@@ -215,7 +215,7 @@ public class XMIEAnnotation {
                 }
             }
         }
-        
+
         if (strContent == null){
             return "";
         }
@@ -229,7 +229,7 @@ public class XMIEAnnotation {
             EAnnotation ea = ecoreElt.getEAnnotation(eaName);
             if (ea == null)
                 ea = ecoreElt.createEAnnotation(eaName);
-        
+
             // Gets or creates the Property:
             Property prop = null;
             for (Object content : ea.getContents()) {
@@ -241,19 +241,19 @@ public class XMIEAnnotation {
                     }
                 }
             }
-        
+
             if (prop == null) {
                 prop = UMLFactory.eINSTANCE.createProperty();
                 prop.setName(fieldName);
-        
+
                 // Sets the field's content and adds the Property to the
                 // EAnnotation:
                 prop.setDefault(fieldContent);
                 ea.getContents().add(prop);
             }
-        
+
         }
-        
+
     }
 
     @objid ("fb4cc62c-1bfa-459a-b845-09f79a6ae83a")
@@ -265,8 +265,8 @@ public class XMIEAnnotation {
                 for (Object content : ea.getContents()) {
                     if (content instanceof Property) {
                         Property prop = (Property) content;
-                        if (fieldName.equals(prop.getName())) {                               
-                            strContent.add(prop.getDefault());    
+                        if (fieldName.equals(prop.getName())) {
+                            strContent.add(prop.getDefault());
                         }
                     }
                 }

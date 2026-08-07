@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -50,7 +50,7 @@ public class R1420 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -101,14 +101,14 @@ public class R1420 extends AbstractUmlRule {
      * Default constructor for R1420
      */
     @objid ("56997879-0cd6-488a-b004-dfbaaa564ac1")
-    public  R1420() {
+    public R1420() {
         this.checkerInstance = new CheckR1420(this);
     }
 
     @objid ("f9227ce0-1bf5-478a-b602-7efd84024383")
     private static class CheckR1420 extends AbstractControl {
         @objid ("386a0635-699d-4550-8adc-3ce65700af8c")
-        public  CheckR1420(IRule rule) {
+        public CheckR1420(IRule rule) {
             super(rule);
         }
 
@@ -126,13 +126,13 @@ public class R1420 extends AbstractUmlRule {
         @objid ("6417f37d-ce0f-4f64-9b17-5a9d497559b3")
         private IAuditEntry checkR1420(final NaryAssociationEnd assocEnd) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, assocEnd, null);
-            
+
             Classifier owner = assocEnd.getOwner();
-            
+
             if (owner instanceof Actor || owner instanceof UseCase) {
-            
+
                 // Rule failed
-            
+
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(owner);

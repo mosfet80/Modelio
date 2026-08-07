@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -40,10 +40,10 @@ public class EReadExtentAction extends EActivityNode {
     }
 
     @objid ("6106fd33-b159-4dd7-b8f1-51bbb0833002")
-    public  EReadExtentAction(org.eclipse.uml2.uml.ReadExtentAction element) {
+    public EReadExtentAction(org.eclipse.uml2.uml.ReadExtentAction element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("9313bd01-211c-423b-9585-42a45c370be6")
@@ -51,7 +51,7 @@ public class EReadExtentAction extends EActivityNode {
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setClassifier((OpaqueAction) objingElt);
-        
+
     }
 
     @objid ("0910ad03-2bc3-464e-b816-9fba81e21655")
@@ -59,14 +59,14 @@ public class EReadExtentAction extends EActivityNode {
         org.eclipse.uml2.uml.Classifier classifier = this.ecoreElement.getClassifier();
         if (classifier != null){
             Object obBehavior = ReverseProperties.getInstance().getMappedElement(classifier);
-        
+
             if (obBehavior instanceof ModelElement) {
                 Dependency dependency = UML2ClassifierReference.create().getElement();
                 dependency.setDependsOn((ModelElement)obBehavior);
                 dependency.setImpacted(objingElt);
             }
         }
-        
+
     }
 
 }

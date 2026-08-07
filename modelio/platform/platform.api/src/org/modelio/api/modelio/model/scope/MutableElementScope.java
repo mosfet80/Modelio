@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.modelio.model.scope;
 
@@ -26,7 +26,7 @@ import org.modelio.vcore.smkernel.mapi.MClass;
  */
 @objid ("f47a4a70-b632-42b7-8f98-a69dccc3ff4b")
 public class MutableElementScope {
-    
+
     @mdl.prop
     @objid ("1d9c2864-63a6-45b3-b5ce-b50052b79f4d")
     public boolean withSubClasses;
@@ -43,7 +43,7 @@ public class MutableElementScope {
         this.withSubClasses = value;
     }
 
-    
+
     @mdl.prop
     @objid ("2b8201f9-1b0b-4d1c-8eab-0496be550d59")
     public boolean withSubStereotypes;
@@ -63,7 +63,7 @@ public class MutableElementScope {
     @objid ("b8fef5ae-c519-44c7-9a93-135aa8a9c399")
     private MClass metaclass;
 
-    
+
     @mdl.prop
     @objid ("6bc29587-dbf0-4149-95b0-e4e3c1ea3624")
     public Stereotype stereotype;
@@ -81,24 +81,24 @@ public class MutableElementScope {
     }
 
     @objid ("481b2352-2be5-4912-be84-cda2058ff57b")
-    public  MutableElementScope() {
+    public MutableElementScope() {
         super();
     }
 
     @objid ("215825c1-d314-4dfe-8f3e-0dada31f7723")
-    public  MutableElementScope(ElementScope s) {
+    public MutableElementScope(ElementScope s) {
         this.metaclass = s.getMetaclass();
         this.stereotype = s.getStereotype();
         this.withSubClasses = s.isWithSubClasses();
         this.withSubStereotypes = s.isWithSubStereotypes();
-        
+
     }
 
     @objid ("ff7d9091-abe2-4107-8da8-09817db86fce")
-    public  MutableElementScope(MClass metaclass, Stereotype stereotype) {
+    public MutableElementScope(MClass metaclass, Stereotype stereotype) {
         this.metaclass = metaclass;
         this.stereotype = stereotype;
-        
+
     }
 
     @objid ("18aae530-9307-4e03-9ff3-65984d6e1469")

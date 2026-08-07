@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.ortho;
 
@@ -61,37 +61,40 @@ public class ChangeLinkRoutingConstraintCommand extends Command {
 
     /**
      * Creates a command that changes the routing constraint of the given connection.
+     *
      * @param connectionEP the edit part of the connection to modify.
      * @param connectionState the connection state to save in the model
      * @param isForced if false, check if a previous command already modified the connection route before changing the constraint.
      */
     @objid ("80316efe-1dec-11e2-8cad-001ec947c8cc")
-    public  ChangeLinkRoutingConstraintCommand(final ConnectionEditPart connectionEP, ConnectionState connectionState, boolean isForced) {
+    public ChangeLinkRoutingConstraintCommand(final ConnectionEditPart connectionEP, ConnectionState connectionState, boolean isForced) {
         this.connectionEP = connectionEP;
         this.model = (IGmLinkObject) connectionEP.getModel();
         this.connection = (Connection) connectionEP.getFigure();
         this.connectionState = connectionState;
         this.initialPath = this.model.getPath();
         this.isForced = isForced;
-        
+
     }
 
     /**
      * Creates a command that changes the routing constraint of the given connection. (isForced is set to <code>false</code>)
+     *
      * @param connectionEP the edit part of the connection to modify.
      * @param connectionState the connection state to save in the model
      */
     @objid ("d9d465e4-5964-4d94-8885-a33294b251a7")
-    public  ChangeLinkRoutingConstraintCommand(final ConnectionEditPart connectionEP, ConnectionState connectionState) {
+    public ChangeLinkRoutingConstraintCommand(final ConnectionEditPart connectionEP, ConnectionState connectionState) {
         this(connectionEP, connectionState, false);
     }
 
     /**
      * Creates a command that synchronize the routing constraint of the model from the Connection figure routing constraint.
+     *
      * @param connectionEP the edit part of the connection to modify.
      */
     @objid ("4bc36366-1ca1-4c1f-834c-b57b2086fb83")
-    public  ChangeLinkRoutingConstraintCommand(final ConnectionEditPart connectionEP) {
+    public ChangeLinkRoutingConstraintCommand(final ConnectionEditPart connectionEP) {
         this(connectionEP, new ConnectionState().init((Connection) connectionEP.getFigure()));
     }
 
@@ -105,36 +108,37 @@ public class ChangeLinkRoutingConstraintCommand extends Command {
             // Don't overwrite its work and abort.
             return;
         }
-        
+
         IAnchorModelProvider sourceEp = (IAnchorModelProvider) this.connectionEP.getSource();
         IAnchorModelProvider targetEp = (IAnchorModelProvider) this.connectionEP.getTarget();
-        
+
         if (sourceEp != null && targetEp != null) {
             try {
                 GmPath newPath = new GmPath(this.initialPath);
-        
+
                 Object sourceAnchorModel = sourceEp.createAnchorModel(this.connectionState.getSourceAnchor());
                 newPath.setSourceAnchor(sourceAnchorModel);
-        
+
                 Object targetAnchorModel = targetEp.createAnchorModel(this.connectionState.getTargetAnchor());
                 newPath.setTargetAnchor(targetAnchorModel);
-        
+
                 List<MPoint> modelPoints = getNewBendPoints();
-        
+
                 newPath.setPathData(modelPoints);
                 this.model.setLayoutData(newPath);
             } catch (@SuppressWarnings ("unused") IllegalArgumentException e) {
                 // Invalid anchor found, just do nothing.
             }
         }
-        
+
     }
 
     /**
      * Compute the new bend points from the command parameters.
+     *
+     * @return the new draw2d bend points
      * @see #connectionState
      * @see #connection
-     * @return the new draw2d bend points
      */
     @objid ("528e6f9c-189b-45c3-98c7-383281eb28a5")
     protected List<MPoint> getNewBendPoints() {

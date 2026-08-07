@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.env;
 
@@ -28,7 +28,7 @@ import org.modelio.vcore.model.spi.IGMetamodelExtension;
 
 /**
  * Default implementation of {@link IGProjectEnv}
- * 
+ *
  * @author cmarin
  * @since 3.6
  */
@@ -44,6 +44,7 @@ public class GProjectEnvironment implements IGProjectEnv {
     private Path ramcCachePath;
 
     /**
+     *
      * @param modulesCatalog the modules catalog.
      * @return this instance to chain calls.
      */
@@ -54,6 +55,7 @@ public class GProjectEnvironment implements IGProjectEnv {
     }
 
     /**
+     *
      * @param metamodelExtension a metamodel fragment to add.
      * @return this instance to chain calls.
      */
@@ -64,6 +66,7 @@ public class GProjectEnvironment implements IGProjectEnv {
     }
 
     /**
+     *
      * @return the modules catalog
      */
     @objid ("b478bcd2-1d3f-4506-b98e-f24df4872d76")
@@ -79,6 +82,7 @@ public class GProjectEnvironment implements IGProjectEnv {
     }
 
     /**
+     *
      * @param metamodelExtensions metamodel fragments to add.
      * @return this instance to chain calls.
      */
@@ -89,6 +93,7 @@ public class GProjectEnvironment implements IGProjectEnv {
     }
 
     /**
+     *
      * @param ramcCachePath the path of the ramc cache (a directory)
      * @return this instance to chain calls.
      */
@@ -99,6 +104,7 @@ public class GProjectEnvironment implements IGProjectEnv {
     }
 
     /**
+     *
      * @return the ramc cache directory
      */
     @objid ("852a46cd-ad6e-4b79-940c-fb2927e7d6de")

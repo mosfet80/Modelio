@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.ortho;
 
@@ -48,16 +48,17 @@ public class TranslateBendpointsCommand extends Command {
     private final List<Point> newPathData;
 
     /**
+     *
      * @param connectionEP the connection edit part to synchronize
      */
     @objid ("80421f60-1dec-11e2-8cad-001ec947c8cc")
     @SuppressWarnings ("unchecked")
-    public  TranslateBendpointsCommand(final ConnectionEditPart connectionEP) {
+    public TranslateBendpointsCommand(final ConnectionEditPart connectionEP) {
         this.model = (IGmLinkObject) connectionEP.getModel();
         this.connection = (Connection) connectionEP.getFigure();
         List<Bendpoint> routingConstraint = (List<Bendpoint>) this.connection.getRoutingConstraint();
         this.newPathData = BendPointUtils.draw2dConstraintToModelConstraint(routingConstraint);
-        
+
     }
 
     @objid ("80421f69-1dec-11e2-8cad-001ec947c8cc")
@@ -65,16 +66,16 @@ public class TranslateBendpointsCommand extends Command {
     public void execute() {
         ConnectionAnchor currentSourceAnchor = this.connection.getSourceAnchor();
         ConnectionAnchor currentTargetAnchor = this.connection.getTargetAnchor();
-        
+
         if (currentSourceAnchor==null || currentTargetAnchor==null) {
             // figure dead
             return;
         }
-        
+
         GmPath lpath = new GmPath(this.model.getPath());
         lpath.setPathData(this.newPathData);
         this.model.setLayoutData(lpath);
-        
+
     }
 
     @objid ("6f91d6ac-e6ee-48ac-b190-bd903ee65d29")

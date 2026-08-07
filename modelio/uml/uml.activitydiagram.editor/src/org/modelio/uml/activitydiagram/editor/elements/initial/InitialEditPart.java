@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.initial;
 
@@ -35,7 +35,7 @@ import org.modelio.uml.activitydiagram.editor.elements.policies.CreateFlowEditPo
 
 /**
  * EditPart for an {@link GmInitialPrimaryNode}.
- * 
+ *
  * @author fpoyer
  */
 @objid ("2aa48f03-55b6-11e2-877f-002564c97630")
@@ -54,7 +54,7 @@ public final class InitialEditPart extends AbstractNodeEditPart {
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START,
                 new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
-        
+
     }
 
     @objid ("2aa48f0f-55b6-11e2-877f-002564c97630")
@@ -62,14 +62,14 @@ public final class InitialEditPart extends AbstractNodeEditPart {
     protected IFigure createFigure() {
         // create the figure
         final FilledEllipseFigure fig = new FilledEllipseFigure();
-        
+
         // set style independent properties
         fig.setPreferredSize(20, 20);
         fig.setMinimumSize(new Dimension(20, 20));
-        
+
         // set style dependent properties
         refreshFromStyle(fig, getModelStyle());
-        
+
         // return the figure
         return fig;
     }
@@ -82,7 +82,7 @@ public final class InitialEditPart extends AbstractNodeEditPart {
                 super.refreshFromStyle(aFigure, style);
             }
         }
-        
+
     }
 
     @objid ("2aa6157f-55b6-11e2-877f-002564c97630")
@@ -90,12 +90,12 @@ public final class InitialEditPart extends AbstractNodeEditPart {
     protected void refreshVisuals() {
         GmInitialPrimaryNode initialNodeModel = (GmInitialPrimaryNode) this.getModel();
         getFigure().getParent().setConstraint(getFigure(), initialNodeModel.getLayoutData());
-        
+
     }
 
     /**
      * Ellipse figure where the line color and the fill color are the same.
-     * 
+     *
      * @author cmarin
      */
     @objid ("2aa61582-55b6-11e2-877f-002564c97630")
@@ -104,17 +104,17 @@ public final class InitialEditPart extends AbstractNodeEditPart {
          * Public default constructor.
          */
         @objid ("2aa61587-55b6-11e2-877f-002564c97630")
-        public  FilledEllipseFigure() {
-            
+        public FilledEllipseFigure() {
+
         }
 
         @objid ("2aa6158a-55b6-11e2-877f-002564c97630")
         @Override
         public void setFillColor(Color fillColor) {
             super.setFillColor(fillColor);
-            
+
             setLineColor(fillColor);
-            
+
         }
 
     }

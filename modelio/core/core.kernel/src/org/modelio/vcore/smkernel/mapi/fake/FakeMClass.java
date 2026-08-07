@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel.mapi.fake;
 
@@ -37,6 +37,7 @@ public interface FakeMClass extends MClass {
     /**
      * Get or create a fake dependency from a dependency that existed on the metaclass before it was discarded.
      * <p>
+     *
      * @param orig a dependency that existed on the metaclass before it becomes fake.
      * @return the matching fake dependency.
      */
@@ -49,5 +50,5 @@ public interface FakeMClass extends MClass {
     @objid ("573f85f0-db50-4904-a42e-09743c59f5cc")
     @Override
     boolean isFake();
-}
 
+}

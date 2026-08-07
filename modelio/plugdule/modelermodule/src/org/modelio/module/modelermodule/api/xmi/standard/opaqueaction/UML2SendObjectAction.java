@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class UML2SendObjectAction {
      * Tells whether a {@link UML2SendObjectAction proxy} can be instantiated from a {@link MObject} checking it is a {@link OpaqueAction} stereotyped << UML2SendObjectAction >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,7 +73,7 @@ public class UML2SendObjectAction {
 
     /**
      * Create a new {@link OpaqueAction} stereotyped << UML2SendObjectAction >> then instantiate a {@link UML2SendObjectAction} proxy.
-     * 
+     *
      * @return a {@link UML2SendObjectAction} proxy on the created {@link OpaqueAction}.
      */
     @objid ("0be607fd-41c4-46d0-aaac-ac2fc2ebe296")
@@ -83,9 +84,10 @@ public class UML2SendObjectAction {
     }
 
     /**
-     * Tries to instantiate a {@link UML2SendObjectAction} proxy from a {@link OpaqueAction} stereotyped << UML2SendObjectAction >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2SendObjectAction} proxy from a {@link OpaqueAction} stereotyped << UML2SendObjectAction >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a OpaqueAction
      * @return a {@link UML2SendObjectAction} proxy or <i>null</i>.
      */
@@ -95,9 +97,10 @@ public class UML2SendObjectAction {
     }
 
     /**
-     * Tries to instantiate a {@link UML2SendObjectAction} proxy from a {@link OpaqueAction} stereotyped << UML2SendObjectAction >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link UML2SendObjectAction} proxy from a {@link OpaqueAction} stereotyped << UML2SendObjectAction >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link OpaqueAction}
      * @return a {@link UML2SendObjectAction} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -127,7 +130,8 @@ public class UML2SendObjectAction {
     }
 
     /**
-     * Get the underlying {@link OpaqueAction}. 
+     * Get the underlying {@link OpaqueAction}.
+     *
      * @return the OpaqueAction represented by this proxy, never null.
      */
     @objid ("dc070e1d-298f-44d4-914f-2f7b2024223e")
@@ -139,11 +143,11 @@ public class UML2SendObjectAction {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("bcc9ec7b-0ce9-4741-adba-aaea6410bedd")
-    protected  UML2SendObjectAction(OpaqueAction elt) {
+    protected UML2SendObjectAction(OpaqueAction elt) {
         this.elt = elt;
     }
 
@@ -163,7 +167,7 @@ public class UML2SendObjectAction {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "52d7cccb-c2fd-11de-8ac8-001302895b2b");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -171,7 +175,7 @@ public class UML2SendObjectAction {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

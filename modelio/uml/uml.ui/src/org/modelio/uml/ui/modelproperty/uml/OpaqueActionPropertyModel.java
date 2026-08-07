@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -50,15 +50,17 @@ public class OpaqueActionPropertyModel extends AbstractPropertyModel<OpaqueActio
 
     /**
      * Create a new <i>OpaqueAction</i> data model from an <i>OpaqueAction</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("ea1f265a-8b9d-42df-924a-7b4caac65a74")
-    public  OpaqueActionPropertyModel(OpaqueAction theEditedElement) {
+    public OpaqueActionPropertyModel(OpaqueAction theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("bc4ce47e-2097-46ac-9e03-7502960bbeea")
@@ -69,6 +71,7 @@ public class OpaqueActionPropertyModel extends AbstractPropertyModel<OpaqueActio
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("d9cc6335-115f-4820-9eef-fd00e15b73fe")
@@ -81,6 +84,7 @@ public class OpaqueActionPropertyModel extends AbstractPropertyModel<OpaqueActio
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -104,7 +108,7 @@ public class OpaqueActionPropertyModel extends AbstractPropertyModel<OpaqueActio
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -114,6 +118,7 @@ public class OpaqueActionPropertyModel extends AbstractPropertyModel<OpaqueActio
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -138,13 +143,14 @@ public class OpaqueActionPropertyModel extends AbstractPropertyModel<OpaqueActio
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -172,7 +178,7 @@ public class OpaqueActionPropertyModel extends AbstractPropertyModel<OpaqueActio
         default:
             return;
         }
-        
+
     }
 
 }

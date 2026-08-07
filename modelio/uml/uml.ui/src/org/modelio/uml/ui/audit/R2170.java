@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -70,7 +70,7 @@ public class R2170 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -90,7 +90,7 @@ public class R2170 extends AbstractUmlRule {
         // Namespaces
         plan.registerRule(Package.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Collaboration.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         // Namespaces.Classifiers
         plan.registerRule(InformationItem.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Artifact.MQNAME, this, AuditTrigger.UPDATE);
@@ -104,7 +104,7 @@ public class R2170 extends AbstractUmlRule {
         plan.registerRule(UseCase.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Node.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Component.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         // Behavior
         plan.registerRule(Activity.MQNAME, this, AuditTrigger.UPDATE |
                 AuditTrigger.MOVE |
@@ -121,7 +121,7 @@ public class R2170 extends AbstractUmlRule {
         plan.registerRule(OpaqueBehavior.MQNAME, this, AuditTrigger.UPDATE |
                 AuditTrigger.MOVE |
                 AuditTrigger.CREATE);
-        
+
     }
 
     /**
@@ -155,14 +155,14 @@ public class R2170 extends AbstractUmlRule {
      * Default constructor for R2170
      */
     @objid ("8c05e1c6-f704-4e3c-977d-a4e886fd9863")
-    public  R2170() {
+    public R2170() {
         this.checkerInstance = new CheckR2170(this);
     }
 
     @objid ("e27780bb-0eca-41a6-8bbe-6fc3d36478f2")
     private static class CheckR2170 extends AbstractControl {
         @objid ("55b4e3a6-67e0-4229-af9c-d52340572976")
-        public  CheckR2170(IRule rule) {
+        public CheckR2170(IRule rule) {
             super(rule);
         }
 
@@ -192,7 +192,7 @@ public class R2170 extends AbstractUmlRule {
                     nameSpace,
                     null);
             Map<String, List<Behavior>> duplicates = new HashMap<>();
-            
+
             for (Behavior be : nameSpace.getOwnedBehavior()) {
                 String name = be.getName();
                 if (!duplicates.containsKey(name)) {
@@ -200,12 +200,12 @@ public class R2170 extends AbstractUmlRule {
                 }
                 duplicates.get(be.getName()).add(be);
             }
-            
+
             for (Entry<String, List<Behavior>> entry : duplicates.entrySet()) {
                 if (entry.getValue().size() > 1) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(nameSpace);

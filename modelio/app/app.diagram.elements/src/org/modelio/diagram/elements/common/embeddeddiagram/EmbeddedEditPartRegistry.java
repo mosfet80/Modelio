@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.embeddeddiagram;
 
@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.editparts.LayerManager;
 
 /**
@@ -30,27 +31,27 @@ import org.eclipse.gef.editparts.LayerManager;
  * <p>
  * Redirects all calls to the root diagram edit part registry except when asking for the
  * layer manager. In this case return the embedded diagram layer manager.
- * 
+ *
  * @author cma
  * @since 3.7
  */
 @objid ("b9e9e1a6-9ab8-4ace-a601-ccb42b12b479")
-class EmbeddedEditPartRegistry implements Map<Object, Object> {
+class EmbeddedEditPartRegistry implements Map<Object, EditPart> {
     @objid ("af6fe73d-be14-47d8-8a34-b1e3f7a027ff")
     private final LayerManager localLayerManager;
 
     @objid ("9a1a35d4-2589-4bec-9544-d674441b838a")
-    private final Map<Object, Object> registry;
+    private final Map<Object, EditPart> registry;
 
     /**
-     * @param registry the parent diagram edit part registry.
+     *
+     * @param map the parent diagram edit part registry.
      * @param localLayerManager the embedded diagram layer manager.
      */
     @objid ("fb9507a0-3cff-450a-a5b8-c0e671de37ca")
-    public  EmbeddedEditPartRegistry(Map<Object, Object> registry, LayerManager localLayerManager) {
-        this.registry = registry;
+    public EmbeddedEditPartRegistry(Map<Object, EditPart> map, LayerManager localLayerManager) {
+        this.registry = map;
         this.localLayerManager = localLayerManager;
-        
     }
 
     @objid ("268056db-ac88-4042-8fee-7e3dd6807c99")
@@ -73,15 +74,15 @@ class EmbeddedEditPartRegistry implements Map<Object, Object> {
 
     @objid ("813ee0a9-1229-4ca5-807a-cec9ed6e5f89")
     @Override
-    public Set<java.util.Map.Entry<Object, Object>> entrySet() {
+    public Set<Entry<Object, EditPart>> entrySet() {
         return this.registry.entrySet();
     }
 
     @objid ("77a44f95-89ea-41a4-a966-71224de28888")
     @Override
-    public Object get(Object key) {
+    public EditPart get(Object key) {
         if (key == LayerManager.ID) {
-            return this.localLayerManager;
+            return (EditPart) this.localLayerManager;
         }
         return this.registry.get(key);
     }
@@ -100,19 +101,19 @@ class EmbeddedEditPartRegistry implements Map<Object, Object> {
 
     @objid ("bdab5680-f5f5-41fe-9ceb-2ea45752fdc2")
     @Override
-    public Object put(Object key, Object value) {
+    public EditPart put(Object key, EditPart value) {
         return this.registry.put(key, value);
     }
 
     @objid ("0f591292-f86b-46ee-bd1c-4ffdc33371e5")
     @Override
-    public void putAll(Map<?, ?> m) {
+    public void putAll(Map<?, ? extends EditPart> m) {
         this.registry.putAll(m);
     }
 
     @objid ("360d6a62-4807-4bd1-b7a2-15674737c5dc")
     @Override
-    public Object remove(Object key) {
+    public EditPart remove(Object key) {
         return this.registry.remove(key);
     }
 
@@ -124,7 +125,7 @@ class EmbeddedEditPartRegistry implements Map<Object, Object> {
 
     @objid ("4596a33f-2118-45f2-8cfc-586b43bb222d")
     @Override
-    public Collection<Object> values() {
+    public Collection<EditPart> values() {
         return this.registry.values();
     }
 

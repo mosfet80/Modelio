@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.operationgroup;
 
@@ -56,20 +56,21 @@ public class GmOperationGroup extends GmGroup {
      * Constructor for deserialization only.
      */
     @objid ("35fef0e1-55b7-11e2-877f-002564c97630")
-    public  GmOperationGroup() {
+    public GmOperationGroup() {
         super();
     }
 
     /**
      * Creates an operation group.
+     *
      * @param diagram The diagram.
      * @param relatedRef a reference to the element this GmModel is related to, must not be null.
      */
     @objid ("35fef0e4-55b7-11e2-877f-002564c97630")
-    public  GmOperationGroup(IGmDiagram diagram, MRef relatedRef) {
+    public GmOperationGroup(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
         refreshFromObModel();
-        
+
     }
 
     @objid ("35fef0ed-55b7-11e2-877f-002564c97630")
@@ -95,7 +96,7 @@ public class GmOperationGroup extends GmGroup {
     public void refreshFromObModel() {
         //TODO : move this in parent class
         firePropertyChange(PROP_REFRESH_FROM_OBMODEL, null, this);
-        
+
     }
 
     @objid ("35fef0fe-55b7-11e2-877f-002564c97630")
@@ -108,7 +109,7 @@ public class GmOperationGroup extends GmGroup {
         } else {
             super.styleChanged(property, newValue);
         }
-        
+
     }
 
     @objid ("35fef105-55b7-11e2-877f-002564c97630")
@@ -117,7 +118,7 @@ public class GmOperationGroup extends GmGroup {
         refreshFromObModel();
         fireVisibilityChanged();
         super.styleChanged(style);
-        
+
     }
 
     @objid ("3600777c-55b7-11e2-877f-002564c97630")
@@ -127,7 +128,7 @@ public class GmOperationGroup extends GmGroup {
             getParent().getDisplayedStyle().setProperty(getStyleKey(MetaKey.REPMODE), RepresentationMode.STRUCTURED);
         }
         getDisplayedStyle().setProperty(getGroupVisibleStyleKey(), visible);
-        
+
     }
 
     @objid ("36007780-55b7-11e2-877f-002564c97630")
@@ -137,14 +138,14 @@ public class GmOperationGroup extends GmGroup {
         if (!(el instanceof Operation) || !el.isValid()) {
             return false;
         }
-        
+
         // Cannot unmask a foreign operation (not belonging to the class)
         if (!el.getCompositionOwner().equals(getRelatedElement())) {
             return false;
         }
-        
+
         final Operation op = (Operation) el;
-        
+
         StyleKey.UmaskByVisibilityStragegy unmaskmode = getVisibilityFilter(StyleKey.UmaskByVisibilityStragegy.ALL);
         switch (unmaskmode) {
         case ALL:
@@ -165,12 +166,12 @@ public class GmOperationGroup extends GmGroup {
         final Classifier classifier = (Classifier) getRelatedElement();
         if (classifier != null && classifier.isValid()) {
             boolean hasHiddenFeature = false;
-        
+
             final StyleKey.UmaskByVisibilityStragegy mode = getVisibilityFilter(StyleKey.UmaskByVisibilityStragegy.ALL);
             switch (mode) {
             case ALL:
                 break;
-        
+
             case ALL_PUBLIC:
                 for (Feature part : classifier.getOwnedOperation()) {
                     if (part.getVisibility() != VisibilityMode.PUBLIC) {
@@ -178,7 +179,7 @@ public class GmOperationGroup extends GmGroup {
                     }
                 }
                 break;
-        
+
             case ALL_NON_PRIVATE:
                 for (Feature part : classifier.getOwnedOperation()) {
                     if (part.getVisibility() == VisibilityMode.PRIVATE) {
@@ -190,11 +191,11 @@ public class GmOperationGroup extends GmGroup {
                 hasHiddenFeature = classifier.getOwnedOperation().size() != getChildren().size();
                 break;
             }
-        
+
             setHiddenFeature(hasHiddenFeature);
-        
+
         }
-        
+
     }
 
     /**
@@ -233,17 +234,17 @@ public class GmOperationGroup extends GmGroup {
             break;
         }
         }
-        
+
     }
 
     @objid ("360077a6-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmOperationGroup.", GmOperationGroup.MINOR_VERSION);
-        
+
     }
 
     @objid ("360077ac-55b7-11e2-877f-002564c97630")

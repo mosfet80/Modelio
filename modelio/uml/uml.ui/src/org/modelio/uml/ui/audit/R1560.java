@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -49,7 +49,7 @@ public class R1560 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -68,7 +68,7 @@ public class R1560 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         plan.registerRule(Class.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(Generalization.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE);
-        
+
     }
 
     /**
@@ -102,14 +102,14 @@ public class R1560 extends AbstractUmlRule {
      * Default constructor for R1560
      */
     @objid ("7d2e3373-79c3-4cf2-81d4-129da3537ee9")
-    public  R1560() {
+    public R1560() {
         this.checkerInstance = new CheckR1560(this);
     }
 
     @objid ("0f5834e3-67a9-41b4-b94b-2534377792ed")
     private static class CheckR1560 extends AbstractControl {
         @objid ("698fda96-a39e-4416-8a7f-d5e86be0c2b6")
-        public  CheckR1560(IRule rule) {
+        public CheckR1560(IRule rule) {
             super(rule);
         }
 
@@ -145,15 +145,15 @@ public class R1560 extends AbstractUmlRule {
                     AuditSeverity.AuditSuccess,
                     clazz,
                     null);
-            
+
             if (clazz.isIsActive()) {
                 for (Generalization gen : clazz.getSpecialization()) {
                     NameSpace ns = gen.getSubType();
                     if (ns instanceof Class) {
                         if (!((Class) ns).isIsActive()) {
-            
+
                             // Rule failed
-            
+
                             auditEntry.setSeverity(this.rule.getSeverity());
                             List<Object> linkedObjects = new ArrayList<>();
                             linkedObjects.add(clazz);

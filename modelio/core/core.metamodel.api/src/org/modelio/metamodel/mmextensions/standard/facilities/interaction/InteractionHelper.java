@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.mmextensions.standard.facilities.interaction;
 
@@ -35,6 +35,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * Services to ease navigation in {@link Interaction} models.
+ *
  * @author cma
  * @since 3.7.1
  */
@@ -42,6 +43,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class InteractionHelper {
     /**
      * Get all {@link InteractionFragment} of the interaction.
+     *
      * @return a stream of all {@link InteractionFragment} of the interaction.
      */
     @objid ("752ac436-b047-41d3-b1ac-7ab8ed121440")
@@ -51,6 +53,7 @@ public class InteractionHelper {
 
     /**
      * Get all {@link InteractionFragment} of the interaction.
+     *
      * @return all {@link InteractionFragment} of the interaction.
      */
     @objid ("3743109f-d40e-4eb1-a156-c6e1a5006a69")
@@ -64,6 +67,7 @@ public class InteractionHelper {
 
     /**
      * Returns the {@link Interaction} enclosing the passed element if any, <code>null</code> otherwise.
+     *
      * @param el the element which enclosing Interaction is searched.
      * @return the {@link Interaction} enclosing the passed element if any, <code>null</code> otherwise.
      */
@@ -78,12 +82,13 @@ public class InteractionHelper {
 
     /**
      * Get a stream of the given {@link InteractionFragment} and all owned {@link InteractionFragment}.
+     *
      * @return a Stream on all {@link InteractionFragment} of the element.
      */
     @objid ("71e0ee24-8c0d-4e43-a2ef-08a7d31ad56c")
     private static Stream<InteractionFragment> allFragments(InteractionFragment obj) {
         return Stream.concat(
-                        Stream.of(obj), 
+                        Stream.of(obj),
                         OwnedFragmentsGetter.INSTANCE.get(obj).stream().flatMap(InteractionHelper::allFragments));
     }
 
@@ -95,7 +100,7 @@ public class InteractionHelper {
                 getAllFragments(f, coll);
             }
         }
-        
+
     }
 
     /**
@@ -110,7 +115,7 @@ public class InteractionHelper {
         @SuppressWarnings ("unchecked")
         public List<InteractionFragment> get(MObject obj) {
             Object ret = obj.accept(this);
-            
+
             if (! (ret instanceof List)) {
                 throw new IllegalArgumentException(String.valueOf(obj));
             }

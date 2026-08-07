@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.activitydiagram;
 
@@ -44,7 +44,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * Command used for smart unmask interaction: creating an ObjectNode representing the dropped element.
- * 
+ *
  * @author fpoyer
  */
 @objid ("299800d9-55b6-11e2-877f-002564c97630")
@@ -62,18 +62,19 @@ public class SmartObjectNodeCommand extends Command {
     private EditPart parentEditPart;
 
     /**
+     *
      * @param dropLocation the location where the ObjectNode is to be unmasked.
      * @param toUnmask the element that the ObjectNode will represent.
      * @param parentEditPart the edit part handling the unmasking
      * @param parentElement the element that will own the new ObjectNode
      */
     @objid ("299800e3-55b6-11e2-877f-002564c97630")
-    public  SmartObjectNodeCommand(final Point dropLocation, final MObject toUnmask, final EditPart parentEditPart, final MObject parentElement) {
+    public SmartObjectNodeCommand(final Point dropLocation, final MObject toUnmask, final EditPart parentEditPart, final MObject parentElement) {
         this.location = dropLocation;
         this.toUnmask = toUnmask;
         this.parentEditPart = parentEditPart;
         this.parentElement = parentElement;
-        
+
     }
 
     @objid ("299800f2-55b6-11e2-877f-002564c97630")
@@ -82,14 +83,14 @@ public class SmartObjectNodeCommand extends Command {
         GmModel gmModel = (GmModel) this.parentEditPart.getModel();
         IGmDiagram gmDiagram = gmModel.getDiagram();
         IStandardModelFactory modelFactory = gmDiagram.getModelManager().getModelFactory().getFactory(IStandardModelFactory.class);
-        
+
         // Create the smart node
         InstanceNode instanceNode = modelFactory.createInstanceNode();
-        
+
         // Attach to parent
         MExpert mExpert = this.parentElement.getMClass().getMetamodel().getMExpert();
         final MDependency effectiveDependency = mExpert.getDefaultCompositionDep(this.parentElement, instanceNode);
-        
+
         if (effectiveDependency == null) {
             StringBuilder msg = new StringBuilder();
             msg.append("Cannot find a composition dependency to attach ");
@@ -98,9 +99,9 @@ public class SmartObjectNodeCommand extends Command {
             msg.append(this.parentElement.toString());
             throw new IllegalStateException(msg.toString());
         }
-        
+
         this.parentElement.mGet(effectiveDependency).add(instanceNode);
-        
+
         // Attach to dropped element
         if (this.toUnmask instanceof Instance) {
             instanceNode.setRepresented((Instance) this.toUnmask);
@@ -129,25 +130,25 @@ public class SmartObjectNodeCommand extends Command {
                 // TODO: handle error case?
             }
         }
-        
+
         unmaskElement(instanceNode);
-        
+
     }
 
     @objid ("299800f5-55b6-11e2-877f-002564c97630")
     private void unmaskElement(final MObject el) {
         final ModelioCreationContext gmCreationContext = new ModelioCreationContext(el);
-        
+
         final CreateRequest creationRequest = new CreateRequest();
         creationRequest.setLocation(this.location);
         creationRequest.setSize(new Dimension(-1, -1));
         creationRequest.setFactory(gmCreationContext);
-        
+
         final Command cmd = this.parentEditPart.getTargetEditPart(creationRequest).getCommand(creationRequest);
         if (cmd != null && cmd.canExecute()) {
             cmd.execute();
         }
-        
+
     }
 
     @objid ("299800fb-55b6-11e2-877f-002564c97630")

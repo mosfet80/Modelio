@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.control;
 
@@ -37,24 +37,24 @@ public class NoteSubjectChecker extends AbstractDependencyTypeChecker {
      * C'tor
      */
     @objid ("b7f8235b-a3f8-4909-9076-77eba5f11770")
-    public  NoteSubjectChecker(SmMetamodel mm) {
+    public NoteSubjectChecker(SmMetamodel mm) {
         // Cached SmClass
         // none
-        
+
         // Direct checker
         register(mm.getMClass(Note.class), "Subject");
-        
+
         // Symetric checker
         ModelElementDescriptorChecker symetricChecker = new ModelElementDescriptorChecker(this);
         symetricChecker.register(mm.getMClass(ModelElement.class), "Descriptor");
-        
+
     }
 
     @objid ("02fcbaa8-f027-11e1-8bdc-002564c97630")
     @Override
     public int doCheck(final SmObjectImpl obj, final SmObjectImpl value) {
         Note note = (Note) obj;
-        
+
         if (value != null) {
             SmClass cls = value.getClassOf();
             SmClass baseClass = getBaseClass(note);
@@ -78,7 +78,7 @@ public class NoteSubjectChecker extends AbstractDependencyTypeChecker {
         } else {
             return null;
         }
-        
+
     }
 
     /**
@@ -90,7 +90,7 @@ public class NoteSubjectChecker extends AbstractDependencyTypeChecker {
         NoteSubjectChecker symetricChecker;
 
         @objid ("02fcbac4-f027-11e1-8bdc-002564c97630")
-        public  ModelElementDescriptorChecker(NoteSubjectChecker symetricChecker) {
+        public ModelElementDescriptorChecker(NoteSubjectChecker symetricChecker) {
             this.symetricChecker = symetricChecker;
         }
 

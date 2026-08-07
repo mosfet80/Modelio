@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.informationflowgroup;
 
@@ -42,7 +42,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * <p>
  * The created information flow must be realized by the related element, and must have as source and target the source and the
  * target of the represented link.
- * 
+ *
  * @author cmarin
  */
 @objid ("816e87b2-1dec-11e2-8cad-001ec947c8cc")
@@ -75,7 +75,7 @@ public class InfoFlowsGroupCreatePolicy extends DefaultGroupLayoutEditPolicy {
     protected Command getCloneCommand(final ChangeBoundsRequest request) {
         if (getHost().getModel() instanceof GmCompositeNode) {
             final GmCompositeNode hostModel = (GmCompositeNode) getHost().getModel();
-        
+
             final CompoundCommand command = new CompoundCommand();
             for (Object editPartObj : request.getEditParts()) {
                 final EditPart editPart = (EditPart) editPartObj;
@@ -85,7 +85,7 @@ public class InfoFlowsGroupCreatePolicy extends DefaultGroupLayoutEditPolicy {
                     if (canHandle(metaclassToClone)) {
                         command.add(new CreateInformationFlowCommand(hostModel, new ModelioCreationContext(metaclassToClone,
                                 null, null), Integer.valueOf(-1)));
-        
+
                     }
                 }
             }
@@ -101,13 +101,13 @@ public class InfoFlowsGroupCreatePolicy extends DefaultGroupLayoutEditPolicy {
         if (ctx == null) {
             return null;
         }
-        
+
         final Class<? extends MObject> metaclassToCreate = ctx.getMetaclass().getJavaInterface();
-        
+
         if (metaclassToCreate != InformationFlow.class) {
             return null;
         }
-        
+
         final GmCompositeNode gmGroup = (GmCompositeNode) getHost().getModel();
         return new CreateInformationFlowCommand(gmGroup, ctx, Integer.valueOf(-1));
     }

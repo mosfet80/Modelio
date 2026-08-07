@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.viewer.config.body;
 
@@ -120,8 +120,11 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
     @objid ("9fa1bbfd-361b-41a9-83ab-20edc86cfecf")
     private static final VerticalAlignmentEnum DEFAULT_VERTICAL_ALIGNMENT = VerticalAlignmentEnum.MIDDLE;
 
-    @objid ("8dbbde4b-ee06-48d3-9c51-c81a4eb49fcd")
+    @objid ("61828c31-7720-4494-ab07-7ff6db2f24d5")
     private static final Image EDIT_ICON = CoreUi.getImageDescriptor("icons/edit.png").createImage();
+
+    @objid ("7d2b0895-7fc3-4ee1-9d50-ed3407846620")
+    private final ILabelProvider elementLabelProvider;
 
     @objid ("80860d2d-7f80-4f55-9bc6-e6c052dcb3c3")
     private final PropertyTableDataModel dataModel;
@@ -129,11 +132,9 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
     @objid ("a6d3e1d4-b207-40ab-8a47-73c5957279be")
     private final INatTableViewerContext context;
 
-    @objid ("cf5b3688-bd99-437c-bcfb-867f1071185b")
-    private final ILabelProvider elementLabelProvider;
-
     /**
      * Create a new BodyConfiguration.
+     *
      * @param projectService the project service, to access preferences and model session.
      * @param pickingService the picking service, to manually choose elements in the model.
      * @param activationService the activation service, to open external editors.
@@ -141,11 +142,10 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
      * @param elementLabelProvider a label provider for MObject element
      */
     @objid ("632fda9d-a888-4c35-a89b-e86a36b8db0a")
-    public  BodyConfiguration(PropertyTableDataModel dataModel, INatTableViewerContext context, ILabelProvider elementLabelProvider) {
+    public BodyConfiguration(PropertyTableDataModel dataModel, INatTableViewerContext context, ILabelProvider elementLabelProvider) {
         this.context = context;
         this.dataModel = dataModel;
         this.elementLabelProvider = elementLabelProvider;
-        
     }
 
     @objid ("d2999cea-e961-45dd-b72a-c6ab4bd5beab")
@@ -153,7 +153,7 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
     public void configureRegistry(IConfigRegistry configRegistry) {
         configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITABLE_RULE, IEditableRule.ALWAYS_EDITABLE,
                 DisplayMode.EDIT, BodyConfiguration.EDITABLE);
-        
+
         // Declare all standard types
         configureRegistryForBOOLEAN(configRegistry);
         configureRegistryForDATE(configRegistry);
@@ -168,7 +168,7 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         configureRegistryForTIME(configRegistry);
         configureRegistryForUNSIGNED(configRegistry);
         configureRegistryForTEXTICON(configRegistry);
-        
+
         // Declare all enumerated types
         final IPropertyModel<?> propertyModel = this.dataModel.getPropertyModel();
         for (int row = 0; row < propertyModel.getRowsNumber(); row++) {
@@ -195,7 +195,6 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
                 }
             }
         }
-        
     }
 
     @objid ("1c7e8f6e-b7e6-40f0-b78b-af830a75de88")
@@ -203,25 +202,25 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
     public void configureUiBindings(UiBindingRegistry uiBindingRegistry) {
         // F2 key enters edition
         uiBindingRegistry.registerKeyBinding(new KeyEventMatcher(SWT.NONE, SWT.F2), new KeyEditAction());
-        
+
         // SPACE key enters edition: this is especially useful for changing the
         // value for a checkbox
         uiBindingRegistry.registerKeyBinding(new KeyEventMatcher(SWT.NONE, SWT.SPACE), new KeyEditAction());
-        
+
         // any letter or digit key enters edition (upper or lower case)
         uiBindingRegistry.registerKeyBinding(new LetterOrDigitKeyEventMatcher(), new KeyEditAction());
         uiBindingRegistry.registerKeyBinding(new LetterOrDigitKeyEventMatcher(SWT.SHIFT), new KeyEditAction());
-        
+
         // Single click in a TextCellEditor editor enters edition
         // Single click in a DateValueEditor editor enters edition
         // Single click in a ElementValueEditor editor enters edition
         uiBindingRegistry.registerSingleClickBinding(new CellEditorMouseEventMatcher(GridRegion.BODY, MouseEventMatcher.LEFT_BUTTON),
                 new MouseEditAction());
-        
+
         uiBindingRegistry.registerFirstSingleClickBinding(
                 new CellPainterMouseEventMatcher(GridRegion.BODY, MouseEventMatcher.LEFT_BUTTON, CheckBoxPainter.class),
                 new MouseEditAction());
-        
+
         /*
          * rom nebual 2.1 uiBindingRegistry.registerFirstMouseDragMode( new CellPainterMouseEventMatcher(GridRegion.BODY, MouseEventMatcher.LEFT_BUTTON, CheckBoxPainter.class), new CellEditDragMode());
          */
@@ -229,12 +228,11 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         uiBindingRegistry.registerFirstMouseDragMode(
                 new CellPainterMouseEventMatcher(GridRegion.BODY, MouseEventMatcher.LEFT_BUTTON, CheckBoxPainter.class),
                 new CellSelectionDragMode());
-        
+
         // CTRL ALT left click = select in explorer
         uiBindingRegistry.registerFirstSingleClickBinding(
                 new CellPainterMouseEventMatcherWithMask(SWT.CTRL | SWT.ALT, GridRegion.BODY, MouseEventMatcher.LEFT_BUTTON, TextIconPainter.class),
                 new SelectInExplorerAction(this.context.getNavigationService()));
-        
     }
 
     /**
@@ -247,22 +245,21 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         Style cellStyle = new Style();
         cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.LEFT);
         cellStyle.setAttributeValue(CellStyleAttributes.VERTICAL_ALIGNMENT, BodyConfiguration.DEFAULT_VERTICAL_ALIGNMENT);
-        
+
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL, tag);
-        
+
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_PAINTER, new CheckBoxPainter(),
                 DisplayMode.NORMAL, tag);
-        
+
         // Display converter
         configRegistry.registerConfigAttribute(CellConfigAttributes.DISPLAY_CONVERTER,
                 new BooleanValueDisplayConverter(), DisplayMode.NORMAL, tag);
-        
+
         // Editor
         final CheckBoxCellEditor checkboxEditor = new CheckBoxCellEditor();
         configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITOR, checkboxEditor, DisplayMode.EDIT, tag);
-        
+
         // Validator
-        
     }
 
     /**
@@ -276,17 +273,16 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.LEFT);
         cellStyle.setAttributeValue(CellStyleAttributes.VERTICAL_ALIGNMENT, BodyConfiguration.DEFAULT_VERTICAL_ALIGNMENT);
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL, tag);
-        
+
         // Display converter
         configRegistry.registerConfigAttribute(CellConfigAttributes.DISPLAY_CONVERTER,
                 new NatValueWrappingDisplayConverter(new DateDisplayConverter()), DisplayMode.NORMAL, tag);
-        
+
         // Editor
         final DateValueEditor editor = new DateValueEditor();
         configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITOR, editor, DisplayMode.EDIT, tag);
-        
+
         // Validator
-        
     }
 
     /**
@@ -302,18 +298,17 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL, tag);
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_PAINTER, new ElementPainter(this.elementLabelProvider, false),
                 DisplayMode.NORMAL, tag);
-        
+
         // Display converter
         configRegistry.registerConfigAttribute(CellConfigAttributes.DISPLAY_CONVERTER,
                 new NatValueWrappingDisplayConverter(new ElementDisplayConverter(this.elementLabelProvider)), DisplayMode.NORMAL, tag);
-        
+
         // Editor
         final ElementNatValueEditor editor = new ElementNatValueEditor(this.context.getSession(), this.context.getPickingService());
-        
+
         configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITOR, editor, DisplayMode.EDIT, tag);
-        
+
         // Validator
-        
     }
 
     @objid ("fd9e57d5-be1c-4bbc-9bfe-229e097ef669")
@@ -326,11 +321,11 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL, tag);
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_PAINTER, new ElementPainter(this.elementLabelProvider, false),
                 DisplayMode.NORMAL, tag);
-        
+
         // Display converter
         configRegistry.registerConfigAttribute(CellConfigAttributes.DISPLAY_CONVERTER,
                 new NatValueWrappingDisplayConverter(new ElementDisplayConverter(this.elementLabelProvider)), DisplayMode.NORMAL, tag);
-        
+
         // Editor
         final ComboBoxCellEditor comboEditor = new ComboBoxCellEditor(possibleValues) {
             @Override
@@ -356,9 +351,8 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
             }
         };
         configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITOR, comboEditor, DisplayMode.EDIT, tag);
-        
+
         // Validator
-        
     }
 
     /**
@@ -371,11 +365,11 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         Style cellStyle = new Style();
         cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.LEFT);
         cellStyle.setAttributeValue(CellStyleAttributes.VERTICAL_ALIGNMENT, BodyConfiguration.DEFAULT_VERTICAL_ALIGNMENT);
-        
+
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL, tag);
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_PAINTER, new ComboBoxPainter(),
                 DisplayMode.NORMAL, tag);
-        
+
         // Display converter
         configRegistry.registerConfigAttribute(CellConfigAttributes.DISPLAY_CONVERTER,
                 new NatValueWrappingDisplayConverter(new JavaEnumNatValueDisplayConverter(enumeratedPropertyType) {
@@ -384,7 +378,7 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
                         if (obj == null) {
                             return "";
                         }
-        
+
                         final Enum<?> l;
                         if (obj instanceof Enum) {
                             l = (Enum<?>) obj;
@@ -394,14 +388,13 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
                         return MetamodelLabels.getString(l.toString());
                     }
                 }), DisplayMode.NORMAL, tag);
-        
+
         // Editor
         final ComboBoxCellEditor comboEditor = new ComboBoxCellEditor(
                 Arrays.asList(enumeratedPropertyType.getEnumConstants()));
         configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITOR, comboEditor, DisplayMode.EDIT, tag);
-        
+
         // Validator
-        
     }
 
     /**
@@ -415,13 +408,13 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.LEFT);
         cellStyle.setAttributeValue(CellStyleAttributes.VERTICAL_ALIGNMENT, BodyConfiguration.DEFAULT_VERTICAL_ALIGNMENT);
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL, tag);
-        
+
         // Display converter
         configRegistry.registerConfigAttribute(CellConfigAttributes.DISPLAY_CONVERTER,
                 new NatValueWrappingDisplayConverter(new DefaultDoubleDisplayConverter()), DisplayMode.NORMAL, tag);
-        
+
         // Editor
-        
+
         // Validator
         final DataValidator validator = new DataValidator() {
             @Override
@@ -435,7 +428,6 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
             }
         };
         configRegistry.registerConfigAttribute(EditConfigAttributes.DATA_VALIDATOR, validator, DisplayMode.EDIT, tag);
-        
     }
 
     @objid ("8fe4939a-4295-4155-b839-c35379501d35")
@@ -448,17 +440,16 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL, tag);
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_PAINTER, new TextIconPainter(false),
                 DisplayMode.NORMAL, tag);
-        
+
         // Display converter
         configRegistry.registerConfigAttribute(CellConfigAttributes.DISPLAY_CONVERTER,
                 new NatValueWrappingDisplayConverter(new TextIconConverter(this.elementLabelProvider)), DisplayMode.NORMAL, tag);
-        
+
         // Editor
         final HybridNatValueEditor editor = new HybridNatValueEditor(this.context.getSession(), this.context.getPickingService());
         configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITOR, editor, DisplayMode.EDIT, tag);
-        
+
         // Validator
-        
     }
 
     /**
@@ -472,13 +463,13 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.LEFT);
         cellStyle.setAttributeValue(CellStyleAttributes.VERTICAL_ALIGNMENT, BodyConfiguration.DEFAULT_VERTICAL_ALIGNMENT);
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL, tag);
-        
+
         // Display converter
         configRegistry.registerConfigAttribute(CellConfigAttributes.DISPLAY_CONVERTER,
                 new NatValueWrappingDisplayConverter(new DefaultIntegerDisplayConverter()), DisplayMode.NORMAL, tag);
-        
+
         // Editor
-        
+
         // Validator
         final DataValidator validator = new DataValidator() {
             @Override
@@ -492,7 +483,6 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
             }
         };
         configRegistry.registerConfigAttribute(EditConfigAttributes.DATA_VALIDATOR, validator, DisplayMode.EDIT, tag);
-        
     }
 
     /**
@@ -501,7 +491,7 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
     @objid ("125b5334-4b76-4188-972b-30ed148f8851")
     private void configureRegistryForMULTIELEMENT(IConfigRegistry configRegistry) {
         final String tag = CellTagHelper.getTypeTag(IMultiElementNatValue.class);
-        
+
         // Style and painter
         Style cellStyle = new Style();
         cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.LEFT);
@@ -509,27 +499,26 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL, tag);
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_PAINTER, new MultiElementPainter(false),
                 DisplayMode.NORMAL, tag);
-        
+
         // Display converter
         configRegistry.registerConfigAttribute(CellConfigAttributes.DISPLAY_CONVERTER,
                 new NatValueWrappingDisplayConverter(new MultiElementDisplayConverter(this.elementLabelProvider)), DisplayMode.NORMAL, tag);
-        
+
         // Editor
         final MultiElementValueEditor editor = new MultiElementValueEditor(this.context.getSession());
         configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITOR, editor, DisplayMode.EDIT, tag);
-        
+
         // Editor's i18n
         Map<String, Object> editDialogSettings = new HashMap<>();
         editDialogSettings.put(ICellEditDialog.DIALOG_SHELL_TITLE, CoreUi.I18N.getString("MultiElementEditionDialog.Title"));
         editDialogSettings.put(ICellEditDialog.DIALOG_MESSAGE, CoreUi.I18N.getString("MultiElementEditionDialog.Message"));
         editDialogSettings.put(ICellEditDialog.DIALOG_SHELL_ICON, BodyConfiguration.EDIT_ICON);
         editDialogSettings.put(ICellEditDialog.DIALOG_SHELL_RESIZABLE, Boolean.TRUE);
-        
+
         configRegistry.registerConfigAttribute(EditConfigAttributes.EDIT_DIALOG_SETTINGS, editDialogSettings,
                 DisplayMode.EDIT, tag);
-        
+
         // Validator
-        
     }
 
     /**
@@ -543,15 +532,15 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.LEFT);
         cellStyle.setAttributeValue(CellStyleAttributes.VERTICAL_ALIGNMENT, BodyConfiguration.DEFAULT_VERTICAL_ALIGNMENT);
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL, tag);
-        
+
         // Display converter
         configRegistry.registerConfigAttribute(CellConfigAttributes.DISPLAY_CONVERTER,
                 new NatValueWrappingDisplayConverter(new MultiStringDisplayConverter()), DisplayMode.NORMAL, tag);
-        
+
         // Editor
         final MultiStringValueEditor editor = new MultiStringValueEditor();
         configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITOR, editor, DisplayMode.EDIT, tag);
-        
+
         // Editor's i18n
         Map<String, Object> editDialogSettings = new HashMap<>();
         editDialogSettings.put(ICellEditDialog.DIALOG_SHELL_TITLE,
@@ -559,12 +548,11 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         editDialogSettings.put(ICellEditDialog.DIALOG_MESSAGE,
                 CoreUi.I18N.getString("MultiStringEditionDialog.Message"));
         editDialogSettings.put(ICellEditDialog.DIALOG_SHELL_ICON, BodyConfiguration.EDIT_ICON);
-        
+
         configRegistry.registerConfigAttribute(EditConfigAttributes.EDIT_DIALOG_SETTINGS, editDialogSettings,
                 DisplayMode.EDIT, tag);
-        
+
         // Validator
-        
     }
 
     /**
@@ -573,24 +561,23 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
     @objid ("9d951366-b361-4af1-ae61-6be78646e6bf")
     private void configureRegistryForSTRING(IConfigRegistry configRegistry) {
         final String tag = CellTagHelper.getTypeTag(IStringNatValue.class);
-        
+
         // Style and painter
         Style cellStyle = new Style();
         cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.LEFT);
         cellStyle.setAttributeValue(CellStyleAttributes.VERTICAL_ALIGNMENT, BodyConfiguration.DEFAULT_VERTICAL_ALIGNMENT);
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL, tag);
-        
+
         // Display converter
         configRegistry.registerConfigAttribute(CellConfigAttributes.DISPLAY_CONVERTER,
                 new NatValueWrappingDisplayConverter(new DefaultStringDisplayConverter()), DisplayMode.NORMAL, tag);
-        
+
         // Editor
         final TextCellEditor textCellEditor = new TextCellEditor();
         textCellEditor.setDecorationPositionOverride(SWT.LEFT | SWT.TOP);
         configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITOR, textCellEditor, DisplayMode.EDIT, tag);
-        
+
         // Validator
-        
     }
 
     @objid ("fb5201a7-f5b2-46d7-8a6a-14e1828a80e7")
@@ -600,20 +587,19 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         Style cellStyle = new Style();
         cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.LEFT);
         cellStyle.setAttributeValue(CellStyleAttributes.VERTICAL_ALIGNMENT, BodyConfiguration.DEFAULT_VERTICAL_ALIGNMENT);
-        
+
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL, tag);
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_PAINTER, new ComboBoxPainter(),
                 DisplayMode.NORMAL, tag);
-        
+
         // Display converter
         configRegistry.registerConfigAttribute(CellConfigAttributes.DISPLAY_CONVERTER,
                 new NatValueWrappingDisplayConverter(new DefaultDisplayConverter()), DisplayMode.NORMAL, tag);
-        
+
         // Editor
         final ComboBoxCellEditor comboEditor = new ComboBoxCellEditor(possibleValues);
         comboEditor.setFreeEdit(isEditable);
         configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITOR, comboEditor, DisplayMode.EDIT, tag);
-        
     }
 
     /**
@@ -627,17 +613,17 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.LEFT);
         cellStyle.setAttributeValue(CellStyleAttributes.VERTICAL_ALIGNMENT, BodyConfiguration.DEFAULT_VERTICAL_ALIGNMENT);
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL, tag);
-        
+
         // Display converter
         configRegistry.registerConfigAttribute(CellConfigAttributes.DISPLAY_CONVERTER,
                 new NatValueWrappingDisplayConverter(new DefaultStringDisplayConverter()), DisplayMode.NORMAL, tag);
-        
+
         // Editor
         final MultiLineTextCellEditor editor = new MultiLineTextCellEditor();
         editor.setDecorationPositionOverride(SWT.LEFT | SWT.TOP);
         configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITOR, editor, DisplayMode.EDIT, tag);
         configRegistry.registerConfigAttribute(EditConfigAttributes.OPEN_IN_DIALOG, true, DisplayMode.EDIT, tag);
-        
+
         // FIXME Editor's i18n
         Map<String, Object> editDialogSettings = new HashMap<>();
         editDialogSettings.put(ICellEditDialog.DIALOG_SHELL_TITLE,
@@ -647,12 +633,11 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         editDialogSettings.put(ICellEditDialog.DIALOG_SHELL_ICON, BodyConfiguration.EDIT_ICON);
         editDialogSettings.put(ICellEditDialog.DIALOG_SHELL_SIZE, new Point(400, 400));
         editDialogSettings.put(ICellEditDialog.DIALOG_SHELL_RESIZABLE, Boolean.TRUE);
-        
+
         configRegistry.registerConfigAttribute(EditConfigAttributes.EDIT_DIALOG_SETTINGS, editDialogSettings,
                 DisplayMode.EDIT, tag);
-        
+
         // Validator
-        
     }
 
     /**
@@ -665,19 +650,18 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         Style cellStyle = new Style();
         cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.LEFT);
         cellStyle.setAttributeValue(CellStyleAttributes.VERTICAL_ALIGNMENT, BodyConfiguration.DEFAULT_VERTICAL_ALIGNMENT);
-        
+
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL, tag);
-        
+
         // Display converter
         configRegistry.registerConfigAttribute(CellConfigAttributes.DISPLAY_CONVERTER,
                 new NatValueWrappingDisplayConverter(new TimeDisplayConverter()), DisplayMode.NORMAL, tag);
-        
+
         // Editor
         final TimeValueEditor editor = new TimeValueEditor();
         configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITOR, editor, DisplayMode.EDIT, tag);
-        
+
         // Validator
-        
     }
 
     /**
@@ -691,13 +675,13 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         cellStyle.setAttributeValue(CellStyleAttributes.HORIZONTAL_ALIGNMENT, HorizontalAlignmentEnum.LEFT);
         cellStyle.setAttributeValue(CellStyleAttributes.VERTICAL_ALIGNMENT, BodyConfiguration.DEFAULT_VERTICAL_ALIGNMENT);
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL, tag);
-        
+
         // Display converter
         configRegistry.registerConfigAttribute(CellConfigAttributes.DISPLAY_CONVERTER,
                 new NatValueWrappingDisplayConverter(new DefaultIntegerDisplayConverter()), DisplayMode.NORMAL, tag);
-        
+
         // Editor
-        
+
         // Validator
         final DataValidator validator = new DataValidator() {
             @Override
@@ -714,7 +698,6 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
             }
         };
         configRegistry.registerConfigAttribute(EditConfigAttributes.DATA_VALIDATOR, validator, DisplayMode.EDIT, tag);
-        
     }
 
     @objid ("eee8cb6a-9592-47ba-ad2c-1e700bc884ef")
@@ -727,17 +710,16 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL, tag);
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_PAINTER, new TextIconPainter(false),
                 DisplayMode.NORMAL, tag);
-        
+
         // Display converter
         configRegistry.registerConfigAttribute(CellConfigAttributes.DISPLAY_CONVERTER,
                 new NatValueWrappingDisplayConverter(new TextIconConverter(this.elementLabelProvider)), DisplayMode.NORMAL, tag);
-        
+
         // Editor
         // final ElementNatValueEditor editor = new ElementNatValueEditor(this.context.getSession(), this.context.getPickingService());
         // configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITOR, editor, DisplayMode.EDIT, tag);
-        
+
         // Validator
-        
     }
 
     /**
@@ -753,18 +735,17 @@ public class BodyConfiguration extends AbstractRegistryConfiguration {
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyle, DisplayMode.NORMAL, tag);
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_PAINTER, new ElementPainter(this.elementLabelProvider, false),
                 DisplayMode.NORMAL, tag);
-        
+
         // Display converter
         configRegistry.registerConfigAttribute(CellConfigAttributes.DISPLAY_CONVERTER,
                 new NatValueWrappingDisplayConverter(new ElementDisplayConverter(this.elementLabelProvider)), DisplayMode.NORMAL, tag);
-        
+
         // Editor
         final MultiRowElementNatValueEditor editor = new MultiRowElementNatValueEditor(this.context.getSession());
-        
+
         configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITOR, editor, DisplayMode.EDIT, tag);
-        
+
         // Validator
-        
     }
 
 }

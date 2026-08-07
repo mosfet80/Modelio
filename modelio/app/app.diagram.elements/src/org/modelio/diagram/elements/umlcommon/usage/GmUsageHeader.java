@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.umlcommon.usage;
 
@@ -28,7 +28,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * MObject import header displayed on the node link.
- * 
+ *
  * @author cmarin
  */
 @objid ("dc127d4c-3c2b-434e-8e5e-cdf80da41d4f")
@@ -44,11 +44,12 @@ public class GmUsageHeader extends GmDefaultModelElementLabel {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram
      * @param relatedRef a reference to the element this GmModel is related to, must not be null.
      */
     @objid ("2c7df7a8-0930-4216-9d14-4f244f3591ee")
-    public  GmUsageHeader(IGmDiagram diagram, MRef relatedRef) {
+    public GmUsageHeader(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -56,8 +57,8 @@ public class GmUsageHeader extends GmDefaultModelElementLabel {
      * For deserialization only.
      */
     @objid ("f24e49a9-87ba-44a7-9cf0-09f8af75f253")
-    public  GmUsageHeader() {
-        
+    public GmUsageHeader() {
+
     }
 
     @objid ("15907487-e84f-4496-be36-4bfccf366bc4")
@@ -68,7 +69,7 @@ public class GmUsageHeader extends GmDefaultModelElementLabel {
         } else {
             return "<<use>>";
         }
-        
+
     }
 
     @objid ("50638e08-2ce2-4f32-8356-6e62a949be53")
@@ -88,17 +89,17 @@ public class GmUsageHeader extends GmDefaultModelElementLabel {
                 break;
             }
         }
-        
+
     }
 
     @objid ("707f2853-dc3e-4e6a-85ec-53bf32c52290")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmUsageHeader.", MINOR_VERSION);
-        
+
     }
 
     @objid ("c1e59850-79ed-4703-9386-df77bb25553a")

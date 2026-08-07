@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.swt.textelement;
 
@@ -46,6 +46,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.modelio.platform.model.ui.plugin.CoreUi;
 import org.modelio.platform.model.ui.swt.images.BasicModelElementLabelProvider;
+import org.modelio.platform.ui.swt.BrowserConfigurator;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -81,37 +82,38 @@ public class PopupChooser extends PopupDialog {
     @objid ("b60a5e0b-4a68-447b-b341-8eba9d71ac2a")
     protected List<? extends MObject> elements;
 
-    @objid ("e2be50c2-667f-4ddd-9571-8b81f260b22d")
-    protected List<Object> list;
-
-    @objid ("13b549ec-d6e1-4181-bf84-fb856fb3af85")
+    @objid ("6606ef5b-8406-44f5-a2c2-6dfaced72aef")
     protected Rectangle listRectangle;
 
-    @objid ("71f6ddf2-b06f-4445-aed8-42dd6ea91c88")
+    @objid ("0c622beb-4e5d-4131-9efb-0fce671a7755")
     protected Composite parent;
+
+    @objid ("82189123-b314-41e8-8e7d-ecb38f7beca9")
+    TableViewer tableViewer;
+
+    @objid ("bb919c7f-6fc9-4eac-94bc-02eb95e89284")
+    protected List<Object> list;
 
     @objid ("ab7ee49d-e6e2-4d2f-b802-bbbb6a6e6026")
     MObject selected;
 
-    @objid ("3e7809d8-bc20-408c-9878-58465efaaa46")
-    TableViewer tableViewer;
-
     /*
-         * Auxialiary popup showing detailed information about the selected
-         * proposal..
-         */
+             * Auxialiary popup showing detailed information about the selected
+             * proposal..
+             */
     @objid ("7ad9227d-057c-4cd0-b352-61be67e243da")
     private InfoPopup infoPopup;
 
     /**
      * Constructor initializing a ProposalPopup.
+     *
      * @param control the swt control displaying the popup.
      * @param elements the elements to display in the popup.
      * @param proposeNullValue indicates whether or not the "null" value must be shown in the
      * popup.
      */
     @objid ("535d4103-ad37-4e13-95c5-da5f85edcff9")
-    public  PopupChooser(final Control control, final List<? extends MObject> elements, final boolean proposeNullValue) {
+    public PopupChooser(final Control control, final List<? extends MObject> elements, final boolean proposeNullValue) {
         super(control.getShell(), PopupDialog.INFOPOPUPRESIZE_SHELLSTYLE,
                 /* take focus */true,
                 /* persist size */false,
@@ -120,21 +122,21 @@ public class PopupChooser extends PopupDialog {
                 /* show persist action */false,
                 /* info title */CoreUi.I18N.getMessage("ResultsProposalPopup.title"), //$NON-NLS-1$
                 /* info description */CoreUi.I18N.getMessage("ResultsProposalPopup.description")); //$NON-NLS-1$
-        
+
         this.parent = control.getParent();
         this.elements = elements;
         this.selected = null;
         this.loop = false;
-        
+
         this.proposeNullValue = proposeNullValue;
         final Rectangle textRect = control.getBounds();
         final Rectangle tableRect = this.parent.getBounds();
-        
+
         final int posX = textRect.x;
         final int posY = textRect.y;
         int width = textRect.width;
         int height = (tableRect.height - textRect.y);
-        
+
         if (width < PopupChooser.POPUP_MIN_WIDTH) {
             width = PopupChooser.POPUP_MIN_WIDTH;
         }
@@ -142,35 +144,35 @@ public class PopupChooser extends PopupDialog {
             height = PopupChooser.POPUP_MIN_HEIGHT;
         }
         this.listRectangle = control.getDisplay().map(this.parent, null, new Rectangle(posX, posY, width, height));
-        
     }
 
     /**
      * Open a popup to choose elements from.
+     *
      * @param previousSelectedElt The initial selection
      * @return the element chosen in the popup. Might be <code>null</code>.
      */
     @objid ("1e2019fe-ef53-483c-b69e-82c10678f6f3")
     public MObject getChoice(final MObject previousSelectedElt) {
         final Display display = this.parent.getDisplay();
-        
+
         open();
-        
-        setTitleText(CoreUi.I18N.getMessage("ResultsProposalPopup.choose", this.elements.size())); //$NON-NLS-1$ 
-        
+
+        setTitleText(CoreUi.I18N.getMessage("ResultsProposalPopup.choose", this.elements.size())); //$NON-NLS-1$
+
         if (getShell().getSize().y < PopupChooser.POPUP_MIN_HEIGHT) {
             getShell().setSize(getShell().getSize().x, PopupChooser.POPUP_MIN_HEIGHT);
         }
-        
+
         this.list = new ArrayList<>();
         this.list.addAll(this.elements);
         this.list.sort((o1, o2) -> ((MObject) o1).getName().compareTo(((MObject) o2).getName()));
         if (this.proposeNullValue) {
             this.list.add(0, CoreUi.I18N.getMessage("ResultsProposalPopup.None")); //$NON-NLS-1$
         }
-        
+
         this.tableViewer.setInput(this.list);
-        
+
         // Abort on ESC key
         this.tableViewer.getTable().addTraverseListener(e -> {
             if (e.detail == SWT.TRAVERSE_ESCAPE) {
@@ -184,16 +186,16 @@ public class PopupChooser extends PopupDialog {
                 this.loop = false;
             }
         }));
-        
+
         // Validate on double click
         this.tableViewer.getTable().addSelectionListener(new SelectionListener() {
-        
+
             /**
              * This one is called whenever the selection changes.<br>
              * For our table: on SingleClick an don navigation (up/down arrow)<br>
              * When the selection changes, the InfoPopup is displayed after a
              * short delay.
-             * 
+             *
              */
             @Override
             public void widgetSelected(SelectionEvent e) {
@@ -205,7 +207,7 @@ public class PopupChooser extends PopupDialog {
                 }
                 scheduleInfoPopup();
             }
-        
+
             /**
              * For our Table this one is called for <ENTER> and DoubleClick
              */
@@ -220,11 +222,11 @@ public class PopupChooser extends PopupDialog {
                 PopupChooser.this.loop = false;
             }
         });
-        
+
         // In case this dialog is disposed before exit of the local event loop
         getShell().addDisposeListener(
                 e -> this.loop = false);
-        
+
         // Run a local event loop to make the popup modal.
         this.loop = true;
         while (this.loop) {
@@ -237,7 +239,7 @@ public class PopupChooser extends PopupDialog {
                 this.loop = false; // Emergency exit
             }
         }
-        
+
         close();
         return this.selected;
     }
@@ -253,13 +255,13 @@ public class PopupChooser extends PopupDialog {
     protected Control createDialogArea(final Composite area) {
         final Composite composite = (Composite) super.createDialogArea(area);
         composite.setLayout(new FillLayout(SWT.VERTICAL));
-        
+
         // create TableCombo
         this.tableViewer = new TableViewer(composite, SWT.READ_ONLY | SWT.BORDER);
-        
+
         // set the content provider
         this.tableViewer.setContentProvider(ArrayContentProvider.getInstance());
-        
+
         // set the label provider
         this.tableViewer.setLabelProvider(new BasicModelElementLabelProvider() {
             @Override
@@ -277,7 +279,7 @@ public class PopupChooser extends PopupDialog {
                     return obj.toString();
                 }
             }
-        
+
             @Override
             public Image getImage(Object obj) {
                 if (obj instanceof MObject) {
@@ -285,7 +287,7 @@ public class PopupChooser extends PopupDialog {
                 }
                 return null;
             }
-        
+
             @Override
             public StyledString getStyledText(Object obj) {
                 if (obj instanceof MObject) {
@@ -294,10 +296,10 @@ public class PopupChooser extends PopupDialog {
                 return null;
             }
         });
-        
+
         // load the data
         this.tableViewer.setInput(Collections.EMPTY_LIST);
-        
+
         // add listener
         // this.tcv.addSelectionChangedListener(new ItemSelected("Sample1"));
         return composite;
@@ -317,7 +319,7 @@ public class PopupChooser extends PopupDialog {
 
     /**
      * Build the element description that is displayed in the info popup
-     * @param element @return
+     * @return
      */
     @objid ("e0d440de-72f1-4e47-a2dd-b1c855d4950d")
     String getElementInfo(MObject element) {
@@ -339,18 +341,17 @@ public class PopupChooser extends PopupDialog {
         if (this.infoPopupIsPending) {
             return;
         }
-        
+
         if (this.infoPopup != null) {
             this.infoPopup.setContents(getElementInfo(this.selected));
             return;
         }
-        
+
         // Delays the creation of the info popup.
-        getShell().getDisplay().timerExec(PopupChooser.INFO_POPUP_DELAY, 
+        getShell().getDisplay().timerExec(PopupChooser.INFO_POPUP_DELAY,
                 () -> doShowInfoPopup());
-        
+
         this.infoPopupIsPending = true;
-        
     }
 
     /**
@@ -362,7 +363,7 @@ public class PopupChooser extends PopupDialog {
         if (!isActive()) {
             return;
         }
-        
+
         // If there is no info popup , create one
         if (this.selected != null) {
             if (this.infoPopup == null) {
@@ -378,7 +379,6 @@ public class PopupChooser extends PopupDialog {
             this.infoPopup.close();
         }
         this.infoPopupIsPending = false;
-        
     }
 
     /**
@@ -399,33 +399,32 @@ public class PopupChooser extends PopupDialog {
         /**
          * The text control that displays the description.
          */
-        @objid ("4cf80d39-eb25-459a-b982-4320835df638")
+        @objid ("7830eab3-9710-4d87-ab0f-5c68492a3081")
         private Browser text;
 
         /**
          * Construct an info-popup with the specified parent.
          */
         @objid ("1f06a357-9c2c-4f75-b61b-211cffcd7905")
-         InfoPopup(Shell parent) {
-            super(parent, 
-                    PopupDialog.HOVER_SHELLSTYLE | SWT.RESIZE, 
-                    /* takefocusOnOpen */false, 
-                    /* persistSize */false, 
-                    /* persistLocation */ false, 
-                    /* showDialogMenu */false, 
-                    /* showPersistActions */false, 
-                    /* titleText */null, 
+        InfoPopup(Shell parent) {
+            super(parent,
+                    PopupDialog.HOVER_SHELLSTYLE | SWT.RESIZE,
+                    /* takefocusOnOpen */false,
+                    /* persistSize */false,
+                    /* persistLocation */ false,
+                    /* showDialogMenu */false,
+                    /* showPersistActions */false,
+                    /* titleText */null,
                     /* infoText */null);
-            
         }
 
         @objid ("d8dc3933-d23c-4112-bc20-922dfefd5292")
         @Override
         protected Control createDialogArea(Composite parentComposite) {
-            this.text = new Browser(parentComposite, SWT.NO_FOCUS);
-            
+            this.text = BrowserConfigurator.newBrowser(parentComposite, SWT.NO_FOCUS);
+
             this.text.setBackground(getBackground());
-            
+
             // Use the compact margins employed by PopupDialog.
             final GridData gd = new GridData(GridData.BEGINNING | GridData.FILL_BOTH);
             gd.horizontalIndent = PopupDialog.POPUP_HORIZONTALSPACING;
@@ -445,17 +444,17 @@ public class PopupChooser extends PopupDialog {
             Rectangle proposedBounds;
             // Try placing the info popup to the right
             Rectangle rightProposedBounds = new Rectangle(
-                    parentBounds.x + parentBounds.width + PopupDialog.POPUP_HORIZONTALSPACING, 
+                    parentBounds.x + parentBounds.width + PopupDialog.POPUP_HORIZONTALSPACING,
                     parentBounds.y + PopupDialog.POPUP_VERTICALSPACING,
-                    parentBounds.width, 
+                    parentBounds.width,
                     parentBounds.height);
             rightProposedBounds = getConstrainedShellBounds(rightProposedBounds);
             // If it won't fit on the right, try the left
             if (rightProposedBounds.intersects(parentBounds)) {
                 Rectangle leftProposedBounds = new Rectangle(
                         parentBounds.x - parentBounds.width - PopupDialog.POPUP_HORIZONTALSPACING - 1,
-                        parentBounds.y, 
-                        parentBounds.width, 
+                        parentBounds.y,
+                        parentBounds.width,
                         parentBounds.height);
                 leftProposedBounds = getConstrainedShellBounds(leftProposedBounds);
                 // If it won't fit on the left, choose the proposed bounds
@@ -477,7 +476,6 @@ public class PopupChooser extends PopupDialog {
                 proposedBounds = rightProposedBounds;
             }
             getShell().setBounds(proposedBounds);
-            
         }
 
         @objid ("cf265123-70ac-42fc-b25d-7ad805898c72")
@@ -502,11 +500,10 @@ public class PopupChooser extends PopupDialog {
             } else {
                 this.contents = newContents;
             }
-            
+
             if (this.text != null && !this.text.isDisposed()) {
                 this.text.setText(this.contents);
             }
-            
         }
 
         /**

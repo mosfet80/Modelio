@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.impl.load;
 
@@ -42,7 +42,7 @@ class AccessManagerModelLoader implements IModelLoader {
     private IModelLoader origin;
 
     @objid ("a8d99b55-42ee-11e2-91c9-001ec947ccaf")
-     AccessManagerModelLoader(ModelLoader modelLoader) {
+    AccessManagerModelLoader(ModelLoader modelLoader) {
         this.origin = modelLoader;
     }
 
@@ -74,9 +74,9 @@ class AccessManagerModelLoader implements IModelLoader {
     public void loadAttribute(SmObjectImpl obj, SmAttribute att, Object newValue) {
         assert (newValue != null) : obj + "." + att.getName() + " = null";
         assert (att == obj.getClassOf().statusAtt()) : att + " is not the status attribute.";
-        
+
         att.setValue(obj.getData(), newValue);
-        
+
     }
 
     @objid ("a8d99b7d-42ee-11e2-91c9-001ec947ccaf")

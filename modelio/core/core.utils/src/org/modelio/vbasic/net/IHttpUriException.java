@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vbasic.net;
 
@@ -40,15 +40,16 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  * </ul>
  * <p>
  * Use {@link HttpErrorMapper} to instantiate the right exception from an HTTP status code.
- * 
+ *
  * @since Wyrm 4.0.1
  */
 @objid ("20613b3b-6fe6-4afc-8a5f-3782e58a130a")
 public interface IHttpUriException {
     /**
+     *
      * @return the HTTP status code
      */
     @objid ("4b5b9335-7d47-4c77-9a59-90732e5f765e")
     int getHttpStatus();
-}
 
+}

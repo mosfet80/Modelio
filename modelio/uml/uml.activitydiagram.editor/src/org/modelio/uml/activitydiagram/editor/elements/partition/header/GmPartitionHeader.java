@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.partition.header;
 
@@ -42,7 +42,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  * <p>
  * Also this class is needed so that the {@link StandardEditPartFactory} instantiate the correct EditPart to have the correct selection behaviours (very specific to partition: only header is "click-able" but clicking on it selects the whole partition).
  * </p>
- * 
+ *
  * @author fpoyer
  */
 @objid ("2b0636d9-55b6-11e2-877f-002564c97630")
@@ -72,17 +72,18 @@ public class GmPartitionHeader extends GmDefaultModelElementHeader {
      * C'tor without args for deserialization.
      */
     @objid ("2b06ac0d-55b6-11e2-877f-002564c97630")
-    public  GmPartitionHeader() {
+    public GmPartitionHeader() {
         // Nothing to do.
     }
 
     /**
      * C'tor.
+     *
      * @param diagram the owning diagram.
      * @param relatedRef represented element reference, must not be null.
      */
     @objid ("2b06d31a-55b6-11e2-877f-002564c97630")
-    public  GmPartitionHeader(IGmDiagram diagram, MRef relatedRef) {
+    public GmPartitionHeader(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -103,7 +104,7 @@ public class GmPartitionHeader extends GmDefaultModelElementHeader {
             break;
         }
         }
-        
+
     }
 
     @objid ("2b07213d-55b6-11e2-877f-002564c97630")
@@ -111,13 +112,14 @@ public class GmPartitionHeader extends GmDefaultModelElementHeader {
     public void write(IDiagramWriter out) {
         super.write(out);
         out.writeProperty("isVertical", this.vertical ? Boolean.TRUE : Boolean.FALSE);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmPartitionHeader.", GmPartitionHeader.MINOR_VERSION);
-        
+
     }
 
     /**
+     *
      * @return true if the header is vertical, false for horizontal.
      */
     @objid ("2b07484c-55b6-11e2-877f-002564c97630")
@@ -127,6 +129,7 @@ public class GmPartitionHeader extends GmDefaultModelElementHeader {
 
     /**
      * Set orientation of the header
+     *
      * @param vertical true for vertical, false for horizontal.
      */
     @objid ("2b076f5a-55b6-11e2-877f-002564c97630")
@@ -143,9 +146,9 @@ public class GmPartitionHeader extends GmDefaultModelElementHeader {
         } else {
             setShowMetaclassIcon(false);
         }
-        
+
         super.refreshFromObModel();
-        
+
     }
 
     @objid ("2b07966b-55b6-11e2-877f-002564c97630")
@@ -158,7 +161,7 @@ public class GmPartitionHeader extends GmDefaultModelElementHeader {
         } else {
             return ElementImageService.getIcon(partition);
         }
-        
+
     }
 
     @objid ("2b07bd79-55b6-11e2-877f-002564c97630")
@@ -172,7 +175,7 @@ public class GmPartitionHeader extends GmDefaultModelElementHeader {
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.vertical = ((Boolean) in.readProperty("isVertical")).booleanValue();
-        
+
     }
 
     @objid ("2b080b9c-55b6-11e2-877f-002564c97630")
@@ -187,7 +190,7 @@ public class GmPartitionHeader extends GmDefaultModelElementHeader {
      * <p>
      * This class <strong>MUST</strong> be static or deserialization will fail.
      * </p>
-     * 
+     *
      * @author fpoyer
      */
     @objid ("2b0832aa-55b6-11e2-877f-002564c97630")
@@ -209,16 +212,17 @@ public class GmPartitionHeader extends GmDefaultModelElementHeader {
          * Empty c'tor needed for deserialization.
          */
         @objid ("2b0880cd-55b6-11e2-877f-002564c97630")
-        public  GmPartitionHeaderStyle() {
+        public GmPartitionHeaderStyle() {
             super();
         }
 
         /**
          * C'tor.
+         *
          * @param cascadedStyle the style this style should cascade on.
          */
         @objid ("2b08a7d9-55b6-11e2-877f-002564c97630")
-        public  GmPartitionHeaderStyle(IStyle cascadedStyle) {
+        public GmPartitionHeaderStyle(IStyle cascadedStyle) {
             super(cascadedStyle);
         }
 

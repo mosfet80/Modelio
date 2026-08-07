@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.swt;
 
@@ -49,7 +49,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 /**
  * This class interprets a html text to build and set the text and style ranges of a StyledText.
- * 
+ *
  * <p>
  * <h2>Usage</h2>
  * </p>
@@ -57,7 +57,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * StyledText myStyledText  = ...<br/>
  * String     myHtmlText = "&lt;html&gt; &lt;p&gt;my paragraph with &lt;b&gt;a few bold chars&lt;/b>&lt;/p&gt; &lt;/html&gt;"; <br/>
  * </code>
- * 
+ *
  * StyledTextHelper.setStyledText(myHtmlText, myStyledText);
  * <p>
  * Only a few HTML tags are supported:
@@ -80,13 +80,13 @@ import org.xml.sax.helpers.DefaultHandler;
  * <li><b>border: 1px solid blue;</b> - Set a border around the paragraph. Parameters defining the border are not suported. The rendered border will always be: solid, one pixel and same color as text color.</li>
  * <li><b>font-size:125%;</b> - Change the font size. Font size must be defined as a percentage (no other syntax supported)</li>
  * </ul>
- * 
+ *
  * <h2>CSS Style example:</h2>
- * 
+ *
  * The string:
  * <code>"&lt;html&gt; &lt;p style="font-size:150%;color:#FF0000;"&gt; red big text &lt;/p&gt; &lt;/html&gt;"</code>
  * will be rendered as:
- * 
+ *
  * <p style="font-size:150%;color:#FF0000;">
  * red big text
  * </p>
@@ -97,6 +97,7 @@ public class StyledTextHelper {
      * Interprets the potentially HTML text and set the text and style ranges of a StyledText.
      * <p>
      * The text must begin with "&lt;html&gt;" to be interpreted as HTML.
+     *
      * @param htmlText the HTML text.
      * @param widget the StyledText to fill.
      */
@@ -106,7 +107,7 @@ public class StyledTextHelper {
             widget.setText(htmlText);
             return;
         }
-        
+
         try {
             // XML parsing
             StringReader reader = new StringReader(htmlText);
@@ -114,11 +115,11 @@ public class StyledTextHelper {
             SAXParser parser = factory.newSAXParser();
             HtmlTextContentHandler handler = new HtmlTextContentHandler();
             parser.parse(new InputSource(reader), handler);
-        
+
             // Set the styled text contents
             widget.setText(handler.getText());
             widget.setStyleRanges(handler.getStyleRanges());
-        
+
         } catch (ParserConfigurationException | SAXException | RuntimeException e) {
             CoreUi.LOG.warning(e);
             widget.setText("<!--"+e.getClass().getSimpleName()+":"+e.getMessage()+"-->\n"+htmlText);
@@ -126,17 +127,17 @@ public class StyledTextHelper {
             CoreUi.LOG.warning(e);
             widget.setText("<!--"+FileUtils.getLocalizedMessage(e)+"-->\n"+htmlText);
         }
-        
     }
 
     /**
      * This main method can be used to test the StyledTextHelper class.
+     *
      * @param args unused
      */
     @objid ("e3b38947-0556-42ad-ad9b-d72930210be6")
     public static final void main(String[] args) {
         String htmlText = "<html>normal <div style=\"font-size:150%;color:#FF0000;background-color:#00F0F0;border: 1px solid #FF0000;\">paragraph <b>style</b></div><b>bold</b> <i>italic</i> <br/><u>underline</u> <s>strike</s> normal</html>";
-        
+
         // create the widget's shell
         Shell shell = new Shell();
         shell.setLayout(new FillLayout());
@@ -145,13 +146,12 @@ public class StyledTextHelper {
         // create the styled text widget
         StyledText styledText = new StyledText(shell, SWT.BORDER);
         shell.open();
-        
+
         StyledTextHelper.setStyledText(htmlText, styledText);
-        
+
         while (!shell.isDisposed())
             if (!display.readAndDispatch())
                 display.sleep();
-        
     }
 
     /**
@@ -162,7 +162,7 @@ public class StyledTextHelper {
         @objid ("801f848a-9f73-45fc-99c4-61ca66765281")
         private static final List<String> supportedTags = Arrays.asList("html", "p", "b", "i", "u", "s", "br", "div", "span");
 
-        @objid ("820fc518-4a85-4752-a0cf-2b97eb350813")
+        @objid ("5ec04416-8680-42f9-8376-f1f14231c928")
         private List<StyleRange> styleRanges;
 
         @objid ("74f5053a-542b-47d3-a7af-c192d04795c3")
@@ -193,14 +193,13 @@ public class StyledTextHelper {
         }
 
         @objid ("db739d8d-7807-45d4-b3e0-2de49b400026")
-         HtmlTextContentHandler() {
+        HtmlTextContentHandler() {
             this.formatStack = new Stack<>();
             this.formatStack.push(new Format());
             this.lastTextChunk = new StringBuilder();
-            
+
             this.styleRanges = new ArrayList<>();
             this.textBuilder = new StringBuilder();
-            
         }
 
         /**
@@ -223,14 +222,14 @@ public class StyledTextHelper {
                 this.lastTextChunk.append(String.format("<%s>", qName));
                 return;
             }
-            
+
             Format currentFormat = getFormat();
-            
+
             produce(this.lastTextChunk.toString(), currentFormat);
             this.lastTextChunk = new StringBuilder();
-            
+
             currentFormat = pushFormat();
-            
+
             switch (qName) {
             case "p":
                 this.lastTextChunk.append("\n\n");
@@ -278,9 +277,8 @@ public class StyledTextHelper {
                 pushFormat();
                 break;
             default:
-            
+
             }
-            
         }
 
         @objid ("81efc2a6-450c-4d2c-9960-4ba8033dccb3")
@@ -292,11 +290,10 @@ public class StyledTextHelper {
         private void produce(String s, Format format) {
             if (s == null || s.isEmpty())
                 return;
-            
+
             StyleRange r = createStyleRange(format, currentIndex(), s.length());
             this.textBuilder.append(s);
             this.styleRanges.add(r);
-            
         }
 
         /**
@@ -308,7 +305,6 @@ public class StyledTextHelper {
             produce(this.lastTextChunk.toString(), getFormat());
             this.lastTextChunk = new StringBuilder();
             super.endDocument();
-            
         }
 
         /**
@@ -322,9 +318,9 @@ public class StyledTextHelper {
                 this.lastTextChunk.append(String.format("</%s>", qName));
                 return;
             }
-            
+
             Format currentFormat = null;
-            
+
             switch (qName) {
             case "p":
                 this.lastTextChunk.append("\n\n");
@@ -351,12 +347,11 @@ public class StyledTextHelper {
                 break;
             default:
                 break;
-            
+
             }
-            
+
             produce(this.lastTextChunk.toString(), currentFormat);
             this.lastTextChunk = new StringBuilder();
-            
         }
 
         /**
@@ -368,33 +363,33 @@ public class StyledTextHelper {
             StyleRange range = new StyleRange();
             range.start = start; // currentIndex() + 1;
             range.length = length; // this.lastTextChunk.length();
-            
+
             if (format.foreground != null) {
                 range.foreground = format.foreground;
             }
-            
+
             if (format.background != null) {
                 range.background = format.background;
             }
-            
+
             if (format.bold)
                 range.fontStyle |= SWT.BOLD;
-            
+
             if (format.italic)
                 range.fontStyle |= SWT.ITALIC;
-            
+
             if (format.borderStyle != SWT.NONE) {
                 range.borderColor = range.foreground;
                 range.borderStyle = SWT.BORDER_SOLID;
             }
-            
+
             range.underline = format.underline;
             range.underlineColor = range.foreground;
             range.underlineStyle = SWT.UNDERLINE_SINGLE;
-            
+
             range.strikeout = format.strikeout;
             range.strikeoutColor = range.foreground;
-            
+
             if (format.fontSize != -1) {
                 Font baseFont = Display.getCurrent().getSystemFont();
                 Font font = CoreFontRegistry.getModifiedFont(baseFont, (format.bold ? SWT.BOLD : SWT.NONE) | (format.italic ? SWT.ITALIC : SWT.NONE), format.fontSize / 100.0f);
@@ -456,19 +451,19 @@ public class StyledTextHelper {
         @objid ("a11a4c49-f5d1-4d40-ab48-a28576c2cc52")
         private int borderStyle;
 
-        @objid ("1d367972-8310-4e6e-bdd2-0de3a9cf4c9b")
+        @objid ("882b17dd-d92d-4782-ae59-c062b11bb4ef")
         private Color foreground;
 
-        @objid ("cdc186f3-41fd-4392-990e-4caed149740d")
+        @objid ("c7cd025c-0270-45d7-bcc4-b47f614acb49")
         private Color background;
 
-        @objid ("59b3eaf3-62bf-46c9-9b57-a0e09d7ed8c4")
+        @objid ("aebc4544-8e53-4491-acb1-e104c43f7ec6")
         private Color underlineColor;
 
-        @objid ("343a5a2f-82e4-4e8a-a26a-6043cb152975")
+        @objid ("8b79e572-819d-46d7-a91f-828f95e45e86")
         private Color strikeoutColor;
 
-        @objid ("fff49d2a-c2fb-44db-a5e4-943e6b2e8c3f")
+        @objid ("3c325e88-e4df-4703-b9c2-45139f69ac16")
         private Color borderColor;
 
         @objid ("c8d47bd5-5462-4486-ab63-5670c5fcdda0")
@@ -478,7 +473,7 @@ public class StyledTextHelper {
         }
 
         @objid ("c824fb35-9512-4abd-9880-bd225bc8a497")
-        private  Format(Format f) {
+        private Format(Format f) {
             this.fontSize = f.fontSize;
             this.foreground = f.foreground;
             this.background = f.background;
@@ -491,11 +486,10 @@ public class StyledTextHelper {
             this.borderColor = f.borderColor;
             this.bold = f.bold;
             this.italic = f.italic;
-            
         }
 
         @objid ("9cea3b24-aa1f-4094-930a-b47c3a31a100")
-        public  Format() {
+        public Format() {
             this.fontSize = -1;
             this.foreground = null;
             this.background = null;
@@ -508,7 +502,6 @@ public class StyledTextHelper {
             this.borderColor = null;
             this.bold = false;
             this.italic = false;
-            
         }
 
         @objid ("0baa6e86-7f1c-41d4-8d23-1b3a9ea523d7")
@@ -519,7 +512,6 @@ public class StyledTextHelper {
                     this.italic ? "i" : "-",
                     this.underline ? "u" : "-",
                     this.strikeout ? "s" : "-");
-            
         }
 
         @objid ("5046d6a0-cbdd-4bc8-8010-2104b783f2b6")
@@ -544,26 +536,26 @@ public class StyledTextHelper {
                         this.borderStyle = SWT.BORDER_SOLID;
                         this.borderColor = getColor("#000000");
                         break;
-            
+
                     case "font-size": // font-size:30%;
                         // Only percentage are supported
                         if (pair[1].matches("[0-9]+%")) {
                             fontSize = Integer.valueOf(pair[1].substring(0, pair[1].length() - 1));
                         }
-            
+
                         break;
                     default:
                         ; // debug: System.err.printf("ignored CSS %s:%s\n", pair[0], pair[1]);
                     }
                 }
             }
-            
         }
 
         /**
          * Convert a HTML color value into a color.
-         * 
+         *
          * Only the hexadecimal #XXXXXX syntax is supported.
+         *
          * @param s doc
          * @return the color 2
          */
@@ -574,13 +566,12 @@ public class StyledTextHelper {
                 int red = Integer.parseInt(s.substring(1, 3), 16);
                 int green = Integer.parseInt(s.substring(3, 5), 16);
                 int blue = Integer.parseInt(s.substring(5, 7), 16);
-            
+
                 RGB rgb = new RGB(red, green, blue);
                 return CoreColorRegistry.getColor(rgb);
             } else {
                 return null;
             }
-            
         }
 
     }

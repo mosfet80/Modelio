@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel.meta;
 
@@ -35,7 +35,7 @@ import org.modelio.vcore.smkernel.mapi.modelshield.spi.ICheckerFactory;
  * Fragment containing the kernel metaclasses.
  * <p>
  * Each SmMetamodel contain one KernelMetamodelFragment.
- * 
+ *
  * @author cmarin
  */
 @objid ("c567fa54-f3cc-4bfb-80bc-0cb5a14f2710")
@@ -54,6 +54,7 @@ public final class KernelMetamodelFragment implements ISmMetamodelFragment {
 
     /**
      * Create the metaclasses.
+     *
      * @return the metaclasses.
      */
     @objid ("54a0fc04-d1e2-44fb-8fd3-77aefa661257")
@@ -116,6 +117,7 @@ public final class KernelMetamodelFragment implements ISmMetamodelFragment {
      * or a standard Modelio metamodel fragment.
      * <p>
      * Standard Modelio metamodel fragments are guaranteed to have no metaclass name collisions.
+     *
      * @return <i>true</i> if the fragment is an extension, <i>false</i> if it is a Modelio standard fragment.
      */
     @objid ("fc2c77a9-669d-46ac-af8a-948662af7693")
@@ -137,6 +139,7 @@ public final class KernelMetamodelFragment implements ISmMetamodelFragment {
     }
 
     /**
+     *
      * @return a reference of the kernel metamodel fragment.
      */
     @objid ("f3cd4a61-4628-4e3b-a834-7494c4f7e201")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.figures.html.flyingsaucer.impl;
 
@@ -27,7 +27,7 @@ import org.xhtmlrenderer.swt.SWTFSFont;
 
 /**
  * Adapt SWT's font metrics to Flying Saucer's ones.
- * 
+ *
  * @author cmarin
  */
 @objid ("ef2249fa-3d53-4911-828a-8f3589b03add")
@@ -36,10 +36,11 @@ class GefFsFontMetricsAdapter implements FSFontMetrics {
     private final FontMetrics _fm;
 
     /**
+     *
      * @param font the font to measure
      */
     @objid ("46e303d5-d4ed-47d5-97b7-2f1b302632df")
-    public  GefFsFontMetricsAdapter(SWTFSFont font) {
+    public GefFsFontMetricsAdapter(SWTFSFont font) {
         this._fm = FigureUtilities.getFontMetrics(font.getSWTFont());
     }
 

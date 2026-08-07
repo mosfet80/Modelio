@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnmessage;
 
@@ -48,11 +48,12 @@ public class GmBpmnMessageLabel extends GmDefaultModelElementLabel {
 
     /**
      * Create a model element label
+     *
      * @param diagram the diagram.
      * @param relatedRef a reference to the element this GmModel is related to.
      */
     @objid ("6160b43a-55b6-11e2-877f-002564c97630")
-    public  GmBpmnMessageLabel(final IGmDiagram diagram, final MRef relatedRef) {
+    public GmBpmnMessageLabel(final IGmDiagram diagram, final MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -60,7 +61,7 @@ public class GmBpmnMessageLabel extends GmDefaultModelElementLabel {
      * For deserialization only.
      */
     @objid ("6160b445-55b6-11e2-877f-002564c97630")
-    public  GmBpmnMessageLabel() {
+    public GmBpmnMessageLabel() {
         // serialization
     }
 
@@ -69,17 +70,17 @@ public class GmBpmnMessageLabel extends GmDefaultModelElementLabel {
     protected String computeMainLabel() {
         StringBuilder result = new StringBuilder();
         BpmnMessage relatedElement = (BpmnMessage) getRelatedElement();
-        
+
         if (relatedElement != null && relatedElement.isValid()) {
             result.append(relatedElement.getName());
-        
+
             // Append represented element name if required
             String referenceName = getReferencedElementName(relatedElement);
             if (referenceName != null && Boolean.TRUE.equals(getDisplayedStyle().getProperty(GmBpmnMessageStructuredStyleKeys.SHOWREPRESENTED))) {
                 result.append(" : ");
                 result.append(referenceName);
             }
-        
+
             // Append state
             ModelElement inState = State.getTarget(relatedElement);
             if (inState != null) {
@@ -108,17 +109,17 @@ public class GmBpmnMessageLabel extends GmDefaultModelElementLabel {
             break;
         }
         }
-        
+
     }
 
     @objid ("61623aed-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmBpmnMessageLabel.", GmBpmnMessageLabel.MINOR_VERSION);
-        
+
     }
 
     @objid ("61623af3-55b6-11e2-877f-002564c97630")

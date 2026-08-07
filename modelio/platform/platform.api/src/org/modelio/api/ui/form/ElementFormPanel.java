@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.ui.form;
 
@@ -26,7 +26,6 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.SWTException;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
@@ -47,8 +46,10 @@ import org.modelio.api.module.context.IModuleContext;
 import org.modelio.api.ui.form.fields.IField;
 import org.modelio.api.ui.swt.SelectionHelper;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
+import org.modelio.platform.ui.UIThreadRunner;
 import org.modelio.platform.ui.panel.IPanelListener;
 import org.modelio.platform.ui.panel.IPanelProvider;
+import org.modelio.vcore.smkernel.mapi.MStatus;
 
 /**
  * An {@link IPanelProvider} implementation displaying a form for the selected model element.
@@ -65,7 +66,7 @@ import org.modelio.platform.ui.panel.IPanelProvider;
  * <p>
  * By default the model is updated immediately when a field is changed. Since Modelio Valkyrie 3.8 This behavior may be disabled with {@link #setAutoApply(boolean)} . <br>
  * Panels listeners are always fired with the changed {@link IField} as 'data' when a field value changes.
- * 
+ *
  * @see FormFieldPage
  * @see AbstractFieldFactory
  */
@@ -73,7 +74,7 @@ import org.modelio.platform.ui.panel.IPanelProvider;
 public class ElementFormPanel implements IPanelProvider {
     /**
      * Whether the field will apply their value when leaving it.
-     * 
+     *
      * @since Valkyrie 3.8
      */
     @objid ("897f7450-f38d-43e4-bb84-5db52afea3ba")
@@ -93,10 +94,10 @@ public class ElementFormPanel implements IPanelProvider {
     @objid ("6c2065a7-5c23-410b-a74a-7f6b15fee110")
     private Listener formUpdater;
 
-    @objid ("3d7df8cf-0caa-4dbd-9151-72bc1c212e8f")
+    @objid ("c8c48ad8-8edb-4079-af7f-314e04b921ab")
     private ScrolledForm scrolledForm;
 
-    @objid ("3f3bad2c-ac06-45ea-b3ed-a36f29e59809")
+    @objid ("eb7f75ae-8608-40ff-8dd0-5d056b4fd733")
     private FormToolkit toolkit;
 
     @objid ("f912a341-4b8e-4b5d-b17f-8e7bb86ae75a")
@@ -121,18 +122,18 @@ public class ElementFormPanel implements IPanelProvider {
      * Build a new instance of {@link ElementFormPanel}.
      * <p>
      * The fields will apply their value immediately on leaving.
+     *
      * @param moduleContext a module context to get modelio services and sessuin from.
      * @param fieldFactory the factory to create form fields with.
      * @since 3.8 : a module context is now needed.
      */
     @objid ("91e5b885-b238-45db-ac3b-78ddfa5b154c")
-    public  ElementFormPanel(IModuleContext moduleContext, IFieldFactory fieldFactory) {
+    public ElementFormPanel(IModuleContext moduleContext, IFieldFactory fieldFactory) {
         this.moduleContext = Objects.requireNonNull(moduleContext);
         this.fieldFactory = Objects.requireNonNull(fieldFactory);
         this.autoApply = true;
-        
+
         this.modelListener = this::onModelChanged;
-        
     }
 
     @objid ("d0e03d50-cfc5-492d-b207-fb67e641d333")
@@ -147,6 +148,7 @@ public class ElementFormPanel implements IPanelProvider {
      * To be used when {@link #setAutoApply(boolean)} was called with false.
      * <p>
      * May throw a runtime exception if one field has an invalid value.
+     *
      * @since 3.8 Valkyrie
      */
     @objid ("094abfa2-2f02-404a-aaec-5932a842db74")
@@ -154,11 +156,11 @@ public class ElementFormPanel implements IPanelProvider {
         for (IField f : this.fields) {
             f.apply();
         }
-        
     }
 
     /**
      * Tells whether {@link #apply()} may be called safely.
+     *
      * @return true only if all fields have valid values.
      * @since 3.8 Valkyrie
      */
@@ -178,7 +180,7 @@ public class ElementFormPanel implements IPanelProvider {
         this.toolkit = new FormToolkit(parent.getDisplay());
         this.toolkit.setBorderStyle(SWT.BORDER);
         this.scrolledForm = this.toolkit.createScrolledForm(parent);
-        
+
         GridLayout layout = new GridLayout(1, false);
         layout.horizontalSpacing = 0;
         layout.verticalSpacing = 1;
@@ -187,18 +189,18 @@ public class ElementFormPanel implements IPanelProvider {
         layout.marginLeft = 2;
         layout.marginRight = 2;
         this.scrolledForm.getBody().setLayout(layout);
-        
+
         final IModelingSession modelingSession = this.moduleContext.getModelingSession();
         this.scrolledForm.addDisposeListener(e -> {
             modelingSession.removeModelListener(this.modelListener);
-        
+
             this.fields.clear();
-        
+
             // Don't forget to dispose() the toolkit when disposing the panel.
             this.toolkit.dispose();
             this.toolkit = null;
         });
-        
+
         modelingSession.addModelListener(this.modelListener);
         return this.scrolledForm;
     }
@@ -209,11 +211,11 @@ public class ElementFormPanel implements IPanelProvider {
         this.scrolledForm.dispose();
         this.scrolledForm = null;
         // The remaining is to be made in the dispose listener, see 'createPanel'
-        
     }
 
     /**
      * Get the first element in the selection that matches the given type
+     *
      * @param <T> the required type
      * @param selection the selection object
      * @param cls the required type class
@@ -245,8 +247,9 @@ public class ElementFormPanel implements IPanelProvider {
     }
 
     /**
-     * @since 3.7.1
+     *
      * @return whether the form header is displayed.
+     * @since 3.7.1
      */
     @objid ("3d73403e-0e2d-484a-a1db-5ba064247c88")
     public boolean isHeaderVisible() {
@@ -269,6 +272,7 @@ public class ElementFormPanel implements IPanelProvider {
      * Set whether the field will apply their value when leaving it.
      * <p>
      * If called with false {@link #apply()} must be called in order to apply the field values.
+     *
      * @param autoApply true to apply values immediately, false to manually apply them.
      * @return this instance
      */
@@ -280,6 +284,7 @@ public class ElementFormPanel implements IPanelProvider {
 
     /**
      * Display or hide the form header to display the edited element name or gain place.
+     *
      * @param headerVisible whether the form header is displayed.
      * @since 3.7.1
      */
@@ -318,7 +323,7 @@ public class ElementFormPanel implements IPanelProvider {
         } else if (input instanceof IStructuredSelection) {
             IStructuredSelection selection = (IStructuredSelection) input;
             ModelElement first = SelectionHelper.getFirst(selection, ModelElement.class);
-        
+
             if (selection.size() == 1 && first != null) {
                 newInput = first;
             }
@@ -326,35 +331,35 @@ public class ElementFormPanel implements IPanelProvider {
             // The input type is not supported
             throw new IllegalArgumentException(String.format("Not supported input: %s", input));
         }
-        
+
         if (newInput == null || !newInput.isValid() || !isRelevantFor(newInput)) {
             // Input is not valid
             newInput = null;
         }
-        
+
         // Delay for update if not visible because it
         // is really expensive and slows GUI.
         // Exception: force update the first time because SWT.Show event is not fired and
         // we are not notified at all when the form become visible.
         final ModelElement effectiveInput = newInput;
-        this.scrolledForm.getDisplay().asyncExec(() -> {
+        UIThreadRunner.asynExec(this.scrolledForm, () -> {
             if (this.scrolledForm == null || this.scrolledForm.isDisposed()) {
                 return;
             }
-        
+
             if (this.scrolledForm.isVisible() || this.fields.isEmpty()) {
                 updateFormFromInput(effectiveInput);
             } else {
                 delayUpdateForm(effectiveInput);
             }
         });
-        
     }
 
     /**
      * Create a complete form for an element.
      * <p/>
      * Fields should be filled after calling this method.
+     *
      * @param parent a widget which will be the parent of the new field instance (cannot be null)
      * @param formInput the element to build the form for.
      */
@@ -369,7 +374,7 @@ public class ElementFormPanel implements IPanelProvider {
         } else {
             TabFolder folder = new TabFolder(parent, SWT.NONE);
             folder.setBackground(parent.getBackground());
-        
+
             folder.addSelectionListener(new SelectionAdapter() {
                 @Override
                 public void widgetSelected(SelectionEvent event) {
@@ -379,34 +384,34 @@ public class ElementFormPanel implements IPanelProvider {
                     }
                 }
             });
-        
+
             folder.setLayoutData(new GridData(GridData.FILL_BOTH));
             for (FormFieldPage page : pages) {
                 Composite tab = new Composite(folder, SWT.NONE);
                 tab.setLayout(new GridLayout(1, false));
                 tab.setBackground(parent.getBackground());
-        
+
                 TabItem item = new TabItem(folder, SWT.NONE);
                 item.setControl(tab);
                 item.setText(page.getLabel());
                 item.setImage(page.getImage());
-        
+
                 if (page.getLabel().equals(ElementFormPanel.selectedTab)) {
                     folder.setSelection(item);
                 }
-        
+
                 this.fields.addAll(this.fieldFactory.createFields(this.toolkit, tab, formInput, page));
             }
         }
-        
+
         // Install field change listener that will auto apply the value if in auto apply mode
         // and fire panel listeners.
         installFieldListeners();
-        
     }
 
     /**
      * Ensure the {@link IField field} has a {@link GridData} as layout data, creating one in the orher case.
+     *
      * @param aField a form field
      */
     @objid ("6cb323a0-5622-4e99-bee6-2a9b7e8ef304")
@@ -414,18 +419,18 @@ public class ElementFormPanel implements IPanelProvider {
         Composite composite = aField.getComposite();
         if (!(composite.getLayoutData() instanceof GridData)) {
             assert composite.getParent().getLayout() instanceof GridLayout : String.format("%s has %s as layout.", composite.getParent(), composite.getParent().getLayout());
-        
+
             final GridData ld_name = new GridData(SWT.FILL, SWT.CENTER, true, false);
             ld_name.widthHint = 600;
             composite.setLayoutData(ld_name);
         }
-        
     }
 
     /**
      * {@link IModelChangeListener} callback called on model change event.
      * <p>
      * Refresh and reset fields from the model. This method could be redefined by sub classes.
+     *
      * @param session the modeling session
      * @param event the event.
      */
@@ -433,25 +438,13 @@ public class ElementFormPanel implements IPanelProvider {
     protected void onModelChanged(IModelingSession session, IModelChangeEvent event) {
         final ScrolledForm localScrolledForm = this.scrolledForm;
         if (localScrolledForm != null && !localScrolledForm.isDisposed()) {
-            try {
-                localScrolledForm.getDisplay().asyncExec(() -> {
-                    updateFormFromInput(this.input);
-                });
-            } catch (SWTException e) {
-                // Note : this method may be called by a concurrent thread even while the panel is being disposed
-                // so any test already made may be obsolete
-                if (e.code == SWT.ERROR_DEVICE_DISPOSED || e.code == SWT.ERROR_WIDGET_DISPOSED) {
-                    return;
-                }
-        
-                throw e;
-            }
+            UIThreadRunner.asynExec(localScrolledForm, () -> updateFormFromInput(this.input));
         }
-        
     }
 
     /**
      * Add a listener on the property page updating its content as soon as the {@link SWT#Show} event is triggered.
+     *
      * @param formInput the element to use as input for the form.
      */
     @objid ("6f41848a-92a5-4800-9a9d-d23c44f77d6d")
@@ -460,9 +453,9 @@ public class ElementFormPanel implements IPanelProvider {
         if (this.formUpdater != null) {
             this.scrolledForm.removeListener(SWT.Show, this.formUpdater);
         }
-        
+
         this.formUpdater = new Listener() {
-        
+
             @SuppressWarnings ("synthetic-access")
             @Override
             public void handleEvent(Event event) {
@@ -470,9 +463,8 @@ public class ElementFormPanel implements IPanelProvider {
                 updateFormFromInput(formInput);
             }
         };
-        
+
         this.scrolledForm.addListener(SWT.Show, this.formUpdater);
-        
     }
 
     @objid ("226c833c-b29c-4d9e-b4e7-86110c3340fa")
@@ -482,7 +474,7 @@ public class ElementFormPanel implements IPanelProvider {
         PropertyChangeListener listener = (ev) -> {
             IField f = (IField) ev.getSource();
             String err = f.getValidationError();
-        
+
             if (this.autoApply) {
                 // Save the field value in the model if it is valid.
                 // If invalid, reset the field to the value in model.
@@ -492,23 +484,22 @@ public class ElementFormPanel implements IPanelProvider {
                     f.refresh();
                 }
             }
-        
+
             if (err == null) {
                 this.scrolledForm.getMessageManager().removeMessages(f.getControl());
             } else {
                 this.scrolledForm.getMessageManager().addMessage(f, err, null, IMessageProvider.ERROR, f.getControl());
             }
-        
+
             // Fire panel listeners in all cases
             for (IPanelListener l : this.panelListeners) {
                 l.dataChanged(f, this.autoApply);
             }
         };
-        
+
         for (IField f : this.fields) {
             f.addPropertyChangeListener(listener);
         }
-        
     }
 
     /**
@@ -519,11 +510,11 @@ public class ElementFormPanel implements IPanelProvider {
         for (IField field : this.fields) {
             field.refresh();
         }
-        
     }
 
     /**
      * Update the form's contents.
+     *
      * @param formInput the element to use as input for the form.
      */
     @objid ("1650ca22-065a-4869-9cb8-59a1c2ea5c3d")
@@ -531,10 +522,10 @@ public class ElementFormPanel implements IPanelProvider {
         if (this.scrolledForm == null || this.scrolledForm.isDisposed()) {
             return;
         }
-        
+
         this.scrolledForm.setRedraw(false);
         this.scrolledForm.setLayoutDeferred(true);
-        
+
         if (!Objects.equals(formInput, this.input)) {
             // Clear the form: all must be rebuilt because data model is hard linked to previous input
             for (Control c : this.scrolledForm.getBody().getChildren()) {
@@ -542,40 +533,41 @@ public class ElementFormPanel implements IPanelProvider {
             }
             this.fields.clear();
         }
-        
+
         // Update current input
         this.input = formInput;
-        
+
         if (formInput != null) {
             // Update form header
             if (isHeaderVisible()) {
                 this.scrolledForm.setText(formInput.getName());
-        
+
                 IImageService imageService = this.moduleContext.getModelioServices().getImageService();
                 this.scrolledForm.setImage(imageService.getIcon(formInput, null));
             } else {
                 this.scrolledForm.setText(null);
                 this.scrolledForm.setImage(null);
             }
-        
+
             // Create fields only the first time this input is selected
             if (this.fields.isEmpty()) {
                 createFormFields(this.scrolledForm.getBody(), formInput);
-        
+
                 this.scrolledForm.reflow(true);
             }
-        
-        
-            if(formInput.getStatus().isCmsReadOnly()) {
-                for(IField field : this.fields) {
+
+
+            MStatus status = formInput.getStatusLazy();
+            if (status.isCmsReadOnly() || !status.isStatusFullyLoaded()) {
+                for (IField field : this.fields) {
                     field.setEditable(false);
                 }
-            }else {
-                for(IField field : this.fields) {
+            } else {
+                for (IField field : this.fields) {
                     field.setEditable(true);
                 }
             }
-        
+
             // Refresh fields
             updateFormFields();
         } else {
@@ -585,11 +577,10 @@ public class ElementFormPanel implements IPanelProvider {
                 this.scrolledForm.setImage(null);
             }
         }
-        
+
         // Force form's redraw
         this.scrolledForm.setLayoutDeferred(false);
         this.scrolledForm.setRedraw(true);
-        
     }
 
 }

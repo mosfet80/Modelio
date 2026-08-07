@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.ui.audit;
 
@@ -51,7 +51,7 @@ public class R3120 extends AbstractBpmnRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -71,7 +71,7 @@ public class R3120 extends AbstractBpmnRule {
         plan.registerRule(BpmnIntermediateCatchEvent.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE);
-        
+
     }
 
     @objid ("ee050416-30ec-4321-bfd3-5315d5d89ca8")
@@ -110,7 +110,7 @@ public class R3120 extends AbstractBpmnRule {
      * Default constructor for R3120
      */
     @objid ("96b05e4d-2413-420f-ab26-a74383e5c830")
-    public  R3120() {
+    public R3120() {
         this.checkerInstance = new CheckR3120(this);
     }
 
@@ -121,10 +121,11 @@ public class R3120 extends AbstractBpmnRule {
     private static class CheckR3120 extends AbstractControl {
         /**
          * C'tor.
+         *
          * @param rule the rule to check.
          */
         @objid ("1fc469e9-402a-4a7d-9179-d23030fa53f1")
-        public  CheckR3120(final IRule rule) {
+        public CheckR3120(final IRule rule) {
             super(rule);
         }
 
@@ -134,7 +135,7 @@ public class R3120 extends AbstractBpmnRule {
             if (element instanceof BpmnLinkEventDefinition) {
                 diagnostic.addEntry(checkR3120((BpmnLinkEventDefinition) element));
             } else if (element instanceof BpmnIntermediateThrowEvent) {
-            
+
                 Optional<BpmnEventDefinition> def = ((BpmnIntermediateThrowEvent) element).getEventDefinitions().stream().filter(t -> t instanceof BpmnLinkEventDefinition).findFirst();
                 if (def.isPresent()) {
                     diagnostic.addEntry(checkR3120((BpmnLinkEventDefinition) def.get()));
@@ -156,7 +157,7 @@ public class R3120 extends AbstractBpmnRule {
                     AuditSeverity.AuditSuccess,
                     linkEvent,
                     null);
-            
+
             if ((linkEvent.getCompositionOwner() instanceof  BpmnIntermediateCatchEvent  && linkEvent.getTarget() == null) ||
                 (linkEvent.getCompositionOwner() instanceof  BpmnIntermediateThrowEvent && linkEvent.getSource().isEmpty())) {
                 auditEntry.setSeverity(this.rule.getSeverity());

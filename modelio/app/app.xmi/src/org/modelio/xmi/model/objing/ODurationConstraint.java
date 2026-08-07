@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing;
 
@@ -35,14 +35,14 @@ public class ODurationConstraint extends OElement implements IOElement {
         String metaClassName = this.getClass().getSimpleName();
         // String packagingStr = "org.modelio.xmi.model.objing";
         metaClassName = metaClassName.substring(1);
-        
+
         String message = Xmi.I18N.getMessage("logFile.warning.elementNotMapped", metaClassName);
         GenerationProperties.getInstance().addInfo(message, getObjingElement());
         return null;
     }
 
     @objid ("df6f9067-ecee-4de0-bf45-c0685a9e2930")
-    public  ODurationConstraint(DurationConstraint param) {
+    public ODurationConstraint(DurationConstraint param) {
         super(param);
     }
 

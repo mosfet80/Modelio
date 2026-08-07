@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.bpmn.activities;
 
@@ -26,17 +26,16 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * AdHocOrdering v0.0.9054
- * 
- * 
+ *
+ *
  * null
- * 
- * 
+ *
  */
 @objid ("005556d6-91e1-1f74-804b-001ec947cd2a")
 public enum AdHocOrdering {
-    @objid ("57f25867-5eb2-4314-af9b-710851dc6ba5")
+    @objid ("85919600-1318-4c8e-be58-f918d881e6ff")
     PARALLELORDERING(0, "ParallelOrdering", "ParallelOrdering"),
-    @objid ("d2c651f8-b768-45d9-bef8-7aa5bedc1aee")
+    @objid ("fd680c99-7f44-4982-9496-7014957d97d8")
     SEQUENTIALORDERING(1, "SequentialOrdering", "SequentialOrdering");
 
 public static final int PARALLELORDERING_VALUE = 0;
@@ -93,5 +92,5 @@ public static final int PARALLELORDERING_VALUE = 0;
     public String toString() {
        return literal;
     }
-    
+
 }

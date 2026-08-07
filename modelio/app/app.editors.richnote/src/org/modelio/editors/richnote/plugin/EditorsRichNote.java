@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.editors.richnote.plugin;
 
@@ -32,7 +32,7 @@ import org.osgi.framework.ServiceReference;
 
 /**
  * edition.notes plugin main class.
- * 
+ *
  * Contains static services for log and i18n, as well as the plugin ID.
  */
 @objid ("ccc2fec1-5102-41ad-81de-7e3f09c77b50")
@@ -66,7 +66,7 @@ public class EditorsRichNote implements BundleActivator {
         ExtendedLogService service = bundleContext.getService(ref);
         LOG = new PluginLogger(service.getLogger(bundleContext.getBundle(), PLUGIN_ID));
         I18N = new BundledMessages(LOG, ResourceBundle.getBundle("editors_richnote"));
-        
+
     }
 
     @objid ("0456aa9f-7c86-4609-a599-82e9df6e7ed3")
@@ -76,6 +76,7 @@ public class EditorsRichNote implements BundleActivator {
     }
 
     /**
+     *
      * @return the Eclipse bundle context.
      */
     @objid ("67dda278-5c8b-43b8-87e8-ac64af9afbbc")
@@ -86,6 +87,7 @@ public class EditorsRichNote implements BundleActivator {
     /**
      * Returns an image descriptor for the image file at the given plug-in
      * relative path
+     *
      * @param path the path
      * @return the image descriptor
      */

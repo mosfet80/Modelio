@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.modelio.api.module.command.standard;
 
@@ -97,8 +97,8 @@ public class ElementCreationStandardHandler extends DefaultModuleCommandHandler 
      * Default constructor.
      */
     @objid ("a93e0001-2d2a-49e7-b274-37e1add6fdb7")
-    public  ElementCreationStandardHandler() {
-        
+    public ElementCreationStandardHandler() {
+
     }
 
     @objid ("eb1d0f60-bd1f-479b-ad33-d44900eb029e")
@@ -107,12 +107,12 @@ public class ElementCreationStandardHandler extends DefaultModuleCommandHandler 
         IModuleContext moduleContext = module.getModuleContext();
         IModelingSession modelingSession = moduleContext.getModelingSession();
         String handlerLabel = moduleContext.getI18nSupport().getString(getName());
-        
+
         try (ITransaction tr = modelingSession.createTransaction("Create <<" + getStereotype() + ">> " + getMetaclass())) {
             ModelElement parent = (ModelElement) selectedElements.get(0);
             IUmlModel modelFactory = modelingSession.getModel();
             IDefaultNameService mmNamer = modelFactory.getDefaultNameService();
-        
+
             // Create new instance of the element
             MObject newElement = null;
             if (getMetaclass().equals(AssociationEnd.MQNAME)) {
@@ -142,7 +142,7 @@ public class ElementCreationStandardHandler extends DefaultModuleCommandHandler 
             } else {
                 newElement = modelFactory.createElement(getMetaclass());
             }
-        
+
             // Put new instance "under" its parent.
             if (newElement instanceof AbstractDiagram) {
                 ((AbstractDiagram) newElement).setOrigin(parent);
@@ -153,21 +153,21 @@ public class ElementCreationStandardHandler extends DefaultModuleCommandHandler 
                         ((ModelElement) newElement).getExtension().add(ster);
                     }
                 }
-        
+
                 mmNamer.setDefaultName((ModelElement) newElement, handlerLabel);
-        
+
                 postConfigureElement(newElement, module);
             } else if (newElement != null) {
                 // Get dependency by name.
                 MDependency dependency = parent.getMClass().getDependency(getRelation());
                 if (dependency == null) {
-        
+
                     dependency = parent.getMClass().getMetamodel().getMExpert().getDefaultCompositionDep(parent, newElement);
                 }
                 if (dependency != null) {
                     // Append new instance of said dependency
                     parent.mGet(dependency).add(newElement);
-        
+
                     if (getStereotype() != null) {
                         Stereotype ster = null;
                         if (getStereotype().contains("#")) {
@@ -177,31 +177,31 @@ public class ElementCreationStandardHandler extends DefaultModuleCommandHandler 
                         } else {
                             ster = modelingSession.getMetamodelExtensions().getStereotype(getStereotype(), newElement.getMClass());
                         }
-        
+
                         if (ster != null) {
                             ((ModelElement) newElement).getExtension().add(ster);
                         }
                     }
-        
+
                     mmNamer.setDefaultName((ModelElement) newElement, handlerLabel);
-        
+
                     MTools.get(newElement).getConfigurator().configure(newElement, new HashMap<String, Object>());
-        
+
                     postConfigureElement(newElement, module);
                 } else {
                     newElement.delete();
                 }
             }
-        
+
             if (newElement != null && newElement.isValid()) {
                 tr.commit();
-        
+
                 moduleContext.getModelioServices().getNavigationService().fireNavigate(newElement);
             } else {
                 tr.rollback();
             }
         }
-        
+
     }
 
     @objid ("4161d8db-de05-4aa4-88de-ff5ce1cbbdf7")
@@ -221,6 +221,7 @@ public class ElementCreationStandardHandler extends DefaultModuleCommandHandler 
      * <p>
      * Deleting "newElement" in this method triggers an automatic rollback for the current transaction.
      * </p>
+     *
      * @param newElement the new created element
      * @param module the module
      */
@@ -233,7 +234,7 @@ public class ElementCreationStandardHandler extends DefaultModuleCommandHandler 
     @Override
     public void initialize(List<ElementScope> scopes, Map<String, String> hParameters) {
         super.initialize(scopes, hParameters);
-        
+
         for (Entry<String, String> param : hParameters.entrySet()) {
             switch (param.getKey()) {
             case METACLASS_NAME:
@@ -252,10 +253,11 @@ public class ElementCreationStandardHandler extends DefaultModuleCommandHandler 
                 continue;
             }
         }
-        
+
     }
 
     /**
+     *
      * @return the created element's name.
      */
     @objid ("95c9d958-64b4-4687-b056-1fe690483b7d")
@@ -264,6 +266,7 @@ public class ElementCreationStandardHandler extends DefaultModuleCommandHandler 
     }
 
     /**
+     *
      * @return the created element's metaclass.
      */
     @objid ("4e07f8c9-875e-4603-9f71-4e12f82c01b1")
@@ -272,6 +275,7 @@ public class ElementCreationStandardHandler extends DefaultModuleCommandHandler 
     }
 
     /**
+     *
      * @return the created element's relation towards its parent. <code>null</code> means the default composition relation is used.
      */
     @objid ("9d2bbf2a-dd60-4791-bd4c-bca072791338")
@@ -280,6 +284,7 @@ public class ElementCreationStandardHandler extends DefaultModuleCommandHandler 
     }
 
     /**
+     *
      * @return the created element's stereotype. Might be <code>null</code>.
      */
     @objid ("1c7f7c5c-15aa-4e73-bd50-34ed18acc455")

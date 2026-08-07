@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.engine;
 
@@ -60,33 +60,33 @@ public class AuditEngine {
     private Thread auditThread;
 
     @objid ("54d1b224-431d-4f26-9fd2-ad0b65773c35")
-    public  AuditEngine() {
+    public AuditEngine() {
         // create and assemble a dispatcher and a runner connected to a control
         // program
         this.controlProgram = new CheckProgram();
         this.auditDiagnostic = new AuditDiagnostic();
         this.auditRunner = new AuditRunner(this.controlProgram, this.auditDiagnostic);
         this.auditDispatcher = new AuditDispatcher(this.controlProgram);
-        
+
     }
 
     @objid ("eeed88c7-125d-4d01-abc5-f81f96f5983d")
     public void setPlan(IAuditExecutionPlan plan) {
         // pause the audit while changing the plan
         pause();
-        
+
         this.activePlan = plan;
         this.auditDispatcher.setPlan(this.activePlan);
-        
+
         Map<String, IRule> rules = new HashMap<>();
         for (IRule rule : plan.getAllRules()) {
             rules.put(rule.getRuleId(), rule);
         }
-        
+
         // refresh the audit results and resume the audit
         this.auditDiagnostic.auditPlanChanged(rules);
         resume();
-        
+
     }
 
     @objid ("e5210aad-f7b8-49cd-90f7-2efd9f5bc0ea")
@@ -94,35 +94,35 @@ public class AuditEngine {
         // register the dispatcher as model change listener
         aSession.getModelChangeSupport().addModelChangeListener(this.auditDispatcher);
         aSession.getModelChangeSupport().addStatusChangeListener(this.auditDispatcher);
-        
+
         // start the runner in a thread
         this.auditThread = new Thread(this.auditRunner);
         this.auditThread.setPriority(Thread.MIN_PRIORITY);
         this.auditThread.setName("AUDIT");
         this.auditThread.start();
         this.session = aSession;
-        
+
         // set the audit mode to AUTO
         setRunningMode(AuditRunningMode.AUTO);
         resume();
-        
+
     }
 
     @objid ("bd57d4b7-0385-477b-8a71-4142e561a053")
     public void stop(ICoreSession aSession) {
         // first stop the audit activity
         pause();
-        
+
         // unregister the dispatcher
         aSession.getModelChangeSupport().removeModelChangeListener(this.auditDispatcher);
         aSession.getModelChangeSupport().removeStatusChangeListener(this.auditDispatcher);
-        
+
         // terminate the runner thread
         this.auditRunner.terminate();
-        
+
         this.auditDiagnostic.clear();
         this.session = null;
-        
+
     }
 
     /**
@@ -157,7 +157,7 @@ public class AuditEngine {
             break;
         }
         this.runningMode = mode;
-        
+
     }
 
     /**
@@ -171,7 +171,7 @@ public class AuditEngine {
     public void pause() {
         this.auditDispatcher.stop();
         this.auditRunner.stop();
-        
+
     }
 
     @objid ("968d1905-fbb1-4155-9225-6a534560adda")
@@ -186,7 +186,7 @@ public class AuditEngine {
             this.auditRunner.start(this.session);
             break;
         }
-        
+
     }
 
     @objid ("c86c2789-456a-40eb-8108-18f6d170788c")
@@ -232,7 +232,7 @@ public class AuditEngine {
     private void switchToAuto() {
         this.auditRunner.start(this.session);
         this.auditDispatcher.start();
-        
+
     }
 
     /**
@@ -246,7 +246,7 @@ public class AuditEngine {
     private void switchToManual() {
         this.auditRunner.start(this.session);
         this.auditDispatcher.stop();
-        
+
     }
 
     @objid ("1578d2d0-04a6-4416-904c-e20b9c7dd665")

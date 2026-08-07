@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.editor.silent;
 
@@ -53,7 +53,7 @@ import org.modelio.vcore.session.api.ICoreSession;
 
 /**
  * Quite the same as an {@link AbstractDiagramEditor}, only with nothing visible.
- * 
+ *
  * @author fpoyer
  */
 @objid ("66995c53-33f7-11e2-95fe-001ec947c8cc")
@@ -78,39 +78,40 @@ public class SilentDiagramEditor implements IDiagramEditor {
 
     /**
      * C'tor.
+     *
      * @param input the editor input to use as data source.
      * @param projectService a project service
      */
     @objid ("66995c5a-33f7-11e2-95fe-001ec947c8cc")
-    public  SilentDiagramEditor(final DiagramEditorInput input, final IProjectService projectService) {
+    public SilentDiagramEditor(final DiagramEditorInput input, final IProjectService projectService) {
         this.projectService = projectService;
         setEditDomain(new EditDomain());
         this.input = input;
-        
+
         createGraphicalViewer();
-        
+
     }
 
     @objid ("66995c5f-33f7-11e2-95fe-001ec947c8cc")
     private void configureGraphicalViewer() {
         final GraphicalViewer viewer = getGraphicalViewer();
-        
+
         // Set the root edit part
         viewer.setRootEditPart(this.rootEditPart);
         viewer.setEditPartFactory(createEditPartFactory());
-        
+
         // Configure the edit domain
         // Set the active and default tool
         final SelectionTool selectionTool = new PanSelectionTool();
         getEditDomain().setActiveTool(selectionTool);
         getEditDomain().setDefaultTool(selectionTool);
-        
+
         viewer.setEditDomain(getEditDomain());
-        
+
         // Plug our own command stack that is bound to the Modelio transaction
         // manager
         getEditDomain().setCommandStack(new DiagramCommandStack(getModelingSession().getTransactionSupport()));
-        
+
     }
 
     @objid ("66995c65-33f7-11e2-95fe-001ec947c8cc")
@@ -120,7 +121,7 @@ public class SilentDiagramEditor implements IDiagramEditor {
         setGraphicalViewer(viewer);
         configureGraphicalViewer();
         initializeGraphicalViewer();
-        
+
     }
 
     /**
@@ -134,9 +135,9 @@ public class SilentDiagramEditor implements IDiagramEditor {
         if (input != null) {
             input.dispose();
         }
-        
+
         getEditDomain().setActiveTool(null);
-        
+
     }
 
     @objid ("66995c6b-33f7-11e2-95fe-001ec947c8cc")
@@ -181,12 +182,12 @@ public class SilentDiagramEditor implements IDiagramEditor {
     @objid ("66995c7e-33f7-11e2-95fe-001ec947c8cc")
     private void initializeGraphicalViewer() {
         final GraphicalViewer viewer = getGraphicalViewer();
-        
+
         viewer.setProperty(DiagramElementDropEditPolicy.DROP_EXTENSIONS, loadDropExtensions());
-        
+
         // Initialize connection routers
         viewer.setProperty(ConnectionRoutingServices.ID, initializeConnectionRoutingServices());
-        
+
         // Set the viewer content
         final IGmDiagram gmDiagram = getEditorInput().getGmDiagram();
         viewer.setContents(gmDiagram);
@@ -194,9 +195,9 @@ public class SilentDiagramEditor implements IDiagramEditor {
         // be sent by the model (e.g.: links that have changed source and/or target while diagram
         // was closed).
         gmDiagram.refreshAllFromObModel();
-        
+
         viewer.flush();
-        
+
     }
 
     /**
@@ -211,7 +212,7 @@ public class SilentDiagramEditor implements IDiagramEditor {
         // No specialization for the Silent editor, deal with BPMN routers being different right here
         // 24/02/2023 5.3.1 : switch off legacy router
         final String mcName = this.input.getDiagram().getMClass().getName();
-        
+
         if (true) {
             // since 5.3.1
             if (mcName.startsWith("SequenceDiagram")) {
@@ -231,11 +232,12 @@ public class SilentDiagramEditor implements IDiagramEditor {
                 return ConnectionRoutingServices.builder().withLegacyDefaults().build();
             }
         }
-        
+
     }
 
     /**
      * Return the root edit part of this editor.
+     *
      * @return the root edit part of this editor.
      */
     @objid ("66995c80-33f7-11e2-95fe-001ec947c8cc")
@@ -254,11 +256,12 @@ public class SilentDiagramEditor implements IDiagramEditor {
     private void setGraphicalViewer(final GraphicalViewer viewer) {
         getEditDomain().addViewer(viewer);
         this.graphicalViewer = viewer;
-        
+
     }
 
     /**
      * Returns the input for this editor.
+     *
      * @return the editor input
      */
     @objid ("669bbe9f-33f7-11e2-95fe-001ec947c8cc")
@@ -277,7 +280,7 @@ public class SilentDiagramEditor implements IDiagramEditor {
         final List<IDiagramElementDropEditPolicyExtension> ret = new ArrayList<>();
         // Infra contribution is ALWAYS registered
         ret.add(new InfraDiagramElementDropEditPolicyExtension());
-        
+
         for (final IConfigurationElement dropExtensionElement : new ExtensionPointContributionManager(SilentDiagramEditor.DROPPOLICYEXTENSION_ID).getExtensions("droppolicyextension")) {
             for (final IConfigurationElement scope : dropExtensionElement.getChildren("scope")) {
                 final String editorId = scope.getAttribute("editorId");
@@ -291,7 +294,7 @@ public class SilentDiagramEditor implements IDiagramEditor {
                     } catch (final CoreException e1) {
                         DiagramEditor.LOG.error(e1);
                     }
-        
+
                 } // else skip it
             }
         }

@@ -1,27 +1,26 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.parts.fragment.migration;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -62,11 +61,11 @@ import org.modelio.vstore.exml.common.AbstractExmlRepository;
 import org.modelio.vstore.exml.common.RepositoryVersions;
 import org.modelio.vstore.exml.resource.IExmlResourceProvider.ExmlResource;
 import org.modelio.vstore.exml.resource.LocalExmlResourceProvider;
-import org.modelio.vstore.exml.resource.migration.MigratorFrom1To2;
+import org.modelio.vstore.exml.resource.migration.RepositoryFormatMigrator;
 
 /**
  * Chained MOF migrator that also handles SVN locks and commits.
- * 
+ *
  * @author cma
  * @since 3.6
  */
@@ -88,6 +87,7 @@ public class ChainedExmlFragmentMigrator extends ChainedMofFragmentMigrator {
     private final ExmlResource mmDescriptorResource;
 
     /**
+     *
      * @param project the project
      * @param exmlFragment the fragment to migrate
      * @param mmVersionPath the metamodel version file path
@@ -95,38 +95,36 @@ public class ChainedExmlFragmentMigrator extends ChainedMofFragmentMigrator {
      * @throws IOException on failure reading the fragment metamodel version
      */
     @objid ("4627bd7f-9526-4051-abd5-cd6827ddbc17")
-    public  ChainedExmlFragmentMigrator(IGProject project, GExmlFragment exmlFragment, Path mmVersionPath, MetamodelVersionDescriptor targetVersion, LocalExmlResourceProvider resProvider) throws IOException {
+    public ChainedExmlFragmentMigrator(IGProject project, GExmlFragment exmlFragment, Path mmVersionPath, MetamodelVersionDescriptor targetVersion, LocalExmlResourceProvider resProvider) throws IOException {
         super(project, exmlFragment, exmlFragment::instantiateRepository);
         this.exmlFragment = exmlFragment;
         this.mmVersionPath = mmVersionPath;
         this.mmDescriptorResource = resProvider.getMetamodelDescriptorResource();
         this.targetVersion = targetVersion;
         this.srcRepositoryFormat = resProvider.readRepositoryVersion().getRepositoryFormat();
-        
     }
 
     @objid ("53fc6435-fb85-47c1-b599-72d68a49593e")
     @Override
     public void migrateModel(IModelioProgress monitor) throws MigrationFailedException, FragmentAuthenticationException {
         SubProgress mon = SubProgress.convert(monitor, isFormatChangeNeeded() ? 2 : 1);
-        
+
         try {
             // Repository format change
             if (isFormatChangeNeeded()) {
-                migrateRepositoryFormat(mon.newChild(1), getMigrationReporter().getLogger());
+                migrateRepositoryFormat(mon.newChild(1));
             }
-        
+
             super.migrateModel(mon.newChild(1));
-        
+
             // Write mm version and descriptor
             writeMmVersion();
-        
+
         } catch (IOException e) {
             throw handleIOException( e);
         } catch (MofMigrationException e) {
             throw new MigrationFailedException(e.getLocalizedMessage(), e);
         }
-        
     }
 
     @objid ("0b1121bc-2da9-41e6-a86f-ae1ea7a0b39c")
@@ -134,26 +132,25 @@ public class ChainedExmlFragmentMigrator extends ChainedMofFragmentMigrator {
     protected void doFinish(IModelioProgress monitor) throws MigrationFailedException {
         super.doFinish(monitor);
         try {
-        
+
             new FileFlags(getExmlFragment()).removeMigrationFlag("migrator");
-        
+
             getMigrationReporter().getLogger().println("'"+getExmlFragment().getId()+"' migration sucessful.");
         } catch (IOException e) {
             throw handleIOException( e);
         }
-        
     }
 
     @objid ("e0100e0b-76a8-49a3-948e-ed23203032ca")
     @Override
     protected void doStart(IModelioProgress monitor) throws FragmentAuthenticationException, MigrationFailedException {
         super.doStart(monitor);
-        
+
         try {
             new FileFlags(this.exmlFragment).putMigrationFlag("migrator", getClass().getName());
-        
+
         } catch (RuntimeException e) {
-            e.printStackTrace(getMigrationReporter().getLogger());
+            getMigrationReporter().getLogger().printStackTrace(e);
             throw new MigrationFailedException(CoreProject.I18N.getMessage(
                     "ChainedExmlFragmentMigrator.MigrationFailed",
                     this.exmlFragment.getId(),
@@ -161,7 +158,6 @@ public class ChainedExmlFragmentMigrator extends ChainedMofFragmentMigrator {
         } catch (IOException e) {
             throw handleIOException( e);
         }
-        
     }
 
     @objid ("af9d4200-a792-448c-b982-0f93a3601b66")
@@ -172,26 +168,24 @@ public class ChainedExmlFragmentMigrator extends ChainedMofFragmentMigrator {
         } catch (MetaclassNotFoundException e) {
             throw new MofMigrationException(e.getLocalizedMessage(), e);
         }
-        
     }
 
     @objid ("a3ca9d06-5d73-467d-915a-19e5794228e8")
     @Override
     protected void preMofMigration(Supplier<SubProgress> mon, MofSession migrationSession, IMofRepositoryMigrator mofMigrator) throws MofMigrationException {
         getMigrationReporter().getLogger().println("Rebuilding '"+this.exmlFragment.getId()+"' indexes...");
-        
+
         try {
             final AbstractExmlRepository repository = (AbstractExmlRepository) migrationSession.getTargetRepository();
-        
+
             // Ensure all directories exist
             repository.getResourceProvider().updateRepositoryStructure(getProject().getSession().getMetamodel());
-        
+
             // Rebuild indexes from scratch to handle updates and by precaution
             repository.getMaintenance().rebuildIndexes(mon.get());
         } catch (IOException e) {
             throw new MofMigrationException(FileUtils.getLocalizedMessage(e), e);
         }
-        
     }
 
     @objid ("176f0e49-fdd3-46ba-a10f-7823a12d0fbe")
@@ -204,7 +198,6 @@ public class ChainedExmlFragmentMigrator extends ChainedMofFragmentMigrator {
         } else {
             return ret;
         }
-        
     }
 
     @objid ("e3ff7e7e-0eee-4f73-85d1-f56a6b60e1e4")
@@ -214,82 +207,85 @@ public class ChainedExmlFragmentMigrator extends ChainedMofFragmentMigrator {
 
     /**
      * Handle CMS node metaclass changes.
+     *
      * @param mmchanges the metamodel change descriptor
+     * @deprecated Now done by the MOF migrator that transmutes the object to a temporary metaclass then back to the orig metaclass hacked with the right CMS node flag.
      */
     @objid ("41922abb-45b4-4fb6-96d0-7a12a8f0459c")
+    @Deprecated
     private void handleCmsNodeChanges(Supplier<SubProgress> monitorSupplier, MofSession migrationSession, IMofRepositoryMigrator mofMigrator) throws MetaclassNotFoundException {
-        MetamodelChangeDescriptor mmchanges = mofMigrator.getMetamodelChanges();
-        if (! (mmchanges.getAddedCmsNodes().isEmpty() && mmchanges.getRemovedCmsNodes().isEmpty())) {
-            SubProgress mon = monitorSupplier.get();
-            int totalWork = mmchanges.getAddedCmsNodes().size() + mmchanges.getRemovedCmsNodes().size();
-            mon.beginTask("", totalWork);
-        
-            for (MClassRef classRef : mmchanges.getAddedCmsNodes()) {
-                SmClass mClass = migrationSession.getMetamodel().getMClass(classRef.getQualifiedName());
-                if (mClass != null) {
+        if (false) {
+            MetamodelChangeDescriptor mmchanges = mofMigrator.getMetamodelChanges();
+            if (! (mmchanges.getAddedCmsNodes().isEmpty() && mmchanges.getRemovedCmsNodes().isEmpty())) {
+                SubProgress mon = monitorSupplier.get();
+                int totalWork = mmchanges.getAddedCmsNodes().size() + mmchanges.getRemovedCmsNodes().size();
+                mon.beginTask("", totalWork);
+
+                for (MClassRef classRef : mmchanges.getAddedCmsNodes()) {
+                    SmClass mClass = migrationSession.getMetamodel().getMClass(classRef.getQualifiedName());
+                    if (mClass != null) {
+                        for (MObject obj : migrationSession.findByClass(mClass, false)) {
+                            if (obj.getStatus().isModifiable()) {
+                                // regenerate object
+                                getMigrationReporter().getLogger().println("CMS node change:  + '"+obj+"' is a new CMS node.");
+                                migrationSession.replace(obj, mClass, null, true);
+                            }
+                        }
+                    }
+                    mon.worked(1);
+                }
+
+                for (MClassRef classRef : mmchanges.getRemovedCmsNodes()) {
+                    SmClass mClass = migrationSession.getMetaclass(classRef.getQualifiedName());
                     for (MObject obj : migrationSession.findByClass(mClass, false)) {
-                        if (obj.isModifiable()) {
+                        if (obj.getStatus().isModifiable()) {
                             // regenerate object
                             getMigrationReporter().getLogger().println("CMS node change:  + '"+obj+"' is a new CMS node.");
                             migrationSession.replace(obj, mClass, null, true);
                         }
                     }
+                    mon.worked(1);
                 }
-                mon.worked(1);
+
+                getMigrationReporter().getLogger().println("'"+this.exmlFragment.getId()+"' CMS nodes rewritten");
             }
-        
-            for (MClassRef classRef : mmchanges.getRemovedCmsNodes()) {
-                SmClass mClass = migrationSession.getMetaclass(classRef.getQualifiedName());
-                for (MObject obj : migrationSession.findByClass(mClass, false)) {
-                    if (obj.isModifiable()) {
-                        // regenerate object
-                        getMigrationReporter().getLogger().println("CMS node change:  + '"+obj+"' is a new CMS node.");
-                        migrationSession.replace(obj, mClass, null, true);
-                    }
-                }
-                mon.worked(1);
-            }
-        
-            getMigrationReporter().getLogger().println("'"+this.exmlFragment.getId()+"' CMS nodes rewritten");
         }
-        
     }
 
     @objid ("fa9b4200-ae85-4cd4-b824-eb78a296db36")
     private MigrationFailedException handleIOException(IOException e) {
-        e.printStackTrace(getMigrationReporter().getLogger());
+        getMigrationReporter().getLogger().printStackTrace(e);
         return new MigrationFailedException(CoreProject.I18N.getMessage("ChainedExmlFragmentMigrator.MigrationFailed",
                                                                                 this.exmlFragment.getId(),
                                                                                 FileUtils.getLocalizedMessage(e)), e);
-        
     }
 
     @objid ("cd6c3c3b-e45d-49a6-b540-e550c25af550")
     private boolean isFormatChangeNeeded() {
-        return this.srcRepositoryFormat < RepositoryVersions.CURRENT_FORMAT;
+        return this.srcRepositoryFormat < RepositoryVersions.LATEST_STABLE_FORMAT;
     }
 
     @objid ("284fd176-422b-4515-abff-f6f006d07c51")
-    private void migrateRepositoryFormat(IModelioProgress monitor, PrintWriter logger) throws IOException, FragmentAuthenticationException, MofMigrationException {
-        if (isFormatChangeNeeded()) {
-            SubProgress mon = SubProgress.convert(monitor, 10);
-        
-            IMofSession sess = prepareMofSession(mon.newChild(1), 0);
-            try {
-                new MigratorFrom1To2(
-                        this.exmlFragment.getDataDirectory(),
-                        sess.getMetamodel(),
-                        logger)
-                .execute(mon.newChild(9));
-            } finally {
-                sess.getCoreSession().close();
-            }
+    private void migrateRepositoryFormat(IModelioProgress monitor) throws IOException, FragmentAuthenticationException, MofMigrationException {
+        SubProgress mon = SubProgress.convert(monitor, 10);
+
+        IMofSession sess = prepareMofSession(mon.newChild(1), 0);
+        try {
+            new RepositoryFormatMigrator(
+                    this.exmlFragment.getDataDirectory(),
+                    sess.getMetamodel(),
+                    getMigrationReporter(),
+                    this.srcRepositoryFormat,
+                    RepositoryVersions.LATEST_STABLE_FORMAT)
+            .execute(mon.newChild(9));
+        } finally {
+            sess.getCoreSession().close();
         }
-        
     }
 
     /**
      * Write the new metamodel version.
+     *
      * @throws IOException in case of I/O failure
      */
     @objid ("1f325235-789b-40a8-9ea2-5ae530378d0e")
@@ -297,11 +293,10 @@ public class ChainedExmlFragmentMigrator extends ChainedMofFragmentMigrator {
         try (Writer out = Files.newBufferedWriter(this.mmVersionPath, StandardCharsets.UTF_8)) {
             this.targetVersion.write(out);
         }
-        
+
         // Force the metamodel descriptor because at this state
         // the repository MM descriptor may contain old metamodels elements.
         writeMetamodelDescriptor(getFinalMergedMmDescriptor(getMigrationReporter()));
-        
     }
 
     @objid ("d1c248fb-17f3-4c73-a894-3d8a43cfb50a")
@@ -309,7 +304,6 @@ public class ChainedExmlFragmentMigrator extends ChainedMofFragmentMigrator {
         try (OutputStream out = this.mmDescriptorResource.bufferedWrite()){
             new MetamodelDescriptorWriter().write(finalMergedMmDescriptor, out);
         }
-        
     }
 
     @objid ("20e39e43-c419-4386-bd5e-e285cbb124bc")
@@ -326,16 +320,16 @@ public class ChainedExmlFragmentMigrator extends ChainedMofFragmentMigrator {
             } else {
                 ret = super.computeStepsDescription();
             }
-        
+
             if (isFormatChangeNeeded()) {
                 ret.add(new MigrationStepDescription(CoreProject.I18N.getMessage(
                         "GExmlFragment.RepositoryFormatNeedMigration",
                         this.exmlFragment.getId(),
                         this.srcRepositoryFormat,
-                        RepositoryVersions.CURRENT_FORMAT)));
-        
+                        RepositoryVersions.LATEST_STABLE_FORMAT)));
+
             }
-        
+
             return ret;
         } catch (IOException e) {
             // ignore and fallback to super().
@@ -345,13 +339,14 @@ public class ChainedExmlFragmentMigrator extends ChainedMofFragmentMigrator {
 
     /**
      * Dummy migrator to force repository format migration.
+     *
      * @author cma
      * @since 3.7.1
      */
     @objid ("556bdf5c-1662-4062-a3c5-651b39859a11")
     private static final class RepoFormatMigrationNeededMigrator extends AbstractMofRepositoryMigrator {
         @objid ("c3aab746-4c66-4067-a6a2-500bc4e65239")
-        public  RepoFormatMigrationNeededMigrator(MetamodelVersionDescriptor fromMetamodel, MetamodelVersionDescriptor targetMetamodel) {
+        public RepoFormatMigrationNeededMigrator(MetamodelVersionDescriptor fromMetamodel, MetamodelVersionDescriptor targetMetamodel) {
             super(fromMetamodel, targetMetamodel);
         }
 

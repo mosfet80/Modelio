@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+
+<toc label="Workflow" topic="html/Index.html">
+	<topic comment="entry" href="html/Introduction.html" label="Introduction">
+	</topic>
+	<topic comment="entry" href="html/Concepts.html" label="Modelio Workflow concepts">
+	</topic>
+	<topic comment="entry" href="html/WorkflowUser.html" label="Modelio Workflow User">
+	</topic>
+	<topic comment="entry" href="html/WorkflowDesigner.html" label="Modelio Workflow Designer">
+	</topic>
+	<topic comment="entry" href="html/ModelioServerWorkflows.html" label="Modelio Server workflow management">
+	</topic>
+</toc>

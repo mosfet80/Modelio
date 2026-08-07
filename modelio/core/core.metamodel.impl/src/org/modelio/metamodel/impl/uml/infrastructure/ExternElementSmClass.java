@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -57,7 +56,7 @@ public class ExternElementSmClass extends ModelElementSmClass {
     private SmDependency ownerDep;
 
     @objid ("6ef09d05-d2e4-450a-bfca-1b5c25133607")
-    public  ExternElementSmClass(ISmMetamodelFragment origin) {
+    public ExternElementSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
@@ -65,7 +64,7 @@ public class ExternElementSmClass extends ModelElementSmClass {
     @Override
     public String getName() {
         return "ExternElement";
-        
+
     }
 
     @objid ("2707bb93-d6a4-41d9-a280-7b83d2a945d2")
@@ -78,21 +77,21 @@ public class ExternElementSmClass extends ModelElementSmClass {
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return ExternElement.class;
-        
+
     }
 
     @objid ("0b9f6369-c1eb-4680-b904-a7ad8294bc2d")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
     @objid ("7db94386-fe83-4308-835f-4f4517420bd6")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
     @objid ("7829fc0a-c4e4-4ea5-a15b-b5d95d93fbf7")
@@ -100,28 +99,27 @@ public class ExternElementSmClass extends ModelElementSmClass {
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(ModelElement.MQNAME);
         this.registerFactory(new ExternElementObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
         this.providerAtt = new ProviderSmAttribute();
         this.providerAtt.init("Provider", this, String.class );
         registerAttribute(this.providerAtt);
-        
+
         this.externIdAtt = new ExternIdSmAttribute();
         this.externIdAtt.init("ExternId", this, String.class );
         registerAttribute(this.externIdAtt);
-        
+
         this.locationAtt = new LocationSmAttribute();
         this.locationAtt.init("Location", this, String.class );
         registerAttribute(this.locationAtt);
-        
-        
+
+
         // Initialize and register the SmDependency
         this.ownerDep = new OwnerSmDependency();
         this.ownerDep.init("Owner", this, metamodel.getMClass(MethodologicalLink.MQNAME), 1, 1 );
         registerDependency(this.ownerDep);
-        
-        
+
     }
 
     @objid ("4af4413e-8b37-4188-9bb6-ce03a1666d35")
@@ -162,7 +160,7 @@ public class ExternElementSmClass extends ModelElementSmClass {
         private ExternElementSmClass smClass;
 
         @objid ("fe67351c-89b6-40d4-9b6a-ad062112f238")
-        public  ExternElementObjectFactory(ExternElementSmClass smClass) {
+        public ExternElementObjectFactory(ExternElementSmClass smClass) {
             this.smClass = smClass;
         }
 
@@ -246,7 +244,7 @@ public class ExternElementSmClass extends ModelElementSmClass {
             	this.symetricDep = ((MethodologicalLinkSmClass)this.getTarget()).getExternElementDep();
             }
             return this.symetricDep;
-            
+
         }
 
     }

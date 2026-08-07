@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.instance;
 
@@ -31,7 +31,7 @@ import org.modelio.uml.statikdiagram.editor.elements.narylink.AcceptNLinkEditPol
  * EditPart for {@link GmInstancePrimaryNode} in image mode.
  * <p>
  * Accepts n-ary links.
- * 
+ *
  * @author cmarin
  */
 @objid ("3541bb6c-55b7-11e2-877f-002564c97630")
@@ -40,17 +40,17 @@ public class ImageInstanceEditPart extends NonSelectableImageEditPart {
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         installEditPolicy("constraint", new ConstraintLinkEditPolicy(false));
         installEditPolicy("nary-link", new AcceptNLinkEditPolicy(true));
-        
+
         GmInstancePrimaryNode model = (GmInstancePrimaryNode) getModel();
         if (model.getRelatedElement() instanceof BindableInstance) {
             installEditPolicy("nary-connector", new AcceptNConnectorEditPolicy(true));
         }
-        
+
         installEditPolicy(ModelElementDropRequest.TYPE, new InstanceElementDropEditPolicy());
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.api.tools;
 
@@ -62,7 +62,7 @@ public class MultiLinkTool extends MultiPointCreationTool {
      * C'tor, used by platform to instantiate the tool by reflexion.
      */
     @objid ("2be6d810-f043-41ac-bf17-5fa1c15a2322")
-    public  MultiLinkTool() {
+    public MultiLinkTool() {
         this.multiLinkCommand = null;
     }
 
@@ -72,21 +72,21 @@ public class MultiLinkTool extends MultiPointCreationTool {
         if (getTargetEditPart() == null) {
             return;
         }
-        
+
         GmModel targetModel = (GmModel) getTargetEditPart().getModel();
         initDiagramHandle(targetModel);
-        
+
         // Get the last node
         IDiagramGraphic lastNode = null;
         while (lastNode == null && targetModel != null) {
             lastNode = DGFactory.getInstance().getDiagramGraphic(this.diagramHandle, targetModel);
             targetModel = targetModel.getParent();
         }
-        
+
         // Gather all other nodes
         List<IDiagramGraphic> otherNodes = getOtherNodes();
         otherNodes.remove(lastNode);
-        
+
         // Gather the rectangle
         CreateMultiPointRequest targetRequest = getTargetRequest();
         Point where = targetRequest.getLocation();
@@ -95,7 +95,7 @@ public class MultiLinkTool extends MultiPointCreationTool {
         Rectangle rect = new Rectangle(where, size);
         ((GraphicalEditPart) getTargetEditPart().getViewer().getContents()).getFigure()
                 .translateToRelative(rect);
-        
+
         // TODO Additional step: add the optional bend points and routers.
         List<ILinkRoute> paths = new ArrayList<>();
         List<LinkRouterKind> routerList = new ArrayList<>();
@@ -103,7 +103,7 @@ public class MultiLinkTool extends MultiPointCreationTool {
             paths.add(LinkRoute.createEmpty());
             routerList.add(LinkRouterKind.BENDPOINT);
         }
-        
+
         // Delegate the execution to the linkCommand handler
         this.multiLinkCommand.actionPerformed(this.diagramHandle,
                 lastNode,
@@ -111,9 +111,9 @@ public class MultiLinkTool extends MultiPointCreationTool {
                 routerList,
                 paths,
                 rect);
-        
+
         setCurrentCommand(null);
-        
+
     }
 
     @objid ("8bd99cec-26c6-4a8c-96a3-800f46e9009e")
@@ -121,13 +121,13 @@ public class MultiLinkTool extends MultiPointCreationTool {
         List<IDiagramGraphic> otherNodes = new ArrayList<>();
         for (EditPart ep : getTargetRequest().getAcceptedEditParts()) {
             GmModel targetModel = (GmModel) ep.getModel();
-        
+
             IDiagramGraphic dg = null;
             while (dg == null && targetModel != null) {
                 dg = DGFactory.getInstance().getDiagramGraphic(this.diagramHandle, targetModel);
                 targetModel = targetModel.getParent();
             }
-        
+
             if (dg != null) {
                 otherNodes.add(dg);
             }
@@ -145,7 +145,7 @@ public class MultiLinkTool extends MultiPointCreationTool {
             return;
         }
         super.applyProperty(key, value);
-        
+
     }
 
     @objid ("5656a09f-dd7d-4268-85e9-43227800cfa8")
@@ -157,7 +157,7 @@ public class MultiLinkTool extends MultiPointCreationTool {
             }
             return false;
         };
-        
+
     }
 
     /**
@@ -166,6 +166,7 @@ public class MultiLinkTool extends MultiPointCreationTool {
      * With a REQ_MULTIPOINT_FIRST request: if (acceptFirst) return true, else return acceptLast.<br>
      * With a REQ_MULTIPOINT_ADDITIONAL request: if (acceptAdditional) return true, else return acceptLast.<br>
      * When acceptLast returns true, switches the current request to REQ_MULTIPOINT_LAST.
+     *
      * @param editpart The edit part to check.
      * @return true if the request is accepted.
      */
@@ -173,17 +174,17 @@ public class MultiLinkTool extends MultiPointCreationTool {
     protected boolean doAccept(final EditPart editpart) {
         GmModel targetModel = (GmModel) editpart.getModel();
         initDiagramHandle(targetModel);
-        
+
         IDiagramGraphic dg = null;
         while (dg == null && targetModel != null) {
             dg = DGFactory.getInstance().getDiagramGraphic(this.diagramHandle, targetModel);
             targetModel = targetModel.getParent();
         }
-        
+
         if (dg == null) {
             return false;
         }
-        
+
         if (CreateMultiPointRequest.REQ_MULTIPOINT_FIRST.equals(getTargetRequest().getType())) {
             // Accept First
             if (this.multiLinkCommand.acceptFirstElement(this.diagramHandle, dg)) {
@@ -221,10 +222,10 @@ public class MultiLinkTool extends MultiPointCreationTool {
             // Create a diagram handle on the opened editor (there must be one: we are in one of its tools!).
             AbstractDiagram diagram = targetModel.getDiagram().getRelatedElement();
             IDiagramEditor editor = (IDiagramEditor) DiagramEditorsManager.getInstance().get(diagram).getObject();
-        
+
             this.diagramHandle = DiagramHandle.create(editor, true);
         }
-        
+
     }
 
     @objid ("7ae62760-d4c7-4325-b3e4-28a0c6186fe8")
@@ -235,7 +236,7 @@ public class MultiLinkTool extends MultiPointCreationTool {
             this.diagramHandle.close();
             this.diagramHandle = null;
         }
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.bpmnprocess;
 
@@ -62,23 +62,24 @@ public class GmBpmnProcessPrimaryNode extends GmNoStyleCompositeNode implements 
 
     /**
      * Default constructor.
+     *
      * @param diagram the diagram in which this gm is unmasked.
      * @param relatedRef a reference to the represented CallBehaviorAction
      */
     @objid ("342a7f20-55b7-11e2-877f-002564c97630")
-    public  GmBpmnProcessPrimaryNode(final IGmDiagram diagram, final MRef relatedRef) {
+    public GmBpmnProcessPrimaryNode(final IGmDiagram diagram, final MRef relatedRef) {
         super(diagram, relatedRef);
         this.header = new GmDefaultModelElementHeader(diagram, relatedRef);
         this.header.setShowMetaclassIcon(true);
         addChild(this.header);
-        
+
     }
 
     /**
      * Empty constructor needed for the serialization.
      */
     @objid ("342a7f2b-55b7-11e2-877f-002564c97630")
-    public  GmBpmnProcessPrimaryNode() {
+    public GmBpmnProcessPrimaryNode() {
         // empty constructor for the serialization
     }
 
@@ -153,7 +154,7 @@ public class GmBpmnProcessPrimaryNode extends GmNoStyleCompositeNode implements 
             break;
         }
         }
-        
+
     }
 
     @objid ("342c05cd-55b7-11e2-877f-002564c97630")
@@ -161,29 +162,29 @@ public class GmBpmnProcessPrimaryNode extends GmNoStyleCompositeNode implements 
     public void refreshFromObModel() {
         super.refreshFromObModel(); // forcing visual refresh in case Image changed
         firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("342c05d0-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmBpmnProcessPrimaryNode.", GmBpmnProcessPrimaryNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("342c05d6-55b7-11e2-877f-002564c97630")
     private void read_0(final IDiagramReader in) {
         super.read(in);
-        
+
         int i = 0;
-        
+
         this.header = (GmDefaultModelElementHeader) this.getChildren().get(i++);
         GmNodeModel imageModeHeader = this.getChildren().get(i++);
         imageModeHeader.delete();
-        
+
     }
 
     @objid ("342c05dc-55b7-11e2-877f-002564c97630")
@@ -195,9 +196,9 @@ public class GmBpmnProcessPrimaryNode extends GmNoStyleCompositeNode implements 
     @objid ("342d8c3c-55b7-11e2-877f-002564c97630")
     private void read_1(final IDiagramReader in) {
         super.read(in);
-        
+
         this.header = (GmDefaultModelElementHeader) this.getChildren().get(0);
-        
+
     }
 
 }

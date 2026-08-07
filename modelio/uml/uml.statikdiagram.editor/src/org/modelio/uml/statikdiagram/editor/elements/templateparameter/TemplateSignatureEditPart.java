@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.templateparameter;
 
@@ -39,10 +39,10 @@ public class TemplateSignatureEditPart extends ModelElementLabelEditPart {
     @Override
     protected IFigure createFigure() {
         TemplateSignatureFigure fig = new TemplateSignatureFigure();
-        
+
         // Style independent
         fig.setOpaque(true);
-        
+
         // Style dependant
         refreshFromStyle(fig, getModelStyle());
         return fig;
@@ -51,33 +51,33 @@ public class TemplateSignatureEditPart extends ModelElementLabelEditPart {
     @objid ("36e9ed5c-55b7-11e2-877f-002564c97630")
     private void updateFigureBorder(final TemplateSignatureFigure aFigure) {
         final ZoomableLineBorder inner = new ZoomableLineBorder(aFigure.getLineColor(), aFigure.getLineWidth());
-        
+
         // inner.setWidth(1);
         inner.setStyle(Graphics.LINE_DASH);
-        
+
         aFigure.setBorder(inner);
-        
+
     }
 
     @objid ("36e9ed60-55b7-11e2-877f-002564c97630")
     @Override
     protected void refreshFromStyle(final IFigure fig, final IStyle style) {
         super.refreshFromStyle(fig, style);
-        
+
         final TemplateSignatureFigure theFig = (TemplateSignatureFigure) fig;
         final GmTemplateSignature gmModel = (GmTemplateSignature) getModel();
-        
+
         if (gmModel.getStyleKey(MetaKey.LINECOLOR) != null) {
             theFig.setLineColor(style.getColor(gmModel.getStyleKey(MetaKey.LINECOLOR)));
         }
         if (gmModel.getStyleKey(MetaKey.LINEWIDTH) != null) {
             theFig.setLineWidth(style.getInteger(gmModel.getStyleKey(MetaKey.LINEWIDTH)));
         }
-        
+
         if (gmModel.getStyleKey(MetaKey.FILLCOLOR) != null) {
             theFig.setFillColor(style.getColor(gmModel.getStyleKey(MetaKey.FILLCOLOR)));
         }
-        
+
         if (gmModel.getStyleKey(MetaKey.FILLMODE) != null) {
             switch ((FillMode) style.getProperty(gmModel.getStyleKey(MetaKey.FILLMODE))) {
             case GRADIENT:
@@ -91,9 +91,9 @@ public class TemplateSignatureEditPart extends ModelElementLabelEditPart {
                 break;
             }
         }
-        
+
         updateFigureBorder((TemplateSignatureFigure) fig);
-        
+
     }
 
     @objid ("36eb73c0-55b7-11e2-877f-002564c97630")
@@ -116,7 +116,7 @@ public class TemplateSignatureEditPart extends ModelElementLabelEditPart {
                 this.penOptions.lineColor = lineColor;
                 this.repaint();
             }
-            
+
         }
 
         @objid ("36eb73cf-55b7-11e2-877f-002564c97630")
@@ -126,7 +126,7 @@ public class TemplateSignatureEditPart extends ModelElementLabelEditPart {
                 this.penOptions.lineWidth = lineWidth;
                 this.repaint();
             }
-            
+
         }
 
         @objid ("36eb73d4-55b7-11e2-877f-002564c97630")

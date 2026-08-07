@@ -1,0 +1,40 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+= Importing requirements from an HPQC server
+
+
+Modelio offers a feature to import requirements defined in an HPQC server. To achieve this goal, Modelio has to establish a remote connection with the HPQC server. Reader access rights on the targeted server and project are also required.
+
+
+== Running the HPQC import command
+
+The HPQC import command is available in the context menu of the Analyst sub-project:
+
+image::images/attachment/analyst41/User_Documentation_en/Import_and_Export/Import_requirement_from_an_HPQC_Server/HPQC_001.png[HPQC_001.png]
+
+*Keys:*
+
+1. Right-click on the Analyst sub-project
+2. Run the "HPQC import..." command
+
+
+= Establishing connection with the HPQC server
+
+First, the remote connection between Modelio and the HPQC server has to be configured and tested.
+
+image::images/attachment/analyst41/User_Documentation_en/Import_and_Export/Import_requirement_from_an_HPQC_Server/HPQC_002.png[HPQC_002.png]
+
+*Keys:*
+
+1. Specify the HPQC server URL, the domain, and the project you want to import requirements from.
+2. Type in your credentials for the HPQC server.
+3. Before going any further, run a connection test.
+4. Proceed to the mapping definition view or initiate requirements import process.
+
+
+= Mapping definition
+
+The HPQC server uses a specific type to identify structural containers. By default, the type dedicated to this purpose is "Folder", but the server administrator can define new types. The mapping configuration view is used to identify these structural types.

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmnxml.nodes.production.activities;
 
@@ -81,12 +81,12 @@ public class SendTaskNode implements IProductionNode<BpmnSendTask, TSendTask> {
     @objid ("21e2ae80-cac2-489a-8b13-989338e3d6cc")
     @Override
     public BpmnSendTask createUMLElement(MObject context, TSendTask jaxbElement, BpmnImportFactory factory, boolean keepId) {
-        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {  
+        if (keepId &&  jaxbElement.getId() != null && !"".equals(jaxbElement.getId())) {
             return factory.createWithId(BpmnSendTask.class,context,jaxbElement.getId());
         }else{
             return factory.create(BpmnSendTask.class,context);
         }
-        
+
     }
 
     @objid ("09ddf7fb-1bf0-4907-8ec5-76896e7f16d0")
@@ -98,7 +98,7 @@ public class SendTaskNode implements IProductionNode<BpmnSendTask, TSendTask> {
         }else if(context instanceof BpmnSubProcess){
             ((BpmnSubProcess) context).getFlowElement().add(modelioElement);
         }
-        
+
         // Group
         if(jaxbElement.getCategoryValueRef() != null){
             for(QName jaxGroupRef : jaxbElement.getCategoryValueRef()){
@@ -108,16 +108,16 @@ public class SendTaskNode implements IProductionNode<BpmnSendTask, TSendTask> {
                 }
             }
         }
-        
+
         // Message
         if (jaxbElement.getMessageRef() != null) {
             BpmnMessage modelioMessage = (BpmnMessage) this.elementsMap.get(jaxbElement.getMessageRef().getLocalPart());
             if (modelioMessage != null) {
                 modelioElement.setMessageRef(modelioMessage);
             }
-        
+
         }
-        
+
         // Operations
         if(jaxbElement.getOperationRef() != null){
             BpmnOperation modelioOper = (BpmnOperation) this.elementsMap.get(jaxbElement.getOperationRef().getLocalPart());
@@ -125,19 +125,19 @@ public class SendTaskNode implements IProductionNode<BpmnSendTask, TSendTask> {
                 modelioElement.setOperationRef(modelioOper);
             }
         }
-        
+
         // Set properties
         if(jaxbElement.getName()!=null)
             modelioElement.setName(StringConvertor.imports(jaxbElement.getName()));
-        
+
         if(jaxbElement.getCompletionQuantity() != null)
             modelioElement.setCompletionQuantity(jaxbElement.getCompletionQuantity().intValue());
-        
+
         if(jaxbElement.getStartQuantity() != null)
             modelioElement.setStartQuantity(jaxbElement.getStartQuantity().intValue());
-        
+
         modelioElement.setIsForCompensation(jaxbElement.isIsForCompensation());
-        
+
         // Default Flow
         if(jaxbElement.getDefault() != null && jaxbElement.getDefault() instanceof TSequenceFlow){
             BpmnSequenceFlow  flow = (BpmnSequenceFlow) this.elementsMap.get( ((TSequenceFlow)jaxbElement.getDefault()).getId());
@@ -153,7 +153,7 @@ public class SendTaskNode implements IProductionNode<BpmnSendTask, TSendTask> {
     public TSendTask createJaxbElement(Object context, BpmnSendTask modelioElement) {
         // Create JaxbElement
         TSendTask jaxTask = new TSendTask();
-        
+
         // Add to context
         ObjectFactory factory = new ObjectFactory();
         if(context instanceof TProcess){
@@ -163,7 +163,7 @@ public class SendTaskNode implements IProductionNode<BpmnSendTask, TSendTask> {
             List<JAXBElement<? extends TFlowElement>> jaxContent = ((TSubProcess)context).getFlowElement();
             jaxContent.add(factory.createSendTask(jaxTask));
         }
-        
+
         jaxTask.setId(IDUtils.formatJaxbID(modelioElement));
         return jaxTask;
     }
@@ -172,31 +172,31 @@ public class SendTaskNode implements IProductionNode<BpmnSendTask, TSendTask> {
     @Override
     public TSendTask updateJaxbElement(Object context, TSendTask jaxTask, BpmnSendTask modelioElement) {
         jaxTask.setName(modelioElement.getName());
-        
+
         if(modelioElement.getCompletionQuantity() != 0){
             jaxTask.setCompletionQuantity(BigInteger.valueOf(modelioElement.getCompletionQuantity()));
         }
-        
+
         if(modelioElement.getStartQuantity() != 0){
             jaxTask.setStartQuantity(BigInteger.valueOf(modelioElement.getStartQuantity()));
         }
-        
+
         if(modelioElement.getMessageRef() != null){
             TMessage jaxMessage = (TMessage)this.elementsMap.get(modelioElement.getMessageRef().getUuid());
             if(jaxMessage != null){
                 jaxTask.setMessageRef(new QName(IDUtils.formatJaxbID(modelioElement.getMessageRef())));
             }
         }
-        
+
         if(modelioElement.getOperationRef() != null){
             TOperation jaxOper = (TOperation)this.elementsMap.get(modelioElement.getOperationRef().getUuid());
             if(jaxOper != null){
                 jaxTask.setOperationRef(new QName(IDUtils.formatJaxbID(modelioElement.getOperationRef())));
             }
         }
-        
+
         jaxTask.setIsForCompensation(modelioElement.isIsForCompensation());
-        
+
         // Default Flow
         if(modelioElement.getDefaultFlow() != null){
             Object target = this.elementsMap.get(modelioElement.getDefaultFlow().getUuid());

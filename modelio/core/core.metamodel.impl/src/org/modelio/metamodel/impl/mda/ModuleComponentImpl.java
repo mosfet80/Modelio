@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Infrastructure, version 2.1.04, by Modeliosoft
      Generator version: 3.14.00
      Generated on: May 3, 2023
 */
-
 package org.modelio.metamodel.impl.mda;
 
 import java.util.ArrayList;
@@ -137,7 +136,7 @@ public class ModuleComponentImpl extends AbstractProjectImpl implements ModuleCo
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
     @objid ("7ae50cdd-2871-4271-a5b2-43b13d4de172")
@@ -159,7 +158,7 @@ public class ModuleComponentImpl extends AbstractProjectImpl implements ModuleCo
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
     @objid ("74859676-733f-46e6-bae7-b9f209a43719")
@@ -181,7 +180,7 @@ public class ModuleComponentImpl extends AbstractProjectImpl implements ModuleCo
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
     @objid ("bdef97a3-0e1e-4566-975f-3205259a50c5")
@@ -203,7 +202,7 @@ public class ModuleComponentImpl extends AbstractProjectImpl implements ModuleCo
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
     @objid ("6fb0be5e-80a5-4981-b04f-d4caf9594e4a")
@@ -225,7 +224,7 @@ public class ModuleComponentImpl extends AbstractProjectImpl implements ModuleCo
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
     @objid ("a54917f5-30f8-4e87-b138-5d355c38b40b")
@@ -242,7 +241,7 @@ public class ModuleComponentImpl extends AbstractProjectImpl implements ModuleCo
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 

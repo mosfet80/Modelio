@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.ui.audit;
 
@@ -71,7 +71,7 @@ public class R3250 extends AbstractBpmnRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -83,10 +83,10 @@ public class R3250 extends AbstractBpmnRule {
     @Override
     public void autoRegister(final BpmnAuditPlan plan) {
         plan.registerRule(BpmnProcess.MQNAME, this, AuditTrigger.UPDATE);
-        
+
         // BpmnFlowNode.Activity.Activity
         plan.registerRule(BpmnCallActivity.MQNAME, this, AuditTrigger.CREATE);
-        
+
         // BpmnFlowNode.Activity.Task
         plan.registerRule(BpmnTask.MQNAME, this, AuditTrigger.CREATE);
         plan.registerRule(BpmnSendTask.MQNAME, this, AuditTrigger.CREATE);
@@ -96,29 +96,29 @@ public class R3250 extends AbstractBpmnRule {
         plan.registerRule(BpmnManualTask.MQNAME, this, AuditTrigger.CREATE);
         plan.registerRule(BpmnScriptTask.MQNAME, this, AuditTrigger.CREATE);
         plan.registerRule(BpmnBusinessRuleTask.MQNAME, this, AuditTrigger.CREATE);
-        
+
         // BpmnFlowNode.Activity.SubProcess
         plan.registerRule(BpmnSubProcess.MQNAME, this, AuditTrigger.CREATE);
         plan.registerRule(BpmnAdHocSubProcess.MQNAME, this, AuditTrigger.CREATE);
         plan.registerRule(BpmnTransaction.MQNAME, this, AuditTrigger.CREATE);
-        
+
         // BpmnFlowNode.Event.CatchEvent
         // Except BoundaryEvent, which are not concerned by the rule.
         // Except ImplicitThrowEvent which is not implemented by Modelio.
         plan.registerRule(BpmnStartEvent.MQNAME, this, AuditTrigger.CREATE);
         plan.registerRule(BpmnIntermediateCatchEvent.MQNAME, this, AuditTrigger.CREATE);
-        
+
         // BpmnFlowNode.Event.ThrowEvent
         plan.registerRule(BpmnEndEvent.MQNAME, this, AuditTrigger.CREATE);
         plan.registerRule(BpmnIntermediateThrowEvent.MQNAME, this, AuditTrigger.CREATE);
-        
+
         // BpmnFlowNode.Gateway
         plan.registerRule(BpmnParallelGateway.MQNAME, this, AuditTrigger.CREATE);
         plan.registerRule(BpmnEventBasedGateway.MQNAME, this, AuditTrigger.CREATE);
         plan.registerRule(BpmnComplexGateway.MQNAME, this, AuditTrigger.CREATE);
         plan.registerRule(BpmnInclusiveGateway.MQNAME, this, AuditTrigger.CREATE);
         plan.registerRule(BpmnExclusiveGateway.MQNAME, this, AuditTrigger.CREATE);
-        
+
     }
 
     @objid ("b1f76567-d511-4dd4-ae72-871313346ea6")
@@ -158,7 +158,7 @@ public class R3250 extends AbstractBpmnRule {
      * Default constructor for R3250
      */
     @objid ("a31d714d-5e94-460f-afde-acf125e4395c")
-    public  R3250() {
+    public R3250() {
         this.checkerInstance = new CheckR3250(this);
     }
 
@@ -169,10 +169,11 @@ public class R3250 extends AbstractBpmnRule {
     private static class CheckR3250 extends AbstractControl {
         /**
          * C'tor.
+         *
          * @param rule the rule to check.
          */
         @objid ("bd717f8f-0051-49a3-84fa-27f50bd35d3d")
-        public  CheckR3250(final IRule rule) {
+        public CheckR3250(final IRule rule) {
             super(rule);
         }
 
@@ -186,9 +187,9 @@ public class R3250 extends AbstractBpmnRule {
                 diagnostic.addEntry(checkR3250(subProcess));
             } else if (element instanceof BpmnFlowElement) {
                 BpmnFlowElement flowElement = (BpmnFlowElement) element;
-            
+
                 BpmnSubProcess subProcess = flowElement.getSubProcess();
-            
+
                 // Case the FlowElement is in a non triggeredByEvent SubProcess
                 if (subProcess != null) {
                     diagnostic.addEntry(checkR3250(subProcess));
@@ -207,7 +208,7 @@ public class R3250 extends AbstractBpmnRule {
                     AuditSeverity.AuditSuccess,
                     process,
                     null);
-            
+
             List<BpmnFlowNode> foundNodes = new ArrayList<>();
             for (BpmnFlowNode flowNode : process.getFlowElement(BpmnFlowNode.class)) {
                 // Ignore elements in Lanes and Boundary Event (which never belong to Lanes)
@@ -215,7 +216,7 @@ public class R3250 extends AbstractBpmnRule {
                     foundNodes.add(flowNode);
                 }
             }
-            
+
             // Process can escape the rule if it is empty
             if (!foundNodes.isEmpty()) {
                 long start = foundNodes.stream().filter(flowNode -> flowNode instanceof BpmnStartEvent).count();
@@ -238,19 +239,19 @@ public class R3250 extends AbstractBpmnRule {
                     AuditSeverity.AuditSuccess,
                     subProcess,
                     null);
-            
+
             // Rule does not apply on this type of subProcess
             if (subProcess.isTriggeredByEvent()) {
                 return auditEntry;
             }
-            
+
             List<BpmnFlowNode> nodes = subProcess.getFlowElement(BpmnFlowNode.class);
-            
+
             // SubProcess can escape to the rule if it is empty
             if (!nodes.isEmpty()) {
                 BpmnStartEvent start = null;
                 BpmnEndEvent end = null;
-            
+
                 for (BpmnFlowNode node : nodes) {
                     if (node instanceof BpmnStartEvent) {
                         start = (BpmnStartEvent) node;
@@ -258,11 +259,11 @@ public class R3250 extends AbstractBpmnRule {
                         end = (BpmnEndEvent) node;
                     }
                 }
-            
+
                 if (start == null || end == null) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(subProcess.getMClass().getName());

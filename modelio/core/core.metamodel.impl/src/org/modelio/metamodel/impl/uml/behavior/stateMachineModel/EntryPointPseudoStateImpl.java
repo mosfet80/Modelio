@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.stateMachineModel;
 
 import java.util.ArrayList;
@@ -45,26 +44,26 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("004f6fc8-c4bf-1fd8-97fe-001ec947cd2a")
 public class EntryPointPseudoStateImpl extends AbstractPseudoStateImpl implements EntryPointPseudoState {
-    @objid ("9de0246a-92cf-436c-a89c-bd596c6eef8e")
+    @objid ("d6faf7dc-47cb-4c14-b5ae-d5fc6d9cf28d")
     @Override
     public State getEntryOf() {
         Object obj = getDepVal(((EntryPointPseudoStateSmClass)getClassOf()).getEntryOfDep());
         return (obj instanceof State)? (State)obj : null;
     }
 
-    @objid ("883b1d6e-9164-4efd-90e9-3f2799733f6e")
+    @objid ("d6b8d497-f7d2-4607-ad0e-9073d4f2b76f")
     @Override
     public void setEntryOf(State value) {
         appendDepVal(((EntryPointPseudoStateSmClass)getClassOf()).getEntryOfDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a85bce6f-2a1b-49a5-82be-7477c878e512")
+    @objid ("c75262e6-3698-4ff4-94ab-36a3d95ac7d4")
     @Override
     public EList<ConnectionPointReference> getConnection() {
         return new SmList<>(this, ((EntryPointPseudoStateSmClass)getClassOf()).getConnectionDep());
     }
 
-    @objid ("27253f49-8d4a-4ff8-b79f-63fcf05a961e")
+    @objid ("1907fc79-75bd-41af-b9e2-1afb49ddff2e")
     @Override
     public <T extends ConnectionPointReference> List<T> getConnection(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -77,23 +76,23 @@ public class EntryPointPseudoStateImpl extends AbstractPseudoStateImpl implement
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("41438339-fdfe-457a-b3d4-917955102076")
+    @objid ("6886d7b7-62a0-4a7c-af4e-b6b14509ef31")
     @Override
     public StateMachine getEntryOfMachine() {
         Object obj = getDepVal(((EntryPointPseudoStateSmClass)getClassOf()).getEntryOfMachineDep());
         return (obj instanceof StateMachine)? (StateMachine)obj : null;
     }
 
-    @objid ("b0651f72-1f03-467c-9a90-2f9f4e62d214")
+    @objid ("9eacca53-dbf8-447b-8de7-41708d9fe56b")
     @Override
     public void setEntryOfMachine(StateMachine value) {
         appendDepVal(((EntryPointPseudoStateSmClass)getClassOf()).getEntryOfMachineDep(), (SmObjectImpl)value);
     }
 
-    @objid ("81ef2d1f-3d30-4097-93f6-2c5e6666323d")
+    @objid ("8c4f6b51-fde6-46e2-8282-228607b7a5f5")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -109,27 +108,27 @@ public class EntryPointPseudoStateImpl extends AbstractPseudoStateImpl implement
         return super.getCompositionOwner();
     }
 
-    @objid ("8edc287d-17ea-4400-bf09-b335e58cf7df")
+    @objid ("e16d29a9-49b6-4b09-9f56-b794fccf8d77")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // EntryOf
         dep = ((EntryPointPseudoStateSmClass)getClassOf()).getEntryOfDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         // EntryOfMachine
         dep = ((EntryPointPseudoStateSmClass)getClassOf()).getEntryOfMachineDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("5f12fc92-c26f-494a-a694-baaaffc73f31")
+    @objid ("5f94b68b-addd-49f9-a327-4630679b5d6a")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitEntryPointPseudoState(this);

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -52,7 +52,7 @@ public class R1250 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -71,7 +71,7 @@ public class R1250 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         plan.registerRule(ForkJoinNode.MQNAME, this,
                 AuditTrigger.UPDATE);
-        
+
         // ActivityEdge
         plan.registerRule(ObjectFlow.MQNAME, this, AuditTrigger.CREATE
                 | AuditTrigger.MOVE);
@@ -79,7 +79,7 @@ public class R1250 extends AbstractUmlRule {
                 | AuditTrigger.MOVE);
         plan.registerRule(MessageFlow.MQNAME, this, AuditTrigger.CREATE
                 | AuditTrigger.MOVE);
-        
+
     }
 
     /**
@@ -113,14 +113,14 @@ public class R1250 extends AbstractUmlRule {
      * Default constructor for R1250
      */
     @objid ("01e7fdf2-5339-4412-a14e-edbbf8a1484d")
-    public  R1250() {
+    public R1250() {
         this.checkerInstance = new CheckR1250(this);
     }
 
     @objid ("e721af46-107c-490b-b474-6ef317792184")
     private static class CheckR1250 extends AbstractControl {
         @objid ("960d34c7-4ddc-4b57-94d4-ad2d72251f80")
-        public  CheckR1250(IRule rule) {
+        public CheckR1250(IRule rule) {
             super(rule);
         }
 
@@ -143,12 +143,12 @@ public class R1250 extends AbstractUmlRule {
         private IAuditEntry checkR1250(ForkJoinNode forkJoinNode) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(),
                     AuditSeverity.AuditSuccess, forkJoinNode, null);
-            
+
             boolean hasInObject = false;
             boolean hasOutObject = false;
             boolean hasInControl = false;
             boolean hasOutControl = false;
-            
+
             for (ActivityEdge inEdge : forkJoinNode.getIncoming()) {
                 if (!hasInObject && inEdge instanceof ObjectFlow) {
                     hasInObject = true;
@@ -156,7 +156,7 @@ public class R1250 extends AbstractUmlRule {
                     hasInControl = true;
                 }
             }
-            
+
             for (ActivityEdge outEdge : forkJoinNode.getOutgoing()) {
                 if (!hasOutObject && outEdge instanceof ObjectFlow) {
                     hasOutObject = true;
@@ -164,16 +164,16 @@ public class R1250 extends AbstractUmlRule {
                     hasOutControl = true;
                 }
             }
-            
+
             if (((hasInObject && hasOutObject)
                     || (!hasInObject && !hasOutObject))
                     && ((hasInControl && hasOutControl)
                             || (!hasInControl && !hasOutControl))) {
                 return auditEntry;
             }
-            
+
             // Rule failed
-            
+
             auditEntry.setSeverity(this.rule.getSeverity());
             List<Object> linkedObjects = new ArrayList<>();
             linkedObjects.add(forkJoinNode);
@@ -184,10 +184,10 @@ public class R1250 extends AbstractUmlRule {
         @objid ("6f73ee45-3d09-42f9-aec0-8253ad5f7733")
         private List<IAuditEntry> checkR1250(ActivityEdge activityEdge) {
             List<IAuditEntry> auditEntries = new ArrayList<>();
-            
+
             ActivityNode sourceNode = activityEdge.getSource();
             ActivityNode targetNode = activityEdge.getTarget();
-            
+
             if (sourceNode instanceof ForkJoinNode) {
                 auditEntries.add(checkR1250((ForkJoinNode) sourceNode));
             } else if (targetNode instanceof ForkJoinNode) {

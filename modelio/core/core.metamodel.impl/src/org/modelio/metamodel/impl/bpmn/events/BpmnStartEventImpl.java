@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.events;
 
 import java.util.ArrayList;
@@ -41,19 +40,19 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00928268-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnStartEventImpl extends BpmnCatchEventImpl implements BpmnStartEvent {
-    @objid ("292ad01d-548a-4a22-8490-3864482ac7ed")
+    @objid ("f2206b4a-a32f-4b8b-9c29-8a35e4952407")
     @Override
     public boolean isIsInterrupting() {
         return (Boolean) getAttVal(((BpmnStartEventSmClass)getClassOf()).getIsInterruptingAtt());
     }
 
-    @objid ("d300051e-85f1-484e-8400-246ca689c413")
+    @objid ("569d478a-8018-4e16-ab4a-7bec96d24f26")
     @Override
     public void setIsInterrupting(boolean value) {
         setAttVal(((BpmnStartEventSmClass)getClassOf()).getIsInterruptingAtt(), value);
     }
 
-    @objid ("52326812-baed-46e9-b128-5019d6e922da")
+    @objid ("74b58688-bf09-480d-b7b0-634564c6c5c3")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -61,17 +60,17 @@ public class BpmnStartEventImpl extends BpmnCatchEventImpl implements BpmnStartE
         return super.getCompositionOwner();
     }
 
-    @objid ("7f78ef97-ef4a-4906-892b-3cfceaf0dc1e")
+    @objid ("f2748d79-86b8-4afc-9d93-c8c0563bee16")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("0e314622-a518-4043-9c5c-ff28dcc7d32c")
+    @objid ("8a9935c7-e75f-4feb-adc9-745a646db02c")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitBpmnStartEvent(this);

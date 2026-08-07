@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.umlcommon.namespaceuse;
 
@@ -56,25 +56,26 @@ public class GmNamespaceUse extends GmLink {
 
     /**
      * Initialize a namespaceuse graphic model.
+     *
      * @param diagram The owning diagram
      * @param nsu The namespaceuse, may be null
      * @param ref The namespaceuse reference, may not be null
      */
     @objid ("817a7356-1dec-11e2-8cad-001ec947c8cc")
-    public  GmNamespaceUse(IGmDiagram diagram, final ImpactLink nsu, MRef ref) {
+    public GmNamespaceUse(IGmDiagram diagram, final ImpactLink nsu, MRef ref) {
         super(diagram, ref);
         this.nsu = nsu;
-        
+
         addExtension(ExtensionLocation.MiddleNW, ROLE_MAIN_LABEL, new GmNamespaceUseLabel(diagram, ref));
-        
+
     }
 
     /**
      * For deserialization only.
      */
     @objid ("817a736a-1dec-11e2-8cad-001ec947c8cc")
-    public  GmNamespaceUse() {
-        
+    public GmNamespaceUse() {
+
     }
 
     @objid ("817a735d-1dec-11e2-8cad-001ec947c8cc")
@@ -93,14 +94,14 @@ public class GmNamespaceUse extends GmLink {
     @Override
     protected void readLink(IDiagramReader in) {
         super.readLink(in);
-        
+
         try {
             this.nsu = (ImpactLink) resolveRef(getRepresentedRef());
         } catch (org.modelio.vcore.session.UnknownMetaclassException | ClassCastException err) {
             // Probably an old Namespaceuse metaclass, display as ghost.
             this.nsu = null;
         }
-        
+
         if (this.nsu == null) {
             // NSU may have been re-identified, try finding a new one with the same source and target
             IGmLinkable from = getFrom();
@@ -108,7 +109,7 @@ public class GmNamespaceUse extends GmLink {
             if (from != null && to != null) {
                 MObject fromElt = from.getRelatedElement();
                 MObject toElt = to.getRelatedElement();
-                
+
                 if (fromElt != null) {
                     for (ImpactLink link : ((ModelElement)fromElt).getImpactDependsOn()) {
                         if (link.getDependsOn() == toElt) {
@@ -119,7 +120,7 @@ public class GmNamespaceUse extends GmLink {
                 }
             }
         }
-        
+
     }
 
     @objid ("817a7371-1dec-11e2-8cad-001ec947c8cc")
@@ -152,10 +153,10 @@ public class GmNamespaceUse extends GmLink {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmNamespaceUse.", MINOR_VERSION);
-        
+
     }
 
     @objid ("817a7389-1dec-11e2-8cad-001ec947c8cc")

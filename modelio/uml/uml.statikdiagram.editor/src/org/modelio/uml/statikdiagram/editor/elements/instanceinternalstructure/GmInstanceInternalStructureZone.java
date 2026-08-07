@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.instanceinternalstructure;
 
@@ -55,11 +55,12 @@ public final class GmInstanceInternalStructureZone extends GmFreeZone {
 
     /**
      * Creates the zone.
+     *
      * @param diagram The diagram
      * @param relatedRef a reference to the element this zone is related to, must not be null.
      */
     @objid ("35528473-55b7-11e2-877f-002564c97630")
-    public  GmInstanceInternalStructureZone(IGmDiagram diagram, MRef relatedRef) {
+    public GmInstanceInternalStructureZone(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -68,7 +69,7 @@ public final class GmInstanceInternalStructureZone extends GmFreeZone {
     public boolean canUnmask(MObject el) {
         if (!(el instanceof Instance) || el instanceof Port || !el.isValid())
             return false;
-        
+
         // Cannot unmask a instance class (not belonging to the class)
         if (!el.getCompositionOwner().equals(this.getRelatedElement()))
             return false;
@@ -95,7 +96,7 @@ public final class GmInstanceInternalStructureZone extends GmFreeZone {
     public void styleChanged(IStyle style) {
         fireVisibilityChanged();
         super.styleChanged(style);
-        
+
     }
 
     @objid ("35540ae4-55b7-11e2-877f-002564c97630")
@@ -105,7 +106,7 @@ public final class GmInstanceInternalStructureZone extends GmFreeZone {
             fireVisibilityChanged();
         else
             super.styleChanged(property, newValue);
-        
+
     }
 
     @objid ("35540aeb-55b7-11e2-877f-002564c97630")
@@ -118,7 +119,7 @@ public final class GmInstanceInternalStructureZone extends GmFreeZone {
      * For deserialization only.
      */
     @objid ("35540af3-55b7-11e2-877f-002564c97630")
-    public  GmInstanceInternalStructureZone() {
+    public GmInstanceInternalStructureZone() {
         // Nothing to do yet.
     }
 
@@ -131,7 +132,7 @@ public final class GmInstanceInternalStructureZone extends GmFreeZone {
         } else {
             getDisplayedStyle().setProperty(GmInstanceStructuredStyleKeys.INTERNALSVIEWMODE, InternalsViewMode.NONE);
         }
-        
+
     }
 
     @objid ("35540afa-55b7-11e2-877f-002564c97630")
@@ -145,12 +146,12 @@ public final class GmInstanceInternalStructureZone extends GmFreeZone {
     @Override
     public void refreshFromObModel() {
         super.refreshFromObModel();
-        
+
         final MObject relatedIElement = getRelatedElement();
-        
+
         if (relatedIElement == null || !relatedIElement.isValid())
             return;
-        
+
         StyleKey styleKey = getStyleKey(MetaKey.InternalGroup.INTAUTOUNMASK);
         if (styleKey == null) {
             return;
@@ -165,7 +166,7 @@ public final class GmInstanceInternalStructureZone extends GmFreeZone {
                 }
             }
         }
-        
+
     }
 
     @objid ("35540b05-55b7-11e2-877f-002564c97630")
@@ -185,17 +186,17 @@ public final class GmInstanceInternalStructureZone extends GmFreeZone {
                 break;
             }
         }
-        
+
     }
 
     @objid ("35540b0b-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmInstanceInternalStructureZone.", GmInstanceInternalStructureZone.MINOR_VERSION);
-        
+
     }
 
     @objid ("35540b11-55b7-11e2-877f-002564c97630")

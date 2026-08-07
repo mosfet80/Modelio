@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.wizard;
 
@@ -39,10 +39,11 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class BpmnSubProcessTransmuter extends BpmnActivityTransmuter {
     /**
      * Public constructor required by the {@link TransformerRegistry}.
+     *
      * @param targetMetaclass target metaclass of the transmutation
      */
     @objid ("9f1752da-2de5-475b-94e3-c77156f16316")
-    public  BpmnSubProcessTransmuter(String targetMetaclass) {
+    public BpmnSubProcessTransmuter(String targetMetaclass) {
         super(targetMetaclass);
     }
 
@@ -50,17 +51,17 @@ public class BpmnSubProcessTransmuter extends BpmnActivityTransmuter {
     @Override
     protected MObject transmuteElement(MObject elementToBeTransmuted, IMModelServices modelServices) {
         MObject newElement = super.transmuteElement(elementToBeTransmuted, modelServices);
-        
+
         if (newElement instanceof BpmnSubProcess) {
             BpmnSubProcess newSubProcess = (BpmnSubProcess) newElement;
             if (elementToBeTransmuted instanceof BpmnSubProcess) {
                 // Keep subprocess contents
                 BpmnSubProcess oldSubProcss = (BpmnSubProcess) elementToBeTransmuted;
-        
+
                 for (BpmnFlowElement subelement : new ArrayList<>(oldSubProcss.getFlowElement())) {
                     newSubProcess.getFlowElement().add(subelement);
                 }
-        
+
                 // Keep sub-process diagrams
                 for (BpmnSubProcessDiagram subelement : new ArrayList<>(oldSubProcss.getProduct(BpmnSubProcessDiagram.class))) {
                     newSubProcess.getProduct().add(subelement);
@@ -80,7 +81,7 @@ public class BpmnSubProcessTransmuter extends BpmnActivityTransmuter {
     @Override
     protected GmNodeModel transmuteGm(MObject transmutedElement, GmModel gmToBeTransmuted) {
         GmNodeModel transmutedGm = super.transmuteGm(transmutedElement, gmToBeTransmuted);
-        
+
         if (transmutedElement instanceof BpmnAdHocSubProcess) {
             transmutedGm.getDisplayedStyle().setProperty(GmBpmnSubProcessStructuredStyleKeys.SHOWCONTENT, false);
         } else if (transmutedElement instanceof BpmnSubProcess) {

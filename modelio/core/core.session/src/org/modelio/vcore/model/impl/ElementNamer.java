@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.model.impl;
 
@@ -33,10 +33,9 @@ import org.modelio.vcore.smkernel.mapi.services.MetamodelExtensionPoint;
 
 /**
  * Default implementation of IElementNamer.
- * 
+ *
  * This implementation build names for new elements using the smarter available strategy (depending on the metaclass).
- * 
- * 
+ *
  * @author phv
  */
 @objid ("0067c186-030f-1035-9f91-001ec947cd2a")
@@ -59,14 +58,14 @@ public class ElementNamer implements IElementNamerService {
     @Override
     public String getBaseName(final MObject object) {
         assert (object != null);
-        
+
         IElementNamer effectiveNamer = this.metamodelExtensionPoint.getService(object.getMClass().getOrigin());
         if (effectiveNamer == null) {
             return object.getMClass().getName();
         } else {
             return effectiveNamer.getBaseName(object);
         }
-        
+
     }
 
     /**
@@ -88,21 +87,21 @@ public class ElementNamer implements IElementNamerService {
     public String getUniqueName(final String basename, final MObject object) {
         assert (basename != null);
         assert (object != null);
-        
+
         IElementNamer effectiveNamer = this.metamodelExtensionPoint.getService(object.getMClass().getOrigin());
         if (effectiveNamer == null) {
             return getDefaultUniqueName(basename, object);
         } else {
             return effectiveNamer.getUniqueName(basename, object);
         }
-        
+
     }
 
     @objid ("0068a6fa-030f-1035-9f91-001ec947cd2a")
     private static Set<String> getSiblingIdentifiers(MObject object) {
         SmDepVal rel = ((SmObjectImpl)object).getCompositionRelation();
         List<MObject> siblings = rel.value.mGet(rel.dep.getSymetric());
-        
+
         final Set<String> results = new HashSet<>();
         for (MObject sibling : siblings) {
             results.add(sibling.getName());
@@ -111,7 +110,7 @@ public class ElementNamer implements IElementNamerService {
     }
 
     @objid ("2e597709-72d8-4d78-892e-25011066e6a0")
-    public  ElementNamer() {
+    public ElementNamer() {
         this.metamodelExtensionPoint = new MetamodelExtensionPoint<>();
     }
 
@@ -119,9 +118,9 @@ public class ElementNamer implements IElementNamerService {
     private static String getDefaultUniqueName(String basename, MObject object) {
         assert (basename != null);
         assert (object != null);
-        
+
         final Set<String> siblingIdentifiers = getSiblingIdentifiers(object);
-        
+
         String newName = basename;
         int i = 0;
         while (siblingIdentifiers.contains(newName)) {

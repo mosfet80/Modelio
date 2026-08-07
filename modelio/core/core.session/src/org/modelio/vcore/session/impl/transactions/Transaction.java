@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.impl.transactions;
 
@@ -29,51 +29,50 @@ import org.modelio.vcore.session.impl.transactions.smAction.IAction;
 import org.modelio.vcore.session.impl.transactions.smAction.smActionInteractions.IActionVisitor;
 
 /**
- * Les transactions sont identifiees, cet identifiant permet de donner ?
- * l'utilisateur une information precisse sur la sequence d'actions annulees ou
+ * Les transactions sont identifiees, cet identifiant permet de donner a
+ * l'utilisateur une information precise sur la sequence d'actions annulees ou
  * rejouees, il permet aussi lors de la fermeture de la transaction de verifier
- * si la transaction fermee est bien la derni?re ouverte.
- * 
+ * si la transaction fermee est bien la derniere ouverte.
+ *
  * Toutes les actions et transactions crees pendant une transactions lui
  * appartiennent.
  */
 @objid ("006e7a3a-0d1e-1f20-85a5-001ec947cd2a")
 public class Transaction implements IAction, ITransaction {
     @objid ("006d56fa-0d1e-1f20-85a5-001ec947cd2a")
-    private String name;
+    private final String name;
 
     @objid ("006d57d6-0d1e-1f20-85a5-001ec947cd2a")
-    private boolean undoable = true;
+    private boolean undoable;
 
     @objid ("60d15188-babd-11e1-9fd3-001ec947ccaf")
-    private boolean closed = false;
+    private volatile boolean closed;
 
     /**
      * Stack implementation based on {@link Deque}<br>
      */
     @objid ("00888754-702b-1f21-85a5-001ec947cd2a")
-    private List<IAction> actions = new ArrayList<>();
+    private final List<IAction> actions = new ArrayList<>();
 
     @objid ("60d15189-babd-11e1-9fd3-001ec947ccaf")
-    private TransactionManager manager;
+    private final TransactionManager manager;
 
     @objid ("54978554-accc-4726-a6c0-36272ab0c62a")
-    private Thread creatorThread;
+    private final Thread creatorThread;
 
     @objid ("793998af-1387-4741-8966-64b0b2ce578f")
-    private Throwable creationTrace;
+    private final Throwable creationTrace;
 
     /**
      * Constructeur d'une transaction.
      */
     @objid ("006d4e3a-0d1e-1f20-85a5-001ec947cd2a")
-     Transaction(final String name, final TransactionManager manager) {
+    Transaction(final String name, final TransactionManager manager) {
         this.name = name;
         this.undoable = true;
         this.manager = manager;
         this.creatorThread = Thread.currentThread();
         this.creationTrace = new Throwable(name+" transaction created.");
-        
     }
 
     @objid ("006d4f70-0d1e-1f20-85a5-001ec947cd2a")
@@ -84,10 +83,13 @@ public class Transaction implements IAction, ITransaction {
 
     /**
      * Ajout d'une action dans la transaction
+     *
      * @param action the action to add
      */
     @objid ("006d5010-0d1e-1f20-85a5-001ec947cd2a")
     public void addAction(final IAction action) {
+        checkOpen();
+
         this.actions.add(action);
     }
 
@@ -101,11 +103,11 @@ public class Transaction implements IAction, ITransaction {
     @objid ("006d50a6-0d1e-1f20-85a5-001ec947cd2a")
     void clearAllSimpleActions() {
         List<IAction> tmp = new ArrayList<>(this.actions);
-        
+
         disableUndo();
-        
+
         this.actions.clear();
-        
+
         for (IAction action : tmp) {
             if (action.isTransaction()) {
                 @SuppressWarnings("resource")
@@ -114,11 +116,11 @@ public class Transaction implements IAction, ITransaction {
                 this.actions.add(sub);
             }
         }
-        
     }
 
     /**
      * Get the stack trace recorded when the transaction was created.
+     *
      * @return the transaction creation stack trace.
      */
     @objid ("c5ab1fcb-83cc-40d0-8d9e-6dc4e8ab5926")
@@ -127,6 +129,7 @@ public class Transaction implements IAction, ITransaction {
     }
 
     /**
+     *
      * @return the thread where this transaction was created.
      */
     @objid ("477ee363-7b20-4e2b-985e-4296dbf2c091")
@@ -154,6 +157,7 @@ public class Transaction implements IAction, ITransaction {
     /**
      * Permet de savoir si la transaction est vide, c'est a dire ne contient aucune
      * action.
+     *
      * @return <i>true</i> si la transaction est vide.
      */
     @objid ("006d531c-0d1e-1f20-85a5-001ec947cd2a")
@@ -163,6 +167,7 @@ public class Transaction implements IAction, ITransaction {
 
     /**
      * Verifie si la derniere action est une transaction.
+     *
      * @return <i>true</i> si la derniere action est une transaction.
      */
     @objid ("006d53c6-0d1e-1f20-85a5-001ec947cd2a")
@@ -180,6 +185,7 @@ public class Transaction implements IAction, ITransaction {
     }
 
     /**
+     *
      * @return <i>true</i> if the transaction can be undone.
      */
     @objid ("006d5970-0d1e-1f20-85a5-001ec947cd2a")
@@ -192,28 +198,33 @@ public class Transaction implements IAction, ITransaction {
      */
     @objid ("006d5538-0d1e-1f20-85a5-001ec947cd2a")
     @Override
-    public void redo() {
+    public void redoAction() {
+        if (!this.undoable)
+            return;
+
         for (IAction action : this.actions) {
-            action.redo();
+            try {
+                action.redoAction();
+            } catch (RuntimeException e) {
+                // Log a line to ease debugging and rethrow
+                Log.error("Transaction: Error redoing %s : %s", action, e);
+                throw e;
+            }
         }
-        
     }
 
     /**
-     * Permet de positinner toutes les transactions contenue dans la transaction
-     * ? notUndoable. Cette methode est appellee par le reset.
+     * Permet de positionner toutes les transactions contenue dans la transaction
+     * à notUndoable. Cette methode est appellee par le reset.
      */
     @objid ("006d55ce-0d1e-1f20-85a5-001ec947cd2a")
     @Override
     public void disableUndo() {
         this.undoable = false;
-        
-        // Appelle la methode redo sur toutes les actions de la transaction en
-        // commencant par fin de la liste
+
         for (IAction action : this.actions) {
             action.disableUndo();
         }
-        
     }
 
     /**
@@ -222,20 +233,40 @@ public class Transaction implements IAction, ITransaction {
      */
     @objid ("006d5664-0d1e-1f20-85a5-001ec947cd2a")
     @Override
-    public void undo(final boolean rollback) {
-        // Appelle la methode undo sur toutes les actions de la transaction
-        // en commencant par fin de la liste
-        if (this.undoable)
-        {
-            for (int i = this.actions.size()-1; i>=0; --i) {
-                this.actions.get(i).undo(rollback);
+    public void undoAction() {
+        if (!this.undoable)
+            return;
+
+        for (int i = this.actions.size() - 1; i >= 0; --i) {
+            IAction action = this.actions.get(i);
+            try {
+                action.undoAction();
+            } catch (RuntimeException e) {
+                // Log a line to ease debugging and rethrow
+                Log.error("Transaction: Error undoing %s : %s", action, e);
+                throw e;
             }
         }
-        
+    }
+
+    @objid ("c17d2069-bb03-4305-90d8-a2c5bed67f99")
+    @Override
+    public void rollbackAction() {
+        for (int i = this.actions.size() - 1; i >= 0; --i) {
+            IAction action = this.actions.get(i);
+            try {
+                action.rollbackAction();
+            } catch (RuntimeException e) {
+                // Log a line to ease debugging and rethrow
+                Log.error("Transaction: Error rollbacking %s : %s", action, e);
+                throw e;
+            }
+        }
     }
 
     /**
      * Forget the last registered action.
+     *
      * @return the removed action.
      */
     @objid ("008ac6cc-702b-1f21-85a5-001ec947cd2a")
@@ -245,6 +276,7 @@ public class Transaction implements IAction, ITransaction {
 
     /**
      * Please do not modify the returned list.
+     *
      * @return the transaction actions.
      */
     @objid ("008f242e-f11f-1f3c-aafd-001ec947cd2a")
@@ -252,20 +284,36 @@ public class Transaction implements IAction, ITransaction {
         return this.actions;
     }
 
+    @objid ("75345cb5-6658-46f5-b9a9-5fcc08e4159a")
+    private void checkOpen() {
+        if (this.closed) {
+            throw new IllegalStateException(String.format("%s transaction already closed.", this));
+        }
+    }
+
+    @objid ("6dc9f613-8504-485c-8cb2-d949ca461013")
+    private void checkClosed() {
+        if (! this.closed) {
+            throw new IllegalStateException(String.format("%s transaction is still open.", this));
+        }
+    }
+
     @objid ("60d15191-babd-11e1-9fd3-001ec947ccaf")
     @Override
     public void commit() {
+        checkOpen();
+
         this.manager.commit(this);
         this.closed = true;
-        
     }
 
     @objid ("60d15194-babd-11e1-9fd3-001ec947ccaf")
     @Override
     public void rollback() {
+        checkOpen();
+
         this.manager.rollback(this);
         this.closed = true;
-        
     }
 
     @objid ("60d15197-babd-11e1-9fd3-001ec947ccaf")
@@ -275,7 +323,18 @@ public class Transaction implements IAction, ITransaction {
             Log.warning(new Throwable("Transaction '"+getName()+"' not committed, auto-rollbacking."));
             rollback();
         }
-        
+    }
+
+    @objid ("e37acd5e-98db-480a-9924-66c85767940c")
+    @Override
+    public String toString() {
+        return String.format("%s ['%s', %s%s, %d actions, created by %s]",
+                getClass().getSimpleName(),
+                getName(),
+                this.closed ? "closed" : "open",
+                this.undoable ? "" : ", NOT undoable",
+                this.actions.size(),
+                this.creatorThread);
     }
 
 }

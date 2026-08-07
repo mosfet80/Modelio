@@ -1,0 +1,4 @@
+Bundle-SymbolicName: com.modeliosoft.modelio.documentation.modelioapi;singleton=true
+Bundle-Version: 6.2.0.qualifier 
+Bundle-Name: Modelio API com
+Bundle-Vendor: Docaposte

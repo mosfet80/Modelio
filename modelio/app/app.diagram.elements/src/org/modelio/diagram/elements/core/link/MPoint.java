@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link;
 
@@ -36,7 +36,7 @@ import org.modelio.diagram.persistence.IPersistent;
  * <h3>Note:</h3>
  * All methods that declare return a {@link Point} return a effectively a {@link MPoint}.<br/>
  * eg: {@link #getTranslated(Dimension)}, {@link #translate(Point)}, ...
- * 
+ *
  * @author chm + cma
  * @since 5.0.2
  */
@@ -56,35 +56,38 @@ public class MPoint extends AbsoluteBendpoint implements IPersistent, IMPoint<MP
      * Creates an automatic MPoint at 0,0 .
      */
     @objid ("5596cd2e-4418-403e-a2b3-b014fa59f8aa")
-    public  MPoint() {
+    public MPoint() {
         this(0, 0, false);
     }
 
     /**
      * Constructs an MPoint at the same location as the given Point.
+     *
      * @param p Point from which the initial values are taken.
      * @param isFixed true for manually fixed point, false for automatic point.
      */
     @objid ("36a0e0dc-e365-4789-a04f-73d7645b4614")
-    public  MPoint(Point p, boolean isFixed) {
+    public MPoint(Point p, boolean isFixed) {
         this(p.x, p.y, isFixed);
     }
 
     /**
      * Constructs an MPoint at the specified x and y locations.
+     *
      * @param x x value
      * @param y y value
      * @param isFixed true for manually fixed point, false for automatic point.
      */
     @objid ("7e61cbe6-a48a-482d-abac-dc4ac467c4de")
-    public  MPoint(int x, int y, boolean isFixed) {
+    public MPoint(int x, int y, boolean isFixed) {
         super(x, y);
         this.isFixed = isFixed;
-        
+
     }
 
     /**
      * Tells whether the point is automatic or manual.
+     *
      * @return <li>true = manual point
      * <li>false = automatic point
      */
@@ -96,6 +99,7 @@ public class MPoint extends AbsoluteBendpoint implements IPersistent, IMPoint<MP
 
     /**
      * Set the point as automatic or manual.
+     *
      * @param isFixed true for manually fixed point, false for automatic point.
      * @return this instance to chain calls.
      */
@@ -154,7 +158,7 @@ public class MPoint extends AbsoluteBendpoint implements IPersistent, IMPoint<MP
         this.x = (int) in.readProperty("x");
         this.y = (int) in.readProperty("y");
         this.isFixed = (boolean) in.readProperty("isFixed");
-        
+
     }
 
     @objid ("1819462b-0920-48a5-a21b-13a571b06633")
@@ -163,7 +167,7 @@ public class MPoint extends AbsoluteBendpoint implements IPersistent, IMPoint<MP
         out.writeProperty("x", this.x);
         out.writeProperty("y", this.y);
         out.writeProperty("isFixed", this.isFixed);
-        
+
     }
 
     @objid ("2d2d30f7-57c2-41a0-85bf-9bfacd76144c")
@@ -181,7 +185,7 @@ public class MPoint extends AbsoluteBendpoint implements IPersistent, IMPoint<MP
     @objid ("b045691d-86c0-4f72-8d46-d9475f51fb30")
     @Override
     public String toString() {
-        
+
         return getClass().getSimpleName()+" [x=" + this.x + ", y=" + this.y + ", " + (this.isFixed ? "manual" : "automatic")+ "]";
     }
 

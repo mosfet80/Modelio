@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -49,10 +49,10 @@ public class ECentralBufferNode extends EActivityNode {
     }
 
     @objid ("2dfe851b-a74a-4204-9057-0033c6051c76")
-    public  ECentralBufferNode(org.eclipse.uml2.uml.CentralBufferNode element) {
+    public ECentralBufferNode(org.eclipse.uml2.uml.CentralBufferNode element) {
         super(element);
         this.ecoreElement = element;
-        
+
     }
 
     @objid ("33a634e2-be51-4840-bec3-44f8cb2c0d02")
@@ -67,7 +67,7 @@ public class ECentralBufferNode extends EActivityNode {
             setType((ObjectNode) objingElt);
             setState((ObjectNode) objingElt);
         }
-        
+
     }
 
     @objid ("e875647f-1c95-476e-9ad1-c9241966fb97")
@@ -93,7 +93,7 @@ public class ECentralBufferNode extends EActivityNode {
         default:
             node.setOrdering(org.modelio.metamodel.uml.behavior.activityModel.ObjectNodeOrderingKind.FIFO);
         }
-        
+
     }
 
     @objid ("be97bbe4-6b73-421d-9268-72421c02113b")
@@ -110,7 +110,7 @@ public class ECentralBufferNode extends EActivityNode {
             if (behaviorName != null)
                 node.setSelectionBehavior(behaviorName);
         }
-        
+
     }
 
     @objid ("8e4e0363-eb90-4a3a-b65a-2bdd83461167")
@@ -121,7 +121,7 @@ public class ECentralBufferNode extends EActivityNode {
            if (stringValue != null)
                node.setUpperBound(stringValue);
                 }
-        
+
     }
 
     @objid ("6e0fd1ea-a45d-4826-acba-3b4ce7c7478a")
@@ -132,7 +132,7 @@ public class ECentralBufferNode extends EActivityNode {
             if (objingType instanceof GeneralClass)
                 node.setType((GeneralClass) objingType);
         }
-        
+
     }
 
     @objid ("842aa9cb-0a1e-4cd4-b924-4ce806163164")
@@ -146,7 +146,7 @@ public class ECentralBufferNode extends EActivityNode {
                     node.setInState((State) objingState);
             }
         }
-        
+
     }
 
 }

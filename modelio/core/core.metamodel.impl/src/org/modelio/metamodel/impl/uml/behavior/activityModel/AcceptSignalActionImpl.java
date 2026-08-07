@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -43,13 +42,13 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("002534f6-c4bf-1fd8-97fe-001ec947cd2a")
 public class AcceptSignalActionImpl extends ActivityActionImpl implements AcceptSignalAction {
-    @objid ("e923ccf7-e484-4364-a7ac-d6ba4d8bb362")
+    @objid ("65c2111b-b336-4b3a-a71b-c5b9fb12ff54")
     @Override
     public EList<Signal> getAccepted() {
         return new SmList<>(this, ((AcceptSignalActionSmClass)getClassOf()).getAcceptedDep());
     }
 
-    @objid ("66ed9274-1244-4263-98c6-7bb988ee37d0")
+    @objid ("d2375b91-4cab-421e-9937-ea64f744a420")
     @Override
     public <T extends Signal> List<T> getAccepted(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -62,10 +61,10 @@ public class AcceptSignalActionImpl extends ActivityActionImpl implements Accept
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("319825ec-9391-4b5d-b51f-dd682c63554a")
+    @objid ("fa1e54a1-34fe-4762-88cb-2d5268fecdbe")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -73,17 +72,17 @@ public class AcceptSignalActionImpl extends ActivityActionImpl implements Accept
         return super.getCompositionOwner();
     }
 
-    @objid ("c32939d3-c09b-45e3-b5b7-0752a4813a4b")
+    @objid ("8171c375-0506-4e01-a477-5626dd1c8f2d")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("0a9e4436-9cae-4440-ad04-80ae1c2a951e")
+    @objid ("ea75c163-3043-4dd5-933d-916813da94d0")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitAcceptSignalAction(this);

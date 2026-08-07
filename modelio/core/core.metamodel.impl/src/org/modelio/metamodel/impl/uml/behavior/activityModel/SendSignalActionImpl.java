@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -42,20 +41,20 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("003d773c-c4bf-1fd8-97fe-001ec947cd2a")
 public class SendSignalActionImpl extends ActivityActionImpl implements SendSignalAction {
-    @objid ("e02f424d-8d0f-4928-96ba-5755f142f3fd")
+    @objid ("6fe9f133-abc9-43cc-a7a9-91a2149f0765")
     @Override
     public Signal getSent() {
         Object obj = getDepVal(((SendSignalActionSmClass)getClassOf()).getSentDep());
         return (obj instanceof Signal)? (Signal)obj : null;
     }
 
-    @objid ("fd93d0d2-426d-4eed-9b3b-aeea20a88f60")
+    @objid ("1281320e-59c1-44f2-8e1e-375ed6960105")
     @Override
     public void setSent(Signal value) {
         appendDepVal(((SendSignalActionSmClass)getClassOf()).getSentDep(), (SmObjectImpl)value);
     }
 
-    @objid ("9c22e60c-b1c1-47cd-a57c-d22caf5a2b1f")
+    @objid ("320d442b-fdaf-40dd-b638-f6f51668c24e")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -63,17 +62,17 @@ public class SendSignalActionImpl extends ActivityActionImpl implements SendSign
         return super.getCompositionOwner();
     }
 
-    @objid ("3ab1b1bf-d7fc-4a67-9c68-c8cff46cba65")
+    @objid ("9e359fa4-0315-4fce-9dd7-294d2900652a")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("050bba70-c486-42a9-b17e-65852da5ef5d")
+    @objid ("f4666f92-9fdf-4d58-a222-6c08f04d658c")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitSendSignalAction(this);

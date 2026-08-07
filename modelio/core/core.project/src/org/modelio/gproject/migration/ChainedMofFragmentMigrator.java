@@ -1,26 +1,25 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.migration;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -45,6 +44,7 @@ import org.modelio.vbasic.progress.SubProgress;
 import org.modelio.vbasic.version.VersionedItem;
 import org.modelio.vcore.model.spi.IGMetamodelExtension;
 import org.modelio.vcore.model.spi.mm.IMigrationReporter;
+import org.modelio.vcore.model.spi.mm.IMigrationReporter.IMigrationLogger;
 import org.modelio.vcore.model.spi.mm.IMigrationStepDescription;
 import org.modelio.vcore.model.spi.mm.IMofRepositoryMigrator;
 import org.modelio.vcore.model.spi.mm.IMofRepositoryMigratorProvider;
@@ -71,7 +71,7 @@ import org.modelio.vcore.smkernel.meta.mof.MofSmClass;
 
 /**
  * Migrates a fragment by mounting a MOF metamodel on a temporary modeling session.
- * 
+ *
  * @author cma
  * @since 3.6
  */
@@ -126,22 +126,24 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
     private List<IMigrationStepDescription> stepsDescription;
 
     /**
+     *
      * @param project the project
      * @param fragToMigrate the fragment to migrate
      * @param repositoryFactory a way to instantiate a IRepository from the fragment.
      */
     @objid ("3822581e-1845-4aad-bc5f-a500869fdd54")
-    public  ChainedMofFragmentMigrator(IGProject project, IGModelFragment fragToMigrate, RepositorySupplier repositoryFactory) {
+    public ChainedMofFragmentMigrator(IGProject project, IGModelFragment fragToMigrate, RepositorySupplier repositoryFactory) {
         this.project = project;
         this.fragToMigrate = fragToMigrate;
         this.repositoryFactory = repositoryFactory;
         this.migrationAccessManager = new BasicAccessManager();
         this.migrationCandidates = new ArrayList<>();
-        
+
     }
 
     /**
      * Add a MOF migration candidate.
+     *
      * @param migrator a MOF migration candidate.
      * @return this instance
      */
@@ -155,6 +157,7 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
      * Get the migration reporter.
      * <p>
      * Works only once {@link #run(IModelioProgress, IMigrationReporter)} has been called.
+     *
      * @return the migration reporter.
      */
     @objid ("5ad975aa-6053-4f49-b632-30e5db683625")
@@ -173,7 +176,8 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
 
     /**
      * Run the MOF migrator at the given index in the chain.
-     * @param reporter      an object to report migration process and result to.
+     *
+     * @param reporter an object to report migration process and result to.
      * @param monitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call {@link IModelioProgress#done() done()} on the given monitor. Accepts <i>null</i>, indicating that no progress should be
      * reported and that the operation cannot be cancelled.
      * @param migratorIndex the index of the migrator for {@link #getMigrationChainElement(int)}
@@ -184,53 +188,53 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
     protected final void runMofMigrator(IModelioProgress monitor, int migratorIndex) throws FragmentAuthenticationException, MigrationFailedException {
         SubProgress mon = SubProgress.convert(monitor, 5);
         IMofRepositoryMigrator mofMigrator = getMigrationChainElement(migratorIndex);
-        
+
         MmVersionComparator vcomparator = MmVersionComparator
                 .withSource(mofMigrator.getSourceMetamodel())
                 .withTarget(mofMigrator.getTargetMetamodel())
                 .withCommonRemoved()
                 .withMissingSourcesRemoved();
-        
+
         MetamodelVersionDescriptor mmDiff = vcomparator.getTarget();
         String msg = CoreProject.I18N.getMessage("ChainedMofFragmentMigrator.mon.migratingTowardVersion", this.fragToMigrate.getId(), mmDiff);
         mon.subTask(msg);
-        
-        this.migrationReporter.getLogger().format("\n\nMigrating '%s' from %s toward %s...\n------------------------------------\n",
+
+        this.migrationReporter.getLogger().printf("\n\nMigrating '%s' from %s toward %s...\n------------------------------------\n",
                 this.fragToMigrate.getId(), vcomparator.getSource(), mmDiff);
-        
+
         try {
             MofSession migrationSession = prepareMofSession(mon.newChild(1), migratorIndex);
             ICoreSession session = migrationSession.getCoreSession();
             try (ITransaction t = session.getTransactionSupport().createTransaction(msg);) {
-        
+
                 preMofMigration(mon.newChildSupplier(1), migrationSession, mofMigrator);
-        
+
                 mon.subTask(msg);
                 mon.setWorkRemaining(5);
                 this.migrationReporter.getLogger().println(" Running '" + mofMigrator.getClass().getSimpleName() + "' migrator ... ");
                 mofMigrator.run(mon.newChild(3), migrationSession);
-        
+
                 mon.setWorkRemaining(4);
                 mon.subTask(msg);
-        
+
                 postMofMigration(mon.newChildSupplier(2), migrationSession, mofMigrator);
-        
+
                 mon.setWorkRemaining(4);
                 mon.subTask(msg);
                 migrationSession.processScheduledReidentifications(mon.newChildSupplier(3));
-        
+
                 t.commit();
                 session.save(mon);
             } finally {
                 session.close();
             }
-        
+
         } catch (MofMigrationException e) {
             throw new MigrationFailedException(e.getLocalizedMessage(), e);
         } catch (IOException e) {
             throw new MigrationFailedException(FileUtils.getLocalizedMessage(e), e);
         }
-        
+
     }
 
     @objid ("bc572b21-d12c-4f7a-b670-12116ec40665")
@@ -241,17 +245,17 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
                 this.migrationCandidates.add(mofRepoMigrator);
             }
         }
-        
+
         this.fromMmVersion = this.fragToMigrate.getRequiredMetamodelDescriptor();
         this.targetMmVersion = VersionHelper.getDescriptors(this.project.getSession().getMetamodel());
-        
+
         // Filter out new needed metamodel fragments
         // targetMetamodel.filter(old -> fromMetamodel.getVersion(old.getName()) != null);
-        
+
         // Computes migration chain
         this.migrationChain = resolveMigrationChain(this.fromMmVersion, this.targetMmVersion, this.migrationCandidates);
         this.migrationChainComputed = true;
-        
+
         // Compute detail message
         if (!this.migrationChain.isSuccessful()) {
             MmVersionComparator comp = MmVersionComparator
@@ -264,19 +268,20 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
             this.userMessage = computeUserMessage();
             this.stepsDescription = computeStepsDescription();
         }
-        
+
     }
 
     @objid ("86b63f6b-1356-4b2b-8dd4-a8c96c82ad32")
     private void prepareMetamodel(CoreSession session, int migratorIndex) throws MofMigrationException {
         MofMetamodel metamodel = (MofMetamodel) session.getMetamodel();
         MetamodelChangeDescriptor prevMmChanges = null;
-        
+
         for (int i = this.migrationChain.getSteps().size() - 1; i >= migratorIndex; i--) {
             IMofRepositoryMigrator mofMigrator = getMigrationChainElement(i);
             mofMigrator.prepareMetamodel(metamodel);
-        
+
             // Revert reported CMS node changes
+            prevMmChanges = mofMigrator.getMetamodelChanges();
             if (prevMmChanges != null) {
                 for (MClassRef mcRef : prevMmChanges.getAddedCmsNodes()) {
                     MofSmClass mc = (MofSmClass) metamodel.getMClass(mcRef.getQualifiedName());
@@ -284,7 +289,7 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
                         mc.setIsCmsNode(false);
                     }
                 }
-        
+
                 for (MClassRef mcRef : prevMmChanges.getRemovedCmsNodes()) {
                     MofSmClass mc = (MofSmClass) metamodel.getMClass(mcRef.getQualifiedName());
                     if (mc != null) {
@@ -292,10 +297,8 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
                     }
                 }
             }
-        
-            prevMmChanges = mofMigrator.getMetamodelChanges();
         }
-        
+
     }
 
     @objid ("868525d3-45ee-4188-990d-a88490786cc0")
@@ -320,6 +323,7 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
      * Hook called before {@link IMofRepositoryMigrator#run(IModelioProgress, org.modelio.vcore.session.api.ICoreSession, IRepository)}.
      * <p>
      * May be redefined by subclasses to to some post processing.
+     *
      * @param mon a progress monitor with 2 ticks available.
      * @param migrationSession the migration session
      * @param mofMigrator the run migrator.
@@ -334,6 +338,7 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
      * Hook called after {@link IMofRepositoryMigrator#run(IModelioProgress, org.modelio.vcore.session.api.ICoreSession, IRepository)}.
      * <p>
      * May be redefined by subclasses to to some post processing.
+     *
      * @param mon a progress monitor with 2 ticks available.
      * @param migrationSession the migration session
      * @param mofMigrator the run migrator.
@@ -345,6 +350,7 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
     }
 
     /**
+     *
      * @return the computed migration chain.
      * @throws IOException on failure computing the migration chain
      */
@@ -358,6 +364,7 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
 
     /**
      * Creates a {@link MofSession} connected to the repository to migrate.
+     *
      * @param monitor a progress monitor
      * @param migratorIndex the index of the migrators to use to prepare the metamodel. All migrators from the last index to the given one will be called with {@link IMofRepositoryMigrator#prepareMetamodel(MofMetamodel)}. If -1, no migrator will be called.
      * @return the ready MOF session.
@@ -371,17 +378,17 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
                 .withMetamodel(this.project.getSession().getMetamodel())
                 .forMetamodelMigration()
                 .build();
-        
+
         boolean ok = false;
         try {
             if (migratorIndex != -1) {
                 prepareMetamodel(session, migratorIndex);
             }
-        
+
             IRepository toMigrate = this.repositoryFactory.intantiateRepository(session);
             session.connectRepository(toMigrate, this.migrationAccessManager, monitor);
             toMigrate.getErrorSupport().addErrorListener(new RepositoryErrorListener());
-        
+
             MofSession mofSession = new MofSession(session, toMigrate, getMigrationReporter());
             ok = true;
             return mofSession;
@@ -390,7 +397,7 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
                 session.close();
             }
         }
-        
+
     }
 
     @objid ("f623256d-2b20-46cf-87c6-ec30ccc75fb4")
@@ -401,6 +408,7 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
 
     /**
      * Run all MOF migrators in order.
+     *
      * @param monitor the progress monitor
      * @throws FragmentAuthenticationException on authentication error
      * @throws MigrationFailedException on failure
@@ -409,16 +417,17 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
     protected final void runMofMigrators(IModelioProgress monitor) throws FragmentAuthenticationException, MigrationFailedException {
         int migrationChainSize = this.migrationChain.getSteps().size();
         SubProgress mon = SubProgress.convert(monitor, migrationChainSize);
-        
+
         for (int i = 0; i < migrationChainSize; i++) {
             runMofMigrator(mon.newChild(1), i);
         }
-        
+
     }
 
     /**
      * Compute a warning message to display to the user if needed.
-     * @param fromMetamodel   the source metamodel
+     *
+     * @param fromMetamodel the source metamodel
      * @param targetMetamodel the target metamodel
      * @return a warning message or empty string, never <i>null</i>.
      */
@@ -431,6 +440,7 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
      * Build a migration chain between the 2 given metamodels.
      * <p>
      * May be redefined.
+     *
      * @param fromMetamodel the source metamodel
      * @param targetMetamodelDesc the target metamodel
      * @param migrationProviders all known migration providers.
@@ -442,11 +452,12 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
                 fromMetamodel,
                 targetMetamodelDesc,
                 migrationProviders);
-        
+
     }
 
     /**
      * Prepare a {@link ICoreSession} connected to the repository to migrate with the final metamodel.
+     *
      * @param monitor a progress monitor
      * @return the ICoreSession
      * @throws FragmentAuthenticationException in case of authentication error
@@ -458,13 +469,13 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
             CoreSession session = new CoreSessionBuilder()
                     .withMetamodel(this.project.getSession().getMetamodel())
                     .build();
-        
+
             boolean ok = false;
             try {
                 IRepository toMigrate = this.repositoryFactory.intantiateRepository(session);
                 session.connectRepository(toMigrate, this.migrationAccessManager, monitor);
                 toMigrate.getErrorSupport().addErrorListener(new RepositoryErrorListener());
-        
+
                 ok = true;
                 return session;
             } finally {
@@ -475,7 +486,7 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
         } catch (IOException e) {
             throw new MigrationFailedException(FileUtils.getLocalizedMessage(e), e);
         }
-        
+
     }
 
     @objid ("50928092-28d6-492e-995b-948fcd3dacb0")
@@ -495,11 +506,11 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
     protected final MetamodelDescriptor getFinalMergedMmDescriptor(IMigrationReporter reporter) throws IOException, MofMigrationException {
         Optional<MetamodelDescriptor> initMetamodelDesc = getInitialMetamodelDescriptor();
         MetamodelDescriptor targetMmDesc = getProject().getSession().getMetamodel().serialize();
-        
+
         for (IMofRepositoryMigrator migrator : getMigrationChain().getSteps()) {
             migrator.completeFinalMetamodelDescriptor(targetMmDesc, reporter);
         }
-        
+
         if (initMetamodelDesc.isPresent()) {
             MetamodelDescriptor mmd = initMetamodelDesc.get();
             for (VersionedItem<?> fragEntry : getFinalVersionDescriptor()) {
@@ -523,32 +534,32 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
     @Override
     public final IMigrationProcess start(IModelioProgress monitor, IMigrationReporter reporter) throws FragmentAuthenticationException, MigrationFailedException {
         this.terminalCalled = false;
-        
+
         // ensure migration chain has been computed
         try {
             getMigrationChain();
         } catch (IOException e) {
             throw new MigrationFailedException(FileUtils.getLocalizedMessage(e), e);
         }
-        
+
         this.migrationReporter = reporter;
-        
+
         String msg = CoreProject.I18N.getMessage("ChainedMofFragmentMigrator.mon.migration", this.fragToMigrate.getId());
         monitor.subTask(msg);
         monitor.setTaskName(msg);
-        
+
         reporter.getLogger().println(msg);
         reporter.getLogger().println();
         reporter.getLogger().println(getRequiredUserActions());
         reporter.getLogger().println();
         reporter.getLogger().println(getMmDifferencesSummary());
         for (IMigrationStepDescription step : getStepsDescription()) {
-            reporter.getLogger().append(" - ").append(step.getStepDescription()).println();
+            reporter.getLogger().printf(" - %s \n",step.getStepDescription());
         }
-        
+
         this.oldVCoreLogger = Log.getLogger();
         Log.setLogger(new NestedBasicLogger(this.oldVCoreLogger, reporter.getLogger()));
-        
+
         // Read initial metamodel descriptor
         try {
             IRepository r = this.repositoryFactory.intantiateRepository(getProject().getSession());
@@ -560,7 +571,7 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
         } catch (IOException e) {
             throw new MigrationFailedException(FileUtils.getLocalizedMessage(e), e);
         }
-        
+
         doStart(monitor);
         return this;
     }
@@ -569,6 +580,7 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
      * Hook called by {@link #start(IModelioProgress, IMigrationReporter)} for sub classes.
      * <p>
      * Does nothing by default. May be redefined by sub classes.
+     *
      * @param monitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call {@link IModelioProgress#done() done()} on the given monitor. Accepts <i>null</i>, indicating that no progress should be reported
      * and that the operation cannot be cancelled.
      * @throws FragmentAuthenticationException on authentication failure
@@ -589,7 +601,7 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
     @Override
     public final void finish(IModelioProgress monitor) throws MigrationFailedException {
         assert (this.terminalCalled == false);
-        
+
         // Ensure the fragment is not mount
         try {
             this.fragToMigrate.unmount(monitor);
@@ -598,17 +610,18 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
             Log.warning(e);
             getMigrationReporter().getLogger().println(e.getLocalizedMessage());
         }
-        
+
         // Call sub classes
         doFinish(monitor);
-        
+
         // Record process finished
         this.terminalCalled = true;
-        
+
     }
 
     /**
      * Hook called by {@link #finish(IModelioProgress)} for sub classes.
+     *
      * @param monitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call {@link IModelioProgress#done() done()} on the given monitor. Accepts <i>null</i>, indicating that no progress should be reported
      * and that the operation cannot be cancelled.
      * @throws MigrationFailedException to abort migration
@@ -630,11 +643,12 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
             this.terminalCalled = true;
             Log.setLogger(this.oldVCoreLogger);
         }
-        
+
     }
 
     /**
      * Hook called by {@link #close()}, to be redefined by sub classes if they have something not done in {@link #doFinish(IModelioProgress)} and {@link #doAbort(IModelioProgress)}.
+     *
      * @throws MigrationFailedException on failure.
      */
     @objid ("dfdaf2aa-11f2-4a31-96ad-976722f95b74")
@@ -646,45 +660,47 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
     @Override
     public final void abort(IModelioProgress monitor) throws MigrationFailedException {
         assert (this.terminalCalled == false);
-        
+
         try {
             doAbort(monitor);
         } finally {
             this.terminalCalled = true;
         }
-        
+
     }
 
     /**
+     *
      * @param monitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call {@link IModelioProgress#done() done()} on the given monitor. Accepts <i>null</i>, indicating that no progress should be reported
      * and that the operation cannot be cancelled.
      * @throws MigrationFailedException on failure
      */
     @objid ("1f7cae3d-c14c-4e47-9722-41a03be07801")
     protected void doAbort(IModelioProgress monitor) throws MigrationFailedException {
-        
+
     }
 
     /**
      * Computes the migration steps descriptions from the migration chain.
+     *
      * @return the migration steps descriptions.
      */
     @objid ("284bc8f1-c616-4448-9d04-620d15f718cf")
     protected List<IMigrationStepDescription> computeStepsDescription() {
         List<IMigrationStepDescription> ret = new ArrayList<>(this.migrationChain.getSteps().size());
-        
+
         for (IMofRepositoryMigrator mofMigrator : this.migrationChain.getSteps()) {
             MmVersionComparator vcomparator = MmVersionComparator
                     .withSource(mofMigrator.getSourceMetamodel())
                     .withTarget(mofMigrator.getTargetMetamodel())
                     .withCommonRemoved()
                     .withMissingRemoved();
-        
+
             if (!vcomparator.isTargetCompatible(false)) {
                 String msg = CoreProject.I18N.getMessage("ChainedMofFragmentMigrator.detail.migratorline", this.fragToMigrate.getId(), vcomparator.getSource(), vcomparator.getTarget());
                 ret.add(new MigrationStepDescription(msg));
             }
-        
+
         }
         return ret;
     }
@@ -725,6 +741,7 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
          * Instantiate the repository.
          * <p>
          * Does not open it.
+         *
          * @param session the modeling session the repository will be connected to
          * @return the repository
          * @throws FragmentAuthenticationException on authentication error
@@ -732,8 +749,8 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
          */
         @objid ("2cd90fbb-bbc7-45f6-b57a-40fe0f345165")
         IRepository intantiateRepository(ICoreSession session) throws FragmentAuthenticationException, IOException;
-}
-    
+
+    }
 
     /**
      * Repository error listener plugged on the repository to migrate that put all events into the migration log.
@@ -741,23 +758,23 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
     @objid ("78d58022-16a7-4403-a177-3f932b71f09b")
     private final class RepositoryErrorListener implements IRepositoryErrorListener {
         @objid ("c26fcadc-3880-43df-88a0-2c87a41c75c0")
-        private final PrintWriter logger = getMigrationReporter().getLogger();
+        private final IMigrationLogger logger = getMigrationReporter().getLogger();
 
         @objid ("6eb41a30-3d67-42be-b11e-d4818a350e3f")
         @Override
         public void onWarning(IRepository repository, Throwable e) {
             if (e instanceof IOException) {
                 this.logger.printf("Repository warning: %s\n", FileUtils.getLocalizedMessage((IOException) e));
-            
+
                 // Put only in Modelio log because most IOException warnings are
                 // currently unavoidable in a successful migration
                 Log.warning(e);
             } else {
                 Log.warning(e);
                 this.logger.printf("Repository warning: %s\n", e.toString());
-                e.printStackTrace(this.logger);
+                this.logger.printStackTrace(e);
             }
-            
+
         }
 
         @objid ("6a963df8-e69b-4007-8e0b-6607c6d54a5a")
@@ -768,8 +785,8 @@ public class ChainedMofFragmentMigrator implements IGModelFragmentMigrator, org.
             } else {
                 this.logger.printf("Repository ERROR: %s\n", e.toString());
             }
-            e.printStackTrace(this.logger);
-            
+            this.logger.printStackTrace(e);
+
         }
 
     }

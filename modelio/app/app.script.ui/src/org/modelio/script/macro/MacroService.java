@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.script.macro;
 
@@ -28,8 +28,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Inject;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.e4.core.di.annotations.Creatable;
@@ -77,7 +77,7 @@ public class MacroService implements IMacroService {
         }
         this.modelioCatalog = new Catalog("Modelio", env.getMacroCatalogPath(), true, null); // The modelio catalog is readonly
         this.workspaceCatalog = new Catalog("Workspace", projectService.getWorkspace().resolve(MacroService.MACROS_SUBDIR), false, null);
-        
+
     }
 
     @objid ("33adeb7e-96fa-46dd-ab8d-2e4fb15ca60b")
@@ -92,7 +92,7 @@ public class MacroService implements IMacroService {
                     false, metamodel);
             this.workspaceCatalog.setMetamodel(metamodel);
         }
-        
+
     }
 
     @objid ("c1325c8e-a2f4-4248-a5f5-b9eac5a721af")
@@ -102,7 +102,7 @@ public class MacroService implements IMacroService {
     @EventTopic (ModelioEventTopics.PROJECT_CLOSED) final IGProject project) {
         this.projectCatalog = null;
         this.workspaceCatalog.setMetamodel(null);
-        
+
     }
 
     @objid ("8525c402-ad5e-492d-9850-f5db8331cd71")
@@ -142,7 +142,7 @@ public class MacroService implements IMacroService {
         default:
             return Collections.emptyList();
         }
-        
+
     }
 
     @objid ("fa9314f7-0569-41c6-91c4-dd6337f002c5")
@@ -163,7 +163,7 @@ public class MacroService implements IMacroService {
         default:
             break;
         }
-        
+
     }
 
     @objid ("5b759f97-caab-4012-91eb-fcab398f9635")
@@ -184,7 +184,7 @@ public class MacroService implements IMacroService {
         default:
             break;
         }
-        
+
     }
 
     @objid ("4adc2230-d3d1-45a6-9ec8-8ca8de4b069a")
@@ -200,18 +200,19 @@ public class MacroService implements IMacroService {
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Create modelio macro catalog file by extracting the macros embedded in the plugin archive.
+     *
      * @param macrosCatalogPath the Modelio macros catalog directory
      */
     @objid ("461e569c-ff21-41af-b990-4dc0e7827a73")
     private void createModelioMacroCatalogFile(Path macrosCatalogPath) {
         String sourceMacrosFileString = getFilePathOf("/res/macros");
         File scriptCatalogFile = new File(sourceMacrosFileString);
-        
+
         try {
             FileUtils.copyDirectoryTo(scriptCatalogFile.toPath(), macrosCatalogPath);
         } catch (IOException e) {
@@ -219,7 +220,7 @@ public class MacroService implements IMacroService {
         }
         File catalogFile = new File(macrosCatalogPath.resolve("scripts.catalog").toString());
         catalogFile.renameTo(new File(macrosCatalogPath.resolve(".catalog").toString()));
-        
+
     }
 
     @objid ("b1ee3aed-56a0-4a1b-9ac6-322ddcf66b17")

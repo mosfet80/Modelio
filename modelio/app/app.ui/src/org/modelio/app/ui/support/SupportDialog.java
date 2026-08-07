@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.ui.support;
 
@@ -39,14 +39,15 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.modelio.app.ui.plugin.AppUi;
 import org.modelio.platform.ui.dialog.ModelioDialog2;
+import org.modelio.platform.ui.swt.BrowserConfigurator;
 
 @objid ("18604248-92f0-4636-ad92-a7a2ee781136")
 public class SupportDialog extends ModelioDialog2 {
-    @objid ("f2c3bcb9-fc55-42db-b971-184727051086")
+    @objid ("7317cbff-737b-4b0b-a20f-052102e07c02")
     private Image aboutImage = null;
 
     @objid ("7fded2cc-9b5d-4343-ae51-476db4ed4b2a")
-    protected  SupportDialog(Shell parentShell) {
+    protected SupportDialog(Shell parentShell) {
         super(parentShell);
     }
 
@@ -79,15 +80,15 @@ public class SupportDialog extends ModelioDialog2 {
         workLayout.verticalSpacing = 0;
         workLayout.horizontalSpacing = 0;
         workLayout.numColumns = 2;
-        
+
         workArea.setLayout(workLayout);
         workArea.setLayoutData(new GridData(GridData.FILL_BOTH));
         workArea.setBackground(Display.getDefault().getSystemColor(SWT.COLOR_WHITE));
-        
+
         final URL url = FileLocator.find(Platform.getBundle(AppUi.PLUGIN_ID), new Path("images/about250x330.png"), null);
         final ImageDescriptor imageDescriptor = ImageDescriptor.createFromURL(url);
         this.aboutImage = imageDescriptor.createImage();
-        
+
         final Label imageLabel = new Label(workArea, SWT.NONE);
         imageLabel.setText("First Name");
         imageLabel.setImage(this.aboutImage);
@@ -95,9 +96,9 @@ public class SupportDialog extends ModelioDialog2 {
         imgData.horizontalAlignment = GridData.FILL;
         imgData.verticalAlignment = GridData.BEGINNING;
         imgData.grabExcessHorizontalSpace = false;
-        
+
         imageLabel.setLayoutData(imgData);
-        Browser contentBrowser = new Browser(workArea, SWT.NO_SCROLL);
+        Browser contentBrowser = BrowserConfigurator.newBrowser(workArea, SWT.NO_SCROLL);
         final GridData textData = new GridData();
         textData.horizontalAlignment = GridData.FILL;
         textData.verticalAlignment = GridData.FILL;
@@ -121,7 +122,7 @@ public class SupportDialog extends ModelioDialog2 {
         String mail =  AppUi.I18N.getString("SupportDialog.technical.email");
         content.append("<p>" + AppUi.I18N.getString("SupportDialog.technical.content") + "<a href=\"mailto:" +  mail+ "\">"+mail+"</a>" +"</p>");
         content.append("</div>");
-        
+
         content.append("<div style=\"margin : 10px;\">");
         content.append("<h3 style=\"color:#7283af\"><b>" + AppUi.I18N.getString("SupportDialog.commercial.title") +"</b></h3>");
         mail =  AppUi.I18N.getString("SupportDialog.commercial.email");

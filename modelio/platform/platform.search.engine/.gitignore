@@ -1,0 +1,8 @@
+bin/
+.svn/
+target/
+build/mvn-exit.txt
+build/mvn-build.log
+build/CMA-TODO.md
+.gsd/tmp/err.txt
+.gsd/tmp/out.txt

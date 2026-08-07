@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.utils.metamodel.experts.links;
 
@@ -28,7 +28,7 @@ import org.modelio.vcore.utils.metamodel.experts.ILinkExpertHelper;
  * {@link ILinkExpert} that wraps another one.
  * <p>
  * Useful to delegate part of the work to another expert.
- * 
+ *
  * @author cmarin
  * @since toutatis
  */
@@ -38,10 +38,11 @@ public class WrappedLinkExpertHelper implements ILinkExpertHelper {
     protected final ILinkExpertHelper defaultExpert;
 
     /**
+     *
      * @param defaultExpert the expert to delegate to by default.
      */
     @objid ("c11da907-9fec-4cec-9ff2-098f939740cc")
-    public  WrappedLinkExpertHelper(ILinkExpertHelper defaultExpert) {
+    public WrappedLinkExpertHelper(ILinkExpertHelper defaultExpert) {
         this.defaultExpert = defaultExpert;
     }
 

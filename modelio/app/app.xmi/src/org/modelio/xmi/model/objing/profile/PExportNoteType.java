@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing.profile;
 
@@ -34,7 +34,7 @@ public class PExportNoteType implements IExportProfileElement {
     private NoteType objingElt = null;
 
     @objid ("f887459d-6ff8-45c9-ba01-1ab89c276b0a")
-    public  PExportNoteType(NoteType attribut) {
+    public PExportNoteType(NoteType attribut) {
         this.objingElt = attribut;
     }
 
@@ -47,32 +47,32 @@ public class PExportNoteType implements IExportProfileElement {
     @objid ("f71e0720-4fd4-4daf-ad69-2fdc5e995425")
     public void visit() {
         org.eclipse.uml2.uml.Stereotype stereotype = null;
-        
+
         if (this.objingElt.getOwnerStereotype() != null){
             stereotype = (org.eclipse.uml2.uml.Stereotype)TotalExportMap.getInstance().get(this.objingElt.getOwnerStereotype().getUuid().toString());
         }else{
             stereotype = (org.eclipse.uml2.uml.Stereotype)TotalExportMap.getInstance().get(this.objingElt.getOwnerReference().getUuid().toString());
         }
-        
+
         String name = this.objingElt.getName();
         EcoreUMLTypes ecoreUMLTypes = GenerationProperties.getInstance().getEcoreUMLTypes();
-        
+
         Property attr  = stereotype.getOwnedAttribute(name,  ecoreUMLTypes.getString());
         if (attr == null)
             attr = stereotype.createOwnedAttribute(name,  ecoreUMLTypes.getString());
-        
+
         attr.setLower(1);
         attr.setUpper(1);
-        
+
         ObjingEAnnotation.setIsNoteType(attr);
-        
+
         if (GenerationProperties.getInstance().isRoundtripEnabled()){
             setHidden(attr);
             setLabel(attr);
-        
+
         }
         ObjingEAnnotation.addObjingID(attr, this.objingElt.getUuid().toString());
-        
+
     }
 
     @objid ("df5f957c-8570-4a3f-9b37-be31af8f6466")

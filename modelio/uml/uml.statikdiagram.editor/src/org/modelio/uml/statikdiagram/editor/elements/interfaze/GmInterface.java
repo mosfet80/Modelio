@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.interfaze;
 
@@ -43,7 +43,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Specialization of the {@link GmPortContainer} class for {@link Interface}.
- * 
+ *
  * @author fpoyer
  */
 @objid ("35728f5a-55b7-11e2-877f-002564c97630")
@@ -76,30 +76,31 @@ public class GmInterface extends GmTemplateContainer {
      * Empty constructor needed for deserialization.
      */
     @objid ("35728f6a-55b7-11e2-877f-002564c97630")
-    public  GmInterface() {
+    public GmInterface() {
         // Nothing specific to do.
     }
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram in which the class is unmasked.
      * @param el the unmasked class.
      * @param ref a reference to the unmasked class.
      */
     @objid ("357415f9-55b7-11e2-877f-002564c97630")
-    public  GmInterface(IGmDiagram diagram, Interface el, MRef ref) {
+    public GmInterface(IGmDiagram diagram, Interface el, MRef ref) {
         super(diagram, new GmInterfacePrimaryNode(diagram, ref), ref);
-        
+
         this.element = el;
-        
+
         final GmImageNameSpaceLabel interfaceLabel = new GmImageNameSpaceLabel(diagram,
                 el,
                 ref);
         interfaceLabel.setRoleInComposition(SATELLITE_ROLE);
         interfaceLabel.setLayoutData(Integer.valueOf(PositionConstants.EAST));
-        
+
         addChild(interfaceLabel);
-        
+
     }
 
     @objid ("35741605-55b7-11e2-877f-002564c97630")
@@ -139,12 +140,12 @@ public class GmInterface extends GmTemplateContainer {
         if (ret != null) {
             return ret;
         }
-        
+
         ret = SIMPLE_KEYS.getStyleKey(metakey);
         if (ret != null) {
             return ret;
         }
-        
+
         ret = IMAGE_KEYS.getStyleKey(metakey);
         return ret;
     }
@@ -164,7 +165,7 @@ public class GmInterface extends GmTemplateContainer {
         default:
             return Collections.emptyList();
         }
-        
+
     }
 
     @objid ("3574163b-55b7-11e2-877f-002564c97630")
@@ -181,11 +182,12 @@ public class GmInterface extends GmTemplateContainer {
             liste.removeAll(getChildren(SATELLITE_ROLE));
             return liste;
         }
-        
+
     }
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */
@@ -197,6 +199,7 @@ public class GmInterface extends GmTemplateContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */
@@ -205,7 +208,7 @@ public class GmInterface extends GmTemplateContainer {
     public boolean isSatellite(final GmNodeModel childNode) {
         return GmPortContainer.SATELLITE_ROLE.equals(childNode.getRoleInComposition()) ||
                                         GmPortContainer.CONTENT_AS_SATELLITE_ROLE.equals(childNode.getRoleInComposition());
-        
+
     }
 
     @objid ("3574162e-55b7-11e2-877f-002564c97630")
@@ -214,40 +217,41 @@ public class GmInterface extends GmTemplateContainer {
         // Read version, defaults to 0 if not found
         int readVersion = readMinorVersion(in, "GmInterface.");
         switch (readVersion) {
-        case 0: 
+        case 0:
             read_0(in);
             break;
-        
-        default: 
+
+        default:
             assert (false) : "version number not covered!";
             // reading as last handled version: 0
             read_0(in);
             break;
-        
+
         }
-        
+
     }
 
     @objid ("35759c9f-55b7-11e2-877f-002564c97630")
     @Override
     public void refreshFromObModel() {
         super.refreshFromObModel();
-        
+
         refreshPortsFromObModel();
-        
+
     }
 
     @objid ("35759ca8-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmInterface.", MINOR_VERSION);
-        
+
     }
 
     /**
+     *
      * @return true if ports are to be unmasked automatically.
      */
     @objid ("35759ca2-55b7-11e2-877f-002564c97630")
@@ -259,7 +263,7 @@ public class GmInterface extends GmTemplateContainer {
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (Interface) resolveRef(getRepresentedRef());
-        
+
     }
 
     /**
@@ -275,9 +279,9 @@ public class GmInterface extends GmTemplateContainer {
                     gmPort.setRoleInComposition(GmPortContainer.PORT_ROLE);
                 }
             }
-        
+
         }
-        
+
     }
 
     @objid ("b4750d59-4239-4e16-8328-c6ac21e96f63")

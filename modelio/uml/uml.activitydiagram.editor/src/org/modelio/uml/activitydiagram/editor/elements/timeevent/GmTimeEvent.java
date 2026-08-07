@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.activitydiagram.editor.elements.timeevent;
 
@@ -42,7 +42,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Specialization of the {@link GmPortContainer} class for {@link IAcceptTimeEventAction}.
- * 
+ *
  * @author fpoyer
  */
 @objid ("2b5d7e9a-55b6-11e2-877f-002564c97630")
@@ -73,24 +73,25 @@ public class GmTimeEvent extends GmPinContainer {
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram in which the timeEvent is unmasked.
      * @param el the unmasked timeEvent.
      * @param ref a reference to the unmasked timeEvent.
      */
     @objid ("2b5d7eaa-55b6-11e2-877f-002564c97630")
-    public  GmTimeEvent(IGmDiagram diagram, AcceptTimeEventAction el, MRef ref) {
+    public GmTimeEvent(IGmDiagram diagram, AcceptTimeEventAction el, MRef ref) {
         super(diagram, ref);
         this.element = el;
-        
+
         GmTimeEventPrimaryNode mainNode = new GmTimeEventPrimaryNode(diagram, ref);
         mainNode.setRoleInComposition(MAIN_NODE_ROLE);
         this.addChild(mainNode);
-        
+
         GmNameLabel label = new GmNameLabel(diagram, ref);
         label.setRoleInComposition(GmPortContainer.SATELLITE_ROLE);
         label.setLayoutData(Integer.valueOf(PositionConstants.EAST));
         this.addChild(label);
-        
+
     }
 
     @objid ("2b5d7eb6-55b6-11e2-877f-002564c97630")
@@ -105,7 +106,7 @@ public class GmTimeEvent extends GmPinContainer {
         return ((InputPin.class.isAssignableFrom(el.getClass()) ||
                         ValuePin.class.isAssignableFrom(el.getClass()) || OutputPin.class.isAssignableFrom(el.getClass())) && el.getCompositionOwner()
                                 .equals(this.element));
-        
+
     }
 
     @objid ("2b5f053a-55b6-11e2-877f-002564c97630")
@@ -152,7 +153,7 @@ public class GmTimeEvent extends GmPinContainer {
      * Empty constructor needed for deserialization.
      */
     @objid ("2b5f054d-55b6-11e2-877f-002564c97630")
-    public  GmTimeEvent() {
+    public GmTimeEvent() {
         // Nothing specific to do.
     }
 
@@ -173,7 +174,7 @@ public class GmTimeEvent extends GmPinContainer {
             break;
         }
         }
-        
+
     }
 
     @objid ("2b5f0556-55b6-11e2-877f-002564c97630")
@@ -192,17 +193,17 @@ public class GmTimeEvent extends GmPinContainer {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmTimeEvent.", GmTimeEvent.MINOR_VERSION);
-        
+
     }
 
     @objid ("2b5f056a-55b6-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
         this.element = (AcceptTimeEventAction) resolveRef(getRepresentedRef());
-        
+
     }
 
     @objid ("2b5f056f-55b6-11e2-877f-002564c97630")
@@ -213,6 +214,7 @@ public class GmTimeEvent extends GmPinContainer {
 
     /**
      * Is this node a Port, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Port.
      */
@@ -224,6 +226,7 @@ public class GmTimeEvent extends GmPinContainer {
 
     /**
      * Is this node a Satellite, which position is defined relatively to the Main Node's bounds.
+     *
      * @param childNode the node to check.
      * @return <code>true</code> if the node is a Satellite.
      */

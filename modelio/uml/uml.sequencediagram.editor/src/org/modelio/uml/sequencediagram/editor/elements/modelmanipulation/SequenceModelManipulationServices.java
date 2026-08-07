@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.sequencediagram.editor.elements.modelmanipulation;
 
@@ -26,10 +26,11 @@ import org.modelio.metamodel.uml.behavior.interactionModel.Interaction;
 import org.modelio.metamodel.uml.behavior.interactionModel.InteractionFragment;
 import org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperand;
 import org.modelio.metamodel.uml.behavior.interactionModel.InteractionUse;
+import org.modelio.metamodel.uml.behavior.interactionModel.StateInvariant;
 
 /**
  * Helper class for manipulating the model of Sequence Diagrams.
- * 
+ *
  * @author fpoyer
  */
 @objid ("feaa0c2c-6179-4501-91d3-241eec658a2f")
@@ -38,13 +39,14 @@ public class SequenceModelManipulationServices {
     private final Collection<InteractionFragment> existingFragments;
 
     @objid ("5dd09812-acc4-4c5c-923b-28997aaa6971")
-    public  SequenceModelManipulationServices(Interaction interaction) {
+    public SequenceModelManipulationServices(Interaction interaction) {
         this.existingFragments = InteractionHelper.getAllInteractionFragments(interaction);
     }
 
     /**
      * Ensure there is at least <i>minDelta</i> vertical space between the given line
      * and other interaction fragments.
+     *
      * @param newLine a line to insert
      * @param minDelta the minimum space between the new line and interaction fragments below.
      * @since 3.7.1
@@ -60,7 +62,7 @@ public class SequenceModelManipulationServices {
                     yToMove = y;
                 }
             }
-            
+
             if (f instanceof InteractionUse) {
                 InteractionUse endLineHolder = (InteractionUse) f;
                 int y = endLineHolder.getEndLineNumber();
@@ -75,18 +77,26 @@ public class SequenceModelManipulationServices {
                 if (delta > 0 && delta < minDelta && y < yToMove) {
                     yToMove = y;
                 }
+            } else if (f instanceof StateInvariant) {
+                StateInvariant endLineHolder = (StateInvariant) f;
+                int y = endLineHolder.getEndLineNumber();
+                int delta = y - newLine;
+                if (delta > 0 && delta < minDelta && y < yToMove) {
+                    // Move down the whole State invariant instead of resizing it
+                    yToMove = endLineHolder.getLineNumber();
+                }
             }
-               }
-        
+        }
+
         if (yToMove < Integer.MAX_VALUE) {
             final int moveDelta = minDelta - (yToMove - newLine);
             moveAllBelow(yToMove, moveDelta);
-               }
-        
+        }
     }
 
     /**
      * Move all interaction fragments situated at <i>yToMove</i> or below by <i>moveDelta</i> .
+     *
      * @param yToMove minimum y coordinate of interaction fragments to move, included
      * @param moveDelta the move delta
      */
@@ -109,9 +119,14 @@ public class SequenceModelManipulationServices {
                 if (endY >= yToMove) {
                     endLineHolder.setEndLineNumber(endY + moveDelta);
                 }
+            } else if (f instanceof StateInvariant) {
+                StateInvariant endLineHolder = (StateInvariant) f;
+                int endY = endLineHolder.getEndLineNumber();
+                if (endY >= yToMove) {
+                    endLineHolder.setEndLineNumber(endY + moveDelta);
+                }
             }
         }
-        
     }
 
 }

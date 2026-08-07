@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.events;
 
 import java.util.List;
@@ -31,17 +30,17 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 
 @objid ("008909ea-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class BpmnCatchEventData extends BpmnEventData {
-    @objid ("210e7490-b3f6-41c5-a686-6890f979b653")
+    @objid ("ee3d325b-2687-414e-9a14-4ae42c15a82c")
     Object mParallelMultiple = false;
 
-    @objid ("9bca1b30-438e-4f95-94e9-d763376c5326")
+    @objid ("cff3e5d8-7a68-4ca0-8a85-81d7f85104b2")
     List<SmObjectImpl> mDataOutputAssociation = null;
 
-    @objid ("94382c6a-2e65-40f1-b379-5e1fd628dfe2")
+    @objid ("b37c91ea-8802-4977-8a0f-73b3a69a26ff")
     SmObjectImpl mDataOutput;
 
-    @objid ("340c2200-2df1-41e5-97e3-e2d9c505e8c1")
-    public  BpmnCatchEventData(BpmnCatchEventSmClass smClass) {
+    @objid ("68dbead9-1686-4c65-b174-8059f4e79d0b")
+    public BpmnCatchEventData(BpmnCatchEventSmClass smClass) {
         super(smClass);
     }
 

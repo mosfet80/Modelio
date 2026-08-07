@@ -1,21 +1,40 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
+ */
+/*
+ * Copyright 2013-2024 Docaposte
+ *
+ * This file is part of Modelio.
+ *
+ * Modelio is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modelio is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml;
 
@@ -24,9 +43,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.emf.common.util.EList;
 import org.modelio.metamodel.PredefinedTypes;
 import org.modelio.metamodel.mda.ModuleComponent;
+import org.modelio.metamodel.mmextensions.standard.facilities.InterFragmentTester;
 import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.KindOfAccess;
 import org.modelio.metamodel.uml.statik.NaryAssociation;
@@ -50,8 +69,8 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class AssociationEndNPropertyModel extends AbstractPropertyModel<NaryAssociationEnd> {
     @objid ("abab16e5-93a5-4d33-8ef4-d1523fdfe921")
     private static final String[] PROPERTIES = new String[] { AbstractPropertyModel.PROPERTY_ID, "AssociationName",
-    			"Class", "Role", "Visibility", "MultiplicityMin", "MultiplicityMax", "AccessMode", "IsAbstract", "IsClass",
-    			"IsOrdered", "IsUnique" };
+        			"Class", "Role", "Visibility", "MultiplicityMin", "MultiplicityMax", "AccessMode", "IsAbstract", "IsClass",
+        			"IsOrdered", "IsUnique" };
 
     @objid ("d4df533e-f3c8-4916-936f-2c4c5df73b56")
     private List<NaryAssociationEnd> displayedRoles;
@@ -62,17 +81,18 @@ public class AssociationEndNPropertyModel extends AbstractPropertyModel<NaryAsso
     /**
      * Create a new <i>NaryAssociationEnd</i> data model from an
      * <i>NaryAssociationEnd</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("0862cce7-d0fc-4d21-9d8e-ffe3bce0f0c1")
-    public  AssociationEndNPropertyModel(NaryAssociationEnd theEditedElement) {
+    public AssociationEndNPropertyModel(NaryAssociationEnd theEditedElement) {
         super(theEditedElement);
-        
+
         // Order the displayed roles as following:
         // - this role first for n-ary associations
         this.theNaryAssociation = theEditedElement.getNaryAssociation();
         if (this.theNaryAssociation != null) {
-            final EList<NaryAssociationEnd> roles = this.theNaryAssociation.getNaryEnd();
+            final List<NaryAssociationEnd> roles = this.theNaryAssociation.getNaryEnd();
             this.displayedRoles = new ArrayList<>(roles.size());
             this.displayedRoles.add(this.theEditedElement);
             for (NaryAssociationEnd r : roles) {
@@ -81,7 +101,6 @@ public class AssociationEndNPropertyModel extends AbstractPropertyModel<NaryAsso
                 }
             }
         }
-        
     }
 
     @objid ("d3d71681-ae4e-42e3-adf2-0afd743c9e38")
@@ -127,7 +146,6 @@ public class AssociationEndNPropertyModel extends AbstractPropertyModel<NaryAsso
         default:
             return null;
         }
-        
     }
 
     @objid ("3cb01e37-f79f-4e5e-a892-af4cad0d09c8")
@@ -148,24 +166,23 @@ public class AssociationEndNPropertyModel extends AbstractPropertyModel<NaryAsso
                 return "";
             }
         }
-        
+
         switch (col) {
         case 0: // col 0 is the property name
             return getPropertyI18n(PROPERTIES[row]);
         default:
             return getPropertyValue(row, this.displayedRoles.get(col - 1));
         }
-        
     }
 
     @objid ("ae3059de-c4b9-4093-a55a-400d072bb7b2")
     @Override
     public INatValue getValueAt(int row, int col) {
         switch (col) {
-        
+
         case 0: // col 0 is the property name
             return new DefaultStringNatValue((String) getValue(row, col), false);
-        
+
         default:
             switch (row) {
             case 0: // Title
@@ -205,7 +222,6 @@ public class AssociationEndNPropertyModel extends AbstractPropertyModel<NaryAsso
                 return null;
             }
         }
-        
     }
 
     @objid ("c7ece5e2-801f-4e9c-912c-beaa8ed8547f")
@@ -227,6 +243,9 @@ public class AssociationEndNPropertyModel extends AbstractPropertyModel<NaryAsso
             if (!relatedEnd.isModifiable()) {
                 return false;
             }
+
+            if (row == 2 && InterFragmentTester.isAffected(this.theNaryAssociation))
+                return false;
         }
         return true;
     }
@@ -274,21 +293,19 @@ public class AssociationEndNPropertyModel extends AbstractPropertyModel<NaryAsso
         default:
             return;
         }
-        
     }
 
     @objid ("40419e03-2f73-41cb-8d66-a80f4435bbdf")
     @Override
     public void setValueAt(int row, int col, Object value) {
         switch (col) {
-        
+
         case 0:
             return;
         default:
             setPropertyValue(row, this.displayedRoles.get(col - 1), value);
             return;
         }
-        
     }
 
     @objid ("15d28cf9-0b4f-4093-8f4f-72653fe512f6")
@@ -297,7 +314,7 @@ public class AssociationEndNPropertyModel extends AbstractPropertyModel<NaryAsso
         @Override
         public boolean accept(MObject el) {
             Classifier type = (Classifier) el;
-            
+
             if (type.getName().equals(PredefinedTypes.UNDEFINED_NAME)) {
                 return false;
             } else if (type instanceof ModuleComponent) {
@@ -305,7 +322,6 @@ public class AssociationEndNPropertyModel extends AbstractPropertyModel<NaryAsso
             } else {
                 return true;
             }
-            
         }
 
     }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -52,7 +52,7 @@ public class R1300 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -71,7 +71,7 @@ public class R1300 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         plan.registerRule(InstanceNode.MQNAME, this, AuditTrigger.UPDATE);
         plan.registerRule(ObjectFlow.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.MOVE | AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -105,14 +105,14 @@ public class R1300 extends AbstractUmlRule {
      * Default constructor for R1300
      */
     @objid ("aa29be11-dadf-4ac5-a4a2-d2661812a6ca")
-    public  R1300() {
+    public R1300() {
         this.checkerInstance = new CheckR1300(this);
     }
 
     @objid ("c7808566-c4a6-4d3d-b61a-050459fcc51e")
     private static class CheckR1300 extends AbstractControl {
         @objid ("04de4f90-932a-4a0c-8f78-55c17981604d")
-        public  CheckR1300(IRule rule) {
+        public CheckR1300(IRule rule) {
             super(rule);
         }
 
@@ -132,35 +132,35 @@ public class R1300 extends AbstractUmlRule {
         @objid ("76482f1c-bb9a-41b8-86cf-1347efc1fe4c")
         private IAuditEntry checkR1300(ObjectFlow objectFlow) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, objectFlow, null);
-            
+
             ActivityNode sourceNode = objectFlow.getSource();
             ActivityNode targetNode = objectFlow.getTarget();
-            
+
             // If one of the end of the ObjectFlow is not an ObjectNode, rule
             // does not apply.
             if (!(sourceNode instanceof ObjectNode) || !(targetNode instanceof ObjectNode)) {
                 return auditEntry;
             }
-            
+
             // Look for the first ObjecNodes, which is not a control type, on
             // each path in the source and target directions, and stores its
             // Type in a list.
-            
+
             String sourceBound = findSourceUpperBound((ObjectNode) sourceNode, "", new ArrayList<ObjectNode>());
             String targetBound = findTargetUpperBound((ObjectNode) targetNode, "", new ArrayList<ObjectNode>());
-            
+
             // If one of these returned null, upper bounds are inconsistent, rule failed
             if (sourceBound != null && targetBound != null) {
-            
+
                 // If one of the result is the empty string, it means an OjectNode was not found in one of the direction, in which case the rule does not apply.
                 // If the two returned value are the same, the rule is a success.
                 if (sourceBound.equals("") || targetBound.equals("") || sourceBound.equals(targetBound)) {
                     return auditEntry;
                 }
             }
-            
+
             // Rule failed
-            
+
             auditEntry.setSeverity(this.rule.getSeverity());
             List<Object> linkedObjects = new ArrayList<>();
             linkedObjects.add(objectFlow);
@@ -170,25 +170,26 @@ public class R1300 extends AbstractUmlRule {
 
         /**
          * If an object node is modified, its upper bound is potentially modified, so we need to check all the upstream and downstream flows connecting to ObjectNodes. An object node can also be updated if a flow is moved or deleted, potentially creating or removing paths between object nodes, so we need to check both upstream and downstream path to update concerned flows.
+         *
          * @param objectNode The object node that was updated.
          * @return A list of audit entries of all concerned flows.
          */
         @objid ("9e532853-33c7-4917-bb19-885ab2df1aee")
         private List<IAuditEntry> checkR1300(InstanceNode objectNode) {
             List<IAuditEntry> auditEntries = new ArrayList<>();
-            
+
             // The ObjectNode is a control, rule does not apply.
             if (objectNode.isIsControlType()) {
                 return auditEntries;
             }
-            
+
             // Checking upstream flows.
             List<ObjectFlow> sourceObjectFlows = new ArrayList<>();
             findSourceFlows(objectNode, sourceObjectFlows, new ArrayList<ObjectFlow>());
             for (ObjectFlow sourceObjectFlow : sourceObjectFlows) {
                 auditEntries.add(checkR1300(sourceObjectFlow));
             }
-            
+
             // Checking downstream flows.
             List<ObjectFlow> targetObjectFlows = new ArrayList<>();
             findTargetFlows(objectNode, targetObjectFlows, new ArrayList<ObjectFlow>());
@@ -200,6 +201,7 @@ public class R1300 extends AbstractUmlRule {
 
         /**
          * Finds all the ObjectFlows connecting the given ObjectNode to another ObjectNode, except for ObjectNodes that are controls.
+         *
          * @param node The Object node to search from
          * @param objectFlows The list of found ObjectFlow
          * @param visitedFlows The list of visited ObjectFlows
@@ -208,14 +210,14 @@ public class R1300 extends AbstractUmlRule {
         private void findSourceFlows(ActivityNode node, List<ObjectFlow> objectFlows, List<ObjectFlow> visitedFlows) {
             // Check in all incoming directions from the current node
             for (ObjectFlow incomingObjectFlow : node.getIncoming(ObjectFlow.class)) {
-            
+
                 if (visitedFlows.contains(incomingObjectFlow)) {
                     continue;
                 }
-            
+
                 visitedFlows.add(incomingObjectFlow);
                 ActivityNode sourceNode = incomingObjectFlow.getSource();
-            
+
                 // If the node is an action, there is no need to go further.
                 if (sourceNode instanceof ActivityAction) {
                     return;
@@ -226,11 +228,12 @@ public class R1300 extends AbstractUmlRule {
                     findSourceFlows(sourceNode, objectFlows, visitedFlows);
                 }
             }
-            
+
         }
 
         /**
          * Finds all the ObjectFlows connecting the given ObjectNode to another ObjectNode, except for ObjectNodes that are controls.
+         *
          * @param node The Object node to search from
          * @param objectFlows The list of found ObjectFlow
          * @param visitedFlows The list of visited ObjectFlows
@@ -239,14 +242,14 @@ public class R1300 extends AbstractUmlRule {
         private void findTargetFlows(ActivityNode node, List<ObjectFlow> objectFlows, List<ObjectFlow> visitedFlows) {
             // Check in all incoming directions from the current node
             for (ObjectFlow outgoingObjectFlow : node.getOutgoing(ObjectFlow.class)) {
-            
+
                 if (visitedFlows.contains(outgoingObjectFlow)) {
                     continue;
                 }
-            
+
                 visitedFlows.add(outgoingObjectFlow);
                 ActivityNode targetNode = outgoingObjectFlow.getTarget();
-            
+
                 // If the node is an action, there is no need to go further.
                 if (targetNode instanceof ActivityAction) {
                     return;
@@ -257,7 +260,7 @@ public class R1300 extends AbstractUmlRule {
                     findTargetFlows(targetNode, objectFlows, visitedFlows);
                 }
             }
-            
+
         }
 
         @objid ("2f0ea0cb-e4c6-4a1c-98e0-d8b3f0c903a7")
@@ -265,9 +268,9 @@ public class R1300 extends AbstractUmlRule {
             if (visitedNodes.contains(objectNode)) {
                 return upperBound;
             }
-            
+
             visitedNodes.add(objectNode);
-            
+
             // An ObjectNode that is not a ControlType was found
             if (!objectNode.isIsControlType()) {
                 // If upperBound is empty, we initialise it to the found value.
@@ -293,9 +296,9 @@ public class R1300 extends AbstractUmlRule {
             if (visitedNodes.contains(objectNode)) {
                 return upperBound;
             }
-            
+
             visitedNodes.add(objectNode);
-            
+
             // An ObjectNode that is not a ControlType was found
             if (!objectNode.isIsControlType()) {
                 // If upperBound is empty, we initialise it to the found value.

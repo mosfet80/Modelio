@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension id="archimate.browser" point="org.eclipse.e4.workbench.model">
+      <fragment uri="e4model/archimate.ui.e4xmi"/>
+   </extension>
+
+   <extension point="org.modelio.app.model.browser.view.contentprovider">
+      <service metamodel="Archimate" implementation="org.modelio.archimate.ui.browser.contrib.ArchimateBrowserContentProvider" />
+   </extension>
+
+   <extension point="org.modelio.platform.model.ui.labelprovider">
+      <service metamodel="Archimate" implementation="org.modelio.archimate.ui.browser.contrib.ArchimateBrowserLabelProvider" />
+   </extension>
+
+   <extension point="org.modelio.platform.model.ui.element.imageprovider">
+      <service metamodel="Archimate" implementation="org.modelio.archimate.ui.image.ArchimateElementImageProvider" />
+   </extension>
+
+   <extension point="org.modelio.platform.model.ui.mclass.imageprovider">
+      <service metamodel="Archimate" implementation="org.modelio.archimate.ui.image.ArchimateElementImageProvider" />
+   </extension>
+
+  <extension point="org.modelio.app.audit.extensions">
+      <audit clazz="org.modelio.archimate.ui.audit.ArchimateAuditExtension"/>
+   </extension>
+</plugin>

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.impl.mmextensions.standard.modelshield.standardcheckers;
 
@@ -68,12 +68,12 @@ public class E211Checker implements IChecker {
     @Override
     public void register(final IModelShieldRegistry plan, MMetamodel smMetamodel) {
         plan.registerChecker(this, smMetamodel.getMClass(AssociationEnd.class), TriggerType.Create, null);
-        
+
         plan.registerChecker(this, smMetamodel.getMClass(AssociationEnd.class), TriggerType.Update, OPPOSITE_DEP);
         plan.registerChecker(this, smMetamodel.getMClass(AssociationEnd.class), TriggerType.Update, TARGET_DEP);
         plan.registerChecker(this, smMetamodel.getMClass(AssociationEnd.class), TriggerType.Update, SOURCE_DEP);
         plan.registerChecker(this, smMetamodel.getMClass(AssociationEnd.class), TriggerType.Update, NAVIGABILITY_DEP);
-        
+
     }
 
     @objid ("a5d81623-19fc-11e2-ad19-002564c97630")
@@ -82,9 +82,9 @@ public class E211Checker implements IChecker {
         if (object == null) {
             return;
         }
-        
+
         boolean ok = false;
-        
+
         AssociationEnd currentRole = (AssociationEnd) object;
         AssociationEnd oppositeRole = currentRole.getOpposite();
         if (oppositeRole == null) {
@@ -93,23 +93,23 @@ public class E211Checker implements IChecker {
             Classifier currentSource = currentRole.getSource();
             Classifier currentTarget = currentRole.getTarget();
             boolean currentNavigability = currentRole.isNavigable();
-        
+
             Classifier oppositeSource = oppositeRole.getSource();
             Classifier oppositeTarget = oppositeRole.getTarget();
             boolean oppositeNavigability = oppositeRole.isNavigable();
-        
+
             if (currentNavigability && !oppositeNavigability) { // THISSIDE
                 // only current source and target must be filled
                 check (report, currentSource != null, "E211.THISSIDE.SOURCE", currentRole);
                 check (report, currentTarget != null, "E211.THISSIDE.TARGET", currentRole);
                 check (report, oppositeSource == null, "E211.THISSIDE.OPPSOURCE", currentRole, oppositeRole, oppositeSource);
                 check (report, oppositeTarget == null, "E211.THISSIDE.OPPTARGET", currentRole, oppositeRole, oppositeTarget);
-                
+
                 ok = currentSource != null && currentTarget != null && oppositeSource == null && oppositeTarget == null;
             } else if (!currentNavigability && oppositeNavigability) { //OTHERSIDE:
                 // only opposite source and target must be filled
                 ok = currentSource == null && currentTarget == null && oppositeSource != null && oppositeTarget != null;
-                
+
                 check (report, currentSource == null, "E211.OTHERSIDE.SOURCE", currentRole, currentSource);
                 check (report, currentTarget == null, "E211.OTHERSIDE.TARGET", currentRole, currentTarget);
                 check (report, oppositeSource != null, "E211.OTHERSIDE.OPPSOURCE", currentRole, oppositeRole);
@@ -117,31 +117,31 @@ public class E211Checker implements IChecker {
             } else if (currentNavigability && oppositeNavigability) { // BOTHSIDES:
                 // current source must be equals to opposite target as well as current target and opposite source
                 ok = currentSource != null && currentTarget != null && currentSource.equals(oppositeTarget) && currentTarget.equals(oppositeSource);
-        
+
                 check (report, currentSource != null, "E211.BOTHSIDES.SOURCE", currentRole);
                 check (report, currentTarget != null, "E211.BOTHSIDES.TARGET", currentRole);
-        
+
                 //Source of {0} role is not same as {1} target.\n - {0} source : {2}\n - {1} target : {3}
                 check (report, Objects.equals(currentSource, oppositeTarget), "E211.BOTHSIDES.SOURCE_EQ_OPPTARGET", currentRole, oppositeRole, currentSource, oppositeTarget);
                 check (report, Objects.equals(currentTarget, oppositeSource), "E211.BOTHSIDES.TARGET_EQ_OPPSOURCE", currentRole, oppositeRole, currentTarget, oppositeSource);
-            } else if (!currentNavigability && !oppositeNavigability) { 
+            } else if (!currentNavigability && !oppositeNavigability) {
                 // both sources must be filled, but no target
                 ok = currentSource != null && currentTarget == null && oppositeSource != null && oppositeTarget == null;
-        
+
                 check (report, currentSource != null, "E211.NONESIDE.SOURCE", currentRole);
                 check (report, currentTarget == null, "E211.NONESIDE.TARGET", currentRole, currentTarget);
                 check (report, oppositeSource != null, "E211.NONESIDE.OPPSOURCE", currentRole);
                 check (report, oppositeTarget == null, "E211.NONESIDE.OPPTARGET", currentRole, oppositeTarget);
             }
         }
-        
+
         if (!ok) {
             List<Object> objects = new ArrayList<>();
             objects.add(currentRole.toString());
             objects.add(String.valueOf(oppositeRole));
             report.addEntry(new ModelError(ERRORID, object, objects));
         }
-        
+
     }
 
     @objid ("eaaf9450-dfaf-497e-873f-6153f0644724")
@@ -151,10 +151,10 @@ public class E211Checker implements IChecker {
         l.add(object.toString());
         for (Object o : linked)
             l.add(String.valueOf(o));
-        
+
         if (! expr)
             report.addEntry(new ModelError(errorid, object, l));
-        
+
     }
 
 }

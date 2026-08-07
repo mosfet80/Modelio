@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.impl.cache;
 
@@ -81,6 +81,7 @@ public class MemoryManager implements IMemoryManager, Runnable {
 
     /**
      * Get the memory watcher instance.
+     *
      * @return the memory watcher.
      */
     @objid ("50d9dd95-51b3-4f18-9b03-37d5f236d667")
@@ -107,12 +108,12 @@ public class MemoryManager implements IMemoryManager, Runnable {
      * Initialize the memory manager and its thread.
      */
     @objid ("d9053b8a-722a-4ea1-8e3d-20d028a5c3a0")
-    private  MemoryManager() {
-        this.swapEnabled = System.getProperty(PROPERTY_DISABLE_MANAGER) == null; 
+    private MemoryManager() {
+        this.swapEnabled = System.getProperty(PROPERTY_DISABLE_MANAGER) == null;
         if (isSwapEnabled()) {
             createSwapThread();
         }
-        
+
     }
 
     /**
@@ -121,10 +122,10 @@ public class MemoryManager implements IMemoryManager, Runnable {
     @objid ("ab530554-3784-4b7a-842f-0f12b548ae58")
     @Override
     public void run() {
-        // this object will be finalized just before 
+        // this object will be finalized just before
         // a {@link OutOfMemoryError} is raised .
         SoftReference<LastResortGc> lastResort = new SoftReference<>(new LastResortGc());
-        
+
         while (isSwapEnabled()) {
             try {
                 synchronized(this) {
@@ -135,24 +136,24 @@ public class MemoryManager implements IMemoryManager, Runnable {
                         }
                     }
                 }
-            
+
                 // Rebuild the last chance swapper if needed
                 if (lastResort.get() == null) {
                     lastResort = new SoftReference<>(new LastResortGc());
                 }
-            
+
                 // Uncomment to enable periodic memory free
                 //ensureFreeMemory();
-            
+
                 // Wait 3 second at ~90% free, 100ms at 0% free.
                 long toWait = THREAD_PERIOD; //(long) (3000 * (1.1 - pcUsed));
                 Thread.sleep(toWait);
-            
+
             } catch (InterruptedException e) {
                 //NOOP
             }
         }
-        
+
     }
 
     @objid ("cb603fa9-bf85-4964-9aa2-9cd27cc724fd")
@@ -169,17 +170,19 @@ public class MemoryManager implements IMemoryManager, Runnable {
 
     /**
      * Add a managed data cache.
+     *
      * @param dataCache a data cache.
      */
     @objid ("57b5a26f-c1d1-4692-9c85-2b36339343cf")
     public synchronized void addManagedCache(Map<String, ISmObjectData> dataCache) {
         this.caches.add(dataCache);
         notifyAll();
-        
+
     }
 
     /**
      * Remove a managed cache.
+     *
      * @param dataCache a data cache.
      */
     @objid ("e3999d4b-9483-47f4-b0ed-c0a49a9e6578")
@@ -191,40 +194,41 @@ public class MemoryManager implements IMemoryManager, Runnable {
     synchronized void freeMemory(MemoryUsage memoryState) {
         long total = memoryState.getMax();
         long used = memoryState.getUsed();
-         
+
         int lastAccess = AccessOrderer.getLastAccess();
         int range = lastAccess - this.lastFree;
         int toRemove;
-        
+
         if (total - used < ONE_MEGABYTE) {
             toRemove = range * 9 / 10; // if less than 1Mo available, free 90%
         }
         else {
             toRemove = range / 3; // free 30%
         }
-        
-        int toRemoveIdx = this.lastFree + toRemove; 
-        
+
+        int toRemoveIdx = this.lastFree + toRemove;
+
         for (IMemoryEventListener  l : this.listeners) {
             l.onFreeMemoryStart(memoryState);
         }
-        
+
         int removed = 0;
-        
+
         for (Map<String, ISmObjectData> c : this.caches) {
             removed += freeMemory(c, toRemoveIdx);
         }
-        
+
         this.lastFree = toRemoveIdx;
-        
+
         for (IMemoryEventListener  l : this.listeners) {
             l.onFreeMemoryEnd(removed, ManagementFactory.getMemoryMXBean().getHeapMemoryUsage());
         }
-        
+
     }
 
     /**
      * Swaps and free entries in the given data cache.
+     *
      * @param cache an object data cache.
      * @param toRemoveIdx the access "time" below which an object must be freed.
      * @return the number of swapped objects.
@@ -233,7 +237,7 @@ public class MemoryManager implements IMemoryManager, Runnable {
     private int freeMemory(Map<String, ISmObjectData> cache, int toRemoveIdx) {
         int nb = 0;
         Iterator<Entry<String, ISmObjectData>> it = cache.entrySet().iterator();
-        
+
         while (it.hasNext() ) {
             Entry<String, ISmObjectData> entry = it.next();
             int lastDataAccess = entry.getValue().getLastAccess();
@@ -244,7 +248,7 @@ public class MemoryManager implements IMemoryManager, Runnable {
                     if (ksp != null) {
                         ksp.getSwap().swap((SmObjectData) data);
                     }
-        
+
                     it.remove();
                     nb++;
                 }
@@ -263,22 +267,23 @@ public class MemoryManager implements IMemoryManager, Runnable {
         //        // Activate listeners
         //        for (IMemoryEventListener  l : this.listeners)
         //            l.onResetAccessTimeBegin();
-                
+
         // Reset all access times
         for (Map<String, ISmObjectData> c : this.caches) {
             for (ISmObjectData d : c.values()) {
                 d.setLastAccess(0);
             }
         }
-                
+
         //        // Fire listeners
         //        for (IMemoryEventListener  l : this.listeners)
         //            l.onResetAccessTimeEnd();
-        
+
     }
 
     /**
      * Enable or disable the swap.
+     *
      * @param enable <code>true</code> to anable swapping, <code>false</code> to disable it.
      */
     @objid ("ef3f463f-9d04-4ad7-87f4-2c012a05b041")
@@ -291,7 +296,7 @@ public class MemoryManager implements IMemoryManager, Runnable {
                 notifyAll();
             }
         }
-        
+
     }
 
     @objid ("62d75ba3-72e9-4a18-9c4d-5be30c593ba9")
@@ -300,7 +305,7 @@ public class MemoryManager implements IMemoryManager, Runnable {
         t.setDaemon(true);
         t.setPriority(Thread.currentThread().getPriority() + 1);
         t.setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
-              
+
             @Override
             public void uncaughtException(Thread deadThread, Throwable e) {
                 if (! (e instanceof ThreadDeath)) {
@@ -308,16 +313,16 @@ public class MemoryManager implements IMemoryManager, Runnable {
                 }
             }
         });
-              
+
         AccessOrderer.addListener(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 onAccessTimeOverflow();
             }
         });
-        
+
         t.start();
-        
+
     }
 
     /**
@@ -328,16 +333,16 @@ public class MemoryManager implements IMemoryManager, Runnable {
     void ensureFreeMemory() {
         // Compute used memory
         MemoryUsage memState = ManagementFactory.getMemoryMXBean().getHeapMemoryUsage();
-        
+
         long available = memState.getCommitted();
         long used = memState.getUsed();
         double pcUsed = (double)used / available;
-        
+
         // Swap some objects if running low memory
         if (pcUsed > LOWMEMORY_RATIO) {
             freeMemory(memState);
         }
-        
+
     }
 
     /**
@@ -349,7 +354,7 @@ public class MemoryManager implements IMemoryManager, Runnable {
     @objid ("3aaaff79-0d72-4e26-b3f9-192039c51320")
     private class LastResortGc {
         @objid ("404912a0-f95a-4002-baa7-41eb7b68977b")
-        public  LastResortGc() {
+        public LastResortGc() {
             // NOOP
         }
 
@@ -360,9 +365,9 @@ public class MemoryManager implements IMemoryManager, Runnable {
             // On Linux SoftReference are freed when PermGen is full too.
             // Free memory only if 1/4 or less
             ensureFreeMemory();
-            
+
             super.finalize();
-            
+
         }
 
     }

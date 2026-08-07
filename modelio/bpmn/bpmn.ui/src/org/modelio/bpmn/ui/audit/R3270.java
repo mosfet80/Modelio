@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.ui.audit;
 
@@ -52,7 +52,7 @@ public class R3270 extends AbstractBpmnRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -67,7 +67,7 @@ public class R3270 extends AbstractBpmnRule {
         plan.registerRule(BpmnDataObject.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
         plan.registerRule(BpmnDataOutput.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
         plan.registerRule(BpmnDataStore.MQNAME, this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
-        
+
     }
 
     @objid ("34f38764-91a7-49df-87ec-a28a9a2c4e26")
@@ -110,7 +110,7 @@ public class R3270 extends AbstractBpmnRule {
      * Default constructor for R3250
      */
     @objid ("88028892-b290-4185-ad5c-6347de8232e0")
-    public  R3270() {
+    public R3270() {
         this.checkerInstance = new CheckR3270(this);
     }
 
@@ -121,10 +121,11 @@ public class R3270 extends AbstractBpmnRule {
     private static class CheckR3270 extends AbstractControl {
         /**
          * C'tor.
+         *
          * @param rule the rule to check.
          */
         @objid ("80b5c743-a3d7-45ef-bd3a-1f0fc9e6404f")
-        public  CheckR3270(final IRule rule) {
+        public CheckR3270(final IRule rule) {
             super(rule);
         }
 
@@ -143,7 +144,7 @@ public class R3270 extends AbstractBpmnRule {
                     AuditSeverity.AuditSuccess,
                     element,
                     null);
-            
+
             final ModelElement type = Represents.getTarget(element);
             final ModelElement state = org.modelio.module.modelermodule.api.methodology.infrastructure.methodologicallink.State.getTarget(element);
             if (type != null && state != null) {

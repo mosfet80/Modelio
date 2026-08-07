@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.app.project.conf.dialog.libraries;
 
@@ -51,12 +51,12 @@ public class LibrariesPage implements IProjectConfPage {
         // The form
         this.form = toolkit.createScrolledForm(parent);
         this.form.getBody().setLayout(new TableWrapLayout());
-        
+
         // Local libraries Section
         this.mcLibSection = new LocalLibrariesSection(application.getContext());
         Section section = this.mcLibSection.createControls(toolkit, this.form.getBody());
         section.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
-        
+
         // Distant libraries Section
         this.distantLibSection = new DistantLibrariesSection(application.getContext());
         section = this.distantLibSection.createControls(toolkit, this.form.getBody());
@@ -70,7 +70,7 @@ public class LibrariesPage implements IProjectConfPage {
         // update the different sections
         this.mcLibSection.setInput(projectAdapter);
         this.distantLibSection.setInput(projectAdapter);
-        
+
     }
 
     @objid ("1c4b48bd-75e0-443c-9577-7acfab5fdd08")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.enumliteral;
 
@@ -38,7 +38,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Attribute group model.
- * 
+ *
  * @author cmarin
  */
 @objid ("34e62e03-55b7-11e2-877f-002564c97630")
@@ -56,17 +56,18 @@ public class GmEnumLitteralGroup extends GmGroup {
      * Constructor for deserialization only.
      */
     @objid ("34e62e0c-55b7-11e2-877f-002564c97630")
-    public  GmEnumLitteralGroup() {
-        
+    public GmEnumLitteralGroup() {
+
     }
 
     /**
      * Creates an attribute group.
+     *
      * @param diagram The diagram.
      * @param relatedRef The related element reference, must not be null.
      */
     @objid ("34e62e0f-55b7-11e2-877f-002564c97630")
-    public  GmEnumLitteralGroup(IGmDiagram diagram, MRef relatedRef) {
+    public GmEnumLitteralGroup(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -98,7 +99,7 @@ public class GmEnumLitteralGroup extends GmGroup {
     @Override
     public void refreshFromObModel() {
         super.refreshFromObModel();
-        
+
         final Enumeration classifier = getRelatedElement();
         if (classifier != null && classifier.isValid()) {
             for (EnumerationLiteral part : classifier.getValue()) {
@@ -110,7 +111,7 @@ public class GmEnumLitteralGroup extends GmGroup {
                 }
             }
         }
-        
+
     }
 
     @objid ("34e7b48f-55b7-11e2-877f-002564c97630")
@@ -121,7 +122,7 @@ public class GmEnumLitteralGroup extends GmGroup {
         } else {
             super.styleChanged(property, newValue);
         }
-        
+
     }
 
     @objid ("34e7b496-55b7-11e2-877f-002564c97630")
@@ -130,7 +131,7 @@ public class GmEnumLitteralGroup extends GmGroup {
         refreshFromObModel();
         fireVisibilityChanged();
         super.styleChanged(style);
-        
+
     }
 
     @objid ("34e7b49c-55b7-11e2-877f-002564c97630")
@@ -143,7 +144,7 @@ public class GmEnumLitteralGroup extends GmGroup {
                 getParent().getDisplayedStyle().setProperty(key, RepresentationMode.STRUCTURED);
             }
         }
-        
+
     }
 
     @objid ("34e7b4a0-55b7-11e2-877f-002564c97630")
@@ -153,7 +154,7 @@ public class GmEnumLitteralGroup extends GmGroup {
         if (!(el instanceof EnumerationLiteral) || !el.isValid()) {
             return false;
         }
-        
+
         // Cannot unmask a foreign attribute (not belonging to the class)
         if (!el.getCompositionOwner().equals(getRelatedElement())) {
             return false;
@@ -193,17 +194,17 @@ public class GmEnumLitteralGroup extends GmGroup {
             break;
         }
         }
-        
+
     }
 
     @objid ("34e93b1b-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmEnumLitteralGroup.", GmEnumLitteralGroup.MINOR_VERSION);
-        
+
     }
 
     @objid ("34e93b21-55b7-11e2-877f-002564c97630")

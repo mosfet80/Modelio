@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.ecore;
 
@@ -37,7 +37,7 @@ public class EReception extends EBehavioralFeature {
     }
 
     @objid ("c14d5829-b582-4ac4-bd63-e6f51fb0a031")
-    public  EReception(org.eclipse.uml2.uml.Reception element) {
+    public EReception(org.eclipse.uml2.uml.Reception element) {
         super(element);
     }
 
@@ -49,13 +49,13 @@ public class EReception extends EBehavioralFeature {
         org.eclipse.uml2.uml.Element ecoreOwner = ecoreElement.getOwner();
         Element objingOwner = (Element) revProp
                 .getMappedElement(ecoreOwner);
-        
+
         if ((objingOwner instanceof Classifier)  && !(objingOwner instanceof Enumeration))
-            ((Operation) objingElt).setOwner((Classifier) objingOwner);     
+            ((Operation) objingElt).setOwner((Classifier) objingOwner);
         else {
             objingElt.delete();
         }
-        
+
     }
 
     @objid ("b264e5a3-3bbc-44bc-a082-d05a17cf48dc")
@@ -63,7 +63,7 @@ public class EReception extends EBehavioralFeature {
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setSignal((Operation) objingElt);
-        
+
     }
 
     @objid ("443d3281-5d3b-4575-a6de-fe12968df304")
@@ -75,7 +75,7 @@ public class EReception extends EBehavioralFeature {
                 objingElt.getSRepresentation().add((Signal)objSignal);
             }
         }
-        
+
     }
 
 }

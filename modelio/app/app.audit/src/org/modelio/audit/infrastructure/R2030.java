@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.infrastructure;
 
@@ -52,7 +52,7 @@ public class R2030 extends AbstractInfrastructureRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -74,7 +74,7 @@ public class R2030 extends AbstractInfrastructureRule {
         plan.registerRule(EnumeratedPropertyType.MQNAME, this, AuditTrigger.CREATE |
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -108,14 +108,14 @@ public class R2030 extends AbstractInfrastructureRule {
      * Default constructor for R2030
      */
     @objid ("787d9f57-3416-40fa-a36d-3e48fcff2208")
-    public  R2030() {
+    public R2030() {
         this.checkerInstance = new CheckR2030(this);
     }
 
     @objid ("01ead237-ed3a-4903-9225-8d02d0dcd42b")
     private static class CheckR2030 extends AbstractControl {
         @objid ("68105ad7-ce7b-4212-8acb-96728a03c8d5")
-        public  CheckR2030(IRule rule) {
+        public CheckR2030(IRule rule) {
             super(rule);
         }
 
@@ -143,9 +143,9 @@ public class R2030 extends AbstractInfrastructureRule {
                     AuditSeverity.AuditSuccess,
                     propertyContainer,
                     null);
-            
+
             Map<String, List<EnumeratedPropertyType>> duplicates = new HashMap<>();
-            
+
             for (EnumeratedPropertyType ep : propertyContainer.getDefinedPropertyType(EnumeratedPropertyType.class)) {
                 String name = ep.getName();
                 if (!duplicates.containsKey(name)) {
@@ -153,12 +153,12 @@ public class R2030 extends AbstractInfrastructureRule {
                 }
                 duplicates.get(ep.getName()).add(ep);
             }
-            
+
             for (Entry<String, List<EnumeratedPropertyType>> entry : duplicates.entrySet()) {
                 if (entry.getValue().size() > 1) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(propertyContainer);
@@ -175,9 +175,9 @@ public class R2030 extends AbstractInfrastructureRule {
                     AuditSeverity.AuditSuccess,
                     propertyContainer,
                     null);
-            
+
             Map<String, List<EnumeratedPropertyType>> duplicates = new HashMap<>();
-            
+
             for (EnumeratedPropertyType ep : propertyContainer.getDefinedType(EnumeratedPropertyType.class)) {
                 String name = ep.getName();
                 if (!duplicates.containsKey(name)) {
@@ -185,12 +185,12 @@ public class R2030 extends AbstractInfrastructureRule {
                 }
                 duplicates.get(ep.getName()).add(ep);
             }
-            
+
             for (Entry<String, List<EnumeratedPropertyType>> entry : duplicates.entrySet()) {
                 if (entry.getValue().size() > 1) {
-            
+
                     // Rule failed
-            
+
                     auditEntry.setSeverity(this.rule.getSeverity());
                     List<Object> linkedObjects = new ArrayList<>();
                     linkedObjects.add(propertyContainer);

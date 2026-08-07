@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.audit;
 
@@ -52,7 +52,7 @@ public class R2910 extends AbstractUmlRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -71,7 +71,7 @@ public class R2910 extends AbstractUmlRule {
     public void autoRegister(UmlAuditPlan plan) {
         plan.registerRule(UseCaseDependency.MQNAME + R2910.UseCaseDependencyExtendKind, this,
                 AuditTrigger.UPDATE);
-        
+
     }
 
     /**
@@ -105,14 +105,14 @@ public class R2910 extends AbstractUmlRule {
      * Default constructor for R2910
      */
     @objid ("6512e017-983c-4a54-826e-ab536759ca78")
-    public  R2910() {
+    public R2910() {
         this.checkerInstance = new CheckR2910(this);
     }
 
     @objid ("ce9d8f79-cdf4-4ce5-a04b-209d6e4f1212")
     private static class CheckR2910 extends AbstractControl {
         @objid ("a3fbd88f-2665-4631-9638-42e8f59d71da")
-        public  CheckR2910(IRule rule) {
+        public CheckR2910(IRule rule) {
             super(rule);
         }
 
@@ -131,24 +131,24 @@ public class R2910 extends AbstractUmlRule {
         private IAuditEntry checkR2910(UseCaseDependency dependency) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, dependency, null);
             if (dependency.isStereotyped("ModelerModule", R2910.UseCaseDependencyExtendKind)) {
-            
+
                 List<ExtensionPoint> extensionPoints = new ArrayList<>(dependency.getExtensionLocation());
-            
+
                 if (!extensionPoints.isEmpty()) {
-            
+
                     UseCase target = dependency.getTarget();
                     List<ExtensionPoint> ownedExtensions = new ArrayList<>(target.getOwnedExtension());
-            
+
                     for (ExtensionPoint extensionPoint : ownedExtensions) {
                         if (extensionPoints.contains(extensionPoint)) {
                             extensionPoints.remove(extensionPoint);
                         }
                     }
-            
+
                     if (!extensionPoints.isEmpty()) {
-            
+
                         // Rule failed
-            
+
                         auditEntry.setSeverity(this.rule.getSeverity());
                         List<Object> linkedObjects = new ArrayList<>();
                         linkedObjects.add(dependency.getOrigin());

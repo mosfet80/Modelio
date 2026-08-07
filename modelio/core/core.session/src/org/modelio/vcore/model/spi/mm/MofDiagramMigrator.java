@@ -1,25 +1,24 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.model.spi.mm;
 
-import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Arrays;
@@ -42,6 +41,7 @@ import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 import org.modelio.vbasic.progress.SubProgress;
+import org.modelio.vcore.model.spi.mm.IMigrationReporter.IMigrationLogger;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MRef;
 import org.modelio.vcore.smkernel.meta.SmClass;
@@ -50,7 +50,7 @@ import org.modelio.vcore.utils.UUBase64Compressor;
 
 /**
  * Migrates references written in the diagram data string.
- * 
+ *
  * @author cma
  * @since 3.6
  */
@@ -72,19 +72,20 @@ class MofDiagramMigrator {
     private final XMLEventFactory xEventFactory;
 
     @objid ("159c3452-b493-4680-a0bc-1ff3e31d19f5")
-    private final PrintWriter logger;
+    private final IMigrationLogger logger;
 
     /**
+     *
      * @param mofSession a MOF session.
      */
     @objid ("9d2a8a62-ab40-4bb1-ba45-ba3881216b70")
-    public  MofDiagramMigrator(IMofSession mofSession) {
+    public MofDiagramMigrator(IMofSession mofSession) {
         this.mofSession = mofSession;
         this.xInputFactory = XMLInputFactory.newInstance();
         this.xOutputFactory = XMLOutputFactory.newInstance();
         this.xEventFactory = XMLEventFactory.newFactory();
         this.logger = this.mofSession.getReport().getLogger();
-        
+
     }
 
     @objid ("42ae550b-3bd6-44f5-8ef6-df3f7b48a0d0")
@@ -92,9 +93,9 @@ class MofDiagramMigrator {
         if (this.mapping.isEmpty()) {
             return;
         }
-        
+
         this.logger.printf(" Migrating diagram content references...\n");
-        
+
         // find all diagram metaclasses
         Collection<MClass> diagramMetaclasses = new HashSet<>();
         for (SmClass mc : this.mofSession.getMetamodel().getRegisteredMClasses()) {
@@ -102,9 +103,9 @@ class MofDiagramMigrator {
                 diagramMetaclasses.addAll(mc.getSub(true));
             }
         }
-        
+
         this.logger.printf("    Diagram metaclasses: %s\n", diagramMetaclasses);
-        
+
         // Iterate all diagram instances
         for (MClass diagMc : diagramMetaclasses) {
             if (!diagMc.isAbstract()) {
@@ -115,20 +116,20 @@ class MofDiagramMigrator {
                 }
             }
         }
-        
+
     }
 
     @objid ("382aeee5-484d-4565-a1a7-ff8361d99151")
     private void migrateDiagram(MofSmObjectImpl diag) throws MofMigrationException {
         this.logger.printf("     Processing %s ...\n", diag);
-        
+
         String rawData = (String) diag.getAtt("UiData");
-        
+
         if (rawData == null || rawData.isEmpty()) {
             this.logger.printf("       %s has no data.\n", diag);
             return;
         }
-        
+
         if (!rawData.startsWith("<?xml")) {
             // compressed format
             rawData = UUBase64Compressor.decompress(rawData);
@@ -138,7 +139,7 @@ class MofDiagramMigrator {
             }
         }
         StringWriter outw = new StringWriter(rawData.length());
-        
+
         boolean changeDone = false;
         try {
             changeDone = convertDiagramContent(diag, rawData, outw);
@@ -147,7 +148,7 @@ class MofDiagramMigrator {
             this.logger.printf("      '%s' data is :\n%s\n--------\n", diag, rawData.replace("\n", "\n      "));
             throw new MofMigrationException(toString(e.getLocation()) + ": " + e.getLocalizedMessage(), e);
         }
-        
+
         if (changeDone) {
             String newXml = outw.toString();
             // this.logger.printf(" %s : ui data rewriten to :\n%s\n--------\n", diag, newXml.replace("\n", "\n "));
@@ -155,7 +156,7 @@ class MofDiagramMigrator {
             diag.setAttVal("UiData", newDiagData);
             this.logger.printf("      %s diagram references migrated.\n", diag);
         }
-        
+
     }
 
     @objid ("7b31090f-c6d4-4f36-8099-978346b0b245")
@@ -165,7 +166,7 @@ class MofDiagramMigrator {
 
     /**
      * Copied from {@link org.modelio.diagram.persistence.XmlDiagramReader#convertToMRef(String)}
-     * @param val
+     *
      * @return the MRef
      */
     @objid ("d0164a92-3659-407b-b040-aff73983ba52")
@@ -175,6 +176,7 @@ class MofDiagramMigrator {
 
     /**
      * Add an identifier to change to another
+     *
      * @param orig the original reference.
      * @param newRef the replacement reference .
      */
@@ -187,10 +189,10 @@ class MofDiagramMigrator {
     private boolean convertDiagramContent(MofSmObjectImpl diag, String content, StringWriter outw) throws XMLStreamException {
         XMLEventReader reader = this.xInputFactory.createXMLEventReader(new StringReader(content));
         XMLEventWriter writer = this.xOutputFactory.createXMLEventWriter(outw);
-        
+
         boolean isRewrittenMRefState = false;
         boolean changeDone = false;
-        
+
         try (XmlCloser c1 = reader::close; XmlCloser c2 = writer::close;) {
             while (reader.hasNext()) {
                 XMLEvent event = reader.nextEvent();
@@ -214,9 +216,9 @@ class MofDiagramMigrator {
                             String migratedRefVal = getMigratedRefVal(oldValue);
                             if (!Objects.equals(oldValue, migratedRefVal)) {
                                 changeDone = true;
-        
+
                                 Attribute migratedAtt = this.xEventFactory.createAttribute("value", migratedRefVal);
-        
+
                                 StartElement ev2 = this.xEventFactory.createStartElement(
                                         startElement.getName(),
                                         Arrays.asList(typeAtt, migratedAtt).iterator(),
@@ -231,7 +233,7 @@ class MofDiagramMigrator {
                             } else if ("MRef".equals(typeAtt.getValue())) {
                                 this.logger.printf("    %s @ %s: 'value' attribute missing in %s.\n", diag, toString(startElement.getLocation()), startElement);
                             }
-        
+
                         }
                     }
                 }
@@ -250,7 +252,7 @@ class MofDiagramMigrator {
         } else {
             return "l" + loc.getLineNumber() + " c" + loc.getColumnNumber();
         }
-        
+
     }
 
     @objid ("1ea2e85b-5739-41be-9fc7-a6e579eb5872")
@@ -261,7 +263,7 @@ class MofDiagramMigrator {
 
     /**
      * {@link AutoCloseable} function to close an {@link XMLEventReader} or {@link XMLEventWriter}.
-     * 
+     *
      * @author cma
      * @since 3.7
      */
@@ -271,7 +273,7 @@ class MofDiagramMigrator {
         @objid ("814bd943-79e9-4d26-9d72-31e950e85fae")
         @Override
         void close() throws XMLStreamException;
-}
-    
+
+    }
 
 }

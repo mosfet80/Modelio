@@ -1,30 +1,30 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.semantic.browser.panel;
 
 import java.util.Arrays;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
@@ -78,7 +78,7 @@ public class SmBrowserPanelProvider implements IPanelProvider {
     public void dispose() {
         this.ui = null;
         this.controller = null;
-        
+
     }
 
     @objid ("479c1c1b-564e-4849-b424-8cac0bc790ef")
@@ -120,7 +120,7 @@ public class SmBrowserPanelProvider implements IPanelProvider {
             if (input instanceof IGProject) {
                 // Call the controller for project opening
                 this.controller.onProjectOpened((IGProject) input);
-        
+
                 // // Branching the expertise listener
                 // // Create the expertise listener
                 // IExpertiseService expertiseService = this.eclipseContext.get(IExpertiseService.class);
@@ -130,9 +130,9 @@ public class SmBrowserPanelProvider implements IPanelProvider {
                 // expertiseService.registerExpertiseListener(this.expertiseListener);
                 // }
             }
-        
+
         } else {
-        
+
             // // Remove the expertise listener
             // IExpertiseService expertiseService = this.eclipseContext.get(IExpertiseService.class);
             // if (expertiseService != null && this.expertiseListener != null) {
@@ -143,7 +143,7 @@ public class SmBrowserPanelProvider implements IPanelProvider {
             // Call the controller for closing project
             this.controller.onProjectClosed(null);
         }
-        
+
     }
 
     /**
@@ -154,7 +154,7 @@ public class SmBrowserPanelProvider implements IPanelProvider {
     void postConstruct(IEclipseContext context) {
         this.controller = new SmBrowserController();
         ContextInjectionFactory.inject(this.controller, context);
-        
+
     }
 
     @objid ("a5ae9dcb-04b5-4558-9598-70151a581d0e")
@@ -182,7 +182,7 @@ public class SmBrowserPanelProvider implements IPanelProvider {
             List<MObject> elements = SelectionHelper.toList(selection, MObject.class);
             this.controller.select(elements);
         }
-        
+
     }
 
     @objid ("2c021f8b-cecf-4987-861c-fc0d9fb0bd5c")

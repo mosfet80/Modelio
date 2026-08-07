@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.linkeditor.ext.handlers;
 
@@ -52,9 +52,9 @@ public class ConfigurationSelectionHandler {
     public void execute(MDirectToolItem item, MPart mPart) {
         LinkEditorView view = (LinkEditorView) mPart.getObject();
         ILinkEditor editor = view.getLinkEditor();
-        
+
         LinkEditorConfigurationParameters parameters = LinkEditorConfigurationParameters.getInstance();
-        
+
         switch (item.getElementId()) {
         case ASSOCIATIONS_TOOLID:
             parameters.setShowAssociations(item.isSelected());
@@ -74,9 +74,9 @@ public class ConfigurationSelectionHandler {
         default:
             LinkEditorOrg.LOG.error("Link Editor mode %s not supported", item.getElementId());
         }
-        
+
         editor.getConfigurator().apply(parameters);
-        
+
     }
 
     @objid ("d52dcede-7699-4a9c-a529-1e37f68d8af4")

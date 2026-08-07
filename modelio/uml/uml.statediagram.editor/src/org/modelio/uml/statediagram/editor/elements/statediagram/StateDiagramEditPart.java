@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.statediagram;
 
@@ -34,7 +34,7 @@ import org.modelio.diagram.styles.core.IStyle;
 
 /**
  * EditPart (== controller in the GEF model) for Activity diagram background.
- * 
+ *
  * @author fpoyer
  */
 @objid ("f591b74a-55b6-11e2-877f-002564c97630")
@@ -44,9 +44,9 @@ public class StateDiagramEditPart extends AbstractDiagramEditPart {
     protected IFigure createFigure() {
         Figure diagramFigure = new StateDiagramFigure();
         IStyle style = ((GmAbstractObject) this.getModel()).getDisplayedStyle();
-        
+
         // Set style independent properties
-        
+
         // Set style dependent properties
         refreshFromStyle(diagramFigure, style);
         return diagramFigure;
@@ -56,21 +56,21 @@ public class StateDiagramEditPart extends AbstractDiagramEditPart {
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         // Policy to create & move nodes
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new StateDiagramLayoutPolicy());
-        
+
         // Policy to create Notes
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_END,
                 new LinkedNodeFinishCreationEditPolicy());
-        
+
         // Policy to create links with intermediate points.
         installEditPolicy(CreateLinkConstants.REQ_CONNECTION_ADD_BENDPOINT,
                 new CreateLinkIntermediateEditPolicy());
-        
+
         // Override drop policy to add smart interactions
         installEditPolicy(ModelElementDropRequest.TYPE, new StateDiagramElementDropEditPolicy());
-        
+
     }
 
 }

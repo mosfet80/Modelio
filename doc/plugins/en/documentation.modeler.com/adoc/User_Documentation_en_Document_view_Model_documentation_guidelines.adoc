@@ -1,0 +1,94 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= Model documentation guidelines
+
+
+
+==  External and embedded documents
+
+Some documents, like MS Office or Libre-office documents, can be embedded in Modelio, in which case they become internal documentation items. They are stored and CMS managed with the model. From this point of view they become comparable to notes.
+
+Modelio also supports external documents for which only a reference to the outside document is kept in the model, with the main advantage to not grow the model repository as the document contents is not stored by Modelio.
+
+The following table summarizes the main characteristics of both kind of documents:
+
+[cols=",,",options="header",]
+|==============================================================================================================================================================
+| |Embedded document |External document
+|*Storage* |Document contents stored in the CMS repository |Document contents stored on any accessible server. Modelio only stores a reference to the document.
+|*SVN support* |Full support. Documents must be locked prior to any modification, they have to be committed and so on |No CMS support.
+|*Format* |Only a few formats are supported: MS Office, Libre Office. |Any format. Storing a reference is format agnostic.
+|*Direct edition in Modelio* |Yes, for supported formats. |No.
+|*Content preview in Modelio* |Yes for some formats. |Yes for some formats. Modelio also indicates the accessibility of the document.
+|*Documents can be consulted or edited outside Modelio* |No. Using Modelio is mandatory. |Totally open.
+|==============================================================================================================================================================
+
+
+== Notes versus documents
+
+Choosing between a Note or a Document to describe or specify a model element is important as both solutions have pros and cons to consider.
+
+Please remember that, if a note is always an internal documentation item, a document can be either embedded or external.
+
+The following table compares some pro and cons of notes, embedded documents and external documents.
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|========================================================================================================================================================================
+|Documentation item type |Pro |Con |Remarks
+|*Note* a|
+* efficiency
+* direct and easy to use (read, edit)
+* managed and stored with the model
+* benefit from CMS
+
+ a|
+* limited formatting capabilities and formats
+* not adapted to big contents
+
+ +
+
+ a|
+* notes in Modelio have a type that helps categorizing them
+
+|*Embedded document* a|
+* common document formats available for direct edition in Modelio (MS Office, Libre Office)
+* strong formatting and structuring capabilities
+* managed ans stored with the model
+* benefit from CMS
+
+ a|
+* only a few formats are supported.
+* the model CMS repository size grows when a lot of huge documents are attached to model elements. This may lead to performance issues.
+* documents are not available outside Modelio (this may be both a pro and a con)
+
+ | +
+|*External document* a|
+* strong formatting and structuring capabilities
+* documents are stored on any server, specific and independent of Modelio, that the user may wish to use: cloud servers, documentation portals and so on.
+* file contents are not stored along with the model, ie the CMS repository size does not explode.
+* any format can be supported as Modelio is never involved into any processing or manipulation of the document contents. Modelio only stores a reference to the document.
+* documents can be shared easily for both reading and writing without needing Modelio. This is useful when some contributing stakeholders do not use Modelio.
+
+ a|
+* preview of the document might not be available for some document formats.
+* edition of the document must be carried out outside Modelio (this may both a pro and a con)
+* no direct CMS support, the user has to rely on the versioning of the document.
+
+ a|
+* Modelio will let the operating system provide and run a suitable edition tool for the document format.
+
+|========================================================================================================================================================================
+
+
+== Direct and relative diagrams
+
+Diagrams are an efficient documentation item for a model element. However a model element may appear in several diagrams, each of which is more or less dedicated to a part of the model or a particular aspect of the design.
+
+Sometimes, the diagram documenting an element belongs to this element, such a diagram is called a direct diagram. Other diagrams where a model element appears are said to be relative diagrams for this element.
+
+The Modelio Document View actually lists both direct and relative diagrams. Should you need to know more about a particular model element, just select it and the Document View will list all the diagrams owned by the element along with all the diagrams where the element is visible. If the listed diagrams are smartly named you can immediately make out which diagrams are relevant to your needs. Obviously, the Document View allows the user to open a diagram by a double-clicking on it in the document list.

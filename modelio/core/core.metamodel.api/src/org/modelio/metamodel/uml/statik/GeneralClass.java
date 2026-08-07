@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.uml.statik;
 
 import java.util.List;
@@ -34,144 +33,131 @@ import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
 
 /**
  * GeneralClass v0.0.9054
- * 
- * 
+ *
+ *
  * A GeneralClass is an elaborated Classifier.  It belongs to its NameSpace.
- * 
- * 
+ *
  */
 @objid ("000bbdb4-c4bf-1fd8-97fe-001ec947cd2a")
 public interface GeneralClass extends Classifier {
     /**
      * The metaclass simple name.
      */
-    @objid ("c93a55a6-150f-4c70-8446-68bf30373311")
+    @objid ("bae10a95-1b08-4b16-ae82-1a837e49d2bf")
     public static final String MNAME = "GeneralClass";
 
     /**
      * The metaclass qualified name.
      */
-    @objid ("e10cc188-14be-4901-ac06-f74b2fc47f70")
+    @objid ("39690c49-359e-4534-aec3-ada459bb24c3")
     public static final String MQNAME = "Standard.GeneralClass";
 
     /**
      * Getter for attribute 'GeneralClass.IsElementary'
-     * 
+     *
      * Metamodel description:
      * <i>Determines whether a Class is elementary/primitive or not. A Class is primitive if its value cannot be broken down and its instances are not handled by the application. For example, integer and boolean are elementary Classes, whereas Human or Device are generally not.</i>
-     * 
      */
-    @objid ("5381523e-36f3-4e47-aeb0-31695bb5aec1")
+    @objid ("2e4e462c-a24b-4ec5-a596-cc372e849dd1")
     boolean isIsElementary();
 
     /**
      * Setter for attribute 'GeneralClass.IsElementary'
-     * 
+     *
      * Metamodel description:
      * <i>Determines whether a Class is elementary/primitive or not. A Class is primitive if its value cannot be broken down and its instances are not handled by the application. For example, integer and boolean are elementary Classes, whereas Human or Device are generally not.</i>
-     * 
      */
-    @objid ("c70f56ec-f3fa-4f72-999a-3bb6ffba21a4")
+    @objid ("3def1ad6-a9e3-434e-ad87-19c3e7eb2c94")
     void setIsElementary(boolean value);
 
     /**
      * Getter for relation 'GeneralClass->Occurence'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("cc9626c2-6c4b-4748-911a-7ad2434600d8")
+    @objid ("cd8928ab-a6fc-48ac-bc32-2a0715a3d848")
     EList<Parameter> getOccurence();
 
     /**
      * Filtered Getter for relation 'GeneralClass->Occurence'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("7ff2660b-1161-478c-abe5-8e65066ec2eb")
+    @objid ("dc3c8662-cb3b-4905-b9f2-e4d8c058114c")
     <T extends Parameter> List<T> getOccurence(java.lang.Class<T> filterClass);
 
     /**
      * Getter for relation 'GeneralClass->ExceptionInput'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("0cf076f7-42d5-4dc7-b317-cb1183fd3559")
+    @objid ("e35df317-6049-48e8-8870-6f172ec98f39")
     ExceptionHandler getExceptionInput();
 
     /**
      * Setter for relation 'GeneralClass->ExceptionInput'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("68b97bc9-9419-4cf7-9885-9a1845eae9d7")
+    @objid ("418d3ff0-e5d9-4543-a502-aac9ac15a81d")
     void setExceptionInput(ExceptionHandler value);
 
     /**
      * Getter for relation 'GeneralClass->Object'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("0746d0a0-2a00-4e09-ba3b-dee86f0e5c55")
+    @objid ("54f7b95f-ed7e-47f0-9abf-3ad6bdde4455")
     EList<Attribute> getObject();
 
     /**
      * Filtered Getter for relation 'GeneralClass->Object'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("a22decbf-7a78-4330-a76a-21cf013fbcab")
+    @objid ("03d3617e-8356-46d4-9a92-61658afe982c")
     <T extends Attribute> List<T> getObject(java.lang.Class<T> filterClass);
 
     /**
      * Getter for relation 'GeneralClass->SRepresentation'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("91619915-6453-4df2-9018-a6d3e67e8f54")
+    @objid ("41a6736c-8767-450e-8a39-555215799536")
     EList<Signal> getSRepresentation();
 
     /**
      * Filtered Getter for relation 'GeneralClass->SRepresentation'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("25290dbc-4e3a-4309-9e29-395c86e40f9f")
+    @objid ("9437e385-36c6-4b7d-8fbf-4c48c5a2dbed")
     <T extends Signal> List<T> getSRepresentation(java.lang.Class<T> filterClass);
 
     /**
      * Getter for relation 'GeneralClass->OccurenceObjectNode'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("cab4b85e-bf51-4ad0-bf7e-4419b346ac0c")
+    @objid ("130a9988-5117-4baa-94cf-6886447d42de")
     EList<ObjectNode> getOccurenceObjectNode();
 
     /**
      * Filtered Getter for relation 'GeneralClass->OccurenceObjectNode'
-     * 
+     *
      * Metamodel description:
      * <i>null</i>
-     * 
      */
-    @objid ("90f524cd-ec12-444d-91bb-ddb84691125c")
+    @objid ("4e6da0ce-02e4-40f2-8e7e-7959a92f080f")
     <T extends ObjectNode> List<T> getOccurenceObjectNode(java.lang.Class<T> filterClass);
-}
 
+}

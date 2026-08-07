@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.api.repository;
 
@@ -55,6 +55,7 @@ public interface IRepositorySupport {
 
     /**
      * Registers a repository change listener.
+     *
      * @param listener a repository change listener.
      */
     @objid ("59707384-d0fe-4e21-b2f1-89ec83df3847")
@@ -64,8 +65,7 @@ public interface IRepositorySupport {
      * Connect a repository to this modeling session and associate it with a repository key.
      * <p>
      * The repository key can then be used to find the repository with {@link #getRepository(String)}.
-     * @see #REPOSITORY_KEY_LOCAL
-     * @see #REPOSITORY_KEY_SCRATCH
+     *
      * @param aBase the repository to add.
      * @param key a key used to retrieve the repository.
      * @param accessManager an access manager.
@@ -77,6 +77,7 @@ public interface IRepositorySupport {
 
     /**
      * Connect a repository to this modeling session.
+     *
      * @param aBase the repository to add.
      * @param accessManager an access manager.
      * @param monitor a progress monitor
@@ -87,6 +88,7 @@ public interface IRepositorySupport {
 
     /**
      * Close and remove the given model repository from the connected repositories.
+     *
      * @param toRemove the repository to disconnect.
      * @param fastRemove if true, already loaded won't be moved to the shell repository.
      * Set this to true only when closing the session to speed up closing.
@@ -97,6 +99,7 @@ public interface IRepositorySupport {
 
     /**
      * Notifies the registered repository change listeners of a repository change.
+     *
      * @param event the repository change event.
      */
     @objid ("a8ea70bc-d4a2-40ec-a887-b633e43d5e2d")
@@ -110,6 +113,7 @@ public interface IRepositorySupport {
      * <p>
      * The caller should test whether the referenced repositories are still open
      * with {@link IRepository#isOpen()} when iterating the result.
+     *
      * @return the connected repositories at the moment of call.
      */
     @objid ("0d23c864-4b7e-11e2-91c9-001ec947ccaf")
@@ -119,6 +123,7 @@ public interface IRepositorySupport {
      * Get the repository where the given object is stored.
      * <p>
      * Returns <code>null</code> if the object is not assigned to a repository or the repository does not belong to this session.
+     *
      * @param anObject an object
      * @return its repository, or <code>null</code>.
      */
@@ -128,6 +133,7 @@ public interface IRepositorySupport {
     /**
      * Get the repository identified by the given key.
      * <p>
+     *
      * @param key the repository key
      * @return the found repository or null
      */
@@ -135,10 +141,21 @@ public interface IRepositorySupport {
     IRepository getRepository(String key);
 
     /**
+     * Get the repository identified by the given numeric identifier.
+     * <p>
+     *
+     * @param rid the repository id
+     * @return the found repository or null
+     */
+    @objid ("944a652b-f859-48ea-833e-23f50c779bb2")
+    IRepository getRepository(byte rid);
+
+    /**
      * Unregisters a repository change listener.
+     *
      * @param listener a repository change listener.
      */
     @objid ("06a53b06-cc63-4961-8d2c-b192fb46977b")
     void removeRepositoryChangeListener(IRepositoryChangeListener listener);
-}
 
+}

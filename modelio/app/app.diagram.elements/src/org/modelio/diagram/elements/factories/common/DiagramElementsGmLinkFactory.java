@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.factories.common;
 
@@ -106,7 +106,7 @@ public class DiagramElementsGmLinkFactory implements IGmLinkFactory {
         private IGmDiagram diagram;
 
         @objid ("f0a2b81a-9fd8-49eb-9602-a7066f783fa1")
-        public  ImplVisitor(IGmDiagram diagram) {
+        public ImplVisitor(IGmDiagram diagram) {
             this.diagram = diagram;
         }
 
@@ -119,7 +119,7 @@ public class DiagramElementsGmLinkFactory implements IGmLinkFactory {
                     return new GmDiagramHolderLink(this.diagram, new MRef(theDep), theDep);
                 }
             }
-            
+
             // It is a standard dependency link
             return new GmDependency(this.diagram, theDep, new MRef(theDep));
         }
@@ -147,6 +147,7 @@ public class DiagramElementsGmLinkFactory implements IGmLinkFactory {
          * Creates a GmNoteLink between the annotated element and the note.
          * <p>
          * The link destination must be a GmNote.
+         *
          * @throws ClassCastException if the destination node is not a GmNote.
          */
         @objid ("a645174b-6914-4878-b980-6b7fbaf81542")

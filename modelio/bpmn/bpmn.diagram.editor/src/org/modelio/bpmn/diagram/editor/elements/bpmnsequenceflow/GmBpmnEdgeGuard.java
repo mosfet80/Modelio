@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmnsequenceflow;
 
@@ -46,17 +46,18 @@ public class GmBpmnEdgeGuard extends GmElementLabel {
      * For deserialization only.
      */
     @objid ("619dbd6f-55b6-11e2-877f-002564c97630")
-    public  GmBpmnEdgeGuard() {
+    public GmBpmnEdgeGuard() {
         // serialization
     }
 
     /**
      * Creates an activity edge guard label.
+     *
      * @param diagram The diagram.
      * @param relatedRef ref
      */
     @objid ("619dbd72-55b6-11e2-877f-002564c97630")
-    public  GmBpmnEdgeGuard(IGmDiagram diagram, MRef relatedRef) {
+    public GmBpmnEdgeGuard(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -71,13 +72,13 @@ public class GmBpmnEdgeGuard extends GmElementLabel {
                             public String getText() {
                                 return iActivityEdge.getConditionExpression();
                             }
-        
+
                             @Override
                             public void setText(String text) {
                                 iActivityEdge.setConditionExpression(text);
                             }
                         };
-        
+
     }
 
     @objid ("619dbd82-55b6-11e2-877f-002564c97630")
@@ -85,12 +86,12 @@ public class GmBpmnEdgeGuard extends GmElementLabel {
     public boolean isVisible() {
         if (!isValid())
             return true;
-        
+
         if (getParent() instanceof GmBpmnSequenceFlow)
             return getDisplayedStyle().getProperty(GmBpmnSequenceFlowStyleKeys.GUARDVISIBLE);
         else
             return getDisplayedStyle().getProperty(GmBpmnSequenceFlowStyleKeys.GUARDVISIBLE);
-        
+
     }
 
     @objid ("619f43db-55b6-11e2-877f-002564c97630")
@@ -125,17 +126,17 @@ public class GmBpmnEdgeGuard extends GmElementLabel {
             break;
         }
         }
-        
+
     }
 
     @objid ("619f43e6-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmBpmnEdgeGuard.", MINOR_VERSION);
-        
+
     }
 
     @objid ("619f43ec-55b6-11e2-877f-002564c97630")

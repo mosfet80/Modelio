@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.behavior.communicationModel;
 
 import java.util.ArrayList;
@@ -46,51 +45,51 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("005ab766-c4bf-1fd8-97fe-001ec947cd2a")
 public class CommunicationNodeImpl extends UmlModelElementImpl implements CommunicationNode {
-    @objid ("51c26c2a-7ac0-4478-96e2-1f140f520a71")
+    @objid ("bd81e6a3-a8f1-49a7-9dd7-0a74ad8fc12b")
     @Override
     public String getSelector() {
         return (String) getAttVal(((CommunicationNodeSmClass)getClassOf()).getSelectorAtt());
     }
 
-    @objid ("b4cb9ae1-59ec-4b91-aed8-afb1b0bc4b3d")
+    @objid ("b9ff3c7d-b8e2-4f2a-b9cc-128fa55b6c39")
     @Override
     public void setSelector(String value) {
         setAttVal(((CommunicationNodeSmClass)getClassOf()).getSelectorAtt(), value);
     }
 
-    @objid ("f3c1306f-9a67-4da6-99bf-9043c9700698")
+    @objid ("163439b4-19f2-414f-87df-3d941a330f8d")
     @Override
     public CommunicationInteraction getOwner() {
         Object obj = getDepVal(((CommunicationNodeSmClass)getClassOf()).getOwnerDep());
         return (obj instanceof CommunicationInteraction)? (CommunicationInteraction)obj : null;
     }
 
-    @objid ("c05d999a-fcae-4ca6-a611-aa7bb93f7687")
+    @objid ("9bf16ebb-88fc-4b5f-a995-c7edd8a75991")
     @Override
     public void setOwner(CommunicationInteraction value) {
         appendDepVal(((CommunicationNodeSmClass)getClassOf()).getOwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a4c3dc2a-3111-4d71-b14b-8cb2bd06dd44")
+    @objid ("32396d1b-751f-4ddf-8dc2-d37eab7e16a5")
     @Override
     public Instance getRepresented() {
         Object obj = getDepVal(((CommunicationNodeSmClass)getClassOf()).getRepresentedDep());
         return (obj instanceof Instance)? (Instance)obj : null;
     }
 
-    @objid ("856438b3-c035-4767-8950-a1352f791541")
+    @objid ("2b15a97d-5fc8-4dc5-aec4-01952c217db7")
     @Override
     public void setRepresented(Instance value) {
         appendDepVal(((CommunicationNodeSmClass)getClassOf()).getRepresentedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("7245f788-fa12-4487-a36f-297b8c6122a0")
+    @objid ("836b0d1b-801f-473f-a04d-4c482223ec62")
     @Override
     public EList<CommunicationChannel> getStarted() {
         return new SmList<>(this, ((CommunicationNodeSmClass)getClassOf()).getStartedDep());
     }
 
-    @objid ("e6db2c3a-c648-41b9-a065-f3d43c1b68a2")
+    @objid ("be314801-0f80-4bb2-875f-8319807a7b94")
     @Override
     public <T extends CommunicationChannel> List<T> getStarted(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -103,16 +102,16 @@ public class CommunicationNodeImpl extends UmlModelElementImpl implements Commun
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("660688e4-8686-4cb0-8cf1-31b13d9d2b41")
+    @objid ("ee631aff-91bb-44d6-8d54-57f141e1fd9b")
     @Override
     public EList<CommunicationChannel> getEnded() {
         return new SmList<>(this, ((CommunicationNodeSmClass)getClassOf()).getEndedDep());
     }
 
-    @objid ("35616222-7629-4af0-9737-611422f9703a")
+    @objid ("ba72a24f-bd19-4a0d-ae7b-24442cf95915")
     @Override
     public <T extends CommunicationChannel> List<T> getEnded(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -125,10 +124,10 @@ public class CommunicationNodeImpl extends UmlModelElementImpl implements Commun
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("b1d4907f-9543-4a84-b5e1-bc26c5497bd1")
+    @objid ("c6cb776b-1cb7-4948-aadc-d0a99c56fc51")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -140,22 +139,22 @@ public class CommunicationNodeImpl extends UmlModelElementImpl implements Commun
         return super.getCompositionOwner();
     }
 
-    @objid ("62a01690-eba8-4e4d-810c-9c3de0387c10")
+    @objid ("3f4a51eb-3b03-47fe-b7d7-2eaeaa86747a")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // Owner
         dep = ((CommunicationNodeSmClass)getClassOf()).getOwnerDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("1cd12954-7b2f-4556-83c9-b316fc1a1933")
+    @objid ("3abcb14e-3310-4dc4-96c3-4324a97b9b9e")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitCommunicationNode(this);

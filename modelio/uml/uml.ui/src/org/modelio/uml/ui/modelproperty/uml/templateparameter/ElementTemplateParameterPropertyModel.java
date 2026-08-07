@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.uml.templateparameter;
 
@@ -57,15 +57,17 @@ class ElementTemplateParameterPropertyModel extends AbstractPropertyModel<Templa
     /**
      * Create a new <i>TemplateParameter</i> data model from an
      * <i>TemplateParameter</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("8bb21d67-191f-4545-8032-c3af50ecf2b7")
-    public  ElementTemplateParameterPropertyModel(TemplateParameter theEditedElement) {
+    public ElementTemplateParameterPropertyModel(TemplateParameter theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("298da478-98c8-4248-97fe-6149b0e7ee49")
@@ -76,6 +78,7 @@ class ElementTemplateParameterPropertyModel extends AbstractPropertyModel<Templa
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("48762b81-c22e-494c-8434-4b82901cf2bb")
@@ -88,6 +91,7 @@ class ElementTemplateParameterPropertyModel extends AbstractPropertyModel<Templa
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -108,7 +112,7 @@ class ElementTemplateParameterPropertyModel extends AbstractPropertyModel<Templa
                 if (ret != null) {
                     return ret;
                 }
-        
+
                 return this.theEditedElement.getDefaultValue();
             default:
                 return null;
@@ -116,7 +120,7 @@ class ElementTemplateParameterPropertyModel extends AbstractPropertyModel<Templa
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -126,6 +130,7 @@ class ElementTemplateParameterPropertyModel extends AbstractPropertyModel<Templa
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -150,13 +155,14 @@ class ElementTemplateParameterPropertyModel extends AbstractPropertyModel<Templa
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -193,7 +199,7 @@ class ElementTemplateParameterPropertyModel extends AbstractPropertyModel<Templa
                         this.theEditedElement.setDefaultValue("");
                     }
                 }
-        
+
                 if (value != null) {
                     // Set new value
                     if (UmlModelElement.class.isAssignableFrom(value.getClass())) {
@@ -210,7 +216,7 @@ class ElementTemplateParameterPropertyModel extends AbstractPropertyModel<Templa
         default:
             return;
         }
-        
+
     }
 
 }

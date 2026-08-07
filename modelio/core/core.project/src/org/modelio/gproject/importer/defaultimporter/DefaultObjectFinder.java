@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.gproject.importer.defaultimporter;
 
@@ -36,7 +36,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 @objid ("00689656-d3aa-108f-8d81-001ec947cd2a")
 public class DefaultObjectFinder extends AbstractObjectFinder {
     @objid ("9c3e132c-5e2e-41e9-9b89-925a882c2afb")
-    public  DefaultObjectFinder(IModel searchedSession, MMetamodel metamodel) {
+    public DefaultObjectFinder(IModel searchedSession, MMetamodel metamodel) {
         super(searchedSession, metamodel);
     }
 
@@ -45,10 +45,10 @@ public class DefaultObjectFinder extends AbstractObjectFinder {
     public SmObjectImpl getSameObject(final SmObjectImpl searchedObject) {
         MClass srcClassof = searchedObject.getMClass();
         MClass classof = getSameMetaclass(srcClassof);
-        
+
         // Find by identifier
         SmObjectImpl ret = (SmObjectImpl) this.searchedSession.findById(classof, searchedObject.getUuid());
-        
+
         // Find by other methods if failed
         if (ret == null) {
             if (searchedObject instanceof AbstractProject) {
@@ -68,17 +68,17 @@ public class DefaultObjectFinder extends AbstractObjectFinder {
                 return aProject;
             }
         }
-        
+
         // no project with same name, return the first modifiable one
         MObject first = null;
         for (MObject obj : projects) {
-            if (obj.isModifiable()) {
+            if (obj.getStatus().isModifiable()) {
                 return obj;
             } else if (first == null) {
                 first = obj;
             }
         }
-        
+
         // no modifiable project, return the first one
         return first;
     }

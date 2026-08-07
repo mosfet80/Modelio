@@ -1,3 +1,0 @@
-https://www.eclipse.org/nebula/releases/2.5.0/index.php
-
-repository-nebula-2.5.0.zip

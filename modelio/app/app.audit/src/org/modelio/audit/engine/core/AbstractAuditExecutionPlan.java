@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.audit.engine.core;
 
@@ -58,12 +58,12 @@ public abstract class AbstractAuditExecutionPlan implements IAuditExecutionPlan 
     private Map<String, List<IRule>> deleteRules = new HashMap<>();
 
     @objid ("398ebddc-3f03-435d-969d-a6d964cb363a")
-    public  AbstractAuditExecutionPlan(List<AuditCategory> rootCategories) {
+    public AbstractAuditExecutionPlan(List<AuditCategory> rootCategories) {
         super();
         for (AuditCategory category : rootCategories) {
             initRules(category);
         }
-        
+
     }
 
     @objid ("3dfba011-abf2-42cd-9f7f-5f529022b36f")
@@ -71,7 +71,7 @@ public abstract class AbstractAuditExecutionPlan implements IAuditExecutionPlan 
         for (AuditRule rule : rules) {
             initRule(rule);
         }
-        
+
     }
 
     @objid ("2dc14f58-0c62-44b1-8fd7-0ddac33534ed")
@@ -85,7 +85,7 @@ public abstract class AbstractAuditExecutionPlan implements IAuditExecutionPlan 
             }
             this.createRules.get(metaclass).add(rule);
         }
-        
+
         if (AuditTrigger.isUpdate(triggers)) {
             if (this.updateRules.get(metaclass) == null) {
                 this.updateRules.put(metaclass, new ArrayList<>());
@@ -104,14 +104,14 @@ public abstract class AbstractAuditExecutionPlan implements IAuditExecutionPlan 
             }
             this.deleteRules.get(metaclass).add(rule);
         }
-        
+
     }
 
     @objid ("24780ae0-a3db-4308-bd05-dd713f0f7d9d")
     @Override
     public final List<IRule> getRules(String metaclass, int trigger) {
         List<IRule> results = null;
-        
+
         if (AuditTrigger.isCreate(trigger)) {
             results = this.createRules.get(metaclass);
         } else if (AuditTrigger.isUpdate(trigger)) {
@@ -121,19 +121,19 @@ public abstract class AbstractAuditExecutionPlan implements IAuditExecutionPlan 
         } else if (AuditTrigger.isDelete(trigger)) {
             results = this.deleteRules.get(metaclass);
         }
-        
+
         if (results != null) {
             return results;
         } else {
             return Collections.emptyList();
         }
-        
+
     }
 
     @objid ("a045ef61-3e12-404d-be10-ff191beb0c86")
     private Map<String, List<IRule>> getRules(int trigger) {
         Map<String, List<IRule>> results = null;
-        
+
         if (AuditTrigger.isCreate(trigger)) {
             results = this.createRules;
         } else if (AuditTrigger.isUpdate(trigger)) {
@@ -143,13 +143,13 @@ public abstract class AbstractAuditExecutionPlan implements IAuditExecutionPlan 
         } else if (AuditTrigger.isDelete(trigger)) {
             results = this.deleteRules;
         }
-        
+
         if (results != null) {
             return results;
         } else {
             return Collections.emptyMap();
         }
-        
+
     }
 
     @objid ("1bd250a1-bf28-447a-933c-05c24fd5332e")
@@ -172,7 +172,7 @@ public abstract class AbstractAuditExecutionPlan implements IAuditExecutionPlan 
             }
             out.println();
         }
-        
+
         out.println("ON MOVE");
         for (Entry<String, List<IRule>> entry : this.getRules(AuditTrigger.MOVE).entrySet()) {
             out.print(" - " + entry.getKey() + " = ");
@@ -182,7 +182,7 @@ public abstract class AbstractAuditExecutionPlan implements IAuditExecutionPlan 
             out.println();
         }
         out.println("-- --");
-        
+
     }
 
     @objid ("91f177a8-b1d1-425e-b515-f0f41f2666db")
@@ -195,7 +195,7 @@ public abstract class AbstractAuditExecutionPlan implements IAuditExecutionPlan 
         } catch (FileNotFoundException e) {
             Audit.LOG.debug(e);
         }
-        
+
     }
 
     @objid ("b0c47dc7-5f5c-471d-884d-2f5ebb316deb")
@@ -210,7 +210,7 @@ public abstract class AbstractAuditExecutionPlan implements IAuditExecutionPlan 
         if (aRule != null) {
             return aRule;
         }
-        
+
         for (List<IRule> ruleList : getRules(AuditTrigger.CREATE).values()) {
             for (IRule rule : ruleList) {
                 if (rule.getRuleId().equals(ruleId)) {
@@ -255,11 +255,11 @@ public abstract class AbstractAuditExecutionPlan implements IAuditExecutionPlan 
     @objid ("324dda1e-fe03-4520-8f96-80188755a956")
     private void initRules(AuditCategory category) {
         initRules(category.getRules());
-        
+
         // for (AuditCategory subCategory : category.getSubCategories()) {
         // initRules(subCategory);
         // }
-        
+
     }
 
     @objid ("692f71ff-e0ff-46d3-82b0-48d4c0b862e7")
@@ -275,7 +275,7 @@ public abstract class AbstractAuditExecutionPlan implements IAuditExecutionPlan 
             ruleList.remove(rule);
         }
         this.rulesWithoutTrigger.remove(rule.getRuleId());
-        
+
     }
 
 }

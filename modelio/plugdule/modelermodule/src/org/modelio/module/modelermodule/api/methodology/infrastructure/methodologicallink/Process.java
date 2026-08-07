@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class Process {
      * Tells whether a {@link Process proxy} can be instantiated from a {@link MObject} checking it is a {@link MethodologicalLink} stereotyped << Process >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,7 +73,7 @@ public class Process {
 
     /**
      * Create a new {@link MethodologicalLink} stereotyped << Process >> then instantiate a {@link Process} proxy.
-     * 
+     *
      * @return a {@link Process} proxy on the created {@link MethodologicalLink}.
      */
     @objid ("3f4cae16-9130-486e-884c-c32db5fb3ee3")
@@ -83,9 +84,10 @@ public class Process {
     }
 
     /**
-     * Tries to instantiate a {@link Process} proxy from a {@link MethodologicalLink} stereotyped << Process >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link Process} proxy from a {@link MethodologicalLink} stereotyped << Process >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a MethodologicalLink
      * @return a {@link Process} proxy or <i>null</i>.
      */
@@ -95,9 +97,10 @@ public class Process {
     }
 
     /**
-     * Tries to instantiate a {@link Process} proxy from a {@link MethodologicalLink} stereotyped << Process >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link Process} proxy from a {@link MethodologicalLink} stereotyped << Process >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link MethodologicalLink}
      * @return a {@link Process} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -143,7 +146,8 @@ public class Process {
     }
 
     /**
-     * Get the underlying {@link MethodologicalLink}. 
+     * Get the underlying {@link MethodologicalLink}.
+     *
      * @return the MethodologicalLink represented by this proxy, never null.
      */
     @objid ("74583248-4b14-4ade-b3ca-750cb110d6dc")
@@ -155,11 +159,11 @@ public class Process {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("8264d243-c876-4dfd-8de9-9a1dc5f129c0")
-    protected  Process(MethodologicalLink elt) {
+    protected Process(MethodologicalLink elt) {
         this.elt = elt;
     }
 
@@ -179,7 +183,7 @@ public class Process {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "616b72d4-1d47-49e1-a381-2e6ecfea637c");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -187,7 +191,7 @@ public class Process {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

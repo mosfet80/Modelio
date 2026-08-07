@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel;
 
@@ -27,6 +27,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
@@ -43,6 +44,7 @@ import org.modelio.vcore.emf.ESmAttribute;
 import org.modelio.vcore.emf.ESmDependency;
 import org.modelio.vcore.emf.MContentListView;
 import org.modelio.vcore.emf.MTreeIterator;
+import org.modelio.vcore.smkernel.KernelRegistry.NoSuchKernelException;
 import org.modelio.vcore.smkernel.mapi.MAttribute;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MDependency;
@@ -73,7 +75,7 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
     private static final long serialVersionUID = 2365450794985286365L;
 
     @objid ("001d0d8a-35bd-10bf-bd58-001ec947cd2a")
-    private long liveId;
+    private volatile long liveId;
 
     @objid ("25484556-b846-4b8c-abd5-9fb79f1588df")
     private String uuid;
@@ -85,6 +87,7 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
      * Get the name of the element.
      * <p>
      * This method returns empty string by default and must be redefined on classes that have a name attribute.
+     *
      * @return the element name.
      */
     @objid ("00801d44-9fc0-1f4f-9c13-001ec947cd2a")
@@ -110,19 +113,19 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
             // Designate a dead object as "shell".
             return true;
         }
-        
     }
 
     @objid ("00721adc-5e9d-1ffc-8433-001ec947cd2a")
     @Override
     public boolean isModifiable() {
-        return getStatus().isModifiable();
+        return getStatusLazy().isModifiable();
     }
 
     /**
      * Ask whether the object is usable.
      * <p>
      * An object is usable if its modeling session and its repository is open and if the object is not deleted.
+     *
      * @return <code>true</code> if the object is valid else <code>false</code>.
      */
     @objid ("00817e00-9fc0-1f4f-9c13-001ec947cd2a")
@@ -132,7 +135,7 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
         if (ksp == null) {
             return false;
         }
-        
+
         try {
             ISmObjectData data = getData();
             if (data == null) {
@@ -143,10 +146,10 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
             // A dead object is not valid
             return false;
         }
-        
     }
 
     /**
+     *
      * @return <code>true</code> if the element is deleted, else <code>false</code>.
      */
     @objid ("0083b6b6-9fc0-1f4f-9c13-001ec947cd2a")
@@ -159,11 +162,11 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
             // A dead object is deleted
             return true;
         }
-        
     }
 
     /**
      * Check the object is not shell or dead
+     *
      * @throws ShellObjectException if the object is shell
      * @throws DeadObjectException if the object is dead
      */
@@ -173,7 +176,6 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
         if (getData().hasAnyStatus(IRStatus.SHELL) == StatusState.TRUE) {
             throw new ShellObjectException(this);
         }
-        
     }
 
     /**
@@ -181,6 +183,7 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
      * <p>
      * Cette methode est appelee apres un append sur une dependance. <br>
      * Elle permet d'effectuer un traitement particulier apres l'ajout d'une dependance. Par defaut, elle ne fait rien.
+     *
      * @param dep the modified dependency
      * @param value the added value
      */
@@ -191,6 +194,7 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
 
     /**
      * Hook method that is called after an eraseDepVal()
+     *
      * @param dep the modified model dependency
      * @param value the removed value
      */
@@ -205,11 +209,11 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
         if (dep == null) {
             throw new IllegalArgumentException("cannot append " + value + " to null dependency");
         }
-        
+
         dep.assertValueType(this, value);
-        
+
         boolean returnCode = true;
-        
+
         // Do some cleaning first
         if (dep.getMax() == 1) {
             // Erase the old reference
@@ -220,7 +224,7 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
             } else if (oldValue != null) {
                 // Erase old reference
                 this.eraseDepVal(dep, oldValue);
-        
+
                 // Fast exit if appendDepVal(dep, null)
                 if (value == null) {
                     return true;
@@ -230,18 +234,18 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
             if (value == null) {
                 throw new IllegalArgumentException("cannot append null to " + this + "." + dep.getName());
             }
-        
+
             // Prevent dep_val from being twice in the list
             this.eraseDepVal(dep, value);
         }
-        
+
         // ==== Do the job ====================================================
         returnCode = getData().getMetaOf().appendObjDepVal(this, dep, value);
-        
+
         // ==== If the dependency is symmetric and have to propagate
         if (returnCode) {
             propagateAppendToSymetric(dep, value);
-        
+
             afterAppendDepVal(dep, value);
         }
         return returnCode;
@@ -263,17 +267,17 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
         // if (isShell()) {
         // throwShellObject();
         // }
-        
+
         if (!dep.isMultiple() && index != 0) {
             throw new IllegalArgumentException(dep.getOwner().getName() + "." + dep.getName() + " is not multiple.");
         }
-        
+
         if (value == null) {
             throw new IllegalArgumentException(" Cannot append null to " + dep);
         }
-        
+
         // dep.checkValueType(this, value);
-        
+
         // ==== Do some cleaning first ===================
         if (dep.getMax() == 1) {
             // Erase the old reference
@@ -289,13 +293,13 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
             // Prevent dep_val from being twice in the list
             this.eraseDepVal(dep, value);
         }
-        
+
         // ==== do the real job ==============================================
         boolean returnCode = getData().getMetaOf().appendObjDepValIndex(this, dep, value, index);
-        
+
         // ==== if the dependency is symmetric and have to propagate ========
         propagateAppendToSymetric(dep, value);
-        
+
         if (returnCode) {
             afterAppendDepVal(dep, value);
         }
@@ -309,25 +313,24 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
     @Override
     public Object getDepVal(final SmDependency dep) {
         Object values = getData().getMetaOf().getObjDepVal(this, dep);
-        
+
         if (dep.isMultiple()) {
             return (values != null) ? values : Collections.emptyList();
         } else {
             return values;
         }
-        
     }
 
     @objid ("0081d4b8-9fc0-1f4f-9c13-001ec947cd2a")
     @Override
     public SmObjectImpl setDepVal(final SmDependency dep, final int index, final SmObjectImpl value) {
         checkNotShell();
-        
+
         // dep.checkValueType(this, value);
-        
+
         // Erase old value
         SmObjectImpl oldVal = eraseDepVal(dep, index);
-        
+
         // Append new value at same index
         appendDepVal(dep, value, index);
         return (oldVal);
@@ -338,12 +341,12 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
      * Idem que la methode eraseDependency (sans verification du nom de la dependance)<br>
      * Cette methode permet d'enlever une dependance. Si un meta-objet est associe a l'objet courant la methode passe la main au meta-objet.<br>
      * Exemple: <br>
-     * 
+     *
      * <pre>
      * SmObject *dep; SmObject *obj;<br>
      * obj.eraseDepVal(ProjectDefinedDomain(),dep);<br>
      * </pre>
-     * 
+     *
      * Les anomalies peuvent etre :<br>
      * <i>Type mismatch</i>: Si l'objet n'est pas du type attendu.<br>
      */
@@ -352,12 +355,12 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
     public boolean eraseDepVal(final SmDependency dep, final SmObjectImpl value) {
         // do the job
         boolean returnCode = getData().getMetaOf().eraseObjDepVal(this, dep, value);
-        
+
         // update the symetric dependency
         if (returnCode) {
             propagateEraseToSymetric(dep, value);
         }
-        
+
         if (returnCode) {
             afterEraseDepVal(dep, value);
         }
@@ -368,13 +371,12 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
     private SmObjectImpl eraseDepVal(final SmDependency dep, final int index) {
         @SuppressWarnings ("unchecked")
         SmObjectImpl value = dep.isMultiple() ? ((List<SmObjectImpl>) getDepVal(dep)).get(index) : (SmObjectImpl) getDepVal(dep);
-        
+
         if (eraseDepVal(dep, value)) {
             return value;
         } else {
             return null;
         }
-        
     }
 
     @objid ("002af5bc-702c-1f21-85a5-001ec947cd2a")
@@ -388,11 +390,10 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
                     value.eraseDepVal(symetricDep, oldValue);
                 }
             }
-        
+
             // Propagate to symetricDep the append
             value.getData().getMetaOf().appendObjDepVal(value, symetricDep, this);
         }
-        
     }
 
     @objid ("002bc564-702c-1f21-85a5-001ec947cd2a")
@@ -401,7 +402,6 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
         if (value != null && DSymetric != null) {
             value.getData().getMetaOf().eraseObjDepVal(value, DSymetric, this);
         }
-        
     }
 
     @objid ("007e4d34-9fc0-1f4f-9c13-001ec947cd2a")
@@ -410,9 +410,8 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
         // Fast exit if already deleted
         if (isDeleted())
             return;
-        
+
         new DeleteHelper().doDelete(this);
-        
     }
 
     @objid ("007e6102-9fc0-1f4f-9c13-001ec947cd2a")
@@ -427,9 +426,9 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
         if (getClass() != obj.getClass()) {
             return false;
         }
-        
+
         SmObjectImpl other = (SmObjectImpl) obj;
-        
+
         if (this.uuid == null) {
             if (other.uuid != null) {
                 return false;
@@ -437,7 +436,7 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
         } else if (!this.uuid.equals(other.uuid)) {
             return false;
         }
-        
+
         if (this.liveId != other.liveId) {
             return false;
         }
@@ -448,8 +447,8 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
     @Override
     public Object getAttVal(final SmAttribute att) {
         /*
-         * if (isShell() && !(att.getName().equalsIgnoreCase("name") || att.equals(SmObjectData.Metadata.statusAtt()))) { // uuid, name, status return null; }
-         */
+                 * if (isShell() && !(att.getName().equalsIgnoreCase("name") || att.equals(SmObjectData.Metadata.statusAtt()))) { // uuid, name, status return null; }
+                 */
         return getData().getMetaOf().getObjAttVal(this, att);
     }
 
@@ -457,17 +456,17 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
     @Override
     public void setAttVal(final SmAttribute att, final Object value) {
         checkNotShell();
-        
+
         att.assertValueType(this, value);
-        
+
         getData().getMetaOf().setObjAttVal(this, att, value);
-        
     }
 
     /**
      * Get the object metaclass.
      * <p>
      * You should consider calling the public API {@link #getMClass()} method.
+     *
      * @return the object metaclass.
      */
     @objid ("007f0896-9fc0-1f4f-9c13-001ec947cd2a")
@@ -481,24 +480,25 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
 
     /**
      * Get the model object data.
+     *
      * @return the model object data.
      * @throws DeadObjectException if the object has definitively been unloaded.
      */
     @objid ("007f3f96-9fc0-1f4f-9c13-001ec947cd2a")
     public final ISmObjectData getData() throws DeadObjectException {
         ISmObjectData data = null;
-        
+
         if (this.dataRef != null) {
             data = this.dataRef.get();
         }
-        
+
         if (data == null) {
             synchronized (this) {
                 // First check if another thread didn't restore the reference
                 if (this.dataRef != null) {
                     data = this.dataRef.get();
                 }
-        
+
                 if (data == null) {
                     // Ask for reloading
                     final IKernelServiceProvider ksp = KernelRegistry.getService(this.liveId);
@@ -506,7 +506,7 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
                 }
             }
         }
-        
+
         AccessOrderer.accessed(data);
         return data;
     }
@@ -515,6 +515,7 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
      * Get the object live id.
      * <p>
      * Used by the swap to restore the object.
+     *
      * @return the live id.
      */
     @objid ("007f8d7a-9fc0-1f4f-9c13-001ec947cd2a")
@@ -526,6 +527,7 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
      * Get the model object meta object.
      * <p>
      * All read or write operations on the model object go through the metaobject.
+     *
      * @return the meta object.
      */
     @objid ("007fae68-9fc0-1f4f-9c13-001ec947cd2a")
@@ -542,11 +544,27 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
     @objid ("ee67af8e-d4a2-11e1-b069-001ec947ccaf")
     @Override
     public MStatus getStatus() {
+        getRepositoryObject().loadStatus(this);
+        return getStatusLazy();
+    }
+
+    @objid ("5f29dc94-0321-419c-89ac-ffba40347b44")
+    @Override
+    public CompletableFuture<MStatus> getStatusAsync() {
+        return getRepositoryObject()
+                .whenStatusFullyLoaded(this)
+                .thenApply(v -> new MStatusImpl(this));
+    }
+
+    @objid ("342d3bc9-5b7b-4e44-9381-f053c87f6283")
+    @Override
+    public MStatus getStatusLazy() {
         return new MStatusImpl(this);
     }
 
     /**
      * Tells whether all the given flags are set to <code>true</code> in the status.
+     *
      * @param flags the flags to test
      * @return <code>true</code> if all of them are set to <code>true</code>, else <code>false</code>.
      */
@@ -555,7 +573,7 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
         // optimization: should call MetaOf.getAttVal(..) to get pstatus
         long pStatus = getSmStatusFlags();
         StatusState ret = SmStatus.areAllSet(pStatus, flags);
-        
+
         if (ret == StatusState.UNDEFINED) {
             while (ret == StatusState.UNDEFINED) {
                 SmObjectImpl owner = getCompositionOwner();
@@ -576,7 +594,7 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
         // Avoid using the repository ID because it may change during the lifetime of the object.
         final short clsid = SmLiveId.getClassId(this.liveId);
         final short kid = SmLiveId.getKid(this.liveId);
-        
+
         final int prime = 31;
         int result = 1;
         result = prime * result + clsid;
@@ -587,28 +605,29 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
 
     /**
      * To be called <strong>just after</strong> the constructor.
+     *
      * @param uuid the object identifier
      * @param liveId the object live identifier
      */
     @objid ("0080e882-9fc0-1f4f-9c13-001ec947cd2a")
-    @SuppressWarnings ("hiding")
+    @SuppressWarnings("hiding")
     public final void init(final String uuid, final long liveId) {
         this.liveId = liveId;
         this.uuid = uuid;
-        
+
         if (this.dataRef != null) {
             ISmObjectData d = this.dataRef.get();
             if (d != null) {
                 d.init(uuid, liveId);
             }
         }
-        
     }
 
     /**
      * Initialize the model object data.
      * <p>
      * <b>Note :</b> the data is stored by {@link WeakReference}. <b>Keep a reference</b> on the data to not let it garbage collected !
+     *
      * @param data the object data. <b>Keep a reference</b> on the data to not let it garbage collected !
      */
     @objid ("008123ba-9fc0-1f4f-9c13-001ec947cd2a")
@@ -618,11 +637,11 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
         } else {
             this.dataRef = null;
         }
-        
     }
 
     /**
      * Test if a dependency contains the given value.
+     *
      * @param dep a model dependency
      * @param obj a model object to find
      * @return <code>true</code> if found else <code>false</code>.
@@ -635,11 +654,11 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
         } else {
             return depVal != null && depVal.equals(obj);
         }
-        
     }
 
     /**
      * Set the meta object.
+     *
      * @param metaObject the new meta object.
      */
     @objid ("0082209e-9fc0-1f4f-9c13-001ec947cd2a")
@@ -650,13 +669,18 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
     @objid ("0082763e-9fc0-1f4f-9c13-001ec947cd2a")
     @Override
     public final void setRepositoryObject(final IRepositoryObject createObject) {
-        getData().setRepositoryObject(createObject);
+        ISmObjectData data = getData();
+        data.setRepositoryObject(createObject);
+
+        // Update the rid in the live id.
+        this.liveId = data.getLiveId();
     }
 
     /**
      * Changes the persistent status of the model object.
      * <p>
      * Use combinations of constants defined in {@link IPStatus} to defined the flags.
+     *
      * @param trueFlags the flags to set to true.
      * @param falseFlags the flags to set to false.
      * @param undefFlags the flags to set as not defined.
@@ -665,12 +689,11 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
     public void setPStatus(long trueFlags, long falseFlags, long undefFlags) {
         // check flags only contains persistent flags
         assert (((trueFlags | falseFlags | undefFlags) & ~SmStatus.PFLAGS) == 0);
-        
+
         long oldPStatus = SmStatus.getPersistentBits(getSmStatusFlags());
         long newValue = SmStatus.setFlags(oldPStatus, trueFlags, falseFlags, undefFlags);
-        
+
         setAttVal(getClassOf().statusAtt(), newValue);
-        
     }
 
     @objid ("001abd6e-3c96-1f3d-aafd-001ec947cd2a")
@@ -724,7 +747,6 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
         } else {
             return null;
         }
-        
     }
 
     @objid ("001bf774-3c96-1f3d-aafd-001ec947cd2a")
@@ -736,7 +758,6 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
         } else {
             return null;
         }
-        
     }
 
     @objid ("001c1bf0-3c96-1f3d-aafd-001ec947cd2a")
@@ -770,7 +791,6 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
         } else {
             throw new IllegalArgumentException(feature + " does not belong to " + getClassOf().getName());
         }
-        
     }
 
     @objid ("001cd590-3c96-1f3d-aafd-001ec947cd2a")
@@ -799,7 +819,7 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
 
     @objid ("001d8760-3c96-1f3d-aafd-001ec947cd2a")
     @Override
-    @SuppressWarnings ("unchecked")
+    @SuppressWarnings("unchecked")
     public void eSet(EStructuralFeature feature, Object newValue) {
         if (feature instanceof ESmAttribute) {
             setAttVal(((ESmAttribute) feature).getSmAtt(), newValue);
@@ -815,7 +835,6 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
         } else {
             throw new IllegalArgumentException(feature + " does not belong to " + getClassOf().getName());
         }
-        
     }
 
     @objid ("001db582-3c96-1f3d-aafd-001ec947cd2a")
@@ -837,15 +856,14 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
         } else {
             throw new IllegalArgumentException(feature + " is not part of " + getClassOf().getName());
         }
-        
     }
 
     @objid ("005818ee-b454-1f4f-9c13-001ec947cd2a")
     @Override
-    @SuppressWarnings ("unchecked")
+    @SuppressWarnings("unchecked")
     public List<SmObjectImpl> getCompositionChildren() {
         ArrayList<SmObjectImpl> results = new ArrayList<>();
-        
+
         for (SmDependency dep : getClassOf().getAllComponentAndSharedDepDef()) {
             Object depVal = getDepVal(dep);
             if (dep.isMultiple()) {
@@ -860,11 +878,11 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
     }
 
     @objid ("dc6c5da6-8fb5-11e1-81e9-001ec947ccaf")
-    @SuppressWarnings ("unchecked")
+    @SuppressWarnings("unchecked")
     @Override
     public List<SmObjectImpl> getDepValList(final SmDependency dep) {
         Object ret = getDepVal(dep);
-        
+
         if (ret instanceof List) {
             return (List<SmObjectImpl>) ret;
         } else if (ret == null) {
@@ -872,7 +890,6 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
         } else {
             return Collections.singletonList((SmObjectImpl) ret);
         }
-        
     }
 
     @objid ("008778be-4d5f-1ffc-8433-001ec947cd2a")
@@ -904,6 +921,7 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
 
     /**
      * Tells whether any the given flags are set to <code>true</code> in the status.
+     *
      * @param flag the flags to test
      * @return <code>true</code> if any of them is set to <code>true</code>, else <code>false</code>.
      */
@@ -912,7 +930,7 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
         // optimization: should call MetaOf.getAttVal(..) to get pstatus
         long lStatus = getSmStatusFlags();
         StatusState ret = SmStatus.isAnySet(lStatus, flag);
-        
+
         if (ret == StatusState.UNDEFINED) {
             SmObjectImpl owner = this;
             while (ret == StatusState.UNDEFINED) {
@@ -920,7 +938,7 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
                 if (owner == null) {
                     break;
                 }
-        
+
                 lStatus = SmStatus.combine(lStatus, owner.getSmStatusFlags());
                 ret = SmStatus.isAnySet(lStatus, flag);
             }
@@ -932,6 +950,7 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
      * Test the status against required flags and forbidden ones.
      * <p>
      * All required flags must be set and no forbidden one must be set.
+     *
      * @param rrequired required runtime flags
      * @param prequired required persistent flags
      * @param rforbidden forbidden runtime flags
@@ -942,11 +961,11 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
     public final boolean hasStatus(final long rrequired, final long prequired, final long rforbidden, final long pforbidden) {
         final long required = rrequired | prequired;
         final long forbidden = rforbidden | pforbidden;
-        
+
         long lStatus = getSmStatusFlags();
         StatusState forbid = SmStatus.isAnySet(lStatus, forbidden);
         StatusState allow = SmStatus.areAllSet(lStatus, required);
-        
+
         if ((allow == StatusState.UNDEFINED && forbid != StatusState.TRUE) || (forbid == StatusState.UNDEFINED && allow != StatusState.FALSE)) {
             SmObjectImpl owner = this;
             while ((allow == StatusState.UNDEFINED && forbid != StatusState.TRUE) || (forbid == StatusState.UNDEFINED && allow != StatusState.FALSE)) {
@@ -955,12 +974,12 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
                     break;
                 }
                 lStatus = SmStatus.combine(lStatus, owner.getSmStatusFlags());
-        
+
                 forbid = SmStatus.isAnySet(lStatus, forbidden);
                 allow = SmStatus.areAllSet(lStatus, required);
             }
         }
-        
+
         // The test should be (allow==TRUE && forbid==FALSE)
         // but tolerate (allow==UNDEFINED) although this should not happen.
         return allow != StatusState.FALSE && forbid != StatusState.TRUE;
@@ -981,54 +1000,69 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
     @objid ("0052b26e-ee24-1076-aae0-001ec947cd2a")
     @Override
     public String toString() {
-        boolean hasNoData = this.dataRef == null || this.dataRef.get() == null;
-        
+        ISmObjectData data = this.dataRef == null ? null : this.dataRef.get();
+        boolean hasNoData = data == null;
+
         final StringBuilder s = new StringBuilder(80);
-        
-        try {
-            String name = getName();
-            s.append('\'');
-            s.append(name);
-            s.append('\'');
-        } catch (DeadObjectException e) {
-            s.append("*DEAD*");
-        } catch (RuntimeException | LinkageError | StackOverflowError | OutOfMemoryError e) {
-            // Replace the name by the load failure cause
-            s.append("!<");
-            s.append(e.toString());
-            s.append(">!");
+
+        if (data != null) {
+            // TODO Factorize with SmObjectData.toString()
+            try {
+                // Access name attribute directly to avoid any side effect,
+                // such as trigger loading of the data.
+                MClass mClass = data.getClassOf();
+                MAttribute nameAtt =  mClass.getNameAttribute();
+                if (nameAtt instanceof SmAttribute sma) {
+                    String name =  (String) sma.getValue(data) ;
+                    s.append('\'');
+                    s.append(name);
+                    s.append('\'');
+                }
+            } catch (RuntimeException | LinkageError | StackOverflowError | OutOfMemoryError e) {
+                // Replace the name by the load failure cause
+                s.append("!<");
+                s.append(e.toString());
+                s.append(">!");
+            }
         }
-        
+
         s.append("{");
         s.append(this.uuid);
         s.append("} ");
-        
+
         // metaclass
-        MClass mClass = getMClass();
-        if (mClass.isFake()) {
-            s.append(" *FAKE* ");
-            s.append(mClass.getQualifiedName());
-        } else if (true || mClass.getOrigin().isExtension()) {
-            s.append(mClass.getQualifiedName());
-        } else {
-            s.append(mClass.getName());
+        try {
+            MClass mClass = getMClass();
+            if (mClass.isFake()) {
+                s.append(" *FAKE* ");
+                s.append(mClass.getQualifiedName());
+            } else {
+                s.append(mClass.getQualifiedName());
+            }
+        } catch (NoSuchKernelException e) {
+            s.append(" *SESSION CLOSED* ");
         }
-        
+
         // print invalid state
-        if (hasNoData) {
+        if (data == null) {
             hasNoData = this.dataRef == null || this.dataRef.get() == null;
             if (hasNoData) {
                 s.append(" *DEAD*");
             } else {
+                // a concurrent thread may have restored the data
                 s.append(" *data recovered*");
             }
         } else {
-            if (isShell()) {
+            if(data.hasAnyStatus(IRStatus.SHELL) == StatusState.TRUE) {
                 s.append(" *Shell*");
             }
-            if (isDeleted()) {
+
+            if(data.hasAnyStatus(IRStatus.DELETED) == StatusState.TRUE) {
                 s.append(" *Deleted*");
+            } else if(data.hasAnyStatus(IRStatus.BEINGDELETED) == StatusState.TRUE) {
+                s.append(" *Being deleted*");
             }
+
         }
         return s.toString();
     }
@@ -1037,6 +1071,7 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
      * Changes the runtime status of the model object.
      * <p>
      * Use combinations of constants defined in {@link IRStatus} to defined the flags.
+     *
      * @param trueFlags the flags to set to true.
      * @param falseFlags the flags to set to false.
      * @param undefFlags the flags to set as not defined.
@@ -1045,20 +1080,19 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
     public void setRStatus(long trueFlags, long falseFlags, long undefFlags) {
         ISmObjectData ldata = getData();
         long oldStatus = ldata.getStatus();
-        
+
         ldata.setRFlags(trueFlags, falseFlags, undefFlags);
-        
+
         long newStatus = ldata.getStatus();
-        
+
         ldata.getMetaOf().objStatusChanged(this, oldStatus, newStatus);
-        
     }
 
     /**
      * Get the model object status flags.
      * <p>
      * Beware some flags may not be defined on this model object. This is a low level method, it is recommended to use {@link #getStatus()} in most case.
-     * @see #getStatus()
+     *
      * @return the model object flags.
      */
     @objid ("1127ca90-9397-4dd0-8a27-e7160f6da249")
@@ -1080,11 +1114,12 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
      * Cast this instance to another class/interface.
      * <p>
      * Fake objects redefine this method.
+     *
      * @param cls the target java class/interface
      * @return the same object casted (or an adapter)
      */
     @objid ("ae278882-3a57-49f9-8497-1bd2108de4e6")
-    @SuppressWarnings ("unchecked")
+    @SuppressWarnings("unchecked")
     public <T extends MObject> T cast(Class<T> cls) {
         return (T) this;
     }

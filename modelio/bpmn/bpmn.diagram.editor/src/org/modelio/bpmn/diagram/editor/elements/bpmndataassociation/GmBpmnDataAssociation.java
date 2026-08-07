@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.elements.bpmndataassociation;
 
@@ -59,19 +59,19 @@ public class GmBpmnDataAssociation extends GmLink {
 
     /**
      * Initialize a control flow graphic model.
+     *
      * @param diagram The owning diagram
      * @param element The reference flow, may be null
      * @param ref The referenced flow reference, may not be null
      */
     @objid ("60a9993b-55b6-11e2-877f-002564c97630")
-    public  GmBpmnDataAssociation(IGmDiagram diagram, BpmnDataAssociation element, MRef ref) {
+    public GmBpmnDataAssociation(IGmDiagram diagram, BpmnDataAssociation element, MRef ref) {
         super(diagram, ref);
         this.element = element;
-        
+
         GmDefaultModelElementLabel extension = new GmDefaultModelElementLabel(diagram, ref);
-               // extension.setShowLabel(false); : this variable is now configured in the file factory.settings 
+               // extension.setShowLabel(false); : this variable is now configured in the file factory.settings
         addExtension(ExtensionLocation.MiddleNW, IGmLink.ROLE_MAIN_LABEL, extension);
-        
     }
 
     @objid ("60a99947-55b6-11e2-877f-002564c97630")
@@ -81,14 +81,13 @@ public class GmBpmnDataAssociation extends GmLink {
         if (this.element != null) {
             firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, null, getRepresentedElement().getName());
         }
-        
     }
 
     /**
      * For deserialization only.
      */
     @objid ("60a9994a-55b6-11e2-877f-002564c97630")
-    public  GmBpmnDataAssociation() {
+    public GmBpmnDataAssociation() {
         // Nothing to do.
     }
 
@@ -107,6 +106,10 @@ public class GmBpmnDataAssociation extends GmLink {
     @objid ("60a99960-55b6-11e2-877f-002564c97630")
     @Override
     public MObject getToElement() {
+        if (this.element == null) {
+            return null;
+        }
+
         if (this.element.getStartingEvent() != null) {
             return this.element.getStartingEvent();
         } else if (this.element.getEndingActivity() != null) {
@@ -128,6 +131,10 @@ public class GmBpmnDataAssociation extends GmLink {
     @objid ("60a9996e-55b6-11e2-877f-002564c97630")
     @Override
     public MObject getFromElement() {
+        if (this.element == null) {
+            return null;
+        }
+
         if (this.element.getEndingEvent() != null) {
             return this.element.getEndingEvent();
         } else if (this.element.getStartingActivity() != null) {
@@ -145,7 +152,6 @@ public class GmBpmnDataAssociation extends GmLink {
     public void readLink(IDiagramReader in) {
         super.readLink(in);
         this.element = (BpmnDataAssociation) resolveRef(getRepresentedRef());
-        
     }
 
     @objid ("60a9997b-55b6-11e2-877f-002564c97630")
@@ -155,6 +161,7 @@ public class GmBpmnDataAssociation extends GmLink {
     }
 
     /**
+     *
      * @return <code>true</code> if the link's source or target is a {@link BpmnFlowNode}.
      */
     @objid ("60ab1fdb-55b6-11e2-877f-002564c97630")
@@ -166,10 +173,9 @@ public class GmBpmnDataAssociation extends GmLink {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         GmAbstractObject.writeMinorVersion(out, "GmBpmnDataAssociation.", GmBpmnDataAssociation.MINOR_VERSION);
-        
     }
 
     @objid ("60ab1fe5-55b6-11e2-877f-002564c97630")

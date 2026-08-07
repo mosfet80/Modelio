@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.project.services;
 
@@ -40,8 +40,7 @@ import org.modelio.vbasic.files.FileUtils;
 
 /**
  * Modelio command line arguments.
- * 
- * 
+ *
  * @author phv
  */
 @objid ("acd57237-7ee2-4420-a2b2-ac6a3a3f09c7")
@@ -126,7 +125,7 @@ public class CommandLineData {
     @objid ("58514b1f-a34a-4b60-8d66-133e0260509a")
     private boolean createProject = false;
 
-    
+
     @mdl.prop
     @objid ("92c45bac-a113-4a57-8392-439e30343384")
     private boolean debug;
@@ -146,7 +145,7 @@ public class CommandLineData {
     @objid ("7d4b6c76-d828-49eb-847c-5dbe0e050669")
     private boolean openProject = false;
 
-    
+
     @mdl.prop
     @objid ("46eb6b7a-dcfb-42f4-b316-991d6cf48e36")
     private String password = null;
@@ -157,7 +156,7 @@ public class CommandLineData {
         return this.password;
     }
 
-    
+
     @mdl.prop
     @objid ("052ba9e3-ac78-4ffc-9e9d-57f28c31ba01")
     private String projectName = null;
@@ -168,7 +167,7 @@ public class CommandLineData {
         return this.projectName;
     }
 
-    
+
     @mdl.prop
     @objid ("bcf181a3-293e-4a63-9207-f2a3c7f49d95")
     private String script = null;
@@ -182,7 +181,7 @@ public class CommandLineData {
     /**
      * The template to use to create the project.
      */
-    
+
     @mdl.prop
     @objid ("358dac90-7485-452a-a734-daef72638ebe")
     private String template = null;
@@ -196,7 +195,7 @@ public class CommandLineData {
     /**
      * The user login
      */
-    
+
     @mdl.prop
     @objid ("585c1c1e-cee6-4223-964c-30cfb9b69477")
     private String user = null;
@@ -210,7 +209,7 @@ public class CommandLineData {
     /**
      * The workspace path
      */
-    
+
     @mdl.prop
     @objid ("4c6c622f-97ad-4012-b56a-b9c31a9cd6e4")
     private String workspace = null;
@@ -224,7 +223,7 @@ public class CommandLineData {
     /**
      * The user login
      */
-    
+
     @mdl.prop
     @objid ("0b69c4c5-a87b-47dd-97a2-2e094d1d5e2f")
     private String modelioClientId = null;
@@ -238,7 +237,7 @@ public class CommandLineData {
     /**
      * The user login
      */
-    
+
     @mdl.prop
     @objid ("00199343-940f-405c-9f80-136e4af06e45")
     private String modelioClientSecret = null;
@@ -252,7 +251,7 @@ public class CommandLineData {
     /**
      * The user login
      */
-    
+
     @mdl.prop
     @objid ("d615c890-e693-422f-9602-b9c1d343cb13")
     private String userToken = null;
@@ -271,16 +270,18 @@ public class CommandLineData {
 
     /**
      * C'tor
+     *
      * @param args the command line arguments
      * @throws IllegalArgumentException if the command line is invalid
      */
     @objid ("df8b6edb-1fab-478f-a8ce-81850b7732e6")
-    public  CommandLineData(String[] args) throws IllegalArgumentException {
+    public CommandLineData(String[] args) throws IllegalArgumentException {
         parse(args);
     }
 
     /**
      * Get the batch parameters.
+     *
      * @return batch parameters.
      */
     @objid ("4fdfb664-311b-4089-88bb-b90063c00be0")
@@ -289,6 +290,7 @@ public class CommandLineData {
     }
 
     /**
+     *
      * @return <i>true</i> if batch mode else <i>false</i>.
      */
     @objid ("fa50daad-f574-410c-9615-3e3588c44e20")
@@ -297,6 +299,7 @@ public class CommandLineData {
     }
 
     /**
+     *
      * @return <i>true</i> if the project is to be created else <i>false</i>.
      */
     @objid ("0b10bee0-f483-48fa-a1f7-0cb8843600fc")
@@ -305,6 +308,7 @@ public class CommandLineData {
     }
 
     /**
+     *
      * @return <i>true</i> if batch mode but there is nothing to do.
      */
     @objid ("8943438c-bdd0-44ff-baa8-10ad28be47b1")
@@ -313,6 +317,7 @@ public class CommandLineData {
     }
 
     /**
+     *
      * @return true if a Constellation project is to be joined.
      */
     @objid ("7724ebc5-d602-4c80-9d63-2118e86039a3")
@@ -321,6 +326,7 @@ public class CommandLineData {
     }
 
     /**
+     *
      * @return true if a project is to open.
      */
     @objid ("973e9f6e-3819-4ad4-a985-735bc7095c16")
@@ -336,6 +342,7 @@ public class CommandLineData {
 
     /**
      * Check the command line arguments contains <i>nbRequired</i> more arguments to match an argument parameter.
+     *
      * @param args the command line arguments
      * @param index index of the parameterized argument
      * @param nbRequired count of required more arguments for the argument <i>args[index]</i>
@@ -349,7 +356,7 @@ public class CommandLineData {
                     nbRequired);
             throw new IllegalArgumentException(msg);
         }
-        
+
         for (int i=1; i<= nbRequired; i++) {
             if (args[index+i].startsWith("-")) {
                 // Next arg is another option
@@ -360,10 +367,11 @@ public class CommandLineData {
                 throw new IllegalArgumentException(msg);
             }
         }
-        
+
     }
 
     /**
+     *
      * @return the Modelio Server URI.
      */
     @objid ("7339f56f-ca4a-4715-8921-0dec4aefc0d1")
@@ -375,6 +383,7 @@ public class CommandLineData {
      * Parse and validate Modelio server URL.
      * <p>
      * Ensure it is a valid URI and check the scheme is null or 'https'.
+     *
      * @param serverUrlStr the URL to parse
      * @return the parsed URI
      * @throws URISyntaxException if the URL is invalid.
@@ -385,18 +394,18 @@ public class CommandLineData {
         if (uri.getScheme() == null || uri.getScheme().equals("https"))
             return uri;
         throw new URISyntaxException(serverUrlStr, "Server URL scheme must be 'https' or not specified.", 0);
-        
+
     }
 
     @objid ("5a7a26e6-7a1f-4c79-a230-7b818ad6ba4b")
     private void parseOptionsFile(String pathStr) throws IOException {
         Properties props = new Properties();
         Path p = Paths.get(pathStr);
-        
+
         try (var is = Files.newBufferedReader(p, Charset.defaultCharset())) {
             props.load(is);
         }
-        
+
         for (Entry<Object, Object> en: props.entrySet()) {
             String key = (String) en.getKey();
             String value = (String) en.getValue();
@@ -406,7 +415,7 @@ public class CommandLineData {
                 throw new IllegalArgumentException(String.format("Invalid '%s'='%s' option in '%s' file: %s", key, value, pathStr, e.getLocalizedMessage()));
             }
         }
-        
+
     }
 
     @objid ("e72d749b-da0e-4797-98cd-12eb397f6d39")
@@ -485,14 +494,14 @@ public class CommandLineData {
                 throw new IllegalArgumentException(String.format("Unknown option: %s", key));
             }
         }
-        
+
     }
 
     @objid ("118f3313-13e8-45d7-bae3-e63c3e13e4f8")
     private void parse(String[] args) {
         // Parse command line arguments for a batch run
         int i = 0;
-        
+
         while (i < args.length) {
             String argi = args[i];
             if (! argi.startsWith("-")) {
@@ -503,7 +512,7 @@ public class CommandLineData {
                 continue;
             }
             argi = argi.substring(1);
-        
+
             switch (argi) {
             case PARAMS_FILE_OPTION:
             case PROJECT_OPTION:
@@ -537,7 +546,7 @@ public class CommandLineData {
                 break;
             }
         }
-        
+
     }
 
     @objid ("9c49b3ec-b52d-42ba-88ba-d52312fdc53f")

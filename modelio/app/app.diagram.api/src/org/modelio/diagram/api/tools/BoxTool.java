@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.api.tools;
 
@@ -57,7 +57,7 @@ public class BoxTool extends CreationTool {
      * C'tor, used by platform to instantiate the tool by reflexion.
      */
     @objid ("6f93d935-c8eb-47f1-8c78-0104ccd2683f")
-    public  BoxTool() {
+    public BoxTool() {
         this.boxCommand = null;
     }
 
@@ -74,7 +74,7 @@ public class BoxTool extends CreationTool {
                         return false;
                     }
                 };
-        
+
     }
 
     @objid ("d7a6b122-d81d-41ae-ac0e-6493aff4bad9")
@@ -83,29 +83,29 @@ public class BoxTool extends CreationTool {
         if (getTargetEditPart() == null) {
             return;
         }
-        
+
         GmModel targetModel = (GmModel) getTargetEditPart().getModel();
         initDiagramHandle(targetModel);
-        
+
         IDiagramGraphic dg = null;
         while (dg == null && targetModel != null) {
             dg = DGFactory.getInstance().getDiagramGraphic(this.diagramHandle, targetModel);
             targetModel = targetModel.getParent();
         }
-        
+
         Point where = getCreateRequest().getLocation();
         Dimension size = (getCreateRequest().getSize() != null) ? getCreateRequest().getSize()
                 : new Dimension(-1, -1);
         Rectangle rect = new Rectangle(where, size);
-        
+
         //The translation is done in the policies
         //((GraphicalEditPart) getTargetEditPart().getViewer().getContents()).getFigure().translateToRelative(rect);
-        
+
         // Delegate the execution to the BoxCommand handler
         this.boxCommand.actionPerformed(this.diagramHandle, dg, rect);
-        
+
         setCurrentCommand(null);
-        
+
     }
 
     @objid ("986d25a0-fee5-4f66-a2ed-e65b7090dd16")
@@ -118,13 +118,14 @@ public class BoxTool extends CreationTool {
             return;
         }
         super.applyProperty(key, value);
-        
+
     }
 
     /**
      * Updates the target editpart and returns <code>true</code> if the target changes. The target is updated by using
      * the target conditional and the target request. If the target has been locked, this method does nothing and
      * returns <code>false</code>.
+     *
      * @return <code>true</code> if the target was changed
      */
     @objid ("7cde64c4-a7aa-4172-b97c-1bb48a228437")
@@ -148,20 +149,20 @@ public class BoxTool extends CreationTool {
         } else {
             return false;
         }
-        
+
     }
 
     @objid ("7eb9a6ac-bbde-4660-9fd5-1651c8bde123")
     protected boolean doAccept(final EditPart editpart) {
         GmModel targetModel = (GmModel) editpart.getModel();
         initDiagramHandle(targetModel);
-        
+
         IDiagramGraphic dg = null;
         while (dg == null && targetModel != null) {
             dg = DGFactory.getInstance().getDiagramGraphic(this.diagramHandle, targetModel);
             targetModel = targetModel.getParent();
         }
-        
+
         if (dg == null) {
             return false;
         }
@@ -174,10 +175,10 @@ public class BoxTool extends CreationTool {
             // Create a diagram handle on the opened editor (there must be one: we are in one of its tools!).
             AbstractDiagram diagram = targetModel.getDiagram().getRelatedElement();
             IDiagramEditor editor = (IDiagramEditor) DiagramEditorsManager.getInstance().get(diagram).getObject();
-        
+
             this.diagramHandle = DiagramHandle.create(editor, true);
         }
-        
+
     }
 
     @objid ("2bc687cd-06bc-41a4-bdf3-dce6360ba6e8")
@@ -188,7 +189,7 @@ public class BoxTool extends CreationTool {
             this.diagramHandle.close();
             this.diagramHandle = null;
         }
-        
+
     }
 
     @objid ("d3a515ba-1ca0-4e82-b2c9-19f720af7eab")
@@ -197,7 +198,7 @@ public class BoxTool extends CreationTool {
         if (getTargetEditPart() != null) {
             super.enforceConstraintsForSizeOnDropCreate(request);
         }
-        
+
     }
 
 }

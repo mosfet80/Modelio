@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.bpmn;
 
@@ -59,18 +59,20 @@ public class BpmnInterfacePropertyModel extends AbstractPropertyModel<BpmnInterf
 
     /**
      * Create a new <i>BpmnInterface</i> data model from an <i>BpmnInterface</i> .
+     *
      * @param theEditedElement the model to edit.
      * @param mdaExpert the MDA expert to handle Methodological links.
      */
     @objid ("a4180102-ca2d-4483-aea1-c4344d54b2b6")
-    public  BpmnInterfacePropertyModel(BpmnInterface theEditedElement, IMdaExpert mdaExpert) {
+    public BpmnInterfacePropertyModel(BpmnInterface theEditedElement, IMdaExpert mdaExpert) {
         super(theEditedElement);
         this.mdaExpert = mdaExpert;
-        
+
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("8ab1b375-bc3e-4ecd-ba56-5599ef9919d1")
@@ -81,6 +83,7 @@ public class BpmnInterfacePropertyModel extends AbstractPropertyModel<BpmnInterf
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("826ef195-0598-40b1-8b27-28142657d24f")
@@ -93,6 +96,7 @@ public class BpmnInterfacePropertyModel extends AbstractPropertyModel<BpmnInterf
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -116,7 +120,7 @@ public class BpmnInterfacePropertyModel extends AbstractPropertyModel<BpmnInterf
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -125,6 +129,7 @@ public class BpmnInterfacePropertyModel extends AbstractPropertyModel<BpmnInterf
      * This type will be used to choose an editor and a renderer for each cell of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -146,7 +151,7 @@ public class BpmnInterfacePropertyModel extends AbstractPropertyModel<BpmnInterf
                         .map(mc -> mc.getJavaInterface())
                         .collect(Collectors.toList());
                 DefaultElementNatValue elementNatValue = new DefaultElementNatValue((MObject) getValue(row, col), true, allowedTargets);
-        
+
                 MClass linkMetaclass = this.theEditedElement.getMClass().getMetamodel().getMClass(MethodologicalLink.class);
                 elementNatValue.setElementFilter(new IMObjectFilter() {
                     @Override
@@ -161,13 +166,14 @@ public class BpmnInterfacePropertyModel extends AbstractPropertyModel<BpmnInterf
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -195,7 +201,7 @@ public class BpmnInterfacePropertyModel extends AbstractPropertyModel<BpmnInterf
         default:
             return;
         }
-        
+
     }
 
 }

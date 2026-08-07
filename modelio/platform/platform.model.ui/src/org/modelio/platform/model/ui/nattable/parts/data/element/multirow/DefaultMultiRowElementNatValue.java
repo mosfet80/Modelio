@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.nattable.parts.data.element.multirow;
 
@@ -51,31 +51,31 @@ public class DefaultMultiRowElementNatValue extends DefaultNatValue implements I
 
     /**
      * Creates a new instance.
+     *
      * @param value the wrapped value.
      * @param acceptNullValue whether or not <code>null</code> is a valid value for this field.
      * @param allowedClasses list of the accepted metaclasses for the value.
      */
     @objid ("123e9c20-5a9e-40e7-b55f-fbe52d9f5ff1")
-    public  DefaultMultiRowElementNatValue(MObject value, List<MObject> allValues, boolean acceptNullValue, List<Class<? extends MObject>> allowedClasses, String tagSuffix) {
+    public DefaultMultiRowElementNatValue(MObject value, List<MObject> allValues, boolean acceptNullValue, List<Class<? extends MObject>> allowedClasses, String tagSuffix) {
         super(value, acceptNullValue);
         this.allowedClasses = allowedClasses;
         this.allValues = allValues;
         this.tagSuffix = tagSuffix;
-        
     }
 
     /**
      * Copy constructor, creating a new instance with the same configuration as the other.
+     *
      * @param anotherInstance the instance to copy.
      */
     @objid ("db36e7a7-2db8-4f27-8de5-cd5e1ce1b79b")
-    public  DefaultMultiRowElementNatValue(DefaultMultiRowElementNatValue anotherInstance) {
+    public DefaultMultiRowElementNatValue(DefaultMultiRowElementNatValue anotherInstance) {
         super(anotherInstance);
         this.allowedClasses = anotherInstance.allowedClasses;
         this.elementFilter = anotherInstance.elementFilter;
         this.allValues = anotherInstance.allValues;
         this.tagSuffix = anotherInstance.tagSuffix;
-        
     }
 
     @objid ("7a26b8b9-9a6c-4b0a-8d36-68643ca0799d")
@@ -109,7 +109,6 @@ public class DefaultMultiRowElementNatValue extends DefaultNatValue implements I
             throw new InvalidParameterException("Value must be a MObject.");
         }
         super.setValue(value);
-        
     }
 
     @objid ("28733a66-5dd1-4649-a623-0f328f05b26b")

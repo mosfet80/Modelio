@@ -1,18 +1,18 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 /*
  * WARNING: GENERATED FILE - DO NOT EDIT
@@ -62,6 +62,7 @@ public class Precondition {
      * Tells whether a {@link Precondition proxy} can be instantiated from a {@link MObject} checking it is a {@link Constraint} stereotyped << precondition >>.
      * <p>
      * The method returns <code>false</code> if the instantiation cannot be carried out.
+     *
      * @param elt a model object
      * @return <code>true</code> if the instantiation can be carried out else <code>false</code>.
      */
@@ -72,7 +73,7 @@ public class Precondition {
 
     /**
      * Create a new {@link Constraint} stereotyped << precondition >> then instantiate a {@link Precondition} proxy.
-     * 
+     *
      * @return a {@link Precondition} proxy on the created {@link Constraint}.
      */
     @objid ("aa998092-9a72-4ebd-a87f-864e0830222c")
@@ -83,9 +84,10 @@ public class Precondition {
     }
 
     /**
-     * Tries to instantiate a {@link Precondition} proxy from a {@link Constraint} stereotyped << precondition >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link Precondition} proxy from a {@link Constraint} stereotyped << precondition >> checking its metaclass and its stereotype.
      * <p>
      * The method returns <i>null</i> if the instantiation cannot be carried out.
+     *
      * @param obj a Constraint
      * @return a {@link Precondition} proxy or <i>null</i>.
      */
@@ -95,9 +97,10 @@ public class Precondition {
     }
 
     /**
-     * Tries to instantiate a {@link Precondition} proxy from a {@link Constraint} stereotyped << precondition >> checking its metaclass and its stereotype. 
+     * Tries to instantiate a {@link Precondition} proxy from a {@link Constraint} stereotyped << precondition >> checking its metaclass and its stereotype.
      * <p>
      * The method throws an {@link IllegalArgumentException} if the instantiation cannot be carried out.
+     *
      * @param obj a {@link Constraint}
      * @return a {@link Precondition} proxy.
      * @throws IllegalArgumentException if the instantiation cannot be carried out.
@@ -127,7 +130,8 @@ public class Precondition {
     }
 
     /**
-     * Get the underlying {@link Constraint}. 
+     * Get the underlying {@link Constraint}.
+     *
      * @return the Constraint represented by this proxy, never null.
      */
     @objid ("3caad31d-dd85-41c1-b783-ff9b38220dd5")
@@ -139,11 +143,11 @@ public class Precondition {
     @Override
     public int hashCode() {
         return 23 + ((this.elt == null) ? 0 : this.elt.hashCode());
-        
+
     }
 
     @objid ("6b2c574e-76e1-4f86-b753-425b4871f8dc")
-    protected  Precondition(Constraint elt) {
+    protected Precondition(Constraint elt) {
         this.elt = elt;
     }
 
@@ -163,7 +167,7 @@ public class Precondition {
             STEREOTYPE_ELT = ctx.getModelingSession().findElementById(Stereotype.class, "00000000-0000-9c45-0000-000000000000");
             MDAASSOCDEP = ctx.getModelingSession().findElementById(Stereotype.class, "94b7efa5-f94c-4d1d-896f-f103e56a8e2e");
             MDAASSOCDEP_ROLE = ctx.getModelingSession().findElementById(TagType.class, "7637f2fd-b750-43c1-a15c-5d0b084ca1cd");
-            
+
         }
 
 	static {
@@ -171,7 +175,7 @@ public class Precondition {
         			init(ModelerModuleModule.getInstance().getModuleContext());
         		}
         	}
-        
+
     }
 
 }

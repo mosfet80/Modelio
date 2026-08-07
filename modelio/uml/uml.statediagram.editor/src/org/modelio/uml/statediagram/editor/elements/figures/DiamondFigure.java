@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.figures;
 
@@ -28,7 +28,7 @@ import org.modelio.diagram.elements.core.figures.borders.ShapedBorder;
 
 /**
  * Diamond shaped figure.
- * 
+ *
  * @author sbe
  */
 @objid ("f522539a-55b6-11e2-877f-002564c97630")
@@ -40,7 +40,7 @@ public class DiamondFigure extends ShapedFigure {
      * Creates the figure.
      */
     @objid ("f52253a1-55b6-11e2-877f-002564c97630")
-    public  DiamondFigure() {
+    public DiamondFigure() {
         super();
         setSize(30, 40);
         setShaper(new DiamondShaper());
@@ -48,9 +48,9 @@ public class DiamondFigure extends ShapedFigure {
         this.shapedBorder = new ShapedBorder(this.penOptions.lineColor,
                                              this.penOptions.lineWidth,
                                              this.shaper);
-        
+
         setBorder(new CompoundBorder(this.shapedBorder, new MarginBorder(2)));
-        
+
     }
 
     @objid ("f52253a4-55b6-11e2-877f-002564c97630")
@@ -60,7 +60,7 @@ public class DiamondFigure extends ShapedFigure {
             super.setLineColor(lineColor);
             this.shapedBorder.setColor(lineColor);
         }
-        
+
     }
 
     @objid ("f52253a8-55b6-11e2-877f-002564c97630")
@@ -70,7 +70,7 @@ public class DiamondFigure extends ShapedFigure {
             super.setLineWidth(lineWidth);
             this.shapedBorder.setWidth(lineWidth);
         }
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.utils;
 
@@ -34,7 +34,7 @@ import org.modelio.vbasic.log.Log;
  * Services to:
  * - compress and uncompress a String into a compressed Base64 UUencoded string.
  * - compress uncompress a byte[] into a compressed Base64 UUencoded string.
- * 
+ *
  * @author phv
  */
 @objid ("a307bbeb-0e85-4a66-b4d1-c505dbaf0401")
@@ -44,6 +44,7 @@ public class UUBase64Compressor {
 
     /**
      * Compress a string
+     *
      * @param source a string
      * @return a compressed Base64 UUencoded string.
      */
@@ -56,20 +57,21 @@ public class UUBase64Compressor {
             Log.error(e);
             return null;
         }
-        
+
     }
 
     /**
      * Uncompress a Base64 encoded compressed string.
+     *
      * @param source the compressed string
      * @return the string uncompressed.
      */
     @objid ("d9ae23e9-0283-4f7b-8337-831e5428f71c")
     public static String decompress(String source) {
         // long start = System.currentTimeMillis();
-        
+
         byte[] bytes = decompressAsBytes(source);
-        
+
         // Decode the bytes into a String
         try {
             return new String(bytes, 0, bytes.length, UUBase64Compressor.CHARSET);
@@ -85,12 +87,12 @@ public class UUBase64Compressor {
         Deflater compressor = new Deflater();
         compressor.setInput(sourceBytes);
         compressor.finish();
-        
+
         byte[] output = new byte[sourceBytes.length];
         int compressedDataLength = compressor.deflate(output, 0, output.length, Deflater.FULL_FLUSH);
         output = Arrays.copyOf(output, compressedDataLength);
         compressor.end();
-        
+
         String s = Base64.encode(output);
         return s;
     }
@@ -102,11 +104,11 @@ public class UUBase64Compressor {
         if (sourceBytes == null || sourceBytes.length == 0) {
             return new byte[0];
         }
-        
+
         // Decompress the bytes
         Inflater decompressor = new Inflater();
         decompressor.setInput(sourceBytes, 0, sourceBytes.length);
-        
+
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream(sourceBytes.length);) {
             byte[] buffer = new byte[1024];
             while (!decompressor.finished()) {

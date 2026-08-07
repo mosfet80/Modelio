@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel.meta;
 
@@ -39,7 +39,7 @@ import org.modelio.vcore.smkernel.meta.mof.MofMetamodel;
  * <p>
  * Missing metamodel fragments, metaclasses and attributes are created.
  * No other modification is done, for the moment.
- * 
+ *
  * @author cma
  * @since 3.6
  */
@@ -49,18 +49,19 @@ public abstract class AbstractMetamodelMerger {
      * merge a {@link MetamodelDescriptor} into a {@link MofMetamodel}.
      * <p>
      * Missing metamodel fragments, metaclasses and attributes are created.
+     *
      * @param desc the descriptor to merge
      */
     @objid ("4ecad3a3-80db-48d3-9c58-b0f12eabbc54")
     public AbstractMetamodelMerger merge(MetamodelDescriptor desc) {
         List<MetamodelFragmentDescriptor> merge1 = new ArrayList<>();
         List<MMetamodelFragment> merge2 = new ArrayList<>();
-        
+
         for (MetamodelFragmentDescriptor fd : desc.getFragments().values()) {
             MMetamodelFragment f = getMetamodel().getFragment(fd.getName());
             if (f == null) {
                 f = createMissingFragment(fd);
-                
+
                 merge1.add(fd);
                 merge2.add(f);
                 createMissingMetaclasses(fd, f);
@@ -70,13 +71,13 @@ public abstract class AbstractMetamodelMerger {
                 createMissingMetaclasses(fd, f);
             }
         }
-        
+
         for (int i = 0; i < merge1.size(); i++) {
             MetamodelFragmentDescriptor fd = merge1.get(i);
             MMetamodelFragment f = merge2.get(i);
             mergeFragment(fd, f);
         }
-        
+
         for (int i = 0; i < merge1.size(); i++) {
             MetamodelFragmentDescriptor fd = merge1.get(i);
             MMetamodelFragment f = merge2.get(i);
@@ -92,11 +93,12 @@ public abstract class AbstractMetamodelMerger {
             SmClass m = getMetamodel().getMClass(fd.getName()+"."+md.getName());
             mergeMetaclass(md, m);
         }
-        
+
     }
 
     /**
      * Add missing attributes/dependencies
+     *
      * @param md the owner metaclass descriptor
      * @param m the owner metaclass
      */
@@ -107,7 +109,7 @@ public abstract class AbstractMetamodelMerger {
             MClass descParent = getMetamodel().getMClass(parentRef.getQualifiedName());
             if (descParent != null) {
                 MClass currentParent = m.getSuper();
-                
+
                 if (! Objects.equals(currentParent, descParent)) {
                     if (currentParent == null || SmObjectSmClass.MQNAME.equals(currentParent.getQualifiedName())) {
                         initMetaclassParent(m, descParent);
@@ -117,22 +119,22 @@ public abstract class AbstractMetamodelMerger {
                 }
             }
         }
-        
+
         for (MAttributeDescriptor ad : md.getAttributes()) {
             if (m.getAttribute(ad.getName()) == null) {
                 createMissingAttribute(m, ad);
             }
         }
-        
+
         for (MDependencyDescriptor dd : md.getDependencies()) {
-            
+
             if (m.findDependencyDef(dd.getName()) == null) {
                 createMissingDependency(m, dd);
             }
         }
-        
+
         postMergeMetaclass(md, m);
-        
+
     }
 
     @objid ("1275422a-0c5c-4a34-8a31-2006c62b5eb3")
@@ -157,6 +159,7 @@ public abstract class AbstractMetamodelMerger {
      * The implementation may do something to make metamodels compatible.
      * <p>
      * Default implementation does nothing.
+     *
      * @param metaclass the metaclass to fix
      * @param parentMetaclass the parent metaclass in the descriptor.
      */
@@ -178,7 +181,7 @@ public abstract class AbstractMetamodelMerger {
             MClass m = getMetamodel().getMClass(fd.getName()+"."+md.getName());
             mergeDependenciesOpposite(md, m);
         }
-        
+
     }
 
     @objid ("68ccaba6-7dee-4f24-a225-ea88d8f83fa7")
@@ -189,7 +192,7 @@ public abstract class AbstractMetamodelMerger {
                 m = createMissingMetaclass(fd, md);
             }
         }
-        
+
     }
 
 }

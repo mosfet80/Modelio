@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link;
 
@@ -54,9 +54,9 @@ public class GmLinkLayoutEditPolicy extends LayoutEditPolicy {
     protected EditPolicy createChildEditPolicy(EditPart child) {
         final IGmObject gmExtension = (IGmObject) child.getModel();
         final IGmLink gmlink = (IGmLink) getHost().getModel();
-        
+
         final IGmLocator locator = gmlink.getLayoutContraint(gmExtension);
-        
+
         if (locator instanceof GmConnectionEndpoinLocator) {
             return new ConnectionEndpoinLocatorMoveEditPolicy();
         } else if (locator instanceof GmFractionalConnectionLocator) {
@@ -64,7 +64,7 @@ public class GmLinkLayoutEditPolicy extends LayoutEditPolicy {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("802320e0-1dec-11e2-8cad-001ec947c8cc")
@@ -78,11 +78,12 @@ public class GmLinkLayoutEditPolicy extends LayoutEditPolicy {
     protected Command getMoveChildrenCommand(Request request) {
         // Move requests are directly handled by children
         throw new IllegalStateException();
-        
+
     }
 
     /**
      * Returns the <code>Command</code> to resize a group of children.
+     *
      * @param request the ChangeBoundsRequest
      * @return the Command
      */
@@ -92,7 +93,7 @@ public class GmLinkLayoutEditPolicy extends LayoutEditPolicy {
         Command c;
         GraphicalEditPart child;
         List<?> children = request.getEditParts();
-        
+
         for (int i = 0; i < children.size(); i++) {
             child = (GraphicalEditPart) children.get(i);
             c = createResizeCommand(request, child);
@@ -102,6 +103,7 @@ public class GmLinkLayoutEditPolicy extends LayoutEditPolicy {
     }
 
     /**
+     *
      * @param request
      * @param child
      * @param moveDelta @return
@@ -109,13 +111,13 @@ public class GmLinkLayoutEditPolicy extends LayoutEditPolicy {
     @objid ("802320fe-1dec-11e2-8cad-001ec947c8cc")
     private Command createResizeCommand(ChangeBoundsRequest request, GraphicalEditPart child) {
         IFigure figure = child.getFigure();
-        
+
         Rectangle newRect = figure.getBounds().getCopy();
         figure.translateToAbsolute(newRect);
         newRect.resize(request.getSizeDelta());
         newRect.translate(request.getMoveDelta());
         figure.translateToRelative(newRect);
-        
+
         final IGmObject gmExtension = (IGmObject) child.getModel();
         final IGmLink gmlink = (IGmLink) getHost().getModel();
         return new ChangeExtensionSizeCommand(figure, gmlink, gmExtension, newRect.getSize());
@@ -125,6 +127,7 @@ public class GmLinkLayoutEditPolicy extends LayoutEditPolicy {
      * Decorates the child with a {@link EditPolicy#PRIMARY_DRAG_ROLE} such as {@link ResizableEditPolicy}.
      * <p>
      * Redefined to do nothing if {@link #createChildEditPolicy(EditPart)} returns <code>null</code>.
+     *
      * @param child the child EditPart being decorated
      */
     @objid ("8023210e-1dec-11e2-8cad-001ec947c8cc")
@@ -134,7 +137,7 @@ public class GmLinkLayoutEditPolicy extends LayoutEditPolicy {
         if (policy != null) {
             child.installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, policy);
         }
-        
+
     }
 
     @objid ("8025830a-1dec-11e2-8cad-001ec947c8cc")
@@ -159,7 +162,7 @@ public class GmLinkLayoutEditPolicy extends LayoutEditPolicy {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("80258314-1dec-11e2-8cad-001ec947c8cc")

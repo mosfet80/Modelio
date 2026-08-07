@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.project.services.closeproject;
 
@@ -44,29 +44,29 @@ public class ProjectCloser implements IProjectCloser {
             // has never been sent.
             this.projectServiceAccess.postSyncEvent(ModelioEvent.PROJECT_CLOSING, projectToClose);
         }
-        
+
         // Save and close the state preferences once the CLOSING events have been fired and processed by listeners
         this.projectServiceAccess.closeAppStatePreferenceStore();
-        
+
         // FIXME use the current monitor...
         final IModuleManagementService moduleService = this.projectServiceAccess.getEclipseContext().get(IModuleManagementService.class);
         if (moduleService != null) {
             moduleService.stopAllModules(projectToClose);
         }
-        
+
         // End ModelShield
         try {
             ModelShieldController.onProjectClosing(projectToClose);
         } catch (final RuntimeException e) {
             AppProjectCore.LOG.debug(e);
         }
-        
+
         projectToClose.close();
         this.projectServiceAccess.setOpenedProject(null);
-        
+
         // preferences store
         this.projectServiceAccess.setProjectPreferenceStore(null);
-        
+
         // Invalidate the current model services instance before removing it
         // so that if some reference have been kept on it by @&#!%*!&
         // programmers, the error will be detected.
@@ -75,7 +75,7 @@ public class ProjectCloser implements IProjectCloser {
             ((MModelServices) s).invalidateProject(null);
             this.projectServiceAccess.getEclipseContext().remove(IMModelServices.class);
         }
-        
+
         if (this.projectServiceAccess.isOpeningEventSent()) {
             if (sendSyncEvents) {
                 this.projectServiceAccess.postSyncEvent(ModelioEvent.PROJECT_CLOSED, null);
@@ -83,9 +83,9 @@ public class ProjectCloser implements IProjectCloser {
                 this.projectServiceAccess.postAsyncEvent(ModelioEvent.PROJECT_CLOSED, null);
             }
         }
-        
+
         this.projectServiceAccess.setOpeningEventSent(false);
-        
+
     }
 
     @objid ("0f4795fc-8ecb-462f-8920-5978cba5c5d8")

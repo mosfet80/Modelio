@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.session.impl;
 
@@ -31,7 +31,7 @@ import org.modelio.vcore.smkernel.meta.mof.MofMetamodel;
 
 /**
  * Builder/Descriptor to create a {@link CoreSession}.
- * 
+ *
  * @author cma
  * @since 3.6
  */
@@ -47,12 +47,13 @@ public class CoreSessionBuilder {
     private IRepository shellRepository;
 
     @objid ("3438abc9-8905-474e-b6ef-b82120a16649")
-    public  CoreSessionBuilder() {
+    public CoreSessionBuilder() {
         this.metamodel = new SmMetamodel();
     }
 
     /**
      * Set the metamodel to use.
+     *
      * @param metamodel_ a metamodel
      * @return this instance.
      */
@@ -71,6 +72,7 @@ public class CoreSessionBuilder {
      * </ul>
      * If the metamodel is already set it is copied as a MOF metamodel
      * to be freely modifiable.
+     *
      * @return this instance.
      */
     @objid ("db6f1318-37c6-40d0-8cb5-f31ef0e34d6e")
@@ -79,9 +81,9 @@ public class CoreSessionBuilder {
         if (this.metamodel != null) {
             mofMetamodel.copy(this.metamodel);
         }
-        
+
         this.metamodel = mofMetamodel;
-        
+
         // For migration we need a writeable repository to transmute
         // shell objects.
         this.shellRepository = new MemoryRepository();
@@ -90,9 +92,9 @@ public class CoreSessionBuilder {
 
     /**
      * Create and empties the swap directory.
-     * @throws java.io.IOError
-     * in case of failure
+     *
      * @return the swap directory path
+     * @throws java.io.IOError in case of failure
      */
     @objid ("064f3c11-5685-46ae-914a-23d66f195833")
     public CoreSessionBuilder createSwapSpace() throws IOException {
@@ -110,6 +112,7 @@ public class CoreSessionBuilder {
 
     /**
      * Create the modeling session.
+     *
      * @return the created session
      * @throws IOException on I/O failure.
      */

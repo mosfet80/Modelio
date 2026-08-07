@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.policies;
 
@@ -50,10 +50,10 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * If the child node model is invisible at the time the request is send, the corresponding edit part does not exist. So the policy
  * builds a command that when executed will first make the node as visible and then forward the request to the corresponding child
  * edit part.
- * 
+ *
+ * @author cmarin
  * @see DeferredCreateCommand
  * @see DeferredGroupCommand
- * @author cmarin
  */
 @objid ("80cc67c6-1dec-11e2-8cad-001ec947c8cc")
 public class DeferringCreateNodePolicy extends DefaultCreateNodeEditPolicy {
@@ -114,7 +114,7 @@ public class DeferringCreateNodePolicy extends DefaultCreateNodeEditPolicy {
         } else {
             return null;
         }
-        
+
     }
 
     /**
@@ -125,6 +125,7 @@ public class DeferringCreateNodePolicy extends DefaultCreateNodeEditPolicy {
      * If no child model is found, return <tt>null</tt>.<br>
      * If the found model is not visible, return the host edit part.
      * <p>
+     *
      * @param metaclass The metaclass to create or drop.
      * @param location The mouse location.
      * @return <ul>
@@ -135,20 +136,20 @@ public class DeferringCreateNodePolicy extends DefaultCreateNodeEditPolicy {
     @objid ("80cc67fd-1dec-11e2-8cad-001ec947c8cc")
     protected EditPart getEditPartFor(Class<? extends MObject> metaclass, final Point location) {
         final GmCompositeNode gmNode = (GmCompositeNode) getHost().getModel();
-        
+
         // Look for the child node accepting the given node type.
         final GmCompositeNode gmTargetChild = gmNode.getCompositeFor(metaclass);
-        
+
         // If no one can contain the element, return null to forward to the parent.
         if (gmTargetChild == null) {
             return null;
         }
-        
+
         // If the child is not visible, return the host so that we will make the child visible.
         if (!gmTargetChild.isVisible()) {
             return getHost();
         }
-        
+
         // Return the edit part of the child node.
         final EditPart p = (EditPart) getHost().getRoot().getViewer().getEditPartRegistry().get(gmTargetChild);
         return p;
@@ -158,7 +159,7 @@ public class DeferringCreateNodePolicy extends DefaultCreateNodeEditPolicy {
     @Override
     public void showTargetFeedback(final Request request) {
         if (REQ_ADD.equals(request.getType()) || REQ_CREATE.equals(request.getType())) {
-        
+
             // Compute highlight type
             final Command c = getHost().getCommand(request);
             FigureUtilities2.HighlightType hightlightType = null;
@@ -169,7 +170,7 @@ public class DeferringCreateNodePolicy extends DefaultCreateNodeEditPolicy {
             } else {
                 hightlightType = FigureUtilities2.HighlightType.WARNING;
             }
-        
+
             // create the highlight figure if it does not exists
             if (this.highlight == null) {
                 // create a highlight figure
@@ -181,7 +182,7 @@ public class DeferringCreateNodePolicy extends DefaultCreateNodeEditPolicy {
             FigureUtilities2.updateHighlightType(this.highlight, hightlightType);
         }
         super.showTargetFeedback(request);
-        
+
     }
 
     @objid ("80ceca03-1dec-11e2-8cad-001ec947c8cc")
@@ -193,9 +194,9 @@ public class DeferringCreateNodePolicy extends DefaultCreateNodeEditPolicy {
                 this.highlight = null;
             }
         }
-        
+
         super.eraseTargetFeedback(request);
-        
+
     }
 
 }

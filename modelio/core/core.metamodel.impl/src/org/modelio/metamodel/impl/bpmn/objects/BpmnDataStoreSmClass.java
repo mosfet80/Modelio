@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.bpmn.objects;
 
 import java.util.ArrayList;
@@ -41,73 +40,73 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmDirective;
 
 @objid ("82e03360-b636-46dc-9bf6-0bd95319cbe0")
 public class BpmnDataStoreSmClass extends BpmnItemAwareElementSmClass {
-    @objid ("7820fb15-4359-446b-a312-050c9624152d")
+    @objid ("e49b276c-6690-4a7b-88c6-6f2969886b1b")
     private SmAttribute capacityAtt;
 
-    @objid ("9f684703-8ea9-43fc-b186-049859d850a7")
+    @objid ("26e37184-022d-497d-9b15-a948daaed51d")
     private SmAttribute isUnlimitedAtt;
 
-    @objid ("79efa508-f67c-4813-881a-11f31bb3e119")
-    public  BpmnDataStoreSmClass(ISmMetamodelFragment origin) {
+    @objid ("dc3d3ff5-b42c-4c23-8065-952bc537dd7c")
+    public BpmnDataStoreSmClass(ISmMetamodelFragment origin) {
         super(origin);
     }
 
-    @objid ("6c844f39-4b99-4812-8c17-21bbde5ed3ae")
+    @objid ("5143f528-5fab-4fe9-952e-90a401702fd7")
     @Override
     public String getName() {
         return "BpmnDataStore";
-        
+
     }
 
-    @objid ("5bbb7271-79b7-4e86-ae06-f22de6fb8077")
+    @objid ("8d111b40-171f-4ffb-8178-1b9a314bcb41")
     @Override
     public Version getVersion() {
         return new Version("0.0.9054");
     }
 
-    @objid ("59567d65-9851-45c2-870b-295abea25c17")
+    @objid ("204a8593-7906-4df7-95f7-372f9d58aed3")
     @Override
     public java.lang.Class<? extends MObject> getJavaInterface() {
         return BpmnDataStore.class;
-        
+
     }
 
-    @objid ("5b2902bc-650f-4d70-b6c9-b7f580cf042e")
+    @objid ("58918002-d5eb-4f9f-82b0-e068b659da08")
     @Override
     public boolean isCmsNode() {
         return false;
-        
+
     }
 
-    @objid ("6c3aa58a-3381-431d-9b7c-d6ce6c3fe5f6")
+    @objid ("e620a6df-b81a-4e40-a598-05aafd331e55")
     @Override
     public boolean isAbstract() {
         return false;
-        
+
     }
 
-    @objid ("61979f5b-7f63-4ad5-ab84-73162941d4d3")
+    @objid ("fde7a6dc-70ab-4b69-b286-0117921094df")
     @Override
     public void load(SmMetamodel metamodel) {
         this.parentClass = metamodel.getMClass(BpmnItemAwareElement.MQNAME);
         this.registerFactory(new BpmnDataStoreObjectFactory(this));
-        
-        
+
+
         // Initialize and register the SmAttribute
         this.capacityAtt = new CapacitySmAttribute();
         this.capacityAtt.init("Capacity", this, Integer.class );
         registerAttribute(this.capacityAtt);
-        
+
         this.isUnlimitedAtt = new IsUnlimitedSmAttribute();
         this.isUnlimitedAtt.init("IsUnlimited", this, Boolean.class );
         registerAttribute(this.isUnlimitedAtt);
-        
-        
+
+
         // Initialize and register the SmDependency
-        
+
     }
 
-    @objid ("bc67cd85-27ae-4654-936f-0da7b3e419b9")
+    @objid ("3aea3005-c3b3-4287-9162-7c5b84d89778")
     public SmAttribute getCapacityAtt() {
         if (this.capacityAtt == null) {
         	this.capacityAtt = this.getAttributeDef("Capacity");
@@ -115,7 +114,7 @@ public class BpmnDataStoreSmClass extends BpmnItemAwareElementSmClass {
         return this.capacityAtt;
     }
 
-    @objid ("f41ea051-e8a4-4d8d-9d93-0a00bbf01dd3")
+    @objid ("4033e897-6016-4680-9f80-429473517c75")
     public SmAttribute getIsUnlimitedAtt() {
         if (this.isUnlimitedAtt == null) {
         	this.isUnlimitedAtt = this.getAttributeDef("IsUnlimited");
@@ -125,21 +124,21 @@ public class BpmnDataStoreSmClass extends BpmnItemAwareElementSmClass {
 
     @objid ("d4b8a89e-d3e0-4f08-ac58-573fc94ee5cd")
     private static class BpmnDataStoreObjectFactory implements ISmObjectFactory {
-        @objid ("cab4f579-bf90-4e18-a032-f7600562636c")
+        @objid ("49a59376-821c-4b7a-bd5f-64a225c8a97a")
         private BpmnDataStoreSmClass smClass;
 
-        @objid ("a2386cd2-f6c7-4b3c-903b-24d91cede7a5")
-        public  BpmnDataStoreObjectFactory(BpmnDataStoreSmClass smClass) {
+        @objid ("c09a9d15-cc8a-4836-836c-733fe5639763")
+        public BpmnDataStoreObjectFactory(BpmnDataStoreSmClass smClass) {
             this.smClass = smClass;
         }
 
-        @objid ("19bb360f-2c46-4757-8283-6c16a2193cf2")
+        @objid ("45c5d22f-7040-4e1a-9933-47bd9845fcb3")
         @Override
         public ISmObjectData createData() {
             return new BpmnDataStoreData(this.smClass);
         }
 
-        @objid ("ce3b252e-02f2-4410-a12d-cb35582d6f9d")
+        @objid ("3a820fe3-e3f0-4a0b-a015-13c44fd40e1a")
         @Override
         public SmObjectImpl createImpl() {
             return new BpmnDataStoreImpl();
@@ -149,12 +148,12 @@ public class BpmnDataStoreSmClass extends BpmnItemAwareElementSmClass {
 
     @objid ("83fbc10d-f307-4e42-8ae4-b19bcb18a860")
     public static class CapacitySmAttribute extends SmAttribute {
-        @objid ("24cec915-925d-4ac1-8d80-0dff4b123f25")
+        @objid ("ca8296e3-ff9a-4695-b994-98aa5dd2a580")
         public Object getValue(ISmObjectData data) {
             return ((BpmnDataStoreData) data).mCapacity;
         }
 
-        @objid ("41cec441-3abb-4195-8c3d-7b4b22e4f065")
+        @objid ("8f2205c9-59d1-4213-8b7e-ba828f333308")
         public void setValue(ISmObjectData data, Object value) {
             ((BpmnDataStoreData) data).mCapacity = value;
         }
@@ -163,12 +162,12 @@ public class BpmnDataStoreSmClass extends BpmnItemAwareElementSmClass {
 
     @objid ("b7b85ecf-cbf3-40f7-b641-b51570ee0a94")
     public static class IsUnlimitedSmAttribute extends SmAttribute {
-        @objid ("eedc49d6-c9b6-489f-9814-a8c4d2e90c21")
+        @objid ("53f770f2-1b68-4e65-8be6-a91cf221f1e6")
         public Object getValue(ISmObjectData data) {
             return ((BpmnDataStoreData) data).mIsUnlimited;
         }
 
-        @objid ("c2314111-41bc-4797-9405-0718c6897872")
+        @objid ("d9e91ec7-f89e-4381-bd1d-b9370514374b")
         public void setValue(ISmObjectData data, Object value) {
             ((BpmnDataStoreData) data).mIsUnlimited = value;
         }

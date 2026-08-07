@@ -1,28 +1,28 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.contributor;
 
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.swt.graphics.Image;
@@ -83,9 +83,9 @@ public class BpmnCollaborationDiagramCreationContributor extends AbstractDiagram
     public AbstractDiagram actionPerformed(final ModelElement diagramContext, final String diagramName, final String diagramDescription) {
         final IStandardModelFactory modelFactory = this.mmServices.getModelFactory().getFactory(IStandardModelFactory.class);
         BpmnCollaborationDiagram diagram = null;
-        
+
         final BpmnCollaboration collaboration;
-        
+
         if (diagramContext instanceof BpmnCollaboration) {
             collaboration = (BpmnCollaboration) diagramContext;
         } else {
@@ -99,32 +99,32 @@ public class BpmnCollaborationDiagramCreationContributor extends AbstractDiagram
             }
             setElementDefaultName(collaboration);
         }
-        
+
         diagram = createBpmnCollaborationDiagram(modelFactory, collaboration, diagramName);
-        
+
         if (diagram != null) {
             diagram.putNoteContent("ModelerModule", ModelElement.MQNAME, "description", diagramDescription);
-        
+
             if (diagramContext instanceof BpmnProcess) {
                 BpmnProcess process = (BpmnProcess) diagramContext;
-        
+
                 // Create a participant
                 BpmnParticipant participant = modelFactory.createBpmnParticipant();
                 participant.setName(process.getName());
                 participant.setProcess(process);
                 participant.setContainer(collaboration);
-        
+
                 // Unmask it
                 IGmDiagram input = new BpmnGmDiagramCreator().createDiagram(new ModelManager(this.eclipseContext), diagram);
                 if (input != null) {
                     // Make the diagram visible at GM level.
                     input.setVisible(true);
-        
+
                     // Load from the persistence.
                     input.load();
-        
+
                     input.unmaskAsChild(participant, null);
-        
+
                     input.save(true);
                     input.dispose();
                 }
@@ -142,7 +142,7 @@ public class BpmnCollaborationDiagramCreationContributor extends AbstractDiagram
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("5bc66617-6536-4389-9a66-a22ce2dc13db")
@@ -191,7 +191,7 @@ public class BpmnCollaborationDiagramCreationContributor extends AbstractDiagram
         } else {
             return this.mmServices.getMetamodel();
         }
-        
+
     }
 
     @objid ("026b0ec2-0b00-41e4-8c59-ce928c3cae0b")

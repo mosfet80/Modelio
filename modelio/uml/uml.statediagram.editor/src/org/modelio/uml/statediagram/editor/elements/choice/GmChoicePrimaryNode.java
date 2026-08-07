@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statediagram.editor.elements.choice;
 
@@ -50,11 +50,12 @@ public class GmChoicePrimaryNode extends GmNoStyleSimpleNode implements IImageab
 
     /**
      * Constructor.
+     *
      * @param diagram the diagram in which the sendSignal is unmasked.
      * @param relatedRef related element reference, must not be <code>null</code>.
      */
     @objid ("f4f48ce5-55b6-11e2-877f-002564c97630")
-    public  GmChoicePrimaryNode(IGmDiagram diagram, MRef relatedRef) {
+    public GmChoicePrimaryNode(IGmDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
     }
 
@@ -70,9 +71,9 @@ public class GmChoicePrimaryNode extends GmNoStyleSimpleNode implements IImageab
         if (getRelatedElement() != null) {
             firePropertyChange(PROPERTY_LABEL, null, getRelatedElement().getName());
         }
-        // forcing visual refresh in case Image changed 
+        // forcing visual refresh in case Image changed
         firePropertyChange(PROPERTY_LAYOUTDATA, null, getLayoutData());
-        
+
     }
 
     @objid ("f4f48cf8-55b6-11e2-877f-002564c97630")
@@ -103,26 +104,26 @@ public class GmChoicePrimaryNode extends GmNoStyleSimpleNode implements IImageab
     @Override
     public IEditableText getEditableText() {
         return new IEditableText() {
-                                                                        
+
                                                                             @Override
                                                                             public String getText() {
                                                                         return getRelatedElement().getName();
                                                                                     }
-                                                                        
+
                                                                                     @Override
                                                                                     public void setText(String text) {
                                                                         getRelatedElement().setName(text);
                                                                                     }
-                                                                        
+
                                                                                 };
-        
+
     }
 
     /**
      * Constructor for deserialization only.
      */
     @objid ("f4f48d1b-55b6-11e2-877f-002564c97630")
-    public  GmChoicePrimaryNode() {
+    public GmChoicePrimaryNode() {
         // empty for the serialization
     }
 
@@ -143,17 +144,17 @@ public class GmChoicePrimaryNode extends GmNoStyleSimpleNode implements IImageab
             break;
         }
         }
-        
+
     }
 
     @objid ("f4f6137f-55b6-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmChoicePrimaryNode.", GmChoicePrimaryNode.MINOR_VERSION);
-        
+
     }
 
     @objid ("f4f61385-55b6-11e2-877f-002564c97630")

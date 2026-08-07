@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.api.dg;
 
@@ -55,7 +55,7 @@ import org.modelio.diagram.elements.core.model.IGmPath;
 
 /**
  * Implementation of {@link ILinkRoute}.
- * 
+ *
  * @author cma
  * @since 5.1.0
  */
@@ -68,24 +68,26 @@ public class LinkRoute implements ILinkRoute {
     private static final MPoint TMP = new MPoint();
 
     /**
+     *
      * @param ep the edited connection edit part
      */
     @objid ("264556f6-ddd6-4f08-afe6-80eae8b0103a")
-    public  LinkRoute(ConnectionEditPart ep) {
+    public LinkRoute(ConnectionEditPart ep) {
         this( (Connection) ep.getFigure());
     }
 
     /**
+     *
      * @param conn the edited connection figure
      */
     @objid ("fce58f5d-2ef8-4e21-a113-4b80e47ab340")
-    public  LinkRoute(Connection conn) {
+    public LinkRoute(Connection conn) {
         ConnectionView view = new ConnectionView().init(conn);
-        
+
         this.points.add(computeSourceLinkPoint(view, new LinkPointData(LinkPointKind.ANCHOR_DISCRETE, TMP)));
         computeBendPoints(conn, this.points);
         this.points.add(computeTargetLinkPoint(view, new LinkPointData(LinkPointKind.ANCHOR_DISCRETE, TMP)));
-        
+
     }
 
     @objid ("efecb1d6-65e4-4874-94ba-7ee5eda1e4bd")
@@ -104,6 +106,7 @@ public class LinkRoute implements ILinkRoute {
 
     /**
      * Applies the route to the edited Connection edit part.
+     *
      * @param connectionEditPart the connection edit part to apply this route to
      * @throws InvalidSourcePointException if the source anchor is missing
      * @throws InvalidPointsPathException if the target anchor is missing
@@ -114,10 +117,10 @@ public class LinkRoute implements ILinkRoute {
         if (this.points.isEmpty()) {
             createDefaultRoute(connectionEditPart);
         }
-        
+
         ILinkPoint sourceLinkPoint = getSourceAnchor();
         ILinkPoint targetLinkPoint = getTargetAnchor();
-        
+
         if (sourceLinkPoint == null) {
             throw new InvalidSourcePointException("No source anchor");
         }
@@ -130,49 +133,49 @@ public class LinkRoute implements ILinkRoute {
         if (! isAnchorPoint(targetLinkPoint)) {
             throw new InvalidSourcePointException(targetLinkPoint+" last point is not an anchor link point.");
         }
-        
+
         final IGmLink model = (IGmLink) connectionEditPart.getModel();
         final IGmPath newPath = new GmPath(model.getPath());
-        
+
         final RawPathData rawPath = createRawPathData(connectionEditPart);
-        
+
         ConnectionEditor editor = new ConnectionEditor().init(connectionEditPart);
-        
+
         ConnectionAnchor sourceAnchor = editor.requestSourceAnchor()
                 .withLocation(computeSourceAnchorRef(editor))
                 .withSliding(sourceLinkPoint.getKind() != LinkPointKind.ANCHOR_DISCRETE)
                 .requestAnchor();
-        
+
         ConnectionAnchor targetAnchor = editor.requestTargetAnchor()
                 .withLocation(computeTargetAnchorRef(editor))
                 .withSliding(targetLinkPoint.getKind() != LinkPointKind.ANCHOR_DISCRETE)
                 .requestAnchor();
-        
-        
+
+
         // Change the path
         newPath.setSourceAnchor(((IAnchorModelProvider) connectionEditPart.getSource()).createAnchorModel(sourceAnchor));
         newPath.setTargetAnchor(((IAnchorModelProvider) connectionEditPart.getTarget()).createAnchorModel(targetAnchor));
-        
+
         final Connection cnx = (Connection) connectionEditPart.getFigure();
         cnx.setSourceAnchor(sourceAnchor);
         cnx.setTargetAnchor(targetAnchor);
-        
+
         ConnectionRoutingServices routingServices = ConnectionPolicyUtils.getRoutingServices(connectionEditPart);
         IConnectionHelper helper = routingServices.getConnectionHelperFactory().createFromRawData(rawPath, cnx);
         Object modelPathData = helper.getModelPathData();
-        
+
         newPath.setPathData(modelPathData);
         model.setLayoutData(newPath);
-        
+
         cnx.getUpdateManager().performValidation();
-        
+
     }
 
     @objid ("4016f08e-423d-40db-839f-dab8e44fe962")
     private Point computeSourceAnchorRef(ConnectionEditor editor) {
         PrecisionRectangle sourceBounds = editor.getView().getAnchorBounds().source;
         Point forbidden = sourceBounds.getCenter();
-        
+
         Point ret = AnchorRefHelper.findGoodAnchorRef(getAllPoints(), ILinkPoint::getLocation, true, getAllPoints().size(), forbidden);
         if (ret != null)
             return ret;
@@ -183,7 +186,7 @@ public class LinkRoute implements ILinkRoute {
     private Point computeTargetAnchorRef(ConnectionEditor editor) {
         PrecisionRectangle targetBounds = editor.getView().getAnchorBounds().target;
         Point forbidden = targetBounds.getCenter();
-        
+
         Point ret = AnchorRefHelper.findGoodAnchorRef(getAllPoints(), ILinkPoint::getLocation, false, getAllPoints().size(), forbidden);
         if (ret != null)
             return ret;
@@ -199,6 +202,7 @@ public class LinkRoute implements ILinkRoute {
 
     /**
      * Create a completely empty LinkRoute.
+     *
      * @return an empty route
      */
     @objid ("b07ebc45-eb20-4998-baf6-49b05acedfbc")
@@ -242,7 +246,7 @@ public class LinkRoute implements ILinkRoute {
         if (index == 0 ||index >= this.points.size()-1)
             throw new IndexOutOfBoundsException(String.format("Index %d not inside [%d..%d]", index, 1, this.points.size()-2));
         this.points.remove(index);
-        
+
     }
 
     @objid ("b96e0fdf-901b-4212-82e9-8de9474815bd")
@@ -264,7 +268,7 @@ public class LinkRoute implements ILinkRoute {
         if (n == 0) {
             this.points.add(new LinkPointData(LinkPointKind.ANCHOR_DISCRETE, new Point()));
         }
-        
+
         LinkPointKind kind = sliding ? LinkPointKind.ANCHOR_SLIDING : LinkPointKind.ANCHOR_DISCRETE;
         if (n==1) {
             this.points.add(new LinkPointData(kind, loc));
@@ -298,8 +302,8 @@ public class LinkRoute implements ILinkRoute {
      * initialize a completely empty LinkRoute.
      */
     @objid ("21757b46-1d36-479d-a620-1aa239f169c7")
-    protected  LinkRoute() {
-        
+    protected LinkRoute() {
+
     }
 
     @objid ("8b39d7ca-0eb8-4ed9-b4a7-052514ba84a3")
@@ -324,7 +328,7 @@ public class LinkRoute implements ILinkRoute {
                 out.add(new LinkPointData(kind , TMP));
             }
         }
-        
+
     }
 
     @objid ("66c1c6a8-780a-4c44-94c0-6eb1a5aa9567")
@@ -359,18 +363,18 @@ public class LinkRoute implements ILinkRoute {
                 .setSourceAnchorFaceTarget(false)
                 .setTargetAnchorFaceSource(false)
                 .getAllPoints());
-        
+
     }
 
     @objid ("3c6e3b5c-6ae6-41e2-b17d-f58e5cd7df0c")
     private RawPathData createRawPathData(ConnectionEditPart editPart) {
         final IGmLink gmLink = (IGmLink) editPart.getModel();
-        
+
         final RawPathData rawPath = new RawPathData();
         rawPath.setRoutingMode(gmLink.getPath().getRouterKind());
         rawPath.setSrcPoint(this.points.get(0).getLocation());
         rawPath.setLastPoint(this.points.get(this.points.size()-1).getLocation());
-        
+
         // Add all bend points in the raw path
         List<Point> rawPathPoints = rawPath.getPath();
         for (int i = 1, n = this.points.size() - 1; i < n; i++) {
@@ -389,7 +393,7 @@ public class LinkRoute implements ILinkRoute {
             return LinkPointKind.ANCHOR_DISCRETE;
         else
             return LinkPointKind.ANCHOR_SLIDING;
-        
+
     }
 
     @objid ("565f553b-8c84-4136-a15e-02f86b890d54")
@@ -406,7 +410,7 @@ public class LinkRoute implements ILinkRoute {
         default:
             return bounds.getCenter();
         }
-        
+
     }
 
     @objid ("2420f248-c970-4d7d-a5f2-1b648e85fbdf")
@@ -426,11 +430,11 @@ public class LinkRoute implements ILinkRoute {
         private final Point location;
 
         @objid ("a7270a4a-bb47-44a8-8e36-90a2917c36b3")
-        public  LinkPointData(LinkPointKind kind, Point location) {
+        public LinkPointData(LinkPointKind kind, Point location) {
             super();
             this.kind = kind;
             this.location = new Point(location);
-            
+
         }
 
         @objid ("e24f8fac-4279-4555-b528-22521d3c29a4")

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.ui.audit;
 
@@ -48,7 +48,7 @@ public class R3090 extends AbstractBpmnRule {
 
     /**
      * The checker unique instance. Remove it if you are not using a unique checker strategy.<br>
-     * 
+     *
      * @see AbstractRule#getCreationControl(Element)
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
@@ -63,7 +63,7 @@ public class R3090 extends AbstractBpmnRule {
                 AuditTrigger.MOVE |
                 AuditTrigger.UPDATE);
         plan.registerRule(BpmnFlowNode.MQNAME, this, AuditTrigger.MOVE);
-        
+
     }
 
     @objid ("f1dc89e2-a4da-4107-91e6-0730b713899a")
@@ -106,7 +106,7 @@ public class R3090 extends AbstractBpmnRule {
      * Default constructor for R3090
      */
     @objid ("6dcd8f38-a8bd-4800-931d-eb89f227bee8")
-    public  R3090() {
+    public R3090() {
         this.checkerInstance = new CheckR3090(this);
     }
 
@@ -117,10 +117,11 @@ public class R3090 extends AbstractBpmnRule {
     private static class CheckR3090 extends AbstractControl {
         /**
          * C'tor.
+         *
          * @param rule the rule to check.
          */
         @objid ("62772d4b-735b-44f3-a23c-b3bd4934c89c")
-        public  CheckR3090(final IRule rule) {
+        public CheckR3090(final IRule rule) {
             super(rule);
         }
 
@@ -149,16 +150,16 @@ public class R3090 extends AbstractBpmnRule {
                     AuditSeverity.AuditSuccess,
                     flow,
                     null);
-            
+
             BpmnFlowNode sourceRef = flow.getSourceRef();
             BpmnFlowNode targetRef = flow.getTargetRef();
             if (sourceRef == null || targetRef == null) {
                 return auditEntry;
             }
-            
+
             BpmnProcess sourceProcess = getProcess(sourceRef);
             BpmnProcess targetProcess = getProcess(targetRef);
-            
+
             if (sourceProcess != null && targetProcess != null && !sourceProcess.equals(targetProcess)) {
                 // Rule failed
                 auditEntry.setSeverity(this.rule.getSeverity());

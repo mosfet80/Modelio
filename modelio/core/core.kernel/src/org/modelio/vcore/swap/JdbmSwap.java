@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.swap;
 
@@ -82,15 +82,15 @@ public class JdbmSwap implements ISwap {
             this.saveEntry.data = data;
             this.saveEntry.metaId = this.metaObjectIndex.getId(data.getMetaOf());
             this.saveEntry.storeHandleId = this.storeIndex.getId(data.getRepositoryObject());
-        
+
             long recid = this.db.insert(this.saveEntry, this.dataSerializer);
             this.uidMap.put(data.getUuid(), Long.valueOf(recid));
-        
+
             commitSometimes();
         } catch (IOException e) {
             throw new IOError(e);
         }
-        
+
     }
 
     @objid ("d8dc15ed-8499-11e1-b644-001ec947ccaf")
@@ -101,13 +101,13 @@ public class JdbmSwap implements ISwap {
             if (lrecid == null) {
                 return null;
             }
-        
+
             long recid = lrecid.longValue();
             CacheEntry entry = this.db.fetch(recid, this.dataSerializer);
             if (entry == null) {
                 throw new IOException(recid+" record containing "+uuid.toString()+" object not found in swap.");
             }
-        
+
             SmObjectData ret = entry.data;
             IRepositoryObject storageHandle = this.storeIndex.getObject(entry.storeHandleId);
             IMetaOf metaObject = this.metaObjectIndex.getObject(entry.metaId);
@@ -118,46 +118,47 @@ public class JdbmSwap implements ISwap {
                 ret.setRepositoryObject(storageHandle);
                 ret.setMetaOf(metaObject);
             }
-        
+
             this.db.delete(recid);
             //            Log.trace("Swap restoring: "+ret.getClassOf().getName()+ " "+ret.getUuid());
-        
+
             commitSometimes();
-        
+
             return ret;
         } catch (IOException e) {
             throw new IOError(e);
         }
-        
+
     }
 
     /**
      * Initializes the swap to the given directory.
      * <p>
      * The directory will be deleted on close.
+     *
      * @param metamodel the metamodel
      * @param swapDirectory The swap path. Must be a directory, preferably empty.
      */
     @objid ("f5f214d7-84b5-11e1-b644-001ec947ccaf")
-    public  JdbmSwap(SmMetamodel metamodel, final File swapDirectory) {
+    public JdbmSwap(SmMetamodel metamodel, final File swapDirectory) {
         this.swapPath = swapDirectory.getAbsolutePath();
         this.dataSerializer = new CacheEntrySerializer(metamodel);
-        
+
         try {
             Properties props = new Properties();
             props.setProperty(RecordManagerOptions.DISABLE_TRANSACTIONS, "true");
             props.setProperty(RecordManagerOptions.CACHE_TYPE, "none");
             props.setProperty(RecordManagerOptions.CACHE_SIZE, "0");
             this.db = RecordManagerFactory.createRecordManager(this.swapPath+"/swap", props );
-        
+
             this.uidMap = this.db.hashMap("uid", null, LongSerializer.instance);
-        
+
         } catch (IOException e) {
             throw new IOError(e);
         }
-        
+
         //        Log.trace("Swap initialized to:"+swapDirectory);
-        
+
     }
 
     @objid ("f5f214dd-84b5-11e1-b644-001ec947ccaf")
@@ -167,19 +168,19 @@ public class JdbmSwap implements ISwap {
             //            Log.trace("Swap commiting swap...");
             this.db.commit();
             //            Log.trace("   commiting swap done.");
-        
+
             this.opCount = 0;
         }
-        
+
     }
 
     @objid ("f5f214df-84b5-11e1-b644-001ec947ccaf")
     @Override
     protected void finalize() throws Throwable {
         close();
-        
+
         super.finalize();
-        
+
     }
 
     @objid ("f5f214e2-84b5-11e1-b644-001ec947ccaf")
@@ -195,13 +196,14 @@ public class JdbmSwap implements ISwap {
                 Log.warning(e);
             }
         }
-        
+
     }
 
     /**
      * Set the commit to disk frequency.
      * <p>
      * The value is the number of call to {@link #swap(SmObjectData)} leading to one commit.
+     *
      * @return the commit to swap frequency.
      */
     @objid ("dcbc24f5-493b-11e2-91c9-001ec947ccaf")
@@ -213,6 +215,7 @@ public class JdbmSwap implements ISwap {
      * Set the commit to disk frequency.
      * <p>
      * The value is the number of call to {@link #swap(SmObjectData)} leading to one commit.
+     *
      * @param commitFreq the commit to swap frequency
      */
     @objid ("dcbc24fa-493b-11e2-91c9-001ec947ccaf")
@@ -235,7 +238,7 @@ public class JdbmSwap implements ISwap {
         SmObjectData data;
 
         @objid ("dd913d06-cb55-11e1-87f1-001ec947ccaf")
-        public  CacheEntry() {
+        public CacheEntry() {
             // nothing to do
         }
 
@@ -245,7 +248,7 @@ public class JdbmSwap implements ISwap {
      * Index that assigns an unique integer to an object and can retrieve one from the other.
      * <p>
      * The objects are all stored by weak reference.
-     * 
+     *
      * @param <T> the type of the elements to index.
      */
     @objid ("f5f214e6-84b5-11e1-b644-001ec947ccaf")
@@ -264,7 +267,7 @@ public class JdbmSwap implements ISwap {
             if (repositoryObject == null) {
                 throw new IllegalArgumentException("null not permitted.");
             }
-            
+
             Integer i = this.objectToIdMap.get(repositoryObject);
             if (i == null) {
                 i = Integer.valueOf(this.indexCount);
@@ -278,13 +281,13 @@ public class JdbmSwap implements ISwap {
         @objid ("f5f214fd-84b5-11e1-b644-001ec947ccaf")
         public synchronized T getObject(final int index) {
             WeakReference<T> ref = this.idToObjectMap.get(Integer.valueOf(index));
-            
+
             assert (ref != null) : (index+" object not in map.");
             return ref.get();
         }
 
         @objid ("dd913d08-cb55-11e1-87f1-001ec947ccaf")
-        public  Index() {
+        public Index() {
             // nothing to do
         }
 

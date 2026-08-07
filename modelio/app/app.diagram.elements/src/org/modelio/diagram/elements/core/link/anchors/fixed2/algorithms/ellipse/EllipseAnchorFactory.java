@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.anchors.fixed2.algorithms.ellipse;
 
@@ -39,6 +39,7 @@ import org.modelio.diagram.styles.core.StyleKey.ConnectionRouterId;
  * <p>
  * Produces one anchor at each face middle and one {@link EllipseAnchor}
  * used for non orthogonal links.
+ *
  * @author cmarin
  */
 @objid ("898771e1-7bd9-4c79-8e3b-8e6ecb96555b")
@@ -47,14 +48,14 @@ public class EllipseAnchorFactory extends ConfigurableFixedAnchorFactory {
     protected EllipseAnchor ellipseAnchor;
 
     @objid ("7bd68801-684b-46db-a69d-66673a67e944")
-    public  EllipseAnchorFactory(String algorithmId, IFixedAnchorLocator locator) {
+    public EllipseAnchorFactory(String algorithmId, IFixedAnchorLocator locator) {
         super(algorithmId, locator);
         setAnchorCount(1, 1);
-        
+
     }
 
     @objid ("963ec4cf-58af-488e-bb42-1be02df2e5d4")
-    public  EllipseAnchorFactory(String algorithmId) {
+    public EllipseAnchorFactory(String algorithmId) {
         this(algorithmId, new TolerantFixedAnchorLocator(new FixedNodeAnchorLocator(algorithmId), 1));
     }
 
@@ -65,7 +66,7 @@ public class EllipseAnchorFactory extends ConfigurableFixedAnchorFactory {
             return Collections.singleton(this.ellipseAnchor);
         else
             return super.getAllAnchors( routerId, face);
-        
+
     }
 
     @objid ("6367e5f1-662b-441e-97da-b19fbc2f4e55")
@@ -85,7 +86,7 @@ public class EllipseAnchorFactory extends ConfigurableFixedAnchorFactory {
         } else {
             return super.getNearest(absPoint, routerId, face, isSource);
         }
-        
+
     }
 
 }

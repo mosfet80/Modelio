@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.diagramauto.tools.layout;
 
@@ -42,24 +42,24 @@ public class MatrixLayout {
     private int y0 = 0;
 
     @objid ("915cf46d-37bd-4348-81ae-7260ae60ceba")
-    public  MatrixLayout() {
-        
+    public MatrixLayout() {
+
     }
 
     @objid ("3fcb58dc-f780-4daf-a71b-23be9e1852c0")
-    public  MatrixLayout(int x0, int y0) {
+    public MatrixLayout(int x0, int y0) {
         this.x0 = x0;
         this.y0 = y0;
-        
+
     }
 
     @objid ("05e3851e-806b-4d95-ad94-5c9a487b3027")
-    public  MatrixLayout(int x0, int y0, int dx, int dy) {
+    public MatrixLayout(int x0, int y0, int dx, int dy) {
         this.x0 = x0;
         this.y0 = y0;
         this.deltaX = dx;
         this.deltaY = dy;
-        
+
     }
 
     /**
@@ -71,18 +71,18 @@ public class MatrixLayout {
         for (IDiagramNode dg : contentDgs) {
             dg.fitToContent();
         }
-        
+
         // Compute the matrix geometry
         Point[] geo = getMatrixGeometry(contentDgs);
         int nrows = geo[0].x;
         int ncols = geo[0].y;
         int cellWidth = geo[1].x;
         int cellHeight = geo[1].y;
-        
+
         // Place the elements in the matrix
         layoutElements(contentDgs, cellWidth, cellHeight, nrows, ncols);
         dh.save();
-        
+
     }
 
     /**
@@ -102,16 +102,17 @@ public class MatrixLayout {
 
     /**
      * Compute the matrix gemotry based on the contained node number and size.
+     *
      * @return Two int pairs. The Point class is used to represent int pairs. First returned Point is (nrows, ncols), the second returned point is (cellWidht, cellHeight).
      */
     @objid ("84f40b8f-01e1-40e7-8a09-02fa98fcb617")
     private Point[] getMatrixGeometry(List<IDiagramNode> contentDgs) {
         Point[] geo = new Point[2];
-        
+
         int n = contentDgs.size();
         int ncols = n != 0 ? (int) Math.ceil(Math.sqrt(n * 16.0 / 9.0)) : 0;
         int nrows = n != 0 ? n / ncols : 0;
-        
+
         int maxWidth = 0;
         int maxHeight = 0;
         // compute max height and width of the elements to layout.
@@ -120,7 +121,7 @@ public class MatrixLayout {
             maxWidth = Math.max(maxWidth, r.width);
             maxHeight = Math.max(maxHeight, r.height);
         }
-        
+
         geo[0] = new Point(nrows, ncols);
         geo[1] = new Point(maxWidth, maxHeight);
         return geo;
@@ -128,13 +129,14 @@ public class MatrixLayout {
 
     /**
      * Sets locations and size of all dgs, aligned on a nrows, ncols matrix The center of each dg is part of the circle itself.
+     *
      * @param dgs the graphics to layout.
      */
     @objid ("e6cf7e87-3225-48e7-9413-96501700a52f")
     protected Rectangle layoutElements(final List<IDiagramNode> dgs, int w, int h, int nrows, int ncols) {
         int curRow = 0;
         int curCol = 0;
-        
+
         for (IDiagramNode dg : dgs) {
             dg.setSize(w, h);
             DgUtils.setLocation(dg, this.x0 + curCol * (w + this.deltaX), this.y0 + curRow * (h + this.deltaY));

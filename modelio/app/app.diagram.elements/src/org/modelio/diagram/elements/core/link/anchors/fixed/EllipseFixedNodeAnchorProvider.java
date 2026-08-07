@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.link.anchors.fixed;
 
@@ -32,14 +32,14 @@ import org.modelio.diagram.styles.core.StyleKey.ConnectionRouterId;
 @Deprecated
 class EllipseFixedNodeAnchorProvider extends AbstractFixedNodeAnchorProvider {
     @objid ("05e415f7-b86c-4673-95de-9e4a1e2c26c9")
-    public  EllipseFixedNodeAnchorProvider() {
+    public EllipseFixedNodeAnchorProvider() {
         super(new EllipseFixedNodeAnchorFactory("ellipse"));
     }
 
     @objid ("6588fc31-3867-484e-909e-2acd0b0c776c")
     public static class EllipseFixedNodeAnchorFactory extends FixedConnectionAnchorFactory {
         @objid ("f71f77af-7dae-43d7-b0cd-d36507854e04")
-        public  EllipseFixedNodeAnchorFactory(String algorithmId) {
+        public EllipseFixedNodeAnchorFactory(String algorithmId) {
             super(algorithmId, 1,1);
         }
 
@@ -61,7 +61,7 @@ class EllipseFixedNodeAnchorProvider extends AbstractFixedNodeAnchorProvider {
                 return Collections.singleton(getEllipseState(node).ellipseAnchor);
             else
                 return super.getAllAnchors(node, routerId, face);
-            
+
         }
 
         @objid ("dacf182e-80bf-4c84-acaa-3f07ef4bfd30")
@@ -71,7 +71,7 @@ class EllipseFixedNodeAnchorProvider extends AbstractFixedNodeAnchorProvider {
                 return getEllipseState(node).ellipseAnchor;
             else
                 return super.getNearest(node, absPoint, routerId, face, isSource);
-            
+
         }
 
         @objid ("0bdcd91f-5a87-4276-a3b5-c2cea0eb912a")

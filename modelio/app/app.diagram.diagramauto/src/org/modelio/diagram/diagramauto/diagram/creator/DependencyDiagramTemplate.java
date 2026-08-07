@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.diagramauto.diagram.creator;
 
@@ -65,13 +65,13 @@ public class DependencyDiagramTemplate extends AbstractDiagramTemplate {
      * Mandatory default c'tor needed by eclipse when loading the extension point.
      */
     @objid ("b2f35d46-bdf0-4b35-af54-f7d51b948ff7")
-    public  DependencyDiagramTemplate() {
+    public DependencyDiagramTemplate() {
         super();
-        
+
         this._leftDgs = new ArrayList<>();
         this._rightDgs = new ArrayList<>();
         this._unmasker = new NodeRollingUnmasker();
-        
+
     }
 
     @objid ("a9d4794a-2a64-465a-a23e-e96c1e98ffdd")
@@ -91,7 +91,7 @@ public class DependencyDiagramTemplate extends AbstractDiagramTemplate {
         } else {
             return null;
         }
-        
+
     }
 
     @objid ("c6761c35-0916-4fc1-b117-718a0f936235")
@@ -100,16 +100,16 @@ public class DependencyDiagramTemplate extends AbstractDiagramTemplate {
         // Get rid of dumb case
         if (!(elt instanceof NameSpace))
             return;
-        
+
         NameSpace main = (NameSpace) elt;
-        
+
         // the main element
         this._mainDG = this._unmasker.unmask(dh, main, 100, 100);
         if (_mainDG != null) {
             this._mainDG.setRepresentationMode(1);
             initStyle(main, main, this._mainDG);
         }
-        
+
         // Unmask incoming blue links
         for (ImpactLink blueLink : main.getImpactImpacted()) {
             // Unmask user node unless it belongs to main
@@ -123,7 +123,7 @@ public class DependencyDiagramTemplate extends AbstractDiagramTemplate {
                 }
             }
         }
-        
+
         // Unmask outgoing blue links
         for (ImpactLink blueLink : main.getImpactDependsOn()) {
             // Unmask used node unless it belongs to main
@@ -136,9 +136,9 @@ public class DependencyDiagramTemplate extends AbstractDiagramTemplate {
                     this._rightDgs.add(node);
                 }
             }
-        
+
         }
-        
+
     }
 
     @objid ("a950b10a-e17a-4b2e-9e8f-9e32a93a0ad0")
@@ -146,9 +146,9 @@ public class DependencyDiagramTemplate extends AbstractDiagramTemplate {
         // Get rid of dumb case
         if (!(elt instanceof NameSpace))
             return;
-        
+
         NameSpace main = (NameSpace) elt;
-        
+
         // Unmask incoming blue links unless source belongs to main (inner)
         for (ImpactLink blueLink : main.getImpactImpacted()) {
             ModelElement impactedElement = blueLink.getImpacted();
@@ -156,7 +156,7 @@ public class DependencyDiagramTemplate extends AbstractDiagramTemplate {
                 dh.unmask(blueLink, 0, 0);
             }
         }
-        
+
         // Unmask outgoing blue links unless target belongs to main (inner)
         for (ImpactLink blueLink : main.getImpactDependsOn()) {
             ModelElement dependsOn = blueLink.getDependsOn();
@@ -164,7 +164,7 @@ public class DependencyDiagramTemplate extends AbstractDiagramTemplate {
                 dh.unmask(blueLink, 0, 0);
             }
         }
-        
+
     }
 
     @objid ("b3141c26-8030-4a98-8b08-f6ef2d0dc987")
@@ -178,7 +178,7 @@ public class DependencyDiagramTemplate extends AbstractDiagramTemplate {
         } else {
             node.setStyle(new DiagramStyleHandle(DiagramStyles.getStyleManager().getStyle(DiagramStyles.EXTERN_STYLE_NAME)));
         }
-        
+
     }
 
     @objid ("b257d36c-39d5-454c-b926-655b901448a9")
@@ -191,7 +191,7 @@ public class DependencyDiagramTemplate extends AbstractDiagramTemplate {
     @objid ("061f4d3d-a4e7-4e2a-b1d6-c4b6d7d09c9e")
     private ModelTree getOwnerPackage(final ModelTree elt) {
         ModelTree parent = elt.getOwner();
-        
+
         // Take parents for Inner elements
         while ((parent != null)) {
             if (parent instanceof Package) {
@@ -209,7 +209,7 @@ public class DependencyDiagramTemplate extends AbstractDiagramTemplate {
         // The 'FourGroupNodeLayout' used here implies that the node layout depends on the unmasked links (in order to place the nodes where links can be correctly routed).
         // At this stage the links are not unmasked yet and their DGs not existing,
         // therefore the node layout is postponed to the layoutLinks() call where we are sure that the link DGs are unmasked and accessible.
-        
+
     }
 
     @objid ("a99c731b-44b7-40e1-8e51-c491ae2202a8")
@@ -224,20 +224,20 @@ public class DependencyDiagramTemplate extends AbstractDiagramTemplate {
                 DiagramAuto.LOG.debug(e);
             }
         }
-        
+
     }
 
     @objid ("f2e3349a-ceb7-4a52-a5a4-ab0288050f3a")
     @Override
     public ModelElement getMainElement(AbstractDiagram autoDiagram) {
         final ModelElement owner = autoDiagram.getOrigin();
-        
+
         for (MObject child : owner.getCompositionChildren()) {
             String expectedName = child.getName() + " (" + getId() + ")";
             if (autoDiagram.getName().equals(expectedName)) {
                 return (ModelElement) child;
             }
-        
+
             // Migration case
             String oldExpectedName = child.getName() + " (" + getId() + ")";
             if (autoDiagram.getName().equals(oldExpectedName)) {
@@ -250,7 +250,7 @@ public class DependencyDiagramTemplate extends AbstractDiagramTemplate {
     @objid ("283d86d9-a19f-4e31-9493-31e569dd1869")
     private ModelTree getOwnerPackage(final ModelElement elt) {
         MObject parent = elt.getCompositionOwner();
-        
+
         // Take parents for Inner elements
         while ((parent != null)) {
             if (parent instanceof Package) {
@@ -281,7 +281,7 @@ public class DependencyDiagramTemplate extends AbstractDiagramTemplate {
         this._leftDgs.clear();
         this._rightDgs.clear();
         this._unmasker = new NodeRollingUnmasker();
-        
+
     }
 
 }

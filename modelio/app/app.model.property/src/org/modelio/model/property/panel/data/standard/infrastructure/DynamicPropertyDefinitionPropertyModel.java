@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.model.property.panel.data.standard.infrastructure;
 
@@ -60,15 +60,17 @@ public class DynamicPropertyDefinitionPropertyModel extends AbstractPropertyMode
     /**
      * Create a new <i>DynamicPropertyDefinition</i> data model from an
      * <i>DynamicPropertyDefinition</i>.
+     *
      * @param theEditedElement the model to edit.
      */
     @objid ("22bcf49f-e52a-46f9-b0cb-160e54031953")
-    public  DynamicPropertyDefinitionPropertyModel(DynamicPropertyDefinition theEditedElement) {
+    public DynamicPropertyDefinitionPropertyModel(DynamicPropertyDefinition theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("460ec6a1-b64e-475c-836c-b86fcbda23b4")
@@ -79,6 +81,7 @@ public class DynamicPropertyDefinitionPropertyModel extends AbstractPropertyMode
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("568b05cd-5d63-440d-8c4d-f7880bfafd80")
@@ -91,6 +94,7 @@ public class DynamicPropertyDefinitionPropertyModel extends AbstractPropertyMode
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -122,7 +126,6 @@ public class DynamicPropertyDefinitionPropertyModel extends AbstractPropertyMode
         default:
             return null;
         }
-        
     }
 
     /**
@@ -132,6 +135,7 @@ public class DynamicPropertyDefinitionPropertyModel extends AbstractPropertyMode
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -159,11 +163,9 @@ public class DynamicPropertyDefinitionPropertyModel extends AbstractPropertyMode
                     @Override
                     public boolean accept(MObject element) {
                         Stereotype stereotype = (Stereotype) element;
-                        boolean isInAnalystProfile = stereotype.getOwner() != null ? stereotype.getOwner().getName().equals("Analyst") : false;
-                        boolean isTrace = stereotype.getName().equals("trace");
                         String baseClassName = stereotype.getBaseClassName();
                         boolean isDependency = baseClassName.equals(Dependency.MNAME) || baseClassName.equals(Dependency.MQNAME);
-                        return isDependency && (isInAnalystProfile || isTrace);
+                        return isDependency;
                     }
                 });
                 return stereotypeValue;
@@ -173,13 +175,13 @@ public class DynamicPropertyDefinitionPropertyModel extends AbstractPropertyMode
         default:
             return null;
         }
-        
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -210,7 +212,6 @@ public class DynamicPropertyDefinitionPropertyModel extends AbstractPropertyMode
         default:
             return;
         }
-        
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.instancelink;
 
@@ -32,7 +32,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Specialization of {@link GmDefaultModelElementHeader} for representing roles of a {@link LinkEnd}.
- * 
+ *
  * @author fpoyer
  */
 @objid ("355eb95c-55b7-11e2-877f-002564c97630")
@@ -53,21 +53,22 @@ public class GmLinkRoleNameLabel extends GmDefaultModelElementHeader {
      * Empty c'tor for deserialization.
      */
     @objid ("355eb968-55b7-11e2-877f-002564c97630")
-    public  GmLinkRoleNameLabel() {
+    public GmLinkRoleNameLabel() {
         // Nothing to do.
     }
 
     /**
      * c'tor.
+     *
      * @param diagram the diagram in which this label is created
      * @param role the represented role, might be null.
      * @param ref a reference to the represented role. must be non null.
      */
     @objid ("355eb96b-55b7-11e2-877f-002564c97630")
-    public  GmLinkRoleNameLabel(IGmDiagram diagram, LinkEnd role, MRef ref) {
+    public GmLinkRoleNameLabel(IGmDiagram diagram, LinkEnd role, MRef ref) {
         super(diagram, ref);
         this.role = role;
-        
+
     }
 
     @objid ("355eb977-55b7-11e2-877f-002564c97630")
@@ -93,7 +94,7 @@ public class GmLinkRoleNameLabel extends GmDefaultModelElementHeader {
                 break;
             }
         }
-        
+
     }
 
     @objid ("35603fe4-55b7-11e2-877f-002564c97630")
@@ -106,10 +107,10 @@ public class GmLinkRoleNameLabel extends GmDefaultModelElementHeader {
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmLinkRoleNameLabel.", GmLinkRoleNameLabel.MINOR_VERSION);
-        
+
     }
 
     @objid ("35603fef-55b7-11e2-877f-002564c97630")
@@ -119,7 +120,7 @@ public class GmLinkRoleNameLabel extends GmDefaultModelElementHeader {
         if (resolveRef instanceof LinkEnd) {
             this.role = (LinkEnd) resolveRef;
         }
-        
+
     }
 
     @objid ("35603ff4-55b7-11e2-877f-002564c97630")

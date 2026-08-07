@@ -16,6 +16,9 @@ function EclipseIntegration() {
 }
 
 EclipseIntegration.prototype.init = function(editor) {
+	console.debug( "EclipseIntegration.init()" );
+
+	this.eclipseRunning = (typeof _eclipse_running !== 'undefined');
 	this.editor = editor;
 	this.data = editor.getData();
 	this.format.init(editor);
@@ -30,20 +33,34 @@ EclipseIntegration.prototype.init = function(editor) {
 		thisInstance.selectionChanged(ev)
 	});
 
-	editor.on('focus', function(ev) {
-		thisInstance.focusGained(ev)
-	});
 
-	editor.on('blur', function(ev) {
-		thisInstance.focusLost(ev)
-	});
+		editor.on('focus', function(ev) {
+			thisInstance.focusGained(ev)
+		});
+		editor.on('blur', function(ev) {
+			thisInstance.focusLost(ev)
+		});
+
+		// Use native DOM events to catch focus/blur
+		document.body.addEventListener('blur', function(ev) {
+		    thisInstance.focusLost(ev)
+		}, true);
+
+		document.body.addEventListener('focus', function(ev) {
+			thisInstance.focusGained(ev)
+		}, true);
+
+
 
 	this.timerModifications();
 
 	// Warn the Java side that initialization on the Browser side is done
 	if (this.eclipseRunning) {
+		console.debug( "EclipseIntegration.init():  Eclipse is running" );
 		this.callDelegateInit();
-	}
+	} else {
+        console.warn( "EclipseIntegration.init():  Eclipse is NOT running" );
+    }
 
 }
 
@@ -51,11 +68,17 @@ EclipseIntegration.prototype.init = function(editor) {
  * Warn the Java side that initialization on the Browser side is done
  */
 EclipseIntegration.prototype.callDelegateInit = function() {
+
 	if (this.delegateInitCalled) {
+		console.debug( "  callDelegateInit() - already called" );
 		return;
 	}
+	console.debug( "callDelegateInit() - fist time" );
+
 	this.delegateInitCalled = true;
+
 	setTimeout(function() {
+		console.debug( "  callDelegateInit() - calling _delegate_init()" );
     	_delegate_init();
 	}, 100);
 }
@@ -85,8 +108,18 @@ EclipseIntegration.prototype.modified = function(event) {
 }
 EclipseIntegration.prototype.focusGained = function(event) {
 	this.currentFocusEvent = event;
+	console.info( "focusGained() - event: " + event );
+	// Do not steal focus if a CKEditor dialog is open
+	if (CKEDITOR.dialog.getCurrent()) {
+		return;
+	}
+
 	editor.focus();
-	editor.getSelection().selectElement(this.currentSelection);
+	// check this.currentSelection defined
+	if (this.currentSelection) {
+    	editor.getSelection().selectElement(this.currentSelection);
+	}
+
 	// editor.getSelection.unlock(true);
 	if (this.eclipseRunning) {
 		_delegate_focusGained();
@@ -95,11 +128,31 @@ EclipseIntegration.prototype.focusGained = function(event) {
 }
 
 EclipseIntegration.prototype.focusLost = function(event) {
-	// editor.getSelection.lock();
-	this.currentSelection = this.editor.getSelection().getStartElement();
-	if (this.eclipseRunning) {
-		_delegate_focusLost();
+	// Do not process focus-lost while a CKEditor dialog is open:
+	// blur events fire during native <select> interaction inside dialogs and
+	// calling _delegate_focusLost() triggers async SWT actions that can
+	// disrupt the dialog (combo stays open, selection lost before onOk).
+	console.info( "focusLost() - event: " + event );
+
+	if (CKEDITOR.dialog.getCurrent()) {
+		return;
 	}
+	var thisInstance = this;
+	    // Délai pour laisser le panel combo s'ouvrir
+	    setTimeout(function() {
+	        // Revérifier si un panel est ouvert
+	        var panels = document.querySelectorAll('.cke_combopanel');
+	        for (var i = 0; i < panels.length; i++) {
+	            if (panels[i].style.display !== 'none') { return; }
+	        }
+	        // Revérifier si le focus est revenu dans l'éditeur
+	        if (thisInstance.editor.focusManager.hasFocus) { return; }
+
+	        thisInstance.currentSelection = thisInstance.editor.getSelection().getStartElement();
+	        if (thisInstance.eclipseRunning) {
+	            _delegate_focusLost();
+	        }
+	    }, 1000);
 }
 
 

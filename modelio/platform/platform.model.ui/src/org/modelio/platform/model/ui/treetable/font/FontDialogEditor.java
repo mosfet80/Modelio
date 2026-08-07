@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.treetable.font;
 
@@ -49,38 +49,38 @@ public class FontDialogEditor extends CellEditor {
     /**
      * The value of this cell editor; initially <code>null</code>.
      */
-    @objid ("6b36fd02-1eba-11e2-9382-bc305ba4815c")
+    @objid ("13d16f56-a2fb-4122-932c-a781fcc6d3d0")
     private Font value = null;
 
     /**
      * The editor control.
      */
-    @objid ("6b36fd04-1eba-11e2-9382-bc305ba4815c")
+    @objid ("880f9844-604e-4100-a561-d1d1687f8cbc")
     private Composite editor;
 
     /**
      * The current contents.
      */
-    @objid ("6b372411-1eba-11e2-9382-bc305ba4815c")
+    @objid ("a087e287-327c-4583-8cab-de9685691059")
     private Control contents;
 
     /**
      * The label that gets reused by <code>updateLabel</code>.
      */
-    @objid ("6b372413-1eba-11e2-9382-bc305ba4815c")
+    @objid ("e8c707df-8552-465c-b723-199f94966774")
     private Label defaultLabel;
 
     /**
      * The button.
      */
-    @objid ("6b374b20-1eba-11e2-9382-bc305ba4815c")
+    @objid ("682ce551-cb06-4170-ba67-624ac5fb78d1")
     private Button button;
 
     /**
      * Listens for 'focusLost' events and fires the 'apply' event as long as the focus wasn't lost because the dialog
      * was opened.
      */
-    @objid ("6b374b22-1eba-11e2-9382-bc305ba4815c")
+    @objid ("e633ff24-adee-4b54-ab58-c8489fe090da")
     private FocusListener buttonFocusListener;
 
     @objid ("15fb1e3a-8e0a-4de1-9358-eebaa3a04368")
@@ -88,23 +88,24 @@ public class FontDialogEditor extends CellEditor {
 
     /**
      * Creates a new dialog cell editor with no control
-     * @param color
+     *
      * @param parent the parent control
      */
     @objid ("6b374b24-1eba-11e2-9382-bc305ba4815c")
-    protected  FontDialogEditor(Composite parent) {
+    protected FontDialogEditor(Composite parent) {
         this(parent, SWT.NONE);
     }
 
     /**
      * Creates a new dialog cell editor parented under the given control. The cell editor value is <code>null</code>
      * initially, and has no validator.
+     *
      * @param parent the parent control
      * @param style the style bits
      * @since 2.1
      */
     @objid ("6b377232-1eba-11e2-9382-bc305ba4815c")
-    public  FontDialogEditor(Composite parent, int style) {
+    public FontDialogEditor(Composite parent, int style) {
         super(parent, style);
     }
 
@@ -114,6 +115,7 @@ public class FontDialogEditor extends CellEditor {
      * The default implementation of this framework method creates the button display on the right hand side of the
      * dialog cell editor. Subclasses may extend or reimplement.
      * </p>
+     *
      * @param parent the parent control
      * @return the new button control
      */
@@ -134,6 +136,7 @@ public class FontDialogEditor extends CellEditor {
      * Subclasses may reimplement. If you reimplement this method, you should also reimplement
      * <code>updateContents</code>.
      * </p>
+     *
      * @param cell the control for this cell editor
      * @return the underlying control
      */
@@ -150,23 +153,23 @@ public class FontDialogEditor extends CellEditor {
     protected Control createControl(final Composite parent) {
         Font font = parent.getFont();
         Color bg = parent.getBackground();
-        
-        
+
+
         this.editor = new Composite(parent, this.getStyle());
         this.editor.setFont(font);
         this.editor.setBackground(bg);
         this.editor.setLayout(new DialogCellLayout());
-        
+
         // Can't use a local font registry because the font must be kept by the calling Viewer.
         // A LocalResourceManager should be passed by the viewer.
         this.fontReg = CoreFontRegistry.getGlobal();
-        
+
         this.contents = this.createContents(this.editor);
         this.updateContents(this.value);
-        
+
         this.button = this.createButton(this.editor);
         this.button.setFont(font);
-        
+
         this.button.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
@@ -175,19 +178,19 @@ public class FontDialogEditor extends CellEditor {
                 }
             }
         });
-        
+
         this.button.addFocusListener(getButtonFocusListener());
-        
+
         this.button.addListener(SWT.Selection, (Event ev) -> {
             // Remove the button's focus listener since it's guaranteed
             // to lose focus when the dialog opens
             this.button.removeFocusListener(getButtonFocusListener());
-            
+
             FontData newValue = openDialogBox(this.editor);
-            
+
             // Re-add the listener once the dialog closes
             this.button.addFocusListener(getButtonFocusListener());
-            
+
             if (newValue != null) {
                 boolean newValidState = isCorrect(newValue);
                 if (newValidState) {
@@ -202,9 +205,9 @@ public class FontDialogEditor extends CellEditor {
                 fireApplyEditorValue();
             }
         });
-        
+
         this.setValueValid(true);
-        
+
         this.defaultLabel.addListener(SWT.MouseDoubleClick, ev -> {
             FontData newValue = openDialogBox(this.editor);
             if (newValue != null) {
@@ -230,9 +233,8 @@ public class FontDialogEditor extends CellEditor {
         if (this.button != null && !this.button.isDisposed()) {
             this.button.removeFocusListener(this.getButtonFocusListener());
         }
-        
+
         super.deactivate();
-        
     }
 
     @objid ("6b383580-1eba-11e2-9382-bc305ba4815c")
@@ -247,12 +249,10 @@ public class FontDialogEditor extends CellEditor {
         this.button.setFocus();
         // add a FocusListener to the button
         this.button.addFocusListener(this.getButtonFocusListener());
-        
     }
 
     /**
      * Return a listener for button focus.
-     * @return FocusListener
      */
     @objid ("6b385c93-1eba-11e2-9382-bc305ba4815c")
     private FocusListener getButtonFocusListener() {
@@ -262,7 +262,7 @@ public class FontDialogEditor extends CellEditor {
                 public void focusGained(FocusEvent e) {
                     // Do nothing
                 }
-        
+
                 @Override
                 public void focusLost(FocusEvent e) {
                     FontDialogEditor.this.focusLost();
@@ -277,11 +277,11 @@ public class FontDialogEditor extends CellEditor {
     protected void doSetValue(Object value) {
         this.value = (Font) value;
         this.updateContents(value);
-        
     }
 
     /**
      * Returns the default label widget created by <code>createContents</code>.
+     *
      * @return the default label widget
      */
     @objid ("6b38aab0-1eba-11e2-9382-bc305ba4815c")
@@ -296,6 +296,7 @@ public class FontDialogEditor extends CellEditor {
      * This framework method must be implemented by concrete subclasses. It is called when the user has pressed the
      * button and the dialog box must pop up.
      * </p>
+     *
      * @param cellEditorWindow the parent control cell editor's window so that a subclass can adjust the dialog box accordingly
      * @return the selected value, or <code>null</code> if the dialog was canceled or no selection was made in the
      * dialog
@@ -305,13 +306,13 @@ public class FontDialogEditor extends CellEditor {
         final Display display = cellEditorWindow.getDisplay();
         final Shell centerShell = new Shell(cellEditorWindow.getShell(), SWT.NO_TRIM);
         centerShell.setLocation(display.getCursorLocation());
-        
+
         FontDialog ftDialog = new FontDialog(centerShell, SWT.NONE);
         if (this.value != null) {
             ftDialog.setFontList(this.value.getFontData());
         }
         FontData fData = ftDialog.open();
-        
+
         if (fData != null) {
             return fData;
         }
@@ -328,6 +329,7 @@ public class FontDialogEditor extends CellEditor {
      * Subclasses may reimplement. If you reimplement this method, you should also reimplement
      * <code>createContents</code>.
      * </p>
+     *
      * @param value the new value of this cell editor
      */
     @objid ("6b38f8d1-1eba-11e2-9382-bc305ba4815c")
@@ -335,7 +337,7 @@ public class FontDialogEditor extends CellEditor {
         if (this.defaultLabel == null) {
             return;
         }
-        
+
         String text = "";//$NON-NLS-1$
         if (value != null) {
             if (value instanceof Font)
@@ -344,7 +346,6 @@ public class FontDialogEditor extends CellEditor {
                 text = value.toString();
         }
         this.defaultLabel.setText(text);
-        
     }
 
     /**
@@ -361,7 +362,6 @@ public class FontDialogEditor extends CellEditor {
                 FontDialogEditor.this.contents.setBounds(0, 0, bounds.width - size.x, bounds.height);
             }
             FontDialogEditor.this.button.setBounds(bounds.width - size.x, 0, size.x, bounds.height);
-            
         }
 
         @objid ("6b3946f0-1eba-11e2-9382-bc305ba4815c")

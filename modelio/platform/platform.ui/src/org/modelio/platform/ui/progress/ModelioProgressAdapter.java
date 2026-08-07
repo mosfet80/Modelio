@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.ui.progress;
 
@@ -38,9 +38,10 @@ public class ModelioProgressAdapter implements IModelioProgress {
      * with the given number of ticks. It is not necessary to call done() on the result,
      * but the caller is responsible for calling done() on the argument. Calls beginTask
      * on the argument.</p>
-     * 
+     *
      * <p>This method should generally be called at the beginning of a method that accepts
      * an IModelioProgress in order to convert the IModelioProgress into a SubProgress.</p>
+     *
      * @param initialMonitor to convert into a SubProgress instance or null. If given a <code>null</code> argument,
      * the resulting SubProgress will not report its progress anywhere.
      * @param taskName user readable name to pass to monitor.beginTask(). Never <code>null</code>.
@@ -57,9 +58,10 @@ public class ModelioProgressAdapter implements IModelioProgress {
      * with the given number of ticks. It is not necessary to call done() on the result,
      * but the caller is responsible for calling done() on the argument. Calls beginTask
      * on the argument.</p>
-     * 
+     *
      * <p>This method should generally be called at the beginning of a method that accepts
      * an IModelioProgress in order to convert the IModelioProgress into a SubProgress.</p>
+     *
      * @param initialMonitor to convert into a SubProgress instance or null. If given a <code>null</code> argument,
      * the resulting SubProgress will not report its progress anywhere.
      * @param work initial number of ticks to allocate for children of the SubProgress
@@ -72,16 +74,17 @@ public class ModelioProgressAdapter implements IModelioProgress {
 
     /**
      * Initialize a Modelio progress monitor from an Eclipse progress monitor.
+     *
      * @param wrapped the wrapped Eclipse progress monitor.
      */
     @objid ("1dcca0a3-3a40-490a-921e-45366db1102b")
-    public  ModelioProgressAdapter(IProgressMonitor wrapped) {
+    public ModelioProgressAdapter(IProgressMonitor wrapped) {
         if (wrapped == null) {
             this.wrapped = new NullProgressMonitor();
         } else {
             this.wrapped = wrapped;
         }
-        
+
     }
 
     @objid ("c9527d61-af33-4391-b5a1-76692048da06")
@@ -117,12 +120,12 @@ public class ModelioProgressAdapter implements IModelioProgress {
     @objid ("4023c42b-f88a-42f2-a9ba-73a713e0feab")
     @Override
     public void setTaskName(String name) {
-        // Empty string is the default task name in SubProgress (and SubMonitor), 
+        // Empty string is the default task name in SubProgress (and SubMonitor),
         // don't propagate them to avoid letting them override an already set task name.
         if (name != null && !name.isEmpty()) {
             this.wrapped.setTaskName(name);
         }
-        
+
     }
 
     @objid ("84dbf2a4-1c84-4124-833f-127edc94bb07")

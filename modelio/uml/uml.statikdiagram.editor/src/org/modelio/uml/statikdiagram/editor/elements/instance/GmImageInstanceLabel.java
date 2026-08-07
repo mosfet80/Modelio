@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.statikdiagram.editor.elements.instance;
 
@@ -57,31 +57,32 @@ public class GmImageInstanceLabel extends GmDefaultModelElementLabel {
      * constructor to be used only for deserialization
      */
     @objid ("352de55c-55b7-11e2-877f-002564c97630")
-    public  GmImageInstanceLabel() {
-        
+    public GmImageInstanceLabel() {
+
     }
 
     /**
      * Creates an instance label.
+     *
      * @param diagram the owning graphic diagram, may not be <tt>null</tt>.
      * @param el the represented instance, may be <tt>null</tt>.
      * @param ref the represented instance reference, may not be <tt>null</tt>.
      */
     @objid ("352de55f-55b7-11e2-877f-002564c97630")
-    public  GmImageInstanceLabel(final IGmDiagram diagram, final Instance el, final MRef ref) {
+    public GmImageInstanceLabel(final IGmDiagram diagram, final Instance el, final MRef ref) {
         super(diagram, ref);
-        
+
         this.element = el;
-        
+
     }
 
     @objid ("352de56e-55b7-11e2-877f-002564c97630")
     @Override
     public String computeMainLabel() {
         final Instance inst = getRelatedElement();
-        
+
         final ShowNameMode nameMode = getDisplayedStyle().getProperty(GmInstanceStructuredStyleKeys.SHOWNAME);
-        
+
         switch (nameMode) {
             case FULLQUALIFIED:
                 return InstanceSymbolProvider.computeFullQualifiedLabel(inst);
@@ -92,9 +93,9 @@ public class GmImageInstanceLabel extends GmDefaultModelElementLabel {
             case SIMPLE:
             default:
                 return InstanceSymbolProvider.computeSimpleLabel(inst);
-        
+
         }
-        
+
     }
 
     @objid ("352f6bf7-55b7-11e2-877f-002564c97630")
@@ -141,7 +142,7 @@ public class GmImageInstanceLabel extends GmDefaultModelElementLabel {
                 break;
             }
         }
-        
+
     }
 
     @objid ("3530f285-55b7-11e2-877f-002564c97630")
@@ -150,9 +151,9 @@ public class GmImageInstanceLabel extends GmDefaultModelElementLabel {
         if (property == getStyleKey(MetaKey.SHOWNAME))
             if (updateMainLabelFromObModel())
                 firePropertyChange(IGmObject.PROPERTY_LABEL, this, null);
-        
+
         super.styleChanged(property, newValue);
-        
+
     }
 
     @objid ("3530f28e-55b7-11e2-877f-002564c97630")
@@ -160,26 +161,26 @@ public class GmImageInstanceLabel extends GmDefaultModelElementLabel {
     public void styleChanged(final IStyle changedStyle) {
         if (updateMainLabelFromObModel())
             firePropertyChange(IGmObject.PROPERTY_LABEL, this, null);
-        
+
         super.styleChanged(changedStyle);
-        
+
     }
 
     @objid ("3530f299-55b7-11e2-877f-002564c97630")
     @Override
     public void write(IDiagramWriter out) {
         super.write(out);
-        
+
         // Write version of this Gm if different of 0
         writeMinorVersion(out, "GmImageInstanceLabel.", GmImageInstanceLabel.MINOR_VERSION);
-        
+
     }
 
     @objid ("3530f29f-55b7-11e2-877f-002564c97630")
     private void read_0(final IDiagramReader in) {
         super.read(in);
         this.element = resolveRef(this.getRepresentedRef());
-        
+
     }
 
     @objid ("3530f2a5-55b7-11e2-877f-002564c97630")

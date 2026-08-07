@@ -1,0 +1,20 @@
+// Disable all captions for figures.
+:!figure-caption:
+// Path to the stylesheet files
+:stylesdir: .
+
+
+
+= Element refinement
+
+
+
+= Overview
+
+Modelio provides a model transformation feature called *refinement*. Refinement consists in creating model elements for a formalism by transforming the elements of an existing model from another formalism. The refinement also maintains a link between the transformed model elements for traceability purposes.
+
+A typical example is a high level ArchiMate analysis model that is transformed, by refinement, into a UML model used to design some implementation of the concepts expressed in the initial ArchiMate model. The Modelio refinement tool provides some automation to increase productivity along with automatic traceability between the different design steps.
+
+*  <<User_Documentation_en_Element_creation_wizard_Refinement_concept.adoc#,Refinement concepts>> explains how the Modelio Refinement system works.
+*  <<User_Documentation_en_Element_creation_wizard_Refine_element.adoc#,Refine element>> is a user's guide about the simple refine command.
+*  <<User_Documentation_en_Element_creation_wizard_Populate_by_refinement.adoc#,Populate by refinement>> is a user's guide about how to configure the more complex refinement wizard.

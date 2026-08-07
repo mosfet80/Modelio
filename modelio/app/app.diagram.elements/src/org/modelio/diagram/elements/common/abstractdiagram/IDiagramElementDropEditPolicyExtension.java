@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.common.abstractdiagram;
 
@@ -36,6 +36,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public interface IDiagramElementDropEditPolicyExtension {
     /**
      * Creates and return the unmask command for the given element.
+     *
      * @param dropPolicy the drop policy of the current diagram
      * @param droppedElement the element to unmask.
      * @param dropLocation the point where the drop occured
@@ -46,6 +47,7 @@ public interface IDiagramElementDropEditPolicyExtension {
 
     /**
      * Returns whether the element should be unmasked as part of the given hierarchy or not. The method implementation MUST NOT add the element to the hierarchy.
+     *
      * @param context the context the graphical element is to be unmasked in.
      * @param hierarchy the hierarchy of elements that will be unmasked. Do not modify.
      * @param candidate the element for which to decide if it should be unmasked in the hierarchy
@@ -56,6 +58,7 @@ public interface IDiagramElementDropEditPolicyExtension {
 
     /**
      * Return the graphical parent for 'element'. Can be redefined if the graphical parent of an element does not match its model composition owner.
+     *
      * @param context the context the graphical element is to be unmasked in.
      * @param element the element whose graphical parent is to be returned
      * @return the graphical parent for 'element'
@@ -65,11 +68,12 @@ public interface IDiagramElementDropEditPolicyExtension {
 
     /**
      * Check if 'candidate' can be unmasked by this extension.
+     *
      * @param dropPolicy the drop policy of the current diagram
      * @param candidate the element for which to decide if it should be unmasked.
      * @return <code>true</code> if 'candidate' can be unmasked by this extension.
      */
     @objid ("8016633e-cb46-41b0-b13a-831d51dc1ec6")
     boolean canUnmask(DiagramElementDropEditPolicy dropPolicy, MObject candidate);
-}
 
+}

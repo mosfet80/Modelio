@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.bpmn.diagram.editor.editor;
 
@@ -43,7 +43,7 @@ public class BpmnDiagramEditor extends AbstractDiagramEditor {
      * C'tor.
      */
     @objid ("6072aac3-55b6-11e2-877f-002564c97630")
-    public  BpmnDiagramEditor() {
+    public BpmnDiagramEditor() {
         super();
     }
 
@@ -57,14 +57,15 @@ public class BpmnDiagramEditor extends AbstractDiagramEditor {
     @Override
     public void initialize() {
         super.initialize();
-        
+
         // Force refresh to trigger Auto Unmask
         ((GmAbstractDiagram) getEditorInput().getGmDiagram()).refreshFromObModel();
-        
+
     }
 
     /**
      * Change orthogonal router to new {@link AutoOrthogonalRouter}.
+     *
      * @since 5.0.2
      */
     @objid ("d25669b6-229e-48d3-9eef-fd4e20bf2ad3")
@@ -73,7 +74,7 @@ public class BpmnDiagramEditor extends AbstractDiagramEditor {
         return ConnectionRoutingServices.builder()
                 .withAutoOrthogonalDefaults()
                 .build();
-        
+
     }
 
 }

@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.umlcommon.dependency;
 
@@ -36,14 +36,14 @@ public class DependencyEditPart extends LinkEditPart {
     @Override
     protected IFigure createFigure() {
         PolylineConnection connection = (PolylineConnection) super.createFigure();
-        
+
         // Navigability arrow toward target
         DefaultPolylineDecoration arrow = new DefaultPolylineDecoration();
         arrow.setTemplate(PolylineDecoration.TRIANGLE_TIP);
         arrow.setScale(5, 5);
         arrow.setOpaque(false);
         connection.setTargetDecoration(arrow);
-        
+
         refreshFromStyle(connection, getModelStyle());
         return connection;
     }
@@ -52,10 +52,10 @@ public class DependencyEditPart extends LinkEditPart {
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        
+
         // Not an UML element, it can no longer be the target of constraints
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, null);
-        
+
     }
 
 }

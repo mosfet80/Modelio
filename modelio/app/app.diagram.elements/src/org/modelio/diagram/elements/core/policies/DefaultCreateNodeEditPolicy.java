@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.diagram.elements.core.policies;
 
@@ -61,6 +61,7 @@ public class DefaultCreateNodeEditPolicy extends AutoExpandLayoutEditPolicy {
      * Returns whether this edit policy can handle this metaclass (either through simple or smart behavior). Default behavior is to
      * accept any metaclass that can be child (in the CreationExpert's understanding) of the host's metaclass This method should be
      * overridden by subclasses to add specific the behavior.
+     *
      * @param metaclass the metaclass to handle.
      * @return true if this policy can handle the metaclass.
      */
@@ -77,6 +78,7 @@ public class DefaultCreateNodeEditPolicy extends AutoExpandLayoutEditPolicy {
      * <code>ChangeBoundsRequest</code>.
      * <p>
      * Return the host edit part if this policy can handle all edit parts involved in the request.
+     *
      * @param changeBoundsRequest the request, can be CLONE, MOVE or ADD.
      * @return the host edit part if all edit parts involved in the request can be handled by this policy, <code>null</code>
      * otherwise.
@@ -89,7 +91,7 @@ public class DefaultCreateNodeEditPolicy extends AutoExpandLayoutEditPolicy {
             final EditPart editPart = (EditPart) editPartObj;
             if (editPart.getModel() instanceof GmModel) {
                 final GmModel gmModel = (GmModel) editPart.getModel();
-        
+
                 if (!canHandle(gmModel.getRelatedMClass())) {
                     return null;
                 }
@@ -103,12 +105,12 @@ public class DefaultCreateNodeEditPolicy extends AutoExpandLayoutEditPolicy {
     @Override
     protected Command getCreateCommand(CreateRequest req) {
         ModelioCreationContext ctx = ModelioCreationContext.fromRequest(req);
-        
+
         MClass metaclassToCreate = ctx.getMetaclass();
         String depName = ctx.getDependencyName();
         MObject hostElement = getHostElement();
         MExpert expert = metaclassToCreate.getMetamodel().getMExpert();
-        
+
         boolean returnCommand = expert.canCompose(hostElement.getMClass(), metaclassToCreate, depName);
         if (returnCommand) {
             Rectangle requestRect = new Rectangle(req.getLocation(), new Dimension(-1, -1));
@@ -121,6 +123,7 @@ public class DefaultCreateNodeEditPolicy extends AutoExpandLayoutEditPolicy {
      * Returns <code>null</code> or the appropriate <code>EditPart</code> for the specified <code>CreateRequest</code>.
      * <p>
      * Return the host edit part if this policy can handle the metaclass involved in the request.
+     *
      * @param createRequest the request.
      * @return the host edit part if the metaclass involved in the request can be handled by this policy, <code>null</code>
      * otherwise.
@@ -138,6 +141,7 @@ public class DefaultCreateNodeEditPolicy extends AutoExpandLayoutEditPolicy {
 
     /**
      * Returns the MObject represented by the host's model. Might be <code>null</code>!
+     *
      * @return the MObject represented by the host's model.
      */
     @objid ("80b95525-1dec-11e2-8cad-001ec947c8cc")

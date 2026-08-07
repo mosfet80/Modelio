@@ -1,28 +1,27 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 /* WARNING: GENERATED FILE -  DO NOT EDIT
      Metamodel: Standard, version 2.3.00, by Modeliosoft
-     Generator version: 3.8.00
-     Generated on: Sep 7, 2018
+     Generator version: 3.14.00
+     Generated on: Aug 7, 2024
 */
-
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -47,13 +46,13 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0019d6a6-c4bf-1fd8-97fe-001ec947cd2a")
 public class ProvidedInterfaceImpl extends UmlModelElementImpl implements ProvidedInterface {
-    @objid ("c38781ed-b9eb-46b8-bd05-ff6cc333a7f1")
+    @objid ("44af3e5f-2fd0-4f5f-9fed-ef41f92630a2")
     @Override
     public EList<Interface> getProvidedElement() {
         return new SmList<>(this, ((ProvidedInterfaceSmClass)getClassOf()).getProvidedElementDep());
     }
 
-    @objid ("1d473598-e609-48ea-a6f0-2dbd32057810")
+    @objid ("86824f9c-ae45-4921-abb6-9b3d5017d106")
     @Override
     public <T extends Interface> List<T> getProvidedElement(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -66,29 +65,29 @@ public class ProvidedInterfaceImpl extends UmlModelElementImpl implements Provid
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("135fbae7-033b-41ca-adc0-9b3c6725df98")
+    @objid ("5a1268cd-3f76-42bf-baf4-749822f07b78")
     @Override
     public Port getProviding() {
         Object obj = getDepVal(((ProvidedInterfaceSmClass)getClassOf()).getProvidingDep());
         return (obj instanceof Port)? (Port)obj : null;
     }
 
-    @objid ("e5cd886e-dfe7-41dd-85fb-932b3f264499")
+    @objid ("db419923-f611-4504-8253-aeee1d33fbb8")
     @Override
     public void setProviding(Port value) {
         appendDepVal(((ProvidedInterfaceSmClass)getClassOf()).getProvidingDep(), (SmObjectImpl)value);
     }
 
-    @objid ("907484d8-ac8f-47cd-ad53-b97fa7962090")
+    @objid ("6636717b-475c-4322-8b71-2bede5fde781")
     @Override
     public EList<LinkEnd> getConsumer() {
         return new SmList<>(this, ((ProvidedInterfaceSmClass)getClassOf()).getConsumerDep());
     }
 
-    @objid ("34eb87d3-e046-49ee-92e7-00ebff8c3629")
+    @objid ("5db724b3-e8ff-4eb0-ad85-56010a2ccd15")
     @Override
     public <T extends LinkEnd> List<T> getConsumer(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -101,16 +100,16 @@ public class ProvidedInterfaceImpl extends UmlModelElementImpl implements Provid
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("ef4d5463-cd8a-4f3e-a243-98d9ee64d525")
+    @objid ("5275535c-78be-4bb3-84bc-d1f4777a8513")
     @Override
     public EList<NaryLinkEnd> getNaryConsumer() {
         return new SmList<>(this, ((ProvidedInterfaceSmClass)getClassOf()).getNaryConsumerDep());
     }
 
-    @objid ("cb996184-d5c7-493c-a86d-a7d898d064e3")
+    @objid ("c5087f79-1557-4642-914b-85d430cffd9a")
     @Override
     public <T extends NaryLinkEnd> List<T> getNaryConsumer(java.lang.Class<T> filterClass) {
         if (filterClass == null) {
@@ -123,10 +122,10 @@ public class ProvidedInterfaceImpl extends UmlModelElementImpl implements Provid
         	}
         }
         return Collections.unmodifiableList(results);
-        
+
     }
 
-    @objid ("97487051-9404-4c9d-91ae-a8c786a8b273")
+    @objid ("c88a219f-e429-45c6-8ab9-71b1b2a24900")
     @Override
     public SmObjectImpl getCompositionOwner() {
         // Generated implementation
@@ -138,22 +137,22 @@ public class ProvidedInterfaceImpl extends UmlModelElementImpl implements Provid
         return super.getCompositionOwner();
     }
 
-    @objid ("b30d7f14-4952-42fe-b73a-6da120c0f427")
+    @objid ("b43928f8-5033-484b-9e0b-6f02b670a4f9")
     @Override
     public SmDepVal getCompositionRelation() {
         // Generated implementation
         SmObjectImpl obj;
         SmDependency dep;
-        
+
         // Providing
         dep = ((ProvidedInterfaceSmClass)getClassOf()).getProvidingDep();
         obj = (SmObjectImpl)this.getDepVal(dep);
         if (obj != null) return new SmDepVal(dep, obj);
-        
+
         return super.getCompositionRelation();
     }
 
-    @objid ("48321ad1-929f-4b7c-b68a-a90854da8923")
+    @objid ("d74238df-28a3-48de-879a-2c8175cab5ed")
     @Override
     public Object accept(IModelVisitor v) {
         return v.visitProvidedInterface(this);

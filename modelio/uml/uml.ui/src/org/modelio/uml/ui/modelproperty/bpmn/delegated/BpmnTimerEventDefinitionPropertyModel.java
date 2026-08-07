@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.uml.ui.modelproperty.bpmn.delegated;
 
@@ -52,15 +52,17 @@ public class BpmnTimerEventDefinitionPropertyModel extends AbstractPropertyModel
     /**
      * Create a new <i>BpmnTimerEventDefinition</i> data model from an
      * <i>BpmnTimerEventDefinition</i>.
+     *
      * @param theEditedElement the edited element.
      */
     @objid ("dd4d371a-34c4-45e2-8dec-19cf2cf35b16")
-    public  BpmnTimerEventDefinitionPropertyModel(BpmnTimerEventDefinition theEditedElement) {
+    public BpmnTimerEventDefinitionPropertyModel(BpmnTimerEventDefinition theEditedElement) {
         super(theEditedElement);
     }
 
     /**
      * The number of columns that the properties table must display.
+     *
      * @return the number of columns
      */
     @objid ("47ae5c29-3150-44f0-b024-45c7c87921e6")
@@ -71,6 +73,7 @@ public class BpmnTimerEventDefinitionPropertyModel extends AbstractPropertyModel
 
     /**
      * The number of rows that the properties table must display.
+     *
      * @return the number of rows
      */
     @objid ("95176799-46eb-459f-b4cf-d792cc3bfe38")
@@ -83,6 +86,7 @@ public class BpmnTimerEventDefinitionPropertyModel extends AbstractPropertyModel
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the value corresponding to the row and column
@@ -106,7 +110,7 @@ public class BpmnTimerEventDefinitionPropertyModel extends AbstractPropertyModel
         default:
             return null;
         }
-        
+
     }
 
     /**
@@ -116,6 +120,7 @@ public class BpmnTimerEventDefinitionPropertyModel extends AbstractPropertyModel
      * of the properties table.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number
      * @param col the column number
      * @return the type of the element corresponding to the row and column
@@ -139,13 +144,14 @@ public class BpmnTimerEventDefinitionPropertyModel extends AbstractPropertyModel
         default:
             return null;
         }
-        
+
     }
 
     /**
      * Set value in the model for the specified row and column.
      * <p>
      * The first column contains the properties names.
+     *
      * @param row the row number.
      * @param col the column number.
      * @param value the value specified by the user.
@@ -157,7 +163,7 @@ public class BpmnTimerEventDefinitionPropertyModel extends AbstractPropertyModel
         case 0: // Keys cannot be modified
             return;
         case 1: // col 1 is the property value
-            switch (row) {  
+            switch (row) {
             case 0:
                 this.theEditedElement.setTimeCycle((String) value);
                 break;
@@ -174,7 +180,7 @@ public class BpmnTimerEventDefinitionPropertyModel extends AbstractPropertyModel
         default:
             return;
         }
-        
+
     }
 
 }

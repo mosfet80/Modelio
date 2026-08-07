@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.model.ui.swt.labelprovider;
 
@@ -61,13 +61,7 @@ import org.modelio.vcore.smkernel.mapi.fake.FakeMObject;
  */
 @objid ("6948d6a1-d63b-11e1-9955-002564c97630")
 public class BrowserLabelProvider extends LabelProvider implements IModelioElementLabelProvider {
-    @objid ("c13d663c-d63b-11e1-9955-002564c97630")
-    protected final BrowserLabelService umlLabelService;
-
-    @objid ("bfeb7ddf-b8a1-4d2d-8a65-f111dcca831d")
-    private final Map<String, IModelioElementLabelProvider> extensions = new HashMap<>();
-
-    @objid ("a23ba819-7ff5-43d0-a466-e90cb4bfc369")
+    @objid ("8cc1c918-a9c8-4403-84cd-8f5e7e3bb1da")
     private final Styler fakeStyler = new Styler() {
                 @Override
                 public void applyStyles(TextStyle textStyle) {
@@ -75,11 +69,17 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
                 }
             };
 
+    @objid ("c13d663c-d63b-11e1-9955-002564c97630")
+    protected final BrowserLabelService umlLabelService;
+
+    @objid ("bfeb7ddf-b8a1-4d2d-8a65-f111dcca831d")
+    private final Map<String, IModelioElementLabelProvider> extensions = new HashMap<>();
+
     /**
      * Default c'tor.
      */
     @objid ("c13d663d-d63b-11e1-9955-002564c97630")
-    public  BrowserLabelProvider() {
+    public BrowserLabelProvider() {
         this.umlLabelService = new BrowserLabelService();
     }
 
@@ -123,15 +123,15 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
         } else if (obj instanceof MObject) {
             IModelioElementLabelProvider ext = getExtensionFor((MObject) obj);
             StyledString styledText = ext != null ? ext.getStyledText(obj) : null;
-        
+
             if (styledText == null && obj instanceof MObject) {
                 styledText = this.umlLabelService.getLabel((MObject) obj);
             }
-        
+
             if (styledText == null && obj instanceof FakeMObject) {
                 styledText = createFakeObjectStyledText((FakeMObject)obj);
             }
-        
+
             if (styledText != null) {
                 return styledText;
             }
@@ -225,12 +225,13 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
         private final Stack<MObject> elementStack;
 
         @objid ("d4a49a92-5199-4f9c-9f9b-b93c2a9a0ec3")
-        public  BrowserLabelService() {
+        public BrowserLabelService() {
             this(new Stack<MObject>());
         }
 
         /**
          * Get the explorer label for the given element.
+         *
          * @param featuresVisibility Whether or not to show the visibility in feature's labels.
          * @param namespaceVisibility Whether or not to show the visibility in namespace's
          * labels.
@@ -243,29 +244,28 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
             if (element == null) {
                 return new StyledString("<null>", ElementStyler.getStyler(element));
             }
-            
+
             if (this.elementStack.contains(element)) {
                 // loop detected, return the name...
                 return new StyledString(element.getName());
             }
-            
+
             // store the element for loop detection, push context
             this.elementStack.push(element);
-            
+
             try {
                 // call the visitor
                 return (StyledString) element.accept(this);
             } finally {
                 this.elementStack.pop();
             }
-            
         }
 
         @objid ("c141fa0c-d63b-11e1-9955-002564c97630")
         @Override
         public Object visitDependency(Dependency theDependency) {
             final ModelElement destination = theDependency.getDependsOn();
-            
+
             assert Dependency.class == theDependency.getMClass().getJavaInterface();
             return visitDependencyLikeObject(theDependency, "depends on", destination);
         }
@@ -292,7 +292,6 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
             } else {
                 return new StyledString("<null>", styler);
             }
-            
         }
 
         @objid ("c1468dcc-d63b-11e1-9955-002564c97630")
@@ -306,21 +305,21 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
         public Object visitNote(Note obj) {
             final StyledString symbol = new StyledString();
             final Styler style = ElementStyler.getStyler(obj);
-            
+
             NoteType model = obj.getModel();
             String noteType = model == null ? "<none>" : model.getName();
-            
+
             String name = obj.getName();
             if (name.equals("Note") || name.equals(noteType)) {
                 name = "";
             }
-            
+
             if (!name.isEmpty()) {
                 symbol.append('\'', style);
                 symbol.append(name, style);
                 symbol.append("\' ", style);
             }
-            
+
             symbol.append(noteType, ElementStyler.getStyler(obj, model));
             return symbol;
         }
@@ -352,16 +351,16 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
         @Override
         public Object visitTaggedValue(TaggedValue obj) {
             final StyledString symbol = new StyledString();
-            
+
             symbol.append("{");
-            
+
             TagType def = obj.getDefinition();
             if (def == null) {
                 symbol.append("<none>");
             } else {
                 symbol.append(def.getName(), ElementStyler.getStyler(obj, def));
             }
-            
+
             List<TagParameter> params = obj.getActual();
             if (!params.isEmpty()) {
                 symbol.append(" = ");
@@ -375,25 +374,26 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
                     symbol.append(p.getValue(), ElementStyler.getStyler(obj, p));
                 }
             }
-            
+
             symbol.append("}");
             return symbol;
         }
 
         /**
          * Initialize the label service.
+         *
          * @param elementStack a stack to use for recursive calls to
          * {@link #getLabel(Element, boolean)}
          */
         @objid ("c13eecbb-d63b-11e1-9955-002564c97630")
-         BrowserLabelService(Stack<MObject> elementStack) {
+        BrowserLabelService(Stack<MObject> elementStack) {
             super();
             this.elementStack = elementStack;
-            
         }
 
         /**
          * Append <code>"(from xxxx)"</code> to the symbol
+         *
          * @param symbol the symbol to modify
          * @param srcObj the source object, used to compute the style of
          * <code>'xxxx'</code>
@@ -407,7 +407,6 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
                 symbol.append(owner.getName(), ElementStyler.getStyler(srcObj, owner));
                 symbol.append(")", styler);
             }
-            
         }
 
         @objid ("48eaf5dc-f40d-4707-9419-495caec4ed77")
@@ -416,7 +415,7 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
             if (!dep.getExtension().isEmpty()) {
                 for (final Stereotype v : dep.getExtension()) {
                     stringBuilder.append(MdaResources.getLabel(v));
-            
+
                     stringBuilder.append(", ");
                 }
                 // remove last ", "
@@ -439,20 +438,20 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(theDependency);
             final StringBuilder verb = BrowserLabelService.getDependencyVerb(theDependency, mmverb).append(" ");
-            
+
             if (destination != null) {
                 symbol.append(verb.toString(), styler);
-            
+
                 final StyledString destLabel = new BrowserLabelService(this.elementStack).getLabel(destination);
                 symbol.append(destLabel.getString(), ElementStyler.getStyler(theDependency, destination));
-            
+
                 ModelTree owner = null;
-            
+
                 if (destination instanceof ModelTree) {
                     owner = ((ModelTree) destination).getOwner();
                     appendFrom(symbol, theDependency, owner, styler);
                 }
-            
+
             } else {
                 symbol.append(verb.toString(), styler);
                 symbol.append("<No destination>", styler);
@@ -465,20 +464,20 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
         public Object visitImpactLink(ImpactLink theImpactLink) {
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(theImpactLink);
-            
+
             ModelElement source = theImpactLink.getImpacted();
             ModelElement target = theImpactLink.getDependsOn();
-            
+
             if (source != null) {
                 symbol.append(getLabel(source).toString(), ElementStyler.getStyler(theImpactLink, source));
             }
-            
+
             symbol.append(" -> ", styler);
-            
+
             if (target != null) {
                 symbol.append(getLabel(target).toString(), ElementStyler.getStyler(theImpactLink, target));
             }
-            
+
             String causes = " (" + theImpactLink.getCauses().size() + " cause(s))";
             symbol.append(causes, styler);
             return symbol;

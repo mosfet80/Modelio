@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.platform.ui;
 
@@ -40,6 +40,7 @@ public class CoreFontRegistry {
      * Get a font given a device and font data which describes the desired font's appearance.
      * <p>
      * {@link #getFont(FontData[])} should better be used to be fully compatible on Unix.
+     *
      * @param fontdata describes the desired font (must not be null)
      * @return the matching font
      * @deprecated Consider using {@link LocalFontRegistry}, or call {@link #getGlobal()} than this same method on the returned registry.
@@ -52,6 +53,7 @@ public class CoreFontRegistry {
 
     /**
      * Get a font given an array of font data which describes the desired font's appearance.
+     *
      * @param fontdatas the array of FontData that describes the desired font (must not be null)
      * @return the matching font
      * @deprecated Consider using {@link LocalFontRegistry}, or call {@link #getGlobal()} than this same method on the returned registry.
@@ -69,6 +71,7 @@ public class CoreFontRegistry {
      * It should be used only to allocate fonts used in the whole application.
      * <p>
      * You are encouraged to use {@link LocalFontRegistry} instead
+     *
      * @return the global font registry.
      */
     @objid ("d73cb578-4ad7-4e06-99b5-a6174c383ceb")
@@ -85,6 +88,7 @@ public class CoreFontRegistry {
      * <li>the given style flags added (use SWT.NONE for no flags change)</li>
      * <li>the font height scaled by 'scaleFactor' (use {@link UIFont} constants and {@link UIFont#NORMAL_SIZE} for no size change)</li>
      * </ul>
+     *
      * @deprecated This methods tends to "leak" Font resources .
      * You are encouraged to use: {@link LocalFontRegistry#from(Font)} that returns a font builder with fluent API.
      * Example:

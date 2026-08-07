@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.metamodel.mmextensions.infrastructure;
 
@@ -37,7 +37,7 @@ public class ExtensionNotFoundException extends IllegalArgumentException {
      * call to {@link #initCause}.
      */
     @objid ("389c36af-ad52-4070-9cf8-d87264f985ea")
-    public  ExtensionNotFoundException() {
+    public ExtensionNotFoundException() {
         super();
     }
 
@@ -45,11 +45,12 @@ public class ExtensionNotFoundException extends IllegalArgumentException {
      * Constructs a new exception with the specified detail message.  The
      * cause is not initialized, and may subsequently be initialized by
      * a call to {@link #initCause}.
-     * @param   message   the detail message. The detail message is saved for
+     *
+     * @param message the detail message. The detail message is saved for
      * later retrieval by the {@link #getMessage()} method.
      */
     @objid ("5e67672e-a504-412e-b0f1-53e249be362f")
-    public  ExtensionNotFoundException(String message) {
+    public ExtensionNotFoundException(String message) {
         super(message);
     }
 
@@ -58,15 +59,16 @@ public class ExtensionNotFoundException extends IllegalArgumentException {
      * cause.  <p>Note that the detail message associated with
      * <code>cause</code> is <i>not</i> automatically incorporated in
      * this exception's detail message.
-     * @param  message the detail message (which is saved for later retrieval
+     *
+     * @param message the detail message (which is saved for later retrieval
      * by the {@link #getMessage()} method).
-     * @param  cause the cause (which is saved for later retrieval by the
+     * @param cause the cause (which is saved for later retrieval by the
      * {@link #getCause()} method).  (A <tt>null</tt> value is
      * permitted, and indicates that the cause is nonexistent or
      * unknown.)
      */
     @objid ("404596e2-2113-4620-a111-8737bd9f333d")
-    public  ExtensionNotFoundException(String message, Throwable cause) {
+    public ExtensionNotFoundException(String message, Throwable cause) {
         super(message, cause);
     }
 
@@ -77,13 +79,14 @@ public class ExtensionNotFoundException extends IllegalArgumentException {
      * This constructor is useful for exceptions that are little more than
      * wrappers for other throwables (for example, {@link
      * java.security.PrivilegedActionException}).
-     * @param  cause the cause (which is saved for later retrieval by the
+     *
+     * @param cause the cause (which is saved for later retrieval by the
      * {@link #getCause()} method).  (A <tt>null</tt> value is
      * permitted, and indicates that the cause is nonexistent or
      * unknown.)
      */
     @objid ("85553e9b-080d-4f81-866a-44ea7fc491ba")
-    public  ExtensionNotFoundException(Throwable cause) {
+    public ExtensionNotFoundException(Throwable cause) {
         super(cause);
     }
 

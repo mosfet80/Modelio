@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.xmi.model.objing.profile;
 
@@ -41,7 +41,7 @@ public class PExportProfile implements IExportProfileElement {
     private TotalExportMap totalMap = TotalExportMap.getInstance();
 
     @objid ("7fa1f8b4-9c22-4a93-a054-30137618799b")
-    public  PExportProfile(Profile profile) {
+    public PExportProfile(Profile profile) {
         this.objingElt = profile;
     }
 
@@ -54,15 +54,15 @@ public class PExportProfile implements IExportProfileElement {
     @objid ("cb94e6c5-541a-4ddb-88aa-685ef8d92bb6")
     public void visit() {
         org.eclipse.uml2.uml.Profile ecoreElt = (org.eclipse.uml2.uml.Profile) GenerationProperties.getInstance().getMappedElement(this.objingElt);
-        
+
         if (ecoreElt == null){
-            ecoreElt = ProfileUtils.createEcoreProfile(this.objingElt);  
+            ecoreElt = ProfileUtils.createEcoreProfile(this.objingElt);
             this.totalMap.put(this.objingElt.getUuid().toString(), ecoreElt);
         }
-        
+
         setProperties(ecoreElt);
         attach(ecoreElt);
-        
+
     }
 
     @objid ("e7b43230-e473-4251-b7ad-25eb6affd2c1")
@@ -71,13 +71,13 @@ public class PExportProfile implements IExportProfileElement {
         ObjingEAnnotation.addObjingID(ecoreElt, this.objingElt.getUuid().toString());
         String name = ProfileUtils.getName(this.objingElt);
         ecoreElt.setName(name);
-        
+
     }
 
     @objid ("d24f3069-05b5-42b5-8877-a31f8ea480a1")
     public List<PExportProfile> getSubProfiles() {
         List<PExportProfile> subProfiles = new ArrayList<>();
-        
+
         /** FIXME owned profiles ?
         for (ModelTree sub : this.objingElt.getOwnedElement()){
             if (sub instanceof Profile){
@@ -96,7 +96,7 @@ public class PExportProfile implements IExportProfileElement {
                 PExportStereotype temp = new PExportStereotype(sub);
                 result.add(temp);
             }
-        
+
         }
         return result;
     }
@@ -107,7 +107,7 @@ public class PExportProfile implements IExportProfileElement {
         for (MetaclassReference sub : this.objingElt.getOwnedReference()){
             PExportReference temp = new PExportReference(sub);
             result.add(temp);
-        
+
         }
         return result;
     }
@@ -125,11 +125,11 @@ public class PExportProfile implements IExportProfileElement {
             PExportProfile export = new PExportProfile(owner);
             export.visit();
             ecoreOwner = (org.eclipse.uml2.uml.Profile) GenerationProperties.getInstance().getMappedElement(owner);
-        
+
             if  ((ecoreOwner != null) && (!(ecoreOwner.equals(ecoreElt))))
                 ecoreOwner.getPackagedElements().add(ecoreElt);
         }
-        
+
     }
 
 }

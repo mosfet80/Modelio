@@ -1,21 +1,21 @@
-/* 
- * Copyright 2013-2020 Modeliosoft
- * 
+/*
+ * Copyright 2013-2025 Docaposte
+ *
  * This file is part of Modelio.
- * 
+ *
  * Modelio is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * Modelio is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Modelio.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package org.modelio.vcore.smkernel.meta.fake;
 
@@ -49,15 +49,15 @@ public class FakeMetamodelFragment implements ISmMetamodelFragment {
     private final Version version;
 
     @objid ("e8fa3acb-e136-47aa-a42d-e026602f732a")
-    public  FakeMetamodelFragment(String name) {
+    public FakeMetamodelFragment(String name) {
         this (name, null);
     }
 
     @objid ("1e5a6af4-7145-4721-85f1-54a0ced02fbe")
-    public  FakeMetamodelFragment(String name, Version version) {
+    public FakeMetamodelFragment(String name, Version version) {
         this.name = name;
         this.version = version != null ? version : DEFAULT_VERSION;
-        
+
     }
 
     @objid ("04411042-9255-4681-843d-054f0fbc2282")
@@ -75,6 +75,7 @@ public class FakeMetamodelFragment implements ISmMetamodelFragment {
 
     /**
      * Create the metaclasses.
+     *
      * @return the metaclasses.
      */
     @objid ("e8419915-d6c9-49e8-977c-623f0b6fa852")
@@ -124,6 +125,7 @@ public class FakeMetamodelFragment implements ISmMetamodelFragment {
      * or a standard Modelio metamodel fragment.
      * <p>
      * Standard Modelio metamodel fragments are guaranteed to have no metaclass name collisions.
+     *
      * @return <i>true</i> if the fragment is an extension, <i>false</i> if it is a Modelio standard fragment.
      */
     @objid ("8f321bad-bd83-41a8-bd27-893e42d5a8f9")
